@@ -1040,7 +1040,11 @@ else
 fi
 
 # Warning log messages
-count=`$GREP '^W ' $BASE/log/error_log | $GREP -v CreateProfile | wc -l | awk '{print $1}'`
+count=`$GREP '^W ' $BASE/log/error_log | $GREP -v CreateProfile | \
+       $GREP -v 'Unable to initialize USB access via libusb, libusb error' | \
+       $GREP -v 'org.freedesktop.ColorManager' | \
+       $GREP -v -E 'Avahi client failed: -(1|26)' | \
+       wc -l | awk '{print $1}'`
 if test $count != 8; then
 	echo "FAIL: $count warning messages, expected 8."
 	$GREP '^W ' $BASE/log/error_log
