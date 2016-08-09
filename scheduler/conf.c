@@ -752,7 +752,7 @@ cupsdReadConfiguration(void)
   cupsdSetString(&LPDConfigFile, CUPS_DEFAULT_LPD_CONFIG_FILE);
   cupsdSetString(&SMBConfigFile, CUPS_DEFAULT_SMB_CONFIG_FILE);
 
-  cupsdSetString(&ErrorPolicy, "stop-printer");
+  cupsdSetString(&ErrorPolicy, "retry-job");
 
   JobHistory          = DEFAULT_HISTORY;
   JobFiles            = DEFAULT_FILES;
@@ -1231,8 +1231,8 @@ cupsdReadConfiguration(void)
       strcmp(ErrorPolicy, "retry-job") &&
       strcmp(ErrorPolicy, "stop-printer"))
   {
-    cupsdLogMessage(CUPSD_LOG_ALERT, "Invalid ErrorPolicy \"%s\", resetting to \"stop-printer\".", ErrorPolicy);
-    cupsdSetString(&ErrorPolicy, "stop-printer");
+    cupsdLogMessage(CUPSD_LOG_ALERT, "Invalid ErrorPolicy \"%s\", resetting to \"retry-job\".", ErrorPolicy);
+    cupsdSetString(&ErrorPolicy, "retry-job");
   }
 
  /*
