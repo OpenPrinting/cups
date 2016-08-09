@@ -1804,7 +1804,10 @@ main(int  argc,				/* I - Number of command-line args */
 	ippAddBoolean(request, IPP_TAG_OPERATION, "last-document",
         	      (i + 1) >= num_files);
 
-	if (document_format)
+	if (num_files > 1)
+	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_MIMETYPE,
+		       "document-format", NULL, "application/octet-stream");
+	else if (document_format)
 	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_MIMETYPE,
 		       "document-format", NULL, document_format);
 
