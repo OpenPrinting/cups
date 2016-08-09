@@ -735,7 +735,7 @@ cupsdReadConfiguration(void)
   RootCertDuration         = 300;
   Sandboxing               = CUPSD_SANDBOXING_STRICT;
   StrictConformance        = FALSE;
-  SyncOnClose              = FALSE;
+  SyncOnClose              = TRUE;
   Timeout                  = 900;
   WebInterface             = CUPS_DEFAULT_WEBIF;
 
