@@ -440,6 +440,12 @@ dnssdBuildTxtRecord(
     keyvalue[count  ][0] = "pdl";
     keyvalue[count++][1] = p->pdl ? p->pdl : "application/postscript";
 
+    /* iOS 6 does not accept this printer as AirPrint printer if there is
+       no URF txt record or "URF=none", "DM3" is the minimum needed found
+       by try and error */
+    keyvalue[count  ][0] = "URF";
+    keyvalue[count++][1] = "DM3";
+
     if (get_auth_info_required(p, air_str, sizeof(air_str)))
     {
       keyvalue[count  ][0] = "air";

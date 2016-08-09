@@ -3734,7 +3734,9 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
       }
       else if (!_cups_strcasecmp(type->super, "image"))
       {
-        if (!_cups_strcasecmp(type->type, "jpeg"))
+        if (!_cups_strcasecmp(type->type, "urf"))
+	  strlcat(pdl, "image/urf,", sizeof(pdl));
+	else if (!_cups_strcasecmp(type->type, "jpeg"))
 	  strlcat(pdl, "image/jpeg,", sizeof(pdl));
 	else if (!_cups_strcasecmp(type->type, "png"))
 	  strlcat(pdl, "image/png,", sizeof(pdl));

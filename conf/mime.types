@@ -108,6 +108,9 @@ image/x-alias			pix short(8,8) short(8,24)
 image/x-bitmap			bmp string(0,BM) + !printable(2,14)
 image/x-icon			ico
 
+# Needed for printing from iOS (AirPrint) clients
+image/urf			urf string(0,UNIRAST<00>)
+
 ########################################################################
 #
 # Text files...

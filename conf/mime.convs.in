@@ -44,6 +44,9 @@ application/postscript		application/vnd.cups-postscript	66	pstops
 application/vnd.cups-raster	image/pwg-raster		100	rastertopwg
 application/vnd.cups-raster	image/urf			100	rastertopwg
 
+# Needed for printing from iOS (AirPrint) clients
+image/urf    	      	       application/pdf			100	-
+
 ########################################################################
 #
 # Raw filter...
