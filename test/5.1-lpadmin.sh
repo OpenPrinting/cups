@@ -52,8 +52,8 @@ echo ""
 
 echo "Add Shared Printer Test"
 echo ""
-echo "    lpadmin -p Test3 -E -v ipp://localhost:$IPP_PORT/printers/Test2 -m everywhere"
-$runcups $VALGRIND ../systemv/lpadmin -p Test3 -E -v ipp://localhost:$IPP_PORT/printers/Test2 -m everywhere 2>&1
+echo "    lpadmin -p Test3 -E -v ipp://127.0.0.1:$IPP_PORT/printers/Test2 -m everywhere"
+$runcups $VALGRIND ../systemv/lpadmin -p Test3 -E -v ipp://127.0.0.1:$IPP_PORT/printers/Test2 -m everywhere 2>&1
 if test $? != 0; then
 	echo "    FAILED"
 	exit 1
