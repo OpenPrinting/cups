@@ -658,6 +658,14 @@ main(int  argc,				/* I - Number of command-line arguments */
     * Test localization...
     */
 
+   /*
+    * Enforce void localization
+    */
+    putenv("LANG=C");
+    putenv("LC_ALL=C");
+    putenv("LC_CTYPE=C");
+    putenv("LC_MESSAGES=C");
+
     fputs("ppdLocalizeIPPReason(text): ", stdout);
     if (ppdLocalizeIPPReason(ppd, "foo", NULL, buffer, sizeof(buffer)) &&
         !strcmp(buffer, "Foo Reason"))
