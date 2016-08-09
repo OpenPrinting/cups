@@ -642,6 +642,7 @@ echo "DYLD_LIBRARY_PATH=\"$DYLD_LIBRARY_PATH\"; export DYLD_LIBRARY_PATH" >>$run
 echo "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\"; export LD_LIBRARY_PATH" >>$runcups
 echo "LD_PRELOAD=\"$LD_PRELOAD\"; export LD_PRELOAD" >>$runcups
 echo "LOCALEDIR=\"$LOCALEDIR\"; export LOCALEDIR" >>$runcups
+echo "LC_ALL=\"C\"; export LC_ALL" >>$runcups
 if test "x$CUPS_DEBUG_LEVEL" != x; then
 	echo "CUPS_DEBUG_FILTER='$CUPS_DEBUG_FILTER'; export CUPS_DEBUG_FILTER" >>$runcups
 	echo "CUPS_DEBUG_LEVEL=$CUPS_DEBUG_LEVEL; export CUPS_DEBUG_LEVEL" >>$runcups
