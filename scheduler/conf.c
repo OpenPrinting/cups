@@ -1135,10 +1135,12 @@ cupsdReadConfiguration(void)
 			     Group, 1, 1) < 0 ||
        cupsdCheckPermissions(ServerRoot, "ssl", 0700, RunUser,
 			     Group, 1, 0) < 0 ||
+       /* Never alter permissions of central conffile
        cupsdCheckPermissions(ConfigurationFile, NULL, ConfigFilePerm, RunUser,
 			     Group, 0, 0) < 0 ||
        cupsdCheckPermissions(CupsFilesFile, NULL, ConfigFilePerm, RunUser,
 			     Group, 0, 0) < 0 ||
+       */
        cupsdCheckPermissions(ServerRoot, "classes.conf", 0600, RunUser,
 			     Group, 0, 0) < 0 ||
        cupsdCheckPermissions(ServerRoot, "printers.conf", 0600, RunUser,
