@@ -1027,6 +1027,7 @@ fi
 # Error log messages
 count=`$GREP '^E ' $BASE/log/error_log | $GREP -v 'Unknown default SystemGroup' | \
        $GREP -v -E 'Unable to open listen socket for address .* Address family not supported by protocol.' | \
+       $GREP -v 'Job held by' | \
        wc -l | awk '{print $1}'`
 if test $count != 33; then
 	echo "FAIL: $count error messages, expected 33."
