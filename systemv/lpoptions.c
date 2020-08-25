@@ -480,14 +480,13 @@ static void
 list_options(cups_dest_t *dest)		/* I - Destination to list */
 {
   http_t	*http;			/* Connection to destination */
-  char		resource[1024];		/* Resource path */
   int		i;			/* Looping var */
   const char	*filename;		/* PPD filename */
   ppd_file_t	*ppd;			/* PPD data */
   ppd_group_t	*group;			/* Current group */
 
 
-  if ((http = cupsConnectDest(dest, CUPS_DEST_FLAGS_NONE, 30000, NULL, resource, sizeof(resource), NULL, NULL)) == NULL)
+  if ((http = _cupsConnect()) == NULL)
   {
     _cupsLangPrintf(stderr, _("lpoptions: Unable to get PPD file for %s: %s"),
 		    dest->name, cupsLastErrorString());
