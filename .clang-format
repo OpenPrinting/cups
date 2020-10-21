@@ -1,0 +1,10 @@
+Language: Cpp
+IndentWidth: 2
+IndentCaseLabels: true
+AllowShortCaseLabelsOnASingleLine: false
+BreakBeforeBraces: Allman
+UseTab: Never
+TabWidth: 8
+ColumnLimit: 80
+TypenameMacros: ['CUPS_SOCAST']
+AlignConsecutiveAssignments: true
