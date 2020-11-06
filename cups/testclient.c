@@ -1,6 +1,7 @@
 /*
  * Simulated client test program for CUPS.
  *
+ * Copyright © 2020 by Michael R Sweet
  * Copyright © 2017-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -24,7 +25,7 @@
  * Constants...
  */
 
-#define MAX_CLIENTS	16		/* Maximum number of client threads */
+#define MAX_CLIENTS	100		/* Maximum number of client threads */
 
 
 /*
@@ -44,12 +45,12 @@ typedef struct _client_data_s
   int			grayscale,	/* Force grayscale? */
 			keepfile;	/* Keep temporary file? */
   ipp_pstate_t		printer_state;	/* Current printer state */
-  char                  printer_state_reasons[1024];
-                                        /* Current printer-state-reasons */
+  char			printer_state_reasons[1024];
+					/* Current printer-state-reasons */
   int			job_id; 	/* Job ID for submitted job */
   ipp_jstate_t		job_state;	/* Current job state */
-  char                  job_state_reasons[1024];
-                                        /* Current job-state-reasons */
+  char			job_state_reasons[1024];
+					/* Current job-state-reasons */
 } _client_data_t;
 
 
@@ -66,12 +67,12 @@ static int		verbosity = 0;
  * Local functions...
  */
 
-static const char       *make_raster_file(ipp_t *response, int grayscale, char *tempname, size_t tempsize, const char **format);
-static void	        *monitor_printer(_client_data_t *data);
+static const char	*make_raster_file(ipp_t *response, int grayscale, char *tempname, size_t tempsize, const char **format);
+static void		*monitor_printer(_client_data_t *data);
 static void		*run_client(_client_data_t *data);
-static void             show_attributes(const char *title, int request, ipp_t *ipp);
-static void             show_capabilities(ipp_t *response);
-static void             usage(void);
+static void		show_attributes(const char *title, int request, ipp_t *ipp);
+static void		show_capabilities(ipp_t *response);
+static void		usage(void);
 
 
 /*
@@ -396,15 +397,7 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
   * Figure out the the media, resolution, and color mode...
   */
 
-  if ((attr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL)
-  {
-   /*
-    * Use default media...
-    */
-
-    media = pwgMediaForPWG(ippGetString(attr, 0, NULL));
-  }
-  else if ((attr = ippFindAttribute(response, "media-ready", IPP_TAG_KEYWORD)) != NULL)
+  if ((attr = ippFindAttribute(response, "media-ready", IPP_TAG_KEYWORD)) != NULL)
   {
    /*
     * Use ready media...
@@ -416,6 +409,14 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
       media = pwgMediaForPWG("iso_a4_210x297mm");
     else
       media = pwgMediaForPWG(ippGetString(attr, 0, NULL));
+  }
+  else if ((attr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL)
+  {
+   /*
+    * Use default media...
+    */
+
+    media = pwgMediaForPWG(ippGetString(attr, 0, NULL));
   }
   else
   {
@@ -486,15 +487,15 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
 
   header.cupsInteger[CUPS_RASTER_PWG_TotalPageCount] = 1;
 
-  if (header.cupsWidth > (4 * header.HWResolution[0]))
+  if (header.cupsWidth > (2 * header.HWResolution[0]))
   {
     xoff = header.HWResolution[0] / 2;
     yoff = header.HWResolution[1] / 2;
   }
   else
   {
-    xoff = 0;
-    yoff = 0;
+    xoff = header.HWResolution[0] / 4;
+    yoff = header.HWResolution[1] / 4;
   }
 
   xrep = (header.cupsWidth - 2 * xoff) / 140;
@@ -770,11 +771,8 @@ run_client(
   ipp_attribute_t *attr;		/* Attribute in response */
   static const char * const pattrs[] =  /* Printer attributes we are interested in */
   {
-    "job-template",
-    "printer-defaults",
-    "printer-description",
-    "media-col-database",
-    "media-col-ready"
+    "all",
+    "media-col-database"
   };
 
 
