@@ -1640,6 +1640,20 @@ _ppdOpen(
         *strchr(string, '/') = '\0';
 
      /*
+      * Add underscore to custom values to match
+      * https://github.com/openprinting/cups/commit/2a06655e5c1925f09d5a2e38cd073eb1b6f069ad
+      */
+
+     if (!_cups_strcasecmp(string, "custom") || !_cups_strncasecmp(string, "custom.", 7))
+     {
+       char* tmp = (char*) malloc(strlen(string) + 2);
+       tmp[0] = '_';
+       strcpy(tmp + 1, string);
+       free(string);
+       string = tmp;
+     }
+
+     /*
       * Assign the default value as appropriate...
       */
 
