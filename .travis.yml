@@ -4,7 +4,7 @@
 
 language: c
 
-script: ./configure && make && make check
+script: ./configure && make && make test
 
 matrix:
   include:
