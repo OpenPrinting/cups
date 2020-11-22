@@ -30,6 +30,19 @@ else
         ac_c='\c'
 fi
 
+#
+# Check whether we have any jobs to wait for...
+#
+
+jobs=`$runcups ../systemv/lpstat 2>/dev/null | wc -l | tr -d ' '`
+if test $jobs = 0; then
+	exit 0
+fi
+
+#
+# We do, let the tester know what is going on...
+#
+
 echo $ac_n "Waiting for jobs to complete...$ac_c"
 oldjobs=0
 
