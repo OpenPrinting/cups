@@ -1,5 +1,5 @@
-INSTALL - CUPS v2.3.3 - 2020-04-24
-==================================
+INSTALL - CUPS v2.3.3op1 - 2020-11-22
+=====================================
 
 This file describes how to compile and install CUPS from source code. For more
 information on CUPS see the file called "README.md".  A complete change log can
@@ -130,11 +130,11 @@ TESTING THE SOFTWARE
 Aside from the built-in unit tests, CUPS includes an automated test framework
 for testing the entire printing system.  To run the tests, just type:
 
-    make check ENTER
+    make test ENTER
 
 or if you have FreeBSD, NetBSD, or OpenBSD type:
 
-    gmake check ENTER
+    gmake test ENTER
 
 The test framework runs a copy of the CUPS scheduler (cupsd) on port 8631 in
 /tmp/cups-$USER and produces a nice HTML report of the results.

@@ -4,6 +4,10 @@ Changes in OpenPrinting CUPS
 Changes in CUPS v2.3.3op1
 -------------------------
 
+- The automated test suite can now be activated using `make test` for
+  consistency with other projects and CI environments - the old `make check`
+  continues to work as well, and the previous test server behavior can be
+  accessed by running `make testserver`.
 - ippeveprinter now supports multiple icons and strings files.
 - ippeveprinter now uses the system's FQDN with Avahi.
 - ippeveprinter now supports Get-Printer-Attributes on "/".
