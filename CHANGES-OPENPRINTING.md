@@ -60,5 +60,6 @@ Changes in CUPS v2.3.3op1
 - Fixed the "uri-security-supported" value from the scheduler (Issue #42)
 - Fixed IPP backend crash bug with "printer-alert" values (Issue #43)
 - Removed old Solaris inetconv(1m) reference in cups-lpd man page (Issue #46)
+- Fixed default options that incorrectly use the "custom" prefix (Issue #48)
 - Fixed crash in rastertopwg (Apple issue #5773)
 - Fixed cupsManualCopies values in IPP Everywhere PPDs (Apple issue #5807)
