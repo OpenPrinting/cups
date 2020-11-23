@@ -2629,6 +2629,8 @@ http_resolve_cb(
       memcpy(resource + 1, value, valueLen);
       resource[valueLen + 1] = '\0';
     }
+
+    free(value);
   }
   else
   {
