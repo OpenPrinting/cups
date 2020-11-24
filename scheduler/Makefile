@@ -296,9 +296,9 @@ uninstall:
 	fi
 	if test "x$SYSTEMD_DIR" != x; then \
 		echo Uninstalling systemd files...; \
-		$(RM) $(BUILDROOT)$(SYSTEMD_DIR)/org.cups.cupsd.path; \
-		$(RM) $(BUILDROOT)$(SYSTEMD_DIR)/org.cups.cupsd.service; \
-		$(RM) $(BUILDROOT)$(SYSTEMD_DIR)/org.cups.cupsd.socket; \
+		$(RM) $(BUILDROOT)$(SYSTEMD_DIR)/cups.path; \
+		$(RM) $(BUILDROOT)$(SYSTEMD_DIR)/cups.service; \
+		$(RM) $(BUILDROOT)$(SYSTEMD_DIR)/cups.socket; \
 	fi
 	if test "x$(SMFMANIFESTDIR)" != x; then \
 		echo Uninstalling SMF manifest file...;\
