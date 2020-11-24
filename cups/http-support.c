@@ -1,8 +1,9 @@
 /*
  * HTTP support routines for CUPS.
  *
- * Copyright 2007-2019 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2020 by Michael R Sweet
+ * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -2545,6 +2546,8 @@ http_resolve_cb(
     memcpy(uuid, value, valueLen);
     uuid[valueLen] = '\0';
 
+    avahi_free(value);
+
     if (_cups_strcasecmp(uuid, uribuf->uuid))
     {
       if (uribuf->options & _HTTP_RESOLVE_STDERR)
@@ -2629,6 +2632,8 @@ http_resolve_cb(
       memcpy(resource + 1, value, valueLen);
       resource[valueLen + 1] = '\0';
     }
+
+    avahi_free(value);
   }
   else
   {

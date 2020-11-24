@@ -65,5 +65,6 @@ Changes in CUPS v2.3.3op1
 - Fixed IPP backend crash bug with "printer-alert" values (Issue #43)
 - Removed old Solaris inetconv(1m) reference in cups-lpd man page (Issue #46)
 - Fixed default options that incorrectly use the "custom" prefix (Issue #48)
+- Fixed a memory leak when resolving DNS-SD URIs (Issue #49)
 - Fixed crash in rastertopwg (Apple issue #5773)
 - Fixed cupsManualCopies values in IPP Everywhere PPDs (Apple issue #5807)
