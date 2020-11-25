@@ -681,8 +681,16 @@ main(int  argc,				/* I - Number of command-line args */
 
 #ifdef HAVE_ONDEMAND
   if (OnDemand)
+  {
     cupsdAddEvent(CUPSD_EVENT_SERVER_STARTED, NULL, NULL, "Scheduler started on demand.");
-  else
+# ifdef HAVE_SYSTEMD
+    sd_notifyf(0, "READY=1\n"
+		"STATUS=Scheduler is running...\n"
+		"MAINPID=%lu",
+		(unsigned long) getpid());
+# endif /* HAVE_SYSTEMD */
+  } else
+
 #endif /* HAVE_ONDEMAND */
   if (fg)
     cupsdAddEvent(CUPSD_EVENT_SERVER_STARTED, NULL, NULL, "Scheduler started in foreground.");
