@@ -1,4 +1,4 @@
-README - CUPS v2.3.3op1 - 2020-11-14
+README - CUPS v2.3.3op1 - 2020-11-27
 ====================================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)

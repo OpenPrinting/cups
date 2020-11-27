@@ -113,7 +113,7 @@ fi
 if test $SIGNFILES = yes; then
 	echo Signing...
 	test -f $file.gz.sig && rm -f $file.gz.sig
-	gpg --detach-sign -u security@cups.org $file.gz
+	gpg --detach-sign $file.gz
 fi
 
 echo Removing temporary files...
