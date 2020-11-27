@@ -1,5 +1,5 @@
-Changes in OpenPrinting CUPS
-============================
+OpenPrinting CUPS Changes
+=========================
 
 Changes in CUPS v2.3.3op1
 -------------------------
