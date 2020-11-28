@@ -163,6 +163,7 @@ The default is "0" which disables the limit check.
 <dd style="margin-left: 5.0em">Listens to the specified address and port or domain socket path for connections.
 Multiple Listen directives can be provided to listen on multiple addresses.
 The Listen directive is similar to the Port directive but allows you to restrict access to specific interfaces or networks.
+Note: "Listen *:<i>port</i>" and "Port <i>port</i>" effectively listen on all IP addresses, so you cannot combine them with Listen directives for explicit IPv4 or IPv6 addresses on the same port.
 <dt><a name="ListenBackLog"></a><b>ListenBackLog </b><i>number</i>
 <dd style="margin-left: 5.0em">Specifies the number of pending connections that will be allowed.
 This normally only affects very busy servers that have reached the MaxClients limit, but can also be triggered by large numbers of simultaneous connections.
@@ -624,6 +625,8 @@ Require authentication for accesses from outside the 10. network:
 <b>subscriptions.conf</b>(5),
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
+Copyright &copy; 2020 by Michael R Sweet
+<br>
 Copyright &copy; 2007-2019 by Apple Inc.
 
 </body>
