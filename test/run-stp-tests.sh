@@ -845,6 +845,7 @@ else
 	echo "PASS"
 	echo "    PASSED" >>$strfile
 
+	sleep 5
 	./waitjobs.sh >>$strfile
 
         echo $ac_n "Verifying that history still exists: $ac_c"
