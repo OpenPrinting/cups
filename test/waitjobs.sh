@@ -36,6 +36,7 @@ fi
 
 jobs=`$runcups ../systemv/lpstat 2>/dev/null | wc -l | tr -d ' '`
 if test $jobs = 0; then
+	sleep 5
 	exit 0
 fi
 
