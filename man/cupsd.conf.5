@@ -1,13 +1,14 @@
 .\"
 .\" cupsd.conf man page for CUPS.
 .\"
+.\" Copyright © 2020 by Michael R Sweet
 .\" Copyright © 2007-2019 by Apple Inc.
 .\" Copyright © 1997-2006 by Easy Software Products.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cupsd.conf 5 "CUPS" "16 July 2019" "Apple Inc."
+.TH cupsd.conf 5 "CUPS" "28 November 2020" "Apple Inc."
 .SH NAME
 cupsd.conf \- server configuration file for cups
 .SH DESCRIPTION
@@ -245,6 +246,7 @@ The default is "0" which disables the limit check.
 Listens to the specified address and port or domain socket path for connections.
 Multiple Listen directives can be provided to listen on multiple addresses.
 The Listen directive is similar to the Port directive but allows you to restrict access to specific interfaces or networks.
+Note: "Listen *:\fIport\fR" and "Port \fIport\fR" effectively listen on all IP addresses, so you cannot combine them with Listen directives for explicit IPv4 or IPv6 addresses on the same port.
 .\"#ListenBackLog
 .TP 5
 \fBListenBackLog \fInumber\fR
@@ -902,4 +904,6 @@ Require authentication for accesses from outside the 10. network:
 .BR subscriptions.conf (5),
 CUPS Online Help (http://localhost:631/help)
 .SH COPYRIGHT
+Copyright \[co] 2020 by Michael R Sweet
+.br
 Copyright \[co] 2007-2019 by Apple Inc.

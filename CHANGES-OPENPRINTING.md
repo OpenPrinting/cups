@@ -1,6 +1,12 @@
 OpenPrinting CUPS Changes
 =========================
 
+Changes in CUPS v2.3.3op2
+-------------------------
+
+- Clarified the documentation for the "Listen" directive (Issue #53)
+
+
 Changes in CUPS v2.3.3op1
 -------------------------
 

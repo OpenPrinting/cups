@@ -4369,5 +4369,12 @@ cups_queue_name(
       *nameptr++ = '_';
   }
 
+ /*
+  * Remove an underscore if it is the last character
+  * and isn't the only character in the string
+  */
+  if (nameptr[-1] == '_' && nameptr > (name + 1))
+    nameptr--;
+
   *nameptr = '\0';
 }
