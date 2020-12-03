@@ -6,7 +6,8 @@ Changes in CUPS v2.3.3op2
 
 - Clarified the documentation for the "Listen" directive (Issue #53)
 - Fixed duplicate ColorModel entries for AirPrint printers (Issue 59)
-- Fixed CUPS_SERVERBIN on Debian kfreebsd-based systems (Issue #60)
+- Fixed directory/permission defaults for Debian kfreebsd-based systems
+  (Issue #60, Issue #61)
 
 
 Changes in CUPS v2.3.3op1
