@@ -53,7 +53,7 @@ dnl Default executable file permissions
 AC_ARG_WITH(exe_file_perm, [  --with-exe-file-perm    set default executable permissions value, default=0555],
 	CUPS_EXE_FILE_PERM="$withval",
 	[case "$host_os_name" in
-		linux* | gnu*)
+		linux* | gnu* | *-gnu)
 			CUPS_EXE_FILE_PERM="755"
 			;;
 		*)
