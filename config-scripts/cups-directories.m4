@@ -262,6 +262,11 @@ AC_SUBST(CUPS_REQUESTS)
 
 # Server executables...
 case "$host_os_name" in
+	*-gnu)
+		# GNUs
+		INSTALL_SYSV="install-sysv"
+		CUPS_SERVERBIN="$exec_prefix/lib/cups"
+		;;
 	*bsd* | darwin*)
 		# *BSD and Darwin (macOS)
 		INSTALL_SYSV=""
