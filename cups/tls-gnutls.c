@@ -1,6 +1,7 @@
 /*
  * TLS support code for CUPS using GNU TLS.
  *
+ * Copyright © 2020 by Michael R Sweet
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -939,7 +940,7 @@ http_gnutls_default_path(char   *buffer,/* I - Path buffer */
 					/* Pointer to library globals */
 
 
-  if (cg->home)
+  if (cg->home && getuid())
   {
     snprintf(buffer, bufsize, "%s/.cups", cg->home);
     if (access(buffer, 0))

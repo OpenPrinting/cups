@@ -8,6 +8,7 @@ Changes in CUPS v2.3.3op2
 - Fixed duplicate ColorModel entries for AirPrint printers (Issue 59)
 - Fixed directory/permission defaults for Debian kfreebsd-based systems
   (Issue #60, Issue #61)
+- Root certificates were incorrectly stored in "~/.cups/ssl".
 
 
 Changes in CUPS v2.3.3op1
