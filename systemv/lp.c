@@ -595,8 +595,13 @@ main(int  argc,				/* I - Number of command-line arguments */
     return (1);
   }
 
-  if (num_files > 0)
-    job_id = cupsPrintFiles(printer, num_files, files, title, num_options, options);
+  if (num_files > 0){
+	  const char* temp[1];
+	  for(int filenum =0;filenum<num_files;filenum++){
+		  temp[0]=files[filenum];
+    	job_id = cupsPrintFiles(printer, 1, temp, title, num_options, options);
+	  }
+  }
   else if ((job_id = cupsCreateJob(CUPS_HTTP_DEFAULT, printer,
                                    title ? title : "(stdin)",
                                    num_options, options)) > 0)
