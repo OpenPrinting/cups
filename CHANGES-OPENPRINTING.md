@@ -8,6 +8,7 @@ Changes in CUPS v2.3.3op2
 - Fixed duplicate ColorModel entries for AirPrint printers (Issue 59)
 - Fixed directory/permission defaults for Debian kfreebsd-based systems
   (Issue #60, Issue #61)
+- Fixed crash bug in `ppdOpen` (Issue #64, Issue #78)
 - The scheduler's systemd service file now waits for the nslcd service to start
   (Issue #69)
 - Root certificates were incorrectly stored in "~/.cups/ssl".
