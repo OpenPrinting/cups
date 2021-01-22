@@ -1496,7 +1496,7 @@ _ppdOpen(
 	goto error;
       }
 
-      if (!_cups_strcasecmp(option->defchoice, "custom") || !_cups_strncasecmp(option->defchoice, "custom.", 7))
+      if (option && (!_cups_strcasecmp(option->defchoice, "custom") || !_cups_strncasecmp(option->defchoice, "custom.", 7)))
       {
        /*
 	* "*DefaultOption: Custom..." may set the default to a custom value
@@ -1531,7 +1531,7 @@ _ppdOpen(
 	goto error;
       }
 
-      if (!_cups_strcasecmp(option->defchoice, "custom") || !_cups_strncasecmp(option->defchoice, "custom.", 7))
+      if (option && (!_cups_strcasecmp(option->defchoice, "custom") || !_cups_strncasecmp(option->defchoice, "custom.", 7)))
       {
        /*
 	* "*DefaultOption: Custom..." may set the default to a custom value
