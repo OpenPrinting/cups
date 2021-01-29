@@ -12,6 +12,7 @@ Changes in CUPS v2.3.3op2
 - The scheduler's systemd service file now waits for the nslcd service to start
   (Issue #69)
 - Root certificates were incorrectly stored in "~/.cups/ssl".
+- Fixed segfault in help.cgi when searching in man pages
 
 
 Changes in CUPS v2.3.3op1
