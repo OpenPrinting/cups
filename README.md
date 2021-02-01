@@ -1,9 +1,9 @@
-README - CUPS v2.3.3op1 - 2020-11-27
+README - CUPS v2.3.3op2 - 2021-02-01
 ====================================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)
 ![Apache 2.0](https://img.shields.io/github/license/openprinting/cups)
-[![Build Status](https://travis-ci.org/openprinting/cups.svg?branch=master)](https://travis-ci.org/github/openprinting/cups)
+[![Build and Test](https://github.com/OpenPrinting/cups/workflows/Build%20and%20Test/badge.svg)](https://github.com/OpenPrinting/cups/actions)
 
 > *Note:* This version of CUPS is being maintained by the OpenPrinting
 > organization.  It tracks the current Apple CUPS sources and includes common
@@ -167,6 +167,7 @@ This will prevent the filters from misinterpreting your print file.
 LEGAL STUFF
 -----------
 
+Copyright © 2020-2021 by Michael R Sweet
 Copyright © 2007-2019 by Apple Inc.
 Copyright © 1997-2007 by Easy Software Products.
 
