@@ -1,8 +1,9 @@
 /*
  * Configuration file for CUPS and Xcode.
  *
- * Copyright 2007-2019 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products.
+ * Copyright © 2021 by Michael R Sweet
+ * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  */
@@ -18,8 +19,8 @@
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.3.3op1"
-#define CUPS_MINIMAL "CUPS/2.3.3op1"
+#define CUPS_SVERSION "CUPS v2.3.3op2"
+#define CUPS_MINIMAL "CUPS/2.3.3op2"
 
 
 /*

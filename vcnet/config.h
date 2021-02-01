@@ -1,6 +1,7 @@
 /*
  * Configuration file for CUPS on Windows.
  *
+ * Copyright © 2021 by Michael R Sweet
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -41,8 +42,10 @@
 #define open		_open
 #define read	        _read
 #define rmdir		_rmdir
+#define snprintf	_snprintf
 #define strdup		_strdup
 #define unlink		_unlink
+#define vsnprintf	_vsnprintf
 #define write		_write
 
 
@@ -97,8 +100,8 @@ typedef unsigned long useconds_t;
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.3.3op1"
-#define CUPS_MINIMAL "CUPS/2.3.3op1"
+#define CUPS_SVERSION "CUPS v2.3.3op2"
+#define CUPS_MINIMAL "CUPS/2.3.3op2"
 
 
 /*
@@ -345,9 +348,8 @@ typedef unsigned long useconds_t;
  * Do we have the (v)snprintf() functions?
  */
 
-/* Windows snprintf/vsnprintf are non-conforming */
-/* #undef HAVE_SNPRINTF */
-/* #undef HAVE_VSNPRINTF */
+#define HAVE_SNPRINTF 1
+#define HAVE_VSNPRINTF 1
 
 
 /*
