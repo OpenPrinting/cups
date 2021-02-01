@@ -16,6 +16,8 @@ Changes in CUPS v2.3.3op2
   (Issue #69)
 - The libusb-based USB backend now uses a simpler read timer implementation to
   avoid a regression in a previous change (Issue #72)
+- The PPD caching code now only tracks the `APPrinterIconPath` value on macOS
+  (Issue #73)
 - Fixed segfault in help.cgi when searching in man pages (Issue #81)
 - Root certificates were incorrectly stored in "~/.cups/ssl".
 
