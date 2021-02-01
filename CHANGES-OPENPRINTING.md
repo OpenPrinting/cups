@@ -4,6 +4,8 @@ OpenPrinting CUPS Changes
 Changes in CUPS v2.3.3op2
 -------------------------
 
+- Security: Fixed a buffer (read) overflow in the `ippReadIO` function
+  (CVE-2020-10001)
 - Clarified the documentation for the "Listen" directive (Issue #53)
 - Fixed duplicate ColorModel entries for AirPrint printers (Issue 59)
 - Fixed directory/permission defaults for Debian kfreebsd-based systems
