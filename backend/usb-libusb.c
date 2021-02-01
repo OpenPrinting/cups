@@ -1690,45 +1690,24 @@ static void *read_thread(void *reference)
   unsigned char		readbuffer[512];
   int			rbytes;
   int			readstatus;
-  struct timeval	now,
-			delay,
-			end,
-			timeleft;
 
 
   (void)reference;
 
- /*
-  * Read frequency: once every 250 milliseconds.
-  */
-
-  delay.tv_sec = 0;
-  delay.tv_usec = 250000;
-
   do
   {
    /*
-    * Remember when we started so we can throttle the loop after the read
-    * call...
+    * Try reading from the OUT (to host) endpoint...
     */
-
-    gettimeofday(&now, NULL);
-
-   /*
-    * Calculate what 250 milliSeconds are in absolute time...
-    */
-
-    timeradd(&now, &delay, &end);
 
     rbytes     = sizeof(readbuffer);
     readstatus = libusb_bulk_transfer(g.printer->handle,
 				      g.printer->read_endp,
 				      readbuffer, rbytes,
-				      &rbytes, 60000);
+				      &rbytes, 250);
     if (readstatus == LIBUSB_SUCCESS && rbytes > 0)
     {
-      fprintf(stderr, "DEBUG: Read %d bytes of back-channel data...\n",
-              (int)rbytes);
+      fprintf(stderr, "DEBUG: Read %d bytes of back-channel data...\n", (int)rbytes);
       cupsBackChannelWrite((const char *)readbuffer, (size_t)rbytes, 1.0);
     }
     else if (readstatus == LIBUSB_ERROR_TIMEOUT)
@@ -1743,15 +1722,9 @@ static void *read_thread(void *reference)
     */
 
     if ((g.wait_eof || !g.read_thread_stop))
-    {
-      gettimeofday(&now, NULL);
-      if (timercmp(&now, &end, <))
-      {
-	timersub(&end, &now, &timeleft);
-	usleep(1000000 * timeleft.tv_sec + timeleft.tv_usec);
-      }
-    }
-  } while (g.wait_eof || !g.read_thread_stop);
+      usleep(250000);
+  }
+  while (g.wait_eof || !g.read_thread_stop);
 
  /*
   * Let the main thread know that we have completed the read thread...
