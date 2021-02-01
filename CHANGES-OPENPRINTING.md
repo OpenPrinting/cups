@@ -11,6 +11,7 @@ Changes in CUPS v2.3.3op2
 - Fixed directory/permission defaults for Debian kfreebsd-based systems
   (Issue #60, Issue #61)
 - Fixed crash bug in `ppdOpen` (Issue #64, Issue #78)
+- Fixed regression in `snprintf` emulation function (Issue #67)
 - The scheduler's systemd service file now waits for the nslcd service to start
   (Issue #69)
 - Fixed segfault in help.cgi when searching in man pages (Issue #81)

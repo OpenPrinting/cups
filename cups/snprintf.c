@@ -1,6 +1,7 @@
 /*
  * snprintf functions for CUPS.
  *
+ * Copyright © 2021 by Michael R Sweet
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -81,7 +82,8 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	format ++;
 	width = va_arg(ap, int);
 
-	snprintf(tptr, sizeof(tformat) - (tptr - tformat), "%d", width);
+        /* Note: Can't use snprintf here since we are implementing this function... */
+	sprintf(tptr, "%d", width);
 	tptr += strlen(tptr);
       }
       else
@@ -113,7 +115,8 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	  format ++;
 	  prec = va_arg(ap, int);
 
-	  snprintf(tptr, sizeof(tformat) - (tptr - tformat), "%d", prec);
+          /* Note: Can't use snprintf here since we are implementing this function... */
+	  sprintf(tptr, "%d", prec);
 	  tptr += strlen(tptr);
 	}
 	else
@@ -171,7 +174,8 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	    if ((width + 2) > sizeof(temp))
 	      break;
 
-	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, double));
+            /* Note: Can't use snprintf here since we are implementing this function... */
+	    sprintf(temp, tformat, va_arg(ap, double));
 	    templen = strlen(temp);
 
             bytes += (int)templen;
@@ -202,7 +206,8 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	    if ((width + 2) > sizeof(temp))
 	      break;
 
-	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, int));
+	    /* Note: Can't use snprintf here since we are implementing this function... */
+	    sprintf(temp, tformat, va_arg(ap, int));
 	    templen = strlen(temp);
 
             bytes += (int)templen;
@@ -226,7 +231,8 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	    if ((width + 2) > sizeof(temp))
 	      break;
 
-	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, void *));
+	    /* Note: Can't use snprintf here since we are implementing this function... */
+	    sprintf(temp, tformat, va_arg(ap, void *));
 	    templen = strlen(temp);
 
             bytes += (int)templen;
