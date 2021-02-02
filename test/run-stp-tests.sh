@@ -3,7 +3,7 @@
 # Perform the complete set of IPP compliance tests specified in the
 # CUPS Software Test Plan.
 #
-# Copyright © 2020 by Michael R Sweet
+# Copyright © 2020-2021 by Michael R Sweet
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -700,7 +700,8 @@ else
 	sleep 2
 fi
 
-while true; do
+tries=0
+while test $tries -lt 30; do
 	running=`$runcups ../systemv/lpstat -r 2>/dev/null`
 	if test "x$running" = "xscheduler is running"; then
 		break
@@ -708,6 +709,8 @@ while true; do
 
 	echo "Waiting for scheduler to become ready..."
 	sleep 10
+
+	tries=`expr $tries + 1`
 done
 
 #

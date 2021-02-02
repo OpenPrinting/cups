@@ -18,13 +18,11 @@ jobs:
     - name: configure
       env:
         CC: /usr/bin/gcc
-      run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
+      run: ./configure --enable-debug --enable-maintainer
     - name: make
       run: make
     - name: test
-      env:
-        ASAN_OPTIONS: leak_check_at_exit=false
-      run: make test
+      run: make test || cat test/error_log*
 
   build-macos:
 
@@ -37,4 +35,4 @@ jobs:
     - name: make
       run: make
     - name: test
-      run: make test
+      run: make test || cat test/error_log*
