@@ -639,9 +639,9 @@ testlang:	testlang.o $(LIBCUPSSTATIC)
 		lang=`basename $$po .po | sed -e '1,$$s/^cups_//'`; \
 		$(MKDIR) locale/$$lang; \
 		$(LN) ../../$$po locale/$$lang; \
+		echo Running language API tests for $$lang...; \
+		LOCALEDIR=locale ./testlang -l $$lang; \
 	done
-	echo Running language API tests...
-	LOCALEDIR=locale ./testlang
 
 
 #
