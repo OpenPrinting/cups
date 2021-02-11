@@ -1,8 +1,9 @@
 /*
  * Filtering program for CUPS.
  *
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by Michael R Sweet
+ * Copyright © 2007-2016 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  */
@@ -183,13 +184,15 @@ main(int  argc,				/* I - Number of command-line args */
 	    case 'a' : /* Specify option... */
 		i ++;
 		if (i < argc)
+		{
 		  num_options = cupsParseOptions(argv[i], num_options, &options);
+		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected option after \"-a\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected name=value after \"-a\" option."), argv[0]);
 		  usage(opt);
-    }
-    break;
+		}
+		break;
 
 	    case 'c' : /* Specify cups-files.conf file location... */
 		i ++;
@@ -201,21 +204,23 @@ main(int  argc,				/* I - Number of command-line args */
 		    strlcpy(cupsfilesconf, argv[i], sizeof(cupsfilesconf));
 		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected config-file after \"-c\" option."),argv[0]);
-      usage(NULL);
-    }
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected filename after \"-c\" option."), argv[0]);
+		  usage(NULL);
+		}
 		break;
 
 	    case 'd' : /* Specify the real printer name */
 		i ++;
 		if (i < argc)
+		{
 		  printer = argv[i];
+		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected printer name after \"-d\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected printer name after \"-d\" option."), argv[0]);
 		  usage(NULL);
-    }
+		}
 		break;
 
 	    case 'D' : /* Delete input file after conversion */
@@ -229,12 +234,14 @@ main(int  argc,				/* I - Number of command-line args */
 	    case 'f' : /* Specify input file... */
 		i ++;
 		if (i < argc && !infile)
+		{
 		  infile = argv[i];
+		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected input file after \"-f\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected input file after \"-f\" option."), argv[0]);
 		  usage(NULL);
-    }
+		}
 		break;
 
 	    case 'i' : /* Specify source MIME type... */
@@ -247,10 +254,10 @@ main(int  argc,				/* I - Number of command-line args */
 		  srctype = argv[i];
 		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected source MIME type after \"-i\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected source MIME type after \"-i\" option."), argv[0]);
 		  usage(NULL);
-    }
+		}
 		break;
 
 	    case 'j' : /* Get job file or specify destination MIME type... */
@@ -263,11 +270,10 @@ main(int  argc,				/* I - Number of command-line args */
 		    infile = TempFile;
 		  }
 		  else
-      {
-        _cupsLangPrintf(stdout,_("%s: Error - expected job-id after \"-j\" option."),argv[0]);
+		  {
+		    _cupsLangPrintf(stdout, _("%s: Error - expected job-id after \"-j\" option."), argv[0]);
 		    usage(NULL);
-      }
-
+		  }
 		  break;
 		}
 
@@ -281,22 +287,24 @@ main(int  argc,				/* I - Number of command-line args */
 		  dsttype = argv[i];
 		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected destination mime type after \"-m\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected destination MIME type after \"-m\" option."), argv[0]);
 		  usage(NULL);
-    }
+		}
 		break;
 
 	    case 'n' : /* Specify number of copies... */
 		i ++;
 		if (i < argc)
+		{
 		  num_options = cupsAddOption("copies", argv[i], num_options, &options);
+		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected \"number of copies\" after \"-n\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected number of copies after \"-n\" option."), argv[0]);
 		  usage(NULL);
-    }
-    break;
+		}
+		break;
 
 	    case 'o' : /* Specify option(s) or output filename */
 		i ++;
@@ -310,56 +318,44 @@ main(int  argc,				/* I - Number of command-line args */
 		      outfile = argv[i];
 		  }
 		  else
+		  {
 		    num_options = cupsParseOptions(argv[i], num_options, &options);
+		  }
 		}
-    else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected \"options\" after \"-o\" option."),argv[0]);
+		else
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected name=value after \"-o\" option."), argv[0]);
 		  usage(NULL);
-    }
+		}
 		break;
 
 	    case 'p' : /* Specify PPD file... */
-      i ++;
-		if (i < argc)
-		  ppdfile = argv[i];
-		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected \"PPD file\" after \"-p\" option."),argv[0]);
-		  usage(NULL);
-    }
-    break;
 	    case 'P' : /* Specify PPD file... */
 		i ++;
 		if (i < argc)
+		{
 		  ppdfile = argv[i];
+		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected \"PPD file\" after \"-P\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected PPD file after \"-%c\" option."), argv[0], *opt);
 		  usage(NULL);
-    }
-    break;
+		}
+		break;
 
 	    case 't' : /* Specify title... */
-      	i ++;
-		if (i < argc)
-		  title = argv[i];
-		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected title after \"-t\" option."),argv[0]);
-		  usage(NULL);
-    }
-    break;
 	    case 'J' : /* Specify title... */
 		i ++;
 		if (i < argc)
+		{
 		  title = argv[i];
+		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected title after \"-J\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected title after \"-%c\" option."), argv[0], *opt);
 		  usage(NULL);
-    }
-    break;
+		}
+		break;
 
 	    case 'u' : /* Delete PPD file after conversion */
 		removeppd = 1;
@@ -368,18 +364,20 @@ main(int  argc,				/* I - Number of command-line args */
 	    case 'U' : /* Specify username... */
 		i ++;
 		if (i < argc)
+		{
 		  user = argv[i];
+		}
 		else
-    {
-      _cupsLangPrintf(stderr,_("%s: Error - expected \"username\" after \"-U\" option."),argv[0]);
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected \"username\" after \"-U\" option."), argv[0]);
 		  usage(NULL);
-    }
-    break;
+		}
+		break;
 
 	    default : /* Something we don't understand... */
-      _cupsLangPrintf(stderr,_("%s: Error - unknown option %s."),argv[0],opt);
-		  usage(NULL);
-		  break;
+		_cupsLangPrintf(stderr, _("%s: Error - unknown option \"-%c\"."), argv[0], *opt);
+		usage(NULL);
+		break;
 	  }
 	}
       }
@@ -393,8 +391,7 @@ main(int  argc,				/* I - Number of command-line args */
     }
     else
     {
-      _cupsLangPuts(stderr,
-                    _("cupsfilter: Only one filename can be specified."));
+      _cupsLangPuts(stderr, _("cupsfilter: Only one filename can be specified."));
       usage(NULL);
     }
   }
@@ -428,10 +425,7 @@ main(int  argc,				/* I - Number of command-line args */
 
   if (!mime)
   {
-    _cupsLangPrintf(stderr,
-                    _("%s: Unable to read MIME database from \"%s\" or "
-		      "\"%s\"."),
-		    command, mimedir, ServerRoot);
+    _cupsLangPrintf(stderr, _("%s: Unable to read MIME database from \"%s\" or \"%s\"."), command, mimedir, ServerRoot);
     return (1);
   }
 

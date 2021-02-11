@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/apple/cups/issues\n"
-"POT-Creation-Date: 2019-12-18 20:19-0500\n"
+"POT-Creation-Date: 2021-02-11 15:38-0500\n"
 "PO-Revision-Date: 2016-06-26 21:17+0100\n"
 "Last-Translator: Juan Pablo González Riopedre <jpgriopedre@yahoo.es>\n"
 "Language-Team: Spanish\n"
@@ -1211,6 +1211,10 @@ msgstr ""
 "%s: Error - %s nombres de variables de entorno no existen en destino \"%s\"."
 
 #, c-format
+msgid "%s: Error - The printer or class does not exist."
+msgstr ""
+
+#, c-format
 msgid "%s: Error - add '/version=1.1' to server name."
 msgstr "%s: Error - añada '/version=1.1' al nombre del servidor."
 
@@ -1235,6 +1239,14 @@ msgid "%s: Error - copies must be 1 or more."
 msgstr "%s: Error - número de copias debe ser 1 o más."
 
 #, c-format
+msgid "%s: Error - expected \"username\" after \"-U\" option."
+msgstr ""
+
+#, c-format
+msgid "%s: Error - expected PPD file after \"-%c\" option."
+msgstr ""
+
+#, c-format
 msgid "%s: Error - expected character set after \"-S\" option."
 msgstr "%s: Error - se esperaba un juego de caracteres tras la opción \"-S\"."
 
@@ -1251,12 +1263,20 @@ msgid "%s: Error - expected copies after \"-n\" option."
 msgstr "%s: Error - se esperaba número de copias tras la opción \"-n\"."
 
 #, c-format
+msgid "%s: Error - expected destination MIME type after \"-m\" option."
+msgstr ""
+
+#, c-format
 msgid "%s: Error - expected destination after \"-P\" option."
 msgstr "%s: Error - se esperaba un destino tras la opción \"-P\"."
 
 #, c-format
 msgid "%s: Error - expected destination after \"-d\" option."
 msgstr "%s: Error - se esperaba un destino tras la opción \"-d\"."
+
+#, c-format
+msgid "%s: Error - expected filename after \"-c\" option."
+msgstr ""
 
 #, c-format
 msgid "%s: Error - expected form after \"-f\" option."
@@ -1275,12 +1295,32 @@ msgid "%s: Error - expected hostname after \"-h\" option."
 msgstr "%s: Error - se esperaba un nombre de equipo tras la opción \"-h\"."
 
 #, c-format
+msgid "%s: Error - expected input file after \"-f\" option."
+msgstr ""
+
+#, c-format
+msgid "%s: Error - expected job-id after \"-j\" option."
+msgstr ""
+
+#, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
 msgstr "%s: Error - se esperaba una lista de modos tras la opción \"-y\"."
 
 #, c-format
 msgid "%s: Error - expected name after \"-%c\" option."
 msgstr "%s: Error - se esperaba un nombre tras la opción \"-%c\"."
+
+#, c-format
+msgid "%s: Error - expected name=value after \"-a\" option."
+msgstr ""
+
+#, c-format
+msgid "%s: Error - expected name=value after \"-o\" option."
+msgstr ""
+
+#, c-format
+msgid "%s: Error - expected number of copies after \"-n\" option."
+msgstr ""
 
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
@@ -1291,12 +1331,24 @@ msgid "%s: Error - expected page list after \"-P\" option."
 msgstr "%s: Error - se esperaba una lista de páginas tras la opción \"-P\"."
 
 #, c-format
+msgid "%s: Error - expected printer name after \"-d\" option."
+msgstr ""
+
+#, c-format
 msgid "%s: Error - expected priority after \"-%c\" option."
 msgstr "%s: Error - se esperaba un valor de prioridad tras la opción \"-%c\"."
 
 #, c-format
 msgid "%s: Error - expected reason text after \"-r\" option."
 msgstr "%s: Error - se esperaba un texto con una razón tras la opción \"-r\"."
+
+#, c-format
+msgid "%s: Error - expected source MIME type after \"-i\" option."
+msgstr ""
+
+#, c-format
+msgid "%s: Error - expected title after \"-%c\" option."
+msgstr ""
 
 #, c-format
 msgid "%s: Error - expected title after \"-t\" option."
@@ -1361,6 +1413,10 @@ msgstr "%s: Error - opción \"%c\" desconocida."
 #, c-format
 msgid "%s: Error - unknown option \"%s\"."
 msgstr "%s: Error - opción \"%s\" desconocida."
+
+#, c-format
+msgid "%s: Error - unknown option \"-%c\"."
+msgstr ""
 
 #, c-format
 msgid "%s: Expected job ID after \"-i\" option."
@@ -1561,6 +1617,9 @@ msgid "--ippserver filename    Produce ippserver attribute file"
 msgstr ""
 
 msgid "--language locale       Show models matching the given locale"
+msgstr ""
+
+msgid "--literal-name name     Match service name to literal name value"
 msgstr ""
 
 msgid "--local                 True if service is local"
@@ -1825,6 +1884,9 @@ msgstr ""
 msgid "-M manufacturer         Set manufacturer name (default=Test)"
 msgstr ""
 
+msgid "-N name                 Match service name to literal name value"
+msgstr ""
+
 msgid "-P destination          Show status for the specified destination"
 msgstr ""
 
@@ -1855,6 +1917,9 @@ msgid "-R root-directory       Set alternate root"
 msgstr ""
 
 msgid "-S                      Test with encryption using HTTPS"
+msgstr ""
+
+msgid "-S filename.strings     Set strings file"
 msgstr ""
 
 msgid "-T seconds              Set the browse timeout in seconds"
@@ -1965,7 +2030,7 @@ msgstr ""
 msgid "-h server[:port]        Connect to the named server and port"
 msgstr ""
 
-msgid "-i iconfile.png         Set icon file"
+msgid "-i iconfile.png[,...]   Set icon file(s)"
 msgstr ""
 
 msgid "-i id                   Specify an existing job ID to modify"
@@ -3603,6 +3668,9 @@ msgstr "Papel brillante"
 
 msgid "Got a printer-uri attribute but no job-id."
 msgstr "Se ha obtenido el atributo printer-uri pero no el job-id."
+
+msgid "GrayScale"
+msgstr ""
 
 msgid "Grayscale"
 msgstr "Escale de grises"
