@@ -6,6 +6,7 @@ Changes in CUPS v2.3.3op3
 
 - The `cupsfilter` command now shows error messages when options are used
   incorrectly (Issue #88)
+- Documentation fixes (Issue #92)
 
 
 Changes in CUPS v2.3.3op2
