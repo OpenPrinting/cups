@@ -22,7 +22,9 @@
 #include <cups/ppd-private.h>
 #include <ppdc/ppdc.h>
 #include <regex.h>
-
+#include <pthread.h>
+#include <sys/time.h>
+#include <unistd.h>
 
 /*
  * Constants...
@@ -113,11 +115,17 @@ typedef union				/**** TAR record format ****/
   }	header;
 } tar_rec_t;
 
+struct args {
+    cups_file_t *fp;
+    char *buf;
+    size_t buflen;
+};
 
 /*
  * Globals...
  */
 
+static char* retval=NULL;
 static cups_array_t	*Inodes = NULL,	/* Inodes of directories we've visited */
 			*PPDsByName = NULL,
 					/* PPD files sorted by filename and name */
@@ -183,6 +191,11 @@ static int		read_tar(cups_file_t *fp, char *name, size_t namesize,
 			         struct stat *info);
 static regex_t		*regex_device_id(const char *device_id);
 static regex_t		*regex_string(const char *s);
+void              *cupsFileGetsCall(void *input);
+char              *cupsFileGetsT(cups_file_t *fp, char*buf, size_t buflen);
+
+
+
 
 
 /*
@@ -1842,7 +1855,7 @@ load_drivers(cups_array_t *include,	/* I - Drivers to include */
 
     if ((fp = cupsdPipeCommand(&pid, filename, argv, 0)) != NULL)
     {
-      while (cupsFileGets(fp, line, sizeof(line)))
+      while (cupsFileGetsT(fp, line, sizeof(line)))
       {
        /*
         * Each line is of the form:
@@ -2913,4 +2926,75 @@ regex_string(const char *s)		/* I - String to compare */
   }
 
   return (NULL);
+}
+
+void *
+cupsFileGetsCall(void *input)
+{
+  retval = cupsFileGets(((struct args*)input)->fp,((struct args*)input)->buf,((struct args*)input)->buflen);
+  return NULL;
+}
+
+/*
+  * Alternate to cupsFileGets() 
+  */
+
+char * 
+cupsFileGetsT(cups_file_t *fp,		/* I - CUPS file */
+             char        *buf,		/* O - String buffer */
+	     size_t      buflen)        /* I - Size of string buffer */
+{
+  
+  int flag = 0;
+
+ /*
+  * Creating a new thread ID.
+  */
+
+  pthread_t ptid;
+  struct timeval t1, t2;
+
+  struct args *arg = (struct args *)malloc(sizeof(struct args));
+  arg->fp = fp;
+  arg->buf = buf;
+  arg->buflen = buflen;
+
+  gettimeofday(&t1,NULL);
+
+  pthread_create(&ptid,NULL,cupsFileGetsCall,(void*)arg);
+
+ /*
+  * Loop through cupsFileGets() until timeout (2 sec)
+  */
+
+  while(retval == NULL)
+  {
+    gettimeofday(&t2, NULL);
+    double elapsedTime = (t2.tv_sec - t1.tv_sec);
+
+    if(elapsedTime > 2)
+    {
+      flag=1;
+      break;
+    }
+
+    sleep(0.5);
+  }
+
+  if(flag)
+  {
+
+   /*
+    * Terminating cupsFileGets() thread due to timeout.
+    */
+
+    fprintf(stderr,"%s\n","Thread terminated");
+    pthread_cancel(ptid);
+
+    retval = NULL;
+  }
+  else
+    pthread_join(ptid, NULL);
+
+return retval;
 }
