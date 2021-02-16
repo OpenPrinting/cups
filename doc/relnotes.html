@@ -3,6 +3,130 @@ title: Release Notes
 layout: sub
 ---
 
+<h2 class="title"><a name="020303op2">CUPS 2.3.3op2</a> <em>(February 1, 2021)</em></h2>
+
+<ul>
+	<li>Security: Fixed a buffer (read) overflow in the `ippReadIO` function (CVE-2020-10001)</li>
+	<li>Clarified the documentation for the "Listen" directive (Issue #53)</li>
+	<li>Fixed duplicate ColorModel entries for AirPrint printers (Issue 59)</li>
+	<li>Fixed directory/permission defaults for Debian kfreebsd-based systems (Issue #60, Issue #61)</li>
+	<li>Fixed crash bug in `ppdOpen` (Issue #64, Issue #78)</li>
+	<li>Fixed regression in `snprintf` emulation function (Issue #67)</li>
+	<li>The scheduler's systemd service file now waits for the nslcd service to start (Issue #69)</li>
+	<li>The libusb-based USB backend now uses a simpler read timer implementation to avoid a regression in a previous change (Issue #72)</li>
+	<li>The PPD caching code now only tracks the `APPrinterIconPath` value on macOS (Issue #73)</li>
+	<li>Fixed segfault in help.cgi when searching in man pages (Issue #81)</li>
+	<li>Root certificates were incorrectly stored in "~/.cups/ssl".</li>
+</ul>
+
+
+<h2 class="title"><a name="020303op1">CUPS 2.3.3op1</a> <em>(November 27, 2020)</em></h2>
+
+<ul>
+	<li>The automated test suite can now be activated using `make test` for consistency with other projects and CI environments - the old `make check` continues to work as well, and the previous test server behavior can be accessed by running `make testserver`.</li>
+	<li>ippeveprinter now supports multiple icons and strings files.</li>
+	<li>ippeveprinter now uses the system's FQDN with Avahi.</li>
+	<li>ippeveprinter now supports Get-Printer-Attributes on "/".</li>
+	<li>ippeveprinter now uses a deterministic "printer-uuid" value.</li>
+	<li>ippeveprinter now uses system sounds on macOS for Identify-Printer.</li>
+	<li>Updated ippfind to look for files in "~/Desktop" on Windows.</li>
+	<li>Updated ippfind to honor `SKIP-XXX` directives with `PAUSE`.</li>
+	<li>Updated IPP Everywhere support to work around printers that only advertise color raster support but really also support grayscale (Issue #1)</li>
+	<li>ipptool now supports DNS-SD URIs like `ipps://My%20Printer._ipps._tcp.local` (Issue #5)</li>
+	<li>The scheduler now allows root backends to have world read permissions but not world execute permissions (Issue #21)</li>
+	<li>Failures to bind IPv6 listener sockets no longer cause errors if IPv6 is disabled on the host (Issue #25)</li>
+	<li>The SNMP backend now supports the HP and Ricoh vendor MIBs (Issue #28)</li>
+	<li>The scheduler no longer includes a timestamp in files it writes (Issue #29)</li>
+	<li>The systemd service names are now "cups.service" and "cups-lpd.service" (Issue #30, Issue #31)</li>
+	<li>The scheduler no longer adds the local hostname to the ServerAlias list (Issue #32)</li>
+	<li>Added `LogFileGroup` directive in "cups-files.conf" to control the group owner of log files (Issue #34)</li>
+	<li>Added `--with-max-log-size` configure option (Issue #35)</li>
+	<li>Added `--enable-sync-on-close` configure option (Issue #37)</li>
+	<li>Added `--with-error-policy` configure option (Issue #38)</li>
+	<li>IPP Everywhere PPDs could have an "unknown" default InputSlot (Issue #44)</li>
+	<li>The `httpAddrListen` function now uses a listen backlog of 128.</li>
+	<li>Added USB quirks (Apple issue #5789, #5823, #5831)</li>
+	<li>Fixed IPP Everywhere v1.1 conformance issues in ippeveprinter.</li>
+	<li>Fixed DNS-SD name collision support in ippeveprinter.</li>
+	<li>Fixed compiler and code analyzer warnings.</li>
+	<li>Fixed TLS support on Windows.</li>
+	<li>Fixed ippfind sub-type searches with Avahi.</li>
+	<li>Fixed the default hostname used by ippeveprinter on macOS.</li>
+	<li>Fixed resolution of local IPP-USB printers with Avahi.</li>
+	<li>Fixed coverity issues (Issue #2)</li>
+	<li>Fixed `httpAddrConnect` issues (Issue #3)</li>
+	<li>Fixed web interface device URI issue (Issue #4)</li>
+	<li>Fixed lp/lpr "printer/class not found" error reporting (Issue #6)</li>
+	<li>Fixed xinetd support for LPD clients (Issue #7)</li>
+	<li>Fixed libtool build issue (Issue #11)</li>
+	<li>Fixed a memory leak in the scheduler (Issue #12)</li>
+	<li>Fixed a potential integer overflow in the PPD hashing code (Issue #13)</li>
+	<li>Fixed output-bin and print-quality handling issues (Issue #18)</li>
+	<li>Fixed PPD options getting mapped to odd IPP values like "tray---4" (Issue #23)</li>
+	<li>Fixed remote access to the cupsd.conf and log files (Issue #24)</li>
+	<li>Fixed the automated test suite when running in certain build/CI environments (Issue #25)</li>
+	<li>Fixed a logging regression caused by a previous change for Apple issue #5604 (Issue #25)</li>
+	<li>Fixed fax phone number handling with GNOME (Issue #40)</li>
+	<li>Fixed potential rounding error in rastertopwg filter (Issue #41)</li>
+	<li>Fixed the "uri-security-supported" value from the scheduler (Issue #42)</li>
+	<li>Fixed IPP backend crash bug with "printer-alert" values (Issue #43)</li>
+	<li>Removed old Solaris inetconv(1m) reference in cups-lpd man page (Issue #46)</li>
+	<li>Fixed default options that incorrectly use the "custom" prefix (Issue #48)</li>
+	<li>Fixed a memory leak when resolving DNS-SD URIs (Issue #49)</li>
+	<li>Fixed systemd status reporting by adopting the notify interface (Issue #51)</li>
+	<li>Fixed crash in rastertopwg (Apple issue #5773)</li>
+	<li>Fixed cupsManualCopies values in IPP Everywhere PPDs (Apple issue #5807)</li>
+</ul>
+
+
+<h2 class="title"><a name="020303">CUPS 2.3.3</a> <em>(April 24, 2020)</em></h2>
+
+<ul>
+	<li>CVE-2020-3898: The `ppdOpen` function did not handle invalid UI constraint.  `ppdcSource::get_resolution` function did not handle invalid resolution strings.</li>
+	<li>CVE-2019-8842: The `ippReadIO` function may under-read an extension field.</li>
+	<li>Fixed WARNING_OPTIONS support for GCC 9.x.</li>
+</ul>
+
+
+<h2 class="title"><a name="020302">CUPS 2.3.2</a></h2>
+
+<ul>
+	<li>Localization updates.</li>
+</ul>
+
+
+<h2 class="title"><a name="020301">CUPS 2.3.1</a> <em>(December 13, 2019)</em></h2>
+
+<ul>
+	<li>Documentation updates (Issue #5661, #5674, #5682)</li>
+	<li>CVE-2019-2228: The `ippSetValuetag` function did not validate the default language value.</li>
+	<li>Fixed a crash bug in the web interface (Issue #5621)</li>
+	<li>The PPD cache code now looks up page sizes using their dimensions (Issue #5633)</li>
+	<li>PPD files containing "custom" option keywords did not work (Issue #5639)</li>
+	<li>Added a workaround for the scheduler's systemd support (Issue #5640)</li>
+	<li>On Windows, TLS certificates generated on February 29 would likely fail (Issue #5643)</li>
+	<li>Added a DigestOptions directive for the `client.conf` file to control whether MD5-based Digest authentication is allowed (Issue #5647)</li>
+	<li>Fixed a bug in the handling of printer resource files (Issue #5652)</li>
+	<li>The libusb-based USB backend now reports an error when the distribution permissions are wrong (Issue #5658)</li>
+	<li>Added paint can labels to Dymo driver (Issue #5662)</li>
+	<li>The `ippeveprinter` program now supports authentication (Issue #5665)</li>
+	<li>The `ippeveprinter` program now advertises DNS-SD services on the correct interfaces, and provides a way to turn them off (Issue #5666)</li>
+	<li>The `--with-dbusdir` option was ignored by the configure script (Issue #5671)</li>
+	<li>Sandboxed applications were not able to get the default printer (Issue #5676)</li>
+	<li>Log file access controls were not preserved by `cupsctl` (Issue #5677)</li>
+	<li>Default printers set with `lpoptions` did not work in all cases (Issue #5681, Issue #5683, Issue #5684)</li>
+	<li>Fixed an error in the jobs web interface template (Issue #5694)</li>
+	<li>Fixed an off-by-one error in `ippEnumString` (Issue #5695)</li>
+	<li>Fixed some new compiler warnings (Issue #5700)</li>
+	<li>Fixed a few issues with the Apple Raster support (rdar://55301114)</li>
+	<li>The IPP backend did not detect all cases where a job should be retried using a raster format (rdar://56021091)</li>
+	<li>Fixed spelling of "fold-accordion".</li>
+	<li>Fixed the default common name for TLS certificates used by `ippeveprinter`.</li>
+	<li>Fixed the option names used for IPP Everywhere finishing options.</li>
+	<li>Added support for the second roll of the DYMO Twin/DUO label printers.</li>
+</ul>
+
+
 <h2 class="title"><a name="020300">CUPS 2.3.0</a> <em>(August 23, 2019)</em></h2>
 
 <ul>
@@ -566,8 +690,7 @@ layout: sub
 	<li>The cups-lpd program did not catch all legacy usage of ISO-8859-1 (Issue #4899)</li>
 	<li>Fixed builds on systems without a working poll() implementation (Issue #4905)</li>
 	<li>Added a USB quirk rule for the Kyocera Ecosys P6026cdn (Issue #4900)</li>
-	<li>The scheduler no longer creates log files on startup
-  (&lt;rdar://problem/28332470>)</li>
+	<li>The scheduler no longer creates log files on startup (&lt;rdar://problem/28332470>)</li>
 	<li>The ippContainsString function now uses case-insensitive comparisons for mimeMediaType, name, and text values in conformance with RFC 2911.</li>
 	<li>The network backends now log the addresses that were found for a printer (&lt;rdar://problem/29268474>)</li>
 	<li>Let's Encrypt certificates did not work when the hostname contained uppercase letters (Issue #4919)</li>
@@ -642,7 +765,7 @@ layout: sub
 	<li>The LPD mini-daemon now detects invalid UTF-8 sequences in job, document, and user names (Issue #4748)</li>
 	<li>The IPP backend now continues on to the next job when the remote server/printer puts the job on hold (&lt;rdar://problem/24858548&gt;)</li>
 	<li>The scheduler did not cancel multi-document jobs immediately (&lt;rdar://problem/24854834&gt;)</li>
-	<li>The scheduler did not return non-shared printers to local clients unless they connected to the domain socket</li> (&lt;rdar://problem/24566996&gt;)
+	<li>The scheduler did not return non-shared printers to local clients unless they connected to the domain socket</li> (&lt;rdar://problem/24566996&gt;)</li>
 	<li>The scheduler now reads the spool directory if one or more job cache entries point to deleted jobs (&lt;rdar://problem/24048846&gt;)</li>
 	<li>Added support for disc media sizes (&lt;rdar://problem/20219536&gt;)</li>
 	<li>The httpAddrConnect and httpConnect* APIs now try connecting to multiple addresses in parallel (&lt;rdar://problem/20643153&gt;)</li>

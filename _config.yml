@@ -7,3 +7,7 @@ defaults:
       type: "pages"
     values:
       layout: "sub"
+
+github:
+  issues_url: "https://github.com/openprinting/cups/issues"
+  repository_url: "https://github.com/openprinting/cups"
