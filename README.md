@@ -1,5 +1,5 @@
-README - CUPS v2.3.4op1 - 2021-02-01
-====================================
+README - CUPS v2.4.0 - 2021-02-16
+=================================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)
 ![Apache 2.0](https://img.shields.io/github/license/openprinting/cups)

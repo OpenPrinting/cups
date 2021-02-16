@@ -13,7 +13,7 @@ dnl We need at least autoconf 2.60...
 AC_PREREQ(2.60)
 
 dnl Package name and version...
-AC_INIT([CUPS], [2.3.4op1], [https://github.com/openprinting/cups/issues], [cups], [https://openprinting.github.io/])
+AC_INIT([CUPS], [2.4.0], [https://github.com/openprinting/cups/issues], [cups], [https://openprinting.github.io/cups])
 
 sinclude(config-scripts/cups-opsys.m4)
 sinclude(config-scripts/cups-common.m4)
