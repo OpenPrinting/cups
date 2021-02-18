@@ -7,6 +7,7 @@ Changes in CUPS v2.4.0
 - The `cupsfilter` command now shows error messages when options are used
   incorrectly (Issue #88)
 - Documentation fixes (Issue #92)
+- Remove underscore from queue name if it is the last character (PR #56)
 
 
 Changes in CUPS v2.3.4
