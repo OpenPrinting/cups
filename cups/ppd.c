@@ -871,15 +871,15 @@ _ppdOpen(
       ppd_decode(ppd->jcl_ps);		/* Decode quoted string */
     }
     else if (!strcmp(keyword, "AccurateScreensSupport"))
-      ppd->accurate_screens = !strcasecmp(string, "True");
+      ppd->accurate_screens = !strcmp(string, "True");
     else if (!strcmp(keyword, "ColorDevice"))
-      ppd->color_device = !strcasecmp(string, "True");
+      ppd->color_device = !strcmp(string, "True");
     else if (!strcmp(keyword, "ContoneOnly"))
-      ppd->contone_only = !strcasecmp(string, "True");
+      ppd->contone_only = !strcmp(string, "True");
     else if (!strcmp(keyword, "cupsFlipDuplex"))
-      ppd->flip_duplex = !strcasecmp(string, "True");
+      ppd->flip_duplex = !strcmp(string, "True");
     else if (!strcmp(keyword, "cupsManualCopies"))
-      ppd->manual_copies = !strcasecmp(string, "True");
+      ppd->manual_copies = !strcmp(string, "True");
     else if (!strcmp(keyword, "cupsModelNumber"))
       ppd->model_number = atoi(string);
     else if (!strcmp(keyword, "cupsColorProfile"))
