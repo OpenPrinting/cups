@@ -3502,6 +3502,12 @@ cups_enum_dests(
 
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, type, mask);
 
+   /*
+    * Pass the number of destinations to fetch the required dest...
+    */
+
+    num_dests = cups_get_dests(filename, NULL, NULL, 1, user_default != NULL, num_dests, &dests);
+
     if (data.def_name[0])
     {
      /*
@@ -3688,6 +3694,8 @@ cups_enum_dests(
   else
     remaining = msec;
 
+  data.num_dests = cups_get_dests(filename, NULL, NULL, 1, user_default != NULL, data.num_dests, &data.dests);
+  
   while (remaining > 0 && (!cancel || !*cancel))
   {
    /*
