@@ -9,6 +9,18 @@ BODY {
   margin: 0px;
 }
 
+img.logo {
+  content: url(../images/cups.png);
+  height: 32px;
+  width: 32px;
+}
+
+img.logo-full {
+  content: url(../images/cups-full.png);
+  height: 128px;
+  width: 424px;
+}
+
 BLOCKQUOTE {
   border-left: 2px solid #111;
   padding: 10px;
