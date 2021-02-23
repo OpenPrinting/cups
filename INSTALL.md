@@ -1,48 +1,35 @@
-INSTALL - CUPS v2.3.4op1 - 2021-02-01
-=====================================
+Building and Installing OpenPrinting CUPS
+=========================================
 
-This file describes how to compile and install CUPS from source code. For more
-information on CUPS see the file called "README.md".  A complete change log can
-be found in "CHANGES.md".
+This file describes how to compile and install CUPS from source code.  For more
+information on CUPS see the file called `README.md`.
 
 Using CUPS requires additional third-party support software and printer drivers.
-These are typically included with your operating system distribution.  Apple
-does not endorse or support third-party support software for CUPS.
-
-> Note: Current versions of macOS DO NOT allow installation to /usr with the
-> default System Integrity Protection (SIP) settings.  In addition, we do not
-> recommend replacing the CUPS supplied with macOS because:
->
-> a. not all versions of CUPS are compatible with every macOS release,
->
-> b. code signing prevents replacement of system libraries and access to the
->    system keychain (needed for encrypted printer sharing), and
->
-> c. software updates will often replace parts of your local installation,
->    potentially rendering your system unusable.
->
-> Apple only supports using the Clang supplied with Xcode to build CUPS on
-> macOS.
+These are typically included with your operating system distribution.
 
 
-BEFORE YOU BEGIN
+Before You Begin
 ----------------
 
 You'll need ANSI-compliant C and C++ compilers, plus a make program and POSIX-
 compliant shell (/bin/sh).  The GNU compiler tools and Bash work well and we
-have tested the current CUPS code against several versions of GCC with excellent
-results.
+have tested the current CUPS code against several versions of Clang and GCC with
+excellent results.
 
-The makefiles used by the project should work with most versions of make.  We've
-tested them with GNU make as well as the make programs shipped by Compaq, HP,
-SGI, and Sun.  BSD users should use GNU make (gmake) since BSD make does not
-support "include".
+The makefiles used by the project should work with POSIX-compliant versions of
+`make`.  We've tested them with GNU make as well as several vendor make programs.
+BSD users should use GNU make (`gmake`) since BSD make is not POSIX-compliant
+and does not support the `include` directive.
 
-Besides these tools you'll want ZLIB library for compression support, the GNU
-TLS library for encryption support on platforms other than iOS, macOS, or
-Windows, and either MIT (1.6.3 or higher) or Heimdal Kerberos for Kerberos
+Besides these tools you'll want ZLIB for compression support, Avahi for mDNS
+support, LIBUSB for USB printing support, the GNU TLS library for encryption
+support on platforms other than iOS, macOS, or Windows, PAM for authentication
+support, and either MIT (1.6.3 or higher) or Heimdal Kerberos for Kerberos
 support.  CUPS will compile and run without these, however you'll miss out on
 many of the features provided by CUPS.
+
+> Note: Kerberos support is deprecated starting with CUPS 2.4.0 and will be
+> removed in a future version of CUPS.
 
 On a stock Ubuntu install, the following command will install the required
 prerequisites:
@@ -51,12 +38,8 @@ prerequisites:
          libgnutls28-dev libkrb5-dev libnss-mdns libpam-dev \
          libsystemd-dev libusb-1.0-0-dev zlib1g-dev
 
-Also, please note that CUPS does not include print filters to support PDF or
-raster printing.  You *must* download GPL Ghostscript and/or the Open Printing
-CUPS filters package separately to print on operating systems other than macOS.
 
-
-CONFIGURATION
+Configuration
 -------------
 
 CUPS uses GNU autoconf, so you should find the usual "configure" script in the
@@ -71,17 +54,14 @@ in another location:
 
     ./configure --prefix=/some/directory
 
-> Note: Current versions of macOS DO NOT allow installation to /usr with the
-> default System Integrity Protection (SIP) settings.
-
 To see a complete list of configuration options, use the `--help` option:
 
     ./configure --help
 
 If any of the dependent libraries are not installed in a system default location
-(typically "/usr/include" and "/usr/lib") you'll need to set the CFLAGS,
-CPPFLAGS, CXXFLAGS, DSOFLAGS, and LDFLAGS environment variables prior to running
-configure:
+(typically "/usr/include" and "/usr/lib") you'll need to set the `CFLAGS`,
+`CPPFLAGS`, `CXXFLAGS`, `DSOFLAGS`, and `LDFLAGS` environment variables prior to
+running configure:
 
     setenv CFLAGS "-I/some/directory"
     setenv CPPFLAGS "-I/some/directory"
@@ -108,81 +88,72 @@ CUPS also includes an extensive set of unit tests that can be used to find and
 diagnose a variety of common problems - use the "--enable-unit-tests" configure
 option to run them at build time.
 
-On macOS, use the `--with-archflags` option to build with the correct set of
-architectures:
-
-    ./configure --with-archflags="-arch i386 -arch x86_64" ...
-
 Once you have configured things, just type:
 
-    make ENTER
+    make
 
 or if you have FreeBSD, NetBSD, or OpenBSD type:
 
-    gmake ENTER
+    gmake
 
 to build the software.
 
 
-TESTING THE SOFTWARE
+Testing the Software
 --------------------
 
 Aside from the built-in unit tests, CUPS includes an automated test framework
 for testing the entire printing system.  To run the tests, just type:
 
-    make test ENTER
+    make test
 
 or if you have FreeBSD, NetBSD, or OpenBSD type:
 
-    gmake test ENTER
+    gmake test
 
 The test framework runs a copy of the CUPS scheduler (cupsd) on port 8631 in
-/tmp/cups-$USER and produces a nice HTML report of the results.
+"/tmp/cups-$USER" and produces a nice HTML report of the results.
 
 
-INSTALLING THE SOFTWARE
+Installing the Software
 -----------------------
 
 Once you have built the software you need to install it.  The "install" target
 provides a quick way to install the software on your local system:
 
-    make install ENTER
+    make install
 
 or for FreeBSD, NetBSD, or OpenBSD:
 
-    gmake install ENTER
+    gmake install
 
-Use the BUILDROOT variable to install to an alternate root directory:
+Use the `BUILDROOT` variable to install to an alternate root directory:
 
-    make BUILDROOT=/some/other/root/directory install ENTER
+    make BUILDROOT=/some/other/root/directory install
 
 You can also build binary packages that can be installed on other machines using
 the RPM spec file ("packaging/cups.spec") or EPM list file
 ("packaging/cups.list").  The latter also supports building of binary RPMs, so
 it may be more convenient to use.
 
-You can find the RPM software at:
+You can find the RPM software at <http://www.rpm.org/>.
 
-    http://www.rpm.org/
-
-The EPM software is available at:
-
-    https://michaelrsweet.github.io/epm
+The EPM software is available at <https://jimjag.github.io/epm/>.
 
 
-CREATING BINARY DISTRIBUTIONS WITH EPM
+Creating Binary Distributions With Epm
 --------------------------------------
 
 The top level makefile supports generation of many types of binary distributions
 using EPM.  To build a binary distribution type:
 
-    make <format> ENTER
+    make FORMAT
 
 or
 
-    gmake <format> ENTER
+    gmake FORMAT
 
-for FreeBSD, NetBSD, and OpenBSD.  The <format> target is one of the following:
+for FreeBSD, NetBSD, and OpenBSD.  The "FORMAT" target is one of the following:
 
 - "epm": Builds a script + tarfile package
 - "bsd": Builds a *BSD package
@@ -192,7 +163,7 @@ for FreeBSD, NetBSD, and OpenBSD.  The <format> target is one of the following:
 - "slackware": Build a Slackware package
 
 
-GETTING DEBUG LOGGING FROM CUPS
+Getting Debug Logging From CUPS
 -------------------------------
 
 When configured with the `--enable-debug-printfs` option, CUPS compiles in
@@ -208,20 +179,3 @@ logging:
   the messages to stderr.  Prefix a filename with "+" to append to an existing
   file.  You can include a single "%d" in the filename to embed the current
   process ID.
-
-
-REPORTING PROBLEMS
-------------------
-
-If you have problems, *read the documentation first*!  If the documentation does
-not solve your problems, please post a message on the users forum at:
-
-    https://www.cups.org/
-
-Include your operating system and version, compiler and version, and any errors
-or problems you've run into.  The "config.log" file and the output from the
-configure script and make should also be sent, as it often helps to determine
-the cause of your problem.
-
-If you are running a version of Linux, be sure to provide the Linux distribution
-you have, too.
