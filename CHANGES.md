@@ -1,16 +1,16 @@
 Changes in OpenPrinting CUPS
 ============================
 
-CUPS v2.4.0
------------
+CUPS v2.4rc1 (Pending)
+----------------------
 
 - The `cupsfilter` command now shows error messages when options are used
   incorrectly (Issue #88)
 - Documentation fixes (Issue #92)
 
 
-CUPS v2.3.3op2
---------------
+CUPS v2.3.3op2 (February 1, 2021)
+---------------------------------
 
 - Security: Fixed a buffer (read) overflow in the `ippReadIO` function
   (CVE-2020-10001)
@@ -30,8 +30,8 @@ CUPS v2.3.3op2
 - Root certificates were incorrectly stored in "~/.cups/ssl".
 
 
-CUPS v2.3.3op1
---------------
+CUPS v2.3.3op1 (November 27, 2020)
+----------------------------------
 
 - The automated test suite can now be activated using `make test` for
   consistency with other projects and CI environments - the old `make check`

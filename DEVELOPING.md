@@ -8,11 +8,10 @@ contributing to the CUPS project.
 How To Contact The Developers
 -----------------------------
 
-The CUPS mailing lists are the primary means of asking questions and informally
-discussing issues and feature requests with the CUPS developers and other
-experienced CUPS users and developers.  The "cups" mailing list is intended for
-CUPS usage questions and new software announcements while the "cups-devel"
-mailing list provides a forum for CUPS developers and monitoring new bugs.
+The Linux Foundation's "printing-architecture" mailing list is the primary means
+of asking questions and informally discussing issues and feature requests with
+the OpenPrinting developers.  To subscribe or see the mailing list archives, go
+to <https://lists.linuxfoundation.org/mailman/listinfo/printing-architecture>.
 
 
 Interfaces
@@ -42,17 +41,17 @@ in the future.
 Build System
 ------------
 
-The CUPS build system uses GNU autoconf to tailor the library to the local
+The CUPS build system uses GNU autoconf to tailor the software to the local
 operating system.  Project files for the current release of Microsoft Visual
 Studio are also provided for Microsoft Windows®.  To improve portability,
 makefiles must not make use of features unique to GNU make.  See the MAKEFILE
 GUIDELINES section for a description of the allowed make features and makefile
 guidelines.
 
-Additional GNU build programs such as GNU automake and GNU libtool must not be
-used.  GNU automake produces non-portable makefiles which depend on GNU-
-specific extensions, and GNU libtool is not portable or reliable enough for
-CUPS.
+Additional GNU build programs such as GNU autoheader, GNU automake, and GNU
+libtool must not be used.  GNU autoheader rewrites the "config.h" template, GNU
+automake produces non-portable makefiles which depend on GNU-specific
+extensions, and GNU libtool is not portable or reliable enough for CUPS.
 
 
 Version Numbering
@@ -123,16 +122,14 @@ software.
 
 ### Source Files
 
-All source files names must be 16 characters or less in length to ensure
-compatibility with older UNIX filesystems.  Source files containing functions
-have an extension of ".c" for C and ".cxx" for C++ source files.  All other
-"include" files have an extension of ".h".  Tabs are set to 8 characters or
-columns.
+All source files names must consist of lowercase ASCII letters, numbers, dash
+("-"), underscore ("_"), and period (".") to ensure compatibility across
+different filesystems.  Source files containing functions have an extension of
+".c" for C and ".cxx" for C++ source files.  All other "include" files have an
+extension of ".h".  Tabs are set to 8 characters/columns.
 
-> Note:
->
-> The ".cxx" extension is used because it is the only common C++ extension
-> between Linux, macOS, UNIX, and Windows.
+> Note: The ".cxx" extension is used because it is the only common C++ extension
+> between Linux®, macOS®, Unix®, and Windows®.
 
 The top of each source file contains a header giving the purpose or nature of
 the source file and the copyright and licensing notice:
@@ -140,7 +137,7 @@ the source file and the copyright and licensing notice:
     /*
      * Description of file contents.
      *
-     * Copyright 2017 by Apple Inc.
+     * Copyright © 2021 by OpenPrinting
      *
      * Licensed under Apache License v2.0.  See the file "LICENSE" for more
      * information.
@@ -168,21 +165,19 @@ header file.
 All source code utilizes block comments within functions to describe the
 operations being performed by a group of statements; avoid putting a comment
 per line unless absolutely necessary, and then consider refactoring the code
-so that it is not necessary.  C source files use the block comment format
-("/* comment */") since many vendor C compilers still do not support C99/C++
-comments ("// comment"):
+so that it is not necessary.  C source files can use either the block comment
+format ("/* comment */") or the C99/C++ "//" comment format, with the block
+comment format being preferred for multi-line comments:
 
     /*
-     * Clear the state array before we begin...
+     * Clear the state array before we begin.  Make sure that every
+     * element is set to `CUPS_STATE_IDLE`.
      */
 
      for (i = 0; i < (sizeof(array) / sizeof(sizeof(array[0])); i ++)
        array[i] = CUPS_STATE_IDLE;
 
-    /*
-     * Wait for state changes on another thread...
-     */
-
+     // Wait for state changes on another thread...
      do
      {
        for (i = 0; i < (sizeof(array) / sizeof(sizeof(array[0])); i ++)
@@ -202,12 +197,9 @@ indented 2 spaces.  The closing brace is then placed on a new line following
 the code at the original indentation:
 
     {
-      int i; /* Looping var */
+      int i; // Looping var
 
-     /*
-      * Process foobar values from 0 to 999...
-      */
-
+      // Process foobar values from 0 to 999...
       for (i = 0; i < 1000; i ++)
       {
         do_this(i);
@@ -262,11 +254,14 @@ any special information needed:
     /*
      * 'do_this()' - Compute y = this(x).
      *
+     * This function computes "this(x)" and returns the result. "x" must be
+     * between 0.0 and 1.1.
+     *
      * Notes: none.
      */
 
-    static float       /* O - Inverse power value, 0.0 <= y <= 1.1 */
-    do_this(float x)   /* I - Power value (0.0 <= x <= 1.1) */
+    static float       // O - Inverse power value, 0.0 <= y <= 1.1
+    do_this(float x)   // I - Power value (0.0 <= x <= 1.1)
     {
       ...
       return (y);
@@ -277,7 +272,8 @@ indicated using the "I" prefix, and values that are both input and output use
 the "IO" prefix for the corresponding in-line comment.
 
 The [codedoc](https://www.msweet.org/codedoc) documentation generator also
-understands the following special text in the function description comment:
+understands some markdown syntax as well as the following special text in the
+function description comment:
 
     @deprecated@         - Marks the function as deprecated: not recommended
                            for new development and scheduled for removal.
@@ -303,10 +299,10 @@ shared by functions within a source file are declared static.  As for global
 variables, local static variables are suitably protected for concurrent access.
 
 Each variable is declared on a separate line and is immediately followed by a
-comment block describing the variable:
+comment describing the variable:
 
-    int         ThisVariable;    /* The current state of this */
-    static int  that_variable;   /* The current state of that */
+    int         ThisVariable;    // The current state of this
+    static int  that_variable;   // The current state of that
 
 
 ### Types
@@ -317,9 +313,9 @@ Type names start with a prefix, typically `cups` or the name of the program,
 to avoid conflicts with system types.  Private type names start with an
 underscore, e.g., `_cups_this_t`, `_cups_that_t`, etc.
 
-Each type has a comment block immediately after the typedef:
+Each type has a comment immediately after the typedef:
 
-    typedef int cups_this_type_t;  /* This type is for CUPS foobar options. */
+    typedef int cups_this_type_t;  // This type is for CUPS foobar options.
 
 
 ### Structures
@@ -330,13 +326,13 @@ Structure names start with a prefix, typically `cups` or the name of the
 program, to avoid conflicts with system types.  Private structure names start
 with an underscore, e.g., `_cups_this_s`, `_cups_that_s`, etc.
 
-Each structure has a comment block immediately after the struct and each member
-is documented similar to the variable naming policy above:
+Each structure has a comment immediately after the struct and each member is
+documented similar to the variable naming policy above:
 
-    struct cups_this_struct_s  /* This structure is for CUPS foobar options. */
+    struct cups_this_struct_s  // This structure is for CUPS foobar options.
     {
-      int this_member;         /* Current state for this */
-      int that_member;         /* Current state for that */
+      int this_member;         // Current state for this
+      int that_member;         // Current state for that
     };
 
 
@@ -351,20 +347,20 @@ constants start with an underscore, e.g., `_CUPS_THIS_CONSTANT`,
 Typed enumerations should be used whenever possible to allow for type checking
 by the compiler.
 
-Comment blocks immediately follow each constant:
+Comments immediately follow each constant:
 
-    typedef enum cups_tray_e  /* Tray enumerations */
+    typedef enum cups_tray_e  // Tray enumerations
     {
-      CUPS_TRAY_THIS,         /* This tray */
-      CUPS_TRAY_THAT          /* That tray */
+      CUPS_TRAY_THIS,         // This tray
+      CUPS_TRAY_THAT          // That tray
     } cups_tray_t;
 
 
 ## Makefile Guidelines
 
-The following is a guide to the makefile-based build system used by CUPS.
-These standards have been developed over the years to allow CUPS to be built on
-as many systems and environments as possible.
+The following is a guide to the (POSIX) makefile-based build system used by
+CUPS.  These guidelines have been developed over the years to allow CUPS to be
+built on as many systems and environments as possible.
 
 
 ### General Organization
@@ -383,7 +379,7 @@ of the file, and CUPS copyright and license notice:
     #
     # Makefile for ...
     #
-    # Copyright 2017 by Apple Inc.
+    # Copyright © 2021 by OpenPrinting
     #
     # Licensed under Apache License v2.0.  See the file "LICENSE" for more
     # information.
@@ -392,9 +388,9 @@ of the file, and CUPS copyright and license notice:
 
 ### Portable Makefile Construction
 
-CUPS uses a common subset of make program syntax to ensure that the software
-can be compiled "out of the box" on as many systems as possible.  The following
-is a list of assumptions we follow when constructing makefiles:
+CUPS uses a common subset of POSIX make program syntax to ensure that the
+software can be compiled "out of the box" on as many systems as possible.  The
+following is a list of assumptions we follow when constructing makefiles:
 
 - Targets; we assume that the make program supports the notion of simple
   targets of the form "name:" that perform tab-indented commands that follow
@@ -534,7 +530,8 @@ The following standard targets are defined in each makefile:
 - `install-headers`; installs all include files in their corresponding locations
   (also see "INSTALL/UNINSTALL SUPPORT"),
 - `install-libs`; installs all library files in their corresponding locations
-  (also see "INSTALL/UNINSTALL SUPPORT"), and
+  (also see "INSTALL/UNINSTALL SUPPORT"),
+- `test`: builds and runs unit tests, and
 - `uninstall`; removes all distribution files from their corresponding locations
   (also see "INSTALL/UNINSTALL SUPPORT").
 
@@ -554,6 +551,7 @@ form an executable file.  A typical program target looks like:
     TAB echo Linking $@...
     TAB $(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
+
 ### Static Libraries
 
 Static libraries have a prefix of "lib" and the extension ".a". A typical
@@ -564,6 +562,7 @@ static library target looks like:
     TAB $(RM) $@
     TAB $(AR) $(ARFLAGS) $@ $(OBJECTS)
     TAB $(RANLIB) $@
+
 
 ### Shared Libraries
 
@@ -590,6 +589,7 @@ several targets that look like:
     TAB $(LN) libname.$(DSOVERSION).dylib libname.$(DSOMAJOR).dylib
     TAB $(LN) libname.$(DSOVERSION).dylib libname.dylib
 
+
 ### Dependencies
 
 Static dependencies are expressed in each makefile following the target, for
@@ -605,8 +605,8 @@ target rule is used to create the automatic dependencies:
     depend:
     TAB $(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
 
-We regenerate the automatic dependencies on an macOS system and express any
-non-macOS dependencies statically in the makefile.
+We regenerate the automatic dependencies on an Ubuntu system and express any
+non-Linux dependencies statically in the makefile.
 
 
 ### Install/Uninstall Support
