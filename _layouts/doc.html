@@ -32,7 +32,20 @@
       </div>
     </header>
     <!-- Page Content -->
-    {{ content }}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <h1>{{page.title}}</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          {{ content }}
+        </div>
+      </div>
+    </div>
     <footer class="navbar navbar-expand navbar-dark bg-dark fixed-bottom justify-content-center">
       <span class="navbar-text">Copyright &copy; 2020-{{ site.time | date: "%Y" }} OpenPrinting.</span>
       <ul class="navbar-nav ml-2">

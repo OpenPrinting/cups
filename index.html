@@ -2,23 +2,155 @@
 title: OpenPrinting CUPS
 layout: default
 ---
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col col-md-9">
+          <h1>OpenPrinting CUPS</h1>
+          <p>OpenPrinting CUPS is the standards-based, open source printing system developed by <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> for Linux® and other Unix®-like operating systems. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
+          <p style="line-height: 2;">
+            <a class="btn btn-primary btn-large" href="{{site.github.repository_url}}/releases"><i class="bi bi-download"></i> Download CUPS</a>
+            <a class="btn btn-auto btn-large" href="#DOCUMENTATION"><i class="bi bi-book"></i> Documentation</a>
+          </p>
+        </div>
+        <div class="col col-md-3">
+          <img class="logo-mascot">
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col col-section">
+          <h2>Introduction</h2>
+          <p>OpenPrinting CUPS is a standards-based, open source printing system for Linux® and other Unix®-like operating systems.  CUPS supports printing to:</p>
+          <ul>
+            <li><a href="https://support.apple.com/en-us/HT201311" target="_blank">AirPrint™</a> and <a href="https://www.pwg.org/ipp/everywhere.html" blank="_blank">IPP Everywhere™</a> printers,</li>
+            <li>Network and local (USB) printers with Printer Applications, and</li>
+            <li>Network and local (USB) printers with (legacy) PPD-based printer drivers.</li>
+          </ul>
+          <p>CUPS provides the System V ("lp") and Berkeley ("lpr") command-line interfaces, a configurable web interface, a C API, and common print filters, drivers, and backends for printing. The <a href="https://github.com/openprinting/cups-filters" target="_blank">cups-filters</a> project provides additional filters and drivers.</p>
+          <p>CUPS is licensed under the <a href="doc/license.html" target="_blank">Apache License Version 2.0</a> with an exception to allow linking against GNU GPL2-only software.</p>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row py-3">
+        <div class="col col-normal">
+          <h2>Setting Up Printer Queues</h2>
 
-<div class="jumbotron">
-  <h1>OpenPrinting CUPS</h1>
-  <p>OpenPrinting CUPS is the standards-based, open source printing system developed by <a class="jumbolink" href="https://openprinting.github.io/">OpenPrinting</a> for Linux<sup>&reg;</sup> and other operating systems. CUPS uses the Internet Printing Protocol (IPP) to support printing to local and network printers.</p>
-  <p class="cups-buttons">
-    <a class="btn btn-primary btn-large" href="{{site.github.repository_url}}/releases">Download CUPS</a>
-    <a class="btn btn-bright btn-large" href="{{site.github.repository_url}}">Github Repository</a>
-    <a class="btn btn-bright btn-large" href="doc/license.html">License</a>
-    <a class="btn btn-bright btn-large" href="{{site.github.issues_url}}">Reporting Bugs</a>
-    <a class="btn btn-bright btn-large" href="faq.html">Frequently Asked Questions</a>
-  </p>
-</div>
+          <p>CUPS includes a web-based administration tool that allows you to manage printers, classes, and jobs on your server.  Open <a href="http://localhost:631/admin/" target="_blank">http://localhost:631/admin/</a> in your browser to access the printer administration tools. You will be asked for the administration password (root or any other user in the "sys", "system", "root", "admin", or "lpadmin" group on your system) when performing any administrative function.</p>
+          <p>The "lpadmin" command is used to manage printers from the command-line. For example, the following command creates a print queue called "myprinter" for an IPP Everywhere printer at address "11.22.33.44":
+          <pre>lpadmin -p myprinter -E -v "ipp://11.22.33.44/ipp/print" -m everywhere</pre>
+          <p>You can run the "lpinfo" command to list all of the available drivers ("lpinfo -m") or printers ("lpinfo -v").</p>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row py-3">
+        <div class="col col-normal">
+          <h2>Printing Files</h2>
 
-{% for post in site.posts offset: 0 limit: 8 %}
-<h2><small class="float-right muted">{{ post.date | date_to_string }}</small>{{post.title}}</h2>
-{{ post.excerpt }}
-{% if post.excerpt != post.content %}
-<p><a class="btn btn-default btn-xs" href=".{{ post.url }}">Read</a></p>
-{% endif %}
-{% endfor %}
+          <p>CUPS provides both the System V ("lp") and Berkeley ("lpr") commands for printing:</p>
+
+          <pre>lp filename
+lpr filename</pre>
+
+          <p>Both the "lp" and "lpr" commands support printing options for the driver:</p>
+
+          <pre>lp -o media=A4 -o resolution=600dpi filename
+lpr -o media=A4 -o resolution=600dpi filename</pre>
+
+          <p>CUPS recognizes many types of images files as well as PDF, PostScript, and text
+          files, so you can print those files directly rather than through an application.</p>
+
+          <p>If you have an application that generates output specifically for your printer
+          then you need to use the "-o raw" or "-l" options:</p>
+
+          <pre>lp -o raw filename
+lpr -l filename</pre>
+
+          <p>This will prevent the filters from misinterpreting your print file.
+          <span id="DOCUMENTATION">&nbsp;</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col col-md-12 col-section">
+          <h1>Documentation</h1>
+        </div>
+        <div class="col col-md-12">
+          <h2>Getting Started</h2>
+        </div>
+        <div class="col col-md-4"><a href="doc/admin.html">Command-Line Printer Administration</a></div>
+        <div class="col col-md-4"><a href="doc/options.html">Command-Line Printing and Options</a></div>
+        <div class="col col-md-4"><a href="doc/firewalls.html">Firewalls</a></div>
+        <div class="col col-md-4"><a href="doc/glossary.html">Glossary</a></div>
+        <div class="col col-md-4"><a href="doc/encryption.html">Managing Encryption Policies</a></div>
+        <div class="col col-md-4"><a href="doc/policies.html">Managing Operation Policies</a></div>
+        <div class="col col-md-4"><a href="doc/overview.html">Overview of CUPS</a></div>
+        <div class="col col-md-4"><a href="doc/accounting.html">Printer Accounting Basics</a></div>
+        <div class="col col-md-4"><a href="doc/sharing.html">Printer Sharing</a></div>
+        <div class="col col-md-4"><a href="doc/relnotes.html">Release Notes</a></div>
+        <div class="col col-md-4"><a href="doc/reporting-bugs.html">Reporting Bugs</a></div>
+        <div class="col col-md-4"><a href="doc/security.html">Server Security</a></div>
+        <div class="col col-md-4"><a href="doc/license.html">Software License Agreement</a></div>
+        <div class="col col-md-4"><a href="doc/translation.html">Translating and Customizing CUPS</a></div>
+        <div class="col col-md-4"><a href="doc/cgi.html">Using CGI Programs</a></div>
+        <div class="col col-md-4"><a href="doc/kerberos.html">Using Kerberos Authentication</a></div>
+        <div class="col col-md-4"><a href="doc/network.html">Using Network Printers</a></div>
+        <div class="col col-md-12">
+          <h2 class="mt-3">Man Pages</h2>
+        </div>
+        <div class="col col-md-3"><a href="doc/man-cancel.html">cancel(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-classes.conf.html">classes.conf(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-client.conf.html">client.conf(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cups.html">cups(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cups-config.html">cups-config(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cups-files.conf.html">cups-files.conf(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cups-lpd.html">cups-lpd(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cups-snmp.html">cups-snmp(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsaccept.html">cupsaccept(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsctl.html">cupsctl(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsd.html">cupsd(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsd-helper.html">cupsd-helper(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsd-logs.html">cupsd-logs(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsd.conf.html">cupsd.conf(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsenable.html">cupsenable(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupsfilter.html">cupsfilter(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cupstestppd.html">cupstestppd(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-ippeveprinter.html">ippeveprinter(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-ippevepcl.html">ippevepcl/ps(7)</a></div>
+        <div class="col col-md-3"><a href="doc/man-ippfind.html">ippfind(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-ipptool.html">ipptool(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-ipptoolfile.html">ipptoolfile(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lp.html">lp(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpadmin.html">lpadmin(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpc.html">lpc(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpinfo.html">lpinfo(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpmove.html">lpmove(8)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpoptions.html">lpoptions(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpq.html">lpq(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpr.html">lpr(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lprm.html">lprm(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-lpstat.html">lpstat(1)</a></div>
+        <div class="col col-md-3"><a href="doc/man-mailto.conf.html">mailto.conf(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-notifier.html">notifier(7)</a></div>
+        <div class="col col-md-3"><a href="doc/man-printers.conf.html">printers.conf(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-cups-snmp.conf.html">snmp.conf(5)</a></div>
+        <div class="col col-md-3"><a href="doc/man-subscriptions.conf.html">subscriptions.conf(5)</a></div>
+        <div class="col col-md-12">
+          <h2 class="mt-3">Programming</h2>
+        </div>
+        <div class="col col-md-4"><a href="doc/cupspm.html">CUPS Programming Manual (HTML)</a></div>
+        <div class="col col-md-4"><a href="doc/cupspm.epub">CUPS Programming Manual (EPUB)</a></div>
+        <div class="col col-md-4"><a href="doc/api-admin.html">Administrative APIs</a></div>
+        <div class="col col-md-12">
+          <h2 class="mt-3">References</h2>
+        </div>
+        <div class="col col-md-4"><a href="doc/spec-design.html">CUPS Design Description</a></div>
+        <div class="col col-md-4"><a href="doc/spec-ipp.html">CUPS Implementation of IPP</a></div>
+        <div class="col col-md-4"><a href="doc/spec-ppd.html">CUPS PPD Extensions</a></div>
+        <div class="col col-md-4"><a href="doc/spec-raster.html">CUPS Raster Format</a></div>
+        <div class="col col-md-4"><a href="doc/spec-stp.html">CUPS Software Test Plan</a></div>
+      </div>
+    </div>
