@@ -10736,7 +10736,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups-config desktop/cups.desktop doc/index.html scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket templates/header.tmpl packaging/cups.list $LANGFILES"
+ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups-config cups.pc desktop/cups.desktop doc/index.html scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket templates/header.tmpl packaging/cups.list $LANGFILES"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure

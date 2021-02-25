@@ -1,0 +1,40 @@
+#cups pkg-config file
+
+
+VERSION="@CUPS_VERSION@"
+APIVERSION="2.3"
+BUILD="@CUPS_BUILD@"
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+includedir=@includedir@
+libdir=@libdir@
+datarootdir=@datadir@
+#datadir=@datadir@
+sysconfdir=@sysconfdir@
+cups_datadir=@CUPS_DATADIR@
+cups_serverbin=@CUPS_SERVERBIN@
+cups_serverroot=@CUPS_SERVERROOT@
+INSTALLSTATIC=@INSTALLSTATIC@
+
+
+# flags for compiler and linker...
+CFLAGS=" -I${includedir}"
+LDFLAGS="@EXPORT_LDFLAGS@ -L${libdir}"
+LIBS="@LIBGSSAPI@ @DNSSDLIBS@ @EXPORT_SSLLIBS@ @LIBZ@ @LIBS@"
+
+Name: "CUPS"
+Description: "CUPS pkg-config file"
+api_version=${APIVERSION}
+build=${BUILD}
+Cflags: ${CFLAGS}
+datadir= ${cups_datadir}
+
+image=
+ldflags= ${LDFLAGS}
+Libs: @EXTLINKCUPS@
+serverbin=${cups_serverbin}
+serverroot=${cups_serverroot}
+
+Version: ${VERSION}
