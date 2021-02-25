@@ -62,27 +62,18 @@ Getting Support and Other Resources
 In addition to the OpenPrinting CUPS home page at
 <https://openprinting.github.io/cups>, we provide a mailing list for CUPS users
 and developers to ask questions and discuss issues at
-<https://linuxfoundation.groups.io/g/cups>.
+<https://linuxfoundation.groups.io/g/printing>.
 
 
-Setting Up Printer Queues Using Your Web Browser
-------------------------------------------------
+Setting Up Printers
+-------------------
 
 CUPS includes a web-based administration tool that allows you to manage
 printers, classes, and jobs on your server.  Open <http://localhost:631/admin/>
-in your browser to access the printer administration tools:
-
-*Do not* use the hostname for your machine - it will not work with the default
-CUPS configuration.  To enable administration access on other addresses, check
-the `Allow Remote Administration` box and click on the `Change Settings` button.
-
-You will be asked for the administration password (root or any other user in the
-"sys", "system", "root", "admin", or "lpadmin" group on your system) when
-performing any administrative function.
-
-
-Setting Up Printer Queues From the Command-Line
------------------------------------------------
+in your browser to access the printer administration tools.  You will be asked
+for the administration password (root or any other user in the "sys", "system",
+"root", "admin", or "lpadmin" group on your system) when performing any
+administrative function.
 
 The `lpadmin` command is used to manage printers from the command-line.  For
 example, the following command creates a print queue called "myprinter" for an
