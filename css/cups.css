@@ -28,8 +28,8 @@ pre {
 /* Logos */
 img.logo {
   content: url(../images/cups.png);
-/*  height: 32px;
-  width: 32px;*/
+  height: 32px;
+  width: 32px;
 }
 
 img.logo-full {
