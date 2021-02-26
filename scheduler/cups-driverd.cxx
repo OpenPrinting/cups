@@ -21,7 +21,10 @@
 #include <cups/transcode.h>
 #include <cups/ppd-private.h>
 #include <ppdc/ppdc.h>
+#include <pthread.h>
 #include <regex.h>
+#include <sys/time.h>
+#include <unistd.h>
 
 
 /*
@@ -113,6 +116,12 @@ typedef union				/**** TAR record format ****/
   }	header;
 } tar_rec_t;
 
+typedef struct                          /**** PPD generator data ****/
+{
+  cups_file_t   *fp;                    /* I - CUPS file */
+  char          *buf;                   /* O - String buffer */
+  size_t        buflen;                 /* I - Size of string buffer */
+} ppd_gen_t;
 
 /*
  * Globals...
@@ -137,6 +146,7 @@ static const char * const PPDTypes[] =	/* ppd-type values */
 			  "drv",
 			  "archive"
 			};
+static char             *PPDVal = NULL; /* Return value of cupsFileGets() */     
 
 
 /*
@@ -183,6 +193,8 @@ static int		read_tar(cups_file_t *fp, char *name, size_t namesize,
 			         struct stat *info);
 static regex_t		*regex_device_id(const char *device_id);
 static regex_t		*regex_string(const char *s);
+void                    *fetch_ppd(void *input);
+char                    *ppd_thread_get(cups_file_t *fp, char *buf, size_t buflen);
 
 
 /*
@@ -1842,7 +1854,7 @@ load_drivers(cups_array_t *include,	/* I - Drivers to include */
 
     if ((fp = cupsdPipeCommand(&pid, filename, argv, 0)) != NULL)
     {
-      while (cupsFileGets(fp, line, sizeof(line)))
+      while (ppd_thread_get(fp, line, sizeof(line)))
       {
        /*
         * Each line is of the form:
@@ -2913,4 +2925,82 @@ regex_string(const char *s)		/* I - String to compare */
   }
 
   return (NULL);
+}
+
+
+/*
+ * 'fetch_ppd()' - Thread function to fetch PPD files.
+ */
+
+void *
+fetch_ppd(void *input)
+{
+
+  ppd_gen_t *alias = (ppd_gen_t *)input;
+  PPDVal = cupsFileGets(alias -> fp, alias -> buf, alias -> buflen);
+
+  return NULL;
+}
+
+
+/*
+ * 'ppd_thread_get()' - Construct a seperate thread for setting timeout of PPD call.
+ */
+
+char *
+ppd_thread_get(cups_file_t *fp,                 /* I - CUPS file */
+              char        *buf,                 /* O - String buffer */
+              size_t      buflen)               /* I - Size of string buffer */
+{
+  ppd_gen_t *arg = (ppd_gen_t *)malloc(sizeof(ppd_gen_t));
+  arg -> fp = fp;
+  arg -> buf = buf;
+  arg -> buflen = buflen;
+
+  int thread_status = 0;                        /* Variable to indicate return status of thread */
+  struct timeval t1,t2;                         /* Time container */
+
+ /*
+  * Create a seperate thread ID and a new thread...
+  */
+
+  pthread_t ptid;
+  pthread_create(&ptid, NULL, fetch_ppd, (void*)arg);
+
+  gettimeofday(&t1, NULL);
+
+ /*
+  * Wait for the thread to return until timeout...
+  */
+ 
+  while (PPDVal == NULL)
+  {
+    gettimeofday(&t2, NULL);
+    double elapsedTime = t2.tv_sec - t1.tv_sec;
+
+    if (elapsedTime > 2)
+    {
+    thread_status = 1;
+    break;
+    } 
+
+    sleep(0.5);
+
+  }
+
+  if (thread_status)
+  {
+   /*
+    * Terminating the thread because PPD fetch exceeded timeout...
+    */
+
+    fprintf(stderr, "%s\n","Thread terminated.");
+    pthread_cancel(ptid);
+
+    PPDVal = NULL;
+  }
+  else
+    pthread_join(ptid, NULL);
+
+  return PPDVal;
 }
