@@ -10,12 +10,12 @@ dnl
 AC_ARG_ENABLE(ssl, [  --disable-ssl           disable SSL/TLS support])
 AC_ARG_ENABLE(cdsassl, [  --enable-cdsassl        use CDSA for SSL/TLS support, default=first])
 AC_ARG_ENABLE(gnutls, [  --enable-gnutls         use GNU TLS for SSL/TLS support, default=second])
-
+PKGCONFIG_GNUTLS=""
 SSLFLAGS=""
 SSLLIBS=""
 have_ssl=0
 CUPS_SERVERKEYCHAIN=""
-
+AC_SUBST(PKGCONFIG_GNUTLS)
 if test x$enable_ssl != xno; then
     dnl Look for CDSA...
     if test $have_ssl = 0 -a "x$enable_cdsassl" != "xno"; then
@@ -43,6 +43,7 @@ if test x$enable_ssl != xno; then
 	    have_ssl=1
 	    SSLLIBS=`$PKGCONFIG --libs gnutls`
 	    SSLFLAGS=`$PKGCONFIG --cflags gnutls`
+	    PKGCONFIG_GNUTLS="gnutls"
 	    AC_DEFINE(HAVE_SSL)
 	    AC_DEFINE(HAVE_GNUTLS)
 	elif test "x$LIBGNUTLSCONFIG" != x; then

@@ -9,9 +9,10 @@ dnl
 
 ONDEMANDFLAGS=""
 ONDEMANDLIBS=""
+PKGCONFIG_LIBSYSTEMD=""
 AC_SUBST(ONDEMANDFLAGS)
 AC_SUBST(ONDEMANDLIBS)
-
+AC_SUBST(PKGCONFIG_LIBSYSTEMD)
 dnl Launchd is used on macOS/Darwin...
 AC_ARG_ENABLE(launchd, [  --disable-launchd       disable launchd support])
 LAUNCHD_DIR=""
@@ -48,15 +49,18 @@ if test x$enable_systemd != xno; then
                         have_systemd=yes
                         ONDEMANDFLAGS=`$PKGCONFIG --cflags libsystemd`
                         ONDEMANDLIBS=`$PKGCONFIG --libs libsystemd`
+                        PKGCONFIG_LIBSYSTEMD="libsystemd"
 		elif $PKGCONFIG --exists libsystemd-daemon; then
 			AC_MSG_RESULT(yes - legacy)
                         have_systemd=yes
 			ONDEMANDFLAGS=`$PKGCONFIG --cflags libsystemd-daemon`
 			ONDEMANDLIBS=`$PKGCONFIG --libs libsystemd-daemon`
+			PKGCONFIG_LIBSYSTEMD="libsystemd-daemon"
 
 			if $PKGCONFIG --exists libsystemd-journal; then
 				ONDEMANDFLAGS="$ONDEMANDFLAGS `$PKGCONFIG --cflags libsystemd-journal`"
 				ONDEMANDLIBS="$ONDEMANDLIBS `$PKGCONFIG --libs libsystemd-journal`"
+				PKGCONFIG_LIBSYSTEMD="$PKGCONFIG_LIBSYSTEMD libsystemd-journal"
 			fi
                 else
                         AC_MSG_RESULT(no)

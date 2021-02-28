@@ -65,6 +65,7 @@ AC_OUTPUT(Makedefs
 	  conf/pam.std
 	  conf/snmp.conf
 	  cups-config
+	  cups.pc
 	  desktop/cups.desktop
 	  doc/index.html
 	  scheduler/cups-lpd.xinetd

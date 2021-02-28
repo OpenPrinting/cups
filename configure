@@ -691,12 +691,14 @@ INITDIR
 SMFMANIFESTDIR
 SYSTEMD_DIR
 LAUNCHD_DIR
+PKGCONFIG_LIBSYSTEMD
 ONDEMANDLIBS
 ONDEMANDFLAGS
 IPPFIND_MAN
 IPPFIND_BIN
 DNSSD_BACKEND
 DNSSDLIBS
+PKGCONFIG_AVAHICLIENT
 LARGEFILE
 PAMMODAUTH
 PAMMOD
@@ -709,6 +711,7 @@ SSLFLAGS
 IPPALIASES
 CUPS_SERVERKEYCHAIN
 LIBGNUTLSCONFIG
+PKGCONFIG_GNUTLS
 PTHREAD_FLAGS
 CUPS_DEFAULT_GSSSERVICENAME
 KRB5CONFIG
@@ -766,12 +769,14 @@ CUPS_DEFAULT_PRINTOPERATOR_AUTH
 DBUS_NOTIFIERLIBS
 DBUS_NOTIFIER
 DBUSDIR
+PKGCONFIG_DBUS
 SERVERLIBS
 BACKLIBS
 ARFLAGS
 LIBZ
 INSTALL_GZIP
 LIBWRAP
+PKGCONFIG_LIBUSB
 USBQUIRKS
 LIBUSB
 EGREP
@@ -6254,9 +6259,10 @@ then :
   enableval=$enable_libusb;
 fi
 
-
+PKGCONFIG_LIBUSB=""
 LIBUSB=""
 USBQUIRKS=""
+
 
 
 
@@ -6272,6 +6278,7 @@ printf "%s\n" "yes" >&6; }
 			CFLAGS="$CFLAGS `$PKGCONFIG --cflags libusb-1.0`"
 			LIBUSB="`$PKGCONFIG --libs libusb-1.0`"
 			USBQUIRKS="\$(DATADIR)/usb"
+			PKGCONFIG_LIBUSB="libusb-1.0"
 		else
 			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
@@ -6535,6 +6542,7 @@ LIBS="$SAVELIBS"
 DBUSDIR=""
 DBUS_NOTIFIER=""
 DBUS_NOTIFIERLIBS=""
+PKGCONFIG_DBUS=""
 
 # Check whether --enable-dbus was given.
 if test ${enable_dbus+y}
@@ -6564,6 +6572,7 @@ printf "%s\n" "yes" >&6; }
 		DBUS_NOTIFIERLIBS="`$PKGCONFIG --libs dbus-1`"
 		SAVELIBS="$LIBS"
 		LIBS="$LIBS $DBUS_NOTIFIERLIBS"
+		PKGCONFIG_DBUS="dbus-1"
 		ac_fn_c_check_func "$LINENO" "dbus_message_iter_init_append" "ac_cv_func_dbus_message_iter_init_append"
 if test "x$ac_cv_func_dbus_message_iter_init_append" = xyes
 then :
@@ -6587,7 +6596,6 @@ fi
 printf "%s\n" "no" >&6; }
 	fi
 fi
-
 
 
 
@@ -8937,7 +8945,7 @@ then :
   enableval=$enable_gnutls;
 fi
 
-
+PKGCONFIG_GNUTLS=""
 SSLFLAGS=""
 SSLLIBS=""
 have_ssl=0
@@ -9096,6 +9104,7 @@ fi
 	    have_ssl=1
 	    SSLLIBS=`$PKGCONFIG --libs gnutls`
 	    SSLFLAGS=`$PKGCONFIG --cflags gnutls`
+	    PKGCONFIG_GNUTLS="gnutls"
 	    printf "%s\n" "#define HAVE_SSL 1" >>confdefs.h
 
 	    printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
@@ -9729,6 +9738,7 @@ DNSSDLIBS=""
 DNSSD_BACKEND=""
 IPPFIND_BIN=""
 IPPFIND_MAN=""
+PKGCONFIG_AVAHICLIENT=""
 
 if test "x$PKGCONFIG" != x -a x$enable_avahi != xno -a x$host_os_name != xdarwin; then
 	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Avahi" >&5
@@ -9741,6 +9751,7 @@ printf "%s\n" "yes" >&6; }
 		DNSSD_BACKEND="dnssd"
 		IPPFIND_BIN="ippfind"
 		IPPFIND_MAN="ippfind.1"
+		PKGCONFIG_AVAHICLIENT="avahi-client"
 		printf "%s\n" "#define HAVE_AVAHI 1" >>confdefs.h
 
 	else
@@ -9815,6 +9826,7 @@ fi
 
 ONDEMANDFLAGS=""
 ONDEMANDLIBS=""
+PKGCONFIG_LIBSYSTEMD=""
 
 
 
@@ -9884,16 +9896,19 @@ printf "%s\n" "yes" >&6; }
                         have_systemd=yes
                         ONDEMANDFLAGS=`$PKGCONFIG --cflags libsystemd`
                         ONDEMANDLIBS=`$PKGCONFIG --libs libsystemd`
+                        PKGCONFIG_LIBSYSTEMD="libsystemd"
 		elif $PKGCONFIG --exists libsystemd-daemon; then
 			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes - legacy" >&5
 printf "%s\n" "yes - legacy" >&6; }
                         have_systemd=yes
 			ONDEMANDFLAGS=`$PKGCONFIG --cflags libsystemd-daemon`
 			ONDEMANDLIBS=`$PKGCONFIG --libs libsystemd-daemon`
+			PKGCONFIG_LIBSYSTEMD="libsystemd-daemon"
 
 			if $PKGCONFIG --exists libsystemd-journal; then
 				ONDEMANDFLAGS="$ONDEMANDFLAGS `$PKGCONFIG --cflags libsystemd-journal`"
 				ONDEMANDLIBS="$ONDEMANDLIBS `$PKGCONFIG --libs libsystemd-journal`"
+				PKGCONFIG_LIBSYSTEMD="$PKGCONFIG_LIBSYSTEMD libsystemd-journal"
 			fi
                 else
                         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -11432,6 +11447,7 @@ do
     "conf/pam.std") CONFIG_FILES="$CONFIG_FILES conf/pam.std" ;;
     "conf/snmp.conf") CONFIG_FILES="$CONFIG_FILES conf/snmp.conf" ;;
     "cups-config") CONFIG_FILES="$CONFIG_FILES cups-config" ;;
+    "cups.pc") CONFIG_FILES="$CONFIG_FILES cups.pc" ;;
     "desktop/cups.desktop") CONFIG_FILES="$CONFIG_FILES desktop/cups.desktop" ;;
     "doc/index.html") CONFIG_FILES="$CONFIG_FILES doc/index.html" ;;
     "scheduler/cups-lpd.xinetd") CONFIG_FILES="$CONFIG_FILES scheduler/cups-lpd.xinetd" ;;

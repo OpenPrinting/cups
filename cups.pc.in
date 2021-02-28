@@ -22,19 +22,15 @@ INSTALLSTATIC=@INSTALLSTATIC@
 # flags for compiler and linker...
 CFLAGS=" -I${includedir}"
 LDFLAGS="@EXPORT_LDFLAGS@ -L${libdir}"
-LIBS="@LIBGSSAPI@ @DNSSDLIBS@ @EXPORT_SSLLIBS@ @LIBZ@ @LIBS@"
-
+LIBS= "@LIBGSSAPI@ @DNSSDLIBS@ @EXPORT_SSLLIBS@ @LIBZ@ @LIBS@"
 Name: "CUPS"
-Description: "CUPS pkg-config file"
+Description: "CUPS API Library"
+Requires:@PKGCONFIG_LIBSYSTEMD@ @PKGCONFIG_LIBUSB@ @PKGCONFIG_GNUTLS@ @PKGCONFIG_AVAHICLIENT@ @PKGCONFIG_DBUS@
 api_version=${APIVERSION}
 build=${BUILD}
 Cflags: ${CFLAGS}
 datadir= ${cups_datadir}
 
-image=
-ldflags= ${LDFLAGS}
 Libs: @EXTLINKCUPS@
-serverbin=${cups_serverbin}
-serverroot=${cups_serverroot}
 
 Version: ${VERSION}

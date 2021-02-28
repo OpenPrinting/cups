@@ -20,7 +20,8 @@ DNSSDLIBS=""
 DNSSD_BACKEND=""
 IPPFIND_BIN=""
 IPPFIND_MAN=""
-
+PKGCONFIG_AVAHICLIENT=""
+AC_SUBST(PKGCONFIG_AVAHICLIENT)
 if test "x$PKGCONFIG" != x -a x$enable_avahi != xno -a x$host_os_name != xdarwin; then
 	AC_MSG_CHECKING(for Avahi)
 	if $PKGCONFIG --exists avahi-client; then
@@ -30,6 +31,7 @@ if test "x$PKGCONFIG" != x -a x$enable_avahi != xno -a x$host_os_name != xdarwin
 		DNSSD_BACKEND="dnssd"
 		IPPFIND_BIN="ippfind"
 		IPPFIND_MAN="ippfind.1"
+		PKGCONFIG_AVAHICLIENT="avahi-client"
 		AC_DEFINE(HAVE_AVAHI)
 	else
 		AC_MSG_RESULT(no)

@@ -210,11 +210,12 @@ AC_CHECK_FUNCS(removefile)
 
 dnl See if we have libusb...
 AC_ARG_ENABLE(libusb, [  --enable-libusb         use libusb for USB printing])
-
+PKGCONFIG_LIBUSB=""
 LIBUSB=""
 USBQUIRKS=""
 AC_SUBST(LIBUSB)
 AC_SUBST(USBQUIRKS)
+AC_SUBST(PKGCONFIG_LIBUSB)
 
 if test "x$PKGCONFIG" != x; then
 	if test x$enable_libusb != xno -a $host_os_name != darwin; then
@@ -225,6 +226,7 @@ if test "x$PKGCONFIG" != x; then
 			CFLAGS="$CFLAGS `$PKGCONFIG --cflags libusb-1.0`"
 			LIBUSB="`$PKGCONFIG --libs libusb-1.0`"
 			USBQUIRKS="\$(DATADIR)/usb"
+			PKGCONFIG_LIBUSB="libusb-1.0"
 		else
 			AC_MSG_RESULT(no)
 			if test x$enable_libusb = xyes; then
@@ -296,7 +298,8 @@ dnl Check for DBUS support
 DBUSDIR=""
 DBUS_NOTIFIER=""
 DBUS_NOTIFIERLIBS=""
-
+PKGCONFIG_DBUS=""
+AC_SUBST(PKGCONFIG_DBUS)
 AC_ARG_ENABLE(dbus, [  --disable-dbus          build without DBUS support])
 AC_ARG_WITH(dbusdir, [  --with-dbusdir          set DBUS configuration directory ],
 	DBUSDIR="$withval")
@@ -312,6 +315,7 @@ if test "x$enable_dbus" != xno -a "x$PKGCONFIG" != x -a "x$host_os_name" != xdar
 		DBUS_NOTIFIERLIBS="`$PKGCONFIG --libs dbus-1`"
 		SAVELIBS="$LIBS"
 		LIBS="$LIBS $DBUS_NOTIFIERLIBS"
+		PKGCONFIG_DBUS="dbus-1"
 		AC_CHECK_FUNC(dbus_message_iter_init_append,
 			      AC_DEFINE(HAVE_DBUS_MESSAGE_ITER_INIT_APPEND))
 		AC_CHECK_FUNC(dbus_threads_init,
@@ -324,7 +328,6 @@ if test "x$enable_dbus" != xno -a "x$PKGCONFIG" != x -a "x$host_os_name" != xdar
 		AC_MSG_RESULT(no)
 	fi
 fi
-
 AC_SUBST(DBUSDIR)
 AC_SUBST(DBUS_NOTIFIER)
 AC_SUBST(DBUS_NOTIFIERLIBS)
