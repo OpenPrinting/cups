@@ -727,7 +727,7 @@ tlscheck:	tlscheck.o $(LIBCUPSSTATIC)
 #
 
 apihelp:
-	echo Generating CUPS API help files...
+	echo "Generating CUPS Programming Manual..."
 	$(RM) cupspm.xml
 	codedoc --section "Programming" --body cupspm.md \
 		cupspm.xml \
@@ -739,17 +739,17 @@ apihelp:
 	codedoc --section "Programming" --body cupspm.md \
 		cupspm.xml > ../doc/help/cupspm.html
 	$(RM) cupspm.xml
+	echo "Generating Administration APIs help..."
 	codedoc --section "Programming" --title "Administration APIs" \
-		--css ../doc/cups-printable.css \
 		--header api-admin.header --body api-admin.shtml \
 		adminutil.c adminutil.h getdevices.c >../doc/help/api-admin.html
+	echo "Generating PPD API (deprecated) help..."
 	codedoc --section "Programming" --title "PPD API (DEPRECATED)" \
-		--css ../doc/cups-printable.css \
 		--header api-ppd.header --body api-ppd.shtml \
 		ppd.h ppd-*.c raster-interstub.c >../doc/help/api-ppd.html
+	echo "Generating Filter and Backend Programming help..."
 	codedoc --section "Programming" \
 		--title "Filter and Backend Programming" \
-		--css ../doc/cups-printable.css \
 		--header api-filter.header --body api-filter.shtml \
 		backchannel.c backend.h backend.c sidechannel.c sidechannel.h \
 		>../doc/help/api-filter.html

@@ -1,386 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <!-- SECTION: Programming -->
-  <head>
-    <title>Introduction to the PPD Compiler</title>
-    <meta name="keywords" content="Programming">
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <meta name="creator" content="codedoc v3.1">
-    <meta name="author" content="Unknown">
-    <meta name="copyright" content="Unknown">
-    <meta name="version" content="0.0">
-    <style type="text/css"><!--
-BODY {
-  font-family: lucida grande, geneva, helvetica, arial, sans-serif;
-}
-
-H1, H2, H3, H4, H5, H6, P, TD, TH {
-  font-family: lucida grande, geneva, helvetica, arial, sans-serif;
-}
-
-H1 { font-size: 2em; }
-H2 { font-size: 1.75em; }
-H3 { font-size: 1.5em; }
-H4 { font-size: 1.25em; }
-
-KBD {
-  font-family: monaco, courier, monospace;
-  font-weight: bold;
-}
-
-PRE {
-  font-family: monaco, courier, monospace;
-}
-
-BLOCKQUOTE {
-  border-left: solid 2px #777;
-  margin: 1em 0;
-  padding: 10px;
-}
-
-BLOCKQUOTE OL LI {
-  margin-left: -1em;
-}
-
-PRE.command, PRE.example {
-  background: #eee;
-  margin: 0 36pt;
-  padding: 10px;
-}
-
-P.compact {
-  margin: 0;
-}
-
-P.example {
-  font-style: italic;
-  margin-left: 36pt;
-}
-
-DL.man DD {
-  margin-left: 5em;
-}
-
-DL.man DT {
-  margin-left: 0;
-}
-
-PRE.man {
-  margin: 0;
-}
-
-PRE.command EM, PRE.example EM {
-  font-family: lucida grande, geneva, helvetica, arial, sans-serif;
-}
-
-P.command {
-  font-family: monaco, courier, monospace;
-  margin-left: 36pt;
-}
-
-P.formula {
-  font-style: italic;
-  margin-left: 36pt;
-}
-
-A IMG {
-  border: none;
-}
-
-A:link:hover IMG {
-  background: #f0f0f0;
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-}
-
-A:link, A:visited {
-  font-weight: inherit;
-  text-decoration: none;
-}
-
-A:link:hover, A:visited:hover, A:active {
-  text-decoration: underline;
-}
-
-SUB, SUP {
-  font-size: 50%;
-}
-
-TR.data, TD.data, TR.data TD {
-  margin-top: 10pt;
-  padding: 5pt;
-  border-bottom: solid 1pt #999999;
-}
-
-TR.data TH {
-  border-bottom: solid 1pt #999999;
-  padding-top: 10pt;
-  padding-left: 5pt;
-  text-align: left;
-}
-
-DIV.table TABLE {
-  border: solid thin #999999;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-DIV.table CAPTION {
-  caption-side: top;
-  font-size: 120%;
-  font-style: italic;
-  font-weight: bold;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-DIV.table TABLE TD {
-  border: solid thin #cccccc;
-  padding: 5pt 10pt 0;
-}
-
-DIV.table TABLE TH {
-  background: #cccccc;
-  border: none;
-  border-bottom: solid thin #999999;
-}
-
-DIV.figure TABLE {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-DIV.figure CAPTION {
-  caption-side: bottom;
-  font-size: 120%;
-  font-style: italic;
-  font-weight: bold;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-TH.label {
-  text-align: right;
-  vertical-align: top;
-}
-
-TH.sublabel {
-  text-align: right;
-  font-weight: normal;
-}
-
-HR {
-  border: solid thin;
-}
-
-SPAN.info {
-  background: black;
-  border: thin solid black;
-  color: white;
-  font-size: 80%;
-  font-style: italic;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-H2 SPAN.info, H3 SPAN.info, H4 SPAN.info {
-  float: right;
-  font-size: 100%;
-}
-
-H1.title {
-}
-
-H2.title, H3.title {
-  border-bottom: solid 2pt #000000;
-}
-
-DIV.indent, TABLE.indent {
-  margin-top: 2em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-}
-
-TABLE.indent {
-  border-collapse: collapse;
-}
-
-TABLE.indent TD, TABLE.indent TH {
-  padding: 0;
-}
-
-TABLE.list {
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-}
-
-TABLE.list TH {
+<head>
+<title>Introduction to the PPD Compiler</title>
+<meta name="keywords" content="Programming">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="generator" content="codedoc v3.7">
+<meta name="author" content="Unknown">
+<meta name="language" content="en-US">
+<meta name="copyright" content="Unknown">
+<meta name="version" content="0.0">
+<style type="text/css"><!--
+body {
   background: white;
-  border-bottom: solid thin #cccccc;
-  color: #444444;
-  padding-top: 10pt;
-  padding-left: 5pt;
-  text-align: left;
-  vertical-align: bottom;
-  white-space: nowrap;
+  color: black;
+  font-family: sans-serif;
+  font-size: 12pt;
 }
-
-TABLE.list TH A {
-  color: #4444cc;
+a {
+  color: black;
 }
-
-TABLE.list TD {
-  border-bottom: solid thin #eeeeee;
-  padding-top: 5pt;
-  padding-left: 5pt;
+a:link, a:visited {
+  color: #00f;
 }
-
-TABLE.list TR:nth-child(even) {
-  background: #f8f8f8;
+a:link:hover, a:visited:hover, a:active {
+  color: #c0c;
 }
-
-TABLE.list TR:nth-child(odd) {
-  background: #f4f4f4;
+body, p, h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+  line-height: 1.4;
 }
-
-DT {
-  margin-left: 36pt;
-  margin-top: 12pt;
-}
-
-DD {
-  margin-left: 54pt;
-}
-
-DL.category DT {
+h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
+  page-break-inside: avoid;
 }
-
-P.summary {
-  margin-left: 36pt;
-  font-family: monaco, courier, monospace;
-}
-
-DIV.summary TABLE {
-  border: solid thin #999999;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin: 10px;
-}
-
-DIV.summary TABLE TD, DIV.summary TABLE TH {
-  border: solid thin #999999;
-  padding: 5px;
-  text-align: left;
-  vertical-align: top;
-}
-
-DIV.summary TABLE THEAD TH {
-  background: #eeeeee;
-}
-
-/* API documentation styles... */
-div.body h1 {
+h1 {
   font-size: 250%;
-  font-weight: bold;
   margin: 0;
 }
-div.body h2 {
+h2 {
   font-size: 250%;
   margin-top: 1.5em;
 }
-div.body h3 {
+h3 {
+  font-size: 200%;
+  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+}
+h4 {
   font-size: 150%;
   margin-bottom: 0.5em;
   margin-top: 1.5em;
 }
-div.body h4 {
+h5 {
+  font-size: 125%;
+  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+}
+h6 {
   font-size: 110%;
   margin-bottom: 0.5em;
   margin-top: 1.5em;
 }
-div.body h5 {
-  font-size: 100%;
-  margin-bottom: 0.5em;
-  margin-top: 1.5em;
+img.title {
+  width: 256px;
 }
-div.contents {
-  background: #e8e8e8;
-  border: solid thin black;
-  padding: 10px;
+div.header h1, div.header p {
+  text-align: center;
 }
-div.contents h1 {
-  font-size: 110%;
+div.contents, div.body, div.footer {
+  page-break-before: always;
 }
-div.contents h2 {
-  font-size: 100%;
-}
-div.contents ul.contents {
-  font-size: 80%;
-}
-.class {
+.class, .enumeration, .function, .struct, .typedef, .union {
   border-bottom: solid 2px gray;
-}
-.constants {
 }
 .description {
   margin-top: 0.5em;
 }
-.discussion {
-}
-.enumeration {
-  border-bottom: solid 2px gray;
-}
 .function {
-  border-bottom: solid 2px gray;
   margin-bottom: 0;
-}
-.members {
-}
-.method {
-}
-.parameters {
-}
-.returnvalue {
-}
-.struct {
-  border-bottom: solid 2px gray;
-}
-.typedef {
-  border-bottom: solid 2px gray;
-}
-.union {
-  border-bottom: solid 2px gray;
-}
-.variable {
-}
-h1, h2, h3, h4, h5, h6 {
-  page-break-inside: avoid;
 }
 blockquote {
   border: solid thin gray;
-  box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
-  padding: 10px 10px 0px;
+  box-shadow: 3px 3px 5px rgba(127,127,127,0.25);
+  margin: 1em 0;
+  padding: 10px;
   page-break-inside: avoid;
 }
 p code, li code, p.code, pre, ul.code li {
-  background: rgba(127,127,127,0.1);
-  border: thin dotted gray;
   font-family: monospace;
   hyphens: manual;
   -webkit-hyphens: manual;
-  page-break-inside: avoid;
 }
 p.code, pre, ul.code li {
+  background: rgba(127,127,127,0.25);
+  border: thin dotted gray;
   padding: 10px;
+  page-break-inside: avoid;
 }
-p code, li code {
-  padding: 2px 5px;
+pre {
+  white-space: pre-wrap;
 }
 a:link, a:visited {
   text-decoration: none;
@@ -394,18 +113,11 @@ span.info {
   font-weight: bold;
   white-space: nowrap;
 }
-h2 span.info, h3 span.info, h4 span.info {
-  border-radius: 10px;
+h1 span.info, h2 span.info, h3 span.info, h4 span.info {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   float: right;
-  font-size: 80%;
   padding: 3px 6px;
-}
-h2.title span.info, h3.title span.info, h4.title span.info {
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-h2.title span.info {
-  padding: 4px 6px;
 }
 ul.code, ul.contents, ul.subcontents {
   list-style-type: none;
@@ -421,35 +133,119 @@ ul.contents > li {
 ul.contents li ul.code, ul.contents li ul.subcontents {
   padding-left: 2em;
 }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td {
+  border: solid 1px gray;
+  padding: 5px 10px;
+  vertical-align: top;
+}
+td.left {
+  text-align: left;
+}
+td.center {
+  text-align: center;
+}
+td.right {
+  text-align: right;
+}
+th {
+  border-bottom: solid 2px gray;
+  padding: 1px 5px;
+  text-align: center;
+  vertical-align: bottom;
+}
+tr:nth-child(even) {
+  background: rgba(127,127,127,0.25);
+}
 table.list {
   border-collapse: collapse;
   width: 100%;
 }
-table.list tr:nth-child(even) {
-  background: rgba(127,127,127,0.1);]n}
 table.list th {
+  border-bottom: none;
   border-right: 2px solid gray;
   font-family: monospace;
+  font-weight: normal;
   padding: 5px 10px 5px 2px;
   text-align: right;
   vertical-align: top;
 }
 table.list td {
+  border: none;
   padding: 5px 2px 5px 10px;
   text-align: left;
   vertical-align: top;
 }
-h1.title {
+h2.title, h3.title {
+  border-bottom: solid 2px gray;
 }
-h2.title {
-  border-bottom: solid 2px black;
+/* Syntax highlighting */
+span.comment {
+  color: darkgreen;
 }
-h3.title {
-  border-bottom: solid 2px black;
+span.directive {
+  color: purple;
+}
+span.number {
+  color: brown;
+}
+span.reserved {
+  color: darkcyan;
+}
+span.string {
+  color: magenta;
+}
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  a {
+    color: #ccc;
+  }
+  a:link, a:visited {
+    color: #66f;
+  }
+  a:link:hover, a:visited:hover, a:active {
+    color: #f06;
+  }
+}
+/* Show contents on left side in web browser */
+@media screen and (min-width: 800px) {
+  div.contents {
+    border-right: solid thin gray;
+    bottom: 0px;
+    box-shadow: 3px 3px 5px rgba(127,127,127,0.5);
+    font-size: 10pt;
+    left: 0px;
+    overflow: scroll;
+    padding: 1%;
+    position: fixed;
+    top: 0px;
+    width: 18%;
+  }
+  div.contents h2.title {
+    margin-top: 0px;
+  }
+  div.header, div.body, div.footer {
+    margin-left: 20%;
+    padding: 1% 2%;
+  }
+}
+/* Center title page content vertically */
+@media print {
+  div.header {
+    padding-top: 33%;
+  }
 }
 --></style>
-  </head>
-  <body>
+</head>
+<body>
+<div class="header">
 <!--
   PPD compiler documentation for CUPS.
 
@@ -485,26 +281,27 @@ that describe the features and capabilities of one or more printers.</P>
 </tr>
 </tbody>
 </table></div>
-    <div class="contents">
-      <h2 class="title">Contents</h2>
-      <ul class="contents">
-        <li><a href="#BASICS">The Basics</a></li>
-        <li><a href="#DRV">Driver Information Files</a><ul class="subcontents">
-          <li><a href="#SIMPLE">A Simple Example</a></li>
-          <li><a href="#GROUPING">Grouping and Inheritance</a></li>
-          <li><a href="#COLOR">Color Support</a></li>
-          <li><a href="#OPTIONS">Defining Custom Options and Option Groups</a></li>
-          <li><a href="#DEFINE">Defining Constants</a></li>
-          <li><a href="#CONDITIONAL">Conditional Statements</a></li>
-          <li><a href="#CONSTRAINTS">Defining Constraints</a></li>
-        </ul></li>
-        <li><a href="#LOCALIZATION">Localization</a><ul class="subcontents">
-          <li><a href="#PPDPO">The ppdpo Utility</a></li>
-          <li><a href="#PPDC_CATALOG">Using Message Catalogs with the PPD Compiler</a></li>
-        </ul></li>
-      </ul>
-    </div>
-    <div class="body">
+</div>
+<div class="contents">
+<h2 class="title">Contents</h2>
+<ul class="contents">
+<li><a href="#BASICS">The Basics</a></li>
+<li><a href="#DRV">Driver Information Files</a><ul class="subcontents">
+<li><a href="#SIMPLE">A Simple Example</a></li>
+<li><a href="#GROUPING">Grouping and Inheritance</a></li>
+<li><a href="#COLOR">Color Support</a></li>
+<li><a href="#OPTIONS">Defining Custom Options and Option Groups</a></li>
+<li><a href="#DEFINE">Defining Constants</a></li>
+<li><a href="#CONDITIONAL">Conditional Statements</a></li>
+<li><a href="#CONSTRAINTS">Defining Constraints</a></li>
+</ul></li>
+<li><a href="#LOCALIZATION">Localization</a><ul class="subcontents">
+<li><a href="#PPDPO">The ppdpo Utility</a></li>
+<li><a href="#PPDC_CATALOG">Using Message Catalogs with the PPD Compiler</a></li>
+</ul></li>
+</ul>
+</div>
+<div class="body">
 <h2 class='title'><a name='BASICS'>The Basics</a></h2>
 
 <P>The PPD compiler, <a href='man-ppdc.html'><code>ppdc(1)</code></a>, is a
@@ -1388,6 +1185,6 @@ ppdc -l de -d ppd/de mydrivers.drv
 </pre>
 
 <p>to generate German PPD files.</p>
-    </div>
-  </body>
+</div>
+</body>
 </html>
