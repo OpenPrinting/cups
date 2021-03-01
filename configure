@@ -693,6 +693,9 @@ SYSTEMD_DIR
 LAUNCHD_DIR
 ONDEMANDLIBS
 ONDEMANDFLAGS
+SNAPDGLIBLIBS
+APPARMORLIBS
+SNAPCTL
 IPPFIND_MAN
 IPPFIND_BIN
 DNSSD_BACKEND
@@ -908,6 +911,10 @@ enable_avahi
 enable_dnssd
 with_dnssd_libs
 with_dnssd_includes
+enable_snapped_cupsd
+enable_snapped_clients
+with_snapctl
+with_cups_control_slot
 enable_launchd
 enable_systemd
 with_systemd
@@ -1607,6 +1614,8 @@ Optional Features:
   --disable-largefile     omit support for large files
   --disable-avahi         disable DNS Service Discovery support using Avahi
   --disable-dnssd         disable DNS Service Discovery support using mDNSResponder
+  --enable-snapped-cupsd  enable support for packaging CUPS in a Snap
+  --enable-snapped-clients enable support for CUPS controlling admin access from snapped clients
   --disable-launchd       disable launchd support
   --disable-systemd       disable systemd support
   --enable-upstart        enable upstart support
@@ -1648,6 +1657,8 @@ Optional Packages:
   --with-pam-module       set the PAM module to use
   --with-dnssd-libs       set directory for DNS Service Discovery library
   --with-dnssd-includes   set directory for DNS Service Discovery includes
+  --with-snapctl          Set path for snapctl, only needed with --enable-snapped-cupsd, default=/usr/bin/snapctl
+  --with-cups-control-slot Name for cups-control slot as defined in snapcraft.yaml, only needed with --enable-snapped-cupsd, default=admin
   --with-systemd          set directory for systemd service files
   --with-smfmanifestdir   set path for Solaris SMF manifest
   --with-rcdir            set path for rc scripts
@@ -9808,6 +9819,230 @@ fi
 fi
 
 
+
+
+
+
+
+# Snap packaging support
+
+# Check whether --enable-snapped_cupsd was given.
+if test ${enable_snapped_cupsd+y}
+then :
+  enableval=$enable_snapped_cupsd;
+fi
+
+# Check whether --enable-snapped_clients was given.
+if test ${enable_snapped_clients+y}
+then :
+  enableval=$enable_snapped_clients;
+fi
+
+
+# Check whether --with-snapctl was given.
+if test ${with_snapctl+y}
+then :
+  withval=$with_snapctl; SNAPCTL="$withval"
+else $as_nop
+  SNAPCTL="/usr/bin/snapctl"
+fi
+
+printf "%s\n" "#define SNAPCTL \"$SNAPCTL\"" >>confdefs.h
+
+
+# Check whether --with-cups_control_slot was given.
+if test ${with_cups_control_slot+y}
+then :
+  withval=$with_cups_control_slot; CUPS_CONTROL_SLOT="$withval"
+else $as_nop
+  CUPS_CONTROL_SLOT="admin"
+fi
+
+printf "%s\n" "#define CUPS_CONTROL_SLOT \"$CUPS_CONTROL_SLOT\"" >>confdefs.h
+
+
+APPARMORLIBS=""
+SNAPDGLIBLIBS=""
+ENABLE_SNAPPED_CUPSD="NO"
+ENABLE_SNAPPED_CLIENTS="NO"
+
+# Both --enable-snapped-cupsd and --enable-snapped-clients are about additional
+# access control for clients, allowing clients which are confined Snaps only
+# to do adminstrative tasks (create queues, delete someone else's jobs, ...)
+# if they plug the "cups-control" interface, so  --enable-snapped-cupsd implies
+# --enable-snapped-clients. The difference is only the method how to determine
+# whether a client Snap is confined and plugs "cups-control".
+if test x$enable_snapped_cupsd == xyes; then
+	enable_snapped_clients=yes;
+fi
+
+if test "x$PKGCONFIG" != x -a x$enable_snapped_clients == xyes; then
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libapparmor" >&5
+printf %s "checking for libapparmor... " >&6; }
+	if $PKGCONFIG --exists libapparmor; then
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+		CFLAGS="$CFLAGS `$PKGCONFIG --cflags libapparmor`"
+		APPARMORLIBS="`$PKGCONFIG --libs libapparmor`"
+		printf "%s\n" "#define HAVE_APPARMOR 1" >>confdefs.h
+
+		if test x$enable_snapped_cupsd == xyes; then
+			if test -n "$ac_tool_prefix"; then
+  # Extract the first word of "${ac_tool_prefix}snapctl", so it can be a program name with args.
+set dummy ${ac_tool_prefix}snapctl; ac_word=$2
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+printf %s "checking for $ac_word... " >&6; }
+if test ${ac_cv_path_SNAPCTL+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  case $SNAPCTL in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_SNAPCTL="$SNAPCTL" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  case $as_dir in #(((
+    '') as_dir=./ ;;
+    */) ;;
+    *) as_dir=$as_dir/ ;;
+  esac
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir$ac_word$ac_exec_ext"; then
+    ac_cv_path_SNAPCTL="$as_dir$ac_word$ac_exec_ext"
+    printf "%s\n" "$as_me:${as_lineno-$LINENO}: found $as_dir$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+SNAPCTL=$ac_cv_path_SNAPCTL
+if test -n "$SNAPCTL"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $SNAPCTL" >&5
+printf "%s\n" "$SNAPCTL" >&6; }
+else
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+
+
+fi
+if test -z "$ac_cv_path_SNAPCTL"; then
+  ac_pt_SNAPCTL=$SNAPCTL
+  # Extract the first word of "snapctl", so it can be a program name with args.
+set dummy snapctl; ac_word=$2
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+printf %s "checking for $ac_word... " >&6; }
+if test ${ac_cv_path_ac_pt_SNAPCTL+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  case $ac_pt_SNAPCTL in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ac_pt_SNAPCTL="$ac_pt_SNAPCTL" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  case $as_dir in #(((
+    '') as_dir=./ ;;
+    */) ;;
+    *) as_dir=$as_dir/ ;;
+  esac
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir$ac_word$ac_exec_ext"; then
+    ac_cv_path_ac_pt_SNAPCTL="$as_dir$ac_word$ac_exec_ext"
+    printf "%s\n" "$as_me:${as_lineno-$LINENO}: found $as_dir$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+ac_pt_SNAPCTL=$ac_cv_path_ac_pt_SNAPCTL
+if test -n "$ac_pt_SNAPCTL"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_pt_SNAPCTL" >&5
+printf "%s\n" "$ac_pt_SNAPCTL" >&6; }
+else
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+
+  if test "x$ac_pt_SNAPCTL" = x; then
+    SNAPCTL=""
+  else
+    case $cross_compiling:$ac_tool_warned in
+yes:)
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: using cross tools not prefixed with host triplet" >&5
+printf "%s\n" "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
+ac_tool_warned=yes ;;
+esac
+    SNAPCTL=$ac_pt_SNAPCTL
+  fi
+else
+  SNAPCTL="$ac_cv_path_SNAPCTL"
+fi
+
+			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"snapctl is-connected\" support" >&5
+printf %s "checking for \"snapctl is-connected\" support... " >&6; }
+			if test "x$SNAPCTL" != x && $SNAPCTL is-connected --help >/dev/null 2>&1; then
+				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+				printf "%s\n" "#define HAVE_SNAPCTL_IS_CONNECTED 1" >>confdefs.h
+
+				printf "%s\n" "#define BUILD_SNAP 1" >>confdefs.h
+
+				ENABLE_SNAPPED_CUPSD="YES"
+				ENABLE_SNAPPED_CLIENTS="YES"
+			else
+				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+			fi
+		else
+			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for snapd-glib" >&5
+printf %s "checking for snapd-glib... " >&6; }
+			if $PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0; then
+				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+				CFLAGS="$CFLAGS `$PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0`"
+				SNAPDGLIBLIBS="`$PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0`"
+				printf "%s\n" "#define HAVE_SNAPDGLIB 1" >>confdefs.h
+
+				printf "%s\n" "#define BUILD_SNAP 1" >>confdefs.h
+
+				ENABLE_SNAPPED_CLIENTS="YES"
+			else
+				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+			fi
+		fi
+	else
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+	fi
+fi
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Snap support" >&5
+printf %s "checking for Snap support... " >&6; }
+if test "x$ENABLE_SNAPPED_CLIENTS" != "xNO"; then
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+else
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
 
 
 

@@ -4,9 +4,7 @@ Changes in OpenPrinting CUPS
 CUPS v2.4rc1 (Pending)
 ----------------------
 
-- Let the scheduler check whether if an administrative request from a client
-  is from a confined Snap and then only grant access if the client Snap plugs
-  "cups-control". This is optional, to be activated by configure options.
+- Added support for CUPS running in a snapcraft snap.
 - The `testlang` unit test program now loops over all of the available locales
   by default (Issue #85)
 - The `cupsfilter` command now shows error messages when options are used
