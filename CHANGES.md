@@ -4,6 +4,8 @@ Changes in OpenPrinting CUPS
 CUPS v2.4rc1 (Pending)
 ----------------------
 
+- The `testlang` unit test program now loops over all of the available locales
+  by default (Issue #85)
 - The `cupsfilter` command now shows error messages when options are used
   incorrectly (Issue #88)
 - Documentation fixes (Issue #92)
