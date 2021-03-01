@@ -45,7 +45,6 @@ HELPFILES	=	\
 			help/api-admin.html \
 			help/api-filter.html \
 			help/api-ppd.html \
-			help/api-raster.html \
 			help/cgi.html \
 			help/cupspm.html \
 			help/encryption.html \

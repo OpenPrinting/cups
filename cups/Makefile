@@ -731,8 +731,9 @@ apihelp:
 	$(RM) cupspm.xml
 	codedoc --section "Programming" --body cupspm.md \
 		cupspm.xml \
-		auth.c cups.h dest*.c encode.c http.h http*.c ipp.h ipp*.c \
-		options.c tls-darwin.c usersys.c util.c \
+		array.[ch] auth.c cups.h dest*.c dir.[ch] encode.c file.[ch] \
+		http.h http*.c ipp.h ipp*.c options.c pwg.[ch] \
+		raster.h raster-stubs.c tls-darwin.c usersys.c util.c \
 		--coverimage cupspm.png \
 		--epub ../doc/help/cupspm.epub
 	codedoc --section "Programming" --body cupspm.md \
@@ -746,11 +747,6 @@ apihelp:
 		--css ../doc/cups-printable.css \
 		--header api-ppd.header --body api-ppd.shtml \
 		ppd.h ppd-*.c raster-interstub.c >../doc/help/api-ppd.html
-	codedoc --section "Programming" --title "Raster API" \
-		--css ../doc/cups-printable.css \
-		--header api-raster.header --body api-raster.shtml \
-		../cups/raster.h raster-stubs.c \
-		>../doc/help/api-raster.html
 	codedoc --section "Programming" \
 		--title "Filter and Backend Programming" \
 		--css ../doc/cups-printable.css \
