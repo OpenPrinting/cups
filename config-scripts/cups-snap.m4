@@ -1,14 +1,14 @@
 dnl
-dnl Support for packaging CUPS in a Snap.
+dnl Support for packaging CUPS in a Snap and have it work with client Snaps.
 dnl
-dnl Copyright © 2020 by Till Kamppeter
-dnl Copyright © 2007-2019 by Apple Inc.
+dnl Copyright © 2021 by Till Kamppeter
+dnl Copyright © 2021 by OpenPrinting
 dnl
 dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
-# Snap packaging support
+# Snap packaging and Snap interaction support
 
 AC_ARG_ENABLE(snapped_cupsd, [  --enable-snapped-cupsd  enable support for packaging CUPS in a Snap])
 AC_ARG_ENABLE(snapped_clients, [  --enable-snapped-clients enable support for CUPS controlling admin access from snapped clients])
@@ -47,7 +47,8 @@ if test "x$PKGCONFIG" != x -a x$enable_snapped_clients == xyes; then
 			if test "x$SNAPCTL" != x && $SNAPCTL is-connected --help >/dev/null 2>&1; then
 				AC_MSG_RESULT(yes)
 				AC_DEFINE(HAVE_SNAPCTL_IS_CONNECTED)
-				AC_DEFINE(BUILD_SNAP)
+				AC_DEFINE(SUPPORT_SNAPPED_CUPSD)
+				AC_DEFINE(SUPPORT_SNAPPED_CLIENTS)
 				ENABLE_SNAPPED_CUPSD="YES"
 				ENABLE_SNAPPED_CLIENTS="YES"
 			else
@@ -60,7 +61,7 @@ if test "x$PKGCONFIG" != x -a x$enable_snapped_clients == xyes; then
 				CFLAGS="$CFLAGS `$PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0`"
 				SNAPDGLIBLIBS="`$PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0`"
 				AC_DEFINE(HAVE_SNAPDGLIB)
-				AC_DEFINE(BUILD_SNAP)
+				AC_DEFINE(SUPPORT_SNAPPED_CLIENTS)
 				ENABLE_SNAPPED_CLIENTS="YES"
 			else
 				AC_MSG_RESULT(no)
@@ -73,7 +74,11 @@ fi
 
 AC_MSG_CHECKING(for Snap support)
 if test "x$ENABLE_SNAPPED_CLIENTS" != "xNO"; then
-	AC_MSG_RESULT(yes)
+	if test "x$ENABLE_SNAPPED_CUPSD" != "xNO"; then
+		AC_MSG_RESULT(yes: cupsd + clients)
+	else
+		AC_MSG_RESULT(yes: clients only)
+	fi
 else
 	AC_MSG_RESULT(no)
 fi

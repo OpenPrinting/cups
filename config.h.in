@@ -671,7 +671,8 @@
 #undef HAVE_SNAPCTL_IS_CONNECTED
 #undef SNAPCTL
 #undef CUPS_CONTROL_SLOT
-#undef BUILD_SNAP
+#undef SUPPORT_SNAPPED_CUPSD
+#undef SUPPORT_SNAPPED_CLIENTS
 
 /*
  * Location of macOS localization bundle, if any.

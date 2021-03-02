@@ -970,7 +970,11 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
 {
   int		i;			/* Looping var */
   const char	*argv[8],		/* Command-line arguments */
+#ifdef SUPPORT_SNAPPED_CUPSD
+		*envp[21],		/* Environment variables */
+#else
 		*envp[17],		/* Environment variables */
+#endif /* SUPPORT_SNAPPED_CUPSD */
 		*temp;			/* Temporary string */
   char		*optstr,		/* Filter options */
 		content_type[1024],	/* CONTENT_TYPE */
@@ -978,9 +982,17 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
 		cups_fontpath[1024],	/* CUPS_FONTPATH */
 		cups_serverbin[1024],	/* CUPS_SERVERBIN */
 		cups_serverroot[1024],	/* CUPS_SERVERROOT */
+#ifdef SUPPORT_SNAPPED_CUPSD
+		fontconfig_file[1024],	/* FONTCONFIG_FILE */
+		fontconfig_path[1024],	/* FONTCONFIG_PATH */
+		fontconfig_sysroot[1024], /* FONTCONFIG_SYSROOT */
+#endif /* SUPPORT_SNAPPED_CUPSD */
 		final_content_type[1024] = "",
 					/* FINAL_CONTENT_TYPE */
 		lang[1024],		/* LANG */
+#ifdef SUPPORT_SNAPPED_CUPSD
+		ld_library_path[2048],	/* LD_LIBRARY_PATH */
+#endif /* SUPPORT_SNAPPED_CUPSD */
 		path[1024],		/* PATH */
 		ppd[1024],		/* PPD */
 		printer_info[255],	/* PRINTER_INFO env variable */
@@ -1039,6 +1051,9 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   * Setup the filter environment and command-line...
   */
 
+  /* If we are running confined in a Snap, also pass on fontconfig-related
+     environment variables and LD_LIBRARY_PATH */
+
   optstr = escape_options(num_options, options);
 
   snprintf(content_type, sizeof(content_type), "CONTENT_TYPE=%s/%s",
@@ -1049,8 +1064,20 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
            ServerBin);
   snprintf(cups_serverroot, sizeof(cups_serverroot), "CUPS_SERVERROOT=%s",
            ServerRoot);
+#ifdef SUPPORT_SNAPPED_CUPSD
+  snprintf(fontconfig_file, sizeof(fontconfig_file), "FONTCONFIG_FILE=%s",
+           getenv("FONTCONFIG_FILE"));
+  snprintf(fontconfig_path, sizeof(fontconfig_path), "FONTCONFIG_PATH=%s",
+           getenv("FONTCONFIG_PATH"));
+  snprintf(fontconfig_sysroot, sizeof(fontconfig_sysroot),
+	   "FONTCONFIG_SYSROOT=%s", getenv("FONTCONFIG_SYSROOT"));
+#endif /* SUPPORT_SNAPPED_CUPSD */
   language = cupsLangDefault();
   snprintf(lang, sizeof(lang), "LANG=%s.UTF8", language->language);
+#ifdef SUPPORT_SNAPPED_CUPSD
+  snprintf(ld_library_path, sizeof(ld_library_path), "LD_LIBRARY_PATH=%s",
+	   getenv("LD_LIBRARY_PATH"));
+#endif /* SUPPORT_SNAPPED_CUPSD */
   snprintf(path, sizeof(path), "PATH=%s", Path);
   if (ppdfile)
     snprintf(ppd, sizeof(ppd), "PPD=%s", ppdfile);
@@ -1122,6 +1149,26 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   envp[5]  = cups_serverroot;
   envp[6]  = lang;
   envp[7]  = path;
+#ifdef SUPPORT_SNAPPED_CUPSD
+  envp[8]  = ld_library_path;
+  envp[9]  = ppd;
+  envp[10] = printer_info;
+  envp[11] = printer_location;
+  envp[12] = printer_name;
+  envp[13] = rip_max_cache;
+  envp[14] = userenv;
+  envp[15] = "CHARSET=utf-8";
+  envp[16] = fontconfig_file;
+  envp[17] = fontconfig_path;
+  envp[18] = fontconfig_sysroot;
+  if (final_content_type[0])
+  {
+    envp[19] = final_content_type;
+    envp[20] = NULL;
+  }
+  else
+    envp[19] = NULL;
+#else
   envp[8]  = ppd;
   envp[9]  = printer_info;
   envp[10] = printer_location;
@@ -1136,6 +1183,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   }
   else
     envp[15] = NULL;
+#endif /* SUPPORT_SNAPPED_CUPSD */
 
   for (i = 0; argv[i]; i ++)
     fprintf(stderr, "DEBUG: argv[%d]=\"%s\"\n", i, argv[i]);
@@ -1467,7 +1515,14 @@ read_cups_files_conf(
     cupsFileClose(fp);
   }
 
+  /* Set the PATH environment variable for external executables, pass
+     through the PATH from the environment in which cupsd was called
+     if we are running confined in a Snap */
+#ifdef SUPPORT_SNAPPED_CUPSD
+  snprintf(line, sizeof(line), "%s/filter:%s:" CUPS_BINDIR ":" CUPS_SBINDIR ":/bin:/usr/bin", ServerBin, getenv("PATH"));
+#else
   snprintf(line, sizeof(line), "%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR ":/bin:/usr/bin", ServerBin);
+#endif /* SUPPORT_SNAPPED_CUPSD */
   set_string(&Path, line);
 
   return (0);

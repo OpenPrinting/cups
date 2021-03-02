@@ -5,6 +5,7 @@ CUPS v2.4rc1 (Pending)
 ----------------------
 
 - Added support for CUPS running in a snapcraft snap.
+- Added extra check for administrative inquiries from snapped clients.
 - The `testlang` unit test program now loops over all of the available locales
   by default (Issue #85)
 - The `cupsfilter` command now shows error messages when options are used

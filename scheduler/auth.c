@@ -51,13 +51,15 @@ typedef struct sockpeercred cupsd_ucred_t;
 #  endif
 #  define CUPSD_UCRED_UID(c) (c).uid
 #endif /* HAVE_SYS_UCRED_H */
-#ifdef BUILD_SNAP
-#  include <sys/apparmor.h>
+#ifdef SUPPORT_SNAPPED_CLIENTS
+#  ifdef HAVE_APPARMOR
+#    include <sys/apparmor.h>
+#  endif
 #  ifdef HAVE_SNAPDGLIB
 #    include <glib.h>
 #    include <snapd-glib/snapd-glib.h>
 #  endif
-#endif /* BUILD_SNAP */
+#endif /* SUPPORT_SNAPPED_CLIENTS */
 
 
 /*
@@ -1546,7 +1548,7 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
   * occurs in the process of finding this out.
   */
 
-#if defined(AF_LOCAL) && defined(BUILD_SNAP)
+#if defined(AF_LOCAL) && defined(SUPPORT_SNAPPED_CLIENTS)
 
  /*
   * Get the client's file descriptor and from this its AppArmor context
@@ -1565,7 +1567,7 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
     else
     {
       char *context = NULL; /* AppArmor profile name of client */
-#  ifdef HAVE_SNAPCTL_IS_CONNECTED
+#  if defined(SUPPORT_SNAPPED_CUPSD) && defined(HAVE_SNAPCTL_IS_CONNECTED)
       char buf[1024];
       char *argv[5];       /* snapctl command line */
       int fds[2],          /* Pipe file descriptors for stderr of snapctl */
@@ -1575,20 +1577,21 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       int status = 65536;  /* Status of forked snapctl process */
       int wstatus;         /* Wait result of forked snapctl process */
 #  else
-#    ifdef HAVE_SNAPDGLIB
+#    if !defined(SUPPORT_SNAPPED_CUPSD) && defined(HAVE_SNAPDGLIB)
       char *snap_name = NULL;    /* Client Snap name */
       char *dot;                 /* Pointer to dot in AppArmor profile name */
       SnapdClient *snapd = NULL; /* Data structure of snapd access */
       SnapdSnap *snap = NULL;    /* Data structure of client Snap */
       GPtrArray *plugs = NULL;   /* Plug search result of client Snap */
       GError *error = NULL;      /* Glib error */
-#    endif /* HAVE_SNAPDGLIB */
-#  endif /* HAVE_SNAPCTL_IS_CONNECTED */
+#    endif /* !SUPPORT_SNAPPED_CUPSD && HAVE_SNAPDGLIB */
+#  endif /* SUPPORT_SNAPPED_CUPSD && HAVE_SNAPCTL_IS_CONNECTED */
 
-#  ifndef HAVE_SNAPCTL_IS_CONNECTED
+
+#  ifndef SUPPORT_SNAPPED_CUPSD
 
       /* If AppArmor is not enabled, then we can't identify the client */
-      /* With cupsd running in a Snaps, the "mount-observe" interface
+      /* With cupsd running in a Snap, the "mount-observe" interface
          needs to be plugged, therefore we do this only if not snapped. */
       if (!aa_is_enabled())
       {
@@ -1596,7 +1599,7 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
 	goto snap_check_done;
       }
 
-#  endif /* !HAVE_SNAPCTL_IS_CONNECTED */
+#  endif /* !SUPPORT_SNAPPED_CUPSD */
 
       if (aa_getpeercon(peerfd, &context, NULL) < 0)
       {
@@ -1605,7 +1608,7 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       } else
 	cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: AppArmor profile of client process: %s", context);
 
-#  ifdef HAVE_SNAPCTL_IS_CONNECTED
+#  if defined(SUPPORT_SNAPPED_CUPSD) && defined(HAVE_SNAPCTL_IS_CONNECTED)
 
      /*
       * Run
@@ -1789,13 +1792,13 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
 	free(context);
 
 #  else
-#    ifdef HAVE_SNAPDGLIB
+#    if !defined(SUPPORT_SNAPPED_CUPSD) && defined(HAVE_SNAPDGLIB)
 
      /*
       * If the client is a Snap, extract the client Snap's name from
-      * the AppArmor context and the query snapd to find out about the
-      * Snap's confinement type and whether it plugs
-      * cups-control. Grant access if
+      * the AppArmor context and then query snapd to find out about the
+      * Snap's confinement type and whether it plugs cups-control. Grant
+      * access if
       *
       *   - the client is not a Snap
       *   - the client is a classic Snap
@@ -1814,8 +1817,8 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       *       Snap Store. This is the reason why the snapctl method
       *       (above) got created by the snapd developers.
       *
-      * This is the preferred method to run CUPS unsnapped, as is the
-      * only way to check Snap status on clients from an unsnapped
+      * This is the preferred method to run CUPS unsnapped, as this is
+      * the only way to check Snap status on clients from an unsnapped
       * cupsd.
       */
 
@@ -1903,15 +1906,19 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       if (context)
 	free(context);
 
-#    endif /* HAVE_SNAPDGLIB */
-#  endif /* HAVE_SNAPCTL_IS_CONNECTED */
+#    endif /* !SUPPORT_SNAPPED_CUPSD && HAVE_SNAPDGLIB */
+#  endif /* SUPPORT_SNAPPED_CUPSD && HAVE_SNAPCTL_IS_CONNECTED */
 
     }
   }
 
-#endif /* AF_LOCAL && BUILD_SNAP */
-
   cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: Access %s", ret == 1 ? "granted" : "denied");
+
+#else
+
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: Access granted (no extra checking)");
+
+#endif /* AF_LOCAL && SUPPORT_SNAPPED_CLIENTS */
 
   return ret;
 }
