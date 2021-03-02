@@ -9824,7 +9824,7 @@ fi
 
 
 
-# Snap packaging support
+# Snap packaging and Snap interaction support
 
 # Check whether --enable-snapped_cupsd was given.
 if test ${enable_snapped_cupsd+y}
@@ -10002,7 +10002,9 @@ printf %s "checking for \"snapctl is-connected\" support... " >&6; }
 printf "%s\n" "yes" >&6; }
 				printf "%s\n" "#define HAVE_SNAPCTL_IS_CONNECTED 1" >>confdefs.h
 
-				printf "%s\n" "#define BUILD_SNAP 1" >>confdefs.h
+				printf "%s\n" "#define SUPPORT_SNAPPED_CUPSD 1" >>confdefs.h
+
+				printf "%s\n" "#define SUPPORT_SNAPPED_CLIENTS 1" >>confdefs.h
 
 				ENABLE_SNAPPED_CUPSD="YES"
 				ENABLE_SNAPPED_CLIENTS="YES"
@@ -10020,7 +10022,7 @@ printf "%s\n" "yes" >&6; }
 				SNAPDGLIBLIBS="`$PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0`"
 				printf "%s\n" "#define HAVE_SNAPDGLIB 1" >>confdefs.h
 
-				printf "%s\n" "#define BUILD_SNAP 1" >>confdefs.h
+				printf "%s\n" "#define SUPPORT_SNAPPED_CLIENTS 1" >>confdefs.h
 
 				ENABLE_SNAPPED_CLIENTS="YES"
 			else
@@ -10037,8 +10039,13 @@ fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Snap support" >&5
 printf %s "checking for Snap support... " >&6; }
 if test "x$ENABLE_SNAPPED_CLIENTS" != "xNO"; then
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
+	if test "x$ENABLE_SNAPPED_CUPSD" != "xNO"; then
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes: cupsd + clients" >&5
+printf "%s\n" "yes: cupsd + clients" >&6; }
+	else
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes: clients only" >&5
+printf "%s\n" "yes: clients only" >&6; }
+	fi
 else
 	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
