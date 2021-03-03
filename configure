@@ -751,6 +751,7 @@ CUPS_REQUESTS
 CUPS_LOGDIR
 CUPS_LOCALEDIR
 CUPS_FONTPATH
+CUPS_PKGCONFIGPATH
 CUPS_DOCROOT
 MENUDIR
 ICONDIR
@@ -885,6 +886,7 @@ with_cachedir
 with_icondir
 with_menudir
 with_docdir
+with_pkgconfigpath
 with_fontpath
 with_logdir
 with_rundir
@@ -1642,6 +1644,7 @@ Optional Packages:
   --with-icondir          set path for application icons
   --with-menudir          set path for application menus
   --with-docdir           set path for documentation
+  --with-pkgconfigpath         set path for pkgconfig files
   --with-fontpath         set font path for pstoraster
   --with-logdir           set path for log files
   --with-rundir           set transient run-time state directory
@@ -7079,6 +7082,32 @@ else
 fi
 
 printf "%s\n" "#define CUPS_DOCROOT \"$docdir\"" >>confdefs.h
+
+
+
+
+
+
+# pkgConfig files
+
+# Check whether --with-pkgconfigpath was given.
+if test ${with_pkgconfigpath+y}
+then :
+  withval=$with_pkgconfigpath; pkgconfigpath="$withval"
+else $as_nop
+  pkgconfigpath=""
+fi
+
+
+if test "x$pkgconfigpath" = "x"; then
+	CUPS_PKGCONFIGPATH="$exec_prefix/lib/pkgconfig"
+else
+	CUPS_PKGCONFIGPATH="$pkgconfigpath"
+fi
+
+
+printf "%s\n" "#define CUPS_PKGCONFIGPATH \"$CUPS_PKGCONFIGPATH\"" >>confdefs.h
+
 
 
 

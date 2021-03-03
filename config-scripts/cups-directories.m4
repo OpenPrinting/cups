@@ -212,6 +212,23 @@ fi
 AC_DEFINE_UNQUOTED(CUPS_DOCROOT, "$docdir")
 AC_SUBST(CUPS_DOCROOT)
 
+
+
+
+# pkgConfig files
+AC_ARG_WITH(pkgconfigpath, [  --with-pkgconfigpath         set path for pkgconfig files],pkgconfigpath="$withval",pkgconfigpath="")
+
+if test "x$pkgconfigpath" = "x"; then
+	CUPS_PKGCONFIGPATH="$exec_prefix/lib/pkgconfig"
+else
+	CUPS_PKGCONFIGPATH="$pkgconfigpath"
+fi
+
+AC_SUBST(CUPS_PKGCONFIGPATH)
+AC_DEFINE_UNQUOTED(CUPS_PKGCONFIGPATH, "$CUPS_PKGCONFIGPATH")
+
+
+
 # Fonts
 AC_ARG_WITH(fontpath, [  --with-fontpath         set font path for pstoraster],fontpath="$withval",fontpath="")
 

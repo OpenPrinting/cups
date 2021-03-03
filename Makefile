@@ -103,6 +103,7 @@ distclean:	clean
 	$(RM) Makedefs config.h config.log config.status
 	$(RM) conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf
 	$(RM) cups-config
+	$(RM) cups.pc
 	$(RM) desktop/cups.desktop
 	$(RM) doc/index.html
 	$(RM) packaging/cups.list
@@ -173,6 +174,9 @@ install-data:
 	echo Installing cups-config script...
 	$(INSTALL_DIR) -m 755 $(BINDIR)
 	$(INSTALL_SCRIPT) cups-config $(BINDIR)/cups-config
+	echo Installing cups.pc file...
+	$(INSTALL_DIR) -m 755 $(PKGCONFIGPATH)
+	$(INSTALL_DATA) cups.pc $(PKGCONFIGPATH)/cups.pc
 
 
 #
@@ -225,6 +229,9 @@ uninstall:
 	echo Uninstalling cups-config script...
 	$(RM) $(BINDIR)/cups-config
 	-$(RMDIR) $(BINDIR)
+	echo Uninstalling cups.pc file...
+	$(RM) $(PKGCONFIGPATH)/cups.pc
+	-$(RMDIR) $(PKGCONFIGPATH)
 
 
 #
