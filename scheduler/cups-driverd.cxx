@@ -22,6 +22,8 @@
 #include <cups/ppd-private.h>
 #include <ppdc/ppdc.h>
 #include <regex.h>
+#include <sys/poll.h>
+#include <unistd.h>
 
 
 /*
@@ -183,6 +185,7 @@ static int		read_tar(cups_file_t *fp, char *name, size_t namesize,
 			         struct stat *info);
 static regex_t		*regex_device_id(const char *device_id);
 static regex_t		*regex_string(const char *s);
+int                     poll_check(cups_file_t *fp);
 
 
 /*
@@ -1842,7 +1845,7 @@ load_drivers(cups_array_t *include,	/* I - Drivers to include */
 
     if ((fp = cupsdPipeCommand(&pid, filename, argv, 0)) != NULL)
     {
-      while (cupsFileGets(fp, line, sizeof(line)))
+      while ((poll_check(fp) == 0) && cupsFileGets(fp, line, sizeof(line)))
       {
        /*
         * Each line is of the form:
@@ -2913,4 +2916,42 @@ regex_string(const char *s)		/* I - String to compare */
   }
 
   return (NULL);
+}
+
+/*
+ * 'poll_check()' - Check if PPD descriptor is readable.
+ */
+
+int poll_check(cups_file_t *fp)         /* PPD file pointer */
+{
+  struct pollfd fds[1];
+  int ret;
+  int timeout = 1000;                   /* Timeout for 1 second */
+  
+ /*
+  * Check if PPD descriptor is readable...
+  */
+
+  fds[0].fd = cupsFileNumber(fp);
+  fds[0].events = POLLIN;
+
+
+  ret = poll(fds, 1, timeout);
+
+  if (ret == -1)
+  {
+    fprintf(stderr, "PPD not readable.\n");
+    return 1;
+  }
+
+  if (!ret) 
+  {
+    fprintf(stderr, "PPD timeout.\n");
+    return 2;
+  }
+
+  if (fds[0].revents & POLLIN)
+    fprintf(stderr, "PPD is readable\n");
+
+  return 0;
 }
