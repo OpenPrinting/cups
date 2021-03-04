@@ -41,30 +41,43 @@ if test "x$PKGCONFIG" != x -a x$enable_snapped_clients == xyes; then
 		CFLAGS="$CFLAGS `$PKGCONFIG --cflags libapparmor`"
 		APPARMORLIBS="`$PKGCONFIG --libs libapparmor`"
 		AC_DEFINE(HAVE_APPARMOR)
+		AC_MSG_CHECKING(for libsnapd-glib)
+		if $PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0; then
+			AC_MSG_RESULT(yes)
+			CFLAGS="$CFLAGS `$PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0`"
+			SNAPDGLIBLIBS="`$PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0`"
+			AC_DEFINE(HAVE_SNAPDGLIB)
+		else
+			AC_MSG_RESULT(no)
+		fi
 		if test x$enable_snapped_cupsd == xyes; then
-			AC_PATH_TOOL(SNAPCTL, snapctl)
-			AC_MSG_CHECKING(for "snapctl is-connected" support)
-			if test "x$SNAPCTL" != x && $SNAPCTL is-connected --help >/dev/null 2>&1; then
-				AC_MSG_RESULT(yes)
-				AC_DEFINE(HAVE_SNAPCTL_IS_CONNECTED)
+			AC_CHECK_LIB(snapd-glib, snapd_client_run_snapctl2_sync, [
+				AC_DEFINE(HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC)
 				AC_DEFINE(SUPPORT_SNAPPED_CUPSD)
 				AC_DEFINE(SUPPORT_SNAPPED_CLIENTS)
 				ENABLE_SNAPPED_CUPSD="YES"
 				ENABLE_SNAPPED_CLIENTS="YES"
-			else
-				AC_MSG_RESULT(no)
-			fi
+			], [
+				if test "x$SNAPDGLIBLIBS" != "x"; then
+					SNAPDGLIBLIBS=""
+				fi
+				AC_PATH_TOOL(SNAPCTL, snapctl)
+				AC_MSG_CHECKING(for "snapctl is-connected" support)
+				if test "x$SNAPCTL" != x && $SNAPCTL is-connected --help >/dev/null 2>&1; then
+					AC_MSG_RESULT(yes)
+					AC_DEFINE(HAVE_SNAPCTL_IS_CONNECTED)
+					AC_DEFINE(SUPPORT_SNAPPED_CUPSD)
+					AC_DEFINE(SUPPORT_SNAPPED_CLIENTS)
+					ENABLE_SNAPPED_CUPSD="YES"
+					ENABLE_SNAPPED_CLIENTS="YES"
+				else
+					AC_MSG_RESULT(no)
+				fi
+			])
 		else
-			AC_MSG_CHECKING(for snapd-glib)
-			if $PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0; then
-				AC_MSG_RESULT(yes)
-				CFLAGS="$CFLAGS `$PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0`"
-				SNAPDGLIBLIBS="`$PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0`"
-				AC_DEFINE(HAVE_SNAPDGLIB)
+			if test "x$SNAPDGLIBLIBS" != "x"; then
 				AC_DEFINE(SUPPORT_SNAPPED_CLIENTS)
 				ENABLE_SNAPPED_CLIENTS="YES"
-			else
-				AC_MSG_RESULT(no)
 			fi
 		fi
 	else
