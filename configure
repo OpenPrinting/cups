@@ -3098,6 +3098,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
+
+
   # Make sure we can run config.sub.
 $SHELL "${ac_aux_dir}config.sub" sun4 >/dev/null 2>&1 ||
   as_fn_error $? "cannot run $SHELL ${ac_aux_dir}config.sub" "$LINENO" 5
@@ -7531,7 +7533,6 @@ if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"; then
 fi
 
 
-
 PICFLAG=1
 DSOFLAGS="${DSOFLAGS:=}"
 
@@ -8019,7 +8020,6 @@ case $host_os_name in
 		fi
 		;;
 esac
-
 
 
 ac_fn_c_check_header_compile "$LINENO" "resolv.h" "ac_cv_header_resolv_h" "

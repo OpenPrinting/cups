@@ -15,15 +15,19 @@ AC_PREREQ([2.60])
 dnl Package name and version...
 AC_INIT([CUPS], [2.4rc1], [https://github.com/openprinting/cups/issues], [cups], [https://openprinting.github.io/cups])
 
+dnl This line is provided to ensure that you don't run the autoheader program
+dnl against this project.  Doing so is completely unsupported and WILL cause
+dnl problems!
+AH_TOP([#error "Somebody ran autoheader on this project which is unsupported and WILL cause problems."])
+
+dnl Include configure tests for different areas...
 sinclude(config-scripts/cups-opsys.m4)
 sinclude(config-scripts/cups-common.m4)
 sinclude(config-scripts/cups-directories.m4)
 sinclude(config-scripts/cups-manpages.m4)
-
 sinclude(config-scripts/cups-sharedlibs.m4)
 sinclude(config-scripts/cups-libtool.m4)
 sinclude(config-scripts/cups-compiler.m4)
-
 sinclude(config-scripts/cups-network.m4)
 sinclude(config-scripts/cups-poll.m4)
 sinclude(config-scripts/cups-gssapi.m4)
@@ -36,6 +40,8 @@ sinclude(config-scripts/cups-snap.m4)
 sinclude(config-scripts/cups-startup.m4)
 sinclude(config-scripts/cups-defaults.m4)
 
+dnl See what languages are available and make sure we generate the localization
+dnl files as needed...
 INSTALL_LANGUAGES=""
 UNINSTALL_LANGUAGES=""
 LANGFILES=""
@@ -59,6 +65,7 @@ AS_IF([test "x$LANGUAGES" != x], [
 AC_SUBST([INSTALL_LANGUAGES])
 AC_SUBST([UNINSTALL_LANGUAGES])
 
+dnl Provide autoconf with a list of files to generate and output them...
 AC_CONFIG_FILES([
     Makedefs
     conf/cups-files.conf
