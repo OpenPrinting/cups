@@ -890,6 +890,7 @@ with_optim
 enable_debug
 enable_debug_guards
 enable_debug_printfs
+enable_maintainer
 enable_unit_tests
 with_archflags
 with_ldarchflags
@@ -1600,8 +1601,9 @@ Optional Features:
   --enable-debug          build with debugging symbols
   --enable-debug-guards   build with memory allocation guards
   --enable-debug-printfs  build with CUPS_DEBUG_LOG support
+  --enable-maintainer     turn on maintainer mode (warnings as errors)
   --enable-unit-tests     build and run unit tests
-  --enable-relro          build with the GCC relro option
+  --enable-relro          build with the relro option
   --enable-sanitizer      build with AddressSanitizer
   --disable-gssapi        disable GSSAPI support
   --disable-threads       disable multi-threading support
@@ -7718,9 +7720,13 @@ INSTALL_STRIP=""
 # Check whether --with-optim was given.
 if test ${with_optim+y}
 then :
-  withval=$with_optim; OPTIM="$withval"
+  withval=$with_optim;
+    OPTIM="$withval"
+
 else $as_nop
-  OPTIM=""
+
+    OPTIM=""
+
 fi
 
 
@@ -7743,6 +7749,12 @@ then :
   enableval=$enable_debug_printfs;
 fi
 
+# Check whether --enable-maintainer was given.
+if test ${enable_maintainer+y}
+then :
+  enableval=$enable_maintainer;
+fi
+
 # Check whether --enable-unit_tests was given.
 if test ${enable_unit_tests+y}
 then :
@@ -7750,30 +7762,49 @@ then :
 fi
 
 
-if test x$enable_debug = xyes -a "x$OPTIM" = x; then
-	OPTIM="-g"
-else
-	INSTALL_STRIP="-s"
+if test x$enable_debug = xyes -a "x$OPTIM" = x
+then :
+
+    OPTIM="-g"
+
+else $as_nop
+
+    INSTALL_STRIP="-s"
+
 fi
 
-if test x$enable_debug_printfs = xyes; then
-	CFLAGS="$CFLAGS -DDEBUG"
-	CXXFLAGS="$CXXFLAGS -DDEBUG"
+if test x$enable_debug_printfs = xyes
+then :
+
+    CFLAGS="$CFLAGS -DDEBUG"
+    CXXFLAGS="$CXXFLAGS -DDEBUG"
+
 fi
 
-if test x$enable_debug_guards = xyes; then
-	CFLAGS="$CFLAGS -DDEBUG_GUARDS"
-	CXXFLAGS="$CXXFLAGS -DDEBUG_GUARDS"
+if test x$enable_debug_guards = xyes
+then :
+
+    CFLAGS="$CFLAGS -DDEBUG_GUARDS"
+    CXXFLAGS="$CXXFLAGS -DDEBUG_GUARDS"
+
 fi
 
-if test x$enable_unit_tests = xyes; then
-        if test "$build" != "$host"; then
-                as_fn_error $? "Sorry, cannot build unit tests when cross-compiling." "$LINENO" 5
-        fi
+if test x$enable_unit_tests = xyes
+then :
 
-	UNITTESTS="unittests"
-else
-	UNITTESTS=""
+    if test "$build" != "$host"
+then :
+
+	as_fn_error $? "Sorry, cannot build unit tests when cross-compiling." "$LINENO" 5
+
+fi
+
+    UNITTESTS="unittests"
+
+else $as_nop
+
+    UNITTESTS=""
+
 fi
 
 
@@ -7792,21 +7823,26 @@ then :
 fi
 
 
-if test -z "$with_archflags"; then
-	ARCHFLAGS=""
-else
-	ARCHFLAGS="$with_archflags"
+if test -z "$with_archflags"
+then :
+
+    ARCHFLAGS=""
+
+else $as_nop
+
+    ARCHFLAGS="$with_archflags"
+
 fi
 
-if test -z "$with_ldarchflags"; then
-	if test "$host_os_name" = darwin; then
-		# Only create Intel programs by default
-		LDARCHFLAGS="`echo $ARCHFLAGS | sed -e '1,$s/-arch ppc64//'`"
-	else
-		LDARCHFLAGS="$ARCHFLAGS"
-	fi
-else
-	LDARCHFLAGS="$with_ldarchflags"
+if test -z "$with_ldarchflags"
+then :
+
+    LDARCHFLAGS="$ARCHFLAGS"
+
+else $as_nop
+
+    LDARCHFLAGS="$with_ldarchflags"
+
 fi
 
 
@@ -7838,40 +7874,53 @@ RELROFLAGS=""
 WARNING_OPTIONS=""
 
 
-if test -n "$GCC"; then
-	# Add GCC-specific compiler options...
+if test -n "$GCC"
+then :
 
-        # Address sanitizer is a useful tool to use when developing/debugging
-        # code but adds about 2x overhead...
-	if test x$enable_sanitizer = xyes; then
-		# Use -fsanitize=address with debugging...
-		OPTIM="$OPTIM -g -fsanitize=address"
-	else
-		# Otherwise use the Fortify enhancements to catch any unbounded
-		# string operations...
-		CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2"
-		CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=2"
-	fi
+    # Add GCC/Clang compiler options...
 
-	# Default optimization options...
-	if test -z "$OPTIM"; then
-		# Default to optimize-for-size and debug
-		OPTIM="-Os -g"
-	fi
+    # Address sanitizer is a useful tool to use when developing/debugging
+    # code but adds about 2x overhead...
+    if test x$enable_sanitizer = xyes
+then :
 
-	# Generate position-independent code as needed...
-	if test $PICFLAG = 1; then
-    		OPTIM="-fPIC $OPTIM"
-	fi
+	# Use -fsanitize=address with debugging...
+	OPTIM="$OPTIM -g -fsanitize=address"
 
-	# The -fstack-protector option is available with some versions of
-	# GCC and adds "stack canaries" which detect when the return address
-	# has been overwritten, preventing many types of exploit attacks.
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -fstack-protector" >&5
+else $as_nop
+
+	# Otherwise use the Fortify enhancements to catch any unbounded
+	# string operations...
+	CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2"
+	CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=2"
+
+fi
+
+    # Default optimization options...
+    if test -z "$OPTIM"
+then :
+
+	# Default to optimize-for-size and debug
+	OPTIM="-Os -g"
+
+fi
+
+    # Generate position-independent code as needed...
+    if test $PICFLAG = 1
+then :
+
+	OPTIM="-fPIC $OPTIM"
+
+fi
+
+    # The -fstack-protector option is available with some versions of
+    # GCC and adds "stack canaries" which detect when the return address
+    # has been overwritten, preventing many types of exploit attacks.
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -fstack-protector" >&5
 printf %s "checking whether compiler supports -fstack-protector... " >&6; }
-	OLDCFLAGS="$CFLAGS"
-	CFLAGS="$CFLAGS -fstack-protector"
-	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+    OLDCFLAGS="$CFLAGS"
+    CFLAGS="$CFLAGS -fstack-protector"
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
 int
@@ -7884,35 +7933,118 @@ main (void)
 _ACEOF
 if ac_fn_c_try_link "$LINENO"
 then :
-  if test "x$LSB_BUILD" = xy; then
-			# Can't use stack-protector with LSB binaries...
-			OPTIM="$OPTIM -fno-stack-protector"
-		else
-			OPTIM="$OPTIM -fstack-protector"
-		fi
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
+
+	if test "x$LSB_BUILD" = xy
+then :
+
+	    # Can't use stack-protector with LSB binaries...
+	    OPTIM="$OPTIM -fno-stack-protector"
+
 else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+
+	    OPTIM="$OPTIM -fstack-protector"
+
+fi
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+else $as_nop
+
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
+
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam \
     conftest$ac_exeext conftest.$ac_ext
+    CFLAGS="$OLDCFLAGS"
+
+    if test "x$LSB_BUILD" != xy
+then :
+
+	# The -fPIE option is available with some versions of GCC and
+	# adds randomization of addresses, which avoids another class of
+	# exploits that depend on a fixed address for common functions.
+	#
+	# Not available to LSB binaries...
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -fPIE" >&5
+printf %s "checking whether compiler supports -fPIE... " >&6; }
+	OLDCFLAGS="$CFLAGS"
+	case "$host_os_name" in #(
+  darwin*) :
+
+	    CFLAGS="$CFLAGS -fPIE -Wl,-pie"
+	    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main (void)
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+
+		PIEFLAGS="-fPIE -Wl,-pie"
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+else $as_nop
+
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+	 ;; #(
+  *) :
+
+	    CFLAGS="$CFLAGS -fPIE -pie"
+	    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main (void)
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+
+		PIEFLAGS="-fPIE -pie"
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+else $as_nop
+
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+	 ;; #(
+  *) :
+     ;;
+esac
 	CFLAGS="$OLDCFLAGS"
 
-	if test "x$LSB_BUILD" != xy; then
-		# The -fPIE option is available with some versions of GCC and
-		# adds randomization of addresses, which avoids another class of
-		# exploits that depend on a fixed address for common functions.
-		#
-		# Not available to LSB binaries...
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -fPIE" >&5
-printf %s "checking whether compiler supports -fPIE... " >&6; }
-		OLDCFLAGS="$CFLAGS"
-		case "$host_os_name" in
-			darwin*)
-				CFLAGS="$CFLAGS -fPIE -Wl,-pie"
-				cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+fi
+
+        WARNINGS="-Wall -Wunused"
+
+        for warning in char-subscripts format-truncation format-y2k switch unused-result; do
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -Wno-$warning" >&5
+printf %s "checking whether compiler supports -Wno-$warning... " >&6; }
+
+	OLDCFLAGS="$CFLAGS"
+	CFLAGS="$CFLAGS -Wno-$warning -Werror"
+
+	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
 int
@@ -7926,99 +8058,87 @@ _ACEOF
 if ac_fn_c_try_compile "$LINENO"
 then :
 
-					PIEFLAGS="-fPIE -Wl,-pie"
-					{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
+	    WARNINGS="$WARNINGS -Wno-$warning"
+
 else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
+
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-				;;
 
-			*)
-				CFLAGS="$CFLAGS -fPIE -pie"
-				cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
+	CFLAGS="$OLDCFLAGS"
+    done
 
-int
-main (void)
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"
+        if test x$enable_maintainer = xyes
 then :
 
-					PIEFLAGS="-fPIE -pie"
-					{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
-else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
+	WARNINGS="$WARNINGS -Werror"
+
 fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-				;;
-		esac
-		CFLAGS="$OLDCFLAGS"
-	fi
 
-	# Add useful warning options for tracking down problems...
-	WARNING_OPTIONS="-Wall -Wno-format-y2k -Wunused -Wno-unused-result -Wsign-conversion -Wno-deprecated-declarations"
+else $as_nop
 
-	# Test GCC version for certain warning flags since -Werror
-	# doesn't trigger...
-	gccversion=`$CC --version | head -1 | awk '{print $NF}'`
-	case "$gccversion" in
-		7.* | 8.* | 9.* | 10.* | 11.* | 12.*)
-			WARNING_OPTIONS="$WARNING_OPTIONS -Wno-format-truncation -Wno-tautological-compare"
-			;;
-	esac
+    # Add vendor-specific compiler options...
+    case $host_os_name in #(
+  sunos*) :
 
-	# Additional warning options for development testing...
-#	if test -d .git; then
-#		WARNING_OPTIONS="-Werror -Wno-error=deprecated-declarations $WARNING_OPTIONS"
-#	fi
-else
-	# Add vendor-specific compiler options...
-	case $host_os_name in
-		sunos*)
-			# Solaris
-			if test -z "$OPTIM"; then
-				OPTIM="-xO2"
-			fi
+	# Solaris
+	if test -z "$OPTIM"
+then :
 
-			if test $PICFLAG = 1; then
-				OPTIM="-KPIC $OPTIM"
-			fi
-			;;
-		*)
-			# Running some other operating system; inform the user
-			# they should contribute the necessary options via
-			# Github...
-			echo "Building CUPS with default compiler optimizations; contact the CUPS developers on Github"
-			echo "(https://github.com/apple/cups/issues) with the uname and compiler options needed for"
-			echo "your platform, or set the CFLAGS and LDFLAGS environment variables before running"
-			echo "configure."
-			;;
-	esac
+	    OPTIM="-xO2"
+
+fi
+
+	if test $PICFLAG = 1
+then :
+
+	    OPTIM="-KPIC $OPTIM"
+
+fi
+     ;; #(
+  *) :
+
+	# Running some other operating system; inform the user
+	# they should contribute the necessary options via
+	# Github...
+	echo "Building CUPS with default compiler optimizations."
+	echo "Contact the OpenPrinting CUPS developers on Github with the uname and compiler"
+	echo "options needed for your platform, or set the CFLAGS and LDFLAGS environment"
+	echo "variables before running configure."
+	echo ""
+	echo "https://github.com/openprinting/cups"
+	;;
+     ;; #(
+  *) :
+     ;;
+esac
+
 fi
 
 # Add general compiler options per platform...
-case $host_os_name in
-	linux*)
-		# glibc 2.8 and higher breaks peer credentials unless you
-		# define _GNU_SOURCE...
-		OPTIM="$OPTIM -D_GNU_SOURCE"
+case $host_os_name in #(
+  linux*) :
 
-		# The -z relro option is provided by the Linux linker command to
-		# make relocatable data read-only.
-		if test x$enable_relro = xyes; then
-			RELROFLAGS="-Wl,-z,relro,-z,now"
-		fi
-		;;
+    # glibc 2.8 and higher breaks peer credentials unless you
+    # define _GNU_SOURCE...
+    OPTIM="$OPTIM -D_GNU_SOURCE"
+
+    # The -z relro option is provided by the Linux linker command to
+    # make relocatable data read-only.
+    if test x$enable_relro = xyes
+then :
+
+	RELROFLAGS="-Wl,-z,relro,-z,now"
+
+fi
+ ;; #(
+  *) :
+     ;;
 esac
 
 
