@@ -1569,7 +1569,6 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       char *context = NULL;      /* AppArmor profile name of client */
 #  undef CHECK_METHOD_FOUND
 #  ifdef SUPPORT_SNAPPED_CUPSD
-      char buf[1024];
       int status = 65535;        /* Status of client Snap context check */
 #    if defined(HAVE_SNAPDGLIB) && defined(HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC)
 #      define CHECK_METHOD_FOUND 1
@@ -1582,13 +1581,14 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
 #    else
 #      ifdef HAVE_SNAPCTL_IS_CONNECTED
 #        define CHECK_METHOD_FOUND 1
-      char *argv[5];             /* snapctl command line */
+      char *argv[6];             /* snapctl command line */
       int fds[2],                /* Pipe file descriptors for stderr of
 				    snapctl */
 	  nullfd;                /* /dev/null file descriptor for stdout of
 				    snapctl */
       pid_t pid;                 /* PID of snapctl */
       cups_file_t *snapctl_stderr; /* CUPS FP for stderr of snapctl */
+      char buf[1024];            /* Buffer for snapctl's stderr output */
       int wstatus;               /* Wait result of forked snapctl process */
 #      endif /* HAVE_SNAPCTL_IS_CONNECTED */
 #    endif /* HAVE_SNAPDGLIB && HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC */
@@ -1630,7 +1630,7 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
      /*
       * Run
       *
-      * snapctl is-connected --apparmor-label=AA_CONTEXT CUPS_CONTROL_SLOT
+      * snapctl is-connected --apparmor-label AA_CONTEXT CUPS_CONTROL_SLOT
       *
       * or an equivalent library function call using the
       * snapd_client_run_snapctl2_sync() function of libsnapd-glib.
@@ -1666,8 +1666,6 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       * require full access to the snapd under which cupsd is running.
       */
 
-      snprintf(buf, sizeof(buf), "--apparmor-label=%s", context);
-
 #    if defined(HAVE_SNAPDGLIB) && defined(HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC)
 
      /*
@@ -1675,7 +1673,7 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       */
 
       /* snapctl arguments */
-      args = g_new0 (char *, 4);
+      args = g_new0 (char *, 5);
       if (!args)
       {
 	cupsdLogMessage(CUPSD_LOG_ERROR, "cupsdCheckAdminTask: Unable to allocate memory");
@@ -1683,9 +1681,10 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
 	goto snap_check_done;
       }
       args[0] = "is-connected";
-      args[1] = buf;
-      args[2] = CUPS_CONTROL_SLOT;
-      args[3] = NULL;
+      args[1] = "--apparmor-label";
+      args[2] = context;
+      args[3] = CUPS_CONTROL_SLOT;
+      args[4] = NULL;
 
       /* Connect to snapd */
       client = snapd_client_new();
@@ -1732,9 +1731,10 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       /* snapctl command line */
       argv[0] = SNAPCTL;
       argv[1] = "is-connected";
-      argv[2] = buf;
-      argv[3] = CUPS_CONTROL_SLOT;
-      argv[4] = NULL;
+      argv[2] = "--apparmor-label";
+      argv[3] = context;
+      argv[4] = CUPS_CONTROL_SLOT;
+      argv[5] = NULL;
 
       /* Create a pipe to catch stderr output from snapctl */
       if (pipe(fds))
@@ -1795,7 +1795,7 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
 	fcntl(1, F_SETFL, O_NDELAY);
 
 	/* Execute snapctl command line ... */
-	cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: Running command: " SNAPCTL " is-connected %s " CUPS_CONTROL_SLOT, buf);
+	cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: Running command: " SNAPCTL " is-connected --apparmor-label %s " CUPS_CONTROL_SLOT, context);
 	execv(SNAPCTL, argv);
 	cupsdLogMessage(CUPSD_LOG_ERROR, "cupsdCheckAdminTask: Unable to launch snapctl: %s", strerror(errno));
 	exit(100);
