@@ -129,7 +129,11 @@ main(int  argc,				/* I - Number of command-line args */
     if (setgid(gid))
       exit(errno + 100);
 
+#  ifdef SUPPORT_SNAPPED_CUPSD
+    if (setgroups(0, NULL))
+#  else
     if (setgroups(1, &gid))
+#  endif /* SUPPORT_SNAPPED_CUPSD */
       exit(errno + 100);
 
     if (uid && setuid(uid))
