@@ -6873,7 +6873,7 @@ CUPS_DEFAULT_SYSTEM_AUTHKEY=""
 CUPS_SYSTEM_AUTHKEY=""
 INSTALLXPC=""
 
-case host_os_name in #(
+case $host_os_name in #(
   darwin*) :
 
     BACKLIBS="$BACKLIBS -framework IOKit"
@@ -8035,9 +8035,9 @@ esac
 
 fi
 
-        WARNINGS="-Wall -Wunused"
+        WARNING_OPTIONS="-Wall -Wunused"
 
-        for warning in char-subscripts format-truncation format-y2k switch unused-result; do
+        for warning in char-subscripts deprecated-declarations format-truncation format-y2k switch unused-result; do
 	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -Wno-$warning" >&5
 printf %s "checking whether compiler supports -Wno-$warning... " >&6; }
 
@@ -8060,7 +8060,7 @@ then :
 
 	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
-	    WARNINGS="$WARNINGS -Wno-$warning"
+	    WARNING_OPTIONS="$WARNINGS -Wno-$warning"
 
 else $as_nop
 
@@ -8076,7 +8076,7 @@ rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
         if test x$enable_maintainer = xyes
 then :
 
-	WARNINGS="$WARNINGS -Werror"
+	WARNING_OPTIONS="$WARNING_OPTIONS -Werror"
 
 fi
 
@@ -8112,7 +8112,6 @@ fi
 	echo "variables before running configure."
 	echo ""
 	echo "https://github.com/openprinting/cups"
-	;;
      ;; #(
   *) :
      ;;

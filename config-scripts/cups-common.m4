@@ -350,7 +350,7 @@ CUPS_DEFAULT_SYSTEM_AUTHKEY=""
 CUPS_SYSTEM_AUTHKEY=""
 INSTALLXPC=""
 
-AS_CASE([host_os_name], [darwin*], [
+AS_CASE([$host_os_name], [darwin*], [
     BACKLIBS="$BACKLIBS -framework IOKit"
     SERVERLIBS="$SERVERLIBS -framework IOKit -weak_framework ApplicationServices"
     LIBS="-framework CoreFoundation -framework Security $LIBS"

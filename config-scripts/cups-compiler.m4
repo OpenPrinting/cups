@@ -171,10 +171,10 @@ AS_IF([test -n "$GCC"], [
     ])
 
     dnl Show all standard warnings + unused variables when compiling...
-    WARNINGS="-Wall -Wunused"
+    WARNING_OPTIONS="-Wall -Wunused"
 
     dnl Drop some not-useful/unreliable warnings...
-    for warning in char-subscripts format-truncation format-y2k switch unused-result; do
+    for warning in char-subscripts deprecated-declarations format-truncation format-y2k switch unused-result; do
 	AC_MSG_CHECKING([whether compiler supports -Wno-$warning])
 
 	OLDCFLAGS="$CFLAGS"
@@ -182,7 +182,7 @@ AS_IF([test -n "$GCC"], [
 
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM()], [
 	    AC_MSG_RESULT(yes)
-	    WARNINGS="$WARNINGS -Wno-$warning"
+	    WARNING_OPTIONS="$WARNINGS -Wno-$warning"
         ], [
 	    AC_MSG_RESULT(no)
 	])
@@ -192,7 +192,7 @@ AS_IF([test -n "$GCC"], [
 
     dnl Maintainer mode enables -Werror...
     AS_IF([test x$enable_maintainer = xyes], [
-	WARNINGS="$WARNINGS -Werror"
+	WARNING_OPTIONS="$WARNING_OPTIONS -Werror"
     ])
 ], [
     # Add vendor-specific compiler options...
@@ -215,7 +215,6 @@ AS_IF([test -n "$GCC"], [
 	echo "variables before running configure."
 	echo ""
 	echo "https://github.com/openprinting/cups"
-	;;
     ])
 ])
 
