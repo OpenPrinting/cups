@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS.
  *
- * Copyright 2020 by OpenPrinting
+ * Copyright 2020-2021 by OpenPrinting
  * Copyright 2007-2019 by Apple Inc.
  * Copyright 1997-2007 by Easy Software Products.
  *
@@ -187,15 +187,6 @@
  */
 
 #undef HAVE_STDINT_H
-
-
-/*
- * Use <string.h>, <strings.h>, and/or <bstring.h>?
- */
-
-#undef HAVE_STRING_H
-#undef HAVE_STRINGS_H
-#undef HAVE_BSTRING_H
 
 
 /*

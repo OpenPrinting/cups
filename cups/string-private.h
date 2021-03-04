@@ -19,6 +19,7 @@
 #  include <stdio.h>
 #  include <stdlib.h>
 #  include <stdarg.h>
+#  include <string.h>
 #  include <ctype.h>
 #  include <errno.h>
 #  include <locale.h>
@@ -26,17 +27,6 @@
 
 #  include <cups/versioning.h>
 
-#  ifdef HAVE_STRING_H
-#    include <string.h>
-#  endif /* HAVE_STRING_H */
-
-#  ifdef HAVE_STRINGS_H
-#    include <strings.h>
-#  endif /* HAVE_STRINGS_H */
-
-#  ifdef HAVE_BSTRING_H
-#    include <bstring.h>
-#  endif /* HAVE_BSTRING_H */
 
 #  if defined(_WIN32) && !defined(__CUPS_SSIZE_T_DEFINED)
 #    define __CUPS_SSIZE_T_DEFINED
