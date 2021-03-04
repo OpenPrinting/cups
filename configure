@@ -10308,8 +10308,73 @@ printf "%s\n" "yes" >&6; }
 		APPARMORLIBS="`$PKGCONFIG --libs libapparmor`"
 		printf "%s\n" "#define HAVE_APPARMOR 1" >>confdefs.h
 
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libsnapd-glib" >&5
+printf %s "checking for libsnapd-glib... " >&6; }
+		if $PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0; then
+			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+			CFLAGS="$CFLAGS `$PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0`"
+			SNAPDGLIBLIBS="`$PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0`"
+			printf "%s\n" "#define HAVE_SNAPDGLIB 1" >>confdefs.h
+
+		else
+			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+		fi
 		if test x$enable_snapped_cupsd == xyes; then
-			if test -n "$ac_tool_prefix"; then
+			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for snapd_client_run_snapctl2_sync in -lsnapd-glib" >&5
+printf %s "checking for snapd_client_run_snapctl2_sync in -lsnapd-glib... " >&6; }
+if test ${ac_cv_lib_snapd_glib_snapd_client_run_snapctl2_sync+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lsnapd-glib  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+char snapd_client_run_snapctl2_sync ();
+int
+main (void)
+{
+return snapd_client_run_snapctl2_sync ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"
+then :
+  ac_cv_lib_snapd_glib_snapd_client_run_snapctl2_sync=yes
+else $as_nop
+  ac_cv_lib_snapd_glib_snapd_client_run_snapctl2_sync=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_snapd_glib_snapd_client_run_snapctl2_sync" >&5
+printf "%s\n" "$ac_cv_lib_snapd_glib_snapd_client_run_snapctl2_sync" >&6; }
+if test "x$ac_cv_lib_snapd_glib_snapd_client_run_snapctl2_sync" = xyes
+then :
+
+				printf "%s\n" "#define HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC 1" >>confdefs.h
+
+				printf "%s\n" "#define SUPPORT_SNAPPED_CUPSD 1" >>confdefs.h
+
+				printf "%s\n" "#define SUPPORT_SNAPPED_CLIENTS 1" >>confdefs.h
+
+				ENABLE_SNAPPED_CUPSD="YES"
+				ENABLE_SNAPPED_CLIENTS="YES"
+
+else $as_nop
+
+				if test "x$SNAPDGLIBLIBS" != "x"; then
+					SNAPDGLIBLIBS=""
+				fi
+				if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}snapctl", so it can be a program name with args.
 set dummy ${ac_tool_prefix}snapctl; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -10417,39 +10482,31 @@ else
   SNAPCTL="$ac_cv_path_SNAPCTL"
 fi
 
-			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"snapctl is-connected\" support" >&5
+				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"snapctl is-connected\" support" >&5
 printf %s "checking for \"snapctl is-connected\" support... " >&6; }
-			if test "x$SNAPCTL" != x && $SNAPCTL is-connected --help >/dev/null 2>&1; then
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+				if test "x$SNAPCTL" != x && $SNAPCTL is-connected --help >/dev/null 2>&1; then
+					{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
-				printf "%s\n" "#define HAVE_SNAPCTL_IS_CONNECTED 1" >>confdefs.h
+					printf "%s\n" "#define HAVE_SNAPCTL_IS_CONNECTED 1" >>confdefs.h
 
-				printf "%s\n" "#define SUPPORT_SNAPPED_CUPSD 1" >>confdefs.h
+					printf "%s\n" "#define SUPPORT_SNAPPED_CUPSD 1" >>confdefs.h
 
-				printf "%s\n" "#define SUPPORT_SNAPPED_CLIENTS 1" >>confdefs.h
+					printf "%s\n" "#define SUPPORT_SNAPPED_CLIENTS 1" >>confdefs.h
 
-				ENABLE_SNAPPED_CUPSD="YES"
-				ENABLE_SNAPPED_CLIENTS="YES"
-			else
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+					ENABLE_SNAPPED_CUPSD="YES"
+					ENABLE_SNAPPED_CLIENTS="YES"
+				else
+					{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
-			fi
+				fi
+
+fi
+
 		else
-			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for snapd-glib" >&5
-printf %s "checking for snapd-glib... " >&6; }
-			if $PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0; then
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
-				CFLAGS="$CFLAGS `$PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0`"
-				SNAPDGLIBLIBS="`$PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0`"
-				printf "%s\n" "#define HAVE_SNAPDGLIB 1" >>confdefs.h
-
+			if test "x$SNAPDGLIBLIBS" != "x"; then
 				printf "%s\n" "#define SUPPORT_SNAPPED_CLIENTS 1" >>confdefs.h
 
 				ENABLE_SNAPPED_CLIENTS="YES"
-			else
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
 			fi
 		fi
 	else
