@@ -1,7 +1,7 @@
 /*
  * HTTP support routines for CUPS.
  *
- * Copyright © 2020 by OpenPrinting
+ * Copyright © 2020-2021 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -15,7 +15,7 @@
 
 #include "cups-private.h"
 #include "debug-internal.h"
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #  ifdef _WIN32
 #    include <io.h>
@@ -29,7 +29,7 @@
 #  include <avahi-client/lookup.h>
 #  include <avahi-common/malloc.h>
 #  include <avahi-common/simple-watch.h>
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -110,7 +110,7 @@ static const char	*http_copy_decode(char *dst, const char *src,
 static char		*http_copy_encode(char *dst, const char *src,
 			                  char *dstend, const char *reserved,
 					  const char *term, int encode);
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 static void DNSSD_API	http_resolve_cb(DNSServiceRef sdRef,
 					DNSServiceFlags flags,
 					uint32_t interfaceIndex,
@@ -120,7 +120,7 @@ static void DNSSD_API	http_resolve_cb(DNSServiceRef sdRef,
 					uint16_t port, uint16_t txtLen,
 					const unsigned char *txtRecord,
 					void *context);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 #ifdef HAVE_AVAHI
 static void	http_client_cb(AvahiClient *client,
@@ -1770,14 +1770,14 @@ _httpResolveURI(
 
   if (strstr(hostname, "._tcp"))
   {
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
     char		*regtype,	/* Pointer to type in hostname */
 			*domain,	/* Pointer to domain in hostname */
 			*uuid,		/* Pointer to UUID in URI */
 			*uuidend;	/* Pointer to end of UUID in URI */
     _http_uribuf_t	uribuf;		/* URI buffer */
     int			offline = 0;	/* offline-report state set? */
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
     DNSServiceRef	ref,		/* DNS-SD master service reference */
 			domainref = NULL,/* DNS-SD service reference for domain */
 			ippref = NULL,	/* DNS-SD service reference for network IPP */
@@ -1793,7 +1793,7 @@ _httpResolveURI(
 #  elif defined(HAVE_AVAHI)
     AvahiClient		*client;	/* Client information */
     int			error;		/* Status */
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
     if (options & _HTTP_RESOLVE_STDERR)
       fprintf(stderr, "DEBUG: Resolving \"%s\"...\n", hostname);
@@ -1857,7 +1857,7 @@ _httpResolveURI(
 
     uri = NULL;
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
     if (DNSServiceCreateConnection(&ref) == kDNSServiceErr_NoError)
     {
       uint32_t myinterface = kDNSServiceInterfaceIndexAny;
@@ -2080,7 +2080,7 @@ _httpResolveURI(
 
       avahi_simple_poll_free(uribuf.poll);
     }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
     if (options & _HTTP_RESOLVE_STDERR)
     {
@@ -2096,13 +2096,13 @@ _httpResolveURI(
       }
     }
 
-#else /* HAVE_DNSSD || HAVE_AVAHI */
+#else /* !HAVE_DNSSD */
    /*
     * No DNS-SD support...
     */
 
     uri = NULL;
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
     if ((options & _HTTP_RESOLVE_STDERR) && !uri)
       _cupsLangPrintFilter(stderr, "INFO", _("Unable to find printer."));
@@ -2274,7 +2274,7 @@ http_copy_encode(char       *dst,	/* O - Destination buffer */
 }
 
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 /*
  * 'http_resolve_cb()' - Build a device URI for the given service name.
  */
@@ -2722,4 +2722,4 @@ http_resolve_cb(
 
   avahi_simple_poll_quit(uribuf->poll);
 }
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */

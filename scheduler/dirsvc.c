@@ -16,11 +16,11 @@
 #include "cupsd.h"
 #include <grp.h>
 
-#if defined(HAVE_DNSSD) && defined(__APPLE__)
+#if defined(HAVE_MDNSRESPONDER) && defined(__APPLE__)
 #  include <nameser.h>
 #  include <CoreFoundation/CoreFoundation.h>
 #  include <SystemConfiguration/SystemConfiguration.h>
-#endif /* HAVE_DNSSD && __APPLE__ */
+#endif /* HAVE_MDNSRESPONDER && __APPLE__ */
 
 
 /*
@@ -36,7 +36,7 @@ static int	avahi_running = 0;
  * Local functions...
  */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
 static char		*get_auth_info_required(cupsd_printer_t *p,
 			                        char *buffer, size_t bufsize);
 #  ifdef __APPLE__
@@ -53,7 +53,7 @@ static void		dnssdDeregisterPrinter(cupsd_printer_t *p, int clear_name, int from
 static const char	*dnssdErrorString(int error);
 static void		dnssdFreeTxtRecord(cupsd_txt_t *txt);
 static void		dnssdRegisterAllPrinters(int from_callback);
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 static void		dnssdRegisterCallback(DNSServiceRef sdRef,
 					      DNSServiceFlags flags,
 					      DNSServiceErrorType errorCode,
@@ -65,15 +65,15 @@ static void		dnssdRegisterCallback(DNSServiceRef sdRef,
 static void		dnssdRegisterCallback(AvahiEntryGroup *p,
 					      AvahiEntryGroupState state,
 					      void *context);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 static int		dnssdRegisterInstance(cupsd_srv_t *srv, cupsd_printer_t *p, char *name, const char *type, const char *subtypes, int port, cupsd_txt_t *txt, int commit, int from_callback);
 static void		dnssdRegisterPrinter(cupsd_printer_t *p, int from_callback);
 static void		dnssdStop(void);
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 static void		dnssdUpdate(void);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 static void		dnssdUpdateDNSSDName(int from_callback);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
 
 /*
@@ -103,10 +103,10 @@ cupsdDeregisterPrinter(
   * Announce the deletion...
   */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   if (removeit && (BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdDeregisterPrinter(p, 1, 0);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 }
 
 
@@ -125,10 +125,10 @@ cupsdRegisterPrinter(cupsd_printer_t *p)/* I - Printer */
       (p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
     return;
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdRegisterPrinter(p, 0);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 }
 
 
@@ -142,10 +142,10 @@ cupsdStartBrowsing(void)
   if (!Browsing || !BrowseLocalProtocols)
     return;
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   if (BrowseLocalProtocols & BROWSE_DNSSD)
   {
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
     DNSServiceErrorType error;		/* Error from service creation */
 
    /*
@@ -210,17 +210,15 @@ cupsdStartBrowsing(void)
       else
 	avahi_threaded_poll_start(DNSSDMaster);
     }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
  /*
   * Register the individual printers
   */
 
   dnssdRegisterAllPrinters(0);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 }
 
 
@@ -234,7 +232,7 @@ cupsdStopBrowsing(void)
   if (!Browsing || !BrowseLocalProtocols)
     return;
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
  /*
   * De-register the individual printers
   */
@@ -247,11 +245,11 @@ cupsdStopBrowsing(void)
 
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdStop();
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 }
 
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
 /*
  * 'cupsdUpdateDNSSDName()' - Update the computer name we use for browsing...
  */
@@ -493,7 +491,7 @@ dnssdBuildTxtRecord(
   * Then pack them into a proper txt record...
   */
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   TXTRecordCreate(&txt, 0, NULL);
 
   for (i = 0; i < count; i ++)
@@ -508,7 +506,7 @@ dnssdBuildTxtRecord(
   for (i = 0, txt = NULL; i < count; i ++)
     txt = avahi_string_list_add_printf(txt, "%s=%s", keyvalue[i][0],
                                        keyvalue[i][1]);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
   return (txt);
 }
@@ -653,7 +651,7 @@ dnssdDeregisterInstance(
   if (!srv || !*srv)
     return;
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   (void)from_callback;
 
   DNSServiceRefDeallocate(*srv);
@@ -672,7 +670,7 @@ dnssdDeregisterInstance(
 
   if (!from_callback)
     avahi_threaded_poll_unlock(DNSSDMaster);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 }
 
 
@@ -695,12 +693,12 @@ dnssdDeregisterPrinter(
   {
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 #    ifdef HAVE_SSL
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
 #    endif /* HAVE_SSL */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
   }
 
  /*
@@ -726,7 +724,7 @@ dnssdDeregisterPrinter(
 static const char *			/* O - Error message */
 dnssdErrorString(int error)		/* I - Error number */
 {
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   switch (error)
   {
     case kDNSServiceErr_NoError :
@@ -829,7 +827,7 @@ dnssdErrorString(int error)		/* I - Error number */
 
 #  else /* HAVE_AVAHI */
   return (avahi_strerror(error));
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 }
 
 
@@ -840,13 +838,13 @@ dnssdErrorString(int error)		/* I - Error number */
 static void
 dnssdFreeTxtRecord(cupsd_txt_t *txt)	/* I - TXT record */
 {
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   TXTRecordDeallocate(txt);
 
 #  else /* HAVE_AVAHI */
   avahi_string_list_free(*txt);
   *txt = NULL;
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 }
 
 
@@ -875,7 +873,7 @@ dnssdRegisterAllPrinters(int from_callback)	/* I - Called from callback? */
  * 'dnssdRegisterCallback()' - DNSServiceRegister callback.
  */
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 static void
 dnssdRegisterCallback(
     DNSServiceRef	sdRef,		/* I - DNS Service reference */
@@ -935,7 +933,7 @@ dnssdRegisterCallback(
 
   /* TODO: Handle collisions with avahi_alternate_service_name(p->reg_name)? */
 }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -959,9 +957,9 @@ dnssdRegisterInstance(
   int	error;				/* Any error */
 
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   (void)from_callback;
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "Registering \"%s\" with DNS-SD type \"%s\".", name, type);
 
@@ -971,7 +969,7 @@ dnssdRegisterInstance(
     * Assign the correct pointer for "srv"...
     */
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
     if (!strcmp(type, "_printer._tcp"))
       srv = &p->printer_srv;		/* Target LPD service */
 #    ifdef HAVE_SSL
@@ -983,10 +981,10 @@ dnssdRegisterInstance(
 
 #  else /* HAVE_AVAHI */
     srv = &p->ipp_srv;			/* Target service group */
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
   }
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   (void)commit;
 
 #  else /* HAVE_AVAHI */
@@ -1004,7 +1002,7 @@ dnssdRegisterInstance(
                     name, dnssdErrorString(avahi_client_errno(DNSSDClient)));
     return (0);
   }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
  /*
   * Make sure the name is <= 63 octets, and when we truncate be sure to
@@ -1028,7 +1026,7 @@ dnssdRegisterInstance(
   * Register the service...
   */
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   if (subtypes)
     snprintf(temp, sizeof(temp), "%s,%s", type, subtypes);
   else
@@ -1117,7 +1115,7 @@ dnssdRegisterInstance(
 
   if (!from_callback)
     avahi_threaded_poll_unlock(DNSSDMaster);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
   if (error)
   {
@@ -1235,12 +1233,12 @@ dnssdRegisterPrinter(
 
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 #    ifdef HAVE_SSL
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
 #    endif /* HAVE_SSL */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
   }
 }
 
@@ -1270,7 +1268,7 @@ dnssdStop(void)
 
   dnssdDeregisterInstance(&WebIFSrv, 0);
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   cupsdRemoveSelect(DNSServiceRefSockFD(DNSSDMaster));
 
   DNSServiceRefDeallocate(DNSSDMaster);
@@ -1291,7 +1289,7 @@ dnssdStop(void)
     avahi_threaded_poll_free(DNSSDMaster);
     DNSSDMaster = NULL;
   }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
   cupsArrayDelete(DNSSDPrinters);
   DNSSDPrinters = NULL;
@@ -1300,7 +1298,7 @@ dnssdStop(void)
 }
 
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 /*
  * 'dnssdUpdate()' - Handle DNS-SD queries.
  */
@@ -1319,7 +1317,7 @@ dnssdUpdate(void)
     dnssdStop();
   }
 }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -1602,4 +1600,4 @@ get_auth_info_required(
 
   return ("none");
 }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */

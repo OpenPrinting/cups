@@ -28,7 +28,7 @@ VAR int			Browsing	VALUE(TRUE),
 			BrowseLocalProtocols
 					VALUE(BROWSE_ALL);
 					/* Protocols to support for local printers */
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
 VAR char		*DNSSDComputerName VALUE(NULL),
 					/* Computer/server name */
 			*DNSSDHostName	VALUE(NULL),
@@ -41,7 +41,7 @@ VAR int			DNSSDPort	VALUE(0);
 					/* Port number to register */
 VAR cups_array_t	*DNSSDPrinters	VALUE(NULL);
 					/* Printers we have registered */
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 VAR DNSServiceRef	DNSSDMaster	VALUE(NULL);
 					/* Master DNS-SD service reference */
 #  else /* HAVE_AVAHI */
@@ -49,10 +49,10 @@ VAR AvahiThreadedPoll	*DNSSDMaster	VALUE(NULL);
 					/* Master polling interface for Avahi */
 VAR AvahiClient		*DNSSDClient	VALUE(NULL);
 					/* Client information */
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 VAR cupsd_srv_t		WebIFSrv	VALUE(NULL);
 					/* Service reference for the web interface */
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
 
 /*
@@ -63,6 +63,6 @@ extern void	cupsdDeregisterPrinter(cupsd_printer_t *p, int removeit);
 extern void	cupsdRegisterPrinter(cupsd_printer_t *p);
 extern void	cupsdStartBrowsing(void);
 extern void	cupsdStopBrowsing(void);
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
 extern void	cupsdUpdateDNSSDName(void);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */

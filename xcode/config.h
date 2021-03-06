@@ -356,14 +356,21 @@
 
 
 /*
- * Do we have mDNSResponder for DNS Service Discovery (aka Bonjour)?
+ * Do we have DNS Service Discovery (aka Bonjour) support?
  */
 
 #define HAVE_DNSSD 1
 
 
 /*
- * Do we have Avahi for DNS Service Discovery (aka Bonjour)?
+ * Do we have mDNSResponder for DNS-SD?
+ */
+
+#define HAVE_MDNSRESPONDER 1
+
+
+/*
+ * Do we have Avahi for DNS-SD?
  */
 
 /* #undef HAVE_AVAHI */

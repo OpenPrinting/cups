@@ -430,24 +430,31 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Do we have mDNSResponder for DNS Service Discovery (aka Bonjour)?
+ * Do we have DNS Service Discovery (aka Bonjour) support?
  */
 
 #define HAVE_DNSSD 1
 
 
 /*
- * Do we have Avahi for DNS Service Discovery (aka Bonjour)?
+ * Do we have mDNSResponder for DNS-SD?
  */
 
-#undef HAVE_AVAHI
+#define HAVE_MDNSRESPONDER 1
+
+
+/*
+ * Do we have Avahi for DNS-SD?
+ */
+
+/* #undef HAVE_AVAHI */
 
 
 /*
  * Do we have <sys/ioctl.h>?
  */
 
-#undef HAVE_SYS_IOCTL_H
+/* #undef HAVE_SYS_IOCTL_H */
 
 
 /*

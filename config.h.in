@@ -338,14 +338,21 @@
 
 
 /*
- * Do we have mDNSResponder for DNS Service Discovery (aka Bonjour)?
+ * Do we have DNS Service Discovery (aka Bonjour) support?
  */
 
 #undef HAVE_DNSSD
 
 
 /*
- * Do we have Avahi for DNS Service Discovery (aka Bonjour)?
+ * Do we have mDNSResponder for DNS-SD?
+ */
+
+#undef HAVE_MDNSRESPONDER
+
+
+/*
+ * Do we have Avahi for DNS-SD?
  */
 
 #undef HAVE_AVAHI

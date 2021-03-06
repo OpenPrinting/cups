@@ -897,8 +897,7 @@ enable_gnutls
 enable_pam
 with_pam_module
 enable_largefile
-enable_avahi
-enable_dnssd
+with_dnssd
 with_dnssd_libs
 with_dnssd_includes
 enable_snapped_cupsd
@@ -1601,8 +1600,6 @@ Optional Features:
   --enable-gnutls         use GNU TLS for SSL/TLS support, default=second
   --disable-pam           disable PAM support
   --disable-largefile     omit support for large files
-  --disable-avahi         disable DNS Service Discovery support using Avahi
-  --disable-dnssd         disable DNS Service Discovery support using mDNSResponder
   --enable-snapped-cupsd  enable support for packaging CUPS in a Snap
   --enable-snapped-clients enable support for CUPS controlling admin access from snapped clients
   --disable-launchd       disable launchd support
@@ -1640,8 +1637,10 @@ Optional Packages:
   --with-domainsocket     set unix domain socket name
   --with-gssservicename   set default gss service name
   --with-pam-module       set the PAM module to use
+  --with-dnssd=...        enable DNS Service Discovery support (avahi,
+                          mdnsresponder, no, yes)
   --with-dnssd-libs       set directory for DNS Service Discovery library
-  --with-dnssd-includes   set directory for DNS Service Discovery includes
+  --with-dnssd-includes   set directory for DNS Service Discovery header files
   --with-snapctl          Set path for snapctl, only needed with --enable-snapped-cupsd, default=/usr/bin/snapctl
   --with-cups-control-slot Name for cups-control slot as defined in snapcraft.yaml, only needed with --enable-snapped-cupsd, default=admin
   --with-systemd          set directory for systemd service files
@@ -10167,32 +10166,42 @@ fi
 
 
 
-# Check whether --enable-avahi was given.
-if test ${enable_avahi+y}
+
+# Check whether --with-dnssd was given.
+if test ${with_dnssd+y}
 then :
-  enableval=$enable_avahi;
+  withval=$with_dnssd;
 fi
 
-# Check whether --enable-dnssd was given.
-if test ${enable_dnssd+y}
+if test x$with_dnssd = x
 then :
-  enableval=$enable_dnssd;
+
+    with_dnssd="yes"
+
+elif test "$with_dnssd" != avahi -a "$with_dnssd" != mdnsresponder -a "$with_dnssd" != no -a "$with_dnssd" != yes
+then :
+
+    as_fn_error $? "Unsupported --with-dnssd value \"$with_dnssd\"." "$LINENO" 5
+
 fi
 
-
-# Check whether --with-dnssd-libs was given.
+# Check whether --with-dnssd_libs was given.
 if test ${with_dnssd_libs+y}
 then :
-  withval=$with_dnssd_libs; LDFLAGS="-L$withval $LDFLAGS"
-	DSOFLAGS="-L$withval $DSOFLAGS"
+  withval=$with_dnssd_libs;
+    LDFLAGS="-L$withval $LDFLAGS"
+    DSOFLAGS="-L$withval $DSOFLAGS"
+
 fi
 
 
-# Check whether --with-dnssd-includes was given.
+# Check whether --with-dnssd_includes was given.
 if test ${with_dnssd_includes+y}
 then :
-  withval=$with_dnssd_includes; CFLAGS="-I$withval $CFLAGS"
-	CPPFLAGS="-I$withval $CPPFLAGS"
+  withval=$with_dnssd_includes;
+    CFLAGS="-I$withval $CFLAGS"
+    CPPFLAGS="-I$withval $CPPFLAGS"
+
 fi
 
 
@@ -10201,10 +10210,115 @@ DNSSD_BACKEND=""
 IPPFIND_BIN=""
 IPPFIND_MAN=""
 
-if test "x$PKGCONFIG" != x -a x$enable_avahi != xno -a x$host_os_name != xdarwin; then
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Avahi" >&5
-printf %s "checking for Avahi... " >&6; }
-	if $PKGCONFIG --exists avahi-client; then
+if test $with_dnssd = yes -o $with_dnssd = mdnsresponder
+then :
+
+    ac_fn_c_check_header_compile "$LINENO" "dns_sd.h" "ac_cv_header_dns_sd_h" "$ac_includes_default"
+if test "x$ac_cv_header_dns_sd_h" = xyes
+then :
+
+	case "$host_os_name" in #(
+  darwin*) :
+
+	    # Darwin and macOS...
+
+printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_MDNSRESPONDER 1" >>confdefs.h
+
+	    DNSSD_BACKEND="dnssd"
+	    IPPFIND_BIN="ippfind"
+	    IPPFIND_MAN="ippfind.1"
+	 ;; #(
+  *) :
+
+	    # All others...
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for current version of dns_sd library" >&5
+printf %s "checking for current version of dns_sd library... " >&6; }
+	    SAVELIBS="$LIBS"
+	    LIBS="$LIBS -ldns_sd"
+	    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+	        #include <dns_sd.h>
+int
+main (void)
+{
+
+		    int constant = kDNSServiceFlagsShareConnection;
+		    unsigned char txtRecord[100];
+		    uint8_t valueLen;
+		    TXTRecordGetValuePtr(sizeof(txtRecord), txtRecord, "value", &valueLen);
+
+  ;
+  return 0;
+}
+
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_MDNSRESPONDER 1" >>confdefs.h
+
+		DNSSDLIBS="-ldns_sd"
+		DNSSD_BACKEND="dnssd"
+		IPPFIND_BIN="ippfind"
+		IPPFIND_MAN="ippfind.1"
+
+else $as_nop
+
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+		if test $with_dnssd = mdnsresponder
+then :
+
+		    as_fn_error $? "--with-dnssd=mdnsresponder specified but dns_sd library not present." "$LINENO" 5
+
+fi
+
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+	    LIBS="$SAVELIBS"
+	 ;; #(
+  *) :
+     ;;
+esac
+
+fi
+
+
+fi
+
+if test "x$DNSSD_BACKEND" = x
+then :
+
+    if test $with_dnssd = avahi -o $with_dnssd = yes
+then :
+
+        if test "x$PKGCONFIG" = x
+then :
+
+            if test $with_dnssd = avahi
+then :
+
+		as_fn_error $? "Avahi requires pkg-config." "$LINENO" 5
+
+fi
+
+else $as_nop
+
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Avahi client" >&5
+printf %s "checking for Avahi client... " >&6; }
+	    if $PKGCONFIG --exists avahi-client
+then :
+
 		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 		CFLAGS="$CFLAGS `$PKGCONFIG --cflags avahi-client`"
@@ -10212,67 +10326,27 @@ printf "%s\n" "yes" >&6; }
 		DNSSD_BACKEND="dnssd"
 		IPPFIND_BIN="ippfind"
 		IPPFIND_MAN="ippfind.1"
-		printf "%s\n" "#define HAVE_AVAHI 1" >>confdefs.h
 
-	else
+printf "%s\n" "#define HAVE_AVAHI 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
+
+
+else $as_nop
+
 		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
-	fi
-fi
-
-if test "x$DNSSD_BACKEND" = x -a x$enable_dnssd != xno; then
-	ac_fn_c_check_header_compile "$LINENO" "dns_sd.h" "ac_cv_header_dns_sd_h" "$ac_includes_default"
-if test "x$ac_cv_header_dns_sd_h" = xyes
+		if test $with_dnssd = avahi
 then :
 
-		case "$host_os_name" in
-			darwin*)
-				# Darwin and macOS...
-				printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
+		    as_fn_error $? "--with-dnssd=avahi specified but Avahi client not present." "$LINENO" 5
 
-				DNSSD_BACKEND="dnssd"
-				IPPFIND_BIN="ippfind"
-				IPPFIND_MAN="ippfind.1"
-				;;
-			*)
-				# All others...
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for current version of dns_sd library" >&5
-printf %s "checking for current version of dns_sd library... " >&6; }
-				SAVELIBS="$LIBS"
-				LIBS="$LIBS -ldns_sd"
-				cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include <dns_sd.h>
-int
-main (void)
-{
-int constant = kDNSServiceFlagsShareConnection;
-					unsigned char txtRecord[100];
-					uint8_t valueLen;
-					TXTRecordGetValuePtr(sizeof(txtRecord),
-					    txtRecord, "value", &valueLen);
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"
-then :
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
-					printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
-
-					DNSSDLIBS="-ldns_sd"
-					DNSSD_BACKEND="dnssd"
-					IPPFIND_BIN="ippfind"
-					IPPFIND_MAN="ippfind.1"
-else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
 fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-				LIBS="$SAVELIBS"
-				;;
-		esac
+
+fi
+
+fi
 
 fi
 

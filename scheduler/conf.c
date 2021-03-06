@@ -68,9 +68,9 @@ typedef struct
 static const cupsd_var_t	cupsd_vars[] =
 {
   { "AutoPurgeJobs", 		&JobAutoPurge,		CUPSD_VARTYPE_BOOLEAN },
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   { "BrowseDNSSDSubTypes",	&DNSSDSubTypes,		CUPSD_VARTYPE_STRING },
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
   { "BrowseWebIF",		&BrowseWebIF,		CUPSD_VARTYPE_BOOLEAN },
   { "Browsing",			&Browsing,		CUPSD_VARTYPE_BOOLEAN },
   { "Classification",		&Classification,	CUPSD_VARTYPE_STRING },
@@ -81,9 +81,9 @@ static const cupsd_var_t	cupsd_vars[] =
   { "DefaultPolicy",		&DefaultPolicy,		CUPSD_VARTYPE_STRING },
   { "DefaultShared",		&DefaultShared,		CUPSD_VARTYPE_BOOLEAN },
   { "DirtyCleanInterval",	&DirtyCleanInterval,	CUPSD_VARTYPE_TIME },
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   { "DNSSDHostName",		&DNSSDHostName,		CUPSD_VARTYPE_STRING },
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
   { "ErrorPolicy",		&ErrorPolicy,		CUPSD_VARTYPE_STRING },
   { "FilterLimit",		&FilterLimit,		CUPSD_VARTYPE_INTEGER },
   { "FilterNice",		&FilterNice,		CUPSD_VARTYPE_INTEGER },
@@ -743,10 +743,10 @@ cupsdReadConfiguration(void)
   Browsing                 = CUPS_DEFAULT_BROWSING;
   DefaultShared            = CUPS_DEFAULT_DEFAULT_SHARED;
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   cupsdSetString(&DNSSDSubTypes, "_cups,_print");
   cupsdClearString(&DNSSDHostName);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
   cupsdSetString(&ErrorPolicy, CUPS_DEFAULT_ERROR_POLICY);
 

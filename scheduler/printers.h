@@ -1,20 +1,21 @@
 /*
  * Printer definitions for the CUPS scheduler.
  *
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright @ 2007-2017 by Apple Inc.
+ * Copyright @ 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #elif defined(HAVE_AVAHI)
 #  include <avahi-client/client.h>
 #  include <avahi-client/publish.h>
 #  include <avahi-common/error.h>
 #  include <avahi-common/thread-watch.h>
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 #include <cups/pwg-private.h>
 
 
@@ -35,14 +36,14 @@ typedef struct
  * DNS-SD types to make the code cleaner/clearer...
  */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 typedef DNSServiceRef cupsd_srv_t;	/* Service reference */
 typedef TXTRecordRef cupsd_txt_t;	/* TXT record */
 
 #elif defined(HAVE_AVAHI)
 typedef AvahiEntryGroup *cupsd_srv_t;	/* Service reference */
 typedef AvahiStringList *cupsd_txt_t;	/* TXT record */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -113,17 +114,17 @@ struct cupsd_printer_s
   time_t	marker_time;		/* Last time marker attributes were updated */
   _ppd_cache_t	*pc;			/* PPD cache and mapping data */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   char		*reg_name,		/* Name used for service registration */
 		*pdl;			/* pdl value for TXT record */
   cupsd_srv_t	ipp_srv;		/* IPP service(s) */
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 #    ifdef HAVE_SSL
   cupsd_srv_t	ipps_srv;		/* IPPS service(s) */
 #    endif /* HAVE_SSL */
   cupsd_srv_t	printer_srv;		/* LPD service */
-#  endif /* HAVE_DNSSD */
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#  endif /* HAVE_MDNSRESPONDER */
+#endif /* HAVE_DNSSD */
 };
 
 

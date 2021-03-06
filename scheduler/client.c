@@ -1,6 +1,7 @@
 /*
  * Client routines for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -3594,7 +3595,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
 	    !strcmp(con->clientname, "[::1]"));
   }
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
  /*
   * Check if the hostname is something.local (Bonjour); if so, allow it.
   */
@@ -3612,7 +3613,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   if (end && (!_cups_strcasecmp(end, ".local") ||
 	      !_cups_strcasecmp(end, ".local.")))
     return (1);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
  /*
   * Check if the hostname is an IP address...
@@ -3666,7 +3667,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
     }
   }
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   for (a = (cupsd_alias_t *)cupsArrayFirst(DNSSDAlias);
        a;
        a = (cupsd_alias_t *)cupsArrayNext(DNSSDAlias))
@@ -3690,7 +3691,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
         return (1);
     }
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
  /*
   * Check for interface hostname matches...

@@ -1,6 +1,7 @@
 /*
  * IPP Everywhere printer application for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group.
  * Copyright © 2010-2019 by Apple Inc.
  *
@@ -45,7 +46,7 @@ extern char **environ;
 #  include <poll.h>
 #endif /* _WIN32 */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #elif defined(HAVE_AVAHI)
 #  include <avahi-client/client.h>
@@ -54,7 +55,7 @@ extern char **environ;
 #  include <avahi-common/error.h>
 #  include <avahi-common/malloc.h>
 #  include <avahi-common/thread-watch.h>
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 #ifdef HAVE_SYS_MOUNT_H
 #  include <sys/mount.h>
@@ -150,7 +151,7 @@ static const char * const ippeve_preason_strings[] =
  * Structures...
  */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 typedef DNSServiceRef ippeve_srv_t;	/* Service reference */
 typedef TXTRecordRef ippeve_txt_t;	/* TXT record */
 
@@ -161,7 +162,7 @@ typedef AvahiStringList *ippeve_txt_t;	/* TXT record */
 #else
 typedef void *ippeve_srv_t;		/* Service reference */
 typedef void *ippeve_txt_t;		/* TXT record */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 #if HAVE_LIBPAM
 typedef struct ippeve_authdata_s	/* Authentication data */
@@ -184,14 +185,14 @@ typedef struct ippeve_printer_s		/**** Printer data ****/
   /* TODO: One IPv4 and one IPv6 listener are really not sufficient */
   int			ipv4,		/* IPv4 listener */
 			ipv6;		/* IPv6 listener */
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   ippeve_srv_t		ipp_ref,	/* DNS-SD IPP service */
 			ipps_ref,	/* DNS-SD IPPS service */
 			http_ref,	/* DNS-SD HTTP service */
 			printer_ref;	/* DNS-SD LPD service */
 #elif defined(HAVE_AVAHI)
   ippeve_srv_t		dnssd_ref;	/* DNS-SD services */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
   char			*dnssd_subtypes;/* DNS-SD subtypes */
   int			dnssd_collision;/* Name collision? */
   char			*dnssd_name,	/* printer-dns-sd-name */
@@ -284,12 +285,12 @@ static void		debug_attributes(const char *title, ipp_t *ipp, int response);
 static void		delete_client(ippeve_client_t *client);
 static void		delete_job(ippeve_job_t *job);
 static void		delete_printer(ippeve_printer_t *printer);
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 static void DNSSD_API	dnssd_callback(DNSServiceRef sdRef, DNSServiceFlags flags, DNSServiceErrorType errorCode, const char *name, const char *regtype, const char *domain, ippeve_printer_t *printer);
 #elif defined(HAVE_AVAHI)
 static void		dnssd_callback(AvahiEntryGroup *p, AvahiEntryGroupState state, void *context);
 static void		dnssd_client_cb(AvahiClient *c, AvahiClientState state, void *userdata);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 static void		dnssd_init(void);
 static int		filter_cb(ippeve_filter_t *filter, ipp_t *dst, ipp_attribute_t *attr);
 static ippeve_job_t	*find_job(ippeve_client_t *client);
@@ -347,12 +348,12 @@ static int		valid_job_attributes(ippeve_client_t *client);
  * Globals...
  */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 static DNSServiceRef	DNSSDMaster = NULL;
 #elif defined(HAVE_AVAHI)
 static AvahiThreadedPoll *DNSSDMaster = NULL;
 static AvahiClient	*DNSSDClient = NULL;
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 static int		KeepFiles = 0,	/* Keep spooled job files? */
 			MaxVersion = 20,/* Maximum IPP version (20 = 2.0, 11 = 1.1, etc.) */
@@ -2120,7 +2121,7 @@ delete_printer(ippeve_printer_t *printer)	/* I - Printer */
   if (printer->ipv6 >= 0)
     close(printer->ipv6);
 
-#if HAVE_DNSSD
+#if HAVE_MDNSRESPONDER
   if (printer->printer_ref)
     DNSServiceRefDeallocate(printer->printer_ref);
   if (printer->ipp_ref)
@@ -2136,7 +2137,7 @@ delete_printer(ippeve_printer_t *printer)	/* I - Printer */
     avahi_entry_group_free(printer->dnssd_ref);
 
   avahi_threaded_poll_unlock(DNSSDMaster);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
   if (printer->dnssd_name)
     free(printer->dnssd_name);
@@ -2166,7 +2167,7 @@ delete_printer(ippeve_printer_t *printer)	/* I - Printer */
 }
 
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 /*
  * 'dnssd_callback()' - Handle DNS-SD registration events.
  */
@@ -2254,7 +2255,7 @@ dnssd_client_cb(
 	break;
   }
 }
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -2264,7 +2265,7 @@ dnssd_client_cb(
 static void
 dnssd_init(void)
 {
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   if (DNSServiceCreateConnection(&DNSSDMaster) != kDNSServiceErr_NoError)
   {
     fputs("Error: Unable to initialize DNS-SD.\n", stderr);
@@ -2287,7 +2288,7 @@ dnssd_init(void)
   }
 
   avahi_threaded_poll_start(DNSSDMaster);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 }
 
 
@@ -7133,7 +7134,7 @@ static int				/* O - 1 on success, 0 on error */
 register_printer(
     ippeve_printer_t *printer)		/* I - Printer */
 {
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   ippeve_txt_t		ipp_txt;	/* DNS-SD IPP TXT record */
   int			i,		/* Looping var */
 			count;		/* Number of values */
@@ -7219,9 +7220,9 @@ register_printer(
 
     printer->dnssd_collision = 0;
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   DNSServiceErrorType	error;		/* Error from DNS-SD */
   char			regtype[256];	/* DNS-SD service type */
   uint32_t		ifindex;	/* Interface index */
@@ -7434,7 +7435,7 @@ register_printer(
   avahi_threaded_poll_unlock(DNSSDMaster);
 
   avahi_string_list_free(ipp_txt);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
   return (1);
 }
@@ -7629,10 +7630,10 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
 
   num_fds = 2;
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   polldata[num_fds   ].fd     = DNSServiceRefSockFD(DNSSDMaster);
   polldata[num_fds ++].events = POLLIN;
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
  /*
   * Loop until we are killed or have a hard error...
@@ -7686,15 +7687,15 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
     * Process DNS-SD messages...
     */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
     if (polldata[2].revents & POLLIN)
       DNSServiceProcessResult(DNSSDMaster);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
     if (printer->dnssd_collision)
       register_printer(printer);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
    /*
     * Clean out old jobs...

@@ -1,7 +1,7 @@
 /*
  * IPP routines for the CUPS scheduler.
  *
- * Copyright © 2020 by OpenPrinting
+ * Copyright © 2020-2021 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -4906,7 +4906,7 @@ copy_printer_attrs(
   if (!ra || cupsArrayFind(ra, "printer-current-time"))
     ippAddDate(con->response, IPP_TAG_PRINTER, "printer-current-time", ippTimeToDate(curtime));
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   if (!ra || cupsArrayFind(ra, "printer-dns-sd-name"))
   {
     if (printer->reg_name)
@@ -4914,7 +4914,7 @@ copy_printer_attrs(
     else
       ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_NOVALUE, "printer-dns-sd-name", 0);
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
   if (!ra || cupsArrayFind(ra, "printer-error-policy"))
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_NAME, "printer-error-policy", NULL, printer->error_policy);
