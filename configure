@@ -8060,7 +8060,7 @@ then :
 
 	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
-	    WARNING_OPTIONS="$WARNINGS -Wno-$warning"
+	    WARNING_OPTIONS="$WARNING_OPTIONS -Wno-$warning"
 
 else $as_nop
 

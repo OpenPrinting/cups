@@ -182,7 +182,7 @@ AS_IF([test -n "$GCC"], [
 
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM()], [
 	    AC_MSG_RESULT(yes)
-	    WARNING_OPTIONS="$WARNINGS -Wno-$warning"
+	    WARNING_OPTIONS="$WARNING_OPTIONS -Wno-$warning"
         ], [
 	    AC_MSG_RESULT(no)
 	])
