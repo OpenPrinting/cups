@@ -50,7 +50,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   const char	*opt;			/* Current option */
   int		errors = 0;		/* Number of errors */
   int		dotests = 1;		/* Do standard tests? */
-  const char	*lang;			/* Single language test? */
+  const char	*lang = NULL;		/* Single language test? */
   cups_lang_t	*language = NULL;	/* Message catalog */
 
 
