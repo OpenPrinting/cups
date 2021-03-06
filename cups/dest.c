@@ -3395,9 +3395,9 @@ cups_enum_dests(
   int           nfds,                   /* Number of files responded */
                 main_fd;                /* File descriptor for lookups */
   DNSServiceRef ipp_ref = NULL;		/* IPP browser */
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   DNSServiceRef ipps_ref = NULL;	/* IPPS browser */
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 #    ifdef HAVE_POLL
   struct pollfd pfd;                    /* Polling data */
 #    else
@@ -3407,9 +3407,9 @@ cups_enum_dests(
 #  else /* HAVE_AVAHI */
   int           error;                  /* Error value */
   AvahiServiceBrowser *ipp_ref = NULL;  /* IPP browser */
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   AvahiServiceBrowser *ipps_ref = NULL; /* IPPS browser */
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 #  endif /* HAVE_MDNSRESPONDER */
 #else
   _cups_getdata_t data;			/* Data for callback */
@@ -3614,7 +3614,7 @@ cups_enum_dests(
     return (0);
   }
 
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   ipps_ref = data.main_ref;
   if (DNSServiceBrowse(&ipps_ref, kDNSServiceFlagsShareConnection, 0, "_ipps._tcp", NULL, (DNSServiceBrowseReply)cups_dnssd_browse_cb, &data) != kDNSServiceErr_NoError)
   {
@@ -3625,7 +3625,7 @@ cups_enum_dests(
 
     return (0);
   }
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 
 #  else /* HAVE_AVAHI */
   if ((data.simple_poll = avahi_simple_poll_new()) == NULL)
@@ -3665,7 +3665,7 @@ cups_enum_dests(
     return (0);
   }
 
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   data.browsers ++;
   if ((ipps_ref = avahi_service_browser_new(data.client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, "_ipps._tcp", NULL, 0, cups_dnssd_browse_cb, &data)) == NULL)
   {
@@ -3679,7 +3679,7 @@ cups_enum_dests(
 
     return (0);
   }
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 #  endif /* HAVE_MDNSRESPONDER */
 
   if (msec < 0)
@@ -3850,10 +3850,10 @@ cups_enum_dests(
   if (ipp_ref)
     DNSServiceRefDeallocate(ipp_ref);
 
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   if (ipps_ref)
     DNSServiceRefDeallocate(ipps_ref);
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 
   if (data.main_ref)
     DNSServiceRefDeallocate(data.main_ref);
@@ -3861,10 +3861,10 @@ cups_enum_dests(
 #  else /* HAVE_AVAHI */
   if (ipp_ref)
     avahi_service_browser_free(ipp_ref);
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   if (ipps_ref)
     avahi_service_browser_free(ipps_ref);
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 
   if (data.client)
     avahi_client_free(data.client);

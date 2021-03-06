@@ -1,8 +1,9 @@
 /*
  * User, system, and password routines for CUPS.
  *
- * Copyright 2007-2019 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -67,11 +68,11 @@ typedef struct _cups_client_conf_s	/**** client.conf config data ****/
 {
   _cups_digestoptions_t	digestoptions;	/* DigestOptions values */
   _cups_uatokens_t	uatokens;	/* UserAgentTokens values */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   int			ssl_options,	/* SSLOptions values */
 			ssl_min_version,/* Minimum SSL/TLS version */
 			ssl_max_version;/* Maximum SSL/TLS version */
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   int			trust_first,	/* Trust on first use? */
 			any_root,	/* Allow any (e.g., self-signed) root */
 			expired_certs,	/* Allow expired certs */
@@ -106,9 +107,9 @@ static void	cups_set_encryption(_cups_client_conf_t *cc, const char *value);
 static void	cups_set_gss_service_name(_cups_client_conf_t *cc, const char *value);
 #endif /* HAVE_GSSAPI */
 static void	cups_set_server_name(_cups_client_conf_t *cc, const char *value);
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 static void	cups_set_ssl_options(_cups_client_conf_t *cc, const char *value);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 static void	cups_set_uatokens(_cups_client_conf_t *cc, const char *value);
 static void	cups_set_user(_cups_client_conf_t *cc, const char *value);
 
@@ -271,10 +272,10 @@ cupsSetCredentials(
   if (cupsArrayCount(credentials) < 1)
     return (-1);
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   _httpFreeCredentials(cg->tls_credentials);
   cg->tls_credentials = _httpCreateCredentials(credentials);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   return (cg->tls_credentials ? 0 : -1);
 }
@@ -1047,9 +1048,9 @@ _cupsSetDefaults(void)
   if (cg->validate_certs < 0)
     cg->validate_certs = cc.validate_certs;
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   _httpTLSSetOptions(cc.ssl_options | _HTTP_TLS_SET_DEFAULT, cc.ssl_min_version, cc.ssl_max_version);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 }
 
 
@@ -1266,10 +1267,10 @@ cups_init_client_conf(
   cups_set_user(cc, "mobile");
 #endif /* __APPLE__ && !TARGET_OS_OSX */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   cc->ssl_min_version = _HTTP_TLS_1_0;
   cc->ssl_max_version = _HTTP_TLS_MAX;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   cc->encryption      = (http_encryption_t)-1;
   cc->trust_first     = -1;
   cc->any_root        = -1;
@@ -1283,7 +1284,7 @@ cups_init_client_conf(
 
 #if defined(__APPLE__)
   char	sval[1024];			/* String value */
-#  ifdef HAVE_SSL
+#  ifdef HAVE_TLS
   int	bval;				/* Boolean value */
 
   if (cups_apple_get_boolean(kAllowAnyRootKey, &bval))
@@ -1319,7 +1320,7 @@ cups_init_client_conf(
 
   if (cups_apple_get_boolean(kValidateCertsKey, &bval))
     cc->validate_certs = bval;
-#  endif /* HAVE_SSL */
+#  endif /* HAVE_TLS */
 
   if (cups_apple_get_string(kDigestOptionsKey, sval, sizeof(sval)))
     cups_set_digestoptions(cc, sval);
@@ -1383,10 +1384,10 @@ cups_read_client_conf(
     else if (!_cups_strcasecmp(line, "GSSServiceName") && value)
       cups_set_gss_service_name(cc, value);
 #endif /* HAVE_GSSAPI */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     else if (!_cups_strcasecmp(line, "SSLOptions") && value)
       cups_set_ssl_options(cc, value);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   }
 }
 
@@ -1480,7 +1481,7 @@ cups_set_server_name(
  * 'cups_set_ssl_options()' - Set the SSLOptions value.
  */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 static void
 cups_set_ssl_options(
     _cups_client_conf_t *cc,		/* I - client.conf values */
@@ -1553,7 +1554,7 @@ cups_set_ssl_options(
 
   DEBUG_printf(("4cups_set_ssl_options(cc=%p, value=\"%s\") options=%x, min_version=%d, max_version=%d", (void *)cc, value, options, min_version, max_version));
 }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 
 /*

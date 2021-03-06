@@ -138,9 +138,9 @@ static const cupsd_var_t	cupsfiles_vars[] =
   { "AccessLog",		&AccessLog,		CUPSD_VARTYPE_STRING },
   { "CacheDir",			&CacheDir,		CUPSD_VARTYPE_STRING },
   { "ConfigFilePerm",		&ConfigFilePerm,	CUPSD_VARTYPE_PERM },
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   { "CreateSelfSignedCerts",	&CreateSelfSignedCerts,	CUPSD_VARTYPE_BOOLEAN },
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   { "DataDir",			&DataDir,		CUPSD_VARTYPE_STRING },
   { "DocumentRoot",		&DocumentRoot,		CUPSD_VARTYPE_STRING },
   { "ErrorLog",			&ErrorLog,		CUPSD_VARTYPE_STRING },
@@ -151,9 +151,9 @@ static const cupsd_var_t	cupsfiles_vars[] =
   { "RemoteRoot",		&RemoteRoot,		CUPSD_VARTYPE_STRING },
   { "RequestRoot",		&RequestRoot,		CUPSD_VARTYPE_STRING },
   { "ServerBin",		&ServerBin,		CUPSD_VARTYPE_PATHNAME },
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   { "ServerKeychain",		&ServerKeychain,	CUPSD_VARTYPE_PATHNAME },
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   { "ServerRoot",		&ServerRoot,		CUPSD_VARTYPE_PATHNAME },
   { "StateDir",			&StateDir,		CUPSD_VARTYPE_STRING },
   { "SyncOnClose",		&SyncOnClose,		CUPSD_VARTYPE_BOOLEAN },
@@ -606,7 +606,7 @@ cupsdReadConfiguration(void)
   cupsdClearString(&Classification);
   ClassifyOverride  = 0;
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 #  ifdef HAVE_GNUTLS
   cupsdSetString(&ServerKeychain, "ssl");
 #  else
@@ -614,7 +614,7 @@ cupsdReadConfiguration(void)
 #  endif /* HAVE_GNUTLS */
 
   _httpTLSSetOptions(_HTTP_TLS_NONE, _HTTP_TLS_1_0, _HTTP_TLS_MAX);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   language = cupsLangDefault();
 
@@ -699,10 +699,10 @@ cupsdReadConfiguration(void)
   ConfigFilePerm           = CUPS_DEFAULT_CONFIG_FILE_PERM;
   FatalErrors              = parse_fatal_errors(CUPS_DEFAULT_FATAL_ERRORS);
   default_auth_type        = CUPSD_AUTH_BASIC;
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   CreateSelfSignedCerts    = TRUE;
   DefaultEncryption        = HTTP_ENCRYPT_REQUIRED;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   DirtyCleanInterval       = DEFAULT_KEEPALIVE;
   JobKillDelay             = DEFAULT_TIMEOUT;
   JobRetryLimit            = 5;
@@ -1096,7 +1096,7 @@ cupsdReadConfiguration(void)
   if (CacheDir[0] != '/')
     cupsdSetStringf(&CacheDir, "%s/%s", ServerRoot, CacheDir);
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   if (!_cups_strcasecmp(ServerKeychain, "internal"))
     cupsdClearString(&ServerKeychain);
   else if (ServerKeychain[0] != '/')
@@ -1106,7 +1106,7 @@ cupsdReadConfiguration(void)
   if (!CreateSelfSignedCerts)
     cupsdLogMessage(CUPSD_LOG_DEBUG, "Self-signed TLS certificate generation is disabled.");
   cupsSetServerCredentials(ServerKeychain, ServerName, CreateSelfSignedCerts);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * Make sure that directories and config files are owned and
@@ -2988,7 +2988,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 		      "FaxRetryLimit is deprecated; use "
 		      "JobRetryLimit on line %d of %s.", linenum, ConfigurationFile);
     }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     else if (!_cups_strcasecmp(line, "SSLOptions"))
     {
      /*
@@ -3056,11 +3056,11 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 
       _httpTLSSetOptions(options, min_version, max_version);
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     else if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
              || !_cups_strcasecmp(line, "SSLPort") || !_cups_strcasecmp(line, "SSLListen")
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	     ) && value)
     {
      /*
@@ -3146,10 +3146,10 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	memcpy(&(lis->address), &(addr->addr), sizeof(lis->address));
 	lis->fd = -1;
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
         if (!_cups_strcasecmp(line, "SSLPort") || !_cups_strcasecmp(line, "SSLListen"))
           lis->encryption = HTTP_ENCRYPT_ALWAYS;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 	httpAddrString(&lis->address, temp, sizeof(temp));
 
@@ -3215,7 +3215,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	  return (0);
       }
     }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     else if (!_cups_strcasecmp(line, "DefaultEncryption"))
     {
      /*
@@ -3237,7 +3237,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	  return (0);
       }
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     else if (!_cups_strcasecmp(line, "HostNameLookups") && value)
     {
      /*

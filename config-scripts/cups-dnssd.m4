@@ -33,6 +33,7 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
     AC_CHECK_HEADER([dns_sd.h], [
 	AS_CASE(["$host_os_name"], [darwin*], [
 	    # Darwin and macOS...
+	    with_dnssd="mdnsresponder"
 	    AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
 	    AC_DEFINE([HAVE_MDNSRESPONDER], [1], [Have mDNSResponder library?])
 	    DNSSD_BACKEND="dnssd"
@@ -52,6 +53,7 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
 		]])
 	    ], [
 		AC_MSG_RESULT([yes])
+		with_dnssd="mdnsresponder"
 		AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
 		AC_DEFINE([HAVE_MDNSRESPONDER], [1], [Have mDNSResponder library?])
 		DNSSDLIBS="-ldns_sd"
@@ -70,28 +72,26 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
 ])
 
 dnl Then try Avahi...
-AS_IF([test "x$DNSSD_BACKEND" = x], [
-    AS_IF([test $with_dnssd = avahi -o $with_dnssd = yes], [
-        AS_IF([test "x$PKGCONFIG" = x], [
-            AS_IF([test $with_dnssd = avahi], [
-		AC_MSG_ERROR([Avahi requires pkg-config.])
-	    ])
-        ], [
-            AC_MSG_CHECKING([for Avahi client])
-	    AS_IF([$PKGCONFIG --exists avahi-client], [
-		AC_MSG_RESULT([yes])
-		CFLAGS="$CFLAGS `$PKGCONFIG --cflags avahi-client`"
-		DNSSDLIBS="`$PKGCONFIG --libs avahi-client`"
-		DNSSD_BACKEND="dnssd"
-		IPPFIND_BIN="ippfind"
-		IPPFIND_MAN="ippfind.1"
-		AC_DEFINE([HAVE_AVAHI], [1], [Have Avahi client library?])
-		AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
-	    ], [
-		AC_MSG_RESULT([no])
-		AS_IF([test $with_dnssd = avahi], [
-		    AC_MSG_ERROR([--with-dnssd=avahi specified but Avahi client not present.])
-		])
+AS_IF([test $with_dnssd = avahi -o $with_dnssd = yes], [
+    AS_IF([test "x$PKGCONFIG" = x], [
+	AS_IF([test $with_dnssd = avahi], [
+	    AC_MSG_ERROR([Avahi requires pkg-config.])
+	])
+    ], [
+	AC_MSG_CHECKING([for Avahi client])
+	AS_IF([$PKGCONFIG --exists avahi-client], [
+	    AC_MSG_RESULT([yes])
+	    CFLAGS="$CFLAGS `$PKGCONFIG --cflags avahi-client`"
+	    DNSSDLIBS="`$PKGCONFIG --libs avahi-client`"
+	    DNSSD_BACKEND="dnssd"
+	    IPPFIND_BIN="ippfind"
+	    IPPFIND_MAN="ippfind.1"
+	    AC_DEFINE([HAVE_AVAHI], [1], [Have Avahi client library?])
+	    AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
+	], [
+	    AC_MSG_RESULT([no])
+	    AS_IF([test $with_dnssd = avahi], [
+		AC_MSG_ERROR([--with-dnssd=avahi specified but Avahi client not present.])
 	    ])
 	])
     ])

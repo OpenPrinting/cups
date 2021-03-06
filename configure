@@ -704,9 +704,9 @@ PAMMOD
 PAMLIBS
 PAMFILE
 PAMDIR
-EXPORT_SSLLIBS
-SSLLIBS
-SSLFLAGS
+EXPORT_TLSLIBS
+TLSLIBS
+TLSFLAGS
 IPPALIASES
 CUPS_SERVERKEYCHAIN
 LIBGNUTLSCONFIG
@@ -891,9 +891,7 @@ with_domainsocket
 enable_gssapi
 with_gssservicename
 enable_threads
-enable_ssl
-enable_cdsassl
-enable_gnutls
+with_tls
 enable_pam
 with_pam_module
 enable_largefile
@@ -1595,9 +1593,6 @@ Optional Features:
   --enable-sanitizer      build with AddressSanitizer
   --enable-gssapi         enable (deprecated) GSSAPI/Kerberos support
   --disable-threads       disable multi-threading support
-  --disable-ssl           disable SSL/TLS support
-  --enable-cdsassl        use CDSA for SSL/TLS support, default=first
-  --enable-gnutls         use GNU TLS for SSL/TLS support, default=second
   --disable-pam           disable PAM support
   --disable-largefile     omit support for large files
   --enable-snapped-cupsd  enable support for packaging CUPS in a Snap
@@ -1636,6 +1631,7 @@ Optional Packages:
   --with-ldarchflags      set program architecture flags
   --with-domainsocket     set unix domain socket name
   --with-gssservicename   set default gss service name
+  --with-tls=...          use cdsa (macOS) or gnutls for TLS support
   --with-pam-module       set the PAM module to use
   --with-dnssd=...        enable DNS Service Discovery support (avahi,
                           mdnsresponder, no, yes)
@@ -9420,72 +9416,97 @@ fi
 
 
 
-# Check whether --enable-ssl was given.
-if test ${enable_ssl+y}
+
+# Check whether --with-tls was given.
+if test ${with_tls+y}
 then :
-  enableval=$enable_ssl;
+  withval=$with_tls;
 fi
 
-# Check whether --enable-cdsassl was given.
-if test ${enable_cdsassl+y}
+if test "x$with_tls" = x
 then :
-  enableval=$enable_cdsassl;
+
+    with_tls="yes"
+
+elif test "$with_tls" != cdsa -a "$with_tls" != gnutls -a "$with_tls" != no -a "$with_tls" != yes
+then :
+
+    as_fn_error $? "Unsupported --with-tls value \"$with_tls\" specified." "$LINENO" 5
+
 fi
 
-# Check whether --enable-gnutls was given.
-if test ${enable_gnutls+y}
-then :
-  enableval=$enable_gnutls;
-fi
-
-
-SSLFLAGS=""
-SSLLIBS=""
-have_ssl=0
+TLSFLAGS=""
+TLSLIBS=""
+have_tls="0"
 CUPS_SERVERKEYCHAIN=""
 
-if test x$enable_ssl != xno; then
-        if test $have_ssl = 0 -a "x$enable_cdsassl" != "xno"; then
-	if test $host_os_name = darwin; then
-	    ac_fn_c_check_header_compile "$LINENO" "Security/SecureTransport.h" "ac_cv_header_Security_SecureTransport_h" "$ac_includes_default"
+if test $with_tls = yes -o $with_tls = cdsa
+then :
+
+        if test $host_os_name = darwin
+then :
+
+	ac_fn_c_check_header_compile "$LINENO" "Security/SecureTransport.h" "ac_cv_header_Security_SecureTransport_h" "$ac_includes_default"
 if test "x$ac_cv_header_Security_SecureTransport_h" = xyes
 then :
 
-	    	have_ssl=1
-		printf "%s\n" "#define HAVE_SSL 1" >>confdefs.h
+	    have_tls="1"
+	    with_tls="cdsa"
 
-		printf "%s\n" "#define HAVE_CDSASSL 1" >>confdefs.h
+printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
 
-		CUPS_SERVERKEYCHAIN="/Library/Keychains/System.keychain"
 
-				ac_fn_c_check_header_compile "$LINENO" "Security/SecCertificate.h" "ac_cv_header_Security_SecCertificate_h" "$ac_includes_default"
+printf "%s\n" "#define HAVE_CDSASSL 1" >>confdefs.h
+
+	    CUPS_SERVERKEYCHAIN="/Library/Keychains/System.keychain"
+
+	    	    ac_fn_c_check_header_compile "$LINENO" "Security/SecCertificate.h" "ac_cv_header_Security_SecCertificate_h" "$ac_includes_default"
 if test "x$ac_cv_header_Security_SecCertificate_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_SECCERTIFICATE_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_SECCERTIFICATE_H 1" >>confdefs.h
+
 
 fi
 
-		ac_fn_c_check_header_compile "$LINENO" "Security/SecItem.h" "ac_cv_header_Security_SecItem_h" "$ac_includes_default"
+	    ac_fn_c_check_header_compile "$LINENO" "Security/SecItem.h" "ac_cv_header_Security_SecItem_h" "$ac_includes_default"
 if test "x$ac_cv_header_Security_SecItem_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_SECITEM_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_SECITEM_H 1" >>confdefs.h
+
 
 fi
 
-		ac_fn_c_check_header_compile "$LINENO" "Security/SecPolicy.h" "ac_cv_header_Security_SecPolicy_h" "$ac_includes_default"
+	    ac_fn_c_check_header_compile "$LINENO" "Security/SecPolicy.h" "ac_cv_header_Security_SecPolicy_h" "$ac_includes_default"
 if test "x$ac_cv_header_Security_SecPolicy_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_SECPOLICY_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_SECPOLICY_H 1" >>confdefs.h
+
+
+fi
+
+
+fi
+
+
+elif test $with_tls = cdsa
+then :
+
+        as_fn_error $? "--with-tls=cdsa is not compatible with your host operating system." "$LINENO" 5
 
 fi
 
 fi
 
-	fi
-    fi
+if test $with_tls = yes -o $with_tls = gnutls
+then :
 
-        if test $have_ssl = 0 -a "x$enable_gnutls" != "xno" -a "x$PKGCONFIG" != x; then
-    	if test -n "$ac_tool_prefix"; then
+    if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}libgnutls-config", so it can be a program name with args.
 set dummy ${ac_tool_prefix}libgnutls-config; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -9593,57 +9614,95 @@ else
   LIBGNUTLSCONFIG="$ac_cv_path_LIBGNUTLSCONFIG"
 fi
 
-	if $PKGCONFIG --exists gnutls; then
-	    have_ssl=1
-	    SSLLIBS=`$PKGCONFIG --libs gnutls`
-	    SSLFLAGS=`$PKGCONFIG --cflags gnutls`
-	    printf "%s\n" "#define HAVE_SSL 1" >>confdefs.h
+    if test "x$PKGCONFIG" != x
+then :
 
-	    printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
+	if $PKGCONFIG --exists gnutls
+then :
 
-	elif test "x$LIBGNUTLSCONFIG" != x; then
-	    have_ssl=1
-	    SSLLIBS=`$LIBGNUTLSCONFIG --libs`
-	    SSLFLAGS=`$LIBGNUTLSCONFIG --cflags`
-	    printf "%s\n" "#define HAVE_SSL 1" >>confdefs.h
+	    have_tls="1"
+	    with_tls="gnutls"
+	    TLSLIBS="$($PKGCONFIG --libs gnutls)"
+	    TLSFLAGS="$($PKGCONFIG --cflags gnutls)"
 
-	    printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
+printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
 
-	fi
 
-	if test $have_ssl = 1; then
-	    CUPS_SERVERKEYCHAIN="ssl"
+printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
 
-	    SAVELIBS="$LIBS"
-	    LIBS="$LIBS $SSLLIBS"
-	    ac_fn_c_check_func "$LINENO" "gnutls_transport_set_pull_timeout_function" "ac_cv_func_gnutls_transport_set_pull_timeout_function"
+
+fi
+
+fi
+    if test $have_tls = 0 -a "x$LIBGNUTLSCONFIG" != x
+then :
+
+	have_tls="1"
+	with_tls="gnutls"
+	TLSLIBS="$($LIBGNUTLSCONFIG --libs)"
+	TLSFLAGS="$($LIBGNUTLSCONFIG --cflags)"
+
+printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
+
+
+fi
+
+    if test $have_tls = 1
+then :
+
+	CUPS_SERVERKEYCHAIN="ssl"
+
+	SAVELIBS="$LIBS"
+	LIBS="$LIBS $TLSLIBS"
+	ac_fn_c_check_func "$LINENO" "gnutls_transport_set_pull_timeout_function" "ac_cv_func_gnutls_transport_set_pull_timeout_function"
 if test "x$ac_cv_func_gnutls_transport_set_pull_timeout_function" = xyes
 then :
-  printf "%s\n" "#define HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION 1" >>confdefs.h
+
 
 fi
 
-	    ac_fn_c_check_func "$LINENO" "gnutls_priority_set_direct" "ac_cv_func_gnutls_priority_set_direct"
+	ac_fn_c_check_func "$LINENO" "gnutls_priority_set_direct" "ac_cv_func_gnutls_priority_set_direct"
 if test "x$ac_cv_func_gnutls_priority_set_direct" = xyes
 then :
-  printf "%s\n" "#define HAVE_GNUTLS_PRIORITY_SET_DIRECT 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_GNUTLS_PRIORITY_SET_DIRECT 1" >>confdefs.h
+
 
 fi
 
-	    LIBS="$SAVELIBS"
-	fi
-    fi
+	LIBS="$SAVELIBS"
+
+elif test $with_tls = gnutls
+then :
+
+        as_fn_error $? "--with-tls=gnutls was specified but the GNU TLS library was not found." "$LINENO" 5
+
+fi
+
 fi
 
 IPPALIASES="http"
-if test $have_ssl = 1; then
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result:     Using SSLLIBS=\"$SSLLIBS\"" >&5
-printf "%s\n" "    Using SSLLIBS=\"$SSLLIBS\"" >&6; }
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result:     Using SSLFLAGS=\"$SSLFLAGS\"" >&5
-printf "%s\n" "    Using SSLFLAGS=\"$SSLFLAGS\"" >&6; }
+if test $have_tls = 1
+then :
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}:     Using TLSLIBS=\"$TLSLIBS\"" >&5
+printf "%s\n" "$as_me:     Using TLSLIBS=\"$TLSLIBS\"" >&6;}
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}:     Using TLSFLAGS=\"$TLSFLAGS\"" >&5
+printf "%s\n" "$as_me:     Using TLSFLAGS=\"$TLSFLAGS\"" >&6;}
     IPPALIASES="http https ipps"
-elif test x$enable_cdsa = xyes -o x$enable_gnutls = xyes; then
-    as_fn_error $? "Unable to enable SSL support." "$LINENO" 5
+
+elif test $with_tls = yes
+then :
+
+    as_fn_error $? "--with-tls=yes was specified but no compatible TLS libraries could be found." "$LINENO" 5
+
 fi
 
 
@@ -9651,7 +9710,7 @@ fi
 
 
 
-EXPORT_SSLLIBS="$SSLLIBS"
+EXPORT_TLSLIBS="$TLSLIBS"
 
 
 
@@ -10281,6 +10340,7 @@ then :
   darwin*) :
 
 	    # Darwin and macOS...
+	    with_dnssd="mdnsresponder"
 
 printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
 
@@ -10321,6 +10381,7 @@ then :
 
 		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
+		with_dnssd="mdnsresponder"
 
 printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
 
@@ -10356,36 +10417,33 @@ fi
 
 fi
 
-if test "x$DNSSD_BACKEND" = x
+if test $with_dnssd = avahi -o $with_dnssd = yes
 then :
 
-    if test $with_dnssd = avahi -o $with_dnssd = yes
+    if test "x$PKGCONFIG" = x
 then :
 
-        if test "x$PKGCONFIG" = x
+	if test $with_dnssd = avahi
 then :
 
-            if test $with_dnssd = avahi
-then :
-
-		as_fn_error $? "Avahi requires pkg-config." "$LINENO" 5
+	    as_fn_error $? "Avahi requires pkg-config." "$LINENO" 5
 
 fi
 
 else $as_nop
 
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Avahi client" >&5
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Avahi client" >&5
 printf %s "checking for Avahi client... " >&6; }
-	    if $PKGCONFIG --exists avahi-client
+	if $PKGCONFIG --exists avahi-client
 then :
 
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
-		CFLAGS="$CFLAGS `$PKGCONFIG --cflags avahi-client`"
-		DNSSDLIBS="`$PKGCONFIG --libs avahi-client`"
-		DNSSD_BACKEND="dnssd"
-		IPPFIND_BIN="ippfind"
-		IPPFIND_MAN="ippfind.1"
+	    CFLAGS="$CFLAGS `$PKGCONFIG --cflags avahi-client`"
+	    DNSSDLIBS="`$PKGCONFIG --libs avahi-client`"
+	    DNSSD_BACKEND="dnssd"
+	    IPPFIND_BIN="ippfind"
+	    IPPFIND_MAN="ippfind.1"
 
 printf "%s\n" "#define HAVE_AVAHI 1" >>confdefs.h
 
@@ -10395,14 +10453,12 @@ printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
 
 else $as_nop
 
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
-		if test $with_dnssd = avahi
+	    if test $with_dnssd = avahi
 then :
 
-		    as_fn_error $? "--with-dnssd=avahi specified but Avahi client not present." "$LINENO" 5
-
-fi
+		as_fn_error $? "--with-dnssd=avahi specified but Avahi client not present." "$LINENO" 5
 
 fi
 

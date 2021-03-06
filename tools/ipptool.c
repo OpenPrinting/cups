@@ -1,6 +1,7 @@
 /*
  * ipptool command for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright @ 2020 by The Printer Working Group.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
@@ -312,12 +313,12 @@ main(int  argc,				/* I - Number of command-line args */
               break;
 
 	  case 'E' : /* Encrypt with TLS */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	      data.encryption = HTTP_ENCRYPT_REQUIRED;
 #else
 	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."),
 			      argv[0]);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	      break;
 
           case 'I' : /* Ignore errors */
@@ -356,12 +357,12 @@ main(int  argc,				/* I - Number of command-line args */
               break;
 
 	  case 'S' : /* Encrypt with SSL */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	      data.encryption = HTTP_ENCRYPT_ALWAYS;
 #else
 	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."),
 			      argv[0]);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	      break;
 
 	  case 'T' : /* Set timeout */
@@ -611,9 +612,9 @@ main(int  argc,				/* I - Number of command-line args */
       }
     }
     else if (!strncmp(argv[i], "ipp://", 6) || !strncmp(argv[i], "http://", 7)
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	     || !strncmp(argv[i], "ipps://", 7) || !strncmp(argv[i], "https://", 8)
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	     )
     {
      /*
@@ -626,10 +627,10 @@ main(int  argc,				/* I - Number of command-line args */
         usage();
       }
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
       if (!strncmp(argv[i], "ipps://", 7) || !strncmp(argv[i], "https://", 8))
         data.encryption = HTTP_ENCRYPT_ALWAYS;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
       if (!_ippVarsSet(&vars, "uri", argv[i]))
       {

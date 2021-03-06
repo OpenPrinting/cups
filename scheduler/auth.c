@@ -1,6 +1,7 @@
 /*
  * Authorization routines for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -2106,7 +2107,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   if (auth == CUPSD_AUTH_DENY && best->satisfy == CUPSD_AUTH_SATISFY_ALL)
     return (HTTP_FORBIDDEN);
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
  /*
   * See if encryption is required...
   */
@@ -2123,7 +2124,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
                     "cupsdIsAuthorized: Need upgrade to TLS...");
     return (HTTP_UPGRADE_REQUIRED);
   }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * Now see what access level is required...

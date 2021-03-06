@@ -1,6 +1,7 @@
 /*
  * Client definitions for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -48,9 +49,9 @@ struct cupsd_client_s
 			header_used;	/* Number of header bytes used */
   char			header[2048];	/* Header from CGI program */
   cups_lang_t		*language;	/* Language to use */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   int			auto_ssl;	/* Automatic test for SSL/TLS */
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   http_addr_t		clientaddr;	/* Client's server address */
   char			clientname[256];/* Client's server name for connection */
   int			clientport;	/* Client's server port for connection */
@@ -137,7 +138,7 @@ extern void	cupsdStopListening(void);
 extern void	cupsdUpdateCGI(void);
 extern void	cupsdWriteClient(cupsd_client_t *con);
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 extern int	cupsdEndTLS(cupsd_client_t *con);
 extern int	cupsdStartTLS(cupsd_client_t *con);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */

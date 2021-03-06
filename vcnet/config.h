@@ -385,10 +385,10 @@ typedef unsigned long useconds_t;
  * Which encryption libraries do we have?
  */
 
+#define HAVE_TLS 1
 /* #undef HAVE_CDSASSL */
 /* #undef HAVE_GNUTLS */
 #define HAVE_SSPISSL 1
-#define HAVE_SSL 1
 
 
 /*

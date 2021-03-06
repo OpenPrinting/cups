@@ -119,9 +119,9 @@ struct cupsd_printer_s
 		*pdl;			/* pdl value for TXT record */
   cupsd_srv_t	ipp_srv;		/* IPP service(s) */
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   cupsd_srv_t	ipps_srv;		/* IPPS service(s) */
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
   cupsd_srv_t	printer_srv;		/* LPD service */
 #  endif /* HAVE_MDNSRESPONDER */
 #endif /* HAVE_DNSSD */

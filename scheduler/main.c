@@ -1909,10 +1909,10 @@ service_add_listener(int fd,		/* I - Socket file descriptor */
   lis->fd        = fd;
   lis->on_demand = 1;
 
-#  ifdef HAVE_SSL
+#  ifdef HAVE_TLS
   if (httpAddrPort(&(lis->address)) == 443)
     lis->encryption = HTTP_ENCRYPT_ALWAYS;
-#  endif /* HAVE_SSL */
+#  endif /* HAVE_TLS */
 }
 #endif /* HAVE_ONDEMAND */
 

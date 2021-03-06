@@ -1,6 +1,7 @@
 /*
  * "lpq" command for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -77,14 +78,14 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
 
 	      if (http)
 		httpEncryption(http, HTTP_ENCRYPT_REQUIRED);
 #else
 	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	      break;
 
 	  case 'U' : /* Username */
