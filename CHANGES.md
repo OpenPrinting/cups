@@ -11,6 +11,7 @@ CUPS v2.4rc1 (Pending)
 - The `cupsfilter` command now shows error messages when options are used
   incorrectly (Issue #88)
 - Documentation fixes (Issue #92)
+- Kerberos (`AuthType Negotiate`) authentication is now deprecated (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
   `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
   and `cups-files.conf`.

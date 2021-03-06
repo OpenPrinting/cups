@@ -80,8 +80,6 @@ The default is "No".
 .\"#DefaultAuthType
 .TP 5
 \fBDefaultAuthType Basic\fR
-.TP 5
-\fBDefaultAuthType Negotiate\fR
 .br
 Specifies the default type of authentication to use.
 The default is "Basic".
@@ -162,11 +160,6 @@ Specifies the scheduling priority (
 value) of filters that are run to print a job.
 The nice value ranges from 0, the highest priority, to 19, the lowest priority.
 The default is 0.
-.\"#GSSServiceName
-.TP 5
-\fBGSSServiceName \fIname\fR
-Specifies the service name when using Kerberos authentication.
-The default service name is "http."
 .TP 5
 .\"#HostNameLookups
 \fBHostNameLookups On\fR
@@ -701,8 +694,6 @@ The Order directive controls whether Allow lines are evaluated before or after D
 \fBAuthType Basic\fR
 .TP 5
 \fBAuthType Default\fR
-.TP 5
-\fBAuthType Negotiate\fR
 Specifies the type of authentication required.
 The value "Default" corresponds to the DefaultAuthType value.
 .TP 5
@@ -816,6 +807,9 @@ Specifies the list of subscription values to make private.
 The "default" values are "notify-events", "notify-pull-method", "notify-recipient-uri", "notify-subscriber-user-name", and "notify-user-data".
 .SS DEPRECATED DIRECTIVES
 The following directives are deprecated and will be removed in a future release of CUPS:
+.TP 5
+\fBAuthType Negotiate\fR
+Specifies Kerberos authentication is required.
 .\"#Classification
 .TP 5
 \fBClassification \fIbanner\fR
@@ -831,6 +825,14 @@ The default is no classification banner.
 .br
 Specifies whether users may override the classification (cover page) of individual print jobs using the "job-sheets" option.
 The default is "No".
+.TP 5
+\fBDefaultAuthType Negotiate\fR
+Specifies that Kerberos authentication is required by default.
+.\"#GSSServiceName
+.TP 5
+\fBGSSServiceName \fIname\fR
+Specifies the service name when using Kerberos authentication.
+The default service name is "http."
 .\"#PageLogFormat
 .TP 5
 \fBPageLogFormat \fIformat-string\fR

@@ -1593,7 +1593,7 @@ Optional Features:
   --enable-unit-tests     build and run unit tests
   --enable-relro          build with the relro option
   --enable-sanitizer      build with AddressSanitizer
-  --disable-gssapi        disable GSSAPI support
+  --enable-gssapi         enable (deprecated) GSSAPI/Kerberos support
   --disable-threads       disable multi-threading support
   --disable-ssl           disable SSL/TLS support
   --enable-cdsassl        use CDSA for SSL/TLS support, default=first
@@ -8886,8 +8886,10 @@ fi
 LIBGSSAPI=""
 
 
-if test x$enable_gssapi != xno; then
-	if test -n "$ac_tool_prefix"; then
+if test x$enable_gssapi = xyes
+then :
+
+    if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}krb5-config", so it can be a program name with args.
 set dummy ${ac_tool_prefix}krb5-config; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -8995,25 +8997,35 @@ else
   KRB5CONFIG="$ac_cv_path_KRB5CONFIG"
 fi
 
-	if test "x$KRB5CONFIG" != x; then
-		case "$host_os_name" in
-			darwin)
-				# macOS weak-links to the Kerberos framework...
-				LIBGSSAPI="-weak_framework Kerberos"
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for GSS framework" >&5
+    case "$host_os_name" in #(
+  darwin*) :
+
+	# macOS weak-links to the Kerberos framework...
+
+printf "%s\n" "#define HAVE_GSSAPI 1" >>confdefs.h
+
+	LIBGSSAPI="-weak_framework Kerberos"
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for GSS framework" >&5
 printf %s "checking for GSS framework... " >&6; }
-				if test -d /System/Library/Frameworks/GSS.framework; then
-					{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+	if test -d /System/Library/Frameworks/GSS.framework
+then :
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
-					LIBGSSAPI="$LIBGSSAPI -weak_framework GSS"
-				else
-					{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+	    LIBGSSAPI="$LIBGSSAPI -weak_framework GSS"
+
+else $as_nop
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
-				fi
-				;;
-			sunos*)
-				# Solaris has a non-standard krb5-config, don't use it!
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gss_display_status in -lgss" >&5
+
+fi
+     ;; #(
+  sunos*) :
+
+	# Solaris has a non-standard krb5-config, don't use it!
+	SAVELIBS="$LIBS"
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gss_display_status in -lgss" >&5
 printf %s "checking for gss_display_status in -lgss... " >&6; }
 if test ${ac_cv_lib_gss_gss_display_status+y}
 then :
@@ -9051,274 +9063,270 @@ printf "%s\n" "$ac_cv_lib_gss_gss_display_status" >&6; }
 if test "x$ac_cv_lib_gss_gss_display_status" = xyes
 then :
 
-printf "%s\n" "#define HAVE_GSSAPI 1" >>confdefs.h
-
-					CFLAGS="`$KRB5CONFIG --cflags` $CFLAGS"
-					CPPFLAGS="`$KRB5CONFIG --cflags` $CPPFLAGS"
-					LIBGSSAPI="-lgss `$KRB5CONFIG --libs`"
-fi
-
-				;;
-			*)
-				# Other platforms just ask for GSSAPI
-				CFLAGS="`$KRB5CONFIG --cflags gssapi` $CFLAGS"
-				CPPFLAGS="`$KRB5CONFIG --cflags gssapi` $CPPFLAGS"
-				LIBGSSAPI="`$KRB5CONFIG --libs gssapi`"
-				;;
-		esac
 
 printf "%s\n" "#define HAVE_GSSAPI 1" >>confdefs.h
 
-	else
-		# Check for vendor-specific implementations...
-		case "$host_os_name" in
-			hp-ux*)
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gss_display_status in -lgss" >&5
-printf %s "checking for gss_display_status in -lgss... " >&6; }
-if test ${ac_cv_lib_gss_gss_display_status+y}
+	    if test "x$KRB5CONFIG" != x
 then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lgss  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
 
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-char gss_display_status ();
-int
-main (void)
-{
-return gss_display_status ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_lib_gss_gss_display_status=yes
+		CFLAGS="$($KRB5CONFIG --cflags) $CFLAGS"
+		CPPFLAGS="$($KRB5CONFIG --cflags) $CPPFLAGS"
+		LIBGSSAPI="-lgss $($KRB5CONFIG --libs)"
+
 else $as_nop
-  ac_cv_lib_gss_gss_display_status=no
+
+	        LIBGSSAPI="-lgss"
+
 fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
+
+else $as_nop
+
+	    as_fn_error $? "--enable-gssapi specified but GSSAPI library cannot be found." "$LINENO" 5
+
 fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_gss_gss_display_status" >&5
-printf "%s\n" "$ac_cv_lib_gss_gss_display_status" >&6; }
-if test "x$ac_cv_lib_gss_gss_display_status" = xyes
+
+	LIBS="$SAVELIBS"
+     ;; #(
+  *) :
+
+	# Other platforms just ask for GSSAPI
+	if test "x$KRB5CONFIG" = x
 then :
+
+	    as_fn_error $? "--enable-gssapi specified but krb5-config cannot be found." "$LINENO" 5
+
+else $as_nop
+
 
 printf "%s\n" "#define HAVE_GSSAPI 1" >>confdefs.h
 
-					LIBGSSAPI="-lgss -lgssapi_krb5"
+	    CFLAGS="$($KRB5CONFIG --cflags gssapi) $CFLAGS"
+	    CPPFLAGS="$($KRB5CONFIG --cflags gssapi) $CPPFLAGS"
+	    LIBGSSAPI="$($KRB5CONFIG --libs gssapi)"
+
 fi
+     ;; #(
+  *) :
+     ;;
+esac
 
-				;;
-			sunos*)
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gss_display_status in -lgss" >&5
-printf %s "checking for gss_display_status in -lgss... " >&6; }
-if test ${ac_cv_lib_gss_gss_display_status+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lgss  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-char gss_display_status ();
-int
-main (void)
-{
-return gss_display_status ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_lib_gss_gss_display_status=yes
-else $as_nop
-  ac_cv_lib_gss_gss_display_status=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_gss_gss_display_status" >&5
-printf "%s\n" "$ac_cv_lib_gss_gss_display_status" >&6; }
-if test "x$ac_cv_lib_gss_gss_display_status" = xyes
-then :
-
-printf "%s\n" "#define HAVE_GSSAPI 1" >>confdefs.h
-
-					LIBGSSAPI="-lgss"
-fi
-
-				;;
-		esac
-	fi
-
-	if test "x$LIBGSSAPI" != x; then
-		ac_fn_c_check_header_compile "$LINENO" "krb5.h" "ac_cv_header_krb5_h" "$ac_includes_default"
+    ac_fn_c_check_header_compile "$LINENO" "krb5.h" "ac_cv_header_krb5_h" "$ac_includes_default"
 if test "x$ac_cv_header_krb5_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_KRB5_H 1" >>confdefs.h
+
+printf "%s\n" "#define HAVE_KRB5_H 1" >>confdefs.h
 
 fi
 
-		if test -d /System/Library/Frameworks/GSS.framework; then
-			ac_fn_c_check_header_compile "$LINENO" "GSS/gssapi.h" "ac_cv_header_GSS_gssapi_h" "$ac_includes_default"
+    if test -d /System/Library/Frameworks/GSS.framework
+then :
+
+	ac_fn_c_check_header_compile "$LINENO" "GSS/gssapi.h" "ac_cv_header_GSS_gssapi_h" "$ac_includes_default"
 if test "x$ac_cv_header_GSS_gssapi_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_GSS_GSSAPI_H 1" >>confdefs.h
+
+printf "%s\n" "#define HAVE_GSS_GSSAPI_H 1" >>confdefs.h
 
 fi
 
-			ac_fn_c_check_header_compile "$LINENO" "GSS/gssapi_generic.h" "ac_cv_header_GSS_gssapi_generic_h" "$ac_includes_default"
+	ac_fn_c_check_header_compile "$LINENO" "GSS/gssapi_generic.h" "ac_cv_header_GSS_gssapi_generic_h" "$ac_includes_default"
 if test "x$ac_cv_header_GSS_gssapi_generic_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_GSS_GSSAPI_GENERIC_H 1" >>confdefs.h
+
+printf "%s\n" "#define HAVE_GSS_GSSAPI_GENERIC_H 1" >>confdefs.h
 
 fi
 
-			ac_fn_c_check_header_compile "$LINENO" "GSS/gssapi_spi.h" "ac_cv_header_GSS_gssapi_spi_h" "$ac_includes_default"
+	ac_fn_c_check_header_compile "$LINENO" "GSS/gssapi_spi.h" "ac_cv_header_GSS_gssapi_spi_h" "$ac_includes_default"
 if test "x$ac_cv_header_GSS_gssapi_spi_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_GSS_GSSAPI_SPI_H 1" >>confdefs.h
+
+printf "%s\n" "#define HAVE_GSS_GSSAPI_SPI_H 1" >>confdefs.h
 
 fi
 
-		else
-			ac_fn_c_check_header_compile "$LINENO" "gssapi.h" "ac_cv_header_gssapi_h" "$ac_includes_default"
+
+else $as_nop
+
+	ac_fn_c_check_header_compile "$LINENO" "gssapi.h" "ac_cv_header_gssapi_h" "$ac_includes_default"
 if test "x$ac_cv_header_gssapi_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_GSSAPI_H 1" >>confdefs.h
+
+printf "%s\n" "#define HAVE_GSSAPI_H 1" >>confdefs.h
 
 fi
 
-			ac_fn_c_check_header_compile "$LINENO" "gssapi/gssapi.h" "ac_cv_header_gssapi_gssapi_h" "$ac_includes_default"
+	ac_fn_c_check_header_compile "$LINENO" "gssapi/gssapi.h" "ac_cv_header_gssapi_gssapi_h" "$ac_includes_default"
 if test "x$ac_cv_header_gssapi_gssapi_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_GSSAPI_GSSAPI_H 1" >>confdefs.h
+
+printf "%s\n" "#define HAVE_GSSAPI_GSSAPI_H 1" >>confdefs.h
 
 fi
 
-		fi
 
-		SAVELIBS="$LIBS"
-		LIBS="$LIBS $LIBGSSAPI"
+fi
 
-		ac_fn_c_check_func "$LINENO" "__ApplePrivate_gss_acquire_cred_ex_f" "ac_cv_func___ApplePrivate_gss_acquire_cred_ex_f"
+    SAVELIBS="$LIBS"
+    LIBS="$LIBS $LIBGSSAPI"
+
+    ac_fn_c_check_func "$LINENO" "__ApplePrivate_gss_acquire_cred_ex_f" "ac_cv_func___ApplePrivate_gss_acquire_cred_ex_f"
 if test "x$ac_cv_func___ApplePrivate_gss_acquire_cred_ex_f" = xyes
 then :
-  printf "%s\n" "#define HAVE_GSS_ACQUIRE_CRED_EX_F 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_GSS_ACQUIRE_CRED_EX_F 1" >>confdefs.h
+
 
 fi
 
 
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for GSS_C_NT_HOSTBASED_SERVICE" >&5
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for GSS_C_NT_HOSTBASED_SERVICE" >&5
 printf %s "checking for GSS_C_NT_HOSTBASED_SERVICE... " >&6; }
-		if test x$ac_cv_header_gssapi_gssapi_h = xyes; then
-			cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+    if test x$ac_cv_header_gssapi_gssapi_h = xyes
+then :
+
+	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
- #include <gssapi/gssapi.h>
+
+	    #include <gssapi/gssapi.h>
 int
 main (void)
 {
- gss_OID foo = GSS_C_NT_HOSTBASED_SERVICE;
+
+	        gss_OID foo = GSS_C_NT_HOSTBASED_SERVICE;
+
   ;
   return 0;
 }
+
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"
 then :
-  printf "%s\n" "#define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1" >>confdefs.h
 
-				       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+
+printf "%s\n" "#define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1" >>confdefs.h
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
+
 else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
+
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-		elif test x$ac_cv_header_gss_gssapi_h = xyes; then
-			cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+
+elif test x$ac_cv_header_gss_gssapi_h = xyes
+then :
+
+        cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
- #include <GSS/gssapi.h>
+
+            #include <GSS/gssapi.h>
 int
 main (void)
 {
- gss_OID foo = GSS_C_NT_HOSTBASED_SERVICE;
+
+	        gss_OID foo = GSS_C_NT_HOSTBASED_SERVICE;
+
   ;
   return 0;
 }
+
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"
 then :
-  printf "%s\n" "#define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1" >>confdefs.h
 
-				       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+
+printf "%s\n" "#define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1" >>confdefs.h
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
+
 else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
+
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-		else
-			cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+
+else $as_nop
+
+        cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
- #include <gssapi.h>
+
+            #include <gssapi.h>
 int
 main (void)
 {
- gss_OID foo = GSS_C_NT_HOSTBASED_SERVICE;
+
+	        gss_OID foo = GSS_C_NT_HOSTBASED_SERVICE;
+
   ;
   return 0;
 }
+
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"
 then :
-  printf "%s\n" "#define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1" >>confdefs.h
 
-				       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+
+printf "%s\n" "#define HAVE_GSS_C_NT_HOSTBASED_SERVICE 1" >>confdefs.h
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
+
 else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
+
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-		fi
 
-		LIBS="$SAVELIBS"
-	fi
+fi
+
+    LIBS="$SAVELIBS"
+
 fi
 
 
 # Check whether --with-gssservicename was given.
 if test ${with_gssservicename+y}
 then :
-  withval=$with_gssservicename; default_gssservicename="$withval"
+  withval=$with_gssservicename;
+    default_gssservicename="$withval"
+
 else $as_nop
-  default_gssservicename="default"
+
+    default_gssservicename="default"
+
 fi
 
 
-if test x$default_gssservicename != xno; then
-	if test "x$default_gssservicename" = "xdefault"; then
-		CUPS_DEFAULT_GSSSERVICENAME="host"
-	else
-		CUPS_DEFAULT_GSSSERVICENAME="$default_gssservicename"
-	fi
-else
-	CUPS_DEFAULT_GSSSERVICENAME=""
+if test x$default_gssservicename != xno
+then :
+
+    if test "x$default_gssservicename" = "xdefault"
+then :
+
+	CUPS_DEFAULT_GSSSERVICENAME="host"
+
+else $as_nop
+
+	CUPS_DEFAULT_GSSSERVICENAME="$default_gssservicename"
+
 fi
+
+else $as_nop
+
+    CUPS_DEFAULT_GSSSERVICENAME=""
+
+fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_GSSSERVICENAME \"$CUPS_DEFAULT_GSSSERVICENAME\"" >>confdefs.h
