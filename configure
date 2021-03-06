@@ -9617,9 +9617,13 @@ fi
     if test "x$PKGCONFIG" != x
 then :
 
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for gnutls package" >&5
+printf %s "checking for gnutls package... " >&6; }
 	if $PKGCONFIG --exists gnutls
 then :
 
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
 	    have_tls="1"
 	    with_tls="gnutls"
 	    TLSLIBS="$($PKGCONFIG --libs gnutls)"
@@ -9630,6 +9634,15 @@ printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
 
 printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
 
+
+else $as_nop
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+	    echo "pkg-config --list-all"
+	    $PKGCONFIG --list-all
+	    echo "pkg-config --print-requires gnutls"
+	    $PKGCONFIG --print-requires gnutls
 
 fi
 

@@ -52,13 +52,21 @@ dnl Then look for GNU TLS...
 AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
     AC_PATH_TOOL([LIBGNUTLSCONFIG], [libgnutls-config])
     AS_IF([test "x$PKGCONFIG" != x], [
+        AC_MSG_CHECKING([for gnutls package])
 	AS_IF([$PKGCONFIG --exists gnutls], [
+	    AC_MSG_RESULT([yes])
 	    have_tls="1"
 	    with_tls="gnutls"
 	    TLSLIBS="$($PKGCONFIG --libs gnutls)"
 	    TLSFLAGS="$($PKGCONFIG --cflags gnutls)"
 	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	    AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
+	], [
+	    AC_MSG_RESULT([no])
+	    echo "pkg-config --list-all"
+	    $PKGCONFIG --list-all
+	    echo "pkg-config --print-requires gnutls"
+	    $PKGCONFIG --print-requires gnutls
 	])
     ])
     AS_IF([test $have_tls = 0 -a "x$LIBGNUTLSCONFIG" != x], [
