@@ -658,8 +658,6 @@ CUPS_SNMP_COMMUNITY
 CUPS_SNMP_ADDRESS
 DEFAULT_RAW_PRINTING
 CUPS_MAX_COPIES
-CUPS_DEFAULT_SMB_CONFIG_FILE
-CUPS_DEFAULT_LPD_CONFIG_FILE
 CUPS_DEFAULT_PRINTCAP
 CUPS_PRIMARY_SYSTEM_GROUP
 CUPS_SYSTEM_GROUPS
@@ -945,8 +943,6 @@ with_cups_user
 with_cups_group
 with_system_groups
 with_printcap
-with_lpdconfigfile
-with_smbconfigfile
 with_max_copies
 enable_raw_printing
 with_snmp_address
@@ -1623,9 +1619,10 @@ Optional Features:
   --enable-sync-on-close  enable SyncOnClose (off by default)
   --disable-browsing      disable Browsing by default
   --disable-default-shared
-			  disable DefaultShared by default
+                          disable DefaultShared by default
   --disable-raw-printing  do not allow raw printing by default
-  --enable-webif          enable the web interface by default, default=no for macOS
+  --enable-webif          enable the web interface by default, default=no for
+                          macOS
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -1667,10 +1664,12 @@ Optional Packages:
   --with-xinetd           set path for xinetd config files
   --with-languages        set installed languages, default=all
   --with-bundledir        set localization bundle directory
-  --with-bundlelang       set localization bundle base language (English or en)
-  --with-exe-file-perm    set default executable permissions value, default=0555
+  --with-bundlelang       set localization bundle base language (English or
+                          en)
+  --with-exe-file-perm    set default executable permissions value,
+                          default=0755
   --with-config-file-perm set default ConfigFilePerm value, default=0640
-  --with-cupsd-file-perm  set default cupsd permissions, default=0500
+  --with-cupsd-file-perm  set default cupsd permissions, default=0700
   --with-log-file-perm    set default LogFilePerm value, default=0644
   --with-max-log-size     set default MaxLogSize value, default=1m
   --with-error-policy     set default ErrorPolicy value, default=stop-printer
@@ -1682,8 +1681,6 @@ Optional Packages:
   --with-cups-group       set default group for CUPS
   --with-system-groups    set default system groups for CUPS
   --with-printcap         set default printcap file
-  --with-lpdconfigfile    set default LPDConfigFile URI
-  --with-smbconfigfile    set default SMBConfigFile URI
   --with-max-copies       set default max copies value, default=9999
   --with-snmp-address     set SNMP query address, default=auto
   --with-snmp-community   set SNMP community, default=public
@@ -10798,18 +10795,29 @@ elif test "x$xinetd" != xno; then
 fi
 
 
-LANGUAGES="`ls -1 locale/cups_*.po 2>/dev/null | sed -e '1,$s/locale\/cups_//' -e '1,$s/\.po//' | tr '\n' ' '`"
+LANGUAGES="$(ls -1 locale/cups_*.po 2>/dev/null | sed -e '1,$s/locale\/cups_//' -e '1,$s/\.po//' | tr '\n' ' ')"
 
 
 # Check whether --with-languages was given.
 if test ${with_languages+y}
 then :
   withval=$with_languages;
-	case "$withval" in
-		none | no) LANGUAGES="" ;;
-		all) ;;
-		*) LANGUAGES="$withval" ;;
-	esac
+    case "$withval" in #(
+  none | no) :
+
+        LANGUAGES=""
+     ;; #(
+  all) :
+
+     ;; #(
+  *) :
+
+        LANGUAGES="$withval"
+     ;; #(
+  *) :
+     ;;
+esac
+
 fi
 
 
@@ -10818,21 +10826,33 @@ fi
 # Check whether --with-bundledir was given.
 if test ${with_bundledir+y}
 then :
-  withval=$with_bundledir; CUPS_BUNDLEDIR="$withval"
+  withval=$with_bundledir;
+    CUPS_BUNDLEDIR="$withval"
+
 else $as_nop
 
-	if test "x$host_os_name" = xdarwin -a $host_os_version -ge 100; then
-		CUPS_BUNDLEDIR="/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A"
-		LANGUAGES=""
-	else
-		CUPS_BUNDLEDIR=""
-	fi
+    if test "x$host_os_name" = xdarwin -a $host_os_version -ge 100
+then :
+
+        CUPS_BUNDLEDIR="/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A"
+	LANGUAGES=""
+
+else $as_nop
+
+	CUPS_BUNDLEDIR=""
+
+fi
+
 fi
 
 
 
-if test "x$CUPS_BUNDLEDIR" != x; then
-	printf "%s\n" "#define CUPS_BUNDLEDIR \"$CUPS_BUNDLEDIR\"" >>confdefs.h
+if test "x$CUPS_BUNDLEDIR" != x
+then :
+
+
+printf "%s\n" "#define CUPS_BUNDLEDIR \"$CUPS_BUNDLEDIR\"" >>confdefs.h
+
 
 fi
 
@@ -10840,21 +10860,34 @@ fi
 # Check whether --with-bundlelang was given.
 if test ${with_bundlelang+y}
 then :
-  withval=$with_bundlelang; cups_bundlelang="$withval"
+  withval=$with_bundlelang;
+    cups_bundlelang="$withval"
+
 else $as_nop
 
-	if test $host_os_version -ge 190; then
-		cups_bundlelang="en"
-	else
-		cups_bundlelang="English"
-	fi
+    if test $host_os_version -ge 190
+then :
+
+	cups_bundlelang="en"
+
+else $as_nop
+
+	cups_bundlelang="English"
+
+fi
+
 fi
 
 
-if test "x$cups_bundlelang" != x -a "x$CUPS_BUNDLEDIR" != x; then
-	CUPS_RESOURCEDIR="$CUPS_BUNDLEDIR/Resources/$cups_bundlelang.lproj"
-else
-	CUPS_RESOURCEDIR=""
+if test "x$cups_bundlelang" != x -a "x$CUPS_BUNDLEDIR" != x
+then :
+
+    CUPS_RESOURCEDIR="$CUPS_BUNDLEDIR/Resources/$cups_bundlelang.lproj"
+
+else $as_nop
+
+    CUPS_RESOURCEDIR=""
+
 fi
 
 
@@ -10862,16 +10895,13 @@ fi
 # Check whether --with-exe_file_perm was given.
 if test ${with_exe_file_perm+y}
 then :
-  withval=$with_exe_file_perm; CUPS_EXE_FILE_PERM="$withval"
+  withval=$with_exe_file_perm;
+    CUPS_EXE_FILE_PERM="$withval"
+
 else $as_nop
-  case "$host_os_name" in
-		linux* | gnu* | *-gnu)
-			CUPS_EXE_FILE_PERM="755"
-			;;
-		*)
-			CUPS_EXE_FILE_PERM="555"
-			;;
-	esac
+
+    CUPS_EXE_FILE_PERM="755"
+
 fi
 
 
@@ -10880,14 +10910,15 @@ fi
 # Check whether --with-config_file_perm was given.
 if test ${with_config_file_perm+y}
 then :
-  withval=$with_config_file_perm; CUPS_CONFIG_FILE_PERM="$withval"
+  withval=$with_config_file_perm;
+    CUPS_CONFIG_FILE_PERM="$withval"
+
 else $as_nop
-  if test "x$host_os_name" = xdarwin; then
-		CUPS_CONFIG_FILE_PERM="644"
-	else
-		CUPS_CONFIG_FILE_PERM="640"
-	fi
+
+    CUPS_CONFIG_FILE_PERM="640"
+
 fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_CONFIG_FILE_PERM 0$CUPS_CONFIG_FILE_PERM" >>confdefs.h
@@ -10897,16 +10928,13 @@ printf "%s\n" "#define CUPS_DEFAULT_CONFIG_FILE_PERM 0$CUPS_CONFIG_FILE_PERM" >>
 # Check whether --with-cupsd_file_perm was given.
 if test ${with_cupsd_file_perm+y}
 then :
-  withval=$with_cupsd_file_perm; CUPS_CUPSD_FILE_PERM="$withval"
+  withval=$with_cupsd_file_perm;
+    CUPS_CUPSD_FILE_PERM="$withval"
+
 else $as_nop
-  case "$host_os_name" in
-		linux* | gnu*)
-			CUPS_CUPSD_FILE_PERM="700"
-			;;
-		*)
-			CUPS_CUPSD_FILE_PERM="500"
-			;;
-	esac
+
+    CUPS_CUPSD_FILE_PERM="700"
+
 fi
 
 
@@ -10915,10 +10943,15 @@ fi
 # Check whether --with-log_file_perm was given.
 if test ${with_log_file_perm+y}
 then :
-  withval=$with_log_file_perm; CUPS_LOG_FILE_PERM="$withval"
+  withval=$with_log_file_perm;
+    CUPS_LOG_FILE_PERM="$withval"
+
 else $as_nop
-  CUPS_LOG_FILE_PERM="644"
+
+    CUPS_LOG_FILE_PERM="644"
+
 fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_LOG_FILE_PERM 0$CUPS_LOG_FILE_PERM" >>confdefs.h
@@ -10928,10 +10961,15 @@ printf "%s\n" "#define CUPS_DEFAULT_LOG_FILE_PERM 0$CUPS_LOG_FILE_PERM" >>confde
 # Check whether --with-max_log_size was given.
 if test ${with_max_log_size+y}
 then :
-  withval=$with_max_log_size; CUPS_MAX_LOG_SIZE="$withval"
+  withval=$with_max_log_size;
+    CUPS_MAX_LOG_SIZE="$withval"
+
 else $as_nop
-  CUPS_MAX_LOG_SIZE="1m"
+
+    CUPS_MAX_LOG_SIZE="1m"
+
 fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_MAX_LOG_SIZE \"$CUPS_MAX_LOG_SIZE\"" >>confdefs.h
@@ -10941,10 +10979,15 @@ printf "%s\n" "#define CUPS_DEFAULT_MAX_LOG_SIZE \"$CUPS_MAX_LOG_SIZE\"" >>confd
 # Check whether --with-error_policy was given.
 if test ${with_error_policy+y}
 then :
-  withval=$with_error_policy; CUPS_ERROR_POLICY="$withval"
+  withval=$with_error_policy;
+    CUPS_ERROR_POLICY="$withval"
+
 else $as_nop
-  CUPS_ERROR_POLICY="stop-printer"
+
+    CUPS_ERROR_POLICY="stop-printer"
+
 fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_ERROR_POLICY \"$CUPS_ERROR_POLICY\"" >>confdefs.h
@@ -10954,10 +10997,15 @@ printf "%s\n" "#define CUPS_DEFAULT_ERROR_POLICY \"$CUPS_ERROR_POLICY\"" >>confd
 # Check whether --with-fatal_errors was given.
 if test ${with_fatal_errors+y}
 then :
-  withval=$with_fatal_errors; CUPS_FATAL_ERRORS="$withval"
+  withval=$with_fatal_errors;
+    CUPS_FATAL_ERRORS="$withval"
+
 else $as_nop
-  CUPS_FATAL_ERRORS="config"
+
+    CUPS_FATAL_ERRORS="config"
+
 fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_FATAL_ERRORS \"$CUPS_FATAL_ERRORS\"" >>confdefs.h
@@ -10967,10 +11015,15 @@ printf "%s\n" "#define CUPS_DEFAULT_FATAL_ERRORS \"$CUPS_FATAL_ERRORS\"" >>confd
 # Check whether --with-log_level was given.
 if test ${with_log_level+y}
 then :
-  withval=$with_log_level; CUPS_LOG_LEVEL="$withval"
+  withval=$with_log_level;
+    CUPS_LOG_LEVEL="$withval"
+
 else $as_nop
-  CUPS_LOG_LEVEL="warn"
+
+    CUPS_LOG_LEVEL="warn"
+
 fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_LOG_LEVEL \"$CUPS_LOG_LEVEL\"" >>confdefs.h
@@ -10995,10 +11048,15 @@ then :
   enableval=$enable_page_logging;
 fi
 
-if test "x$enable_page_logging" = xyes; then
-	CUPS_PAGE_LOG_FORMAT=""
-else
-	CUPS_PAGE_LOG_FORMAT="PageLogFormat"
+if test "x$enable_page_logging" = xyes
+then :
+
+    CUPS_PAGE_LOG_FORMAT=""
+
+else $as_nop
+
+    CUPS_PAGE_LOG_FORMAT="PageLogFormat"
+
 fi
 
 
@@ -11008,12 +11066,18 @@ then :
   enableval=$enable_sync_on_close;
 fi
 
-if test "x$enable_sync_on_close" = xyes; then
-	CUPS_SYNC_ON_CLOSE="Yes"
-	printf "%s\n" "#define CUPS_DEFAULT_SYNC_ON_CLOSE 1" >>confdefs.h
+if test "x$enable_sync_on_close" = xyes
+then :
 
-else
-	CUPS_SYNC_ON_CLOSE="No"
+    CUPS_SYNC_ON_CLOSE="Yes"
+
+printf "%s\n" "#define CUPS_DEFAULT_SYNC_ON_CLOSE 1" >>confdefs.h
+
+
+else $as_nop
+
+    CUPS_SYNC_ON_CLOSE="No"
+
 fi
 
 
@@ -11023,13 +11087,20 @@ then :
   enableval=$enable_browsing;
 fi
 
-if test "x$enable_browsing" = xno; then
-	CUPS_BROWSING="No"
-	printf "%s\n" "#define CUPS_DEFAULT_BROWSING 0" >>confdefs.h
+if test "x$enable_browsing" = xno
+then :
 
-else
-	CUPS_BROWSING="Yes"
-	printf "%s\n" "#define CUPS_DEFAULT_BROWSING 1" >>confdefs.h
+    CUPS_BROWSING="No"
+
+printf "%s\n" "#define CUPS_DEFAULT_BROWSING 0" >>confdefs.h
+
+
+else $as_nop
+
+    CUPS_BROWSING="Yes"
+
+printf "%s\n" "#define CUPS_DEFAULT_BROWSING 1" >>confdefs.h
+
 
 fi
 
@@ -11038,25 +11109,45 @@ fi
 # Check whether --with-local_protocols was given.
 if test ${with_local_protocols+y}
 then :
-  withval=$with_local_protocols; default_local_protocols="$withval"
+  withval=$with_local_protocols;
+    default_local_protocols="$withval"
+
 else $as_nop
-  default_local_protocols="default"
+
+    default_local_protocols="default"
+
 fi
 
 
-if test x$with_local_protocols != xno; then
-	if test "x$default_local_protocols" = "xdefault"; then
-		if test "x$DNSSD_BACKEND" != "x"; then
-			CUPS_BROWSE_LOCAL_PROTOCOLS="dnssd"
-		else
-			CUPS_BROWSE_LOCAL_PROTOCOLS=""
-		fi
-	else
-		CUPS_BROWSE_LOCAL_PROTOCOLS="$default_local_protocols"
-	fi
-else
-	CUPS_BROWSE_LOCAL_PROTOCOLS=""
+if test x$with_local_protocols != xno
+then :
+
+    if test "x$default_local_protocols" = "xdefault"
+then :
+
+	if test "x$DNSSD_BACKEND" != "x"
+then :
+
+	    CUPS_BROWSE_LOCAL_PROTOCOLS="dnssd"
+
+else $as_nop
+
+	    CUPS_BROWSE_LOCAL_PROTOCOLS=""
+
 fi
+
+else $as_nop
+
+	CUPS_BROWSE_LOCAL_PROTOCOLS="$default_local_protocols"
+
+fi
+
+else $as_nop
+
+    CUPS_BROWSE_LOCAL_PROTOCOLS=""
+
+fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_BROWSE_LOCAL_PROTOCOLS \"$CUPS_BROWSE_LOCAL_PROTOCOLS\"" >>confdefs.h
@@ -11068,13 +11159,20 @@ then :
   enableval=$enable_default_shared;
 fi
 
-if test "x$enable_default_shared" = xno; then
-	CUPS_DEFAULT_SHARED="No"
-	printf "%s\n" "#define CUPS_DEFAULT_DEFAULT_SHARED 0" >>confdefs.h
+if test "x$enable_default_shared" = xno
+then :
 
-else
-	CUPS_DEFAULT_SHARED="Yes"
-	printf "%s\n" "#define CUPS_DEFAULT_DEFAULT_SHARED 1" >>confdefs.h
+    CUPS_DEFAULT_SHARED="No"
+
+printf "%s\n" "#define CUPS_DEFAULT_DEFAULT_SHARED 0" >>confdefs.h
+
+
+else $as_nop
+
+    CUPS_DEFAULT_SHARED="Yes"
+
+printf "%s\n" "#define CUPS_DEFAULT_DEFAULT_SHARED 1" >>confdefs.h
+
 
 fi
 
@@ -11083,139 +11181,222 @@ fi
 # Check whether --with-cups_user was given.
 if test ${with_cups_user+y}
 then :
-  withval=$with_cups_user; CUPS_USER="$withval"
-else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for default print user" >&5
-printf %s "checking for default print user... " >&6; }
-	if test x$host_os_name = xdarwin; then
-		if test x`id -u _lp 2>/dev/null` = x; then
-			CUPS_USER="lp";
-		else
-			CUPS_USER="_lp";
-		fi
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $CUPS_USER" >&5
-printf "%s\n" "$CUPS_USER" >&6; }
-	elif test -f /etc/passwd; then
-		CUPS_USER=""
-		for user in lp lpd guest daemon nobody; do
-			if test "`grep \^${user}: /etc/passwd`" != ""; then
-				CUPS_USER="$user"
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $user" >&5
-printf "%s\n" "$user" >&6; }
-				break;
-			fi
-		done
+  withval=$with_cups_user;
+    CUPS_USER="$withval"
 
-		if test x$CUPS_USER = x; then
-			CUPS_USER="nobody"
-			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: not found" >&5
-printf "%s\n" "not found" >&6; }
-		fi
-	else
-		CUPS_USER="nobody"
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no password file" >&5
-printf "%s\n" "no password file" >&6; }
-	fi
+else $as_nop
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for default print user" >&5
+printf %s "checking for default print user... " >&6; }
+    if test x$host_os_name = xdarwin
+then :
+
+	if test "x$(id -u _lp 2>/dev/null)" = x
+then :
+
+	    CUPS_USER="lp"
+
+else $as_nop
+
+	    CUPS_USER="_lp"
+
+fi
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $CUPS_USER" >&5
+printf "%s\n" "$CUPS_USER" >&6; }
+
+elif test -f /etc/passwd
+then :
+
+	CUPS_USER=""
+	for user in lp lpd guest daemon nobody; do
+	    if test "$(grep \^${user}: /etc/passwd)" != ""
+then :
+
+		CUPS_USER="$user"
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $user" >&5
+printf "%s\n" "$user" >&6; }
+		break
+
+fi
+	done
+
+	if test x$CUPS_USER = x
+then :
+
+	    CUPS_USER="nobody"
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: not found, using \"$CUPS_USER\"" >&5
+printf "%s\n" "not found, using \"$CUPS_USER\"" >&6; }
+
+fi
+
+else $as_nop
+
+	CUPS_USER="nobody"
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no password file, using \"$CUPS_USER\"" >&5
+printf "%s\n" "no password file, using \"$CUPS_USER\"" >&6; }
+
+fi
+
 fi
 
 
-if test "x$CUPS_USER" = "xroot" -o "x$CUPS_USER" = "x0"; then
-	as_fn_error $? "The default user for CUPS cannot be root!" "$LINENO" 5
+if test "x$CUPS_USER" = "xroot" -o "x$CUPS_USER" = "x0"
+then :
+
+    as_fn_error $? "The default user for CUPS cannot be root." "$LINENO" 5
+
 fi
 
 
 # Check whether --with-cups_group was given.
 if test ${with_cups_group+y}
 then :
-  withval=$with_cups_group; CUPS_GROUP="$withval"
-else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for default print group" >&5
-printf %s "checking for default print group... " >&6; }
-	if test x$host_os_name = xdarwin; then
-		if test x`id -g _lp 2>/dev/null` = x; then
-			CUPS_GROUP="lp";
-		else
-			CUPS_GROUP="_lp";
-		fi
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $CUPS_GROUP" >&5
-printf "%s\n" "$CUPS_GROUP" >&6; }
-	elif test -f /etc/group; then
-		GROUP_LIST="_lp lp nobody"
-		CUPS_GROUP=""
-		for group in $GROUP_LIST; do
-			if test "`grep \^${group}: /etc/group`" != ""; then
-				CUPS_GROUP="$group"
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $group" >&5
-printf "%s\n" "$group" >&6; }
-				break;
-			fi
-		done
+  withval=$with_cups_group;
+    CUPS_GROUP="$withval"
 
-		if test x$CUPS_GROUP = x; then
-			CUPS_GROUP="nobody"
-			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: not found" >&5
-printf "%s\n" "not found" >&6; }
-		fi
-	else
-		CUPS_GROUP="nobody"
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no group file" >&5
-printf "%s\n" "no group file" >&6; }
-	fi
+else $as_nop
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for default print group" >&5
+printf %s "checking for default print group... " >&6; }
+    if test x$host_os_name = xdarwin
+then :
+
+	if test "x$(id -g _lp 2>/dev/null)" = x
+then :
+
+	    CUPS_GROUP="lp"
+
+else $as_nop
+
+	    CUPS_GROUP="_lp"
+
+fi
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $CUPS_GROUP" >&5
+printf "%s\n" "$CUPS_GROUP" >&6; }
+
+elif test -f /etc/group
+then :
+
+	GROUP_LIST="_lp lp nobody"
+	CUPS_GROUP=""
+	for group in $GROUP_LIST; do
+	    if test "$(grep \^${group}: /etc/group)" != ""
+then :
+
+		CUPS_GROUP="$group"
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $group" >&5
+printf "%s\n" "$group" >&6; }
+		break
+
+fi
+	done
+
+	if test x$CUPS_GROUP = x
+then :
+
+	    CUPS_GROUP="nobody"
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: not found, using \"$CUPS_GROUP\"" >&5
+printf "%s\n" "not found, using \"$CUPS_GROUP\"" >&6; }
+
+fi
+
+else $as_nop
+
+	CUPS_GROUP="nobody"
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no group file, using \"$CUPS_GROUP\"" >&5
+printf "%s\n" "no group file, using \"$CUPS_GROUP\"" >&6; }
+
+fi
+
 fi
 
 
-if test "x$CUPS_GROUP" = "xroot" -o "x$CUPS_GROUP" = "xwheel" -o "x$CUPS_GROUP" = "x0"; then
-	as_fn_error $? "The default group for CUPS cannot be root!" "$LINENO" 5
+if test "x$CUPS_GROUP" = "xroot" -o "x$CUPS_GROUP" = "xwheel" -o "x$CUPS_GROUP" = "x0"
+then :
+
+    as_fn_error $? "The default group for CUPS cannot be root." "$LINENO" 5
+
 fi
 
 
 # Check whether --with-system_groups was given.
 if test ${with_system_groups+y}
 then :
-  withval=$with_system_groups; CUPS_SYSTEM_GROUPS="$withval"
-else $as_nop
-  if test x$host_os_name = xdarwin; then
-		CUPS_SYSTEM_GROUPS="admin"
-	else
-		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for default system groups" >&5
-printf %s "checking for default system groups... " >&6; }
-		if test -f /etc/group; then
-			CUPS_SYSTEM_GROUPS=""
-			GROUP_LIST="lpadmin sys system root wheel"
-			for group in $GROUP_LIST; do
-				if test "`grep \^${group}: /etc/group`" != ""; then
-					if test "x$CUPS_SYSTEM_GROUPS" = x; then
-						CUPS_SYSTEM_GROUPS="$group"
-					else
-						CUPS_SYSTEM_GROUPS="$CUPS_SYSTEM_GROUPS $group"
-					fi
-				fi
-			done
+  withval=$with_system_groups;
+    CUPS_SYSTEM_GROUPS="$withval"
 
-			if test "x$CUPS_SYSTEM_GROUPS" = x; then
-				CUPS_SYSTEM_GROUPS="$GROUP_LIST"
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no groups found" >&5
-printf "%s\n" "no groups found" >&6; }
-			else
-				{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: \"$CUPS_SYSTEM_GROUPS\"" >&5
+else $as_nop
+
+    if test x$host_os_name = xdarwin
+then :
+
+	CUPS_SYSTEM_GROUPS="admin"
+
+else $as_nop
+
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for default system groups" >&5
+printf %s "checking for default system groups... " >&6; }
+	if test -f /etc/group
+then :
+
+	    CUPS_SYSTEM_GROUPS=""
+	    GROUP_LIST="lpadmin sys system root wheel"
+	    for group in $GROUP_LIST; do
+		if test "$(grep \^${group}: /etc/group)" != ""
+then :
+
+		    if test "x$CUPS_SYSTEM_GROUPS" = x
+then :
+
+			CUPS_SYSTEM_GROUPS="$group"
+
+else $as_nop
+
+			CUPS_SYSTEM_GROUPS="$CUPS_SYSTEM_GROUPS $group"
+
+fi
+
+fi
+	    done
+
+	    if test "x$CUPS_SYSTEM_GROUPS" = x
+then :
+
+		CUPS_SYSTEM_GROUPS="$GROUP_LIST"
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no groups found, using \"$CUPS_SYSTEM_GROUPS\"" >&5
+printf "%s\n" "no groups found, using \"$CUPS_SYSTEM_GROUPS\"" >&6; }
+
+else $as_nop
+
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: \"$CUPS_SYSTEM_GROUPS\"" >&5
 printf "%s\n" "\"$CUPS_SYSTEM_GROUPS\"" >&6; }
-			fi
-		else
-			CUPS_SYSTEM_GROUPS="$GROUP_LIST"
-			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no group file" >&5
-printf "%s\n" "no group file" >&6; }
-		fi
-	fi
+
+fi
+
+else $as_nop
+
+	    CUPS_SYSTEM_GROUPS="$GROUP_LIST"
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no group file, using \"$CUPS_SYSTEM_GROUPS\"" >&5
+printf "%s\n" "no group file, using \"$CUPS_SYSTEM_GROUPS\"" >&6; }
+
+fi
+
+fi
+
 fi
 
 
-CUPS_PRIMARY_SYSTEM_GROUP="`echo $CUPS_SYSTEM_GROUPS | awk '{print $1}'`"
+CUPS_PRIMARY_SYSTEM_GROUP="$(echo $CUPS_SYSTEM_GROUPS | awk '{print $1}')"
 
 for group in $CUPS_SYSTEM_GROUPS; do
-	if test "x$CUPS_GROUP" = "x$group"; then
-		as_fn_error $? "The default system groups cannot contain the default CUPS group!" "$LINENO" 5
-	fi
+    if test "x$CUPS_GROUP" = "x$group"
+then :
+
+	as_fn_error $? "The default system groups cannot contain the default CUPS group." "$LINENO" 5
+
+fi
 done
+
 
 
 
@@ -11224,120 +11405,81 @@ done
 
 printf "%s\n" "#define CUPS_DEFAULT_USER \"$CUPS_USER\"" >>confdefs.h
 
+
 printf "%s\n" "#define CUPS_DEFAULT_GROUP \"$CUPS_GROUP\"" >>confdefs.h
 
+
 printf "%s\n" "#define CUPS_DEFAULT_SYSTEM_GROUPS \"$CUPS_SYSTEM_GROUPS\"" >>confdefs.h
+
 
 
 
 # Check whether --with-printcap was given.
 if test ${with_printcap+y}
 then :
-  withval=$with_printcap; default_printcap="$withval"
+  withval=$with_printcap;
+    default_printcap="$withval"
+
 else $as_nop
-  default_printcap="default"
+
+    default_printcap="default"
+
 fi
 
 
-if test x$default_printcap != xno; then
-	if test "x$default_printcap" = "xdefault"; then
-		case $host_os_name in
-			darwin*)
-				if test $host_os_version -ge 90; then
-					CUPS_DEFAULT_PRINTCAP="/Library/Preferences/org.cups.printers.plist"
-				else
-					CUPS_DEFAULT_PRINTCAP="/etc/printcap"
-				fi
-				;;
-			sunos*)
-				CUPS_DEFAULT_PRINTCAP="/etc/printers.conf"
-				;;
-			*)
-				CUPS_DEFAULT_PRINTCAP="/etc/printcap"
-				;;
-		esac
-	else
-		CUPS_DEFAULT_PRINTCAP="$default_printcap"
-	fi
-else
-	CUPS_DEFAULT_PRINTCAP=""
+if test x$default_printcap != xno
+then :
+
+    if test "x$default_printcap" = "xdefault"
+then :
+
+	case $host_os_name in #(
+  darwin*) :
+
+	    CUPS_DEFAULT_PRINTCAP="/Library/Preferences/org.cups.printers.plist"
+	 ;; #(
+  sunos*) :
+
+	    CUPS_DEFAULT_PRINTCAP="/etc/printers.conf"
+	 ;; #(
+  *) :
+
+	    CUPS_DEFAULT_PRINTCAP="/etc/printcap"
+	 ;; #(
+  *) :
+     ;;
+esac
+
+else $as_nop
+
+	CUPS_DEFAULT_PRINTCAP="$default_printcap"
+
 fi
+
+else $as_nop
+
+    CUPS_DEFAULT_PRINTCAP=""
+
+fi
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_PRINTCAP \"$CUPS_DEFAULT_PRINTCAP\"" >>confdefs.h
 
 
 
-# Check whether --with-lpdconfigfile was given.
-if test ${with_lpdconfigfile+y}
-then :
-  withval=$with_lpdconfigfile; default_lpdconfigfile="$withval"
-else $as_nop
-  default_lpdconfigfile="default"
-fi
-
-
-if test x$default_lpdconfigfile != xno; then
-	if test "x$default_lpdconfigfile" = "xdefault"; then
-		case $host_os_name in
-			darwin*)
-				CUPS_DEFAULT_LPD_CONFIG_FILE="launchd:///System/Library/LaunchDaemons/org.cups.cups-lpd.plist"
-				;;
-			*)
-				if test "x$XINETD" != x; then
-					CUPS_DEFAULT_LPD_CONFIG_FILE="xinetd://$XINETD/cups-lpd"
-				else
-					CUPS_DEFAULT_LPD_CONFIG_FILE=""
-				fi
-				;;
-		esac
-	else
-		CUPS_DEFAULT_LPD_CONFIG_FILE="$default_lpdconfigfile"
-	fi
-else
-	CUPS_DEFAULT_LPD_CONFIG_FILE=""
-fi
-
-printf "%s\n" "#define CUPS_DEFAULT_LPD_CONFIG_FILE \"$CUPS_DEFAULT_LPD_CONFIG_FILE\"" >>confdefs.h
-
-
-
-
-# Check whether --with-smbconfigfile was given.
-if test ${with_smbconfigfile+y}
-then :
-  withval=$with_smbconfigfile; default_smbconfigfile="$withval"
-else $as_nop
-  default_smbconfigfile="default"
-fi
-
-
-if test x$default_smbconfigfile != xno; then
-	if test "x$default_smbconfigfile" = "xdefault"; then
-		if test -f /etc/smb.conf; then
-			CUPS_DEFAULT_SMB_CONFIG_FILE="samba:///etc/smb.conf"
-		else
-			CUPS_DEFAULT_SMB_CONFIG_FILE=""
-		fi
-	else
-		CUPS_DEFAULT_SMB_CONFIG_FILE="$default_smbconfigfile"
-	fi
-else
-	CUPS_DEFAULT_SMB_CONFIG_FILE=""
-fi
-
-printf "%s\n" "#define CUPS_DEFAULT_SMB_CONFIG_FILE \"$CUPS_DEFAULT_SMB_CONFIG_FILE\"" >>confdefs.h
-
-
-
-
-# Check whether --with-max-copies was given.
+# Check whether --with-max_copies was given.
 if test ${with_max_copies+y}
 then :
-  withval=$with_max_copies; CUPS_MAX_COPIES="$withval"
+  withval=$with_max_copies;
+    CUPS_MAX_COPIES="$withval"
+
 else $as_nop
-  CUPS_MAX_COPIES="9999"
+
+    CUPS_MAX_COPIES="9999"
+
 fi
+
 
 
 
@@ -11350,38 +11492,61 @@ then :
   enableval=$enable_raw_printing;
 fi
 
-if test "x$enable_raw_printing" != xno; then
-	DEFAULT_RAW_PRINTING=""
-else
-	DEFAULT_RAW_PRINTING="#"
+if test "x$enable_raw_printing" != xno
+then :
+
+    DEFAULT_RAW_PRINTING=""
+
+else $as_nop
+
+    DEFAULT_RAW_PRINTING="#"
+
 fi
 
 
 
-# Check whether --with-snmp-address was given.
+# Check whether --with-snmp_address was given.
 if test ${with_snmp_address+y}
 then :
-  withval=$with_snmp_address; if test "x$withval" = x; then
-		CUPS_SNMP_ADDRESS=""
-	else
-		CUPS_SNMP_ADDRESS="Address $withval"
-	fi
+  withval=$with_snmp_address;
+    if test "x$withval" = x
+then :
+
+	CUPS_SNMP_ADDRESS=""
+
 else $as_nop
-  if test "x$host_os_name" = xdarwin; then
-		CUPS_SNMP_ADDRESS=""
-	else
-		CUPS_SNMP_ADDRESS="Address @LOCAL"
-	fi
+
+	CUPS_SNMP_ADDRESS="Address $withval"
+
+fi
+
+else $as_nop
+
+    if test "x$host_os_name" = xdarwin
+then :
+
+	CUPS_SNMP_ADDRESS=""
+
+else $as_nop
+
+	CUPS_SNMP_ADDRESS="Address @LOCAL"
+
+fi
+
 fi
 
 
 
-# Check whether --with-snmp-community was given.
+# Check whether --with-snmp_community was given.
 if test ${with_snmp_community+y}
 then :
-  withval=$with_snmp_community; CUPS_SNMP_COMMUNITY="Community $withval"
+  withval=$with_snmp_community;
+    CUPS_SNMP_COMMUNITY="Community $withval"
+
 else $as_nop
-  CUPS_SNMP_COMMUNITY="Community public"
+
+    CUPS_SNMP_COMMUNITY="Community public"
+
 fi
 
 
@@ -11389,13 +11554,18 @@ fi
 
 
 
-# Check whether --with-ipp-port was given.
+# Check whether --with-ipp_port was given.
 if test ${with_ipp_port+y}
 then :
-  withval=$with_ipp_port; DEFAULT_IPP_PORT="$withval"
+  withval=$with_ipp_port;
+    DEFAULT_IPP_PORT="$withval"
+
 else $as_nop
-  DEFAULT_IPP_PORT="631"
+
+    DEFAULT_IPP_PORT="631"
+
 fi
+
 
 
 
@@ -11408,25 +11578,36 @@ then :
   enableval=$enable_webif;
 fi
 
-case "x$enable_webif" in
-	xno)
-		CUPS_WEBIF=No
-		CUPS_DEFAULT_WEBIF=0
-		;;
-	xyes)
-		CUPS_WEBIF=Yes
-		CUPS_DEFAULT_WEBIF=1
-		;;
-	*)
-		if test $host_os_name = darwin; then
-			CUPS_WEBIF=No
-			CUPS_DEFAULT_WEBIF=0
-		else
-			CUPS_WEBIF=Yes
-			CUPS_DEFAULT_WEBIF=1
-		fi
-		;;
+case "x$enable_webif" in #(
+  xno) :
+
+    CUPS_WEBIF=No
+    CUPS_DEFAULT_WEBIF=0
+ ;; #(
+  xyes) :
+
+    CUPS_WEBIF=Yes
+    CUPS_DEFAULT_WEBIF=1
+ ;; #(
+  *) :
+
+    if test $host_os_name = darwin
+then :
+
+	CUPS_WEBIF=No
+	CUPS_DEFAULT_WEBIF=0
+
+else $as_nop
+
+	CUPS_WEBIF=Yes
+	CUPS_DEFAULT_WEBIF=1
+
+fi
+ ;; #(
+  *) :
+     ;;
 esac
+
 
 
 printf "%s\n" "#define CUPS_DEFAULT_WEBIF $CUPS_DEFAULT_WEBIF" >>confdefs.h

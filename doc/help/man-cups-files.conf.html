@@ -174,14 +174,6 @@ The URI "file:///dev/null" is always allowed.
 File devices cannot be used with "raw" print queues - a PPD file is required.
 The specified file is overwritten for every print job.
 Writing to directories is not supported.
-<dt><a name="FontPath"></a><b>FontPath </b><i>directory[:...:directoryN]</i>
-<dd style="margin-left: 5.0em">Specifies a colon separated list of directories where fonts can be found.
-On Linux the
-<b>font-config</b>(1)
-mechanism is used instead.
-On macOS the Font Book application manages system-installed fonts.
-<dt><a name="LPDConfigFile"></a><b> LPDConfigFile </b><i>filename</i>
-<dd style="margin-left: 5.0em">Specifies the LPD service configuration file to update.
 <dt><a name="Printcap"></a><b>Printcap </b><i>filename</i>
 <dd style="margin-left: 5.0em">Specifies a file that is filled with a list of local print queues.
 <dt><a name="PrintcapFormat"></a><b>PrintcapFormat bsd</b>
@@ -191,8 +183,6 @@ On macOS the Font Book application manages system-installed fonts.
 "bsd" is the historical LPD printcap file format.
 "plist" is the Apple plist file format.
 "solaris" is the historical Solaris LPD printcap file format.
-<dt><a name="SMBConfigFile"></a><b>SMBConfigFile </b><i>filename</i>
-<dd style="margin-left: 5.0em">Specifies the SMB service configuration file to update.
 </dl>
 <h2 class="title"><a name="NOTES">Notes</a></h2>
 The scheduler MUST be restarted manually after making changes to the <b>cups-files.conf</b> file.
@@ -212,9 +202,7 @@ command is used instead.
 <b>subscriptions.conf</b>(5),
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2020 by Michael R Sweet
-<br>
-Copyright &copy; 2021 by OpenPrinting.
+Copyright &copy; 2020-2021 by OpenPrinting.
 
 </body>
 </html>

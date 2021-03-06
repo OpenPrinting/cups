@@ -31,8 +31,6 @@
  */
 
 static char		*DataDir = NULL;/* CUPS_DATADIR environment variable */
-static char		*FontPath = NULL;
-					/* CUPS_FONTPATH environment variable */
 static mime_filter_t	GZIPFilter =	/* gziptoany filter */
 {
   NULL,					/* Source type */
@@ -45,8 +43,6 @@ static char		*ServerBin = NULL;
 					/* CUPS_SERVERBIN environment variable */
 static char		*ServerRoot = NULL;
 					/* CUPS_SERVERROOT environment variable */
-static char		*RIPCache = NULL;
-					/* RIP_MAX_CACHE environment variable */
 static char		TempFile[1024] = "";
 					/* Temporary file */
 
@@ -1059,7 +1055,6 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   snprintf(content_type, sizeof(content_type), "CONTENT_TYPE=%s/%s",
            srctype->super, srctype->type);
   snprintf(cups_datadir, sizeof(cups_datadir), "CUPS_DATADIR=%s", DataDir);
-  snprintf(cups_fontpath, sizeof(cups_fontpath), "CUPS_FONTPATH=%s", FontPath);
   snprintf(cups_serverbin, sizeof(cups_serverbin), "CUPS_SERVERBIN=%s",
            ServerBin);
   snprintf(cups_serverroot, sizeof(cups_serverroot), "CUPS_SERVERROOT=%s",
@@ -1098,7 +1093,6 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
 #else
     snprintf(ppd, sizeof(ppd), "PPD=%s/model/laserjet.ppd", DataDir);
 #endif /* __APPLE__ */
-  snprintf(rip_max_cache, sizeof(rip_max_cache), "RIP_MAX_CACHE=%s", RIPCache);
   snprintf(userenv, sizeof(userenv), "USER=%s", user);
 
   if (printer &&
@@ -1474,13 +1468,6 @@ read_cups_files_conf(
   else
     set_string(&DataDir, CUPS_DATADIR);
 
-  if ((temp = getenv("CUPS_FONTPATH")) != NULL)
-    set_string(&FontPath, temp);
-  else
-    set_string(&FontPath, CUPS_FONTPATH);
-
-  set_string(&RIPCache, "128m");
-
   if ((temp = getenv("CUPS_SERVERBIN")) != NULL)
     set_string(&ServerBin, temp);
   else
@@ -1502,10 +1489,6 @@ read_cups_files_conf(
     {
       if (!_cups_strcasecmp(line, "DataDir"))
         set_string(&DataDir, ptr);
-      else if (!_cups_strcasecmp(line, "FontPath"))
-        set_string(&FontPath, ptr);
-      else if (!_cups_strcasecmp(line, "RIPCache"))
-        set_string(&RIPCache, ptr);
       else if (!_cups_strcasecmp(line, "ServerBin"))
         set_string(&ServerBin, ptr);
       else if (!_cups_strcasecmp(line, "ServerRoot"))

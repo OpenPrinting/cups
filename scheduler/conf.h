@@ -1,6 +1,7 @@
 /*
  * Configuration file definitions for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -139,14 +140,10 @@ VAR char		*AccessLog		VALUE(NULL),
 					/* Default paper size */
 			*ErrorPolicy		VALUE(NULL),
 					/* Default printer-error-policy */
-			*RIPCache		VALUE(NULL),
-					/* Amount of memory for RIPs */
 			*TempDir		VALUE(NULL),
 					/* Temporary directory */
 			*Printcap		VALUE(NULL),
 					/* Printcap file */
-			*FontPath		VALUE(NULL),
-					/* Font search path */
 			*RemoteRoot		VALUE(NULL),
 					/* Remote root user */
 			*Classification		VALUE(NULL);

@@ -1012,7 +1012,6 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       }
     }
   }
-  snprintf(rip_max_cache, sizeof(rip_max_cache), "RIP_MAX_CACHE=%s", RIPCache);
 
   if (job->printer->num_auth_info_required == 1)
     snprintf(auth_info_required, sizeof(auth_info_required),

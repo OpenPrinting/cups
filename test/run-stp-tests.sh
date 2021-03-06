@@ -518,7 +518,6 @@ StateDir $BASE
 ServerBin $BASE/bin
 CacheDir $BASE/share
 DataDir $BASE/share
-FontPath $BASE/share/fonts
 DocumentRoot $root/doc
 RequestRoot $BASE/spool
 TempDir $BASE/spool/temp

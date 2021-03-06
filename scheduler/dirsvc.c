@@ -1,6 +1,7 @@
 /*
  * Directory services routines for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -38,20 +39,11 @@ static int	avahi_running = 0;
 #if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
 static char		*get_auth_info_required(cupsd_printer_t *p,
 			                        char *buffer, size_t bufsize);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
-#ifdef __APPLE__
-static int		get_hostconfig(const char *name);
-#endif /* __APPLE__ */
-static void		update_lpd(int onoff);
-static void		update_smb(int onoff);
-
-
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
 #  ifdef __APPLE__
 static void		dnssdAddAlias(const void *key, const void *value,
 			              void *context);
 #  endif /* __APPLE__ */
-static cupsd_txt_t	dnssdBuildTxtRecord(cupsd_printer_t *p, int for_lpd);
+static cupsd_txt_t	dnssdBuildTxtRecord(cupsd_printer_t *p);
 #  ifdef HAVE_AVAHI
 static void		dnssdClientCallback(AvahiClient *c, AvahiClientState state, void *userdata);
 #  endif /* HAVE_AVAHI */
@@ -222,16 +214,6 @@ cupsdStartBrowsing(void)
   }
 #endif /* HAVE_DNSSD || HAVE_AVAHI */
 
- /*
-  * Enable LPD and SMB printer sharing as needed through external programs...
-  */
-
-  if (BrowseLocalProtocols & BROWSE_LPD)
-    update_lpd(1);
-
-  if (BrowseLocalProtocols & BROWSE_SMB)
-    update_smb(1);
-
 #if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
  /*
   * Register the individual printers
@@ -266,16 +248,6 @@ cupsdStopBrowsing(void)
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdStop();
 #endif /* HAVE_DNSSD || HAVE_AVAHI */
-
- /*
-  * Disable LPD and SMB printer sharing as needed through external programs...
-  */
-
-  if (BrowseLocalProtocols & BROWSE_LPD)
-    update_lpd(0);
-
-  if (BrowseLocalProtocols & BROWSE_SMB)
-    update_smb(0);
 }
 
 
@@ -338,8 +310,7 @@ dnssdAddAlias(const void *key,		/* I - Key */
 
 static cupsd_txt_t			/* O - TXT record */
 dnssdBuildTxtRecord(
-    cupsd_printer_t *p,			/* I - Printer information */
-    int             for_lpd)		/* I - 1 = LPD, 0 = IPP */
+    cupsd_printer_t *p)			/* I - Printer information */
 {
   int		i,			/* Looping var */
 		count;			/* Count of key/value pairs */
@@ -362,169 +333,161 @@ dnssdBuildTxtRecord(
 
   count = 0;
 
-  if (!for_lpd || (BrowseLocalProtocols & BROWSE_LPD))
+  keyvalue[count  ][0] = "txtvers";
+  keyvalue[count++][1] = "1";
+
+  keyvalue[count  ][0] = "qtotal";
+  keyvalue[count++][1] = "1";
+
+  keyvalue[count  ][0] = "rp";
+  keyvalue[count++][1] = rp_str;
+  snprintf(rp_str, sizeof(rp_str), "%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
+
+  keyvalue[count  ][0] = "ty";
+  keyvalue[count++][1] = p->make_model ? p->make_model : "Unknown";
+
+ /*
+  * Get the hostname for the admin page...
+  */
+
+  if (strchr(DNSSDHostName, '.'))
   {
-    keyvalue[count  ][0] = "txtvers";
-    keyvalue[count++][1] = "1";
-
-    keyvalue[count  ][0] = "qtotal";
-    keyvalue[count++][1] = "1";
-
-    keyvalue[count  ][0] = "rp";
-    keyvalue[count++][1] = rp_str;
-    if (for_lpd)
-      strlcpy(rp_str, p->name, sizeof(rp_str));
-    else
-      snprintf(rp_str, sizeof(rp_str), "%s/%s",
-	       (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers",
-	       p->name);
-
-    keyvalue[count  ][0] = "ty";
-    keyvalue[count++][1] = p->make_model ? p->make_model : "Unknown";
-
    /*
-    * Get the hostname for the admin page...
+    * Use the provided hostname, but make sure it ends with a period...
     */
 
-    if (strchr(DNSSDHostName, '.'))
-    {
-     /*
-      * Use the provided hostname, but make sure it ends with a period...
-      */
-
-      if ((ptr = DNSSDHostName + strlen(DNSSDHostName) - 1) >= DNSSDHostName && *ptr == '.')
-        strlcpy(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
-      else
-        snprintf(admin_hostname, sizeof(admin_hostname), "%s.", DNSSDHostName);
-    }
+    if ((ptr = DNSSDHostName + strlen(DNSSDHostName) - 1) >= DNSSDHostName && *ptr == '.')
+      strlcpy(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
     else
-    {
-     /*
-      * Unqualified hostname gets ".local." added to it...
-      */
-
-      snprintf(admin_hostname, sizeof(admin_hostname), "%s.local.", DNSSDHostName);
-    }
-
+      snprintf(admin_hostname, sizeof(admin_hostname), "%s.", DNSSDHostName);
+  }
+  else
+  {
    /*
-    * Get the URL scheme for the admin page...
+    * Unqualified hostname gets ".local." added to it...
     */
+
+    snprintf(admin_hostname, sizeof(admin_hostname), "%s.local.", DNSSDHostName);
+  }
+
+ /*
+  * Get the URL scheme for the admin page...
+  */
 
 #  ifdef HAVE_SSL
-    for (lis = (cupsd_listener_t *)cupsArrayFirst(Listeners); lis; lis = (cupsd_listener_t *)cupsArrayNext(Listeners))
+  for (lis = (cupsd_listener_t *)cupsArrayFirst(Listeners); lis; lis = (cupsd_listener_t *)cupsArrayNext(Listeners))
+  {
+    if (lis->encryption != HTTP_ENCRYPTION_NEVER)
     {
-      if (lis->encryption != HTTP_ENCRYPTION_NEVER)
-      {
-        admin_scheme = "https";
-        break;
-      }
+      admin_scheme = "https";
+      break;
     }
+  }
 #  endif /* HAVE_SSL */
 
-    httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
-    keyvalue[count  ][0] = "adminurl";
-    keyvalue[count++][1] = adminurl_str;
+  httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
+  keyvalue[count  ][0] = "adminurl";
+  keyvalue[count++][1] = adminurl_str;
 
-    if (p->location)
-    {
-      keyvalue[count  ][0] = "note";
-      keyvalue[count++][1] = p->location;
-    }
-
-    keyvalue[count  ][0] = "priority";
-    keyvalue[count++][1] = for_lpd ? "100" : "0";
-
-    keyvalue[count  ][0] = "product";
-    keyvalue[count++][1] = p->pc && p->pc->product ? p->pc->product : "Unknown";
-
-    keyvalue[count  ][0] = "pdl";
-    keyvalue[count++][1] = p->pdl ? p->pdl : "application/postscript";
-
-    if (get_auth_info_required(p, air_str, sizeof(air_str)))
-    {
-      keyvalue[count  ][0] = "air";
-      keyvalue[count++][1] = air_str;
-    }
-
-    keyvalue[count  ][0] = "UUID";
-    keyvalue[count++][1] = p->uuid + 9;
-
-  #ifdef HAVE_SSL
-    keyvalue[count  ][0] = "TLS";
-    keyvalue[count++][1] = "1.2";
-  #endif /* HAVE_SSL */
-
-    if (p->type & CUPS_PRINTER_FAX)
-    {
-      keyvalue[count  ][0] = "Fax";
-      keyvalue[count++][1] = "T";
-      keyvalue[count  ][0] = "rfo";
-      keyvalue[count++][1] = rp_str;
-    }
-
-    if (p->type & CUPS_PRINTER_COLOR)
-    {
-      keyvalue[count  ][0] = "Color";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLOR) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_DUPLEX)
-    {
-      keyvalue[count  ][0] = "Duplex";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_DUPLEX) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_STAPLE)
-    {
-      keyvalue[count  ][0] = "Staple";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_STAPLE) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_COPIES)
-    {
-      keyvalue[count  ][0] = "Copies";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_COPIES) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_COLLATE)
-    {
-      keyvalue[count  ][0] = "Collate";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLLATE) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_PUNCH)
-    {
-      keyvalue[count  ][0] = "Punch";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_PUNCH) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_BIND)
-    {
-      keyvalue[count  ][0] = "Bind";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_BIND) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_SORT)
-    {
-      keyvalue[count  ][0] = "Sort";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_SORT) ? "T" : "F";
-    }
-
-    if (p->type & CUPS_PRINTER_MFP)
-    {
-      keyvalue[count  ][0] = "Scan";
-      keyvalue[count++][1] = (p->type & CUPS_PRINTER_MFP) ? "T" : "F";
-    }
-
-    snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PRINTER_REMOTE);
-    snprintf(state_str, sizeof(state_str), "%d", p->state);
-
-    keyvalue[count  ][0] = "printer-state";
-    keyvalue[count++][1] = state_str;
-
-    keyvalue[count  ][0] = "printer-type";
-    keyvalue[count++][1] = type_str;
+  if (p->location)
+  {
+    keyvalue[count  ][0] = "note";
+    keyvalue[count++][1] = p->location;
   }
+
+  keyvalue[count  ][0] = "priority";
+  keyvalue[count++][1] = "0";
+
+  keyvalue[count  ][0] = "product";
+  keyvalue[count++][1] = p->pc && p->pc->product ? p->pc->product : "Unknown";
+
+  keyvalue[count  ][0] = "pdl";
+  keyvalue[count++][1] = p->pdl ? p->pdl : "application/postscript";
+
+  if (get_auth_info_required(p, air_str, sizeof(air_str)))
+  {
+    keyvalue[count  ][0] = "air";
+    keyvalue[count++][1] = air_str;
+  }
+
+  keyvalue[count  ][0] = "UUID";
+  keyvalue[count++][1] = p->uuid + 9;
+
+#ifdef HAVE_SSL
+  keyvalue[count  ][0] = "TLS";
+  keyvalue[count++][1] = "1.2";
+#endif /* HAVE_SSL */
+
+  if (p->type & CUPS_PRINTER_FAX)
+  {
+    keyvalue[count  ][0] = "Fax";
+    keyvalue[count++][1] = "T";
+    keyvalue[count  ][0] = "rfo";
+    keyvalue[count++][1] = rp_str;
+  }
+
+  if (p->type & CUPS_PRINTER_COLOR)
+  {
+    keyvalue[count  ][0] = "Color";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLOR) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_DUPLEX)
+  {
+    keyvalue[count  ][0] = "Duplex";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_DUPLEX) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_STAPLE)
+  {
+    keyvalue[count  ][0] = "Staple";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_STAPLE) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_COPIES)
+  {
+    keyvalue[count  ][0] = "Copies";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COPIES) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_COLLATE)
+  {
+    keyvalue[count  ][0] = "Collate";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLLATE) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_PUNCH)
+  {
+    keyvalue[count  ][0] = "Punch";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_PUNCH) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_BIND)
+  {
+    keyvalue[count  ][0] = "Bind";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_BIND) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_SORT)
+  {
+    keyvalue[count  ][0] = "Sort";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_SORT) ? "T" : "F";
+  }
+
+  if (p->type & CUPS_PRINTER_MFP)
+  {
+    keyvalue[count  ][0] = "Scan";
+    keyvalue[count++][1] = (p->type & CUPS_PRINTER_MFP) ? "T" : "F";
+  }
+
+  snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PRINTER_REMOTE);
+  snprintf(state_str, sizeof(state_str), "%d", p->state);
+
+  keyvalue[count  ][0] = "printer-state";
+  keyvalue[count++][1] = state_str;
+
+  keyvalue[count  ][0] = "printer-type";
+  keyvalue[count++][1] = type_str;
 
  /*
   * Then pack them into a proper txt record...
@@ -1180,10 +1143,8 @@ dnssdRegisterPrinter(
     int             from_callback)	/* I - Called from callback? */
 {
   char		name[256];		/* Service name */
-  int		printer_port;		/* LPD port number */
   int		status;			/* Registration status */
-  cupsd_txt_t	ipp_txt,		/* IPP(S) TXT record */
- 		printer_txt;		/* LPD TXT record */
+  cupsd_txt_t	ipp_txt;		/* IPP(S) TXT record */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "dnssdRegisterPrinter(%s) %s", p->name,
@@ -1230,19 +1191,12 @@ dnssdRegisterPrinter(
   * Register IPP and LPD...
   *
   * We always must register the "_printer" service type in order to reserve
-  * our name, but use port number 0 if we haven't actually configured cups-lpd
-  * to share via LPD...
+  * our name, but use port number 0 so that we don't have clients using LPD...
   */
 
-  ipp_txt     = dnssdBuildTxtRecord(p, 0);
-  printer_txt = dnssdBuildTxtRecord(p, 1);
+  ipp_txt = dnssdBuildTxtRecord(p);
 
-  if (BrowseLocalProtocols & BROWSE_LPD)
-    printer_port = 515;
-  else
-    printer_port = 0;
-
-  status = dnssdRegisterInstance(NULL, p, name, "_printer._tcp", NULL, printer_port, &printer_txt, 0, from_callback);
+  status = dnssdRegisterInstance(NULL, p, name, "_printer._tcp", NULL, 0, NULL, 0, from_callback);
 
 #  ifdef HAVE_SSL
   if (status)
@@ -1262,7 +1216,6 @@ dnssdRegisterPrinter(
   }
 
   dnssdFreeTxtRecord(&ipp_txt);
-  dnssdFreeTxtRecord(&printer_txt);
 
   if (status)
   {
@@ -1650,219 +1603,3 @@ get_auth_info_required(
   return ("none");
 }
 #endif /* HAVE_DNSSD || HAVE_AVAHI */
-
-
-#ifdef __APPLE__
-/*
- * 'get_hostconfig()' - Get an /etc/hostconfig service setting.
- */
-
-static int				/* O - 1 for YES or AUTOMATIC, 0 for NO */
-get_hostconfig(const char *name)	/* I - Name of service */
-{
-  cups_file_t	*fp;			/* Hostconfig file */
-  char		line[1024],		/* Line from file */
-		*ptr;			/* Pointer to value */
-  int		state = 1;		/* State of service */
-
-
- /*
-  * Try opening the /etc/hostconfig file; if we can't open it, assume that
-  * the service is enabled/auto.
-  */
-
-  if ((fp = cupsFileOpen("/etc/hostconfig", "r")) != NULL)
-  {
-   /*
-    * Read lines from the file until we find the service...
-    */
-
-    while (cupsFileGets(fp, line, sizeof(line)))
-    {
-      if (line[0] == '#' || (ptr = strchr(line, '=')) == NULL)
-        continue;
-
-      *ptr++ = '\0';
-
-      if (!_cups_strcasecmp(line, name))
-      {
-       /*
-        * Found the service, see if it is set to "-NO-"...
-	*/
-
-	if (!_cups_strncasecmp(ptr, "-NO-", 4))
-	  state = 0;
-        break;
-      }
-    }
-
-    cupsFileClose(fp);
-  }
-
-  return (state);
-}
-#endif /* __APPLE__ */
-
-
-/*
- * 'update_lpd()' - Update the LPD configuration as needed.
- */
-
-static void
-update_lpd(int onoff)			/* - 1 = turn on, 0 = turn off */
-{
-  if (!LPDConfigFile)
-    return;
-
-#ifdef __APPLE__
- /*
-  * Allow /etc/hostconfig CUPS_LPD service setting to override cupsd.conf
-  * setting for backwards-compatibility.
-  */
-
-  if (onoff && !get_hostconfig("CUPS_LPD"))
-    onoff = 0;
-#endif /* __APPLE__ */
-
-  if (!strncmp(LPDConfigFile, "xinetd:///", 10))
-  {
-   /*
-    * Enable/disable LPD via the xinetd.d config file for cups-lpd...
-    */
-
-    char	newfile[1024];		/* New cups-lpd.N file */
-    cups_file_t	*ofp,			/* Original file pointer */
-		*nfp;			/* New file pointer */
-    char	line[1024];		/* Line from file */
-
-
-    snprintf(newfile, sizeof(newfile), "%s.N", LPDConfigFile + 9);
-
-    if ((ofp = cupsFileOpen(LPDConfigFile + 9, "r")) == NULL)
-    {
-      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to open \"%s\" - %s",
-                      LPDConfigFile + 9, strerror(errno));
-      return;
-    }
-
-    if ((nfp = cupsFileOpen(newfile, "w")) == NULL)
-    {
-      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to create \"%s\" - %s",
-                      newfile, strerror(errno));
-      cupsFileClose(ofp);
-      return;
-    }
-
-   /*
-    * Copy all of the lines from the cups-lpd file...
-    */
-
-    while (cupsFileGets(ofp, line, sizeof(line)))
-    {
-      if (line[0] == '{')
-      {
-        cupsFilePrintf(nfp, "%s\n", line);
-        snprintf(line, sizeof(line), "\tdisable = %s",
-	         onoff ? "no" : "yes");
-      }
-      else if (!strstr(line, "disable ="))
-        cupsFilePrintf(nfp, "%s\n", line);
-    }
-
-    cupsFileClose(nfp);
-    cupsFileClose(ofp);
-    rename(newfile, LPDConfigFile + 9);
-  }
-#ifdef __APPLE__
-  else if (!strncmp(LPDConfigFile, "launchd:///", 11))
-  {
-   /*
-    * Enable/disable LPD via the launchctl command...
-    */
-
-    char	*argv[5],		/* Arguments for command */
-		*envp[MAX_ENV];		/* Environment for command */
-    int		pid;			/* Process ID */
-
-
-    cupsdLoadEnv(envp, (int)(sizeof(envp) / sizeof(envp[0])));
-    argv[0] = (char *)"launchctl";
-    argv[1] = (char *)(onoff ? "load" : "unload");
-    argv[2] = (char *)"-w";
-    argv[3] = LPDConfigFile + 10;
-    argv[4] = NULL;
-
-    cupsdStartProcess("/bin/launchctl", argv, envp, -1, -1, -1, -1, -1, 1,
-                      NULL, NULL, &pid);
-  }
-#endif /* __APPLE__ */
-  else
-    cupsdLogMessage(CUPSD_LOG_INFO, "Unknown LPDConfigFile scheme!");
-}
-
-
-/*
- * 'update_smb()' - Update the SMB configuration as needed.
- */
-
-static void
-update_smb(int onoff)			/* I - 1 = turn on, 0 = turn off */
-{
-  if (!SMBConfigFile)
-    return;
-
-  if (!strncmp(SMBConfigFile, "samba:///", 9))
-  {
-   /*
-    * Enable/disable SMB via the specified smb.conf config file...
-    */
-
-    char	newfile[1024];		/* New smb.conf.N file */
-    cups_file_t	*ofp,			/* Original file pointer */
-		*nfp;			/* New file pointer */
-    char	line[1024];		/* Line from file */
-    int		in_printers;		/* In [printers] section? */
-
-
-    snprintf(newfile, sizeof(newfile), "%s.N", SMBConfigFile + 8);
-
-    if ((ofp = cupsFileOpen(SMBConfigFile + 8, "r")) == NULL)
-    {
-      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to open \"%s\" - %s",
-                      SMBConfigFile + 8, strerror(errno));
-      return;
-    }
-
-    if ((nfp = cupsFileOpen(newfile, "w")) == NULL)
-    {
-      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to create \"%s\" - %s",
-                      newfile, strerror(errno));
-      cupsFileClose(ofp);
-      return;
-    }
-
-   /*
-    * Copy all of the lines from the smb.conf file...
-    */
-
-    in_printers = 0;
-
-    while (cupsFileGets(ofp, line, sizeof(line)))
-    {
-      if (in_printers && strstr(line, "printable ="))
-        snprintf(line, sizeof(line), "    printable = %s",
-	         onoff ? "yes" : "no");
-
-      cupsFilePrintf(nfp, "%s\n", line);
-
-      if (line[0] == '[')
-        in_printers = !strcmp(line, "[printers]");
-    }
-
-    cupsFileClose(nfp);
-    cupsFileClose(ofp);
-    rename(newfile, SMBConfigFile + 8);
-  }
-  else
-    cupsdLogMessage(CUPSD_LOG_INFO, "Unknown SMBConfigFile scheme!");
-}

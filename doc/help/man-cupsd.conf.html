@@ -576,9 +576,6 @@ The following percent sequences are recognized:
 The default is the empty string, which disables page logging.
 The string "%p %u %j %T %P %C %{job-billing} %{job-originating-host-name} %{job-name} %{media} %{sides}" creates a page log with the standard items.
 Use "%{job-impressions-completed}" to insert the number of pages (sides) that were printed, or "%{job-media-sheets-completed}" to insert the number of sheets that were printed.
-<dt><a name="RIPCache"></a><b>RIPCache </b><i>size</i>
-<dd style="margin-left: 5.0em">Specifies the maximum amount of memory to use when converting documents into bitmaps for a printer.
-The default is "128m".
 </dl>
 <h2 class="title"><a name="NOTES">Notes</a></h2>
 File, directory, and user configuration directives that used to be allowed in the <b>cupsd.conf</b> file are now stored in the
@@ -625,9 +622,7 @@ Require authentication for accesses from outside the 10. network:
 <b>subscriptions.conf</b>(5),
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2020 by Michael R Sweet
-<br>
-Copyright &copy; 2021 by OpenPrinting.
+Copyright &copy; 2020-2021 by OpenPrinting.
 
 </body>
 </html>

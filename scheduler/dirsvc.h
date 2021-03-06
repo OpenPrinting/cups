@@ -1,10 +1,12 @@
 /*
  * Directory services definitions for the CUPS scheduler.
  *
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2017 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -12,9 +14,7 @@
  */
 
 #define BROWSE_DNSSD	1		/* DNS Service Discovery (aka Bonjour) */
-#define BROWSE_SMB	2		/* SMB/Samba */
-#define BROWSE_LPD	4		/* LPD via xinetd or launchd */
-#define BROWSE_ALL	7		/* All protocols */
+#define BROWSE_ALL	1		/* All protocols */
 
 
 /*
@@ -53,11 +53,6 @@ VAR AvahiClient		*DNSSDClient	VALUE(NULL);
 VAR cupsd_srv_t		WebIFSrv	VALUE(NULL);
 					/* Service reference for the web interface */
 #endif /* HAVE_DNSSD || HAVE_AVAHI */
-
-VAR char		*LPDConfigFile	VALUE(NULL),
-					/* LPD configuration file */
-			*SMBConfigFile	VALUE(NULL);
-					/* SMB configuration file */
 
 
 /*

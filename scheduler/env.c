@@ -1,10 +1,12 @@
 /*
  * Environment management routines for the CUPS scheduler.
  *
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2016 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -199,7 +201,6 @@ cupsdUpdateEnv(void)
   set_if_undefined("CUPS_CACHEDIR", CacheDir);
   set_if_undefined("CUPS_DATADIR", DataDir);
   set_if_undefined("CUPS_DOCROOT", DocumentRoot);
-  set_if_undefined("CUPS_FONTPATH", FontPath);
   set_if_undefined("CUPS_REQUESTROOT", RequestRoot);
   set_if_undefined("CUPS_SERVERBIN", ServerBin);
   set_if_undefined("CUPS_SERVERROOT", ServerRoot);
