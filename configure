@@ -9828,10 +9828,12 @@ PAMLIBS=""
 PAMMOD="pam_unknown.so"
 PAMMODAUTH="pam_unknown.so"
 
-if test x$enable_pam != xno; then
-	SAVELIBS="$LIBS"
+if test x$enable_pam != xno
+then :
 
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for dlopen in -ldl" >&5
+    SAVELIBS="$LIBS"
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for dlopen in -ldl" >&5
 printf %s "checking for dlopen in -ldl... " >&6; }
 if test ${ac_cv_lib_dl_dlopen+y}
 then :
@@ -9874,7 +9876,7 @@ then :
 
 fi
 
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pam_start in -lpam" >&5
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pam_start in -lpam" >&5
 printf %s "checking for pam_start in -lpam... " >&6; }
 if test ${ac_cv_lib_pam_pam_start+y}
 then :
@@ -9917,7 +9919,7 @@ then :
 
 fi
 
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pam_set_item in -lpam" >&5
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pam_set_item in -lpam" >&5
 printf %s "checking for pam_set_item in -lpam... " >&6; }
 if test ${ac_cv_lib_pam_pam_set_item+y}
 then :
@@ -9954,11 +9956,14 @@ fi
 printf "%s\n" "$ac_cv_lib_pam_pam_set_item" >&6; }
 if test "x$ac_cv_lib_pam_pam_set_item" = xyes
 then :
-  printf "%s\n" "#define HAVE_PAM_SET_ITEM 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_PAM_SET_ITEM 1" >>confdefs.h
+
 
 fi
 
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pam_setcred in -lpam" >&5
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pam_setcred in -lpam" >&5
 printf %s "checking for pam_setcred in -lpam... " >&6; }
 if test ${ac_cv_lib_pam_pam_setcred+y}
 then :
@@ -9995,87 +10000,141 @@ fi
 printf "%s\n" "$ac_cv_lib_pam_pam_setcred" >&6; }
 if test "x$ac_cv_lib_pam_pam_setcred" = xyes
 then :
-  printf "%s\n" "#define HAVE_PAM_SETCRED 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_PAM_SETCRED 1" >>confdefs.h
+
 
 fi
 
-	ac_fn_c_check_header_compile "$LINENO" "security/pam_appl.h" "ac_cv_header_security_pam_appl_h" "$ac_includes_default"
+    ac_fn_c_check_header_compile "$LINENO" "security/pam_appl.h" "ac_cv_header_security_pam_appl_h" "$ac_includes_default"
 if test "x$ac_cv_header_security_pam_appl_h" = xyes
 then :
 
 fi
 
-	if test x$ac_cv_header_security_pam_appl_h != xyes; then
-		ac_fn_c_check_header_compile "$LINENO" "pam/pam_appl.h" "ac_cv_header_pam_pam_appl_h" "$ac_includes_default"
+    if test x$ac_cv_header_security_pam_appl_h != xyes
+then :
+
+	ac_fn_c_check_header_compile "$LINENO" "pam/pam_appl.h" "ac_cv_header_pam_pam_appl_h" "$ac_includes_default"
 if test "x$ac_cv_header_pam_pam_appl_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_PAM_PAM_APPL_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_PAM_PAM_APPL_H 1" >>confdefs.h
+
 
 fi
 
-	fi
 
-	if test x$ac_cv_lib_pam_pam_start != xno; then
-		# Set the necessary libraries for PAM...
-		if test x$ac_cv_lib_dl_dlopen != xno; then
-			PAMLIBS="-lpam -ldl"
-		else
-			PAMLIBS="-lpam"
-		fi
+fi
 
-		# Find the PAM configuration directory, if any...
-		for dir in /private/etc/pam.d /etc/pam.d; do
-			if test -d $dir; then
-				PAMDIR=$dir
-				break;
-			fi
-		done
-	fi
+    if test x$ac_cv_lib_pam_pam_start != xno
+then :
 
-	LIBS="$SAVELIBS"
+	# Set the necessary libraries for PAM...
+	if test x$ac_cv_lib_dl_dlopen != xno
+then :
 
-	case "$host_os_name" in
-		darwin*)
-			# Darwin/macOS
-			if test "x$with_pam_module" != x; then
-				PAMFILE="pam.$with_pam_module"
-			elif test -f /usr/lib/pam/pam_opendirectory.so.2; then
-				PAMFILE="pam.opendirectory"
-			else
-				PAMFILE="pam.securityserver"
-			fi
-			;;
+	    PAMLIBS="-lpam -ldl"
 
-		*)
-			# All others; this test might need to be updated
-			# as Linux distributors move things around...
-			if test "x$with_pam_module" != x; then
-				PAMMOD="pam_${with_pam_module}.so"
-			elif test -f /etc/pam.d/common-auth; then
-				PAMFILE="pam.common"
-			else
-				moddir=""
-				for dir in /lib/security /lib64/security /lib/x86_64-linux-gnu/security /var/lib/pam; do
-					if test -d $dir; then
-						moddir=$dir
-						break;
-					fi
-				done
+else $as_nop
 
-				if test -f $moddir/pam_unix2.so; then
-					PAMMOD="pam_unix2.so"
-				elif test -f $moddir/pam_unix.so; then
-					PAMMOD="pam_unix.so"
-				fi
-			fi
+	    PAMLIBS="-lpam"
 
-			if test "x$PAMMOD" = xpam_unix.so; then
-				PAMMODAUTH="$PAMMOD shadow nodelay"
-			else
-				PAMMODAUTH="$PAMMOD nodelay"
-			fi
-			;;
-	esac
+fi
+
+	# Find the PAM configuration directory, if any...
+	for dir in /private/etc/pam.d /etc/pam.d; do
+	    if test -d $dir
+then :
+
+		PAMDIR="$dir"
+		break;
+
+fi
+	done
+
+fi
+
+    LIBS="$SAVELIBS"
+
+    case "$host_os_name" in #(
+  darwin*) :
+
+	# Darwin/macOS
+	if test "x$with_pam_module" != x
+then :
+
+	    PAMFILE="pam.$with_pam_module"
+
+elif test -f /usr/lib/pam/pam_opendirectory.so.2
+then :
+
+	    PAMFILE="pam.opendirectory"
+
+else $as_nop
+
+	    PAMFILE="pam.securityserver"
+
+fi
+     ;; #(
+  *) :
+
+	# All others; this test might need to be updated
+	# as Linux distributors move things around...
+	if test "x$with_pam_module" != x
+then :
+
+	    PAMMOD="pam_${with_pam_module}.so"
+
+elif test -f /etc/pam.d/common-auth
+then :
+
+	    PAMFILE="pam.common"
+
+else $as_nop
+
+	    moddir=""
+	    for dir in /lib/security /lib64/security /lib/x86_64-linux-gnu/security /var/lib/pam; do
+		if test -d $dir
+then :
+
+		    moddir="$dir"
+		    break;
+
+fi
+	    done
+
+	    if test -f $moddir/pam_unix2.so
+then :
+
+		PAMMOD="pam_unix2.so"
+
+elif test -f $moddir/pam_unix.so
+then :
+
+		PAMMOD="pam_unix.so"
+
+fi
+
+fi
+
+	if test "x$PAMMOD" = xpam_unix.so
+then :
+
+	    PAMMODAUTH="$PAMMOD shadow nodelay"
+
+else $as_nop
+
+	    PAMMODAUTH="$PAMMOD nodelay"
+
+fi
+     ;; #(
+  *) :
+     ;;
+esac
+
 fi
 
 
