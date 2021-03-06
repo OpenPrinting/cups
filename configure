@@ -3157,19 +3157,27 @@ case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
 
 
 
-host_os_name=`echo $host_os | sed -e '1,$s/[0-9.]*$//g'`
-host_os_version=`echo $host_os | sed -e '1,$s/^[^0-9.]*//g' | awk -F. '{print $1 $2}'`
+host_os_name="$(echo $host_os | sed -e '1,$s/[0-9.]*$//g')"
+host_os_version="$(echo $host_os | sed -e '1,$s/^[^0-9.]*//g' | awk -F. '{print $1 $2}')"
 # Linux often does not yield an OS version we can use...
-if test "x$host_os_version" = x; then
-        host_os_version="0"
+if test "x$host_os_version" = x
+then :
+
+    host_os_version="0"
+
 fi
 
-if test "$build" = "$host"; then
-        # No, build local targets
-	LOCALTARGET="local"
-else
-        # Yes, don't build local targets
-	LOCALTARGET=""
+if test "$build" = "$host"
+then :
+
+    # No, build local targets
+    LOCALTARGET="local"
+
+else $as_nop
+
+    # Yes, don't build local targets
+    LOCALTARGET=""
+
 fi
 
 
