@@ -1583,7 +1583,7 @@ Optional Features:
   --disable-dbus          build without DBUS support
   --disable-shared        do not create shared libraries
   --enable-libtool-unsupported=/path/to/libtool
-                          build with libtool (UNSUPPORTED!)
+                          build with libtool (UNSUPPORTED)
   --enable-debug          build with debugging symbols
   --enable-debug-guards   build with memory allocation guards
   --enable-debug-printfs  build with CUPS_DEBUG_LOG support
@@ -7694,48 +7694,62 @@ fi
 # Check whether --enable-libtool_unsupported was given.
 if test ${enable_libtool_unsupported+y}
 then :
-  enableval=$enable_libtool_unsupported; if test x$enable_libtool_unsupported != xno; then
-		if test x$enable_libtool_unsupported == xyes; then
-			as_fn_error $? "Use --enable-libtool-unsupported=/path/to/libtool." "$LINENO" 5
-		fi
-		LIBTOOL="$enable_libtool_unsupported"
-		enable_shared=no
-		echo "WARNING: libtool is not supported or endorsed by Apple Inc."
-		echo "         WE DO NOT PROVIDE SUPPORT FOR LIBTOOL PROBLEMS."
-	else
-		LIBTOOL=""
-	fi
+  enableval=$enable_libtool_unsupported;
+    if test x$enable_libtool_unsupported != xno
+then :
+
+	if test x$enable_libtool_unsupported = xyes
+then :
+
+	    as_fn_error $? "Use --enable-libtool-unsupported=/path/to/libtool." "$LINENO" 5
+
+fi
+	LIBTOOL="$enable_libtool_unsupported"
+	enable_shared="no"
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: WARNING: libtool is not supported." >&5
+printf "%s\n" "$as_me: WARNING: WARNING: libtool is not supported." >&2;}
+
+else $as_nop
+
+	LIBTOOL=""
+
+fi
+
 fi
 
 
-if test x$LIBTOOL != x; then
-	DSO="\$(LIBTOOL) --mode=link --tag=CC ${CC}"
-	DSOXX="\$(LIBTOOL) --mode=link --tag=CXX ${CXX}"
+if test x$LIBTOOL != x
+then :
 
-	LD_CC="\$(LIBTOOL) --mode=link --tag=CC ${CC}"
-	LD_CXX="\$(LIBTOOL) --mode=link --tag=CXX ${CXX}"
+    DSO="\$(LIBTOOL) --mode=link --tag=CC ${CC}"
+    DSOXX="\$(LIBTOOL) --mode=link --tag=CXX ${CXX}"
 
-	LIBCUPS="libcups.la"
-	LIBCUPSSTATIC="libcups.la"
-	LIBCUPSCGI="libcupscgi.la"
-	LIBCUPSIMAGE="libcupsimage.la"
-	LIBCUPSMIME="libcupsmime.la"
-	LIBCUPSPPDC="libcupsppdc.la"
+    LD_CC="\$(LIBTOOL) --mode=link --tag=CC ${CC}"
+    LD_CXX="\$(LIBTOOL) --mode=link --tag=CXX ${CXX}"
 
-	LIBTOOL_CC="\$(LIBTOOL) --mode=compile --tag=CC"
-	LIBTOOL_CXX="\$(LIBTOOL) --mode=compile --tag=CXX"
-	LIBTOOL_INSTALL="\$(LIBTOOL) --mode=install"
+    LIBCUPS="libcups.la"
+    LIBCUPSSTATIC="libcups.la"
+    LIBCUPSCGI="libcupscgi.la"
+    LIBCUPSIMAGE="libcupsimage.la"
+    LIBCUPSMIME="libcupsmime.la"
+    LIBCUPSPPDC="libcupsppdc.la"
 
-	LINKCUPS="../cups/\$(LIBCUPS)"
-	LINKCUPSIMAGE="../cups/\$(LIBCUPSIMAGE)"
+    LIBTOOL_CC="\$(LIBTOOL) --mode=compile --tag=CC"
+    LIBTOOL_CXX="\$(LIBTOOL) --mode=compile --tag=CXX"
+    LIBTOOL_INSTALL="\$(LIBTOOL) --mode=install"
 
-else
-	LD_CC="\$(CC)"
-	LD_CXX="\$(CXX)"
+    LINKCUPS="../cups/\$(LIBCUPS)"
+    LINKCUPSIMAGE="../cups/\$(LIBCUPSIMAGE)"
 
-	LIBTOOL_CC=""
-	LIBTOOL_CXX=""
-	LIBTOOL_INSTALL=""
+else $as_nop
+
+    LD_CC="\$(CC)"
+    LD_CXX="\$(CXX)"
+
+    LIBTOOL_CC=""
+    LIBTOOL_CXX=""
+    LIBTOOL_INSTALL=""
+
 fi
 
 
