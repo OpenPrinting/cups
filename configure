@@ -8937,21 +8937,30 @@ fi
 ac_fn_c_check_func "$LINENO" "poll" "ac_cv_func_poll"
 if test "x$ac_cv_func_poll" = xyes
 then :
-  printf "%s\n" "#define HAVE_POLL 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_POLL 1" >>confdefs.h
+
 
 fi
 
 ac_fn_c_check_func "$LINENO" "epoll_create" "ac_cv_func_epoll_create"
 if test "x$ac_cv_func_epoll_create" = xyes
 then :
-  printf "%s\n" "#define HAVE_EPOLL 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_EPOLL 1" >>confdefs.h
+
 
 fi
 
 ac_fn_c_check_func "$LINENO" "kqueue" "ac_cv_func_kqueue"
 if test "x$ac_cv_func_kqueue" = xyes
 then :
-  printf "%s\n" "#define HAVE_KQUEUE 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_KQUEUE 1" >>confdefs.h
+
 
 fi
 
