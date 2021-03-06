@@ -2,6 +2,7 @@
 #
 # CUPS configuration utility.
 #
+# Copyright © 2021 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 2001-2006 by Easy Software Products, all rights reserved.
 #
@@ -29,7 +30,7 @@ INSTALLSTATIC=@INSTALLSTATIC@
 # flags for compiler and linker...
 CFLAGS=""
 LDFLAGS="@EXPORT_LDFLAGS@"
-LIBS="@LIBGSSAPI@ @DNSSDLIBS@ @EXPORT_SSLLIBS@ @LIBZ@ @LIBS@"
+LIBS="@LIBGSSAPI@ @DNSSDLIBS@ @EXPORT_TLSLIBS@ @LIBZ@ @LIBS@"
 
 # Check for local invocation...
 selfdir=`dirname $0`
