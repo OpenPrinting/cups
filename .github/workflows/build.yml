@@ -24,6 +24,26 @@ jobs:
     - name: test
       run: make test || cat test/error_log*
 
+  build-linux-i386:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup multiarch for i386
+      run: sudo dpkg --add-architecture i386
+    - name: install prerequisites
+      run: sudo apt-get install -y avahi-daemon libavahi-client-dev:i386 libgnutls28-dev:i386 libpam-dev:i386 libusb-1.0-0-dev:i386 zlib1g-dev:i386 crossbuild-essential-i386
+    - name: configure
+      env:
+        CC: /usr/bin/i686-linux-gnu-gcc
+        CXX: /usr/bin/i686-linux-gnu-g++
+      run: ./configure --enable-debug --enable-maintainer --host=i686-pc-linux-gnu --target=i686-pc-linux-gnu
+    - name: make
+      run: make
+    - name: test
+      run: make test || cat test/error_log*
+
   build-macos:
 
     runs-on: macos-latest
