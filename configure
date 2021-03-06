@@ -10115,16 +10115,25 @@ fi
 
 
 LARGEFILE=""
-if test x$enable_largefile != xno; then
-	LARGEFILE="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE"
+if test x$enable_largefile != xno
+then :
 
-	if test x$ac_cv_sys_large_files = x1; then
-		LARGEFILE="$LARGEFILE -D_LARGE_FILES"
-	fi
+    LARGEFILE="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE"
 
-	if test x$ac_cv_sys_file_offset_bits = x64; then
-		LARGEFILE="$LARGEFILE -D_FILE_OFFSET_BITS=64"
-	fi
+    if test x$ac_cv_sys_large_files = x1
+then :
+
+	LARGEFILE="$LARGEFILE -D_LARGE_FILES"
+
+fi
+
+    if test x$ac_cv_sys_file_offset_bits = x64
+then :
+
+	LARGEFILE="$LARGEFILE -D_FILE_OFFSET_BITS=64"
+
+fi
+
 fi
 
 
@@ -10134,11 +10143,17 @@ if test ${ac_cv_c_long_long+y}
 then :
   printf %s "(cached) " >&6
 else $as_nop
-  if test "$GCC" = yes; then
-		ac_cv_c_long_long=yes
-	else
-		cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+
+    if test "$GCC" = yes
+then :
+
+	ac_cv_c_long_long="yes"
+
+else $as_nop
+
+	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
+
 
 int
 main (void)
@@ -10147,28 +10162,42 @@ long long int i;
   ;
   return 0;
 }
+
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"
 then :
-  ac_cv_c_long_long=yes
+
+	    ac_cv_c_long_long="yes"
+
 else $as_nop
-  ac_cv_c_long_long=no
+
+	    ac_cv_c_long_long="no"
+
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-	fi
+
+fi
+
 fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_c_long_long" >&5
 printf "%s\n" "$ac_cv_c_long_long" >&6; }
 
-if test $ac_cv_c_long_long = yes; then
-	printf "%s\n" "#define HAVE_LONG_LONG 1" >>confdefs.h
+if test $ac_cv_c_long_long = yes
+then :
+
+
+printf "%s\n" "#define HAVE_LONG_LONG 1" >>confdefs.h
+
 
 fi
 
 ac_fn_c_check_func "$LINENO" "strtoll" "ac_cv_func_strtoll"
 if test "x$ac_cv_func_strtoll" = xyes
 then :
-  printf "%s\n" "#define HAVE_STRTOLL 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_STRTOLL 1" >>confdefs.h
+
 
 fi
 
