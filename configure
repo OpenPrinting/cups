@@ -7549,23 +7549,34 @@ printf "%s\n" "#define CUPS_STATEDIR \"$CUPS_STATEDIR\"" >>confdefs.h
 
 
 
-if test "$mandir" = "\${datarootdir}/man" -a "$prefix" = "/"; then
-	# New GNU "standards" break previous ones, so make sure we use
-	# the right default location for the operating system...
-	mandir="\${prefix}/man"
+if test "$mandir" = "\${datarootdir}/man" -a "$prefix" = "/"
+then :
+
+    # New GNU "standards" break previous ones, so make sure we use
+    # the right default location for the operating system...
+    mandir="\${prefix}/man"
+
 fi
 
-if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"; then
-	case "$host_os_name" in
-        	darwin* | linux* | gnu* | *bsd*)
-        		# Darwin, macOS, Linux, GNU HURD, and *BSD
-        		mandir="/usr/share/man"
-        		;;
-        	*)
-        		# All others
-        		mandir="/usr/man"
-        		;;
-	esac
+if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"
+then :
+
+    case "$host_os_name" in #(
+  darwin* | linux* | gnu* | *bsd*) :
+
+	# Darwin, macOS, Linux, GNU HURD, and *BSD
+	mandir="/usr/share/man"
+     ;; #(
+  *) :
+
+	# All others
+	mandir="/usr/man"
+
+     ;; #(
+  *) :
+     ;;
+esac
+
 fi
 
 
