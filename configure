@@ -8200,16 +8200,22 @@ fi
 esac
 
 
-ac_fn_c_check_header_compile "$LINENO" "resolv.h" "ac_cv_header_resolv_h" "
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netinet/in_systm.h>
-#include <netinet/ip.h>
-"
+ac_fn_c_check_header_compile "$LINENO" "resolv.h" "ac_cv_header_resolv_h" "$ac_includes_default"
 if test "x$ac_cv_header_resolv_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_RESOLV_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_RESOLV_H 1" >>confdefs.h
+
+
+else $as_nop
+
+.
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+    #include <netinet/in_systm.h>
+    #include <netinet/ip.h>
 
 fi
 
@@ -8387,7 +8393,10 @@ ac_res=$ac_cv_search_getifaddrs
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_GETIFADDRS 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_GETIFADDRS 1" >>confdefs.h
+
 
 fi
 
@@ -8447,7 +8456,10 @@ ac_res=$ac_cv_search_hstrerror
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_HSTRERROR 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_HSTRERROR 1" >>confdefs.h
+
 
 fi
 
@@ -8507,7 +8519,10 @@ ac_res=$ac_cv_search_rresvport_af
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_RRESVPORT_AF 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_RRESVPORT_AF 1" >>confdefs.h
+
 
 fi
 
@@ -8567,10 +8582,14 @@ ac_res=$ac_cv_search___res_init
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_RES_INIT 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_RES_INIT 1" >>confdefs.h
+
 
 else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing res_9_init" >&5
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing res_9_init" >&5
 printf %s "checking for library containing res_9_init... " >&6; }
 if test ${ac_cv_search_res_9_init+y}
 then :
@@ -8626,10 +8645,14 @@ ac_res=$ac_cv_search_res_9_init
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_RES_INIT 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_RES_INIT 1" >>confdefs.h
+
 
 else $as_nop
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing res_init" >&5
+
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing res_init" >&5
 printf %s "checking for library containing res_init... " >&6; }
 if test ${ac_cv_search_res_init+y}
 then :
@@ -8685,19 +8708,21 @@ ac_res=$ac_cv_search_res_init
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_RES_INIT 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_RES_INIT 1" >>confdefs.h
+
 
 fi
 
-fi
 
 fi
 
 
-# Tru64 5.1b leaks file descriptors with these functions; disable until
-# we can come up with a test for this...
-if test "$host_os_name" != "osf1"; then
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing getaddrinfo" >&5
+fi
+
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing getaddrinfo" >&5
 printf %s "checking for library containing getaddrinfo... " >&6; }
 if test ${ac_cv_search_getaddrinfo+y}
 then :
@@ -8753,11 +8778,14 @@ ac_res=$ac_cv_search_getaddrinfo
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_GETADDRINFO 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_GETADDRINFO 1" >>confdefs.h
+
 
 fi
 
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing getnameinfo" >&5
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing getnameinfo" >&5
 printf %s "checking for library containing getnameinfo... " >&6; }
 if test ${ac_cv_search_getnameinfo+y}
 then :
@@ -8813,11 +8841,13 @@ ac_res=$ac_cv_search_getnameinfo
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  printf "%s\n" "#define HAVE_GETNAMEINFO 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_GETNAMEINFO 1" >>confdefs.h
+
 
 fi
 
-fi
 
 ac_fn_c_check_member "$LINENO" "struct sockaddr" "sa_len" "ac_cv_member_struct_sockaddr_sa_len" "#include <sys/socket.h>
 "
@@ -8829,7 +8859,10 @@ fi
 ac_fn_c_check_header_compile "$LINENO" "sys/sockio.h" "ac_cv_header_sys_sockio_h" "$ac_includes_default"
 if test "x$ac_cv_header_sys_sockio_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_SYS_SOCKIO_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_SYS_SOCKIO_H 1" >>confdefs.h
+
 
 fi
 
@@ -8840,34 +8873,53 @@ CUPS_DEFAULT_DOMAINSOCKET=""
 # Check whether --with-domainsocket was given.
 if test ${with_domainsocket+y}
 then :
-  withval=$with_domainsocket; default_domainsocket="$withval"
+  withval=$with_domainsocket;
+    default_domainsocket="$withval"
+
 else $as_nop
-  default_domainsocket=""
+
+    default_domainsocket=""
+
 fi
 
 
-if test x$enable_domainsocket != xno -a x$default_domainsocket != xno; then
-	if test "x$default_domainsocket" = x; then
-		case "$host_os_name" in
-			darwin*)
-				# Darwin and macOS do their own thing...
-				CUPS_DEFAULT_DOMAINSOCKET="$localstatedir/run/cupsd"
-				;;
-			*)
-				# All others use FHS standard...
-				CUPS_DEFAULT_DOMAINSOCKET="$CUPS_STATEDIR/cups.sock"
-				;;
-		esac
-	else
-		CUPS_DEFAULT_DOMAINSOCKET="$default_domainsocket"
-	fi
+if test x$enable_domainsocket != xno -a x$default_domainsocket != xno
+then :
 
-	CUPS_LISTEN_DOMAINSOCKET="Listen $CUPS_DEFAULT_DOMAINSOCKET"
+    if test "x$default_domainsocket" = x
+then :
 
-	printf "%s\n" "#define CUPS_DEFAULT_DOMAINSOCKET \"$CUPS_DEFAULT_DOMAINSOCKET\"" >>confdefs.h
+        case "$host_os_name" in #(
+  darwin*) :
 
-else
-	CUPS_LISTEN_DOMAINSOCKET=""
+	    # Darwin and macOS do their own thing...
+	    CUPS_DEFAULT_DOMAINSOCKET="$localstatedir/run/cupsd"
+	 ;; #(
+  *) :
+
+	    # All others use FHS standard...
+	    CUPS_DEFAULT_DOMAINSOCKET="$CUPS_STATEDIR/cups.sock"
+	 ;; #(
+  *) :
+     ;;
+esac
+
+else $as_nop
+
+	CUPS_DEFAULT_DOMAINSOCKET="$default_domainsocket"
+
+fi
+
+    CUPS_LISTEN_DOMAINSOCKET="Listen $CUPS_DEFAULT_DOMAINSOCKET"
+
+
+printf "%s\n" "#define CUPS_DEFAULT_DOMAINSOCKET \"$CUPS_DEFAULT_DOMAINSOCKET\"" >>confdefs.h
+
+
+else $as_nop
+
+    CUPS_LISTEN_DOMAINSOCKET=""
+
 fi
 
 
