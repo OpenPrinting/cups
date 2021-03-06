@@ -9639,10 +9639,6 @@ else $as_nop
 
 	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
-	    echo "pkg-config --list-all"
-	    $PKGCONFIG --list-all
-	    echo "pkg-config --print-requires gnutls"
-	    $PKGCONFIG --print-requires gnutls
 
 fi
 

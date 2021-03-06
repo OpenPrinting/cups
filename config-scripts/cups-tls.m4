@@ -63,10 +63,6 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	    AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
 	], [
 	    AC_MSG_RESULT([no])
-	    echo "pkg-config --list-all"
-	    $PKGCONFIG --list-all
-	    echo "pkg-config --print-requires gnutls"
-	    $PKGCONFIG --print-requires gnutls
 	])
     ])
     AS_IF([test $have_tls = 0 -a "x$LIBGNUTLSCONFIG" != x], [
