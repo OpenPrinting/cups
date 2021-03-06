@@ -9340,58 +9340,81 @@ then :
 fi
 
 
-have_pthread=no
+have_pthread="no"
 PTHREAD_FLAGS=""
 
-if test "x$enable_threads" != xno; then
-	ac_fn_c_check_header_compile "$LINENO" "pthread.h" "ac_cv_header_pthread_h" "$ac_includes_default"
+if test "x$enable_threads" != xno
+then :
+
+    ac_fn_c_check_header_compile "$LINENO" "pthread.h" "ac_cv_header_pthread_h" "$ac_includes_default"
 if test "x$ac_cv_header_pthread_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_PTHREAD_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_PTHREAD_H 1" >>confdefs.h
+
 
 fi
 
 
-	if test x$ac_cv_header_pthread_h = xyes; then
-				for flag in -lpthreads -lpthread -pthread; do
-        		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pthread_create using $flag" >&5
+    if test x$ac_cv_header_pthread_h = xyes
+then :
+
+		for flag in -lpthreads -lpthread -pthread; do
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pthread_create using $flag" >&5
 printf %s "checking for pthread_create using $flag... " >&6; }
-			SAVELIBS="$LIBS"
-			LIBS="$flag $LIBS"
-        		cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+	    SAVELIBS="$LIBS"
+	    LIBS="$flag $LIBS"
+	    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
-#include <pthread.h>
+
+	        #include <pthread.h>
 int
 main (void)
 {
-pthread_create(0, 0, 0, 0);
+
+		    pthread_create(0, 0, 0, 0);
+
   ;
   return 0;
 }
+
 _ACEOF
 if ac_fn_c_try_link "$LINENO"
 then :
-  have_pthread=yes
+
+	        have_pthread="yes"
+
 else $as_nop
-  LIBS="$SAVELIBS"
+
+	        LIBS="$SAVELIBS"
+
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam \
     conftest$ac_exeext conftest.$ac_ext
-        		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $have_pthread" >&5
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $have_pthread" >&5
 printf "%s\n" "$have_pthread" >&6; }
 
-			if test $have_pthread = yes; then
-				PTHREAD_FLAGS="-D_THREAD_SAFE -D_REENTRANT"
+	    if test $have_pthread = yes
+then :
 
-				# Solaris requires -D_POSIX_PTHREAD_SEMANTICS to
-				# be POSIX-compliant... :(
-				if test $host_os_name = sunos; then
-					PTHREAD_FLAGS="$PTHREAD_FLAGS -D_POSIX_PTHREAD_SEMANTICS"
-				fi
-				break
-			fi
-		done
-	fi
+		PTHREAD_FLAGS="-D_THREAD_SAFE -D_REENTRANT"
+
+		# Solaris requires -D_POSIX_PTHREAD_SEMANTICS to be POSIX-
+		# compliant... :(
+		if test $host_os_name = sunos
+then :
+
+		    PTHREAD_FLAGS="$PTHREAD_FLAGS -D_POSIX_PTHREAD_SEMANTICS"
+
+fi
+		break
+
+fi
+	done
+
+fi
+
 fi
 
 
