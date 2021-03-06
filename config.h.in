@@ -1,9 +1,9 @@
 /*
  * Configuration file for CUPS.
  *
- * Copyright 2020-2021 by OpenPrinting
- * Copyright 2007-2019 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products.
+ * Copyright © 2020-2021 by OpenPrinting
+ * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -80,14 +80,6 @@
 
 
 /*
- * Default Samba and LPD config files...
- */
-
-#define CUPS_DEFAULT_SMB_CONFIG_FILE	""
-#define CUPS_DEFAULT_LPD_CONFIG_FILE	""
-
-
-/*
  * Default ErrorPolicy value...
  */
 
@@ -133,7 +125,6 @@
 #define CUPS_CACHEDIR	"/var/cache/cups"
 #define CUPS_DATADIR    "/usr/share/cups"
 #define CUPS_DOCROOT	"/usr/share/doc/cups"
-#define CUPS_FONTPATH	"/usr/share/cups/fonts"
 #define CUPS_LOCALEDIR	"/usr/share/locale"
 #define CUPS_LOGDIR	"/var/logs/cups"
 #define CUPS_REQUESTS	"/var/spool/cups"

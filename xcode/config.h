@@ -82,14 +82,6 @@
 
 
 /*
- * Default Samba and LPD config files...
- */
-
-#define CUPS_DEFAULT_SMB_CONFIG_FILE ""
-#define CUPS_DEFAULT_LPD_CONFIG_FILE "launchd:///System/Library/LaunchDaemons/org.cups.cups-lpd.plist"
-
-
-/*
  * Default ErrorPolicy value...
  */
 
@@ -135,7 +127,6 @@
 #define CUPS_CACHEDIR "/private/var/spool/cups/cache"
 #define CUPS_DATADIR "/usr/share/cups"
 #define CUPS_DOCROOT "/usr/share/doc/cups"
-#define CUPS_FONTPATH "/usr/share/cups/fonts"
 #define CUPS_LOCALEDIR "/usr/share/locale"
 #define CUPS_LOGDIR "/private/var/log/cups"
 #define CUPS_REQUESTS "/private/var/spool/cups"

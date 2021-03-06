@@ -163,14 +163,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Default Samba and LPD config files...
- */
-
-#define CUPS_DEFAULT_SMB_CONFIG_FILE ""
-#define CUPS_DEFAULT_LPD_CONFIG_FILE ""
-
-
-/*
  * Default ErrorPolicy value...
  */
 
@@ -216,7 +208,6 @@ typedef unsigned long useconds_t;
 #define CUPS_CACHEDIR "C:/CUPS/cache"
 #define CUPS_DATADIR "C:/CUPS/share"
 #define CUPS_DOCROOT "C:/CUPS/share/doc"
-#define CUPS_FONTPATH "C:/CUPS/share/fonts"
 #define CUPS_LOCALEDIR "C:/CUPS/locale"
 #define CUPS_LOGDIR "C:/CUPS/logs"
 #define CUPS_REQUESTS "C:/CUPS/spool"

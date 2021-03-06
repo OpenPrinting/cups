@@ -748,14 +748,11 @@ CUPS_SERVERBIN
 CUPS_REQUESTS
 CUPS_LOGDIR
 CUPS_LOCALEDIR
-CUPS_FONTPATH
 CUPS_DOCROOT
 MENUDIR
 ICONDIR
 CUPS_DATADIR
 CUPS_CACHEDIR
-PRIVATEINCLUDE
-privateinclude
 LIBHEADERSPRIV
 LIBHEADERS
 LIBCUPSOBJS
@@ -872,14 +869,10 @@ with_dbusdir
 with_adminkey
 with_operkey
 with_components
-with_privateinclude
-with_lpdconfig
-with_smbconfig
 with_cachedir
 with_icondir
 with_menudir
 with_docdir
-with_fontpath
 with_logdir
 with_rundir
 enable_shared
@@ -1635,14 +1628,10 @@ Optional Packages:
                           everything, "core" builds libcups and ipptool,
                           "libcups" builds just libcups, "libcupslite" builds
                           just libcups without driver support
-  --with-privateinclude   set path for private include files, default=none
-  --with-lpdconfig        set URI for LPD config file
-  --with-smbconfig        set URI for Samba config file
   --with-cachedir         set path for cache files
   --with-icondir          set path for application icons
   --with-menudir          set path for application menus
   --with-docdir           set path for documentation
-  --with-fontpath         set font path for pstoraster
   --with-logdir           set path for log files
   --with-rundir           set transient run-time state directory
   --with-optim            set optimization flags
@@ -7137,164 +7126,161 @@ esac
 
 
 
-if test "$prefix" = "NONE"; then
-	prefix="/"
+if test "$prefix" = "NONE"
+then :
+
+    prefix="/"
+
 fi
 
-if test "$exec_prefix" = "NONE"; then
-	if test "$prefix" = "/"; then
-		exec_prefix="/usr"
-	else
-		exec_prefix="$prefix"
-	fi
+if test "$exec_prefix" = "NONE"
+then :
+
+    if test "$prefix" = "/"
+then :
+
+	exec_prefix="/usr"
+
+else $as_nop
+
+	exec_prefix="$prefix"
+
 fi
 
-if test "$bindir" = "\${exec_prefix}/bin"; then
-	bindir="$exec_prefix/bin"
 fi
+
+if test "$bindir" = "\${exec_prefix}/bin"
+then :
+
+    bindir="$exec_prefix/bin"
+
+fi
+
 
 printf "%s\n" "#define CUPS_BINDIR \"$bindir\"" >>confdefs.h
 
 
-if test "$sbindir" = "\${exec_prefix}/sbin"; then
-	sbindir="$exec_prefix/sbin"
+if test "$sbindir" = "\${exec_prefix}/sbin"
+then :
+
+    sbindir="$exec_prefix/sbin"
+
 fi
+
 
 printf "%s\n" "#define CUPS_SBINDIR \"$sbindir\"" >>confdefs.h
 
 
-if test "$sharedstatedir" = "\${prefix}/com" -a "$prefix" = "/"; then
-	sharedstatedir="/usr/com"
-fi
-
-if test "$datarootdir" = "\${prefix}/share"; then
-	if test "$prefix" = "/"; then
-		datarootdir="/usr/share"
-	else
-		datarootdir="$prefix/share"
-	fi
-fi
-
-if test "$datadir" = "\${prefix}/share"; then
-	if test "$prefix" = "/"; then
-		datadir="/usr/share"
-	else
-		datadir="$prefix/share"
-	fi
-elif test "$datadir" = "\${datarootdir}"; then
-	datadir="$datarootdir"
-fi
-
-if test "$includedir" = "\${prefix}/include" -a "$prefix" = "/"; then
-	includedir="/usr/include"
-fi
-
-if test "$localstatedir" = "\${prefix}/var"; then
-	if test "$prefix" = "/"; then
-		if test "$host_os_name" = darwin; then
-			localstatedir="/private/var"
-		else
-			localstatedir="/var"
-		fi
-	else
-		localstatedir="$prefix/var"
-	fi
-fi
-
-if test "$sysconfdir" = "\${prefix}/etc"; then
-	if test "$prefix" = "/"; then
-		if test "$host_os_name" = darwin; then
-			sysconfdir="/private/etc"
-		else
-			sysconfdir="/etc"
-		fi
-	else
-		sysconfdir="$prefix/etc"
-	fi
-fi
-
-if test "$libdir" = "\${exec_prefix}/lib"; then
-	case "$host_os_name" in
-		linux*)
-			if test -d /usr/lib64 -a ! -d /usr/lib64/fakeroot; then
-				libdir="$exec_prefix/lib64"
-			fi
-			;;
-	esac
-fi
-
-
-# Check whether --with-privateinclude was given.
-if test ${with_privateinclude+y}
+if test "$datarootdir" = "\${prefix}/share"
 then :
-  withval=$with_privateinclude; privateinclude="$withval"
-else $as_nop
-  privateinclude=""
-fi
 
-if test "x$privateinclude" != x -a "x$privateinclude" != xnone; then
-	PRIVATEINCLUDE="$privateinclude/cups"
-else
-	privateinclude=""
-	PRIVATEINCLUDE=""
-fi
-
-
-
-
-# Check whether --with-lpdconfig was given.
-if test ${with_lpdconfig+y}
+    if test "$prefix" = "/"
 then :
-  withval=$with_lpdconfig; LPDCONFIG="$withval"
+
+	datarootdir="/usr/share"
+
 else $as_nop
-  LPDCONFIG=""
-fi
 
-
-if test "x$LPDCONFIG" = x; then
-	if test -f /System/Library/LaunchDaemons/org.cups.cups-lpd.plist; then
-		LPDCONFIG="launchd:///System/Library/LaunchDaemons/org.cups.cups-lpd.plist"
-	elif test "x$XINETD" != x; then
-		LPDCONFIG="xinetd://$XINETD/cups-lpd"
-	fi
-fi
-
-if test "x$LPDCONFIG" = xoff; then
-	printf "%s\n" "#define CUPS_DEFAULT_LPD_CONFIG \"\"" >>confdefs.h
-
-else
-	printf "%s\n" "#define CUPS_DEFAULT_LPD_CONFIG \"$LPDCONFIG\"" >>confdefs.h
+	datarootdir="$prefix/share"
 
 fi
 
+fi
 
-# Check whether --with-smbconfig was given.
-if test ${with_smbconfig+y}
+if test "$datadir" = "\${prefix}/share"
 then :
-  withval=$with_smbconfig; SMBCONFIG="$withval"
+
+    if test "$prefix" = "/"
+then :
+
+	datadir="/usr/share"
+
 else $as_nop
-  SMBCONFIG=""
+
+	datadir="$prefix/share"
+
 fi
 
+elif test "$datadir" = "\${datarootdir}"
+then :
 
-if test "x$SMBCONFIG" = x; then
-	if test -f /System/Library/LaunchDaemons/smbd.plist; then
-		SMBCONFIG="launchd:///System/Library/LaunchDaemons/smbd.plist"
-	else
-		for dir in /etc /etc/samba /usr/local/etc; do
-			if test -f $dir/smb.conf; then
-				SMBCONFIG="samba://$dir/smb.conf"
-				break
-			fi
-		done
-	fi
+    datadir="$datarootdir"
+
 fi
 
-if test "x$SMBCONFIG" = xoff; then
-	printf "%s\n" "#define CUPS_DEFAULT_SMB_CONFIG \"\"" >>confdefs.h
+if test "$includedir" = "\${prefix}/include" -a "$prefix" = "/"
+then :
 
-else
-	printf "%s\n" "#define CUPS_DEFAULT_SMB_CONFIG \"$SMBCONFIG\"" >>confdefs.h
+    includedir="/usr/include"
+
+fi
+
+if test "$localstatedir" = "\${prefix}/var"
+then :
+
+    if test "$prefix" = "/"
+then :
+
+	if test "$host_os_name" = darwin
+then :
+
+	    localstatedir="/private/var"
+
+else $as_nop
+
+	    localstatedir="/var"
+
+fi
+
+else $as_nop
+
+	localstatedir="$prefix/var"
+
+fi
+
+fi
+
+if test "$sysconfdir" = "\${prefix}/etc"
+then :
+
+    if test "$prefix" = "/"
+then :
+
+	if test "$host_os_name" = darwin
+then :
+
+	    sysconfdir="/private/etc"
+
+else $as_nop
+
+	    sysconfdir="/etc"
+
+fi
+
+else $as_nop
+
+	sysconfdir="$prefix/etc"
+
+fi
+
+fi
+
+if test "$libdir" = "\${exec_prefix}/lib"
+then :
+
+    case "$host_os_name" in #(
+  linux*) :
+
+	if test -d /usr/lib64 -a ! -d /usr/lib64/fakeroot
+then :
+
+	    libdir="$exec_prefix/lib64"
+
+fi
+     ;; #(
+  *) :
+     ;;
+esac
 
 fi
 
@@ -7303,27 +7289,43 @@ fi
 # Check whether --with-cachedir was given.
 if test ${with_cachedir+y}
 then :
-  withval=$with_cachedir; cachedir="$withval"
+  withval=$with_cachedir;
+    cachedir="$withval"
+
 else $as_nop
-  cachedir=""
+
+    cachedir=""
+
 fi
 
 
-if test x$cachedir = x; then
-	if test "x$host_os_name" = xdarwin; then
-		CUPS_CACHEDIR="$localstatedir/spool/cups/cache"
-	else
-		CUPS_CACHEDIR="$localstatedir/cache/cups"
-	fi
-else
-	CUPS_CACHEDIR="$cachedir"
+if test x$cachedir = x
+then :
+
+    if test "x$host_os_name" = xdarwin
+then :
+
+	CUPS_CACHEDIR="$localstatedir/spool/cups/cache"
+
+else $as_nop
+
+	CUPS_CACHEDIR="$localstatedir/cache/cups"
+
 fi
+
+else $as_nop
+
+    CUPS_CACHEDIR="$cachedir"
+
+fi
+
 printf "%s\n" "#define CUPS_CACHEDIR \"$CUPS_CACHEDIR\"" >>confdefs.h
 
 
 
 # Data files
 CUPS_DATADIR="$datadir/cups"
+
 printf "%s\n" "#define CUPS_DATADIR \"$datadir/cups\"" >>confdefs.h
 
 
@@ -7333,16 +7335,25 @@ printf "%s\n" "#define CUPS_DATADIR \"$datadir/cups\"" >>confdefs.h
 # Check whether --with-icondir was given.
 if test ${with_icondir+y}
 then :
-  withval=$with_icondir; icondir="$withval"
+  withval=$with_icondir;
+    icondir="$withval"
+
 else $as_nop
-  icondir=""
+
+    icondir=""
+
 fi
 
 
-if test "x$icondir" = x -a -d /usr/share/icons; then
-	ICONDIR="/usr/share/icons"
-else
-	ICONDIR="$icondir"
+if test "x$icondir" = x
+then :
+
+    ICONDIR="/usr/share/icons"
+
+else $as_nop
+
+    ICONDIR="$icondir"
+
 fi
 
 
@@ -7352,16 +7363,25 @@ fi
 # Check whether --with-menudir was given.
 if test ${with_menudir+y}
 then :
-  withval=$with_menudir; menudir="$withval"
+  withval=$with_menudir;
+    menudir="$withval"
+
 else $as_nop
-  menudir=""
+
+    menudir=""
+
 fi
 
 
-if test "x$menudir" = x -a -d /usr/share/applications; then
-	MENUDIR="/usr/share/applications"
-else
-	MENUDIR="$menudir"
+if test "x$menudir" = x
+then :
+
+    MENUDIR="/usr/share/applications"
+
+else $as_nop
+
+    MENUDIR="$menudir"
+
 fi
 
 
@@ -7371,59 +7391,57 @@ fi
 # Check whether --with-docdir was given.
 if test ${with_docdir+y}
 then :
-  withval=$with_docdir; docdir="$withval"
+  withval=$with_docdir;
+    docdir="$withval"
+
 else $as_nop
-  docdir=""
+
+    docdir=""
+
 fi
 
 
-if test x$docdir = x; then
-	CUPS_DOCROOT="$datadir/doc/cups"
-	docdir="$datadir/doc/cups"
-else
-	CUPS_DOCROOT="$docdir"
+if test x$docdir = x
+then :
+
+    CUPS_DOCROOT="$datadir/doc/cups"
+    docdir="$datadir/doc/cups"
+
+else $as_nop
+
+    CUPS_DOCROOT="$docdir"
+
 fi
+
 
 printf "%s\n" "#define CUPS_DOCROOT \"$docdir\"" >>confdefs.h
 
 
 
-# Fonts
-
-# Check whether --with-fontpath was given.
-if test ${with_fontpath+y}
-then :
-  withval=$with_fontpath; fontpath="$withval"
-else $as_nop
-  fontpath=""
-fi
-
-
-if test "x$fontpath" = "x"; then
-	CUPS_FONTPATH="$datadir/cups/fonts"
-else
-	CUPS_FONTPATH="$fontpath"
-fi
-
-
-printf "%s\n" "#define CUPS_FONTPATH \"$CUPS_FONTPATH\"" >>confdefs.h
-
-
 # Locale data
-if test "$localedir" = "\${datarootdir}/locale"; then
-	case "$host_os_name" in
-		linux* | gnu* | *bsd* | darwin*)
-			CUPS_LOCALEDIR="$datarootdir/locale"
-			;;
+if test "$localedir" = "\${datarootdir}/locale"
+then :
 
-		*)
-			# This is the standard System V location...
-			CUPS_LOCALEDIR="$exec_prefix/lib/locale"
-			;;
-	esac
-else
-	CUPS_LOCALEDIR="$localedir"
+    case "$host_os_name" in #(
+  linux* | gnu* | *bsd* | darwin*) :
+
+	CUPS_LOCALEDIR="$datarootdir/locale"
+     ;; #(
+  *) :
+
+	# This is the standard System V location...
+	CUPS_LOCALEDIR="$exec_prefix/lib/locale"
+     ;; #(
+  *) :
+     ;;
+esac
+
+else $as_nop
+
+    CUPS_LOCALEDIR="$localedir"
+
 fi
+
 
 printf "%s\n" "#define CUPS_LOCALEDIR \"$CUPS_LOCALEDIR\"" >>confdefs.h
 
@@ -7434,47 +7452,62 @@ printf "%s\n" "#define CUPS_LOCALEDIR \"$CUPS_LOCALEDIR\"" >>confdefs.h
 # Check whether --with-logdir was given.
 if test ${with_logdir+y}
 then :
-  withval=$with_logdir; logdir="$withval"
+  withval=$with_logdir;
+    logdir="$withval"
+
 else $as_nop
-  logdir=""
+
+    logdir=""
+
 fi
 
 
-if test x$logdir = x; then
-	CUPS_LOGDIR="$localstatedir/log/cups"
-	printf "%s\n" "#define CUPS_LOGDIR \"$localstatedir/log/cups\"" >>confdefs.h
+if test x$logdir = x
+then :
 
-else
-	CUPS_LOGDIR="$logdir"
+    CUPS_LOGDIR="$localstatedir/log/cups"
+
+else $as_nop
+
+    CUPS_LOGDIR="$logdir"
+
 fi
+
 printf "%s\n" "#define CUPS_LOGDIR \"$CUPS_LOGDIR\"" >>confdefs.h
 
 
 
 # Longer-term spool data
 CUPS_REQUESTS="$localstatedir/spool/cups"
+
 printf "%s\n" "#define CUPS_REQUESTS \"$localstatedir/spool/cups\"" >>confdefs.h
 
 
 
 # Server executables...
-case "$host_os_name" in
-	*-gnu)
-		# GNUs
-		INSTALL_SYSV="install-sysv"
-		CUPS_SERVERBIN="$exec_prefix/lib/cups"
-		;;
-	*bsd* | darwin*)
-		# *BSD and Darwin (macOS)
-		INSTALL_SYSV=""
-		CUPS_SERVERBIN="$exec_prefix/libexec/cups"
-		;;
-	*)
-		# All others
-		INSTALL_SYSV="install-sysv"
-		CUPS_SERVERBIN="$exec_prefix/lib/cups"
-		;;
+case "$host_os_name" in #(
+  *-gnu) :
+
+    # GNUs
+    INSTALL_SYSV="install-sysv"
+    CUPS_SERVERBIN="$exec_prefix/lib/cups"
+ ;; #(
+  *bsd* | darwin*) :
+
+    # *BSD and Darwin (macOS)
+    INSTALL_SYSV=""
+    CUPS_SERVERBIN="$exec_prefix/libexec/cups"
+ ;; #(
+  *) :
+
+    # All others
+    INSTALL_SYSV="install-sysv"
+    CUPS_SERVERBIN="$exec_prefix/lib/cups"
+ ;; #(
+  *) :
+     ;;
 esac
+
 
 printf "%s\n" "#define CUPS_SERVERBIN \"$CUPS_SERVERBIN\"" >>confdefs.h
 
@@ -7483,6 +7516,7 @@ printf "%s\n" "#define CUPS_SERVERBIN \"$CUPS_SERVERBIN\"" >>confdefs.h
 
 # Configuration files
 CUPS_SERVERROOT="$sysconfdir/cups"
+
 printf "%s\n" "#define CUPS_SERVERROOT \"$sysconfdir/cups\"" >>confdefs.h
 
 
@@ -7492,20 +7526,28 @@ printf "%s\n" "#define CUPS_SERVERROOT \"$sysconfdir/cups\"" >>confdefs.h
 # Check whether --with-rundir was given.
 if test ${with_rundir+y}
 then :
-  withval=$with_rundir; CUPS_STATEDIR="$withval"
+  withval=$with_rundir;
+    CUPS_STATEDIR="$withval"
+
 else $as_nop
 
-	case "$host_os_name" in
-		darwin*)
-			# Darwin (macOS)
-			CUPS_STATEDIR="$CUPS_SERVERROOT"
-			;;
-		*)
-			# All others
-			CUPS_STATEDIR="$localstatedir/run/cups"
-			;;
-	esac
+    case "$host_os_name" in #(
+  darwin*) :
+
+	# Darwin (macOS)
+	CUPS_STATEDIR="$CUPS_SERVERROOT"
+     ;; #(
+  *) :
+
+	# All others
+	CUPS_STATEDIR="$localstatedir/run/cups"
+     ;; #(
+  *) :
+     ;;
+esac
+
 fi
+
 
 printf "%s\n" "#define CUPS_STATEDIR \"$CUPS_STATEDIR\"" >>confdefs.h
 
