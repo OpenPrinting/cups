@@ -7588,7 +7588,7 @@ esac
 fi
 
 
-PICFLAG=1
+PICFLAG="1"
 DSOFLAGS="${DSOFLAGS:=}"
 
 # Check whether --enable-shared was given.
@@ -7603,55 +7603,81 @@ LIBCUPSBASE="lib$cupsbase"
 LIBCUPSIMAGE=""
 LIBCUPSSTATIC="lib$cupsbase.a"
 
-if test x$enable_shared != xno; then
-	case "$host_os_name" in
-		sunos*)
-			LIBCUPS="lib$cupsbase.so.2"
-			if test "x$cupsimagebase" != x; then
-				LIBCUPSIMAGE="lib$cupsimagebase.so.2"
-			fi
-			DSO="\$(CC)"
-			DSOXX="\$(CXX)"
-			DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G"
-			;;
-		linux* | gnu* | *bsd*)
-			LIBCUPS="lib$cupsbase.so.2"
-			if test "x$cupsimagebase" != x; then
-				LIBCUPSIMAGE="lib$cupsimagebase.so.2"
-			fi
-			DSO="\$(CC)"
-			DSOXX="\$(CXX)"
-			DSOFLAGS="$DSOFLAGS -Wl,-soname,\`basename \$@\` -shared"
-			;;
-		darwin*)
-			LIBCUPS="lib$cupsbase.2.dylib"
-			if test "x$cupsimagebase" != x; then
-				LIBCUPSIMAGE="lib$cupsimagebase.2.dylib"
-			fi
-			DSO="\$(CC)"
-			DSOXX="\$(CXX)"
-			DSOFLAGS="$DSOFLAGS -Wl,-no_warn_inits -dynamiclib -single_module -lc"
-			;;
-		*)
-			echo "Warning: shared libraries may not be supported.  Trying -shared"
-			echo "         option with compiler."
-			LIBCUPS="lib$cupsbase.so.2"
-			if test "x$cupsimagebase" != x; then
-				LIBCUPSIMAGE="lib$cupsimagebase.so.2"
-			fi
-			DSO="\$(CC)"
-			DSOXX="\$(CXX)"
-			DSOFLAGS="$DSOFLAGS -Wl,-soname,\`basename \$@\` -shared"
-			;;
-	esac
-else
-	PICFLAG=0
-	LIBCUPS="lib$cupsbase.a"
-	if test "x$cupsimagebase" != x; then
-		LIBCUPSIMAGE="lib$cupsimagebase.a"
-	fi
-	DSO=":"
-	DSOXX=":"
+if test x$enable_shared != xno
+then :
+
+    case "$host_os_name" in #(
+  sunos*) :
+
+	LIBCUPS="lib$cupsbase.so.2"
+	if test "x$cupsimagebase" != x
+then :
+
+	    LIBCUPSIMAGE="lib$cupsimagebase.so.2"
+
+fi
+	DSO="\$(CC)"
+	DSOXX="\$(CXX)"
+	DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G"
+     ;; #(
+  linux* | gnu* | *bsd*) :
+
+	LIBCUPS="lib$cupsbase.so.2"
+	if test "x$cupsimagebase" != x
+then :
+
+	    LIBCUPSIMAGE="lib$cupsimagebase.so.2"
+
+fi
+	DSO="\$(CC)"
+	DSOXX="\$(CXX)"
+	DSOFLAGS="$DSOFLAGS -Wl,-soname,\`basename \$@\` -shared"
+     ;; #(
+  darwin*) :
+
+	LIBCUPS="lib$cupsbase.2.dylib"
+	if test "x$cupsimagebase" != x
+then :
+
+	    LIBCUPSIMAGE="lib$cupsimagebase.2.dylib"
+
+fi
+	DSO="\$(CC)"
+	DSOXX="\$(CXX)"
+	DSOFLAGS="$DSOFLAGS -Wl,-no_warn_inits -dynamiclib -single_module -lc"
+     ;; #(
+  *) :
+
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: Warning: Shared libraries may not work, trying -shared option." >&5
+printf "%s\n" "$as_me: Warning: Shared libraries may not work, trying -shared option." >&6;}
+	LIBCUPS="lib$cupsbase.so.2"
+	if test "x$cupsimagebase" != x
+then :
+
+	    LIBCUPSIMAGE="lib$cupsimagebase.so.2"
+
+fi
+	DSO="\$(CC)"
+	DSOXX="\$(CXX)"
+	DSOFLAGS="$DSOFLAGS -Wl,-soname,\`basename \$@\` -shared"
+     ;; #(
+  *) :
+     ;;
+esac
+
+else $as_nop
+
+    PICFLAG=0
+    LIBCUPS="lib$cupsbase.a"
+    if test "x$cupsimagebase" != x
+then :
+
+	LIBCUPSIMAGE="lib$cupsimagebase.a"
+
+fi
+    DSO=":"
+    DSOXX=":"
+
 fi
 
 
@@ -7662,12 +7688,17 @@ fi
 
 
 
-if test x$enable_shared = xno; then
-	LINKCUPS="../cups/lib$cupsbase.a \$(LIBS)"
-	EXTLINKCUPS="-lcups \$LIBS"
-else
-	LINKCUPS="-L../cups -l${cupsbase}"
-	EXTLINKCUPS="-lcups"
+if test x$enable_shared = xno
+then :
+
+    LINKCUPS="../cups/lib$cupsbase.a \$(LIBS)"
+    EXTLINKCUPS="-lcups \$LIBS"
+
+else $as_nop
+
+    LINKCUPS="-L../cups -l${cupsbase}"
+    EXTLINKCUPS="-lcups"
+
 fi
 
 
@@ -7675,36 +7706,53 @@ fi
 
 EXPORT_LDFLAGS=""
 
-if test "$DSO" != ":"; then
-	# Tell the run-time linkers where to find a DSO.  Some platforms
-	# need this option, even when the library is installed in a
-	# standard location...
-	case $host_os_name in
-                sunos*)
-                	# Solaris...
-			if test $exec_prefix != /usr; then
-				DSOFLAGS="-R$libdir $DSOFLAGS"
-				LDFLAGS="$LDFLAGS -R$libdir"
-				EXPORT_LDFLAGS="-R$libdir"
-			fi
-			;;
-                *bsd*)
-                        # *BSD...
-			if test $exec_prefix != /usr; then
-				DSOFLAGS="-Wl,-R$libdir $DSOFLAGS"
-				LDFLAGS="$LDFLAGS -Wl,-R$libdir"
-				EXPORT_LDFLAGS="-Wl,-R$libdir"
-			fi
-			;;
-                linux* | gnu*)
-                        # Linux, and HURD...
-			if test $exec_prefix != /usr; then
-				DSOFLAGS="-Wl,-rpath,$libdir $DSOFLAGS"
-				LDFLAGS="$LDFLAGS -Wl,-rpath,$libdir"
-				EXPORT_LDFLAGS="-Wl,-rpath,$libdir"
-			fi
-			;;
-	esac
+if test "$DSO" != ":"
+then :
+
+    # Tell the run-time linkers where to find a DSO.  Some platforms
+    # need this option, even when the library is installed in a
+    # standard location...
+    case $host_os_name in #(
+  sunos*) :
+
+	# Solaris...
+	if test $exec_prefix != /usr
+then :
+
+	    DSOFLAGS="-R$libdir $DSOFLAGS"
+	    LDFLAGS="$LDFLAGS -R$libdir"
+	    EXPORT_LDFLAGS="-R$libdir"
+
+fi
+     ;; #(
+  *bsd*) :
+
+	# *BSD...
+	if test $exec_prefix != /usr
+then :
+
+	    DSOFLAGS="-Wl,-R$libdir $DSOFLAGS"
+	    LDFLAGS="$LDFLAGS -Wl,-R$libdir"
+	    EXPORT_LDFLAGS="-Wl,-R$libdir"
+
+fi
+     ;; #(
+  linux* | gnu*) :
+
+	# Linux, and HURD...
+	if test $exec_prefix != /usr
+then :
+
+	    DSOFLAGS="-Wl,-rpath,$libdir $DSOFLAGS"
+	    LDFLAGS="$LDFLAGS -Wl,-rpath,$libdir"
+	    EXPORT_LDFLAGS="-Wl,-rpath,$libdir"
+
+fi
+     ;; #(
+  *) :
+     ;;
+esac
+
 fi
 
 
