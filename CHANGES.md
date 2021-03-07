@@ -8,6 +8,8 @@ CUPS v2.4rc1 (Pending)
 - Added extra check for administrative inquiries from snapped clients.
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
+- The IPP backend did not return the correct status code when a job was canceled
+  at the printer/server (Issue #74)
 - The `testlang` unit test program now loops over all of the available locales
   by default (Issue #85)
 - The `cupsfilter` command now shows error messages when options are used
