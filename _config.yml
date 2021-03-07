@@ -6,7 +6,7 @@ defaults:
       path: "doc"
       type: "pages"
     values:
-      layout: "sub"
+      layout: "default"
 
 github:
   issues_url: "https://github.com/openprinting/cups/issues"
