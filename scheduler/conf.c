@@ -624,6 +624,8 @@ cupsdReadConfiguration(void)
     cupsdSetString(&DefaultLanguage, language->language);
 
   cupsdClearString(&DefaultPaperSize);
+  cupsArrayDelete(ReadyPaperSizes);
+  ReadyPaperSizes = NULL;
 
   cupsdSetString(&TempDir, NULL);
 
@@ -1272,6 +1274,17 @@ cupsdReadConfiguration(void)
     }
     else
       cupsdSetString(&DefaultPaperSize, "A4");
+  }
+
+  if (!ReadyPaperSizes)
+  {
+    // Build default list of common sizes for North America and worldwide...
+    if (!strcasecmp(DefaultPaperSize, "Letter"))
+      ReadyPaperSizes = _cupsArrayNewStrings("Letter,Legal,Tabloid,4x6,Env10", ',');
+    else if (!strcasecmp(DefaultPaperSize, "A4"))
+      ReadyPaperSizes = _cupsArrayNewStrings("A4,A3,A5,A6,EnvDL", ',');
+    else
+      ReadyPaperSizes = _cupsArrayNewStrings(DefaultPaperSize, ',');
   }
 
  /*
@@ -3317,6 +3330,17 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
       else
         cupsdLogMessage(CUPSD_LOG_WARN, "Unknown LogTimeFormat %s on line %d of %s.",
 	                value, linenum, ConfigurationFile);
+    }
+    else if (!_cups_strcasecmp(line, "ReadyPaperSizes") && value)
+    {
+     /*
+      * ReadyPaperSizes sizename[,sizename,...]
+      */
+
+      if (ReadyPaperSizes)
+        _cupsArrayAddStrings(ReadyPaperSizes, value, ',');
+      else
+        ReadyPaperSizes = _cupsArrayNewStrings(value, ',');
     }
     else if (!_cups_strcasecmp(line, "ServerTokens") && value)
     {

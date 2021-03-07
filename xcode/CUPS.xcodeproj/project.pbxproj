@@ -3455,8 +3455,6 @@
 		724379C41333FFC7009631B9 /* usb-darwin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "usb-darwin.c"; path = "../backend/usb-darwin.c"; sourceTree = "<group>"; };
 		724379C51333FFC7009631B9 /* usb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = usb.c; path = ../backend/usb.c; sourceTree = "<group>"; };
 		724379CA1334000E009631B9 /* ieee1284.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ieee1284.c; path = ../backend/ieee1284.c; sourceTree = "<group>"; };
-		72496E161A13A03B0051899C /* org.cups.cups-lpd.socket */ = {isa = PBXFileReference; lastKnownFileType = text; name = "org.cups.cups-lpd.socket"; path = "../scheduler/org.cups.cups-lpd.socket"; sourceTree = SOURCE_ROOT; };
-		72496E171A13A03B0051899C /* org.cups.cups-lpdAT.service.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = "org.cups.cups-lpdAT.service.in"; path = "../scheduler/org.cups.cups-lpdAT.service.in"; sourceTree = SOURCE_ROOT; };
 		724FA5351CC0370C0092477B /* testadmin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testadmin; sourceTree = BUILT_PRODUCTS_DIR; };
 		724FA5481CC037370092477B /* testarray */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testarray; sourceTree = BUILT_PRODUCTS_DIR; };
 		724FA55B1CC037500092477B /* testcache */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testcache; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3601,9 +3599,6 @@
 		72E65BD318DC7A9800097E89 /* spec-ppd.header */ = {isa = PBXFileReference; lastKnownFileType = text; name = "spec-ppd.header"; path = "../filter/spec-ppd.header"; sourceTree = "<group>"; };
 		72E65BD418DC7A9800097E89 /* spec-ppd.shtml */ = {isa = PBXFileReference; lastKnownFileType = text.html.other; name = "spec-ppd.shtml"; path = "../filter/spec-ppd.shtml"; sourceTree = "<group>"; };
 		72E65BD518DC818400097E89 /* org.cups.cups-lpd.plist.in */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "org.cups.cups-lpd.plist.in"; path = "../scheduler/org.cups.cups-lpd.plist.in"; sourceTree = SOURCE_ROOT; };
-		72E65BD618DC818400097E89 /* org.cups.cupsd.path.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = org.cups.cupsd.path.in; path = ../scheduler/org.cups.cupsd.path.in; sourceTree = SOURCE_ROOT; };
-		72E65BD718DC818400097E89 /* org.cups.cupsd.service.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = org.cups.cupsd.service.in; path = ../scheduler/org.cups.cupsd.service.in; sourceTree = SOURCE_ROOT; };
-		72E65BD818DC818400097E89 /* org.cups.cupsd.socket.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = org.cups.cupsd.socket.in; path = ../scheduler/org.cups.cupsd.socket.in; sourceTree = SOURCE_ROOT; };
 		72E65BD918DC850A00097E89 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = ../Makefile; sourceTree = "<group>"; };
 		72E65BDC18DC852700097E89 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = ../scheduler/Makefile; sourceTree = SOURCE_ROOT; };
 		72E65BDE18DCA35700097E89 /* CHANGES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGES.md; path = ../CHANGES.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
@@ -5064,12 +5059,7 @@
 				72E65BDC18DC852700097E89 /* Makefile */,
 				7226369B18AE6D19004ED309 /* org.cups.cups-lpd.plist */,
 				72E65BD518DC818400097E89 /* org.cups.cups-lpd.plist.in */,
-				72496E171A13A03B0051899C /* org.cups.cups-lpdAT.service.in */,
-				72496E161A13A03B0051899C /* org.cups.cups-lpd.socket */,
-				72E65BD618DC818400097E89 /* org.cups.cupsd.path.in */,
 				7226369C18AE6D19004ED309 /* org.cups.cupsd.plist */,
-				72E65BD718DC818400097E89 /* org.cups.cupsd.service.in */,
-				72E65BD818DC818400097E89 /* org.cups.cupsd.socket.in */,
 				72220F6913330B0C00FCA411 /* auth.c */,
 				72220F6A13330B0C00FCA411 /* auth.h */,
 				72220F6B13330B0C00FCA411 /* banners.c */,

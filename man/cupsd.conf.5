@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cupsd.conf 5 "CUPS" "2021-03-06" "OpenPrinting"
+.TH cupsd.conf 5 "CUPS" "2021-03-07" "OpenPrinting"
 .SH NAME
 cupsd.conf \- server configuration file for cups
 .SH DESCRIPTION
@@ -370,6 +370,12 @@ Specifies whether the job history is preserved after a job is printed.
 If a numeric value is specified, the job history is preserved for the indicated number of seconds after printing.
 If "Yes", the job history is preserved until the MaxJobs limit is reached.
 The default is "Yes".
+.\"#ReadyPaperSizes
+.TP 5
+\fBReadyPaperSizes \fIsizename[,...]\fR
+Specifies a list of potential paper sizes that are reported as "ready" (loaded).
+The actual list will only contain sizes that each printer supports.
+The default is "Letter,Legal,Tabloid,4x6,Env10" for North America and "A3,A4,A5,A6,EnvDL" elsewhere.
 .\"#ReloadTimeout
 .TP 5
 \fBReloadTimeout \fIseconds\fR

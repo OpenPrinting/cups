@@ -148,6 +148,8 @@ VAR char		*AccessLog		VALUE(NULL),
 					/* Remote root user */
 			*Classification		VALUE(NULL);
 					/* Classification of system */
+VAR cups_array_t	*ReadyPaperSizes	VALUE(NULL);
+					/* List of paper sizes to list as ready */
 VAR uid_t		User			VALUE(1),
 					/* User ID for server */
 			RunUser			VALUE(0);
