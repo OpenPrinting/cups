@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
-"Report-Msgid-Bugs-To: https://github.com/apple/cups/issues\n"
-"POT-Creation-Date: 2021-02-11 15:38-0500\n"
+"Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
+"POT-Creation-Date: 2021-03-07 10:33-0500\n"
 "PO-Revision-Date: 2012-12-12 11:12+0100\n"
 "Last-Translator: Stéphane Blondon <stephane.blondon@gmail.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -2424,8 +2424,17 @@ msgstr "3,00 x 2,00\""
 msgid "3.00x3.00\""
 msgstr "3,00 x 3,00\""
 
+msgid "3.00x4.00\""
+msgstr ""
+
 msgid "3.00x5.00\""
 msgstr "3,00 x 5,00\""
+
+msgid "3.00x6.00\""
+msgstr ""
+
+msgid "3.00x8.00\""
+msgstr ""
 
 msgid "3.25x2.00\""
 msgstr "3,25 x 2,00\""
@@ -2508,6 +2517,9 @@ msgstr "4,00 x 6,00\""
 msgid "4.00x6.50\""
 msgstr "4,00 x 6,50\""
 
+msgid "4.00x8.00\""
+msgstr ""
+
 msgid "40"
 msgstr "40"
 
@@ -2558,6 +2570,9 @@ msgstr "6,00 x 6,00\""
 
 msgid "6.00x6.50\""
 msgstr "6,00 x 6,50\""
+
+msgid "6.00x8.00\""
+msgstr ""
 
 msgid "60"
 msgstr "60"
@@ -2622,11 +2637,17 @@ msgstr "8,00 x 6,00\""
 msgid "8.00x6.50\""
 msgstr "8,00 x 6,50\""
 
+msgid "8.26x1.00\""
+msgstr ""
+
 msgid "80"
 msgstr "80"
 
 msgid "80 mm/sec."
 msgstr "80 mm/s"
+
+msgid "80x50mm"
+msgstr ""
 
 msgid "85"
 msgstr "85"
