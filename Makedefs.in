@@ -1,6 +1,7 @@
 #
 # Common makefile definitions for CUPS.
 #
+# Copyright © 2021 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -215,7 +216,6 @@ localstatedir	=	@localstatedir@
 mandir		=	@mandir@
 oldincludedir	=	@oldincludedir@
 prefix		=	@prefix@
-privateinclude	=	@privateinclude@
 sbindir		=	@sbindir@
 sharedstatedir	=	@sharedstatedir@
 srcdir		=	@srcdir@
@@ -236,7 +236,6 @@ LOCALEDIR	= 	$(BUILDROOT)@CUPS_LOCALEDIR@
 LOGDIR		= 	$(BUILDROOT)@CUPS_LOGDIR@
 MANDIR		=	$(BUILDROOT)@mandir@
 MENUDIR		=	@MENUDIR@
-PRIVATEINCLUDE	=	$(BUILDROOT)@PRIVATEINCLUDE@
 RCLEVELS	=	@RCLEVELS@
 RCSTART		=	@RCSTART@
 RCSTOP		=	@RCSTOP@

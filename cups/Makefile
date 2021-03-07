@@ -1,6 +1,7 @@
 #
 # Library Makefile for CUPS.
 #
+# Copyright © 2021 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 #
@@ -277,13 +278,6 @@ install-headers:
 	for file in $(HEADERS); do \
 		$(INSTALL_DATA) $$file $(INCLUDEDIR)/cups; \
 	done
-	if test "x$(privateinclude)" != x; then \
-		echo Installing private header files into $(PRIVATEINCLUDE)...; \
-		$(INSTALL_DIR) -m 755 $(PRIVATEINCLUDE); \
-		for file in $(HEADERSPRIV); do \
-			$(INSTALL_DATA) $$file $(PRIVATEINCLUDE)/$$file; \
-		done; \
-	fi
 
 
 #
@@ -353,12 +347,6 @@ uninstall:
 		$(RM) $(INCLUDEDIR)/cups/$$file; \
 	done
 	-$(RMDIR) $(INCLUDEDIR)/cups
-	if test "x$(privateinclude)" != x; then \
-		for file in $(HEADERSPRIV); do \
-			$(RM) $(PRIVATEINCLUDE)/cups/$$file; \
-		done
-		$(RMDIR) $(PRIVATEINCLUDE)/cups; \
-	fi
 
 
 #
