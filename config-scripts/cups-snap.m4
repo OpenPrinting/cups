@@ -34,7 +34,7 @@ dnl jobs, ...) if they plug the "cups-control" interface, so
 dnl --enable-snapped-cupsd implies --enable-snapped-clients.  The difference is
 dnl only the method how to determine whether a client Snap is confined and plugs
 dnl "cups-control".
-AS_IF([test x$enable_snapped_cupsd == xyes], [
+AS_IF([test x$enable_snapped_cupsd = xyes], [
     enable_snapped_clients="yes"
 ])
 

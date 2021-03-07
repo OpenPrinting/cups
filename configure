@@ -10737,7 +10737,7 @@ SNAPDGLIBLIBS=""
 ENABLE_SNAPPED_CUPSD="NO"
 ENABLE_SNAPPED_CLIENTS="NO"
 
-if test x$enable_snapped_cupsd == xyes
+if test x$enable_snapped_cupsd = xyes
 then :
 
     enable_snapped_clients="yes"
