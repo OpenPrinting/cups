@@ -1,7 +1,7 @@
 /*
  * IPP routines for the CUPS scheduler.
  *
- * Copyright © 2020 by Michael R Sweet
+ * Copyright © 2020-2021 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1279,7 +1279,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     send_http_error(con, HTTP_UNAUTHORIZED, printer);
     return (NULL);
   }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   else if (auth_info && !con->http->tls &&
            !httpAddrLocalhost(con->http->hostaddr))
   {
@@ -1290,7 +1290,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     send_http_error(con, HTTP_UPGRADE_REQUIRED, printer);
     return (NULL);
   }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * See if the printer is accepting jobs...
@@ -4906,7 +4906,7 @@ copy_printer_attrs(
   if (!ra || cupsArrayFind(ra, "printer-current-time"))
     ippAddDate(con->response, IPP_TAG_PRINTER, "printer-current-time", ippTimeToDate(curtime));
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   if (!ra || cupsArrayFind(ra, "printer-dns-sd-name"))
   {
     if (printer->reg_name)
@@ -4914,7 +4914,7 @@ copy_printer_attrs(
     else
       ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_NOVALUE, "printer-dns-sd-name", 0);
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
   if (!ra || cupsArrayFind(ra, "printer-error-policy"))
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_NAME, "printer-error-policy", NULL, printer->error_policy);
@@ -11228,9 +11228,9 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
 {
   http_status_t		status;		/* Policy status */
   ipp_attribute_t	*attr;		/* Current attribute */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   ipp_attribute_t	*auth_info;	/* auth-info attribute */
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   ipp_attribute_t	*format,	/* Document-format attribute */
 			*name;		/* Job-name attribute */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -11350,9 +11350,9 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   auth_info = ippFindAttribute(con->request, "auth-info", IPP_TAG_TEXT);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
   {
@@ -11366,7 +11366,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
     send_http_error(con, HTTP_UNAUTHORIZED, printer);
     return;
   }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   else if (auth_info && !con->http->tls &&
            !httpAddrLocalhost(con->http->hostaddr))
   {
@@ -11377,7 +11377,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
     send_http_error(con, HTTP_UPGRADE_REQUIRED, printer);
     return;
   }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * Everything was ok, so return OK status...

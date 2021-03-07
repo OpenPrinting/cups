@@ -2,8 +2,9 @@
  * Verify that translations in the .po file have the same number and type of
  * printf-style format strings.
  *
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2017 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  *
@@ -321,7 +322,7 @@ abbreviate(const char *s,		/* I - String to abbreviate */
       if (bufsize < 4)
         break;
 
-      snprintf(bufptr, bufsize, "\\%03o", *s);
+      snprintf(bufptr, (size_t)bufsize, "\\%03o", *s);
       bufptr += 4;
       bufsize -= 4;
     }

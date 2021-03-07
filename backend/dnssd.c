@@ -1,6 +1,7 @@
 /*
  * DNS-SD discovery backend for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2008-2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -13,9 +14,9 @@
 
 #include "backend-private.h"
 #include <cups/array.h>
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 #ifdef HAVE_AVAHI
 #  include <avahi-client/client.h>
 #  include <avahi-client/lookup.h>
@@ -44,9 +45,9 @@ typedef enum
 
 typedef struct
 {
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   DNSServiceRef	ref;			/* Service reference for query */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 #ifdef HAVE_AVAHI
   AvahiRecordBrowser *ref;		/* Browser for query */
 #endif /* HAVE_AVAHI */
@@ -81,10 +82,10 @@ static int		browsers = 0;	/* Number of running browsers */
  * Local functions...
  */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 static void		browse_callback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) _CUPS_NONNULL(1,5,6,7,8);
 static void		browse_local_callback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) _CUPS_NONNULL(1,5,6,7,8);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 #ifdef HAVE_AVAHI
 static void		browse_callback(AvahiServiceBrowser *browser,
 					AvahiIfIndex interface,
@@ -103,7 +104,7 @@ static void		client_callback(AvahiClient *client,
 static int		compare_devices(cups_device_t *a, cups_device_t *b);
 static void		exec_backend(char **argv) _CUPS_NORETURN;
 static cups_device_t	*get_device(cups_array_t *devices, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 static void		query_callback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullName, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen, const void *rdata, uint32_t ttl, void *context) _CUPS_NONNULL(1,5,9,11);
 #elif defined(HAVE_AVAHI)
 static int		poll_callback(struct pollfd *pollfds,
@@ -118,7 +119,7 @@ static void		query_callback(AvahiRecordBrowser *browser,
 				       size_t rdlen,
 				       AvahiLookupResultFlags flags,
 				       void *context);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 static void		sigterm_handler(int sig);
 static void		unquote(char *dst, const char *src, size_t dstsize) _CUPS_NONNULL(1,2);
 
@@ -135,7 +136,7 @@ main(int  argc,				/* I - Number of command-line args */
   cups_array_t	*devices;		/* Device array */
   cups_device_t	*device;		/* Current device */
   char		uriName[1024];		/* Unquoted fullName for URI */
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   int		fd;			/* Main file descriptor */
   fd_set	input;			/* Input set for select() */
   struct timeval timeout;		/* Timeout for select() */
@@ -152,7 +153,7 @@ main(int  argc,				/* I - Number of command-line args */
 		pdl_datastream_ref,	/* AppSocket service reference */
 		printer_ref,		/* LPD service reference */
 		riousbprint_ref;	/* Remote IO service reference */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 #ifdef HAVE_AVAHI
   AvahiClient	*client;		/* Client information */
   int		error;			/* Error code, if any */
@@ -216,7 +217,7 @@ main(int  argc,				/* I - Number of command-line args */
   * Browse for different kinds of printers...
   */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   if (DNSServiceCreateConnection(&main_ref) != kDNSServiceErr_NoError)
   {
     perror("ERROR: Unable to create service connection");
@@ -277,7 +278,7 @@ main(int  argc,				/* I - Number of command-line args */
   riousbprint_ref = main_ref;
   DNSServiceBrowse(&riousbprint_ref, kDNSServiceFlagsShareConnection, 0,
                    "_riousbprint._tcp", NULL, browse_callback, devices);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 #ifdef HAVE_AVAHI
   if ((simple_poll = avahi_simple_poll_new()) == NULL)
@@ -333,7 +334,7 @@ main(int  argc,				/* I - Number of command-line args */
   {
     int announce = 0;			/* Announce printers? */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
     FD_ZERO(&input);
     FD_SET(fd, &input);
 
@@ -369,7 +370,7 @@ main(int  argc,				/* I - Number of command-line args */
 
     if (!got_data)
       announce = 1;
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 /*    fprintf(stderr, "DEBUG: announce=%d\n", announce);*/
 
@@ -379,9 +380,9 @@ main(int  argc,				/* I - Number of command-line args */
       * Announce any devices we've found...
       */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
       DNSServiceErrorType status;	/* DNS query status */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
       cups_device_t *best;		/* Best matching device */
       char	device_uri[1024];	/* Device URI */
       int	count;			/* Number of queries */
@@ -408,7 +409,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  {
 	    fprintf(stderr, "DEBUG: Querying \"%s\"...\n", device->fullName);
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 	    device->ref = main_ref;
 
 	    status = DNSServiceQueryRecord(&(device->ref),
@@ -446,7 +447,7 @@ main(int  argc,				/* I - Number of command-line args */
 	}
 	else if (!device->sent)
 	{
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 	 /*
 	  * Got the TXT records, now report the device...
 	  */
@@ -454,7 +455,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  DNSServiceRefDeallocate(device->ref);
 #else
           avahi_record_browser_free(device->ref);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 	  device->ref = NULL;
 
@@ -535,7 +536,7 @@ main(int  argc,				/* I - Number of command-line args */
 }
 
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 /*
  * 'browse_callback()' - Browse devices.
  */
@@ -618,7 +619,7 @@ browse_local_callback(
 	  device->fullName);
   device->sent = 1;
 }
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 
 #ifdef HAVE_AVAHI
@@ -867,13 +868,13 @@ get_device(cups_array_t *devices,	/* I - Device array */
         free(device->domain);
 	device->domain = strdup(replyDomain);
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 	DNSServiceConstructFullName(fullName, device->name, regtype,
 	                            replyDomain);
 #else /* HAVE_AVAHI */
 	avahi_service_name_join(fullName, kDNSServiceMaxDomainName,
 				serviceName, regtype, replyDomain);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 	free(device->fullName);
 	device->fullName = strdup(fullName);
@@ -898,11 +899,11 @@ get_device(cups_array_t *devices,	/* I - Device array */
   * Set the "full name" of this service, which is used for queries...
   */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   DNSServiceConstructFullName(fullName, serviceName, regtype, replyDomain);
 #else /* HAVE_AVAHI */
   avahi_service_name_join(fullName, kDNSServiceMaxDomainName, serviceName, regtype, replyDomain);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
   device->fullName = strdup(fullName);
 
@@ -944,8 +945,8 @@ poll_callback(
 #endif /* HAVE_AVAHI */
 
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
-#  ifdef HAVE_DNSSD
+#ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 /*
  * 'query_callback()' - Process query data.
  */
@@ -986,7 +987,7 @@ query_callback(
 {
   AvahiClient		*client = avahi_record_browser_get_client(browser);
 					/* Client information */
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
   char		*ptr;			/* Pointer into string */
   cups_device_t	*device = (cups_device_t *)context;
 					/* Device */
@@ -1002,7 +1003,7 @@ query_callback(
 		device_id[2048];	/* 1284 device ID */
 
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   fprintf(stderr, "DEBUG2: query_callback(sdRef=%p, flags=%x, "
                   "interfaceIndex=%d, errorCode=%d, fullName=\"%s\", "
 		  "rrtype=%u, rrclass=%u, rdlen=%u, rdata=%p, ttl=%u, "
@@ -1034,7 +1035,7 @@ query_callback(
 
     return;
   }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
  /*
   * Pull out the priority and make and model from the TXT
@@ -1236,7 +1237,7 @@ query_callback(
   else
     device->make_and_model = strdup(model);
 }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
 
 /*

@@ -1,6 +1,7 @@
 /*
  * Client routines for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -35,9 +36,9 @@ static int		check_if_modified(cupsd_client_t *con,
 			                  struct stat *filestats);
 static int		compare_clients(cupsd_client_t *a, cupsd_client_t *b,
 			                void *data);
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 static int		cupsd_start_tls(cupsd_client_t *con, http_encryption_t e);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 static char		*get_file(cupsd_client_t *con, struct stat *filestats,
 			          char *filename, size_t len);
 static http_status_t	install_cupsd_conf(cupsd_client_t *con);
@@ -353,7 +354,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   if (cupsArrayCount(Clients) == MaxClients)
     cupsdPauseListening();
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
  /*
   * See if we are connecting on a secure port...
   */
@@ -369,7 +370,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   }
   else
     con->auto_ssl = 1;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 }
 
 
@@ -440,14 +441,14 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
     cupsArrayRemove(ActiveClients, con);
     cupsdSetBusyState(0);
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
    /*
     * Shutdown encryption as needed...
     */
 
     if (httpIsEncrypted(con->http))
       partial = 1;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     if (partial)
     {
@@ -589,7 +590,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
     return;
   }
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   if (con->auto_ssl)
   {
    /*
@@ -613,7 +614,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
       return;
     }
   }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   switch (httpGetState(con->http))
   {
@@ -923,7 +924,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
       if (!_cups_strcasecmp(httpGetField(con->http, HTTP_FIELD_CONNECTION), "Upgrade") && strstr(httpGetField(con->http, HTTP_FIELD_UPGRADE), "TLS/") != NULL && !httpIsEncrypted(con->http))
       {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
        /*
         * Do encryption stuff...
 	*/
@@ -947,7 +948,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  cupsdCloseClient(con);
 	  return;
 	}
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
       }
 
       httpClearFields(con->http);
@@ -979,7 +980,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
       if (!_cups_strcasecmp(httpGetField(con->http, HTTP_FIELD_CONNECTION),
                             "Upgrade") && !httpIsEncrypted(con->http))
       {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
        /*
         * Do encryption stuff...
 	*/
@@ -1004,7 +1005,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  cupsdCloseClient(con);
 	  return;
 	}
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
       }
 
       if ((status = cupsdIsAuthorized(con, NULL)) != HTTP_STATUS_OK)
@@ -1918,7 +1919,7 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
 
   cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdSendError code=%d, auth_type=%d", code, auth_type);
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
  /*
   * Force client to upgrade for authentication if that is how the
   * server is configured...
@@ -1931,7 +1932,7 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
   {
     code = HTTP_STATUS_UPGRADE_REQUIRED;
   }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * Put the request in the access_log file...
@@ -2109,18 +2110,13 @@ cupsdSendHeader(
     }
     else if (auth_type == CUPSD_AUTH_NEGOTIATE)
     {
-#if defined(SO_PEERCRED) && defined(AF_LOCAL)
-      if (httpAddrFamily(httpGetAddress(con->http)) == AF_LOCAL)
-	strlcpy(auth_str, "PeerCred", sizeof(auth_str));
-      else
-#endif /* SO_PEERCRED && AF_LOCAL */
       strlcpy(auth_str, "Negotiate", sizeof(auth_str));
     }
 
-    if (con->best && auth_type != CUPSD_AUTH_NEGOTIATE && !con->is_browser && !_cups_strcasecmp(httpGetHostname(con->http, NULL, 0), "localhost"))
+    if (con->best && !con->is_browser && !_cups_strcasecmp(httpGetHostname(con->http, NULL, 0), "localhost"))
     {
      /*
-      * Add a "trc" (try root certification) parameter for local non-Kerberos
+      * Add a "trc" (try root certification) parameter for local
       * requests when the request requires system group membership - then the
       * client knows the root certificate can/should be used.
       *
@@ -2656,7 +2652,7 @@ compare_clients(cupsd_client_t *a,	/* I - First client */
 }
 
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 /*
  * 'cupsd_start_tls()' - Start encryption on a connection.
  */
@@ -2675,7 +2671,7 @@ cupsd_start_tls(cupsd_client_t    *con,	/* I - Client connection */
   cupsdLogClient(con, CUPSD_LOG_DEBUG, "Connection now encrypted.");
   return (0);
 }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 
 /*
@@ -3594,7 +3590,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
 	    !strcmp(con->clientname, "[::1]"));
   }
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
  /*
   * Check if the hostname is something.local (Bonjour); if so, allow it.
   */
@@ -3612,7 +3608,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   if (end && (!_cups_strcasecmp(end, ".local") ||
 	      !_cups_strcasecmp(end, ".local.")))
     return (1);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
  /*
   * Check if the hostname is an IP address...
@@ -3666,7 +3662,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
     }
   }
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   for (a = (cupsd_alias_t *)cupsArrayFirst(DNSSDAlias);
        a;
        a = (cupsd_alias_t *)cupsArrayNext(DNSSDAlias))
@@ -3690,7 +3686,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
         return (1);
     }
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
  /*
   * Check for interface hostname matches...

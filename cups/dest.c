@@ -1,6 +1,7 @@
 /*
  * User-defined destination (and option) support for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -24,9 +25,9 @@
 #  include <poll.h>
 #endif /* HAVE_POLL */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 #ifdef HAVE_AVAHI
 #  include <avahi-client/client.h>
@@ -56,19 +57,19 @@
 #  define kUseLastPrinter	CFSTR("UseLastPrinter")
 #endif /* __APPLE__ */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
 #  define _CUPS_DNSSD_GET_DESTS 250     /* Milliseconds for cupsGetDests */
 #  define _CUPS_DNSSD_MAXTIME	50	/* Milliseconds for maximum quantum of time */
 #else
 #  define _CUPS_DNSSD_GET_DESTS 0       /* Milliseconds for cupsGetDests */
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
 
 /*
  * Types...
  */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
 typedef enum _cups_dnssd_state_e	/* Enumerated device state */
 {
   _CUPS_DNSSD_NEW,
@@ -81,14 +82,14 @@ typedef enum _cups_dnssd_state_e	/* Enumerated device state */
 
 typedef struct _cups_dnssd_data_s	/* Enumeration data */
 {
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   DNSServiceRef		main_ref;	/* Main service reference */
 #  else /* HAVE_AVAHI */
   AvahiSimplePoll	*simple_poll;	/* Polling interface */
   AvahiClient		*client;	/* Client information */
   int			got_data;	/* Did we get data? */
   int			browsers;	/* How many browsers are running? */
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
   cups_dest_cb_t	cb;		/* Callback */
   void			*user_data;	/* User data pointer */
   cups_ptype_t		type,		/* Printer type filter */
@@ -103,11 +104,11 @@ typedef struct _cups_dnssd_data_s	/* Enumeration data */
 typedef struct _cups_dnssd_device_s	/* Enumerated device */
 {
   _cups_dnssd_state_t	state;		/* State of device listing */
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   DNSServiceRef		ref;		/* Service reference for query */
 #  else /* HAVE_AVAHI */
   AvahiRecordBrowser	*ref;		/* Browser for query */
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
   char			*fullName,	/* Full name */
 			*regtype,	/* Registration type */
 			*domain;	/* Domain name */
@@ -159,8 +160,8 @@ static int		cups_block_cb(cups_dest_block_t block, unsigned flags,
 			              cups_dest_t *dest);
 #endif /* __BLOCKS__ */
 static int		cups_compare_dests(cups_dest_t *a, cups_dest_t *b);
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
-#  ifdef HAVE_DNSSD
+#ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 static void		cups_dnssd_browse_cb(DNSServiceRef sdRef,
 					     DNSServiceFlags flags,
 					     uint32_t interfaceIndex,
@@ -182,7 +183,7 @@ static void		cups_dnssd_browse_cb(AvahiServiceBrowser *browser,
 static void		cups_dnssd_client_cb(AvahiClient *client,
 					     AvahiClientState state,
 					     void *context);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 static int		cups_dnssd_compare_devices(_cups_dnssd_device_t *a,
 			                           _cups_dnssd_device_t *b);
 static void		cups_dnssd_free_device(_cups_dnssd_device_t *device,
@@ -192,7 +193,7 @@ static _cups_dnssd_device_t *
 					      const char *serviceName,
 					      const char *regtype,
 					      const char *replyDomain);
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 static void		cups_dnssd_query_cb(DNSServiceRef sdRef,
 					    DNSServiceFlags flags,
 					    uint32_t interfaceIndex,
@@ -214,7 +215,7 @@ static void		cups_dnssd_query_cb(AvahiRecordBrowser *browser,
 					    size_t rdlen,
 					    AvahiLookupResultFlags flags,
 					    void *context);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 static const char	*cups_dnssd_resolve(cups_dest_t *dest, const char *uri,
 					    int msec, int *cancel,
 					    cups_dest_cb_t cb, void *user_data);
@@ -222,7 +223,7 @@ static int		cups_dnssd_resolve_cb(void *context);
 static void		cups_dnssd_unquote(char *dst, const char *src,
 			                   size_t dstsize);
 static int		cups_elapsed(struct timeval *t);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 static int              cups_enum_dests(http_t *http, unsigned flags, int msec, int *cancel, cups_ptype_t type, cups_ptype_t mask, cups_dest_cb_t cb, void *user_data);
 static int		cups_find_dest(const char *name, const char *instance,
 				       int num_dests, cups_dest_t *dests, int prev,
@@ -634,20 +635,20 @@ cupsConnectDest(
   {
     if ((uri = cupsGetOption("device-uri", dest->num_options, dest->options)) != NULL)
     {
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
       if (strstr(uri, "._tcp"))
         uri = cups_dnssd_resolve(dest, uri, msec, cancel, cb, user_data);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
     }
   }
   else if ((uri = cupsGetOption("printer-uri-supported", dest->num_options, dest->options)) == NULL)
   {
     if ((uri = cupsGetOption("device-uri", dest->num_options, dest->options)) != NULL)
     {
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
       if (strstr(uri, "._tcp"))
         uri = cups_dnssd_resolve(dest, uri, msec, cancel, cb, user_data);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
     }
 
     if (uri)
@@ -1136,7 +1137,7 @@ _cupsGetDestResource(
 
   DEBUG_printf(("1_cupsGetDestResource: device-uri=\"%s\", printer-uri-supported=\"%s\".", device_uri, printer_uri));
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   if (((flags & CUPS_DEST_FLAGS_DEVICE) || !printer_uri) && strstr(device_uri, "._tcp"))
   {
     if ((device_uri = cups_dnssd_resolve(dest, device_uri, 5000, NULL, NULL, NULL)) != NULL)
@@ -1155,7 +1156,7 @@ _cupsGetDestResource(
       return (NULL);
     }
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
   if (flags & CUPS_DEST_FLAGS_DEVICE)
   {
@@ -2554,8 +2555,8 @@ cups_compare_dests(cups_dest_t *a,	/* I - First destination */
 }
 
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
-#  ifdef HAVE_DNSSD
+#ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 /*
  * 'cups_dnssd_browse_cb()' - Browse for printers.
  */
@@ -2678,7 +2679,7 @@ cups_dnssd_client_cb(
     avahi_simple_poll_quit(data->simple_poll);
   }
 }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -2705,13 +2706,13 @@ cups_dnssd_free_device(
 {
   DEBUG_printf(("5cups_dnssd_free_device(device=%p(%s), data=%p)", (void *)device, device->dest.name, (void *)data));
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   if (device->ref)
     DNSServiceRefDeallocate(device->ref);
 #  else /* HAVE_AVAHI */
   if (device->ref)
     avahi_record_browser_free(device->ref);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
   _cupsStrFree(device->domain);
   _cupsStrFree(device->fullName);
@@ -2824,22 +2825,22 @@ cups_dnssd_get_device(
   * Set the "full name" of this service, which is used for queries...
   */
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   DNSServiceConstructFullName(fullName, serviceName, regtype, replyDomain);
 #  else /* HAVE_AVAHI */
   avahi_service_name_join(fullName, kDNSServiceMaxDomainName, serviceName, regtype, replyDomain);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
   _cupsStrFree(device->fullName);
   device->fullName = _cupsStrAlloc(fullName);
 
   if (device->ref)
   {
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
     DNSServiceRefDeallocate(device->ref);
 #  else /* HAVE_AVAHI */
     avahi_record_browser_free(device->ref);
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
     device->ref = 0;
   }
@@ -2907,7 +2908,7 @@ cups_dnssd_poll_cb(
 
 static void
 cups_dnssd_query_cb(
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
     DNSServiceRef       sdRef,		/* I - Service reference */
     DNSServiceFlags     flags,		/* I - Data flags */
     uint32_t            interfaceIndex,	/* I - Interface */
@@ -2930,7 +2931,7 @@ cups_dnssd_query_cb(
     const void             *rdata,	/* I - TXT record */
     size_t                 rdlen,	/* I - Length of TXT record */
     AvahiLookupResultFlags flags,	/* I - Flags */
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
     void                *context)	/* I - Enumeration data */
 {
 #  if defined(DEBUG) && defined(HAVE_AVAHI)
@@ -2946,7 +2947,7 @@ cups_dnssd_query_cb(
 			*device;	/* Device */
 
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   DEBUG_printf(("5cups_dnssd_query_cb(sdRef=%p, flags=%x, interfaceIndex=%d, errorCode=%d, fullName=\"%s\", rrtype=%u, rrclass=%u, rdlen=%u, rdata=%p, ttl=%u, context=%p)", (void *)sdRef, flags, interfaceIndex, errorCode, fullName, rrtype, rrclass, rdlen, rdata, ttl, context));
 
  /*
@@ -2970,7 +2971,7 @@ cups_dnssd_query_cb(
 
     return;
   }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
  /*
   * Lookup the service in the devices array.
@@ -3338,10 +3339,8 @@ cups_dnssd_unquote(char       *dst,	/* I - Destination buffer */
 
   *dst = '\0';
 }
-#endif /* HAVE_DNSSD */
 
 
-#if defined(HAVE_AVAHI) || defined(HAVE_DNSSD)
 /*
  * 'cups_elapsed()' - Return the elapsed time in milliseconds.
  */
@@ -3361,7 +3360,7 @@ cups_elapsed(struct timeval *t)		/* IO - Previous time */
 
   return (msecs);
 }
-#endif /* HAVE_AVAHI || HAVE_DNSSD */
+#endif /* HAVE_DNSSD */
 
 
 /*
@@ -3385,20 +3384,20 @@ cups_enum_dests(
                 *dest;			/* Current destination */
   cups_option_t	*option;		/* Current option */
   const char	*user_default;		/* Default printer from environment */
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   int           count,                  /* Number of queries started */
                 completed,              /* Number of completed queries */
                 remaining;              /* Remainder of timeout */
   struct timeval curtime;               /* Current time */
   _cups_dnssd_data_t data;		/* Data for callback */
   _cups_dnssd_device_t *device;         /* Current device */
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   int           nfds,                   /* Number of files responded */
                 main_fd;                /* File descriptor for lookups */
   DNSServiceRef ipp_ref = NULL;		/* IPP browser */
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   DNSServiceRef ipps_ref = NULL;	/* IPPS browser */
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 #    ifdef HAVE_POLL
   struct pollfd pfd;                    /* Polling data */
 #    else
@@ -3408,13 +3407,13 @@ cups_enum_dests(
 #  else /* HAVE_AVAHI */
   int           error;                  /* Error value */
   AvahiServiceBrowser *ipp_ref = NULL;  /* IPP browser */
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   AvahiServiceBrowser *ipps_ref = NULL; /* IPPS browser */
-#    endif /* HAVE_SSL */
-#  endif /* HAVE_DNSSD */
+#    endif /* HAVE_TLS */
+#  endif /* HAVE_MDNSRESPONDER */
 #else
   _cups_getdata_t data;			/* Data for callback */
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
   char		filename[1024];		/* Local lpoptions file */
   _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
 
@@ -3486,13 +3485,13 @@ cups_enum_dests(
   * Get ready to enumerate...
   */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   data.type      = type;
   data.mask      = mask;
   data.cb        = cb;
   data.user_data = user_data;
   data.devices   = cupsArrayNew3((cups_array_func_t)cups_dnssd_compare_devices, NULL, NULL, 0, NULL, (cups_afree_func_t)cups_dnssd_free_device);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
   if (!(mask & CUPS_PRINTER_DISCOVERED) || !(type & CUPS_PRINTER_DISCOVERED))
   {
@@ -3520,9 +3519,9 @@ cups_enum_dests(
          i --, dest ++)
     {
       cups_dest_t	*user_dest;	/* Destination from lpoptions */
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
       const char	*device_uri;	/* Device URI */
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
       if ((user_dest = cupsGetDest(dest->name, dest->instance, data.num_dests, data.dests)) != NULL)
       {
@@ -3537,7 +3536,7 @@ cups_enum_dests(
       if (!(*cb)(user_data, i > 1 ? CUPS_DEST_FLAGS_MORE : CUPS_DEST_FLAGS_NONE, dest))
         break;
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
       if (!dest->instance && (device_uri = cupsGetOption("device-uri", dest->num_options, dest->options)) != NULL && !strncmp(device_uri, "dnssd://", 8))
       {
        /*
@@ -3569,7 +3568,7 @@ cups_enum_dests(
           }
         }
       }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
     }
 
     cupsFreeDests(num_dests, dests);
@@ -3585,14 +3584,14 @@ cups_enum_dests(
   if ((mask & CUPS_PRINTER_DISCOVERED) && !(type & CUPS_PRINTER_DISCOVERED))
     goto enum_finished;
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
  /*
   * Get Bonjour-shared printers...
   */
 
   gettimeofday(&curtime, NULL);
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   if (DNSServiceCreateConnection(&data.main_ref) != kDNSServiceErr_NoError)
   {
     DEBUG_puts("1cups_enum_dests: Unable to create service browser, returning 0.");
@@ -3615,7 +3614,7 @@ cups_enum_dests(
     return (0);
   }
 
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   ipps_ref = data.main_ref;
   if (DNSServiceBrowse(&ipps_ref, kDNSServiceFlagsShareConnection, 0, "_ipps._tcp", NULL, (DNSServiceBrowseReply)cups_dnssd_browse_cb, &data) != kDNSServiceErr_NoError)
   {
@@ -3626,7 +3625,7 @@ cups_enum_dests(
 
     return (0);
   }
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 
 #  else /* HAVE_AVAHI */
   if ((data.simple_poll = avahi_simple_poll_new()) == NULL)
@@ -3666,7 +3665,7 @@ cups_enum_dests(
     return (0);
   }
 
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   data.browsers ++;
   if ((ipps_ref = avahi_service_browser_new(data.client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, "_ipps._tcp", NULL, 0, cups_dnssd_browse_cb, &data)) == NULL)
   {
@@ -3680,8 +3679,8 @@ cups_enum_dests(
 
     return (0);
   }
-#    endif /* HAVE_SSL */
-#  endif /* HAVE_DNSSD */
+#    endif /* HAVE_TLS */
+#  endif /* HAVE_MDNSRESPONDER */
 
   if (msec < 0)
     remaining = INT_MAX;
@@ -3698,7 +3697,7 @@ cups_enum_dests(
 
     cups_elapsed(&curtime);
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
 #    ifdef HAVE_POLL
     pfd.fd     = main_fd;
     pfd.events = POLLIN;
@@ -3734,7 +3733,7 @@ cups_enum_dests(
     }
 
     DEBUG_printf(("1cups_enum_dests: got_data=%d", data.got_data));
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
 
     remaining -= cups_elapsed(&curtime);
 
@@ -3753,7 +3752,7 @@ cups_enum_dests(
       {
         DEBUG_printf(("1cups_enum_dests: Querying '%s'.", device->fullName));
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
         device->ref = data.main_ref;
 
         if (DNSServiceQueryRecord(&(device->ref), kDNSServiceFlagsShareConnection, 0, device->fullName, kDNSServiceType_TXT, kDNSServiceClass_IN, (DNSServiceQueryRecordReply)cups_dnssd_query_cb, &data) == kDNSServiceErr_NoError)
@@ -3780,7 +3779,7 @@ cups_enum_dests(
 
           DEBUG_printf(("1cups_enum_dests: Query failed: %s", avahi_strerror(avahi_client_errno(data.client))));
         }
-#  endif /* HAVE_DNSSD */
+#  endif /* HAVE_MDNSRESPONDER */
       }
       else if (device->ref && device->state == _CUPS_DNSSD_PENDING)
       {
@@ -3834,7 +3833,7 @@ cups_enum_dests(
       break;
 #  endif /* HAVE_AVAHI */
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
  /*
   * Return...
@@ -3844,17 +3843,17 @@ cups_enum_dests(
 
   cupsFreeDests(data.num_dests, data.dests);
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   cupsArrayDelete(data.devices);
 
-#  ifdef HAVE_DNSSD
+#  ifdef HAVE_MDNSRESPONDER
   if (ipp_ref)
     DNSServiceRefDeallocate(ipp_ref);
 
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   if (ipps_ref)
     DNSServiceRefDeallocate(ipps_ref);
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 
   if (data.main_ref)
     DNSServiceRefDeallocate(data.main_ref);
@@ -3862,17 +3861,17 @@ cups_enum_dests(
 #  else /* HAVE_AVAHI */
   if (ipp_ref)
     avahi_service_browser_free(ipp_ref);
-#    ifdef HAVE_SSL
+#    ifdef HAVE_TLS
   if (ipps_ref)
     avahi_service_browser_free(ipps_ref);
-#    endif /* HAVE_SSL */
+#    endif /* HAVE_TLS */
 
   if (data.client)
     avahi_client_free(data.client);
   if (data.simple_poll)
     avahi_simple_poll_free(data.simple_poll);
-#  endif /* HAVE_DNSSD */
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#  endif /* HAVE_MDNSRESPONDER */
+#endif /* HAVE_DNSSD */
 
   DEBUG_puts("1cups_enum_dests: Returning 1.");
 

@@ -1,6 +1,7 @@
 /*
  * "lpadmin" command for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -240,14 +241,14 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'E' : /* Enable the printer/enable encryption */
 	      if (printer == NULL)
 	      {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 		cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 
 		if (http)
 		  httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
 #else
 		_cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 		break;
 	      }
 

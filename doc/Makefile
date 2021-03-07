@@ -1,6 +1,7 @@
 #
 # Documentation makefile for CUPS.
 #
+# Copyright © 2021 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products.
 #
@@ -21,14 +22,7 @@ WEBPAGES	=	\
 			index.html \
 			robots.txt
 WEBIMAGES	=	\
-			images/color-wheel.png \
 			images/cups.png \
-			images/cups-icon.png \
-			images/generic.png \
-			images/left.gif \
-			images/right.gif \
-			images/sel.gif \
-			images/unsel.gif \
 			images/wait.gif
 HELPIMAGES	=	\
 			images/cups-block-diagram.png \
@@ -45,7 +39,6 @@ HELPFILES	=	\
 			help/api-admin.html \
 			help/api-filter.html \
 			help/api-ppd.html \
-			help/api-raster.html \
 			help/cgi.html \
 			help/cupspm.html \
 			help/encryption.html \

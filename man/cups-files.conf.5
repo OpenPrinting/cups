@@ -1,14 +1,14 @@
 .\"
 .\" cups-files.conf man page for CUPS.
 .\"
-.\" Copyright © 2020 by Michael R Sweet
+.\" Copyright © 2020-2021 by OpenPrinting.
 .\" Copyright © 2007-2019 by Apple Inc.
 .\" Copyright © 1997-2006 by Easy Software Products.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-files.conf 5 "CUPS" "14 November 2020" "Apple Inc."
+.TH cups-files.conf 5 "CUPS" "2021-03-06" "OpenPrinting"
 .SH NAME
 cups\-files.conf \- file and directory configuration file for cups
 .SH DESCRIPTION
@@ -245,18 +245,6 @@ The URI "file:///dev/null" is always allowed.
 File devices cannot be used with "raw" print queues - a PPD file is required.
 The specified file is overwritten for every print job.
 Writing to directories is not supported.
-.\"#FontPath
-.TP 5
-\fBFontPath \fIdirectory[:...:directoryN]\fR
-Specifies a colon separated list of directories where fonts can be found.
-On Linux the
-.BR font-config (1)
-mechanism is used instead.
-On macOS the Font Book application manages system-installed fonts.
-.\"#LPDConfigFile
-.TP 5
-\fB LPDConfigFile \fIfilename\fR
-Specifies the LPD service configuration file to update.
 .\"#Printcap
 .TP 5
 \fBPrintcap \fIfilename\fR
@@ -272,10 +260,6 @@ Specifies the format to use for the Printcap file.
 "bsd" is the historical LPD printcap file format.
 "plist" is the Apple plist file format.
 "solaris" is the historical Solaris LPD printcap file format.
-.\"#SMBConfigFile
-.TP 5
-\fBSMBConfigFile \fIfilename\fR
-Specifies the SMB service configuration file to update.
 .SH NOTES
 The scheduler MUST be restarted manually after making changes to the \fBcups-files.conf\fR file.
 On Linux this is typically done using the
@@ -294,6 +278,4 @@ command is used instead.
 .BR subscriptions.conf (5),
 CUPS Online Help (http://localhost:631/help)
 .SH COPYRIGHT
-Copyright \[co] 2020 by Michael R Sweet
-.br
-Copyright \[co] 2007-2019 by Apple Inc.
+Copyright \[co] 2020-2021 by OpenPrinting.

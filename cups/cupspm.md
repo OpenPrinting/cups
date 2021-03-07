@@ -1,11 +1,11 @@
 ---
 title: CUPS Programming Manual
 author: Michael R Sweet
-copyright: Copyright © 2007-2020 by Apple Inc. All Rights Reserved.
-version: 2.3.4
+copyright: Copyright © 2021 by OpenPrinting. All Rights Reserved.
+version: 2.4.0
 ...
 
-> Please [file issues on Github](https://github.com/apple/cups/issues) to
+> Please [file issues on Github](https://github.com/openprinting/cups/issues) to
 > provide feedback on this document.
 
 
@@ -46,8 +46,9 @@ standard management operations to control the state of those printers and jobs.
 >
 > CUPS printer drivers necessarily depend on specific file formats and certain
 > implementation details of the CUPS software.  Please consult the Postscript
-> and raster printer driver developer documentation on
-> [CUPS.org](https://www.cups.org/documentation.html) for more information.
+> and raster printer driver developer documentation on the
+> [OpenPrinting CUPS web site](https://openprinting.github.io/cups) for more
+> information.
 
 
 ## Terms Used in This Document

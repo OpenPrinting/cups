@@ -1,13 +1,15 @@
 /*
  * TLS routines for CUPS.
  *
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright @2007-2014 by Apple Inc.
+ * Copyright @ 1997-2007 by Easy Software Products, all rights reserved.
  *
  * This file contains Kerberos support code, copyright 2006 by
  * Jelmer Vernooij.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -34,7 +36,7 @@
  * Include platform-specific TLS code...
  */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 #  ifdef HAVE_GNUTLS
 #    include "tls-gnutls.c"
 #  elif defined(HAVE_CDSASSL)
@@ -97,4 +99,4 @@ httpSaveCredentials(const char *path, cups_array_t *credentials, const char *com
   (void)common_name;
   return (-1);
 }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */

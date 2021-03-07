@@ -1,6 +1,7 @@
 /*
  * IPP Everywhere printer application for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group.
  * Copyright © 2010-2019 by Apple Inc.
  *
@@ -45,7 +46,7 @@ extern char **environ;
 #  include <poll.h>
 #endif /* _WIN32 */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #elif defined(HAVE_AVAHI)
 #  include <avahi-client/client.h>
@@ -54,7 +55,7 @@ extern char **environ;
 #  include <avahi-common/error.h>
 #  include <avahi-common/malloc.h>
 #  include <avahi-common/thread-watch.h>
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 #ifdef HAVE_SYS_MOUNT_H
 #  include <sys/mount.h>
@@ -139,18 +140,18 @@ static const char * const ippeve_preason_strings[] =
  * URL scheme for web resources...
  */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 #  define WEB_SCHEME "https"
 #else
 #  define WEB_SCHEME "http"
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 
 /*
  * Structures...
  */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 typedef DNSServiceRef ippeve_srv_t;	/* Service reference */
 typedef TXTRecordRef ippeve_txt_t;	/* TXT record */
 
@@ -161,7 +162,7 @@ typedef AvahiStringList *ippeve_txt_t;	/* TXT record */
 #else
 typedef void *ippeve_srv_t;		/* Service reference */
 typedef void *ippeve_txt_t;		/* TXT record */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 #if HAVE_LIBPAM
 typedef struct ippeve_authdata_s	/* Authentication data */
@@ -184,14 +185,14 @@ typedef struct ippeve_printer_s		/**** Printer data ****/
   /* TODO: One IPv4 and one IPv6 listener are really not sufficient */
   int			ipv4,		/* IPv4 listener */
 			ipv6;		/* IPv6 listener */
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   ippeve_srv_t		ipp_ref,	/* DNS-SD IPP service */
 			ipps_ref,	/* DNS-SD IPPS service */
 			http_ref,	/* DNS-SD HTTP service */
 			printer_ref;	/* DNS-SD LPD service */
 #elif defined(HAVE_AVAHI)
   ippeve_srv_t		dnssd_ref;	/* DNS-SD services */
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
   char			*dnssd_subtypes;/* DNS-SD subtypes */
   int			dnssd_collision;/* Name collision? */
   char			*dnssd_name,	/* printer-dns-sd-name */
@@ -284,12 +285,12 @@ static void		debug_attributes(const char *title, ipp_t *ipp, int response);
 static void		delete_client(ippeve_client_t *client);
 static void		delete_job(ippeve_job_t *job);
 static void		delete_printer(ippeve_printer_t *printer);
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 static void DNSSD_API	dnssd_callback(DNSServiceRef sdRef, DNSServiceFlags flags, DNSServiceErrorType errorCode, const char *name, const char *regtype, const char *domain, ippeve_printer_t *printer);
 #elif defined(HAVE_AVAHI)
 static void		dnssd_callback(AvahiEntryGroup *p, AvahiEntryGroupState state, void *context);
 static void		dnssd_client_cb(AvahiClient *c, AvahiClientState state, void *userdata);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 static void		dnssd_init(void);
 static int		filter_cb(ippeve_filter_t *filter, ipp_t *dst, ipp_attribute_t *attr);
 static ippeve_job_t	*find_job(ippeve_client_t *client);
@@ -347,12 +348,12 @@ static int		valid_job_attributes(ippeve_client_t *client);
  * Globals...
  */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 static DNSServiceRef	DNSSDMaster = NULL;
 #elif defined(HAVE_AVAHI)
 static AvahiThreadedPoll *DNSSDMaster = NULL;
 static AvahiClient	*DNSSDClient = NULL;
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 static int		KeepFiles = 0,	/* Keep spooled job files? */
 			MaxVersion = 20,/* Maximum IPP version (20 = 2.0, 11 = 1.1, etc.) */
@@ -376,9 +377,9 @@ main(int  argc,				/* I - Number of command-line args */
 		*device_uri = NULL,	/* Device URI */
 		*output_format = NULL,	/* Output format */
 		*icon = NULL,		/* Icon file */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 		*keypath = NULL,	/* Keychain path */
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 		*location = "",		/* Location of printer */
 		*make = "Example",	/* Manufacturer */
 		*model = "Printer",	/* Model */
@@ -465,7 +466,7 @@ main(int  argc,				/* I - Number of command-line args */
 	      output_format = argv[i];
 	      break;
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	  case 'K' : /* -K keypath */
 	      i ++;
 	      if (i >= argc)
@@ -473,7 +474,7 @@ main(int  argc,				/* I - Number of command-line args */
 
 	      keypath = argv[i];
 	      break;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 	  case 'M' : /* -M manufacturer */
 	      i ++;
@@ -736,9 +737,9 @@ main(int  argc,				/* I - Number of command-line args */
     printer->ppdfile = strdup(ppdfile);
 #endif /* !CUPS_LITE */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   cupsSetServerCredentials(keypath, printer->hostname, 1);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * Run the print service...
@@ -1589,11 +1590,11 @@ create_printer(
     "file",
     "ftp",
     "http"
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     , "https"
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   };
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   static const char * const uri_authentication_supported[] =
   {					/* uri-authentication-supported values */
     "none",
@@ -1609,7 +1610,7 @@ create_printer(
     "none",
     "tls"
   };
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   static const char * const which_jobs[] =
   {					/* which-jobs-supported values */
     "completed",
@@ -1757,11 +1758,11 @@ create_printer(
 
   if (Verbosity)
   {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     fprintf(stderr, "printer-uri-supported=\"ipp://%s:%d/ipp/print\",\"ipps://%s:%d/ipp/print\"\n", printer->hostname, printer->port, printer->hostname, printer->port);
 #else
     fprintf(stderr, "printer-uri-supported=\"ipp://%s:%d/ipp/print\"\n", printer->hostname, printer->port);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     fprintf(stderr, "printer-uuid=\"%s\"\n", uuid);
   }
 
@@ -1948,7 +1949,7 @@ create_printer(
   ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_URISCHEME), "reference-uri-schemes-supported", (int)(sizeof(reference_uri_schemes_supported) / sizeof(reference_uri_schemes_supported[0])), NULL, reference_uri_schemes_supported);
 
   /* uri-authentication-supported */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   if (PAMService)
     ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "uri-authentication-supported", 2, NULL, uri_authentication_basic);
   else
@@ -1958,14 +1959,14 @@ create_printer(
     ippAddString(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "uri-authentication-supported", NULL, "basic");
   else
     ippAddString(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "uri-authentication-supported", NULL, "none");
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   /* uri-security-supported */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "uri-security-supported", 2, NULL, uri_security_supported);
 #else
   ippAddString(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "uri-security-supported", NULL, "none");
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   /* which-jobs-supported */
   ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "which-jobs-supported", sizeof(which_jobs) / sizeof(which_jobs[0]), NULL, which_jobs);
@@ -2120,7 +2121,7 @@ delete_printer(ippeve_printer_t *printer)	/* I - Printer */
   if (printer->ipv6 >= 0)
     close(printer->ipv6);
 
-#if HAVE_DNSSD
+#if HAVE_MDNSRESPONDER
   if (printer->printer_ref)
     DNSServiceRefDeallocate(printer->printer_ref);
   if (printer->ipp_ref)
@@ -2136,7 +2137,7 @@ delete_printer(ippeve_printer_t *printer)	/* I - Printer */
     avahi_entry_group_free(printer->dnssd_ref);
 
   avahi_threaded_poll_unlock(DNSSDMaster);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
   if (printer->dnssd_name)
     free(printer->dnssd_name);
@@ -2166,7 +2167,7 @@ delete_printer(ippeve_printer_t *printer)	/* I - Printer */
 }
 
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
 /*
  * 'dnssd_callback()' - Handle DNS-SD registration events.
  */
@@ -2254,7 +2255,7 @@ dnssd_client_cb(
 	break;
   }
 }
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -2264,7 +2265,7 @@ dnssd_client_cb(
 static void
 dnssd_init(void)
 {
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   if (DNSServiceCreateConnection(&DNSSDMaster) != kDNSServiceErr_NoError)
   {
     fputs("Error: Unable to initialize DNS-SD.\n", stderr);
@@ -2287,7 +2288,7 @@ dnssd_init(void)
   }
 
   avahi_threaded_poll_start(DNSSDMaster);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 }
 
 
@@ -2557,9 +2558,9 @@ finish_document_uri(
   }
 
   if (strcmp(scheme, "file") &&
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
       strcmp(scheme, "https") &&
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
       strcmp(scheme, "http"))
   {
     respond_ipp(client, IPP_STATUS_ERROR_URI_SCHEME, "URI scheme \"%s\" not supported.", scheme);
@@ -2637,11 +2638,11 @@ finish_document_uri(
   }
   else
   {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (port == 443 || !strcmp(scheme, "https"))
       encryption = HTTP_ENCRYPTION_ALWAYS;
     else
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     encryption = HTTP_ENCRYPTION_IF_REQUESTED;
 
     if ((http = httpConnect2(hostname, port, NULL, AF_UNSPEC, encryption, 1, 30000, NULL)) == NULL)
@@ -3697,10 +3698,10 @@ ipp_get_printer_attributes(
     httpAssembleURI(HTTP_URI_CODING_ALL, uris[0], sizeof(uris[0]), "ipp", NULL, client->host_field, client->host_port, "/ipp/print");
     values[num_values ++] = uris[0];
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     httpAssembleURI(HTTP_URI_CODING_ALL, uris[1], sizeof(uris[1]), "ipps", NULL, client->host_field, client->host_port, "/ipp/print");
     values[num_values ++] = uris[1];
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     ippAddStrings(client->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-uri-supported", num_values, NULL, values);
   }
@@ -5787,13 +5788,13 @@ process_client(ippeve_client_t *client)	/* I - Client */
   * Loop until we are out of requests or timeout (30 seconds)...
   */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   int first_time = 1;			/* First time request? */
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   while (httpWait(client->http, 30000))
   {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (first_time)
     {
      /*
@@ -5817,7 +5818,7 @@ process_client(ippeve_client_t *client)	/* I - Client */
 
       first_time = 0;
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     if (!process_http(client))
       break;
@@ -6008,7 +6009,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
 
   if (!strcasecmp(httpGetField(client->http, HTTP_FIELD_CONNECTION), "Upgrade"))
   {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (strstr(httpGetField(client->http, HTTP_FIELD_UPGRADE), "TLS/") != NULL && !httpIsEncrypted(client->http))
     {
       if (!respond_http(client, HTTP_STATUS_SWITCHING_PROTOCOLS, NULL, NULL, 0))
@@ -6025,7 +6026,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
       fprintf(stderr, "%s Connection now encrypted.\n", client->hostname);
     }
     else
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     if (!respond_http(client, HTTP_STATUS_NOT_IMPLEMENTED, NULL, NULL, 0))
       return (0);
@@ -7133,7 +7134,7 @@ static int				/* O - 1 on success, 0 on error */
 register_printer(
     ippeve_printer_t *printer)		/* I - Printer */
 {
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   ippeve_txt_t		ipp_txt;	/* DNS-SD IPP TXT record */
   int			i,		/* Looping var */
 			count;		/* Number of values */
@@ -7219,9 +7220,9 @@ register_printer(
 
     printer->dnssd_collision = 0;
   }
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   DNSServiceErrorType	error;		/* Error from DNS-SD */
   char			regtype[256];	/* DNS-SD service type */
   uint32_t		ifindex;	/* Interface index */
@@ -7243,9 +7244,9 @@ register_printer(
   TXTRecordSetValue(&ipp_txt, "Duplex", 1, ippGetCount(sides_supported) > 1 ? "T" : "F");
   if ((value = ippGetString(printer_uuid, 0, NULL)) != NULL)
     TXTRecordSetValue(&ipp_txt, "UUID", (uint8_t)strlen(value) - 9, value + 9);
-#  ifdef HAVE_SSL
+#  ifdef HAVE_TLS
   TXTRecordSetValue(&ipp_txt, "TLS", 3, "1.2");
-#  endif /* HAVE_SSL */
+#  endif /* HAVE_TLS */
   if (urf[0])
     TXTRecordSetValue(&ipp_txt, "URF", (uint8_t)strlen(urf), urf);
   TXTRecordSetValue(&ipp_txt, "txtvers", 1, "1");
@@ -7290,7 +7291,7 @@ register_printer(
     return (0);
   }
 
-#  ifdef HAVE_SSL
+#  ifdef HAVE_TLS
  /*
   * Then register the _ipps._tcp (IPP) service type with the real port number to
   * advertise our IPPS printer...
@@ -7311,7 +7312,7 @@ register_printer(
     _cupsLangPrintf(stderr, _("Unable to register \"%s.%s\": %d"), printer->dnssd_name, regtype, error);
     return (0);
   }
-#  endif /* HAVE_SSL */
+#  endif /* HAVE_TLS */
 
  /*
   * Similarly, register the _http._tcp,_printer (HTTP) service type with the
@@ -7350,9 +7351,9 @@ register_printer(
   ipp_txt = avahi_string_list_add_printf(ipp_txt, "Duplex=%s", ippGetCount(sides_supported) > 1 ? "T" : "F");
   if ((value = ippGetString(printer_uuid, 0, NULL)) != NULL)
     ipp_txt = avahi_string_list_add_printf(ipp_txt, "UUID=%s", value + 9);
-#  ifdef HAVE_SSL
+#  ifdef HAVE_TLS
   ipp_txt = avahi_string_list_add_printf(ipp_txt, "TLS=1.2");
-#  endif /* HAVE_SSL */
+#  endif /* HAVE_TLS */
   if (urf[0])
     ipp_txt = avahi_string_list_add_printf(ipp_txt, "URF=%s", urf);
   ipp_txt = avahi_string_list_add_printf(ipp_txt, "txtvers=1");
@@ -7394,7 +7395,7 @@ register_printer(
     free(temptypes);
   }
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
  /*
   * _ipps._tcp (IPPS) for secure printing...
   */
@@ -7417,7 +7418,7 @@ register_printer(
 
     free(temptypes);
   }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * Finally _http.tcp (HTTP) for the web interface...
@@ -7434,7 +7435,7 @@ register_printer(
   avahi_threaded_poll_unlock(DNSSDMaster);
 
   avahi_string_list_free(ipp_txt);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
   return (1);
 }
@@ -7629,10 +7630,10 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
 
   num_fds = 2;
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
   polldata[num_fds   ].fd     = DNSServiceRefSockFD(DNSSDMaster);
   polldata[num_fds ++].events = POLLIN;
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
  /*
   * Loop until we are killed or have a hard error...
@@ -7686,15 +7687,15 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
     * Process DNS-SD messages...
     */
 
-#ifdef HAVE_DNSSD
+#ifdef HAVE_MDNSRESPONDER
     if (polldata[2].revents & POLLIN)
       DNSServiceProcessResult(DNSSDMaster);
-#endif /* HAVE_DNSSD */
+#endif /* HAVE_MDNSRESPONDER */
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
     if (printer->dnssd_collision)
       register_printer(printer);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
 
    /*
     * Clean out old jobs...
@@ -8349,9 +8350,9 @@ usage(int status)			/* O - Exit status */
   _cupsLangPuts(stdout, _("-A                      Enable authentication"));
   _cupsLangPuts(stdout, _("-D device-uri           Set the device URI for the printer"));
   _cupsLangPuts(stdout, _("-F output-type/subtype  Set the output format for the printer"));
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   _cupsLangPuts(stdout, _("-K keypath              Set location of server X.509 certificates and keys."));
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   _cupsLangPuts(stdout, _("-M manufacturer         Set manufacturer name (default=Test)"));
 #if !CUPS_LITE
   _cupsLangPuts(stdout, _("-P filename.ppd         Load printer attributes from PPD file"));

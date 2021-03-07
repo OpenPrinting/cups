@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS on Windows.
  *
- * Copyright © 2021 by Michael R Sweet
+ * Copyright © 2021 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -100,8 +100,8 @@ typedef unsigned long useconds_t;
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.3.4op1"
-#define CUPS_MINIMAL "CUPS/2.3.4op1"
+#define CUPS_SVERSION "CUPS v2.4rc1"
+#define CUPS_MINIMAL "CUPS/2.4rc1"
 
 
 /*
@@ -163,14 +163,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Default Samba and LPD config files...
- */
-
-#define CUPS_DEFAULT_SMB_CONFIG_FILE ""
-#define CUPS_DEFAULT_LPD_CONFIG_FILE ""
-
-
-/*
  * Default ErrorPolicy value...
  */
 
@@ -216,7 +208,6 @@ typedef unsigned long useconds_t;
 #define CUPS_CACHEDIR "C:/CUPS/cache"
 #define CUPS_DATADIR "C:/CUPS/share"
 #define CUPS_DOCROOT "C:/CUPS/share/doc"
-#define CUPS_FONTPATH "C:/CUPS/share/fonts"
 #define CUPS_LOCALEDIR "C:/CUPS/locale"
 #define CUPS_LOGDIR "C:/CUPS/logs"
 #define CUPS_REQUESTS "C:/CUPS/spool"
@@ -394,10 +385,10 @@ typedef unsigned long useconds_t;
  * Which encryption libraries do we have?
  */
 
+#define HAVE_TLS 1
 /* #undef HAVE_CDSASSL */
 /* #undef HAVE_GNUTLS */
 #define HAVE_SSPISSL 1
-#define HAVE_SSL 1
 
 
 /*
@@ -439,24 +430,31 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Do we have mDNSResponder for DNS Service Discovery (aka Bonjour)?
+ * Do we have DNS Service Discovery (aka Bonjour) support?
  */
 
 #define HAVE_DNSSD 1
 
 
 /*
- * Do we have Avahi for DNS Service Discovery (aka Bonjour)?
+ * Do we have mDNSResponder for DNS-SD?
  */
 
-#undef HAVE_AVAHI
+#define HAVE_MDNSRESPONDER 1
+
+
+/*
+ * Do we have Avahi for DNS-SD?
+ */
+
+/* #undef HAVE_AVAHI */
 
 
 /*
  * Do we have <sys/ioctl.h>?
  */
 
-#undef HAVE_SYS_IOCTL_H
+/* #undef HAVE_SYS_IOCTL_H */
 
 
 /*

@@ -1,6 +1,7 @@
 /*
  * PPD file routines for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -871,15 +872,15 @@ _ppdOpen(
       ppd_decode(ppd->jcl_ps);		/* Decode quoted string */
     }
     else if (!strcmp(keyword, "AccurateScreensSupport"))
-      ppd->accurate_screens = !strcmp(string, "True");
+      ppd->accurate_screens = !strcasecmp(string, "True");
     else if (!strcmp(keyword, "ColorDevice"))
-      ppd->color_device = !strcmp(string, "True");
+      ppd->color_device = !strcasecmp(string, "True");
     else if (!strcmp(keyword, "ContoneOnly"))
-      ppd->contone_only = !strcmp(string, "True");
+      ppd->contone_only = !strcasecmp(string, "True");
     else if (!strcmp(keyword, "cupsFlipDuplex"))
-      ppd->flip_duplex = !strcmp(string, "True");
+      ppd->flip_duplex = !strcasecmp(string, "True");
     else if (!strcmp(keyword, "cupsManualCopies"))
-      ppd->manual_copies = !strcmp(string, "True");
+      ppd->manual_copies = !strcasecmp(string, "True");
     else if (!strcmp(keyword, "cupsModelNumber"))
       ppd->model_number = atoi(string);
     else if (!strcmp(keyword, "cupsColorProfile"))

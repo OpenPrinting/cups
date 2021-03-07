@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# Script to copy the CUPS online help files to a CUPS web site subdirectory.
+# The normal HTML headers are replaced by Jekyll headers.
+#
+# Usage: scripts/copydocs DESTINATION-DIR
+#
+
+usage() {
+    echo "Usage: scripts/copydocs DESTINATION-DIR"
+    exit 1
+}
+
+if test ! -d doc/help; then
+    echo "Need to run the script from the root source directory."
+    usage
+fi
+
+if test $# != 1; then
+    echo "Expected destination directory on command-line."
+    usage
+fi
+
+for file in doc/help/*.html; do
+    dest="$1/$(basename $file)"
+    title="$(grep -i '<title>' $file | sed -e '1,$s/^.*<title>//i' -e '1,$s/<\/title>.*$//i')"
+
+    echo "$file to $dest: $title"
+    case "$(basename $file)" in
+        api-*)
+            cp $file "$dest"
+            ;;
+        cupspm.html)
+            cp $file $(basename $file .html).epub "$1"
+            ;;
+        *)
+            if grep -q '<H1 CLASS=' "$file"; then
+		(echo "---"; echo "title: $title"; echo "layout: doc"; echo "---"; sed -e '1,/<H1 CLASS=/d' -e '/<\/BODY>/,$d' <"$file") >"$dest"
+            elif grep -q '<BODY>' "$file"; then
+		(echo "---"; echo "title: $title"; echo "layout: doc"; echo "---"; sed -e '1,/<BODY>/d' -e '/<\/BODY>/,$d' <"$file") >"$dest"
+            elif grep -q '<h1 class=' "$file"; then
+		(echo "---"; echo "title: $title"; echo "layout: doc"; echo "---"; sed -e '1,/<h1 class=/d' -e '/<\/body>/,$d'<"$file") >"$dest"
+	    else
+		(echo "---"; echo "title: $title"; echo "layout: doc"; echo "---"; sed -e '1,/<body>/d' -e '/<\/body>/,$d' <"$file") >"$dest"
+	    fi
+            ;;
+    esac
+done

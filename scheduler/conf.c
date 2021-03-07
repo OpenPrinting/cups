@@ -1,6 +1,7 @@
 /*
  * Configuration routines for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -67,9 +68,9 @@ typedef struct
 static const cupsd_var_t	cupsd_vars[] =
 {
   { "AutoPurgeJobs", 		&JobAutoPurge,		CUPSD_VARTYPE_BOOLEAN },
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   { "BrowseDNSSDSubTypes",	&DNSSDSubTypes,		CUPSD_VARTYPE_STRING },
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
   { "BrowseWebIF",		&BrowseWebIF,		CUPSD_VARTYPE_BOOLEAN },
   { "Browsing",			&Browsing,		CUPSD_VARTYPE_BOOLEAN },
   { "Classification",		&Classification,	CUPSD_VARTYPE_STRING },
@@ -80,9 +81,9 @@ static const cupsd_var_t	cupsd_vars[] =
   { "DefaultPolicy",		&DefaultPolicy,		CUPSD_VARTYPE_STRING },
   { "DefaultShared",		&DefaultShared,		CUPSD_VARTYPE_BOOLEAN },
   { "DirtyCleanInterval",	&DirtyCleanInterval,	CUPSD_VARTYPE_TIME },
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   { "DNSSDHostName",		&DNSSDHostName,		CUPSD_VARTYPE_STRING },
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
+#endif /* HAVE_DNSSD */
   { "ErrorPolicy",		&ErrorPolicy,		CUPSD_VARTYPE_STRING },
   { "FilterLimit",		&FilterLimit,		CUPSD_VARTYPE_INTEGER },
   { "FilterNice",		&FilterNice,		CUPSD_VARTYPE_INTEGER },
@@ -125,7 +126,6 @@ static const cupsd_var_t	cupsd_vars[] =
   { "PreserveJobFiles",		&JobFiles,		CUPSD_VARTYPE_TIME },
   { "PreserveJobHistory",	&JobHistory,		CUPSD_VARTYPE_TIME },
   { "ReloadTimeout",		&ReloadTimeout,		CUPSD_VARTYPE_TIME },
-  { "RIPCache",			&RIPCache,		CUPSD_VARTYPE_STRING },
   { "RootCertDuration",		&RootCertDuration,	CUPSD_VARTYPE_TIME },
   { "ServerAdmin",		&ServerAdmin,		CUPSD_VARTYPE_STRING },
   { "ServerName",		&ServerName,		CUPSD_VARTYPE_STRING },
@@ -138,26 +138,23 @@ static const cupsd_var_t	cupsfiles_vars[] =
   { "AccessLog",		&AccessLog,		CUPSD_VARTYPE_STRING },
   { "CacheDir",			&CacheDir,		CUPSD_VARTYPE_STRING },
   { "ConfigFilePerm",		&ConfigFilePerm,	CUPSD_VARTYPE_PERM },
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   { "CreateSelfSignedCerts",	&CreateSelfSignedCerts,	CUPSD_VARTYPE_BOOLEAN },
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   { "DataDir",			&DataDir,		CUPSD_VARTYPE_STRING },
   { "DocumentRoot",		&DocumentRoot,		CUPSD_VARTYPE_STRING },
   { "ErrorLog",			&ErrorLog,		CUPSD_VARTYPE_STRING },
   { "FileDevice",		&FileDevice,		CUPSD_VARTYPE_BOOLEAN },
-  { "FontPath",			&FontPath,		CUPSD_VARTYPE_STRING },
   { "LogFilePerm",		&LogFilePerm,		CUPSD_VARTYPE_PERM },
-  { "LPDConfigFile",		&LPDConfigFile,		CUPSD_VARTYPE_STRING },
   { "PageLog",			&PageLog,		CUPSD_VARTYPE_STRING },
   { "Printcap",			&Printcap,		CUPSD_VARTYPE_STRING },
   { "RemoteRoot",		&RemoteRoot,		CUPSD_VARTYPE_STRING },
   { "RequestRoot",		&RequestRoot,		CUPSD_VARTYPE_STRING },
   { "ServerBin",		&ServerBin,		CUPSD_VARTYPE_PATHNAME },
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   { "ServerKeychain",		&ServerKeychain,	CUPSD_VARTYPE_PATHNAME },
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   { "ServerRoot",		&ServerRoot,		CUPSD_VARTYPE_PATHNAME },
-  { "SMBConfigFile",		&SMBConfigFile,		CUPSD_VARTYPE_STRING },
   { "StateDir",			&StateDir,		CUPSD_VARTYPE_STRING },
   { "SyncOnClose",		&SyncOnClose,		CUPSD_VARTYPE_BOOLEAN },
 #ifdef HAVE_AUTHORIZATION_H
@@ -587,7 +584,6 @@ cupsdReadConfiguration(void)
                  "%p %u %j %T %P %C %{job-billing} "
 		 "%{job-originating-host-name} %{job-name} %{media} %{sides}");
   cupsdSetString(&Printcap, CUPS_DEFAULT_PRINTCAP);
-  cupsdSetString(&FontPath, CUPS_FONTPATH);
   cupsdSetString(&RemoteRoot, "remroot");
   cupsdSetStringf(&ServerHeader, "CUPS/%d.%d IPP/2.1", CUPS_VERSION_MAJOR,
                   CUPS_VERSION_MINOR);
@@ -610,7 +606,7 @@ cupsdReadConfiguration(void)
   cupsdClearString(&Classification);
   ClassifyOverride  = 0;
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 #  ifdef HAVE_GNUTLS
   cupsdSetString(&ServerKeychain, "ssl");
 #  else
@@ -618,7 +614,7 @@ cupsdReadConfiguration(void)
 #  endif /* HAVE_GNUTLS */
 
   _httpTLSSetOptions(_HTTP_TLS_NONE, _HTTP_TLS_1_0, _HTTP_TLS_MAX);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
   language = cupsLangDefault();
 
@@ -628,8 +624,6 @@ cupsdReadConfiguration(void)
     cupsdSetString(&DefaultLanguage, language->language);
 
   cupsdClearString(&DefaultPaperSize);
-
-  cupsdSetString(&RIPCache, "128m");
 
   cupsdSetString(&TempDir, NULL);
 
@@ -705,10 +699,10 @@ cupsdReadConfiguration(void)
   ConfigFilePerm           = CUPS_DEFAULT_CONFIG_FILE_PERM;
   FatalErrors              = parse_fatal_errors(CUPS_DEFAULT_FATAL_ERRORS);
   default_auth_type        = CUPSD_AUTH_BASIC;
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   CreateSelfSignedCerts    = TRUE;
   DefaultEncryption        = HTTP_ENCRYPT_REQUIRED;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
   DirtyCleanInterval       = DEFAULT_KEEPALIVE;
   JobKillDelay             = DEFAULT_TIMEOUT;
   JobRetryLimit            = 5;
@@ -749,13 +743,10 @@ cupsdReadConfiguration(void)
   Browsing                 = CUPS_DEFAULT_BROWSING;
   DefaultShared            = CUPS_DEFAULT_DEFAULT_SHARED;
 
-#if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#ifdef HAVE_DNSSD
   cupsdSetString(&DNSSDSubTypes, "_cups,_print");
   cupsdClearString(&DNSSDHostName);
-#endif /* HAVE_DNSSD || HAVE_AVAHI */
-
-  cupsdSetString(&LPDConfigFile, CUPS_DEFAULT_LPD_CONFIG_FILE);
-  cupsdSetString(&SMBConfigFile, CUPS_DEFAULT_SMB_CONFIG_FILE);
+#endif /* HAVE_DNSSD */
 
   cupsdSetString(&ErrorPolicy, CUPS_DEFAULT_ERROR_POLICY);
 
@@ -1105,7 +1096,7 @@ cupsdReadConfiguration(void)
   if (CacheDir[0] != '/')
     cupsdSetStringf(&CacheDir, "%s/%s", ServerRoot, CacheDir);
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
   if (!_cups_strcasecmp(ServerKeychain, "internal"))
     cupsdClearString(&ServerKeychain);
   else if (ServerKeychain[0] != '/')
@@ -1115,7 +1106,7 @@ cupsdReadConfiguration(void)
   if (!CreateSelfSignedCerts)
     cupsdLogMessage(CUPSD_LOG_DEBUG, "Self-signed TLS certificate generation is disabled.");
   cupsSetServerCredentials(ServerKeychain, ServerName, CreateSelfSignedCerts);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
  /*
   * Make sure that directories and config files are owned and
@@ -1132,8 +1123,16 @@ cupsdReadConfiguration(void)
 			     Group, 1, 1) < 0 ||
        cupsdCheckPermissions(StateDir, NULL, 0755, RunUser,
 			     Group, 1, 1) < 0 ||
+       /* Inside a Snap cupsd is running as root without CAP_DAC_OVERRIDE
+	  capability, so certs directory has to be root.root-owned so that
+	  cupsd can access but not its unprivileged sub-processes. */
+#ifdef SUPPORT_SNAPPED_CUPSD
+       cupsdCheckPermissions(StateDir, "certs", 0711, RunUser,
+			     0, 1, 1) < 0 ||
+#else
        cupsdCheckPermissions(StateDir, "certs", RunUser ? 0711 : 0511, User,
 			     SystemGroupIDs[0], 1, 1) < 0 ||
+#endif /* SUPPORT_SNAPPED_CUPSD */
        cupsdCheckPermissions(ServerRoot, NULL, 0755, RunUser,
 			     Group, 1, 0) < 0 ||
        cupsdCheckPermissions(ServerRoot, "ppd", 0755, RunUser,
@@ -2989,7 +2988,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 		      "FaxRetryLimit is deprecated; use "
 		      "JobRetryLimit on line %d of %s.", linenum, ConfigurationFile);
     }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     else if (!_cups_strcasecmp(line, "SSLOptions"))
     {
      /*
@@ -3057,11 +3056,11 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 
       _httpTLSSetOptions(options, min_version, max_version);
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     else if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
              || !_cups_strcasecmp(line, "SSLPort") || !_cups_strcasecmp(line, "SSLListen")
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	     ) && value)
     {
      /*
@@ -3147,10 +3146,10 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	memcpy(&(lis->address), &(addr->addr), sizeof(lis->address));
 	lis->fd = -1;
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
         if (!_cups_strcasecmp(line, "SSLPort") || !_cups_strcasecmp(line, "SSLListen"))
           lis->encryption = HTTP_ENCRYPT_ALWAYS;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 	httpAddrString(&lis->address, temp, sizeof(temp));
 
@@ -3216,7 +3215,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	  return (0);
       }
     }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     else if (!_cups_strcasecmp(line, "DefaultEncryption"))
     {
      /*
@@ -3238,7 +3237,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	  return (0);
       }
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     else if (!_cups_strcasecmp(line, "HostNameLookups") && value)
     {
      /*
@@ -3387,10 +3386,8 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
              !_cups_strcasecmp(line, "ErrorLog") ||
              !_cups_strcasecmp(line, "FatalErrors") ||
              !_cups_strcasecmp(line, "FileDevice") ||
-             !_cups_strcasecmp(line, "FontPath") ||
              !_cups_strcasecmp(line, "Group") ||
              !_cups_strcasecmp(line, "LogFilePerm") ||
-             !_cups_strcasecmp(line, "LPDConfigFile") ||
              !_cups_strcasecmp(line, "PageLog") ||
              !_cups_strcasecmp(line, "PassEnv") ||
              !_cups_strcasecmp(line, "Printcap") ||
@@ -3403,7 +3400,6 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
              !_cups_strcasecmp(line, "ServerKeychain") ||
              !_cups_strcasecmp(line, "ServerRoot") ||
              !_cups_strcasecmp(line, "SetEnv") ||
-             !_cups_strcasecmp(line, "SMBConfigFile") ||
              !_cups_strcasecmp(line, "StateDir") ||
              !_cups_strcasecmp(line, "SystemGroup") ||
              !_cups_strcasecmp(line, "SystemGroupAuthKey") ||

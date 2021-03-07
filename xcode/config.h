@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS and Xcode.
  *
- * Copyright © 2021 by Michael R Sweet
+ * Copyright © 2021 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -19,8 +19,8 @@
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.3.4op1"
-#define CUPS_MINIMAL "CUPS/2.3.4op1"
+#define CUPS_SVERSION "CUPS v2.4rc1"
+#define CUPS_MINIMAL "CUPS/2.4rc1"
 
 
 /*
@@ -82,14 +82,6 @@
 
 
 /*
- * Default Samba and LPD config files...
- */
-
-#define CUPS_DEFAULT_SMB_CONFIG_FILE ""
-#define CUPS_DEFAULT_LPD_CONFIG_FILE "launchd:///System/Library/LaunchDaemons/org.cups.cups-lpd.plist"
-
-
-/*
  * Default ErrorPolicy value...
  */
 
@@ -135,7 +127,6 @@
 #define CUPS_CACHEDIR "/private/var/spool/cups/cache"
 #define CUPS_DATADIR "/usr/share/cups"
 #define CUPS_DOCROOT "/usr/share/doc/cups"
-#define CUPS_FONTPATH "/usr/share/cups/fonts"
 #define CUPS_LOCALEDIR "/usr/share/locale"
 #define CUPS_LOGDIR "/private/var/log/cups"
 #define CUPS_REQUESTS "/private/var/spool/cups"
@@ -315,10 +306,10 @@
  * Which encryption libraries do we have?
  */
 
+#define HAVE_TLS 1
 #define HAVE_CDSASSL 1
 /* #undef HAVE_GNUTLS */
 /* #undef HAVE_SSPISSL */
-#define HAVE_SSL 1
 
 
 /*
@@ -365,14 +356,21 @@
 
 
 /*
- * Do we have mDNSResponder for DNS Service Discovery (aka Bonjour)?
+ * Do we have DNS Service Discovery (aka Bonjour) support?
  */
 
 #define HAVE_DNSSD 1
 
 
 /*
- * Do we have Avahi for DNS Service Discovery (aka Bonjour)?
+ * Do we have mDNSResponder for DNS-SD?
+ */
+
+#define HAVE_MDNSRESPONDER 1
+
+
+/*
+ * Do we have Avahi for DNS-SD?
  */
 
 /* #undef HAVE_AVAHI */

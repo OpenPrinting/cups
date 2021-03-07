@@ -1,10 +1,12 @@
 /*
  * System management functions for the CUPS scheduler.
  *
- * Copyright 2007-2018 by Apple Inc.
- * Copyright 2006 by Easy Software Products.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright @ 2007-2018 by Apple Inc.
+ * Copyright @ 2006 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 
@@ -1019,13 +1021,13 @@ sysUpdateNames(void)
        p = (cupsd_printer_t *)cupsArrayNext(Printers))
     cupsdDeregisterPrinter(p, 1);
 
-#  if defined(HAVE_DNSSD) || defined(HAVE_AVAHI)
+#  ifdef HAVE_DNSSD
  /*
   * Update the computer name and BTMM domain list...
   */
 
   cupsdUpdateDNSSDName();
-#  endif /* HAVE_DNSSD || HAVE_AVAHI */
+#  endif /* HAVE_DNSSD */
 
  /*
   * Now re-register them...

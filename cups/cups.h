@@ -42,10 +42,10 @@ extern "C" {
  * Constants...
  */
 
-#  define CUPS_VERSION			2.0304
+#  define CUPS_VERSION			2.0400
 #  define CUPS_VERSION_MAJOR		2
-#  define CUPS_VERSION_MINOR		3
-#  define CUPS_VERSION_PATCH		4
+#  define CUPS_VERSION_MINOR		4
+#  define CUPS_VERSION_PATCH		0
 
 #  define CUPS_BC_FD			3
 					/* Back-channel file descriptor for

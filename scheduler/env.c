@@ -1,10 +1,12 @@
 /*
  * Environment management routines for the CUPS scheduler.
  *
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2016 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -114,11 +116,14 @@ cupsdSetEnv(const char *name,		/* I - Name of variable */
     return;
 
  /*
-  * Do not allow dynamic linker variables when running as root...
+  * Do not allow dynamic linker variables when running as root and
+  * not being confined in a Snap...
   */
 
+#ifndef SUPPORT_SNAPPED_CUPSD
   if (!RunUser && (!strncmp(name, "DYLD_", 5) || !strncmp(name, "LD_", 3)))
     return;
+#endif /* !SUPPORT_SNAPPED_CUPSD */
 
  /*
   * See if this variable has already been defined...
@@ -196,7 +201,6 @@ cupsdUpdateEnv(void)
   set_if_undefined("CUPS_CACHEDIR", CacheDir);
   set_if_undefined("CUPS_DATADIR", DataDir);
   set_if_undefined("CUPS_DOCROOT", DocumentRoot);
-  set_if_undefined("CUPS_FONTPATH", FontPath);
   set_if_undefined("CUPS_REQUESTROOT", RequestRoot);
   set_if_undefined("CUPS_SERVERBIN", ServerBin);
   set_if_undefined("CUPS_SERVERROOT", ServerRoot);
@@ -208,9 +212,19 @@ cupsdUpdateEnv(void)
   set_if_undefined("LD_LIBRARY_PATH", NULL);
   set_if_undefined("LD_PRELOAD", NULL);
   set_if_undefined("NLSPATH", NULL);
+  /* Only if cupsd is confined in a Snap we pass the PATH environment
+     variable on for external executables we call */
   if (find_env("PATH") < 0)
-    cupsdSetEnvf("PATH", "%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR
-			 ":/bin:/usr/bin", ServerBin);
+  {
+#ifdef SUPPORT_SNAPPED_CUPSD
+    char *value;
+    if ((value = getenv("PATH")) != NULL)
+      cupsdSetEnvf("PATH", "%s/filter:%s", ServerBin, value);
+    else
+#endif /* SUPPORT_SNAPPED_CUPSD */
+      cupsdSetEnvf("PATH", "%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR
+		   ":/bin:/usr/bin", ServerBin);
+  }
   set_if_undefined("SERVER_ADMIN", ServerAdmin);
   set_if_undefined("SHLIB_PATH", NULL);
   set_if_undefined("SOFTWARE", CUPS_MINIMAL);
