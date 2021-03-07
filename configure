@@ -902,10 +902,8 @@ enable_snapped_cupsd
 enable_snapped_clients
 with_snapctl
 with_cups_control_slot
-enable_launchd
-enable_systemd
+with_ondemand
 with_systemd
-enable_upstart
 with_smfmanifestdir
 with_rcdir
 with_rclevels
@@ -1599,9 +1597,6 @@ Optional Features:
   --enable-snapped-clients
                           enable support for CUPS controlling admin access
                           from snapped clients
-  --disable-launchd       disable launchd support
-  --disable-systemd       disable systemd support
-  --enable-upstart        enable upstart support
   --enable-page-logging   enable page_log by default
   --enable-sync-on-close  enable SyncOnClose (off by default)
   --disable-browsing      disable Browsing by default
@@ -1645,6 +1640,8 @@ Optional Packages:
                           Name for cups-control slot as defined in
                           snapcraft.yaml, only needed with
                           --enable-snapped-cupsd, default=admin
+  --with-ondemand=...     Specify the on-demand launch interface (launchd,
+                          systemd, upstart)
   --with-systemd          set directory for systemd service files
   --with-smfmanifestdir   set path for Solaris SMF manifest
   --with-rcdir            set path for rc scripts
@@ -11040,219 +11037,346 @@ ONDEMANDLIBS=""
 
 
 
-# Check whether --enable-launchd was given.
-if test ${enable_launchd+y}
+
+# Check whether --with-ondemand was given.
+if test ${with_ondemand+y}
 then :
-  enableval=$enable_launchd;
+  withval=$with_ondemand;
+fi
+
+
+if test "x$with_ondemand" = x
+then :
+
+    if test $host_os_name = darwin
+then :
+
+        with_ondemand="launchd"
+
+else $as_nop
+
+	with_ondemand="yes"
+
+fi
+
+elif test "x$with_ondemand" = xyes -a $host_os_name = darwin
+then :
+
+    with_ondemand="launchd"
+
+elif test "x$with_ondemand" != xno -a "x$with_ondemand" != xsystemd -a "x$with_ondemand" != xupstart -a "x$with_ondemand" != xyes
+then :
+
+    as_fn_error $? "Unknown --with-ondemand value \"$with_ondemand\" specified." "$LINENO" 5
+
 fi
 
 LAUNCHD_DIR=""
 
 
-if test x$enable_launchd != xno; then
-	ac_fn_c_check_func "$LINENO" "launch_activate_socket" "ac_cv_func_launch_activate_socket"
+if test $with_ondemand = launchd
+then :
+
+    ac_fn_c_check_func "$LINENO" "launch_activate_socket" "ac_cv_func_launch_activate_socket"
 if test "x$ac_cv_func_launch_activate_socket" = xyes
 then :
 
-		printf "%s\n" "#define HAVE_LAUNCHD 1" >>confdefs.h
 
-		printf "%s\n" "#define HAVE_ONDEMAND 1" >>confdefs.h
+printf "%s\n" "#define HAVE_LAUNCHD 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_ONDEMAND 1" >>confdefs.h
+
+        with_ondemand="launchd"
+
+else $as_nop
+
+        if test $with_ondemand = launchd
+then :
+
+            as_fn_error $? "Need launch_activate_socket/liblaunch for launchd support." "$LINENO" 5
 
 fi
 
-	ac_fn_c_check_header_compile "$LINENO" "launch.h" "ac_cv_header_launch_h" "$ac_includes_default"
+fi
+
+    ac_fn_c_check_header_compile "$LINENO" "launch.h" "ac_cv_header_launch_h" "$ac_includes_default"
 if test "x$ac_cv_header_launch_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_LAUNCH_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_LAUNCH_H 1" >>confdefs.h
+
 
 fi
 
 
-	if test "$host_os_name" = darwin; then
-	        LAUNCHD_DIR="/System/Library/LaunchDaemons"
-		# liblaunch is already part of libSystem
-	fi
-fi
-
-# Check whether --enable-systemd was given.
-if test ${enable_systemd+y}
+    if test $host_os_name = darwin
 then :
-  enableval=$enable_systemd;
+
+	LAUNCHD_DIR="/System/Library/LaunchDaemons"
+	# liblaunch is already part of libSystem
+
+fi
+
 fi
 
 
 # Check whether --with-systemd was given.
 if test ${with_systemd+y}
 then :
-  withval=$with_systemd; SYSTEMD_DIR="$withval"
+  withval=$with_systemd;
+    SYSTEMD_DIR="$withval"
+
 else $as_nop
-  SYSTEMD_DIR=""
+
+    SYSTEMD_DIR=""
+
 fi
 
 
 
-if test x$enable_systemd != xno; then
-	if test "x$PKGCONFIG" = x; then
-        	if test x$enable_systemd = xyes; then
-	        	as_fn_error $? "Need pkg-config to enable systemd support." "$LINENO" 5
-                fi
-        else
-        	have_systemd=no
-        	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libsystemd" >&5
+if test $with_ondemand = systemd -o $with_ondemand = yes
+then :
+
+    if test "x$PKGCONFIG" = x
+then :
+
+	if test $with_ondemand = systemd
+then :
+
+	    as_fn_error $? "Need pkg-config to enable systemd support." "$LINENO" 5
+
+fi
+
+else $as_nop
+
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libsystemd" >&5
 printf %s "checking for libsystemd... " >&6; }
-                if $PKGCONFIG --exists libsystemd; then
-                        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+	have_systemd="no"
+	if $PKGCONFIG --exists libsystemd
+then :
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
-                        have_systemd=yes
-                        ONDEMANDFLAGS=`$PKGCONFIG --cflags libsystemd`
-                        ONDEMANDLIBS=`$PKGCONFIG --libs libsystemd`
-		elif $PKGCONFIG --exists libsystemd-daemon; then
-			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes - legacy" >&5
+	    have_systemd="yes"
+	    with_ondemand="systemd"
+	    ONDEMANDFLAGS="$($PKGCONFIG --cflags libsystemd)"
+	    ONDEMANDLIBS="$($PKGCONFIG --libs libsystemd)"
+
+elif $PKGCONFIG --exists libsystemd-daemon
+then :
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes - legacy" >&5
 printf "%s\n" "yes - legacy" >&6; }
-                        have_systemd=yes
-			ONDEMANDFLAGS=`$PKGCONFIG --cflags libsystemd-daemon`
-			ONDEMANDLIBS=`$PKGCONFIG --libs libsystemd-daemon`
+	    have_systemd="yes"
+	    with_ondemand="systemd"
+	    ONDEMANDFLAGS="$($PKGCONFIG --cflags libsystemd-daemon)"
+	    ONDEMANDLIBS="$($PKGCONFIG --libs libsystemd-daemon)"
 
-			if $PKGCONFIG --exists libsystemd-journal; then
-				ONDEMANDFLAGS="$ONDEMANDFLAGS `$PKGCONFIG --cflags libsystemd-journal`"
-				ONDEMANDLIBS="$ONDEMANDLIBS `$PKGCONFIG --libs libsystemd-journal`"
-			fi
-                else
-                        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+	    if $PKGCONFIG --exists libsystemd-journal
+then :
+
+		ONDEMANDFLAGS="$ONDEMANDFLAGS $($PKGCONFIG --cflags libsystemd-journal)"
+		ONDEMANDLIBS="$ONDEMANDLIBS $($PKGCONFIG --libs libsystemd-journal)"
+
+fi
+
+else $as_nop
+
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
-                fi
 
-		if test $have_systemd = yes; then
-                        printf "%s\n" "#define HAVE_SYSTEMD 1" >>confdefs.h
+fi
 
-                        printf "%s\n" "#define HAVE_ONDEMAND 1" >>confdefs.h
+	if test $have_system = yes
+then :
 
-			ac_fn_c_check_header_compile "$LINENO" "systemd/sd-journal.h" "ac_cv_header_systemd_sd_journal_h" "$ac_includes_default"
+
+printf "%s\n" "#define HAVE_SYSTEMD 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_ONDEMAND 1" >>confdefs.h
+
+	    ac_fn_c_check_header_compile "$LINENO" "systemd/sd-journal.h" "ac_cv_header_systemd_sd_journal_h" "$ac_includes_default"
 if test "x$ac_cv_header_systemd_sd_journal_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_SYSTEMD_SD_JOURNAL_H 1" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_SYSTEMD_SD_JOURNAL_H 1" >>confdefs.h
+
 
 fi
 
-			if test "x$SYSTEMD_DIR" = x; then
-			        SYSTEMD_DIR="`$PKGCONFIG --variable=systemdsystemunitdir systemd`"
-                        fi
-                fi
-        fi
-fi
-
-# Check whether --enable-upstart was given.
-if test ${enable_upstart+y}
+	    if test "x$SYSTEMD_DIR" = x
 then :
-  enableval=$enable_upstart;
-fi
 
-if test "x$enable_upstart" = "xyes"; then
-	if test "x$have_systemd" = "xyes"; then
-		as_fn_error $? "Cannot support both systemd and upstart." "$LINENO" 5
-	fi
-	printf "%s\n" "#define HAVE_UPSTART 1" >>confdefs.h
-
-	printf "%s\n" "#define HAVE_ONDEMAND 1" >>confdefs.h
+		SYSTEMD_DIR="$($PKGCONFIG --variable=systemdsystemunitdir systemd)"
 
 fi
 
-SMFMANIFESTDIR=""
+fi
+
+fi
+
+fi
+
+if test $with_ondemand = upstart
+then :
+
+    printf "%s\n" "#define HAVE_UPSTART. 1 Have upstart support?" >>confdefs.h
+
+
+printf "%s\n" "#define HAVE_ONDEMAND 1" >>confdefs.h
+
+
+fi
 
 
 # Check whether --with-smfmanifestdir was given.
 if test ${with_smfmanifestdir+y}
 then :
-  withval=$with_smfmanifestdir; SMFMANIFESTDIR="$withval"
+  withval=$with_smfmanifestdir;
+    SMFMANIFESTDIR="$withval"
+
+else $as_nop
+
+    SMFMANIFESTDIR=""
+
 fi
+
 
 
 
 # Check whether --with-rcdir was given.
 if test ${with_rcdir+y}
 then :
-  withval=$with_rcdir; rcdir="$withval"
+  withval=$with_rcdir;
+    rcdir="$withval"
+
 else $as_nop
-  rcdir=""
+
+    rcdir=""
+
 fi
 
 
 # Check whether --with-rclevels was given.
 if test ${with_rclevels+y}
 then :
-  withval=$with_rclevels; rclevels="$withval"
+  withval=$with_rclevels;
+    rclevels="$withval"
+
 else $as_nop
-  rclevels="2 3 5"
+
+    rclevels="2 3 5"
+
 fi
 
 
 # Check whether --with-rcstart was given.
 if test ${with_rcstart+y}
 then :
-  withval=$with_rcstart; rcstart="$withval"
+  withval=$with_rcstart;
+    rcstart="$withval"
+
 else $as_nop
-  rcstart=""
+
+    rcstart=""
+
 fi
 
 
 # Check whether --with-rcstop was given.
 if test ${with_rcstop+y}
 then :
-  withval=$with_rcstop; rcstop="$withval"
+  withval=$with_rcstop;
+    rcstop="$withval"
+
 else $as_nop
-  rcstop=""
+
+    rcstop=""
+
 fi
 
 
-if test x$rcdir = x; then
-	if test x$LAUNCHD_DIR = x -a x$SYSTEMD_DIR = x -a x$SMFMANIFESTDIR = x; then
-                # Fall back on "init", the original service startup interface...
-                if test -d /sbin/init.d; then
-                        # SuSE
-                        rcdir="/sbin/init.d"
-                elif test -d /etc/init.d; then
-                        # Others
-                        rcdir="/etc"
-                else
-                        # RedHat, NetBSD
-                        rcdir="/etc/rc.d"
-                fi
-        else
-        	rcdir="no"
-	fi
+if test "x$rcdir" = x
+then :
+
+    if test "x$LAUNCHD_DIR" = x -a "x$SYSTEMD_DIR" = x -a "x$SMFMANIFESTDIR" = x
+then :
+
+	# Fall back on "init", the original service startup interface...
+	if test -d /sbin/init.d
+then :
+
+	    # SuSE
+	    rcdir="/sbin/init.d"
+
+elif test -d /etc/init.d
+then :
+
+	    # Others
+	    rcdir="/etc"
+
+else $as_nop
+
+	    # RedHat, NetBSD
+	    rcdir="/etc/rc.d"
+
 fi
 
-if test "x$rcstart" = x; then
-	case "$host_os_name" in
-        	linux* | gnu*)
-                	# Linux
-                        rcstart="81"
-                      	;;
+else $as_nop
 
-		sunos*)
-			# Solaris
-                        rcstart="81"
-			;;
+	rcdir="no"
 
-                *)
-                        # Others
-                        rcstart="99"
-                        ;;
-	esac
 fi
 
-if test "x$rcstop" = x; then
-	case "$host_os_name" in
-        	linux* | gnu*)
-                	# Linux
-                        rcstop="36"
-                      	;;
+fi
 
-                *)
-                        # Others
-                        rcstop="00"
-                        ;;
-	esac
+if test "x$rcstart" = x
+then :
+
+    case "$host_os_name" in #(
+  linux* | gnu*) :
+
+	# Linux
+	rcstart="81"
+     ;; #(
+  sunos*) :
+
+	# Solaris
+	rcstart="81"
+     ;; #(
+  *) :
+
+	# Others
+	rcstart="99"
+     ;; #(
+  *) :
+     ;;
+esac
+
+fi
+
+if test "x$rcstop" = x
+then :
+
+    case "$host_os_name" in #(
+  linux* | gnu*) :
+
+	# Linux
+	rcstop="36"
+     ;; #(
+  *) :
+
+	# Others
+	rcstop="00"
+     ;; #(
+  *) :
+     ;;
+esac
+
 fi
 
 INITDIR=""
@@ -11266,37 +11390,61 @@ RCSTOP="$rcstop"
 
 
 
-if test "x$rcdir" != xno; then
-	if test "x$rclevels" = x; then
-		INITDDIR="$rcdir"
-	else
-		INITDIR="$rcdir"
-	fi
+if test "x$rcdir" != xno
+then :
+
+    if test "x$rclevels" = x
+then :
+
+	INITDDIR="$rcdir"
+
+else $as_nop
+
+	INITDIR="$rcdir"
+
+fi
+
 fi
 
 
 # Check whether --with-xinetd was given.
 if test ${with_xinetd+y}
 then :
-  withval=$with_xinetd; xinetd="$withval"
+  withval=$with_xinetd;
+    xinetd="$withval"
+
 else $as_nop
-  xinetd=""
+
+    xinetd=""
+
 fi
 
 XINETD=""
 
 
-if test "x$xinetd" = x; then
-	if test ! -x /sbin/launchd; then
-                for dir in /etc/xinetd.d /usr/local/etc/xinetd.d; do
-                        if test -d $dir; then
-                                XINETD="$dir"
-                                break
-                        fi
-                done
-        fi
-elif test "x$xinetd" != xno; then
-	XINETD="$xinetd"
+if test "x$xinetd" = x
+then :
+
+    if test ! -x /sbin/launchd
+then :
+
+	for dir in /etc/xinetd.d /usr/local/etc/xinetd.d; do
+	    if test -d $dir
+then :
+
+		XINETD="$dir"
+		break
+
+fi
+	done
+
+fi
+
+elif test "x$xinetd" != xno
+then :
+
+    XINETD="$xinetd"
+
 fi
 
 
