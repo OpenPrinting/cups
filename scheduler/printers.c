@@ -3873,6 +3873,9 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		margins[16];		/* media-*-margin-supported values */
   const char	*filter,		/* Current filter */
 		*mandatory;		/* Current mandatory attribute */
+  int		num_urf;		/* Number of urf-supported values */
+  const char	*urf[16];		/* urf-supported values */
+  char		urf_rs[32];		/* RS (resolution) value */
   static const char * const pwg_raster_document_types[] =
 		{
 		  "black_1",
@@ -4086,6 +4089,11 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       cupsdSetString(&p->strings, strings_name);
     else
       cupsdClearString(&p->strings);
+
+    num_urf         = 0;
+    urf[num_urf ++] = "V1.4";
+    urf[num_urf ++] = "PQ3-4-5";
+    urf[num_urf ++] = "W8";
 
    /*
     * Add media options from the PPD file...
@@ -4337,6 +4345,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       }
     }
 
+    ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_TEXT), "mopria-certified", NULL, "1.3");
+
    /*
     * Output bin...
     */
@@ -4387,6 +4397,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		   "output-bin-supported", NULL, "face-up");
       ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
 		   "output-bin-default", NULL, "face-up");
+
+      urf[num_urf ++] = "OFU0";
     }
     else
     {
@@ -4413,6 +4425,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
                    "print-color-mode-default", NULL, "color");
       ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "pwg-raster-document-type-supported", 3, NULL, pwg_raster_document_types);
+
+      urf[num_urf ++] = "SRGB24";
     }
     else
     {
@@ -4484,7 +4498,11 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	  ippAddResolution(p->ppd_attrs, IPP_TAG_PRINTER, "printer-resolution-default", IPP_RES_PER_INCH, xdpi, ydpi);
 
         if (i == 0)
+        {
 	  ippAddResolution(p->ppd_attrs, IPP_TAG_PRINTER, "pwg-raster-document-resolution-supported", IPP_RES_PER_INCH, xdpi, ydpi);
+          snprintf(urf_rs, sizeof(urf_rs), "RS%d", xdpi);
+          urf[num_urf ++] = urf_rs;
+	}
       }
     }
     else if ((ppd_attr = ppdFindAttr(ppd, "DefaultResolution", NULL)) != NULL &&
@@ -4518,6 +4536,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		       "printer-resolution-supported", IPP_RES_PER_INCH,
 		       xdpi, ydpi);
       ippAddResolution(p->ppd_attrs, IPP_TAG_PRINTER, "pwg-raster-document-resolution-supported", IPP_RES_PER_INCH, xdpi, ydpi);
+      snprintf(urf_rs, sizeof(urf_rs), "RS%d", xdpi);
+      urf[num_urf ++] = urf_rs;
     }
     else
     {
@@ -4532,6 +4552,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		       "printer-resolution-supported", IPP_RES_PER_INCH,
 		       300, 300);
       ippAddResolution(p->ppd_attrs, IPP_TAG_PRINTER, "pwg-raster-document-resolution-supported", IPP_RES_PER_INCH, 300, 300);
+      strlcpy(urf_rs, "RS300", sizeof(urf_rs));
+      urf[num_urf ++] = urf_rs;
     }
 
    /*
@@ -4552,6 +4574,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       p->type |= CUPS_PRINTER_DUPLEX;
 
       ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "pwg-raster-document-sheet-back", NULL, "normal");
+
+      urf[num_urf ++] = "DM1";
 
       ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
 		    "sides-supported", 3, NULL, sides);
@@ -4646,6 +4670,9 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
         }
       }
     }
+
+    /* urf-supported */
+    ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "urf-supported", num_urf, NULL, urf);
 
     if (p->pc && p->pc->templates)
     {
