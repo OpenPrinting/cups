@@ -3882,6 +3882,9 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		margins[16];		/* media-*-margin-supported values */
   const char	*filter,		/* Current filter */
 		*mandatory;		/* Current mandatory attribute */
+  const char	*ready_size;		/* Current ReadyPaperSizes value */
+  ipp_attribute_t *media_col_ready,	/* media-col-ready attribute */
+		*media_ready;		/* media-ready attribute */
   int		num_urf;		/* Number of urf-supported values */
   const char	*urf[16];		/* urf-supported values */
   char		urf_rs[32];		/* RS (resolution) value */
@@ -4351,6 +4354,36 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	  ippSetCollection(p->ppd_attrs, &attr, i, col);
 	  ippDelete(col);
 	}
+      }
+
+     /*
+      * media[-col]-ready
+      */
+
+      for (media_col_ready = NULL, media_ready = NULL, ready_size = (char *)cupsArrayFirst(ReadyPaperSizes); ready_size; ready_size = (char *)cupsArrayNext(ReadyPaperSizes))
+      {
+        for (i = p->pc->num_sizes, pwgsize = p->pc->sizes; i > 0; i --, pwgsize --)
+        {
+          if (!strcasecmp(ready_size, pwgsize->map.ppd))
+            break;
+        }
+
+        if (i)
+        {
+          ipp_t *col = new_media_col(pwgsize);
+
+	  if (media_ready)
+	    ippSetString(p->ppd_attrs, &media_ready, ippGetCount(media_ready), pwgsize->map.pwg);
+	  else
+	    media_ready = ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-ready", NULL, pwgsize->map.pwg);
+
+	  if (media_col_ready)
+	    ippSetCollection(p->ppd_attrs, &media_col_ready, ippGetCount(media_col_ready), col);
+	  else
+	    media_col_ready = ippAddCollection(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-ready", col);
+
+	  ippDelete(col);
+        }
       }
     }
 
