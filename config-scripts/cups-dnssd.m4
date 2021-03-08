@@ -60,6 +60,7 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
 		DNSSD_BACKEND="dnssd"
 		IPPFIND_BIN="ippfind"
 		IPPFIND_MAN="ippfind.1"
+		PKGCONFIG_LIBS="$PKGCONFIG_LIBS $DNSSDLIBS"
 	    ], [
 		AC_MSG_RESULT([no])
 		AS_IF([test $with_dnssd = mdnsresponder], [
@@ -71,6 +72,7 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
     ])
 ])
 
+PKGCONFIG_LIBS="$PKGCONFIG_LIBS $LIBS"
 dnl Then try Avahi...
 AS_IF([test $with_dnssd = avahi -o $with_dnssd = yes], [
     AS_IF([test "x$PKGCONFIG" = x], [
@@ -86,6 +88,7 @@ AS_IF([test $with_dnssd = avahi -o $with_dnssd = yes], [
 	    DNSSD_BACKEND="dnssd"
 	    IPPFIND_BIN="ippfind"
 	    IPPFIND_MAN="ippfind.1"
+		PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES avahi-client"
 	    AC_DEFINE([HAVE_AVAHI], [1], [Have Avahi client library?])
 	    AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
 	], [

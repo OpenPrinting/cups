@@ -185,6 +185,24 @@ AS_IF([test "$localedir" = "\${datarootdir}/locale"], [
 AC_DEFINE_UNQUOTED([CUPS_LOCALEDIR], ["$CUPS_LOCALEDIR"], [Location of localization files.])
 AC_SUBST([CUPS_LOCALEDIR])
 
+
+# cups.pc file...
+AC_ARG_WITH([pkgconfpath], AS_HELP_STRING([--with-pkgconfpath], [set path for cups.pc file]), [
+    pkgconfpath="$withval"
+], [
+    pkgconfpath=""
+])
+
+AS_IF([test x$pkgconfpath = x], [
+    CUPS_PKGCONFPATH="$exec_prefix/lib/pkgconfig"
+], [
+    CUPS_PKGCONFPATH="$pkgconfpath"
+])
+AC_DEFINE_UNQUOTED([CUPS_PKGCONFPATH], ["$CUPS_PKGCONFPATH"], [Location of cups.pc file.])
+AC_SUBST([CUPS_PKGCONFPATH])
+
+
+
 # Log files...
 AC_ARG_WITH([logdir], AS_HELP_STRING([--with-logdir], [set path for log files]), [
     logdir="$withval"

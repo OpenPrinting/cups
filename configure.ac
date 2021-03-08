@@ -73,6 +73,7 @@ AC_CONFIG_FILES([
     conf/mime.convs
     conf/pam.std
     conf/snmp.conf
+    cups.pc
     cups-config
     desktop/cups.desktop
     doc/index.html
