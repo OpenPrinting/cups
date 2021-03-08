@@ -3882,7 +3882,6 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		margins[16];		/* media-*-margin-supported values */
   const char	*filter,		/* Current filter */
 		*mandatory;		/* Current mandatory attribute */
-  const char	*ready_size;		/* Current ReadyPaperSizes value */
   ipp_attribute_t *media_col_ready,	/* media-col-ready attribute */
 		*media_ready;		/* media-ready attribute */
   int		num_urf;		/* Number of urf-supported values */
@@ -4360,30 +4359,30 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       * media[-col]-ready
       */
 
-      for (media_col_ready = NULL, media_ready = NULL, ready_size = (char *)cupsArrayFirst(ReadyPaperSizes); ready_size; ready_size = (char *)cupsArrayNext(ReadyPaperSizes))
+      for (media_col_ready = NULL, media_ready = NULL, i = p->pc->num_sizes, pwgsize = p->pc->sizes; i > 0; i --, pwgsize ++)
       {
-        for (i = p->pc->num_sizes, pwgsize = p->pc->sizes; i > 0; i --, pwgsize ++)
-        {
-          if (pwgsize->map.ppd && !strcasecmp(ready_size, pwgsize->map.ppd))
-            break;
-        }
+	ipp_t *col;			// media-col-ready value
 
-        if (i)
-        {
-          ipp_t *col = new_media_col(pwgsize);
+        // Skip printer sizes that don't have a PPD size or aren't in the ready
+        // sizes array...
+	if (!pwgsize->map.ppd || !cupsArrayFind(ReadyPaperSizes, pwgsize->map.ppd))
+	  continue;
 
-	  if (media_ready)
-	    ippSetString(p->ppd_attrs, &media_ready, ippGetCount(media_ready), pwgsize->map.pwg);
-	  else
-	    media_ready = ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-ready", NULL, pwgsize->map.pwg);
+        // Add or append a media-ready value
+	if (media_ready)
+	  ippSetString(p->ppd_attrs, &media_ready, ippGetCount(media_ready), pwgsize->map.pwg);
+	else
+	  media_ready = ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-ready", NULL, pwgsize->map.pwg);
 
-	  if (media_col_ready)
-	    ippSetCollection(p->ppd_attrs, &media_col_ready, ippGetCount(media_col_ready), col);
-	  else
-	    media_col_ready = ippAddCollection(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-ready", col);
+        // Add or append a media-col-ready value
+	col = new_media_col(pwgsize);
 
-	  ippDelete(col);
-        }
+	if (media_col_ready)
+	  ippSetCollection(p->ppd_attrs, &media_col_ready, ippGetCount(media_col_ready), col);
+	else
+	  media_col_ready = ippAddCollection(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-ready", col);
+
+	ippDelete(col);
       }
     }
 
