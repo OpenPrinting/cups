@@ -29,7 +29,7 @@
   <body onload="check_cookies();">
     <div class="header">
       <ul>
-	<li><a href="http://www.cups.org/" target="_blank">CUPS.org</a></li>
+	<li><a href="https://openprinting.github.io/cups/" target="_blank">CUPS.org</a></li>
 	<li><a href="/">Startseite</a></li>
 	<li><a {SECTION=admin?class="active" :}href="/admin">Verwaltung</a></li>
 	<li><a {SECTION=classes?class="active" :}href="/classes/">Klassen</a></li>
