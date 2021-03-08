@@ -881,7 +881,7 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
     * Class doesn't exist; see if we have a printer of the same name...
     */
 
-    if ((pclass = cupsdFindPrinter(resource + 9)) != NULL)
+    if (cupsdFindPrinter(resource + 9))
     {
      /*
       * Yes, return an error...
@@ -2274,7 +2274,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
     * Printer doesn't exist; see if we have a class of the same name...
     */
 
-    if ((printer = cupsdFindClass(resource + 10)) != NULL)
+    if (cupsdFindClass(resource + 10))
     {
      /*
       * Yes, return an error...

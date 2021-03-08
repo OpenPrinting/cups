@@ -3687,7 +3687,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
     if (have_default)
       cupsFilePrintf(fp, "*DefaultInputSlot: %s\n", ppdname);
 
-    for (i = 0, count = ippGetCount(attr); i < count; i ++)
+    for (i = 0; i < count; i ++)
     {
       keyword = ippGetString(attr, i, NULL);
 

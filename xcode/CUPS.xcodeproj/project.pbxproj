@@ -11588,6 +11588,7 @@
 					"-Wno-shorten-64-to-32",
 				);
 				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Debug;
 		};
@@ -11638,6 +11639,7 @@
 					"-Wno-shorten-64-to-32",
 				);
 				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Release;
 		};
