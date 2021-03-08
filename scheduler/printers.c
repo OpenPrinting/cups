@@ -4362,9 +4362,9 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
       for (media_col_ready = NULL, media_ready = NULL, ready_size = (char *)cupsArrayFirst(ReadyPaperSizes); ready_size; ready_size = (char *)cupsArrayNext(ReadyPaperSizes))
       {
-        for (i = p->pc->num_sizes, pwgsize = p->pc->sizes; i > 0; i --, pwgsize --)
+        for (i = p->pc->num_sizes, pwgsize = p->pc->sizes; i > 0; i --, pwgsize ++)
         {
-          if (!strcasecmp(ready_size, pwgsize->map.ppd))
+          if (pwgsize->map.ppd && !strcasecmp(ready_size, pwgsize->map.ppd))
             break;
         }
 
