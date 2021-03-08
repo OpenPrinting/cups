@@ -746,7 +746,7 @@ cupsdReadConfiguration(void)
   DefaultShared            = CUPS_DEFAULT_DEFAULT_SHARED;
 
 #ifdef HAVE_DNSSD
-  cupsdSetString(&DNSSDSubTypes, "_cups,_print");
+  cupsdSetString(&DNSSDSubTypes, "_cups,_print,_universal");
   cupsdClearString(&DNSSDHostName);
 #endif /* HAVE_DNSSD */
 
