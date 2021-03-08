@@ -59,6 +59,7 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	    with_tls="gnutls"
 	    TLSLIBS="$($PKGCONFIG --libs gnutls)"
 	    TLSFLAGS="$($PKGCONFIG --cflags gnutls)"
+		PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES gnutls"
 	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	    AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
 	], [
@@ -70,6 +71,7 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	with_tls="gnutls"
 	TLSLIBS="$($LIBGNUTLSCONFIG --libs)"
 	TLSFLAGS="$($LIBGNUTLSCONFIG --cflags)"
+	PKGCONFIG_LIBS="$PKGCONFIG_LIBS $TLSLIBS"
 	AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
     ])
