@@ -15,10 +15,10 @@ AC_ARG_WITH([snapctl], AS_HELP_STRING([--with-snapctl], [Set path for snapctl, o
     SNAPCTL="/usr/bin/snapctl"
 ])
 AC_DEFINE_UNQUOTED([SNAPCTL], ["$SNAPCTL"], [Location of snapctl program.])
-AC_ARG_WITH([cups_control_slot], AS_HELP_STRING([--with-cups-control-slot], [Name for cups-control slot as defined in snapcraft.yaml, only needed with --enable-snapped-cupsd, default=admin]), [
+AC_ARG_WITH([cups_control_slot], AS_HELP_STRING([--with-cups-control-slot], [Name for cups-control slot as defined in snapcraft.yaml, only needed with --enable-snapped-cupsd, default=cups-control]), [
     CUPS_CONTROL_SLOT="$withval"
 ], [
-    CUPS_CONTROL_SLOT="admin"
+    CUPS_CONTROL_SLOT="cups-control"
 ])
 AC_DEFINE_UNQUOTED([CUPS_CONTROL_SLOT], ["$CUPS_CONTROL_SLOT"], ["cups-control" slot name for snap.])
 
