@@ -3720,9 +3720,6 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 
     pdl[0] = '\0';
 
-    if (!filter && mimeType(MimeDatabase, "application", "octet-stream"))
-      strlcat(pdl, "application/octet-stream,", sizeof(pdl));
-
    /*
     * Then list a bunch of formats that are supported by the printer...
     */
@@ -3753,6 +3750,8 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 
     if (pdl[0])
       pdl[strlen(pdl) - 1] = '\0';	/* Remove trailing comma */
+
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: pdl='%s'", p->name, pdl);
 
     cupsdSetString(&p->pdl, pdl);
   }

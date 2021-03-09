@@ -315,7 +315,6 @@ dnssdBuildTxtRecord(
   char		admin_hostname[256],	/* Hostname for admin page */
 		adminurl_str[256],	/* URL for the admin page */
 		type_str[32],		/* Type to string buffer */
-		state_str[32],		/* State to string buffer */
 		rp_str[256],		/* Queue name string buffer */
 		air_str[256],		/* auth-info-required string buffer */
 		urf_str[256],		/* URF string buffer */
@@ -419,8 +418,11 @@ dnssdBuildTxtRecord(
 
   if ((urf_supported = ippFindAttribute(p->ppd_attrs, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
   {
+    int urf_count = ippGetCount(urf_supported);
+					// Number of URF values
+
     urf_str[0] = '\0';
-    for (i = 0, count = ippGetCount(urf_supported), ptr = urf_str; i < count; i ++)
+    for (i = 0, ptr = urf_str; i < urf_count; i ++)
     {
       const char *value = ippGetString(urf_supported, i, NULL);
 
@@ -504,7 +506,6 @@ dnssdBuildTxtRecord(
   }
 
   snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PRINTER_REMOTE);
-  snprintf(state_str, sizeof(state_str), "%d", p->state);
 
   keyvalue[count  ][0] = "printer-type";
   keyvalue[count++][1] = type_str;
