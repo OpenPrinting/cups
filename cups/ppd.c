@@ -126,6 +126,7 @@ ppdClose(ppd_file_t *ppd)		/* I - PPD file record */
   free(ppd->lang_encoding);
   free(ppd->nickname);
   free(ppd->patches);
+  free(ppd->emulations);
   free(ppd->jcl_begin);
   free(ppd->jcl_end);
   free(ppd->jcl_ps);
