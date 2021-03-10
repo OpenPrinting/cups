@@ -19,6 +19,7 @@ CUPS v2.4rc1 (Pending)
 - The PPD functions now treat boolean values as case-insensitive (Issue #106)
 - Temporary queue names no longer end with an underscore (Issue #110)
 - The USB backend now runs as root (Issue #121)
+- Fixed a PPD memory leak caused by emulator definitions (Issue #124)
 - Removed support for the (long deprecated and unused) `FontPath`,
   `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
   and `cups-files.conf`.
