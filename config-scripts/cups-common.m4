@@ -82,6 +82,10 @@ AC_SUBST([INSTALLSTATIC])
 
 dnl Check for pkg-config, which is used for some other tests later on...
 AC_PATH_TOOL([PKGCONFIG], [pkg-config])
+PKGCONFIG_REQUIRES=""
+PKGCONFIG_LIBS=""
+AC_SUBST([PKGCONFIG_LIBS])
+AC_SUBST([PKGCONFIG_REQUIRES])
 
 dnl Check for libraries...
 AC_SEARCH_LIBS([abs], [m], [AC_DEFINE(HAVE_ABS)])
@@ -277,6 +281,8 @@ AC_CHECK_HEADER([zlib.h], [
 ])
 AC_SUBST([INSTALL_GZIP])
 AC_SUBST([LIBZ])
+
+PKGCONFIG_LIBS="$PKGCONFIG_LIBS $LIBZ"
 
 dnl Flags for "ar" command...
 AS_CASE([host_os_name], [darwin* | *bsd*], [

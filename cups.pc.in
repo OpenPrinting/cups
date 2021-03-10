@@ -1,0 +1,36 @@
+#cups pkg-config file
+
+
+VERSION="@CUPS_VERSION@"
+APIVERSION="2.3"
+BUILD="@CUPS_BUILD@"
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+includedir=@includedir@
+libdir=@libdir@
+datarootdir=@datadir@
+#datadir=@datadir@
+sysconfdir=@sysconfdir@
+cups_datadir=@CUPS_DATADIR@
+cups_serverbin=@CUPS_SERVERBIN@
+cups_serverroot=@CUPS_SERVERROOT@
+INSTALLSTATIC=@INSTALLSTATIC@
+
+
+# flags for compiler and linker...
+CFLAGS=" -I${includedir}"
+LDFLAGS="@EXPORT_LDFLAGS@ -L${libdir}"
+Libs.private: @PKGCONFIG_LIBS@
+Name: "CUPS"
+Description: "CUPS API Library"
+Requires.private:@PKGCONFIG_REQUIRES@
+api_version=${APIVERSION}
+build=${BUILD}
+Cflags: ${CFLAGS}
+datadir= ${cups_datadir}
+
+Libs: @EXTLINKCUPS@
+
+Version: ${VERSION}
