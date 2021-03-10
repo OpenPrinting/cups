@@ -164,7 +164,7 @@ install-libs:
 	echo Installing backends in $(SERVERBIN)/backend
 	$(INSTALL_DIR) -m 755 $(SERVERBIN)/backend
 	for file in $(ULBACKENDS); do \
-		$(INSTALL_BIN) $$file $(SERVERBIN)/backend; \
+		$(INSTALL_USB_BACKEND) $$file $(SERVERBIN)/backend; \
 	done
 	if test "x$(SYMROOT)" != "x"; then \
 		$(INSTALL_DIR) $(SYMROOT); \

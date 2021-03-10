@@ -64,6 +64,14 @@ AC_ARG_WITH([exe_file_perm], AS_HELP_STRING([--with-exe-file-perm], [set default
 ])
 AC_SUBST([CUPS_EXE_FILE_PERM])
 
+dnl Default USB backend permissions
+AC_ARG_WITH([exe_usb_backend_perm], AS_HELP_STRING([--with-exe-usb-backend-perm], [set default usb backend permissions value, default=0744]), [
+    CUPS_USB_BACKEND_PERM="$withval"
+], [
+    CUPS_USB_BACKEND_PERM="744"
+])
+AC_SUBST([CUPS_USB_BACKEND_PERM])
+
 dnl Default ConfigFilePerm
 AC_ARG_WITH([config_file_perm], AS_HELP_STRING([--with-config-file-perm], [set default ConfigFilePerm value, default=0640]), [
     CUPS_CONFIG_FILE_PERM="$withval"
