@@ -60,7 +60,7 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
 		DNSSD_BACKEND="dnssd"
 		IPPFIND_BIN="ippfind"
 		IPPFIND_MAN="ippfind.1"
-		PKGCONFIG_LIBS="$PKGCONFIG_LIBS $DNSSDLIBS"
+		PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $DNSSDLIBS"
 	    ], [
 		AC_MSG_RESULT([no])
 		AS_IF([test $with_dnssd = mdnsresponder], [
@@ -72,7 +72,6 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
     ])
 ])
 
-PKGCONFIG_LIBS="$PKGCONFIG_LIBS $LIBS"
 dnl Then try Avahi...
 AS_IF([test $with_dnssd = avahi -o $with_dnssd = yes], [
     AS_IF([test "x$PKGCONFIG" = x], [

@@ -7,12 +7,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9">
     <meta name="viewport" content="width=device-width">
-    <title>Home - CUPS @CUPS_VERSION@@CUPS_REVISION@</title>
+    <title>Home - CUPS @CUPS_VERSION@</title>
   </head>
   <body>
     <div class="header">
       <ul>
-	<li><a href="http://www.cups.org/" target="_blank">CUPS.org</a></li>
+	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
 	<li><a class="active" href="/">Home</a></li>
 	<li><a href="/admin">Administration</a></li>
 	<li><a href="/classes/">Classes</a></li>
@@ -23,15 +23,14 @@
     </div>
     <div class="body">
       <div class="row">
-	<h1>CUPS @CUPS_VERSION@</h1>
-	<p>CUPS is the standards-based, open source printing system developed by <a href="http://www.apple.com/">Apple Inc.</a> for macOS<sup>&reg;</sup> and other UNIX<sup>&reg;</sup>-like operating systems.</p>
+	<h1>OpenPrinting CUPS @CUPS_VERSION@</h1>
+	<p>The standards-based, open source printing system developed by <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> for Linux® and other Unix®-like operating systems. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
       </div>
       <div class="row">
 	<div class="thirds">
 	  <h2>CUPS for Users</h2>
 	  <p><a href="help/overview.html">Overview of CUPS</a></p>
 	  <p><a href="help/options.html">Command-Line Printing and Options</a></p>
-	  <p><a href="http://www.cups.org/lists.php?LIST=cups">User Forum</a></p>
 	</div>
 	<div class="thirds">
 	  <h2>CUPS for Administrators</h2>
@@ -45,10 +44,9 @@
 	  <h2>CUPS for Developers</h2>
 	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
 	  <p><a href="help/api-filter.html">Filter and Backend Programming</a></p>
-	  <p><a href="http://www.cups.org/lists.php?LIST=cups-devel">Developer Forum</a></p>
 	</div>
       </div>
     </div>
-    <div class="footer">CUPS and the CUPS logo are trademarks of <a href="http://www.apple.com">Apple Inc.</a> Copyright &copy; 2007-2019 Apple Inc. All rights reserved.</div>
+    <div class="footer">Copyright &copy; 2021 OpenPrinting. All rights reserved.</div>
   </body>
 </html>

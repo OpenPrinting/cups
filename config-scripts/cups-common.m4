@@ -14,18 +14,18 @@ AC_CONFIG_HEADERS([config.h])
 
 dnl Version number information...
 CUPS_VERSION="AC_PACKAGE_VERSION"
-CUPS_REVISION=""
+CUPS_API_VERSION="$(echo AC_PACKAGE_VERSION | awk -F. '{print $1 "." $2}')"
 CUPS_BUILD="cups-$CUPS_VERSION"
 
 AC_ARG_WITH([cups_build], AS_HELP_STRING([--with-cups-build], [set "pkg-config --variable=build" string]), [
     CUPS_BUILD="$withval"
 ])
 
-AC_SUBST([CUPS_VERSION])
-AC_SUBST([CUPS_REVISION])
+AC_SUBST([CUPS_API_VERSION])
 AC_SUBST([CUPS_BUILD])
-AC_DEFINE_UNQUOTED([CUPS_SVERSION], ["AC_PACKAGE_NAME v$CUPS_VERSION$CUPS_REVISION"], [Version number])
-AC_DEFINE_UNQUOTED([CUPS_MINIMAL], ["AC_PACKAGE_NAME/$CUPS_VERSION$CUPS_REVISION"], [Version for HTTP headers])
+AC_SUBST([CUPS_VERSION])
+AC_DEFINE_UNQUOTED([CUPS_SVERSION], ["AC_PACKAGE_NAME v$CUPS_VERSION"], [Version number])
+AC_DEFINE_UNQUOTED([CUPS_MINIMAL], ["AC_PACKAGE_NAME/$CUPS_VERSION"], [Version for HTTP headers])
 
 dnl Default compiler flags...
 CFLAGS="${CFLAGS:=}"
@@ -82,9 +82,13 @@ AC_SUBST([INSTALLSTATIC])
 
 dnl Check for pkg-config, which is used for some other tests later on...
 AC_PATH_TOOL([PKGCONFIG], [pkg-config])
-PKGCONFIG_REQUIRES=""
+PKGCONFIG_CFLAGS=""
 PKGCONFIG_LIBS=""
+PKGCONFIG_LIBS_STATIC=""
+PKGCONFIG_REQUIRES=""
+AC_SUBST([PKGCONFIG_CFLAGS])
 AC_SUBST([PKGCONFIG_LIBS])
+AC_SUBST([PKGCONFIG_LIBS_STATIC])
 AC_SUBST([PKGCONFIG_REQUIRES])
 
 dnl Check for libraries...
@@ -282,7 +286,7 @@ AC_CHECK_HEADER([zlib.h], [
 AC_SUBST([INSTALL_GZIP])
 AC_SUBST([LIBZ])
 
-PKGCONFIG_LIBS="$PKGCONFIG_LIBS $LIBZ"
+PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $LIBZ"
 
 dnl Flags for "ar" command...
 AS_CASE([host_os_name], [darwin* | *bsd*], [
@@ -360,6 +364,7 @@ AS_CASE([$host_os_name], [darwin*], [
     BACKLIBS="$BACKLIBS -framework IOKit"
     SERVERLIBS="$SERVERLIBS -framework IOKit -weak_framework ApplicationServices"
     LIBS="-framework CoreFoundation -framework Security $LIBS"
+    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC -framework CoreFoundation -framework Security"
 
     dnl Check for framework headers...
     AC_CHECK_HEADER([ApplicationServices/ApplicationServices.h], [
