@@ -7,12 +7,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9">
     <meta name="viewport" content="width=device-width">
-    <title>In&iacute;cio - CUPS @CUPS_VERSION@@CUPS_REVISION@</title>
+    <title>In&iacute;cio - CUPS @CUPS_VERSION@</title>
   </head>
   <body>
     <div class="header">
       <ul>
-	<li><a href="http://www.cups.org/" target="_blank">CUPS.org</a></li>
+	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
 	<li><a class="active" href="/">In&iacute;cio</a></li>
 	<li><a href="/admin">Administração</a></li>
 	<li><a href="/classes/">Classes</a></li>
@@ -31,7 +31,6 @@
 	  <h2>CUPS para usu&aacute;rios</h2>
 	  <p><a href="help/overview.html">Vis&atilde;o geral do CUPS</a></p>
 	  <p><a href="help/options.html">Impress&atilde;o e op&ccedil;&otilde;es em linha de comando</a></p>
-	  <p><a href="http://www.cups.org/lists.php?LIST=cups">F&oacute;rum de usu&aacute;rios</a></p>
 	</div>
 	<div class="thirds">
 	  <h2>CUPS para administradores</h2>
@@ -45,10 +44,9 @@
 	  <h2>CUPS para desenvolvedores</h2>
 	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
 	  <p><a href="help/api-filter.html">Programa&ccedil;&atilde;o de filtros e backend</a></p>
-	  <p><a href="http://www.cups.org/lists.php?LIST=cups-devel">F&oacute;rum de desenvolvedores</a></p>
 	</div>
       </div>
     </div>
-    <div class="footer">CUPS e o logo do CUPS s&atilde;o marcas registradas da <a href="http://www.apple.com">Apple Inc.</a> Copyright &copy; 2007-2019 Apple Inc. Todos os direitos reservados.</div>
+    <div class="footer">CUPS e o logo do CUPS s&atilde;o marcas registradas da <a href="http://www.apple.com">Apple Inc.</a> Copyright &copy; 2021 OpenPrinting. Todos os direitos reservados.</div>
   </body>
 </html>

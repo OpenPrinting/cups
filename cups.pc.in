@@ -1,36 +1,29 @@
-#cups pkg-config file
-
-
-VERSION="@CUPS_VERSION@"
-APIVERSION="2.3"
-BUILD="@CUPS_BUILD@"
+#
+# CUPS pkg-config file
+#
+# Copyright © 2021 by OpenPrinting.
+#
+# Licensed under Apache License v2.0.  See the file "LICENSE" for more
+# information.
+#
 
 prefix=@prefix@
 exec_prefix=@exec_prefix@
-bindir=@bindir@
 includedir=@includedir@
 libdir=@libdir@
-datarootdir=@datadir@
-#datadir=@datadir@
-sysconfdir=@sysconfdir@
+
+cups_api_version="@CUPS_API_VERSION@"
+cups_build="@CUPS_BUILD@"
 cups_datadir=@CUPS_DATADIR@
 cups_serverbin=@CUPS_SERVERBIN@
 cups_serverroot=@CUPS_SERVERROOT@
-INSTALLSTATIC=@INSTALLSTATIC@
 
+Name: CUPS
+Description: CUPS API Library
+Version: @CUPS_VERSION@
+URL: https://openprinting.github.io/cups/
+Cflags: @PKGCONFIG_CFLAGS@
+Libs: @PKGCONFIG_LIBS@
 
-# flags for compiler and linker...
-CFLAGS=" -I${includedir}"
-LDFLAGS="@EXPORT_LDFLAGS@ -L${libdir}"
-Libs.private: @PKGCONFIG_LIBS@
-Name: "CUPS"
-Description: "CUPS API Library"
-Requires.private:@PKGCONFIG_REQUIRES@
-api_version=${APIVERSION}
-build=${BUILD}
-Cflags: ${CFLAGS}
-datadir= ${cups_datadir}
-
-Libs: @EXTLINKCUPS@
-
-Version: ${VERSION}
+Requires.private: @PKGCONFIG_REQUIRES@
+Libs.private: @PKGCONFIG_LIBS_STATIC@
