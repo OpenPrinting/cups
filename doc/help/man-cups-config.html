@@ -8,7 +8,7 @@
 <body>
 <h1 class="title">cups-config(1)</h1>
 <h2 class="title"><a name="NAME">Name</a></h2>
-cups-config - get cups api, compiler, directory, and link information.
+cups-config - get cups api, compiler, directory, and link information (deprecated).
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>cups-config</b>
 <i>--api-version</i>
@@ -48,6 +48,11 @@ cups-config - get cups api, compiler, directory, and link information.
 <h2 class="title"><a name="DESCRIPTION">Description</a></h2>
 The <b>cups-config</b> command allows application developers to determine the necessary command-line options for the compiler and linker, as well as the installation directories for filters, configuration files, and drivers.
 All values are reported to the standard output.
+<b>Note:</b>
+This command is deprecated and will be removed in a future version of CUPS.
+The
+<b>pkg-config</b>(1)
+command should be used instead.
 <h2 class="title"><a name="OPTIONS">Options</a></h2>
 The <b>cups-config</b> command accepts the following command-line options:
 <dl class="man">
@@ -95,6 +100,7 @@ The following options are deprecated but continue to work for backwards compatib
 </dl>
 <h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
 <b>cups</b>(1),
+<b>pkg-config</b>(1),
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
 Copyright &copy; 2021 by OpenPrinting.

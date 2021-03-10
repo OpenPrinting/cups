@@ -8,9 +8,9 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-config 1 "CUPS" "2021-02-28" "OpenPrinting"
+.TH cups-config 1 "CUPS" "2021-03-10" "OpenPrinting"
 .SH NAME
-cups\-config \- get cups api, compiler, directory, and link information.
+cups\-config \- get cups api, compiler, directory, and link information (deprecated).
 .SH SYNOPSIS
 .B cups\-config
 .I \-\-api\-version
@@ -50,6 +50,11 @@ cups\-config \- get cups api, compiler, directory, and link information.
 .SH DESCRIPTION
 The \fBcups-config\fR command allows application developers to determine the necessary command-line options for the compiler and linker, as well as the installation directories for filters, configuration files, and drivers.
 All values are reported to the standard output.
+.B Note:
+This command is deprecated and will be removed in a future version of CUPS.
+The
+.BR pkg-config (1)
+command should be used instead.
 .SH OPTIONS
 The \fBcups-config\fR command accepts the following command-line options:
 .TP 5
@@ -105,6 +110,7 @@ The following options are deprecated but continue to work for backwards compatib
 Formerly used to add the CUPS imaging library to the list of libraries.
 .SH SEE ALSO
 .BR cups (1),
+.BR pkg-config (1),
 CUPS Online Help (http://localhost:631/help)
 .SH COPYRIGHT
 Copyright \[co] 2021 by OpenPrinting.

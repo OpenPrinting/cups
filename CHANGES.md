@@ -14,12 +14,15 @@ CUPS v2.4rc1 (Pending)
   by default (Issue #85)
 - The `cupsfilter` command now shows error messages when options are used
   incorrectly (Issue #88)
-- Documentation fixes (Issue #92)
-- Kerberos (`AuthType Negotiate`) authentication is now deprecated (Issue #98)
 - The PPD functions now treat boolean values as case-insensitive (Issue #106)
 - Temporary queue names no longer end with an underscore (Issue #110)
 - The USB backend now runs as root (Issue #121)
+- Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
+- Documentation fixes (Issue #92)
+- Localization updates (Issue #123)
+- Deprecated cups-config (Issue #97)
+- Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
   `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
   and `cups-files.conf`.
