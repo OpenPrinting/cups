@@ -9,6 +9,12 @@ dnl
 
 AC_ARG_ENABLE([snapped_cupsd], AS_HELP_STRING([--enable-snapped-cupsd], [enable support for packaging CUPS in a Snap]))
 AC_ARG_ENABLE([snapped_clients], AS_HELP_STRING([--enable-snapped-clients], [enable support for CUPS controlling admin access from snapped clients]))
+AC_ARG_WITH([our-snap-name], AS_HELP_STRING([--with-our-snap-name], [Set name of the Snap we are snapped in, only needed with --enable-snapped-cupsd, default=cups]), [
+    OUR_SNAP_NAME="$withval"
+], [
+    OUR_SNAP_NAME="cups"
+])
+AC_DEFINE_UNQUOTED([OUR_SNAP_NAME], ["$OUR_SNAP_NAME"], [Name of the Snap we are snapped in.])
 AC_ARG_WITH([snapctl], AS_HELP_STRING([--with-snapctl], [Set path for snapctl, only needed with --enable-snapped-cupsd, default=/usr/bin/snapctl]), [
     SNAPCTL="$withval"
 ], [
