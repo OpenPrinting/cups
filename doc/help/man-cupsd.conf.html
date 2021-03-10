@@ -58,7 +58,6 @@ The default is "No".
 Specifies whether shared printers are advertised.
 The default is "No".
 <dt><a name="DefaultAuthType"></a><b>DefaultAuthType Basic</b>
-<dd style="margin-left: 5.0em"><dt><b>DefaultAuthType Negotiate</b>
 <dd style="margin-left: 5.0em"><br>
 Specifies the default type of authentication to use.
 The default is "Basic".
@@ -111,9 +110,6 @@ The default limit is "0".
 value) of filters that are run to print a job.
 The nice value ranges from 0, the highest priority, to 19, the lowest priority.
 The default is 0.
-<dt><a name="GSSServiceName"></a><b>GSSServiceName </b><i>name</i>
-<dd style="margin-left: 5.0em">Specifies the service name when using Kerberos authentication.
-The default service name is "http."
 <dt><b>HostNameLookups On</b>
 <dd style="margin-left: 5.0em"><dt><a name="HostNameLookups"></a><b>HostNameLookups Off</b>
 <dd style="margin-left: 5.0em"><dt><b>HostNameLookups Double</b>
@@ -464,7 +460,6 @@ The Order directive controls whether Allow lines are evaluated before or after D
 <dt><b>AuthType None</b>
 <dd style="margin-left: 5.0em"><dt><b>AuthType Basic</b>
 <dd style="margin-left: 5.0em"><dt><b>AuthType Default</b>
-<dd style="margin-left: 5.0em"><dt><b>AuthType Negotiate</b>
 <dd style="margin-left: 5.0em">Specifies the type of authentication required.
 The value "Default" corresponds to the DefaultAuthType value.
 <dt><b>Deny all</b>
@@ -547,6 +542,8 @@ The "default" values are "notify-events", "notify-pull-method", "notify-recipien
 <h3><a name="DEPRECATED_DIRECTIVES">Deprecated Directives</a></h3>
 The following directives are deprecated and will be removed in a future release of CUPS:
 <dl class="man">
+<dt><b>AuthType Negotiate</b>
+<dd style="margin-left: 5.0em">Specifies Kerberos authentication is required.
 <dt><a name="Classification"></a><b>Classification </b><i>banner</i>
 <dd style="margin-left: 5.0em"><br>
 Specifies the security classification of the server.
@@ -557,6 +554,11 @@ The default is no classification banner.
 <dd style="margin-left: 5.0em"><br>
 Specifies whether users may override the classification (cover page) of individual print jobs using the "job-sheets" option.
 The default is "No".
+<dt><b>DefaultAuthType Negotiate</b>
+<dd style="margin-left: 5.0em">Specifies that Kerberos authentication is required by default.
+<dt><a name="GSSServiceName"></a><b>GSSServiceName </b><i>name</i>
+<dd style="margin-left: 5.0em">Specifies the service name when using Kerberos authentication.
+The default service name is "http."
 <dt><a name="PageLogFormat"></a><b>PageLogFormat </b><i>format-string</i>
 <dd style="margin-left: 5.0em">Specifies the format of PageLog lines.
 Sequences beginning with percent (%) characters are replaced with the corresponding information, while all other characters are copied literally.
