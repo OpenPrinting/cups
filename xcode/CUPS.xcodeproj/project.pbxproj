@@ -858,7 +858,6 @@
 		7284F9F01BFCCDB10026F886 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 7284F9EF1BFCCD940026F886 /* hash.c */; };
 		7284F9F11BFCCDB20026F886 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 7284F9EF1BFCCD940026F886 /* hash.c */; };
 		728FB7E91536161C005426E1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E5136B64AF00836530 /* CoreFoundation.framework */; };
-		728FB7EA1536161C005426E1 /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E6136B64B000836530 /* Kerberos.framework */; };
 		728FB7EB1536161C005426E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E7136B64B000836530 /* Security.framework */; };
 		728FB7ED1536161C005426E1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 728FB7EC1536161C005426E1 /* libz.dylib */; };
 		728FB7EE15361642005426E1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E8136B64B000836530 /* SystemConfiguration.framework */; };
@@ -4193,7 +4192,6 @@
 				728FB7ED1536161C005426E1 /* libz.dylib in Frameworks */,
 				728FB7E91536161C005426E1 /* CoreFoundation.framework in Frameworks */,
 				72D53A2A15B49110003F877F /* GSS.framework in Frameworks */,
-				728FB7EA1536161C005426E1 /* Kerberos.framework in Frameworks */,
 				728FB7EB1536161C005426E1 /* Security.framework in Frameworks */,
 				728FB7EE15361642005426E1 /* SystemConfiguration.framework in Frameworks */,
 			);
