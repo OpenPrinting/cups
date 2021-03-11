@@ -20,7 +20,7 @@ CUPS v2.4rc1 (Pending)
 - Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
 - Documentation fixes (Issue #92)
-- Localization updates (Issue #123)
+- Localization updates (Issue #123, Issue #129)
 - Deprecated cups-config (Issue #97)
 - Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
