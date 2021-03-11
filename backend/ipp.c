@@ -256,6 +256,7 @@ main(int  argc,				/* I - Number of command-line args */
 		get_job_attrs = 0,	/* Does printer support Get-Job-Attributes? */
 		send_document = 0,	/* Does printer support Send-Document? */
 		validate_job = 0,	/* Does printer support Validate-Job? */
+		validation_retried = 0,	/* Indicate whether Validate-Job was retried */
 		copies,			/* Number of copies for job */
 		copies_remaining;	/* Number of copies remaining */
   const char	*content_type,		/* CONTENT_TYPE environment variable */
@@ -1559,7 +1560,15 @@ main(int  argc,				/* I - Number of command-line args */
              ipp_status == IPP_STATUS_ERROR_BAD_REQUEST)
       break;
     else if (job_auth == NULL && ipp_status > IPP_STATUS_ERROR_BAD_REQUEST)
+    {
+      if (!validation_retried)
+      {
+	validation_retried = 1;
+	sleep(10);
+	continue;
+      }
       goto cleanup;
+    }
   }
 
  /*
