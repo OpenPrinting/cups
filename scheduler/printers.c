@@ -4111,7 +4111,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
     for (i = 0, urf_ptr = urf_pq, urf_prefix = "PQ"; i < num_qualities; i ++)
     {
-      snprintf(urf_ptr, sizeof(urf_pq) - (size_t)(urf_ptr - urf_pq), "%s%d", prefix, qualities[i]);
+      snprintf(urf_ptr, sizeof(urf_pq) - (size_t)(urf_ptr - urf_pq), "%s%d", urf_prefix, qualities[i]);
       urf_prefix = "-";
       urf_ptr    += strlen(urf_ptr);
     }
