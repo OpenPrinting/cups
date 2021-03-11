@@ -3884,8 +3884,12 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
   ipp_attribute_t *media_col_ready,	/* media-col-ready attribute */
 		*media_ready;		/* media-ready attribute */
   int		num_urf;		/* Number of urf-supported values */
-  const char	*urf[16];		/* urf-supported values */
-  char		urf_rs[32];		/* RS (resolution) value */
+  const char	*urf[16],		/* urf-supported values */
+		*urf_prefix;		/* Prefix string for value */
+  char		*urf_ptr,		/* Pointer into value */
+		urf_fn[64],		/* FN (finishings) value */
+		urf_pq[32],		/* PQ (print-quality) value */
+		urf_rs[32];		/* RS (resolution) value */
   static const char * const pwg_raster_document_types[] =
 		{
 		  "black_1",
@@ -4102,8 +4106,16 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
     num_urf         = 0;
     urf[num_urf ++] = "V1.4";
-    urf[num_urf ++] = "PQ3-4-5";
+    urf[num_urf ++] = "CP1";
     urf[num_urf ++] = "W8";
+
+    for (i = 0, urf_ptr = urf_pq, urf_prefix = "PQ"; i < num_qualities; i ++)
+    {
+      snprintf(urf_ptr, sizeof(urf_pq) - (size_t)(urf_ptr - urf_pq), "%s%d", prefix, qualities[i]);
+      urf_prefix = "-";
+      urf_ptr    += strlen(urf_ptr);
+    }
+    urf[num_urf ++] = urf_pq;
 
    /*
     * Add media options from the PPD file...
@@ -4645,10 +4657,14 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     {
       _pwg_finishings_t	*fin;		/* Current finishing value */
 
-      for (fin = (_pwg_finishings_t *)cupsArrayFirst(p->pc->finishings); fin; fin = (_pwg_finishings_t *)cupsArrayNext(p->pc->finishings))
+      for (fin = (_pwg_finishings_t *)cupsArrayFirst(p->pc->finishings), urf_ptr = urf_fn, urf_prefix = "FN"; fin; fin = (_pwg_finishings_t *)cupsArrayNext(p->pc->finishings))
       {
         if (num_finishings < (int)(sizeof(finishings) / sizeof(finishings[0])))
           finishings[num_finishings++] = (int)fin->value;
+
+        snprintf(urf_ptr, sizeof(urf_fn) - (size_t)(urf_ptr - urf_fn), "%s%d", urf_prefix, fin->value);
+        urf_prefix = "-";
+        urf_ptr    += strlen(urf_ptr);
 
         switch (fin->value)
         {
@@ -4709,7 +4725,12 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
               break;
         }
       }
+
+      if (urf_ptr > urf_fn)
+        urf[num_urf ++] = urf_fn;
     }
+    else
+      urf[num_urf ++] = "FN3";
 
     /* urf-supported */
     ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "urf-supported", num_urf, NULL, urf);

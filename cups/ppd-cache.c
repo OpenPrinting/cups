@@ -1,6 +1,7 @@
 /*
  * PPD cache implementation for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2010-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
