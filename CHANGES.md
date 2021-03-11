@@ -4,8 +4,8 @@ Changes in OpenPrinting CUPS
 CUPS v2.4rc1 (Pending)
 ----------------------
 
-- Added support for CUPS running in a snapcraft snap.
-- Added extra check for administrative inquiries from snapped clients.
+- Added support for CUPS running in a Snapcraft snap.
+- Added support for AirPrint and Mopria clients (Issue #105)
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
 - The IPP backend did not return the correct status code when a job was canceled

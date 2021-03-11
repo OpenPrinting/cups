@@ -1,6 +1,7 @@
 /*
  * PPD cache implementation for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2010-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -3687,7 +3688,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
     if (have_default)
       cupsFilePrintf(fp, "*DefaultInputSlot: %s\n", ppdname);
 
-    for (i = 0, count = ippGetCount(attr); i < count; i ++)
+    for (i = 0; i < count; i ++)
     {
       keyword = ippGetString(attr, i, NULL);
 
@@ -3700,8 +3701,13 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
         if (!strcmp(sources[j], keyword))
 	{
 	  snprintf(msgid, sizeof(msgid), "media-source.%s", keyword);
+
+	  if ((msgstr = _cupsLangString(lang, msgid)) == msgid || !strcmp(msgid, msgstr))
+	    if ((msgstr = _cupsMessageLookup(strings, msgid)) == msgid)
+	      msgstr = keyword;
+
 	  cupsFilePrintf(fp, "*InputSlot %s: \"<</MediaPosition %d>>setpagedevice\"\n", ppdname, j);
-	  cupsFilePrintf(fp, "*%s.InputSlot %s/%s: \"\"\n", lang->language, ppdname, _cupsLangString(lang, msgid));
+	  cupsFilePrintf(fp, "*%s.InputSlot %s/%s: \"\"\n", lang->language, ppdname, msgstr);
 	  break;
 	}
     }

@@ -75,6 +75,7 @@ The default is "en".
 <dd style="margin-left: 5.0em">Specifies the default paper size for new print queues. "Auto" uses a locale-specific default, while "None" specifies there is no default paper size.
 Specific size names are typically "Letter" or "A4".
 The default is "Auto".
+Note: The default paper size must use a size name from the PPD file and not a PWG self-describing media size name.
 <dt><a name="DefaultPolicy"></a><b>DefaultPolicy </b><i>policy-name</i>
 <dd style="margin-left: 5.0em">Specifies the default access policy to use.
 The default access policy is "default".
@@ -238,6 +239,11 @@ The default is "86400" (preserve 1 day).
 If a numeric value is specified, the job history is preserved for the indicated number of seconds after printing.
 If "Yes", the job history is preserved until the MaxJobs limit is reached.
 The default is "Yes".
+<dt><a name="ReadyPaperSizes"></a><b>ReadyPaperSizes </b><i>sizename[,...]</i>
+<dd style="margin-left: 5.0em">Specifies a list of potential paper sizes that are reported as "ready" (loaded).
+The actual list will only contain sizes that each printer supports.
+The default is "Letter,Legal,Tabloid,4x6,Env10" when the default paper size is "Letter" and "A3,A4,A5,A6,EnvDL" otherwise.
+Note: Paper sizes must use the size names from the PPD file and not PWG self-describing media size names.
 <dt><a name="ReloadTimeout"></a><b>ReloadTimeout </b><i>seconds</i>
 <dd style="margin-left: 5.0em">Specifies the amount of time to wait for job completion before restarting the scheduler.
 The default is "30".
