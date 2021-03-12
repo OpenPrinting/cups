@@ -311,3 +311,6 @@
 
 # Citizen CT-S4000 (Issue #5823)
 0x2730 0x2008 unidir delay-close
+
+# All Arkscan label printers (Issue #5867)
+0x2d84 unidir no-reattach

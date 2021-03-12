@@ -21,6 +21,7 @@ CUPS v2.4rc1 (Pending)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
 - Documentation fixes (Issue #92)
 - Localization updates (Issue #123, Issue #129)
+- USB quirk updates (Apple #5867)
 - Deprecated cups-config (Issue #97)
 - Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
