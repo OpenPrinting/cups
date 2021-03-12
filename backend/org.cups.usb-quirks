@@ -303,6 +303,9 @@
 # Lexmark E120n (Apple #5478)
 0x043d 0x00cc no-reattach
 
+# Lexmark E120n MT4506-100 (Apple #5766)
+0x043d 0x00cd no-reattach
+
 # All Xerox printers (Apple #5523)
 0x0924 no-reattach
 
