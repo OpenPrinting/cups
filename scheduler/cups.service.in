@@ -1,7 +1,7 @@
 [Unit]
 Description=CUPS Scheduler
 Documentation=man:cupsd(8)
-After=network.target sssd.service ypbind.service nslcd.service
+After=network.target nss-user-lookup.target
 Requires=cups.socket
 
 [Service]
