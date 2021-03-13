@@ -646,8 +646,8 @@ table.list tr:nth-child(even) {
 table.list th {
   border-right: 2px solid gray;
   font-family: monospace;
-  padding: 5px 10px 5px 2px;
-  text-align: right;
+  padding: 5px 10px 5px 12px;
+  text-align: left;
   vertical-align: top;
 }
 table.list td {
