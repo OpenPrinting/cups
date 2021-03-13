@@ -1624,6 +1624,15 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
       } else
 	cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: AppArmor profile of client process: %s", context);
 
+#  ifdef OUR_SNAP_NAME
+      /* Is the client one of the utilities of our Snap? */
+      if (!strncmp(context, "snap." OUR_SNAP_NAME ".", strlen(OUR_SNAP_NAME) + 6))
+      {
+	cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: Client Snap is the same Snap we are running in, access granted");
+	goto snap_check_done;
+      }
+#  endif /* OUR_SNAP_NAME */
+
 #  ifdef SUPPORT_SNAPPED_CUPSD
 
      /*

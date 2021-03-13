@@ -70,7 +70,8 @@ AS_IF([test x$enable_gssapi = xyes], [
 
     SAVELIBS="$LIBS"
     LIBS="$LIBS $LIBGSSAPI"
-
+    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $LIBGSSAPI"
+	
     AC_CHECK_FUNC([__ApplePrivate_gss_acquire_cred_ex_f], [
 	AC_DEFINE([HAVE_GSS_ACQUIRE_CRED_EX_F], [1], [Have __ApplePrivate_gss_acquire_cred_ex_f function?])
     ])

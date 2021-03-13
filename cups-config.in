@@ -11,7 +11,7 @@
 #
 
 VERSION="@CUPS_VERSION@"
-APIVERSION="2.3"
+APIVERSION="@CUPS_API_VERSION@"
 BUILD="@CUPS_BUILD@"
 
 prefix=@prefix@
@@ -50,7 +50,7 @@ else
 fi
 
 
-usage ()
+usage()
 {
     echo "Usage: cups-config --api-version"
     echo "       cups-config --build"
@@ -62,6 +62,9 @@ usage ()
     echo "       cups-config --serverbin"
     echo "       cups-config --serverroot"
     echo "       cups-config --version"
+    echo ""
+    echo "Note: The cups-config utility is deprecated and will be removed in a future"
+    echo "      version of CUPS.  Use the pkg-config utility instead."
 
     exit $1
 }

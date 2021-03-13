@@ -4,8 +4,8 @@ Changes in OpenPrinting CUPS
 CUPS v2.4rc1 (Pending)
 ----------------------
 
-- Added support for CUPS running in a snapcraft snap.
-- Added extra check for administrative inquiries from snapped clients.
+- Added support for CUPS running in a Snapcraft snap.
+- Added support for AirPrint and Mopria clients (Issue #105)
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
 - The IPP backend did not return the correct status code when a job was canceled
@@ -14,10 +14,16 @@ CUPS v2.4rc1 (Pending)
   by default (Issue #85)
 - The `cupsfilter` command now shows error messages when options are used
   incorrectly (Issue #88)
-- Documentation fixes (Issue #92)
-- Kerberos (`AuthType Negotiate`) authentication is now deprecated (Issue #98)
 - The PPD functions now treat boolean values as case-insensitive (Issue #106)
 - Temporary queue names no longer end with an underscore (Issue #110)
+- The USB backend now runs as root (Issue #121)
+- Added pkg-config file for libcups (Issue #122)
+- Fixed a PPD memory leak caused by emulator definitions (Issue #124)
+- Documentation fixes (Issue #92)
+- Localization updates (Issue #123, Issue #129, Issue #134)
+- USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
+- Deprecated cups-config (Issue #97)
+- Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
   `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
   and `cups-files.conf`.

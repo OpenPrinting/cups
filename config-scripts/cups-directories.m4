@@ -62,6 +62,9 @@ dnl Fix "includedir" variable if it hasn't been specified...
 AS_IF([test "$includedir" = "\${prefix}/include" -a "$prefix" = "/"], [
     includedir="/usr/include"
 ])
+AS_IF([test "$includedir" != "/usr/include"], [
+    PKGCONFIG_CFLAGS="$PKGCONFIG_CFLAGS -I$includedir"
+])
 
 dnl Fix "localstatedir" variable if it hasn't been specified...
 AS_IF([test "$localstatedir" = "\${prefix}/var"], [
@@ -94,8 +97,17 @@ AS_IF([test "$libdir" = "\${exec_prefix}/lib"], [
     AS_CASE(["$host_os_name"], [linux*], [
 	AS_IF([test -d /usr/lib64 -a ! -d /usr/lib64/fakeroot], [
 	    libdir="$exec_prefix/lib64"
+	], [
+	    libdir="$exec_prefix/lib"
 	])
+    ], [*], [
+	libdir="$exec_prefix/lib"
     ])
+])
+AS_IF([test "$libdir" = "/usr/lib"], [
+    PKGCONFIG_LIBS="-lcups"
+], [
+    PKGCONFIG_LIBS="-L$libdir -lcups"
 ])
 
 dnl Setup default locations...
@@ -184,6 +196,24 @@ AS_IF([test "$localedir" = "\${datarootdir}/locale"], [
 
 AC_DEFINE_UNQUOTED([CUPS_LOCALEDIR], ["$CUPS_LOCALEDIR"], [Location of localization files.])
 AC_SUBST([CUPS_LOCALEDIR])
+
+
+# cups.pc file...
+AC_ARG_WITH([pkgconfpath], AS_HELP_STRING([--with-pkgconfpath], [set path for cups.pc file]), [
+    pkgconfpath="$withval"
+], [
+    pkgconfpath=""
+])
+
+AS_IF([test x$pkgconfpath = x], [
+    CUPS_PKGCONFPATH="$exec_prefix/lib/pkgconfig"
+], [
+    CUPS_PKGCONFPATH="$pkgconfpath"
+])
+AC_DEFINE_UNQUOTED([CUPS_PKGCONFPATH], ["$CUPS_PKGCONFPATH"], [Location of cups.pc file.])
+AC_SUBST([CUPS_PKGCONFPATH])
+
+
 
 # Log files...
 AC_ARG_WITH([logdir], AS_HELP_STRING([--with-logdir], [set path for log files]), [

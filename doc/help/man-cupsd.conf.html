@@ -58,7 +58,6 @@ The default is "No".
 Specifies whether shared printers are advertised.
 The default is "No".
 <dt><a name="DefaultAuthType"></a><b>DefaultAuthType Basic</b>
-<dd style="margin-left: 5.0em"><dt><b>DefaultAuthType Negotiate</b>
 <dd style="margin-left: 5.0em"><br>
 Specifies the default type of authentication to use.
 The default is "Basic".
@@ -76,6 +75,7 @@ The default is "en".
 <dd style="margin-left: 5.0em">Specifies the default paper size for new print queues. "Auto" uses a locale-specific default, while "None" specifies there is no default paper size.
 Specific size names are typically "Letter" or "A4".
 The default is "Auto".
+Note: The default paper size must use a size name from the PPD file and not a PWG self-describing media size name.
 <dt><a name="DefaultPolicy"></a><b>DefaultPolicy </b><i>policy-name</i>
 <dd style="margin-left: 5.0em">Specifies the default access policy to use.
 The default access policy is "default".
@@ -111,9 +111,6 @@ The default limit is "0".
 value) of filters that are run to print a job.
 The nice value ranges from 0, the highest priority, to 19, the lowest priority.
 The default is 0.
-<dt><a name="GSSServiceName"></a><b>GSSServiceName </b><i>name</i>
-<dd style="margin-left: 5.0em">Specifies the service name when using Kerberos authentication.
-The default service name is "http."
 <dt><b>HostNameLookups On</b>
 <dd style="margin-left: 5.0em"><dt><a name="HostNameLookups"></a><b>HostNameLookups Off</b>
 <dd style="margin-left: 5.0em"><dt><b>HostNameLookups Double</b>
@@ -242,6 +239,11 @@ The default is "86400" (preserve 1 day).
 If a numeric value is specified, the job history is preserved for the indicated number of seconds after printing.
 If "Yes", the job history is preserved until the MaxJobs limit is reached.
 The default is "Yes".
+<dt><a name="ReadyPaperSizes"></a><b>ReadyPaperSizes </b><i>sizename[,...]</i>
+<dd style="margin-left: 5.0em">Specifies a list of potential paper sizes that are reported as "ready" (loaded).
+The actual list will only contain sizes that each printer supports.
+The default is "Letter,Legal,Tabloid,4x6,Env10" when the default paper size is "Letter" and "A3,A4,A5,A6,EnvDL" otherwise.
+Note: Paper sizes must use the size names from the PPD file and not PWG self-describing media size names.
 <dt><a name="ReloadTimeout"></a><b>ReloadTimeout </b><i>seconds</i>
 <dd style="margin-left: 5.0em">Specifies the amount of time to wait for job completion before restarting the scheduler.
 The default is "30".
@@ -464,7 +466,6 @@ The Order directive controls whether Allow lines are evaluated before or after D
 <dt><b>AuthType None</b>
 <dd style="margin-left: 5.0em"><dt><b>AuthType Basic</b>
 <dd style="margin-left: 5.0em"><dt><b>AuthType Default</b>
-<dd style="margin-left: 5.0em"><dt><b>AuthType Negotiate</b>
 <dd style="margin-left: 5.0em">Specifies the type of authentication required.
 The value "Default" corresponds to the DefaultAuthType value.
 <dt><b>Deny all</b>
@@ -547,6 +548,8 @@ The "default" values are "notify-events", "notify-pull-method", "notify-recipien
 <h3><a name="DEPRECATED_DIRECTIVES">Deprecated Directives</a></h3>
 The following directives are deprecated and will be removed in a future release of CUPS:
 <dl class="man">
+<dt><b>AuthType Negotiate</b>
+<dd style="margin-left: 5.0em">Specifies Kerberos authentication is required.
 <dt><a name="Classification"></a><b>Classification </b><i>banner</i>
 <dd style="margin-left: 5.0em"><br>
 Specifies the security classification of the server.
@@ -557,6 +560,11 @@ The default is no classification banner.
 <dd style="margin-left: 5.0em"><br>
 Specifies whether users may override the classification (cover page) of individual print jobs using the "job-sheets" option.
 The default is "No".
+<dt><b>DefaultAuthType Negotiate</b>
+<dd style="margin-left: 5.0em">Specifies that Kerberos authentication is required by default.
+<dt><a name="GSSServiceName"></a><b>GSSServiceName </b><i>name</i>
+<dd style="margin-left: 5.0em">Specifies the service name when using Kerberos authentication.
+The default service name is "http."
 <dt><a name="PageLogFormat"></a><b>PageLogFormat </b><i>format-string</i>
 <dd style="margin-left: 5.0em">Specifies the format of PageLog lines.
 Sequences beginning with percent (%) characters are replaced with the corresponding information, while all other characters are copied literally.

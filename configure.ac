@@ -13,7 +13,7 @@ dnl We need at least autoconf 2.60...
 AC_PREREQ([2.60])
 
 dnl Package name and version...
-AC_INIT([CUPS], [2.4rc1], [https://github.com/openprinting/cups/issues], [cups], [https://openprinting.github.io/cups])
+AC_INIT([CUPS], [2.4.0], [https://github.com/openprinting/cups/issues], [cups], [https://openprinting.github.io/cups])
 
 dnl This line is provided to ensure that you don't run the autoheader program
 dnl against this project.  Doing so is completely unsupported and WILL cause
@@ -73,6 +73,7 @@ AC_CONFIG_FILES([
     conf/mime.convs
     conf/pam.std
     conf/snmp.conf
+    cups.pc
     cups-config
     desktop/cups.desktop
     doc/index.html
