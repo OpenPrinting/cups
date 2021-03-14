@@ -2,4 +2,4 @@
 {?which_jobs=completed?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="completed"><INPUT TYPE="SUBMIT" VALUE="Beendete Aufträge anzeigen"></FORM>}
 {?which_jobs=all?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="all"><INPUT TYPE="SUBMIT" VALUE="Alle Aufträge anzeigen"></FORM>}
 
-<P ALIGN="CENTER">{?which_jobs=?Jobs listed in print order; held jobs appear first.:{which_jobs=all?Jobs listed in ascending order.:Jobs listed in descending order.}}</P>
+<P ALIGN="CENTER">{?which_jobs=?Aktive Aufträge in Reihenfolge der Abarbeitung▼:{which_jobs=all?Aufträge in Reihenfolge des Empfangs▼:Aufträge in der Reihenfolge der Fertigstellung/Löschung/Abbruch▲}}</P>
