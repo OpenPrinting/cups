@@ -9,6 +9,9 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
+dnl Set a default systemd WantedBy directive
+SYSTEMD_WANTED_BY="printers.target"
+
 dnl Default languages...
 LANGUAGES="$(ls -1 locale/cups_*.po 2>/dev/null | sed -e '1,$s/locale\/cups_//' -e '1,$s/\.po//' | tr '\n' ' ')"
 
@@ -420,3 +423,8 @@ AS_CASE(["x$enable_webif"], [xno], [
 
 AC_SUBST([CUPS_WEBIF])
 AC_DEFINE_UNQUOTED([CUPS_DEFAULT_WEBIF], [$CUPS_DEFAULT_WEBIF], [Default WebInterface value.])
+
+AS_IF([test $CUPS_WEBIF = Yes || test $CUPS_BROWSING = Yes], [
+  SYSTEMD_WANTED_BY="$SYSTEMD_WANTED_BY multi-user.target"], [
+  ])
+AC_SUBST([SYSTEMD_WANTED_BY])
