@@ -2,4 +2,4 @@
 {?which_jobs=completed?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="completed"><INPUT TYPE="SUBMIT" VALUE="完了したジョブを表示"></FORM>}
 {?which_jobs=all?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="all"><INPUT TYPE="SUBMIT" VALUE="すべてのジョブを表示"></FORM>}
 
-<P ALIGN="CENTER">{?which_jobs=?Jobs listed in print order; held jobs appear first.:{which_jobs=all?Jobs listed in ascending order.:Jobs listed in descending order.}}</P>
+<P ALIGN="CENTER">{?which_jobs=?Active jobs listed in processing order▼; held jobs appear first.:{which_jobs=all?Jobs in sequential order▼:Completed jobs in order of completion or cancellation▲}}</P>
