@@ -11,4 +11,4 @@ Restart=on-failure
 
 [Install]
 Also=cups.socket cups.path
-WantedBy=printer.target
+WantedBy=@SYSTEMD_WANTED_BY@
