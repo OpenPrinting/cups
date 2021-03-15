@@ -31,7 +31,6 @@
 	  <h2>CUPS for brugere</h2>
 	  <p><a href="help/overview.html">Overblik over CUPS</a></p>
 	  <p><a href="help/options.html">Kommandolinjeudskrivning og tilvalg</a></p>
-	  <p><a href="http://www.cups.org/lists.php?LIST=cups">Brugerforum</a></p>
 	</div>
 	<div class="thirds">
 	  <h2>CUPS for administratorer</h2>
@@ -45,10 +44,9 @@
 	  <h2>CUPS for udviklere</h2>
 	  <p><a href="help/cupspm.html">CUPS-programmeringsmanual</a></p>
 	  <p><a href="help/api-filter.html">Filter- og backendprogrammering</a></p>
-	  <p><a href="http://www.cups.org/lists.php?LIST=cups-devel">Udviklerforum</a></p>
 	</div>
       </div>
     </div>
-    <div class="footer">CUPS og CUPS-logoet er varemærker som tilhører <a href="http://www.apple.com">Apple Inc.</a> Ophavsret &copy; 2007-2019 Apple Inc. Alle rettigheder forbeholdt.</div>
+    <div class="footer">Ophavsret &copy; 2021 OpenPrinting. Alle rettigheder forbeholdt.</div>
   </body>
 </html>
