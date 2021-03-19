@@ -30,6 +30,7 @@ CUPS v2.4rc1 (Pending)
   and `cups-files.conf`.
 - Add `SYSTEMD_WANTED_BY` variable for adding different targets into 'WantedBy'
   directive in CUPS service file during configuration (Issue #144)
+- Log `Job N` even for syslog
 
 
 CUPS v2.3.3op2 (February 1, 2021)
