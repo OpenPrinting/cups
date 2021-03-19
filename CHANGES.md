@@ -6,6 +6,8 @@ CUPS v2.4rc1 (Pending)
 
 - Added support for CUPS running in a Snapcraft snap.
 - Added support for AirPrint and Mopria clients (Issue #105)
+- Added configure support for specifying systemd dependencies in the CUPS
+  service file (Issue #144)
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
 - The IPP backend did not return the correct status code when a job was canceled
@@ -19,6 +21,8 @@ CUPS v2.4rc1 (Pending)
 - The USB backend now runs as root (Issue #121)
 - Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
+- The scheduler now includes the `[Job N]` prefix for job log messages, even
+  when using syslog logging (Issue #154)
 - Documentation fixes (Issue #92)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146)
 - USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
@@ -28,9 +32,6 @@ CUPS v2.4rc1 (Pending)
 - Removed support for the (long deprecated and unused) `FontPath`,
   `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
   and `cups-files.conf`.
-- Add `SYSTEMD_WANTED_BY` variable for adding different targets into 'WantedBy'
-  directive in CUPS service file during configuration (Issue #144)
-- Log `Job N` even for syslog
 
 
 CUPS v2.3.3op2 (February 1, 2021)
