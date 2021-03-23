@@ -23,6 +23,7 @@ CUPS v2.4rc1 (Pending)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
 - The scheduler now includes the `[Job N]` prefix for job log messages, even
   when using syslog logging (Issue #154)
+- Added support for locales using the GB18030 character set (Issue #159)
 - Documentation fixes (Issue #92)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146)
 - USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)

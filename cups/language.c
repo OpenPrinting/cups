@@ -70,7 +70,7 @@ static const char * const lang_encodings[] =
 			  "unknown",		"unknown",
 			  "cp932",		"cp936",
 			  "cp949",		"cp950",
-			  "cp1361",		"unknown",
+			  "cp1361",		"bg18030",
 			  "unknown",		"unknown",
 			  "unknown",		"unknown",
 			  "unknown",		"unknown",
@@ -478,7 +478,7 @@ cupsLangGet(const char *language)	/* I - Language or locale */
 		  "",		"",		"",		"",
 
 		  "CP932",	"CP936",	"CP949",	"CP950",
-		  "CP1361",	"",		"",		"",
+		  "CP1361",	"GB18030",	"",		"",
 		  "",		"",		"",		"",
 		  "",		"",		"",		"",
 		  "",		"",		"",		"",
