@@ -1,7 +1,7 @@
 /*
  * Internet Printing Protocol functions for CUPS.
  *
- * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -3171,6 +3171,13 @@ ippReadIO(void       *src,		/* I - Data source */
 	    {
 	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP member name is not empty."), 1);
 	      DEBUG_puts("1ippReadIO: member name not empty.");
+	      _cupsBufferRelease((char *)buffer);
+	      return (IPP_STATE_ERROR);
+	    }
+	    else if (!parent)
+	    {
+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP member attribute outside of collection."), 1);
+	      DEBUG_puts("1ippReadIO: member attribute outside of collection.");
 	      _cupsBufferRelease((char *)buffer);
 	      return (IPP_STATE_ERROR);
 	    }
