@@ -440,7 +440,7 @@ dnssdBuildTxtRecord(
     keyvalue[count++][1] = urf_str;
   }
 
-  keyvalue[count  ][0] = "morpria-certified";
+  keyvalue[count  ][0] = "mopria-certified";
   keyvalue[count++][1] = "1.3";
 
   if (p->type & CUPS_PRINTER_FAX)
