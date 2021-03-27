@@ -2,7 +2,7 @@
 # Library Makefile for CUPS.
 #
 # Copyright © 2021 by OpenPrinting.
-# Copyright © 2007-2019 by Apple Inc.
+# Copyright © 2007-2021 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -87,6 +87,7 @@ IMAGEOBJS	= \
 		raster-stubs.o
 
 TESTOBJS	= \
+		fuzzipp.o \
 		rasterbench.o \
 		testadmin.o \
 		testarray.o \
@@ -173,6 +174,7 @@ LIBTARGETS =	\
 		libcupsimage.a
 
 UNITTARGETS =	\
+		fuzzipp \
 		rasterbench \
 		testadmin \
 		testarray \
@@ -461,6 +463,18 @@ libcupsimage.a:	$(IMAGEOBJS)
 	$(RM) $@
 	$(AR) $(ARFLAGS) $@ $(IMAGEOBJS)
 	$(RANLIB) $@
+
+
+#
+# fuzzipp (dependency on static CUPS library is intentional)
+#
+
+fuzzipp:	fuzzipp.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ fuzzipp.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+	echo Fuzzing IPP API...
+	./fuzzipp
 
 
 #
