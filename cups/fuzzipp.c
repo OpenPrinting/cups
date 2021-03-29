@@ -187,8 +187,20 @@ main(int  argc,			// I - Number of command-line arguments
     }
     while (state == IPP_STATE_ATTRIBUTE);
 
-    ippDelete(request);
     cupsFileClose(fp);
+
+    fp = cupsFileOpen("/dev/null", "w");
+
+    ippSetState(request, IPP_STATE_IDLE);
+
+    do
+    {
+      state = ippWriteIO(fp, (ipp_iocb_t)cupsFileWrite, 1, NULL, request);
+    }
+    while (state == IPP_STATE_ATTRIBUTE);
+
+    cupsFileClose(fp);
+    ippDelete(request);
   }
 
   return (0);
@@ -210,7 +222,7 @@ fuzzdata(_ippdata_t *data)		// I - Data buffer
 
 
   // Mutate a few times...
-  for (i = 0; i < 10; i ++)
+  for (i = 0; i < 32; i ++)
   {
     // Each cycle remove or move bytes
     switch (CUPS_RAND() & 7)
