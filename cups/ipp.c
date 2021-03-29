@@ -3004,7 +3004,14 @@ ippReadIO(void       *src,		/* I - Data source */
 	    * Group tag...  Set the current group and continue...
 	    */
 
-            if (ipp->curtag == tag)
+            if (parent)
+            {
+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalid group tag."), 1);
+	      DEBUG_printf(("1ippReadIO: bad tag 0x%02x.", tag));
+	      _cupsBufferRelease((char *)buffer);
+	      return (IPP_STATE_ERROR);
+            }
+            else if (ipp->curtag == tag)
 	      ipp->prev = ippAddSeparator(ipp);
             else if (ipp->current)
 	      ipp->prev = ipp->current;
