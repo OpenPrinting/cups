@@ -101,6 +101,7 @@ typedef struct ipptool_status_s		/**** Status info ****/
 typedef struct ipptool_test_s		/**** Test Data ****/
 {
   /* Global Options */
+  _ipp_vars_t	vars;			/* Variables */
   http_encryption_t encryption;		/* Encryption for connection */
   int		family;			/* Address family */
   ipptool_output_t output;		/* Output mode */
@@ -178,15 +179,15 @@ static void	add_stringf(cups_array_t *a, const char *s, ...) _CUPS_FORMAT(2, 3);
 static int      compare_uris(const char *a, const char *b);
 static void	copy_hex_string(char *buffer, unsigned char *data, int datalen, size_t bufsize);
 static void	*do_monitor_test(ipptool_test_t *data);
-static int	do_test(_ipp_file_t *f, _ipp_vars_t *vars, ipptool_test_t *data);
-static int	do_tests(const char *testfile, _ipp_vars_t *vars, ipptool_test_t *data);
+static int	do_test(_ipp_file_t *f, ipptool_test_t *data);
+static int	do_tests(const char *testfile, ipptool_test_t *data);
 static int	error_cb(_ipp_file_t *f, ipptool_test_t *data, const char *error);
 static int      expect_matches(ipptool_expect_t *expect, ipp_tag_t value_tag);
 static char	*get_filename(const char *testfile, char *dst, const char *src, size_t dstsize);
 static const char *get_string(ipp_attribute_t *attr, int element, int flags, char *buffer, size_t bufsize);
 static void	init_data(ipptool_test_t *data);
 static char	*iso_date(const ipp_uchar_t *date);
-static int	parse_monitor_printer_state(_ipp_file_t *f, _ipp_vars_t *vars, ipptool_test_t *data);
+static int	parse_monitor_printer_state(_ipp_file_t *f, ipptool_test_t *data);
 static void	pause_message(const char *message);
 static void	print_attr(cups_file_t *outfile, ipptool_output_t output, ipp_attribute_t *attr, ipp_tag_t *group);
 static void	print_csv(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
@@ -250,9 +251,9 @@ main(int  argc,				/* I - Number of command-line args */
 
   init_data(&data);
 
-  _ippVarsInit(&vars, NULL, (_ipp_ferror_cb_t)error_cb, (_ipp_ftoken_cb_t)token_cb);
+  _ippVarsInit(&data.vars, NULL, (_ipp_ferror_cb_t)error_cb, (_ipp_ftoken_cb_t)token_cb);
 
-  _ippVarsSet(&vars, "date-start", iso_date(ippTimeToDate(time(NULL))));
+  _ippVarsSet(&data.vars, "date-start", iso_date(ippTimeToDate(time(NULL))));
 
  /*
   * We need at least:
@@ -671,7 +672,7 @@ main(int  argc,				/* I - Number of command-line args */
       else
         testfile = argv[i];
 
-      if (!do_tests(testfile, &vars, &data))
+      if (!do_tests(testfile, &data))
         status = 1;
     }
   }
@@ -690,7 +691,7 @@ main(int  argc,				/* I - Number of command-line args */
     while (repeat > 1)
     {
       usleep((useconds_t)interval);
-      do_tests(testfile, &vars, &data);
+      do_tests(testfile, &data);
       repeat --;
     }
   }
@@ -699,7 +700,7 @@ main(int  argc,				/* I - Number of command-line args */
     for (;;)
     {
       usleep((useconds_t)interval);
-      do_tests(testfile, &vars, &data);
+      do_tests(testfile, &data);
     }
   }
 
@@ -894,6 +895,7 @@ static void *				// O - Thread exit status
 do_monitor_printer_state(
     ipptool_test_t *data)		// I - Test data
 {
+  int		i;			// Looping var
   char		scheme[32],		// URI scheme
 		userpass[32],		// URI username:password
 		host[256],		// URI hostname/IP address
@@ -902,9 +904,11 @@ do_monitor_printer_state(
   http_encryption_t encryption;		// Encryption to use
   http_t	*http;			// Connection to printer
   ipp_t		*request,		// IPP request
-		*response;		// IPP response
-  ipp_attribute_t *attr;		// Current attribute
+		*response = NULL;	// IPP response
+  http_status_t	status;			// Request status
+  ipp_attribute_t *found;		// Found attribute
   ipptool_expect_t *expect;		// Current EXPECT test
+  char		buffer[131072];		// Copy buffer
   static const char *pattrs[] =		// List of attributes we care about
   {
     "marker-change-time",		// "marker-xxx" are a CUPS/AirPrint extension
@@ -990,9 +994,135 @@ do_monitor_printer_state(
   while (!data->monitor_done && !Cancel)
   {
     // Poll the printer state...
+    if ((status = cupsSendRequest(http, request, resource, ippLength(request))) != HTTP_STATUS_ERROR)
+    {
+      response = cupsGetResponse(http, resource);
+      status   = httpGetStatus(http);
+    }
 
+    if (!data->monitor_done && !Cancel && status == HTTP_STATUS_ERROR && httpError(data->http) != EINVAL &&
+#ifdef _WIN32
+	httpError(data->http) != WSAETIMEDOUT)
+#else
+	httpError(data->http) != ETIMEDOUT)
+#endif // _WIN32
+    {
+      if (httpReconnect2(http, 30000, NULL))
+	break;
+    }
+    else if (status == HTTP_STATUS_ERROR || status == HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED)
+    {
+      break;
+    }
+    else if (status != HTTP_STATUS_OK)
+    {
+      httpFlush(http);
 
+      if (status == HTTP_STATUS_UNAUTHORIZED)
+	continue;
 
+      break;
+    }
+
+    for (i = data->num_monitor_expects, expect = data->monitor_expects; i > 0; i --, expect ++)
+    {
+      if (expect->if_defined && !_ippVarsGet(&data->vars, expect->if_defined))
+	continue;
+
+      if (expect->if_not_defined && _ippVarsGet(&data->vars, expect->if_not_defined))
+	continue;
+
+      found = ippFindAttribute(response, expect->name, IPP_TAG_ZERO);
+
+      if ((found && expect->not_expect) ||
+	  (!found && !(expect->not_expect || expect->optional)) ||
+	  (found && !expect_matches(expect, ippGetValueTag(found))) ||
+	  (expect->in_group && ippGetGroupTag(found) != expect->in_group))
+      {
+	if (expect->define_no_match)
+	{
+	  _ippVarsSet(&data->vars, expect->define_no_match, "1");
+	  data->monitor_done = 1;
+	}
+	break;
+      }
+
+      if (found)
+	ippAttributeString(found, buffer, sizeof(buffer));
+
+      if (found && !with_value(data, NULL, expect->with_value, expect->with_flags, found, buffer, sizeof(buffer)))
+      {
+	if (expect->define_no_match)
+	{
+	  _ippVarsSet(&data->vars, expect->define_no_match, "1");
+	  data->monitor_done = 1;
+	}
+	break;
+      }
+
+      if (found && expect->count > 0 && ippGetCount(found) != expect->count)
+      {
+	if (expect->define_no_match)
+	{
+	  _ippVarsSet(&data->vars, expect->define_no_match, "1");
+	  data->monitor_done = 1;
+	}
+	break;
+      }
+
+      if (found && expect->define_match)
+      {
+	_ippVarsSet(&data->vars, expect->define_match, "1");
+	data->monitor_done = 1;
+      }
+
+      if (found && expect->define_value)
+      {
+	if (!expect->with_value)
+	{
+	  int last = ippGetCount(found) - 1;
+					// Last element in attribute
+
+	  switch (ippGetValueTag(found))
+	  {
+	    case IPP_TAG_ENUM :
+	    case IPP_TAG_INTEGER :
+		snprintf(buffer, sizeof(buffer), "%d", ippGetInteger(found, last));
+		break;
+
+	    case IPP_TAG_BOOLEAN :
+		if (ippGetBoolean(found, last))
+		  strlcpy(buffer, "true", sizeof(buffer));
+		else
+		  strlcpy(buffer, "false", sizeof(buffer));
+		break;
+
+	    case IPP_TAG_CHARSET :
+	    case IPP_TAG_KEYWORD :
+	    case IPP_TAG_LANGUAGE :
+	    case IPP_TAG_MIMETYPE :
+	    case IPP_TAG_NAME :
+	    case IPP_TAG_NAMELANG :
+	    case IPP_TAG_TEXT :
+	    case IPP_TAG_TEXTLANG :
+	    case IPP_TAG_URI :
+	    case IPP_TAG_URISCHEME :
+		strlcpy(buffer, ippGetString(found, last, NULL), sizeof(buffer));
+		break;
+
+	    default :
+		ippAttributeString(found, buffer, sizeof(buffer));
+		break;
+	  }
+	}
+
+	_ippVarsSet(&data->vars, expect->define_value, buffer);
+	data->monitor_done = 1;
+      }
+    }
+
+    ippDelete(response);
+    response = NULL;
 
     // Sleep between requests...
     if (data->monitor_done || Cancel)
@@ -1004,6 +1134,7 @@ do_monitor_printer_state(
   // Close the connection to the printer and return...
   httpClose(http);
   ippDelete(request);
+  ippDelete(response);
 
   return (NULL);
 }
@@ -1015,7 +1146,6 @@ do_monitor_printer_state(
 
 static int				/* O - 1 on success, 0 on failure */
 do_test(_ipp_file_t    *f,		/* I - IPP data file */
-        _ipp_vars_t    *vars,		/* I - IPP variables */
         ipptool_test_t *data)		/* I - Test data */
 
 {
@@ -1150,7 +1280,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
     goto skip_error;
   }
 
-  vars->password_tries = 0;
+  data->vars.password_tries = 0;
 
   do
   {
@@ -1332,16 +1462,16 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       if ((attrptr = ippFindAttribute(response, "job-id", IPP_TAG_INTEGER)) != NULL)
       {
 	snprintf(temp, sizeof(temp), "%d", ippGetInteger(attrptr, 0));
-	_ippVarsSet(vars, "job-id", temp);
+	_ippVarsSet(&data->vars, "job-id", temp);
       }
 
       if ((attrptr = ippFindAttribute(response, "job-uri", IPP_TAG_URI)) != NULL)
-	_ippVarsSet(vars, "job-uri", ippGetString(attrptr, 0, NULL));
+	_ippVarsSet(&data->vars, "job-uri", ippGetString(attrptr, 0, NULL));
 
       if ((attrptr = ippFindAttribute(response, "notify-subscription-id", IPP_TAG_INTEGER)) != NULL)
       {
 	snprintf(temp, sizeof(temp), "%d", ippGetInteger(attrptr, 0));
-	_ippVarsSet(vars, "notify-subscription-id", temp);
+	_ippVarsSet(&data->vars, "notify-subscription-id", temp);
       }
 
      /*
@@ -1499,11 +1629,11 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       for (i = 0, status_ok = 0; i < data->num_statuses; i ++)
       {
 	if (data->statuses[i].if_defined &&
-	    !_ippVarsGet(vars, data->statuses[i].if_defined))
+	    !_ippVarsGet(&data->vars, data->statuses[i].if_defined))
 	  continue;
 
 	if (data->statuses[i].if_not_defined &&
-	    _ippVarsGet(vars, data->statuses[i].if_not_defined))
+	    _ippVarsGet(&data->vars, data->statuses[i].if_not_defined))
 	  continue;
 
 	if (ippGetStatusCode(response) == data->statuses[i].status)
@@ -1514,7 +1644,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	    repeat_test = 1;
 
 	  if (data->statuses[i].define_match)
-	    _ippVarsSet(vars, data->statuses[i].define_match, "1");
+	    _ippVarsSet(&data->vars, data->statuses[i].define_match, "1");
 	}
 	else
 	{
@@ -1523,7 +1653,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
 	  if (data->statuses[i].define_no_match)
 	  {
-	    _ippVarsSet(vars, data->statuses[i].define_no_match, "1");
+	    _ippVarsSet(&data->vars, data->statuses[i].define_no_match, "1");
 	    status_ok = 1;
 	  }
 	}
@@ -1534,11 +1664,11 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	for (i = 0; i < data->num_statuses; i ++)
 	{
 	  if (data->statuses[i].if_defined &&
-	      !_ippVarsGet(vars, data->statuses[i].if_defined))
+	      !_ippVarsGet(&data->vars, data->statuses[i].if_defined))
 	    continue;
 
 	  if (data->statuses[i].if_not_defined &&
-	      _ippVarsGet(vars, data->statuses[i].if_not_defined))
+	      _ippVarsGet(&data->vars, data->statuses[i].if_not_defined))
 	    continue;
 
 	  if (!data->statuses[i].repeat_match || repeat_count >= data->statuses[i].repeat_limit)
@@ -1556,11 +1686,11 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       {
 	ipp_attribute_t *group_found;	/* Found parent attribute for group tests */
 
-	if (expect->if_defined && !_ippVarsGet(vars, expect->if_defined))
+	if (expect->if_defined && !_ippVarsGet(&data->vars, expect->if_defined))
 	  continue;
 
 	if (expect->if_not_defined &&
-	    _ippVarsGet(vars, expect->if_not_defined))
+	    _ippVarsGet(&data->vars, expect->if_not_defined))
 	  continue;
 
 	if ((found = ippFindAttribute(response, expect->name, IPP_TAG_ZERO)) != NULL && expect->in_group && expect->in_group != ippGetGroupTag(found))
@@ -1592,7 +1722,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	      (group_found && expect->in_group && ippGetGroupTag(group_found) != expect->in_group))
 	  {
 	    if (expect->define_no_match)
-	      _ippVarsSet(vars, expect->define_no_match, "1");
+	      _ippVarsSet(&data->vars, expect->define_no_match, "1");
 	    else if (!expect->define_match && !expect->define_value)
 	    {
 	      if (found && expect->not_expect && !expect->with_value && !expect->with_value_from)
@@ -1624,7 +1754,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  if (found && expect->with_value_from && !with_value_from(NULL, ippFindAttribute(response, expect->with_value_from, IPP_TAG_ZERO), found, buffer, sizeof(buffer)))
 	  {
 	    if (expect->define_no_match)
-	      _ippVarsSet(vars, expect->define_no_match, "1");
+	      _ippVarsSet(&data->vars, expect->define_no_match, "1");
 	    else if (!expect->define_match && !expect->define_value && ((!expect->repeat_match && !expect->repeat_no_match) || repeat_count >= expect->repeat_limit))
 	    {
 	      add_stringf(data->errors, "EXPECTED: %s WITH-VALUES-FROM %s", expect->name, expect->with_value_from);
@@ -1640,7 +1770,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  else if (found && !with_value(data, NULL, expect->with_value, expect->with_flags, found, buffer, sizeof(buffer)))
 	  {
 	    if (expect->define_no_match)
-	      _ippVarsSet(vars, expect->define_no_match, "1");
+	      _ippVarsSet(&data->vars, expect->define_no_match, "1");
 	    else if (!expect->define_match && !expect->define_value &&
 		     !expect->repeat_match && (!expect->repeat_no_match || repeat_count >= expect->repeat_limit))
 	    {
@@ -1662,7 +1792,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  if (found && expect->count > 0 && ippGetCount(found) != expect->count)
 	  {
 	    if (expect->define_no_match)
-	      _ippVarsSet(vars, expect->define_no_match, "1");
+	      _ippVarsSet(&data->vars, expect->define_no_match, "1");
 	    else if (!expect->define_match && !expect->define_value)
 	    {
 	      add_stringf(data->errors, "EXPECTED: %s COUNT %d (got %d)", expect->name,
@@ -1684,7 +1814,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	    if (!attrptr || ippGetCount(attrptr) != ippGetCount(found))
 	    {
 	      if (expect->define_no_match)
-		_ippVarsSet(vars, expect->define_no_match, "1");
+		_ippVarsSet(&data->vars, expect->define_no_match, "1");
 	      else if (!expect->define_match && !expect->define_value)
 	      {
 		if (!attrptr)
@@ -1708,7 +1838,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  }
 
 	  if (found && expect->define_match)
-	    _ippVarsSet(vars, expect->define_match, "1");
+	    _ippVarsSet(&data->vars, expect->define_match, "1");
 
 	  if (found && expect->define_value)
 	  {
@@ -1765,7 +1895,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	      }
 	    }
 
-	    _ippVarsSet(vars, expect->define_value, buffer);
+	    _ippVarsSet(&data->vars, expect->define_value, buffer);
 	  }
 
 	  if (found && expect->repeat_match &&
@@ -2048,7 +2178,6 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
 static int				/* O - 1 on success, 0 on failure */
 do_tests(const char     *testfile,	/* I - Test file to use */
-         _ipp_vars_t    *vars,		/* I - Variables */
          ipptool_test_t *data)		/* I - Test data */
 {
   http_encryption_t encryption;		/* Encryption mode */
@@ -2058,14 +2187,14 @@ do_tests(const char     *testfile,	/* I - Test file to use */
   * Connect to the printer/server...
   */
 
-  if (!_cups_strcasecmp(vars->scheme, "https") || !_cups_strcasecmp(vars->scheme, "ipps") || vars->port == 443)
+  if (!_cups_strcasecmp(data->vars.scheme, "https") || !_cups_strcasecmp(data->vars.scheme, "ipps") || data->vars.port == 443)
     encryption = HTTP_ENCRYPTION_ALWAYS;
   else
     encryption = data->encryption;
 
-  if ((data->http = httpConnect2(vars->host, vars->port, NULL, data->family, encryption, 1, 30000, NULL)) == NULL)
+  if ((data->http = httpConnect2(data->vars.host, data->vars.port, NULL, data->family, encryption, 1, 30000, NULL)) == NULL)
   {
-    print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", vars->host, vars->port, cupsLastErrorString());
+    print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", data->vars.host, data->vars.port, cupsLastErrorString());
     return (0);
   }
 
@@ -2082,7 +2211,7 @@ do_tests(const char     *testfile,	/* I - Test file to use */
   * Run tests...
   */
 
-  _ippFileParse(vars, testfile, (void *)data);
+  _ippFileParse(&data->vars, testfile, (void *)data);
 
  /*
   * Close connection and return...
@@ -2383,7 +2512,6 @@ iso_date(const ipp_uchar_t *date)	/* I - IPP (RFC 1903) date/time value */
 static int				/* O - 1 to continue, 0 to stop */
 parse_monitor_printer_state(
     _ipp_file_t    *f,			/* I - IPP file data */
-    _ipp_vars_t    *vars,		/* I - IPP variables */
     ipptool_test_t *data)		/* I - Test data */
 {
   char	token[256],			/* Token string */
@@ -2414,7 +2542,7 @@ parse_monitor_printer_state(
   else
   {
     // Use the default printer URI...
-    data->monitor_uri = strdup(vars->uri);
+    data->monitor_uri = strdup(data->vars.uri);
   }
 
   // Loop until we get a closing brace...
@@ -2564,7 +2692,7 @@ parse_monitor_printer_state(
 	return (0);
       }
 
-      _ippVarsExpand(vars, value, temp, sizeof(value));
+      _ippVarsExpand(&data->vars, value, temp, sizeof(value));
 
       if ((dval = _cupsStrScand(value, &ptr, localeconv())) < 0.0 || (*ptr && *ptr != ','))
       {
@@ -2723,7 +2851,7 @@ parse_monitor_printer_state(
 	* Expand any variables in the value and then save it.
 	*/
 
-	_ippVarsExpand(vars, value, temp, sizeof(value));
+	_ippVarsExpand(&data->vars, value, temp, sizeof(value));
 
 	ptr = value + strlen(value) - 1;
 
@@ -3646,7 +3774,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 
     if (!strcmp(token, "}"))
     {
-      return (do_test(f, vars, data));
+      return (do_test(f, data));
     }
     else if (!strcmp(token, "MONITOR-PRINTER-STATE"))
     {
@@ -3656,7 +3784,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	return (0);
       }
 
-      return (parse_monitor_printer_state(f, vars, data));
+      return (parse_monitor_printer_state(f, data));
     }
     else if (!strcmp(token, "COMPRESSION"))
     {
@@ -4593,7 +4721,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
         *ptr = '\0';
       data->repeat_interval = 5000000;
       data->request_id ++;
-      strlcpy(data->resource, vars->resource, sizeof(data->resource));
+      strlcpy(data->resource, data->vars.resource, sizeof(data->resource));
       data->skip_previous = 0;
       data->skip_test     = 0;
       data->num_statuses  = 0;
@@ -4708,7 +4836,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	inc_data.prev_pass   = 1;
 	inc_data.show_header = 1;
 
-        if (!do_tests(get_filename(f->filename, filename, temp, sizeof(filename)), vars, &inc_data) && data->stop_after_include_error)
+        if (!do_tests(get_filename(f->filename, filename, temp, sizeof(filename)), &inc_data) && data->stop_after_include_error)
         {
           data->pass = data->prev_pass = 0;
           return (0);
@@ -4744,7 +4872,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	inc_data.prev_pass   = 1;
 	inc_data.show_header = 1;
 
-        if (!do_tests(get_filename(f->filename, filename, temp, sizeof(filename)), vars, &inc_data) && data->stop_after_include_error)
+        if (!do_tests(get_filename(f->filename, filename, temp, sizeof(filename)), &inc_data) && data->stop_after_include_error)
         {
           data->pass = data->prev_pass = 0;
           return (0);
@@ -4780,7 +4908,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	inc_data.prev_pass   = 1;
 	inc_data.show_header = 1;
 
-        if (!do_tests(get_filename(f->filename, filename, temp, sizeof(filename)), vars, &inc_data) && data->stop_after_include_error)
+        if (!do_tests(get_filename(f->filename, filename, temp, sizeof(filename)), &inc_data) && data->stop_after_include_error)
         {
           data->pass = data->prev_pass = 0;
           return (0);
