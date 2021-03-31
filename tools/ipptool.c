@@ -178,7 +178,7 @@ static int	Cancel = 0;		/* Cancel test? */
 static void	add_stringf(cups_array_t *a, const char *s, ...) _CUPS_FORMAT(2, 3);
 static int      compare_uris(const char *a, const char *b);
 static void	copy_hex_string(char *buffer, unsigned char *data, int datalen, size_t bufsize);
-static void	*do_monitor_test(ipptool_test_t *data);
+static void	*do_monitor_printer_state(ipptool_test_t *data);
 static int	do_test(_ipp_file_t *f, ipptool_test_t *data);
 static int	do_tests(const char *testfile, ipptool_test_t *data);
 static int	error_cb(_ipp_file_t *f, ipptool_test_t *data, const char *error);
@@ -229,7 +229,6 @@ main(int  argc,				/* I - Number of command-line args */
   int			interval,	/* Test interval in microseconds */
 			repeat;		/* Repeat count */
   ipptool_test_t	data;		/* Test data */
-  _ipp_vars_t		vars;		/* Variables */
   _cups_globals_t	*cg = _cupsGlobals();
 					/* Global data */
 
@@ -451,7 +450,7 @@ main(int  argc,				/* I - Number of command-line args */
 	      else
 	        value = name + strlen(name);
 
-	      _ippVarsSet(&vars, name, value);
+	      _ippVarsSet(&data.vars, name, value);
 	      break;
 
           case 'f' : /* Set the default test filename */
@@ -488,7 +487,7 @@ main(int  argc,				/* I - Number of command-line args */
               else
 		strlcpy(filename, argv[i], sizeof(filename));
 
-	      _ippVarsSet(&vars, "filename", filename);
+	      _ippVarsSet(&data.vars, "filename", filename);
 
               if ((ext = strrchr(filename, '.')) != NULL)
               {
@@ -497,43 +496,43 @@ main(int  argc,				/* I - Number of command-line args */
                 */
 
                 if (!_cups_strcasecmp(ext, ".gif"))
-                  _ippVarsSet(&vars, "filetype", "image/gif");
+                  _ippVarsSet(&data.vars, "filetype", "image/gif");
                 else if (!_cups_strcasecmp(ext, ".htm") ||
                          !_cups_strcasecmp(ext, ".htm.gz") ||
                          !_cups_strcasecmp(ext, ".html") ||
                          !_cups_strcasecmp(ext, ".html.gz"))
-                  _ippVarsSet(&vars, "filetype", "text/html");
+                  _ippVarsSet(&data.vars, "filetype", "text/html");
                 else if (!_cups_strcasecmp(ext, ".jpg") ||
                          !_cups_strcasecmp(ext, ".jpeg"))
-                  _ippVarsSet(&vars, "filetype", "image/jpeg");
+                  _ippVarsSet(&data.vars, "filetype", "image/jpeg");
                 else if (!_cups_strcasecmp(ext, ".pcl") ||
                          !_cups_strcasecmp(ext, ".pcl.gz"))
-                  _ippVarsSet(&vars, "filetype", "application/vnd.hp-PCL");
+                  _ippVarsSet(&data.vars, "filetype", "application/vnd.hp-PCL");
                 else if (!_cups_strcasecmp(ext, ".pdf"))
-                  _ippVarsSet(&vars, "filetype", "application/pdf");
+                  _ippVarsSet(&data.vars, "filetype", "application/pdf");
                 else if (!_cups_strcasecmp(ext, ".png"))
-                  _ippVarsSet(&vars, "filetype", "image/png");
+                  _ippVarsSet(&data.vars, "filetype", "image/png");
                 else if (!_cups_strcasecmp(ext, ".ps") ||
                          !_cups_strcasecmp(ext, ".ps.gz"))
-                  _ippVarsSet(&vars, "filetype", "application/postscript");
+                  _ippVarsSet(&data.vars, "filetype", "application/postscript");
                 else if (!_cups_strcasecmp(ext, ".pwg") ||
                          !_cups_strcasecmp(ext, ".pwg.gz") ||
                          !_cups_strcasecmp(ext, ".ras") ||
                          !_cups_strcasecmp(ext, ".ras.gz"))
-                  _ippVarsSet(&vars, "filetype", "image/pwg-raster");
+                  _ippVarsSet(&data.vars, "filetype", "image/pwg-raster");
                 else if (!_cups_strcasecmp(ext, ".tif") ||
                          !_cups_strcasecmp(ext, ".tiff"))
-                  _ippVarsSet(&vars, "filetype", "image/tiff");
+                  _ippVarsSet(&data.vars, "filetype", "image/tiff");
                 else if (!_cups_strcasecmp(ext, ".txt") ||
                          !_cups_strcasecmp(ext, ".txt.gz"))
-                  _ippVarsSet(&vars, "filetype", "text/plain");
+                  _ippVarsSet(&data.vars, "filetype", "text/plain");
                 else if (!_cups_strcasecmp(ext, ".urf") ||
                          !_cups_strcasecmp(ext, ".urf.gz"))
-                  _ippVarsSet(&vars, "filetype", "image/urf");
+                  _ippVarsSet(&data.vars, "filetype", "image/urf");
                 else if (!_cups_strcasecmp(ext, ".xps"))
-                  _ippVarsSet(&vars, "filetype", "application/openxps");
+                  _ippVarsSet(&data.vars, "filetype", "application/openxps");
                 else
-		  _ippVarsSet(&vars, "filetype", "application/octet-stream");
+		  _ippVarsSet(&data.vars, "filetype", "application/octet-stream");
               }
               else
               {
@@ -541,7 +540,7 @@ main(int  argc,				/* I - Number of command-line args */
                 * Use the "auto-type" MIME media type...
                 */
 
-		_ippVarsSet(&vars, "filetype", "application/octet-stream");
+		_ippVarsSet(&data.vars, "filetype", "application/octet-stream");
               }
 	      break;
 
@@ -624,7 +623,7 @@ main(int  argc,				/* I - Number of command-line args */
       * Set URI...
       */
 
-      if (vars.uri)
+      if (data.vars.uri)
       {
         _cupsLangPuts(stderr, _("ipptool: May only specify a single URI."));
         usage();
@@ -635,14 +634,14 @@ main(int  argc,				/* I - Number of command-line args */
         data.encryption = HTTP_ENCRYPT_ALWAYS;
 #endif /* HAVE_TLS */
 
-      if (!_ippVarsSet(&vars, "uri", argv[i]))
+      if (!_ippVarsSet(&data.vars, "uri", argv[i]))
       {
         _cupsLangPrintf(stderr, _("ipptool: Bad URI \"%s\"."), argv[i]);
         return (1);
       }
 
-      if (vars.username[0] && vars.password)
-	cupsSetPasswordCB2(_ippVarsPasswordCB, &vars);
+      if (data.vars.username[0] && data.vars.password)
+	cupsSetPasswordCB2(_ippVarsPasswordCB, &data.vars);
     }
     else
     {
@@ -650,7 +649,7 @@ main(int  argc,				/* I - Number of command-line args */
       * Run test...
       */
 
-      if (!vars.uri)
+      if (!data.vars.uri)
       {
         _cupsLangPuts(stderr, _("ipptool: URI required before test file."));
         _cupsLangPuts(stderr, argv[i]);
@@ -677,7 +676,7 @@ main(int  argc,				/* I - Number of command-line args */
     }
   }
 
-  if (!vars.uri || !testfile)
+  if (!data.vars.uri || !testfile)
     usage();
 
  /*
@@ -1120,6 +1119,9 @@ do_monitor_printer_state(
 	data->monitor_done = 1;
       }
     }
+
+    if (i == 0)
+      data->monitor_done = 1;		// All tests passed
 
     ippDelete(response);
     response = NULL;
