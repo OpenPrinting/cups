@@ -175,6 +175,9 @@ test report.
 <dd style="margin-left: 5.0em">Specifies whether
 <b>ipptool</b>(8)
 will ignore errors and continue with subsequent tests.
+<dt><b>MONITOR-PRINTER-STATE </b>[ <i>printer-uri </i>] <b>{ EXPECT </b><i>attribute-name </i>[ <i>predicate(s) </i>] <b>}</b>
+<dd style="margin-left: 5.0em">Specifies printer state monitoring tests to run in parallel with the test operation.
+The monitoring tests will run until all of the <b>EXPECT</b> conditions are satisfied or the primary test operation has completed, whichever occurs first.
 <dt><b>NAME "</b><i>literal string</i><b>"</b>
 <dd style="margin-left: 5.0em">Specifies the human-readable name of the test.
 <dt><b>OPERATION </b><i>operation-code</i>

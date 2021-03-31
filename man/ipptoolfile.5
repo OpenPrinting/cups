@@ -2,12 +2,12 @@
 .\" ipptoolfile man page.
 .\"
 .\" Copyright © 2021 by OpenPrinting.
-.\" Copyright © 2010-2019 by Apple Inc.
+.\" Copyright © 2010-2021 by Apple Inc.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptoolfile 5 "CUPS" "2021-02-28" "OpenPrinting"
+.TH ipptoolfile 5 "CUPS" "2021-03-31" "OpenPrinting"
 .SH NAME
 ipptoolfile \- ipptool file format
 .SH DESCRIPTION
@@ -214,6 +214,10 @@ Specifies the group tag for subsequent attributes in the request.
 Specifies whether
 .BR ipptool (8)
 will ignore errors and continue with subsequent tests.
+.TP 5
+\fBMONITOR-PRINTER-STATE \fR[ \fIprinter-uri \fR] \fB{ EXPECT \fIattribute-name \fR[ \fIpredicate(s) \fR] \fB}\fR
+Specifies printer state monitoring tests to run in parallel with the test operation.
+The monitoring tests will run until all of the \fBEXPECT\fR conditions are satisfied or the primary test operation has completed, whichever occurs first.
 .TP 5
 \fBNAME "\fIliteral string\fB"\fR
 Specifies the human-readable name of the test.
