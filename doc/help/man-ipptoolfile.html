@@ -263,7 +263,12 @@ Specifies the maximum number of times to repeat if the <b>REPEAT-MATCH</b> or <b
 <dd style="margin-left: 5.0em"><dt><b>WITH-ALL-VALUES "true"</b>
 <dd style="margin-left: 5.0em">Requires that all values of the <b>EXPECT</b> attribute match the boolean value given.
 <dt><b>WITH-ALL-VALUES "/</b><i>regular expression</i><b>/"</b>
-<dd style="margin-left: 5.0em">Requires that all values of the <b>EXPECT</b> attribute match the regular expression, which must conform to the POSIX regular expression syntax. Comparisons are case-sensitive.
+<dd style="margin-left: 5.0em">Requires that all values of the <b>EXPECT</b> attribute match the regular expression, which must conform to the POSIX regular expression syntax.
+Comparisons are case-sensitive.
+<dt><b>WITH-DISTINCT-VALUES</b>
+<dd style="margin-left: 5.0em">Requires that all values of the <b>EXPECT</b> attribute are unique.
+Comparisons are case-sensitive.
+Only charset, enum, integer, keyword, mimeMediaType, naturalLanguage, rangeOfInteger, resolution, uriScheme attributes support this predicate.
 <dt><b>WITH-HOSTNAME "</b><i>literal string</i><b>"</b>
 <dd style="margin-left: 5.0em"><dt><b>WITH-HOSTNAME "/</b><i>regular expression</i><b>/"</b>
 <dd style="margin-left: 5.0em">Requires that at least one URI value contains a matching hostname.

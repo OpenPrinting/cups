@@ -347,7 +347,13 @@ Requires that all values of the \fBEXPECT\fR attribute match the number(s) or nu
 Requires that all values of the \fBEXPECT\fR attribute match the boolean value given.
 .TP 5
 \fBWITH\-ALL\-VALUES "/\fIregular expression\fB/"\fR
-Requires that all values of the \fBEXPECT\fR attribute match the regular expression, which must conform to the POSIX regular expression syntax. Comparisons are case-sensitive.
+Requires that all values of the \fBEXPECT\fR attribute match the regular expression, which must conform to the POSIX regular expression syntax.
+Comparisons are case-sensitive.
+.TP 5
+\fBWITH\-DISTINCT\-VALUES\fR
+Requires that all values of the \fBEXPECT\fR attribute are unique.
+Comparisons are case-sensitive.
+Only charset, enum, integer, keyword, mimeMediaType, naturalLanguage, rangeOfInteger, resolution, uriScheme attributes support this predicate.
 .TP 5
 \fBWITH\-HOSTNAME "\fIliteral string\fB"\fR
 .TP 5

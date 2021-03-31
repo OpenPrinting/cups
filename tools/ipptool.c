@@ -80,7 +80,8 @@ typedef struct ipptool_expect_s		/**** Expected attribute info ****/
   int		repeat_limit,		/* Maximum number of times to repeat */
 		repeat_match,		/* Repeat test on match */
 		repeat_no_match,	/* Repeat test on no match */
-		with_flags,		/* WITH flags  */
+		with_distinct,		/* WITH-DISTINCT-VALUES? */
+		with_flags,		/* WITH flags */
 		count;			/* Expected count if > 0 */
   ipp_tag_t	in_group;		/* IN-GROUP value */
 } ipptool_expect_t;
@@ -204,6 +205,7 @@ static void	sigterm_handler(int sig);
 static int	timeout_cb(http_t *http, void *user_data);
 static int	token_cb(_ipp_file_t *f, _ipp_vars_t *vars, ipptool_test_t *data, const char *token);
 static void	usage(void) _CUPS_NORETURN;
+static int	with_distinct_values(cups_array_t *errors, ipp_attribute_t *attr);
 static const char *with_flags_string(int flags);
 static int      with_value(ipptool_test_t *data, cups_array_t *errors, char *value, int flags, ipp_attribute_t *attr, char *matchbuf, size_t matchlen);
 static int      with_value_from(cups_array_t *errors, ipp_attribute_t *fromattr, ipp_attribute_t *attr, char *matchbuf, size_t matchlen);
@@ -1038,7 +1040,8 @@ do_monitor_printer_state(
       if ((found && expect->not_expect) ||
 	  (!found && !(expect->not_expect || expect->optional)) ||
 	  (found && !expect_matches(expect, ippGetValueTag(found))) ||
-	  (expect->in_group && ippGetGroupTag(found) != expect->in_group))
+	  (expect->in_group && ippGetGroupTag(found) != expect->in_group) ||
+	  (expect->with_distinct && !with_distinct_values(NULL, found)))
       {
 	if (expect->define_no_match)
 	{
@@ -1723,7 +1726,8 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  if ((found && expect->not_expect) ||
 	      (!found && !(expect->not_expect || expect->optional)) ||
 	      (found && !expect_matches(expect, ippGetValueTag(found))) ||
-	      (group_found && expect->in_group && ippGetGroupTag(group_found) != expect->in_group))
+	      (group_found && expect->in_group && ippGetGroupTag(group_found) != expect->in_group) ||
+	      (expect->with_distinct && !with_distinct_values(NULL, found)))
 	  {
 	    if (expect->define_no_match)
 	      _ippVarsSet(data->vars, expect->define_no_match, "1");
@@ -1744,6 +1748,9 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 		  add_stringf(data->errors, "EXPECTED: %s IN-GROUP %s (got %s).",
 			      expect->name, ippTagString(expect->in_group),
 			      ippTagString(ippGetGroupTag(group_found)));
+
+                if (expect->with_distinct)
+                  with_distinct_values(data->errors, found);
 	      }
 	    }
 
@@ -2560,6 +2567,7 @@ parse_monitor_printer_state(
 	_cups_strcasecmp(token, "IF-NOT-DEFINED") &&
 	_cups_strcasecmp(token, "IN-GROUP") &&
 	_cups_strcasecmp(token, "OF-TYPE") &&
+	_cups_strcasecmp(token, "WITH-DISTINCT-VALUES") &&
 	_cups_strcasecmp(token, "WITH-VALUE"))
       data->last_expect = NULL;
 
@@ -2795,6 +2803,18 @@ parse_monitor_printer_state(
       else
       {
 	print_fatal_error(data, "IF-NOT-DEFINED without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "WITH-DISTINCT-VALUES"))
+    {
+      if (data->last_expect)
+      {
+        data->last_expect->with_distinct = 1;
+      }
+      else
+      {
+	print_fatal_error(data, "%s without a preceding EXPECT on line %d of \"%s\".", token, f->linenum, f->filename);
 	return (0);
       }
     }
@@ -3760,6 +3780,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	_cups_strcasecmp(token, "WITH-ALL-HOSTNAMES") &&
 	_cups_strcasecmp(token, "WITH-ALL-RESOURCES") &&
 	_cups_strcasecmp(token, "WITH-ALL-SCHEMES") &&
+	_cups_strcasecmp(token, "WITH-DISTINCT-VALUES") &&
 	_cups_strcasecmp(token, "WITH-HOSTNAME") &&
 	_cups_strcasecmp(token, "WITH-RESOURCE") &&
 	_cups_strcasecmp(token, "WITH-SCHEME") &&
@@ -4518,6 +4539,18 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	return (0);
       }
     }
+    else if (!_cups_strcasecmp(token, "WITH-DISTINCT-VALUES"))
+    {
+      if (data->last_expect)
+      {
+        data->last_expect->with_distinct = 1;
+      }
+      else
+      {
+	print_fatal_error(data, "%s without a preceding EXPECT on line %d of \"%s\".", token, f->linenum, f->filename);
+	return (0);
+      }
+    }
     else if (!_cups_strcasecmp(token, "WITH-ALL-VALUES") ||
 	     !_cups_strcasecmp(token, "WITH-ALL-HOSTNAMES") ||
 	     !_cups_strcasecmp(token, "WITH-ALL-RESOURCES") ||
@@ -5082,8 +5115,109 @@ usage(void)
 
 
 /*
+ * 'with_distinct_values()' - Verify that an attribute contains unique values.
+ */
+
+static int				// O - 1 if distinct, 0 if duplicate
+with_distinct_values(
+    cups_array_t    *errors,		// I - Array of errors
+    ipp_attribute_t *attr)		// I - Attribute to test
+{
+  int		i,			// Looping var
+		count;			// Number of values
+  ipp_tag_t	value_tag;		// Value syntax
+  const char	*value;			// Current value
+  char		buffer[8192];		// Temporary buffer
+  cups_array_t	*values;		// Array of values as strings
+
+
+  // If there is only 1 value, it must be distinct
+  if ((count = ippGetCount(attr)) == 1)
+    return (1);
+
+  // Only check integers, enums, rangeOfInteger, resolution, and nul-terminated
+  // strings...
+  switch (value_tag = ippGetValueTag(attr))
+  {
+    case IPP_TAG_INTEGER :
+    case IPP_TAG_ENUM :
+    case IPP_TAG_RANGE :
+    case IPP_TAG_RESOLUTION :
+    case IPP_TAG_KEYWORD :
+    case IPP_TAG_URISCHEME :
+    case IPP_TAG_CHARSET :
+    case IPP_TAG_LANGUAGE :
+    case IPP_TAG_MIMETYPE :
+        break;
+
+    default :
+        add_stringf(errors, "WITH-DISTINCT-VALUES %s not supported for 1setOf %s", ippGetName(attr), ippTagString(value_tag));
+        return (0);
+  }
+
+  // Collect values and determine they are all unique...
+  values = cupsArrayNew3((cups_array_func_t)strcmp, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+
+  for (i = 0; i < count; i ++)
+  {
+    switch (value_tag)
+    {
+      case IPP_TAG_INTEGER :
+      case IPP_TAG_ENUM :
+          snprintf(buffer, sizeof(buffer), "%d", ippGetInteger(attr, i));
+          value = buffer;
+          break;
+      case IPP_TAG_RANGE :
+          {
+            int upper, lower = ippGetRange(attr, i, &upper);
+					// Range values
+
+            snprintf(buffer, sizeof(buffer), "%d-%d", lower, upper);
+            value = buffer;
+	  }
+          break;
+      case IPP_TAG_RESOLUTION :
+          {
+            ipp_res_t units;		// Resolution units
+            int yres, xres = ippGetResolution(attr, i, &yres, &units);
+					// Resolution values
+
+            if (xres == yres)
+              snprintf(buffer, sizeof(buffer), "%d%s", xres, units == IPP_RES_PER_INCH ? "dpi" : "dpcm");
+	    else
+              snprintf(buffer, sizeof(buffer), "%dx%d%s", xres, yres, units == IPP_RES_PER_INCH ? "dpi" : "dpcm");
+            value = buffer;
+	  }
+          break;
+      case IPP_TAG_KEYWORD :
+      case IPP_TAG_URISCHEME :
+      case IPP_TAG_CHARSET :
+      case IPP_TAG_LANGUAGE :
+      case IPP_TAG_MIMETYPE :
+          value = ippGetString(attr, i, NULL);
+          break;
+      default : // Should never happen
+          value = "unsupported";
+          break;
+    }
+
+    if (cupsArrayFind(values, (void *)value))
+      add_stringf(errors, "DUPLICATE: %s=%s", ippGetName(attr), value);
+    else
+      cupsArrayAdd(values, (void *)value);
+  }
+
+  // Cleanup...
+  i = cupsArrayCount(values) == count;
+  cupsArrayDelete(values);
+
+  return (i);
+}
+
+
+/*
  * 'with_flags_string()' - Return the "WITH-xxx" predicate that corresponds to
-                           the flags.
+ *                         the flags.
  */
 
 static const char *                     /* O - WITH-xxx string */
