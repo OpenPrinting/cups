@@ -2,8 +2,8 @@
  * ipptool command for CUPS.
  *
  * Copyright © 2021 by OpenPrinting.
- * Copyright @ 2020 by The Printer Working Group.
- * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 2020 by The Printer Working Group.
+ * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -153,6 +153,13 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   char		test_id[1024];		/* Test identifier */
   ipptool_transfer_t transfer;		/* To chunk or not to chunk */
   int		version;		/* IPP version number to use */
+  _cups_thread_t monitor_thread;	/* Monitoring thread ID */
+  int		monitor_done;		/* Set to 1 to stop monitor thread */
+  char		*monitor_uri;		/* MONITOR-PRINTER-STATE URI */
+  useconds_t	monitor_delay,		/* MONITOR-PRINTER-STATE DELAY value, if any */
+		monitor_interval;	/* MONITOR-PRINTER-STATE DELAY interval */
+  int		num_monitor_expects;	/* Number MONITOR-PRINTER-STATE EXPECTs */
+  ipptool_expect_t monitor_expects[10];	/* MONITOR-PRINTER-STATE EXPECTs */
 } ipptool_test_t;
 
 
@@ -170,6 +177,7 @@ static int	Cancel = 0;		/* Cancel test? */
 static void	add_stringf(cups_array_t *a, const char *s, ...) _CUPS_FORMAT(2, 3);
 static int      compare_uris(const char *a, const char *b);
 static void	copy_hex_string(char *buffer, unsigned char *data, int datalen, size_t bufsize);
+static void	*do_monitor_test(ipptool_test_t *data);
 static int	do_test(_ipp_file_t *f, _ipp_vars_t *vars, ipptool_test_t *data);
 static int	do_tests(const char *testfile, _ipp_vars_t *vars, ipptool_test_t *data);
 static int	error_cb(_ipp_file_t *f, ipptool_test_t *data, const char *error);
@@ -178,6 +186,7 @@ static char	*get_filename(const char *testfile, char *dst, const char *src, size
 static const char *get_string(ipp_attribute_t *attr, int element, int flags, char *buffer, size_t bufsize);
 static void	init_data(ipptool_test_t *data);
 static char	*iso_date(const ipp_uchar_t *date);
+static int	parse_monitor_printer_state(_ipp_file_t *f, _ipp_vars_t *vars, ipptool_test_t *data);
 static void	pause_message(const char *message);
 static void	print_attr(cups_file_t *outfile, ipptool_output_t output, ipp_attribute_t *attr, ipp_tag_t *group);
 static void	print_csv(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
@@ -878,12 +887,135 @@ copy_hex_string(char          *buffer,	/* I - String buffer */
 
 
 /*
+ * 'do_monitor_printer_state()' - Do the MONITOR-PRINTER-STATE tests in the background.
+ */
+
+static void *				// O - Thread exit status
+do_monitor_printer_state(
+    ipptool_test_t *data)		// I - Test data
+{
+  char		scheme[32],		// URI scheme
+		userpass[32],		// URI username:password
+		host[256],		// URI hostname/IP address
+		resource[256];		// URI resource path
+  int		port;			// URI port number
+  http_encryption_t encryption;		// Encryption to use
+  http_t	*http;			// Connection to printer
+  ipp_t		*request,		// IPP request
+		*response;		// IPP response
+  ipp_attribute_t *attr;		// Current attribute
+  ipptool_expect_t *expect;		// Current EXPECT test
+  static const char *pattrs[] =		// List of attributes we care about
+  {
+    "marker-change-time",		// "marker-xxx" are a CUPS/AirPrint extension
+    "marker-colors",
+    "marker-high-levels",
+    "marker-levels",
+    "marker-low-levels",
+    "marker-message",
+    "marker-names",
+    "marker-types",
+    "printer-alert",
+    "printer-alert-description",
+    "printer-config-change-date-time",
+    "printer-config-change-time",
+    "printer-config-changes",
+    "printer-current-time",
+    "printer-finisher",
+    "printer-finisher-description",
+    "printer-finisher-supplies",
+    "printer-finisher-supplies-description",
+    "printer-impressions-completed",
+    "printer-impressions-completed-col",
+    "printer-input-tray",
+    "printer-is-accepting-jobs",
+    "printer-media-sheets-completed",
+    "printer-media-sheets-completed-col",
+    "printer-message-date-time",
+    "printer-message-from-operator",
+    "printer-message-time",
+    "printer-output-tray",
+    "printer-pages-completed",
+    "printer-pages-completed-col",
+    "printer-state",
+    "printer-state-change-date-time",
+    "printer-state-change-time",
+    "printer-state-reasons",
+    "printer-supply",
+    "printer-supply-description",
+    "printer-up-time",
+    "queued-job-count"
+  };
+
+
+  // Connect to the printer...
+  if (httpSeparateURI(HTTP_URI_CODING_ALL, data->monitor_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+  {
+    print_fatal_error(data, "Bad printer URI \"%s\".", data->monitor_uri);
+    return (NULL);
+  }
+
+  if (!_cups_strcasecmp(scheme, "https") || !_cups_strcasecmp(scheme, "ipps") || port == 443)
+    encryption = HTTP_ENCRYPTION_ALWAYS;
+  else
+    encryption = data->encryption;
+
+  if ((http = httpConnect2(host, port, NULL, data->family, encryption, 1, 30000, NULL)) == NULL)
+  {
+    print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", host, port, cupsLastErrorString());
+    return (0);
+  }
+
+#ifdef HAVE_LIBZ
+  httpSetDefaultField(http, HTTP_FIELD_ACCEPT_ENCODING, "deflate, gzip, identity");
+#else
+  httpSetDefaultField(http, HTTP_FIELD_ACCEPT_ENCODING, "identity");
+#endif /* HAVE_LIBZ */
+
+  if (data->timeout > 0.0)
+    httpSetTimeout(http, data->timeout, timeout_cb, NULL);
+
+  // Wait for the initial delay as needed...
+  if (data->monitor_delay)
+    usleep(data->monitor_delay);
+
+  // Create a query request that we'll reuse...
+  request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+  ippSetVersion(request, data->version / 10, data->version % 10);
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->monitor_uri);
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddStrings(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_KEYWORD), "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
+
+  // Loop until we need to stop...
+  while (!data->monitor_done && !Cancel)
+  {
+    // Poll the printer state...
+
+
+
+
+    // Sleep between requests...
+    if (data->monitor_done || Cancel)
+      break;
+
+    usleep(data->monitor_interval);
+  }
+
+  // Close the connection to the printer and return...
+  httpClose(http);
+  ippDelete(request);
+
+  return (NULL);
+}
+
+
+/*
  * 'do_test()' - Do a single test from the test file.
  */
 
 static int				/* O - 1 on success, 0 on failure */
-do_test(_ipp_file_t      *f,		/* I - IPP data file */
-        _ipp_vars_t      *vars,		/* I - IPP variables */
+do_test(_ipp_file_t    *f,		/* I - IPP data file */
+        _ipp_vars_t    *vars,		/* I - IPP variables */
         ipptool_test_t *data)		/* I - Test data */
 
 {
@@ -922,6 +1054,13 @@ do_test(_ipp_file_t      *f,		/* I - IPP data file */
 
     data->pause[0] = '\0';
   }
+
+ /*
+  * Start the background thread as needed...
+  */
+
+  if (data->monitor_uri)
+    data->monitor_thread = _cupsThreadCreate((_cups_thread_func_t)do_monitor_printer_state, data);
 
  /*
   * Take over control of the attributes in the request...
@@ -1822,6 +1961,12 @@ do_test(_ipp_file_t      *f,		/* I - IPP data file */
 
   skip_error:
 
+  if (data->monitor_thread)
+  {
+    data->monitor_done = 1;
+    _cupsThreadWait(data->monitor_thread);
+  }
+
   if (data->output == IPPTOOL_OUTPUT_PLIST)
     cupsFilePuts(data->outfile, "</dict>\n");
 
@@ -1867,6 +2012,32 @@ do_test(_ipp_file_t      *f,		/* I - IPP data file */
     free(data->displayed[i]);
   data->num_displayed = 0;
 
+  free(data->monitor_uri);
+  data->monitor_uri = NULL;
+
+  for (i = data->num_monitor_expects, expect = data->monitor_expects; i > 0; i --, expect ++)
+  {
+    free(expect->name);
+    if (expect->of_type)
+      free(expect->of_type);
+    if (expect->same_count_as)
+      free(expect->same_count_as);
+    if (expect->if_defined)
+      free(expect->if_defined);
+    if (expect->if_not_defined)
+      free(expect->if_not_defined);
+    if (expect->with_value)
+      free(expect->with_value);
+    if (expect->define_match)
+      free(expect->define_match);
+    if (expect->define_no_match)
+      free(expect->define_no_match);
+    if (expect->define_value)
+      free(expect->define_value);
+  }
+  data->num_monitor_expects = 0;
+
+
   return (data->ignore_errors || data->prev_pass);
 }
 
@@ -1876,9 +2047,9 @@ do_test(_ipp_file_t      *f,		/* I - IPP data file */
  */
 
 static int				/* O - 1 on success, 0 on failure */
-do_tests(const char       *testfile,	/* I - Test file to use */
-         _ipp_vars_t      *vars,	/* I - Variables */
-         ipptool_test_t *data)	/* I - Test data */
+do_tests(const char     *testfile,	/* I - Test file to use */
+         _ipp_vars_t    *vars,		/* I - Variables */
+         ipptool_test_t *data)		/* I - Test data */
 {
   http_encryption_t encryption;		/* Encryption mode */
 
@@ -1887,7 +2058,7 @@ do_tests(const char       *testfile,	/* I - Test file to use */
   * Connect to the printer/server...
   */
 
-  if (!_cups_strcasecmp(vars->scheme, "https") || !_cups_strcasecmp(vars->scheme, "ipps"))
+  if (!_cups_strcasecmp(vars->scheme, "https") || !_cups_strcasecmp(vars->scheme, "ipps") || vars->port == 443)
     encryption = HTTP_ENCRYPTION_ALWAYS;
   else
     encryption = data->encryption;
@@ -2197,6 +2368,410 @@ iso_date(const ipp_uchar_t *date)	/* I - IPP (RFC 1903) date/time value */
 	   utcdate.tm_hour, utcdate.tm_min, utcdate.tm_sec);
 
   return (buffer);
+}
+
+
+/*
+ * 'parse_monitor_printer_state()' - Parse the MONITOR-PRINTER-STATE directive.
+ *
+ * MONITOR-PRINTER-STATE [printer-uri] {
+ *     DELAY nnn
+ *     EXPECT attribute-name ...
+ * }
+ */
+
+static int				/* O - 1 to continue, 0 to stop */
+parse_monitor_printer_state(
+    _ipp_file_t    *f,			/* I - IPP file data */
+    _ipp_vars_t    *vars,		/* I - IPP variables */
+    ipptool_test_t *data)		/* I - Test data */
+{
+  char	token[256],			/* Token string */
+	name[1024],			/* Name string */
+	temp[1024],			/* Temporary string */
+	value[1024],			/* Value string */
+	*ptr;				/* Pointer into value */
+
+
+  if (!_ippFileReadToken(f, temp, sizeof(temp)))
+  {
+    print_fatal_error(data, "Missing printer URI on line %d of \"%s\".", f->linenum, f->filename);
+    return (0);
+  }
+
+  if (strcmp(temp, "{"))
+  {
+    // Got a printer URI so copy it...
+    data->monitor_uri = strdup(temp);
+
+    // Then see if we have an opening brace...
+    if (!_ippFileReadToken(f, temp, sizeof(temp)) || strcmp(temp, "{"))
+    {
+      print_fatal_error(data, "Missing opening brace on line %d of \"%s\".", f->linenum, f->filename);
+      return (0);
+    }
+  }
+  else
+  {
+    // Use the default printer URI...
+    data->monitor_uri = strdup(vars->uri);
+  }
+
+  // Loop until we get a closing brace...
+  while (_ippFileReadToken(f, token, sizeof(token)))
+  {
+    if (_cups_strcasecmp(token, "COUNT") &&
+	_cups_strcasecmp(token, "DEFINE-MATCH") &&
+	_cups_strcasecmp(token, "DEFINE-NO-MATCH") &&
+	_cups_strcasecmp(token, "DEFINE-VALUE") &&
+	_cups_strcasecmp(token, "IF-DEFINED") &&
+	_cups_strcasecmp(token, "IF-NOT-DEFINED") &&
+	_cups_strcasecmp(token, "IN-GROUP") &&
+	_cups_strcasecmp(token, "OF-TYPE") &&
+	_cups_strcasecmp(token, "WITH-VALUE"))
+      data->last_expect = NULL;
+
+    if (!strcmp(token, "}"))
+      return (1);
+    else if (!_cups_strcasecmp(token, "EXPECT"))
+    {
+     /*
+      * Expected attributes...
+      */
+
+      if (data->num_monitor_expects >= (int)(sizeof(data->monitor_expects) / sizeof(data->monitor_expects[0])))
+      {
+	print_fatal_error(data, "Too many EXPECT's on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (!_ippFileReadToken(f, name, sizeof(name)))
+      {
+	print_fatal_error(data, "Missing EXPECT name on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      data->last_expect = data->monitor_expects + data->num_monitor_expects;
+      data->num_monitor_expects ++;
+
+      memset(data->last_expect, 0, sizeof(ipptool_expect_t));
+      data->last_expect->repeat_limit = 1000;
+
+      if (name[0] == '!')
+      {
+	data->last_expect->not_expect = 1;
+	data->last_expect->name       = strdup(name + 1);
+      }
+      else if (name[0] == '?')
+      {
+	data->last_expect->optional = 1;
+	data->last_expect->name     = strdup(name + 1);
+      }
+      else
+	data->last_expect->name = strdup(name);
+    }
+    else if (!_cups_strcasecmp(token, "COUNT"))
+    {
+      int	count;			/* Count value */
+
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing COUNT number on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if ((count = atoi(temp)) <= 0)
+      {
+	print_fatal_error(data, "Bad COUNT \"%s\" on line %d of \"%s\".", temp, f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->count = count;
+      }
+      else
+      {
+	print_fatal_error(data, "COUNT without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "DEFINE-MATCH"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing DEFINE-MATCH variable on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->define_match = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "DEFINE-MATCH without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "DEFINE-NO-MATCH"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing DEFINE-NO-MATCH variable on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->define_no_match = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "DEFINE-NO-MATCH without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "DEFINE-VALUE"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing DEFINE-VALUE variable on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->define_value = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "DEFINE-VALUE without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "DELAY"))
+    {
+     /*
+      * Delay before operation...
+      */
+
+      double dval;                    /* Delay value */
+
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing DELAY value on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      _ippVarsExpand(vars, value, temp, sizeof(value));
+
+      if ((dval = _cupsStrScand(value, &ptr, localeconv())) < 0.0 || (*ptr && *ptr != ','))
+      {
+	print_fatal_error(data, "Bad DELAY value \"%s\" on line %d of \"%s\".", value, f->linenum, f->filename);
+	return (0);
+      }
+
+      data->monitor_delay = (useconds_t)(1000000.0 * dval);
+
+      if (*ptr == ',')
+      {
+	if ((dval = _cupsStrScand(ptr + 1, &ptr, localeconv())) <= 0.0 || *ptr)
+	{
+	  print_fatal_error(data, "Bad DELAY value \"%s\" on line %d of \"%s\".", value, f->linenum, f->filename);
+	  return (0);
+	}
+
+	data->monitor_interval = (useconds_t)(1000000.0 * dval);
+      }
+      else
+	data->monitor_interval = data->monitor_delay;
+    }
+    else if (!_cups_strcasecmp(token, "OF-TYPE"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing OF-TYPE value tag(s) on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->of_type = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "OF-TYPE without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "IN-GROUP"))
+    {
+      ipp_tag_t	in_group;		/* IN-GROUP value */
+
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing IN-GROUP group tag on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if ((in_group = ippTagValue(temp)) == IPP_TAG_ZERO || in_group >= IPP_TAG_UNSUPPORTED_VALUE)
+      {
+	print_fatal_error(data, "Bad IN-GROUP group tag \"%s\" on line %d of \"%s\".", temp, f->linenum, f->filename);
+	return (0);
+      }
+      else if (data->last_expect)
+      {
+	data->last_expect->in_group = in_group;
+      }
+      else
+      {
+	print_fatal_error(data, "IN-GROUP without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "IF-DEFINED"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing IF-DEFINED name on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->if_defined = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "IF-DEFINED without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "IF-NOT-DEFINED"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing IF-NOT-DEFINED name on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->if_not_defined = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "IF-NOT-DEFINED without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "WITH-VALUE"))
+    {
+      off_t	lastpos;		/* Last file position */
+      int	lastline;		/* Last line number */
+
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing %s value on line %d of \"%s\".", token, f->linenum, f->filename);
+	return (0);
+      }
+
+     /*
+      * Read additional comma-delimited values - needed since legacy test files
+      * will have unquoted WITH-VALUE values with commas...
+      */
+
+      ptr = temp + strlen(temp);
+
+      for (;;)
+      {
+        lastpos  = cupsFileTell(f->fp);
+        lastline = f->linenum;
+        ptr      += strlen(ptr);
+
+	if (!_ippFileReadToken(f, ptr, (sizeof(temp) - (size_t)(ptr - temp))))
+	  break;
+
+        if (!strcmp(ptr, ","))
+        {
+         /*
+          * Append a value...
+          */
+
+	  ptr += strlen(ptr);
+
+	  if (!_ippFileReadToken(f, ptr, (sizeof(temp) - (size_t)(ptr - temp))))
+	    break;
+        }
+        else
+        {
+         /*
+          * Not another value, stop here...
+          */
+
+          cupsFileSeek(f->fp, lastpos);
+          f->linenum = lastline;
+          *ptr = '\0';
+          break;
+	}
+      }
+
+      if (data->last_expect)
+      {
+       /*
+	* Expand any variables in the value and then save it.
+	*/
+
+	_ippVarsExpand(vars, value, temp, sizeof(value));
+
+	ptr = value + strlen(value) - 1;
+
+	if (value[0] == '/' && ptr > value && *ptr == '/')
+	{
+	 /*
+	  * WITH-VALUE is a POSIX extended regular expression.
+	  */
+
+	  data->last_expect->with_value = calloc(1, (size_t)(ptr - value));
+	  data->last_expect->with_flags |= IPPTOOL_WITH_REGEX;
+
+	  if (data->last_expect->with_value)
+	    memcpy(data->last_expect->with_value, value + 1, (size_t)(ptr - value - 1));
+	}
+	else
+	{
+	 /*
+	  * WITH-VALUE is a literal value...
+	  */
+
+	  for (ptr = value; *ptr; ptr ++)
+	  {
+	    if (*ptr == '\\' && ptr[1])
+	    {
+	     /*
+	      * Remove \ from \foo...
+	      */
+
+	      _cups_strcpy(ptr, ptr + 1);
+	    }
+	  }
+
+	  data->last_expect->with_value = strdup(value);
+	  data->last_expect->with_flags |= IPPTOOL_WITH_LITERAL;
+	}
+      }
+      else
+      {
+	print_fatal_error(data, "%s without a preceding EXPECT on line %d of \"%s\".", token, f->linenum, f->filename);
+	return (0);
+      }
+    }
+  }
+
+  print_fatal_error(data, "Missing closing brace on line %d of \"%s\".", f->linenum, f->filename);
+
+  return (0);
 }
 
 
@@ -3012,10 +3587,10 @@ timeout_cb(http_t *http,		/* I - Connection to server */
  */
 
 static int				/* O - 1 to continue, 0 to stop */
-token_cb(_ipp_file_t      *f,		/* I - IPP file data */
-         _ipp_vars_t      *vars,	/* I - IPP variables */
-         ipptool_test_t *data,	/* I - Test data */
-         const char       *token)	/* I - Current token */
+token_cb(_ipp_file_t    *f,		/* I - IPP file data */
+         _ipp_vars_t    *vars,		/* I - IPP variables */
+         ipptool_test_t *data,		/* I - Test data */
+         const char     *token)		/* I - Current token */
 {
   char	name[1024],			/* Name string */
 	temp[1024],			/* Temporary string */
@@ -3072,6 +3647,16 @@ token_cb(_ipp_file_t      *f,		/* I - IPP file data */
     if (!strcmp(token, "}"))
     {
       return (do_test(f, vars, data));
+    }
+    else if (!strcmp(token, "MONITOR-PRINTER-STATE"))
+    {
+      if (data->monitor_uri)
+      {
+	print_fatal_error(data, "Extra MONITOR-PRINTER-STATE seen on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      return (parse_monitor_printer_state(f, vars, data));
     }
     else if (!strcmp(token, "COMPRESSION"))
     {
@@ -4016,6 +4601,12 @@ token_cb(_ipp_file_t      *f,		/* I - IPP file data */
       data->test_id[0]    = '\0';
       data->transfer      = data->def_transfer;
       data->version       = data->def_version;
+
+      free(data->monitor_uri);
+      data->monitor_uri         = NULL;
+      data->monitor_delay       = 0;
+      data->monitor_interval    = 5000000;
+      data->num_monitor_expects = 0;
 
       _ippVarsSet(vars, "date-current", iso_date(ippTimeToDate(time(NULL))));
 
