@@ -106,6 +106,7 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   http_encryption_t encryption;		/* Encryption for connection */
   int		family;			/* Address family */
   ipptool_output_t output;		/* Output mode */
+  int		repeat_on_busy;		/* Repeat tests on server-error-busy */
   int		stop_after_include_error;
 					/* Stop after include errors? */
   double	timeout;		/* Timeout for connection */
@@ -367,6 +368,10 @@ main(int  argc,				/* I - Number of command-line args */
 	        _cupsLangPuts(stderr, _("ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."));
 		usage();
 	      }
+              break;
+
+          case 'R' : /* Repeat on server-error-busy */
+              data.repeat_on_busy = 1;
               break;
 
 	  case 'S' : /* Encrypt with SSL */
@@ -1632,6 +1637,13 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       * Now check the test-defined expected status-code and attribute
       * values...
       */
+
+      if (ippGetStatusCode(response) == IPP_STATUS_ERROR_BUSY && data->repeat_on_busy)
+      {
+        // Repeat on a server-error-busy status code...
+        status_ok   = 1;
+        repeat_test = 1;
+      }
 
       for (i = 0, status_ok = 0; i < data->num_statuses; i ++)
       {
@@ -5095,6 +5107,7 @@ usage(void)
   _cupsLangPuts(stderr, _("-I                      Ignore errors"));
   _cupsLangPuts(stderr, _("-L                      Send requests using content-length"));
   _cupsLangPuts(stderr, _("-P filename.plist       Produce XML plist to a file and test report to standard output"));
+  _cupsLangPuts(stderr, _("-R                      Repeat tests on server-error-busy"));
   _cupsLangPuts(stderr, _("-S                      Test with encryption using HTTPS"));
   _cupsLangPuts(stderr, _("-T seconds              Set the receive/send timeout in seconds"));
   _cupsLangPuts(stderr, _("-V version              Set default IPP version"));
