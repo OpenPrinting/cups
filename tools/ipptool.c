@@ -1503,27 +1503,27 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
         major = ippGetVersion(response, &minor);
 
         if (major != (data->version / 10) || minor != (data->version % 10))
-	  add_stringf(data->errors, "Bad version %d.%d in response - expected %d.%d (RFC 2911 section 3.1.8).", major, minor, data->version / 10, data->version % 10);
+	  add_stringf(data->errors, "Bad version %d.%d in response - expected %d.%d (RFC 8011 section 4.1.8).", major, minor, data->version / 10, data->version % 10);
       }
 
       if (ippGetRequestId(response) != data->request_id)
-	add_stringf(data->errors, "Bad request ID %d in response - expected %d (RFC 2911 section 3.1.1)", ippGetRequestId(response), data->request_id);
+	add_stringf(data->errors, "Bad request ID %d in response - expected %d (RFC 8011 section 4.1.1)", ippGetRequestId(response), data->request_id);
 
       attrptr = ippFirstAttribute(response);
       if (!attrptr)
       {
-	add_stringf(data->errors, "Missing first attribute \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).");
+	add_stringf(data->errors, "Missing first attribute \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).");
       }
       else
       {
 	if (!ippGetName(attrptr) || ippGetValueTag(attrptr) != IPP_TAG_CHARSET || ippGetGroupTag(attrptr) != IPP_TAG_OPERATION || ippGetCount(attrptr) != 1 ||strcmp(ippGetName(attrptr), "attributes-charset"))
-	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
 
 	attrptr = ippNextAttribute(response);
 	if (!attrptr)
-	  add_stringf(data->errors, "Missing second attribute \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).");
+	  add_stringf(data->errors, "Missing second attribute \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).");
 	else if (!ippGetName(attrptr) || ippGetValueTag(attrptr) != IPP_TAG_LANGUAGE || ippGetGroupTag(attrptr) != IPP_TAG_OPERATION || ippGetCount(attrptr) != 1 || strcmp(ippGetName(attrptr), "attributes-natural-language"))
-	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
       }
 
       if ((attrptr = ippFindAttribute(response, "status-message", IPP_TAG_ZERO)) != NULL)
@@ -1532,13 +1532,13 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 						/* String value */
 
 	if (ippGetValueTag(attrptr) != IPP_TAG_TEXT)
-	  add_stringf(data->errors, "status-message (text(255)) has wrong value tag %s (RFC 2911 section 3.1.6.2).", ippTagString(ippGetValueTag(attrptr)));
+	  add_stringf(data->errors, "status-message (text(255)) has wrong value tag %s (RFC 8011 section 4.1.6.2).", ippTagString(ippGetValueTag(attrptr)));
 	if (ippGetGroupTag(attrptr) != IPP_TAG_OPERATION)
-	  add_stringf(data->errors, "status-message (text(255)) has wrong group tag %s (RFC 2911 section 3.1.6.2).", ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "status-message (text(255)) has wrong group tag %s (RFC 8011 section 4.1.6.2).", ippTagString(ippGetGroupTag(attrptr)));
 	if (ippGetCount(attrptr) != 1)
-	  add_stringf(data->errors, "status-message (text(255)) has %d values (RFC 2911 section 3.1.6.2).", ippGetCount(attrptr));
+	  add_stringf(data->errors, "status-message (text(255)) has %d values (RFC 8011 section 4.1.6.2).", ippGetCount(attrptr));
 	if (status_message && strlen(status_message) > 255)
-	  add_stringf(data->errors, "status-message (text(255)) has bad length %d (RFC 2911 section 3.1.6.2).", (int)strlen(status_message));
+	  add_stringf(data->errors, "status-message (text(255)) has bad length %d (RFC 8011 section 4.1.6.2).", (int)strlen(status_message));
       }
 
       if ((attrptr = ippFindAttribute(response, "detailed-status-message",
@@ -1548,25 +1548,13 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 						/* String value */
 
 	if (ippGetValueTag(attrptr) != IPP_TAG_TEXT)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has wrong "
-		      "value tag %s (RFC 2911 section 3.1.6.3).",
-		      ippTagString(ippGetValueTag(attrptr)));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has wrong value tag %s (RFC 8011 section 4.1.6.3).", ippTagString(ippGetValueTag(attrptr)));
 	if (ippGetGroupTag(attrptr) != IPP_TAG_OPERATION)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has wrong "
-		      "group tag %s (RFC 2911 section 3.1.6.3).",
-		      ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has wrong group tag %s (RFC 8011 section 4.1.6.3).", ippTagString(ippGetGroupTag(attrptr)));
 	if (ippGetCount(attrptr) != 1)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has %d values"
-		      " (RFC 2911 section 3.1.6.3).",
-		      ippGetCount(attrptr));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has %d values (RFC 8011 section 4.1.6.3).", ippGetCount(attrptr));
 	if (detailed_status_message && strlen(detailed_status_message) > 1023)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has bad "
-		      "length %d (RFC 2911 section 3.1.6.3).",
-		      (int)strlen(detailed_status_message));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has bad length %d (RFC 8011 section 4.1.6.3).", (int)strlen(detailed_status_message));
       }
 
       a = cupsArrayNew((cups_array_func_t)strcmp, NULL);
@@ -1612,9 +1600,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  }
 
 	  if (out_of_order)
-	    add_stringf(data->errors, "Attribute groups out of order (%s < %s)",
-			ippTagString(ippGetGroupTag(attrptr)),
-			ippTagString(group));
+	    add_stringf(data->errors, "Attribute groups out of order (%s < %s)", ippTagString(ippGetGroupTag(attrptr)), ippTagString(group));
 
 	  if (ippGetGroupTag(attrptr) != IPP_TAG_ZERO)
 	    group = ippGetGroupTag(attrptr);
@@ -1626,8 +1612,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	if (ippGetName(attrptr))
 	{
 	  if (cupsArrayFind(a, (void *)ippGetName(attrptr)) && data->output < IPPTOOL_OUTPUT_LIST)
-	    add_stringf(data->errors, "Duplicate \"%s\" attribute in %s group",
-			ippGetName(attrptr), ippTagString(group));
+	    add_stringf(data->errors, "Duplicate \"%s\" attribute in %s group", ippGetName(attrptr), ippTagString(group));
 
 	  cupsArrayAdd(a, (void *)ippGetName(attrptr));
 	}
@@ -1693,13 +1678,10 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	    continue;
 
 	  if (!data->statuses[i].repeat_match || repeat_count >= data->statuses[i].repeat_limit)
-	    add_stringf(data->errors, "EXPECTED: STATUS %s (got %s)",
-			ippErrorString(data->statuses[i].status),
-			ippErrorString(cupsLastError()));
+	    add_stringf(data->errors, "EXPECTED: STATUS %s (got %s)", ippErrorString(data->statuses[i].status), ippErrorString(cupsLastError()));
 	}
 
-	if ((attrptr = ippFindAttribute(response, "status-message",
-					IPP_TAG_TEXT)) != NULL)
+	if ((attrptr = ippFindAttribute(response, "status-message", IPP_TAG_TEXT)) != NULL)
 	  add_stringf(data->errors, "status-message=\"%s\"", ippGetString(attrptr, 0, NULL));
       }
 
@@ -1820,8 +1802,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	      _ippVarsSet(data->vars, expect->define_no_match, "1");
 	    else if (!expect->define_match && !expect->define_value)
 	    {
-	      add_stringf(data->errors, "EXPECTED: %s COUNT %d (got %d)", expect->name,
-			  expect->count, ippGetCount(found));
+	      add_stringf(data->errors, "EXPECTED: %s COUNT %d (got %d)", expect->name, expect->count, ippGetCount(found));
 	    }
 
 	    if (expect->repeat_no_match &&
@@ -1843,15 +1824,9 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	      else if (!expect->define_match && !expect->define_value)
 	      {
 		if (!attrptr)
-		  add_stringf(data->errors,
-			      "EXPECTED: %s (%d values) SAME-COUNT-AS %s "
-			      "(not returned)", expect->name,
-			      ippGetCount(found), expect->same_count_as);
+		  add_stringf(data->errors, "EXPECTED: %s (%d values) SAME-COUNT-AS %s (not returned)", expect->name, ippGetCount(found), expect->same_count_as);
 		else if (ippGetCount(attrptr) != ippGetCount(found))
-		  add_stringf(data->errors,
-			      "EXPECTED: %s (%d values) SAME-COUNT-AS %s "
-			      "(%d values)", expect->name, ippGetCount(found),
-			      expect->same_count_as, ippGetCount(attrptr));
+		  add_stringf(data->errors, "EXPECTED: %s (%d values) SAME-COUNT-AS %s (%d values)", expect->name, ippGetCount(found), expect->same_count_as, ippGetCount(attrptr));
 	      }
 
 	      if (expect->repeat_no_match &&
