@@ -1345,6 +1345,8 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
     {
       while (!response && !Cancel && data->prev_pass)
       {
+        ippSetRequestId(request, ++ data->request_id);
+
 	status = cupsSendRequest(data->http, request, data->resource, length);
 
 #ifdef HAVE_LIBZ
@@ -2190,7 +2192,6 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
   }
   data->num_monitor_expects = 0;
 
-
   return (data->ignore_errors || data->prev_pass);
 }
 
@@ -2637,7 +2638,7 @@ init_data(ipptool_test_t *data)	/* I - Data */
   data->errors       = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
   data->pass         = 1;
   data->prev_pass    = 1;
-  data->request_id   = (CUPS_RAND() % 1000) * 137 + 1;
+  data->request_id   = (CUPS_RAND() % 1000) * 137;
   data->show_header  = 1;
 }
 
@@ -4067,11 +4068,11 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
       {
 	if (isdigit(temp[0] & 255))
 	{
-	  data->request_id = atoi(temp);
+	  data->request_id = atoi(temp) - 1;
 	}
 	else if (!_cups_strcasecmp(temp, "random"))
 	{
-	  data->request_id = (CUPS_RAND() % 1000) * 137 + 1;
+	  data->request_id = (CUPS_RAND() % 1000) * 137;
 	}
 	else
 	{
@@ -4912,7 +4913,6 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
       if ((ptr = strrchr(data->name, '.')) != NULL)
         *ptr = '\0';
       data->repeat_interval = 5000000;
-      data->request_id ++;
       strlcpy(data->resource, data->vars->resource, sizeof(data->resource));
       data->skip_previous = 0;
       data->skip_test     = 0;
