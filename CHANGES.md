@@ -21,6 +21,7 @@ CUPS v2.4rc1 (Pending)
 - The USB backend now runs as root (Issue #121)
 - Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
+- Added several features and improvements to `ipptool` (Issue #153)
 - The scheduler now includes the `[Job N]` prefix for job log messages, even
   when using syslog logging (Issue #154)
 - Added support for locales using the GB18030 character set (Issue #159)
