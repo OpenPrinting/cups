@@ -184,7 +184,7 @@ static void	*do_monitor_printer_state(ipptool_test_t *data);
 static int	do_test(_ipp_file_t *f, ipptool_test_t *data);
 static int	do_tests(const char *testfile, ipptool_test_t *data);
 static int	error_cb(_ipp_file_t *f, ipptool_test_t *data, const char *error);
-static int      expect_matches(ipptool_expect_t *expect, ipp_tag_t value_tag);
+static int      expect_matches(ipptool_expect_t *expect, ipp_attribute_t *attr);
 static char	*get_filename(const char *testfile, char *dst, const char *src, size_t dstsize);
 static const char *get_string(ipp_attribute_t *attr, int element, int flags, char *buffer, size_t bufsize);
 static void	init_data(ipptool_test_t *data);
@@ -1044,7 +1044,7 @@ do_monitor_printer_state(
 
       if ((found && expect->not_expect) ||
 	  (!found && !(expect->not_expect || expect->optional)) ||
-	  (found && !expect_matches(expect, ippGetValueTag(found))) ||
+	  (found && !expect_matches(expect, found)) ||
 	  (expect->in_group && ippGetGroupTag(found) != expect->in_group) ||
 	  (expect->with_distinct && !with_distinct_values(NULL, found)))
       {
@@ -1737,7 +1737,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
 	  if ((found && expect->not_expect) ||
 	      (!found && !(expect->not_expect || expect->optional)) ||
-	      (found && !expect_matches(expect, ippGetValueTag(found))) ||
+	      (found && !expect_matches(expect, found)) ||
 	      (group_found && expect->in_group && ippGetGroupTag(group_found) != expect->in_group) ||
 	      (expect->with_distinct && !with_distinct_values(NULL, found)))
 	  {
@@ -1751,7 +1751,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 		add_stringf(data->errors, "EXPECTED: %s", expect->name);
 	      else if (found)
 	      {
-		if (!expect_matches(expect, ippGetValueTag(found)))
+		if (!expect_matches(expect, found))
 		  add_stringf(data->errors, "EXPECTED: %s OF-TYPE %s (got %s)",
 			      expect->name, expect->of_type,
 			      ippTagString(ippGetValueTag(found)));
@@ -2271,12 +2271,17 @@ error_cb(_ipp_file_t      *f,		/* I - IPP file data */
 static int				/* O - 1 if matches, 0 otherwise */
 expect_matches(
     ipptool_expect_t *expect,		/* I - Expected attribute */
-    ipp_tag_t      value_tag)		/* I - Value tag for attribute */
+    ipp_attribute_t  *attr)		/* I - Attribute */
 {
-  int	match;				/* Match? */
-  char	*of_type,			/* Type name to match */
-	*next,				/* Next name to match */
-	sep;				/* Separator character */
+  int		i,			/* Looping var */
+		count,			/* Number of values */
+		match;			/* Match? */
+  char		*of_type,		/* Type name to match */
+		*paren,			/* Pointer to opening parenthesis */
+		*next,			/* Next name to match */
+		sep;			/* Separator character */
+  ipp_tag_t	value_tag;		/* Syntax/value tag */
+  int		lower, upper;		/* Lower and upper bounds for syntax */
 
 
  /*
@@ -2290,6 +2295,9 @@ expect_matches(
   * Parse the "of_type" value since the string can contain multiple attribute
   * types separated by "," or "|"...
   */
+
+  value_tag = ippGetValueTag(attr);
+  count     = ippGetCount(attr);
 
   for (of_type = expect->of_type, match = 0; !match && *of_type; of_type = next)
   {
@@ -2306,18 +2314,153 @@ expect_matches(
     * Support some meta-types to make it easier to write the test file.
     */
 
-    if (!strcmp(of_type, "text"))
-      match = value_tag == IPP_TAG_TEXTLANG || value_tag == IPP_TAG_TEXT;
-    else if (!strcmp(of_type, "name"))
-      match = value_tag == IPP_TAG_NAMELANG || value_tag == IPP_TAG_NAME;
-    else if (!strcmp(of_type, "collection"))
-      match = value_tag == IPP_TAG_BEGIN_COLLECTION;
+    if ((paren = strchr(of_type, '(')) != NULL)
+    {
+      char *ptr;			// Pointer into syntax string
+
+      *paren = '\0';
+
+      if (!strncmp(paren + 1, "MIN:", 4))
+      {
+        lower = INT_MIN;
+        ptr   = paren + 5;
+      }
+      else if ((ptr = strchr(paren + 1, ':')) != NULL)
+      {
+        lower = atoi(paren + 1);
+      }
+      else
+      {
+        lower = 0;
+        ptr   = paren + 1;
+      }
+
+      if (!strcmp(ptr, "MAX)"))
+        upper = INT_MAX;
+      else
+        upper = atoi(ptr);
+    }
     else
-      match = value_tag == ippTagValue(of_type);
+    {
+      lower = INT_MIN;
+      upper = INT_MAX;
+    }
+
+    if (!strcmp(of_type, "text"))
+    {
+      if (upper == INT_MAX)
+        upper = 1023;
+
+      if (value_tag == IPP_TAG_TEXTLANG || value_tag == IPP_TAG_TEXT)
+      {
+        for (i = 0; i < count; i ++)
+	{
+	  if (strlen(ippGetString(attr, i, NULL)) > (size_t)upper)
+	    break;
+	}
+
+	match = (i == count);
+      }
+    }
+    else if (!strcmp(of_type, "name"))
+    {
+      if (upper == INT_MAX)
+        upper = 255;
+
+      if (value_tag == IPP_TAG_NAMELANG || value_tag == IPP_TAG_NAME)
+      {
+        for (i = 0; i < count; i ++)
+	{
+	  if (strlen(ippGetString(attr, i, NULL)) > (size_t)upper)
+	    break;
+	}
+
+	match = (i == count);
+      }
+    }
+    else if (!strcmp(of_type, "collection"))
+    {
+      match = value_tag == IPP_TAG_BEGIN_COLLECTION;
+    }
+    else if (value_tag == ippTagValue(of_type))
+    {
+      switch (value_tag)
+      {
+        case IPP_TAG_KEYWORD :
+        case IPP_TAG_URI :
+            if (upper == INT_MAX)
+            {
+              if (value_tag == IPP_TAG_KEYWORD)
+		upper = 255;
+	      else
+	        upper = 1023;
+	    }
+
+	    for (i = 0; i < count; i ++)
+	    {
+	      if (strlen(ippGetString(attr, i, NULL)) > (size_t)upper)
+		break;
+	    }
+
+	    match = (i == count);
+	    break;
+
+        case IPP_TAG_STRING :
+            if (upper == INT_MAX)
+	      upper = 1023;
+
+	    for (i = 0; i < count; i ++)
+	    {
+	      int	datalen;	// Length of octetString value
+
+	      ippGetOctetString(attr, i, &datalen);
+
+	      if (datalen > upper)
+		break;
+	    }
+
+	    match = (i == count);
+	    break;
+
+	case IPP_TAG_INTEGER :
+	    for (i = 0; i < count; i ++)
+	    {
+	      int value = ippGetInteger(attr, i);
+					// Integer value
+
+	      if (value < lower || value > upper)
+		break;
+	    }
+
+	    match = (i == count);
+	    break;
+
+	case IPP_TAG_RANGE :
+	    for (i = 0; i < count; i ++)
+	    {
+	      int vupper, vlower = ippGetRange(attr, i, &vupper);
+					// Range value
+
+	      if (vlower < lower || vlower > upper || vupper < lower || vupper > upper)
+		break;
+	    }
+
+	    match = (i == count);
+	    break;
+
+	default :
+	    // No other constraints, so this is a match
+	    match = 1;
+	    break;
+      }
+    }
 
    /*
-    * Restore the separator if we have one...
+    * Restore the separators if we have them...
     */
+
+    if (paren)
+      *paren = '(';
 
     if (sep)
       *next++ = sep;

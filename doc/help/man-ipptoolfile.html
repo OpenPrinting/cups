@@ -233,8 +233,9 @@ The following predicates are understood following the <b>EXPECT</b> test directi
 <dd style="margin-left: 5.0em">Makes the <b>EXPECT</b> conditions apply only if the specified variable is not defined.
 <dt><b>IN-GROUP </b><i>tag</i>
 <dd style="margin-left: 5.0em">Requires the <b>EXPECT</b> attribute to be in the specified group tag.
-<dt><b>OF-TYPE </b><i>tag[|tag,...]</i>
+<dt><b>OF-TYPE </b><i>tag[(limits)|tag|...]</i>
 <dd style="margin-left: 5.0em">Requires the <b>EXPECT</b> attribute to use one of the specified value tag(s).
+Most value tags also support the specification of limits in parenthesis, for example "name(42)" would allow nameWith/WithoutLanguage strings up to 42 octets in length, "name(4:MAX)" would allow nameWith/WithoutLanguage strings between 4 and 255 octets in length, and "integer(-273:MAX)" would allow integers between -273 and 2147483647.
 <dt><b>REPEAT-LIMIT </b><i>number</i>
 <dd style="margin-left: 5.0em"><br>
 Specifies the maximum number of times to repeat if the <b>REPEAT-MATCH</b> or <b>REPEAT-NO-MATCH</b> predicate is specified. The default value is 1000.

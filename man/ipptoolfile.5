@@ -299,8 +299,9 @@ Makes the \fBEXPECT\fR conditions apply only if the specified variable is not de
 \fBIN\-GROUP \fItag\fR
 Requires the \fBEXPECT\fR attribute to be in the specified group tag.
 .TP 5
-\fBOF\-TYPE \fItag[|tag,...]\fR
+\fBOF\-TYPE \fItag[(limits)|tag|...]\fR
 Requires the \fBEXPECT\fR attribute to use one of the specified value tag(s).
+Most value tags also support the specification of limits in parenthesis, for example "name(42)" would allow nameWith/WithoutLanguage strings up to 42 octets in length, "name(4:MAX)" would allow nameWith/WithoutLanguage strings between 4 and 255 octets in length, and "integer(-273:MAX)" would allow integers between -273 and 2147483647.
 .TP 5
 \fBREPEAT\-LIMIT \fInumber\fR
 .br
