@@ -2231,7 +2231,7 @@ sigterm_handler(int sig)		/* I - Signal */
       _exit(0);
     else
     {
-      write(2, "DEBUG: Child crashed.\n", 22);
+      fprintf(stderr, "DEBUG: Child crashed.\n");
       _exit(CUPS_BACKEND_STOP);
     }
   }
