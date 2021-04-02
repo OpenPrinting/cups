@@ -3434,7 +3434,7 @@ sigterm_handler(int sig)		/* I - Signal */
     * Flag that the job should be canceled...
     */
 
-    write(2, "DEBUG: sigterm_handler: job_canceled = 1.\n", 25);
+    write(2, "DEBUG: sigterm_handler: job_canceled = 1.\n", 42);
 
     job_canceled = 1;
     return;
