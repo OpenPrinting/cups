@@ -424,7 +424,7 @@ alarm_handler(int sig)			/* I - Signal number */
 #endif /* !HAVE_SIGSET && !HAVE_SIGACTION */
 
   if (DebugLevel)
-    fprintf(stderr, "DEBUG: ALARM!\n");
+    backendMessage("DEBUG: ALARM!\n");
 }
 
 

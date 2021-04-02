@@ -395,7 +395,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  data = ps_data;
 
         write(1, data, strlen(data));
-	fprintf(stderr, "DEBUG: START\n");
+	backendMessage("DEBUG: START\n");
 	timeout = 60.0;
         while ((bytes = cupsBackChannelRead(buffer, sizeof(buffer),
 	                                    timeout)) > 0)
@@ -403,7 +403,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  write(2, buffer, (size_t)bytes);
 	  timeout = 5.0;
 	}
-	fprintf(stderr, "\nDEBUG: END\n");
+	backendMessage("\nDEBUG: END\n");
       }
 
       exit(0);

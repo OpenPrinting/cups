@@ -320,6 +320,11 @@ extern int		backendSNMPSupplies(int snmp_fd, http_addr_t *addr,
 extern int		backendWaitLoop(int snmp_fd, http_addr_t *addr,
 			                int use_bc, _cups_sccb_t side_cb);
 
+/*
+ * Used to log messages in backend.
+ * This was done to avoid a mismatch between the message string and the size of the string to write.
+ */
+#define backendMessage(msg) {const char *s=msg; write(2, s, strlen(s));}
 
 #  ifdef __cplusplus
 }
