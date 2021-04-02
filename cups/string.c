@@ -753,6 +753,22 @@ _cups_strlcpy(char       *dst,		/* O - Destination string */
 #endif /* !HAVE_STRLCPY */
 
 
+size_t					/* O - Length of string */
+_cups_strnlen( const char *str,		/* I - A string */
+	       size_t      maxsize)	/* I - The maximum size of string */
+{
+  if (str == NULL)
+    return 0;
+
+  size_t count = 0;
+
+  while (*str++ && maxsize--)
+    count++;
+
+  return count;
+}
+
+
 /*
  * 'compare_sp_items()' - Compare two string pool items...
  */

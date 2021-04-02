@@ -324,7 +324,8 @@ extern int		backendWaitLoop(int snmp_fd, http_addr_t *addr,
  * Used to log messages in backend.
  * This was done to avoid a mismatch between the message string and the size of the string to write.
  */
-#define backendMessage(msg) {const char *s=msg; write(2, s, strlen(s));}
+#define CUPS_BACKEND_LOG_MESSAGE_SIZE 2048
+#define backendMessage(msg) {const char *s=msg; write(2, s, _cups_strnlen(s, CUPS_BACKEND_LOG_MESSAGE_SIZE));}
 
 #  ifdef __cplusplus
 }

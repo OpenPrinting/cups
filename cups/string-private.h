@@ -170,6 +170,8 @@ extern int	_cups_vsnprintf(char *, size_t, const char *, va_list) _CUPS_PRIVATE;
 #    define vsnprintf _cups_vsnprintf
 #  endif /* !HAVE_VSNPRINTF */
 
+extern size_t _cups_strnlen(const char *, size_t) _CUPS_PRIVATE;
+
 /*
  * String pool functions...
  */
