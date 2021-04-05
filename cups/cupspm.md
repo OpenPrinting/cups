@@ -262,7 +262,7 @@ of destinations:
         * return...
         */
 
-        cupsFreeDests(user_data.num_dests, user_dasta.dests);
+        cupsFreeDests(user_data.num_dests, user_data.dests);
 
         *dests = NULL;
 
