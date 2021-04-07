@@ -149,7 +149,8 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   useconds_t	repeat_interval;	/* Repeat interval (delay) */
   int		request_id;		/* Current request ID */
   char		resource[512];		/* Resource for request */
-  int		skip_test,		/* Skip this test? */
+  int		pass_test,		/* Pass this test? */
+		skip_test,		/* Skip this test? */
 		num_statuses;		/* Number of valid status codes */
   ipptool_status_t statuses[100],	/* Valid status codes */
 		*last_status;		/* Last STATUS (for predicates) */
@@ -1191,7 +1192,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
   if (data->pause[0])
   {
-    if (!data->skip_test)
+    if (!data->skip_test && !data->pass_test)
       pause_message(data->pause);
 
     data->pause[0] = '\0';
@@ -1266,9 +1267,10 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
     cupsFilePrintf(cupsFileStdout(), "    %-68.68s [", data->name);
   }
 
-  if ((data->skip_previous && !data->prev_pass) || data->skip_test)
+  if ((data->skip_previous && !data->prev_pass) || data->skip_test || data->pass_test)
   {
-    data->skip_count ++;
+    if (!data->pass_test)
+      data->skip_count ++;
 
     ippDelete(request);
     request  = NULL;
@@ -1279,15 +1281,26 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       cupsFilePuts(data->outfile, "<key>Successful</key>\n");
       cupsFilePuts(data->outfile, "<true />\n");
       cupsFilePuts(data->outfile, "<key>Skipped</key>\n");
-      cupsFilePuts(data->outfile, "<true />\n");
+      if (data->pass_test)
+	cupsFilePuts(data->outfile, "<false />\n");
+      else
+	cupsFilePuts(data->outfile, "<true />\n");
       cupsFilePuts(data->outfile, "<key>StatusCode</key>\n");
-      print_xml_string(data->outfile, "string", "skip");
+      if (data->pass_test)
+	print_xml_string(data->outfile, "string", "pass");
+      else
+	print_xml_string(data->outfile, "string", "skip");
       cupsFilePuts(data->outfile, "<key>ResponseAttributes</key>\n");
       cupsFilePuts(data->outfile, "<dict />\n");
     }
 
     if (data->output == IPPTOOL_OUTPUT_TEST || (data->output == IPPTOOL_OUTPUT_PLIST && data->outfile != cupsFileStdout()))
-      cupsFilePuts(cupsFileStdout(), "SKIP]\n");
+    {
+      if (data->pass_test)
+	cupsFilePuts(cupsFileStdout(), "PASS]\n");
+      else
+	cupsFilePuts(cupsFileStdout(), "SKIP]\n");
+    }
 
     goto skip_error;
   }
@@ -4061,6 +4074,40 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	return (0);
       }
     }
+    else if (!strcmp(token, "PASS-IF-DEFINED"))
+    {
+     /*
+      * PASS-IF-DEFINED variable
+      */
+
+      if (_ippFileReadToken(f, name, sizeof(name)))
+      {
+	if (_ippVarsGet(vars, name))
+	  data->pass_test = 1;
+      }
+      else
+      {
+	print_fatal_error(data, "Missing PASS-IF-DEFINED value on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!strcmp(token, "PASS-IF-NOT-DEFINED"))
+    {
+     /*
+      * PASS-IF-NOT-DEFINED variable
+      */
+
+      if (_ippFileReadToken(f, name, sizeof(name)))
+      {
+	if (!_ippVarsGet(vars, name))
+	  data->pass_test = 1;
+      }
+      else
+      {
+	print_fatal_error(data, "Missing PASS-IF-NOT-DEFINED value on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
     else if (!strcmp(token, "SKIP-IF-DEFINED"))
     {
      /*
@@ -4890,6 +4937,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
       data->repeat_interval = 5000000;
       strlcpy(data->resource, data->vars->resource, sizeof(data->resource));
       data->skip_previous = 0;
+      data->pass_test     = 0;
       data->skip_test     = 0;
       data->num_statuses  = 0;
       data->last_status   = NULL;
