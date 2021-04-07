@@ -38,8 +38,8 @@ CUPS v2.4rc1 (Pending)
 - Deprecated cups-config (Issue #97)
 - Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
-  `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
-  and `cups-files.conf`.
+  `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
+  directives in `cupsd.conf` and `cups-files.conf`.
 
 
 CUPS v2.3.3op2 (February 1, 2021)
