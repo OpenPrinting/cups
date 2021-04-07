@@ -2690,7 +2690,8 @@ parse_monitor_printer_state(
   if (strcmp(temp, "{"))
   {
     // Got a printer URI so copy it...
-    data->monitor_uri = strdup(temp);
+    _ippVarsExpand(data->vars, value, temp, sizeof(value));
+    data->monitor_uri = strdup(value);
 
     // Then see if we have an opening brace...
     if (!_ippFileReadToken(f, temp, sizeof(temp)) || strcmp(temp, "{"))
