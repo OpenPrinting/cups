@@ -681,7 +681,12 @@ main(int  argc,				/* I - Number of command-line args */
       else
         testfile = argv[i];
 
-      if (!do_tests(testfile, &data))
+      if (access(testfile, 0))
+      {
+        _cupsLangPrintf(stderr, _("%s: Unable to open \"%s\": %s"), "ipptool", testfile, strerror(errno));
+        status = 1;
+      }
+      else if (!do_tests(testfile, &data))
         status = 1;
     }
   }

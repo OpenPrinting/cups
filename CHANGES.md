@@ -8,6 +8,9 @@ CUPS v2.4rc1 (Pending)
 - Added support for AirPrint and Mopria clients (Issue #105)
 - Added configure support for specifying systemd dependencies in the CUPS
   service file (Issue #144)
+- Added several features and improvements to `ipptool` (Issue #153)
+- The `ipptool` command now correctly reports an error when a test file cannot
+  be found.
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
 - The IPP backend did not return the correct status code when a job was canceled
@@ -21,7 +24,6 @@ CUPS v2.4rc1 (Pending)
 - The USB backend now runs as root (Issue #121)
 - Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
-- Added several features and improvements to `ipptool` (Issue #153)
 - The scheduler now includes the `[Job N]` prefix for job log messages, even
   when using syslog logging (Issue #154)
 - Added support for locales using the GB18030 character set (Issue #159)
