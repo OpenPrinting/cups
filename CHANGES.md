@@ -29,6 +29,8 @@ CUPS v2.4rc1 (Pending)
 - Added support for locales using the GB18030 character set (Issue #159)
 - The IPP parser now errors out when reading a member attribute outside a
   collection.
+- `httpReconnect2` did not reset the socket file descriptor when the TLS
+  negotiation failed (Apple #5907)
 - Documentation fixes (Issue #92)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146)
 - USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
