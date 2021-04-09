@@ -5153,7 +5153,7 @@ msgstr ""
 
 #: cups/ppd.c:1974
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: cups/http-support.c:1497
 msgid "No Content"
@@ -6799,7 +6799,7 @@ msgstr ""
 
 #: cups/ppd.c:1972
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: scheduler/client.c:1991
 msgid "You cannot access this page."
