@@ -1,5 +1,7 @@
 /*
- * Copyright 2005-2016 Apple Inc. All rights reserved.
+ * USB backend for macOS.
+ *
+ * Copyright © 2005-2021 Apple Inc. All rights reserved.
  *
  * IMPORTANT:  This Apple software is supplied to you by Apple Computer,
  * Inc. ("Apple") in consideration of your agreement to the following
