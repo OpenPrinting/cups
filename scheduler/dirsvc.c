@@ -315,15 +315,15 @@ dnssdBuildTxtRecord(
   char		admin_hostname[256],	/* Hostname for admin page */
 		adminurl_str[256],	/* URL for the admin page */
 		type_str[32],		/* Type to string buffer */
-		state_str[32],		/* State to string buffer */
-		rp_str[1024],		/* Queue name string buffer */
-		air_str[1024],		/* auth-info-required string buffer */
+		rp_str[256],		/* Queue name string buffer */
+		air_str[256],		/* auth-info-required string buffer */
+		urf_str[256],		/* URF string buffer */
 		*keyvalue[32][2],	/* Table of key/value pairs */
                 *ptr;                   /* Pointer in string */
   cupsd_txt_t	txt;			/* TXT record */
   cupsd_listener_t *lis;                /* Current listener */
   const char    *admin_scheme = "http"; /* Admin page URL scheme */
-
+  ipp_attribute_t *urf_supported;	/* urf-supported attribute */
 
  /*
   * Load up the key value pairs...
@@ -416,6 +416,33 @@ dnssdBuildTxtRecord(
   keyvalue[count++][1] = "1.2";
 #endif /* HAVE_TLS */
 
+  if ((urf_supported = ippFindAttribute(p->ppd_attrs, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
+  {
+    int urf_count = ippGetCount(urf_supported);
+					// Number of URF values
+
+    urf_str[0] = '\0';
+    for (i = 0, ptr = urf_str; i < urf_count; i ++)
+    {
+      const char *value = ippGetString(urf_supported, i, NULL);
+
+      if (ptr > urf_str && ptr < (urf_str + sizeof(urf_str) - 1))
+	*ptr++ = ',';
+
+      strlcpy(ptr, value, sizeof(urf_str) - (size_t)(ptr - urf_str));
+      ptr += strlen(ptr);
+
+      if (ptr >= (urf_str + sizeof(urf_str) - 1))
+	break;
+    }
+
+    keyvalue[count  ][0] = "URF";
+    keyvalue[count++][1] = urf_str;
+  }
+
+  keyvalue[count  ][0] = "mopria-certified";
+  keyvalue[count++][1] = "1.3";
+
   if (p->type & CUPS_PRINTER_FAX)
   {
     keyvalue[count  ][0] = "Fax";
@@ -479,10 +506,6 @@ dnssdBuildTxtRecord(
   }
 
   snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PRINTER_REMOTE);
-  snprintf(state_str, sizeof(state_str), "%d", p->state);
-
-  keyvalue[count  ][0] = "printer-state";
-  keyvalue[count++][1] = state_str;
 
   keyvalue[count  ][0] = "printer-type";
   keyvalue[count++][1] = type_str;

@@ -858,7 +858,6 @@
 		7284F9F01BFCCDB10026F886 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 7284F9EF1BFCCD940026F886 /* hash.c */; };
 		7284F9F11BFCCDB20026F886 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 7284F9EF1BFCCD940026F886 /* hash.c */; };
 		728FB7E91536161C005426E1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E5136B64AF00836530 /* CoreFoundation.framework */; };
-		728FB7EA1536161C005426E1 /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E6136B64B000836530 /* Kerberos.framework */; };
 		728FB7EB1536161C005426E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E7136B64B000836530 /* Security.framework */; };
 		728FB7ED1536161C005426E1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 728FB7EC1536161C005426E1 /* libz.dylib */; };
 		728FB7EE15361642005426E1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E8136B64B000836530 /* SystemConfiguration.framework */; };
@@ -3310,6 +3309,8 @@
 		278C58E8136B64B000836530 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		279AE6F42395B80F004DD600 /* libpam.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpam.tbd; path = usr/lib/libpam.tbd; sourceTree = SDKROOT; };
 		27A0347B1A8BDB1300650675 /* lpadmin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lpadmin; sourceTree = BUILT_PRODUCTS_DIR; };
+		27C89C8F2613E7C300A58F43 /* cups-snap.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-snap.m4"; path = "../config-scripts/cups-snap.m4"; sourceTree = "<group>"; };
+		27C89C902613E7C300A58F43 /* cups-tls.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-tls.m4"; path = "../config-scripts/cups-tls.m4"; sourceTree = "<group>"; };
 		27D3037D134148CB00F022B1 /* libcups2.def */ = {isa = PBXFileReference; lastKnownFileType = text; name = libcups2.def; path = ../cups/libcups2.def; sourceTree = "<group>"; };
 		27F89DA21B3AC43B00E5A4B7 /* testraster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = testraster.c; path = ../cups/testraster.c; sourceTree = "<group>"; };
 		720DD6C21358FD5F0064AA82 /* snmp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = snmp; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3455,8 +3456,6 @@
 		724379C41333FFC7009631B9 /* usb-darwin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "usb-darwin.c"; path = "../backend/usb-darwin.c"; sourceTree = "<group>"; };
 		724379C51333FFC7009631B9 /* usb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = usb.c; path = ../backend/usb.c; sourceTree = "<group>"; };
 		724379CA1334000E009631B9 /* ieee1284.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ieee1284.c; path = ../backend/ieee1284.c; sourceTree = "<group>"; };
-		72496E161A13A03B0051899C /* org.cups.cups-lpd.socket */ = {isa = PBXFileReference; lastKnownFileType = text; name = "org.cups.cups-lpd.socket"; path = "../scheduler/org.cups.cups-lpd.socket"; sourceTree = SOURCE_ROOT; };
-		72496E171A13A03B0051899C /* org.cups.cups-lpdAT.service.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = "org.cups.cups-lpdAT.service.in"; path = "../scheduler/org.cups.cups-lpdAT.service.in"; sourceTree = SOURCE_ROOT; };
 		724FA5351CC0370C0092477B /* testadmin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testadmin; sourceTree = BUILT_PRODUCTS_DIR; };
 		724FA5481CC037370092477B /* testarray */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testarray; sourceTree = BUILT_PRODUCTS_DIR; };
 		724FA55B1CC037500092477B /* testcache */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testcache; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3580,7 +3579,6 @@
 		72E65BB018DC799B00097E89 /* cups-pam.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-pam.m4"; path = "../config-scripts/cups-pam.m4"; sourceTree = "<group>"; };
 		72E65BB118DC799B00097E89 /* cups-poll.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-poll.m4"; path = "../config-scripts/cups-poll.m4"; sourceTree = "<group>"; };
 		72E65BB318DC799B00097E89 /* cups-sharedlibs.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-sharedlibs.m4"; path = "../config-scripts/cups-sharedlibs.m4"; sourceTree = "<group>"; };
-		72E65BB418DC799B00097E89 /* cups-ssl.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-ssl.m4"; path = "../config-scripts/cups-ssl.m4"; sourceTree = "<group>"; };
 		72E65BB518DC799B00097E89 /* cups-threads.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-threads.m4"; path = "../config-scripts/cups-threads.m4"; sourceTree = "<group>"; };
 		72E65BB618DC79CC00097E89 /* cups-config.in */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = "cups-config.in"; path = "../cups-config.in"; sourceTree = "<group>"; };
 		72E65BB718DC79CC00097E89 /* Makedefs.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = Makedefs.in; path = ../Makedefs.in; sourceTree = "<group>"; };
@@ -3601,9 +3599,6 @@
 		72E65BD318DC7A9800097E89 /* spec-ppd.header */ = {isa = PBXFileReference; lastKnownFileType = text; name = "spec-ppd.header"; path = "../filter/spec-ppd.header"; sourceTree = "<group>"; };
 		72E65BD418DC7A9800097E89 /* spec-ppd.shtml */ = {isa = PBXFileReference; lastKnownFileType = text.html.other; name = "spec-ppd.shtml"; path = "../filter/spec-ppd.shtml"; sourceTree = "<group>"; };
 		72E65BD518DC818400097E89 /* org.cups.cups-lpd.plist.in */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "org.cups.cups-lpd.plist.in"; path = "../scheduler/org.cups.cups-lpd.plist.in"; sourceTree = SOURCE_ROOT; };
-		72E65BD618DC818400097E89 /* org.cups.cupsd.path.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = org.cups.cupsd.path.in; path = ../scheduler/org.cups.cupsd.path.in; sourceTree = SOURCE_ROOT; };
-		72E65BD718DC818400097E89 /* org.cups.cupsd.service.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = org.cups.cupsd.service.in; path = ../scheduler/org.cups.cupsd.service.in; sourceTree = SOURCE_ROOT; };
-		72E65BD818DC818400097E89 /* org.cups.cupsd.socket.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = org.cups.cupsd.socket.in; path = ../scheduler/org.cups.cupsd.socket.in; sourceTree = SOURCE_ROOT; };
 		72E65BD918DC850A00097E89 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = ../Makefile; sourceTree = "<group>"; };
 		72E65BDC18DC852700097E89 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = ../scheduler/Makefile; sourceTree = SOURCE_ROOT; };
 		72E65BDE18DCA35700097E89 /* CHANGES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGES.md; path = ../CHANGES.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
@@ -4198,7 +4193,6 @@
 				728FB7ED1536161C005426E1 /* libz.dylib in Frameworks */,
 				728FB7E91536161C005426E1 /* CoreFoundation.framework in Frameworks */,
 				72D53A2A15B49110003F877F /* GSS.framework in Frameworks */,
-				728FB7EA1536161C005426E1 /* Kerberos.framework in Frameworks */,
 				728FB7EB1536161C005426E1 /* Security.framework in Frameworks */,
 				728FB7EE15361642005426E1 /* SystemConfiguration.framework in Frameworks */,
 			);
@@ -5064,12 +5058,7 @@
 				72E65BDC18DC852700097E89 /* Makefile */,
 				7226369B18AE6D19004ED309 /* org.cups.cups-lpd.plist */,
 				72E65BD518DC818400097E89 /* org.cups.cups-lpd.plist.in */,
-				72496E171A13A03B0051899C /* org.cups.cups-lpdAT.service.in */,
-				72496E161A13A03B0051899C /* org.cups.cups-lpd.socket */,
-				72E65BD618DC818400097E89 /* org.cups.cupsd.path.in */,
 				7226369C18AE6D19004ED309 /* org.cups.cupsd.plist */,
-				72E65BD718DC818400097E89 /* org.cups.cupsd.service.in */,
-				72E65BD818DC818400097E89 /* org.cups.cupsd.socket.in */,
 				72220F6913330B0C00FCA411 /* auth.c */,
 				72220F6A13330B0C00FCA411 /* auth.h */,
 				72220F6B13330B0C00FCA411 /* banners.c */,
@@ -5284,8 +5273,9 @@
 				72E65BB018DC799B00097E89 /* cups-pam.m4 */,
 				72E65BB118DC799B00097E89 /* cups-poll.m4 */,
 				72E65BB318DC799B00097E89 /* cups-sharedlibs.m4 */,
-				72E65BB418DC799B00097E89 /* cups-ssl.m4 */,
+				27C89C8F2613E7C300A58F43 /* cups-snap.m4 */,
 				72E65BB518DC799B00097E89 /* cups-threads.m4 */,
+				27C89C902613E7C300A58F43 /* cups-tls.m4 */,
 			);
 			name = "Autoconf Files";
 			sourceTree = "<group>";
@@ -11598,6 +11588,7 @@
 					"-Wno-shorten-64-to-32",
 				);
 				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Debug;
 		};
@@ -11648,6 +11639,7 @@
 					"-Wno-shorten-64-to-32",
 				);
 				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Release;
 		};

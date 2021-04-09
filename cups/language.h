@@ -66,6 +66,7 @@ typedef enum cups_encoding_e		/**** Language Encodings @exclude all@ ****/
   CUPS_WINDOWS_949,			/* Korean KS C5601-1992 */
   CUPS_WINDOWS_950,			/* Traditional Chinese Big Five */
   CUPS_WINDOWS_1361,			/* Korean Johab */
+  CUPS_BG18030,				/* Chinese GB 18030 @since CUPS 2.4.0@ */
   CUPS_ENCODING_DBCS_END = 127,		/* End of double-byte encodings @private@ */
 
   CUPS_EUC_CN,				/* EUC Simplified Chinese */

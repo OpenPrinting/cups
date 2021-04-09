@@ -148,6 +148,8 @@ VAR char		*AccessLog		VALUE(NULL),
 					/* Remote root user */
 			*Classification		VALUE(NULL);
 					/* Classification of system */
+VAR cups_array_t	*ReadyPaperSizes	VALUE(NULL);
+					/* List of paper sizes to list as ready */
 VAR uid_t		User			VALUE(1),
 					/* User ID for server */
 			RunUser			VALUE(0);
@@ -198,8 +200,6 @@ VAR int			MaxClients		VALUE(100),
 					/* Timeout during requests */
 			KeepAlive		VALUE(TRUE),
 					/* Support the Keep-Alive option? */
-			KeepAliveTimeout	VALUE(DEFAULT_KEEPALIVE),
-					/* Timeout between requests */
 			FileDevice		VALUE(FALSE),
 					/* Allow file: devices? */
 			FilterLimit		VALUE(0),

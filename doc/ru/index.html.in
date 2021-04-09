@@ -23,8 +23,8 @@
     </div>
     <div class="body">
       <div class="row">
-	<h1>CUPS @CUPS_VERSION@</h1>
-	<P>CUPS — поддерживающая большинство стандартов, свободная подсистема печати, разрабатываемая компанией <A HREF="http://www.apple.com/">Apple Inc.</A> для операционной системы macOS<SUP>&reg;</SUP> и других UNIX<SUP>&reg;</SUP>-подобных операционных систем.</P>
+	<h1>OpenPrinting CUPS @CUPS_VERSION@</h1>
+	<P>CUPS — поддерживающая большинство стандартов, свободная подсистема печати, разрабатываемая компанией <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> для операционной системы Linux® и других UNIX<SUP>&reg;</SUP>-подобных операционных систем. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers</P>
       </div>
       <div class="row">
 	<div class="thirds">
@@ -47,6 +47,6 @@
 </div>
       </div>
     </div>
-    <div class="footer">CUPS а также логотип CUPS являются зарегистрированными торговыми марками <A HREF="http://www.apple.com">Apple Inc.</A> Авторские права на CUPS принадлежат (2921) компании OpenPrinting Все права защищены.</div>
+    <div class="footer"> Авторские права на CUPS принадлежат (2021) компании OpenPrinting Все права защищены.</div>
   </body>
 </html>

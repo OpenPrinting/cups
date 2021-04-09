@@ -4,8 +4,13 @@ Changes in OpenPrinting CUPS
 CUPS v2.4rc1 (Pending)
 ----------------------
 
-- Added support for CUPS running in a snapcraft snap.
-- Added extra check for administrative inquiries from snapped clients.
+- Added support for CUPS running in a Snapcraft snap.
+- Added support for AirPrint and Mopria clients (Issue #105)
+- Added configure support for specifying systemd dependencies in the CUPS
+  service file (Issue #144)
+- Added several features and improvements to `ipptool` (Issue #153)
+- The `ipptool` command now correctly reports an error when a test file cannot
+  be found.
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
 - The IPP backend did not return the correct status code when a job was canceled
@@ -19,14 +24,27 @@ CUPS v2.4rc1 (Pending)
 - The USB backend now runs as root (Issue #121)
 - Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
-- Documentation fixes (Issue #92)
-- Localization updates (Issue #123, Issue #129)
+- The scheduler now includes the `[Job N]` prefix for job log messages, even
+  when using syslog logging (Issue #154)
+- Added support for locales using the GB18030 character set (Issue #159)
+- The IPP parser now errors out when reading a member attribute outside a
+  collection.
+- `httpReconnect2` did not reset the socket file descriptor when the TLS
+  negotiation failed (Apple #5907)
+- `httpUpdate` did not reset the socket file descriptor when the TLS
+  negotiation failed (Apple #5915)
+- Added retry in IPP backend when Validate-Job fails (Issue #132)
+- Documentation fixes (Issue #92, Issue #163)
+- Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
+  Issue #164)
+- USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
+- Web interface updates (Issue #142)
+- The `ippeveprinter` tool now automatically uses an available port.
 - Deprecated cups-config (Issue #97)
 - Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
-  `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
-  and `cups-files.conf`.
-- Add retry in IPP backend if Validate-Job failed
+  `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
+  directives in `cupsd.conf` and `cups-files.conf`.
 
 
 CUPS v2.3.3op2 (February 1, 2021)

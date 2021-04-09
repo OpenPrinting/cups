@@ -1,6 +1,7 @@
 #
 # Example files makefile for CUPS.
 #
+# Copyright © 2021 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 2002-2005 by Easy Software Products.
 #
@@ -87,6 +88,7 @@ TESTFILES	=	\
 			ipp-2.2.test \
 			ipp-backend.test \
 			ipp-everywhere.test \
+			print-job.test \
 			print-job-and-wait.test \
 			print-job-deflate.test \
 			print-job-gzip.test \
@@ -94,8 +96,8 @@ TESTFILES	=	\
 			print-job-letter.test \
 			print-job-manual.test \
 			print-job-media-col.test \
+			print-job-media-needed.test \
 			print-job-password.test \
-			print-job.test \
 			print-uri.test \
 			set-attrs-hold.test \
 			validate-job.test

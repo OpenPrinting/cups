@@ -96,7 +96,6 @@ static const cupsd_var_t	cupsd_vars[] =
   { "JobKillDelay",		&JobKillDelay,		CUPSD_VARTYPE_TIME },
   { "JobRetryLimit",		&JobRetryLimit,		CUPSD_VARTYPE_INTEGER },
   { "JobRetryInterval",		&JobRetryInterval,	CUPSD_VARTYPE_TIME },
-  { "KeepAliveTimeout",		&KeepAliveTimeout,	CUPSD_VARTYPE_TIME },
   { "KeepAlive",		&KeepAlive,		CUPSD_VARTYPE_BOOLEAN },
 #ifdef HAVE_LAUNCHD
   { "LaunchdTimeout",		&IdleExitTimeout,	CUPSD_VARTYPE_TIME },
@@ -624,6 +623,8 @@ cupsdReadConfiguration(void)
     cupsdSetString(&DefaultLanguage, language->language);
 
   cupsdClearString(&DefaultPaperSize);
+  cupsArrayDelete(ReadyPaperSizes);
+  ReadyPaperSizes = NULL;
 
   cupsdSetString(&TempDir, NULL);
 
@@ -713,7 +714,6 @@ cupsdReadConfiguration(void)
   FilterNice               = 0;
   HostNameLookups          = FALSE;
   KeepAlive                = TRUE;
-  KeepAliveTimeout         = DEFAULT_KEEPALIVE;
   ListenBackLog            = SOMAXCONN;
   LogDebugHistory          = 200;
   LogFilePerm              = CUPS_DEFAULT_LOG_FILE_PERM;
@@ -744,7 +744,7 @@ cupsdReadConfiguration(void)
   DefaultShared            = CUPS_DEFAULT_DEFAULT_SHARED;
 
 #ifdef HAVE_DNSSD
-  cupsdSetString(&DNSSDSubTypes, "_cups,_print");
+  cupsdSetString(&DNSSDSubTypes, "_cups,_print,_universal");
   cupsdClearString(&DNSSDHostName);
 #endif /* HAVE_DNSSD */
 
@@ -1272,6 +1272,17 @@ cupsdReadConfiguration(void)
     }
     else
       cupsdSetString(&DefaultPaperSize, "A4");
+  }
+
+  if (!ReadyPaperSizes)
+  {
+    // Build default list of common sizes for North America and worldwide...
+    if (!strcasecmp(DefaultPaperSize, "Letter"))
+      ReadyPaperSizes = _cupsArrayNewStrings("Letter,Legal,Tabloid,4x6,Env10", ',');
+    else if (!strcasecmp(DefaultPaperSize, "A4"))
+      ReadyPaperSizes = _cupsArrayNewStrings("A4,A3,A5,A6,EnvDL", ',');
+    else
+      ReadyPaperSizes = _cupsArrayNewStrings(DefaultPaperSize, ',');
   }
 
  /*
@@ -3317,6 +3328,17 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
       else
         cupsdLogMessage(CUPSD_LOG_WARN, "Unknown LogTimeFormat %s on line %d of %s.",
 	                value, linenum, ConfigurationFile);
+    }
+    else if (!_cups_strcasecmp(line, "ReadyPaperSizes") && value)
+    {
+     /*
+      * ReadyPaperSizes sizename[,sizename,...]
+      */
+
+      if (ReadyPaperSizes)
+        _cupsArrayAddStrings(ReadyPaperSizes, value, ',');
+      else
+        ReadyPaperSizes = _cupsArrayNewStrings(value, ',');
     }
     else if (!_cups_strcasecmp(line, "ServerTokens") && value)
     {

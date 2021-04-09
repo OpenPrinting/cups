@@ -1,5 +1,7 @@
 /*
- * Copyright 2005-2016 Apple Inc. All rights reserved.
+ * USB backend for macOS.
+ *
+ * Copyright © 2005-2021 Apple Inc. All rights reserved.
  *
  * IMPORTANT:  This Apple software is supplied to you by Apple Computer,
  * Inc. ("Apple") in consideration of your agreement to the following
@@ -357,6 +359,8 @@ print_device(const char *uri,		/* I - Device URI */
 
 
   (void)uri;
+  (void)argc;
+  (void)argv;
 
  /*
   * Catch SIGQUIT to determine who is sending it...
@@ -1510,12 +1514,11 @@ static kern_return_t load_printerdriver(CFStringRef *driverBundlePath)
   SInt32		score;
   kern_return_t		kr;
   printer_interface_t	interface;
-  HRESULT		res;
 
   kr = IOCreatePlugInInterfaceForService(g.printer_obj, kIOUSBInterfaceUserClientTypeID, kIOCFPlugInInterfaceID, &iodev, &score);
   if (kr == kIOReturnSuccess)
   {
-    if ((res = (*iodev)->QueryInterface(iodev, USB_INTERFACE_KIND, (LPVOID *) &interface)) == noErr)
+    if ((*iodev)->QueryInterface(iodev, USB_INTERFACE_KIND, (LPVOID *) &interface) == noErr)
     {
       *driverBundlePath = IORegistryEntryCreateCFProperty(g.printer_obj, kUSBClassDriverProperty, NULL, kNilOptions);
 
@@ -2230,7 +2233,7 @@ sigterm_handler(int sig)		/* I - Signal */
       _exit(0);
     else
     {
-      write(2, "DEBUG: Child crashed.\n", 22);
+      backendMessage("DEBUG: Child crashed.\n");
       _exit(CUPS_BACKEND_STOP);
     }
   }

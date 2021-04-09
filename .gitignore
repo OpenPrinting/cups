@@ -36,6 +36,7 @@
 /conf/mime.convs
 /conf/pam.std
 /conf/snmp.conf
+/cups/fuzzipp
 /cups/libcups.dylib
 /cups/libcups.2.dylib
 /cups/libcups.so

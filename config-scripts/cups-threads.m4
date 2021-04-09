@@ -8,45 +8,44 @@ dnl
 dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
 dnl
 
-AC_ARG_ENABLE([threads], AS_HELP_STRING([--disable-threads], [disable multi-threading support]))
-
 have_pthread="no"
 PTHREAD_FLAGS=""
+AC_SUBST([PTHREAD_FLAGS])
 
-AS_IF([test "x$enable_threads" != xno], [
-    AC_CHECK_HEADER([pthread.h], [
-        AC_DEFINE([HAVE_PTHREAD_H], [1], [Do we have the <pthread.h> header?])
-    ])
-
-    AS_IF([test x$ac_cv_header_pthread_h = xyes], [
-	dnl Check various threading options for the platforms we support
-	for flag in -lpthreads -lpthread -pthread; do
-	    AC_MSG_CHECKING([for pthread_create using $flag])
-	    SAVELIBS="$LIBS"
-	    LIBS="$flag $LIBS"
-	    AC_LINK_IFELSE([
-	        AC_LANG_PROGRAM([[#include <pthread.h>]], [[
-		    pthread_create(0, 0, 0, 0);
-		]])
-	    ], [
-	        have_pthread="yes"
-	    ], [
-	        LIBS="$SAVELIBS"
-	    ])
-	    AC_MSG_RESULT([$have_pthread])
-
-	    AS_IF([test $have_pthread = yes], [
-		PTHREAD_FLAGS="-D_THREAD_SAFE -D_REENTRANT"
-
-		# Solaris requires -D_POSIX_PTHREAD_SEMANTICS to be POSIX-
-		# compliant... :(
-		AS_IF([test $host_os_name = sunos], [
-		    PTHREAD_FLAGS="$PTHREAD_FLAGS -D_POSIX_PTHREAD_SEMANTICS"
-		])
-		break
-	    ])
-	done
-    ])
+AC_CHECK_HEADER([pthread.h], [
+    AC_DEFINE([HAVE_PTHREAD_H], [1], [Do we have the <pthread.h> header?])
 ])
 
-AC_SUBST([PTHREAD_FLAGS])
+AS_IF([test x$ac_cv_header_pthread_h = xyes], [
+    dnl Check various threading options for the platforms we support
+    for flag in -lpthreads -lpthread -pthread; do
+	AC_MSG_CHECKING([for pthread_create using $flag])
+	SAVELIBS="$LIBS"
+	LIBS="$flag $LIBS"
+	AC_LINK_IFELSE([
+	    AC_LANG_PROGRAM([[#include <pthread.h>]], [[
+		pthread_create(0, 0, 0, 0);
+	    ]])
+	], [
+	    have_pthread="yes"
+	], [
+	    LIBS="$SAVELIBS"
+	])
+	AC_MSG_RESULT([$have_pthread])
+
+	AS_IF([test $have_thread = yes], [
+	    PTHREAD_FLAGS="-D_THREAD_SAFE -D_REENTRANT"
+
+	    # Solaris requires -D_POSIX_PTHREAD_SEMANTICS to be POSIX-
+	    # compliant... :(
+	    AS_IF([test $host_os_name = sunos], [
+		PTHREAD_FLAGS="$PTHREAD_FLAGS -D_POSIX_PTHREAD_SEMANTICS"
+	    ])
+	    break
+	])
+    done
+])
+
+AS_IF([test $have_pthread = no], [
+    AC_MSG_ERROR([CUPS requires threading support.])
+])
