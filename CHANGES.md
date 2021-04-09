@@ -34,7 +34,8 @@ CUPS v2.4rc1 (Pending)
 - `httpUpdate` did not reset the socket file descriptor when the TLS
   negotiation failed (Apple #5915)
 - Documentation fixes (Issue #92)
-- Localization updates (Issue #123, Issue #129, Issue #134, Issue #146)
+- Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
+  Issue #164)
 - USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
 - Web interface updates (Issue #142)
 - The `ippeveprinter` tool now automatically uses an available port.
