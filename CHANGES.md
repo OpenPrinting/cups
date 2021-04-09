@@ -37,6 +37,7 @@ CUPS v2.4rc1 (Pending)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146)
 - USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
 - Web interface updates (Issue #142)
+- The `ippeveprinter` tool now automatically uses an available port.
 - Deprecated cups-config (Issue #97)
 - Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
