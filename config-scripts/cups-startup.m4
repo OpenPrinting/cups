@@ -89,7 +89,7 @@ AS_IF([test $with_ondemand = systemd -o $with_ondemand = yes], [
 	    AC_MSG_RESULT([no])
 	])
 
-	AS_IF([test $have_system = yes], [
+	AS_IF([test $have_systemd = yes], [
 	    AC_DEFINE([HAVE_SYSTEMD], [1], [Have systemd support?])
 	    AC_DEFINE([HAVE_ONDEMAND], [1], [Have on-demand launch support?])
 	    AC_CHECK_HEADER([systemd/sd-journal.h], [
