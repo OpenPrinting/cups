@@ -33,7 +33,7 @@ AS_IF([test x$ac_cv_header_pthread_h = xyes], [
 	])
 	AC_MSG_RESULT([$have_pthread])
 
-	AS_IF([test $have_thread = yes], [
+	AS_IF([test $have_pthread = yes], [
 	    PTHREAD_FLAGS="-D_THREAD_SAFE -D_REENTRANT"
 
 	    # Solaris requires -D_POSIX_PTHREAD_SEMANTICS to be POSIX-
