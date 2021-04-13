@@ -1704,7 +1704,7 @@ static void *read_thread(void *reference)
     readstatus = libusb_bulk_transfer(g.printer->handle,
 				      g.printer->read_endp,
 				      readbuffer, rbytes,
-				      &rbytes, 250);
+				      &rbytes, 60000);
     if (readstatus == LIBUSB_SUCCESS && rbytes > 0)
     {
       fprintf(stderr, "DEBUG: Read %d bytes of back-channel data...\n", (int)rbytes);
