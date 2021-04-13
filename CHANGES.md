@@ -34,6 +34,8 @@ CUPS v2.4rc1 (Pending)
 - `httpUpdate` did not reset the socket file descriptor when the TLS
   negotiation failed (Apple #5915)
 - The IPP backend now retries Validate-Job requests (Issue #132)
+- Reverted USB read limit enforcement change from CUPS 2.2.12 (Issue #72)
+- Now use a 60 second timeout for reading USB backchannel data (Issue #160)
 - Documentation fixes (Issue #92, Issue #163)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
@@ -45,8 +47,6 @@ CUPS v2.4rc1 (Pending)
 - Removed support for the (long deprecated and unused) `FontPath`,
   `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
   directives in `cupsd.conf` and `cups-files.conf`.
-- Use 60s timeout for reading at backchannel (Issue #160)
-- Revert enforcing read limits (Issue #72)
 
 
 CUPS v2.3.3op2 (February 1, 2021)
