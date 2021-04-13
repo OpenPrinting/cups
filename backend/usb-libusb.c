@@ -1704,7 +1704,7 @@ static void *read_thread(void *reference)
     readstatus = libusb_bulk_transfer(g.printer->handle,
 				      g.printer->read_endp,
 				      readbuffer, rbytes,
-				      &rbytes, 250);
+				      &rbytes, 60000);
     if (readstatus == LIBUSB_SUCCESS && rbytes > 0)
     {
       fprintf(stderr, "DEBUG: Read %d bytes of back-channel data...\n", (int)rbytes);
@@ -1721,7 +1721,8 @@ static void *read_thread(void *reference)
     * Make sure this loop executes no more than once every 250 miliseconds...
     */
 
-    if ((g.wait_eof || !g.read_thread_stop))
+    if ((readstatus != LIBUSB_SUCCESS || rbytes == 0) &&
+	 (g.wait_eof || !g.read_thread_stop))
       usleep(250000);
   }
   while (g.wait_eof || !g.read_thread_stop);
