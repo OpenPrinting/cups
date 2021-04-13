@@ -46,6 +46,7 @@ CUPS v2.4rc1 (Pending)
   `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
   directives in `cupsd.conf` and `cups-files.conf`.
 - Use 60s timeout for reading at backchannel (Issue #160)
+- Revert enforcing read limits (Issue #72)
 
 
 CUPS v2.3.3op2 (February 1, 2021)
