@@ -36,6 +36,7 @@ CUPS v2.4rc1 (Pending)
 - The IPP backend now retries Validate-Job requests (Issue #132)
 - Reverted USB read limit enforcement change from CUPS 2.2.12 (Issue #72)
 - Now use a 60 second timeout for reading USB backchannel data (Issue #160)
+- The USB backend now tries harder to find a serial number (Issue #170)
 - Documentation fixes (Issue #92, Issue #163)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)

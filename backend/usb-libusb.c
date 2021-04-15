@@ -1,7 +1,8 @@
 /*
  * LIBUSB interface code for CUPS.
  *
- * Copyright 2007-2019 by Apple Inc.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -1274,25 +1275,21 @@ make_device_uri(
 
   if ((sern = cupsGetOption("SERIALNUMBER", num_values, values)) == NULL)
     if ((sern = cupsGetOption("SERN", num_values, values)) == NULL)
-      if ((sern = cupsGetOption("SN", num_values, values)) == NULL &&
-	  ((libusb_get_device_descriptor(printer->device, &devdesc) >= 0) &&
-	   devdesc.iSerialNumber))
-      {
-       /*
-        * Try getting the serial number from the device itself...
-	*/
+      sern = cupsGetOption("SN", num_values, values);
 
-        int length =
-	  libusb_get_string_descriptor_ascii(printer->handle,
-					     devdesc.iSerialNumber,
-					     (unsigned char *)tempsern,
-					     sizeof(tempsern) - 1);
-        if (length > 0)
-	{
-	  tempsern[length] = '\0';
-	  sern             = tempsern;
-	}
-      }
+  if ((!sern || !*sern) && ((libusb_get_device_descriptor(printer->device, &devdesc) >= 0) && devdesc.iSerialNumber))
+  {
+   /*
+    * Try getting the serial number from the device itself...
+    */
+
+    int length = libusb_get_string_descriptor_ascii(printer->handle, devdesc.iSerialNumber, (unsigned char *)tempsern, sizeof(tempsern) - 1);
+    if (length > 0)
+    {
+      tempsern[length] = '\0';
+      sern             = tempsern;
+    }
+  }
 
   if ((mfg = cupsGetOption("MANUFACTURER", num_values, values)) == NULL)
     mfg = cupsGetOption("MFG", num_values, values);
