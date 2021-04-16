@@ -1284,9 +1284,16 @@ make_device_uri(
     {
       tempsern[length] = '\0';
       sern             = tempsern;
-    }
-  }
 
+      fprintf(stderr, "DEBUG2: iSerialNumber=\"%s\"\n", tempsern);
+    }
+    else
+      fputs("DEBUG2: iSerialNumber could not be read.\n", stderr);
+  }
+  else
+    fputs("DEBUG2: iSerialNumber is not present.\n", stderr);
+
+#if 0
   if (!sern)
   {
     // Fall back on serial number from IEEE-1284 device ID, which on some
@@ -1295,6 +1302,7 @@ make_device_uri(
       if ((sern = cupsGetOption("SERN", num_values, values)) == NULL)
 	sern = cupsGetOption("SN", num_values, values);
   }
+#endif // 0
 
   if ((mfg = cupsGetOption("MANUFACTURER", num_values, values)) == NULL)
   {
