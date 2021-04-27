@@ -369,7 +369,7 @@ _cupsConvertOptions(
   * Map finishing options...
   */
 
-  if (copies != finishing_copies)
+  if (copies != finishings_copies)
   {
     // Figure out the proper job-pages-per-set value...
     if ((value = cupsGetOption("job-pages", num_options, options)) == NULL)
@@ -378,10 +378,16 @@ _cupsConvertOptions(
     if (value)
       job_pages = atoi(value);
 
+    // Adjust for number-up
+    if ((value = cupsGetOption("number-up", num_options, options)) != NULL)
+      number_up = atoi(value);
+
+    job_pages = (job_pages + number_up - 1) / number_up;
+
     // When duplex printing, raster data will include an extra (blank) page to
     // make the total number of pages even.  Make sure this is reflected in the
     // page count...
-    if ((job_pages & 1) && (keyword = cupsGetOption("sides", num_options, options)) != NULL && strcmp(sides, "one-sided"))
+    if ((job_pages & 1) && (keyword = cupsGetOption("sides", num_options, options)) != NULL && strcmp(keyword, "one-sided"))
       job_pages ++;
   }
 
