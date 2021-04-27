@@ -38,7 +38,7 @@ CUPS v2.4rc1 (Pending)
 - Now use a 60 second timeout for reading USB backchannel data (Issue #160)
 - The USB backend now tries harder to find a serial number (Issue #170)
 - Fixed `@IF(name)` handling in `cupsd.conf` (Apple #5918)
-- Documentation fixes (Issue #92, Issue #163)
+- Documentation fixes (Issue #92, Issue #163, Issue #177)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
 - USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
