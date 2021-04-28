@@ -30,11 +30,11 @@ The following top-level directives are understood by
 <dd style="margin-left: 5.0em"><dt><b>AccessLogLevel all</b>
 <dd style="margin-left: 5.0em">Specifies the logging level for the AccessLog file.
 The "config" level logs when printers and classes are added, deleted, or modified and when configuration files are accessed or updated.
-The "actions" level logs when print subscriptions are submitted, held, released, modified, or canceled, and any of the conditions for "config".
+The "actions" level logs when print jobs are submitted, held, released, modified, or canceled, and any of the conditions for "config".
 The "all" level logs all requests.
 The default access log level is "actions".
-<dt><a name="AutoPurgeSubscriptions"></a><b>AutoPurgeSubscriptions Yes</b>
-<dd style="margin-left: 5.0em"><dt><b>AutoPurgeSubscriptions No</b>
+<dt><a name="AutoPurgeJobs"></a><b>AutoPurgeJobs Yes</b>
+<dd style="margin-left: 5.0em"><dt><b>AutoPurgeJobs No</b>
 <dd style="margin-left: 5.0em"><br>
 Specifies whether to purge job history data automatically when it is no longer required for quotas.
 The default is "No".
@@ -131,11 +131,11 @@ is run on-demand (e.g., with <b>-l</b>).
 <dd style="margin-left: 5.0em">Specifies the number of seconds to wait before killing the filters and backend associated with a canceled or held job.
 The default is "30".
 <dt><a name="JobRetryInterval"></a><b>JobRetryInterval </b><i>seconds</i>
-<dd style="margin-left: 5.0em">Specifies the interval between retries of subscriptions in seconds.
+<dd style="margin-left: 5.0em">Specifies the interval between retries of jobs in seconds.
 This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job" or "retry-current-job".
 The default is "30".
 <dt><a name="JobRetryLimit"></a><b>JobRetryLimit </b><i>count</i>
-<dd style="margin-left: 5.0em">Specifies the number of retries that are done for subscriptions.
+<dd style="margin-left: 5.0em">Specifies the number of retries that are done for jobs.
 This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job" or "retry-current-job".
 The default is "5".
 <dt><a name="KeepAlive"></a><b>KeepAlive Yes</b>
@@ -197,20 +197,20 @@ The default is the MaxClients value.
 The default is "9999".
 <dt><a name="MaxHoldTime"></a><b>MaxHoldTime </b><i>seconds</i>
 <dd style="margin-left: 5.0em">Specifies the maximum time a job may remain in the "indefinite" hold state before it is canceled.
-The default is "0" which disables cancellation of held subscriptions.
-<dt><a name="MaxSubscriptions"></a><b>MaxSubscriptions </b><i>number</i>
-<dd style="margin-left: 5.0em">Specifies the maximum number of simultaneous subscriptions that are allowed.
-Set to "0" to allow an unlimited number of subscriptions.
+The default is "0" which disables cancellation of held jobs.
+<dt><a name="MaxJobs"></a><b>MaxJobs </b><i>number</i>
+<dd style="margin-left: 5.0em">Specifies the maximum number of simultaneous jobs that are allowed.
+Set to "0" to allow an unlimited number of jobs.
 The default is "500".
-<dt><a name="MaxSubscriptionsPerPrinter"></a><b>MaxSubscriptionsPerPrinter </b><i>number</i>
-<dd style="margin-left: 5.0em">Specifies the maximum number of simultaneous subscriptions that are allowed per printer.
-The default is "0" which allows up to MaxSubscriptions subscriptions per printer.
-<dt><a name="MaxSubscriptionsPerUser"></a><b>MaxSubscriptionsPerUser </b><i>number</i>
-<dd style="margin-left: 5.0em">Specifies the maximum number of simultaneous subscriptions that are allowed per user.
-The default is "0" which allows up to MaxSubscriptions subscriptions per user.
+<dt><a name="MaxJobsPerPrinter"></a><b>MaxJobsPerPrinter </b><i>number</i>
+<dd style="margin-left: 5.0em">Specifies the maximum number of simultaneous jobs that are allowed per printer.
+The default is "0" which allows up to MaxJobs jobs per printer.
+<dt><a name="MaxJobsPerUser"></a><b>MaxJobsPerUser </b><i>number</i>
+<dd style="margin-left: 5.0em">Specifies the maximum number of simultaneous jobs that are allowed per user.
+The default is "0" which allows up to MaxJobs jobs per user.
 <dt><a name="MaxJobTime"></a><b>MaxJobTime </b><i>seconds</i>
 <dd style="margin-left: 5.0em">Specifies the maximum time a job may take to print before it is canceled.
-Set to "0" to disable cancellation of "stuck" subscriptions.
+Set to "0" to disable cancellation of "stuck" jobs.
 The default is "10800" (3 hours).
 <dt><a name="MaxLogSize"></a><b>MaxLogSize </b><i>size</i>
 <dd style="margin-left: 5.0em">Specifies the maximum size of the log files before they are rotated.
@@ -247,7 +247,7 @@ The default is "86400" (preserve 1 day).
 <dd style="margin-left: 5.0em"><dt><b>PreserveJobHistory </b><i>seconds</i>
 <dd style="margin-left: 5.0em">Specifies whether the job history is preserved after a job is printed.
 If a numeric value is specified, the job history is preserved for the indicated number of seconds after printing.
-If "Yes", the job history is preserved until the MaxSubscriptions limit is reached.
+If "Yes", the job history is preserved until the MaxJobs limit is reached.
 The default is "Yes".
 <dt><a name="ReadyPaperSizes"></a><b>ReadyPaperSizes </b><i>sizename[,...]</i>
 <dd style="margin-left: 5.0em">Specifies a list of potential paper sizes that are reported as "ready" (loaded).
@@ -337,8 +337,8 @@ The following HTTP methods are supported by
 The following IPP operations are supported by
 <b>cupsd</b>(8):
 <dl class="man">
-<dt>CUPS-Accept-Subscriptions
-<dd style="margin-left: 5.0em">Allows a printer to accept new subscriptions.
+<dt>CUPS-Accept-Jobs
+<dd style="margin-left: 5.0em">Allows a printer to accept new jobs.
 <dt>CUPS-Add-Modify-Class
 <dd style="margin-left: 5.0em">Adds or modifies a printer class.
 <dt>CUPS-Add-Modify-Printer
@@ -365,16 +365,16 @@ The following IPP operations are supported by
 <dd style="margin-left: 5.0em">Gets a list of printers.
 <dt>CUPS-Move-Job
 <dd style="margin-left: 5.0em">Moves a job.
-<dt>CUPS-Reject-Subscriptions
-<dd style="margin-left: 5.0em">Prevents a printer from accepting new subscriptions.
+<dt>CUPS-Reject-Jobs
+<dd style="margin-left: 5.0em">Prevents a printer from accepting new jobs.
 <dt>CUPS-Set-Default
 <dd style="margin-left: 5.0em">Sets the server default printer or printer class.
 <dt>Cancel-Job
 <dd style="margin-left: 5.0em">Cancels a job.
-<dt>Cancel-Subscriptions
-<dd style="margin-left: 5.0em">Cancels one or more subscriptions.
-<dt>Cancel-My-Subscriptions
-<dd style="margin-left: 5.0em">Cancels one or more subscriptions creates by a user.
+<dt>Cancel-Jobs
+<dd style="margin-left: 5.0em">Cancels one or more jobs.
+<dt>Cancel-My-Jobs
+<dd style="margin-left: 5.0em">Cancels one or more jobs creates by a user.
 <dt>Cancel-Subscription
 <dd style="margin-left: 5.0em">Cancels a subscription.
 <dt>Close-Job
@@ -387,8 +387,8 @@ The following IPP operations are supported by
 <dd style="margin-left: 5.0em">Creates a subscription for printer events.
 <dt>Get-Job-Attributes
 <dd style="margin-left: 5.0em">Gets information about a job.
-<dt>Get-Subscriptions
-<dd style="margin-left: 5.0em">Gets a list of subscriptions.
+<dt>Get-Jobs
+<dd style="margin-left: 5.0em">Gets a list of jobs.
 <dt>Get-Notifications
 <dd style="margin-left: 5.0em">Gets a list of event notifications for a subscription.
 <dt>Get-Printer-Attributes
@@ -399,18 +399,18 @@ The following IPP operations are supported by
 <dd style="margin-left: 5.0em">Gets a list of subscriptions.
 <dt>Hold-Job
 <dd style="margin-left: 5.0em">Holds a job from printing.
-<dt>Hold-New-Subscriptions
-<dd style="margin-left: 5.0em">Holds all new subscriptions from printing.
+<dt>Hold-New-Jobs
+<dd style="margin-left: 5.0em">Holds all new jobs from printing.
 <dt>Pause-Printer
-<dd style="margin-left: 5.0em">Stops processing of subscriptions by a printer or printer class.
+<dd style="margin-left: 5.0em">Stops processing of jobs by a printer or printer class.
 <dt>Pause-Printer-After-Current-Job
-<dd style="margin-left: 5.0em">Stops processing of subscriptions by a printer or printer class after the current job is finished.
+<dd style="margin-left: 5.0em">Stops processing of jobs by a printer or printer class after the current job is finished.
 <dt>Print-Job
 <dd style="margin-left: 5.0em">Creates a new job with a single document.
-<dt>Purge-Subscriptions
-<dd style="margin-left: 5.0em">Cancels one or more subscriptions and deletes the job history.
-<dt>Release-Held-New-Subscriptions
-<dd style="margin-left: 5.0em">Allows previously held subscriptions to print.
+<dt>Purge-Jobs
+<dd style="margin-left: 5.0em">Cancels one or more jobs and deletes the job history.
+<dt>Release-Held-New-Jobs
+<dd style="margin-left: 5.0em">Allows previously held jobs to print.
 <dt>Release-Job
 <dd style="margin-left: 5.0em">Allows a job to print.
 <dt>Renew-Subscription
@@ -431,7 +431,7 @@ The following paths are commonly used when configuring
 <b>cupsd</b>(8):
 <dl class="man">
 <dt>/
-<dd style="margin-left: 5.0em">The path for all get operations (get-printers, get-subscriptions, etc.)
+<dd style="margin-left: 5.0em">The path for all get operations (get-printers, get-jobs, etc.)
 <dt>/admin
 <dd style="margin-left: 5.0em">The path for all administration operations (add-printer, delete-printer, start-printer, etc.)
 <dt>/admin/conf
@@ -442,9 +442,9 @@ The following paths are commonly used when configuring
 <dd style="margin-left: 5.0em">The path for all printer classes
 <dt>/classes/name
 <dd style="margin-left: 5.0em">The resource for the named printer class
-<dt>/subscriptions
-<dd style="margin-left: 5.0em">The path for all subscriptions (hold-job, release-job, etc.)
-<dt>/subscriptions/id
+<dt>/jobs
+<dd style="margin-left: 5.0em">The path for all jobs (hold-job, release-job, etc.)
+<dt>/jobs/id
 <dd style="margin-left: 5.0em">The path for the specified job
 <dt>/printers
 <dd style="margin-left: 5.0em">The path for all printers
@@ -568,7 +568,7 @@ The default is no classification banner.
 <dt><a name="ClassifyOverride"></a><b>ClassifyOverride Yes</b>
 <dd style="margin-left: 5.0em"><dt><b>ClassifyOverride No</b>
 <dd style="margin-left: 5.0em"><br>
-Specifies whether users may override the classification (cover page) of individual print subscriptions using the "job-sheets" option.
+Specifies whether users may override the classification (cover page) of individual print jobs using the "job-sheets" option.
 The default is "No".
 <dt><b>DefaultAuthType Negotiate</b>
 <dd style="margin-left: 5.0em">Specifies that Kerberos authentication is required by default.

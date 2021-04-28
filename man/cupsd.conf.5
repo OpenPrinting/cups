@@ -35,14 +35,14 @@ The following top-level directives are understood by
 \fBAccessLogLevel all\fR
 Specifies the logging level for the AccessLog file.
 The "config" level logs when printers and classes are added, deleted, or modified and when configuration files are accessed or updated.
-The "actions" level logs when print subscriptions are submitted, held, released, modified, or canceled, and any of the conditions for "config".
+The "actions" level logs when print jobs are submitted, held, released, modified, or canceled, and any of the conditions for "config".
 The "all" level logs all requests.
 The default access log level is "actions".
-.\"#AutoPurgeSubscriptions
+.\"#AutoPurgeJobs
 .TP 5
-\fBAutoPurgeSubscriptions Yes\fR
+\fBAutoPurgeJobs Yes\fR
 .TP 5
-\fBAutoPurgeSubscriptions No\fR
+\fBAutoPurgeJobs No\fR
 .br
 Specifies whether to purge job history data automatically when it is no longer required for quotas.
 The default is "No".
@@ -191,13 +191,13 @@ The default is "30".
 .\"#JobRetryInterval
 .TP 5
 \fBJobRetryInterval \fIseconds\fR
-Specifies the interval between retries of subscriptions in seconds.
+Specifies the interval between retries of jobs in seconds.
 This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job" or "retry-current-job".
 The default is "30".
 .\"#JobRetryLimit
 .TP 5
 \fBJobRetryLimit \fIcount\fR
-Specifies the number of retries that are done for subscriptions.
+Specifies the number of retries that are done for jobs.
 This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job" or "retry-current-job".
 The default is "5".
 .\"#KeepAlive
@@ -303,28 +303,28 @@ The default is "9999".
 .TP 5
 \fBMaxHoldTime \fIseconds\fR
 Specifies the maximum time a job may remain in the "indefinite" hold state before it is canceled.
-The default is "0" which disables cancellation of held subscriptions.
-.\"#MaxSubscriptions
+The default is "0" which disables cancellation of held jobs.
+.\"#MaxJobs
 .TP 5
-\fBMaxSubscriptions \fInumber\fR
-Specifies the maximum number of simultaneous subscriptions that are allowed.
-Set to "0" to allow an unlimited number of subscriptions.
+\fBMaxJobs \fInumber\fR
+Specifies the maximum number of simultaneous jobs that are allowed.
+Set to "0" to allow an unlimited number of jobs.
 The default is "500".
-.\"#MaxSubscriptionsPerPrinter
+.\"#MaxJobsPerPrinter
 .TP 5
-\fBMaxSubscriptionsPerPrinter \fInumber\fR
-Specifies the maximum number of simultaneous subscriptions that are allowed per printer.
-The default is "0" which allows up to MaxSubscriptions subscriptions per printer.
-.\"#MaxSubscriptionsPerUser
+\fBMaxJobsPerPrinter \fInumber\fR
+Specifies the maximum number of simultaneous jobs that are allowed per printer.
+The default is "0" which allows up to MaxJobs jobs per printer.
+.\"#MaxJobsPerUser
 .TP 5
-\fBMaxSubscriptionsPerUser \fInumber\fR
-Specifies the maximum number of simultaneous subscriptions that are allowed per user.
-The default is "0" which allows up to MaxSubscriptions subscriptions per user.
+\fBMaxJobsPerUser \fInumber\fR
+Specifies the maximum number of simultaneous jobs that are allowed per user.
+The default is "0" which allows up to MaxJobs jobs per user.
 .\"#MaxJobTime
 .TP 5
 \fBMaxJobTime \fIseconds\fR
 Specifies the maximum time a job may take to print before it is canceled.
-Set to "0" to disable cancellation of "stuck" subscriptions.
+Set to "0" to disable cancellation of "stuck" jobs.
 The default is "10800" (3 hours).
 .\"#MaxLogSize
 .TP 5
@@ -385,7 +385,7 @@ The default is "86400" (preserve 1 day).
 \fBPreserveJobHistory \fIseconds\fR
 Specifies whether the job history is preserved after a job is printed.
 If a numeric value is specified, the job history is preserved for the indicated number of seconds after printing.
-If "Yes", the job history is preserved until the MaxSubscriptions limit is reached.
+If "Yes", the job history is preserved until the MaxJobs limit is reached.
 The default is "Yes".
 .\"#ReadyPaperSizes
 .TP 5
@@ -514,8 +514,8 @@ Used by a client to upload configuration files.
 The following IPP operations are supported by
 .BR cupsd (8):
 .TP 5
-CUPS\-Accept\-Subscriptions
-Allows a printer to accept new subscriptions.
+CUPS\-Accept\-Jobs
+Allows a printer to accept new jobs.
 .TP 5
 CUPS\-Add\-Modify\-Class
 Adds or modifies a printer class.
@@ -556,8 +556,8 @@ Gets a list of printers.
 CUPS\-Move\-Job
 Moves a job.
 .TP 5
-CUPS\-Reject\-Subscriptions
-Prevents a printer from accepting new subscriptions.
+CUPS\-Reject\-Jobs
+Prevents a printer from accepting new jobs.
 .TP 5
 CUPS\-Set\-Default
 Sets the server default printer or printer class.
@@ -565,11 +565,11 @@ Sets the server default printer or printer class.
 Cancel\-Job
 Cancels a job.
 .TP 5
-Cancel\-Subscriptions
-Cancels one or more subscriptions.
+Cancel\-Jobs
+Cancels one or more jobs.
 .TP 5
-Cancel\-My\-Subscriptions
-Cancels one or more subscriptions creates by a user.
+Cancel\-My\-Jobs
+Cancels one or more jobs creates by a user.
 .TP 5
 Cancel\-Subscription
 Cancels a subscription.
@@ -589,8 +589,8 @@ Creates a subscription for printer events.
 Get\-Job\-Attributes
 Gets information about a job.
 .TP 5
-Get\-Subscriptions
-Gets a list of subscriptions.
+Get\-Jobs
+Gets a list of jobs.
 .TP 5
 Get\-Notifications
 Gets a list of event notifications for a subscription.
@@ -607,23 +607,23 @@ Gets a list of subscriptions.
 Hold\-Job
 Holds a job from printing.
 .TP 5
-Hold\-New\-Subscriptions
-Holds all new subscriptions from printing.
+Hold\-New\-Jobs
+Holds all new jobs from printing.
 .TP 5
 Pause\-Printer
-Stops processing of subscriptions by a printer or printer class.
+Stops processing of jobs by a printer or printer class.
 .TP 5
 Pause\-Printer\-After\-Current\-Job
-Stops processing of subscriptions by a printer or printer class after the current job is finished.
+Stops processing of jobs by a printer or printer class after the current job is finished.
 .TP 5
 Print\-Job
 Creates a new job with a single document.
 .TP 5
-Purge\-Subscriptions
-Cancels one or more subscriptions and deletes the job history.
+Purge\-Jobs
+Cancels one or more jobs and deletes the job history.
 .TP 5
-Release\-Held\-New\-Subscriptions
-Allows previously held subscriptions to print.
+Release\-Held\-New\-Jobs
+Allows previously held jobs to print.
 .TP 5
 Release\-Job
 Allows a job to print.
@@ -650,7 +650,7 @@ The following paths are commonly used when configuring
 .BR cupsd (8):
 .TP 5
 /
-The path for all get operations (get-printers, get-subscriptions, etc.)
+The path for all get operations (get-printers, get-jobs, etc.)
 .TP 5
 /admin
 The path for all administration operations (add-printer, delete-printer, start-printer, etc.)
@@ -667,10 +667,10 @@ The path for all printer classes
 /classes/name
 The resource for the named printer class
 .TP 5
-/subscriptions
-The path for all subscriptions (hold-job, release-job, etc.)
+/jobs
+The path for all jobs (hold-job, release-job, etc.)
 .TP 5
-/subscriptions/id
+/jobs/id
 The path for the specified job
 .TP 5
 /printers
@@ -847,7 +847,7 @@ The default is no classification banner.
 .TP 5
 \fBClassifyOverride No\fR
 .br
-Specifies whether users may override the classification (cover page) of individual print subscriptions using the "job-sheets" option.
+Specifies whether users may override the classification (cover page) of individual print jobs using the "job-sheets" option.
 The default is "No".
 .TP 5
 \fBDefaultAuthType Negotiate\fR
