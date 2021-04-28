@@ -337,6 +337,18 @@ httpAddrConnect2(
 	else if (FD_ISSET(fds[i], &error_set))
 #  endif /* HAVE_POLL */
         {
+#  ifdef __sun
+          // Solaris incorrectly returns errors when you poll() a socket that is
+          // still connecting.  This check prevents us from removing the socket
+          // from the pool if the "error" is EINPROGRESS...
+          int		sockerr;	// Current error on socket
+          socklen_t	socklen = sizeof(serr);
+					// Size of error variable
+
+          if (!getsockopt(fds[i], SOL_SOCKET, SO_ERROR, &sockerr, &socklen) && (!sockerr || sockerr == EINPROGRESS))
+            continue;			// Not an error
+#  endif // __sun
+
          /*
           * Error on socket, remove from the "pool"...
           */
