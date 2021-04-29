@@ -909,7 +909,7 @@ static void *				// O - Thread exit status
 do_monitor_printer_state(
     ipptool_test_t *data)		// I - Test data
 {
-  int		i;			// Looping var
+  int		i, j;			// Looping vars
   char		scheme[32],		// URI scheme
 		userpass[32],		// URI username:password
 		host[256],		// URI hostname/IP address
@@ -923,47 +923,8 @@ do_monitor_printer_state(
   ipp_attribute_t *found;		// Found attribute
   ipptool_expect_t *expect;		// Current EXPECT test
   char		buffer[131072];		// Copy buffer
-  static const char *pattrs[] =		// List of attributes we care about
-  {
-    "marker-change-time",		// "marker-xxx" are a CUPS/AirPrint extension
-    "marker-colors",
-    "marker-high-levels",
-    "marker-levels",
-    "marker-low-levels",
-    "marker-message",
-    "marker-names",
-    "marker-types",
-    "printer-alert",
-    "printer-alert-description",
-    "printer-config-change-date-time",
-    "printer-config-change-time",
-    "printer-config-changes",
-    "printer-current-time",
-    "printer-finisher",
-    "printer-finisher-description",
-    "printer-finisher-supplies",
-    "printer-finisher-supplies-description",
-    "printer-impressions-completed",
-    "printer-impressions-completed-col",
-    "printer-input-tray",
-    "printer-is-accepting-jobs",
-    "printer-media-sheets-completed",
-    "printer-media-sheets-completed-col",
-    "printer-message-date-time",
-    "printer-message-from-operator",
-    "printer-message-time",
-    "printer-output-tray",
-    "printer-pages-completed",
-    "printer-pages-completed-col",
-    "printer-state",
-    "printer-state-change-date-time",
-    "printer-state-change-time",
-    "printer-state-reasons",
-    "printer-supply",
-    "printer-supply-description",
-    "printer-up-time",
-    "queued-job-count"
-  };
+  int		num_pattrs;		// Number of printer attributes
+  const char	*pattrs[100];		// Printer attributes we care about
 
 
   // Connect to the printer...
@@ -1002,7 +963,22 @@ do_monitor_printer_state(
   ippSetVersion(request, data->version / 10, data->version % 10);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->monitor_uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
-  ippAddStrings(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_KEYWORD), "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
+
+  for (i = data->num_monitor_expects, expect = data->monitor_expects, num_pattrs = 0; i > 0; i --, expect ++)
+  {
+    // Add EXPECT attribute names...
+    for (j = 0; j < num_pattrs; j ++)
+    {
+      if (!strcmp(expect->name, pattrs[j]))
+        break;
+    }
+
+    if (j >= num_pattrs && num_pattrs < (int)(sizeof(pattrs) / sizeof(pattrs[0])))
+      pattrs[num_pattrs ++] = expect->name;
+  }
+
+  if (num_pattrs > 0)
+    ippAddStrings(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_KEYWORD), "requested-attributes", num_pattrs, NULL, pattrs);
 
   // Loop until we need to stop...
   while (!data->monitor_done && !Cancel)
@@ -3181,10 +3157,10 @@ pause_message(const char *message)	/* I - Message */
  */
 
 static void
-print_attr(cups_file_t     *outfile,	/* I  - Output file */
-           ipptool_output_t  output,	/* I  - Output format */
-           ipp_attribute_t *attr,	/* I  - Attribute to print */
-           ipp_tag_t       *group)	/* IO - Current group */
+print_attr(cups_file_t      *outfile,	/* I  - Output file */
+           ipptool_output_t output,	/* I  - Output format */
+           ipp_attribute_t  *attr,	/* I  - Attribute to print */
+           ipp_tag_t        *group)	/* IO - Current group */
 {
   int			i,		/* Looping var */
 			count;		/* Number of values */
