@@ -342,7 +342,7 @@ httpAddrConnect2(
           // still connecting.  This check prevents us from removing the socket
           // from the pool if the "error" is EINPROGRESS...
           int		sockerr;	// Current error on socket
-          socklen_t	socklen = sizeof(serr);
+          socklen_t	socklen = sizeof(sockerr);
 					// Size of error variable
 
           if (!getsockopt(fds[i], SOL_SOCKET, SO_ERROR, &sockerr, &socklen) && (!sockerr || sockerr == EINPROGRESS))
