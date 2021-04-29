@@ -960,6 +960,7 @@ do_monitor_printer_state(
 
   // Create a query request that we'll reuse...
   request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+  ippSetRequestId(request, data->request_id * 100 - 1);
   ippSetVersion(request, data->version / 10, data->version % 10);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->monitor_uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
@@ -984,6 +985,8 @@ do_monitor_printer_state(
   while (!data->monitor_done && !Cancel)
   {
     // Poll the printer state...
+    ippSetRequestId(request, ippGetRequestId(request) + 1);
+
     if ((status = cupsSendRequest(http, request, resource, ippLength(request))) != HTTP_STATUS_ERROR)
     {
       response = cupsGetResponse(http, resource);
