@@ -32,6 +32,15 @@
 
 
 /*
+ * Limits...
+ */
+
+#define MAX_EXPECT	200		// Maximum number of EXPECT directives
+#define MAX_DISPLAY	200		// Maximum number of DISPLAY directives
+#define MAX_MONITOR	10		// Maximum number of MONITOR-PRINTER-STATE EXPECT directives
+
+
+/*
  * Types...
  */
 
@@ -136,9 +145,9 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   char		compression[16];	/* COMPRESSION value */
   useconds_t	delay;                  /* Initial delay */
   int		num_displayed;		/* Number of displayed attributes */
-  char		*displayed[200];	/* Displayed attributes */
+  char		*displayed[MAX_DISPLAY];/* Displayed attributes */
   int		num_expects;		/* Number of expected attributes */
-  ipptool_expect_t expects[200],	/* Expected attributes */
+  ipptool_expect_t expects[MAX_EXPECT],	/* Expected attributes */
 		*expect,		/* Current expected attribute */
 		*last_expect;		/* Last EXPECT (for predicates) */
   char		file[1024],		/* Data filename */
@@ -163,7 +172,8 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   useconds_t	monitor_delay,		/* MONITOR-PRINTER-STATE DELAY value, if any */
 		monitor_interval;	/* MONITOR-PRINTER-STATE DELAY interval */
   int		num_monitor_expects;	/* Number MONITOR-PRINTER-STATE EXPECTs */
-  ipptool_expect_t monitor_expects[10];	/* MONITOR-PRINTER-STATE EXPECTs */
+  ipptool_expect_t monitor_expects[MAX_MONITOR];
+					/* MONITOR-PRINTER-STATE EXPECTs */
 } ipptool_test_t;
 
 
@@ -193,11 +203,11 @@ static char	*iso_date(const ipp_uchar_t *date);
 static int	parse_monitor_printer_state(_ipp_file_t *f, ipptool_test_t *data);
 static void	pause_message(const char *message);
 static void	print_attr(cups_file_t *outfile, ipptool_output_t output, ipp_attribute_t *attr, ipp_tag_t *group);
-static void	print_csv(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
+static ipp_attribute_t *print_csv(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
 static void	print_fatal_error(ipptool_test_t *data, const char *s, ...) _CUPS_FORMAT(2, 3);
 static void	print_ippserver_attr(ipptool_test_t *data, ipp_attribute_t *attr, int indent);
 static void	print_ippserver_string(ipptool_test_t *data, const char *s, size_t len);
-static void	print_line(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
+static ipp_attribute_t *print_line(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
 static void	print_xml_header(ipptool_test_t *data);
 static void	print_xml_string(cups_file_t *outfile, const char *element, const char *s);
 static void	print_xml_trailer(ipptool_test_t *data, int success, const char *message);
@@ -2035,9 +2045,9 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       if (attrptr)
       {
 	if (data->output == IPPTOOL_OUTPUT_CSV)
-	  print_csv(data, response, attrptr, data->num_displayed, data->displayed, widths);
+	  attrptr = print_csv(data, response, attrptr, data->num_displayed, data->displayed, widths);
 	else
-	  print_line(data, response, attrptr, data->num_displayed, data->displayed, widths);
+	  attrptr = print_line(data, response, attrptr, data->num_displayed, data->displayed, widths);
 
 	while (attrptr && ippGetGroupTag(attrptr) > IPP_TAG_OPERATION)
 	  attrptr = ippNextAttribute(response);
@@ -3317,21 +3327,20 @@ print_attr(cups_file_t      *outfile,	/* I  - Output file */
  * 'print_csv()' - Print a line of CSV text.
  */
 
-static void
+static ipp_attribute_t *		/* O - Next attribute */
 print_csv(
-    ipptool_test_t *data,		/* I - Test data */
-    ipp_t            *ipp,		/* I - Response message */
-    ipp_attribute_t  *attr,		/* I - First attribute for line */
-    int              num_displayed,	/* I - Number of attributes to display */
-    char             **displayed,	/* I - Attributes to display */
-    size_t           *widths)		/* I - Column widths */
+    ipptool_test_t  *data,		/* I - Test data */
+    ipp_t           *ipp,		/* I - Response message */
+    ipp_attribute_t *attr,		/* I - First attribute for line */
+    int             num_displayed,	/* I - Number of attributes to display */
+    char            **displayed,	/* I - Attributes to display */
+    size_t          *widths)		/* I - Column widths */
 {
   int		i;			/* Looping var */
   size_t	maxlength;		/* Max length of all columns */
-  char		*buffer,		/* String buffer */
-		*bufptr;		/* Pointer into buffer */
-  ipp_attribute_t *current;		/* Current attribute */
-
+  ipp_attribute_t *current = attr;	/* Current attribute */
+  char		*values[MAX_DISPLAY],	/* Strings to display */
+		*valptr;		/* Pointer into value */
 
  /*
   * Get the maximum string length we have to show and allocate...
@@ -3343,63 +3352,76 @@ print_csv(
 
   maxlength += 2;
 
-  if ((buffer = malloc(maxlength)) == NULL)
-    return;
-
  /*
   * Loop through the attributes to display...
   */
 
   if (attr)
   {
+    // Collect the values...
+    memset(values, 0, sizeof(values));
+
+    for (; current; current = ippNextAttribute(ipp))
+    {
+      if (!ippGetName(current))
+	break;
+
+      for (i = 0; i < num_displayed; i ++)
+      {
+        if (!strcmp(ippGetName(current), displayed[i]))
+        {
+          if ((values[i] = (char *)calloc(1, maxlength)) != NULL)
+	    ippAttributeString(current, values[i], maxlength);
+          break;
+	}
+      }
+    }
+
+    // Output the line...
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
         cupsFilePutChar(data->outfile, ',');
 
-      buffer[0] = '\0';
+      if (!values[i])
+        continue;
 
-      for (current = attr; current; current = ippNextAttribute(ipp))
+      if (strchr(values[i], ',') != NULL || strchr(values[i], '\"') != NULL || strchr(values[i], '\\') != NULL)
       {
-        if (!ippGetName(current))
-          break;
-        else if (!strcmp(ippGetName(current), displayed[i]))
+        // Quoted value...
+        cupsFilePutChar(data->outfile, '\"');
+        for (valptr = values[i]; *valptr; valptr ++)
         {
-          ippAttributeString(current, buffer, maxlength);
-          break;
+          if (*valptr == '\\' || *valptr == '\"')
+            cupsFilePutChar(data->outfile, '\\');
+          cupsFilePutChar(data->outfile, *valptr);
         }
-      }
-
-      if (strchr(buffer, ',') != NULL || strchr(buffer, '\"') != NULL ||
-	  strchr(buffer, '\\') != NULL)
-      {
-        cupsFilePutChar(cupsFileStdout(), '\"');
-        for (bufptr = buffer; *bufptr; bufptr ++)
-        {
-          if (*bufptr == '\\' || *bufptr == '\"')
-            cupsFilePutChar(cupsFileStdout(), '\\');
-          cupsFilePutChar(cupsFileStdout(), *bufptr);
-        }
-        cupsFilePutChar(cupsFileStdout(), '\"');
+        cupsFilePutChar(data->outfile, '\"');
       }
       else
-        cupsFilePuts(data->outfile, buffer);
+      {
+        // Unquoted value...
+        cupsFilePuts(data->outfile, values[i]);
+      }
+
+      free(values[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
   }
   else
   {
+    // Show column headings...
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-        cupsFilePutChar(cupsFileStdout(), ',');
+        cupsFilePutChar(data->outfile, ',');
 
       cupsFilePuts(data->outfile, displayed[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
   }
 
-  free(buffer);
+  return (current);
 }
 
 
@@ -3578,7 +3600,7 @@ print_ippserver_string(
  * 'print_line()' - Print a line of formatted or CSV text.
  */
 
-static void
+static ipp_attribute_t *		/* O - Next attribute */
 print_line(
     ipptool_test_t *data,		/* I - Test data */
     ipp_t            *ipp,		/* I - Response message */
@@ -3589,8 +3611,8 @@ print_line(
 {
   int		i;			/* Looping var */
   size_t	maxlength;		/* Max length of all columns */
-  char		*buffer;		/* String buffer */
-  ipp_attribute_t *current;		/* Current attribute */
+  ipp_attribute_t *current = attr;	/* Current attribute */
+  char		*values[MAX_DISPLAY];	/* Strings to display */
 
 
  /*
@@ -3603,61 +3625,74 @@ print_line(
 
   maxlength += 2;
 
-  if ((buffer = malloc(maxlength)) == NULL)
-    return;
-
  /*
   * Loop through the attributes to display...
   */
 
   if (attr)
   {
+    // Collect the values...
+    memset(values, 0, sizeof(values));
+
+    for (; current; current = ippNextAttribute(ipp))
+    {
+      if (!ippGetName(current))
+	break;
+
+      for (i = 0; i < num_displayed; i ++)
+      {
+        if (!strcmp(ippGetName(current), displayed[i]))
+        {
+          if ((values[i] = (char *)calloc(1, maxlength)) != NULL)
+	    ippAttributeString(current, values[i], maxlength);
+          break;
+	}
+      }
+    }
+
+    // Output the line...
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-        cupsFilePutChar(cupsFileStdout(), ' ');
+        cupsFilePutChar(data->outfile, ' ');
 
-      buffer[0] = '\0';
-
-      for (current = attr; current; current = ippNextAttribute(ipp))
-      {
-        if (!ippGetName(current))
-          break;
-        else if (!strcmp(ippGetName(current), displayed[i]))
-        {
-          ippAttributeString(current, buffer, maxlength);
-          break;
-        }
-      }
-
-      cupsFilePrintf(data->outfile, "%*s", (int)-widths[i], buffer);
+      cupsFilePrintf(data->outfile, "%*s", (int)-widths[i], values[i] ? values[i] : "");
+      free(values[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
   }
   else
   {
+    // Show column headings...
+    char *buffer = (char *)malloc(maxlength);
+					// Buffer for separator lines
+
+    if (!buffer)
+      return (current);
+
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-        cupsFilePutChar(cupsFileStdout(), ' ');
+        cupsFilePutChar(data->outfile, ' ');
 
       cupsFilePrintf(data->outfile, "%*s", (int)-widths[i], displayed[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
 
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-	cupsFilePutChar(cupsFileStdout(), ' ');
+	cupsFilePutChar(data->outfile, ' ');
 
       memset(buffer, '-', widths[i]);
       buffer[widths[i]] = '\0';
       cupsFilePuts(data->outfile, buffer);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
+    free(buffer);
   }
 
-  free(buffer);
+  return (current);
 }
 
 

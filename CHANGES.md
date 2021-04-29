@@ -13,6 +13,7 @@ CUPS v2.4rc1 (Pending)
   be found.
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
+- Reverted USB read limit enforcement change from CUPS 2.2.12 (Issue #72)
 - The IPP backend did not return the correct status code when a job was canceled
   at the printer/server (Issue #74)
 - The `testlang` unit test program now loops over all of the available locales
@@ -24,6 +25,7 @@ CUPS v2.4rc1 (Pending)
 - The USB backend now runs as root (Issue #121)
 - Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
+- Fixed a `DISPLAY` bug in `ipptool` (Issue #139)
 - The scheduler now includes the `[Job N]` prefix for job log messages, even
   when using syslog logging (Issue #154)
 - Added support for locales using the GB18030 character set (Issue #159)
@@ -34,7 +36,6 @@ CUPS v2.4rc1 (Pending)
 - `httpUpdate` did not reset the socket file descriptor when the TLS
   negotiation failed (Apple #5915)
 - The IPP backend now retries Validate-Job requests (Issue #132)
-- Reverted USB read limit enforcement change from CUPS 2.2.12 (Issue #72)
 - Added a workaround for Solaris in `httpAddrConnect2` (Issue #156)
 - Now use a 60 second timeout for reading USB backchannel data (Issue #160)
 - The USB backend now tries harder to find a serial number (Issue #170)
