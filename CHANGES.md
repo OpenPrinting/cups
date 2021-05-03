@@ -13,6 +13,8 @@ CUPS v2.4rc1 (Pending)
   be found.
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
+- Fixed reporting of printer instances when enumerating and when no options are
+  set for the main instance (Issue #71)
 - Reverted USB read limit enforcement change from CUPS 2.2.12 (Issue #72)
 - The IPP backend did not return the correct status code when a job was canceled
   at the printer/server (Issue #74)
