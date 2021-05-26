@@ -4402,14 +4402,19 @@ http_send(http_t       *http,		/* I - HTTP connection */
   }
 
   for (i = 0; i < HTTP_FIELD_MAX; i ++)
+  {
     if ((value = httpGetField(http, i)) != NULL && *value)
     {
       DEBUG_printf(("5http_send: %s: %s", http_fields[i], value));
 
       if (i == HTTP_FIELD_HOST)
       {
-	if (httpPrintf(http, "Host: %s:%d\r\n", value,
-	               httpAddrPort(http->hostaddr)) < 1)
+        // Issue #185: Use "localhost" for the loopback addresses to work
+        // around an Avahi bug...
+        if (httpAddrLocalhost(http->hostaddr))
+          value = "localhost";
+
+	if (httpPrintf(http, "Host: %s:%d\r\n", value, httpAddrPort(http->hostaddr)) < 1)
 	{
 	  http->status = HTTP_STATUS_ERROR;
 	  return (-1);
@@ -4421,6 +4426,7 @@ http_send(http_t       *http,		/* I - HTTP connection */
 	return (-1);
       }
     }
+  }
 
   if (http->cookie)
     if (httpPrintf(http, "Cookie: $Version=0; %s\r\n", http->cookie) < 1)
