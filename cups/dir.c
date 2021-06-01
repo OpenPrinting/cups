@@ -3,10 +3,11 @@
  *
  * This set of APIs abstracts enumeration of directory entries.
  *
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2005 by Easy Software Products, all rights reserved.
+ * Copyright © 2007-2021 by Apple Inc.
+ * Copyright © 1997-2005 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -122,7 +123,7 @@ cupsDirOpen(const char *directory)	/* I - Directory name */
 
   dp->dir = INVALID_HANDLE_VALUE;
 
-  strlcpy(dp->directory, directory, sizeof(dp->directory));
+  snprintf(dp->directory, sizeof(dp->directory), "%s\\*",  directory);
 
  /*
   * Return the new directory structure...
@@ -167,6 +168,16 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
   }
   else if (!FindNextFileA(dp->dir, &entry))
     return (NULL);
+
+ /*
+  * Loop until we have something other than "." or ".."...
+  */
+
+  while (!strcmp(entry.cFileName, ".") || !strcmp(entry.cFileName, ".."))
+  {
+    if (!FindNextFileA(dp->dir, &entry))
+      return (NULL);
+  }
 
  /*
   * Copy the name over and convert the file information...

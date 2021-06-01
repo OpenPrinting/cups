@@ -1,8 +1,8 @@
 /*
  * HTTP address list routines for CUPS.
  *
- * Copyright 2007-2018 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2007-2021 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -99,6 +99,8 @@ httpAddrConnect2(
 
   if (cancel && *cancel)
     return (NULL);
+
+  httpInitialize();
 
   if (msec <= 0)
     msec = INT_MAX;
