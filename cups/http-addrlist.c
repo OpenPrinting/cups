@@ -518,6 +518,8 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 	                 family == AF_INET ? "INET" : "???", service);
 #endif /* DEBUG */
 
+  httpInitialize();
+
 #ifdef HAVE_RES_INIT
  /*
   * STR #2920: Initialize resolver after failure in cups-polld
