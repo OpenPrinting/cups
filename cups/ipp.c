@@ -3246,6 +3246,8 @@ ippReadIO(void       *src,		/* I - Data source */
 	  {
 	    DEBUG_puts("1ippReadIO: unable to read value length.");
 	    _cupsBufferRelease((char *)buffer);
+	    if (attr)
+	      ippDeleteAttribute(ipp, attr);
 	    return (IPP_STATE_ERROR);
 	  }
 

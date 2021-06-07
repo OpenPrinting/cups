@@ -46,6 +46,8 @@ CUPS v2.4rc1 (Pending)
   socket or the loopback interface (Issue #185)
 - Fixed a job history update issue in the scheduler (Issue #187)
 - Fixed `job-pages-per-set` value for duplex print jobs.
+- Fixed an edge case in `ippReadIO` to make sure that only complete attributes
+  and values are retained on an error (Issue #195)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
