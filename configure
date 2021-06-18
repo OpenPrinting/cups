@@ -9605,7 +9605,7 @@ rm -f core conftest.err conftest.$ac_objext conftest.beam \
 	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $have_pthread" >&5
 printf "%s\n" "$have_pthread" >&6; }
 
-	if test $have_thread = yes
+	if test $have_pthread = yes
 then :
 
 	    PTHREAD_FLAGS="-D_THREAD_SAFE -D_REENTRANT"
@@ -11281,7 +11281,7 @@ printf "%s\n" "no" >&6; }
 
 fi
 
-	if test $have_system = yes
+	if test $have_systemd = yes
 then :
 
 

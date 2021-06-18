@@ -8,8 +8,14 @@ CUPS v2.4rc1 (Pending)
 - Added support for AirPrint and Mopria clients (Issue #105)
 - Added configure support for specifying systemd dependencies in the CUPS
   service file (Issue #144)
+- Added several features and improvements to `ipptool` (Issue #153)
+- The `ipptool` command now correctly reports an error when a test file cannot
+  be found.
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
+- Fixed reporting of printer instances when enumerating and when no options are
+  set for the main instance (Issue #71)
+- Reverted USB read limit enforcement change from CUPS 2.2.12 (Issue #72)
 - The IPP backend did not return the correct status code when a job was canceled
   at the printer/server (Issue #74)
 - The `testlang` unit test program now loops over all of the available locales
@@ -21,22 +27,40 @@ CUPS v2.4rc1 (Pending)
 - The USB backend now runs as root (Issue #121)
 - Added pkg-config file for libcups (Issue #122)
 - Fixed a PPD memory leak caused by emulator definitions (Issue #124)
-- Added several features and improvements to `ipptool` (Issue #153)
+- Fixed a `DISPLAY` bug in `ipptool` (Issue #139)
 - The scheduler now includes the `[Job N]` prefix for job log messages, even
   when using syslog logging (Issue #154)
 - Added support for locales using the GB18030 character set (Issue #159)
+- `httpReconnect2` did not reset the socket file descriptor when the TLS
+  negotiation failed (Apple #5907)
+- `httpUpdate` did not reset the socket file descriptor when the TLS
+  negotiation failed (Apple #5915)
+- The IPP backend now retries Validate-Job requests (Issue #132)
+- Added a workaround for Solaris in `httpAddrConnect2` (Issue #156)
+- Now use a 60 second timeout for reading USB backchannel data (Issue #160)
+- The USB backend now tries harder to find a serial number (Issue #170)
+- Fixed `@IF(name)` handling in `cupsd.conf` (Apple #5918)
+- Now always pass "localhost" in the `Host:` header when talking over a domain
+  socket or the loopback interface (Issue #185)
+- Fixed a job history update issue in the scheduler (Issue #187)
+- Fixed `job-pages-per-set` value for duplex print jobs.
+- Fixed an edge case in `ippReadIO` to make sure that only complete attributes
+  and values are retained on an error (Issue #195)
 - Hardened `ippReadIO` to prevent invalid IPP messages from being propagated
   (Issue #195, Issue #196)
-- Documentation fixes (Issue #92)
-- Localization updates (Issue #123, Issue #129, Issue #134, Issue #146)
+- Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
+- Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
+  Issue #164)
 - USB quirk updates (Issue #192, Apple #5766, Apple #5838, Apple #5843,
   Apple #5867)
 - Web interface updates (Issue #142)
+- The `ippeveprinter` tool now automatically uses an available port.
+- Fixed some Windows issues.
 - Deprecated cups-config (Issue #97)
 - Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
-  `LPDConfigFile`, `RIPCache`, and `SMBConfigFile` directives in `cupsd.conf`
-  and `cups-files.conf`.
+  `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
+  directives in `cupsd.conf` and `cups-files.conf`.
 
 
 CUPS v2.3.3op2 (February 1, 2021)

@@ -1731,6 +1731,11 @@ select_timeout(int fds)			/* I - Number of descriptors returned */
  /*
   * Check for any job activity...
   */
+  if (JobHistoryUpdate && timeout > JobHistoryUpdate)
+  {
+    timeout = JobHistoryUpdate;
+    why     = "update job history";
+  }
 
   for (job = (cupsd_job_t *)cupsArrayFirst(ActiveJobs);
        job;

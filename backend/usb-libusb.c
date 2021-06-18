@@ -1,7 +1,8 @@
 /*
  * LIBUSB interface code for CUPS.
  *
- * Copyright 2007-2019 by Apple Inc.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -1259,9 +1260,10 @@ make_device_uri(
   const char	*mfg,			/* Manufacturer */
 		*mdl,			/* Model */
 		*des = NULL,		/* Description */
-		*sern;			/* Serial number */
+		*sern = NULL;		/* Serial number */
   size_t	mfglen;			/* Length of manufacturer string */
-  char		tempmfg[256],		/* Temporary manufacturer string */
+  char		tempmdl[256],		/* Temporary model string */
+		tempmfg[256],		/* Temporary manufacturer string */
 		tempsern[256],		/* Temporary serial number string */
 		*tempptr;		/* Pointer into temp string */
 
@@ -1272,33 +1274,61 @@ make_device_uri(
 
   num_values = _cupsGet1284Values(device_id, &values);
 
-  if ((sern = cupsGetOption("SERIALNUMBER", num_values, values)) == NULL)
-    if ((sern = cupsGetOption("SERN", num_values, values)) == NULL)
-      if ((sern = cupsGetOption("SN", num_values, values)) == NULL &&
-	  ((libusb_get_device_descriptor(printer->device, &devdesc) >= 0) &&
-	   devdesc.iSerialNumber))
-      {
-       /*
-        * Try getting the serial number from the device itself...
-	*/
+  memset(&devdesc, 0, sizeof(devdesc));
 
-        int length =
-	  libusb_get_string_descriptor_ascii(printer->handle,
-					     devdesc.iSerialNumber,
-					     (unsigned char *)tempsern,
-					     sizeof(tempsern) - 1);
-        if (length > 0)
-	{
-	  tempsern[length] = '\0';
-	  sern             = tempsern;
-	}
-      }
+  if (libusb_get_device_descriptor(printer->device, &devdesc) >= 0 && devdesc.iSerialNumber)
+  {
+    // Try getting the serial number from the device itself...
+    int length = libusb_get_string_descriptor_ascii(printer->handle, devdesc.iSerialNumber, (unsigned char *)tempsern, sizeof(tempsern) - 1);
+    if (length > 0)
+    {
+      tempsern[length] = '\0';
+      sern             = tempsern;
+
+      fprintf(stderr, "DEBUG2: iSerialNumber=\"%s\"\n", tempsern);
+    }
+    else
+      fputs("DEBUG2: iSerialNumber could not be read.\n", stderr);
+  }
+  else
+    fputs("DEBUG2: iSerialNumber is not present.\n", stderr);
+
+#if 0
+  if (!sern)
+  {
+    // Fall back on serial number from IEEE-1284 device ID, which on some
+    // printers (Issue #170) is a bogus hardcoded number.
+    if ((sern = cupsGetOption("SERIALNUMBER", num_values, values)) == NULL)
+      if ((sern = cupsGetOption("SERN", num_values, values)) == NULL)
+	sern = cupsGetOption("SN", num_values, values);
+  }
+#endif // 0
 
   if ((mfg = cupsGetOption("MANUFACTURER", num_values, values)) == NULL)
-    mfg = cupsGetOption("MFG", num_values, values);
+  {
+    if ((mfg = cupsGetOption("MFG", num_values, values)) == NULL && devdesc.iManufacturer)
+    {
+      int length = libusb_get_string_descriptor_ascii(printer->handle, devdesc.iManufacturer, (unsigned char *)tempmfg, sizeof(tempmfg) - 1);
+      if (length > 0)
+      {
+	tempmfg[length] = '\0';
+	mfg             = tempmfg;
+      }
+    }
+  }
 
   if ((mdl = cupsGetOption("MODEL", num_values, values)) == NULL)
-    mdl = cupsGetOption("MDL", num_values, values);
+  {
+    if ((mdl = cupsGetOption("MDL", num_values, values)) == NULL && devdesc.iProduct)
+    {
+      int length = libusb_get_string_descriptor_ascii(printer->handle, devdesc.iProduct, (unsigned char *)tempmdl, sizeof(tempmdl) - 1);
+      if (length > 0)
+      {
+	tempmdl[length] = '\0';
+	mdl             = tempmdl;
+      }
+    }
+  }
 
  /*
   * To maintain compatibility with the original character device backend on
@@ -1704,7 +1734,7 @@ static void *read_thread(void *reference)
     readstatus = libusb_bulk_transfer(g.printer->handle,
 				      g.printer->read_endp,
 				      readbuffer, rbytes,
-				      &rbytes, 250);
+				      &rbytes, 60000);
     if (readstatus == LIBUSB_SUCCESS && rbytes > 0)
     {
       fprintf(stderr, "DEBUG: Read %d bytes of back-channel data...\n", (int)rbytes);
@@ -1721,7 +1751,8 @@ static void *read_thread(void *reference)
     * Make sure this loop executes no more than once every 250 miliseconds...
     */
 
-    if ((g.wait_eof || !g.read_thread_stop))
+    if ((readstatus != LIBUSB_SUCCESS || rbytes == 0) &&
+	 (g.wait_eof || !g.read_thread_stop))
       usleep(250000);
   }
   while (g.wait_eof || !g.read_thread_stop);

@@ -1,8 +1,8 @@
 /*
  * HTTP address routines for CUPS.
  *
- * Copyright 2007-2019 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2007-2021 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -168,6 +168,12 @@ httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
 
   if (!addr || port < 0)
     return (-1);
+
+ /*
+  * Make sure the network stack is initialized...
+  */
+
+  httpInitialize();
 
  /*
   * Create the socket and set options...

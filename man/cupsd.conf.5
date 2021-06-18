@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cupsd.conf 5 "CUPS" "2021-03-11" "OpenPrinting"
+.TH cupsd.conf 5 "CUPS" "2021-04-27" "OpenPrinting"
 .SH NAME
 cupsd.conf \- server configuration file for cups
 .SH DESCRIPTION
@@ -207,11 +207,6 @@ The default is "5".
 \fBKeepAlive No\fR
 Specifies whether to support HTTP keep-alive connections.
 The default is "Yes".
-.\"#KeepAliveTimeout
-.TP 5
-\fBKeepAliveTimeout \fIseconds\fR
-Specifies how long an idle client connection remains open.
-The default is "30".
 .\"#LimitIPP
 .TP 5
 \fB<Limit \fIoperation \fR...\fB> \fR... \fB</Limit>\fR
@@ -337,6 +332,27 @@ The default is "10800" (3 hours).
 Specifies the maximum size of the log files before they are rotated.
 The value "0" disables log rotation.
 The default is "1048576" (1MB).
+.\"#MaxSubscriptions
+.TP 5
+\fBMaxSubscriptions \fInumber\fR
+Specifies the maximum number of simultaneous event subscriptions that are allowed.
+Set to "0" to allow an unlimited number of subscriptions.
+The default is "100".
+.\"#MaxSubscriptionsPerJob
+.TP 5
+\fBMaxSubscriptionsPerJob \fInumber\fR
+Specifies the maximum number of simultaneous event subscriptions that are allowed per job.
+The default is "0" which allows up to MaxSubscriptions subscriptions per job.
+.\"#MaxSubscriptionsPerPrinter
+.TP 5
+\fBMaxSubscriptionsPerPrinter \fInumber\fR
+Specifies the maximum number of simultaneous event subscriptions that are allowed per printer.
+The default is "0" which allows up to MaxSubscriptions subscriptions per printer.
+.\"#MaxSubscriptionsPerUser
+.TP 5
+\fBMaxSubscriptionsPerUser \fInumber\fR
+Specifies the maximum number of simultaneous event subscriptions that are allowed per user.
+The default is "0" which allows up to MaxSubscriptions subscriptions per user.
 .\"#MultipleOperationTimeout
 .TP 5
 \fBMultipleOperationTimeout \fIseconds\fR

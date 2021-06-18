@@ -182,6 +182,9 @@ The monitoring tests will run until all of the <b>EXPECT</b> conditions are sati
 <dd style="margin-left: 5.0em">Specifies the human-readable name of the test.
 <dt><b>OPERATION </b><i>operation-code</i>
 <dd style="margin-left: 5.0em">Specifies the operation to be performed.
+<dt><b>PASS-IF-DEFINED </b><i>variable-name</i>
+<dd style="margin-left: 5.0em"><dt><b>PASS-IF-NOT-DEFINED </b><i>variable-name</i>
+<dd style="margin-left: 5.0em">Specifies that the current test should be passed automatically when the variable is or is not defined.
 <dt><b>PAUSE "</b><i>message</i><b>"</b>
 <dd style="margin-left: 5.0em">Displays the provided message and waits for the user to press a key to continue.
 <dt><b>REQUEST-ID </b><i>number</i>
@@ -269,7 +272,7 @@ Comparisons are case-sensitive.
 <dt><b>WITH-DISTINCT-VALUES</b>
 <dd style="margin-left: 5.0em">Requires that all values of the <b>EXPECT</b> attribute are unique.
 Comparisons are case-sensitive.
-Only charset, enum, integer, keyword, mimeMediaType, naturalLanguage, rangeOfInteger, resolution, uriScheme attributes support this predicate.
+Only charset, collection, enum, integer, keyword, mimeMediaType, naturalLanguage, rangeOfInteger, resolution, uriScheme attributes support this predicate.
 <dt><b>WITH-HOSTNAME "</b><i>literal string</i><b>"</b>
 <dd style="margin-left: 5.0em"><dt><b>WITH-HOSTNAME "/</b><i>regular expression</i><b>/"</b>
 <dd style="margin-left: 5.0em">Requires that at least one URI value contains a matching hostname.

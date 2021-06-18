@@ -889,6 +889,75 @@ fi
 
 
 #
+# Perform job history test with cupsd restart...
+#
+
+echo $ac_n "Starting history test with cupsd restart: $ac_c"
+echo "" >>$strfile
+echo "`date '+[%d/%b/%Y:%H:%M:%S %z]'` \"5.11-history-cupsd-restart\":" >>$strfile
+
+echo "    lp -d Test1 testfile.jpg" >>$strfile
+
+$runcups ../systemv/lp -d Test1 ../examples/testfile.jpg 2>&1 >>$strfile
+if test $? != 0; then
+	echo "FAIL (unable to queue test job)"
+	echo "    FAILED" >>$strfile
+	fail=`expr $fail + 1`
+else
+	echo "PASS"
+	echo "    PASSED" >>$strfile
+
+	sleep 5
+	./waitjobs.sh >>$strfile
+
+        echo $ac_n "Verifying that history still exists: $ac_c"
+
+	echo "    ls -l $BASE/spool" >>$strfile
+	count=`ls -1 $BASE/spool | wc -l`
+	if test $count = 1; then
+		echo "FAIL (job control files not present)"
+		ls -l $BASE/spool
+		echo "    FAILED (job control files not present)" >>$strfile
+		ls -l $BASE/spool >>$strfile
+		fail=`expr $fail + 1`
+	else
+		echo "PASS"
+		echo "    PASSED" >>$strfile
+
+		echo "Restarting cupsd:"
+		echo "" >>$strfile
+		kill $cupsd
+		wait $cupsd
+
+		echo "    $runcups $VALGRIND ../scheduler/cupsd -c $BASE/cupsd.conf -f >>$BASE/log/debug_log 2>&1 &"
+		echo ""
+
+		$runcups $VALGRIND ../scheduler/cupsd -c $BASE/cupsd.conf -f >>$BASE/log/debug_log 2>&1 &
+
+		cupsd=$!
+
+		echo $ac_n "Waiting for job history to expire: $ac_c"
+		echo "" >>$strfile
+		echo "    sleep 35" >>$strfile
+		sleep 35
+
+		echo "    ls -l $BASE/spool" >>$strfile
+		count=`ls -1 $BASE/spool | wc -l`
+		if test $count != 1; then
+			echo "FAIL (job control files still present)"
+			ls -l $BASE/spool
+			echo "    FAILED (job control files still present)" >>$strfile
+			ls -l $BASE/spool >>$strfile
+			fail=`expr $fail + 1`
+		else
+			echo "PASS"
+			echo "    PASSED" >>$strfile
+		fi
+	fi
+fi
+
+
+#
 # Stop the server...
 #
 
@@ -966,7 +1035,7 @@ fi
 
 # Requests logged
 count=`wc -l $BASE/log/access_log | awk '{print $1}'`
-expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2`
+expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2`
 if test $count != $expected; then
 	echo "FAIL: $count requests logged, expected $expected."
 	echo "    <p>FAIL: $count requests logged, expected $expected.</p>" >>$strfile
@@ -1051,10 +1120,10 @@ fi
 
 # Warning log messages
 count=`$GREP '^W ' $BASE/log/error_log | $GREP -v CreateProfile | $GREP -v 'libusb error' | $GREP -v ColorManager | $GREP -v 'Avahi client failed' | wc -l | awk '{print $1}'`
-if test $count != 8; then
-	echo "FAIL: $count warning messages, expected 8."
+if test $count != 12; then
+	echo "FAIL: $count warning messages, expected 12."
 	$GREP '^W ' $BASE/log/error_log
-	echo "    <p>FAIL: $count warning messages, expected 8.</p>" >>$strfile
+	echo "    <p>FAIL: $count warning messages, expected 12.</p>" >>$strfile
 	echo "    <pre>" >>$strfile
 	$GREP '^W ' $BASE/log/error_log | sed -e '1,$s/&/&amp;/g' -e '1,$s/</&lt;/g' >>$strfile
 	echo "    </pre>" >>$strfile

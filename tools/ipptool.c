@@ -32,6 +32,15 @@
 
 
 /*
+ * Limits...
+ */
+
+#define MAX_EXPECT	200		// Maximum number of EXPECT directives
+#define MAX_DISPLAY	200		// Maximum number of DISPLAY directives
+#define MAX_MONITOR	10		// Maximum number of MONITOR-PRINTER-STATE EXPECT directives
+
+
+/*
  * Types...
  */
 
@@ -76,7 +85,8 @@ typedef struct ipptool_expect_s		/**** Expected attribute info ****/
 		*with_value_from,	/* Attribute must have one of the values in this attribute */
 		*define_match,		/* Variable to define on match */
 		*define_no_match,	/* Variable to define on no-match */
-		*define_value;		/* Variable to define with value */
+		*define_value,		/* Variable to define with value */
+		*display_match;		/* Message to display on a match */
   int		repeat_limit,		/* Maximum number of times to repeat */
 		repeat_match,		/* Repeat test on match */
 		repeat_no_match,	/* Repeat test on no match */
@@ -136,9 +146,9 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   char		compression[16];	/* COMPRESSION value */
   useconds_t	delay;                  /* Initial delay */
   int		num_displayed;		/* Number of displayed attributes */
-  char		*displayed[200];	/* Displayed attributes */
+  char		*displayed[MAX_DISPLAY];/* Displayed attributes */
   int		num_expects;		/* Number of expected attributes */
-  ipptool_expect_t expects[200],	/* Expected attributes */
+  ipptool_expect_t expects[MAX_EXPECT],	/* Expected attributes */
 		*expect,		/* Current expected attribute */
 		*last_expect;		/* Last EXPECT (for predicates) */
   char		file[1024],		/* Data filename */
@@ -149,7 +159,8 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   useconds_t	repeat_interval;	/* Repeat interval (delay) */
   int		request_id;		/* Current request ID */
   char		resource[512];		/* Resource for request */
-  int		skip_test,		/* Skip this test? */
+  int		pass_test,		/* Pass this test? */
+		skip_test,		/* Skip this test? */
 		num_statuses;		/* Number of valid status codes */
   ipptool_status_t statuses[100],	/* Valid status codes */
 		*last_status;		/* Last STATUS (for predicates) */
@@ -162,7 +173,8 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   useconds_t	monitor_delay,		/* MONITOR-PRINTER-STATE DELAY value, if any */
 		monitor_interval;	/* MONITOR-PRINTER-STATE DELAY interval */
   int		num_monitor_expects;	/* Number MONITOR-PRINTER-STATE EXPECTs */
-  ipptool_expect_t monitor_expects[10];	/* MONITOR-PRINTER-STATE EXPECTs */
+  ipptool_expect_t monitor_expects[MAX_MONITOR];
+					/* MONITOR-PRINTER-STATE EXPECTs */
 } ipptool_test_t;
 
 
@@ -192,11 +204,11 @@ static char	*iso_date(const ipp_uchar_t *date);
 static int	parse_monitor_printer_state(_ipp_file_t *f, ipptool_test_t *data);
 static void	pause_message(const char *message);
 static void	print_attr(cups_file_t *outfile, ipptool_output_t output, ipp_attribute_t *attr, ipp_tag_t *group);
-static void	print_csv(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
+static ipp_attribute_t *print_csv(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
 static void	print_fatal_error(ipptool_test_t *data, const char *s, ...) _CUPS_FORMAT(2, 3);
 static void	print_ippserver_attr(ipptool_test_t *data, ipp_attribute_t *attr, int indent);
 static void	print_ippserver_string(ipptool_test_t *data, const char *s, size_t len);
-static void	print_line(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
+static ipp_attribute_t *print_line(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
 static void	print_xml_header(ipptool_test_t *data);
 static void	print_xml_string(cups_file_t *outfile, const char *element, const char *s);
 static void	print_xml_trailer(ipptool_test_t *data, int success, const char *message);
@@ -680,7 +692,12 @@ main(int  argc,				/* I - Number of command-line args */
       else
         testfile = argv[i];
 
-      if (!do_tests(testfile, &data))
+      if (access(testfile, 0))
+      {
+        _cupsLangPrintf(stderr, _("%s: Unable to open \"%s\": %s"), "ipptool", testfile, strerror(errno));
+        status = 1;
+      }
+      else if (!do_tests(testfile, &data))
         status = 1;
     }
   }
@@ -903,7 +920,7 @@ static void *				// O - Thread exit status
 do_monitor_printer_state(
     ipptool_test_t *data)		// I - Test data
 {
-  int		i;			// Looping var
+  int		i, j;			// Looping vars
   char		scheme[32],		// URI scheme
 		userpass[32],		// URI username:password
 		host[256],		// URI hostname/IP address
@@ -917,47 +934,8 @@ do_monitor_printer_state(
   ipp_attribute_t *found;		// Found attribute
   ipptool_expect_t *expect;		// Current EXPECT test
   char		buffer[131072];		// Copy buffer
-  static const char *pattrs[] =		// List of attributes we care about
-  {
-    "marker-change-time",		// "marker-xxx" are a CUPS/AirPrint extension
-    "marker-colors",
-    "marker-high-levels",
-    "marker-levels",
-    "marker-low-levels",
-    "marker-message",
-    "marker-names",
-    "marker-types",
-    "printer-alert",
-    "printer-alert-description",
-    "printer-config-change-date-time",
-    "printer-config-change-time",
-    "printer-config-changes",
-    "printer-current-time",
-    "printer-finisher",
-    "printer-finisher-description",
-    "printer-finisher-supplies",
-    "printer-finisher-supplies-description",
-    "printer-impressions-completed",
-    "printer-impressions-completed-col",
-    "printer-input-tray",
-    "printer-is-accepting-jobs",
-    "printer-media-sheets-completed",
-    "printer-media-sheets-completed-col",
-    "printer-message-date-time",
-    "printer-message-from-operator",
-    "printer-message-time",
-    "printer-output-tray",
-    "printer-pages-completed",
-    "printer-pages-completed-col",
-    "printer-state",
-    "printer-state-change-date-time",
-    "printer-state-change-time",
-    "printer-state-reasons",
-    "printer-supply",
-    "printer-supply-description",
-    "printer-up-time",
-    "queued-job-count"
-  };
+  int		num_pattrs;		// Number of printer attributes
+  const char	*pattrs[100];		// Printer attributes we care about
 
 
   // Connect to the printer...
@@ -993,15 +971,33 @@ do_monitor_printer_state(
 
   // Create a query request that we'll reuse...
   request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+  ippSetRequestId(request, data->request_id * 100 - 1);
   ippSetVersion(request, data->version / 10, data->version % 10);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->monitor_uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
-  ippAddStrings(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_KEYWORD), "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
+
+  for (i = data->num_monitor_expects, expect = data->monitor_expects, num_pattrs = 0; i > 0; i --, expect ++)
+  {
+    // Add EXPECT attribute names...
+    for (j = 0; j < num_pattrs; j ++)
+    {
+      if (!strcmp(expect->name, pattrs[j]))
+        break;
+    }
+
+    if (j >= num_pattrs && num_pattrs < (int)(sizeof(pattrs) / sizeof(pattrs[0])))
+      pattrs[num_pattrs ++] = expect->name;
+  }
+
+  if (num_pattrs > 0)
+    ippAddStrings(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_KEYWORD), "requested-attributes", num_pattrs, NULL, pattrs);
 
   // Loop until we need to stop...
   while (!data->monitor_done && !Cancel)
   {
     // Poll the printer state...
+    ippSetRequestId(request, ippGetRequestId(request) + 1);
+
     if ((status = cupsSendRequest(http, request, resource, ippLength(request))) != HTTP_STATUS_ERROR)
     {
       response = cupsGetResponse(http, resource);
@@ -1078,6 +1074,9 @@ do_monitor_printer_state(
 	}
 	break;
       }
+
+      if (found && expect->display_match && (data->output == IPPTOOL_OUTPUT_TEST || (data->output == IPPTOOL_OUTPUT_PLIST && data->outfile != cupsFileStdout())))
+	cupsFilePrintf(cupsFileStdout(), "CONT]\n\n%s\n\n    %-68.68s [", expect->display_match, data->name);
 
       if (found && expect->define_match)
       {
@@ -1191,7 +1190,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
   if (data->pause[0])
   {
-    if (!data->skip_test)
+    if (!data->skip_test && !data->pass_test)
       pause_message(data->pause);
 
     data->pause[0] = '\0';
@@ -1202,7 +1201,10 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
   */
 
   if (data->monitor_uri)
+  {
+    data->monitor_done   = 0;
     data->monitor_thread = _cupsThreadCreate((_cups_thread_func_t)do_monitor_printer_state, data);
+  }
 
  /*
   * Take over control of the attributes in the request...
@@ -1266,9 +1268,10 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
     cupsFilePrintf(cupsFileStdout(), "    %-68.68s [", data->name);
   }
 
-  if ((data->skip_previous && !data->prev_pass) || data->skip_test)
+  if ((data->skip_previous && !data->prev_pass) || data->skip_test || data->pass_test)
   {
-    data->skip_count ++;
+    if (!data->pass_test)
+      data->skip_count ++;
 
     ippDelete(request);
     request  = NULL;
@@ -1279,15 +1282,26 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       cupsFilePuts(data->outfile, "<key>Successful</key>\n");
       cupsFilePuts(data->outfile, "<true />\n");
       cupsFilePuts(data->outfile, "<key>Skipped</key>\n");
-      cupsFilePuts(data->outfile, "<true />\n");
+      if (data->pass_test)
+	cupsFilePuts(data->outfile, "<false />\n");
+      else
+	cupsFilePuts(data->outfile, "<true />\n");
       cupsFilePuts(data->outfile, "<key>StatusCode</key>\n");
-      print_xml_string(data->outfile, "string", "skip");
+      if (data->pass_test)
+	print_xml_string(data->outfile, "string", "pass");
+      else
+	print_xml_string(data->outfile, "string", "skip");
       cupsFilePuts(data->outfile, "<key>ResponseAttributes</key>\n");
       cupsFilePuts(data->outfile, "<dict />\n");
     }
 
     if (data->output == IPPTOOL_OUTPUT_TEST || (data->output == IPPTOOL_OUTPUT_PLIST && data->outfile != cupsFileStdout()))
-      cupsFilePuts(cupsFileStdout(), "SKIP]\n");
+    {
+      if (data->pass_test)
+	cupsFilePuts(cupsFileStdout(), "PASS]\n");
+      else
+	cupsFilePuts(cupsFileStdout(), "SKIP]\n");
+    }
 
     goto skip_error;
   }
@@ -1503,27 +1517,27 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
         major = ippGetVersion(response, &minor);
 
         if (major != (data->version / 10) || minor != (data->version % 10))
-	  add_stringf(data->errors, "Bad version %d.%d in response - expected %d.%d (RFC 2911 section 3.1.8).", major, minor, data->version / 10, data->version % 10);
+	  add_stringf(data->errors, "Bad version %d.%d in response - expected %d.%d (RFC 8011 section 4.1.8).", major, minor, data->version / 10, data->version % 10);
       }
 
       if (ippGetRequestId(response) != data->request_id)
-	add_stringf(data->errors, "Bad request ID %d in response - expected %d (RFC 2911 section 3.1.1)", ippGetRequestId(response), data->request_id);
+	add_stringf(data->errors, "Bad request ID %d in response - expected %d (RFC 8011 section 4.1.1)", ippGetRequestId(response), data->request_id);
 
       attrptr = ippFirstAttribute(response);
       if (!attrptr)
       {
-	add_stringf(data->errors, "Missing first attribute \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).");
+	add_stringf(data->errors, "Missing first attribute \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).");
       }
       else
       {
 	if (!ippGetName(attrptr) || ippGetValueTag(attrptr) != IPP_TAG_CHARSET || ippGetGroupTag(attrptr) != IPP_TAG_OPERATION || ippGetCount(attrptr) != 1 ||strcmp(ippGetName(attrptr), "attributes-charset"))
-	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-charset (charset)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
 
 	attrptr = ippNextAttribute(response);
 	if (!attrptr)
-	  add_stringf(data->errors, "Missing second attribute \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).");
+	  add_stringf(data->errors, "Missing second attribute \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).");
 	else if (!ippGetName(attrptr) || ippGetValueTag(attrptr) != IPP_TAG_LANGUAGE || ippGetGroupTag(attrptr) != IPP_TAG_OPERATION || ippGetCount(attrptr) != 1 || strcmp(ippGetName(attrptr), "attributes-natural-language"))
-	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 2911 section 3.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "Bad first attribute \"%s (%s%s)\" in group %s, expected \"attributes-natural-language (naturalLanguage)\" in group operation-attributes-tag (RFC 8011 section 4.1.4).", ippGetName(attrptr) ? ippGetName(attrptr) : "(null)", ippGetCount(attrptr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attrptr)), ippTagString(ippGetGroupTag(attrptr)));
       }
 
       if ((attrptr = ippFindAttribute(response, "status-message", IPP_TAG_ZERO)) != NULL)
@@ -1532,13 +1546,13 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 						/* String value */
 
 	if (ippGetValueTag(attrptr) != IPP_TAG_TEXT)
-	  add_stringf(data->errors, "status-message (text(255)) has wrong value tag %s (RFC 2911 section 3.1.6.2).", ippTagString(ippGetValueTag(attrptr)));
+	  add_stringf(data->errors, "status-message (text(255)) has wrong value tag %s (RFC 8011 section 4.1.6.2).", ippTagString(ippGetValueTag(attrptr)));
 	if (ippGetGroupTag(attrptr) != IPP_TAG_OPERATION)
-	  add_stringf(data->errors, "status-message (text(255)) has wrong group tag %s (RFC 2911 section 3.1.6.2).", ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "status-message (text(255)) has wrong group tag %s (RFC 8011 section 4.1.6.2).", ippTagString(ippGetGroupTag(attrptr)));
 	if (ippGetCount(attrptr) != 1)
-	  add_stringf(data->errors, "status-message (text(255)) has %d values (RFC 2911 section 3.1.6.2).", ippGetCount(attrptr));
+	  add_stringf(data->errors, "status-message (text(255)) has %d values (RFC 8011 section 4.1.6.2).", ippGetCount(attrptr));
 	if (status_message && strlen(status_message) > 255)
-	  add_stringf(data->errors, "status-message (text(255)) has bad length %d (RFC 2911 section 3.1.6.2).", (int)strlen(status_message));
+	  add_stringf(data->errors, "status-message (text(255)) has bad length %d (RFC 8011 section 4.1.6.2).", (int)strlen(status_message));
       }
 
       if ((attrptr = ippFindAttribute(response, "detailed-status-message",
@@ -1548,25 +1562,13 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 						/* String value */
 
 	if (ippGetValueTag(attrptr) != IPP_TAG_TEXT)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has wrong "
-		      "value tag %s (RFC 2911 section 3.1.6.3).",
-		      ippTagString(ippGetValueTag(attrptr)));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has wrong value tag %s (RFC 8011 section 4.1.6.3).", ippTagString(ippGetValueTag(attrptr)));
 	if (ippGetGroupTag(attrptr) != IPP_TAG_OPERATION)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has wrong "
-		      "group tag %s (RFC 2911 section 3.1.6.3).",
-		      ippTagString(ippGetGroupTag(attrptr)));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has wrong group tag %s (RFC 8011 section 4.1.6.3).", ippTagString(ippGetGroupTag(attrptr)));
 	if (ippGetCount(attrptr) != 1)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has %d values"
-		      " (RFC 2911 section 3.1.6.3).",
-		      ippGetCount(attrptr));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has %d values (RFC 8011 section 4.1.6.3).", ippGetCount(attrptr));
 	if (detailed_status_message && strlen(detailed_status_message) > 1023)
-	  add_stringf(data->errors,
-		      "detailed-status-message (text(MAX)) has bad "
-		      "length %d (RFC 2911 section 3.1.6.3).",
-		      (int)strlen(detailed_status_message));
+	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has bad length %d (RFC 8011 section 4.1.6.3).", (int)strlen(detailed_status_message));
       }
 
       a = cupsArrayNew((cups_array_func_t)strcmp, NULL);
@@ -1612,9 +1614,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  }
 
 	  if (out_of_order)
-	    add_stringf(data->errors, "Attribute groups out of order (%s < %s)",
-			ippTagString(ippGetGroupTag(attrptr)),
-			ippTagString(group));
+	    add_stringf(data->errors, "Attribute groups out of order (%s < %s)", ippTagString(ippGetGroupTag(attrptr)), ippTagString(group));
 
 	  if (ippGetGroupTag(attrptr) != IPP_TAG_ZERO)
 	    group = ippGetGroupTag(attrptr);
@@ -1626,8 +1626,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	if (ippGetName(attrptr))
 	{
 	  if (cupsArrayFind(a, (void *)ippGetName(attrptr)) && data->output < IPPTOOL_OUTPUT_LIST)
-	    add_stringf(data->errors, "Duplicate \"%s\" attribute in %s group",
-			ippGetName(attrptr), ippTagString(group));
+	    add_stringf(data->errors, "Duplicate \"%s\" attribute in %s group", ippGetName(attrptr), ippTagString(group));
 
 	  cupsArrayAdd(a, (void *)ippGetName(attrptr));
 	}
@@ -1693,13 +1692,10 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	    continue;
 
 	  if (!data->statuses[i].repeat_match || repeat_count >= data->statuses[i].repeat_limit)
-	    add_stringf(data->errors, "EXPECTED: STATUS %s (got %s)",
-			ippErrorString(data->statuses[i].status),
-			ippErrorString(cupsLastError()));
+	    add_stringf(data->errors, "EXPECTED: STATUS %s (got %s)", ippErrorString(data->statuses[i].status), ippErrorString(cupsLastError()));
 	}
 
-	if ((attrptr = ippFindAttribute(response, "status-message",
-					IPP_TAG_TEXT)) != NULL)
+	if ((attrptr = ippFindAttribute(response, "status-message", IPP_TAG_TEXT)) != NULL)
 	  add_stringf(data->errors, "status-message=\"%s\"", ippGetString(attrptr, 0, NULL));
       }
 
@@ -1820,8 +1816,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	      _ippVarsSet(data->vars, expect->define_no_match, "1");
 	    else if (!expect->define_match && !expect->define_value)
 	    {
-	      add_stringf(data->errors, "EXPECTED: %s COUNT %d (got %d)", expect->name,
-			  expect->count, ippGetCount(found));
+	      add_stringf(data->errors, "EXPECTED: %s COUNT %d (got %d)", expect->name, expect->count, ippGetCount(found));
 	    }
 
 	    if (expect->repeat_no_match &&
@@ -1843,15 +1838,9 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	      else if (!expect->define_match && !expect->define_value)
 	      {
 		if (!attrptr)
-		  add_stringf(data->errors,
-			      "EXPECTED: %s (%d values) SAME-COUNT-AS %s "
-			      "(not returned)", expect->name,
-			      ippGetCount(found), expect->same_count_as);
+		  add_stringf(data->errors, "EXPECTED: %s (%d values) SAME-COUNT-AS %s (not returned)", expect->name, ippGetCount(found), expect->same_count_as);
 		else if (ippGetCount(attrptr) != ippGetCount(found))
-		  add_stringf(data->errors,
-			      "EXPECTED: %s (%d values) SAME-COUNT-AS %s "
-			      "(%d values)", expect->name, ippGetCount(found),
-			      expect->same_count_as, ippGetCount(attrptr));
+		  add_stringf(data->errors, "EXPECTED: %s (%d values) SAME-COUNT-AS %s (%d values)", expect->name, ippGetCount(found), expect->same_count_as, ippGetCount(attrptr));
 	      }
 
 	      if (expect->repeat_no_match &&
@@ -1861,6 +1850,9 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	      break;
 	    }
 	  }
+
+	  if (found && expect->display_match && (data->output == IPPTOOL_OUTPUT_TEST || (data->output == IPPTOOL_OUTPUT_PLIST && data->outfile != cupsFileStdout())))
+	    cupsFilePrintf(cupsFileStdout(), "\n%s\n\n", expect->display_match);
 
 	  if (found && expect->define_match)
 	    _ippVarsSet(data->vars, expect->define_match, "1");
@@ -2063,9 +2055,9 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       if (attrptr)
       {
 	if (data->output == IPPTOOL_OUTPUT_CSV)
-	  print_csv(data, response, attrptr, data->num_displayed, data->displayed, widths);
+	  attrptr = print_csv(data, response, attrptr, data->num_displayed, data->displayed, widths);
 	else
-	  print_line(data, response, attrptr, data->num_displayed, data->displayed, widths);
+	  attrptr = print_line(data, response, attrptr, data->num_displayed, data->displayed, widths);
 
 	while (attrptr && ippGetGroupTag(attrptr) > IPP_TAG_OPERATION)
 	  attrptr = ippNextAttribute(response);
@@ -2130,36 +2122,25 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
   for (i = 0; i < data->num_statuses; i ++)
   {
-    if (data->statuses[i].if_defined)
-      free(data->statuses[i].if_defined);
-    if (data->statuses[i].if_not_defined)
-      free(data->statuses[i].if_not_defined);
-    if (data->statuses[i].define_match)
-      free(data->statuses[i].define_match);
-    if (data->statuses[i].define_no_match)
-      free(data->statuses[i].define_no_match);
+    free(data->statuses[i].if_defined);
+    free(data->statuses[i].if_not_defined);
+    free(data->statuses[i].define_match);
+    free(data->statuses[i].define_no_match);
   }
   data->num_statuses = 0;
 
   for (i = data->num_expects, expect = data->expects; i > 0; i --, expect ++)
   {
     free(expect->name);
-    if (expect->of_type)
-      free(expect->of_type);
-    if (expect->same_count_as)
-      free(expect->same_count_as);
-    if (expect->if_defined)
-      free(expect->if_defined);
-    if (expect->if_not_defined)
-      free(expect->if_not_defined);
-    if (expect->with_value)
-      free(expect->with_value);
-    if (expect->define_match)
-      free(expect->define_match);
-    if (expect->define_no_match)
-      free(expect->define_no_match);
-    if (expect->define_value)
-      free(expect->define_value);
+    free(expect->of_type);
+    free(expect->same_count_as);
+    free(expect->if_defined);
+    free(expect->if_not_defined);
+    free(expect->with_value);
+    free(expect->define_match);
+    free(expect->define_no_match);
+    free(expect->define_value);
+    free(expect->display_match);
   }
   data->num_expects = 0;
 
@@ -2173,22 +2154,15 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
   for (i = data->num_monitor_expects, expect = data->monitor_expects; i > 0; i --, expect ++)
   {
     free(expect->name);
-    if (expect->of_type)
-      free(expect->of_type);
-    if (expect->same_count_as)
-      free(expect->same_count_as);
-    if (expect->if_defined)
-      free(expect->if_defined);
-    if (expect->if_not_defined)
-      free(expect->if_not_defined);
-    if (expect->with_value)
-      free(expect->with_value);
-    if (expect->define_match)
-      free(expect->define_match);
-    if (expect->define_no_match)
-      free(expect->define_no_match);
-    if (expect->define_value)
-      free(expect->define_value);
+    free(expect->of_type);
+    free(expect->same_count_as);
+    free(expect->if_defined);
+    free(expect->if_not_defined);
+    free(expect->with_value);
+    free(expect->define_match);
+    free(expect->define_no_match);
+    free(expect->define_value);
+    free(expect->display_match);
   }
   data->num_monitor_expects = 0;
 
@@ -2697,7 +2671,8 @@ parse_monitor_printer_state(
   if (strcmp(temp, "{"))
   {
     // Got a printer URI so copy it...
-    data->monitor_uri = strdup(temp);
+    _ippVarsExpand(data->vars, value, temp, sizeof(value));
+    data->monitor_uri = strdup(value);
 
     // Then see if we have an opening brace...
     if (!_ippFileReadToken(f, temp, sizeof(temp)) || strcmp(temp, "{"))
@@ -2719,6 +2694,7 @@ parse_monitor_printer_state(
 	_cups_strcasecmp(token, "DEFINE-MATCH") &&
 	_cups_strcasecmp(token, "DEFINE-NO-MATCH") &&
 	_cups_strcasecmp(token, "DEFINE-VALUE") &&
+	_cups_strcasecmp(token, "DISPLAY-MATCH") &&
 	_cups_strcasecmp(token, "IF-DEFINED") &&
 	_cups_strcasecmp(token, "IF-NOT-DEFINED") &&
 	_cups_strcasecmp(token, "IN-GROUP") &&
@@ -2843,6 +2819,24 @@ parse_monitor_printer_state(
       else
       {
 	print_fatal_error(data, "DEFINE-VALUE without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!_cups_strcasecmp(token, "DISPLAY-MATCH"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing DISPLAY-MATCH message on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->display_match = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "DISPLAY-MATCH without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
 	return (0);
       }
     }
@@ -3144,7 +3138,7 @@ pause_message(const char *message)	/* I - Message */
   * Display the prompt...
   */
 
-  cupsFilePrintf(cupsFileStdout(), "%s\n---- PRESS ANY KEY ----", message);
+  cupsFilePrintf(cupsFileStdout(), "\n%s\n\n---- PRESS ANY KEY ----", message);
 
 #ifdef _WIN32
  /*
@@ -3187,10 +3181,10 @@ pause_message(const char *message)	/* I - Message */
  */
 
 static void
-print_attr(cups_file_t     *outfile,	/* I  - Output file */
-           ipptool_output_t  output,	/* I  - Output format */
-           ipp_attribute_t *attr,	/* I  - Attribute to print */
-           ipp_tag_t       *group)	/* IO - Current group */
+print_attr(cups_file_t      *outfile,	/* I  - Output file */
+           ipptool_output_t output,	/* I  - Output format */
+           ipp_attribute_t  *attr,	/* I  - Attribute to print */
+           ipp_tag_t        *group)	/* IO - Current group */
 {
   int			i,		/* Looping var */
 			count;		/* Number of values */
@@ -3344,21 +3338,20 @@ print_attr(cups_file_t     *outfile,	/* I  - Output file */
  * 'print_csv()' - Print a line of CSV text.
  */
 
-static void
+static ipp_attribute_t *		/* O - Next attribute */
 print_csv(
-    ipptool_test_t *data,		/* I - Test data */
-    ipp_t            *ipp,		/* I - Response message */
-    ipp_attribute_t  *attr,		/* I - First attribute for line */
-    int              num_displayed,	/* I - Number of attributes to display */
-    char             **displayed,	/* I - Attributes to display */
-    size_t           *widths)		/* I - Column widths */
+    ipptool_test_t  *data,		/* I - Test data */
+    ipp_t           *ipp,		/* I - Response message */
+    ipp_attribute_t *attr,		/* I - First attribute for line */
+    int             num_displayed,	/* I - Number of attributes to display */
+    char            **displayed,	/* I - Attributes to display */
+    size_t          *widths)		/* I - Column widths */
 {
   int		i;			/* Looping var */
   size_t	maxlength;		/* Max length of all columns */
-  char		*buffer,		/* String buffer */
-		*bufptr;		/* Pointer into buffer */
-  ipp_attribute_t *current;		/* Current attribute */
-
+  ipp_attribute_t *current = attr;	/* Current attribute */
+  char		*values[MAX_DISPLAY],	/* Strings to display */
+		*valptr;		/* Pointer into value */
 
  /*
   * Get the maximum string length we have to show and allocate...
@@ -3370,63 +3363,76 @@ print_csv(
 
   maxlength += 2;
 
-  if ((buffer = malloc(maxlength)) == NULL)
-    return;
-
  /*
   * Loop through the attributes to display...
   */
 
   if (attr)
   {
+    // Collect the values...
+    memset(values, 0, sizeof(values));
+
+    for (; current; current = ippNextAttribute(ipp))
+    {
+      if (!ippGetName(current))
+	break;
+
+      for (i = 0; i < num_displayed; i ++)
+      {
+        if (!strcmp(ippGetName(current), displayed[i]))
+        {
+          if ((values[i] = (char *)calloc(1, maxlength)) != NULL)
+	    ippAttributeString(current, values[i], maxlength);
+          break;
+	}
+      }
+    }
+
+    // Output the line...
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
         cupsFilePutChar(data->outfile, ',');
 
-      buffer[0] = '\0';
+      if (!values[i])
+        continue;
 
-      for (current = attr; current; current = ippNextAttribute(ipp))
+      if (strchr(values[i], ',') != NULL || strchr(values[i], '\"') != NULL || strchr(values[i], '\\') != NULL)
       {
-        if (!ippGetName(current))
-          break;
-        else if (!strcmp(ippGetName(current), displayed[i]))
+        // Quoted value...
+        cupsFilePutChar(data->outfile, '\"');
+        for (valptr = values[i]; *valptr; valptr ++)
         {
-          ippAttributeString(current, buffer, maxlength);
-          break;
+          if (*valptr == '\\' || *valptr == '\"')
+            cupsFilePutChar(data->outfile, '\\');
+          cupsFilePutChar(data->outfile, *valptr);
         }
-      }
-
-      if (strchr(buffer, ',') != NULL || strchr(buffer, '\"') != NULL ||
-	  strchr(buffer, '\\') != NULL)
-      {
-        cupsFilePutChar(cupsFileStdout(), '\"');
-        for (bufptr = buffer; *bufptr; bufptr ++)
-        {
-          if (*bufptr == '\\' || *bufptr == '\"')
-            cupsFilePutChar(cupsFileStdout(), '\\');
-          cupsFilePutChar(cupsFileStdout(), *bufptr);
-        }
-        cupsFilePutChar(cupsFileStdout(), '\"');
+        cupsFilePutChar(data->outfile, '\"');
       }
       else
-        cupsFilePuts(data->outfile, buffer);
+      {
+        // Unquoted value...
+        cupsFilePuts(data->outfile, values[i]);
+      }
+
+      free(values[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
   }
   else
   {
+    // Show column headings...
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-        cupsFilePutChar(cupsFileStdout(), ',');
+        cupsFilePutChar(data->outfile, ',');
 
       cupsFilePuts(data->outfile, displayed[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
   }
 
-  free(buffer);
+  return (current);
 }
 
 
@@ -3605,7 +3611,7 @@ print_ippserver_string(
  * 'print_line()' - Print a line of formatted or CSV text.
  */
 
-static void
+static ipp_attribute_t *		/* O - Next attribute */
 print_line(
     ipptool_test_t *data,		/* I - Test data */
     ipp_t            *ipp,		/* I - Response message */
@@ -3616,8 +3622,8 @@ print_line(
 {
   int		i;			/* Looping var */
   size_t	maxlength;		/* Max length of all columns */
-  char		*buffer;		/* String buffer */
-  ipp_attribute_t *current;		/* Current attribute */
+  ipp_attribute_t *current = attr;	/* Current attribute */
+  char		*values[MAX_DISPLAY];	/* Strings to display */
 
 
  /*
@@ -3630,61 +3636,74 @@ print_line(
 
   maxlength += 2;
 
-  if ((buffer = malloc(maxlength)) == NULL)
-    return;
-
  /*
   * Loop through the attributes to display...
   */
 
   if (attr)
   {
+    // Collect the values...
+    memset(values, 0, sizeof(values));
+
+    for (; current; current = ippNextAttribute(ipp))
+    {
+      if (!ippGetName(current))
+	break;
+
+      for (i = 0; i < num_displayed; i ++)
+      {
+        if (!strcmp(ippGetName(current), displayed[i]))
+        {
+          if ((values[i] = (char *)calloc(1, maxlength)) != NULL)
+	    ippAttributeString(current, values[i], maxlength);
+          break;
+	}
+      }
+    }
+
+    // Output the line...
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-        cupsFilePutChar(cupsFileStdout(), ' ');
+        cupsFilePutChar(data->outfile, ' ');
 
-      buffer[0] = '\0';
-
-      for (current = attr; current; current = ippNextAttribute(ipp))
-      {
-        if (!ippGetName(current))
-          break;
-        else if (!strcmp(ippGetName(current), displayed[i]))
-        {
-          ippAttributeString(current, buffer, maxlength);
-          break;
-        }
-      }
-
-      cupsFilePrintf(data->outfile, "%*s", (int)-widths[i], buffer);
+      cupsFilePrintf(data->outfile, "%*s", (int)-widths[i], values[i] ? values[i] : "");
+      free(values[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
   }
   else
   {
+    // Show column headings...
+    char *buffer = (char *)malloc(maxlength);
+					// Buffer for separator lines
+
+    if (!buffer)
+      return (current);
+
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-        cupsFilePutChar(cupsFileStdout(), ' ');
+        cupsFilePutChar(data->outfile, ' ');
 
       cupsFilePrintf(data->outfile, "%*s", (int)-widths[i], displayed[i]);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
 
     for (i = 0; i < num_displayed; i ++)
     {
       if (i)
-	cupsFilePutChar(cupsFileStdout(), ' ');
+	cupsFilePutChar(data->outfile, ' ');
 
       memset(buffer, '-', widths[i]);
       buffer[widths[i]] = '\0';
       cupsFilePuts(data->outfile, buffer);
     }
-    cupsFilePutChar(cupsFileStdout(), '\n');
+    cupsFilePutChar(data->outfile, '\n');
+    free(buffer);
   }
 
-  free(buffer);
+  return (current);
 }
 
 
@@ -3924,6 +3943,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	_cups_strcasecmp(token, "DEFINE-MATCH") &&
 	_cups_strcasecmp(token, "DEFINE-NO-MATCH") &&
 	_cups_strcasecmp(token, "DEFINE-VALUE") &&
+	_cups_strcasecmp(token, "DISPLAY-MATCH") &&
 	_cups_strcasecmp(token, "IF-DEFINED") &&
 	_cups_strcasecmp(token, "IF-NOT-DEFINED") &&
 	_cups_strcasecmp(token, "IN-GROUP") &&
@@ -4083,6 +4103,40 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
       else
       {
 	print_fatal_error(data, "Missing REQUEST-ID value on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!strcmp(token, "PASS-IF-DEFINED"))
+    {
+     /*
+      * PASS-IF-DEFINED variable
+      */
+
+      if (_ippFileReadToken(f, name, sizeof(name)))
+      {
+	if (_ippVarsGet(vars, name))
+	  data->pass_test = 1;
+      }
+      else
+      {
+	print_fatal_error(data, "Missing PASS-IF-DEFINED value on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
+    else if (!strcmp(token, "PASS-IF-NOT-DEFINED"))
+    {
+     /*
+      * PASS-IF-NOT-DEFINED variable
+      */
+
+      if (_ippFileReadToken(f, name, sizeof(name)))
+      {
+	if (!_ippVarsGet(vars, name))
+	  data->pass_test = 1;
+      }
+      else
+      {
+	print_fatal_error(data, "Missing PASS-IF-NOT-DEFINED value on line %d of \"%s\".", f->linenum, f->filename);
 	return (0);
       }
     }
@@ -4531,6 +4585,24 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 	return (0);
       }
     }
+    else if (!_cups_strcasecmp(token, "DISPLAY-MATCH"))
+    {
+      if (!_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+	print_fatal_error(data, "Missing DISPLAY-MATCH mesaage on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+
+      if (data->last_expect)
+      {
+	data->last_expect->display_match = strdup(temp);
+      }
+      else
+      {
+	print_fatal_error(data, "DISPLAY-MATCH without a preceding EXPECT on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
+    }
     else if (!_cups_strcasecmp(token, "OF-TYPE"))
     {
       if (!_ippFileReadToken(f, temp, sizeof(temp)))
@@ -4915,6 +4987,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
       data->repeat_interval = 5000000;
       strlcpy(data->resource, data->vars->resource, sizeof(data->resource));
       data->skip_previous = 0;
+      data->pass_test     = 0;
       data->skip_test     = 0;
       data->num_statuses  = 0;
       data->last_status   = NULL;
@@ -5304,6 +5377,7 @@ with_distinct_values(
     case IPP_TAG_CHARSET :
     case IPP_TAG_LANGUAGE :
     case IPP_TAG_MIMETYPE :
+    case IPP_TAG_BEGIN_COLLECTION :
         break;
 
     default :
@@ -5351,6 +5425,29 @@ with_distinct_values(
       case IPP_TAG_LANGUAGE :
       case IPP_TAG_MIMETYPE :
           value = ippGetString(attr, i, NULL);
+          break;
+      case IPP_TAG_BEGIN_COLLECTION :
+          {
+            ipp_t	*col = ippGetCollection(attr, i);
+					// Collection value
+            ipp_attribute_t *member;	// Member attribute
+            char	*bufptr,	// Pointer into buffer
+			*bufend,	// End of buffer
+			prefix;		// Prefix character
+
+            for (prefix = '{', bufptr = buffer, bufend = buffer + sizeof(buffer) - 2, member = ippFirstAttribute(col); member && bufptr < bufend; member = ippNextAttribute(col))
+            {
+              *bufptr++ = prefix;
+              prefix    = ' ';
+
+              ippAttributeString(member, bufptr, (size_t)(bufend - bufptr));
+              bufptr += strlen(bufptr);
+            }
+
+            *bufptr++ = '}';
+            *bufptr   = '\0';
+            value     = buffer;
+          }
           break;
       default : // Should never happen
           value = "unsupported";

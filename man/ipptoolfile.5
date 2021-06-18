@@ -7,7 +7,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptoolfile 5 "CUPS" "2021-03-31" "OpenPrinting"
+.TH ipptoolfile 5 "CUPS" "2021-05-12" "OpenPrinting"
 .SH NAME
 ipptoolfile \- ipptool file format
 .SH DESCRIPTION
@@ -225,6 +225,11 @@ Specifies the human-readable name of the test.
 \fBOPERATION \fIoperation-code\fR
 Specifies the operation to be performed.
 .TP 5
+\fBPASS\-IF\-DEFINED \fIvariable-name\fR
+.TP 5
+\fBPASS\-IF\-NOT\-DEFINED \fIvariable-name\fR
+Specifies that the current test should be passed automatically when the variable is or is not defined.
+.TP 5
 \fBPAUSE "\fImessage\fB"\fR
 Displays the provided message and waits for the user to press a key to continue.
 .TP 5
@@ -282,13 +287,19 @@ The following predicates are understood following the \fBEXPECT\fR test directiv
 Requires the \fBEXPECT\fR attribute to have the specified number of values.
 .TP 5
 \fBDEFINE\-MATCH \fIvariable-name\fR
-Defines the variable to "1" when the \fBEXPECT\fR condition matches. A side-effect of this predicate is that this \fBEXPECT\fR will never fail a test.
+Defines the variable to "1" when the \fBEXPECT\fR condition matches.
+A side-effect of this predicate is that this \fBEXPECT\fR will never fail a test.
 .TP 5
 \fBDEFINE\-NO\-MATCH \fIvariable-name\fR
-Defines the variable to "1" when the \fBEXPECT\fR condition does not match. A side-effect of this predicate is that this \fBEXPECT\fR will never fail a test.
+Defines the variable to "1" when the \fBEXPECT\fR condition does not match.
+A side-effect of this predicate is that this \fBEXPECT\fR will never fail a test.
 .TP 5
 \fBDEFINE\-VALUE \fIvariable-name\fR
-Defines the variable to the value of the attribute when the \fBEXPECT\fR condition matches. A side-effect of this predicate is that this \fBEXPECT\fR will never fail a test.
+Defines the variable to the value of the attribute when the \fBEXPECT\fR condition matches.
+A side-effect of this predicate is that this \fBEXPECT\fR will never fail a test.
+.TP 5
+\fBDISPLAY\-MATCH \fI"message"\fR
+Displays the specified message when the \fBEXPECT\fR condition matches.
 .TP 5
 \fBIF\-DEFINED \fIvariable-name\fR
 Makes the \fBEXPECT\fR conditions apply only if the specified variable is defined.
@@ -354,7 +365,7 @@ Comparisons are case-sensitive.
 \fBWITH\-DISTINCT\-VALUES\fR
 Requires that all values of the \fBEXPECT\fR attribute are unique.
 Comparisons are case-sensitive.
-Only charset, enum, integer, keyword, mimeMediaType, naturalLanguage, rangeOfInteger, resolution, uriScheme attributes support this predicate.
+Only charset, collection, enum, integer, keyword, mimeMediaType, naturalLanguage, rangeOfInteger, resolution, uriScheme attributes support this predicate.
 .TP 5
 \fBWITH\-HOSTNAME "\fIliteral string\fB"\fR
 .TP 5
