@@ -25,8 +25,8 @@ CUPS v2.4rc1 (Pending)
 - The scheduler now includes the `[Job N]` prefix for job log messages, even
   when using syslog logging (Issue #154)
 - Added support for locales using the GB18030 character set (Issue #159)
-- The IPP parser now errors out when reading a member attribute outside a
-  collection.
+- Hardened `ippReadIO` to prevent invalid IPP messages from being propagated
+  (Issue #195, Issue #196)
 - Documentation fixes (Issue #92)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146)
 - USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
