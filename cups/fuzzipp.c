@@ -29,7 +29,7 @@
  * Local types...
  */
 
-typedef struct _ippdata_t		// Data 
+typedef struct _ippdata_t		// Data
 {
   size_t	wused,			// Bytes used
 		wsize;			// Max size of buffer
@@ -79,9 +79,17 @@ main(int  argc,			// I - Number of command-line arguments
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, "ipp://localhost/printers/foo");
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, "john-doe");
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name", NULL, "Test Job");
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_MIMETYPE, "document-format", NULL, "application/pdf");
+    ippAddOctetString(request, IPP_TAG_OPERATION, "job-password", "8675309", 7);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "job-password-encryption", NULL, "none");
     ippAddString(request, IPP_TAG_JOB, IPP_TAG_KEYWORD, "print-color-mode", NULL, "color");
     ippAddInteger(request, IPP_TAG_JOB, IPP_TAG_ENUM, "print-quality", IPP_QUALITY_HIGH);
+    ippAddResolution(request, IPP_TAG_JOB, "printer-resolution", 1200, 1200, IPP_RES_PER_INCH);
     ippAddInteger(request, IPP_TAG_JOB, IPP_TAG_INTEGER, "copies", 42);
+    ippAddBoolean(request, IPP_TAG_JOB, "some-boolean-option", 1);
+    ippAddString(request, IPP_TAG_JOB, IPP_TAG_URISCHEME, "some-uri-scheme", NULL, "mailto");
+    ippAddString(request, IPP_TAG_JOB, IPP_TAG_NAMELANG, "some-name-with-language", "es-MX", "Jose");
+    ippAddString(request, IPP_TAG_JOB, IPP_TAG_TEXTLANG, "some-text-with-language", "es-MX", "¡Hola el mundo!");
     ippAddRange(request, IPP_TAG_JOB, "page-ranges", 1, 50);
     ippAddDate(request, IPP_TAG_JOB, "job-hold-until-time", ippTimeToDate(time(NULL) + 3600));
     ippAddString(request, IPP_TAG_JOB, IPP_TAG_TEXT, "job-message-to-operator", NULL, "This is a test job.");
@@ -127,7 +135,7 @@ main(int  argc,			// I - Number of command-line arguments
         perror(filename);
         return (1);
       }
- 
+
       cupsFileWrite(fp, (char *)buffer, data.wused);
       cupsFileClose(fp);
 
@@ -224,8 +232,8 @@ fuzzdata(_ippdata_t *data)		// I - Data buffer
   // Mutate a few times...
   for (i = 0; i < 32; i ++)
   {
-    // Each cycle remove or move bytes
-    switch (CUPS_RAND() & 7)
+    // Each cycle replace or swap bytes
+    switch ((len = CUPS_RAND() & 7))
     {
       case 0 :
       case 1 :
@@ -234,12 +242,18 @@ fuzzdata(_ippdata_t *data)		// I - Data buffer
       case 4 :
       case 5 :
       case 6 :
-          // Replace a byte
-          data->wbuffer[CUPS_RAND() % data->wused] = CUPS_RAND();
+          // Replace bytes
+          len ++;
+          pos = CUPS_RAND() % (data->wused - len);
+          while (len > 0)
+          {
+            data->wbuffer[pos ++] = CUPS_RAND();
+            len --;
+          }
           break;
 
       case 7 :
-          // Move bytes
+          // Swap bytes
           len  = (CUPS_RAND() & 7) + 1;
           pos  = CUPS_RAND() % (data->wused - len);
           pos2 = CUPS_RAND() % (data->wused - len);
