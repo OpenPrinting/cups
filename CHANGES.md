@@ -31,8 +31,6 @@ CUPS v2.4rc1 (Pending)
 - The scheduler now includes the `[Job N]` prefix for job log messages, even
   when using syslog logging (Issue #154)
 - Added support for locales using the GB18030 character set (Issue #159)
-- The IPP parser now errors out when reading a member attribute outside a
-  collection.
 - `httpReconnect2` did not reset the socket file descriptor when the TLS
   negotiation failed (Apple #5907)
 - `httpUpdate` did not reset the socket file descriptor when the TLS
@@ -48,10 +46,13 @@ CUPS v2.4rc1 (Pending)
 - Fixed `job-pages-per-set` value for duplex print jobs.
 - Fixed an edge case in `ippReadIO` to make sure that only complete attributes
   and values are retained on an error (Issue #195)
+- Hardened `ippReadIO` to prevent invalid IPP messages from being propagated
+  (Issue #195, Issue #196)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
-- USB quirk updates (Apple #5766, Apple #5838, Apple #5843, Apple #5867)
+- USB quirk updates (Issue #192, Apple #5766, Apple #5838, Apple #5843,
+  Apple #5867)
 - Web interface updates (Issue #142)
 - The `ippeveprinter` tool now automatically uses an available port.
 - Fixed some Windows issues.

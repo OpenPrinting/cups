@@ -317,3 +317,6 @@
 
 # HP DesignJet 130 (Apple #5838)
 0x03f0 0x0314 no-reattach
+
+# Canon PIXMA MP480 (Issue #192)
+0x04a9 0x1731 unidir
