@@ -48,6 +48,7 @@ CUPS v2.4rc1 (Pending)
   and values are retained on an error (Issue #195)
 - Hardened `ippReadIO` to prevent invalid IPP messages from being propagated
   (Issue #195, Issue #196)
+- The scheduler now supports the "everywhere" model directly (Issue #201)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
