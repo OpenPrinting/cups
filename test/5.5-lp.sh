@@ -45,6 +45,30 @@ else
 fi
 echo ""
 
+echo "LP Page ranges Test - undefined low page limit"
+echo ""
+echo "    lp -d Test1 -P -5 testfile.pdf"
+$runcups $VALGRIND ../systemv/lp -d Test1 -P -5 ../examples/testfile.pdf 2>&1
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+echo ""
+
+echo "LP Page ranges Test - undefined upper page limit"
+echo ""
+echo "    lp -d Test1 -P 5- -o job-sheets=classified,classified testfile.pdf"
+$runcups $VALGRIND ../systemv/lp -d Test1 -P 5- ../examples/testfile.pdf 2>&1
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+echo ""
+
 echo "LP Flood Test ($1 times in parallel)"
 echo ""
 echo "    lp -d Test1 testfile.jpg"
