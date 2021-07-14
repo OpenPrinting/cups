@@ -1267,7 +1267,7 @@ set_printer_options(
 
   if (file)
     ppdfile = file;
-  else if ((ppdname = cupsGetOption("ppd-name", num_options, options)) != NULL && strcmp(ppdname, "raw") && num_options > 1)
+  else if ((ppdname = cupsGetOption("ppd-name", num_options, options)) != NULL && strcmp(ppdname, "everywhere") && strcmp(ppdname, "raw") && num_options > 1)
   {
     if ((ppdfile = cupsGetServerPPD(http, ppdname)) != NULL)
     {
