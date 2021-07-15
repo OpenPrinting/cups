@@ -996,9 +996,13 @@ else
 	echo "    <p>PASS: All job control files purged.</p>" >>$strfile
 fi
 
+# Define expected number of pages from page ranges tests
+expected_undef_low_limit=5
+expected_undef_up_limit=4
+
 # Pages printed on Test1 (within 1 page for timing-dependent cancel issues)
 count=`$GREP '^Test1 ' $BASE/log/page_log | awk 'BEGIN{count=0}{count=count+$7}END{print count}'`
-expected=`expr $pjobs \* 2 + 34`
+expected=`expr $pjobs \* 2 + 34 + $expected_undef_low_limit + $expected_undef_up_limit`
 expected2=`expr $expected + 2`
 if test $count -lt $expected -a $count -gt $expected2; then
 	echo "FAIL: Printer 'Test1' produced $count page(s), expected $expected."
@@ -1033,9 +1037,14 @@ else
 	echo "    <p>PASS: Printer 'Test3' correctly produced $count page(s).</p>" >>$strfile
 fi
 
+# Number of requests related to undefined page range limits
+# 2 requests (Create-Job, Send-Document) * number of jobs (2 - one for undefined
+# low limit, one for undefined upper limit)
+expected_undef_limits=4
+
 # Requests logged
 count=`wc -l $BASE/log/access_log | awk '{print $1}'`
-expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2`
+expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2 + $expected_undef_limits`
 if test $count != $expected; then
 	echo "FAIL: $count requests logged, expected $expected."
 	echo "    <p>FAIL: $count requests logged, expected $expected.</p>" >>$strfile
