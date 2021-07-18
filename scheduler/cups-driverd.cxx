@@ -240,7 +240,6 @@ add_ppd(const char *filename,		/* I - PPD filename */
 	const char *scheme)		/* I - PPD scheme */
 {
   ppd_info_t	*ppd;			/* PPD */
-  char		*recommended;		/* Foomatic driver string */
 
 
  /*
@@ -277,15 +276,6 @@ add_ppd(const char *filename,		/* I - PPD filename */
           sizeof(ppd->record.make_and_model));
   strlcpy(ppd->record.device_id, device_id, sizeof(ppd->record.device_id));
   strlcpy(ppd->record.scheme, scheme, sizeof(ppd->record.scheme));
-
- /*
-  * Strip confusing (and often wrong) "recommended" suffix added by
-  * Foomatic drivers...
-  */
-
-  if ((recommended = strstr(ppd->record.make_and_model,
-                            " (recommended)")) != NULL)
-    *recommended = '\0';
 
  /*
   * Add the PPD to the PPD arrays...
