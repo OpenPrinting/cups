@@ -60,3 +60,16 @@ jobs:
       run: make
     - name: test
       run: make test || cat test/error_log*
+
+  build-windows:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: nuget restore
+      run: cd vcnet; nuget restore cups.sln
+    - name: msbuild
+      run: cd vcnet; msbuild cups.sln
