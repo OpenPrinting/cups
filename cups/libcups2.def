@@ -71,14 +71,12 @@ _cupsThreadWait
 _cupsUserDefault
 _cups_gettimeofday
 _cups_safe_vsnprintf
-_cups_snprintf
 _cups_strcasecmp
 _cups_strcpy
 _cups_strcpy
 _cups_strlcat
 _cups_strlcpy
 _cups_strncasecmp
-_cups_vsnprintf
 _httpAddrSetPort
 _httpCreateCredentials
 _httpDecodeURI
