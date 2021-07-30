@@ -34,7 +34,7 @@ and other Unix®-like operating systems. The CUPS library provides a convenient 
         <file src="..\cups\raster.h" target="native\include\cups" />
         <file src="..\cups\transcode.h" target="native\include\cups" />
         <file src="..\cups\versioning.h" target="native\include\cups" />
-        <file src="Win32\**\libcups2*.lib" target="native\lib\Win32" />
+        <!--<file src="Win32\**\libcups2*.lib" target="native\lib\Win32" />-->
         <file src="x64\**\libcups2*.lib" target="native\lib\x64" />
     </files>
 </package>

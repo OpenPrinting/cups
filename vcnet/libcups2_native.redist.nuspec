@@ -19,8 +19,8 @@ and other Unix®-like operating systems. This package provides the redistributab
     <files>
         <file src="..\desktop\cups-128.png" target="native" />
         <file src="..\README.md" target="native" />
-        <file src="Win32\**\libcups2*.dll" target="native\bin\Win32" />
-        <file src="Win32\**\regex*.dll" target="native\bin\Win32" />
+        <!--<file src="Win32\**\libcups2*.dll" target="native\bin\Win32" />
+        <file src="Win32\**\regex*.dll" target="native\bin\Win32" />-->
         <file src="x64\**\libcups2*.dll" target="native\bin\x64" />
         <file src="x64\**\regex*.dll" target="native\bin\x64" />
     </files>
