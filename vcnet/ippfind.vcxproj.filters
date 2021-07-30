@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\test\ippfind.c">
+    <ClCompile Include="..\tools\ippfind.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
