@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>libcups2_native</id>
+        <title>OpenPrinting CUPS Library for VS2019+</title>
+        <version>2.4.0-b1</version>
+        <authors>Michael R Sweet, OpenPrinting</authors>
+        <owners>michaelrsweet</owners>
+        <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
+        <license type="expression">Apache-2.0</license>
+        <icon>cups-128.png</icon>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>OpenPrinting CUPS library for VS2019+</description>
+        <summary>OpenPrinting CUPS is a standards-based, open source printing system for Linux®
+and other Unix®-like operating systems. The CUPS library provides a convenient API for communicating with Internet Printing Protocol printers. CUPS is licensed under the Apache License Version 2.0 with an exception to allow linking against GNU GPL2-only software.</summary>
+        <copyright>Copyright © 2020-2021 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
+        <tags>http ipp native</tags>
+	<dependencies>
+	    <dependency id="libcups2_native.redist" version="2.4.0-b1" />
+	</dependencies>
+    </metadata>
+    <files>
+        <file src="..\desktop\cups-128.png" target="native" />
+        <file src="..\README.md" target="native" />
+        <file src="libcups2_native.props" target="native" />
+        <file src="..\cups\array.h" target="native\include\cups" />
+        <file src="..\cups\cups.h" target="native\include\cups" />
+        <file src="..\cups\dir.h" target="native\include\cups" />
+        <file src="..\cups\file.h" target="native\include\cups" />
+        <file src="..\cups\http.h" target="native\include\cups" />
+        <file src="..\cups\ipp.h" target="native\include\cups" />
+        <file src="..\cups\language.h" target="native\include\cups" />
+        <file src="..\cups\pwg.h" target="native\include\cups" />
+        <file src="..\cups\raster.h" target="native\include\cups" />
+        <file src="..\cups\transcode.h" target="native\include\cups" />
+        <file src="..\cups\versioning.h" target="native\include\cups" />
+        <file src="Win32\**\libcups2*.lib" target="native\lib\Win32" />
+        <file src="x64\**\libcups2*.lib" target="native\lib\x64" />
+    </files>
+</package>

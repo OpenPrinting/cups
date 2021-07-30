@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <PropertyGroup>
+    <LibraryName Condition="'$(Configuration)'=='Debug'">libcups2d</LibraryName>
+    <LibraryName Condition="'$(Configuration)'=='Release'">libcups2</LibraryName>
+  </PropertyGroup>
+  <ItemGroup>
+    <LinkLibrary Include="$(MSBuildThisFileDirectory)\lib\$(Platform)\$(Configuration)\$(LibraryName).lib" />
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>   <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)\include</AdditionalIncludeDirectories></ClCompile>
+    <Link>
+      <AdditionalDependencies>@$(LinkLibrary);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

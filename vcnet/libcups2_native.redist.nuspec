@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>libcups2_native.redist</id>
+        <title>OpenPrinting CUPS Library for VS2019+ Redist</title>
+        <version>2.4.0-b1</version>
+        <authors>Michael R Sweet, OpenPrinting</authors>
+        <owners>michaelrsweet</owners>
+        <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
+        <license type="expression">Apache-2.0</license>
+        <icon>cups-128.png</icon>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Redistributable components for package 'libcups2_native'. This package should only be installed as a dependency.</description>
+        <summary>OpenPrinting CUPS is a standards-based, open source printing system for Linux®
+and other Unix®-like operating systems. This package provides the redistributable content for the CUPS library. CUPS is licensed under the Apache License Version 2.0 with an exception to allow linking against GNU GPL2-only software.</summary>
+        <copyright>Copyright © 2020-2021 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
+        <tags>http ipp native</tags>
+    </metadata>
+    <files>
+        <file src="..\desktop\cups-128.png" target="native" />
+        <file src="..\README.md" target="native" />
+        <file src="Win32\**\libcups2*.dll" target="native\bin\Win32" />
+        <file src="x64\**\libcups2*.dll" target="native\bin\x64" />
+    </files>
+</package>
