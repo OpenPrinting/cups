@@ -15,6 +15,9 @@
 and other Unix®-like operating systems. This package provides the redistributable content for the CUPS library. CUPS is licensed under the Apache License Version 2.0 with an exception to allow linking against GNU GPL2-only software.</summary>
         <copyright>Copyright © 2020-2021 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
         <tags>http ipp native</tags>
+	<dependencies>
+	    <dependency id="zlib_native.redist" version="1.2.11" />
+	</dependencies>
     </metadata>
     <files>
         <file src="..\desktop\cups-128.png" target="native" />
