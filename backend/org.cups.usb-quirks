@@ -95,14 +95,47 @@
 # Canon, Inc. MP270 Printer
 0x04a9 0x173b unidir
 
-# Canon, Inc. MP280 Printer
+# Canon, Inc. MP280 series (Apple #5221)
 0x04a9 0x1746 unidir
+
+# Canon PIXMA MP410
+0x04a9 0x1702 unidir
+
+# Canon PIXMA MP430
+0x04a9 0x1703 unidir
+
+# Canon PIXMA MP450
+0x04a9 0x170b unidir
+
+# Canon PIXMA MP460
+0x04a9 0x1716 unidir
+
+# Canon PIXMA MP470
+0x04a9 0x1723 unidir
+
+# Canon PIXMA MP480 (Issue #192)
+0x04a9 0x1731 unidir
+
+# Canon PIXMA MP490
+0x04a9 0x173c unidir
+
+# Canon PIXMA MP493
+0x04a9 0x1757 unidir
+
+# Canon PIXMA MP495
+0x04a9 0x1747 unidir
 
 # Canon, Inc. MP500 Printer (https://bugs.launchpad.net/bugs/1032456)
 0x04a9 0x170c unidir
 
 # Canon, Inc. MP510 Printer (https://bugs.launchpad.net/bugs/1050009)
 0x04a9 0x1717 unidir
+
+# Canon, Inc. MP520 Printer
+0x04a9 0x1724 unidir
+
+# Canon, Inc. MP530 Printer
+0x04a9 0x1712 unidir
 
 # Canon, Inc. MP540 Printer, https://bugzilla.redhat.com/967873
 0x04a9 0x1730 unidir
@@ -303,9 +336,6 @@
 # HP LaserJet 1160 (Apple #5121)
 0x03f0 0x1e17 delay-close
 
-# Canon, Inc. MP280 series (Apple #5221)
-0x04a9 0x1746 unidir
-
 # Star Micronics printers (Apple #5251)
 0x0519 unidir
 
@@ -338,6 +368,3 @@
 
 # HP DesignJet 130 (Apple #5838)
 0x03f0 0x0314 no-reattach
-
-# Canon PIXMA MP480 (Issue #192)
-0x04a9 0x1731 unidir
