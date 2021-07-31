@@ -8,7 +8,7 @@
         <owners>michaelrsweet</owners>
         <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
         <license type="expression">Apache-2.0</license>
-        <icon>cups-128.png</icon>
+        <icon>native/cups-128.png</icon>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Redistributable components for package 'libcups2_native'. This package should only be installed as a dependency.</description>
         <summary>OpenPrinting CUPS is a standards-based, open source printing system for Linux®

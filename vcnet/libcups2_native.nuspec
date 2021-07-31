@@ -8,7 +8,7 @@
         <owners>michaelrsweet</owners>
         <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
         <license type="expression">Apache-2.0</license>
-        <icon>cups-128.png</icon>
+        <icon>native/cups-128.png</icon>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>OpenPrinting CUPS library for VS2019+</description>
         <summary>OpenPrinting CUPS is a standards-based, open source printing system for Linux®
