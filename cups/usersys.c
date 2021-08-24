@@ -93,7 +93,9 @@ typedef struct _cups_client_conf_s	/**** client.conf config data ****/
  */
 
 #ifdef __APPLE__
+#  ifdef HAVE_TLS
 static int	cups_apple_get_boolean(CFStringRef key, int *value);
+#  endif /* HAVE_TLS */
 static int	cups_apple_get_string(CFStringRef key, char *value, size_t valsize);
 #endif /* __APPLE__ */
 static int	cups_boolean_value(const char *value);
@@ -1055,6 +1057,7 @@ _cupsSetDefaults(void)
 
 
 #ifdef __APPLE__
+#  ifdef HAVE_TLS
 /*
  * 'cups_apple_get_boolean()' - Get a boolean setting from the CUPS preferences.
  */
@@ -1075,6 +1078,7 @@ cups_apple_get_boolean(
 
   return ((int)bval_set);
 }
+#  endif /* HAVE_TLS */
 
 
 /*
