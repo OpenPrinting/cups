@@ -19,8 +19,8 @@
 #  if defined(_WIN32) && !defined(__CUPS_SSIZE_T_DEFINED)
 #    define __CUPS_SSIZE_T_DEFINED
 #    include <stddef.h>
-/* Windows does not support the ssize_t type, so map it to long... */
-typedef long ssize_t;			/* @private@ */
+/* Windows does not support the ssize_t type, so map it to __int64... */
+typedef __int64 ssize_t;			/* @private@ */
 #  endif /* _WIN32 && !__CUPS_SSIZE_T_DEFINED */
 
 #  include "file.h"

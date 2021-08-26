@@ -23,8 +23,8 @@
 #  ifdef _WIN32
 #    ifndef __CUPS_SSIZE_T_DEFINED
 #      define __CUPS_SSIZE_T_DEFINED
-/* Windows does not support the ssize_t type, so map it to off_t... */
-typedef off_t ssize_t;			/* @private@ */
+/* Windows does not support the ssize_t type, so map it to __int64... */
+typedef __int64 ssize_t;			/* @private@ */
 #    endif /* !__CUPS_SSIZE_T_DEFINED */
 #    include <winsock2.h>
 #    include <ws2tcpip.h>
