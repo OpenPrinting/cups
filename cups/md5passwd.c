@@ -19,6 +19,9 @@
 /*
  * 'httpMD5()' - Compute the MD5 sum of the username:group:password.
  *
+ * The function was used for HTTP Digest authentication. Since CUPS 2.4.0
+ * it produces an empty string. Please use @link cupsDoAuthentication@ instead.
+ *
  * @deprecated@
  */
 
@@ -28,22 +31,13 @@ httpMD5(const char *username,		/* I - User name */
         const char *passwd,		/* I - Password string */
 	char       md5[33])		/* O - MD5 string */
 {
-  unsigned char		sum[16];	/* Sum data */
-  char			line[256];	/* Line to sum */
+  (void)username;
+  (void)realm;
+  (void)passwd;
 
+  md5[0] = '\0';
 
- /*
-  * Compute the MD5 sum of the user name, group name, and password.
-  */
-
-  snprintf(line, sizeof(line), "%s:%s:%s", username, realm, passwd);
-  cupsHashData("md5", (unsigned char *)line, strlen(line), sum, sizeof(sum));
-
- /*
-  * Return the sum...
-  */
-
-  return ((char *)cupsHashString(sum, sizeof(sum), md5, 33));
+  return (NULL);
 }
 
 
@@ -51,6 +45,9 @@ httpMD5(const char *username,		/* I - User name */
  * 'httpMD5Final()' - Combine the MD5 sum of the username, group, and password
  *                    with the server-supplied nonce value, method, and
  *                    request-uri.
+ *
+ * The function was used for HTTP Digest authentication. Since CUPS 2.4.0
+ * it produces an empty string. Please use @link cupsDoAuthentication@ instead.
  *
  * @deprecated@
  */
@@ -61,34 +58,21 @@ httpMD5Final(const char *nonce,		/* I - Server nonce value */
 	     const char *resource,	/* I - Resource path */
              char       md5[33])	/* IO - MD5 sum */
 {
-  unsigned char		sum[16];	/* Sum data */
-  char			line[1024];	/* Line of data */
-  char			a2[33];		/* Hash of method and resource */
+  (void)nonce;
+  (void)method;
+  (void)resource;
 
+  md5[0] = '\0';
 
- /*
-  * First compute the MD5 sum of the method and resource...
-  */
-
-  snprintf(line, sizeof(line), "%s:%s", method, resource);
-  cupsHashData("md5", (unsigned char *)line, strlen(line), sum, sizeof(sum));
-  cupsHashString(sum, sizeof(sum), a2, sizeof(a2));
-
- /*
-  * Then combine A1 (MD5 of username, realm, and password) with the nonce
-  * and A2 (method + resource) values to get the final MD5 sum for the
-  * request...
-  */
-
-  snprintf(line, sizeof(line), "%s:%s:%s", md5, nonce, a2);
-  cupsHashData("md5", (unsigned char *)line, strlen(line), sum, sizeof(sum));
-
-  return ((char *)cupsHashString(sum, sizeof(sum), md5, 33));
+  return (NULL);
 }
 
 
 /*
  * 'httpMD5String()' - Convert an MD5 sum to a character string.
+ *
+ * The function was used for HTTP Digest authentication. Since CUPS 2.4.0
+ * it produces an empty string. Please use @link cupsDoAuthentication@ instead.
  *
  * @deprecated@
  */
@@ -98,5 +82,9 @@ httpMD5String(const unsigned char *sum,	/* I - MD5 sum data */
               char                md5[33])
 					/* O - MD5 sum in hex */
 {
-  return ((char *)cupsHashString(sum, 16, md5, 33));
+  (void)sum;
+
+  md5[0] = '\0';
+
+  return (NULL);
 }
