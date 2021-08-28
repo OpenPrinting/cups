@@ -1616,14 +1616,14 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 
 			if (actualLength > 2 && actualLength <= bufferLength - 2)
 			{
-				ret = CFStringCreateWithBytes(NULL, (const UInt8 *) &request.pData[2], actualLength - 2, kCFStringEncodingUTF8, false);
+				ret = CFStringCreateWithBytes(NULL, (const UInt8 *)request.pData + 2, actualLength - 2, kCFStringEncodingUTF8, false);
 			}
 			else if (actualLength > 2) {
 				err = sendRequest(actualLength);
 				if (err == kIOReturnSuccess && request.wLenDone > 0)
 				{
 					actualLength = OSSwapBigToHostInt16(*((UInt16 *)request.pData));
-					ret = CFStringCreateWithBytes(NULL, (const UInt8 *) &request.pData[2], actualLength - 2, kCFStringEncodingUTF8, false);
+					ret = CFStringCreateWithBytes(NULL, (const UInt8 *)request.pData + 2, actualLength - 2, kCFStringEncodingUTF8, false);
 				}
 			}
 		}
@@ -1817,7 +1817,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	if ((description[0] & 1) != 0)
 		description[0] &= 0xfe;
 
-	char buffer[258] = {};
+	char buffer[258] = {0};
 	unsigned int maxLength = sizeof buffer;
 	if (description[0] > 1)
 	{
