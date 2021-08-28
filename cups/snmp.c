@@ -261,7 +261,7 @@ _cupsSNMPOIDToString(const int *src,	/* I - OID */
 	*dstend;			/* End of string buffer */
 
 
-  DEBUG_printf(("4_cupsSNMPOIDToString(src=%p, dst=%p, dstsize=" CUPS_LLFMT ")",
+  DEBUG_printf(("4_cupsSNMPOIDToString(src=%p, dst=%s, dstsize=" CUPS_LLFMT ")",
                 src, dst, CUPS_LLCAST dstsize));
 
  /*

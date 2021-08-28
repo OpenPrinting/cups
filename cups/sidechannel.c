@@ -110,7 +110,7 @@ cupsSideChannelRead(
 #endif /* HAVE_POLL */
 
 
-  DEBUG_printf(("cupsSideChannelRead(command=%p, status=%p, data=%p, "
+  DEBUG_printf(("cupsSideChannelRead(command=%p, status=%p, data=%s, "
                 "datalen=%p(%d), timeout=%.3f)", command, status, data,
 		datalen, datalen ? *datalen : -1, timeout));
 
@@ -304,7 +304,7 @@ cupsSideChannelSNMPGet(
 			real_oidlen;	/* Length of returned OID string */
 
 
-  DEBUG_printf(("cupsSideChannelSNMPGet(oid=\"%s\", data=%p, datalen=%p(%d), "
+  DEBUG_printf(("cupsSideChannelSNMPGet(oid=\"%s\", data=%s, datalen=%p(%d), "
                 "timeout=%.3f)", oid, data, datalen, datalen ? *datalen : -1,
 		timeout));
 

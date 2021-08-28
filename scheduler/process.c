@@ -445,7 +445,7 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
     strlcpy(name, "unknown", namelen);
   }
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%p, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, name, CUPS_LLCAST namelen, job_id, job_id ? *job_id : 0, name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%s, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, name, CUPS_LLCAST namelen, job_id, job_id ? *job_id : 0, name);
 
   return (name);
 }

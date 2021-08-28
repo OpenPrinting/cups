@@ -2931,7 +2931,7 @@ password_cb(const char *prompt,		/* I - Prompt (not used) */
 
 
   fprintf(stderr, "DEBUG: password_cb(prompt=\"%s\", http=%p, method=\"%s\", "
-                  "resource=\"%s\", password_tries=%p(%d)), password=%p\n",
+          "resource=\"%s\", password_tries=%p(%d)), password=%s\n",
           prompt, http, method, resource, password_tries, *password_tries,
           password);
 

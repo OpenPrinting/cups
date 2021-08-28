@@ -611,7 +611,7 @@ _ppdOpen(
     return (NULL);
   }
 
-  DEBUG_printf(("2_ppdOpen: keyword=%s, string=%p", keyword, string));
+  DEBUG_printf(("2_ppdOpen: keyword=%s, string=%s", keyword, string));
 
  /*
   * Allocate memory for the PPD file record...
