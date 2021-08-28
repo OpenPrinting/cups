@@ -85,9 +85,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 {
   int			i;		/* Looping var */
   const char		*opt;		/* Current option */
-  int			num_clients = 0,/* Number of clients to simulate */
-			clients_started = 0;
-					/* Number of clients that have been started */
+  int			num_clients = 0;/* Number of clients to simulate */
   char			scheme[32],     /* URI scheme */
 			userpass[256],  /* Username:password */
 			hostname[256],  /* Hostname */
@@ -242,7 +240,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   data.hostname = hostname;
   data.resource = resource;
 
-  while (clients_started < num_clients)
+  while (client_count < num_clients)
   {
     _cupsMutexLock(&client_mutex);
     if (client_count < MAX_CLIENTS)
@@ -859,33 +857,47 @@ run_client(
   * Create a job and wait for completion...
   */
 
-  request = ippNewRequest(IPP_OP_CREATE_JOB);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  do
+  {
+    request = ippNewRequest(IPP_OP_CREATE_JOB);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
 
-  if ((name = strrchr(ldata.docfile, '/')) != NULL)
-    name ++;
-  else
-    name = ldata.docfile;
+    if ((name = strrchr(ldata.docfile, '/')) != NULL)
+      name ++;
+    else
+      name = ldata.docfile;
 
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name", NULL, name);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name", NULL, name);
 
-  if (verbosity)
-    show_attributes("Create-Job request", 1, request);
+    if (verbosity)
+      show_attributes("Create-Job request", 1, request);
 
-  response = cupsDoRequest(http, request, ldata.resource);
+    response = cupsDoRequest(http, request, ldata.resource);
 
-  if (verbosity)
-    show_attributes("Create-Job response", 0, response);
+    if (verbosity)
+      show_attributes("Create-Job response", 0, response);
+
+    if (cupsLastError() == IPP_STATUS_ERROR_BUSY)
+    {
+      puts("Printer is busy - retrying in 5 seconds...");
+      sleep(5);
+      ippDelete(response);
+      response = NULL;
+    }
+    else if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+    {
+      printf("Unable to create print job: %s\n", cupsLastErrorString());
+
+      ldata.job_state = IPP_JSTATE_ABORTED;
+      ippDelete(response);
+      response = NULL;
+    }
+  }
+  while (cupsLastError() == IPP_STATUS_ERROR_BUSY);
 
   if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
-  {
-    printf("Unable to create print job: %s\n", cupsLastErrorString());
-
-    ldata.job_state = IPP_JSTATE_ABORTED;
-
     goto cleanup;
-  }
 
   if ((attr = ippFindAttribute(response, "job-id", IPP_TAG_INTEGER)) == NULL)
   {
