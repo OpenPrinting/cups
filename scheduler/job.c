@@ -501,6 +501,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
   int			backroot;	/* Run backend as root? */
   int			pid;		/* Process ID of new filter process */
   int			banner_page;	/* 1 if banner page, 0 otherwise */
+  int			raw_file;       /* 1 if file type is vnd.cups-raw */
   int			filterfds[2][2] = { { -1, -1 }, { -1, -1 } };
 					/* Pipes used between filters */
   int			envc;		/* Number of environment variables */
@@ -746,8 +747,11 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
   * Add decompression/raw filter as needed...
   */
 
+  raw_file = !strcmp(job->filetypes[job->current_file]->super, "application") &&
+    !strcmp(job->filetypes[job->current_file]->type, "vnd.cups-raw");
+  
   if ((job->compressions[job->current_file] && (!job->printer->remote || job->num_files == 1)) ||
-      (!job->printer->remote && job->printer->raw && job->num_files > 1))
+      (!job->printer->remote && (job->printer->raw || raw_file) && job->num_files > 1))
   {
    /*
     * Add gziptoany filter to the front of the list...
