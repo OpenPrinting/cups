@@ -1532,7 +1532,7 @@ cupsdFreeLocation(cupsd_location_t *loc)/* I - Location to free */
  * 'cupsdCheckAdminTask()' - Do additional checks on administrative tasks
  */
 
-int                                      /* O - 1 if admin task authorized */
+static int                               /* O - 1 if admin task authorized */
 cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
 {
   int ret = 1; /* Return value */
@@ -1998,6 +1998,8 @@ cupsdCheckAdminTask(cupsd_client_t *con) /* I - Connection */
 #else
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdCheckAdminTask: Access granted (no extra checking)");
+  
+  (void)con;
 
 #endif /* AF_LOCAL && SUPPORT_SNAPPED_CLIENTS */
 
