@@ -226,17 +226,21 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
 	* per-process TMPDIR value.
 	*/
 
+#ifdef _CS_DARWIN_USER_TEMP_DIR
         char		tmppath[1024];	/* Temporary directory */
+#endif /* _CS_DARWIN_USER_TEMP_DIR */
 
 	if ((tmpdir = getenv("TMPDIR")) != NULL && access(tmpdir, W_OK))
 	  tmpdir = NULL;
 
 	if (!tmpdir)
 	{
+#ifdef _CS_DARWIN_USER_TEMP_DIR
 	  if (confstr(_CS_DARWIN_USER_TEMP_DIR, tmppath, sizeof(tmppath)))
 	    tmpdir = tmppath;
 	  else
-	    tmpdir = "/private/tmp";		/* This should never happen */
+#endif /* _CS_DARWIN_USER_TEMP_DIR */
+	    tmpdir = "/private/tmp";		/* OS X 10.4 and earlier */
 	}
 #else
        /*
