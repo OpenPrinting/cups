@@ -2934,7 +2934,7 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
 	*/
 
 	if (language[3])
-	  language[0] = '\0';		/* Strip country code */
+	  language[3] = '\0';		/* Strip country code */
 	else
 	  language[0] = '\0';		/* Strip language */
       }
