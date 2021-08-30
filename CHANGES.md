@@ -40,6 +40,7 @@ CUPS v2.4rc1 (Pending)
 - Now use a 60 second timeout for reading USB backchannel data (Issue #160)
 - The USB backend now tries harder to find a serial number (Issue #170)
 - Fixed `@IF(name)` handling in `cupsd.conf` (Apple #5918)
+- Fixed the `lpc` command prompt (Apple #5946)
 - Now always pass "localhost" in the `Host:` header when talking over a domain
   socket or the loopback interface (Issue #185)
 - Fixed a job history update issue in the scheduler (Issue #187)
