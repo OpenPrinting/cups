@@ -38,9 +38,9 @@ cupsTempFd(char *filename,		/* I - Pointer to buffer */
   int		fd;			/* File descriptor for temp file */
   int		tries;			/* Number of tries */
   const char	*tmpdir;		/* TMPDIR environment var */
-#if defined(__APPLE__) || defined(_WIN32)
+#if (defined(__APPLE__) && defined(_CS_DARWIN_USER_TEMP_DIR)) || defined(_WIN32)
   char		tmppath[1024];		/* Temporary directory */
-#endif /* __APPLE__ || _WIN32 */
+#endif /* (__APPLE__ && _CS_DARWIN_USER_TEMP_DIR) || _WIN32 */
 #ifdef _WIN32
   DWORD		curtime;		/* Current time */
 #else
@@ -72,10 +72,12 @@ cupsTempFd(char *filename,		/* I - Pointer to buffer */
 
   if (!tmpdir)
   {
+#ifdef _CS_DARWIN_USER_TEMP_DIR
     if (confstr(_CS_DARWIN_USER_TEMP_DIR, tmppath, sizeof(tmppath)))
       tmpdir = tmppath;
     else
-      tmpdir = "/private/tmp";		/* This should never happen */
+#endif /* _CS_DARWIN_USER_TEMP_DIR */
+      tmpdir = "/private/tmp";		/* OS X 10.4 and earlier */
   }
 
 #else
