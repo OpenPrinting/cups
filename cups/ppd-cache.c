@@ -2544,8 +2544,6 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	    /* No or small change -> Normal quality */
 	    if (m == 1)
 	      properties->sets_normal += res_factor * 4;
-	    else if (m > 1 && m < 2)
-	      properties->sets_normal += res_factor * 2;
 	    /* At least double the pixels -> High quality */
 	    else if (m == 2)
 	      properties->sets_high += res_factor * 3;
@@ -2562,8 +2560,6 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 		  (properties->res_x * properties->res_y);
 	      /* No or small change -> Normal quality */
 	      if (m == 1)
-		properties->sets_normal += res_factor * 1;
-	      else if (m > 1 && m < 2)
 		properties->sets_normal += res_factor * 1;
 	      /* At most half the pixels -> Draft quality */
 	      else if (m == 2)
@@ -2591,7 +2587,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
       * grid
       */
 
-      for (pass = 0; pass < 2; pass ++)
+      for (pass = 0; pass < 3; pass ++)
       {
 	for (k = 0; k < option->num_choices; k ++)
         {
