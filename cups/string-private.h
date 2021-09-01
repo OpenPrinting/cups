@@ -150,6 +150,8 @@ extern int	_cups_strcasecmp(const char *, const char *) _CUPS_PRIVATE;
 
 extern int	_cups_strncasecmp(const char *, const char *, size_t n) _CUPS_PRIVATE;
 
+extern char	*_cups_strcasestr(const char *, const char *) _CUPS_PRIVATE;
+
 #  ifndef HAVE_STRLCAT
 extern size_t _cups_strlcat(char *, const char *, size_t) _CUPS_PRIVATE;
 #    define strlcat _cups_strlcat

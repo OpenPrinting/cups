@@ -2235,30 +2235,30 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 		   _cups_strcasecmp(o, "OutputMode") == 0 ||
 		   _cups_strcasecmp(o, "PrintoutMode") == 0 ||
 		   _cups_strcasecmp(o, "ARCMode") == 0 || /* Sharp */
-		   strcasestr(o, "ColorMode") ||
+		   _cups_strcasestr(o, "ColorMode") ||
 		   _cups_strcasecmp(o, "ColorResType") == 0 || /* Toshiba */
-		   strcasestr(o, "MonoColor")) /* Brother */
+		   _cups_strcasestr(o, "MonoColor")) /* Brother */
 	  {
 	    /* Monochrome/grayscale printing */
-	    if (strcasestr(c, "Mono") ||
+	    if (_cups_strcasestr(c, "Mono") ||
 		_cups_strcasecmp(c, "Black") == 0 ||
-		((p = strcasestr(c, "Black")) && strcasestr(p, "White")) ||
+		((p = _cups_strcasestr(c, "Black")) && _cups_strcasestr(p, "White")) ||
 		(_cups_strncasecmp(c, "BW", 2) == 0 && !isalpha(c[2])))
 	      properties->sets_mono = 2;
-	    else if (strcasestr(c, "Gray") ||
-		     strcasestr(c, "Grey") ||
+	    else if (_cups_strcasestr(c, "Gray") ||
+		     _cups_strcasestr(c, "Grey") ||
 		     _cups_strcasecmp(c, "BlackOnly") == 0) /* Lexmark */
 	      properties->sets_mono = 3;
 
 	    /* Color printing */
-	    if (((p = strcasestr(c, "CMY")) && !strcasestr(p, "Gray")) ||
+	    if (((p = _cups_strcasestr(c, "CMY")) && !_cups_strcasestr(p, "Gray")) ||
 		_cups_strcasecmp(c, "ColorOnly") == 0 || /* Lexmark */
-		((p = strcasestr(c, "Adobe")) && strcasestr(p, "RGB")))
+		((p = _cups_strcasestr(c, "Adobe")) && _cups_strcasestr(p, "RGB")))
 	      properties->sets_color = 2;
-	    else if (strcasestr(c, "sRGB"))
+	    else if (_cups_strcasestr(c, "sRGB"))
 	      properties->sets_color = 4;
-	    else if (strcasestr(c, "RGB") ||
-		     strcasestr(c, "Color"))
+	    else if (_cups_strcasestr(c, "RGB") ||
+		     _cups_strcasestr(c, "Color"))
 	      properties->sets_color = 3;
 	  }
 
@@ -2318,18 +2318,18 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	  else if (_cups_strcasecmp(c, "High") == 0)
 	    properties->sets_draft = 11;
 	}
-	else if (strcasestr(o, "ColorPrecision")) /* Gutenprint */
+	else if (_cups_strcasestr(o, "ColorPrecision")) /* Gutenprint */
 	{
 	  if (_cups_strcasecmp(c, "best") == 0)
 	    properties->sets_high = 10;
 	}
 	/* Generic boolean options which enhance quality if true */
-	else if (((p = strcasestr(o, "slow")) && strcasestr(p, "dry")) ||
-		 ((p = strcasestr(o, "color")) && strcasestr(p, "enhance")) ||
-		 ((p = strcasestr(o, "resolution")) &&
-		  !strcasestr(p, "enhance")) ||
+	else if (((p = _cups_strcasestr(o, "slow")) && _cups_strcasestr(p, "dry")) ||
+		 ((p = _cups_strcasestr(o, "color")) && _cups_strcasestr(p, "enhance")) ||
+		 ((p = _cups_strcasestr(o, "resolution")) &&
+		  !_cups_strcasestr(p, "enhance")) ||
 		 _cups_strcasecmp(o, "RET") == 0 ||
-		 ((p = strcasestr(o, "uni")) && strcasestr(p, "direction")))
+		 ((p = _cups_strcasestr(o, "uni")) && _cups_strcasestr(p, "direction")))
 	{
 	  if (_cups_strcasecmp(c, "True") == 0 ||
 	      _cups_strcasecmp(c, "On") == 0 ||
@@ -2344,11 +2344,11 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	    properties->sets_draft = 3;
 	}
 	/* Generic boolean options which reduce quality if true */
-	else if (strcasestr(o, "draft") ||
-		 strcasestr(o, "economy") ||
-		 ((p = strcasestr(o, "eco")) && strcasestr(p, "mode")) ||
-		 ((p = strcasestr(o, "toner")) && strcasestr(p, "sav")) ||
-		 ((p = strcasestr(o, "bi")) && strcasestr(p, "direction")) ||
+	else if (_cups_strcasestr(o, "draft") ||
+		 _cups_strcasestr(o, "economy") ||
+		 ((p = _cups_strcasestr(o, "eco")) && _cups_strcasestr(p, "mode")) ||
+		 ((p = _cups_strcasestr(o, "toner")) && _cups_strcasestr(p, "sav")) ||
+		 ((p = _cups_strcasestr(o, "bi")) && _cups_strcasestr(p, "direction")) ||
 		 _cups_strcasecmp(o, "EcoBlack") == 0 || /* Foomatic (Alps) */
 		 _cups_strcasecmp(o, "bidi") == 0 ||
 		 _cups_strcasecmp(o, "bi-di") == 0)
@@ -2372,38 +2372,38 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 		 _cups_strcasecmp(o, "PrintoutMode") == 0 || /* Foomatic */
 		 _cups_strcasecmp(o, "PrintQuality") == 0 ||
 		 _cups_strcasecmp(o, "PrintMode") == 0 ||
-		 strcasestr(o, "ColorMode") ||
+		 _cups_strcasestr(o, "ColorMode") ||
 		 _cups_strcasecmp(o, "ColorResType") == 0 || /* Toshiba */
-		 strcasestr(o, "MonoColor") || /* Brother */
-		 strcasestr(o, "Quality") ||
-		 strcasestr(o, "Precision") || /* ex. stpColorPrecision
+		 _cups_strcasestr(o, "MonoColor") || /* Brother */
+		 _cups_strcasestr(o, "Quality") ||
+		 _cups_strcasestr(o, "Precision") || /* ex. stpColorPrecision
 						  in Gutenprint */
-		 strcasestr(o, "PrintingDirection")) /* Gutenprint */
+		 _cups_strcasestr(o, "PrintingDirection")) /* Gutenprint */
 	{
 	  /* High quality */
 	  if (_cups_strcasecmp(c, "Quality") == 0 ||
 	      _cups_strcasecmp(c, "5") == 0)
 	    properties->sets_high = 1;
-	  else if (strcasestr(c, "Photo") ||
-		   strcasestr(c, "Enhance") ||
-		   strcasestr(c, "slow") ||
+	  else if (_cups_strcasestr(c, "Photo") ||
+		   _cups_strcasestr(c, "Enhance") ||
+		   _cups_strcasestr(c, "slow") ||
 		   _cups_strncasecmp(c, "ImageREt", 8) == 0 || /* HPLIP */
-		   ((p = strcasestr(c, "low")) && strcasestr(p, "speed")))
+		   ((p = _cups_strcasestr(c, "low")) && _cups_strcasestr(p, "speed")))
 	    properties->sets_high = 2;
-	  else if (strcasestr(c, "fine") ||
-		   strcasestr(c, "deep") ||
-		   ((p = strcasestr(c, "high")) && !strcasestr(p, "speed")) ||
-		   strcasestr(c, "HQ") ||
+	  else if (_cups_strcasestr(c, "fine") ||
+		   _cups_strcasestr(c, "deep") ||
+		   ((p = _cups_strcasestr(c, "high")) && !_cups_strcasestr(p, "speed")) ||
+		   _cups_strcasestr(c, "HQ") ||
 		   _cups_strcasecmp(c, "ImageREt1200") == 0 || /* HPLIP */
 		   _cups_strcasecmp(c, "Enhanced") == 0)
 	    properties->sets_high = 3;
-	  else if (strcasestr(c, "best") ||
+	  else if (_cups_strcasestr(c, "best") ||
 		   _cups_strcasecmp(c, "high") == 0 ||
 		   _cups_strcasecmp(c, "fine") == 0 ||
 		   _cups_strcasecmp(c, "HQ") == 0 ||
 		   _cups_strcasecmp(c, "CMYGray") == 0 || /* HPLIP */
 		   _cups_strcasecmp(c, "ImageREt2400") == 0 || /* HPLIP */
-		   strcasestr(c, "unidir"))
+		   _cups_strcasestr(c, "unidir"))
 	    properties->sets_high = 4;
 	  else if (_cups_strcasecmp(c, "best") == 0 ||
 		   _cups_strcasecmp(c, "monolowdetail") == 0) /* Toshiba */
@@ -2413,31 +2413,31 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	  if (_cups_strcasecmp(c, "monolowdetail") == 0 || /* Toshiba */
 	      _cups_strcasecmp(c, "3") == 0)
 	    properties->sets_draft = 1;
-	  else if (((p = strcasestr(c, "fast")) && strcasestr(p, "draft")) ||
-		   ((p = strcasestr(c, "high")) && strcasestr(p, "speed")) ||
-		   (strcasestr(c, "speed") && !strcasestr(c, "low")))
+	  else if (((p = _cups_strcasestr(c, "fast")) && _cups_strcasestr(p, "draft")) ||
+		   ((p = _cups_strcasestr(c, "high")) && _cups_strcasestr(p, "speed")) ||
+		   (_cups_strcasestr(c, "speed") && !_cups_strcasestr(c, "low")))
 	    properties->sets_draft = 2;
-	  else if (strcasestr(c, "quick") ||
-		   (strcasestr(c, "fast") &&
+	  else if (_cups_strcasestr(c, "quick") ||
+		   (_cups_strcasestr(c, "fast") &&
 		    !(_cups_strncasecmp(c, "FastRes", 7) == 0 && isdigit(*(c + 7)))))
 	    /* HPLIP has FastRes600, FastRes1200, ... which are not draft */
 	    properties->sets_draft = 3;
 	  else if (_cups_strcasecmp(c, "quick") == 0 ||
 		   _cups_strcasecmp(c, "fast") == 0 ||
-		   strcasestr(c, "draft") ||
-		   (strcasestr(c, "low") && !strcasestr(c, "slow")) ||
-		   strcasestr(c, "coarse"))
+		   _cups_strcasestr(c, "draft") ||
+		   (_cups_strcasestr(c, "low") && !_cups_strcasestr(c, "slow")) ||
+		   _cups_strcasestr(c, "coarse"))
 	    properties->sets_draft = 4;
 	  else if (_cups_strcasecmp(c, "draft") == 0 ||
 		   _cups_strcasecmp(c, "low") == 0 ||
 		   _cups_strcasecmp(c, "coarse") == 0 ||
-		   strcasestr(c, "bidir"))
+		   _cups_strcasestr(c, "bidir"))
 	    properties->sets_draft = 5;
 
 	  /* Use high or low quality but not the extremes */
-	  if (strcasestr(c, "ultra") ||
-	      strcasestr(c, "very") ||
-	      strcasestr(c, "super"))
+	  if (_cups_strcasestr(c, "ultra") ||
+	      _cups_strcasestr(c, "very") ||
+	      _cups_strcasestr(c, "super"))
 	  {
 	    if (properties->sets_high > 1)
 	      properties->sets_high --;
@@ -2446,14 +2446,14 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	  }
 
 	  /* Normal quality */
-	  if (strcasestr(c, "automatic") ||
+	  if (_cups_strcasestr(c, "automatic") ||
 	      _cups_strcasecmp(c, "none") == 0 ||
 	      _cups_strcasecmp(c, "4") == 0 ||
 	      _cups_strcasecmp(c, "FastRes1200") == 0) /* HPLIP */
 	    properties->sets_normal = 1;
-	  else if (strcasestr(c, "normal") ||
-		   strcasestr(c, "standard") ||
-		   strcasestr(c, "default") ||
+	  else if (_cups_strcasestr(c, "normal") ||
+		   _cups_strcasestr(c, "standard") ||
+		   _cups_strcasestr(c, "default") ||
 		   _cups_strcasecmp(c, "FastRes600") == 0) /* HPLIP */
 	    properties->sets_normal = 2;
 	  else if (_cups_strcasecmp(c, "normal") == 0 ||
@@ -2510,7 +2510,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	     resolution value (Must have "dpi", as otherwise can be
 	     something else, like a page size */
 	  if ((properties->res_x == 0 || properties->res_y == 0) &&
-	      (p = strcasestr(c, "dpi")) != NULL)
+	      (p = _cups_strcasestr(c, "dpi")) != NULL)
 	  {
 	    if (p > c)
 	    {
@@ -2735,20 +2735,20 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	else
 	/* Generic choice names */
 	{
-	  if (strcasestr(c, "photo"))
+	  if (_cups_strcasestr(c, "photo"))
 	    properties->for_photo = 6;
 	  else if (_cups_strcasecmp(c, "photo") == 0)
 	    properties->for_photo = 7;
 
-	  if (strcasestr(c, "graphic"))
+	  if (_cups_strcasestr(c, "graphic"))
 	    properties->for_graphics = 6;
 	  else if (_cups_strcasecmp(c, "graphic") == 0 ||
 		   _cups_strcasecmp(c, "graphics") == 0)
 	    properties->for_graphics = 7;
 
-	  if (strcasestr(c, "text"))
+	  if (_cups_strcasestr(c, "text"))
 	  {
-	    if (strcasestr(c, "graphic"))
+	    if (_cups_strcasestr(c, "graphic"))
 	      properties->for_tg = 7;
 	    else
 	      properties->for_text = 6;
@@ -2756,7 +2756,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	  else if (_cups_strcasecmp(c, "text") == 0)
 	    properties->for_text = 7;
 
-	  if (strcasestr(c, "presentation"))
+	  if (_cups_strcasestr(c, "presentation"))
 	  {
 	    properties->for_text = 4;
 	    properties->for_graphics = 4;
@@ -2769,7 +2769,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	    properties->for_tg = 5;
 	  }
 
-	  if (strcasestr(c, "lineart"))
+	  if (_cups_strcasestr(c, "lineart"))
 	  {
 	    properties->for_graphics = 2;
 	    properties->for_tg = 2;
@@ -2780,7 +2780,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	    properties->for_tg = 3;
 	  }
 
-	  if (strcasestr(c, "drawing"))
+	  if (_cups_strcasestr(c, "drawing"))
 	  {
 	    properties->for_graphics = 4;
 	    properties->for_tg = 4;
@@ -2791,12 +2791,12 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	    properties->for_tg = 5;
 	  }
 
-	  if (strcasestr(c, "natural"))
+	  if (_cups_strcasestr(c, "natural"))
 	    properties->for_photo = 2;
 	  else if (_cups_strcasecmp(c, "natural") == 0)
 	    properties->for_photo = 3;
 
-	  if (strcasestr(c, "vivid"))
+	  if (_cups_strcasestr(c, "vivid"))
 	  {
 	    properties->for_text = 2;
 	    properties->for_graphics = 2;
