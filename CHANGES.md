@@ -5,6 +5,9 @@ CUPS v2.4rc1 (Pending)
 ----------------------
 
 - Added support for CUPS running in a Snapcraft snap.
+- Added PPD option preset auto-generation: For all 6 combinations of
+  print-color-mode and print-quality and also for the 5 settings of
+  print-content-optimize presets are auto-generated.
 - Added support for AirPrint and Mopria clients (Issue #105)
 - Added configure support for specifying systemd dependencies in the CUPS
   service file (Issue #144)

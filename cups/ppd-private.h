@@ -36,7 +36,7 @@ extern "C" {
  * Constants...
  */
 
-#  define _PPD_CACHE_VERSION	10	/* Version number in cache file */
+#  define _PPD_CACHE_VERSION	11	/* Version number in cache file */
 
 
 /*
@@ -101,6 +101,16 @@ typedef enum _pwg_print_quality_e	/**** PWG print-quality values ****/
   _PWG_PRINT_QUALITY_MAX
 } _pwg_print_quality_t;
 
+typedef enum _pwg_print_content_optimize_e /** PWG print-content-optimize **/
+{
+  _PWG_PRINT_CONTENT_OPTIMIZE_AUTO = 0, /* print-content-optimize=auto */
+  _PWG_PRINT_CONTENT_OPTIMIZE_PHOTO,	/* print-content-optimize=photo */
+  _PWG_PRINT_CONTENT_OPTIMIZE_GRAPHICS, /* print-content-optimize=graphics */
+  _PWG_PRINT_CONTENT_OPTIMIZE_TEXT,	/* print-content-optimize=text */
+  _PWG_PRINT_CONTENT_OPTIMIZE_TEXT_AND_GRAPHICS, /* ...=text-and-graphics */
+  _PWG_PRINT_CONTENT_OPTIMIZE_MAX
+} _pwg_print_content_optimize_t;
+
 typedef struct _pwg_finishings_s	/**** PWG finishings mapping data ****/
 {
   ipp_finishings_t	value;		/* finishings value */
@@ -131,6 +141,11 @@ struct _ppd_cache_s			/**** PPD cache and PWG conversion data ****/
 					/* Number of print-color-mode/print-quality options */
   cups_option_t	*presets[_PWG_PRINT_COLOR_MODE_MAX][_PWG_PRINT_QUALITY_MAX];
 					/* print-color-mode/print-quality options */
+  int		num_optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_MAX];
+					/* Number of print-content-optimize
+					   options */
+  cups_option_t	*optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_MAX];
+					/* print-content-optimize options */
   char		*sides_option,		/* PPD option for sides */
 		*sides_1sided,		/* Choice for one-sided */
 		*sides_2sided_long,	/* Choice for two-sided-long-edge */
@@ -213,6 +228,8 @@ extern const char	*_pwgMediaTypeForType(const char *media_type,
 					      char *name, size_t namesize) _CUPS_PRIVATE;
 extern const char	*_pwgPageSizeForMedia(pwg_media_t *media,
 			                      char *name, size_t namesize) _CUPS_PRIVATE;
+
+extern void             _ppdCacheAssignPresets(ppd_file_t *ppd, _ppd_cache_t *pc) _CUPS_PRIVATE;
 
 
 /*
