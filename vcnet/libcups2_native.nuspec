@@ -3,7 +3,7 @@
     <metadata>
         <id>libcups2_native</id>
         <title>OpenPrinting CUPS Library for VS2019+</title>
-        <version>2.4.0-b5</version>
+        <version>2.4.0.0</version>
         <authors>Michael R Sweet, OpenPrinting</authors>
         <owners>michaelrsweet</owners>
         <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
@@ -16,7 +16,7 @@ and other Unix®-like operating systems. The CUPS library provides a convenient 
         <copyright>Copyright © 2020-2021 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
         <tags>http ipp native</tags>
 	<dependencies>
-	    <dependency id="libcups2_native.redist" version="2.4.0-b5" />
+	    <dependency id="libcups2_native.redist" version="2.4.0.0" />
 	</dependencies>
     </metadata>
     <files>
