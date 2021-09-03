@@ -598,12 +598,13 @@ _cupsGet1284Values(
 
     if (!*device_id)
       break;
-
+    
+    memset(value, 0, sizeof(value));
     for (ptr = value; *device_id && *device_id != ';'; device_id ++)
       if (ptr < (value + sizeof(value) - 1))
         *ptr++ = *device_id;
 
-    if (!*device_id)
+    if (!*device_id && strlen(value) == 0)
       break;
 
     while (ptr > value && _cups_isspace(ptr[-1]))
