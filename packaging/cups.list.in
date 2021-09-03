@@ -508,7 +508,7 @@ f 0444 root sys $INCLUDEDIR/cups/versioning.h cups/versioning.h
 
 %if INSTALLSTATIC
 f 0444 root sys $LIBDIR/libcups.a cups/libcups.a
-f 0444 root sys $LIBDIR/libcupsimage.a filter/libcupsimage.a
+f 0444 root sys $LIBDIR/libcupsimage.a cups/libcupsimage.a
 %endif
 
 d 0755 root sys $DOCDIR/help -
