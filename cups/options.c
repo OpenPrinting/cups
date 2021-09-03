@@ -604,16 +604,16 @@ _cupsGet1284Values(
       if (ptr < (value + sizeof(value) - 1))
         *ptr++ = *device_id;
 
-    if (!*device_id && strlen(value) == 0)
-      break;
-
     while (ptr > value && _cups_isspace(ptr[-1]))
       ptr --;
 
     *ptr = '\0';
+    if (ptr > value)
+    	num_values = cupsAddOption(key, value, num_values, values);
+	  
+    if (!*device_id)
+      break;
     device_id ++;
-
-    num_values = cupsAddOption(key, value, num_values, values);
   }
 
   return (num_values);
