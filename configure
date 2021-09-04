@@ -6848,8 +6848,8 @@ printf "%s\n" "#define HAVE_DBUS_MESSAGE_ITER_INIT_APPEND 1" >>confdefs.h
 
 fi
 
-	ac_fn_c_check_func "$LINENO" "dbus_threads_init" "ac_cv_func_dbus_threads_init"
-if test "x$ac_cv_func_dbus_threads_init" = xyes
+	ac_fn_c_check_func "$LINENO" "dbus_threads_init_default" "ac_cv_func_dbus_threads_init_default"
+if test "x$ac_cv_func_dbus_threads_init_default" = xyes
 then :
 
 
