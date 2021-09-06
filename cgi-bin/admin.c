@@ -619,6 +619,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		*oldinfo;		/* Old printer information */
   const cgi_file_t *file;		/* Uploaded file, if any */
   const char	*var;			/* CGI variable */
+  char	*ppd_name = NULL;	/* Pointer to PPD name */
   char		uri[HTTP_MAX_URI],	/* Device or printer URI */
 		*uriptr,		/* Pointer into URI */
 		evefile[1024] = "";	/* IPP Everywhere PPD file */
@@ -1124,10 +1125,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     if (!file)
     {
-      var = cgiGetVariable("PPD_NAME");
-      if (strcmp(var, "__no_change__"))
+      ppd_name = cgiGetVariable("PPD_NAME");
+      if (strcmp(ppd_name, "__no_change__"))
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "ppd-name",
-		     NULL, var);
+		     NULL, ppd_name);
     }
 
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-location",
@@ -1216,6 +1217,16 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       cgiStartHTML(title);
 
       cgiCopyTemplateLang("printer-modified.tmpl");
+    }
+    else if (strcmp(ppd_name, "everywhere") && !strstr(ppd_name, "driverless"))
+    {
+      /*
+       * If we don't have an everywhere model, show printer-added
+       * template with warning about drivers going away...
+       */
+
+      cgiStartHTML(title);
+      cgiCopyTemplateLang("printer-added.tmpl");
     }
     else
     {

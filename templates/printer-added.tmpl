@@ -1,4 +1,15 @@
-<H2 CLASS="title">Add Printer</H2>
+<H2 CLASS="title">Add Printer {printer_name}</H2>
 
 <P>Printer <A HREF="/printers/{printer_name}">{printer_name}</A> has been added
 successfully.
+
+<blockquote>
+<b>Note:<b>Printer drivers and raw queues are deprecated and will stop working in a future version of CUPS.
+</blockquote>
+
+<FORM ACTION="admin/" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="set-printer-options">
+<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">
+<INPUT TYPE="SUBMIT" VALUE="Set Printer Options">
+</FORM>
