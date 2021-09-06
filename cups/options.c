@@ -598,8 +598,7 @@ _cupsGet1284Values(
 
     if (!*device_id)
       break;
-    
-    memset(value, 0, sizeof(value));
+
     for (ptr = value; *device_id && *device_id != ';'; device_id ++)
       if (ptr < (value + sizeof(value) - 1))
         *ptr++ = *device_id;
