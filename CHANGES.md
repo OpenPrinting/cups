@@ -64,7 +64,7 @@ CUPS v2.4rc1 (Pending)
   `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
   directives in `cupsd.conf` and `cups-files.conf`.
 - Stubbed out deprecated `httpMD5` functions.
-- Fixed uninitialized variable during driver selection in Web UI
+- Printer driver deprecation wasn't mentioned in CUPS Web UI
 
 
 CUPS v2.3.3op2 (February 1, 2021)
