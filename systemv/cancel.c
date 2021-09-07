@@ -312,8 +312,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	        	op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
         		cupsLastErrorString());
 
-	if (response)
-	  ippDelete(response);
+          ippDelete(response);
 
 	return (1);
       }
@@ -376,8 +375,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		      op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
         	      cupsLastErrorString());
 
-      if (response)
-	ippDelete(response);
+      ippDelete(response);
 
       return (1);
     }
