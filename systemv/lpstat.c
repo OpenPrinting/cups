@@ -635,7 +635,7 @@ match_list(const char *list,		/* I - List of names */
   if (!name)
     return (0);
 
-  while (*list)
+  do
   {
    /*
     * Skip leading whitespace and commas...
@@ -661,6 +661,7 @@ match_list(const char *list,		/* I - List of names */
     while (*list && !isspace(*list & 255) && *list != ',')
       list ++;
   }
+  while (*list);
 
   return (0);
 }
@@ -811,8 +812,8 @@ show_accepting(const char  *printers,	/* I - Destinations */
 	  _cupsLangPrintf(stdout, _("%s not accepting requests since %s -"),
 			  printer, printer_state_time);
 	  _cupsLangPrintf(stdout, _("\t%s"),
-			  (message == NULL || !*message) ?
-			      "reason unknown" : message);
+			  (message && *message) ?
+			      message : "reason unknown");
         }
 
         for (i = 0; i < num_dests; i ++)
@@ -827,8 +828,8 @@ show_accepting(const char  *printers,	/* I - Destinations */
 	                      _("%s/%s not accepting requests since %s -"),
 			      printer, dests[i].instance, printer_state_time);
 	      _cupsLangPrintf(stdout, _("\t%s"),
-	        	      (message == NULL || !*message) ?
-			          "reason unknown" : message);
+	        	      (message && *message) ?
+			          message : "reason unknown");
             }
 	  }
       }
@@ -951,7 +952,7 @@ show_classes(const char *dests)		/* I - Destinations */
       printer_uri = NULL;
       members     = NULL;
 
-      while (attr != NULL && attr->group_tag == IPP_TAG_PRINTER)
+      do
       {
         if (!strcmp(attr->name, "printer-name") &&
 	    attr->value_tag == IPP_TAG_NAME)
@@ -967,6 +968,7 @@ show_classes(const char *dests)		/* I - Destinations */
 
         attr = attr->next;
       }
+	  while (attr != NULL && attr->group_tag == IPP_TAG_PRINTER);
 
      /*
       * If this is a remote class, grab the class info from the
@@ -1790,10 +1792,10 @@ show_printers(const char  *printers,	/* I - Destinations */
 
         if ((message && *message) || pstate == IPP_PRINTER_STOPPED)
 	{
-	  if (!message || !*message)
-	    _cupsLangPuts(stdout, _("\treason unknown"));
+	  if (message && *message)
+	  	_cupsLangPrintf(stdout, "\t%s", message);
 	  else
-	    _cupsLangPrintf(stdout, "\t%s", message);
+	    _cupsLangPuts(stdout, _("\treason unknown"));
 	}
 
         if (long_status > 1)
@@ -1910,10 +1912,10 @@ show_printers(const char  *printers,	/* I - Destinations */
 
             if ((message && *message) || pstate == IPP_PRINTER_STOPPED)
 	    {
-	      if (!message || !*message)
-		_cupsLangPuts(stdout, _("\treason unknown"));
-	      else
+	      if (message && *message)
 		_cupsLangPrintf(stdout, "\t%s", message);
+	      else
+		_cupsLangPuts(stdout, _("\treason unknown"));
             }
 
             if (long_status > 1)

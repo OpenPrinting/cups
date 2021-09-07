@@ -734,7 +734,6 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 					/* Output token for username */
     gss_name_t		client_name;	/* Client name */
 
-
 #  ifdef __APPLE__
    /*
     * If the weak-linked GSSAPI/Kerberos library is not present, don't try
