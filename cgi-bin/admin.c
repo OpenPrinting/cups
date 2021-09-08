@@ -1218,17 +1218,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
       cgiCopyTemplateLang("printer-modified.tmpl");
     }
-    else if (strcmp(ppd_name, "everywhere") && !strstr(ppd_name, "driverless"))
-    {
-      /*
-       * If we don't have an everywhere model, show printer-added
-       * template with warning about drivers going away...
-       */
-
-      cgiStartHTML(title);
-      cgiCopyTemplateLang("printer-added.tmpl");
-    }
-    else
+    else if (ppd_name && (strcmp(ppd_name, "everywhere") == 0 || strstr(ppd_name, "driverless")))
     {
      /*
       * Set the printer options...
@@ -1237,6 +1227,16 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       cgiSetVariable("OP", "set-printer-options");
       do_set_options(http, 0);
       return;
+    }
+    else
+    {
+     /*
+      * If we don't have an everywhere model, show printer-added
+      * template with warning about drivers going away...
+      */
+
+      cgiStartHTML(title);
+      cgiCopyTemplateLang("printer-added.tmpl");
     }
 
     cgiEndHTML();
