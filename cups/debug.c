@@ -266,7 +266,7 @@ _cups_debug_set(const char *logfile,	/* I - Log file or NULL */
 
     if (debug_filter)
     {
-      regfree((regex_t *)debug_filter);
+      regfree(debug_filter);
       debug_filter = NULL;
     }
 
@@ -405,7 +405,7 @@ _cups_safe_vsnprintf(
       {
 	width = 0;
 
-	while (isdigit(*format & 255))
+	while (isdigit(*format))
 	{
 	  if (tptr < (tformat + sizeof(tformat) - 1))
 	    *tptr++ = *format;
@@ -437,7 +437,7 @@ _cups_safe_vsnprintf(
 	{
 	  prec = 0;
 
-	  while (isdigit(*format & 255))
+	  while (isdigit(*format))
 	  {
 	    if (tptr < (tformat + sizeof(tformat) - 1))
 	      *tptr++ = *format;

@@ -84,8 +84,8 @@ cupsMakeServerCredentials(
 {
 #if TARGET_OS_OSX
   int		pid,			/* Process ID of command */
-		status,			/* Status of command */
-		i;			/* Looping var */
+		status;			  /* Status of command */
+	size_t i;			  /* Looping var */
   char		command[1024],		/* Command */
 		*argv[5],		/* Command-line arguments */
 		*envp[1000],		/* Environment variables */
@@ -149,7 +149,7 @@ cupsMakeServerCredentials(
 
   snprintf(days, sizeof(days), "CERTTOOL_EXPIRATION_DAYS=%d", (int)((expiration_date - time(NULL) + 86399) / 86400));
   envp[0] = days;
-  for (i = 0; i < (int)(sizeof(envp) / sizeof(envp[0]) - 2) && environ[i]; i ++)
+  for (i = 0; i < (sizeof(envp) / sizeof(envp[0]) - 2) && environ[i]; i ++)
     envp[i + 1] = environ[i];
   envp[i] = NULL;
 
@@ -427,13 +427,12 @@ httpCopyCredentials(
     http_t	 *http,			/* I - Connection to server */
     cups_array_t **credentials)		/* O - Array of credentials */
 {
-  OSStatus		error;		/* Error code */
-  SecTrustRef		peerTrust;	/* Peer trust reference */
-  CFIndex		count;		/* Number of credentials */
-  SecCertificateRef	secCert;	/* Certificate reference */
-  CFDataRef		data;		/* Certificate data */
-  int			i;		/* Looping var */
-
+  OSStatus error;            /* Error code */
+  SecTrustRef peerTrust;     /* Peer trust reference */
+  CFIndex count;             /* Number of credentials */
+  SecCertificateRef secCert; /* Certificate reference */
+  CFDataRef data;            /* Certificate data */
+  CFIndex i;                 /* Looping var */
 
   DEBUG_printf(("httpCopyCredentials(http=%p, credentials=%p)", (void *)http, (void *)credentials));
 
@@ -463,12 +462,12 @@ httpCopyCredentials(
 	else
 	  strlcpy(name, "unknown", sizeof(name));
 
-	DEBUG_printf(("2httpCopyCredentials: Certificate %d name is \"%s\".", i, name));
+        DEBUG_printf(("2httpCopyCredentials: Certificate %ld name is \"%s\".", (long)i, name));
 #endif /* DEBUG */
 
 	if ((data = SecCertificateCopyData(secCert)) != NULL)
 	{
-	  DEBUG_printf(("2httpCopyCredentials: Adding %d byte certificate blob.", (int)CFDataGetLength(data)));
+	  DEBUG_printf(("2httpCopyCredentials: Adding %ld byte certificate blob.", (long)CFDataGetLength(data)));
 
 	  httpAddCredential(*credentials, CFDataGetBytePtr(data), (size_t)CFDataGetLength(data));
 	  CFRelease(data);
@@ -1226,9 +1225,7 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
   cups_array_t		*credentials;	/* Credentials array */
   cups_array_t		*names;		/* CUPS distinguished names */
   CFArrayRef		dn_array;	/* CF distinguished names array */
-  CFIndex		count;		/* Number of credentials */
   CFDataRef		data;		/* Certificate data */
-  int			i;		/* Looping var */
   http_credential_t	*credential;	/* Credential data */
 
 
@@ -1315,11 +1312,12 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 
     if (!error)
     {
-      DEBUG_printf(("4_httpTLSStart: %d cipher suites supported.", (int)num_supported));
+      size_t j;
+      DEBUG_printf(("4_httpTLSStart: %u cipher suites supported.", (unsigned)num_supported));
 
-      for (i = 0, num_enabled = 0; i < (int)num_supported && num_enabled < (sizeof(enabled) / sizeof(enabled[0])); i ++)
+      for (j = 0, num_enabled = 0; j < num_supported && num_enabled < (sizeof(enabled) / sizeof(enabled[0])); j ++)
       {
-        switch (supported[i])
+        switch (supported[j])
 	{
 	  /* Obviously insecure cipher suites that we never want to use */
 	  case SSL_NULL_WITH_NULL_NULL :
@@ -1367,7 +1365,7 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 	  case TLS_RSA_PSK_WITH_NULL_SHA256 :
 	  case TLS_RSA_PSK_WITH_NULL_SHA384 :
 	  case SSL_RSA_WITH_DES_CBC_MD5 :
-	      DEBUG_printf(("4_httpTLSStart: Excluding insecure cipher suite %d", supported[i]));
+	      DEBUG_printf(("4_httpTLSStart: Excluding insecure cipher suite %d", supported[j]));
 	      break;
 
           /* RC4 cipher suites that should only be used as a last resort */
@@ -1381,9 +1379,9 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 	  case TLS_DHE_PSK_WITH_RC4_128_SHA :
 	  case TLS_RSA_PSK_WITH_RC4_128_SHA :
 	      if (tls_options & _HTTP_TLS_ALLOW_RC4)
-	        enabled[num_enabled ++] = supported[i];
+	        enabled[num_enabled ++] = supported[j];
 	      else
-		DEBUG_printf(("4_httpTLSStart: Excluding RC4 cipher suite %d", supported[i]));
+		DEBUG_printf(("4_httpTLSStart: Excluding RC4 cipher suite %d", supported[j]));
 	      break;
 
           /* DH/DHE cipher suites that are problematic with parameters < 1024 bits */
@@ -1413,7 +1411,7 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
           case TLS_DHE_PSK_WITH_AES_256_CBC_SHA384 :
 	      if (tls_options & _HTTP_TLS_DENY_CBC)
 	      {
-	        DEBUG_printf(("4_httpTLSStart: Excluding CBC cipher suite %d", supported[i]));
+	        DEBUG_printf(("4_httpTLSStart: Excluding CBC cipher suite %d", supported[j]));
 	        break;
 	      }
 
@@ -1428,9 +1426,9 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
           case TLS_DHE_PSK_WITH_AES_128_GCM_SHA256 :
           case TLS_DHE_PSK_WITH_AES_256_GCM_SHA384 :
               if (tls_options & _HTTP_TLS_ALLOW_DH)
-	        enabled[num_enabled ++] = supported[i];
+	        enabled[num_enabled ++] = supported[j];
 	      else
-		DEBUG_printf(("4_httpTLSStart: Excluding DH/DHE cipher suite %d", supported[i]));
+		DEBUG_printf(("4_httpTLSStart: Excluding DH/DHE cipher suite %d", supported[j]));
               break;
 
           case TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA :
@@ -1447,18 +1445,18 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
           case TLS_RSA_WITH_AES_256_CBC_SHA :
               if (tls_options & _HTTP_TLS_DENY_CBC)
 	      {
-	        DEBUG_printf(("4_httpTLSStart: Excluding CBC cipher suite %d", supported[i]));
+	        DEBUG_printf(("4_httpTLSStart: Excluding CBC cipher suite %d", supported[j]));
 	        break;
 	      }
 
           /* Anything else we'll assume is "secure" */
           default :
-	      enabled[num_enabled ++] = supported[i];
+	      enabled[num_enabled ++] = supported[j];
 	      break;
 	}
       }
 
-      DEBUG_printf(("4_httpTLSStart: %d cipher suites enabled.", (int)num_enabled));
+      DEBUG_printf(("4_httpTLSStart: %u cipher suites enabled.", (unsigned)num_enabled));
       error = SSLSetEnabledCiphers(http->tls, enabled, num_enabled);
     }
   }
@@ -1519,7 +1517,7 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
       }
     }
 
-    if (isdigit(hostname[0] & 255) || hostname[0] == '[')
+    if (isdigit(hostname[0]) || hostname[0] == '[')
       hostname[0] = '\0';		/* Don't allow numeric addresses */
 
     _cupsMutexLock(&tls_mutex);
@@ -1667,6 +1665,8 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 	      {
 		if ((names = cupsArrayNew(NULL, NULL)) != NULL)
 		{
+                  CFIndex count; /* Number of credentials */
+                  CFIndex i; /* Loop var */
 		  for (i = 0, count = CFArrayGetCount(dn_array); i < count; i++)
 		  {
 		    data = (CFDataRef)CFArrayGetValueAtIndex(dn_array, i);
@@ -1801,7 +1801,7 @@ _httpTLSWrite(http_t     *http,		/* I - HTTP connection */
 	       const char *buf,		/* I - Buffer holding data */
 	       int        len)		/* I - Length of buffer */
 {
-  ssize_t	result;			/* Return value */
+  int	result;           /* Return value */
   OSStatus	error;			/* Error info */
   size_t	processed;		/* Number of bytes processed */
 
@@ -1844,7 +1844,7 @@ _httpTLSWrite(http_t     *http,		/* I - HTTP connection */
 
   DEBUG_printf(("5_httpTLSWrite: Returning %d.", (int)result));
 
-  return ((int)result);
+  return (result);
 }
 
 

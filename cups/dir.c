@@ -237,7 +237,6 @@ cupsDirRewind(cups_dir_t *dp)		/* I - Directory pointer */
  * POSIX implementation...
  */
 
-#  include <sys/types.h>
 #  include <dirent.h>
 
 

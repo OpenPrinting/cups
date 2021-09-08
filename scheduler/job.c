@@ -972,8 +972,8 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
         snprintf(lang, sizeof(lang), "LANG=%c%c_%c%c.UTF-8",
 	         attr->values[0].string.text[0],
 		 attr->values[0].string.text[1],
-		 toupper(attr->values[0].string.text[3] & 255),
-		 toupper(attr->values[0].string.text[4] & 255));
+		 toupper(attr->values[0].string.text[3]),
+		 toupper(attr->values[0].string.text[4]));
         break;
   }
 
@@ -1351,8 +1351,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
     free(argv);
   }
 
-  if (printer_state_reasons)
-    free(printer_state_reasons);
+  free(printer_state_reasons);
 
   cupsdClosePipe(job->print_pipes);
   cupsdClosePipe(job->back_pipes);
@@ -2346,7 +2345,7 @@ cupsdSetJobHoldUntil(cupsd_job_t *job,	/* I - Job */
 
     if (attr)
     {
-      if (isdigit(when[0] & 255))
+      if (isdigit(when[0]))
 	attr->value_tag = IPP_TAG_NAME;
       else
 	attr->value_tag = IPP_TAG_KEYWORD;
@@ -5395,13 +5394,13 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
       if (!strncmp(message, "recoverable:", 12))
       {
         ptr = message + 12;
-	while (isspace(*ptr & 255))
+	while (isspace(*ptr))
           ptr ++;
       }
       else if (!strncmp(message, "recovered:", 10))
       {
         ptr = message + 10;
-	while (isspace(*ptr & 255))
+	while (isspace(*ptr))
           ptr ++;
       }
       else

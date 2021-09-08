@@ -703,8 +703,7 @@ cupsdDeletePrinter(
   * Free all memory used by the printer...
   */
 
-  if (p->printers != NULL)
-    free(p->printers);
+  free(p->printers);
 
   _cupsRWLockWrite(&MimeDatabase->lock);
 
@@ -1038,14 +1037,14 @@ cupsdLoadAllPrinters(void)
       * Option name value
       */
 
-      for (valueptr = value; *valueptr && !isspace(*valueptr & 255); valueptr ++);
+      for (valueptr = value; *valueptr && !isspace(*valueptr); valueptr ++);
 
       if (!*valueptr)
         cupsdLogMessage(CUPSD_LOG_ERROR,
 	                "Syntax error on line %d of printers.conf.", linenum);
       else
       {
-        for (; *valueptr && isspace(*valueptr & 255); *valueptr++ = '\0');
+        for (; *valueptr && isspace(*valueptr); *valueptr++ = '\0');
 
         p->num_options = cupsAddOption(value, valueptr, p->num_options,
 	                               &(p->options));
@@ -1193,19 +1192,19 @@ cupsdLoadAllPrinters(void)
 
       if (value)
       {
-	for (valueptr = value; *valueptr && !isspace(*valueptr & 255); valueptr ++);
+	for (valueptr = value; *valueptr && !isspace(*valueptr); valueptr ++);
 
 	if (*valueptr)
           *valueptr++ = '\0';
 
 	cupsdSetString(&p->job_sheets[0], value);
 
-	while (isspace(*valueptr & 255))
+	while (isspace(*valueptr))
           valueptr ++;
 
 	if (*valueptr)
 	{
-          for (value = valueptr; *valueptr && !isspace(*valueptr & 255); valueptr ++);
+          for (value = valueptr; *valueptr && !isspace(*valueptr); valueptr ++);
 
 	  if (*valueptr)
             *valueptr = '\0';
@@ -1301,14 +1300,14 @@ cupsdLoadAllPrinters(void)
     }
     else if (!_cups_strcasecmp(line, "Attribute") && value)
     {
-      for (valueptr = value; *valueptr && !isspace(*valueptr & 255); valueptr ++);
+      for (valueptr = value; *valueptr && !isspace(*valueptr); valueptr ++);
 
       if (!*valueptr)
         cupsdLogMessage(CUPSD_LOG_ERROR,
 	                "Syntax error on line %d of printers.conf.", linenum);
       else
       {
-        for (; *valueptr && isspace(*valueptr & 255); *valueptr++ = '\0');
+        for (; *valueptr && isspace(*valueptr); *valueptr++ = '\0');
 
         if (!p->attrs)
 	  cupsdSetPrinterAttrs(p);
@@ -2152,7 +2151,7 @@ cupsdSetPrinterAttr(
         if (*type == '-')
 	{
 	  type ++;
-	  *psptr++ = (char)toupper(*type & 255);
+	  *psptr++ = (char)toupper(*type);
 	}
 	else
 	  *psptr++ = *type;
@@ -2590,10 +2589,10 @@ cupsdSetPrinterReasons(
     * Skip leading whitespace and commas...
     */
 
-    while (isspace(*sptr & 255) || *sptr == ',')
+    while (isspace(*sptr) || *sptr == ',')
       sptr ++;
 
-    for (rptr = reason; *sptr && !isspace(*sptr & 255) && *sptr != ','; sptr ++)
+    for (rptr = reason; *sptr && !isspace(*sptr) && *sptr != ','; sptr ++)
       if (rptr < (reason + sizeof(reason) - 1))
         *rptr++ = *sptr;
 
@@ -4873,7 +4872,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	  if (!*start)
 	    break;
 
-	  while (*start && !isspace(*start & 255))
+	  while (*start && !isspace(*start))
 	    start ++;
 	}
       }
@@ -4894,14 +4893,14 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
 	for (count = 0, start = commands; *start; count ++)
 	{
-	  while (isspace(*start & 255))
+	  while (isspace(*start))
 	    start ++;
 
 	  if (!*start)
 	    break;
 
 	  end = start;
-	  while (*end && !isspace(*end & 255))
+	  while (*end && !isspace(*end))
 	    end ++;
 
 	  if (*end)

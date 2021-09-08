@@ -823,10 +823,13 @@ httpLoadCredentials(
 
     httpFreeCredentials(*credentials);
     *credentials = NULL;
+
+    free(data);
+
+    return -1;
   }
 
-  if (data)
-    free(data);
+  free(data);
 
   return (*credentials ? 0 : -1);
 }
@@ -1059,8 +1062,7 @@ http_gnutls_load_crl(void)
 
       cupsFileClose(fp);
 
-      if (data)
-	free(data);
+      free(data);
     }
   }
 
@@ -1404,7 +1406,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
       }
     }
 
-    if (isdigit(hostname[0] & 255) || hostname[0] == '[')
+    if (isdigit(hostname[0]) || hostname[0] == '[')
       hostname[0] = '\0';		/* Don't allow numeric addresses */
 
     _cupsMutexLock(&tls_mutex);

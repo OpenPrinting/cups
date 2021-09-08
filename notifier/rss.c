@@ -367,11 +367,9 @@ main(int  argc,				/* I - Number of command-line arguments */
       }
     }
 
-    if (subject)
-      free(subject);
+    free(subject);
 
-    if (text)
-      free(text);
+    free(text);
 
     ippDelete(event);
     event = NULL;

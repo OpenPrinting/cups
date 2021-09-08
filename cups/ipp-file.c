@@ -598,7 +598,7 @@ parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
 
             for (valueptr = value + 1; *valueptr; valueptr ++)
             {
-              if (isdigit(*valueptr & 255))
+              if (isdigit(*valueptr))
               {
                 period = (int)strtol(valueptr, &valueptr, 10);
 
@@ -692,11 +692,11 @@ parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
 		yres;		/* Y resolution */
 	  char	*ptr;		/* Pointer into value */
 
-	  xres = yres = (int)strtol(value, (char **)&ptr, 10);
+	  xres = yres = (int)strtol(value, &ptr, 10);
 	  if (ptr > value && xres > 0)
 	  {
 	    if (*ptr == 'x')
-	      yres = (int)strtol(ptr + 1, (char **)&ptr, 10);
+	      yres = (int)strtol(ptr + 1, &ptr, 10);
 	  }
 
 	  if (ptr <= value || xres <= 0 || yres <= 0 || !ptr || (_cups_strcasecmp(ptr, "dpi") && _cups_strcasecmp(ptr, "dpc") && _cups_strcasecmp(ptr, "dpcm") && _cups_strcasecmp(ptr, "other")))
@@ -743,7 +743,7 @@ parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
 
           while (*valueptr && *valueptr != '>')
           {
-	    if (!isxdigit(valueptr[0] & 255) || !isxdigit(valueptr[1] & 255))
+	    if (!isxdigit(valueptr[0]) || !isxdigit(valueptr[1]))
 	    {
 	      report_error(f, v, user_data, "Bad octetString value on line %d of \"%s\".", f->linenum, f->filename);
 	      return (0);

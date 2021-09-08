@@ -246,9 +246,9 @@ auto_configure(ppd_file_t *ppd,		/* I - PPD file */
         else
         {
           *bufptr++ = '\\';
-          *bufptr++ = '0' + ((*valptr / 64) & 7);
-          *bufptr++ = '0' + ((*valptr / 8) & 7);
-          *bufptr++ = '0' + (*valptr & 7);
+          *bufptr++ = (char) ('0' + ((*valptr / 64) & 7));
+          *bufptr++ = (char) ('0' + ((*valptr / 8) & 7));
+          *bufptr++ = (char) ('0' + (*valptr & 7));
         }
       }
       else
@@ -312,12 +312,12 @@ auto_configure(ppd_file_t *ppd,		/* I - PPD file */
       bytes = bufptr - buffer;
 
       for (bufptr --; bufptr >= buffer; bufptr --)
-        if (isspace(*bufptr & 255) || iscntrl(*bufptr & 255))
+        if (isspace(*bufptr) || iscntrl(*bufptr))
 	  *bufptr = '\0';
 	else
 	  break;
 
-      for (bufptr = buffer; isspace(*bufptr & 255) || iscntrl(*bufptr & 255);
+      for (bufptr = buffer; isspace(*bufptr) || iscntrl(*bufptr);
 	   bufptr ++);
 
       if (bufptr > buffer)

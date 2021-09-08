@@ -879,7 +879,10 @@ ippAddString(ipp_t      *ipp,		/* I - IPP message */
              const char *language,	/* I - Language code */
              const char *value)		/* I - Value */
 {
+#if 0
   ipp_tag_t		temp_tag;	/* Temporary value tag (masked) */
+#endif
+
   ipp_attribute_t	*attr;		/* New attribute */
   char			code[IPP_MAX_LANGUAGE];
 					/* Charset/language code buffer */
@@ -891,9 +894,8 @@ ippAddString(ipp_t      *ipp,		/* I - IPP message */
   * Range check input...
   */
 
-  temp_tag = (ipp_tag_t)((int)value_tag & IPP_TAG_CUPS_MASK);
-
 #if 0
+  temp_tag = value_tag & IPP_TAG_CUPS_MASK;
   if (!ipp || !name || group < IPP_TAG_ZERO ||
       group == IPP_TAG_END || group >= IPP_TAG_UNSUPPORTED_VALUE ||
       (temp_tag < IPP_TAG_TEXT && temp_tag != IPP_TAG_TEXTLANG &&
@@ -913,15 +915,15 @@ ippAddString(ipp_t      *ipp,		/* I - IPP message */
   * See if we need to map charset, language, or locale values...
   */
 
-  if (language && ((int)value_tag & IPP_TAG_CUPS_CONST) &&
+  if (language && (value_tag & IPP_TAG_CUPS_CONST) &&
       strcmp(language, ipp_lang_code(language, code, sizeof(code))))
-    value_tag = temp_tag;		/* Don't do a fast copy */
+    value_tag &= IPP_TAG_CUPS_MASK;		/* Don't do a fast copy */
   else if (value && value_tag == (ipp_tag_t)(IPP_TAG_CHARSET | IPP_TAG_CUPS_CONST) &&
            strcmp(value, ipp_get_code(value, code, sizeof(code))))
-    value_tag = temp_tag;		/* Don't do a fast copy */
+    value_tag &= IPP_TAG_CUPS_MASK;		/* Don't do a fast copy */
   else if (value && value_tag == (ipp_tag_t)(IPP_TAG_LANGUAGE | IPP_TAG_CUPS_CONST) &&
            strcmp(value, ipp_lang_code(value, code, sizeof(code))))
-    value_tag = temp_tag;		/* Don't do a fast copy */
+    value_tag &= IPP_TAG_CUPS_MASK;		/* Don't do a fast copy */
 
  /*
   * Create the attribute...
@@ -934,7 +936,7 @@ ippAddString(ipp_t      *ipp,		/* I - IPP message */
   * Initialize the attribute data...
   */
 
-  if ((int)value_tag & IPP_TAG_CUPS_CONST)
+  if (value_tag & IPP_TAG_CUPS_CONST)
   {
     attr->values[0].string.language = (char *)language;
     attr->values[0].string.text     = (char *)value;
@@ -1223,7 +1225,7 @@ ippAddStrings(
   * Range check input...
   */
 
-  temp_tag = (ipp_tag_t)((int)value_tag & IPP_TAG_CUPS_MASK);
+  temp_tag = value_tag & IPP_TAG_CUPS_MASK;
 
 #if 0
   if (!ipp || !name || group < IPP_TAG_ZERO ||
@@ -1247,7 +1249,7 @@ ippAddStrings(
   * See if we need to map charset, language, or locale values...
   */
 
-  if (language && ((int)value_tag & IPP_TAG_CUPS_CONST) &&
+  if (language && (value_tag & IPP_TAG_CUPS_CONST) &&
       strcmp(language, ipp_lang_code(language, code, sizeof(code))))
     value_tag = temp_tag;		/* Don't do a fast copy */
   else if (values && value_tag == (ipp_tag_t)(IPP_TAG_CHARSET | IPP_TAG_CUPS_CONST))
@@ -1288,7 +1290,7 @@ ippAddStrings(
     {
       if (value == attr->values)
       {
-        if ((int)value_tag & IPP_TAG_CUPS_CONST)
+        if (value_tag & IPP_TAG_CUPS_CONST)
           value->string.language = (char *)language;
         else
           value->string.language = _cupsStrAlloc(ipp_lang_code(language, code,
@@ -1300,7 +1302,7 @@ ippAddStrings(
 
     if (values)
     {
-      if ((int)value_tag & IPP_TAG_CUPS_CONST)
+      if (value_tag & IPP_TAG_CUPS_CONST)
         value->string.text = (char *)*values++;
       else if (value_tag == IPP_TAG_CHARSET)
 	value->string.text = _cupsStrAlloc(ipp_get_code(*values++, code, sizeof(code)));
@@ -2874,7 +2876,7 @@ ippReadIO(void       *src,		/* I - Data source */
   _ipp_value_t		*value;		/* Current value */
 
 
-  DEBUG_printf(("ippReadIO(src=%p, cb=%p, blocking=%d, parent=%p, ipp=%p)", (void *)src, (void *)cb, blocking, (void *)parent, (void *)ipp));
+  DEBUG_printf(("ippReadIO(src=%p, cb=%p, blocking=%d, parent=%p, ipp=%p)", src, (void *)cb, blocking, (void *)parent, (void *)ipp));
   DEBUG_printf(("2ippReadIO: ipp->state=%d", ipp ? ipp->state : IPP_STATE_ERROR));
 
   if (!src || !ipp)
@@ -3593,9 +3595,6 @@ ippReadIO(void       *src,		/* I - Data source */
 	}
         break;
 
-    case IPP_STATE_DATA :
-        break;
-
     default :
         break; /* anti-compiler-warning-code */
   }
@@ -3918,7 +3917,7 @@ ippSetOctetString(
 
   if ((value = ipp_set_value(ipp, attr, element)) != NULL)
   {
-    if ((int)((*attr)->value_tag) & IPP_TAG_CUPS_CONST)
+    if (((*attr)->value_tag) & IPP_TAG_CUPS_CONST)
     {
      /*
       * Just copy the pointer...
@@ -4234,7 +4233,7 @@ ippSetString(ipp_t           *ipp,	/* I  - IPP message */
     if (element > 0)
       value->string.language = (*attr)->values[0].string.language;
 
-    if ((int)((*attr)->value_tag) & IPP_TAG_CUPS_CONST)
+    if (((*attr)->value_tag) & IPP_TAG_CUPS_CONST)
       value->string.text = (char *)strvalue;
     else if ((temp = _cupsStrAlloc(strvalue)) != NULL)
     {
@@ -4721,7 +4720,7 @@ ippValidateAttribute(
   */
 
   for (ptr = attr->name; *ptr; ptr ++)
-    if (!isalnum(*ptr & 255) && *ptr != '-' && *ptr != '.' && *ptr != '_')
+    if (!isalnum(*ptr) && *ptr != '-' && *ptr != '.' && *ptr != '_')
       break;
 
   if (*ptr || ptr == attr->name)
@@ -4998,7 +4997,7 @@ ippValidateAttribute(
 	{
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
-	    if (!isalnum(*ptr & 255) && *ptr != '-' && *ptr != '.' &&
+	    if (!isalnum(*ptr) && *ptr != '-' && *ptr != '.' &&
 	        *ptr != '_')
 	      break;
 	  }
@@ -5039,11 +5038,11 @@ ippValidateAttribute(
         for (i = 0; i < attr->num_values; i ++)
 	{
 	  ptr = attr->values[i].string.text;
-	  if (islower(*ptr & 255))
+	  if (islower(*ptr))
 	  {
 	    for (ptr ++; *ptr; ptr ++)
 	    {
-	      if (!islower(*ptr & 255) && !isdigit(*ptr & 255) &&
+	      if (!islower(*ptr) && !isdigit(*ptr) &&
 	          *ptr != '+' && *ptr != '-' && *ptr != '.')
                 break;
 	    }
@@ -5068,8 +5067,8 @@ ippValidateAttribute(
 	{
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
-	    if (!isprint(*ptr & 255) || isupper(*ptr & 255) ||
-	        isspace(*ptr & 255))
+	    if (!isprint(*ptr) || isupper(*ptr) ||
+	        isspace(*ptr))
 	      break;
 	  }
 
@@ -5273,7 +5272,7 @@ ippWriteIO(void       *dst,		/* I - Destination */
   _ipp_value_t		*value;		/* Current value */
 
 
-  DEBUG_printf(("ippWriteIO(dst=%p, cb=%p, blocking=%d, parent=%p, ipp=%p)", (void *)dst, (void *)cb, blocking, (void *)parent, (void *)ipp));
+  DEBUG_printf(("ippWriteIO(dst=%p, cb=%p, blocking=%d, parent=%p, ipp=%p)", dst, (void *)cb, blocking, (void *)parent, (void *)ipp));
 
   if (!dst || !ipp)
     return (IPP_STATE_ERROR);
@@ -6135,10 +6134,6 @@ ippWriteIO(void       *dst,		/* I - Destination */
 	  ipp->state = IPP_STATE_DATA;
 	}
         break;
-
-    case IPP_STATE_DATA :
-        break;
-
     default :
         break; /* anti-compiler-warning-code */
   }
@@ -6331,7 +6326,7 @@ ipp_free_values(ipp_attribute_t *attr,	/* I - Attribute to free values from */
  */
 
 static char *				/* O - Language code string */
-ipp_get_code(const char *value,		/* I - Locale/charset string */
+ipp_get_code(const char *locale,		/* I - Locale/charset string */
              char       *buffer,	/* I - String buffer */
              size_t     bufsize)	/* I - Size of string buffer */
 {
@@ -6344,12 +6339,12 @@ ipp_get_code(const char *value,		/* I - Locale/charset string */
   */
 
   for (bufptr = buffer, bufend = buffer + bufsize - 1;
-       *value && bufptr < bufend;
-       value ++)
-    if (*value == '_')
+       *locale && bufptr < bufend;
+       locale ++)
+    if (*locale == '_')
       *bufptr++ = '-';
     else
-      *bufptr++ = (char)_cups_tolower(*value);
+      *bufptr++ = (char)_cups_tolower(*locale);
 
   *bufptr = '\0';
 

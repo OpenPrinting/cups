@@ -932,7 +932,7 @@ cupsdReadConfiguration(void)
     }
   }
 
-  for (slash = ServerName; isdigit(*slash & 255) || *slash == '.'; slash ++);
+  for (slash = ServerName; isdigit(*slash) || *slash == '.'; slash ++);
 
   ServerNameIsIP = !*slash;
 
@@ -1748,7 +1748,7 @@ get_address(const char  *value,		/* I - Value string */
   }
   else
   {
-    for (portname = buffer; isdigit(*portname & 255); portname ++);
+    for (portname = buffer; isdigit(*portname); portname ++);
 
     if (*portname)
     {
@@ -1842,7 +1842,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
         i = 6 - j;
 	ptr += 2;
       }
-      else if (isdigit(*ptr & 255) && strchr(ptr + 1, '.') && i >= 6)
+      else if (isdigit(*ptr) && strchr(ptr + 1, '.') && i >= 6)
       {
        /*
         * Read IPv4 dotted quad...
@@ -1866,8 +1866,8 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
 	* Merge everything into a 32-bit IPv4 address in ip[3]...
 	*/
 
-	ip[3] = ((((((unsigned)val[0] << 8) | (unsigned)val[1]) << 8) |
-	         (unsigned)val[2]) << 8) | (unsigned)val[3];
+	ip[3] = (((((val[0] << 8) | val[1]) << 8) |
+            val[2]) << 8) | val[3];
 
 	if (ipcount < 4)
 	  mask[3] = (0xffffffff << (32 - 8 * ipcount)) & 0xffffffff;
@@ -1879,13 +1879,13 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
         if (!val[0] && !val[1] && !val[2])
 	  family  = AF_INET;
 
-        while (isdigit(*ptr & 255) || *ptr == '.')
+        while (isdigit(*ptr) || *ptr == '.')
           ptr ++;
 	break;
       }
-      else if (isxdigit(*ptr & 255))
+      else if (isxdigit(*ptr))
       {
-        ipval = strtoul(ptr, (char **)&ptr, 16);
+        ipval = (unsigned int) strtoul(ptr, (char **) &ptr, 16);
 
 	if (*ptr == ':' && ptr[1] != ':')
 	  ptr ++;
@@ -1935,8 +1935,8 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
     * Merge everything into a 32-bit IPv4 address in ip[3]...
     */
 
-    ip[3] = ((((((unsigned)val[0] << 8) | (unsigned)val[1]) << 8) |
-             (unsigned)val[2]) << 8) | (unsigned)val[3];
+    ip[3] = (((((val[0] << 8) | val[1]) << 8) |
+            val[2]) << 8) | val[3];
 
     if (ipcount < 4)
       mask[3] = (0xffffffff << (32 - 8 * ipcount)) & 0xffffffff;
@@ -1963,8 +1963,8 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
                  mask + 3) != 4)
         return (0);
 
-      mask[3] |= (((((unsigned)mask[0] << 8) | (unsigned)mask[1]) << 8) |
-                  (unsigned)mask[2]) << 8;
+      mask[3] |= ((((mask[0] << 8) | mask[1]) << 8) |
+              mask[2]) << 8;
       mask[0] = mask[1] = mask[2] = 0;
     }
     else
@@ -2193,9 +2193,9 @@ parse_aaa(cupsd_location_t *loc,	/* I - Location */
       }
 #ifdef AF_INET6
       else if (value[0] == '*' || value[0] == '.' ||
-	       (!isdigit(value[0] & 255) && value[0] != '['))
+	       (!isdigit(value[0]) && value[0] != '['))
 #else
-      else if (value[0] == '*' || value[0] == '.' || !isdigit(value[0] & 255))
+      else if (value[0] == '*' || value[0] == '.' || !isdigit(value[0]))
 #endif /* AF_INET6 */
       {
        /*
@@ -2712,7 +2712,7 @@ parse_variable(
 			  line, linenum, filename);
           return (0);
 	}
-	else if (!isdigit(*value & 255))
+	else if (!isdigit(*value))
 	{
 	  cupsdLogMessage(CUPSD_LOG_ERROR,
 			  "Bad integer value for %s on line %d of %s.",
@@ -2724,17 +2724,17 @@ parse_variable(
 	  int	n;		/* Number */
 	  char	*units;		/* Units */
 
-	  n = strtol(value, &units, 0);
+	  n = (int) strtol(value, &units, 0);
 
 	  if (units && *units)
 	  {
-	    if (tolower(units[0] & 255) == 'g')
+	    if (tolower(units[0]) == 'g')
 	      n *= 1024 * 1024 * 1024;
-	    else if (tolower(units[0] & 255) == 'm')
+	    else if (tolower(units[0]) == 'm')
 	      n *= 1024 * 1024;
-	    else if (tolower(units[0] & 255) == 'k')
+	    else if (tolower(units[0]) == 'k')
 	      n *= 1024;
-	    else if (tolower(units[0] & 255) == 't')
+	    else if (tolower(units[0]) == 't')
 	      n *= 262144;
 	    else
 	    {
@@ -2767,7 +2767,7 @@ parse_variable(
 			  line, linenum, filename);
           return (0);
 	}
-	else if (!isdigit(*value & 255))
+	else if (!isdigit(*value))
 	{
 	 /* TODO: Add chmod UGO syntax support */
 	  cupsdLogMessage(CUPSD_LOG_ERROR,
@@ -2777,7 +2777,7 @@ parse_variable(
 	}
 	else
 	{
-	  int n = strtol(value, NULL, 8);
+	  int n = (int) strtol(value, NULL, 8);
 					/* Permissions value */
 
 	  if (n < 0)
@@ -2817,7 +2817,7 @@ parse_variable(
 	{
 	  *((int *)var->ptr) = 0;
 	}
-	else if (!isdigit(*value & 255))
+	else if (!isdigit(*value))
 	{
 	  cupsdLogMessage(CUPSD_LOG_ERROR,
 			  "Unknown time interval value for %s on line %d of "
@@ -2833,13 +2833,13 @@ parse_variable(
 
 	  if (units && *units)
 	  {
-	    if (tolower(units[0] & 255) == 'w')
+	    if (tolower(units[0]) == 'w')
 	      n *= 7 * 24 * 60 * 60;
-	    else if (tolower(units[0] & 255) == 'd')
+	    else if (tolower(units[0]) == 'd')
 	      n *= 24 * 60 * 60;
-	    else if (tolower(units[0] & 255) == 'h')
+	    else if (tolower(units[0]) == 'h')
 	      n *= 60 * 60;
-	    else if (tolower(units[0] & 255) == 'm')
+	    else if (tolower(units[0]) == 'm')
 	      n *= 60;
 	    else
 	    {
@@ -3642,7 +3642,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 
       char *valueptr;			/* Pointer to environment variable value */
 
-      for (valueptr = value; *valueptr && !isspace(*valueptr & 255); valueptr ++);
+      for (valueptr = value; *valueptr && !isspace(*valueptr); valueptr ++);
 
       if (*valueptr)
       {
@@ -3650,7 +3650,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
         * Found a value...
 	*/
 
-        while (isspace(*valueptr & 255))
+        while (isspace(*valueptr))
 	  *valueptr++ = '\0';
 
         for (i = 0; i < (int)(sizeof(prohibited_env) / sizeof(prohibited_env[0])); i ++)
@@ -3692,7 +3692,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
       * User ID to run as...
       */
 
-      if (isdigit(value[0] & 255))
+      if (isdigit(value[0]))
       {
         int uid = atoi(value);
 
@@ -3820,7 +3820,7 @@ read_location(cups_file_t *fp,		/* I - Configuration file */
       loc->limit = 0;
       while (*value)
       {
-        for (valptr = value; !isspace(*valptr & 255) && *valptr; valptr ++);
+        for (valptr = value; !isspace(*valptr) && *valptr; valptr ++);
 
 	if (*valptr)
 	  *valptr++ = '\0';
@@ -3843,7 +3843,7 @@ read_location(cups_file_t *fp,		/* I - Configuration file */
 	  cupsdLogMessage(CUPSD_LOG_WARN, "Unknown request type %s on line %d of %s.",
 	                  value, linenum, ConfigurationFile);
 
-        for (value = valptr; isspace(*value & 255); value ++);
+        for (value = valptr; isspace(*value); value ++);
       }
 
       if (!_cups_strcasecmp(line, "<LimitExcept"))
@@ -3951,7 +3951,7 @@ read_policy(cups_file_t *fp,		/* I - Configuration file */
 
       while (*value)
       {
-        for (valptr = value; !isspace(*valptr & 255) && *valptr; valptr ++);
+        for (valptr = value; !isspace(*valptr) && *valptr; valptr ++);
 
 	if (*valptr)
 	  *valptr++ = '\0';
@@ -3970,7 +3970,7 @@ read_policy(cups_file_t *fp,		/* I - Configuration file */
 	                  "Too many operations listed on line %d of %s.",
 	                  linenum, ConfigurationFile);
 
-        for (value = valptr; isspace(*value & 255); value ++);
+        for (value = valptr; isspace(*value); value ++);
       }
 
      /*
@@ -4038,7 +4038,7 @@ read_policy(cups_file_t *fp,		/* I - Configuration file */
 	  * Find the end of the current value...
 	  */
 
-	  for (valptr = value; !isspace(*valptr & 255) && *valptr; valptr ++);
+	  for (valptr = value; !isspace(*valptr) && *valptr; valptr ++);
 
 	  if (*valptr)
 	    *valptr++ = '\0';
@@ -4113,7 +4113,7 @@ read_policy(cups_file_t *fp,		/* I - Configuration file */
 	  * Find the next string on the line...
 	  */
 
-	  for (value = valptr; isspace(*value & 255); value ++);
+	  for (value = valptr; isspace(*value); value ++);
 	}
       }
     }

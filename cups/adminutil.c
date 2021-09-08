@@ -244,7 +244,7 @@ cupsAdminGetServerSettings(
 
 	if ((port = strrchr(value, ':')) != NULL)
 	  *port = '\0';
-	else if (isdigit(*value & 255))
+	else if (isdigit(*value))
 	{
 	 /*
 	  * Listen on a port number implies remote access...

@@ -331,7 +331,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     */
 
     authorization += 8;
-    while (isspace(*authorization & 255))
+    while (isspace(*authorization))
       authorization ++;
 
     authlen = sizeof(authdata);
@@ -490,7 +490,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     */
 
     authorization += 5;
-    while (isspace(*authorization & 255))
+    while (isspace(*authorization))
       authorization ++;
 
     if ((localuser = cupsdFindCert(authorization)) == NULL)
@@ -514,7 +514,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
 
     authorization += 5;
-    while (isspace(*authorization & 255))
+    while (isspace(*authorization))
       authorization ++;
 
     userlen = sizeof(username);
@@ -751,7 +751,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     */
 
     authorization += 9;
-    while (isspace(*authorization & 255))
+    while (isspace(*authorization))
       authorization ++;
 
     if (!*authorization)

@@ -571,7 +571,7 @@ check_dest(const char  *command,	/* I  - Command name */
     * Skip leading whitespace and commas...
     */
 
-    while (isspace(*dptr & 255) || *dptr == ',')
+    while (isspace(*dptr) || *dptr == ',')
       dptr ++;
 
     if (!*dptr)
@@ -581,7 +581,7 @@ check_dest(const char  *command,	/* I  - Command name */
     * Extract a single destination name from the name string...
     */
 
-    for (pptr = printer; !isspace(*dptr & 255) && *dptr != ',' && *dptr;)
+    for (pptr = printer; !isspace(*dptr) && *dptr != ',' && *dptr;)
     {
       if ((size_t)(pptr - printer) < (sizeof(printer) - 1))
         *pptr++ = *dptr++;
@@ -644,7 +644,7 @@ match_list(const char *list,		/* I - List of names */
     * Skip leading whitespace and commas...
     */
 
-    while (isspace(*list & 255) || *list == ',')
+    while (isspace(*list) || *list == ',')
       list ++;
 
     if (!*list)
@@ -655,13 +655,13 @@ match_list(const char *list,		/* I - List of names */
     */
 
     for (nameptr = name;
-	 *nameptr && *list && tolower(*nameptr & 255) == tolower(*list & 255);
+	 *nameptr && *list && tolower(*nameptr) == tolower(*list);
 	 nameptr ++, list ++);
 
-    if (!*nameptr && (!*list || *list == ',' || isspace(*list & 255)))
+    if (!*nameptr && (!*list || *list == ',' || isspace(*list)))
       return (1);
 
-    while (*list && !isspace(*list & 255) && *list != ',')
+    while (*list && !isspace(*list) && *list != ',')
       list ++;
   }
   while (*list);

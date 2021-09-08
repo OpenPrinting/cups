@@ -1758,8 +1758,7 @@ cleanup:
   if (storedContext)
     CertFreeCertificateContext(storedContext);
 
-  if (p)
-    free(p);
+  free(p);
 
   if (store)
     CertCloseStore(store, 0);

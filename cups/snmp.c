@@ -29,7 +29,7 @@ static void		asn1_debug(const char *prefix, unsigned char *buffer,
 			           size_t len, int indent);
 static int		asn1_decode_snmp(unsigned char *buffer, size_t len,
 			                 cups_snmp_t *packet);
-static int		asn1_encode_snmp(unsigned char *buffer, size_t len,
+static int		asn1_encode_snmp(unsigned char *buffer, size_t bufsize,
 			                 cups_snmp_t *packet);
 static int		asn1_get_integer(unsigned char **buffer,
 			                 unsigned char *bufend,
@@ -514,7 +514,7 @@ _cupsSNMPStringToOID(const char *src,	/* I - OID string */
       dstptr ++;
       *dstptr = 0;
     }
-    else if (isdigit(*src & 255))
+    else if (isdigit(*src))
       *dstptr = *dstptr * 10 + *src - '0';
     else
       break;
@@ -855,7 +855,7 @@ asn1_debug(const char    *prefix,	/* I - Prefix string */
           fprintf(stderr, "%s%*sHex-STRING %d bytes", prefix,
 	          indent, "", value_length);
           for (i = 0; i < value_length; i ++)
-	    fprintf(stderr, " %02X", string[i] & 255);
+	    fprintf(stderr, " %02X", string[i]);
 	  putc('\n', stderr);
           break;
 
@@ -926,7 +926,7 @@ asn1_debug(const char    *prefix,	/* I - Prefix string */
 
 static int				/* O - 0 on success, -1 on error */
 asn1_decode_snmp(unsigned char *buffer,	/* I - Buffer */
-                 size_t        len,	/* I - Size of buffer */
+                 size_t        bufsize,	/* I - Size of buffer */
                  cups_snmp_t   *packet)	/* I - SNMP packet */
 {
   unsigned char	*bufptr,		/* Pointer into the data */
@@ -942,7 +942,7 @@ asn1_decode_snmp(unsigned char *buffer,	/* I - Buffer */
   packet->object_name[0] = -1;
 
   bufptr = buffer;
-  bufend = buffer + len;
+  bufend = buffer + bufsize;
 
   if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_SEQUENCE)
     snmp_set_error(packet, _("Packet does not start with SEQUENCE"));
@@ -1275,7 +1275,7 @@ asn1_get_length(unsigned char **buffer,	/* IO - Pointer in buffer */
 
   if (length & 128)
   {
-    int	count;				/* Number of bytes for length */
+    unsigned	count;				/* Number of bytes for length */
 
     if ((count = length & 127) > sizeof(unsigned))
     {

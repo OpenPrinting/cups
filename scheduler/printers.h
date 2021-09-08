@@ -8,6 +8,9 @@
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  */
 
+#ifndef _PRINTERS_H
+#define _PRINTERS_H
+
 #ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #elif defined(HAVE_AVAHI)
@@ -193,3 +196,4 @@ extern const char	*cupsdValidateDest(const char *uri,
 			        	   cups_ptype_t *dtype,
 					   cupsd_printer_t **printer);
 extern void		cupsdWritePrintcap(void);
+#endif

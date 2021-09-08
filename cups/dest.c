@@ -3343,10 +3343,10 @@ cups_dnssd_unquote(char       *dst,	/* I - Destination buffer */
     if (*src == '\\')
     {
       src ++;
-      if (isdigit(src[0] & 255) && isdigit(src[1] & 255) &&
-          isdigit(src[2] & 255))
+      if (isdigit(src[0]) && isdigit(src[1]) &&
+          isdigit(src[2]))
       {
-        *dst++ = ((((src[0] - '0') * 10) + src[1] - '0') * 10) + src[2] - '0';
+        *dst++ = (char) (((((src[0] - '0') * 10) + src[1] - '0') * 10) + src[2] - '0');
 	src += 3;
       }
       else
@@ -3437,7 +3437,7 @@ cups_enum_dests(
   _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
 
 
-  DEBUG_printf(("cups_enum_dests(flags=%x, msec=%d, cancel=%p, type=%x, mask=%x, cb=%p, user_data=%p)", flags, msec, (void *)cancel, type, mask, (void *)cb, (void *)user_data));
+  DEBUG_printf(("cups_enum_dests(flags=%x, msec=%d, cancel=%p, type=%x, mask=%x, cb=%p, user_data=%p)", flags, msec, (void *)cancel, type, mask, (void *)cb, user_data));
 
  /*
   * Range check input...
@@ -3552,7 +3552,7 @@ cups_enum_dests(
         * Apply user defaults to this destination for all instances...
         */
 
-        for (j = user_dest - data.dests; j < data.num_dests; j ++, user_dest ++)
+        for (j = (int) (user_dest - data.dests); j < data.num_dests; j ++, user_dest ++)
         {
           if (_cups_strcasecmp(user_dest->name, dest->name))
           {
@@ -3846,7 +3846,7 @@ cups_enum_dests(
 	    * Apply user defaults to this destination for all instances...
 	    */
 
-	    for (j = user_dest - data.dests; j < data.num_dests; j ++, user_dest ++)
+	    for (j = (int) (user_dest - data.dests); j < data.num_dests; j ++, user_dest ++)
 	    {
 	      if (_cups_strcasecmp(user_dest->name, dest->name))
 	      {
@@ -4194,7 +4194,7 @@ cups_get_dests(
     * Search for an instance...
     */
 
-    while (!isspace(*lineptr & 255) && *lineptr && *lineptr != '/')
+    while (*lineptr != '/' && !isspace(*lineptr) && *lineptr)
       lineptr ++;
 
     if (*lineptr == '/')
@@ -4210,7 +4210,7 @@ cups_get_dests(
       * Search for an instance...
       */
 
-      while (!isspace(*lineptr & 255) && *lineptr)
+      while (!isspace(*lineptr) && *lineptr)
 	lineptr ++;
     }
     else

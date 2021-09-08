@@ -326,7 +326,7 @@ httpClearFields(http_t *http)		/* I - HTTP connection */
 	httpSetField(http, HTTP_FIELD_HOST, http->hostname);
     }
 
-    http->expect = (http_status_t)0;
+    http->expect = HTTP_STATUS_OK;
   }
 }
 
@@ -364,8 +364,7 @@ httpClose(http_t *http)			/* I - HTTP connection */
 
   httpAddrFreeList(http->addrlist);
 
-  if (http->cookie)
-    free(http->cookie);
+  free(http->cookie);
 
 #ifdef HAVE_GSSAPI
   if (http->gssctx != GSS_C_NO_CONTEXT)
@@ -729,7 +728,7 @@ httpFreeCredentials(
        credential = (http_credential_t *)cupsArrayNext(credentials))
   {
     cupsArrayRemove(credentials, credential);
-    free((void *)credential->data);
+    free(credential->data);
     free(credential);
   }
 
@@ -842,7 +841,7 @@ httpGetContentEncoding(http_t *http)	/* I - HTTP connection */
 
       qvalue = 1.0;
       end    = start;
-      while (*end && *end != ';' && *end != ',' && !isspace(*end & 255))
+      while (*end && *end != ';' && *end != ',' && !isspace(*end))
         end ++;
 
       if (*end == ';')
@@ -859,13 +858,13 @@ httpGetContentEncoding(http_t *http)	/* I - HTTP connection */
         */
 
         *end++ = '\0';
-        while (*end && *end != ',' && !isspace(*end & 255))
+        while (*end && *end != ',' && !isspace(*end))
           end ++;
       }
       else if (*end)
         *end++ = '\0';
 
-      while (*end && isspace(*end & 255))
+      while (*end && isspace(*end))
 	end ++;
 
      /*
@@ -2221,7 +2220,7 @@ httpReadRequest(http_t *http,		/* I - HTTP connection */
   req_method = line;
   req_uri    = line;
 
-  while (*req_uri && !isspace(*req_uri & 255))
+  while (*req_uri && !isspace(*req_uri))
     req_uri ++;
 
   if (!*req_uri)
@@ -2233,12 +2232,12 @@ httpReadRequest(http_t *http,		/* I - HTTP connection */
 
   *req_uri++ = '\0';
 
-  while (*req_uri && isspace(*req_uri & 255))
+  while (*req_uri && isspace(*req_uri))
     req_uri ++;
 
   req_version = req_uri;
 
-  while (*req_version && !isspace(*req_version & 255))
+  while (*req_version && !isspace(*req_version))
     req_version ++;
 
   if (!*req_version)
@@ -2250,7 +2249,7 @@ httpReadRequest(http_t *http,		/* I - HTTP connection */
 
   *req_version++ = '\0';
 
-  while (*req_version && isspace(*req_version & 255))
+  while (*req_version && isspace(*req_version))
     req_version ++;
 
  /*
@@ -2550,8 +2549,7 @@ httpSetCookie(http_t     *http,		/* I - Connection */
   if (!http)
     return;
 
-  if (http->cookie)
-    free(http->cookie);
+  free(http->cookie);
 
   if (cookie)
     http->cookie = strdup(cookie);
@@ -2579,8 +2577,7 @@ httpSetDefaultField(http_t       *http,	/* I - HTTP connection */
   if (!http || field <= HTTP_FIELD_UNKNOWN || field >= HTTP_FIELD_MAX)
     return;
 
-  if (http->default_fields[field])
-    free(http->default_fields[field]);
+  free(http->default_fields[field]);
 
   http->default_fields[field] = value ? strdup(value) : NULL;
 }
@@ -3224,7 +3221,7 @@ httpWrite2(http_t     *http,		/* I - HTTP connection */
 	  return (-1);
 	}
 
-	((z_stream *)http->stream)->next_out  = (Bytef *)http->sbuffer;
+	((z_stream *)http->stream)->next_out  = http->sbuffer;
 	((z_stream *)http->stream)->avail_out = (uInt)_HTTP_MAX_SBUFFER;
       }
 
@@ -3452,7 +3449,7 @@ httpWriteResponse(http_t        *http,	/* I - HTTP connection */
 
     for (i = 0; i < HTTP_FIELD_MAX; i ++)
     {
-      if ((value = httpGetField(http, i)) != NULL && *value)
+      if ((value = httpGetField(http, (http_field_t) i)) != NULL && *value)
       {
 	if (httpPrintf(http, "%s: %s\r\n", http_fields[i], value) < 1)
 	{
@@ -3747,7 +3744,7 @@ http_content_coding_finish(
 	      http_write(http, (char *)http->sbuffer, bytes);
           }
 
-          ((z_stream *)http->stream)->next_out  = (Bytef *)http->sbuffer;
+          ((z_stream *)http->stream)->next_out  = http->sbuffer;
           ((z_stream *)http->stream)->avail_out = (uInt)_HTTP_MAX_SBUFFER;
 	}
         while (zerr == Z_OK);
@@ -3884,7 +3881,7 @@ http_content_coding_start(
           return;
         }
 
-	((z_stream *)http->stream)->next_out  = (Bytef *)http->sbuffer;
+	((z_stream *)http->stream)->next_out  = http->sbuffer;
 	((z_stream *)http->stream)->avail_out = (uInt)_HTTP_MAX_SBUFFER;
         break;
 
@@ -4407,7 +4404,7 @@ http_send(http_t       *http,		/* I - HTTP connection */
 
   for (i = 0; i < HTTP_FIELD_MAX; i ++)
   {
-    if ((value = httpGetField(http, i)) != NULL && *value)
+    if ((value = httpGetField(http, (http_field_t) i)) != NULL && *value)
     {
       DEBUG_printf(("5http_send: %s: %s", http_fields[i], value));
 
@@ -4611,7 +4608,7 @@ http_tls_upgrade(http_t *http)		/* I - HTTP connection */
 
   http->tls_upgrade = 1;
   memset(http->fields, 0, sizeof(http->fields));
-  http->expect = (http_status_t)0;
+  http->expect = HTTP_STATUS_OK;
 
   if (http->hostname[0] == '/')
     httpSetField(http, HTTP_FIELD_HOST, "localhost");

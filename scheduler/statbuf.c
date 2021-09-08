@@ -126,7 +126,7 @@ cupsdStatBufUpdate(
     * No, read more data...
     */
 
-    if ((bytes = read(sb->fd, sb->buffer + sb->bufused, (size_t)(CUPSD_SB_BUFFER_SIZE - sb->bufused - 1))) > 0)
+    if ((bytes = (int) read(sb->fd, sb->buffer + sb->bufused, (size_t) (CUPSD_SB_BUFFER_SIZE - sb->bufused - 1))) > 0)
     {
       sb->bufused += bytes;
       sb->buffer[sb->bufused] = '\0';
@@ -270,7 +270,7 @@ cupsdStatBufUpdate(
   * Skip leading whitespace in the message...
   */
 
-  while (isspace(*message & 255))
+  while (isspace(*message))
     message ++;
 
  /*

@@ -534,7 +534,7 @@ main(int  argc,				/* I - Number of command-line args */
     MaxFDs = 16384;
   else
 #endif /* RLIM_INFINITY */
-    MaxFDs = limit.rlim_max;
+    MaxFDs = (int) limit.rlim_max;
 
   limit.rlim_cur = (rlim_t)MaxFDs;
 
@@ -1329,8 +1329,7 @@ cupsdSetString(char       **s,		/* O - New string */
   if (!s || *s == v)
     return;
 
-  if (*s)
-    free(*s);
+  free(*s);
 
   if (v)
     *s = strdup(v);
@@ -1369,8 +1368,7 @@ cupsdSetStringf(char       **s,		/* O - New string */
   else
     *s = NULL;
 
-  if (olds)
-    free(olds);
+  free(olds);
 }
 
 

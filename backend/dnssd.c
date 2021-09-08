@@ -442,8 +442,8 @@ main(int  argc,				/* I - Number of command-line args */
 	              			/* Users never see this */
 	    else
 	      count ++;
-#endif /* HAVE_AVAHI */
-          }
+#endif /* HAVE_MDNSRESPONDER */
+    }
 	}
 	else if (!device->sent)
 	{
@@ -1152,8 +1152,7 @@ query_callback(
       device->uuid = strdup(value);
   }
 
-  if (device->device_id)
-    free(device->device_id);
+  free(device->device_id);
 
   if (!device_id[0] && strcmp(model, "Unknown"))
   {
@@ -1202,10 +1201,10 @@ query_callback(
         *valptr++ = ',';
 
       ptr += 6;
-      while (isalnum(*ptr & 255) || *ptr == '-' || *ptr == '.')
+      while (isalnum(*ptr) || *ptr == '-' || *ptr == '.')
       {
-        if (isalnum(*ptr & 255) && valptr < (value + sizeof(value) - 1))
-          *valptr++ = (char)toupper(*ptr++ & 255);
+        if (isalnum(*ptr) && valptr < (value + sizeof(value) - 1))
+          *valptr++ = (char)toupper(*ptr++);
         else
           break;
       }
@@ -1222,8 +1221,7 @@ query_callback(
   else
     device->device_id = NULL;
 
-  if (device->make_and_model)
-    free(device->make_and_model);
+  free(device->make_and_model);
 
   if (make_and_model[0])
   {
@@ -1278,8 +1276,8 @@ unquote(char       *dst,		/* I - Destination buffer */
     if (*src == '\\')
     {
       src ++;
-      if (isdigit(src[0] & 255) && isdigit(src[1] & 255) &&
-          isdigit(src[2] & 255))
+      if (isdigit(src[0]) && isdigit(src[1]) &&
+          isdigit(src[2]))
       {
         *dst++ = ((((src[0] - '0') * 10) + src[1] - '0') * 10) + src[2] - '0';
 	src += 3;

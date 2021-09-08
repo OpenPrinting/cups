@@ -447,7 +447,7 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
     strlcpy(name, "unknown", namelen);
   }
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%p, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, name, CUPS_LLCAST namelen, job_id, job_id ? *job_id : 0, name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%s, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, name, CUPS_LLCAST namelen, job_id, job_id ? *job_id : 0, name);
 
   return (name);
 }
@@ -473,7 +473,7 @@ cupsdStartProcess(
     int         *pid)			/* O - Process ID */
 {
   int		i;			/* Looping var */
-  const char	*exec_path = command;	/* Command to be exec'd */
+  const char	*exec_path;	    /* Command to be exec'd */
   char		*real_argv[110],	/* Real command-line arguments */
 		cups_exec[1024],	/* Path to "cups-exec" program */
 		user_str[16],		/* User string */
@@ -524,7 +524,7 @@ cupsdStartProcess(
     * their bundle resources properly...
     */
 
-    if ((linkbytes = readlink(command, linkpath, sizeof(linkpath) - 1)) > 0)
+    if ((linkbytes = (int) readlink(command, linkpath, sizeof(linkpath) - 1)) > 0)
     {
      /*
       * Yes, this is a symlink to the actual program, nul-terminate and

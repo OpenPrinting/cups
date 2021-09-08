@@ -336,18 +336,15 @@ main(int  argc,				/* I - Number of command-line args */
                                argv + i)) == NULL)
             return (IPPFIND_EXIT_MEMORY);
 
-          while (i < argc)
-            if (!strcmp(argv[i], ";"))
-              break;
-            else
-              i ++;
-
-          if (i >= argc)
+          do
           {
-            _cupsLangPrintf(stderr, _("ippfind: Expected semi-colon after %s."),
-                            "--exec");
-            show_usage();
-          }
+            if (!strcmp(argv[i], ";"))
+            {
+              _cupsLangPrintf(stderr, _("ippfind: Expected semi-colon after %s."),
+                              "--exec");
+              show_usage();
+            }
+          } while (++i < argc);
 
           have_output = 1;
         }
