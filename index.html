@@ -6,7 +6,7 @@ layout: default
       <div class="row">
         <div class="col col-md-9">
           <h1>OpenPrinting CUPS</h1>
-          <p>The standards-based, open source printing system developed by <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> for Linux® and other Unix®-like operating systems. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
+          <p>The current standards-based, open source printing system developed by <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> for Linux® and other Unix®-like operating systems. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
           <p style="line-height: 2;">
             <a class="btn btn-primary btn-large" href="{{site.github.repository_url}}/releases"><i class="bi bi-download"></i> Download CUPS</a>
             <a class="btn btn-auto btn-large" href="#DOCUMENTATION"><i class="bi bi-book"></i> Documentation</a>
@@ -18,7 +18,7 @@ layout: default
       </div>
     </div>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row py-3">
         <div class="col col-section">
           <h2>Introduction</h2>
           <p>CUPS supports printing to:</p>
@@ -34,7 +34,16 @@ layout: default
     </div>
     <div class="container-fluid">
       <div class="row py-3">
-        <div class="col col-normal">
+        <div class="col col-section">
+          <h2 id="HISTORY">A Brief History of CUPS</h2>
+          <p>CUPS was originally developed by <a href="https://www.msweet.org" target="_blank">Michael R Sweet</a> at Easy Software Products starting in 1997, with the first beta release on <a href="https://web.archive.org/web/20000126074742/http://cups.org/news.html" target="_blank">May 14, 1999</a>. Not long after, Till Kamppeter started packaging CUPS for Mandrake Linux and created the Foomatic drivers for CUPS, leading the adoption of CUPS for printing on Linux. Apple licensed CUPS for macOS in 2002, and in February 2007 Apple purchased CUPS and hired Michael to continue its development as an open source project.</p>
+          <p>In December 2019, Michael left Apple to start <a href="https://www.lakesiderobotics.ca" target="_blank">Lakeside Robotics</a>. In September 2020 he teamed up with the OpenPrinting developers to fork Apple CUPS to continue its development. Today <a href="https://github.com/apple/cups" target="_blank">Apple CUPS</a> is the version of CUPS that is provided with macOS® and iOS® while <a href="https://github.com/OpenPrinting/cups" target="_blank">OpenPrinting CUPS</a> is the version of CUPS being further developed by OpenPrinting for all operating systems.</p>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row py-3">
+        <div class="col col-section">
           <h2>Setting Up Printer Queues</h2>
 
           <p>CUPS includes a web-based administration tool that allows you to manage printers, classes, and jobs on your server.  Open <a href="http://localhost:631/admin/" target="_blank">http://localhost:631/admin/</a> in your browser to access the printer administration tools. You will be asked for the administration password (root or any other user in the "sys", "system", "root", "admin", or "lpadmin" group on your system) when performing any administrative function.</p>
@@ -46,7 +55,7 @@ layout: default
     </div>
     <div class="container-fluid">
       <div class="row py-3">
-        <div class="col col-normal">
+        <div class="col col-section">
           <h2>Printing Files</h2>
 
           <p>CUPS provides both the System V ("lp") and Berkeley ("lpr") commands for printing:</p>
@@ -74,7 +83,7 @@ lpr -l filename</pre>
       </div>
     </div>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row py-3">
         <div class="col col-md-12 col-section">
           <h1>Documentation</h1>
         </div>
@@ -91,7 +100,7 @@ lpr -l filename</pre>
         <div class="col col-md-4"><a href="doc/accounting.html">Printer Accounting Basics</a></div>
         <div class="col col-md-4"><a href="doc/sharing.html">Printer Sharing</a></div>
         <div class="col col-md-4"><a href="doc/relnotes.html">Release Notes</a></div>
-        <div class="col col-md-4"><a href="doc/reporting-bugs.html">Reporting Bugs</a></div>
+        <div class="col col-md-4"><a href="https://github.com/OpenPrinting/cups/issues" target="_blank">Reporting Bugs</a></div>
         <div class="col col-md-4"><a href="doc/security.html">Server Security</a></div>
         <div class="col col-md-4"><a href="doc/license.html">Software License Agreement</a></div>
         <div class="col col-md-4"><a href="doc/translation.html">Translating and Customizing CUPS</a></div>

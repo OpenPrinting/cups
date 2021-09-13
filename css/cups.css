@@ -50,16 +50,16 @@ img.logo-mascot {
 }
 
 /* Layout */
-.container-fluid:first-of-type {
+body > .container-fluid:first-of-type {
   padding-top: 52px;
 }
-.container-fluid:last-of-type {
+body > .container-fluid:last-of-type {
   padding-bottom: 92px;
 }
-.container-fluid:nth-of-type(odd) {
+body > .container-fluid:nth-of-type(odd) {
   background: rgba(0,123,255,0.1);
 }
-.container-fluid:first-of-type .col {
+body > .container-fluid:first-of-type .col {
   font-size: 125%;
   line-height: 1.4;
   padding: 30px 50px;
