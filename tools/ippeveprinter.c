@@ -46,6 +46,10 @@ extern char **environ;
 #  include <poll.h>
 #endif /* _WIN32 */
 
+#ifndef O_BINARY
+#  define O_BINARY 0			/* Windows "binary file" nonsense */
+#endif /* !O_BINARY */
+
 #ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #elif defined(HAVE_AVAHI)
@@ -1289,7 +1293,7 @@ create_job_file(
 
   snprintf(fname, fnamesize, "%s/%d-%s.%s", directory, job->id, name, ext);
 
-  return (open(fname, O_WRONLY | O_CREAT | O_TRUNC, 0666));
+  return (open(fname, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666));
 }
 
 
@@ -2622,7 +2626,7 @@ finish_document_uri(
 
   if (!strcmp(scheme, "file"))
   {
-    if ((infile = open(resource, O_RDONLY)) < 0)
+    if ((infile = open(resource, O_RDONLY | O_BINARY)) < 0)
     {
       respond_ipp(client, IPP_STATUS_ERROR_DOCUMENT_ACCESS, "Unable to access URI: %s", strerror(errno));
 
@@ -6088,7 +6092,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
 	    char	buffer[4096];	/* Copy buffer */
 	    ssize_t	bytes;		/* Bytes */
 
-	    if (!stat(client->printer->strings, &fileinfo) && (fd = open(client->printer->strings, O_RDONLY)) >= 0)
+	    if (!stat(client->printer->strings, &fileinfo) && (fd = open(client->printer->strings, O_RDONLY | O_BINARY)) >= 0)
 	    {
 	      if (!respond_http(client, HTTP_STATUS_OK, NULL, "text/strings", (size_t)fileinfo.st_size))
 	      {
@@ -6122,7 +6126,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
 	    char	buffer[4096];	/* Copy buffer */
 	    ssize_t	bytes;		/* Bytes */
 
-	    if (!stat(client->printer->icons[1], &fileinfo) && (fd = open(client->printer->icons[1], O_RDONLY)) >= 0)
+	    if (!stat(client->printer->icons[1], &fileinfo) && (fd = open(client->printer->icons[1], O_RDONLY | O_BINARY)) >= 0)
 	    {
 	      if (!respond_http(client, HTTP_STATUS_OK, NULL, "image/png", (size_t)fileinfo.st_size))
 	      {
@@ -6164,7 +6168,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
 	    char	buffer[4096];	/* Copy buffer */
 	    ssize_t	bytes;		/* Bytes */
 
-	    if (!stat(client->printer->icons[2], &fileinfo) && (fd = open(client->printer->icons[2], O_RDONLY)) >= 0)
+	    if (!stat(client->printer->icons[2], &fileinfo) && (fd = open(client->printer->icons[2], O_RDONLY | O_BINARY)) >= 0)
 	    {
 	      if (!respond_http(client, HTTP_STATUS_OK, NULL, "image/png", (size_t)fileinfo.st_size))
 	      {
@@ -6206,7 +6210,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
 	    char	buffer[4096];	/* Copy buffer */
 	    ssize_t	bytes;		/* Bytes */
 
-	    if (!stat(client->printer->icons[0], &fileinfo) && (fd = open(client->printer->icons[0], O_RDONLY)) >= 0)
+	    if (!stat(client->printer->icons[0], &fileinfo) && (fd = open(client->printer->icons[0], O_RDONLY | O_BINARY)) >= 0)
 	    {
 	      if (!respond_http(client, HTTP_STATUS_OK, NULL, "image/png", (size_t)fileinfo.st_size))
 	      {
@@ -6800,7 +6804,7 @@ process_job(ippeve_job_t *job)		/* I - Job */
         {
           if (errno == ENOENT)
           {
-            if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC, 0666)) >= 0)
+            if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666)) >= 0)
 	      fprintf(stderr, "[Job %d] Saving print command output to \"%s\".\n", job->id, resource);
 	    else
 	      fprintf(stderr, "[Job %d] Unable to create \"%s\": %s\n", job->id, resource, strerror(errno));
@@ -6817,12 +6821,12 @@ process_job(ippeve_job_t *job)		/* I - Job */
         }
 	else if (!S_ISREG(fileinfo.st_mode))
 	{
-	  if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC, 0666)) >= 0)
+	  if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666)) >= 0)
 	    fprintf(stderr, "[Job %d] Saving print command output to \"%s\".\n", job->id, resource);
 	  else
             fprintf(stderr, "[Job %d] Unable to create \"%s\": %s\n", job->id, resource, strerror(errno));
 	}
-        else if ((mystdout = open(resource, O_WRONLY)) >= 0)
+        else if ((mystdout = open(resource, O_WRONLY | O_BINARY)) >= 0)
 	  fprintf(stderr, "[Job %d] Saving print command output to \"%s\".\n", job->id, resource);
 	else
 	  fprintf(stderr, "[Job %d] Unable to open \"%s\": %s\n", job->id, resource, strerror(errno));
@@ -6852,7 +6856,7 @@ process_job(ippeve_job_t *job)		/* I - Job */
     }
 
     if (mystdout < 0)
-      mystdout = open("/dev/null", O_WRONLY);
+      mystdout = open("/dev/null", O_WRONLY | O_BINARY);
 
     if (pipe(mypipe))
     {
