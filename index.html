@@ -8,8 +8,18 @@ layout: default
           <h1>OpenPrinting CUPS</h1>
           <p>The current standards-based, open source printing system developed by <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> for Linux® and other Unix®-like operating systems. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
           <p style="line-height: 2;">
+            <span class="float-end fs-5 mt-2">
+              <a href="#INTRO">Introduction</a>
+              &middot;
+              <a href="#HISTORY">History</a>
+              &middot;
+              <a href="#SETUP">Setting Up</a>
+              &middot;
+              <a href="#PRINTING">Printing</a>
+              &middot;
+              <a href="#DOCUMENTATION">Documentation</a>
+              </span>
             <a class="btn btn-primary btn-large" href="{{site.github.repository_url}}/releases"><i class="bi bi-download"></i> Download CUPS</a>
-            <a class="btn btn-auto btn-large" href="#DOCUMENTATION"><i class="bi bi-book"></i> Documentation</a>
           </p>
         </div>
         <div class="col col-md-3">
@@ -17,7 +27,7 @@ layout: default
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="INTRO">
       <div class="row py-3">
         <div class="col col-section">
           <h2>Introduction</h2>
@@ -32,16 +42,16 @@ layout: default
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="HISTORY">
       <div class="row py-3">
         <div class="col col-section">
-          <h2 id="HISTORY">A Brief History of CUPS</h2>
+          <h2>A Brief History of CUPS</h2>
           <p>CUPS was originally developed by <a href="https://www.msweet.org" target="_blank">Michael R Sweet</a> at Easy Software Products starting in 1997, with the first beta release on <a href="https://web.archive.org/web/20000126074742/http://cups.org/news.html" target="_blank">May 14, 1999</a>. Not long after, Till Kamppeter started packaging CUPS for Mandrake Linux and created the Foomatic drivers for CUPS, leading the adoption of CUPS for printing on Linux. Apple licensed CUPS for macOS in 2002, and in February 2007 Apple purchased CUPS and hired Michael to continue its development as an open source project.</p>
           <p>In December 2019, Michael left Apple to start <a href="https://www.lakesiderobotics.ca" target="_blank">Lakeside Robotics</a>. In September 2020 he teamed up with the OpenPrinting developers to fork Apple CUPS to continue its development. Today <a href="https://github.com/apple/cups" target="_blank">Apple CUPS</a> is the version of CUPS that is provided with macOS® and iOS® while <a href="https://github.com/OpenPrinting/cups" target="_blank">OpenPrinting CUPS</a> is the version of CUPS being further developed by OpenPrinting for all operating systems.</p>
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="SETUP">
       <div class="row py-3">
         <div class="col col-section">
           <h2>Setting Up Printer Queues</h2>
@@ -53,7 +63,7 @@ layout: default
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="PRINTING">
       <div class="row py-3">
         <div class="col col-section">
           <h2>Printing Files</h2>
@@ -82,7 +92,7 @@ lpr -l filename</pre>
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="DOCUMENTATION">
       <div class="row py-3">
         <div class="col col-md-12 col-section">
           <h1>Documentation</h1>

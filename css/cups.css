@@ -50,12 +50,12 @@ img.logo-mascot {
 }
 
 /* Layout */
-body > .container-fluid:first-of-type {
+/*body > .container-fluid:first-of-type {
   padding-top: 52px;
 }
 body > .container-fluid:last-of-type {
   padding-bottom: 92px;
-}
+}*/
 body > .container-fluid:nth-of-type(odd) {
   background: rgba(0,123,255,0.1);
 }

@@ -13,7 +13,7 @@
     <meta name="keywords" content="printing,printer driver,internet printing protocol,ipp,ipp everywhere,ppd,linux,unix,mac,os x,postscript,pdf,text,image">
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" role="navigation">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" role="navigation">
       <div class="container-fluid">
         <a class="navbar-brand" href="{{ 'index.html' | relative_url }}"><img src="{{ 'images/cups.png' | relative_url }}" width="32" height="32" alt="OpenPrinting CUPS"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cups-nav-collapse" aria-controls="cups-nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,12 +35,12 @@
     </nav>
     <!-- Page Content -->
     {{ content }}
-    <footer class="navbar navbar-expand navbar-dark bg-dark fixed-bottom justify-content-center">
+    <nav class="navbar navbar-expand navbar-dark bg-dark justify-content-center">
       <span class="navbar-text">Copyright &copy; 2020-{{ site.time | date: "%Y" }} OpenPrinting.</span>
-      <ul class="navbar-nav ml-4">
+      <ul class="navbar-nav ms-4">
         <li class="nav-item"><a class="nav-link" href="{{'doc/license.html' | relative_url}}">CUPS License</a></li>
       </ul>
-    </footer>
+    </nav>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
   </body>
 </html>
