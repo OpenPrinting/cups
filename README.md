@@ -9,8 +9,9 @@ OpenPrinting CUPS v2.4.0
 Introduction
 ------------
 
-OpenPrinting CUPS is a standards-based, open source printing system for Linux®
-and other Unix®-like operating systems.  CUPS supports printing to:
+OpenPrinting CUPS is the most current version of CUPS, a standards-based, open
+source printing system for Linux® and other Unix®-like operating systems.  CUPS
+supports printing to:
 
 - [AirPrint™][1] and [IPP Everywhere™][2] printers,
 - Network and local (USB) printers with Printer Applications, and
@@ -25,6 +26,8 @@ CUPS is licensed under the Apache License Version 2.0 with an exception to allow
 linking against GNU GPL2-only software.  See the files `LICENSE` and `NOTICE`
 for more information.
 
+> Note: Apple maintains a separate repository for the CUPS that ships with macOS
+> and iOS at <https://github.com/apple/cups>.
 
 [1]: https://support.apple.com/en-us/HT201311
 [2]: https://www.pwg.org/ipp/everywhere.html
