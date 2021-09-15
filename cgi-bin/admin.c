@@ -208,7 +208,7 @@ main(void)
 	  * bytes left in the array...
 	  */
 
-	  snprintf(ptr, sizeof(encoded) - (size_t)(ptr - encoded), "%%%02X", *url & 255);
+    snprintf(ptr, sizeof(encoded) - (size_t)(ptr - encoded), "%%%02X", *url & 255);
 	  ptr += 3;
 	}
 	else
@@ -751,7 +751,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	for (tptr = template;
 	     tptr < (template + sizeof(template) - 1) && *uriptr;
 	     uriptr ++)
-	  if (isalnum(*uriptr & 255) || *uriptr == '_' || *uriptr == '-' ||
+	  if (isalnum(*uriptr) || *uriptr == '_' || *uriptr == '-' ||
 	      *uriptr == '.')
 	    *tptr++ = *uriptr;
 	  else if ((*uriptr == ' ' || *uriptr == '/') && tptr > template &&
@@ -2102,7 +2102,7 @@ do_list_printers(http_t *http)		/* I - HTTP connection */
 	    for (option_ptr = option;
 	         option_ptr < (option + sizeof(option) - 1) && *ptr;
 		 ptr ++)
-	      if (isalnum(*ptr & 255) || *ptr == '_' || *ptr == '-' ||
+	      if (isalnum(*ptr) || *ptr == '_' || *ptr == '-' ||
 	          *ptr == '.')
 	        *option_ptr++ = *ptr;
 	      else if ((*ptr == ' ' || *ptr == '/') && option_ptr > option &&
@@ -2375,7 +2375,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
       * Skip whitespace and commas...
       */
 
-      while (*ptr == ',' || isspace(*ptr & 255))
+      while (*ptr == ',' || isspace(*ptr))
 	ptr ++;
 
       if (!*ptr)
@@ -2400,7 +2400,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 	*/
 
         for (end = ptr; *end; end ++)
-	  if (isspace(*end & 255) || *end == ',')
+	  if (isspace(*end) || *end == ',')
 	    break;
       }
 
@@ -2443,7 +2443,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
         * Skip whitespace and commas...
 	*/
 
-        while (*ptr == ',' || isspace(*ptr & 255))
+        while (*ptr == ',' || isspace(*ptr))
 	  ptr ++;
 
         if (!*ptr)
@@ -2468,7 +2468,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 	  */
 
           for (end = ptr; *end; end ++)
-	    if (isspace(*end & 255) || *end == ',')
+	    if (isspace(*end) || *end == ',')
 	      break;
         }
 
@@ -3243,7 +3243,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 	  strlcpy(keyword, line + 8, sizeof(keyword));
 
 	  for (keyptr = keyword; *keyptr; keyptr ++)
-	    if (*keyptr == ':' || isspace(*keyptr & 255))
+	    if (*keyptr == ':' || isspace(*keyptr))
 	      break;
 
 	  *keyptr = '\0';
@@ -3590,7 +3590,7 @@ get_option_value(
 
       case PPD_CUSTOM_PASSCODE :
           for (uval = val; *uval; uval ++)
-	    if (!isdigit(*uval & 255))
+	    if (!isdigit(*uval))
 	      return (NULL);
 
       case PPD_CUSTOM_PASSWORD :
@@ -3672,7 +3672,7 @@ get_option_value(
 
 	case PPD_CUSTOM_PASSCODE :
 	    for (uval = val; *uval; uval ++)
-	      if (!isdigit(*uval & 255))
+	      if (!isdigit(*uval))
 		return (NULL);
 
 	case PPD_CUSTOM_PASSWORD :

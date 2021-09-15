@@ -1095,7 +1095,7 @@ dnssdRegisterInstance(
       * Skip leading whitespace...
       */
 
-      while (*start && isspace(*start & 255))
+      while (*start && isspace(*start))
         start ++;
 
      /*

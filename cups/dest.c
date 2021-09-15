@@ -2089,7 +2089,7 @@ cupsSetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
   * Try to open the file...
   */
 
-  if ((fp = fopen(filename, "w")) == NULL)
+  if ((fp = fopen(filename, "we")) == NULL)
   {
     cupsFreeDests(num_temps, temps);
     return (-1);
@@ -3328,8 +3328,8 @@ cups_dnssd_unquote(char       *dst,	/* I - Destination buffer */
     if (*src == '\\')
     {
       src ++;
-      if (isdigit(src[0] & 255) && isdigit(src[1] & 255) &&
-          isdigit(src[2] & 255))
+      if (isdigit(src[0]) && isdigit(src[1]) &&
+          isdigit(src[2]))
       {
         *dst++ = ((((src[0] - '0') * 10) + src[1] - '0') * 10) + src[2] - '0';
 	src += 3;
@@ -4069,7 +4069,7 @@ cups_get_default(const char *filename,	/* I - File to read */
 
   *namebuf = '\0';
 
-  if ((fp = cupsFileOpen(filename, "r")) != NULL)
+  if ((fp = cupsFileOpen(filename, "re")) != NULL)
   {
     linenum  = 0;
 
@@ -4129,7 +4129,7 @@ cups_get_dests(
   * Try to open the file...
   */
 
-  if ((fp = cupsFileOpen(filename, "r")) == NULL)
+  if ((fp = cupsFileOpen(filename, "re")) == NULL)
     return (num_dests);
 
  /*
@@ -4162,7 +4162,7 @@ cups_get_dests(
     * Search for an instance...
     */
 
-    while (!isspace(*lineptr & 255) && *lineptr && *lineptr != '/')
+    while (*lineptr != '/' && !isspace(*lineptr) && *lineptr)
       lineptr ++;
 
     if (*lineptr == '/')
@@ -4178,7 +4178,7 @@ cups_get_dests(
       * Search for an instance...
       */
 
-      while (!isspace(*lineptr & 255) && *lineptr)
+      while (!isspace(*lineptr) && *lineptr)
 	lineptr ++;
     }
     else
@@ -4220,8 +4220,8 @@ cups_get_dests(
       if ((dest = cupsGetDest(name, instance, num_dests, *dests)) == NULL)
       {
        /*
-	* Out of memory!
-	*/
+        * Out of memory!
+        */
 
         DEBUG_puts("9cups_get_dests: Could not find destination after adding, must be out of memory.");
         break;

@@ -9,6 +9,8 @@
  * information.
  */
 
+#ifndef _DIRSVC_H
+#define _DIRSVC_H
 /*
  * Browse protocols...
  */
@@ -66,3 +68,4 @@ extern void	cupsdStopBrowsing(void);
 #ifdef HAVE_DNSSD
 extern void	cupsdUpdateDNSSDName(void);
 #endif /* HAVE_DNSSD */
+#endif /* _DIRSVC_H */

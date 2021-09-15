@@ -21,7 +21,7 @@
 // Local functions...
 //
 
-static void	usage(void) _CUPS_NORETURN;
+static void	usage() _CUPS_NORETURN;
 
 
 //
@@ -332,7 +332,7 @@ main(int  argc,				// I - Number of command-line arguments
 	  for (j = 0;
 	       outname[j] && j < (int)(sizeof(pcfilename) - 1);
 	       j ++)
-	    pcfilename[j] = (char)tolower(outname[j] & 255);
+	    pcfilename[j] = (char)tolower(outname[j]);
 
 	  pcfilename[j] = '\0';
 	}
@@ -355,7 +355,7 @@ main(int  argc,				// I - Number of command-line arguments
 	else
 	  cupsArrayAdd(filenames, strdup(filename));
 
-	fp = cupsFileOpen(filename, comp ? "w9" : "w");
+	fp = cupsFileOpen(filename, comp ? "w9e" : "we");
 	if (!fp)
 	{
 	  _cupsLangPrintf(stderr,
@@ -418,7 +418,7 @@ main(int  argc,				// I - Number of command-line arguments
 //
 
 static void
-usage(void)
+usage()
 {
   _cupsLangPuts(stdout, _("Usage: ppdc [options] filename.drv [ ... "
                           "filenameN.drv ]"));

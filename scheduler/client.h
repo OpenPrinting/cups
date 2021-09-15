@@ -9,6 +9,9 @@
  * information.
  */
 
+#ifndef _CLIENT_H
+#define _CLIENT_H
+
 #ifdef HAVE_AUTHORIZATION_H
 #  include <Security/Authorization.h>
 #endif /* HAVE_AUTHORIZATION_H */
@@ -81,7 +84,7 @@ typedef struct
 #ifdef HAVE_ONDEMAND
   int			on_demand;	/* Is this a socket from launchd/systemd/upstart? */
 #endif /* HAVE_ONDEMAND */
-} cupsd_listener_t;
+} __attribute__((aligned(16))) cupsd_listener_t;
 
 
 /*
@@ -142,3 +145,5 @@ extern void	cupsdWriteClient(cupsd_client_t *con);
 extern int	cupsdEndTLS(cupsd_client_t *con);
 extern int	cupsdStartTLS(cupsd_client_t *con);
 #endif /* HAVE_TLS */
+
+#endif /* _CLIENT_H */

@@ -113,23 +113,23 @@ cupsCharsetToUTF8(
 
   if (encoding == CUPS_ISO8859_1)
   {
-    int		ch;			/* Character from string */
-    cups_utf8_t	*destend;		/* End of UTF-8 buffer */
+    cups_utf8_t ch;       /* Character from string */
+    cups_utf8_t *destend; /* End of UTF-8 buffer */
 
 
     destend = dest + maxout - 2;
 
     while (*src && destptr < destend)
     {
-      ch = *src++ & 255;
+      ch = *(cups_utf8_t *)src++;
 
       if (ch & 128)
       {
-	*destptr++ = (cups_utf8_t)(0xc0 | (ch >> 6));
-	*destptr++ = (cups_utf8_t)(0x80 | (ch & 0x3f));
+        *destptr++ = (0xc0 | (ch >> 6));
+        *destptr++ = (0x80 | (ch & 0x3f));
       }
       else
-	*destptr++ = (cups_utf8_t)ch;
+        *destptr++ = ch;
     }
 
     *destptr = '\0';
@@ -381,7 +381,8 @@ cupsUTF8ToUTF32(
       DEBUG_printf(("4cupsUTF8ToUTF32: %02x => %08X", src[-1], ch));
       continue;
     }
-    else if ((ch & 0xe0) == 0xc0)
+
+    if ((ch & 0xe0) == 0xc0)
     {
      /*
       * Two-octet UTF-8 <= 2047 (Latin-x)...

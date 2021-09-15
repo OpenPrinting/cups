@@ -130,7 +130,7 @@ main(int  argc,				/* I - Number of command-line args */
       }
 
       for (; idfmt >= msg->msg; idfmt --)
-        if (!isspace(*idfmt & 255))
+        if (!isspace(*idfmt))
 	  break;
 
       if (idfmt >= msg->msg && *idfmt == '!')
@@ -172,7 +172,7 @@ main(int  argc,				/* I - Number of command-line args */
 	     strfmt;
 	     strfmt = (char *)cupsArrayNext(strfmts))
 	{
-	  if (isdigit(strfmt[1] & 255) && strfmt[2] == '$')
+	  if (isdigit(strfmt[1]) && strfmt[2] == '$')
 	  {
 	   /*
 	    * Handle positioned format stuff...
@@ -237,7 +237,7 @@ main(int  argc,				/* I - Number of command-line args */
         {
           strfmt ++;
 
-          if (*strfmt != '\\' && *strfmt != 'n' && *strfmt != 'r' && *strfmt != 't' && *strfmt != '\"' && !isdigit(*strfmt & 255))
+          if (*strfmt != '\\' && *strfmt != 'n' && *strfmt != 'r' && *strfmt != 't' && *strfmt != '\"' && !isdigit(*strfmt))
 	  {
 	    if (pass)
 	    {

@@ -189,7 +189,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	}
       }
     }
-    else if (isdigit(argv[i][0] & 255))
+    else if (isdigit(argv[i][0]))
     {
       id = atoi(argv[i]);
     }
