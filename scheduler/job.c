@@ -3729,7 +3729,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
     cupsdLogJob(job, CUPSD_LOG_DEBUG,
 		"print-color-mode=%s, print-quality=%s",
 		print_color_mode == _PWG_PRINT_COLOR_MODE_MONOCHROME ?
-		"gray" : "color",
+		"monochrome" : "color",
 		print_quality == _PWG_PRINT_QUALITY_DRAFT ? "draft" :
 		(print_quality == _PWG_PRINT_QUALITY_HIGH ? "high" : "normal"));
     if (pc->num_presets[print_color_mode][print_quality] > 0)

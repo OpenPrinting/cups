@@ -2209,7 +2209,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	}
 
        /*
-	* Color/Gray - print-color-mode
+	* Color/Monochrome - print-color-mode
 	*/
 
 	/* If we have a color device, check whether this option sets mono or
@@ -2233,7 +2233,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	      properties->sets_color = 1;
 	  }
 	  else if (_cups_strcasecmp(o, "ColorModel") == 0 ||
-		   _cups_strcasecmp(o, "ColorMode") == 0 ||
+		   _cups_strcasestr(o, "ColorMode") ||
 		   _cups_strcasecmp(o, "OutputMode") == 0 ||
 		   _cups_strcasecmp(o, "PrintoutMode") == 0 ||
 		   _cups_strcasecmp(o, "ARCMode") == 0 || /* Sharp */
@@ -2370,7 +2370,7 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	}
 	/* Generic enumerated choice option and choice names */
 	else if (_cups_strcasecmp(o, "ColorModel") == 0 ||
-		 _cups_strcasecmp(o, "ColorMode") == 0 ||
+		 _cups_strcasestr(o, "ColorMode") ||
 		 _cups_strcasecmp(o, "OutputMode") == 0 || /* HPLIP hpcups */
 		 _cups_strcasecmp(o, "PrintoutMode") == 0 || /* Foomatic */
 		 _cups_strcasecmp(o, "PrintQuality") == 0 ||
