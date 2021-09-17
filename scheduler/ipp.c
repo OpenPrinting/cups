@@ -2735,7 +2735,6 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 
       if (copy_model(con, ppd_name, dstfile))
       {
-        send_ipp_status(con, IPP_INTERNAL_ERROR, _("Unable to copy PPD file."));
 	if (!modify)
 	  cupsdDeletePrinter(printer, 0);
 
@@ -4494,6 +4493,7 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
   if (!cupsdStartProcess(buffer, argv, envp, -1, temppipe[1], CGIPipes[1],
                          -1, -1, 0, DefaultProfile, NULL, &temppid))
   {
+    send_ipp_status(con, IPP_INTERNAL_ERROR, _("Unable to run cups-driverd: %s"), strerror(errno));
     close(tempfd);
     unlink(tempfile);
 
@@ -4573,6 +4573,7 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
     */
 
     cupsdLogMessage(CUPSD_LOG_ERROR, "copy_model: empty PPD file");
+    send_ipp_status(con, IPP_INTERNAL_ERROR, _("cups-driverd failed to get PPD file - see error_log for details."));
     unlink(tempfile);
     return (-1);
   }
@@ -4666,6 +4667,7 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
 
   if ((dst = cupsdCreateConfFile(to, ConfigFilePerm)) == NULL)
   {
+    send_ipp_status(con, IPP_INTERNAL_ERROR, _("Unable to save PPD file: %s"), strerror(errno));
     cupsFreeOptions(num_defaults, defaults);
     cupsFileClose(src);
     unlink(tempfile);
@@ -4719,7 +4721,15 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
 
   unlink(tempfile);
 
-  return (cupsdCloseCreatedConfFile(dst, to));
+  if (cupsdCloseCreatedConfFile(dst, to))
+  {
+    send_ipp_status(con, IPP_INTERNAL_ERROR, _("Unable to commit PPD file: %s"), strerror(errno));
+    return (-1);
+  }
+  else
+  {
+    return (0);
+  }
 }
 
 

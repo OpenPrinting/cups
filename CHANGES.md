@@ -36,6 +36,8 @@ CUPS v2.4rc1 (Pending)
 - `httpUpdate` did not reset the socket file descriptor when the TLS
   negotiation failed (Apple #5915)
 - The IPP backend now retries Validate-Job requests (Issue #132)
+- Now show better error messages when a driver interface program fails to
+  provide a PPD file (Issue #148)
 - Added a workaround for Solaris in `httpAddrConnect2` (Issue #156)
 - Now use a 60 second timeout for reading USB backchannel data (Issue #160)
 - The USB backend now tries harder to find a serial number (Issue #170)
@@ -57,7 +59,7 @@ CUPS v2.4rc1 (Pending)
   Issue #164)
 - USB quirk updates (Issue #192, Apple #5766, Apple #5838, Apple #5843,
   Apple #5867)
-- Web interface updates (Issue #142)
+- Web interface updates (Issue #142, Issue #218)
 - The `ippeveprinter` tool now automatically uses an available port.
 - Fixed some Windows issues.
 - Deprecated cups-config (Issue #97)
@@ -66,7 +68,6 @@ CUPS v2.4rc1 (Pending)
   `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
   directives in `cupsd.conf` and `cups-files.conf`.
 - Stubbed out deprecated `httpMD5` functions.
-- Printer driver deprecation wasn't mentioned in CUPS Web UI
 
 
 CUPS v2.3.3op2 (February 1, 2021)
