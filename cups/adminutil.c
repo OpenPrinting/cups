@@ -1,6 +1,7 @@
 /*
  * Administration utility API definitions for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2001-2007 by Easy Software Products.
  *
@@ -845,8 +846,12 @@ cupsAdminSetServerSettings(
         cupsFilePuts(temp, "  Order allow,deny\n");
 
 	if (remote_admin)
-	  cupsFilePrintf(temp, "  Allow %s\n",
-	                 remote_any > 0 ? "all" : "@LOCAL");
+	{
+	  if (remote_any >= 0)
+	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
+	  else
+	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+	}
       }
       else if (in_conf_location && remote_admin >= 0)
       {
@@ -862,8 +867,12 @@ cupsAdminSetServerSettings(
         cupsFilePuts(temp, "  Order allow,deny\n");
 
 	if (remote_admin)
-	  cupsFilePrintf(temp, "  Allow %s\n",
-	                 remote_any > 0 ? "all" : "@LOCAL");
+	{
+	  if (remote_any >= 0)
+	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
+	  else
+	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+	}
       }
       else if (in_log_location && remote_admin >= 0)
       {
@@ -879,8 +888,12 @@ cupsAdminSetServerSettings(
         cupsFilePuts(temp, "  Order allow,deny\n");
 
 	if (remote_admin)
-	  cupsFilePrintf(temp, "  Allow %s\n",
-	                 remote_any > 0 ? "all" : "@LOCAL");
+	{
+	  if (remote_any >= 0)
+	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
+	  else
+	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+	}
       }
       else if (in_root_location &&
                (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
@@ -902,8 +915,12 @@ cupsAdminSetServerSettings(
         cupsFilePuts(temp, "  Order allow,deny\n");
 
 	if (remote_admin > 0 || remote_any > 0 || share_printers > 0)
-	  cupsFilePrintf(temp, "  Allow %s\n",
-	                 remote_any > 0 ? "all" : "@LOCAL");
+	{
+	  if (remote_any >= 0)
+	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
+	  else
+	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+	}
       }
 
       in_admin_location = 0;
