@@ -607,8 +607,7 @@ _cupsGet1284Values(
       ptr --;
 
     *ptr = '\0';
-    if (ptr > value)
-    	num_values = cupsAddOption(key, value, num_values, values);
+    num_values = cupsAddOption(key, value, num_values, values);
 	  
     if (!*device_id)
       break;
