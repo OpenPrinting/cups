@@ -7,7 +7,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptoolfile 5 "CUPS" "2021-09-17" "OpenPrinting"
+.TH ipptoolfile 5 "CUPS" "2021-09-20" "OpenPrinting"
 .SH NAME
 ipptoolfile \- ipptool file format
 .SH DESCRIPTION
@@ -433,11 +433,32 @@ Operation codes correspond to the hexadecimal numbers (0xHHHH) and names from RF
 .BR ipptool (8):
 .nf
 
+    Acknowledge\-Document
+    Acknowledge\-Identify\-Printer
+    Acknowledge\-Job
     Activate\-Printer
+    Add\-Document\-Images
+    Allocate\-Printer\-Resources
+    Cancel\-Current\-Job
+    Cancel\-Job
+    Cancel\-Jobs
+    Cancel\-My\-Jobs
+    Cancel\-Resource
+    Cancel\-Subscription
+    Close\-Job
+    Create\-Job
+    Create\-Job\-Subscriptions
+    Create\-Printer
+    Create\-Printer\-Subscriptions
+    Create\-Resource
+    Create\-Resource\-Subscriptions
+    Create\-System\-Subscriptions
+    CUPS\-Accept\-Jobs
     CUPS\-Accept\-Jobs
     CUPS\-Add\-Modify\-Class
     CUPS\-Add\-Modify\-Printer
     CUPS\-Authenticate\-Job
+    CUPS\-Create\-Local\-Printer
     CUPS\-Delete\-Class
     CUPS\-Delete\-Printer
     CUPS\-Get\-Classes
@@ -450,54 +471,74 @@ Operation codes correspond to the hexadecimal numbers (0xHHHH) and names from RF
     CUPS\-Move\-Job
     CUPS\-Reject\-Jobs
     CUPS\-Set\-Default
-    Cancel\-Current\-Job
-    Cancel\-Job
-    Cancel\-Jobs
-    Cancel\-My\-Jobs
-    Cancel\-Subscription
-    Close\-Job
-    Create\-Job
-    Create\-Job\-Subscriptions
-    Create\-Printer\-Subscriptions
     Deactivate\-Printer
+    Deallocate\-Printer\-Resources
+    Delete\-Printer
+    Deregister\-Output\-Device
+    Disable\-All\-Printers
     Disable\-Printer
+    Enable\-All\-Printers
     Enable\-Printer
+    Fetch\-Document
+    Fetch\-Job
     Get\-Job\-Attributes
     Get\-Jobs
+    Get\-Next\-Document\-Data
     Get\-Notifications
+    Get\-Output\-Device\-Attributes
     Get\-Printer\-Attributes
     Get\-Printer\-Support\-Files
     Get\-Printer\-Supported\-Values
+    Get\-Printers
     Get\-Subscription\-Attributes
     Get\-Subscriptions
+    Get\-System\-Attributes
+    Get\-System\-Supported\-Values
     Hold\-Job
     Hold\-New\-Jobs
     Identify\-Printer
+    Install\-Resource
+    Pause\-All\-Printers
+    Pause\-All\-Printers\-After\-Current\-Job
     Pause\-Printer
     Pause\-Printer\-After\-Current\-Job
     Print\-Job
     Print\-URI
     Promote\-Job
     Purge\-Jobs
+    Register\-Output\-Device
     Release\-Held\-New\-Jobs
     Release\-Job
     Renew\-Subscription
     Reprocess\-Job
     Restart\-Job
     Restart\-Printer
+    Restart\-System
     Resubmit\-Job
+    Resume\-All\-Printers
     Resume\-Job
     Resume\-Printer
     Schedule\-Job\-After
     Send\-Document
     Send\-Hardcopy\-Document
     Send\-Notifications
+    Send\-Resource\-Data
     Send\-URI
     Set\-Job\-Attributes
     Set\-Printer\-Attributes
+    Set\-Resource\-Attributes
+    Set\-System\-Attributes
+    Shutdown\-All\-Printers
+    Shutdown\-One\-Printer
     Shutdown\-Printer
+    Startup\-All\-Printers
+    Startup\-One\-Printer
     Startup\-Printer
     Suspend\-Current\-Job
+    Update\-Active\-Jobs
+    Update\-Document\-Status
+    Update\-Job\-Status
+    Update\-Output\-Device\-Attributes
     Validate\-Document
     Validate\-Job
 .fi
@@ -530,6 +571,7 @@ Status codes correspond to the hexadecimal numbers (0xHHHH) and names from RFC 8
     client\-error\-ignored\-all\-subscriptions
     client\-error\-not\-authenticated
     client\-error\-not\-authorized
+    client\-error\-not\-fetchable
     client\-error\-not\-found
     client\-error\-not\-possible
     client\-error\-print\-support\-file\-not\-found
@@ -570,10 +612,12 @@ Value and group tags correspond to the names from RFC 8011 and other IPP extensi
 
     document\-attributes\-tag
     event\-notification\-attributes\-tag
-    job\-attributes\-tag
-    operation\-attributes\-tag
-    printer\-attributes\-tag
+    job | job\-attributes\-tag
+    operation | operation\-attributes\-tag
+    printer | printer\-attributes\-tag
+    resource\-attributes\-tag
     subscription\-attributes\-tag
+    system\-attributes\-tag
     unsupported\-attributes\-tag
 .fi
 .LP
@@ -583,24 +627,22 @@ Here are the value tags:
     admin\-define
     boolean
     charset
-    collection
+    collection | begCollection
     dateTime
     default
     delete\-attribute
     enum
     integer
     keyword
-    mimeMediaType
-    nameWithLanguage
-    nameWithoutLanguage
-    naturalLanguage
+    language | naturalLanguage
+    mimetype | mimeMediaType
+    name | nameWithLanguage | nameWithoutLanguage
     no\-value
     not\-settable
     octetString
     rangeOfInteger
     resolution
-    textWithLanguage
-    textWithoutLanguage
+    text | textWithLanguage | textWithoutLanguage
     unknown
     unsupported
     uri

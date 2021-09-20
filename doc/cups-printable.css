@@ -31,9 +31,7 @@ blockquote ol li {
 }
 
 pre.command, pre.example {
-  background: #eee;
-  margin: 0 36pt;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 p.compact {
@@ -51,10 +49,6 @@ dl.man dd {
 
 dl.man dt {
   margin-left: 0;
-}
-
-pre.man {
-  margin: 0;
 }
 
 pre.command em, pre.example em {
@@ -358,9 +352,10 @@ blockquote {
 }
 p code, li code, p.code, pre, ul.code li {
   background: rgba(127,127,127,0.1);
-  border: thin dotted gray;
+  border-left: thin dotted gray;
   font-family: monospace;
   hyphens: manual;
+  margin: 18pt 0;
   -webkit-hyphens: manual;
   page-break-inside: avoid;
 }

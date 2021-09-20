@@ -16,13 +16,11 @@ The <b>mime.types</b> file defines the recognized file types.
 Comment lines start with the # character.
 Rule lines start with the MIME media type and are optionally followed by a series of file recognition rules:
 <pre class="man">
-
     <i>mime/type </i>[ <i>rule </i>... <i>rule </i>]
 
 </pre>
 Rules can be extended over multiple lines using the backslash character (\):
 <pre class="man">
-
     <i>mime/type </i>[ <i>really-really-really-long-rule </i>... <b>\
       </b><i>rule </i>]
 
@@ -75,7 +73,6 @@ However, if "text/foo" also defines a higher priority than "text/bar", "text/foo
 <h2 class="title"><a name="EXAMPLES">Examples</a></h2>
 Define two MIME media types for raster data, with one being a subset with higher priority:
 <pre class="man">
-
     application/vnd.cups-raster  string(0,"RaSt") string(0,"tSaR") \
                                   string(0,"RaS2") string(0,"2SaR") \
                                   string(0,"RaS3") string(0,"3SaR")
@@ -84,11 +81,11 @@ Define two MIME media types for raster data, with one being a subset with higher
                                   string(4,PwgRaster&lt;00>) priority(150)
 </pre>
 <h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>cups-files.conf</b>(5),
-<b>cupsd.conf</b>(5),
-<b>cupsd</b>(8),
-<b>cupsfilter</b>(8),
-<b>mime.convs</b>(5),
+<a href="man-cups-files.conf.html?TOPIC=Man+Pages"><b>cups-files.conf</b>(5),</a>
+<a href="man-cupsd.conf.html?TOPIC=Man+Pages"><b>cupsd.conf</b>(5),</a>
+<a href="man-cupsd.html?TOPIC=Man+Pages"><b>cupsd</b>(8),</a>
+<a href="man-cupsfilter.html?TOPIC=Man+Pages"><b>cupsfilter</b>(8),</a>
+<a href="man-mime.convs.html?TOPIC=Man+Pages"><b>mime.convs</b>(5),</a>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
 Copyright &copy; 2021 by OpenPrinting.

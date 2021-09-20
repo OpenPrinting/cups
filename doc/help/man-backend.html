@@ -22,7 +22,6 @@ backend - cups backend transmission interfaces
 <i>filename</i>
 ]
 <pre class="man">
-
 <b>#include &lt;cups/cups.h></b>
 
 <b>const char *cupsBackendDeviceURI</b>(<b>char **</b><i>argv</i>);
@@ -47,7 +46,7 @@ backend - cups backend transmission interfaces
 </pre>
 <h2 class="title"><a name="DESCRIPTION">Description</a></h2>
 Backends are a special type of
-<b>filter</b>(7)
+<a href="man-filter.html?TOPIC=Man+Pages"><b>filter</b>(7)</a>
 which is used to send print data to and discover different devices on the system.
 <p>Like filters, backends must be capable of reading from a filename on the command-line or from the standard input, copying the standard input to a temporary file as required by the physical interface.
 <p>The command name (<i>argv[0]</i>) is set to the device URI of the destination printer.
@@ -70,7 +69,6 @@ constant defines the file descriptor that should be monitored for incoming reque
 When run with no arguments, the backend should list the devices and schemes it supports or is advertising to the standard output.
 The output consists of zero or more lines consisting of any of the following forms:
 <pre class="man">
-
     device-class scheme "Unknown" "device-info"
     device-class device-uri "device-make-and-model" "device-info"
     device-class device-uri "device-make-and-model" "device-info" "device-id"
@@ -151,9 +149,9 @@ The scheduler will retry the job immediately without allowing intervening jobs.
 <p>All other exit code values are reserved.
 <h2 class="title"><a name="ENVIRONMENT">Environment</a></h2>
 In addition to the environment variables listed in
-<b>cups</b>(1)
+<a href="man-cups.html?TOPIC=Man+Pages"><b>cups</b>(1)</a>
 and
-<b>filter</b>(7),
+<a href="man-filter.html?TOPIC=Man+Pages"><b>filter</b>(7),</a>
 CUPS backends can expect the following environment variable:
 <dl class="man">
 <dt><b>DEVICE_URI</b>
@@ -171,19 +169,19 @@ environment variable contain the device URI), CUPS backends also expect specific
 Backends can also be installed with restricted permissions (0500 or 0700) that tell the scheduler to run them as the "root" user instead of an unprivileged user (typically "lp") on the system.
 <p>Unless you are a developer and know what you are doing, please do not run backends directly.
 Instead, use the
-<b>lp</b>(1)
+<a href="man-lp.html?TOPIC=Man+Pages"><b>lp</b>(1)</a>
 or
-<b>lpr</b>(1)
+<a href="man-lpr.html?TOPIC=Man+Pages"><b>lpr</b>(1)</a>
 programs to send print jobs or
-<b>lpinfo</b>(8)
+<a href="man-lpinfo.html?TOPIC=Man+Pages"><b>lpinfo</b>(8)</a>
 to query for available printers using the backend.
 The one exception is the SNMP backend - see
-<b>cups-snmp</b>(8)
+<a href="man-cups-snmp.html?TOPIC=Man+Pages"><b>cups-snmp</b>(8)</a>
 for more information.
 <h2 class="title"><a name="NOTES">Notes</a></h2>
 CUPS printer drivers and backends are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<b>ippeveprinter</b>(1).
+<a href="man-ippeveprinter.html?TOPIC=Man+Pages"><b>ippeveprinter</b>(1).</a>
 <h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
 <i>cups</i>(1),
 <i>cups-files.conf</i>(5),

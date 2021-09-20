@@ -130,10 +130,10 @@ If "command" is not an absolute path ("/path/to/command"),
 <b>ippeveprinter</b>
 looks for the command in the "command" subdirectory of the CUPS binary directory, typically /usr/lib/cups/command or /usr/libexec/cups/command.
 The
-<b>cups-config</b>(1)
+<a href="man-cups-config.html?TOPIC=Man+Pages"><b>cups-config</b>(1)</a>
 command can be used to discover the correct binary directory ("cups-config --serverbin").
 In addition, the CUPS_SERVERBIN environment variable can be used to override the default location of this directory - see the
-<b>cups</b>(1)
+<a href="man-cups.html?TOPIC=Man+Pages"><b>cups</b>(1)</a>
 man page for more details.
 <dt><b>-d </b><i>spool-directory</i>
 <dd style="margin-left: 5.0em">Specifies the directory that will hold the print files.
@@ -222,18 +222,16 @@ Run
 <b>ippeveprinter</b>
 with a service name of My Cool Printer:
 <pre class="man">
-
     ippeveprinter "My Cool Printer"
 </pre>
 <p>Run the
 <b>file</b>(1)
 command whenever a job is sent to the server:
 <pre class="man">
-
     ippeveprinter -c /usr/bin/file "My Cool Printer"
 </pre>
 <h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>ippevepcl</b>(7),
+<a href="man-ippevepcl.html?TOPIC=Man+Pages"><b>ippevepcl</b>(7),</a>
 <b>ippeveps</b>(7),
 PWG Internet Printing Protocol Workgroup (<a href="http://www.pwg.org/ipp">http://www.pwg.org/ipp</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>

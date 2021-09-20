@@ -850,6 +850,13 @@ main(int  argc,				/* I - Number of command-line args */
       * Process man page text...
       */
 
+      if (pre == 1)
+      {
+        pre ++;
+        if (!line[0])
+          continue;			// Skip initial blank line
+      }
+      
       html_fputs(line, &font, outfile);
       putc('\n', outfile);
 
@@ -932,27 +939,20 @@ html_alternate(const char *s,		/* I - String */
 
       if (isalnum(*s & 255) && *next == '(')
       {
-       /*
-	* See if the man file is available locally...
-	*/
-
-	char	name[1024],		/* Name */
-		manfile[1024],		/* Man page filename */
-		manurl[1024];		/* Man page URL */
+        // "name (section)" - see if the man file is available locally...
+	char	name[1024],		// Name
+		manfile[1024],		// Man page filename
+		manurl[1024];		// Man page URL
 
         strlcpy(name, s, sizeof(name));
         if ((size_t)(end - s) < sizeof(name))
           name[end - s] = '\0';
 
-        snprintf(manfile, sizeof(manfile), "%s.man", name);
 	snprintf(manurl, sizeof(manurl), "man-%s.html?TOPIC=Man+Pages", name);
-
+	snprintf(manfile, sizeof(manfile), "%s.%d", name, atoi(next + 1));
 	if (!access(manfile, 0))
 	{
-	 /*
-	  * Local man page, do a link...
-	  */
-
+	  // Local man page, do a link...
 	  fprintf(fp, "<a href=\"%s\">", manurl);
 	  link = 1;
 	}
@@ -1164,21 +1164,31 @@ html_fputs(const char *s,		/* I  - String */
       * Embed URL...
       */
 
-      char temp[1024];			/* Temporary string */
-      const char *end = s + 6;		/* End of URL */
+      char	temp[1024],		// Temporary string
+		*tempptr;		// Pointer into temporary string
 
-      while (*end && !isspace(*end & 255))
-	end ++;
+      for (tempptr = temp; *s && !isspace(*s & 255) && tempptr < (temp + sizeof(temp) - 1); s ++)
+      {
+        if (strchr(",.)", *s) && strchr(",. \n\r\t", s[1]))
+        {
+          // End of URL
+          break;
+        }
+        else if (*s == '\\' && s[1])
+        {
+          // Escaped character
+          s ++;
+          *tempptr++ = *s;
+        }
+        else
+        {
+          // Regular character...
+          *tempptr++ = *s;
+        }
+      }
 
-      if (end[-1] == ',' || end[-1] == '.' || end[-1] == ')')
-        end --;
-
-      strlcpy(temp, s, sizeof(temp));
-      if ((size_t)(end -s) < sizeof(temp))
-        temp[end - s] = '\0';
-
+      *tempptr = '\0';
       fprintf(fp, "<a href=\"%s\">%s</a>", temp, temp);
-      s = end;
     }
     else
       html_putc(*s++ & 255, fp);

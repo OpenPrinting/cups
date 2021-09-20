@@ -18,7 +18,6 @@ line.
 Comment lines start with the # character.
 Filter lines specify the source and destination MIME types along with a relative cost associated with the filter and the filter to run:
 <pre class="man">
-
     source/type destination/type cost filter
 
 </pre>
@@ -37,20 +36,19 @@ Filenames are relative to the CUPS filter directory.
 <h2 class="title"><a name="EXAMPLES">Examples</a></h2>
 Define a filter that converts PostScript documents to CUPS Raster format:
 <pre class="man">
-
     application/vnd.cups-postscript application/vnd.cups-raster 50 pstoraster
 
 </pre>
 <h2 class="title"><a name="NOTES">Notes</a></h2>
 CUPS filters are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<b>ippeveprinter</b>(1).
+<a href="man-ippeveprinter.html?TOPIC=Man+Pages"><b>ippeveprinter</b>(1).</a>
 <h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>cups-files.conf</b>(5),
-<b>cupsd.conf</b>(5),
-<b>cupsd</b>(8),
-<b>cupsfilter</b>(8),
-<b>mime.types</b>(5),
+<a href="man-cups-files.conf.html?TOPIC=Man+Pages"><b>cups-files.conf</b>(5),</a>
+<a href="man-cupsd.conf.html?TOPIC=Man+Pages"><b>cupsd.conf</b>(5),</a>
+<a href="man-cupsd.html?TOPIC=Man+Pages"><b>cupsd</b>(8),</a>
+<a href="man-cupsfilter.html?TOPIC=Man+Pages"><b>cupsfilter</b>(8),</a>
+<a href="man-mime.types.html?TOPIC=Man+Pages"><b>mime.types</b>(5),</a>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
 Copyright &copy; 2021 by OpenPrinting.

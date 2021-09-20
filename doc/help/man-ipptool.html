@@ -84,7 +84,7 @@ Output is either a plain text, formatted text, CSV, or XML report on the standar
 The
 <i>testfile</i>
 format is described in
-<b>ipptoolfile</b>(5).
+<a href="man-ipptoolfile.html?TOPIC=Man+Pages"><b>ipptoolfile</b>(5).</a>
 <h2 class="title"><a name="OPTIONS">Options</a></h2>
 The following options are recognized by
 <b>ipptool:</b>
@@ -172,36 +172,36 @@ program returns 0 if all tests were successful and 1 otherwise.
 <h2 class="title"><a name="FILES">Files</a></h2>
 The following standard files are available:
 <pre class="man">
-<i>color.jpg</i>
-<i>create-printer-subscription.test</i>
-<i>document-a4.pdf</i>
-<i>document-a4.ps</i>
-<i>document-letter.pdf</i>
-<i>document-letter.ps</i>
-<i>get-completed-jobs.test</i>
-<i>get-jobs.test</i>
-<i>get-notifications.test</i>
-<i>get-printer-attributes.test</i>
-<i>get-subscriptions.test</i>
-<i>gray.jpg</i>
-<i>ipp-1.1.test</i>
-<i>ipp-2.0.test</i>
-<i>ipp-2.1.test</i>
-<i>ipp-2.2.test</i>
-<i>ipp-everywhere.test</i>
-<i>onepage-a4.pdf</i>
-<i>onepage-a4.ps</i>
-<i>onepage-letter.pdf</i>
-<i>onepage-letter.ps</i>
-<i>print-job.test</i>
-<i>print-job-deflate.test</i>
-<i>print-job-gzip.test</i>
-<i>testfile.jpg</i>
-<i>testfile.pcl</i>
-<i>testfile.pdf</i>
-<i>testfile.ps</i>
-<i>testfile.txt</i>
-<i>validate-job.test</i>
+    color.jpg
+    create-printer-subscription.test
+    document-a4.pdf
+    document-a4.ps
+    document-letter.pdf
+    document-letter.ps
+    get-completed-jobs.test
+    get-jobs.test
+    get-notifications.test
+    get-printer-attributes.test
+    get-subscriptions.test
+    gray.jpg
+    ipp-1.1.test
+    ipp-2.0.test
+    ipp-2.1.test
+    ipp-2.2.test
+    ipp-everywhere.test
+    onepage-a4.pdf
+    onepage-a4.ps
+    onepage-letter.pdf
+    onepage-letter.ps
+    print-job.test
+    print-job-deflate.test
+    print-job-gzip.test
+    testfile.jpg
+    testfile.pcl
+    testfile.pdf
+    testfile.ps
+    testfile.txt
+    validate-job.test
 </pre>
 <h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
 The
@@ -210,20 +210,18 @@ program is unique to CUPS and conforms to the Internet Printing Protocol up to v
 <h2 class="title"><a name="EXAMPLES">Examples</a></h2>
 Get a list of completed jobs for "myprinter":
 <pre class="man">
-
     ipptool ipp://localhost/printers/myprinter get-completed-jobs.test
 </pre>
 <p>Send email notifications to "user@example.com" when "myprinter" changes:
 <pre class="man">
-
     ipptool -d recipient=mailto:user@example.com \
         ipp://localhost/printers/myprinter create-printer-subscription.test
 </pre>
 <h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>ipptoolfile</b>(5),
-IANA IPP Registry (<a href="https://www.iana.org/assignments/ipp\-registrations)">https://www.iana.org/assignments/ipp\-registrations)</a>,
+<a href="man-ipptoolfile.html?TOPIC=Man+Pages"><b>ipptoolfile</b>(5),</a>
+IANA IPP Registry (<a href="https://www.iana.org/assignments/ipp-registrations">https://www.iana.org/assignments/ipp-registrations</a>),
 PWG Internet Printing Protocol Workgroup (<a href="https://www.pwg.org/ipp">https://www.pwg.org/ipp</a>)
-RFC 8011 (<a href="https://datatracker.ietf.org/doc/html/rfc8011)">https://datatracker.ietf.org/doc/html/rfc8011)</a>,
+RFC 8011 (<a href="https://datatracker.ietf.org/doc/html/rfc8011">https://datatracker.ietf.org/doc/html/rfc8011</a>),
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
 Copyright &copy; 2021 by OpenPrinting.
 

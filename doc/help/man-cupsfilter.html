@@ -92,7 +92,7 @@ generates a PDF file. The converted file is sent to the standard output.
 returns a non-zero exit status on any error.
 <h2 class="title"><a name="ENVIRONMENT">Environment</a></h2>
 All of the standard
-<b>cups</b>(1)
+<a href="man-cups.html?TOPIC=Man+Pages"><b>cups</b>(1)</a>
 environment variables affect the operation of
 <b>cupsfilter</b>.
 <h2 class="title"><a name="FILES">Files</a></h2>
@@ -105,19 +105,18 @@ environment variables affect the operation of
 <h2 class="title"><a name="NOTES">Notes</a></h2>
 CUPS printer drivers, filters, and backends are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<b>ippeveprinter</b>(1).
+<a href="man-ippeveprinter.html?TOPIC=Man+Pages"><b>ippeveprinter</b>(1).</a>
 <p>Unlike when printing, filters run using the
 <b>cupsfilter</b>
 command use the current user and security session. This may result in different output or unexpected behavior.
 <h2 class="title"><a name="EXAMPLE">Example</a></h2>
 The following command will generate a PDF preview of job 42 for a printer named "myprinter" and save it to a file named "preview.pdf":
 <pre class="man">
-
     cupsfilter -m application/pdf -d myprinter -j 42 >preview.pdf
 </pre>
 <h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>cups</b>(1),
-<b>cupsd.conf</b>(5),
+<a href="man-cups.html?TOPIC=Man+Pages"><b>cups</b>(1),</a>
+<a href="man-cupsd.conf.html?TOPIC=Man+Pages"><b>cupsd.conf</b>(5),</a>
 <b>filter(7),</b>
 <b>mime.convs</b>(7),
 <b>mime.types</b>(7),
