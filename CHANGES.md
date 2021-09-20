@@ -38,6 +38,7 @@ CUPS v2.4rc1 (Pending)
 - The IPP backend now retries Validate-Job requests (Issue #132)
 - Now show better error messages when a driver interface program fails to
   provide a PPD file (Issue #148)
+- Added dark mode support to the CUPS web interface (Issue #152)
 - Added a workaround for Solaris in `httpAddrConnect2` (Issue #156)
 - Fixed an interaction between `--remote-admin` and `--remote-any` for the
   `cupsctl` command (Issue #158)
