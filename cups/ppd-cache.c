@@ -2,7 +2,7 @@
  * PPD cache implementation for CUPS.
  *
  * Copyright © 2021 by OpenPrinting.
- * Copyright © 2010-2019 by Apple Inc.
+ * Copyright © 2010-2021 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -2083,7 +2083,7 @@ _ppdCacheGetBin(
 
 
   for (i = 0; i < pc->num_bins; i ++)
-    if (!_cups_strcasecmp(output_bin, pc->bins[i].ppd))
+    if (!_cups_strcasecmp(output_bin, pc->bins[i].ppd) || !_cups_strcasecmp(output_bin, pc->bins[i].pwg))
       return (pc->bins[i].pwg);
 
   return (NULL);
@@ -2770,7 +2770,7 @@ _ppdCacheGetSource(
     return (NULL);
 
   for (i = pc->num_sources, source = pc->sources; i > 0; i --, source ++)
-    if (!_cups_strcasecmp(input_slot, source->ppd))
+    if (!_cups_strcasecmp(input_slot, source->ppd) || !_cups_strcasecmp(input_slot, source->pwg))
       return (source->pwg);
 
   return (NULL);
@@ -2799,7 +2799,7 @@ _ppdCacheGetType(
     return (NULL);
 
   for (i = pc->num_types, type = pc->types; i > 0; i --, type ++)
-    if (!_cups_strcasecmp(media_type, type->ppd))
+    if (!_cups_strcasecmp(media_type, type->ppd) || !_cups_strcasecmp(media_type, type->pwg))
       return (type->pwg);
 
   return (NULL);
@@ -3258,6 +3258,45 @@ _ppdCreateFromIPP2(
 
   if (ippGetBoolean(ippFindAttribute(supported, "job-accounting-user-id-supported", IPP_TAG_BOOLEAN), 0))
     cupsFilePuts(fp, "*cupsJobAccountingUserId: True\n");
+
+  if ((attr = ippFindAttribute(supported, "printer-privacy-policy-uri", IPP_TAG_URI)) != NULL)
+    cupsFilePrintf(fp, "*cupsPrivacyURI: \"%s\"\n", ippGetString(attr, 0, NULL));
+
+  if ((attr = ippFindAttribute(supported, "printer-mandatory-job-attributes", IPP_TAG_KEYWORD)) != NULL)
+  {
+    char	prefix = '\"';		// Prefix for string
+
+    cupsFilePuts(fp, "*cupsMandatory: \"");
+    for (i = 0, count = ippGetCount(attr); i < count; i ++)
+    {
+      keyword = ippGetString(attr, i, NULL);
+
+      if (strcmp(keyword, "attributes-charset") && strcmp(keyword, "attributes-natural-language") && strcmp(keyword, "printer-uri"))
+      {
+        cupsFilePrintf(fp, "%c%s", prefix, keyword);
+        prefix = ',';
+      }
+    }
+    cupsFilePuts(fp, "\"\n");
+  }
+
+  if ((attr = ippFindAttribute(supported, "printer-requested-job-attributes", IPP_TAG_KEYWORD)) != NULL)
+  {
+    char	prefix = '\"';		// Prefix for string
+
+    cupsFilePuts(fp, "*cupsRequested: \"");
+    for (i = 0, count = ippGetCount(attr); i < count; i ++)
+    {
+      keyword = ippGetString(attr, i, NULL);
+
+      if (strcmp(keyword, "attributes-charset") && strcmp(keyword, "attributes-natural-language") && strcmp(keyword, "printer-uri"))
+      {
+        cupsFilePrintf(fp, "%c%s", prefix, keyword);
+        prefix = ',';
+      }
+    }
+    cupsFilePuts(fp, "\"\n");
+  }
 
  /*
   * Password/PIN printing...
@@ -4316,7 +4355,7 @@ _ppdCreateFromIPP2(
 	"TriplePortrait",
 	"TripleLandscape",
 	"TripleRevPortrait",
-	"TripleRevLandscape",
+	"TripleRevLandscape"
 	"QuadPortrait",
 	"QuadLandscape",
 	"QuadRevPortrait",
