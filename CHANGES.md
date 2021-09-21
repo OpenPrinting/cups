@@ -57,6 +57,7 @@ CUPS v2.4rc1 (Pending)
 - Hardened `ippReadIO` to prevent invalid IPP messages from being propagated
   (Issue #195, Issue #196)
 - The scheduler now supports the "everywhere" model directly (Issue #201)
+- Fixed support for "job-hold-until" with the Restart-Job operation (Issue #250)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
