@@ -2,7 +2,7 @@
  * "lp" command for CUPS.
  *
  * Copyright © 2021 by OpenPrinting.
- * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -20,7 +20,7 @@
  * Local functions.
  */
 
-static int	restart_job(const char *command, int job_id);
+static int	restart_job(const char *command, int job_id, const char *job_hold_until);
 static int	set_job_attrs(const char *command, int job_id, int num_options, cups_option_t *options);
 static void	usage(void) _CUPS_NORETURN;
 
@@ -429,7 +429,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		  return (1);
 		}
 
-		if (restart_job(argv[0], job_id))
+		if (restart_job(argv[0], job_id, cupsGetOption("job-hold-until", num_options, options)))
 		  return (1);
 	      }
 	      else
@@ -655,7 +655,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 static int				/* O - Exit status */
 restart_job(const char *command,	/* I - Command name */
-            int        job_id)		/* I - Job ID */
+            int        job_id,		/* I - Job ID */
+            const char *job_hold_until)	/* I - "job-hold-until" value, if any */
 {
   ipp_t		*request;		/* IPP request */
   char		uri[HTTP_MAX_URI];	/* URI for job */
@@ -670,6 +671,9 @@ restart_job(const char *command,	/* I - Command name */
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
                "requesting-user-name", NULL, cupsUser());
+
+  if (job_hold_until)
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "job-hold-until", NULL, job_hold_until);
 
   ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs"));
 
