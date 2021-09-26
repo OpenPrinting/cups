@@ -294,6 +294,8 @@ struct _http_s				/**** HTTP connection structure ****/
 					/* Next nonce value from Authentication-Info */
 			opaque[HTTP_MAX_VALUE],
 					/* Opaque value from WWW-Authenticate */
+			qop[HTTP_MAX_VALUE],
+					/* qop value from WWW-Authenticate */
 			realm[HTTP_MAX_VALUE];
 					/* Realm from WWW-Authenticate */
 
