@@ -1005,7 +1005,12 @@ _cupsSetDefaults(void)
     * Look for ~/.cups/client.conf...
     */
 
+#if _WIN32
+    snprintf(filename, sizeof(filename), "%s/AppData/Local/cups/client.conf", cg->home);
+#else
     snprintf(filename, sizeof(filename), "%s/.cups/client.conf", cg->home);
+#endif // _WIN32
+
     if ((fp = cupsFileOpen(filename, "r")) != NULL)
     {
       cups_read_client_conf(fp, &cc);

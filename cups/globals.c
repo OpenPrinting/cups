@@ -274,7 +274,7 @@ cups_globals_alloc(void)
   if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
     cg->localedir = localedir;
 
-  cg->home = getenv("HOME");
+  cg->home = getenv("USERPROFILE");
 
 #else
 #  ifdef HAVE_GETEUID

@@ -1790,7 +1790,11 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
       * No default in the environment, try the user's lpoptions files...
       */
 
+#if _WIN32
+      snprintf(filename, sizeof(filename), "%s/AppData/Local/cups/lpoptions", cg->home);
+#else
       snprintf(filename, sizeof(filename), "%s/.cups/lpoptions", cg->home);
+#endif // _WIN32
 
       dest_name = cups_get_default(filename, defname, sizeof(defname), &instance);
 
@@ -1901,7 +1905,11 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
 
   if (cg->home)
   {
+#if _WIN32
+    snprintf(filename, sizeof(filename), "%s/AppData/Local/cups/lpoptions", cg->home);
+#else
     snprintf(filename, sizeof(filename), "%s/.cups/lpoptions", cg->home);
+#endif // _WIN32
 
     cups_get_dests(filename, dest_name, instance, 0, 1, 1, &dest);
   }
@@ -2078,11 +2086,19 @@ cupsSetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
     * Create ~/.cups subdirectory...
     */
 
+#if _WIN32
+    snprintf(filename, sizeof(filename), "%s/AppData/Local/cups", cg->home);
+#else
     snprintf(filename, sizeof(filename), "%s/.cups", cg->home);
+#endif // _WIN32
     if (access(filename, 0))
       mkdir(filename, 0700);
 
+#if _WIN32
+    snprintf(filename, sizeof(filename), "%s/AppData/Local/cups/lpoptions", cg->home);
+#else
     snprintf(filename, sizeof(filename), "%s/.cups/lpoptions", cg->home);
+#endif // _WIN32
   }
 
  /*
@@ -3449,7 +3465,11 @@ cups_enum_dests(
 
   if (cg->home)
   {
+#if _WIN32
+    snprintf(filename, sizeof(filename), "%s/AppData/Local/cups/lpoptions", cg->home);
+#else
     snprintf(filename, sizeof(filename), "%s/.cups/lpoptions", cg->home);
+#endif // _WIN32
 
     data.num_dests = cups_get_dests(filename, NULL, NULL, 1, user_default != NULL, data.num_dests, &data.dests);
   }

@@ -6016,7 +6016,8 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
     client->host_port = client->printer->port;
   }
 
-  ptr = strrchr(client->host_field, '.');
+  if ((ptr = strstr(client->host_field, ".local")) == NULL)
+    ptr = strrchr(client->host_field, '.');
 
   if (!isdigit(client->host_field[0] & 255) && client->host_field[0] != '[' && strcmp(client->host_field, client->printer->hostname) && strcmp(client->host_field, "localhost") &&
       (!ptr || (strcmp(ptr, ".local") && strcmp(ptr, ".local."))))
