@@ -4355,7 +4355,7 @@ _ppdCreateFromIPP2(
 	"TriplePortrait",
 	"TripleLandscape",
 	"TripleRevPortrait",
-	"TripleRevLandscape"
+	"TripleRevLandscape",
 	"QuadPortrait",
 	"QuadLandscape",
 	"QuadRevPortrait",
