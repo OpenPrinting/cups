@@ -2115,7 +2115,7 @@ http_sspi_server(http_t     *http,	/* I - HTTP connection */
   if (!http_sspi_find_credentials(http, L"ServerContainer", common_name))
     if (!http_sspi_make_credentials(http->tls, L"ServerContainer", common_name, _HTTP_MODE_SERVER, 10))
     {
-      char temp[8192];
+//      char temp[8192];
 
 //      fprintf(stderr, "Unable to create credentials for '%s': %s\n", common_name, http_sspi_strerror(temp, sizeof(temp), GetLastError()));
       DEBUG_puts("5http_sspi_server: Unable to get server credentials.");
