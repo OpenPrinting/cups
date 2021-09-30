@@ -683,9 +683,15 @@ size_t					/* O - Bytes available */
 _httpTLSPending(http_t *http)		/* I - HTTP connection */
 {
   if (http->tls)
+  {
+    DEBUG_printf(("4_httpTLSPending: Returning %d.", http->tls->readBufferUsed));
     return (http->tls->readBufferUsed);
+  }
   else
+  {
+    DEBUG_puts("4_httpTLSPending: Returning 0.");
     return (0);
+  }
 }
 
 
