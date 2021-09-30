@@ -684,8 +684,8 @@ _httpTLSPending(http_t *http)		/* I - HTTP connection */
 {
   if (http->tls)
   {
-    DEBUG_printf(("4_httpTLSPending: Returning %d.", http->tls->readBufferUsed));
-    return (http->tls->readBufferUsed);
+    DEBUG_printf(("4_httpTLSPending: Returning %d.", http->tls->readBufferUsed + http->tls->decryptBufferUsed));
+    return (http->tls->readBufferUsed + http->tls->decryptBufferUsed);
   }
   else
   {
@@ -1329,7 +1329,6 @@ http_sspi_client(http_t     *http,	/* I - Client connection */
                  const char *hostname)	/* I - Server hostname */
 {
   _http_sspi_t	*sspi = http->tls;	/* SSPI data */
-  DWORD		dwSize;			/* Size for buffer */
   DWORD		dwSSPIFlags;		/* SSL connection attributes we want */
   DWORD		dwSSPIOutFlags;		/* SSL connection attributes we got */
   TimeStamp	tsExpiry;		/* Time stamp */
@@ -1660,7 +1659,7 @@ http_sspi_create_credential(
     http_credential_t *cred)		/* I - Credential */
 {
   if (cred)
-    return (CertCreateCertificateContext(X509_ASN_ENCODING, cred->data, cred->datalen));
+    return (CertCreateCertificateContext(X509_ASN_ENCODING, cred->data, (DWORD)cred->datalen));
   else
     return (NULL);
 }
@@ -2315,7 +2314,7 @@ http_sspi_strerror(char   *buffer,	/* I - Error message buffer */
                    size_t bufsize,	/* I - Size of buffer */
                    DWORD  code)		/* I - Error code */
 {
-  if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, code, 0, buffer, bufsize, NULL))
+  if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, code, 0, buffer, (DWORD)bufsize, NULL))
   {
    /*
     * Strip trailing CR + LF...
