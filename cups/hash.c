@@ -12,11 +12,15 @@
  */
 
 #include "cups-private.h"
+#include "debug-internal.h"
 #ifdef __APPLE__
 #  include <CommonCrypto/CommonDigest.h>
 #elif defined(HAVE_GNUTLS)
 #  include <gnutls/crypto.h>
 #  include "md5-internal.h"
+#elif _WIN32
+#  include <windows.h>
+#  include <bcrypt.h>
 #else
 #  include "md5-internal.h"
 #endif /* __APPLE__ */
@@ -302,10 +306,10 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
 
   if (algid)
   {
-    if (hashsize < hashlen)
+    if (hashsize < (size_t)hashlen)
       goto too_small;
 
-    if ((status = BCryptOpenAlgorithmProvider(&alg, algid, NULL, 0)) != STATUS_SUCCESS)
+    if ((status = BCryptOpenAlgorithmProvider(&alg, algid, NULL, 0)) < 0)
     {
       DEBUG_printf(("2cupsHashData: BCryptOpenAlgorithmProvider returned %d.", status));
 
@@ -320,18 +324,18 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
     if (tempsize > 0)
     {
       // Do a truncated SHA2-512 hash...
-      status = BCryptHash(alg, NULL, 0, data, (ULONG)datalen, temp, sizeof(temp));
+      status = BCryptHash(alg, NULL, 0, (PUCHAR)data, (ULONG)datalen, temp, sizeof(temp));
       memcpy(hash, temp, hashlen);
     }
     else
     {
       // Hash directly to buffer...
-      status = BCryptHash(alg, NULL, 0, data, (ULONG)datalen, hash, hashlen);
+      status = BCryptHash(alg, NULL, 0, (PUCHAR)data, (ULONG)datalen, hash, (ULONG)hashlen);
     }
 
-    BCryptCloseAlgorithmProvider(alg);
+    BCryptCloseAlgorithmProvider(alg, 0);
 
-    if (status != STATUS_SUCCESS)
+    if (status < 0)
     {
       DEBUG_printf(("2cupsHashData: BCryptHash returned %d.", status));
 
