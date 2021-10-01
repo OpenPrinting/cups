@@ -59,6 +59,7 @@ CUPS v2.4-b1 (Pending)
 - The scheduler now supports the "everywhere" model directly (Issue #201)
 - Fixed some IPP Everywhere option mapping problems (Issue #238)
 - Fixed support for "job-hold-until" with the Restart-Job operation (Issue #250)
+- Fixed support for the 'offline-report' state for all USB backends (Issue #264)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
@@ -66,7 +67,7 @@ CUPS v2.4-b1 (Pending)
   Apple #5867)
 - Web interface updates (Issue #142, Issue #218)
 - The `ippeveprinter` tool now automatically uses an available port.
-- Fixed some Windows issues.
+- Fixed several Windows TLS and hashing issues.
 - Deprecated cups-config (Issue #97)
 - Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
 - Removed support for the (long deprecated and unused) `FontPath`,
