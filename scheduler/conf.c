@@ -101,7 +101,6 @@ static const cupsd_var_t	cupsd_vars[] =
   { "LaunchdTimeout",		&IdleExitTimeout,	CUPSD_VARTYPE_TIME },
 #endif /* HAVE_LAUNCHD */
   { "LimitRequestBody",		&MaxRequestSize,	CUPSD_VARTYPE_INTEGER },
-  { "ListenBackLog",		&ListenBackLog,		CUPSD_VARTYPE_INTEGER },
   { "LogDebugHistory",		&LogDebugHistory,	CUPSD_VARTYPE_INTEGER },
   { "MaxActiveJobs",		&MaxActiveJobs,		CUPSD_VARTYPE_INTEGER },
   { "MaxClients",		&MaxClients,		CUPSD_VARTYPE_INTEGER },
@@ -714,7 +713,6 @@ cupsdReadConfiguration(void)
   FilterNice               = 0;
   HostNameLookups          = FALSE;
   KeepAlive                = TRUE;
-  ListenBackLog            = SOMAXCONN;
   LogDebugHistory          = 200;
   LogFilePerm              = CUPS_DEFAULT_LOG_FILE_PERM;
   LogFileGroup             = Group;

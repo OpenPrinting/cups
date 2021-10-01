@@ -158,11 +158,6 @@ The default is "0" which disables the limit check.
 Multiple Listen directives can be provided to listen on multiple addresses.
 The Listen directive is similar to the Port directive but allows you to restrict access to specific interfaces or networks.
 Note: "Listen *:<i>port</i>" and "Port <i>port</i>" effectively listen on all IP addresses, so you cannot combine them with Listen directives for explicit IPv4 or IPv6 addresses on the same port.
-<dt><a name="ListenBackLog"></a><b>ListenBackLog </b><i>number</i>
-<dd style="margin-left: 5.0em">Specifies the number of pending connections that will be allowed.
-This normally only affects very busy servers that have reached the MaxClients limit, but can also be triggered by large numbers of simultaneous connections.
-When the limit is reached, the operating system will refuse additional connections until the scheduler can accept the pending ones.
-The default is the OS-defined default limit, typically either "5" for older operating systems or "128" for newer operating systems.
 <dt><a name="Location"></a><b>&lt;Location </b><i>/path</i><b>> </b>... <b>&lt;/Location></b>
 <dd style="margin-left: 5.0em">Specifies access control for the named location.
 Paths are documented below in the section "LOCATION PATHS".

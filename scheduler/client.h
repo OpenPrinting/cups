@@ -90,8 +90,6 @@ typedef struct
 
 VAR int			LastClientNumber VALUE(0),
 					/* Last client connection number */
-			ListenBackLog	VALUE(SOMAXCONN),
-					/* Max backlog of pending connections */
 			LocalPort	VALUE(631),
 					/* Local port to use */
 			RemotePort	VALUE(0);

@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cupsd.conf 5 "CUPS" "2021-04-27" "OpenPrinting"
+.TH cupsd.conf 5 "CUPS" "2021-10-01" "OpenPrinting"
 .SH NAME
 cupsd.conf \- server configuration file for cups
 .SH DESCRIPTION
@@ -236,13 +236,6 @@ Listens to the specified address and port or domain socket path for connections.
 Multiple Listen directives can be provided to listen on multiple addresses.
 The Listen directive is similar to the Port directive but allows you to restrict access to specific interfaces or networks.
 Note: "Listen *:\fIport\fR" and "Port \fIport\fR" effectively listen on all IP addresses, so you cannot combine them with Listen directives for explicit IPv4 or IPv6 addresses on the same port.
-.\"#ListenBackLog
-.TP 5
-\fBListenBackLog \fInumber\fR
-Specifies the number of pending connections that will be allowed.
-This normally only affects very busy servers that have reached the MaxClients limit, but can also be triggered by large numbers of simultaneous connections.
-When the limit is reached, the operating system will refuse additional connections until the scheduler can accept the pending ones.
-The default is the OS-defined default limit, typically either "5" for older operating systems or "128" for newer operating systems.
 .\"#Location
 .TP 5
 \fB<Location \fI/path\fB> \fR... \fB</Location>\fR
