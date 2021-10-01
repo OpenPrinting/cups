@@ -85,7 +85,7 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
 
     return (CC_SHA1_DIGEST_LENGTH);
   }
-#ifdef CC_SHA224_DIGEST_LENGTH
+#  ifdef CC_SHA224_DIGEST_LENGTH
   else if (!strcmp(algorithm, "sha2-224"))
   {
     CC_SHA256_CTX	ctx;		/* SHA-224 context */
@@ -99,7 +99,7 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
 
     return (CC_SHA224_DIGEST_LENGTH);
   }
-#endif /* CC_SHA224_DIGEST_LENGTH */
+#  endif /* CC_SHA224_DIGEST_LENGTH */
   else if (!strcmp(algorithm, "sha2-256"))
   {
     CC_SHA256_CTX	ctx;		/* SHA-256 context */
@@ -139,7 +139,7 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
 
     return (CC_SHA512_DIGEST_LENGTH);
   }
-#ifdef CC_SHA224_DIGEST_LENGTH
+#  ifdef CC_SHA224_DIGEST_LENGTH
   else if (!strcmp(algorithm, "sha2-512_224"))
   {
     CC_SHA512_CTX	ctx;		/* SHA-512 context */
@@ -161,7 +161,7 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
 
     return (CC_SHA224_DIGEST_LENGTH);
   }
-#endif /* CC_SHA224_DIGEST_LENGTH */
+#  endif /* CC_SHA224_DIGEST_LENGTH */
   else if (!strcmp(algorithm, "sha2-512_256"))
   {
     CC_SHA512_CTX	ctx;		/* SHA-512 context */
@@ -254,9 +254,101 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
     return ((ssize_t)gnutls_hash_get_len(alg));
   }
 
+#elif _WIN32
+  // Use Windows CNG APIs to perform hashing...
+  BCRYPT_ALG_HANDLE	alg;		// Algorithm handle
+  LPCWSTR		algid = NULL;	// Algorithm ID
+  ssize_t		hashlen;	// Hash length
+  NTSTATUS		status;		// Status of hash
+  unsigned char		temp[64];	// Temporary hash buffer
+  size_t		tempsize = 0;	// Truncate to this size?
+
+
+  if (!strcmp(algorithm, "md5"))
+  {
+    algid   = BCRYPT_MD5_ALGORITHM;
+    hashlen = 16;
+  }
+  else if (!strcmp(algorithm, "sha"))
+  {
+    algid   = BCRYPT_SHA1_ALGORITHM;
+    hashlen = 20;
+  }
+  else if (!strcmp(algorithm, "sha2-256"))
+  {
+    algid   = BCRYPT_SHA256_ALGORITHM;
+    hashlen = 32;
+  }
+  else if (!strcmp(algorithm, "sha2-384"))
+  {
+    algid   = BCRYPT_SHA384_ALGORITHM;
+    hashlen = 48;
+  }
+  else if (!strcmp(algorithm, "sha2-512"))
+  {
+    algid   = BCRYPT_SHA512_ALGORITHM;
+    hashlen = 64;
+  }
+  else if (!strcmp(algorithm, "sha2-512_224"))
+  {
+    algid   = BCRYPT_SHA512_ALGORITHM;
+    hashlen = tempsize = 28;
+  }
+  else if (!strcmp(algorithm, "sha2-512_256"))
+  {
+    algid   = BCRYPT_SHA512_ALGORITHM;
+    hashlen = tempsize = 32;
+  }
+
+  if (algid)
+  {
+    if (hashsize < hashlen)
+      goto too_small;
+
+    if ((status = BCryptOpenAlgorithmProvider(&alg, algid, NULL, 0)) != STATUS_SUCCESS)
+    {
+      DEBUG_printf(("2cupsHashData: BCryptOpenAlgorithmProvider returned %d.", status));
+
+      if (status == STATUS_INVALID_PARAMETER)
+	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad algorithm parameter."), 1);
+      else
+	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to access cryptographic provider."), 1);
+
+      return (-1);
+    }
+
+    if (tempsize > 0)
+    {
+      // Do a truncated SHA2-512 hash...
+      status = BCryptHash(alg, NULL, 0, data, (ULONG)datalen, temp, sizeof(temp));
+      memcpy(hash, temp, hashlen);
+    }
+    else
+    {
+      // Hash directly to buffer...
+      status = BCryptHash(alg, NULL, 0, data, (ULONG)datalen, hash, hashlen);
+    }
+
+    BCryptCloseAlgorithmProvider(alg);
+
+    if (status != STATUS_SUCCESS)
+    {
+      DEBUG_printf(("2cupsHashData: BCryptHash returned %d.", status));
+
+      if (status == STATUS_INVALID_PARAMETER)
+	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad hashing parameter."), 1);
+      else
+	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Hashing failed."), 1);
+
+      return (-1);
+    }
+
+    return (hashlen);
+  }
+
 #else
  /*
-  * No hash support beyond MD5 without CommonCrypto or GNU TLS...
+  * No hash support beyond MD5 without CommonCrypto, GNU TLS, or CNG...
   */
 
   if (!strcmp(algorithm, "md5"))
