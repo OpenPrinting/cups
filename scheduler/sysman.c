@@ -427,7 +427,7 @@ sysEventThreadEntry(void)
   * Register for power state change notifications
   */
 
-  bzero(&threadData, sizeof(threadData));
+  memset(&threadData, 0, sizeof(threadData));
 
   threadData.sysevent.powerKernelPort =
       IORegisterForSystemPower(&threadData, &powerNotifierPort,
@@ -443,7 +443,7 @@ sysEventThreadEntry(void)
   * Register for system configuration change notifications
   */
 
-  bzero(&storeContext, sizeof(storeContext));
+  memset(&storeContext, 0, sizeof(storeContext));
   storeContext.info = &threadData;
 
   store = SCDynamicStoreCreate(kCFAllocatorDefault, CFSTR("cupsd"),
