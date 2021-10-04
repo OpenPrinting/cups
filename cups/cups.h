@@ -1,6 +1,7 @@
 /*
  * API definitions for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2020 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -309,6 +310,9 @@ typedef int (^cups_dest_block_t)(unsigned flags, cups_dest_t *dest);
                                          * @exclude all@ */
 #  endif /* __BLOCKS__ */
 
+typedef const char *(*cups_oauth_cb_t)(http_t *http, const char *realm, const char *scope, const char *resource, void *user_data);
+					/* OAuth callback @since CUPS 2.4@ */
+
 typedef const char *(*cups_password_cb_t)(const char *prompt);
 					/* Password callback @exclude all@ */
 
@@ -603,6 +607,10 @@ extern const char	*cupsHashString(const unsigned char *hash, size_t hashsize, ch
 /* New in CUPS 2.3 */
 extern int		cupsAddDestMediaOptions(http_t *http, cups_dest_t *dest, cups_dinfo_t *dinfo, unsigned flags, cups_size_t *size, int num_options, cups_option_t **options) _CUPS_API_2_3;
 extern ipp_attribute_t	*cupsEncodeOption(ipp_t *ipp, ipp_tag_t group_tag, const char *name, const char *value) _CUPS_API_2_3;
+
+/* New in CUPS 2.4 */
+extern void		cupsSetOAuthCB(cups_oauth_cb_t cb, void *data) _CUPS_API_2_4;
+
 
 #  ifdef __cplusplus
 }

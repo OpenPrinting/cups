@@ -1,6 +1,7 @@
 /*
  * API versioning definitions for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -129,6 +130,7 @@
 #    define _CUPS_API_2_2_4 _CUPS_API_AVAILABLE(macos(10.13), ios(12.0)) _CUPS_PUBLIC
 #    define _CUPS_API_2_2_7 _CUPS_API_AVAILABLE(macos(10.14), ios(13.0)) _CUPS_PUBLIC
 #    define _CUPS_API_2_3 _CUPS_API_AVAILABLE(macos(10.14), ios(13.0)) _CUPS_PUBLIC
+#    define _CUPS_API_2_4 _CUPS_PUBLIC
 #  else
 #    define _CUPS_API_1_1_19 _CUPS_PUBLIC
 #    define _CUPS_API_1_1_20 _CUPS_PUBLIC
@@ -144,6 +146,7 @@
 #    define _CUPS_API_2_2_4 _CUPS_PUBLIC
 #    define _CUPS_API_2_2_7 _CUPS_PUBLIC
 #    define _CUPS_API_2_3 _CUPS_PUBLIC
+#    define _CUPS_API_2_4 _CUPS_PUBLIC
 #  endif /* __APPLE__ && !_CUPS_SOURCE */
 
 
