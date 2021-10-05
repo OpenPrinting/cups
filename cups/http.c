@@ -107,7 +107,19 @@ static const char * const http_fields[] =
 			  "Accept-Encoding",
 			  "Allow",
 			  "Server",
-			  "Authentication-Info"
+			  "Authentication-Info",
+			  "Access-Control-Allow-Credentials",
+			  "Access-Control-Allow-Headers",
+			  "Access-Control-Allow-Methods",
+			  "Access-Control-Allow-Origin",
+			  "Access-Control-Expose-Headers",
+			  "Access-Control-Max-Age",
+			  "Access-Control-Request-Headers",
+			  "Access-Control-Request-Method",
+			  "Optional-WWW-Authenticate",
+			  "Origin",
+			  "OSCORE",
+			  "Strict-Transport-Security"
 			};
 
 
