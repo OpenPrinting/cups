@@ -2207,7 +2207,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
             ipp_attribute_t *uri)	/* I - URI of printer */
 {
   http_status_t	status;			/* Policy status */
-  int		i;			/* Looping var */
+  int		i = 0;			/* Looping var */
   char		scheme[HTTP_MAX_URI],	/* Method portion of URI */
 		username[HTTP_MAX_URI],	/* Username portion of URI */
 		host[HTTP_MAX_URI],	/* Host portion of URI */

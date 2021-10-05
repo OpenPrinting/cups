@@ -901,12 +901,12 @@
 		72D53A3015B4923F003F877F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E5136B64AF00836530 /* CoreFoundation.framework */; };
 		72D53A3115B4923F003F877F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E7136B64B000836530 /* Security.framework */; };
 		72D53A3215B4923F003F877F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E8136B64B000836530 /* SystemConfiguration.framework */; };
-		72D53A3415B4925B003F877F /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A3315B4925B003F877F /* ApplicationServices.framework */; };
+		72D53A3415B4925B003F877F /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A3315B4925B003F877F /* ApplicationServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		72D53A3515B49270003F877F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2C15B4913D003F877F /* IOKit.framework */; };
 		72D53A3815B4929D003F877F /* colorman.c in Sources */ = {isa = PBXBuildFile; fileRef = 72D53A3615B4929D003F877F /* colorman.c */; };
 		72D53A3A15B492FA003F877F /* libpam.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A3915B492FA003F877F /* libpam.dylib */; };
-		72D53A3B15B4930A003F877F /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2915B49110003F877F /* GSS.framework */; };
-		72D53A3C15B4930A003F877F /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E6136B64B000836530 /* Kerberos.framework */; };
+		72D53A3B15B4930A003F877F /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2915B49110003F877F /* GSS.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		72D53A3C15B4930A003F877F /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E6136B64B000836530 /* Kerberos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		72F75A5C1336F988004BB496 /* cupstestppd.c in Sources */ = {isa = PBXBuildFile; fileRef = 72F75A5B1336F988004BB496 /* cupstestppd.c */; };
 		72F75A671336FA38004BB496 /* libcups.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups.dylib */; };
 /* End PBXBuildFile section */

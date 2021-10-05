@@ -274,7 +274,7 @@ cupsAddDest(const char  *name,		/* I  - Destination name */
     if (instance && !cupsGetDest(name, NULL, num_dests, *dests))
     {
       // Add destination first...
-      if ((dest = cups_add_dest(name, NULL, &num_dests, dests)) == NULL)
+      if (!cups_add_dest(name, NULL, &num_dests, dests))
         return (num_dests);
     }
 
