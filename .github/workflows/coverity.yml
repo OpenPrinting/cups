@@ -1,0 +1,41 @@
+name: Coverity Scan
+
+on: workflow_dispatch
+
+jobs:
+  coverity-scan:
+    runs-on: ubuntu-latest
+    environment: Coverity
+    steps:
+      - uses: actions/checkout@v2
+      - name: update build environment
+        run: sudo apt-get update --fix-missing -y
+      - name: install prerequisites
+        run: sudo apt-get install -y avahi-daemon cppcheck libavahi-client-dev libcups2-dev libcupsimage2-dev libgnutls28-dev libjpeg-dev libpam-dev libpng-dev libusb-1.0-0-dev zlib1g-dev
+      - name: Download Coverity Build Tool
+        run: |
+          wget -q https://scan.coverity.com/download/linux64 --post-data token="$TOKEN&project=$GITHUB_REPOSITORY" -O cov-analysis-linux64.tar.gz
+          mkdir cov-analysis-linux64
+          tar xzf cov-analysis-linux64.tar.gz --strip 1 -C cov-analysis-linux64
+        env:
+          TOKEN: ${{ secrets.COVERITY_SCAN_TOKEN }}
+
+      - name: configure
+        run: ./configure --enable-debug --enable-maintainer
+
+      - name: Build with cov-build
+        run: |
+          export PATH=`pwd`/cov-analysis-linux64/bin:$PATH
+          cov-build --dir cov-int make
+      - name: Submit the result to Coverity Scan
+        run: |
+          tar czvf cov.tgz cov-int
+          curl \
+            --form token=$TOKEN \
+            --form email=michael.r.sweet@gmail.com \
+            --form file=@cov.tgz \
+            --form version="$GITHUB_REF" \
+            --form description="$GITHUB_SHA" \
+            "https://scan.coverity.com/builds?project=$GITHUB_REPOSITORY"
+        env:
+          TOKEN: ${{ secrets.COVERITY_SCAN_TOKEN }}
