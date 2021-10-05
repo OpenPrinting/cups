@@ -5,6 +5,7 @@ CUPS v2.4-b1 (Pending)
 ----------------------
 
 - Added support for CUPS running in a Snapcraft snap.
+- Added basic OAuth 2.0 client support (Issue #100)
 - Added support for AirPrint and Mopria clients (Issue #105)
 - Added configure support for specifying systemd dependencies in the CUPS
   service file (Issue #144)

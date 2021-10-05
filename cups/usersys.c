@@ -310,6 +310,43 @@ cupsSetEncryption(http_encryption_t e)	/* I - New encryption preference */
 
 
 /*
+ * 'cupsSetOAuthCB()' - Set the OAuth 2.0 callback for CUPS.
+ *
+ * This function sets the OAuth 2.0 callback for the various CUPS APIs that
+ * send HTTP requests. Pass @code NULL@ to restore the default (console-based)
+ * callback.
+ *
+ * The OAuth callback receives the HTTP connection, realm name, scope name (if
+ * any), resource path, and the "user_data" pointer for each request that
+ * requires an OAuth access token. The function then returns either the Bearer
+ * token string or `NULL` if no authorization could be obtained.
+ *
+ * Beyond reusing the Bearer token for subsequent requests on the same HTTP
+ * connection, no caching of the token is done by the CUPS library.  The
+ * callback can determine whether to refresh a cached token by examining any
+ * existing token returned by the @link httpGetAuthString@ function.
+ *
+ * Note: The current OAuth callback is tracked separately for each thread in a
+ * program. Multi-threaded programs that override the callback need to do so in
+ * each thread for the same callback to be used.
+ *
+ * @since CUPS 2.4@
+ */
+
+void
+cupsSetOAuthCB(
+    cups_oauth_cb_t cb,			/* I - Callback function */
+    void            *user_data)		/* I - User data pointer */
+{
+  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
+
+
+  cg->oauth_cb   = cb;
+  cg->oauth_data = user_data;
+}
+
+
+/*
  * 'cupsSetPasswordCB()' - Set the password callback for CUPS.
  *
  * Pass @code NULL@ to restore the default (console) password callback, which
