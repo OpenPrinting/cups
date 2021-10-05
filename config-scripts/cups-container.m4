@@ -1,11 +1,17 @@
 dnl
-dnl Support for packaging CUPS in a Snap and have it work with client Snaps.
+dnl Support for packaging CUPS in different kinds of containers.
 dnl
 dnl Copyright © 2021 by OpenPrinting
 dnl
 dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
+
+AC_ARG_WITH([container], AS_HELP_STRING([--with-container=...], [configure to use in container ('none', 'snap')]))
+AC_ARG_WITH([container_name], AS_HELP_STRING([--with-container-name=...], [specify the container name (default='cups')]))
+
+
+
 
 AC_ARG_ENABLE([snapped_cupsd], AS_HELP_STRING([--enable-snapped-cupsd], [enable support for packaging CUPS in a Snap]))
 AC_ARG_ENABLE([snapped_clients], AS_HELP_STRING([--enable-snapped-clients], [enable support for CUPS controlling admin access from snapped clients]))
