@@ -417,10 +417,8 @@ get_options(cups_option_t **options)	/* O - Options */
   * Load PPD file and the corresponding IPP <-> PPD cache data...
   */
 
-  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL)
+  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL && (ppd_cache = _ppdCacheCreateWithPPD(ppd)) != NULL)
   {
-    ppd_cache = _ppdCacheCreateWithPPD(ppd);
-
     /* TODO: Fix me - values are names, not numbers... Also need to support finishings-col */
     if ((value = getenv("IPP_FINISHINGS")) == NULL)
       value = getenv("IPP_FINISHINGS_DEFAULT");

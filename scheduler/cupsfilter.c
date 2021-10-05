@@ -373,7 +373,6 @@ main(int  argc,				/* I - Number of command-line args */
 	    default : /* Something we don't understand... */
 		_cupsLangPrintf(stderr, _("%s: Error - unknown option \"-%c\"."), argv[0], *opt);
 		usage(NULL);
-		break;
 	  }
 	}
       }

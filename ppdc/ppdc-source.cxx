@@ -2792,7 +2792,7 @@ ppdcSource::scan_file(ppdcFile   *fp,	// I - File to read
       if (have_cutter <= 0 || cond_state)
         continue;
 
-      if ((o = d->find_option("CutMedia")) == NULL)
+      if (!d->find_option("CutMedia"))
       {
         o = new ppdcOption(PPDC_BOOLEAN, "CutMedia", "Cut Media", PPDC_SECTION_ANY, 10.0f);
 
@@ -2805,9 +2805,8 @@ ppdcSource::scan_file(ppdcFile   *fp,	// I - File to read
 
 	c = new ppdcChoice("True", NULL, "<</CutMedia 4>>setpagedevice");
 	o->add_choice(c);
+        o = NULL;
       }
-
-      o = NULL;
     }
     else if (!_cups_strcasecmp(temp, "Darkness"))
     {

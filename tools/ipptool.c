@@ -1645,36 +1645,38 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
         status_ok   = 1;
         repeat_test = 1;
       }
-
-      for (i = 0, status_ok = 0; i < data->num_statuses; i ++)
+      else
       {
-	if (data->statuses[i].if_defined &&
-	    !_ippVarsGet(data->vars, data->statuses[i].if_defined))
-	  continue;
-
-	if (data->statuses[i].if_not_defined &&
-	    _ippVarsGet(data->vars, data->statuses[i].if_not_defined))
-	  continue;
-
-	if (ippGetStatusCode(response) == data->statuses[i].status)
+	for (i = 0, status_ok = 0; i < data->num_statuses; i ++)
 	{
-	  status_ok = 1;
+	  if (data->statuses[i].if_defined &&
+	      !_ippVarsGet(data->vars, data->statuses[i].if_defined))
+	    continue;
 
-	  if (data->statuses[i].repeat_match && repeat_count < data->statuses[i].repeat_limit)
-	    repeat_test = 1;
+	  if (data->statuses[i].if_not_defined &&
+	      _ippVarsGet(data->vars, data->statuses[i].if_not_defined))
+	    continue;
 
-	  if (data->statuses[i].define_match)
-	    _ippVarsSet(data->vars, data->statuses[i].define_match, "1");
-	}
-	else
-	{
-	  if (data->statuses[i].repeat_no_match && repeat_count < data->statuses[i].repeat_limit)
-	    repeat_test = 1;
-
-	  if (data->statuses[i].define_no_match)
+	  if (ippGetStatusCode(response) == data->statuses[i].status)
 	  {
-	    _ippVarsSet(data->vars, data->statuses[i].define_no_match, "1");
 	    status_ok = 1;
+
+	    if (data->statuses[i].repeat_match && repeat_count < data->statuses[i].repeat_limit)
+	      repeat_test = 1;
+
+	    if (data->statuses[i].define_match)
+	      _ippVarsSet(data->vars, data->statuses[i].define_match, "1");
+	  }
+	  else
+	  {
+	    if (data->statuses[i].repeat_no_match && repeat_count < data->statuses[i].repeat_limit)
+	      repeat_test = 1;
+
+	    if (data->statuses[i].define_no_match)
+	    {
+	      _ippVarsSet(data->vars, data->statuses[i].define_no_match, "1");
+	      status_ok = 1;
+	    }
 	  }
 	}
       }

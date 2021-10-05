@@ -1431,7 +1431,7 @@ main(int  argc,				/* I - Number of command-line args */
   */
 
   if (version == 10)
-    create_job = send_document = 0;
+    create_job = 0;
 
  /*
   * Start monitoring the printer in the background...
@@ -1497,9 +1497,7 @@ main(int  argc,				/* I - Number of command-line args */
       * One or more options are not supported...
       */
 
-      ipp_attribute_t	*attr;		/* Unsupported attribute */
-
-      if ((attr = ippFindAttribute(response, "sides", IPP_TAG_ZERO)) != NULL)
+      if (ippFindAttribute(response, "sides", IPP_TAG_ZERO))
       {
        /*
         * The sides value is not supported, revert to one-sided as needed...
