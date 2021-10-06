@@ -1,9 +1,12 @@
-OpenPrinting CUPS v2.4.0
-========================
+OpenPrinting CUPS
+=================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)
 ![Apache 2.0](https://img.shields.io/github/license/openprinting/cups)
-![Build and Test](https://github.com/OpenPrinting/cups/workflows/Build%20and%20Test/badge.svg)
+[![Build and Test](https://github.com/OpenPrinting/cups/workflows/Build%20and%20Test/badge.svg)](https://github.com/OpenPrinting/cups/actions/workflows/build.yml)
+[![Coverity Scan](https://img.shields.io/coverity/scan/23806)](https://scan.coverity.com/projects/openprinting-cups)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4ea68dc02692436b82541b6f232eba66)](https://www.codacy.com/gh/OpenPrinting/cups/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OpenPrinting/cups&amp;utm_campaign=Badge_Grade)
+[![LGTM Grade](https://img.shields.io/lgtm/grade/cpp/github/OpenPrinting/cups)](https://lgtm.com/projects/g/OpenPrinting/cups/?mode=list)
 
 
 Introduction
