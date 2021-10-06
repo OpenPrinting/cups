@@ -271,9 +271,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
   */
 
   if ((user = getenv("REMOTE_USER")) == NULL)
-  {
     user = "guest";
-  }
 
  /*
   * See if the user has already selected a new destination...
