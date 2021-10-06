@@ -10,7 +10,7 @@ dnl
 dnl Specify a container mode
 CONTAINER="none"
 
-AC_ARG_WITH([container], AS_HELP_STRING([--with-container=...], [configure to use in container ('none', 'snap')]), [
+AC_ARG_WITH([container], AS_HELP_STRING([--with-container=...], [configure to use in container (none, snap)]), [
     CONTAINER="$withval"
 ])
 
