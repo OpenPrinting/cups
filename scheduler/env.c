@@ -217,7 +217,7 @@ cupsdUpdateEnv(void)
     const char	*path;			// PATH environment variable
 
     if ((path = getenv("PATH")) != NULL)
-      cupsdSetEnvf("PATH", "%s/filter:%s", ServerBin, value);
+      cupsdSetEnvf("PATH", "%s/filter:%s", ServerBin, path);
     else
 #endif /* CUPS_SNAP */
     cupsdSetEnvf("PATH", "%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR ":/bin:/usr/bin", ServerBin);
