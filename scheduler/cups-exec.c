@@ -1,9 +1,11 @@
 /*
  * Sandbox helper for CUPS.
  *
- * Copyright 2007-2014 by Apple Inc.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2014 by Apple Inc.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  *
  * Usage:
  *
@@ -129,11 +131,11 @@ main(int  argc,				/* I - Number of command-line args */
     if (setgid(gid))
       exit(errno + 100);
 
-#  ifdef SUPPORT_SNAPPED_CUPSD
+#  if CUPS_SNAP
     if (setgroups(0, NULL))
 #  else
     if (setgroups(1, &gid))
-#  endif /* SUPPORT_SNAPPED_CUPSD */
+#  endif /* CUPS_SNAP */
       exit(errno + 100);
 
     if (uid && setuid(uid))
