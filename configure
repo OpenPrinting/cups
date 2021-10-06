@@ -10785,7 +10785,7 @@ SNAPDGLIBLIBS=""
 
 
 
-if "x$PKGCONFIG" != x
+if test "x$PKGCONFIG" != x
 then :
 
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libapparmor" >&5

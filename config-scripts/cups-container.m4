@@ -30,7 +30,7 @@ SNAPDGLIBLIBS=""
 AC_SUBST([APPARMORLIBS])
 AC_SUBST([SNAPDGLIBLIBS])
 
-AS_IF(["x$PKGCONFIG" != x], [
+AS_IF([test "x$PKGCONFIG" != x], [
     AC_MSG_CHECKING([for libapparmor])
     AS_IF([$PKGCONFIG --exists libapparmor], [
 	AC_MSG_RESULT([yes])
