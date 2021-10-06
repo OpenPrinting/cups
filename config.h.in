@@ -684,19 +684,31 @@ static __inline int _cups_abs(int i) { return (i < 0 ? -i : i); }
 
 
 /*
- * Do we have snap container support enabled?
+ * Building as a snap (snapcraft.io)?
  */
 
-#undef CUPS_SNAP_NAME
-#undef CUPS_SNAP_CONTROL_SLOT
+#undef CUPS_SNAP
 
-#undef HAVE_APPARMOR
-#undef HAVE_SNAPDGLIB
+
+/*
+ * Have the apparmor library?
+ */
+
+#undef HAVE_LIBAPPARMOR
+
+
+/*
+ * Have the snapd-glib library?
+ */
+
+#undef HAVE_LIBSNAPDGLIB
+
+
+/*
+ * Have the snapd_client_run_snapctl2_sync function?
+ */
+
 #undef HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC
-#undef HAVE_SNAPCTL_IS_CONNECTED
-#undef SNAPCTL
-#undef SUPPORT_SNAPPED_CUPSD
-#undef SUPPORT_SNAPPED_CLIENTS
 
 
 #endif /* !_CUPS_CONFIG_H_ */

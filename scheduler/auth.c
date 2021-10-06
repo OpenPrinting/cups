@@ -52,15 +52,13 @@ typedef struct sockpeercred cupsd_ucred_t;
 #  endif
 #  define CUPSD_UCRED_UID(c) (c).uid
 #endif /* HAVE_SYS_UCRED_H */
-#ifdef SUPPORT_SNAPPED_CLIENTS
-#  ifdef HAVE_APPARMOR
-#    include <sys/apparmor.h>
-#  endif
-#  ifdef HAVE_SNAPDGLIB
-#    include <glib.h>
-#    include <snapd-glib/snapd-glib.h>
-#  endif
-#endif /* SUPPORT_SNAPPED_CLIENTS */
+#ifdef HAVE_LIBAPPARMOR
+#  include <sys/apparmor.h>
+#endif /* HAVE_LIBAPPARMOR */
+#ifdef HAVE_LIBSNAPDGLIB
+#  include <glib.h>
+#  include <snapd-glib/snapd-glib.h>
+#endif /* HAVE_LIBSNAPDGLIB */
 
 
 /*
