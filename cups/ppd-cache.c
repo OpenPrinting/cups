@@ -4187,14 +4187,15 @@ _ppdCreateFromIPP2(
     if (default_color)
     {
       // Standard presets for color mode and quality...
-      cupsFilePuts(fp,
-                   "*APPrinterPreset Gray_with_Paper_Auto-Detect_-_Draft/Draft B&W: \"\n"
-		   "  *cupsPrintQuality Draft *ColorModel Gray\n"
-		   "  com.apple.print.preset.graphicsType General\n"
-		   "  com.apple.print.preset.quality low\n"
-		   "  com.apple.print.preset.media-front-coating autodetect\n"
-		   "  com.apple.print.preset.output-mode monochrome\"\n"
-		   "*End\n");
+      if (have_qdraft)
+	cupsFilePuts(fp,
+		     "*APPrinterPreset Gray_with_Paper_Auto-Detect_-_Draft/Draft B&W: \"\n"
+		     "  *cupsPrintQuality Draft *ColorModel Gray\n"
+		     "  com.apple.print.preset.graphicsType General\n"
+		     "  com.apple.print.preset.quality low\n"
+		     "  com.apple.print.preset.media-front-coating autodetect\n"
+		     "  com.apple.print.preset.output-mode monochrome\"\n"
+		     "*End\n");
       cupsFilePuts(fp,
                    "*APPrinterPreset Gray_with_Paper_Auto-Detect/Black and White: \"\n"
 		   "  *cupsPrintQuality Normal *ColorModel Gray\n"
