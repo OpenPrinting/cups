@@ -3093,6 +3093,8 @@ _ppdCreateFromIPP2(
   int			xres, yres;	/* Resolution values */
   int                   resolutions[1000];
                                         /* Array of resolution indices */
+  int			have_qdraft = 0,/* Have draft quality? */
+			have_qhigh = 0;	/* Have high quality? */
   char			msgid[256];	/* Message identifier (attr.value) */
   const char		*keyword,	/* Keyword value */
 			*msgstr;	/* Localized string */
@@ -3173,6 +3175,9 @@ _ppdCreateFromIPP2(
     cupsFilePuts(fp, "*ColorDevice: False\n");
 
   cupsFilePrintf(fp, "*cupsVersion: %d.%d\n", CUPS_VERSION_MAJOR, CUPS_VERSION_MINOR);
+#ifdef __APPLE__
+  cupsFilePrintf(fp, "*APAirPrint: True\n");
+#endif // __APPLE__
   cupsFilePuts(fp, "*cupsSNMPSupplies: False\n");
   cupsFilePrintf(fp, "*cupsLanguages: \"%s", lang->language);
   if ((lang_supp = ippFindAttribute(supported, "printer-strings-languages-supported", IPP_TAG_LANGUAGE)) != NULL)
@@ -3875,6 +3880,182 @@ _ppdCreateFromIPP2(
   }
 
  /*
+  * cupsPrintQuality and DefaultResolution...
+  */
+
+  quality = ippFindAttribute(supported, "print-quality-supported", IPP_TAG_ENUM);
+
+  if ((attr = ippFindAttribute(supported, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
+  {
+    int lowdpi = 0, hidpi = 0;    /* Lower and higher resolution */
+
+    for (i = 0, count = ippGetCount(attr); i < count; i ++)
+    {
+      const char *rs = ippGetString(attr, i, NULL);
+          /* RS value */
+
+      if (_cups_strncasecmp(rs, "RS", 2))
+        continue;
+
+      lowdpi = atoi(rs + 2);
+      if ((rs = strrchr(rs, '-')) != NULL)
+        hidpi = atoi(rs + 1);
+      else
+        hidpi = lowdpi;
+      break;
+    }
+
+    if (lowdpi == 0)
+    {
+     /*
+      * Invalid "urf-supported" value...
+      */
+
+      goto bad_ppd;
+    }
+    else
+    {
+     /*
+      * Generate print qualities based on low and high DPIs...
+      */
+
+      cupsFilePrintf(fp, "*DefaultResolution: %ddpi\n", lowdpi);
+
+      cupsFilePrintf(fp, "*OpenUI *cupsPrintQuality: PickOne\n"
+			 "*OrderDependency: 10 AnySetup *cupsPrintQuality\n"
+			 "*%s.Translation cupsPrintQuality/%s: \"\"\n"
+			 "*DefaultcupsPrintQuality: Normal\n", lang->language, _cupsLangString(lang, _("Print Quality")));
+      if ((lowdpi & 1) == 0)
+      {
+	cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Draft/%s: \"\"\n", lowdpi, lowdpi / 2, lang->language, _cupsLangString(lang, _("Draft")));
+	have_qdraft = 1;
+      }
+      else if (ippContainsInteger(quality, IPP_QUALITY_DRAFT))
+      {
+	cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Draft/%s: \"\"\n", lowdpi, lowdpi, lang->language, _cupsLangString(lang, _("Draft")));
+	have_qdraft = 1;
+      }
+
+      cupsFilePrintf(fp, "*cupsPrintQuality Normal: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Normal/%s: \"\"\n", lowdpi, lowdpi, lang->language, _cupsLangString(lang, _("Normal")));
+
+      if (hidpi > lowdpi || ippContainsInteger(quality, IPP_QUALITY_HIGH))
+      {
+	cupsFilePrintf(fp, "*cupsPrintQuality High: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality High/%s: \"\"\n", hidpi, hidpi, lang->language, _cupsLangString(lang, _("High")));
+	have_qhigh = 1;
+      }
+
+      cupsFilePuts(fp, "*CloseUI: *cupsPrintQuality\n");
+    }
+  }
+  else if ((attr = ippFindAttribute(supported, "pwg-raster-document-resolution-supported", IPP_TAG_RESOLUTION)) != NULL)
+  {
+   /*
+    * Make a sorted list of resolutions.
+    */
+
+    count = ippGetCount(attr);
+    if (count > (int)(sizeof(resolutions) / sizeof(resolutions[0])))
+      count = (int)(sizeof(resolutions) / sizeof(resolutions[0]));
+
+    resolutions[0] = 0; /* Not in loop to silence Clang static analyzer... */
+    for (i = 1; i < count; i ++)
+      resolutions[i] = i;
+
+    for (i = 0; i < (count - 1); i ++)
+    {
+      for (j = i + 1; j < count; j ++)
+      {
+        int       ix, iy,               /* First X and Y resolution */
+                  jx, jy,               /* Second X and Y resolution */
+                  temp;                 /* Swap variable */
+        ipp_res_t units;                /* Resolution units */
+
+        ix = ippGetResolution(attr, resolutions[i], &iy, &units);
+        jx = ippGetResolution(attr, resolutions[j], &jy, &units);
+
+        if (ix > jx || (ix == jx && iy > jy))
+        {
+         /*
+          * Swap these two resolutions...
+          */
+
+          temp           = resolutions[i];
+          resolutions[i] = resolutions[j];
+          resolutions[j] = temp;
+        }
+      }
+    }
+
+   /*
+    * Generate print quality options...
+    */
+
+    pwg_ppdize_resolution(attr, resolutions[count / 2], &xres, &yres, ppdname, sizeof(ppdname));
+    cupsFilePrintf(fp, "*DefaultResolution: %s\n", ppdname);
+
+    cupsFilePrintf(fp, "*OpenUI *cupsPrintQuality: PickOne\n"
+		       "*OrderDependency: 10 AnySetup *cupsPrintQuality\n"
+		       "*%s.Translation cupsPrintQuality/%s: \"\"\n"
+		       "*DefaultcupsPrintQuality: Normal\n", lang->language, _cupsLangString(lang, _("Print Quality")));
+    if (count > 2 || ippContainsInteger(quality, IPP_QUALITY_DRAFT))
+    {
+      pwg_ppdize_resolution(attr, resolutions[0], &xres, &yres, NULL, 0);
+      cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n", xres, yres);
+      cupsFilePrintf(fp, "*%s.cupsPrintQuality Draft/%s: \"\"\n", lang->language, _cupsLangString(lang, _("Draft")));
+      have_qdraft = 1;
+    }
+
+    pwg_ppdize_resolution(attr, resolutions[count / 2], &xres, &yres, NULL, 0);
+    cupsFilePrintf(fp, "*cupsPrintQuality Normal: \"<</HWResolution[%d %d]>>setpagedevice\"\n", xres, yres);
+    cupsFilePrintf(fp, "*%s.cupsPrintQuality Normal/%s: \"\"\n", lang->language, _cupsLangString(lang, _("Normal")));
+
+    if (count > 1 || ippContainsInteger(quality, IPP_QUALITY_HIGH))
+    {
+      pwg_ppdize_resolution(attr, resolutions[count - 1], &xres, &yres, NULL, 0);
+      cupsFilePrintf(fp, "*cupsPrintQuality High: \"<</HWResolution[%d %d]>>setpagedevice\"\n", xres, yres);
+      cupsFilePrintf(fp, "*%s.cupsPrintQuality High/%s: \"\"\n", lang->language, _cupsLangString(lang, _("High")));
+      have_qhigh = 1;
+    }
+
+    cupsFilePuts(fp, "*CloseUI: *cupsPrintQuality\n");
+  }
+  else if (is_apple || is_pwg)
+    goto bad_ppd;
+  else
+  {
+    if ((attr = ippFindAttribute(supported, "printer-resolution-default", IPP_TAG_RESOLUTION)) != NULL)
+    {
+      pwg_ppdize_resolution(attr, 0, &xres, &yres, ppdname, sizeof(ppdname));
+    }
+    else
+    {
+      xres = yres = 300;
+      strlcpy(ppdname, "300dpi", sizeof(ppdname));
+    }
+
+    cupsFilePrintf(fp, "*DefaultResolution: %s\n", ppdname);
+
+    cupsFilePrintf(fp, "*OpenUI *cupsPrintQuality: PickOne\n"
+                       "*OrderDependency: 10 AnySetup *cupsPrintQuality\n"
+                       "*%s.Translation cupsPrintQuality/%s: \"\"\n"
+                       "*DefaultcupsPrintQuality: Normal\n", lang->language, _cupsLangString(lang, _("Print Quality")));
+    if (ippContainsInteger(quality, IPP_QUALITY_DRAFT))
+    {
+      cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Draft/%s: \"\"\n", xres, yres, lang->language, _cupsLangString(lang, _("Draft")));
+      have_qdraft = 1;
+    }
+
+    cupsFilePrintf(fp, "*cupsPrintQuality Normal: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Normal/%s: \"\"\n", xres, yres, lang->language, _cupsLangString(lang, _("Normal")));
+
+    if (ippContainsInteger(quality, IPP_QUALITY_HIGH))
+    {
+      cupsFilePrintf(fp, "*cupsPrintQuality High: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality High/%s: \"\"\n", xres, yres, lang->language, _cupsLangString(lang, _("High")));
+      have_qhigh = 1;
+    }
+    cupsFilePuts(fp, "*CloseUI: *cupsPrintQuality\n");
+  }
+
+ /*
   * ColorModel...
   */
 
@@ -4002,6 +4183,45 @@ _ppdCreateFromIPP2(
       cupsFilePrintf(fp, "*DefaultColorModel: %s\n", default_color);
     if (wrote_color)
       cupsFilePuts(fp, "*CloseUI: *ColorModel\n");
+
+    if (default_color)
+    {
+      // Standard presets for color mode and quality...
+      cupsFilePuts(fp,
+                   "*APPrinterPreset Gray_with_Paper_Auto-Detect_-_Draft/Draft B&W: \"\n"
+		   "  *cupsPrintQuality Draft *ColorModel Gray\n"
+		   "  com.apple.print.preset.graphicsType General\n"
+		   "  com.apple.print.preset.quality low\n"
+		   "  com.apple.print.preset.media-front-coating autodetect\n"
+		   "  com.apple.print.preset.output-mode monochrome\"\n"
+		   "*End\n");
+      cupsFilePuts(fp,
+                   "*APPrinterPreset Gray_with_Paper_Auto-Detect/Black and White: \"\n"
+		   "  *cupsPrintQuality Normal *ColorModel Gray\n"
+		   "  com.apple.print.preset.graphicsType General\n"
+		   "  com.apple.print.preset.quality mid\n"
+		   "  com.apple.print.preset.media-front-coating autodetect\n"
+		   "  com.apple.print.preset.output-mode monochrome\"\n"
+		   "*End\n");
+      if (strcmp(default_color, "Gray"))
+	cupsFilePuts(fp,
+		     "*APPrinterPreset Color_with_Paper_Auto-Detect/Color: \"\n"
+		     "  *cupsPrintQuality Normal *ColorModel RGB\n"
+		     "  com.apple.print.preset.graphicsType General\n"
+		     "  com.apple.print.preset.quality mid\n"
+		     "  com.apple.print.preset.media-front-coating autodetect\n"
+		     "  com.apple.print.preset.output-mode color\"\n"
+		     "*End\n");
+      if (!strcmp(default_color, "AdobeRGB") || have_qhigh)
+	cupsFilePrintf(fp,
+		       "*APPrinterPreset Photo_with_Paper_Auto-Detect/Photo: \"\n"
+		       "  *cupsPrintQuality %s *ColorModel %s\n"
+		       "  com.apple.print.preset.graphicsType Photo\n"
+		       "  com.apple.print.preset.quality %s\n"
+		       "  com.apple.print.preset.media-front-coating autodetect\n"
+		       "  com.apple.print.preset.output-mode color\"\n"
+		       "*End\n", have_qhigh ? "High" : "Normal", default_color, have_qhigh ? "high" : "mid");
+    }
   }
 
  /*
@@ -4571,164 +4791,6 @@ _ppdCreateFromIPP2(
   }
 
   cupsArrayDelete(fin_options);
-
- /*
-  * cupsPrintQuality and DefaultResolution...
-  */
-
-  quality = ippFindAttribute(supported, "print-quality-supported", IPP_TAG_ENUM);
-
-  if ((attr = ippFindAttribute(supported, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
-  {
-    int lowdpi = 0, hidpi = 0;    /* Lower and higher resolution */
-
-    for (i = 0, count = ippGetCount(attr); i < count; i ++)
-    {
-      const char *rs = ippGetString(attr, i, NULL);
-          /* RS value */
-
-      if (_cups_strncasecmp(rs, "RS", 2))
-        continue;
-
-      lowdpi = atoi(rs + 2);
-      if ((rs = strrchr(rs, '-')) != NULL)
-        hidpi = atoi(rs + 1);
-      else
-        hidpi = lowdpi;
-      break;
-    }
-
-    if (lowdpi == 0)
-    {
-     /*
-      * Invalid "urf-supported" value...
-      */
-
-      goto bad_ppd;
-    }
-    else
-    {
-     /*
-      * Generate print qualities based on low and high DPIs...
-      */
-
-      cupsFilePrintf(fp, "*DefaultResolution: %ddpi\n", lowdpi);
-
-      cupsFilePrintf(fp, "*OpenUI *cupsPrintQuality: PickOne\n"
-			 "*OrderDependency: 10 AnySetup *cupsPrintQuality\n"
-			 "*%s.Translation cupsPrintQuality/%s: \"\"\n"
-			 "*DefaultcupsPrintQuality: Normal\n", lang->language, _cupsLangString(lang, _("Print Quality")));
-      if ((lowdpi & 1) == 0)
-	cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Draft/%s: \"\"\n", lowdpi, lowdpi / 2, lang->language, _cupsLangString(lang, _("Draft")));
-      else if (ippContainsInteger(quality, IPP_QUALITY_DRAFT))
-	cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Draft/%s: \"\"\n", lowdpi, lowdpi, lang->language, _cupsLangString(lang, _("Draft")));
-
-      cupsFilePrintf(fp, "*cupsPrintQuality Normal: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Normal/%s: \"\"\n", lowdpi, lowdpi, lang->language, _cupsLangString(lang, _("Normal")));
-
-      if (hidpi > lowdpi || ippContainsInteger(quality, IPP_QUALITY_HIGH))
-  cupsFilePrintf(fp, "*cupsPrintQuality High: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality High/%s: \"\"\n", hidpi, hidpi, lang->language, _cupsLangString(lang, _("High")));
-      cupsFilePuts(fp, "*CloseUI: *cupsPrintQuality\n");
-    }
-  }
-  else if ((attr = ippFindAttribute(supported, "pwg-raster-document-resolution-supported", IPP_TAG_RESOLUTION)) != NULL)
-  {
-   /*
-    * Make a sorted list of resolutions.
-    */
-
-    count = ippGetCount(attr);
-    if (count > (int)(sizeof(resolutions) / sizeof(resolutions[0])))
-      count = (int)(sizeof(resolutions) / sizeof(resolutions[0]));
-
-    resolutions[0] = 0; /* Not in loop to silence Clang static analyzer... */
-    for (i = 1; i < count; i ++)
-      resolutions[i] = i;
-
-    for (i = 0; i < (count - 1); i ++)
-    {
-      for (j = i + 1; j < count; j ++)
-      {
-        int       ix, iy,               /* First X and Y resolution */
-                  jx, jy,               /* Second X and Y resolution */
-                  temp;                 /* Swap variable */
-        ipp_res_t units;                /* Resolution units */
-
-        ix = ippGetResolution(attr, resolutions[i], &iy, &units);
-        jx = ippGetResolution(attr, resolutions[j], &jy, &units);
-
-        if (ix > jx || (ix == jx && iy > jy))
-        {
-         /*
-          * Swap these two resolutions...
-          */
-
-          temp           = resolutions[i];
-          resolutions[i] = resolutions[j];
-          resolutions[j] = temp;
-        }
-      }
-    }
-
-   /*
-    * Generate print quality options...
-    */
-
-    pwg_ppdize_resolution(attr, resolutions[count / 2], &xres, &yres, ppdname, sizeof(ppdname));
-    cupsFilePrintf(fp, "*DefaultResolution: %s\n", ppdname);
-
-    cupsFilePrintf(fp, "*OpenUI *cupsPrintQuality: PickOne\n"
-		       "*OrderDependency: 10 AnySetup *cupsPrintQuality\n"
-		       "*%s.Translation cupsPrintQuality/%s: \"\"\n"
-		       "*DefaultcupsPrintQuality: Normal\n", lang->language, _cupsLangString(lang, _("Print Quality")));
-    if (count > 2 || ippContainsInteger(quality, IPP_QUALITY_DRAFT))
-    {
-      pwg_ppdize_resolution(attr, resolutions[0], &xres, &yres, NULL, 0);
-      cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n", xres, yres);
-      cupsFilePrintf(fp, "*%s.cupsPrintQuality Draft/%s: \"\"\n", lang->language, _cupsLangString(lang, _("Draft")));
-    }
-
-    pwg_ppdize_resolution(attr, resolutions[count / 2], &xres, &yres, NULL, 0);
-    cupsFilePrintf(fp, "*cupsPrintQuality Normal: \"<</HWResolution[%d %d]>>setpagedevice\"\n", xres, yres);
-    cupsFilePrintf(fp, "*%s.cupsPrintQuality Normal/%s: \"\"\n", lang->language, _cupsLangString(lang, _("Normal")));
-
-    if (count > 1 || ippContainsInteger(quality, IPP_QUALITY_HIGH))
-    {
-      pwg_ppdize_resolution(attr, resolutions[count - 1], &xres, &yres, NULL, 0);
-      cupsFilePrintf(fp, "*cupsPrintQuality High: \"<</HWResolution[%d %d]>>setpagedevice\"\n", xres, yres);
-      cupsFilePrintf(fp, "*%s.cupsPrintQuality High/%s: \"\"\n", lang->language, _cupsLangString(lang, _("High")));
-    }
-
-    cupsFilePuts(fp, "*CloseUI: *cupsPrintQuality\n");
-  }
-  else if (is_apple || is_pwg)
-    goto bad_ppd;
-  else
-  {
-    if ((attr = ippFindAttribute(supported, "printer-resolution-default", IPP_TAG_RESOLUTION)) != NULL)
-    {
-      pwg_ppdize_resolution(attr, 0, &xres, &yres, ppdname, sizeof(ppdname));
-    }
-    else
-    {
-      xres = yres = 300;
-      strlcpy(ppdname, "300dpi", sizeof(ppdname));
-    }
-
-    cupsFilePrintf(fp, "*DefaultResolution: %s\n", ppdname);
-
-    cupsFilePrintf(fp, "*OpenUI *cupsPrintQuality: PickOne\n"
-                       "*OrderDependency: 10 AnySetup *cupsPrintQuality\n"
-                       "*%s.Translation cupsPrintQuality/%s: \"\"\n"
-                       "*DefaultcupsPrintQuality: Normal\n", lang->language, _cupsLangString(lang, _("Print Quality")));
-    if (ippContainsInteger(quality, IPP_QUALITY_DRAFT))
-      cupsFilePrintf(fp, "*cupsPrintQuality Draft: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Draft/%s: \"\"\n", xres, yres, lang->language, _cupsLangString(lang, _("Draft")));
-
-    cupsFilePrintf(fp, "*cupsPrintQuality Normal: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality Normal/%s: \"\"\n", xres, yres, lang->language, _cupsLangString(lang, _("Normal")));
-
-    if (ippContainsInteger(quality, IPP_QUALITY_HIGH))
-      cupsFilePrintf(fp, "*cupsPrintQuality High: \"<</HWResolution[%d %d]>>setpagedevice\"\n*%s.cupsPrintQuality High/%s: \"\"\n", xres, yres, lang->language, _cupsLangString(lang, _("High")));
-    cupsFilePuts(fp, "*CloseUI: *cupsPrintQuality\n");
-  }
 
  /*
   * Presets...

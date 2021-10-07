@@ -60,6 +60,7 @@ CUPS v2.4-b1 (Pending)
 - The scheduler now supports the "everywhere" model directly (Issue #201)
 - Fixed some IPP Everywhere option mapping problems (Issue #238)
 - Fixed support for "job-hold-until" with the Restart-Job operation (Issue #250)
+- Fixed the default color/grayscale presets for IPP Everywhere PPDs (Issue #262)
 - Fixed support for the 'offline-report' state for all USB backends (Issue #264)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
