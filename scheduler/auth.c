@@ -1960,8 +1960,9 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
   SnapdClient	*client = NULL;		// Data structure of snapd access
   GError	*error = NULL;		// Glib error
   int		ret = 1;		// Return value
+#  if !CUPS_SNAP
   SnapdSnap	*snap = NULL;		// Data structure of client Snap
-  SnapdClient	*snapd = NULL;		// Data structure of snapd access
+#  endif // !CUPS_SNAP
 
 
 #  ifdef AF_LOCAL
@@ -2003,7 +2004,7 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
 
   const char	*cookie;		// snapd access cookie
   int		status = 65535;		// Status of client Snap context check
-  const char	*args[] =		// snapctl arguments
+  char	*args[] =			// snapctl arguments
   {
     "is-connected",
     "--apparmor-label",
@@ -2027,7 +2028,7 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
   if ((cookie = g_getenv("SNAP_COOKIE")) == NULL)
   {
     cookie = "";
-    cupsdLogClient(CUPSD_LOG_WARN, "No SNAP_COOKIE set in the Snap environment.");
+    cupsdLogClient(con, CUPSD_LOG_WARN, "No SNAP_COOKIE set in the Snap environment.");
   }
 
   // Do the client Snap context check...
@@ -2111,7 +2112,7 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Classic snap - allowed.");
   }
   // Check whether the client Snap has the cups-control plug
-  else if (!snapd_client_get_connections2_sync(snapd, SNAPD_GET_CONNECTIONS_FLAGS_NONE, snap_name, "cups-control", NULL, NULL, &plugs, NULL, NULL, &error))
+  else if (!snapd_client_get_connections2_sync(client, SNAPD_GET_CONNECTIONS_FLAGS_NONE, snap_name, "cups-control", NULL, NULL, &plugs, NULL, NULL, &error))
   {
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Unable to get client Snap plugs: %s", error->message);
     ret = 0;
