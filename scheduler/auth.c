@@ -1993,7 +1993,10 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
 
   // Allow access from "cups" snap...
   if (!strncmp(context, "snap.cups.", 10))
+  {
+    cupsdLogClient(con, CUPSD_LOG_DEBUG, "Client from the CUPS Snap itself - allowed.");
     goto done;
+  }
 
 #  if CUPS_SNAP && defined(HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC)
  /*
