@@ -1960,6 +1960,8 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
   SnapdClient	*client = NULL;		// Data structure of snapd access
   GError	*error = NULL;		// Glib error
   int		ret = 1;		// Return value
+  SnapdSnap	*snap = NULL;		// Data structure of client Snap
+  SnapdClient	*snapd = NULL;		// Data structure of snapd access
 
 
 #  ifdef AF_LOCAL
