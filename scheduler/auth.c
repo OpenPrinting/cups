@@ -2007,7 +2007,7 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
 
   const char	*cookie;		// snapd access cookie
   int		status = 65535;		// Status of client Snap context check
-  char	*args[] =			// snapctl arguments
+  const char	*args[] =		// snapctl arguments
   {
     "is-connected",
     "--apparmor-label",
@@ -2037,7 +2037,7 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
   // Do the client Snap context check...
   args[2] = context;
 
-  if (!snapd_client_run_snapctl2_sync(client, cookie, args, NULL, NULL, &status, NULL, &error))
+  if (!snapd_client_run_snapctl2_sync(client, cookie, (char **)args, NULL, NULL, &status, NULL, &error))
   {
     cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to check snap context: %s", error->message);
     ret = 0;
