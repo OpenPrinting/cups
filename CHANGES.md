@@ -65,8 +65,8 @@ CUPS v2.4-b1 (Pending)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
-- USB quirk updates (Issue #192, Apple #5766, Apple #5838, Apple #5843,
-  Apple #5867)
+- USB quirk updates (Issue #192, Issue #270, Apple #5766, Apple #5838,
+  Apple #5843, Apple #5867)
 - Web interface updates (Issue #142, Issue #218)
 - The `ippeveprinter` tool now automatically uses an available port.
 - Fixed several Windows TLS and hashing issues.
