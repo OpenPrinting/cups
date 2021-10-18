@@ -12,6 +12,7 @@ CUPS v2.4-b1 (Pending)
 - Added several features and improvements to `ipptool` (Issue #153)
 - The `ipptool` command now correctly reports an error when a test file cannot
   be found.
+- CUPS library now uses thread safe `getpwnam_r` and `getpwuid_r` functions (Issue #274)
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
 - Fixed reporting of printer instances when enumerating and when no options are
