@@ -1087,12 +1087,14 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
     * Verify that the current cupsUser() matches the current UID...
     */
 
-    struct passwd	*pwd;		/* Password information */
+    struct passwd	pwd;		/* Password information */
+    struct passwd	*result;	/* Auxiliary pointer */
     const char		*username;	/* Current username */
 
     username = cupsUser();
 
-    if ((pwd = getpwnam(username)) != NULL && pwd->pw_uid == getuid())
+    getpwnam_r(username, &pwd, cg->pw_buf, PW_BUF_SIZE, &result);
+    if (result && pwd.pw_uid == getuid())
     {
       httpSetAuthString(http, "PeerCred", username);
 

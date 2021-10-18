@@ -1256,9 +1256,10 @@ cups_finalize_client_conf(
     * Try the USER environment variable as the default username...
     */
 
-    const char *envuser = getenv("USER");
-					/* Default username */
-    struct passwd *pw = NULL;		/* Account information */
+    const char *envuser = getenv("USER");	/* Default username */
+    struct passwd pw;				/* Account information */
+    struct passwd *result = NULL;		/* Auxiliary pointer */
+    _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
 
     if (envuser)
     {
@@ -1267,16 +1268,16 @@ cups_finalize_client_conf(
       * override things...  This makes sure that printing after doing su
       * or sudo records the correct username.
       */
-
-      if ((pw = getpwnam(envuser)) != NULL && pw->pw_uid != getuid())
-	pw = NULL;
+      getpwnam_r(envuser, &pw, cg->pw_buf, PW_BUF_SIZE, &result);
+      if (result && pw.pw_uid != getuid())
+        result = NULL;
     }
 
-    if (!pw)
-      pw = getpwuid(getuid());
+    if (!result)
+      getpwuid_r(getuid(), &pw, cg->pw_buf, PW_BUF_SIZE, &result);
 
-    if (pw)
-      strlcpy(cc->user, pw->pw_name, sizeof(cc->user));
+    if (result)
+      strlcpy(cc->user, pw.pw_name, sizeof(cc->user));
     else
 #endif /* _WIN32 */
     {
