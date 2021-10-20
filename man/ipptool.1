@@ -7,7 +7,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptool 1 "CUPS" "2021-09-20" "OpenPrinting"
+.TH ipptool 1 "CUPS" "2021-10-20" "OpenPrinting"
 .SH NAME
 ipptool \- perform internet printing protocol requests
 .SH SYNOPSIS
@@ -59,6 +59,8 @@ ipptool \- perform internet printing protocol requests
 ] [
 .B \-i
 .I seconds
+] [
+.B \-j
 ] [
 .B \-n
 .I repeat-count
@@ -170,6 +172,11 @@ Specifies that the (last)
 .I testfile
 should be repeated at the specified interval.
 This option is incompatible with the \fB\-X\fR (XML plist output) option.
+.TP 5
+.B \-j
+Specifies that
+.B ipptool
+will produce JSON output.
 .TP 5
 .B \-l
 Specifies that plain text output is desired.

@@ -10,6 +10,7 @@ CUPS v2.4-b1 (Pending)
 - Added configure support for specifying systemd dependencies in the CUPS
   service file (Issue #144)
 - Added several features and improvements to `ipptool` (Issue #153)
+- Added a JSON output mode for `ipptool`.
 - The `ipptool` command now correctly reports an error when a test file cannot
   be found.
 - CUPS library now uses thread safe `getpwnam_r` and `getpwuid_r` functions (Issue #274)

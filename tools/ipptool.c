@@ -58,7 +58,8 @@ typedef enum ipptool_output_e		/**** Output mode ****/
   IPPTOOL_OUTPUT_PLIST,			/* XML plist test output */
   IPPTOOL_OUTPUT_IPPSERVER,		/* ippserver attribute file output */
   IPPTOOL_OUTPUT_LIST,			/* Tabular list output */
-  IPPTOOL_OUTPUT_CSV			/* Comma-separated values output */
+  IPPTOOL_OUTPUT_CSV,			/* Comma-separated values output */
+  IPPTOOL_OUTPUT_JSON			/* JSON output */
 } ipptool_output_t;
 
 typedef enum ipptool_with_e		/**** WITH flags ****/
@@ -208,6 +209,8 @@ static ipp_attribute_t *print_csv(ipptool_test_t *data, ipp_t *ipp, ipp_attribut
 static void	print_fatal_error(ipptool_test_t *data, const char *s, ...) _CUPS_FORMAT(2, 3);
 static void	print_ippserver_attr(ipptool_test_t *data, ipp_attribute_t *attr, int indent);
 static void	print_ippserver_string(ipptool_test_t *data, const char *s, size_t len);
+static void	print_json_attr(ipptool_test_t *data, ipp_attribute_t *attr, int indent);
+static void	print_json_string(ipptool_test_t *data, const char *s, size_t len);
 static ipp_attribute_t *print_line(ipptool_test_t *data, ipp_t *ipp, ipp_attribute_t *attr, int num_displayed, char **displayed, size_t *widths);
 static void	print_xml_header(ipptool_test_t *data);
 static void	print_xml_string(cups_file_t *outfile, const char *element, const char *s);
@@ -593,6 +596,10 @@ main(int  argc,				/* I - Number of command-line args */
 		usage();
 	      }
 	      break;
+
+          case 'j' : /* JSON output */
+              data.output = IPPTOOL_OUTPUT_JSON;
+              break;
 
           case 'l' : /* List as a table */
               data.output = IPPTOOL_OUTPUT_LIST;
@@ -2003,6 +2010,42 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
       print_ippserver_attr(data, attrptr, 0);
     }
+  }
+  else if (data->output == IPPTOOL_OUTPUT_JSON && response)
+  {
+    ipp_tag_t	cur_tag = IPP_TAG_ZERO,	/* Current group tag */
+		group_tag;		/* Attribute's group tag */
+
+    cupsFilePuts(data->outfile, "[\n");
+    attrptr = ippFirstAttribute(response);
+    while (attrptr)
+    {
+      group_tag = ippGetGroupTag(attrptr);
+
+      if (group_tag && ippGetName(attrptr))
+      {
+	if (group_tag != cur_tag)
+	{
+	  if (cur_tag)
+	    cupsFilePuts(data->outfile, "    },\n");
+
+	  cupsFilePrintf(data->outfile, "    {\n        \"group-tag\": \"%s\",\n", ippTagString(group_tag));
+	  cur_tag = group_tag;
+	}
+
+	print_json_attr(data, attrptr, 8);
+	attrptr = ippNextAttribute(response);
+	cupsFilePuts(data->outfile, ippGetName(attrptr) && ippGetGroupTag(attrptr) == cur_tag ? ",\n" : "\n");
+      }
+      else
+      {
+	attrptr = ippNextAttribute(response);
+      }
+    }
+
+    if (cur_tag)
+      cupsFilePuts(data->outfile, "    }\n");
+    cupsFilePuts(data->outfile, "]\n");
   }
 
   if (data->output == IPPTOOL_OUTPUT_TEST || (data->output == IPPTOOL_OUTPUT_PLIST && data->outfile != cupsFileStdout()))
@@ -3592,15 +3635,280 @@ print_ippserver_attr(
 static void
 print_ippserver_string(
     ipptool_test_t *data,		/* I - Test data */
-    const char       *s,		/* I - String to print */
-    size_t           len)		/* I - Length of string */
+    const char     *s,			/* I - String to print */
+    size_t         len)			/* I - Length of string */
 {
   cupsFilePutChar(data->outfile, '\"');
   while (len > 0)
   {
-    if (*s == '\"')
+    if (*s == '\"' || *s == '\\')
       cupsFilePutChar(data->outfile, '\\');
     cupsFilePutChar(data->outfile, *s);
+
+    s ++;
+    len --;
+  }
+  cupsFilePutChar(data->outfile, '\"');
+}
+
+
+/*
+ * 'print_json_attr()' - Print an attribute in JSON format.
+ */
+
+static void
+print_json_attr(
+    ipptool_test_t  *data,		/* I - Test data */
+    ipp_attribute_t *attr,		/* I - IPP attribute */
+    int             indent)		/* I - Indentation */
+{
+  const char	*name = ippGetName(attr);
+					/* Name of attribute */
+  int		i,			/* Looping var */
+		count = ippGetCount(attr);
+					/* Number of values */
+  ipp_attribute_t *colattr;		/* Collection attribute */
+
+
+  cupsFilePrintf(data->outfile, "%*s", indent, "");
+  print_json_string(data, name, strlen(name));
+
+  switch (ippGetValueTag(attr))
+  {
+    case IPP_TAG_INTEGER :
+    case IPP_TAG_ENUM :
+        if (count == 1)
+        {
+	  cupsFilePrintf(data->outfile, ": %d", ippGetInteger(attr, 0));
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	    cupsFilePrintf(data->outfile, "%*s%d%s", indent + 4, "", ippGetInteger(attr, i), (i + 1) < count ? ",\n" : "\n");
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    case IPP_TAG_BOOLEAN :
+        if (count == 1)
+        {
+	  cupsFilePrintf(data->outfile, ": %s", ippGetBoolean(attr, 0) ? "true" : "false");
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	    cupsFilePrintf(data->outfile, "%*s%s%s", indent + 4, "", ippGetBoolean(attr, i) ? "true" : "false", (i + 1) < count ? ",\n" : "\n");
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    case IPP_TAG_RANGE :
+        if (count == 1)
+        {
+	  int upper, lower = ippGetRange(attr, 0, &upper);
+
+	  cupsFilePrintf(data->outfile, ": {\n%*s\"lower\": %d,\n%*s\"upper\":%d\n%*s}", indent + 4, "", lower, indent + 4, "", upper, indent, "");
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	  {
+	    int upper, lower = ippGetRange(attr, i, &upper);
+
+	    cupsFilePrintf(data->outfile, "%*s{\n%*s\"lower\": %d,\n%*s\"upper\":%d\n%*s},\n", indent + 4, "", indent + 8, "", lower, indent + 8, "", upper, indent + 4, "");
+	  }
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    case IPP_TAG_RESOLUTION :
+        if (count == 1)
+        {
+	  ipp_res_t units;
+	  int yres, xres = ippGetResolution(attr, 0, &yres, &units);
+
+	  cupsFilePrintf(data->outfile, ": {\n%*s\"units\": \"%s\",\n%*s\"xres\": %d,\n%*s\"yres\":%d\n%*s}", indent + 4, "", units == IPP_RES_PER_INCH ? "dpi" : "dpcm", indent + 4, "", xres, indent + 4, "", yres, indent, "");
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	  {
+	    ipp_res_t units;
+	    int yres, xres = ippGetResolution(attr, i, &yres, &units);
+
+	    cupsFilePrintf(data->outfile, "%*s{\n%*s\"units\": \"%s\",\n%*s\"xres\": %d,\n%*s\"yres\":%d\n%*s},\n", indent + 4, "", indent + 8, "", units == IPP_RES_PER_INCH ? "dpi" : "dpcm", indent + 8, "", xres, indent + 8, "", yres, indent + 4, "");
+	  }
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    case IPP_TAG_DATE :
+        if (count == 1)
+        {
+	  cupsFilePrintf(data->outfile, ": \"%s\"", iso_date(ippGetDate(attr, 0)));
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	    cupsFilePrintf(data->outfile, "%*s\"%s\"%s", indent + 4, "", iso_date(ippGetDate(attr, i)), (i + 1) < count ? ",\n" : "\n");
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    case IPP_TAG_STRING :
+        if (count == 1)
+        {
+	  int len;
+	  const char *s = (const char *)ippGetOctetString(attr, 0, &len);
+
+	  cupsFilePuts(data->outfile, ": \"");
+	  while (len > 0)
+	  {
+	    cupsFilePrintf(data->outfile, "%02X", *s++ & 255);
+	    len --;
+	  }
+	  cupsFilePuts(data->outfile, "\"");
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	  {
+	    int len;
+	    const char *s = (const char *)ippGetOctetString(attr, i, &len);
+
+	    cupsFilePrintf(data->outfile, "%*s\"", indent + 4, "");
+	    while (len > 0)
+	    {
+	      cupsFilePrintf(data->outfile, "%02X", *s++ & 255);
+	      len --;
+	    }
+	    cupsFilePuts(data->outfile, (i + 1) < count ? "\",\n" : "\"\n");
+	  }
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    case IPP_TAG_TEXT :
+    case IPP_TAG_TEXTLANG :
+    case IPP_TAG_NAME :
+    case IPP_TAG_NAMELANG :
+    case IPP_TAG_KEYWORD :
+    case IPP_TAG_URI :
+    case IPP_TAG_URISCHEME :
+    case IPP_TAG_CHARSET :
+    case IPP_TAG_LANGUAGE :
+    case IPP_TAG_MIMETYPE :
+        if (count == 1)
+        {
+	  const char *s = ippGetString(attr, 0, NULL);
+
+	  cupsFilePuts(data->outfile, ": ");
+	  print_json_string(data, s, strlen(s));
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	  {
+	    const char *s = ippGetString(attr, i, NULL);
+
+	    cupsFilePrintf(data->outfile, "%*s", indent + 4, "");
+	    print_json_string(data, s, strlen(s));
+	    cupsFilePuts(data->outfile, (i + 1) < count ? ",\n" : "\n");
+	  }
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    case IPP_TAG_BEGIN_COLLECTION :
+        if (count == 1)
+        {
+	  ipp_t *col = ippGetCollection(attr, 0);
+
+	  cupsFilePuts(data->outfile, ": {\n");
+	  colattr = ippFirstAttribute(col);
+	  while (colattr)
+	  {
+	    print_json_attr(data, colattr, indent + 4);
+	    colattr = ippNextAttribute(col);
+	    cupsFilePuts(data->outfile, colattr ? ",\n" : "\n");
+	  }
+	  cupsFilePrintf(data->outfile, "%*s}", indent, "");
+        }
+        else
+        {
+          cupsFilePuts(data->outfile, ": [\n");
+	  for (i = 0; i < count; i ++)
+	  {
+	    ipp_t *col = ippGetCollection(attr, i);
+
+	    cupsFilePrintf(data->outfile, "%*s{\n", indent + 4, "");
+	    colattr = ippFirstAttribute(col);
+	    while (colattr)
+	    {
+	      print_json_attr(data, colattr, indent + 8);
+	      colattr = ippNextAttribute(col);
+	      cupsFilePuts(data->outfile, colattr ? ",\n" : "\n");
+	    }
+	    cupsFilePrintf(data->outfile, "%*s}%s", indent + 4, "", (i + 1) < count ? ",\n" : "\n");
+	  }
+          cupsFilePrintf(data->outfile, "%*s]", indent, "");
+	}
+	break;
+
+    default :
+        /* Out-of-band value */
+	break;
+  }
+}
+
+
+/* 
+ * 'print_json_string()' - Print a string in JSON format.
+ */
+
+static void
+print_json_string(
+    ipptool_test_t *data,		/* I - Test data */
+    const char     *s,			/* I - String to print */
+    size_t         len)			/* I - Length of string */
+{
+  cupsFilePutChar(data->outfile, '\"');
+  while (len > 0)
+  {
+    switch (*s)
+    {
+      case '\"' :
+      case '\\' :
+          cupsFilePutChar(data->outfile, '\\');
+	  cupsFilePutChar(data->outfile, *s);
+	  break;
+
+      case '\n' :
+	  cupsFilePuts(data->outfile, "\\n");
+	  break;
+
+      case '\r' :
+	  cupsFilePuts(data->outfile, "\\r");
+	  break;
+
+      case '\t' :
+	  cupsFilePuts(data->outfile, "\\t");
+	  break;
+
+      default :
+          if (*s < ' ' && *s >= 0)
+            cupsFilePrintf(data->outfile, "\\%03o", *s);
+          else
+	    cupsFilePutChar(data->outfile, *s);
+	  break;
+    }
 
     s ++;
     len --;
