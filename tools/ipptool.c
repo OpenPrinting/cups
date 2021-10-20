@@ -1183,7 +1183,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
   char		temp[1024];		/* Temporary string */
   cups_file_t	*reqfile;		/* File to send */
   ssize_t	bytes;			/* Bytes read/written */
-  char		buffer[131072];		/* Copy buffer */
+  char		buffer[1024 * 1024];	/* Copy buffer */
   size_t	widths[200];		/* Width of columns */
   const char	*error;			/* Current error */
 
