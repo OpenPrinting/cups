@@ -1034,9 +1034,15 @@ else
 	echo "    <p>PASS: Printer 'Test3' correctly produced $count page(s).</p>" >>$strfile
 fi
 
+# Number of requests from 5.1-lpadmin.sh: cupsSNMP/IPPSupplies tests - total 5 in 'expected':
+# - 2 requests for creating a queue - CUPS-Get-PPD and CUPS-Add-Modify-Printer
+# - 1 request for setting cupsSNMP/IPPSupplies to True - CUPS-Add-Modify-Printer
+# - 1 request for setting cupsSNMP/IPPSupplies to False - CUPS-Add-Modify-Printer
+# - 1 request for deleting the queue - CUPS-Delete-Printer
+
 # Requests logged
 count=`wc -l $BASE/log/access_log | awk '{print $1}'`
-expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2`
+expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2 + 5`
 if test $count != $expected; then
 	echo "FAIL: $count requests logged, expected $expected."
 	echo "    <p>FAIL: $count requests logged, expected $expected.</p>" >>$strfile
