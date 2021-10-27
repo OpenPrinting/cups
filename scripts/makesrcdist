@@ -41,7 +41,7 @@ else
 	cupsversionpatch=`echo $version | awk -F. '{if (NF == 3) { print $3 } else { print "0" } }' | sed -e '1,$s/op[0-9]*$//'`
 	cupsversion=`printf "2.03%02d" $cupsversionpatch`
 
-        temp=`grep AC_INIT configure.ac | awk '{print $2}' | sed -e '1,$s/^\[//' -e '1,$s/\],$//'`
+        temp=`grep AC_INIT configure.ac | awk -F, '{print $2}' | sed -e '1,$s/^\[//' -e '1,$s/\]$//'`
         if test "$temp" != $version; then
 		echo "Still need to update version to $version in configure.ac (saw $temp)"
 		exit 1
