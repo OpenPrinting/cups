@@ -999,7 +999,10 @@ fi
 
 # Pages printed on Test1 (within 1 page for timing-dependent cancel issues)
 count=`$GREP '^Test1 ' $BASE/log/page_log | awk 'BEGIN{count=0}{count=count+$7}END{print count}'`
-expected=`expr $pjobs \* 2 + 34`
+# expected numbers of pages from page ranges tests:
+# - 5 pages for the job with a lower limit undefined (-5)
+# - 4 pages for the job with a upper limit undefined (5-)
+expected=`expr $pjobs \* 2 + 34 + 5 + 4`
 expected2=`expr $expected + 2`
 if test $count -lt $expected -a $count -gt $expected2; then
 	echo "FAIL: Printer 'Test1' produced $count page(s), expected $expected."
@@ -1040,9 +1043,13 @@ fi
 # - 1 request for setting cupsSNMP/IPPSupplies to False - CUPS-Add-Modify-Printer
 # - 1 request for deleting the queue - CUPS-Delete-Printer
 
+# Number of requests related to undefined page range limits - total 4 in 'expected'
+# 2 requests (Create-Job, Send-Document) * number of jobs (2 - one for undefined
+# low limit, one for undefined upper limit)
+
 # Requests logged
 count=`wc -l $BASE/log/access_log | awk '{print $1}'`
-expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2 + 5`
+expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2 + 5 + 4`
 if test $count != $expected; then
 	echo "FAIL: $count requests logged, expected $expected."
 	echo "    <p>FAIL: $count requests logged, expected $expected.</p>" >>$strfile

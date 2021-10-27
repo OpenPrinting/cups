@@ -78,6 +78,7 @@ CUPS v2.4-b1 (Pending)
   `ListenBackLog`, `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and
   `SMBConfigFile` directives in `cupsd.conf` and `cups-files.conf`.
 - Stubbed out deprecated `httpMD5` functions.
+- Add test for undefined page ranges during printing.
 
 
 CUPS v2.3.3op2 (February 1, 2021)
