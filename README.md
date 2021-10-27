@@ -1,5 +1,5 @@
-OpenPrinting CUPS
-=================
+OpenPrinting CUPS v2.4b1
+========================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)
 ![Apache 2.0](https://img.shields.io/github/license/openprinting/cups)
