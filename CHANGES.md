@@ -1,8 +1,8 @@
 Changes in OpenPrinting CUPS
 ============================
 
-CUPS v2.4b1
------------
+Changes in CUPS v2.4b1 (27th October 2021)
+------------------------------------------
 
 - Added support for CUPS running in a Snapcraft snap.
 - Added basic OAuth 2.0 client support (Issue #100)
