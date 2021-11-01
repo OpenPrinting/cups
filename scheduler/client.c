@@ -1752,7 +1752,8 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	{
 	  if (con->file >= 0)
 	  {
-	    fstat(con->file, &filestats);
+	    if (fstat(con->file, &filestats))
+	      filestats.st_size = 0;
 
 	    close(con->file);
 	    con->file = -1;

@@ -5,6 +5,7 @@
  * created from driver information files, and dynamically generated PPD files
  * using driver helper programs.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -669,7 +670,10 @@ cat_tar(const char *name,		/* I - PPD name */
     }
 
     if (cupsFileTell(fp) != next)
-      cupsFileSeek(fp, next);
+    {
+      if (cupsFileSeek(fp, next) != next)
+        break;
+    }
   }
 
   cupsFileClose(fp);

@@ -1141,6 +1141,7 @@ create_job(ippeve_client_t *client)	/* I - Client */
   if ((job = calloc(1, sizeof(ippeve_job_t))) == NULL)
   {
     perror("Unable to allocate memory for job");
+    _cupsRWUnlock(&(client->printer->rwlock));
     return (NULL);
   }
 

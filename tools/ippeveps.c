@@ -1,6 +1,7 @@
 /*
  * Generic Adobe PostScript printer command for ippeveprinter/CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -964,7 +965,13 @@ ps_to_ps(const char    *filename,	/* I - Filename */
       int copy_page = 0;		/* Do we copy the page data? */
 
       if (fp != stdin)
-        fseek(fp, first_pos, SEEK_SET);
+      {
+        if (fseek(fp, first_pos, SEEK_SET) < 0)
+	{
+	  perror("ERROR: Unable to seek within PostScript file");
+	  break;
+	}
+      }
 
       page = 0;
       while (fgets(line, sizeof(line), fp))

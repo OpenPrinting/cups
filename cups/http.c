@@ -1022,7 +1022,7 @@ httpGetLength2(http_t *http)		/* I - HTTP connection */
   off_t			remaining;	/* Remaining length */
 
 
-  DEBUG_printf(("2httpGetLength2(http=%p), state=%s", (void *)http, httpStateString(http->state)));
+  DEBUG_printf(("2httpGetLength2(http=%p), state=%s", (void *)http, http ? httpStateString(http->state) : "NONE"));
 
   if (!http)
     return (-1);
@@ -1953,9 +1953,9 @@ httpRead2(http_t *http,			/* I - HTTP connection */
 
 
 #ifdef HAVE_LIBZ
-  DEBUG_printf(("httpRead2(http=%p, buffer=%p, length=" CUPS_LLFMT ") coding=%d data_encoding=%d data_remaining=" CUPS_LLFMT, (void *)http, (void *)buffer, CUPS_LLCAST length, http->coding, http->data_encoding, CUPS_LLCAST http->data_remaining));
+  DEBUG_printf(("httpRead2(http=%p, buffer=%p, length=" CUPS_LLFMT ") coding=%d data_encoding=%d data_remaining=" CUPS_LLFMT, (void *)http, (void *)buffer, CUPS_LLCAST length, http ? http->coding : 0, http ? http->data_encoding : 0, CUPS_LLCAST (http ? http->data_remaining : -1)));
 #else
-  DEBUG_printf(("httpRead2(http=%p, buffer=%p, length=" CUPS_LLFMT ") data_encoding=%d data_remaining=" CUPS_LLFMT, (void *)http, (void *)buffer, CUPS_LLCAST length, http->data_encoding, CUPS_LLCAST http->data_remaining));
+  DEBUG_printf(("httpRead2(http=%p, buffer=%p, length=" CUPS_LLFMT ") data_encoding=%d data_remaining=" CUPS_LLFMT, (void *)http, (void *)buffer, CUPS_LLCAST length, http ? http->data_encoding : 0, CUPS_LLCAST (http ? http->data_remaining : -1)));
 #endif /* HAVE_LIBZ */
 
   if (http == NULL || buffer == NULL)
@@ -3568,7 +3568,9 @@ http_add_field(http_t       *http,	/* I - HTTP connection */
                const char   *value,	/* I - Value string */
                int          append)	/* I - Append value? */
 {
-  char		temp[1024];		/* Temporary value string */
+  char		temp[1024],		/* Temporary value string */
+		combined[HTTP_MAX_VALUE];
+					/* Combined value string */
   size_t	fieldlen,		/* Length of existing value */
 		valuelen,		/* Length of value string */
 		total;			/* Total length of string */
@@ -3649,9 +3651,6 @@ http_add_field(http_t       *http,	/* I - HTTP connection */
 
     if (fieldlen)
     {
-      char	combined[HTTP_MAX_VALUE];
-					/* Combined value string */
-
       snprintf(combined, sizeof(combined), "%s, %s", http->_fields[field], value);
       value = combined;
     }
@@ -3665,21 +3664,21 @@ http_add_field(http_t       *http,	/* I - HTTP connection */
     * Expand the field value...
     */
 
-    char	*combined;		/* New value string */
+    char *mcombined;			/* New value string */
 
     if (http->fields[field] == http->_fields[field])
     {
-      if ((combined = malloc(total + 1)) != NULL)
+      if ((mcombined = malloc(total + 1)) != NULL)
       {
-	http->fields[field] = combined;
-	snprintf(combined, total + 1, "%s, %s", http->_fields[field], value);
+	http->fields[field] = mcombined;
+	snprintf(mcombined, total + 1, "%s, %s", http->_fields[field], value);
       }
     }
-    else if ((combined = realloc(http->fields[field], total + 1)) != NULL)
+    else if ((mcombined = realloc(http->fields[field], total + 1)) != NULL)
     {
-      http->fields[field] = combined;
-      strlcat(combined, ", ", total + 1);
-      strlcat(combined, value, total + 1);
+      http->fields[field] = mcombined;
+      strlcat(mcombined, ", ", total + 1);
+      strlcat(mcombined, value, total + 1);
     }
   }
   else
@@ -4167,23 +4166,9 @@ http_read(http_t *http,			/* I - HTTP connection */
 #ifdef DEBUG
   if (bytes > 0)
     http_debug_hex("http_read", buffer, (int)bytes);
+  else
 #endif /* DEBUG */
-
-  if (bytes < 0)
-  {
-#ifdef _WIN32
-    if (WSAGetLastError() == WSAEINTR)
-      bytes = 0;
-    else
-      http->error = WSAGetLastError();
-#else
-    if (errno == EINTR || (errno == EAGAIN && !http->timeout_cb))
-      bytes = 0;
-    else
-      http->error = errno;
-#endif /* _WIN32 */
-  }
-  else if (bytes == 0)
+  if (bytes == 0)
   {
     http->error = EPIPE;
     return (0);

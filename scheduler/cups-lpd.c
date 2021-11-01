@@ -1,10 +1,12 @@
 /*
  * Line Printer Daemon interface for CUPS.
  *
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2016 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -1100,9 +1102,6 @@ recv_print_job(
 		                	    &options);
               break;
 	}
-
-	if (status)
-	  break;
       }
 
      /*

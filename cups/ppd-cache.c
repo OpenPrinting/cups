@@ -377,11 +377,17 @@ _cupsConvertOptions(
       value = cupsGetOption("com.apple.print.PrintSettings.PMTotalBeginPages..n.", num_options, options);
 
     if (value)
-      job_pages = atoi(value);
+    {
+      if ((job_pages = atoi(value)) < 1)
+        job_pages = 1;
+    }
 
     // Adjust for number-up
     if ((value = cupsGetOption("number-up", num_options, options)) != NULL)
-      number_up = atoi(value);
+    {
+      if ((number_up = atoi(value)) < 1)
+        number_up = 1;
+    }
 
     job_pages = (job_pages + number_up - 1) / number_up;
 

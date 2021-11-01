@@ -1,6 +1,7 @@
 /*
  * SNMP discovery backend for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2014 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
@@ -295,7 +296,12 @@ add_cache(http_addr_t *addr,		/* I - Device IP address */
                addr, addrname, uri ? uri : "(null)", id ? id : "(null)",
 	       make_and_model ? make_and_model : "(null)");
 
-  temp = calloc(1, sizeof(snmp_cache_t));
+  if ((temp = calloc(1, sizeof(snmp_cache_t))) == NULL)
+  {
+    perror("DEBUG: Unable to allocate cache entry");
+    return;
+  }
+
   memcpy(&(temp->address), addr, sizeof(temp->address));
 
   temp->addrname = strdup(addrname);

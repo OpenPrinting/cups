@@ -1325,7 +1325,7 @@ set_printer_options(
 					/* Status code */
 
       _cupsLangPrintf(stderr, _("lpadmin: Unable to open PPD \"%s\": %s on line %d."), ppdfile, ppdErrorString(status), linenum);
-      return (1);
+      goto error;
     }
 
     ppdMarkDefaults(ppd);
@@ -1334,25 +1334,15 @@ set_printer_options(
     if ((out = cupsTempFile2(tempfile, sizeof(tempfile))) == NULL)
     {
       _cupsLangPrintError(NULL, _("lpadmin: Unable to create temporary file"));
-      ippDelete(request);
-      if (ppdfile != file)
-        unlink(ppdfile);
-      if (copied_options)
-        cupsFreeOptions(num_options, options);
-      return (1);
+      goto error;
     }
 
     if ((in = cupsFileOpen(ppdfile, "r")) == NULL)
     {
       _cupsLangPrintf(stderr, _("lpadmin: Unable to open PPD \"%s\": %s"), ppdfile, strerror(errno));
-      ippDelete(request);
-      if (ppdfile != file)
-	unlink(ppdfile);
-      if (copied_options)
-        cupsFreeOptions(num_options, options);
       cupsFileClose(out);
       unlink(tempfile);
-      return (1);
+      goto error;
     }
 
     while (cupsFileGets(in, line, sizeof(line)))
@@ -1496,6 +1486,22 @@ set_printer_options(
   }
   else
     return (0);
+
+ /*
+  * Error handling...
+  */
+
+  error:
+
+  ippDelete(request);
+
+  if (ppdfile != file)
+    unlink(ppdfile);
+
+  if (copied_options)
+    cupsFreeOptions(num_options, options);
+
+  return (1);
 }
 
 

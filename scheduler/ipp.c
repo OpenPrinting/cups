@@ -4483,9 +4483,15 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
 
   snprintf(buffer, sizeof(buffer), "%s/daemon/cups-driverd", ServerBin);
   snprintf(tempfile, sizeof(tempfile), "%s/%d.ppd", TempDir, con->number);
-  tempfd = open(tempfile, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-  if (tempfd < 0 || cupsdOpenPipe(temppipe))
+  if ((tempfd = open(tempfile, O_WRONLY | O_CREAT | O_TRUNC, 0600)) < 0)
     return (-1);
+  if (cupsdOpenPipe(temppipe))
+  {
+    close(tempfd);
+    unlink(tempfile);
+
+    return (-1);
+  }
 
   cupsdLogMessage(CUPSD_LOG_DEBUG,
                   "copy_model: Running \"cups-driverd cat %s\"...", from);
