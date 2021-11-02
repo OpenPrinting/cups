@@ -8333,6 +8333,8 @@ show_supplies(
   else
     html_printf(client, "</table>\n");
 
+  cupsFreeOptions(num_options, options);
+
   html_footer(client);
 
   return (1);

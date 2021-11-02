@@ -1449,52 +1449,40 @@ do_config_server(http_t *http)		/* I - HTTP connection */
       * Settings *have* changed, so save the changes...
       */
 
-      cupsFreeOptions(num_settings, settings);
+      int		num_newsettings;/* New number of server settings */
+      cups_option_t	*newsettings;	/* New server settings */
 
-      num_settings = 0;
-      num_settings = cupsAddOption(CUPS_SERVER_DEBUG_LOGGING,
-                                   debug_logging, num_settings, &settings);
-      num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ADMIN,
-                                   remote_admin, num_settings, &settings);
-      num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ANY,
-                                   remote_any, num_settings, &settings);
-      num_settings = cupsAddOption(CUPS_SERVER_SHARE_PRINTERS,
-                                   share_printers, num_settings, &settings);
-      num_settings = cupsAddOption(CUPS_SERVER_USER_CANCEL_ANY,
-                                   user_cancel_any, num_settings, &settings);
+      num_newsettings = 0;
+      num_newsettings = cupsAddOption(CUPS_SERVER_DEBUG_LOGGING, debug_logging, num_newsettings, &newsettings);
+      num_newsettings = cupsAddOption(CUPS_SERVER_REMOTE_ADMIN, remote_admin, num_newsettings, &newsettings);
+      num_newsettings = cupsAddOption(CUPS_SERVER_REMOTE_ANY, remote_any, num_newsettings, &newsettings);
+      num_newsettings = cupsAddOption(CUPS_SERVER_SHARE_PRINTERS, share_printers, num_newsettings, &newsettings);
+      num_newsettings = cupsAddOption(CUPS_SERVER_USER_CANCEL_ANY, user_cancel_any, num_newsettings, &newsettings);
 #ifdef HAVE_GSSAPI
-      num_settings = cupsAddOption("DefaultAuthType", default_auth_type,
-                                   num_settings, &settings);
+      num_newsettings = cupsAddOption("DefaultAuthType", default_auth_type, num_newsettings, &newsettings);
 #endif /* HAVE_GSSAPI */
 
       if (advanced)
       {
        /*
-        * Add advanced settings...
+        * Add advanced newsettings...
 	*/
 
 	if (_cups_strcasecmp(browse_web_if, current_browse_web_if))
-	  num_settings = cupsAddOption("BrowseWebIF", browse_web_if,
-				       num_settings, &settings);
+	  num_newsettings = cupsAddOption("BrowseWebIF", browse_web_if, num_newsettings, &newsettings);
 	if (_cups_strcasecmp(preserve_job_history, current_preserve_job_history))
-	  num_settings = cupsAddOption("PreserveJobHistory",
-	                               preserve_job_history, num_settings,
-				       &settings);
+	  num_newsettings = cupsAddOption("PreserveJobHistory", preserve_job_history, num_newsettings, &newsettings);
 	if (_cups_strcasecmp(preserve_job_files, current_preserve_job_files))
-	  num_settings = cupsAddOption("PreserveJobFiles", preserve_job_files,
-	                               num_settings, &settings);
+	  num_newsettings = cupsAddOption("PreserveJobFiles", preserve_job_files, num_newsettings, &newsettings);
         if (_cups_strcasecmp(max_clients, current_max_clients))
-	  num_settings = cupsAddOption("MaxClients", max_clients, num_settings,
-	                               &settings);
+	  num_newsettings = cupsAddOption("MaxClients", max_clients, num_newsettings, &newsettings);
         if (_cups_strcasecmp(max_jobs, current_max_jobs))
-	  num_settings = cupsAddOption("MaxJobs", max_jobs, num_settings,
-	                               &settings);
+	  num_newsettings = cupsAddOption("MaxJobs", max_jobs, num_newsettings, &newsettings);
         if (_cups_strcasecmp(max_log_size, current_max_log_size))
-	  num_settings = cupsAddOption("MaxLogSize", max_log_size, num_settings,
-	                               &settings);
+	  num_newsettings = cupsAddOption("MaxLogSize", max_log_size, num_newsettings, &newsettings);
       }
 
-      if (!cupsAdminSetServerSettings(http, num_settings, settings))
+      if (!cupsAdminSetServerSettings(http, num_newsettings, newsettings))
       {
         if (cupsLastError() == IPP_NOT_AUTHORIZED)
 	{
@@ -1518,6 +1506,8 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 	cgiStartHTML(cgiText(_("Change Settings")));
 	cgiCopyTemplateLang("restart.tmpl");
       }
+
+      cupsFreeOptions(num_newsettings, newsettings);
     }
     else
     {

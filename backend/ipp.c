@@ -2828,8 +2828,6 @@ new_request(
         static const char * const allowed = "0123456789#*-+.()pw";
 					/* Allowed characters */
 
-        destination = ippNew();
-
        /*
         * Unescape and filter out spaces and other characters that are not
         * allowed in a tel: URI.
@@ -2862,6 +2860,8 @@ new_request(
 
         if (strlen(phone) > 0)
         {
+          destination = ippNew();
+
           httpAssembleURI(HTTP_URI_CODING_ALL, tel_uri, sizeof(tel_uri), "tel", NULL, NULL, 0, phone);
           ippAddString(destination, IPP_TAG_JOB, IPP_TAG_URI, "destination-uri", NULL, tel_uri);
           fprintf(stderr, "DEBUG: Faxing to phone %s; destination-uri: %s\n", phone, tel_uri);
