@@ -7025,8 +7025,6 @@ process_job(ippeve_job_t *job)		/* I - Job */
 #endif /* !_WIN32 */
       job->state = IPP_JSTATE_ABORTED;
     }
-    else if (status < 0)
-      job->state = IPP_JSTATE_ABORTED;
     else
       fprintf(stderr, "[Job %d] Command \"%s\" completed successfully.\n", job->id, job->printer->command);
 
@@ -8048,6 +8046,8 @@ show_media(ippeve_client_t  *client)	/* I - Client connection */
   }
   else
     html_printf(client, "</table>\n");
+
+  cupsFreeOptions(num_options, options);
 
   html_footer(client);
 

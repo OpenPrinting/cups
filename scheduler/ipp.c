@@ -6790,6 +6790,7 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
     {
       send_ipp_status(con, IPP_NOT_FOUND, _("Job #%d does not exist."),
                       job_ids->values[i].integer);
+      cupsArrayDelete(ra);
       return;
     }
 

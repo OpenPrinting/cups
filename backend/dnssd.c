@@ -887,7 +887,12 @@ get_device(cups_array_t *devices,	/* I - Device array */
   * Yes, add the device...
   */
 
-  device           = calloc(sizeof(cups_device_t), 1);
+  if ((device = calloc(sizeof(cups_device_t), 1)) == NULL)
+  {
+    perror("DEBUG: Out of memory adding a device");
+    return (NULL);
+  }
+
   device->name     = strdup(serviceName);
   device->domain   = strdup(replyDomain);
   device->type     = key.type;

@@ -2167,7 +2167,9 @@ get_service(cups_array_t *services,	/* I - Service array */
   * Yes, add the service...
   */
 
-  service           = calloc(sizeof(ippfind_srv_t), 1);
+  if ((service = calloc(sizeof(ippfind_srv_t), 1)) == NULL)
+    return (NULL);
+
   service->name     = strdup(serviceName);
   service->domain   = strdup(replyDomain);
   service->regtype  = strdup(regtype);

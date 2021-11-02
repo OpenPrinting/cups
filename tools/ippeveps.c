@@ -73,7 +73,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   num_options = get_options(&options);
   if ((ipp_copies = getenv("IPP_COPIES")) != NULL)
-    copies = atoi(ipp_copies);
+  {
+    if ((copies = atoi(ipp_copies)) < 1)
+      copies = 1;
+  }
   else
     copies = 1;
 
@@ -952,7 +955,11 @@ ps_to_ps(const char    *filename,	/* I - Filename */
     if (!strncmp(line, "%%Page:", 7))
       break;
 
-    first_pos = ftell(fp);
+    if ((first_pos = ftell(fp)) < 0)
+    {
+      perror("DEBUG: ftell failed");
+      first_pos = 0;
+    }
 
     if (line[0] != '%')
       fputs(line, stdout);

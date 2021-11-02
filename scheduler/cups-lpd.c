@@ -285,24 +285,19 @@ main(int  argc,				/* I - Number of command-line arguments */
 	break;
 
     case 0x05 : /* Remove jobs */
-        if (list)
-	{
-	 /*
-	  * Grab the agent and skip to the list of users and/or jobs.
-	  */
+       /*
+	* Grab the agent and skip to the list of users and/or jobs.
+	*/
 
-	  agent = list;
+	agent = list;
 
-	  for (; *list && !isspace(*list & 255); list ++);
-	  while (isspace(*list & 255))
-	    *list++ = '\0';
+	for (; *list && !isspace(*list & 255); list ++);
+	while (isspace(*list & 255))
+	  *list++ = '\0';
 
-	  syslog(LOG_INFO, "Remove jobs %s on %s by %s", list, dest, agent);
+	syslog(LOG_INFO, "Remove jobs %s on %s by %s", list, dest, agent);
 
-	  status = (char)remove_jobs(dest, agent, list);
-        }
-	else
-	  status = 1;
+	status = (char)remove_jobs(dest, agent, list);
 
 	putchar(status);
 	break;

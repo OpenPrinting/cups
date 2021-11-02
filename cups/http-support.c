@@ -2565,15 +2565,6 @@ http_resolve_cb(
   * Figure out the scheme from the full name...
   */
 
-  if (strstr(type, "_ipp."))
-    scheme = "ipp";
-  else if (strstr(type, "_printer."))
-    scheme = "lpd";
-  else if (strstr(type, "_pdl-datastream."))
-    scheme = "socket";
-  else
-    scheme = "riousbprint";
-
   if (!strncmp(type, "_ipps.", 6) || !strncmp(type, "_ipp-tls.", 9))
     scheme = "ipps";
   else if (!strncmp(type, "_ipp.", 5) || !strncmp(type, "_fax-ipp.", 9))

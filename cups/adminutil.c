@@ -264,18 +264,17 @@ cupsAdminGetServerSettings(
 	    )
 	  remote_access = 1;
       }
-      else if (!_cups_strcasecmp(line, "Browsing"))
+      else if (!_cups_strcasecmp(line, "Browsing") && value)
       {
 	browsing = !_cups_strcasecmp(value, "yes") ||
 	           !_cups_strcasecmp(value, "on") ||
 	           !_cups_strcasecmp(value, "true");
       }
-      else if (!_cups_strcasecmp(line, "LogLevel"))
+      else if (!_cups_strcasecmp(line, "LogLevel") && value)
       {
 	debug_logging = !_cups_strncasecmp(value, "debug", 5);
       }
-      else if (!_cups_strcasecmp(line, "<Policy") &&
-               !_cups_strcasecmp(value, "default"))
+      else if (!_cups_strcasecmp(line, "<Policy") && value && !_cups_strcasecmp(value, "default"))
       {
 	in_policy = 1;
       }

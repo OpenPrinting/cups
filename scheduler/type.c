@@ -1,6 +1,7 @@
 /*
  * MIME typing routines for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -797,10 +798,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_ASCII fb->length=%d", fb->length));
 	  }
@@ -841,10 +848,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_PRINTABLE fb->length=%d", fb->length));
 	  }
@@ -890,10 +903,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_REGEX fb->length=%d", fb->length));
 
@@ -936,10 +955,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_STRING fb->length=%d", fb->length));
 
@@ -973,10 +998,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_ISTRING fb->length=%d", fb->length));
 	  }
@@ -1003,10 +1034,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_CHAR fb->length=%d", fb->length));
 	  }
@@ -1019,8 +1056,7 @@ mime_check_rules(
 	  if (fb->length < 1)
 	    result = 0;
 	  else
-	    result = (fb->buffer[rules->offset - fb->offset] ==
-	                  rules->value.charv);
+	    result = (fb->buffer[rules->offset - fb->offset] == rules->value.charv);
 	  break;
 
       case MIME_MAGIC_SHORT :
@@ -1035,10 +1071,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_SHORT fb->length=%d", fb->length));
 	  }
@@ -1049,7 +1091,9 @@ mime_check_rules(
 	  */
 
 	  if (fb->length < 2)
+	  {
 	    result = 0;
+	  }
 	  else
 	  {
 	    bufptr = fb->buffer + rules->offset - fb->offset;
@@ -1070,10 +1114,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_INT fb->length=%d", fb->length));
 	  }
@@ -1084,7 +1134,9 @@ mime_check_rules(
 	  */
 
 	  if (fb->length < 4)
+	  {
 	    result = 0;
+	  }
 	  else
 	  {
 	    bufptr = fb->buffer + rules->offset - fb->offset;
@@ -1113,10 +1165,16 @@ mime_check_rules(
 	    * Reload file buffer...
 	    */
 
-            cupsFileSeek(fb->fp, rules->offset);
-	    fb->length = cupsFileRead(fb->fp, (char *)fb->buffer,
-	                              sizeof(fb->buffer));
-	    fb->offset = rules->offset;
+            if (cupsFileSeek(fb->fp, rules->offset) < 0)
+            {
+              fb->length = 0;
+              fb->offset = 0;
+            }
+            else
+            {
+	      fb->length = cupsFileRead(fb->fp, (char *)fb->buffer, sizeof(fb->buffer));
+	      fb->offset = rules->offset;
+	    }
 
 	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_CONTAINS fb->length=%d", fb->length));
 	  }
@@ -1127,7 +1185,9 @@ mime_check_rules(
 	  */
 
 	  if ((rules->offset + rules->length) > (fb->offset + fb->length))
+	  {
 	    result = 0;
+	  }
 	  else
 	  {
 	    if (fb->length > rules->region)

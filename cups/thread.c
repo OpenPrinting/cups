@@ -1,6 +1,7 @@
 /*
  * Threading primitives for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2009-2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -62,10 +63,10 @@ _cupsCondWait(_cups_cond_t  *cond,	/* I - Condition */
       abstime.tv_sec ++;
     };
 
-    pthread_cond_timedwait(cond, mutex, &abstime);
+    (void)pthread_cond_timedwait(cond, mutex, &abstime);
   }
   else
-    pthread_cond_wait(cond, mutex);
+    (void)pthread_cond_wait(cond, mutex);
 }
 
 

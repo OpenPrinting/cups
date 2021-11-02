@@ -4368,8 +4368,15 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
       * Name of test...
       */
 
-      _ippFileReadToken(f, temp, sizeof(temp));
-      _ippVarsExpand(vars, data->name, temp, sizeof(data->name));
+      if (_ippFileReadToken(f, temp, sizeof(temp)))
+      {
+        _ippVarsExpand(vars, data->name, temp, sizeof(data->name));
+      }
+      else
+      {
+	print_fatal_error(data, "Missing NAME string on line %d of \"%s\".", f->linenum, f->filename);
+	return (0);
+      }
     }
     else if (!_cups_strcasecmp(token, "PAUSE"))
     {

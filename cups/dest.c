@@ -2831,14 +2831,16 @@ cups_dnssd_get_device(
                   !strcmp(regtype, "_ipps._tcp") ? "IPPS" : "IPP",
                   replyDomain));
 
-    device            = calloc(sizeof(_cups_dnssd_device_t), 1);
-    device->dest.name = _cupsStrAlloc(name);
-    device->domain    = _cupsStrAlloc(replyDomain);
-    device->regtype   = _cupsStrAlloc(regtype);
+    if ((device = calloc(sizeof(_cups_dnssd_device_t), 1)) != NULL)
+    {
+      device->dest.name = _cupsStrAlloc(name);
+      device->domain    = _cupsStrAlloc(replyDomain);
+      device->regtype   = _cupsStrAlloc(regtype);
 
-    device->dest.num_options = cupsAddOption("printer-info", serviceName, 0, &device->dest.options);
+      device->dest.num_options = cupsAddOption("printer-info", serviceName, 0, &device->dest.options);
 
-    cupsArrayAdd(data->devices, device);
+      cupsArrayAdd(data->devices, device);
+    }
   }
 
  /*

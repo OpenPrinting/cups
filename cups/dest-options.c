@@ -1,6 +1,7 @@
 /*
  * Destination option/media support for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2012-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -2512,32 +2513,27 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
     }
   }
 
-  if (best)
-  {
-   /*
-    * Return the matching size...
-    */
+ /*
+  * Return the matching size...
+  */
 
-    if (best->key)
-      strlcpy(size->media, best->key, sizeof(size->media));
-    else if (best->size_name)
-      strlcpy(size->media, best->size_name, sizeof(size->media));
-    else if (pwg && pwg->pwg)
-      strlcpy(size->media, pwg->pwg, sizeof(size->media));
-    else
-      strlcpy(size->media, "unknown", sizeof(size->media));
+  if (best->key)
+    strlcpy(size->media, best->key, sizeof(size->media));
+  else if (best->size_name)
+    strlcpy(size->media, best->size_name, sizeof(size->media));
+  else if (pwg->pwg)
+    strlcpy(size->media, pwg->pwg, sizeof(size->media));
+  else
+    strlcpy(size->media, "unknown", sizeof(size->media));
 
-    size->width  = best->width;
-    size->length = best->length;
-    size->bottom = best->bottom;
-    size->left   = best->left;
-    size->right  = best->right;
-    size->top    = best->top;
+  size->width  = best->width;
+  size->length = best->length;
+  size->bottom = best->bottom;
+  size->left   = best->left;
+  size->right  = best->right;
+  size->top    = best->top;
 
-    return (1);
-  }
-
-  return (0);
+  return (1);
 }
 
 

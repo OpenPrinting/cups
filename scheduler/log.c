@@ -1,6 +1,7 @@
 /*
  * Log file routines for the CUPS scheduler.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -915,8 +916,11 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 			  {
 			    pwg_media_t *pwg = pwgMediaForSize(ippGetInteger(x_dimension, 0), ippGetInteger(y_dimension, 0));
 			    		/* PWG media name */
-			    strlcpy(bufptr, pwg->pwg, sizeof(buffer) - (size_t)(bufptr - buffer));
-			    break;
+			    if (pwg)
+			    {
+			      strlcpy(bufptr, pwg->pwg, sizeof(buffer) - (size_t)(bufptr - buffer));
+			      break;
+			    }
 			  }
 			}
 

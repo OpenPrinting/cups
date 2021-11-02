@@ -1,6 +1,7 @@
 /*
  * HTTP address list routines for CUPS.
  *
+ * Copyright © 2021 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -500,6 +501,9 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
   http_addrlist_t	*first,		/* First address in list */
 			*addr,		/* Current address in list */
 			*temp;		/* New address */
+  char			ipv6[64],	/* IPv6 address */
+			*ipv6zone;	/* Pointer to zone separator */
+  int			ipv6len;	/* Length of IPv6 address */
   _cups_globals_t	*cg = _cupsGlobals();
 					/* Global data */
 
@@ -569,9 +573,6 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
     struct addrinfo	hints,		/* Address lookup hints */
 			*results,	/* Address lookup results */
 			*current;	/* Current result */
-    char		ipv6[64],	/* IPv6 address */
-			*ipv6zone;	/* Pointer to zone separator */
-    int			ipv6len;	/* Length of IPv6 address */
     int			error;		/* getaddrinfo() error */
 
 
