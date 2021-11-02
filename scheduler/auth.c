@@ -2120,7 +2120,7 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Unable to get client Snap plugs: %s", error->message);
     ret = 0;
   }
-  else if (plugs->len <= 0)
+  else if (!plugs || plugs->len <= 0)
   {
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Snap without cups-control plug - denied.");
     ret = 0;
