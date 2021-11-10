@@ -123,22 +123,26 @@ AS_IF([test -n "$GCC"], [
 	OPTIM="-fPIC $OPTIM"
     ])
 
-    # The -fstack-protector option is available with some versions of
-    # GCC and adds "stack canaries" which detect when the return address
-    # has been overwritten, preventing many types of exploit attacks.
-    AC_MSG_CHECKING([whether compiler supports -fstack-protector])
+    # The -fstack-protector-strong and -fstack-protector options are available
+    # with some versions of GCC and adds "stack canaries" which detect
+    # when the return address has been overwritten, preventing many types of exploit attacks.
+    # First check for -fstack-protector-strong, then for -fstack-protector...
+    AC_MSG_CHECKING([whether compiler supports -fstack-protector-strong])
     OLDCFLAGS="$CFLAGS"
-    CFLAGS="$CFLAGS -fstack-protector"
+    CFLAGS="$CFLAGS -fstack-protector-strong"
     AC_LINK_IFELSE([AC_LANG_PROGRAM()], [
-	AS_IF([test "x$LSB_BUILD" = xy], [
-	    # Can't use stack-protector with LSB binaries...
-	    OPTIM="$OPTIM -fno-stack-protector"
-	], [
-	    OPTIM="$OPTIM -fstack-protector"
-	])
+	OPTIM="$OPTIM -fstack-protector-strong"
 	AC_MSG_RESULT([yes])
     ], [
 	AC_MSG_RESULT([no])
+	AC_MSG_CHECKING([whether compiler supports -fstack-protector])
+	CFLAGS="$OLDCFLAGS -fstack-protector"
+	AC_LINK_IFELSE([AC_LANG_PROGRAM()], [
+	    OPTIM="$OPTIM -fstack-protector"
+	    AC_MSG_RESULT([yes])
+	], [
+	    AC_MSG_RESULT([no])
+	])
     ])
     CFLAGS="$OLDCFLAGS"
 
