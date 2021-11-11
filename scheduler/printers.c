@@ -944,6 +944,8 @@ cupsdLoadAllPrinters(void)
 			*value,		/* Pointer to value */
 			*valueptr;	/* Pointer into value */
   cupsd_printer_t	*p;		/* Current printer */
+  int			found_raw = 0;		/* Flag whether raw queue is installed */
+  int			found_driver = 0;		/* Flag whether queue with classic driver is installed */
 
 
  /*
@@ -1018,6 +1020,30 @@ cupsdLoadAllPrinters(void)
 	}
 
         cupsdSetPrinterAttrs(p);
+
+	if ((p->device_uri && strncmp(p->device_uri, "ipp:", 4) && strncmp(p->device_uri, "ipps:", 5) && strncmp(p->device_uri, "implicitclass:", 14)) ||
+	    !p->make_model ||
+	    (p->make_model && strstr(p->make_model, "IPP Everywhere") == NULL && strstr(p->make_model, "driverless") == NULL))
+	{
+	 /*
+	  * Warn users about printer drivers and raw queues will be deprecated.
+	  * It will warn users in the following scenarios:
+	  * - the queue doesn't use ipp, ipps or implicitclass backend, which means
+	  *   it doesn't communicate via IPP and is raw or uses a driver for sure
+	  * - the queue doesn't have make_model - it is raw
+	  * - the queue uses a correct backend, but the model is not IPP Everywhere/driverless
+	  */
+	  if (!p->make_model)
+	  {
+	    cupsdLogMessage(CUPSD_LOG_DEBUG, "Queue %s is a raw queue, which is deprecated.", p->name);
+	    found_raw = 1;
+	  }
+	  else
+	  {
+	    cupsdLogMessage(CUPSD_LOG_DEBUG, "Queue %s uses a printer driver, which is deprecated.", p->name);
+	    found_driver = 1;
+	  }
+	}
 
         if (strncmp(p->device_uri, "file:", 5) && p->state != IPP_PRINTER_STOPPED)
 	{
@@ -1408,6 +1434,12 @@ cupsdLoadAllPrinters(void)
 		      "printers.conf.", line, linenum);
     }
   }
+
+  if (found_raw)
+    cupsdLogMessage(CUPSD_LOG_WARN, "Raw queues are deprecated and will stop working in a future version of CUPS. See https://github.com/OpenPrinting/cups/issues/103");
+
+  if (found_driver)
+    cupsdLogMessage(CUPSD_LOG_WARN, "Printer drivers are deprecated and will stop working in a future version of CUPS. See https://github.com/OpenPrinting/cups/issues/103");
 
   cupsFileClose(fp);
 }
