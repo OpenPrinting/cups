@@ -1,6 +1,12 @@
 CHANGES - OpenPrinting CUPS 2.4b1 - 2021-10-27
 ==============================================
 
+Changes in CUPS v2.4rc1
+-----------------------
+
+- Added warning and debug messages when loading printers
+ if the queue is raw or with driver (Issue #286)
+
 Changes in CUPS v2.4b1 (27th October 2021)
 ------------------------------------------
 
