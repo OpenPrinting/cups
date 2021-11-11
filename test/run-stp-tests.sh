@@ -1134,10 +1134,10 @@ fi
 
 # Warning log messages
 count=`$GREP '^W ' $BASE/log/error_log | $GREP -v CreateProfile | $GREP -v 'libusb error' | $GREP -v ColorManager | $GREP -v 'Avahi client failed' | wc -l | awk '{print $1}'`
-if test $count != 12; then
-	echo "FAIL: $count warning messages, expected 12."
+if test $count != 14; then
+	echo "FAIL: $count warning messages, expected 14."
 	$GREP '^W ' $BASE/log/error_log
-	echo "    <p>FAIL: $count warning messages, expected 12.</p>" >>$strfile
+	echo "    <p>FAIL: $count warning messages, expected 14.</p>" >>$strfile
 	echo "    <pre>" >>$strfile
 	$GREP '^W ' $BASE/log/error_log | sed -e '1,$s/&/&amp;/g' -e '1,$s/</&lt;/g' >>$strfile
 	echo "    </pre>" >>$strfile
