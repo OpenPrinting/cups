@@ -1,4 +1,4 @@
-Building and Installing OpenPrinting CUPS v2.4b1
+Building and Installing OpenPrinting CUPS v2.4rc1
 ================================================
 
 This file describes how to compile and install CUPS from source code.  For more
