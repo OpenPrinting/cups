@@ -625,7 +625,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     return (1);
 #endif /* __APPLE__ */
   }
-  else if ((ppd_name && strcmp(ppd_name, "everywhere")) || file)
+  else if ((ppd_name && strcmp(ppd_name, "everywhere") && strncmp(ppd_name, "driverless:", 11)) || file)
   {
     _cupsLangPuts(stderr, _("lpadmin: Printer drivers are deprecated and will stop working in a future version of CUPS."));
   }
