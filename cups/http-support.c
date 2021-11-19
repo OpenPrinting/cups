@@ -1430,6 +1430,12 @@ _httpSetDigestAuthString(
     * Use old RFC 2069 Digest method...
     */
 
+    if (cg->digestoptions == _CUPS_DIGESTOPTIONS_DENYMD5)
+    {
+      DEBUG_puts("3_httpSetDigestAuthString: MD5 Digest is disabled.");
+      return (0);
+    }
+
     /* H(A1) = H(username:realm:password) */
     snprintf(temp, sizeof(temp), "%s:%s:%s", username, http->realm, password);
     hashsize = (size_t)cupsHashData("md5", (unsigned char *)temp, strlen(temp), hash, sizeof(hash));
