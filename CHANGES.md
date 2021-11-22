@@ -1,5 +1,11 @@
-CHANGES - OpenPrinting CUPS 2.4b1 - 2021-11-12
+CHANGES - OpenPrinting CUPS 2.4rc1 - 2021-11-12
 ==============================================
+
+Changes in CUPS v2.4.0 (TBA)
+---------------------------
+
+- DigestOptions now are applied for MD5 Digest authentication defined
+  by RFC 2069 as well (Issue ##287)
 
 Changes in CUPS v2.4rc1 (12th November 2021)
 --------------------------------------------
