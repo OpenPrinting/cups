@@ -1056,6 +1056,7 @@ cupsFileNumber(cups_file_t *fp)		/* I - CUPS file */
  *
  * The "mode" parameter can be "r" to read, "w" to write, overwriting any
  * existing file, "a" to append to an existing file or create a new file,
+ * "a+" to append to and read from an existing file or create a new file,
  * or "s" to open a socket connection.
  *
  * When opening for writing ("w"), an optional number from 1 to 9 can be
@@ -1101,7 +1102,7 @@ cupsFileOpen(const char *filename,	/* I - Name of file */
   {
     case 'a' : /* Append file */
         fd = cups_open(filename,
-		       O_RDWR | O_CREAT | O_APPEND | O_LARGEFILE | O_BINARY);
+		       (mode[1] == '+' ? O_RDWR : O_WRONLY) | O_CREAT | O_APPEND | O_LARGEFILE | O_BINARY);
         break;
 
     case 'r' : /* Read file */
