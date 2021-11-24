@@ -16,6 +16,7 @@
  */
 
 #  include "config.h"
+#  include "versioning.h"
 #  ifdef _WIN32
 #    define _WINSOCK_DEPRECATED_NO_WARNINGS 1
 #    include <io.h>
