@@ -4003,7 +4003,7 @@ msgid "Job state cannot be changed."
 msgstr "Auftragsstatus kann nicht geändert werden."
 
 msgid "Job subscriptions cannot be renewed."
-msgstr "Auftragssubskiptionen können nicht erneuert werden."
+msgstr "Auftragssubskriptionen können nicht erneuert werden."
 
 msgid "Jobs"
 msgstr "Aufträge"
