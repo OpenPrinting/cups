@@ -652,6 +652,7 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 UNINSTALL_LANGUAGES
 INSTALL_LANGUAGES
+EXIT_TIMEOUT
 SYSTEMD_WANTED_BY
 CUPS_WEBIF
 DEFAULT_IPP_PORT
@@ -939,6 +940,7 @@ with_snmp_address
 with_snmp_community
 with_ipp_port
 enable_webif
+with_idle_exit_timeout
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1665,6 +1667,9 @@ Optional Packages:
   --with-snmp-address     set SNMP query address, default=auto
   --with-snmp-community   set SNMP community, default=public
   --with-ipp-port         set port number for IPP, default=631
+  --with-idle-exit-timeout
+                          set the default value for IdleExitTimeout,
+                          default=60
 
 Some influential environment variables:
   CC          C compiler command
@@ -12101,6 +12106,31 @@ then :
 
   SYSTEMD_WANTED_BY="$SYSTEMD_WANTED_BY multi-user.target"
 fi
+
+
+
+# Check whether --with-idle_exit_timeout was given.
+if test ${with_idle_exit_timeout+y}
+then :
+  withval=$with_idle_exit_timeout;
+    if test "x$withval" = "xno"
+then :
+
+	EXIT_TIMEOUT=0
+
+else $as_nop
+
+	EXIT_TIMEOUT=$withval
+
+fi
+
+else $as_nop
+
+    EXIT_TIMEOUT=60
+
+fi
+
+
 
 
 
