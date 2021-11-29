@@ -1,8 +1,8 @@
-CHANGES - OpenPrinting CUPS 2.4rc1 - 2021-11-12
+CHANGES - OpenPrinting CUPS 2.4.0 - 2021-11-29
 ==============================================
 
-Changes in CUPS v2.4.0 (TBA)
----------------------------
+Changes in CUPS v2.4.0 (29th November 2021)
+-------------------------------------------
 
 - Added configure option --with-idle-exit-timeout (Issue #294)
 - Added --with-systemd-timeoutstartsec configure option (Issue #298)
