@@ -441,3 +441,18 @@ AC_ARG_WITH([idle_exit_timeout], AS_HELP_STRING([--with-idle-exit-timeout], [set
 ])
 
 AC_SUBST([EXIT_TIMEOUT])
+
+dnl set TimeoutStartSec for cups.service
+dnl - if used as --without-*, it sets TimeoutStartSec to infinity
+AC_ARG_WITH([systemd-timeoutstartsec],
+    AS_HELP_STRING([--with-systemd-timeoutstartsec],
+	[set TimeoutStartSec value in cups.service, default=default value in systemd]), [
+    AS_IF([ test "x$withval" = "xno" ], [
+	TIMEOUTSTARTSEC="TimeoutStartSec=infinity"
+    ], [
+	TIMEOUTSTARTSEC="TimeoutStartSec=$withval"
+    ])
+], [
+    TIMEOUTSTARTSEC=""
+])
+AC_SUBST([TIMEOUTSTARTSEC])
