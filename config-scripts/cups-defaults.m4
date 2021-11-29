@@ -428,3 +428,16 @@ AS_IF([test $CUPS_WEBIF = Yes || test $CUPS_BROWSING = Yes], [
   SYSTEMD_WANTED_BY="$SYSTEMD_WANTED_BY multi-user.target"], [
   ])
 AC_SUBST([SYSTEMD_WANTED_BY])
+
+dnl Set default value of IdleExitTimeout
+AC_ARG_WITH([idle_exit_timeout], AS_HELP_STRING([--with-idle-exit-timeout], [set the default value for IdleExitTimeout, default=60]), [
+    AS_IF([test "x$withval" = "xno"], [
+	EXIT_TIMEOUT=0
+    ], [
+	EXIT_TIMEOUT=$withval
+    ])
+], [
+    EXIT_TIMEOUT=60
+])
+
+AC_SUBST([EXIT_TIMEOUT])
