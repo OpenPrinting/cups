@@ -3782,7 +3782,7 @@ msgid "IPP memberName value is empty."
 msgstr "IPP-Mitgliedsnamenwert ist leer."
 
 msgid "IPP memberName with no attribute."
-msgstr "IPP-Mitgliedsname ohne Attribute."
+msgstr "IPP-Mitgliedsname ohne Attribut."
 
 msgid "IPP name larger than 32767 bytes."
 msgstr "IPP Name länger als 32767 Byte"
@@ -7868,7 +7868,7 @@ msgstr "Drucker teilweise angehalten"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.processing-to-stop-point"
-msgstr "Angehalten"
+msgstr "Wird angehalten"
 
 #. TRANSLATORS: Ready
 msgid "job-state-reasons.queued-in-device"
@@ -7876,11 +7876,11 @@ msgstr "Bereit"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "job-state-reasons.resources-are-not-ready"
-msgstr "Resourcen nicht bereit"
+msgstr "Ressourcen sind nicht bereit"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "job-state-reasons.resources-are-not-supported"
-msgstr "Resourcen nicht unterstützt"
+msgstr "Ressourcen werden nicht unterstützt"
 
 #. TRANSLATORS: Service offline
 msgid "job-state-reasons.service-off-line"
@@ -7912,7 +7912,7 @@ msgstr "Warnung aufgetreten"
 
 #. TRANSLATORS: Pending
 msgid "job-state.3"
-msgstr "Anstehend"
+msgstr "Ausstehend"
 
 #. TRANSLATORS: Held
 msgid "job-state.4"
@@ -8266,7 +8266,7 @@ msgstr "Untergrund"
 
 #. TRANSLATORS: In-fill
 msgid "material-purpose.in-fill"
-msgstr ""
+msgstr "Füllung"
 
 #. TRANSLATORS: Shell
 msgid "material-purpose.shell"
@@ -8274,15 +8274,15 @@ msgstr ""
 
 #. TRANSLATORS: Supports
 msgid "material-purpose.support"
-msgstr ""
+msgstr "Unterstützt"
 
 #. TRANSLATORS: Feed Rate
 msgid "material-rate"
-msgstr ""
+msgstr "Vorschubgeschwindigkeit"
 
 #. TRANSLATORS: Feed Rate Units
 msgid "material-rate-units"
-msgstr ""
+msgstr "Einheiten der Vorschubgeschwindigkeit"
 
 #. TRANSLATORS: Milligrams per second
 msgid "material-rate-units.mg_second"
@@ -8298,7 +8298,7 @@ msgstr "Millimeter pro Sekunde"
 
 #. TRANSLATORS: Material Retraction
 msgid "material-retraction"
-msgstr ""
+msgstr "Materialrückführung"
 
 #. TRANSLATORS: Material Shell Thickness
 msgid "material-shell-thickness"
@@ -8342,7 +8342,7 @@ msgstr "PET"
 
 #. TRANSLATORS: Photopolymer
 msgid "material-type.photopolymer"
-msgstr ""
+msgstr "Photopolymer"
 
 #. TRANSLATORS: PLA
 msgid "material-type.pla"
@@ -8770,7 +8770,7 @@ msgstr "Beschichtung der Medien-Vorderseite"
 
 #. TRANSLATORS: Media Grain
 msgid "media-grain"
-msgstr ""
+msgstr "Medienkörnung"
 
 #. TRANSLATORS: Cross-Feed Direction
 msgid "media-grain.x-direction"
@@ -9226,7 +9226,7 @@ msgstr "DVD"
 
 #. TRANSLATORS: Embossing Foil
 msgid "media-type.embossing-foil"
-msgstr ""
+msgstr "Prägefolie"
 
 #. TRANSLATORS: End Board
 msgid "media-type.end-board"
@@ -9318,7 +9318,7 @@ msgstr ""
 
 #. TRANSLATORS: Flexo Photo Polymer
 msgid "media-type.flexo-photo-polymer"
-msgstr ""
+msgstr "Flexo-Fotopolymer"
 
 #. TRANSLATORS: Flute
 msgid "media-type.flute"
@@ -9346,7 +9346,7 @@ msgstr "opakes Glas"
 
 #. TRANSLATORS: Glass Surfaced
 msgid "media-type.glass-surfaced"
-msgstr ""
+msgstr "Mit Glas überzogen"
 
 #. TRANSLATORS: Glass Textured
 msgid "media-type.glass-textured"
@@ -9414,11 +9414,11 @@ msgstr "Satin Aufkleber"
 
 #. TRANSLATORS: Security Labels
 msgid "media-type.labels-security"
-msgstr ""
+msgstr "Sicherheitsaufkleber"
 
 #. TRANSLATORS: Semi-Gloss Labels
 msgid "media-type.labels-semi-gloss"
-msgstr ""
+msgstr "Seidenmatte Aufkleber"
 
 #. TRANSLATORS: Laminating Foil
 msgid "media-type.laminating-foil"
@@ -9450,11 +9450,11 @@ msgstr "Seidenglanz Metall"
 
 #. TRANSLATORS: Metal Semi Gloss
 msgid "media-type.metal-semi-gloss"
-msgstr ""
+msgstr "Halbglänzendes Metall"
 
 #. TRANSLATORS: Mounting Tape
 msgid "media-type.mounting-tape"
-msgstr ""
+msgstr "Befestigungsband"
 
 #. TRANSLATORS: Multi Layer
 msgid "media-type.multi-layer"
@@ -10502,7 +10502,7 @@ msgstr "Automatisch"
 
 #. TRANSLATORS: Best Fit
 msgid "multiple-object-handling.best-fit"
-msgstr ""
+msgstr "beste Anpassung"
 
 #. TRANSLATORS: Best Quality
 msgid "multiple-object-handling.best-quality"
@@ -10533,10 +10533,10 @@ msgid "multiple-operation-time-out-action.process-job"
 msgstr "Auftrag verarbeiten"
 
 msgid "no entries"
-msgstr "Keine Einträge"
+msgstr "keine Einträge"
 
 msgid "no system default destination"
-msgstr "Keine systemvoreingestellten Ziele"
+msgstr "keine systemvoreingestellten Ziele"
 
 #. TRANSLATORS: Noise Removal
 msgid "noise-removal"
@@ -10555,7 +10555,7 @@ msgid "notify-events"
 msgstr "Benachrichtigungsereignisse"
 
 msgid "notify-events not specified."
-msgstr ""
+msgstr "Benachrichtigungsereignisse nicht angegeben."
 
 #. TRANSLATORS: Document Completed
 msgid "notify-events.document-completed"
@@ -10663,7 +10663,7 @@ msgstr ""
 
 #. TRANSLATORS: Notify Recipient
 msgid "notify-recipient-uri"
-msgstr "Benachrichtigungs-Empfänger"
+msgstr "Benachrichtigungsempfänger"
 
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" is already used."
@@ -10683,7 +10683,7 @@ msgstr ""
 
 #. TRANSLATORS: Notify Time Interval
 msgid "notify-time-interval"
-msgstr ""
+msgstr "Benachrichtigungszeitintervall"
 
 #. TRANSLATORS: Notify User Data
 msgid "notify-user-data"
@@ -10767,7 +10767,7 @@ msgstr "Schriftseite nach oben"
 
 #. TRANSLATORS: Large Capacity
 msgid "output-bin.large-capacity"
-msgstr "Gross"
+msgstr "Große Kapazität"
 
 #. TRANSLATORS: Left
 msgid "output-bin.left"
@@ -10927,27 +10927,27 @@ msgstr "Ausgabeorientierung"
 
 #. TRANSLATORS: Reverse Order Face-down
 msgid "page-delivery.reverse-order-face-down"
-msgstr ""
+msgstr "Umgekehrte Reihenfolge mit der Vorderseite nach unten"
 
 #. TRANSLATORS: Reverse Order Face-up
 msgid "page-delivery.reverse-order-face-up"
-msgstr ""
+msgstr "Umgekehrte Reihenfolge mit der Vorderseite nach oben"
 
 #. TRANSLATORS: Same Order Face-down
 msgid "page-delivery.same-order-face-down"
-msgstr ""
+msgstr "Gleiche Reihenfolge mit der Vorderseite nach unten"
 
 #. TRANSLATORS: Same Order Face-up
 msgid "page-delivery.same-order-face-up"
-msgstr ""
+msgstr "Gleiche Reihenfolge mit der Vorderseite nach oben"
 
 #. TRANSLATORS: System Specified
 msgid "page-delivery.system-specified"
-msgstr ""
+msgstr "System angegeben"
 
 #. TRANSLATORS: Page Order Received
 msgid "page-order-received"
-msgstr ""
+msgstr "Seitenreihenfolge erhalten"
 
 #. TRANSLATORS: 1 To N
 msgid "page-order-received.1-to-n-order"
@@ -10979,7 +10979,7 @@ msgstr ""
 
 #. TRANSLATORS: Normal
 msgid "pclm-raster-back-side.normal"
-msgstr ""
+msgstr "normal"
 
 #. TRANSLATORS: Rotated
 msgid "pclm-raster-back-side.rotated"
@@ -10990,7 +10990,7 @@ msgid "pclm-source-resolution"
 msgstr ""
 
 msgid "pending"
-msgstr "in Verarbeitung"
+msgstr "ausstehend"
 
 #. TRANSLATORS: Platform Shape
 msgid "platform-shape"
@@ -10998,15 +10998,15 @@ msgstr ""
 
 #. TRANSLATORS: Round
 msgid "platform-shape.ellipse"
-msgstr ""
+msgstr "rund"
 
 #. TRANSLATORS: Rectangle
 msgid "platform-shape.rectangle"
-msgstr ""
+msgstr "Rechteck"
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
-msgstr ""
+msgstr "Plattformtemperatur"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
@@ -11018,11 +11018,11 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Adding/updating UI text from %s."
-msgstr ""
+msgstr "ppdc: UI-Text von %s wird hinzugefügt/aktualisiert."
 
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Falscher boolescher Wert (%s) in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
@@ -11034,7 +11034,7 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Bad status keyword %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Falsches Statusschlüsselwort %s in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Bad variable substitution ($%c) on line %d of %s."
@@ -12404,19 +12404,19 @@ msgstr ""
 
 #. TRANSLATORS: Fuser temperature high
 msgid "printer-state-reasons.fuser-over-temp"
-msgstr ""
+msgstr "Fixiertemperatur hoch"
 
 #. TRANSLATORS: Fuser temperature low
 msgid "printer-state-reasons.fuser-under-temp"
-msgstr ""
+msgstr "Fixiertemperatur niedrig"
 
 #. TRANSLATORS: Hold New Jobs
 msgid "printer-state-reasons.hold-new-jobs"
-msgstr ""
+msgstr "Neue Aufträge halten"
 
 #. TRANSLATORS: Identify Printer
 msgid "printer-state-reasons.identify-printer-requested"
-msgstr ""
+msgstr "Drucker identifizieren"
 
 #. TRANSLATORS: Imprinter Added
 msgid "printer-state-reasons.imprinter-added"
@@ -13048,11 +13048,11 @@ msgstr ""
 
 #. TRANSLATORS: Ink/toner empty
 msgid "printer-state-reasons.marker-supply-empty"
-msgstr ""
+msgstr "Tinte/Toner leer"
 
 #. TRANSLATORS: Ink/toner low
 msgid "printer-state-reasons.marker-supply-low"
-msgstr ""
+msgstr "Tinte/Toner niedrig"
 
 #. TRANSLATORS: Marker Supply Missing
 msgid "printer-state-reasons.marker-supply-missing"
@@ -13260,23 +13260,23 @@ msgstr "Pausiert"
 
 #. TRANSLATORS: Perforater Added
 msgid "printer-state-reasons.perforater-added"
-msgstr ""
+msgstr "Perforierer hinzugefügt"
 
 #. TRANSLATORS: Perforater Almost Empty
 msgid "printer-state-reasons.perforater-almost-empty"
-msgstr ""
+msgstr "Perforierer fast leer"
 
 #. TRANSLATORS: Perforater Almost Full
 msgid "printer-state-reasons.perforater-almost-full"
-msgstr ""
+msgstr "Perforierer fast voll"
 
 #. TRANSLATORS: Perforater At Limit
 msgid "printer-state-reasons.perforater-at-limit"
-msgstr ""
+msgstr "Perforierer am Limit"
 
 #. TRANSLATORS: Perforater Closed
 msgid "printer-state-reasons.perforater-closed"
-msgstr ""
+msgstr "Perforierer geschlossen"
 
 #. TRANSLATORS: Perforater Configuration Change
 msgid "printer-state-reasons.perforater-configuration-change"
@@ -13284,19 +13284,19 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Cover Closed
 msgid "printer-state-reasons.perforater-cover-closed"
-msgstr ""
+msgstr "Perforiererabdeckung geschlossen"
 
 #. TRANSLATORS: Perforater Cover Open
 msgid "printer-state-reasons.perforater-cover-open"
-msgstr ""
+msgstr "Perforiererabdeckung offen"
 
 #. TRANSLATORS: Perforater Empty
 msgid "printer-state-reasons.perforater-empty"
-msgstr ""
+msgstr "Perforierer leer"
 
 #. TRANSLATORS: Perforater Full
 msgid "printer-state-reasons.perforater-full"
-msgstr ""
+msgstr "Perforierer voll"
 
 #. TRANSLATORS: Perforater Interlock Closed
 msgid "printer-state-reasons.perforater-interlock-closed"
@@ -13308,7 +13308,7 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Jam
 msgid "printer-state-reasons.perforater-jam"
-msgstr ""
+msgstr "Stau im Perforierer"
 
 #. TRANSLATORS: Perforater Life Almost Over
 msgid "printer-state-reasons.perforater-life-almost-over"
@@ -13324,11 +13324,11 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Missing
 msgid "printer-state-reasons.perforater-missing"
-msgstr ""
+msgstr "Perforierer fehlt"
 
 #. TRANSLATORS: Perforater Motor Failure
 msgid "printer-state-reasons.perforater-motor-failure"
-msgstr ""
+msgstr "Perforierer-Motorstörung"
 
 #. TRANSLATORS: Perforater Near Limit
 msgid "printer-state-reasons.perforater-near-limit"
@@ -13340,11 +13340,11 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Opened
 msgid "printer-state-reasons.perforater-opened"
-msgstr ""
+msgstr "Perforierer geöffnet"
 
 #. TRANSLATORS: Perforater Over Temperature
 msgid "printer-state-reasons.perforater-over-temperature"
-msgstr ""
+msgstr "Perforierer über Temperatur"
 
 #. TRANSLATORS: Perforater Power Saver
 msgid "printer-state-reasons.perforater-power-saver"
@@ -13360,7 +13360,7 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Removed
 msgid "printer-state-reasons.perforater-removed"
-msgstr ""
+msgstr "Perforierer entfernt"
 
 #. TRANSLATORS: Perforater Resource Added
 msgid "printer-state-reasons.perforater-resource-added"
@@ -13380,15 +13380,15 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Turned Off
 msgid "printer-state-reasons.perforater-turned-off"
-msgstr ""
+msgstr "Perforierer ausgeschaltet"
 
 #. TRANSLATORS: Perforater Turned On
 msgid "printer-state-reasons.perforater-turned-on"
-msgstr ""
+msgstr "Perforierer eingeschaltet"
 
 #. TRANSLATORS: Perforater Under Temperature
 msgid "printer-state-reasons.perforater-under-temperature"
-msgstr ""
+msgstr "Perforierer unter Temperatur"
 
 #. TRANSLATORS: Perforater Unrecoverable Failure
 msgid "printer-state-reasons.perforater-unrecoverable-failure"
@@ -13400,19 +13400,19 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Warming Up
 msgid "printer-state-reasons.perforater-warming-up"
-msgstr ""
+msgstr "Perforater Warming Up"
 
 #. TRANSLATORS: Platform Cooling
 msgid "printer-state-reasons.platform-cooling"
-msgstr ""
+msgstr "Plattformkühlung"
 
 #. TRANSLATORS: Platform Failure
 msgid "printer-state-reasons.platform-failure"
-msgstr ""
+msgstr "Plattformstörung"
 
 #. TRANSLATORS: Platform Heating
 msgid "printer-state-reasons.platform-heating"
-msgstr ""
+msgstr "Plattformheizung"
 
 #. TRANSLATORS: Platform Temperature High
 msgid "printer-state-reasons.platform-temperature-high"
@@ -13424,7 +13424,7 @@ msgstr "Plattformtemperatur niedrig"
 
 #. TRANSLATORS: Power Down
 msgid "printer-state-reasons.power-down"
-msgstr "Ausgeschaltet"
+msgstr "Herunterfahren"
 
 #. TRANSLATORS: Power Up
 msgid "printer-state-reasons.power-up"
@@ -13432,11 +13432,11 @@ msgstr "Hochfahren"
 
 #. TRANSLATORS: Printer Reset Manually
 msgid "printer-state-reasons.printer-manual-reset"
-msgstr "Manueller Reset"
+msgstr "Drucker manuell zurücksetzen"
 
 #. TRANSLATORS: Printer Reset Remotely
 msgid "printer-state-reasons.printer-nms-reset"
-msgstr "Remote-Reset"
+msgstr "Drucker aus der Ferne zurücksetzen"
 
 #. TRANSLATORS: Printer Ready To Print
 msgid "printer-state-reasons.printer-ready-to-print"
@@ -13460,7 +13460,7 @@ msgstr "Locher im Grenzbereich"
 
 #. TRANSLATORS: Puncher Closed
 msgid "printer-state-reasons.puncher-closed"
-msgstr ""
+msgstr "Locher geschlossen"
 
 #. TRANSLATORS: Puncher Configuration Change
 msgid "printer-state-reasons.puncher-configuration-change"
@@ -13468,11 +13468,11 @@ msgstr "Konfiguration des Lochers geändert"
 
 #. TRANSLATORS: Puncher Cover Closed
 msgid "printer-state-reasons.puncher-cover-closed"
-msgstr ""
+msgstr "Locherabdeckung geschlossen"
 
 #. TRANSLATORS: Puncher Cover Open
 msgid "printer-state-reasons.puncher-cover-open"
-msgstr ""
+msgstr "Locherabdeckung offen"
 
 #. TRANSLATORS: Puncher Empty
 msgid "printer-state-reasons.puncher-empty"
@@ -13508,11 +13508,11 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Missing
 msgid "printer-state-reasons.puncher-missing"
-msgstr ""
+msgstr "Locher fehlt"
 
 #. TRANSLATORS: Puncher Motor Failure
 msgid "printer-state-reasons.puncher-motor-failure"
-msgstr ""
+msgstr "Locher-Motorstörung"
 
 #. TRANSLATORS: Puncher Near Limit
 msgid "printer-state-reasons.puncher-near-limit"
@@ -13544,7 +13544,7 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Removed
 msgid "printer-state-reasons.puncher-removed"
-msgstr ""
+msgstr "Locher entfernt"
 
 #. TRANSLATORS: Puncher Resource Added
 msgid "printer-state-reasons.puncher-resource-added"
@@ -13564,15 +13564,15 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Turned Off
 msgid "printer-state-reasons.puncher-turned-off"
-msgstr ""
+msgstr "Locher ausgeschaltet"
 
 #. TRANSLATORS: Puncher Turned On
 msgid "printer-state-reasons.puncher-turned-on"
-msgstr ""
+msgstr "Locher eingeschaltet"
 
 #. TRANSLATORS: Puncher Under Temperature
 msgid "printer-state-reasons.puncher-under-temperature"
-msgstr ""
+msgstr "Locher unter Temperatur"
 
 #. TRANSLATORS: Puncher Unrecoverable Failure
 msgid "printer-state-reasons.puncher-unrecoverable-failure"
@@ -13584,19 +13584,19 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Warming Up
 msgid "printer-state-reasons.puncher-warming-up"
-msgstr ""
+msgstr "Locher wärmt sich auf"
 
 #. TRANSLATORS: Separation Cutter Added
 msgid "printer-state-reasons.separation-cutter-added"
-msgstr ""
+msgstr "Trennschneider hinzugefügt"
 
 #. TRANSLATORS: Separation Cutter Almost Empty
 msgid "printer-state-reasons.separation-cutter-almost-empty"
-msgstr ""
+msgstr "Trennschneider fast leer"
 
 #. TRANSLATORS: Separation Cutter Almost Full
 msgid "printer-state-reasons.separation-cutter-almost-full"
-msgstr ""
+msgstr "Trennschneider fast voll"
 
 #. TRANSLATORS: Separation Cutter At Limit
 msgid "printer-state-reasons.separation-cutter-at-limit"
@@ -13604,7 +13604,7 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Closed
 msgid "printer-state-reasons.separation-cutter-closed"
-msgstr ""
+msgstr "Trennschneider geschlossen"
 
 #. TRANSLATORS: Separation Cutter Configuration Change
 msgid "printer-state-reasons.separation-cutter-configuration-change"
@@ -13612,19 +13612,19 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Cover Closed
 msgid "printer-state-reasons.separation-cutter-cover-closed"
-msgstr ""
+msgstr "Trennschneiderabdeckung geschlossen"
 
 #. TRANSLATORS: Separation Cutter Cover Open
 msgid "printer-state-reasons.separation-cutter-cover-open"
-msgstr ""
+msgstr "Trennschneiderabdeckung offen"
 
 #. TRANSLATORS: Separation Cutter Empty
 msgid "printer-state-reasons.separation-cutter-empty"
-msgstr ""
+msgstr "Trennschneider leer"
 
 #. TRANSLATORS: Separation Cutter Full
 msgid "printer-state-reasons.separation-cutter-full"
-msgstr ""
+msgstr "Trennschneider voll"
 
 #. TRANSLATORS: Separation Cutter Interlock Closed
 msgid "printer-state-reasons.separation-cutter-interlock-closed"
@@ -13636,7 +13636,7 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Jam
 msgid "printer-state-reasons.separation-cutter-jam"
-msgstr ""
+msgstr "Stau im Trennschneider"
 
 #. TRANSLATORS: Separation Cutter Life Almost Over
 msgid "printer-state-reasons.separation-cutter-life-almost-over"
@@ -13652,11 +13652,11 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Missing
 msgid "printer-state-reasons.separation-cutter-missing"
-msgstr ""
+msgstr "Trennschneider fehlt"
 
 #. TRANSLATORS: Separation Cutter Motor Failure
 msgid "printer-state-reasons.separation-cutter-motor-failure"
-msgstr ""
+msgstr "Trennschneider-Motorstörung"
 
 #. TRANSLATORS: Separation Cutter Near Limit
 msgid "printer-state-reasons.separation-cutter-near-limit"
@@ -13668,11 +13668,11 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Opened
 msgid "printer-state-reasons.separation-cutter-opened"
-msgstr ""
+msgstr "Trennschneider geöffnet"
 
 #. TRANSLATORS: Separation Cutter Over Temperature
 msgid "printer-state-reasons.separation-cutter-over-temperature"
-msgstr ""
+msgstr "Trennschneider über Temperatur"
 
 #. TRANSLATORS: Separation Cutter Power Saver
 msgid "printer-state-reasons.separation-cutter-power-saver"
@@ -13688,7 +13688,7 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Removed
 msgid "printer-state-reasons.separation-cutter-removed"
-msgstr ""
+msgstr "Trennschneider entfernt"
 
 #. TRANSLATORS: Separation Cutter Resource Added
 msgid "printer-state-reasons.separation-cutter-resource-added"
@@ -13708,15 +13708,15 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Turned Off
 msgid "printer-state-reasons.separation-cutter-turned-off"
-msgstr ""
+msgstr "Trennschneider ausgeschaltet"
 
 #. TRANSLATORS: Separation Cutter Turned On
 msgid "printer-state-reasons.separation-cutter-turned-on"
-msgstr ""
+msgstr "Trennschneider eingeschaltet"
 
 #. TRANSLATORS: Separation Cutter Under Temperature
 msgid "printer-state-reasons.separation-cutter-under-temperature"
-msgstr ""
+msgstr "Trennschneider unter Temperatur"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Failure
 msgid "printer-state-reasons.separation-cutter-unrecoverable-failure"
@@ -13728,7 +13728,7 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Warming Up
 msgid "printer-state-reasons.separation-cutter-warming-up"
-msgstr ""
+msgstr "Trennschneider wärmt sich auf"
 
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
@@ -14460,23 +14460,23 @@ msgstr ""
 
 #. TRANSLATORS: Partially stopped
 msgid "printer-state-reasons.stopped-partly"
-msgstr ""
+msgstr "Teilweise angehalten"
 
 #. TRANSLATORS: Stopping
 msgid "printer-state-reasons.stopping"
-msgstr "Angehalten"
+msgstr "Wird angehalten"
 
 #. TRANSLATORS: Subunit Added
 msgid "printer-state-reasons.subunit-added"
-msgstr ""
+msgstr "Untereinheit hinzugefügt"
 
 #. TRANSLATORS: Subunit Almost Empty
 msgid "printer-state-reasons.subunit-almost-empty"
-msgstr ""
+msgstr "Untereinheit fast leer"
 
 #. TRANSLATORS: Subunit Almost Full
 msgid "printer-state-reasons.subunit-almost-full"
-msgstr ""
+msgstr "Untereinheit fast voll"
 
 #. TRANSLATORS: Subunit At Limit
 msgid "printer-state-reasons.subunit-at-limit"
@@ -14484,19 +14484,19 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Closed
 msgid "printer-state-reasons.subunit-closed"
-msgstr ""
+msgstr "Untereinheit geschlossen"
 
 #. TRANSLATORS: Subunit Cooling Down
 msgid "printer-state-reasons.subunit-cooling-down"
-msgstr ""
+msgstr "Untereinheit kühlt ab"
 
 #. TRANSLATORS: Subunit Empty
 msgid "printer-state-reasons.subunit-empty"
-msgstr ""
+msgstr "Untereinheit leer"
 
 #. TRANSLATORS: Subunit Full
 msgid "printer-state-reasons.subunit-full"
-msgstr ""
+msgstr "Untereinheit voll"
 
 #. TRANSLATORS: Subunit Life Almost Over
 msgid "printer-state-reasons.subunit-life-almost-over"
@@ -14512,11 +14512,11 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Missing
 msgid "printer-state-reasons.subunit-missing"
-msgstr ""
+msgstr "Untereinheit fehlt"
 
 #. TRANSLATORS: Subunit Motor Failure
 msgid "printer-state-reasons.subunit-motor-failure"
-msgstr ""
+msgstr "Untereinheit-Motorstörung"
 
 #. TRANSLATORS: Subunit Near Limit
 msgid "printer-state-reasons.subunit-near-limit"
@@ -14528,11 +14528,11 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Opened
 msgid "printer-state-reasons.subunit-opened"
-msgstr ""
+msgstr "Untereinheit geöffnet"
 
 #. TRANSLATORS: Subunit Over Temperature
 msgid "printer-state-reasons.subunit-over-temperature"
-msgstr ""
+msgstr "Untereinheit über Temperatur"
 
 #. TRANSLATORS: Subunit Power Saver
 msgid "printer-state-reasons.subunit-power-saver"
@@ -14548,7 +14548,7 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Removed
 msgid "printer-state-reasons.subunit-removed"
-msgstr ""
+msgstr "Untereinheit entfernt"
 
 #. TRANSLATORS: Subunit Resource Added
 msgid "printer-state-reasons.subunit-resource-added"
@@ -14568,15 +14568,15 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Turned Off
 msgid "printer-state-reasons.subunit-turned-off"
-msgstr ""
+msgstr "Untereinheit ausgeschaltet"
 
 #. TRANSLATORS: Subunit Turned On
 msgid "printer-state-reasons.subunit-turned-on"
-msgstr ""
+msgstr "Untereinheit eingeschaltet"
 
 #. TRANSLATORS: Subunit Under Temperature
 msgid "printer-state-reasons.subunit-under-temperature"
-msgstr ""
+msgstr "Untereinheit unter Temperatur"
 
 #. TRANSLATORS: Subunit Unrecoverable Failure
 msgid "printer-state-reasons.subunit-unrecoverable-failure"
@@ -14588,11 +14588,11 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Warming Up
 msgid "printer-state-reasons.subunit-warming-up"
-msgstr ""
+msgstr "Untereinheit wärmt sich auf"
 
 #. TRANSLATORS: Printer stopped responding
 msgid "printer-state-reasons.timed-out"
-msgstr "Zeitüberschreitung"
+msgstr "Drucker reagiert nicht mehr"
 
 #. TRANSLATORS: Out of toner
 msgid "printer-state-reasons.toner-empty"
@@ -14896,15 +14896,15 @@ msgstr ""
 
 #. TRANSLATORS: Idle
 msgid "printer-state.3"
-msgstr ""
+msgstr "Untätig"
 
 #. TRANSLATORS: Processing
 msgid "printer-state.4"
-msgstr ""
+msgstr "In Bearbeitung"
 
 #. TRANSLATORS: Stopped
 msgid "printer-state.5"
-msgstr ""
+msgstr "Angehalten"
 
 #. TRANSLATORS: Printer Uptime
 msgid "printer-up-time"
@@ -14978,15 +14978,15 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "save-disposition.none"
-msgstr ""
+msgstr "Keine"
 
 #. TRANSLATORS: Print and Save
 msgid "save-disposition.print-save"
-msgstr ""
+msgstr "Drucken und speichern"
 
 #. TRANSLATORS: Save Only
 msgid "save-disposition.save-only"
-msgstr ""
+msgstr "Nur speichern"
 
 #. TRANSLATORS: Save Document Format
 msgid "save-document-format"
@@ -15044,11 +15044,11 @@ msgstr "Duplexdruck"
 
 #. TRANSLATORS: Off
 msgid "sides.one-sided"
-msgstr "Einseitig"
+msgstr "Aus"
 
 #. TRANSLATORS: On (Portrait)
 msgid "sides.two-sided-long-edge"
-msgstr "Duplex hochformat"
+msgstr "Ein (Hochformat)"
 
 #. TRANSLATORS: On (Landscape)
 msgid "sides.two-sided-short-edge"
@@ -15083,7 +15083,7 @@ msgstr ""
 
 #. TRANSLATORS: Automatic
 msgid "stitching-method.auto"
-msgstr ""
+msgstr "Automatisch"
 
 #. TRANSLATORS: Crimp
 msgid "stitching-method.crimp"
@@ -15091,7 +15091,7 @@ msgstr ""
 
 #. TRANSLATORS: Wire
 msgid "stitching-method.wire"
-msgstr ""
+msgstr "Draht"
 
 #. TRANSLATORS: Stitching Offset
 msgid "stitching-offset"
@@ -15103,19 +15103,19 @@ msgstr ""
 
 #. TRANSLATORS: Bottom
 msgid "stitching-reference-edge.bottom"
-msgstr ""
+msgstr "unten"
 
 #. TRANSLATORS: Left
 msgid "stitching-reference-edge.left"
-msgstr ""
+msgstr "links"
 
 #. TRANSLATORS: Right
 msgid "stitching-reference-edge.right"
-msgstr ""
+msgstr "rechts"
 
 #. TRANSLATORS: Top
 msgid "stitching-reference-edge.top"
-msgstr ""
+msgstr "oben"
 
 msgid "stopped"
 msgstr "angehalten"
@@ -15130,23 +15130,23 @@ msgstr ""
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-attributes.all"
-msgstr ""
+msgstr "Alle"
 
 #. TRANSLATORS: Default
 msgid "subscription-privacy-attributes.default"
-msgstr ""
+msgstr "Standard"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-attributes.none"
-msgstr ""
+msgstr "Keine"
 
 #. TRANSLATORS: Subscription Description
 msgid "subscription-privacy-attributes.subscription-description"
-msgstr ""
+msgstr "Subskriptionsbeschreibung"
 
 #. TRANSLATORS: Subscription Template
 msgid "subscription-privacy-attributes.subscription-template"
-msgstr ""
+msgstr "Subskriptionsvorlage"
 
 #. TRANSLATORS: Subscription Privacy Scope
 msgid "subscription-privacy-scope"
@@ -15178,7 +15178,7 @@ msgstr "systemvoreingestelltes Ziel: %s/%s"
 
 #. TRANSLATORS: T33 Subaddress
 msgid "t33-subaddress"
-msgstr "T33 Subaddress"
+msgstr "T33-Subadresse"
 
 #. TRANSLATORS: To Name
 msgid "to-name"
@@ -15226,23 +15226,23 @@ msgstr "Schnittkante"
 
 #. TRANSLATORS: Bottom
 msgid "trimming-reference-edge.bottom"
-msgstr "unterer Rand"
+msgstr "unten"
 
 #. TRANSLATORS: Left
 msgid "trimming-reference-edge.left"
-msgstr "linker Rand"
+msgstr "links"
 
 #. TRANSLATORS: Right
 msgid "trimming-reference-edge.right"
-msgstr "rechter Rand"
+msgstr "rechts"
 
 #. TRANSLATORS: Top
 msgid "trimming-reference-edge.top"
-msgstr "oberer Rand"
+msgstr "oben"
 
 #. TRANSLATORS: Type of Cut
 msgid "trimming-type"
-msgstr "Schnittype"
+msgstr "Schnittyp"
 
 #. TRANSLATORS: Draw Line
 msgid "trimming-type.draw-line"
@@ -15250,7 +15250,7 @@ msgstr "Linie zeichnen"
 
 #. TRANSLATORS: Full
 msgid "trimming-type.full"
-msgstr "Voll"
+msgstr "voll"
 
 #. TRANSLATORS: Partial
 msgid "trimming-type.partial"
@@ -15357,16 +15357,16 @@ msgid "{service_regtype}       DNS-SD registration type"
 msgstr ""
 
 msgid "{service_scheme}        URI scheme"
-msgstr ""
+msgstr "{service_scheme}        URI-Schema"
 
 msgid "{service_uri}           URI"
-msgstr ""
+msgstr "{service_uri}           URI"
 
 msgid "{txt_*}                 Value of TXT record key"
 msgstr ""
 
 msgid "{}                      URI"
-msgstr ""
+msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
