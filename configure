@@ -652,6 +652,7 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 UNINSTALL_LANGUAGES
 INSTALL_LANGUAGES
+TIMEOUTSTARTSEC
 EXIT_TIMEOUT
 SYSTEMD_WANTED_BY
 CUPS_WEBIF
@@ -941,6 +942,7 @@ with_snmp_community
 with_ipp_port
 enable_webif
 with_idle_exit_timeout
+with_systemd_timeoutstartsec
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1670,6 +1672,9 @@ Optional Packages:
   --with-idle-exit-timeout
                           set the default value for IdleExitTimeout,
                           default=60
+  --with-systemd-timeoutstartsec
+                          set TimeoutStartSec value in cups.service,
+                          default=default value in systemd
 
 Some influential environment variables:
   CC          C compiler command
@@ -12130,6 +12135,30 @@ else $as_nop
 
 fi
 
+
+
+
+
+# Check whether --with-systemd-timeoutstartsec was given.
+if test ${with_systemd_timeoutstartsec+y}
+then :
+  withval=$with_systemd_timeoutstartsec;
+    if  test "x$withval" = "xno"
+then :
+
+	TIMEOUTSTARTSEC="TimeoutStartSec=infinity"
+
+else $as_nop
+
+	TIMEOUTSTARTSEC="TimeoutStartSec=$withval"
+
+fi
+
+else $as_nop
+
+    TIMEOUTSTARTSEC=""
+
+fi
 
 
 

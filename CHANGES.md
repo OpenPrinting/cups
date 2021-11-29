@@ -5,6 +5,7 @@ Changes in CUPS v2.4.0 (TBA)
 ---------------------------
 
 - Added configure option --with-idle-exit-timeout (Issue #294)
+- Added --with-systemd-timeoutstartsec configure option (Issue #298)
 - DigestOptions now are applied for MD5 Digest authentication defined
   by RFC 2069 as well (Issue #287)
 - Fixed compilation on Solaris (Issue #293)
