@@ -1,6 +1,11 @@
 CHANGES - OpenPrinting CUPS 2.4.0 - 2021-11-29
 ==============================================
 
+Changes in CUPS v2.4.1 (TBA)
+----------------------------
+
+- Fixed missing bracket in de/index.html (Issue #299)
+
 Changes in CUPS v2.4.0 (29th November 2021)
 -------------------------------------------
 
