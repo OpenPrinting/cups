@@ -49,12 +49,6 @@ AccessLog @CUPS_LOGDIR@/access_log
 # directive in cupsd.conf.
 ErrorLog @CUPS_LOGDIR@/error_log
 
-# Location of fonts used by older print filters...
-#FontPath @CUPS_FONTPATH@
-
-# Location of LPD configuration
-#LPDConfigFile @CUPS_DEFAULT_LPD_CONFIG_FILE@
-
 # Location of the file logging all pages printed by the scheduler and any
 # helper programs; may be the name "syslog". If not an absolute path, the value
 # of ServerRoot is used as the root directory.  Also see the "PageLogFormat"
@@ -80,9 +74,6 @@ PageLog @CUPS_LOGDIR@/page_log
 
 # Location of other configuration files...
 #ServerRoot @CUPS_SERVERROOT@
-
-# Location of Samba configuration file...
-#SMBConfigFile @CUPS_DEFAULT_SMB_CONFIG_FILE@
 
 # Location of scheduler state files...
 #StateDir @CUPS_STATEDIR@
