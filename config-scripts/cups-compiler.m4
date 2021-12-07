@@ -156,7 +156,7 @@ AS_IF([test -n "$GCC"], [
 	OLDCFLAGS="$CFLAGS"
 	AS_CASE(["$host_os_name"], [darwin*], [
 	    CFLAGS="$CFLAGS -fPIE -Wl,-pie"
-	    AC_COMPILE_IFELSE([AC_LANG_PROGRAM()], [
+	    AC_LINK_IFELSE([AC_LANG_PROGRAM()], [
 		PIEFLAGS="-fPIE -Wl,-pie"
 		AC_MSG_RESULT([yes])
 	    ], [
