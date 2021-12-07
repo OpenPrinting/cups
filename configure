@@ -8193,7 +8193,7 @@ main (void)
   return 0;
 }
 _ACEOF
-if ac_fn_c_try_compile "$LINENO"
+if ac_fn_c_try_link "$LINENO"
 then :
 
 		PIEFLAGS="-fPIE -Wl,-pie"
@@ -8206,7 +8206,8 @@ else $as_nop
 printf "%s\n" "no" >&6; }
 
 fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
 	 ;; #(
   *) :
 
@@ -8350,22 +8351,20 @@ fi
 esac
 
 
-ac_fn_c_check_header_compile "$LINENO" "resolv.h" "ac_cv_header_resolv_h" "$ac_includes_default"
+ac_fn_c_check_header_compile "$LINENO" "resolv.h" "ac_cv_header_resolv_h" "
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+    #include <netinet/in_systm.h>
+    #include <netinet/ip.h>
+
+"
 if test "x$ac_cv_header_resolv_h" = xyes
 then :
 
 
 printf "%s\n" "#define HAVE_RESOLV_H 1" >>confdefs.h
 
-
-else $as_nop
-
-.
-    #include <sys/socket.h>
-    #include <netinet/in.h>
-    #include <arpa/inet.h>
-    #include <netinet/in_systm.h>
-    #include <netinet/ip.h>
 
 fi
 
