@@ -4,7 +4,10 @@ CHANGES - OpenPrinting CUPS 2.4.0 - 2021-11-29
 Changes in CUPS v2.4.1 (TBA)
 ----------------------------
 
+- Configuration script now checks linking for -Wl,-pie flags (Issue #303)
 - Fixed missing bracket in de/index.html (Issue #299)
+- Fixed typo in configuration script (Issue #304)
+- Removed deprecated directives from cupsctl and cups-files.conf (Issue #300)
 
 Changes in CUPS v2.4.0 (29th November 2021)
 -------------------------------------------
