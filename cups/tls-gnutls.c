@@ -1120,7 +1120,7 @@ http_gnutls_read(
   ssize_t	bytes;			/* Bytes read */
 
 
-  DEBUG_printf(("6http_gnutls_read(ptr=%p, data=%p, length=%d)", ptr, data, (int)length));
+  DEBUG_printf(("5http_gnutls_read(ptr=%p, data=%p, length=%d)", ptr, data, (int)length));
 
   http = (http_t *)ptr;
 
@@ -1141,7 +1141,7 @@ http_gnutls_read(
   }
 
   bytes = recv(http->fd, data, length, 0);
-  DEBUG_printf(("6http_gnutls_read: bytes=%d", (int)bytes));
+  DEBUG_printf(("5http_gnutls_read: bytes=%d", (int)bytes));
   return (bytes);
 }
 
@@ -1159,10 +1159,10 @@ http_gnutls_write(
   ssize_t bytes;			/* Bytes written */
 
 
-  DEBUG_printf(("6http_gnutls_write(ptr=%p, data=%p, length=%d)", ptr, data,
+  DEBUG_printf(("5http_gnutls_write(ptr=%p, data=%p, length=%d)", ptr, data,
                 (int)length));
   bytes = send(((http_t *)ptr)->fd, data, length, 0);
-  DEBUG_printf(("http_gnutls_write: bytes=%d", (int)bytes));
+  DEBUG_printf(("5http_gnutls_write: bytes=%d", (int)bytes));
 
   return (bytes);
 }
@@ -1695,7 +1695,7 @@ _httpTLSWrite(http_t     *http,		/* I - Connection to server */
   ssize_t	result;			/* Return value */
 
 
-  DEBUG_printf(("2http_write_ssl(http=%p, buf=%p, len=%d)", http, buf, len));
+  DEBUG_printf(("5_httpTLSWrite(http=%p, buf=%p, len=%d)", http, buf, len));
 
   result = gnutls_record_send(http->tls, buf, (size_t)len);
 
@@ -1723,7 +1723,7 @@ _httpTLSWrite(http_t     *http,		/* I - Connection to server */
     result = -1;
   }
 
-  DEBUG_printf(("3http_write_ssl: Returning %d.", (int)result));
+  DEBUG_printf(("5_httpTLSWrite: Returning %d.", (int)result));
 
   return ((int)result);
 }
