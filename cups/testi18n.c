@@ -167,6 +167,7 @@ main(int  argc,				/* I - Argument Count */
     if (encoding == CUPS_AUTO_ENCODING)
     {
       fprintf(stderr, "%s: Unknown character set!\n", argv[2]);
+      fclose(fp);
       return (1);
     }
 
@@ -175,6 +176,7 @@ main(int  argc,				/* I - Argument Count */
       if (cupsCharsetToUTF8(utf8dest, line, sizeof(utf8dest), encoding) < 0)
       {
         fprintf(stderr, "%s: Unable to convert line: %s", argv[1], line);
+        fclose(fp);
 	return (1);
       }
 
