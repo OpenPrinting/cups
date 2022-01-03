@@ -3637,6 +3637,7 @@ cups_enum_dests(
     DEBUG_puts("1cups_enum_dests: Unable to create service browser, returning 0.");
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsArrayDelete(data.devices);
 
     return (0);
   }
@@ -3650,6 +3651,7 @@ cups_enum_dests(
     DNSServiceRefDeallocate(data.main_ref);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsArrayDelete(data.devices);
 
     return (0);
   }
@@ -3662,6 +3664,7 @@ cups_enum_dests(
     DNSServiceRefDeallocate(data.main_ref);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsArrayDelete(data.devices);
 
     return (0);
   }
@@ -3673,6 +3676,7 @@ cups_enum_dests(
     DEBUG_puts("1cups_enum_dests: Unable to create Avahi poll, returning 0.");
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsArrayDelete(data.devices);
 
     return (0);
   }
@@ -3688,6 +3692,7 @@ cups_enum_dests(
     avahi_simple_poll_free(data.simple_poll);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsArrayDelete(data.devices);
 
     return (0);
   }
@@ -3701,6 +3706,7 @@ cups_enum_dests(
     avahi_simple_poll_free(data.simple_poll);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsArrayDelete(data.devices);
 
     return (0);
   }
@@ -3716,6 +3722,7 @@ cups_enum_dests(
     avahi_simple_poll_free(data.simple_poll);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsArrayDelete(data.devices);
 
     return (0);
   }
