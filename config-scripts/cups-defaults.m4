@@ -10,7 +10,7 @@ dnl information.
 dnl
 
 dnl Set a default systemd WantedBy directive
-SYSTEMD_WANTED_BY="printers.target"
+SYSTEMD_WANTED_BY="printer.target"
 
 dnl Default languages...
 LANGUAGES="$(ls -1 locale/cups_*.po 2>/dev/null | sed -e '1,$s/locale\/cups_//' -e '1,$s/\.po//' | tr '\n' ' ')"
