@@ -107,7 +107,7 @@ distclean:	clean
 	$(RM) desktop/cups.desktop
 	$(RM) doc/index.html
 	$(RM) packaging/cups.list
-	$(RM) scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/org.cups.cups-lpdAT.service scheduler/org.cups.cupsd.path scheduler/org.cups.cupsd.service scheduler/org.cups.cupsd.socket
+	$(RM) scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket
 	$(RM) templates/header.tmpl
 	-$(RM) doc/*/index.html
 	-$(RM) templates/*/header.tmpl
