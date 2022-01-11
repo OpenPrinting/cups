@@ -4627,6 +4627,7 @@ http_tls_upgrade(http_t *http)		/* I - HTTP connection */
   * Restore the HTTP request data...
   */
 
+  httpClearFields(http);
   memcpy(http->_fields, myhttp._fields, sizeof(http->_fields));
   memcpy(http->fields, myhttp.fields, sizeof(http->fields));
 
