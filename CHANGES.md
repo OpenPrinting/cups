@@ -5,7 +5,8 @@ Changes in CUPS v2.4.1 (TBA)
 ----------------------------
 
 - Configuration script now checks linking for -Wl,-pie flags (Issue #303)
-- Fixed memory leaks - in testi18n (Issue #313), in `cups_enum_dests()` (Issue #317)
+- Fixed memory leaks - in testi18n (Issue #313), in `cups_enum_dests()` (Issue #317),
+  in `_cupsEncodeOption()` and `http_tls_upgrade()` (Issue #322)
 - Fixed missing bracket in de/index.html (Issue #299)
 - Fixed typos in configuration scripts (Issues #304, #316)
 - Removed deprecated directives from cupsctl and cups-files.conf (Issue #300)
