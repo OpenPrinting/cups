@@ -174,7 +174,6 @@ LIBTARGETS =	\
 		libcupsimage.a
 
 UNITTARGETS =	\
-		fuzzipp \
 		rasterbench \
 		testadmin \
 		testarray \
@@ -228,7 +227,7 @@ unittests:	$(UNITTARGETS)
 #
 
 clean:
-	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS)
+	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS) fuzzipp
 	$(RM) libcups.so libcups.dylib
 	$(RM) libcupsimage.so libcupsimage.dylib
 
