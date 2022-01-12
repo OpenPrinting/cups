@@ -1,7 +1,7 @@
 /*
  * PPD cache implementation for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2022 by OpenPrinting.
  * Copyright © 2010-2021 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -4065,6 +4065,9 @@ _ppdCreateFromIPP2(
   * ColorModel...
   */
 
+  if ((defattr = ippFindAttribute(supported, "print-color-mode-default", IPP_TAG_KEYWORD)) == NULL)
+    defattr = ippFindAttribute(supported, "output-mode-default", IPP_TAG_KEYWORD);
+
   if ((attr = ippFindAttribute(supported, "urf-supported", IPP_TAG_KEYWORD)) == NULL)
     if ((attr = ippFindAttribute(supported, "pwg-raster-document-type-supported", IPP_TAG_KEYWORD)) == NULL)
       if ((attr = ippFindAttribute(supported, "print-color-mode-supported", IPP_TAG_KEYWORD)) == NULL)
@@ -4074,6 +4077,16 @@ _ppdCreateFromIPP2(
   {
     int wrote_color = 0;
     const char *default_color = NULL;	/* Default */
+
+    if ((keyword = ippGetString(defattr, 0, NULL)) != NULL)
+    {
+      if (!strcmp(keyword, "bi-level"))
+        default_color = "FastGray";
+      else if (!strcmp(keyword, "monochrome") || !strcmp(keyword, "auto-monochrome"))
+        default_color = "Gray";
+      else
+        default_color = "RGB";
+    }
 
     cupsFilePrintf(fp, "*%% ColorModel from %s\n", ippGetName(attr));
 
@@ -4099,7 +4112,7 @@ _ppdCreateFromIPP2(
 
 	PRINTF_COLOROPTION("Gray", _("Grayscale"), CUPS_CSPACE_SW, 8)
 
-	if (!default_color || !strcmp(default_color, "FastGray"))
+	if (!default_color || (!defattr && !strcmp(default_color, "FastGray")))
 	  default_color = "Gray";
       }
       else if (!strcasecmp(keyword, "sgray_16") || !strcmp(keyword, "W8-16"))
@@ -4110,7 +4123,7 @@ _ppdCreateFromIPP2(
 	{
 	  PRINTF_COLOROPTION("Gray", _("Grayscale"), CUPS_CSPACE_SW, 8)
 
-	  if (!default_color || !strcmp(default_color, "FastGray"))
+	  if (!default_color || (!defattr && !strcmp(default_color, "FastGray")))
 	    default_color = "Gray";
 	}
 
@@ -4122,7 +4135,8 @@ _ppdCreateFromIPP2(
 
 	PRINTF_COLOROPTION("RGB", _("Color"), CUPS_CSPACE_SRGB, 8)
 
-	default_color = "RGB";
+        if (!default_color)
+	  default_color = "RGB";
 
         // Apparently some printers only advertise color support, so make sure
         // we also do grayscale for these printers...

@@ -1,7 +1,7 @@
 /*
  * Printer routines for the CUPS scheduler.
  *
- * Copyright © 2020-2021 by OpenPrinting
+ * Copyright © 2020-2022 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -3395,6 +3395,7 @@ add_printer_defaults(cupsd_printer_t *p)/* I - Printer */
     cupsArrayAdd(CommonDefaults, _cupsStrAlloc("notify-events-default"));
     cupsArrayAdd(CommonDefaults, _cupsStrAlloc("number-up-default"));
     cupsArrayAdd(CommonDefaults, _cupsStrAlloc("orientation-requested-default"));
+    cupsArrayAdd(CommonDefaults, _cupsStrAlloc("print-color-mode-default"));
     cupsArrayAdd(CommonDefaults, _cupsStrAlloc("print-quality-default"));
   }
 
@@ -3406,9 +3407,7 @@ add_printer_defaults(cupsd_printer_t *p)/* I - Printer */
        i > 0;
        i --, option ++)
   {
-    if (strcmp(option->name, "ipp-options") &&
-	strcmp(option->name, "job-sheets") &&
-        strcmp(option->name, "lease-duration"))
+    if (strcmp(option->name, "ipp-options") && strcmp(option->name, "job-sheets") && strcmp(option->name, "lease-duration"))
     {
       snprintf(name, sizeof(name), "%s-default", option->name);
       num_options = cupsAddOption(name, option->value, num_options, &options);
@@ -3430,44 +3429,37 @@ add_printer_defaults(cupsd_printer_t *p)/* I - Printer */
   */
 
   if (!cupsGetOption("copies", p->num_options, p->options))
-    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "copies-default",
-                  1);
+    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "copies-default", 1);
 
   if (!cupsGetOption("document-format", p->num_options, p->options))
-    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE,
-        	 "document-format-default", NULL, "application/octet-stream");
+    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-default", NULL, "application/octet-stream");
 
   if (!cupsGetOption("job-cancel-after", p->num_options, p->options))
-    ippAddInteger(p->attrs, IPP_TAG_PRINTER, MaxJobTime > 0 ? IPP_TAG_INTEGER : IPP_TAG_NOVALUE,
-		  "job-cancel-after-default", MaxJobTime);
+    ippAddInteger(p->attrs, IPP_TAG_PRINTER, MaxJobTime > 0 ? IPP_TAG_INTEGER : IPP_TAG_NOVALUE, "job-cancel-after-default", MaxJobTime);
 
   if (!cupsGetOption("job-hold-until", p->num_options, p->options))
-    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-                 "job-hold-until-default", NULL, "no-hold");
+    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "job-hold-until-default", NULL, "no-hold");
 
   if (!cupsGetOption("job-priority", p->num_options, p->options))
-    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER,
-                  "job-priority-default", 50);
+    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "job-priority-default", 50);
 
   if (!cupsGetOption("number-up", p->num_options, p->options))
-    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER,
-                  "number-up-default", 1);
+    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "number-up-default", 1);
 
   if (!cupsGetOption("notify-lease-duration", p->num_options, p->options))
-    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER,
-        	  "notify-lease-duration-default", DefaultLeaseDuration);
+    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "notify-lease-duration-default", DefaultLeaseDuration);
 
   if (!cupsGetOption("notify-events", p->num_options, p->options))
-    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-        	 "notify-events-default", NULL, "job-completed");
+    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "notify-events-default", NULL, "job-completed");
 
   if (!cupsGetOption("orientation-requested", p->num_options, p->options))
-    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_NOVALUE,
-                 "orientation-requested-default", NULL, NULL);
+    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_NOVALUE, "orientation-requested-default", NULL, NULL);
+
+  if (!cupsGetOption("print-color-mode", p->num_options, p->options))
+    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "print-color-mode-default", NULL, (p->type & CUPS_PRINTER_COLOR) ? "color" : "monochrome");
 
   if (!cupsGetOption("print-quality", p->num_options, p->options))
-    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_ENUM,
-                  "print-quality-default", IPP_QUALITY_NORMAL);
+    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_ENUM, "print-quality-default", IPP_QUALITY_NORMAL);
 }
 
 
@@ -4497,20 +4489,25 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	"color"
       };
 
-      ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-                    "print-color-mode-supported", 2, NULL, color_modes);
-      ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-                   "print-color-mode-default", NULL, "color");
+      ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "print-color-mode-supported", 2, NULL, color_modes);
       ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "pwg-raster-document-type-supported", 3, NULL, pwg_raster_document_types);
 
       urf[num_urf ++] = "SRGB24";
+
+      if (!cupsGetOption("printer-color-mode", p->num_options, p->options))
+      {
+        // If the default color mode isn't set, use the default from the PPD
+        // file...
+        ppd_option_t *color_model = ppdFindOption(ppd, "ColorModel");
+					// ColorModel PPD option
+
+        if (color_model && strcmp(color_model->defchoice, "RGB"))
+          p->num_options = cupsAddOption("print-color-mode", "monochrome", p->num_options, &p->options);
+      }
     }
     else
     {
-      ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-                   "print-color-mode-supported", NULL, "monochrome");
-      ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-                   "print-color-mode-default", NULL, "monochrome");
+      ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "print-color-mode-supported", NULL, "monochrome");
       ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "pwg-raster-document-type-supported", 2, NULL, pwg_raster_document_types);
     }
 

@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.4.0 - 2021-11-29
 Changes in CUPS v2.4.1 (TBA)
 ----------------------------
 
+- The default color mode now is now configurable and defaults to the printer's
+  reported default mode (Issue #277)
 - Configuration script now checks linking for -Wl,-pie flags (Issue #303)
 - Fixed memory leaks - in testi18n (Issue #313), in `cups_enum_dests()`
   (Issue #317), in `_cupsEncodeOption()` and `http_tls_upgrade()` (Issue #322)
