@@ -5,11 +5,14 @@ Changes in CUPS v2.4.1 (TBA)
 ----------------------------
 
 - Configuration script now checks linking for -Wl,-pie flags (Issue #303)
-- Fixed memory leaks - in testi18n (Issue #313), in `cups_enum_dests()` (Issue #317),
-  in `_cupsEncodeOption()` and `http_tls_upgrade()` (Issue #322)
+- Fixed memory leaks - in testi18n (Issue #313), in `cups_enum_dests()`
+  (Issue #317), in `_cupsEncodeOption()` and `http_tls_upgrade()` (Issue #322)
 - Fixed missing bracket in de/index.html (Issue #299)
 - Fixed typos in configuration scripts (Issues #304, #316)
+- Removed remaining legacy code for `RIP_MAX_CACHE` environment variable
+  (Issue #323)
 - Removed deprecated directives from cupsctl and cups-files.conf (Issue #300)
+
 
 Changes in CUPS v2.4.0 (29th November 2021)
 -------------------------------------------
@@ -21,12 +24,14 @@ Changes in CUPS v2.4.0 (29th November 2021)
 - Fixed compilation on Solaris (Issue #293)
 - Fixed and improved German translations (Issue #296, Issue #297)
 
+
 Changes in CUPS v2.4rc1 (12th November 2021)
 --------------------------------------------
 
 - Added warning and debug messages when loading printers
  if the queue is raw or with driver (Issue #286)
 - Compilation now uses -fstack-protector-strong if available (Issue #285)
+
 
 Changes in CUPS v2.4b1 (27th October 2021)
 ------------------------------------------
@@ -40,7 +45,8 @@ Changes in CUPS v2.4b1 (27th October 2021)
 - Added a JSON output mode for `ipptool`.
 - The `ipptool` command now correctly reports an error when a test file cannot
   be found.
-- CUPS library now uses thread safe `getpwnam_r` and `getpwuid_r` functions (Issue #274)
+- CUPS library now uses thread safe `getpwnam_r` and `getpwuid_r` functions
+  (Issue #274)
 - Fixed Kerberos authentication for the web interface (Issue #19)
 - The ZPL sample driver now supports more "standard" label sizes (Issue #70)
 - Fixed reporting of printer instances when enumerating and when no options are

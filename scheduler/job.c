@@ -541,10 +541,8 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 					/* PRINTER_LOCATION env variable */
 			printer_name[255],
 					/* PRINTER env variable */
-			*printer_state_reasons = NULL,
+			*printer_state_reasons = NULL;
 					/* PRINTER_STATE_REASONS env var */
-			rip_max_cache[255];
-					/* RIP_MAX_CACHE env variable */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
@@ -749,7 +747,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 
   raw_file = !strcmp(job->filetypes[job->current_file]->super, "application") &&
     !strcmp(job->filetypes[job->current_file]->type, "vnd.cups-raw");
-  
+
   if ((job->compressions[job->current_file] && (!job->printer->remote || job->num_files == 1)) ||
       (!job->printer->remote && (job->printer->raw || raw_file) && job->num_files > 1))
   {
@@ -1051,7 +1049,6 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
   envp[envc ++] = apple_language;
 #endif /* __APPLE__ */
   envp[envc ++] = ppd;
-  envp[envc ++] = rip_max_cache;
   envp[envc ++] = content_type;
   envp[envc ++] = device_uri;
   envp[envc ++] = printer_info;
