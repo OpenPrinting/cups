@@ -981,7 +981,6 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
 		printer_info[255],	/* PRINTER_INFO env variable */
 		printer_location[255],	/* PRINTER_LOCATION env variable */
 		printer_name[255],	/* PRINTER env variable */
-		rip_max_cache[1024],	/* RIP_MAX_CACHE */
 		userenv[1024],		/* USER */
 #if CUPS_SNAP
 		fontconfig_file[1024],	/* FONTCONFIG_FILE */
@@ -1133,7 +1132,6 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   envp[i ++] = printer_info;
   envp[i ++] = printer_location;
   envp[i ++] = printer_name;
-  envp[i ++] = rip_max_cache;
   envp[i ++] = userenv;
   envp[i ++] = "CHARSET=utf-8";
   if (final_content_type[0])
