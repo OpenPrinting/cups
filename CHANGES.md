@@ -1,8 +1,8 @@
-CHANGES - OpenPrinting CUPS 2.4.0 - 2021-11-29
+CHANGES - OpenPrinting CUPS 2.4.1 - 2022-01-27
 ==============================================
 
-Changes in CUPS v2.4.1 (TBA)
-----------------------------
+Changes in CUPS v2.4.1 (27th January 2020)
+------------------------------------------
 
 - The default color mode now is now configurable and defaults to the printer's
   reported default mode (Issue #277)
