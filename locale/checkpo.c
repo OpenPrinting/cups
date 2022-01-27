@@ -2,7 +2,7 @@
  * Verify that translations in the .po file have the same number and type of
  * printf-style format strings.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2022 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *

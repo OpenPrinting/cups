@@ -1,7 +1,7 @@
 ---
 title: CUPS Programming Manual
 author: Michael R Sweet
-copyright: Copyright © 2021 by OpenPrinting. All Rights Reserved.
+copyright: Copyright © 2021-2022 by OpenPrinting. All Rights Reserved.
 version: 2.4.0
 ...
 

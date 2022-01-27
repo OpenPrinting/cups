@@ -13,7 +13,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>OpenPrinting CUPS is a standards-based, open source printing system for Linux®
 and other Unix®-like operating systems. This package provides the redistributable content for the CUPS library. CUPS is licensed under the Apache License Version 2.0 with an exception to allow linking against GNU GPL2-only software.</description>
-        <copyright>Copyright © 2020-2021 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
+        <copyright>Copyright © 2020-2022 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
         <tags>http ipp native</tags>
 	<dependencies>
 	    <dependency id="zlib_native.redist" version="1.2.11" />

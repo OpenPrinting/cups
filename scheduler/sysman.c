@@ -1,7 +1,7 @@
 /*
  * System management functions for the CUPS scheduler.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2022 by OpenPrinting.
  * Copyright @ 2007-2018 by Apple Inc.
  * Copyright @ 2006 by Easy Software Products.
  *

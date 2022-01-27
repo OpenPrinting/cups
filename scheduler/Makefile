@@ -1,7 +1,7 @@
 #
 # Scheduler Makefile for CUPS.
 #
-# Copyright © 2020 by OpenPrinting
+# Copyright © 2020-2022 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #

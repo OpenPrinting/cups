@@ -2,7 +2,7 @@
  * "cupsaccept", "cupsdisable", "cupsenable", and "cupsreject" commands for
  * CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2022 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *

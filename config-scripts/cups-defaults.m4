@@ -1,7 +1,7 @@
 dnl
 dnl Default cupsd configuration settings for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2021-2022 by OpenPrinting.
 dnl Copyright © 2007-2018 by Apple Inc.
 dnl Copyright © 2006-2007 by Easy Software Products, all rights reserved.
 dnl

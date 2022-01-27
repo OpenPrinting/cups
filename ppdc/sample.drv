@@ -1,7 +1,7 @@
 //
 // Driver info file for CUPS-supplied PPDs.
 //
-// Copyright © 2021 by OpenPrinting.
+// Copyright © 2021-2022 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1993-2006 by Easy Software Products.
 //
@@ -123,7 +123,7 @@ Attribute "FileSystem" "" "False"
 Attribute "LandscapeOrientation" "" "Plus90"
 Attribute "TTRasterizer" "" "Type42"
 
-Copyright "Copyright (c) 2021 by OpenPrinting."
+Copyright "Copyright (c) 2021-2022 by OpenPrinting."
 Copyright "Copyright (c) 2007-2019 by Apple Inc."
 Copyright "Copyright (c) 1997-2007 by Easy Software Products."
 Copyright ""
