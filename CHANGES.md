@@ -14,6 +14,7 @@ Changes in CUPS v2.4.1 (TBA)
 - Removed remaining legacy code for `RIP_MAX_CACHE` environment variable
   (Issue #323)
 - Removed deprecated directives from cupsctl and cups-files.conf (Issue #300)
+- Removed `purge-jobs` legacy code from CGI scripts and templates (Issue #325)
 
 
 Changes in CUPS v2.4.0 (29th November 2021)

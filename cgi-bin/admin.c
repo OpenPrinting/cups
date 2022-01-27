@@ -2271,7 +2271,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
   ipp_t		*request,		/* IPP request */
 		*response;		/* IPP response */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
-  const char	*printer,		/* Printer name (purge-jobs) */
+  const char	*printer,		/* Printer name */
 		*is_class,		/* Is a class? */
 		*users,			/* List of users or groups */
 		*type;			/* Allow/deny type */
@@ -2536,7 +2536,7 @@ do_set_default(http_t *http)		/* I - HTTP connection */
   const char	*title;			/* Page title */
   ipp_t		*request;		/* IPP request */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
-  const char	*printer,		/* Printer name (purge-jobs) */
+  const char	*printer,		/* Printer name */
 		*is_class;		/* Is a class? */
 
 

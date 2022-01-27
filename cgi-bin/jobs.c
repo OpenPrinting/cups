@@ -138,7 +138,7 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
   *
   *    attributes-charset
   *    attributes-natural-language
-  *    job-uri or printer-uri (purge-jobs)
+  *    job-uri
   *    requesting-user-name
   */
 
