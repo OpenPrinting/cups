@@ -1,6 +1,12 @@
 CHANGES - OpenPrinting CUPS 2.4.1 - 2022-01-27
 ==============================================
 
+Changes in CUPS v2.4.2 (TBA)
+----------------------------
+
+- Fixed conditional jump based on uninitialized value in cups/ppd.c (Issue #329)
+
+
 Changes in CUPS v2.4.1 (27th January 2020)
 ------------------------------------------
 
