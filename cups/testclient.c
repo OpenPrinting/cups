@@ -599,7 +599,7 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
 
   memset(line, 0xff, header.cupsBytesPerLine);
 
-  for (y = 0; y < header.cupsHeight; y ++)
+  for (; y < header.cupsHeight; y ++)
     cupsRasterWritePixels(ras, line, header.cupsBytesPerLine);
 
   free(line);
