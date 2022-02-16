@@ -17,15 +17,15 @@
 #    ./checkpo cups_LL.po
 #
 # where "LL" is your locale.
-# Joachim Schwender <Joachim@schwender-beyer.de>, 2021.
 # Frederik Schwarzer <schwarzer@kde.org>, 2021.
+# Joachim Schwender <Joachim@schwender-beyer.de>, 2021-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: CUPS 2.3\n"
+"Project-Id-Version: CUPS 2.4\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2021-03-07 10:33-0500\n"
-"PO-Revision-Date: 2021-03-08 23:35+0100\n"
+"PO-Revision-Date: 2022-02-16 09:22+0100\n"
 "Last-Translator: Joachim Schwender <Joachim@schwender-beyer.de>\n"
 "Language-Team: German <joachim.schwender@web.de>\n"
 "Language: de\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"X-Generator: Gtranslator 40.0\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(alle)"
@@ -479,11 +479,11 @@ msgstr ""
 
 #, c-format
 msgid "      %s  Size \"%s\" defined for %s but not for %s."
-msgstr ""
+msgstr "      %s  Größe \"%s\" ist für %s definiert aber nicht für %s."
 
 #, c-format
 msgid "      %s  Size \"%s\" has unexpected dimensions (%gx%g)."
-msgstr ""
+msgstr "      %s  Größe \"%s\" hat unerwartete Abmessungen (%gx%g)."
 
 #, c-format
 msgid "      %s  Size \"%s\" should be \"%s\"."
@@ -505,6 +505,8 @@ msgstr "      %s  cupsUIResolver %s verursacht eine Schleife."
 msgid ""
 "      %s  cupsUIResolver %s does not list at least two different options."
 msgstr ""
+"      %s  cupsUIResolver %s listet nicht mindestens zwei verschiedene "
+"Optionen auf."
 
 #, c-format
 msgid ""
@@ -597,6 +599,8 @@ msgid ""
 "      **FAIL**  Default translation string for option %s choice %s contains "
 "8-bit characters."
 msgstr ""
+"      **FEHLER**  Voreingestellte Übersetzung für die Option %s Auswahl %s "
+"enthält 8-bit Zeichen."
 
 #, c-format
 msgid ""
@@ -1266,7 +1270,7 @@ msgstr "%s: Fehler - Kopienzahl nach der Option \"-n\" erwartet."
 
 #, c-format
 msgid "%s: Error - expected destination MIME type after \"-m\" option."
-msgstr ""
+msgstr "%s: Fehler - Ziel-MIME-Type nach der \"-m\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected destination after \"-P\" option."
@@ -1278,7 +1282,7 @@ msgstr "%s: Fehler - Zielangabe nach der Option \"-d\" erwartet."
 
 #, c-format
 msgid "%s: Error - expected filename after \"-c\" option."
-msgstr ""
+msgstr "%s: Fehler - Dateiname nach \"-c\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected form after \"-f\" option."
@@ -1298,11 +1302,11 @@ msgstr "%s: Fehler - Hostname nach der Option \"-h\" erwartet."
 
 #, c-format
 msgid "%s: Error - expected input file after \"-f\" option."
-msgstr ""
+msgstr "%s: Fehler - Eingabedatei nach \"-f\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected job-id after \"-j\" option."
-msgstr ""
+msgstr "%s: Fehler - Auftrags-id nach der Option \"-j\" erwartet."
 
 #, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
@@ -1314,15 +1318,15 @@ msgstr "%s: Fehler - Name nach der Option \"-%c\" erwartet."
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-a\" option."
-msgstr ""
+msgstr "%s: Fehler - Name=Wert nach der \"-a\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-o\" option."
-msgstr ""
+msgstr "%s: Fehler - Name=Wert nach der \"-o\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected number of copies after \"-n\" option."
-msgstr ""
+msgstr "%s: Fehler - Anzahl der Kopien nach der \"-n\" Option erwartet"
 
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
@@ -1334,7 +1338,7 @@ msgstr "%s: Fehler - Seitenliste nach der Option \"-P\" erwartet."
 
 #, c-format
 msgid "%s: Error - expected printer name after \"-d\" option."
-msgstr ""
+msgstr "%s: Fehler - Druckername nach der \"-d\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected priority after \"-%c\" option."
@@ -1346,11 +1350,11 @@ msgstr "%s: Fehler - Grund nach der Option \"-r\" erwartet."
 
 #, c-format
 msgid "%s: Error - expected source MIME type after \"-i\" option."
-msgstr ""
+msgstr "%s: Fehler - MIME-Type der Quelle nach der \"-i\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected title after \"-%c\" option."
-msgstr ""
+msgstr "%s: Fehler - Titel nach der \"-%c\" Option erwartet."
 
 #, c-format
 msgid "%s: Error - expected title after \"-t\" option."
@@ -1639,7 +1643,7 @@ msgid "--no-web-forms          Disable web forms for media and supplies"
 msgstr ""
 
 msgid "--not expression        Unary NOT of expression"
-msgstr ""
+msgstr "--not expression        Unäres NICHT des Ausdrucks"
 
 msgid "--pam-service service   Use the named PAM service"
 msgstr ""
@@ -1661,13 +1665,13 @@ msgid ""
 msgstr ""
 
 msgid "--quiet                 Quietly report match via exit code"
-msgstr ""
+msgstr "--quiet                 Übereinstimmung still über Exitcode berichten"
 
 msgid "--release               Release previously held jobs"
 msgstr "--release               Angehaltene Aufträge freigeben"
 
 msgid "--remote                True if service is remote"
-msgstr ""
+msgstr "--remote                Wahr wenn der Dienst entfernt ist."
 
 msgid ""
 "--stop-after-include-error\n"
@@ -1969,6 +1973,9 @@ msgid ""
 "translations}\n"
 "                          Issue warnings instead of errors"
 msgstr ""
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
+"translations}\n"
+"                          Gibt Warnungen statt Fehler aus"
 
 msgid "-X                      Produce XML plist instead of plain text"
 msgstr "-X                      Generiere XML-plist anstelle von Text"
@@ -2107,7 +2114,8 @@ msgstr "-m Modell               Lege Modellname fest (Voreinstellung=Printer)"
 
 msgid ""
 "-m model                Specify a standard model/PPD file for the printer"
-msgstr "-m Modell              Gib eine Standard-Model/PPD-Datei für den Drucker an"
+msgstr ""
+"-m Modell              Gib eine Standard-Model/PPD-Datei für den Drucker an"
 
 msgid "-n count                Repeat the last file the given number of times"
 msgstr ""
@@ -2141,12 +2149,18 @@ msgstr ""
 
 msgid "-o job-k-limit=N        Specify the kilobyte limit for per-user quotas"
 msgstr ""
+"-o job-k-limit=N        Gebe die kilobyte-Grenze für benutzerbezogene "
+"Kontingente an"
 
 msgid "-o job-page-limit=N     Specify the page limit for per-user quotas"
 msgstr ""
+"-o job-page-limit=N     Gebe die Seitenzahl-Grenze für benutzerbezogene "
+"Kontingente an"
 
 msgid "-o job-quota-period=N   Specify the per-user quota period in seconds"
 msgstr ""
+"-o job-quota-period=N   Gebe den Kontingentszeitraum pro Benutzer in "
+"Sekunden an"
 
 msgid "-o job-sheets=standard  Print a banner page with the job"
 msgstr "-o job-sheets=standard  Drucke eine Bannerseite mit dem Auftrag"
@@ -2156,14 +2170,17 @@ msgstr "-o media=size           Gebe die zu verwendende Mediengröße an"
 
 msgid "-o name-default=value   Specify the default value for the named option"
 msgstr ""
+"-o name-default=value   Gebe den Vorgabewert für die genannte Option an"
 
 msgid "-o name[=value]         Set default option and value"
-msgstr ""
+msgstr "-o name[=value]         Standardoption und -wert festlegen"
 
 msgid ""
 "-o number-up=N          Specify that input pages should be printed N-up (1, "
 "2, 4, 6, 9, and 16 are supported)"
 msgstr ""
+"-o number-up=N          Gebe an, dass die Eingabeseiten N-fach "
+"zusammengefasst werden sollen (1, 2, 4, 6, 9, und 16 sind unterstützt)"
 
 msgid "-o option[=value]       Specify a printer-specific option"
 msgstr "-o Option[=Wert]       Gib eine Druckerspezifische Option an"
@@ -2215,7 +2232,7 @@ msgstr ""
 "                        2-seitiger Druck in Querformat"
 
 msgid "-p                      Print URI if true"
-msgstr ""
+msgstr "-p                      Gibt die URI aus wenn wahr"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
 msgstr "-p [Drucker]            Zeige den Bearbeitungsstatus der Drucker-Ziele"
@@ -2230,7 +2247,7 @@ msgid "-p port                 Set port number for printer"
 msgstr "-p Port                 Bestimme die Portnummer für den Drucker"
 
 msgid "-q                      Quietly report match via exit code"
-msgstr ""
+msgstr "-q                      Übereinstimmung still über Exitcode berichten"
 
 msgid "-q                      Run silently"
 msgstr "-q                      Laufe leise"
@@ -2243,9 +2260,10 @@ msgstr ""
 
 msgid "-r                      Remove the file(s) after submission"
 msgstr ""
+"-r                      Die Datei(en) werden nach der Übermittlung gelöscht"
 
 msgid "-r                      Show whether the CUPS server is running"
-msgstr ""
+msgstr "-r                      Gibt aus ob der CUPS-Server läuft"
 
 msgid "-r                      True if service is remote"
 msgstr ""
@@ -2306,10 +2324,14 @@ msgstr "-u allow:all            Erlaube allen Benutzern das Drucken"
 msgid ""
 "-u allow:list           Allow the list of users or groups (@name) to print"
 msgstr ""
+"-u allow:list           Der Gruppe von Benutzern oder Gruppe (@name) das "
+"Drucken erlauben"
 
 msgid ""
 "-u deny:list            Prevent the list of users or groups (@name) to print"
 msgstr ""
+"-u deny:list            Der Gruppe von Benutzern oder Gruppe (@name) das "
+"Drucken verweigern"
 
 msgid "-u owner                Specify the owner to use for jobs"
 msgstr "-u Besitzer             Gebe den Besitzer für Aufträge an"
@@ -7243,9 +7265,12 @@ msgid ""
 "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", "
 "and \"-X\"."
 msgstr ""
+"ipptool: \"-i\" und \"-n\" sind nicht kompatibel mit \"--ippserver\", \"-P\" "
+"und \"-X\"."
 
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
 msgstr ""
+"ipptool: \"-i\" und \"-n\" sind nicht kompatibel mit \"-P\" und \"-X\"."
 
 #, c-format
 msgid "ipptool: Bad URI \"%s\"."
@@ -7255,19 +7280,19 @@ msgid "ipptool: Invalid seconds for \"-i\"."
 msgstr "ipptool: Ungültige Sekundenzahl für \"-i\"."
 
 msgid "ipptool: May only specify a single URI."
-msgstr ""
+msgstr "ipptool: Darf nur einen einzigen URI angeben."
 
 msgid "ipptool: Missing count for \"-n\"."
-msgstr ""
+msgstr "ipptool: Fehlende Anzahl für \"-n\"."
 
 msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr ""
+msgstr "ipptool: Fehlender Dateiname für \"--ippserver\"."
 
 msgid "ipptool: Missing filename for \"-f\"."
-msgstr ""
+msgstr "ipptool: Fehlender Dateiname für \"-f\"."
 
 msgid "ipptool: Missing name=value for \"-d\"."
-msgstr ""
+msgstr "ipptool: Fehlender name=Wert für \"-d\"."
 
 msgid "ipptool: Missing seconds for \"-i\"."
 msgstr "ipptool: Fehlende Sekundenzahl für \"-i\"."
@@ -7888,7 +7913,7 @@ msgstr "Dienst offline"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "job-state-reasons.submission-interrupted"
-msgstr ""
+msgstr "Eingabe unterbrochen"
 
 #. TRANSLATORS: Unsupported Attributes Or Values
 msgid "job-state-reasons.unsupported-attributes-or-values"
@@ -8055,8 +8080,8 @@ msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
 "version of CUPS."
 msgstr ""
-"lpadmin: Druckertreiber sind veraltet und werden in einer zukünftigen Version "
-"von CUPS nicht mehr funktionieren."
+"lpadmin: Druckertreiber sind veraltet und werden in einer zukünftigen "
+"Version von CUPS nicht mehr funktionieren."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: Druckername darf nur druckbare Zeichen enthalten."
@@ -8065,8 +8090,8 @@ msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
 "of CUPS."
 msgstr ""
-"lpadmin: Roh-Warteschlangen sind veraltet und werden in einer "
-"zukünftigen Version von CUPS nicht mehr funktionieren."
+"lpadmin: Roh-Warteschlangen sind veraltet und werden in einer zukünftigen "
+"Version von CUPS nicht mehr funktionieren."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: Roh-Warteschlangen sind unter macOS nicht mehr unterstützt."
@@ -8150,7 +8175,7 @@ msgid "lpinfo: Expected language after \"--language\"."
 msgstr "lpinfo: Sprache nach \"--language\" erwartet."
 
 msgid "lpinfo: Expected make and model after \"--make-and-model\"."
-msgstr ""
+msgstr "lpinfo: Erwartetes Fabrikat und Modell nach \"--make-and-model\"."
 
 msgid "lpinfo: Expected product string after \"--product\"."
 msgstr "lpinfo: Produkt-Zeichenkette nach \"--product\" erwartet."
@@ -8162,7 +8187,7 @@ msgid "lpinfo: Expected scheme list after \"--include-schemes\"."
 msgstr ""
 
 msgid "lpinfo: Expected timeout after \"--timeout\"."
-msgstr ""
+msgstr "lpinfo: Zeitlimit nach \"--timeout\" erwartet."
 
 #, c-format
 msgid "lpmove: Unable to connect to server: %s"
@@ -8195,6 +8220,7 @@ msgid ""
 "lpstat: error - %s environment variable names non-existent destination \"%s"
 "\"."
 msgstr ""
+"lpstat: Fehler - %s Umgebungsvariable benennt nicht vorhandenes Ziel \"%s\"."
 
 #. TRANSLATORS: Amount of Material
 msgid "material-amount"
@@ -13208,7 +13234,7 @@ msgstr "Motorstörung"
 
 #. TRANSLATORS: Printer going offline
 msgid "printer-state-reasons.moving-to-paused"
-msgstr ""
+msgstr "Drucker geht offline"
 
 #. TRANSLATORS: None
 msgid "printer-state-reasons.none"
@@ -13236,7 +13262,7 @@ msgstr "Ausgabefach ist voll"
 
 #. TRANSLATORS: Output Mailbox Select Failure
 msgid "printer-state-reasons.output-mailbox-select-failure"
-msgstr ""
+msgstr "Fehler bei der Auswahl des Ausgangsfachs"
 
 #. TRANSLATORS: Output Media Tray Failure
 msgid "printer-state-reasons.output-media-tray-failure"
@@ -13244,11 +13270,11 @@ msgstr "Fehler im Ausgabefach"
 
 #. TRANSLATORS: Output Media Tray Feed Error
 msgid "printer-state-reasons.output-media-tray-feed-error"
-msgstr ""
+msgstr "Fehler bei der Zufuhr des Ausgabemedienfachs"
 
 #. TRANSLATORS: Output Media Tray Jam
 msgid "printer-state-reasons.output-media-tray-jam"
-msgstr ""
+msgstr "Papierstau im Ausgabefach"
 
 #. TRANSLATORS: Output tray is missing
 msgid "printer-state-reasons.output-tray-missing"
@@ -15071,15 +15097,15 @@ msgstr ""
 
 #. TRANSLATORS: Stitching Angle
 msgid "stitching-angle"
-msgstr ""
+msgstr "Nahtwinkel"
 
 #. TRANSLATORS: Stitching Locations
 msgid "stitching-locations"
-msgstr ""
+msgstr "Nahtstellen"
 
 #. TRANSLATORS: Staple Method
 msgid "stitching-method"
-msgstr ""
+msgstr "Nähmethode"
 
 #. TRANSLATORS: Automatic
 msgid "stitching-method.auto"
@@ -15087,7 +15113,7 @@ msgstr "Automatisch"
 
 #. TRANSLATORS: Crimp
 msgid "stitching-method.crimp"
-msgstr ""
+msgstr "Krimpen"
 
 #. TRANSLATORS: Wire
 msgid "stitching-method.wire"
@@ -15095,11 +15121,11 @@ msgstr "Draht"
 
 #. TRANSLATORS: Stitching Offset
 msgid "stitching-offset"
-msgstr ""
+msgstr "Nahtversatz"
 
 #. TRANSLATORS: Staple Edge
 msgid "stitching-reference-edge"
-msgstr ""
+msgstr "Naht-Bezugskante"
 
 #. TRANSLATORS: Bottom
 msgid "stitching-reference-edge.bottom"
@@ -15126,7 +15152,7 @@ msgstr "Thema"
 
 #. TRANSLATORS: Subscription Privacy Attributes
 msgid "subscription-privacy-attributes"
-msgstr ""
+msgstr "Datenschutz-Attribut für Abonnements"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-attributes.all"
@@ -15148,9 +15174,17 @@ msgstr "Subskriptionsbeschreibung"
 msgid "subscription-privacy-attributes.subscription-template"
 msgstr "Subskriptionsvorlage"
 
+# Notizen:
+# Notiz hinzufügen
+#
+# Kommentarauszug:
+# TRANSLATORS: Subscription Privacy Scope
+#
+#
+# Pfade:
 #. TRANSLATORS: Subscription Privacy Scope
 msgid "subscription-privacy-scope"
-msgstr ""
+msgstr "Datenschutz-Geltungsbereich"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-scope.all"
@@ -15363,13 +15397,15 @@ msgid "{service_uri}           URI"
 msgstr "{service_uri}           URI"
 
 msgid "{txt_*}                 Value of TXT record key"
-msgstr ""
+msgstr "{txt_*}                 Wert des TXT Datensatzschlüssels"
 
 msgid "{}                      URI"
 msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
+"~/.cups/lpoptions Die Datei nennt ein voreingestelltes Ziel das nicht "
+"existiert."
 
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr ""
