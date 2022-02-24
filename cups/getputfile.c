@@ -419,6 +419,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
       DEBUG_printf(("2cupsPutFd: retry on status %d", status));
 
       retries ++;
+      status = HTTP_STATUS_NONE;
 
       /* Flush any error message... */
       httpFlush(http);
@@ -487,8 +488,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
     }
 #endif /* HAVE_TLS */
   }
-  while (status == HTTP_STATUS_UNAUTHORIZED || status == HTTP_STATUS_UPGRADE_REQUIRED ||
-         (status == HTTP_STATUS_ERROR && retries < 2));
+  while (status == HTTP_STATUS_UNAUTHORIZED || status == HTTP_STATUS_UPGRADE_REQUIRED || status == HTTP_STATUS_NONE);
 
  /*
   * See if we actually put the file or an error...
