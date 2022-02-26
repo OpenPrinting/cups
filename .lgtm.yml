@@ -1,6 +1,6 @@
 path_classifiers:
   test:
-    - exclude: locale
+    - exclude: 'locale/*.c'
 
 queries:
   - exclude: cpp/integer-multiplication-cast-to-long
