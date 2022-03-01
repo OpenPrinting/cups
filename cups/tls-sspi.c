@@ -2,9 +2,11 @@
  * TLS support for CUPS on Windows using the Security Support Provider
  * Interface (SSPI).
  *
- * Copyright 2010-2018 by Apple Inc.
+ * Copyright © 2020-2022 by OpenPrinting.
+ * Copyright © 2010-2018 by Apple Inc.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /**** This file is included from tls.c ****/
@@ -445,11 +447,11 @@ httpLoadCredentials(
     return (-1);
   }
 
-  if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET | CRYPT_MACHINE_KEYSET))
+  if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET /*| CRYPT_MACHINE_KEYSET*/))
   {
     if (GetLastError() == NTE_EXISTS)
     {
-      if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_MACHINE_KEYSET))
+      if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, 0 /*CRYPT_MACHINE_KEYSET*/))
       {
         DEBUG_printf(("1httpLoadCredentials: CryptAcquireContext failed: %s", http_sspi_strerror(error, sizeof(error), GetLastError())));
         goto cleanup;
@@ -568,11 +570,11 @@ httpSaveCredentials(
     return (-1);
   }
 
-  if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET | CRYPT_MACHINE_KEYSET))
+  if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET /*| CRYPT_MACHINE_KEYSET*/))
   {
     if (GetLastError() == NTE_EXISTS)
     {
-      if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_MACHINE_KEYSET))
+      if (!CryptAcquireContextW(&hProv, L"RememberedContainer", MS_DEF_PROV_W, PROV_RSA_FULL, 0 /*CRYPT_MACHINE_KEYSET*/))
       {
         DEBUG_printf(("1httpSaveCredentials: CryptAcquireContext failed: %s", http_sspi_strerror(error, sizeof(error), GetLastError())));
         goto cleanup;
@@ -625,7 +627,7 @@ httpSaveCredentials(
   ckp.pwszContainerName = L"RememberedContainer";
   ckp.pwszProvName      = MS_DEF_PROV_W;
   ckp.dwProvType        = PROV_RSA_FULL;
-  ckp.dwFlags           = CRYPT_MACHINE_KEYSET;
+  ckp.dwFlags           = 0 /*CRYPT_MACHINE_KEYSET*/;
   ckp.dwKeySpec         = AT_KEYEXCHANGE;
 
   if (!CertSetCertificateContextProperty(storedContext, CERT_KEY_PROV_INFO_PROP_ID, 0, &ckp))
@@ -1689,11 +1691,11 @@ http_sspi_find_credentials(
   BOOL		ok = TRUE;		/* Return value */
 
 
-  if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET | CRYPT_MACHINE_KEYSET))
+  if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET /*| CRYPT_MACHINE_KEYSET*/))
   {
     if (GetLastError() == NTE_EXISTS)
     {
-      if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_MACHINE_KEYSET))
+      if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, 0 /*CRYPT_MACHINE_KEYSET*/))
       {
         DEBUG_printf(("5http_sspi_find_credentials: CryptAcquireContext failed: %s", http_sspi_strerror(sspi->error, sizeof(sspi->error), GetLastError())));
         ok = FALSE;
@@ -1907,11 +1909,11 @@ http_sspi_make_credentials(
 
   DEBUG_printf(("4http_sspi_make_credentials(sspi=%p, container=%p, common_name=\"%s\", mode=%d, years=%d)", sspi, container, common_name, mode, years));
 
-  if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET | CRYPT_MACHINE_KEYSET))
+  if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_NEWKEYSET /* | CRYPT_MACHINE_KEYSET*/))
   {
     if (GetLastError() == NTE_EXISTS)
     {
-      if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, CRYPT_MACHINE_KEYSET))
+      if (!CryptAcquireContextW(&hProv, (LPWSTR)container, MS_DEF_PROV_W, PROV_RSA_FULL, 0 /*CRYPT_MACHINE_KEYSET*/))
       {
         DEBUG_printf(("5http_sspi_make_credentials: CryptAcquireContext failed: %s", http_sspi_strerror(sspi->error, sizeof(sspi->error), GetLastError())));
 //        fprintf(stderr, "5http_sspi_make_credentials: CryptAcquireContext failed: %s\n", http_sspi_strerror(sspi->error, sizeof(sspi->error), GetLastError()));
@@ -2015,7 +2017,7 @@ http_sspi_make_credentials(
   ckp.pwszContainerName = (LPWSTR) container;
   ckp.pwszProvName      = MS_DEF_PROV_W;
   ckp.dwProvType        = PROV_RSA_FULL;
-  ckp.dwFlags           = CRYPT_MACHINE_KEYSET;
+  ckp.dwFlags           = 0 /*CRYPT_MACHINE_KEYSET*/;
   ckp.dwKeySpec         = AT_KEYEXCHANGE;
 
   if (!CertSetCertificateContextProperty(storedContext, CERT_KEY_PROV_INFO_PROP_ID, 0, &ckp))
