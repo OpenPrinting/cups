@@ -17,6 +17,7 @@
  */
 
 #include "cupsd.h"
+#include <cups/http-private.h>
 #include <cups/ppd-private.h>
 
 #ifdef __APPLE__
@@ -5271,6 +5272,7 @@ create_local_bg_thread(
 		userpass[256],		/* User:pass */
 		host[256],		/* Hostname */
 		resource[1024],		/* Resource path */
+		uri[1024],		/* Resolved URI, unused */
 		line[1024];		/* Line from PPD */
   int		port;			/* Port number */
   http_encryption_t encryption;		/* Type of encryption to use */
@@ -5292,7 +5294,7 @@ create_local_bg_thread(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Generating PPD file from \"%s\"...", printer->name, printer->device_uri);
 
-  if (httpSeparateURI(HTTP_URI_CODING_ALL, printer->device_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+  if (httpSeparateURI(HTTP_URI_CODING_ALL, _httpResolveURI(printer->device_uri, uri, sizeof(uri), _HTTP_RESOLVE_DEFAULT, NULL, NULL), scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
   {
     cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Bad device URI \"%s\".", printer->name, printer->device_uri);
     return (NULL);
