@@ -16,6 +16,7 @@
  */
 
 #include "debug-private.h"
+#include <string.h>
 
 
 /*
@@ -2253,8 +2254,8 @@ http_sspi_set_error(const char *title)	// I - Prefix/title for error
 
 
   snprintf(temp, sizeof(temp), "%s (%08x): ", title, GetLastError());
-  templen = strlen(templen);
-  http_sspi_strerror(temp + templen, sizeof(temp) - templen, GetLastError()));
+  templen = strlen(temp);
+  http_sspi_strerror(temp + templen, sizeof(temp) - templen, GetLastError());
   _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, temp, 0);
 }
 
