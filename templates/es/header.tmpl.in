@@ -27,7 +27,7 @@
     <title>{title} - CUPS @CUPS_VERSION@</title>
   </head>
   <body onload="check_cookies();">
-    <div class="header">
+    <div class="cups-header">
       <ul>
 	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
 	<li><a href="/">Inicio</a></li>
@@ -38,6 +38,6 @@
 	<li><a {SECTION=printers?class="active" :}href="/printers/">Impresoras</a></li>
       </ul>
     </div>
-    <div class="body">
+    <div class="cups-body">
       <div class="row">
 	<h1>{title}</h1>

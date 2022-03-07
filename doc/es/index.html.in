@@ -10,7 +10,7 @@
     <title>Inicio - CUPS @CUPS_VERSION@</title>
   </head>
   <body>
-    <div class="header">
+    <div class="cups-header">
       <ul>
 	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
 	<li><a class="active" href="/">Inicio</a></li>
@@ -21,7 +21,7 @@
 	<li><a href="/printers/">Impresoras</a></li>
       </ul>
     </div>
-    <div class="body">
+    <div class="cups-body">
       <div class="row">
 	<h1>CUPS @CUPS_VERSION@</h1>
 	<p>CUPS es el sistema de impresi&oacute;n de c&oacute;digo abierto basado en est&aacute;ndares desarrollado por <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> para macOS<sup>&reg;</sup> y otros sistemas operativos tipo UNIX<sup>&reg;</sup>. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
@@ -47,6 +47,6 @@
 	</div>
       </div>
     </div>
-    <div class="footer">Derechos de autor &copy; 2021-2022 OpenPrinting. Todos los derechos reservados.</div>
+    <div class="cups-footer">Derechos de autor &copy; 2021-2022 OpenPrinting. Todos los derechos reservados.</div>
   </body>
 </html>

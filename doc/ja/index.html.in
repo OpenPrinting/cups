@@ -10,7 +10,7 @@
     <title>ホーム - CUPS @CUPS_VERSION@</title>
   </head>
   <body>
-    <div class="header">
+    <div class="cups-header">
       <ul>
 	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
 	<li><a class="active" href="/">ホーム</a></li>
@@ -21,7 +21,7 @@
 	<li><a href="/printers/">プリンター</a></li>
       </ul>
     </div>
-    <div class="body">
+    <div class="cups-body">
       <div class="row">
 	<h1>CUPS @CUPS_VERSION@</h1>
 	<p>CUPS は、macOS<sup>&reg;</sup> およびその他の UNIX <SUP>&reg;</sup> 系 OS のために、<a href="http://www.apple.com/">Apple Inc.</a> によって開発された標準ベースのオープンソース印刷システムです。</p>
@@ -47,6 +47,6 @@
 	</div>
       </div>
     </div>
-    <div class="footer">Copyright &copy; 2021-2022 OpenPrinting. All rights reserved.</div>
+    <div class="cups-footer">Copyright &copy; 2021-2022 OpenPrinting. All rights reserved.</div>
   </body>
 </html>
