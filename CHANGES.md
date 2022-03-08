@@ -5,6 +5,8 @@ Changes in CUPS v2.4.2 (TBA)
 ----------------------------
 
 - Fixed conditional jump based on uninitialized value in cups/ppd.c (Issue #329)
+- Fixed CSS related issues in CUPS Web UI (Issue #344)
+- Fixed copyright in CUPS Web UI trailer template (Issue #346)
 - mDNS hostname in device uri is not resolved when installaling a permanent
   IPP Everywhere queue (Issues #340, #343)
 
