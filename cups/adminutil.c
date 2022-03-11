@@ -550,100 +550,50 @@ cupsAdminSetServerSettings(
   * Get basic settings...
   */
 
+  debug_logging = old_debug_logging;
   if ((val = cupsGetOption(CUPS_SERVER_DEBUG_LOGGING, num_settings,
                            settings)) != NULL)
   {
     debug_logging = atoi(val);
-
-    if (debug_logging == old_debug_logging)
-    {
-     /*
-      * No change to this setting...
-      */
-
-      debug_logging = -1;
-    }
   }
-  else
-    debug_logging = -1;
 
   DEBUG_printf(("1cupsAdminSetServerSettings: debug_logging=%d",
                 debug_logging));
 
+  remote_any = old_remote_any;
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ANY, num_settings, settings)) != NULL)
   {
     remote_any = atoi(val);
-
-    if (remote_any == old_remote_any)
-    {
-     /*
-      * No change to this setting...
-      */
-
-      remote_any = -1;
-    }
   }
-  else
-    remote_any = -1;
 
   DEBUG_printf(("1cupsAdminSetServerSettings: remote_any=%d", remote_any));
 
+  remote_admin = old_remote_admin;
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ADMIN, num_settings,
                            settings)) != NULL)
   {
     remote_admin = atoi(val);
-
-    if (remote_admin == old_remote_admin)
-    {
-     /*
-      * No change to this setting...
-      */
-
-      remote_admin = -1;
-    }
   }
-  else
-    remote_admin = -1;
 
   DEBUG_printf(("1cupsAdminSetServerSettings: remote_admin=%d",
                 remote_admin));
 
+  share_printers = old_share_printers;
   if ((val = cupsGetOption(CUPS_SERVER_SHARE_PRINTERS, num_settings,
                            settings)) != NULL)
   {
     share_printers = atoi(val);
-
-    if (share_printers == old_share_printers)
-    {
-     /*
-      * No change to this setting...
-      */
-
-      share_printers = -1;
-    }
   }
-  else
-    share_printers = -1;
 
   DEBUG_printf(("1cupsAdminSetServerSettings: share_printers=%d",
                 share_printers));
 
+  user_cancel_any = old_user_cancel_any;
   if ((val = cupsGetOption(CUPS_SERVER_USER_CANCEL_ANY, num_settings,
                            settings)) != NULL)
   {
     user_cancel_any = atoi(val);
-
-    if (user_cancel_any == old_user_cancel_any)
-    {
-     /*
-      * No change to this setting...
-      */
-
-      user_cancel_any = -1;
-    }
   }
-  else
-    user_cancel_any = -1;
 
   DEBUG_printf(("1cupsAdminSetServerSettings: user_cancel_any=%d",
                 user_cancel_any));
@@ -701,7 +651,8 @@ cupsAdminSetServerSettings(
   while (cupsFileGetConf(cupsd, line, sizeof(line), &value, &linenum))
   {
     if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")) &&
-        (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
+        ((remote_admin != old_remote_admin) || (remote_any != old_remote_any) ||
+         (share_printers != old_share_printers)))
     {
       if (!wrote_port_listen)
       {
@@ -734,7 +685,7 @@ cupsAdminSetServerSettings(
     }
     else if ((!_cups_strcasecmp(line, "Browsing") ||
               !_cups_strcasecmp(line, "BrowseLocalProtocols")) &&
-	     share_printers >= 0)
+	     (share_printers != old_share_printers))
     {
       if (!wrote_browsing)
       {
@@ -768,7 +719,8 @@ cupsAdminSetServerSettings(
 	}
       }
     }
-    else if (!_cups_strcasecmp(line, "LogLevel") && debug_logging >= 0)
+    else if (!_cups_strcasecmp(line, "LogLevel") &&
+             (debug_logging != old_debug_logging))
     {
       wrote_loglevel = 1;
 
@@ -833,7 +785,8 @@ cupsAdminSetServerSettings(
     {
       in_location = 0;
       indent -= 2;
-      if (in_admin_location && remote_admin >= 0)
+      if (in_admin_location &&
+          ((remote_admin != old_remote_admin) || (remote_any != old_remote_any)))
       {
 	wrote_admin_location = 1;
 
@@ -846,13 +799,11 @@ cupsAdminSetServerSettings(
 
 	if (remote_admin)
 	{
-	  if (remote_any >= 0)
-	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
-	  else
-	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+          cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
 	}
       }
-      else if (in_conf_location && remote_admin >= 0)
+      else if (in_conf_location &&
+               ((remote_admin != old_remote_admin) || (remote_any != old_remote_any)))
       {
 	wrote_conf_location = 1;
 
@@ -867,13 +818,11 @@ cupsAdminSetServerSettings(
 
 	if (remote_admin)
 	{
-	  if (remote_any >= 0)
-	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
-	  else
-	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+          cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
 	}
       }
-      else if (in_log_location && remote_admin >= 0)
+      else if (in_log_location &&
+               ((remote_admin != old_remote_admin) || (remote_any != old_remote_any)))
       {
 	wrote_log_location = 1;
 
@@ -888,14 +837,12 @@ cupsAdminSetServerSettings(
 
 	if (remote_admin)
 	{
-	  if (remote_any >= 0)
-	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
-	  else
-	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+	  cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
 	}
       }
       else if (in_root_location &&
-               (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
+               ((remote_admin != old_remote_admin) || (remote_any != old_remote_any) ||
+                (share_printers != old_share_printers)))
       {
 	wrote_root_location = 1;
 
@@ -915,10 +862,7 @@ cupsAdminSetServerSettings(
 
 	if (remote_admin > 0 || remote_any > 0 || share_printers > 0)
 	{
-	  if (remote_any >= 0)
-	    cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
-	  else
-	    cupsFilePrintf(temp, "  Allow %s\n", old_remote_any > 0 ? "all" : "@LOCAL");
+	  cupsFilePrintf(temp, "  Allow %s\n", remote_any > 0 ? "all" : "@LOCAL");
 	}
       }
 
@@ -940,7 +884,8 @@ cupsAdminSetServerSettings(
 	char	*valptr;		/* Pointer into value */
 
 
-	if (!_cups_strcasecmp(value, "cancel-job") && user_cancel_any >= 0)
+	if (!_cups_strcasecmp(value, "cancel-job") &&
+            user_cancel_any != old_user_cancel_any)
 	{
 	 /*
 	  * Don't write anything for this limit section...
@@ -959,7 +904,8 @@ cupsAdminSetServerSettings(
 	    if (*valptr)
 	      *valptr++ = '\0';
 
-	    if (!_cups_strcasecmp(value, "cancel-job") && user_cancel_any >= 0)
+	    if (!_cups_strcasecmp(value, "cancel-job") &&
+                user_cancel_any != old_user_cancel_any)
 	    {
 	     /*
 	      * Write everything except for this definition...
@@ -1002,8 +948,8 @@ cupsAdminSetServerSettings(
       in_cancel_job = 0;
     }
     else if ((((in_admin_location || in_conf_location || in_root_location || in_log_location) &&
-               (remote_admin >= 0 || remote_any >= 0)) ||
-              (in_root_location && share_printers >= 0)) &&
+               ((remote_admin != old_remote_admin) || (remote_any != old_remote_any))) ||
+              (in_root_location && (share_printers != old_share_printers))) &&
              (!_cups_strcasecmp(line, "Allow") || !_cups_strcasecmp(line, "Deny") ||
 	      !_cups_strcasecmp(line, "Order")))
       continue;
@@ -1065,7 +1011,7 @@ cupsAdminSetServerSettings(
   * Write any missing info...
   */
 
-  if (!wrote_browsing && share_printers >= 0)
+  if (!wrote_browsing && (share_printers != old_share_printers))
   {
     if (share_printers > 0)
     {
@@ -1079,7 +1025,7 @@ cupsAdminSetServerSettings(
     }
   }
 
-  if (!wrote_loglevel && debug_logging >= 0)
+  if (!wrote_loglevel && (debug_logging != old_debug_logging))
   {
     if (debug_logging)
     {
@@ -1094,7 +1040,8 @@ cupsAdminSetServerSettings(
   }
 
   if (!wrote_port_listen &&
-      (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
+      ((remote_admin != old_remote_admin) || (remote_any != old_remote_any) ||
+       (share_printers != old_share_printers)))
   {
     if (remote_admin > 0 || remote_any > 0 || share_printers > 0)
     {
@@ -1115,7 +1062,8 @@ cupsAdminSetServerSettings(
   }
 
   if (!wrote_root_location &&
-      (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
+      ((remote_admin != old_remote_admin) || (remote_any != old_remote_any) ||
+       (share_printers != old_share_printers)))
   {
     if (remote_admin > 0 && share_printers > 0)
       cupsFilePuts(temp,
@@ -1138,7 +1086,8 @@ cupsAdminSetServerSettings(
     cupsFilePuts(temp, "</Location>\n");
   }
 
-  if (!wrote_admin_location && remote_admin >= 0)
+  if (!wrote_admin_location &&
+      ((remote_admin != old_remote_admin) || (remote_any != old_remote_any)))
   {
     if (remote_admin)
       cupsFilePuts(temp, "# Allow remote administration...\n");
@@ -1154,7 +1103,8 @@ cupsAdminSetServerSettings(
     cupsFilePuts(temp, "</Location>\n");
   }
 
-  if (!wrote_conf_location && remote_admin >= 0)
+  if (!wrote_conf_location &&
+      ((remote_admin != old_remote_admin) || (remote_any != old_remote_any)))
   {
     if (remote_admin)
       cupsFilePuts(temp,
@@ -1173,7 +1123,8 @@ cupsAdminSetServerSettings(
     cupsFilePuts(temp, "</Location>\n");
   }
 
-  if (!wrote_log_location && remote_admin >= 0)
+  if (!wrote_log_location &&
+      ((remote_admin != old_remote_admin) || (remote_any != old_remote_any)))
   {
     if (remote_admin)
       cupsFilePuts(temp,
@@ -1192,7 +1143,7 @@ cupsAdminSetServerSettings(
     cupsFilePuts(temp, "</Location>\n");
   }
 
-  if (!wrote_policy && user_cancel_any >= 0)
+  if (!wrote_policy && (user_cancel_any != old_user_cancel_any))
   {
     cupsFilePuts(temp, "<Policy default>\n"
                        "  # Job-related operations must be done by the owner "
@@ -1274,50 +1225,20 @@ cupsAdminSetServerSettings(
     * Updated OK, add the basic settings...
     */
 
-    if (debug_logging >= 0)
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_DEBUG_LOGGING,
-                                	 debug_logging ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
-    else
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_DEBUG_LOGGING,
-                                	 old_debug_logging ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
+    cupsd_num_settings = cupsAddOption(CUPS_SERVER_DEBUG_LOGGING,
+            debug_logging ? "1" : "0", cupsd_num_settings, &cupsd_settings);
 
-    if (remote_admin >= 0)
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ADMIN,
-                                	 remote_admin ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
-    else
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ADMIN,
-                                	 old_remote_admin ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
+    cupsd_num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ADMIN,
+            remote_admin ? "1" : "0", cupsd_num_settings, &cupsd_settings);
 
-    if (remote_any >= 0)
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ANY,
-					 remote_any ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
-    else
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ANY,
-					 old_remote_any ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
+    cupsd_num_settings = cupsAddOption(CUPS_SERVER_REMOTE_ANY,
+            remote_any ? "1" : "0", cupsd_num_settings, &cupsd_settings);
 
-    if (share_printers >= 0)
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_SHARE_PRINTERS,
-                                	 share_printers ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
-    else
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_SHARE_PRINTERS,
-                                	 old_share_printers ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
+    cupsd_num_settings = cupsAddOption(CUPS_SERVER_SHARE_PRINTERS,
+            share_printers ? "1" : "0", cupsd_num_settings, &cupsd_settings);
 
-    if (user_cancel_any >= 0)
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_USER_CANCEL_ANY,
-                                	 user_cancel_any ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
-    else
-      cupsd_num_settings = cupsAddOption(CUPS_SERVER_USER_CANCEL_ANY,
-                                	 old_user_cancel_any ? "1" : "0",
-					 cupsd_num_settings, &cupsd_settings);
+    cupsd_num_settings = cupsAddOption(CUPS_SERVER_USER_CANCEL_ANY,
+            user_cancel_any ? "1" : "0", cupsd_num_settings, &cupsd_settings);
 
    /*
     * Save the new values...
