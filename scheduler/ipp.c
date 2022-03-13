@@ -5439,6 +5439,11 @@ create_local_printer(
 		*nameptr,		/* Pointer into name */
 		uri[1024];		/* printer-uri-supported value */
   const char	*ptr;			/* Pointer into attribute value */
+  char		scheme[HTTP_MAX_URI],	/* Scheme portion of URI */
+		userpass[HTTP_MAX_URI],	/* Username portion of URI */
+		host[HTTP_MAX_URI],	/* Host portion of URI */
+		resource[HTTP_MAX_URI];	/* Resource portion of URI */
+  int		port;			/* Port portion of URI */
 
 
  /*
@@ -5502,6 +5507,13 @@ create_local_printer(
 
     return;
   }
+  ptr = ippGetString(device_uri, 0, NULL);
+  if (!ptr || !ptr[0])
+  {
+    send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Attribute \"%s\" has empty value."), "device-uri");
+
+    return;
+  }
 
   printer_geo_location = ippFindAttribute(con->request, "printer-geo-location", IPP_TAG_URI);
   printer_info         = ippFindAttribute(con->request, "printer-info", IPP_TAG_TEXT);
@@ -5530,7 +5542,22 @@ create_local_printer(
   printer->shared    = 0;
   printer->temporary = 1;
 
-  cupsdSetDeviceURI(printer, ippGetString(device_uri, 0, NULL));
+ /*
+  * Check device URI if it has the same hostname as we have, if so, replace
+  * the hostname by local host. This way we assure that local-only services
+  * like ipp-usb or Printer Applications always work.
+  */
+
+  httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
+		  scheme, sizeof(scheme), userpass, sizeof(userpass), host,
+		  sizeof(host), &port, resource, sizeof(resource));
+  if (strcmp(host, DNSSDHostName) == 0)
+    ptr = "localhost";
+  else
+    ptr = host;
+  httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), scheme, userpass,
+		  ptr, port, resource);
+  cupsdSetDeviceURI(printer, uri);
 
   if (printer_geo_location)
     cupsdSetString(&printer->geo_location, ippGetString(printer_geo_location, 0, NULL));
