@@ -246,6 +246,13 @@ main(int  argc,				/* I - Number of command-line arguments */
                 cups_dest_t *temp = NULL, *dest;
                 int j, num_temp = cupsGetDests(&temp);
 
+                if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+                {
+                  _cupsLangPrintf(stderr, "lpstat: %s", cupsLastErrorString());
+                  cupsFreeDests(num_temp, temp);
+                  return (1);
+                }
+
                 op = 'e';
 
                 for (j = num_temp, dest = temp; j > 0; j --, dest ++)
