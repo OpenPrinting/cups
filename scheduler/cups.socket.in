@@ -4,6 +4,7 @@ PartOf=cups.service
 
 [Socket]
 ListenStream=@CUPS_DEFAULT_DOMAINSOCKET@
+RemoveOnStop=on
 
 [Install]
 WantedBy=sockets.target
