@@ -5544,20 +5544,55 @@ create_local_printer(
 
  /*
   * Check device URI if it has the same hostname as we have, if so, replace
-  * the hostname by local host. This way we assure that local-only services
+  * the hostname by localhost. This way we assure that local-only services
   * like ipp-usb or Printer Applications always work.
+  *
+  * When comparing our hostname with the one in the device URI, consider
+  * names with ¨.local(.)" suffix and names without suffix the same.
   */
 
-  httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
-		  scheme, sizeof(scheme), userpass, sizeof(userpass), host,
-		  sizeof(host), &port, resource, sizeof(resource));
-  if (strcmp(host, DNSSDHostName) == 0)
-    ptr = "localhost";
+#ifdef HAVE_DNSSD
+  if (DNSSDHostName)
+    nameptr = DNSSDHostName;
   else
-    ptr = host;
-  httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), scheme, userpass,
-		  ptr, port, resource);
-  cupsdSetDeviceURI(printer, uri);
+#endif
+  if (ServerName)
+    nameptr = ServerName;
+  else
+    nameptr = NULL;
+
+  if (nameptr)
+  {
+    int host_len,
+        server_name_len;
+
+    httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
+		    scheme, sizeof(scheme), userpass, sizeof(userpass), host,
+		    sizeof(host), &port, resource, sizeof(resource));
+
+    host_len = strlen(host);
+    if (strcmp(host + host_len - 6, ".local") == 0)
+      host_len -= 6;
+    if (strcmp(host + host_len - 7, ".local.") == 0)
+      host_len -= 7;
+
+    server_name_len = strlen(nameptr);
+    if (strcmp(nameptr + server_name_len - 6, ".local") == 0)
+      server_name_len -= 6;
+    if (strcmp(nameptr + server_name_len - 7, ".local.") == 0)
+      server_name_len -= 7;
+
+    if (host_len == server_name_len && strncmp(host, nameptr, host_len) == 0)
+      ptr = "localhost";
+    else
+      ptr = host;
+
+    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), scheme, userpass,
+		    ptr, port, resource);
+    cupsdSetDeviceURI(printer, uri);
+  }
+  else
+    cupsdSetDeviceURI(printer, ptr);
 
   if (printer_geo_location)
     cupsdSetString(&printer->geo_location, ippGetString(printer_geo_location, 0, NULL));
