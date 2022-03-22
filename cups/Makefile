@@ -774,4 +774,4 @@ sloc:
 #
 
 include Dependencies
-tls.o: tls-darwin.c tls-gnutls.c tls-sspi.c
+tls.o: tls-darwin.c tls-gnutls.c tls-openssl.c tls-sspi.c

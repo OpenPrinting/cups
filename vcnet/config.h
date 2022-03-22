@@ -387,8 +387,9 @@ typedef unsigned long useconds_t;
 
 #define HAVE_TLS 1
 /* #undef HAVE_CDSASSL */
+#define HAVE_OPENSSL 1
 /* #undef HAVE_GNUTLS */
-#define HAVE_SSPISSL 1
+/* #undef HAVE_SSPISSL */
 
 
 /*

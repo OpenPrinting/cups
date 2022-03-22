@@ -9,10 +9,10 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
-AC_ARG_WITH([tls], AS_HELP_STRING([--with-tls=...], [use cdsa (macOS) or gnutls for TLS support]))
+AC_ARG_WITH([tls], AS_HELP_STRING([--with-tls=...], [use cdsa (macOS), gnutls, or openssl for TLS support]))
 AS_IF([test "x$with_tls" = x], [
     with_tls="yes"
-], [test "$with_tls" != cdsa -a "$with_tls" != gnutls -a "$with_tls" != no -a "$with_tls" != yes], [
+], [test "$with_tls" != cdsa -a "$with_tls" != gnutls -a "$with_tls" != openssl -a "$with_tls" != no -a "$with_tls" != yes], [
     AC_MSG_ERROR([Unsupported --with-tls value "$with_tls" specified.])
 ])
 
@@ -21,30 +21,28 @@ TLSLIBS=""
 have_tls="0"
 CUPS_SERVERKEYCHAIN=""
 
-dnl First try using CSDA SSL (macOS)...
-AS_IF([test $with_tls = yes -o $with_tls = cdsa], [
-    dnl Look for CDSA...
-    AS_IF([test $host_os_name = darwin], [
-	AC_CHECK_HEADER([Security/SecureTransport.h], [
+dnl First look for OpenSSL/LibreSSL...
+AS_IF([test $with_tls = yes -o $with_tls = openssl], [
+    AS_IF([test "x$PKGCONFIG" != x], [
+        AC_MSG_CHECKING([for openssl package])
+	AS_IF([$PKGCONFIG --exists openssl], [
+	    AC_MSG_RESULT([yes])
 	    have_tls="1"
-	    with_tls="cdsa"
+	    with_tls="openssl"
+	    TLSLIBS="$($PKGCONFIG --libs openssl)"
+	    TLSFLAGS="$($PKGCONFIG --cflags openssl)"
+	    PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES openssl"
 	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
-	    AC_DEFINE([HAVE_CDSASSL], [1], [Do we have the macOS SecureTransport API?])
-	    CUPS_SERVERKEYCHAIN="/Library/Keychains/System.keychain"
-
-	    dnl Check for the various security headers...
-	    AC_CHECK_HEADER([Security/SecCertificate.h], [
-		AC_DEFINE([HAVE_SECCERTIFICATE_H], [1], [Have the <Security/SecCertificate.h> header?])
-	    ])
-	    AC_CHECK_HEADER([Security/SecItem.h], [
-		AC_DEFINE([HAVE_SECITEM_H], [1], [Have the <Security/SecItem.h> header?])
-	    ])
-	    AC_CHECK_HEADER([Security/SecPolicy.h], [
-		AC_DEFINE([HAVE_SECPOLICY_H], [1], [Have the <Security/SecPolicy.h header?])
-	    ])
+	    AC_DEFINE([HAVE_OPENSSL], [1], [Do we have the OpenSSL library?])
+	], [
+	    AC_MSG_RESULT([no])
 	])
-    ], [test $with_tls = cdsa], [
-        AC_MSG_ERROR([--with-tls=cdsa is not compatible with your host operating system.])
+    ])
+
+    AS_IF([test $have_tls = 1], [
+	CUPS_SERVERKEYCHAIN="ssl"
+    ], [test $with_tls = openssl], [
+        AC_MSG_ERROR([--with-tls=openssl was specified but neither the OpenSSL nor LibreSSL library were found.])
     ])
 ])
 
@@ -90,6 +88,33 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	LIBS="$SAVELIBS"
     ], [test $with_tls = gnutls], [
         AC_MSG_ERROR([--with-tls=gnutls was specified but the GNU TLS library was not found.])
+    ])
+])
+
+dnl Finally try using CSDA SSL (macOS)...
+AS_IF([test $with_tls = yes -o $with_tls = cdsa], [
+    dnl Look for CDSA...
+    AS_IF([test $host_os_name = darwin], [
+	AC_CHECK_HEADER([Security/SecureTransport.h], [
+	    have_tls="1"
+	    with_tls="cdsa"
+	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
+	    AC_DEFINE([HAVE_CDSASSL], [1], [Do we have the macOS SecureTransport API?])
+	    CUPS_SERVERKEYCHAIN="/Library/Keychains/System.keychain"
+
+	    dnl Check for the various security headers...
+	    AC_CHECK_HEADER([Security/SecCertificate.h], [
+		AC_DEFINE([HAVE_SECCERTIFICATE_H], [1], [Have the <Security/SecCertificate.h> header?])
+	    ])
+	    AC_CHECK_HEADER([Security/SecItem.h], [
+		AC_DEFINE([HAVE_SECITEM_H], [1], [Have the <Security/SecItem.h> header?])
+	    ])
+	    AC_CHECK_HEADER([Security/SecPolicy.h], [
+		AC_DEFINE([HAVE_SECPOLICY_H], [1], [Have the <Security/SecPolicy.h header?])
+	    ])
+	])
+    ], [test $with_tls = cdsa], [
+        AC_MSG_ERROR([--with-tls=cdsa is not compatible with your host operating system.])
     ])
 ])
 

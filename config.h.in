@@ -295,6 +295,7 @@
 
 #undef HAVE_TLS
 #undef HAVE_CDSASSL
+#undef HAVE_OPENSSL
 #undef HAVE_GNUTLS
 #undef HAVE_SSPISSL
 
