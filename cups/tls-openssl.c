@@ -19,9 +19,39 @@
 
 
 /*
+ * Local functions...
+ */
+
+static long		http_bio_ctrl(BIO *h, int cmd, long arg1, void *arg2);
+static int		http_bio_free(BIO *data);
+static int		http_bio_new(BIO *h);
+static int		http_bio_puts(BIO *h, const char *str);
+static int		http_bio_read(BIO *h, char *buf, int size);
+static int		http_bio_write(BIO *h, const char *buf, int num);
+
+static X509		*http_openssl_create_credential(http_credential_t *credential);
+static const char	*http_openssl_default_path(char *buffer, size_t bufsize);
+static void		http_openssl_load_crl(void);
+static const char	*http_openssl_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
+
+
+/*
  * Local globals...
  */
 
+static BIO_METHOD	http_bio_methods =
+			{
+			  BIO_TYPE_SOCKET,
+			  "http",
+			  http_bio_write,
+			  http_bio_read,
+			  http_bio_puts,
+			  NULL, /* http_bio_gets, */
+			  http_bio_ctrl,
+			  http_bio_new,
+			  http_bio_free,
+			  NULL,
+			};
 static int		tls_auto_create = 0;
 					/* Auto-create self-signed certs? */
 static char		*tls_common_name = NULL;
@@ -34,18 +64,6 @@ static _cups_mutex_t	tls_mutex = _CUPS_MUTEX_INITIALIZER;
 static int		tls_options = -1,/* Options for TLS connections */
 			tls_min_version = _HTTP_TLS_1_0,
 			tls_max_version = _HTTP_TLS_MAX;
-
-
-/*
- * Local functions...
- */
-
-static X509		*http_openssl_create_credential(http_credential_t *credential);
-static const char	*http_openssl_default_path(char *buffer, size_t bufsize);
-static void		http_openssl_load_crl(void);
-static const char	*http_openssl_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
-static ssize_t		http_openssl_read(openssl_transport_ptr_t ptr, void *data, size_t length);
-static ssize_t		http_openssl_write(openssl_transport_ptr_t ptr, const void *data, size_t length);
 
 
 /*
@@ -62,6 +80,7 @@ cupsMakeServerCredentials(
     const char **alt_names,		/* I - Subject Alternate Names */
     time_t     expiration_date)		/* I - Expiration date */
 {
+#if 0
   openssl_x509_crt_t	crt;		/* Self-signed certificate */
   openssl_x509_privkey_t	key;		/* Encryption private key */
   char			temp[1024],	/* Temporary directory name */
@@ -242,6 +261,9 @@ cupsMakeServerCredentials(
   DEBUG_puts("1cupsMakeServerCredentials: Successfully created credentials.");
 
   return (1);
+#else
+  return (0);
+#endif // 0
 }
 
 
@@ -320,6 +342,7 @@ httpCopyCredentials(
     http_t	 *http,			/* I - Connection to server */
     cups_array_t **credentials)		/* O - Array of credentials */
 {
+#if 0
   unsigned		count;		/* Number of certificates */
   const openssl_datum_t *certs;		/* Certificates */
 
@@ -348,6 +371,9 @@ httpCopyCredentials(
   }
 
   return (0);
+#else
+  return (-1);
+#endif // 0
 }
 
 
@@ -388,6 +414,7 @@ httpCredentialsAreValidForName(
     cups_array_t *credentials,		/* I - Credentials */
     const char   *common_name)		/* I - Name to check */
 {
+#if 0
   openssl_x509_crt_t	cert;		/* Certificate */
   int			result = 0;	/* Result */
 
@@ -435,6 +462,9 @@ httpCredentialsAreValidForName(
   }
 
   return (result);
+#else
+  return (1);
+#endif // 0
 }
 
 
@@ -451,6 +481,7 @@ httpCredentialsGetTrust(
 {
   http_trust_t		trust = HTTP_TRUST_OK;
 					/* Trusted? */
+#if 0
   openssl_x509_crt_t	cert;		/* Certificate */
   cups_array_t		*tcreds = NULL;	/* Trusted credentials */
   _cups_globals_t	*cg = _cupsGlobals();
@@ -609,6 +640,7 @@ httpCredentialsGetTrust(
   }
 
   openssl_x509_crt_deinit(cert);
+#endif // 0
 
   return (trust);
 }
@@ -624,8 +656,9 @@ time_t					/* O - Expiration date of credentials */
 httpCredentialsGetExpiration(
     cups_array_t *credentials)		/* I - Credentials */
 {
-  openssl_x509_crt_t	cert;		/* Certificate */
   time_t		result = 0;	/* Result */
+#if 0
+  openssl_x509_crt_t	cert;		/* Certificate */
 
 
   cert = http_openssl_create_credential((http_credential_t *)cupsArrayFirst(credentials));
@@ -634,6 +667,7 @@ httpCredentialsGetExpiration(
     result = openssl_x509_crt_get_expiration_time(cert);
     openssl_x509_crt_deinit(cert);
   }
+#endif // 0
 
   return (result);
 }
@@ -651,6 +685,7 @@ httpCredentialsString(
     char         *buffer,		/* I - Buffer or @code NULL@ */
     size_t       bufsize)		/* I - Size of buffer */
 {
+#if 0
   http_credential_t	*first;		/* First certificate */
   openssl_x509_crt_t	cert;		/* Certificate */
 
@@ -698,6 +733,9 @@ httpCredentialsString(
   DEBUG_printf(("1httpCredentialsString: Returning \"%s\".", buffer));
 
   return (strlen(buffer));
+#else
+  return (0);
+#endif // 0
 }
 
 
@@ -890,13 +928,158 @@ httpSaveCredentials(
 
 
 /*
+ * 'http_bio_ctrl()' - Control the HTTP connection.
+ */
+
+static long				/* O - Result/data */
+http_bio_ctrl(BIO  *h,			/* I - BIO data */
+              int  cmd,			/* I - Control command */
+	      long arg1,		/* I - First argument */
+	      void *arg2)		/* I - Second argument */
+{
+  switch (cmd)
+  {
+    default :
+        return (0);
+
+    case BIO_CTRL_RESET :
+        h->ptr = NULL;
+	return (0);
+
+    case BIO_C_SET_FILE_PTR :
+        h->ptr  = arg2;
+	h->init = 1;
+	return (1);
+
+    case BIO_C_GET_FILE_PTR :
+        if (arg2)
+	{
+	  *((void **)arg2) = h->ptr;
+	  return (1);
+	}
+	else
+	  return (0);
+
+    case BIO_CTRL_DUP :
+    case BIO_CTRL_FLUSH :
+        return (1);
+  }
+}
+
+
+/*
+ * 'http_bio_free()' - Free OpenSSL data.
+ */
+
+static int				/* O - 1 on success, 0 on failure */
+http_bio_free(BIO *h)			/* I - BIO data */
+{
+  if (!h)
+    return (0);
+
+  if (h->shutdown)
+  {
+    h->init  = 0;
+    h->flags = 0;
+  }
+
+  return (1);
+}
+
+
+/*
+ * 'http_bio_new()' - Initialize an OpenSSL BIO structure.
+ */
+
+static int				/* O - 1 on success, 0 on failure */
+http_bio_new(BIO *h)			/* I - BIO data */
+{
+  if (!h)
+    return (0);
+
+  h->init  = 0;
+  h->num   = 0;
+  h->ptr   = NULL;
+  h->flags = 0;
+
+  return (1);
+}
+
+
+/*
+ * 'http_bio_puts()' - Send a string for OpenSSL.
+ */
+
+static int				/* O - Bytes written */
+http_bio_puts(BIO        *h,		/* I - BIO data */
+              const char *str)		/* I - String to write */
+{
+#ifdef WIN32
+  return (send(((http_t *)h->ptr)->fd, str, (int)strlen(str), 0));
+#else
+  return ((int)send(((http_t *)h->ptr)->fd, str, strlen(str), 0));
+#endif /* WIN32 */
+}
+
+
+/*
+ * 'http_bio_read()' - Read data for OpenSSL.
+ */
+
+static int				/* O - Bytes read */
+http_bio_read(BIO  *h,			/* I - BIO data */
+              char *buf,		/* I - Buffer */
+	      int  size)		/* I - Number of bytes to read */
+{
+  http_t	*http;			/* HTTP connection */
+
+
+  http = (http_t *)h->ptr;
+
+  if (!http->blocking)
+  {
+   /*
+    * Make sure we have data before we read...
+    */
+
+    if (!_httpWait(http, 10000, 0))
+    {
+#ifdef WIN32
+      http->error = WSAETIMEDOUT;
+#else
+      http->error = ETIMEDOUT;
+#endif /* WIN32 */
+
+      return (-1);
+    }
+  }
+
+  return ((int)recv(http->fd, buf, (size_t)size, 0));
+}
+
+
+/*
+ * 'http_bio_write()' - Write data for OpenSSL.
+ */
+
+static int				/* O - Bytes written */
+http_bio_write(BIO        *h,		/* I - BIO data */
+               const char *buf,		/* I - Buffer to write */
+	       int        num)		/* I - Number of bytes to write */
+{
+  return (send(((http_t *)h->ptr)->fd, buf, num, 0));
+}
+
+
+/*
  * 'http_openssl_create_credential()' - Create a single credential in the internal format.
  */
 
-static openssl_x509_crt_t			/* O - Certificate */
+static X509 *					/* O - Certificate */
 http_openssl_create_credential(
     http_credential_t *credential)		/* I - Credential */
 {
+#if 0
   int			result;			/* Result from GNU TLS */
   openssl_x509_crt_t	cert;			/* Certificate */
   openssl_datum_t	datum;			/* Data record */
@@ -925,6 +1108,9 @@ http_openssl_create_credential(
   }
 
   return (cert);
+#else
+  return (NULL);
+#endif // 0
 }
 
 
@@ -980,6 +1166,7 @@ http_openssl_default_path(char   *buffer,/* I - Path buffer */
 static void
 http_openssl_load_crl(void)
 {
+#if 0
   _cupsMutexLock(&tls_mutex);
 
   if (!openssl_x509_crl_init(&tls_crl))
@@ -1065,6 +1252,7 @@ http_openssl_load_crl(void)
   }
 
   _cupsMutexUnlock(&tls_mutex);
+#endif // 0
 }
 
 
@@ -1107,79 +1295,13 @@ http_openssl_make_path(
 
 
 /*
- * 'http_openssl_read()' - Read function for the GNU TLS library.
- */
-
-static ssize_t				/* O - Number of bytes read or -1 on error */
-http_openssl_read(
-    openssl_transport_ptr_t ptr,		/* I - Connection to server */
-    void                   *data,	/* I - Buffer */
-    size_t                 length)	/* I - Number of bytes to read */
-{
-  http_t	*http;			/* HTTP connection */
-  ssize_t	bytes;			/* Bytes read */
-
-
-  DEBUG_printf(("5http_openssl_read(ptr=%p, data=%p, length=%d)", ptr, data, (int)length));
-
-  http = (http_t *)ptr;
-
-  if (!http->blocking || http->timeout_value > 0.0)
-  {
-   /*
-    * Make sure we have data before we read...
-    */
-
-    while (!_httpWait(http, http->wait_value, 0))
-    {
-      if (http->timeout_cb && (*http->timeout_cb)(http, http->timeout_data))
-	continue;
-
-      http->error = ETIMEDOUT;
-      return (-1);
-    }
-  }
-
-  bytes = recv(http->fd, data, length, 0);
-  DEBUG_printf(("5http_openssl_read: bytes=%d", (int)bytes));
-  return (bytes);
-}
-
-
-/*
- * 'http_openssl_write()' - Write function for the GNU TLS library.
- */
-
-static ssize_t				/* O - Number of bytes written or -1 on error */
-http_openssl_write(
-    openssl_transport_ptr_t ptr,		/* I - Connection to server */
-    const void             *data,	/* I - Data buffer */
-    size_t                 length)	/* I - Number of bytes to write */
-{
-  ssize_t bytes;			/* Bytes written */
-
-
-  DEBUG_printf(("5http_openssl_write(ptr=%p, data=%p, length=%d)", ptr, data,
-                (int)length));
-  bytes = send(((http_t *)ptr)->fd, data, length, 0);
-  DEBUG_printf(("5http_openssl_write: bytes=%d", (int)bytes));
-
-  return (bytes);
-}
-
-
-/*
  * '_httpTLSInitialize()' - Initialize the TLS stack.
  */
 
 void
 _httpTLSInitialize(void)
 {
- /*
-  * Initialize GNU TLS...
-  */
-
-  openssl_global_init();
+  // TODO: Initialize OpenSSL
 }
 
 
@@ -1190,7 +1312,7 @@ _httpTLSInitialize(void)
 size_t					/* O - Bytes available */
 _httpTLSPending(http_t *http)		/* I - HTTP connection */
 {
-  return (openssl_record_check_pending(http->tls));
+  return ((size_t)SSL_pending(http->tls));
 }
 
 
@@ -1203,36 +1325,7 @@ _httpTLSRead(http_t *http,		/* I - Connection to server */
 	     char   *buf,		/* I - Buffer to store data */
 	     int    len)		/* I - Length of buffer */
 {
-  ssize_t	result;			/* Return value */
-
-
-  result = openssl_record_recv(http->tls, buf, (size_t)len);
-
-  if (result < 0 && !errno)
-  {
-   /*
-    * Convert GNU TLS error to errno value...
-    */
-
-    switch (result)
-    {
-      case GNUTLS_E_INTERRUPTED :
-	  errno = EINTR;
-	  break;
-
-      case GNUTLS_E_AGAIN :
-          errno = EAGAIN;
-          break;
-
-      default :
-          errno = EPIPE;
-          break;
-    }
-
-    result = -1;
-  }
-
-  return ((int)result);
+  return (SSL_read((SSL *)(http->tls), buf, len));
 }
 
 
@@ -1261,6 +1354,7 @@ _httpTLSSetOptions(int options,		/* I - Options */
 int					/* O - 0 on success, -1 on failure */
 _httpTLSStart(http_t *http)		/* I - Connection to server */
 {
+#if 0
   char			hostname[256],	/* Hostname */
 			*hostptr;	/* Pointer into hostname */
   int			status;		/* Status of handshake */
@@ -1653,6 +1747,8 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
 
   http->tls_credentials = credentials;
 
+#endif // 0
+
   return (0);
 }
 
@@ -1664,6 +1760,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
 void
 _httpTLSStop(http_t *http)		/* I - Connection to server */
 {
+#if 0
   int	error;				/* Error code */
 
 
@@ -1680,6 +1777,7 @@ _httpTLSStop(http_t *http)		/* I - Connection to server */
     free(http->tls_credentials);
     http->tls_credentials = NULL;
   }
+#endif // 0
 }
 
 
@@ -1692,6 +1790,7 @@ _httpTLSWrite(http_t     *http,		/* I - Connection to server */
 	      const char *buf,		/* I - Buffer holding data */
 	      int        len)		/* I - Length of buffer */
 {
+#if 0
   ssize_t	result;			/* Return value */
 
 
@@ -1726,4 +1825,7 @@ _httpTLSWrite(http_t     *http,		/* I - Connection to server */
   DEBUG_printf(("5_httpTLSWrite: Returning %d.", (int)result));
 
   return ((int)result);
+#else
+  return (-1);
+#endif // 0
 }
