@@ -1,5 +1,5 @@
 /*
- * TLS support code for CUPS using GNU TLS.
+ * TLS support code for CUPS using OpenSSL/LibreSSL.
  *
  * Copyright © 2020-2022 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
@@ -29,10 +29,10 @@ static int		http_bio_puts(BIO *h, const char *str);
 static int		http_bio_read(BIO *h, char *buf, int size);
 static int		http_bio_write(BIO *h, const char *buf, int num);
 
-static X509		*http_openssl_create_credential(http_credential_t *credential);
-static const char	*http_openssl_default_path(char *buffer, size_t bufsize);
-static void		http_openssl_load_crl(void);
-static const char	*http_openssl_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
+static X509		*http_create_credential(http_credential_t *credential);
+static const char	*http_default_path(char *buffer, size_t bufsize);
+static void		http_load_crl(void);
+static const char	*http_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
 
 
 /*
@@ -72,13 +72,13 @@ static int		tls_options = -1,/* Options for TLS connections */
  * @since CUPS 2.0/OS 10.10@
  */
 
-int					/* O - 1 on success, 0 on failure */
+int					// O - 1 on success, 0 on failure
 cupsMakeServerCredentials(
-    const char *path,			/* I - Path to keychain/directory */
-    const char *common_name,		/* I - Common name */
-    int        num_alt_names,		/* I - Number of subject alternate names */
-    const char **alt_names,		/* I - Subject Alternate Names */
-    time_t     expiration_date)		/* I - Expiration date */
+    const char *path,			// I - Path to keychain/directory
+    const char *common_name,		// I - Common name
+    int        num_alt_names,		// I - Number of subject alternate names
+    const char **alt_names,		// I - Subject Alternate Names
+    time_t     expiration_date)		// I - Expiration date
 {
 #if 0
   openssl_x509_crt_t	crt;		/* Self-signed certificate */
@@ -102,7 +102,7 @@ cupsMakeServerCredentials(
   */
 
   if (!path)
-    path = http_openssl_default_path(temp, sizeof(temp));
+    path = http_default_path(temp, sizeof(temp));
 
   if (!path || !common_name)
   {
@@ -110,8 +110,8 @@ cupsMakeServerCredentials(
     return (0);
   }
 
-  http_openssl_make_path(crtfile, sizeof(crtfile), path, common_name, "crt");
-  http_openssl_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
+  http_make_path(crtfile, sizeof(crtfile), path, common_name, "crt");
+  http_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
 
  /*
   * Create the encryption key...
@@ -276,13 +276,13 @@ cupsMakeServerCredentials(
  * @since CUPS 2.0/OS 10.10@
  */
 
-int					/* O - 1 on success, 0 on failure */
+int					// O - 1 on success, 0 on failure
 cupsSetServerCredentials(
-    const char *path,			/* I - Path to keychain/directory */
-    const char *common_name,		/* I - Default common name for server */
-    int        auto_create)		/* I - 1 = automatically create self-signed certificates */
+    const char *path,			// I - Path to keychain/directory
+    const char *common_name,		// I - Default common name for server
+    int        auto_create)		// I - 1 = automatically create self-signed certificates
 {
-  char	temp[1024];			/* Default path buffer */
+  char	temp[1024];			// Default path buffer
 
 
   DEBUG_printf(("cupsSetServerCredentials(path=\"%s\", common_name=\"%s\", auto_create=%d)", path, common_name, auto_create));
@@ -292,7 +292,7 @@ cupsSetServerCredentials(
   */
 
   if (!path)
-    path = http_openssl_default_path(temp, sizeof(temp));
+    path = http_default_path(temp, sizeof(temp));
 
  /*
   * Range check input...
@@ -337,14 +337,14 @@ cupsSetServerCredentials(
  * @since CUPS 1.5/macOS 10.7@
  */
 
-int					/* O - Status of call (0 = success) */
+int					// O - Status of call (0 = success)
 httpCopyCredentials(
-    http_t	 *http,			/* I - Connection to server */
-    cups_array_t **credentials)		/* O - Array of credentials */
+    http_t	 *http,			// I - Connection to server
+    cups_array_t **credentials)		// O - Array of credentials
 {
 #if 0
-  unsigned		count;		/* Number of certificates */
-  const openssl_datum_t *certs;		/* Certificates */
+  unsigned		count;		// Number of certificates
+  const openssl_datum_t *certs;		// Certificates
 
 
   DEBUG_printf(("httpCopyCredentials(http=%p, credentials=%p)", http, credentials));
@@ -381,9 +381,9 @@ httpCopyCredentials(
  * '_httpCreateCredentials()' - Create credentials in the internal format.
  */
 
-http_tls_credentials_t			/* O - Internal credentials */
+http_tls_credentials_t			// O - Internal credentials
 _httpCreateCredentials(
-    cups_array_t *credentials)		/* I - Array of credentials */
+    cups_array_t *credentials)		// I - Array of credentials
 {
   (void)credentials;
 
@@ -397,9 +397,9 @@ _httpCreateCredentials(
 
 void
 _httpFreeCredentials(
-    http_tls_credentials_t credentials)	/* I - Internal credentials */
+    http_tls_credentials_t credentials)	// I - Internal credentials
 {
-  (void)credentials;
+  X509_free(credentials);
 }
 
 
@@ -409,17 +409,17 @@ _httpFreeCredentials(
  * @since CUPS 2.0/OS 10.10@
  */
 
-int					/* O - 1 if valid, 0 otherwise */
+int					// O - 1 if valid, 0 otherwise
 httpCredentialsAreValidForName(
-    cups_array_t *credentials,		/* I - Credentials */
-    const char   *common_name)		/* I - Name to check */
+    cups_array_t *credentials,		// I - Credentials
+    const char   *common_name)		// I - Name to check
 {
 #if 0
-  openssl_x509_crt_t	cert;		/* Certificate */
-  int			result = 0;	/* Result */
+  openssl_x509_crt_t	cert;		// Certificate
+  int			result = 0;	// Result
 
 
-  cert = http_openssl_create_credential((http_credential_t *)cupsArrayFirst(credentials));
+  cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials));
   if (cert)
   {
     result = openssl_x509_crt_check_hostname(cert, common_name) != 0;
@@ -474,13 +474,13 @@ httpCredentialsAreValidForName(
  * @since CUPS 2.0/OS 10.10@
  */
 
-http_trust_t				/* O - Level of trust */
+http_trust_t				// O - Level of trust
 httpCredentialsGetTrust(
-    cups_array_t *credentials,		/* I - Credentials */
-    const char   *common_name)		/* I - Common name for trust lookup */
+    cups_array_t *credentials,		// I - Credentials
+    const char   *common_name)		// I - Common name for trust lookup
 {
   http_trust_t		trust = HTTP_TRUST_OK;
-					/* Trusted? */
+					// Trusted?
 #if 0
   openssl_x509_crt_t	cert;		/* Certificate */
   cups_array_t		*tcreds = NULL;	/* Trusted credentials */
@@ -494,7 +494,7 @@ httpCredentialsGetTrust(
     return (HTTP_TRUST_UNKNOWN);
   }
 
-  if ((cert = http_openssl_create_credential((http_credential_t *)cupsArrayFirst(credentials))) == NULL)
+  if ((cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials))) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create credentials from array."), 1);
     return (HTTP_TRUST_UNKNOWN);
@@ -503,7 +503,7 @@ httpCredentialsGetTrust(
   if (cg->any_root < 0)
   {
     _cupsSetDefaults();
-    http_openssl_load_crl();
+    http_load_crl();
   }
 
  /*
@@ -652,16 +652,16 @@ httpCredentialsGetTrust(
  * @since CUPS 2.0/OS 10.10@
  */
 
-time_t					/* O - Expiration date of credentials */
+time_t					// O - Expiration date of credentials
 httpCredentialsGetExpiration(
-    cups_array_t *credentials)		/* I - Credentials */
+    cups_array_t *credentials)		// I - Credentials
 {
-  time_t		result = 0;	/* Result */
+  time_t		result = 0;	// Result
 #if 0
-  openssl_x509_crt_t	cert;		/* Certificate */
+  openssl_x509_crt_t	cert;		// Certificate
 
 
-  cert = http_openssl_create_credential((http_credential_t *)cupsArrayFirst(credentials));
+  cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials));
   if (cert)
   {
     result = openssl_x509_crt_get_expiration_time(cert);
@@ -679,11 +679,11 @@ httpCredentialsGetExpiration(
  * @since CUPS 2.0/OS 10.10@
  */
 
-size_t					/* O - Total size of credentials string */
+size_t					// O - Total size of credentials string
 httpCredentialsString(
-    cups_array_t *credentials,		/* I - Credentials */
-    char         *buffer,		/* I - Buffer or @code NULL@ */
-    size_t       bufsize)		/* I - Size of buffer */
+    cups_array_t *credentials,		// I - Credentials
+    char         *buffer,		// I - Buffer
+    size_t       bufsize)		// I - Size of buffer
 {
 #if 0
   http_credential_t	*first;		/* First certificate */
@@ -699,7 +699,7 @@ httpCredentialsString(
     *buffer = '\0';
 
   if ((first = (http_credential_t *)cupsArrayFirst(credentials)) != NULL &&
-      (cert = http_openssl_create_credential(first)) != NULL)
+      (cert = http_create_credential(first)) != NULL)
   {
     char		name[256],	/* Common name associated with cert */
 			issuer[256];	/* Issuer associated with cert */
@@ -745,33 +745,33 @@ httpCredentialsString(
  * @since CUPS 2.0/OS 10.10@
  */
 
-int					/* O - 0 on success, -1 on error */
+int					// O - 0 on success, -1 on error
 httpLoadCredentials(
-    const char   *path,			/* I  - Keychain/PKCS#12 path */
-    cups_array_t **credentials,		/* IO - Credentials */
-    const char   *common_name)		/* I  - Common name for credentials */
+    const char   *path,			// I  - Keychain/PKCS#12 path
+    cups_array_t **credentials,		// IO - Credentials
+    const char   *common_name)		// I  - Common name for credentials
 {
-  cups_file_t		*fp;		/* Certificate file */
-  char			filename[1024],	/* filename.crt */
-			temp[1024],	/* Temporary string */
-			line[256];	/* Base64-encoded line */
-  unsigned char		*data = NULL;	/* Buffer for cert data */
-  size_t		alloc_data = 0,	/* Bytes allocated */
-			num_data = 0;	/* Bytes used */
-  int			decoded;	/* Bytes decoded */
+  cups_file_t		*fp;		// Certificate file
+  char			filename[1024],	// filename.crt
+			temp[1024],	// Temporary string
+			line[256];	// Base64-encoded line
+  unsigned char		*data = NULL;	// Buffer for cert data
+  size_t		alloc_data = 0,	// Bytes allocated
+			num_data = 0;	// Bytes used
+  int			decoded;	// Bytes decoded
   int			in_certificate = 0;
-					/* In a certificate? */
+					// In a certificate?
 
 
   if (!credentials || !common_name)
     return (-1);
 
   if (!path)
-    path = http_openssl_default_path(temp, sizeof(temp));
+    path = http_default_path(temp, sizeof(temp));
   if (!path)
     return (-1);
 
-  http_openssl_make_path(filename, sizeof(filename), path, common_name, "crt");
+  http_make_path(filename, sizeof(filename), path, common_name, "crt");
 
   if ((fp = cupsFileOpen(filename, "r")) == NULL)
     return (-1);
@@ -876,31 +876,31 @@ httpLoadCredentials(
  * @since CUPS 2.0/OS 10.10@
  */
 
-int					/* O - -1 on error, 0 on success */
+int					// O - -1 on error, 0 on success
 httpSaveCredentials(
-    const char   *path,			/* I - Keychain/PKCS#12 path */
-    cups_array_t *credentials,		/* I - Credentials */
-    const char   *common_name)		/* I - Common name for credentials */
+    const char   *path,			// I - Keychain/PKCS#12 path
+    cups_array_t *credentials,		// I - Credentials
+    const char   *common_name)		// I - Common name for credentials
 {
-  cups_file_t		*fp;		/* Certificate file */
-  char			filename[1024],	/* filename.crt */
-			nfilename[1024],/* filename.crt.N */
-			temp[1024],	/* Temporary string */
-			line[256];	/* Base64-encoded line */
-  const unsigned char	*ptr;		/* Pointer into certificate */
-  ssize_t		remaining;	/* Bytes left */
-  http_credential_t	*cred;		/* Current credential */
+  cups_file_t		*fp;		// Certificate file
+  char			filename[1024],	// filename.crt
+			nfilename[1024],// filename.crt.N
+			temp[1024],	// Temporary string
+			line[256];	// Base64-encoded line
+  const unsigned char	*ptr;		// Pointer into certificate
+  ssize_t		remaining;	// Bytes left
+  http_credential_t	*cred;		// Current credential
 
 
   if (!credentials || !common_name)
     return (-1);
 
   if (!path)
-    path = http_openssl_default_path(temp, sizeof(temp));
+    path = http_default_path(temp, sizeof(temp));
   if (!path)
     return (-1);
 
-  http_openssl_make_path(filename, sizeof(filename), path, common_name, "crt");
+  http_make_path(filename, sizeof(filename), path, common_name, "crt");
   snprintf(nfilename, sizeof(nfilename), "%s.N", filename);
 
   if ((fp = cupsFileOpen(nfilename, "w")) == NULL)
@@ -931,11 +931,11 @@ httpSaveCredentials(
  * 'http_bio_ctrl()' - Control the HTTP connection.
  */
 
-static long				/* O - Result/data */
-http_bio_ctrl(BIO  *h,			/* I - BIO data */
-              int  cmd,			/* I - Control command */
-	      long arg1,		/* I - First argument */
-	      void *arg2)		/* I - Second argument */
+static long				// O - Result/data
+http_bio_ctrl(BIO  *h,			// I - BIO data
+              int  cmd,			// I - Control command
+	      long arg1,		// I - First argument
+	      void *arg2)		// I - Second argument
 {
   switch (cmd)
   {
@@ -971,8 +971,8 @@ http_bio_ctrl(BIO  *h,			/* I - BIO data */
  * 'http_bio_free()' - Free OpenSSL data.
  */
 
-static int				/* O - 1 on success, 0 on failure */
-http_bio_free(BIO *h)			/* I - BIO data */
+static int				// O - 1 on success, 0 on failure
+http_bio_free(BIO *h)			// I - BIO data
 {
   if (!h)
     return (0);
@@ -991,8 +991,8 @@ http_bio_free(BIO *h)			/* I - BIO data */
  * 'http_bio_new()' - Initialize an OpenSSL BIO structure.
  */
 
-static int				/* O - 1 on success, 0 on failure */
-http_bio_new(BIO *h)			/* I - BIO data */
+static int				// O - 1 on success, 0 on failure
+http_bio_new(BIO *h)			// I - BIO data
 {
   if (!h)
     return (0);
@@ -1010,15 +1010,15 @@ http_bio_new(BIO *h)			/* I - BIO data */
  * 'http_bio_puts()' - Send a string for OpenSSL.
  */
 
-static int				/* O - Bytes written */
-http_bio_puts(BIO        *h,		/* I - BIO data */
-              const char *str)		/* I - String to write */
+static int				// O - Bytes written
+http_bio_puts(BIO        *h,		// I - BIO data
+              const char *str)		// I - String to write
 {
 #ifdef WIN32
   return (send(((http_t *)h->ptr)->fd, str, (int)strlen(str), 0));
 #else
   return ((int)send(((http_t *)h->ptr)->fd, str, strlen(str), 0));
-#endif /* WIN32 */
+#endif // WIN32
 }
 
 
@@ -1026,12 +1026,12 @@ http_bio_puts(BIO        *h,		/* I - BIO data */
  * 'http_bio_read()' - Read data for OpenSSL.
  */
 
-static int				/* O - Bytes read */
-http_bio_read(BIO  *h,			/* I - BIO data */
-              char *buf,		/* I - Buffer */
-	      int  size)		/* I - Number of bytes to read */
+static int				// O - Bytes read
+http_bio_read(BIO  *h,			// I - BIO data
+              char *buf,		// I - Buffer
+	      int  size)		// I - Number of bytes to read
 {
-  http_t	*http;			/* HTTP connection */
+  http_t	*http;			// HTTP connection
 
 
   http = (http_t *)h->ptr;
@@ -1048,7 +1048,7 @@ http_bio_read(BIO  *h,			/* I - BIO data */
       http->error = WSAETIMEDOUT;
 #else
       http->error = ETIMEDOUT;
-#endif /* WIN32 */
+#endif // WIN32
 
       return (-1);
     }
@@ -1062,37 +1062,37 @@ http_bio_read(BIO  *h,			/* I - BIO data */
  * 'http_bio_write()' - Write data for OpenSSL.
  */
 
-static int				/* O - Bytes written */
-http_bio_write(BIO        *h,		/* I - BIO data */
-               const char *buf,		/* I - Buffer to write */
-	       int        num)		/* I - Number of bytes to write */
+static int				// O - Bytes written
+http_bio_write(BIO        *h,		// I - BIO data
+               const char *buf,		// I - Buffer to write
+	       int        num)		// I - Number of bytes to write
 {
   return (send(((http_t *)h->ptr)->fd, buf, num, 0));
 }
 
 
 /*
- * 'http_openssl_create_credential()' - Create a single credential in the internal format.
+ * 'http_create_credential()' - Create a single credential in the internal format.
  */
 
-static X509 *					/* O - Certificate */
-http_openssl_create_credential(
-    http_credential_t *credential)		/* I - Credential */
+static X509 *				// O - Certificate
+http_create_credential(
+    http_credential_t *credential)	// I - Credential
 {
 #if 0
-  int			result;			/* Result from GNU TLS */
-  openssl_x509_crt_t	cert;			/* Certificate */
-  openssl_datum_t	datum;			/* Data record */
+  int			result;			// Result from GNU TLS
+  openssl_x509_crt_t	cert;			// Certificate
+  openssl_datum_t	datum;			// Data record
 
 
-  DEBUG_printf(("3http_openssl_create_credential(credential=%p)", credential));
+  DEBUG_printf(("3http_create_credential(credential=%p)", credential));
 
   if (!credential)
     return (NULL);
 
   if ((result = openssl_x509_crt_init(&cert)) < 0)
   {
-    DEBUG_printf(("4http_openssl_create_credential: init error: %s", openssl_strerror(result)));
+    DEBUG_printf(("4http_create_credential: init error: %s", openssl_strerror(result)));
     return (NULL);
   }
 
@@ -1101,7 +1101,7 @@ http_openssl_create_credential(
 
   if ((result = openssl_x509_crt_import(cert, &datum, GNUTLS_X509_FMT_DER)) < 0)
   {
-    DEBUG_printf(("4http_openssl_create_credential: import error: %s", openssl_strerror(result)));
+    DEBUG_printf(("4http_create_credential: import error: %s", openssl_strerror(result)));
 
     openssl_x509_crt_deinit(cert);
     return (NULL);
@@ -1115,15 +1115,16 @@ http_openssl_create_credential(
 
 
 /*
- * 'http_openssl_default_path()' - Get the default credential store path.
+ * 'http_default_path()' - Get the default credential store path.
  */
 
-static const char *			/* O - Path or NULL on error */
-http_openssl_default_path(char   *buffer,/* I - Path buffer */
-                         size_t bufsize)/* I - Size of path buffer */
+static const char *			// O - Path or NULL on error
+http_default_path(
+    char   *buffer,			// I - Path buffer
+    size_t bufsize)			// I - Size of path buffer
 {
   _cups_globals_t	*cg = _cupsGlobals();
-					/* Pointer to library globals */
+					// Pointer to library globals
 
 
   if (cg->home && getuid())
@@ -1131,10 +1132,10 @@ http_openssl_default_path(char   *buffer,/* I - Path buffer */
     snprintf(buffer, bufsize, "%s/.cups", cg->home);
     if (access(buffer, 0))
     {
-      DEBUG_printf(("1http_openssl_default_path: Making directory \"%s\".", buffer));
+      DEBUG_printf(("1http_default_path: Making directory \"%s\".", buffer));
       if (mkdir(buffer, 0700))
       {
-        DEBUG_printf(("1http_openssl_default_path: Failed to make directory: %s", strerror(errno)));
+        DEBUG_printf(("1http_default_path: Failed to make directory: %s", strerror(errno)));
         return (NULL);
       }
     }
@@ -1142,10 +1143,10 @@ http_openssl_default_path(char   *buffer,/* I - Path buffer */
     snprintf(buffer, bufsize, "%s/.cups/ssl", cg->home);
     if (access(buffer, 0))
     {
-      DEBUG_printf(("1http_openssl_default_path: Making directory \"%s\".", buffer));
+      DEBUG_printf(("1http_default_path: Making directory \"%s\".", buffer));
       if (mkdir(buffer, 0700))
       {
-        DEBUG_printf(("1http_openssl_default_path: Failed to make directory: %s", strerror(errno)));
+        DEBUG_printf(("1http_default_path: Failed to make directory: %s", strerror(errno)));
         return (NULL);
       }
     }
@@ -1153,35 +1154,35 @@ http_openssl_default_path(char   *buffer,/* I - Path buffer */
   else
     strlcpy(buffer, CUPS_SERVERROOT "/ssl", bufsize);
 
-  DEBUG_printf(("1http_openssl_default_path: Using default path \"%s\".", buffer));
+  DEBUG_printf(("1http_default_path: Using default path \"%s\".", buffer));
 
   return (buffer);
 }
 
 
 /*
- * 'http_openssl_load_crl()' - Load the certificate revocation list, if any.
+ * 'http_load_crl()' - Load the certificate revocation list, if any.
  */
 
 static void
-http_openssl_load_crl(void)
+http_load_crl(void)
 {
 #if 0
   _cupsMutexLock(&tls_mutex);
 
   if (!openssl_x509_crl_init(&tls_crl))
   {
-    cups_file_t		*fp;		/* CRL file */
-    char		filename[1024],	/* site.crl */
-			line[256];	/* Base64-encoded line */
-    unsigned char	*data = NULL;	/* Buffer for cert data */
-    size_t		alloc_data = 0,	/* Bytes allocated */
-			num_data = 0;	/* Bytes used */
-    int			decoded;	/* Bytes decoded */
-    openssl_datum_t	datum;		/* Data record */
+    cups_file_t		*fp;		// CRL file
+    char		filename[1024],	// site.crl
+			line[256];	// Base64-encoded line
+    unsigned char	*data = NULL;	// Buffer for cert data
+    size_t		alloc_data = 0,	// Bytes allocated
+			num_data = 0;	// Bytes used
+    int			decoded;	// Bytes decoded
+    openssl_datum_t	datum;		// Data record
 
 
-    http_openssl_make_path(filename, sizeof(filename), CUPS_SERVERROOT, "site", "crl");
+    http_make_path(filename, sizeof(filename), CUPS_SERVERROOT, "site", "crl");
 
     if ((fp = cupsFileOpen(filename, "r")) != NULL)
     {
@@ -1229,7 +1230,7 @@ http_openssl_load_crl(void)
 	  else if ((num_data + strlen(line)) >= alloc_data)
 	  {
 	    unsigned char *tdata = realloc(data, alloc_data + 1024);
-					    /* Expanded buffer */
+					    // Expanded buffer
 
 	    if (!tdata)
 	      break;
@@ -1257,19 +1258,19 @@ http_openssl_load_crl(void)
 
 
 /*
- * 'http_openssl_make_path()' - Format a filename for a certificate or key file.
+ * 'http_make_path()' - Format a filename for a certificate or key file.
  */
 
-static const char *			/* O - Filename */
-http_openssl_make_path(
-    char       *buffer,			/* I - Filename buffer */
-    size_t     bufsize,			/* I - Size of buffer */
-    const char *dirname,		/* I - Directory */
-    const char *filename,		/* I - Filename (usually hostname) */
-    const char *ext)			/* I - Extension */
+static const char *			// O - Filename
+http_make_path(
+    char       *buffer,			// I - Filename buffer
+    size_t     bufsize,			// I - Size of buffer
+    const char *dirname,		// I - Directory
+    const char *filename,		// I - Filename (usually hostname)
+    const char *ext)			// I - Extension
 {
-  char	*bufptr,			/* Pointer into buffer */
-	*bufend = buffer + bufsize - 1;	/* End of buffer */
+  char	*bufptr,			// Pointer into buffer
+	*bufend = buffer + bufsize - 1;	// End of buffer
 
 
   snprintf(buffer, bufsize, "%s/", dirname);
@@ -1301,7 +1302,7 @@ http_openssl_make_path(
 void
 _httpTLSInitialize(void)
 {
-  // TODO: Initialize OpenSSL
+  // OpenSSL no longer requires explicit initialization...
 }
 
 
@@ -1309,8 +1310,8 @@ _httpTLSInitialize(void)
  * '_httpTLSPending()' - Return the number of pending TLS-encrypted bytes.
  */
 
-size_t					/* O - Bytes available */
-_httpTLSPending(http_t *http)		/* I - HTTP connection */
+size_t					// O - Bytes available
+_httpTLSPending(http_t *http)		// I - HTTP connection
 {
   return ((size_t)SSL_pending(http->tls));
 }
@@ -1320,10 +1321,10 @@ _httpTLSPending(http_t *http)		/* I - HTTP connection */
  * '_httpTLSRead()' - Read from a SSL/TLS connection.
  */
 
-int					/* O - Bytes read */
-_httpTLSRead(http_t *http,		/* I - Connection to server */
-	     char   *buf,		/* I - Buffer to store data */
-	     int    len)		/* I - Length of buffer */
+int					// O - Bytes read
+_httpTLSRead(http_t *http,		// I - Connection to server
+	     char   *buf,		// I - Buffer to store data
+	     int    len)		// I - Length of buffer
 {
   return (SSL_read((SSL *)(http->tls), buf, len));
 }
@@ -1334,9 +1335,9 @@ _httpTLSRead(http_t *http,		/* I - Connection to server */
  */
 
 void
-_httpTLSSetOptions(int options,		/* I - Options */
-                   int min_version,	/* I - Minimum TLS version */
-                   int max_version)	/* I - Maximum TLS version */
+_httpTLSSetOptions(int options,		// I - Options
+                   int min_version,	// I - Minimum TLS version
+                   int max_version)	// I - Maximum TLS version
 {
   if (!(options & _HTTP_TLS_SET_DEFAULT) || tls_options < 0)
   {
@@ -1351,29 +1352,27 @@ _httpTLSSetOptions(int options,		/* I - Options */
  * '_httpTLSStart()' - Set up SSL/TLS support on a connection.
  */
 
-int					/* O - 0 on success, -1 on failure */
-_httpTLSStart(http_t *http)		/* I - Connection to server */
+int					// O - 0 on success, -1 on failure
+_httpTLSStart(http_t *http)		// I - Connection to server
 {
-#if 0
-  char			hostname[256],	/* Hostname */
-			*hostptr;	/* Pointer into hostname */
-  int			status;		/* Status of handshake */
-  openssl_certificate_credentials_t *credentials;
-					/* TLS credentials */
-  char			priority_string[2048];
-					/* Priority string */
-  int			version;	/* Current version */
-  double		old_timeout;	/* Old timeout value */
-  http_timeout_cb_t	old_cb;		/* Old timeout callback */
-  void			*old_data;	/* Old timeout data */
-  static const char * const versions[] =/* SSL/TLS versions */
+  BIO		*bio;			// Basic input/output context
+  SSL_CTX	*context;		// Encryption context
+  char		hostname[256],		// Hostname
+		cipherlist[256];	// List of cipher suites
+  unsigned long	error;			// Error code, if any
+  static const int versions[] =		// SSL/TLS versions
   {
-    "VERS-SSL3.0",
-    "VERS-TLS1.0",
-    "VERS-TLS1.1",
-    "VERS-TLS1.2",
-    "VERS-TLS1.3",
-    "VERS-TLS-ALL"
+    TLS1_VERSION,			// No more SSL support in OpenSSL
+    TLS1_VERSION,			// TLS/1.0
+    TLS1_1_VERSION,			// TLS/1.1
+    TLS1_2_VERSION,			// TLS/1.2
+#ifdef TLS1_3_VERSION
+    TLS1_3_VERSION,			// TLS/1.3
+    TLS1_3_VERSION			// TLS/1.3 (max)
+#else
+    TLS1_2_VERSION,			// TLS/1.2
+    TLS1_2_VERSION			// TLS/1.2 (max)
+#endif // TLS1_3_VERSION
   };
 
 
@@ -1396,196 +1395,90 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
     return (-1);
   }
 
-  credentials = (openssl_certificate_credentials_t *)
-                    malloc(sizeof(openssl_certificate_credentials_t));
-  if (credentials == NULL)
-  {
-    DEBUG_printf(("8_httpStartTLS: Unable to allocate credentials: %s",
-                  strerror(errno)));
-    http->error  = errno;
-    http->status = HTTP_STATUS_ERROR;
-    _cupsSetHTTPError(HTTP_STATUS_ERROR);
-
-    return (-1);
-  }
-
-  openssl_certificate_allocate_credentials(credentials);
-  status = openssl_init(&http->tls, http->mode == _HTTP_MODE_CLIENT ? GNUTLS_CLIENT : GNUTLS_SERVER);
-  if (!status)
-    status = openssl_set_default_priority(http->tls);
-
-  if (status)
-  {
-    http->error  = EIO;
-    http->status = HTTP_STATUS_ERROR;
-
-    DEBUG_printf(("4_httpTLSStart: Unable to initialize common TLS parameters: %s", openssl_strerror(status)));
-    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, openssl_strerror(status), 0);
-
-    openssl_deinit(http->tls);
-    openssl_certificate_free_credentials(*credentials);
-    free(credentials);
-    http->tls = NULL;
-
-    return (-1);
-  }
-
   if (http->mode == _HTTP_MODE_CLIENT)
   {
-   /*
-    * Client: get the hostname to use for TLS...
-    */
-
-    if (httpAddrLocalhost(http->hostaddr))
-    {
-      strlcpy(hostname, "localhost", sizeof(hostname));
-    }
-    else
-    {
-     /*
-      * Otherwise make sure the hostname we have does not end in a trailing dot.
-      */
-
-      strlcpy(hostname, http->hostname, sizeof(hostname));
-      if ((hostptr = hostname + strlen(hostname) - 1) >= hostname &&
-	  *hostptr == '.')
-	*hostptr = '\0';
-    }
-
-    status = openssl_server_name_set(http->tls, GNUTLS_NAME_DNS, hostname, strlen(hostname));
+    // Negotiate a TLS connection as a client...
+    context = SSL_CTX_new(TLS_client_method());
   }
   else
   {
-   /*
-    * Server: get certificate and private key...
-    */
+    // Negotiate a TLS connection as a server
+    char	crtfile[1024],		// Certificate file
+		keyfile[1024];		// Private key file
+    const char	*cn,			// Common name to lookup
+		*cnptr;			// Pointer into common name
+    int		have_creds = 0;		// Have credentials?
 
-    char	crtfile[1024],		/* Certificate file */
-		keyfile[1024];		/* Private key file */
-    int		have_creds = 0;		/* Have credentials? */
+    context = SSL_CTX_new(TLS_server_method());
 
+    // Find the TLS certificate...
     if (http->fields[HTTP_FIELD_HOST])
     {
-     /*
-      * Use hostname for TLS upgrade...
-      */
-
+      // Use hostname for TLS upgrade...
       strlcpy(hostname, http->fields[HTTP_FIELD_HOST], sizeof(hostname));
     }
     else
     {
-     /*
-      * Resolve hostname from connection address...
-      */
-
-      http_addr_t	addr;		/* Connection address */
-      socklen_t		addrlen;	/* Length of address */
+      // Resolve hostname from connection address...
+      http_addr_t	addr;		// Connection address
+      socklen_t		addrlen;	// Length of address
 
       addrlen = sizeof(addr);
       if (getsockname(http->fd, (struct sockaddr *)&addr, &addrlen))
       {
+        // Unable to get local socket address so use default...
 	DEBUG_printf(("4_httpTLSStart: Unable to get socket address: %s", strerror(errno)));
 	hostname[0] = '\0';
       }
       else if (httpAddrLocalhost(&addr))
+      {
+        // Local access top use default...
 	hostname[0] = '\0';
+      }
       else
       {
+        // Lookup the socket address...
 	httpAddrLookup(&addr, hostname, sizeof(hostname));
         DEBUG_printf(("4_httpTLSStart: Resolved socket address to \"%s\".", hostname));
       }
     }
 
     if (isdigit(hostname[0] & 255) || hostname[0] == '[')
-      hostname[0] = '\0';		/* Don't allow numeric addresses */
+      hostname[0] = '\0';		// Don't allow numeric addresses
 
     if (hostname[0])
-    {
-     /*
-      * First look in the CUPS keystore...
-      */
+      cn = hostname;
+    else
+      cn = tls_common_name;
 
-      http_openssl_make_path(crtfile, sizeof(crtfile), tls_keypath, hostname, "crt");
-      http_openssl_make_path(keyfile, sizeof(keyfile), tls_keypath, hostname, "key");
+    if (cn)
+    {
+      // First look in the CUPS keystore...
+      http_make_path(crtfile, sizeof(crtfile), tls_keypath, cn, "crt");
+      http_make_path(keyfile, sizeof(keyfile), tls_keypath, cn, "key");
 
       if (access(crtfile, R_OK) || access(keyfile, R_OK))
       {
-       /*
-        * No CUPS-managed certs, look for CA certs...
-        */
+        // No CUPS-managed certs, look for CA certs...
+        char cacrtfile[1024], cakeyfile[1024];	// CA cert files
 
-        char cacrtfile[1024], cakeyfile[1024];	/* CA cert files */
+        snprintf(cacrtfile, sizeof(cacrtfile), "/etc/letsencrypt/live/%s/fullchain.pem", cn);
+        snprintf(cakeyfile, sizeof(cakeyfile), "/etc/letsencrypt/live/%s/privkey.pem", cn);
 
-        snprintf(cacrtfile, sizeof(cacrtfile), "/etc/letsencrypt/live/%s/fullchain.pem", hostname);
-        snprintf(cakeyfile, sizeof(cakeyfile), "/etc/letsencrypt/live/%s/privkey.pem", hostname);
-
-        if ((access(cacrtfile, R_OK) || access(cakeyfile, R_OK)) && (hostptr = strchr(hostname, '.')) != NULL)
+        if ((access(cacrtfile, R_OK) || access(cakeyfile, R_OK)) && (cnptr = strchr(cn, '.')) != NULL)
         {
-         /*
-          * Try just domain name...
-          */
-
-          hostptr ++;
-          if (strchr(hostptr, '.'))
+          // Try just domain name...
+          cnptr ++;
+          if (strchr(cnptr, '.'))
           {
-            snprintf(cacrtfile, sizeof(cacrtfile), "/etc/letsencrypt/live/%s/fullchain.pem", hostptr);
-            snprintf(cakeyfile, sizeof(cakeyfile), "/etc/letsencrypt/live/%s/privkey.pem", hostptr);
+            snprintf(cacrtfile, sizeof(cacrtfile), "/etc/letsencrypt/live/%s/fullchain.pem", cnptr);
+            snprintf(cakeyfile, sizeof(cakeyfile), "/etc/letsencrypt/live/%s/privkey.pem", cnptr);
           }
         }
 
         if (!access(cacrtfile, R_OK) && !access(cakeyfile, R_OK))
         {
-         /*
-          * Use the CA certs...
-          */
-
-          strlcpy(crtfile, cacrtfile, sizeof(crtfile));
-          strlcpy(keyfile, cakeyfile, sizeof(keyfile));
-        }
-      }
-
-      have_creds = !access(crtfile, R_OK) && !access(keyfile, R_OK);
-    }
-    else if (tls_common_name)
-    {
-     /*
-      * First look in the CUPS keystore...
-      */
-
-      http_openssl_make_path(crtfile, sizeof(crtfile), tls_keypath, tls_common_name, "crt");
-      http_openssl_make_path(keyfile, sizeof(keyfile), tls_keypath, tls_common_name, "key");
-
-      if (access(crtfile, R_OK) || access(keyfile, R_OK))
-      {
-       /*
-        * No CUPS-managed certs, look for CA certs...
-        */
-
-        char cacrtfile[1024], cakeyfile[1024];	/* CA cert files */
-
-        snprintf(cacrtfile, sizeof(cacrtfile), "/etc/letsencrypt/live/%s/fullchain.pem", tls_common_name);
-        snprintf(cakeyfile, sizeof(cakeyfile), "/etc/letsencrypt/live/%s/privkey.pem", tls_common_name);
-
-        if ((access(cacrtfile, R_OK) || access(cakeyfile, R_OK)) && (hostptr = strchr(tls_common_name, '.')) != NULL)
-        {
-         /*
-          * Try just domain name...
-          */
-
-          hostptr ++;
-          if (strchr(hostptr, '.'))
-          {
-            snprintf(cacrtfile, sizeof(cacrtfile), "/etc/letsencrypt/live/%s/fullchain.pem", hostptr);
-            snprintf(cakeyfile, sizeof(cakeyfile), "/etc/letsencrypt/live/%s/privkey.pem", hostptr);
-          }
-        }
-
-        if (!access(cacrtfile, R_OK) && !access(cakeyfile, R_OK))
-        {
-         /*
-          * Use the CA certs...
-          */
-
+          // Use the CA certs...
           strlcpy(crtfile, cacrtfile, sizeof(crtfile));
           strlcpy(keyfile, cakeyfile, sizeof(keyfile));
         }
@@ -1594,11 +1487,11 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
       have_creds = !access(crtfile, R_OK) && !access(keyfile, R_OK);
     }
 
-    if (!have_creds && tls_auto_create && (hostname[0] || tls_common_name))
+    if (!have_creds && tls_auto_create && cn)
     {
-      DEBUG_printf(("4_httpTLSStart: Auto-create credentials for \"%s\".", hostname[0] ? hostname : tls_common_name));
+      DEBUG_printf(("4_httpTLSStart: Auto-create credentials for \"%s\".", cn));
 
-      if (!cupsMakeServerCredentials(tls_keypath, hostname[0] ? hostname : tls_common_name, 0, NULL, time(NULL) + 365 * 86400))
+      if (!cupsMakeServerCredentials(tls_keypath, cn, 0, NULL, time(NULL) + 365 * 86400))
       {
 	DEBUG_puts("4_httpTLSStart: cupsMakeServerCredentials failed.");
 	http->error  = errno = EINVAL;
@@ -1609,145 +1502,71 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
       }
     }
 
-    DEBUG_printf(("4_httpTLSStart: Using certificate \"%s\" and private key \"%s\".", crtfile, keyfile));
-
-    status = openssl_certificate_set_x509_key_file(*credentials, crtfile, keyfile, GNUTLS_X509_FMT_PEM);
+    SSL_CTX_use_PrivateKey_file(context, keyfile, SSL_FILETYPE_PEM);
+    SSL_CTX_use_certificate_file(context, crtfile, SSL_FILETYPE_PEM);
   }
 
-  if (!status)
-    status = openssl_credentials_set(http->tls, GNUTLS_CRD_CERTIFICATE, *credentials);
-
-  if (status)
-  {
-    http->error  = EIO;
-    http->status = HTTP_STATUS_ERROR;
-
-    DEBUG_printf(("4_httpTLSStart: Unable to complete client/server setup: %s", openssl_strerror(status)));
-    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, openssl_strerror(status), 0);
-
-    openssl_deinit(http->tls);
-    openssl_certificate_free_credentials(*credentials);
-    free(credentials);
-    http->tls = NULL;
-
-    return (-1);
-  }
-
-  strlcpy(priority_string, "NORMAL", sizeof(priority_string));
-
-  if (tls_max_version < _HTTP_TLS_MAX)
-  {
-   /*
-    * Require specific TLS versions...
-    */
-
-    strlcat(priority_string, ":-VERS-TLS-ALL", sizeof(priority_string));
-    for (version = tls_min_version; version <= tls_max_version; version ++)
-    {
-      strlcat(priority_string, ":+", sizeof(priority_string));
-      strlcat(priority_string, versions[version], sizeof(priority_string));
-    }
-  }
-  else if (tls_min_version == _HTTP_TLS_SSL3)
-  {
-   /*
-    * Allow all versions of TLS and SSL/3.0...
-    */
-
-    strlcat(priority_string, ":+VERS-TLS-ALL:+VERS-SSL3.0", sizeof(priority_string));
-  }
+  // Set TLS options...
+  strlcpy(cipherlist, "HIGH:!DH:+DHE", sizeof(cipherlist));
+  if ((tls_options & _HTTP_TLS_ALLOW_RC4) && http->mode == _HTTP_MODE_CLIENT)
+    strlcat(cipherlist, ":+RC4", sizeof(cipherlist));
   else
-  {
-   /*
-    * Require a minimum version...
-    */
-
-    strlcat(priority_string, ":+VERS-TLS-ALL", sizeof(priority_string));
-    for (version = 0; version < tls_min_version; version ++)
-    {
-      strlcat(priority_string, ":-", sizeof(priority_string));
-      strlcat(priority_string, versions[version], sizeof(priority_string));
-    }
-  }
-
-  if (tls_options & _HTTP_TLS_ALLOW_RC4)
-    strlcat(priority_string, ":+ARCFOUR-128", sizeof(priority_string));
-  else
-    strlcat(priority_string, ":!ARCFOUR-128", sizeof(priority_string));
-
-  strlcat(priority_string, ":!ANON-DH", sizeof(priority_string));
-
+    strlcat(cipherlist, ":!RC4", sizeof(cipherlist));
   if (tls_options & _HTTP_TLS_DENY_CBC)
-    strlcat(priority_string, ":!AES-128-CBC:!AES-256-CBC:!CAMELLIA-128-CBC:!CAMELLIA-256-CBC:!3DES-CBC", sizeof(priority_string));
+    strlcat(cipherlist, ":!SHA1:!SHA256:!SHA384", sizeof(cipherlist));
+  strlcat(cipherlist, ":@STRENGTH", sizeof(cipherlist));
 
-#ifdef HAVE_GNUTLS_PRIORITY_SET_DIRECT
-  openssl_priority_set_direct(http->tls, priority_string, NULL);
+  SSL_CTX_set_min_proto_version(context, versions[tls_min_version]);
+  SSL_CTX_set_max_proto_version(context, versions[tls_max_version]);
+  SSL_CTX_set_cipher_list(context, cipherlist);
 
-#else
-  openssl_priority_t priority;		/* Priority */
+  // Setup a TLS session
+  bio = BIO_new(&http_bio_methods);
+  BIO_ctrl(bio, BIO_C_SET_FILE_PTR, 0, (char *)http);
 
-  openssl_priority_init(&priority, priority_string, NULL);
-  openssl_priority_set(http->tls, priority);
-  openssl_priority_deinit(priority);
-#endif /* HAVE_GNUTLS_PRIORITY_SET_DIRECT */
+  http->tls = SSL_new(context);
+  SSL_set_bio(http->tls, bio, bio);
 
-  openssl_transport_set_ptr(http->tls, (openssl_transport_ptr_t)http);
-  openssl_transport_set_pull_function(http->tls, http_openssl_read);
-#ifdef HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION
-  openssl_transport_set_pull_timeout_function(http->tls, (openssl_pull_timeout_func)httpWait);
-#endif /* HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION */
-  openssl_transport_set_push_function(http->tls, http_openssl_write);
-
- /*
-  * Enforce a minimum timeout of 10 seconds for the TLS handshake...
-  */
-
-  old_timeout  = http->timeout_value;
-  old_cb       = http->timeout_cb;
-  old_data     = http->timeout_data;
-
-  if (!old_cb || old_timeout < 10.0)
+  if (http->mode == _HTTP_MODE_CLIENT)
   {
-    DEBUG_puts("4_httpTLSStart: Setting timeout to 10 seconds.");
-    httpSetTimeout(http, 10.0, NULL, NULL);
-  }
-
- /*
-  * Do the TLS handshake...
-  */
-
-  while ((status = openssl_handshake(http->tls)) != GNUTLS_E_SUCCESS)
-  {
-    DEBUG_printf(("5_httpStartTLS: openssl_handshake returned %d (%s)",
-                  status, openssl_strerror(status)));
-
-    if (openssl_error_is_fatal(status))
+    // Negotiate as a server...
+    if (SSL_connect(http->tls) < 1)
     {
-      http->error  = EIO;
+      // Failed
+      if ((error = ERR_get_error()) != 0)
+        _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, ERR_error_string(error, NULL), 0);
+
       http->status = HTTP_STATUS_ERROR;
+      http->error  = EPIPE;
 
-      _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, openssl_strerror(status), 0);
+      SSL_CTX_free(context);
 
-      openssl_deinit(http->tls);
-      openssl_certificate_free_credentials(*credentials);
-      free(credentials);
+      SSL_free(http->tls);
       http->tls = NULL;
-
-      httpSetTimeout(http, old_timeout, old_cb, old_data);
 
       return (-1);
     }
   }
+  else
+  {
+    // Negotiate as a server...
+    if (SSL_accept(http->tls) < 1)
+    {
+      // Failed
+      if ((error = ERR_get_error()) != 0)
+        _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, ERR_error_string(error, NULL), 0);
 
- /*
-  * Restore the previous timeout settings...
-  */
+      http->status = HTTP_STATUS_ERROR;
+      http->error  = EPIPE;
 
-  httpSetTimeout(http, old_timeout, old_cb, old_data);
+      SSL_CTX_free(context);
 
-  http->tls_credentials = credentials;
+      SSL_free(http->tls);
+      http->tls = NULL;
 
-#endif // 0
+      return (-1);
+    }
+  }
 
   return (0);
 }
@@ -1758,26 +1577,16 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
  */
 
 void
-_httpTLSStop(http_t *http)		/* I - Connection to server */
+_httpTLSStop(http_t *http)		// I - Connection to server
 {
-#if 0
-  int	error;				/* Error code */
+  SSL_CTX	*context;		// Context for encryption
 
 
-  error = openssl_bye(http->tls, http->mode == _HTTP_MODE_CLIENT ? GNUTLS_SHUT_RDWR : GNUTLS_SHUT_WR);
-  if (error != GNUTLS_E_SUCCESS)
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, openssl_strerror(errno), 0);
+  context = SSL_get_SSL_CTX(http->tls);
 
-  openssl_deinit(http->tls);
-  http->tls = NULL;
-
-  if (http->tls_credentials)
-  {
-    openssl_certificate_free_credentials(*(http->tls_credentials));
-    free(http->tls_credentials);
-    http->tls_credentials = NULL;
-  }
-#endif // 0
+  SSL_shutdown(http->tls);
+  SSL_CTX_free(context);
+  SSL_free(http->tls);
 }
 
 
@@ -1785,47 +1594,10 @@ _httpTLSStop(http_t *http)		/* I - Connection to server */
  * '_httpTLSWrite()' - Write to a SSL/TLS connection.
  */
 
-int					/* O - Bytes written */
-_httpTLSWrite(http_t     *http,		/* I - Connection to server */
-	      const char *buf,		/* I - Buffer holding data */
-	      int        len)		/* I - Length of buffer */
+int					// O - Bytes written
+_httpTLSWrite(http_t     *http,		// I - Connection to server
+	      const char *buf,		// I - Buffer holding data
+	      int        len)		// I - Length of buffer
 {
-#if 0
-  ssize_t	result;			/* Return value */
-
-
-  DEBUG_printf(("5_httpTLSWrite(http=%p, buf=%p, len=%d)", http, buf, len));
-
-  result = openssl_record_send(http->tls, buf, (size_t)len);
-
-  if (result < 0 && !errno)
-  {
-   /*
-    * Convert GNU TLS error to errno value...
-    */
-
-    switch (result)
-    {
-      case GNUTLS_E_INTERRUPTED :
-	  errno = EINTR;
-	  break;
-
-      case GNUTLS_E_AGAIN :
-          errno = EAGAIN;
-          break;
-
-      default :
-          errno = EPIPE;
-          break;
-    }
-
-    result = -1;
-  }
-
-  DEBUG_printf(("5_httpTLSWrite: Returning %d.", (int)result));
-
-  return ((int)result);
-#else
-  return (-1);
-#endif // 0
+  return (SSL_write(http->tls, buf, len));
 }
