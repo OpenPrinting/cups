@@ -31,7 +31,7 @@ static int		http_bio_write(BIO *h, const char *buf, int num);
 
 static X509		*http_create_credential(http_credential_t *credential);
 static const char	*http_default_path(char *buffer, size_t bufsize);
-static void		http_load_crl(void);
+//static void		http_load_crl(void);
 static const char	*http_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
 
 
@@ -56,7 +56,7 @@ static int		tls_auto_create = 0;
 					/* Auto-create self-signed certs? */
 static char		*tls_common_name = NULL;
 					/* Default common name */
-static X509_CRL		*tls_crl = NULL;/* Certificate revocation list */
+//static X509_CRL		*tls_crl = NULL;/* Certificate revocation list */
 static char		*tls_keypath = NULL;
 					/* Server cert keychain path */
 static _cups_mutex_t	tls_mutex = _CUPS_MUTEX_INITIALIZER;
@@ -414,14 +414,15 @@ httpCredentialsAreValidForName(
     cups_array_t *credentials,		// I - Credentials
     const char   *common_name)		// I - Name to check
 {
-#if 0
-  openssl_x509_crt_t	cert;		// Certificate
-  int			result = 0;	// Result
+  X509	*cert;				// Certificate
+  int	result = 0;			// Result
 
 
   cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials));
   if (cert)
   {
+    result = 1;
+#if 0
     result = openssl_x509_crt_check_hostname(cert, common_name) != 0;
 
     if (result)
@@ -457,14 +458,12 @@ httpCredentialsAreValidForName(
 
       _cupsMutexUnlock(&tls_mutex);
     }
+#endif // 0
 
-    openssl_x509_crt_deinit(cert);
+    X509_free(cert);
   }
 
   return (result);
-#else
-  return (1);
-#endif // 0
 }
 
 
@@ -928,374 +927,6 @@ httpSaveCredentials(
 
 
 /*
- * 'http_bio_ctrl()' - Control the HTTP connection.
- */
-
-static long				// O - Result/data
-http_bio_ctrl(BIO  *h,			// I - BIO data
-              int  cmd,			// I - Control command
-	      long arg1,		// I - First argument
-	      void *arg2)		// I - Second argument
-{
-  switch (cmd)
-  {
-    default :
-        return (0);
-
-    case BIO_CTRL_RESET :
-        h->ptr = NULL;
-	return (0);
-
-    case BIO_C_SET_FILE_PTR :
-        h->ptr  = arg2;
-	h->init = 1;
-	return (1);
-
-    case BIO_C_GET_FILE_PTR :
-        if (arg2)
-	{
-	  *((void **)arg2) = h->ptr;
-	  return (1);
-	}
-	else
-	  return (0);
-
-    case BIO_CTRL_DUP :
-    case BIO_CTRL_FLUSH :
-        return (1);
-  }
-}
-
-
-/*
- * 'http_bio_free()' - Free OpenSSL data.
- */
-
-static int				// O - 1 on success, 0 on failure
-http_bio_free(BIO *h)			// I - BIO data
-{
-  if (!h)
-    return (0);
-
-  if (h->shutdown)
-  {
-    h->init  = 0;
-    h->flags = 0;
-  }
-
-  return (1);
-}
-
-
-/*
- * 'http_bio_new()' - Initialize an OpenSSL BIO structure.
- */
-
-static int				// O - 1 on success, 0 on failure
-http_bio_new(BIO *h)			// I - BIO data
-{
-  if (!h)
-    return (0);
-
-  h->init  = 0;
-  h->num   = 0;
-  h->ptr   = NULL;
-  h->flags = 0;
-
-  return (1);
-}
-
-
-/*
- * 'http_bio_puts()' - Send a string for OpenSSL.
- */
-
-static int				// O - Bytes written
-http_bio_puts(BIO        *h,		// I - BIO data
-              const char *str)		// I - String to write
-{
-#ifdef WIN32
-  return (send(((http_t *)h->ptr)->fd, str, (int)strlen(str), 0));
-#else
-  return ((int)send(((http_t *)h->ptr)->fd, str, strlen(str), 0));
-#endif // WIN32
-}
-
-
-/*
- * 'http_bio_read()' - Read data for OpenSSL.
- */
-
-static int				// O - Bytes read
-http_bio_read(BIO  *h,			// I - BIO data
-              char *buf,		// I - Buffer
-	      int  size)		// I - Number of bytes to read
-{
-  http_t	*http;			// HTTP connection
-
-
-  http = (http_t *)h->ptr;
-
-  if (!http->blocking)
-  {
-   /*
-    * Make sure we have data before we read...
-    */
-
-    if (!_httpWait(http, 10000, 0))
-    {
-#ifdef WIN32
-      http->error = WSAETIMEDOUT;
-#else
-      http->error = ETIMEDOUT;
-#endif // WIN32
-
-      return (-1);
-    }
-  }
-
-  return ((int)recv(http->fd, buf, (size_t)size, 0));
-}
-
-
-/*
- * 'http_bio_write()' - Write data for OpenSSL.
- */
-
-static int				// O - Bytes written
-http_bio_write(BIO        *h,		// I - BIO data
-               const char *buf,		// I - Buffer to write
-	       int        num)		// I - Number of bytes to write
-{
-  return (send(((http_t *)h->ptr)->fd, buf, num, 0));
-}
-
-
-/*
- * 'http_create_credential()' - Create a single credential in the internal format.
- */
-
-static X509 *				// O - Certificate
-http_create_credential(
-    http_credential_t *credential)	// I - Credential
-{
-#if 0
-  int			result;			// Result from GNU TLS
-  openssl_x509_crt_t	cert;			// Certificate
-  openssl_datum_t	datum;			// Data record
-
-
-  DEBUG_printf(("3http_create_credential(credential=%p)", credential));
-
-  if (!credential)
-    return (NULL);
-
-  if ((result = openssl_x509_crt_init(&cert)) < 0)
-  {
-    DEBUG_printf(("4http_create_credential: init error: %s", openssl_strerror(result)));
-    return (NULL);
-  }
-
-  datum.data = credential->data;
-  datum.size = credential->datalen;
-
-  if ((result = openssl_x509_crt_import(cert, &datum, GNUTLS_X509_FMT_DER)) < 0)
-  {
-    DEBUG_printf(("4http_create_credential: import error: %s", openssl_strerror(result)));
-
-    openssl_x509_crt_deinit(cert);
-    return (NULL);
-  }
-
-  return (cert);
-#else
-  return (NULL);
-#endif // 0
-}
-
-
-/*
- * 'http_default_path()' - Get the default credential store path.
- */
-
-static const char *			// O - Path or NULL on error
-http_default_path(
-    char   *buffer,			// I - Path buffer
-    size_t bufsize)			// I - Size of path buffer
-{
-  _cups_globals_t	*cg = _cupsGlobals();
-					// Pointer to library globals
-
-
-  if (cg->home && getuid())
-  {
-    snprintf(buffer, bufsize, "%s/.cups", cg->home);
-    if (access(buffer, 0))
-    {
-      DEBUG_printf(("1http_default_path: Making directory \"%s\".", buffer));
-      if (mkdir(buffer, 0700))
-      {
-        DEBUG_printf(("1http_default_path: Failed to make directory: %s", strerror(errno)));
-        return (NULL);
-      }
-    }
-
-    snprintf(buffer, bufsize, "%s/.cups/ssl", cg->home);
-    if (access(buffer, 0))
-    {
-      DEBUG_printf(("1http_default_path: Making directory \"%s\".", buffer));
-      if (mkdir(buffer, 0700))
-      {
-        DEBUG_printf(("1http_default_path: Failed to make directory: %s", strerror(errno)));
-        return (NULL);
-      }
-    }
-  }
-  else
-    strlcpy(buffer, CUPS_SERVERROOT "/ssl", bufsize);
-
-  DEBUG_printf(("1http_default_path: Using default path \"%s\".", buffer));
-
-  return (buffer);
-}
-
-
-/*
- * 'http_load_crl()' - Load the certificate revocation list, if any.
- */
-
-static void
-http_load_crl(void)
-{
-#if 0
-  _cupsMutexLock(&tls_mutex);
-
-  if (!openssl_x509_crl_init(&tls_crl))
-  {
-    cups_file_t		*fp;		// CRL file
-    char		filename[1024],	// site.crl
-			line[256];	// Base64-encoded line
-    unsigned char	*data = NULL;	// Buffer for cert data
-    size_t		alloc_data = 0,	// Bytes allocated
-			num_data = 0;	// Bytes used
-    int			decoded;	// Bytes decoded
-    openssl_datum_t	datum;		// Data record
-
-
-    http_make_path(filename, sizeof(filename), CUPS_SERVERROOT, "site", "crl");
-
-    if ((fp = cupsFileOpen(filename, "r")) != NULL)
-    {
-      while (cupsFileGets(fp, line, sizeof(line)))
-      {
-	if (!strcmp(line, "-----BEGIN X509 CRL-----"))
-	{
-	  if (num_data)
-	  {
-	   /*
-	    * Missing END X509 CRL...
-	    */
-
-	    break;
-	  }
-	}
-	else if (!strcmp(line, "-----END X509 CRL-----"))
-	{
-	  if (!num_data)
-	  {
-	   /*
-	    * Missing data...
-	    */
-
-	    break;
-	  }
-
-          datum.data = data;
-	  datum.size = num_data;
-
-	  openssl_x509_crl_import(tls_crl, &datum, GNUTLS_X509_FMT_PEM);
-
-	  num_data = 0;
-	}
-	else
-	{
-	  if (alloc_data == 0)
-	  {
-	    data       = malloc(2048);
-	    alloc_data = 2048;
-
-	    if (!data)
-	      break;
-	  }
-	  else if ((num_data + strlen(line)) >= alloc_data)
-	  {
-	    unsigned char *tdata = realloc(data, alloc_data + 1024);
-					    // Expanded buffer
-
-	    if (!tdata)
-	      break;
-
-	    data       = tdata;
-	    alloc_data += 1024;
-	  }
-
-	  decoded = alloc_data - num_data;
-	  httpDecode64_2((char *)data + num_data, &decoded, line);
-	  num_data += (size_t)decoded;
-	}
-      }
-
-      cupsFileClose(fp);
-
-      if (data)
-	free(data);
-    }
-  }
-
-  _cupsMutexUnlock(&tls_mutex);
-#endif // 0
-}
-
-
-/*
- * 'http_make_path()' - Format a filename for a certificate or key file.
- */
-
-static const char *			// O - Filename
-http_make_path(
-    char       *buffer,			// I - Filename buffer
-    size_t     bufsize,			// I - Size of buffer
-    const char *dirname,		// I - Directory
-    const char *filename,		// I - Filename (usually hostname)
-    const char *ext)			// I - Extension
-{
-  char	*bufptr,			// Pointer into buffer
-	*bufend = buffer + bufsize - 1;	// End of buffer
-
-
-  snprintf(buffer, bufsize, "%s/", dirname);
-  bufptr = buffer + strlen(buffer);
-
-  while (*filename && bufptr < bufend)
-  {
-    if (_cups_isalnum(*filename) || *filename == '-' || *filename == '.')
-      *bufptr++ = *filename;
-    else
-      *bufptr++ = '_';
-
-    filename ++;
-  }
-
-  if (bufptr < bufend)
-    *bufptr++ = '.';
-
-  strlcpy(bufptr, ext, (size_t)(bufend - bufptr + 1));
-
-  return (buffer);
-}
-
-
-/*
  * '_httpTLSInitialize()' - Initialize the TLS stack.
  */
 
@@ -1600,4 +1231,353 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
 	      int        len)		// I - Length of buffer
 {
   return (SSL_write(http->tls, buf, len));
+}
+
+
+/*
+ * 'http_bio_ctrl()' - Control the HTTP connection.
+ */
+
+static long				// O - Result/data
+http_bio_ctrl(BIO  *h,			// I - BIO data
+              int  cmd,			// I - Control command
+	      long arg1,		// I - First argument
+	      void *arg2)		// I - Second argument
+{
+  switch (cmd)
+  {
+    default :
+        return (0);
+
+    case BIO_CTRL_RESET :
+        h->ptr = NULL;
+	return (0);
+
+    case BIO_C_SET_FILE_PTR :
+        h->ptr  = arg2;
+	h->init = 1;
+	return (1);
+
+    case BIO_C_GET_FILE_PTR :
+        if (arg2)
+	{
+	  *((void **)arg2) = h->ptr;
+	  return (1);
+	}
+	else
+	  return (0);
+
+    case BIO_CTRL_DUP :
+    case BIO_CTRL_FLUSH :
+        return (1);
+  }
+}
+
+
+/*
+ * 'http_bio_free()' - Free OpenSSL data.
+ */
+
+static int				// O - 1 on success, 0 on failure
+http_bio_free(BIO *h)			// I - BIO data
+{
+  if (!h)
+    return (0);
+
+  if (h->shutdown)
+  {
+    h->init  = 0;
+    h->flags = 0;
+  }
+
+  return (1);
+}
+
+
+/*
+ * 'http_bio_new()' - Initialize an OpenSSL BIO structure.
+ */
+
+static int				// O - 1 on success, 0 on failure
+http_bio_new(BIO *h)			// I - BIO data
+{
+  if (!h)
+    return (0);
+
+  h->init  = 0;
+  h->num   = 0;
+  h->ptr   = NULL;
+  h->flags = 0;
+
+  return (1);
+}
+
+
+/*
+ * 'http_bio_puts()' - Send a string for OpenSSL.
+ */
+
+static int				// O - Bytes written
+http_bio_puts(BIO        *h,		// I - BIO data
+              const char *str)		// I - String to write
+{
+#ifdef WIN32
+  return (send(((http_t *)h->ptr)->fd, str, (int)strlen(str), 0));
+#else
+  return ((int)send(((http_t *)h->ptr)->fd, str, strlen(str), 0));
+#endif // WIN32
+}
+
+
+/*
+ * 'http_bio_read()' - Read data for OpenSSL.
+ */
+
+static int				// O - Bytes read
+http_bio_read(BIO  *h,			// I - BIO data
+              char *buf,		// I - Buffer
+	      int  size)		// I - Number of bytes to read
+{
+  http_t	*http;			// HTTP connection
+
+
+  http = (http_t *)h->ptr;
+
+  if (!http->blocking)
+  {
+   /*
+    * Make sure we have data before we read...
+    */
+
+    if (!_httpWait(http, 10000, 0))
+    {
+#ifdef WIN32
+      http->error = WSAETIMEDOUT;
+#else
+      http->error = ETIMEDOUT;
+#endif // WIN32
+
+      return (-1);
+    }
+  }
+
+  return ((int)recv(http->fd, buf, (size_t)size, 0));
+}
+
+
+/*
+ * 'http_bio_write()' - Write data for OpenSSL.
+ */
+
+static int				// O - Bytes written
+http_bio_write(BIO        *h,		// I - BIO data
+               const char *buf,		// I - Buffer to write
+	       int        num)		// I - Number of bytes to write
+{
+  return (send(((http_t *)h->ptr)->fd, buf, num, 0));
+}
+
+
+/*
+ * 'http_create_credential()' - Create a single credential in the internal format.
+ */
+
+static X509 *				// O - Certificate
+http_create_credential(
+    http_credential_t *credential)	// I - Credential
+{
+  X509	*cert = NULL;			// Certificate
+  BIO	*bio;				// Basic I/O for string
+
+
+
+  if ((bio = BIO_new_mem_buf(credential->data, credential->datalen)) == NULL)
+    return (NULL);
+
+  PEM_read_bio_X509(bio, &cert, NULL, (void *)"");
+
+  BIO_free(bio);
+
+  return (cert);
+}
+
+
+/*
+ * 'http_default_path()' - Get the default credential store path.
+ */
+
+static const char *			// O - Path or NULL on error
+http_default_path(
+    char   *buffer,			// I - Path buffer
+    size_t bufsize)			// I - Size of path buffer
+{
+  _cups_globals_t	*cg = _cupsGlobals();
+					// Pointer to library globals
+
+
+  if (cg->home && getuid())
+  {
+    snprintf(buffer, bufsize, "%s/.cups", cg->home);
+    if (access(buffer, 0))
+    {
+      DEBUG_printf(("1http_default_path: Making directory \"%s\".", buffer));
+      if (mkdir(buffer, 0700))
+      {
+        DEBUG_printf(("1http_default_path: Failed to make directory: %s", strerror(errno)));
+        return (NULL);
+      }
+    }
+
+    snprintf(buffer, bufsize, "%s/.cups/ssl", cg->home);
+    if (access(buffer, 0))
+    {
+      DEBUG_printf(("1http_default_path: Making directory \"%s\".", buffer));
+      if (mkdir(buffer, 0700))
+      {
+        DEBUG_printf(("1http_default_path: Failed to make directory: %s", strerror(errno)));
+        return (NULL);
+      }
+    }
+  }
+  else
+    strlcpy(buffer, CUPS_SERVERROOT "/ssl", bufsize);
+
+  DEBUG_printf(("1http_default_path: Using default path \"%s\".", buffer));
+
+  return (buffer);
+}
+
+
+#if 0
+/*
+ * 'http_load_crl()' - Load the certificate revocation list, if any.
+ */
+
+static void
+http_load_crl(void)
+{
+  _cupsMutexLock(&tls_mutex);
+
+  if (!openssl_x509_crl_init(&tls_crl))
+  {
+    cups_file_t		*fp;		// CRL file
+    char		filename[1024],	// site.crl
+			line[256];	// Base64-encoded line
+    unsigned char	*data = NULL;	// Buffer for cert data
+    size_t		alloc_data = 0,	// Bytes allocated
+			num_data = 0;	// Bytes used
+    int			decoded;	// Bytes decoded
+    openssl_datum_t	datum;		// Data record
+
+
+    http_make_path(filename, sizeof(filename), CUPS_SERVERROOT, "site", "crl");
+
+    if ((fp = cupsFileOpen(filename, "r")) != NULL)
+    {
+      while (cupsFileGets(fp, line, sizeof(line)))
+      {
+	if (!strcmp(line, "-----BEGIN X509 CRL-----"))
+	{
+	  if (num_data)
+	  {
+	   /*
+	    * Missing END X509 CRL...
+	    */
+
+	    break;
+	  }
+	}
+	else if (!strcmp(line, "-----END X509 CRL-----"))
+	{
+	  if (!num_data)
+	  {
+	   /*
+	    * Missing data...
+	    */
+
+	    break;
+	  }
+
+          datum.data = data;
+	  datum.size = num_data;
+
+	  openssl_x509_crl_import(tls_crl, &datum, GNUTLS_X509_FMT_PEM);
+
+	  num_data = 0;
+	}
+	else
+	{
+	  if (alloc_data == 0)
+	  {
+	    data       = malloc(2048);
+	    alloc_data = 2048;
+
+	    if (!data)
+	      break;
+	  }
+	  else if ((num_data + strlen(line)) >= alloc_data)
+	  {
+	    unsigned char *tdata = realloc(data, alloc_data + 1024);
+					    // Expanded buffer
+
+	    if (!tdata)
+	      break;
+
+	    data       = tdata;
+	    alloc_data += 1024;
+	  }
+
+	  decoded = alloc_data - num_data;
+	  httpDecode64_2((char *)data + num_data, &decoded, line);
+	  num_data += (size_t)decoded;
+	}
+      }
+
+      cupsFileClose(fp);
+
+      if (data)
+	free(data);
+    }
+  }
+
+  _cupsMutexUnlock(&tls_mutex);
+}
+#endif // 0
+
+
+/*
+ * 'http_make_path()' - Format a filename for a certificate or key file.
+ */
+
+static const char *			// O - Filename
+http_make_path(
+    char       *buffer,			// I - Filename buffer
+    size_t     bufsize,			// I - Size of buffer
+    const char *dirname,		// I - Directory
+    const char *filename,		// I - Filename (usually hostname)
+    const char *ext)			// I - Extension
+{
+  char	*bufptr,			// Pointer into buffer
+	*bufend = buffer + bufsize - 1;	// End of buffer
+
+
+  snprintf(buffer, bufsize, "%s/", dirname);
+  bufptr = buffer + strlen(buffer);
+
+  while (*filename && bufptr < bufend)
+  {
+    if (_cups_isalnum(*filename) || *filename == '-' || *filename == '.')
+      *bufptr++ = *filename;
+    else
+      *bufptr++ = '_';
+
+    filename ++;
+  }
+
+  if (bufptr < bufend)
+    *bufptr++ = '.';
+
+  strlcpy(bufptr, ext, (size_t)(bufend - bufptr + 1));
+
+  return (buffer);
 }
