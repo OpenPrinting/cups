@@ -183,7 +183,39 @@ main(int  argc,				/* I - Number of command-line arguments */
     httpFreeCredentials(creds);
   }
 
-#ifdef __APPLE__
+#ifdef HAVE_OPENSSL
+  int	cipherBits;			// Encryption key bits
+  char	cipherStr[1024];		// Combined cipher name
+
+  switch (SSL_version(http->tls))
+  {
+    default :
+        tlsVersion = 0;
+        break;
+
+    case TLS1_VERSION :
+        tlsVersion = 10;
+        break;
+
+    case TLS1_1_VERSION :
+        tlsVersion = 11;
+        break;
+
+    case TLS1_2_VERSION :
+        tlsVersion = 12;
+        break;
+
+    case TLS1_3_VERSION :
+        tlsVersion = 13;
+        break;
+  }
+
+  snprintf(cipherStr, sizeof(cipherStr), "%s_%dbits", SSL_get_cipher_name(http->tls), SSL_get_cipher_bits(http->tls, &cipherBits));
+
+  cipherName = cipherStr;
+
+#elif defined(HAVE_GNUTLS)
+#elif defined(__APPLE__)
   SSLProtocol protocol;
   SSLCipherSuite cipher;
   char unknownCipherName[256];
@@ -713,7 +745,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
 
   dhBits = (int)paramsLen * 8;
-#endif /* __APPLE__ */
+#endif /* HAVE_OPENSSL */
 
   if (dhBits > 0)
     printf("%s: OK (TLS: %d.%d, %s, %d DH bits)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName, dhBits);

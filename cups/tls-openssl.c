@@ -421,6 +421,7 @@ httpCredentialsAreValidForName(
   cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials));
   if (cert)
   {
+
     result = 1;
 #if 0
     result = openssl_x509_crt_check_hostname(cert, common_name) != 0;
@@ -684,9 +685,8 @@ httpCredentialsString(
     char         *buffer,		// I - Buffer
     size_t       bufsize)		// I - Size of buffer
 {
-#if 0
-  http_credential_t	*first;		/* First certificate */
-  openssl_x509_crt_t	cert;		/* Certificate */
+  http_credential_t	*first;		// First certificate
+  X509			*cert;		// Certificate
 
 
   DEBUG_printf(("httpCredentialsString(credentials=%p, buffer=%p, bufsize=" CUPS_LLFMT ")", credentials, buffer, CUPS_LLCAST bufsize));
@@ -697,44 +697,33 @@ httpCredentialsString(
   if (bufsize > 0)
     *buffer = '\0';
 
-  if ((first = (http_credential_t *)cupsArrayFirst(credentials)) != NULL &&
-      (cert = http_create_credential(first)) != NULL)
+  if ((first = (http_credential_t *)cupsArrayFirst(credentials)) != NULL && (cert = http_create_credential(first)) != NULL)
   {
-    char		name[256],	/* Common name associated with cert */
-			issuer[256];	/* Issuer associated with cert */
-    size_t		len;		/* Length of string */
-    time_t		expiration;	/* Expiration date of cert */
-    int			sigalg;	/* Signature algorithm */
-    unsigned char	md5_digest[16];	/* MD5 result */
+    char		name[256],	// Common name associated with cert
+			issuer[256];	// Issuer associated with cert
+    time_t		expiration;	// Expiration date of cert
+//    struct tm		exptm;		// Expiration date/time of cert
+    int			sigalg;		// Signature algorithm
+    unsigned char	md5_digest[16];	// MD5 result
 
-    len = sizeof(name) - 1;
-    if (openssl_x509_crt_get_dn_by_oid(cert, GNUTLS_OID_X520_COMMON_NAME, 0, 0, name, &len) >= 0)
-      name[len] = '\0';
-    else
-      strlcpy(name, "unknown", sizeof(name));
 
-    len = sizeof(issuer) - 1;
-    if (openssl_x509_crt_get_issuer_dn_by_oid(cert, GNUTLS_OID_X520_ORGANIZATION_NAME, 0, 0, issuer, &len) >= 0)
-      issuer[len] = '\0';
-    else
-      strlcpy(issuer, "unknown", sizeof(issuer));
+    X509_NAME_oneline(X509_get_subject_name(cert), name, sizeof(name));
+    X509_NAME_oneline(X509_get_issuer_name(cert), issuer, sizeof(issuer));
 
-    expiration = openssl_x509_crt_get_expiration_time(cert);
-    sigalg     = openssl_x509_crt_get_signature_algorithm(cert);
+//    ASN1_TIME_to_tm(X509_get0_notAfter(cert), &exptm);
+//    expiration = mktime(&exptm);
+    expiration = 0;
+    sigalg     = X509_get_signature_nid(cert);
 
     cupsHashData("md5", first->data, first->datalen, md5_digest, sizeof(md5_digest));
 
-    snprintf(buffer, bufsize, "%s (issued by %s) / %s / %s / %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", name, issuer, httpGetDateString(expiration), openssl_sign_get_name((openssl_sign_algorithm_t)sigalg), md5_digest[0], md5_digest[1], md5_digest[2], md5_digest[3], md5_digest[4], md5_digest[5], md5_digest[6], md5_digest[7], md5_digest[8], md5_digest[9], md5_digest[10], md5_digest[11], md5_digest[12], md5_digest[13], md5_digest[14], md5_digest[15]);
-
-    openssl_x509_crt_deinit(cert);
+    snprintf(buffer, bufsize, "%s (issued by %s) / %s / sig(%d) / %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", name, issuer, httpGetDateString(expiration), sigalg, md5_digest[0], md5_digest[1], md5_digest[2], md5_digest[3], md5_digest[4], md5_digest[5], md5_digest[6], md5_digest[7], md5_digest[8], md5_digest[9], md5_digest[10], md5_digest[11], md5_digest[12], md5_digest[13], md5_digest[14], md5_digest[15]);
+    X509_free(cert);
   }
 
   DEBUG_printf(("1httpCredentialsString: Returning \"%s\".", buffer));
 
   return (strlen(buffer));
-#else
-  return (0);
-#endif // 0
 }
 
 
