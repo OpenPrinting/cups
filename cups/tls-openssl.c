@@ -16,6 +16,7 @@
  */
 
 #include <sys/stat.h>
+#include <openssl/x509v3.h>
 
 
 /*
@@ -31,6 +32,7 @@ static int		http_bio_write(BIO *h, const char *buf, int num);
 
 static X509		*http_create_credential(http_credential_t *credential);
 static const char	*http_default_path(char *buffer, size_t bufsize);
+static time_t		http_get_date(X509 *cert, int which);
 //static void		http_load_crl(void);
 static const char	*http_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
 
@@ -342,8 +344,7 @@ httpCopyCredentials(
     http_t	 *http,			// I - Connection to server
     cups_array_t **credentials)		// O - Array of credentials
 {
-  // TODO: Switch to SSL_get_peer_cert_chain to get all of the certificates
-  X509	*cert;				// Certificate
+  STACK_OF(X509) *chain;		// Certificate chain
 
 
   DEBUG_printf(("httpCopyCredentials(http=%p, credentials=%p)", http, credentials));
@@ -355,26 +356,35 @@ httpCopyCredentials(
     return (-1);
 
   *credentials = cupsArrayNew(NULL, NULL);
-  cert         = SSL_get_peer_certificate(http->tls);
+  chain        = SSL_get_peer_cert_chain(http->tls);
 
   DEBUG_printf(("1httpCopyCredentials: cert=%p", cert));
 
-  if (cert)
+  if (chain)
   {
-    BIO	*bio = BIO_new(BIO_s_mem());	// Memory buffer for cert
+    int	i,				// Looping var
+	count;				// Number of certs
 
-    if (bio)
+    for (i = 0, count = sk_X509_num(chain); i < count; i ++)
     {
-      long	bytes;			// Number of bytes
-      char	*buffer;		// Pointer to bytes
+      X509	*cert = sk_X509_value(chain, i);
+					// Current certificate
+      BIO	*bio = BIO_new(BIO_s_mem());
+					// Memory buffer for cert
 
-      if (PEM_write_bio_X509(bio, cert))
+      if (bio)
       {
-        bytes = BIO_get_mem_data(bio, &buffer);
-        httpAddCredential(*credentials, buffer, (int)bytes);
-      }
+	long	bytes;			// Number of bytes
+	char	*buffer;		// Pointer to bytes
 
-      BIO_free(bio);
+	if (PEM_write_bio_X509(bio, cert))
+	{
+	  bytes = BIO_get_mem_data(bio, &buffer);
+	  httpAddCredential(*credentials, buffer, (int)bytes);
+	}
+
+	BIO_free(bio);
+      }
     }
   }
 
@@ -426,45 +436,7 @@ httpCredentialsAreValidForName(
   cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials));
   if (cert)
   {
-
-    result = 1;
-#if 0
-    result = openssl_x509_crt_check_hostname(cert, common_name) != 0;
-
-    if (result)
-    {
-      openssl_x509_crl_iter_t iter = NULL;
-					/* Iterator */
-      unsigned char	cserial[1024],	/* Certificate serial number */
-			rserial[1024];	/* Revoked serial number */
-      size_t		cserial_size,	/* Size of cert serial number */
-			rserial_size;	/* Size of revoked serial number */
-
-      _cupsMutexLock(&tls_mutex);
-
-      if (openssl_x509_crl_get_crt_count(tls_crl) > 0)
-      {
-        cserial_size = sizeof(cserial);
-        openssl_x509_crt_get_serial(cert, cserial, &cserial_size);
-
-	rserial_size = sizeof(rserial);
-
-        while (!openssl_x509_crl_iter_crt_serial(tls_crl, &iter, rserial, &rserial_size, NULL))
-        {
-          if (cserial_size == rserial_size && !memcmp(cserial, rserial, rserial_size))
-	  {
-	    result = 0;
-	    break;
-	  }
-
-	  rserial_size = sizeof(rserial);
-	}
-	openssl_x509_crl_iter_deinit(iter);
-      }
-
-      _cupsMutexUnlock(&tls_mutex);
-    }
-#endif // 0
+    result = X509_check_host(cert, common_name, strlen(common_name), 0, NULL);
 
     X509_free(cert);
   }
@@ -484,13 +456,10 @@ httpCredentialsGetTrust(
     cups_array_t *credentials,		// I - Credentials
     const char   *common_name)		// I - Common name for trust lookup
 {
-  http_trust_t		trust = HTTP_TRUST_OK;
-					// Trusted?
-#if 0
-  openssl_x509_crt_t	cert;		/* Certificate */
-  cups_array_t		*tcreds = NULL;	/* Trusted credentials */
-  _cups_globals_t	*cg = _cupsGlobals();
-					/* Per-thread globals */
+  http_trust_t	trust = HTTP_TRUST_OK;	// Trusted?
+  X509		*cert;			// Certificate
+  cups_array_t	*tcreds = NULL;		// Trusted credentials
+  _cups_globals_t *cg = _cupsGlobals();	// Per-thread globals
 
 
   if (!common_name)
@@ -508,13 +477,10 @@ httpCredentialsGetTrust(
   if (cg->any_root < 0)
   {
     _cupsSetDefaults();
-    http_load_crl();
+//    http_load_crl();
   }
 
- /*
-  * Look this common name up in the default keychains...
-  */
-
+  // Look this common name up in the default keychains...
   httpLoadCredentials(NULL, &tcreds, common_name);
 
   if (tcreds)
@@ -527,47 +493,32 @@ httpCredentialsGetTrust(
 
     if (strcmp(credentials_str, tcreds_str))
     {
-     /*
-      * Credentials don't match, let's look at the expiration date of the new
-      * credentials and allow if the new ones have a later expiration...
-      */
-
+      // Credentials don't match, let's look at the expiration date of the new
+      // credentials and allow if the new ones have a later expiration...
       if (!cg->trust_first)
       {
-       /*
-        * Do not trust certificates on first use...
-	*/
-
+        // Do not trust certificates on first use...
         _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
 
         trust = HTTP_TRUST_INVALID;
       }
       else if (httpCredentialsGetExpiration(credentials) <= httpCredentialsGetExpiration(tcreds))
       {
-       /*
-        * The new credentials are not newly issued...
-	*/
-
+        // The new credentials are not newly issued...
         _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("New credentials are older than stored credentials."), 1);
 
         trust = HTTP_TRUST_INVALID;
       }
       else if (!httpCredentialsAreValidForName(credentials, common_name))
       {
-       /*
-        * The common name does not match the issued certificate...
-	*/
-
+        // The common name does not match the issued certificate...
         _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("New credentials are not valid for name."), 1);
 
         trust = HTTP_TRUST_INVALID;
       }
       else if (httpCredentialsGetExpiration(tcreds) < time(NULL))
       {
-       /*
-        * Save the renewed credentials...
-	*/
-
+        // Save the renewed credentials...
 	trust = HTTP_TRUST_RENEWED;
 
         httpSaveCredentials(NULL, credentials, common_name);
@@ -583,33 +534,24 @@ httpCredentialsGetTrust(
   }
   else if (!cg->trust_first)
   {
-   /*
-    * See if we have a site CA certificate we can compare...
-    */
-
+    // See if we have a site CA certificate we can compare...
     if (!httpLoadCredentials(NULL, &tcreds, "site"))
     {
       if (cupsArrayCount(credentials) != (cupsArrayCount(tcreds) + 1))
       {
-       /*
-        * Certificate isn't directly generated from the CA cert...
-	*/
-
+        // Certificate isn't directly generated from the CA cert...
         trust = HTTP_TRUST_INVALID;
       }
       else
       {
-       /*
-        * Do a tail comparison of the two certificates...
-	*/
+        // Do a tail comparison of the two certificates...
+        http_credential_t	*a, *b;		// Certificates
 
-        http_credential_t	*a, *b;		/* Certificates */
-
-        for (a = (http_credential_t *)cupsArrayFirst(tcreds), b = (http_credential_t *)cupsArrayIndex(credentials, 1);
-	     a && b;
-	     a = (http_credential_t *)cupsArrayNext(tcreds), b = (http_credential_t *)cupsArrayNext(credentials))
+        for (a = (http_credential_t *)cupsArrayFirst(tcreds), b = (http_credential_t *)cupsArrayIndex(credentials, 1); a && b; a = (http_credential_t *)cupsArrayNext(tcreds), b = (http_credential_t *)cupsArrayNext(credentials))
+        {
 	  if (a->datalen != b->datalen || memcmp(a->data, b->data, a->datalen))
 	    break;
+	}
 
         if (a || b)
 	  trust = HTTP_TRUST_INVALID;
@@ -627,11 +569,10 @@ httpCredentialsGetTrust(
 
   if (trust == HTTP_TRUST_OK && !cg->expired_certs)
   {
-    time_t	curtime;		/* Current date/time */
+    time_t	curtime;		// Current date/time
 
     time(&curtime);
-    if (curtime < openssl_x509_crt_get_activation_time(cert) ||
-        curtime > openssl_x509_crt_get_expiration_time(cert))
+    if (curtime < http_get_date(cert, 0) || curtime > http_get_date(cert, 1))
     {
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials have expired."), 1);
       trust = HTTP_TRUST_EXPIRED;
@@ -644,8 +585,7 @@ httpCredentialsGetTrust(
     trust = HTTP_TRUST_INVALID;
   }
 
-  openssl_x509_crt_deinit(cert);
-#endif // 0
+  X509_free(cert);
 
   return (trust);
 }
@@ -661,18 +601,15 @@ time_t					// O - Expiration date of credentials
 httpCredentialsGetExpiration(
     cups_array_t *credentials)		// I - Credentials
 {
-  time_t		result = 0;	// Result
-#if 0
-  openssl_x509_crt_t	cert;		// Certificate
+  time_t	result = 0;		// Result
+  X509		*cert;			// Certificate
 
 
-  cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials));
-  if (cert)
+  if ((cert = http_create_credential((http_credential_t *)cupsArrayFirst(credentials))) != NULL)
   {
-    result = openssl_x509_crt_get_expiration_time(cert);
-    openssl_x509_crt_deinit(cert);
+    result = http_get_date(cert, 1);
+    X509_free(cert);
   }
-#endif // 0
 
   return (result);
 }
@@ -709,14 +646,14 @@ httpCredentialsString(
   {
     char		name[256],	// Common name associated with cert
 			issuer[256];	// Issuer associated with cert
-    unsigned char	*expiration;	// Expiration date of cert
+    time_t		expiration;	// Expiration date of cert
     const char		*sigalg;	// Signature algorithm
     unsigned char	md5_digest[16];	// MD5 result
 
 
     X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, name, sizeof(name));
     X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuer, sizeof(issuer));
-    ASN1_STRING_to_UTF8(&expiration, X509_get0_notAfter(cert));
+    expiration = http_get_date(cert, 1);
 
     switch (X509_get_signature_nid(cert))
     {
@@ -757,8 +694,7 @@ httpCredentialsString(
 
     cupsHashData("md5", first->data, first->datalen, md5_digest, sizeof(md5_digest));
 
-    snprintf(buffer, bufsize, "%s (issued by %s) / %s / %s / %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", name, issuer, (char *)expiration, sigalg, md5_digest[0], md5_digest[1], md5_digest[2], md5_digest[3], md5_digest[4], md5_digest[5], md5_digest[6], md5_digest[7], md5_digest[8], md5_digest[9], md5_digest[10], md5_digest[11], md5_digest[12], md5_digest[13], md5_digest[14], md5_digest[15]);
-    OPENSSL_free(expiration);
+    snprintf(buffer, bufsize, "%s (issued by %s) / %s / %s / %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", name, issuer, httpGetDateString(expiration), sigalg, md5_digest[0], md5_digest[1], md5_digest[2], md5_digest[3], md5_digest[4], md5_digest[5], md5_digest[6], md5_digest[7], md5_digest[8], md5_digest[9], md5_digest[10], md5_digest[11], md5_digest[12], md5_digest[13], md5_digest[14], md5_digest[15]);
     X509_free(cert);
   }
 
@@ -1477,6 +1413,51 @@ http_default_path(
   DEBUG_printf(("1http_default_path: Using default path \"%s\".", buffer));
 
   return (buffer);
+}
+
+
+//
+// 'http_get_date()' - Get the notBefore or notAfter date of a certificate.
+//
+
+static time_t				// O - UNIX time in seconds
+http_get_date(X509 *cert,		// I - Certificate
+              int  which)		// I - 0 for notBefore, 1 for notAfter
+{
+  unsigned char	*expiration;		// Expiration date of cert
+  struct tm	exptm;			// Expiration date components
+
+
+  if (which)
+    ASN1_STRING_to_UTF8(&expiration, X509_get0_notAfter(cert));
+  else
+    ASN1_STRING_to_UTF8(&expiration, X509_get0_notBefore(cert));
+
+  memset(&exptm, 0, sizeof(exptm));
+  if (strlen((char *)expiration) > 13)
+  {
+    // 4-digit year
+    exptm.tm_year = (expiration[0] - '0') * 1000 + (expiration[1] - '0') * 100 + (expiration[2] - '0') * 10 + expiration[3] - '0' - 1900;
+    exptm.tm_mon  = (expiration[4] - '0') * 10 + expiration[5] - '0' - 1;
+    exptm.tm_mday = (expiration[6] - '0') * 10 + expiration[7] - '0';
+    exptm.tm_hour = (expiration[8] - '0') * 10 + expiration[9] - '0';
+    exptm.tm_min  = (expiration[10] - '0') * 10 + expiration[11] - '0';
+    exptm.tm_sec  = (expiration[12] - '0') * 10 + expiration[13] - '0';
+  }
+  else
+  {
+    // 2-digit year
+    exptm.tm_year = 100 + (expiration[0] - '0') * 10 + expiration[1] - '0';
+    exptm.tm_mon  = (expiration[2] - '0') * 10 + expiration[3] - '0' - 1;
+    exptm.tm_mday = (expiration[4] - '0') * 10 + expiration[5] - '0';
+    exptm.tm_hour = (expiration[6] - '0') * 10 + expiration[7] - '0';
+    exptm.tm_min  = (expiration[8] - '0') * 10 + expiration[9] - '0';
+    exptm.tm_sec  = (expiration[10] - '0') * 10 + expiration[11] - '0';
+  }
+
+  OPENSSL_free(expiration);
+
+  return (mktime(&exptm));
 }
 
 
