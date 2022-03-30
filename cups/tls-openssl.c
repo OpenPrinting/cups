@@ -90,7 +90,7 @@ cupsMakeServerCredentials(
   cups_lang_t	*language;		// Default language info
   time_t	curtime;		// Current time
   X509_NAME	*name;			// Subject/issuer name
-  FILE		*fp;			// Output file
+  BIO		*bio;			// Output file
   char		temp[1024],		// Temporary directory name
  		crtfile[1024],		// Certificate filename
 		keyfile[1024];		// Private key filename
@@ -189,37 +189,35 @@ cupsMakeServerCredentials(
   X509_sign(cert, pkey, EVP_sha256());
 
   // Save them...
-  // TODO: Probably want to change this to use the BIO methods to avoid stdio limits...
-  if ((fp = fopen(keyfile, "wb")) == NULL)
+  if ((bio = BIO_new_file(keyfile, "wb")) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
   }
 
-  if (!PEM_write_PrivateKey(fp, pkey, NULL, NULL, 0, NULL, NULL))
+  if (!PEM_write_bio_PrivateKey(bio, pkey, NULL, NULL, 0, NULL, NULL))
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to write private key."), 1);
-    fclose(fp);
+    BIO_free(bio);
     goto done;
   }
 
-  fclose(fp);
+  BIO_free(bio);
 
-  if ((fp = fopen(crtfile, "wb")) == NULL)
+  if ((bio = BIO_new_file(crtfile, "wb")) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
   }
 
-  if (!PEM_write_X509(fp, cert))
+  if (!PEM_write_bio_X509(bio, cert))
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to write X.509 certificate."), 1);
-    fclose(fp);
+    BIO_free(bio);
     goto done;
   }
 
-  fclose(fp);
-
+  BIO_free(bio);
 
   result = 1;
   DEBUG_puts("1cupsMakeServerCredentials: Successfully created credentials.");
