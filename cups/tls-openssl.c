@@ -342,9 +342,8 @@ httpCopyCredentials(
     http_t	 *http,			// I - Connection to server
     cups_array_t **credentials)		// O - Array of credentials
 {
-#if 0
-  unsigned		count;		// Number of certificates
-  const openssl_datum_t *certs;		// Certificates
+  // TODO: Switch to SSL_get_peer_cert_chain to get all of the certificates
+  X509	*cert;				// Certificate
 
 
   DEBUG_printf(("httpCopyCredentials(http=%p, credentials=%p)", http, credentials));
@@ -356,24 +355,30 @@ httpCopyCredentials(
     return (-1);
 
   *credentials = cupsArrayNew(NULL, NULL);
-  certs        = openssl_certificate_get_peers(http->tls, &count);
+  cert         = SSL_get_peer_certificate(http->tls);
 
-  DEBUG_printf(("1httpCopyCredentials: certs=%p, count=%u", certs, count));
+  DEBUG_printf(("1httpCopyCredentials: cert=%p", cert));
 
-  if (certs && count)
+  if (cert)
   {
-    while (count > 0)
+    BIO	*bio = BIO_new(BIO_s_mem());	// Memory buffer for cert
+
+    if (bio)
     {
-      httpAddCredential(*credentials, certs->data, certs->size);
-      certs ++;
-      count --;
+      long	bytes;			// Number of bytes
+      char	*buffer;		// Pointer to bytes
+
+      if (PEM_write_bio_X509(bio, cert))
+      {
+        bytes = BIO_get_mem_data(bio, &buffer);
+        httpAddCredential(*credentials, buffer, (int)bytes);
+      }
+
+      BIO_free(bio);
     }
   }
 
   return (0);
-#else
-  return (-1);
-#endif // 0
 }
 
 
@@ -697,27 +702,63 @@ httpCredentialsString(
   if (bufsize > 0)
     *buffer = '\0';
 
-  if ((first = (http_credential_t *)cupsArrayFirst(credentials)) != NULL && (cert = http_create_credential(first)) != NULL)
+  first = (http_credential_t *)cupsArrayFirst(credentials);
+  cert  = http_create_credential(first);
+
+  if (cert)
   {
     char		name[256],	// Common name associated with cert
 			issuer[256];	// Issuer associated with cert
-    time_t		expiration;	// Expiration date of cert
-//    struct tm		exptm;		// Expiration date/time of cert
-    int			sigalg;		// Signature algorithm
+    unsigned char	*expiration;	// Expiration date of cert
+    const char		*sigalg;	// Signature algorithm
     unsigned char	md5_digest[16];	// MD5 result
 
 
-    X509_NAME_oneline(X509_get_subject_name(cert), name, sizeof(name));
-    X509_NAME_oneline(X509_get_issuer_name(cert), issuer, sizeof(issuer));
+    X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, name, sizeof(name));
+    X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuer, sizeof(issuer));
+    ASN1_STRING_to_UTF8(&expiration, X509_get0_notAfter(cert));
 
-//    ASN1_TIME_to_tm(X509_get0_notAfter(cert), &exptm);
-//    expiration = mktime(&exptm);
-    expiration = 0;
-    sigalg     = X509_get_signature_nid(cert);
+    switch (X509_get_signature_nid(cert))
+    {
+      case NID_ecdsa_with_SHA1 :
+          sigalg = "SHA1WithECDSAEncryption";
+          break;
+      case NID_ecdsa_with_SHA224 :
+          sigalg = "SHA224WithECDSAEncryption";
+          break;
+      case NID_ecdsa_with_SHA256 :
+          sigalg = "SHA256WithECDSAEncryption";
+          break;
+      case NID_ecdsa_with_SHA384 :
+          sigalg = "SHA384WithECDSAEncryption";
+          break;
+      case NID_ecdsa_with_SHA512 :
+          sigalg = "SHA512WithECDSAEncryption";
+          break;
+      case NID_sha1WithRSAEncryption :
+          sigalg = "SHA1WithRSAEncryption";
+          break;
+      case NID_sha224WithRSAEncryption :
+          sigalg = "SHA224WithRSAEncryption";
+          break;
+      case NID_sha256WithRSAEncryption :
+          sigalg = "SHA256WithRSAEncryption";
+          break;
+      case NID_sha384WithRSAEncryption :
+          sigalg = "SHA384WithRSAEncryption";
+          break;
+      case NID_sha512WithRSAEncryption :
+          sigalg = "SHA512WithRSAEncryption";
+          break;
+      default :
+          sigalg = "Unknown";
+          break;
+    }
 
     cupsHashData("md5", first->data, first->datalen, md5_digest, sizeof(md5_digest));
 
-    snprintf(buffer, bufsize, "%s (issued by %s) / %s / sig(%d) / %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", name, issuer, httpGetDateString(expiration), sigalg, md5_digest[0], md5_digest[1], md5_digest[2], md5_digest[3], md5_digest[4], md5_digest[5], md5_digest[6], md5_digest[7], md5_digest[8], md5_digest[9], md5_digest[10], md5_digest[11], md5_digest[12], md5_digest[13], md5_digest[14], md5_digest[15]);
+    snprintf(buffer, bufsize, "%s (issued by %s) / %s / %s / %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", name, issuer, (char *)expiration, sigalg, md5_digest[0], md5_digest[1], md5_digest[2], md5_digest[3], md5_digest[4], md5_digest[5], md5_digest[6], md5_digest[7], md5_digest[8], md5_digest[9], md5_digest[10], md5_digest[11], md5_digest[12], md5_digest[13], md5_digest[14], md5_digest[15]);
+    OPENSSL_free(expiration);
     X509_free(cert);
   }
 
@@ -1379,6 +1420,8 @@ http_create_credential(
   BIO	*bio;				// Basic I/O for string
 
 
+  if (!credential)
+    return (NULL);
 
   if ((bio = BIO_new_mem_buf(credential->data, credential->datalen)) == NULL)
     return (NULL);

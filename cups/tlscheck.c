@@ -166,7 +166,12 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   _httpTLSSetOptions(tls_options, tls_min_version, tls_max_version);
 
-  http = httpConnect2(server, port, NULL, af, HTTP_ENCRYPTION_ALWAYS, 1, 30000, NULL);
+  for (i = 0; i < 10; i ++)
+  {
+    if ((http = httpConnect2(server, port, NULL, af, HTTP_ENCRYPTION_ALWAYS, 1, 30000, NULL)) != NULL)
+      break;
+  }
+
   if (!http)
   {
     printf("%s: ERROR (%s)\n", server, cupsLastErrorString());
@@ -179,7 +184,8 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
   else
   {
-    httpCredentialsString(creds, creds_str, sizeof(creds_str));
+    if (!httpCredentialsString(creds, creds_str, sizeof(creds_str)))
+      strlcpy(creds_str, "Unable to convert X.509 credential to string.", sizeof(creds_str));
     httpFreeCredentials(creds);
   }
 
@@ -756,7 +762,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (verbose)
   {
-    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipps", NULL, host, port, resource);
+    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipps", NULL, server, port, resource);
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
