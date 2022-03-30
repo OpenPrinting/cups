@@ -82,27 +82,22 @@ cupsMakeServerCredentials(
     const char **alt_names,		// I - Subject Alternate Names
     time_t     expiration_date)		// I - Expiration date
 {
-#if 0
-  openssl_x509_crt_t	crt;		/* Self-signed certificate */
-  openssl_x509_privkey_t	key;		/* Encryption private key */
-  char			temp[1024],	/* Temporary directory name */
- 			crtfile[1024],	/* Certificate filename */
-			keyfile[1024];	/* Private key filename */
-  cups_lang_t		*language;	/* Default language info */
-  cups_file_t		*fp;		/* Key/cert file */
-  unsigned char		buffer[8192];	/* Buffer for x509 data */
-  size_t		bytes;		/* Number of bytes of data */
-  unsigned char		serial[4];	/* Serial number buffer */
-  time_t		curtime;	/* Current time */
-  int			result;		/* Result of GNU TLS calls */
+  int		result = 0;		// Return value
+  EVP_PKEY	*pkey;			// Private key
+  RSA		*rsa;			// RSA key pair
+  X509		*cert;			// Certificate
+  cups_lang_t	*language;		// Default language info
+  time_t	curtime;		// Current time
+  X509_NAME	*name;			// Subject/issuer name
+  FILE		*fp;			// Output file
+  char		temp[1024],		// Temporary directory name
+ 		crtfile[1024],		// Certificate filename
+		keyfile[1024];		// Private key filename
 
 
   DEBUG_printf(("cupsMakeServerCredentials(path=\"%s\", common_name=\"%s\", num_alt_names=%d, alt_names=%p, expiration_date=%d)", path, common_name, num_alt_names, alt_names, (int)expiration_date));
 
- /*
-  * Filenames...
-  */
-
+  // Filenames...
   if (!path)
     path = http_default_path(temp, sizeof(temp));
 
@@ -115,81 +110,55 @@ cupsMakeServerCredentials(
   http_make_path(crtfile, sizeof(crtfile), path, common_name, "crt");
   http_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
 
- /*
-  * Create the encryption key...
-  */
-
+  // Create the encryption key...
   DEBUG_puts("1cupsMakeServerCredentials: Creating key pair.");
 
-  openssl_x509_privkey_init(&key);
-  openssl_x509_privkey_generate(key, GNUTLS_PK_RSA, 2048, 0);
+  if ((rsa = RSA_generate_key(2048, RSA_F4, NULL, NULL)) == NULL)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create key pair."), 1);
+    return (0);
+  }
+
+  if ((pkey = EVP_PKEY_new()) == NULL)
+  {
+    RSA_free(rsa);
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create private key."), 1);
+    return (0);
+  }
+
+  EVP_PKEY_assign_RSA(pkey, rsa);
 
   DEBUG_puts("1cupsMakeServerCredentials: Key pair created.");
 
- /*
-  * Save it...
-  */
-
-  bytes = sizeof(buffer);
-
-  if ((result = openssl_x509_privkey_export(key, GNUTLS_X509_FMT_PEM, buffer, &bytes)) < 0)
-  {
-    DEBUG_printf(("1cupsMakeServerCredentials: Unable to export private key: %s", openssl_strerror(result)));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, openssl_strerror(result), 0);
-    openssl_x509_privkey_deinit(key);
-    return (0);
-  }
-  else if ((fp = cupsFileOpen(keyfile, "w")) != NULL)
-  {
-    DEBUG_printf(("1cupsMakeServerCredentials: Writing private key to \"%s\".", keyfile));
-    cupsFileWrite(fp, (char *)buffer, bytes);
-    cupsFileClose(fp);
-  }
-  else
-  {
-    DEBUG_printf(("1cupsMakeServerCredentials: Unable to create private key file \"%s\": %s", keyfile, strerror(errno)));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
-    openssl_x509_privkey_deinit(key);
-    return (0);
-  }
-
- /*
-  * Create the self-signed certificate...
-  */
-
+  // Create the X.509 certificate...
   DEBUG_puts("1cupsMakeServerCredentials: Generating self-signed X.509 certificate.");
 
-  language  = cupsLangDefault();
-  curtime   = time(NULL);
-  serial[0] = curtime >> 24;
-  serial[1] = curtime >> 16;
-  serial[2] = curtime >> 8;
-  serial[3] = curtime;
+  if ((cert = X509_new()) == NULL)
+  {
+    EVP_PKEY_free(pkey);
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create X.509 certificate."), 1);
+    return (0);
+  }
 
-  openssl_x509_crt_init(&crt);
+  curtime  = time(NULL);
+  language = cupsLangDefault();
+
+  ASN1_TIME_set(X509_get_notBefore(cert), curtime);
+  ASN1_TIME_set(X509_get_notAfter(cert), expiration_date);
+  ASN1_INTEGER_set(X509_get_serialNumber(cert), (int)curtime);
+  X509_set_pubkey(cert, pkey);
+
+  name = X509_get_subject_name(cert);
   if (strlen(language->language) == 5)
-    openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_COUNTRY_NAME, 0,
-                                  language->language + 3, 2);
+    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, (unsigned char *)language->language + 3, -1, -1, 0);
   else
-    openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_COUNTRY_NAME, 0,
-                                  "US", 2);
-  openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_COMMON_NAME, 0,
-                                common_name, strlen(common_name));
-  openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_ORGANIZATION_NAME, 0,
-                                common_name, strlen(common_name));
-  openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_ORGANIZATIONAL_UNIT_NAME,
-                                0, "Unknown", 7);
-  openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_STATE_OR_PROVINCE_NAME, 0,
-                                "Unknown", 7);
-  openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_LOCALITY_NAME, 0,
-                                "Unknown", 7);
-/*  openssl_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_PKCS9_EMAIL, 0,
-                                ServerAdmin, strlen(ServerAdmin));*/
-  openssl_x509_crt_set_key(crt, key);
-  openssl_x509_crt_set_serial(crt, serial, sizeof(serial));
-  openssl_x509_crt_set_activation_time(crt, curtime);
-  openssl_x509_crt_set_expiration_time(crt, curtime + 10 * 365 * 86400);
-  openssl_x509_crt_set_ca_status(crt, 0);
+    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, (unsigned char *)"US", -1, -1, 0);
+  X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, (unsigned char *)"Unknown", -1, -1, 0);
+  X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, (unsigned char *)common_name, -1, -1, 0);
+
+  X509_set_issuer_name(cert, name);
+
+#if 0 // TODO: Implement Subject Alternate Name
   openssl_x509_crt_set_subject_alt_name(crt, GNUTLS_SAN_DNSNAME, common_name, (unsigned)strlen(common_name), GNUTLS_FSAN_SET);
   if (!strchr(common_name, '.'))
   {
@@ -215,57 +184,53 @@ cupsMakeServerCredentials(
       }
     }
   }
-  openssl_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_TLS_WWW_SERVER, 0);
-  openssl_x509_crt_set_key_usage(crt, GNUTLS_KEY_DIGITAL_SIGNATURE | GNUTLS_KEY_KEY_ENCIPHERMENT);
-  openssl_x509_crt_set_version(crt, 3);
+#endif // 0
 
-  bytes = sizeof(buffer);
-  if (openssl_x509_crt_get_key_id(crt, 0, buffer, &bytes) >= 0)
-    openssl_x509_crt_set_subject_key_id(crt, buffer, bytes);
+  X509_sign(cert, pkey, EVP_sha256());
 
-  openssl_x509_crt_sign(crt, crt, key);
-
- /*
-  * Save it...
-  */
-
-  bytes = sizeof(buffer);
-  if ((result = openssl_x509_crt_export(crt, GNUTLS_X509_FMT_PEM, buffer, &bytes)) < 0)
+  // Save them...
+  // TODO: Probably want to change this to use the BIO methods to avoid stdio limits...
+  if ((fp = fopen(keyfile, "wb")) == NULL)
   {
-    DEBUG_printf(("1cupsMakeServerCredentials: Unable to export public key and X.509 certificate: %s", openssl_strerror(result)));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, openssl_strerror(result), 0);
-    openssl_x509_crt_deinit(crt);
-    openssl_x509_privkey_deinit(key);
-    return (0);
-  }
-  else if ((fp = cupsFileOpen(crtfile, "w")) != NULL)
-  {
-    DEBUG_printf(("1cupsMakeServerCredentials: Writing public key and X.509 certificate to \"%s\".", crtfile));
-    cupsFileWrite(fp, (char *)buffer, bytes);
-    cupsFileClose(fp);
-  }
-  else
-  {
-    DEBUG_printf(("1cupsMakeServerCredentials: Unable to create public key and X.509 certificate file \"%s\": %s", crtfile, strerror(errno)));
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
-    openssl_x509_crt_deinit(crt);
-    openssl_x509_privkey_deinit(key);
-    return (0);
+    goto done;
   }
 
- /*
-  * Cleanup...
-  */
+  if (!PEM_write_PrivateKey(fp, pkey, NULL, NULL, 0, NULL, NULL))
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to write private key."), 1);
+    fclose(fp);
+    goto done;
+  }
 
-  openssl_x509_crt_deinit(crt);
-  openssl_x509_privkey_deinit(key);
+  fclose(fp);
 
+  if ((fp = fopen(crtfile, "wb")) == NULL)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
+    goto done;
+  }
+
+  if (!PEM_write_X509(fp, cert))
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to write X.509 certificate."), 1);
+    fclose(fp);
+    goto done;
+  }
+
+  fclose(fp);
+
+
+  result = 1;
   DEBUG_puts("1cupsMakeServerCredentials: Successfully created credentials.");
 
-  return (1);
-#else
-  return (0);
-#endif // 0
+  // Cleanup...
+  done:
+
+  X509_free(cert);
+  EVP_PKEY_free(pkey);
+
+  return (result);
 }
 
 
