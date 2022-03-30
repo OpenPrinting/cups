@@ -35,6 +35,7 @@ static const char	*http_default_path(char *buffer, size_t bufsize);
 static time_t		http_get_date(X509 *cert, int which);
 //static void		http_load_crl(void);
 static const char	*http_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
+static void		http_x509_add_san(X509 *cert, const char *name);
 
 
 /*
@@ -93,6 +94,7 @@ cupsMakeServerCredentials(
   char		temp[1024],		// Temporary directory name
  		crtfile[1024],		// Certificate filename
 		keyfile[1024];		// Private key filename
+  const char	*common_ptr;		// Pointer into common name
 
 
   DEBUG_printf(("cupsMakeServerCredentials(path=\"%s\", common_name=\"%s\", num_alt_names=%d, alt_names=%p, expiration_date=%d)", path, common_name, num_alt_names, alt_names, (int)expiration_date));
@@ -158,33 +160,31 @@ cupsMakeServerCredentials(
 
   X509_set_issuer_name(cert, name);
 
-#if 0 // TODO: Implement Subject Alternate Name
-  openssl_x509_crt_set_subject_alt_name(crt, GNUTLS_SAN_DNSNAME, common_name, (unsigned)strlen(common_name), GNUTLS_FSAN_SET);
-  if (!strchr(common_name, '.'))
+  http_x509_add_san(cert, common_name);
+  if ((common_ptr = strstr(common_name, ".local")) == NULL)
   {
-   /*
-    * Add common_name.local to the list, too...
-    */
+    // Add common_name.local to the list, too...
+    char	localname[256],		// hostname.local
+		*localptr;		// Pointer into localname
 
-    char localname[256];                /* hostname.local */
+    strlcpy(localname, common_name, sizeof(localname));
+    if ((localptr = strchr(localname, '.')) != NULL)
+      *localptr = '\0';
+    strlcat(localname, ".local", sizeof(localname));
 
-    snprintf(localname, sizeof(localname), "%s.local", common_name);
-    openssl_x509_crt_set_subject_alt_name(crt, GNUTLS_SAN_DNSNAME, localname, (unsigned)strlen(localname), GNUTLS_FSAN_APPEND);
+    http_x509_add_san(cert, localname);
   }
-  openssl_x509_crt_set_subject_alt_name(crt, GNUTLS_SAN_DNSNAME, "localhost", 9, GNUTLS_FSAN_APPEND);
+
   if (num_alt_names > 0)
   {
-    int i;                              /* Looping var */
+    int i;                              // Looping var...
 
     for (i = 0; i < num_alt_names; i ++)
     {
       if (strcmp(alt_names[i], "localhost"))
-      {
-        openssl_x509_crt_set_subject_alt_name(crt, GNUTLS_SAN_DNSNAME, alt_names[i], (unsigned)strlen(alt_names[i]), GNUTLS_FSAN_APPEND);
-      }
+        http_x509_add_san(cert, alt_names[i]);
     }
   }
-#endif // 0
 
   X509_sign(cert, pkey, EVP_sha256());
 
@@ -1552,10 +1552,42 @@ http_make_path(
     filename ++;
   }
 
-  if (bufptr < bufend)
+  if (bufptr < bufend && filename[-1] != '.')
     *bufptr++ = '.';
 
   strlcpy(bufptr, ext, (size_t)(bufend - bufptr + 1));
 
   return (buffer);
+}
+
+
+//
+// 'http_x509_add_san()' - Add a subjectAltName extension to an X.509 certificate.
+//
+
+static void
+http_x509_add_san(X509       *cert,	// I - Certificate
+                  const char *name)	// I - Hostname
+{
+  char		dns_name[1024];		// DNS: prefixed hostname
+  X509_EXTENSION *san_ext;		// Extension for subjectAltName
+  ASN1_OCTET_STRING *san_asn1;		// ASN1 string
+
+
+  // The subjectAltName value for DNS names starts with a DNS: prefix...
+  snprintf(dns_name, sizeof(dns_name), "DNS: %s", name);
+
+  if ((san_asn1 = ASN1_OCTET_STRING_new()) == NULL)
+    return;
+
+  ASN1_OCTET_STRING_set(san_asn1, (unsigned char *)dns_name, strlen(dns_name));
+  if (!X509_EXTENSION_create_by_NID(&san_ext, NID_subject_alt_name, 0, san_asn1))
+  {
+    ASN1_OCTET_STRING_free(san_asn1);
+    return;
+  }
+
+  X509_add_ext(cert, san_ext, -1);
+  X509_EXTENSION_free(san_ext);
+  ASN1_OCTET_STRING_free(san_asn1);
 }
