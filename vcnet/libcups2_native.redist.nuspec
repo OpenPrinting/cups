@@ -3,7 +3,7 @@
     <metadata>
         <id>libcups2_native.redist</id>
         <title>OpenPrinting CUPS Library for VS2019+ Redist</title>
-        <version>2.4.1.0</version>
+        <version>2.4.2.0</version>
         <authors>Michael R Sweet, OpenPrinting</authors>
         <owners>michaelrsweet</owners>
         <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
@@ -26,5 +26,6 @@ and other Unix®-like operating systems. This package provides the redistributab
         <file src="Win32\**\regex*.dll" target="build\native\bin\Win32" />-->
         <file src="x64\**\libcups2*.dll" target="build\native\bin\x64" />
         <file src="x64\**\regex*.dll" target="build\native\bin\x64" />
+	<file src="packages\zeroc.openssl.v143.1.1.1.1\build\native\bin\x64\Release\*.dll" target="build\native\bin\x64" />
     </files>
 </package>

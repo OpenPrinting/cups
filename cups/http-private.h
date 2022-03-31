@@ -66,7 +66,11 @@ typedef int socklen_t;
 #  include <cups/http.h>
 #  include "ipp-private.h"
 
-#  ifdef HAVE_GNUTLS
+#  ifdef HAVE_OPENSSL
+#    include <openssl/err.h>
+#    include <openssl/rand.h>
+#    include <openssl/ssl.h>
+#  elif defined(HAVE_GNUTLS)
 #    include <gnutls/gnutls.h>
 #    include <gnutls/x509.h>
 #  elif defined(HAVE_CDSASSL)
@@ -87,7 +91,7 @@ typedef int socklen_t;
 #    define SECURITY_WIN32
 #    include <security.h>
 #    include <sspi.h>
-#  endif /* HAVE_GNUTLS */
+#  endif /* HAVE_OPENSSL */
 
 #  ifndef _WIN32
 #    include <net/if.h>
@@ -140,11 +144,11 @@ extern "C" {
  * Types and functions for SSL support...
  */
 
-#  ifdef HAVE_GNUTLS
-/*
- * The GNU TLS library is more of a "bare metal" SSL/TLS library...
- */
+#  ifdef HAVE_OPENSSL
+typedef SSL *http_tls_t;
+typedef X509 *http_tls_credentials_t;
 
+#  elif defined(HAVE_GNUTLS)
 typedef gnutls_session_t http_tls_t;
 typedef gnutls_certificate_credentials_t *http_tls_credentials_t;
 
@@ -190,7 +194,7 @@ typedef PCCERT_CONTEXT http_tls_credentials_t;
 
 typedef void *http_tls_t;
 typedef void *http_tls_credentials_t;
-#  endif /* HAVE_GNUTLS */
+#  endif /* HAVE_OPENSSL */
 
 typedef enum _http_coding_e		/**** HTTP content coding enumeration ****/
 {

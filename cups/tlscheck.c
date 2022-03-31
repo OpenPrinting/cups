@@ -166,7 +166,12 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   _httpTLSSetOptions(tls_options, tls_min_version, tls_max_version);
 
-  http = httpConnect2(server, port, NULL, af, HTTP_ENCRYPTION_ALWAYS, 1, 30000, NULL);
+  for (i = 0; i < 10; i ++)
+  {
+    if ((http = httpConnect2(server, port, NULL, af, HTTP_ENCRYPTION_ALWAYS, 1, 30000, NULL)) != NULL)
+      break;
+  }
+
   if (!http)
   {
     printf("%s: ERROR (%s)\n", server, cupsLastErrorString());
@@ -179,11 +184,46 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
   else
   {
-    httpCredentialsString(creds, creds_str, sizeof(creds_str));
+    if (!httpCredentialsString(creds, creds_str, sizeof(creds_str)))
+      strlcpy(creds_str, "Unable to convert X.509 credential to string.", sizeof(creds_str));
     httpFreeCredentials(creds);
   }
 
-#ifdef __APPLE__
+#ifdef HAVE_OPENSSL
+  int	cipherBits;			// Encryption key bits
+  char	cipherStr[1024];		// Combined cipher name
+
+  switch (SSL_version(http->tls))
+  {
+    default :
+        tlsVersion = 0;
+        break;
+
+    case TLS1_VERSION :
+        tlsVersion = 10;
+        break;
+
+    case TLS1_1_VERSION :
+        tlsVersion = 11;
+        break;
+
+    case TLS1_2_VERSION :
+        tlsVersion = 12;
+        break;
+
+#  ifdef TLS1_3_VERSION
+    case TLS1_3_VERSION :
+        tlsVersion = 13;
+        break;
+#  endif // TLS1_3_VERSION
+  }
+
+  snprintf(cipherStr, sizeof(cipherStr), "%s_%dbits", SSL_get_cipher_name(http->tls), SSL_get_cipher_bits(http->tls, &cipherBits));
+
+  cipherName = cipherStr;
+
+#elif defined(HAVE_GNUTLS)
+#elif defined(__APPLE__)
   SSLProtocol protocol;
   SSLCipherSuite cipher;
   char unknownCipherName[256];
@@ -713,7 +753,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
 
   dhBits = (int)paramsLen * 8;
-#endif /* __APPLE__ */
+#endif /* HAVE_OPENSSL */
 
   if (dhBits > 0)
     printf("%s: OK (TLS: %d.%d, %s, %d DH bits)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName, dhBits);
@@ -724,7 +764,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (verbose)
   {
-    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipps", NULL, host, port, resource);
+    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipps", NULL, server, port, resource);
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());

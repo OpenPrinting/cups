@@ -100,8 +100,8 @@ typedef unsigned long useconds_t;
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.4.1"
-#define CUPS_MINIMAL "CUPS/2.4.1"
+#define CUPS_SVERSION "CUPS v2.4.2"
+#define CUPS_MINIMAL "CUPS/2.4.2"
 
 
 /*
@@ -387,8 +387,9 @@ typedef unsigned long useconds_t;
 
 #define HAVE_TLS 1
 /* #undef HAVE_CDSASSL */
+#define HAVE_OPENSSL 1
 /* #undef HAVE_GNUTLS */
-#define HAVE_SSPISSL 1
+/* #undef HAVE_SSPISSL */
 
 
 /*
