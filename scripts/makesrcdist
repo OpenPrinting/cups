@@ -65,12 +65,6 @@ else
 		exit 1
 	fi
 
-	temp=`head -1 INSTALL.md | awk '{print $6}'`
-	if test "$temp" != "v$version"; then
-		echo "Still need to update version to v$version in INSTALL.md (saw $temp)"
-		exit 1
-	fi
-
 	temp=`head -6 CHANGES.md | grep "Changes in" | awk '{print $4}'`
 	if test "$temp" != "v$version"; then
 		echo "Still need to add Changes in v$version in CHANGES.md (saw $temp)"
