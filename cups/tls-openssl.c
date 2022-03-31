@@ -42,21 +42,10 @@ static void		http_x509_add_san(X509 *cert, const char *name);
  * Local globals...
  */
 
-static BIO_METHOD	http_bio_methods =
-			{
-			  BIO_TYPE_SOCKET,
-			  "http",
-			  http_bio_write,
-			  http_bio_read,
-			  http_bio_puts,
-			  NULL, /* http_bio_gets, */
-			  http_bio_ctrl,
-			  http_bio_new,
-			  http_bio_free,
-			  NULL,
-			};
 static int		tls_auto_create = 0;
 					/* Auto-create self-signed certs? */
+static BIO_METHOD	*tls_bio_method = NULL;
+					/* OpenSSL BIO method */
 static char		*tls_common_name = NULL;
 					/* Default common name */
 //static X509_CRL		*tls_crl = NULL;/* Certificate revocation list */
@@ -1081,7 +1070,20 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   SSL_CTX_set_cipher_list(context, cipherlist);
 
   // Setup a TLS session
-  bio = BIO_new(&http_bio_methods);
+  _cupsMutexLock(&tls_mutex);
+  if (!tls_bio_method)
+  {
+    tls_bio_method = BIO_meth_new(BIO_get_new_index(), "http");
+    BIO_meth_set_ctrl(tls_bio_method, http_bio_ctrl);
+    BIO_meth_set_create(tls_bio_method, http_bio_new);
+    BIO_meth_set_destroy(tls_bio_method, http_bio_free);
+    BIO_meth_set_read(tls_bio_method, http_bio_read);
+    BIO_meth_set_puts(tls_bio_method, http_bio_puts);
+    BIO_meth_set_write(tls_bio_method, http_bio_write);
+  }
+  _cupsMutexUnlock(&tls_mutex);
+
+  bio = BIO_new(tls_bio_method);
   BIO_ctrl(bio, BIO_C_SET_FILE_PTR, 0, (char *)http);
 
   http->tls = SSL_new(context);

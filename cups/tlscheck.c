@@ -211,9 +211,11 @@ main(int  argc,				/* I - Number of command-line arguments */
         tlsVersion = 12;
         break;
 
+#  ifdef TLS1_3_VERSION
     case TLS1_3_VERSION :
         tlsVersion = 13;
         break;
+#  endif // TLS1_3_VERSION
   }
 
   snprintf(cipherStr, sizeof(cipherStr), "%s_%dbits", SSL_get_cipher_name(http->tls), SSL_get_cipher_bits(http->tls, &cipherBits));
