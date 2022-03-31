@@ -310,7 +310,7 @@ httpCopyCredentials(
   *credentials = cupsArrayNew(NULL, NULL);
   chain        = SSL_get_peer_cert_chain(http->tls);
 
-  DEBUG_printf(("1httpCopyCredentials: cert=%p", cert));
+  DEBUG_printf(("1httpCopyCredentials: chain=%p", chain));
 
   if (chain)
   {
@@ -823,7 +823,9 @@ httpSaveCredentials(
   if ((fp = cupsFileOpen(nfilename, "w")) == NULL)
     return (-1);
 
+#ifndef _WIN32
   fchmod(cupsFileNumber(fp), 0600);
+#endif // !_WIN32
 
   for (cred = (http_credential_t *)cupsArrayFirst(credentials);
        cred;
@@ -1343,7 +1345,11 @@ http_default_path(
 					// Pointer to library globals
 
 
+#ifdef _WIN32
+  if (cg->home)
+#else
   if (cg->home && getuid())
+#endif // _WIN32
   {
     snprintf(buffer, bufsize, "%s/.cups", cg->home);
     if (access(buffer, 0))
