@@ -883,6 +883,9 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
   time_t          unused_time;          /* Last time for printer state change */
 
 
+  cupsdLogMessage(CUPSD_LOG_DEBUG2,
+		  "cupsdDeleteTemporaryPrinters: Removing unused temporary printers");
+
  /*
   * Allow temporary printers to stick around for 60 seconds after the last job
   * completes.
@@ -892,7 +895,8 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
 
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
-    if (p->temporary && (force || p->state_time < unused_time))
+    if (p->temporary &&
+	(force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING)))
       cupsdDeletePrinter(p, 0);
   }
 }
