@@ -1583,7 +1583,7 @@ http_x509_add_san(X509       *cert,	// I - Certificate
     return;
 
   ASN1_OCTET_STRING_set(san_asn1, (unsigned char *)dns_name, strlen(dns_name));
-  if (!X509_EXTENSION_create_by_NID(&san_ext, NID_subject_alt_name, 0, san_asn1))
+  if ((san_ext = X509_EXTENSION_create_by_NID(NULL, NID_subject_alt_name, 0, san_asn1)) == NULL)
   {
     ASN1_OCTET_STRING_free(san_asn1);
     return;
