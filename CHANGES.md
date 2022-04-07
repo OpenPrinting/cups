@@ -5,6 +5,8 @@ Changes in CUPS v2.4.2 (TBA)
 ----------------------------
 
 - The cupsd daemon removed processing temporary queue (Issue #364)
+- Fixed delay in IPP backend if GNUTLS is used and endpoint doesn't confirm
+  closing the connection (Issue #365)
 - Fixed conditional jump based on uninitialized value in cups/ppd.c (Issue #329)
 - Fixed CSS related issues in CUPS Web UI (Issue #344)
 - Fixed copyright in CUPS Web UI trailer template (Issue #346)
