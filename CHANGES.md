@@ -13,6 +13,7 @@ Changes in CUPS v2.4.2 (TBA)
 - mDNS hostname in device uri is not resolved when installaling a permanent
   IPP Everywhere queue (Issues #340, #343)
 - Re-added LibreSSL/OpenSSL support (Issue #362)
+- Updated the Solaris smf service file (Issue #368)
 
 
 Changes in CUPS v2.4.1 (27th January 2020)

@@ -41,7 +41,6 @@
         <service_fmri value='svc:/network/loopback' />
     </dependency>
 
-
     <dependency
         name='network'
         grouping='optional_all'
@@ -51,11 +50,11 @@
     </dependency>
 
     <dependency
-        name='lpsched'
-        grouping='exclude_all'
-        restart_on='none'
+        name='identity-cert'
+        grouping='require_all'
+        restart_on='refresh'
         type='service'>
-        <service_fmri value='svc:/application/print/server' />
+        <service_fmri value='svc:/system/identity:cert'/>
     </dependency>
 
     <exec_method
@@ -64,7 +63,7 @@
         exec=':kill'
         timeout_seconds='60' />
 
-    <instance name='default' enabled='false' >
+    <instance name='default' enabled='true' >
 
         <dependency
             name='config_data'
@@ -85,10 +84,14 @@
         </exec_method>
 
         <property_group name='general' type='framework'>
+            <propval name='active' type='boolean'
+                value='true' />
             <propval name='action_authorization' type='astring'
                 value='solaris.smf.manage.cups' />
             <propval name='value_authorization' type='astring'
-                value='solaris.smf.value.cups' />
+                value='solaris.smf.manage.cups' />
+	    <!-- sub-process core dumps shouldn't restart session -->
+	    <propval name='ignore_error' type='astring' value='core,signal' />
         </property_group>
 
         <template>
@@ -142,21 +145,13 @@
         <service_fmri value='svc:/milestone/network' />
     </dependency>
 
-    <dependency
-        name='in-lpd'
-        grouping='exclude_all'
-        restart_on='none'
-        type='service'>
-        <service_fmri value='svc:/application/print/rfc1179' />
-    </dependency>
-
     <exec_method
         type='method'
         name='stop'
         exec=':kill'
         timeout_seconds='60' />
 
-    <instance name='default' enabled='false' >
+    <instance name='default' enabled='true' >
         <dependency
             name='cupsd'
             grouping='require_all'
@@ -188,7 +183,7 @@
             <propval name='action_authorization' type='astring'
                 value='solaris.smf.manage.cups' />
             <propval name='value_authorization' type='astring'
-                value='solaris.smf.value.cups' />
+                value='solaris.smf.manage.cups' />
         </property_group>
 
         <template>
