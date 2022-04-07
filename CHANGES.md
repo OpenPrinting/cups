@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS 2.4.1 - 2022-01-27
 Changes in CUPS v2.4.2 (TBA)
 ----------------------------
 
+- The cupsd daemon removed processing temporary queue (Issue #364)
 - Fixed conditional jump based on uninitialized value in cups/ppd.c (Issue #329)
 - Fixed CSS related issues in CUPS Web UI (Issue #344)
 - Fixed copyright in CUPS Web UI trailer template (Issue #346)
