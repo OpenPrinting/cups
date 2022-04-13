@@ -342,6 +342,9 @@ static void		run_printer(ippeve_printer_t *printer);
 static int		show_media(ippeve_client_t *client);
 static int		show_status(ippeve_client_t *client);
 static int		show_supplies(ippeve_client_t *client);
+#ifndef _WIN32
+static void		signal_handler(int signum);
+#endif // !_WIN32
 static char		*time_string(time_t tv, char *buffer, size_t bufsize);
 static void		usage(int status) _CUPS_NORETURN;
 static int		valid_doc_attributes(ippeve_client_t *client);
@@ -364,6 +367,9 @@ static int		KeepFiles = 0,	/* Keep spooled job files? */
 			Verbosity = 0;	/* Verbosity level */
 static const char	*PAMService = NULL;
 					/* PAM service */
+#ifndef _WIN32
+static int		StopPrinter = 0;/* Stop the printer server? */
+#endif // !_WIN32
 
 
 /*
@@ -7641,6 +7647,15 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
   ippeve_client_t	*client;	/* New client */
 
 
+#ifndef _WIN32
+ /*
+  * Set signal handlers for SIGINT and SIGTERM...
+  */
+
+  signal(SIGINT, signal_handler);
+  signal(SIGTERM, signal_handler);
+#endif // !_WIN32
+
  /*
   * Setup poll() data for the DNS-SD service socket and IPv4/6 listeners...
   */
@@ -7669,6 +7684,11 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
       perror("poll() failed");
       break;
     }
+
+#ifndef _WIN32
+    if (StopPrinter)
+      break;
+#endif // !_WIN32
 
     if (polldata[0].revents & POLLIN)
     {
@@ -8339,6 +8359,21 @@ show_supplies(
 
   return (1);
 }
+
+
+#ifndef _WIN32
+/*
+ * 'signal_handler()' - Handle termination signals.
+ */
+
+static void
+signal_handler(int signum)		/* I - Signal number (not used) */
+{
+  (void)signum;
+
+  StopPrinter = 1;
+}
+#endif // !_WIN32
 
 
 /*
