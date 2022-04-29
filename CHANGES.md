@@ -14,6 +14,7 @@ Changes in CUPS v2.4.2 (TBA)
   IPP Everywhere queue (Issues #340, #343)
 - Re-added LibreSSL/OpenSSL support (Issue #362)
 - Updated the Solaris smf service file (Issue #368)
+- `cupsGetResponse` did not always set the last error.
 
 
 Changes in CUPS v2.4.1 (27th January 2020)

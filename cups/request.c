@@ -354,7 +354,10 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
     DEBUG_puts("2cupsGetResponse: Finishing chunked POST...");
 
     if (httpWrite2(http, "", 0) < 0)
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to finish request."), 1);
       return (NULL);
+    }
   }
 
  /*
@@ -390,6 +393,7 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
       * Flush remaining data and delete the response...
       */
 
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to read response."), 1);
       DEBUG_puts("1cupsGetResponse: IPP read error!");
 
       httpFlush(http);
@@ -408,6 +412,8 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
     */
 
     httpFlush(http);
+
+    _cupsSetHTTPError(status);
 
    /*
     * Then handle encryption and authentication...
