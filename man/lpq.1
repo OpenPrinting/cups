@@ -8,18 +8,18 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lpq 1 "CUPS" "2021-02-28" "OpenPrinting"
+.TH lpq 1 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 lpq \- show printer queue status
 .SH SYNOPSIS
 .B lpq
 [
+\fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
 .B \-E
 ] [
 .B \-U
 .I username
-] [
-\fB\-h \fIserver\fR[\fB:\fIport\fR]
 ] [
 \fB\-P \fIdestination\fR[\fB/\fIinstance\fR]
 ] [
@@ -51,6 +51,7 @@ Reports jobs on all printers.
 .TP 5
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
 Specifies an alternate server.
+Note: This option must occur before all others.
 .TP 5
 .B \-l
 Requests a more verbose (long) reporting format.

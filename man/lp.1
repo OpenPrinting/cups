@@ -8,12 +8,14 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lp 1 "CUPS" "2021-02-28" "OpenPrinting"
+.TH lp 1 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 lp \- print files
 .SH SYNOPSIS
 .B lp
 [
+\fB\-h \fIhostname\fR[\fB:\fIport\fR]
+] [
 .B \-E
 ] [
 .B \-U
@@ -22,8 +24,6 @@ lp \- print files
 .B \-c
 ] [
 \fB\-d \fIdestination\fR[\fB/\fIinstance\fR]
-] [
-\fB\-h \fIhostname\fR[\fB:\fIport\fR]
 ] [
 .B \-m
 ] [
@@ -53,14 +53,14 @@ lp \- print files
 .br
 .B lp
 [
+\fB\-h \fIhostname\fR[\fB:\fIport\fR]
+] [
 .B \-E
 ] [
 .B \-U
 .I username
 ] [
 .B \-c
-] [
-\fB\-h \fIhostname\fR[\fB:\fIport\fR]
 ] [
 .B \-i
 .I job-id
@@ -113,6 +113,7 @@ Prints files to the named printer.
 .TP 5
 \fB\-h \fIhostname\fR[\fB:\fIport\fR]
 Chooses an alternate server.
+Note: This option must occur before all others.
 .TP 5
 \fB\-i \fIjob-id\fR
 Specifies an existing job to modify.

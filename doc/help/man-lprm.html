@@ -12,13 +12,12 @@ lprm - cancel print jobs
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>lprm</b>
 [
+<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
+] [
 <b>-E</b>
 ] [
 <b>-U</b>
 <i>username</i>
-] [
-<b>-h</b>
-<i>server</i>[<i>:port</i>]
 ] [
 <b>-P</b>
 <i>destination</i>[<i>/instance</i>]
@@ -45,6 +44,7 @@ command supports the following options:
 <dd style="margin-left: 5.0em">Specifies an alternate username.
 <dt><b>-h </b><i>server</i>[<i>:port</i>]
 <dd style="margin-left: 5.0em">Specifies an alternate server.
+Note: This option must occur before all others.
 </dl>
 <h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
 The CUPS version of

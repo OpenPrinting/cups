@@ -8,15 +8,15 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lpoptions 1 "CUPS" "2021-02-28" "OpenPrinting"
+.TH lpoptions 1 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 lpoptions \- display or set printer options and defaults
 .SH SYNOPSIS
 .B lpoptions
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ]
 \fB\-d \fIdestination\fR[\fB/\fIinstance\fR]
 [
@@ -25,9 +25,9 @@ lpoptions \- display or set printer options and defaults
 .br
 .B lpoptions
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ] [
 \fB\-p \fIdestination\fR[\fB/\fIinstance\fR]
 ]
@@ -35,9 +35,9 @@ lpoptions \- display or set printer options and defaults
 .br
 .B lpoptions
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ] [
 \fB\-p \fIdestination\fR[\fB/\fIinstance\fR]
 ]
@@ -46,9 +46,9 @@ lpoptions \- display or set printer options and defaults
 .br
 .B lpoptions
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ]
 \fB\-x \fIdestination\fR[\fB/\fIinstance\fR]
 .SH DESCRIPTION
@@ -79,6 +79,7 @@ This option overrides the system default printer for the current user.
 .TP 5
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
 Uses an alternate server.
+Note: This option must occur before all others.
 .TP 5
 .B \-l
 Lists the printer specific options and their current settings.

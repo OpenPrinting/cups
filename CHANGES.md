@@ -12,6 +12,7 @@ Changes in CUPS v2.4.2 (TBA)
 - Fixed copyright in CUPS Web UI trailer template (Issue #346)
 - mDNS hostname in device uri is not resolved when installaling a permanent
   IPP Everywhere queue (Issues #340, #343)
+- Updated the man pages concerning the `-h` option (Issue #357)
 - Re-added LibreSSL/OpenSSL support (Issue #362)
 - Updated the Solaris smf service file (Issue #368)
 - Fixed a regression in lpoptions option support (Issue #370)

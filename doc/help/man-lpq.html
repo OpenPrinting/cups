@@ -12,12 +12,12 @@ lpq - show printer queue status
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>lpq</b>
 [
+<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+] [
 <b>-E</b>
 ] [
 <b>-U</b>
 <i>username</i>
-] [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
 ] [
 <b>-P </b><i>destination</i>[<b>/</b><i>instance</i>]
 ] [
@@ -44,6 +44,7 @@ Jobs queued on the default destination will be shown if no printer or class is s
 <dd style="margin-left: 5.0em">Reports jobs on all printers.
 <dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
 <dd style="margin-left: 5.0em">Specifies an alternate server.
+Note: This option must occur before all others.
 <dt><b>-l</b>
 <dd style="margin-left: 5.0em">Requests a more verbose (long) reporting format.
 </dl>

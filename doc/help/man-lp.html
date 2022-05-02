@@ -12,6 +12,8 @@ lp - print files
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>lp</b>
 [
+<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
+] [
 <b>-E</b>
 ] [
 <b>-U</b>
@@ -20,8 +22,6 @@ lp - print files
 <b>-c</b>
 ] [
 <b>-d </b><i>destination</i>[<b>/</b><i>instance</i>]
-] [
-<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
 ] [
 <b>-m</b>
 ] [
@@ -51,14 +51,14 @@ lp - print files
 <br>
 <b>lp</b>
 [
+<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
+] [
 <b>-E</b>
 ] [
 <b>-U</b>
 <i>username</i>
 ] [
 <b>-c</b>
-] [
-<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
 ] [
 <b>-i</b>
 <i>job-id</i>
@@ -106,6 +106,7 @@ In CUPS, print files are always sent to the scheduler via IPP which has the same
 <dd style="margin-left: 5.0em">Prints files to the named printer.
 <dt><b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
 <dd style="margin-left: 5.0em">Chooses an alternate server.
+Note: This option must occur before all others.
 <dt><b>-i </b><i>job-id</i>
 <dd style="margin-left: 5.0em">Specifies an existing job to modify.
 <dt><b>-m</b>

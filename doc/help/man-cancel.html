@@ -12,15 +12,15 @@ cancel - cancel jobs
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>cancel</b>
 [
+<b>-h</b>
+<i>hostname[:port]</i>
+] [
 <b>-E</b>
 ] [
 <b>-U</b>
 <i>username</i>
 ] [
 <b>-a</b>
-] [
-<b>-h</b>
-<i>hostname[:port]</i>
 ] [
 <b>-u</b>
 <i>username</i>
@@ -46,6 +46,7 @@ destinations if none is provided.
 <dd style="margin-left: 5.0em">Forces encryption when connecting to the server.
 <dt><b>-h </b><i>hostname</i>[<i>:port</i>]
 <dd style="margin-left: 5.0em">Specifies an alternate server.
+Note: This option must occur before all others.
 <dt><b>-U </b><i>username</i>
 <dd style="margin-left: 5.0em">Specifies the username to use when connecting to the server.
 <dt><b>-u </b><i>username</i>

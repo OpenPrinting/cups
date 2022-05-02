@@ -8,19 +8,19 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cupsctl 8 "CUPS" "2021-02-28" "OpenPrinting"
+.TH cupsctl 8 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 cupsctl \- configure cupsd.conf options
 .SH SYNOPSIS
 .B cupsctl
 [
+.B \-h
+\fIserver\fR[\fB:\fIport\fR]
+] [
 .B \-E
 ] [
 .B \-U
 .I username
-] [
-.B \-h
-\fIserver\fR[\fB:\fIport\fR]
 ] [
 \fB\-\-\fR[\fBno\-\fR]\fBdebug\-logging\fR
 ] [
@@ -49,6 +49,7 @@ Specifies an alternate username to use when authenticating with the scheduler.
 .TP 5
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
 Specifies the server address.
+Note: This option must occur before all others.
 .TP 5
 \fB\-\-\fR[\fBno\-\fR]\fBdebug\-logging\fR
 Enables (disables) debug logging to the \fIerror_log\fR file.

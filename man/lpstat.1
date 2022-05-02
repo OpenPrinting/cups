@@ -2,25 +2,25 @@
 .\" lpstat man page for CUPS.
 .\"
 .\" Copyright © 2021-2022 by OpenPrinting.
-.\" Copyright 2007-2019 by Apple Inc.
-.\" Copyright 1997-2006 by Easy Software Products.
+.\" Copyright © 2007-2019 by Apple Inc.
+.\" Copyright © 1997-2006 by Easy Software Products.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
 .\"
-.TH lpstat 1 "CUPS" "2021-02-28" "OpenPrinting"
+.TH lpstat 1 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 lpstat \- print cups status information
 .SH SYNOPSIS
 .B lpstat
 [
+\fB\-h \fIhostname\fR[\fB:\fIport\fR]
+] [
 .B \-E
 ] [
 .B \-H
 ] [
 .B \-U
 .I username
-] [
-\fB\-h \fIhostname\fR[\fB:\fIport\fR]
 ] [
 .B \-l
 ] [
@@ -101,6 +101,7 @@ Shows all available destinations on the local network.
 .TP 5
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
 Specifies an alternate server.
+Note: This option must occur before all others.
 .TP 5
 .B \-l
 Shows a long listing of printers, classes, or jobs.

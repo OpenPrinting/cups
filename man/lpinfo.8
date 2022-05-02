@@ -8,15 +8,15 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lpinfo 8 "CUPS" "2021-02-28" "OpenPrinting"
+.TH lpinfo 8 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 lpinfo \- show available devices or drivers (deprecated)
 .SH SYNOPSIS
 .B lpinfo
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ] [
 .B \-l
 ] [
@@ -42,9 +42,9 @@ lpinfo \- show available devices or drivers (deprecated)
 .br
 .B lpinfo
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ] [
 .B \-l
 ] [
@@ -69,6 +69,7 @@ Forces encryption when connecting to the server.
 .TP 5
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
 Selects an alternate server.
+Note: This option must occur before all others.
 .TP 5
 .B \-l
 Shows a "long" listing of devices or drivers.

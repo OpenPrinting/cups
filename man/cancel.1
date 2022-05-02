@@ -8,21 +8,21 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cancel 1 "CUPS" "2021-02-28" "OpenPrinting"
+.TH cancel 1 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 cancel \- cancel jobs
 .SH SYNOPSIS
 .B cancel
 [
+.B \-h
+.I hostname[:port]
+] [
 .B \-E
 ] [
 .B \-U
 .I username
 ] [
 .B \-a
-] [
-.B \-h
-.I hostname[:port]
 ] [
 .B \-u
 .I username
@@ -50,6 +50,7 @@ Forces encryption when connecting to the server.
 .TP 5
 \fB\-h \fIhostname\fR[\fI:port\fR]
 Specifies an alternate server.
+Note: This option must occur before all others.
 .TP 5
 \fB\-U \fIusername\fR
 Specifies the username to use when connecting to the server.

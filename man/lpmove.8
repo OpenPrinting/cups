@@ -8,15 +8,15 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lpmove 8 "CUPS" "2021-02-28" "OpenPrinting"
+.TH lpmove 8 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
 lpmove \- move a job or all jobs to a new destination
 .SH SYNOPSIS
 .B lpmove
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ] [
 .B \-U
 .I username
@@ -26,9 +26,9 @@ lpmove \- move a job or all jobs to a new destination
 .br
 .B lpmove
 [
-.B \-E
-] [
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
+] [
+.B \-E
 ] [
 .B \-U
 .I username
@@ -48,6 +48,7 @@ Specifies an alternate username.
 .TP 5
 \fB\-h \fIserver\fR[\fB:\fIport\fR]
 Specifies an alternate server.
+Note: This option must occur before all others.
 .SH EXAMPLES
 Move job 123 from "oldprinter" to "newprinter":
 .nf

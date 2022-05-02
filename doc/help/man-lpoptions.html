@@ -12,9 +12,9 @@ lpoptions - display or set printer options and defaults
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>lpoptions</b>
 [
-<b>-E</b>
-] [
 <b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+] [
+<b>-E</b>
 ]
 <b>-d </b><i>destination</i>[<b>/</b><i>instance</i>]
 [
@@ -23,9 +23,9 @@ lpoptions - display or set printer options and defaults
 <br>
 <b>lpoptions</b>
 [
-<b>-E</b>
-] [
 <b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+] [
+<b>-E</b>
 ] [
 <b>-p </b><i>destination</i>[<b>/</b><i>instance</i>]
 ]
@@ -33,9 +33,9 @@ lpoptions - display or set printer options and defaults
 <br>
 <b>lpoptions</b>
 [
-<b>-E</b>
-] [
 <b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+] [
+<b>-E</b>
 ] [
 <b>-p </b><i>destination</i>[<b>/</b><i>instance</i>]
 ]
@@ -44,9 +44,9 @@ lpoptions - display or set printer options and defaults
 <br>
 <b>lpoptions</b>
 [
-<b>-E</b>
-] [
 <b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+] [
+<b>-E</b>
 ]
 <b>-x </b><i>destination</i>[<b>/</b><i>instance</i>]
 <h2 class="title"><a name="DESCRIPTION">Description</a></h2>
@@ -72,6 +72,7 @@ If <i>instance</i> is supplied then that particular instance is used.
 This option overrides the system default printer for the current user.
 <dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
 <dd style="margin-left: 5.0em">Uses an alternate server.
+Note: This option must occur before all others.
 <dt><b>-l</b>
 <dd style="margin-left: 5.0em">Lists the printer specific options and their current settings.
 <dt><b>-o </b><i>option</i>[<b>=</b><i>value</i>]

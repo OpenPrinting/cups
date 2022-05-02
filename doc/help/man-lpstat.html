@@ -12,14 +12,14 @@ lpstat - print cups status information
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>lpstat</b>
 [
+<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
+] [
 <b>-E</b>
 ] [
 <b>-H</b>
 ] [
 <b>-U</b>
 <i>username</i>
-] [
-<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
 ] [
 <b>-l</b>
 ] [
@@ -91,6 +91,7 @@ If no classes are specified then all classes are listed.
 <dd style="margin-left: 5.0em">Shows all available destinations on the local network.
 <dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
 <dd style="margin-left: 5.0em">Specifies an alternate server.
+Note: This option must occur before all others.
 <dt><b>-l</b>
 <dd style="margin-left: 5.0em">Shows a long listing of printers, classes, or jobs.
 <dt><b>-o </b>[<i>destination(s)</i>]

@@ -12,13 +12,13 @@ cupsctl - configure cupsd.conf options
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>cupsctl</b>
 [
+<b>-h</b>
+<i>server</i>[<b>:</b><i>port</i>]
+] [
 <b>-E</b>
 ] [
 <b>-U</b>
 <i>username</i>
-] [
-<b>-h</b>
-<i>server</i>[<b>:</b><i>port</i>]
 ] [
 <b>--</b>[<b>no-</b>]<b>debug-logging</b>
 ] [
@@ -45,6 +45,7 @@ The following options are recognized:
 <dd style="margin-left: 5.0em">Specifies an alternate username to use when authenticating with the scheduler.
 <dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
 <dd style="margin-left: 5.0em">Specifies the server address.
+Note: This option must occur before all others.
 <dt><b>--</b>[<b>no-</b>]<b>debug-logging</b>
 <dd style="margin-left: 5.0em">Enables (disables) debug logging to the <i>error_log</i> file.
 <dt><b>--</b>[<b>no-</b>]<b>remote-admin</b>
