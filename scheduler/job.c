@@ -3470,6 +3470,12 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
             if (strncmp(job->reasons->values[0].string.text, "account-", 8))
 	      ippSetString(job->attrs, &job->reasons, 0,
 			   "cups-held-for-authentication");
+
+            if (job->printer->num_auth_info_required == 1 && !strcmp(job->printer->auth_info_required[0], "none"))
+            {
+              // Default to "username,password" authentication if none is specified...
+              cupsdSetAuthInfoRequired(job->printer, "username,password", NULL);
+            }
           }
           break;
 

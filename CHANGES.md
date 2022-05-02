@@ -14,6 +14,9 @@ Changes in CUPS v2.4.2 (TBA)
   IPP Everywhere queue (Issues #340, #343)
 - Re-added LibreSSL/OpenSSL support (Issue #362)
 - Updated the Solaris smf service file (Issue #368)
+- Updated the scheduler to set "auth-info-required" to "username,password" if a
+  backend reports it needs authentication info but doesn't set a method for
+  authentication (Issue #373)
 - `cupsGetResponse` did not always set the last error.
 - Fixed a number of old references to the Apple CUPS web page.
 - Restored the default/generic printer icon file for the web interface.
