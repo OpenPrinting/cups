@@ -213,31 +213,6 @@ td.cups-body {
   vertical-align: top;
 }
 
-td.sel, td.unsel {
-  border-left: thin solid #cccccc;
-  padding: 0 5px;
-  text-align: center;
-  vertical-align: middle;
-  width: 14%;
-}
-
-td.sel {
-  background: url(images/sel.gif);
-}
-
-td.unsel {
-  background: url(images/unsel.gif);
-}
-
-td.sel a, td.sel a:hover, td.unsel a:link:hover, td.unsel a:visited:hover,
-td.unsel a:active, td.unsel a, td.unsel a:visited {
-  color: #666666;
-  display: block;
-  font-weight: normal;
-  padding: 8px;
-  text-decoration: none;
-}
-
 td.trailer {
   background: #f0f0f0;
   border: solid thin #e0e0e0;

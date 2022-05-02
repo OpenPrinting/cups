@@ -15,6 +15,10 @@ Changes in CUPS v2.4.2 (TBA)
 - Re-added LibreSSL/OpenSSL support (Issue #362)
 - Updated the Solaris smf service file (Issue #368)
 - `cupsGetResponse` did not always set the last error.
+- Fixed a number of old references to the Apple CUPS web page.
+- Restored the default/generic printer icon file for the web interface.
+- Removed old stylesheet classes that are no longer used by the web
+  interface.
 
 
 Changes in CUPS v2.4.1 (27th January 2020)
