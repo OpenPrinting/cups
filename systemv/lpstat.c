@@ -33,7 +33,7 @@ static int	show_jobs(const char *dests, const char *users, int long_status,
 		          int ranking, const char *which);
 static int	show_printers(const char *printers, int num_dests,
 		              cups_dest_t *dests, int long_status);
-static void	show_scheduler(void);
+static int	show_scheduler(void);
 static void	usage(void) _CUPS_NORETURN;
 
 
@@ -378,7 +378,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'r' : /* Show scheduler status */
 	      op = 'r';
 
-	      show_scheduler();
+	      if (!show_scheduler())
+		return (0);
 	      break;
 
 	  case 's' : /* Show summary */
@@ -420,7 +421,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 		}
 	      }
 
-	      show_scheduler();
+	      if (!show_scheduler())
+		return (0);
+
 	      show_default(cupsGetDest(NULL, NULL, num_dests, dests));
 	      status |= show_classes(NULL);
 	      status |= show_devices(NULL, num_dests, dests);
@@ -722,8 +725,13 @@ show_accepting(const char  *printers,	/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsLastError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
+  else if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST || cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server name."),
@@ -902,6 +910,12 @@ show_classes(const char *dests)		/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
+  if (cupsLastError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
   if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
@@ -1160,6 +1174,12 @@ show_devices(const char  *printers,	/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
+  if (cupsLastError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
   if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
@@ -1352,6 +1372,12 @@ show_jobs(const char *dests,		/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
+  if (cupsLastError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
   if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
@@ -1589,6 +1615,12 @@ show_printers(const char  *printers,	/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
+  if (cupsLastError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
   if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
@@ -2019,7 +2051,7 @@ show_printers(const char  *printers,	/* I - Destinations */
  * 'show_scheduler()' - Show scheduler status.
  */
 
-static void
+static int				/* 1 on success, 0 on failure */
 show_scheduler(void)
 {
   http_t	*http;			/* Connection to server */
@@ -2030,9 +2062,13 @@ show_scheduler(void)
   {
     _cupsLangPuts(stdout, _("scheduler is running"));
     httpClose(http);
+    return (1);
   }
   else
+  {
     _cupsLangPuts(stdout, _("scheduler is not running"));
+    return (0);
+  }
 }
 
 

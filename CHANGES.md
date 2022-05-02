@@ -12,6 +12,8 @@ Changes in CUPS v2.4.2 (TBA)
 - Fixed copyright in CUPS Web UI trailer template (Issue #346)
 - mDNS hostname in device uri is not resolved when installaling a permanent
   IPP Everywhere queue (Issues #340, #343)
+- The `lpstat` command now reports when the scheduler is not running
+  (Issue #352)
 - Updated the man pages concerning the `-h` option (Issue #357)
 - Re-added LibreSSL/OpenSSL support (Issue #362)
 - Updated the Solaris smf service file (Issue #368)
