@@ -14,6 +14,7 @@ Changes in CUPS v2.4.2 (TBA)
   IPP Everywhere queue (Issues #340, #343)
 - Re-added LibreSSL/OpenSSL support (Issue #362)
 - Updated the Solaris smf service file (Issue #368)
+- Fixed a regression in lpoptions option support (Issue #370)
 - The scheduler now regenerates the PPD cache information after changing the
   "cupsd.conf" file (Issue #371)
 - Updated the scheduler to set "auth-info-required" to "username,password" if a

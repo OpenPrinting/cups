@@ -3564,7 +3564,10 @@ cups_enum_dests(
           }
 
 	  for (k = dest->num_options, option = dest->options; k > 0; k --, option ++)
-	    user_dest->num_options = cupsAddOption(option->name, option->value, user_dest->num_options, &user_dest->options);
+	  {
+	    if (!cupsGetOption(option->name, user_dest->num_options, user_dest->options))
+	      user_dest->num_options = cupsAddOption(option->name, option->value, user_dest->num_options, &user_dest->options);
+	  }
 
           if (!(*cb)(user_data, i > 1 ? CUPS_DEST_FLAGS_MORE : CUPS_DEST_FLAGS_NONE, user_dest))
             break;
@@ -3855,7 +3858,10 @@ cups_enum_dests(
 	      }
 
 	      for (k = dest->num_options, option = dest->options; k > 0; k --, option ++)
-		user_dest->num_options = cupsAddOption(option->name, option->value, user_dest->num_options, &user_dest->options);
+	      {
+	        if (!cupsGetOption(option->name, user_dest->num_options, user_dest->options))
+		  user_dest->num_options = cupsAddOption(option->name, option->value, user_dest->num_options, &user_dest->options);
+	      }
 
 	      if (!(*cb)(user_data, CUPS_DEST_FLAGS_NONE, user_dest))
 		break;
