@@ -3343,7 +3343,7 @@ httpWrite2(http_t     *http,		/* I - HTTP connection */
  * @since CUPS 1.7/macOS 10.9@
  */
 
-int					/* O - 0 on success, -1 on error */
+http_state_t				/* O - 0 on success, -1 on error */
 httpWriteResponse(http_t        *http,	/* I - HTTP connection */
 		  http_status_t status)	/* I - Status code */
 {
