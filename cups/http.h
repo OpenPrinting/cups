@@ -574,7 +574,7 @@ extern http_status_t	httpGetExpect(http_t *http) _CUPS_API_1_7;
 extern ssize_t		httpPeek(http_t *http, char *buffer, size_t length) _CUPS_API_1_7;
 extern http_state_t	httpReadRequest(http_t *http, char *resource, size_t resourcelen) _CUPS_API_1_7;
 extern void		httpSetDefaultField(http_t *http, http_field_t field, const char *value) _CUPS_API_1_7;
-extern http_state_t	httpWriteResponse(http_t *http, http_status_t status) _CUPS_API_1_7;
+extern int		httpWriteResponse(http_t *http, http_status_t status) _CUPS_API_1_7;
 
 /* New in CUPS 2.0/macOS 10.10 */
 extern int		httpAddrClose(http_addr_t *addr, int fd) _CUPS_API_2_0;
