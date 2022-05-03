@@ -23,8 +23,8 @@ CUPS_SERVERKEYCHAIN=""
 
 dnl First look for OpenSSL/LibreSSL...
 AS_IF([test $with_tls = yes -o $with_tls = openssl], [
+    AC_MSG_CHECKING([for openssl package])
     AS_IF([test "x$PKGCONFIG" != x], [
-        AC_MSG_CHECKING([for openssl package])
 	AS_IF([$PKGCONFIG --exists openssl], [
 	    AC_MSG_RESULT([yes])
 	    have_tls="1"
@@ -37,6 +37,26 @@ AS_IF([test $with_tls = yes -o $with_tls = openssl], [
 	], [
 	    AC_MSG_RESULT([no])
 	])
+    ] , [
+        ssldirs="/usr/local/ssl /usr/lib/ssl /usr/ssl /usr/pkg /usr/local /usr"
+        OPENSSL_INCLUDES=
+        for ssldir in $ssldirs; do
+            AC_MSG_CHECKING([for include/openssl/ssl.h in $ssldir])
+            if test -f "$ssldir/include/openssl/ssl.h"; then
+                OPENSSL_INCLUDES="-I$ssldir/include"
+                OPENSSL_LDFLAGS="-L$ssldir/lib"
+                OPENSSL_LIBS="-lssl -lcrypto"
+                found=true
+	        have_tls="1"
+	        with_tls="openssl"
+	        AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
+	        AC_DEFINE([HAVE_OPENSSL], [1], [Do we have the OpenSSL library?])
+                AC_MSG_RESULT([yes])
+                break
+            else
+                AC_MSG_RESULT([no])
+            fi
+        done
     ])
 
     AS_IF([test $have_tls = 1], [
