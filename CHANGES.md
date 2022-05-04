@@ -25,6 +25,8 @@ Changes in CUPS v2.4.2 (TBA)
 - Updated the scheduler to set "auth-info-required" to "username,password" if a
   backend reports it needs authentication info but doesn't set a method for
   authentication (Issue #373)
+- Updated the configure script to look for the OpenSSL library the old way if
+  pkg-config is not available (Issue #375)
 - Fixed the prototype for the `httpWriteResponse` function (Issue #380)
 - `cupsGetResponse` did not always set the last error.
 - Fixed a number of old references to the Apple CUPS web page.
