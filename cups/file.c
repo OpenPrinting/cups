@@ -6,7 +6,7 @@
  * our own file functions allows us to provide transparent support of
  * different line endings, gzip'd print files, PPD files, etc.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2022 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1100,8 +1100,7 @@ cupsFileOpen(const char *filename,	/* I - Name of file */
   switch (*mode)
   {
     case 'a' : /* Append file */
-        fd = cups_open(filename,
-		       O_RDWR | O_CREAT | O_APPEND | O_LARGEFILE | O_BINARY);
+        fd = cups_open(filename, O_WRONLY | O_CREAT | O_APPEND | O_LARGEFILE | O_BINARY);
         break;
 
     case 'r' : /* Read file */
@@ -1112,8 +1111,7 @@ cupsFileOpen(const char *filename,	/* I - Name of file */
         fd = cups_open(filename, O_WRONLY | O_LARGEFILE | O_BINARY);
 	if (fd < 0 && errno == ENOENT)
 	{
-	  fd = cups_open(filename,
-	                 O_WRONLY | O_CREAT | O_EXCL | O_LARGEFILE | O_BINARY);
+	  fd = cups_open(filename, O_WRONLY | O_CREAT | O_EXCL | O_LARGEFILE | O_BINARY);
 	  if (fd < 0 && errno == EEXIST)
 	    fd = cups_open(filename, O_WRONLY | O_LARGEFILE | O_BINARY);
 	}

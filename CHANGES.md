@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.4.1 - 2022-01-27
 Changes in CUPS v2.4.2 (TBA)
 ----------------------------
 
+- The `cupsFileOpen` function no longer opens files for append in read-write
+  mode (Issue #291)
 - The cupsd daemon removed processing temporary queue (Issue #364)
 - Fixed delay in IPP backend if GNUTLS is used and endpoint doesn't confirm
   closing the connection (Issue #365)
