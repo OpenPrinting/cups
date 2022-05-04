@@ -41,7 +41,11 @@ typedef ULONG nfds_t;
 extern char **environ;
 
 #  include <spawn.h>
+#ifndef _AIX
 #  include <sys/fcntl.h>
+#else
+#  include <fcntl.h>
+#endif
 #  include <sys/wait.h>
 #  include <poll.h>
 #endif /* _WIN32 */
