@@ -27,10 +27,10 @@
 #endif /* !CUPS_LITE */
 
 #include <limits.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 
 #ifdef _WIN32
-#  include <fcntl.h>
 #  include <io.h>
 #  include <process.h>
 #  define WEXITSTATUS(s) (s)
@@ -41,7 +41,6 @@ typedef ULONG nfds_t;
 extern char **environ;
 
 #  include <spawn.h>
-#  include <sys/fcntl.h>
 #  include <sys/wait.h>
 #  include <poll.h>
 #endif /* _WIN32 */
