@@ -16,7 +16,7 @@
 #include "backend-private.h"
 #ifndef HAVE_GETIFADDRS
 #  include <cups/getifaddrs-internal.h>
-#endif
+#endif // !HAVE_GETIFADDRS
 #include <cups/array.h>
 #include <cups/file.h>
 #include <cups/http-private.h>
