@@ -51,7 +51,7 @@ AS_IF([test x$enable_shared != xno], [
 	])
 	DSO="\$(CC)"
 	DSOXX="\$(CXX)"
-	DSOFLAGS="$DSOFLAGS -Wl,-G -o \`basename \$@\`
+	DSOFLAGS="$DSOFLAGS -Wl,-G -o \`basename \$@\`"
 	LDFLAGS="$LDFLAGS $TLSFLAGS -liconv -lz -lm"
     ], [*], [
 	AC_MSG_NOTICE([Warning: Shared libraries may not work, trying -shared option.])
