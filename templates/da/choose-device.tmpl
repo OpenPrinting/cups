@@ -35,7 +35,7 @@ VALUE="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">
 <TD>
 {[device_uri]{device_class=network?{device_uri~[a-z]+://?:<INPUT TYPE="RADIO" NAME="DEVICE_URI" ID="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}"
 VALUE="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">
-<LABEL FOR="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">{device_info} {?device_make_and_model!Ukendt?({device_make_and_model}):}</LABEL><BR>
+<LABEL FOR="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">{device_info} {?device_make_and_model!Ukendt?({device_make_and_model}):} ({device_uri})</LABEL><BR>
 }:}}
 </TD>
 </TR>
