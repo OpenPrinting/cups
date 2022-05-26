@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS 2.4.1 - 2022-01-27
 Changes in CUPS v2.4.2 (TBA)
 ----------------------------
 
+- Fixed certificate strings comparison for Local authorization (CVE-2022-26691)
 - The `cupsFileOpen` function no longer opens files for append in read-write
   mode (Issue #291)
 - The cupsd daemon removed processing temporary queue (Issue #364)

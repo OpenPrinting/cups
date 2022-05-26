@@ -444,5 +444,12 @@ ctcompare(const char *a,		/* I - First string */
     b ++;
   }
 
-  return (result);
+ /*
+  * The while loop finishes when *a == '\0' or *b == '\0'
+  * so after the while loop either both *a and *b == '\0',
+  * or one points inside a string, so when we apply logical OR on *a,
+  * *b and result, we get a non-zero return value if the compared strings don't match.
+  */
+
+  return (result | *a | *b);
 }
