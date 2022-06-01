@@ -1,6 +1,12 @@
 CHANGES - OpenPrinting CUPS 2.4.2 - 2022-05-26
 ==============================================
 
+Changes in CUPS v2.4.3 (TBA)
+----------------------------
+
+- Fixed configuration on RISC-V machines (Issue #404)
+
+
 Changes in CUPS v2.4.2 (26th May 2022)
 --------------------------------------
 
