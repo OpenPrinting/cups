@@ -6,6 +6,7 @@ Changes in CUPS v2.4.3 (TBA)
 
 - Added a title with device uri for found network printers (Issues #402, #393)
 - Fixed configuration on RISC-V machines (Issue #404)
+- Fixed an OpenSSL crash bug (Issue #409)
 
 
 Changes in CUPS v2.4.2 (26th May 2022)

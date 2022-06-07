@@ -1152,6 +1152,8 @@ _httpTLSStop(http_t *http)		// I - Connection to server
   SSL_shutdown(http->tls);
   SSL_CTX_free(context);
   SSL_free(http->tls);
+
+  http->tls = NULL;
 }
 
 
