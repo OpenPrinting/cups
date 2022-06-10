@@ -5547,8 +5547,9 @@ create_local_printer(
   * the hostname by localhost. This way we assure that local-only services
   * like ipp-usb or Printer Applications always work.
   *
-  * When comparing our hostname with the one in the device URI, consider
-  * names with ¨.local(.)" suffix and names without suffix the same.
+  * When comparing our hostname with the one in the device URI,
+  * consider names with or without trailing dot ('.') the same. Also
+  * compare case-insensitively.
   */
 
 #ifdef HAVE_DNSSD
@@ -5566,23 +5567,30 @@ create_local_printer(
     int host_len,
         server_name_len;
 
+    /* Get host name of device URI */
     httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
 		    scheme, sizeof(scheme), userpass, sizeof(userpass), host,
 		    sizeof(host), &port, resource, sizeof(resource));
 
+    /* Take trailing dot out of comparison */
     host_len = strlen(host);
-    if (strcmp(host + host_len - 6, ".local") == 0)
-      host_len -= 6;
-    if (strcmp(host + host_len - 7, ".local.") == 0)
-      host_len -= 7;
+    if (host_len > 1 && host[host_len - 1] == '.')
+      host_len --;
 
     server_name_len = strlen(nameptr);
-    if (strcmp(nameptr + server_name_len - 6, ".local") == 0)
-      server_name_len -= 6;
-    if (strcmp(nameptr + server_name_len - 7, ".local.") == 0)
-      server_name_len -= 7;
+    if (server_name_len > 1 && nameptr[server_name_len - 1] == '.')
+      server_name_len --;
 
-    if (host_len == server_name_len && strncmp(host, nameptr, host_len) == 0)
+   /*
+    * If we have no DNSSDHostName but only a ServerName (if we are not
+    * sharing printers, Browsing = Off) the ServerName has no ".local"
+    * but the requested device URI has. Take this into account.
+    */
+
+    if (nameptr == ServerName && host_len >= 6 && (server_name_len < 6 || strcmp(nameptr + server_name_len - 6, ".local") != 0) && strcmp(host + host_len - 6, ".local") == 0)
+      host_len -= 6;
+
+    if (host_len == server_name_len && strncasecmp(host, nameptr, host_len) == 0)
       ptr = "localhost";
     else
       ptr = host;
