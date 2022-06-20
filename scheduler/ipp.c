@@ -2937,6 +2937,9 @@ apply_printer_defaults(
       if (!strcmp(option->name, "print-quality") && ippFindAttribute(job->attrs, "cupsPrintQuality", IPP_TAG_NAME))
         continue;                     /* Don't override cupsPrintQuality */
 
+      if (!strcmp(option->name, "print-color-mode") && ippFindAttribute(job->attrs, "ColorModel", IPP_TAG_NAME))
+        continue;                     /* Don't override ColorModel */
+
       cupsdLogJob(job, CUPSD_LOG_DEBUG, "Adding default %s=%s", option->name, option->value);
 
       num_options = cupsAddOption(option->name, option->value, num_options, &options);

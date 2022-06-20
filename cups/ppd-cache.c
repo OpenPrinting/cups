@@ -259,15 +259,46 @@ _cupsConvertOptions(
 
   color_attr_name = print_color_mode_sup ? "print-color-mode" : "output-mode";
 
-  if ((keyword = cupsGetOption("print-color-mode", num_options, options)) == NULL)
+ /*
+  * If we use PPD with standardized PPD option for color support - ColorModel,
+  * prefer it to don't break color/grayscale support for PPDs, either classic
+  * or the ones generated from IPP Get-Printer-Attributes response.
+  */
+
+  if ((keyword = cupsGetOption("ColorModel", num_options, options)) == NULL)
   {
+   /*
+    * No ColorModel in options...
+    */
+
     if ((choice = ppdFindMarkedChoice(ppd, "ColorModel")) != NULL)
     {
-      if (!_cups_strcasecmp(choice->choice, "Gray"))
-	keyword = "monochrome";
+     /*
+      * ColorModel is taken from PPD as its default option.
+      */
+
+      if (!strcmp(choice->choice, "Gray") || !strcmp(choice->choice, "FastGray") || !strcmp(choice->choice, "DeviceGray"))
+        keyword = "monochrome";
       else
-	keyword = "color";
+        keyword = "color";
     }
+    else
+     /*
+      * print-color-mode is a default option since 2.4.1, use it as a fallback if there is no
+      * ColorModel in options or PPD...
+      */
+      keyword = cupsGetOption("print-color-mode", num_options, options);
+  }
+  else
+  {
+   /*
+    * ColorModel found in options...
+    */
+
+    if (!strcmp(keyword, "Gray") || !strcmp(keyword, "FastGray") || !strcmp(keyword, "DeviceGray"))
+      keyword = "monochrome";
+    else
+      keyword = "color";
   }
 
   if (keyword && !strcmp(keyword, "monochrome"))
