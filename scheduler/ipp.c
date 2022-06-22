@@ -5307,7 +5307,7 @@ create_local_bg_thread(
       return (NULL);
     }
 
-    printer->device_uri = uri;
+    cupsdSetString(&printer->device_uri, uri);
   }
 
   if (httpSeparateURI(HTTP_URI_CODING_ALL, printer->device_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
