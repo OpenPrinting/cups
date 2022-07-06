@@ -9,3 +9,5 @@ queries:
   - exclude: cpp/tainted-format-string
   - exclude: cpp/toctou-race-condition
   - exclude: cpp/cleartext-transmission
+  - exclude: cpp/system-data-exposure
+  - exclude: cpp/command-line-injection
