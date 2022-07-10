@@ -3349,6 +3349,7 @@ httpWriteResponse(http_t        *http,	/* I - HTTP connection */
 {
   http_encoding_t	old_encoding;	/* Old data_encoding value */
   off_t			old_remaining;	/* Old data_remaining value */
+  cups_lang_t		*lang;		/* Response language */
 
 
  /*
@@ -3421,6 +3422,12 @@ httpWriteResponse(http_t        *http,	/* I - HTTP connection */
 #endif /* HAVE_LIBZ */
 
  /*
+  * Get the response language, if any...
+  */
+
+  lang = cupsLangGet(http->fields[HTTP_FIELD_CONTENT_LANGUAGE]);
+
+ /*
   * Send the response header...
   */
 
@@ -3428,7 +3435,7 @@ httpWriteResponse(http_t        *http,	/* I - HTTP connection */
   old_remaining       = http->data_remaining;
   http->data_encoding = HTTP_ENCODING_FIELDS;
 
-  if (httpPrintf(http, "HTTP/%d.%d %d %s\r\n", http->version / 100, http->version % 100, (int)status, httpStatus(status)) < 0)
+  if (httpPrintf(http, "HTTP/%d.%d %d %s\r\n", http->version / 100, http->version % 100, (int)status, _httpStatus(lang, status)) < 0)
   {
     http->status = HTTP_STATUS_ERROR;
     return (-1);

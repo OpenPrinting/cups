@@ -6,9 +6,11 @@ Changes in CUPS v2.4.3 (TBA)
 
 - Added a title with device uri for found network printers (Issues #402, #393)
 - Fixed configuration on RISC-V machines (Issue #404)
-- Fixed the `device_uri` invalid pointer for driverless printers with `.local` hostname (Issue #419)
+- Fixed the `device_uri` invalid pointer for driverless printers with `.local`
+  hostname (Issue #419)
 - Fixed an OpenSSL crash bug (Issue #409)
 - Use localhost when printing via printer application (Issue #353)
+- Now localize HTTP responses using the Content-Language value (Issue #426)
 
 
 Changes in CUPS v2.4.2 (26th May 2022)
