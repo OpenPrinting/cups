@@ -130,8 +130,9 @@ static DNSServiceRef dnssd_ref;		/* Master service reference */
 #elif defined(HAVE_AVAHI)
 static AvahiClient *avahi_client = NULL;/* Client information */
 static int	avahi_got_data = 0;	/* Got data from poll? */
-static AvahiSimplePoll *avahi_poll = NULL;
-					/* Poll information */
+static AvahiSimplePoll *avahi_poll = NULL; /* Poll information */
+static AvahiServiceBrowser* sb;
+
 #endif /* HAVE_MDNSRESPONDER */
 
 static int	address_family = AF_UNSPEC;
@@ -199,9 +200,7 @@ static void		set_service_uri(ippfind_srv_t *service);
 static void		show_usage(void) _CUPS_NORETURN;
 static void		show_version(void) _CUPS_NORETURN;
 
-//  global variables
-
-static AvahiSimplePoll *simple_poll = NULL;
+static int err = 0;
 
 //  local functions 
 
@@ -230,14 +229,16 @@ AvahiClient* avahi_intialize(){
     AvahiClient *client = NULL;
     
     /* allocate main loop object */
-    if (!(simple_poll = avahi_simple_poll_new())) {
+    if (!(avahi_poll = avahi_simple_poll_new())) {
         fprintf(stderr, "Initialization Error, Failed to create simple poll object.\n");
         return NULL;
     }
 
+    avahi_simple_poll_set_func(avahi_poll, poll_callback, NULL);
+
     int error;
     /* allocate a new client */
-    client = avahi_client_new(avahi_simple_poll_get(simple_poll), (AvahiClientFlags)0, client_callback, NULL, &error);
+    client = avahi_client_new(avahi_simple_poll_get(avahi_poll), (AvahiClientFlags)0, client_callback, NULL, &error);
 
     if(!client){
         fprintf(stderr, "Initialization Error, Failed to create client: %s\n", avahi_strerror(error));
@@ -247,24 +248,39 @@ AvahiClient* avahi_intialize(){
     return client;
 }
 
-void browse_services(char *regtype){
-    //initialize a client object
-    AvahiClient* client;
 
-    if(!(client = avahi_intialize())){
+//things to figure out yet
+//1. return type and error handling
+//2. more/specific parameters
+void browse_services(char *regtype){
+
+    //initialize a client object
+    if(!avahi_client && !(avahi_client = avahi_intialize())){
         fprintf(stderr, "Initialization Error");
         return ;
     }
 
-    AvahiServiceBrowser *sb = NULL;
-
-    if (!(sb = avahi_service_browser_new(client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, regtype, NULL, (AvahiLookupFlags)0, browse_callback, client))) {
-        fprintf(stderr, "Failed to create service browser: %s\n", avahi_strerror(avahi_client_errno(client)));
+    //we may need to change domain parameter below, currently it is default(.local) 
+    if (!sb && !(sb = avahi_service_browser_new(avahi_client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, regtype, NULL, (AvahiLookupFlags)0, browse_callback, avahi_client))) {
         return ;
     }
     
+    //assuming avahi_service_browser_new returns NULL on failure
+    if(!sb){
+      err = avahi_client_errno(avahi_client);
+    }
+    
+    if (err)
+    {
+      _cupsLangPrintf(stderr, _("ippfind: Unable to browse or resolve: %s"),
+                      dnssd_error_string(err));
+
+      return ;
+    }
 }
-void resolve_services();
+void resolve_services(){
+
+}
 
 /*
  * 'browse_callback()' - Browse devices.
@@ -284,6 +300,8 @@ browse_callback(
 {
   AvahiClient	*client = avahi_service_browser_get_client(browser);
 					/* Client information */
+
+  //purpose of this declaration and subsequent intialization is not clear
   ippfind_srv_t	*service;		/* Service information */
 
 
@@ -345,3 +363,94 @@ client_callback(
   }
 }
 
+#ifdef HAVE_AVAHI
+/*
+ * 'poll_callback()' - Wait for input on the specified file descriptors.
+ *
+ * Note: This function is needed because avahi_simple_poll_iterate is broken
+ *       and always uses a timeout of 0 (!) milliseconds.
+ *       (Avahi Ticket #364)
+ */
+
+static int				/* O - Number of file descriptors matching */
+poll_callback(
+    struct pollfd *pollfds,		/* I - File descriptors */
+    unsigned int  num_pollfds,		/* I - Number of file descriptors */
+    int           timeout,		/* I - Timeout in milliseconds (unused) */
+    void          *context)		/* I - User data (unused) */
+{
+  int	val;				/* Return value */
+
+
+  (void)timeout;
+  (void)context;
+
+  val = poll(pollfds, num_pollfds, 500);
+
+  if (val > 0)
+    avahi_got_data = 1;
+
+  return (val);
+}
+#endif /* HAVE_AVAHI */
+
+/*
+ * 'get_service()' - Create or update a device.
+ */
+
+static ippfind_srv_t *			/* O - Service */
+get_service(cups_array_t *services,	/* I - Service array */
+	    const char   *serviceName,	/* I - Name of service/device */
+	    const char   *regtype,	/* I - Type of service */
+	    const char   *replyDomain)	/* I - Service domain */
+{
+  ippfind_srv_t	key,			/* Search key */
+		*service;		/* Service */
+  char		fullName[kDNSServiceMaxDomainName];
+					/* Full name for query */
+
+
+ /*
+  * See if this is a new device...
+  */
+
+  key.name    = (char *)serviceName;
+  key.regtype = (char *)regtype;
+
+  for (service = cupsArrayFind(services, &key);
+       service;
+       service = cupsArrayNext(services))
+    if (_cups_strcasecmp(service->name, key.name))
+      break;
+    else if (!strcmp(service->regtype, key.regtype))
+      return (service);
+
+ /*
+  * Yes, add the service...
+  */
+
+  if ((service = calloc(sizeof(ippfind_srv_t), 1)) == NULL)
+    return (NULL);
+
+  service->name     = strdup(serviceName);
+  service->domain   = strdup(replyDomain);
+  service->regtype  = strdup(regtype);
+
+  cupsArrayAdd(services, service);
+
+ /*
+  * Set the "full name" of this service, which is used for queries and
+  * resolves...
+  */
+
+#ifdef HAVE_MDNSRESPONDER
+  DNSServiceConstructFullName(fullName, serviceName, regtype, replyDomain);
+#else /* HAVE_AVAHI */
+  avahi_service_name_join(fullName, kDNSServiceMaxDomainName, serviceName,
+                          regtype, replyDomain);
+#endif /* HAVE_MDNSRESPONDER */
+
+  service->fullName = strdup(fullName);
+
+  return (service);
+}
