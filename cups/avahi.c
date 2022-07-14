@@ -278,10 +278,30 @@ void browse_services(char *regtype){
       return ;
     }
 }
-void resolve_services(){
+void resolve_services(ippfind_srv_t *service){
+  if (getenv("IPPFIND_DEBUG"))
+        fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", name, regtype, domain);
 
+#ifdef HAVE_MDNSRESPONDER
+      service->ref = dnssd_ref;
+      err          = DNSServiceResolve(&(service->ref),
+                                       kDNSServiceFlagsShareConnection, 0, service->name,
+				       service->regtype, service->domain, resolve_callback,
+				       service);
+
+#elif defined(HAVE_AVAHI)
+      service->ref = avahi_service_resolver_new(avahi_client, AVAHI_IF_UNSPEC,
+                                                AVAHI_PROTO_UNSPEC, service->name,
+                                                service->regtype, service->domain,
+                                                AVAHI_PROTO_UNSPEC, 0,
+                                                resolve_callback, service);
+      if (service->ref)
+        err = 0;
+      else
+        err = avahi_client_errno(avahi_client);
+#endif /* HAVE_MDNSRESPONDER */
 }
-
+  
 /*
  * 'browse_callback()' - Browse devices.
  */
