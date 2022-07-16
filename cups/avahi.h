@@ -45,60 +45,16 @@ extern char **environ;			/* Process environment variables */
  * Structures...
  */
 
-typedef enum ippfind_exit_e		/* Exit codes */
+typedef enum avahi_exit_e		/* Exit codes */
 {
-  IPPFIND_EXIT_TRUE = 0,		/* OK and result is true */
-  IPPFIND_EXIT_FALSE,			/* OK but result is false*/
-  IPPFIND_EXIT_BONJOUR,			/* Browse/resolve failure */
-  IPPFIND_EXIT_SYNTAX,			/* Bad option or syntax error */
-  IPPFIND_EXIT_MEMORY			/* Out of memory */
-} ippfind_exit_t;
+  AVAHI_EXIT_TRUE = 0,		/* OK and result is true */
+  AVAHI_EXIT_FALSE,			/* OK but result is false*/
+  AVAHI_EXIT_BONJOUR,			/* Browse/resolve failure */
+  AVAHI_EXIT_SYNTAX,			/* Bad option or syntax error */
+  AVAHI_EXIT_MEMORY			/* Out of memory */
+} avahi_exit_t;
 
-typedef enum ippfind_op_e		/* Operations for expressions */
-{
-  /* "Evaluation" operations */
-  IPPFIND_OP_NONE,			/* No operation */
-  IPPFIND_OP_AND,			/* Logical AND of all children */
-  IPPFIND_OP_OR,			/* Logical OR of all children */
-  IPPFIND_OP_TRUE,			/* Always true */
-  IPPFIND_OP_FALSE,			/* Always false */
-  IPPFIND_OP_IS_LOCAL,			/* Is a local service */
-  IPPFIND_OP_IS_REMOTE,			/* Is a remote service */
-  IPPFIND_OP_DOMAIN_REGEX,		/* Domain matches regular expression */
-  IPPFIND_OP_NAME_REGEX,		/* Name matches regular expression */
-  IPPFIND_OP_NAME_LITERAL,		/* Name matches literal string */
-  IPPFIND_OP_HOST_REGEX,		/* Hostname matches regular expression */
-  IPPFIND_OP_PORT_RANGE,		/* Port matches range */
-  IPPFIND_OP_PATH_REGEX,		/* Path matches regular expression */
-  IPPFIND_OP_TXT_EXISTS,		/* TXT record key exists */
-  IPPFIND_OP_TXT_REGEX,			/* TXT record key matches regular expression */
-  IPPFIND_OP_URI_REGEX,			/* URI matches regular expression */
-
-  /* "Output" operations */
-  IPPFIND_OP_EXEC,			/* Execute when true */
-  IPPFIND_OP_LIST,			/* List when true */
-  IPPFIND_OP_PRINT_NAME,		/* Print URI when true */
-  IPPFIND_OP_PRINT_URI,			/* Print name when true */
-  IPPFIND_OP_QUIET			/* No output when true */
-} ippfind_op_t;
-
-typedef struct ippfind_expr_s		/* Expression */
-{
-  struct ippfind_expr_s
-		*prev,			/* Previous expression */
-		*next,			/* Next expression */
-		*parent,		/* Parent expressions */
-		*child;			/* Child expressions */
-  ippfind_op_t	op;			/* Operation code (see above) */
-  int		invert;			/* Invert the result */
-  char		*name;			/* TXT record key or literal name */
-  regex_t	re;			/* Regular expression for matching */
-  int		range[2];		/* Port number range */
-  int		num_args;		/* Number of arguments for exec */
-  char		**args;			/* Arguments for exec */
-} ippfind_expr_t;
-
-typedef struct ippfind_srv_s		/* Service information */
+typedef struct avahi_srv_s		/* Service information */
 {
 #ifdef HAVE_MDNSRESPONDER
   DNSServiceRef	ref;			/* Service reference for query */
@@ -118,7 +74,7 @@ typedef struct ippfind_srv_s		/* Service information */
 		is_local,		/* Is a local service? */
 		is_processed,		/* Did we process the service? */
 		is_resolved;		/* Got the resolve data? */
-} ippfind_srv_t;
+} avahi_srv_t;
 
 
 /*
@@ -163,18 +119,11 @@ static void		client_callback(AvahiClient *client,
 					void *context);
 #endif /* HAVE_MDNSRESPONDER */
 
-static int		compare_services(ippfind_srv_t *a, ippfind_srv_t *b);
-static const char	*dnssd_error_string(int error);
-static int		eval_expr(ippfind_srv_t *service,
-			          ippfind_expr_t *expressions);
-static int		exec_program(ippfind_srv_t *service, int num_args,
-			             char **args);
-static ippfind_srv_t	*get_service(cups_array_t *services, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
-static double		get_time(void);
-static int		list_service(ippfind_srv_t *service);
-static ippfind_expr_t	*new_expr(ippfind_op_t op, int invert,
-			          const char *value, const char *regex,
-			          char **args);
+static int		avahi_compare_services(avahi_srv_t *a, avahi_srv_t *b);
+static const char	*avahi_dnssd_error_string(int error);
+static avahi_srv_t	*avahi_get_service(cups_array_t *services, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
+static int		avahi_list_service(avahi_srv_t *service);
+
 #ifdef HAVE_MDNSRESPONDER
 static void DNSSD_API	resolve_callback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullName, const char *hostTarget, uint16_t port, uint16_t txtLen, const unsigned char *txtRecord, void *context) _CUPS_NONNULL(1,5,6,9, 10);
 #elif defined(HAVE_AVAHI)
@@ -195,9 +144,6 @@ static void		resolve_callback(AvahiServiceResolver *res,
 					 AvahiLookupResultFlags flags,
 					 void *context);
 #endif /* HAVE_MDNSRESPONDER */
-static void		set_service_uri(ippfind_srv_t *service);
-static void		show_usage(void) _CUPS_NORETURN;
-static void		show_version(void) _CUPS_NORETURN;
 
 // individual functions for browse and resolve
 
