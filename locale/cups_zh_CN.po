@@ -8046,10 +8046,9 @@ msgid "lpoptions: Unknown printer or class."
 msgstr "lpoptions：未知打印机或类。"
 
 #, c-format
-msgid ""
-"lpstat: error - %s environment variable names non-existent destination "
-"\"%s\"."
-msgstr "lpstat：错误 — %s 环境变量指定了不存在的目的地"
+"lpstat: error - %s environment variable names non-existent destination \"%s"
+"\"."
+msgstr "lpstat：错误 — %s 环境变量指定了不存在的目的地“%s”。"
 
 #. TRANSLATORS: Amount of Material
 msgid "material-amount"
