@@ -13,21 +13,21 @@ msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2021-03-07 10:33-0500\n"
-"PO-Revision-Date: 2018-10-09 00:21-0500\n"
-"Last-Translator: Mingcong Bai <jeffbai@aosc.io>\n"
+"PO-Revision-Date: 2022-07-14 12:43+0800\n"
+"Last-Translator: Tyson Tan <tysontan@tysontan.com>\n"
 "Language-Team: Chinese (Simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.9\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
 
 msgid "\t\t(all)"
-msgstr "\t\t（全部）"
+msgstr "\t\t (全部)"
 
 msgid "\t\t(none)"
-msgstr "\t\t（无）"
+msgstr "\t\t (无)"
 
 #, c-format
 msgid "\t%d entries"
@@ -324,7 +324,7 @@ msgid ""
 "                (constraint=\"%s %s %s %s\")."
 msgstr ""
 "      %s  “%s %s”与“%s %s”冲突\n"
-"                （限制=“%s %s %s %s”）。"
+"                 (限制=“%s %s %s %s”)。"
 
 #, c-format
 msgid "      %s  %s %s does not exist."
@@ -552,7 +552,7 @@ msgid ""
 "      **FAIL**  Bad Manufacturer (should be \"%s\")\n"
 "                REF: Page 211, table D.1."
 msgstr ""
-"      **失败**  无效的 Manufacturer 值（应为“%s”）\n"
+"      **失败**  无效的 Manufacturer 值 (应为“%s”)\n"
 "                引用：第 211 页，表格 D.1。"
 
 #, c-format
@@ -784,7 +784,7 @@ msgid "  --crlf                  End lines with CR + LF (Windows)."
 msgstr "  --crlf                  使用 CR + LF 行末 (Windows)。"
 
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
-msgstr "  --lf                    使用 LF 行末（UNIX/Linux/macOS）。"
+msgstr "  --lf                    使用 LF 行末 (UNIX/Linux/macOS)。"
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          列出要使用的滤镜。"
@@ -820,15 +820,15 @@ msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      使用来自 PPD 文件的所有滤镜。"
 
 msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
-msgstr "  -i mime/type            设置输入的 MIME 类型（否则自动探测类型）。"
+msgstr "  -i mime/type            设置输入的 MIME 类型 (否则自动探测类型)。"
 
 msgid ""
 "  -j job-id[,N]           Filter file N from the specified job (default is "
 "file 1)."
-msgstr "  -j job-id[,N]           从指定任务中过滤文件 N（默认为文件 1）。"
+msgstr "  -j job-id[,N]           从指定任务中过滤文件 N (默认为文件 1)。"
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
-msgstr "  -l lang[,lang,...]      指定输出语言（地域配置）。"
+msgstr "  -l lang[,lang,...]      指定输出语言 (地域配置)。"
 
 msgid "  -m                      Use the ModelName value as the filename."
 msgstr "  -m                      将 ModelName 值作为文件名。"
@@ -836,17 +836,17 @@ msgstr "  -m                      将 ModelName 值作为文件名。"
 msgid ""
 "  -m mime/type            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m mime/type            设置输出 MIME 类型（缺省为 application/pdf）。"
+"  -m mime/type            设置输出 MIME 类型 (缺省为 application/pdf)。"
 
 msgid "  -n copies               Set number of copies."
 msgstr "  -n 副本数               设置副本数量。"
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
-msgstr "  -o filename.drv         指定驱动信息文件（缺省为 ppdi.drv）。"
+msgstr "  -o filename.drv         指定驱动信息文件 (缺省为 ppdi.drv)。"
 
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
-msgstr "  -o filename.ppd[.gz]    设置输出文件（缺省为标准输出）。"
+msgstr "  -o filename.ppd[.gz]    设置输出文件 (缺省为标准输出)。"
 
 msgid "  -o name=value           Set option(s)."
 msgstr "  -o 名称=赋值            设置选项。"
@@ -880,184 +880,184 @@ msgstr ""
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."
-msgstr "“%s”：无效的 URI 值“%s”— %s（RFC 8011 章节 5.1.6）。"
+msgstr "“%s”：无效的 URI 值“%s”— %s (RFC 8011 章节 5.1.6)。"
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."
-msgstr "“%s”：无效的 URI 值“%s”— 无效长度 %d（RFC 8011 章节 5.1.6）。"
+msgstr "“%s”：无效的 URI 值“%s”— 无效长度 %d (RFC 8011 章节 5.1.6)。"
 
 #, c-format
 msgid "\"%s\": Bad attribute name - bad length %d (RFC 8011 section 5.1.4)."
-msgstr "“%s”：无效的属性名称 — 无效长度 %d（RFC 8011 章节 5.1.4）。"
+msgstr "“%s”：无效的属性名称 — 无效长度 %d (RFC 8011 章节 5.1.4)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad attribute name - invalid character (RFC 8011 section 5.1.4)."
-msgstr "“%s”：无效的属性名称 — 无效字符（RFC 8011 章节 5.1.4）。"
+msgstr "“%s”：无效的属性名称 — 无效字符 (RFC 8011 章节 5.1.4)。"
 
 #, c-format
 msgid "\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."
-msgstr "“%s”：无效的布里值 %d（RFC 8011 章节 5.1.21）。"
+msgstr "“%s”：无效的布里值 %d (RFC 8011 章节 5.1.21)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."
-msgstr "“%s”：无效的字符集值“%s”— 无效字符（RFC 8011 章节 5.1.21）。"
+msgstr "“%s”：无效的字符集值“%s”— 无效字符 (RFC 8011 章节 5.1.21)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."
-msgstr "“%s”：无效的字符集值“%s”— 无效长度 %d（RFC 8011 章节 5.1.21）。"
+msgstr "“%s”：无效的字符集值“%s”— 无效长度 %d (RFC 8011 章节 5.1.21)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime UTC 小时值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime UTC 小时值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC minutes %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime UTC 分钟值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime UTC 分钟值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC sign '%c' (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime UTC 符号值“%c”（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime UTC 符号值“%c” (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime day %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime 日期值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime 日期值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime deciseconds %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime 十分之一秒值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime 十分之一秒值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime hours %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime 小时值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime 小时值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime minutes %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime 分钟值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime 分钟值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime month %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime 月份值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime 月份值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime seconds %u (RFC 8011 section 5.1.15)."
-msgstr "“%s”：无效的 dateTime 秒值 %u（RFC 8011 章节 5.1.15）。"
+msgstr "“%s”：无效的 dateTime 秒值 %u (RFC 8011 章节 5.1.15)。"
 
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
-msgstr "“%s”：无效的枚举值 %d - 超出范围（RFC 8011 章节 5.1.5）。"
+msgstr "“%s”：无效的枚举值 %d - 超出范围 (RFC 8011 章节 5.1.5)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
-msgstr "“%s”：无效的关键字值“%s”— 无效长度 %d（RFC 8011 章节 5.1.4）。"
+msgstr "“%s”：无效的关键字值“%s”— 无效长度 %d (RFC 8011 章节 5.1.4)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section "
 "5.1.4)."
-msgstr "“%s”：无效的关键字值“%s”— 无效字符（RFC 8011 章节 5.1.4）。"
+msgstr "“%s”：无效的关键字值“%s”— 无效字符 (RFC 8011 章节 5.1.4)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section "
 "5.1.10)."
-msgstr "“%s”：无效的 mimeMediaType 值“%s”— 无效字符（RFC 8011 章节 5.1.10）。"
+msgstr "“%s”：无效的 mimeMediaType 值“%s”— 无效字符 (RFC 8011 章节 5.1.10)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"“%s”：无效的 mimeMediaType 值“%s”— 无效长度 %d（RFC 8011 章节 5.1.10）。"
+"“%s”：无效的 mimeMediaType 值“%s”— 无效长度 %d (RFC 8011 章节 5.1.10)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
-msgstr "“%s”：无效的名称值“%s”— 无效 UTF-8 序列（RFC 8011 章节 5.1.3）。"
+msgstr "“%s”：无效的名称值“%s”— 无效 UTF-8 序列 (RFC 8011 章节 5.1.3)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section "
 "8.1)."
-msgstr "“%s”：无效的名称值“%s”— 无效控制字符（PWG 5100.14 章节 8.1）。"
+msgstr "“%s”：无效的名称值“%s”— 无效控制字符 (PWG 5100.14 章节 8.1)。"
 
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."
-msgstr "“%s”：无效的名称值“%s”— 无效长度 %d（RFC 8011 章节 5.1.3）。"
+msgstr "“%s”：无效的名称值“%s”— 无效长度 %d (RFC 8011 章节 5.1.3)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section "
 "5.1.9)."
-msgstr "“%s”：无效的 naturalLanguage 值“%s”— 无效字符（RFC 8011 章节 5.1.9）。"
+msgstr "“%s”：无效的 naturalLanguage 值“%s”— 无效字符 (RFC 8011 章节 5.1.9)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.9)."
 msgstr ""
-"“%s”：无效的 naturalLanguage 值“%s”— 无效长度 %d（RFC 8011 章节 5.1.9）。"
+"“%s”：无效的 naturalLanguage 值“%s”— 无效长度 %d (RFC 8011 章节 5.1.9)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
-msgstr "“%s”：无效的 octetString 值 — 无效长度 %d（RFC 8011 章节 5.1.20）。"
+msgstr "“%s”：无效的 octetString 值 — 无效长度 %d (RFC 8011 章节 5.1.20)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 "
 "section 5.1.14)."
 msgstr ""
-"“%s”：无效的 rangeOfInteger 值 %d-%d — 整数下限大于上限（RFC 8011 章节 "
-"5.1.14）。"
+"“%s”：无效的 rangeOfInteger 值 %d-%d — 整数下限大于上限 (RFC 8011 章节 "
+"5.1.14)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - bad units value (RFC 8011 section "
 "5.1.16)."
-msgstr "“%s”：无效的分辨率值 %dx%d%s — 无效单位值（RFC 8011 章节 5.1.16）。"
+msgstr "“%s”：无效的分辨率值 %dx%d%s — 无效单位值 (RFC 8011 章节 5.1.16)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be "
 "positive (RFC 8011 section 5.1.16)."
 msgstr ""
-"“%s”：无效的分辨率值 %dx%d%s — 横截分辨率必须为正数（RFC 8011 章节 5.1.16）。"
+"“%s”：无效的分辨率值 %dx%d%s — 横截分辨率必须为正数 (RFC 8011 章节 5.1.16)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC "
 "8011 section 5.1.16)."
 msgstr ""
-"“%s”：无效的分辨率值 %dx%d%s — 顺向分辨率必须为正数（RFC 8011 章节 5.1.16）。"
+"“%s”：无效的分辨率值 %dx%d%s — 顺向分辨率必须为正数 (RFC 8011 章节 5.1.16)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
-msgstr "“%s”：无效的文本值“%s”— 无效 UTF-8 序列（RFC 8011 章节 5.1.2）。"
+msgstr "“%s”：无效的文本值“%s”— 无效 UTF-8 序列 (RFC 8011 章节 5.1.2)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section "
 "8.3)."
-msgstr "“%s”：无效的文本值“%s”— 无效控制字符（PWG 5100.14 章节 8.3）。"
+msgstr "“%s”：无效的文本值“%s”— 无效控制字符 (PWG 5100.14 章节 8.3)。"
 
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."
-msgstr "“%s”：无效的文本值“%s”— 无效长度 %d（RFC 8011 章节 5.1.2）。"
+msgstr "“%s”：无效的文本值“%s”— 无效长度 %d (RFC 8011 章节 5.1.2)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
-msgstr "“%s”：无效的 uriScheme 值“%s”— 无效字符（RFC 8011 章节 5.1.7）。"
+msgstr "“%s”：无效的 uriScheme 值“%s”— 无效字符 (RFC 8011 章节 5.1.7)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
-msgstr "“%s”：无效的 uriScheme 值“%s”— 无效长度 %d（RFC 8011 章节 5.1.7）。"
+msgstr "“%s”：无效的 uriScheme 值“%s”— 无效长度 %d (RFC 8011 章节 5.1.7)。"
 
 msgid "\"requesting-user-name\" attribute in wrong group."
 msgstr "“requesting-user-name”属性组不正确。"
@@ -1087,15 +1087,15 @@ msgstr "%s (%s, %s)"
 
 #, c-format
 msgid "%s (Borderless)"
-msgstr "%s（无边界）"
+msgstr "%s (无边界)"
 
 #, c-format
 msgid "%s (Borderless, %s)"
-msgstr "%s（无边界，%s）"
+msgstr "%s (无边界，%s)"
 
 #, c-format
 msgid "%s (Borderless, %s, %s)"
-msgstr "%s（无边界，%s，%s）"
+msgstr "%s (无边界，%s，%s)"
 
 #, c-format
 msgid "%s accepting requests since %s"
@@ -2398,7 +2398,7 @@ msgid "2 inches/sec."
 msgstr "2 英寸/秒"
 
 msgid "2-Sided Printing"
-msgstr "双面印刷"
+msgstr "双面打印"
 
 msgid "2.00x0.37\""
 msgstr "2.00×0.37 英寸"
@@ -2787,13 +2787,13 @@ msgid "A0"
 msgstr "A0"
 
 msgid "A0 Long Edge"
-msgstr "A0 长边缘"
+msgstr "A0 长边"
 
 msgid "A1"
 msgstr "A1"
 
 msgid "A1 Long Edge"
-msgstr "A1 长边缘"
+msgstr "A1 长边"
 
 msgid "A10"
 msgstr "A10"
@@ -2802,46 +2802,46 @@ msgid "A2"
 msgstr "A2"
 
 msgid "A2 Long Edge"
-msgstr "A2 长边缘"
+msgstr "A2 长边"
 
 msgid "A3"
 msgstr "A3"
 
 msgid "A3 Long Edge"
-msgstr "A3 长边缘"
+msgstr "A3 长边"
 
 msgid "A3 Oversize"
-msgstr "A3 超大"
+msgstr "A3 加大"
 
 msgid "A3 Oversize Long Edge"
-msgstr "A3 超大长边缘"
+msgstr "A3 加大 长边"
 
 msgid "A4"
 msgstr "A4"
 
 msgid "A4 Long Edge"
-msgstr "A4 长边缘"
+msgstr "A4 长边"
 
 msgid "A4 Oversize"
-msgstr "A4 超大"
+msgstr "A4 加大"
 
 msgid "A4 Small"
-msgstr "A4 小型"
+msgstr "A4 小号"
 
 msgid "A5"
 msgstr "A5"
 
 msgid "A5 Long Edge"
-msgstr "A5 长边缘"
+msgstr "A5 长边"
 
 msgid "A5 Oversize"
-msgstr "A5 超大"
+msgstr "A5 加大"
 
 msgid "A6"
 msgstr "A6"
 
 msgid "A6 Long Edge"
-msgstr "A6 长边缘"
+msgstr "A6 长边"
 
 msgid "A7"
 msgstr "A7"
@@ -2926,7 +2926,7 @@ msgstr "属性“%s”不是正确的值类型。"
 
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
-msgstr "属性组排序错乱（%x < %x）。"
+msgstr "属性组排序错乱 (%x < %x)。"
 
 msgid "B0"
 msgstr "B0"
@@ -3157,7 +3157,7 @@ msgid "Cannot share a remote Kerberized printer."
 msgstr "无法共享远程的通过 Kerberos 授权的打印机。"
 
 msgid "Cassette"
-msgstr "磁带"
+msgstr "纸盒"
 
 msgid "Change Settings"
 msgstr "更改选项"
@@ -3325,7 +3325,7 @@ msgid "Draft"
 msgstr "草稿"
 
 msgid "Duplexer"
-msgstr "双工器"
+msgstr "双面打印器"
 
 msgid "EPL1 Label Printer"
 msgstr "EPL1 标签打印机"
@@ -3355,163 +3355,163 @@ msgstr ""
 "Kerberos 认证，请求确定您拥有有效的 Kerberos 凭据。"
 
 msgid "Envelope #10"
-msgstr "10 号信封"
+msgstr "国际信封 (Envelope) 10 号"
 
 msgid "Envelope #11"
-msgstr "11 号信封"
+msgstr "国际信封 (Envelope) 11 号"
 
 msgid "Envelope #12"
-msgstr "12 号信封"
+msgstr "国际信封 (Envelope) 12 号"
 
 msgid "Envelope #14"
-msgstr "14 号信封"
+msgstr "国际信封 (Envelope) 14 号"
 
 msgid "Envelope #9"
-msgstr "9 号信封"
+msgstr "国际信封 (Envelope) 9 号"
 
 msgid "Envelope B4"
-msgstr "B4 信封"
+msgstr "国际信封 (Envelope) B4"
 
 msgid "Envelope B5"
-msgstr "B5 信封"
+msgstr "国际信封 (Envelope) B5"
 
 msgid "Envelope B6"
-msgstr "B6 信封"
+msgstr "国际信封 (Envelope) B6"
 
 msgid "Envelope C0"
-msgstr "C0 信封"
+msgstr "国际信封 (Envelope) C0"
 
 msgid "Envelope C1"
-msgstr "C1 信封"
+msgstr "国际信封 (Envelope) C1"
 
 msgid "Envelope C2"
-msgstr "C2 信封"
+msgstr "国际信封 (Envelope) C2"
 
 msgid "Envelope C3"
-msgstr "C3 信封"
+msgstr "国际信封 (Envelope) C3"
 
 msgid "Envelope C4"
-msgstr "C4 信封"
+msgstr "国际信封 (Envelope) C4"
 
 msgid "Envelope C5"
-msgstr "C5 信封"
+msgstr "国际信封 (Envelope) C5"
 
 msgid "Envelope C6"
-msgstr "C6 信封"
+msgstr "国际信封 (Envelope) C6"
 
 msgid "Envelope C65"
-msgstr "C65 信封"
+msgstr "国际信封 (Envelope) C65"
 
 msgid "Envelope C7"
-msgstr "C7 信封"
+msgstr "国际信封 (Envelope) C7"
 
 msgid "Envelope Choukei 3"
-msgstr "Choukei 3 信封"
+msgstr "日本信封长形 3 号"
 
 msgid "Envelope Choukei 3 Long Edge"
-msgstr "Choukei 3 长边缘信封"
+msgstr "日本信封长形 3 号 长边"
 
 msgid "Envelope Choukei 4"
-msgstr "Choukei 4 信封"
+msgstr "日本信封长形 4 号"
 
 msgid "Envelope Choukei 4 Long Edge"
-msgstr "Choukei 4 长边缘信封"
+msgstr "日本信封长形 4 号 长边"
 
 msgid "Envelope DL"
-msgstr "DL 信封"
+msgstr "国际信封 (Envelope) DL"
 
 msgid "Envelope Feed"
-msgstr "信封喂纸口"
+msgstr "国际信封自供 (Envelope Feed)"
 
 msgid "Envelope Invite"
-msgstr "请柬信封"
+msgstr "国际信封意式 (Envelope Italian)"
 
 msgid "Envelope Italian"
-msgstr "意大利信封"
+msgstr "国际信封意式 (Envelope Italian)"
 
 msgid "Envelope Kaku2"
-msgstr "Kaku2 信封"
+msgstr "日本信封角形 2 号"
 
 msgid "Envelope Kaku2 Long Edge"
-msgstr "Kaku2 长边缘信封"
+msgstr "日本信封角形 2 号 长边"
 
 msgid "Envelope Kaku3"
-msgstr "Kaku3 信封"
+msgstr "日本信封角形 3 号"
 
 msgid "Envelope Kaku3 Long Edge"
-msgstr "Kaku2 长边缘信封"
+msgstr "日本信封角形 3 号 长边"
 
 msgid "Envelope Monarch"
-msgstr "君主信封"
+msgstr "美国信封君王 (Envelope Monarch)"
 
 msgid "Envelope PRC1"
-msgstr "中国一号信封"
+msgstr "中国大陆信封 1 号"
 
 msgid "Envelope PRC1 Long Edge"
-msgstr "中国一号长边缘信封"
+msgstr "中国大陆信封 1 号 长边"
 
 msgid "Envelope PRC10"
-msgstr "中国十号信封"
+msgstr "中国大陆信封 10 号"
 
 msgid "Envelope PRC10 Long Edge"
-msgstr "中国十号长边缘信封"
+msgstr "中国大陆信封 10 号长边"
 
 msgid "Envelope PRC2"
-msgstr "中国二号信封"
+msgstr "中国大陆信封 2 号"
 
 msgid "Envelope PRC2 Long Edge"
-msgstr "中国二号长边缘信封"
+msgstr "中国大陆信封 2 号 长边"
 
 msgid "Envelope PRC3"
-msgstr "中国三号信封"
+msgstr "中国大陆信封 3 号"
 
 msgid "Envelope PRC3 Long Edge"
-msgstr "中国三号长边缘信封"
+msgstr "中国大陆信封 3 号 长边"
 
 msgid "Envelope PRC4"
-msgstr "中国四号信封"
+msgstr "中国大陆信封 4 号"
 
 msgid "Envelope PRC4 Long Edge"
-msgstr "中国四号长边缘信封"
+msgstr "中国大陆信封 4 号 长边"
 
 msgid "Envelope PRC5 Long Edge"
-msgstr "中国五号长边缘信封"
+msgstr "中国大陆信封 5 号 长边"
 
 msgid "Envelope PRC5PRC5"
-msgstr "中国五号信封"
+msgstr "中国大陆信封 5 号"
 
 msgid "Envelope PRC6"
-msgstr "中国六号信封"
+msgstr "中国大陆信封 6 号"
 
 msgid "Envelope PRC6 Long Edge"
-msgstr "中国六号长边缘信封"
+msgstr "中国大陆信封 6 号 长边"
 
 msgid "Envelope PRC7"
-msgstr "中国七号信封"
+msgstr "中国大陆信封 7 号"
 
 msgid "Envelope PRC7 Long Edge"
-msgstr "中国七号长边缘信封"
+msgstr "中国大陆信封 7 号 长边"
 
 msgid "Envelope PRC8"
-msgstr "中国八号信封"
+msgstr "中国大陆信封 8 号"
 
 msgid "Envelope PRC8 Long Edge"
-msgstr "中国八号长边缘信封"
+msgstr "中国大陆信封 8 号 长边"
 
 msgid "Envelope PRC9"
-msgstr "中国九号信封"
+msgstr "中国大陆信封 9 号"
 
 msgid "Envelope PRC9 Long Edge"
-msgstr "中国九号长边缘信封"
+msgstr "中国大陆信封 9 号 长边"
 
 msgid "Envelope Personal"
-msgstr "个人信封"
+msgstr "美国信封个人 (Envelope Personal)"
 
 msgid "Envelope You4"
-msgstr "You4 信封"
+msgstr "日本信封洋形 4 号"
 
 msgid "Envelope You4 Long Edge"
-msgstr "You4 长边缘信封"
+msgstr "日本信封洋形 4 号 长边"
 
 msgid "Environment Variables:"
 msgstr "环境变量："
@@ -3532,10 +3532,10 @@ msgid "Error: need hostname after \"-h\" option."
 msgstr "错误：“-h”选项后需要主机名。"
 
 msgid "European Fanfold"
-msgstr "欧洲折叠页"
+msgstr "欧洲连张 (Fanfold)"
 
 msgid "European Fanfold Legal"
-msgstr "欧洲法律用折叠页"
+msgstr "欧洲连张法律 (Fanfold Legal)"
 
 msgid "Every 10 Labels"
 msgstr "每 10 个标签"
@@ -3846,19 +3846,19 @@ msgid "JIS B4"
 msgstr "JIS B4"
 
 msgid "JIS B4 Long Edge"
-msgstr "JIS B4 长边缘"
+msgstr "JIS B4 长边"
 
 msgid "JIS B5"
 msgstr "JIS B5"
 
 msgid "JIS B5 Long Edge"
-msgstr "JIS B5 长边缘"
+msgstr "JIS B5 长边"
 
 msgid "JIS B6"
 msgstr "JIS B6"
 
 msgid "JIS B6 Long Edge"
-msgstr "JIS B6 长边缘"
+msgstr "JIS B6 长边"
 
 msgid "JIS B7"
 msgstr "JIS B7"
@@ -3965,7 +3965,7 @@ msgid "Light"
 msgstr "轻"
 
 msgid "Line longer than the maximum allowed (255 characters)"
-msgstr "行长度超过允许的最大值（255 字符）"
+msgstr "行长度超过允许的最大值 (255 字符)"
 
 msgid "List Available Printers"
 msgstr "列出可用打印机"
@@ -3978,7 +3978,7 @@ msgid "Local printer created."
 msgstr "已创建本地打印机。"
 
 msgid "Long-Edge (Portrait)"
-msgstr "长边缘（竖直）"
+msgstr "长边翻转 (竖版)"
 
 msgid "Looking for printer."
 msgstr "正在寻找打印机。"
@@ -3987,7 +3987,7 @@ msgid "Main Roll"
 msgstr ""
 
 msgid "Manual Feed"
-msgstr "手动喂纸"
+msgstr "手动供纸"
 
 msgid "Media Size"
 msgstr "媒体大小"
@@ -4220,10 +4220,10 @@ msgid "No version number"
 msgstr "无版本号"
 
 msgid "Non-continuous (Mark sensing)"
-msgstr "非连续（标记嗅探）"
+msgstr "非连续 (标记嗅探)"
 
 msgid "Non-continuous (Web sensing)"
-msgstr "非连续（Web 嗅探）"
+msgstr "非连续 (Web 嗅探)"
 
 msgid "None"
 msgstr "无"
@@ -4250,13 +4250,13 @@ msgid "Not allowed to print."
 msgstr "不允许打印。"
 
 msgid "Note"
-msgstr "注释"
+msgstr "美国笔记 (Note)"
 
 msgid "OK"
 msgstr "确定"
 
 msgid "Off (1-Sided)"
-msgstr "关（单面）"
+msgstr "关 (单面打印)"
 
 msgid "Oki"
 msgstr "日冲"
@@ -4309,22 +4309,22 @@ msgid "PCL Laser Printer"
 msgstr "PCL 激光打印机"
 
 msgid "PRC16K"
-msgstr "16 开"
+msgstr "中国大陆 16 开"
 
 msgid "PRC16K Long Edge"
-msgstr "长边缘 16 开"
+msgstr "中国大陆 16 开 长边"
 
 msgid "PRC32K"
-msgstr "32 开"
+msgstr "中国大陆 32 开"
 
 msgid "PRC32K Long Edge"
-msgstr "长边缘 32 开"
+msgstr "中国大陆 32 开 长边"
 
 msgid "PRC32K Oversize"
-msgstr "超大 32 开"
+msgstr "中国大陆大 32 开"
 
 msgid "PRC32K Oversize Long Edge"
-msgstr "超大长边缘 32 开"
+msgstr "中国大陆大 32 开 长边"
 
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
@@ -4374,16 +4374,16 @@ msgid "PostScript Printer"
 msgstr "PostScript 打印机"
 
 msgid "Postcard"
-msgstr "明信片"
+msgstr "美国明信片 (Postcard)"
 
 msgid "Postcard Double"
-msgstr "双面明信片"
+msgstr "美国明信片双倍 (Postcard Double)"
 
 msgid "Postcard Double Long Edge"
-msgstr "超长边缘双面明信片"
+msgstr "美国明信片双倍 (Postcard Double) 长边"
 
 msgid "Postcard Long Edge"
-msgstr "超长边缘明信片"
+msgstr "美国明信片 (Postcard) 长边"
 
 msgid "Preparing to print."
 msgstr "正在准备打印。"
@@ -4475,7 +4475,7 @@ msgid "Punch"
 msgstr "冲压"
 
 msgid "Quarto"
-msgstr "四开"
+msgstr "美国四分 (Quarto)"
 
 msgid "Quota limit reached."
 msgstr "已达到限额上限。"
@@ -4491,11 +4491,11 @@ msgstr "拒绝任务"
 
 #, c-format
 msgid "Remote host did not accept control file (%d)."
-msgstr "远程主机未接受控制文件（%d）。"
+msgstr "远程主机未接受控制文件 (%d)。"
 
 #, c-format
 msgid "Remote host did not accept data file (%d)."
-msgstr "远程主机未接受数据文件（%d）。"
+msgstr "远程主机未接受数据文件 (%d)。"
 
 msgid "Reprint After Error"
 msgstr "错误后重新打印"
@@ -4576,7 +4576,7 @@ msgid "Shipping Address"
 msgstr "邮寄地址"
 
 msgid "Short-Edge (Landscape)"
-msgstr "短边缘（水平）"
+msgstr "短边翻转 (横版)"
 
 msgid "Special Paper"
 msgstr "特殊纸张"
@@ -4600,7 +4600,7 @@ msgid "Starting page %d."
 msgstr "正在开始第 %d 页。"
 
 msgid "Statement"
-msgstr "声明"
+msgstr "美国声明 (Statement)"
 
 #, c-format
 msgid "Subscription #%d does not exist."
@@ -4610,25 +4610,25 @@ msgid "Substitutions:"
 msgstr "替代："
 
 msgid "Super A"
-msgstr "超大 A"
+msgstr "美国相纸 (Super) A"
 
 msgid "Super B"
-msgstr "超大 B"
+msgstr "美国相纸 (Super) B"
 
 msgid "Super B/A3"
-msgstr "超大 B/A3"
+msgstr "美国相纸 (Super) B/A3"
 
 msgid "Switching Protocols"
 msgstr "正在切换协议"
 
 msgid "Tabloid"
-msgstr "大幅面"
+msgstr "美国小报 (Tabloid)"
 
 msgid "Tabloid Oversize"
-msgstr "超大幅面"
+msgstr "美国小报 (Tabloid) 加大"
 
 msgid "Tabloid Oversize Long Edge"
-msgstr "超大幅面长边缘"
+msgstr "美国小报 (Tabloid) 加大 长边"
 
 msgid "Tear"
 msgstr "撕纸"
@@ -4671,7 +4671,7 @@ msgstr "无法打开 PPD 文件。"
 msgid ""
 "The class name may only contain up to 127 printable characters and may not "
 "contain spaces, slashes (/), or the pound sign (#)."
-msgstr "类名最多可包含 127 可打印字符，不能包含空格、斜杠（/）或井号（#）。"
+msgstr "类名最多可包含 127 可打印字符，不能包含空格、斜杠 (/) 或井号 (#)。"
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -4679,7 +4679,7 @@ msgstr "notify-lease-duration 属性不可用于任务订阅。"
 
 #, c-format
 msgid "The notify-user-data value is too large (%d > 63 octets)."
-msgstr "notify-user-data 值过大（%d > 63 八位值）。"
+msgstr "notify-user-data 值过大 (%d > 63 八位值)。"
 
 msgid "The printer configuration is incorrect or the printer no longer exists."
 msgstr "打印机配置不正确或打印机已不存在。"
@@ -4716,8 +4716,8 @@ msgid ""
 "contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the "
 "pound sign (#)."
 msgstr ""
-"打印机名称最多能包含 127 个可打印字符，但不可包含空格，斜杠（/ 或 \\），引号"
-"（' 或 \"），问号（?）或井号（#）。"
+"打印机名称最多能包含 127 个可打印字符，但不可包含空格，斜杠 (/ 或 \\)，引号 "
+"(' 或 \")，问号 (?)或井号 (#)。"
 
 msgid "The printer or class does not exist."
 msgstr "打印机或类不存在。"
@@ -4763,11 +4763,11 @@ msgstr "活动任务过多。"
 
 #, c-format
 msgid "Too many job-sheets values (%d > 2)."
-msgstr "job-sheets 值过多（%d > 2）。"
+msgstr "job-sheets 值过多 (%d > 2)。"
 
 #, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
-msgstr "printer-state-reasons 值过多（%d > %d）。"
+msgstr "printer-state-reasons 值过多 (%d > %d)。"
 
 msgid "Transparency"
 msgstr "透明度"
@@ -4797,31 +4797,31 @@ msgid "URI too large"
 msgstr "URI 过大"
 
 msgid "US Fanfold"
-msgstr "US 折叠页"
+msgstr "美国连张 (Fanfold)"
 
 msgid "US Ledger"
-msgstr "US Ledger"
+msgstr "美国账簿 (Ledger)"
 
 msgid "US Legal"
-msgstr "US Legal"
+msgstr "美国法律 (Legal)"
 
 msgid "US Legal Oversize"
-msgstr "超大 US Legal"
+msgstr "美国法律 (Legal) 加大"
 
 msgid "US Letter"
-msgstr "US Letter"
+msgstr "美国信纸 (Letter)"
 
 msgid "US Letter Long Edge"
-msgstr "长边缘 US Letter"
+msgstr "美国信纸 (Letter) 长边"
 
 msgid "US Letter Oversize"
-msgstr "超大 US Letter"
+msgstr "美国信纸 (Letter) 加大"
 
 msgid "US Letter Oversize Long Edge"
-msgstr "超大长边缘 US Letter"
+msgstr "美国信纸 (Letter) 加大 长边"
 
 msgid "US Letter Small"
-msgstr "小型 US Letter"
+msgstr "美国信纸 (Letter) 小号"
 
 msgid "Unable to access cupsd.conf file"
 msgstr "无法访问 cupsd.conf 文件。"
@@ -4927,30 +4927,30 @@ msgstr ""
 
 msgid ""
 "Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr "无法建立到主机的安全连接（无效证书链）。"
+msgstr "无法建立到主机的安全连接 (无效证书链)。"
 
 msgid ""
 "Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr "无法建立到主机的安全连接（证书尚未生效）。"
+msgstr "无法建立到主机的安全连接 (证书尚未生效)。"
 
 msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr "无法建立到主机的安全连接（证书已过期）。"
+msgstr "无法建立到主机的安全连接 (证书已过期)。"
 
 msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr "无法建立到主机的安全连接（主机名不匹配）。"
+msgstr "无法建立到主机的安全连接 (主机名不匹配)。"
 
 msgid ""
 "Unable to establish a secure connection to host (peer dropped connection "
 "before responding)."
-msgstr "无法建立到主机的安全连接（对方在回复前断开连接）。"
+msgstr "无法建立到主机的安全连接 (对方在回复前断开连接)。"
 
 msgid ""
 "Unable to establish a secure connection to host (self-signed certificate)."
-msgstr "无法建立到主机的安全连接（自签发证书）。"
+msgstr "无法建立到主机的安全连接 (自签发证书)。"
 
 msgid ""
 "Unable to establish a secure connection to host (untrusted certificate)."
-msgstr "无法建立到主机的安全连接（未信任的证书）。"
+msgstr "无法建立到主机的安全连接 (未信任的证书)。"
 
 msgid "Unable to establish a secure connection to host."
 msgstr "无法建立到主机的安全连接。"
@@ -5357,7 +5357,7 @@ msgid "Yes"
 msgstr "是"
 
 msgid "You cannot access this page."
-msgstr ""
+msgstr "你无法访问此页面。"
 
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
@@ -10877,7 +10877,7 @@ msgstr "ppdc：正在从 %s 添加/更新 UI 文本。"
 
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr "ppdc：共 %3$s 行中的第 %2$d 行中包含无效布里值（%1$s）。"
+msgstr "ppdc：共 %3$s 行中的第 %2$d 行中包含无效布里值  (%1$s)。"
 
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
@@ -10951,7 +10951,7 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Expected duplex type after Duplex on line %d of %s."
-msgstr "ppdc：共 %2$s 行中的第 %1$d 行中在 Duplex 声明后预期双工类型。"
+msgstr "ppdc：共 %2$s 行中的第 %1$d 行中在 Duplex 声明后预期双面打印类型。"
 
 #, c-format
 msgid "ppdc: Expected encoding after Font on line %d of %s."
@@ -11195,7 +11195,7 @@ msgstr "ppdc：无法打开 %s：%s"
 
 #, c-format
 msgid "ppdc: Undefined variable (%s) on line %d of %s."
-msgstr "ppdc：共 %3$s 行中的第 %2$d 行中含有未定义的变量（%1$s）。"
+msgstr "ppdc：共 %3$s 行中的第 %2$d 行中含有未定义的变量 (%1$s)。"
 
 #, c-format
 msgid "ppdc: Unexpected text on line %d of %s."
@@ -11207,7 +11207,7 @@ msgstr "ppdc：共 %3$s 行中的第 %2$d 行中包含未知驱动类型 %1$s。
 
 #, c-format
 msgid "ppdc: Unknown duplex type \"%s\" on line %d of %s."
-msgstr "ppdc：共 %3$s 行中的第 %2$d 行中含有未知双工类型“%1$s”。"
+msgstr "ppdc：共 %3$s 行中的第 %2$d 行中含有未知双面打印类型“%1$s”。"
 
 #, c-format
 msgid "ppdc: Unknown media size \"%s\" on line %d of %s."
@@ -14815,7 +14815,7 @@ msgstr ""
 
 #, c-format
 msgid "request id is %s-%d (%d file(s))"
-msgstr "请求 ID 为 %s-%d（%d 个文件）"
+msgstr "请求 ID 为 %s-%d (%d 个文件)"
 
 msgid "request-id uses indefinite length"
 msgstr "request-id 使用不定长度"
