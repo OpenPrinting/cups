@@ -1239,6 +1239,8 @@ asn1_get_integer(
 
   if (length > sizeof(int))
   {
+    if (length > (bufend - *buffer))
+      length = bufend - *buffer;
     (*buffer) += length;
     return (0);
   }
@@ -1285,6 +1287,8 @@ asn1_get_length(unsigned char **buffer,	/* IO - Pointer in buffer */
       length = (length << 8) | **buffer;
   }
 
+  if (length > (bufend - *buffer))
+    length = bufend - *buffer;
   return (length);
 }
 
@@ -1307,7 +1311,7 @@ asn1_get_oid(
   int		number;			/* OID number */
 
 
-  if (*buffer >= bufend)
+  if (*buffer >= bufend || length > (bufend - *buffer))
     return (0);
 
   valend = *buffer + length;
