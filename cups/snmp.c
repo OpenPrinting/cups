@@ -1,6 +1,7 @@
 /*
  * SNMP functions for CUPS.
  *
+ * Copyright © 2022 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
@@ -1272,7 +1273,6 @@ asn1_get_length(unsigned char **buffer,	/* IO - Pointer in buffer */
   {
     int	count;				/* Number of bytes for length */
 
-
     if ((count = length & 127) > sizeof(unsigned))
     {
       (*buffer) += count;
@@ -1317,7 +1317,7 @@ asn1_get_oid(
   if (valend > bufend)
     valend = bufend;
 
-  number = asn1_get_packed(buffer, bufend);
+  number = asn1_get_packed(buffer, valend);
 
   if (number < 80)
   {
@@ -1334,7 +1334,7 @@ asn1_get_oid(
 
   while (*buffer < valend)
   {
-    number = asn1_get_packed(buffer, bufend);
+    number = asn1_get_packed(buffer, valend);
 
     if (oidptr < oidend)
       *oidptr++ = number;

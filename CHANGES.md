@@ -9,6 +9,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed the `device_uri` invalid pointer for driverless printers with `.local`
   hostname (Issue #419)
 - Fixed an OpenSSL crash bug (Issue #409)
+- Fixed a potential SNMP OID value overflow issue (Issue #431)
 - Use localhost when printing via printer application (Issue #353)
 - Now localize HTTP responses using the Content-Language value (Issue #426)
 
