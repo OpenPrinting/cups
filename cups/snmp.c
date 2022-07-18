@@ -1231,7 +1231,7 @@ asn1_get_integer(
     unsigned char *bufend,		/* I  - End of buffer */
     unsigned      length)		/* I  - Length of value */
 {
-  int	value;				/* Integer value */
+  unsigned	value;			/* Integer value */
 
 
   if (*buffer >= bufend)
@@ -1250,7 +1250,7 @@ asn1_get_integer(
        length --, (*buffer) ++)
     value = ((value & 0xffffff) << 8) | **buffer;
 
-  return (value);
+  return ((int)value);
 }
 
 
@@ -1359,7 +1359,7 @@ asn1_get_packed(
     unsigned char **buffer,		/* IO - Pointer in buffer */
     unsigned char *bufend)		/* I  - End of buffer */
 {
-  int	value;				/* Value */
+  unsigned	value;			/* Value */
 
 
   if (*buffer >= bufend)
@@ -1379,7 +1379,7 @@ asn1_get_packed(
     (*buffer) ++;
   }
 
-  return (value);
+  return ((int)value);
 }
 
 
