@@ -84,7 +84,7 @@ AvahiClient* avahi_intialize(){
     
     /* allocate main loop object */
     if (!(avahi_poll = avahi_simple_poll_new())) {
-        fprintf(stderr, "Initialization Error, Failed to create simple poll object.\n");
+        fprintf(stderr, "%s: Failed to create simple poll object.\n", errorContext);
         return NULL;
     }
 

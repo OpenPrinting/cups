@@ -17,6 +17,7 @@
 
 #define _CUPS_NO_DEPRECATED
 #include <cups/cups-private.h>
+#include <errno.h>
 #ifdef _WIN32
 #  include <process.h>
 #  include <sys/timeb.h>
@@ -87,6 +88,7 @@ static DNSServiceRef dnssd_ref;		/* Master service reference */
 static AvahiClient *avahi_client = NULL;/* Client information */
 static int	avahi_got_data = 0;	/* Got data from poll? */
 static AvahiSimplePoll *avahi_poll = NULL;
+static AvahiServiceBrowser *sb = NULL;
 					/* Poll information */
 #endif /* HAVE_MDNSRESPONDER */
 
@@ -95,6 +97,7 @@ static int	address_family = AF_UNSPEC;
 static int	bonjour_error = 0;	/* Error browsing/resolving? */
 static double	bonjour_timeout = 1.0;	/* Timeout in seconds */
 static int	ipp_version = 20;	/* IPP version for LIST */
+static char* errorContext;
 
 
 /*
@@ -148,6 +151,6 @@ static void		resolve_callback(AvahiServiceResolver *res,
 // individual functions for browse and resolve
 
 AvahiClient* avahi_intialize();
-void browse_services();
+void browse_services(char *regtype);
 void resolve_services();
 
