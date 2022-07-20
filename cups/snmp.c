@@ -1239,7 +1239,11 @@ asn1_get_integer(
 
   if (length > sizeof(int))
   {
-    (*buffer) += length;
+    if (length > (unsigned)(bufend - *buffer))
+      *buffer = bufend;
+    else
+      (*buffer) += length;
+
     return (0);
   }
 
@@ -1275,7 +1279,11 @@ asn1_get_length(unsigned char **buffer,	/* IO - Pointer in buffer */
 
     if ((count = length & 127) > sizeof(unsigned))
     {
-      (*buffer) += count;
+      if (count > (bufend - *buffer))
+	*buffer = bufend;
+      else
+	(*buffer) += count;
+
       return (0);
     }
 
@@ -1308,7 +1316,14 @@ asn1_get_oid(
 
 
   if (*buffer >= bufend)
+  {
     return (0);
+  }
+  else if (length > (unsigned)(bufend - *buffer))
+  {
+    *buffer = bufend;
+    return (0);
+  }
 
   valend = *buffer + length;
   oidptr = oid;
