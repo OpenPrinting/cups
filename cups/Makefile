@@ -19,6 +19,7 @@ include ../Makedefs
 COREOBJS	=	\
 		array.o \
 		auth.o \
+		avahi.o \
 		debug.o \
 		dest.o \
 		dest-job.o \
@@ -122,6 +123,7 @@ OBJS	=	\
 
 COREHEADERS	=	\
 		array.h \
+		avahi.h \
 		cups.h \
 		dir.h \
 		file.h \

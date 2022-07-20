@@ -7,6 +7,7 @@ auth.o: auth.c cups-private.h string-private.h ../config.h \
   pwg.h http-private.h ../cups/language.h ../cups/http.h \
   language-private.h ../cups/transcode.h pwg-private.h thread-private.h \
   debug-internal.h debug-private.h
+avahi.o: avahi.c avahi.h
 debug.o: debug.c cups-private.h string-private.h ../config.h \
   ../cups/versioning.h array-private.h ../cups/array.h versioning.h \
   ipp-private.h ../cups/cups.h file.h ipp.h http.h array.h language.h \
