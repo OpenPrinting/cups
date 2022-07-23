@@ -27,12 +27,7 @@
 #ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #elif defined(HAVE_AVAHI)
-#  include <avahi-client/client.h>
-#  include <avahi-client/lookup.h>
-#  include <avahi-common/simple-watch.h>
-#  include <avahi-common/domain.h>
-#  include <avahi-common/error.h>
-#  include <avahi-common/malloc.h>
+#include <cups/avahi.h>
 #  define kDNSServiceMaxDomainName AVAHI_DOMAIN_NAME_MAX
 #endif /* HAVE_MDNSRESPONDER */
 
@@ -1139,23 +1134,34 @@ main(int  argc,				/* I - Number of command-line args */
   }
 
 #elif defined(HAVE_AVAHI)
-  if ((avahi_poll = avahi_simple_poll_new()) == NULL)
-  {
+
+  //initialize avahi_client by calling avahi_initialize
+
+  if(!avahi_initialize(&avahi_poll, &avahi_client, client_callback ,&err)){
     _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
                     strerror(errno));
     return (IPPFIND_EXIT_BONJOUR);
   }
 
-  avahi_simple_poll_set_func(avahi_poll, poll_callback, NULL);
+  dummy();
 
-  avahi_client = avahi_client_new(avahi_simple_poll_get(avahi_poll),
-			          0, client_callback, avahi_poll, &err);
-  if (!avahi_client)
-  {
-    _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
-                    dnssd_error_string(err));
-    return (IPPFIND_EXIT_BONJOUR);
-  }
+  // if ((avahi_poll = avahi_simple_poll_new()) == NULL)
+  // {
+  //   _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
+  //                   strerror(errno));
+  //   return (IPPFIND_EXIT_BONJOUR);
+  // }
+
+  // avahi_simple_poll_set_func(avahi_poll, poll_callback, NULL);
+
+  // avahi_client = avahi_client_new(avahi_simple_poll_get(avahi_poll),
+	// 		          0, client_callback, avahi_poll, &err);
+  // if (!avahi_client)
+  // {
+  //   _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
+  //                   dnssd_error_string(err));
+  //   return (IPPFIND_EXIT_BONJOUR);
+  // }
 #endif /* HAVE_MDNSRESPONDER */
 
   for (search = (const char *)cupsArrayFirst(searches);

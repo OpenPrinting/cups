@@ -16,8 +16,7 @@ OBJS		=	\
 			ippeveprinter.o \
 			ippeveps.o \
 			ippfind.o \
-			ipptool.o \
-			avahi.o
+			ipptool.o 
 IPPTOOLS	=	\
 			ippeveprinter \
 			$(IPPFIND_BIN) \
