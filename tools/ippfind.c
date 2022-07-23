@@ -16,7 +16,6 @@
  */
 
 #define _CUPS_NO_DEPRECATED
-#include <cups/cups-private.h>
 #ifdef _WIN32
 #  include <process.h>
 #  include <sys/timeb.h>
@@ -35,6 +34,7 @@
 extern char **environ;			/* Process environment variables */
 #endif /* !_WIN32 */
 
+#include "cups/avahi.c"
 
 /*
  * Structures...
@@ -93,29 +93,6 @@ typedef struct ippfind_expr_s		/* Expression */
   char		**args;			/* Arguments for exec */
 } ippfind_expr_t;
 
-typedef struct ippfind_srv_s		/* Service information */
-{
-#ifdef HAVE_MDNSRESPONDER
-  DNSServiceRef	ref;			/* Service reference for query */
-#elif defined(HAVE_AVAHI)
-  AvahiServiceResolver *ref;		/* Resolver */
-#endif /* HAVE_MDNSRESPONDER */
-  char		*name,			/* Service name */
-		*domain,		/* Domain name */
-		*regtype,		/* Registration type */
-		*fullName,		/* Full name */
-		*host,			/* Hostname */
-		*resource,		/* Resource path */
-		*uri;			/* URI */
-  int		num_txt;		/* Number of TXT record keys */
-  cups_option_t	*txt;			/* TXT record keys */
-  int		port,			/* Port number */
-		is_local,		/* Is a local service? */
-		is_processed,		/* Did we process the service? */
-		is_resolved;		/* Got the resolve data? */
-} ippfind_srv_t;
-
-
 /*
  * Local globals...
  */
@@ -123,9 +100,9 @@ typedef struct ippfind_srv_s		/* Service information */
 #ifdef HAVE_MDNSRESPONDER
 static DNSServiceRef dnssd_ref;		/* Master service reference */
 #elif defined(HAVE_AVAHI)
-static AvahiClient *avahi_client = NULL;/* Client information */
-static int	avahi_got_data = 0;	/* Got data from poll? */
-static AvahiSimplePoll *avahi_poll = NULL;
+AvahiClient *avahi_client = NULL;/* Client information */
+int	avahi_got_data = 0;	/* Got data from poll? */
+AvahiPoll **avahi_poll;
 					/* Poll information */
 #endif /* HAVE_MDNSRESPONDER */
 
@@ -158,15 +135,15 @@ static void		client_callback(AvahiClient *client,
 					void *context);
 #endif /* HAVE_MDNSRESPONDER */
 
-static int		compare_services(ippfind_srv_t *a, ippfind_srv_t *b);
+static int		compare_services(avahi_srv_t *a, avahi_srv_t *b);
 static const char	*dnssd_error_string(int error);
-static int		eval_expr(ippfind_srv_t *service,
+static int		eval_expr(avahi_srv_t *service,
 			          ippfind_expr_t *expressions);
-static int		exec_program(ippfind_srv_t *service, int num_args,
+static int		exec_program(avahi_srv_t *service, int num_args,
 			             char **args);
-static ippfind_srv_t	*get_service(cups_array_t *services, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
+static avahi_srv_t	*get_service(cups_array_t *services, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
 static double		get_time(void);
-static int		list_service(ippfind_srv_t *service);
+static int		list_service(avahi_srv_t *service);
 static ippfind_expr_t	*new_expr(ippfind_op_t op, int invert,
 			          const char *value, const char *regex,
 			          char **args);
@@ -190,7 +167,7 @@ static void		resolve_callback(AvahiServiceResolver *res,
 					 AvahiLookupResultFlags flags,
 					 void *context);
 #endif /* HAVE_MDNSRESPONDER */
-static void		set_service_uri(ippfind_srv_t *service);
+static void		set_service_uri(avahi_srv_t *service);
 static void		show_usage(void) _CUPS_NORETURN;
 static void		show_version(void) _CUPS_NORETURN;
 
@@ -211,7 +188,7 @@ main(int  argc,				/* I - Number of command-line args */
 			*search;	/* Current browse/resolve string */
   cups_array_t		*searches;	/* Things to browse/resolve */
   cups_array_t		*services;	/* Service array */
-  ippfind_srv_t		*service;	/* Current service */
+  avahi_srv_t		*service;	/* Current service */
   ippfind_expr_t	*expressions = NULL,
 					/* Expression tree */
 			*temp = NULL,	/* New expression */
@@ -1143,25 +1120,6 @@ main(int  argc,				/* I - Number of command-line args */
     return (IPPFIND_EXIT_BONJOUR);
   }
 
-  dummy();
-
-  // if ((avahi_poll = avahi_simple_poll_new()) == NULL)
-  // {
-  //   _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
-  //                   strerror(errno));
-  //   return (IPPFIND_EXIT_BONJOUR);
-  // }
-
-  // avahi_simple_poll_set_func(avahi_poll, poll_callback, NULL);
-
-  // avahi_client = avahi_client_new(avahi_simple_poll_get(avahi_poll),
-	// 		          0, client_callback, avahi_poll, &err);
-  // if (!avahi_client)
-  // {
-  //   _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
-  //                   dnssd_error_string(err));
-  //   return (IPPFIND_EXIT_BONJOUR);
-  // }
 #endif /* HAVE_MDNSRESPONDER */
 
   for (search = (const char *)cupsArrayFirst(searches);
@@ -1237,24 +1195,7 @@ main(int  argc,				/* I - Number of command-line args */
       if (getenv("IPPFIND_DEBUG"))
         fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", name, regtype, domain);
 
-#ifdef HAVE_MDNSRESPONDER
-      service->ref = dnssd_ref;
-      err          = DNSServiceResolve(&(service->ref),
-                                       kDNSServiceFlagsShareConnection, 0, name,
-				       regtype, domain, resolve_callback,
-				       service);
-
-#elif defined(HAVE_AVAHI)
-      service->ref = avahi_service_resolver_new(avahi_client, AVAHI_IF_UNSPEC,
-                                                AVAHI_PROTO_UNSPEC, name,
-                                                regtype, domain,
-                                                AVAHI_PROTO_UNSPEC, 0,
-                                                resolve_callback, service);
-      if (service->ref)
-        err = 0;
-      else
-        err = avahi_client_errno(avahi_client);
-#endif /* HAVE_MDNSRESPONDER */
+      resolve_services(&avahi_client, service, &err);
     }
     else
     {
@@ -1290,13 +1231,9 @@ main(int  argc,				/* I - Number of command-line args */
         snprintf(subtype_buf, sizeof(subtype_buf), "%s._sub.%s", subtype, regtype);
         regtype = subtype_buf;
       }
+      
+      browse_services(&avahi_client, regtype, domain, services, &err);
 
-      if (avahi_service_browser_new(avahi_client, AVAHI_IF_UNSPEC,
-                                    AVAHI_PROTO_UNSPEC, regtype, domain, 0,
-                                    browse_callback, services))
-        err = 0;
-      else
-        err = avahi_client_errno(avahi_client);
 #endif /* HAVE_MDNSRESPONDER */
     }
 
@@ -1385,9 +1322,9 @@ main(int  argc,				/* I - Number of command-line args */
 		resolved = 0,		/* Number of resolved services */
 		processed = 0;		/* Number of processed services */
 
-      for (service = (ippfind_srv_t *)cupsArrayFirst(services);
+      for (service = (avahi_srv_t *)cupsArrayFirst(services);
            service;
-           service = (ippfind_srv_t *)cupsArrayNext(services))
+           service = (avahi_srv_t *)cupsArrayNext(services))
       {
         if (service->is_processed)
           processed ++;
@@ -1403,29 +1340,8 @@ main(int  argc,				/* I - Number of command-line args */
 
           if (active < 50)
           {
-#ifdef HAVE_MDNSRESPONDER
-	    service->ref = dnssd_ref;
-	    err          = DNSServiceResolve(&(service->ref),
-					     kDNSServiceFlagsShareConnection, 0,
-					     service->name, service->regtype,
-					     service->domain, resolve_callback,
-					     service);
 
-#elif defined(HAVE_AVAHI)
-	    service->ref = avahi_service_resolver_new(avahi_client,
-						      AVAHI_IF_UNSPEC,
-						      AVAHI_PROTO_UNSPEC,
-						      service->name,
-						      service->regtype,
-						      service->domain,
-						      AVAHI_PROTO_UNSPEC, 0,
-						      resolve_callback,
-						      service);
-	    if (service->ref)
-	      err = 0;
-	    else
-	      err = avahi_client_errno(avahi_client);
-#endif /* HAVE_MDNSRESPONDER */
+            resolve_services(&avahi_client, service, &err);
 
 	    if (err)
 	    {
@@ -1529,7 +1445,7 @@ browse_local_callback(
     const char          *replyDomain,	/* I - Service domain */
     void                *context)	/* I - Services array */
 {
-  ippfind_srv_t	*service;		/* Service */
+  avahi_srv_t	*service;		/* Service */
 
 
  /*
@@ -1572,7 +1488,7 @@ browse_callback(
 {
   AvahiClient	*client = avahi_service_browser_get_client(browser);
 					/* Client information */
-  ippfind_srv_t	*service;		/* Service information */
+  avahi_srv_t	*service;		/* Service information */
 
 
   (void)interface;
@@ -1640,8 +1556,8 @@ client_callback(
  */
 
 static int				/* O - Result of comparison */
-compare_services(ippfind_srv_t *a,	/* I - First device */
-                 ippfind_srv_t *b)	/* I - Second device */
+compare_services(avahi_srv_t *a,	/* I - First device */
+                 avahi_srv_t *b)	/* I - Second device */
 {
   return (strcmp(a->name, b->name));
 }
@@ -1770,7 +1686,7 @@ dnssd_error_string(int error)		/* I - Error number */
  */
 
 static int				/* O - Result of evaluation */
-eval_expr(ippfind_srv_t  *service,	/* I - Service */
+eval_expr(avahi_srv_t  *service,	/* I - Service */
 	  ippfind_expr_t *expressions)	/* I - Expressions */
 {
   ippfind_op_t		logic;		/* Logical operation */
@@ -1887,7 +1803,7 @@ eval_expr(ippfind_srv_t  *service,	/* I - Service */
 
 static int				/* O - 1 if program terminated
 					       successfully, 0 otherwise. */
-exec_program(ippfind_srv_t *service,	/* I - Service */
+exec_program(avahi_srv_t *service,	/* I - Service */
              int           num_args,	/* I - Number of command-line args */
              char          **args)	/* I - Command-line arguments */
 {
@@ -2142,13 +2058,13 @@ exec_program(ippfind_srv_t *service,	/* I - Service */
  * 'get_service()' - Create or update a device.
  */
 
-static ippfind_srv_t *			/* O - Service */
+static avahi_srv_t *			/* O - Service */
 get_service(cups_array_t *services,	/* I - Service array */
 	    const char   *serviceName,	/* I - Name of service/device */
 	    const char   *regtype,	/* I - Type of service */
 	    const char   *replyDomain)	/* I - Service domain */
 {
-  ippfind_srv_t	key,			/* Search key */
+  avahi_srv_t	key,			/* Search key */
 		*service;		/* Service */
   char		fullName[kDNSServiceMaxDomainName];
 					/* Full name for query */
@@ -2173,7 +2089,7 @@ get_service(cups_array_t *services,	/* I - Service array */
   * Yes, add the service...
   */
 
-  if ((service = calloc(sizeof(ippfind_srv_t), 1)) == NULL)
+  if ((service = calloc(sizeof(avahi_srv_t), 1)) == NULL)
     return (NULL);
 
   service->name     = strdup(serviceName);
@@ -2230,7 +2146,7 @@ get_time(void)
  */
 
 static int				/* O - 1 if successful, 0 otherwise */
-list_service(ippfind_srv_t *service)	/* I - Service */
+list_service(avahi_srv_t *service)	/* I - Service */
 {
   http_addrlist_t	*addrlist;	/* Address(es) of service */
   char			port[10];	/* Port number of service */
@@ -2572,7 +2488,7 @@ resolve_callback(
 			*value;		/* Value from TXT record */
   const unsigned char	*txtEnd;	/* End of TXT record */
   uint8_t		valueLen;	/* Length of value */
-  ippfind_srv_t		*service = (ippfind_srv_t *)context;
+  avahi_srv_t		*service = (avahi_srv_t *)context;
 					/* Service */
 
 
@@ -2652,7 +2568,7 @@ resolve_callback(
 {
   char		key[256],		/* TXT key */
 		*value;			/* TXT value */
-  ippfind_srv_t	*service = (ippfind_srv_t *)context;
+  avahi_srv_t	*service = (avahi_srv_t *)context;
 					/* Service */
   AvahiStringList *current;		/* Current TXT key/value pair */
 
@@ -2715,7 +2631,7 @@ resolve_callback(
  */
 
 static void
-set_service_uri(ippfind_srv_t *service)	/* I - Service */
+set_service_uri(avahi_srv_t *service)	/* I - Service */
 {
   char		uri[1024];		/* URI */
   const char	*path,			/* Resource path */
