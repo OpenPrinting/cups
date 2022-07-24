@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "language-private.h": "c"
+        "language-private.h": "c",
+        "dns_sd.h": "c"
     }
 }

@@ -1112,9 +1112,9 @@ main(int  argc,				/* I - Number of command-line args */
 
 #elif defined(HAVE_AVAHI)
 
-  //initialize avahi_client by calling avahi_initialize
+  //initialize avahi_client by calling avahiInitialize
 
-  if(!avahi_initialize(&avahi_poll, &avahi_client, client_callback ,&err)){
+  if(!avahiInitialize(&avahi_poll, &avahi_client, client_callback ,&err)){
     _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
                     strerror(errno));
     return (IPPFIND_EXIT_BONJOUR);
@@ -1195,7 +1195,7 @@ main(int  argc,				/* I - Number of command-line args */
       if (getenv("IPPFIND_DEBUG"))
         fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", name, regtype, domain);
 
-      resolve_services(&avahi_client, service, &err);
+      resolveServices(&avahi_client, service, &err);
     }
     else
     {
@@ -1232,7 +1232,7 @@ main(int  argc,				/* I - Number of command-line args */
         regtype = subtype_buf;
       }
       
-      browse_services(&avahi_client, regtype, domain, services, &err);
+      browseServices(&avahi_client, regtype, domain, services, &err);
 
 #endif /* HAVE_MDNSRESPONDER */
     }
@@ -1341,7 +1341,7 @@ main(int  argc,				/* I - Number of command-line args */
           if (active < 50)
           {
 
-            resolve_services(&avahi_client, service, &err);
+            resolveServices(&avahi_client, service, &err);
 
 	    if (err)
 	    {
