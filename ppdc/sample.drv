@@ -1184,4 +1184,256 @@ Version "2.4"
 	Choice "Always/Always" ""
 	Choice "Never/Never" ""
   }
+
+  // Zebra ZPL Label Printer - Direct Mode
+  {
+    ModelName "ZPL Label Printer - Direct Mode"
+    Attribute NickName "" "Zebra ZPL Label Printer - Direct Mode"
+    PCFileName "zebrazpldirect.ppd"
+    ModelNumber $ZEBRA_ZPL_DIRECT
+
+    HWMargins 0 0 0 0
+    VariablePaperSize Yes
+    MinSize 36 36
+    MaxSize 576 3600
+
+    MediaSize A4
+    MediaSize A5
+    MediaSize A5Rotated
+    MediaSize w90h18
+    MediaSize w90h162
+    MediaSize w108h18
+    MediaSize w108h36
+    MediaSize w108h72
+    MediaSize w108h144
+    MediaSize w142h227
+    MediaSize w144h26
+    MediaSize w144h36
+    MediaSize w144h72
+    MediaSize w144h90
+    MediaSize w144h288
+    MediaSize w144h396
+    MediaSize w162h36
+    MediaSize w162h90
+    MediaSize w162h288
+    MediaSize w162h396
+    MediaSize w171h396
+    MediaSize w180h72
+    MediaSize w180h144
+    MediaSize w198h90
+    MediaSize w216h72
+    MediaSize w216h90
+    MediaSize w216h144
+    MediaSize w216h288
+    MediaSize w216h216
+    MediaSize w216h360
+    MediaSize w216h432
+    MediaSize w216h576
+    MediaSize w234h144
+    MediaSize w234h360
+    MediaSize w234h396
+    MediaSize w234h419
+    MediaSize w234h563
+    MediaSize w252h72
+    MediaSize w288h72
+    MediaSize w288h144
+    MediaSize w288h180
+    MediaSize w288h216
+    MediaSize w288h288
+    *MediaSize w288h360
+    MediaSize w288h432
+    MediaSize w288h468
+    MediaSize w288h576
+    MediaSize w288h936
+    MediaSize w432h72
+    MediaSize w432h144
+    MediaSize w432h216
+    MediaSize w432h288
+    MediaSize w432h360
+    MediaSize w432h432
+    MediaSize w432h468
+    MediaSize w432h576
+    MediaSize w576h72
+    MediaSize w576h144
+    MediaSize w576h216
+    MediaSize w576h288
+    MediaSize w576h360
+    MediaSize w576h432
+    MediaSize w576h468
+    MediaSize w595h72
+
+    *Resolution k 1 0 0 0 203dpi
+    Resolution k 1 0 0 0 300dpi
+    Resolution k 1 0 0 0 600dpi
+
+    Group "General/General"
+      Option "zeMediaTracking/Media Tracking" PickOne AnySetup 20.0
+	Choice "Continuous/Continuous" ""
+	*Choice "Web/Non-continuous (Web sensing)" ""
+	Choice "Mark/Non-continuous (Mark sensing)" ""
+      Option "MediaType/Media Type" PickOne AnySetup 20.0
+	*Choice "Saved/Printer Default" ""
+	Choice "Thermal/Thermal Transfer Media" "<</MediaType(Thermal)>>setpagedevice"
+	Choice "Direct/Direct Thermal Media" "<</MediaType(Direct)>>setpagedevice"
+    Group "PrinterSettings/Printer Settings"
+      Option "Darkness" PickOne AnySetup 20.0
+	*Choice "-1/Printer Default" "<</cupsCompression -1>>setpagedevice"
+	Choice "1/1" "<</cupsCompression 4>>setpagedevice"
+	Choice "2/2" "<</cupsCompression 7>>setpagedevice"
+	Choice "3/3" "<</cupsCompression 10>>setpagedevice"
+	Choice "4/4" "<</cupsCompression 14>>setpagedevice"
+	Choice "5/5" "<</cupsCompression 17>>setpagedevice"
+	Choice "6/6" "<</cupsCompression 20>>setpagedevice"
+	Choice "7/7" "<</cupsCompression 24>>setpagedevice"
+	Choice "8/8" "<</cupsCompression 27>>setpagedevice"
+	Choice "9/9" "<</cupsCompression 30>>setpagedevice"
+	Choice "10/10" "<</cupsCompression 34>>setpagedevice"
+	Choice "11/11" "<</cupsCompression 37>>setpagedevice"
+	Choice "12/12" "<</cupsCompression 40>>setpagedevice"
+	Choice "13/13" "<</cupsCompression 44>>setpagedevice"
+	Choice "14/14" "<</cupsCompression 47>>setpagedevice"
+	Choice "15/15" "<</cupsCompression 50>>setpagedevice"
+	Choice "16/16" "<</cupsCompression 54>>setpagedevice"
+	Choice "17/17" "<</cupsCompression 57>>setpagedevice"
+	Choice "18/18" "<</cupsCompression 60>>setpagedevice"
+	Choice "19/19" "<</cupsCompression 64>>setpagedevice"
+	Choice "20/20" "<</cupsCompression 67>>setpagedevice"
+	Choice "21/21" "<</cupsCompression 70>>setpagedevice"
+	Choice "22/22" "<</cupsCompression 74>>setpagedevice"
+	Choice "23/23" "<</cupsCompression 77>>setpagedevice"
+	Choice "24/24" "<</cupsCompression 80>>setpagedevice"
+	Choice "25/25" "<</cupsCompression 84>>setpagedevice"
+	Choice "26/26" "<</cupsCompression 87>>setpagedevice"
+	Choice "27/27" "<</cupsCompression 90>>setpagedevice"
+	Choice "28/28" "<</cupsCompression 94>>setpagedevice"
+	Choice "29/29" "<</cupsCompression 97>>setpagedevice"
+	Choice "30/30" "<</cupsCompression 100>>setpagedevice"
+      Option "zePrintRate/Print Rate" PickOne AnySetup 20.0
+	*Choice "Default/Printer Default" ""
+	Choice "1/1 inch/sec." ""
+	Choice "2/2 inches/sec." ""
+	Choice "3/3 inches/sec." ""
+	Choice "4/4 inches/sec." ""
+	Choice "5/5 inches/sec." ""
+	Choice "6/6 inches/sec." ""
+	Choice "7/7 inches/sec." ""
+	Choice "8/8 inches/sec." ""
+	Choice "9/9 inches/sec." ""
+	Choice "10/10 inches/sec." ""
+	Choice "11/11 inches/sec." ""
+	Choice "12/12 inches/sec." ""
+      Option "zeLabelTop/Label Top" PickOne AnySetup 20.0
+	*Choice "200/Printer Default" "<</cupsRowStep 200>>setpagedevice"
+	Choice "-120/-120" "<</cupsRowStep -120>>setpagedevice"
+	Choice "-115/-115" "<</cupsRowStep -115>>setpagedevice"
+	Choice "-110/-110" "<</cupsRowStep -110>>setpagedevice"
+	Choice "-105/-105" "<</cupsRowStep -105>>setpagedevice"
+	Choice "-100/-100" "<</cupsRowStep -100>>setpagedevice"
+	Choice "-95/-95" "<</cupsRowStep -95>>setpagedevice"
+	Choice "-90/-90" "<</cupsRowStep -90>>setpagedevice"
+	Choice "-85/-85" "<</cupsRowStep -85>>setpagedevice"
+	Choice "-80/-80" "<</cupsRowStep -80>>setpagedevice"
+	Choice "-75/-75" "<</cupsRowStep -75>>setpagedevice"
+	Choice "-70/-70" "<</cupsRowStep -70>>setpagedevice"
+	Choice "-65/-65" "<</cupsRowStep -65>>setpagedevice"
+	Choice "-60/-60" "<</cupsRowStep -60>>setpagedevice"
+	Choice "-55/-55" "<</cupsRowStep -55>>setpagedevice"
+	Choice "-50/-50" "<</cupsRowStep -50>>setpagedevice"
+	Choice "-45/-45" "<</cupsRowStep -45>>setpagedevice"
+	Choice "-40/-40" "<</cupsRowStep -40>>setpagedevice"
+	Choice "-35/-35" "<</cupsRowStep -35>>setpagedevice"
+	Choice "-30/-30" "<</cupsRowStep -30>>setpagedevice"
+	Choice "-25/-25" "<</cupsRowStep -25>>setpagedevice"
+	Choice "-20/-20" "<</cupsRowStep -20>>setpagedevice"
+	Choice "-15/-15" "<</cupsRowStep -15>>setpagedevice"
+	Choice "-10/-10" "<</cupsRowStep -10>>setpagedevice"
+	Choice "-5/-5" "<</cupsRowStep -5>>setpagedevice"
+	Choice "0/0" "<</cupsRowStep 0>>setpagedevice"
+	Choice "5/5" "<</cupsRowStep 5>>setpagedevice"
+	Choice "10/10" "<</cupsRowStep 10>>setpagedevice"
+	Choice "15/15" "<</cupsRowStep 15>>setpagedevice"
+	Choice "20/20" "<</cupsRowStep 20>>setpagedevice"
+	Choice "25/25" "<</cupsRowStep 25>>setpagedevice"
+	Choice "30/30" "<</cupsRowStep 30>>setpagedevice"
+	Choice "35/35" "<</cupsRowStep 35>>setpagedevice"
+	Choice "40/40" "<</cupsRowStep 40>>setpagedevice"
+	Choice "45/45" "<</cupsRowStep 45>>setpagedevice"
+	Choice "50/50" "<</cupsRowStep 50>>setpagedevice"
+	Choice "55/55" "<</cupsRowStep 55>>setpagedevice"
+	Choice "60/60" "<</cupsRowStep 60>>setpagedevice"
+	Choice "65/65" "<</cupsRowStep 65>>setpagedevice"
+	Choice "70/70" "<</cupsRowStep 70>>setpagedevice"
+	Choice "75/75" "<</cupsRowStep 75>>setpagedevice"
+	Choice "80/80" "<</cupsRowStep 80>>setpagedevice"
+	Choice "85/85" "<</cupsRowStep 85>>setpagedevice"
+	Choice "90/90" "<</cupsRowStep 90>>setpagedevice"
+	Choice "95/95" "<</cupsRowStep 95>>setpagedevice"
+	Choice "100/100" "<</cupsRowStep 100>>setpagedevice"
+	Choice "105/105" "<</cupsRowStep 105>>setpagedevice"
+	Choice "110/110" "<</cupsRowStep 110>>setpagedevice"
+	Choice "115/115" "<</cupsRowStep 115>>setpagedevice"
+	Choice "120/120" "<</cupsRowStep 120>>setpagedevice"
+      Option "zePrintMode/Print Mode" PickOne AnySetup 20.0
+	*Choice "Saved/Printer Default" ""
+	Choice "Tear/Tear-Off" ""
+	Choice "Peel/Peel-Off" ""
+	Choice "Rewind/Rewind" ""
+	Choice "Applicator/Applicator" ""
+	Choice "Cutter/Cutter" ""
+      Option "zeTearOffPosition/Tear-Off Adjust Position" PickOne AnySetup 20.0
+	*Choice "1000/Printer Default" "<</AdvanceDistance 1000>>setpagedevice"
+	Choice "-120/-120" "<</AdvanceDistance -120>>setpagedevice"
+	Choice "-115/-115" "<</AdvanceDistance -115>>setpagedevice"
+	Choice "-110/-110" "<</AdvanceDistance -110>>setpagedevice"
+	Choice "-105/-105" "<</AdvanceDistance -105>>setpagedevice"
+	Choice "-100/-100" "<</AdvanceDistance -100>>setpagedevice"
+	Choice "-95/-95" "<</AdvanceDistance -95>>setpagedevice"
+	Choice "-90/-90" "<</AdvanceDistance -90>>setpagedevice"
+	Choice "-85/-85" "<</AdvanceDistance -85>>setpagedevice"
+	Choice "-80/-80" "<</AdvanceDistance -80>>setpagedevice"
+	Choice "-75/-75" "<</AdvanceDistance -75>>setpagedevice"
+	Choice "-70/-70" "<</AdvanceDistance -70>>setpagedevice"
+	Choice "-65/-65" "<</AdvanceDistance -65>>setpagedevice"
+	Choice "-60/-60" "<</AdvanceDistance -60>>setpagedevice"
+	Choice "-55/-55" "<</AdvanceDistance -55>>setpagedevice"
+	Choice "-50/-50" "<</AdvanceDistance -50>>setpagedevice"
+	Choice "-45/-45" "<</AdvanceDistance -45>>setpagedevice"
+	Choice "-40/-40" "<</AdvanceDistance -40>>setpagedevice"
+	Choice "-35/-35" "<</AdvanceDistance -35>>setpagedevice"
+	Choice "-30/-30" "<</AdvanceDistance -30>>setpagedevice"
+	Choice "-25/-25" "<</AdvanceDistance -25>>setpagedevice"
+	Choice "-20/-20" "<</AdvanceDistance -20>>setpagedevice"
+	Choice "-15/-15" "<</AdvanceDistance -15>>setpagedevice"
+	Choice "-10/-10" "<</AdvanceDistance -10>>setpagedevice"
+	Choice "-5/-5" "<</AdvanceDistance -5>>setpagedevice"
+	Choice "0/0" "<</AdvanceDistance 0>>setpagedevice"
+	Choice "5/5" "<</AdvanceDistance 5>>setpagedevice"
+	Choice "10/10" "<</AdvanceDistance 10>>setpagedevice"
+	Choice "15/15" "<</AdvanceDistance 15>>setpagedevice"
+	Choice "20/20" "<</AdvanceDistance 20>>setpagedevice"
+	Choice "25/25" "<</AdvanceDistance 25>>setpagedevice"
+	Choice "30/30" "<</AdvanceDistance 30>>setpagedevice"
+	Choice "35/35" "<</AdvanceDistance 35>>setpagedevice"
+	Choice "40/40" "<</AdvanceDistance 40>>setpagedevice"
+	Choice "45/45" "<</AdvanceDistance 45>>setpagedevice"
+	Choice "50/50" "<</AdvanceDistance 50>>setpagedevice"
+	Choice "55/55" "<</AdvanceDistance 55>>setpagedevice"
+	Choice "60/60" "<</AdvanceDistance 60>>setpagedevice"
+	Choice "65/65" "<</AdvanceDistance 65>>setpagedevice"
+	Choice "70/70" "<</AdvanceDistance 70>>setpagedevice"
+	Choice "75/75" "<</AdvanceDistance 75>>setpagedevice"
+	Choice "80/80" "<</AdvanceDistance 80>>setpagedevice"
+	Choice "85/85" "<</AdvanceDistance 85>>setpagedevice"
+	Choice "90/90" "<</AdvanceDistance 90>>setpagedevice"
+	Choice "95/95" "<</AdvanceDistance 95>>setpagedevice"
+	Choice "100/100" "<</AdvanceDistance 100>>setpagedevice"
+	Choice "105/105" "<</AdvanceDistance 105>>setpagedevice"
+	Choice "110/110" "<</AdvanceDistance 110>>setpagedevice"
+	Choice "115/115" "<</AdvanceDistance 115>>setpagedevice"
+	Choice "120/120" "<</AdvanceDistance 120>>setpagedevice"
+      Option "zeErrorReprint/Reprint After Error" PickOne AnySetup 20.0
+	*Choice "Saved/Printer Default" ""
+	Choice "Always/Always" ""
+	Choice "Never/Never" ""
+  }
 }

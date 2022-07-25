@@ -14,5 +14,6 @@
 #define ZEBRA_EPL_PAGE  0x11            /* Zebra EPL page mode printers */
 #define ZEBRA_ZPL       0x12            /* Zebra ZPL-based printers */
 #define ZEBRA_CPCL      0x13            /* Zebra CPCL-based printers */
+#define ZEBRA_ZPL_DIRECT 0x14            /* Zebra ZPL-based printers, direct graphics mode */
 
 #define INTELLITECH_PCL	0x20		/* Intellitech PCL-based printers */

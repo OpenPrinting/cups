@@ -49,6 +49,7 @@
 #define ZEBRA_EPL_PAGE	0x11		/* Zebra EPL page mode printers */
 #define ZEBRA_ZPL	0x12		/* Zebra ZPL-based printers */
 #define ZEBRA_CPCL	0x13		/* Zebra CPCL-based printers */
+#define ZEBRA_ZPL_DIRECT	0x14	/* Zebra ZPL-based printers - direct graphics mode */
 
 #define INTELLITECH_PCL	0x20		/* Intellitech PCL-based printers */
 
@@ -78,6 +79,7 @@ void	CancelJob(int sig);
 void	OutputLine(ppd_file_t *ppd, cups_page_header2_t *header, unsigned y);
 void	PCLCompress(unsigned char *line, unsigned length);
 void	ZPLCompress(unsigned char repeat_char, unsigned repeat_count);
+void	ZPLEmitLabelHeader(ppd_file_t *ppd, cups_page_header2_t *header);
 
 
 /*
@@ -126,6 +128,9 @@ Setup(ppd_file_t *ppd)			/* I - PPD file */
 
     case ZEBRA_ZPL :
         break;
+
+    case ZEBRA_ZPL_DIRECT :
+	break;
 
     case ZEBRA_CPCL :
         break;
@@ -291,6 +296,38 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
 	LastBuffer = malloc(header->cupsBytesPerLine);
 	LastSet    = 0;
         break;
+
+    case ZEBRA_ZPL_DIRECT :
+       /*
+	* Start label...
+	*/
+
+	puts("^XA");
+
+       /*
+	* Emit label header...
+	*/
+
+	ZPLEmitLabelHeader(ppd, header);
+
+       /*
+	* Set darkness...
+	*/
+
+	if (header->cupsCompression > 0 && header->cupsCompression <= 100)
+	  printf("~SD%02u\n", 30 * header->cupsCompression / 100);
+
+       /*
+	* Begin graphics format...
+	*/
+
+	puts("^FO0,0");
+	printf("^GFB,%d,%d,%d,",
+	       header->cupsHeight * header->cupsBytesPerLine,
+	       header->cupsHeight * header->cupsBytesPerLine,
+	       header->cupsBytesPerLine);
+
+	break;
 
     case ZEBRA_CPCL :
        /*
@@ -492,117 +529,10 @@ EndPage(ppd_file_t          *ppd,	/* I - PPD file */
         puts("^XA");
 
        /*
-        * Rotate 180 degrees so that the top of the label/page is at the
-	* leading edge...
+	* Emit label header...
 	*/
 
-	puts("^POI");
-
-       /*
-        * Set print width...
-	*/
-
-        printf("^PW%u\n", header->cupsWidth);
-
-       /*
-        * Set print rate...
-	*/
-
-	if ((choice = ppdFindMarkedChoice(ppd, "zePrintRate")) != NULL &&
-	    strcmp(choice->choice, "Default"))
-	{
-	  val = atoi(choice->choice);
-	  printf("^PR%d,%d,%d\n", val, val, val);
-	}
-
-       /*
-        * Put label home in default position (0,0)...
-        */
-
-	printf("^LH0,0\n");
-
-       /*
-        * Set media tracking...
-	*/
-
-	if (ppdIsMarked(ppd, "zeMediaTracking", "Continuous"))
-	{
-         /*
-	  * Add label length command for continuous...
-	  */
-
-	  printf("^LL%d\n", header->cupsHeight);
-	  printf("^MNN\n");
-	}
-	else if (ppdIsMarked(ppd, "zeMediaTracking", "Web"))
-          printf("^MNY\n");
-	else if (ppdIsMarked(ppd, "zeMediaTracking", "Mark"))
-	  printf("^MNM\n");
-
-       /*
-        * Set label top
-	*/
-
-	if (header->cupsRowStep != 200)
-	  printf("^LT%d\n", header->cupsRowStep);
-
-       /*
-        * Set media type...
-	*/
-
-	if (!strcmp(header->MediaType, "Thermal"))
-	  printf("^MTT\n");
-	else if (!strcmp(header->MediaType, "Direct"))
-	  printf("^MTD\n");
-
-       /*
-        * Set print mode...
-	*/
-
-	if ((choice = ppdFindMarkedChoice(ppd, "zePrintMode")) != NULL &&
-	    strcmp(choice->choice, "Saved"))
-	{
-	  printf("^MM");
-
-	  if (!strcmp(choice->choice, "Tear"))
-	    printf("T,Y\n");
-	  else if (!strcmp(choice->choice, "Peel"))
-	    printf("P,Y\n");
-	  else if (!strcmp(choice->choice, "Rewind"))
-	    printf("R,Y\n");
-	  else if (!strcmp(choice->choice, "Applicator"))
-	    printf("A,Y\n");
-	  else
-	    printf("C,Y\n");
-	}
-
-       /*
-        * Set tear-off adjust position...
-	*/
-
-	if (header->AdvanceDistance != 1000)
-	{
-	  if ((int)header->AdvanceDistance < 0)
-	    printf("~TA%04d\n", (int)header->AdvanceDistance);
-	  else
-	    printf("~TA%03d\n", (int)header->AdvanceDistance);
-	}
-
-       /*
-        * Allow for reprinting after an error...
-	*/
-
-	if (ppdIsMarked(ppd, "zeErrorReprint", "Always"))
-	  printf("^JZY\n");
-	else if (ppdIsMarked(ppd, "zeErrorReprint", "Never"))
-	  printf("^JZN\n");
-
-       /*
-        * Print multiple copies
-	*/
-
-	if (header->NumCopies > 1)
-	  printf("^PQ%d, 0, 0, N\n", header->NumCopies);
+	ZPLEmitLabelHeader(ppd, header);
 
        /*
         * Display the label image...
@@ -611,17 +541,55 @@ EndPage(ppd_file_t          *ppd,	/* I - PPD file */
 	puts("^FO0,0^XGR:CUPS.GRF,1,1^FS");
 
        /*
-        * End the label and eject...
+	* End the label and eject...
 	*/
 
 	puts("^XZ");
 
        /*
-        * Delete the label image...
-        */
+	* Delete the label image...
+	*/
 
 	puts("^XA");
-        puts("^IDR:CUPS.GRF^FS");
+	puts("^IDR:CUPS.GRF^FS");
+	puts("^XZ");
+
+       /*
+	* Cut the label as needed...
+	*/
+
+	if (header->CutMedia)
+	  puts("^CN1");
+        break;
+
+    case ZEBRA_ZPL_DIRECT :
+	if (Canceled)
+	{
+	 /*
+	  * End graphics download by writing enough newline characters
+	  * to finish the download.
+	  *
+	  * We don't know how far into the download we are, so just send
+	  * an entire graphic's worth of newlines. (The excess newlines
+	  * will be ignored by the printer.)
+	  */
+	  val = header->cupsHeight * header->cupsBytesPerLine;
+	  while (val-- > 0)
+	  {
+	    putchar('\n');
+	  }
+
+	 /*
+	  * Cancel current partially-complete format.
+	  */
+	  puts("~JX");
+	  break;
+	}
+
+       /*
+	* End label...
+	*/
+
 	puts("^XZ");
 
        /*
@@ -870,6 +838,14 @@ OutputLine(ppd_file_t         *ppd,	/* I - PPD file */
 	LastSet = 1;
         break;
 
+    case ZEBRA_ZPL_DIRECT :
+       /*
+	* We're already in the ^GF command, so just emit the graphics data.
+	*/
+	fwrite(Buffer, 1, header->cupsBytesPerLine, stdout);
+	fflush(stdout);
+	break;
+
     case ZEBRA_CPCL :
         if (Buffer[0] || memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine))
 	{
@@ -1079,6 +1055,130 @@ ZPLCompress(unsigned char repeat_char,	/* I - Character to repeat */
   putchar((int)repeat_char);
 }
 
+/*
+ * 'ZPLEmitLabelHeader()' - Emit ZPL options at the start of a label.
+ */
+
+void
+ZPLEmitLabelHeader(ppd_file_t *ppd,             /* I - PPD file */
+                   cups_page_header2_t *header) /* I - Page header */
+{
+  int		val;
+  ppd_choice_t	*choice;
+
+ /*
+  * Rotate 180 degrees so that the top of the label/page is at the
+  * leading edge...
+  */
+
+  puts("^POI");
+
+ /*
+  * Set print width...
+  */
+
+  printf("^PW%u\n", header->cupsWidth);
+
+ /*
+  * Set print rate...
+  */
+
+  if ((choice = ppdFindMarkedChoice(ppd, "zePrintRate")) != NULL &&
+      strcmp(choice->choice, "Default"))
+  {
+    val = atoi(choice->choice);
+    printf("^PR%d,%d,%d\n", val, val, val);
+  }
+
+ /*
+  * Put label home in default position (0,0)...
+  */
+
+  printf("^LH0,0\n");
+
+ /*
+  * Set media tracking...
+  */
+
+  if (ppdIsMarked(ppd, "zeMediaTracking", "Continuous"))
+  {
+   /*
+    * Add label length command for continuous...
+    */
+
+    printf("^LL%d\n", header->cupsHeight);
+    printf("^MNN\n");
+  }
+  else if (ppdIsMarked(ppd, "zeMediaTracking", "Web"))
+    printf("^MNY\n");
+  else if (ppdIsMarked(ppd, "zeMediaTracking", "Mark"))
+    printf("^MNM\n");
+
+ /*
+  * Set label top
+  */
+
+  if (header->cupsRowStep != 200)
+    printf("^LT%d\n", header->cupsRowStep);
+
+ /*
+  * Set media type...
+  */
+
+  if (!strcmp(header->MediaType, "Thermal"))
+    printf("^MTT\n");
+  else if (!strcmp(header->MediaType, "Direct"))
+    printf("^MTD\n");
+
+ /*
+  * Set print mode...
+  */
+
+  if ((choice = ppdFindMarkedChoice(ppd, "zePrintMode")) != NULL &&
+      strcmp(choice->choice, "Saved"))
+  {
+    printf("^MM");
+
+    if (!strcmp(choice->choice, "Tear"))
+      printf("T,Y\n");
+    else if (!strcmp(choice->choice, "Peel"))
+      printf("P,Y\n");
+    else if (!strcmp(choice->choice, "Rewind"))
+      printf("R,Y\n");
+    else if (!strcmp(choice->choice, "Applicator"))
+      printf("A,Y\n");
+    else
+      printf("C,Y\n");
+  }
+
+ /*
+  * Set tear-off adjust position...
+  */
+
+  if (header->AdvanceDistance != 1000)
+  {
+    if ((int)header->AdvanceDistance < 0)
+      printf("~TA%04d\n", (int)header->AdvanceDistance);
+    else
+      printf("~TA%03d\n", (int)header->AdvanceDistance);
+  }
+
+ /*
+  * Allow for reprinting after an error...
+  */
+
+  if (ppdIsMarked(ppd, "zeErrorReprint", "Always"))
+    printf("^JZY\n");
+  else if (ppdIsMarked(ppd, "zeErrorReprint", "Never"))
+    printf("^JZN\n");
+
+ /*
+  * Print multiple copies
+  */
+
+  if (header->NumCopies > 1)
+    printf("^PQ%d, 0, 0, N\n", header->NumCopies);
+}
 
 /*
  * 'main()' - Main entry and processing of driver.
