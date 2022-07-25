@@ -5,6 +5,7 @@ Changes in CUPS v2.4.3 (TBA)
 ----------------------------
 
 - Added a title with device uri for found network printers (Issues #402, #393)
+- Fixed `--enable-libtool-unsupported` (Issue #394)
 - Fixed configuration on RISC-V machines (Issue #404)
 - Fixed the `device_uri` invalid pointer for driverless printers with `.local`
   hostname (Issue #419)
