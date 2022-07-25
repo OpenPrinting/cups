@@ -12,6 +12,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed a potential SNMP OID value overflow issue (Issue #431)
 - Use localhost when printing via printer application (Issue #353)
 - Now localize HTTP responses using the Content-Language value (Issue #426)
+- Raised file size limit for importing PPD via Web UI (Issue #433)
 
 
 Changes in CUPS v2.4.2 (26th May 2022)
