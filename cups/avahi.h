@@ -42,11 +42,7 @@
 #endif /* HAVE_MDNSRESPONDER */
 
 
-struct service_data{
-	void *data;
-};
-
-typedef struct avahi_srv_s		/* Service information */
+typedef struct discovery_data_s		/* Service information */
 {
 #ifdef HAVE_MDNSRESPONDER
   DNSServiceRef	ref;			/* Service reference for query */
@@ -63,12 +59,11 @@ typedef struct avahi_srv_s		/* Service information */
 		*resource,		/* Resource path */
 		*uri;			/* URI */
   int		num_txt;		/* Number of TXT record keys */
-  cups_option_t	*txt;			/* TXT record keys */
   int		port,			/* Port number */
 		is_local,		/* Is a local service? */
 		is_processed,		/* Did we process the service? */
 		is_resolved;		/* Got the resolve data? */
-} avahi_srv_t;
+} discovery_data_t;
 
 /*
 	declare callbacks
@@ -117,6 +112,6 @@ static void		_resolveCallback(AvahiServiceResolver *res,
 /*
 	functions prototypes for browse and resolve API functions
 */
-static int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*client_callback)(AvahiClient*, AvahiClientState, void *), int *err);
-static void browseServices(AvahiClient **avahi_client, char *regtype, char *domain, cups_array_t *services, int *err);
-static void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, int *err);
+static int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(AvahiClient*, AvahiClientState, void *), void *data, int *err);
+static void browseServices(AvahiClient **avahi_client, service_data_t *service, int *err);
+static void resolveServices(AvahiClient **avahi_client, service_data_t *service, int *err);

@@ -18,7 +18,7 @@
     implementation of avahi_intialize, to create objects necessary for
     browse and resolve to work
 */
-int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(AvahiClient*, AvahiClientState, void *), int *err)
+int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(AvahiClient*, AvahiClientState, void *), void *data, int *err)
 {
    
     /* allocate main loop object */
@@ -48,13 +48,13 @@ int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_
     return (1);
 }
 
-void browseServices(AvahiClient **avahi_client, char *regtype, char *domain, cups_array_t *services, int *err)
+void browseServices(AvahiClient **avahi_client, service_data_t *service, int *err)
 {
 
     AvahiServiceBrowser *sb = NULL;
     int avahi_client_result = 0;
 
-    sb = avahi_service_browser_new(*avahi_client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, regtype, domain, (AvahiLookupFlags)0, _browseCallback, services);
+    sb = avahi_service_browser_new(*avahi_client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, service->regtype, service->domain, (AvahiLookupFlags)0, _browseCallback, service->data);
 
     if (!sb)
     {   
@@ -67,28 +67,17 @@ void browseServices(AvahiClient **avahi_client, char *regtype, char *domain, cup
 }
 
 //TODO : optimization
-void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, int *err)
+void resolveServices(AvahiClient **avahi_client, service_data_t *service, int *err)
 {
-    if (getenv("IPPFIND_DEBUG"))
-        fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", service->name, service->regtype, service->domain);
-
-#ifdef HAVE_MDNSRESPONDER
-    service->ref = dnssd_ref;
-    err = DNSServiceResolve(&(service->ref),
-                            kDNSServiceFlagsShareConnection, 0, service->name,
-                            service->regtype, service->domain, _resolveCallback,
-                            service);
-
-#elif defined(HAVE_AVAHI)
+    
     service->ref = avahi_service_resolver_new(*avahi_client, AVAHI_IF_UNSPEC,
                                               AVAHI_PROTO_UNSPEC, service->name,
                                               service->regtype, service->domain,
                                               AVAHI_PROTO_UNSPEC, 0,
-                                              _resolveCallback, service);
+                                              _resolveCallback, service->data);
     if (service->ref)
         *err = 0;
     else
         *err = avahi_client_errno(avahi_client);
-#endif /* HAVE_MDNSRESPONDER */
 
 }
