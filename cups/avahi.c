@@ -71,7 +71,7 @@ void resolveServices(AvahiClient **avahi_client, service_data_t *service, int *e
 {
     
     service->ref = avahi_service_resolver_new(*avahi_client, AVAHI_IF_UNSPEC,
-                                              AVAHI_PROTO_UNSPEC, service->name,
+                                              AVAHI_PROTO_UNSPEC, service->fullname,
                                               service->regtype, service->domain,
                                               AVAHI_PROTO_UNSPEC, 0,
                                               _resolveCallback, service->data);

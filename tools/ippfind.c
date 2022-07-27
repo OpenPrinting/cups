@@ -92,12 +92,22 @@ typedef struct ippfind_expr_s		/* Expression */
   char		**args;			/* Arguments for exec */
 } ippfind_expr_t;
 
+<<<<<<< Updated upstream
 typedef struct ippfind_srv_s		/* Service information */
+=======
+
+struct ippfind_srv_s		/* Service information */
+>>>>>>> Stashed changes
 {
 #ifdef HAVE_MDNSRESPONDER
   DNSServiceRef	ref;			/* Service reference for query */
 #elif defined(HAVE_AVAHI)
   AvahiServiceResolver *ref;		/* Resolver */
+<<<<<<< Updated upstream
+=======
+  //TODO
+  /*why dont we keep service browser reference as well ?*/
+>>>>>>> Stashed changes
 #endif /* HAVE_MDNSRESPONDER */
   char		*name,			/* Service name */
 		*domain,		/* Domain name */
@@ -112,7 +122,12 @@ typedef struct ippfind_srv_s		/* Service information */
 		is_local,		/* Is a local service? */
 		is_processed,		/* Did we process the service? */
 		is_resolved;		/* Got the resolve data? */
+<<<<<<< Updated upstream
 } ippfind_srv_t;
+=======
+		int dummy;
+};
+>>>>>>> Stashed changes
 
 
 /*
@@ -172,7 +187,11 @@ main(int  argc,				/* I - Number of command-line args */
 			*search;	/* Current browse/resolve string */
   cups_array_t		*searches;	/* Things to browse/resolve */
   cups_array_t		*services;	/* Service array */
+<<<<<<< Updated upstream
   ippfind_srv_t		*service;	/* Current service */
+=======
+  service_data_t		*service = (ippfind_srv_t*)malloc(sizeof(ippfind_srv_t));	/* Current service */
+>>>>>>> Stashed changes
   ippfind_expr_t	*expressions = NULL,
 					/* Expression tree */
 			*temp = NULL,	/* New expression */
@@ -1095,7 +1114,7 @@ main(int  argc,				/* I - Number of command-line args */
   }
 
 #elif defined(HAVE_AVAHI)
-  avahiInitialize(&avahi_poll, &avahi_client, &err);
+
   if (!avahiInitialize(&avahi_poll, &avahi_client, &err))
   {
     _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
@@ -1338,6 +1357,9 @@ main(int  argc,				/* I - Number of command-line args */
            service;
            service = (ippfind_srv_t *)cupsArrayNext(services))
       {
+        service_data_t srv;
+        srv->data = service;
+
         if (service->is_processed)
           processed ++;
 
@@ -1459,7 +1481,7 @@ _browseCallback(
   * Get the device...
   */
 
-  get_service((cups_array_t *)context, serviceName, regtype, replyDomain);
+  get_service((cups_array_t *)((service_data_t*)context)->data, serviceName, regtype, replyDomain);
 }
 
 
@@ -1495,7 +1517,7 @@ browse_local_callback(
   * Get the device...
   */
 
-  service = get_service((cups_array_t *)context, serviceName, regtype,
+  service = get_service((cups_array_t *)((service_data_t*)context)->data, serviceName, regtype,
                         replyDomain);
   service->is_local = 1;
 }
@@ -1543,7 +1565,7 @@ _browseCallback(
 	* it doesn't yet exist.
 	*/
 
-	service = get_service((cups_array_t *)context, name, type, domain);
+	service = get_service((cups_array_t *)((service_data_t*)context)->data, name, type, domain);
 
 	if (flags & AVAHI_LOOKUP_RESULT_LOCAL)
 	  service->is_local = 1;

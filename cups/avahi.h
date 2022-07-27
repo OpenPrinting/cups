@@ -42,6 +42,7 @@
 #endif /* HAVE_MDNSRESPONDER */
 
 
+<<<<<<< Updated upstream
 typedef struct discovery_data_s		/* Service information */
 {
 #ifdef HAVE_MDNSRESPONDER
@@ -64,7 +65,13 @@ typedef struct discovery_data_s		/* Service information */
 		is_processed,		/* Did we process the service? */
 		is_resolved;		/* Got the resolve data? */
 } discovery_data_t;
+=======
+typedef struct service_data{
+	void *data;
+} service_data_t;
+>>>>>>> Stashed changes
 
+typedef struct ippfind_srv_s ippfind_srv_t;
 /*
 	declare callbacks
 */
@@ -112,6 +119,11 @@ static void		_resolveCallback(AvahiServiceResolver *res,
 /*
 	functions prototypes for browse and resolve API functions
 */
+<<<<<<< Updated upstream
 static int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(AvahiClient*, AvahiClientState, void *), void *data, int *err);
 static void browseServices(AvahiClient **avahi_client, service_data_t *service, int *err);
+=======
+static int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*client_callback)(AvahiClient*, AvahiClientState, void *), int *err);
+static void browseServices(AvahiClient **avahi_client, char *regtype, char *domain, service_data_t *services, int *err);
+>>>>>>> Stashed changes
 static void resolveServices(AvahiClient **avahi_client, service_data_t *service, int *err);
