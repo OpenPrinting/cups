@@ -371,3 +371,6 @@
 
 # HP DesignJet 130 (Apple #5838)
 0x03f0 0x0314 no-reattach
+
+# GoDEX label printers (https://github.com/OpenPrinting/cups/issues/440)
+0x195f 0x0001 unidir no-reattach
