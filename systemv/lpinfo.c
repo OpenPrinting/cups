@@ -500,7 +500,6 @@ usage(void)
   _cupsLangPuts(stdout, _("-h server[:port]        Connect to the named server and port"));
   _cupsLangPuts(stdout, _("-l                      Show verbose (long) output"));
   _cupsLangPuts(stdout, _("-m                      Show models"));
-  _cupsLangPuts(stdout, _("-U username             Specify the username to use for authentication"));
   _cupsLangPuts(stdout, _("-v                      Show devices"));
   _cupsLangPuts(stdout, _("--device-id device-id   Show models matching the given IEEE 1284 device ID"));
   _cupsLangPuts(stdout, _("--exclude-schemes scheme-list\n"
