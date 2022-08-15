@@ -2073,7 +2073,11 @@ cupsSetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
 
   snprintf(filename, sizeof(filename), "%s/lpoptions", cg->cups_serverroot);
 
-  if (cg->home)
+  if (cg->home
+#ifndef _WIN32
+      && getuid() != 0
+#endif /* !_WIN32 */
+      )
   {
    /*
     * Create ~/.cups subdirectory...
