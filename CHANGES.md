@@ -12,9 +12,11 @@ Changes in CUPS v2.4.3 (TBA)
   hostname (Issue #419)
 - Fixed an OpenSSL crash bug (Issue #409)
 - Fixed a potential SNMP OID value overflow issue (Issue #431)
-- Use localhost when printing via printer application (Issue #353)
+- Look for default printer on network if needed (Issue ##452)
 - Now localize HTTP responses using the Content-Language value (Issue #426)
 - Raised file size limit for importing PPD via Web UI (Issue #433)
+- Use localhost when printing via printer application (Issue #353)
+- Write defaults into /etc/cups/lpoptions if we're root (Issue #456)
 
 
 Changes in CUPS v2.4.2 (26th May 2022)
