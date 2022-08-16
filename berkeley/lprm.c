@@ -82,6 +82,13 @@ main(int  argc,			/* I - Number of command-line arguments */
 	      else
 	      {
 		i ++;
+
+		if (i >= argc)
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected destination after \"-P\" option."), argv[0]);
+		  usage();
+		}
+
 		name = argv[i];
 	      }
 
