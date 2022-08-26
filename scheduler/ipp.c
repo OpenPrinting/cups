@@ -2340,6 +2340,18 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   set_device_uri = 0;
 
+  if ((attr = ippFindAttribute(con->request, "ColorModel", IPP_TAG_NAME)) != NULL)
+  {
+    const char * keyword = NULL;
+
+    if (!strcmp(attr->values[0].string.text, "FastGray") || !strcmp(attr->values[0].string.text, "Gray") || !strcmp(attr->values[0].string.text, "DeviceGray"))
+      keyword = "monochrome";
+    else
+      keyword = "color";
+
+    printer->num_options = cupsAddOption("print-color-mode", keyword, printer->num_options, &printer->options);
+  }
+
   if ((attr = ippFindAttribute(con->request, "device-uri",
                                IPP_TAG_URI)) != NULL)
   {
