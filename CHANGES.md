@@ -15,6 +15,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Look for default printer on network if needed (Issue ##452)
 - Now localize HTTP responses using the Content-Language value (Issue #426)
 - Raised file size limit for importing PPD via Web UI (Issue #433)
+- Update print-color-mode if the printer is modified via ColorModel PPD option (Issue #451)
 - Use localhost when printing via printer application (Issue #353)
 - Write defaults into /etc/cups/lpoptions if we're root (Issue #456)
 
