@@ -5522,7 +5522,9 @@ create_local_printer(
 
     return;
   }
+
   ptr = ippGetString(device_uri, 0, NULL);
+
   if (!ptr || !ptr[0])
   {
     send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Attribute \"%s\" has empty value."), "device-uri");
