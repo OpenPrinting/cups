@@ -1,0 +1,577 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/sachin-thakan/justcode/cups'
+chmod +x cups-config
+echo Using ARCHFLAGS=""
+echo Using ALL_CFLAGS="-I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result"
+echo Using ALL_CXXFLAGS="-I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result"
+echo Using CC="gcc"
+echo Using CXX="gcc"
+echo Using DSOFLAGS="-Wl,-rpath,/home/sachin-thakan/gsocroot/lib64  -Wl,-soname,`basename all` -shared"
+echo Using LDFLAGS="-Wl,-rpath,/home/sachin-thakan/gsocroot/lib64"
+echo Using LIBS=" -lavahi-common -lavahi-client -lssl -lcrypto -lz -lpthread -lm -lcrypt   -lz"
+for dir in cups tools filter backend berkeley cgi-bin monitor notifier ppdc scheduler systemv conf data desktop locale man doc examples templates; do\
+	echo Making all in $dir... ;\
+	(cd $dir ; make -knw all ) || exit 1;\
+done
+Making all in cups...
+ 
+Making all in tools...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/tools'
+echo Linking ippevepcl...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ippevepcl ippevepcl.o -L../cups -lcups
+/usr/bin/true -s "-" ippevepcl
+echo Compiling ippeveps.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ippeveps.o ippeveps.c
+echo Linking ippeveps...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ippeveps ippeveps.o -L../cups -lcups
+/usr/bin/true -s "-" ippeveps
+ 
+echo Compiling ippeveprinter.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ippeveprinter.o ippeveprinter.c
+echo Linking ippeveprinter...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ippeveprinter ippeveprinter.o -lavahi-common -lavahi-client -lpam -ldl -L../cups -lcups
+/usr/bin/true -s "-" ippeveprinter
+ 
+echo Compiling ippfind.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ippfind.o ippfind.c
+echo Linking ippfind...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ippfind ippfind.o -lavahi-common -lavahi-client -L../cups -lcups
+/usr/bin/true -s "-" ippfind
+ 
+echo Compiling ipptool.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ipptool.o ipptool.c
+echo Linking ipptool...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ipptool ipptool.o -L../cups -lcups
+/usr/bin/true -s "-" ipptool
+echo Linking ippeveprinter-static...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ippeveprinter-static ippeveprinter.o -lpam -ldl ../cups/libcups.a  -lavahi-common -lavahi-client -lssl -lcrypto -lz -lpthread -lm -lcrypt   -lz
+/usr/bin/true -s "-" ippeveprinter-static
+echo Linking ipptool-static...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ipptool-static ipptool.o ../cups/libcups.a  -lavahi-common -lavahi-client -lssl -lcrypto -lz -lpthread -lm -lcrypt   -lz
+/usr/bin/true -s "-" ipptool-static
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/tools'
+ 
+Making all in filter...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/filter'
+echo Compiling commandtops.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o commandtops.o commandtops.c
+ 
+echo Linking commandtops...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o commandtops commandtops.o -L../cups -lcups
+/usr/bin/true -s "-" commandtops
+ 
+echo Compiling gziptoany.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o gziptoany.o gziptoany.c
+echo Linking gziptoany...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o gziptoany gziptoany.o -L../cups -lcups
+/usr/bin/true -s "-" gziptoany
+echo Compiling pstops.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o pstops.o pstops.c
+ 
+echo Compiling common.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o common.o common.c
+ 
+echo Linking pstops...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o pstops pstops.o common.o -L../cups -lcups
+ 
+/usr/bin/true -s "-" pstops
+ 
+echo Compiling rastertoepson.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o rastertoepson.o rastertoepson.c
+ 
+echo Linking rastertoepson...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o rastertoepson rastertoepson.o -L../cups -lcups
+/usr/bin/true -s "-" rastertoepson
+ 
+echo Compiling rastertohp.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o rastertohp.o rastertohp.c
+ 
+echo Linking rastertohp...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o rastertohp rastertohp.o -L../cups -lcups
+/usr/bin/true -s "-" rastertohp
+ 
+echo Compiling rastertolabel.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o rastertolabel.o rastertolabel.c
+echo Linking rastertolabel...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o rastertolabel rastertolabel.o -L../cups -lcups
+/usr/bin/true -s "-" rastertolabel
+ 
+echo Compiling rastertopwg.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o rastertopwg.o rastertopwg.c
+echo Linking rastertopwg...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o rastertopwg rastertopwg.o -L../cups -lcups
+/usr/bin/true -s "-" rastertopwg
+ 
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/filter'
+ 
+Making all in backend...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/backend'
+ 
+echo Compiling ieee1284.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ieee1284.o ieee1284.c
+ 
+echo Compiling network.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o network.o network.c
+ 
+echo Compiling runloop.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o runloop.o runloop.c
+ 
+echo Compiling snmp-supplies.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o snmp-supplies.o snmp-supplies.c
+ 
+echo Archiving libbackend.a...
+ 
+/usr/bin/rm -f libbackend.a
+ 
+/usr/bin/ar crvs libbackend.a ieee1284.o network.o runloop.o snmp-supplies.o
+ 
+ranlib libbackend.a
+ 
+echo Compiling ipp.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ipp.o ipp.c
+ 
+echo Linking ipp...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ipp ipp.o libbackend.a -L../cups -lcups
+ 
+/usr/bin/true -s "-" ipp
+ 
+/usr/bin/rm -f http https ipps
+ 
+for file in http https ipps; do \
+	/usr/bin/ln -sf ipp $file; \
+done
+ 
+echo Compiling lpd.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o lpd.o lpd.c
+ 
+echo Linking lpd...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o lpd lpd.o libbackend.a -L../cups -lcups
+ 
+/usr/bin/true -s "-" lpd
+ 
+echo Compiling usb.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o usb.o usb.c
+ 
+echo Linking usb...
+ 
+gcc  -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o usb usb.o libbackend.a -lusb-1.0 \
+	 -lpthread -lm -lcrypt   -lz -L../cups -lcups
+ 
+/usr/bin/true -s "-" usb
+ 
+echo Compiling dnssd.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o dnssd.o dnssd.c
+ 
+echo Linking dnssd...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o dnssd dnssd.o libbackend.a -lavahi-common -lavahi-client -L../cups -lcups
+ 
+/usr/bin/true -s "-" dnssd
+ 
+if test `uname` = Darwin; then \
+	/usr/bin/rm -f mdns; \
+	/usr/bin/ln -sf dnssd mdns; \
+fi
+ 
+echo Compiling snmp.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o snmp.o snmp.c
+ 
+echo Linking snmp...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o snmp snmp.o libbackend.a -L../cups -lcups
+ 
+/usr/bin/true -s "-" snmp
+ 
+echo Compiling socket.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o socket.o socket.c
+ 
+echo Linking socket...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o socket socket.o libbackend.a -L../cups -lcups
+ 
+/usr/bin/true -s "-" socket
+ 
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/backend'
+ 
+Making all in berkeley...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/berkeley'
+ 
+echo Compiling lpc.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o lpc.o lpc.c
+ 
+echo Linking lpc...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o lpc lpc.o -L../cups -lcups
+ 
+/usr/bin/true -s "-" lpc
+ 
+echo Compiling lpq.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o lpq.o lpq.c
+ 
+echo Linking lpq...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o lpq lpq.o -L../cups -lcups
+ 
+/usr/bin/true -s "-" lpq
+ 
+echo Compiling lpr.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o lpr.o lpr.c
+ 
+echo Linking lpr...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o lpr lpr.o -L../cups -lcups
+ 
+/usr/bin/true -s "-" lpr
+ 
+echo Compiling lprm.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o lprm.o lprm.c
+ 
+echo Linking lprm...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o lprm lprm.o -L../cups -lcups
+ 
+/usr/bin/true -s "-" lprm
+ 
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/berkeley'
+ 
+Making all in cgi-bin...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/cgi-bin'
+ 
+echo Compiling help-index.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o help-index.o help-index.c
+ 
+echo Compiling html.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o html.o html.c
+ 
+echo Compiling ipp-var.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ipp-var.o ipp-var.c
+ 
+echo Compiling search.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o search.o search.c
+ 
+echo Compiling template.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o template.o template.c
+ 
+echo Compiling var.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o var.o var.c
+ 
+echo Archiving libcupscgi.a...
+ 
+/usr/bin/rm -f libcupscgi.a
+ 
+/usr/bin/ar crvs libcupscgi.a help-index.o html.o ipp-var.o search.o template.o var.o
+ 
+ranlib libcupscgi.a
+ 
+echo Compiling admin.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o admin.o admin.c
+ 
+echo Linking admin.cgi...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o admin.cgi admin.o libcupscgi.a -L../cups -lcups
+/usr/bin/true -s "-" admin.cgi
+echo Compiling classes.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o classes.o classes.c
+echo Linking classes.cgi...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o classes.cgi classes.o libcupscgi.a -L../cups -lcups
+/usr/bin/true -s "-" classes.cgi
+echo Compiling help.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o help.o help.c
+echo Linking help.cgi...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o help.cgi help.o libcupscgi.a -L../cups -lcups
+/usr/bin/true -s "-" help.cgi
+echo Compiling jobs.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o jobs.o jobs.c
+echo Linking jobs.cgi...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o jobs.cgi jobs.o libcupscgi.a -L../cups -lcups
+/usr/bin/true -s "-" jobs.cgi
+echo Compiling printers.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o printers.o printers.c
+echo Linking printers.cgi...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o printers.cgi printers.o libcupscgi.a -L../cups -lcups
+/usr/bin/true -s "-" printers.cgi
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/cgi-bin'
+Making all in monitor...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/monitor'
+echo Compiling bcp.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o bcp.o bcp.c
+ 
+echo Linking bcp...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o bcp bcp.o -L../cups -lcups
+/usr/bin/true -s "-" bcp
+echo Compiling tbcp.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o tbcp.o tbcp.c
+echo Linking tbcp...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o tbcp tbcp.o -L../cups -lcups
+/usr/bin/true -s "-" tbcp
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/monitor'
+Making all in notifier...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/notifier'
+echo Compiling dbus.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o dbus.o dbus.c
+ 
+echo Linking dbus...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o dbus dbus.o -ldbus-1 -L../cups -lcups
+/usr/bin/true -s "-" dbus
+echo Compiling mailto.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o mailto.o mailto.c
+echo Linking mailto...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o mailto mailto.o -L../cups -lcups
+/usr/bin/true -s "-" mailto
+echo Compiling rss.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o rss.o rss.c
+echo Linking rss...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o rss rss.o -L../cups -lcups
+/usr/bin/true -s "-" rss
+echo Compiling testnotify.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o testnotify.o testnotify.c
+echo Linking testnotify...
+ 
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o testnotify testnotify.o -L../cups -lcups
+/usr/bin/true -s "-" testnotify
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/notifier'
+ 
+Making all in ppdc...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/ppdc'
+echo Compiling ppdc-array.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-array.o ppdc-array.cxx
+ 
+echo Compiling ppdc-attr.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-attr.o ppdc-attr.cxx
+echo Compiling ppdc-catalog.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-catalog.o ppdc-catalog.cxx
+echo Compiling ppdc-choice.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-choice.o ppdc-choice.cxx
+echo Compiling ppdc-constraint.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-constraint.o ppdc-constraint.cxx
+echo Compiling ppdc-driver.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-driver.o ppdc-driver.cxx
+echo Compiling ppdc-file.cxx...
+ 
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-file.o ppdc-file.cxx
+echo Compiling ppdc-filter.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-filter.o ppdc-filter.cxx
+echo Compiling ppdc-font.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-font.o ppdc-font.cxx
+ 
+echo Compiling ppdc-group.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-group.o ppdc-group.cxx
+ 
+echo Compiling ppdc-import.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-import.o ppdc-import.cxx
+ 
+echo Compiling ppdc-mediasize.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-mediasize.o ppdc-mediasize.cxx
+ 
+echo Compiling ppdc-message.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-message.o ppdc-message.cxx
+ 
+echo Compiling ppdc-option.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-option.o ppdc-option.cxx
+ 
+echo Compiling ppdc-profile.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-profile.o ppdc-profile.cxx
+ 
+echo Compiling ppdc-shared.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-shared.o ppdc-shared.cxx
+ 
+echo Compiling ppdc-source.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-source.o ppdc-source.cxx
+echo Compiling ppdc-string.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-string.o ppdc-string.cxx
+echo Compiling ppdc-variable.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc-variable.o ppdc-variable.cxx
+echo Archiving libcupsppdc.a...
+/usr/bin/rm -f libcupsppdc.a
+/usr/bin/ar crvs libcupsppdc.a ppdc-array.o ppdc-attr.o ppdc-catalog.o ppdc-choice.o ppdc-constraint.o ppdc-driver.o ppdc-file.o ppdc-filter.o ppdc-font.o ppdc-group.o ppdc-import.o ppdc-mediasize.o ppdc-message.o ppdc-option.o ppdc-profile.o ppdc-shared.o ppdc-source.o ppdc-string.o ppdc-variable.o
+ranlib libcupsppdc.a
+echo Compiling ppdc.cxx...
+ 
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdc.o ppdc.cxx
+echo Linking ppdc...
+g++ -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ppdc ppdc.o libcupsppdc.a -lpthread -lm -lcrypt   -lz -L../cups -lcups
+/usr/bin/true -s "-" ppdc
+echo Compiling ppdhtml.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdhtml.o ppdhtml.cxx
+echo Linking ppdhtml...
+g++ -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ppdhtml ppdhtml.o libcupsppdc.a -lpthread -lm -lcrypt   -lz -L../cups -lcups
+/usr/bin/true -s "-" ppdhtml
+echo Compiling ppdi.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdi.o ppdi.cxx
+echo Linking ppdi...
+g++ -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ppdi ppdi.o libcupsppdc.a -lpthread -lm -lcrypt   -lz -L../cups -lcups
+/usr/bin/true -s "-" ppdi
+echo Compiling ppdmerge.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdmerge.o ppdmerge.cxx
+echo Linking ppdmerge...
+g++ -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ppdmerge ppdmerge.o -L../cups -lcups
+/usr/bin/true -s "-" ppdmerge
+echo Compiling ppdpo.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ppdpo.o ppdpo.cxx
+echo Linking ppdpo...
+g++ -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o ppdpo ppdpo.o libcupsppdc.a -lpthread -lm -lcrypt   -lz -L../cups -lcups
+/usr/bin/true -s "-" ppdpo
+echo Compiling genstrings.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o genstrings.o genstrings.cxx
+ 
+echo Linking genstrings...
+g++  -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o genstrings genstrings.o \
+	libcupsppdc.a ../cups/libcups.a  -lavahi-common -lavahi-client -lssl -lcrypto -lz -lpthread -lm -lcrypt   -lz
+/usr/bin/true -s "-" genstrings
+echo Generating localization strings...
+./genstrings >sample.c
+ 
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/ppdc'
+Making all in scheduler...
+ 
+make[1]: Entering directory '/home/sachin-thakan/justcode/cups/scheduler'
+echo Compiling filter.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o filter.o filter.c
+ 
+echo Compiling mime.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o mime.o mime.c
+ 
+echo Compiling type.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o type.o type.c
+echo Archiving libcupsmime.a...
+/usr/bin/rm -f libcupsmime.a
+/usr/bin/ar crvs libcupsmime.a filter.o mime.o type.o
+ranlib libcupsmime.a
+ 
+echo Compiling auth.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o auth.o auth.c
+ 
+echo Compiling banners.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o banners.o banners.c
+ 
+echo Compiling cert.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o cert.o cert.c
+echo Compiling classes.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o classes.o classes.c
+echo Compiling client.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o client.o client.c
+echo Compiling colorman.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o colorman.o colorman.c
+echo Compiling conf.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o conf.o conf.c
+echo Compiling dirsvc.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o dirsvc.o dirsvc.c
+ 
+echo Compiling env.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o env.o env.c
+echo Compiling file.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o file.o file.c
+echo Compiling main.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o main.o main.c
+ 
+echo Compiling ipp.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o ipp.o ipp.c
+echo Compiling listen.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o listen.o listen.c
+ 
+echo Compiling job.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o job.o job.c
+ 
+echo Compiling log.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o log.o log.c
+ 
+echo Compiling network.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o network.o network.c
+echo Compiling policy.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o policy.o policy.c
+echo Compiling printers.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o printers.o printers.c
+echo Compiling process.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o process.o process.c
+ 
+echo Compiling quotas.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o quotas.o quotas.c
+echo Compiling select.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o select.o select.c
+echo Compiling server.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o server.o server.c
+ 
+echo Compiling statbuf.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o statbuf.o statbuf.c
+ 
+echo Compiling subscriptions.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o subscriptions.o subscriptions.c
+ 
+echo Compiling sysman.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o sysman.o sysman.c
+ 
+echo Linking cupsd...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o cupsd auth.o banners.o cert.o classes.o client.o colorman.o conf.o dirsvc.o env.o file.o main.o ipp.o listen.o job.o log.o network.o policy.o printers.o process.o quotas.o select.o server.o statbuf.o subscriptions.o sysman.o libcupsmime.a \
+	-lpam -ldl   -lavahi-common -lavahi-client -ldbus-1   \
+	-lsystemd   -lpthread -lm -lcrypt   -lz -L../cups -lcups
+/usr/bin/true -s "-" cupsd
+echo Compiling cupsfilter.c...
+ 
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o cupsfilter.o cupsfilter.c
+echo Linking cupsfilter...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o cupsfilter cupsfilter.o libcupsmime.a -L../cups -lcups
+/usr/bin/true -s "-" cupsfilter
+/usr/bin/rm -f convert
+/usr/bin/ln -sf cupsfilter convert
+echo Compiling cups-deviced.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o cups-deviced.o cups-deviced.c
+ 
+echo Compiling util.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o util.o util.c
+echo Linking cups-deviced...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o cups-deviced cups-deviced.o util.o -L../cups -lcups
+/usr/bin/true -s "-" cups-deviced
+ 
+echo Compiling cups-driverd.cxx...
+g++  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -D_FORTIFY_SOURCE=2  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o cups-driverd.o cups-driverd.cxx
+echo Compiling cups-exec.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o cups-exec.o cups-exec.c
+echo Linking cups-exec...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o cups-exec cups-exec.o -L../cups -lcups
+/usr/bin/true -s "-" cups-exec
+echo Compiling cups-lpd.c...
+gcc  -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -I.. -D_CUPS_SOURCE -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT  -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result -c -o cups-lpd.o cups-lpd.c
+echo Linking cups-lpd...
+gcc -L../cups   -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64 -fPIE -pie -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE -o cups-lpd cups-lpd.o -L../cups -lcups
+/usr/bin/true -s "-" cups-lpd
+make[1]: Leaving directory '/home/sachin-thakan/justcode/cups/scheduler'
+make: Leaving directory '/home/sachin-thakan/justcode/cups'
+ 
+make[1]: *** No rule to make target '../ppdc/libcupsppdc.a', needed by 'cups-driverd'.
+make: *** [Makefile:43: all] Error 1
+

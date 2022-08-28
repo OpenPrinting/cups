@@ -1,0 +1,957 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+
+# Make data base, printed on Sun Aug 21 12:06:27 2022
+
+# Variables
+
+# makefile (from 'Makedefs', line 213)
+localstatedir = /home/sachin-thakan/gsocroot/var
+# makefile (from 'Makedefs', line 98)
+LIBCUPSSTATIC = libcups.a
+# environment
+GDK_BACKEND = x11
+# makefile (from 'Makedefs', line 161)
+ARFLAGS = crvs
+# makefile (from 'Makedefs', line 233)
+LIBDIR = $(BUILDROOT)$(libdir)
+# environment
+LC_ALL = C
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+SSH_AGENT_LAUNCHER = gnome-keyring
+# makefile (from 'Makedefs', line 23)
+AR = /usr/bin/ar
+# makefile (from 'Makedefs', line 103)
+LIBPAPER = 
+# makefile (from 'Makedefs', line 240)
+RCSTOP = 36
+# makefile (from 'Makedefs', line 104)
+LIBUSB = -lusb-1.0
+# makefile (from 'Makedefs', line 163)
+BUILDDIRS = tools filter backend berkeley cgi-bin monitor notifier ppdc scheduler systemv conf data desktop locale man doc examples templates
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# makefile (from 'Makedefs', line 225)
+BINDIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/bin
+# makefile (from 'Makedefs', line 231)
+ICONDIR = /usr/share/icons
+# makefile (from 'Makedefs', line 38)
+MV = /usr/bin/mv -f
+# makefile (from 'Makedefs', line 245)
+SERVERROOT = $(BUILDROOT)/home/sachin-thakan/gsocroot/etc/cups
+# makefile (from 'Makedefs', line 255)
+SMFMANIFESTDIR = 
+# makefile (from 'Makedefs', line 56)
+INSTALL_SCRIPT = $(INSTALL) -c -m 755
+# environment
+VSCODE_CWD = /home/sachin-thakan
+# makefile (from 'Makedefs', line 178)
+LIBS = $(LIBGSSAPI) $(DNSSDLIBS) $(TLSLIBS) $(LIBZ) $(COMMONLIBS)
+# makefile (from 'Makedefs', line 162)
+BACKLIBS = 
+# makefile (from 'Makedefs', line 176)
+LINKCUPS = -L../cups -lcups
+# makefile (from 'Makedefs', line 138)
+CODE_SIGN = /usr/bin/true
+# makefile (from 'Makedefs', line 216)
+prefix = /home/sachin-thakan/gsocroot
+# makefile (from 'Makedefs', line 177)
+LINKCUPSSTATIC = ../cups/$(LIBCUPSSTATIC) $(LIBS)
+# default
+MAKE_COMMAND := make
+# makefile (from 'Makedefs', line 73)
+CUPS_LOG_FILE_PERM = 644
+# environment
+QT_ACCESSIBILITY = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# makefile (from 'Makedefs', line 28)
+DSO = $(CC)
+# makefile (from 'Makedefs', line 259)
+USBQUIRKS = $(DATADIR)/usb
+# makefile (from 'Makedefs', line 79)
+LANGUAGES = ca cs da de en es fr it ja pt_BR ru zh_CN 
+# makefile (from 'Makedefs', line 157)
+ALL_DSOFLAGS = -L../cups   $(DSOFLAGS) $(OPTIM)
+# makefile (from 'Makedefs', line 65)
+CUPS_PRIMARY_SYSTEM_GROUP = lpadmin
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/sachin-thakan/justcode/cups
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# makefile (from 'Makedefs', line 206)
+datadir = /home/sachin-thakan/gsocroot/share
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# makefile (from 'Makedefs', line 118)
+IPPALIASES = http https ipps
+# environment
+VSCODE_CODE_CACHE_PATH = /home/sachin-thakan/.config/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
+# environment
+LANG = C
+# makefile (from 'Makedefs', line 173)
+IPPFIND_BIN = ippfind
+# makefile (from 'Makedefs', line 88)
+LOCALTARGET = local
+# makefile (from 'Makefile', line 280)
+EPMFLAGS = -v --output-dir dist $(EPMARCH)
+# environment
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.HTBLR1
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# makefile (from 'Makedefs', line 49)
+INSTALL_BIN = $(INSTALL) -c -m 755 -s
+# makefile (from 'Makedefs', line 160)
+ARCHFLAGS = 
+# makefile (from 'Makedefs', line 214)
+mandir = ${datarootdir}/man
+# makefile
+MAKEFLAGS = pqrR
+# makefile (from 'Makedefs', line 125)
+IPPEVECOMMANDS = ippevepcl ippeveps
+# makefile (from 'Makedefs', line 96)
+LIBCUPSIMAGE = libcupsimage.so.2
+# makefile (from 'Makedefs', line 102)
+LIBMALLOC = 
+# makefile
+CURDIR := /home/sachin-thakan/justcode/cups
+# makefile (from 'Makedefs', line 106)
+LIBZ = -lz
+# makefile (from 'Makedefs', line 41)
+RMDIR = /usr/bin/rmdir
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# makefile (from 'Makedefs', line 42)
+SED = /usr/bin/sed
+# makefile (from 'Makedefs', line 212)
+libexecdir = ${exec_prefix}/libexec
+# makefile (from 'Makefile', line 19)
+DIRS = cups $(BUILDDIRS)
+# makefile (from 'Makedefs', line 97)
+LIBCUPSOBJS = $(COREOBJS) $(DRIVEROBJS)
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+WAYLAND_DISPLAY = wayland-0
+# makefile (from 'Makedefs', line 167)
+CXXLIBS = 
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# makefile (from 'Makedefs', line 1)
+MAKEFILE_LIST := Makefile Makedefs
+# automatic
+@F = $(notdir $@)
+# makefile (from 'Makedefs', line 243)
+SBINDIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/sbin
+ 
+# environment
+VSCODE_PID = 5027
+# environment
+XDG_SESSION_TYPE = wayland
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# makefile (from 'Makedefs', line 39)
+RANLIB = ranlib
+# makefile (from 'Makedefs', line 16)
+CUPS_VERSION = 2.4.2
+# makefile (from 'Makedefs', line 31)
+INSTALL = /home/sachin-thakan/justcode/cups/install-sh
+# environment
+SESSION_MANAGER = local/sachinthakan-VirtualBox:@/tmp/.ICE-unix/1298,unix/sachinthakan-VirtualBox:/tmp/.ICE-unix/1298
+# automatic
+*F = $(notdir $*)
+# makefile (from 'Makedefs', line 24)
+AWK = mawk
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# makefile (from 'Makedefs', line 183)
+PAMLIBS = -lpam -ldl
+# makefile (from 'Makedefs', line 71)
+CUPS_CONFIG_FILE_PERM = 640
+# makefile (from 'Makedefs', line 254)
+LAUNCHD_DIR = 
+# makefile (from 'Makedefs', line 170)
+DNSSD_BACKEND = dnssd
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# makefile (from 'Makedefs', line 171)
+DSOFLAGS = -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64  -Wl,-soname,`basename $@` -shared
+# makefile (from 'Makedefs', line 236)
+MANDIR = $(BUILDROOT)${datarootdir}/man
+# makefile (from 'Makedefs', line 99)
+LIBGSSAPI = 
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
+# makefile (from 'Makedefs', line 180)
+ONDEMANDLIBS = -lsystemd
+# makefile (from 'Makedefs', line 53)
+INSTALL_DIR = $(INSTALL) -d
+# makefile (from 'Makedefs', line 256)
+SYSTEMD_DIR = /lib/systemd/system
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# makefile (from 'Makedefs', line 43)
+SHELL = /bin/sh
+# makefile (from 'Makedefs', line 29)
+DSOXX = $(CXX)
+# makefile (from 'Makedefs', line 168)
+DBUS_NOTIFIER = dbus
+# default
+MAKECMDGOALS := all
+# environment
+XMODIFIERS = @im=ibus
+# makefile (from 'Makedefs', line 80)
+INSTALL_LANGUAGES = install-languages
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+SHLVL = 0
+# makefile (from 'Makedefs', line 215)
+oldincludedir = /usr/include
+# makefile (from 'Makedefs', line 220)
+sysconfdir = /home/sachin-thakan/gsocroot/etc
+# makefile (from 'Makedefs', line 172)
+DNSSDLIBS = -lavahi-common -lavahi-client
+# makefile (from 'Makedefs', line 221)
+top_srcdir = .
+# makefile (from 'Makedefs', line 132)
+INSTALLXPC = 
+# makefile (from 'Makedefs', line 64)
+CUPS_SYSTEM_GROUPS = lpadmin sys root
+# environment
+MAKELEVEL := 0
+# makefile (from 'Makedefs', line 223)
+BUILDROOT = $(DSTROOT)$(DESTDIR)
+# environment
+IM_CONFIG_CHECK_ENV = 1
+# makefile (from 'Makedefs', line 37)
+MKDIR = /usr/bin/mkdir -p
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+# makefile (from 'Makedefs', line 257)
+XINETD = 
+# default
+MAKEFILES := 
+# environment
+LANGUAGE = en_IN:en
+# makefile (from 'Makedefs', line 210)
+infodir = ${datarootdir}/info
+# automatic
+^F = $(notdir $^)
+# makefile (from 'Makedefs', line 228)
+DATADIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/share/cups
+# makefile (from 'Makedefs', line 205)
+bindir = /home/sachin-thakan/gsocroot/bin
+# makefile (from 'Makedefs', line 253)
+INITDDIR = 
+# makefile (from 'Makedefs', line 207)
+datarootdir = /home/sachin-thakan/gsocroot/share
+ 
+# makefile (from 'Makedefs', line 179)
+ONDEMANDFLAGS = 
+# environment
+INVOCATION_ID = b0fba90666d441108599942da295f321
+# makefile (from 'Makefile', line 26)
+TESTOPTIONS = 
+# makefile (from 'Makedefs', line 158)
+ALL_LDFLAGS = -L../cups   $(LDFLAGS) -fPIE -pie $(OPTIM)
+# makefile (from 'Makedefs', line 244)
+SERVERBIN = $(BUILDROOT)/home/sachin-thakan/gsocroot/lib/cups
+# environment
+USERNAME = sachin-thakan
+# makefile (from 'Makedefs', line 238)
+RCLEVELS = 2 3 5
+# environment
+GNOME_SETUP_DISPLAY = :1
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from 'Makedefs', line 248)
+PAMDIR = /etc/pam.d
+# makefile (from 'Makedefs', line 105)
+LIBWRAP = 
+# makefile (from 'Makedefs', line 208)
+exec_prefix = /home/sachin-thakan/gsocroot
+# automatic
+?F = $(notdir $?)
+# makefile (from 'Makedefs', line 35)
+LIBTOOL = 
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# makefile (from 'Makedefs', line 237)
+MENUDIR = /usr/share/applications
+# makefile (from 'Makedefs', line 232)
+INCLUDEDIR = $(BUILDROOT)$(includedir)
+# environment
+LS_COLORS = 
+# automatic
++F = $(notdir $+)
+# environment
+DESKTOP_SESSION = ubuntu
+# makefile (from 'Makedefs', line 81)
+UNINSTALL_LANGUAGES = uninstall-languages
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# makefile (from 'Makedefs', line 209)
+includedir = ${prefix}/include
+# makefile (from 'Makedefs', line 62)
+CUPS_USER = lp
+# makefile (from 'Makedefs', line 229)
+DOCDIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/share/doc/cups
+# 'override' directive
+GNUMAKEFLAGS := 
+# makefile (from 'Makedefs', line 219)
+srcdir = .
+# makefile (from 'Makedefs', line 218)
+sharedstatedir = ${prefix}/com
+# makefile (from 'Makedefs', line 154)
+ALL_CXXFLAGS = -I.. -D_CUPS_SOURCE $(CXXFLAGS) $(TLSFLAGS) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT $(ONDEMANDFLAGS) $(OPTIONS)
+# environment
+LOGNAME = sachin-thakan
+# makefile (from 'Makedefs', line 235)
+LOGDIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/var/log/cups
+# makefile (from 'Makedefs', line 239)
+RCSTART = 81
+# makefile (from 'Makedefs', line 184)
+SERVERLIBS = -ldbus-1  
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# makefile (from 'Makedefs', line 230)
+CUPS_PKGCONFPATH = $(BUILDROOT)/home/sachin-thakan/gsocroot/lib/pkgconfig
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from 'Makedefs', line 40)
+RM = /usr/bin/rm -f
+# makefile (from 'Makedefs', line 30)
+GZIPPROG = /usr/bin/gzip
+# environment
+DISPLAY = :0
+# environment
+USER = sachin-thakan
+# environment
+GTK_MODULES = gail:atk-bridge
+# makefile (from 'Makedefs', line 165)
+COMMONLIBS = -lpthread -lm -lcrypt   -lz
+# default
+MAKE_VERSION := 4.3
+# makefile (from 'Makedefs', line 50)
+INSTALL_COMPDATA = $(INSTALL) -c -m 444 -z
+# makefile (from 'Makedefs', line 175)
+LDFLAGS = -Wl,-rpath,/home/sachin-thakan/gsocroot/lib64
+# environment
+MANAGERPID = 1161
+# makefile (from 'Makedefs', line 187)
+UNITTESTS = 
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 5027
+# makefile (from 'Makedefs', line 34)
+LD_CXX = $(CXX)
+# makefile (from 'Makedefs', line 226)
+BUNDLEDIR = 
+# makefile (from 'Makedefs', line 95)
+LIBCUPS = libcups.so.2
+# environment
+_ = /usr/share/code/code
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# makefile (from 'Makedefs', line 164)
+CFLAGS = -I/usr/include/libusb-1.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -DDBUS_API_SUBJECT_TO_CHANGE -D_FORTIFY_SOURCE=2 -D_REENTRANT
+# makefile (from 'Makedefs', line 217)
+sbindir = /home/sachin-thakan/gsocroot/sbin
+# makefile (from 'Makedefs', line 246)
+STATEDIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/var/run/cups
+# environment
+JOURNAL_STREAM = 8:21410
+# makefile (from 'Makedefs', line 169)
+DBUS_NOTIFIERLIBS = -ldbus-1
+# makefile (from 'Makedefs', line 112)
+INSTALLSTATIC = 
+# makefile (from 'Makedefs', line 26)
+CHMOD = /usr/bin/chmod
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# makefile (from 'Makedefs', line 51)
+INSTALL_CONFIG = $(INSTALL) -c -m 640
+# makefile (from 'Makedefs', line 227)
+CACHEDIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/var/cache/cups
+# environment
+HOME = /home/sachin-thakan
+# environment
+QT_IM_MODULE = ibus
+# makefile (from 'Makedefs', line 72)
+CUPS_CUPSD_FILE_PERM = 700
+# makefile (from 'Makedefs', line 186)
+TLSLIBS = -lssl -lcrypto
+# makefile (from 'Makedefs', line 182)
+OPTIONS = -Wall -Wunused -Wno-char-subscripts -Wno-deprecated-declarations -Wno-format-truncation -Wno-format-y2k -Wno-switch -Wno-unused-result
+# makefile (from 'Makedefs', line 52)
+INSTALL_DATA = $(INSTALL) -c -m 444
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-984a6050-1.70.2-main.sock
+# makefile (from 'Makedefs', line 54)
+INSTALL_LIB = $(INSTALL) -c -m 755 -s
+# makefile (from 'Makedefs', line 251)
+DBUSDIR = /etc/dbus-1
+# makefile (from 'Makedefs', line 185)
+TLSFLAGS = 
+# makefile (from 'Makedefs', line 252)
+INITDIR = 
+# makefile (from 'Makedefs', line 181)
+OPTIM = -fPIC -Os -g -fstack-protector-strong -D_GNU_SOURCE
+# environment
+IM_CONFIG_PHASE = 1
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# makefile (from 'Makedefs', line 33)
+LD_CC = $(CC)
+# makefile (from 'Makedefs', line 234)
+LOCALEDIR = $(BUILDROOT)/home/sachin-thakan/gsocroot/share/locale
+# default
+SUFFIXES := 
+# makefile (from 'Makedefs', line 32)
+LD = /usr/bin/ld
+# makefile (from 'Makedefs', line 166)
+CXXFLAGS = -D_FORTIFY_SOURCE=2
+# makefile (from 'Makedefs', line 211)
+libdir = /home/sachin-thakan/gsocroot/lib64
+# default
+ 
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'Makedefs', line 27)
+CXX = g++
+# makefile (from 'Makedefs', line 25)
+CC = gcc
+# makefile (from 'Makedefs', line 63)
+CUPS_GROUP = lp
+# environment
+XDG_MENU_PREFIX = gnome-
+# makefile (from 'Makedefs', line 174)
+IPPFIND_MAN = ippfind.1
+# makefile (from 'Makedefs', line 139)
+CODE_SIGN_IDENTITY = -
+# makefile (from 'Makedefs', line 151)
+ALL_CFLAGS = -I.. -D_CUPS_SOURCE $(CFLAGS) $(TLSFLAGS) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT $(ONDEMANDFLAGS) $(OPTIONS)
+# makefile (from 'Makedefs', line 242)
+RESOURCEDIR = 
+# makefile (from 'Makedefs', line 101)
+LIBHEADERSPRIV = $(COREHEADERSPRIV) $(DRIVERHEADERSPRIV)
+# makefile (from 'Makedefs', line 241)
+REQUESTS = $(BUILDROOT)/home/sachin-thakan/gsocroot/var/spool/cups
+# environment
+GDMSESSION = ubuntu
+# makefile (from 'Makedefs', line 55)
+INSTALL_MAN = $(INSTALL) -c -m 444
+# makefile (from 'Makedefs', line 100)
+LIBHEADERS = $(COREHEADERS) $(DRIVERHEADERS)
+# makefile (from 'Makedefs', line 249)
+PAMFILE = pam.common
+# makefile (from 'Makedefs', line 36)
+LN = /usr/bin/ln -sf
+# variable set hash-table stats:
+# Load=237/1024=23%, Rehash=0, Collisions=35/300=12%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2051, inode 1835921): 60 files, no impossibilities.
+
+# 60 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+%.a:
+
+%.c:
+
+%.o: %.c
+#  recipe to execute (from 'Makedefs', line 270):
+	echo Compiling $<...
+	$(CC) $(ARCHFLAGS) $(OPTIM) $(ALL_CFLAGS) -c -o $@ $<
+
+%.cxx:
+
+%.o: %.cxx
+#  recipe to execute (from 'Makedefs', line 274):
+	echo Compiling $<...
+	$(CXX) $(ARCHFLAGS) $(OPTIM) $(ALL_CXXFLAGS) -c -o $@ $<
+
+%.h:
+
+%.o:
+
+# 7 implicit rules, 0 (0.0%) terminal.
+# Files
+
+dist: all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 287):
+	$(RM) -r dist
+	$(MAKE) $(MFLAGS) epm
+	case `uname` in \
+		*BSD*) $(MAKE) $(MFLAGS) bsd;; \
+		Linux*) test ! -x /usr/bin/rpm || $(MAKE) $(MFLAGS) rpm;; \
+		SunOS*) $(MAKE) $(MFLAGS) pkg;; \
+	esac
+
+sloc:
+#  Implicit rule search has not been done.
+ 
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 271):
+	for dir in cups scheduler; do \
+		(cd $$dir; $(MAKE) $(MFLAGS) sloc) || exit 1;\
+	done
+
+.c.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makedefs', line 270):
+	echo Compiling $<...
+	$(CC) $(ARCHFLAGS) $(OPTIM) $(ALL_CFLAGS) -c -o $@ $<
+
+check: all unittests
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 247):
+	echo Running CUPS test suite...
+	cd test; ./run-stp-tests.sh 1 0 n n
+
+distclean: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 103):
+	$(RM) Makedefs config.h config.log config.status
+	$(RM) conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf
+	$(RM) cups-config
+	$(RM) cups.pc
+	$(RM) desktop/cups.desktop
+	$(RM) doc/index.html
+	$(RM) packaging/cups.list
+	$(RM) scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket
+	$(RM) templates/header.tmpl
+	-$(RM) doc/*/index.html
+	-$(RM) templates/*/header.tmpl
+	-$(RM) -r autom4te*.cache cups/charmaps cups/locale
+
+depend:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 122):
+	for dir in $(DIRS); do\
+		echo Making dependencies in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) depend) || exit 1;\
+	done
+
+# Not a target:
+.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.cxx:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.cxx.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makedefs', line 274):
+	echo Compiling $<...
+	$(CXX) $(ARCHFLAGS) $(OPTIM) $(ALL_CXXFLAGS) -c -o $@ $<
+
+install-headers:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 187):
+	for dir in $(DIRS); do\
+		echo Installing header files in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) install-headers) || exit 1;\
+	done
+	if test "x$(privateinclude)" != x; then \
+		echo Installing config.h into $(PRIVATEINCLUDE)...; \
+		$(INSTALL_DIR) -m 755 $(PRIVATEINCLUDE); \
+		$(INSTALL_DATA) config.h $(PRIVATEINCLUDE)/config.h; \
+	fi
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-20 03:39:38.001861122
+#  File has been updated.
+#  Successfully updated.
+
+.SILENT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+ 
+#  File has not been updated.
+
+uninstall:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 225):
+	for dir in $(DIRS); do\
+		echo Uninstalling in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) uninstall) || exit 1;\
+	done
+	echo Uninstalling cups-config script...
+	$(RM) $(BINDIR)/cups-config
+	-$(RMDIR) $(BINDIR)
+	echo Uninstalling cups.pc file...
+	$(RM) $(CUPS_PKGCONFPATH)/cups.pc
+	-$(RMDIR) $(CUPS_PKGCONFPATH)
+
+pkg:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 283):
+	epm $(EPMFLAGS) -f $@ cups packaging/cups.list
+
+bsd:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 283):
+	epm $(EPMFLAGS) -f $@ cups packaging/cups.list
+
+epm:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 283):
+	epm $(EPMFLAGS) -f $@ cups packaging/cups.list
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 92):
+	for dir in $(DIRS); do\
+		echo Cleaning in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) clean) || exit 1;\
+	done
+
+deb:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 283):
+	epm $(EPMFLAGS) -f $@ cups packaging/cups.list
+
+slackware:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 283):
+	epm $(EPMFLAGS) -f $@ cups packaging/cups.list
+
+stack:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 140):
+	stack-build ./configure $(CONFIGFLAGS)
+	stack-build $(MAKE) $(MFLAGS) clean all
+	poptck
+	$(MAKE) $(MFLAGS) distclean
+	$(RM) */*.ll
+	$(RM) */*.ll.out
+
+debugtest: all unittests
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 251):
+	echo Running CUPS test suite with debug printfs...
+	cd test; ./run-stp-tests.sh 1 0 n y
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.a:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all:
+#  Command line target.
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := all
+# automatic
+# * := 
+# automatic
+# < := 
+# automatic
+# + := 
+# automatic
+# % := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=9/39=23%
+#  recipe to execute (from 'Makefile', line 34):
+	chmod +x cups-config
+	echo Using ARCHFLAGS="$(ARCHFLAGS)"
+	echo Using ALL_CFLAGS="$(ALL_CFLAGS)"
+	echo Using ALL_CXXFLAGS="$(ALL_CXXFLAGS)"
+	echo Using CC="$(CC)"
+	echo Using CXX="$(CC)"
+	echo Using DSOFLAGS="$(DSOFLAGS)"
+	echo Using LDFLAGS="$(LDFLAGS)"
+	echo Using LIBS="$(LIBS)"
+	for dir in $(DIRS); do\
+		echo Making all in $$dir... ;\
+		(cd $$dir ; $(MAKE) $(MFLAGS) all $(UNITTESTS)) || exit 1;\
+	done
+
+apihelp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 260):
+	for dir in cups filter; do\
+		echo Generating API help in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) apihelp) || exit 1;\
+	done
+
+rpm:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 283):
+	epm $(EPMFLAGS) -f $@ cups packaging/cups.list
+
+debugcheck: all unittests
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 251):
+	echo Running CUPS test suite with debug printfs...
+	cd test; ./run-stp-tests.sh 1 0 n y
+
+libs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 54):
+	echo Using ARCHFLAGS="$(ARCHFLAGS)"
+	echo Using ALL_CFLAGS="$(ALL_CFLAGS)"
+	echo Using ALL_CXXFLAGS="$(ALL_CXXFLAGS)"
+	echo Using CC="$(CC)"
+	echo Using CXX="$(CC)"
+	echo Using DSOFLAGS="$(DSOFLAGS)"
+	echo Using LDFLAGS="$(LDFLAGS)"
+	echo Using LIBS="$(LIBS)"
+	for dir in $(DIRS); do\
+		echo Making libraries in $$dir... ;\
+		(cd $$dir ; $(MAKE) $(MFLAGS) libs) || exit 1;\
+	done
+
+test: all unittests
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 247):
+	echo Running CUPS test suite...
+	cd test; ./run-stp-tests.sh 1 0 n n
+
+# Not a target:
+Makedefs:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-21 11:56:44.138491026
+#  File has been updated.
+#  Successfully updated.
+
+.NOTPARALLEL:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+install-exec: all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 203):
+	for dir in $(DIRS); do\
+		echo Installing programs in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) install-exec) || exit 1;\
+	done
+
+# Not a target:
+.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+unittests:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 73):
+	echo Using ARCHFLAGS="$(ARCHFLAGS)"
+	echo Using ALL_CFLAGS="$(ALL_CFLAGS)"
+	echo Using ALL_CXXFLAGS="$(ALL_CXXFLAGS)"
+	echo Using CC="$(CC)"
+	echo Using CXX="$(CC)"
+	echo Using DSOFLAGS="$(DSOFLAGS)"
+	echo Using LDFLAGS="$(LDFLAGS)"
+	echo Using LIBS="$(LIBS)"
+	for dir in $(DIRS); do\
+		echo Making all in $$dir... ;\
+		(cd $$dir ; $(MAKE) $(MFLAGS) unittests) || exit 1;\
+	done
+
+install-data:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 168):
+	echo Making all in cups...
+	(cd cups; $(MAKE) $(MFLAGS) all)
+	for dir in $(DIRS); do\
+		echo Installing data files in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) install-data) || exit 1;\
+	done
+	echo Installing cups-config script...
+	$(INSTALL_DIR) -m 755 $(BINDIR)
+	$(INSTALL_SCRIPT) cups-config $(BINDIR)/cups-config
+	echo Installing cups.pc file...
+	$(INSTALL_DIR) -m 755 $(CUPS_PKGCONFPATH)
+	$(INSTALL_DATA) cups.pc $(CUPS_PKGCONFPATH)/cups.pc
+
+install: install-data install-headers install-libs install-exec
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+install-libs: libs
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 214):
+	for dir in $(DIRS); do\
+		echo Installing libraries in $$dir... ;\
+		(cd $$dir; $(MAKE) $(MFLAGS) install-libs) || exit 1;\
+	done
+
+testserver: all unittests
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 242):
+	echo Running CUPS test server...
+	cd test; ./run-stp-tests.sh $(TESTOPTIONS)
+
+ctags:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 153):
+	ctags -R .
+
+.SUFFIXES: .a .c .cxx .h .o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PHONY: stack dist
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# files hash-table stats:
+# Load=42/1024=4%, Rehash=0, Collisions=3/104=3%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 106 / storage = 891 B / avg = 8 B
+# current buf: size = 8162 B / used = 891 B / count = 106 / avg = 8 B
+
+# strcache performance: lookups = 172 / hit rate = 38%
+# hash-table stats:
+# Load=106/8192=1%, Rehash=0, Collisions=2/172=1%
+# Finished Make data base on Sun Aug 21 12:06:27 2022
+
+ 

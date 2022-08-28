@@ -1,6 +1,8 @@
 /*
- * header file for modulation of discovery process
- 
+ * Utility to find IPP printers via Bonjour/DNS-SD and optionally run
+ * commands such as IPP and Bonjour conformance tests.  This tool is
+ * inspired by the UNIX "find" command, thus its name.
+ *
  * Copyright © 2021-2022 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group
  * Copyright © 2008-2018 by Apple Inc.
@@ -15,9 +17,9 @@
 
 #include <stddef.h>
 #include <stdio.h>
-#include <cups/cups-private.h>
 
 #define _CUPS_NO_DEPRECATED
+#include <cups/cups-private.h>
 #include <errno.h>
 
 #define HAVE_AVAHI 1
@@ -41,89 +43,83 @@
 #define kDNSServiceMaxDomainName AVAHI_DOMAIN_NAME_MAX
 #endif /* HAVE_MDNSRESPONDER */
 
+#ifndef _WIN32
+extern char **environ; /* Process environment variables */
+#endif				   /* !_WIN32 */
 
-<<<<<<< Updated upstream
-typedef struct discovery_data_s		/* Service information */
+/*
+ * Structures...
+ */
+
+typedef struct avahi_srv_s /* Service information */
 {
 #ifdef HAVE_MDNSRESPONDER
-  DNSServiceRef	ref;			/* Service reference for query */
+	DNSServiceRef ref; /* Service reference for query */
 #elif defined(HAVE_AVAHI)
-  AvahiServiceResolver *ref;		/* Resolver */
-  //TODO
-  /*why dont we keep service browser reference as well ?*/
-#endif /* HAVE_MDNSRESPONDER */
-  char		*name,			/* Service name */
-		*domain,		/* Domain name */
-		*regtype,		/* Registration type */
-		*fullName,		/* Full name */
-		*host,			/* Hostname */
-		*resource,		/* Resource path */
-		*uri;			/* URI */
-  int		num_txt;		/* Number of TXT record keys */
-  int		port,			/* Port number */
-		is_local,		/* Is a local service? */
-		is_processed,		/* Did we process the service? */
-		is_resolved;		/* Got the resolve data? */
-} discovery_data_t;
-=======
-typedef struct service_data{
-	void *data;
-} service_data_t;
->>>>>>> Stashed changes
+	AvahiServiceResolver *ref; /* Resolver */
+#endif			   /* HAVE_MDNSRESPONDER */
+	char *name,	   /* Service name */
+		*domain,   /* Domain name */
+		*regtype,  /* Registration type */
+		*fullName, /* Full name */
+		*host,	   /* Hostname */
+		*resource, /* Resource path */
+		*uri;	   /* URI */
+	int num_txt;   /* Number of TXT record keys */
+	cups_option_t	*txt;			/* TXT record keys */
+	int port,		  /* Port number */
+		is_local,	  /* Is a local service? */
+		is_processed, /* Did we process the service? */
+		is_resolved;  /* Got the resolve data? */
+} avahi_srv_t;
 
-typedef struct ippfind_srv_s ippfind_srv_t;
 /*
 	declare callbacks
 */
 
 #ifdef HAVE_MDNSRESPONDER
-static void DNSSD_API	_browseCallback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) _CUPS_NONNULL(1,5,6,7,8);
-static void DNSSD_API	_browseLocalCallback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) _CUPS_NONNULL(1,5,6,7,8);
+extern void DNSSD_API _browseCallback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) _CUPS_NONNULL(1, 5, 6, 7, 8);
+extern void DNSSD_API _browseLocalCallback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) _CUPS_NONNULL(1, 5, 6, 7, 8);
 #elif defined(HAVE_AVAHI)
-static void		_browseCallback(AvahiServiceBrowser *browser,
-					AvahiIfIndex interface,
-					AvahiProtocol protocol,
-					AvahiBrowserEvent event,
-					const char *serviceName,
-					const char *regtype,
-					const char *replyDomain,
-					AvahiLookupResultFlags flags,
-					void *context);
-static void		_clientCallback(AvahiClient *client,
-					AvahiClientState state,
-					void *context);
+extern void _browseCallback(AvahiServiceBrowser *browser,
+							AvahiIfIndex interface,
+							AvahiProtocol protocol,
+							AvahiBrowserEvent event,
+							const char *serviceName,
+							const char *regtype,
+							const char *replyDomain,
+							AvahiLookupResultFlags flags,
+							void *context);
+extern void _clientCallback(AvahiClient *client,
+							AvahiClientState state,
+							void *context);
 #endif /* HAVE_MDNSRESPONDER */
-
 
 #ifdef HAVE_MDNSRESPONDER
-static void DNSSD_API	_resolveCallback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullName, const char *hostTarget, uint16_t port, uint16_t txtLen, const unsigned char *txtRecord, void *context) _CUPS_NONNULL(1,5,6,9, 10);
+extern void DNSSD_API _resolveCallback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullName, const char *hostTarget, uint16_t port, uint16_t txtLen, const unsigned char *txtRecord, void *context) _CUPS_NONNULL(1, 5, 6, 9, 10);
 #elif defined(HAVE_AVAHI)
-static int		_pollCallback(struct pollfd *pollfds,
-			              unsigned int num_pollfds, int timeout,
-			              void *context);
-static void		_resolveCallback(AvahiServiceResolver *res,
-					 AvahiIfIndex interface,
-					 AvahiProtocol protocol,
-					 AvahiResolverEvent event,
-					 const char *serviceName,
-					 const char *regtype,
-					 const char *replyDomain,
-					 const char *host_name,
-					 const AvahiAddress *address,
-					 uint16_t port,
-					 AvahiStringList *txt,
-					 AvahiLookupResultFlags flags,
-					 void *context);
-#endif /* HAVE_MDNSRESPONDER */
+extern int _pollCallback(struct pollfd *pollfds,
+						 unsigned int num_pollfds, int timeout,
+						 void *context);
+extern void _resolveCallback(AvahiServiceResolver *res,
+							 AvahiIfIndex interface,
+							 AvahiProtocol protocol,
+							 AvahiResolverEvent event,
+							 const char *serviceName,
+							 const char *regtype,
+							 const char *replyDomain,
+							 const char *host_name,
+							 const AvahiAddress *address,
+							 uint16_t port,
+							 AvahiStringList *txt,
+							 AvahiLookupResultFlags flags,
+							 void *context);
 
-/*
-	functions prototypes for browse and resolve API functions
-*/
-<<<<<<< Updated upstream
-static int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(AvahiClient*, AvahiClientState, void *), void *data, int *err);
-static void browseServices(AvahiClient **avahi_client, service_data_t *service, int *err);
-=======
-static int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*client_callback)(AvahiClient*, AvahiClientState, void *), int *err);
-static void browseServices(AvahiClient **avahi_client, char *regtype, char *domain, service_data_t *services, int *err);
->>>>>>> Stashed changes
-static void resolveServices(AvahiClient **avahi_client, service_data_t *service, int *err);
+#endif /* HAVE_MDNSRESPONDER */
+// individual functions for browse and resolve
+
+int avahiInitialize(AvahiSimplePoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(), int *err);
+void browseServices(AvahiSimplePoll **avahi_poll, AvahiClient **avahi_client, AvahiServiceBrowser **sb, char *regtype, void (*_browseCallback)(), int *err);
+void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, void (*resolve_callback)(
+    AvahiServiceResolver *, int,  int,  AvahiResolverEvent,  const char *, const char *, const char *,
+     const char *, const AvahiAddress *, short unsigned int,  AvahiStringList *, AvahiLookupResultFlags,  void *), int *err);

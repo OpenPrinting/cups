@@ -61,7 +61,6 @@ COREOBJS	=	\
 
 DRIVEROBJS	=	\
 		adminutil.o \
-		avahi.o \
 		backchannel.o \
 		backend.o \
 		getdevices.o \
@@ -138,7 +137,6 @@ COREHEADERS	=	\
 
 DRIVERHEADERS	=	\
 		adminutil.h \
-		avahi.h \
 		backend.h \
 		ppd.h \
 		sidechannel.h
