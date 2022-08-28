@@ -118,8 +118,8 @@ extern void _resolveCallback(AvahiServiceResolver *res,
 #endif /* HAVE_MDNSRESPONDER */
 // individual functions for browse and resolve
 
-int avahiInitialize(AvahiSimplePoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(), int *err);
-void browseServices(AvahiSimplePoll **avahi_poll, AvahiClient **avahi_client, AvahiServiceBrowser **sb, char *regtype, void (*_browseCallback)(), int *err);
+int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(), int *err);
+void browseServices(AvahiClient **avahi_client, char *regtype, void (*_browseCallback)(), int *err);
 void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, void (*resolve_callback)(
     AvahiServiceResolver *, int,  int,  AvahiResolverEvent,  const char *, const char *, const char *,
      const char *, const AvahiAddress *, short unsigned int,  AvahiStringList *, AvahiLookupResultFlags,  void *), int *err);

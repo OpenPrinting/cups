@@ -101,7 +101,7 @@ static DNSServiceRef dnssd_ref;		/* Master service reference */
 #elif defined(HAVE_AVAHI)
 AvahiClient *avahi_client = NULL;/* Client information */
 int	avahi_got_data = 0;	/* Got data from poll? */
-AvahiPoll **avahi_poll;
+AvahiPoll *avahi_poll;
 					/* Poll information */
 #endif /* HAVE_MDNSRESPONDER */
 
@@ -132,6 +132,7 @@ static void		set_service_uri(avahi_srv_t *service);
 static void		show_usage(void) _CUPS_NORETURN;
 static void		show_version(void) _CUPS_NORETURN;
 
+int			err;		/* DNS-SD error */
 
 /*
  * 'main()' - Browse for printers.
@@ -160,7 +161,6 @@ main(int  argc,				/* I - Number of command-line args */
   ippfind_op_t		logic = IPPFIND_OP_AND;
 					/* Logic for next expression */
   int			invert = 0;	/* Invert expression? */
-  int			err;		/* DNS-SD error */
 #ifdef HAVE_MDNSRESPONDER
   fd_set		sinput;		/* Input set for select() */
   struct timeval	stimeout;	/* Timeout for select() */
@@ -1142,8 +1142,8 @@ main(int  argc,				/* I - Number of command-line args */
     if (!*domain)
       domain = NULL;
 
-    if (name)
-    {
+    if (name){
+    
      /*
       * Resolve the given service instance name, regtype, and domain...
       */
@@ -1156,6 +1156,7 @@ main(int  argc,				/* I - Number of command-line args */
       if (getenv("IPPFIND_DEBUG"))
         fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", name, regtype, domain);
 
+        fprintf(stderr, "resolve 1160\n");
       resolveServices(&avahi_client, service, _resolveCallback,  &err);
     }
     else
@@ -1193,7 +1194,7 @@ main(int  argc,				/* I - Number of command-line args */
         regtype = subtype_buf;
       }
       
-      browseServices(&avahi_client, regtype, domain, services, _browseCallback, &err);
+      browseServices(&avahi_client, regtype, _browseCallback, &err);
 
 #endif /* HAVE_MDNSRESPONDER */
     }
@@ -1301,7 +1302,7 @@ main(int  argc,				/* I - Number of command-line args */
 
           if (active < 50)
           {
-
+            fprintf(stderr, "resolve 1306\n");
             resolveServices(&avahi_client, service, _resolveCallback, &err);
 
 	    if (err)
@@ -1447,7 +1448,10 @@ _browseCallback(
     AvahiLookupResultFlags flags,	/* I - Flags */
     void                   *context)	/* I - Services array */
 {
+  fprintf(stderr, "inside browse callback\n");
   AvahiClient	*client = avahi_service_browser_get_client(browser);
+
+  fprintf(stderr, "client = %p\n", client);
 					/* Client information */
   avahi_srv_t	*service;		/* Service information */
 
@@ -1470,8 +1474,9 @@ _browseCallback(
 	* This object is new on the network. Create a device entry for it if
 	* it doesn't yet exist.
 	*/
-
+  
 	service = get_service((cups_array_t *)context, name, type, domain);
+  resolveServices(&client, service, _resolveCallback, err);
 
 	if (flags & AVAHI_LOOKUP_RESULT_LOCAL)
 	  service->is_local = 1;
@@ -2527,12 +2532,13 @@ _resolveCallback(
     AvahiLookupResultFlags flags,	/* I - Lookup flags */
     void                   *context)	/* I - Service */
 {
+  fprintf(stderr, "inside resolve callback\n");
+
   char		key[256],		/* TXT key */
 		*value;			/* TXT value */
   avahi_srv_t	*service = (avahi_srv_t *)context;
 					/* Service */
   AvahiStringList *current;		/* Current TXT key/value pair */
-
 
   (void)address;
 
@@ -2583,6 +2589,7 @@ _resolveCallback(
   }
 
   set_service_uri(service);
+  fprintf(stderr, "uri = %p", service->uri);
 }
 #endif /* HAVE_MDNSRESPONDER */
 
