@@ -242,7 +242,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ffi (~> 1.15.5)
   github-pages
 
 BUNDLED WITH
