@@ -1055,7 +1055,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     }
 
     SSL_CTX_use_PrivateKey_file(context, keyfile, SSL_FILETYPE_PEM);
-    SSL_CTX_use_certificate_file(context, crtfile, SSL_FILETYPE_PEM);
+    SSL_CTX_use_certificate_chain_file(context, crtfile);
   }
 
   // Set TLS options...
