@@ -57,20 +57,20 @@ typedef struct avahi_srv_s /* Service information */
 	DNSServiceRef ref; /* Service reference for query */
 #elif defined(HAVE_AVAHI)
 	AvahiServiceResolver *ref; /* Resolver */
-#endif			   /* HAVE_MDNSRESPONDER */
-	char *name,	   /* Service name */
-		*domain,   /* Domain name */
-		*regtype,  /* Registration type */
-		*fullName, /* Full name */
-		*host,	   /* Hostname */
-		*resource, /* Resource path */
-		*uri;	   /* URI */
-	int num_txt;   /* Number of TXT record keys */
-	cups_option_t	*txt;			/* TXT record keys */
-	int port,		  /* Port number */
-		is_local,	  /* Is a local service? */
-		is_processed, /* Did we process the service? */
-		is_resolved;  /* Got the resolve data? */
+#endif					/* HAVE_MDNSRESPONDER */
+	char *name,			/* Service name */
+		*domain,		/* Domain name */
+		*regtype,		/* Registration type */
+		*fullName,		/* Full name */
+		*host,			/* Hostname */
+		*resource,		/* Resource path */
+		*uri;			/* URI */
+	int num_txt;		/* Number of TXT record keys */
+	cups_option_t *txt; /* TXT record keys */
+	int port,			/* Port number */
+		is_local,		/* Is a local service? */
+		is_processed,	/* Did we process the service? */
+		is_resolved;	/* Got the resolve data? */
 } avahi_srv_t;
 
 /*
@@ -115,11 +115,23 @@ extern void _resolveCallback(AvahiServiceResolver *res,
 							 AvahiLookupResultFlags flags,
 							 void *context);
 
+typedef void (*rcb)(AvahiServiceResolver *res,
+							 AvahiIfIndex interface,
+							 AvahiProtocol protocol,
+							 AvahiResolverEvent event,
+							 const char *serviceName,
+							 const char *regtype,
+							 const char *replyDomain,
+							 const char *host_name,
+							 const AvahiAddress *address,
+							 uint16_t port,
+							 AvahiStringList *txt,
+							 AvahiLookupResultFlags flags,
+							 void *context);
+
 #endif /* HAVE_MDNSRESPONDER */
 // individual functions for browse and resolve
 
 int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(), int *err);
-void browseServices(AvahiClient **avahi_client, char *regtype, void (*_browseCallback)(), int *err);
-void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, void (*resolve_callback)(
-    AvahiServiceResolver *, int,  int,  AvahiResolverEvent,  const char *, const char *, const char *,
-     const char *, const AvahiAddress *, short unsigned int,  AvahiStringList *, AvahiLookupResultFlags,  void *), int *err);
+void browseServices(AvahiClient **avahi_client, char *regtype, avahi_srv_t* service, cups_array_t *services, void (*_browseCallback)(), int *err);
+void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, rcb*, int *err);

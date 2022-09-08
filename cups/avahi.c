@@ -61,10 +61,10 @@ int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*c
 // things to figure out yet
 // 1. return type and error handling
 // 2. more/specific parameters
-void browseServices(AvahiClient **avahi_client, char *regtype, void (*browse_callback)(), int *err)
+void browseServices(AvahiClient **avahi_client, char *regtype, avahi_srv_t *service, cups_array_t *services, void (*browse_callback)(), int *err)
 {
     // we may need to change domain parameter below, currently it is default(.local)
-    if (avahi_service_browser_new(*avahi_client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, regtype, NULL, (AvahiLookupFlags)0, browse_callback, NULL) == NULL)
+    if (avahi_service_browser_new(*avahi_client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, regtype, NULL, (AvahiLookupFlags)0, browse_callback, services) == NULL)
     {
         *err = avahi_client_errno(*avahi_client);
     }
@@ -73,16 +73,15 @@ void browseServices(AvahiClient **avahi_client, char *regtype, void (*browse_cal
     fprintf(stderr, "finishing browse_services\n");
 }
 
-void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, void (*resolve_callback)(AvahiServiceResolver *, int, int, AvahiResolverEvent, const char *, const char *, const char *, const char *, const AvahiAddress *, short unsigned int, AvahiStringList *, AvahiLookupResultFlags, void *), int *err)
+void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, rcb* ptr, int *err)
 {
-    fprintf(stderr, "inside resolveServices\n");
-    
+    fprintf(stderr, "inside resolveServices, avahi_client = %p\n", *avahi_client);
 
 #ifdef HAVE_MDNSRESPONDER
     service->ref = dnssd_ref;
     err = DNSServiceResolve(&(service->ref),
                             kDNSServiceFlagsShareConnection, 0, service->name,
-                            service->regtype, service->domain, resolve_callback,
+                            service->regtype, service->domain, resolveCallback,
                             service);
 
 #elif defined(HAVE_AVAHI)
@@ -90,12 +89,13 @@ void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, void (*re
                                               AVAHI_PROTO_UNSPEC, service->name,
                                               service->regtype, service->domain,
                                               AVAHI_PROTO_UNSPEC, 0,
-                                              resolve_callback, service);
+                                              *ptr, service);
 
     if(service->ref){
         fprintf(stderr, "service->ref = %p\n", service->ref);
     }
 
+    // resolveCallback(NULL, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, service);
     fprintf(stderr, "uri = %s\n", service->uri);
 
     if (service->ref)
