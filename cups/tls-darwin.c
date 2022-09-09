@@ -1522,6 +1522,8 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
     if (isdigit(hostname[0] & 255) || hostname[0] == '[')
       hostname[0] = '\0';		/* Don't allow numeric addresses */
 
+    _cupsMutexLock(&tls_mutex);
+
     if (hostname[0])
       http->tls_credentials = http_cdsa_copy_server(hostname);
     else if (tls_common_name)
@@ -1537,12 +1539,15 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 	http->error  = errno = EINVAL;
 	http->status = HTTP_STATUS_ERROR;
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create server credentials."), 1);
+	_cupsMutexUnlock(&tls_mutex);
 
 	return (-1);
       }
 
       http->tls_credentials = http_cdsa_copy_server(hostname[0] ? hostname : tls_common_name);
     }
+
+    _cupsMutexUnlock(&tls_mutex);
 
     if (!http->tls_credentials)
     {

@@ -3309,10 +3309,11 @@
 		278C58E8136B64B000836530 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		279AE6F42395B80F004DD600 /* libpam.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpam.tbd; path = usr/lib/libpam.tbd; sourceTree = SDKROOT; };
 		27A0347B1A8BDB1300650675 /* lpadmin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lpadmin; sourceTree = BUILT_PRODUCTS_DIR; };
-		27C89C8F2613E7C300A58F43 /* cups-snap.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-snap.m4"; path = "../config-scripts/cups-snap.m4"; sourceTree = "<group>"; };
 		27C89C902613E7C300A58F43 /* cups-tls.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-tls.m4"; path = "../config-scripts/cups-tls.m4"; sourceTree = "<group>"; };
 		27D3037D134148CB00F022B1 /* libcups2.def */ = {isa = PBXFileReference; lastKnownFileType = text; name = libcups2.def; path = ../cups/libcups2.def; sourceTree = "<group>"; };
 		27F89DA21B3AC43B00E5A4B7 /* testraster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = testraster.c; path = ../cups/testraster.c; sourceTree = "<group>"; };
+		27F9A76D28CBFC03002CCEE0 /* tls-openssl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-openssl.c"; path = "../cups/tls-openssl.c"; sourceTree = "<group>"; };
+		27F9A76E28CBFC03002CCEE0 /* tls-darwin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "tls-darwin.h"; path = "../cups/tls-darwin.h"; sourceTree = "<group>"; };
 		720DD6C21358FD5F0064AA82 /* snmp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = snmp; sourceTree = BUILT_PRODUCTS_DIR; };
 		720DD6D21358FDDE0064AA82 /* snmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = snmp.c; path = ../backend/snmp.c; sourceTree = "<group>"; };
 		720E854120164E7A00C6C411 /* ipp-file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "ipp-file.c"; path = "../cups/ipp-file.c"; sourceTree = "<group>"; };
@@ -4996,8 +4997,10 @@
 				72220F02133305BB00FCA411 /* string.c */,
 				72220F03133305BB00FCA411 /* tempfile.c */,
 				72220F05133305BB00FCA411 /* thread.c */,
+				27F9A76E28CBFC03002CCEE0 /* tls-darwin.h */,
 				270B267D17F5C06700C8A3A9 /* tls-darwin.c */,
 				270B267E17F5C06700C8A3A9 /* tls-gnutls.c */,
+				27F9A76D28CBFC03002CCEE0 /* tls-openssl.c */,
 				270B268117F5C5D600C8A3A9 /* tls-sspi.c */,
 				727AD5B619100A58009F6862 /* tls.c */,
 				72220F06133305BB00FCA411 /* transcode.c */,
@@ -5273,7 +5276,6 @@
 				72E65BB018DC799B00097E89 /* cups-pam.m4 */,
 				72E65BB118DC799B00097E89 /* cups-poll.m4 */,
 				72E65BB318DC799B00097E89 /* cups-sharedlibs.m4 */,
-				27C89C8F2613E7C300A58F43 /* cups-snap.m4 */,
 				72E65BB518DC799B00097E89 /* cups-threads.m4 */,
 				27C89C902613E7C300A58F43 /* cups-tls.m4 */,
 			);
