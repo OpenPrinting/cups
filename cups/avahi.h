@@ -134,4 +134,4 @@ typedef void (*rcb)(AvahiServiceResolver *res,
 
 int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(), int *err);
 void browseServices(AvahiClient **avahi_client, char *regtype, avahi_srv_t* service, cups_array_t *services, void (*_browseCallback)(), int *err);
-void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, rcb*, int *err);
+void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, void (*_resolveCallback)(), int *err);

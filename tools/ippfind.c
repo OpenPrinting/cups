@@ -1096,7 +1096,6 @@ main(int argc,     /* I - Number of command-line args */
         *regtype,     /* Registration type */
         *domain;      /* Domain, if any */
 
-    fprintf(stderr, "starting of loop = %d\n", counter++);
     strlcpy(buf, search, sizeof(buf));
 
     if (!strncmp(buf, "_http._", 7) || !strncmp(buf, "_https._", 8) || !strncmp(buf, "_ipp._", 6) || !strncmp(buf, "_ipps._", 7))
@@ -1201,8 +1200,6 @@ main(int argc,     /* I - Number of command-line args */
       }
 
       browseServices(&avahi_client, regtype, service, services, _browseCallback, &err);
-      fprintf(stderr, "ending of loop = %d\n", counter++);
-      fprintf(stderr, "err = %d\n", err);
 
 #endif /* HAVE_MDNSRESPONDER */
     }
@@ -1214,7 +1211,6 @@ main(int argc,     /* I - Number of command-line args */
 
       return (IPPFIND_EXIT_BONJOUR);
     }
-    fprintf(stderr, "ending++\n");
   }
 
   /*
@@ -1311,7 +1307,6 @@ main(int argc,     /* I - Number of command-line args */
 
           if (active < 50)
           {
-            fprintf(stderr, "resolve 1306\n");
             resolveServices(&avahi_client, service, services, _resolveCallback, &err);
 
             if (err)
@@ -1453,7 +1448,6 @@ void _browseCallback(
     AvahiLookupResultFlags flags, /* I - Flags */
     void *context)                /* I - Services array */
 {
-  fprintf(stderr, "inside browse callback\n");
   AvahiClient **client = (AvahiClient **)malloc(sizeof(AvahiClient *));
   *client = avahi_service_browser_get_client(browser);
 
@@ -1483,31 +1477,6 @@ void _browseCallback(
 
     if (service == NULL)
       return;
-
-    fprintf(stderr, "calling resolveSer from browseCallback\n");
-    // if (!(avahi_service_resolver_new(context, interface, protocol, name, type, domain, AVAHI_PROTO_UNSPEC, 0, _resolveCallback, context)))
-    //   fprintf(stderr, "Failed to resolve service '%s': %s\n", name, avahi_strerror(avahi_client_errno(client)));
-
-    rcb* ptr = (rcb*)malloc(sizeof(_resolveCallback));
-
-    *ptr = _resolveCallback;
-
-    resolveServices(client, service, (cups_array_t *)context, ptr, err);
-
-// #ifdef HAVE_MDNSRESPONDER
-//     service->ref = dnssd_ref;
-//     err = DNSServiceResolve(&(service->ref),
-//                             kDNSServiceFlagsShareConnection, 0, service->name,
-//                             service->regtype, service->domain, _resolveCallback,
-//                             service);
-
-// #elif defined(HAVE_AVAHI)
-//     service->ref = avahi_service_resolver_new(*client, AVAHI_IF_UNSPEC,
-//                                               AVAHI_PROTO_UNSPEC, service->name,
-//                                               service->regtype, service->domain,
-//                                               AVAHI_PROTO_UNSPEC, 0,
-//                                               _resolveCallback, service);
-// #endif
 
     if (flags & AVAHI_LOOKUP_RESULT_LOCAL)
       service->is_local = 1;
@@ -2065,21 +2034,15 @@ get_service(cups_array_t *services,  /* I - Service array */
   key.name = (char *)serviceName;
   key.regtype = (char *)regtype;
 
-  int cnt = 0;
-
-  fprintf(stderr, "before loop key.name = %s, key.regtype = %s, size of services array = %d\n", key.name, key.regtype, cupsArrayCount(services) / sizeof(avahi_srv_t));
-  for (service = cupsArrayFind(services, &key);
+   for (service = cupsArrayFind(services, &key);
        service;
        service = cupsArrayNext(services))
   {
-
-    fprintf(stderr, "cnt = %d\n", cnt++);
 
     if (_cups_strcasecmp(service->name, key.name))
       break;
     else if (!strcmp(service->regtype, key.regtype))
     {
-      fprintf(stderr, "after loop \n");
       return (service);
     }
   }
@@ -2544,13 +2507,11 @@ void _resolveCallback(
     AvahiLookupResultFlags flags,   /* I - Lookup flags */
     void *context)                  /* I - Service */
 {
-  fprintf(stderr, "inside resolve callback, step 1\n");
 
   char key[256], /* TXT key */
       *value;    /* TXT value */
   avahi_srv_t *service = (avahi_srv_t *)context;
 
-  fprintf(stderr, "inside resolve callback, step 2\n");
   /* Service */
   AvahiStringList *current; /* Current TXT key/value pair */
 
@@ -2565,23 +2526,18 @@ void _resolveCallback(
     return;
   }
 
-  fprintf(stderr, "inside resolve callback, step 3\n");
 
   service->is_resolved = 1;
-  fprintf(stderr, "inside resolve callback, step 3.1\n");
 
   if (hostTarget != NULL)
     service->host = strdup(hostTarget);
 
   service->port = port;
 
-  fprintf(stderr, "inside resolve callback, step 4\n");
-
   value = service->host + strlen(service->host) - 1;
   if (value >= service->host && *value == '.')
     *value = '\0';
 
-  fprintf(stderr, "inside resolve callback, step 5\n");
   /*
    * Loop through the TXT key/value pairs and add them to an array...
    */
@@ -2611,11 +2567,8 @@ void _resolveCallback(
                                      &(service->txt));
   }
 
-  fprintf(stderr, "inside resolve callback, step 6\n");
   set_service_uri(service);
-  fprintf(stderr, "uri = %p", service->uri);
 
-  fprintf(stderr, "inside resolve callback, step 7\n");
 }
 #endif /* HAVE_MDNSRESPONDER */
 
