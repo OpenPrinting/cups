@@ -21,7 +21,7 @@
     browse and resolve to work
     */
 
-int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*client_callback)(), int *err)
+int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*client_callback)(), void (*poll_callback)(), int *err)
 {
 
     /* allocate main loop object */
@@ -36,7 +36,7 @@ int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*c
     }
 
     if (*avahi_poll){
-        avahi_simple_poll_set_func(*avahi_poll, _pollCallback, NULL);
+        avahi_simple_poll_set_func(*avahi_poll, *poll_callback, NULL);
     }
 
         
@@ -67,7 +67,7 @@ void browseServices(AvahiClient **avahi_client, char *regtype, avahi_srv_t *serv
     fprintf(stderr, "finishing browseServices\n");
 }
 
-void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, void (*resolveCallback)(), int *err)
+void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, void (*resolve_callback)(), int *err)
 {
 
 #ifdef HAVE_MDNSRESPONDER
@@ -82,7 +82,7 @@ void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_arra
                                               AVAHI_PROTO_UNSPEC, service->name,
                                               service->regtype, service->domain,
                                               AVAHI_PROTO_UNSPEC, 0,
-                                              resolveCallback, service);
+                                              resolve_callback, service);
     
     if (service->ref)
         *err = 0;
@@ -91,11 +91,4 @@ void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_arra
 
     fprintf(stderr, "finishing resolveServices\n");
 #endif /* HAVE_MDNSRESPONDER */
-}
-
-int _pollCallback(struct pollfd *pollfds,
-                  unsigned int num_pollfds, int timeout,
-                  void *context)
-{
-    return 1;
 }

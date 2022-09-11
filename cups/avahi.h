@@ -132,6 +132,6 @@ typedef void (*rcb)(AvahiServiceResolver *res,
 #endif /* HAVE_MDNSRESPONDER */
 // individual functions for browse and resolve
 
-int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*_clientCallback)(), int *err);
-void browseServices(AvahiClient **avahi_client, char *regtype, avahi_srv_t* service, cups_array_t *services, void (*_browseCallback)(), int *err);
-void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, void (*_resolveCallback)(), int *err);
+int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*client_Callback)(), void (*poll_callback)(), int *err);
+void browseServices(AvahiClient **avahi_client, char *regtype, avahi_srv_t* service, cups_array_t *services, void (*browse_callback)(), int *err);
+void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, void (*resolve_callback)(), int *err);

@@ -1076,7 +1076,7 @@ main(int argc,     /* I - Number of command-line args */
 
   // initialize avahi_client by calling avahiInitialize
 
-  if (!avahiInitialize(&avahi_poll, &avahi_client, _clientCallback, &err))
+  if (!avahiInitialize(&avahi_poll, &avahi_client, _clientCallback, _pollCallback, &err))
   {
     _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
                     strerror(errno));
