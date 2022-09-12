@@ -108,6 +108,9 @@ pcl_end_page(
 
   free(pcl_line);
   free(pcl_comp);
+
+  pcl_line = NULL;
+  pcl_comp = NULL;
 }
 
 
