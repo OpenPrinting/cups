@@ -49,7 +49,6 @@ unsigned char	*Planes[6],		/* Output buffers */
 		*CompBuffer,		/* Compression buffer */
 		*LineBuffers[2];	/* Line bitmap buffers */
 int		Model,			/* Model number */
-		EjectPage,		/* Eject the page when done? */
 		Shingling,		/* Shingle output? */
 		Canceled;		/* Has the current job been canceled? */
 unsigned	NumPlanes,		/* Number of color planes */
@@ -361,11 +360,9 @@ EndPage(
 
   free(Planes[0]);
 
-  if (CompBuffer)
-    free(CompBuffer);
+  free(CompBuffer);
 
-  if (DotBytes)
-    free(LineBuffers[0]);
+  free(LineBuffers[0]);
 }
 
 
@@ -414,7 +411,7 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
         		*start;		/* Start of compression sequence */
   unsigned char      	*comp_ptr,	/* Pointer into compression buffer */
 			temp;		/* Current byte */
-  int   	        count;		/* Count of bytes for output */
+  size_t   	        count;		/* Count of bytes for output */
   static int		ctable[6] = { 0, 2, 1, 4, 18, 17 };
 					/* KCMYcm color values */
 
@@ -877,7 +874,7 @@ OutputRows(
 
     n = dot_count / DotBytes;
     putchar((int)(n & 255));
-    putchar((int)(n / 256));
+    putchar((int)(n >> 8));
 
    /*
     * Write the graphics data...
