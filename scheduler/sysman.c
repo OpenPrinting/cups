@@ -821,7 +821,7 @@ sysUpdate(void)
   * Drain the event pipe...
   */
 
-  while (read((int)SysEventPipes[0], &sysevent, sizeof(sysevent))
+  while (read(SysEventPipes[0], &sysevent, sizeof(sysevent))
              == sizeof(sysevent))
   {
     if (sysevent.event & SYSEVENT_CANSLEEP)
