@@ -141,16 +141,16 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     switch (leftcount)
     {
       case 0 :
-          b = (unsigned)((((((data[0] << 8) | data[1]) << 8) | data[2]) << 8) | data[3]);
+          b = (data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3];
 	  break;
       case 1 :
-          b = (unsigned)((((((leftdata[0] << 8) | data[0]) << 8) | data[1]) << 8) | data[2]);
+          b = (leftdata[0] << 24) | (data[0] << 16) | (data[1] << 8) | data[2];
 	  break;
       case 2 :
-          b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | data[0]) << 8) | data[1]);
+          b = (leftdata[0] << 24) | (leftdata[1] << 16) | (data[0] << 8) | data[1];
 	  break;
       case 3 :
-          b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | leftdata[2]) << 8) | data[0]);
+          b = (leftdata[0] << 24) | (leftdata[1] << 16) | (leftdata[2] << 8) | data[0];
 	  break;
     }
 
@@ -209,7 +209,7 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     if (leftcount > 0)
     {
       // Write the remaining bytes as needed...
-      b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | leftdata[2]) << 8) | leftdata[3]);
+      b = (leftdata[0] << 24) | (leftdata[1] << 16) | (leftdata[2] << 8) | leftdata[3];
 
       c[4] = (b % 85) + '!';
       b /= 85;
@@ -638,8 +638,8 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
 	* SOFn marker, look for dimensions...
 	*/
 
-	width  = (bufptr[6] << 8) | bufptr[7];
 	height = (bufptr[4] << 8) | bufptr[5];
+	width  = (bufptr[6] << 8) | bufptr[7];
 	depth  = bufptr[8];
 	break;
       }

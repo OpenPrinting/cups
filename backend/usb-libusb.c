@@ -1065,7 +1065,7 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
   * bytes.  The 1284 spec says the length is stored MSB first...
   */
 
-  length = (int)((((unsigned)buffer[0] & 255) << 8) | ((unsigned)buffer[1] & 255));
+  length = (int)((((unsigned char)buffer[0]) << 8) | ((unsigned char)buffer[1]));
 
  /*
   * Check to see if the length is larger than our buffer or less than 14 bytes
@@ -1076,7 +1076,7 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
   */
 
   if (length > bufsize || length < 14)
-    length = (int)((((unsigned)buffer[1] & 255) << 8) | ((unsigned)buffer[0] & 255));
+    length = (int)((((unsigned char)buffer[1]) << 8) | ((unsigned char)buffer[0]));
 
   if (length > bufsize)
     length = bufsize;

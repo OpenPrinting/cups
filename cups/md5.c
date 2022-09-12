@@ -128,11 +128,10 @@ _cups_md5_process(_cups_md5_state_t *pms, const unsigned char *data /*[64]*/)
      */
     unsigned int X[16];
     const unsigned char *xp = data;
-    int i;
+    unsigned int i;
 
     for (i = 0; i < 16; ++i, xp += 4)
-	X[i] = (unsigned)xp[0] + ((unsigned)xp[1] << 8) +
-	       ((unsigned)xp[2] << 16) + ((unsigned)xp[3] << 24);
+        X[i] = xp[0] | (xp[1] << 8) | (xp[2] << 16) | (xp[3] << 24);
 
 #  else  /* !ARCH_IS_BIG_ENDIAN */
 
