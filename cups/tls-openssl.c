@@ -946,13 +946,13 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     TLS1_VERSION,			// TLS/1.0
     TLS1_1_VERSION,			// TLS/1.1
     TLS1_2_VERSION,			// TLS/1.2
-//#ifdef TLS1_3_VERSION
-//    TLS1_3_VERSION,			// TLS/1.3
-//    TLS1_3_VERSION			// TLS/1.3 (max)
-//#else
+#ifdef TLS1_3_VERSION
+    TLS1_3_VERSION,			// TLS/1.3
+    TLS1_3_VERSION			// TLS/1.3 (max)
+#else
     TLS1_2_VERSION,			// TLS/1.2
     TLS1_2_VERSION			// TLS/1.2 (max)
-//#endif // TLS1_3_VERSION
+#endif // TLS1_3_VERSION
   };
 
 
