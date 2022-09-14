@@ -1088,6 +1088,9 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
     _cupsMutexUnlock(&tls_mutex);
 
+    DEBUG_printf(("4_httpTLSStart: Using private key file '%s'.", keyfile));
+    DEBUG_printf(("4_httpTLSStart: Using certificate file '%s'.", crtfile));
+
     if (!SSL_CTX_use_PrivateKey_file(context, keyfile, SSL_FILETYPE_PEM) || !SSL_CTX_use_certificate_chain_file(context, crtfile))
     {
       // Unable to load private key or certificate...
@@ -1099,7 +1102,6 @@ _httpTLSStart(http_t *http)		// I - Connection to server
       http->error  = EIO;
 
       SSL_CTX_free(context);
-      _cupsMutexUnlock(&tls_mutex);
 
       return (-1);
     }
@@ -1114,6 +1116,8 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   if (tls_options & _HTTP_TLS_DENY_CBC)
     strlcat(cipherlist, ":!SHA1:!SHA256:!SHA384", sizeof(cipherlist));
   strlcat(cipherlist, ":@STRENGTH", sizeof(cipherlist));
+
+  DEBUG_printf(("4_httpTLSStart: cipherlist='%s', tls_min_version=%d, tls_max_version=%d", cipherlist, tls_min_version, tls_max_version));
 
   SSL_CTX_set_min_proto_version(context, versions[tls_min_version]);
   SSL_CTX_set_max_proto_version(context, versions[tls_max_version]);
@@ -1141,7 +1145,8 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
   if (http->mode == _HTTP_MODE_CLIENT)
   {
-    // Negotiate as a server...
+    // Negotiate as a client...
+    DEBUG_puts("4_httpTLSStart: Calling SSL_connect...");
     if (SSL_connect(http->tls) < 1)
     {
       // Failed
@@ -1156,12 +1161,15 @@ _httpTLSStart(http_t *http)		// I - Connection to server
       SSL_free(http->tls);
       http->tls = NULL;
 
+      DEBUG_printf(("4_httpTLSStart: Returning -1 (%s)", ERR_error_string(error, NULL)));
+
       return (-1);
     }
   }
   else
   {
     // Negotiate as a server...
+    DEBUG_puts("4_httpTLSStart: Calling SSL_accept...");
     if (SSL_accept(http->tls) < 1)
     {
       // Failed
@@ -1176,9 +1184,13 @@ _httpTLSStart(http_t *http)		// I - Connection to server
       SSL_free(http->tls);
       http->tls = NULL;
 
+      DEBUG_printf(("4_httpTLSStart: Returning -1 (%s)", ERR_error_string(error, NULL)));
+
       return (-1);
     }
   }
+
+  DEBUG_puts("4_httpTLSStart: Returning 0.");
 
   return (0);
 }
