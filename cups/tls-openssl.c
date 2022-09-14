@@ -1088,8 +1088,21 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
     _cupsMutexUnlock(&tls_mutex);
 
-    SSL_CTX_use_PrivateKey_file(context, keyfile, SSL_FILETYPE_PEM);
-    SSL_CTX_use_certificate_chain_file(context, crtfile);
+    if (!SSL_CTX_use_PrivateKey_file(context, keyfile, SSL_FILETYPE_PEM) || !SSL_CTX_use_certificate_chain_file(context, crtfile))
+    {
+      // Unable to load private key or certificate...
+      DEBUG_puts("4_httpTLSStart: Unable to use private key or certificate chain file.");
+      if ((error = ERR_get_error()) != 0)
+        _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, ERR_error_string(error, NULL), 0);
+
+      http->status = HTTP_STATUS_ERROR;
+      http->error  = EIO;
+
+      SSL_CTX_free(context);
+      _cupsMutexUnlock(&tls_mutex);
+
+      return (-1);
+    }
   }
 
   // Set TLS options...
