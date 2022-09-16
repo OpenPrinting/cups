@@ -14,6 +14,7 @@
  */
 
 #include "cups-private.h"
+#include "debug-internal.h"
 #ifndef _WIN32
 #  include <pwd.h>
 #endif /* !_WIN32 */
@@ -282,6 +283,9 @@ cups_globals_alloc(void)
     char	*homeptr;	// Pointer into homedir
 
     DEBUG_printf(("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile));
+
+    if (!strncmp(userprofile, "C:\\", 3))
+      userprofile += 2;
 
     strlcpy(homedir, userprofile, sizeof(homedir));
     for (homeptr = homedir; *homeptr; homeptr ++)

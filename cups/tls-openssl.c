@@ -988,6 +988,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     const char	*cn,			// Common name to lookup
 		*cnptr;			// Pointer into common name
     int		have_creds = 0;		// Have credentials?
+    int		key_status, crt_status;	// Key and certificate load status
 
     context = SSL_CTX_new(TLS_server_method());
 
@@ -1091,7 +1092,10 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     DEBUG_printf(("4_httpTLSStart: Using private key file '%s'.", keyfile));
     DEBUG_printf(("4_httpTLSStart: Using certificate file '%s'.", crtfile));
 
-    if (!SSL_CTX_use_PrivateKey_file(context, keyfile, SSL_FILETYPE_PEM) || !SSL_CTX_use_certificate_chain_file(context, crtfile))
+    crt_status = SSL_CTX_use_certificate_chain_file(context, crtfile);
+    key_status = SSL_CTX_use_PrivateKey_file(context, keyfile, SSL_FILETYPE_PEM);
+
+    if (!key_status || !crt_status)
     {
       // Unable to load private key or certificate...
       DEBUG_puts("4_httpTLSStart: Unable to use private key or certificate chain file.");
