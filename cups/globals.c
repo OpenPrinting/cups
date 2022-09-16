@@ -16,6 +16,8 @@
 #include "cups-private.h"
 #ifndef _WIN32
 #  include <pwd.h>
+#else
+#  include "debug-internal.h"
 #endif /* !_WIN32 */
 
 
