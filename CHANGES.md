@@ -13,6 +13,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed an OpenSSL crash bug (Issue #409)
 - Fixed a potential SNMP OID value overflow issue (Issue #431)
 - Fixed an OpenSSL certificate loading issue (Issue #465)
+- Fixed Brazilian Portuguese translations (Issue #288)
 - Fixed TLS certificate generation bugs.
 - Look for default printer on network if needed (Issue ##452)
 - Now localize HTTP responses using the Content-Language value (Issue #426)
