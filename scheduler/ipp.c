@@ -4898,6 +4898,9 @@ copy_printer_attrs(
   int		i;			/* Looping var */
   int		is_encrypted = httpIsEncrypted(con->http);
 					/* Is the connection encrypted? */
+  char  *feature;    /* Curent feature */
+  cups_array_t    *features;   /* Feature array */
+  ipp_attribute_t *attr;      /* Attribute data */
 
 
  /*
@@ -5066,6 +5069,23 @@ copy_printer_attrs(
 
   if (!ra || cupsArrayFind(ra, "uri-security-supported"))
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "uri-security-supported", NULL, is_encrypted ? "tls" : "none");
+
+  /*
+   * Add the "ipp-features-supported" attribute
+   */
+  features = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+  cupsArrayAdd(features, "subscription-object");
+  if (printer->type & CUPS_PRINTER_FAX)
+    cupsArrayAdd(features, "faxout");
+
+  attr = ippAddStrings(con->response, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, 
+                       "ipp-features-supported", 
+                       cupsArrayCount(features), NULL, NULL);
+  for (i = 0, feature = (char *)cupsArrayFirst(features); 
+       feature; 
+       i++, feature = (char *)cupsArrayNext(features))
+    attr->values[i].string.text = feature;
+  cupsArrayDelete(features);
 
   copy_attrs(con->response, printer->attrs, ra, IPP_TAG_ZERO, 0, NULL);
   if (printer->ppd_attrs)

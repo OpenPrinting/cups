@@ -193,10 +193,6 @@ cupsdCreateCommonData(void)
 		  "third-shift",
 		  "weekend"
 		};
-  static const char * const features[] =/* ipp-features-supported values */
-		{
-		  "subscription-object"
-		};
   static const char * const versions[] =/* ipp-versions-supported values */
 		{
 		  "1.0",
@@ -452,9 +448,6 @@ cupsdCreateCommonData(void)
   /* generated-natural-language-supported (no IPP_TAG_COPY) */
   ippAddString(CommonData, IPP_TAG_PRINTER, IPP_TAG_LANGUAGE,
                "generated-natural-language-supported", NULL, DefaultLanguage);
-
-  /* ipp-features-supported */
-  ippAddStrings(CommonData, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "ipp-features-supported", sizeof(features) / sizeof(features[0]), NULL, features);
 
   /* ipp-versions-supported */
   ippAddStrings(CommonData, IPP_TAG_PRINTER, IPP_TAG_KEYWORD | IPP_TAG_COPY,
