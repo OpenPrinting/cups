@@ -97,7 +97,12 @@ cupsdAddPrinter(const char *name)	/* I - Name of printer */
   p->state_time  = time(NULL);
   p->accepting   = 0;
   p->shared      = DefaultShared;
+
+  _cupsRWLockWrite(&MimeDatabase->lock);
+
   p->filetype    = mimeAddType(MimeDatabase, "printer", name);
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
   cupsdSetString(&p->job_sheets[0], "none");
   cupsdSetString(&p->job_sheets[1], "none");
@@ -815,6 +820,8 @@ cupsdDeletePrinter(
   if (p->printers != NULL)
     free(p->printers);
 
+  _cupsRWLockWrite(&MimeDatabase->lock);
+
   delete_printer_filters(p);
 
   for (i = 0; i < p->num_reasons; i ++)
@@ -827,6 +834,8 @@ cupsdDeletePrinter(
 
   mimeDeleteType(MimeDatabase, p->filetype);
   mimeDeleteType(MimeDatabase, p->prefiltertype);
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
   cupsdFreeStrings(&(p->users));
   cupsdFreeQuotas(p);
@@ -1470,6 +1479,8 @@ cupsdRenamePrinter(
   * Rename the printer type...
   */
 
+  _cupsRWLockWrite(&MimeDatabase->lock);
+
   mimeDeleteType(MimeDatabase, p->filetype);
   p->filetype = mimeAddType(MimeDatabase, "printer", name);
 
@@ -1478,6 +1489,8 @@ cupsdRenamePrinter(
     mimeDeleteType(MimeDatabase, p->prefiltertype);
     p->prefiltertype = mimeAddType(MimeDatabase, "prefilter", name);
   }
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
  /*
   * Rename the printer...
@@ -2295,6 +2308,7 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
     cupsdCreateCommonData();
 
   _cupsRWLockWrite(&p->lock);
+  _cupsRWLockWrite(&MimeDatabase->lock);
 
  /*
   * Clear out old filters, if any...
@@ -2614,6 +2628,8 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
   */
 
   add_printer_formats(p);
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
  /*
   * Add name-default attributes...

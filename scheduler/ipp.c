@@ -8655,6 +8655,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     strlcpy(type, "octet-stream", sizeof(type));
   }
 
+  _cupsRWLockRead(&MimeDatabase->lock);
+
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
    /*
@@ -8679,6 +8681,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   }
   else
     filetype = mimeType(MimeDatabase, super, type);
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
   if (filetype &&
       (!format ||
@@ -9899,6 +9903,8 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     strlcpy(type, "octet-stream", sizeof(type));
   }
 
+  _cupsRWLockRead(&MimeDatabase->lock);
+
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
    /*
@@ -9927,6 +9933,8 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
   }
   else
     filetype = mimeType(MimeDatabase, super, type);
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
   if (filetype)
   {
@@ -11417,6 +11425,8 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
+    _cupsRWLockRead(&MimeDatabase->lock);
+
     if ((strcmp(super, "application") || strcmp(type, "octet-stream")) &&
 	!mimeType(MimeDatabase, super, type))
     {
@@ -11427,8 +11437,13 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
 		      format->values[0].string.text);
       ippAddString(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_MIMETYPE,
                    "document-format", NULL, format->values[0].string.text);
+
+      _cupsRWUnlock(&MimeDatabase->lock);
+
       return;
     }
+
+    _cupsRWUnlock(&MimeDatabase->lock);
   }
 
  /*
