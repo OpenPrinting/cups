@@ -5401,6 +5401,7 @@ create_local_bg_thread(
     if ((from = cupsFileOpen(fromppd, "r")) == NULL)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to read generated PPD: %s", printer->name, strerror(errno));
+      ippDelete(response);
       return (NULL);
     }
 
@@ -5408,6 +5409,7 @@ create_local_bg_thread(
     if ((to = cupsdCreateConfFile(toppd, ConfigFilePerm)) == NULL)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to create PPD for printer: %s", printer->name, strerror(errno));
+      ippDelete(response);
       cupsFileClose(from);
       return (NULL);
     }
@@ -5430,6 +5432,8 @@ create_local_bg_thread(
   }
   else
     cupsdLogMessage(CUPSD_LOG_ERROR, "%s: PPD creation failed: %s", printer->name, cupsLastErrorString());
+
+  ippDelete(response);
 
   return (NULL);
 }
