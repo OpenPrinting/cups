@@ -3269,20 +3269,20 @@ _ppdCreateFromIPP2(
 	{
 	  keyword = ippGetString(lang_supp, i, NULL);
 
-          request = ippNew();
-          ippSetOperation(request, IPP_OP_GET_PRINTER_ATTRIBUTES);
-          ippSetRequestId(request, i + 1);
-          ippAddString(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_CHARSET), "attributes-charset", NULL, "utf-8");
-          ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", NULL, keyword);
-          ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, printer_uri);
-          ippAddString(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_KEYWORD), "requested-attributes", NULL, "printer-strings-uri");
+	  request = ippNew();
+	  ippSetOperation(request, IPP_OP_GET_PRINTER_ATTRIBUTES);
+	  ippSetRequestId(request, i + 1);
+	  ippAddString(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_CHARSET), "attributes-charset", NULL, "utf-8");
+	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", NULL, keyword);
+	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, printer_uri);
+	  ippAddString(request, IPP_TAG_OPERATION, IPP_CONST_TAG(IPP_TAG_KEYWORD), "requested-attributes", NULL, "printer-strings-uri");
 
-          response = cupsDoRequest(http, request, resource);
+	  response = cupsDoRequest(http, request, resource);
 
-          if ((attr = ippFindAttribute(response, "printer-strings-uri", IPP_TAG_URI)) != NULL)
-          {
+	  if ((attr = ippFindAttribute(response, "printer-strings-uri", IPP_TAG_URI)) != NULL)
 	    cupsFilePrintf(fp, "*cupsStringsURI %s: \"%s\"\n", keyword, ippGetString(attr, 0, NULL));
-          }
+
+	  ippDelete(response);
 	}
       }
     }
@@ -4994,6 +4994,8 @@ _ppdCreateFromIPP2(
 
   cupsFileClose(fp);
 
+  _cupsMessageFree(strings);
+
   return (buffer);
 
  /*
@@ -5005,6 +5007,8 @@ _ppdCreateFromIPP2(
   cupsFileClose(fp);
   unlink(buffer);
   *buffer = '\0';
+
+  _cupsMessageFree(strings);
 
   _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Printer does not support required IPP attributes or document formats."), 1);
 
