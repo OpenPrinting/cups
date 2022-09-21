@@ -3873,6 +3873,23 @@ get_options(cupsd_job_t *job,		/* I - Job */
   }
 
  /*
+  * Map destination-uris value...
+  */
+
+  if ((job->printer->type & CUPS_PRINTER_FAX) && (attr = ippFindAttribute(job->attrs, "destination-uris", IPP_TAG_BEGIN_COLLECTION)) != NULL)
+  {
+    ipp_t *ipp = ippGetCollection(attr, 0);	// Collection value
+    const char *destination_uri = ippGetString(ippFindAttribute(ipp, "destination-uri", IPP_TAG_URI), 0, NULL);
+    const char *pre_dial_string = ippGetString(ippFindAttribute(ipp, "pre-dial-string", IPP_TAG_TEXT), 0, NULL);
+
+    if (destination_uri && !strncmp(destination_uri, "tel:", 4))
+      num_pwgppds = cupsAddOption("phone", destination_uri + 4, num_pwgppds, &pwgppds);
+
+    if (pre_dial_string)
+      num_pwgppds = cupsAddOption("faxPrefix", pre_dial_string, num_pwgppds, &pwgppds);
+  }
+
+ /*
   * Figure out how much room we need...
   */
 
