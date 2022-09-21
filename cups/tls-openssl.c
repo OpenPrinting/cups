@@ -1606,8 +1606,12 @@ http_make_path(
 	*bufend = buffer + bufsize - 1;	// End of buffer
 
 
+#if 0
   snprintf(buffer, bufsize, "%s/", dirname);
   bufptr = buffer + strlen(buffer);
+#else
+  bufptr = buffer;
+#endif // 0
 
   while (*filename && bufptr < bufend)
   {

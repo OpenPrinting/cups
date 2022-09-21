@@ -3,7 +3,7 @@
     <metadata>
         <id>libcups2_native.redist</id>
         <title>OpenPrinting CUPS Library for VS2019+ Redist</title>
-        <version>2.4.3.2</version>
+        <version>2.4.3.3</version>
         <authors>Michael R Sweet, OpenPrinting</authors>
         <owners>michaelrsweet</owners>
         <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
@@ -16,7 +16,7 @@ and other Unix®-like operating systems. This package provides the redistributab
         <copyright>Copyright © 2020-2022 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
         <tags>http ipp native</tags>
 	<dependencies>
-	    <dependency id="libressl_native.redist" version="3.5.3.1" />
+	    <dependency id="libressl_native.redist" version="3.5.3.2" />
 	    <dependency id="zlib_native.redist" version="1.2.11" />
 	</dependencies>
     </metadata>
