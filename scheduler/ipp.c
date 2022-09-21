@@ -2946,11 +2946,20 @@ apply_printer_defaults(
        i --, option ++)
     if (!ippFindAttribute(job->attrs, option->name, IPP_TAG_ZERO))
     {
+      if (!strcmp(option->name, "media") && ippFindAttribute(job->attrs, "PageSize", IPP_TAG_NAME))
+        continue;                     /* Don't override PageSize */
+
+      if (!strcmp(option->name, "output-bin") && ippFindAttribute(job->attrs, "OutputBin", IPP_TAG_NAME))
+        continue;                     /* Don't override OutputBin */
+
       if (!strcmp(option->name, "print-quality") && ippFindAttribute(job->attrs, "cupsPrintQuality", IPP_TAG_NAME))
         continue;                     /* Don't override cupsPrintQuality */
 
       if (!strcmp(option->name, "print-color-mode") && ippFindAttribute(job->attrs, "ColorModel", IPP_TAG_NAME))
         continue;                     /* Don't override ColorModel */
+
+      if (!strcmp(option->name, "sides") && ippFindAttribute(job->attrs, "Duplex", IPP_TAG_NAME))
+        continue;                     /* Don't override Duplex */
 
       cupsdLogJob(job, CUPSD_LOG_DEBUG, "Adding default %s=%s", option->name, option->value);
 
