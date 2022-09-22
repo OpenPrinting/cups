@@ -68,7 +68,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>packages\libressl_native.3.5.3.1\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)libcups2.dll</OutputFile>
       <ModuleDefinitionFile>..\cups\libcups2.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,7 +92,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>packages\libressl_native.3.5.3.1\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)libcups2.dll</OutputFile>
       <ModuleDefinitionFile>..\cups\libcups2.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
