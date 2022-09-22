@@ -7787,7 +7787,7 @@ then :
 elif test "$host_os_name" = aix
 then :
 
-    LINKCUPS="-L../cups -l${cupsbase} \$LIBS"
+    LINKCUPS="-L../cups -l${cupsbase} \$(LIBS)"
     EXTLINKCUPS="-lcups \$LIBS"
 
 else $as_nop
