@@ -14,7 +14,8 @@
 /*
  * Include necessary headers.
  */
-#include <cups/avahi.h>
+
+#include <cups/cups-private.h>
 
 #define _CUPS_NO_DEPRECATED
 #ifdef _WIN32
@@ -27,6 +28,7 @@
 #ifdef HAVE_MDNSRESPONDER
 #include <dns_sd.h>
 #elif defined(HAVE_AVAHI)
+#include <cups/avahi.h>
 #define kDNSServiceMaxDomainName AVAHI_DOMAIN_NAME_MAX
 #endif /* HAVE_MDNSRESPONDER */
 

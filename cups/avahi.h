@@ -17,9 +17,9 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include <cups/cups.h>
 
 #define _CUPS_NO_DEPRECATED
-#include <cups/cups-private.h>
 #include <errno.h>
 
 #define HAVE_AVAHI 1
