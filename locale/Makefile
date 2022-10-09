@@ -12,8 +12,8 @@
 include ../Makedefs
 
 
-OBJS	=	checkpo.o po2strings.o strings2po.o
-TARGETS	=	checkpo po2strings strings2po
+OBJS	=	checkpo.o po2strings.o
+TARGETS	=	checkpo po2strings
 
 
 #
@@ -179,19 +179,6 @@ po2strings:	po2strings.o ../cups/$(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o po2strings po2strings.o \
 		$(LINKCUPSSTATIC)
-	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-
-
-#
-# strings2po - A simple utility which uses iconv to convert macOS .strings files
-#              to GNU gettext message catalogs.
-#
-# strings2po filename.strings filename.po
-#
-
-strings2po:	strings2po.o
-	echo Linking $@...
-	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o strings2po strings2po.o
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 

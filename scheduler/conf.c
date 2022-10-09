@@ -1560,11 +1560,14 @@ cupsdReadConfiguration(void)
 
     MimeDatabase = mimeNew();
     mimeSetErrorCallback(MimeDatabase, mime_error_cb, NULL);
+    _cupsRWInit(&MimeDatabase->lock);
 
+    _cupsRWLockWrite(&MimeDatabase->lock);
     MimeDatabase = mimeLoadTypes(MimeDatabase, mimedir);
     MimeDatabase = mimeLoadTypes(MimeDatabase, ServerRoot);
     MimeDatabase = mimeLoadFilters(MimeDatabase, mimedir, temp);
     MimeDatabase = mimeLoadFilters(MimeDatabase, ServerRoot, temp);
+    _cupsRWUnlock(&MimeDatabase->lock);
 
     if (!MimeDatabase)
     {

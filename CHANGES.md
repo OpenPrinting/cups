@@ -1,6 +1,32 @@
 CHANGES - OpenPrinting CUPS 2.4.2 - 2022-05-26
 ==============================================
 
+Changes in CUPS v2.4.3 (TBA)
+----------------------------
+
+- Added a title with device uri for found network printers (Issues #402, #393)
+- Added quirk for GoDEX label printers (Issue #440)
+- Fixed `--enable-libtool-unsupported` (Issue #394)
+- Fixed configuration on RISC-V machines (Issue #404)
+- Fixed the `device_uri` invalid pointer for driverless printers with `.local`
+  hostname (Issue #419)
+- Fixed an OpenSSL crash bug (Issue #409)
+- Fixed a potential SNMP OID value overflow issue (Issue #431)
+- Fixed an OpenSSL certificate loading issue (Issue #465)
+- Fixed Brazilian Portuguese translations (Issue #288)
+- Fixed invalid memory access during generating IPP Everywhere queue (Issue #466)
+- Fixed memory leaks in `create_local_bg_thread()` (Issue #466)
+- Fixed TLS certificate generation bugs.
+- Ignore some of IPP defaults if the application sends its PPD alternative (Issue #484)
+- Now look for default printer on network if needed (Issue #452)
+- Now report fax attributes and values as needed (Issue #459)
+- Now localize HTTP responses using the Content-Language value (Issue #426)
+- Raised file size limit for importing PPD via Web UI (Issue #433)
+- Update print-color-mode if the printer is modified via ColorModel PPD option (Issue #451)
+- Use localhost when printing via printer application (Issue #353)
+- Write defaults into /etc/cups/lpoptions if we're root (Issue #456)
+
+
 Changes in CUPS v2.4.2 (26th May 2022)
 --------------------------------------
 

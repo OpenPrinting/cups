@@ -2340,6 +2340,18 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   set_device_uri = 0;
 
+  if ((attr = ippFindAttribute(con->request, "ColorModel", IPP_TAG_NAME)) != NULL)
+  {
+    const char * keyword = NULL;
+
+    if (!strcmp(attr->values[0].string.text, "FastGray") || !strcmp(attr->values[0].string.text, "Gray") || !strcmp(attr->values[0].string.text, "DeviceGray"))
+      keyword = "monochrome";
+    else
+      keyword = "color";
+
+    printer->num_options = cupsAddOption("print-color-mode", keyword, printer->num_options, &printer->options);
+  }
+
   if ((attr = ippFindAttribute(con->request, "device-uri",
                                IPP_TAG_URI)) != NULL)
   {
@@ -2934,8 +2946,20 @@ apply_printer_defaults(
        i --, option ++)
     if (!ippFindAttribute(job->attrs, option->name, IPP_TAG_ZERO))
     {
+      if (!strcmp(option->name, "media") && ippFindAttribute(job->attrs, "PageSize", IPP_TAG_NAME))
+        continue;                     /* Don't override PageSize */
+
+      if (!strcmp(option->name, "output-bin") && ippFindAttribute(job->attrs, "OutputBin", IPP_TAG_NAME))
+        continue;                     /* Don't override OutputBin */
+
       if (!strcmp(option->name, "print-quality") && ippFindAttribute(job->attrs, "cupsPrintQuality", IPP_TAG_NAME))
         continue;                     /* Don't override cupsPrintQuality */
+
+      if (!strcmp(option->name, "print-color-mode") && ippFindAttribute(job->attrs, "ColorModel", IPP_TAG_NAME))
+        continue;                     /* Don't override ColorModel */
+
+      if (!strcmp(option->name, "sides") && ippFindAttribute(job->attrs, "Duplex", IPP_TAG_NAME))
+        continue;                     /* Don't override Duplex */
 
       cupsdLogJob(job, CUPSD_LOG_DEBUG, "Adding default %s=%s", option->name, option->value);
 
@@ -5304,7 +5328,7 @@ create_local_bg_thread(
       return (NULL);
     }
 
-    printer->device_uri = uri;
+    cupsdSetString(&printer->device_uri, uri);
   }
 
   if (httpSeparateURI(HTTP_URI_CODING_ALL, printer->device_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
@@ -5386,6 +5410,7 @@ create_local_bg_thread(
     if ((from = cupsFileOpen(fromppd, "r")) == NULL)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to read generated PPD: %s", printer->name, strerror(errno));
+      ippDelete(response);
       return (NULL);
     }
 
@@ -5393,6 +5418,7 @@ create_local_bg_thread(
     if ((to = cupsdCreateConfFile(toppd, ConfigFilePerm)) == NULL)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to create PPD for printer: %s", printer->name, strerror(errno));
+      ippDelete(response);
       cupsFileClose(from);
       return (NULL);
     }
@@ -5415,6 +5441,8 @@ create_local_bg_thread(
   }
   else
     cupsdLogMessage(CUPSD_LOG_ERROR, "%s: PPD creation failed: %s", printer->name, cupsLastErrorString());
+
+  ippDelete(response);
 
   return (NULL);
 }
@@ -5439,6 +5467,11 @@ create_local_printer(
 		*nameptr,		/* Pointer into name */
 		uri[1024];		/* printer-uri-supported value */
   const char	*ptr;			/* Pointer into attribute value */
+  char		scheme[HTTP_MAX_URI],	/* Scheme portion of URI */
+		userpass[HTTP_MAX_URI],	/* Username portion of URI */
+		host[HTTP_MAX_URI],	/* Host portion of URI */
+		resource[HTTP_MAX_URI];	/* Resource portion of URI */
+  int		port;			/* Port portion of URI */
 
 
  /*
@@ -5503,6 +5536,15 @@ create_local_printer(
     return;
   }
 
+  ptr = ippGetString(device_uri, 0, NULL);
+
+  if (!ptr || !ptr[0])
+  {
+    send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Attribute \"%s\" has empty value."), "device-uri");
+
+    return;
+  }
+
   printer_geo_location = ippFindAttribute(con->request, "printer-geo-location", IPP_TAG_URI);
   printer_info         = ippFindAttribute(con->request, "printer-info", IPP_TAG_TEXT);
   printer_location     = ippFindAttribute(con->request, "printer-location", IPP_TAG_TEXT);
@@ -5530,7 +5572,65 @@ create_local_printer(
   printer->shared    = 0;
   printer->temporary = 1;
 
-  cupsdSetDeviceURI(printer, ippGetString(device_uri, 0, NULL));
+ /*
+  * Check device URI if it has the same hostname as we have, if so, replace
+  * the hostname by localhost. This way we assure that local-only services
+  * like ipp-usb or Printer Applications always work.
+  *
+  * When comparing our hostname with the one in the device URI,
+  * consider names with or without trailing dot ('.') the same. Also
+  * compare case-insensitively.
+  */
+
+#ifdef HAVE_DNSSD
+  if (DNSSDHostName)
+    nameptr = DNSSDHostName;
+  else
+#endif
+  if (ServerName)
+    nameptr = ServerName;
+  else
+    nameptr = NULL;
+
+  if (nameptr)
+  {
+    int host_len,
+        server_name_len;
+
+    /* Get host name of device URI */
+    httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
+		    scheme, sizeof(scheme), userpass, sizeof(userpass), host,
+		    sizeof(host), &port, resource, sizeof(resource));
+
+    /* Take trailing dot out of comparison */
+    host_len = strlen(host);
+    if (host_len > 1 && host[host_len - 1] == '.')
+      host_len --;
+
+    server_name_len = strlen(nameptr);
+    if (server_name_len > 1 && nameptr[server_name_len - 1] == '.')
+      server_name_len --;
+
+   /*
+    * If we have no DNSSDHostName but only a ServerName (if we are not
+    * sharing printers, Browsing = Off) the ServerName has no ".local"
+    * but the requested device URI has. Take this into account.
+    */
+
+    if (nameptr == ServerName && host_len >= 6 && (server_name_len < 6 || strcmp(nameptr + server_name_len - 6, ".local") != 0) && strcmp(host + host_len - 6, ".local") == 0)
+      host_len -= 6;
+
+    if (host_len == server_name_len && strncasecmp(host, nameptr, host_len) == 0)
+      ptr = "localhost";
+    else
+      ptr = host;
+
+    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), scheme, userpass,
+		    ptr, port, resource);
+    cupsdSetDeviceURI(printer, uri);
+  }
+  else
+    cupsdSetDeviceURI(printer, ptr);
 
   if (printer_geo_location)
     cupsdSetString(&printer->geo_location, ippGetString(printer_geo_location, 0, NULL));
@@ -8568,6 +8668,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     strlcpy(type, "octet-stream", sizeof(type));
   }
 
+  _cupsRWLockRead(&MimeDatabase->lock);
+
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
    /*
@@ -8592,6 +8694,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   }
   else
     filetype = mimeType(MimeDatabase, super, type);
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
   if (filetype &&
       (!format ||
@@ -9812,6 +9916,8 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     strlcpy(type, "octet-stream", sizeof(type));
   }
 
+  _cupsRWLockRead(&MimeDatabase->lock);
+
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
    /*
@@ -9840,6 +9946,8 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
   }
   else
     filetype = mimeType(MimeDatabase, super, type);
+
+  _cupsRWUnlock(&MimeDatabase->lock);
 
   if (filetype)
   {
@@ -11330,6 +11438,8 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
+    _cupsRWLockRead(&MimeDatabase->lock);
+
     if ((strcmp(super, "application") || strcmp(type, "octet-stream")) &&
 	!mimeType(MimeDatabase, super, type))
     {
@@ -11340,8 +11450,13 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
 		      format->values[0].string.text);
       ippAddString(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_MIMETYPE,
                    "document-format", NULL, format->values[0].string.text);
+
+      _cupsRWUnlock(&MimeDatabase->lock);
+
       return;
     }
+
+    _cupsRWUnlock(&MimeDatabase->lock);
   }
 
  /*

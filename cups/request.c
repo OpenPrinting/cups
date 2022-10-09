@@ -871,7 +871,7 @@ cupsSendRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
 	  * Don't try using the Expect: header the next time around...
 	  */
 
-	  expect = (http_status_t)0;
+	  expect = HTTP_STATUS_NONE;
 
           DEBUG_puts("2cupsSendRequest: Reconnecting after "
 	             "HTTP_EXPECTATION_FAILED.");

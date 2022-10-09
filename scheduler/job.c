@@ -585,6 +585,8 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
     if (stat(filename, &fileinfo))
       fileinfo.st_size = 0;
 
+    _cupsRWLockWrite(&MimeDatabase->lock);
+
     if (job->retry_as_raster)
     {
      /*
@@ -619,6 +621,9 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       abort_state   = IPP_JOB_ABORTED;
 
       ippSetString(job->attrs, &job->reasons, 0, "document-unprintable-error");
+
+      _cupsRWUnlock(&MimeDatabase->lock);
+
       goto abort_job;
     }
 
@@ -705,6 +710,8 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       cupsArrayDelete(filters);
       filters = prefilters;
     }
+
+    _cupsRWUnlock(&MimeDatabase->lock);
   }
 
  /*
@@ -1916,6 +1923,8 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     * Find all the d##### files...
     */
 
+    _cupsRWLockRead(&MimeDatabase->lock);
+
     for (fileid = 1; fileid < 10000; fileid ++)
     {
       snprintf(jobfile, sizeof(jobfile), "%s/d%05d-%03d", RequestRoot,
@@ -1980,6 +1989,8 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
         job->filetypes[fileid - 1] = mimeType(MimeDatabase, "application",
 	                                      "vnd.cups-raw");
     }
+
+    _cupsRWUnlock(&MimeDatabase->lock);
   }
 
  /*
@@ -3862,6 +3873,23 @@ get_options(cupsd_job_t *job,		/* I - Job */
   }
 
  /*
+  * Map destination-uris value...
+  */
+
+  if ((job->printer->type & CUPS_PRINTER_FAX) && (attr = ippFindAttribute(job->attrs, "destination-uris", IPP_TAG_BEGIN_COLLECTION)) != NULL)
+  {
+    ipp_t *ipp = ippGetCollection(attr, 0);	// Collection value
+    const char *destination_uri = ippGetString(ippFindAttribute(ipp, "destination-uri", IPP_TAG_URI), 0, NULL);
+    const char *pre_dial_string = ippGetString(ippFindAttribute(ipp, "pre-dial-string", IPP_TAG_TEXT), 0, NULL);
+
+    if (destination_uri && !strncmp(destination_uri, "tel:", 4))
+      num_pwgppds = cupsAddOption("phone", destination_uri + 4, num_pwgppds, &pwgppds);
+
+    if (pre_dial_string)
+      num_pwgppds = cupsAddOption("faxPrefix", pre_dial_string, num_pwgppds, &pwgppds);
+  }
+
+ /*
   * Figure out how much room we need...
   */
 
@@ -4484,6 +4512,8 @@ load_job_cache(const char *filename)	/* I - job.cache filename */
 
       number --;
 
+      _cupsRWLockRead(&MimeDatabase->lock);
+
       job->compressions[number] = compression;
       job->filetypes[number]    = mimeType(MimeDatabase, super, type);
 
@@ -4510,6 +4540,8 @@ load_job_cache(const char *filename)	/* I - job.cache filename */
 	  job->filetypes[number] = mimeType(MimeDatabase, "application",
 	                                    "vnd.cups-raw");
       }
+
+      _cupsRWUnlock(&MimeDatabase->lock);
     }
     else
       cupsdLogMessage(CUPSD_LOG_ERROR, "Unknown %s directive on line %d of %s.", line, linenum, filename);

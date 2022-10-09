@@ -14,6 +14,7 @@
  */
 
 #include "cups-private.h"
+#include "debug-internal.h"
 #ifndef _WIN32
 #  include <pwd.h>
 #endif /* !_WIN32 */
@@ -184,7 +185,8 @@ cups_globals_alloc(void)
 #ifdef _WIN32
   HKEY		key;			/* Registry key */
   DWORD		size;			/* Size of string */
-  static char	installdir[1024] = "",	/* Install directory */
+  static char	homedir[1024] = "",	/* Home directory */
+		installdir[1024] = "",	/* Install directory */
 		confdir[1024] = "",	/* Server root directory */
 		localedir[1024] = "";	/* Locale directory */
 #endif /* _WIN32 */
@@ -274,7 +276,29 @@ cups_globals_alloc(void)
   if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
     cg->localedir = localedir;
 
-  cg->home = getenv("USERPROFILE");
+  if (!homedir[0])
+  {
+    const char	*userprofile = getenv("USERPROFILE");
+				// User profile (home) directory
+    char	*homeptr;	// Pointer into homedir
+
+    DEBUG_printf(("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile));
+
+    if (!strncmp(userprofile, "C:\\", 3))
+      userprofile += 2;
+
+    strlcpy(homedir, userprofile, sizeof(homedir));
+    for (homeptr = homedir; *homeptr; homeptr ++)
+    {
+      // Convert back slashes to forward slashes
+      if (*homeptr == '\\')
+        *homeptr = '/';
+    }
+
+    DEBUG_printf(("cups_globals_alloc: homedir=\"%s\"", homedir));
+  }
+
+  cg->home = homedir;
 
 #else
 #  ifdef HAVE_GETEUID
