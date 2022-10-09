@@ -20,8 +20,6 @@
 #define _CUPS_NO_DEPRECATED
 #include <errno.h>
 
-#define HAVE_AVAHI 1
-
 #ifdef _WIN32
 #include <process.h>
 #include <sys/timeb.h>
