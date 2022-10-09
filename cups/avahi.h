@@ -71,6 +71,7 @@ typedef struct avahi_srv_s /* Service information */
 		is_local,		/* Is a local service? */
 		is_processed,	/* Did we process the service? */
 		is_resolved;	/* Got the resolve data? */
+	int is_resolve_pending; /* to avoid multiple resolve callbacks for same service*/
 } avahi_srv_t;
 
 /*

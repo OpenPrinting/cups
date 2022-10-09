@@ -39,7 +39,7 @@ int avahiInitialize(AvahiPoll **avahi_poll, AvahiClient **avahi_client, void (*c
         avahi_simple_poll_set_func(*avahi_poll, *poll_callback, NULL);
     }
 
-        
+    
     /* allocate a new client */
     *avahi_client = avahi_client_new(avahi_simple_poll_get(*avahi_poll), (AvahiClientFlags)0, *client_callback, *avahi_poll, err);
 
@@ -64,7 +64,6 @@ void browseServices(AvahiClient **avahi_client, char *regtype, avahi_srv_t *serv
     }
     else *err = 0;
 
-    fprintf(stderr, "finishing browseServices\n");
 }
 
 void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_array_t *services, void (*resolve_callback)(), int *err)
@@ -78,17 +77,19 @@ void resolveServices(AvahiClient **avahi_client, avahi_srv_t *service, cups_arra
                             service);
 
 #elif defined(HAVE_AVAHI)
+    
     service->ref = avahi_service_resolver_new(*avahi_client, AVAHI_IF_UNSPEC,
                                               AVAHI_PROTO_UNSPEC, service->name,
                                               service->regtype, service->domain,
                                               AVAHI_PROTO_UNSPEC, 0,
                                               resolve_callback, service);
     
-    if (service->ref)
+    if (service->ref){
         *err = 0;
+        service->is_resolve_pending = 1;
+    }
     else
         *err = avahi_client_errno(avahi_client);
 
-    fprintf(stderr, "finishing resolveServices\n");
 #endif /* HAVE_MDNSRESPONDER */
 }

@@ -1219,6 +1219,7 @@ main(int argc,     /* I - Number of command-line args */
    * Process browse/resolve requests...
    */
 
+
   if (bonjour_timeout > 1.0)
     endtime = get_time() + bonjour_timeout;
   else
@@ -1270,7 +1271,6 @@ main(int argc,     /* I - Number of command-line args */
 
       return (IPPFIND_EXIT_BONJOUR);
     }
-
     if (!avahi_got_data)
     {
       /*
@@ -1279,6 +1279,7 @@ main(int argc,     /* I - Number of command-line args */
 
       process = 1;
     }
+
 #endif /* HAVE_MDNSRESPONDER */
 
     if (process)
@@ -1295,6 +1296,7 @@ main(int argc,     /* I - Number of command-line args */
            service;
            service = (avahi_srv_t *)cupsArrayNext(services))
       {
+
         if (service->is_processed)
           processed++;
 
@@ -1352,11 +1354,16 @@ main(int argc,     /* I - Number of command-line args */
       /*
        * If we have processed all services we have discovered, then we are done.
        */
-
       if (processed == cupsArrayCount(services) && bonjour_timeout <= 1.0)
         break;
     }
   }
+
+  // for (service = (avahi_srv_t *)cupsArrayFirst(services);
+  //          service;
+  //          service = (avahi_srv_t *)cupsArrayNext(services)){
+  //           fprintf(stderr, "service->num_txt = %d\n", service->num_txt);
+  //          }
 
   if (bonjour_error)
     return (IPPFIND_EXIT_BONJOUR);
@@ -2402,7 +2409,7 @@ _pollCallback(
 
   (void)timeout;
   (void)context;
-
+  
   val = poll(pollfds, num_pollfds, 500);
 
   if (val > 0)
