@@ -35,7 +35,6 @@
 #ifndef _WIN32
 extern char **environ; /* Process environment variables */
 #endif                 /* !_WIN32 */
-#define AF_UNSPEC 0;
 
 /*
  * Structures...
@@ -103,7 +102,8 @@ static DNSServiceRef dnssd_ref; /* Master service reference */
 #elif defined(HAVE_AVAHI)
 AvahiClient *avahi_client = NULL; /* Client information */
 int avahi_got_data = 0;           /* Got data from poll? */
-AvahiPoll *avahi_poll;
+AvahiSimplePoll *avahi_poll;
+
 /* Poll information */
 #endif /* HAVE_MDNSRESPONDER */
 
@@ -162,6 +162,20 @@ main(int argc,     /* I - Number of command-line args */
   ippfind_op_t logic = IPPFIND_OP_AND;
   /* Logic for next expression */
   int invert = 0; /* Invert expression? */
+
+  /*
+        callback pointers
+      */
+
+  resolve_callback_t resolve_callback_ptr = &resolveCallback;
+  poll_callback_t poll_callback_ptr = &pollCallback;
+  browse_callback_t browse_callback_ptr = &browseCallback;
+  client_callback_t client_callback_ptr = &clientCallback;
+
+#ifdef HAVE_MDNSRESPONDER
+  browse_local_callback_t browse_local_callback_ptr = &browseLocalCallback;
+#endif
+
 #ifdef HAVE_MDNSRESPONDER
   fd_set sinput;                   /* Input set for select() */
   struct timeval stimeout;         /* Timeout for select() */
@@ -1076,9 +1090,11 @@ main(int argc,     /* I - Number of command-line args */
 
 #elif defined(HAVE_AVAHI)
 
-  // initialize avahi_client by calling avahiInitialize
+  /*
+    initialize avahi_client by calling avahiInitialize
+    */
 
-  if (!avahiInitialize(&avahi_poll, &avahi_client, _clientCallback, _pollCallback, &err))
+  if (!avahiInitialize(&avahi_poll, &avahi_client, client_callback_ptr, poll_callback_ptr, &err))
   {
     _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
                     strerror(errno));
@@ -1086,8 +1102,6 @@ main(int argc,     /* I - Number of command-line args */
   }
 
 #endif /* HAVE_MDNSRESPONDER */
-
-  int counter = 0;
 
   for (search = (const char *)cupsArrayFirst(searches);
        search;
@@ -1164,7 +1178,7 @@ main(int argc,     /* I - Number of command-line args */
         fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", name, regtype, domain);
 
       fprintf(stderr, "resolve 1160\n");
-      resolveServices(&avahi_client, service, services, _resolveCallback, &err);
+      resolveServices(&avahi_client, service, services, resolveCallback, &err);
     }
     else
     {
@@ -1180,14 +1194,14 @@ main(int argc,     /* I - Number of command-line args */
 
       ref = dnssd_ref;
       err = DNSServiceBrowse(&ref, kDNSServiceFlagsShareConnection, 0, regtype,
-                             domain, _browseCallback, services);
+                             domain, browse_callback_ptr, services);
 
       if (!err)
       {
         ref = dnssd_ref;
         err = DNSServiceBrowse(&ref, kDNSServiceFlagsShareConnection,
                                kDNSServiceInterfaceIndexLocalOnly, regtype,
-                               domain, _browseLocalCallback, services);
+                               domain, browse_local_callback_ptr, services);
       }
 
 #elif defined(HAVE_AVAHI)
@@ -1201,7 +1215,7 @@ main(int argc,     /* I - Number of command-line args */
         regtype = subtype_buf;
       }
 
-      browseServices(&avahi_client, regtype, service, services, _browseCallback, &err);
+      browseServices(&avahi_client, regtype, NULL, services, browse_callback_ptr, &err);
 
 #endif /* HAVE_MDNSRESPONDER */
     }
@@ -1218,7 +1232,6 @@ main(int argc,     /* I - Number of command-line args */
   /*
    * Process browse/resolve requests...
    */
-
 
   if (bonjour_timeout > 1.0)
     endtime = get_time() + bonjour_timeout;
@@ -1311,7 +1324,7 @@ main(int argc,     /* I - Number of command-line args */
 
           if (active < 50)
           {
-            resolveServices(&avahi_client, service, services, _resolveCallback, &err);
+            resolveServices(&avahi_client, service, services, resolve_callback_ptr, &err);
 
             if (err)
             {
@@ -1373,11 +1386,11 @@ main(int argc,     /* I - Number of command-line args */
 
 #ifdef HAVE_MDNSRESPONDER
 /*
- * '_browseCallback()' - Browse devices.
+ * 'browseCallback()' - Browse devices.
  */
 
 static void DNSSD_API
-_browseCallback(
+browseCallback(
     DNSServiceRef sdRef,           /* I - Service reference */
     DNSServiceFlags flags,         /* I - Option flags */
     uint32_t interfaceIndex,       /* I - Interface number */
@@ -1405,11 +1418,11 @@ _browseCallback(
 }
 
 /*
- * '_browseLocalCallback()' - Browse local devices.
+ * 'browseLocalCallback()' - Browse local devices.
  */
 
 static void DNSSD_API
-_browseLocalCallback(
+browseLocalCallback(
     DNSServiceRef sdRef,           /* I - Service reference */
     DNSServiceFlags flags,         /* I - Option flags */
     uint32_t interfaceIndex,       /* I - Interface number */
@@ -1443,10 +1456,10 @@ _browseLocalCallback(
 
 #ifdef HAVE_AVAHI
 /*
- * '_browseCallback()' - Browse devices.
+ * 'browseCallback()' - Browse devices.
  */
 
-void _browseCallback(
+void browseCallback(
     AvahiServiceBrowser *browser, /* I - Browser */
     AvahiIfIndex interface,       /* I - Interface index (unused) */
     AvahiProtocol protocol,       /* I - Network protocol (unused) */
@@ -1470,8 +1483,8 @@ void _browseCallback(
   switch (event)
   {
   case AVAHI_BROWSER_FAILURE:
-    fprintf(stderr, "DEBUG: _browseCallback: %s\n",
-            avahi_strerror(avahi_client_errno(client)));
+    fprintf(stderr, "DEBUG: browseCallback: %s\n",
+            avahi_strerror(avahi_client_errno(*client)));
     bonjour_error = 1;
     avahi_simple_poll_quit(avahi_poll);
     break;
@@ -1499,10 +1512,10 @@ void _browseCallback(
 }
 
 /*
- * '_clientCallback()' - Avahi client callback function.
+ * 'clientCallback()' - Avahi client callback function.
  */
 
-void _clientCallback(
+void clientCallback(
     AvahiClient *client,    /* I - Client information (unused) */
     AvahiClientState state, /* I - Current state */
     void *context)          /* I - User data (unused) */
@@ -2043,7 +2056,7 @@ get_service(cups_array_t *services,  /* I - Service array */
   key.name = (char *)serviceName;
   key.regtype = (char *)regtype;
 
-   for (service = cupsArrayFind(services, &key);
+  for (service = cupsArrayFind(services, &key);
        service;
        service = cupsArrayNext(services))
   {
@@ -2391,7 +2404,7 @@ new_expr(ippfind_op_t op,   /* I - Operation */
 
 #ifdef HAVE_AVAHI
 /*
- * '_pollCallback()' - Wait for input on the specified file descriptors.
+ * 'pollCallback()' - Wait for input on the specified file descriptors.
  *
  * Note: This function is needed because avahi_simple_poll_iterate is broken
  *       and always uses a timeout of 0 (!) milliseconds.
@@ -2399,7 +2412,7 @@ new_expr(ippfind_op_t op,   /* I - Operation */
  */
 
 int /* O - Number of file descriptors matching */
-_pollCallback(
+pollCallback(
     struct pollfd *pollfds,   /* I - File descriptors */
     unsigned int num_pollfds, /* I - Number of file descriptors */
     int timeout,              /* I - Timeout in milliseconds (unused) */
@@ -2409,7 +2422,7 @@ _pollCallback(
 
   (void)timeout;
   (void)context;
-  
+
   val = poll(pollfds, num_pollfds, 500);
 
   if (val > 0)
@@ -2420,12 +2433,12 @@ _pollCallback(
 #endif /* HAVE_AVAHI */
 
 /*
- * '_resolveCallback()' - Process resolve data.
+ * 'resolveCallback()' - Process resolve data.
  */
 
 #ifdef HAVE_MDNSRESPONDER
 void DNSSD_API
-_resolveCallback(
+resolveCallback(
     DNSServiceRef sdRef,            /* I - Service reference */
     DNSServiceFlags flags,          /* I - Data flags */
     uint32_t interfaceIndex,        /* I - Interface */
@@ -2501,7 +2514,7 @@ _resolveCallback(
 }
 
 #elif defined(HAVE_AVAHI)
-void _resolveCallback(
+void resolveCallback(
     AvahiServiceResolver *resolver, /* I - Resolver */
     AvahiIfIndex interface,         /* I - Interface */
     AvahiProtocol protocol,         /* I - Address protocol */
@@ -2534,7 +2547,6 @@ void _resolveCallback(
     avahi_simple_poll_quit(avahi_poll);
     return;
   }
-
 
   service->is_resolved = 1;
 
@@ -2577,7 +2589,6 @@ void _resolveCallback(
   }
 
   set_service_uri(service);
-
 }
 #endif /* HAVE_MDNSRESPONDER */
 
