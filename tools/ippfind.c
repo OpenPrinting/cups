@@ -42,55 +42,55 @@ extern char **environ; /* Process environment variables */
 
 typedef enum ippfind_exit_e /* Exit codes */
 {
-  IPPFIND_EXIT_TRUE = 0, /* OK and result is true */
-  IPPFIND_EXIT_FALSE,    /* OK but result is false*/
-  IPPFIND_EXIT_BONJOUR,  /* Browse/resolve failure */
-  IPPFIND_EXIT_SYNTAX,   /* Bad option or syntax error */
-  IPPFIND_EXIT_MEMORY    /* Out of memory */
+    IPPFIND_EXIT_TRUE = 0, /* OK and result is true */
+    IPPFIND_EXIT_FALSE,    /* OK but result is false*/
+    IPPFIND_EXIT_BONJOUR,  /* Browse/resolve failure */
+    IPPFIND_EXIT_SYNTAX,   /* Bad option or syntax error */
+    IPPFIND_EXIT_MEMORY    /* Out of memory */
 } ippfind_exit_t;
 
 typedef enum ippfind_op_e /* Operations for expressions */
 {
-  /* "Evaluation" operations */
-  IPPFIND_OP_NONE,         /* No operation */
-  IPPFIND_OP_AND,          /* Logical AND of all children */
-  IPPFIND_OP_OR,           /* Logical OR of all children */
-  IPPFIND_OP_TRUE,         /* Always true */
-  IPPFIND_OP_FALSE,        /* Always false */
-  IPPFIND_OP_IS_LOCAL,     /* Is a local service */
-  IPPFIND_OP_IS_REMOTE,    /* Is a remote service */
-  IPPFIND_OP_DOMAIN_REGEX, /* Domain matches regular expression */
-  IPPFIND_OP_NAME_REGEX,   /* Name matches regular expression */
-  IPPFIND_OP_NAME_LITERAL, /* Name matches literal string */
-  IPPFIND_OP_HOST_REGEX,   /* Hostname matches regular expression */
-  IPPFIND_OP_PORT_RANGE,   /* Port matches range */
-  IPPFIND_OP_PATH_REGEX,   /* Path matches regular expression */
-  IPPFIND_OP_TXT_EXISTS,   /* TXT record key exists */
-  IPPFIND_OP_TXT_REGEX,    /* TXT record key matches regular expression */
-  IPPFIND_OP_URI_REGEX,    /* URI matches regular expression */
+    /* "Evaluation" operations */
+    IPPFIND_OP_NONE,         /* No operation */
+    IPPFIND_OP_AND,          /* Logical AND of all children */
+    IPPFIND_OP_OR,           /* Logical OR of all children */
+    IPPFIND_OP_TRUE,         /* Always true */
+    IPPFIND_OP_FALSE,        /* Always false */
+    IPPFIND_OP_IS_LOCAL,     /* Is a local service */
+    IPPFIND_OP_IS_REMOTE,    /* Is a remote service */
+    IPPFIND_OP_DOMAIN_REGEX, /* Domain matches regular expression */
+    IPPFIND_OP_NAME_REGEX,   /* Name matches regular expression */
+    IPPFIND_OP_NAME_LITERAL, /* Name matches literal string */
+    IPPFIND_OP_HOST_REGEX,   /* Hostname matches regular expression */
+    IPPFIND_OP_PORT_RANGE,   /* Port matches range */
+    IPPFIND_OP_PATH_REGEX,   /* Path matches regular expression */
+    IPPFIND_OP_TXT_EXISTS,   /* TXT record key exists */
+    IPPFIND_OP_TXT_REGEX,    /* TXT record key matches regular expression */
+    IPPFIND_OP_URI_REGEX,    /* URI matches regular expression */
 
-  /* "Output" operations */
-  IPPFIND_OP_EXEC,       /* Execute when true */
-  IPPFIND_OP_LIST,       /* List when true */
-  IPPFIND_OP_PRINT_NAME, /* Print URI when true */
-  IPPFIND_OP_PRINT_URI,  /* Print name when true */
-  IPPFIND_OP_QUIET       /* No output when true */
+    /* "Output" operations */
+    IPPFIND_OP_EXEC,       /* Execute when true */
+    IPPFIND_OP_LIST,       /* List when true */
+    IPPFIND_OP_PRINT_NAME, /* Print URI when true */
+    IPPFIND_OP_PRINT_URI,  /* Print name when true */
+    IPPFIND_OP_QUIET       /* No output when true */
 } ippfind_op_t;
 
 typedef struct ippfind_expr_s /* Expression */
 {
-  struct ippfind_expr_s
-      *prev,       /* Previous expression */
-      *next,       /* Next expression */
-      *parent,     /* Parent expressions */
-      *child;      /* Child expressions */
-  ippfind_op_t op; /* Operation code (see above) */
-  int invert;      /* Invert the result */
-  char *name;      /* TXT record key or literal name */
-  regex_t re;      /* Regular expression for matching */
-  int range[2];    /* Port number range */
-  int num_args;    /* Number of arguments for exec */
-  char **args;     /* Arguments for exec */
+    struct ippfind_expr_s
+        *prev,       /* Previous expression */
+        *next,       /* Next expression */
+        *parent,     /* Parent expressions */
+        *child;      /* Child expressions */
+    ippfind_op_t op; /* Operation code (see above) */
+    int invert;      /* Invert the result */
+    char *name;      /* TXT record key or literal name */
+    regex_t re;      /* Regular expression for matching */
+    int range[2];    /* Port number range */
+    int num_args;    /* Number of arguments for exec */
+    char **args;     /* Arguments for exec */
 } ippfind_expr_t;
 
 /*
@@ -143,1245 +143,1245 @@ int                /* O - Exit status */
 main(int argc,     /* I - Number of command-line args */
      char *argv[]) /* I - Command-line arguments */
 {
-  int i,               /* Looping var */
-      have_output = 0, /* Have output expression */
-      status = IPPFIND_EXIT_FALSE;
-  /* Exit status */
-  const char *opt,        /* Option character */
-      *search;            /* Current browse/resolve string */
-  cups_array_t *searches; /* Things to browse/resolve */
-  cups_array_t *services; /* Service array */
-  avahi_srv_t *service;   /* Current service */
-  ippfind_expr_t *expressions = NULL,
-                 /* Expression tree */
-      *temp = NULL,            /* New expression */
-          *parent = NULL,      /* Parent expression */
-              *current = NULL, /* Current expression */
-      *parens[100];            /* Markers for parenthesis */
-  int num_parens = 0;          /* Number of parenthesis */
-  ippfind_op_t logic = IPPFIND_OP_AND;
-  /* Logic for next expression */
-  int invert = 0; /* Invert expression? */
+    int i,               /* Looping var */
+        have_output = 0, /* Have output expression */
+        status = IPPFIND_EXIT_FALSE;
+    /* Exit status */
+    const char *opt,        /* Option character */
+        *search;            /* Current browse/resolve string */
+    cups_array_t *searches; /* Things to browse/resolve */
+    cups_array_t *services; /* Service array */
+    avahi_srv_t *service;   /* Current service */
+    ippfind_expr_t *expressions = NULL,
+                   /* Expression tree */
+        *temp = NULL,            /* New expression */
+            *parent = NULL,      /* Parent expression */
+                *current = NULL, /* Current expression */
+        *parens[100];            /* Markers for parenthesis */
+    int num_parens = 0;          /* Number of parenthesis */
+    ippfind_op_t logic = IPPFIND_OP_AND;
+    /* Logic for next expression */
+    int invert = 0; /* Invert expression? */
 
-  /*
-        callback pointers
-      */
+    /*
+          callback pointers
+        */
 
-  resolve_callback_t resolve_callback_ptr = &resolveCallback;
-  poll_callback_t poll_callback_ptr = &pollCallback;
-  browse_callback_t browse_callback_ptr = &browseCallback;
-  client_callback_t client_callback_ptr = &clientCallback;
+    resolve_callback_t resolve_callback_ptr = &resolveCallback;
+    poll_callback_t poll_callback_ptr = &pollCallback;
+    browse_callback_t browse_callback_ptr = &browseCallback;
+    client_callback_t client_callback_ptr = &clientCallback;
 
 #ifdef HAVE_MDNSRESPONDER
-  browse_local_callback_t browse_local_callback_ptr = &browseLocalCallback;
+    browse_local_callback_t browse_local_callback_ptr = &browseLocalCallback;
 #endif
 
 #ifdef HAVE_MDNSRESPONDER
-  fd_set sinput;                   /* Input set for select() */
-  struct timeval stimeout;         /* Timeout for select() */
-#endif                             /* HAVE_MDNSRESPONDER */
-  double endtime;                  /* End time */
-  static const char *const ops[] = /* Node operation names */
-      {
-          "NONE",
-          "AND",
-          "OR",
-          "TRUE",
-          "FALSE",
-          "IS_LOCAL",
-          "IS_REMOTE",
-          "DOMAIN_REGEX",
-          "NAME_REGEX",
-          "NAME_LITERAL",
-          "HOST_REGEX",
-          "PORT_RANGE",
-          "PATH_REGEX",
-          "TXT_EXISTS",
-          "TXT_REGEX",
-          "URI_REGEX",
-          "EXEC",
-          "LIST",
-          "PRINT_NAME",
-          "PRINT_URI",
-          "QUIET"};
+    fd_set sinput;                   /* Input set for select() */
+    struct timeval stimeout;         /* Timeout for select() */
+#endif                               /* HAVE_MDNSRESPONDER */
+    double endtime;                  /* End time */
+    static const char *const ops[] = /* Node operation names */
+        {
+            "NONE",
+            "AND",
+            "OR",
+            "TRUE",
+            "FALSE",
+            "IS_LOCAL",
+            "IS_REMOTE",
+            "DOMAIN_REGEX",
+            "NAME_REGEX",
+            "NAME_LITERAL",
+            "HOST_REGEX",
+            "PORT_RANGE",
+            "PATH_REGEX",
+            "TXT_EXISTS",
+            "TXT_REGEX",
+            "URI_REGEX",
+            "EXEC",
+            "LIST",
+            "PRINT_NAME",
+            "PRINT_URI",
+            "QUIET"};
 
-  /*
-   * Initialize the locale...
-   */
+    /*
+     * Initialize the locale...
+     */
 
-  _cupsSetLocale(argv);
+    _cupsSetLocale(argv);
 
-  /*
-   * Create arrays to track services and things we want to browse/resolve...
-   */
+    /*
+     * Create arrays to track services and things we want to browse/resolve...
+     */
 
-  searches = cupsArrayNew(NULL, NULL);
-  services = cupsArrayNew((cups_array_func_t)compare_services, NULL);
+    searches = cupsArrayNew(NULL, NULL);
+    services = cupsArrayNew((cups_array_func_t)compare_services, NULL);
 
-  /*
-   * Parse command-line...
-   */
+    /*
+     * Parse command-line...
+     */
 
-  if (getenv("IPPFIND_DEBUG"))
+    if (getenv("IPPFIND_DEBUG"))
+        for (i = 1; i < argc; i++)
+            fprintf(stderr, "argv[%d]=\"%s\"\n", i, argv[i]);
+
     for (i = 1; i < argc; i++)
-      fprintf(stderr, "argv[%d]=\"%s\"\n", i, argv[i]);
-
-  for (i = 1; i < argc; i++)
-  {
-    if (argv[i][0] == '-')
     {
-      if (argv[i][1] == '-')
-      {
-        /*
-         * Parse --option options...
-         */
-
-        if (!strcmp(argv[i], "--and"))
+        if (argv[i][0] == '-')
         {
-          if (logic == IPPFIND_OP_OR)
-          {
-            _cupsLangPuts(stderr, _("ippfind: Cannot use --and after --or."));
-            show_usage();
-          }
-
-          if (!current)
-          {
-            _cupsLangPuts(stderr,
-                          _("ippfind: Missing expression before \"--and\"."));
-            show_usage();
-          }
-
-          temp = NULL;
-        }
-        else if (!strcmp(argv[i], "--domain"))
-        {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr,
-                            _("ippfind: Missing regular expression after %s."),
-                            "--domain");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_DOMAIN_REGEX, invert, NULL, argv[i],
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--exec"))
-        {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr, _("ippfind: Expected program after %s."),
-                            "--exec");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_EXEC, invert, NULL, NULL,
-                               argv + i)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-
-          while (i < argc)
-            if (!strcmp(argv[i], ";"))
-              break;
-            else
-              i++;
-
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr, _("ippfind: Expected semi-colon after %s."),
-                            "--exec");
-            show_usage();
-          }
-
-          have_output = 1;
-        }
-        else if (!strcmp(argv[i], "--false"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_FALSE, invert, NULL, NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--help"))
-        {
-          show_usage();
-        }
-        else if (!strcmp(argv[i], "--host"))
-        {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr,
-                            _("ippfind: Missing regular expression after %s."),
-                            "--host");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_HOST_REGEX, invert, NULL, argv[i],
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--ls"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_LIST, invert, NULL, NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-
-          have_output = 1;
-        }
-        else if (!strcmp(argv[i], "--local"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_IS_LOCAL, invert, NULL, NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--literal-name"))
-        {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr, _("ippfind: Missing name after %s."), "--literal-name");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_NAME_LITERAL, invert, argv[i], NULL, NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--name"))
-        {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr,
-                            _("ippfind: Missing regular expression after %s."),
-                            "--name");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_NAME_REGEX, invert, NULL, argv[i],
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--not"))
-        {
-          invert = 1;
-        }
-        else if (!strcmp(argv[i], "--or"))
-        {
-          if (!current)
-          {
-            _cupsLangPuts(stderr,
-                          _("ippfind: Missing expression before \"--or\"."));
-            show_usage();
-          }
-
-          logic = IPPFIND_OP_OR;
-
-          if (parent && parent->op == IPPFIND_OP_OR)
-          {
-            /*
-             * Already setup to do "foo --or bar --or baz"...
-             */
-
-            temp = NULL;
-          }
-          else if (!current->prev && parent)
-          {
-            /*
-             * Change parent node into an OR node...
-             */
-
-            parent->op = IPPFIND_OP_OR;
-            temp = NULL;
-          }
-          else if (!current->prev)
-          {
-            /*
-             * Need to group "current" in a new OR node...
-             */
-
-            if ((temp = new_expr(IPPFIND_OP_OR, 0, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            temp->parent = parent;
-            temp->child = current;
-            current->parent = temp;
-
-            if (parent)
-              parent->child = temp;
-            else
-              expressions = temp;
-
-            parent = temp;
-            temp = NULL;
-          }
-          else
-          {
-            /*
-             * Need to group previous expressions in an AND node, and then
-             * put that in an OR node...
-             */
-
-            if ((temp = new_expr(IPPFIND_OP_AND, 0, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            while (current->prev)
+            if (argv[i][1] == '-')
             {
-              current->parent = temp;
-              current = current->prev;
+                /*
+                 * Parse --option options...
+                 */
+
+                if (!strcmp(argv[i], "--and"))
+                {
+                    if (logic == IPPFIND_OP_OR)
+                    {
+                        _cupsLangPuts(stderr, _("ippfind: Cannot use --and after --or."));
+                        show_usage();
+                    }
+
+                    if (!current)
+                    {
+                        _cupsLangPuts(stderr,
+                                      _("ippfind: Missing expression before \"--and\"."));
+                        show_usage();
+                    }
+
+                    temp = NULL;
+                }
+                else if (!strcmp(argv[i], "--domain"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr,
+                                        _("ippfind: Missing regular expression after %s."),
+                                        "--domain");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_DOMAIN_REGEX, invert, NULL, argv[i],
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--exec"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr, _("ippfind: Expected program after %s."),
+                                        "--exec");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_EXEC, invert, NULL, NULL,
+                                         argv + i)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+
+                    while (i < argc)
+                        if (!strcmp(argv[i], ";"))
+                            break;
+                        else
+                            i++;
+
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr, _("ippfind: Expected semi-colon after %s."),
+                                        "--exec");
+                        show_usage();
+                    }
+
+                    have_output = 1;
+                }
+                else if (!strcmp(argv[i], "--false"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_FALSE, invert, NULL, NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--help"))
+                {
+                    show_usage();
+                }
+                else if (!strcmp(argv[i], "--host"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr,
+                                        _("ippfind: Missing regular expression after %s."),
+                                        "--host");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_HOST_REGEX, invert, NULL, argv[i],
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--ls"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_LIST, invert, NULL, NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+
+                    have_output = 1;
+                }
+                else if (!strcmp(argv[i], "--local"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_IS_LOCAL, invert, NULL, NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--literal-name"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr, _("ippfind: Missing name after %s."), "--literal-name");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_NAME_LITERAL, invert, argv[i], NULL, NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--name"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr,
+                                        _("ippfind: Missing regular expression after %s."),
+                                        "--name");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_NAME_REGEX, invert, NULL, argv[i],
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--not"))
+                {
+                    invert = 1;
+                }
+                else if (!strcmp(argv[i], "--or"))
+                {
+                    if (!current)
+                    {
+                        _cupsLangPuts(stderr,
+                                      _("ippfind: Missing expression before \"--or\"."));
+                        show_usage();
+                    }
+
+                    logic = IPPFIND_OP_OR;
+
+                    if (parent && parent->op == IPPFIND_OP_OR)
+                    {
+                        /*
+                         * Already setup to do "foo --or bar --or baz"...
+                         */
+
+                        temp = NULL;
+                    }
+                    else if (!current->prev && parent)
+                    {
+                        /*
+                         * Change parent node into an OR node...
+                         */
+
+                        parent->op = IPPFIND_OP_OR;
+                        temp = NULL;
+                    }
+                    else if (!current->prev)
+                    {
+                        /*
+                         * Need to group "current" in a new OR node...
+                         */
+
+                        if ((temp = new_expr(IPPFIND_OP_OR, 0, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        temp->parent = parent;
+                        temp->child = current;
+                        current->parent = temp;
+
+                        if (parent)
+                            parent->child = temp;
+                        else
+                            expressions = temp;
+
+                        parent = temp;
+                        temp = NULL;
+                    }
+                    else
+                    {
+                        /*
+                         * Need to group previous expressions in an AND node, and then
+                         * put that in an OR node...
+                         */
+
+                        if ((temp = new_expr(IPPFIND_OP_AND, 0, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        while (current->prev)
+                        {
+                            current->parent = temp;
+                            current = current->prev;
+                        }
+
+                        current->parent = temp;
+                        temp->child = current;
+                        current = temp;
+
+                        if ((temp = new_expr(IPPFIND_OP_OR, 0, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        temp->parent = parent;
+                        current->parent = temp;
+
+                        if (parent)
+                            parent->child = temp;
+                        else
+                            expressions = temp;
+
+                        parent = temp;
+                        temp = NULL;
+                    }
+                }
+                else if (!strcmp(argv[i], "--path"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr,
+                                        _("ippfind: Missing regular expression after %s."),
+                                        "--path");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_PATH_REGEX, invert, NULL, argv[i],
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--port"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr,
+                                        _("ippfind: Expected port range after %s."),
+                                        "--port");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_PORT_RANGE, invert, argv[i], NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--print"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_PRINT_URI, invert, NULL, NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+
+                    have_output = 1;
+                }
+                else if (!strcmp(argv[i], "--print-name"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_PRINT_NAME, invert, NULL, NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+
+                    have_output = 1;
+                }
+                else if (!strcmp(argv[i], "--quiet"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_QUIET, invert, NULL, NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+
+                    have_output = 1;
+                }
+                else if (!strcmp(argv[i], "--remote"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_IS_REMOTE, invert, NULL, NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--true"))
+                {
+                    if ((temp = new_expr(IPPFIND_OP_TRUE, invert, NULL, argv[i],
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--txt"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr, _("ippfind: Expected key name after %s."),
+                                        "--txt");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_TXT_EXISTS, invert, argv[i], NULL,
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strncmp(argv[i], "--txt-", 6))
+                {
+                    const char *key = argv[i] + 6; /* TXT key */
+
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr,
+                                        _("ippfind: Missing regular expression after %s."),
+                                        argv[i - 1]);
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_TXT_REGEX, invert, key, argv[i],
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--uri"))
+                {
+                    i++;
+                    if (i >= argc)
+                    {
+                        _cupsLangPrintf(stderr,
+                                        _("ippfind: Missing regular expression after %s."),
+                                        "--uri");
+                        show_usage();
+                    }
+
+                    if ((temp = new_expr(IPPFIND_OP_URI_REGEX, invert, NULL, argv[i],
+                                         NULL)) == NULL)
+                        return (IPPFIND_EXIT_MEMORY);
+                }
+                else if (!strcmp(argv[i], "--version"))
+                {
+                    show_version();
+                }
+                else
+                {
+                    _cupsLangPrintf(stderr, _("%s: Unknown option \"%s\"."),
+                                    "ippfind", argv[i]);
+                    show_usage();
+                }
+
+                if (temp)
+                {
+                    /*
+                     * Add new expression...
+                     */
+
+                    if (logic == IPPFIND_OP_AND &&
+                        current && current->prev &&
+                        parent && parent->op != IPPFIND_OP_AND)
+                    {
+                        /*
+                         * Need to re-group "current" in a new AND node...
+                         */
+
+                        ippfind_expr_t *tempand; /* Temporary AND node */
+
+                        if ((tempand = new_expr(IPPFIND_OP_AND, 0, NULL, NULL,
+                                                NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        /*
+                         * Replace "current" with new AND node at the end of this list...
+                         */
+
+                        current->prev->next = tempand;
+                        tempand->prev = current->prev;
+                        tempand->parent = parent;
+
+                        /*
+                         * Add "current to the new AND node...
+                         */
+
+                        tempand->child = current;
+                        current->parent = tempand;
+                        current->prev = NULL;
+                        parent = tempand;
+                    }
+
+                    /*
+                     * Add the new node at current level...
+                     */
+
+                    temp->parent = parent;
+                    temp->prev = current;
+
+                    if (current)
+                        current->next = temp;
+                    else if (parent)
+                        parent->child = temp;
+                    else
+                        expressions = temp;
+
+                    current = temp;
+                    invert = 0;
+                    logic = IPPFIND_OP_AND;
+                    temp = NULL;
+                }
+            }
+            else
+            {
+                /*
+                 * Parse -o options
+                 */
+
+                for (opt = argv[i] + 1; *opt; opt++)
+                {
+                    switch (*opt)
+                    {
+                    case '4':
+                        address_family = AF_INET;
+                        break;
+
+                    case '6':
+                        address_family = AF_INET6;
+                        break;
+
+                    case 'N': /* Literal name */
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr, _("ippfind: Missing name after %s."), "-N");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_NAME_LITERAL, invert, argv[i], NULL, NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 'P':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Expected port range after %s."),
+                                            "-P");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_PORT_RANGE, invert, argv[i],
+                                             NULL, NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 'T':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("%s: Missing timeout for \"-T\"."),
+                                            "ippfind");
+                            show_usage();
+                        }
+
+                        bonjour_timeout = atof(argv[i]);
+                        break;
+
+                    case 'V':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("%s: Missing version for \"-V\"."),
+                                            "ippfind");
+                            show_usage();
+                        }
+
+                        if (!strcmp(argv[i], "1.1"))
+                            ipp_version = 11;
+                        else if (!strcmp(argv[i], "2.0"))
+                            ipp_version = 20;
+                        else if (!strcmp(argv[i], "2.1"))
+                            ipp_version = 21;
+                        else if (!strcmp(argv[i], "2.2"))
+                            ipp_version = 22;
+                        else
+                        {
+                            _cupsLangPrintf(stderr, _("%s: Bad version %s for \"-V\"."),
+                                            "ippfind", argv[i]);
+                            show_usage();
+                        }
+                        break;
+
+                    case 'd':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Missing regular expression after "
+                                              "%s."),
+                                            "-d");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_DOMAIN_REGEX, invert, NULL,
+                                             argv[i], NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 'h':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Missing regular expression after "
+                                              "%s."),
+                                            "-h");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_HOST_REGEX, invert, NULL,
+                                             argv[i], NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 'l':
+                        if ((temp = new_expr(IPPFIND_OP_LIST, invert, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        have_output = 1;
+                        break;
+
+                    case 'n':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Missing regular expression after "
+                                              "%s."),
+                                            "-n");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_NAME_REGEX, invert, NULL,
+                                             argv[i], NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 'p':
+                        if ((temp = new_expr(IPPFIND_OP_PRINT_URI, invert, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        have_output = 1;
+                        break;
+
+                    case 'q':
+                        if ((temp = new_expr(IPPFIND_OP_QUIET, invert, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        have_output = 1;
+                        break;
+
+                    case 'r':
+                        if ((temp = new_expr(IPPFIND_OP_IS_REMOTE, invert, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 's':
+                        if ((temp = new_expr(IPPFIND_OP_PRINT_NAME, invert, NULL, NULL,
+                                             NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        have_output = 1;
+                        break;
+
+                    case 't':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Missing key name after %s."),
+                                            "-t");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_TXT_EXISTS, invert, argv[i],
+                                             NULL, NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 'u':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Missing regular expression after "
+                                              "%s."),
+                                            "-u");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_URI_REGEX, invert, NULL,
+                                             argv[i], NULL)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+                        break;
+
+                    case 'x':
+                        i++;
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Missing program after %s."),
+                                            "-x");
+                            show_usage();
+                        }
+
+                        if ((temp = new_expr(IPPFIND_OP_EXEC, invert, NULL, NULL,
+                                             argv + i)) == NULL)
+                            return (IPPFIND_EXIT_MEMORY);
+
+                        while (i < argc)
+                            if (!strcmp(argv[i], ";"))
+                                break;
+                            else
+                                i++;
+
+                        if (i >= argc)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Missing semi-colon after %s."),
+                                            "-x");
+                            show_usage();
+                        }
+
+                        have_output = 1;
+                        break;
+
+                    default:
+                        _cupsLangPrintf(stderr, _("%s: Unknown option \"-%c\"."),
+                                        "ippfind", *opt);
+                        show_usage();
+                    }
+
+                    if (temp)
+                    {
+                        /*
+                         * Add new expression...
+                         */
+
+                        if (logic == IPPFIND_OP_AND &&
+                            current && current->prev &&
+                            parent && parent->op != IPPFIND_OP_AND)
+                        {
+                            /*
+                             * Need to re-group "current" in a new AND node...
+                             */
+
+                            ippfind_expr_t *tempand; /* Temporary AND node */
+
+                            if ((tempand = new_expr(IPPFIND_OP_AND, 0, NULL, NULL,
+                                                    NULL)) == NULL)
+                                return (IPPFIND_EXIT_MEMORY);
+
+                            /*
+                             * Replace "current" with new AND node at the end of this list...
+                             */
+
+                            current->prev->next = tempand;
+                            tempand->prev = current->prev;
+                            tempand->parent = parent;
+
+                            /*
+                             * Add "current to the new AND node...
+                             */
+
+                            tempand->child = current;
+                            current->parent = tempand;
+                            current->prev = NULL;
+                            parent = tempand;
+                        }
+
+                        /*
+                         * Add the new node at current level...
+                         */
+
+                        temp->parent = parent;
+                        temp->prev = current;
+
+                        if (current)
+                            current->next = temp;
+                        else if (parent)
+                            parent->child = temp;
+                        else
+                            expressions = temp;
+
+                        current = temp;
+                        invert = 0;
+                        logic = IPPFIND_OP_AND;
+                        temp = NULL;
+                    }
+                }
+            }
+        }
+        else if (!strcmp(argv[i], "("))
+        {
+            if (num_parens >= 100)
+            {
+                _cupsLangPuts(stderr, _("ippfind: Too many parenthesis."));
+                show_usage();
             }
 
-            current->parent = temp;
-            temp->child = current;
-            current = temp;
+            if ((temp = new_expr(IPPFIND_OP_AND, invert, NULL, NULL, NULL)) == NULL)
+                return (IPPFIND_EXIT_MEMORY);
 
-            if ((temp = new_expr(IPPFIND_OP_OR, 0, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
+            parens[num_parens++] = temp;
 
-            temp->parent = parent;
-            current->parent = temp;
-
-            if (parent)
-              parent->child = temp;
+            if (current)
+            {
+                temp->parent = current->parent;
+                current->next = temp;
+                temp->prev = current;
+            }
             else
-              expressions = temp;
+                expressions = temp;
 
             parent = temp;
-            temp = NULL;
-          }
+            current = NULL;
+            invert = 0;
+            logic = IPPFIND_OP_AND;
         }
-        else if (!strcmp(argv[i], "--path"))
+        else if (!strcmp(argv[i], ")"))
         {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr,
-                            _("ippfind: Missing regular expression after %s."),
-                            "--path");
-            show_usage();
-          }
+            if (num_parens <= 0)
+            {
+                _cupsLangPuts(stderr, _("ippfind: Missing open parenthesis."));
+                show_usage();
+            }
 
-          if ((temp = new_expr(IPPFIND_OP_PATH_REGEX, invert, NULL, argv[i],
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
+            current = parens[--num_parens];
+            parent = current->parent;
+            invert = 0;
+            logic = IPPFIND_OP_AND;
         }
-        else if (!strcmp(argv[i], "--port"))
+        else if (!strcmp(argv[i], "!"))
         {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr,
-                            _("ippfind: Expected port range after %s."),
-                            "--port");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_PORT_RANGE, invert, argv[i], NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--print"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_PRINT_URI, invert, NULL, NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-
-          have_output = 1;
-        }
-        else if (!strcmp(argv[i], "--print-name"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_PRINT_NAME, invert, NULL, NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-
-          have_output = 1;
-        }
-        else if (!strcmp(argv[i], "--quiet"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_QUIET, invert, NULL, NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-
-          have_output = 1;
-        }
-        else if (!strcmp(argv[i], "--remote"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_IS_REMOTE, invert, NULL, NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--true"))
-        {
-          if ((temp = new_expr(IPPFIND_OP_TRUE, invert, NULL, argv[i],
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--txt"))
-        {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr, _("ippfind: Expected key name after %s."),
-                            "--txt");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_TXT_EXISTS, invert, argv[i], NULL,
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strncmp(argv[i], "--txt-", 6))
-        {
-          const char *key = argv[i] + 6; /* TXT key */
-
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr,
-                            _("ippfind: Missing regular expression after %s."),
-                            argv[i - 1]);
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_TXT_REGEX, invert, key, argv[i],
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--uri"))
-        {
-          i++;
-          if (i >= argc)
-          {
-            _cupsLangPrintf(stderr,
-                            _("ippfind: Missing regular expression after %s."),
-                            "--uri");
-            show_usage();
-          }
-
-          if ((temp = new_expr(IPPFIND_OP_URI_REGEX, invert, NULL, argv[i],
-                               NULL)) == NULL)
-            return (IPPFIND_EXIT_MEMORY);
-        }
-        else if (!strcmp(argv[i], "--version"))
-        {
-          show_version();
+            invert = 1;
         }
         else
         {
-          _cupsLangPrintf(stderr, _("%s: Unknown option \"%s\"."),
-                          "ippfind", argv[i]);
-          show_usage();
+            /*
+             * _regtype._tcp[,subtype][.domain]
+             *
+             *   OR
+             *
+             * service-name[._regtype._tcp[.domain]]
+             */
+
+            cupsArrayAdd(searches, argv[i]);
         }
+    }
 
-        if (temp)
-        {
-          /*
-           * Add new expression...
-           */
+    if (num_parens > 0)
+    {
+        _cupsLangPuts(stderr, _("ippfind: Missing close parenthesis."));
+        show_usage();
+    }
 
-          if (logic == IPPFIND_OP_AND &&
-              current && current->prev &&
-              parent && parent->op != IPPFIND_OP_AND)
-          {
-            /*
-             * Need to re-group "current" in a new AND node...
-             */
-
-            ippfind_expr_t *tempand; /* Temporary AND node */
-
-            if ((tempand = new_expr(IPPFIND_OP_AND, 0, NULL, NULL,
-                                    NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            /*
-             * Replace "current" with new AND node at the end of this list...
-             */
-
-            current->prev->next = tempand;
-            tempand->prev = current->prev;
-            tempand->parent = parent;
-
-            /*
-             * Add "current to the new AND node...
-             */
-
-            tempand->child = current;
-            current->parent = tempand;
-            current->prev = NULL;
-            parent = tempand;
-          }
-
-          /*
-           * Add the new node at current level...
-           */
-
-          temp->parent = parent;
-          temp->prev = current;
-
-          if (current)
-            current->next = temp;
-          else if (parent)
-            parent->child = temp;
-          else
-            expressions = temp;
-
-          current = temp;
-          invert = 0;
-          logic = IPPFIND_OP_AND;
-          temp = NULL;
-        }
-      }
-      else
-      {
+    if (!have_output)
+    {
         /*
-         * Parse -o options
+         * Add an implicit --print-uri to the end...
          */
 
-        for (opt = argv[i] + 1; *opt; opt++)
+        if ((temp = new_expr(IPPFIND_OP_PRINT_URI, 0, NULL, NULL, NULL)) == NULL)
+            return (IPPFIND_EXIT_MEMORY);
+
+        if (current)
         {
-          switch (*opt)
-          {
-          case '4':
-            address_family = AF_INET;
-            break;
+            while (current->parent)
+                current = current->parent;
 
-          case '6':
-            address_family = AF_INET6;
-            break;
-
-          case 'N': /* Literal name */
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr, _("ippfind: Missing name after %s."), "-N");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_NAME_LITERAL, invert, argv[i], NULL, NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 'P':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Expected port range after %s."),
-                              "-P");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_PORT_RANGE, invert, argv[i],
-                                 NULL, NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 'T':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("%s: Missing timeout for \"-T\"."),
-                              "ippfind");
-              show_usage();
-            }
-
-            bonjour_timeout = atof(argv[i]);
-            break;
-
-          case 'V':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("%s: Missing version for \"-V\"."),
-                              "ippfind");
-              show_usage();
-            }
-
-            if (!strcmp(argv[i], "1.1"))
-              ipp_version = 11;
-            else if (!strcmp(argv[i], "2.0"))
-              ipp_version = 20;
-            else if (!strcmp(argv[i], "2.1"))
-              ipp_version = 21;
-            else if (!strcmp(argv[i], "2.2"))
-              ipp_version = 22;
-            else
-            {
-              _cupsLangPrintf(stderr, _("%s: Bad version %s for \"-V\"."),
-                              "ippfind", argv[i]);
-              show_usage();
-            }
-            break;
-
-          case 'd':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Missing regular expression after "
-                                "%s."),
-                              "-d");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_DOMAIN_REGEX, invert, NULL,
-                                 argv[i], NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 'h':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Missing regular expression after "
-                                "%s."),
-                              "-h");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_HOST_REGEX, invert, NULL,
-                                 argv[i], NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 'l':
-            if ((temp = new_expr(IPPFIND_OP_LIST, invert, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            have_output = 1;
-            break;
-
-          case 'n':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Missing regular expression after "
-                                "%s."),
-                              "-n");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_NAME_REGEX, invert, NULL,
-                                 argv[i], NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 'p':
-            if ((temp = new_expr(IPPFIND_OP_PRINT_URI, invert, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            have_output = 1;
-            break;
-
-          case 'q':
-            if ((temp = new_expr(IPPFIND_OP_QUIET, invert, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            have_output = 1;
-            break;
-
-          case 'r':
-            if ((temp = new_expr(IPPFIND_OP_IS_REMOTE, invert, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 's':
-            if ((temp = new_expr(IPPFIND_OP_PRINT_NAME, invert, NULL, NULL,
-                                 NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            have_output = 1;
-            break;
-
-          case 't':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Missing key name after %s."),
-                              "-t");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_TXT_EXISTS, invert, argv[i],
-                                 NULL, NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 'u':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Missing regular expression after "
-                                "%s."),
-                              "-u");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_URI_REGEX, invert, NULL,
-                                 argv[i], NULL)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-            break;
-
-          case 'x':
-            i++;
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Missing program after %s."),
-                              "-x");
-              show_usage();
-            }
-
-            if ((temp = new_expr(IPPFIND_OP_EXEC, invert, NULL, NULL,
-                                 argv + i)) == NULL)
-              return (IPPFIND_EXIT_MEMORY);
-
-            while (i < argc)
-              if (!strcmp(argv[i], ";"))
-                break;
-              else
-                i++;
-
-            if (i >= argc)
-            {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Missing semi-colon after %s."),
-                              "-x");
-              show_usage();
-            }
-
-            have_output = 1;
-            break;
-
-          default:
-            _cupsLangPrintf(stderr, _("%s: Unknown option \"-%c\"."),
-                            "ippfind", *opt);
-            show_usage();
-          }
-
-          if (temp)
-          {
-            /*
-             * Add new expression...
-             */
-
-            if (logic == IPPFIND_OP_AND &&
-                current && current->prev &&
-                parent && parent->op != IPPFIND_OP_AND)
-            {
-              /*
-               * Need to re-group "current" in a new AND node...
-               */
-
-              ippfind_expr_t *tempand; /* Temporary AND node */
-
-              if ((tempand = new_expr(IPPFIND_OP_AND, 0, NULL, NULL,
-                                      NULL)) == NULL)
-                return (IPPFIND_EXIT_MEMORY);
-
-              /*
-               * Replace "current" with new AND node at the end of this list...
-               */
-
-              current->prev->next = tempand;
-              tempand->prev = current->prev;
-              tempand->parent = parent;
-
-              /*
-               * Add "current to the new AND node...
-               */
-
-              tempand->child = current;
-              current->parent = tempand;
-              current->prev = NULL;
-              parent = tempand;
-            }
-
-            /*
-             * Add the new node at current level...
-             */
-
-            temp->parent = parent;
+            current->next = temp;
             temp->prev = current;
-
-            if (current)
-              current->next = temp;
-            else if (parent)
-              parent->child = temp;
-            else
-              expressions = temp;
-
-            current = temp;
-            invert = 0;
-            logic = IPPFIND_OP_AND;
-            temp = NULL;
-          }
         }
-      }
+        else
+            expressions = temp;
     }
-    else if (!strcmp(argv[i], "("))
+
+    if (cupsArrayCount(searches) == 0)
     {
-      if (num_parens >= 100)
-      {
-        _cupsLangPuts(stderr, _("ippfind: Too many parenthesis."));
-        show_usage();
-      }
+        /*
+         * Add an implicit browse for IPP printers ("_ipp._tcp")...
+         */
 
-      if ((temp = new_expr(IPPFIND_OP_AND, invert, NULL, NULL, NULL)) == NULL)
-        return (IPPFIND_EXIT_MEMORY);
-
-      parens[num_parens++] = temp;
-
-      if (current)
-      {
-        temp->parent = current->parent;
-        current->next = temp;
-        temp->prev = current;
-      }
-      else
-        expressions = temp;
-
-      parent = temp;
-      current = NULL;
-      invert = 0;
-      logic = IPPFIND_OP_AND;
+        cupsArrayAdd(searches, "_ipp._tcp");
     }
-    else if (!strcmp(argv[i], ")"))
+
+    if (getenv("IPPFIND_DEBUG"))
     {
-      if (num_parens <= 0)
-      {
-        _cupsLangPuts(stderr, _("ippfind: Missing open parenthesis."));
-        show_usage();
-      }
+        int indent = 4; /* Indentation */
 
-      current = parens[--num_parens];
-      parent = current->parent;
-      invert = 0;
-      logic = IPPFIND_OP_AND;
-    }
-    else if (!strcmp(argv[i], "!"))
-    {
-      invert = 1;
-    }
-    else
-    {
-      /*
-       * _regtype._tcp[,subtype][.domain]
-       *
-       *   OR
-       *
-       * service-name[._regtype._tcp[.domain]]
-       */
-
-      cupsArrayAdd(searches, argv[i]);
-    }
-  }
-
-  if (num_parens > 0)
-  {
-    _cupsLangPuts(stderr, _("ippfind: Missing close parenthesis."));
-    show_usage();
-  }
-
-  if (!have_output)
-  {
-    /*
-     * Add an implicit --print-uri to the end...
-     */
-
-    if ((temp = new_expr(IPPFIND_OP_PRINT_URI, 0, NULL, NULL, NULL)) == NULL)
-      return (IPPFIND_EXIT_MEMORY);
-
-    if (current)
-    {
-      while (current->parent)
-        current = current->parent;
-
-      current->next = temp;
-      temp->prev = current;
-    }
-    else
-      expressions = temp;
-  }
-
-  if (cupsArrayCount(searches) == 0)
-  {
-    /*
-     * Add an implicit browse for IPP printers ("_ipp._tcp")...
-     */
-
-    cupsArrayAdd(searches, "_ipp._tcp");
-  }
-
-  if (getenv("IPPFIND_DEBUG"))
-  {
-    int indent = 4; /* Indentation */
-
-    puts("Expression tree:");
-    current = expressions;
-    while (current)
-    {
-      /*
-       * Print the current node...
-       */
-
-      printf("%*s%s%s\n", indent, "", current->invert ? "!" : "",
-             ops[current->op]);
-
-      /*
-       * Advance to the next node...
-       */
-
-      if (current->child)
-      {
-        current = current->child;
-        indent += 4;
-      }
-      else if (current->next)
-        current = current->next;
-      else if (current->parent)
-      {
-        while (current->parent)
+        puts("Expression tree:");
+        current = expressions;
+        while (current)
         {
-          indent -= 4;
-          current = current->parent;
-          if (current->next)
-            break;
+            /*
+             * Print the current node...
+             */
+
+            printf("%*s%s%s\n", indent, "", current->invert ? "!" : "",
+                   ops[current->op]);
+
+            /*
+             * Advance to the next node...
+             */
+
+            if (current->child)
+            {
+                current = current->child;
+                indent += 4;
+            }
+            else if (current->next)
+                current = current->next;
+            else if (current->parent)
+            {
+                while (current->parent)
+                {
+                    indent -= 4;
+                    current = current->parent;
+                    if (current->next)
+                        break;
+                }
+
+                current = current->next;
+            }
+            else
+                current = NULL;
         }
 
-        current = current->next;
-      }
-      else
-        current = NULL;
+        puts("\nSearch items:");
+        for (search = (const char *)cupsArrayFirst(searches);
+             search;
+             search = (const char *)cupsArrayNext(searches))
+            printf("    %s\n", search);
     }
 
-    puts("\nSearch items:");
+    /*
+     * Start up browsing/resolving...
+     */
+
+#ifdef HAVE_MDNSRESPONDER
+    if ((err = DNSServiceCreateConnection(&dnssd_ref)) != kDNSServiceErr_NoError)
+    {
+        _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
+                        dnssd_error_string(err));
+        return (IPPFIND_EXIT_BONJOUR);
+    }
+
+#elif defined(HAVE_AVAHI)
+
+    /*
+      initialize avahi_client by calling avahiInitialize
+      */
+
+    if (!avahiInitialize(&avahi_poll, &avahi_client, client_callback_ptr, poll_callback_ptr, &err))
+    {
+        _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
+                        strerror(errno));
+        return (IPPFIND_EXIT_BONJOUR);
+    }
+
+#endif /* HAVE_MDNSRESPONDER */
+
     for (search = (const char *)cupsArrayFirst(searches);
          search;
          search = (const char *)cupsArrayNext(searches))
-      printf("    %s\n", search);
-  }
-
-  /*
-   * Start up browsing/resolving...
-   */
-
-#ifdef HAVE_MDNSRESPONDER
-  if ((err = DNSServiceCreateConnection(&dnssd_ref)) != kDNSServiceErr_NoError)
-  {
-    _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
-                    dnssd_error_string(err));
-    return (IPPFIND_EXIT_BONJOUR);
-  }
-
-#elif defined(HAVE_AVAHI)
-
-  /*
-    initialize avahi_client by calling avahiInitialize
-    */
-
-  if (!avahiInitialize(&avahi_poll, &avahi_client, client_callback_ptr, poll_callback_ptr, &err))
-  {
-    _cupsLangPrintf(stderr, _("ippfind: Unable to use Bonjour: %s"),
-                    strerror(errno));
-    return (IPPFIND_EXIT_BONJOUR);
-  }
-
-#endif /* HAVE_MDNSRESPONDER */
-
-  for (search = (const char *)cupsArrayFirst(searches);
-       search;
-       search = (const char *)cupsArrayNext(searches))
-  {
-    char buf[1024],   /* Full name string */
-        *name = NULL, /* Service instance name */
-        *regtype,     /* Registration type */
-        *domain;      /* Domain, if any */
-
-    strlcpy(buf, search, sizeof(buf));
-
-    if (!strncmp(buf, "_http._", 7) || !strncmp(buf, "_https._", 8) || !strncmp(buf, "_ipp._", 6) || !strncmp(buf, "_ipps._", 7))
     {
-      regtype = buf;
-    }
-    else if ((regtype = strstr(buf, "._")) != NULL)
-    {
-      if (strcmp(regtype, "._tcp"))
-      {
-        /*
-         * "something._protocol._tcp" -> search for something with the given
-         * protocol...
-         */
+        char buf[1024],   /* Full name string */
+            *name = NULL, /* Service instance name */
+            *regtype,     /* Registration type */
+            *domain;      /* Domain, if any */
 
-        name = buf;
-        *regtype++ = '\0';
-      }
-      else
-      {
-        /*
-         * "_protocol._tcp" -> search for everything with the given protocol...
-         */
+        strlcpy(buf, search, sizeof(buf));
 
-        /* name = NULL; */
-        regtype = buf;
-      }
-    }
-    else
-    {
-      /*
-       * "something" -> search for something with IPP protocol...
-       */
-
-      name = buf;
-      regtype = "_ipp._tcp";
-    }
-
-    for (domain = regtype; *domain; domain++)
-    {
-      if (*domain == '.' && domain[1] != '_')
-      {
-        *domain++ = '\0';
-        break;
-      }
-    }
-
-    if (!*domain)
-      domain = NULL;
-
-    if (name)
-    {
-
-      /*
-       * Resolve the given service instance name, regtype, and domain...
-       */
-
-      if (!domain)
-        domain = "local.";
-
-      service = get_service(services, name, regtype, domain);
-
-      if (getenv("IPPFIND_DEBUG"))
-        fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", name, regtype, domain);
-
-      fprintf(stderr, "resolve 1160\n");
-      resolveServices(&avahi_client, service, services, resolveCallback, &err);
-    }
-    else
-    {
-      /*
-       * Browse for services of the given type...
-       */
-
-      if (getenv("IPPFIND_DEBUG"))
-        fprintf(stderr, "Browsing for regtype=\"%s\", domain=\"%s\"\n", regtype, domain);
-
-#ifdef HAVE_MDNSRESPONDER
-      DNSServiceRef ref; /* Browse reference */
-
-      ref = dnssd_ref;
-      err = DNSServiceBrowse(&ref, kDNSServiceFlagsShareConnection, 0, regtype,
-                             domain, browse_callback_ptr, services);
-
-      if (!err)
-      {
-        ref = dnssd_ref;
-        err = DNSServiceBrowse(&ref, kDNSServiceFlagsShareConnection,
-                               kDNSServiceInterfaceIndexLocalOnly, regtype,
-                               domain, browse_local_callback_ptr, services);
-      }
-
-#elif defined(HAVE_AVAHI)
-      char *subtype,        /* Sub-type, if any */
-          subtype_buf[256]; /* Sub-type buffer */
-
-      if ((subtype = strstr(regtype, ",_")) != NULL)
-      {
-        *subtype++ = '\0';
-        snprintf(subtype_buf, sizeof(subtype_buf), "%s._sub.%s", subtype, regtype);
-        regtype = subtype_buf;
-      }
-
-      browseServices(&avahi_client, regtype, NULL, services, browse_callback_ptr, &err);
-
-#endif /* HAVE_MDNSRESPONDER */
-    }
-
-    if (err)
-    {
-      _cupsLangPrintf(stderr, _("ippfind: Unable to browse or resolve: %s"),
-                      dnssd_error_string(err));
-
-      return (IPPFIND_EXIT_BONJOUR);
-    }
-  }
-
-  /*
-   * Process browse/resolve requests...
-   */
-
-  if (bonjour_timeout > 1.0)
-    endtime = get_time() + bonjour_timeout;
-  else
-    endtime = get_time() + 300.0;
-
-  while (get_time() < endtime)
-  {
-    int process = 0; /* Process services? */
-
-#ifdef HAVE_MDNSRESPONDER
-    int fd = DNSServiceRefSockFD(dnssd_ref);
-    /* File descriptor for DNS-SD */
-
-    FD_ZERO(&sinput);
-    FD_SET(fd, &sinput);
-
-    stimeout.tv_sec = 0;
-    stimeout.tv_usec = 500000;
-
-    if (select(fd + 1, &sinput, NULL, NULL, &stimeout) < 0)
-      continue;
-
-    if (FD_ISSET(fd, &sinput))
-    {
-      /*
-       * Process responses...
-       */
-
-      DNSServiceProcessResult(dnssd_ref);
-    }
-    else
-    {
-      /*
-       * Time to process services...
-       */
-
-      process = 1;
-    }
-
-#elif defined(HAVE_AVAHI)
-    avahi_got_data = 0;
-
-    if (avahi_simple_poll_iterate(avahi_poll, 500) > 0)
-    {
-      /*
-       * We've been told to exit the loop.  Perhaps the connection to
-       * Avahi failed.
-       */
-
-      return (IPPFIND_EXIT_BONJOUR);
-    }
-    if (!avahi_got_data)
-    {
-      /*
-       * Time to process services...
-       */
-
-      process = 1;
-    }
-
-#endif /* HAVE_MDNSRESPONDER */
-
-    if (process)
-    {
-      /*
-       * Process any services that we have found...
-       */
-
-      int active = 0,    /* Number of active resolves */
-          resolved = 0,  /* Number of resolved services */
-          processed = 0; /* Number of processed services */
-
-      for (service = (avahi_srv_t *)cupsArrayFirst(services);
-           service;
-           service = (avahi_srv_t *)cupsArrayNext(services))
-      {
-
-        if (service->is_processed)
-          processed++;
-
-        if (service->is_resolved)
-          resolved++;
-
-        if (!service->ref && !service->is_resolved)
+        if (!strncmp(buf, "_http._", 7) || !strncmp(buf, "_https._", 8) || !strncmp(buf, "_ipp._", 6) || !strncmp(buf, "_ipps._", 7))
         {
-          /*
-           * Found a service, now resolve it (but limit to 50 active resolves...)
-           */
-
-          if (active < 50)
-          {
-            resolveServices(&avahi_client, service, services, resolve_callback_ptr, &err);
-
-            if (err)
+            regtype = buf;
+        }
+        else if ((regtype = strstr(buf, "._")) != NULL)
+        {
+            if (strcmp(regtype, "._tcp"))
             {
-              _cupsLangPrintf(stderr,
-                              _("ippfind: Unable to browse or resolve: %s"),
-                              dnssd_error_string(err));
-              return (IPPFIND_EXIT_BONJOUR);
+                /*
+                 * "something._protocol._tcp" -> search for something with the given
+                 * protocol...
+                 */
+
+                name = buf;
+                *regtype++ = '\0';
+            }
+            else
+            {
+                /*
+                 * "_protocol._tcp" -> search for everything with the given protocol...
+                 */
+
+                /* name = NULL; */
+                regtype = buf;
+            }
+        }
+        else
+        {
+            /*
+             * "something" -> search for something with IPP protocol...
+             */
+
+            name = buf;
+            regtype = "_ipp._tcp";
+        }
+
+        for (domain = regtype; *domain; domain++)
+        {
+            if (*domain == '.' && domain[1] != '_')
+            {
+                *domain++ = '\0';
+                break;
+            }
+        }
+
+        if (!*domain)
+            domain = NULL;
+
+        if (name)
+        {
+
+            /*
+             * Resolve the given service instance name, regtype, and domain...
+             */
+
+            if (!domain)
+                domain = "local.";
+
+            service = get_service(services, name, regtype, domain);
+
+            if (getenv("IPPFIND_DEBUG"))
+                fprintf(stderr, "Resolving name=\"%s\", regtype=\"%s\", domain=\"%s\"\n", name, regtype, domain);
+
+            fprintf(stderr, "resolve 1160\n");
+            resolveServices(&avahi_client, service, services, resolveCallback, &err);
+        }
+        else
+        {
+            /*
+             * Browse for services of the given type...
+             */
+
+            if (getenv("IPPFIND_DEBUG"))
+                fprintf(stderr, "Browsing for regtype=\"%s\", domain=\"%s\"\n", regtype, domain);
+
+#ifdef HAVE_MDNSRESPONDER
+            DNSServiceRef ref; /* Browse reference */
+
+            ref = dnssd_ref;
+            err = DNSServiceBrowse(&ref, kDNSServiceFlagsShareConnection, 0, regtype,
+                                   domain, browse_callback_ptr, services);
+
+            if (!err)
+            {
+                ref = dnssd_ref;
+                err = DNSServiceBrowse(&ref, kDNSServiceFlagsShareConnection,
+                                       kDNSServiceInterfaceIndexLocalOnly, regtype,
+                                       domain, browse_local_callback_ptr, services);
             }
 
-            active++;
-          }
-        }
-        else if (service->is_resolved && !service->is_processed)
-        {
-          /*
-           * Resolved, not process this service against the expressions...
-           */
+#elif defined(HAVE_AVAHI)
+            char *subtype,        /* Sub-type, if any */
+                subtype_buf[256]; /* Sub-type buffer */
 
-          if (service->ref)
-          {
+            if ((subtype = strstr(regtype, ",_")) != NULL)
+            {
+                *subtype++ = '\0';
+                snprintf(subtype_buf, sizeof(subtype_buf), "%s._sub.%s", subtype, regtype);
+                regtype = subtype_buf;
+            }
+
+            browseServices(&avahi_client, regtype, NULL, services, browse_callback_ptr, &err);
+
+#endif /* HAVE_MDNSRESPONDER */
+        }
+
+        if (err)
+        {
+            _cupsLangPrintf(stderr, _("ippfind: Unable to browse or resolve: %s"),
+                            dnssd_error_string(err));
+
+            return (IPPFIND_EXIT_BONJOUR);
+        }
+    }
+
+    /*
+     * Process browse/resolve requests...
+     */
+
+    if (bonjour_timeout > 1.0)
+        endtime = get_time() + bonjour_timeout;
+    else
+        endtime = get_time() + 300.0;
+
+    while (get_time() < endtime)
+    {
+        int process = 0; /* Process services? */
+
 #ifdef HAVE_MDNSRESPONDER
-            DNSServiceRefDeallocate(service->ref);
-#else
-            // fprintf(stderr, "free resolver");
-            avahi_service_resolver_free(service->ref);
+        int fd = DNSServiceRefSockFD(dnssd_ref);
+        /* File descriptor for DNS-SD */
+
+        FD_ZERO(&sinput);
+        FD_SET(fd, &sinput);
+
+        stimeout.tv_sec = 0;
+        stimeout.tv_usec = 500000;
+
+        if (select(fd + 1, &sinput, NULL, NULL, &stimeout) < 0)
+            continue;
+
+        if (FD_ISSET(fd, &sinput))
+        {
+            /*
+             * Process responses...
+             */
+
+            DNSServiceProcessResult(dnssd_ref);
+        }
+        else
+        {
+            /*
+             * Time to process services...
+             */
+
+            process = 1;
+        }
+
+#elif defined(HAVE_AVAHI)
+        avahi_got_data = 0;
+
+        if (avahi_simple_poll_iterate(avahi_poll, 500) > 0)
+        {
+            /*
+             * We've been told to exit the loop.  Perhaps the connection to
+             * Avahi failed.
+             */
+
+            return (IPPFIND_EXIT_BONJOUR);
+        }
+        if (!avahi_got_data)
+        {
+            /*
+             * Time to process services...
+             */
+
+            process = 1;
+        }
+
 #endif /* HAVE_MDNSRESPONDER */
 
-            service->ref = NULL;
-          }
+        if (process)
+        {
+            /*
+             * Process any services that we have found...
+             */
 
-          if (eval_expr(service, expressions))
-            status = IPPFIND_EXIT_TRUE;
+            int active = 0,    /* Number of active resolves */
+                resolved = 0,  /* Number of resolved services */
+                processed = 0; /* Number of processed services */
 
-          service->is_processed = 1;
+            for (service = (avahi_srv_t *)cupsArrayFirst(services);
+                 service;
+                 service = (avahi_srv_t *)cupsArrayNext(services))
+            {
+
+                if (service->is_processed)
+                    processed++;
+
+                if (service->is_resolved)
+                    resolved++;
+
+                if (!service->ref && !service->is_resolved)
+                {
+                    /*
+                     * Found a service, now resolve it (but limit to 50 active resolves...)
+                     */
+
+                    if (active < 50)
+                    {
+                        resolveServices(&avahi_client, service, services, resolve_callback_ptr, &err);
+
+                        if (err)
+                        {
+                            _cupsLangPrintf(stderr,
+                                            _("ippfind: Unable to browse or resolve: %s"),
+                                            dnssd_error_string(err));
+                            return (IPPFIND_EXIT_BONJOUR);
+                        }
+
+                        active++;
+                    }
+                }
+                else if (service->is_resolved && !service->is_processed)
+                {
+                    /*
+                     * Resolved, not process this service against the expressions...
+                     */
+
+                    if (service->ref)
+                    {
+#ifdef HAVE_MDNSRESPONDER
+                        DNSServiceRefDeallocate(service->ref);
+#else
+                        // fprintf(stderr, "free resolver");
+                        avahi_service_resolver_free(service->ref);
+#endif /* HAVE_MDNSRESPONDER */
+
+                        service->ref = NULL;
+                    }
+
+                    if (eval_expr(service, expressions))
+                        status = IPPFIND_EXIT_TRUE;
+
+                    service->is_processed = 1;
+                }
+                else if (service->ref)
+                    active++;
+            }
+
+            /*
+             * If we have processed all services we have discovered, then we are done.
+             */
+            if (processed == cupsArrayCount(services) && bonjour_timeout <= 1.0)
+                break;
         }
-        else if (service->ref)
-          active++;
-      }
-
-      /*
-       * If we have processed all services we have discovered, then we are done.
-       */
-      if (processed == cupsArrayCount(services) && bonjour_timeout <= 1.0)
-        break;
     }
-  }
 
-  // for (service = (avahi_srv_t *)cupsArrayFirst(services);
-  //          service;
-  //          service = (avahi_srv_t *)cupsArrayNext(services)){
-  //           fprintf(stderr, "service->num_txt = %d\n", service->num_txt);
-  //          }
+    // for (service = (avahi_srv_t *)cupsArrayFirst(services);
+    //          service;
+    //          service = (avahi_srv_t *)cupsArrayNext(services)){
+    //           fprintf(stderr, "service->num_txt = %d\n", service->num_txt);
+    //          }
 
-  if (bonjour_error)
-    return (IPPFIND_EXIT_BONJOUR);
-  else
-    return (status);
+    if (bonjour_error)
+        return (IPPFIND_EXIT_BONJOUR);
+    else
+        return (status);
 }
 
 #ifdef HAVE_MDNSRESPONDER
@@ -1400,21 +1400,21 @@ browseCallback(
     const char *replyDomain,       /* I - Service domain */
     void *context)                 /* I - Services array */
 {
-  /*
-   * Only process "add" data...
-   */
+    /*
+     * Only process "add" data...
+     */
 
-  (void)sdRef;
-  (void)interfaceIndex;
+    (void)sdRef;
+    (void)interfaceIndex;
 
-  if (errorCode != kDNSServiceErr_NoError || !(flags & kDNSServiceFlagsAdd))
-    return;
+    if (errorCode != kDNSServiceErr_NoError || !(flags & kDNSServiceFlagsAdd))
+        return;
 
-  /*
-   * Get the device...
-   */
+    /*
+     * Get the device...
+     */
 
-  get_service((cups_array_t *)context, serviceName, regtype, replyDomain);
+    get_service((cups_array_t *)context, serviceName, regtype, replyDomain);
 }
 
 /*
@@ -1432,25 +1432,25 @@ browseLocalCallback(
     const char *replyDomain,       /* I - Service domain */
     void *context)                 /* I - Services array */
 {
-  avahi_srv_t *service; /* Service */
+    avahi_srv_t *service; /* Service */
 
-  /*
-   * Only process "add" data...
-   */
+    /*
+     * Only process "add" data...
+     */
 
-  (void)sdRef;
-  (void)interfaceIndex;
+    (void)sdRef;
+    (void)interfaceIndex;
 
-  if (errorCode != kDNSServiceErr_NoError || !(flags & kDNSServiceFlagsAdd))
-    return;
+    if (errorCode != kDNSServiceErr_NoError || !(flags & kDNSServiceFlagsAdd))
+        return;
 
-  /*
-   * Get the device...
-   */
+    /*
+     * Get the device...
+     */
 
-  service = get_service((cups_array_t *)context, serviceName, regtype,
-                        replyDomain);
-  service->is_local = 1;
+    service = get_service((cups_array_t *)context, serviceName, regtype,
+                          replyDomain);
+    service->is_local = 1;
 }
 #endif /* HAVE_MDNSRESPONDER */
 
@@ -1470,45 +1470,45 @@ void browseCallback(
     AvahiLookupResultFlags flags, /* I - Flags */
     void *context)                /* I - Services array */
 {
-  AvahiClient **client = (AvahiClient **)malloc(sizeof(AvahiClient *));
-  *client = avahi_service_browser_get_client(browser);
+    AvahiClient **client = (AvahiClient **)malloc(sizeof(AvahiClient *));
+    *client = avahi_service_browser_get_client(browser);
 
-  /* Client information */
-  avahi_srv_t *service; /* Service information */
+    /* Client information */
+    avahi_srv_t *service; /* Service information */
 
-  (void)interface;
-  (void)protocol;
-  (void)context;
+    (void)interface;
+    (void)protocol;
+    (void)context;
 
-  switch (event)
-  {
-  case AVAHI_BROWSER_FAILURE:
-    fprintf(stderr, "DEBUG: browseCallback: %s\n",
-            avahi_strerror(avahi_client_errno(*client)));
-    bonjour_error = 1;
-    avahi_simple_poll_quit(avahi_poll);
-    break;
+    switch (event)
+    {
+    case AVAHI_BROWSER_FAILURE:
+        fprintf(stderr, "DEBUG: browseCallback: %s\n",
+                avahi_strerror(avahi_client_errno(*client)));
+        bonjour_error = 1;
+        avahi_simple_poll_quit(avahi_poll);
+        break;
 
-  case AVAHI_BROWSER_NEW:
-    /*
-     * This object is new on the network. Create a device entry for it if
-     * it doesn't yet exist.
-     */
+    case AVAHI_BROWSER_NEW:
+        /*
+         * This object is new on the network. Create a device entry for it if
+         * it doesn't yet exist.
+         */
 
-    service = get_service((cups_array_t *)context, name, type, domain);
+        service = get_service((cups_array_t *)context, name, type, domain);
 
-    if (service == NULL)
-      return;
+        if (service == NULL)
+            return;
 
-    if (flags & AVAHI_LOOKUP_RESULT_LOCAL)
-      service->is_local = 1;
-    break;
+        if (flags & AVAHI_LOOKUP_RESULT_LOCAL)
+            service->is_local = 1;
+        break;
 
-  case AVAHI_BROWSER_REMOVE:
-  case AVAHI_BROWSER_ALL_FOR_NOW:
-  case AVAHI_BROWSER_CACHE_EXHAUSTED:
-    break;
-  }
+    case AVAHI_BROWSER_REMOVE:
+    case AVAHI_BROWSER_ALL_FOR_NOW:
+    case AVAHI_BROWSER_CACHE_EXHAUSTED:
+        break;
+    }
 }
 
 /*
@@ -1520,19 +1520,19 @@ void clientCallback(
     AvahiClientState state, /* I - Current state */
     void *context)          /* I - User data (unused) */
 {
-  (void)client;
-  (void)context;
+    (void)client;
+    (void)context;
 
-  /*
-   * If the connection drops, quit.
-   */
+    /*
+     * If the connection drops, quit.
+     */
 
-  if (state == AVAHI_CLIENT_FAILURE)
-  {
-    fputs("DEBUG: Avahi connection failed.\n", stderr);
-    bonjour_error = 1;
-    avahi_simple_poll_quit(avahi_poll);
-  }
+    if (state == AVAHI_CLIENT_FAILURE)
+    {
+        fputs("DEBUG: Avahi connection failed.\n", stderr);
+        bonjour_error = 1;
+        avahi_simple_poll_quit(avahi_poll);
+    }
 }
 #endif /* HAVE_AVAHI */
 
@@ -1544,7 +1544,7 @@ static int                       /* O - Result of comparison */
 compare_services(avahi_srv_t *a, /* I - First device */
                  avahi_srv_t *b) /* I - Second device */
 {
-  return (strcmp(a->name, b->name));
+    return (strcmp(a->name, b->name));
 }
 
 /*
@@ -1555,110 +1555,110 @@ static const char *           /* O - Error message */
 dnssd_error_string(int error) /* I - Error number */
 {
 #ifdef HAVE_MDNSRESPONDER
-  switch (error)
-  {
-  case kDNSServiceErr_NoError:
-    return ("OK.");
+    switch (error)
+    {
+    case kDNSServiceErr_NoError:
+        return ("OK.");
 
-  default:
-  case kDNSServiceErr_Unknown:
-    return ("Unknown error.");
+    default:
+    case kDNSServiceErr_Unknown:
+        return ("Unknown error.");
 
-  case kDNSServiceErr_NoSuchName:
-    return ("Service not found.");
+    case kDNSServiceErr_NoSuchName:
+        return ("Service not found.");
 
-  case kDNSServiceErr_NoMemory:
-    return ("Out of memory.");
+    case kDNSServiceErr_NoMemory:
+        return ("Out of memory.");
 
-  case kDNSServiceErr_BadParam:
-    return ("Bad parameter.");
+    case kDNSServiceErr_BadParam:
+        return ("Bad parameter.");
 
-  case kDNSServiceErr_BadReference:
-    return ("Bad service reference.");
+    case kDNSServiceErr_BadReference:
+        return ("Bad service reference.");
 
-  case kDNSServiceErr_BadState:
-    return ("Bad state.");
+    case kDNSServiceErr_BadState:
+        return ("Bad state.");
 
-  case kDNSServiceErr_BadFlags:
-    return ("Bad flags.");
+    case kDNSServiceErr_BadFlags:
+        return ("Bad flags.");
 
-  case kDNSServiceErr_Unsupported:
-    return ("Unsupported.");
+    case kDNSServiceErr_Unsupported:
+        return ("Unsupported.");
 
-  case kDNSServiceErr_NotInitialized:
-    return ("Not initialized.");
+    case kDNSServiceErr_NotInitialized:
+        return ("Not initialized.");
 
-  case kDNSServiceErr_AlreadyRegistered:
-    return ("Already registered.");
+    case kDNSServiceErr_AlreadyRegistered:
+        return ("Already registered.");
 
-  case kDNSServiceErr_NameConflict:
-    return ("Name conflict.");
+    case kDNSServiceErr_NameConflict:
+        return ("Name conflict.");
 
-  case kDNSServiceErr_Invalid:
-    return ("Invalid name.");
+    case kDNSServiceErr_Invalid:
+        return ("Invalid name.");
 
-  case kDNSServiceErr_Firewall:
-    return ("Firewall prevents registration.");
+    case kDNSServiceErr_Firewall:
+        return ("Firewall prevents registration.");
 
-  case kDNSServiceErr_Incompatible:
-    return ("Client library incompatible.");
+    case kDNSServiceErr_Incompatible:
+        return ("Client library incompatible.");
 
-  case kDNSServiceErr_BadInterfaceIndex:
-    return ("Bad interface index.");
+    case kDNSServiceErr_BadInterfaceIndex:
+        return ("Bad interface index.");
 
-  case kDNSServiceErr_Refused:
-    return ("Server prevents registration.");
+    case kDNSServiceErr_Refused:
+        return ("Server prevents registration.");
 
-  case kDNSServiceErr_NoSuchRecord:
-    return ("Record not found.");
+    case kDNSServiceErr_NoSuchRecord:
+        return ("Record not found.");
 
-  case kDNSServiceErr_NoAuth:
-    return ("Authentication required.");
+    case kDNSServiceErr_NoAuth:
+        return ("Authentication required.");
 
-  case kDNSServiceErr_NoSuchKey:
-    return ("Encryption key not found.");
+    case kDNSServiceErr_NoSuchKey:
+        return ("Encryption key not found.");
 
-  case kDNSServiceErr_NATTraversal:
-    return ("Unable to traverse NAT boundary.");
+    case kDNSServiceErr_NATTraversal:
+        return ("Unable to traverse NAT boundary.");
 
-  case kDNSServiceErr_DoubleNAT:
-    return ("Unable to traverse double-NAT boundary.");
+    case kDNSServiceErr_DoubleNAT:
+        return ("Unable to traverse double-NAT boundary.");
 
-  case kDNSServiceErr_BadTime:
-    return ("Bad system time.");
+    case kDNSServiceErr_BadTime:
+        return ("Bad system time.");
 
-  case kDNSServiceErr_BadSig:
-    return ("Bad signature.");
+    case kDNSServiceErr_BadSig:
+        return ("Bad signature.");
 
-  case kDNSServiceErr_BadKey:
-    return ("Bad encryption key.");
+    case kDNSServiceErr_BadKey:
+        return ("Bad encryption key.");
 
-  case kDNSServiceErr_Transient:
-    return ("Transient error occurred - please try again.");
+    case kDNSServiceErr_Transient:
+        return ("Transient error occurred - please try again.");
 
-  case kDNSServiceErr_ServiceNotRunning:
-    return ("Server not running.");
+    case kDNSServiceErr_ServiceNotRunning:
+        return ("Server not running.");
 
-  case kDNSServiceErr_NATPortMappingUnsupported:
-    return ("NAT doesn't support NAT-PMP or UPnP.");
+    case kDNSServiceErr_NATPortMappingUnsupported:
+        return ("NAT doesn't support NAT-PMP or UPnP.");
 
-  case kDNSServiceErr_NATPortMappingDisabled:
-    return ("NAT supports NAT-PNP or UPnP but it is disabled.");
+    case kDNSServiceErr_NATPortMappingDisabled:
+        return ("NAT supports NAT-PNP or UPnP but it is disabled.");
 
-  case kDNSServiceErr_NoRouter:
-    return ("No Internet/default router configured.");
+    case kDNSServiceErr_NoRouter:
+        return ("No Internet/default router configured.");
 
-  case kDNSServiceErr_PollingMode:
-    return ("Service polling mode error.");
+    case kDNSServiceErr_PollingMode:
+        return ("Service polling mode error.");
 
 #ifndef _WIN32
-  case kDNSServiceErr_Timeout:
-    return ("Service timeout.");
+    case kDNSServiceErr_Timeout:
+        return ("Service timeout.");
 #endif /* !_WIN32 */
-  }
+    }
 
 #elif defined(HAVE_AVAHI)
-  return (avahi_strerror(error));
+    return (avahi_strerror(error));
 #endif /* HAVE_MDNSRESPONDER */
 }
 
@@ -1672,111 +1672,111 @@ static int                             /* O - Result of evaluation */
 eval_expr(avahi_srv_t *service,        /* I - Service */
           ippfind_expr_t *expressions) /* I - Expressions */
 {
-  ippfind_op_t logic;         /* Logical operation */
-  int result;                 /* Result of current expression */
-  ippfind_expr_t *expression; /* Current expression */
-  const char *val;            /* TXT value */
+    ippfind_op_t logic;         /* Logical operation */
+    int result;                 /* Result of current expression */
+    ippfind_expr_t *expression; /* Current expression */
+    const char *val;            /* TXT value */
 
-  /*
-   * Loop through the expressions...
-   */
+    /*
+     * Loop through the expressions...
+     */
 
-  if (expressions && expressions->parent)
-    logic = expressions->parent->op;
-  else
-    logic = IPPFIND_OP_AND;
+    if (expressions && expressions->parent)
+        logic = expressions->parent->op;
+    else
+        logic = IPPFIND_OP_AND;
 
-  for (expression = expressions; expression; expression = expression->next)
-  {
-    switch (expression->op)
+    for (expression = expressions; expression; expression = expression->next)
     {
-    default:
-    case IPPFIND_OP_AND:
-    case IPPFIND_OP_OR:
-      if (expression->child)
-        result = eval_expr(service, expression->child);
-      else
-        result = expression->op == IPPFIND_OP_AND;
-      break;
-    case IPPFIND_OP_TRUE:
-      result = 1;
-      break;
-    case IPPFIND_OP_FALSE:
-      result = 0;
-      break;
-    case IPPFIND_OP_IS_LOCAL:
-      result = service->is_local;
-      break;
-    case IPPFIND_OP_IS_REMOTE:
-      result = !service->is_local;
-      break;
-    case IPPFIND_OP_DOMAIN_REGEX:
-      result = !regexec(&(expression->re), service->domain, 0, NULL, 0);
-      break;
-    case IPPFIND_OP_NAME_REGEX:
-      result = !regexec(&(expression->re), service->name, 0, NULL, 0);
-      break;
-    case IPPFIND_OP_NAME_LITERAL:
-      result = !_cups_strcasecmp(expression->name, service->name);
-      break;
-    case IPPFIND_OP_HOST_REGEX:
-      result = !regexec(&(expression->re), service->host, 0, NULL, 0);
-      break;
-    case IPPFIND_OP_PORT_RANGE:
-      result = service->port >= expression->range[0] &&
-               service->port <= expression->range[1];
-      break;
-    case IPPFIND_OP_PATH_REGEX:
-      result = !regexec(&(expression->re), service->resource, 0, NULL, 0);
-      break;
-    case IPPFIND_OP_TXT_EXISTS:
-      result = cupsGetOption(expression->name, service->num_txt,
-                             service->txt) != NULL;
-      break;
-    case IPPFIND_OP_TXT_REGEX:
-      val = cupsGetOption(expression->name, service->num_txt,
-                          service->txt);
-      if (val)
-        result = !regexec(&(expression->re), val, 0, NULL, 0);
-      else
-        result = 0;
+        switch (expression->op)
+        {
+        default:
+        case IPPFIND_OP_AND:
+        case IPPFIND_OP_OR:
+            if (expression->child)
+                result = eval_expr(service, expression->child);
+            else
+                result = expression->op == IPPFIND_OP_AND;
+            break;
+        case IPPFIND_OP_TRUE:
+            result = 1;
+            break;
+        case IPPFIND_OP_FALSE:
+            result = 0;
+            break;
+        case IPPFIND_OP_IS_LOCAL:
+            result = service->is_local;
+            break;
+        case IPPFIND_OP_IS_REMOTE:
+            result = !service->is_local;
+            break;
+        case IPPFIND_OP_DOMAIN_REGEX:
+            result = !regexec(&(expression->re), service->domain, 0, NULL, 0);
+            break;
+        case IPPFIND_OP_NAME_REGEX:
+            result = !regexec(&(expression->re), service->name, 0, NULL, 0);
+            break;
+        case IPPFIND_OP_NAME_LITERAL:
+            result = !_cups_strcasecmp(expression->name, service->name);
+            break;
+        case IPPFIND_OP_HOST_REGEX:
+            result = !regexec(&(expression->re), service->host, 0, NULL, 0);
+            break;
+        case IPPFIND_OP_PORT_RANGE:
+            result = service->port >= expression->range[0] &&
+                     service->port <= expression->range[1];
+            break;
+        case IPPFIND_OP_PATH_REGEX:
+            result = !regexec(&(expression->re), service->resource, 0, NULL, 0);
+            break;
+        case IPPFIND_OP_TXT_EXISTS:
+            result = cupsGetOption(expression->name, service->num_txt,
+                                   service->txt) != NULL;
+            break;
+        case IPPFIND_OP_TXT_REGEX:
+            val = cupsGetOption(expression->name, service->num_txt,
+                                service->txt);
+            if (val)
+                result = !regexec(&(expression->re), val, 0, NULL, 0);
+            else
+                result = 0;
 
-      if (getenv("IPPFIND_DEBUG"))
-        printf("TXT_REGEX of \"%s\": %d\n", val, result);
-      break;
-    case IPPFIND_OP_URI_REGEX:
-      result = !regexec(&(expression->re), service->uri, 0, NULL, 0);
-      break;
-    case IPPFIND_OP_EXEC:
-      result = exec_program(service, expression->num_args,
-                            expression->args);
-      break;
-    case IPPFIND_OP_LIST:
-      result = list_service(service);
-      break;
-    case IPPFIND_OP_PRINT_NAME:
-      _cupsLangPuts(stdout, service->name);
-      result = 1;
-      break;
-    case IPPFIND_OP_PRINT_URI:
-      _cupsLangPuts(stdout, service->uri);
-      result = 1;
-      break;
-    case IPPFIND_OP_QUIET:
-      result = 1;
-      break;
+            if (getenv("IPPFIND_DEBUG"))
+                printf("TXT_REGEX of \"%s\": %d\n", val, result);
+            break;
+        case IPPFIND_OP_URI_REGEX:
+            result = !regexec(&(expression->re), service->uri, 0, NULL, 0);
+            break;
+        case IPPFIND_OP_EXEC:
+            result = exec_program(service, expression->num_args,
+                                  expression->args);
+            break;
+        case IPPFIND_OP_LIST:
+            result = list_service(service);
+            break;
+        case IPPFIND_OP_PRINT_NAME:
+            _cupsLangPuts(stdout, service->name);
+            result = 1;
+            break;
+        case IPPFIND_OP_PRINT_URI:
+            _cupsLangPuts(stdout, service->uri);
+            result = 1;
+            break;
+        case IPPFIND_OP_QUIET:
+            result = 1;
+            break;
+        }
+
+        if (expression->invert)
+            result = !result;
+
+        if (logic == IPPFIND_OP_AND && !result)
+            return (0);
+        else if (logic == IPPFIND_OP_OR && result)
+            return (1);
     }
 
-    if (expression->invert)
-      result = !result;
-
-    if (logic == IPPFIND_OP_AND && !result)
-      return (0);
-    else if (logic == IPPFIND_OP_OR && result)
-      return (1);
-  }
-
-  return (logic == IPPFIND_OP_AND);
+    return (logic == IPPFIND_OP_AND);
 }
 
 /*
@@ -1789,249 +1789,249 @@ exec_program(avahi_srv_t *service, /* I - Service */
              int num_args,         /* I - Number of command-line args */
              char **args)          /* I - Command-line arguments */
 {
-  char **myargv,      /* Command-line arguments */
-      **myenvp,       /* Environment variables */
-      *ptr,           /* Pointer into variable */
-      domain[1024],   /* IPPFIND_SERVICE_DOMAIN */
-      hostname[1024], /* IPPFIND_SERVICE_HOSTNAME */
-      name[256],      /* IPPFIND_SERVICE_NAME */
-      port[32],       /* IPPFIND_SERVICE_PORT */
-      regtype[256],   /* IPPFIND_SERVICE_REGTYPE */
-      scheme[128],    /* IPPFIND_SERVICE_SCHEME */
-      uri[1024],      /* IPPFIND_SERVICE_URI */
-      txt[100][256];  /* IPPFIND_TXT_foo */
-  int i,              /* Looping var */
-      myenvc,         /* Number of environment variables */
-      status;         /* Exit status of program */
+    char **myargv,      /* Command-line arguments */
+        **myenvp,       /* Environment variables */
+        *ptr,           /* Pointer into variable */
+        domain[1024],   /* IPPFIND_SERVICE_DOMAIN */
+        hostname[1024], /* IPPFIND_SERVICE_HOSTNAME */
+        name[256],      /* IPPFIND_SERVICE_NAME */
+        port[32],       /* IPPFIND_SERVICE_PORT */
+        regtype[256],   /* IPPFIND_SERVICE_REGTYPE */
+        scheme[128],    /* IPPFIND_SERVICE_SCHEME */
+        uri[1024],      /* IPPFIND_SERVICE_URI */
+        txt[100][256];  /* IPPFIND_TXT_foo */
+    int i,              /* Looping var */
+        myenvc,         /* Number of environment variables */
+        status;         /* Exit status of program */
 #ifndef _WIN32
-  char program[1024]; /* Program to execute */
-  int pid;            /* Process ID */
-#endif                /* !_WIN32 */
+    char program[1024]; /* Program to execute */
+    int pid;            /* Process ID */
+#endif                  /* !_WIN32 */
 
-  /*
-   * Environment variables...
-   */
+    /*
+     * Environment variables...
+     */
 
-  snprintf(domain, sizeof(domain), "IPPFIND_SERVICE_DOMAIN=%s",
-           service->domain);
-  snprintf(hostname, sizeof(hostname), "IPPFIND_SERVICE_HOSTNAME=%s",
-           service->host);
-  snprintf(name, sizeof(name), "IPPFIND_SERVICE_NAME=%s", service->name);
-  snprintf(port, sizeof(port), "IPPFIND_SERVICE_PORT=%d", service->port);
-  snprintf(regtype, sizeof(regtype), "IPPFIND_SERVICE_REGTYPE=%s",
-           service->regtype);
-  snprintf(scheme, sizeof(scheme), "IPPFIND_SERVICE_SCHEME=%s",
-           !strncmp(service->regtype, "_http._tcp", 10) ? "http" : !strncmp(service->regtype, "_https._tcp", 11) ? "https"
-                                                               : !strncmp(service->regtype, "_ipp._tcp", 9)      ? "ipp"
-                                                               : !strncmp(service->regtype, "_ipps._tcp", 10)    ? "ipps"
-                                                                                                                 : "lpd");
-  snprintf(uri, sizeof(uri), "IPPFIND_SERVICE_URI=%s", service->uri);
-  for (i = 0; i < service->num_txt && i < 100; i++)
-  {
-    snprintf(txt[i], sizeof(txt[i]), "IPPFIND_TXT_%s=%s", service->txt[i].name,
-             service->txt[i].value);
-    for (ptr = txt[i] + 12; *ptr && *ptr != '='; ptr++)
-      *ptr = (char)_cups_toupper(*ptr);
-  }
-
-  for (i = 0, myenvc = 7 + service->num_txt; environ[i]; i++)
-    if (strncmp(environ[i], "IPPFIND_", 8))
-      myenvc++;
-
-  if ((myenvp = calloc(sizeof(char *), (size_t)(myenvc + 1))) == NULL)
-  {
-    _cupsLangPuts(stderr, _("ippfind: Out of memory."));
-    exit(IPPFIND_EXIT_MEMORY);
-  }
-
-  for (i = 0, myenvc = 0; environ[i]; i++)
-    if (strncmp(environ[i], "IPPFIND_", 8))
-      myenvp[myenvc++] = environ[i];
-
-  myenvp[myenvc++] = domain;
-  myenvp[myenvc++] = hostname;
-  myenvp[myenvc++] = name;
-  myenvp[myenvc++] = port;
-  myenvp[myenvc++] = regtype;
-  myenvp[myenvc++] = scheme;
-  myenvp[myenvc++] = uri;
-
-  for (i = 0; i < service->num_txt && i < 100; i++)
-    myenvp[myenvc++] = txt[i];
-
-  /*
-   * Allocate and copy command-line arguments...
-   */
-
-  if ((myargv = calloc(sizeof(char *), (size_t)(num_args + 1))) == NULL)
-  {
-    _cupsLangPuts(stderr, _("ippfind: Out of memory."));
-    exit(IPPFIND_EXIT_MEMORY);
-  }
-
-  for (i = 0; i < num_args; i++)
-  {
-    if (strchr(args[i], '{'))
+    snprintf(domain, sizeof(domain), "IPPFIND_SERVICE_DOMAIN=%s",
+             service->domain);
+    snprintf(hostname, sizeof(hostname), "IPPFIND_SERVICE_HOSTNAME=%s",
+             service->host);
+    snprintf(name, sizeof(name), "IPPFIND_SERVICE_NAME=%s", service->name);
+    snprintf(port, sizeof(port), "IPPFIND_SERVICE_PORT=%d", service->port);
+    snprintf(regtype, sizeof(regtype), "IPPFIND_SERVICE_REGTYPE=%s",
+             service->regtype);
+    snprintf(scheme, sizeof(scheme), "IPPFIND_SERVICE_SCHEME=%s",
+             !strncmp(service->regtype, "_http._tcp", 10) ? "http" : !strncmp(service->regtype, "_https._tcp", 11) ? "https"
+                                                                 : !strncmp(service->regtype, "_ipp._tcp", 9)      ? "ipp"
+                                                                 : !strncmp(service->regtype, "_ipps._tcp", 10)    ? "ipps"
+                                                                                                                   : "lpd");
+    snprintf(uri, sizeof(uri), "IPPFIND_SERVICE_URI=%s", service->uri);
+    for (i = 0; i < service->num_txt && i < 100; i++)
     {
-      char temp[2048],  /* Temporary string */
-          *tptr,        /* Pointer into temporary string */
-          keyword[256], /* {keyword} */
-          *kptr;        /* Pointer into keyword */
+        snprintf(txt[i], sizeof(txt[i]), "IPPFIND_TXT_%s=%s", service->txt[i].name,
+                 service->txt[i].value);
+        for (ptr = txt[i] + 12; *ptr && *ptr != '='; ptr++)
+            *ptr = (char)_cups_toupper(*ptr);
+    }
 
-      for (ptr = args[i], tptr = temp; *ptr; ptr++)
-      {
-        if (*ptr == '{')
+    for (i = 0, myenvc = 7 + service->num_txt; environ[i]; i++)
+        if (strncmp(environ[i], "IPPFIND_", 8))
+            myenvc++;
+
+    if ((myenvp = calloc(sizeof(char *), (size_t)(myenvc + 1))) == NULL)
+    {
+        _cupsLangPuts(stderr, _("ippfind: Out of memory."));
+        exit(IPPFIND_EXIT_MEMORY);
+    }
+
+    for (i = 0, myenvc = 0; environ[i]; i++)
+        if (strncmp(environ[i], "IPPFIND_", 8))
+            myenvp[myenvc++] = environ[i];
+
+    myenvp[myenvc++] = domain;
+    myenvp[myenvc++] = hostname;
+    myenvp[myenvc++] = name;
+    myenvp[myenvc++] = port;
+    myenvp[myenvc++] = regtype;
+    myenvp[myenvc++] = scheme;
+    myenvp[myenvc++] = uri;
+
+    for (i = 0; i < service->num_txt && i < 100; i++)
+        myenvp[myenvc++] = txt[i];
+
+    /*
+     * Allocate and copy command-line arguments...
+     */
+
+    if ((myargv = calloc(sizeof(char *), (size_t)(num_args + 1))) == NULL)
+    {
+        _cupsLangPuts(stderr, _("ippfind: Out of memory."));
+        exit(IPPFIND_EXIT_MEMORY);
+    }
+
+    for (i = 0; i < num_args; i++)
+    {
+        if (strchr(args[i], '{'))
         {
-          /*
-           * Do a {var} substitution...
-           */
+            char temp[2048],  /* Temporary string */
+                *tptr,        /* Pointer into temporary string */
+                keyword[256], /* {keyword} */
+                *kptr;        /* Pointer into keyword */
 
-          for (kptr = keyword, ptr++; *ptr && *ptr != '}'; ptr++)
-            if (kptr < (keyword + sizeof(keyword) - 1))
-              *kptr++ = *ptr;
+            for (ptr = args[i], tptr = temp; *ptr; ptr++)
+            {
+                if (*ptr == '{')
+                {
+                    /*
+                     * Do a {var} substitution...
+                     */
 
-          if (*ptr != '}')
-          {
-            _cupsLangPuts(stderr,
-                          _("ippfind: Missing close brace in substitution."));
-            exit(IPPFIND_EXIT_SYNTAX);
-          }
+                    for (kptr = keyword, ptr++; *ptr && *ptr != '}'; ptr++)
+                        if (kptr < (keyword + sizeof(keyword) - 1))
+                            *kptr++ = *ptr;
 
-          *kptr = '\0';
-          if (!keyword[0] || !strcmp(keyword, "service_uri"))
-            strlcpy(tptr, service->uri, sizeof(temp) - (size_t)(tptr - temp));
-          else if (!strcmp(keyword, "service_domain"))
-            strlcpy(tptr, service->domain, sizeof(temp) - (size_t)(tptr - temp));
-          else if (!strcmp(keyword, "service_hostname"))
-            strlcpy(tptr, service->host, sizeof(temp) - (size_t)(tptr - temp));
-          else if (!strcmp(keyword, "service_name"))
-            strlcpy(tptr, service->name, sizeof(temp) - (size_t)(tptr - temp));
-          else if (!strcmp(keyword, "service_path"))
-            strlcpy(tptr, service->resource, sizeof(temp) - (size_t)(tptr - temp));
-          else if (!strcmp(keyword, "service_port"))
-            strlcpy(tptr, port + 21, sizeof(temp) - (size_t)(tptr - temp));
-          else if (!strcmp(keyword, "service_scheme"))
-            strlcpy(tptr, scheme + 22, sizeof(temp) - (size_t)(tptr - temp));
-          else if (!strncmp(keyword, "txt_", 4))
-          {
-            const char *val = cupsGetOption(keyword + 4, service->num_txt, service->txt);
-            if (val)
-              strlcpy(tptr, val, sizeof(temp) - (size_t)(tptr - temp));
-            else
-              *tptr = '\0';
-          }
-          else
-          {
-            _cupsLangPrintf(stderr, _("ippfind: Unknown variable \"{%s}\"."),
-                            keyword);
-            exit(IPPFIND_EXIT_SYNTAX);
-          }
+                    if (*ptr != '}')
+                    {
+                        _cupsLangPuts(stderr,
+                                      _("ippfind: Missing close brace in substitution."));
+                        exit(IPPFIND_EXIT_SYNTAX);
+                    }
 
-          tptr += strlen(tptr);
+                    *kptr = '\0';
+                    if (!keyword[0] || !strcmp(keyword, "service_uri"))
+                        strlcpy(tptr, service->uri, sizeof(temp) - (size_t)(tptr - temp));
+                    else if (!strcmp(keyword, "service_domain"))
+                        strlcpy(tptr, service->domain, sizeof(temp) - (size_t)(tptr - temp));
+                    else if (!strcmp(keyword, "service_hostname"))
+                        strlcpy(tptr, service->host, sizeof(temp) - (size_t)(tptr - temp));
+                    else if (!strcmp(keyword, "service_name"))
+                        strlcpy(tptr, service->name, sizeof(temp) - (size_t)(tptr - temp));
+                    else if (!strcmp(keyword, "service_path"))
+                        strlcpy(tptr, service->resource, sizeof(temp) - (size_t)(tptr - temp));
+                    else if (!strcmp(keyword, "service_port"))
+                        strlcpy(tptr, port + 21, sizeof(temp) - (size_t)(tptr - temp));
+                    else if (!strcmp(keyword, "service_scheme"))
+                        strlcpy(tptr, scheme + 22, sizeof(temp) - (size_t)(tptr - temp));
+                    else if (!strncmp(keyword, "txt_", 4))
+                    {
+                        const char *val = cupsGetOption(keyword + 4, service->num_txt, service->txt);
+                        if (val)
+                            strlcpy(tptr, val, sizeof(temp) - (size_t)(tptr - temp));
+                        else
+                            *tptr = '\0';
+                    }
+                    else
+                    {
+                        _cupsLangPrintf(stderr, _("ippfind: Unknown variable \"{%s}\"."),
+                                        keyword);
+                        exit(IPPFIND_EXIT_SYNTAX);
+                    }
+
+                    tptr += strlen(tptr);
+                }
+                else if (tptr < (temp + sizeof(temp) - 1))
+                    *tptr++ = *ptr;
+            }
+
+            *tptr = '\0';
+            myargv[i] = strdup(temp);
         }
-        else if (tptr < (temp + sizeof(temp) - 1))
-          *tptr++ = *ptr;
-      }
+        else
+            myargv[i] = strdup(args[i]);
+    }
 
-      *tptr = '\0';
-      myargv[i] = strdup(temp);
+#ifdef _WIN32
+    if (getenv("IPPFIND_DEBUG"))
+    {
+        printf("\nProgram:\n    %s\n", args[0]);
+        puts("\nArguments:");
+        for (i = 0; i < num_args; i++)
+            printf("    %s\n", myargv[i]);
+        puts("\nEnvironment:");
+        for (i = 0; i < myenvc; i++)
+            printf("    %s\n", myenvp[i]);
+    }
+
+    status = _spawnvpe(_P_WAIT, args[0], myargv, myenvp);
+
+#else
+    /*
+     * Execute the program...
+     */
+
+    if (strchr(args[0], '/') && !access(args[0], X_OK))
+        strlcpy(program, args[0], sizeof(program));
+    else if (!cupsFileFind(args[0], getenv("PATH"), 1, program, sizeof(program)))
+    {
+        _cupsLangPrintf(stderr, _("ippfind: Unable to execute \"%s\": %s"),
+                        args[0], strerror(ENOENT));
+        exit(IPPFIND_EXIT_SYNTAX);
+    }
+
+    if (getenv("IPPFIND_DEBUG"))
+    {
+        printf("\nProgram:\n    %s\n", program);
+        puts("\nArguments:");
+        for (i = 0; i < num_args; i++)
+            printf("    %s\n", myargv[i]);
+        puts("\nEnvironment:");
+        for (i = 0; i < myenvc; i++)
+            printf("    %s\n", myenvp[i]);
+    }
+
+    if ((pid = fork()) == 0)
+    {
+        /*
+         * Child comes here...
+         */
+
+        execve(program, myargv, myenvp);
+        exit(1);
+    }
+    else if (pid < 0)
+    {
+        _cupsLangPrintf(stderr, _("ippfind: Unable to execute \"%s\": %s"),
+                        args[0], strerror(errno));
+        exit(IPPFIND_EXIT_SYNTAX);
     }
     else
-      myargv[i] = strdup(args[i]);
-  }
+    {
+        /*
+         * Wait for it to complete...
+         */
 
-#ifdef _WIN32
-  if (getenv("IPPFIND_DEBUG"))
-  {
-    printf("\nProgram:\n    %s\n", args[0]);
-    puts("\nArguments:");
-    for (i = 0; i < num_args; i++)
-      printf("    %s\n", myargv[i]);
-    puts("\nEnvironment:");
-    for (i = 0; i < myenvc; i++)
-      printf("    %s\n", myenvp[i]);
-  }
-
-  status = _spawnvpe(_P_WAIT, args[0], myargv, myenvp);
-
-#else
-  /*
-   * Execute the program...
-   */
-
-  if (strchr(args[0], '/') && !access(args[0], X_OK))
-    strlcpy(program, args[0], sizeof(program));
-  else if (!cupsFileFind(args[0], getenv("PATH"), 1, program, sizeof(program)))
-  {
-    _cupsLangPrintf(stderr, _("ippfind: Unable to execute \"%s\": %s"),
-                    args[0], strerror(ENOENT));
-    exit(IPPFIND_EXIT_SYNTAX);
-  }
-
-  if (getenv("IPPFIND_DEBUG"))
-  {
-    printf("\nProgram:\n    %s\n", program);
-    puts("\nArguments:");
-    for (i = 0; i < num_args; i++)
-      printf("    %s\n", myargv[i]);
-    puts("\nEnvironment:");
-    for (i = 0; i < myenvc; i++)
-      printf("    %s\n", myenvp[i]);
-  }
-
-  if ((pid = fork()) == 0)
-  {
-    /*
-     * Child comes here...
-     */
-
-    execve(program, myargv, myenvp);
-    exit(1);
-  }
-  else if (pid < 0)
-  {
-    _cupsLangPrintf(stderr, _("ippfind: Unable to execute \"%s\": %s"),
-                    args[0], strerror(errno));
-    exit(IPPFIND_EXIT_SYNTAX);
-  }
-  else
-  {
-    /*
-     * Wait for it to complete...
-     */
-
-    while (wait(&status) != pid)
-      ;
-  }
+        while (wait(&status) != pid)
+            ;
+    }
 #endif /* _WIN32 */
 
-  /*
-   * Free memory...
-   */
+    /*
+     * Free memory...
+     */
 
-  for (i = 0; i < num_args; i++)
-    free(myargv[i]);
+    for (i = 0; i < num_args; i++)
+        free(myargv[i]);
 
-  free(myargv);
-  free(myenvp);
+    free(myargv);
+    free(myenvp);
 
-  /*
-   * Return whether the program succeeded or crashed...
-   */
+    /*
+     * Return whether the program succeeded or crashed...
+     */
 
-  if (getenv("IPPFIND_DEBUG"))
-  {
+    if (getenv("IPPFIND_DEBUG"))
+    {
 #ifdef _WIN32
-    printf("Exit Status: %d\n", status);
+        printf("Exit Status: %d\n", status);
 #else
-    if (WIFEXITED(status))
-      printf("Exit Status: %d\n", WEXITSTATUS(status));
-    else
-      printf("Terminating Signal: %d\n", WTERMSIG(status));
+        if (WIFEXITED(status))
+            printf("Exit Status: %d\n", WEXITSTATUS(status));
+        else
+            printf("Terminating Signal: %d\n", WTERMSIG(status));
 #endif /* _WIN32 */
-  }
+    }
 
-  return (status == 0);
+    return (status == 0);
 }
 
 /*
@@ -2044,58 +2044,58 @@ get_service(cups_array_t *services,  /* I - Service array */
             const char *regtype,     /* I - Type of service */
             const char *replyDomain) /* I - Service domain */
 {
-  avahi_srv_t key, /* Search key */
-      *service;    /* Service */
-  char fullName[kDNSServiceMaxDomainName];
-  /* Full name for query */
+    avahi_srv_t key, /* Search key */
+        *service;    /* Service */
+    char fullName[kDNSServiceMaxDomainName];
+    /* Full name for query */
 
-  /*
-   * See if this is a new device...
-   */
+    /*
+     * See if this is a new device...
+     */
 
-  key.name = (char *)serviceName;
-  key.regtype = (char *)regtype;
+    key.name = (char *)serviceName;
+    key.regtype = (char *)regtype;
 
-  for (service = cupsArrayFind(services, &key);
-       service;
-       service = cupsArrayNext(services))
-  {
-
-    if (_cups_strcasecmp(service->name, key.name))
-      break;
-    else if (!strcmp(service->regtype, key.regtype))
+    for (service = cupsArrayFind(services, &key);
+         service;
+         service = cupsArrayNext(services))
     {
-      return (service);
+
+        if (_cups_strcasecmp(service->name, key.name))
+            break;
+        else if (!strcmp(service->regtype, key.regtype))
+        {
+            return (service);
+        }
     }
-  }
-  /*
-   * Yes, add the service...
-   */
+    /*
+     * Yes, add the service...
+     */
 
-  if ((service = calloc(sizeof(avahi_srv_t), 1)) == NULL)
-    return (NULL);
+    if ((service = calloc(sizeof(avahi_srv_t), 1)) == NULL)
+        return (NULL);
 
-  service->name = strdup(serviceName);
-  service->domain = strdup(replyDomain);
-  service->regtype = strdup(regtype);
+    service->name = strdup(serviceName);
+    service->domain = strdup(replyDomain);
+    service->regtype = strdup(regtype);
 
-  cupsArrayAdd(services, service);
+    cupsArrayAdd(services, service);
 
-  /*
-   * Set the "full name" of this service, which is used for queries and
-   * resolves...
-   */
+    /*
+     * Set the "full name" of this service, which is used for queries and
+     * resolves...
+     */
 
 #ifdef HAVE_MDNSRESPONDER
-  DNSServiceConstructFullName(fullName, serviceName, regtype, replyDomain);
+    DNSServiceConstructFullName(fullName, serviceName, regtype, replyDomain);
 #else  /* HAVE_AVAHI */
-  avahi_service_name_join(fullName, kDNSServiceMaxDomainName, serviceName,
-                          regtype, replyDomain);
+    avahi_service_name_join(fullName, kDNSServiceMaxDomainName, serviceName,
+                            regtype, replyDomain);
 #endif /* HAVE_MDNSRESPONDER */
 
-  service->fullName = strdup(fullName);
+    service->fullName = strdup(fullName);
 
-  return (service);
+    return (service);
 }
 
 /*
@@ -2106,19 +2106,19 @@ static double
 get_time(void)
 {
 #ifdef _WIN32
-  struct _timeb curtime; /* Current Windows time */
+    struct _timeb curtime; /* Current Windows time */
 
-  _ftime(&curtime);
+    _ftime(&curtime);
 
-  return (curtime.time + 0.001 * curtime.millitm);
+    return (curtime.time + 0.001 * curtime.millitm);
 
 #else
-  struct timeval curtime; /* Current UNIX time */
+    struct timeval curtime; /* Current UNIX time */
 
-  if (gettimeofday(&curtime, NULL))
-    return (0.0);
-  else
-    return (curtime.tv_sec + 0.000001 * curtime.tv_usec);
+    if (gettimeofday(&curtime, NULL))
+        return (0.0);
+    else
+        return (curtime.tv_sec + 0.000001 * curtime.tv_usec);
 #endif /* _WIN32 */
 }
 
@@ -2129,203 +2129,203 @@ get_time(void)
 static int                         /* O - 1 if successful, 0 otherwise */
 list_service(avahi_srv_t *service) /* I - Service */
 {
-  http_addrlist_t *addrlist; /* Address(es) of service */
-  char port[10];             /* Port number of service */
+    http_addrlist_t *addrlist; /* Address(es) of service */
+    char port[10];             /* Port number of service */
 
-  snprintf(port, sizeof(port), "%d", service->port);
+    snprintf(port, sizeof(port), "%d", service->port);
 
-  if ((addrlist = httpAddrGetList(service->host, address_family, port)) == NULL)
-  {
-    _cupsLangPrintf(stdout, "%s unreachable", service->uri);
-    return (0);
-  }
+    if ((addrlist = httpAddrGetList(service->host, address_family, port)) == NULL)
+    {
+        _cupsLangPrintf(stdout, "%s unreachable", service->uri);
+        return (0);
+    }
 
-  if (!strncmp(service->regtype, "_ipp._tcp", 9) ||
-      !strncmp(service->regtype, "_ipps._tcp", 10))
-  {
-    /*
-     * IPP/IPPS printer
-     */
+    if (!strncmp(service->regtype, "_ipp._tcp", 9) ||
+        !strncmp(service->regtype, "_ipps._tcp", 10))
+    {
+        /*
+         * IPP/IPPS printer
+         */
 
-    http_t *http;                       /* HTTP connection */
-    ipp_t *request,                     /* IPP request */
-        *response;                      /* IPP response */
-    ipp_attribute_t *attr;              /* IPP attribute */
-    int i,                              /* Looping var */
-        count,                          /* Number of values */
-        version,                        /* IPP version */
-        paccepting;                     /* printer-is-accepting-jobs value */
-    ipp_pstate_t pstate;                /* printer-state value */
-    char preasons[1024],                /* Comma-delimited printer-state-reasons */
-        *ptr,                           /* Pointer into reasons */
-        *end;                           /* End of reasons buffer */
-    static const char *const rattrs[] = /* Requested attributes */
+        http_t *http;                       /* HTTP connection */
+        ipp_t *request,                     /* IPP request */
+            *response;                      /* IPP response */
+        ipp_attribute_t *attr;              /* IPP attribute */
+        int i,                              /* Looping var */
+            count,                          /* Number of values */
+            version,                        /* IPP version */
+            paccepting;                     /* printer-is-accepting-jobs value */
+        ipp_pstate_t pstate;                /* printer-state value */
+        char preasons[1024],                /* Comma-delimited printer-state-reasons */
+            *ptr,                           /* Pointer into reasons */
+            *end;                           /* End of reasons buffer */
+        static const char *const rattrs[] = /* Requested attributes */
+            {
+                "printer-is-accepting-jobs",
+                "printer-state",
+                "printer-state-reasons"};
+
+        /*
+         * Connect to the printer...
+         */
+
+        http = httpConnect2(service->host, service->port, addrlist, address_family,
+                            !strncmp(service->regtype, "_ipps._tcp", 10) ? HTTP_ENCRYPTION_ALWAYS : HTTP_ENCRYPTION_IF_REQUESTED,
+                            1, 30000, NULL);
+
+        httpAddrFreeList(addrlist);
+
+        if (!http)
         {
-            "printer-is-accepting-jobs",
-            "printer-state",
-            "printer-state-reasons"};
+            _cupsLangPrintf(stdout, "%s unavailable", service->uri);
+            return (0);
+        }
 
-    /*
-     * Connect to the printer...
-     */
+        /*
+         * Get the current printer state...
+         */
 
-    http = httpConnect2(service->host, service->port, addrlist, address_family,
-                        !strncmp(service->regtype, "_ipps._tcp", 10) ? HTTP_ENCRYPTION_ALWAYS : HTTP_ENCRYPTION_IF_REQUESTED,
-                        1, 30000, NULL);
+        response = NULL;
+        version = ipp_version;
 
-    httpAddrFreeList(addrlist);
+        do
+        {
+            request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+            ippSetVersion(request, version / 10, version % 10);
+            ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
+                         service->uri);
+            ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
+                         "requesting-user-name", NULL, cupsUser());
+            ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+                          "requested-attributes",
+                          (int)(sizeof(rattrs) / sizeof(rattrs[0])), NULL, rattrs);
 
-    if (!http)
-    {
-      _cupsLangPrintf(stdout, "%s unavailable", service->uri);
-      return (0);
+            response = cupsDoRequest(http, request, service->resource);
+
+            if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST && version > 11)
+                version = 11;
+        } while (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE && version > 11);
+
+        /*
+         * Show results...
+         */
+
+        if (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE)
+        {
+            _cupsLangPrintf(stdout, "%s: unavailable", service->uri);
+            return (0);
+        }
+
+        if ((attr = ippFindAttribute(response, "printer-state",
+                                     IPP_TAG_ENUM)) != NULL)
+            pstate = (ipp_pstate_t)ippGetInteger(attr, 0);
+        else
+            pstate = IPP_PSTATE_STOPPED;
+
+        if ((attr = ippFindAttribute(response, "printer-is-accepting-jobs",
+                                     IPP_TAG_BOOLEAN)) != NULL)
+            paccepting = ippGetBoolean(attr, 0);
+        else
+            paccepting = 0;
+
+        if ((attr = ippFindAttribute(response, "printer-state-reasons",
+                                     IPP_TAG_KEYWORD)) != NULL)
+        {
+            strlcpy(preasons, ippGetString(attr, 0, NULL), sizeof(preasons));
+
+            for (i = 1, count = ippGetCount(attr), ptr = preasons + strlen(preasons),
+                end = preasons + sizeof(preasons) - 1;
+                 i < count && ptr < end;
+                 i++, ptr += strlen(ptr))
+            {
+                *ptr++ = ',';
+                strlcpy(ptr, ippGetString(attr, i, NULL), (size_t)(end - ptr + 1));
+            }
+        }
+        else
+            strlcpy(preasons, "none", sizeof(preasons));
+
+        ippDelete(response);
+        httpClose(http);
+
+        _cupsLangPrintf(stdout, "%s %s %s %s", service->uri, ippEnumString("printer-state", (int)pstate), paccepting ? "accepting-jobs" : "not-accepting-jobs", preasons);
     }
-
-    /*
-     * Get the current printer state...
-     */
-
-    response = NULL;
-    version = ipp_version;
-
-    do
+    else if (!strncmp(service->regtype, "_http._tcp", 10) ||
+             !strncmp(service->regtype, "_https._tcp", 11))
     {
-      request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
-      ippSetVersion(request, version / 10, version % 10);
-      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
-                   service->uri);
-      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                   "requesting-user-name", NULL, cupsUser());
-      ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-                    "requested-attributes",
-                    (int)(sizeof(rattrs) / sizeof(rattrs[0])), NULL, rattrs);
+        /*
+         * HTTP/HTTPS web page
+         */
 
-      response = cupsDoRequest(http, request, service->resource);
+        http_t *http;         /* HTTP connection */
+        http_status_t status; /* HEAD status */
 
-      if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST && version > 11)
-        version = 11;
-    } while (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE && version > 11);
+        /*
+         * Connect to the web server...
+         */
 
-    /*
-     * Show results...
-     */
+        http = httpConnect2(service->host, service->port, addrlist, address_family,
+                            !strncmp(service->regtype, "_ipps._tcp", 10) ? HTTP_ENCRYPTION_ALWAYS : HTTP_ENCRYPTION_IF_REQUESTED,
+                            1, 30000, NULL);
 
-    if (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE)
-    {
-      _cupsLangPrintf(stdout, "%s: unavailable", service->uri);
-      return (0);
+        httpAddrFreeList(addrlist);
+
+        if (!http)
+        {
+            _cupsLangPrintf(stdout, "%s unavailable", service->uri);
+            return (0);
+        }
+
+        if (httpGet(http, service->resource))
+        {
+            _cupsLangPrintf(stdout, "%s unavailable", service->uri);
+            return (0);
+        }
+
+        do
+        {
+            status = httpUpdate(http);
+        } while (status == HTTP_STATUS_CONTINUE);
+
+        httpFlush(http);
+        httpClose(http);
+
+        if (status >= HTTP_STATUS_BAD_REQUEST)
+        {
+            _cupsLangPrintf(stdout, "%s unavailable", service->uri);
+            return (0);
+        }
+
+        _cupsLangPrintf(stdout, "%s available", service->uri);
     }
+    else if (!strncmp(service->regtype, "_printer._tcp", 13))
+    {
+        /*
+         * LPD printer
+         */
 
-    if ((attr = ippFindAttribute(response, "printer-state",
-                                 IPP_TAG_ENUM)) != NULL)
-      pstate = (ipp_pstate_t)ippGetInteger(attr, 0);
+        int sock; /* Socket */
+
+        if (!httpAddrConnect(addrlist, &sock))
+        {
+            _cupsLangPrintf(stdout, "%s unavailable", service->uri);
+            httpAddrFreeList(addrlist);
+            return (0);
+        }
+
+        _cupsLangPrintf(stdout, "%s available", service->uri);
+        httpAddrFreeList(addrlist);
+
+        httpAddrClose(NULL, sock);
+    }
     else
-      pstate = IPP_PSTATE_STOPPED;
-
-    if ((attr = ippFindAttribute(response, "printer-is-accepting-jobs",
-                                 IPP_TAG_BOOLEAN)) != NULL)
-      paccepting = ippGetBoolean(attr, 0);
-    else
-      paccepting = 0;
-
-    if ((attr = ippFindAttribute(response, "printer-state-reasons",
-                                 IPP_TAG_KEYWORD)) != NULL)
     {
-      strlcpy(preasons, ippGetString(attr, 0, NULL), sizeof(preasons));
-
-      for (i = 1, count = ippGetCount(attr), ptr = preasons + strlen(preasons),
-          end = preasons + sizeof(preasons) - 1;
-           i < count && ptr < end;
-           i++, ptr += strlen(ptr))
-      {
-        *ptr++ = ',';
-        strlcpy(ptr, ippGetString(attr, i, NULL), (size_t)(end - ptr + 1));
-      }
-    }
-    else
-      strlcpy(preasons, "none", sizeof(preasons));
-
-    ippDelete(response);
-    httpClose(http);
-
-    _cupsLangPrintf(stdout, "%s %s %s %s", service->uri, ippEnumString("printer-state", (int)pstate), paccepting ? "accepting-jobs" : "not-accepting-jobs", preasons);
-  }
-  else if (!strncmp(service->regtype, "_http._tcp", 10) ||
-           !strncmp(service->regtype, "_https._tcp", 11))
-  {
-    /*
-     * HTTP/HTTPS web page
-     */
-
-    http_t *http;         /* HTTP connection */
-    http_status_t status; /* HEAD status */
-
-    /*
-     * Connect to the web server...
-     */
-
-    http = httpConnect2(service->host, service->port, addrlist, address_family,
-                        !strncmp(service->regtype, "_ipps._tcp", 10) ? HTTP_ENCRYPTION_ALWAYS : HTTP_ENCRYPTION_IF_REQUESTED,
-                        1, 30000, NULL);
-
-    httpAddrFreeList(addrlist);
-
-    if (!http)
-    {
-      _cupsLangPrintf(stdout, "%s unavailable", service->uri);
-      return (0);
+        _cupsLangPrintf(stdout, "%s unsupported", service->uri);
+        httpAddrFreeList(addrlist);
+        return (0);
     }
 
-    if (httpGet(http, service->resource))
-    {
-      _cupsLangPrintf(stdout, "%s unavailable", service->uri);
-      return (0);
-    }
-
-    do
-    {
-      status = httpUpdate(http);
-    } while (status == HTTP_STATUS_CONTINUE);
-
-    httpFlush(http);
-    httpClose(http);
-
-    if (status >= HTTP_STATUS_BAD_REQUEST)
-    {
-      _cupsLangPrintf(stdout, "%s unavailable", service->uri);
-      return (0);
-    }
-
-    _cupsLangPrintf(stdout, "%s available", service->uri);
-  }
-  else if (!strncmp(service->regtype, "_printer._tcp", 13))
-  {
-    /*
-     * LPD printer
-     */
-
-    int sock; /* Socket */
-
-    if (!httpAddrConnect(addrlist, &sock))
-    {
-      _cupsLangPrintf(stdout, "%s unavailable", service->uri);
-      httpAddrFreeList(addrlist);
-      return (0);
-    }
-
-    _cupsLangPrintf(stdout, "%s available", service->uri);
-    httpAddrFreeList(addrlist);
-
-    httpAddrClose(NULL, sock);
-  }
-  else
-  {
-    _cupsLangPrintf(stdout, "%s unsupported", service->uri);
-    httpAddrFreeList(addrlist);
-    return (0);
-  }
-
-  return (1);
+    return (1);
 }
 
 /*
@@ -2339,67 +2339,67 @@ new_expr(ippfind_op_t op,   /* I - Operation */
          const char *regex, /* I - Regular expression */
          char **args)       /* I - Pointer to argument strings */
 {
-  ippfind_expr_t *temp; /* New expression */
+    ippfind_expr_t *temp; /* New expression */
 
-  if ((temp = calloc(1, sizeof(ippfind_expr_t))) == NULL)
-    return (NULL);
+    if ((temp = calloc(1, sizeof(ippfind_expr_t))) == NULL)
+        return (NULL);
 
-  temp->op = op;
-  temp->invert = invert;
+    temp->op = op;
+    temp->invert = invert;
 
-  if (op == IPPFIND_OP_TXT_EXISTS || op == IPPFIND_OP_TXT_REGEX || op == IPPFIND_OP_NAME_LITERAL)
-    temp->name = (char *)value;
-  else if (op == IPPFIND_OP_PORT_RANGE)
-  {
-    /*
-     * Pull port number range of the form "number", "-number" (0-number),
-     * "number-" (number-65535), and "number-number".
-     */
-
-    if (*value == '-')
+    if (op == IPPFIND_OP_TXT_EXISTS || op == IPPFIND_OP_TXT_REGEX || op == IPPFIND_OP_NAME_LITERAL)
+        temp->name = (char *)value;
+    else if (op == IPPFIND_OP_PORT_RANGE)
     {
-      temp->range[1] = atoi(value + 1);
+        /*
+         * Pull port number range of the form "number", "-number" (0-number),
+         * "number-" (number-65535), and "number-number".
+         */
+
+        if (*value == '-')
+        {
+            temp->range[1] = atoi(value + 1);
+        }
+        else if (strchr(value, '-'))
+        {
+            if (sscanf(value, "%d-%d", temp->range, temp->range + 1) == 1)
+                temp->range[1] = 65535;
+        }
+        else
+        {
+            temp->range[0] = temp->range[1] = atoi(value);
+        }
     }
-    else if (strchr(value, '-'))
+
+    if (regex)
     {
-      if (sscanf(value, "%d-%d", temp->range, temp->range + 1) == 1)
-        temp->range[1] = 65535;
+        int err = regcomp(&(temp->re), regex, REG_NOSUB | REG_ICASE | REG_EXTENDED);
+
+        if (err)
+        {
+            char message[256]; /* Error message */
+
+            regerror(err, &(temp->re), message, sizeof(message));
+            _cupsLangPrintf(stderr, _("ippfind: Bad regular expression: %s"),
+                            message);
+            exit(IPPFIND_EXIT_SYNTAX);
+        }
     }
-    else
+
+    if (args)
     {
-      temp->range[0] = temp->range[1] = atoi(value);
+        int num_args; /* Number of arguments */
+
+        for (num_args = 1; args[num_args]; num_args++)
+            if (!strcmp(args[num_args], ";"))
+                break;
+
+        temp->num_args = num_args;
+        temp->args = malloc((size_t)num_args * sizeof(char *));
+        memcpy(temp->args, args, (size_t)num_args * sizeof(char *));
     }
-  }
 
-  if (regex)
-  {
-    int err = regcomp(&(temp->re), regex, REG_NOSUB | REG_ICASE | REG_EXTENDED);
-
-    if (err)
-    {
-      char message[256]; /* Error message */
-
-      regerror(err, &(temp->re), message, sizeof(message));
-      _cupsLangPrintf(stderr, _("ippfind: Bad regular expression: %s"),
-                      message);
-      exit(IPPFIND_EXIT_SYNTAX);
-    }
-  }
-
-  if (args)
-  {
-    int num_args; /* Number of arguments */
-
-    for (num_args = 1; args[num_args]; num_args++)
-      if (!strcmp(args[num_args], ";"))
-        break;
-
-    temp->num_args = num_args;
-    temp->args = malloc((size_t)num_args * sizeof(char *));
-    memcpy(temp->args, args, (size_t)num_args * sizeof(char *));
-  }
-
-  return (temp);
+    return (temp);
 }
 
 #ifdef HAVE_AVAHI
@@ -2418,17 +2418,17 @@ pollCallback(
     int timeout,              /* I - Timeout in milliseconds (unused) */
     void *context)            /* I - User data (unused) */
 {
-  int val; /* Return value */
+    int val; /* Return value */
 
-  (void)timeout;
-  (void)context;
+    (void)timeout;
+    (void)context;
 
-  val = poll(pollfds, num_pollfds, 500);
+    val = poll(pollfds, num_pollfds, 500);
 
-  if (val > 0)
-    avahi_got_data = 1;
+    if (val > 0)
+        avahi_got_data = 1;
 
-  return (val);
+    return (val);
 }
 #endif /* HAVE_AVAHI */
 
@@ -2450,67 +2450,67 @@ resolveCallback(
     const unsigned char *txtRecord, /* I - TXT record data */
     void *context)                  /* I - Service */
 {
-  char key[256],               /* TXT key value */
-      *value;                  /* Value from TXT record */
-  const unsigned char *txtEnd; /* End of TXT record */
-  uint8_t valueLen;            /* Length of value */
-  avahi_srv_t *service = (avahi_srv_t *)context;
-  /* Service */
-
-  /*
-   * Only process "add" data...
-   */
-
-  (void)sdRef;
-  (void)flags;
-  (void)interfaceIndex;
-  (void)fullName;
-
-  if (errorCode != kDNSServiceErr_NoError)
-  {
-    _cupsLangPrintf(stderr, _("ippfind: Unable to browse or resolve: %s"),
-                    dnssd_error_string(errorCode));
-    bonjour_error = 1;
-    return;
-  }
-
-  service->is_resolved = 1;
-  service->host = strdup(hostTarget);
-  service->port = ntohs(port);
-
-  value = service->host + strlen(service->host) - 1;
-  if (value >= service->host && *value == '.')
-    *value = '\0';
-
-  /*
-   * Loop through the TXT key/value pairs and add them to an array...
-   */
-
-  for (txtEnd = txtRecord + txtLen; txtRecord < txtEnd; txtRecord += valueLen)
-  {
-    /*
-     * Ignore bogus strings...
-     */
-
-    valueLen = *txtRecord++;
-
-    memcpy(key, txtRecord, valueLen);
-    key[valueLen] = '\0';
-
-    if ((value = strchr(key, '=')) == NULL)
-      continue;
-
-    *value++ = '\0';
+    char key[256],               /* TXT key value */
+        *value;                  /* Value from TXT record */
+    const unsigned char *txtEnd; /* End of TXT record */
+    uint8_t valueLen;            /* Length of value */
+    avahi_srv_t *service = (avahi_srv_t *)context;
+    /* Service */
 
     /*
-     * Add to array of TXT values...
+     * Only process "add" data...
      */
 
-    service->num_txt = cupsAddOption(key, value, service->num_txt,
-                                     &(service->txt));
-  }
+    (void)sdRef;
+    (void)flags;
+    (void)interfaceIndex;
+    (void)fullName;
 
-  set_service_uri(service);
+    if (errorCode != kDNSServiceErr_NoError)
+    {
+        _cupsLangPrintf(stderr, _("ippfind: Unable to browse or resolve: %s"),
+                        dnssd_error_string(errorCode));
+        bonjour_error = 1;
+        return;
+    }
+
+    service->is_resolved = 1;
+    service->host = strdup(hostTarget);
+    service->port = ntohs(port);
+
+    value = service->host + strlen(service->host) - 1;
+    if (value >= service->host && *value == '.')
+        *value = '\0';
+
+    /*
+     * Loop through the TXT key/value pairs and add them to an array...
+     */
+
+    for (txtEnd = txtRecord + txtLen; txtRecord < txtEnd; txtRecord += valueLen)
+    {
+        /*
+         * Ignore bogus strings...
+         */
+
+        valueLen = *txtRecord++;
+
+        memcpy(key, txtRecord, valueLen);
+        key[valueLen] = '\0';
+
+        if ((value = strchr(key, '=')) == NULL)
+            continue;
+
+        *value++ = '\0';
+
+        /*
+         * Add to array of TXT values...
+         */
+
+        service->num_txt = cupsAddOption(key, value, service->num_txt,
+                                         &(service->txt));
+    }
+
+    set_service_uri(service);
 }
 
 #elif defined(HAVE_AVAHI)
@@ -2530,65 +2530,65 @@ void resolveCallback(
     void *context)                  /* I - Service */
 {
 
-  char key[256], /* TXT key */
-      *value;    /* TXT value */
-  avahi_srv_t *service = (avahi_srv_t *)context;
+    char key[256], /* TXT key */
+        *value;    /* TXT value */
+    avahi_srv_t *service = (avahi_srv_t *)context;
 
-  /* Service */
-  AvahiStringList *current; /* Current TXT key/value pair */
+    /* Service */
+    AvahiStringList *current; /* Current TXT key/value pair */
 
-  (void)address;
+    (void)address;
 
-  if (event != AVAHI_RESOLVER_FOUND)
-  {
-    bonjour_error = 1;
+    if (event != AVAHI_RESOLVER_FOUND)
+    {
+        bonjour_error = 1;
 
-    avahi_service_resolver_free(resolver);
-    avahi_simple_poll_quit(avahi_poll);
-    return;
-  }
+        avahi_service_resolver_free(resolver);
+        avahi_simple_poll_quit(avahi_poll);
+        return;
+    }
 
-  service->is_resolved = 1;
+    service->is_resolved = 1;
 
-  if (hostTarget != NULL)
-    service->host = strdup(hostTarget);
+    if (hostTarget != NULL)
+        service->host = strdup(hostTarget);
 
-  service->port = port;
+    service->port = port;
 
-  value = service->host + strlen(service->host) - 1;
-  if (value >= service->host && *value == '.')
-    *value = '\0';
-
-  /*
-   * Loop through the TXT key/value pairs and add them to an array...
-   */
-
-  for (current = txt; current; current = current->next)
-  {
-    /*
-     * Ignore bogus strings...
-     */
-
-    if (current->size > (sizeof(key) - 1))
-      continue;
-
-    memcpy(key, current->text, current->size);
-    key[current->size] = '\0';
-
-    if ((value = strchr(key, '=')) == NULL)
-      continue;
-
-    *value++ = '\0';
+    value = service->host + strlen(service->host) - 1;
+    if (value >= service->host && *value == '.')
+        *value = '\0';
 
     /*
-     * Add to array of TXT values...
+     * Loop through the TXT key/value pairs and add them to an array...
      */
 
-    service->num_txt = cupsAddOption(key, value, service->num_txt,
-                                     &(service->txt));
-  }
+    for (current = txt; current; current = current->next)
+    {
+        /*
+         * Ignore bogus strings...
+         */
 
-  set_service_uri(service);
+        if (current->size > (sizeof(key) - 1))
+            continue;
+
+        memcpy(key, current->text, current->size);
+        key[current->size] = '\0';
+
+        if ((value = strchr(key, '=')) == NULL)
+            continue;
+
+        *value++ = '\0';
+
+        /*
+         * Add to array of TXT values...
+         */
+
+        service->num_txt = cupsAddOption(key, value, service->num_txt,
+                                         &(service->txt));
+    }
+
+    set_service_uri(service);
 }
 #endif /* HAVE_MDNSRESPONDER */
 
@@ -2599,54 +2599,54 @@ void resolveCallback(
 static void
 set_service_uri(avahi_srv_t *service) /* I - Service */
 {
-  char uri[1024];   /* URI */
-  const char *path, /* Resource path */
-      *scheme;      /* URI scheme */
+    char uri[1024];   /* URI */
+    const char *path, /* Resource path */
+        *scheme;      /* URI scheme */
 
-  if (!strncmp(service->regtype, "_http.", 6))
-  {
-    scheme = "http";
-    path = cupsGetOption("path", service->num_txt, service->txt);
-  }
-  else if (!strncmp(service->regtype, "_https.", 7))
-  {
-    scheme = "https";
-    path = cupsGetOption("path", service->num_txt, service->txt);
-  }
-  else if (!strncmp(service->regtype, "_ipp.", 5))
-  {
-    scheme = "ipp";
-    path = cupsGetOption("rp", service->num_txt, service->txt);
-  }
-  else if (!strncmp(service->regtype, "_ipps.", 6))
-  {
-    scheme = "ipps";
-    path = cupsGetOption("rp", service->num_txt, service->txt);
-  }
-  else if (!strncmp(service->regtype, "_printer.", 9))
-  {
-    scheme = "lpd";
-    path = cupsGetOption("rp", service->num_txt, service->txt);
-  }
-  else
-    return;
+    if (!strncmp(service->regtype, "_http.", 6))
+    {
+        scheme = "http";
+        path = cupsGetOption("path", service->num_txt, service->txt);
+    }
+    else if (!strncmp(service->regtype, "_https.", 7))
+    {
+        scheme = "https";
+        path = cupsGetOption("path", service->num_txt, service->txt);
+    }
+    else if (!strncmp(service->regtype, "_ipp.", 5))
+    {
+        scheme = "ipp";
+        path = cupsGetOption("rp", service->num_txt, service->txt);
+    }
+    else if (!strncmp(service->regtype, "_ipps.", 6))
+    {
+        scheme = "ipps";
+        path = cupsGetOption("rp", service->num_txt, service->txt);
+    }
+    else if (!strncmp(service->regtype, "_printer.", 9))
+    {
+        scheme = "lpd";
+        path = cupsGetOption("rp", service->num_txt, service->txt);
+    }
+    else
+        return;
 
-  if (!path || !*path)
-    path = "/";
+    if (!path || !*path)
+        path = "/";
 
-  if (*path == '/')
-  {
-    service->resource = strdup(path);
-  }
-  else
-  {
-    snprintf(uri, sizeof(uri), "/%s", path);
-    service->resource = strdup(uri);
-  }
+    if (*path == '/')
+    {
+        service->resource = strdup(path);
+    }
+    else
+    {
+        snprintf(uri, sizeof(uri), "/%s", path);
+        service->resource = strdup(uri);
+    }
 
-  httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), scheme, NULL,
-                  service->host, service->port, service->resource);
-  service->uri = strdup(uri);
+    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), scheme, NULL,
+                    service->host, service->port, service->resource);
+    service->uri = strdup(uri);
 }
 
 /*
@@ -2656,83 +2656,83 @@ set_service_uri(avahi_srv_t *service) /* I - Service */
 static void
 show_usage(void)
 {
-  _cupsLangPuts(stderr, _("Usage: ippfind [options] regtype[,subtype]"
-                          "[.domain.] ... [expression]\n"
-                          "       ippfind [options] name[.regtype[.domain.]] "
-                          "... [expression]\n"
-                          "       ippfind --help\n"
-                          "       ippfind --version"));
-  _cupsLangPuts(stderr, _("Options:"));
-  _cupsLangPuts(stderr, _("-4                      Connect using IPv4"));
-  _cupsLangPuts(stderr, _("-6                      Connect using IPv6"));
-  _cupsLangPuts(stderr, _("-T seconds              Set the browse timeout in seconds"));
-  _cupsLangPuts(stderr, _("-V version              Set default IPP version"));
-  _cupsLangPuts(stderr, _("--version               Show program version"));
-  _cupsLangPuts(stderr, _("Expressions:"));
-  _cupsLangPuts(stderr, _("-P number[-number]      Match port to number or range"));
-  _cupsLangPuts(stderr, _("-d regex                Match domain to regular expression"));
-  _cupsLangPuts(stderr, _("-h regex                Match hostname to regular expression"));
-  _cupsLangPuts(stderr, _("-l                      List attributes"));
-  _cupsLangPuts(stderr, _("-n regex                Match service name to regular expression"));
-  _cupsLangPuts(stderr, _("-N name                 Match service name to literal name value"));
-  _cupsLangPuts(stderr, _("-p                      Print URI if true"));
-  _cupsLangPuts(stderr, _("-q                      Quietly report match via exit code"));
-  _cupsLangPuts(stderr, _("-r                      True if service is remote"));
-  _cupsLangPuts(stderr, _("-s                      Print service name if true"));
-  _cupsLangPuts(stderr, _("-t key                  True if the TXT record contains the key"));
-  _cupsLangPuts(stderr, _("-u regex                Match URI to regular expression"));
-  _cupsLangPuts(stderr, _("-x utility [argument ...] ;\n"
-                          "                        Execute program if true"));
-  _cupsLangPuts(stderr, _("--domain regex          Match domain to regular expression"));
-  _cupsLangPuts(stderr, _("--exec utility [argument ...] ;\n"
-                          "                        Execute program if true"));
-  _cupsLangPuts(stderr, _("--host regex            Match hostname to regular expression"));
-  _cupsLangPuts(stderr, _("--literal-name name     Match service name to literal name value"));
-  _cupsLangPuts(stderr, _("--local                 True if service is local"));
-  _cupsLangPuts(stderr, _("--ls                    List attributes"));
-  _cupsLangPuts(stderr, _("--name regex            Match service name to regular expression"));
-  _cupsLangPuts(stderr, _("--path regex            Match resource path to regular expression"));
-  _cupsLangPuts(stderr, _("--port number[-number]  Match port to number or range"));
-  _cupsLangPuts(stderr, _("--print                 Print URI if true"));
-  _cupsLangPuts(stderr, _("--print-name            Print service name if true"));
-  _cupsLangPuts(stderr, _("--quiet                 Quietly report match via exit code"));
-  _cupsLangPuts(stderr, _("--remote                True if service is remote"));
-  _cupsLangPuts(stderr, _("--txt key               True if the TXT record contains the key"));
-  _cupsLangPuts(stderr, _("--txt-* regex           Match TXT record key to regular expression"));
-  _cupsLangPuts(stderr, _("--uri regex             Match URI to regular expression"));
-  _cupsLangPuts(stderr, _("Modifiers:"));
-  _cupsLangPuts(stderr, _("( expressions )         Group expressions"));
-  _cupsLangPuts(stderr, _("! expression            Unary NOT of expression"));
-  _cupsLangPuts(stderr, _("--not expression        Unary NOT of expression"));
-  _cupsLangPuts(stderr, _("--false                 Always false"));
-  _cupsLangPuts(stderr, _("--true                  Always true"));
-  _cupsLangPuts(stderr, _("expression expression   Logical AND"));
-  _cupsLangPuts(stderr, _("expression --and expression\n"
-                          "                        Logical AND"));
-  _cupsLangPuts(stderr, _("expression --or expression\n"
-                          "                        Logical OR"));
-  _cupsLangPuts(stderr, _("Substitutions:"));
-  _cupsLangPuts(stderr, _("{}                      URI"));
-  _cupsLangPuts(stderr, _("{service_domain}        Domain name"));
-  _cupsLangPuts(stderr, _("{service_hostname}      Fully-qualified domain name"));
-  _cupsLangPuts(stderr, _("{service_name}          Service instance name"));
-  _cupsLangPuts(stderr, _("{service_port}          Port number"));
-  _cupsLangPuts(stderr, _("{service_regtype}       DNS-SD registration type"));
-  _cupsLangPuts(stderr, _("{service_scheme}        URI scheme"));
-  _cupsLangPuts(stderr, _("{service_uri}           URI"));
-  _cupsLangPuts(stderr, _("{txt_*}                 Value of TXT record key"));
-  _cupsLangPuts(stderr, _("Environment Variables:"));
-  _cupsLangPuts(stderr, _("IPPFIND_SERVICE_DOMAIN  Domain name"));
-  _cupsLangPuts(stderr, _("IPPFIND_SERVICE_HOSTNAME\n"
-                          "                        Fully-qualified domain name"));
-  _cupsLangPuts(stderr, _("IPPFIND_SERVICE_NAME    Service instance name"));
-  _cupsLangPuts(stderr, _("IPPFIND_SERVICE_PORT    Port number"));
-  _cupsLangPuts(stderr, _("IPPFIND_SERVICE_REGTYPE DNS-SD registration type"));
-  _cupsLangPuts(stderr, _("IPPFIND_SERVICE_SCHEME  URI scheme"));
-  _cupsLangPuts(stderr, _("IPPFIND_SERVICE_URI     URI"));
-  _cupsLangPuts(stderr, _("IPPFIND_TXT_*           Value of TXT record key"));
+    _cupsLangPuts(stderr, _("Usage: ippfind [options] regtype[,subtype]"
+                            "[.domain.] ... [expression]\n"
+                            "       ippfind [options] name[.regtype[.domain.]] "
+                            "... [expression]\n"
+                            "       ippfind --help\n"
+                            "       ippfind --version"));
+    _cupsLangPuts(stderr, _("Options:"));
+    _cupsLangPuts(stderr, _("-4                      Connect using IPv4"));
+    _cupsLangPuts(stderr, _("-6                      Connect using IPv6"));
+    _cupsLangPuts(stderr, _("-T seconds              Set the browse timeout in seconds"));
+    _cupsLangPuts(stderr, _("-V version              Set default IPP version"));
+    _cupsLangPuts(stderr, _("--version               Show program version"));
+    _cupsLangPuts(stderr, _("Expressions:"));
+    _cupsLangPuts(stderr, _("-P number[-number]      Match port to number or range"));
+    _cupsLangPuts(stderr, _("-d regex                Match domain to regular expression"));
+    _cupsLangPuts(stderr, _("-h regex                Match hostname to regular expression"));
+    _cupsLangPuts(stderr, _("-l                      List attributes"));
+    _cupsLangPuts(stderr, _("-n regex                Match service name to regular expression"));
+    _cupsLangPuts(stderr, _("-N name                 Match service name to literal name value"));
+    _cupsLangPuts(stderr, _("-p                      Print URI if true"));
+    _cupsLangPuts(stderr, _("-q                      Quietly report match via exit code"));
+    _cupsLangPuts(stderr, _("-r                      True if service is remote"));
+    _cupsLangPuts(stderr, _("-s                      Print service name if true"));
+    _cupsLangPuts(stderr, _("-t key                  True if the TXT record contains the key"));
+    _cupsLangPuts(stderr, _("-u regex                Match URI to regular expression"));
+    _cupsLangPuts(stderr, _("-x utility [argument ...] ;\n"
+                            "                        Execute program if true"));
+    _cupsLangPuts(stderr, _("--domain regex          Match domain to regular expression"));
+    _cupsLangPuts(stderr, _("--exec utility [argument ...] ;\n"
+                            "                        Execute program if true"));
+    _cupsLangPuts(stderr, _("--host regex            Match hostname to regular expression"));
+    _cupsLangPuts(stderr, _("--literal-name name     Match service name to literal name value"));
+    _cupsLangPuts(stderr, _("--local                 True if service is local"));
+    _cupsLangPuts(stderr, _("--ls                    List attributes"));
+    _cupsLangPuts(stderr, _("--name regex            Match service name to regular expression"));
+    _cupsLangPuts(stderr, _("--path regex            Match resource path to regular expression"));
+    _cupsLangPuts(stderr, _("--port number[-number]  Match port to number or range"));
+    _cupsLangPuts(stderr, _("--print                 Print URI if true"));
+    _cupsLangPuts(stderr, _("--print-name            Print service name if true"));
+    _cupsLangPuts(stderr, _("--quiet                 Quietly report match via exit code"));
+    _cupsLangPuts(stderr, _("--remote                True if service is remote"));
+    _cupsLangPuts(stderr, _("--txt key               True if the TXT record contains the key"));
+    _cupsLangPuts(stderr, _("--txt-* regex           Match TXT record key to regular expression"));
+    _cupsLangPuts(stderr, _("--uri regex             Match URI to regular expression"));
+    _cupsLangPuts(stderr, _("Modifiers:"));
+    _cupsLangPuts(stderr, _("( expressions )         Group expressions"));
+    _cupsLangPuts(stderr, _("! expression            Unary NOT of expression"));
+    _cupsLangPuts(stderr, _("--not expression        Unary NOT of expression"));
+    _cupsLangPuts(stderr, _("--false                 Always false"));
+    _cupsLangPuts(stderr, _("--true                  Always true"));
+    _cupsLangPuts(stderr, _("expression expression   Logical AND"));
+    _cupsLangPuts(stderr, _("expression --and expression\n"
+                            "                        Logical AND"));
+    _cupsLangPuts(stderr, _("expression --or expression\n"
+                            "                        Logical OR"));
+    _cupsLangPuts(stderr, _("Substitutions:"));
+    _cupsLangPuts(stderr, _("{}                      URI"));
+    _cupsLangPuts(stderr, _("{service_domain}        Domain name"));
+    _cupsLangPuts(stderr, _("{service_hostname}      Fully-qualified domain name"));
+    _cupsLangPuts(stderr, _("{service_name}          Service instance name"));
+    _cupsLangPuts(stderr, _("{service_port}          Port number"));
+    _cupsLangPuts(stderr, _("{service_regtype}       DNS-SD registration type"));
+    _cupsLangPuts(stderr, _("{service_scheme}        URI scheme"));
+    _cupsLangPuts(stderr, _("{service_uri}           URI"));
+    _cupsLangPuts(stderr, _("{txt_*}                 Value of TXT record key"));
+    _cupsLangPuts(stderr, _("Environment Variables:"));
+    _cupsLangPuts(stderr, _("IPPFIND_SERVICE_DOMAIN  Domain name"));
+    _cupsLangPuts(stderr, _("IPPFIND_SERVICE_HOSTNAME\n"
+                            "                        Fully-qualified domain name"));
+    _cupsLangPuts(stderr, _("IPPFIND_SERVICE_NAME    Service instance name"));
+    _cupsLangPuts(stderr, _("IPPFIND_SERVICE_PORT    Port number"));
+    _cupsLangPuts(stderr, _("IPPFIND_SERVICE_REGTYPE DNS-SD registration type"));
+    _cupsLangPuts(stderr, _("IPPFIND_SERVICE_SCHEME  URI scheme"));
+    _cupsLangPuts(stderr, _("IPPFIND_SERVICE_URI     URI"));
+    _cupsLangPuts(stderr, _("IPPFIND_TXT_*           Value of TXT record key"));
 
-  exit(IPPFIND_EXIT_TRUE);
+    exit(IPPFIND_EXIT_TRUE);
 }
 
 /*
@@ -2742,7 +2742,7 @@ show_usage(void)
 static void
 show_version(void)
 {
-  _cupsLangPuts(stderr, CUPS_SVERSION);
+    _cupsLangPuts(stderr, CUPS_SVERSION);
 
-  exit(IPPFIND_EXIT_TRUE);
+    exit(IPPFIND_EXIT_TRUE);
 }
