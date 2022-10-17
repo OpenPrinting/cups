@@ -361,7 +361,14 @@ static const char * const ipp_std_ops[] =
 		  "mimeMediaType",	/* 0x49 */
 		  "memberAttrName"	/* 0x4a */
 		};
-static const char * const ipp_document_states[] =
+static const char * const ipp_client_types[] =
+		{			/* client-type enums */
+			"application",
+			"operating-system",
+			"driver",
+			"other"
+			},
+		* const ipp_document_states[] =
 		{			/* document-state-enums */
 		  "pending",
 		  "4",
@@ -2091,7 +2098,9 @@ ippEnumString(const char *attrname,	/* I - Attribute name */
   * Check for standard enum values...
   */
 
-  if (!strcmp(attrname, "document-state") && enumvalue >= 3 && enumvalue < (3 + (int)(sizeof(ipp_document_states) / sizeof(ipp_document_states[0]))))
+  if (!strcmp(attrname, "client-type") && enumvalue >= 3 && enumvalue < (3 + (int)(sizeof(ipp_client_types) / sizeof(ipp_client_types[0]))))
+    return (ipp_client_types[enumvalue - 3]);
+  else if (!strcmp(attrname, "document-state") && enumvalue >= 3 && enumvalue < (3 + (int)(sizeof(ipp_document_states) / sizeof(ipp_document_states[0]))))
     return (ipp_document_states[enumvalue - 3]);
   else if (!strcmp(attrname, "finishings") || !strcmp(attrname, "finishings-actual") || !strcmp(attrname, "finishings-default") || !strcmp(attrname, "finishings-ready") || !strcmp(attrname, "finishings-supported") || !strcmp(attrname, "job-finishings") || !strcmp(attrname, "job-finishings-default") || !strcmp(attrname, "job-finishings-supported"))
   {
@@ -2150,7 +2159,12 @@ ippEnumValue(const char *attrname,	/* I - Attribute name */
   * Otherwise look up the string...
   */
 
-  if (!strcmp(attrname, "document-state"))
+  if (!strcmp(attrname, "client-type"))
+  {
+    num_strings = (int)(sizeof(ipp_client_types) / sizeof(ipp_client_types[0]));
+    strings     = ipp_client_types;
+  }
+  else if (!strcmp(attrname, "document-state"))
   {
     num_strings = (int)(sizeof(ipp_document_states) / sizeof(ipp_document_states[0]));
     strings     = ipp_document_states;
