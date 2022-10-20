@@ -5,6 +5,7 @@ Changes in CUPS v2.4.3 (TBA)
 ----------------------------
 
 - Added a title with device uri for found network printers (Issues #402, #393)
+- Added new media sizes defined by IANA (Issues #501)
 - Added quirk for GoDEX label printers (Issue #440)
 - Fixed `--enable-libtool-unsupported` (Issue #394)
 - Fixed configuration on RISC-V machines (Issue #404)
