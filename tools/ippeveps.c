@@ -465,7 +465,7 @@ get_options(cups_option_t **options)	/* O - Options */
     if ((value = getenv("IPP_SIDES")) == NULL)
       value = getenv("IPP_SIDES_DEFAULT");
 
-    if (value && ppd_cache->sides_option)
+    if (value && ppd_cache && ppd_cache->sides_option)
     {
       if (!strcmp(value, "one-sided") && ppd_cache->sides_1sided)
 	num_options = cupsAddOption(ppd_cache->sides_option, ppd_cache->sides_1sided, num_options, options);

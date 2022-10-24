@@ -124,11 +124,11 @@ main(int  argc,				/* I - Number of command-line args */
     page_width  = (unsigned)(inheader.cupsPageSize[0] * inheader.HWResolution[0] / 72.0);
     if (page_width < inheader.cupsWidth &&
 	page_width >= inheader.cupsWidth - 1)
-      page_width = (unsigned)inheader.cupsWidth;
+      page_width = inheader.cupsWidth;
     page_height = (unsigned)(inheader.cupsPageSize[1] * inheader.HWResolution[1] / 72.0);
     if (page_height < inheader.cupsHeight &&
 	page_height >= inheader.cupsHeight - 1)
-      page_height = (unsigned)inheader.cupsHeight;
+      page_height = inheader.cupsHeight;
     page_left   = (unsigned)(inheader.cupsImagingBBox[0] * inheader.HWResolution[0] / 72.0);
     page_bottom = (unsigned)(inheader.cupsImagingBBox[1] * inheader.HWResolution[1] / 72.0);
     tmp        = (int)(page_height - page_bottom - inheader.cupsHeight);
