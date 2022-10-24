@@ -85,7 +85,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 {
   int			i;		/* Looping var */
   const char		*opt;		/* Current option */
-  int			num_clients = 0;/* Number of clients to simulate */
+  int			num_clients;/* Number of clients to simulate */
   char			scheme[32],     /* URI scheme */
 			userpass[256],  /* Username:password */
 			hostname[256],  /* Hostname */
@@ -99,8 +99,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (argc == 1)
     return (0);
-
   memset(&data, 0, sizeof(data));
+
+  num_clients = 0;
 
   for (i = 1; i < argc; i ++)
   {
@@ -300,7 +301,7 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
                         xrep, yrep,     /* Repeat count for X and Y */
                         xoff, yoff,     /* Offsets for X and Y */
                         yend;           /* End Y value */
-  int                   temprow,        /* Row in template */
+  size_t                temprow,        /* Row in template */
                         tempcolor;      /* Template color */
   const char            *template;      /* Pointer into template */
   const unsigned char   *color;         /* Current color */
@@ -542,11 +543,11 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
     color    = colors[tempcolor];
 
     temprow ++;
-    if (temprow >= (int)(sizeof(templates) / sizeof(templates[0])))
+    if (temprow >= sizeof(templates) / sizeof(templates[0]))
     {
       temprow = 0;
       tempcolor ++;
-      if (tempcolor >= (int)(sizeof(colors) / sizeof(colors[0])))
+      if (tempcolor >= (sizeof(colors) / sizeof(colors[0])))
         tempcolor = 0;
       else if (tempcolor > 3 && header.cupsColorSpace == CUPS_CSPACE_SW)
         tempcolor = 0;
@@ -1013,7 +1014,7 @@ show_attributes(const char *title,      /* I - Title */
 static void
 show_capabilities(ipp_t *response)      /* I - Printer attributes */
 {
-  int                   i;              /* Looping var */
+  size_t                   i;              /* Looping var */
   ipp_attribute_t       *attr;          /* Attribute */
   char                  buffer[1024];   /* Attribute value buffer */
   static const char * const pattrs[] =  /* Attributes we want to show */
@@ -1041,7 +1042,7 @@ show_capabilities(ipp_t *response)      /* I - Printer attributes */
 
 
   puts("CAPABILITIES:");
-  for (i = 0; i < (int)(sizeof(pattrs) / sizeof(pattrs[0])); i ++)
+  for (i = 0; i < (sizeof(pattrs) / sizeof(pattrs[0])); i ++)
   {
      if ((attr = ippFindAttribute(response, pattrs[i], IPP_TAG_ZERO)) != NULL)
      {

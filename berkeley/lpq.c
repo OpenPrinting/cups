@@ -43,9 +43,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 		*val;			/* Environment variable name */
   char		*instance;		/* Printer instance */
   int		id,			/* Desired job ID */
-		all,			/* All printers */
-		interval,		/* Reporting interval */
-		longstatus;		/* Show file details */
+		all;			/* All printers */
+	unsigned		interval;		/* Reporting interval */
+	int		longstatus;		/* Show file details */
   cups_dest_t	*named_dest;		/* Named destination */
 
 
@@ -67,7 +67,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   {
     if (argv[i][0] == '+')
     {
-      interval = atoi(argv[i] + 1);
+      interval = (unsigned)strtoul(argv[i] + 1, NULL, 10);
     }
     else if (!strcmp(argv[i], "--help"))
       usage();
@@ -259,7 +259,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     if (i && interval)
     {
       fflush(stdout);
-      sleep((unsigned)interval);
+      sleep(interval);
     }
     else
       break;

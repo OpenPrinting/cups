@@ -701,7 +701,7 @@ cupsdLoadAllSubscriptions(void)
       * NextSubscriptionId NNN
       */
 
-      i = atoi(value);
+      i = (int)strtol(value, NULL, 10);
       if (i >= NextSubscriptionId && i > 0)
 	NextSubscriptionId = i;
     }
@@ -714,7 +714,7 @@ cupsdLoadAllSubscriptions(void)
       if (!sub && value && isdigit(value[0] & 255))
       {
 	sub = cupsdAddSubscription(CUPSD_EVENT_NONE, NULL, NULL, NULL,
-				   atoi(value));
+				   (int)strtol(value, NULL, 10));
       }
       else
       {
@@ -827,7 +827,7 @@ cupsdLoadAllSubscriptions(void)
 
       if (value && isdigit(*value & 255))
       {
-	if ((sub->job = cupsdFindJob(atoi(value))) == NULL)
+	if ((sub->job = cupsdFindJob((int)strtol(value, NULL, 10))) == NULL)
 	{
 	  cupsdLogMessage(CUPSD_LOG_ERROR,
 			  "Job %s not found on line %d of subscriptions.conf.",
@@ -937,7 +937,7 @@ cupsdLoadAllSubscriptions(void)
 
       if (value && isdigit(*value & 255))
       {
-	sub->lease  = atoi(value);
+	sub->lease  = (int)strtol(value, NULL, 10);
 	sub->expire = sub->lease ? time(NULL) + sub->lease : 0;
       }
       else
@@ -955,7 +955,7 @@ cupsdLoadAllSubscriptions(void)
       */
 
       if (value && isdigit(*value & 255))
-	sub->interval = atoi(value);
+	sub->interval = (int)strtol(value, NULL, 10);
       else
       {
 	cupsdLogMessage(CUPSD_LOG_ERROR,
@@ -971,7 +971,7 @@ cupsdLoadAllSubscriptions(void)
       */
 
       if (value && isdigit(*value & 255))
-	sub->expire = atoi(value);
+	sub->expire = (int)strtol(value, NULL, 10);
       else
       {
 	cupsdLogMessage(CUPSD_LOG_ERROR,
@@ -987,7 +987,7 @@ cupsdLoadAllSubscriptions(void)
       */
 
       if (value && isdigit(*value & 255))
-	sub->next_event_id = sub->first_event_id = atoi(value);
+	sub->next_event_id = sub->first_event_id = (int)strtol(value, NULL, 10);
       else
       {
 	cupsdLogMessage(CUPSD_LOG_ERROR,

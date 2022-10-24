@@ -324,7 +324,7 @@ httpCredentialsString(
   if (!buffer)
     return (0);
 
-  if (buffer && bufsize > 0)
+  if (bufsize > 0)
     *buffer = '\0';
 
   cert = http_sspi_create_credential(first);
@@ -638,8 +638,7 @@ cleanup:
   * Cleanup
   */
 
-  if (createdContext)
-    CertFreeCertificateContext(createdContext);
+  CertFreeCertificateContext(createdContext);
 
   if (storedContext)
     CertFreeCertificateContext(storedContext);
@@ -700,7 +699,7 @@ _httpTLSRead(http_t *http,		/* I - HTTP connection */
 	     char   *buf,		/* I - Buffer to store data */
 	     int    len)		/* I - Length of buffer */
 {
-  int		i;			/* Looping var */
+  unsigned		i;			/* Looping var */
   _http_sspi_t	*sspi = http->tls;	/* SSPI data */
   SecBufferDesc	message;		/* Array of SecBuffer struct */
   SecBuffer	buffers[4] = { 0 };	/* Security package buffer */
@@ -1134,7 +1133,7 @@ _httpTLSWrite(http_t     *http,		/* I - HTTP connection */
   int		bufferLen;		/* Buffer length */
   int		bytesLeft;		/* Bytes left to write */
   const char	*bufptr;		/* Pointer into buffer */
-  int		num = 0;		/* Return value */
+  int		num;		/* Return value */
 
 
   bufferLen = sspi->streamSizes.cbMaximumMessage + sspi->streamSizes.cbHeader + sspi->streamSizes.cbTrailer;
@@ -2396,8 +2395,7 @@ http_sspi_verify(
   if (chainContext)
     CertFreeCertificateChain(chainContext);
 
-  if (commonNameUnicode)
-    LocalFree(commonNameUnicode);
+  LocalFree(commonNameUnicode);
 
   return (status);
 }

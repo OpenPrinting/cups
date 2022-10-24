@@ -168,18 +168,18 @@ backendNetworkSideCB(
           if ((snmp_value = getenv("CUPS_SNMP_VALUE")) != NULL)
           {
             const char	*snmp_count;	/* CUPS_SNMP_COUNT env var */
-            int		count;		/* Repetition count */
+            size_t		count;		/* Repetition count */
 
             if ((snmp_count = getenv("CUPS_SNMP_COUNT")) != NULL)
             {
-              if ((count = atoi(snmp_count)) <= 0)
+              if ((count = (size_t)strtoul(snmp_count, NULL, 10)) == 0)
                 count = 1;
             }
             else
               count = 1;
 
 	    for (dataptr = data + strlen(data) + 1;
-	         count > 0 && dataptr < (data + sizeof(data) - 1);
+	         count && dataptr < (data + sizeof(data) - 1);
 	         count --, dataptr += strlen(dataptr))
 	      strlcpy(dataptr, snmp_value, sizeof(data) - (size_t)(dataptr - data));
 
@@ -237,9 +237,7 @@ backendNetworkSideCB(
 
 	        case CUPS_ASN1_BIT_STRING :
 	        case CUPS_ASN1_OCTET_STRING :
-		    if (packet.object_value.string.num_bytes < (sizeof(data) - (size_t)(dataptr - data)))
-		      i = packet.object_value.string.num_bytes;
-		    else
+		    if ((i = packet.object_value.string.num_bytes) > (sizeof(data) - (size_t)(dataptr - data)))
 		      i = sizeof(data) - (size_t)(dataptr - data);
 
 		    memcpy(dataptr, packet.object_value.string.bytes, i);

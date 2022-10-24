@@ -413,12 +413,9 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
         * Skip job command...
 	*/
 
-        for (;*ptr; ptr ++)
-	  if (*ptr == '\n')
+        while (*ptr)
+	  if (*ptr ++ == '\n')
 	    break;
-
-	if (*ptr)
-	  ptr ++;
       }
       else
       {
@@ -426,15 +423,12 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
         * Copy line...
 	*/
 
-        for (;*ptr; ptr ++)
+        while (*ptr)
 	{
 	  putc(*ptr, fp);
-	  if (*ptr == '\n')
+	  if (*ptr ++ == '\n')
 	    break;
 	}
-
-	if (*ptr)
-	  ptr ++;
       }
 
    /*

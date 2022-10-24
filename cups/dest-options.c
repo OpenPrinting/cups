@@ -1621,7 +1621,7 @@ cups_collection_string(
 		  const ipp_uchar_t *date = ippGetDate(member, j);
 					/* Date value */
 
-		  year = ((unsigned)date[0] << 8) + (unsigned)date[1];
+		  year = ((unsigned)date[0] << 8) | (unsigned)date[1];
 
 		  if (date[9] == 0 && date[10] == 0)
 		    snprintf(temp, sizeof(temp), "%04u-%02u-%02uT%02u:%02u:%02uZ", year, date[2], date[3], date[4], date[5], date[6]);
@@ -2286,7 +2286,7 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
 {
   cups_array_t		*db;		/* Which media database to query */
   _cups_media_db_t	*mdb,		/* Current media database entry */
-			*best = NULL,	/* Best matching entry */
+			*best,	/* Best matching entry */
 			key;		/* Search key */
 
 

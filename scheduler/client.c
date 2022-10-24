@@ -553,7 +553,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 			*ptr;		/* Pointer into strings */
   http_status_t		status;		/* Transfer status */
   ipp_state_t		ipp_state;	/* State of IPP transfer */
-  int			bytes;		/* Number of bytes to POST */
+  ssize_t		bytes;          /* Number of bytes to POST */
   char			*filename;	/* Name of file for GET/HEAD */
   char			buf[1024];	/* Buffer for real filename */
   struct stat		filestats;	/* File information */
@@ -563,7 +563,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
   status = HTTP_STATUS_CONTINUE;
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdReadClient: error=%d, used=%d, state=%s, data_encoding=HTTP_ENCODING_%s, data_remaining=" CUPS_LLFMT ", request=%p(%s), file=%d", httpError(con->http), (int)httpGetReady(con->http), httpStateString(httpGetState(con->http)), httpIsChunked(con->http) ? "CHUNKED" : "LENGTH", CUPS_LLCAST httpGetRemaining(con->http), con->request, con->request ? ippStateString(ippGetState(con->request)) : "", con->file);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdReadClient: error=%d, used=%u, state=%s, data_encoding=HTTP_ENCODING_%s, data_remaining=" CUPS_LLFMT ", request=%p(%s), file=%d", httpError(con->http), (unsigned)httpGetReady(con->http), httpStateString(httpGetState(con->http)), httpIsChunked(con->http) ? "CHUNKED" : "LENGTH", CUPS_LLCAST httpGetRemaining(con->http), con->request, con->request ? ippStateString(ippGetState(con->request)) : "", con->file);
 
   if (httpError(con->http) == EPIPE && !httpGetReady(con->http) && recv(httpGetFd(con->http), buf, 1, MSG_PEEK) < 1)
   {
@@ -1542,7 +1542,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
             if (write(con->file, line, (size_t)bytes) < bytes)
 	    {
               cupsdLogClient(con, CUPSD_LOG_ERROR,
-	                     "Unable to write %d bytes to \"%s\": %s", bytes,
+	                     "Unable to write %u bytes to \"%s\": %s", (unsigned)bytes,
                              con->filename, strerror(errno));
 
 	      close(con->file);
@@ -1722,8 +1722,8 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
               if (write(con->file, line, (size_t)bytes) < bytes)
 	      {
         	cupsdLogClient(con, CUPSD_LOG_ERROR,
-	                       "Unable to write %d bytes to \"%s\": %s",
-                               bytes, con->filename, strerror(errno));
+	                       "Unable to write %u bytes to \"%s\": %s",
+                               (unsigned)bytes, con->filename, strerror(errno));
 
 		close(con->file);
 		con->file = -1;
@@ -2244,8 +2244,8 @@ cupsdUpdateCGI(void)
 void
 cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 {
-  int		bytes,			/* Number of bytes written */
-		field_col;		/* Current column */
+  ssize_t		bytes;			/* Number of bytes written */
+	int		field_col;		/* Current column */
   char		*bufptr,		/* Pointer into buffer */
 		*bufend;		/* Pointer to end of buffer */
   ipp_state_t	ipp_state;		/* IPP state value */
@@ -2255,14 +2255,14 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
   cupsdLogClient(con, CUPSD_LOG_DEBUG,
 		 "cupsdWriteClient "
 		 "error=%d, "
-		 "used=%d, "
+		 "used=%u, "
 		 "state=%s, "
 		 "data_encoding=HTTP_ENCODING_%s, "
 		 "data_remaining=" CUPS_LLFMT ", "
 		 "response=%p(%s), "
 		 "pipe_pid=%d, "
 		 "file=%d",
-		 httpError(con->http), (int)httpGetReady(con->http),
+		 httpError(con->http), (unsigned)httpGetReady(con->http),
 		 httpStateString(httpGetState(con->http)),
 		 httpIsChunked(con->http) ? "CHUNKED" : "LENGTH",
 		 CUPS_LLCAST httpGetLength2(con->http),
@@ -2736,14 +2736,10 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
 	  snprintf(filename, len, "%s/ppd/%s.ppd", ServerRoot, p->printers[i]->name);
 	  if (!access(filename, 0))
 	  {
-	    p = p->printers[i];
 	    break;
 	  }
 	}
       }
-
-      if (i >= p->num_printers)
-	p = NULL;
     }
     else
       snprintf(filename, len, "%s/ppd/%s.ppd", ServerRoot, p->name);
@@ -2773,14 +2769,10 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
 	  snprintf(filename, len, "%s/images/%s.png", CacheDir, p->printers[i]->name);
 	  if (!access(filename, 0))
 	  {
-	    p = p->printers[i];
 	    break;
 	  }
 	}
       }
-
-      if (i >= p->num_printers)
-	p = NULL;
     }
     else
       snprintf(filename, len, "%s/images/%s.png", CacheDir, p->name);
@@ -2983,7 +2975,7 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
     }
   }
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "get_file: filestats=%p, filename=%p, len=" CUPS_LLFMT ", returning \"%s\".", filestats, filename, CUPS_LLCAST len, status ? "(null)" : filename);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "get_file: filestats=%p, filename=%s, len=" CUPS_LLFMT ", returning \"%s\".", filestats, filename, CUPS_LLCAST len, status ? "(null)" : filename);
 
   if (status)
     return (NULL);

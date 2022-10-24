@@ -138,7 +138,7 @@ extern int _cups_toupper(int ch);
  * Prototypes...
  */
 
-extern ssize_t	_cups_safe_vsnprintf(char *buffer, size_t bufsize, const char *format, va_list args) _CUPS_PRIVATE;
+extern ssize_t	_cups_safe_vsnprintf(char *buffer, size_t bufsize, const char *format, va_list ap) _CUPS_PRIVATE;
 extern void	_cups_strcpy(char *dst, const char *src) _CUPS_PRIVATE;
 
 #  ifndef HAVE_STRDUP

@@ -84,8 +84,8 @@ cupsMakeServerCredentials(
 {
 #if TARGET_OS_OSX
   int		pid,			/* Process ID of command */
-		status,			/* Status of command */
-		i;			/* Looping var */
+		status;			/* Status of command */
+	size_t		i;	/* Looping var */
   char		command[1024],		/* Command */
 		*argv[5],		/* Command-line arguments */
 		*envp[1000],		/* Environment variables */
@@ -149,7 +149,7 @@ cupsMakeServerCredentials(
 
   snprintf(days, sizeof(days), "CERTTOOL_EXPIRATION_DAYS=%d", (int)((expiration_date - time(NULL) + 86399) / 86400));
   envp[0] = days;
-  for (i = 0; i < (int)(sizeof(envp) / sizeof(envp[0]) - 2) && environ[i]; i ++)
+  for (i = 0; i < (sizeof(envp) / sizeof(envp[0]) - 2) && environ[i]; i ++)
     envp[i + 1] = environ[i];
   envp[i] = NULL;
 
@@ -474,7 +474,6 @@ httpCopyCredentials(
       }
       CFRelease(secArray);
     }
-
     CFRelease(peerTrust);
   }
 
@@ -793,7 +792,7 @@ httpCredentialsString(
   if (!buffer)
     return (0);
 
-  if (buffer && bufsize > 0)
+  if (bufsize > 0)
     *buffer = '\0';
 
   if ((first = (http_credential_t *)cupsArrayFirst(credentials)) != NULL &&
@@ -1225,9 +1224,7 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
   cups_array_t		*credentials;	/* Credentials array */
   cups_array_t		*names;		/* CUPS distinguished names */
   CFArrayRef		dn_array;	/* CF distinguished names array */
-  CFIndex		count;		/* Number of credentials */
   CFDataRef		data;		/* Certificate data */
-  int			i;		/* Looping var */
   http_credential_t	*credential;	/* Credential data */
 
 
@@ -1314,9 +1311,10 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 
     if (!error)
     {
-      DEBUG_printf(("4_httpTLSStart: %d cipher suites supported.", (int)num_supported));
+      size_t i;
+      DEBUG_printf(("4_httpTLSStart: %u cipher suites supported.", (unsigned)num_supported));
 
-      for (i = 0, num_enabled = 0; i < (int)num_supported && num_enabled < (sizeof(enabled) / sizeof(enabled[0])); i ++)
+      for (i = 0, num_enabled = 0; i < num_supported && num_enabled < (sizeof(enabled) / sizeof(enabled[0])); i ++)
       {
         switch (supported[i])
 	{
@@ -1457,7 +1455,7 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 	}
       }
 
-      DEBUG_printf(("4_httpTLSStart: %d cipher suites enabled.", (int)num_enabled));
+      DEBUG_printf(("4_httpTLSStart: %u cipher suites enabled.", (unsigned)num_enabled));
       error = SSLSetEnabledCiphers(http->tls, enabled, num_enabled);
     }
   }
@@ -1666,7 +1664,9 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 	      {
 		if ((names = cupsArrayNew(NULL, NULL)) != NULL)
 		{
-		  for (i = 0, count = CFArrayGetCount(dn_array); i < count; i++)
+      CFIndex count; /* Number of credentials */
+      CFIndex i;     /* Loop var */
+      for (i = 0, count = CFArrayGetCount(dn_array); i < count; i++)
 		  {
 		    data = (CFDataRef)CFArrayGetValueAtIndex(dn_array, i);
 
@@ -1675,7 +1675,7 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 		      credential->datalen = (size_t)CFDataGetLength(data);
 		      if ((credential->data = malloc(credential->datalen)))
 		      {
-			memcpy((void *)credential->data, CFDataGetBytePtr(data),
+			memcpy(credential->data, CFDataGetBytePtr(data),
 			       credential->datalen);
 			cupsArrayAdd(names, credential);
 		      }
@@ -1800,7 +1800,7 @@ _httpTLSWrite(http_t     *http,		/* I - HTTP connection */
 	       const char *buf,		/* I - Buffer holding data */
 	       int        len)		/* I - Length of buffer */
 {
-  ssize_t	result;			/* Return value */
+  int result;           /* Return value */
   OSStatus	error;			/* Error info */
   size_t	processed;		/* Number of bytes processed */
 
@@ -1841,9 +1841,9 @@ _httpTLSWrite(http_t     *http,		/* I - HTTP connection */
 	break;
   }
 
-  DEBUG_printf(("5_httpTLSWrite: Returning %d.", (int)result));
+  DEBUG_printf(("5_httpTLSWrite: Returning %d.", result));
 
-  return ((int)result);
+  return (result);
 }
 
 

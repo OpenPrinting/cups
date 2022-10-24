@@ -336,11 +336,14 @@ main(int  argc,				/* I - Number of command-line args */
                                argv + i)) == NULL)
             return (IPPFIND_EXIT_MEMORY);
 
-          while (i < argc)
+          do
+          {
             if (!strcmp(argv[i], ";"))
+            {
+              have_output = 1;
               break;
-            else
-              i ++;
+            }
+          } while (++ i < argc);
 
           if (i >= argc)
           {
@@ -348,8 +351,6 @@ main(int  argc,				/* I - Number of command-line args */
                             "--exec");
             show_usage();
           }
-
-          have_output = 1;
         }
         else if (!strcmp(argv[i], "--false"))
         {
@@ -900,11 +901,11 @@ main(int  argc,				/* I - Number of command-line args */
 				     argv + i)) == NULL)
 		  return (IPPFIND_EXIT_MEMORY);
 
-		while (i < argc)
-		  if (!strcmp(argv[i], ";"))
+		do
+    {
+      if (!strcmp(argv[i], ";"))
 		    break;
-		  else
-		    i ++;
+    } while (++ i < argc);
 
 		if (i >= argc)
 		{
@@ -1803,7 +1804,7 @@ eval_expr(ippfind_srv_t  *service,	/* I - Service */
           result = service->is_local;
           break;
       case IPPFIND_OP_IS_REMOTE :
-          result = !service->is_local;
+          result = service->is_local ^ 1;
           break;
       case IPPFIND_OP_DOMAIN_REGEX :
           result = !regexec(&(expression->re), service->domain, 0, NULL, 0);
@@ -1863,7 +1864,7 @@ eval_expr(ippfind_srv_t  *service,	/* I - Service */
     }
 
     if (expression->invert)
-      result = !result;
+      result ^= 1;
 
     if (logic == IPPFIND_OP_AND && !result)
       return (0);
@@ -2505,6 +2506,9 @@ new_expr(ippfind_op_t op,		/* I - Operation */
 
      temp->num_args = num_args;
      temp->args     = malloc((size_t)num_args * sizeof(char *));
+     if (temp->args == NULL)
+         return (NULL);
+
      memcpy(temp->args, args, (size_t)num_args * sizeof(char *));
   }
 

@@ -952,9 +952,7 @@ static int				/* O - 0 if not a local connection */
 					/*     1  if local connection */
 cups_is_local_connection(http_t *http)	/* I - HTTP connection to server */
 {
-  if (!httpAddrLocalhost(http->hostaddr) && _cups_strcasecmp(http->hostname, "localhost") != 0)
-    return 0;
-  return 1;
+    return (httpAddrLocalhost(http->hostaddr) || !_cups_strcasecmp(http->hostname, "localhost"));
 }
 
 /*

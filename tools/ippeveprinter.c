@@ -284,7 +284,7 @@ static int		create_listener(const char *name, int port, int family);
 static ipp_t		*create_media_col(const char *media, const char *source, const char *type, int width, int length, int bottom, int left, int right, int top);
 static ipp_t		*create_media_size(int width, int length);
 static ippeve_printer_t	*create_printer(const char *servername, int serverport, const char *name, const char *location, const char *icons, const char *strings, cups_array_t *docformats, const char *subtypes, const char *directory, const char *command, const char *device_uri, const char *output_format, ipp_t *attrs);
-static void		debug_attributes(const char *title, ipp_t *ipp, int response);
+static void		debug_attributes(const char *title, ipp_t *ipp, int type);
 static void		delete_client(ippeve_client_t *client);
 static void		delete_job(ippeve_job_t *job);
 static void		delete_printer(ippeve_printer_t *printer);
@@ -334,7 +334,7 @@ static int		process_ipp(ippeve_client_t *client);
 static void		*process_job(ippeve_job_t *job);
 static void		process_state_message(ippeve_job_t *job, char *message);
 static int		register_printer(ippeve_printer_t *printer);
-static int		respond_http(ippeve_client_t *client, http_status_t code, const char *content_coding, const char *type, size_t length);
+static int		respond_http(ippeve_client_t *client, http_status_t code, const char *content_encoding, const char *type, size_t length);
 static void		respond_ipp(ippeve_client_t *client, ipp_status_t status, const char *message, ...) _CUPS_FORMAT(3, 4);
 static void		respond_unsupported(ippeve_client_t *client, ipp_attribute_t *attr);
 static void		run_printer(ippeve_printer_t *printer);
@@ -402,8 +402,8 @@ main(int  argc,				/* I - Number of command-line args */
 		duplex = 0,		/* Duplex mode */
 		ppm = 10,		/* Pages per minute for mono */
 		ppm_color = 0,		/* Pages per minute for color */
-		web_forms = 1;		/* Enable website forms? */
-  ipp_t		*attrs = NULL;		/* Printer attributes */
+		web_forms = 1;		/* Enable web site forms? */
+  ipp_t		*attrs;		  /* Printer attributes */
   char		directory[1024] = "";	/* Spool directory */
   cups_array_t	*docformats = NULL;	/* Supported formats */
   const char	*servername = NULL;	/* Server host name */
@@ -1425,7 +1425,7 @@ create_printer(
     ipp_t        *attrs)		/* I - Capability attributes */
 {
   ippeve_printer_t	*printer;	/* Printer */
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
 #ifndef _WIN32
   char			path[1024];	/* Full path to command */
 #endif /* !_WIN32 */
@@ -1748,7 +1748,7 @@ create_printer(
     * Use 8000 + UID mod 1000 for the default port number...
     */
 
-    serverport = 8000 + ((int)getuid() % 1000);
+    serverport = 8000 + (int)(getuid() % 1000);
 #endif /* _WIN32 */
 
     while (serverport < 10000)
@@ -1837,19 +1837,18 @@ create_printer(
   * Get the list of attributes that can be used when creating a job...
   */
 
-  num_sup_attrs = 0;
-  sup_attrs[num_sup_attrs ++] = "document-access";
-  sup_attrs[num_sup_attrs ++] = "document-charset";
-  sup_attrs[num_sup_attrs ++] = "document-format";
-  sup_attrs[num_sup_attrs ++] = "document-message";
-  sup_attrs[num_sup_attrs ++] = "document-metadata";
-  sup_attrs[num_sup_attrs ++] = "document-name";
-  sup_attrs[num_sup_attrs ++] = "document-natural-language";
-  sup_attrs[num_sup_attrs ++] = "ipp-attribute-fidelity";
-  sup_attrs[num_sup_attrs ++] = "job-name";
-  sup_attrs[num_sup_attrs ++] = "job-priority";
+  sup_attrs[0] = "document-access";
+  sup_attrs[1] = "document-charset";
+  sup_attrs[2] = "document-format";
+  sup_attrs[3] = "document-message";
+  sup_attrs[4] = "document-metadata";
+  sup_attrs[5] = "document-name";
+  sup_attrs[6] = "document-natural-language";
+  sup_attrs[7] = "ipp-attribute-fidelity";
+  sup_attrs[8] = "job-name";
+  sup_attrs[9] = "job-priority";
 
-  for (i = 0; i < (int)(sizeof(job_creation) / sizeof(job_creation[0])) && num_sup_attrs < (int)(sizeof(sup_attrs) / sizeof(sup_attrs[0])); i ++)
+  for (i = 0, num_sup_attrs = 10; i < (sizeof(job_creation) / sizeof(job_creation[0])) && num_sup_attrs < (int)(sizeof(sup_attrs) / sizeof(sup_attrs[0])); i ++)
   {
     snprintf(xxx_supported, sizeof(xxx_supported), "%s-supported", job_creation[i]);
     if (ippFindAttribute(attrs, xxx_supported, IPP_TAG_ZERO))
@@ -6637,17 +6636,18 @@ process_job(ippeve_job_t *job)		/* I - Job */
     * Execute a command with the job spool file and wait for it to complete...
     */
 
-    int 		pid,		/* Process ID */
-			status;		/* Exit status */
+
+	  int		status;		/* Exit status */
     struct timeval	start,		/* Start time */
 			end;		/* End time */
     char		*myargv[3],	/* Command-line arguments */
 			*myenvp[400];	/* Environment variables */
-    int			myenvc;		/* Number of environment variables */
+    size_t			myenvc;		/* Number of environment variables */
     ipp_attribute_t	*attr;		/* Job attribute */
     char		val[1280],	/* IPP_NAME=value */
 			*valptr;	/* Pointer into string */
 #ifndef _WIN32
+    int 		pid;		/* Process ID */
     int			mystdout = -1;	/* File for stdout */
     int			mypipe[2];	/* Pipe for stderr */
     char		line[2048],	/* Line from stderr */
@@ -6672,10 +6672,10 @@ process_job(ippeve_job_t *job)		/* I - Job */
     * Job attribute and Printer -default attributes...
     */
 
-    for (myenvc = 0; environ[myenvc] && myenvc < (int)(sizeof(myenvp) / sizeof(myenvp[0]) - 1); myenvc ++)
+    for (myenvc = 0; environ[myenvc] && myenvc < (sizeof(myenvp) / sizeof(myenvp[0]) - 1); myenvc ++)
       myenvp[myenvc] = strdup(environ[myenvc]);
 
-    if (myenvc > (int)(sizeof(myenvp) / sizeof(myenvp[0]) - 32))
+    if (myenvc > (sizeof(myenvp) / sizeof(myenvp[0]) - 32))
     {
       fprintf(stderr, "[Job %d] Too many environment variables to process job.\n", job->id);
       job->state = IPP_JSTATE_ABORTED;
@@ -6705,7 +6705,7 @@ process_job(ippeve_job_t *job)		/* I - Job */
     }
 #endif /* !CUPS_LITE */
 
-    for (attr = ippFirstAttribute(job->printer->attrs); attr && myenvc < (int)(sizeof(myenvp) / sizeof(myenvp[0]) - 1); attr = ippNextAttribute(job->printer->attrs))
+    for (attr = ippFirstAttribute(job->printer->attrs); attr && myenvc < (sizeof(myenvp) / sizeof(myenvp[0]) - 1); attr = ippNextAttribute(job->printer->attrs))
     {
      /*
       * Convert "attribute-name-default" to "IPP_ATTRIBUTE_NAME_DEFAULT=" and
@@ -6740,7 +6740,7 @@ process_job(ippeve_job_t *job)		/* I - Job */
       myenvp[myenvc++] = strdup(val);
     }
 
-    for (attr = ippFirstAttribute(job->attrs); attr && myenvc < (int)(sizeof(myenvp) / sizeof(myenvp[0]) - 1); attr = ippNextAttribute(job->attrs))
+    for (attr = ippFirstAttribute(job->attrs); attr && myenvc < (sizeof(myenvp) / sizeof(myenvp[0]) - 1); attr = ippNextAttribute(job->attrs))
     {
      /*
       * Convert "attribute-name" to "IPP_ATTRIBUTE_NAME=" and then add the
@@ -6903,20 +6903,25 @@ process_job(ippeve_job_t *job)		/* I - Job */
       close(mypipe[1]);
 
      /*
-      * Free memory used for environment...
+      * Free memory used for environment... myenvc is always at least 1 here
       */
 
-      while (myenvc > 0)
-	free(myenvp[-- myenvc]);
+      do
+      {
+        free(myenvp[-- myenvc]);
+      } while (myenvc);
+      
     }
     else
     {
-     /*
-      * Free memory used for environment...
-      */
+      /*
+       * Free memory used for environment... myenvc is always at least 1 here
+       */
 
-      while (myenvc > 0)
-	free(myenvp[-- myenvc]);
+      do
+      {
+        free(myenvp[--myenvc]);
+      } while (myenvc);
 
      /*
       * Close the output file in the parent process...
@@ -7962,8 +7967,8 @@ show_media(ippeve_client_t  *client)	/* I - Client connection */
       if (ready_source && !strcmp(ready_source, media_source))
         break;
 
-      ready_source = NULL;
       ready_size   = NULL;
+      ready_source = NULL;
       ready_type   = NULL;
     }
 
@@ -8026,16 +8031,17 @@ show_media(ippeve_client_t  *client)	/* I - Client connection */
 
     if (printer->web_forms)
     {
+      size_t k;
       html_printf(client, " <select name=\"level%d\">", i);
-      for (j = 0; j < (int)(sizeof(sheets) / sizeof(sheets[0])); j ++)
+      for (k = 0; k < (sizeof(sheets) / sizeof(sheets[0])); k ++)
       {
-	if (!strcmp(media_source, "by-pass-tray") && sheets[j] > 25)
+	if (!strcmp(media_source, "by-pass-tray") && sheets[k] > 25)
 	  continue;
 
-	if (sheets[j] < 0)
-	  html_printf(client, "<option value=\"%d\"%s>Unknown</option>", sheets[j], sheets[j] == ready_sheets ? " selected" : "");
+	if (sheets[k] < 0)
+	  html_printf(client, "<option value=\"%d\"%s>Unknown</option>", sheets[k], sheets[k] == ready_sheets ? " selected" : "");
 	else
-	  html_printf(client, "<option value=\"%d\"%s>%d sheets</option>", sheets[j], sheets[j] == ready_sheets ? " selected" : "", sheets[j]);
+	  html_printf(client, "<option value=\"%d\"%s>%d sheets</option>", sheets[k], sheets[k] == ready_sheets ? " selected" : "", sheets[k]);
       }
       html_printf(client, "</select></td></tr>\n");
     }
@@ -8084,7 +8090,7 @@ show_status(ippeve_client_t  *client)	/* I - Client connection */
   ippeve_printer_t *printer = client->printer;
 					/* Printer */
   ippeve_job_t		*job;		/* Current job */
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
   ippeve_preason_t	reason;		/* Current reason */
   static const char * const reasons[] =	/* Reason strings */
   {
@@ -8119,7 +8125,7 @@ show_status(ippeve_client_t  *client)	/* I - Client connection */
   html_header(client, printer->name, printer->state == IPP_PSTATE_PROCESSING ? 5 : 15);
   html_printf(client, "<h1><img style=\"background: %s; border-radius: 10px; float: left; margin-right: 10px; padding: 10px;\" src=\"/icon.png\" width=\"64\" height=\"64\">%s Jobs</h1>\n", state_colors[printer->state - IPP_PSTATE_IDLE], printer->name);
   html_printf(client, "<p>%s, %d job(s).", printer->state == IPP_PSTATE_IDLE ? "Idle" : printer->state == IPP_PSTATE_PROCESSING ? "Printing" : "Stopped", cupsArrayCount(printer->jobs));
-  for (i = 0, reason = 1; i < (int)(sizeof(reasons) / sizeof(reasons[0])); i ++, reason <<= 1)
+  for (i = 0, reason = 1; i < (sizeof(reasons) / sizeof(reasons[0])); i ++, reason <<= 1)
     if (printer->state_reasons & reason)
       html_printf(client, "\n<br>&nbsp;&nbsp;&nbsp;&nbsp;%s", reasons[i]);
   html_printf(client, "</p>\n");

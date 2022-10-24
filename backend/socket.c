@@ -59,7 +59,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 		*value,			/* Value of option */
 		sep;			/* Option separator */
   int		print_fd;		/* Print file */
-  int		copies;			/* Number of copies to print */
+  size_t		copies;			/* Number of copies to print */
   time_t	start_time;		/* Time of first connect */
   int		contimeout;		/* Connection timeout */
   int		waiteof;		/* Wait for end-of-file? */
@@ -113,7 +113,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
            _cupsLangString(cupsLangDefault(), _("AppSocket/HP JetDirect")));
     return (CUPS_BACKEND_OK);
   }
-  else if (argc < 6 || argc > 7)
+  else if (argc != 6 && argc != 7)
   {
     _cupsLangPrintf(stderr,
                     _("Usage: %s job-id user title copies options [file]"),
@@ -143,7 +143,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
       return (CUPS_BACKEND_FAILED);
     }
 
-    copies = atoi(argv[4]);
+    copies = strtoul(argv[4], NULL, 10);
   }
 
  /*
@@ -242,12 +242,13 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
       }
       else if (!_cups_strcasecmp(name, "contimeout"))
       {
+        int value_int = atoi(value);
        /*
         * Set the connection timeout...
 	*/
 
-	if (atoi(value) > 0)
-	  contimeout = atoi(value);
+	if (value_int > 0)
+	  contimeout = value_int;
       }
     }
   }
@@ -387,10 +388,8 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   if (bytes > 0)
     tbytes += write(device_fd, buffer, (size_t)bytes);
 
-  while (copies > 0 && tbytes >= 0)
+  for (; copies > 0 && tbytes >= 0; copies --)
   {
-    copies --;
-
     if (print_fd != 0)
     {
       fputs("PAGE: 1 1\n", stderr);
@@ -481,8 +480,8 @@ wait_bc(int device_fd,			/* I - Socket */
 
     if ((bytes = read(device_fd, buffer, sizeof(buffer))) > 0)
     {
-      fprintf(stderr, "DEBUG: Received %d bytes of back-channel data\n",
-	      (int)bytes);
+      fprintf(stderr, "DEBUG: Received %ld bytes of back-channel data\n",
+	      (long)bytes);
       cupsBackChannelWrite(buffer, (size_t)bytes, 1.0);
     }
 

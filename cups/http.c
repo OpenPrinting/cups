@@ -165,7 +165,7 @@ httpAcceptConnection(int fd,		/* I - Listen socket file descriptor */
 
   addrlen = sizeof(http_addr_t);
 
-  if ((http->fd = accept(fd, (struct sockaddr *)&(http->addrlist->addr),
+  if ((http->fd = (int)accept(fd, (struct sockaddr *)&(http->addrlist->addr),
 			 &addrlen)) < 0)
   {
     _cupsSetHTTPError(HTTP_STATUS_ERROR);
@@ -818,7 +818,7 @@ httpGetContentEncoding(http_t *http)	/* I - HTTP connection */
 #ifdef HAVE_LIBZ
   if (http && http->fields[HTTP_FIELD_ACCEPT_ENCODING])
   {
-    int		i;			/* Looping var */
+    size_t		i;			/* Looping var */
     char	temp[HTTP_MAX_VALUE],	/* Copy of Accepts-Encoding value */
 		*start,			/* Start of coding value */
 		*end;			/* End of coding value */
@@ -875,7 +875,7 @@ httpGetContentEncoding(http_t *http)	/* I - HTTP connection */
       if (qvalue <= 0.0)
         continue;
 
-      for (i = 0; i < (int)(sizeof(codings) / sizeof(codings[0])); i ++)
+      for (i = 0; i < sizeof(codings) / sizeof(codings[0]); i ++)
         if (!strcmp(start, codings[i]))
           return (codings[i]);
     }
@@ -1622,7 +1622,7 @@ httpPeek(http_t *http,			/* I - HTTP connection */
   http->activity = time(NULL);
   http->error    = 0;
 
-  if (length <= 0)
+  if (length == 0)
     return (0);
 
   if (http->data_encoding == HTTP_ENCODING_CHUNKED &&
@@ -1964,7 +1964,7 @@ httpRead2(http_t *http,			/* I - HTTP connection */
   http->activity = time(NULL);
   http->error    = 0;
 
-  if (length <= 0)
+  if (length == 0)
     return (0);
 
 #ifdef HAVE_LIBZ
@@ -3956,7 +3956,7 @@ http_create(
 {
   http_t	*http;			/* New HTTP connection */
   char		service[255];		/* Service name */
-  http_addrlist_t *myaddrlist = NULL;	/* My address list */
+  http_addrlist_t *myaddrlist;	/* My address list */
 
 
   DEBUG_printf(("4http_create(host=\"%s\", port=%d, addrlist=%p, family=%d, encryption=%d, blocking=%d, mode=%d)", host, port, (void *)addrlist, family, encryption, blocking, mode));

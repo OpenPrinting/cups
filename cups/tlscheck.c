@@ -42,7 +42,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   cups_array_t	*creds;			/* Server credentials */
   char		creds_str[2048];	/* Credentials string */
   const char	*cipherName = "UNKNOWN";/* Cipher suite name */
-  int		dhBits = 0;		/* Diffie-Hellman bits */
+  size_t		dhBits = 0;		/* Diffie-Hellman bits */
   int		tlsVersion = 0;		/* TLS version number */
   char		uri[1024],		/* Printer URI */
 		scheme[32],		/* URI scheme */
@@ -166,11 +166,12 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   _httpTLSSetOptions(tls_options, tls_min_version, tls_max_version);
 
-  for (i = 0; i < 10; i ++)
+  i = 0;
+  do
   {
     if ((http = httpConnect2(server, port, NULL, af, HTTP_ENCRYPTION_ALWAYS, 1, 30000, NULL)) != NULL)
       break;
-  }
+  } while (++i < 10);
 
   if (!http)
   {
@@ -747,16 +748,16 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (paramsLen < 128 && paramsLen != 0)
   {
-    printf("%s: ERROR (Diffie-Hellman parameters MUST be at least 2048 bits, but Printer uses only %d bits/%d bytes)\n", server, (int)paramsLen * 8, (int)paramsLen);
+    printf("%s: ERROR (Diffie-Hellman parameters MUST be at least 2048 bits, but Printer uses only %u bits/%u bytes)\n", server, (unsigned)paramsLen * 8, (unsigned)paramsLen);
     httpClose(http);
     return (1);
   }
 
-  dhBits = (int)paramsLen * 8;
+  dhBits = paramsLen * 8;
 #endif /* HAVE_OPENSSL */
 
-  if (dhBits > 0)
-    printf("%s: OK (TLS: %d.%d, %s, %d DH bits)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName, dhBits);
+  if (dhBits)
+    printf("%s: OK (TLS: %d.%d, %s, %u DH bits)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName, (unsigned)dhBits);
   else
     printf("%s: OK (TLS: %d.%d, %s)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName);
 

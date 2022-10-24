@@ -89,9 +89,9 @@ extern void		_cupsRasterDelete(cups_raster_t *r) _CUPS_PRIVATE;
 extern const char	*_cupsRasterErrorString(void) _CUPS_PRIVATE;
 extern int		_cupsRasterInitPWGHeader(cups_page_header2_t *h, pwg_media_t *media, const char *type, int xdpi, int ydpi, const char *sides, const char *sheet_back) _CUPS_PRIVATE;
 extern cups_raster_t	*_cupsRasterNew(cups_raster_iocb_t iocb, void *ctx, cups_mode_t mode) _CUPS_PRIVATE;
-extern unsigned		_cupsRasterReadHeader(cups_raster_t *r) _CUPS_PRIVATE;
+extern int		_cupsRasterReadHeader(cups_raster_t *r) _CUPS_PRIVATE;
 extern unsigned		_cupsRasterReadPixels(cups_raster_t *r, unsigned char *p, unsigned len) _CUPS_PRIVATE;
-extern unsigned		_cupsRasterWriteHeader(cups_raster_t *r) _CUPS_PRIVATE;
+extern int		_cupsRasterWriteHeader(cups_raster_t *r) _CUPS_PRIVATE;
 extern unsigned		_cupsRasterWritePixels(cups_raster_t *r, unsigned char *p, unsigned len) _CUPS_PRIVATE;
 
 #  ifdef __cplusplus

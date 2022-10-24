@@ -262,7 +262,7 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
   // Use Windows CNG APIs to perform hashing...
   BCRYPT_ALG_HANDLE	alg;		// Algorithm handle
   LPCWSTR		algid = NULL;	// Algorithm ID
-  ssize_t		hashlen;	// Hash length
+  ssize_t		hashlen = 0;	// Hash length
   NTSTATUS		status;		// Status of hash
   unsigned char		temp[64];	// Temporary hash buffer
   size_t		tempsize = 0;	// Truncate to this size?

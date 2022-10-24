@@ -577,7 +577,7 @@ _cupsRasterNew(
  * '_cupsRasterReadHeader()' - Read a raster page header.
  */
 
-unsigned				/* O - 1 on success, 0 on fail */
+int				/* O - 1 on success, 0 on fail */
 _cupsRasterReadHeader(
     cups_raster_t *r)			/* I - Raster stream */
 {
@@ -634,7 +634,7 @@ _cupsRasterReadHeader(
 	  DEBUG_puts("4_cupsRasterReadHeader: Swapping header bytes.");
 
 	  for (len = 81, s = &(r->header.AdvanceDistance);
-	       len > 0;
+	       len;
 	       len --, s ++)
 	  {
 	    temp = *s;
@@ -685,11 +685,11 @@ _cupsRasterReadHeader(
           r->header.cupsColorSpace   = appleheader[1] >= (sizeof(rawcspace) / sizeof(rawcspace[0])) ? CUPS_CSPACE_DEVICE1 : rawcspace[appleheader[1]];
           r->header.cupsNumColors    = appleheader[1] >= (sizeof(rawnumcolors) / sizeof(rawnumcolors[0])) ? 1 : rawnumcolors[appleheader[1]];
           r->header.cupsBitsPerColor = r->header.cupsBitsPerPixel / r->header.cupsNumColors;
-          r->header.cupsWidth        = ((((((unsigned)appleheader[12] << 8) | (unsigned)appleheader[13]) << 8) | (unsigned)appleheader[14]) << 8) | (unsigned)appleheader[15];
-          r->header.cupsHeight       = ((((((unsigned)appleheader[16] << 8) | (unsigned)appleheader[17]) << 8) | (unsigned)appleheader[18]) << 8) | (unsigned)appleheader[19];
+          r->header.cupsWidth        = ((unsigned)appleheader[12] << 24) | ((unsigned)appleheader[13] << 16) | ((unsigned)appleheader[14] << 8) | (unsigned)appleheader[15];
+          r->header.cupsHeight       = ((unsigned)appleheader[16] << 24) | ((unsigned)appleheader[17] << 16) | ((unsigned)appleheader[18] << 8) | (unsigned)appleheader[19];
           r->header.cupsBytesPerLine = r->header.cupsWidth * r->header.cupsBitsPerPixel / 8;
           r->header.cupsColorOrder   = CUPS_ORDER_CHUNKED;
-          r->header.HWResolution[0]  = r->header.HWResolution[1] = ((((((unsigned)appleheader[20] << 8) | (unsigned)appleheader[21]) << 8) | (unsigned)appleheader[22]) << 8) | (unsigned)appleheader[23];
+          r->header.HWResolution[0]  = r->header.HWResolution[1] = ((unsigned)appleheader[20] << 24) | ((unsigned)appleheader[21] << 16) | ((unsigned)appleheader[22] << 8) | (unsigned)appleheader[23];
 
           if (r->header.HWResolution[0] > 0)
           {
@@ -710,7 +710,7 @@ _cupsRasterReadHeader(
 
           r->header.MediaPosition = appleheader[5];
 
-          if (appleheader[4] < (int)(sizeof(apple_media_types) / sizeof(apple_media_types[0])))
+          if (appleheader[4] < (sizeof(apple_media_types) / sizeof(apple_media_types[0])))
             strlcpy(r->header.MediaType, apple_media_types[appleheader[4]], sizeof(r->header.MediaType));
           else
             strlcpy(r->header.MediaType, "other", sizeof(r->header.MediaType));
@@ -1002,7 +1002,7 @@ _cupsRasterReadPixels(
  * '_cupsRasterWriteHeader()' - Write a raster page header.
  */
 
-unsigned				/* O - 1 on success, 0 on failure */
+int				/* O - 1 on success, 0 on failure */
 _cupsRasterWriteHeader(
     cups_raster_t *r)			/* I - Raster stream */
 {
@@ -1103,7 +1103,7 @@ _cupsRasterWriteHeader(
     * zeroed.
     */
 
-    int			i;		/* Looping var */
+    size_t			i;		/* Looping var */
     unsigned char	appleheader[32];/* Raw page header */
     unsigned		height = r->header.cupsHeight * r->rowheight;
 					/* Computed page height */
@@ -1154,7 +1154,7 @@ _cupsRasterWriteHeader(
     appleheader[22] = (unsigned char)(r->header.HWResolution[0] >> 8);
     appleheader[23] = (unsigned char)(r->header.HWResolution[0]);
 
-    for (i = 0; i < (int)(sizeof(apple_media_types) / sizeof(apple_media_types[0])); i ++)
+    for (i = 0; i < sizeof(apple_media_types) / sizeof(apple_media_types[0]); i ++)
     {
       if (!strcmp(r->header.MediaType, apple_media_types[i]))
       {
@@ -1216,10 +1216,7 @@ _cupsRasterWritePixels(
 
       if ((size_t)len > r->bufsize)
       {
-	if (r->buffer)
-	  bufptr = realloc(r->buffer, len);
-	else
-	  bufptr = malloc(len);
+	bufptr = realloc(r->buffer, len);
 
 	if (!bufptr)
 	  return (0);
@@ -1430,10 +1427,7 @@ cups_raster_read(cups_raster_t *r,	/* I - Raster stream */
     ssize_t end = r->bufend - r->buffer;/* Offset to current end of buffer */
     unsigned char *rptr;		/* Pointer in read buffer */
 
-    if (r->buffer)
-      rptr = realloc(r->buffer, (size_t)count);
-    else
-      rptr = malloc((size_t)count);
+    rptr = realloc(r->buffer, (size_t)count);
 
     if (!rptr)
       return (0);
@@ -1734,10 +1728,7 @@ cups_raster_write(
 
   if ((size_t)count > r->bufsize)
   {
-    if (r->buffer)
-      wptr = realloc(r->buffer, count);
-    else
-      wptr = malloc(count);
+    wptr = realloc(r->buffer, count);
 
     if (!wptr)
     {

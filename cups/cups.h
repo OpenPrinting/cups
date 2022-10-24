@@ -472,7 +472,7 @@ extern http_status_t	cupsWriteRequestData(http_t *http, const char *buffer,
 /**** New in CUPS 1.5/macOS 10.7 ****/
 extern void		cupsSetClientCertCB(cups_client_cert_cb_t cb,
 					    void *user_data) _CUPS_API_1_5;
-extern int		cupsSetCredentials(cups_array_t *certs) _CUPS_API_1_5;
+extern int		cupsSetCredentials(cups_array_t *credentials) _CUPS_API_1_5;
 extern void		cupsSetServerCertCB(cups_server_cert_cb_t cb,
 					    void *user_data) _CUPS_API_1_5;
 
@@ -609,7 +609,7 @@ extern int		cupsAddDestMediaOptions(http_t *http, cups_dest_t *dest, cups_dinfo_
 extern ipp_attribute_t	*cupsEncodeOption(ipp_t *ipp, ipp_tag_t group_tag, const char *name, const char *value) _CUPS_API_2_3;
 
 /* New in CUPS 2.4 */
-extern void		cupsSetOAuthCB(cups_oauth_cb_t cb, void *data) _CUPS_API_2_4;
+extern void		cupsSetOAuthCB(cups_oauth_cb_t cb, void *user_data) _CUPS_API_2_4;
 
 
 #  ifdef __cplusplus

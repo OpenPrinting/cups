@@ -71,7 +71,7 @@ typedef struct
  */
 
 static int		cleartomark_stack(_cups_ps_stack_t *st);
-static int		copy_stack(_cups_ps_stack_t *st, int count);
+static int		copy_stack(_cups_ps_stack_t *st, int c);
 static void		delete_stack(_cups_ps_stack_t *st);
 static void		error_object(_cups_ps_obj_t *obj);
 static void		error_stack(_cups_ps_stack_t *st, const char *title);
@@ -1388,7 +1388,7 @@ setpagedevice(
     cups_page_header2_t *h,		/* O - Page header */
     int                 *preferred_bits)/* O - Preferred bits per color */
 {
-  int			i;		/* Index into array */
+  size_t			i;		/* Index into array */
   _cups_ps_obj_t	*obj,		/* Current object */
 			*end;		/* End of dictionary */
   const char		*name;		/* Attribute name */
@@ -1561,21 +1561,21 @@ setpagedevice(
       h->cupsBorderlessScalingFactor = (float)obj->value.number;
     else if (!strncmp(name, "cupsInteger", 11) && obj->type == CUPS_PS_NUMBER)
     {
-      if ((i = atoi(name + 11)) < 0 || i > 15)
+      if ((i = (size_t)strtoul(name + 11, NULL, 10)) > 15)
         return (-1);
 
       h->cupsInteger[i] = (unsigned)obj->value.number;
     }
     else if (!strncmp(name, "cupsReal", 8) && obj->type == CUPS_PS_NUMBER)
     {
-      if ((i = atoi(name + 8)) < 0 || i > 15)
+      if ((i = (size_t)strtoul(name + 8, NULL, 10)) > 15)
         return (-1);
 
       h->cupsReal[i] = (float)obj->value.number;
     }
     else if (!strncmp(name, "cupsString", 10) && obj->type == CUPS_PS_STRING)
     {
-      if ((i = atoi(name + 10)) < 0 || i > 15)
+      if ((i = (size_t)strtoul(name + 10, NULL, 10)) > 15)
         return (-1);
 
       strlcpy(h->cupsString[i], obj->value.string, sizeof(h->cupsString[i]));

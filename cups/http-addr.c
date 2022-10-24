@@ -179,7 +179,7 @@ httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
   * Create the socket and set options...
   */
 
-  if ((fd = socket(addr->addr.sa_family, SOCK_STREAM, 0)) < 0)
+  if ((fd = (int)socket(addr->addr.sa_family, SOCK_STREAM, 0)) < 0)
   {
     _cupsSetHTTPError(HTTP_STATUS_ERROR);
     return (-1);
@@ -746,9 +746,7 @@ httpGetHostByName(const char *name)	/* I - Hostname or IP address */
     if (ip[0] > 255 || ip[1] > 255 || ip[2] > 255 || ip[3] > 255)
       return (NULL);			/* Invalid byte ranges! */
 
-    cg->ip_addr = htonl((((((((unsigned)ip[0] << 8) | (unsigned)ip[1]) << 8) |
-                           (unsigned)ip[2]) << 8) |
-                         (unsigned)ip[3]));
+    cg->ip_addr = htonl((ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3]);
 
    /*
     * Fill in the host entry and return it...

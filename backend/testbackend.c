@@ -137,7 +137,7 @@ main(int  argc,				/* I - Number of command-line args */
       usage();
 
   argc -= first_arg;
-  if (argc < 6 || argc > 7 || (argc == 7 && do_trickle))
+  if ((argc != 6 && argc != 7) || (argc == 7 && do_trickle))
     usage();
 
  /*
@@ -561,12 +561,12 @@ main(int  argc,				/* I - Number of command-line args */
       length   = sizeof(buffer);
       scstatus = cupsSideChannelSNMPGet(oid, buffer, &length, 5.0);
       printf("CUPS_SC_CMD_SNMP_GET %s returned %s, %d bytes (%s)\n", oid,
-	     statuses[scstatus], (int)length, buffer);
+	     statuses[scstatus], length, buffer);
 
       length   = sizeof(buffer);
       scstatus = cupsSideChannelSNMPGet(oid, buffer, &length, 5.0);
       printf("CUPS_SC_CMD_SNMP_GET %s returned %s, %d bytes (%s)\n", oid,
-	     statuses[scstatus], (int)length, buffer);
+	     statuses[scstatus], length, buffer);
     }
 
     length   = 0;

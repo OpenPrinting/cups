@@ -272,7 +272,7 @@ write_test(int         fd,		/* I - File descriptor to write to */
          x < sizeof(data[0]);
          x ++, count --)
     {
-      if (count <= 0)
+      if (count == 0)
       {
 	x     += (CUPS_RAND() & 15) + 1;
 	count = (CUPS_RAND() & 15) + 1;

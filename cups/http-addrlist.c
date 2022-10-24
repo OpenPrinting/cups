@@ -59,18 +59,17 @@ httpAddrConnect2(
 {
   int			val;		/* Socket option value */
 #ifndef _WIN32
-  int			i, j,		/* Looping vars */
-			flags,		/* Socket flags */
+  size_t			i, j;      /* Looping vars */
+  int			flags,		/* Socket flags */
 			result;		/* Result from select() or poll() */
 #endif /* !_WIN32 */
   int			remaining;	/* Remaining timeout */
-  int			nfds,		/* Number of file descriptors */
-			fds[100];	/* Socket file descriptors */
+  size_t			nfds;		/* Number of file descriptors */
+	int			fds[100];	  /* Socket file descriptors */
   http_addrlist_t	*addrs[100];	/* Addresses */
 #ifndef HAVE_POLL
   int			max_fd = -1;	/* Highest file descriptor */
 #endif /* !HAVE_POLL */
-#ifdef O_NONBLOCK
 #  ifdef HAVE_POLL
   struct pollfd		pfds[100];	/* Polled file descriptors */
 #  else
@@ -79,7 +78,6 @@ httpAddrConnect2(
 			error_set;	/* select() error set */
   struct timeval	timeout;	/* Timeout */
 #  endif /* HAVE_POLL */
-#endif /* O_NONBLOCK */
 #ifdef DEBUG
 #  ifndef _WIN32
   socklen_t		len;		/* Length of value */
@@ -117,16 +115,15 @@ httpAddrConnect2(
   {
     if (cancel && *cancel)
     {
-      while (nfds > 0)
+      while (nfds)
       {
-        nfds --;
-	httpAddrClose(NULL, fds[nfds]);
+	httpAddrClose(NULL, fds[-- nfds]);
       }
 
       return (NULL);
     }
 
-    if (addrlist && nfds < (int)(sizeof(fds) / sizeof(fds[0])))
+    if (addrlist && nfds < (sizeof(fds) / sizeof(fds[0])))
     {
      /*
       * Create the socket...
@@ -205,10 +202,9 @@ httpAddrConnect2(
 
 	*sock = fds[nfds];
 
-	while (nfds > 0)
+	while (nfds)
 	{
-	  nfds --;
-	  httpAddrClose(NULL, fds[nfds]);
+	  httpAddrClose(NULL, fds[-- nfds]);
 	}
 
 	return (addrlist);
@@ -234,13 +230,10 @@ httpAddrConnect2(
       if (fds[nfds] > max_fd)
 	max_fd = fds[nfds];
 #endif /* !HAVE_POLL */
-
-      addrs[nfds] = addrlist;
-      nfds ++;
+      addrs[nfds++] = addrlist;
       addrlist = addrlist->next;
     }
-
-    if (!addrlist && nfds == 0)
+    else if (!addrlist && nfds == 0)
     {
 #ifdef _WIN32
       errno = WSAEHOSTDOWN;
@@ -267,10 +260,9 @@ httpAddrConnect2(
 
 	DEBUG_puts("1httpAddrConnect2: Canceled connect()");
 
-	while (nfds > 0)
+	while (nfds)
 	{
-	  nfds --;
-	  httpAddrClose(NULL, fds[nfds]);
+	  httpAddrClose(NULL, fds[-- nfds]);
 	}
 
 	*sock = -1;
@@ -317,7 +309,7 @@ httpAddrConnect2(
       for (i = 0; i < nfds; i ++)
       {
 #  ifdef HAVE_POLL
-	DEBUG_printf(("pfds[%d].revents=%x\n", i, pfds[i].revents));
+	DEBUG_printf(("pfds[%u].revents=%x\n", (unsigned)i, pfds[i].revents));
 	if (pfds[i].revents && !(pfds[i].revents & (POLLERR | POLLHUP)))
 #  else
 	if (FD_ISSET(fds[i], &input_set) && !FD_ISSET(fds[i], &error_set))
@@ -394,10 +386,9 @@ httpAddrConnect2(
   if (remaining <= 0)
     errno = ETIMEDOUT;
 
-  while (nfds > 0)
+  while (nfds)
   {
-    nfds --;
-    httpAddrClose(NULL, fds[nfds]);
+    httpAddrClose(NULL, fds[-- nfds]);
   }
 
 #ifdef _WIN32
@@ -503,7 +494,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 			*temp;		/* New address */
   char			ipv6[64],	/* IPv6 address */
 			*ipv6zone;	/* Pointer to zone separator */
-  int			ipv6len;	/* Length of IPv6 address */
+  size_t			ipv6len;	/* Length of IPv6 address */
   _cups_globals_t	*cg = _cupsGlobals();
 					/* Global data */
 
@@ -598,9 +589,9 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 	*/
 
 	strlcpy(ipv6, hostname + 4, sizeof(ipv6));
-	if ((ipv6len = (int)strlen(ipv6) - 1) >= 0 && ipv6[ipv6len] == ']')
+	if ((ipv6len = strlen(ipv6)) != 0 && ipv6[ipv6len - 1] == ']')
 	{
-          ipv6[ipv6len] = '\0';
+          ipv6[ipv6len - 1] = '\0';
 	  hostname      = ipv6;
 
          /*
@@ -618,9 +609,9 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 	*/
 
 	strlcpy(ipv6, hostname + 1, sizeof(ipv6));
-	if ((ipv6len = (int)strlen(ipv6) - 1) >= 0 && ipv6[ipv6len] == ']')
+	if ((ipv6len = strlen(ipv6)) != 0 && ipv6[ipv6len - 1] == ']')
 	{
-          ipv6[ipv6len] = '\0';
+          ipv6[ipv6len - 1] = '\0';
 	  hostname      = ipv6;
 	}
       }
@@ -689,7 +680,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 #else
     if (hostname)
     {
-      int		i;		/* Looping vars */
+      size_t		i;		/* Looping var */
       unsigned		ip[4];		/* IPv4 address components */
       const char	*ptr;		/* Pointer into hostname */
       struct hostent	*host;		/* Result of lookup */
@@ -745,13 +736,10 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 	  if (!first)
 	    return (NULL);
 
-          first->addr.ipv4.sin_family = AF_INET;
-          first->addr.ipv4.sin_addr.s_addr = htonl((((((((unsigned)ip[0] << 8) |
-	                                               (unsigned)ip[1]) << 8) |
-						     (unsigned)ip[2]) << 8) |
-						   (unsigned)ip[3]));
-          first->addr.ipv4.sin_port = htons(portnum);
-	}
+    first->addr.ipv4.sin_family = AF_INET;
+    first->addr.ipv4.sin_addr.s_addr = htonl((ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3]);
+    first->addr.ipv4.sin_port = htons(portnum);
+  }
       }
       else if ((host = gethostbyname(hostname)) != NULL &&
 #  ifdef AF_INET6

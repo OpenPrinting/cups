@@ -1321,7 +1321,7 @@ try_connect(http_addr_t *addr,		/* I - Socket address */
   debug_printf("DEBUG: %.3f Trying %s://%s:%d...\n", run_time(),
                port == 515 ? "lpd" : "socket", addrname, port);
 
-  if ((fd = socket(httpAddrFamily(addr), SOCK_STREAM, 0)) < 0)
+  if ((fd = (int)socket(httpAddrFamily(addr), SOCK_STREAM, 0)) < 0)
   {
     fprintf(stderr, "ERROR: Unable to create socket: %s\n",
             strerror(errno));

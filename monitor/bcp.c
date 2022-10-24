@@ -42,7 +42,7 @@ main(int  argc,				/* I - Number of command-line args */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
     _cupsLangPrintf(stderr,
                     _("Usage: %s job-id user title copies options [file]"),

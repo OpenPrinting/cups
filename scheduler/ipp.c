@@ -1165,11 +1165,21 @@ add_file(cupsd_client_t *con,		/* I - Connection to client */
 
   if (compressions)
     job->compressions = compressions;
+  else
+  {
+    cupsdSetJobState(job, IPP_JOB_ABORTED, CUPSD_JOB_PURGE,
+                     "Job aborted because the scheduler ran out of memory.");
+
+    if (con)
+      send_ipp_status(con, IPP_INTERNAL_ERROR,
+                      _("Unable to allocate memory for file types."));
+
+    return (-1);
+  }
 
   if (filetypes)
     job->filetypes = filetypes;
-
-  if (!compressions || !filetypes)
+  else
   {
     cupsdSetJobState(job, IPP_JOB_ABORTED, CUPSD_JOB_PURGE,
                      "Job aborted because the scheduler ran out of memory.");
@@ -1524,7 +1534,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   {
     if ((val = cupsGetOption("job-priority", printer->num_options,
                              printer->options)) != NULL)
-      priority = atoi(val);
+      priority = (int)strtol(val, NULL, 10);
     else
       priority = 50;
 
@@ -3048,7 +3058,7 @@ authenticate_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -3510,7 +3520,7 @@ cancel_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -6406,7 +6416,7 @@ get_document(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -6553,7 +6563,7 @@ get_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -8067,7 +8077,7 @@ hold_job(cupsd_client_t  *con,		/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -8343,7 +8353,7 @@ move_job(cupsd_client_t  *con,		/* I - Client connection */
     * See if the job exists...
     */
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
 
     if ((job = cupsdFindJob(jobid)) == NULL)
     {
@@ -9209,7 +9219,7 @@ release_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -9433,7 +9443,7 @@ restart_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -9784,7 +9794,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*
@@ -10397,7 +10407,7 @@ set_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    jobid = atoi(resource + 6);
+    jobid = (int)strtol(resource + 6, NULL, 10);
   }
 
  /*

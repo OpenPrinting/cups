@@ -202,7 +202,7 @@ int opts;			/* may not match f1 */
 	int err;
 	size_t len;
 	char *type = (opts & REG_EXTENDED) ? "ERE" : "BRE";
-	int i;
+	unsigned int i;
 	char *grump;
 	char f0copy[1000];
 	char f2copy[1000];
@@ -214,9 +214,9 @@ int opts;			/* may not match f1 */
 	if (err != 0 && (!opt('C', f1) || err != efind(f2))) {
 		/* unexpected error or wrong error */
 		len = regerror(err, &re, erbuf, sizeof(erbuf));
-		fprintf(stderr, "%d: %s error %s, %lu/%d `%s'\n",
+		fprintf(stderr, "%d: %s error %s, %lu/%u `%s'\n",
 				line, type, eprint(err), (unsigned long)len,
-				(int)sizeof(erbuf), erbuf);
+				(unsigned int)sizeof(erbuf), erbuf);
 		status = 1;
 	} else if (err == 0 && opt('C', f1)) {
 		/* unexpected success */
@@ -245,9 +245,9 @@ int opts;			/* may not match f1 */
 	if (err != 0 && (f3 != NULL || err != REG_NOMATCH)) {
 		/* unexpected error or wrong error */
 		len = regerror(err, &re, erbuf, sizeof(erbuf));
-		fprintf(stderr, "%d: %s exec error %s, %lu/%d `%s'\n",
+		fprintf(stderr, "%d: %s exec error %s, %lu/%u `%s'\n",
 				line, type, eprint(err), (unsigned long)len,
-				(int)sizeof(erbuf), erbuf);
+				(unsigned int)sizeof(erbuf), erbuf);
 		status = 1;
 	} else if (err != 0) {
 		/* nothing more to check */
@@ -280,7 +280,7 @@ int opts;			/* may not match f1 */
 	for (i = 1; i < NSUBS; i++) {
 		grump = check(f2, subs[i], should[i]);
 		if (grump != NULL) {
-			fprintf(stderr, "%d: %s $%d %s\n", line,
+			fprintf(stderr, "%d: %s $%u %s\n", line,
 							type, i, grump);
 			status = 1;
 			err = 1;
@@ -316,8 +316,7 @@ char *argv[];
 						fprintf(stderr, "option requires an argument -- '%c'\n", opt);
 						exit(2);
 					}
-					arg = argv[i+1];
-					i++;
+					arg = argv[++i];
 				}
 				switch (opt) {
 				case 'c':
@@ -330,10 +329,10 @@ char *argv[];
 					fopts = arg;
 					break;
 				case 'S':
-					startoff = (regoff_t)atoi(arg);
+					startoff = (regoff_t)strtol(arg, NULL, 10);
 					break;
 				case 'E':
-					endoff = (regoff_t)atoi(arg);
+					endoff = (regoff_t)strtol(arg, NULL, 10);
 					break;
 				default:
 					fprintf(stderr, "usage: %s ", argv[0]);
@@ -444,7 +443,7 @@ char *str;
 regmatch_t sub;
 char *should;
 {
-	int len;
+	regoff_t len;
 	size_t shlen;
 	char *p;
 	static char grump[500];
@@ -480,7 +479,7 @@ char *should;
 		return(grump);
 	}
 
-	len = (int)(sub.rm_eo - sub.rm_so);
+	len = sub.rm_eo - sub.rm_so;
 	p = str + sub.rm_so;
 
 	/* check for not supposed to match */
@@ -490,6 +489,7 @@ char *should;
 	}
 
 	shlen = strlen(should);
+
 	/* check for wrong match */
 	if ((size_t)len != shlen || strncmp(p, should, shlen) != 0) {
 		sprintf(grump, "matched `%.*s' instead", len, p);

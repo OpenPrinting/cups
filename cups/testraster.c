@@ -381,7 +381,7 @@ do_raster_tests(cups_mode_t mode)	/* O - Write mode */
 
       if (data[0] != 0 || memcmp(data, data + 1, header.cupsBytesPerLine - 1))
       {
-        printf("FAIL (raster line %d corrupt)\n", y);
+        printf("FAIL (raster line %u corrupt)\n", y);
 
 	for (x = 0, count = 0; x < header.cupsBytesPerLine && count < 10; x ++)
         {
@@ -451,7 +451,7 @@ do_raster_tests(cups_mode_t mode)	/* O - Write mode */
 
 	  if (data[0] != 255 || memcmp(data, data + 1, header.cupsBytesPerLine - 1))
           {
-	    printf("fail (raster line %d corrupt)\n", y + 128);
+	    printf("fail (raster line %u corrupt)\n", y + 128);
 
 	    for (x = 0, count = 0; x < header.cupsBytesPerLine && count < 10; x ++)
 	    {
@@ -488,7 +488,7 @@ do_raster_tests(cups_mode_t mode)	/* O - Write mode */
 
 	    if (x < header.cupsBytesPerLine)
             {
-	      printf("FAIL (raster line %d corrupt)\n", y + 192);
+	      printf("FAIL (raster line %u corrupt)\n", y + 192);
 
 	      for (x = 0, count = 0; x < header.cupsBytesPerLine && count < 10; x ++)
 	      {
@@ -551,7 +551,7 @@ print_changes(
            expected->OutputType);
 
   if (header->AdvanceDistance != expected->AdvanceDistance)
-    printf("    AdvanceDistance %d, expected %d\n", header->AdvanceDistance,
+    printf("    AdvanceDistance %u, expected %u\n", header->AdvanceDistance,
            expected->AdvanceDistance);
 
   if (header->AdvanceMedia != expected->AdvanceMedia)
@@ -578,7 +578,7 @@ print_changes(
 
   if (memcmp(header->ImagingBoundingBox, expected->ImagingBoundingBox,
              sizeof(header->ImagingBoundingBox)))
-    printf("    ImagingBoundingBox [%d %d %d %d], expected [%d %d %d %d]\n",
+    printf("    ImagingBoundingBox [%u %u %u %u], expected [%u %u %u %u]\n",
            header->ImagingBoundingBox[0],
            header->ImagingBoundingBox[1],
            header->ImagingBoundingBox[2],
@@ -602,7 +602,7 @@ print_changes(
 
   if (header->Margins[0] != expected->Margins[0] ||
       header->Margins[1] != expected->Margins[1])
-    printf("    Margins [%d %d], expected [%d %d]\n",
+    printf("    Margins [%u %u], expected [%u %u]\n",
            header->Margins[0], header->Margins[1],
            expected->Margins[0], expected->Margins[1]);
 
@@ -611,11 +611,11 @@ print_changes(
            expected->ManualFeed);
 
   if (header->MediaPosition != expected->MediaPosition)
-    printf("    MediaPosition %d, expected %d\n", header->MediaPosition,
+    printf("    MediaPosition %u, expected %u\n", header->MediaPosition,
            expected->MediaPosition);
 
   if (header->MediaWeight != expected->MediaWeight)
-    printf("    MediaWeight %d, expected %d\n", header->MediaWeight,
+    printf("    MediaWeight %u, expected %u\n", header->MediaWeight,
            expected->MediaWeight);
 
   if (header->MirrorPrint != expected->MirrorPrint)
@@ -661,7 +661,7 @@ print_changes(
            expected->cupsWidth);
 
   if (header->cupsHeight != expected->cupsHeight)
-    printf("    cupsHeight %d, expected %d\n", header->cupsHeight,
+    printf("    cupsHeight %u, expected %u\n", header->cupsHeight,
            expected->cupsHeight);
 
   if (header->cupsMediaType != expected->cupsMediaType)
@@ -669,11 +669,11 @@ print_changes(
            expected->cupsMediaType);
 
   if (header->cupsBitsPerColor != expected->cupsBitsPerColor)
-    printf("    cupsBitsPerColor %d, expected %d\n", header->cupsBitsPerColor,
+    printf("    cupsBitsPerColor %u, expected %u\n", header->cupsBitsPerColor,
            expected->cupsBitsPerColor);
 
   if (header->cupsBitsPerPixel != expected->cupsBitsPerPixel)
-    printf("    cupsBitsPerPixel %d, expected %d\n", header->cupsBitsPerPixel,
+    printf("    cupsBitsPerPixel %u, expected %u\n", header->cupsBitsPerPixel,
            expected->cupsBitsPerPixel);
 
   if (header->cupsBytesPerLine != expected->cupsBytesPerLine)
@@ -689,11 +689,11 @@ print_changes(
            expected->cupsColorSpace);
 
   if (header->cupsCompression != expected->cupsCompression)
-    printf("    cupsCompression %d, expected %d\n", header->cupsCompression,
+    printf("    cupsCompression %u, expected %u\n", header->cupsCompression,
            expected->cupsCompression);
 
   if (header->cupsRowCount != expected->cupsRowCount)
-    printf("    cupsRowCount %d, expected %d\n", header->cupsRowCount,
+    printf("    cupsRowCount %u, expected %u\n", header->cupsRowCount,
            expected->cupsRowCount);
 
   if (header->cupsRowFeed != expected->cupsRowFeed)
@@ -701,11 +701,11 @@ print_changes(
            expected->cupsRowFeed);
 
   if (header->cupsRowStep != expected->cupsRowStep)
-    printf("    cupsRowStep %d, expected %d\n", header->cupsRowStep,
+    printf("    cupsRowStep %u, expected %u\n", header->cupsRowStep,
            expected->cupsRowStep);
 
   if (header->cupsNumColors != expected->cupsNumColors)
-    printf("    cupsNumColors %d, expected %d\n", header->cupsNumColors,
+    printf("    cupsNumColors %u, expected %u\n", header->cupsNumColors,
            expected->cupsNumColors);
 
   if (fabs(header->cupsBorderlessScalingFactor - expected->cupsBorderlessScalingFactor) > 0.001)

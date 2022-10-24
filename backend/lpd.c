@@ -165,7 +165,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
            _cupsLangString(cupsLangDefault(), _("LPD/LPR Host or Printer")));
     return (CUPS_BACKEND_OK);
   }
-  else if (argc < 6 || argc > 7)
+  else if (argc != 6 && argc != 7)
   {
     _cupsLangPrintf(stderr,
                     _("Usage: %s job-id user title copies options [file]"),
@@ -377,21 +377,23 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
       }
       else if (!_cups_strcasecmp(name, "timeout"))
       {
+        int value_int = atoi(value);
        /*
         * Set the timeout...
 	*/
 
-	if (atoi(value) > 0)
-	  timeout = atoi(value);
+	if (value_int > 0)
+	  timeout = value_int;
       }
       else if (!_cups_strcasecmp(name, "contimeout"))
       {
+        int value_int = atoi(value);
        /*
         * Set the connection timeout...
 	*/
 
-	if (atoi(value) > 0)
-	  contimeout = atoi(value);
+	if (value_int > 0)
+	  contimeout = value_int;
       }
     }
   }
@@ -1019,7 +1021,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
     while (copies > 0)
     {
       snprintf(cptr, sizeof(control) - (size_t)(cptr - control), "%cdfA%03d%.15s\n",
-               format, (int)getpid() % 1000, localhost);
+               format, (int)(getpid() % 1000), localhost);
       cptr   += strlen(cptr);
       copies --;
     }
@@ -1044,7 +1046,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       */
 
       if (lpd_command(fd, "\002%d cfA%03d%.15s\n", (int)strlen(control),
-                      (int)getpid() % 1000, localhost))
+                      (int)(getpid() % 1000), localhost))
       {
 	close(fd);
 
@@ -1177,7 +1179,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       */
 
       if (lpd_command(fd, "\002%d cfA%03d%.15s\n", (int)strlen(control),
-                      (int)getpid() % 1000, localhost))
+                      (int)(getpid() % 1000), localhost))
       {
 	close(fd);
 

@@ -43,7 +43,7 @@ typedef struct				/**** Form variable structure ****/
 
 static int		num_cookies = 0;/* Number of cookies */
 static cups_option_t	*cookies = NULL;/* Cookies */
-static int		form_count = 0,	/* Form variable count */
+static unsigned		form_count = 0,	/* Form variable count */
 			form_alloc = 0;	/* Number of variables allocated */
 static _cgi_var_t	*form_vars = NULL;
 					/* Form variables */
@@ -133,7 +133,7 @@ cgiCheckVariables(const char *names)	/* I - Variables to look for */
 void
 cgiClearVariables(void)
 {
-  int		i, j;			/* Looping vars */
+  unsigned		i, j;			/* Looping vars */
   _cgi_var_t	*v;			/* Current variable */
 
 
@@ -542,8 +542,7 @@ cgi_add_variable(const char *name,	/* I - Variable name */
 
   if (form_count >= form_alloc)
   {
-    _cgi_var_t	*temp_vars;		/* Temporary form pointer */
-
+    _cgi_var_t *temp_vars; /* Temporary form pointer */
 
     if (form_alloc == 0)
       temp_vars = malloc(sizeof(_cgi_var_t) * 16);
@@ -553,14 +552,27 @@ cgi_add_variable(const char *name,	/* I - Variable name */
     if (!temp_vars)
       return;
 
-    form_vars  = temp_vars;
+    var = temp_vars + form_count;
+
+    if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
+    {
+      /* Rollback changes*/
+      if (form_alloc == 0)
+        free(temp_vars);
+      return;
+    }
+    form_vars = temp_vars;
     form_alloc += 16;
   }
+  else
+  {
+    var = form_vars + form_count;
 
-  var = form_vars + form_count;
-
-  if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
-    return;
+    if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
+    {
+      return;
+    }
+  }
 
   var->name            = strdup(name);
   var->nvalues         = element + 1;
@@ -594,7 +606,7 @@ cgi_find_variable(const char *name)	/* I - Name of variable */
   _cgi_var_t	key;			/* Search key */
 
 
-  if (form_count < 1 || name == NULL)
+  if (form_count == 0 || name == NULL)
     return (NULL);
 
   key.name = (char *)name;
@@ -982,7 +994,7 @@ cgi_initialize_post(void)
   * Get the length of the input stream and allocate a buffer for it...
   */
 
-  length = (size_t)strtol(content_length, NULL, 10);
+  length = (size_t)strtoul(content_length, NULL, 10);
   data   = malloc(length + 1);		// lgtm [cpp/uncontrolled-allocation-size]
 
   if (data == NULL)

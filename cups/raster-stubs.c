@@ -156,7 +156,7 @@ cupsRasterOpenIO(
  * @deprecated@
  */
 
-unsigned				/* O - 1 on success, 0 on failure/end-of-file */
+int				/* O - 1 on success, 0 on failure/end-of-file */
 cupsRasterReadHeader(
     cups_raster_t      *r,		/* I - Raster stream */
     cups_page_header_t *h)		/* I - Pointer to header data */
@@ -238,7 +238,7 @@ cupsRasterReadPixels(
  * @deprecated@
  */
 
-unsigned				/* O - 1 on success, 0 on failure */
+int				/* O - 1 on success, 0 on failure */
 cupsRasterWriteHeader(
     cups_raster_t      *r,		/* I - Raster stream */
     cups_page_header_t *h)		/* I - Raster page header */

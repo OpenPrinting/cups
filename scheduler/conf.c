@@ -1948,8 +1948,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
     * Merge everything into a 32-bit IPv4 address in ip[3]...
     */
 
-    ip[3] = ((((((unsigned)val[0] << 8) | (unsigned)val[1]) << 8) |
-             (unsigned)val[2]) << 8) | (unsigned)val[3];
+    ip[3] = (val[0] << 24) | (val[1] << 16) | (val[2] << 8) | val[3];
 
     if (ipcount < 4)
       mask[3] = (0xffffffff << (32 - 8 * ipcount)) & 0xffffffff;
@@ -1976,8 +1975,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
                  mask + 3) != 4)
         return (0);
 
-      mask[3] |= (((((unsigned)mask[0] << 8) | (unsigned)mask[1]) << 8) |
-                  (unsigned)mask[2]) << 8;
+      mask[3] |= (mask[0] << 24) | (mask[1] << 16) | (mask[2] << 8);
       mask[0] = mask[1] = mask[2] = 0;
     }
     else
@@ -3897,10 +3895,10 @@ read_policy(cups_file_t *fp,		/* I - Configuration file */
             char        *policy,	/* I - Location name/path */
 	    int         linenum)	/* I - Current line number */
 {
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
   cupsd_policy_t	*pol;		/* Policy */
   cupsd_location_t	*op;		/* Policy operation */
-  int			num_ops;	/* Number of IPP operations */
+  size_t			num_ops;	/* Number of IPP operations */
   ipp_op_t		ops[100];	/* Operations */
   char			line[HTTP_MAX_BUFFER],
 					/* Line buffer */
@@ -3966,7 +3964,7 @@ read_policy(cups_file_t *fp,		/* I - Configuration file */
 	if (*valptr)
 	  *valptr++ = '\0';
 
-        if (num_ops < (int)(sizeof(ops) / sizeof(ops[0])))
+        if (num_ops < (sizeof(ops) / sizeof(ops[0])))
 	{
 	  if (!_cups_strcasecmp(value, "All"))
 	    ops[num_ops ++] = IPP_ANY_OPERATION;

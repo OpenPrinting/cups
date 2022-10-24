@@ -344,7 +344,7 @@ print_device(const char *uri,		/* I - Device URI */
   int		  have_sidechannel = 0;	/* Was the side-channel thread started? */
   struct stat     sidechannel_info;	/* Side-channel file descriptor info */
   char		  print_buffer[8192],	/* Print data buffer */
-		  *print_ptr;		/* Pointer into print data buffer */
+		  *print_ptr = NULL;		/* Pointer into print data buffer */
   UInt32	  location;		/* Unique location in bus topology */
   fd_set	  input_set;		/* Input set for select() */
   CFStringRef	  driverBundlePath;	/* Class driver path */
@@ -563,9 +563,8 @@ print_device(const char *uri,		/* I - Device URI */
   g.drain_output = 0;
   g.print_bytes	 = 0;
   total_bytes	 = 0;
-  print_ptr	 = print_buffer;
 
-  while (status == noErr && copies-- > 0)
+  for  (; status == noErr && copies > 0; copies--)
   {
     _cupsLangPrintFilter(stderr, "INFO", _("Sending data to printer."));
 
@@ -1749,7 +1748,8 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	UInt8 description[256]; // Max possible descriptor length
 	IOUSBDevRequestTO	request;
 
-	memset(description, 0, 2);
+  description[0] = 0;
+  description[1] = 0;
 
 	request.bmRequestType = USBmakebmRequestType(kUSBIn, kUSBStandard, kUSBDevice);
 	request.bRequest = kUSBRqGetDescriptor;
@@ -1784,7 +1784,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 			return NULL;
 	}
 
-	unsigned int length = description[0];
+	UInt8 length = description[0];
 	if (length == 0)
 		return CFStringCreateWithCString(NULL, "", kCFStringEncodingUTF8);
 
@@ -1812,19 +1812,13 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	if ((description[0] & 1) != 0)
 		description[0] &= 0xfe;
 
-	char buffer[258] = {0};
-	unsigned int maxLength = sizeof buffer;
+	char buffer[258] = {0}; // No need to end terminate since we zeroed this out
 	if (description[0] > 1)
 	{
 		length = (description[0]-2)/2;
 
-		if (length > maxLength - 1)
-			length = maxLength -1;
-
-		for (unsigned i = 0; i < length; i++)
+		for (size_t i = 0; i < length; i++)
 			buffer[i] = (char) description[2*i+2];
-
-		buffer[length] = 0;
 	}
 
 	return CFStringCreateWithCString(NULL, buffer, kCFStringEncodingUTF8);

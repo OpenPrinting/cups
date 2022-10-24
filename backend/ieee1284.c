@@ -46,7 +46,6 @@ backendGetDeviceID(
 
 #else /* Get the device ID from the specified file descriptor... */
 #  ifdef __linux
-  int	length;				/* Length of device ID info */
   int   got_id = 0;
 #  endif /* __linux */
 #  if defined(__sun) && defined(ECPPIOC_GETDEVID)
@@ -127,6 +126,7 @@ backendGetDeviceID(
 	       /*
 		* Read the 1284 device ID...
 		*/
+	       ssize_t length;				/* Length of device ID info */
 
 		if ((length = read(devparportfd, device_id, (size_t)device_id_size - 1)) >= 2)
 		{
@@ -156,8 +156,9 @@ backendGetDeviceID(
       * Extract the length of the device ID string from the first two
       * bytes.  The 1284 spec says the length is stored MSB first...
       */
+	size_t	length;				/* Length of device ID info */
 
-      length = (int)((((unsigned)device_id[0] & 255) << 8) + ((unsigned)device_id[1] & 255));
+      length = (((unsigned)device_id[0] & 255) << 8) | ((unsigned)device_id[1] & 255);
 
      /*
       * Check to see if the length is larger than our buffer; first
@@ -166,7 +167,7 @@ backendGetDeviceID(
       */
 
       if (length > device_id_size || length < 14)
-	length = (int)((((unsigned)device_id[1] & 255) << 8) + ((unsigned)device_id[0] & 255));
+	length = (((unsigned)device_id[1] & 255) << 8) | ((unsigned)device_id[0] & 255);
 
       if (length > device_id_size)
 	length = device_id_size;
@@ -410,23 +411,23 @@ backendGetMakeModel(
     if (strlen(des) >= 8)
     {
       const char	*ptr;		/* Pointer into description */
-      int		letters,	/* Number of letters seen */
-			spaces;		/* Number of spaces seen */
+      int		letter_seen = 0,	/* Letters seen? */
+			space_seen = 0;		/* Spaces seen? */
 
 
-      for (ptr = des, letters = 0, spaces = 0; *ptr; ptr ++)
+      for (ptr = des; *ptr; ptr ++)
       {
 	if (isspace(*ptr & 255))
-	  spaces ++;
+	  space_seen = 1;
 	else if (isalpha(*ptr & 255))
-	  letters ++;
+	  letter_seen = 1;
 
-	if (spaces && letters)
-	  break;
-      }
-
-      if (spaces && letters)
-        _ppdNormalizeMakeAndModel(des, make_model, make_model_size);
+	if (space_seen && letter_seen)
+  {
+     _ppdNormalizeMakeAndModel(des, make_model, make_model_size);
+     break;
+  }
+      }       
     }
   }
 

@@ -472,7 +472,7 @@ cupsdStartProcess(
     cupsd_job_t *job,			/* I - Job associated with process */
     int         *pid)			/* O - Process ID */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   const char	*exec_path = command;	/* Command to be exec'd */
   char		*real_argv[110],	/* Real command-line arguments */
 		cups_exec[1024],	/* Path to "cups-exec" program */
@@ -489,9 +489,9 @@ cupsdStartProcess(
   struct sigaction action;		/* POSIX signal handler */
 #endif /* USE_POSIX_SPAWN */
 #if defined(__APPLE__)
-  char		processPath[1024],	/* CFProcessPath environment variable */
-		linkpath[1024];		/* Link path for symlinks... */
-  int		linkbytes;		/* Bytes for link path */
+  char processPath[1024], /* CFProcessPath environment variable */
+      linkpath[1024];     /* Link path for symlinks... */
+  ssize_t linkbytes;      /* Bytes for link path */
 #endif /* __APPLE__ */
 
 
@@ -567,11 +567,15 @@ cupsdStartProcess(
     real_argv[4] = nice_str;
     real_argv[5] = (char *)"-u";
     real_argv[6] = user_str;
-    real_argv[7] = profile ? profile : "none";
+#if !USE_POSIX_SPAWN
+    real_argv[7] = profile;
+#else
+    real_argv[7] = "none";
+#endif /* !USE_POSIX_SPAWN */
     real_argv[8] = (char *)command;
 
     for (i = 0;
-         i < (int)(sizeof(real_argv) / sizeof(real_argv[0]) - 10) && argv[i];
+         i < (sizeof(real_argv) / sizeof(real_argv[0]) - 10) && argv[i];
 	 i ++)
       real_argv[i + 9] = argv[i];
 
@@ -586,7 +590,7 @@ cupsdStartProcess(
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdStartProcess: Preparing to start \"%s\", arguments:", command);
 
     for (i = 0; argv[i]; i ++)
-      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdStartProcess: argv[%d] = \"%s\"", i, argv[i]);
+      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdStartProcess: argv[%lu] = \"%s\"", (unsigned long)i, argv[i]);
   }
 
 #if USE_POSIX_SPAWN

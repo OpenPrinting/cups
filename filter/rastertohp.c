@@ -568,7 +568,7 @@ OutputLine(cups_page_header2_t *header)	/* I - Page header */
 
   if (Feed > 0)
   {
-    printf("\033*b%dY", Feed);
+    printf("\033*b%uY", Feed);
     Feed = 0;
   }
 
@@ -657,7 +657,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
    /*
     * We don't have the correct number of arguments; write an error message

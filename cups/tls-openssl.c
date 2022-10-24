@@ -1074,7 +1074,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     {
       DEBUG_printf(("4_httpTLSStart: Auto-create credentials for \"%s\".", cn));
 
-      if (!cupsMakeServerCredentials(tls_keypath, cn, 0, NULL, time(NULL) + 3650 * 86400))
+      if (!cupsMakeServerCredentials(tls_keypath, cn, 0, NULL, time(NULL) + (time_t)3650 * 86400))
       {
 	DEBUG_puts("4_httpTLSStart: cupsMakeServerCredentials failed.");
 	http->error  = errno = EINVAL;

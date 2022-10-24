@@ -591,10 +591,11 @@ _cupsGet1284Values(
       ptr --;
 
     *ptr = '\0';
-    device_id ++;
 
-    while (_cups_isspace(*device_id))
+    do
+    {
       device_id ++;
+    } while (_cups_isspace(*device_id));
 
     if (!*device_id)
       break;

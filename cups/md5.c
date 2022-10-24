@@ -128,11 +128,11 @@ _cups_md5_process(_cups_md5_state_t *pms, const unsigned char *data /*[64]*/)
      */
     unsigned int X[16];
     const unsigned char *xp = data;
-    int i;
+    unsigned int i;
 
     for (i = 0; i < 16; ++i, xp += 4)
-	X[i] = (unsigned)xp[0] + ((unsigned)xp[1] << 8) +
-	       ((unsigned)xp[2] << 16) + ((unsigned)xp[3] << 24);
+	X[i] = (unsigned)xp[0] | ((unsigned)xp[1] << 8) |
+	       ((unsigned)xp[2] << 16) | ((unsigned)xp[3] << 24);
 
 #  else  /* !ARCH_IS_BIG_ENDIAN */
 
@@ -143,7 +143,7 @@ _cups_md5_process(_cups_md5_state_t *pms, const unsigned char *data /*[64]*/)
     unsigned int xbuf[16];
     const unsigned int *X;
 
-    if (!((data - (const unsigned char *)0) & 3)) {
+    if (!(data & 3)) {
 	/* data are properly aligned */
 	X = (const unsigned int *)data;
     } else {
@@ -281,13 +281,18 @@ _cupsMD5Init(_cups_md5_state_t *pms)
 void
 _cupsMD5Append(_cups_md5_state_t *pms, const unsigned char *data, int nbytes)
 {
-    const unsigned char *p = data;
-    int left = nbytes;
-    int offset = (pms->count[0] >> 3) & 63;
-    unsigned int nbits = (unsigned int)(nbytes << 3);
+    const unsigned char *p;
+    int left;
+    int offset;
+    unsigned int nbits;
 
     if (nbytes <= 0)
 	return;
+
+    p = data;
+    left = nbytes;
+    offset = (pms->count[0] >> 3) & 63;
+    nbits = (unsigned int)(nbytes << 3);
 
     /* Update the message length. */
     pms->count[1] += (unsigned)nbytes >> 29;
@@ -326,7 +331,7 @@ _cupsMD5Finish(_cups_md5_state_t *pms, unsigned char digest[16])
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
     unsigned char data[8];
-    int i;
+    unsigned int i;
 
     /* Save the length before padding. */
     for (i = 0; i < 8; ++i)

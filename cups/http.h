@@ -551,7 +551,7 @@ extern void		httpSetAuthString(http_t *http, const char *scheme, const char *dat
 /**** New in CUPS 1.5/macOS 10.7 ****/
 extern int		httpAddCredential(cups_array_t *credentials, const void *data, size_t datalen) _CUPS_API_1_5;
 extern int		httpCopyCredentials(http_t *http, cups_array_t **credentials) _CUPS_API_1_5;
-extern void		httpFreeCredentials(cups_array_t *certs) _CUPS_API_1_5;
+extern void		httpFreeCredentials(cups_array_t *credentials) _CUPS_API_1_5;
 extern int		httpSetCredentials(http_t *http, cups_array_t *certs) _CUPS_API_1_5;
 extern void		httpSetTimeout(http_t *http, double timeout, http_timeout_cb_t cb, void *user_data) _CUPS_API_1_5;
 
@@ -572,7 +572,7 @@ extern http_t		*httpConnect2(const char *host, int port, http_addrlist_t *addrli
 extern const char	*httpGetContentEncoding(http_t *http) _CUPS_API_1_7;
 extern http_status_t	httpGetExpect(http_t *http) _CUPS_API_1_7;
 extern ssize_t		httpPeek(http_t *http, char *buffer, size_t length) _CUPS_API_1_7;
-extern http_state_t	httpReadRequest(http_t *http, char *resource, size_t resourcelen) _CUPS_API_1_7;
+extern http_state_t	httpReadRequest(http_t *http, char *uri, size_t resourcelen) _CUPS_API_1_7;
 extern void		httpSetDefaultField(http_t *http, http_field_t field, const char *value) _CUPS_API_1_7;
 extern int		httpWriteResponse(http_t *http, http_status_t status) _CUPS_API_1_7;
 

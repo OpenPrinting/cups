@@ -374,9 +374,9 @@ typedef ssize_t (*cups_raster_iocb_t)(void *ctx, unsigned char *buffer, size_t l
 
 extern void		cupsRasterClose(cups_raster_t *r) _CUPS_PUBLIC;
 extern cups_raster_t	*cupsRasterOpen(int fd, cups_mode_t mode) _CUPS_PUBLIC;
-extern unsigned		cupsRasterReadHeader(cups_raster_t *r, cups_page_header_t *h) _CUPS_DEPRECATED_MSG("Use cupsRasterReadHeader2 instead.") _CUPS_PUBLIC;
+extern int		cupsRasterReadHeader(cups_raster_t *r, cups_page_header_t *h) _CUPS_DEPRECATED_MSG("Use cupsRasterReadHeader2 instead.") _CUPS_PUBLIC;
 extern unsigned		cupsRasterReadPixels(cups_raster_t *r, unsigned char *p, unsigned len) _CUPS_PUBLIC;
-extern unsigned		cupsRasterWriteHeader(cups_raster_t *r, cups_page_header_t *h) _CUPS_DEPRECATED_MSG("Use cupsRasterWriteHeader2 instead.") _CUPS_PUBLIC;
+extern int		cupsRasterWriteHeader(cups_raster_t *r, cups_page_header_t *h) _CUPS_DEPRECATED_MSG("Use cupsRasterWriteHeader2 instead.") _CUPS_PUBLIC;
 extern unsigned		cupsRasterWritePixels(cups_raster_t *r, unsigned char *p, unsigned len) _CUPS_PUBLIC;
 
 /**** New in CUPS 1.2 ****/

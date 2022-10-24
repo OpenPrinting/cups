@@ -142,7 +142,7 @@ main(int  argc,				/* I - Number of command-line args */
     return (1);
   }
 
-  request_id = atoi(argv[1]);
+  request_id = (int)strtol(argv[1], NULL, 10);
   if (request_id < 1)
   {
     fprintf(stderr, "ERROR: [cups-deviced] Bad request ID %d!\n", request_id);
@@ -150,7 +150,7 @@ main(int  argc,				/* I - Number of command-line args */
     return (1);
   }
 
-  device_limit = atoi(argv[2]);
+  device_limit = (int)strtol(argv[2], NULL, 10);
   if (device_limit < 0)
   {
     fprintf(stderr, "ERROR: [cups-deviced] Bad limit %d!\n", device_limit);
@@ -158,7 +158,7 @@ main(int  argc,				/* I - Number of command-line args */
     return (1);
   }
 
-  timeout = atoi(argv[3]);
+  timeout = (int)strtol(argv[3], NULL, 10);
   if (timeout < 1)
   {
     fprintf(stderr, "ERROR: [cups-deviced] Bad timeout %d!\n", timeout);

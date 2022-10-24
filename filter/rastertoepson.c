@@ -49,7 +49,6 @@ unsigned char	*Planes[6],		/* Output buffers */
 		*CompBuffer,		/* Compression buffer */
 		*LineBuffers[2];	/* Line bitmap buffers */
 int		Model,			/* Model number */
-		EjectPage,		/* Eject the page when done? */
 		Shingling,		/* Shingle output? */
 		Canceled;		/* Has the current job been canceled? */
 unsigned	NumPlanes,		/* Number of color planes */
@@ -414,7 +413,7 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
         		*start;		/* Start of compression sequence */
   unsigned char      	*comp_ptr,	/* Pointer into compression buffer */
 			temp;		/* Current byte */
-  int   	        count;		/* Count of bytes for output */
+  size_t   	        count;		/* Count of bytes for output */
   static int		ctable[6] = { 0, 2, 1, 4, 18, 17 };
 					/* KCMYcm color values */
 
@@ -537,7 +536,7 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
 
 	    *comp_ptr++ = (unsigned char)(count - 1);
 
-	    memcpy(comp_ptr, start, (size_t)count);
+	    memcpy(comp_ptr, start, count);
 	    comp_ptr += count;
 	  }
 	}
@@ -631,7 +630,7 @@ OutputLine(
 
     for (x = header->cupsWidth, bit = 128, pixel = Planes[0],
              temp = CompBuffer;
-	 x > 0;
+	 x;
 	 x --, temp ++)
     {
       if (*pixel & bit)
@@ -694,7 +693,7 @@ OutputLine(
 
         for (width = header->cupsWidth, tempptr = CompBuffer,
                  evenptr = LineBuffers[0] + EvenOffset;
-             width > 0;
+             width;
              width --, tempptr ++, evenptr += DotBytes)
           *evenptr = tempptr[0];
       }
@@ -877,7 +876,7 @@ OutputRows(
 
     n = dot_count / DotBytes;
     putchar((int)(n & 255));
-    putchar((int)(n / 256));
+    putchar((int)(n >> 8));
 
    /*
     * Write the graphics data...
@@ -920,9 +919,9 @@ OutputRows(
 
       n = (unsigned)dot_count / DotBytes;
       putchar((int)(n & 255));
-      putchar((int)(n / 256));
+      putchar((int)(n >> 8));
 
-      for (n = dot_count / 2, ptr = dot_ptr + 1; n > 0; n --, ptr += 2)
+      for (n = dot_count / 2, ptr = dot_ptr + 1; n; n --, ptr += 2)
       {
 	putchar(0);
         putchar(*ptr);
@@ -988,7 +987,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
    /*
     * We don't have the correct number of arguments; write an error message

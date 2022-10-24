@@ -414,7 +414,7 @@ _ppdOpen(
     cups_file_t		*fp,		/* I - File to read from */
     _ppd_localization_t	localization)	/* I - Localization to load */
 {
-  int			i, j, k;	/* Looping vars */
+  size_t			i; int j, k;	/* Looping vars */
   _ppd_line_t		line;		/* Line buffer */
   ppd_file_t		*ppd;		/* PPD file record */
   ppd_group_t		*group,		/* Current group */
@@ -611,7 +611,7 @@ _ppdOpen(
     return (NULL);
   }
 
-  DEBUG_printf(("2_ppdOpen: keyword=%s, string=%p", keyword, string));
+  DEBUG_printf(("2_ppdOpen: keyword=%s, string=%s", keyword, string));
 
  /*
   * Allocate memory for the PPD file record...
@@ -651,8 +651,8 @@ _ppdOpen(
   while ((mask = ppd_read(fp, &line, keyword, name, text, &string, 1, pg)) != 0)
   {
     DEBUG_printf(("2_ppdOpen: mask=%x, keyword=\"%s\", name=\"%s\", "
-                  "text=\"%s\", string=%d chars...", mask, keyword, name, text,
-		  string ? (int)strlen(string) : 0));
+                  "text=\"%s\", string=%u chars...", mask, keyword, name, text,
+		  string ? (unsigned)strlen(string) : 0));
 
     if (strncmp(keyword, "Default", 7) && !string &&
         pg->ppd_conform != PPD_CONFORM_RELAXED)
@@ -718,14 +718,14 @@ _ppdOpen(
         */
 
 	for (i = 0;
-	     i < (int)(sizeof(color_keywords) / sizeof(color_keywords[0]));
+	     i < (sizeof(color_keywords) / sizeof(color_keywords[0]));
 	     i ++)
 	{
 	  if (!_cups_strcasecmp(temp, color_keywords[i]))
 	    break;
 	}
 
-	if (i >= (int)(sizeof(color_keywords) / sizeof(color_keywords[0])))
+	if (i >= (sizeof(color_keywords) / sizeof(color_keywords[0])))
 	{
 	  DEBUG_printf(("2_ppdOpen: Ignoring localization: \"%s\"\n", keyword));
 	  free(string);
@@ -739,11 +739,8 @@ _ppdOpen(
         (mask & (PPD_KEYWORD | PPD_OPTION | PPD_STRING)) ==
 	    (PPD_KEYWORD | PPD_OPTION | PPD_STRING))
     {
-      for (i = 0; i < (int)(sizeof(ui_keywords) / sizeof(ui_keywords[0])); i ++)
+      for (i = 0; i < (sizeof(ui_keywords) / sizeof(ui_keywords[0])); i ++)
         if (!strcmp(keyword, ui_keywords[i]))
-	  break;
-
-      if (i < (int)(sizeof(ui_keywords) / sizeof(ui_keywords[0])))
       {
        /*
         * Create the option in the appropriate group...
@@ -3075,7 +3072,7 @@ ppd_read(cups_file_t    *fp,		/* I - File to read from */
 	  colon = 1;
 
 	if (ch == '\"' && colon)
-	  endquote = !endquote;
+	  endquote ^= 1;
       }
     }
 

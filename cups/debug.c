@@ -266,7 +266,7 @@ _cups_debug_set(const char *logfile,	/* I - Log file or NULL */
 
     if (debug_filter)
     {
-      regfree((regex_t *)debug_filter);
+      regfree(debug_filter);
       debug_filter = NULL;
     }
 
@@ -490,7 +490,7 @@ _cups_safe_vsnprintf(
 
 	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, double));
 
-            bytes += (int)strlen(temp);
+            bytes += (ssize_t)strlen(temp);
 
             if (bufptr)
 	    {
@@ -535,7 +535,7 @@ _cups_safe_vsnprintf(
 
 	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, void *));
 
-            bytes += (int)strlen(temp);
+            bytes += (ssize_t)strlen(temp);
 
 	    if (bufptr)
 	    {

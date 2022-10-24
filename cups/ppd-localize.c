@@ -274,7 +274,7 @@ ppdLocalizeIPPReason(
 
       char	msgid[1024],		/* State message identifier */
 		*ptr;			/* Pointer to state suffix */
-      const char *message = NULL;	/* Localized message */
+      const char *message;	/* Localized message */
 
       snprintf(msgid, sizeof(msgid), "printer-state-reasons.%s", reason);
       if ((ptr = strrchr(msgid, '-')) != NULL && (!strcmp(ptr, "-error") || !strcmp(ptr, "-report") || !strcmp(ptr, "-warning")))

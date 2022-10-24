@@ -281,14 +281,14 @@ choose_device_cb(
   * is happening.  Non-modern browsers just get everything at the end...
   */
 
-  if (current_device == 0 && cgiSupportsMultipart())
+/*   if (current_device == 0 && cgiSupportsMultipart())
   {
     cgiStartMultipart();
     cgiStartHTML(title);
     cgiCopyTemplateLang("choose-device.tmpl");
     cgiEndHTML();
     fflush(stdout);
-  }
+  } */
 
 
  /*
@@ -803,16 +803,16 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     {
       fputs("DEBUG: Got device list!\n", stderr);
 
-      if (cgiSupportsMultipart())
-        cgiStartMultipart();
+/*       if (cgiSupportsMultipart())
+        cgiStartMultipart(); */
 
       cgiSetVariable("CUPS_GET_DEVICES_DONE", "1");
       cgiStartHTML(title);
       cgiCopyTemplateLang("choose-device.tmpl");
       cgiEndHTML();
 
-      if (cgiSupportsMultipart())
-        cgiEndMultipart();
+/*       if (cgiSupportsMultipart())
+        cgiEndMultipart(); */
     }
     else
     {
@@ -2208,18 +2208,21 @@ do_menu(http_t *http)			/* I - HTTP connection */
 
   if ((val = cupsGetOption("PreserveJobHistory", num_settings,
                            settings)) == NULL)
+  {
     val = "Yes";
+    goto set_vars;
+  }
 
-  if (val &&
-      (!_cups_strcasecmp(val, "0") || !_cups_strcasecmp(val, "no") ||
+  if (!_cups_strcasecmp(val, "0") || !_cups_strcasecmp(val, "no") ||
        !_cups_strcasecmp(val, "off") || !_cups_strcasecmp(val, "false") ||
-       !_cups_strcasecmp(val, "disabled")))
+       !_cups_strcasecmp(val, "disabled"))
   {
     cgiSetVariable("PRESERVE_JOB_HISTORY", "0");
     cgiSetVariable("PRESERVE_JOB_FILES", "0");
   }
   else
   {
+    set_vars:
     cgiSetVariable("PRESERVE_JOBS", "CHECKED");
     cgiSetVariable("PRESERVE_JOB_HISTORY", val);
 
@@ -3706,7 +3709,8 @@ get_option_value(
     if (bufptr == buffer || (bufend - bufptr) < 2)
       return (NULL);
 
-    memcpy(bufptr, "}", 2);
+    bufptr[0] = '}';
+    bufptr[1] = '\0';
   }
 
   return (buffer);

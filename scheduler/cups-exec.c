@@ -81,7 +81,7 @@ main(int  argc,				/* I - Number of command-line args */
               if (i >= argc)
                 usage();
 
-              niceval = atoi(argv[i]);
+              niceval = (int)strtol(argv[i], NULL, 10);
               break;
 
           case 'u' : /* -g gid */

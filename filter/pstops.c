@@ -217,7 +217,7 @@ main(int  argc,				/* I - Number of command-line args */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
     _cupsLangPrintf(stderr,
                     _("Usage: %s job-id user title copies options [file]"),
@@ -2888,13 +2888,13 @@ start_nup(pstops_doc_t *doc,		/* I - Document information */
     case 4 :
         if (doc->number_up_layout & PSTOPS_LAYOUT_VERTICAL)
 	{
-	  x = (pos / 2) & 1;
+	  x = (pos >> 1) & 1;
           y = pos & 1;
         }
 	else
 	{
           x = pos & 1;
-	  y = (pos / 2) & 1;
+	  y = (pos >> 1) & 1;
         }
 
         if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEX)
@@ -2937,7 +2937,7 @@ start_nup(pstops_doc_t *doc,		/* I - Document information */
 	  else
 	  {
 	    x = pos & 1;
-	    y = pos / 2;
+	    y = pos >> 1;
 
             if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEX)
 	      x = 1 - x;
@@ -3052,13 +3052,13 @@ start_nup(pstops_doc_t *doc,		/* I - Document information */
     case 16 :
         if (doc->number_up_layout & PSTOPS_LAYOUT_VERTICAL)
 	{
-	  x = (pos / 4) & 3;
+	  x = (pos >> 2) & 3;
           y = pos & 3;
         }
 	else
 	{
           x = pos & 3;
-	  y = (pos / 4) & 3;
+	  y = (pos >> 2) & 3;
         }
 
         if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEX)

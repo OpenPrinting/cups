@@ -468,9 +468,9 @@ random_tests(void)
 
     fputs("cupsFileSeek(), cupsFileRead(): ", stdout);
 
-    for (num_records = (pass + 1) * 256, count = (pass + 1) * 256, record = ((int)CUPS_RAND() & 65535) % num_records;
+    for (num_records = (pass + 1) * 256, count = (pass + 1) * 256, record = (CUPS_RAND() & 65535) % num_records;
          count > 0;
-	 count --, record = (record + ((int)CUPS_RAND() & 31) - 16 + num_records) % num_records)
+	 count --, record = (record + (CUPS_RAND() & 31) - 16 + num_records) % num_records)
     {
      /*
       * The last record is always the first...
@@ -834,8 +834,9 @@ read_write_tests(int compression)	/* I - Use compression? */
         if (readbuf[i] != writebuf[i])
 	  break;
 
-      printf("match failed at offset %d - got %02X, expected %02X)\n",
-             i, readbuf[i], writebuf[i]);
+      if (i < sizeof(readbuf))
+        printf("match failed at offset %d - got %02X, expected %02X)\n",
+               i, readbuf[i], writebuf[i]);
     }
     else
     {

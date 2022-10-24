@@ -592,7 +592,7 @@ browse_local_callback(
 
 
   fprintf(stderr, "DEBUG2: browse_local_callback(sdRef=%p, flags=%x, "
-                  "interfaceIndex=%d, errorCode=%d, serviceName=\"%s\", "
+                  "interfaceIndex=%u, errorCode=%d, serviceName=\"%s\", "
 		  "regtype=\"%s\", replyDomain=\"%s\", context=%p)\n",
           sdRef, flags, interfaceIndex, errorCode,
 	  serviceName, regtype, replyDomain, context);

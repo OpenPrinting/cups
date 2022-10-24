@@ -42,7 +42,7 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
 
   if ((lang = getenv("LANG")) != NULL)
   {
-    for (i = 0; lang[i] && i < 15; i ++)
+    for (i = 0; i < 15 && lang[i]; i++)
       if (isalnum(lang[i] & 255))
         locale[i] = (char)tolower(lang[i]);
       else
@@ -530,6 +530,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
   http_status_t	status;			/* Document status */
   cups_option_t	hold_option;		/* job-hold-until option */
   const char	*user;			/* User name */
+#if 0
   ipp_t		*request,		/* Get-Job-Attributes request */
 		*response;		/* Get-Job-Attributes response */
   ipp_attribute_t *attr;		/* Current job attribute */
@@ -538,6 +539,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
 		  "job-state",
 		  "job-printer-state-message"
 		};
+#endif
 
 
  /*
@@ -550,14 +552,14 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
   * Show status...
   */
 
-  if (cgiSupportsMultipart())
+/*   if (cgiSupportsMultipart())
   {
     cgiStartMultipart();
     cgiStartHTML(title);
     cgiCopyTemplateLang("command.tmpl");
     cgiEndHTML();
     fflush(stdout);
-  }
+  } */
 
  /*
   * Send the command file job...
@@ -580,8 +582,8 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
     cgiCopyTemplateLang("error.tmpl");
     cgiEndHTML();
 
-    if (cgiSupportsMultipart())
-      cgiEndMultipart();
+/*     if (cgiSupportsMultipart())
+      cgiEndMultipart(); */
     return;
   }
 
@@ -600,8 +602,8 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
     cgiCopyTemplateLang("error.tmpl");
     cgiEndHTML();
 
-    if (cgiSupportsMultipart())
-      cgiEndMultipart();
+/*     if (cgiSupportsMultipart())
+      cgiEndMultipart(); */
 
     cupsCancelJob(dest, job_id);
     return;
@@ -611,6 +613,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
   * Wait for the job to complete...
   */
 
+#if 0
   if (cgiSupportsMultipart())
   {
     for (;;)
@@ -654,6 +657,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
       sleep(5);
     }
   }
+#endif
 
  /*
   * Send the final page that reloads the printer's page...
@@ -669,8 +673,8 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
   cgiCopyTemplateLang("command.tmpl");
   cgiEndHTML();
 
-  if (cgiSupportsMultipart())
-    cgiEndMultipart();
+/*   if (cgiSupportsMultipart())
+    cgiEndMultipart(); */
 }
 
 

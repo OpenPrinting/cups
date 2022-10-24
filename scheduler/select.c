@@ -507,11 +507,7 @@ cupsdDoSelect(long timeout)		/* I - Timeout in seconds */
     {
       int allocfds = count + 16;
 
-
-      if (cupsd_pollfds)
-	pfd = realloc(cupsd_pollfds, (size_t)allocfds * sizeof(struct pollfd));
-      else
-	pfd = malloc((size_t)allocfds * sizeof(struct pollfd));
+      pfd = realloc(cupsd_pollfds, (size_t)allocfds * sizeof(struct pollfd));
 
       if (!pfd)
       {
