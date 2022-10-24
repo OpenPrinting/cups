@@ -335,12 +335,16 @@ main(int  argc,				/* I - Number of command-line args */
           if ((temp = new_expr(IPPFIND_OP_EXEC, invert, NULL, NULL,
                                argv + i)) == NULL)
             return (IPPFIND_EXIT_MEMORY);
-
-          while (i < argc)
+          
+          do
             if (!strcmp(argv[i], ";"))
+            {
+              have_output = 1;
               break;
+            }
             else
               i ++;
+          while (i < argc);
 
           if (i >= argc)
           {
@@ -348,8 +352,6 @@ main(int  argc,				/* I - Number of command-line args */
                             "--exec");
             show_usage();
           }
-
-          have_output = 1;
         }
         else if (!strcmp(argv[i], "--false"))
         {

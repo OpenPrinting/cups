@@ -1646,7 +1646,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
         repeat_test = 1;
       }
 
-      for (i = 0, status_ok = 0; i < data->num_statuses; i ++)
+      for (i = 0; i < data->num_statuses; i ++)
       {
 	if (data->statuses[i].if_defined &&
 	    !_ippVarsGet(data->vars, data->statuses[i].if_defined))

@@ -414,7 +414,7 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
         		*start;		/* Start of compression sequence */
   unsigned char      	*comp_ptr,	/* Pointer into compression buffer */
 			temp;		/* Current byte */
-  int   	        count;		/* Count of bytes for output */
+  size_t   	        count;		/* Count of bytes for output */
   static int		ctable[6] = { 0, 2, 1, 4, 18, 17 };
 					/* KCMYcm color values */
 
@@ -537,7 +537,7 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
 
 	    *comp_ptr++ = (unsigned char)(count - 1);
 
-	    memcpy(comp_ptr, start, (size_t)count);
+	    memcpy(comp_ptr, start, count);
 	    comp_ptr += count;
 	  }
 	}
@@ -877,7 +877,7 @@ OutputRows(
 
     n = dot_count / DotBytes;
     putchar((int)(n & 255));
-    putchar((int)(n / 256));
+    putchar((int)(n >> 8));
 
    /*
     * Write the graphics data...
@@ -920,7 +920,7 @@ OutputRows(
 
       n = (unsigned)dot_count / DotBytes;
       putchar((int)(n & 255));
-      putchar((int)(n / 256));
+      putchar((int)(n >> 8));
 
       for (n = dot_count / 2, ptr = dot_ptr + 1; n > 0; n --, ptr += 2)
       {
