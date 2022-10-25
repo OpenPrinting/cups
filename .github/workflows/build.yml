@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: update build environment
       run: sudo apt-get update --fix-missing -y
     - name: install prerequisites
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: setup multiarch for i386
       run: sudo dpkg --add-architecture i386
     - name: update build environment
@@ -53,7 +53,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: configure
       run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
     - name: make
@@ -66,9 +66,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: setup-msbuild
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.1.3
     - name: nuget restore
       run: cd vcnet; nuget restore cups.sln
     - name: msbuild
