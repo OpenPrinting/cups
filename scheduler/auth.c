@@ -726,7 +726,8 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     int			len;		/* Length of authorization string */
     gss_ctx_id_t	context;	/* Authorization context */
     OM_uint32		major_status,	/* Major status code */
-			minor_status;	/* Minor status code */
+			minor_status,	/* Minor status code */
+			tmp_status;	/* Temporary status code */
     gss_buffer_desc	input_token = GSS_C_EMPTY_BUFFER,
 					/* Input token from string */
 			output_token = GSS_C_EMPTY_BUFFER;
@@ -789,7 +790,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 					  NULL);
 
     if (output_token.length > 0)
-      gss_release_buffer(&minor_status, &output_token);
+      gss_release_buffer(&tmp_status, &output_token);
 
     if (GSS_ERROR(major_status))
     {
