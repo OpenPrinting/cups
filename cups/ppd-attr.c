@@ -170,10 +170,12 @@ _ppdNormalizeMakeAndModel(
     if ((bufptr = strrchr(buffer, ')')) != NULL)
       *bufptr = '\0';
   }
-  else if (!_cups_strncasecmp(make_and_model, "XPrint", 6))
+  else if (!_cups_strncasecmp(make_and_model, "XPrint ", 7))
   {
    /*
     * Xerox XPrint...
+    * Note: We check for the space after XPrint to ensure we do not display
+    * Xerox for Xprinter devices, which are NOT by Xerox.
     */
 
     snprintf(buffer, bufsize, "Xerox %s", make_and_model);
