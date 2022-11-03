@@ -38,6 +38,8 @@ IdleExitTimeout @EXIT_TIMEOUT@
 
 # Restrict access to the admin pages...
 <Location /admin>
+  AuthType Default
+  Require user @SYSTEM
   Order allow,deny
 </Location>
 
