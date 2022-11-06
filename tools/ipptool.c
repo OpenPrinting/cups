@@ -3518,7 +3518,7 @@ print_fatal_error(
 
 
 /*
- * 'print_ippserver_attr()' - Print a attribute suitable for use by ippserver.
+ * 'print_ippserver_attr()' - Print an attribute suitable for use by ippserver.
  */
 
 static void

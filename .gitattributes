@@ -1,5 +1,5 @@
 .git* export-ignore
 .mailmap export-ignore
 examples/testfile.pcl -text
-exampels/testfile.txt -text
+examples/testfile.txt -text
 scripts export-ignore

@@ -402,7 +402,7 @@ main(int  argc,				/* I - Number of command-line args */
 		duplex = 0,		/* Duplex mode */
 		ppm = 10,		/* Pages per minute for mono */
 		ppm_color = 0,		/* Pages per minute for color */
-		web_forms = 1;		/* Enable web site forms? */
+		web_forms = 1;		/* Enable website forms? */
   ipp_t		*attrs = NULL;		/* Printer attributes */
   char		directory[1024] = "";	/* Spool directory */
   cups_array_t	*docformats = NULL;	/* Supported formats */
@@ -5854,7 +5854,7 @@ process_client(ippeve_client_t *client)	/* I - Client */
   }
 
  /*
-  * Close the conection to the client and return...
+  * Close the connection to the client and return...
   */
 
   delete_client(client);
@@ -7622,7 +7622,7 @@ respond_ipp(ippeve_client_t *client,	/* I - Client */
 static void
 respond_unsupported(
     ippeve_client_t   *client,		/* I - Client */
-    ipp_attribute_t *attr)		/* I - Atribute */
+    ipp_attribute_t *attr)		/* I - Attribute */
 {
   ipp_attribute_t	*temp;		/* Copy of attribute */
 

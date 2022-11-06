@@ -212,9 +212,9 @@ AS_IF([test -n "$GCC"], [
     ], [*], [
 	# Running some other operating system; inform the user
 	# they should contribute the necessary options via
-	# Github...
+	# GitHub...
 	echo "Building CUPS with default compiler optimizations."
-	echo "Contact the OpenPrinting CUPS developers on Github with the uname and compiler"
+	echo "Contact the OpenPrinting CUPS developers on GitHub with the uname and compiler"
 	echo "options needed for your platform, or set the CFLAGS and LDFLAGS environment"
 	echo "variables before running configure."
 	echo ""

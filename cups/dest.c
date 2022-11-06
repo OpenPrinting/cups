@@ -3996,7 +3996,7 @@ cups_find_dest(const char  *name,	/* I - Destination name */
     else
     {
      /*
-      * Start wih previous on left side...
+      * Start with previous on left side...
       */
 
       left  = prev;

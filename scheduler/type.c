@@ -1217,9 +1217,9 @@ mime_check_rules(
       result = !result;
 
    /*
-    * OK, now if the current logic is OR and this result is true, the this
+    * OK, now if the current logic is OR and this result is true, this
     * rule set is true.  If the current logic is AND and this result is false,
-    * the the rule set is false...
+    * the rule set is false...
     */
 
     DEBUG_printf(("5mime_check_rules: result of test %p (MIME_MAGIC_%s) is %d",

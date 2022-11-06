@@ -688,7 +688,7 @@ span.string {
 </div>
 <div class="body">
 <blockquote>
-<p>Please <a href="https://github.com/openprinting/cups/issues">file issues on Github</a> to provide feedback on this document.</p>
+<p>Please <a href="https://github.com/openprinting/cups/issues">file issues on GitHub</a> to provide feedback on this document.</p>
 </blockquote>
 <h2 class="title" id="introduction">Introduction</h2>
 <p>CUPS provides the &quot;cups&quot; library to talk to the different parts of CUPS and with Internet Printing Protocol (IPP) printers. The &quot;cups&quot; library functions are accessed by including the <code>&lt;cups/cups.h&gt;</code> header.</p>
@@ -709,12 +709,12 @@ span.string {
 <p>Similarly, printer and job management applications can use standard query operations to obtain the status information in a common, generic form and use standard management operations to control the state of those printers and jobs.</p>
 <blockquote>
 <p><strong>Note:</strong></p>
-<p>CUPS printer drivers necessarily depend on specific file formats and certain implementation details of the CUPS software. Please consult the Postscript and raster printer driver developer documentation on the <a href="https://openprinting.github.io/cups">OpenPrinting CUPS web site</a> for more information.</p>
+<p>CUPS printer drivers necessarily depend on specific file formats and certain implementation details of the CUPS software. Please consult the Postscript and raster printer driver developer documentation on the <a href="https://openprinting.github.io/cups">OpenPrinting CUPS website</a> for more information.</p>
 </blockquote>
 <h3 class="title" id="terms-used-in-this-document">Terms Used in This Document</h3>
 <p>A <em>Destination</em> is a printer or print queue that accepts print jobs. A <em>Print Job</em> is a collection of one or more documents that are processed by a destination using options supplied when creating the job. A <em>Document</em> is a file (JPEG image, PDF file, etc.) suitable for printing. An <em>Option</em> controls some aspect of printing, such as the media used. <em>Media</em> is the sheets or roll that is printed on. An <em>Attribute</em> is an option encoded for an Internet Printing Protocol (IPP) request.</p>
 <h3 class="title" id="compiling-programs-that-use-the-cups-api">Compiling Programs That Use the CUPS API</h3>
-<p>The CUPS libraries can be used from any C, C++, or Objective C program. The method of compiling against the libraries varies depending on the operating system and installation of CUPS. The following sections show how to compile a simple program (shown below) in two common environments.</p>
+<p>The CUPS libraries can be used from any C, C++, or Objective-C program. The method of compiling against the libraries varies depending on the operating system and installation of CUPS. The following sections show how to compile a simple program (shown below) in two common environments.</p>
 <p>The following simple program lists the available destinations:</p>
 <pre><code>#include &lt;stdio.h&gt;
 #include &lt;cups/cups.h&gt;
@@ -1280,7 +1280,7 @@ ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
 <p><strong>Note:</strong></p>
 <p>If we wanted to query the scheduler instead of the device, we would look up the &quot;printer-uri-supported&quot; option instead of the &quot;device-uri&quot; value.</p>
 </blockquote>
-<p>The <code>ippAddString</code> function adds the &quot;printer-uri&quot; attribute the the IPP request. The <code>IPP_TAG_OPERATION</code> argument specifies that the attribute is part of the operation. The <code>IPP_TAG_URI</code> argument specifies that the value is a Universal Resource Identifier (URI) string. The <code>NULL</code> argument specifies there is no language (English, French, Japanese, etc.) associated with the string, and the <code>printer_uri</code> argument specifies the string value.</p>
+<p>The <code>ippAddString</code> function adds the &quot;printer-uri&quot; attribute to the IPP request. The <code>IPP_TAG_OPERATION</code> argument specifies that the attribute is part of the operation. The <code>IPP_TAG_URI</code> argument specifies that the value is a Universal Resource Identifier (URI) string. The <code>NULL</code> argument specifies there is no language (English, French, Japanese, etc.) associated with the string, and the <code>printer_uri</code> argument specifies the string value.</p>
 <p>The IPP Get-Printer-Attributes request also supports an IPP attribute called &quot;requested-attributes&quot; that lists the attributes and values you are interested in. For example, the following code requests the printer state attributes:</p>
 <pre><code>static const char * const requested_attributes[] =
 {
@@ -7546,7 +7546,7 @@ bottom, right, top) </td></tr>
 <tr><th>cupsMediaType </th>
 <td class="description">Media type code</td></tr>
 <tr><th>cupsNumColors <span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span></th>
-<td class="description">Number of color compoents </td></tr>
+<td class="description">Number of color components </td></tr>
 <tr><th>cupsPageSizeName[64] <span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span></th>
 <td class="description">PageSize name </td></tr>
 <tr><th>cupsPageSize[2] <span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span></th>

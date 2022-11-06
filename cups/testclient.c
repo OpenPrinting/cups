@@ -392,7 +392,7 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
   }
 
  /*
-  * Figure out the the media, resolution, and color mode...
+  * Figure out the media, resolution, and color mode...
   */
 
   if ((attr = ippFindAttribute(response, "media-ready", IPP_TAG_KEYWORD)) != NULL)

@@ -1269,7 +1269,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 
       if (pid == 0)
       {
-	abort_message = "Stopping job because the sheduler could not execute "
+	abort_message = "Stopping job because the scheduler could not execute "
 			"the backend.";
 
         goto abort_job;

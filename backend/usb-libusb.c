@@ -1748,7 +1748,7 @@ static void *read_thread(void *reference)
       fputs("DEBUG: Got USB return aborted during read.\n", stderr);
 
    /*
-    * Make sure this loop executes no more than once every 250 miliseconds...
+    * Make sure this loop executes no more than once every 250 milliseconds...
     */
 
     if ((readstatus != LIBUSB_SUCCESS || rbytes == 0) &&

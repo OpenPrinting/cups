@@ -1367,7 +1367,7 @@ cupsFilePrintf(cups_file_t *fp,		/* I - CUPS file */
   if (!fp->printf_buffer)
   {
    /*
-    * Start with an 1k printf buffer...
+    * Start with a 1k printf buffer...
     */
 
     if ((fp->printf_buffer = malloc(1024)) == NULL)

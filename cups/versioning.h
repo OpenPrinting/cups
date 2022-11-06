@@ -82,7 +82,7 @@
 
 
 /*
- * Define _CUPS_INTERNAL, _CUPS_PRIVATE, and _CUPS_PUBLIC visibilty macros for
+ * Define _CUPS_INTERNAL, _CUPS_PRIVATE, and _CUPS_PUBLIC visibility macros for
  * internal/private/public functions...
  */
 

@@ -301,7 +301,7 @@ dsc_header(int num_pages)		/* I - Number of pages or 0 if not known */
  */
 
 static void
-dsc_page(int page)			/* I - Page numebr (1-based) */
+dsc_page(int page)			/* I - Page number (1-based) */
 {
   printf("%%%%Page: (%d) %d\n", page, page);
 
@@ -543,7 +543,7 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
   float		page_left,		/* Left margin */
 		page_top,		/* Top margin */
 		page_width,		/* Page width in points */
-		page_height,		/* Page heigth in points */
+		page_height,		/* Page height in points */
 		x_factor,		/* X image scaling factor */
 		y_factor,		/* Y image scaling factor */
 		page_scaling;		/* Image scaling factor */
@@ -1016,7 +1016,7 @@ ps_to_ps(const char    *filename,	/* I - Filename */
  *
  * The current implementation locally-decodes the raster data and then writes
  * whole, non-blank lines as 1-line high images with base-85 encoding, resulting
- * in between 10 and 20 times larger output.  A alternate implementation (if it
+ * in between 10 and 20 times larger output.  An alternate implementation (if it
  * is deemed necessary) would be to implement a PostScript decode procedure that
  * handles the modified packbits decompression so that we just have the base-85
  * encoding overhead (25%).  Furthermore, Level 3 PostScript printers also

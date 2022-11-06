@@ -1862,7 +1862,7 @@ service_add_listener(int fd,		/* I - Socket file descriptor */
   cupsd_listener_t	*lis;		/* Listeners array */
   http_addr_t		addr;		/* Address variable */
   socklen_t		addrlen;	/* Length of address */
-  char			s[256];		/* String addresss */
+  char			s[256];		/* String address */
 
 
   addrlen = sizeof(addr);
