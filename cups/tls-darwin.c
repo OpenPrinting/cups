@@ -253,7 +253,7 @@ cupsMakeServerCredentials(
   CFNumberRef	usage = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &usageInt);
   CFIndex	lenInt = 0;
   CFNumberRef	len = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &lenInt);
-  CFTypeRef certKeys[] = { kSecCSRBasicContraintsPathLen, kSecSubjectAltName, kSecCertificateKeyUsage };
+  CFTypeRef certKeys[] = { kSecCSRBasicConstraintsPathLen, kSecSubjectAltName, kSecCertificateKeyUsage };
   CFTypeRef certValues[] = { len, cfcommon_name, usage };
   CFDictionaryRef certParams = CFDictionaryCreate(kCFAllocatorDefault, certKeys, certValues, sizeof(certKeys) / sizeof(certKeys[0]), &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   CFRelease(usage);

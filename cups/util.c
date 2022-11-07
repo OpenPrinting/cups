@@ -908,7 +908,7 @@ cupsStartDocument(
     const char *format,			/* I - MIME type or @code CUPS_FORMAT_foo@ */
     int        last_document)		/* I - 1 for last document in job, 0 otherwise */
 {
-  char		resource[1024],		/* Resource for destinatio */
+  char		resource[1024],		/* Resource for destination */
 		printer_uri[1024];	/* Printer URI */
   ipp_t		*request;		/* Send-Document request */
   http_status_t	status;			/* HTTP status */

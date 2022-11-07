@@ -64,7 +64,7 @@ typedef enum
 
 
 /*
- * Notiification support structures...
+ * Notification support structures...
  */
 
 typedef struct cupsd_event_s		/**** Event structure ****/

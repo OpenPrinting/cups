@@ -2237,7 +2237,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
   if (ptr)
   {
    /*
-    * Setup the country suffix...
+    * Set the country suffix...
     */
 
     country[0] = '_';

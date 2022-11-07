@@ -20,7 +20,7 @@ typedef CF_OPTIONS(uint32_t, SecKeyUsage) {
 extern const void * kSecCSRChallengePassword;
 extern const void * kSecSubjectAltName;
 extern const void * kSecCertificateKeyUsage;
-extern const void * kSecCSRBasicContraintsPathLen;
+extern const void * kSecCSRBasicConstraintsPathLen;
 extern const void * kSecCertificateExtensions;
 extern const void * kSecCertificateExtensionsEncoded;
 extern const void * kSecOidCommonName;

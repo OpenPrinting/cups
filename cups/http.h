@@ -178,7 +178,7 @@ typedef enum http_field_e		/**** HTTP field names ****/
   HTTP_FIELD_SERVER,			/* Server field @since CUPS 1.7/macOS 10.9@ */
   HTTP_FIELD_AUTHENTICATION_INFO,	/* Authentication-Info field @since CUPS 2.2.9@ */
   HTTP_FIELD_ACCESS_CONTROL_ALLOW_CREDENTIALS,
-					/* CORS/Fetch Access-Control-Allow-Cresdentials field @since CUPS 2.4@ */
+					/* CORS/Fetch Access-Control-Allow-Credentials field @since CUPS 2.4@ */
   HTTP_FIELD_ACCESS_CONTROL_ALLOW_HEADERS,
 					/* CORS/Fetch Access-Control-Allow-Headers field @since CUPS 2.4@ */
   HTTP_FIELD_ACCESS_CONTROL_ALLOW_METHODS,

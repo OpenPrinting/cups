@@ -5,7 +5,7 @@ copyright: Copyright © 2021-2022 by OpenPrinting. All Rights Reserved.
 version: 2.4.0
 ...
 
-> Please [file issues on Github](https://github.com/openprinting/cups/issues) to
+> Please [file issues on GitHub](https://github.com/openprinting/cups/issues) to
 > provide feedback on this document.
 
 
@@ -47,7 +47,7 @@ standard management operations to control the state of those printers and jobs.
 > CUPS printer drivers necessarily depend on specific file formats and certain
 > implementation details of the CUPS software.  Please consult the Postscript
 > and raster printer driver developer documentation on the
-> [OpenPrinting CUPS web site](https://openprinting.github.io/cups) for more
+> [OpenPrinting CUPS website](https://openprinting.github.io/cups) for more
 > information.
 
 
@@ -64,7 +64,7 @@ Printing Protocol (IPP) request.
 
 ## Compiling Programs That Use the CUPS API
 
-The CUPS libraries can be used from any C, C++, or Objective C program.
+The CUPS libraries can be used from any C, C++, or Objective-C program.
 The method of compiling against the libraries varies depending on the
 operating system and installation of CUPS. The following sections show how
 to compile a simple program (shown below) in two common environments.
@@ -832,7 +832,7 @@ which printer is being queried:
 > If we wanted to query the scheduler instead of the device, we would look
 > up the "printer-uri-supported" option instead of the "device-uri" value.
 
-The `ippAddString` function adds the "printer-uri" attribute the the IPP
+The `ippAddString` function adds the "printer-uri" attribute to the IPP
 request.  The `IPP_TAG_OPERATION` argument specifies that the attribute is part
 of the operation.  The `IPP_TAG_URI` argument specifies that the value is a
 Universal Resource Identifier (URI) string.  The `NULL` argument specifies there
