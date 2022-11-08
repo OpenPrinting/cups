@@ -1,18 +1,4 @@
 /*
- * First, the stuff that ends up in the outside-world include file
- = typedef off_t regoff_t;
- = typedef struct {
- = 	int re_magic;
- = 	size_t re_nsub;		// number of parenthesized subexpressions
- = 	const char *re_endp;	// end pointer for REG_PEND
- = 	struct re_guts *re_g;	// none of your business :-)
- = } regex_t;
- = typedef struct {
- = 	regoff_t rm_so;		// start of match
- = 	regoff_t rm_eo;		// end of match
- = } regmatch_t;
- */
-/*
  * internals of regex_t
  */
 #define	MAGIC1	((('r'^0200)<<8) | 'e')
@@ -38,12 +24,15 @@
  */
 typedef long sop;		/* strip operator */
 typedef long sopno;
+typedef unsigned char uch;
+
 #define	OPRMASK	0x7c000000
 #define	OPDMASK	0x03ffffff
 #define	OPSHIFT	(26)
 #define	OP(n)	((n)&OPRMASK)
 #define	OPND(n)	((n)&OPDMASK)
 #define	SOP(op, opnd)	((op)|(opnd))
+
 /* operators			   meaning	operand			*/
 /*						(back, fwd are offsets)	*/
 #define	OEND	(1<<OPSHIFT)	/* endmarker	-			*/
@@ -86,13 +75,15 @@ typedef struct {
 	size_t smultis;
 	char *multis;		/* -> char[smulti]  ab\0cd\0ef\0\0 */
 } cset;
+
 /* note that CHadd and CHsub are unsafe, and CHIN doesn't yield 0/1 */
-#define	CHadd(cs, c)	((cs)->ptr[(uch)(c)] |= (cs)->mask, (cs)->hash += (c))
-#define	CHsub(cs, c)	((cs)->ptr[(uch)(c)] &= ~(cs)->mask, (cs)->hash -= (c))
+#define	CHadd(cs, c)	((cs)->ptr[(int)(c)] |= (cs)->mask, (cs)->hash = (uch)((cs)->hash + (c)))
+#define	CHsub(cs, c)	((cs)->ptr[(int)(c)] &= (uch)~(cs)->mask, (cs)->hash = (uch)((cs)->hash - (c)))
 #define	CHIN(cs, c)	((cs)->ptr[(uch)(c)] & (cs)->mask)
 #define	MCadd(p, cs, cp)	mcadd(p, cs, cp)	/* regcomp() internal fns */
 #define	MCsub(p, cs, cp)	mcsub(p, cs, cp)
 #define	MCin(p, cs, cp)	mcin(p, cs, cp)
+#define	NC	(CHAR_MAX - CHAR_MIN + 1)
 
 /* stuff for character categories */
 typedef unsigned char cat_t;
@@ -132,3 +123,10 @@ struct re_guts {
 /* misc utilities */
 #define	OUT	(CHAR_MAX+1)	/* a non-character value */
 #define	ISWORD(c)	(isalnum(c) || (c) == '_')
+
+/* switch off assertions (if not already off) if no REDEBUG */
+#ifndef REDEBUG
+#ifndef NDEBUG
+#define	NDEBUG	/* no assertions please */
+#endif
+#endif

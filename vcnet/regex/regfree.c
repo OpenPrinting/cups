@@ -1,20 +1,18 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <regex.h>
 
-#include "utils.h"
+#include "regex.h"
 #include "regex2.h"
 
 /*
  - regfree - free everything
- = extern void regfree(regex_t *);
  */
 void
 regfree(preg)
 regex_t *preg;
 {
-	register struct re_guts *g;
+	struct re_guts *g;
 
 	if (preg->re_magic != MAGIC1)	/* oops */
 		return;			/* nice to complain, but hard */

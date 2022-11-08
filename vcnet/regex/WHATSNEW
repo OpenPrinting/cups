@@ -1,3 +1,34 @@
+New in 3.9.0 (Gary Houston): Conversion to cmake build system,
+contributed by Stephen Just. Simplify version labelling. Simplify
+build system by not generating headers. Adjust types and add casts to
+avoid compiler warnings. Remove unused and undocumented REG_DUMP
+flag. Make regerror more robust.
+
+New in alpha3.8.g7 (Gary Houston): Configuration scripts updated. Make sure
+symlinks aren't created by libtool. 26 Nov 2015.
+
+New in alpha3.8.g6 (Gary Houston): Bug fix for integer overflow in regcomp
+for excessively long pattern strings. CERT Vulnerability Note VU#695940.
+Found by Guido Vranken. Configuration scripts updated. 25 Feb 2015.
+
+New in alpha3.8.g5 (Gary Houston): Configuration scripts updated. Fixed
+"make check". Deleted unused "fake" C library headers.
+
+New in alpha3.8.g4 (Gary Houston): Makefile.am: account for $(DESTDIR)
+in install-data-local, thanks to  Aleksey Cheusov. Configuration scripts
+updated.
+
+New in alpha3.8.g3 (Gary Houston): configuration scripts updated.
+
+New in alpha3.8.g2 (Gary Houston): configure.in, Makefile.am: updated
+for newer versions of autoconf/automake/libtool, with miscellaneous
+changes.  mkh: don't set PATH, in case utilities are in non-standard
+locations (i.e., cygwin).
+
+New in alpha3.8.g1 (Gary Houston): Use autoconf/automake/libtool to
+build, test and install the library.  Renamed the installed files to
+avoid conflicts with other regex libraries.
+
 New in alpha3.8:  Bug fix for signed/unsigned mixup, found and fixed
 by the FreeBSD folks.
 
