@@ -39,6 +39,12 @@ prerequisites:
          libsystemd-dev libusb-1.0-0-dev zlib1g-dev
 
 
+For Fedora you can install these packages:
+
+    sudo dnf install autoconf make automake gcc gcc-c++ kernel-devel avahi-devel \
+         gnutls-devel krb5-libs nss-mdns pam-devel \
+         systemd-devel libusb-devel zlib-devel
+
 Configuration
 -------------
 
