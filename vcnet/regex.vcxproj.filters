@@ -32,7 +32,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="regex\regex.def">
+    <None Include="regex\librxspencer.def">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

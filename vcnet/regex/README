@@ -1,32 +1,76 @@
-alpha3.8 release.
-Tue Aug 10 15:51:48 EDT 1999
-henry@spsystems.net  (formerly henry@zoo.toronto.edu)
+This is a modified version of Henry Spencer's "BSD" regular expression
+library. The original library can be found at
+https://github.com/garyhouston/regex.  A description of Spencer's
+various libraries can be found at https://garyhouston.github.io/regex/
 
-See WHATSNEW for change listing.
+The changes in this version are:
 
-installation notes:
---------
-Read the comments at the beginning of Makefile before running.
+* The library name has been changed to rxspencer, the header installs
+  into a directory rxspencer, and the man pages named accordingly, to
+  allow easy installation as a system library on Linux without
+  conflicting with other regex libraries.
+* A CMake build system, which can build either static or shared
+  libraries, maybe even on non-Unix systems.
+* A few code modernizations and changes to improve portabilty, avoid
+  compiler warnings, and improve robustness.
 
-Utils.h contains some things that just might have to be modified on
-some systems, as well as a nested include (ugh) of <assert.h>.
+I (Gary Houston) originally made this version with a build system
+based on GNU Automake and Libtool, to allow building a shared library
+for a project where the library needed to be dynamically loaded. The
+CMake scripts were contributed by Stephen Just, modified from LuaDist
+versions.
 
-The "fake" directory contains quick-and-dirty fakes for some header
-files and routines that old systems may not have.  Note also that
--DUSEBCOPY will make utils.h substitute bcopy() for memmove().
+Spencer's original license can be found in the COPYRIGHT file. The CMake
+scripts are licensed under the MIT license. I release all of my own
+changes to the public domain under the Creative Commons Zero license.
 
-After that, "make r" will build regcomp.o, regexec.o, regfree.o,
-and regerror.o (the actual routines), bundle them together into a test
-program, and run regression tests on them.  No output is good output.
+Installation
+============
 
-"make lib" builds just the .o files for the actual routines (when
-you're happy with testing and have adjusted CFLAGS for production),
-and puts them together into libregex.a.  You can pick up either the
-library or *.o ("make lib" makes sure there are no other .o files left
-around to confuse things).
+CMake needs to be installed. To build from a Linux command line, or
+something compatible, within the source directory:
 
-Main.c, debug.c, split.c are used for regression testing but are not part
-of the RE routines themselves.
+to configure for a static library:
+cmake .
+or
+cmake -Drxshared=0 .
 
-Regex.h goes in /usr/include.  All other .h files are internal only.
---------
+to configure for a shared library:
+cmake -Drxshared=1 .
+
+to disable tests:
+cmake -DBUILD_TESTING=OFF .
+
+to disable manuals/ documentation:
+cmake -DINSTALL_DOCS=OFF .
+
+to build:
+make
+make install
+
+also required on Linux, after installing the shared library:
+ldconfig
+
+to run the tests:
+make test
+
+to run the tests, with output displayed:
+ctest -V
+
+Usage
+=====
+
+Include the following header in a C program:
+
+#include <rxspencer/regex.h>
+
+Link with the library using the -lrxspencer flag, as in:
+gcc test.c -o test -lrxspencer
+
+The library is further described in the supplied man pages: rxspencer.3
+and rxspencer.7, which are formatted at
+https://garyhouston.github.io/regex/regex3.html and
+https://garyhouston.github.io/regex/regex7.html.
+
+--
+Gary Houston,  ghouston@arglist.com
