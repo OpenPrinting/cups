@@ -315,7 +315,7 @@ cupsdRemoveFile(const char *filename)	/* I - File to remove */
   int			fd;		/* File descriptor */
   struct stat		info;		/* File information */
   char			buffer[512];	/* Data buffer */
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
 
 
  /*
@@ -325,8 +325,6 @@ cupsdRemoveFile(const char *filename)	/* I - File to remove */
   if (access(filename, 0))
     return (0);
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "Securely removing \"%s\".", filename);
-
  /*
   * First open the file for writing in exclusive mode.
   */
@@ -334,12 +332,14 @@ cupsdRemoveFile(const char *filename)	/* I - File to remove */
   if ((fd = open(filename, O_WRONLY | O_EXCL)) < 0)
     return (-1);
 
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "Securely removing \"%s\".", filename);
+
  /*
   * Delete the file now - it will still be around as long as the file is
   * open...
   */
 
-  if (unlink(filename))
+  if (unlinkat(fd, filename, 0))
   {
     close(fd);
     return (-1);
@@ -349,7 +349,7 @@ cupsdRemoveFile(const char *filename)	/* I - File to remove */
   * Then get the file size...
   */
 
-  if (fstat(fd, &info))
+  if (fstatat(fd, filename, &info, AT_SYMLINK_NOFOLLOW))
   {
     close(fd);
     return (-1);
