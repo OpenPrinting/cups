@@ -1764,6 +1764,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
     "printer-state-change-time",
     "printer-state-message",
     "printer-state-reasons",
+    "printer-strings-uri",
     "printer-supply",
     "printer-supply-description",
     "printer-supply-info-uri",
