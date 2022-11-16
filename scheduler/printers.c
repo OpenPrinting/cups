@@ -4027,7 +4027,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "job-creation-attributes-supported", sizeof(job_creation_print) / sizeof(job_creation_print[0]), NULL, job_creation_print);
   }
 
-  if ((ppd = _ppdOpenFile(ppd_name, _PPD_LOCALIZATION_NONE)) != NULL)
+  if ((ppd = _ppdOpenFile(ppd_name, _PPD_LOCALIZATION_DEFAULT)) != NULL)
   {
    /*
     * Add make/model and other various attributes...
