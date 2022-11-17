@@ -46,7 +46,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Check for valid arguments...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
    /*
     * We don't have the correct number of arguments; write an error message
