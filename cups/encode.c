@@ -592,7 +592,7 @@ _cupsEncodeOption(
 	    if (*s == '-')
 	    {
 	      if (s[1])
-		upper = (int)strtol(s + 1, NULL, 10);
+		upper = atoi(s + 1);
 	      else
 		upper = 2147483647;
 	    }

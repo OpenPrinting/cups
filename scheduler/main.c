@@ -1400,7 +1400,7 @@ process_children(void)
   int		pid,			/* Process ID of child */
 		job_id;			/* Job ID of child */
   cupsd_job_t	*job;			/* Current job */
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   char		name[1024];		/* Process name */
   const char	*type;			/* Type of program */
 
@@ -1435,8 +1435,7 @@ process_children(void)
     * Delete certificates for CGI processes...
     */
 
-    if (pid)
-      cupsdDeleteCert(pid);
+    cupsdDeleteCert(pid);
 
    /*
     * Handle completed job filters...
@@ -1625,7 +1624,7 @@ process_children(void)
   * If wait*() is interrupted by a signal, tell main() to call us again...
   */
 
-  if (pid < 0 && errno == EINTR)
+  if (pid && errno == EINTR)
     dead_children = 1;
 }
 
@@ -2023,7 +2022,7 @@ service_checkin(void)
 
     cupsdLogMessage(CUPSD_LOG_DEBUG, "service_checkin: UPSTART_FDS=%s", e);
 
-    fd = (int)strtol(e, NULL, 10);
+    fd = atoi(e);
     if (fd < 0)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "service_checkin: Could not parse UPSTART_FDS: %s", strerror(errno));
@@ -2031,7 +2030,7 @@ service_checkin(void)
     }
 
    /*
-    * Upstart only supportst a single on-demand socket file descriptor...
+    * Upstart only supports a single on-demand socket file descriptor...
     */
 
     service_add_listener(fd, 0);

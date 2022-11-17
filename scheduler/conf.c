@@ -1866,8 +1866,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
 	* Merge everything into a 32-bit IPv4 address in ip[3]...
 	*/
 
-	ip[3] = ((((((unsigned)val[0] << 8) | (unsigned)val[1]) << 8) |
-	         (unsigned)val[2]) << 8) | (unsigned)val[3];
+	ip[3] = (val[0] << 24) | (val[1] << 16) | (val[2] << 8) | val[3];
 
 	if (ipcount < 4)
 	  mask[3] = (0xffffffff << (32 - 8 * ipcount)) & 0xffffffff;
@@ -2682,7 +2681,7 @@ parse_variable(
   char			temp[1024];	/* Temporary string */
 
 
-  for (i = num_vars, var = vars; i > 0; i --, var ++)
+  for (i = num_vars, var = vars; i; i --, var ++)
     if (!_cups_strcasecmp(line, var->name))
       break;
 
@@ -2724,7 +2723,7 @@ parse_variable(
 	  int	n;		/* Number */
 	  char	*units;		/* Units */
 
-	  n = strtol(value, &units, 0);
+	  n = (int)strtol(value, &units, 0);
 
 	  if (units && *units)
 	  {
@@ -2777,7 +2776,7 @@ parse_variable(
 	}
 	else
 	{
-	  int n = strtol(value, NULL, 8);
+	  int n = (int)strtol(value, NULL, 8);
 					/* Permissions value */
 
 	  if (n < 0)
@@ -2944,7 +2943,6 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 			temp[HTTP_MAX_BUFFER],
 					/* Temporary buffer for value */
 			*value;		/* Pointer to value */
-  int			valuelen;	/* Length of value */
   http_addrlist_t	*addrlist,	/* Address list */
 			*addr;		/* Current address */
 
@@ -3377,17 +3375,16 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
       if (!ServerAlias)
         ServerAlias = cupsArrayNew(NULL, NULL);
 
-      for (; *value;)
+      while (*value)
       {
+        size_t valuelen; /* Length of value */
+
         for (valuelen = 0; value[valuelen]; valuelen ++)
 	  if (_cups_isspace(value[valuelen]) || value[valuelen] == ',')
-	    break;
-
-        if (value[valuelen])
-        {
-	  value[valuelen] = '\0';
-	  valuelen ++;
-	}
+    {
+      value[valuelen ++] = '\0';
+      break;
+    }
 
 	cupsdAddAlias(ServerAlias, value);
 
@@ -3446,8 +3443,8 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 static int				/* O - 1 on success, 0 on failure */
 read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 {
-  int		i,			/* Looping var */
-		linenum;		/* Current line number */
+  size_t		i;		/* Looping var */
+  int		linenum;		/* Current line number */
   char		line[HTTP_MAX_BUFFER],	/* Line from file */
 		*value;			/* Value from line */
   struct group	*group;			/* Group */
@@ -3508,7 +3505,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
       */
 
       if (isdigit(value[0]))
-        Group = (gid_t)atoi(value);
+        Group = (gid_t)strtoul(value, NULL, 10);
       else
       {
         endgrent();
@@ -3533,7 +3530,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
       */
 
       if (isdigit(value[0]))
-        LogFileGroup = (gid_t)atoi(value);
+        LogFileGroup = (gid_t)strtoul(value, NULL, 10);
       else
       {
         endgrent();
@@ -3557,9 +3554,9 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
       * PassEnv variable [... variable]
       */
 
-      int valuelen;			/* Length of variable name */
+      size_t valuelen;			/* Length of variable name */
 
-      for (; *value;)
+      while (*value)
       {
         for (valuelen = 0; value[valuelen]; valuelen ++)
 	  if (_cups_isspace(value[valuelen]) || value[valuelen] == ',')
@@ -3567,11 +3564,10 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 
         if (value[valuelen])
         {
-	  value[valuelen] = '\0';
-	  valuelen ++;
+	  value[valuelen ++] = '\0';
 	}
 
-        for (i = 0; i < (int)(sizeof(prohibited_env) / sizeof(prohibited_env[0])); i ++)
+        for (i = 0; i < (sizeof(prohibited_env) / sizeof(prohibited_env[0])); i ++)
         {
           if (!strcmp(value, prohibited_env[i]))
           {
@@ -3584,7 +3580,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
           }
 	}
 
-        if (i >= (int)(sizeof(prohibited_env) / sizeof(prohibited_env[0])))
+        if (i >= sizeof(prohibited_env) / sizeof(prohibited_env[0]))
           cupsdSetEnv(value, NULL);
 
         for (value += valuelen; *value; value ++)
@@ -3653,7 +3649,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
         while (isspace(*valueptr & 255))
 	  *valueptr++ = '\0';
 
-        for (i = 0; i < (int)(sizeof(prohibited_env) / sizeof(prohibited_env[0])); i ++)
+        for (i = 0; i < (sizeof(prohibited_env) / sizeof(prohibited_env[0])); i ++)
         {
           if (!strcmp(value, prohibited_env[i]))
           {
@@ -3666,7 +3662,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
           }
 	}
 
-        if (i >= (int)(sizeof(prohibited_env) / sizeof(prohibited_env[0])))
+        if (i >= (sizeof(prohibited_env) / sizeof(prohibited_env[0])))
 	  cupsdSetEnv(value, valueptr);
       }
       else
@@ -3694,7 +3690,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 
       if (isdigit(value[0] & 255))
       {
-        int uid = atoi(value);
+        uid_t uid = (uid_t)strtoul(value, NULL, 10);
 
 	if (!uid)
 	{
@@ -3707,7 +3703,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
             return (0);
         }
         else
-	  User = (uid_t)atoi(value);
+	  User = uid;
       }
       else
       {

@@ -161,11 +161,11 @@ cupsdExec(const char *command,		/* I - Full path to program */
           char       **argv)		/* I - Command-line arguments */
 {
 #ifdef __APPLE__
-  int	i, j;				/* Looping vars */
+  size_t i, j;          /* Looping vars */
   char	*envp[500],			/* Array of environment variables */
 	cfprocesspath[1024],		/* CFProcessPath environment variable */
 	linkpath[1024];			/* Link path for symlinks... */
-  int	linkbytes;			/* Bytes for link path */
+  ssize_t	linkbytes;			/* Bytes for link path */
 
 
  /*
@@ -201,7 +201,7 @@ cupsdExec(const char *command,		/* I - Full path to program */
   */
 
   for (i = 1, j = 0;
-       environ[j] && i < (int)(sizeof(envp) / sizeof(envp[0]) - 1);
+       environ[j] && i < (sizeof(envp) / sizeof(envp[0]) - 1);
        j ++)
     if (strncmp(environ[j], "CFProcessPath=", 14))
       envp[i ++] = environ[j];

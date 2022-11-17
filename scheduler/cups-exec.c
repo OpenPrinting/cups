@@ -73,7 +73,7 @@ main(int  argc,				/* I - Number of command-line args */
               if (i >= argc)
                 usage();
 
-              gid = (gid_t)atoi(argv[i]);
+              gid = (gid_t)strtoul(argv[i], NULL, 10);
               break;
 
           case 'n' : /* -n nice-value */
@@ -89,7 +89,7 @@ main(int  argc,				/* I - Number of command-line args */
               if (i >= argc)
                 usage();
 
-              uid = (uid_t)atoi(argv[i]);
+              uid = (uid_t)strtoul(argv[i], NULL, 10);
               break;
 
 	  default :
@@ -154,7 +154,7 @@ main(int  argc,				/* I - Number of command-line args */
   {
     cups_file_t	*fp;			/* File */
     char	line[1024];		/* Line from file */
-    int		linenum = 0;		/* Line number in file */
+    unsigned	linenum = 0;		/* Line number in file */
 
     fprintf(stderr, "DEBUG: sandbox_init failed: %s (%s)\n", sandbox_error,
 	    strerror(errno));
@@ -165,7 +165,7 @@ main(int  argc,				/* I - Number of command-line args */
       while (cupsFileGets(fp, line, sizeof(line)))
       {
         linenum ++;
-        fprintf(stderr, "DEBUG: %4d  %s\n", linenum, line);
+        fprintf(stderr, "DEBUG: %4u  %s\n", linenum, line);
       }
       cupsFileClose(fp);
     }
