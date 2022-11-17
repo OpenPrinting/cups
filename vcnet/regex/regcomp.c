@@ -116,7 +116,7 @@ int cflags;
 	struct parse pa;
 	struct re_guts *g;
 	struct parse *p = &pa;
-	int i;
+	unsigned int i;
 	size_t len;
 
 	if ((cflags&REG_EXTENDED) && (cflags&REG_NOSPEC))

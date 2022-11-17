@@ -35,7 +35,7 @@ set_result(char *errbuf, size_t errbuf_size, char *result) {
 	if (errbuf_size > 0) {
 		size_t copy_len = result_len < errbuf_size ? result_len : errbuf_size - 1;
 		memcpy(errbuf, result, copy_len);
-		errbuf[copy_len] = 0;
+		errbuf[copy_len] = '\0';
 	}
 	return result_len + 1;
 }
