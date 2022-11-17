@@ -2505,6 +2505,9 @@ new_expr(ippfind_op_t op,		/* I - Operation */
 
      temp->num_args = num_args;
      temp->args     = malloc((size_t)num_args * sizeof(char *));
+     if (temp->args == NULL)
+       return (NULL);
+
      memcpy(temp->args, args, (size_t)num_args * sizeof(char *));
   }
 
