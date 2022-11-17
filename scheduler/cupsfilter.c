@@ -856,8 +856,7 @@ exec_filter(const char *filter,		/* I - Filter to execute */
 #if defined(__APPLE__)
   char		processPath[1024],	/* CFProcessPath environment variable */
 		linkpath[1024];		/* Link path for symlinks... */
-  int		linkbytes;		/* Bytes for link path */
-
+  ssize_t		linkbytes;		/* Bytes for link path */
 
  /*
   * Add special voodoo magic for macOS - this allows macOS
@@ -963,7 +962,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
              int           num_options,	/* I - Number of filter options */
 	     cups_option_t *options)	/* I - Filter options */
 {
-  int		i;			/* Looping var */
+  unsigned		i;			/* Looping var */
   const char	*argv[8],		/* Command-line arguments */
 		*envp[21],		/* Environment variables */
 		*temp;			/* Temporary string */
@@ -1115,7 +1114,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
     argv[4] = "1";
 
   for (i = 0; argv[i]; i ++)
-    fprintf(stderr, "DEBUG: argv[%d]=\"%s\"\n", i, argv[i]);
+    fprintf(stderr, "DEBUG: argv[%u]=\"%s\"\n", i, argv[i]);
 
   i = 0;
 #ifdef __APPLE__
@@ -1163,14 +1162,14 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   envp[i] = NULL;
 
   for (i = 0; envp[i]; i ++)
-    fprintf(stderr, "DEBUG: envp[%d]=\"%s\"\n", i, envp[i]);
+    fprintf(stderr, "DEBUG: envp[%u]=\"%s\"\n", i, envp[i]);
 
  /*
   * Execute all of the filters...
   */
 
   pids            = cupsArrayNew((cups_array_func_t)compare_pids, NULL);
-  current         = 0;
+  current         = 1;
   filterfds[0][0] = -1;
   filterfds[0][1] = -1;
   filterfds[1][0] = -1;
@@ -1181,7 +1180,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
 
   for (filter = (mime_filter_t *)cupsArrayFirst(filters);
        filter;
-       filter = next, current = 1 - current)
+       filter = next, current ^= 1)
   {
     next = (mime_filter_t *)cupsArrayNext(filters);
 
@@ -1191,31 +1190,31 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
       snprintf(program, sizeof(program), "%s/filter/%s", ServerBin,
 	       filter->filter);
 
-    if (filterfds[!current][1] > 1)
+    if (filterfds[current][1] > 1)
     {
-      close(filterfds[1 - current][0]);
-      close(filterfds[1 - current][1]);
+      close(filterfds[current][0]);
+      close(filterfds[current][1]);
 
-      filterfds[1 - current][0] = -1;
-      filterfds[1 - current][1] = -1;
+      filterfds[current][0] = -1;
+      filterfds[current][1] = -1;
     }
 
     if (next)
-      open_pipe(filterfds[1 - current]);
+      open_pipe(filterfds[current]);
     else if (outfile)
     {
-      filterfds[1 - current][1] = open(outfile, O_CREAT | O_TRUNC | O_WRONLY,
-                                       0666);
+      filterfds[current][1] = open(outfile, O_CREAT | O_TRUNC | O_WRONLY,
+                                   0666);
 
-      if (filterfds[1 - current][1] < 0)
+      if (filterfds[current][1] < 0)
         fprintf(stderr, "ERROR: Unable to create \"%s\" - %s\n", outfile,
 	        strerror(errno));
     }
     else
-      filterfds[1 - current][1] = 1;
+      filterfds[current][1] = 1;
 
     pid = exec_filter(program, (char **)argv, (char **)envp,
-                      filterfds[current][0], filterfds[1 - current][1]);
+                      filterfds[current ^ 1][0], filterfds[current][1]);
 
     if (pid > 0)
     {
