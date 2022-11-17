@@ -119,7 +119,7 @@ main(void)
 					/* Printer or class name */
 		*server_port = getenv("SERVER_PORT");
 					/* Port number string */
-      int	port = atoi(server_port ? server_port : "0");
+      int	port = server_port ? atoi(server_port) : 0;
       					/* Port number */
       char	uri[1024];		/* URL */
 
@@ -867,7 +867,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     else
       maxrate = 19200;
 
-    for (i = 0; i < 10; i ++)
+    for (i = 0; i < (int)(sizeof(baudrates)/sizeof(baudrates[0])); i ++)
       if (baudrates[i] > maxrate)
         break;
       else
