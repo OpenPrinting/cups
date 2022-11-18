@@ -1221,7 +1221,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     * Loop for each line on the page...
     */
 
-    for (y = 0; y < header.cupsHeight && !Canceled; y ++)
+    for (y = 0; y < header.cupsHeight; y ++)
     {
      /*
       * Let the user know how far we have progressed...
