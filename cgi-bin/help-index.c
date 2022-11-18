@@ -851,7 +851,7 @@ help_load_file(
   off_t		offset;			/* File offset */
   char		quote;			/* Quote character */
   help_word_t	*word;			/* Current word */
-  int		wordlen;		/* Length of word */
+  size_t		wordlen;		/* Length of word */
 
 
   if ((fp = cupsFileOpen(filename, "r")) == NULL)
@@ -1136,7 +1136,7 @@ help_load_file(
 
 	for (text = ptr, ptr ++; *ptr && isalnum(*ptr & 255); ptr ++);
 
-	wordlen = (int)(ptr - text);
+	wordlen = (size_t)(ptr - text);
 
         memcpy(temp, text, (size_t)wordlen);
 	temp[wordlen] = '\0';

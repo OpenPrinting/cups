@@ -533,9 +533,8 @@ httpAddrString(const http_addr_t *addr,	/* I - Address to convert */
     unsigned temp;			/* Temporary address */
 
     temp = ntohl(addr->ipv4.sin_addr.s_addr);
-
-    snprintf(s, (size_t)slen, "%d.%d.%d.%d", (temp >> 24) & 255,
-             (temp >> 16) & 255, (temp >> 8) & 255, temp & 255);
+    snprintf(s, (size_t)slen, "%u.%u.%u.%u", (temp >> 24),
+             (temp & 0xff0000) >> 16, (temp & 0xff00) >> 8, temp & 0xff);
   }
 #ifdef AF_INET6
   else if (addr->addr.sa_family == AF_INET6)
@@ -746,9 +745,7 @@ httpGetHostByName(const char *name)	/* I - Hostname or IP address */
     if (ip[0] > 255 || ip[1] > 255 || ip[2] > 255 || ip[3] > 255)
       return (NULL);			/* Invalid byte ranges! */
 
-    cg->ip_addr = htonl((((((((unsigned)ip[0] << 8) | (unsigned)ip[1]) << 8) |
-                           (unsigned)ip[2]) << 8) |
-                         (unsigned)ip[3]));
+    cg->ip_addr = htonl((ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3]);
 
    /*
     * Fill in the host entry and return it...

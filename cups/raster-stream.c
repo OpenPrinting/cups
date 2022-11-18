@@ -634,7 +634,7 @@ _cupsRasterReadHeader(
 	  DEBUG_puts("4_cupsRasterReadHeader: Swapping header bytes.");
 
 	  for (len = 81, s = &(r->header.AdvanceDistance);
-	       len > 0;
+	       len;
 	       len --, s ++)
 	  {
 	    temp = *s;
@@ -685,11 +685,11 @@ _cupsRasterReadHeader(
           r->header.cupsColorSpace   = appleheader[1] >= (sizeof(rawcspace) / sizeof(rawcspace[0])) ? CUPS_CSPACE_DEVICE1 : rawcspace[appleheader[1]];
           r->header.cupsNumColors    = appleheader[1] >= (sizeof(rawnumcolors) / sizeof(rawnumcolors[0])) ? 1 : rawnumcolors[appleheader[1]];
           r->header.cupsBitsPerColor = r->header.cupsBitsPerPixel / r->header.cupsNumColors;
-          r->header.cupsWidth        = ((((((unsigned)appleheader[12] << 8) | (unsigned)appleheader[13]) << 8) | (unsigned)appleheader[14]) << 8) | (unsigned)appleheader[15];
-          r->header.cupsHeight       = ((((((unsigned)appleheader[16] << 8) | (unsigned)appleheader[17]) << 8) | (unsigned)appleheader[18]) << 8) | (unsigned)appleheader[19];
+          r->header.cupsWidth        = ((unsigned)appleheader[12] << 24) | ((unsigned)appleheader[13] << 16) | ((unsigned)appleheader[14] << 8) | (unsigned)appleheader[15];
+          r->header.cupsHeight       = ((unsigned)appleheader[16] << 24) | ((unsigned)appleheader[17] << 16) | ((unsigned)appleheader[18] << 8) | (unsigned)appleheader[19];
           r->header.cupsBytesPerLine = r->header.cupsWidth * r->header.cupsBitsPerPixel / 8;
           r->header.cupsColorOrder   = CUPS_ORDER_CHUNKED;
-          r->header.HWResolution[0]  = r->header.HWResolution[1] = ((((((unsigned)appleheader[20] << 8) | (unsigned)appleheader[21]) << 8) | (unsigned)appleheader[22]) << 8) | (unsigned)appleheader[23];
+          r->header.HWResolution[0]  = r->header.HWResolution[1] = ((unsigned)appleheader[20] << 24) | ((unsigned)appleheader[21] << 16) | ((unsigned)appleheader[22] << 8) | (unsigned)appleheader[23];
 
           if (r->header.HWResolution[0] > 0)
           {
@@ -710,7 +710,7 @@ _cupsRasterReadHeader(
 
           r->header.MediaPosition = appleheader[5];
 
-          if (appleheader[4] < (int)(sizeof(apple_media_types) / sizeof(apple_media_types[0])))
+          if (appleheader[4] < (sizeof(apple_media_types) / sizeof(apple_media_types[0])))
             strlcpy(r->header.MediaType, apple_media_types[appleheader[4]], sizeof(r->header.MediaType));
           else
             strlcpy(r->header.MediaType, "other", sizeof(r->header.MediaType));

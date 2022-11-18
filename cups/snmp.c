@@ -1248,7 +1248,7 @@ asn1_get_integer(
   }
 
   for (value = (**buffer & 0x80) ? ~0 : 0;
-       length > 0 && *buffer < bufend;
+       length && *buffer < bufend;
        length --, (*buffer) ++)
     value = ((value & 0xffffff) << 8) | **buffer;
 
@@ -1275,7 +1275,7 @@ asn1_get_length(unsigned char **buffer,	/* IO - Pointer in buffer */
 
   if (length & 128)
   {
-    int	count;				/* Number of bytes for length */
+    unsigned	count;				/* Number of bytes for length */
 
     if ((count = length & 127) > sizeof(unsigned))
     {

@@ -727,9 +727,9 @@ httpEncode64_2(char       *out,		/* I - String to write to */
     if (outptr < outend)
     {
       if (inlen > 1)
-        *outptr ++ = base64[(((in[0] & 255) << 4) | ((in[1] & 255) >> 4)) & 63];
+        *outptr ++ = base64[((in[0] << 4) | (in[1] >> 4)) & 63];
       else
-        *outptr ++ = base64[((in[0] & 255) << 4) & 63];
+        *outptr ++ = base64[(in[0] << 4) & 63];
     }
 
     in ++;
@@ -746,9 +746,9 @@ httpEncode64_2(char       *out,		/* I - String to write to */
     if (outptr < outend)
     {
       if (inlen > 1)
-        *outptr ++ = base64[(((in[0] & 255) << 2) | ((in[1] & 255) >> 6)) & 63];
+        *outptr ++ = base64[((in[0] << 2) | (in[1] >> 6)) & 63];
       else
-        *outptr ++ = base64[((in[0] & 255) << 2) & 63];
+        *outptr ++ = base64[(in[0] << 2) & 63];
     }
 
     in ++;

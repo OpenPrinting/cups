@@ -689,7 +689,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 #else
     if (hostname)
     {
-      int		i;		/* Looping vars */
+      size_t		i;		/* Looping var */
       unsigned		ip[4];		/* IPv4 address components */
       const char	*ptr;		/* Pointer into hostname */
       struct hostent	*host;		/* Result of lookup */
@@ -745,13 +745,10 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 	  if (!first)
 	    return (NULL);
 
-          first->addr.ipv4.sin_family = AF_INET;
-          first->addr.ipv4.sin_addr.s_addr = htonl((((((((unsigned)ip[0] << 8) |
-	                                               (unsigned)ip[1]) << 8) |
-						     (unsigned)ip[2]) << 8) |
-						   (unsigned)ip[3]));
-          first->addr.ipv4.sin_port = htons(portnum);
-	}
+    first->addr.ipv4.sin_family = AF_INET;
+    first->addr.ipv4.sin_addr.s_addr = htonl((ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3]);
+    first->addr.ipv4.sin_port = htons(portnum);
+  }
       }
       else if ((host = gethostbyname(hostname)) != NULL &&
 #  ifdef AF_INET6
