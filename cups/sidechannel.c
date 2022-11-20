@@ -110,7 +110,7 @@ cupsSideChannelRead(
 #endif /* HAVE_POLL */
 
 
-  DEBUG_printf(("cupsSideChannelRead(command=%p, status=%p, data=%p, "
+  DEBUG_printf(("cupsSideChannelRead(command=%p, status=%p, data=%s, "
                 "datalen=%p(%d), timeout=%.3f)", command, status, data,
 		datalen, datalen ? *datalen : -1, timeout));
 
