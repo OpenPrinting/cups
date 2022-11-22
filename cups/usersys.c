@@ -593,8 +593,19 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
   * Gather Windows version information for the User-Agent string...
   */
 
-  version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-  GetVersionExA(&version);
+  typedef LONG NTSTATUS, *PNTSTATUS;
+  typedef NTSTATUS(WINAPI * RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
+
+  RtlGetVersionPtr RtlGetVersionInternal = (RtlGetVersionPtr)GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetVersion");
+  if (RtlGetVersionInternal)
+  {
+    version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    RtlGetVersionInternal((PRTL_OSVERSIONINFOW)&version);
+  }
+  else
+  {
+    ZeroMemory(&version, sizeof(version));
+  }
   GetNativeSystemInfo(&sysinfo);
 
   switch (sysinfo.wProcessorArchitecture)
