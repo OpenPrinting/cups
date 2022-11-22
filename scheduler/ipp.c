@@ -5594,7 +5594,7 @@ create_local_printer(
 
   if (nameptr)
   {
-    int host_len,
+    size_t host_len,
         server_name_len;
 
     /* Get host name of device URI */
@@ -7874,13 +7874,14 @@ get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
   }
   else if (!strncmp(resource, "/jobs/", 6) && resource[6])
   {
+    int job_id = atoi(resource + 6);
     printer = NULL;
-    job     = cupsdFindJob(atoi(resource + 6));
+    job     = cupsdFindJob(job_id);
 
     if (!job)
     {
       send_ipp_status(con, IPP_NOT_FOUND, _("Job #%d does not exist."),
-                      atoi(resource + 6));
+                      job_id);
       return;
     }
   }

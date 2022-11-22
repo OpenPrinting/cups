@@ -1126,7 +1126,7 @@ cupsdLoadAllPrinters(void)
       */
 
       if (value)
-        p->state_time = atoi(value);
+        p->state_time = (time_t)strtol(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "ConfigTime"))
     {
@@ -1135,7 +1135,7 @@ cupsdLoadAllPrinters(void)
       */
 
       if (value)
-        p->config_time = atoi(value);
+        p->config_time = (time_t)strtol(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "Accepting"))
     {
@@ -1160,7 +1160,7 @@ cupsdLoadAllPrinters(void)
     else if (!_cups_strcasecmp(line, "Type"))
     {
       if (value)
-        p->type = (cups_ptype_t)atoi(value);
+        p->type = (cups_ptype_t)strtoul(value, NULL, 10);
       else
 	cupsdLogMessage(CUPSD_LOG_ERROR,
 	                "Syntax error on line %d of printers.conf.", linenum);
@@ -1314,7 +1314,7 @@ cupsdLoadAllPrinters(void)
 	  cupsdSetPrinterAttrs(p);
 
         if (!strcmp(value, "marker-change-time"))
-	  p->marker_time = atoi(valueptr);
+	  p->marker_time = (time_t)strtol(valueptr, NULL, 10);
 	else
           cupsdSetPrinterAttr(p, value, valueptr);
       }
@@ -2018,7 +2018,7 @@ cupsdSetPrinterAttr(
       if ((ptr = strchr(start, ',')) != NULL)
         *ptr++ = '\0';
 
-      attr->values[i].integer = strtol(start, NULL, 10);
+      attr->values[i].integer = atoi(start);
 
       if (ptr)
         start = ptr;
@@ -3451,9 +3451,10 @@ add_printer_filter(
       return;
     }
 
-    ptr ++;
-    while (_cups_isspace(*ptr))
+    do
+    {	
       ptr ++;
+    } while (_cups_isspace(*ptr));
 
     _cups_strcpy(program, ptr);
   }
@@ -5010,9 +5011,11 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
         sourceRef = CGImageSourceCreateWithURL(icnsFileUrl, NULL);
         if (sourceRef)
         {
-          for (i = 0; i < (int)CGImageSourceGetCount(sourceRef); i ++)
+          size_t index;
+          const size_t count = CGImageSourceGetCount(sourceRef);
+          for (index = 0; index < count; index ++)
           {
-            imageRef = CGImageSourceCreateImageAtIndex(sourceRef, (size_t)i, NULL);
+            imageRef = CGImageSourceCreateImageAtIndex(sourceRef, index, NULL);
 	    if (!imageRef)
 	      continue;
 

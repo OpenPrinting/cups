@@ -270,7 +270,7 @@ cupsdGetPrivateAttrs(
 #ifdef DEBUG
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "cupsdGetPrivateAttrs(policy=%p(%s), con=%p(%d), "
-		  "printer=%p(%s), owner=\"%s\")", policy, policy->name, con,
+		  "printer=%p(%s), owner=\"%s\")", policy, policy ? policy->name : "", con,
 		  con->number, printer, printer ? printer->name : "", owner);
 #endif /* DEBUG */
 
