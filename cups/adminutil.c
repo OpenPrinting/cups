@@ -839,7 +839,7 @@ cupsAdminSetServerSettings(
 
 	if (remote_admin)
           cupsFilePuts(temp, "  # Allow remote administration...\n");
-	else if (remote_admin == 0)
+	else
           cupsFilePuts(temp, "  # Restrict access to the admin pages...\n");
 
         cupsFilePuts(temp, "  Order allow,deny\n");
