@@ -71,7 +71,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <ModuleDefinitionFile>regex/regex.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>regex/librxspencer.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -93,7 +93,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <ModuleDefinitionFile>regex/regex.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>regex/librxspencer.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -109,7 +109,7 @@
     <ClCompile Include="regex\split.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="regex\regex.def" />
+    <None Include="regex\librxspencer.def" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="regex\regex.h" />
