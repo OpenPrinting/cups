@@ -208,8 +208,8 @@ helpFindNode(help_index_t *hi,		/* I - Index */
  */
 
 help_index_t *				/* O - Index pointer or NULL */
-helpLoadIndex(const char *hifile,	/* I - Index filename */
-              const char *directory)	/* I - Directory that is indexed */
+helpLoadIndex(const char * restrict hifile,	/* I - Index filename */
+              const char * restrict directory)	/* I - Directory that is indexed */
 {
   help_index_t	*hi;			/* Help index */
   cups_file_t	*fp;			/* Current file */
@@ -424,8 +424,8 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
  */
 
 int					/* O - 0 on success, -1 on error */
-helpSaveIndex(help_index_t *hi,		/* I - Index */
-              const char   *hifile)	/* I - Index filename */
+helpSaveIndex(help_index_t * restrict hi,		/* I - Index */
+              const char   * restrict hifile)	/* I - Index filename */
 {
   cups_file_t	*fp;			/* Index file */
   help_node_t	*node;			/* Current node */
@@ -732,9 +732,9 @@ help_delete_word(help_word_t *w)	/* I - Word */
 
 static int				/* O - 0 = success, -1 = error, 1 = updated */
 help_load_directory(
-    help_index_t *hi,			/* I - Index */
-    const char   *directory,		/* I - Directory */
-    const char   *relative)		/* I - Relative path */
+    help_index_t * restrict hi,			/* I - Index */
+    const char   * restrict directory,		/* I - Directory */
+    const char   * restrict relative)		/* I - Relative path */
 {
   cups_dir_t	*dir;			/* Directory file */
   cups_dentry_t	*dent;			/* Directory entry */

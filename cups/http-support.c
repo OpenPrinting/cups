@@ -434,13 +434,13 @@ httpAssembleURI(
 http_uri_status_t			/* O - URI status */
 httpAssembleURIf(
     http_uri_coding_t encoding,		/* I - Encoding flags */
-    char              *uri,		/* I - URI buffer */
+    char              * restrict uri,		/* I - URI buffer */
     int               urilen,		/* I - Size of URI buffer */
-    const char        *scheme,		/* I - Scheme name */
-    const char        *username,	/* I - Username */
-    const char        *host,		/* I - Hostname or address */
+    const char        * restrict scheme,		/* I - Scheme name */
+    const char        * restrict username,	/* I - Username */
+    const char        * restrict host,		/* I - Hostname or address */
     int               port,		/* I - Port number */
-    const char        *resourcef,	/* I - Printf-style resource */
+    const char        * restrict resourcef,	/* I - Printf-style resource */
     ...)				/* I - Additional arguments as needed */
 {
   va_list	ap;			/* Pointer to additional arguments */
@@ -492,11 +492,11 @@ httpAssembleURIf(
  */
 
 char *					/* I - UUID string */
-httpAssembleUUID(const char *server,	/* I - Server name */
+httpAssembleUUID(const char * restrict server,	/* I - Server name */
 		 int        port,	/* I - Port number */
-		 const char *name,	/* I - Object name or NULL */
+		 const char * restrict name,	/* I - Object name or NULL */
 		 int        number,	/* I - Object number or 0 */
-		 char       *buffer,	/* I - String buffer */
+		 char       * restrict buffer,	/* I - String buffer */
 		 size_t     bufsize)	/* I - Size of buffer */
 {
   char			data[1024];	/* Source string for MD5 */
@@ -542,8 +542,8 @@ httpAssembleUUID(const char *server,	/* I - Server name */
  */
 
 char *					/* O - Decoded string */
-httpDecode64(char       *out,		/* I - String to write to */
-             const char *in)		/* I - String to read from */
+httpDecode64(char       * restrict out,		/* I - String to write to */
+             const char * restrict in)		/* I - String to read from */
 {
   int	outlen;				/* Output buffer length */
 

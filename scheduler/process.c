@@ -420,9 +420,9 @@ cupsdEndProcess(int pid,		/* I - Process ID */
 
 const char *				/* O - Process name */
 cupsdFinishProcess(int    pid,		/* I - Process ID */
-                   char   *name,	/* I - Name buffer */
+                   char   * restrict name,	/* I - Name buffer */
 		   size_t namelen,	/* I - Size of name buffer */
-		   int    *job_id)	/* O - Job ID pointer or NULL */
+		   int    * restrict job_id)	/* O - Job ID pointer or NULL */
 {
   cupsd_proc_t	key,			/* Search key */
 		*proc;			/* Matching process */
@@ -459,18 +459,18 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
 
 int					/* O - Process ID or 0 */
 cupsdStartProcess(
-    const char  *command,		/* I - Full path to command */
-    char        *argv[],		/* I - Command-line arguments */
-    char        *envp[],		/* I - Environment */
+    const char  * restrict command,		/* I - Full path to command */
+    char        ** restrict argv,		/* I - Command-line arguments */
+    char        ** restrict envp,		/* I - Environment */
     int         infd,			/* I - Standard input file descriptor */
     int         outfd,			/* I - Standard output file descriptor */
     int         errfd,			/* I - Standard error file descriptor */
     int         backfd,			/* I - Backchannel file descriptor */
     int         sidefd,			/* I - Sidechannel file descriptor */
     int         root,			/* I - Run as root? */
-    void        *profile,		/* I - Security profile to use */
-    cupsd_job_t *job,			/* I - Job associated with process */
-    int         *pid)			/* O - Process ID */
+    void        * restrict profile,		/* I - Security profile to use */
+    cupsd_job_t * restrict job,			/* I - Job associated with process */
+    int         * restrict pid)			/* O - Process ID */
 {
   int		i;			/* Looping var */
   const char	*exec_path = command;	/* Command to be exec'd */
@@ -865,8 +865,8 @@ compare_procs(cupsd_proc_t *a,		/* I - First process */
  */
 
 static char *				/* O - Quoted string */
-cupsd_requote(char       *dst,		/* I - Destination buffer */
-              const char *src,		/* I - Source string */
+cupsd_requote(char       * restrict dst,		/* I - Destination buffer */
+              const char * restrict src,		/* I - Source string */
 	      size_t     dstsize)	/* I - Size of destination buffer */
 {
   int	ch;				/* Current character */

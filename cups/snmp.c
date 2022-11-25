@@ -83,17 +83,17 @@ _cupsSNMPClose(int fd)			/* I - SNMP socket file descriptor */
  */
 
 int *					/* O - New OID */
-_cupsSNMPCopyOID(int       *dst,	/* I - Destination OID */
-                 const int *src,	/* I - Source OID */
-		 int       dstsize)	/* I - Number of integers in dst */
+_cupsSNMPCopyOID(int       * restrict dst,	/* I - Destination OID */
+                 const int * restrict src)	/* I - Source OID */
 {
-  int	i;				/* Looping var */
+  size_t	i;				/* Looping var */
 
+  if (dst)
 
-  DEBUG_printf(("4_cupsSNMPCopyOID(dst=%p, src=%p, dstsize=%d)", dst, src,
-                dstsize));
+  DEBUG_printf(("4_cupsSNMPCopyOID(dst=%p, src=%p, dstsize=%u)", dst, src,
+                CUPS_SNMP_MAX_OID));
 
-  for (i = 0, dstsize --; src[i] >= 0 && i < dstsize; i ++)
+  for (i = 0; i < CUPS_SNMP_MAX_OID - 1 && src[i] >= 0; i ++)
     dst[i] = src[i];
 
   dst[i] = -1;
@@ -158,8 +158,8 @@ _cupsSNMPDefaultCommunity(void)
  */
 
 int					/* O - 1 if equal, 0 if not equal */
-_cupsSNMPIsOID(cups_snmp_t *packet,	/* I - Response packet */
-               const int   *oid)	/* I - OID */
+_cupsSNMPIsOID(cups_snmp_t * restrict packet,	/* I - Response packet */
+               const int   * restrict oid)	/* I - OID */
 {
   int	i;				/* Looping var */
 
@@ -476,8 +476,8 @@ _cupsSNMPSetDebug(int level)		/* I - 1 to enable debug output, 0 otherwise */
  */
 
 int *					/* O - Pointer to OID array or @code NULL@ on error */
-_cupsSNMPStringToOID(const char *src,	/* I - OID string */
-                     int        *dst,	/* I - OID array */
+_cupsSNMPStringToOID(const char * restrict src,	/* I - OID string */
+                     int        * restrict dst,	/* I - OID array */
 		     int        dstsize)/* I - Number of integers in OID array */
 {
   int	*dstptr,			/* Pointer into OID array */
@@ -547,13 +547,13 @@ _cupsSNMPStringToOID(const char *src,	/* I - OID string */
 
 int					/* O - Number of OIDs found or -1 on error */
 _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
-              http_addr_t    *address,	/* I - Address to query */
+              http_addr_t    * restrict address,	/* I - Address to query */
 	      int            version,	/* I - SNMP version */
-	      const char     *community,/* I - Community name */
-              const int      *prefix,	/* I - OID prefix */
+	      const char     * restrict community,/* I - Community name */
+              const int      * restrict prefix,	/* I - OID prefix */
 	      double         timeout,	/* I - Timeout for each response in seconds */
 	      cups_snmp_cb_t cb,	/* I - Function to call for each response */
-	      void           *data)	/* I - User data pointer that is passed to the callback function */
+	      void           * restrict data)	/* I - User data pointer that is passed to the callback function */
 {
   int		count = 0;		/* Number of OIDs found */
   unsigned	request_id = 0;		/* Current request ID */
@@ -582,7 +582,7 @@ _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
   * Copy the OID prefix and then loop until we have no more OIDs...
   */
 
-  _cupsSNMPCopyOID(packet.object_name, prefix, CUPS_SNMP_MAX_OID);
+  _cupsSNMPCopyOID(packet.object_name, prefix);
   lastoid[0] = -1;
 
   for (;;)
@@ -620,7 +620,7 @@ _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
       return (count > 0 ? count : -1);
     }
 
-    _cupsSNMPCopyOID(lastoid, packet.object_name, CUPS_SNMP_MAX_OID);
+    _cupsSNMPCopyOID(lastoid, packet.object_name);
 
     count ++;
 
@@ -638,12 +638,12 @@ _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
 int					/* O - 1 on success, 0 on error */
 _cupsSNMPWrite(
     int            fd,			/* I - SNMP socket */
-    http_addr_t    *address,		/* I - Address to send to */
+    http_addr_t    * restrict address,		/* I - Address to send to */
     int            version,		/* I - SNMP version */
-    const char     *community,		/* I - Community name */
+    const char     * restrict community,		/* I - Community name */
     cups_asn1_t    request_type,	/* I - Request type */
     const unsigned request_id,		/* I - Request ID */
-    const int      *oid)		/* I - OID */
+    const int      * restrict oid)		/* I - OID */
 {
   int		i;			/* Looping var */
   cups_snmp_t	packet;			/* SNMP message packet */
@@ -1248,7 +1248,7 @@ asn1_get_integer(
   }
 
   for (value = (**buffer & 0x80) ? ~0 : 0;
-       length > 0 && *buffer < bufend;
+       length && *buffer < bufend;
        length --, (*buffer) ++)
     value = ((value & 0xffffff) << 8) | **buffer;
 
@@ -1275,7 +1275,7 @@ asn1_get_length(unsigned char **buffer,	/* IO - Pointer in buffer */
 
   if (length & 128)
   {
-    int	count;				/* Number of bytes for length */
+    unsigned	count;				/* Number of bytes for length */
 
     if ((count = length & 127) > sizeof(unsigned))
     {
@@ -1306,7 +1306,7 @@ asn1_get_oid(
     unsigned char **buffer,		/* IO - Pointer in buffer */
     unsigned char *bufend,		/* I  - End of buffer */
     unsigned      length,		/* I  - Length of value */
-    int           *oid,			/* I  - OID buffer */
+    int           * restrict oid,			/* I  - OID buffer */
     int           oidsize)		/* I  - Size of OID buffer */
 {
   unsigned char	*valend;		/* End of value */
@@ -1367,8 +1367,8 @@ asn1_get_oid(
 
 static int				/* O  - Value */
 asn1_get_packed(
-    unsigned char **buffer,		/* IO - Pointer in buffer */
-    unsigned char *bufend)		/* I  - End of buffer */
+    unsigned char ** restrict buffer,		/* IO - Pointer in buffer */
+    unsigned char * restrict bufend)		/* I  - End of buffer */
 {
   int	value;				/* Value */
 
@@ -1400,10 +1400,10 @@ asn1_get_packed(
 
 static char *				/* O  - String */
 asn1_get_string(
-    unsigned char **buffer,		/* IO - Pointer in buffer */
-    unsigned char *bufend,		/* I  - End of buffer */
+    unsigned char ** restrict buffer,		/* IO - Pointer in buffer */
+    unsigned char * restrict bufend,		/* I  - End of buffer */
     unsigned      length,		/* I  - Value length */
-    char          *string,		/* I  - String buffer */
+    char          * restrict string,		/* I  - String buffer */
     size_t        strsize)		/* I  - String buffer size */
 {
   if (*buffer >= bufend)
@@ -1523,7 +1523,7 @@ asn1_set_integer(unsigned char **buffer,/* IO - Pointer in buffer */
  */
 
 static void
-asn1_set_length(unsigned char **buffer,	/* IO - Pointer in buffer */
+asn1_set_length(unsigned char ** restrict buffer,	/* IO - Pointer in buffer */
 		unsigned      length)	/* I  - Length value */
 {
   if (length > 255)
@@ -1555,8 +1555,8 @@ asn1_set_length(unsigned char **buffer,	/* IO - Pointer in buffer */
  */
 
 static void
-asn1_set_oid(unsigned char **buffer,	/* IO - Pointer in buffer */
-             const int     *oid)	/* I  - OID value */
+asn1_set_oid(unsigned char ** restrict buffer,	/* IO - Pointer in buffer */
+             const int     * restrict oid)	/* I  - OID value */
 {
   **buffer = CUPS_ASN1_OID;
   (*buffer) ++;
@@ -1698,8 +1698,8 @@ asn1_size_packed(int integer)		/* I - Integer value */
  */
 
 static void
-snmp_set_error(cups_snmp_t *packet,	/* I - Packet */
-               const char *message)	/* I - Error message */
+snmp_set_error(cups_snmp_t * restrict packet,	/* I - Packet */
+               const char * restrict message)	/* I - Error message */
 {
   _cups_globals_t *cg = _cupsGlobals();	/* Global data */
 

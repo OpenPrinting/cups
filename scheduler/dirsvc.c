@@ -267,7 +267,7 @@ cupsdUpdateDNSSDName(void)
  */
 
 static void
-dnssdAddAlias(const void *key,		/* I - Key */
+dnssdAddAlias(const void *key,		/* I - Key (unused) */
               const void *value,	/* I - Value (domain) */
 	      void       *context)	/* I - Unused */
 {
@@ -941,9 +941,9 @@ dnssdRegisterCallback(
 #  else /* HAVE_AVAHI */
 static void
 dnssdRegisterCallback(
-    AvahiEntryGroup      *srv,		/* I - Service */
+    AvahiEntryGroup      * restrict srv,		/* I - Service */
     AvahiEntryGroupState state,		/* I - Registration state */
-    void                 *context)	/* I - Printer */
+    void                 * restrict context)	/* I - Printer */
 {
   cupsd_printer_t *p = (cupsd_printer_t *)context;
 					/* Current printer */
@@ -965,13 +965,13 @@ dnssdRegisterCallback(
 
 static int				/* O - 1 on success, 0 on failure */
 dnssdRegisterInstance(
-    cupsd_srv_t     *srv,		/* O - Service */
-    cupsd_printer_t *p,			/* I - Printer */
-    char            *name,		/* I - DNS-SD service name */
-    const char      *type,		/* I - DNS-SD service type */
-    const char      *subtypes,		/* I - Subtypes to register or NULL */
+    cupsd_srv_t     * restrict srv,		/* O - Service */
+    cupsd_printer_t * restrict p,			/* I - Printer */
+    char            * restrict name,		/* I - DNS-SD service name */
+    const char      * restrict type,		/* I - DNS-SD service type */
+    const char      * restrict subtypes,		/* I - Subtypes to register or NULL */
     int             port,		/* I - Port number or 0 */
-    cupsd_txt_t     *txt,		/* I - TXT record */
+    cupsd_txt_t     * restrict txt,		/* I - TXT record */
     int             commit,		/* I - Commit registration? */
     int             from_callback)	/* I - Called from callback? */
 {

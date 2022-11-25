@@ -20,8 +20,8 @@
  */
 
 void
-_cupsLangPrintError(const char *prefix,	/* I - Non-localized message prefix */
-                    const char *message)/* I - Message */
+_cupsLangPrintError(const char * restrict prefix,	/* I - Non-localized message prefix */
+                    const char * restrict message)/* I - Message */
 {
   ssize_t	bytes;			/* Number of bytes formatted */
   int		last_errno;		/* Last error */

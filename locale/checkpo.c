@@ -290,8 +290,8 @@ main(int  argc,				/* I - Number of command-line args */
  */
 
 static char *				/* O - Abbreviated string */
-abbreviate(const char *s,		/* I - String to abbreviate */
-           char       *buf,		/* I - Buffer */
+abbreviate(const char * restrict s,		/* I - String to abbreviate */
+           char       * restrict buf,		/* I - Buffer */
 	   int        bufsize)		/* I - Size of buffer */
 {
   char	*bufptr;			/* Pointer into buffer */

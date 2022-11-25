@@ -399,14 +399,14 @@ create_job(http_t        *http,		/* I - HTTP connection */
  */
 
 static int				/* O - Number of options or -1 on error */
-get_printer(http_t        *http,	/* I - HTTP connection */
-            const char    *name,	/* I - Printer name from request */
-	    char          *dest,	/* I - Destination buffer */
+get_printer(http_t        * restrict http,	/* I - HTTP connection */
+            const char    * restrict name,	/* I - Printer name from request */
+	    char          * restrict dest,	/* I - Destination buffer */
             size_t        destsize,	/* I - Size of destination buffer */
-	    cups_option_t **options,	/* O - Printer options */
-	    int           *accepting,	/* O - printer-is-accepting-jobs value */
-	    int           *shared,	/* O - printer-is-shared value */
-	    ipp_pstate_t  *state)	/* O - printer-state value */
+	    cups_option_t ** restrict options,	/* O - Printer options */
+	    int           * restrict accepting,	/* O - printer-is-accepting-jobs value */
+	    int           * restrict shared,	/* O - printer-is-shared value */
+	    ipp_pstate_t  * restrict state)	/* O - printer-state value */
 {
   int		num_options;		/* Number of options */
   cups_file_t	*fp;			/* lpoptions file */
@@ -764,9 +764,9 @@ print_file(http_t     *http,		/* I - HTTP connection */
 
 static int				/* O - Command status */
 recv_print_job(
-    const char    *queue,		/* I - Printer name */
+    const char    * restrict queue,		/* I - Printer name */
     int           num_defaults,		/* I - Number of default options */
-    cups_option_t *defaults)		/* I - Default options */
+    cups_option_t * restrict defaults)		/* I - Default options */
 {
   http_t	*http;			/* HTTP connection */
   int		i;			/* Looping var */
@@ -1296,8 +1296,8 @@ remove_jobs(const char *dest,		/* I - Destination */
  */
 
 static int				/* O - Command status */
-send_state(const char *queue,		/* I - Destination */
-           const char *list,		/* I - Job or user */
+send_state(const char * restrict queue,		/* I - Destination */
+           const char * restrict list,		/* I - Job or user */
 	   int        longstatus)	/* I - List of jobs or users */
 {
   int		id;			/* Job ID from list */

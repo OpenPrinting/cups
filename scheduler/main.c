@@ -1323,8 +1323,8 @@ cupsdReleaseSignals(void)
  */
 
 void
-cupsdSetString(char       **s,		/* O - New string */
-               const char *v)		/* I - String value */
+cupsdSetString(char       ** restrict s,		/* O - New string */
+               const char * restrict v)		/* I - String value */
 {
   if (!s || *s == v)
     return;
@@ -1344,8 +1344,8 @@ cupsdSetString(char       **s,		/* O - New string */
  */
 
 void
-cupsdSetStringf(char       **s,		/* O - New string */
-                const char *f,		/* I - Printf-style format string */
+cupsdSetStringf(char       ** restrict s,		/* O - New string */
+                const char * restrict f,		/* I - Printf-style format string */
 	        ...)			/* I - Additional args as needed */
 {
   char		v[65536 + 64];		/* Formatting string value */

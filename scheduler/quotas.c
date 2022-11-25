@@ -29,8 +29,8 @@ static int		compare_quotas(const cupsd_quota_t *q1,
 
 cupsd_quota_t *				/* O - Quota data */
 cupsdFindQuota(
-    cupsd_printer_t *p,			/* I - Printer */
-    const char      *username)		/* I - User */
+    cupsd_printer_t * restrict p,			/* I - Printer */
+    const char      * restrict username)		/* I - User */
 {
   cupsd_quota_t	*q,			/* Quota data pointer */
 		match;			/* Search data */
@@ -184,8 +184,8 @@ cupsdUpdateQuota(
  */
 
 static cupsd_quota_t *			/* O - Quota data */
-add_quota(cupsd_printer_t *p,		/* I - Printer */
-          const char      *username)	/* I - User */
+add_quota(cupsd_printer_t * restrict p,		/* I - Printer */
+          const char      * restrict username)	/* I - User */
 {
   cupsd_quota_t	*q;			/* New quota data */
   char		*ptr;			/* Pointer into username */

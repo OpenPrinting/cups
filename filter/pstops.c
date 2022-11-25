@@ -166,8 +166,8 @@ static int		include_feature(ppd_file_t *ppd, const char *line,
 					cups_option_t **options);
 static char		*parse_text(const char *start, char **end, char *buffer,
 			            size_t bufsize);
-static void		set_pstops_options(pstops_doc_t *doc, ppd_file_t *ppd,
-			                   char *argv[], int num_options,
+static void		set_pstops_options(pstops_doc_t * restrict doc, ppd_file_t * restrict ppd,
+			                   char ** restrict argv, int num_options,
 			                   cups_option_t *options);
 static ssize_t		skip_page(cups_file_t *fp, char *line, ssize_t linelen,
 				  size_t linesize);
@@ -395,8 +395,8 @@ main(int  argc,				/* I - Number of command-line args */
  */
 
 static pstops_page_t *			/* O - New page info object */
-add_page(pstops_doc_t *doc,		/* I - Document information */
-         const char   *label)		/* I - Page label */
+add_page(pstops_doc_t * restrict doc,		/* I - Document information */
+         const char   * restrict label)		/* I - Page label */
 {
   pstops_page_t	*pageinfo;		/* New page info object */
 
@@ -553,10 +553,10 @@ copy_bytes(cups_file_t *fp,		/* I - File to read from */
  */
 
 static ssize_t				/* O - Length of next line */
-copy_comments(cups_file_t  *fp,		/* I - File to read from */
-              pstops_doc_t *doc,	/* I - Document info */
-	      ppd_file_t   *ppd,	/* I - PPD file */
-              char         *line,	/* I - Line buffer */
+copy_comments(cups_file_t  * restrict fp,		/* I - File to read from */
+              pstops_doc_t * restrict doc,	/* I - Document info */
+	      ppd_file_t   * restrict ppd,	/* I - PPD file */
+              char         * restrict line,	/* I - Line buffer */
 	      ssize_t      linelen,	/* I - Length of initial line */
 	      size_t       linesize)	/* I - Size of line buffer */
 {
@@ -776,10 +776,10 @@ copy_comments(cups_file_t  *fp,		/* I - File to read from */
  */
 
 static void
-copy_dsc(cups_file_t  *fp,		/* I - File to read from */
-         pstops_doc_t *doc,		/* I - Document info */
-         ppd_file_t   *ppd,		/* I - PPD file */
-	 char         *line,		/* I - Line buffer */
+copy_dsc(cups_file_t  * restrict fp,		/* I - File to read from */
+         pstops_doc_t * restrict doc,		/* I - Document info */
+         ppd_file_t   * restrict ppd,		/* I - PPD file */
+	 char         * restrict line,		/* I - Line buffer */
 	 ssize_t      linelen,		/* I - Length of initial line */
 	 size_t       linesize)		/* I - Size of line buffer */
 {
@@ -1036,10 +1036,10 @@ copy_dsc(cups_file_t  *fp,		/* I - File to read from */
  */
 
 static void
-copy_non_dsc(cups_file_t  *fp,		/* I - File to read from */
-             pstops_doc_t *doc,		/* I - Document info */
-             ppd_file_t   *ppd,		/* I - PPD file */
-	     char         *line,	/* I - Line buffer */
+copy_non_dsc(cups_file_t  * restrict fp,		/* I - File to read from */
+             pstops_doc_t * restrict doc,		/* I - Document info */
+             ppd_file_t   * restrict ppd,		/* I - PPD file */
+	     char         * restrict line,	/* I - Line buffer */
 	     ssize_t      linelen,	/* I - Length of initial line */
 	     size_t       linesize)	/* I - Size of line buffer */
 {
@@ -1219,11 +1219,11 @@ copy_non_dsc(cups_file_t  *fp,		/* I - File to read from */
  */
 
 static ssize_t				/* O - Length of next line */
-copy_page(cups_file_t  *fp,		/* I - File to read from */
-          pstops_doc_t *doc,		/* I - Document info */
-          ppd_file_t   *ppd,		/* I - PPD file */
+copy_page(cups_file_t  * restrict fp,		/* I - File to read from */
+          pstops_doc_t * restrict doc,		/* I - Document info */
+          ppd_file_t   * restrict ppd,		/* I - PPD file */
 	  int          number,		/* I - Current page number */
-	  char         *line,		/* I - Line buffer */
+	  char         * restrict line,		/* I - Line buffer */
 	  ssize_t      linelen,		/* I - Length of initial line */
 	  size_t       linesize)	/* I - Size of line buffer */
 {
@@ -1675,10 +1675,10 @@ copy_page(cups_file_t  *fp,		/* I - File to read from */
  */
 
 static ssize_t				/* O - Length of next line */
-copy_prolog(cups_file_t  *fp,		/* I - File to read from */
-            pstops_doc_t *doc,		/* I - Document info */
-            ppd_file_t   *ppd,		/* I - PPD file */
-	    char         *line,		/* I - Line buffer */
+copy_prolog(cups_file_t  * restrict fp,		/* I - File to read from */
+            pstops_doc_t * restrict doc,		/* I - Document info */
+            ppd_file_t   * restrict ppd,		/* I - PPD file */
+	    char         * restrict line,		/* I - Line buffer */
 	    ssize_t      linelen,	/* I - Length of initial line */
 	    size_t       linesize)	/* I - Size of line buffer */
 {
@@ -1729,10 +1729,10 @@ copy_prolog(cups_file_t  *fp,		/* I - File to read from */
  */
 
 static ssize_t				/* O - Length of next line */
-copy_setup(cups_file_t  *fp,		/* I - File to read from */
-           pstops_doc_t *doc,		/* I - Document info */
-           ppd_file_t   *ppd,		/* I - PPD file */
-	   char         *line,		/* I - Line buffer */
+copy_setup(cups_file_t  * restrict fp,		/* I - File to read from */
+           pstops_doc_t * restrict doc,		/* I - Document info */
+           ppd_file_t   * restrict ppd,		/* I - PPD file */
+	   char         * restrict line,		/* I - Line buffer */
 	   ssize_t      linelen,	/* I - Length of initial line */
 	   size_t       linesize)	/* I - Size of line buffer */
 {
@@ -1806,11 +1806,11 @@ copy_setup(cups_file_t  *fp,		/* I - File to read from */
  */
 
 static ssize_t				/* O - Length of next line */
-copy_trailer(cups_file_t  *fp,		/* I - File to read from */
-             pstops_doc_t *doc,		/* I - Document info */
-             ppd_file_t   *ppd,		/* I - PPD file */
+copy_trailer(cups_file_t  * restrict fp,		/* I - File to read from */
+             pstops_doc_t * restrict doc,		/* I - Document info */
+             ppd_file_t   * restrict ppd,		/* I - PPD file */
 	     int          number,	/* I - Number of pages */
-	     char         *line,	/* I - Line buffer */
+	     char         * restrict line,	/* I - Line buffer */
 	     ssize_t      linelen,	/* I - Length of initial line */
 	     size_t       linesize)	/* I - Size of line buffer */
 {
@@ -1854,8 +1854,8 @@ copy_trailer(cups_file_t  *fp,		/* I - File to read from */
  */
 
 static void
-do_prolog(pstops_doc_t *doc,		/* I - Document information */
-          ppd_file_t   *ppd)		/* I - PPD file */
+do_prolog(pstops_doc_t * restrict doc,		/* I - Document information */
+          ppd_file_t   * restrict ppd)		/* I - PPD file */
 {
   char	*ps;				/* PS commands */
 
@@ -1893,8 +1893,8 @@ do_prolog(pstops_doc_t *doc,		/* I - Document information */
  */
 
 static void
-do_setup(pstops_doc_t *doc,		/* I - Document information */
-         ppd_file_t   *ppd)		/* I - PPD file */
+do_setup(pstops_doc_t * restrict doc,		/* I - Document information */
+         ppd_file_t   * restrict ppd)		/* I - PPD file */
 {
   char	*ps;				/* PS commands */
 
@@ -2007,8 +2007,8 @@ do_setup(pstops_doc_t *doc,		/* I - Document information */
  */
 
 static void
-doc_printf(pstops_doc_t *doc,		/* I - Document information */
-           const char   *format,	/* I - Printf-style format string */
+doc_printf(pstops_doc_t * restrict doc,		/* I - Document information */
+           const char   * restrict format,	/* I - Printf-style format string */
 	   ...)				/* I - Additional arguments as needed */
 {
   va_list	ap;			/* Pointer to arguments */
@@ -2039,8 +2039,8 @@ doc_printf(pstops_doc_t *doc,		/* I - Document information */
  */
 
 static void
-doc_puts(pstops_doc_t *doc,		/* I - Document information */
-         const char   *s)		/* I - String to send */
+doc_puts(pstops_doc_t * restrict doc,		/* I - Document information */
+         const char   * restrict s)		/* I - String to send */
 {
   doc_write(doc, s, strlen(s));
 }
@@ -2051,8 +2051,8 @@ doc_puts(pstops_doc_t *doc,		/* I - Document information */
  */
 
 static void
-doc_write(pstops_doc_t *doc,		/* I - Document information */
-          const char   *s,		/* I - Data to send */
+doc_write(pstops_doc_t * restrict doc,		/* I - Document information */
+          const char   * restrict s,		/* I - Data to send */
 	  size_t       len)		/* I - Number of bytes to send */
 {
   if (!doc->slow_order)
@@ -2204,9 +2204,9 @@ include_feature(
  */
 
 static char *				/* O - Value or NULL on error */
-parse_text(const char *start,		/* I - Start of text value */
-           char       **end,		/* O - End of text value */
-	   char       *buffer,		/* I - Buffer */
+parse_text(const char * restrict start,		/* I - Start of text value */
+           char       ** restrict end,		/* O - End of text value */
+	   char       * restrict buffer,		/* I - Buffer */
            size_t     bufsize)		/* I - Size of buffer */
 {
   char	*bufptr,			/* Pointer in buffer */
@@ -2287,11 +2287,11 @@ parse_text(const char *start,		/* I - Start of text value */
 
 static void
 set_pstops_options(
-    pstops_doc_t  *doc,			/* I - Document information */
-    ppd_file_t    *ppd,			/* I - PPD file */
-    char          *argv[],		/* I - Command-line arguments */
+    pstops_doc_t  * restrict doc,			/* I - Document information */
+    ppd_file_t    * restrict ppd,			/* I - PPD file */
+    char          ** restrict argv,		/* I - Command-line arguments */
     int           num_options,		/* I - Number of options */
-    cups_option_t *options)		/* I - Options */
+    cups_option_t * restrict options)		/* I - Options */
 {
   const char	*val;			/* Option value */
   int		intval;			/* Integer option value */
@@ -2724,10 +2724,10 @@ skip_page(cups_file_t *fp,		/* I - File to read from */
  */
 
 static void
-start_nup(pstops_doc_t *doc,		/* I - Document information */
+start_nup(pstops_doc_t * restrict doc,		/* I - Document information */
           int          number,		/* I - Page number */
 	  int          show_border,	/* I - Show the border? */
-	  const int    *bounding_box)	/* I - BoundingBox value */
+	  const int    * restrict bounding_box)	/* I - BoundingBox value */
 {
   int		pos;			/* Position on page */
   int		x, y;			/* Relative position of subpage */
@@ -3325,10 +3325,10 @@ write_labels(pstops_doc_t *doc,		/* I - Document information */
 
 static void
 write_options(
-    pstops_doc_t  *doc,		/* I - Document */
-    ppd_file_t    *ppd,		/* I - PPD file */
+    pstops_doc_t  * restrict doc,		/* I - Document */
+    ppd_file_t    * restrict ppd,		/* I - PPD file */
     int           num_options,	/* I - Number of options */
-    cups_option_t *options)	/* I - Options */
+    cups_option_t * restrict options)	/* I - Options */
 {
   int		i;		/* Looping var */
   ppd_option_t	*option;	/* PPD option */

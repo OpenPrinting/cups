@@ -32,9 +32,9 @@ static void	report_error(_ipp_file_t *f, _ipp_vars_t *v, void *user_data, const 
 
 ipp_t *					/* O - IPP attributes or @code NULL@ on failure */
 _ippFileParse(
-    _ipp_vars_t      *v,		/* I - Variables */
-    const char       *filename,		/* I - Name of file to parse */
-    void             *user_data)	/* I - User data pointer */
+    _ipp_vars_t      * restrict v,		/* I - Variables */
+    const char       * restrict filename,		/* I - Name of file to parse */
+    void             * restrict user_data)	/* I - User data pointer */
 {
   _ipp_file_t	f;			/* IPP data file information */
   ipp_t		*attrs = NULL;		/* Active IPP message */
@@ -203,8 +203,8 @@ _ippFileParse(
  */
 
 int					/* O - 1 on success, 0 on failure */
-_ippFileReadToken(_ipp_file_t *f,	/* I - File to read from */
-                  char        *token,	/* I - Token string buffer */
+_ippFileReadToken(_ipp_file_t * restrict f,	/* I - File to read from */
+                  char        * restrict token,	/* I - Token string buffer */
                   size_t      tokensize)/* I - Size of token string buffer */
 {
   int	ch,				/* Character from file */
@@ -422,9 +422,9 @@ _ippFileReadToken(_ipp_file_t *f,	/* I - File to read from */
 
 static ipp_t *				/* O - Collection value or @code NULL@ on error */
 parse_collection(
-    _ipp_file_t      *f,		/* I - IPP data file */
-    _ipp_vars_t      *v,		/* I - IPP variables */
-    void             *user_data)	/* I - User data pointer */
+    _ipp_file_t      * restrict f,		/* I - IPP data file */
+    _ipp_vars_t      * restrict v,		/* I - IPP variables */
+    void             * restrict user_data)	/* I - User data pointer */
 {
   ipp_t		*col = ippNew();	/* Collection value */
   ipp_attribute_t *attr = NULL;		/* Current member attribute */
@@ -542,11 +542,11 @@ parse_collection(
  */
 
 static int				/* O  - 1 on success or 0 on error */
-parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
-            _ipp_vars_t      *v,	/* I  - IPP variables */
-            void             *user_data,/* I  - User data pointer */
-            ipp_t            *ipp,	/* I  - IPP message */
-            ipp_attribute_t  **attr,	/* IO - IPP attribute */
+parse_value(_ipp_file_t      * restrict f,	/* I  - IPP data file */
+            _ipp_vars_t      * restrict v,	/* I  - IPP variables */
+            void             * restrict user_data,/* I  - User data pointer */
+            ipp_t            * restrict ipp,	/* I  - IPP message */
+            ipp_attribute_t  ** restrict attr,	/* IO - IPP attribute */
             int              element)	/* I  - Element number */
 {
   char		value[2049],		/* Value string */
@@ -812,10 +812,10 @@ parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
 
 static void
 report_error(
-    _ipp_file_t *f,			/* I - IPP data file */
-    _ipp_vars_t *v,			/* I - Error callback function, if any */
-    void        *user_data,		/* I - User data pointer */
-    const char  *message,		/* I - Printf-style message */
+    _ipp_file_t * restrict f,			/* I - IPP data file */
+    _ipp_vars_t * restrict v,			/* I - Error callback function, if any */
+    void        * restrict user_data,		/* I - User data pointer */
+    const char  * restrict message,		/* I - Printf-style message */
     ...)				/* I - Additional arguments as needed */
 {
   char		buffer[8192];		/* Formatted string */

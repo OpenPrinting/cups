@@ -50,11 +50,11 @@ static cups_array_t	*mime_find_filters(mime_t *mime, mime_type_t *src,
  */
 
 mime_filter_t *				/* O - New filter */
-mimeAddFilter(mime_t      *mime,	/* I - MIME database */
-              mime_type_t *src,		/* I - Source type */
-	      mime_type_t *dst,		/* I - Destination type */
+mimeAddFilter(mime_t      * restrict mime,	/* I - MIME database */
+              mime_type_t * restrict src,		/* I - Source type */
+	      mime_type_t * restrict dst,		/* I - Destination type */
               int         cost,		/* I - Relative time/resource cost */
-	      const char  *filter)	/* I - Filter program to run */
+	      const char  * restrict filter)	/* I - Filter program to run */
 {
   mime_filter_t	*temp;			/* New filter */
 
@@ -232,9 +232,9 @@ mimeFilter2(mime_t      *mime,		/* I - MIME database */
  */
 
 mime_filter_t *				/* O - Filter for src->dst */
-mimeFilterLookup(mime_t      *mime,	/* I - MIME database */
-                 mime_type_t *src,	/* I - Source type */
-                 mime_type_t *dst)	/* I - Destination type */
+mimeFilterLookup(mime_t      * restrict mime,	/* I - MIME database */
+                 mime_type_t * restrict src,	/* I - Source type */
+                 mime_type_t * restrict dst)	/* I - Destination type */
 {
   mime_filter_t	key,			/* Key record for filter search */
 		*filter;		/* Matching filter */

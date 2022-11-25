@@ -814,8 +814,8 @@ accept_jobs(cupsd_client_t  *con,	/* I - Client connection */
  */
 
 static void
-add_class(cupsd_client_t  *con,		/* I - Client connection */
-          ipp_attribute_t *uri)		/* I - URI of class */
+add_class(cupsd_client_t  * restrict con,		/* I - Client connection */
+          ipp_attribute_t * restrict uri)		/* I - URI of class */
 {
   http_status_t	status;			/* Policy status */
   int		i;			/* Looping var */
@@ -1131,9 +1131,9 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
  */
 
 static int				/* O - 0 on success, -1 on error */
-add_file(cupsd_client_t *con,		/* I - Connection to client */
-         cupsd_job_t    *job,		/* I - Job to add to */
-         mime_type_t    *filetype,	/* I - Type of file */
+add_file(cupsd_client_t * restrict con,		/* I - Connection to client */
+         cupsd_job_t    * restrict job,		/* I - Job to add to */
+         mime_type_t    * restrict filetype,	/* I - Type of file */
 	 int            compression)	/* I - Compression */
 {
   mime_type_t	**filetypes;		/* New filetypes array... */
@@ -1948,8 +1948,8 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
 static void
 add_job_subscriptions(
-    cupsd_client_t *con,		/* I - Client connection */
-    cupsd_job_t    *job)		/* I - Newly created job */
+    cupsd_client_t * restrict con,		/* I - Client connection */
+    cupsd_job_t    * restrict job)		/* I - Newly created job */
 {
   int			i;		/* Looping var */
   ipp_attribute_t	*prev,		/* Previous attribute */
@@ -2203,8 +2203,8 @@ add_job_uuid(cupsd_job_t *job)		/* I - Job */
  */
 
 static void
-add_printer(cupsd_client_t  *con,	/* I - Client connection */
-            ipp_attribute_t *uri)	/* I - URI of printer */
+add_printer(cupsd_client_t  * restrict con,	/* I - Client connection */
+            ipp_attribute_t * restrict uri)	/* I - URI of printer */
 {
   http_status_t	status;			/* Policy status */
   int		i = 0;			/* Looping var */
@@ -2902,8 +2902,8 @@ add_printer_state_reasons(
 
 static void
 add_queued_job_count(
-    cupsd_client_t  *con,		/* I - Client connection */
-    cupsd_printer_t *p)			/* I - Printer or class */
+    cupsd_client_t  * restrict con,		/* I - Client connection */
+    cupsd_printer_t * restrict p)			/* I - Printer or class */
 {
   int		count;			/* Number of jobs on destination */
 
@@ -2980,8 +2980,8 @@ apply_printer_defaults(
  */
 
 static void
-authenticate_job(cupsd_client_t  *con,	/* I - Client connection */
-	         ipp_attribute_t *uri)	/* I - Job URI */
+authenticate_job(cupsd_client_t  * restrict con,	/* I - Client connection */
+	         ipp_attribute_t * restrict uri)	/* I - Job URI */
 {
   ipp_attribute_t	*attr,		/* job-id attribute */
 			*auth_info;	/* auth-info attribute */
@@ -3933,8 +3933,8 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
  */
 
 static void
-close_job(cupsd_client_t  *con,		/* I - Client connection */
-          ipp_attribute_t *uri)		/* I - Printer URI */
+close_job(cupsd_client_t  * restrict con,		/* I - Client connection */
+          ipp_attribute_t * restrict uri)		/* I - Printer URI */
 {
   cupsd_job_t		*job;		/* Job */
   ipp_attribute_t	*attr;		/* Attribute */
@@ -4051,12 +4051,12 @@ close_job(cupsd_client_t  *con,		/* I - Client connection */
  */
 
 static void
-copy_attrs(ipp_t        *to,		/* I - Destination request */
-           ipp_t        *from,		/* I - Source request */
-           cups_array_t *ra,		/* I - Requested attributes */
+copy_attrs(ipp_t        * restrict to,		/* I - Destination request */
+           ipp_t        * restrict from,		/* I - Source request */
+           cups_array_t * restrict ra,		/* I - Requested attributes */
 	   ipp_tag_t    group,		/* I - Group to copy */
 	   int          quickcopy,	/* I - Do a quick copy? */
-	   cups_array_t *exclude)	/* I - Attributes to exclude? */
+	   cups_array_t * restrict exclude)	/* I - Attributes to exclude? */
 {
   ipp_attribute_t	*fromattr;	/* Source attribute */
 
@@ -4129,9 +4129,9 @@ copy_attrs(ipp_t        *to,		/* I - Destination request */
  */
 
 static int				/* O - Size of banner file in kbytes */
-copy_banner(cupsd_client_t *con,	/* I - Client connection */
-            cupsd_job_t    *job,	/* I - Job information */
-            const char     *name)	/* I - Name of banner */
+copy_banner(cupsd_client_t * restrict con,	/* I - Client connection */
+            cupsd_job_t    * restrict job,	/* I - Job information */
+            const char     * restrict name)	/* I - Name of banner */
 {
   int		i;			/* Looping var */
   int		kbytes;			/* Size of banner file in kbytes */
@@ -4898,9 +4898,9 @@ copy_job_attrs(cupsd_client_t *con,	/* I - Client connection */
 
 static void
 copy_printer_attrs(
-    cupsd_client_t  *con,		/* I - Client connection */
-    cupsd_printer_t *printer,		/* I - Printer */
-    cups_array_t    *ra)		/* I - Requested attributes array */
+    cupsd_client_t  * restrict con,		/* I - Client connection */
+    cupsd_printer_t * restrict printer,		/* I - Printer */
+    cups_array_t    * restrict ra)		/* I - Requested attributes array */
 {
   char		uri[HTTP_MAX_URI];	/* URI value */
   time_t	curtime;		/* Current time */
@@ -5711,8 +5711,8 @@ create_requested_array(ipp_t *request)	/* I - IPP request */
 
 static void
 create_subscriptions(
-    cupsd_client_t  *con,		/* I - Client connection */
-    ipp_attribute_t *uri)		/* I - Printer URI */
+    cupsd_client_t  * restrict con,		/* I - Client connection */
+    ipp_attribute_t * restrict uri)		/* I - Printer URI */
 {
   http_status_t	status;			/* Policy status */
   int			i;		/* Looping var */
@@ -6096,8 +6096,8 @@ create_subscriptions(
  */
 
 static void
-delete_printer(cupsd_client_t  *con,	/* I - Client connection */
-               ipp_attribute_t *uri)	/* I - URI of printer or class */
+delete_printer(cupsd_client_t  * restrict con,	/* I - Client connection */
+               ipp_attribute_t * restrict uri)	/* I - URI of printer or class */
 {
   http_status_t	status;			/* Policy status */
   cups_ptype_t	dtype;			/* Destination type (printer/class) */
@@ -6309,11 +6309,11 @@ get_devices(cupsd_client_t *con)	/* I - Client connection */
 
   snprintf(command, sizeof(command), "%s/daemon/cups-deviced", ServerBin);
   snprintf(options, sizeof(options),
-           "%d+%d+%d+%d+%s%s%s%s%s",
+           "%d+%d+%d+%u+%s%s%s%s%s",
            con->request->request.op.request_id,
            limit ? limit->values[0].integer : 0,
 	   timeout ? timeout->values[0].integer : 15,
-	   (int)User,
+	   (unsigned)User,
 	   requested_str,
 	   exclude_str[0] ? "%20" : "", exclude_str,
 	   include_str[0] ? "%20" : "", include_str);
@@ -6345,8 +6345,8 @@ get_devices(cupsd_client_t *con)	/* I - Client connection */
  */
 
 static void
-get_document(cupsd_client_t  *con,	/* I - Client connection */
-             ipp_attribute_t *uri)	/* I - Job URI */
+get_document(cupsd_client_t  * restrict con,	/* I - Client connection */
+             ipp_attribute_t * restrict uri)	/* I - Job URI */
 {
   http_status_t	status;			/* Policy status */
   ipp_attribute_t *attr;		/* Current attribute */
@@ -6491,8 +6491,8 @@ get_document(cupsd_client_t  *con,	/* I - Client connection */
  */
 
 static void
-get_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
-	      ipp_attribute_t *uri)	/* I - Job URI */
+get_job_attrs(cupsd_client_t  * restrict con,	/* I - Client connection */
+	      ipp_attribute_t * restrict uri)	/* I - Job URI */
 {
   http_status_t	status;			/* Policy status */
   ipp_attribute_t *attr;		/* Current attribute */
@@ -6609,8 +6609,8 @@ get_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
  */
 
 static void
-get_jobs(cupsd_client_t  *con,		/* I - Client connection */
-	 ipp_attribute_t *uri)		/* I - Printer URI */
+get_jobs(cupsd_client_t  * restrict con,		/* I - Client connection */
+	 ipp_attribute_t * restrict uri)		/* I - Printer URI */
 {
   http_status_t	status;			/* Policy status */
   ipp_attribute_t *attr;		/* Current attribute */
@@ -6898,15 +6898,12 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
     for (i = 0; i < job_ids->num_values; i ++)
     {
       if (!cupsdFindJob(job_ids->values[i].integer))
-        break;
-    }
-
-    if (i < job_ids->num_values)
-    {
-      send_ipp_status(con, IPP_NOT_FOUND, _("Job #%d does not exist."),
-                      job_ids->values[i].integer);
-      cupsArrayDelete(ra);
-      return;
+        {
+          send_ipp_status(con, IPP_NOT_FOUND, _("Job #%d does not exist."),
+                          job_ids->values[i].integer);
+          cupsArrayDelete(ra);
+          return;
+        }
     }
 
     for (i = 0; i < job_ids->num_values; i ++)
@@ -7155,8 +7152,8 @@ get_notifications(cupsd_client_t *con)	/* I - Client connection */
  */
 
 static void
-get_ppd(cupsd_client_t  *con,		/* I - Client connection */
-        ipp_attribute_t *uri)		/* I - Printer URI or PPD name */
+get_ppd(cupsd_client_t  * restrict con,		/* I - Client connection */
+        ipp_attribute_t * restrict uri)		/* I - Printer URI or PPD name */
 {
   http_status_t		status;		/* Policy status */
   cupsd_printer_t	*dest;		/* Destination */
@@ -7471,8 +7468,8 @@ get_ppds(cupsd_client_t *con)		/* I - Client connection */
  */
 
 static void
-get_printer_attrs(cupsd_client_t  *con,	/* I - Client connection */
-		  ipp_attribute_t *uri)	/* I - Printer URI */
+get_printer_attrs(cupsd_client_t  * restrict con,	/* I - Client connection */
+		  ipp_attribute_t * restrict uri)	/* I - Printer URI */
 {
   http_status_t		status;		/* Policy status */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -7528,8 +7525,8 @@ get_printer_attrs(cupsd_client_t  *con,	/* I - Client connection */
 
 static void
 get_printer_supported(
-    cupsd_client_t  *con,		/* I - Client connection */
-    ipp_attribute_t *uri)		/* I - Printer URI */
+    cupsd_client_t  * restrict con,		/* I - Client connection */
+    ipp_attribute_t * restrict uri)		/* I - Printer URI */
 {
   http_status_t		status;		/* Policy status */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -7827,8 +7824,8 @@ get_subscription_attrs(
  */
 
 static void
-get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
-                  ipp_attribute_t *uri)	/* I - Printer/job URI */
+get_subscriptions(cupsd_client_t  * restrict con,	/* I - Client connection */
+                  ipp_attribute_t * restrict uri)	/* I - Printer/job URI */
 {
   http_status_t		status;		/* Policy status */
   int			count;		/* Number of subscriptions */
@@ -8145,8 +8142,8 @@ hold_job(cupsd_client_t  *con,		/* I - Client connection */
  */
 
 static void
-hold_new_jobs(cupsd_client_t  *con,	/* I - Connection */
-              ipp_attribute_t *uri)	/* I - Printer URI */
+hold_new_jobs(cupsd_client_t  * restrict con,	/* I - Connection */
+              ipp_attribute_t * restrict uri)	/* I - Printer URI */
 {
   http_status_t		status;		/* Policy status */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -8211,8 +8208,8 @@ hold_new_jobs(cupsd_client_t  *con,	/* I - Connection */
  */
 
 static void
-move_job(cupsd_client_t  *con,		/* I - Client connection */
-	 ipp_attribute_t *uri)		/* I - Job URI */
+move_job(cupsd_client_t  * restrict con,		/* I - Client connection */
+	 ipp_attribute_t * restrict uri)		/* I - Job URI */
 {
   http_status_t	status;			/* Policy status */
   ipp_attribute_t *attr;		/* Current attribute */
@@ -8468,10 +8465,10 @@ move_job(cupsd_client_t  *con,		/* I - Client connection */
  */
 
 static int				/* O - 0 on success, -1 on failure */
-ppd_parse_line(const char *line,	/* I - Line */
+ppd_parse_line(const char * restrict line,	/* I - Line */
                char       *option,	/* O - Option name */
 	       int        olen,		/* I - Size of option name */
-               char       *choice,	/* O - Choice name */
+               char       * restrict choice,	/* O - Choice name */
 	       int        clen)		/* I - Size of choice name */
 {
  /*
@@ -8506,14 +8503,14 @@ ppd_parse_line(const char *line,	/* I - Line */
   if (!*line)
     return (-1);
 
-  line ++;
-
  /*
   * Now grab the option choice, skipping leading whitespace...
   */
 
-  while (isspace(*line & 255))
+  do
+  {
     line ++;
+  } while (isspace(*line & 255));
 
   for (clen --;
        *line > ' ' && *line < 0x7f && *line != ':' && *line != '/';
@@ -8539,8 +8536,8 @@ ppd_parse_line(const char *line,	/* I - Line */
  */
 
 static void
-print_job(cupsd_client_t  *con,		/* I - Client connection */
-	  ipp_attribute_t *uri)		/* I - Printer URI */
+print_job(cupsd_client_t  * restrict con,		/* I - Client connection */
+	  ipp_attribute_t * restrict uri)		/* I - Printer URI */
 {
   ipp_attribute_t *attr;		/* Current attribute */
   ipp_attribute_t *doc_name;		/* document-name attribute */
@@ -9001,8 +8998,8 @@ read_job_ticket(cupsd_client_t *con)	/* I - Client connection */
  */
 
 static void
-reject_jobs(cupsd_client_t  *con,	/* I - Client connection */
-            ipp_attribute_t *uri)	/* I - Printer or class URI */
+reject_jobs(cupsd_client_t  * restrict con,	/* I - Client connection */
+            ipp_attribute_t * restrict uri)	/* I - Printer or class URI */
 {
   http_status_t	status;			/* Policy status */
   cups_ptype_t	dtype;			/* Destination type (printer/class) */
@@ -9537,9 +9534,9 @@ restart_job(cupsd_client_t  *con,	/* I - Client connection */
 
 static void
 save_auth_info(
-    cupsd_client_t  *con,		/* I - Client connection */
-    cupsd_job_t     *job,		/* I - Job */
-    ipp_attribute_t *auth_info)		/* I - auth-info attribute, if any */
+    cupsd_client_t  * restrict con,		/* I - Client connection */
+    cupsd_job_t     * restrict job,		/* I - Job */
+    ipp_attribute_t * restrict auth_info)		/* I - auth-info attribute, if any */
 {
   int			i;		/* Looping var */
   char			filename[1024];	/* Job authentication filename */
@@ -9705,8 +9702,8 @@ save_auth_info(
  */
 
 static void
-send_document(cupsd_client_t  *con,	/* I - Client connection */
-	      ipp_attribute_t *uri)	/* I - Printer URI */
+send_document(cupsd_client_t  * restrict con,	/* I - Client connection */
+	      ipp_attribute_t * restrict uri)	/* I - Printer URI */
 {
   ipp_attribute_t	*attr;		/* Current attribute */
   ipp_attribute_t	*format;	/* Request's document-format attribute */
@@ -10127,9 +10124,9 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
 
 static void
 send_http_error(
-    cupsd_client_t  *con,		/* I - Client connection */
+    cupsd_client_t  * restrict con,		/* I - Client connection */
     http_status_t   status,		/* I - HTTP status code */
-    cupsd_printer_t *printer)		/* I - Printer, if any */
+    cupsd_printer_t * restrict printer)		/* I - Printer, if any */
 {
   ipp_attribute_t	*uri;		/* Request URI, if any */
 
@@ -10256,8 +10253,8 @@ send_ipp_status(cupsd_client_t *con,	/* I - Client connection */
  */
 
 static void
-set_default(cupsd_client_t  *con,	/* I - Client connection */
-            ipp_attribute_t *uri)	/* I - Printer URI */
+set_default(cupsd_client_t  * restrict con,	/* I - Client connection */
+            ipp_attribute_t * restrict uri)	/* I - Printer URI */
 {
   http_status_t		status;		/* Policy status */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -10717,8 +10714,8 @@ set_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
  */
 
 static void
-set_printer_attrs(cupsd_client_t  *con,	/* I - Client connection */
-                  ipp_attribute_t *uri)	/* I - Printer */
+set_printer_attrs(cupsd_client_t  * restrict con,	/* I - Client connection */
+                  ipp_attribute_t * restrict uri)	/* I - Printer */
 {
   http_status_t		status;		/* Policy status */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -11146,8 +11143,8 @@ start_printer(cupsd_client_t  *con,	/* I - Client connection */
  */
 
 static void
-stop_printer(cupsd_client_t  *con,	/* I - Client connection */
-             ipp_attribute_t *uri)	/* I - Printer URI */
+stop_printer(cupsd_client_t  * restrict con,	/* I - Client connection */
+             ipp_attribute_t * restrict uri)	/* I - Printer URI */
 {
   http_status_t		status;		/* Policy status */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -11218,8 +11215,8 @@ stop_printer(cupsd_client_t  *con,	/* I - Client connection */
  */
 
 static void
-url_encode_attr(ipp_attribute_t *attr,	/* I - Attribute */
-                char            *buffer,/* I - String buffer */
+url_encode_attr(ipp_attribute_t * restrict attr,	/* I - Attribute */
+                char            * restrict buffer,/* I - String buffer */
 		size_t          bufsize)/* I - Size of buffer */
 {
   int	i;				/* Looping var */
@@ -11379,8 +11376,8 @@ user_allowed(cupsd_printer_t *p,	/* I - Printer or class */
  */
 
 static void
-validate_job(cupsd_client_t  *con,	/* I - Client connection */
-	     ipp_attribute_t *uri)	/* I - Printer URI */
+validate_job(cupsd_client_t  * restrict con,	/* I - Client connection */
+	     ipp_attribute_t * restrict uri)	/* I - Printer URI */
 {
   http_status_t		status;		/* Policy status */
   ipp_attribute_t	*attr;		/* Current attribute */

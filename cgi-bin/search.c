@@ -314,8 +314,8 @@ cgiCompileSearch(const char *query)	/* I - Query string */
  */
 
 int					/* O - Number of matches */
-cgiDoSearch(void       *search,		/* I - Search context */
-            const char *text)		/* I - Text to search */
+cgiDoSearch(void       * restrict search,		/* I - Search context */
+            const char * restrict text)		/* I - Text to search */
 {
   int		i;			/* Looping var */
   regmatch_t	matches[100];		/* RE matches */

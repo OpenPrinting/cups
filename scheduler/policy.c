@@ -254,10 +254,10 @@ cupsdFindPolicyOp(cupsd_policy_t *p,	/* I - Policy */
 
 cups_array_t *				/* O - Array or NULL for no restrictions */
 cupsdGetPrivateAttrs(
-    cupsd_policy_t  *policy,		/* I - Policy */
-    cupsd_client_t  *con,		/* I - Client connection */
-    cupsd_printer_t *printer,		/* I - Printer, if any */
-    const char      *owner)		/* I - Owner of object */
+    cupsd_policy_t  * restrict policy,		/* I - Policy */
+    cupsd_client_t  * restrict con,		/* I - Client connection */
+    cupsd_printer_t * restrict printer,		/* I - Printer, if any */
+    const char      * restrict owner)		/* I - Owner of object */
 {
   char		*name;			/* Current name in access list */
   cups_array_t	*access_ptr,		/* Access array */

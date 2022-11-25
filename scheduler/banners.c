@@ -119,8 +119,8 @@ cupsdLoadBanners(const char *d)		/* I - Directory to search */
  */
 
 static void
-add_banner(const char *name,		/* I - Name of banner */
-           const char *filename)	/* I - Filename for banner */
+add_banner(const char * restrict name,		/* I - Name of banner */
+           const char * restrict filename)	/* I - Filename for banner */
 {
   mime_type_t		*filetype;	/* Filetype */
   cupsd_banner_t	*temp;		/* New banner data */

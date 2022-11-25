@@ -304,10 +304,10 @@ connect_server(const char *command,	/* I - Command name */
  */
 
 static int				/* O - Number of jobs in queue */
-show_jobs(const char *command,		/* I - Command name */
-          http_t     *http,		/* I - HTTP connection to server */
-          const char *dest,		/* I - Destination */
-	  const char *user,		/* I - User */
+show_jobs(const char * restrict command,		/* I - Command name */
+          http_t     * restrict http,		/* I - HTTP connection to server */
+          const char * restrict dest,		/* I - Destination */
+	  const char * restrict user,		/* I - User */
 	  const int  id,		/* I - Job ID */
 	  const int  longstatus)	/* I - 1 if long report desired */
 {
@@ -563,9 +563,9 @@ show_jobs(const char *command,		/* I - Command name */
  */
 
 static void
-show_printer(const char *command,	/* I - Command name */
-             http_t     *http,		/* I - HTTP connection to server */
-             const char *dest)		/* I - Destination */
+show_printer(const char * restrict command,	/* I - Command name */
+             http_t     * restrict http,		/* I - HTTP connection to server */
+             const char * restrict dest)		/* I - Destination */
 {
   ipp_t		*request,		/* IPP Request */
 		*response;		/* IPP Response */

@@ -52,18 +52,18 @@ static void	pwg_unppdize_name(const char *ppd, char *name, size_t namesize,
 
 int					/* O - New number of copies */
 _cupsConvertOptions(
-    ipp_t           *request,		/* I - IPP request */
-    ppd_file_t      *ppd,		/* I - PPD file */
-    _ppd_cache_t    *pc,		/* I - PPD cache info */
-    ipp_attribute_t *media_col_sup,	/* I - media-col-supported values */
-    ipp_attribute_t *doc_handling_sup,	/* I - multiple-document-handling-supported values */
-    ipp_attribute_t *print_color_mode_sup,
+    ipp_t           * restrict request,		/* I - IPP request */
+    ppd_file_t      * restrict ppd,		/* I - PPD file */
+    _ppd_cache_t    * restrict pc,		/* I - PPD cache info */
+    ipp_attribute_t * restrict media_col_sup,	/* I - media-col-supported values */
+    ipp_attribute_t * restrict doc_handling_sup,	/* I - multiple-document-handling-supported values */
+    ipp_attribute_t * restrict print_color_mode_sup,
                                 	/* I - Printer supports print-color-mode */
-    const char    *user,		/* I - User info */
-    const char    *format,		/* I - document-format value */
+    const char    * restrict user,		/* I - User info */
+    const char    * restrict format,		/* I - document-format value */
     int           copies,		/* I - Number of copies */
     int           num_options,		/* I - Number of options */
-    cups_option_t *options)		/* I - Options */
+    cups_option_t * restrict options)		/* I - Options */
 {
   int		i;			/* Looping var */
   const char	*keyword,		/* PWG keyword */
@@ -481,8 +481,8 @@ _cupsConvertOptions(
 
 _ppd_cache_t *				/* O  - PPD cache and mapping data */
 _ppdCacheCreateWithFile(
-    const char *filename,		/* I  - File to read */
-    ipp_t      **attrs)			/* IO - IPP attributes, if any */
+    const char * restrict filename,		/* I  - File to read */
+    ipp_t      ** restrict attrs)			/* IO - IPP attributes, if any */
 {
   cups_file_t	*fp;			/* File */
   _ppd_cache_t	*pc;			/* PWG mapping data */
@@ -2202,10 +2202,10 @@ _ppdCacheGetFinishingOptions(
 
 int					/* O - Number of finishings values */
 _ppdCacheGetFinishingValues(
-    ppd_file_t    *ppd,			/* I - Marked PPD file */
-    _ppd_cache_t  *pc,			/* I - PPD cache and mapping data */
+    ppd_file_t    * restrict ppd,			/* I - Marked PPD file */
+    _ppd_cache_t  * restrict pc,			/* I - PPD cache and mapping data */
     int           max_values,		/* I - Maximum number of finishings values */
-    int           *values)		/* O - Finishings values */
+    int           * restrict values)		/* O - Finishings values */
 {
   int			i,		/* Looping var */
 			num_values = 0;	/* Number of values */
@@ -2439,10 +2439,10 @@ _ppdCacheGetOutputBin(
 
 const char *				/* O - PPD PageSize or NULL */
 _ppdCacheGetPageSize(
-    _ppd_cache_t *pc,			/* I - PPD cache and mapping data */
-    ipp_t        *job,			/* I - Job attributes or NULL */
-    const char   *keyword,		/* I - Keyword string or NULL */
-    int          *exact)		/* O - 1 if exact match, 0 otherwise */
+    _ppd_cache_t * restrict pc,			/* I - PPD cache and mapping data */
+    ipp_t        * restrict job,			/* I - Job attributes or NULL */
+    const char   * restrict keyword,		/* I - Keyword string or NULL */
+    int          * restrict exact)		/* O - 1 if exact match, 0 otherwise */
 {
   int		i;			/* Looping var */
   pwg_size_t	*size,			/* Current size */

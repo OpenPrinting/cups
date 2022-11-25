@@ -4822,6 +4822,57 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for C/C++ restrict keyword" >&5
+printf %s "checking for C/C++ restrict keyword... " >&6; }
+if test ${ac_cv_c_restrict+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_cv_c_restrict=no
+   # Put '__restrict__' first, to avoid problems with glibc and non-GCC; see:
+   # https://lists.gnu.org/archive/html/bug-autoconf/2016-02/msg00006.html
+   # Put 'restrict' last, because C++ lacks it.
+   for ac_kw in __restrict__ __restrict _Restrict restrict; do
+     cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+typedef int *int_ptr;
+	   int foo (int_ptr $ac_kw ip) { return ip[0]; }
+	   int bar (int [$ac_kw]); /* Catch GCC bug 14050.  */
+	   int bar (int ip[$ac_kw]) { return ip[0]; }
+
+int
+main (void)
+{
+int s[1];
+	   int *$ac_kw t = s;
+	   t[0] = 0;
+	   return foo (t) + bar (t);
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  ac_cv_c_restrict=$ac_kw
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+     test "$ac_cv_c_restrict" != no && break
+   done
+
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_c_restrict" >&5
+printf "%s\n" "$ac_cv_c_restrict" >&6; }
+
+ case $ac_cv_c_restrict in
+   restrict) ;;
+   no) printf "%s\n" "#define restrict /**/" >>confdefs.h
+ ;;
+   *)  printf "%s\n" "#define restrict $ac_cv_c_restrict" >>confdefs.h
+ ;;
+ esac
+
 if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}ranlib", so it can be a program name with args.
 set dummy ${ac_tool_prefix}ranlib; ac_word=$2
@@ -5582,7 +5633,6 @@ PKGCONFIG_CFLAGS=""
 PKGCONFIG_LIBS=""
 PKGCONFIG_LIBS_STATIC=""
 PKGCONFIG_REQUIRES=""
-
 
 
 

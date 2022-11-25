@@ -257,9 +257,9 @@ cupsGetOption(const char    *name,	/* I - Name of option */
 
 int					/* O - Number of options found */
 cupsParseOptions(
-    const char    *arg,			/* I - Argument to parse */
+    const char    * restrict arg,			/* I - Argument to parse */
     int           num_options,		/* I - Number of options */
-    cups_option_t **options)		/* O - Options found */
+    cups_option_t ** restrict options)		/* O - Options found */
 {
   char	*copyarg,			/* Copy of input string */
 	*ptr,				/* Pointer into string */

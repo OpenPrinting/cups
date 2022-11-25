@@ -24,9 +24,9 @@
  */
 
 ppd_attr_t *				/* O - Attribute or @code NULL@ if not found */
-ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
-            const char *name,		/* I - Attribute name */
-            const char *spec)		/* I - Specifier string or @code NULL@ */
+ppdFindAttr(ppd_file_t * restrict ppd,		/* I - PPD file data */
+            const char * restrict name,		/* I - Attribute name */
+            const char * restrict spec)		/* I - Specifier string or @code NULL@ */
 {
   ppd_attr_t	key,			/* Search key */
 		*attr;			/* Current attribute */
@@ -137,8 +137,8 @@ ppdFindNextAttr(ppd_file_t *ppd,	/* I - PPD file data */
 
 char *					/* O - Normalized make-and-model string or NULL on error */
 _ppdNormalizeMakeAndModel(
-    const char *make_and_model,		/* I - Original make-and-model string */
-    char       *buffer,			/* I - String buffer */
+    const char * restrict make_and_model,		/* I - Original make-and-model string */
+    char       * restrict buffer,			/* I - String buffer */
     size_t     bufsize)			/* I - Size of string buffer */
 {
   char	*bufptr;			/* Pointer into buffer */

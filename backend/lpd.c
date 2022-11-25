@@ -694,14 +694,14 @@ lpd_command(int  fd,		/* I - Socket connection to LPD host */
  */
 
 static int				/* O - Zero on success, non-zero on failure */
-lpd_queue(const char      *hostname,	/* I - Host to connect to */
-          http_addrlist_t *addrlist,	/* I - List of host addresses */
-          const char      *printer,	/* I - Printer/queue name */
+lpd_queue(const char      * restrict hostname,	/* I - Host to connect to */
+          http_addrlist_t * restrict addrlist,	/* I - List of host addresses */
+          const char      * restrict printer,	/* I - Printer/queue name */
 	  int             print_fd,	/* I - File to print */
 	  int             snmp_fd,	/* I - SNMP socket */
 	  int             mode,		/* I - Print mode */
-          const char      *user,	/* I - Requesting user */
-	  const char      *title,	/* I - Job title */
+          const char      * restrict user,	/* I - Requesting user */
+	  const char      * restrict title,	/* I - Job title */
 	  int             copies,	/* I - Number of copies */
 	  int             banner,	/* I - Print LPD banner? */
           int             format,	/* I - Format specifier */
@@ -710,7 +710,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
 	  int             manual_copies,/* I - Do copies by hand... */
 	  int             timeout,	/* I - Timeout... */
 	  int             contimeout,	/* I - Connection timeout */
-	  const char      *orighost)	/* I - job-originating-host-name */
+	  const char      * restrict orighost)	/* I - job-originating-host-name */
 {
   char			localhost[255];	/* Local host name */
   int			error;		/* Error number */

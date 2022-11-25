@@ -2067,9 +2067,9 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
 
 int					/* O - 1 on success, 0 on failure */
 cupsdSendHeader(
-    cupsd_client_t *con,		/* I - Client to send to */
+    cupsd_client_t * restrict con,		/* I - Client to send to */
     http_status_t  code,		/* I - HTTP status code */
-    char           *type,		/* I - MIME type of document */
+    char           * restrict type,		/* I - MIME type of document */
     int            auth_type)		/* I - Type of authentication */
 {
   char		auth_str[1024];		/* Authorization string */
@@ -2685,8 +2685,8 @@ cupsd_start_tls(cupsd_client_t    *con,	/* I - Client connection */
 
 static char *				/* O  - Real filename */
 get_file(cupsd_client_t *con,		/* I  - Client connection */
-         struct stat    *filestats,	/* O  - File information */
-         char           *filename,	/* IO - Filename buffer */
+         struct stat    * restrict filestats,	/* O  - File information */
+         char           * restrict filename,	/* IO - Filename buffer */
          size_t         len)		/* I  - Buffer length */
 {
   int		status;			/* Status of filesystem calls */
@@ -3097,10 +3097,10 @@ install_cupsd_conf(cupsd_client_t *con)	/* I - Connection */
  */
 
 static int				/* O - 1 = CGI, 0 = file */
-is_cgi(cupsd_client_t *con,		/* I - Client connection */
-       const char     *filename,	/* I - Real filename */
-       struct stat    *filestats,	/* I - File information */
-       mime_type_t    *type)		/* I - MIME type */
+is_cgi(cupsd_client_t * restrict con,		/* I - Client connection */
+       const char     * restrict filename,	/* I - Real filename */
+       struct stat    * restrict filestats,	/* I - File information */
+       mime_type_t    * restrict type)		/* I - MIME type */
 {
   const char	*options;		/* Options on URL */
 
@@ -3193,11 +3193,11 @@ is_path_absolute(const char *path)	/* I - Input path */
  */
 
 static int				/* O - Process ID */
-pipe_command(cupsd_client_t *con,	/* I - Client connection */
+pipe_command(cupsd_client_t * restrict con,	/* I - Client connection */
              int            infile,	/* I - Standard input for command */
-             int            *outfile,	/* O - Standard output for command */
-	     char           *command,	/* I - Command to run */
-	     char           *options,	/* I - Options for command */
+             int            * restrict outfile,	/* O - Standard output for command */
+	     char           * restrict command,	/* I - Command to run */
+	     char           * restrict options,	/* I - Options for command */
 	     int            root)	/* I - Run as root? */
 {
   int		i;			/* Looping var */

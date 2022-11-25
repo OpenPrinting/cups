@@ -22,9 +22,9 @@
  */
 
 int					/* O - Number of bytes formatted */
-_cups_vsnprintf(char       *buffer,	/* O - Output buffer */
+_cups_vsnprintf(char       * restrict buffer,	/* O - Output buffer */
                 size_t     bufsize,	/* O - Size of output buffer */
-	        const char *format,	/* I - printf-style format string */
+	        const char * restrict format,	/* I - printf-style format string */
 	        va_list    ap)		/* I - Pointer to additional arguments */
 {
   char		*bufptr,		/* Pointer to position in buffer */
@@ -337,9 +337,9 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
  */
 
 int					/* O - Number of bytes formatted */
-_cups_snprintf(char       *buffer,	/* O - Output buffer */
+_cups_snprintf(char       * restrict buffer,	/* O - Output buffer */
                size_t     bufsize,	/* O - Size of output buffer */
-               const char *format,	/* I - printf-style format string */
+               const char * restrict format,	/* I - printf-style format string */
 	       ...)			/* I - Additional arguments as needed */
 {
   int		bytes;			/* Number of bytes formatted */

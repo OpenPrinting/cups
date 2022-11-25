@@ -33,9 +33,9 @@
  */
 
 void	list_devices(void);
-int	print_device(const char *uri, const char *hostname,
-	             const char *resource, char *options,
-		     int print_fd, int copies, int argc, char *argv[]);
+int	print_device(const char * restrict uri, const char * restrict hostname,
+	             const char * restrict resource, char * restrict options,
+		     int print_fd, int copies, int argc, char * restrict argv[]);
 
 
 /*
@@ -78,14 +78,14 @@ list_devices(void)
  */
 
 int					/* O - Exit status */
-print_device(const char *uri,		/* I - Device URI */
-             const char *hostname,	/* I - Hostname/manufacturer */
-             const char *resource,	/* I - Resource/modelname */
-	     char       *options,	/* I - Device options/serial number */
+print_device(const char * restrict uri,		/* I - Device URI */
+             const char * restrict hostname,	/* I - Hostname/manufacturer */
+             const char * restrict resource,	/* I - Resource/modelname */
+	     char       * restrict options,	/* I - Device options/serial number */
 	     int        print_fd,	/* I - File descriptor to print */
 	     int        copies,		/* I - Copies to print */
 	     int	argc,		/* I - Number of command-line arguments (6 or 7) */
-	     char	*argv[])	/* I - Command-line arguments */
+	     char	* restrict argv[])	/* I - Command-line arguments */
 {
  /*
   * Can't print, so just reference the arguments to eliminate compiler

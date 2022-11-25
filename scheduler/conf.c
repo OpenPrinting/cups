@@ -203,8 +203,8 @@ static void		set_policy_defaults(cupsd_policy_t *pol);
  */
 
 void
-cupsdAddAlias(cups_array_t *aliases,	/* I - Array of aliases */
-              const char   *name)	/* I - Name to add */
+cupsdAddAlias(cups_array_t * restrict aliases,	/* I - Array of aliases */
+              const char   * restrict name)	/* I - Name to add */
 {
   cupsd_alias_t	*a;			/*  New alias */
   size_t	namelen;		/* Length of name */
@@ -2669,12 +2669,12 @@ parse_protocols(const char *s)		/* I - Space-delimited protocols */
 
 static int				/* O - 1 on success, 0 on failure */
 parse_variable(
-    const char        *filename,	/* I - Name of configuration file */
+    const char        * restrict filename,	/* I - Name of configuration file */
     int               linenum,		/* I - Line in configuration file */
-    const char        *line,		/* I - Line from configuration file */
-    const char        *value,		/* I - Value from configuration file */
+    const char        * restrict line,		/* I - Line from configuration file */
+    const char        * restrict value,		/* I - Value from configuration file */
     size_t            num_vars,		/* I - Number of variables */
-    const cupsd_var_t *vars)		/* I - Variables */
+    const cupsd_var_t * restrict vars)		/* I - Variables */
 {
   size_t		i;		/* Looping var */
   const cupsd_var_t	*var;		/* Variables */
@@ -3762,8 +3762,8 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
  */
 
 static int				/* O - New line number or 0 on error */
-read_location(cups_file_t *fp,		/* I - Configuration file */
-              char        *location,	/* I - Location name/path */
+read_location(cups_file_t * restrict fp,		/* I - Configuration file */
+              char        * restrict location,	/* I - Location name/path */
 	      int         linenum)	/* I - Current line number */
 {
   cupsd_location_t	*loc,		/* New location */
@@ -3879,8 +3879,8 @@ read_location(cups_file_t *fp,		/* I - Configuration file */
  */
 
 static int				/* O - New line number or 0 on error */
-read_policy(cups_file_t *fp,		/* I - Configuration file */
-            char        *policy,	/* I - Location name/path */
+read_policy(cups_file_t * restrict fp,		/* I - Configuration file */
+            char        * restrict policy,	/* I - Location name/path */
 	    int         linenum)	/* I - Current line number */
 {
   int			i;		/* Looping var */

@@ -45,9 +45,9 @@ backendCheckSideChannel(
  */
 
 http_addrlist_t	*			/* O - List of addresses or NULL */
-backendLookup(const char *hostname,	/* I - Hostname */
+backendLookup(const char * restrict hostname,	/* I - Hostname */
               int        port,		/* I - Port number */
-	      int        *cancel)	/* I - Variable to watch for job cancel */
+	      int        * restrict cancel)	/* I - Variable to watch for job cancel */
 {
   char			portname[32],	/* Port number as string */
 			addrname[256];	/* Address as string */

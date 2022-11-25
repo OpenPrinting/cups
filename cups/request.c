@@ -39,10 +39,10 @@
  */
 
 ipp_t *					/* O - Response data */
-cupsDoFileRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
-                  ipp_t      *request,	/* I - IPP request */
-                  const char *resource,	/* I - HTTP resource for POST */
-		  const char *filename)	/* I - File to send or @code NULL@ for none */
+cupsDoFileRequest(http_t     * restrict http,	/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
+                  ipp_t      * restrict request,	/* I - IPP request */
+                  const char * restrict resource,	/* I - HTTP resource for POST */
+		  const char * restrict filename)	/* I - File to send or @code NULL@ for none */
 {
   ipp_t		*response;		/* IPP response data */
   int		infile;			/* Input file */
@@ -95,9 +95,9 @@ cupsDoFileRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HT
  */
 
 ipp_t *					/* O - Response data */
-cupsDoIORequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
-                ipp_t      *request,	/* I - IPP request */
-                const char *resource,	/* I - HTTP resource for POST */
+cupsDoIORequest(http_t     * restrict http,	/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
+                ipp_t      * restrict request,	/* I - IPP request */
+                const char * restrict resource,	/* I - HTTP resource for POST */
 		int        infile,	/* I - File to read from or -1 for none */
 		int        outfile)	/* I - File to write to or -1 for none */
 {
@@ -284,9 +284,9 @@ cupsDoIORequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
  */
 
 ipp_t *					/* O - Response data */
-cupsDoRequest(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
-              ipp_t      *request,	/* I - IPP request */
-              const char *resource)	/* I - HTTP resource for POST */
+cupsDoRequest(http_t     * restrict http,		/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
+              ipp_t      * restrict request,	/* I - IPP request */
+              const char * restrict resource)	/* I - HTTP resource for POST */
 {
   DEBUG_printf(("cupsDoRequest(http=%p, request=%p(%s), resource=\"%s\")", (void *)http, (void *)request, request ? ippOpString(request->request.op.operation_id) : "?", resource));
 
@@ -536,8 +536,8 @@ _cupsNextDelay(int current,		/* I  - Current delay value or 0 */
 
 ssize_t					/* O - Bytes read, 0 on EOF, -1 on error */
 cupsReadResponseData(
-    http_t *http,			/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
-    char   *buffer,			/* I - Buffer to use */
+    http_t * restrict http,			/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
+    char   * restrict buffer,			/* I - Buffer to use */
     size_t length)			/* I - Number of bytes to read */
 {
  /*
@@ -585,9 +585,9 @@ cupsReadResponseData(
  */
 
 http_status_t				/* O - Initial HTTP status */
-cupsSendRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
-                ipp_t      *request,	/* I - IPP request */
-                const char *resource,	/* I - Resource path */
+cupsSendRequest(http_t     * restrict http,	/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
+                ipp_t      * restrict request,	/* I - IPP request */
+                const char * restrict resource,	/* I - Resource path */
 		size_t     length)	/* I - Length of data to follow or @code CUPS_LENGTH_VARIABLE@ */
 {
   http_status_t		status;		/* Status of HTTP request */
@@ -905,8 +905,8 @@ cupsSendRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
 
 http_status_t				/* O - @code HTTP_STATUS_CONTINUE@ if OK or HTTP status on error */
 cupsWriteRequestData(
-    http_t     *http,			/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
-    const char *buffer,			/* I - Bytes to write */
+    http_t     * restrict http,			/* I - Connection to server or @code CUPS_HTTP_DEFAULT@ */
+    const char * restrict buffer,			/* I - Bytes to write */
     size_t     length)			/* I - Number of bytes to write */
 {
   int	wused;				/* Previous bytes in buffer */

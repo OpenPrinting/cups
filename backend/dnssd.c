@@ -547,10 +547,10 @@ browse_callback(
     DNSServiceFlags     flags,		/* I - Option flags */
     uint32_t            interfaceIndex,	/* I - Interface number */
     DNSServiceErrorType errorCode,	/* I - Error, if any */
-    const char          *serviceName,	/* I - Name of service/device */
-    const char          *regtype,	/* I - Type of service */
-    const char          *replyDomain,	/* I - Service domain */
-    void                *context)	/* I - Devices array */
+    const char          * restrict serviceName,	/* I - Name of service/device */
+    const char          * restrict regtype,	/* I - Type of service */
+    const char          * restrict replyDomain,	/* I - Service domain */
+    void                * restrict context)	/* I - Devices array */
 {
   fprintf(stderr, "DEBUG2: browse_callback(sdRef=%p, flags=%x, "
                   "interfaceIndex=%d, errorCode=%d, serviceName=\"%s\", "
@@ -629,15 +629,15 @@ browse_local_callback(
 
 static void
 browse_callback(
-    AvahiServiceBrowser    *browser,	/* I - Browser */
+    AvahiServiceBrowser    * restrict browser,	/* I - Browser */
     AvahiIfIndex           interface,	/* I - Interface index (unused) */
     AvahiProtocol          protocol,	/* I - Network protocol (unused) */
     AvahiBrowserEvent      event,	/* I - What happened */
-    const char             *name,	/* I - Service name */
-    const char             *type,	/* I - Registration type */
-    const char             *domain,	/* I - Domain */
+    const char             * restrict name,	/* I - Service name */
+    const char             * restrict type,	/* I - Registration type */
+    const char             * restrict domain,	/* I - Domain */
     AvahiLookupResultFlags flags,	/* I - Flags */
-    void                   *context)	/* I - Devices array */
+    void                   * restrict context)	/* I - Devices array */
 {
   AvahiClient *client = avahi_service_browser_get_client(browser);
 					/* Client information */
@@ -832,10 +832,10 @@ device_type(const char *regtype)	/* I - Service registration type */
  */
 
 static cups_device_t *			/* O - Device */
-get_device(cups_array_t *devices,	/* I - Device array */
-           const char   *serviceName,	/* I - Name of service/device */
-           const char   *regtype,	/* I - Type of service */
-           const char   *replyDomain)	/* I - Service domain */
+get_device(cups_array_t * restrict devices,	/* I - Device array */
+           const char   * restrict serviceName,	/* I - Name of service/device */
+           const char   * restrict regtype,	/* I - Type of service */
+           const char   * restrict replyDomain)	/* I - Service domain */
 {
   cups_device_t	key,			/* Search key */
 		*device;		/* Device */
@@ -958,17 +958,17 @@ poll_callback(
 
 static void
 query_callback(
-    DNSServiceRef       sdRef,		/* I - Service reference */
+    DNSServiceRef       restrict sdRef,		/* I - Service reference */
     DNSServiceFlags     flags,		/* I - Data flags */
     uint32_t            interfaceIndex,	/* I - Interface */
     DNSServiceErrorType errorCode,	/* I - Error, if any */
-    const char          *fullName,	/* I - Full service name */
+    const char          * restrict fullName,	/* I - Full service name */
     uint16_t            rrtype,		/* I - Record type */
     uint16_t            rrclass,	/* I - Record class */
     uint16_t            rdlen,		/* I - Length of record data */
-    const void          *rdata,		/* I - Record data */
+    const void          * restrict rdata,		/* I - Record data */
     uint32_t            ttl,		/* I - Time-to-live */
-    void                *context)	/* I - Device */
+    void                * restrict context)	/* I - Device */
 {
 #  else
 /*
@@ -977,18 +977,18 @@ query_callback(
 
 static void
 query_callback(
-    AvahiRecordBrowser     *browser,	/* I - Record browser */
+    AvahiRecordBrowser     * restrict browser,	/* I - Record browser */
     AvahiIfIndex           interfaceIndex,
 					/* I - Interface index (unused) */
     AvahiProtocol          protocol,	/* I - Network protocol (unused) */
     AvahiBrowserEvent      event,	/* I - What happened? */
-    const char             *fullName,	/* I - Service name */
+    const char             * restrict fullName,	/* I - Service name */
     uint16_t               rrclass,	/* I - Record class */
     uint16_t               rrtype,	/* I - Record type */
-    const void             *rdata,	/* I - TXT record */
+    const void             * restrict rdata,	/* I - TXT record */
     size_t                 rdlen,	/* I - Length of TXT record */
     AvahiLookupResultFlags flags,	/* I - Flags */
-    void                   *context)	/* I - Device */
+    void                   * restrict context)	/* I - Device */
 {
   AvahiClient		*client = avahi_record_browser_get_client(browser);
 					/* Client information */
@@ -1266,8 +1266,8 @@ sigterm_handler(int sig)		/* I - Signal number (unused) */
  */
 
 static void
-unquote(char       *dst,		/* I - Destination buffer */
-        const char *src,		/* I - Source string */
+unquote(char       * restrict dst,		/* I - Destination buffer */
+        const char * restrict src,		/* I - Source string */
 	size_t     dstsize)		/* I - Size of destination buffer */
 {
   char	*dstend = dst + dstsize - 1;	/* End of destination buffer */

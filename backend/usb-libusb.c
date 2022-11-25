@@ -131,17 +131,17 @@ static int		close_device(usb_printer_t *printer);
 static int		compare_quirks(usb_quirk_t *a, usb_quirk_t *b);
 static usb_printer_t	*find_device(usb_cb_t cb, const void *data);
 static unsigned		find_quirks(int vendor_id, int product_id);
-static int		get_device_id(usb_printer_t *printer, char *buffer,
+static int		get_device_id(usb_printer_t * restrict printer, char * restrict buffer,
 			              size_t bufsize);
-static int		list_cb(usb_printer_t *printer, const char *device_uri,
-			        const char *device_id, const void *data);
+static int		list_cb(usb_printer_t * restrict printer, const char * restrict device_uri,
+			        const char * restrict device_id, const void * restrict data);
 static void		load_quirks(void);
-static char		*make_device_uri(usb_printer_t *printer,
-			                 const char *device_id,
+static char		*make_device_uri(usb_printer_t * restrict printer,
+			                 const char * restrict device_id,
 					 char *uri, size_t uri_size);
 static int		open_device(usb_printer_t *printer, int verbose);
-static int		print_cb(usb_printer_t *printer, const char *device_uri,
-			         const char *device_id, const void *data);
+static int		print_cb(usb_printer_t * restrict printer, const char * restrict device_uri,
+			         const char * restrict device_id, const void * restrict data);
 static void		*read_thread(void *reference);
 static void		*sidechannel_thread(void *reference);
 static void		soft_reset(void);
@@ -167,14 +167,14 @@ list_devices(void)
  */
 
 int					/* O - Exit status */
-print_device(const char *uri,		/* I - Device URI */
-             const char *hostname,	/* I - Hostname/manufacturer */
-             const char *resource,	/* I - Resource/modelname */
-	     char       *options,	/* I - Device options/serial number */
+print_device(const char * restrict uri,		/* I - Device URI */
+             const char * restrict hostname,	/* I - Hostname/manufacturer */
+             const char * restrict resource,	/* I - Resource/modelname */
+	     char       * restrict options,	/* I - Device options/serial number */
 	     int        print_fd,	/* I - File descriptor to print */
 	     int        copies,		/* I - Copies to print */
 	     int	argc,		/* I - Number of command-line arguments (6 or 7) */
-	     char	*argv[])	/* I - Command-line arguments */
+	     char	* restrict argv[])	/* I - Command-line arguments */
 {
   int	        bytes;			/* Bytes written */
   ssize_t	total_bytes;		/* Total bytes written */
@@ -1110,10 +1110,10 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
  */
 
 static int				/* O - 0 to continue, 1 to stop */
-list_cb(usb_printer_t *printer,		/* I - Printer */
-        const char    *device_uri,	/* I - Device URI */
-        const char    *device_id,	/* I - IEEE-1284 device ID */
-        const void    *data)		/* I - User data (not used) */
+list_cb(usb_printer_t * restrict printer,		/* I - Printer */
+        const char    * restrict device_uri,	/* I - Device URI */
+        const char    * restrict device_id,	/* I - IEEE-1284 device ID */
+        const void    * restrict data)		/* I - User data (not used) */
 {
   char	make_model[1024];		/* Make and model */
 
@@ -1622,10 +1622,10 @@ open_device(usb_printer_t *printer,	/* I - Printer */
  */
 
 static int				/* O - 0 to continue, 1 to stop (found) */
-print_cb(usb_printer_t *printer,	/* I - Printer */
-         const char    *device_uri,	/* I - Device URI */
-         const char    *device_id,	/* I - IEEE-1284 device ID */
-         const void    *data)		/* I - User data (make, model, S/N) */
+print_cb(usb_printer_t * restrict printer,	/* I - Printer */
+         const char    * restrict device_uri,	/* I - Device URI */
+         const char    * restrict device_id,	/* I - IEEE-1284 device ID */
+         const void    * restrict data)		/* I - User data (make, model, S/N) */
 {
   char	requested_uri[1024],		/* Requested URI */
 	*requested_ptr,			/* Pointer into requested URI */

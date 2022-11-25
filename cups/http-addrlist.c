@@ -34,8 +34,8 @@
 
 http_addrlist_t *			/* O - Connected address or NULL on failure */
 httpAddrConnect(
-    http_addrlist_t *addrlist,		/* I - List of potential addresses */
-    int             *sock)		/* O - Socket */
+    http_addrlist_t * restrict addrlist,		/* I - List of potential addresses */
+    int             * restrict sock)		/* O - Socket */
 {
   DEBUG_printf(("httpAddrConnect(addrlist=%p, sock=%p)", (void *)addrlist, (void *)sock));
 
@@ -52,10 +52,10 @@ httpAddrConnect(
 
 http_addrlist_t *			/* O - Connected address or NULL on failure */
 httpAddrConnect2(
-    http_addrlist_t *addrlist,		/* I - List of potential addresses */
-    int             *sock,		/* O - Socket */
+    http_addrlist_t * restrict addrlist,		/* I - List of potential addresses */
+    int             * restrict sock,		/* O - Socket */
     int             msec,		/* I - Timeout in milliseconds */
-    int             *cancel)		/* I - Pointer to "cancel" variable */
+    int             * restrict cancel)		/* I - Pointer to "cancel" variable */
 {
   int			val;		/* Socket option value */
 #ifndef _WIN32

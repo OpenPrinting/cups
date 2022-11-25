@@ -16,10 +16,10 @@
  * Local functions...
  */
 
-static void	cgi_copy(FILE *out, FILE *in, int element, char term,
+static void	cgi_copy(FILE * restrict out, FILE * restrict in, int element, char term,
 		         int indent);
-static void	cgi_puts(const char *s, FILE *out);
-static void	cgi_puturi(const char *s, FILE *out);
+static void	cgi_puts(const char * restrict s, FILE * restrict out);
+static void	cgi_puturi(const char * restrict s, FILE * restrict out);
 
 
 /*
@@ -28,8 +28,8 @@ static void	cgi_puturi(const char *s, FILE *out);
  */
 
 void
-cgiCopyTemplateFile(FILE       *out,	/* I - Output file */
-                    const char *tmpl)	/* I - Template file to read */
+cgiCopyTemplateFile(FILE       * restrict out,	/* I - Output file */
+                    const char * restrict tmpl)	/* I - Template file to read */
 {
   FILE	*in;				/* Input file */
 
@@ -201,8 +201,8 @@ cgiSetServerVersion(void)
  */
 
 static void
-cgi_copy(FILE *out,			/* I - Output file */
-         FILE *in,			/* I - Input file */
+cgi_copy(FILE * restrict out,			/* I - Output file */
+         FILE * restrict in,			/* I - Input file */
 	 int  element,			/* I - Element number (0 to N) */
 	 char term,			/* I - Terminating character */
 	 int  indent)			/* I - Debug info indentation */
@@ -637,8 +637,8 @@ cgi_copy(FILE *out,			/* I - Output file */
  */
 
 static void
-cgi_puts(const char *s,			/* I - String to output */
-         FILE       *out)		/* I - Output file */
+cgi_puts(const char * restrict s,			/* I - String to output */
+         FILE       * restrict out)		/* I - Output file */
 {
   while (*s)
   {
@@ -665,8 +665,8 @@ cgi_puts(const char *s,			/* I - String to output */
  */
 
 static void
-cgi_puturi(const char *s,		/* I - String to output */
-           FILE       *out)		/* I - Output file */
+cgi_puturi(const char * restrict s,		/* I - String to output */
+           FILE       * restrict out)		/* I - Output file */
 {
   while (*s)
   {

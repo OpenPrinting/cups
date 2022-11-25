@@ -1554,15 +1554,15 @@ browse_local_callback(
 
 static void
 browse_callback(
-    AvahiServiceBrowser    *browser,	/* I - Browser */
+    AvahiServiceBrowser    * restrict browser,	/* I - Browser */
     AvahiIfIndex           interface,	/* I - Interface index (unused) */
     AvahiProtocol          protocol,	/* I - Network protocol (unused) */
     AvahiBrowserEvent      event,	/* I - What happened */
-    const char             *name,	/* I - Service name */
-    const char             *type,	/* I - Registration type */
-    const char             *domain,	/* I - Domain */
+    const char             * restrict name,	/* I - Service name */
+    const char             * restrict type,	/* I - Registration type */
+    const char             * restrict domain,	/* I - Domain */
     AvahiLookupResultFlags flags,	/* I - Flags */
-    void                   *context)	/* I - Services array */
+    void                   * restrict context)	/* I - Services array */
 {
   AvahiClient	*client = avahi_service_browser_get_client(browser);
 					/* Client information */
@@ -1764,8 +1764,8 @@ dnssd_error_string(int error)		/* I - Error number */
  */
 
 static int				/* O - Result of evaluation */
-eval_expr(ippfind_srv_t  *service,	/* I - Service */
-	  ippfind_expr_t *expressions)	/* I - Expressions */
+eval_expr(ippfind_srv_t  * restrict service,	/* I - Service */
+	  ippfind_expr_t * restrict expressions)	/* I - Expressions */
 {
   ippfind_op_t		logic;		/* Logical operation */
   int			result;		/* Result of current expression */
@@ -2443,9 +2443,9 @@ list_service(ippfind_srv_t *service)	/* I - Service */
 static ippfind_expr_t *			/* O - New expression */
 new_expr(ippfind_op_t op,		/* I - Operation */
          int          invert,		/* I - Invert result? */
-         const char   *value,		/* I - TXT key or port range */
-	 const char   *regex,		/* I - Regular expression */
-	 char         **args)		/* I - Pointer to argument strings */
+         const char   * restrict value,		/* I - TXT key or port range */
+	 const char   * restrict regex,		/* I - Regular expression */
+	 char         ** restrict args)		/* I - Pointer to argument strings */
 {
   ippfind_expr_t	*temp;		/* New expression */
 
@@ -2555,12 +2555,12 @@ resolve_callback(
     DNSServiceFlags     flags,		/* I - Data flags */
     uint32_t            interfaceIndex,	/* I - Interface */
     DNSServiceErrorType errorCode,	/* I - Error, if any */
-    const char          *fullName,	/* I - Full service name */
-    const char          *hostTarget,	/* I - Hostname */
+    const char          * restrict fullName,	/* I - Full service name */
+    const char          * restrict hostTarget,	/* I - Hostname */
     uint16_t            port,		/* I - Port number (network byte order) */
     uint16_t            txtLen,		/* I - Length of TXT record data */
-    const unsigned char *txtRecord,	/* I - TXT record data */
-    void                *context)	/* I - Service */
+    const unsigned char * restrict txtRecord,	/* I - TXT record data */
+    void                * restrict context)	/* I - Service */
 {
   char			key[256],	/* TXT key value */
 			*value;		/* Value from TXT record */
@@ -2630,19 +2630,19 @@ resolve_callback(
 #elif defined(HAVE_AVAHI)
 static void
 resolve_callback(
-    AvahiServiceResolver   *resolver,	/* I - Resolver */
+    AvahiServiceResolver   * restrict resolver,	/* I - Resolver */
     AvahiIfIndex           interface,	/* I - Interface */
     AvahiProtocol          protocol,	/* I - Address protocol */
     AvahiResolverEvent     event,	/* I - Event */
-    const char             *serviceName,/* I - Service name */
-    const char             *regtype,	/* I - Registration type */
-    const char             *replyDomain,/* I - Domain name */
-    const char             *hostTarget,	/* I - FQDN */
-    const AvahiAddress     *address,	/* I - Address */
+    const char             * restrict serviceName,/* I - Service name */
+    const char             * restrict regtype,	/* I - Registration type */
+    const char             * restrict replyDomain,/* I - Domain name */
+    const char             * restrict hostTarget,	/* I - FQDN */
+    const AvahiAddress     * restrict address,	/* I - Address */
     uint16_t               port,	/* I - Port number */
-    AvahiStringList        *txt,	/* I - TXT records */
+    AvahiStringList        * restrict txt,	/* I - TXT records */
     AvahiLookupResultFlags flags,	/* I - Lookup flags */
-    void                   *context)	/* I - Service */
+    void                   * restrict context)	/* I - Service */
 {
   char		key[256],		/* TXT key */
 		*value;			/* TXT value */

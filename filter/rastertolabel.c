@@ -434,8 +434,8 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
  */
 
 void
-EndPage(ppd_file_t          *ppd,	/* I - PPD file */
-        cups_page_header2_t *header)	/* I - Page header */
+EndPage(ppd_file_t          * restrict ppd,	/* I - PPD file */
+        cups_page_header2_t * restrict header)	/* I - Page header */
 {
   int		val;			/* Option value */
   ppd_choice_t	*choice;		/* Marked choice */

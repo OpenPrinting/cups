@@ -105,8 +105,8 @@ Setup(void)
 
 void
 StartPage(
-    const ppd_file_t         *ppd,	/* I - PPD file */
-    const cups_page_header2_t *header)	/* I - Page header */
+    const ppd_file_t         * restrict ppd,	/* I - PPD file */
+    const cups_page_header2_t * restrict header)	/* I - Page header */
 {
   int		n, t;			/* Numbers */
   unsigned	plane;			/* Looping var */

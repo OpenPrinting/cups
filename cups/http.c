@@ -402,7 +402,6 @@ httpCompareCredentials(
 {
   http_credential_t	*temp1, *temp2;	/* Temporary credentials */
 
-
   for (temp1 = (http_credential_t *)cupsArrayFirst(cred1), temp2 = (http_credential_t *)cupsArrayFirst(cred2); temp1 && temp2; temp1 = (http_credential_t *)cupsArrayNext(cred1), temp2 = (http_credential_t *)cupsArrayNext(cred2))
     if (temp1->datalen != temp2->datalen)
       return (0);
@@ -438,14 +437,14 @@ httpConnect(const char *host,		/* I - Host to connect to */
 
 http_t *				/* O - New HTTP connection */
 httpConnect2(
-    const char        *host,		/* I - Host to connect to */
+    const char        * restrict host,		/* I - Host to connect to */
     int               port,		/* I - Port number */
-    http_addrlist_t   *addrlist,	/* I - List of addresses or @code NULL@ to lookup */
+    http_addrlist_t   * restrict addrlist,	/* I - List of addresses or @code NULL@ to lookup */
     int               family,		/* I - Address family to use or @code AF_UNSPEC@ for any */
     http_encryption_t encryption,	/* I - Type of encryption to use */
     int               blocking,		/* I - 1 for blocking connection, 0 for non-blocking */
     int               msec,		/* I - Connection timeout in milliseconds, 0 means don't connect */
-    int               *cancel)		/* I - Pointer to "cancel" variable */
+    int               * restrict cancel)		/* I - Pointer to "cancel" variable */
 {
   http_t	*http;			/* New HTTP connection */
 
@@ -505,8 +504,8 @@ httpConnectEncrypt(
  */
 
 int					/* O - Status of call (0 = success) */
-httpDelete(http_t     *http,		/* I - HTTP connection */
-           const char *uri)		/* I - URI to delete */
+httpDelete(http_t     * restrict http,		/* I - HTTP connection */
+           const char * restrict uri)		/* I - URI to delete */
 {
   return (http_send(http, HTTP_STATE_DELETE, uri));
 }
@@ -1130,9 +1129,9 @@ httpGetRemaining(http_t *http)		/* I - HTTP connection */
  */
 
 char *					/* O - Line or @code NULL@ */
-httpGets(char   *line,			/* I - Line to read into */
+httpGets(char   * restrict line,			/* I - Line to read into */
          int    length,			/* I - Max length of buffer */
-	 http_t *http)			/* I - HTTP connection */
+	 http_t * restrict http)			/* I - HTTP connection */
 {
   char		*lineptr,		/* Pointer into line */
 		*lineend,		/* End of line */
@@ -1329,10 +1328,10 @@ httpGetStatus(http_t *http)		/* I - HTTP connection */
  */
 
 char *					/* O - Value or @code NULL@ */
-httpGetSubField(http_t       *http,	/* I - HTTP connection */
+httpGetSubField(http_t       * restrict http,	/* I - HTTP connection */
                 http_field_t field,	/* I - Field index */
-                const char   *name,	/* I - Name of sub-field */
-		char         *value)	/* O - Value string */
+                const char   * restrict name,	/* I - Name of sub-field */
+		char         * restrict value)	/* O - Value string */
 {
   return (httpGetSubField2(http, field, name, value, HTTP_MAX_VALUE));
 }
@@ -1345,9 +1344,9 @@ httpGetSubField(http_t       *http,	/* I - HTTP connection */
  */
 
 char *					/* O - Value or @code NULL@ */
-httpGetSubField2(http_t       *http,	/* I - HTTP connection */
+httpGetSubField2(http_t       * restrict http,	/* I - HTTP connection */
                  http_field_t field,	/* I - Field index */
-                 const char   *name,	/* I - Name of sub-field */
+                 const char   * restrict name,	/* I - Name of sub-field */
 		 char         *value,	/* O - Value string */
 		 int          valuelen)	/* I - Size of value buffer */
 {
@@ -1488,8 +1487,8 @@ httpGetVersion(http_t *http)		/* I - HTTP connection */
  */
 
 int					/* O - Status of call (0 = success) */
-httpHead(http_t     *http,		/* I - HTTP connection */
-         const char *uri)		/* I - URI for head */
+httpHead(http_t     * restrict http,		/* I - HTTP connection */
+         const char * restrict uri)		/* I - URI for head */
 {
   DEBUG_printf(("httpHead(http=%p, uri=\"%s\")", (void *)http, uri));
   return (http_send(http, HTTP_STATE_HEAD, uri));
@@ -1606,8 +1605,8 @@ httpOptions(http_t     *http,		/* I - HTTP connection */
  */
 
 ssize_t					/* O - Number of bytes copied */
-httpPeek(http_t *http,			/* I - HTTP connection */
-         char   *buffer,		/* I - Buffer for data */
+httpPeek(http_t * restrict http,			/* I - HTTP connection */
+         char   * restrict buffer,		/* I - Buffer for data */
 	 size_t length)			/* I - Maximum number of bytes */
 {
   ssize_t	bytes;			/* Bytes read */
@@ -1868,8 +1867,8 @@ httpPost(http_t     *http,		/* I - HTTP connection */
  */
 
 int					/* O - Number of bytes written */
-httpPrintf(http_t     *http,		/* I - HTTP connection */
-           const char *format,		/* I - printf-style format string */
+httpPrintf(http_t     * restrict http,		/* I - HTTP connection */
+           const char * restrict format,		/* I - printf-style format string */
 	   ...)				/* I - Additional args as needed */
 {
   ssize_t	bytes;			/* Number of bytes to write */
@@ -1912,8 +1911,8 @@ httpPrintf(http_t     *http,		/* I - HTTP connection */
  */
 
 int					/* O - Status of call (0 = success) */
-httpPut(http_t     *http,		/* I - HTTP connection */
-        const char *uri)		/* I - URI to put */
+httpPut(http_t     * restrict http,		/* I - HTTP connection */
+        const char * restrict uri)		/* I - URI to put */
 {
   DEBUG_printf(("httpPut(http=%p, uri=\"%s\")", (void *)http, uri));
   return (http_send(http, HTTP_STATE_PUT, uri));
@@ -1945,8 +1944,8 @@ httpRead(http_t *http,			/* I - HTTP connection */
  */
 
 ssize_t					/* O - Number of bytes read */
-httpRead2(http_t *http,			/* I - HTTP connection */
-          char   *buffer,		/* I - Buffer for data */
+httpRead2(http_t * restrict http,			/* I - HTTP connection */
+          char   * restrict buffer,		/* I - Buffer for data */
 	  size_t length)		/* I - Maximum number of bytes */
 {
   ssize_t	bytes;			/* Bytes read */
@@ -2152,8 +2151,8 @@ httpRead2(http_t *http,			/* I - HTTP connection */
  */
 
 http_state_t				/* O - New state of connection */
-httpReadRequest(http_t *http,		/* I - HTTP connection */
-                char   *uri,		/* I - URI buffer */
+httpReadRequest(http_t * restrict http,		/* I - HTTP connection */
+                char   * restrict uri,		/* I - URI buffer */
 		size_t urilen)		/* I - Size of URI buffer */
 {
   char	line[4096],			/* HTTP request line */
@@ -2331,9 +2330,9 @@ httpReconnect(http_t *http)		/* I - HTTP connection */
  */
 
 int					/* O - 0 on success, non-zero on failure */
-httpReconnect2(http_t *http,		/* I - HTTP connection */
+httpReconnect2(http_t * restrict http,		/* I - HTTP connection */
 	       int    msec,		/* I - Timeout in milliseconds */
-	       int    *cancel)		/* I - Pointer to "cancel" variable */
+	       int    * restrict cancel)		/* I - Pointer to "cancel" variable */
 {
   http_addrlist_t	*addr;		/* Connected address */
 #ifdef DEBUG
@@ -2464,9 +2463,9 @@ httpReconnect2(http_t *http,		/* I - HTTP connection */
  */
 
 void
-httpSetAuthString(http_t     *http,	/* I - HTTP connection */
-                  const char *scheme,	/* I - Auth scheme (NULL to clear it) */
-		  const char *data)	/* I - Auth data (NULL for none) */
+httpSetAuthString(http_t     * restrict http,	/* I - HTTP connection */
+                  const char * restrict scheme,	/* I - Auth scheme (NULL to clear it) */
+		  const char * restrict data)	/* I - Auth data (NULL for none) */
 {
  /*
   * Range check input...
@@ -2521,8 +2520,8 @@ httpSetAuthString(http_t     *http,	/* I - HTTP connection */
  */
 
 int						/* O - Status of call (0 = success) */
-httpSetCredentials(http_t	*http,		/* I - HTTP connection */
-		   cups_array_t *credentials)	/* I - Array of credentials */
+httpSetCredentials(http_t	* restrict http,		/* I - HTTP connection */
+		   cups_array_t * restrict credentials)	/* I - Array of credentials */
 {
   if (!http || cupsArrayCount(credentials) < 1)
     return (-1);
@@ -2544,8 +2543,8 @@ httpSetCredentials(http_t	*http,		/* I - HTTP connection */
  */
 
 void
-httpSetCookie(http_t     *http,		/* I - Connection */
-              const char *cookie)	/* I - Cookie string */
+httpSetCookie(http_t     * restrict http,		/* I - Connection */
+              const char * restrict cookie)	/* I - Cookie string */
 {
   if (!http)
     return;
@@ -2570,9 +2569,9 @@ httpSetCookie(http_t     *http,		/* I - Connection */
  */
 
 void
-httpSetDefaultField(http_t       *http,	/* I - HTTP connection */
+httpSetDefaultField(http_t       * restrict http,	/* I - HTTP connection */
                     http_field_t field,	/* I - Field index */
-	            const char   *value)/* I - Value */
+	            const char   * restrict value)/* I - Value */
 {
   DEBUG_printf(("httpSetDefaultField(http=%p, field=%d(%s), value=\"%s\")", (void *)http, field, http_fields[field], value));
 
@@ -2612,9 +2611,9 @@ httpSetExpect(http_t        *http,	/* I - HTTP connection */
  */
 
 void
-httpSetField(http_t       *http,	/* I - HTTP connection */
+httpSetField(http_t       * restrict http,	/* I - HTTP connection */
              http_field_t field,	/* I - Field index */
-	     const char   *value)	/* I - Value */
+	     const char   * restrict value)	/* I - Value */
 {
   DEBUG_printf(("httpSetField(http=%p, field=%d(%s), value=\"%s\")", (void *)http, field, http_fields[field], value));
 
@@ -4192,8 +4191,8 @@ http_read(http_t *http,			/* I - HTTP connection */
  */
 
 static ssize_t				/* O - Number of bytes read or -1 on error */
-http_read_buffered(http_t *http,	/* I - HTTP connection */
-                   char   *buffer,	/* I - Buffer */
+http_read_buffered(http_t * restrict http,	/* I - HTTP connection */
+                   char   * restrict buffer,	/* I - Buffer */
                    size_t length)	/* I - Maximum bytes to read */
 {
   ssize_t	bytes;			/* Bytes read */
@@ -4232,8 +4231,8 @@ http_read_buffered(http_t *http,	/* I - HTTP connection */
  */
 
 static ssize_t				/* O - Number of bytes read or -1 on error */
-http_read_chunk(http_t *http,		/* I - HTTP connection */
-		char   *buffer,		/* I - Buffer */
+http_read_chunk(http_t * restrict http,		/* I - HTTP connection */
+		char   *restrict buffer,		/* I - Buffer */
 		size_t length)		/* I - Maximum bytes to read */
 {
   DEBUG_printf(("7http_read_chunk(http=%p, buffer=%p, length=" CUPS_LLFMT ")", (void *)http, (void *)buffer, CUPS_LLCAST length));
@@ -4297,9 +4296,9 @@ http_read_chunk(http_t *http,		/* I - HTTP connection */
  */
 
 static int				/* O - 0 on success, non-zero on error */
-http_send(http_t       *http,		/* I - HTTP connection */
+http_send(http_t       * restrict http,		/* I - HTTP connection */
           http_state_t request,		/* I - Request code */
-	  const char   *uri)		/* I - URI */
+	  const char   * restrict uri)		/* I - URI */
 {
   int		i;			/* Looping var */
   char		buf[1024];		/* Encoded URI buffer */

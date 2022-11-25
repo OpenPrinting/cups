@@ -445,10 +445,10 @@ WriteLabels(int orient)	/* I - Orientation of the page */
  */
 
 void
-WriteTextComment(const char *name,	/* I - Comment name ("Title", etc.) */
-                 const char *value)	/* I - Comment value */
+WriteTextComment(const char * restrict name,	/* I - Comment name ("Title", etc.) */
+                 const char * restrict value)	/* I - Comment value */
 {
-  int	len;				/* Current line length */
+  size_t	len;				/* Current line length */
 
 
  /*
@@ -462,7 +462,7 @@ WriteTextComment(const char *name,	/* I - Comment name ("Title", etc.) */
   */
 
   printf("%%%%%s: (", name);
-  len = 5 + (int)strlen(name);
+  len = 5 + strlen(name);
 
   while (*value)
   {

@@ -42,9 +42,9 @@ _ippVarsDeinit(_ipp_vars_t *v)		/* I - IPP variables */
  */
 
 void
-_ippVarsExpand(_ipp_vars_t *v,		/* I - IPP variables */
-               char        *dst,	/* I - Destination buffer */
-               const char  *src,	/* I - Source string */
+_ippVarsExpand(_ipp_vars_t * restrict v,		/* I - IPP variables */
+               char        * restrict dst,	/* I - Destination buffer */
+               const char  * restrict src,	/* I - Source string */
                size_t      dstsize)	/* I - Destination buffer size */
 {
   char		*dstptr,		/* Pointer into destination */
@@ -179,10 +179,10 @@ _ippVarsInit(_ipp_vars_t      *v,	/* I - IPP variables */
 
 const char *				/* O - Password string or @code NULL@ */
 _ippVarsPasswordCB(
-    const char *prompt,			/* I - Prompt string (not used) */
-    http_t     *http,			/* I - HTTP connection (not used) */
-    const char *method,			/* I - HTTP method (not used) */
-    const char *resource,		/* I - Resource path (not used) */
+    const char * restrict prompt,			/* I - Prompt string (not used) */
+    http_t     * restrict http,			/* I - HTTP connection (not used) */
+    const char * restrict method,			/* I - HTTP method (not used) */
+    const char * restrict resource,		/* I - Resource path (not used) */
     void       *user_data)		/* I - IPP variables */
 {
   _ipp_vars_t	*v = (_ipp_vars_t *)user_data;
@@ -214,9 +214,9 @@ _ippVarsPasswordCB(
  */
 
 int					/* O - 1 on success, 0 on failure */
-_ippVarsSet(_ipp_vars_t *v,		/* I - IPP variables */
-            const char  *name,		/* I - Variable name */
-            const char  *value)		/* I - Variable value */
+_ippVarsSet(_ipp_vars_t * restrict v,		/* I - IPP variables */
+            const char  * restrict name,		/* I - Variable name */
+            const char  * restrict value)		/* I - Variable value */
 {
   if (!strcmp(name, "uri"))
   {

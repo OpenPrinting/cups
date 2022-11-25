@@ -31,14 +31,14 @@ static int	side_cb(int print_fd, int device_fd, int snmp_fd,
  */
 
 int					/* O - Exit status */
-print_device(const char *uri,		/* I - Device URI */
-             const char *hostname,	/* I - Hostname/manufacturer */
-             const char *resource,	/* I - Resource/modelname */
-	     char       *options,	/* I - Device options/serial number */
+print_device(const char * restrict uri,		/* I - Device URI */
+             const char * restrict hostname,	/* I - Hostname/manufacturer */
+             const char * restrict resource,	/* I - Resource/modelname */
+	     char       * restrict options,	/* I - Device options/serial number */
 	     int        print_fd,	/* I - File descriptor to print */
 	     int        copies,		/* I - Copies to print */
 	     int	argc,		/* I - Number of command-line arguments (6 or 7) */
-	     char	*argv[])	/* I - Command-line arguments */
+	     char	** restrict argv)	/* I - Command-line arguments */
 {
   int		use_bc;			/* Use backchannel path? */
   int		device_fd;		/* USB device */

@@ -99,8 +99,8 @@ cupsdLoadEnv(char *envp[],		/* I - Environment array */
  */
 
 void
-cupsdSetEnv(const char *name,		/* I - Name of variable */
-            const char *value)		/* I - Value of variable */
+cupsdSetEnv(const char * restrict name,		/* I - Name of variable */
+            const char * restrict value)		/* I - Value of variable */
 {
   int	i;				/* Index into environment array */
 
@@ -160,8 +160,8 @@ cupsdSetEnv(const char *name,		/* I - Name of variable */
  */
 
 void
-cupsdSetEnvf(const char *name,		/* I - Name of variable */
-             const char *value,		/* I - Printf-style value of variable */
+cupsdSetEnvf(const char * restrict name,		/* I - Name of variable */
+             const char * restrict value,		/* I - Printf-style value of variable */
 	     ...)			/* I - Additional args as needed */
 {
   char		v[4096];		/* Formatting string value */

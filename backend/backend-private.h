@@ -307,25 +307,25 @@ typedef int (*_cups_sccb_t)(int print_fd, int device_fd, int snmp_fd,
 
 extern void		backendCheckSideChannel(int snmp_fd, http_addr_t *addr);
 extern int		backendDrainOutput(int print_fd, int device_fd);
-extern int		backendGetDeviceID(int fd, char *device_id,
+extern int		backendGetDeviceID(int fd, char * restrict device_id,
 			                   int device_id_size,
-			                   char *make_model,
+			                   char * restrict make_model,
 					   int make_model_size,
-					   const char *scheme, char *uri,
+					   const char * restrict scheme, char * restrict uri,
 					   int uri_size);
-extern int		backendGetMakeModel(const char *device_id,
-			                    char *make_model,
+extern int		backendGetMakeModel(const char * restrict device_id,
+			                    char * restrict make_model,
 				            size_t make_model_size);
-extern http_addrlist_t	*backendLookup(const char *hostname, int port, int *cancel);
+extern http_addrlist_t	*backendLookup(const char * restrict hostname, int port, int * restrict cancel);
 extern int		backendNetworkSideCB(int print_fd, int device_fd,
 			                     int snmp_fd, http_addr_t *addr,
 					     int use_bc);
 extern ssize_t		backendRunLoop(int print_fd, int device_fd, int snmp_fd,
 			               http_addr_t *addr, int use_bc,
 			               int update_state, _cups_sccb_t side_cb);
-extern int		backendSNMPSupplies(int snmp_fd, http_addr_t *addr,
-			                    int *page_count,
-					    int *printer_state);
+extern int		backendSNMPSupplies(int snmp_fd, http_addr_t * restrict addr,
+			                    int * restrict page_count,
+					    int * restrict printer_state);
 extern int		backendWaitLoop(int snmp_fd, http_addr_t *addr,
 			                int use_bc, _cups_sccb_t side_cb);
 

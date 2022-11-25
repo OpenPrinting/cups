@@ -92,10 +92,10 @@ cupsSideChannelDoRequest(
 
 int					/* O - 0 on success, -1 on error */
 cupsSideChannelRead(
-    cups_sc_command_t *command,		/* O - Command code */
-    cups_sc_status_t  *status,		/* O - Status code */
-    char              *data,		/* O - Data buffer pointer */
-    int               *datalen,		/* IO - Size of data buffer on entry, number of bytes in buffer on return */
+    cups_sc_command_t * restrict command,		/* O - Command code */
+    cups_sc_status_t  * restrict status,		/* O - Status code */
+    char              * restrict data,		/* O - Data buffer pointer */
+    int               * restrict datalen,		/* IO - Size of data buffer on entry, number of bytes in buffer on return */
     double            timeout)		/* I  - Timeout in seconds */
 {
   char		*buffer;		/* Message buffer */
@@ -292,9 +292,9 @@ cupsSideChannelRead(
 
 cups_sc_status_t			/* O  - Query status */
 cupsSideChannelSNMPGet(
-    const char *oid,			/* I  - OID to query */
-    char       *data,			/* I  - Buffer for OID value */
-    int        *datalen,		/* IO - Size of OID buffer on entry, size of value on return */
+    const char * restrict oid,			/* I  - OID to query */
+    char       * restrict data,			/* I  - Buffer for OID value */
+    int        * restrict datalen,		/* IO - Size of OID buffer on entry, size of value on return */
     double     timeout)			/* I  - Timeout in seconds */
 {
   cups_sc_status_t	status;		/* Status of command */
@@ -398,10 +398,10 @@ cupsSideChannelSNMPGet(
 
 cups_sc_status_t			/* O - Status of first query of @code CUPS_SC_STATUS_OK@ on success */
 cupsSideChannelSNMPWalk(
-    const char          *oid,		/* I - First numeric OID to query */
+    const char          * restrict oid,		/* I - First numeric OID to query */
     double              timeout,	/* I - Timeout for each query in seconds */
     cups_sc_walk_func_t cb,		/* I - Function to call with each value */
-    void                *context)	/* I - Application-defined pointer to send to callback */
+    void                * restrict context)	/* I - Application-defined pointer to send to callback */
 {
   cups_sc_status_t	status;		/* Status of command */
   cups_sc_command_t	rcommand;	/* Response command */

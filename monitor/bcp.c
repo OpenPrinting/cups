@@ -157,9 +157,9 @@ main(int  argc,				/* I - Number of command-line args */
  */
 
 static char *				/* O  - String or NULL if EOF */
-psgets(char   *buf,			/* I  - Buffer to read into */
-       size_t *bytes,			/* IO - Length of buffer */
-       FILE   *fp)			/* I  - File to read from */
+psgets(char   * restrict buf,			/* I  - Buffer to read into */
+       size_t * restrict bytes,			/* IO - Length of buffer */
+       FILE   * restrict fp)			/* I  - File to read from */
 {
   char		*bufptr;		/* Pointer into buffer */
   int		ch;			/* Character from file */

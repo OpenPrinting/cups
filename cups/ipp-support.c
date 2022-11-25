@@ -655,8 +655,8 @@ static size_t	ipp_col_string(ipp_t *col, char *buffer, size_t bufsize);
 
 size_t					/* O - Number of bytes less nul */
 ippAttributeString(
-    ipp_attribute_t *attr,		/* I - Attribute */
-    char            *buffer,		/* I - String buffer or NULL */
+    ipp_attribute_t * restrict attr,		/* I - Attribute */
+    char            * restrict buffer,		/* I - String buffer or NULL */
     size_t          bufsize)		/* I - Size of string buffer */
 {
   int		i;			/* Looping var */
@@ -2515,8 +2515,8 @@ ippTagValue(const char *name)		/* I - Tag name */
  */
 
 static size_t				/* O - Number of bytes */
-ipp_col_string(ipp_t  *col,		/* I - Collection attribute */
-               char   *buffer,		/* I - Buffer or NULL */
+ipp_col_string(ipp_t  * restrict col,		/* I - Collection attribute */
+               char   * restrict buffer,		/* I - Buffer or NULL */
                size_t bufsize)		/* I - Size of buffer */
 {
   char			*bufptr,	/* Position in buffer */

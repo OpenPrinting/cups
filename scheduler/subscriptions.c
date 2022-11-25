@@ -253,9 +253,9 @@ cupsdAddEvent(
 cupsd_subscription_t *			/* O - New subscription object */
 cupsdAddSubscription(
     unsigned	    mask,		/* I - Event mask */
-    cupsd_printer_t *dest,		/* I - Printer, if any */
-    cupsd_job_t	    *job,		/* I - Job, if any */
-    const char	    *uri,		/* I - notify-recipient-uri, if any */
+    cupsd_printer_t * restrict dest,		/* I - Printer, if any */
+    cupsd_job_t	    * restrict job,		/* I - Job, if any */
+    const char	    * restrict uri,		/* I - notify-recipient-uri, if any */
     int		    sub_id)		/* I - notify-subscription-id or 0 */
 {
   cupsd_subscription_t	*temp;		/* New subscription object */
@@ -1311,8 +1311,8 @@ cupsd_send_dbus(cupsd_eventmask_t event,/* I - Event to send */
 
 static void
 cupsd_send_notification(
-    cupsd_subscription_t *sub,		/* I - Subscription object */
-    cupsd_event_t	 *event)	/* I - Event to send */
+    cupsd_subscription_t * restrict sub,		/* I - Subscription object */
+    cupsd_event_t	 * restrict event)	/* I - Event to send */
 {
   ipp_state_t	state;			/* IPP event state */
 

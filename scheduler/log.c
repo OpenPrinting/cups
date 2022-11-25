@@ -104,8 +104,8 @@ static int	format_log_line(const char *message, va_list ap);
  */
 
 int					/* O  - 1 if log file open */
-cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
-	          const char  *logname)	/* I  - Log filename */
+cupsdCheckLogFile(cups_file_t ** restrict lf,	/* IO - Log file */
+	          const char  * restrict logname)	/* I  - Log filename */
 {
   char		backname[1024],		/* Backup log filename */
 		filename[1024],		/* Formatted log filename */

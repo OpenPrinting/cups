@@ -654,9 +654,9 @@ main(int  argc,				/* I - Number of command-line arguments */
  */
 
 static int				/* O - Exit status */
-restart_job(const char *command,	/* I - Command name */
+restart_job(const char * restrict command,	/* I - Command name */
             int        job_id,		/* I - Job ID */
-            const char *job_hold_until)	/* I - "job-hold-until" value, if any */
+            const char * restrict job_hold_until)	/* I - "job-hold-until" value, if any */
 {
   ipp_t		*request;		/* IPP request */
   char		uri[HTTP_MAX_URI];	/* URI for job */

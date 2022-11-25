@@ -24,12 +24,12 @@
 int					/* O - 0 on success, -1 on failure */
 backendGetDeviceID(
     int        fd,			/* I - File descriptor */
-    char       *device_id,		/* O - 1284 device ID */
+    char       * restrict device_id,		/* O - 1284 device ID */
     int        device_id_size,		/* I - Size of buffer */
-    char       *make_model,		/* O - Make/model */
+    char       * restrict make_model,		/* O - Make/model */
     int        make_model_size,		/* I - Size of buffer */
-    const char *scheme,			/* I - URI scheme */
-    char       *uri,			/* O - Device URI */
+    const char * restrict scheme,			/* I - URI scheme */
+    char       * restrict uri,			/* O - Device URI */
     int        uri_size)		/* I - Size of buffer */
 {
 #ifdef __APPLE__ /* This function is a no-op */
@@ -336,8 +336,8 @@ backendGetDeviceID(
 
 int					/* O - 0 on success, -1 on failure */
 backendGetMakeModel(
-    const char *device_id,		/* O - 1284 device ID */
-    char       *make_model,		/* O - Make/model */
+    const char * restrict device_id,		/* O - 1284 device ID */
+    char       * restrict make_model,		/* O - Make/model */
     size_t     make_model_size)		/* I - Size of buffer */
 {
   int		num_values;		/* Number of keys and values */

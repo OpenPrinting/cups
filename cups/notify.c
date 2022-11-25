@@ -24,8 +24,8 @@
  */
 
 char *					/* O - Subject string or @code NULL@ */
-cupsNotifySubject(cups_lang_t *lang,	/* I - Language data */
-                  ipp_t       *event)	/* I - Event data */
+cupsNotifySubject(cups_lang_t * restrict lang,	/* I - Language data */
+                  ipp_t       * restrict event)	/* I - Event data */
 {
   char			buffer[1024];	/* Subject buffer */
   const char		*prefix,	/* Prefix on subject */

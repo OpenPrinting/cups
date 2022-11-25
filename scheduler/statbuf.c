@@ -106,9 +106,9 @@ cupsdStatBufNew(int        fd,		/* I - File descriptor of pipe */
 
 char *					/* O - Line from buffer, "", or NULL */
 cupsdStatBufUpdate(
-    cupsd_statbuf_t *sb,		/* I - Status buffer */
-    int             *loglevel,		/* O - Log level */
-    char            *line,		/* I - Line buffer */
+    cupsd_statbuf_t * restrict sb,		/* I - Status buffer */
+    int             * restrict loglevel,		/* O - Log level */
+    char            * restrict line,		/* I - Line buffer */
     int             linelen)		/* I - Size of line buffer */
 {
   int		bytes;			/* Number of bytes read */

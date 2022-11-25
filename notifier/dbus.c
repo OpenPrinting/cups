@@ -604,8 +604,8 @@ handle_sigterm(int signum)
  */
 
 static int				/* O - 0 on success, -1 on failure */
-acquire_lock(int    *fd,		/* O - Lock file descriptor */
-             char   *lockfile,		/* I - Lock filename buffer */
+acquire_lock(int    * restrict fd,		/* O - Lock file descriptor */
+             char   * restrict lockfile,		/* I - Lock filename buffer */
 	     size_t locksize)		/* I - Size of filename buffer */
 {
   const char		*tmpdir;	/* Temporary directory */

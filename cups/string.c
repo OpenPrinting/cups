@@ -391,9 +391,9 @@ _cupsStrRetain(const char *s)		/* I - String to retain */
  */
 
 double					/* O - Number */
-_cupsStrScand(const char   *buf,	/* I - Pointer to number */
-              char         **bufptr,	/* O - New pointer or NULL on error */
-              struct lconv *loc)	/* I - Locale data */
+_cupsStrScand(const char   * restrict buf,	/* I - Pointer to number */
+              char         ** restrict bufptr,	/* O - New pointer or NULL on error */
+              struct lconv * restrict loc)	/* I - Locale data */
 {
   char	temp[1024],			/* Temporary buffer */
 	*tempptr;			/* Pointer into temporary buffer */
@@ -526,8 +526,8 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
  */
 
 size_t					/* O - Number of strings */
-_cupsStrStatistics(size_t *alloc_bytes,	/* O - Allocated bytes */
-                   size_t *total_bytes)	/* O - Total string bytes */
+_cupsStrStatistics(size_t * restrict alloc_bytes,	/* O - Allocated bytes */
+                   size_t * restrict total_bytes)	/* O - Total string bytes */
 {
   size_t		count,		/* Number of strings */
 			abytes,		/* Allocated string bytes */

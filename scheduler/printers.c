@@ -1350,8 +1350,8 @@ cupsdLoadAllPrinters(void)
 
 void
 cupsdRenamePrinter(
-    cupsd_printer_t *p,			/* I - Printer */
-    const char      *name)		/* I - New name */
+    cupsd_printer_t * restrict p,			/* I - Printer */
+    const char      * restrict name)		/* I - New name */
 {
  /*
   * Remove the printer from the array(s) first...
@@ -1694,9 +1694,9 @@ cupsdSaveAllPrinters(void)
 
 int					/* O - 1 if value OK, 0 otherwise */
 cupsdSetAuthInfoRequired(
-    cupsd_printer_t *p,			/* I - Printer */
-    const char      *values,		/* I - Plain text value (or NULL) */
-    ipp_attribute_t *attr)		/* I - IPP attribute value (or NULL) */
+    cupsd_printer_t * restrict p,			/* I - Printer */
+    const char      * restrict values,		/* I - Plain text value (or NULL) */
+    ipp_attribute_t * restrict attr)		/* I - IPP attribute value (or NULL) */
 {
   int	i;				/* Looping var */
 
@@ -1856,8 +1856,8 @@ cupsdSetAuthInfoRequired(
  */
 
 void
-cupsdSetDeviceURI(cupsd_printer_t *p,	/* I - Printer */
-                  const char      *uri)	/* I - Device URI */
+cupsdSetDeviceURI(cupsd_printer_t * restrict p,	/* I - Printer */
+                  const char      * restrict uri)	/* I - Device URI */
 {
   char	buffer[1024],			/* URI buffer */
 	*start,				/* Start of data after scheme */
@@ -1925,9 +1925,9 @@ cupsdSetDeviceURI(cupsd_printer_t *p,	/* I - Printer */
 
 void
 cupsdSetPrinterAttr(
-    cupsd_printer_t *p,			/* I - Printer */
-    const char      *name,		/* I - Attribute name */
-    const char      *value)		/* I - Attribute value string */
+    cupsd_printer_t * restrict p,			/* I - Printer */
+    const char      * restrict name,		/* I - Attribute name */
+    const char      * restrict value)		/* I - Attribute value string */
 {
   ipp_attribute_t	*attr;		/* Attribute */
   int			i,		/* Looping var */
@@ -2539,8 +2539,8 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
 
 int					/* O - 1 if something changed, 0 otherwise */
 cupsdSetPrinterReasons(
-    cupsd_printer_t *p,			/* I - Printer */
-    const char      *s)			/* I - Reasons strings */
+    cupsd_printer_t * restrict p,			/* I - Printer */
+    const char      * restrict s)			/* I - Reasons strings */
 {
   int		i,			/* Looping var */
 		changed = 0;		/* Did something change? */
@@ -2940,9 +2940,9 @@ cupsdUpdatePrinters(void)
 
 const char *				/* O - Printer or class name */
 cupsdValidateDest(
-    const char      *uri,		/* I - Printer URI */
-    cups_ptype_t    *dtype,		/* O - Type (printer or class) */
-    cupsd_printer_t **printer)		/* O - Printer pointer */
+    const char      * restrict uri,		/* I - Printer URI */
+    cups_ptype_t    * restrict dtype,		/* O - Type (printer or class) */
+    cupsd_printer_t ** restrict printer)		/* O - Printer pointer */
 {
   cupsd_printer_t	*p;		/* Current printer */
   char			localname[1024],/* Localized hostname */
@@ -5234,8 +5234,8 @@ new_media_col(pwg_size_t *size)		/* I - media-size/margin values */
  */
 
 static void
-write_xml_string(cups_file_t *fp,	/* I - File to write to */
-                 const char  *s)	/* I - String to write */
+write_xml_string(cups_file_t * restrict fp,	/* I - File to write to */
+                 const char  * restrict s)	/* I - String to write */
 {
   const char	*start;			/* Start of current sequence */
 

@@ -148,8 +148,8 @@ static cups_lang_t	*cups_cache_lookup(const char *name, cups_encoding_t encoding
 static int		cups_message_compare(_cups_message_t *m1, _cups_message_t *m2);
 static void		cups_message_free(_cups_message_t *m);
 static void		cups_message_load(cups_lang_t *lang);
-static void		cups_message_puts(cups_file_t *fp, const char *s);
-static int		cups_read_strings(cups_file_t *fp, int flags, cups_array_t *a);
+static void		cups_message_puts(cups_file_t * restrict fp, const char * restrict s);
+static int		cups_read_strings(cups_file_t * restrict fp, int flags, cups_array_t * restrict a);
 static void		cups_unquote(char *d, const char *s);
 
 
@@ -160,11 +160,11 @@ static void		cups_unquote(char *d, const char *s);
  */
 
 const char *				/* O - Language ID */
-_cupsAppleLanguage(const char *locale,	/* I - Locale ID */
-                   char       *language,/* I - Language ID buffer */
+_cupsAppleLanguage(const char * restrict locale,	/* I - Locale ID */
+                   char       * restrict language,/* I - Language ID buffer */
                    size_t     langsize)	/* I - Size of language ID buffer */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   CFStringRef	localeid,		/* CF locale identifier */
 		langid;			/* CF language identifier */
 
@@ -205,9 +205,9 @@ _cupsAppleLanguage(const char *locale,	/* I - Locale ID */
   }
 
   for (i = 0;
-       i < (int)(sizeof(apple_language_locale) /
-		 sizeof(apple_language_locale[0]));
-       i ++)
+       i < (sizeof(apple_language_locale) /
+            sizeof(apple_language_locale[0]));
+       i++)
     if (!strcmp(locale, apple_language_locale[i].locale))
     {
       strlcpy(language, apple_language_locale[i].language, sizeof(language));
@@ -244,11 +244,11 @@ _cupsAppleLanguage(const char *locale,	/* I - Locale ID */
  */
 
 const char *					/* O - Locale */
-_cupsAppleLocale(CFStringRef languageName,	/* I - Apple language ID */
-                 char        *locale,		/* I - Buffer for locale */
+_cupsAppleLocale(CFStringRef restrict languageName,	/* I - Apple language ID */
+                 char        * restrict locale,		/* I - Buffer for locale */
 		 size_t      localesize)	/* I - Size of buffer */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   CFStringRef	localeName;		/* Locale as a CF string */
 #ifdef DEBUG
   char          temp[1024];             /* Temporary string */
@@ -280,7 +280,7 @@ _cupsAppleLocale(CFStringRef languageName,	/* I - Apple language ID */
     */
 
     for (i = 0;
-	 i < (int)(sizeof(apple_language_locale) /
+	 i < (sizeof(apple_language_locale) /
 		   sizeof(apple_language_locale[0]));
 	 i ++)
     {
@@ -302,7 +302,11 @@ _cupsAppleLocale(CFStringRef languageName,	/* I - Apple language ID */
     */
 
     if (!CFStringGetCString(languageName, locale, (CFIndex)localesize, kCFStringEncodingASCII))
+    {
       *locale = '\0';
+      DEBUG_puts("_cupsAppleLocale: Returning NULL.");
+      return (NULL);
+    }
   }
 
   if (!*locale)

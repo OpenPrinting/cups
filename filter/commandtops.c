@@ -492,8 +492,8 @@ print_self_test_page(ppd_file_t *ppd,	/* I - PPD file */
  */
 
 static void
-report_levels(ppd_file_t *ppd,		/* I - PPD file */
-              const char *user)		/* I - Printing user */
+report_levels(ppd_file_t * restrict ppd,		/* I - PPD file */
+              const char * restrict user)		/* I - Printing user */
 {
  /*
   * Put the printer in PostScript mode...

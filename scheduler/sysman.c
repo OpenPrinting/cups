@@ -607,10 +607,10 @@ sysEventThreadEntry(void)
 
 static void
 sysEventPowerNotifier(
-    void         *context,		/* I - Thread context data */
+    void         * restrict context,		/* I - Thread context data */
     io_service_t service,		/* I - Unused service info */
     natural_t    messageType,		/* I - Type of message */
-    void         *messageArgument)	/* I - Message data */
+    void         * restrict messageArgument)	/* I - Message data */
 {
   int			sendit = 1;	/* Send event to main thread?    *
 					 * (0 = no, 1 = yes, 2 = delayed */

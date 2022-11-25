@@ -28,8 +28,8 @@ static int	overwrite_data(int fd, const char *buffer, int bufsize,
  */
 
 void
-cupsdCleanFiles(const char *path,	/* I - Directory to clean */
-                const char *pattern)	/* I - Filename pattern or NULL */
+cupsdCleanFiles(const char * restrict path,	/* I - Directory to clean */
+                const char * restrict pattern)	/* I - Filename pattern or NULL */
 {
   cups_dir_t	*dir;			/* Directory */
   cups_dentry_t	*dent;			/* Directory entry */
@@ -82,8 +82,8 @@ cupsdCleanFiles(const char *path,	/* I - Directory to clean */
 
 int					/* O - 0 on success, -1 on error */
 cupsdCloseCreatedConfFile(
-    cups_file_t *fp,			/* I - File to close */
-    const char  *filename)		/* I - Filename */
+    cups_file_t * restrict fp,			/* I - File to close */
+    const char  * restrict filename)		/* I - Filename */
 {
   char	newfile[1024],			/* filename.N */
 	oldfile[1024];			/* filename.O */

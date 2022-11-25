@@ -217,13 +217,13 @@ cupsdUnregisterColor(cupsd_printer_t *p)/* I - Printer */
 
 static void
 apple_init_profile(
-    ppd_file_t             *ppd,	/* I - PPD file */
-    cups_array_t	   *languages,	/* I - Languages in the PPD file */
-    CFMutableDictionaryRef profile,	/* I - Profile dictionary */
+    ppd_file_t             * restrict ppd,	/* I - PPD file */
+    cups_array_t	   * restrict languages,	/* I - Languages in the PPD file */
+    CFMutableDictionaryRef  restrict  profile,	/* I - Profile dictionary */
     unsigned               id,		/* I - Profile ID */
-    const char             *name,	/* I - Profile name */
-    const char             *text,	/* I - Profile UI text */
-    const char             *iccfile)	/* I - ICC filename */
+    const char             * restrict name,	/* I - Profile name */
+    const char             * restrict text,	/* I - Profile UI text */
+    const char             * restrict iccfile)	/* I - ICC filename */
 {
   CFURLRef		url;		/* URL for profile filename */
   CFMutableDictionaryRef dict;		/* Dictionary for name */

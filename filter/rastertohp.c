@@ -71,8 +71,8 @@ Setup(void)
  */
 
 void
-StartPage(ppd_file_t         *ppd,	/* I - PPD file */
-          cups_page_header2_t *header)	/* I - Page header */
+StartPage(ppd_file_t         * restrict ppd,	/* I - PPD file */
+          cups_page_header2_t * restrict header)	/* I - Page header */
 {
   unsigned	plane;			/* Looping var */
 

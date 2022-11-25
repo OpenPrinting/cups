@@ -98,9 +98,9 @@ typedef struct cupsd_authdata_s		/**** Authentication data ****/
 
 int					/* O  - 1 on success, 0 on failure */
 cupsdAddIPMask(
-    cups_array_t   **masks,		/* IO - Masks array (created as needed) */
-    const unsigned address[4],		/* I  - IP address */
-    const unsigned netmask[4])		/* I  - IP netmask */
+    cups_array_t   ** restrict masks,		/* IO - Masks array (created as needed) */
+    const unsigned * restrict address,		/* [4] I  - IP address */
+    const unsigned * restrict netmask)		/* [4] I  - IP netmask */
 {
   cupsd_authmask_t	temp;		/* New host/domain mask */
 
@@ -155,8 +155,8 @@ cupsdAddLocation(cupsd_location_t *loc)	/* I - Location to add */
  */
 
 void
-cupsdAddName(cupsd_location_t *loc,	/* I - Location to add to */
-             char             *name)	/* I - Name to add */
+cupsdAddName(cupsd_location_t * restrict loc,	/* I - Location to add to */
+             char             * restrict name)	/* I - Name to add */
 {
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddName(loc=%p, name=\"%s\")", loc, name);
 
@@ -180,8 +180,8 @@ cupsdAddName(cupsd_location_t *loc,	/* I - Location to add to */
  */
 
 int					/* O  - 1 on success, 0 on failure */
-cupsdAddNameMask(cups_array_t **masks,	/* IO - Masks array (created as needed) */
-                 char         *name)	/* I  - Host or interface name */
+cupsdAddNameMask(cups_array_t ** restrict masks,	/* IO - Masks array (created as needed) */
+                 char         * restrict name)	/* I  - Host or interface name */
 {
   cupsd_authmask_t	temp;		/* New host/domain mask */
   char			ifname[32],	/* Interface name */
@@ -894,10 +894,10 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
 int					/* O - 1 if allowed, 0 otherwise */
 cupsdCheckAccess(
-    unsigned         ip[4],		/* I - Client address */
-    const char       *name,		/* I - Client hostname */
+    unsigned         * restrict ip,		/* [4] I - Client address */
+    const char       * restrict name,		/* I - Client hostname */
     size_t           namelen,		/* I - Length of hostname */
-    cupsd_location_t *loc)		/* I - Location to check */
+    cupsd_location_t * restrict loc)		/* I - Location to check */
 {
   int	allow;				/* 1 if allowed, 0 otherwise */
 
@@ -953,12 +953,12 @@ cupsdCheckAccess(
  */
 
 int					/* O - 1 if mask matches, 0 otherwise */
-cupsdCheckAuth(unsigned     ip[4],	/* I - Client address */
-	       const char   *name,	/* I - Client hostname */
+cupsdCheckAuth(unsigned     * restrict ip,	/* [4] I - Client address */
+	       const char   * restrict name,	/* I - Client hostname */
 	       size_t       name_len,	/* I - Length of hostname */
-	       cups_array_t *masks)	/* I - Masks */
+	       cups_array_t  * restrict masks)	/* I - Masks */
 {
-  int			i;		/* Looping var */
+  unsigned			i;		/* Looping var */
   cupsd_authmask_t	*mask;		/* Current mask */
   cupsd_netif_t		*iface;		/* Network interface */
   unsigned		netip4;		/* IPv4 network address */
@@ -1135,9 +1135,9 @@ cupsdCheckAuth(unsigned     ip[4],	/* I - Client address */
 
 int					/* O - 1 if user is a member, 0 otherwise */
 cupsdCheckGroup(
-    const char    *username,		/* I - User name */
-    struct passwd *user,		/* I - System user info */
-    const char    *groupname)		/* I - Group name */
+    const char    * restrict username,		/* I - User name */
+    struct passwd * restrict user,		/* I - System user info */
+    const char    * restrict groupname)		/* I - Group name */
 {
   int		i;			/* Looping var */
   struct group	*group;			/* Group info */
@@ -1199,7 +1199,7 @@ cupsdCheckGroup(
       gid_t	groups[2048];		/* Groups that user belongs to */
 #  endif /* __APPLE__ */
 
-      ngroups = (int)(sizeof(groups) / sizeof(groups[0]));
+      ngroups = (sizeof(groups) / sizeof(groups[0]));
 #  ifdef __APPLE__
       getgrouplist(username, (int)user->pw_gid, groups, &ngroups);
 #  else
@@ -1532,8 +1532,8 @@ cupsdFreeLocation(cupsd_location_t *loc)/* I - Location to free */
  */
 
 http_status_t				/* O - HTTP_OK if authorized or error code */
-cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
-                  const char     *owner)/* I - Owner of object */
+cupsdIsAuthorized(cupsd_client_t * restrict con,	/* I - Connection */
+                  const char     * restrict owner)/* I - Owner of object */
 {
   int			i,		/* Looping vars */
 			auth,		/* Authorization status */
@@ -2277,9 +2277,9 @@ free_authmask(cupsd_authmask_t *mask,	/* I - Auth mask to free */
 static int				/* O - Success or failure */
 pam_func(
     int                      num_msg,	/* I - Number of messages */
-    const struct pam_message **msg,	/* I - Messages */
-    struct pam_response      **resp,	/* O - Responses */
-    void                     *appdata_ptr)
+    const struct pam_message ** restrict msg,	/* I - Messages */
+    struct pam_response      ** restrict resp,	/* O - Responses */
+    void                     * restrict appdata_ptr)
 					/* I - Pointer to connection */
 {
   int			i;		/* Looping var */

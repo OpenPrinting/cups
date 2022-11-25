@@ -530,9 +530,9 @@ cgiSetVariable(const char *name,	/* I - Name of variable */
  */
 
 static void
-cgi_add_variable(const char *name,	/* I - Variable name */
+cgi_add_variable(const char * restrict name,	/* I - Variable name */
 		 int        element,	/* I - Array element number */
-                 const char *value)	/* I - Variable value */
+                 const char * restrict value)	/* I - Variable value */
 {
   _cgi_var_t	*var;			/* New variable */
 

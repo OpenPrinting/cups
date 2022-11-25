@@ -157,8 +157,8 @@ cupsdCreateStringsArray(const char *s)	/* I - Comma-delimited strings */
  */
 
 int					/* O - exec() status */
-cupsdExec(const char *command,		/* I - Full path to program */
-          char       **argv)		/* I - Command-line arguments */
+cupsdExec(const char * restrict command,		/* I - Full path to program */
+          char       ** restrict argv)		/* I - Command-line arguments */
 {
 #ifdef __APPLE__
   size_t i, j;          /* Looping vars */
@@ -230,9 +230,9 @@ cupsdExec(const char *command,		/* I - Full path to program */
  */
 
 cups_file_t *				/* O - CUPS file or NULL on error */
-cupsdPipeCommand(int        *pid,	/* O - Process ID or 0 on error */
-                 const char *command,	/* I - Command to run */
-                 char       **argv,	/* I - Arguments to pass to command */
+cupsdPipeCommand(int        * restrict pid,	/* O - Process ID or 0 on error */
+                 const char * restrict command,	/* I - Command to run */
+                 char       ** restrict argv,	/* I - Arguments to pass to command */
 		 uid_t      user)	/* I - User to run as or 0 for current */
 {
   int	fd,				/* Temporary file descriptor */
@@ -408,8 +408,8 @@ cupsdSendIPPInteger(
 void
 cupsdSendIPPString(
     ipp_tag_t  value_tag,		/* I - Value tag */
-    const char *name,			/* I - Attribute name */
-    const char *value)			/* I - Attribute value */
+    const char * restrict name,			/* I - Attribute name */
+    const char * restrict value)			/* I - Attribute value */
 {
   size_t	len;			/* Length of attribute name */
 

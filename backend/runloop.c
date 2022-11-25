@@ -129,7 +129,7 @@ backendRunLoop(
     int          print_fd,		/* I - Print file descriptor */
     int          device_fd,		/* I - Device file descriptor */
     int          snmp_fd,		/* I - SNMP socket or -1 if none */
-    http_addr_t  *addr,			/* I - Address of device */
+    http_addr_t  * restrict addr,			/* I - Address of device */
     int          use_bc,		/* I - Use back-channel? */
     int          update_state,		/* I - Update printer-state-reasons? */
     _cups_sccb_t side_cb)		/* I - Side-channel callback */

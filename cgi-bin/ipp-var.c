@@ -20,8 +20,8 @@
  */
 
 void
-cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
-                 const char *tmpl)	/* I - Base filename */
+cgiGetAttributes(ipp_t      * restrict request,	/* I - IPP request */
+                 const char * restrict tmpl)	/* I - Base filename */
 {
   int		num_attrs;		/* Number of attributes */
   char		*attrs[1000];		/* Attributes */
@@ -42,7 +42,7 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
 
   if ((lang = getenv("LANG")) != NULL)
   {
-    for (i = 0; lang[i] && i < 15; i ++)
+    for (i = 0; i < 15 && lang[i]; i ++)
       if (isalnum(lang[i] & 255))
         locale[i] = (char)tolower(lang[i]);
       else
@@ -148,8 +148,8 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
  */
 
 cups_array_t *				/* O - Array of objects */
-cgiGetIPPObjects(ipp_t *response,	/* I - IPP response */
-                 void  *search)		/* I - Search filter */
+cgiGetIPPObjects(ipp_t * restrict response,	/* I - IPP response */
+                 void  * restrict search)		/* I - Search filter */
 {
   int			i;		/* Looping var */
   cups_array_t		*objs;		/* Array of objects */
@@ -210,16 +210,21 @@ cgiGetIPPObjects(ipp_t *response,	/* I - IPP response */
 	  case IPP_TAG_KEYWORD :
 	  case IPP_TAG_URI :
 	  case IPP_TAG_MIMETYPE :
-	      for (i = 0; !add && i < attr->num_values; i ++)
+        if (add) break;
+	      for (i = 0; i < attr->num_values; i ++)
 		if (cgiDoSearch(search, attr->values[i].string.text))
-		  add = 1;
+      {
+        add = 1;
+        break;
+      }
 	      break;
 
           case IPP_TAG_INTEGER :
 	      if (!strncmp(ippGetName(attr), "time-at-", 8))
 	        break;			/* Ignore time-at-xxx */
-
-	      for (i = 0; !add && i < attr->num_values; i ++)
+        
+        if (add) break;
+	      for (i = 0; i < attr->num_values; i ++)
 	      {
 	        char	buf[255];	/* Number buffer */
 
@@ -227,8 +232,11 @@ cgiGetIPPObjects(ipp_t *response,	/* I - IPP response */
                 snprintf(buf, sizeof(buf), "%d", attr->values[i].integer);
 
 		if (cgiDoSearch(search, buf))
-		  add = 1;
-	      }
+    {
+      add = 1;
+      break;
+    }
+        }
 	      break;
 
           default :
@@ -252,8 +260,8 @@ cgiGetIPPObjects(ipp_t *response,	/* I - IPP response */
  */
 
 void
-cgiMoveJobs(http_t     *http,		/* I - Connection to server */
-            const char *dest,		/* I - Destination or NULL */
+cgiMoveJobs(http_t     * restrict http,		/* I - Connection to server */
+            const char * restrict dest,		/* I - Destination or NULL */
             int        job_id)		/* I - Job ID or 0 for all */
 {
   int		i;			/* Looping var */
@@ -517,10 +525,10 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
  */
 
 void
-cgiPrintCommand(http_t     *http,	/* I - Connection to server */
-                const char *dest,	/* I - Destination printer */
-                const char *command,	/* I - Command to send */
-		const char *title)	/* I - Page/job title */
+cgiPrintCommand(http_t     * restrict http,	/* I - Connection to server */
+                const char * restrict dest,	/* I - Destination printer */
+                const char * restrict command,	/* I - Command to send */
+		const char * restrict title)	/* I - Page/job title */
 {
   int		job_id;			/* Command file job */
   char		uri[HTTP_MAX_URI],	/* Job URI */
@@ -679,8 +687,8 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
  */
 
 void
-cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
-                 const char *dest)	/* I - Destination printer/class */
+cgiPrintTestPage(http_t     * restrict http,	/* I - Connection to server */
+                 const char * restrict dest)	/* I - Destination printer/class */
 {
   ipp_t		*request,		/* IPP request */
 		*response;		/* IPP response */
@@ -788,10 +796,10 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
  */
 
 char *					/* O - New URL */
-cgiRewriteURL(const char *uri,		/* I - Current URI */
-              char       *url,		/* O - New URL */
+cgiRewriteURL(const char * restrict uri,		/* I - Current URI */
+              char       * restrict url,		/* O - New URL */
 	      int        urlsize,	/* I - Size of URL buffer */
-	      const char *newresource)	/* I - Replacement resource */
+	      const char * restrict newresource)	/* I - Replacement resource */
 {
   char			scheme[HTTP_MAX_URI],
 			userpass[HTTP_MAX_URI],
@@ -923,8 +931,8 @@ cgiRewriteURL(const char *uri,		/* I - Current URI */
 
 ipp_attribute_t *			/* O - Next object */
 cgiSetIPPObjectVars(
-    ipp_attribute_t *obj,		/* I - Response data to be copied... */
-    const char      *prefix,		/* I - Prefix for name or NULL */
+    ipp_attribute_t * restrict obj,		/* I - Response data to be copied... */
+    const char      * restrict prefix,		/* I - Prefix for name or NULL */
     int             element)		/* I - Parent element number */
 {
   ipp_attribute_t	*attr;		/* Attribute in response... */
@@ -1243,10 +1251,10 @@ cgiSetIPPObjectVars(
  */
 
 int					/* O - Maximum number of elements */
-cgiSetIPPVars(ipp_t      *response,	/* I - Response data to be copied... */
-              const char *filter_name,	/* I - Filter name */
-	      const char *filter_value,	/* I - Filter value */
-	      const char *prefix,	/* I - Prefix for name or NULL */
+cgiSetIPPVars(ipp_t      * restrict response,	/* I - Response data to be copied... */
+              const char * restrict filter_name,	/* I - Filter name */
+	      const char * restrict filter_value,	/* I - Filter value */
+	      const char * restrict prefix,	/* I - Prefix for name or NULL */
 	      int        parent_el)	/* I - Parent element number */
 {
   int			element;	/* Element in CGI array */
@@ -1342,8 +1350,8 @@ cgiShowIPPError(const char *message)	/* I - Contextual message */
  */
 
 void
-cgiShowJobs(http_t     *http,		/* I - Connection to server */
-            const char *dest)		/* I - Destination name or NULL */
+cgiShowJobs(http_t     * restrict http,		/* I - Connection to server */
+            const char * restrict dest)		/* I - Destination name or NULL */
 {
   int			i;		/* Looping var */
   const char		*which_jobs;	/* Which jobs to show */

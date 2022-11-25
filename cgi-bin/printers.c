@@ -211,10 +211,10 @@ main(void)
  */
 
 static void
-do_printer_op(http_t      *http,	/* I - HTTP connection */
-              const char  *printer,	/* I - Printer name */
+do_printer_op(http_t      * restrict http,	/* I - HTTP connection */
+              const char  * restrict printer,	/* I - Printer name */
 	      ipp_op_t    op,		/* I - Operation to perform */
-	      const char  *title)	/* I - Title of page */
+	      const char  * restrict title)	/* I - Title of page */
 {
   ipp_t		*request;		/* IPP request */
   char		uri[HTTP_MAX_URI],	/* Printer URI */
@@ -292,8 +292,8 @@ do_printer_op(http_t      *http,	/* I - HTTP connection */
  */
 
 static void
-show_all_printers(http_t     *http,	/* I - Connection to server */
-                  const char *user)	/* I - Username */
+show_all_printers(http_t     * restrict http,	/* I - Connection to server */
+                  const char * restrict user)	/* I - Username */
 {
   int			i;		/* Looping var */
   ipp_t			*request,	/* IPP request */
@@ -452,8 +452,8 @@ show_all_printers(http_t     *http,	/* I - Connection to server */
  */
 
 static void
-show_printer(http_t     *http,		/* I - Connection to server */
-             const char *printer)	/* I - Name of printer */
+show_printer(http_t     * restrict http,		/* I - Connection to server */
+             const char * restrict printer)	/* I - Name of printer */
 {
   ipp_t		*request,		/* IPP request */
 		*response;		/* IPP response */

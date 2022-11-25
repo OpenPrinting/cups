@@ -200,11 +200,11 @@ extern void		*cupsdCreateProfile(int job_id, int allow_networking);
 extern void		cupsdDestroyProfile(void *profile);
 extern int		cupsdEndProcess(int pid, int force);
 extern const char	*cupsdFinishProcess(int pid, char *name, size_t namelen, int *job_id);
-extern int		cupsdStartProcess(const char *command, char *argv[],
-					  char *envp[], int infd, int outfd,
+extern int		cupsdStartProcess(const char * restrict command, char ** restrict argv,
+					  char ** restrict envp, int infd, int outfd,
 					  int errfd, int backfd, int sidefd,
 					  int root, void *profile,
-					  cupsd_job_t *job, int *pid);
+					  cupsd_job_t *job, int * restrict pid);
 
 /* select.c */
 extern int		cupsdAddSelect(int fd, cupsd_selfunc_t read_cb,

@@ -327,14 +327,14 @@ void list_devices()
  */
 
 int					/* O - Exit status */
-print_device(const char *uri,		/* I - Device URI */
-             const char *hostname,	/* I - Hostname/manufacturer */
-             const char *resource,	/* I - Resource/modelname */
-	     char       *options,	/* I - Device options/serial number */
+print_device(const char * restrict uri,		/* I - Device URI */
+             const char * restrict hostname,	/* I - Hostname/manufacturer */
+             const char * restrict resource,	/* I - Resource/modelname */
+	     char       * restrict options,	/* I - Device options/serial number */
 	     int        print_fd,	/* I - File descriptor to print */
 	     int        copies,		/* I - Copies to print */
 	     int	argc,		/* I - Number of command-line arguments (6 or 7) */
-	     char	*argv[])	/* I - Command-line arguments */
+	     char	* restrict argv[])	/* I - Command-line arguments */
 {
   char		  serial[1024];		/* Serial number buffer */
   OSStatus	  status;		/* Function results */
@@ -1407,9 +1407,9 @@ static void status_timer_cb(CFRunLoopTimerRef timer,
  * 'load_classdriver()' - Load a classdriver.
  */
 
-static kern_return_t load_classdriver(CFStringRef	    driverPath,
-				      printer_interface_t   interface,
-				      classdriver_t	    ***printerDriver)
+static kern_return_t load_classdriver(CFStringRef	     restrict driverPath,
+				      printer_interface_t    restrict interface,
+				      classdriver_t	    *** restrict printerDriver)
 {
   kern_return_t	kr = kUSBPrinterClassDeviceNotOpen;
   classdriver_t	**driver = NULL;
@@ -1887,8 +1887,8 @@ static kern_return_t registry_close(void)
  * 'copy_value_for_key()' - Copy value string associated with a key.
  */
 
-static CFStringRef copy_value_for_key(CFStringRef deviceID,
-				      CFStringRef *keys)
+static CFStringRef copy_value_for_key(CFStringRef  restrict deviceID,
+				      CFStringRef * restrict keys)
 {
   CFStringRef	value = NULL;
   CFArrayRef	kvPairs = deviceID != NULL ? CFStringCreateArrayBySeparatingStrings(NULL, deviceID, CFSTR(";")) : NULL;
@@ -2437,8 +2437,8 @@ static void soft_reset(void)
  */
 
 static void get_device_id(cups_sc_status_t *status,
-			  char *data,
-			  int *datalen)
+			  char * restrict data,
+			  int * restrict datalen)
 {
   CFStringRef deviceIDString = NULL;
 

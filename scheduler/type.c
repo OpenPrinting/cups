@@ -44,9 +44,9 @@ typedef struct _mime_filebuf_s		/**** File buffer for MIME typing ****/
  */
 
 static int	mime_compare_types(mime_type_t *t0, mime_type_t *t1);
-static int	mime_check_rules(const char *filename, _mime_filebuf_t *fb,
-		                 mime_magic_t *rules);
-static int	mime_patmatch(const char *s, const char *pat);
+static int	mime_check_rules(const char * restrict filename, _mime_filebuf_t * restrict fb,
+		                 mime_magic_t * restrict rules);
+static int	mime_patmatch(const char * restrict s, const char * restrict pat);
 
 
 /*
@@ -79,9 +79,9 @@ static const char * const debug_ops[] =
  */
 
 mime_type_t *				/* O - New (or existing) MIME type */
-mimeAddType(mime_t     *mime,		/* I - MIME database */
-            const char *super,		/* I - Super-type name */
-	    const char *type)		/* I - Type name */
+mimeAddType(mime_t     * restrict mime,		/* I - MIME database */
+            const char * restrict super,		/* I - Super-type name */
+	    const char * restrict type)		/* I - Type name */
 {
   mime_type_t	*temp;			/* New MIME type */
   size_t	typelen;		/* Length of type name */
@@ -147,8 +147,8 @@ mimeAddType(mime_t     *mime,		/* I - MIME database */
  */
 
 int					/* O - 0 on success, -1 on failure */
-mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
-                const char  *rule)	/* I - Rule to add */
+mimeAddTypeRule(mime_type_t * restrict mt,	/* I - Type to add to */
+                const char  * restrict rule)	/* I - Rule to add */
 {
   int		num_values,		/* Number of values seen */
 		op,			/* Operation code */
@@ -584,10 +584,10 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
  */
 
 mime_type_t *				/* O - Type of file */
-mimeFileType(mime_t     *mime,		/* I - MIME database */
-             const char *pathname,	/* I - Name of file to check on disk */
-	     const char *filename,	/* I - Original filename or NULL */
-	     int        *compression)	/* O - Is the file compressed? */
+mimeFileType(mime_t     * restrict mime,		/* I - MIME database */
+             const char * restrict pathname,	/* I - Name of file to check on disk */
+	     const char * restrict filename,	/* I - Original filename or NULL */
+	     int        * restrict compression)	/* O - Is the file compressed? */
 {
   _mime_filebuf_t	fb;		/* File buffer */
   const char		*base;		/* Base filename of file */
@@ -690,9 +690,9 @@ mimeFileType(mime_t     *mime,		/* I - MIME database */
  */
 
 mime_type_t *				/* O - Matching file type definition */
-mimeType(mime_t     *mime,		/* I - MIME database */
-         const char *super,		/* I - Super-type name */
-	 const char *type)		/* I - Type name */
+mimeType(mime_t     * restrict mime,		/* I - MIME database */
+         const char * restrict super,		/* I - Super-type name */
+	 const char * restrict type)		/* I - Type name */
 {
   mime_type_t	key,			/* MIME type search key */
 		*mt;			/* Matching type */
@@ -748,9 +748,9 @@ mime_compare_types(mime_type_t *t0,	/* I - First type */
 
 static int				/* O - 1 if match, 0 if no match */
 mime_check_rules(
-    const char      *filename,		/* I - Filename */
-    _mime_filebuf_t *fb,		/* I - File to check */
-    mime_magic_t    *rules)		/* I - Rules to check */
+    const char      * restrict filename,		/* I - Filename */
+    _mime_filebuf_t * restrict fb,		/* I - File to check */
+    mime_magic_t    * restrict rules)		/* I - Rules to check */
 {
   int		n;			/* Looping var */
   int		region;			/* Region to look at */
@@ -1245,8 +1245,8 @@ mime_check_rules(
  */
 
 static int				/* O - 1 if match, 0 if no match */
-mime_patmatch(const char *s,		/* I - String to match against */
-              const char *pat)		/* I - Pattern to match against */
+mime_patmatch(const char * restrict s,		/* I - String to match against */
+              const char * restrict pat)		/* I - Pattern to match against */
 {
  /*
   * Range check the input...
@@ -1331,8 +1331,11 @@ mime_patmatch(const char *s,		/* I - String to match against */
     * Stop if the pattern and string don't match...
     */
 
-    if (*pat++ != *s++)
+    if (*pat != *s)
       return (0);
+    
+    pat ++;
+    s ++;
   }
 
  /*

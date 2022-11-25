@@ -142,8 +142,8 @@ mimeDeleteFilter(mime_t        *mime,	/* I - MIME database */
  */
 
 void
-mimeDeleteType(mime_t      *mime,	/* I - MIME database */
-	       mime_type_t *mt)		/* I - Type */
+mimeDeleteType(mime_t      * restrict mime,	/* I - MIME database */
+	       mime_type_t * restrict mt)		/* I - Type */
 {
   DEBUG_printf(("mimeDeleteType(mime=%p, mt=%p(%s/%s))", mime, mt,
                 mt ? mt->super : "???", mt ? mt->type : "???"));
@@ -168,8 +168,8 @@ mimeDeleteType(mime_t      *mime,	/* I - MIME database */
  */
 
 void
-_mimeError(mime_t     *mime,		/* I - MIME database */
-           const char *message,		/* I - Printf-style message string */
+_mimeError(mime_t     * restrict mime,		/* I - MIME database */
+           const char * restrict message,		/* I - Printf-style message string */
 	   ...)				/* I - Additional arguments as needed */
 {
   va_list	ap;			/* Argument pointer */
@@ -245,8 +245,8 @@ mimeFirstType(mime_t *mime)		/* I - MIME database */
  */
 
 mime_t *				/* O - New MIME database */
-mimeLoad(const char *pathname,		/* I - Directory to load */
-         const char *filterpath)	/* I - Directory to load */
+mimeLoad(const char * restrict pathname,		/* I - Directory to load */
+         const char * restrict filterpath)	/* I - Directory to load */
 {
   mime_t *mime;				/* New MIME database */
 
@@ -268,9 +268,9 @@ mimeLoad(const char *pathname,		/* I - Directory to load */
  */
 
 mime_t *				/* O - MIME database */
-mimeLoadFilters(mime_t     *mime,	/* I - MIME database */
-                const char *pathname,	/* I - Directory to load from */
-                const char *filterpath)	/* I - Default filter program directory */
+mimeLoadFilters(mime_t     * restrict mime,	/* I - MIME database */
+                const char * restrict pathname,	/* I - Directory to load from */
+                const char * restrict filterpath)	/* I - Default filter program directory */
 {
   cups_dir_t	*dir;			/* Directory */
   cups_dentry_t	*dent;			/* Directory entry */
@@ -340,8 +340,8 @@ mimeLoadFilters(mime_t     *mime,	/* I - MIME database */
  */
 
 mime_t *				/* O - MIME database */
-mimeLoadTypes(mime_t     *mime,		/* I - MIME database or @code NULL@ to create a new one */
-              const char *pathname)	/* I - Directory to load from */
+mimeLoadTypes(mime_t     * restrict mime,		/* I - MIME database or @code NULL@ to create a new one */
+              const char * restrict pathname)	/* I - Directory to load from */
 {
   cups_dir_t	*dir;			/* Directory */
   cups_dentry_t	*dent;			/* Directory entry */
@@ -517,9 +517,9 @@ mimeNumTypes(mime_t *mime)		/* I - MIME database */
 
 void
 mimeSetErrorCallback(
-    mime_t          *mime,		/* I - MIME database */
+    mime_t          * restrict mime,		/* I - MIME database */
     mime_error_cb_t cb,			/* I - Callback function */
-    void            *ctx)		/* I - Context pointer for callback */
+    void            * restrict ctx)		/* I - Context pointer for callback */
 {
   if (mime)
   {
@@ -535,7 +535,7 @@ mimeSetErrorCallback(
 
 static const char *			/* O - Full path to filter or NULL */
 mime_add_fcache(
-    cups_array_t *filtercache,		/* I - Filter cache */
+    cups_array_t * restrict filtercache,		/* I - Filter cache */
     const char   *name,			/* I - Filter name */
     const char   *filterpath)		/* I - Filter path */
 {
@@ -651,10 +651,10 @@ mime_delete_rules(mime_magic_t *rules)	/* I - Rules to free */
 
 static void
 mime_load_convs(
-    mime_t       *mime,			/* I - MIME database */
+    mime_t       * restrict mime,			/* I - MIME database */
     const char   *filename,		/* I - Convs file to load */
     const char   *filterpath,		/* I - Path for filters */
-    cups_array_t *filtercache)		/* I - Filter program cache */
+    cups_array_t * restrict filtercache)		/* I - Filter program cache */
 {
   cups_file_t	*fp;			/* Convs file */
   char		line[1024],		/* Input line from file */
@@ -841,8 +841,8 @@ mime_load_convs(
  */
 
 static void
-mime_load_types(mime_t     *mime,	/* I - MIME database */
-                const char *filename)	/* I - Types file to load */
+mime_load_types(mime_t     * restrict mime,	/* I - MIME database */
+                const char * restrict filename)	/* I - Types file to load */
 {
   cups_file_t	*fp;			/* Types file */
   size_t	linelen;		/* Length of line */

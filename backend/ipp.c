@@ -173,8 +173,8 @@ static const char	*quote_string(const char *s, char *q, size_t qsize);
 static void		report_attr(ipp_attribute_t *attr);
 static void		report_printer_state(ipp_t *ipp);
 #if defined(HAVE_GSSAPI) && defined(HAVE_XPC)
-static int		run_as_user(char *argv[], uid_t uid,
-			            const char *device_uri, int fd);
+static int		run_as_user(char ** restrict argv, uid_t uid,
+			            const char * restrict device_uri, int fd);
 #endif /* HAVE_GSSAPI && HAVE_XPC */
 static void		sigterm_handler(int sig);
 static int		timeout_cb(http_t *http, void *user_data);
@@ -2293,11 +2293,11 @@ main(int  argc,				/* I - Number of command-line args */
  */
 
 static void
-cancel_job(http_t     *http,		/* I - HTTP connection */
-           const char *uri,		/* I - printer-uri */
+cancel_job(http_t     * restrict http,		/* I - HTTP connection */
+           const char * restrict uri,		/* I - printer-uri */
 	   int        id,		/* I - job-id */
-	   const char *resource,	/* I - Resource path */
-	   const char *user,		/* I - requesting-user-name */
+	   const char * restrict resource,	/* I - Resource path */
+	   const char * restrict user,		/* I - requesting-user-name */
 	   int        version)		/* I - IPP version */
 {
   ipp_t	*request;			/* Cancel-Job request */
@@ -2330,10 +2330,10 @@ cancel_job(http_t     *http,		/* I - HTTP connection */
 
 static ipp_pstate_t			/* O - Current printer-state */
 check_printer_state(
-    http_t      *http,			/* I - HTTP connection */
-    const char  *uri,			/* I - Printer URI */
-    const char  *resource,		/* I - Resource path */
-    const char  *user,			/* I - Username, if any */
+    http_t      * restrict http,			/* I - HTTP connection */
+    const char  * restrict uri,			/* I - Printer URI */
+    const char  * restrict resource,		/* I - Resource path */
+    const char  * restrict user,			/* I - Username, if any */
     int         version)		/* I - IPP version */
  {
   ipp_t		*request,		/* IPP request */
@@ -3238,9 +3238,9 @@ report_printer_state(ipp_t *ipp)	/* I - IPP response */
  */
 
 static int				/* O - Exit status */
-run_as_user(char       *argv[],		/* I - Command-line arguments */
+run_as_user(char       ** restrict argv,		/* I - Command-line arguments */
 	    uid_t      uid,		/* I - User ID */
-	    const char *device_uri,	/* I - Device URI */
+	    const char * restrict device_uri,	/* I - Device URI */
 	    int        fd)		/* I - File to print */
 {
   const char		*auth_negotiate,/* AUTH_NEGOTIATE env var */
