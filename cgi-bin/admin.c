@@ -281,14 +281,14 @@ choose_device_cb(
   * is happening.  Non-modern browsers just get everything at the end...
   */
 
-  if (current_device == 0 && cgiSupportsMultipart())
+/*   if (current_device == 0 && cgiSupportsMultipart())
   {
     cgiStartMultipart();
     cgiStartHTML(title);
     cgiCopyTemplateLang("choose-device.tmpl");
     cgiEndHTML();
     fflush(stdout);
-  }
+  } */
 
 
  /*
@@ -803,16 +803,16 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     {
       fputs("DEBUG: Got device list!\n", stderr);
 
-      if (cgiSupportsMultipart())
-        cgiStartMultipart();
+/*       if (cgiSupportsMultipart())
+        cgiStartMultipart(); */
 
       cgiSetVariable("CUPS_GET_DEVICES_DONE", "1");
       cgiStartHTML(title);
       cgiCopyTemplateLang("choose-device.tmpl");
       cgiEndHTML();
 
-      if (cgiSupportsMultipart())
-        cgiEndMultipart();
+/*       if (cgiSupportsMultipart())
+        cgiEndMultipart(); */
     }
     else
     {
