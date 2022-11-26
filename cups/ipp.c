@@ -1859,7 +1859,7 @@ ippDeleteValues(
 
   if (!ipp || !attr || !*attr ||
       element < 0 || element >= (*attr)->num_values || count <= 0 ||
-      (element + count) >= (*attr)->num_values)
+      (element + count) > (*attr)->num_values)
     return (0);
 
  /*
