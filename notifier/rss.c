@@ -156,7 +156,8 @@ main(int  argc,				/* I - Number of command-line arguments */
       return (1);
     }
 
-    if ((http = httpConnect(host, port)) == NULL)
+    if (http = (httpConnect2(host, port, NULL, AF_UNSPEC,
+                             HTTP_ENCRYPTION_IF_REQUESTED, 1, 30000, NULL)) == NULL)
     {
       fprintf(stderr, "ERROR: Unable to connect to %s on port %d: %s\n",
               host, port, strerror(errno));
