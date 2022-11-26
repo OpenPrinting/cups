@@ -18,6 +18,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed invalid memory access during generating IPP Everywhere queue (Issue #466)
 - Fixed memory leaks in `create_local_bg_thread()` (Issue #466)
 - Fixed TLS certificate generation bugs.
+- `ippDeleteValues` would not delete the last value (Issue #556)
 - Ignore some of IPP defaults if the application sends its PPD alternative (Issue #484)
 - Now look for default printer on network if needed (Issue #452)
 - Now report fax attributes and values as needed (Issue #459)
