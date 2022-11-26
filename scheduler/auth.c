@@ -98,9 +98,9 @@ typedef struct cupsd_authdata_s		/**** Authentication data ****/
 
 int					/* O  - 1 on success, 0 on failure */
 cupsdAddIPMask(
-    cups_array_t   ** restrict masks,		/* IO - Masks array (created as needed) */
-    const unsigned * restrict address,		/* [4] I  - IP address */
-    const unsigned * restrict netmask)		/* [4] I  - IP netmask */
+    cups_array_t   **masks,		/* IO - Masks array (created as needed) */
+    const unsigned address[4],		/* I  - IP address */
+    const unsigned netmask[4])		/* I  - IP netmask */
 {
   cupsd_authmask_t	temp;		/* New host/domain mask */
 
