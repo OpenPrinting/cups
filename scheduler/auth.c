@@ -1612,7 +1612,6 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   }
   else
 #endif /* AF_INET6 */
-  if (con->http->hostaddr->addr.sa_family == AF_INET)
   {
    /*
     * Copy IPv4 address...
@@ -1621,10 +1620,8 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     address[0] = 0;
     address[1] = 0;
     address[2] = 0;
-    address[3] = ntohl(hostaddr->ipv4.sin_addr.s_addr);
+    address[3] = (con->http->hostaddr->addr.sa_family == AF_INET) ? ntohl(hostaddr->ipv4.sin_addr.s_addr) : 0;
   }
-  else
-    memset(address, 0, sizeof(address));
 
   hostlen = strlen(hostname);
 

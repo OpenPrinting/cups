@@ -152,7 +152,7 @@ static ppd_info_t	*add_ppd(const char *filename, const char *name,
 				 size_t size, int model_number, int type,
 				 const char *scheme);
 static int		cat_drv(const char *name, int request_id);
-static void		cat_ppd(const char *name, int request_id);
+static void		cat_ppd(const char *name, int request_id) _CUPS_NORETURN;
 static int		cat_static(const char *name, int request_id);
 static int		cat_tar(const char *name, int request_id);
 static int		compare_inodes(struct stat *a, struct stat *b);
@@ -162,12 +162,12 @@ static int		compare_names(const ppd_info_t *p0,
 			              const ppd_info_t *p1);
 static int		compare_ppds(const ppd_info_t *p0,
 			             const ppd_info_t *p1);
-static void		dump_ppds_dat(const char *filename);
+static void		dump_ppds_dat(const char *filename) _CUPS_NORETURN;
 static void		free_array(cups_array_t *a);
 static cups_file_t	*get_file(const char *name, int request_id,
 			          const char *subdir, char *buffer,
 			          size_t bufsize, char **subfile);
-static void		list_ppds(int request_id, int limit, const char *opt);
+static void		list_ppds(int request_id, int limit, const char *opt) _CUPS_NORETURN;
 static int		load_drivers(cups_array_t *include,
 			             cups_array_t *exclude);
 static int		load_drv(const char *filename, const char *name,
@@ -1958,7 +1958,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
          cups_file_t *fp,		/* I - File to read from */
          off_t       end)		/* I - End of file position or 0 */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   char		line[256],		/* Line from file */
 		*ptr,			/* Pointer into line */
 		lang_version[64],	/* PPD LanguageVersion */
@@ -1978,7 +1978,6 @@ load_ppd(const char  *filename,		/* I - Real filename */
   cups_array_t	*products,		/* Product array */
 		*psversions,		/* PSVersion array */
 		*cups_languages;	/* cupsLanguages array */
-  int		new_ppd;		/* Is this a new PPD? */
   struct				/* LanguageVersion translation table */
   {
     const char	*version,		/* LanguageVersion string */
@@ -2252,11 +2251,11 @@ load_ppd(const char  *filename,		/* I - Real filename */
     country[0] = '\0';
   }
 
-  for (i = 0; i < (int)(sizeof(languages) / sizeof(languages[0])); i ++)
+  for (i = 0; i < (sizeof(languages) / sizeof(languages[0])); i ++)
     if (!_cups_strcasecmp(languages[i].version, lang_version))
       break;
 
-  if (i < (int)(sizeof(languages) / sizeof(languages[0])))
+  if (i < sizeof(languages) / sizeof(languages[0]))
   {
    /*
     * Found a known language...
@@ -2278,9 +2277,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
   * Record the PPD file...
   */
 
-  new_ppd = !ppd;
-
-  if (new_ppd)
+  if (!ppd)
   {
    /*
     * Add new PPD file...
@@ -2403,7 +2400,12 @@ load_ppds(const char *d,		/* I - Actual directory */
   * Nope, add it to the Inodes array and continue...
   */
 
-  dinfoptr = (struct stat *)malloc(sizeof(struct stat));
+  if ((dinfoptr = (struct stat *)malloc(sizeof(struct stat))) == NULL)
+  {
+    fputs("ERROR: [cups-driverd] Unable to allocate memory for directory info.\n",
+          stderr);
+    exit(1);
+  }
   memcpy(dinfoptr, &dinfo, sizeof(struct stat));
   cupsArrayAdd(Inodes, dinfoptr);
 
@@ -2609,7 +2611,7 @@ load_ppds_dat(char   *filename,		/* I - Filename buffer */
     */
 
     unsigned ppdsync;			/* Sync word */
-    int      num_ppds;			/* Number of PPDs */
+    off_t      num_ppds;			/* Number of PPDs */
 
     if ((size_t)cupsFileRead(fp, (char *)&ppdsync, sizeof(ppdsync)) == sizeof(ppdsync) &&
         ppdsync == PPD_SYNC &&
@@ -2625,8 +2627,7 @@ load_ppds_dat(char   *filename,		/* I - Filename buffer */
       {
 	if ((ppd = (ppd_info_t *)calloc(1, sizeof(ppd_info_t))) == NULL)
 	{
-	  if (verbose)
-	    fputs("ERROR: [cups-driverd] Unable to allocate memory for PPD!\n",
+	  fputs("ERROR: [cups-driverd] Unable to allocate memory for PPD!\n",
 		  stderr);
 	  exit(1);
 	}

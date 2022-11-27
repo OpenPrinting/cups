@@ -1165,11 +1165,21 @@ add_file(cupsd_client_t *con,		/* I - Connection to client */
 
   if (compressions)
     job->compressions = compressions;
+  else
+  {
+    cupsdSetJobState(job, IPP_JOB_ABORTED, CUPSD_JOB_PURGE,
+                     "Job aborted because the scheduler ran out of memory.");
+
+    if (con)
+      send_ipp_status(con, IPP_INTERNAL_ERROR,
+                      _("Unable to allocate memory for file types."));
+
+    return (-1);
+  }
 
   if (filetypes)
     job->filetypes = filetypes;
-
-  if (!compressions || !filetypes)
+  else
   {
     cupsdSetJobState(job, IPP_JOB_ABORTED, CUPSD_JOB_PURGE,
                      "Job aborted because the scheduler ran out of memory.");

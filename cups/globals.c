@@ -180,7 +180,7 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
 static _cups_globals_t *		/* O - Pointer to global data */
 cups_globals_alloc(void)
 {
-  _cups_globals_t *cg = malloc(sizeof(_cups_globals_t));
+  _cups_globals_t *cg = calloc(1, sizeof(_cups_globals_t));
 					/* Pointer to global data */
 #ifdef _WIN32
   HKEY		key;			/* Registry key */
@@ -200,7 +200,6 @@ cups_globals_alloc(void)
   * callback values...
   */
 
-  memset(cg, 0, sizeof(_cups_globals_t));
   cg->encryption     = (http_encryption_t)-1;
   cg->password_cb    = (cups_password_cb2_t)_cupsGetPassword;
   cg->trust_first    = -1;

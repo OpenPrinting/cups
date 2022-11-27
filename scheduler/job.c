@@ -1201,12 +1201,12 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       filterfds[slot][1] = job->print_pipes[1];
     }
 
-    pid = cupsdStartProcess(command, argv, envp, filterfds[!slot][0],
+    pid = cupsdStartProcess(command, argv, envp, filterfds[slot ^ 1][0],
                             filterfds[slot][1], job->status_pipes[1],
 		            job->back_pipes[0], job->side_pipes[0], 0,
 			    job->profile, job, job->filters + i);
 
-    cupsdClosePipe(filterfds[!slot]);
+    cupsdClosePipe(filterfds[slot ^ 1]);
 
     if (pid == 0)
     {
@@ -1228,7 +1228,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       argv[6] = NULL;
     }
 
-    slot = !slot;
+    slot ^= 1;
   }
 
   cupsArrayDelete(filters);
@@ -1262,7 +1262,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       filterfds[slot][0] = -1;
       filterfds[slot][1] = -1;
 
-      pid = cupsdStartProcess(command, argv, envp, filterfds[!slot][0],
+      pid = cupsdStartProcess(command, argv, envp, filterfds[slot ^ 1][0],
 			      filterfds[slot][1], job->status_pipes[1],
 			      job->back_pipes[1], job->side_pipes[1],
 			      backroot, job->bprofile, job, &(job->backend));
@@ -1338,8 +1338,8 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
   FilterLevel -= job->cost;
   job->cost = 0;
 
-  for (slot = 0; slot < 2; slot ++)
-    cupsdClosePipe(filterfds[slot]);
+  cupsdClosePipe(filterfds[0]);
+  cupsdClosePipe(filterfds[1]);
 
   cupsArrayDelete(filters);
 
@@ -1393,7 +1393,7 @@ void
 cupsdDeleteJob(cupsd_job_t       *job,	/* I - Job */
                cupsd_jobaction_t action)/* I - Action */
 {
-  int	i;				/* Looping var */
+  size_t	i;				/* Looping var */
 
 
   if (job->printer)
@@ -1405,7 +1405,7 @@ cupsdDeleteJob(cupsd_job_t       *job,	/* I - Job */
   cupsdClearString(&job->username);
   cupsdClearString(&job->dest);
   for (i = 0;
-       i < (int)(sizeof(job->auth_env) / sizeof(job->auth_env[0]));
+       i < (sizeof(job->auth_env) / sizeof(job->auth_env[0]));
        i ++)
     cupsdClearString(job->auth_env + i);
   cupsdClearString(&job->auth_uid);
@@ -1657,7 +1657,6 @@ cupsdLoadAllJobs(void)
 int					/* O - 1 on success, 0 on failure */
 cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
 {
-  int			i;		/* Looping var */
   char			jobfile[1024];	/* Job filename */
   cups_file_t		*fp;		/* Job file */
   int			fileid;		/* Current file ID */
@@ -1999,10 +1998,11 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
 
   if (job->state_value < IPP_JOB_STOPPED)
   {
+    size_t			i;		/* Looping var */
     snprintf(jobfile, sizeof(jobfile), "%s/a%05d", RequestRoot, job->id);
 
     for (i = 0;
-	 i < (int)(sizeof(job->auth_env) / sizeof(job->auth_env[0]));
+	 i < (sizeof(job->auth_env) / sizeof(job->auth_env[0]));
 	 i ++)
       cupsdClearString(job->auth_env + i);
     cupsdClearString(&job->auth_uid);
@@ -2041,7 +2041,7 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
             cupsdSetStringf(&job->auth_uid, "AUTH_UID=%s", value);
             continue;
           }
-          else if (i >= (int)(sizeof(job->auth_env) / sizeof(job->auth_env[0])))
+          else if (i >= (sizeof(job->auth_env) / sizeof(job->auth_env[0])))
             break;
 
 	  if (!strcmp(line, "username"))
@@ -2540,7 +2540,7 @@ cupsdSetJobState(
     const char        *message,		/* I - Message to log */
     ...)				/* I - Additional arguments as needed */
 {
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
   ipp_jstate_t		oldstate;	/* Old state */
   char			filename[1024];	/* Job filename */
   ipp_attribute_t	*attr;		/* Job attribute */
@@ -2725,7 +2725,7 @@ cupsdSetJobState(
 			  strerror(errno));
 
 	for (i = 0;
-	     i < (int)(sizeof(job->auth_env) / sizeof(job->auth_env[0]));
+	     i < (sizeof(job->auth_env) / sizeof(job->auth_env[0]));
 	     i ++)
 	  cupsdClearString(job->auth_env + i);
 
@@ -3762,8 +3762,8 @@ get_options(cupsd_job_t *job,		/* I - Job */
   {
     if ((attr = ippFindAttribute(job->attrs, "print-quality", IPP_TAG_ENUM)) != NULL)
     {
-      int pq = ippGetInteger(attr, 0);
       static const char * const pqs[] = { "Draft", "Normal", "High" };
+      int pq = ippGetInteger(attr, 0);
 
       if (pq >= IPP_QUALITY_DRAFT && pq <= IPP_QUALITY_HIGH)
       {
@@ -3901,9 +3901,6 @@ get_options(cupsd_job_t *job,		/* I - Job */
  /*
   * Then allocate/reallocate the option buffer as needed...
   */
-
-  if (newlength == 0)			/* This can never happen, but Clang */
-    newlength = 1;			/* thinks it can... */
 
   if (newlength > optlength || !options)
   {
@@ -5022,7 +5019,7 @@ static void
 stop_job(cupsd_job_t       *job,	/* I - Job */
          cupsd_jobaction_t action)	/* I - Action */
 {
-  int	i;				/* Looping var */
+  size_t	i;				/* Looping var */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "stop_job(job=%p(%d), action=%d)", job,
