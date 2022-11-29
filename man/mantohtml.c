@@ -75,28 +75,26 @@ main(int  argc,				/* I - Number of command-line args */
   * Open files as needed...
   */
 
-  if (argc > 1)
+  if (argc == 0)
   {
-    if ((infile = fopen(argv[1], "r")) == NULL)
-    {
-      perror(argv[1]);
-      return (1);
-    }
-  }
-  else
     infile = stdin;
-
-  if (argc > 2)
-  {
-    if ((outfile = fopen(argv[2], "w")) == NULL)
-    {
-      perror(argv[2]);
-      fclose(infile);
-      return (1);
-    }
   }
-  else
+  else if ((infile = fopen(argv[1], "r")) == NULL)
+  {
+    perror(argv[1]);
+    return (1);
+  }
+
+  if (argc != 3)
+  {
     outfile = stdout;
+  }
+  else if ((outfile = fopen(argv[2], "w")) == NULL)
+  {
+    perror(argv[2]);
+    fclose(infile);
+    return (1);
+  }
 
  /*
   * Read from input and write the output...
@@ -967,7 +965,7 @@ html_alternate(const char *s,		/* I - String */
     while ((!isspace(*s & 255) || quote) && *s)
     {
       if (*s == '\"')
-        quote = !quote;
+        quote ^= 1;
 
       if (*s == '\\' && s[1])
       {
@@ -989,7 +987,7 @@ html_alternate(const char *s,		/* I - String */
       link = 0;
     }
 
-    i = 1 - i;
+    i ^= 1;
 
    /*
     * Skip trailing whitespace...

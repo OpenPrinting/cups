@@ -651,8 +651,8 @@ _ppdOpen(
   while ((mask = ppd_read(fp, &line, keyword, name, text, &string, 1, pg)) != 0)
   {
     DEBUG_printf(("2_ppdOpen: mask=%x, keyword=\"%s\", name=\"%s\", "
-                  "text=\"%s\", string=%d chars...", mask, keyword, name, text,
-		  string ? (int)strlen(string) : 0));
+                  "text=\"%s\", string=%u chars...", mask, keyword, name, text,
+		  string ? (unsigned)strlen(string) : 0));
 
     if (strncmp(keyword, "Default", 7) && !string &&
         pg->ppd_conform != PPD_CONFORM_RELAXED)
@@ -3075,7 +3075,7 @@ ppd_read(cups_file_t    *fp,		/* I - File to read from */
 	  colon = 1;
 
 	if (ch == '\"' && colon)
-	  endquote = !endquote;
+	  endquote ^= 1;
       }
     }
 
