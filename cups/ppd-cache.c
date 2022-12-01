@@ -4160,7 +4160,7 @@ _ppdCreateFromIPP2(
 
 	PRINTF_COLOROPTION("Gray16", _("Deep Gray"), CUPS_CSPACE_SW, 16)
       }
-      else if (!strcasecmp(keyword, "srgb_8") || !strncmp(keyword, "SRGB24", 7) || !strcmp(keyword, "color"))
+      else if (!strcasecmp(keyword, "srgb_8") || !strncmp(keyword, "SRGB24", 6) || !strcmp(keyword, "color"))
       {
 	PRINTF_COLORMODEL
 
