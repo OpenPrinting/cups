@@ -3,6 +3,7 @@
  *
  * This set of APIs abstracts enumeration of directory entries.
  *
+ * Copyright © 2022 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products, all rights reserved.
  *
@@ -188,7 +189,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
   if (entry.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
     dp->entry.fileinfo.st_mode = 0755 | S_IFDIR;
   else
-    dp->entry.fileinfo.st_mode = 0644;
+    dp->entry.fileinfo.st_mode = 0644 | S_IFREG;
 
   dp->entry.fileinfo.st_atime = _cups_dir_time(entry.ftLastAccessTime);
   dp->entry.fileinfo.st_ctime = _cups_dir_time(entry.ftCreationTime);
