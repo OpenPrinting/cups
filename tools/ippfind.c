@@ -1803,7 +1803,7 @@ eval_expr(ippfind_srv_t  *service,	/* I - Service */
           result = service->is_local;
           break;
       case IPPFIND_OP_IS_REMOTE :
-          result = !service->is_local;
+          result = service->is_local ^ 1;
           break;
       case IPPFIND_OP_DOMAIN_REGEX :
           result = !regexec(&(expression->re), service->domain, 0, NULL, 0);
@@ -1863,7 +1863,7 @@ eval_expr(ippfind_srv_t  *service,	/* I - Service */
     }
 
     if (expression->invert)
-      result = !result;
+      result ^= 1;
 
     if (logic == IPPFIND_OP_AND && !result)
       return (0);
