@@ -101,8 +101,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 		*options,		/* Pointer to options */
 		*name,			/* Name of option */
 		*value,			/* Value of option */
-		sep,			/* Separator character */
-		*filename,		/* File to print */
+		sep,            /* Separator character */
 		title[256];		/* Title string */
   int		port;			/* Port number */
   http_addrlist_t *addrlist;		/* List of addresses for printer */
@@ -460,13 +459,11 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
     * Stream from stdin...
     */
 
-    filename = NULL;
     fd       = 0;
   }
   else
   {
-    filename = argv[6];
-    fd       = open(filename, O_RDONLY);
+    fd       = open(argv[6], O_RDONLY);
 
     if (fd == -1)
     {

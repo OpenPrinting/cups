@@ -141,16 +141,16 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     switch (leftcount)
     {
       case 0 :
-          b = (unsigned)((((((data[0] << 8) | data[1]) << 8) | data[2]) << 8) | data[3]);
+          b = (unsigned)((data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3]);
 	  break;
       case 1 :
-          b = (unsigned)((((((leftdata[0] << 8) | data[0]) << 8) | data[1]) << 8) | data[2]);
+          b = (unsigned)((leftdata[0] << 24) | (data[0] << 16) | (data[1] << 8) | data[2]);
 	  break;
       case 2 :
-          b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | data[0]) << 8) | data[1]);
+          b = (unsigned)((leftdata[0] << 24) | (leftdata[1] << 16) | (data[0] << 8) | data[1]);
 	  break;
       case 3 :
-          b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | leftdata[2]) << 8) | data[0]);
+          b = (unsigned)((leftdata[0] << 24) | (leftdata[1] << 16) | (leftdata[2] << 8) | data[0]);
 	  break;
     }
 
@@ -167,13 +167,13 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     }
     else
     {
-      c[4] = (b % 85) + '!';
+      c[4] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[3] = (b % 85) + '!';
+      c[3] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[2] = (b % 85) + '!';
+      c[2] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[1] = (b % 85) + '!';
+      c[1] = (unsigned char) ((b % 85) + '!');
       b /= 85;
       c[0] = (unsigned char)(b + '!');
 
@@ -209,15 +209,15 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     if (leftcount > 0)
     {
       // Write the remaining bytes as needed...
-      b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | leftdata[2]) << 8) | leftdata[3]);
+      b = (unsigned)((leftdata[0] << 24) | (leftdata[1] << 16) | (leftdata[2] << 8) | leftdata[3]);
 
-      c[4] = (b % 85) + '!';
+      c[4] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[3] = (b % 85) + '!';
+      c[3] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[2] = (b % 85) + '!';
+      c[2] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[1] = (b % 85) + '!';
+      c[1] = (unsigned char) ((b % 85) + '!');
       b /= 85;
       c[0] = (unsigned char)(b + '!');
 
@@ -430,7 +430,7 @@ get_options(cups_option_t **options)	/* O - Options */
     if (value)
     {
       char	*ptr;			/* Pointer into value */
-      int	fin;			/* Current value */
+      long	fin;			/* Current value */
 
       for (fin = strtol(value, &ptr, 10); fin > 0; fin = strtol(ptr + 1, &ptr, 10))
       {
@@ -533,8 +533,8 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
   int		copy;			/* Current copy */
   int		width = 0,		/* Width */
 		height = 0,		/* Height */
-		depth = 0,		/* Number of colors */
-		length;			/* Length of marker */
+		depth = 0;		/* Number of colors */
+	ssize_t		length;			/* Length of marker */
   unsigned char	buffer[65536],		/* Copy buffer */
 		*bufptr,		/* Pointer info buffer */
 		*bufend;		/* End of buffer */
@@ -630,7 +630,7 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
 	bufend += bytes;
       }
 
-      length = (size_t)((bufptr[1] << 8) | bufptr[2]);
+      length = (ssize_t)((bufptr[1] << 8) | bufptr[2]);
 
       if ((*bufptr >= 0xc0 && *bufptr <= 0xc3) || (*bufptr >= 0xc5 && *bufptr <= 0xc7) || (*bufptr >= 0xc9 && *bufptr <= 0xcb) || (*bufptr >= 0xcd && *bufptr <= 0xcf))
       {
@@ -902,7 +902,7 @@ ps_to_ps(const char    *filename,	/* I - Filename */
 		first_page,			/* First page */
 		last_page;			/* Last page */
   const char	*page_ranges;			/* page-ranges option */
-  long		first_pos = -1;			/* Offset for first page */
+  long		first_pos;			/* Offset for first page */
   char		line[1024];			/* Line from file */
 
 
@@ -1131,7 +1131,7 @@ raster_to_ps(const char *filename)	/* I - Filename */
         break;
     }
 
-    fprintf(stderr, "DEBUG: y=%d at end...\n", y);
+    fprintf(stderr, "DEBUG: y=%u at end...\n", y);
 
     puts("grestore grestore");
     puts("showpage");
