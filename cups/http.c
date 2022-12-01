@@ -729,7 +729,7 @@ httpFreeCredentials(
        credential = (http_credential_t *)cupsArrayNext(credentials))
   {
     cupsArrayRemove(credentials, credential);
-    free((void *)credential->data);
+    free(credential->data);
     free(credential);
   }
 
@@ -3266,9 +3266,9 @@ httpWrite2(http_t     *http,		/* I - HTTP connection */
                     CUPS_LLCAST length));
 
       if (http->data_encoding == HTTP_ENCODING_CHUNKED)
-	bytes = (ssize_t)http_write_chunk(http, buffer, length);
+	bytes = http_write_chunk(http, buffer, length);
       else
-	bytes = (ssize_t)http_write(http, buffer, length);
+	bytes = http_write(http, buffer, length);
 
       DEBUG_printf(("2httpWrite2: Wrote " CUPS_LLFMT " bytes...",
                     CUPS_LLCAST bytes));

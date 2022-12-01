@@ -353,10 +353,10 @@ _cupsRasterInterpretPPD(
                                         h->cupsBorderlessScalingFactor);
   h->ImagingBoundingBox[3] = (unsigned)(top *
                                         h->cupsBorderlessScalingFactor);
-  h->cupsImagingBBox[0]    = (float)left;
-  h->cupsImagingBBox[1]    = (float)bottom;
-  h->cupsImagingBBox[2]    = (float)right;
-  h->cupsImagingBBox[3]    = (float)top;
+  h->cupsImagingBBox[0]    = left;
+  h->cupsImagingBBox[1]    = bottom;
+  h->cupsImagingBBox[2]    = right;
+  h->cupsImagingBBox[3]    = top;
 
  /*
   * Use the callback to validate the page header...

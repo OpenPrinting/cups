@@ -693,8 +693,8 @@ _cupsRasterReadHeader(
 
           if (r->header.HWResolution[0] > 0)
           {
-	    r->header.PageSize[0]     = (unsigned)(r->header.cupsWidth * 72 / r->header.HWResolution[0]);
-	    r->header.PageSize[1]     = (unsigned)(r->header.cupsHeight * 72 / r->header.HWResolution[1]);
+	    r->header.PageSize[0]     = (r->header.cupsWidth * 72 / r->header.HWResolution[0]);
+	    r->header.PageSize[1]     = (r->header.cupsHeight * 72 / r->header.HWResolution[1]);
 	    r->header.cupsPageSize[0] = (float)(r->header.cupsWidth * 72.0 / r->header.HWResolution[0]);
 	    r->header.cupsPageSize[1] = (float)(r->header.cupsHeight * 72.0 / r->header.HWResolution[1]);
           }
