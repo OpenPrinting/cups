@@ -31,6 +31,7 @@
 
 static int	cups_connect(http_t **http, const char *url, char *resource, size_t ressize);
 static int	cups_get_url(http_t **http, const char *url, char *name, size_t namesize);
+static const char *ppd_inputslot_for_keyword(_ppd_cache_t *pc, const char *keyword);
 static void	pwg_add_finishing(cups_array_t *finishings, ipp_finishings_t template, const char *name, const char *value);
 static void	pwg_add_message(cups_array_t *a, const char *msg, const char *str);
 static int	pwg_compare_finishings(_pwg_finishings_t *a, _pwg_finishings_t *b);
@@ -2281,6 +2282,28 @@ _ppdCacheGetFinishingValues(
 
 
 /*
+ * 'ppd_inputslot_for_keyword()' - Return the PPD InputSlot associated
+ *                                a keyword string, or NULL if no mapping
+ *                                exists.
+ */
+static const char *			/* O - PPD InputSlot or NULL */
+ppd_inputslot_for_keyword(
+    _ppd_cache_t *pc,			/* I - PPD cache and mapping data */
+    const char   *keyword)		/* I - Keyword string */
+{
+  int	i;				/* Looping var */
+
+  if (!pc || !keyword)
+    return (NULL);
+
+  for (i = 0; i < pc->num_sources; i ++)
+    if (!_cups_strcasecmp(keyword, pc->sources[i].pwg))
+      return (pc->sources[i].ppd);
+
+  return (NULL);
+}
+
+/*
  * '_ppdCacheGetInputSlot()' - Get the PPD InputSlot associated with the job
  *                        attributes or a keyword string.
  */
@@ -2324,24 +2347,21 @@ _ppdCacheGetInputSlot(
     else if (pwgInitSize(&size, job, &margins_set))
     {
      /*
-      * For media <= 5x7, look for a photo tray...
+      * For media <= 5x7, try to ask for automatic selection so the printer can
+      * pick the photo tray.  If auto isn't available, fall back to explicitly
+      * asking for the photo tray.
       */
 
-      if (size.width <= (5 * 2540) && size.length <= (7 * 2540))
+      if (size.width <= (5 * 2540) && size.length <= (7 * 2540)) {
+        const char* match;
+        if ((match = ppd_inputslot_for_keyword(pc, "auto")) != NULL)
+          return (match);
         keyword = "photo";
+      }
     }
   }
 
-  if (keyword)
-  {
-    int	i;				/* Looping var */
-
-    for (i = 0; i < pc->num_sources; i ++)
-      if (!_cups_strcasecmp(keyword, pc->sources[i].pwg))
-        return (pc->sources[i].ppd);
-  }
-
-  return (NULL);
+  return (ppd_inputslot_for_keyword(pc, keyword));
 }
 
 
