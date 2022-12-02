@@ -70,9 +70,6 @@ typedef struct _cups_monitor_s		/**** Monitoring data ****/
 /*
  * Globals...
  */
-
-static const char 	*auth_info_required;
-					/* New auth-info-required value */
 #if defined(HAVE_GSSAPI) && defined(HAVE_XPC)
 static pid_t		child_pid = 0;	/* Child process ID */
 #endif /* HAVE_GSSAPI && HAVE_XPC */
@@ -260,7 +257,8 @@ main(int  argc,				/* I - Number of command-line args */
 		validate_retried = 0,	/* Was Validate-Job request retried? */
 		copies,			/* Number of copies for job */
 		copies_remaining;	/* Number of copies remaining */
-  const char	*content_type,		/* CONTENT_TYPE environment variable */
+  const char	*auth_info_required,		/* New auth-info-required value */
+    *content_type,		/* CONTENT_TYPE environment variable */
 		*final_content_type,	/* FINAL_CONTENT_TYPE environment var */
 		*document_format;	/* document-format value */
   int		fd;			/* File descriptor */
@@ -354,11 +352,11 @@ main(int  argc,				/* I - Number of command-line args */
 
   if (!getuid() && (value = getenv("AUTH_UID")) != NULL)
   {
-    uid_t	uid = (uid_t)atoi(value);
+    uid_t	uid = (uid_t)strtoul(value, NULL, 10);
 					/* User ID */
 
 #  ifdef HAVE_XPC
-    if (uid > 0)
+    if (uid)
     {
       if (argc == 6)
         return (run_as_user(argv, uid, device_uri, 0));
@@ -385,7 +383,7 @@ main(int  argc,				/* I - Number of command-line args */
     }
 
 #  else /* No XPC, just try to run as the user ID */
-    if (uid > 0)
+    if (uid)
       setuid(uid);
 #  endif /* HAVE_XPC */
   }
@@ -567,12 +565,13 @@ main(int  argc,				/* I - Number of command-line args */
 #endif /* HAVE_LIBZ */
       else if (!_cups_strcasecmp(name, "contimeout"))
       {
+        int value_int = atoi(value);
        /*
         * Set the connection timeout...
 	*/
 
-	if (atoi(value) > 0)
-	  contimeout = atoi(value);
+	if (value_int > 0)
+	  contimeout = value_int;
       }
       else
       {
@@ -789,8 +788,6 @@ main(int  argc,				/* I - Number of command-line args */
 
   if (job_canceled)
     return (CUPS_BACKEND_OK);
-  else if (!http)
-    return (CUPS_BACKEND_FAILED);
 
   if (httpIsEncrypted(http))
   {
@@ -1354,12 +1351,13 @@ main(int  argc,				/* I - Number of command-line args */
         * the printer...
         */
 
-        for (i = 0; i < (int)(sizeof(hashes) / sizeof(hashes[0])); i ++)
-          if (ippContainsString(encryption_sup, hashes[i]))
+        size_t j;
+        for (j = 0; j < (sizeof(hashes) / sizeof(hashes[0])); j ++)
+          if (ippContainsString(encryption_sup, hashes[j]))
+          {
+            num_options = cupsAddOption("job-password-encryption", hashes[j], num_options, &options);
             break;
-
-        if (i < (int)(sizeof(hashes) / sizeof(hashes[0])))
-          num_options = cupsAddOption("job-password-encryption", hashes[i], num_options, &options);
+          }
       }
     }
   }
@@ -2943,8 +2941,6 @@ password_cb(const char *prompt,		/* I - Prompt (not used) */
     * Remember that we need to authenticate...
     */
 
-    auth_info_required = "username,password";
-
     if (httpGetSubField(http, HTTP_FIELD_WWW_AUTHENTICATE, "username",
 			def_username))
     {
@@ -3244,7 +3240,8 @@ run_as_user(char       *argv[],		/* I - Command-line arguments */
 	    int        fd)		/* I - File to print */
 {
   const char		*auth_negotiate,/* AUTH_NEGOTIATE env var */
-			*content_type;	/* [FINAL_]CONTENT_TYPE env vars */
+			*content_type,	/* [FINAL_]CONTENT_TYPE env vars */
+			*auth_info_required;	/* New auth-info-required value */
   xpc_connection_t	conn;		/* Connection to XPC service */
   xpc_object_t		request;	/* Request message dictionary */
   __block xpc_object_t	response;	/* Response message dictionary */
@@ -3302,8 +3299,9 @@ run_as_user(char       *argv[],		/* I - Command-line arguments */
   xpc_dictionary_set_string(request, "title", argv[3]);
   xpc_dictionary_set_string(request, "copies", argv[4]);
   xpc_dictionary_set_string(request, "options", argv[5]);
-  xpc_dictionary_set_string(request, "auth-info-required",
-                            getenv("AUTH_INFO_REQUIRED"));
+  if ((auth_info_required = getenv("AUTH_INFO_REQUIRED")) != NULL)
+    xpc_dictionary_set_string(request, "auth-info-required",
+                              auth_info_required);
   if ((auth_negotiate = getenv("AUTH_NEGOTIATE")) != NULL)
     xpc_dictionary_set_string(request, "auth-negotiate", auth_negotiate);
   if ((content_type = getenv("CONTENT_TYPE")) != NULL)
