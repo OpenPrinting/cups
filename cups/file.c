@@ -2306,7 +2306,7 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 	  return (-1);
 	}
 
-	bytes = ((unsigned char)ptr[1] << 8) | (unsigned char)ptr[0];
+	bytes = (ptr[1] << 8) | ptr[0];
 	ptr   += 2 + bytes;
 
 	if (ptr > end)
