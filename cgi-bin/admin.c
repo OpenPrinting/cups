@@ -2208,18 +2208,21 @@ do_menu(http_t *http)			/* I - HTTP connection */
 
   if ((val = cupsGetOption("PreserveJobHistory", num_settings,
                            settings)) == NULL)
+  {
     val = "Yes";
+    goto set_vars;
+  }
 
-  if (val &&
-      (!_cups_strcasecmp(val, "0") || !_cups_strcasecmp(val, "no") ||
+  if (!_cups_strcasecmp(val, "0") || !_cups_strcasecmp(val, "no") ||
        !_cups_strcasecmp(val, "off") || !_cups_strcasecmp(val, "false") ||
-       !_cups_strcasecmp(val, "disabled")))
+       !_cups_strcasecmp(val, "disabled"))
   {
     cgiSetVariable("PRESERVE_JOB_HISTORY", "0");
     cgiSetVariable("PRESERVE_JOB_FILES", "0");
   }
   else
   {
+    set_vars:
     cgiSetVariable("PRESERVE_JOBS", "CHECKED");
     cgiSetVariable("PRESERVE_JOB_HISTORY", val);
 
