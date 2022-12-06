@@ -1359,136 +1359,150 @@ cupsdReadConfiguration(void)
       DefaultPolicyPtr = p = cupsdAddPolicy("default");
 
       cupsdLogMessage(CUPSD_LOG_INFO, "<Policy default>");
+	cupsdLogMessage(CUPSD_LOG_INFO, "JobPrivateAccess default");
+	cupsdAddString(&(p->job_access), "@OWNER");
+	cupsdAddString(&(p->job_access), "@SYSTEM");
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "JobPrivateAccess default");
-      cupsdAddString(&(p->job_access), "@OWNER");
-      cupsdAddString(&(p->job_access), "@SYSTEM");
+	cupsdLogMessage(CUPSD_LOG_INFO, "JobPrivateValues default");
+	cupsdAddString(&(p->job_attrs), "job-name");
+	cupsdAddString(&(p->job_attrs), "job-originating-host-name");
+	cupsdAddString(&(p->job_attrs), "job-originating-user-name");
+	cupsdAddString(&(p->job_attrs), "phone");
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "JobPrivateValues default");
-      cupsdAddString(&(p->job_attrs), "job-name");
-      cupsdAddString(&(p->job_attrs), "job-originating-host-name");
-      cupsdAddString(&(p->job_attrs), "job-originating-user-name");
-      cupsdAddString(&(p->job_attrs), "phone");
+	cupsdLogMessage(CUPSD_LOG_INFO, "SubscriptionPrivateAccess default");
+	cupsdAddString(&(p->sub_access), "@OWNER");
+	cupsdAddString(&(p->sub_access), "@SYSTEM");
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "SubscriptionPrivateAccess default");
-      cupsdAddString(&(p->sub_access), "@OWNER");
-      cupsdAddString(&(p->sub_access), "@SYSTEM");
+	cupsdLogMessage(CUPSD_LOG_INFO, "SubscriptionPrivateValues default");
+	cupsdAddString(&(p->job_attrs), "notify-events");
+	cupsdAddString(&(p->job_attrs), "notify-pull-method");
+	cupsdAddString(&(p->job_attrs), "notify-recipient-uri");
+	cupsdAddString(&(p->job_attrs), "notify-subscriber-user-name");
+	cupsdAddString(&(p->job_attrs), "notify-user-data");
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "SubscriptionPrivateValues default");
-      cupsdAddString(&(p->job_attrs), "notify-events");
-      cupsdAddString(&(p->job_attrs), "notify-pull-method");
-      cupsdAddString(&(p->job_attrs), "notify-recipient-uri");
-      cupsdAddString(&(p->job_attrs), "notify-subscriber-user-name");
-      cupsdAddString(&(p->job_attrs), "notify-user-data");
+	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Create-Job Print-Job Print-URI Validate-Job>");
+	  po = cupsdAddPolicyOp(p, NULL, IPP_CREATE_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_PRINT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_PRINT_URI);
+	  cupsdAddPolicyOp(p, po, IPP_VALIDATE_JOB);
 
-      cupsdLogMessage(CUPSD_LOG_INFO,
-                      "<Limit Create-Job Print-Job Print-URI Validate-Job>");
-      cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  po->order_type = CUPSD_AUTH_ALLOW;
+	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
-      po = cupsdAddPolicyOp(p, NULL, IPP_CREATE_JOB);
-      po->order_type = CUPSD_AUTH_ALLOW;
+	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job>");
+	  po = cupsdAddPolicyOp(p, NULL, IPP_SEND_DOCUMENT);
+	  cupsdAddPolicyOp(p, po, IPP_SEND_URI);
+	  cupsdAddPolicyOp(p, po, IPP_HOLD_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_RELEASE_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_RESTART_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_PURGE_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_SET_JOB_ATTRIBUTES);
+	  cupsdAddPolicyOp(p, po, IPP_CREATE_JOB_SUBSCRIPTION);
+	  cupsdAddPolicyOp(p, po, IPP_RENEW_SUBSCRIPTION);
+	  cupsdAddPolicyOp(p, po, IPP_CANCEL_SUBSCRIPTION);
+	  cupsdAddPolicyOp(p, po, IPP_GET_NOTIFICATIONS);
+	  cupsdAddPolicyOp(p, po, IPP_REPROCESS_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_CANCEL_CURRENT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_SUSPEND_CURRENT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_RESUME_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_CANCEL_MY_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_CLOSE_JOB);
+	  cupsdAddPolicyOp(p, po, CUPS_MOVE_JOB);
 
-      cupsdAddPolicyOp(p, po, IPP_PRINT_JOB);
-      cupsdAddPolicyOp(p, po, IPP_PRINT_URI);
-      cupsdAddPolicyOp(p, po, IPP_VALIDATE_JOB);
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  po->order_type = CUPSD_AUTH_ALLOW;
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Require user @OWNER @SYSTEM");
+	  po->level = CUPSD_AUTH_USER;
+	  cupsdAddName(po, "@OWNER");
+	  cupsdAddName(po, "@SYSTEM");
+	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
-      cupsdLogMessage(CUPSD_LOG_INFO,
-                      "<Limit Send-Document Send-URI Cancel-Job Hold-Job "
-                      "Release-Job Restart-Job Purge-Jobs "
-		      "Set-Job-Attributes Create-Job-Subscription "
-		      "Renew-Subscription Cancel-Subscription "
-		      "Get-Notifications Reprocess-Job Cancel-Current-Job "
-		      "Suspend-Current-Job Resume-Job "
-		      "Cancel-My-Jobs Close-Job CUPS-Move-Job "
-		      "CUPS-Authenticate-Job CUPS-Get-Document>");
-      cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit CUPS-Authenticate-Job>");
+	  po = cupsdAddPolicyOp(p, NULL, CUPS_GET_DOCUMENT);
 
-      po = cupsdAddPolicyOp(p, NULL, IPP_SEND_DOCUMENT);
-      po->order_type = CUPSD_AUTH_ALLOW;
-      po->level      = CUPSD_AUTH_USER;
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  po->order_type = CUPSD_AUTH_ALLOW;
 
-      cupsdAddName(po, "@OWNER");
-      cupsdAddName(po, "@SYSTEM");
-      cupsdLogMessage(CUPSD_LOG_INFO, "Require user @OWNER @SYSTEM");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "AuthType Default");
+	  po->type = CUPSD_AUTH_DEFAULT;
 
-      cupsdAddPolicyOp(p, po, IPP_SEND_URI);
-      cupsdAddPolicyOp(p, po, IPP_CANCEL_JOB);
-      cupsdAddPolicyOp(p, po, IPP_HOLD_JOB);
-      cupsdAddPolicyOp(p, po, IPP_RELEASE_JOB);
-      cupsdAddPolicyOp(p, po, IPP_RESTART_JOB);
-      cupsdAddPolicyOp(p, po, IPP_PURGE_JOBS);
-      cupsdAddPolicyOp(p, po, IPP_SET_JOB_ATTRIBUTES);
-      cupsdAddPolicyOp(p, po, IPP_CREATE_JOB_SUBSCRIPTION);
-      cupsdAddPolicyOp(p, po, IPP_RENEW_SUBSCRIPTION);
-      cupsdAddPolicyOp(p, po, IPP_CANCEL_SUBSCRIPTION);
-      cupsdAddPolicyOp(p, po, IPP_GET_NOTIFICATIONS);
-      cupsdAddPolicyOp(p, po, IPP_REPROCESS_JOB);
-      cupsdAddPolicyOp(p, po, IPP_CANCEL_CURRENT_JOB);
-      cupsdAddPolicyOp(p, po, IPP_SUSPEND_CURRENT_JOB);
-      cupsdAddPolicyOp(p, po, IPP_RESUME_JOB);
-      cupsdAddPolicyOp(p, po, IPP_CANCEL_MY_JOBS);
-      cupsdAddPolicyOp(p, po, IPP_CLOSE_JOB);
-      cupsdAddPolicyOp(p, po, CUPS_MOVE_JOB);
-      cupsdAddPolicyOp(p, po, CUPS_AUTHENTICATE_JOB);
-      cupsdAddPolicyOp(p, po, CUPS_GET_DOCUMENT);
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Require user @OWNER @SYSTEM");
+	  po->level = CUPSD_AUTH_USER;
+	  cupsdAddName(po, "@OWNER");
+	  cupsdAddName(po, "@SYSTEM");
+	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
+	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Pause-Printer Resume-Printer  Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Add-Printer CUPS-Delete-Printer CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs CUPS-Set-Default>");
+	  po = cupsdAddPolicyOp(p, NULL, IPP_PAUSE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_RESUME_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_SET_PRINTER_ATTRIBUTES);
+	  cupsdAddPolicyOp(p, po, IPP_ENABLE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_DISABLE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_PAUSE_PRINTER_AFTER_CURRENT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_HOLD_NEW_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_RELEASE_HELD_NEW_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_DEACTIVATE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_ACTIVATE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_RESTART_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_SHUTDOWN_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_STARTUP_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_PROMOTE_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_SCHEDULE_JOB_AFTER);
+	  cupsdAddPolicyOp(p, po, IPP_CANCEL_JOBS);
+	  cupsdAddPolicyOp(p, po, CUPS_ADD_PRINTER);
+	  cupsdAddPolicyOp(p, po, CUPS_DELETE_PRINTER);
+	  cupsdAddPolicyOp(p, po, CUPS_ADD_CLASS);
+	  cupsdAddPolicyOp(p, po, CUPS_DELETE_CLASS);
+	  cupsdAddPolicyOp(p, po, CUPS_ACCEPT_JOBS);
+	  cupsdAddPolicyOp(p, po, CUPS_REJECT_JOBS);
+	  cupsdAddPolicyOp(p, po, CUPS_SET_DEFAULT);
 
-      cupsdLogMessage(CUPSD_LOG_INFO,
-                      "<Limit Pause-Printer Resume-Printer "
-                      "Set-Printer-Attributes Enable-Printer "
-		      "Disable-Printer Pause-Printer-After-Current-Job "
-		      "Hold-New-Jobs Release-Held-New-Jobs "
-		      "Deactivate-Printer Activate-Printer Restart-Printer "
-		      "Shutdown-Printer Startup-Printer Promote-Job "
-		      "Schedule-Job-After Cancel-Jobs CUPS-Add-Printer "
-		      "CUPS-Delete-Printer CUPS-Add-Class CUPS-Delete-Class "
-		      "CUPS-Accept-Jobs CUPS-Reject-Jobs CUPS-Set-Default>");
-      cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
-      cupsdLogMessage(CUPSD_LOG_INFO, "AuthType Default");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  po->order_type = CUPSD_AUTH_ALLOW;
 
-      po = cupsdAddPolicyOp(p, NULL, IPP_PAUSE_PRINTER);
-      po->order_type = CUPSD_AUTH_ALLOW;
-      po->type       = CUPSD_AUTH_DEFAULT;
-      po->level      = CUPSD_AUTH_USER;
+	  cupsdLogMessage(CUPSD_LOG_INFO, "AuthType Default");
+	  po->type = CUPSD_AUTH_DEFAULT;
 
-      cupsdAddName(po, "@SYSTEM");
-      cupsdLogMessage(CUPSD_LOG_INFO, "Require user @SYSTEM");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Require user @SYSTEM");
+	  po->level = CUPSD_AUTH_USER;
+	  cupsdAddName(po, "@SYSTEM");
+	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
-      cupsdAddPolicyOp(p, po, IPP_RESUME_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_SET_PRINTER_ATTRIBUTES);
-      cupsdAddPolicyOp(p, po, IPP_ENABLE_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_DISABLE_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_PAUSE_PRINTER_AFTER_CURRENT_JOB);
-      cupsdAddPolicyOp(p, po, IPP_HOLD_NEW_JOBS);
-      cupsdAddPolicyOp(p, po, IPP_RELEASE_HELD_NEW_JOBS);
-      cupsdAddPolicyOp(p, po, IPP_DEACTIVATE_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_ACTIVATE_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_RESTART_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_SHUTDOWN_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_STARTUP_PRINTER);
-      cupsdAddPolicyOp(p, po, IPP_PROMOTE_JOB);
-      cupsdAddPolicyOp(p, po, IPP_SCHEDULE_JOB_AFTER);
-      cupsdAddPolicyOp(p, po, IPP_CANCEL_JOBS);
-      cupsdAddPolicyOp(p, po, CUPS_ADD_PRINTER);
-      cupsdAddPolicyOp(p, po, CUPS_DELETE_PRINTER);
-      cupsdAddPolicyOp(p, po, CUPS_ADD_CLASS);
-      cupsdAddPolicyOp(p, po, CUPS_DELETE_CLASS);
-      cupsdAddPolicyOp(p, po, CUPS_ACCEPT_JOBS);
-      cupsdAddPolicyOp(p, po, CUPS_REJECT_JOBS);
-      cupsdAddPolicyOp(p, po, CUPS_SET_DEFAULT);
+	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Cancel-Job>");
+	  po = cupsdAddPolicyOp(p, NULL, IPP_CANCEL_JOB);
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  po->order_type = CUPSD_AUTH_ALLOW;
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "<Limit All>");
-      cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Require user @OWNER " CUPS_DEFAULT_PRINTOPERATOR_AUTH);
+	  po->level = CUPSD_AUTH_USER;
+	  cupsdAddName(po, "@OWNER");
+	  cupsdAddName(po, CUPS_DEFAULT_PRINTOPERATOR_AUTH);
+	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
-      po = cupsdAddPolicyOp(p, NULL, IPP_ANY_OPERATION);
-      po->order_type = CUPSD_AUTH_ALLOW;
+	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit CUPS-Authenticate-Job>");
+	  po = cupsdAddPolicyOp(p, NULL, CUPS_AUTHENTICATE_JOB);
 
-      cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
+	  cupsdLogMessage(CUPSD_LOG_INFO, "AuthType Default");
+	  po->type = CUPSD_AUTH_DEFAULT;
+
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  po->order_type = CUPSD_AUTH_ALLOW;
+
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Require user @OWNER " CUPS_DEFAULT_PRINTOPERATOR_AUTH);
+	  po->level = CUPSD_AUTH_USER;
+	  cupsdAddName(po, "@OWNER");
+	  cupsdAddName(po, CUPS_DEFAULT_PRINTOPERATOR_AUTH);
+	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
+
+	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit All>");
+	  po = cupsdAddPolicyOp(p, NULL, IPP_ANY_OPERATION);
+
+	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
+	  po->order_type = CUPSD_AUTH_ALLOW;
+	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
       cupsdLogMessage(CUPSD_LOG_INFO, "</Policy>");
     }
   }

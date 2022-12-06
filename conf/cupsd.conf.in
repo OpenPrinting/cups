@@ -94,7 +94,13 @@ IdleExitTimeout @EXIT_TIMEOUT@
   </Limit>
 
   # Only the owner or an administrator can cancel or authenticate a job...
-  <Limit Cancel-Job CUPS-Authenticate-Job>
+  <Limit Cancel-Job>
+    Require user @OWNER @CUPS_DEFAULT_PRINTOPERATOR_AUTH@
+    Order deny,allow
+  </Limit>
+
+  <Limit CUPS-Authenticate-Job>
+    AuthType Default
     Require user @OWNER @CUPS_DEFAULT_PRINTOPERATOR_AUTH@
     Order deny,allow
   </Limit>
