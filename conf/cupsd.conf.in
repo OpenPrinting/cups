@@ -68,7 +68,13 @@ IdleExitTimeout @EXIT_TIMEOUT@
     Order deny,allow
   </Limit>
 
-  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job CUPS-Get-Document>
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job>
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit CUPS-Get-Document>
+    AuthType Default
     Require user @OWNER @SYSTEM
     Order deny,allow
   </Limit>
