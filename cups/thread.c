@@ -215,7 +215,7 @@ _cupsThreadWait(_cups_thread_t thread)	/* I - Thread ID */
 void
 _cupsCondBroadcast(_cups_cond_t *cond)	/* I - Condition */
 {
-  // TODO: Implement me
+  WakeAllConditionVariable(cond);
 }
 
 
@@ -226,7 +226,7 @@ _cupsCondBroadcast(_cups_cond_t *cond)	/* I - Condition */
 void
 _cupsCondInit(_cups_cond_t *cond)	/* I - Condition */
 {
-  // TODO: Implement me
+  InitializeConditionVariable(cond);
 }
 
 
@@ -239,7 +239,7 @@ _cupsCondWait(_cups_cond_t  *cond,	/* I - Condition */
               _cups_mutex_t *mutex,	/* I - Mutex */
 	      double        timeout)	/* I - Timeout in seconds (0 or negative for none) */
 {
-  // TODO: Implement me
+  SleepConditionVariableCS(cond, &mutex->m_criticalSection, timeout);
 }
 
 
@@ -341,7 +341,7 @@ _cupsRWUnlock(_cups_rwlock_t *rwlock)	/* I - Reader/writer lock */
 void
 _cupsThreadCancel(_cups_thread_t thread)/* I - Thread ID */
 {
-  // TODO: Implement me
+  TerminateThread(thread, -1);
 }
 
 
@@ -365,8 +365,7 @@ _cupsThreadCreate(
 void
 _cupsThreadDetach(_cups_thread_t thread)/* I - Thread ID */
 {
-  // TODO: Implement me
-  (void)thread;
+  CloseHandle(thread);
 }
 
 
@@ -374,15 +373,20 @@ _cupsThreadDetach(_cups_thread_t thread)/* I - Thread ID */
  * '_cupsThreadWait()' - Wait for a thread to exit.
  */
 
-void *					/* O - Return value */
-_cupsThreadWait(_cups_thread_t thread)	/* I - Thread ID */
+void *                                 /* O - Return value */
+_cupsThreadWait(_cups_thread_t thread) /* I - Thread ID */
 {
-  // TODO: Implement me
-  (void)thread;
+  void *ret;
+  if (WaitForSingleObject(thread, INFINITE) == WAIT_FAILED) {
+    errno = GetLastError();
+    return NULL;
+  }
 
-  return (NULL);
+  GetExitCodeThread(thread, ret);
+
+  CloseHandle(thread);
+  return ret;
 }
-
 
 #else /* No threading */
 /*
@@ -392,7 +396,7 @@ _cupsThreadWait(_cups_thread_t thread)	/* I - Thread ID */
 void
 _cupsCondBroadcast(_cups_cond_t *cond)	/* I - Condition */
 {
-  // TODO: Implement me
+  (void)cond;
 }
 
 
@@ -403,7 +407,7 @@ _cupsCondBroadcast(_cups_cond_t *cond)	/* I - Condition */
 void
 _cupsCondInit(_cups_cond_t *cond)	/* I - Condition */
 {
-  // TODO: Implement me
+  (void)cond;
 }
 
 
@@ -416,7 +420,9 @@ _cupsCondWait(_cups_cond_t  *cond,	/* I - Condition */
               _cups_mutex_t *mutex,	/* I - Mutex */
 	      double        timeout)	/* I - Timeout in seconds (0 or negative for none) */
 {
-  // TODO: Implement me
+  (void)cond;
+  (void)mutex;
+  (void)timeout;
 }
 
 
