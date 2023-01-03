@@ -3099,6 +3099,7 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
   ipp_jstate_t		job_state;	/* New job state value */
   const char		*message;	/* Message for job state */
   char			buffer[1024];	/* Buffer for formatted messages */
+  char			scheme[255];	/* Device URI scheme */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "finalize_job(job=%p(%d))", job, job->id);
@@ -3123,8 +3124,9 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
   * Similarly, clear the "offline-report" reason for non-USB devices since we
   * rarely have current information for network devices...
   */
+  sscanf(job->printer->device_uri, "%254[^:]", scheme);
 
-  if (!strstr(job->printer->device_uri, "usb:"))
+  if (!strstr(scheme, "usb"))
     cupsdSetPrinterReasons(job->printer, "-offline-report");
 
  /*
@@ -3233,7 +3235,8 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
       exit_code = job->status;
     }
 
-    cupsdLogJob(job, CUPSD_LOG_WARN, "Backend returned status %d (%s)",
+    cupsdLogJob(job, CUPSD_LOG_WARN, "Backend %s returned status %d (%s)",
+		scheme,
 		exit_code,
 		exit_code == CUPS_BACKEND_FAILED ? "failed" :
 		    exit_code == CUPS_BACKEND_AUTH_REQUIRED ?
