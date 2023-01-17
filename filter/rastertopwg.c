@@ -56,7 +56,7 @@ main(int  argc,				/* I - Number of command-line args */
   const char		*val;		/* Option value */
 
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
     puts("Usage: rastertopwg job user title copies options [filename]");
     return (1);
