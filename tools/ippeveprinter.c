@@ -1,7 +1,7 @@
 /*
  * IPP Everywhere printer application for CUPS.
  *
- * Copyright © 2021-2022 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group.
  * Copyright © 2010-2021 by Apple Inc.
  *
@@ -8778,11 +8778,34 @@ valid_job_attributes(
 
 	  for (i = 0; i < count ; i ++)
 	  {
+	    int	x_min, x_max;		// Min/max width
+	    int y_min, y_max;		// Min/max length
+
 	    size  = ippGetCollection(supported, i);
 	    x_dim = ippFindAttribute(size, "x-dimension", IPP_TAG_ZERO);
 	    y_dim = ippFindAttribute(size, "y-dimension", IPP_TAG_ZERO);
 
-	    if (ippContainsInteger(x_dim, x_value) && ippContainsInteger(y_dim, y_value))
+            if (ippGetValueTag(x_dim) == IPP_TAG_INTEGER)
+            {
+              x_min = ippGetInteger(x_dim, 0) - 100;
+              x_max = ippGetInteger(x_dim, 0) + 100;
+            }
+            else
+            {
+              x_min = ippGetRange(x_dim, 0, &x_max);
+            }
+
+            if (ippGetValueTag(y_dim) == IPP_TAG_INTEGER)
+            {
+              y_min = ippGetInteger(y_dim, 0) - 100;
+              y_max = ippGetInteger(y_dim, 0) + 100;
+            }
+            else
+            {
+              y_min = ippGetRange(y_dim, 0, &x_max);
+            }
+
+	    if ((x_value < x_min || x_value > x_max) && (y_value < y_min || y_value > y_max))
 	      break;
 	  }
 

@@ -18,6 +18,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed invalid memory access during generating IPP Everywhere queue
   (Issue #466)
 - Fixed memory leaks in `create_local_bg_thread()` (Issue #466)
+- Fixed media size tolerance in `ippeveprinter` (Issue #487)
 - Fixed `cupsd` default keychain location when building with OpenSSL
   (Issue #529)
 - Fixed TLS certificate generation bugs.
