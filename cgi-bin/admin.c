@@ -3706,7 +3706,8 @@ get_option_value(
     if (bufptr == buffer || (bufend - bufptr) < 2)
       return (NULL);
 
-    memcpy(bufptr, "}", 2);
+    bufptr[0] = '}';
+    bufptr[1] = '\0';
   }
 
   return (buffer);
