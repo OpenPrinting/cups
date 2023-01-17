@@ -605,11 +605,11 @@ cupsdReadConfiguration(void)
   ClassifyOverride  = 0;
 
 #ifdef HAVE_TLS
-#  ifdef HAVE_GNUTLS
+#  if defined HAVE_GNUTLS || defined HAVE_OPENSSL
   cupsdSetString(&ServerKeychain, "ssl");
 #  else
   cupsdSetString(&ServerKeychain, "/Library/Keychains/System.keychain");
-#  endif /* HAVE_GNUTLS */
+#  endif /* HAVE_GNUTLS || HAVE_OPENSSL */
 
   _httpTLSSetOptions(_HTTP_TLS_NONE, _HTTP_TLS_1_0, _HTTP_TLS_MAX);
 #endif /* HAVE_TLS */
