@@ -632,9 +632,9 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
   }
 
   if (cg->uatokens == _CUPS_UATOKENS_OS)
-    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %d.%d) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion);
+    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %u.%u) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion);
   else
-    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %d.%d; %s) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion, machine);
+    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %u.%u; %s) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion, machine);
 
 #elif defined(__APPLE__)
  /*
