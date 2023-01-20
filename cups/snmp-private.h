@@ -102,8 +102,7 @@ extern "C" {
 #  endif /* __cplusplus */
 
 extern void		_cupsSNMPClose(int fd) _CUPS_PRIVATE;
-extern int		*_cupsSNMPCopyOID(int *dst, const int *src, int dstsize)
-			    _CUPS_PRIVATE;
+extern int		*_cupsSNMPCopyOID(int *dst, const int *src) _CUPS_PRIVATE;
 extern const char	*_cupsSNMPDefaultCommunity(void) _CUPS_PRIVATE;
 extern int		_cupsSNMPIsOID(cups_snmp_t *packet, const int *oid)
 			    _CUPS_PRIVATE;

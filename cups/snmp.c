@@ -84,16 +84,14 @@ _cupsSNMPClose(int fd)			/* I - SNMP socket file descriptor */
 
 int *					/* O - New OID */
 _cupsSNMPCopyOID(int       *dst,	/* I - Destination OID */
-                 const int *src,	/* I - Source OID */
-		 int       dstsize)	/* I - Number of integers in dst */
+                 const int *src)	/* I - Source OID */
 {
-  int	i;				/* Looping var */
+  size_t	i;				/* Looping var */
 
 
-  DEBUG_printf(("4_cupsSNMPCopyOID(dst=%p, src=%p, dstsize=%d)", dst, src,
-                dstsize));
+  DEBUG_printf(("4_cupsSNMPCopyOID(dst=%p, src=%p)", dst, src));
 
-  for (i = 0, dstsize --; src[i] >= 0 && i < dstsize; i ++)
+  for (i = 0; i < CUPS_SNMP_MAX_OID && src[i] >= 0; i ++)
     dst[i] = src[i];
 
   dst[i] = -1;
@@ -582,7 +580,7 @@ _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
   * Copy the OID prefix and then loop until we have no more OIDs...
   */
 
-  _cupsSNMPCopyOID(packet.object_name, prefix, CUPS_SNMP_MAX_OID);
+  _cupsSNMPCopyOID(packet.object_name, prefix);
   lastoid[0] = -1;
 
   for (;;)
@@ -620,7 +618,7 @@ _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
       return (count > 0 ? count : -1);
     }
 
-    _cupsSNMPCopyOID(lastoid, packet.object_name, CUPS_SNMP_MAX_OID);
+    _cupsSNMPCopyOID(lastoid, packet.object_name);
 
     count ++;
 

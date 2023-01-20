@@ -626,7 +626,7 @@ backend_init_supplies(
     fprintf(stderr, "DEBUG2: prtGeneralCurrentLocalization=%d\n",
             packet.object_value.integer);
 
-    _cupsSNMPCopyOID(oid, prtLocalizationCharacterSet, CUPS_SNMP_MAX_OID);
+    _cupsSNMPCopyOID(oid, prtLocalizationCharacterSet);
     oid[prtLocalizationCharacterSetOffset - 2] = packet.object_value.integer;
 
 
