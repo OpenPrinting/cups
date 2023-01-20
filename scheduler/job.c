@@ -3103,6 +3103,7 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "finalize_job(job=%p(%d))", job, job->id);
+  sscanf(job->printer->device_uri, "%254[^:]", scheme);
 
  /*
   * Clear the "connecting-to-device" and "cups-waiting-for-job-completed"
@@ -3124,9 +3125,8 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
   * Similarly, clear the "offline-report" reason for non-USB devices since we
   * rarely have current information for network devices...
   */
-  sscanf(job->printer->device_uri, "%254[^:]", scheme);
 
-  if (!strstr(scheme, "usb"))
+  if (!strstr(job->printer->device_uri, "usb:"))
     cupsdSetPrinterReasons(job->printer, "-offline-report");
 
  /*
