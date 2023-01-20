@@ -152,7 +152,7 @@ static ppd_info_t	*add_ppd(const char *filename, const char *name,
 				 size_t size, int model_number, int type,
 				 const char *scheme);
 static int		cat_drv(const char *name, int request_id);
-static void		cat_ppd(const char *name, int request_id);
+static void		cat_ppd(const char *name, int request_id) _CUPS_NORETURN;
 static int		cat_static(const char *name, int request_id);
 static int		cat_tar(const char *name, int request_id);
 static int		compare_inodes(struct stat *a, struct stat *b);
@@ -162,12 +162,12 @@ static int		compare_names(const ppd_info_t *p0,
 			              const ppd_info_t *p1);
 static int		compare_ppds(const ppd_info_t *p0,
 			             const ppd_info_t *p1);
-static void		dump_ppds_dat(const char *filename);
+static void		dump_ppds_dat(const char *filename) _CUPS_NORETURN;
 static void		free_array(cups_array_t *a);
 static cups_file_t	*get_file(const char *name, int request_id,
 			          const char *subdir, char *buffer,
 			          size_t bufsize, char **subfile);
-static void		list_ppds(int request_id, int limit, const char *opt);
+static void		list_ppds(int request_id, int limit, const char *opt) _CUPS_NORETURN;
 static int		load_drivers(cups_array_t *include,
 			             cups_array_t *exclude);
 static int		load_drv(const char *filename, const char *name,
