@@ -1,7 +1,7 @@
 /*
  * IPP Everywhere printer application for CUPS.
  *
- * Copyright © 2021-2022 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group.
  * Copyright © 2010-2021 by Apple Inc.
  *
@@ -335,6 +335,7 @@ static void		*process_job(ippeve_job_t *job);
 static void		process_state_message(ippeve_job_t *job, char *message);
 static int		register_printer(ippeve_printer_t *printer);
 static int		respond_http(ippeve_client_t *client, http_status_t code, const char *content_coding, const char *type, size_t length);
+static void		respond_ignored(ippeve_client_t *client, ipp_attribute_t *attr);
 static void		respond_ipp(ippeve_client_t *client, ipp_status_t status, const char *message, ...) _CUPS_FORMAT(3, 4);
 static void		respond_unsupported(ippeve_client_t *client, ipp_attribute_t *attr);
 static void		run_printer(ippeve_printer_t *printer);
@@ -7579,6 +7580,26 @@ respond_http(
 
 
 /*
+ * 'respond_ignored()' - Respond with an ignored attribute.
+ */
+
+static void
+respond_ignored(
+    ippeve_client_t *client,		/* I - Client */
+    ipp_attribute_t *attr)		/* I - Attribute */
+{
+  ipp_attribute_t	*temp;		/* Copy of attribute */
+
+
+  if (!ippGetStatusCode(client->response))
+    respond_ipp(client, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, "Unsupported %s %s%s value.", ippGetName(attr), ippGetCount(attr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attr)));
+
+  temp = ippCopyAttribute(client->response, attr, 0);
+  ippSetGroupTag(client->response, &temp, IPP_TAG_UNSUPPORTED_GROUP);
+}
+
+
+/*
  * 'respond_ipp()' - Send an IPP response.
  */
 
@@ -7621,7 +7642,7 @@ respond_ipp(ippeve_client_t *client,	/* I - Client */
 
 static void
 respond_unsupported(
-    ippeve_client_t   *client,		/* I - Client */
+    ippeve_client_t *client,		/* I - Client */
     ipp_attribute_t *attr)		/* I - Attribute */
 {
   ipp_attribute_t	*temp;		/* Copy of attribute */
@@ -8596,6 +8617,7 @@ valid_job_attributes(
 {
   int			i,		/* Looping var */
 			count,		/* Number of values */
+			fidelity,	/* "ipp-attribute-fidelity" value */
 			valid = 1;	/* Valid attributes? */
   ipp_attribute_t	*attr,		/* Current attribute */
 			*supported;	/* xxx-supported attribute */
@@ -8611,22 +8633,32 @@ valid_job_attributes(
   * Check the various job template attributes...
   */
 
-  if ((attr = ippFindAttribute(client->request, "copies", IPP_TAG_ZERO)) != NULL)
-  {
-    if (ippGetCount(attr) != 1 || ippGetValueTag(attr) != IPP_TAG_INTEGER ||
-        ippGetInteger(attr, 0) < 1 || ippGetInteger(attr, 0) > 999)
-    {
-      respond_unsupported(client, attr);
-      valid = 0;
-    }
-  }
-
   if ((attr = ippFindAttribute(client->request, "ipp-attribute-fidelity", IPP_TAG_ZERO)) != NULL)
   {
     if (ippGetCount(attr) != 1 || ippGetValueTag(attr) != IPP_TAG_BOOLEAN)
     {
       respond_unsupported(client, attr);
       valid = 0;
+    }
+  }
+
+  fidelity = ippGetBoolean(attr, 0);
+
+  if ((attr = ippFindAttribute(client->request, "copies", IPP_TAG_ZERO)) != NULL)
+  {
+    if (ippGetCount(attr) != 1 || ippGetValueTag(attr) != IPP_TAG_INTEGER ||
+        ippGetInteger(attr, 0) < 1 || ippGetInteger(attr, 0) > 999)
+    {
+      if (fidelity)
+      {
+        respond_unsupported(client, attr);
+        valid = 0;
+      }
+      else
+      {
+        respond_ignored(client, attr);
+        ippDeleteAttribute(client->request, attr);
+      }
     }
   }
 
@@ -8665,7 +8697,9 @@ valid_job_attributes(
     ippSetGroupTag(client->request, &attr, IPP_TAG_JOB);
   }
   else
+  {
     ippAddString(client->request, IPP_TAG_JOB, IPP_TAG_NAME, "job-name", NULL, "Untitled");
+  }
 
   if ((attr = ippFindAttribute(client->request, "job-priority", IPP_TAG_ZERO)) != NULL)
   {
@@ -8706,8 +8740,16 @@ valid_job_attributes(
 
       if (!ippContainsString(supported, ippGetString(attr, 0, NULL)))
       {
-	respond_unsupported(client, attr);
-	valid = 0;
+        if (fidelity)
+        {
+	  respond_unsupported(client, attr);
+	  valid = 0;
+	}
+	else
+	{
+	  respond_ignored(client, attr);
+	  ippDeleteAttribute(client->request, attr);
+	}
       }
     }
   }
@@ -8747,8 +8789,16 @@ valid_job_attributes(
 
 	if (!ippContainsString(supported, ippGetString(member, 0, NULL)))
 	{
-	  respond_unsupported(client, attr);
-	  valid = 0;
+	  if (fidelity)
+	  {
+	    respond_unsupported(client, attr);
+	    valid = 0;
+	  }
+	  else
+	  {
+	    respond_ignored(client, attr);
+	    ippDeleteAttribute(client->request, attr);
+	  }
 	}
       }
     }
@@ -8778,18 +8828,49 @@ valid_job_attributes(
 
 	  for (i = 0; i < count ; i ++)
 	  {
+	    int	x_min, x_max;		// Min/max width
+	    int y_min, y_max;		// Min/max length
+
 	    size  = ippGetCollection(supported, i);
 	    x_dim = ippFindAttribute(size, "x-dimension", IPP_TAG_ZERO);
 	    y_dim = ippFindAttribute(size, "y-dimension", IPP_TAG_ZERO);
 
-	    if (ippContainsInteger(x_dim, x_value) && ippContainsInteger(y_dim, y_value))
+            if (ippGetValueTag(x_dim) == IPP_TAG_INTEGER)
+            {
+              x_min = ippGetInteger(x_dim, 0) - 100;
+              x_max = ippGetInteger(x_dim, 0) + 100;
+            }
+            else
+            {
+              x_min = ippGetRange(x_dim, 0, &x_max);
+            }
+
+            if (ippGetValueTag(y_dim) == IPP_TAG_INTEGER)
+            {
+              y_min = ippGetInteger(y_dim, 0) - 100;
+              y_max = ippGetInteger(y_dim, 0) + 100;
+            }
+            else
+            {
+              y_min = ippGetRange(y_dim, 0, &x_max);
+            }
+
+	    if ((x_value < x_min || x_value > x_max) && (y_value < y_min || y_value > y_max))
 	      break;
 	  }
 
 	  if (i >= count)
 	  {
-	    respond_unsupported(client, attr);
-	    valid = 0;
+	    if (fidelity)
+	    {
+	      respond_unsupported(client, attr);
+	      valid = 0;
+	    }
+	    else
+	    {
+	      respond_ignored(client, attr);
+	      ippDeleteAttribute(client->request, attr);
+	    }
 	  }
 	}
       }
@@ -8869,8 +8950,16 @@ valid_job_attributes(
 
       if (i >= count)
       {
-	respond_unsupported(client, attr);
-	valid = 0;
+        if (fidelity)
+        {
+	  respond_unsupported(client, attr);
+	  valid = 0;
+	}
+	else
+	{
+	  respond_ignored(client, attr);
+	  ippDeleteAttribute(client->request, attr);
+	}
       }
     }
   }
@@ -8889,14 +8978,30 @@ valid_job_attributes(
     {
       if (!ippContainsString(supported, sides))
       {
-	respond_unsupported(client, attr);
-	valid = 0;
+        if (fidelity)
+        {
+	  respond_unsupported(client, attr);
+	  valid = 0;
+	}
+	else
+	{
+	  respond_ignored(client, attr);
+	  ippDeleteAttribute(client->request, attr);
+	}
       }
     }
     else if (strcmp(sides, "one-sided"))
     {
-      respond_unsupported(client, attr);
-      valid = 0;
+      if (fidelity)
+      {
+	respond_unsupported(client, attr);
+	valid = 0;
+      }
+      else
+      {
+        respond_ignored(client, attr);
+        ippDeleteAttribute(client->request, attr);
+      }
     }
   }
 

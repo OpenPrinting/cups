@@ -179,7 +179,7 @@ pcl_start_page(
       case 756 : /* Executive */
           printf("\033&l1A");
 	  break;
-
+      default  :
       case 792 : /* Letter */
           printf("\033&l2A");
 	  break;
@@ -209,7 +209,7 @@ pcl_start_page(
 
     if (header->Duplex)
     {
-      int mode = header->Duplex ? 1 + header->Tumble != 0 : 0;
+      int mode = header->Duplex ? 1 + (header->Tumble != 0) : 0;
 
       printf("\033&l%dS", mode);	/* Set duplex mode */
     }
@@ -524,7 +524,7 @@ raster_to_pcl(const char *filename)	/* I - File to print (NULL for stdin) */
 
   cupsRasterClose(ras);
 
-  fprintf(stderr, "ATTR: job-impressions=%d\n", page);
+  fprintf(stderr, "ATTR: job-impressions=%u\n", page);
 
   return (0);
 }

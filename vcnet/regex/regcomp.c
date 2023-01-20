@@ -116,7 +116,7 @@ int cflags;
 	struct parse pa;
 	struct re_guts *g;
 	struct parse *p = &pa;
-	int i;
+	unsigned int i;
 	size_t len;
 
 	if ((cflags&REG_EXTENDED) && (cflags&REG_NOSPEC))
@@ -469,7 +469,7 @@ int starordinary;		/* is a leading * an ordinary character? */
 	sopno subno;
 #	define	BACKSL	(1<<CHAR_BIT)
 
-	pos = HERE();		/* repetion op, if any, covers from here */
+	pos = HERE();		/* repetition op, if any, covers from here */
 
 	assert(MORE());		/* caller should have ensured this */
 	c = GETNEXT();

@@ -1110,7 +1110,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
    /*
     * We don't have the correct number of arguments; write an error message
@@ -1221,7 +1221,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     * Loop for each line on the page...
     */
 
-    for (y = 0; y < header.cupsHeight && !Canceled; y ++)
+    for (y = 0; y < header.cupsHeight; y ++)
     {
      /*
       * Let the user know how far we have progressed...

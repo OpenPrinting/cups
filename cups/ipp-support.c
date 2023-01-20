@@ -1,6 +1,7 @@
 /*
  * Internet Printing Protocol support functions for CUPS.
  *
+ * Copyright © 2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1764,6 +1765,9 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
     "printer-state-change-time",
     "printer-state-message",
     "printer-state-reasons",
+    "printer-strings-languages-supported",
+					/* IPP JPS3 */
+    "printer-strings-uri",		/* IPP JPS3 */
     "printer-supply",
     "printer-supply-description",
     "printer-supply-info-uri",

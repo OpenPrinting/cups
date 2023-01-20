@@ -593,7 +593,6 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
   * Gather Windows version information for the User-Agent string...
   */
 
-  typedef LONG NTSTATUS, *PNTSTATUS;
   typedef NTSTATUS(WINAPI * RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
 
   RtlGetVersionPtr RtlGetVersionInternal = (RtlGetVersionPtr)GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetVersion");
@@ -632,9 +631,9 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
   }
 
   if (cg->uatokens == _CUPS_UATOKENS_OS)
-    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %d.%d) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion);
+    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %lu.%lu) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion);
   else
-    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %d.%d; %s) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion, machine);
+    snprintf(cg->user_agent, sizeof(cg->user_agent), CUPS_MINIMAL " (Windows %lu.%lu; %s) IPP/2.0", version.dwMajorVersion, version.dwMinorVersion, machine);
 
 #elif defined(__APPLE__)
  /*
