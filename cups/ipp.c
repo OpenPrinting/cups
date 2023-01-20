@@ -2910,9 +2910,8 @@ ippReadIO(void       *src,		/* I - Data source */
 
           ipp->request.any.version[0]  = buffer[0];
           ipp->request.any.version[1]  = buffer[1];
-          ipp->request.any.op_status   = (buffer[2] << 8) | buffer[3];
-          ipp->request.any.request_id  = (((((buffer[4] << 8) | buffer[5]) << 8) |
-	                        	 buffer[6]) << 8) | buffer[7];
+          ipp->request.any.op_status = (buffer[2] << 8) | buffer[3];
+          ipp->request.any.request_id = (buffer[4] << 24) | (buffer[5] << 16) | (buffer[6] << 8) | buffer[7];
 
           DEBUG_printf(("2ippReadIO: version=%d.%d", buffer[0], buffer[1]));
 	  DEBUG_printf(("2ippReadIO: op_status=%04x",
@@ -2961,8 +2960,7 @@ ippReadIO(void       *src,		/* I - Data source */
 	      goto rollback;
 	    }
 
-	    tag = (ipp_tag_t)((((((buffer[0] << 8) | buffer[1]) << 8) |
-	                        buffer[2]) << 8) | buffer[3]);
+	    tag = (ipp_tag_t)((buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3]);
 
             if (tag & IPP_TAG_CUPS_CONST)
             {
@@ -3262,8 +3260,7 @@ ippReadIO(void       *src,		/* I - Data source */
 		  goto rollback;
 		}
 
-		n = (((((buffer[0] << 8) | buffer[1]) << 8) | buffer[2]) << 8) |
-		    buffer[3];
+		n = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
 
                 if (attr->value_tag == IPP_TAG_RANGE)
                   value->range.lower = value->range.upper = n;
@@ -3363,14 +3360,9 @@ ippReadIO(void       *src,		/* I - Data source */
 		  goto rollback;
 		}
 
-                value->resolution.xres =
-		    (((((buffer[0] << 8) | buffer[1]) << 8) | buffer[2]) << 8) |
-		    buffer[3];
-                value->resolution.yres =
-		    (((((buffer[4] << 8) | buffer[5]) << 8) | buffer[6]) << 8) |
-		    buffer[7];
-                value->resolution.units =
-		    (ipp_res_t)buffer[8];
+                value->resolution.xres  = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
+                value->resolution.yres  = (buffer[4] << 24) | (buffer[5] << 16) | (buffer[6] << 8) | buffer[7];
+                value->resolution.units = (ipp_res_t)buffer[8];
 	        break;
 
 	    case IPP_TAG_RANGE :
@@ -3389,12 +3381,8 @@ ippReadIO(void       *src,		/* I - Data source */
 		  goto rollback;
 		}
 
-                value->range.lower =
-		    (((((buffer[0] << 8) | buffer[1]) << 8) | buffer[2]) << 8) |
-		    buffer[3];
-                value->range.upper =
-		    (((((buffer[4] << 8) | buffer[5]) << 8) | buffer[6]) << 8) |
-		    buffer[7];
+                value->range.lower = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
+                value->range.upper = (buffer[4] << 24) | (buffer[5] << 16) | (buffer[6] << 8) | buffer[7];
 	        break;
 
 	    case IPP_TAG_TEXTLANG :

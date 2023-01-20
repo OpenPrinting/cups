@@ -746,10 +746,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 	    return (NULL);
 
           first->addr.ipv4.sin_family = AF_INET;
-          first->addr.ipv4.sin_addr.s_addr = htonl((((((((unsigned)ip[0] << 8) |
-	                                               (unsigned)ip[1]) << 8) |
-						     (unsigned)ip[2]) << 8) |
-						   (unsigned)ip[3]));
+          first->addr.ipv4.sin_addr.s_addr = htonl((ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3]);
           first->addr.ipv4.sin_port = htons(portnum);
 	}
       }

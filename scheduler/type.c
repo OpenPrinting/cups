@@ -1140,7 +1140,7 @@ mime_check_rules(
 	  else
 	  {
 	    bufptr = fb->buffer + rules->offset - fb->offset;
-	    intv   = (unsigned)((((((bufptr[0] << 8) | bufptr[1]) << 8) | bufptr[2]) << 8) | bufptr[3]);
+	    intv   = (unsigned)((bufptr[0] << 24) | (bufptr[1] << 16) | (bufptr[2] << 8) | bufptr[3]);
 	    result = (intv == rules->value.intv);
 	  }
 	  break;
