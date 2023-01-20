@@ -1201,12 +1201,12 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       filterfds[slot][1] = job->print_pipes[1];
     }
 
-    pid = cupsdStartProcess(command, argv, envp, filterfds[!slot][0],
+    pid = cupsdStartProcess(command, argv, envp, filterfds[slot ^ 1][0],
                             filterfds[slot][1], job->status_pipes[1],
 		            job->back_pipes[0], job->side_pipes[0], 0,
 			    job->profile, job, job->filters + i);
 
-    cupsdClosePipe(filterfds[!slot]);
+    cupsdClosePipe(filterfds[slot ^ 1]);
 
     if (pid == 0)
     {
@@ -1228,7 +1228,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       argv[6] = NULL;
     }
 
-    slot = !slot;
+    slot ^= 1;
   }
 
   cupsArrayDelete(filters);
@@ -1262,7 +1262,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       filterfds[slot][0] = -1;
       filterfds[slot][1] = -1;
 
-      pid = cupsdStartProcess(command, argv, envp, filterfds[!slot][0],
+      pid = cupsdStartProcess(command, argv, envp, filterfds[slot ^ 1][0],
 			      filterfds[slot][1], job->status_pipes[1],
 			      job->back_pipes[1], job->side_pipes[1],
 			      backroot, job->bprofile, job, &(job->backend));
@@ -1338,8 +1338,8 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
   FilterLevel -= job->cost;
   job->cost = 0;
 
-  for (slot = 0; slot < 2; slot ++)
-    cupsdClosePipe(filterfds[slot]);
+  cupsdClosePipe(filterfds[0]);
+  cupsdClosePipe(filterfds[1]);
 
   cupsArrayDelete(filters);
 

@@ -1169,19 +1169,16 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   * Execute all of the filters...
   */
 
-  pids            = cupsArrayNew((cups_array_func_t)compare_pids, NULL);
-  current         = 0;
-  filterfds[0][0] = -1;
+  pids            =  cupsArrayNew((cups_array_func_t)compare_pids, NULL);
+  current         =  1;
+  filterfds[0][0] =  infile ? -1 : 0;
   filterfds[0][1] = -1;
   filterfds[1][0] = -1;
   filterfds[1][1] = -1;
 
-  if (!infile)
-    filterfds[0][0] = 0;
-
   for (filter = (mime_filter_t *)cupsArrayFirst(filters);
        filter;
-       filter = next, current = 1 - current)
+       filter = next, current ^= 1)
   {
     next = (mime_filter_t *)cupsArrayNext(filters);
 
@@ -1191,31 +1188,30 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
       snprintf(program, sizeof(program), "%s/filter/%s", ServerBin,
 	       filter->filter);
 
-    if (filterfds[!current][1] > 1)
+    if (filterfds[current][1] > 1)
     {
-      close(filterfds[1 - current][0]);
-      close(filterfds[1 - current][1]);
+      close(filterfds[current][0]);
+      close(filterfds[current][1]);
 
-      filterfds[1 - current][0] = -1;
-      filterfds[1 - current][1] = -1;
+      filterfds[current][0] = -1;
+      filterfds[current][1] = -1;
     }
 
     if (next)
-      open_pipe(filterfds[1 - current]);
+      open_pipe(filterfds[current]);
     else if (outfile)
     {
-      filterfds[1 - current][1] = open(outfile, O_CREAT | O_TRUNC | O_WRONLY,
-                                       0666);
+      filterfds[current][1] = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 
-      if (filterfds[1 - current][1] < 0)
+      if (filterfds[current][1] < 0)
         fprintf(stderr, "ERROR: Unable to create \"%s\" - %s\n", outfile,
 	        strerror(errno));
     }
     else
-      filterfds[1 - current][1] = 1;
+      filterfds[current][1] = 1;
 
     pid = exec_filter(program, (char **)argv, (char **)envp,
-                      filterfds[current][0], filterfds[1 - current][1]);
+                      filterfds[current ^ 1][0], filterfds[current][1]);
 
     if (pid > 0)
     {
