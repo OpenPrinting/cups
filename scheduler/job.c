@@ -3099,9 +3099,11 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
   ipp_jstate_t		job_state;	/* New job state value */
   const char		*message;	/* Message for job state */
   char			buffer[1024];	/* Buffer for formatted messages */
+  char			scheme[255];	/* Device URI scheme */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "finalize_job(job=%p(%d))", job, job->id);
+  sscanf(job->printer->device_uri, "%254[^:]", scheme);
 
  /*
   * Clear the "connecting-to-device" and "cups-waiting-for-job-completed"
@@ -3233,7 +3235,8 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
       exit_code = job->status;
     }
 
-    cupsdLogJob(job, CUPSD_LOG_WARN, "Backend returned status %d (%s)",
+    cupsdLogJob(job, CUPSD_LOG_WARN, "Backend %s returned status %d (%s)",
+		scheme,
 		exit_code,
 		exit_code == CUPS_BACKEND_FAILED ? "failed" :
 		    exit_code == CUPS_BACKEND_AUTH_REQUIRED ?
