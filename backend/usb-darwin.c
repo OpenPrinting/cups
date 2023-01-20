@@ -1786,7 +1786,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 
 	unsigned int length = description[0];
 	if (length == 0)
-		return CFStringCreateWithCString(NULL, "", kCFStringEncodingUTF8);
+		return CFSTR("");
 
 	if (description[1] != kUSBStringDesc)
 		return NULL;
