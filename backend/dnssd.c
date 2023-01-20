@@ -887,7 +887,7 @@ get_device(cups_array_t *devices,	/* I - Device array */
   * Yes, add the device...
   */
 
-  if ((device = calloc(sizeof(cups_device_t), 1)) == NULL)
+  if ((device = calloc(1, sizeof(cups_device_t))) == NULL)
   {
     perror("DEBUG: Out of memory adding a device");
     return (NULL);

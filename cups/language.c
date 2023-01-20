@@ -799,7 +799,7 @@ cupsLangGet(const char *language)	/* I - Language or locale */
     * Allocate memory for the language and add it to the cache.
     */
 
-    if ((lang = calloc(sizeof(cups_lang_t), 1)) == NULL)
+    if ((lang = calloc(1, sizeof(cups_lang_t))) == NULL)
     {
       _cupsMutexUnlock(&lang_mutex);
 
