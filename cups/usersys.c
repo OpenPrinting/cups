@@ -595,7 +595,7 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
 
   typedef NTSTATUS(WINAPI * RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
 
-  memset(&version, 0, sizeof(version))
+  memset(&version, 0, sizeof(version));
   version.dwOSVersionInfoSize = sizeof(version);
 
   /* RtlGetVersion gets the current native version of Windows, even when running in compatibility mode */
