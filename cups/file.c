@@ -6,7 +6,7 @@
  * our own file functions allows us to provide transparent support of
  * different line endings, gzip'd print files, PPD files, etc.
  *
- * Copyright © 2021-2022 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -124,17 +124,14 @@ _cupsFileCheck(
 
   result = _CUPS_FILE_CHECK_OK;
 
-  switch (filetype)
+  if (filetype == _CUPS_FILE_CHECK_DIRECTORY)
   {
-    case _CUPS_FILE_CHECK_DIRECTORY :
-        if (!S_ISDIR(fileinfo.st_mode))
-	  result = _CUPS_FILE_CHECK_WRONG_TYPE;
-        break;
-
-    default :
-        if (!S_ISREG(fileinfo.st_mode))
-	  result = _CUPS_FILE_CHECK_WRONG_TYPE;
-        break;
+    if (!S_ISDIR(fileinfo.st_mode))
+      result = _CUPS_FILE_CHECK_WRONG_TYPE;
+  }
+  else  if (!S_ISREG(fileinfo.st_mode))
+  {
+    result = _CUPS_FILE_CHECK_WRONG_TYPE;
   }
 
   if (result)

@@ -2270,19 +2270,17 @@ dnssd_client_cb(
   if (!c)
     return;
 
-  switch (state)
+  if (state == AVAHI_CLIENT_FAILURE)
   {
-    default :
-        fprintf(stderr, "Ignored Avahi state %d.\n", state);
-	break;
-
-    case AVAHI_CLIENT_FAILURE:
-	if (avahi_client_errno(c) == AVAHI_ERR_DISCONNECTED)
-	{
-	  fputs("Avahi server crashed, exiting.\n", stderr);
-	  exit(1);
-	}
-	break;
+    if (avahi_client_errno(c) == AVAHI_ERR_DISCONNECTED)
+    {
+      fputs("Avahi server crashed, exiting.\n", stderr);
+      exit(1);
+    }
+  }
+  else
+  {
+    fprintf(stderr, "Ignored Avahi state %d.\n", state);
   }
 }
 #endif /* HAVE_MDNSRESPONDER */
