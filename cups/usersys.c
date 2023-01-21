@@ -548,7 +548,7 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
 					/* Thread globals */
 #ifdef _WIN32
   SYSTEM_INFO		sysinfo;	/* System information */
-  OSVERSIONINFOA	version;	/* OS version info */
+  OSVERSIONINFOW	version;	/* OS version info */
   const char		*machine;	/* Hardware/machine name */
 #elif defined(__APPLE__)
   struct utsname	name;		/* uname info */
@@ -595,15 +595,19 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
 
   typedef NTSTATUS(WINAPI * RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
 
+  memset(&version, 0, sizeof(version))
+  version.dwOSVersionInfoSize = sizeof(version);
+
+  /* RtlGetVersion gets the current native version of Windows, even when running in compatibility mode */
   RtlGetVersionPtr RtlGetVersionInternal = (RtlGetVersionPtr)GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetVersion");
   if (RtlGetVersionInternal)
   {
-    version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
     RtlGetVersionInternal((PRTL_OSVERSIONINFOW)&version);
   }
   else
   {
-    ZeroMemory(&version, sizeof(version));
+    /* Should not happen, but just in case, fallback to deprecated GetVersionExW */
+    GetVersionExW(&version);
   }
   GetNativeSystemInfo(&sysinfo);
 
