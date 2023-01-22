@@ -39,12 +39,12 @@ AS_IF([test "x$PKGCONFIG" != x], [
 	APPARMORLIBS="$($PKGCONFIG --libs libapparmor)"
 	AC_DEFINE([HAVE_LIBAPPARMOR], [1], [Have the apparmor library?])
 
-	AC_MSG_CHECKING([for libsnapd-glib])
-	AS_IF([$PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0], [
+	AC_MSG_CHECKING([for libsnapd-glib-2])
+	AS_IF([$PKGCONFIG --exists snapd-glib-2 glib-2.0 gio-2.0], [
 	    AC_MSG_RESULT([yes])
-	    CFLAGS="$CFLAGS $($PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0)"
-	    SNAPDGLIBLIBS="$($PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0)"
-	    AC_DEFINE([HAVE_LIBSNAPDGLIB], [1], [Have the snapd-glib library?])
+	    CFLAGS="$CFLAGS $($PKGCONFIG --cflags snapd-glib-2 glib-2.0 gio-2.0)"
+	    SNAPDGLIBLIBS="$($PKGCONFIG --libs snapd-glib-2 glib-2.0 gio-2.0)"
+	    AC_DEFINE([HAVE_LIBSNAPDGLIB], [1], [Have the snapd-glib-2 library?])
 	    SAVELIBS="$LIBS"
 	    LIBS="$SNAPDGLIBLIBS $LIBS"
 	    AC_CHECK_FUNC([snapd_client_run_snapctl2_sync], [
@@ -52,7 +52,21 @@ AS_IF([test "x$PKGCONFIG" != x], [
 	    ])
 	    LIBS="$SAVELIBS"
 	], [
-	    AC_MSG_RESULT([no])
+	    AC_MSG_CHECKING([for libsnapd-glib])
+	    AS_IF([$PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0], [
+		AC_MSG_RESULT([yes])
+		CFLAGS="$CFLAGS $($PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0)"
+		SNAPDGLIBLIBS="$($PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0)"
+		AC_DEFINE([HAVE_LIBSNAPDGLIB], [1], [Have the snapd-glib library?])
+		SAVELIBS="$LIBS"
+		LIBS="$SNAPDGLIBLIBS $LIBS"
+		AC_CHECK_FUNC([snapd_client_run_snapctl2_sync], [
+		    AC_DEFINE([HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC], [1], [Have the snapd_client_run_snapctl2_sync function?])
+		])
+		LIBS="$SAVELIBS"
+	    ], [
+		AC_MSG_RESULT([no])
+	    ])
 	])
     ])
 ])

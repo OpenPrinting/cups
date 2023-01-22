@@ -10969,15 +10969,15 @@ printf "%s\n" "yes" >&6; }
 printf "%s\n" "#define HAVE_LIBAPPARMOR 1" >>confdefs.h
 
 
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libsnapd-glib" >&5
-printf %s "checking for libsnapd-glib... " >&6; }
-	if $PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libsnapd-glib-2" >&5
+printf %s "checking for libsnapd-glib-2... " >&6; }
+	if $PKGCONFIG --exists snapd-glib-2 glib-2.0 gio-2.0
 then :
 
 	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
-	    CFLAGS="$CFLAGS $($PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0)"
-	    SNAPDGLIBLIBS="$($PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0)"
+	    CFLAGS="$CFLAGS $($PKGCONFIG --cflags snapd-glib-2 glib-2.0 gio-2.0)"
+	    SNAPDGLIBLIBS="$($PKGCONFIG --libs snapd-glib-2 glib-2.0 gio-2.0)"
 
 printf "%s\n" "#define HAVE_LIBSNAPDGLIB 1" >>confdefs.h
 
@@ -10997,8 +10997,38 @@ fi
 
 else $as_nop
 
-	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libsnapd-glib" >&5
+printf %s "checking for libsnapd-glib... " >&6; }
+	    if $PKGCONFIG --exists snapd-glib glib-2.0 gio-2.0
+then :
+
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+		CFLAGS="$CFLAGS $($PKGCONFIG --cflags snapd-glib glib-2.0 gio-2.0)"
+		SNAPDGLIBLIBS="$($PKGCONFIG --libs snapd-glib glib-2.0 gio-2.0)"
+
+printf "%s\n" "#define HAVE_LIBSNAPDGLIB 1" >>confdefs.h
+
+		SAVELIBS="$LIBS"
+		LIBS="$SNAPDGLIBLIBS $LIBS"
+		ac_fn_c_check_func "$LINENO" "snapd_client_run_snapctl2_sync" "ac_cv_func_snapd_client_run_snapctl2_sync"
+if test "x$ac_cv_func_snapd_client_run_snapctl2_sync" = xyes
+then :
+
+
+printf "%s\n" "#define HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC 1" >>confdefs.h
+
+
+fi
+
+		LIBS="$SAVELIBS"
+
+else $as_nop
+
+		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
+
+fi
 
 fi
 
