@@ -5385,6 +5385,43 @@ create_local_bg_thread(
     cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: IPP/1.1 Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsLastError()), cupsLastErrorString());
   }
 
+ /*
+  * If we did not succeed to obtain the "media-col-database" attribute
+  * try to get it separately
+  */
+  if (ippFindAttribute(response, "media-col-database", IPP_TAG_ZERO) ==
+      NULL)
+  {
+    ipp_t *response2 = NULL;
+
+    cupsdLogMessage(CUPSD_LOG_DEBUG,
+		    "Polling \"media-col-database\" attribute separately.");
+    request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+    ippSetVersion(request, 2, 0);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
+		 "printer-uri", NULL, uri);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+		 "requested-attributes", NULL, "media-col-database");
+    response2 = cupsDoRequest(http, request, resource);
+    //ipp_status = cupsLastError();
+    if (response2)
+    {
+      if ((attr = ippFindAttribute(response2, "media-col-database",
+				   IPP_TAG_ZERO)) != NULL)
+      {
+       /*
+	* Copy "media-col-database" attribute into the original
+	* IPP response
+	*/
+
+	cupsdLogMessage(CUPSD_LOG_DEBUG,
+			"\"media-col-database\" attribute found.");
+	ippCopyAttribute(response, attr, 0);
+      }
+      ippDelete(response2);
+    }
+  }
+
   // TODO: Grab printer icon file...
   httpClose(http);
 
