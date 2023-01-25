@@ -2513,8 +2513,7 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 	  }
 	}
 
-	tcrc = ((((((uLong)trailer[3] << 8) | (uLong)trailer[2]) << 8) |
-		(uLong)trailer[1]) << 8) | (uLong)trailer[0];
+	tcrc = ((uLong)trailer[3] << 24) | ((uLong)trailer[2] << 16) | ((uLong)trailer[1] << 8) | ((uLong)trailer[0]);
 
 	if (tcrc != fp->crc)
 	{
