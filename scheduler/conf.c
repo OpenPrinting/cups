@@ -1975,8 +1975,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
                  mask + 3) != 4)
         return (0);
 
-      mask[3] |= ((unsigned)mask[0] << 24) | ((unsigned)mask[1] << 16) |
-                 ((unsigned)mask[2] << 8);
+      mask[3] |= (mask[0] << 24) | (mask[1] << 16) | (mask[2] << 8);
       mask[0] = mask[1] = mask[2] = 0;
     }
     else
