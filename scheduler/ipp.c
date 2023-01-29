@@ -5392,7 +5392,7 @@ create_local_bg_thread(
   if (ippFindAttribute(response, "media-col-database", IPP_TAG_ZERO) ==
       NULL)
   {
-    ipp_t *response2 = NULL;
+    ipp_t *response2;
 
     cupsdLogMessage(CUPSD_LOG_DEBUG,
 		    "Polling \"media-col-database\" attribute separately.");
