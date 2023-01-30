@@ -1592,7 +1592,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 
 			request.wLength = HostToUSBWord(size);
 			request.pData = buffer;
-			berr = (*printer)->ControlRequestTO(printer, (UInt8)0, &request);
+			berr = (*printer)->ControlRequestTO(printer, 0, &request);
 			return berr;
 		};
 
@@ -1655,7 +1655,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 		err = (*printer)->ControlRequestTO(printer, 0, &request);
 		if (err == kIOReturnSuccess)
 		{
-			CFMutableStringRef extras = CFStringCreateMutable(NULL, 0);
+			CFMutableStringRef extras = CFStringCreateMutable(kCFAllocatorDefault, 0);
 			if (manufacturer == NULL)
 			{
 				manufacturer = copy_printer_interface_indexed_description(printer, desc.iManufacturer, kUSBLanguageEnglish);
@@ -1682,7 +1682,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 					{
 						// 1284 serial number doesn't match USB serial number, so  replace the existing SERN: in device ID
 						CFRange range = CFStringFind(ret, serial, 0);
-						CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(NULL, 0, ret);
+						CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, ret);
 						CFStringReplace(deviceIDString, range, userial);
 						CFRelease(ret);
 						ret = deviceIDString;
@@ -1717,7 +1717,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 		{
 			range = CFStringFind(ret, serial, 0);
 
-			CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(NULL, 0, ret);
+			CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, ret);
 			CFRelease(ret);
 
 			ret = deviceIDString;
@@ -1749,7 +1749,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	UInt8 description[256]; // Max possible descriptor length
 	IOUSBDevRequestTO	request;
 
-	memset(description, 0, 2);
+	description[0] = description[1] = 0;
 
 	request.bmRequestType = USBmakebmRequestType(kUSBIn, kUSBStandard, kUSBDevice);
 	request.bRequest = kUSBRqGetDescriptor;
@@ -1758,7 +1758,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	request.wLength = 2;
 	request.pData = &description;
 	request.completionTimeout = 0;
-	request.noDataTimeout = 60L;
+	request.noDataTimeout = 60U;
 
 	err = (*printer)->ControlRequestTO(printer, 0, &request);
 	if (err != kIOReturnSuccess && err != kIOReturnOverrun)
@@ -1777,16 +1777,16 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 		request.wLength = sizeof description;
 		request.pData = &description;
 		request.completionTimeout = 0;
-		request.noDataTimeout = 60L;
+		request.noDataTimeout = 60U;
 
 		err = (*printer)->ControlRequestTO(printer, 0, &request);
 		if (err != kIOReturnSuccess && err != kIOReturnUnderrun)
 			return NULL;
 	}
 
-	unsigned int length = description[0];
+	UInt8 length = description[0];
 	if (length == 0)
-		return CFStringCreateWithCString(NULL, "", kCFStringEncodingUTF8);
+		return CFSTR("");
 
 	if (description[1] != kUSBStringDesc)
 		return NULL;
@@ -1800,7 +1800,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	request.wLength = (UInt16)length;
 	request.pData = &description;
 	request.completionTimeout = 0;
-	request.noDataTimeout = 60L;
+	request.noDataTimeout = 60U;
 
 	err = (*printer)->ControlRequestTO(printer, 0, &request);
 	if (err != kIOReturnSuccess)
@@ -1810,24 +1810,21 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 		return NULL;
 
 	if ((description[0] & 1) != 0)
-		description[0] &= 0xfe;
+		description[0] &= ~1;
 
-	char buffer[258] = {0};
-	unsigned int maxLength = sizeof buffer;
-	if (description[0] > 1)
-	{
-		length = (description[0]-2)/2;
+	if (description[0] < 2)
+		return CFSTR("");
 
-		if (length > maxLength - 1)
-			length = maxLength -1;
+	char buffer[(sizeof(description) - 2) / 2];
+	UInt8 maxLength = sizeof(buffer) - 1;
+	length = (description[0] - 2) / 2;
 
-		for (unsigned i = 0; i < length; i++)
-			buffer[i] = (char) description[2*i+2];
+	for (UInt8 i = 0; i < length; i++)
+		buffer[i] = (char) description[2 * i + 2];
 
-		buffer[length] = 0;
-	}
+	buffer[length] = 0;
 
-	return CFStringCreateWithCString(NULL, buffer, kCFStringEncodingUTF8);
+	return CFStringCreateWithCString(kCFAllocatorDefault, buffer, kCFStringEncodingUTF8);
 }
 
 /*
@@ -1906,18 +1903,18 @@ static CFStringRef copy_value_for_key(CFStringRef deviceID,
       {
 	if (range.location != 0)
 	{
-	  CFMutableStringRef theString = CFStringCreateMutableCopy(NULL, 0, kvpair);
+	  CFMutableStringRef theString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, kvpair);
 	  CFStringTrimWhitespace(theString);
 	  range = CFStringFind(theString, keys[idxx], kCFCompareCaseInsensitive);
 	  if (range.location == 0)
-	    value = CFStringCreateWithSubstring(NULL, theString, CFRangeMake(range.length, CFStringGetLength(theString) - range.length));
+	    value = CFStringCreateWithSubstring(kCFAllocatorDefault, theString, CFRangeMake(range.length, CFStringGetLength(theString) - range.length));
 
 	  CFRelease(theString);
 	}
 	else
 	{
-	  CFStringRef theString = CFStringCreateWithSubstring(NULL, kvpair, CFRangeMake(range.length, CFStringGetLength(kvpair) - range.length));
-	  CFMutableStringRef theString2 = CFStringCreateMutableCopy(NULL, 0, theString);
+	  CFStringRef theString = CFStringCreateWithSubstring(kCFAllocatorDefault, kvpair, CFRangeMake(range.length, CFStringGetLength(kvpair) - range.length));
+	  CFMutableStringRef theString2 = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, theString);
 	  CFRelease(theString);
 
 	  CFStringTrimWhitespace(theString2);
@@ -1944,9 +1941,9 @@ CFStringRef cfstr_create_trim(const char *cstr)
   CFStringRef		cfstr;
   CFMutableStringRef	cfmutablestr = NULL;
 
-  if ((cfstr = CFStringCreateWithCString(NULL, cstr, kCFStringEncodingUTF8)) != NULL)
+  if ((cfstr = CFStringCreateWithCString(kCFAllocatorDefault, cstr, kCFStringEncodingUTF8)) != NULL)
   {
-    if ((cfmutablestr = CFStringCreateMutableCopy(NULL, 1024, cfstr)) != NULL)
+    if ((cfmutablestr = CFStringCreateMutableCopy(kCFAllocatorDefault, 1024, cfstr)) != NULL)
       CFStringTrimWhitespace(cfmutablestr);
 
     CFRelease(cfstr);
