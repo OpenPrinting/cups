@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS and Xcode.
  *
- * Copyright © 2021-2022 by OpenPrinting
+ * Copyright © 2021-2023 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *

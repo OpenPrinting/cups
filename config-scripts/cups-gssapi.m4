@@ -1,7 +1,7 @@
 dnl
 dnl GSSAPI/Kerberos library detection for CUPS.
 dnl
-dnl Copyright © 2021-2022 by OpenPrinting.
+dnl Copyright © 2021-2023 by OpenPrinting.
 dnl Copyright @ 2007-2017 by Apple Inc.
 dnl Copyright @ 2006-2007 by Easy Software Products.
 dnl

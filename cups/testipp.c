@@ -1,7 +1,7 @@
 /*
  * IPP test program for CUPS.
  *
- * Copyright © 2022 by OpenPrinting.
+ * Copyright © 2022-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products.
  *

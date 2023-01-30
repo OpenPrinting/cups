@@ -1,7 +1,7 @@
 /*
  * SNMP functions for CUPS.
  *
- * Copyright © 2022 by OpenPrinting.
+ * Copyright © 2022-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
