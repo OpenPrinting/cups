@@ -49,6 +49,7 @@ the CUPS sources:
 - `LICENSE`: The CUPS license agreement (Apache 2.0).
 - `NOTICE`: Copyright notices and exceptions to the CUPS license agreement.
 - `README.md`: This file.
+- `REPORTING_ISSUES.md`: Instructions what information to provide when reporting an issue.
 
 Once you have installed the software you can access the documentation (and a
 bunch of other stuff) online at <http://localhost:631/> and using the `man`

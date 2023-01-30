@@ -16,7 +16,7 @@ or
 
 * your printer is seen by `lpstat -a`, its PPD file at `/etc/cups/ppd` has `IPP Everywhere` or `driverless` in its `Nickname` entry and its connection is `ipp` or `ipps` when you check the connection uri (f.e. by `lpstat -v <printer_name>`)
 
-If any of them apply, your device work in driverless mode.
+If any of them apply, your device works in driverless mode.
 
 For USB printers:
 * your printer is listed if you enter:
