@@ -1816,7 +1816,6 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 		return CFSTR("");
 
 	char buffer[(sizeof(description) - 2) / 2];
-	UInt8 maxLength = sizeof(buffer) - 1;
 	length = (description[0] - 2) / 2;
 
 	for (UInt8 i = 0; i < length; i++)
