@@ -324,7 +324,7 @@ httpCredentialsString(
   if (!buffer)
     return (0);
 
-  if (buffer && bufsize > 0)
+  if (bufsize > 0)
     *buffer = '\0';
 
   cert = http_sspi_create_credential(first);

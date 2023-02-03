@@ -1809,8 +1809,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	if (description[1] != kUSBStringDesc)
 		return NULL;
 
-	if ((description[0] & 1) != 0)
-		description[0] &= ~1;
+	description[0] &= ~1;
 
 	if (description[0] < 2)
 		return CFSTR("");
