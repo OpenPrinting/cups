@@ -793,7 +793,7 @@ httpCredentialsString(
   if (!buffer)
     return (0);
 
-  if (buffer && bufsize > 0)
+  if (bufsize > 0)
     *buffer = '\0';
 
   if ((first = (http_credential_t *)cupsArrayFirst(credentials)) != NULL &&

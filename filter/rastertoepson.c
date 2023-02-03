@@ -462,11 +462,10 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
       *comp_ptr++ = temp;
 
      /*
-      * Check the last bit in the current byte and the first bit in the
-      * next byte...
+      * Check the last bit in the current byte...
       */
 
-      if ((temp & 0x01) && comp_ptr < line_end && *comp_ptr & 0x80)
+      if ((temp & 0x01) && comp_ptr < line_end)
         *comp_ptr &= 0x7f;
     }
   }
