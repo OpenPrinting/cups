@@ -4129,7 +4129,8 @@ _ppdCreateFromIPP2(
     int wrote_color = 0;
     const char *default_color = NULL;	/* Default */
 
-    if ((keyword = ippGetString(defattr, 0, NULL)) != NULL)
+    if ((keyword = ippGetString(defattr, 0, NULL)) != NULL &&
+	strcmp(keyword, "auto"))
     {
       if (!strcmp(keyword, "bi-level"))
         default_color = "FastGray";
