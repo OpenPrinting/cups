@@ -451,7 +451,7 @@ httpCopyCredentials(
       
       for (i = 0; i < count; i ++)
       {
-    const SecCertificateRef secCert = CFArrayGetValueAtIndex(secArray, i);
+    SecCertificateRef secCert = (SecCertificateRef)CFArrayGetValueAtIndex(secArray, i);
 
 #ifdef DEBUG
         CFStringRef cf_name = SecCertificateCopySubjectSummary(secCert);
@@ -1036,7 +1036,7 @@ httpSaveCredentials(
     cups_array_t *credentials,		/* I - Credentials */
     const char   *common_name)		/* I - Common name for credentials */
 {
-  int			ret = -1;	/* Return value */
+  int			ret = 0;	/* Return value */
   OSStatus		err;		/* Error info */
 #if TARGET_OS_OSX
   char			filename[1024];	/* Filename for keychain */
@@ -1049,7 +1049,10 @@ httpSaveCredentials(
 
   DEBUG_printf(("httpSaveCredentials(path=\"%s\", credentials=%p, common_name=\"%s\")", path, (void *)credentials, common_name));
   if (!credentials)
-    goto cleanup;
+  {
+    DEBUG_puts("1httpSaveCredentials: No credentials, returning -1.");
+    return (-1);
+  }
 
   if (!httpCredentialsAreValidForName(credentials, common_name))
   {
@@ -1067,11 +1070,17 @@ httpSaveCredentials(
   keychain = http_cdsa_open_keychain(path, filename, sizeof(filename));
 
   if (!keychain)
-    goto cleanup;
+  {
+    DEBUG_puts("1httpSaveCredentials: No keychain, returning -1.");
+    return (-1);
+  }
 
 #else
   if (path)
+  {
+    DEBUG_puts("1httpSaveCredentials: No path, returning -1.");
     return (-1);
+  }
 #endif /* TARGET_OS_OSX */
 
   if ((attrs = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks)) == NULL)
@@ -1087,6 +1096,7 @@ httpSaveCredentials(
   if ((list = CFArrayCreate(kCFAllocatorDefault, (const void **)&keychain, 1, &kCFTypeArrayCallBacks)) == NULL)
   {
     DEBUG_puts("1httpSaveCredentials: Unable to create list of keychains.");
+    ret = -1;
     goto cleanup;
   }
   CFDictionaryAddValue(attrs, kSecMatchSearchList, list);
@@ -1094,17 +1104,18 @@ httpSaveCredentials(
 #endif /* TARGET_OS_OSX */
 
   /* Note: SecItemAdd consumes "attrs"... */
-  err = SecItemAdd(attrs, NULL);
-  DEBUG_printf(("1httpSaveCredentials: SecItemAdd returned %d.", (int)err));
+  if((err = SecItemAdd(attrs, NULL)) != 0)
+  {
+    DEBUG_printf(("1httpSaveCredentials: SecItemAdd failed, returned %d.", (int)err));
+    ret = -1;
+  }
 
   cleanup :
 
 #if TARGET_OS_OSX
-  if (keychain)
-    CFRelease(keychain);
+  CFRelease(keychain);
 #endif /* TARGET_OS_OSX */
-  if (cert)
-    CFRelease(cert);
+  CFRelease(cert);
 
   DEBUG_printf(("1httpSaveCredentials: Returning %d.", ret));
 
