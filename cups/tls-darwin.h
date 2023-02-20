@@ -32,4 +32,7 @@ extern const void * kSecOidOrganizationalUnit;
 extern bool SecCertificateIsValid(SecCertificateRef certificate, CFAbsoluteTime verifyTime);
 extern CFAbsoluteTime SecCertificateNotValidAfter(SecCertificateRef certificate);
 extern SecCertificateRef SecGenerateSelfSignedCertificate(CFArrayRef subject, CFDictionaryRef parameters, SecKeyRef publicKey, SecKeyRef privateKey);
+
+#if !TARGET_OS_OSX
 extern SecIdentityRef SecIdentityCreate(CFAllocatorRef allocator, SecCertificateRef certificate, SecKeyRef privateKey);
+#endif
