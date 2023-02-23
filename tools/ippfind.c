@@ -130,6 +130,7 @@ static DNSServiceRef dnssd_ref;		/* Master service reference */
 #elif defined(HAVE_AVAHI)
 static AvahiClient *avahi_client = NULL;/* Client information */
 static int	avahi_got_data = 0;	/* Got data from poll? */
+static int	avahi_searches_finished = 0;	/* Number of finished searches */
 static AvahiSimplePoll *avahi_poll = NULL;
 					/* Poll information */
 #endif /* HAVE_MDNSRESPONDER */
@@ -137,7 +138,7 @@ static AvahiSimplePoll *avahi_poll = NULL;
 static int	address_family = AF_UNSPEC;
 					/* Address family for LIST */
 static int	bonjour_error = 0;	/* Error browsing/resolving? */
-static double	bonjour_timeout = 1.0;	/* Timeout in seconds */
+static double	bonjour_timeout = -1.0;	/* Timeout in seconds, undefined unless provided as parameter */
 static int	ipp_version = 20;	/* IPP version for LIST */
 
 
@@ -1310,7 +1311,7 @@ main(int  argc,				/* I - Number of command-line args */
   if (bonjour_timeout > 1.0)
     endtime = get_time() + bonjour_timeout;
   else
-    endtime = get_time() + 300.0;
+    endtime = get_time() + 60.0;
 
   while (get_time() < endtime)
   {
@@ -1347,6 +1348,12 @@ main(int  argc,				/* I - Number of command-line args */
     }
 
 #elif defined(HAVE_AVAHI)
+   /*
+    * poll() in poll_callback() reports available data almost immediately,
+    * which sets avahi_got_data to 1, but it doesn't mean browse_callback()
+    * has processed them yet - so we have to start processing data once poll()
+    * doesn't report available data during the iteration.
+    */
     avahi_got_data = 0;
 
     if (avahi_simple_poll_iterate(avahi_poll, 500) > 0)
@@ -1462,8 +1469,13 @@ main(int  argc,				/* I - Number of command-line args */
       * If we have processed all services we have discovered, then we are done.
       */
 
-      if (processed == cupsArrayCount(services) && bonjour_timeout <= 1.0)
-        break;
+      if (processed == cupsArrayCount(services) &&
+	  ((bonjour_timeout <= 1.0 && bonjour_timeout >= 0.0)
+#ifdef HAVE_AVAHI
+     || avahi_searches_finished == cupsArrayCount(searches)
+#endif
+     ))
+	break;
     }
   }
 
@@ -1594,10 +1606,12 @@ browse_callback(
 	  service->is_local = 1;
 	break;
 
-    case AVAHI_BROWSER_REMOVE:
     case AVAHI_BROWSER_ALL_FOR_NOW:
+	avahi_searches_finished++;
+	break;
+    case AVAHI_BROWSER_REMOVE:
     case AVAHI_BROWSER_CACHE_EXHAUSTED:
-        break;
+	break;
   }
 }
 
