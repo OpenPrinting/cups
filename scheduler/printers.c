@@ -4221,6 +4221,35 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
         ipp_t	*col;			/* Collection value */
 
 	col = new_media_col(pwgsize);
+
+        if ((ppd_attr = ppdFindAttr(ppd, "DefaultMediaType", NULL)) != NULL)
+        {
+          for (i = p->pc->num_types, pwgtype = p->pc->types;
+              i > 0;
+              i --, pwgtype ++)
+          {
+            if (!strcmp(pwgtype->ppd, ppd_attr->value))
+            {
+              ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-type", NULL, pwgtype->pwg);
+              break;
+            }
+          }
+        }
+
+        if ((ppd_attr = ppdFindAttr(ppd, "DefaultInputSlot", NULL)) != NULL)
+        {
+          for (i = p->pc->num_sources, pwgsource = p->pc->sources;
+              i > 0;
+              i --, pwgsource ++)
+          {
+            if (!strcmp(pwgsource->ppd, ppd_attr->value))
+            {
+              ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-source", NULL, pwgsource->pwg);
+              break;
+            }
+          }
+        }
+
 	ippAddCollection(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-default", col);
         ippDelete(col);
       }
