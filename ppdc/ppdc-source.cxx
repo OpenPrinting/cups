@@ -958,7 +958,7 @@ ppdcSource::get_float(ppdcFile *fp)	// I - File to read
     return (-1.0f);
   }
 
-  val = (float)strtod(temp, &ptr);
+  val = strtof(temp, &ptr);
 
   if (*ptr)
   {
@@ -1478,7 +1478,7 @@ ppdcSource::get_measurement(ppdcFile *fp)
     return (-1.0f);
 
   // Get the floating point value of "s" and skip all digits and decimal points.
-  val = (float)strtod(buffer, &ptr);
+  val = strtof(buffer, &ptr);
 
   // Check for a trailing unit specifier...
   if (!_cups_strcasecmp(ptr, "mm"))

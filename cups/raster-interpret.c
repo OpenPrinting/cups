@@ -238,10 +238,10 @@ _cupsRasterInterpretPPD(
   if ((val = cupsGetOption("cupsBorderlessScalingFactor", num_options,
                            options)) != NULL)
   {
-    double sc = atof(val);		/* Scale factor */
+    float sc = strtof(val, NULL);		/* Scale factor */
 
-    if (sc >= 0.1 && sc <= 2.0)
-      h->cupsBorderlessScalingFactor = (float)sc;
+    if (sc >= 0.1f && sc <= 2.0f)
+      h->cupsBorderlessScalingFactor = sc;
   }
 
  /*

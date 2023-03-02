@@ -517,7 +517,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
 
   *tempptr = '\0';
 
-  return (strtod(temp, NULL));
+  return (atof(temp));
 }
 
 

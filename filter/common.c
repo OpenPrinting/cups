@@ -106,16 +106,16 @@ SetCommonOptions(
     switch (Orientation & 3)
     {
       case 0 :
-          PageLeft = (float)atof(val);
+          PageLeft = strtof(val, NULL);
 	  break;
       case 1 :
-          PageBottom = (float)atof(val);
+          PageBottom = strtof(val, NULL);
 	  break;
       case 2 :
-          PageRight = PageWidth - (float)atof(val);
+          PageRight = PageWidth - strtof(val, NULL);
 	  break;
       case 3 :
-          PageTop = PageLength - (float)atof(val);
+          PageTop = PageLength - strtof(val, NULL);
 	  break;
     }
   }
@@ -125,16 +125,16 @@ SetCommonOptions(
     switch (Orientation & 3)
     {
       case 0 :
-          PageRight = PageWidth - (float)atof(val);
+          PageRight = PageWidth - strtof(val, NULL);
 	  break;
       case 1 :
-          PageTop = PageLength - (float)atof(val);
+          PageTop = PageLength - strtof(val, NULL);
 	  break;
       case 2 :
-          PageLeft = (float)atof(val);
+          PageLeft = strtof(val, NULL);
 	  break;
       case 3 :
-          PageBottom = (float)atof(val);
+          PageBottom = strtof(val, NULL);
 	  break;
     }
   }
@@ -144,16 +144,16 @@ SetCommonOptions(
     switch (Orientation & 3)
     {
       case 0 :
-          PageBottom = (float)atof(val);
+          PageBottom = strtof(val, NULL);
 	  break;
       case 1 :
-          PageLeft = (float)atof(val);
+          PageLeft = strtof(val, NULL);
 	  break;
       case 2 :
-          PageTop = PageLength - (float)atof(val);
+          PageTop = PageLength - strtof(val, NULL);
 	  break;
       case 3 :
-          PageRight = PageWidth - (float)atof(val);
+          PageRight = PageWidth - strtof(val, NULL);
 	  break;
     }
   }
@@ -163,16 +163,16 @@ SetCommonOptions(
     switch (Orientation & 3)
     {
       case 0 :
-          PageTop = PageLength - (float)atof(val);
+          PageTop = PageLength - strtof(val, NULL);
 	  break;
       case 1 :
-          PageRight = PageWidth - (float)atof(val);
+          PageRight = PageWidth - strtof(val, NULL);
 	  break;
       case 2 :
-          PageBottom = (float)atof(val);
+          PageBottom = strtof(val, NULL);
 	  break;
       case 3 :
-          PageLeft = (float)atof(val);
+          PageLeft = strtof(val, NULL);
 	  break;
     }
   }
