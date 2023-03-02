@@ -1634,9 +1634,9 @@ create_printer(
     {
       snprintf(path, sizeof(path), "%s/command/%s", cg->cups_serverbin, command);
 
-      if (access(command, X_OK))
+      if (access(path, X_OK))
       {
-        _cupsLangPrintf(stderr, _("Unable to execute command \"%s\": %s"), command, strerror(errno));
+        _cupsLangPrintf(stderr, _("Unable to execute command \"%s\": %s"), path, strerror(errno));
 	return (NULL);
       }
 
