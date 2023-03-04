@@ -109,7 +109,7 @@ cupsMakeServerCredentials(
   */
 
   if (!cupsFileFind("certtool", getenv("PATH"), 1, command, sizeof(command)))
-    return (-1);
+    return (0);
 
  /*
   * Create a file with the certificate information fields...
@@ -119,7 +119,7 @@ cupsMakeServerCredentials(
   */
 
  if ((fp = cupsTempFile2(infofile, sizeof(infofile))) == NULL)
-    return (-1);
+    return (0);
 
   cupsFilePrintf(fp,
 		 "CUPS Self-Signed Certificate\n"
@@ -166,7 +166,7 @@ cupsMakeServerCredentials(
   if (posix_spawn(&pid, command, &actions, NULL, argv, envp))
   {
     unlink(infofile);
-    return (-1);
+    return (0);
   }
 
   posix_spawn_file_actions_destroy(&actions);
@@ -176,8 +176,7 @@ cupsMakeServerCredentials(
   while (waitpid(pid, &status, 0) < 0)
     if (errno != EINTR)
     {
-      status = -1;
-      break;
+      return (0);
     }
 
   return (!status);
