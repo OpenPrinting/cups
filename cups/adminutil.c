@@ -459,6 +459,8 @@ cupsAdminSetServerSettings(
   cups_option_t	*cupsd_settings,	/* New settings */
 		*setting;		/* Current setting */
   _cups_globals_t *cg = _cupsGlobals();	/* Global data */
+  char		comment_check[1024];	/* Comment already? */
+  char 		comment[1024] = "";	    /* Comment */
 
 
  /*
@@ -698,8 +700,11 @@ cupsAdminSetServerSettings(
   if (server_port <= 0)
     server_port = IPP_PORT;
 
-  while (cupsFileGetConf(cupsd, line, sizeof(line), &value, &linenum))
+  while (_cupsFileGetConfAndComments(cupsd, line, sizeof(line), &value, &linenum, comment, sizeof(comment)))
   {
+    if(_cups_strcasecmp(comment, comment_check))
+      cupsFilePrintf(temp, "\n%s\n", comment);
+
     if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")) &&
         (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
     {
@@ -774,8 +779,6 @@ cupsAdminSetServerSettings(
 
       if (debug_logging)
       {
-        cupsFilePuts(temp,
-	             "# Show troubleshooting information in error_log.\n");
 	cupsFilePuts(temp, "LogLevel debug\n");
       }
       else
@@ -1059,6 +1062,8 @@ cupsAdminSetServerSettings(
     }
     else
       cupsFilePrintf(temp, "%*s%s\n", indent, "", line);
+    
+    _cups_strcpy(comment_check, comment);
   }
 
  /*
