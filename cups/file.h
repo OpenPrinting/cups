@@ -59,7 +59,6 @@ typedef struct _cups_file_s cups_file_t;/**** CUPS file type ****/
  * Prototypes...
  */
 
-extern char		*_cupsFileGetConfAndComments(cups_file_t *fp, char *buf, size_t buflen, char **value, int *linenum, char *comment, size_t commentlen) _CUPS_PRIVATE;
 extern int		cupsFileClose(cups_file_t *fp) _CUPS_API_1_2;
 extern int		cupsFileCompression(cups_file_t *fp) _CUPS_API_1_2;
 extern int		cupsFileEOF(cups_file_t *fp) _CUPS_API_1_2;

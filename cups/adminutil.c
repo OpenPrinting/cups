@@ -459,8 +459,7 @@ cupsAdminSetServerSettings(
   cups_option_t	*cupsd_settings,	/* New settings */
 		*setting;		/* Current setting */
   _cups_globals_t *cg = _cupsGlobals();	/* Global data */
-  char		comment_check[1024];	/* Comment already? */
-  char 		comment[1024] = "";	    /* Comment */
+  int   linenum_check;         /* same linenumber? */
 
 
  /*
@@ -669,6 +668,7 @@ cupsAdminSetServerSettings(
   * Copy the old file to the new, making changes along the way...
   */
 
+  linenum_check        = 0;
   cupsd_num_settings   = 0;
   in_admin_location    = 0;
   in_cancel_job        = 0;
@@ -700,10 +700,17 @@ cupsAdminSetServerSettings(
   if (server_port <= 0)
     server_port = IPP_PORT;
 
-  while (_cupsFileGetConfAndComments(cupsd, line, sizeof(line), &value, &linenum, comment, sizeof(comment)))
+  while (cupsFileGetConf(cupsd, line, sizeof(line), &value, &linenum))
   {
-    if(_cups_strcasecmp(comment, comment_check))
-      cupsFilePrintf(temp, "\n%s\n", comment);
+    if (strchr(line, '#') != NULL)
+    {
+      if(linenum == linenum_check+1)
+        cupsFilePrintf(temp, "%s\n", line);
+      else
+        cupsFilePrintf(temp, "\n%s\n", line);
+      linenum_check = linenum;
+    }
+      
 
     if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")) &&
         (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
@@ -1061,9 +1068,11 @@ cupsAdminSetServerSettings(
       cupsFilePrintf(temp, "%*s%s %s\n", indent, "", line, value);
     }
     else
-      cupsFilePrintf(temp, "%*s%s\n", indent, "", line);
+    {
+      if (strchr(line, '#') == NULL)
+       cupsFilePrintf(temp, "%*s%s\n", indent, "", line);
+    }
     
-    _cups_strcpy(comment_check, comment);
   }
 
  /*
