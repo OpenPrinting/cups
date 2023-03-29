@@ -700,7 +700,7 @@ cupsAdminSetServerSettings(
   if (server_port <= 0)
     server_port = IPP_PORT;
 
-  while (cupsFileGetConf(cupsd, line, sizeof(line), &value, &linenum))
+  while (_cupsFileGetConfAndComments(cupsd, line, sizeof(line), &value, &linenum))
   {
     if (strchr(line, '#') != NULL)
     {
@@ -721,7 +721,6 @@ cupsAdminSetServerSettings(
 
 	if (remote_admin > 0 || remote_any > 0 || share_printers > 0)
 	{
-	  cupsFilePuts(temp, "# Allow remote access\n");
 	  cupsFilePrintf(temp, "Port %d\n", server_port);
 	}
 	else
@@ -761,7 +760,6 @@ cupsAdminSetServerSettings(
 	    localp = cupsGetOption("BrowseLocalProtocols", cupsd_num_settings,
 	                           cupsd_settings);
 
-	  cupsFilePuts(temp, "# Share local printers on the local network.\n");
 	  cupsFilePuts(temp, "Browsing On\n");
 
 	  if (!localp)
@@ -847,11 +845,6 @@ cupsAdminSetServerSettings(
       {
 	wrote_admin_location = 1;
 
-	if (remote_admin)
-          cupsFilePuts(temp, "  # Allow remote administration...\n");
-	else
-          cupsFilePuts(temp, "  # Restrict access to the admin pages...\n");
-
         cupsFilePuts(temp, "  Order allow,deny\n");
 
 	if (remote_admin)
@@ -865,13 +858,6 @@ cupsAdminSetServerSettings(
       else if (in_conf_location && remote_admin >= 0)
       {
 	wrote_conf_location = 1;
-
-	if (remote_admin)
-          cupsFilePuts(temp, "  # Allow remote access to the configuration "
-	                     "files...\n");
-	else
-          cupsFilePuts(temp, "  # Restrict access to the configuration "
-	                     "files...\n");
 
         cupsFilePuts(temp, "  Order allow,deny\n");
 
@@ -887,13 +873,6 @@ cupsAdminSetServerSettings(
       {
 	wrote_log_location = 1;
 
-	if (remote_admin)
-          cupsFilePuts(temp, "  # Allow remote access to the log "
-	                     "files...\n");
-	else
-          cupsFilePuts(temp, "  # Restrict access to the log "
-	                     "files...\n");
-
         cupsFilePuts(temp, "  Order allow,deny\n");
 
 	if (remote_admin)
@@ -908,18 +887,6 @@ cupsAdminSetServerSettings(
                (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
       {
 	wrote_root_location = 1;
-
-	if (remote_admin > 0 && share_printers > 0)
-          cupsFilePuts(temp, "  # Allow shared printing and remote "
-	                     "administration...\n");
-	else if (remote_admin > 0)
-          cupsFilePuts(temp, "  # Allow remote administration...\n");
-	else if (share_printers > 0)
-          cupsFilePuts(temp, "  # Allow shared printing...\n");
-	else if (remote_any > 0)
-          cupsFilePuts(temp, "  # Allow remote access...\n");
-	else
-          cupsFilePuts(temp, "  # Restrict access to the server...\n");
 
         cupsFilePuts(temp, "  Order allow,deny\n");
 
