@@ -702,16 +702,6 @@ cupsAdminSetServerSettings(
 
   while (_cupsFileGetConfAndComments(cupsd, line, sizeof(line), &value, &linenum))
   {
-    if (strchr(line, '#') != NULL)
-    {
-      if(linenum == linenum_check+1)
-        cupsFilePrintf(temp, "%s\n", line);
-      else
-        cupsFilePrintf(temp, "\n%s\n", line);
-      linenum_check = linenum;
-    }
-      
-
     if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")) &&
         (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
     {
@@ -1036,8 +1026,16 @@ cupsAdminSetServerSettings(
     }
     else
     {
-      if (strchr(line, '#') == NULL)
-       cupsFilePrintf(temp, "%*s%s\n", indent, "", line);
+       if (strchr(line, '#') == NULL)
+        cupsFilePrintf(temp, "%*s%s\n", indent, "", line);
+       else 
+       {
+        if(linenum == linenum_check+1)
+         cupsFilePrintf(temp, "%s\n", line);
+        else
+         cupsFilePrintf(temp, "\n%s\n", line);
+       linenum_check = linenum;
+      }
     }
     
   }
