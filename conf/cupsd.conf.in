@@ -31,26 +31,35 @@ WebInterface @CUPS_WEBIF@
 # Timeout after cupsd exits if idle (applied only if cupsd runs on-demand - with -l)
 IdleExitTimeout @EXIT_TIMEOUT@
 
-# Restrict access to the server...
+# Access to the server root (/):
+# - default action defined by 'Order', see 'man cupsd.conf'
+# - use 'Allow'/'Deny' for configuring access
+# - allowing access is required for printer sharing or remote administration
 <Location />
   Order allow,deny
 </Location>
 
-# Restrict access to the admin pages...
+# Access to the admin pages:
+# - default action defined by Order', see 'man cupsd.conf'
+# - use 'Allow'/'Deny' for configuring access
 <Location /admin>
   AuthType Default
   Require user @SYSTEM
   Order allow,deny
 </Location>
 
-# Restrict access to configuration files...
+# Access to the configuration files:
+# - default action defined by Order', see 'man cupsd.conf'
+# - use 'Allow'/'Deny' for configuring access
 <Location /admin/conf>
   AuthType Default
   Require user @SYSTEM
   Order allow,deny
 </Location>
 
-# Restrict access to log files...
+# Access to the log files:
+# - default action defined by Order', see 'man cupsd.conf'
+# - use 'Allow'/'Deny' for configuring access
 <Location /admin/log>
   AuthType Default
   Require user @SYSTEM
