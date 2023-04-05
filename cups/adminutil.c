@@ -459,7 +459,6 @@ cupsAdminSetServerSettings(
   cups_option_t	*cupsd_settings,	/* New settings */
 		*setting;		/* Current setting */
   _cups_globals_t *cg = _cupsGlobals();	/* Global data */
-  int   linenum_check;         /* same linenumber? */
 
 
  /*
@@ -668,7 +667,6 @@ cupsAdminSetServerSettings(
   * Copy the old file to the new, making changes along the way...
   */
 
-  linenum_check        = 0;
   cupsd_num_settings   = 0;
   in_admin_location    = 0;
   in_cancel_job        = 0;
@@ -715,8 +713,6 @@ cupsAdminSetServerSettings(
 	}
 	else
 	{
-	  cupsFilePuts(temp, "# Only listen for connections from the local "
-	                     "machine.\n");
 	  cupsFilePrintf(temp, "Listen localhost:%d\n", server_port);
 	}
 
@@ -763,7 +759,6 @@ cupsAdminSetServerSettings(
         }
 	else
 	{
-	  cupsFilePuts(temp, "# Disable printer sharing.\n");
 	  cupsFilePuts(temp, "Browsing Off\n");
 	}
       }
@@ -778,7 +773,6 @@ cupsAdminSetServerSettings(
       }
       else
       {
-        cupsFilePuts(temp, "# Show general information in error_log.\n");
 	cupsFilePuts(temp, "LogLevel " CUPS_DEFAULT_LOG_LEVEL "\n");
       }
     }
@@ -1025,19 +1019,7 @@ cupsAdminSetServerSettings(
       cupsFilePrintf(temp, "%*s%s %s\n", indent, "", line, value);
     }
     else
-    {
-       if (strchr(line, '#') == NULL)
-        cupsFilePrintf(temp, "%*s%s\n", indent, "", line);
-       else 
-       {
-        if(linenum == linenum_check+1)
-         cupsFilePrintf(temp, "%s\n", line);
-        else
-         cupsFilePrintf(temp, "\n%s\n", line);
-       linenum_check = linenum;
-      }
-    }
-    
+      cupsFilePrintf(temp, "%*s%s\n", indent, "", line);
   }
 
  /*

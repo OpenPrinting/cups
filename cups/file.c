@@ -22,6 +22,7 @@
 #include "debug-internal.h"
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <stdbool.h>
 
 #  ifdef HAVE_LIBZ
 #    include <zlib.h>
@@ -333,6 +334,208 @@ _cupsFileCheckFilter(
   fprintf(stderr, "%s: %s\n", prefix, message);
 }
 #endif /* !_WIN32 */
+
+
+/*
+ * 'cupsFileGetConfAndComments()' - Get line and comments from a configuration file.
+ */
+
+char *					/* O  - Line read or @code NULL@ on end of file or error */
+_cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
+                char        *buf,	/* O  - String buffer */
+		size_t      buflen,	/* I  - Size of string buffer */
+                char        **value,	/* O  - Pointer to value */
+		int         *linenum)	/* IO - Current line number */
+{
+  char	*ptr;				/* Pointer into line */
+
+
+ /*
+  * Range check input...
+  */
+
+  DEBUG_printf(("2cupsFileGetConfAndComments(fp=%p, buf=%p, buflen=" CUPS_LLFMT
+                ", value=%p, linenum=%p)", (void *)fp, (void *)buf, CUPS_LLCAST buflen, (void *)value, (void *)linenum));
+
+  if (!fp || (fp->mode != 'r' && fp->mode != 's') ||
+      !buf || buflen < 2 || !value)
+  {
+    if (value)
+      *value = NULL;
+
+    return (NULL);
+  }
+
+ /*
+  * Read the next line...
+  */
+
+  *value = NULL;
+
+  while (cupsFileGets(fp, buf, buflen))
+  {
+    (*linenum) ++;
+    
+    // Read the comment...
+    if ((ptr = strchr(buf, '#')) != NULL)
+    {
+       bool inline_comment = false;
+       int index = (int) (ptr - buf);
+       for(int i=0;i<index;i++)
+       {
+          if (!_cups_isspace(buf[i]))
+          {
+             inline_comment = true;
+             break;
+          }
+       }
+       
+       // Read the inline comment...
+       if (inline_comment)
+       {
+         buf[index] = '\0';
+
+         /*
+          * See if there is anything left...
+          */
+
+          if (buf[0])
+          {
+           /*
+            * Yes, grab any value and return...
+            */
+
+            for (ptr = buf; *ptr; ptr ++)
+              if (_cups_isspace(*ptr))
+	              break;
+
+            if (*ptr)
+            {
+             /*
+              * Have a value, skip any other spaces...
+	            */
+
+              while (_cups_isspace(*ptr))
+	              *ptr++ = '\0';
+
+              if (*ptr)
+	              *value = ptr;
+
+             /*
+              * Strip trailing whitespace and > for lines that begin with <...
+	            */
+
+              ptr += strlen(ptr) - 1;
+
+              if (buf[0] == '<' && *ptr == '>')
+	              *ptr-- = '\0';
+	            else if (buf[0] == '<' && *ptr != '>')
+              {
+	             /*
+	              * Syntax error...
+	              */
+
+	              *value = NULL;
+	              return (buf);
+	            }
+
+              while (ptr > *value && _cups_isspace(*ptr))
+	              *ptr-- = '\0';
+            }
+
+           /*
+            * Return the line...
+            */
+
+            return (buf);
+          }
+          
+       }
+       else
+       {
+         /*
+          * Strip leading whitespace...
+          */
+
+          for (ptr = buf; _cups_isspace(*ptr); ptr ++);
+
+          if (ptr > buf)
+            _cups_strcpy(buf, ptr);
+          return (buf);
+       }
+
+    }
+    else
+    {
+     /*
+      * Strip leading whitespace...
+      */
+
+      for (ptr = buf; _cups_isspace(*ptr); ptr ++);
+
+      if (ptr > buf)
+        _cups_strcpy(buf, ptr);
+
+     /*
+      * See if there is anything left...
+      */
+
+      if (buf[0])
+      {
+       /*
+        * Yes, grab any value and return...
+        */
+
+        for (ptr = buf; *ptr; ptr ++)
+          if (_cups_isspace(*ptr))
+            break;
+
+        if (*ptr)
+        {
+         /*
+          * Have a value, skip any other spaces...
+          */
+
+          while (_cups_isspace(*ptr))
+            *ptr++ = '\0';
+
+          if (*ptr)
+            *value = ptr;
+
+         /*
+          * Strip trailing whitespace and > for lines that begin with <...
+          */
+
+          ptr += strlen(ptr) - 1;
+
+          if (buf[0] == '<' && *ptr == '>')
+            *ptr-- = '\0';
+          else if (buf[0] == '<' && *ptr != '>')
+          {
+           /*
+            * Syntax error...
+            */
+
+            *value = NULL;
+            return (buf);
+          }
+
+          while (ptr > *value && _cups_isspace(*ptr))
+            *ptr-- = '\0';
+        }
+
+       /*
+        * Return the line...
+        */
+
+        return (buf);
+      }
+      return (buf);
+    }
+  }
+
+  return (NULL);
+}
 
 
 /*
@@ -769,142 +972,6 @@ cupsFileGetConf(cups_file_t *fp,	/* I  - CUPS file */
 	  ptr --;
 	}
 
-	*ptr = '\0';
-      }
-    }
-
-   /*
-    * Strip leading whitespace...
-    */
-
-    for (ptr = buf; _cups_isspace(*ptr); ptr ++);
-
-    if (ptr > buf)
-      _cups_strcpy(buf, ptr);
-
-   /*
-    * See if there is anything left...
-    */
-
-    if (buf[0])
-    {
-     /*
-      * Yes, grab any value and return...
-      */
-
-      for (ptr = buf; *ptr; ptr ++)
-        if (_cups_isspace(*ptr))
-	  break;
-
-      if (*ptr)
-      {
-       /*
-        * Have a value, skip any other spaces...
-	*/
-
-        while (_cups_isspace(*ptr))
-	  *ptr++ = '\0';
-
-        if (*ptr)
-	  *value = ptr;
-
-       /*
-        * Strip trailing whitespace and > for lines that begin with <...
-	*/
-
-        ptr += strlen(ptr) - 1;
-
-        if (buf[0] == '<' && *ptr == '>')
-	  *ptr-- = '\0';
-	else if (buf[0] == '<' && *ptr != '>')
-        {
-	 /*
-	  * Syntax error...
-	  */
-
-	  *value = NULL;
-	  return (buf);
-	}
-
-        while (ptr > *value && _cups_isspace(*ptr))
-	  *ptr-- = '\0';
-      }
-
-     /*
-      * Return the line...
-      */
-
-      return (buf);
-    }
-  }
-
-  return (NULL);
-}
-
-
-/*
- * 'cupsFileGetConfAndComments()' - Get line and comments from a configuration file.
- */
-
-char *					/* O  - Line read or @code NULL@ on end of file or error */
-_cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
-                char        *buf,	/* O  - String buffer */
-		size_t      buflen,	/* I  - Size of string buffer */
-                char        **value,	/* O  - Pointer to value */
-		int         *linenum)	/* IO - Current line number */
-{
-  char	*ptr;				/* Pointer into line */
-
-
- /*
-  * Range check input...
-  */
-
-  DEBUG_printf(("2cupsFileGetConf(fp=%p, buf=%p, buflen=" CUPS_LLFMT
-                ", value=%p, linenum=%p)", (void *)fp, (void *)buf, CUPS_LLCAST buflen, (void *)value, (void *)linenum));
-
-  if (!fp || (fp->mode != 'r' && fp->mode != 's') ||
-      !buf || buflen < 2 || !value)
-  {
-    if (value)
-      *value = NULL;
-
-    return (NULL);
-  }
-
- /*
-  * Read the next non-comment line...
-  */
-
-  *value = NULL;
-
-  while (cupsFileGets(fp, buf, buflen))
-  {
-    (*linenum) ++;
-
-   /*
-    * Strip any comments...
-    */
-
-    if ((ptr = strchr(buf, '#')) != NULL)
-    {
-      if (ptr > buf && ptr[-1] == '\\')
-      {
-        // Unquote the #...
-	_cups_strcpy(ptr - 1, ptr);
-      }
-      else
-      {
-        // Strip the comment and any trailing whitespace...
-	while (ptr > buf)
-	{
-	  if (!_cups_isspace(ptr[-1]))
-	    break;
-
-	  ptr --;
-	}
-
-        return (buf);
 	*ptr = '\0';
       }
     }

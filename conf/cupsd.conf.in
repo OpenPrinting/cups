@@ -3,8 +3,7 @@
 # complete description of this file.
 #
 
-# Log general information in error_log - change "@CUPS_LOG_LEVEL@" to "debug"
-# for troubleshooting...
+# Set LogLevel to debug for turning on troubleshooting
 LogLevel @CUPS_LOG_LEVEL@
 @CUPS_PAGE_LOG_FORMAT@
 
