@@ -375,98 +375,21 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
   while (cupsFileGets(fp, buf, buflen))
   {
     (*linenum) ++;
-    
-    // Read the comment...
-    if ((ptr = strchr(buf, '#')) != NULL)
-    {
-       bool inline_comment = false;
+
+    /*
+     * Strip the comment from inline comment...
+     */
+     if ((ptr = strchr(buf, '#')) != NULL)
+     {
        int index = (int) (ptr - buf);
-       for(int i=0;i<index;i++)
-       {
-          if (!_cups_isspace(buf[i]))
-          {
-             inline_comment = true;
-             break;
-          }
-       }
-       
-       // Read the inline comment...
-       if (inline_comment)
-       {
-         buf[index] = '\0';
+       for(int i=index-1; i>=0; i--)
+         if (!_cups_isspace(buf[i]))
+         {
+           buf[index] = '\0';
+           break;
+         }       
+     }
 
-         /*
-          * See if there is anything left...
-          */
-
-          if (buf[0])
-          {
-           /*
-            * Yes, grab any value and return...
-            */
-
-            for (ptr = buf; *ptr; ptr ++)
-              if (_cups_isspace(*ptr))
-	              break;
-
-            if (*ptr)
-            {
-             /*
-              * Have a value, skip any other spaces...
-	            */
-
-              while (_cups_isspace(*ptr))
-	              *ptr++ = '\0';
-
-              if (*ptr)
-	              *value = ptr;
-
-             /*
-              * Strip trailing whitespace and > for lines that begin with <...
-	            */
-
-              ptr += strlen(ptr) - 1;
-
-              if (buf[0] == '<' && *ptr == '>')
-	              *ptr-- = '\0';
-	            else if (buf[0] == '<' && *ptr != '>')
-              {
-	             /*
-	              * Syntax error...
-	              */
-
-	              *value = NULL;
-	              return (buf);
-	            }
-
-              while (ptr > *value && _cups_isspace(*ptr))
-	              *ptr-- = '\0';
-            }
-
-           /*
-            * Return the line...
-            */
-
-            return (buf);
-          }
-          
-       }
-       else
-       {
-         /*
-          * Strip leading whitespace...
-          */
-
-          for (ptr = buf; _cups_isspace(*ptr); ptr ++);
-
-          if (ptr > buf)
-            _cups_strcpy(buf, ptr);
-          return (buf);
-       }
-
-    }
-    else
-    {
      /*
       * Strip leading whitespace...
       */
@@ -476,62 +399,62 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
       if (ptr > buf)
         _cups_strcpy(buf, ptr);
 
-     /*
-      * See if there is anything left...
-      */
+      /*
+       * See if there is anything left...
+       */
 
-      if (buf[0])
-      {
-       /*
-        * Yes, grab any value and return...
-        */
+       if (buf[0] != '#')
+       {
+        /*
+         * Yes, grab any value and return...
+         */
 
-        for (ptr = buf; *ptr; ptr ++)
-          if (_cups_isspace(*ptr))
-            break;
+         for (ptr = buf; *ptr; ptr ++)
+           if (_cups_isspace(*ptr))
+             break;
 
-        if (*ptr)
-        {
+         if (*ptr)
+         {
+          /*
+           * Have a value, skip any other spaces...
+           */
+
+           while (_cups_isspace(*ptr))
+             *ptr++ = '\0';
+
+           if (*ptr)
+             *value = ptr;
+
+          /*
+           * Strip trailing whitespace and > for lines that begin with <...
+           */
+
+           ptr += strlen(ptr) - 1;
+
+           if (buf[0] == '<' && *ptr == '>')
+             *ptr-- = '\0';
+           else if (buf[0] == '<' && *ptr != '>')
+           {
+            /*
+             * Syntax error...
+             */
+
+             *value = NULL;
+             return (buf);
+           }
+
+           while (ptr > *value && _cups_isspace(*ptr))
+             *ptr-- = '\0';
+         }
+
          /*
-          * Have a value, skip any other spaces...
+          * Return the line...
           */
 
-          while (_cups_isspace(*ptr))
-            *ptr++ = '\0';
-
-          if (*ptr)
-            *value = ptr;
-
-         /*
-          * Strip trailing whitespace and > for lines that begin with <...
-          */
-
-          ptr += strlen(ptr) - 1;
-
-          if (buf[0] == '<' && *ptr == '>')
-            *ptr-- = '\0';
-          else if (buf[0] == '<' && *ptr != '>')
-          {
-           /*
-            * Syntax error...
-            */
-
-            *value = NULL;
-            return (buf);
-          }
-
-          while (ptr > *value && _cups_isspace(*ptr))
-            *ptr-- = '\0';
-        }
-
-       /*
-        * Return the line...
-        */
-
-        return (buf);
-      }
-      return (buf);
-    }
+          return (buf);
+       }
+       else
+         return (buf);
   }
 
   return (NULL);

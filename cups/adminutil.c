@@ -792,8 +792,7 @@ cupsAdminSetServerSettings(
 	wrote_policy = 1;
 
         if (!user_cancel_any)
-	  cupsFilePuts(temp, "  # Only the owner or an administrator can "
-	                     "cancel a job...\n"
+	  cupsFilePuts(temp, 
 	                     "  <Limit Cancel-Job>\n"
 	                     "    Order deny,allow\n"
 			     "    Require user @OWNER "
@@ -952,8 +951,7 @@ cupsAdminSetServerSettings(
       wrote_policy = 1;
 
       if (!user_cancel_any)
-	cupsFilePuts(temp, "  # Only the owner or an administrator can cancel "
-			   "a job...\n"
+	cupsFilePuts(temp, 
 			   "  <Limit Cancel-Job>\n"
 			   "    Order deny,allow\n"
 			   "    Require user @OWNER "
