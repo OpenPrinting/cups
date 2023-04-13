@@ -792,8 +792,7 @@ cupsAdminSetServerSettings(
 	wrote_policy = 1;
 
         if (!user_cancel_any)
-	  cupsFilePuts(temp, 
-	                     "  <Limit Cancel-Job>\n"
+	  cupsFilePuts(temp, "  <Limit Cancel-Job>\n"
 	                     "    Order deny,allow\n"
 			     "    Require user @OWNER "
 			     CUPS_DEFAULT_PRINTOPERATOR_AUTH "\n"
@@ -951,8 +950,7 @@ cupsAdminSetServerSettings(
       wrote_policy = 1;
 
       if (!user_cancel_any)
-	cupsFilePuts(temp, 
-			   "  <Limit Cancel-Job>\n"
+	cupsFilePuts(temp, "  <Limit Cancel-Job>\n"
 			   "    Order deny,allow\n"
 			   "    Require user @OWNER "
 			   CUPS_DEFAULT_PRINTOPERATOR_AUTH "\n"

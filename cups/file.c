@@ -22,7 +22,6 @@
 #include "debug-internal.h"
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <stdbool.h>
 
 #  ifdef HAVE_LIBZ
 #    include <zlib.h>
@@ -382,12 +381,8 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
      if ((ptr = strchr(buf, '#')) != NULL)
      {
        int index = (int) (ptr - buf);
-       for(int i=index-1; i>=0; i--)
-         if (!_cups_isspace(buf[i]))
-         {
-           buf[index] = '\0';
-           break;
-         }       
+       while (index > 0 && _cups_isspace(buf[index]))
+         buf[index--] = '\0';
      }
 
      /*
@@ -403,10 +398,14 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
        * See if there is anything left...
        */
 
-       if (buf[0] != '#')
+       if (buf[0])
        {
+         // return comment if any
+         if (buf[0] == '#')
+           return ptr;
+
         /*
-         * Yes, grab any value and return...
+         * Otherwise grab any value and return...
          */
 
          for (ptr = buf; *ptr; ptr ++)
