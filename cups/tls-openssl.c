@@ -88,7 +88,8 @@ cupsMakeServerCredentials(
  		crtfile[1024],		// Certificate filename
 		keyfile[1024];		// Private key filename
   const char	*common_ptr;		// Pointer into common name
-  GENERAL_NAMES *gens = sk_GENERAL_NAME_new_null(); // Names for SubjectAltName certificate extension
+  GENERAL_NAMES *gens;			// Names for SubjectAltName certificate extension
+
 
   DEBUG_printf(("cupsMakeServerCredentials(path=\"%s\", common_name=\"%s\", num_alt_names=%d, alt_names=%p, expiration_date=%d)", path, common_name, num_alt_names, alt_names, (int)expiration_date));
 
@@ -170,6 +171,7 @@ cupsMakeServerCredentials(
   X509_set_subject_name(cert, name);
   X509_NAME_free(name);
 
+  gens = sk_GENERAL_NAME_new_null();
   http_x509_add_san(gens, common_name);
   if ((common_ptr = strstr(common_name, ".local")) == NULL)
   {
@@ -196,7 +198,7 @@ cupsMakeServerCredentials(
     }
   }
 
-  // Add extension with dns names and free buffer for GENERAL_NAME
+  // Add extension with DNS names and free buffer for GENERAL_NAME
   X509_add1_ext_i2d(cert, NID_subject_alt_name, gens, 0, X509V3_ADD_DEFAULT);
   sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
 
@@ -1674,16 +1676,20 @@ http_x509_add_ext(X509       *cert,	// I - Certificate
 
 //
 // 'http_x509_add_san()' - Add a subjectAltName to GENERAL_NAMES used for
-// the extension to an X.509 certificate.
+//                         the extension to an X.509 certificate.
 //
 
 static void
-http_x509_add_san(GENERAL_NAMES *gens,	// I - Concatenation of dns names
+http_x509_add_san(GENERAL_NAMES *gens,	// I - Concatenation of DNS names
                   const char    *name)	// I - Hostname
 {
-
   GENERAL_NAME *gen_dns = GENERAL_NAME_new();
+					// DNS: name
   ASN1_IA5STRING *ia5 = ASN1_IA5STRING_new();
+					// Hostname string
+
+
+  // Set the strings and push it on the GENERAL_NAMES list...
   ASN1_STRING_set(ia5, name, strlen(name));
   GENERAL_NAME_set0_value(gen_dns, GEN_DNS, ia5);
   sk_GENERAL_NAME_push(gens, gen_dns);
