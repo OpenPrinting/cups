@@ -22,6 +22,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed `cupsd` default keychain location when building with OpenSSL
   (Issue #529)
 - Fixed TLS certificate generation bugs.
+- Generate only one SAN extension for certificate via OpenSSL (Issue #652)
 - `ippDeleteValues` would not delete the last value (Issue #556)
 - Ignore some of IPP defaults if the application sends its PPD alternative
   (Issue #484)

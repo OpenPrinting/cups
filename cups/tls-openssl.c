@@ -36,7 +36,7 @@ static time_t		http_get_date(X509 *cert, int which);
 //static void		http_load_crl(void);
 static const char	*http_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
 static int		http_x509_add_ext(X509 *cert, int nid, const char *value);
-static void		http_x509_add_san(X509 *cert, const char *name);
+static void		http_x509_add_san(GENERAL_NAMES *gens, const char *name);
 
 
 /*
@@ -88,7 +88,7 @@ cupsMakeServerCredentials(
  		crtfile[1024],		// Certificate filename
 		keyfile[1024];		// Private key filename
   const char	*common_ptr;		// Pointer into common name
-
+  GENERAL_NAMES *gens = sk_GENERAL_NAME_new_null(); // Names for SubjectAltName certificate extension
 
   DEBUG_printf(("cupsMakeServerCredentials(path=\"%s\", common_name=\"%s\", num_alt_names=%d, alt_names=%p, expiration_date=%d)", path, common_name, num_alt_names, alt_names, (int)expiration_date));
 
@@ -170,7 +170,7 @@ cupsMakeServerCredentials(
   X509_set_subject_name(cert, name);
   X509_NAME_free(name);
 
-  http_x509_add_san(cert, common_name);
+  http_x509_add_san(gens, common_name);
   if ((common_ptr = strstr(common_name, ".local")) == NULL)
   {
     // Add common_name.local to the list, too...
@@ -182,7 +182,7 @@ cupsMakeServerCredentials(
       *localptr = '\0';
     strlcat(localname, ".local", sizeof(localname));
 
-    http_x509_add_san(cert, localname);
+    http_x509_add_san(gens, localname);
   }
 
   if (num_alt_names > 0)
@@ -192,9 +192,13 @@ cupsMakeServerCredentials(
     for (i = 0; i < num_alt_names; i ++)
     {
       if (strcmp(alt_names[i], "localhost"))
-        http_x509_add_san(cert, alt_names[i]);
+        http_x509_add_san(gens, alt_names[i]);
     }
   }
+
+  // Add extension with dns names and free buffer for GENERAL_NAME
+  X509_add1_ext_i2d(cert, NID_subject_alt_name, gens, 0, X509V3_ADD_DEFAULT);
+  sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
 
   // Add extensions that are required to make Chrome happy...
   http_x509_add_ext(cert, NID_basic_constraints, "critical,CA:FALSE,pathlen:0");
@@ -1669,17 +1673,18 @@ http_x509_add_ext(X509       *cert,	// I - Certificate
 
 
 //
-// 'http_x509_add_san()' - Add a subjectAltName extension to an X.509 certificate.
+// 'http_x509_add_san()' - Add a subjectAltName to GENERAL_NAMES used for
+// the extension to an X.509 certificate.
 //
 
 static void
-http_x509_add_san(X509       *cert,	// I - Certificate
-                  const char *name)	// I - Hostname
+http_x509_add_san(GENERAL_NAMES *gens,	// I - Concatenation of dns names
+                  const char    *name)	// I - Hostname
 {
-  char		dns_name[1024];		// DNS: prefixed hostname
 
-
-  // The subjectAltName value for DNS names starts with a DNS: prefix...
-  snprintf(dns_name, sizeof(dns_name), "DNS:%s", name);
-  http_x509_add_ext(cert, NID_subject_alt_name, dns_name);
+  GENERAL_NAME *gen_dns = GENERAL_NAME_new();
+  ASN1_IA5STRING *ia5 = ASN1_IA5STRING_new();
+  ASN1_STRING_set(ia5, name, strlen(name));
+  GENERAL_NAME_set0_value(gen_dns, GEN_DNS, ia5);
+  sk_GENERAL_NAME_push(gens, gen_dns);
 }
