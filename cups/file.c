@@ -378,12 +378,12 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
     /*
      * Remove the inline comment...
      */
-     if ((ptr = strchr(buf, '#')) != NULL && _cups_isspace(*(ptr-1)))
+     if ((ptr = strchr(buf, '#')) != NULL)
      {
         while(ptr > buf)
         {
-         // Null-terminate the string after the last non-whitespace
-         if(!_cups_isspace(*(ptr-1)))
+         // Null-terminate the string after the last non-whitespace, unless the '#' character is escaped by a backslash ('\')
+         if(!_cups_isspace(ptr[-1]) && (ptr == buf || ptr[-1] != '\\'))
          {
            *ptr = '\0';
            break;
@@ -458,7 +458,6 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
            return (buf);
 
         }
-        return (buf);
   }
 
   return (NULL);
