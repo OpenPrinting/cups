@@ -899,10 +899,8 @@ void
 _httpFreeCredentials(
     http_tls_credentials_t credentials)	/* I - Internal credentials */
 {
-  if (!credentials)
-    return;
-
-  CFRelease(credentials);
+  if (credentials)
+    CFRelease(credentials);
 }
 
 
@@ -1671,9 +1669,10 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 	    if (cg->client_cert_cb)
 	    {
 	      names = NULL;
-	      if (!(error = SSLCopyDistinguishedNames(http->tls, &dn_array)) &&
-		  dn_array)
-	      {
+        error = SSLCopyDistinguishedNames(http->tls, &dn_array);
+        if (dn_array)
+        {
+          if (!error) {
 		if ((names = cupsArrayNew(NULL, NULL)) != NULL)
 		{
 		  for (i = 0, count = CFArrayGetCount(dn_array); i < count; i++)
@@ -1694,9 +1693,9 @@ _httpTLSStart(http_t *http)		/* I - HTTP connection */
 		    }
 		  }
 		}
-
-		CFRelease(dn_array);
 	      }
+		CFRelease(dn_array);
+        }
 
 	      if (!error)
 	      {
@@ -1792,12 +1791,13 @@ _httpTLSStop(http_t *http)		/* I - HTTP connection */
     usleep(1000);
 
   CFRelease(http->tls);
+  http->tls = NULL;
 
   if (http->tls_credentials)
+  {
     CFRelease(http->tls_credentials);
-
-  http->tls             = NULL;
-  http->tls_credentials = NULL;
+    http->tls_credentials = NULL;
+  }
 }
 
 
