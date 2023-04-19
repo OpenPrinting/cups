@@ -2848,7 +2848,7 @@ ppdcSource::scan_file(ppdcFile   *fp,	// I - File to read
     }
     else if (!_cups_strcasecmp(temp, "DriverType"))
     {
-      int	i;			// Looping var
+      size_t	i;			// Looping var
 
 
       // DriverType keyword
@@ -2864,11 +2864,11 @@ ppdcSource::scan_file(ppdcFile   *fp,	// I - File to read
       if (cond_state)
         continue;
 
-      for (i = 0; i < (int)(sizeof(driver_types) / sizeof(driver_types[0])); i ++)
+      for (i = 0; i < (sizeof(driver_types) / sizeof(driver_types[0])); i ++)
         if (!_cups_strcasecmp(temp, driver_types[i]))
 	  break;
 
-      if (i < (int)(sizeof(driver_types) / sizeof(driver_types[0])))
+      if (i < (sizeof(driver_types) / sizeof(driver_types[0])))
         d->type = (ppdcDrvType)i;
       else if (!_cups_strcasecmp(temp, "dymo"))
         d->type = PPDC_DRIVER_LABEL;

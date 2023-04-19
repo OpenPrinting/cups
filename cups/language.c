@@ -164,7 +164,7 @@ _cupsAppleLanguage(const char *locale,	/* I - Locale ID */
                    char       *language,/* I - Language ID buffer */
                    size_t     langsize)	/* I - Size of language ID buffer */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   CFStringRef	localeid,		/* CF locale identifier */
 		langid;			/* CF language identifier */
 
@@ -205,7 +205,7 @@ _cupsAppleLanguage(const char *locale,	/* I - Locale ID */
   }
 
   for (i = 0;
-       i < (int)(sizeof(apple_language_locale) /
+       i < (sizeof(apple_language_locale) /
 		 sizeof(apple_language_locale[0]));
        i ++)
     if (!strcmp(locale, apple_language_locale[i].locale))
@@ -248,7 +248,7 @@ _cupsAppleLocale(CFStringRef languageName,	/* I - Apple language ID */
                  char        *locale,		/* I - Buffer for locale */
 		 size_t      localesize)	/* I - Size of buffer */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   CFStringRef	localeName;		/* Locale as a CF string */
 #ifdef DEBUG
   char          temp[1024];             /* Temporary string */
@@ -280,7 +280,7 @@ _cupsAppleLocale(CFStringRef languageName,	/* I - Apple language ID */
     */
 
     for (i = 0;
-	 i < (int)(sizeof(apple_language_locale) /
+	 i < (sizeof(apple_language_locale) /
 		   sizeof(apple_language_locale[0]));
 	 i ++)
     {
@@ -445,7 +445,7 @@ cupsLangFree(cups_lang_t *lang)		/* I - Language to free */
 cups_lang_t *				/* O - Language data */
 cupsLangGet(const char *language)	/* I - Language or locale */
 {
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
 #ifndef __APPLE__
   char			locale[255];	/* Copy of locale name */
 #endif /* !__APPLE__ */
@@ -734,7 +734,7 @@ cupsLangGet(const char *language)	/* I - Language or locale */
   if (charset[0])
   {
     for (i = 0;
-         i < (int)(sizeof(locale_encodings) / sizeof(locale_encodings[0]));
+         i < (sizeof(locale_encodings) / sizeof(locale_encodings[0]));
 	 i ++)
       if (!_cups_strcasecmp(charset, locale_encodings[i]))
       {

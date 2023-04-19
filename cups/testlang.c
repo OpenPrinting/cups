@@ -312,7 +312,7 @@ test_apple(void)
 static int				/* O - Number of errors */
 test_language(const char *lang)		/* I - Locale language code, NULL for default */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   int		errors = 0;		/* Number of errors */
   cups_lang_t	*language = NULL,	/* Message catalog */
 		*language2 = NULL;	/* Message catalog (second time) */
@@ -409,7 +409,7 @@ test_language(const char *lang)		/* I - Locale language code, NULL for default *
 
   loc = localeconv();
 
-  for (i = 0; i < (int)(sizeof(tests) / sizeof(tests[0])); i ++)
+  for (i = 0; i < (sizeof(tests) / sizeof(tests[0])); i ++)
   {
     number = _cupsStrScand(tests[i], NULL, loc);
 

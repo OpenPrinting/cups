@@ -84,8 +84,8 @@ cupsMakeServerCredentials(
 {
 #if TARGET_OS_OSX
   int		pid,			/* Process ID of command */
-		status,			/* Status of command */
-		i;			/* Looping var */
+		status;			/* Status of command */
+	size_t i;			/* Looping var */
   char		command[1024],		/* Command */
 		*argv[5],		/* Command-line arguments */
 		*envp[1000],		/* Environment variables */
@@ -149,7 +149,7 @@ cupsMakeServerCredentials(
 
   snprintf(days, sizeof(days), "CERTTOOL_EXPIRATION_DAYS=%d", (int)((expiration_date - time(NULL) + 86399) / 86400));
   envp[0] = days;
-  for (i = 0; i < (int)(sizeof(envp) / sizeof(envp[0]) - 2) && environ[i]; i ++)
+  for (i = 0; i < (sizeof(envp) / sizeof(envp[0]) - 2) && environ[i]; i ++)
     envp[i + 1] = environ[i];
   envp[i] = NULL;
 

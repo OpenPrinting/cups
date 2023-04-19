@@ -139,7 +139,7 @@ main(int  argc,				/* I - Argument Count */
 
   if (argc > 1)
   {
-    int			i;		/* Looping var */
+    size_t			i;		/* Looping var */
     cups_encoding_t	encoding;	/* Source encoding */
 
 
@@ -156,7 +156,7 @@ main(int  argc,				/* I - Argument Count */
     }
 
     for (i = 0, encoding = CUPS_AUTO_ENCODING;
-         i < (int)(sizeof(lang_encodings) / sizeof(lang_encodings[0]));
+         i < (sizeof(lang_encodings) / sizeof(lang_encodings[0]));
 	 i ++)
       if (!_cups_strcasecmp(lang_encodings[i], argv[2]))
       {

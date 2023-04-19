@@ -1426,7 +1426,7 @@ create_printer(
     ipp_t        *attrs)		/* I - Capability attributes */
 {
   ippeve_printer_t	*printer;	/* Printer */
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
 #ifndef _WIN32
   char			path[1024];	/* Full path to command */
 #endif /* !_WIN32 */
@@ -1435,10 +1435,10 @@ create_printer(
 			uuid[128],	/* printer-uuid */
 			*iconsptr;	/* Pointer into icons string */
   int			k_supported;	/* Maximum file size supported */
-  int			num_formats;	/* Number of supported document formats */
+  size_t			num_formats;	/* Number of supported document formats */
   const char		*formats[100],	/* Supported document formats */
 			*format;	/* Current format */
-  int			num_sup_attrs;	/* Number of supported attributes */
+  size_t			num_sup_attrs;	/* Number of supported attributes */
   const char		*sup_attrs[100];/* Supported attributes */
   char			xxx_supported[256];
 					/* Name of -supported attribute */
@@ -1831,7 +1831,7 @@ create_printer(
   if (!cupsArrayFind(docformats, (void *)"application/octet-stream"))
     cupsArrayAdd(docformats, (void *)"application/octet-stream");
 
-  for (num_formats = 0, format = (const char *)cupsArrayFirst(docformats); format && num_formats < (int)(sizeof(formats) / sizeof(formats[0])); format = (const char *)cupsArrayNext(docformats))
+  for (num_formats = 0, format = (const char *)cupsArrayFirst(docformats); format && num_formats < (sizeof(formats) / sizeof(formats[0])); format = (const char *)cupsArrayNext(docformats))
     formats[num_formats ++] = format;
 
  /*
@@ -1850,7 +1850,7 @@ create_printer(
   sup_attrs[num_sup_attrs ++] = "job-name";
   sup_attrs[num_sup_attrs ++] = "job-priority";
 
-  for (i = 0; i < (int)(sizeof(job_creation) / sizeof(job_creation[0])) && num_sup_attrs < (int)(sizeof(sup_attrs) / sizeof(sup_attrs[0])); i ++)
+  for (i = 0; i < (sizeof(job_creation) / sizeof(job_creation[0])) && num_sup_attrs < (sizeof(sup_attrs) / sizeof(sup_attrs[0])); i ++)
   {
     snprintf(xxx_supported, sizeof(xxx_supported), "%s-supported", job_creation[i]);
     if (ippFindAttribute(attrs, xxx_supported, IPP_TAG_ZERO))
@@ -1895,7 +1895,7 @@ create_printer(
   if (MaxVersion == 11)
     ippAddString(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "ipp-versions-supported", NULL, "1.1");
   else
-    ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "ipp-versions-supported", (int)(sizeof(versions) / sizeof(versions[0])), NULL, versions);
+    ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "ipp-versions-supported", (sizeof(versions) / sizeof(versions[0])), NULL, versions);
 
   /* job-creation-attributes-supported */
   ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "job-creation-attributes-supported", num_sup_attrs, NULL, sup_attrs);
@@ -1919,7 +1919,7 @@ create_printer(
   ippAddString(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_NAME), "job-sheets-supported", NULL, "none");
 
   /* media-col-supported */
-  ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "media-col-supported", (int)(sizeof(media_col_supported) / sizeof(media_col_supported[0])), NULL, media_col_supported);
+  ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "media-col-supported", (sizeof(media_col_supported) / sizeof(media_col_supported[0])), NULL, media_col_supported);
 
   /* multiple-document-handling-supported */
   ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "multiple-document-handling-supported", sizeof(multiple_document_handling) / sizeof(multiple_document_handling[0]), NULL, multiple_document_handling);
@@ -1976,7 +1976,7 @@ create_printer(
   ippAddString(printer->attrs, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-uuid", NULL, uuid);
 
   /* reference-uri-scheme-supported */
-  ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_URISCHEME), "reference-uri-schemes-supported", (int)(sizeof(reference_uri_schemes_supported) / sizeof(reference_uri_schemes_supported[0])), NULL, reference_uri_schemes_supported);
+  ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_URISCHEME), "reference-uri-schemes-supported", (sizeof(reference_uri_schemes_supported) / sizeof(reference_uri_schemes_supported[0])), NULL, reference_uri_schemes_supported);
 
   /* uri-authentication-supported */
 #ifdef HAVE_TLS
@@ -4081,7 +4081,7 @@ ippserver_attr_cb(
     void           *user_data,		/* I - User data pointer (unused) */
     const char     *attr)		/* I - Attribute name */
 {
-  int		i,			/* Current element */
+  size_t		i,			/* Current element */
 		result;			/* Result of comparison */
   static const char * const ignored[] =
   {					/* Ignored attributes */
@@ -4163,7 +4163,7 @@ ippserver_attr_cb(
   (void)f;
   (void)user_data;
 
-  for (i = 0, result = 1; i < (int)(sizeof(ignored) / sizeof(ignored[0])); i ++)
+  for (i = 0, result = 1; i < (sizeof(ignored) / sizeof(ignored[0])); i ++)
   {
     if ((result = strcmp(attr, ignored[i])) <= 0)
       break;
@@ -7073,7 +7073,7 @@ process_state_message(
     ippeve_job_t *job,			/* I - Job */
     char       *message)		/* I - Message */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   ippeve_preason_t state_reasons,		/* printer-state-reasons values */
 		bit;			/* Current reason bit */
   char		*ptr,			/* Pointer into message */
@@ -7132,7 +7132,7 @@ process_state_message(
     else if ((ptr = strstr(message, "-warning")) != NULL)
       *ptr = '\0';
 
-    for (i = 0, bit = 1; i < (int)(sizeof(ippeve_preason_strings) / sizeof(ippeve_preason_strings[0])); i ++, bit *= 2)
+    for (i = 0, bit = 1; i < (sizeof(ippeve_preason_strings) / sizeof(ippeve_preason_strings[0])); i ++, bit <<= 1)
     {
       if (!strcmp(message, ippeve_preason_strings[i]))
       {
@@ -7143,10 +7143,9 @@ process_state_message(
       }
     }
 
-    if (next)
-      message = next;
-    else
+    if (!next)
       break;
+    message = next;
   }
 
   job->printer->state_reasons = state_reasons;
@@ -8103,7 +8102,7 @@ show_status(ippeve_client_t  *client)	/* I - Client connection */
   ippeve_printer_t *printer = client->printer;
 					/* Printer */
   ippeve_job_t		*job;		/* Current job */
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
   ippeve_preason_t	reason;		/* Current reason */
   static const char * const reasons[] =	/* Reason strings */
   {
@@ -8138,7 +8137,7 @@ show_status(ippeve_client_t  *client)	/* I - Client connection */
   html_header(client, printer->name, printer->state == IPP_PSTATE_PROCESSING ? 5 : 15);
   html_printf(client, "<h1><img style=\"background: %s; border-radius: 10px; float: left; margin-right: 10px; padding: 10px;\" src=\"/icon.png\" width=\"64\" height=\"64\">%s Jobs</h1>\n", state_colors[printer->state - IPP_PSTATE_IDLE], printer->name);
   html_printf(client, "<p>%s, %d job(s).", printer->state == IPP_PSTATE_IDLE ? "Idle" : printer->state == IPP_PSTATE_PROCESSING ? "Printing" : "Stopped", cupsArrayCount(printer->jobs));
-  for (i = 0, reason = 1; i < (int)(sizeof(reasons) / sizeof(reasons[0])); i ++, reason <<= 1)
+  for (i = 0, reason = 1; i < (sizeof(reasons) / sizeof(reasons[0])); i ++, reason <<= 1)
     if (printer->state_reasons & reason)
       html_printf(client, "\n<br>&nbsp;&nbsp;&nbsp;&nbsp;%s", reasons[i]);
   html_printf(client, "</p>\n");

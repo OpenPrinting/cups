@@ -1102,7 +1102,7 @@ _cupsRasterWriteHeader(
     * zeroed.
     */
 
-    int			i;		/* Looping var */
+    size_t			i;		/* Looping var */
     unsigned char	appleheader[32];/* Raw page header */
     unsigned		height = r->header.cupsHeight * r->rowheight;
 					/* Computed page height */
@@ -1153,7 +1153,7 @@ _cupsRasterWriteHeader(
     appleheader[22] = (unsigned char)(r->header.HWResolution[0] >> 8);
     appleheader[23] = (unsigned char)(r->header.HWResolution[0]);
 
-    for (i = 0; i < (int)(sizeof(apple_media_types) / sizeof(apple_media_types[0])); i ++)
+    for (i = 0; i < (sizeof(apple_media_types) / sizeof(apple_media_types[0])); i ++)
     {
       if (!strcmp(r->header.MediaType, apple_media_types[i]))
       {

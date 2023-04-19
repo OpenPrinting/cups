@@ -1393,7 +1393,7 @@ void
 cupsdDeleteJob(cupsd_job_t       *job,	/* I - Job */
                cupsd_jobaction_t action)/* I - Action */
 {
-  int	i;				/* Looping var */
+  size_t	i;				/* Looping var */
 
 
   if (job->printer)
@@ -1405,7 +1405,7 @@ cupsdDeleteJob(cupsd_job_t       *job,	/* I - Job */
   cupsdClearString(&job->username);
   cupsdClearString(&job->dest);
   for (i = 0;
-       i < (int)(sizeof(job->auth_env) / sizeof(job->auth_env[0]));
+       i < (sizeof(job->auth_env) / sizeof(job->auth_env[0]));
        i ++)
     cupsdClearString(job->auth_env + i);
   cupsdClearString(&job->auth_uid);
@@ -1657,7 +1657,7 @@ cupsdLoadAllJobs(void)
 int					/* O - 1 on success, 0 on failure */
 cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
 {
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
   char			jobfile[1024];	/* Job filename */
   cups_file_t		*fp;		/* Job file */
   int			fileid;		/* Current file ID */
@@ -2002,7 +2002,7 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     snprintf(jobfile, sizeof(jobfile), "%s/a%05d", RequestRoot, job->id);
 
     for (i = 0;
-	 i < (int)(sizeof(job->auth_env) / sizeof(job->auth_env[0]));
+	 i < (sizeof(job->auth_env) / sizeof(job->auth_env[0]));
 	 i ++)
       cupsdClearString(job->auth_env + i);
     cupsdClearString(&job->auth_uid);
@@ -2540,7 +2540,7 @@ cupsdSetJobState(
     const char        *message,		/* I - Message to log */
     ...)				/* I - Additional arguments as needed */
 {
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
   ipp_jstate_t		oldstate;	/* Old state */
   char			filename[1024];	/* Job filename */
   ipp_attribute_t	*attr;		/* Job attribute */
@@ -2725,7 +2725,7 @@ cupsdSetJobState(
 			  strerror(errno));
 
 	for (i = 0;
-	     i < (int)(sizeof(job->auth_env) / sizeof(job->auth_env[0]));
+	     i < (sizeof(job->auth_env) / sizeof(job->auth_env[0]));
 	     i ++)
 	  cupsdClearString(job->auth_env + i);
 

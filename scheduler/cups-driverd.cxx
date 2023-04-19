@@ -1958,7 +1958,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
          cups_file_t *fp,		/* I - File to read from */
          off_t       end)		/* I - End of file position or 0 */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   char		line[256],		/* Line from file */
 		*ptr,			/* Pointer into line */
 		lang_version[64],	/* PPD LanguageVersion */
@@ -1978,7 +1978,6 @@ load_ppd(const char  *filename,		/* I - Real filename */
   cups_array_t	*products,		/* Product array */
 		*psversions,		/* PSVersion array */
 		*cups_languages;	/* cupsLanguages array */
-  int		new_ppd;		/* Is this a new PPD? */
   struct				/* LanguageVersion translation table */
   {
     const char	*version,		/* LanguageVersion string */
@@ -2095,10 +2094,9 @@ load_ppd(const char  *filename,		/* I - Real filename */
 
 	  if (*ptr)
 	  {
-	    *ptr++ = '\0';
-
-	    while (isspace(*ptr & 255))
+      do
 	      *ptr++ = '\0';
+      while (isspace(*ptr & 255));
 	  }
 
 	  cupsArrayAdd(cups_languages, strdup(start));
@@ -2252,11 +2250,11 @@ load_ppd(const char  *filename,		/* I - Real filename */
     country[0] = '\0';
   }
 
-  for (i = 0; i < (int)(sizeof(languages) / sizeof(languages[0])); i ++)
+  for (i = 0; i < (sizeof(languages) / sizeof(languages[0])); i ++)
     if (!_cups_strcasecmp(languages[i].version, lang_version))
       break;
 
-  if (i < (int)(sizeof(languages) / sizeof(languages[0])))
+  if (i < (sizeof(languages) / sizeof(languages[0])))
   {
    /*
     * Found a known language...
@@ -2278,9 +2276,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
   * Record the PPD file...
   */
 
-  new_ppd = !ppd;
-
-  if (new_ppd)
+  if (!ppd)
   {
    /*
     * Add new PPD file...

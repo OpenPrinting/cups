@@ -963,7 +963,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
              int           num_options,	/* I - Number of filter options */
 	     cups_option_t *options)	/* I - Filter options */
 {
-  int		i;			/* Looping var */
+  unsigned		i;			/* Looping var */
   const char	*argv[8],		/* Command-line arguments */
 		*envp[21],		/* Environment variables */
 		*temp;			/* Temporary string */
@@ -1163,7 +1163,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   envp[i] = NULL;
 
   for (i = 0; envp[i]; i ++)
-    fprintf(stderr, "DEBUG: envp[%d]=\"%s\"\n", i, envp[i]);
+    fprintf(stderr, "DEBUG: envp[%u]=\"%s\"\n", i, envp[i]);
 
  /*
   * Execute all of the filters...
