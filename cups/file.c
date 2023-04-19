@@ -341,10 +341,10 @@ _cupsFileCheckFilter(
 
 char *					/* O  - Line read or @code NULL@ on end of file or error */
 _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
-                char        *buf,	/* O  - String buffer */
-		size_t      buflen,	/* I  - Size of string buffer */
-                char        **value,	/* O  - Pointer to value */
-		int         *linenum)	/* IO - Current line number */
+				char        *buf,	/* O  - String buffer */
+				size_t      buflen,	/* I  - Size of string buffer */
+				char        **value,	/* O  - Pointer to value */
+				int         *linenum)	/* IO - Current line number */
 {
   char	*ptr;				/* Pointer into line */
 
@@ -378,86 +378,116 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
     /*
      * Remove the inline comment...
      */
-     if ((ptr = strchr(buf, '#')) != NULL)
-     {
-        while(ptr > buf)
+    if ((ptr = strchr(buf, '#')) != NULL)
+    {
+      /*
+       * Check if the '#' character is escaped by a backslash...
+       */
+      if (ptr != buf && ptr[-1] == '\\')
+      {
+        /*
+         * Remove the backslash and continue searching for unescaped '#'...
+         */
+        _cups_strcpy(ptr-1, ptr);
+        ptr = strchr(ptr+1, '#');
+      }
+
+      /*
+       * Find the last non-whitespace character before the unescaped '#' character...
+       */
+      while (ptr > buf)
+      {
+        if (!_cups_isspace(ptr[-1]))
         {
-         // Null-terminate the string after the last non-whitespace, unless the '#' character is escaped by a backslash ('\')
-         if(!_cups_isspace(ptr[-1]) && (ptr == buf || ptr[-1] != '\\'))
-         {
-           *ptr = '\0';
-           break;
-         }
-         ptr--;
+          /*
+           * Null-terminate the string after the last non-whitespace character...
+           */
+          *ptr = '\0';
+          break;
         }
-     }
 
-     /*
-      * Strip leading whitespace...
-      */
-
-      for (ptr = buf; _cups_isspace(*ptr); ptr ++);
-
-      if (ptr > buf)
-        _cups_strcpy(buf, ptr);
-
-       /*
-        * Return the comment if any...
-        */
-        if(buf[0])
+        /*
+         * Check if the '#' character is escaped by a backslash...
+         */
+        if (ptr != buf && *(ptr-1) == '\\')
         {
-          if (buf[0] == '#')
-            return buf;
-
           /*
-           * Otherwise grab any value and return...
+           * Remove the backslash and continue searching for unescaped '#'
            */
-
-          for (ptr = buf; *ptr; ptr ++)
-            if (_cups_isspace(*ptr))
-              break;
-
-          if (*ptr)
-          {
-           /*
-            * Have a value, skip any other spaces...
-            */
-
-            while (_cups_isspace(*ptr))
-              *ptr++ = '\0';
-
-            if (*ptr)
-              *value = ptr;
-
-           /*
-            * Strip trailing whitespace and > for lines that begin with <...
-            */
-
-            ptr += strlen(ptr) - 1;
-
-            if (buf[0] == '<' && *ptr == '>')
-              *ptr-- = '\0';
-            else if (buf[0] == '<' && *ptr != '>')
-            {
-             /*
-              * Syntax error...
-              */
-
-              *value = NULL;
-              return (buf);
-            }
-
-            while (ptr > *value && _cups_isspace(*ptr))
-              *ptr-- = '\0';
-          }
-
-          /*
-           * Return the line...
-           */
-
-           return (buf);
-
+          _cups_strcpy(ptr-1, ptr);
+          ptr = strchr(ptr+1, '#');
         }
+        else
+        {
+          ptr--;
+        }
+      }
+    }
+
+	/*
+	 * Strip leading whitespace...
+	 */
+
+    for (ptr = buf; _cups_isspace(*ptr); ptr ++);
+
+    if (ptr > buf)
+      _cups_strcpy(buf, ptr);
+
+    /*
+     * Return the comment if any...
+     */
+
+    if (!buf[0] || buf[0] == '#')
+      return buf;
+
+    /*
+     * Otherwise grab any value and return...
+     */
+
+    for (ptr = buf; *ptr; ptr ++)
+      if (_cups_isspace(*ptr))
+        break;
+
+    if (*ptr)
+    {
+      /*
+       * Have a value, skip any other spaces...
+       */
+
+      while (_cups_isspace(*ptr))
+        *ptr++ = '\0';
+
+      if (*ptr)
+        *value = ptr;
+
+      /*
+       * Strip trailing whitespace and > for lines that begin with <...
+       */
+
+      ptr += strlen(ptr) - 1;
+
+      if (buf[0] == '<' && *ptr == '>')
+        *ptr-- = '\0';
+      else if (buf[0] == '<' && *ptr != '>')
+      {
+        /*
+         * Syntax error...
+         */
+
+        *value = NULL;
+        return (buf);
+      }
+
+      while (ptr > *value && _cups_isspace(*ptr))
+        *ptr-- = '\0';
+    }
+
+    /*
+     * Return the line...
+     */
+
+    return (buf);
+
   }
 
   return (NULL);

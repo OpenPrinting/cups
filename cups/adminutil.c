@@ -700,7 +700,12 @@ cupsAdminSetServerSettings(
 
   while (_cupsFileGetConfAndComments(cupsd, line, sizeof(line), &value, &linenum))
   {
-    if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")) &&
+   /*
+    * Preserve empty lines...
+    */
+    if (!line[0])
+      cupsFilePuts(temp, "\n");
+    else if ((!_cups_strcasecmp(line, "Port") || !_cups_strcasecmp(line, "Listen")) &&
         (remote_admin >= 0 || remote_any >= 0 || share_printers >= 0))
     {
       if (!wrote_port_listen)
