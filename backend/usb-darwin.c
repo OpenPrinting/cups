@@ -772,7 +772,7 @@ print_device(const char *uri,		/* I - Device URI */
 	}
 	else if (bytes > 0)
 	{
-	  fprintf(stderr, "DEBUG: Wrote %d bytes of print data...\n", (int)bytes);
+	  fprintf(stderr, "DEBUG: Wrote %u bytes of print data...\n", (unsigned)bytes);
 
 	  g.print_bytes -= bytes;
 	  print_ptr   += bytes;

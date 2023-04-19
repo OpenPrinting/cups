@@ -553,7 +553,7 @@ browse_callback(
     void                *context)	/* I - Devices array */
 {
   fprintf(stderr, "DEBUG2: browse_callback(sdRef=%p, flags=%x, "
-                  "interfaceIndex=%d, errorCode=%d, serviceName=\"%s\", "
+                  "interfaceIndex=%u, errorCode=%d, serviceName=\"%s\", "
 		  "regtype=\"%s\", replyDomain=\"%s\", context=%p)\n",
           sdRef, flags, interfaceIndex, errorCode,
 	  serviceName, regtype, replyDomain, context);
@@ -592,7 +592,7 @@ browse_local_callback(
 
 
   fprintf(stderr, "DEBUG2: browse_local_callback(sdRef=%p, flags=%x, "
-                  "interfaceIndex=%d, errorCode=%d, serviceName=\"%s\", "
+                  "interfaceIndex=%u, errorCode=%d, serviceName=\"%s\", "
 		  "regtype=\"%s\", replyDomain=\"%s\", context=%p)\n",
           sdRef, flags, interfaceIndex, errorCode,
 	  serviceName, regtype, replyDomain, context);
@@ -1010,7 +1010,7 @@ query_callback(
 
 #  ifdef HAVE_MDNSRESPONDER
   fprintf(stderr, "DEBUG2: query_callback(sdRef=%p, flags=%x, "
-                  "interfaceIndex=%d, errorCode=%d, fullName=\"%s\", "
+                  "interfaceIndex=%u, errorCode=%d, fullName=\"%s\", "
 		  "rrtype=%u, rrclass=%u, rdlen=%u, rdata=%p, ttl=%u, "
 		  "context=%p)\n",
           sdRef, flags, interfaceIndex, errorCode, fullName, rrtype, rrclass, rdlen, rdata, ttl, context);
@@ -1023,7 +1023,7 @@ query_callback(
     return;
 
 #  else
-  fprintf(stderr, "DEBUG2: query_callback(browser=%p, interfaceIndex=%d, "
+  fprintf(stderr, "DEBUG2: query_callback(browser=%p, interfaceIndex=%u, "
                   "protocol=%d, event=%d, fullName=\"%s\", rrclass=%u, "
 		  "rrtype=%u, rdata=%p, rdlen=%u, flags=%x, context=%p)\n",
           browser, interfaceIndex, protocol, event, fullName, rrclass, rrtype, rdata, (unsigned)rdlen, flags, context);

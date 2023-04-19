@@ -733,7 +733,7 @@ cups_auth_scheme(const char *www_authenticate,	/* I - Pointer into WWW-Authentic
   int		param;				/* Is this a parameter? */
 
 
-  DEBUG_printf(("8cups_auth_scheme(www_authenticate=\"%s\", scheme=%p, schemesize=%d)", www_authenticate, (void *)scheme, (int)schemesize));
+  DEBUG_printf(("8cups_auth_scheme(www_authenticate=\"%s\", scheme=%p, schemesize=%u)", www_authenticate, (void *)scheme, (unsigned)schemesize));
 
   while (*www_authenticate)
   {

@@ -1427,7 +1427,7 @@ open_device(usb_printer_t *printer,	/* I - Printer */
   int	number1 = -1,			/* Configuration/interface/altset */
         number2 = -1,			/* numbers */
         errcode = 0;
-  char	current;			/* Current configuration */
+  unsigned char	current;			/* Current configuration */
 
 
  /*
@@ -1504,7 +1504,7 @@ open_device(usb_printer_t *printer,	/* I - Printer */
                 LIBUSB_REQUEST_TYPE_STANDARD | LIBUSB_ENDPOINT_IN |
 		LIBUSB_RECIPIENT_DEVICE,
 		8, /* GET_CONFIGURATION */
-		0, 0, (unsigned char *)&current, 1, 5000) < 0)
+		0, 0, &current, 1, 5000) < 0)
     current = 0;			/* Assume not configured */
 
   printer->origconf = current;
