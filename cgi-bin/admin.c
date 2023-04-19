@@ -61,7 +61,7 @@ int					/* O - Exit status */
 main(void)
 {
   http_t	*http;			/* Connection to the server */
-  const char	*op;			/* Operation name */
+  const char	*op = NULL;			/* Operation name */
 
 
  /*
@@ -95,7 +95,7 @@ main(void)
   * See if we have form data...
   */
 
-  if (!cgiInitialize() || !cgiGetVariable("OP"))
+  if (!cgiInitialize() || !cgiVariableExists("OP"))
   {
    /*
     * Nope, send the administration menu...
@@ -127,7 +127,7 @@ main(void)
         httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri),
 	                 getenv("HTTPS") ? "https" : "http", NULL,
 			 getenv("SERVER_NAME"), port, "/%s/%s",
-			 cgiGetVariable("IS_CLASS") ? "classes" : "printers",
+			 cgiVariableExists("IS_CLASS") ? "classes" : "printers",
 			 printer);
       else
         httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri),
@@ -258,6 +258,7 @@ main(void)
   * Return with no errors...
   */
 
+  free(op);
   return (0);
 }
 
@@ -337,7 +338,7 @@ do_am_class(http_t *http,		/* I - HTTP connection */
   op    = cgiGetVariable("OP");
   name  = cgiGetVariable("PRINTER_NAME");
 
-  if (cgiGetVariable("PRINTER_LOCATION") == NULL)
+  if (!cgiVariableExists("PRINTER_LOCATION"))
   {
    /*
     * Build a CUPS_GET_PRINTERS request, which requires the
@@ -518,8 +519,7 @@ do_am_class(http_t *http,		/* I - HTTP connection */
 			     "pound sign (#).")));
     cgiStartHTML(title);
     cgiCopyTemplateLang("error.tmpl");
-    cgiEndHTML();
-    return;
+    goto free_and_return;
   }
 
  /*
@@ -538,28 +538,39 @@ do_am_class(http_t *http,		/* I - HTTP connection */
 
   request = ippNewRequest(CUPS_ADD_CLASS);
 
-  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
-                   "localhost", 0, "/classes/%s", name);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
-               NULL, uri);
-
-  ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-location",
-               NULL, cgiGetVariable("PRINTER_LOCATION"));
-
-  ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
-               NULL, cgiGetVariable("PRINTER_INFO"));
-
-  ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-accepting-jobs", 1);
-
-  ippAddInteger(request, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state",
-                IPP_PRINTER_IDLE);
-
-  if ((num_printers = cgiGetSize("MEMBER_URIS")) > 0)
   {
-    attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_URI, "member-uris",
-                         num_printers, NULL, NULL);
-    for (i = 0; i < num_printers; i ++)
-      ippSetString(request, &attr, i, cgiGetArray("MEMBER_URIS", i));
+    const char* temp;
+    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
+                     "localhost", 0, "/classes/%s", name);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
+                 NULL, uri);
+
+    temp = cgiGetVariable("PRINTER_LOCATION");
+    ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-location",
+                 NULL, temp);
+    free(temp);
+
+    temp = cgiGetVariable("PRINTER_INFO");
+    ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
+                 NULL, temp);
+    free(temp);
+
+    ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-accepting-jobs", 1);
+
+    ippAddInteger(request, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state",
+                  IPP_PRINTER_IDLE);
+
+    if ((num_printers = cgiGetSize("MEMBER_URIS")) > 0)
+    {
+      attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_URI, "member-uris",
+                           num_printers, NULL, NULL);
+      for (i = 0; i < num_printers; i++)
+      {
+  temp = cgiGetArray("MEMBER_URIS", i);
+  ippSetString(request, &attr, i, temp);
+  free(temp);
+      }
+    }
   }
 
  /*
@@ -600,7 +611,10 @@ do_am_class(http_t *http,		/* I - HTTP connection */
       cgiCopyTemplateLang("class-added.tmpl");
   }
 
+free_and_return:
   cgiEndHTML();
+  free(op);
+  free(name);
 }
 
 
@@ -735,10 +749,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       else
         strlcpy(make, "Generic", sizeof(make));
 
-      if (!cgiGetVariable("CURRENT_MAKE"))
+      if (!cgiVariableExists("CURRENT_MAKE"))
         cgiSetVariable("CURRENT_MAKE", make);
 
-      if (!cgiGetVariable("CURRENT_MAKE_AND_MODEL"))
+      if (!cgiVariableExists("CURRENT_MAKE_AND_MODEL"))
         cgiSetVariable("CURRENT_MAKE_AND_MODEL", uriptr);
 
       if (!modify)
@@ -855,7 +869,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     cgiCopyTemplateLang("choose-uri.tmpl");
     cgiEndHTML();
   }
-  else if (!strncmp(var, "serial:", 7) && !cgiGetVariable("BAUDRATE"))
+  else if (!strncmp(var, "serial:", 7) && !cgiVariableExists("BAUDRATE"))
   {
    /*
     * Need baud rate, parity, etc.
@@ -880,7 +894,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     cgiCopyTemplateLang("choose-serial.tmpl");
     cgiEndHTML();
   }
-  else if (!name || !cgiGetVariable("PRINTER_LOCATION"))
+  else if (!name || !cgiVariableExists("PRINTER_LOCATION"))
   {
     cgiStartHTML(title);
 
@@ -932,11 +946,11 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     return;
   }
   else if (!file &&
-           (!cgiGetVariable("PPD_NAME") || cgiGetVariable("SELECT_MAKE")))
+           (!cgiVariableExists("PPD_NAME") || cgiVariableExists("SELECT_MAKE")))
   {
     int ipp_everywhere = !strncmp(var, "ipp://", 6) || !strncmp(var, "ipps://", 7) || (!strncmp(var, "dnssd://", 8) && (strstr(var, "_ipp._tcp") || strstr(var, "_ipps._tcp")));
 
-    if (modify && !cgiGetVariable("SELECT_MAKE"))
+    if (modify && !cgiVariableExists("SELECT_MAKE"))
     {
      /*
       * Get the PPD file...
@@ -1066,7 +1080,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	cgiCopyTemplateLang("choose-make.tmpl");
         cgiEndHTML();
       }
-      else if (!var || cgiGetVariable("SELECT_MAKE"))
+      else if (!var || cgiVariableExists("SELECT_MAKE"))
       {
         cgiStartHTML(title);
 	cgiCopyTemplateLang("choose-make.tmpl");
@@ -1079,7 +1093,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	*/
 
         cgiStartHTML(title);
-	if (!cgiGetVariable("PPD_MAKE"))
+	if (!cgiVariableExists("PPD_MAKE"))
 	  cgiSetVariable("PPD_MAKE", cgiGetVariable("CURRENT_MAKE"));
         if (ipp_everywhere)
 	  cgiSetVariable("SHOW_IPP_EVERYWHERE", "1");
@@ -1254,7 +1268,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 static void
 do_config_server(http_t *http)		/* I - HTTP connection */
 {
-  if (cgiGetVariable("CHANGESETTINGS"))
+  if (cgiVariableExists("CHANGESETTINGS"))
   {
    /*
     * Save basic setting changes...
@@ -1307,20 +1321,20 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     * Get the checkbox values from the form...
     */
 
-    debug_logging        = cgiGetVariable("DEBUG_LOGGING") ? "1" : "0";
-    remote_admin         = cgiGetVariable("REMOTE_ADMIN") ? "1" : "0";
-    remote_any           = cgiGetVariable("REMOTE_ANY") ? "1" : "0";
-    share_printers       = cgiGetVariable("SHARE_PRINTERS") ? "1" : "0";
-    user_cancel_any      = cgiGetVariable("USER_CANCEL_ANY") ? "1" : "0";
+    debug_logging        = cgiVariableExists("DEBUG_LOGGING") ? "1" : "0";
+    remote_admin         = cgiVariableExists("REMOTE_ADMIN") ? "1" : "0";
+    remote_any           = cgiVariableExists("REMOTE_ANY") ? "1" : "0";
+    share_printers       = cgiVariableExists("SHARE_PRINTERS") ? "1" : "0";
+    user_cancel_any      = cgiVariableExists("USER_CANCEL_ANY") ? "1" : "0";
 
-    advanced = cgiGetVariable("ADVANCEDSETTINGS") != NULL;
+    advanced = cgiVariableExists("ADVANCEDSETTINGS");
     if (advanced)
     {
      /*
       * Get advanced settings...
       */
 
-      browse_web_if        = cgiGetVariable("BROWSE_WEB_IF") ? "Yes" : "No";
+      browse_web_if        = cgiVariableExists("BROWSE_WEB_IF") ? "Yes" : "No";
       max_clients          = cgiGetVariable("MAX_CLIENTS");
       max_log_size         = cgiGetVariable("MAX_LOG_SIZE");
       preserve_jobs        = cgiGetVariable("PRESERVE_JOBS");
@@ -1374,7 +1388,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     * Get authentication settings...
     */
 
-    if (cgiGetVariable("KERBEROS"))
+    if (cgiVariableExists("KERBEROS"))
       strlcpy(default_auth_type, "Negotiate", sizeof(default_auth_type));
     else
     {
@@ -1524,7 +1538,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 
     cgiEndHTML();
   }
-  else if (cgiGetVariable("SAVECHANGES") && cgiGetVariable("CUPSDCONF"))
+  else if (cgiVariableExists("SAVECHANGES") && cgiVariableExists("CUPSDCONF"))
   {
    /*
     * Save hand-edited config file...
@@ -1787,7 +1801,7 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
   * Get form variables...
   */
 
-  if (cgiGetVariable("CONFIRM") == NULL)
+  if (!cgiVariableExists("CONFIRM"))
   {
     cgiStartHTML(cgiText(_("Delete Class")));
     cgiCopyTemplateLang("class-confirm.tmpl");
@@ -1795,9 +1809,11 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
     return;
   }
 
-  if ((pclass = cgiGetVariable("PRINTER_NAME")) != NULL)
+  if ((pclass = cgiGetVariable("PRINTER_NAME")) != NULL) {
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/classes/%s", pclass);
+    free(pclass);
+  }
   else
   {
     cgiStartHTML(cgiText(_("Delete Class")));
@@ -1872,7 +1888,7 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
   * Get form variables...
   */
 
-  if (cgiGetVariable("CONFIRM") == NULL)
+  if (!cgiVariableExists("CONFIRM"))
   {
     cgiStartHTML(cgiText(_("Delete Printer")));
     cgiCopyTemplateLang("printer-confirm.tmpl");
@@ -1880,9 +1896,11 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
     return;
   }
 
-  if ((printer = cgiGetVariable("PRINTER_NAME")) != NULL)
+  if ((printer = cgiGetVariable("PRINTER_NAME")) != NULL) {
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s", printer);
+    free(printer);
+  }
   else
   {
     cgiStartHTML(cgiText(_("Delete Printer")));
@@ -2671,7 +2689,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
   * command file to the printer...
   */
 
-  if (cgiGetVariable("AUTOCONFIGURE"))
+  if (cgiVariableExists("AUTOCONFIGURE"))
   {
     cgiPrintCommand(http, printer, "AutoConfigure", "Set Default Options");
     return;
@@ -2706,8 +2724,8 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     ppd = NULL;
   }
 
-  if (cgiGetVariable("job_sheets_start") != NULL ||
-      cgiGetVariable("job_sheets_end") != NULL)
+  if (cgiVariableExists("job_sheets_start") ||
+      cgiVariableExists("job_sheets_end"))
     have_options = 1;
   else
     have_options = 0;

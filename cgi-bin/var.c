@@ -115,11 +115,11 @@ cgiCheckVariables(const char *names)	/* I - Variables to look for */
 
     if (*val == '\0')
     {
-      free((void *)val);
+      free(val);
       return (0);	/* Can't be blank, either! */
     }
 
-    free((void *)val);
+    free(val);
   }
 
   return (1);
@@ -163,11 +163,13 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
 {
   _cgi_var_t	*var;			/* Pointer to variable */
 
+  if (element < 0)
+    return (NULL);
 
   if ((var = cgi_find_variable(name)) == NULL)
     return (NULL);
 
-  if (element < 0 || element >= var->nvalues)
+  if (element >= var->nvalues)
     return (NULL);
 
   if (var->values[element] == NULL)
@@ -220,7 +222,8 @@ cgiGetSize(const char *name)		/* I - Name of variable */
  * 'cgiGetVariable()' - Get a CGI variable from the database.
  *
  * Returns NULL if the variable doesn't exist.  If the variable is an
- * array of values, returns the last element.
+ * array of values, returns a copy of the last element via strdup.
+ * Result must be released.
  */
 
 char *					/* O - Value of variable */
@@ -232,6 +235,52 @@ cgiGetVariable(const char *name)	/* I - Name of variable */
   var = cgi_find_variable(name);
 
   return ((var == NULL) ? NULL : strdup(var->values[var->nvalues - 1]));
+}
+
+
+/*
+ * 'cgiVariableExists()' - Get a CGI variable from the database.
+ *
+ * Returns 0 if the variable doesn't exist, 1 if it does
+ */
+
+int					/* O - 1 if variable exists */
+cgiVariableExists(const char *name)	/* I - Name of variable */
+{
+  const _cgi_var_t	*var;		/* Returned variable */
+
+
+  var = cgi_find_variable(name);
+
+  return (var && var->values[var->nvalues - 1]);
+}
+
+
+/*
+ * 'cgiArrayExists()' - Get a CGI variable from the database.
+ *
+ * Returns 0 if the variable doesn't exist, 1 if it does
+ */
+
+int					/* O - 1 if variable exists */
+cgiArrayExists(const char *name,		/* I - Name of array variable */
+            int        element)		/* I - Element number (0 to N) */
+{
+  _cgi_var_t	*var;			/* Pointer to variable */
+
+  if (element < 0)
+    return 0;
+
+  if ((var = cgi_find_variable(name)) == NULL)
+    return 0;
+
+  if ( element >= var->nvalues)
+    return 0;
+
+  if (var->values[element] == NULL)
+    return 0;
+
+  return 1;
 }
 
 
@@ -321,7 +370,7 @@ cgiInitialize(void)
       else
 	fputs("DEBUG: " CUPS_SID " form variable is not present.\n", stderr);
 
-      free((void *)cups_sid_form);
+      free(cups_sid_form);
 
       cgiClearVariables();
 
@@ -329,7 +378,7 @@ cgiInitialize(void)
     }
     else
     {
-      free((void *)cups_sid_form);
+      free(cups_sid_form);
 
       return (1);
     }
@@ -482,7 +531,7 @@ cgiSetSize(const char *name,		/* I - Name of variable */
   {
     for (i = size; i < var->nvalues; i ++)
       if (var->values[i])
-        free((void *)(var->values[i]));
+        free((var->values[i]));
   }
 
   var->nvalues = size;

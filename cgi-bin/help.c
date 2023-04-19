@@ -39,6 +39,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   cups_file_t	*fp;			/* Help file */
   char		line[1024];		/* Line from file */
   int		printable;		/* Show printable version? */
+  const char *topic_backup_pointer = NULL; /* To ensure topic does not leak */
 
 
  /*
@@ -47,7 +48,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   cgiInitialize();
 
-  printable = cgiGetVariable("PRINTABLE") != NULL;
+  printable = cgiVariableExists("PRINTABLE");
 
  /*
   * Set the web interface section...
@@ -162,13 +163,14 @@ main(int  argc,				/* I - Number of command-line arguments */
     cgiStartHTML(cgiText(_("Online Help")));
 
     topic = cgiGetVariable("TOPIC");
+    topic_backup_pointer = topic;
   }
 
  /*
   * Do a search as needed...
   */
 
-  if (cgiGetVariable("CLEAR"))
+  if (cgiVariableExists("CLEAR"))
     cgiSetVariable("QUERY", "");
 
   query = cgiGetVariable("QUERY");
@@ -310,6 +312,8 @@ main(int  argc,				/* I - Number of command-line arguments */
       cupsArrayRestore(hi->sorted);
     }
   }
+
+  free(topic_backup_pointer);
 
  /*
   * Show the search and bookmark content...

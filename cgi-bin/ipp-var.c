@@ -448,14 +448,16 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
       * Move all active jobs on a destination...
       */
 
+      const char* section = cgiGetVariable("SECTION");
       snprintf(resource, sizeof(resource), "/%s/%s",
-               cgiGetVariable("SECTION"), dest);
+               section, dest);
 
       httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                        "localhost", ippPort(), "/%s/%s",
-		       cgiGetVariable("SECTION"), dest);
+		       section, dest);
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                    NULL, uri);
+      free(section);
     }
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-printer-uri",
@@ -506,6 +508,8 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
       cgiSetVariable("JOB_PRINTER_NAME", job_printer_name);
       cgiCopyTemplateLang("job-moved.tmpl");
     }
+
+    free(job_printer_uri);
   }
 
   cgiEndHTML();
@@ -690,6 +694,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
 		filename[1024];		/* Test page filename */
   const char	*datadir;		/* CUPS_DATADIR env var */
   const char	*user;			/* Username */
+  const char *section;			/* Section */
 
 
  /*
@@ -711,12 +716,15 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
   * Point to the printer/class...
   */
 
-  snprintf(resource, sizeof(resource), "/%s/%s", cgiGetVariable("SECTION"),
+  section = cgiGetVariable("SECTION");
+  snprintf(resource, sizeof(resource), "/%s/%s", section,
            dest);
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
-                   "localhost", ippPort(), "/%s/%s", cgiGetVariable("SECTION"),
+                   "localhost", ippPort(), "/%s/%s", section,
 		   dest);
+
+  free(section);
 
  /*
   * Build an IPP_PRINT_JOB request, which requires the following
@@ -1383,14 +1391,19 @@ cgiShowJobs(http_t     *http,		/* I - Connection to server */
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
         	 "ipp://localhost/");
 
-  if ((which_jobs = cgiGetVariable("which_jobs")) != NULL && *which_jobs)
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "which-jobs",
-                 NULL, which_jobs);
+  if ((which_jobs = cgiGetVariable("which_jobs")) != NULL)
+  {
+    if (*which_jobs)
+      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "which-jobs",
+                   NULL, which_jobs);
+    free(which_jobs);
+  }
 
   if ((var = cgiGetVariable("FIRST")) != NULL)
   {
     if ((first = atoi(var)) < 0)
       first = 0;
+    free(var);
   }
   else
     first = 0;
@@ -1410,12 +1423,20 @@ cgiShowJobs(http_t     *http,		/* I - Connection to server */
     * Get a list of matching job objects.
     */
 
-    if ((query = cgiGetVariable("QUERY")) != NULL &&
-        !cgiGetVariable("CLEAR"))
+    if ((query = cgiGetVariable("QUERY")) == NULL)
+    {
+
+        search = NULL;
+    }
+    else if (!cgiVariableExists("CLEAR"))
+    {
       search = cgiCompileSearch(query);
+      free(query);
+    }
     else
     {
-      query  = NULL;
+      free(query);
+      query = NULL;
       search = NULL;
     }
 

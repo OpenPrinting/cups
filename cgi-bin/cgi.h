@@ -102,6 +102,8 @@ extern void		cgiStartHTML(const char *title);
 extern void		cgiStartMultipart(void);
 extern int		cgiSupportsMultipart(void);
 extern const char	*cgiText(const char *message);
+extern int		cgiArrayExists(const char *name, int element);
+extern int		cgiVariableExists(const char *name);
 
 #  ifdef __cplusplus
 }

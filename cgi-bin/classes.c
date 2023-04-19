@@ -334,7 +334,7 @@ show_all_classes(http_t     *http,	/* I - Connection to server */
     */
 
     if ((var = cgiGetVariable("QUERY")) != NULL &&
-        !cgiGetVariable("CLEAR"))
+        !cgiVariableExists("CLEAR"))
       search = cgiCompileSearch(var);
     else
       search = NULL;
