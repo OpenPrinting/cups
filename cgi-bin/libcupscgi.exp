@@ -1,3 +1,4 @@
+_cgiArrayExists
 _cgiCheckVariables
 _cgiClearVariables
 _cgiCompileSearch
@@ -35,6 +36,7 @@ _cgiStartHTML
 _cgiStartMultipart
 _cgiSupportsMultipart
 _cgiText
+_cgiVariableExists
 _helpDeleteIndex
 _helpFindNode
 _helpLoadIndex

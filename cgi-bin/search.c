@@ -62,7 +62,7 @@ cgiCompileSearch(const char *query)	/* I - Query string */
 
   if ((s = (char *)malloc(slen)) == NULL)
   {
-    free(re);
+    free((void *)re);
     return (NULL);
   }
 
@@ -107,11 +107,11 @@ cgiCompileSearch(const char *query)	/* I - Query string */
         * No closing quote, error out!
 	*/
 
-	free(s);
-	free(re);
+	free((void *)s);
+	free((void *)re);
 
 	if (lword)
-          free(lword);
+          free((void *)lword);
 
 	return (NULL);
       }
@@ -178,11 +178,11 @@ cgiCompileSearch(const char *query)	/* I - Query string */
         temp = (char *)realloc(s, slen);
 	if (!temp)
 	{
-	  free(s);
-	  free(re);
+	  free((void *)s);
+	  free((void *)re);
 
 	  if (lword)
-            free(lword);
+            free((void *)lword);
 
 	  return (NULL);
 	}
@@ -230,9 +230,9 @@ cgiCompileSearch(const char *query)	/* I - Query string */
 
         if ((lword2 = strdup(sword)) == NULL)
 	{
-	  free(lword);
-	  free(s);
-	  free(re);
+	  free((void *)lword);
+	  free((void *)s);
+	  free((void *)re);
 	  return (NULL);
 	}
 
@@ -248,13 +248,13 @@ cgiCompileSearch(const char *query)	/* I - Query string */
 	memcpy(sptr, lword, strlen(lword) + 1);
 	sptr += strlen(sptr);
 
-        free(lword);
+        free((void *)lword);
 	lword = lword2;
       }
       else
       {
 	if (lword)
-          free(lword);
+          free((void *)lword);
 
 	lword = strdup(sword);
       }
@@ -271,7 +271,7 @@ cgiCompileSearch(const char *query)	/* I - Query string */
   }
 
   if (lword)
-    free(lword);
+    free((void *)lword);
 
   if (sptr > s)
     memcpy(sptr, ".*", 3);
@@ -281,8 +281,8 @@ cgiCompileSearch(const char *query)	/* I - Query string */
     * No query data, return NULL...
     */
 
-    free(s);
-    free(re);
+    free((void *)s);
+    free((void *)re);
 
     return (NULL);
   }
@@ -293,8 +293,8 @@ cgiCompileSearch(const char *query)	/* I - Query string */
 
   if (regcomp(re, s, REG_EXTENDED | REG_ICASE))
   {
-    free(re);
-    free(s);
+    free((void *)re);
+    free((void *)s);
 
     return (NULL);
   }
@@ -303,7 +303,7 @@ cgiCompileSearch(const char *query)	/* I - Query string */
   * Free the RE string and return the new regular expression we compiled...
   */
 
-  free(s);
+  free((void *)s);
 
   return ((void *)re);
 }
@@ -357,6 +357,6 @@ cgiDoSearch(void       *search,		/* I - Search context */
 void
 cgiFreeSearch(void *search)		/* I - Search context */
 {
-  regfree((regex_t *)search);
-  free(search);
+  regfree((void *)(regex_t *)search);
+  free((void *)search);
 }

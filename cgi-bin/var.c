@@ -141,10 +141,10 @@ cgiClearVariables(void)
 
   for (v = form_vars, i = form_count; i > 0; v ++, i --)
   {
-    free(v->name);
+    free((void *)v->name);
     for (j = 0; j < v->nvalues; j ++)
       if (v->values[j])
-        free(v->values[j]);
+        free((void *)v->values[j]);
   }
 
   form_count = 0;
@@ -163,11 +163,13 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
 {
   _cgi_var_t	*var;			/* Pointer to variable */
 
+  if (element < 0)
+    return (NULL);
 
   if ((var = cgi_find_variable(name)) == NULL)
     return (NULL);
 
-  if (element < 0 || element >= var->nvalues)
+  if (element >= var->nvalues)
     return (NULL);
 
   if (var->values[element] == NULL)
@@ -220,7 +222,8 @@ cgiGetSize(const char *name)		/* I - Name of variable */
  * 'cgiGetVariable()' - Get a CGI variable from the database.
  *
  * Returns NULL if the variable doesn't exist.  If the variable is an
- * array of values, returns the last element.
+ * array of values, returns a copy of the last element via strdup.
+ * Result must be released.
  */
 
 char *					/* O - Value of variable */
@@ -232,6 +235,50 @@ cgiGetVariable(const char *name)	/* I - Name of variable */
   var = cgi_find_variable(name);
 
   return ((var == NULL) ? NULL : strdup(var->values[var->nvalues - 1]));
+}
+
+/*
+ * 'cgiVariableExists()' - Get a CGI variable from the database.
+ *
+ * Returns 0 if the variable doesn't exist, 1 if it does
+ */
+
+int					/* O - 1 if variable exists */
+cgiVariableExists(const char *name)	/* I - Name of variable */
+{
+  const _cgi_var_t	*var;		/* Returned variable */
+
+
+  var = cgi_find_variable(name);
+
+  return (var && var->values[var->nvalues - 1]);
+}
+
+/*
+ * 'cgiArrayExists()' - Get a CGI variable from the database.
+ *
+ * Returns 0 if the variable doesn't exist, 1 if it does
+ */
+
+int					/* O - 1 if variable exists */
+cgiArrayExists(const char *name,		/* I - Name of array variable */
+            int        element)		/* I - Element number (0 to N) */
+{
+  _cgi_var_t	*var;			/* Pointer to variable */
+
+  if (element < 0)
+    return 0;
+
+  if ((var = cgi_find_variable(name)) == NULL)
+    return 0;
+
+  if ( element >= var->nvalues)
+    return 0;
+
+  if (var->values[element] == NULL)
+    return 0;
+
+  return 1;
 }
 
 
@@ -404,7 +451,7 @@ cgiSetArray(const char *name,		/* I - Name of variable */
       var->nvalues = element + 1;
     }
     else if (var->values[element])
-      free((char *)var->values[element]);
+      free((void *)(char *)var->values[element]);
 
     var->values[element] = strdup(value);
   }
@@ -517,7 +564,7 @@ cgiSetVariable(const char *name,	/* I - Name of variable */
   {
     for (i = 0; i < var->nvalues; i ++)
       if (var->values[i])
-        free((char *)var->values[i]);
+        free((void *)(char *)var->values[i]);
 
     var->values[0] = strdup(value);
     var->nvalues   = 1;
@@ -890,7 +937,7 @@ cgi_initialize_multipart(
 	  * Add another element in the array...
 	  */
 
-          free(ptr);
+          free((void *)ptr);
 	  cgiSetArray(name, cgiGetSize(name), line);
 	}
 	else
@@ -997,7 +1044,7 @@ cgi_initialize_post(void)
     {
       if (errno != EAGAIN)
       {
-        free(data);
+        free((void *)data);
         return (0);
       }
       else
@@ -1012,7 +1059,7 @@ cgi_initialize_post(void)
       * file, treat this as an error and process no data.
       */
 
-      free(data);
+      free((void *)data);
       return (0);
     }
 
@@ -1028,7 +1075,7 @@ cgi_initialize_post(void)
   * Free the data and return...
   */
 
-  free(data);
+  free((void *)data);
 
   return (status);
 }
@@ -1150,7 +1197,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     }
     else if ((temp = cgiGetVariable(name)) != NULL)
     {
-      free(temp);
+      free((void *)temp);
       cgiSetArray(name, cgiGetSize(name), value);
     }
     else
@@ -1265,10 +1312,10 @@ cgi_unlink_file(void)
     * Free memory used...
     */
 
-    free(form_file->name);
-    free(form_file->filename);
-    free(form_file->mimetype);
-    free(form_file);
+    free((void *)form_file->name);
+    free((void *)form_file->filename);
+    free((void *)form_file->mimetype);
+    free((void *)form_file);
 
     form_file = NULL;
   }

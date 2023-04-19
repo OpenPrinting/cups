@@ -165,7 +165,7 @@ helpDeleteIndex(help_index_t *hi)	/* I - Help index */
   cupsArrayDelete(hi->nodes);
   cupsArrayDelete(hi->sorted);
 
-  free(hi);
+  free((void *)hi);
 }
 
 
@@ -242,7 +242,7 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
   {
     cupsArrayDelete(hi->nodes);
     cupsArrayDelete(hi->sorted);
-    free(hi);
+    free((void *)hi);
     return (NULL);
   }
 
@@ -566,7 +566,7 @@ helpSearchIndex(help_index_t *hi,	/* I - Index */
   {
     cupsArrayDelete(search->nodes);
     cupsArrayDelete(search->sorted);
-    free(search);
+    free((void *)search);
     cgiFreeSearch(sc);
     return (NULL);
   }
@@ -656,7 +656,7 @@ help_add_word(help_node_t *n,		/* I - Node */
 
     if ((w->text = strdup(text)) == NULL)
     {
-      free(w);
+      free((void *)w);
       return (NULL);
     }
 
@@ -687,16 +687,16 @@ help_delete_node(help_node_t *n)	/* I - Node */
     return;
 
   if (n->filename)
-    free(n->filename);
+    free((void *)n->filename);
 
   if (n->anchor)
-    free(n->anchor);
+    free((void *)n->anchor);
 
   if (n->section)
-    free(n->section);
+    free((void *)n->section);
 
   if (n->text)
-    free(n->text);
+    free((void *)n->text);
 
   for (w = (help_word_t *)cupsArrayFirst(n->words);
        w;
@@ -705,7 +705,7 @@ help_delete_node(help_node_t *n)	/* I - Node */
 
   cupsArrayDelete(n->words);
 
-  free(n);
+  free((void *)n);
 }
 
 
@@ -720,9 +720,9 @@ help_delete_word(help_word_t *w)	/* I - Word */
     return;
 
   if (w->text)
-    free(w->text);
+    free((void *)w->text);
 
-  free(w);
+  free((void *)w);
 }
 
 
@@ -1001,10 +1001,10 @@ help_load_file(
         cupsArrayRemove(hi->nodes, node);
 
         if (node->section)
-	  free(node->section);
+	  free((void *)node->section);
 
 	if (node->text)
-	  free(node->text);
+	  free((void *)node->text);
 
         if (node->words)
 	{
