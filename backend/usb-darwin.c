@@ -1416,7 +1416,7 @@ static kern_return_t load_classdriver(CFStringRef	    driverPath,
   CFStringRef	bundle = driverPath ? driverPath : kUSBGenericTOPrinterClassDriver;
   char 		bundlestr[1024];	/* Bundle path */
   CFURLRef	url;			/* URL for driver */
-  CFPlugInRef	plugin = NULL;		/* Plug-in address */
+  CFPlugInRef	plugin;		/* Plug-in address */
 
 
   CFStringGetCString(bundle, bundlestr, sizeof(bundlestr), kCFStringEncodingUTF8);
@@ -1429,10 +1429,12 @@ static kern_return_t load_classdriver(CFStringRef	    driverPath,
                                             _CUPS_FILE_CHECK_DIRECTORY, 1,
                                             Iterating ? NULL : _cupsFileCheckFilter, NULL);
 
-  if (result && driverPath)
-    return (load_classdriver(NULL, interface, printerDriver));
-  else if (result)
+  if (result)
+  {
+    if (driverPath)
+      return (load_classdriver(NULL, interface, printerDriver));
     return (kr);
+  }
 
  /*
   * Try loading the class driver...
@@ -1440,18 +1442,18 @@ static kern_return_t load_classdriver(CFStringRef	    driverPath,
 
   url = CFURLCreateWithFileSystemPath(NULL, bundle, kCFURLPOSIXPathStyle, true);
 
-  if (url)
-  {
-    plugin = CFPlugInCreate(NULL, url);
-    CFRelease(url);
-  }
-  else
-    plugin = NULL;
+  if (url == NULL)
+      return (kr);
+  
+  plugin = CFPlugInCreate(NULL, url);
+  CFRelease(url);
 
   if (plugin)
   {
     CFArrayRef factories = CFPlugInFindFactoriesForPlugInTypeInPlugIn(kUSBPrinterClassTypeID, plugin);
-    if (factories != NULL && CFArrayGetCount(factories) > 0)
+    if (factories == NULL)
+      return (kr);
+    if (CFArrayGetCount(factories) > 0)
     {
       CFUUIDRef factoryID = CFArrayGetValueAtIndex(factories, 0);
       IUnknownVTbl **iunknown = CFPlugInInstanceCreate(NULL, factoryID, kUSBPrinterClassTypeID);
@@ -1476,8 +1478,8 @@ static kern_return_t load_classdriver(CFStringRef	    driverPath,
 	}
 	(*iunknown)->Release(iunknown);
       }
-      CFRelease(factories);
     }
+    CFRelease(factories);
   }
 
   fprintf(stderr, "DEBUG: load_classdriver(%s) (kr:0x%08x)\n", bundlestr, (int)kr);
@@ -1885,16 +1887,23 @@ static kern_return_t registry_close(void)
 static CFStringRef copy_value_for_key(CFStringRef deviceID,
 				      CFStringRef *keys)
 {
-  CFStringRef	value = NULL;
-  CFArrayRef	kvPairs = deviceID != NULL ? CFStringCreateArrayBySeparatingStrings(NULL, deviceID, CFSTR(";")) : NULL;
-  CFIndex	max = kvPairs != NULL ? CFArrayGetCount(kvPairs) : 0;
-  CFIndex	idx = 0;
+  CFStringRef value;
+  CFArrayRef kvPairs;
+  CFIndex max;
+  CFIndex idx;
 
-  while (idx < max && value == NULL)
+  if (deviceID == NULL)
+    return NULL;
+
+  value = NULL;
+  kvPairs = CFStringCreateArrayBySeparatingStrings(NULL, deviceID, CFSTR(";"));
+  max = CFArrayGetCount(kvPairs);
+
+  for (idx = 0; idx < max; idx++)
   {
     CFStringRef kvpair = CFArrayGetValueAtIndex(kvPairs, idx);
     CFIndex idxx = 0;
-    while (keys[idxx] != NULL && value == NULL)
+    for (idxx = 0; keys[idxx] != NULL; idxx++)
     {
       CFRange range = CFStringFind(kvpair, keys[idxx], kCFCompareCaseInsensitive);
       if (range.length != -1)
@@ -1919,14 +1928,17 @@ static CFStringRef copy_value_for_key(CFStringRef deviceID,
 	  value = theString2;
 	}
       }
-      idxx++;
+
+      if (value != NULL)
+      {
+        CFRelease(kvPairs);
+        return value;
+      }
     }
-    idx++;
   }
 
-  if (kvPairs != NULL)
-    CFRelease(kvPairs);
-  return value;
+  CFRelease(kvPairs);
+  return NULL;
 }
 
 
@@ -2047,25 +2059,26 @@ static void parse_options(char *options,
 static void setup_cfLanguage(void)
 {
   CFStringRef	lang[1] = {NULL};
-  CFArrayRef	langArray = NULL;
-  const char	*requestedLang = NULL;
+  CFArrayRef	langArray;
+  const char	*requestedLang;
 
   if ((requestedLang = getenv("APPLE_LANGUAGE")) == NULL)
     requestedLang = getenv("LANG");
 
-  if (requestedLang != NULL)
+  if (requestedLang == NULL)
   {
-    lang[0] = CFStringCreateWithCString(kCFAllocatorDefault, requestedLang, kCFStringEncodingUTF8);
-    langArray = CFArrayCreate(kCFAllocatorDefault, (const void **)lang, sizeof(lang) / sizeof(lang[0]), &kCFTypeArrayCallBacks);
-
-    CFPreferencesSetValue(CFSTR("AppleLanguages"), langArray, kCFPreferencesCurrentApplication, kCFPreferencesAnyUser, kCFPreferencesAnyHost);
-    fprintf(stderr, "DEBUG: usb: AppleLanguages=\"%s\"\n", requestedLang);
-
-    CFRelease(lang[0]);
-    CFRelease(langArray);
-  }
-  else
     fputs("DEBUG: usb: LANG and APPLE_LANGUAGE environment variables missing.\n", stderr);
+    return;
+  }
+
+  lang[0] = CFStringCreateWithCString(kCFAllocatorDefault, requestedLang, kCFStringEncodingUTF8);
+  langArray = CFArrayCreate(kCFAllocatorDefault, (const void **)lang, sizeof(lang) / sizeof(lang[0]), &kCFTypeArrayCallBacks);
+
+  CFPreferencesSetValue(CFSTR("AppleLanguages"), langArray, kCFPreferencesCurrentApplication, kCFPreferencesAnyUser, kCFPreferencesAnyHost);
+  fprintf(stderr, "DEBUG: usb: AppleLanguages=\"%s\"\n", requestedLang);
+
+  CFRelease(lang[0]);
+  CFRelease(langArray);
 }
 
 #pragma mark -
