@@ -341,10 +341,10 @@ _cupsFileCheckFilter(
 
 char *					/* O  - Line read or @code NULL@ on end of file or error */
 _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
-				char        *buf,	/* O  - String buffer */
-				size_t      buflen,	/* I  - Size of string buffer */
-				char        **value,	/* O  - Pointer to value */
-				int         *linenum)	/* IO - Current line number */
+	char        *buf,	/* O  - String buffer */
+	size_t      buflen,	/* I  - Size of string buffer */
+	char        **value,	/* O  - Pointer to value */
+	int         *linenum)	/* IO - Current line number */
 {
   char	*ptr;				/* Pointer into line */
 
