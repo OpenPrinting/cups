@@ -1397,7 +1397,7 @@ copy_page(cups_file_t  *fp,		/* I - File to read from */
              !strncmp(line, "%%PageMedia:", 12) ||
 	     !strncmp(line, "%%PageOrientation:", 18) ||
 	     !strncmp(line, "%%PageProcessColors:", 20) ||
-	     !strncmp(line, "%%PageRequirements:", 18) ||
+	     !strncmp(line, "%%PageRequirements:", 19) ||
 	     !strncmp(line, "%%PageResources:", 16))
     {
      /*
@@ -1429,7 +1429,7 @@ copy_page(cups_file_t  *fp,		/* I - File to read from */
       * %%PageProcessColors: ...
       */
     }
-    else if (!strncmp(line, "%%PageRequirements:", 18))
+    else if (!strncmp(line, "%%PageRequirements:", 19))
     {
      /*
       * %%PageRequirements: ...
