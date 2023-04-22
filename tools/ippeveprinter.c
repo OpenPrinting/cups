@@ -1681,7 +1681,7 @@ create_printer(
     * Extract up to 3 icons...
     */
 
-    for (i = 1, iconsptr = strchr(icons, ','); iconsptr && i < 3; i ++, iconsptr = strchr(iconsptr, ','))
+    for (i = 1, iconsptr = strchr(printer->icons, ','); iconsptr && i < 3; i ++, iconsptr = strchr(iconsptr, ','))
     {
       *iconsptr++ = '\0';
       printer->icons[i] = iconsptr;
@@ -6862,7 +6862,10 @@ process_job(ippeve_job_t *job)		/* I - Job */
     }
 
     if (mystdout < 0)
-      mystdout = open("/dev/null", O_WRONLY | O_BINARY);
+    {
+      if ((mystdout = open("/dev/null", O_WRONLY | O_BINARY)) < 0)
+        fprintf(stderr, "[Job %d] Unable to redirect command output to /dev/null: %s", job->id, strerror(errno));
+    }
 
     if (pipe(mypipe))
     {
@@ -6876,14 +6879,20 @@ process_job(ippeve_job_t *job)		/* I - Job */
       * Child comes here...
       */
 
-      close(1);
-      dup2(mystdout, 1);
-      close(mystdout);
+      if (mystdout >= 0)
+      {
+	close(1);
+        dup2(mystdout, 1);
+        close(mystdout);
+      }
 
-      close(2);
-      dup2(mypipe[1], 2);
-      close(mypipe[0]);
-      close(mypipe[1]);
+      if (mypipe[1] >= 0)
+      {
+	close(2);
+	dup2(mypipe[1], 2);
+	close(mypipe[0]);
+	close(mypipe[1]);
+      }
 
       execve(job->printer->command, myargv, myenvp);
       exit(errno);
