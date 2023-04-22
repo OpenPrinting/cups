@@ -59,7 +59,7 @@ _cups_getifaddrs(struct ifaddrs **addrs)/* O - List of interfaces */
   conf.ifc_len = sizeof(buffer);
   conf.ifc_buf = buffer;
 
-  if (ioctl(sock, SIOCGIFCONF, &conf) < 0)
+  if (fcntl(sock, SIOCGIFCONF, &conf) < 0)
   {
    /*
     * Couldn't get the list of interfaces...
@@ -101,7 +101,7 @@ _cups_getifaddrs(struct ifaddrs **addrs)/* O - List of interfaces */
     * Check the status of the interface...
     */
 
-    if (ioctl(sock, SIOCGIFFLAGS, &request) < 0)
+    if (fcntl(sock, SIOCGIFFLAGS, &request) < 0)
       continue;
 
    /*
@@ -134,7 +134,7 @@ _cups_getifaddrs(struct ifaddrs **addrs)/* O - List of interfaces */
     * Try to get the netmask for the interface...
     */
 
-    if (!ioctl(sock, SIOCGIFNETMASK, &request))
+    if (!fcntl(sock, SIOCGIFNETMASK, &request))
     {
      /*
       * Got it, make a copy...
@@ -156,7 +156,7 @@ _cups_getifaddrs(struct ifaddrs **addrs)/* O - List of interfaces */
       * Have a broadcast address, so get it!
       */
 
-      if (!ioctl(sock, SIOCGIFBRDADDR, &request))
+      if (!fcntl(sock, SIOCGIFBRDADDR, &request))
       {
        /*
 	* Got it, make a copy...
@@ -174,7 +174,7 @@ _cups_getifaddrs(struct ifaddrs **addrs)/* O - List of interfaces */
       * Point-to-point interface; grab the remote address...
       */
 
-      if (!ioctl(sock, SIOCGIFDSTADDR, &request))
+      if (!fcntl(sock, SIOCGIFDSTADDR, &request))
       {
 	temp->ifa_dstaddr = malloc(sizeof(request.ifr_dstaddr));
 	memcpy(temp->ifa_dstaddr, &(request.ifr_dstaddr),

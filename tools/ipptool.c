@@ -4208,7 +4208,7 @@ timeout_cb(http_t *http,		/* I - Connection to server */
     buffered = 0;
 
 #elif defined(SIOCOUTQ)			/* Others except Windows */
-  if (ioctl(httpGetFd(http), SIOCOUTQ, &buffered))
+  if (fcntl(httpGetFd(http), SIOCOUTQ, &buffered))
     buffered = 0;
 
 #else					/* Windows (not possible) */

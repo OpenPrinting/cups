@@ -136,7 +136,7 @@
  *         c. cupsdRemoveSelect() writes a single pollfd struct to
  *            /dev/poll with the file descriptor and the POLLREMOVE
  *            flag.
- *         d. cupsdDoSelect() uses the DP_POLL ioctl to retrieve
+ *         d. cupsdDoSelect() uses the DP_POLL fcntl to retrieve
  *            events from /dev/poll and then loops through the
  *            returned pollfd array, looking up the file descriptors
  *            as needed.
@@ -165,7 +165,7 @@
  *   cupsdDoSelect().
  *
  *   Since /dev/poll will never be able to use a shadow array, it may
- *   not make sense to implement support for it.  ioctl() overhead will
+ *   not make sense to implement support for it.  fcntl() overhead will
  *   impact performance as well, so my guess would be that, for CUPS,
  *   /dev/poll will yield a net performance loss.
  */

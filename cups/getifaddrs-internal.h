@@ -45,7 +45,7 @@ typedef int socklen_t;
 #    ifdef HAVE_GETIFADDRS
 #      include <ifaddrs.h>
 #    else
-#      include <sys/ioctl.h>
+#      include <fcntl.h>
 #      ifdef HAVE_SYS_SOCKIO_H
 #        include <sys/sockio.h>
 #      endif /* HAVE_SYS_SOCKIO_H */
