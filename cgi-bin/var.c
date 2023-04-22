@@ -278,6 +278,10 @@ cgiInitialize(void)
   {
     fputs("DEBUG: " CUPS_SID " cookie not found, initializing!\n", stderr);
     cups_sid_cookie = cgi_set_sid();
+    if ((cups_sid_form = cgiGetVariable(CUPS_SID)) == NULL)
+      cgiSetVariable(CUPS_SID, cups_sid_cookie);
+    else
+      free((void *)cups_sid_form);
   }
 
   fprintf(stderr, "DEBUG: " CUPS_SID " cookie is \"%s\"\n", cups_sid_cookie);
@@ -287,9 +291,10 @@ cgiInitialize(void)
   */
 
   method       = getenv("REQUEST_METHOD");
-  content_type = getenv("CONTENT_TYPE");
   if (!method)
     return (0);
+
+  content_type = getenv("CONTENT_TYPE");
 
  /*
   * Grab form data from the corresponding location...
@@ -299,13 +304,12 @@ cgiInitialize(void)
     return (cgi_initialize_get());
   else if (!_cups_strcasecmp(method, "POST") && content_type)
   {
-    const char *boundary = strstr(content_type, "boundary=");
-
-    if (boundary)
-      boundary += 9;
-
     if (!strncmp(content_type, "multipart/form-data; ", 21))
     {
+      const char *boundary = strstr(content_type, "boundary=");
+
+      if (boundary)
+        boundary += 9;
       if (!cgi_initialize_multipart(boundary))
         return (0);
     }
@@ -315,13 +319,13 @@ cgiInitialize(void)
     if ((cups_sid_form = cgiGetVariable(CUPS_SID)) == NULL ||
 	strcmp(cups_sid_cookie, cups_sid_form))
     {
-      if (cups_sid_form)
+      if (cups_sid_form) {
 	fprintf(stderr, "DEBUG: " CUPS_SID " form variable is \"%s\"\n",
 	        cups_sid_form);
+	free((void *)cups_sid_form);
+      }
       else
 	fputs("DEBUG: " CUPS_SID " form variable is not present.\n", stderr);
-
-      free((void *)cups_sid_form);
 
       cgiClearVariables();
 
@@ -825,7 +829,7 @@ cgi_initialize_multipart(
 	    break;
 	  }
 
-          if ((ptr - line - (int)blen) >= 8192)
+          if ((size_t)(ptr - line) >= blen + 8192)
 	  {
 	   /*
 	    * Write out the first 8k of the buffer...
@@ -1226,8 +1230,7 @@ cgi_set_sid(void)
   cupsHashData("md5", (unsigned char *)buffer, strlen(buffer), sum, sizeof(sum));
 
   cgiSetCookie(CUPS_SID, cupsHashString(sum, sizeof(sum), sid, sizeof(sid)), "/", NULL, 0, 0);
-
-  return (cupsGetOption(CUPS_SID, num_cookies, cookies));
+  return (cgiGetCookie(CUPS_SID));
 }
 
 

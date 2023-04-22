@@ -1681,7 +1681,7 @@ create_printer(
     * Extract up to 3 icons...
     */
 
-    for (i = 1, iconsptr = strchr(printer->icons, ','); iconsptr && i < 3; i ++, iconsptr = strchr(iconsptr, ','))
+    for (i = 1, iconsptr = strchr(printer->icons[0], ','); iconsptr && i < 3; i ++, iconsptr = strchr(iconsptr, ','))
     {
       *iconsptr++ = '\0';
       printer->icons[i] = iconsptr;
