@@ -180,6 +180,7 @@ main(void)
       cgiCopyTemplateLang("error-op.tmpl");
       cgiEndHTML();
     }
+    free(op);
   }
   else
   {
@@ -190,6 +191,7 @@ main(void)
     cgiStartHTML(cgiText(_("Printers")));
     cgiCopyTemplateLang("error-op.tmpl");
     cgiEndHTML();
+    free(op);
   }
 
  /*
@@ -201,6 +203,7 @@ main(void)
  /*
   * Return with no errors...
   */
+  free(op);
 
   return (0);
 }
@@ -350,9 +353,15 @@ show_all_printers(http_t     *http,	/* I - Connection to server */
     * Get a list of matching job objects.
     */
 
-    if ((var = cgiGetVariable("QUERY")) != NULL &&
-        !cgiGetVariable("CLEAR"))
-      search = cgiCompileSearch(var);
+    if ((var = cgiGetVariable("QUERY")) != NULL)
+    {
+      if (!cgiVariableExists("CLEAR"))
+        search = cgiCompileSearch(var);
+      else
+        search = NULL;
+      
+      free(var);
+    }
     else
       search = NULL;
 
@@ -367,7 +376,10 @@ show_all_printers(http_t     *http,	/* I - Connection to server */
     */
 
     if ((var = cgiGetVariable("FIRST")) != NULL)
+    {
       first = atoi(var);
+      free(var);
+    }
     else
       first = 0;
 

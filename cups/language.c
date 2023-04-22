@@ -248,7 +248,7 @@ _cupsAppleLocale(CFStringRef languageName,	/* I - Apple language ID */
                  char        *locale,		/* I - Buffer for locale */
 		 size_t      localesize)	/* I - Size of buffer */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   CFStringRef	localeName;		/* Locale as a CF string */
 #ifdef DEBUG
   char          temp[1024];             /* Temporary string */
@@ -280,7 +280,7 @@ _cupsAppleLocale(CFStringRef languageName,	/* I - Apple language ID */
     */
 
     for (i = 0;
-	 i < (int)(sizeof(apple_language_locale) /
+	 i < (sizeof(apple_language_locale) /
 		   sizeof(apple_language_locale[0]));
 	 i ++)
     {

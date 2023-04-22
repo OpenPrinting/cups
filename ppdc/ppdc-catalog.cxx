@@ -107,11 +107,11 @@ ppdcCatalog::ppdcCatalog(const char *l,	// I - Locale
 
 	plist = CFPropertyListCreateWithStream(kCFAllocatorDefault, stream, 0, kCFPropertyListImmutable, NULL, NULL);
 
-	if (plist && CFGetTypeID(plist) == CFDictionaryGetTypeID())
-	  CFDictionaryApplyFunction((CFDictionaryRef)plist, (CFDictionaryApplierFunction)apple_add_message, this);
-
-	if (plist)
-	  CFRelease(plist);
+  if (plist) {
+    if (CFGetTypeID(plist) == CFDictionaryGetTypeID())
+      CFDictionaryApplyFunction((CFDictionaryRef)plist, (CFDictionaryApplierFunction)apple_add_message, this);
+    CFRelease(plist);
+  }
 
 	CFRelease(stream);
       }

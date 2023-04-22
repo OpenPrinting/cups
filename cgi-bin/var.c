@@ -163,11 +163,13 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
 {
   _cgi_var_t	*var;			/* Pointer to variable */
 
+  if (element < 0)
+    return (NULL);
 
   if ((var = cgi_find_variable(name)) == NULL)
     return (NULL);
 
-  if (element < 0 || element >= var->nvalues)
+  if (element >= var->nvalues)
     return (NULL);
 
   if (var->values[element] == NULL)
@@ -232,6 +234,50 @@ cgiGetVariable(const char *name)	/* I - Name of variable */
   var = cgi_find_variable(name);
 
   return ((var == NULL) ? NULL : strdup(var->values[var->nvalues - 1]));
+}
+
+/*
+ * 'cgiVariableExists()' - Get a CGI variable from the database.
+ *
+ * Returns 0 if the variable doesn't exist, 1 if it does
+ */
+
+int					/* O - 1 if variable exists */
+cgiVariableExists(const char *name)	/* I - Name of variable */
+{
+  const _cgi_var_t	*var;		/* Returned variable */
+
+
+  var = cgi_find_variable(name);
+
+  return (var && var->values[var->nvalues - 1]);
+}
+
+/*
+ * 'cgiArrayExists()' - Get a CGI variable from the database.
+ *
+ * Returns 0 if the variable doesn't exist, 1 if it does
+ */
+
+int					/* O - 1 if variable exists */
+cgiArrayExists(const char *name,		/* I - Name of array variable */
+            int        element)		/* I - Element number (0 to N) */
+{
+  _cgi_var_t	*var;			/* Pointer to variable */
+
+  if (element < 0)
+    return 0;
+
+  if ((var = cgi_find_variable(name)) == NULL)
+    return 0;
+
+  if ( element >= var->nvalues)
+    return 0;
+
+  if (var->values[element] == NULL)
+    return 0;
+
+  return 1;
 }
 
 

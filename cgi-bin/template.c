@@ -436,11 +436,11 @@ cgi_copy(FILE *out,			/* I - Output file */
 	*/
 
         if (name[0] == '?')
-	  result = cgiGetArray(name + 1, element) != NULL;
+	  result = cgiArrayExists(name + 1, element);
 	else if (name[0] == '#')
-	  result = cgiGetVariable(name + 1) != NULL;
+	  result = cgiVariableExists(name + 1);
         else
-          result = cgiGetArray(name, element) != NULL;
+          result = cgiArrayExists(name, element);
 
 	result     = result && outptr[0];
 	compare[0] = '\0';

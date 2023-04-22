@@ -57,8 +57,10 @@ main(void)
   * Get the job ID, if any...
   */
 
-  if ((job_id_var = cgiGetVariable("JOB_ID")) != NULL)
+  if ((job_id_var = cgiGetVariable("JOB_ID")) != NULL) {
     job_id = atoi(job_id_var);
+    free(job_id_var);
+  }
   else
     job_id = 0;
 
@@ -66,7 +68,17 @@ main(void)
   * Do the operation...
   */
 
-  if ((op = cgiGetVariable("OP")) != NULL && job_id > 0 && cgiIsPOST())
+  if (op = cgiGetVariable("OP") == NULL)
+  {
+    /*
+     * Show a list of jobs...
+     */
+
+    cgiStartHTML(cgiText(_("Jobs")));
+    cgiShowJobs(http, NULL);
+    cgiEndHTML();
+  }
+  else if (job_id > 0 && cgiIsPOST())
   {
    /*
     * Do the operation...
@@ -92,6 +104,7 @@ main(void)
       cgiCopyTemplateLang("error-op.tmpl");
       cgiEndHTML();
     }
+    free(op);
   }
   else
   {
@@ -102,6 +115,7 @@ main(void)
     cgiStartHTML(cgiText(_("Jobs")));
     cgiShowJobs(http, NULL);
     cgiEndHTML();
+    free(op);
   }
 
  /*
