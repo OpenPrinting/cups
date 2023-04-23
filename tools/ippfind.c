@@ -163,7 +163,7 @@ static void		client_callback(AvahiClient *client,
 					void *context);
 #endif /* HAVE_MDNSRESPONDER */
 
-static int		compare_services(ippfind_srv_t *a, ippfind_srv_t *b);
+static int		compare_services(ippfind_srv_t *a, ippfind_srv_t *b, void *data);
 static const char	*dnssd_error_string(int error);
 static int		eval_expr(ippfind_srv_t *service,
 			          ippfind_expr_t *expressions);
@@ -1629,10 +1629,12 @@ client_callback(
  * 'compare_services()' - Compare two devices.
  */
 
-static int				/* O - Result of comparison */
-compare_services(ippfind_srv_t *a,	/* I - First device */
-                 ippfind_srv_t *b)	/* I - Second device */
+static int                         /* O - Result of comparison */
+compare_services(ippfind_srv_t *a, /* I - First device */
+                 ippfind_srv_t *b, /* I - Second device */
+                 void *data)       /* Unused */
 {
+  (void)data;
   return (strcmp(a->name, b->name));
 }
 

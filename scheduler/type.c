@@ -43,7 +43,7 @@ typedef struct _mime_filebuf_s		/**** File buffer for MIME typing ****/
  * Local functions...
  */
 
-static int	mime_compare_types(mime_type_t *t0, mime_type_t *t1);
+static int	mime_compare_types(mime_type_t *t0, mime_type_t *t1, void *data);
 static int	mime_check_rules(const char *filename, _mime_filebuf_t *fb,
 		                 mime_magic_t *rules);
 static int	mime_patmatch(const char *s, const char *pat);
@@ -728,12 +728,14 @@ mimeType(mime_t     *mime,		/* I - MIME database */
  * 'mime_compare_types()' - Compare two MIME super/type names.
  */
 
-static int				/* O - Result of comparison */
-mime_compare_types(mime_type_t *t0,	/* I - First type */
-                   mime_type_t *t1)	/* I - Second type */
+static int                          /* O - Result of comparison */
+mime_compare_types(mime_type_t *t0, /* I - First type */
+                   mime_type_t *t1, /* I - Second type */
+                   void *data)      /* Unused */
 {
   int	i;				/* Result of comparison */
 
+  (void)data;
 
   if ((i = _cups_strcasecmp(t0->super, t1->super)) == 0)
     i = _cups_strcasecmp(t0->type, t1->type);

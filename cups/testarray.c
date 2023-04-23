@@ -59,7 +59,7 @@ main(void)
   fputs("cupsArrayNew: ", stdout);
 
   data  = (void *)"testarray";
-  array = cupsArrayNew((cups_array_func_t)strcmp, data);
+  array = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, data);
 
   if (array)
     puts("PASS");

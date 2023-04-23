@@ -180,6 +180,8 @@ extern void	_cupsStrFree(const char *s) _CUPS_PRIVATE;
 extern char	*_cupsStrRetain(const char *s) _CUPS_PRIVATE;
 extern size_t	_cupsStrStatistics(size_t *alloc_bytes, size_t *total_bytes) _CUPS_PRIVATE;
 
+extern char *_cupsStrPrivAlloc(const char *s, void *data) _CUPS_PRIVATE;
+extern void _cupsStrPrivFree(const char *s, void *data) _CUPS_PRIVATE;
 
 /*
  * Floating point number functions...
@@ -197,6 +199,13 @@ extern double	_cupsStrScand(const char *buf, char **bufptr,
 
 extern char	*_cupsStrDate(char *buf, size_t bufsize, time_t timeval) _CUPS_PRIVATE;
 
+extern int _cupsArrayStrcmp(const char *s1, const char *s2, void *data) _CUPS_PRIVATE;
+
+extern int _cupsArrayStrcasecmp(const char *s, const char *t, void *data) _CUPS_PRIVATE;
+
+extern char *_cupsArrayStrdup(const char *element, void *data) _CUPS_PRIVATE;
+
+extern void _cupsArrayFree(void *element, void *data) _CUPS_PRIVATE;
 
 /*
  * C++ magic...

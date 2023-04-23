@@ -21,7 +21,8 @@
 
 static void	add_banner(const char *name, const char *filename);
 static int	compare_banners(const cupsd_banner_t *b0,
-		                const cupsd_banner_t *b1);
+														const cupsd_banner_t *b1,
+														void *data);
 static void	free_banners(void);
 
 
@@ -173,11 +174,12 @@ add_banner(const char *name,		/* I - Name of banner */
  * 'compare_banners()' - Compare two banners.
  */
 
-static int				/* O - -1 if name0 < name1, etc. */
-compare_banners(
-    const cupsd_banner_t *b0,		/* I - First banner */
-    const cupsd_banner_t *b1)		/* I - Second banner */
+static int                                /* O - -1 if name0 < name1, etc. */
+compare_banners(const cupsd_banner_t *b0, /* I - First banner */
+                const cupsd_banner_t *b1, /* I - Second banner */
+                void *data)               /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(b0->name, b1->name));
 }
 

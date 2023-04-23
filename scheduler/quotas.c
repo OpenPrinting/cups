@@ -19,9 +19,9 @@
  */
 
 static cupsd_quota_t	*add_quota(cupsd_printer_t *p, const char *username);
-static int		compare_quotas(const cupsd_quota_t *q1,
-			               const cupsd_quota_t *q2);
-
+static int	compare_quotas(const cupsd_quota_t *q1,
+                           const cupsd_quota_t *q2,
+                           void *data);
 
 /*
  * 'cupsdFindQuota()' - Find a quota record.
@@ -217,9 +217,11 @@ add_quota(cupsd_printer_t *p,		/* I - Printer */
  * 'compare_quotas()' - Compare two quota records...
  */
 
-static int				/* O - Result of comparison */
-compare_quotas(const cupsd_quota_t *q1,	/* I - First quota record */
-               const cupsd_quota_t *q2)	/* I - Second quota record */
+static int                              /* O - Result of comparison */
+compare_quotas(const cupsd_quota_t *q1, /* I - First quota record */
+               const cupsd_quota_t *q2, /* I - Second quota record */
+               void *data)              /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(q1->username, q2->username));
 }

@@ -185,7 +185,7 @@ static void		cups_dnssd_client_cb(AvahiClient *client,
 					     void *context);
 #  endif /* HAVE_MDNSRESPONDER */
 static int		cups_dnssd_compare_devices(_cups_dnssd_device_t *a,
-			                           _cups_dnssd_device_t *b);
+			                           _cups_dnssd_device_t *b, void *data);
 static void		cups_dnssd_free_device(_cups_dnssd_device_t *device,
 			                       _cups_dnssd_data_t *data);
 static _cups_dnssd_device_t *
@@ -2706,11 +2706,12 @@ cups_dnssd_client_cb(
  * 'cups_dnssd_compare_device()' - Compare two devices.
  */
 
-static int				/* O - Result of comparison */
-cups_dnssd_compare_devices(
-    _cups_dnssd_device_t *a,		/* I - First device */
-    _cups_dnssd_device_t *b)		/* I - Second device */
+static int /* O - Result of comparison */
+cups_dnssd_compare_devices(_cups_dnssd_device_t *a, /* I - First device */
+                           _cups_dnssd_device_t *b, /* I - Second device */
+                           void *data)              /* Unused */
 {
+  (void)data;
   return (strcmp(a->dest.name, b->dest.name));
 }
 
