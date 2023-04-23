@@ -1825,7 +1825,7 @@ cupsFileSeek(cups_file_t *fp,		/* I - CUPS file */
       */
 
       fp->pos = pos;
-      fp->ptr = fp->buf + pos - fp->bufpos;
+      fp->ptr = fp->buf + (pos - fp->bufpos);
       fp->eof = 0;
 
       return (pos);
