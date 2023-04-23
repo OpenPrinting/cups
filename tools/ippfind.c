@@ -1376,7 +1376,6 @@ main(int  argc,				/* I - Number of command-line args */
       */
 
       int	active = 0,		/* Number of active resolves */
-		resolved = 0,		/* Number of resolved services */
 		processed = 0;		/* Number of processed services */
 
       for (service = (ippfind_srv_t *)cupsArrayFirst(services);
@@ -1385,9 +1384,6 @@ main(int  argc,				/* I - Number of command-line args */
       {
         if (service->is_processed)
           processed ++;
-
-        if (service->is_resolved)
-          resolved ++;
 
         if (!service->ref && !service->is_resolved)
         {
