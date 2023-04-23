@@ -1098,7 +1098,7 @@ pwg_format_inches(char   *buf,		/* I - Buffer */
                   size_t bufsize,	/* I - Size of buffer */
                   int    val)		/* I - Value in hundredths of millimeters */
 {
-  int	thousandths,			/* Thousandths of inches */
+  long	thousandths,			/* Thousandths of inches */
 	integer,			/* Integer portion */
 	fraction;			/* Fractional portion */
 
@@ -1118,13 +1118,13 @@ pwg_format_inches(char   *buf,		/* I - Buffer */
   */
 
   if (fraction == 0)
-    snprintf(buf, bufsize, "%d", integer);
+    snprintf(buf, bufsize, "%ld", integer);
   else if (fraction % 10)
-    snprintf(buf, bufsize, "%d.%03d", integer, fraction);
+    snprintf(buf, bufsize, "%ld.%03ld", integer, fraction);
   else if (fraction % 100)
-    snprintf(buf, bufsize, "%d.%02d", integer, fraction / 10);
+    snprintf(buf, bufsize, "%ld.%02ld", integer, fraction / 10);
   else
-    snprintf(buf, bufsize, "%d.%01d", integer, fraction / 100);
+    snprintf(buf, bufsize, "%ld.%01ld", integer, fraction / 100);
 
   return (buf);
 }
