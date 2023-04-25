@@ -8859,7 +8859,7 @@ valid_job_attributes(
             }
             else
             {
-              y_min = ippGetRange(y_dim, 0, &x_max);
+              y_min = ippGetRange(y_dim, 0, &y_max);
             }
 
 	    if ((x_value < x_min || x_value > x_max) && (y_value < y_min || y_value > y_max))
