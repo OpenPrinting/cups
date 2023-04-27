@@ -1431,7 +1431,7 @@ exec_program(ippfind_srv_t *service,	// I - Service
 
 	  tptr += strlen(tptr);
 	}
-	else if (tptr < (temp + sizeof(temp) - 1))
+	else if (tptr < (temp + (sizeof(temp) - 1)))
 	  *tptr++ = *ptr;
       }
 

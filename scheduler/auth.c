@@ -1362,7 +1362,7 @@ cupsdFindBest(const char   *path,	/* I - Resource path */
        loc;
        loc = (cupsd_location_t *)cupsArrayNext(Locations))
   {
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFindBest: Location %s(%d) Limit %x", loc->location ? loc->location : "(null)", (int)loc->length, loc->limit);
+    cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFindBest: Location %s(%u) Limit %x", loc->location ? loc->location : "(null)", (unsigned)loc->length, loc->limit);
 
     if (!strncmp(uri, "/printers/", 10) || !strncmp(uri, "/classes/", 9))
     {

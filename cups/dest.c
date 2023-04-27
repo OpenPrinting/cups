@@ -3859,6 +3859,8 @@ cups_queue_name(
   const char	*ptr;			// Pointer into serviceName
   char		*nameptr;		// Pointer into name
 
+  if (namesize == 0)
+    return;
 
   for (nameptr = name, ptr = serviceName; *ptr && nameptr < (name + namesize - 1); ptr ++)
   {

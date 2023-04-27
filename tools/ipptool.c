@@ -2802,7 +2802,11 @@ get_string(ipp_attribute_t *attr,	// I - IPP attribute
   if (flags & IPPTOOL_WITH_HOSTNAME)
   {
     if (httpSeparateURI(HTTP_URI_CODING_ALL, value, scheme, sizeof(scheme), userpass, sizeof(userpass), buffer, bufsize, &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+    {
       buffer[0] = '\0';
+
+      return (buffer);
+    }
 
     ptr = buffer + strlen(buffer) - 1;
     if (ptr >= buffer && *ptr == '.')

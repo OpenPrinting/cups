@@ -1189,7 +1189,7 @@ query_callback(
       char *valptr = value + strlen(value);
       					/* Pointer into value */
 
-      if (valptr < (value + sizeof(value) - 1))
+      if (valptr < (value + (sizeof(value) - 1)))
         *valptr++ = ',';
 
       ptr += 6;
