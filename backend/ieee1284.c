@@ -100,7 +100,7 @@ backendGetDeviceID(
 	*/
 
 	snprintf(devparport, sizeof(devparport), "/dev/parport%s",
-		 uri + strlen(uri) - 1);
+		 uri + (strlen(uri) - 1));
 
 	if ((devparportfd = open(devparport, O_RDWR | O_NOCTTY)) != -1)
 	{

@@ -3084,10 +3084,16 @@ cups_dnssd_query_cb(
 	  * Strip parenthesis...
 	  */
 
-	  if ((ptr = value + strlen(value) - 1) > value && *ptr == ')')
-	    *ptr = '\0';
-
-	  strlcpy(model, value + 1, sizeof(model));
+    if (strlen(value) > 1)
+    {
+      if (*ptr == ')')
+	      *ptr = '\0';
+      strlcpy(model, value + 1, sizeof(model));
+    }
+    else
+    {
+      model[0] = '\0';
+    }
 	}
 	else
 	  strlcpy(model, value, sizeof(model));

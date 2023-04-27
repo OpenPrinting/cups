@@ -1094,12 +1094,13 @@ query_callback(
 
     if (!_cups_strncasecmp(key, "usb_", 4))
     {
+     size_t device_id_len = strlen(device_id);
      /*
       * Add USB device ID information...
       */
 
-      ptr = device_id + strlen(device_id);
-      snprintf(ptr, sizeof(device_id) - (size_t)(ptr - device_id), "%s:%s;", key + 4, value);
+      ptr = device_id + device_id_len;
+      snprintf(ptr, sizeof(device_id) - device_id_len, "%s:%s;", key + 4, value);
     }
 
     if (!_cups_strcasecmp(key, "usb_MFG") || !_cups_strcasecmp(key, "usb_MANU") ||
@@ -1198,7 +1199,7 @@ query_callback(
       char *valptr = value + strlen(value);
       					/* Pointer into value */
 
-      if (valptr < (value + sizeof(value) - 1))
+      if (valptr < (value + (sizeof(value) - 1)))
         *valptr++ = ',';
 
       ptr += 6;

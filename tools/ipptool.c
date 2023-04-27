@@ -827,7 +827,7 @@ compare_uris(const char *a,             /* I - First URI */
   * Strip trailing dots from the host components, if present...
   */
 
-  if ((ptr = ahost + strlen(ahost) - 1) > ahost && *ptr == '.')
+  if ((ptr = ahost + (strlen(ahost) - 1)) > ahost && *ptr == '.')
     *ptr = '\0';
 
   if ((ptr = bhost + strlen(bhost) - 1) > bhost && *ptr == '.')
@@ -2512,7 +2512,7 @@ get_filename(const char *testfile,	/* I - Current test file */
     */
 
     snprintf(dst, dstsize, "%s/ipptool/%s", cg->cups_datadir, src + 1);
-    dstptr = dst + strlen(dst) - 1;
+    dstptr = dst + (strlen(dst) - 1);
     if (*dstptr == '>')
       *dstptr = '\0';
   }
@@ -2627,7 +2627,7 @@ get_string(ipp_attribute_t *attr,	/* I - IPP attribute */
       * Normalize URI with no trailing dot...
       */
 
-      if ((ptr = hostname + strlen(hostname) - 1) >= hostname && *ptr == '.')
+      if ((ptr = hostname + (strlen(hostname) - 1)) >= hostname && *ptr == '.')
 	*ptr = '\0';
 
       httpAssembleURI(HTTP_URI_CODING_ALL, buffer, (int)bufsize, scheme, userpass, hostname, port, resource);

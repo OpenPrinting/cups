@@ -2590,9 +2590,16 @@ resolve_callback(
   service->host        = strdup(hostTarget);
   service->port        = ntohs(port);
 
-  value = service->host + strlen(service->host) - 1;
-  if (value >= service->host && *value == '.')
-    *value = '\0';
+  {
+    size_t temp = strlen(service->host);
+
+    if (temp > 1)
+    {
+      value = service->host + temp - 1;
+      if (*value == '.')
+        *value = '\0';
+    }
+  }
 
  /*
   * Loop through the TXT key/value pairs and add them to an array...

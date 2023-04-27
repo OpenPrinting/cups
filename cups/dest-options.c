@@ -1933,12 +1933,17 @@ cups_create_defaults(
 
   for (attr = ippFirstAttribute(dinfo->attrs); attr; attr = ippNextAttribute(dinfo->attrs))
   {
+    size_t temp;
     if (!ippGetName(attr) || ippGetGroupTag(attr) != IPP_TAG_PRINTER)
       continue;
 
     strlcpy(name, ippGetName(attr), sizeof(name));
-    if ((nameptr = name + strlen(name) - 8) <= name || strcmp(nameptr, "-default"))
+
+    temp = strlen(name);
+    if (temp <= 8 || strcmp(nameptr, "-default"))
       continue;
+
+    nameptr = name + (temp - 8);
 
     *nameptr = '\0';
 

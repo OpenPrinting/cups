@@ -872,9 +872,14 @@ httpGetHostname(http_t *http,		/* I - HTTP connection or NULL */
    /*
     * Make sure .local hostnames end with a period...
     */
-
-    if (strlen(s) > 6 && !strcmp(s + strlen(s) - 6, ".local"))
-      strlcat(s, ".", (size_t)slen);
+   {
+    size_t temp = strlen(s);
+    if (temp > 6 && !strcmp(s + temp - 6, ".local"))
+    {
+      s[0] = '.';
+      s[1] = '\0';
+    }
+   }
   }
 
  /*
