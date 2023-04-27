@@ -1107,7 +1107,7 @@ create_job_file(
   if ((job_name = ippGetString(ippFindAttribute(job->attrs, "job-name", IPP_TAG_NAME), 0, NULL)) == NULL)
     job_name = "untitled";
 
-  for (nameptr = name; *job_name && nameptr < (name + sizeof(name) - 1); job_name ++)
+  for (nameptr = name; *job_name && nameptr < (name + (sizeof(name) - 1)); job_name++)
   {
     if (isalnum(*job_name & 255) || *job_name == '-')
     {
@@ -2641,7 +2641,7 @@ html_printf(ippeve_client_t *client,	// I - Client
 
 	while (isdigit(*format & 255))
 	{
-	  if (tptr < (tformat + sizeof(tformat) - 1))
+	  if (tptr < (tformat + (sizeof(tformat) - 1)))
 	    *tptr++ = *format;
 
 	  width = width * 10 + *format++ - '0';
@@ -2650,8 +2650,8 @@ html_printf(ippeve_client_t *client,	// I - Client
 
       if (*format == '.')
       {
-	if (tptr < (tformat + sizeof(tformat) - 1))
-	  *tptr++ = *format;
+        if (tptr < (tformat + (sizeof(tformat) - 1)))
+              *tptr++ = *format;
 
         format ++;
 
@@ -2670,7 +2670,7 @@ html_printf(ippeve_client_t *client,	// I - Client
 
 	  while (isdigit(*format & 255))
 	  {
-	    if (tptr < (tformat + sizeof(tformat) - 1))
+	    if (tptr < (tformat + (sizeof(tformat) - 1)))
 	      *tptr++ = *format;
 
 	    prec = prec * 10 + *format++ - '0';
@@ -2692,7 +2692,7 @@ html_printf(ippeve_client_t *client,	// I - Client
       }
       else if (*format == 'h' || *format == 'l' || *format == 'L')
       {
-	if (tptr < (tformat + sizeof(tformat) - 1))
+	if (tptr < (tformat + (sizeof(tformat) - 1)))
 	  *tptr++ = *format;
 
         size = *format++;
@@ -2706,7 +2706,7 @@ html_printf(ippeve_client_t *client,	// I - Client
         break;
       }
 
-      if (tptr < (tformat + sizeof(tformat) - 1))
+      if (tptr < (tformat + (sizeof(tformat) - 1)))
         *tptr++ = *format;
 
       type  = *format++;
@@ -4419,7 +4419,7 @@ load_legacy_attributes(
     ptr += strlen(ptr);
     prefix = ",";
   }
-  if (ptr < (device_id + sizeof(device_id) - 1))
+  if (ptr < (device_id + (sizeof(device_id) - 1)))
   {
     *ptr++ = ';';
     *ptr = '\0';
@@ -5855,13 +5855,13 @@ register_printer(
     if (!strcasecmp(value, "application/octet-stream"))
       continue;
 
-    if (ptr > formats && ptr < (formats + sizeof(formats) - 1))
+    if (ptr > formats && ptr < (formats + (sizeof(formats) - 1)))
       *ptr++ = ',';
 
     cupsCopyString(ptr, value, sizeof(formats) - (size_t)(ptr - formats));
     ptr += strlen(ptr);
 
-    if (ptr >= (formats + sizeof(formats) - 1))
+    if (ptr >= (formats + (sizeof(formats) - 1)))
       break;
   }
 
@@ -5870,13 +5870,13 @@ register_printer(
   {
     value = ippGetString(urf_supported, i, NULL);
 
-    if (ptr > urf && ptr < (urf + sizeof(urf) - 1))
+    if (ptr > urf && ptr < (urf + (sizeof(urf) - 1)))
       *ptr++ = ',';
 
     cupsCopyString(ptr, value, sizeof(urf) - (size_t)(ptr - urf));
     ptr += strlen(ptr);
 
-    if (ptr >= (urf + sizeof(urf) - 1))
+    if (ptr >= (urf + (sizeof(urf) - 1)))
       break;
   }
 

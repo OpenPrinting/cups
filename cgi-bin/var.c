@@ -652,7 +652,7 @@ cgi_initialize_cookies(void)
     */
 
     for (ptr = name; *cookie && *cookie != '=';)
-      if (ptr < (name + sizeof(name) - 1))
+      if (ptr < (name + (sizeof(name) - 1)))
       {
         *ptr++ = *cookie++;
       }
@@ -675,7 +675,7 @@ cgi_initialize_cookies(void)
     if (*cookie == '\"')
     {
       for (cookie ++, ptr = value; *cookie && *cookie != '\"';)
-        if (ptr < (value + sizeof(value) - 1))
+        if (ptr < (value + (sizeof(value) - 1)))
 	{
 	  *ptr++ = *cookie++;
 	}
@@ -693,7 +693,7 @@ cgi_initialize_cookies(void)
     else
     {
       for (ptr = value; *cookie && *cookie != ';';)
-        if (ptr < (value + sizeof(value) - 1))
+        if (ptr < (value + (sizeof(value) - 1)))
 	{
 	  *ptr++ = *cookie++;
 	}
@@ -1104,7 +1104,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
             break;
 
 	case '+' :	/* Escaped space character */
-            if (s < (value + sizeof(value) - 1))
+            if (s < (value + (sizeof(value) - 1)))
               *s++ = ' ';
             break;
 
@@ -1116,7 +1116,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
             if (!isxdigit(data[1] & 255) || !isxdigit(data[2] & 255))
 	      return (0);
 
-            if (s < (value + sizeof(value) - 1))
+            if (s < (value + (sizeof(value) - 1)))
 	    {
               data ++;
               ch = *data - '0';
@@ -1135,7 +1135,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
             break;
 
 	default :	/* Other characters come straight through */
-	    if (*data >= ' ' && s < (value + sizeof(value) - 1))
+	    if (*data >= ' ' && s < (value + (sizeof(value) - 1)))
               *s++ = *data;
             break;
       }

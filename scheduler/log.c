@@ -156,8 +156,7 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
       filename[0] = '\0';
 
     for (logptr = logname, ptr = filename + strlen(filename);
-         *logptr && ptr < (filename + sizeof(filename) - 1);
-	 logptr ++)
+         *logptr && ptr < (filename + (sizeof(filename) - 1)); logptr++)
       if (*logptr == '%')
       {
        /*
@@ -801,7 +800,7 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
       switch (*format)
       {
         case '%' :			/* Literal % */
-	    if (bufptr < (buffer + sizeof(buffer) - 1))
+	    if (bufptr < (buffer + (sizeof(buffer) - 1)))
 	      *bufptr++ = '%';
 	    break;
 
@@ -875,7 +874,7 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 
                 for (i = 0;
 		     i < attr->num_values &&
-		         bufptr < (buffer + sizeof(buffer) - 1);
+		         bufptr < (buffer + (sizeof(buffer) - 1));
 		     i ++)
 		{
 		  if (i)
@@ -934,13 +933,13 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 		  }
 		}
 	      }
-	      else if (bufptr < (buffer + sizeof(buffer) - 1))
+	      else if (bufptr < (buffer + (sizeof(buffer) - 1)))
 	        *bufptr++ = '-';
 	      break;
 	    }
 
         default :
-	    if (bufptr < (buffer + sizeof(buffer) - 2))
+	    if (bufptr < (buffer + (sizeof(buffer) - 2)))
 	    {
 	      *bufptr++ = '%';
 	      *bufptr++ = *format;
@@ -948,7 +947,7 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 	    break;
       }
     }
-    else if (bufptr < (buffer + sizeof(buffer) - 1))
+    else if (bufptr < (buffer + (sizeof(buffer) - 1)))
       *bufptr++ = *format;
   }
 

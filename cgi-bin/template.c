@@ -250,7 +250,7 @@ cgi_copy(FILE *out,			/* I - Output file */
 	  uriencode = 1;
         else if (s > name && ch == '?')
 	  break;
-	else if (s < (name + sizeof(name) - 1))
+	else if (s < (name + (sizeof(name) - 1)))
           *s++ = (char)ch;
 
       *s = '\0';
@@ -455,7 +455,7 @@ cgi_copy(FILE *out,			/* I - Output file */
 	for (s = compare; (ch = getc(in)) != EOF;)
           if (ch == '?')
             break;
-	  else if (s >= (compare + sizeof(compare) - 1))
+	  else if (s >= (compare + (sizeof(compare) - 1)))
 	    continue;
 	  else if (ch == '#')
 	  {
