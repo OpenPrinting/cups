@@ -8098,12 +8098,17 @@ then :
 	# Use -fsanitize=address with debugging...
 	OPTIM="$OPTIM -g -fsanitize=address"
 
+elif echo "$CXXFLAGS $CFLAGS" | grep -q _FORTIFY_SOURCE
+then :
+
+        # Don't add _FORTIFY_SOURCE if it is already there
+
 else $as_nop
 
 	# Otherwise use the Fortify enhancements to catch any unbounded
 	# string operations...
-	CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2"
-	CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=2"
+	CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=3"
+	CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=3"
 
 fi
 

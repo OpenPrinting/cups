@@ -105,11 +105,13 @@ AS_IF([test -n "$GCC"], [
     AS_IF([test x$enable_sanitizer = xyes], [
 	# Use -fsanitize=address with debugging...
 	OPTIM="$OPTIM -g -fsanitize=address"
+    ], [echo "$CXXFLAGS $CFLAGS" | grep -q _FORTIFY_SOURCE], [
+        # Don't add _FORTIFY_SOURCE if it is already there
     ], [
 	# Otherwise use the Fortify enhancements to catch any unbounded
 	# string operations...
-	CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2"
-	CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=2"
+	CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=3"
+	CXXFLAGS="$CXXFLAGS -D_FORTIFY_SOURCE=3"
     ])
 
     # Default optimization options...
