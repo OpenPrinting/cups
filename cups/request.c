@@ -179,7 +179,7 @@ cupsDoIORequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
   else
     length = ippLength(request);
 
-  DEBUG_printf(("2cupsDoIORequest: Request length=%ld, total length=%ld", (long)ippLength(request), (long)length));
+  DEBUG_printf(("2cupsDoIORequest: Request length=%lu, total length=%lu", (unsigned long)ippLength(request), (unsigned long)length));
 
  /*
   * Clear any "Local" authentication data since it is probably stale...
