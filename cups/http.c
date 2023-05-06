@@ -4000,7 +4000,7 @@ http_create(
   * Allocate memory for the structure...
   */
 
-  if ((http = calloc(sizeof(http_t), 1)) == NULL)
+  if ((http = calloc(1, sizeof(http_t))) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     httpAddrFreeList(myaddrlist);

@@ -1636,7 +1636,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
 	  num_options = pc->num_presets[_PWG_PRINT_COLOR_MODE_COLOR]
 					[pwg_print_quality];
-	  options     = calloc(sizeof(cups_option_t), (size_t)num_options);
+	  options     = calloc((size_t)num_options, sizeof(cups_option_t));
 
 	  if (options)
 	  {

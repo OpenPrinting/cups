@@ -293,7 +293,7 @@ cupsAddDest(const char  *name,		/* I  - Destination name */
       * Copy options from parent...
       */
 
-      dest->options = calloc(sizeof(cups_option_t), (size_t)parent->num_options);
+      dest->options = calloc((size_t)parent->num_options, sizeof(cups_option_t));
 
       if (dest->options)
       {
@@ -849,7 +849,7 @@ cupsCopyDest(cups_dest_t *dest,         /* I  - Destination to copy */
   {
     new_dest->is_default = dest->is_default;
 
-    if ((new_dest->options = calloc(sizeof(cups_option_t), (size_t)dest->num_options)) == NULL)
+    if ((new_dest->options = calloc((size_t)dest->num_options, sizeof(cups_option_t))) == NULL)
       return (cupsRemoveDest(dest->name, dest->instance, num_dests, dests));
 
     new_dest->num_options = dest->num_options;
@@ -2828,7 +2828,7 @@ cups_dnssd_get_device(
                   !strcmp(regtype, "_ipps._tcp") ? "IPPS" : "IPP",
                   replyDomain));
 
-    if ((device = calloc(sizeof(_cups_dnssd_device_t), 1)) == NULL)
+    if ((device = calloc(1, sizeof(_cups_dnssd_device_t))) == NULL)
       return (NULL);
 
     device->dest.name = _cupsStrAlloc(name);

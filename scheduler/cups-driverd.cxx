@@ -2403,7 +2403,12 @@ load_ppds(const char *d,		/* I - Actual directory */
   * Nope, add it to the Inodes array and continue...
   */
 
-  dinfoptr = (struct stat *)malloc(sizeof(struct stat));
+  if ((dinfoptr = (struct stat *)malloc(sizeof(struct stat))) == NULL)
+  {
+    fputs("ERROR: [cups-driverd] Unable to allocate memory for directory info.\n",
+          stderr);
+    exit(1);
+  }
   memcpy(dinfoptr, &dinfo, sizeof(struct stat));
   cupsArrayAdd(Inodes, dinfoptr);
 
@@ -2625,11 +2630,10 @@ load_ppds_dat(char   *filename,		/* I - Filename buffer */
       {
 	if ((ppd = (ppd_info_t *)calloc(1, sizeof(ppd_info_t))) == NULL)
 	{
-	  if (verbose)
-	    fputs("ERROR: [cups-driverd] Unable to allocate memory for PPD!\n",
-		  stderr);
-	  exit(1);
-	}
+    fputs("ERROR: [cups-driverd] Unable to allocate memory for PPD!\n",
+          stderr);
+    exit(1);
+  }
 
 	if (cupsFileRead(fp, (char *)&(ppd->record), sizeof(ppd_rec_t)) > 0)
 	{

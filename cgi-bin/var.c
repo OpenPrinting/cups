@@ -553,14 +553,27 @@ cgi_add_variable(const char *name,	/* I - Variable name */
     if (!temp_vars)
       return;
 
-    form_vars  = temp_vars;
+    var = temp_vars + form_count;
+
+    if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
+    {
+      /* 
+       * Rollback changes
+       */
+
+      if (form_alloc == 0)
+        free(temp_vars);
+      return;
+    }
+    form_vars = temp_vars;
     form_alloc += 16;
   }
-
-  var = form_vars + form_count;
-
-  if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
-    return;
+  else
+  {
+    var = form_vars + form_count;
+    if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
+      return;
+  }
 
   var->name            = strdup(name);
   var->nvalues         = element + 1;

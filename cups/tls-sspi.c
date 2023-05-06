@@ -1232,7 +1232,7 @@ _httpTLSWrite(http_t     *http,		/* I - HTTP connection */
 static _http_sspi_t *			/* O  - New SSPI/SSL object */
 http_sspi_alloc(void)
 {
-  return ((_http_sspi_t *)calloc(sizeof(_http_sspi_t), 1));
+  return ((_http_sspi_t *)calloc(1, sizeof(_http_sspi_t)));
 }
 
 

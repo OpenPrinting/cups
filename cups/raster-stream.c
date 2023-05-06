@@ -448,7 +448,7 @@ _cupsRasterNew(
 
   _cupsRasterClearError();
 
-  if ((r = calloc(sizeof(cups_raster_t), 1)) == NULL)
+  if ((r = calloc(1, sizeof(cups_raster_t))) == NULL)
   {
     _cupsRasterAddError("Unable to allocate memory for raster stream: %s\n",
                         strerror(errno));

@@ -6170,8 +6170,8 @@ ipp_add_attr(ipp_t      *ipp,		/* I - IPP message */
   else
     alloc_values = (num_values + IPP_MAX_VALUES - 1) & ~(IPP_MAX_VALUES - 1);
 
-  attr = calloc(sizeof(ipp_attribute_t) +
-                (size_t)(alloc_values - 1) * sizeof(_ipp_value_t), 1);
+  attr = calloc(1, sizeof(ipp_attribute_t) +
+                (size_t)(alloc_values - 1) * sizeof(_ipp_value_t));
 
   if (attr)
   {

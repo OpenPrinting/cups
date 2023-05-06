@@ -52,7 +52,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
   * Allocate memory for the certificate...
   */
 
-  if ((cert = calloc(sizeof(cupsd_cert_t), 1)) == NULL)
+  if ((cert = calloc(1, sizeof(cupsd_cert_t))) == NULL)
     return;
 
  /*

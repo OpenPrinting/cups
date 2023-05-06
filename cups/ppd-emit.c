@@ -98,14 +98,14 @@ ppdCollect2(ppd_file_t    *ppd,		/* I - PPD file data */
   */
 
   count = 0;
-  if ((collect = calloc(sizeof(ppd_choice_t *),
-                        (size_t)cupsArrayCount(ppd->marked))) == NULL)
+  if ((collect = calloc((size_t)cupsArrayCount(ppd->marked),
+                        sizeof(ppd_choice_t *))) == NULL)
   {
     *choices = NULL;
     return (0);
   }
 
-  if ((orders = calloc(sizeof(float), (size_t)cupsArrayCount(ppd->marked))) == NULL)
+  if ((orders = calloc((size_t)cupsArrayCount(ppd->marked), sizeof(float))) == NULL)
   {
     *choices = NULL;
     free(collect);

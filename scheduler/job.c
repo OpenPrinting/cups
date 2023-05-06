@@ -148,7 +148,7 @@ cupsdAddJob(int        priority,	/* I - Job priority */
   cupsd_job_t	*job;			/* New job record */
 
 
-  if ((job = calloc(sizeof(cupsd_job_t), 1)) == NULL)
+  if ((job = calloc(1, sizeof(cupsd_job_t))) == NULL)
     return (NULL);
 
   job->id              = NextJobId ++;
@@ -4648,7 +4648,7 @@ load_request_root(void)
       * Allocate memory for the job...
       */
 
-      if ((job = calloc(sizeof(cupsd_job_t), 1)) == NULL)
+      if ((job = calloc(1, sizeof(cupsd_job_t))) == NULL)
       {
         cupsdLogMessage(CUPSD_LOG_ERROR, "Ran out of memory for jobs.");
 	cupsDirClose(dir);
