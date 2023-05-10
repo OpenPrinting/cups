@@ -3249,7 +3249,7 @@ run_as_user(char       *argv[],		/* I - Command-line arguments */
 					/* Status of request */
 
 
-  fprintf(stderr, "DEBUG: Running IPP backend as UID %d.\n", (int)uid);
+  fprintf(stderr, "DEBUG: Running IPP backend as UID %u.\n", (unsigned)uid);
 
  /*
   * Connect to the user agent for the specified UID...

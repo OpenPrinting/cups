@@ -1043,7 +1043,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       * Send the control file...
       */
 
-      if (lpd_command(fd, "\002%d cfA%03d%.15s\n", (int)strlen(control),
+      if (lpd_command(fd, "\002%u cfA%03d%.15s\n", (unsigned)strlen(control),
                       (int)getpid() % 1000, localhost))
       {
 	close(fd);
@@ -1176,7 +1176,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       * Send control file...
       */
 
-      if (lpd_command(fd, "\002%d cfA%03d%.15s\n", (int)strlen(control),
+      if (lpd_command(fd, "\002%u cfA%03d%.15s\n", (unsigned)strlen(control),
                       (int)getpid() % 1000, localhost))
       {
 	close(fd);
@@ -1184,8 +1184,8 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
         return (CUPS_BACKEND_FAILED);
       }
 
-      fprintf(stderr, "DEBUG: Sending control file (%lu bytes)\n",
-	      (unsigned long)strlen(control));
+      fprintf(stderr, "DEBUG: Sending control file (%u bytes)\n",
+	      (unsigned)strlen(control));
 
       if ((size_t)lpd_write(fd, control, strlen(control) + 1) < (strlen(control) + 1))
       {
