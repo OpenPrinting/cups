@@ -1098,8 +1098,7 @@ pwg_format_inches(char   *buf,		/* I - Buffer */
                   size_t bufsize,	/* I - Size of buffer */
                   int    val)		/* I - Value in hundredths of millimeters */
 {
-  int	thousandths,			/* Thousandths of inches */
-	integer,			/* Integer portion */
+  int	integer,			/* Integer portion */
 	fraction;			/* Fractional portion */
 
 
