@@ -1108,9 +1108,13 @@ pwg_format_inches(char   *buf,		/* I - Buffer */
   * the nearest thousandth.
   */
 
-  thousandths = (val * 1000 + 1270) / 2540;
-  integer     = thousandths / 1000;
-  fraction    = thousandths % 1000;
+  integer  = val / 2540;
+  fraction = ((val % 2540) * 1000 + 1270) / 2540;
+  if (fraction >= 1000)
+  {
+    integer ++;
+    fraction -= 1000;
+  }
 
  /*
   * Format as a pair of integers (avoids locale stuff), avoiding trailing

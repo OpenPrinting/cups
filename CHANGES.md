@@ -170,6 +170,8 @@ Changes in CUPS v2.4b1 (2021-10-27)
 - Fixed support for "job-hold-until" with the Restart-Job operation (Issue #250)
 - Fixed the default color/grayscale presets for IPP Everywhere PPDs (Issue #262)
 - Fixed support for the 'offline-report' state for all USB backends (Issue #264)
+- Fixed an integer overflow in the PWG media size name formatting code
+  (Issue #668)
 - Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
 - Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
   Issue #164)
