@@ -1,6 +1,3 @@
-paths-ignore:
-  - locale
-
 query-filters:
   - exclude:
       id: cpp/cleartext-transmission
