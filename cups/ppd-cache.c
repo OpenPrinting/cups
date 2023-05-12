@@ -1354,7 +1354,8 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       */
 
       snprintf(msg_id, sizeof(msg_id), "media-source.%s", pwg_name);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      ppd_attr = ppdLocalizeAttr(ppd, "InputSlot", choice->choice);
+      pwg_add_message(pc->strings, msg_id, ppd_attr ? ppd_attr->text : choice->text);
     }
   }
 
@@ -1425,7 +1426,8 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       */
 
       snprintf(msg_id, sizeof(msg_id), "media-type.%s", pwg_name);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      ppd_attr = ppdLocalizeAttr(ppd, "MediaType", choice->choice);
+      pwg_add_message(pc->strings, msg_id, ppd_attr ? ppd_attr->text : choice->text);
     }
   }
 
@@ -1459,7 +1461,8 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       */
 
       snprintf(msg_id, sizeof(msg_id), "output-bin.%s", pwg_keyword);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      ppd_attr = ppdLocalizeAttr(ppd, "OutputBin", choice->choice);
+      pwg_add_message(pc->strings, msg_id, ppd_attr ? ppd_attr->text : choice->text);
     }
   }
 
@@ -1935,7 +1938,8 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       */
 
       snprintf(msg_id, sizeof(msg_id), "finishing-template.%s", choice->choice);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      ppd_attr = ppdLocalizeAttr(ppd, "cupsFinishingTemplate", choice->choice);
+      pwg_add_message(pc->strings, msg_id, ppd_attr ? ppd_attr->text : choice->text);
     }
   }
 
