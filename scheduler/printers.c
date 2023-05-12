@@ -4570,7 +4570,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
       urf[num_urf ++] = "SRGB24";
 
-      if (!cupsGetOption("printer-color-mode", p->num_options, p->options))
+      if (!cupsGetOption("print-color-mode", p->num_options, p->options))
       {
         // If the default color mode isn't set, use the default from the PPD
         // file...
