@@ -473,7 +473,7 @@ print_device(const char *uri,		/* I - Device URI */
       {
 	iostatus = libusb_bulk_transfer(g.printer->handle,
 					g.printer->write_endp,
-					print_buffer, g.print_bytes,
+					print_ptr, g.print_bytes,
 					&bytes, 0);
        /*
 	* Ignore timeout errors, but retain the number of bytes written to
@@ -496,7 +496,7 @@ print_device(const char *uri,		/* I - Device URI */
 
 	  iostatus = libusb_bulk_transfer(g.printer->handle,
 					  g.printer->write_endp,
-					  print_buffer, g.print_bytes,
+					  print_ptr, g.print_bytes,
 					  &bytes, 0);
 	}
 
@@ -511,7 +511,7 @@ print_device(const char *uri,		/* I - Device URI */
 
 	  iostatus = libusb_bulk_transfer(g.printer->handle,
 					  g.printer->write_endp,
-					  print_buffer, g.print_bytes,
+					  print_ptr, g.print_bytes,
 					  &bytes, 0);
         }
 
