@@ -31,8 +31,9 @@ int					/* O - Exit status */
 main(int  argc,				/* I - Number of command-line args */
      char *argv[])			/* I - Command-line arguments */
 {
-  int		i, j,			/* Looping vars */
-		num_settings;		/* Number of settings */
+  int		i;
+  size_t j;			/* Looping vars */
+	int num_settings;		/* Number of settings */
   cups_option_t	*settings,		/* Settings */
 		*setting;		/* Current setting */
   const char	*opt;			/* Current option character */
@@ -159,7 +160,7 @@ main(int  argc,				/* I - Number of command-line args */
 
   for (i = num_settings, setting = settings; i > 0; i --, setting ++)
   {
-    for (j = 0; j < (int)(sizeof(disallowed) / sizeof(disallowed[0])); j ++)
+    for (j = 0; j < (sizeof(disallowed) / sizeof(disallowed[0])); j ++)
     {
       if (!_cups_strcasecmp(setting->name, disallowed[j]))
       {

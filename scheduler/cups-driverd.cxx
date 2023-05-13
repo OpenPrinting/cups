@@ -1306,6 +1306,7 @@ list_ppds(int        request_id,	/* I - Request ID */
 	 ppd;
 	 ppd = (ppd_info_t *)cupsArrayNext(PPDsByMakeModel))
     {
+      size_t j;
      /*
       * Filter PPDs based on make, model, product, language, model number,
       * and/or device ID using the "matches" score value.  An exact match
@@ -1335,17 +1336,17 @@ list_ppds(int        request_id,	/* I - Request ID */
 	* at least 2 (manufacturer and model), and as much as 3 (command set).
 	*/
 
-        for (i = 1; i < (int)(sizeof(re_matches) / sizeof(re_matches[0])); i ++)
-	  if (re_matches[i].rm_so >= 0)
+        for (j = 1; j < (sizeof(re_matches) / sizeof(re_matches[0])); j ++)
+	  if (re_matches[j].rm_so >= 0)
 	    ppd->matches ++;
       }
 
       if (language)
       {
-	for (i = 0; i < PPD_MAX_LANG; i ++)
-	  if (!ppd->record.languages[i][0])
+	for (j = 0; j < PPD_MAX_LANG; j ++)
+	  if (!ppd->record.languages[j][0])
 	    break;
-	  else if (!strcmp(ppd->record.languages[i], language))
+	  else if (!strcmp(ppd->record.languages[j], language))
 	  {
 	    ppd->matches ++;
 	    break;
@@ -1377,15 +1378,15 @@ list_ppds(int        request_id,	/* I - Request ID */
 
       if (product)
       {
-	for (i = 0; i < PPD_MAX_PROD; i ++)
-	  if (!ppd->record.products[i][0])
+	for (j = 0; j < PPD_MAX_PROD; j ++)
+	  if (!ppd->record.products[j][0])
 	    break;
-	  else if (!_cups_strcasecmp(ppd->record.products[i], product))
+	  else if (!_cups_strcasecmp(ppd->record.products[j], product))
 	  {
 	    ppd->matches += 3;
 	    break;
 	  }
-	  else if (!_cups_strncasecmp(ppd->record.products[i], product,
+	  else if (!_cups_strncasecmp(ppd->record.products[j], product,
 	                              product_len))
 	  {
 	    ppd->matches += 2;
@@ -1395,10 +1396,10 @@ list_ppds(int        request_id,	/* I - Request ID */
 
       if (psversion)
       {
-	for (i = 0; i < PPD_MAX_VERS; i ++)
-	  if (!ppd->record.psversions[i][0])
+	for (j = 0; j < PPD_MAX_VERS; j ++)
+	  if (!ppd->record.psversions[j][0])
 	    break;
-	  else if (!_cups_strcasecmp(ppd->record.psversions[i], psversion))
+	  else if (!_cups_strcasecmp(ppd->record.psversions[j], psversion))
 	  {
 	    ppd->matches ++;
 	    break;
@@ -1958,7 +1959,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
          cups_file_t *fp,		/* I - File to read from */
          off_t       end)		/* I - End of file position or 0 */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   char		line[256],		/* Line from file */
 		*ptr,			/* Pointer into line */
 		lang_version[64],	/* PPD LanguageVersion */
@@ -2251,11 +2252,11 @@ load_ppd(const char  *filename,		/* I - Real filename */
     country[0] = '\0';
   }
 
-  for (i = 0; i < (int)(sizeof(languages) / sizeof(languages[0])); i ++)
+  for (i = 0; i < (sizeof(languages) / sizeof(languages[0])); i ++)
     if (!_cups_strcasecmp(languages[i].version, lang_version))
       break;
 
-  if (i < (int)(sizeof(languages) / sizeof(languages[0])))
+  if (i < (sizeof(languages) / sizeof(languages[0])))
   {
    /*
     * Found a known language...

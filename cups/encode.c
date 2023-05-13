@@ -862,10 +862,10 @@ cupsEncodeOptions2(
 const char *				/* O - First out-of-order option or NULL */
 _ippCheckOptions(void)
 {
-  int	i;				/* Looping var */
+  size_t	i;				/* Looping var */
 
 
-  for (i = 0; i < (int)(sizeof(ipp_options) / sizeof(ipp_options[0]) - 1); i ++)
+  for (i = 0; i < (sizeof(ipp_options) / sizeof(ipp_options[0]) - 1); i ++)
     if (strcmp(ipp_options[i].name, ipp_options[i + 1].name) >= 0)
       return (ipp_options[i + 1].name);
 

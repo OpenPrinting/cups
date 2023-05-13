@@ -624,13 +624,13 @@ pwgMediaForLegacy(const char *legacy)	/* I - Legacy size name */
 
   if (!cg->leg_size_lut)
   {
-    int			i;		/* Looping var */
+    size_t			i;		/* Looping var */
     pwg_media_t	*size;		/* Current size */
 
     cg->leg_size_lut = cupsArrayNew((cups_array_func_t)pwg_compare_legacy,
                                     NULL);
 
-    for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
+    for (i = (sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
              size = (pwg_media_t *)cups_pwg_media;
 	 i > 0;
 	 i --, size ++)
@@ -683,11 +683,11 @@ pwgMediaForPPD(const char *ppd)		/* I - PPD size name */
 
   if (!cg->ppd_size_lut)
   {
-    int	i;				/* Looping var */
+    size_t	i;				/* Looping var */
 
     cg->ppd_size_lut = cupsArrayNew((cups_array_func_t)pwg_compare_ppd, NULL);
 
-    for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
+    for (i = (sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
              size = (pwg_media_t *)cups_pwg_media;
 	 i > 0;
 	 i --, size ++)
@@ -860,11 +860,11 @@ pwgMediaForPWG(const char *pwg)		/* I - PWG size name */
 
   if (!cg->pwg_size_lut)
   {
-    int	i;				/* Looping var */
+    size_t	i;				/* Looping var */
 
     cg->pwg_size_lut = cupsArrayNew((cups_array_func_t)pwg_compare_pwg, NULL);
 
-    for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
+    for (i = (sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
              size = (pwg_media_t *)cups_pwg_media;
 	 i > 0;
 	 i --, size ++)
@@ -972,7 +972,7 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
 		  int length,		/* I - Length in hundredths of millimeters */
 		  int epsilon)		/* I - Match within this tolernace. PWG units */
 {
-  int		i;			/* Looping var */
+  size_t		i;			/* Looping var */
   pwg_media_t	*media,			/* Current media */
 		*best_media = NULL;	/* Best match */
   int		dw, dl,			/* Difference in width and length */
@@ -993,7 +993,7 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
   * Look for a standard size...
   */
 
-  for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
+  for (i = (sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
 	   media = (pwg_media_t *)cups_pwg_media;
        i > 0;
        i --, media ++)

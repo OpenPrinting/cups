@@ -472,7 +472,7 @@ cupsdStartProcess(
     cupsd_job_t *job,			/* I - Job associated with process */
     int         *pid)			/* O - Process ID */
 {
-  int		i;			/* Looping var */
+  unsigned		i;			/* Looping var */
   const char	*exec_path = command;	/* Command to be exec'd */
   char		*real_argv[110],	/* Real command-line arguments */
 		cups_exec[1024],	/* Path to "cups-exec" program */
@@ -571,7 +571,7 @@ cupsdStartProcess(
     real_argv[8] = (char *)command;
 
     for (i = 0;
-         i < (int)(sizeof(real_argv) / sizeof(real_argv[0]) - 10) && argv[i];
+         i < (sizeof(real_argv) / sizeof(real_argv[0]) - 10) && argv[i];
 	 i ++)
       real_argv[i + 9] = argv[i];
 
@@ -586,7 +586,7 @@ cupsdStartProcess(
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdStartProcess: Preparing to start \"%s\", arguments:", command);
 
     for (i = 0; argv[i]; i ++)
-      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdStartProcess: argv[%d] = \"%s\"", i, argv[i]);
+      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdStartProcess: argv[%u] = \"%s\"", i, argv[i]);
   }
 
 #if USE_POSIX_SPAWN

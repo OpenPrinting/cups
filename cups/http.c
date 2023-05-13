@@ -830,7 +830,7 @@ httpGetContentEncoding(http_t *http)	/* I - HTTP connection */
 #ifdef HAVE_LIBZ
   if (http && http->fields[HTTP_FIELD_ACCEPT_ENCODING])
   {
-    int		i;			/* Looping var */
+    size_t		i;			/* Looping var */
     char	temp[HTTP_MAX_VALUE],	/* Copy of Accepts-Encoding value */
 		*start,			/* Start of coding value */
 		*end;			/* End of coding value */
@@ -887,7 +887,7 @@ httpGetContentEncoding(http_t *http)	/* I - HTTP connection */
       if (qvalue <= 0.0)
         continue;
 
-      for (i = 0; i < (int)(sizeof(codings) / sizeof(codings[0])); i ++)
+      for (i = 0; i < (sizeof(codings) / sizeof(codings[0])); i ++)
         if (!strcmp(start, codings[i]))
           return (codings[i]);
     }

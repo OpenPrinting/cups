@@ -769,7 +769,7 @@ recv_print_job(
     cups_option_t *defaults)		/* I - Default options */
 {
   http_t	*http;			/* HTTP connection */
-  int		i;			/* Looping var */
+  unsigned		i;			/* Looping var */
   int		status;			/* Command status */
   int		fd;			/* Temporary file */
   FILE		*fp;			/* File pointer */
@@ -781,7 +781,7 @@ recv_print_job(
 		*count,			/* Number of bytes */
 		*name;			/* Name of file */
   const char	*job_sheets;		/* Job sheets */
-  int		num_data;		/* Number of data files */
+  unsigned		num_data;		/* Number of data files */
   char		control[1024],		/* Control filename */
 		data[100][256],		/* Data files */
 		temp[100][1024];	/* Temporary files */
@@ -921,13 +921,13 @@ recv_print_job(
 	    break;
 	  }
 
-          if (num_data >= (int)(sizeof(data) / sizeof(data[0])))
+          if (num_data >= (sizeof(data) / sizeof(data[0])))
 	  {
 	   /*
 	    * Too many data files...
 	    */
 
-	    syslog(LOG_ERR, "Too many data files (%d)", num_data);
+	    syslog(LOG_ERR, "Too many data files (%u)", num_data);
 	    putchar(1);
 	    status = 1;
 	    break;
@@ -1020,13 +1020,14 @@ recv_print_job(
       status = 1;
     else
     {
+      int j;
      /*
       * Copy the default options...
       */
 
-      for (i = 0; i < num_defaults; i ++)
-	num_options = cupsAddOption(defaults[i].name,
-		                    defaults[i].value,
+      for (j = 0; j < num_defaults; j ++)
+	num_options = cupsAddOption(defaults[j].name,
+		                    defaults[j].value,
 		                    num_options, &options);
 
      /*

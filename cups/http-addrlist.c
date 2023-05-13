@@ -59,13 +59,13 @@ httpAddrConnect2(
 {
   int			val;		/* Socket option value */
 #ifndef _WIN32
-  int			i, j,		/* Looping vars */
-			flags,		/* Socket flags */
+  nfds_t			i, j;		/* Looping vars */
+	int		flags,		/* Socket flags */
 			result;		/* Result from select() or poll() */
 #endif /* !_WIN32 */
   int			remaining;	/* Remaining timeout */
-  int			nfds,		/* Number of file descriptors */
-			fds[100];	/* Socket file descriptors */
+  unsigned			nfds;		/* Number of file descriptors */
+	int       fds[100];	/* Socket file descriptors */
   http_addrlist_t	*addrs[100];	/* Addresses */
 #ifndef HAVE_POLL
   int			max_fd = -1;	/* Highest file descriptor */
@@ -119,14 +119,13 @@ httpAddrConnect2(
     {
       while (nfds > 0)
       {
-        nfds --;
-	httpAddrClose(NULL, fds[nfds]);
+	httpAddrClose(NULL, fds[--nfds]);
       }
 
       return (NULL);
     }
 
-    if (addrlist && nfds < (int)(sizeof(fds) / sizeof(fds[0])))
+    if (addrlist && nfds < (sizeof(fds) / sizeof(fds[0])))
     {
      /*
       * Create the socket...
@@ -207,8 +206,7 @@ httpAddrConnect2(
 
 	while (nfds > 0)
 	{
-	  nfds --;
-	  httpAddrClose(NULL, fds[nfds]);
+	  httpAddrClose(NULL, fds[--nfds]);
 	}
 
 	return (addrlist);
@@ -235,8 +233,7 @@ httpAddrConnect2(
 	max_fd = fds[nfds];
 #endif /* !HAVE_POLL */
 
-      addrs[nfds] = addrlist;
-      nfds ++;
+      addrs[nfds ++] = addrlist;
       addrlist = addrlist->next;
     }
 
@@ -269,8 +266,7 @@ httpAddrConnect2(
 
 	while (nfds > 0)
 	{
-	  nfds --;
-	  httpAddrClose(NULL, fds[nfds]);
+	  httpAddrClose(NULL, fds[--nfds]);
 	}
 
 	*sock = -1;
@@ -396,8 +392,7 @@ httpAddrConnect2(
 
   while (nfds > 0)
   {
-    nfds --;
-    httpAddrClose(NULL, fds[nfds]);
+    httpAddrClose(NULL, fds[--nfds]);
   }
 
 #ifdef _WIN32

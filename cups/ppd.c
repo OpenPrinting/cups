@@ -414,7 +414,8 @@ _ppdOpen(
     cups_file_t		*fp,		/* I - File to read from */
     _ppd_localization_t	localization)	/* I - Localization to load */
 {
-  int			i, j, k;	/* Looping vars */
+  size_t			i; 	/* Looping var */
+  int j, k;	/* Looping vars */
   _ppd_line_t		line;		/* Line buffer */
   ppd_file_t		*ppd;		/* PPD file record */
   ppd_group_t		*group,		/* Current group */
@@ -718,14 +719,14 @@ _ppdOpen(
         */
 
 	for (i = 0;
-	     i < (int)(sizeof(color_keywords) / sizeof(color_keywords[0]));
+	     i < (sizeof(color_keywords) / sizeof(color_keywords[0]));
 	     i ++)
 	{
 	  if (!_cups_strcasecmp(temp, color_keywords[i]))
 	    break;
 	}
 
-	if (i >= (int)(sizeof(color_keywords) / sizeof(color_keywords[0])))
+	if (i >= (sizeof(color_keywords) / sizeof(color_keywords[0])))
 	{
 	  DEBUG_printf(("2_ppdOpen: Ignoring localization: \"%s\"\n", keyword));
 	  free(string);
@@ -739,11 +740,8 @@ _ppdOpen(
         (mask & (PPD_KEYWORD | PPD_OPTION | PPD_STRING)) ==
 	    (PPD_KEYWORD | PPD_OPTION | PPD_STRING))
     {
-      for (i = 0; i < (int)(sizeof(ui_keywords) / sizeof(ui_keywords[0])); i ++)
+      for (i = 0; i < (sizeof(ui_keywords) / sizeof(ui_keywords[0])); i ++)
         if (!strcmp(keyword, ui_keywords[i]))
-	  break;
-
-      if (i < (int)(sizeof(ui_keywords) / sizeof(ui_keywords[0])))
       {
        /*
         * Create the option in the appropriate group...

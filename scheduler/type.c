@@ -150,8 +150,8 @@ int					/* O - 0 on success, -1 on failure */
 mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
                 const char  *rule)	/* I - Rule to add */
 {
-  int		num_values,		/* Number of values seen */
-		op,			/* Operation code */
+  size_t		num_values;	/* Number of values seen */
+	int op,			/* Operation code */
 		logic,			/* Logic for next rule */
 		invert;			/* Invert following rule? */
   char		name[255],		/* Name in rule string */
@@ -326,7 +326,7 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
 
 	rule ++;
 	for (num_values = 0;
-	     num_values < (int)(sizeof(value) / sizeof(value[0]));
+	     num_values < (sizeof(value) / sizeof(value[0]));
 	     num_values ++)
 	{
 	  ptr = value[num_values];

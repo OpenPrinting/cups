@@ -1200,9 +1200,15 @@ cupsdCheckGroup(
       getgrouplist(username, user->pw_gid, groups, &ngroups);
 #endif /* __APPLE__ */
 
+#  ifdef __APPLE__
       for (i = 0; i < ngroups; i ++)
         if ((int)groupid == (int)groups[i])
 	  return (1);
+#else
+      for (i = 0; i < ngroups; i ++)
+        if (groupid == groups[i])
+	  return (1);
+#endif
     }
 #endif /* HAVE_GETGROUPLIST */
   }

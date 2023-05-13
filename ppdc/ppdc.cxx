@@ -32,7 +32,7 @@ int					// O - Exit status
 main(int  argc,				// I - Number of command-line arguments
      char *argv[])			// I - Command-line arguments
 {
-  int			i, j;		// Looping vars
+  int				i; 			// Looping var
   ppdcCatalog		*catalog;	// Message catalog
   const char		*outdir;	// Output directory
   ppdcSource		*src;		// PPD source file data
@@ -328,9 +328,10 @@ main(int  argc,				// I - Number of command-line arguments
 
 	if (strstr(outname, ".PPD"))
 	{
+	  size_t j;
 	  // Convert PCFileName to lowercase...
 	  for (j = 0;
-	       outname[j] && j < (int)(sizeof(pcfilename) - 1);
+	       j < (sizeof(pcfilename) - 1) && outname[j];
 	       j ++)
 	    pcfilename[j] = (char)tolower(outname[j] & 255);
 
