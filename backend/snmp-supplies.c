@@ -228,8 +228,9 @@ backendSNMPSupplies(
 
   if (num_supplies > 0)
   {
-    int		i,			/* Looping var */
-		percent,		/* Percent full */
+    int		i;			/* Looping vars */
+    size_t j;
+		int percent,		/* Percent full */
 		new_state,		/* New state value */
 		change_state,		/* State change */
 		new_supply_state = 0;	/* Supply state */
@@ -333,14 +334,14 @@ backendSNMPSupplies(
     fprintf(stderr, "DEBUG: new_supply_state=%x, change_state=%x\n",
             new_supply_state, change_state);
 
-    for (i = 0;
-         i < (int)(sizeof(supply_states) / sizeof(supply_states[0]));
-         i ++)
-      if (change_state & supply_states[i].bit)
+    for (j = 0;
+         j < (sizeof(supply_states) / sizeof(supply_states[0]));
+         j ++)
+      if (change_state & supply_states[j].bit)
       {
 	fprintf(stderr, "STATE: %c%s\n",
-		(new_supply_state & supply_states[i].bit) ? '+' : '-',
-		supply_states[i].keyword);
+		(new_supply_state & supply_states[j].bit) ? '+' : '-',
+		supply_states[j].keyword);
       }
 
     supply_state = new_supply_state;
@@ -374,14 +375,14 @@ backendSNMPSupplies(
     fprintf(stderr, "DEBUG: new_state=%x, change_state=%x\n", new_state,
             change_state);
 
-    for (i = 0;
-         i < (int)(sizeof(printer_states) / sizeof(printer_states[0]));
-         i ++)
-      if (change_state & printer_states[i].bit)
+    for (j = 0;
+         j < (sizeof(printer_states) / sizeof(printer_states[0]));
+         j ++)
+      if (change_state & printer_states[j].bit)
       {
 	fprintf(stderr, "STATE: %c%s\n",
-		(new_state & printer_states[i].bit) ? '+' : '-',
-		printer_states[i].keyword);
+		(new_state & printer_states[j].bit) ? '+' : '-',
+		printer_states[j].keyword);
       }
 
     current_state = new_state;
@@ -767,7 +768,8 @@ static void
 backend_walk_cb(cups_snmp_t *packet,	/* I - SNMP packet */
                 void        *data)	/* I - User data (unused) */
 {
-  int	i, j, k;			/* Looping vars */
+  int	i, j;
+  size_t k;			/* Looping vars */
   static const char * const colors[][2] =
   {					/* Standard color names */
     { "black",         "#000000" },
@@ -815,7 +817,7 @@ backend_walk_cb(cups_snmp_t *packet,	/* I - SNMP packet */
     for (j = 0; j < num_supplies; j ++)
       if (supplies[j].colorant == i)
       {
-	for (k = 0; k < (int)(sizeof(colors) / sizeof(colors[0])); k ++)
+	for (k = 0; k < (sizeof(colors) / sizeof(colors[0])); k ++)
 	  if (!_cups_strcasecmp(colors[k][0],
 	                        (char *)packet->object_value.string.bytes))
 	  {

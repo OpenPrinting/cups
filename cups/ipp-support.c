@@ -888,9 +888,10 @@ ippAttributeString(
 cups_array_t *				/* O - CUPS array or @code NULL@ if all */
 ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 {
-  int			i, j,		/* Looping vars */
+  int			i,		/* Looping var */
 			count,		/* Number of values */
 			added;		/* Was name added? */
+  size_t		j;   /* Looping var */
   ipp_op_t		op;		/* IPP operation code */
   ipp_attribute_t	*requested;	/* requested-attributes attribute */
   cups_array_t		*ra;		/* Requested attributes array */
@@ -1978,7 +1979,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "document-description") || (!strcmp(value, "all") && (op == IPP_OP_GET_JOB_ATTRIBUTES || op == IPP_OP_GET_JOBS || op == IPP_OP_GET_DOCUMENT_ATTRIBUTES || op == IPP_OP_GET_DOCUMENTS)))
     {
-      for (j = 0; j < (int)(sizeof(document_description) / sizeof(document_description[0])); j ++)
+      for (j = 0; j < (sizeof(document_description) / sizeof(document_description[0])); j ++)
         cupsArrayAdd(ra, (void *)document_description[j]);
 
       added = 1;
@@ -1986,7 +1987,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "document-template") || !strcmp(value, "all"))
     {
-      for (j = 0; j < (int)(sizeof(document_template) / sizeof(document_template[0])); j ++)
+      for (j = 0; j < (sizeof(document_template) / sizeof(document_template[0])); j ++)
         cupsArrayAdd(ra, (void *)document_template[j]);
 
       added = 1;
@@ -1994,7 +1995,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "job-description") || (!strcmp(value, "all") && (op == IPP_OP_GET_JOB_ATTRIBUTES || op == IPP_OP_GET_JOBS)))
     {
-      for (j = 0; j < (int)(sizeof(job_description) / sizeof(job_description[0])); j ++)
+      for (j = 0; j < (sizeof(job_description) / sizeof(job_description[0])); j ++)
         cupsArrayAdd(ra, (void *)job_description[j]);
 
       added = 1;
@@ -2002,7 +2003,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "job-template") || (!strcmp(value, "all") && (op == IPP_OP_GET_JOB_ATTRIBUTES || op == IPP_OP_GET_JOBS || op == IPP_OP_GET_PRINTER_ATTRIBUTES)))
     {
-      for (j = 0; j < (int)(sizeof(job_template) / sizeof(job_template[0])); j ++)
+      for (j = 0; j < (sizeof(job_template) / sizeof(job_template[0])); j ++)
         cupsArrayAdd(ra, (void *)job_template[j]);
 
       added = 1;
@@ -2010,7 +2011,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "printer-description") || (!strcmp(value, "all") && (op == IPP_OP_GET_PRINTER_ATTRIBUTES || op == IPP_OP_GET_PRINTERS || op == IPP_OP_CUPS_GET_DEFAULT || op == IPP_OP_CUPS_GET_PRINTERS || op == IPP_OP_CUPS_GET_CLASSES)))
     {
-      for (j = 0; j < (int)(sizeof(printer_description) / sizeof(printer_description[0])); j ++)
+      for (j = 0; j < (sizeof(printer_description) / sizeof(printer_description[0])); j ++)
         cupsArrayAdd(ra, (void *)printer_description[j]);
 
       added = 1;
@@ -2018,7 +2019,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "resource-description") || (!strcmp(value, "all") && (op == IPP_OP_GET_RESOURCE_ATTRIBUTES || op == IPP_OP_GET_RESOURCES)))
     {
-      for (j = 0; j < (int)(sizeof(resource_description) / sizeof(resource_description[0])); j ++)
+      for (j = 0; j < (sizeof(resource_description) / sizeof(resource_description[0])); j ++)
         cupsArrayAdd(ra, (void *)resource_description[j]);
 
       added = 1;
@@ -2026,7 +2027,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "resource-status") || (!strcmp(value, "all") && (op == IPP_OP_GET_RESOURCE_ATTRIBUTES || op == IPP_OP_GET_RESOURCES)))
     {
-      for (j = 0; j < (int)(sizeof(resource_status) / sizeof(resource_status[0])); j ++)
+      for (j = 0; j < (sizeof(resource_status) / sizeof(resource_status[0])); j ++)
         cupsArrayAdd(ra, (void *)resource_status[j]);
 
       added = 1;
@@ -2034,7 +2035,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "resource-template") || (!strcmp(value, "all") && (op == IPP_OP_GET_RESOURCE_ATTRIBUTES || op == IPP_OP_GET_RESOURCES || op == IPP_OP_GET_SYSTEM_ATTRIBUTES)))
     {
-      for (j = 0; j < (int)(sizeof(resource_template) / sizeof(resource_template[0])); j ++)
+      for (j = 0; j < (sizeof(resource_template) / sizeof(resource_template[0])); j ++)
         cupsArrayAdd(ra, (void *)resource_template[j]);
 
       added = 1;
@@ -2042,7 +2043,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "subscription-description") || (!strcmp(value, "all") && (op == IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES || op == IPP_OP_GET_SUBSCRIPTIONS)))
     {
-      for (j = 0; j < (int)(sizeof(subscription_description) / sizeof(subscription_description[0])); j ++)
+      for (j = 0; j < (sizeof(subscription_description) / sizeof(subscription_description[0])); j ++)
         cupsArrayAdd(ra, (void *)subscription_description[j]);
 
       added = 1;
@@ -2050,7 +2051,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "subscription-template") || (!strcmp(value, "all") && (op == IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES || op == IPP_OP_GET_SUBSCRIPTIONS)))
     {
-      for (j = 0; j < (int)(sizeof(subscription_template) / sizeof(subscription_template[0])); j ++)
+      for (j = 0; j < (sizeof(subscription_template) / sizeof(subscription_template[0])); j ++)
         cupsArrayAdd(ra, (void *)subscription_template[j]);
 
       added = 1;
@@ -2058,7 +2059,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "system-description") || (!strcmp(value, "all") && op == IPP_OP_GET_SYSTEM_ATTRIBUTES))
     {
-      for (j = 0; j < (int)(sizeof(system_description) / sizeof(system_description[0])); j ++)
+      for (j = 0; j < (sizeof(system_description) / sizeof(system_description[0])); j ++)
         cupsArrayAdd(ra, (void *)system_description[j]);
 
       added = 1;
@@ -2066,7 +2067,7 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
 
     if (!strcmp(value, "system-status") || (!strcmp(value, "all") && op == IPP_OP_GET_SYSTEM_ATTRIBUTES))
     {
-      for (j = 0; j < (int)(sizeof(system_status) / sizeof(system_status[0])); j ++)
+      for (j = 0; j < (sizeof(system_status) / sizeof(system_status[0])); j ++)
         cupsArrayAdd(ra, (void *)system_status[j]);
 
       added = 1;
@@ -2148,7 +2149,7 @@ ippEnumValue(const char *attrname,	/* I - Attribute name */
   */
 
   if (isdigit(*enumstring & 255))
-    return ((int)strtol(enumstring, NULL, 0));
+    return (atoi(enumstring));
 
  /*
   * Otherwise look up the string...

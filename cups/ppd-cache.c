@@ -2530,8 +2530,8 @@ _ppdCacheGetPageSize(
 
     for (i = pc->num_sizes, size = pc->sizes; i > 0; i --, size ++)
     {
-      DEBUG_printf(("2_ppdCacheGetPageSize: size[%d]=[\"%s\" \"%s\"]",
-                    (int)(size - pc->sizes), size->map.pwg, size->map.ppd));
+      DEBUG_printf(("2_ppdCacheGetPageSize: size[%u]=[\"%s\" \"%s\"]",
+                    (unsigned)(size - pc->sizes), size->map.pwg, size->map.ppd));
 
       if (!_cups_strcasecmp(ppd_name, size->map.ppd) ||
           !_cups_strcasecmp(ppd_name, size->map.pwg))
@@ -3132,7 +3132,7 @@ _ppdCreateFromIPP2(
 			*model,		/* Model name */
 			ppdname[PPD_MAX_NAME];
 		    			/* PPD keyword */
-  int			i, j,		/* Looping vars */
+  int			i,		/* Looping var */
 			count,		/* Number of values */
 			bottom,		/* Largest bottom margin */
 			left,		/* Largest left margin */
@@ -3146,6 +3146,7 @@ _ppdCreateFromIPP2(
 			is_apple = 0,	/* Does the printer support Apple raster? */
 			is_pdf = 0,	/* Does the printer support PDF? */
 			is_pwg = 0;	/* Does the printer support PWG Raster? */
+  unsigned    j; /* Looping var */
   pwg_media_t		*pwg;		/* PWG media size */
   int			xres, yres;	/* Resolution values */
   int                   resolutions[1000];
@@ -3888,7 +3889,7 @@ _ppdCreateFromIPP2(
       if (i == 0 && !have_default)
 	cupsFilePrintf(fp, "*DefaultInputSlot: %s\n", ppdname);
 
-      for (j = 0; j < (int)(sizeof(sources) / sizeof(sources[0])); j ++)
+      for (j = 0; j < (unsigned int)(sizeof(sources) / sizeof(sources[0])); j ++)
         if (!strcmp(sources[j], keyword))
 	{
 	  snprintf(msgid, sizeof(msgid), "media-source.%s", keyword);
@@ -3897,7 +3898,7 @@ _ppdCreateFromIPP2(
 	    if ((msgstr = _cupsMessageLookup(strings, msgid)) == msgid)
 	      msgstr = keyword;
 
-	  cupsFilePrintf(fp, "*InputSlot %s: \"<</MediaPosition %d>>setpagedevice\"\n", ppdname, j);
+	  cupsFilePrintf(fp, "*InputSlot %s: \"<</MediaPosition %u>>setpagedevice\"\n", ppdname, (unsigned)j);
 	  cupsFilePrintf(fp, "*%s.InputSlot %s/%s: \"\"\n", lang->language, ppdname, msgstr);
 	  break;
 	}

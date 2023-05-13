@@ -217,7 +217,8 @@ int					/* O - Exit status */
 main(int  argc,				/* I - Number of command-line arguments */
      char *argv[])			/* I - Command-line arguments */
 {
-  int		i, j, k;		/* Looping vars */
+  int		i;
+  unsigned j, k;		/* Looping vars */
   http_t	*http;			/* HTTP connection */
   http_encryption_t encryption;		/* Encryption type */
   http_status_t	status;			/* Status of GET command */
@@ -286,9 +287,9 @@ main(int  argc,				/* I - Number of command-line arguments */
       puts("FAIL");
       printf("    Difference is %d seconds, %02d:%02d:%02d...\n", i, i / 3600,
              (i / 60) % 60, i % 60);
-      printf("    httpGetDateString(%d) returned \"%s\"\n", (int)start, buffer);
-      printf("    httpGetDateTime(\"%s\") returned %d\n", buffer, (int)current);
-      printf("    httpGetDateString(%d) returned \"%s\"\n", (int)current,
+      printf("    httpGetDateString(%ld) returned \"%s\"\n", (long)start, buffer);
+      printf("    httpGetDateTime(\"%s\") returned %ld\n", buffer, (long)current);
+      printf("    httpGetDateString(%ld) returned \"%s\"\n", (long)current,
              httpGetDateString(current));
     }
 
@@ -531,7 +532,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       }
 
     if (!j)
-      printf("PASS (%d URIs tested)\n", k);
+      printf("PASS (%u URIs tested)\n", k);
 
    /*
     * httpAssembleUUID

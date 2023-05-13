@@ -287,6 +287,7 @@ localize(http_t       *http,		/* I - Connection to destination */
     }
     else
     {
+      size_t j;
       static const char * const options[] =
       {					/* List of standard options */
         CUPS_COPIES,
@@ -301,9 +302,9 @@ localize(http_t       *http,		/* I - Connection to destination */
 
       puts("No job-creation-attributes-supported attribute, probing instead.");
 
-      for (i = 0; i < (int)(sizeof(options) / sizeof(options[0])); i ++)
-        if (cupsCheckDestSupported(http, dest, dinfo, options[i], NULL))
-	  localize(http, dest, dinfo, options[i], NULL);
+      for (j = 0; j < (sizeof(options) / sizeof(options[0])); j ++)
+        if (cupsCheckDestSupported(http, dest, dinfo, options[j], NULL))
+	  localize(http, dest, dinfo, options[j], NULL);
     }
   }
   else if (!value)

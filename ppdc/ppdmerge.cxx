@@ -288,7 +288,7 @@ main(int  argc,				// I - Number of command-line arguments
 static const char *			// O - Locale string
 ppd_locale(ppd_file_t *ppd)		// I - PPD file
 {
-  int		i;			// Looping var
+  size_t		i;			// Looping var
   size_t	vlen;			// Length of LanguageVersion string
   static char	locale[255];		// Locale string
   static struct				// LanguageVersion translation table
@@ -323,7 +323,7 @@ ppd_locale(ppd_file_t *ppd)		// I - PPD file
   };
 
 
-  for (i = 0; i < (int)(sizeof(languages) / sizeof(languages[0])); i ++)
+  for (i = 0; i < (sizeof(languages) / sizeof(languages[0])); i ++)
   {
     vlen = strlen(languages[i].version);
 

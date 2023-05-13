@@ -5208,7 +5208,7 @@ static void
 create_job(cupsd_client_t  *con,	/* I - Client connection */
 	   ipp_attribute_t *uri)	/* I - Printer URI */
 {
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
   cupsd_printer_t	*printer;	/* Printer */
   cupsd_job_t		*job;		/* New job */
   static const char * const forbidden_attrs[] =
@@ -5244,7 +5244,7 @@ create_job(cupsd_client_t  *con,	/* I - Client connection */
   */
 
   for (i = 0;
-       i < (int)(sizeof(forbidden_attrs) / sizeof(forbidden_attrs[0]));
+       i < (sizeof(forbidden_attrs) / sizeof(forbidden_attrs[0]));
        i ++)
     if (ippFindAttribute(con->request, forbidden_attrs[i], IPP_TAG_ZERO))
     {

@@ -1627,7 +1627,7 @@ cups_set_uatokens(
     _cups_client_conf_t *cc,		/* I - client.conf values */
     const char          *value)		/* I - Value */
 {
-  int	i;				/* Looping var */
+  size_t	i;				/* Looping var */
   static const char * const uatokens[] =/* UserAgentTokens values */
   {
     "NONE",
@@ -1639,7 +1639,7 @@ cups_set_uatokens(
     "FULL"
   };
 
-  for (i = 0; i < (int)(sizeof(uatokens) / sizeof(uatokens[0])); i ++)
+  for (i = 0; i < (sizeof(uatokens) / sizeof(uatokens[0])); i ++)
   {
     if (!_cups_strcasecmp(value, uatokens[i]))
     {

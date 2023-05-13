@@ -709,7 +709,7 @@ _cupsRasterReadHeader(
 
           r->header.MediaPosition = appleheader[5];
 
-          if (appleheader[4] < (int)(sizeof(apple_media_types) / sizeof(apple_media_types[0])))
+          if (appleheader[4] < (sizeof(apple_media_types) / sizeof(apple_media_types[0])))
             strlcpy(r->header.MediaType, apple_media_types[appleheader[4]], sizeof(r->header.MediaType));
           else
             strlcpy(r->header.MediaType, "other", sizeof(r->header.MediaType));
@@ -1102,7 +1102,7 @@ _cupsRasterWriteHeader(
     * zeroed.
     */
 
-    int			i;		/* Looping var */
+    unsigned			i;		/* Looping var */
     unsigned char	appleheader[32];/* Raw page header */
     unsigned		height = r->header.cupsHeight * r->rowheight;
 					/* Computed page height */
@@ -1153,7 +1153,7 @@ _cupsRasterWriteHeader(
     appleheader[22] = (unsigned char)(r->header.HWResolution[0] >> 8);
     appleheader[23] = (unsigned char)(r->header.HWResolution[0]);
 
-    for (i = 0; i < (int)(sizeof(apple_media_types) / sizeof(apple_media_types[0])); i ++)
+    for (i = 0; i < (sizeof(apple_media_types) / sizeof(apple_media_types[0])); i ++)
     {
       if (!strcmp(r->header.MediaType, apple_media_types[i]))
       {
