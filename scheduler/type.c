@@ -1184,21 +1184,21 @@ mime_check_rules(
 	  * short then don't compare - it can't match...
 	  */
 
-	  if ((rules->offset + rules->length) > (fb->offset + fb->length))
-	  {
-	    result = 0;
-	  }
-	  else
+	  result = 0;
+	  if ((rules->offset + rules->length) <= (fb->offset + fb->length))
 	  {
 	    if (fb->length > rules->region)
 	      region = rules->region - rules->length;
 	    else
 	      region = fb->length - rules->length;
 
-	    for (n = 0; n < region; n ++)
-	      if ((result = (memcmp(fb->buffer + rules->offset - fb->offset + n, rules->value.stringv, (size_t)rules->length) == 0)) != 0)
-		break;
-          }
+		  for (n = 0; n < region; n ++)
+	      if (!memcmp(fb->buffer + rules->offset - fb->offset + n, rules->value.stringv, (size_t)rules->length))
+		    {
+		      result = 1;
+		      break;
+		    }
+	  }
 	  break;
 
       default :

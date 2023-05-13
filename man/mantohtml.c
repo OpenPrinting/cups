@@ -989,7 +989,7 @@ html_alternate(const char *s,		/* I - String */
       link = 0;
     }
 
-    i = 1 - i;
+    i ^= 1;
 
    /*
     * Skip trailing whitespace...
