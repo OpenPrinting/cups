@@ -7864,17 +7864,22 @@ show_media(ippeve_client_t  *client)	/* I - Client connection */
     return (1);
   }
 
-  num_ready   = ippGetCount(media_col_ready);
-  num_sizes   = ippGetCount(media_sizes);
   num_sources = ippGetCount(media_sources);
-  num_types   = ippGetCount(media_types);
 
+ /*
+  * Make sure the number of trays is consistent.
+  */
+ 
   if (num_sources != ippGetCount(input_tray))
   {
     html_printf(client, "<p>Error: Different number of trays in media-source-supported and printer-input-tray defined for printer.</p>\n");
     html_footer(client);
     return (1);
   }
+
+  num_ready   = ippGetCount(media_col_ready);
+  num_sizes   = ippGetCount(media_sizes);
+  num_types   = ippGetCount(media_types);
 
  /*
   * Process form data if present...
