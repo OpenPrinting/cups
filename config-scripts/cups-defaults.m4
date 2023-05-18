@@ -335,7 +335,7 @@ AS_IF([test x$default_printcap != xno], [
     AS_IF([test "x$default_printcap" = "xdefault"], [
 	AS_CASE([$host_os_name], [darwin*], [
 	    CUPS_DEFAULT_PRINTCAP="/Library/Preferences/org.cups.printers.plist"
-	], [sunos*], [
+	], [sunos* | solaris*], [
 	    CUPS_DEFAULT_PRINTCAP="/etc/printers.conf"
 	], [*], [
 	    CUPS_DEFAULT_PRINTCAP="/etc/printcap"
