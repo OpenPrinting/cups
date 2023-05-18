@@ -184,7 +184,7 @@ AC_SUBST([CUPS_DOCROOT])
 
 # Locale data
 AS_IF([test "$localedir" = "\${datarootdir}/locale"], [
-    AS_CASE(["$host_os_name"], [linux* | gnu* | *bsd* | darwin*], [
+    AS_CASE(["$host_os_name"], [linux* | gnu* | *bsd* | darwin* | solaris*], [
 	CUPS_LOCALEDIR="$datarootdir/locale"
     ], [*], [
 	# This is the standard System V location...
@@ -266,6 +266,8 @@ AC_ARG_WITH([rundir], AS_HELP_STRING([--with-rundir], [set transient run-time st
     AS_CASE(["$host_os_name"], [darwin*], [
 	# Darwin (macOS)
 	CUPS_STATEDIR="$CUPS_SERVERROOT"
+    ], [solaris*], [
+	CUPS_STATEDIR="/system/volatile/cups"
     ], [*], [
 	# All others
 	CUPS_STATEDIR="$localstatedir/run/cups"

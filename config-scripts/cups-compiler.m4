@@ -202,7 +202,7 @@ AS_IF([test -n "$GCC"], [
     ])
 ], [
     # Add vendor-specific compiler options...
-    AS_CASE([$host_os_name], [sunos*], [
+    AS_CASE([$host_os_name], [sunos* | solaris*], [
 	# Solaris
 	AS_IF([test -z "$OPTIM"], [
 	    OPTIM="-xO2"
