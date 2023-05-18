@@ -85,11 +85,6 @@ typedef struct _cups_globals_s		/**** CUPS global state data ****/
 			*cups_statedir,	/* CUPS_STATEDIR environment var */
 			*home,		/* HOME environment var */
 			*localedir;	/* LOCALDIR environment var */
-#ifndef _WIN32
-#define PW_BUF_SIZE 16384		/* As per glibc manual page */
-  char			pw_buf[PW_BUF_SIZE];
-					/* Big buffer for struct passwd buffers */
-#endif
 
   /* adminutil.c */
   time_t		cupsd_update;	/* Last time we got or set cupsd.conf */
@@ -199,6 +194,12 @@ typedef struct _cups_globals_s		/**** CUPS global state data ****/
   /* util.c */
   char			def_printer[256];
 					/* Default printer */
+
+#  ifndef _WIN32
+#    define PW_BUF_SIZE 16384		/* As per glibc manual page */
+  char			pw_buf[PW_BUF_SIZE];
+					/* Big buffer for struct passwd buffers */
+#  endif /* !_WIN32 */
 } _cups_globals_t;
 
 typedef struct _cups_media_db_s		/* Media database */
