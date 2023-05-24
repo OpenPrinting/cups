@@ -1364,6 +1364,33 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
   if ((media_type = ppdFindOption(ppd, "MediaType")) != NULL)
   {
+    static const struct
+    {
+      const char *ppd_name;		/* PPD MediaType name or prefix to match */
+      int        match_length;		/* Length of prefix, or -1 to match entire string */
+      const char *pwg_name;		/* Registered PWG media-type name to use */
+    } standard_types[] = {
+      {"Auto", 4, "auto"},
+      {"Any", -1, "auto"},
+      {"Default", -1, "auto"},
+      {"Card", 4, "cardstock"},
+      {"Env", 3, "envelope"},
+      {"Gloss", 5, "photographic-glossy"},
+      {"HighGloss", -1, "photographic-high-gloss"},
+      {"Matte", -1, "photographic-matte"},
+      {"Plain", 5, "stationery"},
+      {"Coated", 6, "stationery-coated"},
+      {"Inkjet", -1, "stationery-inkjet"},
+      {"Letterhead", -1, "stationery-letterhead"},
+      {"Preprint", 8, "stationery-preprinted"},
+      {"Recycled", -1, "stationery-recycled"},
+      {"Transparen", 10, "transparency"},
+    };
+    const size_t num_standard_types = sizeof(standard_types) / sizeof(standard_types[0]);
+					/* Length of the standard_types array */
+    int match_counts[sizeof(standard_types) / sizeof(standard_types[0])] = {0};
+					/* Number of matches for each standard type */
+
     if ((pc->types = calloc((size_t)media_type->num_choices, sizeof(pwg_map_t))) == NULL)
     {
       DEBUG_printf(("_ppdCacheCreateWithPPD: Unable to allocate %d "
@@ -1378,35 +1405,26 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 	 i > 0;
 	 i --, choice ++, map ++)
     {
-      if (!_cups_strncasecmp(choice->choice, "Auto", 4) ||
-          !_cups_strcasecmp(choice->choice, "Any") ||
-          !_cups_strcasecmp(choice->choice, "Default"))
-        pwg_name = "auto";
-      else if (!_cups_strncasecmp(choice->choice, "Card", 4))
-        pwg_name = "cardstock";
-      else if (!_cups_strncasecmp(choice->choice, "Env", 3))
-        pwg_name = "envelope";
-      else if (!_cups_strncasecmp(choice->choice, "Gloss", 5))
-        pwg_name = "photographic-glossy";
-      else if (!_cups_strcasecmp(choice->choice, "HighGloss"))
-        pwg_name = "photographic-high-gloss";
-      else if (!_cups_strcasecmp(choice->choice, "Matte"))
-        pwg_name = "photographic-matte";
-      else if (!_cups_strncasecmp(choice->choice, "Plain", 5))
-        pwg_name = "stationery";
-      else if (!_cups_strncasecmp(choice->choice, "Coated", 6))
-        pwg_name = "stationery-coated";
-      else if (!_cups_strcasecmp(choice->choice, "Inkjet"))
-        pwg_name = "stationery-inkjet";
-      else if (!_cups_strcasecmp(choice->choice, "Letterhead"))
-        pwg_name = "stationery-letterhead";
-      else if (!_cups_strncasecmp(choice->choice, "Preprint", 8))
-        pwg_name = "stationery-preprinted";
-      else if (!_cups_strcasecmp(choice->choice, "Recycled"))
-        pwg_name = "stationery-recycled";
-      else if (!_cups_strncasecmp(choice->choice, "Transparen", 10))
-        pwg_name = "transparency";
-      else
+      pwg_name = NULL;
+
+      for (j = 0; j < num_standard_types; j ++)
+      {
+        if (standard_types[j].match_length <= 0)
+        {
+          if (!_cups_strcasecmp(choice->choice, standard_types[j].ppd_name))
+          {
+            pwg_name = standard_types[j].pwg_name;
+            match_counts[j] ++;
+          }
+        }
+        else if (!_cups_strncasecmp(choice->choice, standard_types[j].ppd_name, standard_types[j].match_length))
+        {
+          pwg_name = standard_types[j].pwg_name;
+          match_counts[j] ++;
+        }
+      }
+
+      if (!pwg_name)
       {
        /*
         * Convert PPD name to lowercase...
@@ -1419,12 +1437,40 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
       map->pwg = strdup(pwg_name);
       map->ppd = strdup(choice->choice);
+    }
+
+   /*
+    * Since three PPD name patterns can map to "auto", their match counts
+    * should each be the count of all three combined.
+    */
+
+    i = match_counts[0] + match_counts[1] + match_counts[2];
+    match_counts[0] = match_counts[1] = match_counts[2] = i;
+
+    for (i = 0, choice = media_type->choices, map = pc->types;
+      i < media_type->num_choices;
+      i ++, choice ++, map ++)
+    {
+     /*
+      * If there are two matches for any standard PWG media type, don't give
+      * the PWG name to either one.
+      */
+
+      for (j = 0; j < num_standard_types; j ++)
+      {
+        if (match_counts[j] > 1 && !strcmp(map->pwg, standard_types[j].pwg_name))
+        {
+          free(map->pwg);
+          pwg_unppdize_name(choice->choice, pwg_keyword, sizeof(pwg_keyword), "_");
+          map->pwg = strdup(pwg_keyword);
+        }
+      }
 
      /*
       * Add localized text for PWG keyword to message catalog...
       */
 
-      snprintf(msg_id, sizeof(msg_id), "media-type.%s", pwg_name);
+      snprintf(msg_id, sizeof(msg_id), "media-type.%s", map->pwg);
       pwg_add_message(pc->strings, msg_id, choice->text);
     }
   }
