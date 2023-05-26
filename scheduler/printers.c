@@ -4444,7 +4444,11 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       * media-col-database
       */
 
-      if ((attr = ippAddCollections(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-database", p->pc->num_sizes, NULL)) != NULL)
+      num_media = p->pc->num_sizes;
+      if (p->pc->custom_min_keyword)
+	num_media ++;
+
+      if ((attr = ippAddCollections(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-database", num_media, NULL)) != NULL)
       {
        /*
 	* Add each page size without source or type...
@@ -4456,6 +4460,28 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
 	  ippSetCollection(p->ppd_attrs, &attr, i, col);
 	  ippDelete(col);
+	}
+
+       /*
+	* Add a range if the printer supports custom sizes.
+	*/
+
+        if (p->pc->custom_min_keyword)
+	{
+	  ipp_t *media_col = ippNew();
+	  ipp_t *media_size = ippNew();
+	  ippAddRange(media_size, IPP_TAG_PRINTER, "x-dimension", p->pc->custom_min_width, p->pc->custom_max_width);
+	  ippAddRange(media_size, IPP_TAG_PRINTER, "y-dimension", p->pc->custom_min_length, p->pc->custom_max_length);
+	  ippAddCollection(media_col, IPP_TAG_PRINTER, "media-size", media_size);
+
+	  ippAddInteger(media_col, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "media-bottom-margin", p->pc->custom_size.bottom);
+	  ippAddInteger(media_col, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "media-left-margin", p->pc->custom_size.left);
+	  ippAddInteger(media_col, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "media-right-margin", p->pc->custom_size.right);
+	  ippAddInteger(media_col, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "media-top-margin", p->pc->custom_size.top);
+
+	  ippSetCollection(p->ppd_attrs, &attr, i, media_col);
+	  ippDelete(media_size);
+	  ippDelete(media_col);
 	}
       }
 
