@@ -266,9 +266,11 @@ AC_ARG_WITH([rundir], AS_HELP_STRING([--with-rundir], [set transient run-time st
     AS_CASE(["$host_os_name"], [darwin*], [
 	# Darwin (macOS)
 	CUPS_STATEDIR="$CUPS_SERVERROOT"
-    ], [sun* | solaris*], [
+    ], [sunos* | solaris*], [
 	AS_IF([test -d /system/volatile], [
 	     CUPS_STATEDIR="/system/volatile/cups"
+	], [
+	     CUPS_STATEDIR="$localstatedir/run/cups"
 	])
     ], [*], [
 	# All others
