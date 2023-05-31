@@ -1024,6 +1024,10 @@ cupsdLoadAllPrinters(void)
     {
       cupsdSetString(&p->organizational_unit, value ? value : "");
     }
+    else if (!_cups_strcasecmp(line, "Strings"))
+    {
+      cupsdSetString(&p->strings, value ? value : "");
+    }
     else if (!_cups_strcasecmp(line, "DeviceURI"))
     {
       if (value)
@@ -1512,6 +1516,9 @@ cupsdSaveAllPrinters(void)
 
     if (printer->organizational_unit)
       cupsFilePutConf(fp, "OrganizationalUnit", printer->organizational_unit);
+
+    if (printer->strings)
+      cupsFilePutConf(fp, "Strings", printer->strings);
 
     cupsFilePutConf(fp, "DeviceURI", printer->device_uri);
 
