@@ -30,7 +30,7 @@ AS_IF([test x$enable_gssapi = xyes], [
 	], [
 	    AC_MSG_RESULT([no])
 	])
-    ], [sunos*], [
+    ], [sunos* | solaris*], [
 	# Solaris has a non-standard krb5-config, don't use it!
 	SAVELIBS="$LIBS"
 	AC_CHECK_LIB([gss], [gss_display_status], [
