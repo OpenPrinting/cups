@@ -3935,6 +3935,16 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       * Loaded successfully!
       */
 
+     /*
+      * Set `strings` (source for printer-strings-uri IPP attribute)
+      * if printer's .strings file with localization exists.
+      */
+
+      if (!access(strings_name, R_OK))
+	cupsdSetString(&p->strings, strings_name);
+      else
+	cupsdClearString(&p->strings);
+
       return;
     }
   }

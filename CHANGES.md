@@ -15,6 +15,9 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed a potential SNMP OID value overflow issue (Issue #431)
 - Fixed an OpenSSL certificate loading issue (Issue #465)
 - Fixed Brazilian Portuguese translations (Issue #288)
+- Fixed `cupsd` default keychain location when building with OpenSSL
+  (Issue #529)
+- Fixed default color settings for CMYK printers as well (Issue #500)
 - Fixed duplicate PPD2IPP media-type names (Issue #688)
 - Fixed possible heap buffer overflow in `_cups_strlcpy()` (fixes CVE-2023-32324)
 - Fixed InputSlot heuristic for photo sizes smaller than 5x7" if there is no
@@ -25,9 +28,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed memory leaks in `create_local_bg_thread()` (Issue #466)
 - Fixed media size tolerance in `ippeveprinter` (Issue #487)
 - Fixed passing command name without path into `ippeveprinter` (Issue #629)
-- Fixed `cupsd` default keychain location when building with OpenSSL
-  (Issue #529)
-- Fixed default color settings for CMYK printers as well (Issue #500)
+- Fixed saving strings file path in `printers.conf` (Issue #710)
 - Fixed TLS certificate generation bugs (Issue #652)
 - `ippDeleteValues` would not delete the last value (Issue #556)
 - Ignore some of IPP defaults if the application sends its PPD alternative
