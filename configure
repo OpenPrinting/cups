@@ -7469,7 +7469,7 @@ if test "$localedir" = "\${datarootdir}/locale"
 then :
 
     case "$host_os_name" in #(
-  linux* | gnu* | *bsd* | darwin*) :
+  linux* | gnu* | *bsd* | darwin* | solaris*) :
 
 	CUPS_LOCALEDIR="$datarootdir/locale"
      ;; #(
@@ -7616,6 +7616,19 @@ else $as_nop
 	# Darwin (macOS)
 	CUPS_STATEDIR="$CUPS_SERVERROOT"
      ;; #(
+  sunos* | solaris*) :
+
+	if test -d /system/volatile
+then :
+
+	     CUPS_STATEDIR="/system/volatile/cups"
+
+else $as_nop
+
+	     CUPS_STATEDIR="$localstatedir/run/cups"
+
+fi
+     ;; #(
   *) :
 
 	# All others
@@ -7696,7 +7709,7 @@ fi
 	DSOXX="\$(CXX)"
 	DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G"
      ;; #(
-  linux* | gnu* | *bsd*) :
+  linux* | gnu* | *bsd* | solaris*) :
 
 	LIBCUPS="lib$cupsbase.so.2"
 	if test "x$cupsimagebase" != x
@@ -7809,7 +7822,7 @@ then :
     # need this option, even when the library is installed in a
     # standard location...
     case $host_os_name in #(
-  sunos*) :
+  sunos* | solaris*) :
 
 	# Solaris...
 	if test $exec_prefix != /usr
@@ -8321,7 +8334,7 @@ else $as_nop
 
     # Add vendor-specific compiler options...
     case $host_os_name in #(
-  sunos*) :
+  sunos* | solaris*) :
 
 	# Solaris
 	if test -z "$OPTIM"
@@ -9279,7 +9292,7 @@ printf "%s\n" "no" >&6; }
 
 fi
      ;; #(
-  sunos*) :
+  sunos* | solaris*) :
 
 	# Solaris has a non-standard krb5-config, don't use it!
 	SAVELIBS="$LIBS"
@@ -9652,7 +9665,7 @@ then :
 
 	    # Solaris requires -D_POSIX_PTHREAD_SEMANTICS to be POSIX-
 	    # compliant... :(
-	    if test $host_os_name = sunos
+	    if test $host_os_name = sunos -o $host_os_name = solaris
 then :
 
 		PTHREAD_FLAGS="$PTHREAD_FLAGS -D_POSIX_PTHREAD_SEMANTICS"
@@ -12103,7 +12116,7 @@ then :
 
 	    CUPS_DEFAULT_PRINTCAP="/Library/Preferences/org.cups.printers.plist"
 	 ;; #(
-  sunos*) :
+  sunos* | solaris*) :
 
 	    CUPS_DEFAULT_PRINTCAP="/etc/printers.conf"
 	 ;; #(
