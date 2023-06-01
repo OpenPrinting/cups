@@ -1,8 +1,12 @@
-CHANGES - OpenPrinting CUPS 2.4.2 - 2022-05-26
+CHANGES - OpenPrinting CUPS 2.4.3 - 2023-06-01
 ==============================================
 
-Changes in CUPS v2.4.3 (TBA)
+Changes in CUPS v2.4.4 (TBA)
 ----------------------------
+
+
+Changes in CUPS v2.4.3 (2023-06-01)
+-----------------------------------
 
 - Added a title with device uri for found network printers (Issues #402, #393)
 - Added new media sizes defined by IANA (Issues #501)
