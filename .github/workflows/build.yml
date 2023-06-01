@@ -39,7 +39,7 @@ jobs:
     - name: setup multiarch for i386
       run: sudo dpkg --add-architecture i386
     - name: update build environment
-      run: sudo apt-get update --fix-missing -y && sudo apt-get upgrade --fix-missing -y
+      run: sudo apt-get update --fix-missing -y
     - name: install prerequisites
       run: sudo apt-get install -y avahi-daemon libavahi-client-dev libavahi-client-dev:i386 libgnutls28-dev libgnutls28-dev:i386 libpam-dev libpam-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386 zlib1g-dev zlib1g-dev:i386 crossbuild-essential-i386 libgcc-s1:i386 libstdc++6:i386
     - name: configure
