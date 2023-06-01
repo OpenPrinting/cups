@@ -631,17 +631,19 @@ httpDecode64_2(char       *out,		/* I  - String to write to */
 	  pos ++;
 	  break;
       case 1 :
-          if (outptr < outend)
+          if (outptr < outend) {
             *outptr++ |= (char)((base64 >> 4) & 3);
           if (outptr < outend)
 	    *outptr = (char)((base64 << 4) & 255);
+          }
 	  pos ++;
 	  break;
       case 2 :
-          if (outptr < outend)
+          if (outptr < outend) {
             *outptr++ |= (char)((base64 >> 2) & 15);
           if (outptr < outend)
 	    *outptr = (char)((base64 << 6) & 255);
+          }
 	  pos ++;
 	  break;
       case 3 :
@@ -1025,7 +1027,7 @@ httpSeparateURI(
     */
 
     for (ptr = scheme, end = scheme + schemelen - 1;
-         *uri && *uri != ':' && ptr < end;)
+         ptr < end && *uri && *uri != ':';)
       if (strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                  "abcdefghijklmnopqrstuvwxyz"
 		 "0123456789-+.", *uri) != NULL)
@@ -1112,10 +1114,9 @@ httpSeparateURI(
         * Skip IPvFuture ("vXXXX.") prefix...
         */
 
-        uri ++;
-
-        while (isxdigit(*uri & 255))
+        do 
           uri ++;
+        while (isxdigit(*uri & 255));
 
         if (*uri != '.')
         {
@@ -2173,6 +2174,8 @@ http_copy_decode(char       *dst,	/* O - Destination buffer */
 	*end;				/* End of buffer */
   int	quoted;				/* Quoted character */
 
+  if (dstsize <= 0)
+    return (NULL);
 
  /*
   * Copy the src to the destination until we hit a terminating character

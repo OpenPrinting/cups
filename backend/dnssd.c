@@ -1270,7 +1270,11 @@ unquote(char       *dst,		/* I - Destination buffer */
         const char *src,		/* I - Source string */
 	size_t     dstsize)		/* I - Size of destination buffer */
 {
-  char	*dstend = dst + dstsize - 1;	/* End of destination buffer */
+  char	*dstend;
+  if (dstsize == 0)
+    return;
+
+  dstend = dst + dstsize - 1;	/* End of destination buffer */
 
 
   while (*src && dst < dstend)

@@ -1926,7 +1926,7 @@ ppdcSource::get_size(ppdcFile *fp)	// I - File to read
 char *					// O - Token string or NULL
 ppdcSource::get_token(ppdcFile *fp,	// I - File to read
                       char     *buffer,	// I - Buffer
-		      int      buflen)	// I - Length of buffer
+		      size_t      buflen)	// I - Length of buffer
 {
   char		*bufptr,		// Pointer into string buffer
 		*bufend;		// End of string buffer
@@ -1939,10 +1939,12 @@ ppdcSource::get_token(ppdcFile *fp,	// I - File to read
 		*nameptr;		// Name pointer
   ppdcVariable	*var;			// Variable pointer
 
+  if (buflen == 0)
+    return (NULL);
 
   // Mark the beginning and end of the buffer...
   bufptr = buffer;
-  bufend = buffer + buflen - 1;
+  bufend = bufptr + buflen - 1;
 
   // Loop intil we've read a token...
   quote     = 0;

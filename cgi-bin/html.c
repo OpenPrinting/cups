@@ -73,6 +73,8 @@ cgiFormEncode(char       *dst,		/* I - Destination string */
   static const char	*hex =		/* Hexadecimal characters */
 			"0123456789ABCDEF";
 
+ if (dstsize == 0)
+  return dst;
 
  /*
   * Mark the end of the string...

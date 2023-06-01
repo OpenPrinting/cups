@@ -11281,9 +11281,9 @@ url_encode_attr(ipp_attribute_t *attr,	/* I - Attribute */
     if (bufptr >= bufend)
       break;
 
-    *bufptr++ = '\'';
+    *bufptr = '\'';
 
-    bufptr = url_encode_string(attr->values[i].string.text, bufptr, (size_t)(bufend - bufptr + 1));
+    bufptr = url_encode_string(attr->values[i].string.text, bufptr, (size_t)(bufend - bufptr));
 
     if (bufptr >= bufend)
       break;
@@ -11309,9 +11309,8 @@ url_encode_string(const char *s,	/* I - String */
   static const char *hex = "0123456789ABCDEF";
 					/* Hex digits */
 
-
   bufptr = buffer;
-  bufend = buffer + bufsize - 1;
+  bufend = bufptr + bufsize - 1;
 
   while (*s && bufptr < bufend)
   {

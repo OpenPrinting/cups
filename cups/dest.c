@@ -3335,7 +3335,11 @@ cups_dnssd_unquote(char       *dst,	/* I - Destination buffer */
                    const char *src,	/* I - Source string */
 		   size_t     dstsize)	/* I - Size of destination buffer */
 {
-  char	*dstend = dst + dstsize - 1;	/* End of destination buffer */
+  char	*dstend;
+  if (dstsize == 0)
+    return;
+    
+  dstend = dst + dstsize - 1;	/* End of destination buffer */
 
 
   while (*src && dst < dstend)
@@ -4326,6 +4330,8 @@ cups_make_string(
       attr->value_tag != IPP_TAG_RANGE)
     return (attr->values[0].string.text);
 
+  if (bufsize == 0)
+    return (buffer);
  /*
   * Copy the values to the string, separating with commas and escaping strings
   * as needed...
@@ -4425,6 +4431,8 @@ cups_queue_name(
   const char	*ptr;			/* Pointer into serviceName */
   char		*nameptr;		/* Pointer into name */
 
+  if (namesize == 0)
+    return;
 
   for (nameptr = name, ptr = serviceName; *ptr && nameptr < (name + namesize - 1); ptr ++)
   {

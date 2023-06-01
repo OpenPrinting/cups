@@ -509,7 +509,7 @@ class ppdcSource			//// Source File
   ppdcChoice	*get_resolution(ppdcFile *fp);
   ppdcProfile	*get_simple_profile(ppdcFile *fp);
   ppdcMediaSize	*get_size(ppdcFile *fp);
-  char		*get_token(ppdcFile *fp, char *buffer, int buflen);
+  char		*get_token(ppdcFile *fp, char *buffer, size_t buflen);
   ppdcVariable	*get_variable(ppdcFile *fp);
   int		import_ppd(const char *f);
   int		quotef(cups_file_t *fp, const char *format, ...);

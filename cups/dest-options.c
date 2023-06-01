@@ -1499,6 +1499,8 @@ cups_collection_string(
   const char		*mptr;		/* Pointer into member value */
   int			mlen;		/* Length of octetString */
 
+  if (bufsize == 0)
+    return 0;
 
   bufptr = buffer;
   bufend = buffer + bufsize - 1;
