@@ -150,7 +150,7 @@ static void		cups_message_free(_cups_message_t *m);
 static void		cups_message_load(cups_lang_t *lang);
 static void		cups_message_puts(cups_file_t *fp, const char *s);
 static int		cups_read_strings(cups_file_t *fp, int flags, cups_array_t *a);
-static void		cups_unquote(char *d, const char *s);
+static void		cups_unquote(char *s);
 
 
 #ifdef __APPLE__
@@ -1003,7 +1003,7 @@ _cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
       */
 
       if (flags & _CUPS_MESSAGE_UNQUOTE)
-	cups_unquote(ptr, ptr);
+	cups_unquote(ptr);
 
      /*
       * Create or add to a message...
@@ -1804,7 +1804,7 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
     *bufptr++ = '\0';
 
     if (flags & _CUPS_MESSAGE_UNQUOTE)
-      cups_unquote(msg, msg);
+      cups_unquote(msg);
 
    /*
     * Find the start of the translation...
@@ -1838,7 +1838,7 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
     *bufptr++ = '\0';
 
     if (flags & _CUPS_MESSAGE_UNQUOTE)
-      cups_unquote(str, str);
+      cups_unquote(str);
 
    /*
     * If we get this far we have a valid pair of strings, add them...
@@ -1882,9 +1882,9 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
  */
 
 static void
-cups_unquote(char       *d,		/* O - Unquoted string */
-             const char *s)		/* I - Original string */
+cups_unquote(char       *s)		/* I - Original string */
 {
+  char *d = s;
   while (*s)
   {
     if (*s == '\\')
