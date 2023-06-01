@@ -1,6 +1,7 @@
 /*
  * String functions for CUPS.
  *
+ * Copyright © 2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -729,6 +730,9 @@ _cups_strlcpy(char       *dst,		/* O - Destination string */
 {
   size_t	srclen;			/* Length of source string */
 
+
+  if (size == 0)
+    return (0);
 
  /*
   * Figure out how much room is needed...
