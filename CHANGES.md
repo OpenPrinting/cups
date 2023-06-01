@@ -16,6 +16,7 @@ Changes in CUPS v2.4.3 (TBA)
 - Fixed an OpenSSL certificate loading issue (Issue #465)
 - Fixed Brazilian Portuguese translations (Issue #288)
 - Fixed duplicate PPD2IPP media-type names (Issue #688)
+- Fixed possible heap buffer overflow in `_cups_strlcpy()` (fixes CVE-2023-32324)
 - Fixed InputSlot heuristic for photo sizes smaller than 5x7" if there is no
   media-source in the request (Issue #569)
 - Fixed invalid memory access during generating IPP Everywhere queue
