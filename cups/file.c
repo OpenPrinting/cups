@@ -336,6 +336,53 @@ _cupsFileCheckFilter(
 
 
 /*
+ * '_cupsFileStripComment' - Strip inline comments from a line of text..
+ */
+
+char *_cupsFileStripComment(char *buf)
+{
+  /*
+   * Find the first '#' character
+   */
+  char *ptr = strchr(buf, '#');
+
+  if (!ptr)
+    return buf;
+
+  if (ptr != buf && ptr[-1] == '\\')
+  {
+    /*
+     * Check if the '#' character is escaped by a backslash
+     */
+    _cups_strcpy(ptr - 1, ptr);
+    return _cupsFileStripComment(buf);
+  }
+
+  while (ptr > buf)
+  {
+    if (!_cups_isspace(ptr[-1]))
+    {
+      *ptr = '\0';
+      break;
+    }
+
+    if (ptr != buf && *(ptr - 1) == '\\')
+    {
+      /*
+       * Check if the '#' character is escaped by a backslash
+       */
+      _cups_strcpy(ptr - 1, ptr);
+      return _cupsFileStripComment(buf);
+    }
+    else
+      ptr--;
+  }
+
+  return buf;
+}
+
+
+/*
  * '_cupsFileGetConfAndComments()' - Get line and comments from a configuration file.
  */
 
@@ -349,9 +396,9 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
   char	*ptr;				/* Pointer into line */
 
 
- /*
-  * Range check input...
-  */
+  /*
+   * Range check input...
+   */
 
   DEBUG_printf(("2cupsFileGetConfAndComments(fp=%p, buf=%p, buflen=" CUPS_LLFMT
                 ", value=%p, linenum=%p)", (void *)fp, (void *)buf, CUPS_LLCAST buflen, (void *)value, (void *)linenum));
@@ -365,9 +412,9 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
     return (NULL);
   }
 
- /*
-  * Read the next line...
-  */
+  /*
+   * Read the next line...
+   */
 
   *value = NULL;
 
@@ -378,55 +425,11 @@ _cupsFileGetConfAndComments(cups_file_t *fp,	/* I  - CUPS file */
     /*
      * Remove the inline comment...
      */
-    if ((ptr = strchr(buf, '#')) != NULL)
-    {
-      /*
-       * Check if the '#' character is escaped by a backslash...
-       */
-      if (ptr != buf && ptr[-1] == '\\')
-      {
-        /*
-         * Remove the backslash and continue searching for unescaped '#'...
-         */
-        _cups_strcpy(ptr-1, ptr);
-        ptr = strchr(ptr+1, '#');
-      }
+    _cupsFileStripComment(buf);
 
-      /*
-       * Find the last non-whitespace character before the unescaped '#' character...
-       */
-      while (ptr > buf)
-      {
-        if (!_cups_isspace(ptr[-1]))
-        {
-          /*
-           * Null-terminate the string after the last non-whitespace character...
-           */
-          *ptr = '\0';
-          break;
-        }
-
-        /*
-         * Check if the '#' character is escaped by a backslash...
-         */
-        if (ptr != buf && *(ptr-1) == '\\')
-        {
-          /*
-           * Remove the backslash and continue searching for unescaped '#'
-           */
-          _cups_strcpy(ptr-1, ptr);
-          ptr = strchr(ptr+1, '#');
-        }
-        else
-        {
-          ptr--;
-        }
-      }
-    }
-
-	/*
-	 * Strip leading whitespace...
-	 */
+    /*
+     * Strip leading whitespace...
+     */
 
     for (ptr = buf; _cups_isspace(*ptr); ptr ++);
 
