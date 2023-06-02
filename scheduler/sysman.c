@@ -163,8 +163,7 @@ cupsdSetBusyState(int working)          /* I - Doing significant work? */
   * Manage state changes...
   */
 
-  if (newbusy != busy)
-    busy = newbusy;
+  busy = newbusy;
 
 #ifdef __APPLE__
   if (cupsArrayCount(PrintingJobs) > 0 && !keep_awake)

@@ -389,8 +389,12 @@ cupsdCloseAllClients(void)
   for (con = (cupsd_client_t *)cupsArrayFirst(Clients);
        con;
        con = (cupsd_client_t *)cupsArrayNext(Clients))
+#ifdef HAVE_TLS
     if (cupsdCloseClient(con))
       cupsdCloseClient(con);
+#else
+    cupsdCloseClient(con);
+#endif
 }
 
 
@@ -401,9 +405,6 @@ cupsdCloseAllClients(void)
 int					/* O - 1 if partial close, 0 if fully closed */
 cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
 {
-  int		partial;		/* Do partial close for SSL? */
-
-
   cupsdLogClient(con, CUPSD_LOG_DEBUG, "Closing connection.");
 
  /*
@@ -411,8 +412,6 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
   */
 
   httpFlushWrite(con->http);
-
-  partial = 0;
 
   if (con->pipe_pid != 0)
   {
@@ -447,10 +446,6 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
     */
 
     if (httpIsEncrypted(con->http))
-      partial = 1;
-#endif /* HAVE_TLS */
-
-    if (partial)
     {
      /*
       * Only do a partial close so that the encrypted client gets everything.
@@ -461,83 +456,60 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
                      NULL, con);
 
       cupsdLogClient(con, CUPSD_LOG_DEBUG, "Waiting for socket close.");
-    }
-    else
-    {
-     /*
-      * Shut the socket down fully...
-      */
 
-      cupsdRemoveSelect(httpGetFd(con->http));
-      httpClose(con->http);
-      con->http = NULL;
+      return (1);
     }
+#endif
+  }
+  /*
+   * Free memory...
+   */
+
+  if (con->http)
+  {
+    /*
+     * Shut the socket down fully...
+     */
+    cupsdRemoveSelect(httpGetFd(con->http));
+    httpClose(con->http);
   }
 
-  if (!partial)
+  if (con->filename)
   {
-   /*
-    * Free memory...
-    */
+    unlink(con->filename);
+    cupsdClearString(&con->filename);
+  }
 
-    cupsdRemoveSelect(httpGetFd(con->http));
+  cupsdClearString(&con->command);
+  cupsdClearString(&con->options);
+  cupsdClearString(&con->query_string);
 
-    httpClose(con->http);
-
-    if (con->filename)
-    {
-      unlink(con->filename);
-      cupsdClearString(&con->filename);
-    }
-
-    cupsdClearString(&con->command);
-    cupsdClearString(&con->options);
-    cupsdClearString(&con->query_string);
-
-    if (con->request)
-    {
-      ippDelete(con->request);
-      con->request = NULL;
-    }
-
-    if (con->response)
-    {
-      ippDelete(con->response);
-      con->response = NULL;
-    }
-
-    if (con->language)
-    {
-      cupsLangFree(con->language);
-      con->language = NULL;
-    }
+  ippDelete(con->request);
+  ippDelete(con->response);
+  cupsLangFree(con->language);
 
 #ifdef HAVE_AUTHORIZATION_H
-    if (con->authref)
-    {
-      AuthorizationFree(con->authref, kAuthorizationFlagDefaults);
-      con->authref = NULL;
-    }
+  if (con->authref)
+    AuthorizationFree(con->authref, kAuthorizationFlagDefaults);
 #endif /* HAVE_AUTHORIZATION_H */
 
-   /*
-    * Re-enable new client connections if we are going back under the
-    * limit...
-    */
+ /*
+  * Re-enable new client connections if we are going back under the
+  * limit...
+  */
 
-    if (cupsArrayCount(Clients) == MaxClients)
-      cupsdResumeListening();
+  if (cupsArrayCount(Clients) == MaxClients)
+    cupsdResumeListening();
 
-   /*
-    * Compact the list of clients as necessary...
-    */
+ /*
+  * Compact the list of clients as necessary...
+  */
 
-    cupsArrayRemove(Clients, con);
+  cupsArrayRemove(Clients, con);
 
-    free(con);
-  }
+  free(con);
 
-  return (partial);
+  return (0);
 }
 
 
