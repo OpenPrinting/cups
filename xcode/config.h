@@ -19,8 +19,8 @@
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.4.3"
-#define CUPS_MINIMAL "CUPS/2.4.3"
+#define CUPS_SVERSION "CUPS v2.5.0"
+#define CUPS_MINIMAL "CUPS/2.5.0"
 
 
 /*
@@ -307,10 +307,8 @@
  */
 
 #define HAVE_TLS 1
-#define HAVE_CDSASSL 1
-/* #undef HAVE_OPENSSL */
+#define HAVE_OPENSSL 1
 /* #undef HAVE_GNUTLS */
-/* #undef HAVE_SSPISSL */
 
 
 /*

@@ -1,10 +1,13 @@
-OpenPrinting CUPS v2.4.3
+OpenPrinting CUPS v2.5b1
 ========================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)
 ![Apache 2.0](https://img.shields.io/github/license/openprinting/cups)
 [![Build and Test](https://github.com/OpenPrinting/cups/workflows/Build%20and%20Test/badge.svg)](https://github.com/OpenPrinting/cups/actions/workflows/build.yml)
 [![Coverity Scan](https://img.shields.io/coverity/scan/23806)](https://scan.coverity.com/projects/openprinting-cups)
+
+> *Note:* This branch is tracking a future CUPS 2.5.x feature release.  Check
+> out the "2.4.x" branch for CUPS 2.4.x.
 
 
 Introduction
