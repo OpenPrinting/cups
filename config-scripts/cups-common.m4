@@ -483,7 +483,7 @@ AS_CASE(["$COMPONENTS"], [all], [
     LIBHEADERS="\$(COREHEADERS)"
     LIBHEADERSPRIV="\$(COREHEADERSPRIV)"
 ], [*], [
-    AC_MSG_ERROR([Bad build component "$COMPONENT" specified.])
+    AC_MSG_ERROR([Bad build component "$COMPONENTS" specified.])
 ])
 
 AC_SUBST([BUILDDIRS])
