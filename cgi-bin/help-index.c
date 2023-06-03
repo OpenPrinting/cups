@@ -1087,7 +1087,7 @@ help_load_file(
 	    */
 
             if ((text = strstr(ptr + 4, "-->")) == NULL)
-	      ptr += strlen(ptr) - 1;
+	      ptr += strlen(ptr + 1);
 	    else
 	      ptr = text + 2;
 	  }

@@ -79,8 +79,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'U' : /* Username */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetUser(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetUser(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -98,8 +99,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'H' : /* Connect to host */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetServer(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetServer(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -123,7 +125,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'w' : /* width */
 	      if (opt[1] != '\0')
 	      {
-		opt += strlen(opt) - 1;
+		opt += strlen(opt + 1);
 	      }
 	      else
 	      {
@@ -151,8 +153,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'o' : /* Option */
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsParseOptions(opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_options = cupsParseOptions(tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -203,7 +206,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {
@@ -246,8 +249,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case '#' : /* Number of copies */
 	      if (opt[1] != '\0')
 	      {
-		num_copies = atoi(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_copies = atoi(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -276,7 +280,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		title = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(title);
 	      }
 	      else
 	      {

@@ -1058,7 +1058,7 @@ ippAddStringfv(ipp_t      *ipp,		/* I - IPP message */
 {
   char		buffer[IPP_MAX_TEXT + 4];
 					/* Formatted text string */
-  ssize_t	bytes,			/* Length of formatted value */
+  size_t	bytes,			/* Length of formatted value */
 		max_bytes;		/* Maximum number of bytes for value */
 
 
@@ -1090,19 +1090,32 @@ ippAddStringfv(ipp_t      *ipp,		/* I - IPP message */
     const char *s = va_arg(ap, char *);
 
     if (!s)
-      s = "(null)";
+    {
+      // "(null)"
+      buffer[0] = '(';
+      buffer[1] = 'n';
+      buffer[2] = 'u';
+      buffer[3] = 'l';
+      buffer[4] = 'l';
+      buffer[5] = ')';
+      buffer[6] = '\0';
+      return (ippAddString(ipp, group, value_tag, name, language, buffer));
+    }
 
-    bytes = (ssize_t)strlen(s);
-    strlcpy(buffer, s, sizeof(buffer));
+    bytes = strlcpy(buffer, s, sizeof(buffer));
   }
   else
   {
+
+    ssize_t tempBytes;
    /*
     * Do a full formatting of the message...
     */
 
-    if ((bytes = vsnprintf(buffer, sizeof(buffer), format, ap)) < 0)
+    if ((tempBytes = vsnprintf(buffer, sizeof(buffer), format, ap)) < 0)
       return (NULL);
+    
+    bytes = (size_t)tempBytes;
   }
 
  /*
@@ -1152,7 +1165,7 @@ ippAddStringfv(ipp_t      *ipp,		/* I - IPP message */
     char	*bufmax,		/* Buffer at max_bytes */
 		*bufptr;		/* Pointer into buffer */
 
-    bufptr = buffer + strlen(buffer) - 1;
+    bufptr = buffer + strlen(buffer + 1);
     bufmax = buffer + max_bytes - 1;
 
     while (bufptr > bufmax)
@@ -4306,7 +4319,7 @@ ippSetStringfv(ipp_t           *ipp,	/* I  - IPP message */
   ipp_tag_t	value_tag;		/* Value tag */
   char		buffer[IPP_MAX_TEXT + 4];
 					/* Formatted text string */
-  ssize_t	bytes,			/* Length of formatted value */
+  size_t	bytes,			/* Length of formatted value */
 		max_bytes;		/* Maximum number of bytes for value */
 
 
@@ -4335,19 +4348,32 @@ ippSetStringfv(ipp_t           *ipp,	/* I  - IPP message */
     const char *s = va_arg(ap, char *);
 
     if (!s)
-      s = "(null)";
+    {
+      // "(null)"
+      buffer[0] = '(';
+      buffer[1] = 'n';
+      buffer[2] = 'u';
+      buffer[3] = 'l';
+      buffer[4] = 'l';
+      buffer[5] = ')';
+      buffer[6] = '\0';
+        return (ippSetString(ipp, attr, element, buffer));
+    }
 
-    bytes = (ssize_t)strlen(s);
-    strlcpy(buffer, s, sizeof(buffer));
+    bytes = strlcpy(buffer, s, sizeof(buffer));
   }
   else
   {
+    ssize_t tempBytes;
    /*
     * Do a full formatting of the message...
     */
 
-    if ((bytes = vsnprintf(buffer, sizeof(buffer), format, ap)) < 0)
+    if ((tempBytes = vsnprintf(buffer, sizeof(buffer), format, ap)) < 0)
       return (0);
+    
+    bytes = (tempBytes);
+
   }
 
  /*
@@ -4399,7 +4425,7 @@ ippSetStringfv(ipp_t           *ipp,	/* I  - IPP message */
     char	*bufmax,		/* Buffer at max_bytes */
 		*bufptr;		/* Pointer into buffer */
 
-    bufptr = buffer + strlen(buffer) - 1;
+    bufptr = buffer + strlen(buffer + 1);
     bufmax = buffer + max_bytes - 1;
 
     while (bufptr > bufmax)

@@ -100,8 +100,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'U' : /* Username */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetUser(opt + 1);
-		opt += strlen(opt) - 1;
+          
+		const char *tempOpt = opt + 1;
+		cupsSetUser(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -123,8 +125,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'h' : /* Connect to host */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetServer(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetServer(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -143,7 +146,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		reason = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(reason);
 	      }
 	      else
 	      {

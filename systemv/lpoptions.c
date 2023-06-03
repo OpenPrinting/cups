@@ -73,7 +73,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {
@@ -118,8 +118,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'h' : /* -h server */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetServer(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetServer(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -177,8 +178,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsParseOptions(opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_options = cupsParseOptions(tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -196,7 +198,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {
@@ -258,7 +260,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		option = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(option);
 	      }
 	      else
 	      {
@@ -278,7 +280,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {

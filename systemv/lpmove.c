@@ -74,8 +74,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'h' : /* Connect to host */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetServer(opt + 1);
-		opt += strlen(opt) - 1;
+          const char *optTemp = opt + 1;
+		cupsSetServer(optTemp);
+		opt += strlen(optTemp);
 	      }
 	      else
 	      {

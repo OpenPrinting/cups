@@ -102,7 +102,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		pclass = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(pclass);
 	      }
 	      else
 	      {
@@ -144,7 +144,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {
@@ -180,8 +180,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1] != '\0')
 	      {
-		cupsSetServer(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetServer(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -202,7 +203,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		file = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(file);
 	      }
 	      else
 	      {
@@ -270,8 +271,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'm' : /* Use the specified standard script/PPD file */
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsAddOption("ppd-name", opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_options = cupsAddOption("ppd-name", tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -290,8 +292,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'o' : /* Set option */
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsParseOptions(opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_options = cupsParseOptions(tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -311,7 +314,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {
@@ -358,7 +361,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		pclass = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(pclass);
 	      }
 	      else
 	      {
@@ -406,7 +409,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		val = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(val);
 	      }
 	      else
 	      {
@@ -428,8 +431,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'U' : /* Username */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetUser(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetUser(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -448,7 +452,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		val = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(val);
 	      }
 	      else
 	      {
@@ -477,8 +481,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'v' : /* Set the device-uri attribute */
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsAddOption("device-uri", opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_options = cupsAddOption("device-uri", tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -511,7 +516,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {
@@ -541,8 +546,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'D' : /* Set the printer-info attribute */
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsAddOption("printer-info", opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_options = cupsAddOption("printer-info", tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -573,8 +579,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'L' : /* Set the printer-location attribute */
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsAddOption("printer-location", opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_options = cupsAddOption("printer-location", tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {

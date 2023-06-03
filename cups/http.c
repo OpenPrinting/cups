@@ -3624,7 +3624,7 @@ http_add_field(http_t       *http,	/* I - HTTP connection */
 
       strlcpy(temp, value, sizeof(temp));
       value = temp;
-      ptr   = temp + strlen(temp) - 1;
+      ptr   = temp + strlen(temp + 1);
 
       if (*ptr == '.')
 	*ptr = '\0';

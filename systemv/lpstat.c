@@ -119,8 +119,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'U' : /* Username */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetUser(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetUser(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -139,7 +140,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		which = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(which);
 	      }
 	      else
 	      {
@@ -166,10 +167,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1] != '\0')
 	      {
-		check_dest(argv[0], opt + 1, &num_dests, &dests);
+		const char *tempOpt = opt + 1;
+		check_dest(argv[0], tempOpt, &num_dests, &dests);
 
-		status |= show_accepting(opt + 1, num_dests, dests);
-	        opt += strlen(opt) - 1;
+		status |= show_accepting(tempOpt, num_dests, dests);
+	        opt += strlen(tempOpt);
 	      }
 	      else if ((i + 1) < argc && argv[i + 1][0] != '-')
 	      {
@@ -202,10 +204,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1] != '\0')
 	      {
-		check_dest(argv[0], opt + 1, &num_dests, &dests);
+		const char *tempOpt = opt + 1;
+		check_dest(argv[0], tempOpt, &num_dests, &dests);
 
-		status |= show_classes(opt + 1);
-	        opt += strlen(opt) - 1;
+		status |= show_classes(tempOpt);
+	        opt += strlen(tempOpt);
 	      }
 	      else if ((i + 1) < argc && argv[i + 1][0] != '-')
 	      {
@@ -280,7 +283,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      op   = 'f';
 	      if (opt[1] != '\0')
 	      {
-	        opt += strlen(opt) - 1;
+	        opt += strlen(opt + 1);
 	      }
 	      else
 	      {
@@ -293,8 +296,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'h' : /* Connect to host */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetServer(opt + 1);
-	        opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetServer(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -319,10 +323,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1])
 	      {
-		check_dest(argv[0], opt + 1, &num_dests, &dests);
+		const char *tempOpt = opt + 1;
+		check_dest(argv[0], tempOpt, &num_dests, &dests);
 
-		status |= show_jobs(opt + 1, NULL, long_status, ranking, which);
-	        opt += strlen(opt) - 1;
+		status |= show_jobs(tempOpt, NULL, long_status, ranking, which);
+	        opt += strlen(tempOpt);
 	      }
 	      else if ((i + 1) < argc && argv[i + 1][0] != '-')
 	      {
@@ -341,11 +346,12 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1] != '\0')
 	      {
-		check_dest(argv[0], opt + 1, &num_dests, &dests);
+		const char *tempOpt = opt + 1;
+		check_dest(argv[0], tempOpt, &num_dests, &dests);
 
-		status |= show_printers(opt + 1, num_dests, dests,
+		status |= show_printers(tempOpt, num_dests, dests,
 					long_status);
-	        opt += strlen(opt) - 1;
+	        opt += strlen(tempOpt);
 	      }
 	      else if ((i + 1) < argc && argv[i + 1][0] != '-')
 	      {
@@ -437,8 +443,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1] != '\0')
 	      {
-		status |= show_jobs(NULL, opt + 1, long_status, ranking, which);
-	        opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		status |= show_jobs(NULL, tempOpt, long_status, ranking, which);
+	        opt += strlen(tempOpt);
 	      }
 	      else if ((i + 1) < argc && argv[i + 1][0] != '-')
 	      {
@@ -454,10 +461,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if (opt[1] != '\0')
 	      {
-		check_dest(argv[0], opt + 1, &num_dests, &dests);
+					const char *tempOpt = opt + 1;
+		check_dest(argv[0], tempOpt, &num_dests, &dests);
 
-		status |= show_devices(opt + 1, num_dests, dests);
-	        opt += strlen(opt) - 1;
+		status |= show_devices(tempOpt, num_dests, dests);
+	        opt += strlen(tempOpt);
 	      }
 	      else if ((i + 1) < argc && argv[i + 1][0] != '-')
 	      {

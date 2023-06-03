@@ -103,8 +103,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'U' : /* Username */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetUser(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetUser(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -126,7 +127,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		printer = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(printer);
 	      }
 	      else
 	      {
@@ -173,7 +174,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'f' : /* Form */
 	      if (opt[1] != '\0')
 	      {
-	        opt += strlen(opt) - 1;
+	        opt += strlen(opt + 1);
 	      }
 	      else
 	      {
@@ -192,8 +193,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'h' : /* Destination host */
 	      if (opt[1] != '\0')
 	      {
-		cupsSetServer(opt + 1);
-	        opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		cupsSetServer(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -213,7 +215,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		val = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(val);
 	      }
 	      else
 	      {
@@ -265,8 +267,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'n' : /* Number of copies */
 	      if (opt[1] != '\0')
 	      {
-		num_copies = atoi(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		num_copies = atoi(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -293,8 +296,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'o' : /* Option */
 	      if (opt[1] != '\0')
 	      {
-		num_options = cupsParseOptions(opt + 1, num_options, &options);
-		opt += strlen(opt) - 1;
+					const char *tempOpt = opt + 1;
+		num_options = cupsParseOptions(tempOpt, num_options, &options);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -316,8 +320,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'q' : /* Queue priority */
 	      if (opt[1] != '\0')
 	      {
-		priority = atoi(opt + 1);
-		opt += strlen(opt) - 1;
+		const char *tempOpt = opt + 1;
+		priority = atoi(tempOpt);
+		opt += strlen(tempOpt);
 	      }
 	      else
 	      {
@@ -358,7 +363,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		title = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(title);
 	      }
 	      else
 	      {
@@ -377,7 +382,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'y' : /* mode-list */
 	      if (opt[1] != '\0')
 	      {
-		opt += strlen(opt) - 1;
+		opt += strlen(opt + 1);
 	      }
 	      else
 	      {
@@ -397,7 +402,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		val = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(val);
 	      }
 	      else
 	      {
@@ -440,7 +445,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      if (opt[1] != '\0')
 	      {
 		val = opt + 1;
-		opt += strlen(opt) - 1;
+		opt += strlen(val);
 	      }
 	      else
 	      {
@@ -461,7 +466,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'S' : /* character set */
 	      if (opt[1] != '\0')
 	      {
-		opt += strlen(opt) - 1;
+		opt += strlen(opt + 1);
 	      }
 	      else
 	      {
@@ -480,7 +485,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'T' : /* Content-Type */
 	      if (opt[1] != '\0')
 	      {
-		opt += strlen(opt) - 1;
+		opt += strlen(opt + 1);
 	      }
 	      else
 	      {

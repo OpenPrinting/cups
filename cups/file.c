@@ -794,25 +794,23 @@ cupsFileGetConf(cups_file_t *fp,	/* I  - CUPS file */
 
       for (ptr = buf; *ptr; ptr ++)
         if (_cups_isspace(*ptr))
-	  break;
-
-      if (*ptr)
       {
        /*
         * Have a value, skip any other spaces...
 	*/
 
-        while (_cups_isspace(*ptr))
+            do
 	  *ptr++ = '\0';
+            while (_cups_isspace(*ptr));
 
-        if (*ptr)
+        if (*ptr) {
 	  *value = ptr;
 
-       /*
+           /*
         * Strip trailing whitespace and > for lines that begin with <...
 	*/
 
-        ptr += strlen(ptr) - 1;
+        ptr += strlen(ptr + 1);
 
         if (buf[0] == '<' && *ptr == '>')
 	  *ptr-- = '\0';
@@ -825,9 +823,14 @@ cupsFileGetConf(cups_file_t *fp,	/* I  - CUPS file */
 	  *value = NULL;
 	  return (buf);
 	}
+        }
+        else
+          ptr--;
 
         while (ptr > *value && _cups_isspace(*ptr))
 	  *ptr-- = '\0';
+
+    break;
       }
 
      /*

@@ -211,19 +211,19 @@ main(int  argc,				// I - Number of command-line arguments
 	      if (!strcmp(opt, "-lf"))
 	      {
 		le  = PPDC_LFONLY;
-		opt += strlen(opt) - 1;
+		opt += strlen(opt + 1);
 		break;
 	      }
 	      else if (!strcmp(opt, "-cr"))
 	      {
 		le  = PPDC_CRONLY;
-		opt += strlen(opt) - 1;
+		opt += strlen(opt + 1);
 		break;
 	      }
 	      else if (!strcmp(opt, "-crlf"))
 	      {
 		le  = PPDC_CRLF;
-		opt += strlen(opt) - 1;
+		opt += strlen(opt + 1);
 		break;
 	      }
 
