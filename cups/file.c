@@ -342,6 +342,11 @@ _cupsFileCheckFilter(
 char *_cupsFileStripComment(char *buf)
 {
   /*
+   * Range check input...
+   */
+  DEBUG_printf(("2cupsFileStripComment(buf=%p)", (void *)buf));
+  
+  /*
    * Find the first '#' character
    */
   char *ptr = strchr(buf, '#');
