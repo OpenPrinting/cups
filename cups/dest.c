@@ -1838,12 +1838,15 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
   {
       _cups_namedata_t  data;           /* Callback data */
 
-      DEBUG_puts("1cupsGetNamedDest: No queue found for printer, looking on network...");
-
       data.name = dest_name;
       data.dest = NULL;
 
-      cupsEnumDests(0, 1000, NULL, 0, 0, (cups_dest_cb_t)cups_name_cb, &data);
+      if (data.name)
+      {
+        DEBUG_puts("1cupsGetNamedDest: No queue found for printer, looking on network...");
+
+        cupsEnumDests(0, 1000, NULL, 0, 0, (cups_dest_cb_t)cups_name_cb, &data);
+      }
 
       if (!data.dest)
       {
