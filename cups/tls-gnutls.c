@@ -1261,8 +1261,7 @@ _httpTLSSetOptions(int options,		/* I - Options */
 int					/* O - 0 on success, -1 on failure */
 _httpTLSStart(http_t *http)		/* I - Connection to server */
 {
-  char			hostname[256],	/* Hostname */
-			*hostptr;	/* Pointer into hostname */
+  char			hostname[256];	/* Hostname */
   int			status;		/* Status of handshake */
   gnutls_certificate_credentials_t *credentials;
 					/* TLS credentials */
@@ -1352,10 +1351,15 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
       * Otherwise make sure the hostname we have does not end in a trailing dot.
       */
 
-      strlcpy(hostname, http->hostname, sizeof(hostname));
-      if ((hostptr = hostname + strlen(hostname) - 1) >= hostname &&
-	  *hostptr == '.')
-	*hostptr = '\0';
+      size_t host_len = strlcpy(hostname, http->hostname, sizeof(hostname));
+      if (host_len)
+      {
+        if (host_len > sizeof(hostname) - 1) // Did truncation occur?
+          host_len = strlen(hostname);
+
+        if (hostname[host_len - 1] == '.')
+          hostname[host_len - 1] = '\0';
+      }
     }
 
     status = gnutls_server_name_set(http->tls, GNUTLS_NAME_DNS, hostname, strlen(hostname));
