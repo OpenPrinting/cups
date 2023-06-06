@@ -46,7 +46,7 @@ extern "C" {
 #  define CUPS_VERSION			2.0404
 #  define CUPS_VERSION_MAJOR		2
 #  define CUPS_VERSION_MINOR		4
-#  define CUPS_VERSION_PATCH		4
+#  define CUPS_VERSION_PATCH		5
 
 #  define CUPS_BC_FD			3
 					/* Back-channel file descriptor for

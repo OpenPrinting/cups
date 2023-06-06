@@ -1,5 +1,9 @@
-CHANGES - OpenPrinting CUPS 2.4.4 - 2023-06-06
+CHANGES - OpenPrinting CUPS 2.4.5 - (TBA)
 ==============================================
+
+Changes in CUPS v2.4.5 - TBA
+----------------------------
+
 
 Changes in CUPS v2.4.4 - 2023-06-06
 -----------------------------------
