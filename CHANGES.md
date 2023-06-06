@@ -1,8 +1,8 @@
-CHANGES - OpenPrinting CUPS 2.4.3 - 2023-06-01
+CHANGES - OpenPrinting CUPS 2.4.4 - 2023-06-06
 ==============================================
 
-Changes in CUPS v2.4.4 (TBA)
----------------------------
+Changes in CUPS v2.4.4 - 2023-06-06
+-----------------------------------
 
 - Fix segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
