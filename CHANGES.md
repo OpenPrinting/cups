@@ -1,8 +1,10 @@
-CHANGES - OpenPrinting CUPS 2.4.5 - (TBA)
+CHANGES - OpenPrinting CUPS 2.4.5 - 2023-06-13
 ==============================================
 
-Changes in CUPS v2.4.5 - TBA
-----------------------------
+Changes in CUPS v2.4.5 - 2023-06-13
+-----------------------------------
+
+- Fix corruption of locally saved certificates (Issue #724)
 
 
 Changes in CUPS v2.4.4 - 2023-06-06
