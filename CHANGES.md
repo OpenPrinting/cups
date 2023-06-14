@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.4.6 - TBA
 Changes in CUPS v2.4.6 - TBA
 ----------------------------
 
+- Fix printing multiple files on specific printers (Issue #643)
+
 
 Changes in CUPS v2.4.5 - 2023-06-13
 -----------------------------------
