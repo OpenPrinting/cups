@@ -5056,6 +5056,16 @@ _ppdCreateFromIPP2(
   }
 
  /*
+  * Add cupsSingleFile to support multiple files printing on printers
+  * which don't support multiple files in its firmware...
+  *
+  * Adding the keyword degrades printing performance (there is 1-2 seconds
+  * pause between files).
+  */
+
+  cupsFilePuts(fp, "*cupsSingleFile: true\n");
+
+ /*
   * Close up and return...
   */
 
