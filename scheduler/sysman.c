@@ -538,7 +538,7 @@ sysEventThreadEntry(void)
   * this later.
   */
 
-  memset(&timerContext, 0, sizeof(timerContext));
+  bzero(&timerContext, sizeof(timerContext));
   timerContext.info = &threadData;
 
   threadData.timerRef =

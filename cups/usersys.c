@@ -593,22 +593,8 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
   * Gather Windows version information for the User-Agent string...
   */
 
-  typedef NTSTATUS(WINAPI * RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
-
-  memset(&version, 0, sizeof(version));
-  version.dwOSVersionInfoSize = sizeof(version);
-
-  /* RtlGetVersion gets the current native version of Windows, even when running in compatibility mode */
-  RtlGetVersionPtr RtlGetVersionInternal = (RtlGetVersionPtr)GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetVersion");
-  if (RtlGetVersionInternal)
-  {
-    RtlGetVersionInternal((PRTL_OSVERSIONINFOW)&version);
-  }
-  else
-  {
-    /* Should not happen, but just in case, fallback to deprecated GetVersionExW */
-    GetVersionExW(&version);
-  }
+  version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+  GetVersionExA(&version);
   GetNativeSystemInfo(&sysinfo);
 
   switch (sysinfo.wProcessorArchitecture)
