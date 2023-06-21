@@ -428,7 +428,10 @@ httpCopyCredentials(
 {
   OSStatus		error;		/* Error code */
   SecTrustRef		peerTrust;	/* Peer trust reference */
+  CFIndex		count;		/* Number of credentials */
+  SecCertificateRef	secCert;	/* Certificate reference */
   CFDataRef		data;		/* Certificate data */
+  CFIndex		i;		/* Looping var */
 
 
   DEBUG_printf(("httpCopyCredentials(http=%p, credentials=%p)", (void *)http, (void *)credentials));
@@ -441,16 +444,15 @@ httpCopyCredentials(
 
   if (!(error = SSLCopyPeerTrust(http->tls, &peerTrust)) && peerTrust)
   {
+    DEBUG_printf(("2httpCopyCredentials: Peer provided %ld certificates.", (long)SecTrustGetCertificateCount(peerTrust)));
+
     if ((*credentials = cupsArrayNew(NULL, NULL)) != NULL)
     {
-      CFArrayRef secArray = SecTrustCopyCertificateChain(peerTrust);
-      CFIndex i, count = CFArrayGetCount(secArray);
+      count = SecTrustGetCertificateCount(peerTrust);
 
-      DEBUG_printf(("2httpCopyCredentials: Peer provided %ld certificates.", (long)count));
-      
       for (i = 0; i < count; i ++)
       {
-    SecCertificateRef secCert = (SecCertificateRef)CFArrayGetValueAtIndex(secArray, i);
+	secCert = SecTrustGetCertificateAtIndex(peerTrust, i);
 
 #ifdef DEBUG
         CFStringRef cf_name = SecCertificateCopySubjectSummary(secCert);
@@ -471,7 +473,6 @@ httpCopyCredentials(
 	  CFRelease(data);
 	}
       }
-      CFRelease(secArray);
     }
 
     CFRelease(peerTrust);
