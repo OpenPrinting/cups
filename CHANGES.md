@@ -7,6 +7,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Fix segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
 - Fix printing multiple files on specific printers (Issue #643)
+- Fix use-after-free in `cupsdAcceptClient()` when we log warning during error
+  handling (fixes CVE-2023-34241)
  
 
 Changes in CUPS v2.4.3 (2023-06-01)
