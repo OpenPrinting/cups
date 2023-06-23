@@ -4613,7 +4613,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
         ppd_option_t *color_model = ppdFindOption(ppd, "ColorModel");
 					// ColorModel PPD option
 
-        if (color_model && strcmp(color_model->defchoice, "RGB") && strcmp(color_model->defchoice, "CMYK"))
+        if (color_model && strcasecmp(color_model->defchoice, "RGB") && strcasecmp(color_model->defchoice, "CMYK") && strcasecmp(color_model->defchoice, "CMY") && strcasecmp(color_model->defchoice, "CMY+K") && strcasecmp(color_model->defchoice, "Color"))
           p->num_options = cupsAddOption("print-color-mode", "monochrome", p->num_options, &p->options);
       }
     }
