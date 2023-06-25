@@ -294,11 +294,12 @@ main(int  argc,				/* I - Number of command-line arguments */
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
                      "requesting-user-name", NULL, cupsUser());
 
-      if (purge)
+      if (purge) {
 	if (op == IPP_CANCEL_JOB)
 	  ippAddBoolean(request, IPP_TAG_OPERATION, "purge-job", (char)purge);
 	else
 	  ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", (char)purge);
+      }
 
      /*
       * Do the request and get back a response...
