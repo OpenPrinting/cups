@@ -4,28 +4,29 @@ CHANGES - OpenPrinting CUPS 2.4.7 - TBA
 Changes in CUPS v2.4.7 (TBA)
 -----------------------------------
 
-- Fix delays in lpd backend (Issue #741)
+- Fixed delays in lpd backend (Issue #741)
+- Fixed purging job files via `cancel -x` (Issue #742)
 
 
 Changes in CUPS v2.4.6 (2023-06-22)
 -----------------------------------
 
-- Fix linking error on old MacOS (Issue #715)
-- Fix printing multiple files on specific printers (Issue #643)
-- Fix use-after-free when logging warnings in case of failures
+- Fixed linking error on old MacOS (Issue #715)
+- Fixed printing multiple files on specific printers (Issue #643)
+- Fixed use-after-free when logging warnings in case of failures
   in `cupsdAcceptClient()` (fixes CVE-2023-34241)
 
 
 Changes in CUPS v2.4.5 (2023-06-13)
 -----------------------------------
 
-- Fix corruption of locally saved certificates (Issue #724)
+- Fixed corruption of locally saved certificates (Issue #724)
 
 
 Changes in CUPS v2.4.4 (2023-06-06)
 -----------------------------------
 
-- Fix segfault in `cupsGetNamedDest()` when trying to get default printer, but
+- Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
 
 
