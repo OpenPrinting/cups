@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.4.7 - TBA
 Changes in CUPS v2.4.7 (TBA)
 -----------------------------------
 
+- Fix delays in lpd backend (Issue #741)
+
 
 Changes in CUPS v2.4.6 (2023-06-22)
 -----------------------------------

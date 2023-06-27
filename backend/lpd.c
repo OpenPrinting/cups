@@ -63,7 +63,7 @@ static int	abort_job = 0;		/* Non-zero if we get SIGTERM */
 
 #define RESERVE_NONE		0	/* Don't reserve a privileged port */
 #define RESERVE_RFC1179		1	/* Reserve port 721-731 */
-#define RESERVE_ANY		2	/* Reserve port 1-1023 */
+#define RESERVE_ANY		2	/* Reserve port 512-1023 */
 
 
 /*
@@ -775,7 +775,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
 
       if (lport < 721 && reserve == RESERVE_RFC1179)
 	lport = 731;
-      else if (lport < 1)
+      else if (lport < 512)
 	lport = 1023;
 
 #ifdef HAVE_GETEUID
