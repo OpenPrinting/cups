@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS 2.5b1 - (TBA)
 Changes in CUPS v2.5b1 (TBA)
 ----------------------------
 
+- Fix delays in lpd backend (Issue #741)
 - Fix segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
 - Fix printing multiple files on specific printers (Issue #643)
