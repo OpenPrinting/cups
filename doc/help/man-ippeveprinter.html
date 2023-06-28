@@ -110,11 +110,13 @@ When specifying a directory,
 <b>ippeveprinter</b>
 will create an output file using the job ID and name.
 <dt><b>-F </b><i>output-type/subtype[,...]</i>
-<dd style="margin-left: 5.0em">Specifies the output MIME media type.
+<dd style="margin-left: 5.0em">Specifies the output MIME media type in case printer command (parameter "-c") supports more media types.
 The default is "application/postscript" when the <b>-P</b> option is specified.
 <dt><b>-M </b><i>manufacturer</i>
 <dd style="margin-left: 5.0em">Set the manufacturer of the printer.
 The default is "Example".
+<dt><b>-K </b><i>keypath</i>
+<dd style="margin-left: 5.0em">Set location of server x.509 certificates and keys
 <dt><b>-P </b><i>filename.ppd</i>
 <dd style="margin-left: 5.0em">Load printer attributes from the specified PPD file.
 This option is typically used in conjunction with the
@@ -124,6 +126,8 @@ printer command ("-c ippeveps").
 <dd style="margin-left: 5.0em"><dt><b>-V 2.0</b>
 <dd style="margin-left: 5.0em">Specifies the maximum IPP version to report.
 2.0 is the default.
+<dt><b>-a </b><i>filename.conf</i>
+<dd style="margin-left: 5.0em">Load printer attributes from conf file acquired by parameter "--ippserver" of command "ipptool". See "man ipptool" for more info.
 <dt><b>-c </b><i>command</i>
 <dd style="margin-left: 5.0em">Run the specified command for each document that is printed.
 If "command" is not an absolute path ("/path/to/command"),
