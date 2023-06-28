@@ -118,12 +118,15 @@ When specifying a directory,
 will create an output file using the job ID and name.
 .TP 5
 \fB\-F \fIoutput-type/subtype[,...]\fR
-Specifies the output MIME media type.
+Specifies the output MIME media type in case printer command (parameter "\-c") supports more media types.
 The default is "application/postscript" when the \fB\-P\fR option is specified.
 .TP 5
 \fB\-M \fImanufacturer\fR
 Set the manufacturer of the printer.
 The default is "Example".
+.TP 5
+\fB\-K \fIkeypath\fR
+Set location of server x.509 certificates and keys
 .TP 5
 \fB\-P \fIfilename.ppd\fR
 Load printer attributes from the specified PPD file.
@@ -136,6 +139,9 @@ printer command ("\-c ippeveps").
 \fB\-V 2.0\fR
 Specifies the maximum IPP version to report.
 2.0 is the default.
+.TP 5
+\fB-a \fIfilename.conf\fR
+Load printer attributes from conf file acquired by parameter "--ippserver" of command "ipptool". See "man ipptool" for more info.
 .TP 5
 \fB\-c \fIcommand\fR
 Run the specified command for each document that is printed.
