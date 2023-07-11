@@ -1462,38 +1462,13 @@ static time_t				// O - UNIX time in seconds
 http_get_date(X509 *cert,		// I - Certificate
               int  which)		// I - 0 for notBefore, 1 for notAfter
 {
-  unsigned char	*expiration;		// Expiration date of cert
   struct tm	exptm;			// Expiration date components
 
 
   if (which)
-    ASN1_STRING_to_UTF8(&expiration, X509_get0_notAfter(cert));
+    ASN1_TIME_to_tm(X509_get0_notAfter(cert), &exptm);
   else
-    ASN1_STRING_to_UTF8(&expiration, X509_get0_notBefore(cert));
-
-  memset(&exptm, 0, sizeof(exptm));
-  if (strlen((char *)expiration) > 13)
-  {
-    // 4-digit year
-    exptm.tm_year = (expiration[0] - '0') * 1000 + (expiration[1] - '0') * 100 + (expiration[2] - '0') * 10 + expiration[3] - '0' - 1900;
-    exptm.tm_mon  = (expiration[4] - '0') * 10 + expiration[5] - '0' - 1;
-    exptm.tm_mday = (expiration[6] - '0') * 10 + expiration[7] - '0';
-    exptm.tm_hour = (expiration[8] - '0') * 10 + expiration[9] - '0';
-    exptm.tm_min  = (expiration[10] - '0') * 10 + expiration[11] - '0';
-    exptm.tm_sec  = (expiration[12] - '0') * 10 + expiration[13] - '0';
-  }
-  else
-  {
-    // 2-digit year
-    exptm.tm_year = 100 + (expiration[0] - '0') * 10 + expiration[1] - '0';
-    exptm.tm_mon  = (expiration[2] - '0') * 10 + expiration[3] - '0' - 1;
-    exptm.tm_mday = (expiration[4] - '0') * 10 + expiration[5] - '0';
-    exptm.tm_hour = (expiration[6] - '0') * 10 + expiration[7] - '0';
-    exptm.tm_min  = (expiration[8] - '0') * 10 + expiration[9] - '0';
-    exptm.tm_sec  = (expiration[10] - '0') * 10 + expiration[11] - '0';
-  }
-
-  OPENSSL_free(expiration);
+    ASN1_TIME_to_tm(X509_get0_notBefore(cert), &exptm);
 
   return (mktime(&exptm));
 }
