@@ -2206,7 +2206,7 @@ cupsSetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
       }
 
       if (wrote)
-        fputs("\n", fp);
+        fputc('\n', fp);
     }
 
  /*

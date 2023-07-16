@@ -74,7 +74,7 @@ main(int  argc,				/* I - Number of command-line args */
 	printf(",%d", finishings[i]);
       else
 	printf("%d", finishings[i]);
-    fputs("\n", stdout);
+    fputc('\n', stdout);
   }
 
   if ((ppd_bin = ppdFindMarkedChoice(ppd, "OutputBin")) != NULL &&
