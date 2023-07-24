@@ -15,9 +15,13 @@
 #include "debug-internal.h"
 #ifdef __APPLE__
 #  include <CommonCrypto/CommonDigest.h>
-#elif defined(HAVE_GNUTLS)
-#  include <gnutls/crypto.h>
+#elif defined(HAVE_GNUTLS) || defined(HAVE_OPENSSL)
 #  include "md5-internal.h"
+#  if defined(HAVE_OPENSSL)
+#    include <openssl/evp.h>
+#  else /* HAVE_GNUTLS */
+#    include <gnutls/crypto.h>
+#  endif /* HAVE_OPENSSL */
 #elif _WIN32
 #  include <windows.h>
 #  include <bcrypt.h>
@@ -188,12 +192,17 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
     return (CC_SHA256_DIGEST_LENGTH);
   }
 
-#elif defined(HAVE_GNUTLS)
+#elif defined(HAVE_GNUTLS) || defined(HAVE_OPENSSL)
+  unsigned char	temp[64];		/* Temporary hash buffer */
+  unsigned	tempsize = 0;		/* Truncate to this size? */
+
+#  if defined(HAVE_OPENSSL)
+  const EVP_MD  *md = NULL;             /* Message digest implementation */
+  EVP_MD_CTX    *ctx;                   /* Context */
+#  else /* HAVE_GNUTLS */
   gnutls_digest_algorithm_t alg = GNUTLS_DIG_UNKNOWN;
 					/* Algorithm */
-  unsigned char	temp[64];		/* Temporary hash buffer */
-  size_t	tempsize = 0;		/* Truncate to this size? */
-
+#  endif /* HAVE_OPENSSL */
 
   if (!strcmp(algorithm, "md5"))
   {
@@ -212,7 +221,46 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
 
     return (16);
   }
-  else if (!strcmp(algorithm, "sha"))
+
+#  if defined(HAVE_OPENSSL)
+  if (!strcmp(algorithm, "sha"))
+  {
+    // SHA-1
+    md = EVP_sha1();
+  }
+  else if (!strcmp(algorithm, "sha2-224"))
+  {
+    md = EVP_sha224();
+  }
+  else if (!strcmp(algorithm, "sha2-256"))
+  {
+    md = EVP_sha256();
+  }
+  else if (!strcmp(algorithm, "sha2-384"))
+  {
+    md = EVP_sha384();
+  }
+  else if (!strcmp(algorithm, "sha2-512"))
+  {
+    md = EVP_sha512();
+  }
+
+  if (md)
+  {
+    ctx = EVP_MD_CTX_new();
+    EVP_DigestInit(ctx, md);
+    EVP_DigestUpdate(ctx, data, datalen);
+    EVP_DigestFinal(ctx, temp, &tempsize);
+
+    if (tempsize > hashsize)
+      goto too_small;
+
+    memcpy(hash, temp, tempsize);
+
+    return ((ssize_t)tempsize);
+  }
+#  else /* HAVE_GNUTLS */
+  if (!strcmp(algorithm, "sha"))
     alg = GNUTLS_DIG_SHA1;
   else if (!strcmp(algorithm, "sha2-224"))
     alg = GNUTLS_DIG_SHA224;
@@ -257,6 +305,7 @@ cupsHashData(const char    *algorithm,	/* I - Algorithm name */
 
     return ((ssize_t)gnutls_hash_get_len(alg));
   }
+#  endif /* HAVE_OPENSSL */
 
 #elif _WIN32
   // Use Windows CNG APIs to perform hashing...
