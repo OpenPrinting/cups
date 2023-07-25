@@ -2,9 +2,10 @@ name: Build and Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, 2.4.x ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, 2.4.x ]
+  workflow_dispatch:
 
 jobs:
   build-linux:
