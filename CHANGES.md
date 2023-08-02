@@ -6,6 +6,7 @@ Changes in CUPS v2.4.7 (TBA)
 
 - Fixed delays in lpd backend (Issue #741)
 - Fixed purging job files via `cancel -x` (Issue #742)
+- Fixed a bug in the PPD command interpretation code (Issue #768)
 
 
 Changes in CUPS v2.4.6 (2023-06-22)
