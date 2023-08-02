@@ -12,10 +12,10 @@ Changes in CUPS v2.4.7 (TBA)
 Changes in CUPS v2.4.6 (2023-06-22)
 -----------------------------------
 
+- CVE-2023-34241: Fixed use-after-free when logging warnings in case of failures
+  in `cupsdAcceptClient()`.
 - Fixed linking error on old MacOS (Issue #715)
 - Fixed printing multiple files on specific printers (Issue #643)
-- Fixed use-after-free when logging warnings in case of failures
-  in `cupsdAcceptClient()` (fixes CVE-2023-34241)
 
 
 Changes in CUPS v2.4.5 (2023-06-13)
@@ -34,6 +34,8 @@ Changes in CUPS v2.4.4 (2023-06-06)
 Changes in CUPS v2.4.3 (2023-06-01)
 -----------------------------------
 
+- CVE-2023-32360: Fixed default policy for CUPS-Get-Document operation
+- CVE-2023-32324: Fixed possible heap buffer overflow in `_cups_strlcpy()`.
 - Added a title with device uri for found network printers (Issues #402, #393)
 - Added new media sizes defined by IANA (Issues #501)
 - Added quirk for GoDEX label printers (Issue #440)
@@ -49,7 +51,6 @@ Changes in CUPS v2.4.3 (2023-06-01)
   (Issue #529)
 - Fixed default color settings for CMYK printers as well (Issue #500)
 - Fixed duplicate PPD2IPP media-type names (Issue #688)
-- Fixed possible heap buffer overflow in `_cups_strlcpy()` (fixes CVE-2023-32324)
 - Fixed InputSlot heuristic for photo sizes smaller than 5x7" if there is no
   media-source in the request (Issue #569)
 - Fixed invalid memory access during generating IPP Everywhere queue
