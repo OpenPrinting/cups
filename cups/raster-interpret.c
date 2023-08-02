@@ -727,7 +727,10 @@ copy_stack(_cups_ps_stack_t *st,	/* I - Stack */
 
   while (c > 0)
   {
-    if (!push_stack(st, st->objs + n))
+    _cups_ps_obj_t	temp;		/* Temporary copy of object */
+
+    temp = st->objs[n];
+    if (!push_stack(st, &temp))
       return (-1);
 
     n ++;
