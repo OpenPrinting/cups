@@ -1398,8 +1398,8 @@ colord_register_printer(
   * See if we have any embedded profiles...
   */
 
-  profiles = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup,
-			   (cups_afree_func_t)free);
+  profiles = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup,
+			   _cupsArrayFree);
   for (attr = ppdFindAttr(ppd, "cupsICCProfile", NULL);
        attr;
        attr = ppdFindNextAttr(ppd, "cupsICCProfile", NULL))

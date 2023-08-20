@@ -69,7 +69,7 @@ main(int  argc,				// I - Number of command-line arguments
   src             = new ppdcSource();
   use_model_name  = 0;
   verbose         = 0;
-  filenames       = cupsArrayNew((cups_array_func_t)_cups_strcasecmp, NULL);
+  filenames       = cupsArrayNew((cups_array_func_t)_cupsArrayStrcasecmp, NULL);
 
   for (i = 1; i < argc; i ++)
     if (argv[i][0] == '-')

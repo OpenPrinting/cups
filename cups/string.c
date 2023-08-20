@@ -34,8 +34,7 @@ static cups_array_t	*stringpool = NULL;
  * Local functions...
  */
 
-static int	compare_sp_items(_cups_sp_item_t *a, _cups_sp_item_t *b);
-
+static int compare_sp_items(_cups_sp_item_t *a, _cups_sp_item_t *b, void *data);
 
 /*
  * '_cupsStrAlloc()' - Allocate/reference a string.
@@ -133,6 +132,32 @@ _cupsStrAlloc(const char *s)		/* I - String */
   _cupsMutexUnlock(&sp_mutex);
 
   return (item->str);
+}
+
+
+/*
+ * '_cupsStrPrivAlloc()' - Allocate/reference a string.
+ */
+
+char *                           /* O - String pointer */
+_cupsStrPrivAlloc(const char *s, /* I - String */
+                  void *data)    /* Unused */
+{
+  (void)data;
+  return _cupsStrAlloc(s);
+}
+
+
+/*
+ * '_cupsStrPrivFree()' - Free a string.
+ */
+
+void                            /* O - String pointer */
+_cupsStrPrivFree(const char *s, /* I - String */
+                 void *data)    /* Unused */
+{
+  (void)data;
+  _cupsStrFree(s);
 }
 
 
@@ -621,11 +646,15 @@ int				/* O - Result of comparison (-1, 0, or 1) */
 _cups_strcasecmp(const char *s,	/* I - First string */
                  const char *t)	/* I - Second string */
 {
+  char u, v;
   while (*s != '\0' && *t != '\0')
   {
-    if (_cups_tolower(*s) < _cups_tolower(*t))
+    u = _cups_tolower(*s);
+    v = _cups_tolower(*t);
+
+    if (u < v)
       return (-1);
-    else if (_cups_tolower(*s) > _cups_tolower(*t))
+    else if (u > v)
       return (1);
 
     s ++;
@@ -640,6 +669,7 @@ _cups_strcasecmp(const char *s,	/* I - First string */
     return (-1);
 }
 
+
 /*
  * '_cups_strncasecmp()' - Do a case-insensitive comparison on up to N chars.
  */
@@ -649,11 +679,14 @@ _cups_strncasecmp(const char *s,	/* I - First string */
                   const char *t,	/* I - Second string */
 		  size_t     n)		/* I - Maximum number of characters to compare */
 {
+  char u, v;
   while (*s != '\0' && *t != '\0' && n > 0)
   {
-    if (_cups_tolower(*s) < _cups_tolower(*t))
+    u = _cups_tolower(*s);
+    v = _cups_tolower(*t);
+    if (u < v)
       return (-1);
-    else if (_cups_tolower(*s) > _cups_tolower(*t))
+    else if (u > v)
       return (1);
 
     s ++;
@@ -761,9 +794,24 @@ _cups_strlcpy(char       *dst,		/* O - Destination string */
  * 'compare_sp_items()' - Compare two string pool items...
  */
 
-static int				/* O - Result of comparison */
-compare_sp_items(_cups_sp_item_t *a,	/* I - First item */
-                 _cups_sp_item_t *b)	/* I - Second item */
+static int                           /* O - Result of comparison */
+compare_sp_items(_cups_sp_item_t *a, /* I - First item */
+                 _cups_sp_item_t *b, /* I - Second item */
+                 void *data)         /* Unused */
 {
+  (void)data;
   return (strcmp(a->str, b->str));
+}
+
+
+/*
+ * '_cupsArrayStrcasecmp()' - Compare two strings...
+ */
+
+int _cupsArrayStrcasecmp(const char *s, /* I - First string */
+                         const char *t, /* I - Second string */
+                         void *data)    /* Unused */
+{
+  (void)data;
+  return _cups_strcasecmp(s, t);
 }

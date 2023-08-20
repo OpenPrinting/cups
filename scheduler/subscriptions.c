@@ -30,7 +30,7 @@
 static int	cupsd_compare_subscriptions(cupsd_subscription_t *first,
 					    cupsd_subscription_t *second,
 					    void *unused);
-static void	cupsd_delete_event(cupsd_event_t *event);
+static void cupsd_delete_event(cupsd_event_t *event, void *data);
 #ifdef HAVE_DBUS
 static void	cupsd_send_dbus(cupsd_eventmask_t event, cupsd_printer_t *dest,
 				cupsd_job_t *job);
@@ -1194,11 +1194,11 @@ cupsdStopAllNotifiers(void)
  * 'cupsd_compare_subscriptions()' - Compare two subscriptions.
  */
 
-static int				/* O - Result of comparison */
+static int /* O - Result of comparison */
 cupsd_compare_subscriptions(
-    cupsd_subscription_t *first,	/* I - First subscription object */
-    cupsd_subscription_t *second,	/* I - Second subscription object */
-    void		 *unused)	/* I - Unused user data pointer */
+    cupsd_subscription_t *first,  /* I - First subscription object */
+    cupsd_subscription_t *second, /* I - Second subscription object */
+    void *unused)                 /* I - Unused user data pointer */
 {
   (void)unused;
 
@@ -1213,17 +1213,17 @@ cupsd_compare_subscriptions(
  * flushing code will not work properly.
  */
 
-static void
-cupsd_delete_event(cupsd_event_t *event)/* I - Event to delete */
+static void cupsd_delete_event(cupsd_event_t *event, /* I - Event to delete */
+                               void *data)           /* Unused */
 {
- /*
-  * Free memory...
-  */
+  /*
+   * Free memory...
+   */
 
+  (void)data;
   ippDelete(event->attrs);
   free(event);
 }
-
 
 #ifdef HAVE_DBUS
 /*

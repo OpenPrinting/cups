@@ -128,7 +128,7 @@ libusb_device		**all_list;	/* List of connected USB devices */
  */
 
 static int		close_device(usb_printer_t *printer);
-static int		compare_quirks(usb_quirk_t *a, usb_quirk_t *b);
+static int		compare_quirks(usb_quirk_t *a, usb_quirk_t *b, void *data);
 static usb_printer_t	*find_device(usb_cb_t cb, const void *data);
 static unsigned		find_quirks(int vendor_id, int product_id);
 static int		get_device_id(usb_printer_t *printer, char *buffer,
@@ -771,11 +771,14 @@ close_device(usb_printer_t *printer)	/* I - Printer */
  * 'compare_quirks()' - Compare two quirks entries.
  */
 
-static int				/* O - Result of comparison */
-compare_quirks(usb_quirk_t *a,		/* I - First quirk entry */
-               usb_quirk_t *b)		/* I - Second quirk entry */
+static int                     /* O - Result of comparison */
+compare_quirks(usb_quirk_t *a, /* I - First quirk entry */
+               usb_quirk_t *b, /* I - Second quirk entry */
+               void *data)     /* I - Unused */
 {
   int result;				/* Result of comparison */
+
+  (void)data;
 
   if ((result = b->vendor_id - a->vendor_id) == 0)
     result = b->product_id - a->product_id;

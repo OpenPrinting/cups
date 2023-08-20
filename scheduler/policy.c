@@ -19,10 +19,10 @@
  * Local functions...
  */
 
-static int	compare_ops(cupsd_location_t *a, cupsd_location_t *b);
-static int	compare_policies(cupsd_policy_t *a, cupsd_policy_t *b);
-static void	free_policy(cupsd_policy_t *p);
-static int	hash_op(cupsd_location_t *op);
+static int	compare_ops(cupsd_location_t *a, cupsd_location_t *b, void *data);
+static int	compare_policies(cupsd_policy_t *a, cupsd_policy_t *b, void *data);
+static void	free_policy(cupsd_policy_t *p, void *data);
+static int	hash_op(cupsd_location_t *op, void *data);
 
 
 /*
@@ -448,10 +448,12 @@ cupsdGetPrivateAttrs(
  * 'compare_ops()' - Compare two operations.
  */
 
-static int				/* O - Result of comparison */
-compare_ops(cupsd_location_t *a,	/* I - First operation */
-            cupsd_location_t *b)	/* I - Second operation */
+static int                       /* O - Result of comparison */
+compare_ops(cupsd_location_t *a, /* I - First operation */
+            cupsd_location_t *b, /* I - Second operation */
+            void *data)          /* Unused */
 {
+  (void)data;
   return (a->op - b->op);
 }
 
@@ -460,10 +462,12 @@ compare_ops(cupsd_location_t *a,	/* I - First operation */
  * 'compare_policies()' - Compare two policies.
  */
 
-static int				/* O - Result of comparison */
-compare_policies(cupsd_policy_t *a,	/* I - First policy */
-                 cupsd_policy_t *b)	/* I - Second policy */
+static int                          /* O - Result of comparison */
+compare_policies(cupsd_policy_t *a, /* I - First policy */
+                 cupsd_policy_t *b, /* I - Second policy */
+                 void *data)        /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(a->name, b->name));
 }
 
@@ -472,9 +476,10 @@ compare_policies(cupsd_policy_t *a,	/* I - First policy */
  * 'free_policy()' - Free the memory used by a policy.
  */
 
-static void
-free_policy(cupsd_policy_t *p)		/* I - Policy to free */
+static void free_policy(cupsd_policy_t *p, /* I - Policy to free */
+                        void *data)        /* Unused */
 {
+  (void)data;
   cupsArrayDelete(p->job_access);
   cupsArrayDelete(p->job_attrs);
   cupsArrayDelete(p->sub_access);
@@ -489,8 +494,10 @@ free_policy(cupsd_policy_t *p)		/* I - Policy to free */
  * 'hash_op()' - Generate a lookup hash for the operation.
  */
 
-static int				/* O - Hash value */
-hash_op(cupsd_location_t *op)		/* I - Operation */
+static int                    /* O - Hash value */
+hash_op(cupsd_location_t *op, /* I - Operation */
+        void *data)           /* Unused */
 {
+  (void)data;
   return (((op->op >> 6) & 0x40) | (op->op & 0x3f));
 }

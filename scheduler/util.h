@@ -29,13 +29,6 @@ extern "C" {
 
 
 /*
- * Types...
- */
-
-typedef int (*cupsd_compare_func_t)(const void *, const void *);
-
-
-/*
  * Prototypes...
  */
 

@@ -30,9 +30,9 @@
  * Local functions...
  */
 
-static int	pwg_compare_legacy(pwg_media_t *a, pwg_media_t *b);
-static int	pwg_compare_pwg(pwg_media_t *a, pwg_media_t *b);
-static int	pwg_compare_ppd(pwg_media_t *a, pwg_media_t *b);
+static int	pwg_compare_legacy(pwg_media_t *a, pwg_media_t *b, void *data);
+static int	pwg_compare_pwg(pwg_media_t *a, pwg_media_t *b, void *data);
+static int	pwg_compare_ppd(pwg_media_t *a, pwg_media_t *b, void *data);
 static char	*pwg_format_inches(char *buf, size_t bufsize, int val);
 static char	*pwg_format_millimeters(char *buf, size_t bufsize, int val);
 static int	pwg_scan_measurement(const char *buf, char **bufptr, int numer, int denom);
@@ -1058,10 +1058,12 @@ _pwgMediaTable(size_t *num_media)	/* O - Number of entries */
  * 'pwg_compare_legacy()' - Compare two sizes using the legacy names.
  */
 
-static int				/* O - Result of comparison */
-pwg_compare_legacy(pwg_media_t *a,	/* I - First size */
-                   pwg_media_t *b)	/* I - Second size */
+static int                         /* O - Result of comparison */
+pwg_compare_legacy(pwg_media_t *a, /* I - First size */
+                   pwg_media_t *b, /* I - Second size */
+                   void *data)     /* Unused */
 {
+  (void)data;
   return (strcmp(a->legacy, b->legacy));
 }
 
@@ -1070,10 +1072,12 @@ pwg_compare_legacy(pwg_media_t *a,	/* I - First size */
  * 'pwg_compare_ppd()' - Compare two sizes using the PPD names.
  */
 
-static int				/* O - Result of comparison */
-pwg_compare_ppd(pwg_media_t *a,	/* I - First size */
-                pwg_media_t *b)	/* I - Second size */
+static int                      /* O - Result of comparison */
+pwg_compare_ppd(pwg_media_t *a, /* I - First size */
+                pwg_media_t *b, /* I - Second size */
+                void *data)     /* Unused */
 {
+  (void)data;
   return (strcmp(a->ppd, b->ppd));
 }
 
@@ -1082,10 +1086,12 @@ pwg_compare_ppd(pwg_media_t *a,	/* I - First size */
  * 'pwg_compare_pwg()' - Compare two sizes using the PWG names.
  */
 
-static int				/* O - Result of comparison */
-pwg_compare_pwg(pwg_media_t *a,	/* I - First size */
-                pwg_media_t *b)	/* I - Second size */
+static int                      /* O - Result of comparison */
+pwg_compare_pwg(pwg_media_t *a, /* I - First size */
+                pwg_media_t *b, /* I - Second size */
+                void *data)     /* Unused */
 {
+  (void)data;
   return (strcmp(a->pwg, b->pwg));
 }
 

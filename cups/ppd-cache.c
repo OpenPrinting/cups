@@ -34,10 +34,10 @@ static int	cups_get_url(http_t **http, const char *url, char *name, size_t names
 static const char *ppd_inputslot_for_keyword(_ppd_cache_t *pc, const char *keyword);
 static void	pwg_add_finishing(cups_array_t *finishings, ipp_finishings_t template, const char *name, const char *value);
 static void	pwg_add_message(cups_array_t *a, const char *msg, const char *str);
-static int	pwg_compare_finishings(_pwg_finishings_t *a, _pwg_finishings_t *b);
-static int	pwg_compare_sizes(cups_size_t *a, cups_size_t *b);
-static cups_size_t *pwg_copy_size(cups_size_t *size);
-static void	pwg_free_finishings(_pwg_finishings_t *f);
+static int	pwg_compare_finishings(_pwg_finishings_t *a, _pwg_finishings_t *b, void *data);
+static int	pwg_compare_sizes(cups_size_t *a, cups_size_t *b, void *data);
+static cups_size_t *pwg_copy_size(cups_size_t *size, void *data);
+static void	pwg_free_finishings(_pwg_finishings_t *f, void *data);
 static void	pwg_ppdize_name(const char *ipp, char *name, size_t namesize);
 static void	pwg_ppdize_resolution(ipp_attribute_t *attr, int element, int *xres, int *yres, char *name, size_t namesize);
 static void	pwg_unppdize_name(const char *ppd, char *name, size_t namesize,
@@ -598,14 +598,14 @@ _ppdCacheCreateWithFile(
     else if (!_cups_strcasecmp(line, "Filter"))
     {
       if (!pc->filters)
-        pc->filters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+        pc->filters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
       cupsArrayAdd(pc->filters, value);
     }
     else if (!_cups_strcasecmp(line, "PreFilter"))
     {
       if (!pc->prefilters)
-        pc->prefilters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+        pc->prefilters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
       cupsArrayAdd(pc->prefilters, value);
     }
@@ -957,7 +957,7 @@ _ppdCacheCreateWithFile(
     else if (!_cups_strcasecmp(line, "FinishingTemplate"))
     {
       if (!pc->templates)
-        pc->templates = cupsArrayNew3((cups_array_func_t)strcmp, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+        pc->templates = cupsArrayNew3((cups_array_func_t)_cupsArrayStrcmp, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
       cupsArrayAdd(pc->templates, value);
     }
@@ -981,7 +981,7 @@ _ppdCacheCreateWithFile(
     else if (!_cups_strcasecmp(line, "SupportFile"))
     {
       if (!pc->support_files)
-        pc->support_files = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+        pc->support_files = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
       cupsArrayAdd(pc->support_files, value);
     }
@@ -1756,7 +1756,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   * Copy filters and pre-filters...
   */
 
-  pc->filters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+  pc->filters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
   cupsArrayAdd(pc->filters,
                "application/vnd.cups-raw application/octet-stream 0 -");
@@ -1813,7 +1813,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
   if ((ppd_attr = ppdFindAttr(ppd, "cupsPreFilter", NULL)) != NULL)
   {
-    pc->prefilters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+    pc->prefilters = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
     do
     {
@@ -1970,7 +1970,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
   if ((ppd_option = ppdFindOption(ppd, "cupsFinishingTemplate")) != NULL)
   {
-    pc->templates = cupsArrayNew3((cups_array_func_t)strcmp, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+    pc->templates = cupsArrayNew3((cups_array_func_t)_cupsArrayStrcmp, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
     for (choice = ppd_option->choices, i = ppd_option->num_choices; i > 0; choice ++, i --)
     {
@@ -2020,7 +2020,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   * Support files...
   */
 
-  pc->support_files = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+  pc->support_files = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
   for (ppd_attr = ppdFindAttr(ppd, "cupsICCProfile", NULL);
        ppd_attr;
@@ -2348,6 +2348,7 @@ ppd_inputslot_for_keyword(
 
   return (NULL);
 }
+
 
 /*
  * '_ppdCacheGetInputSlot()' - Get the PPD InputSlot associated with the job
@@ -3539,7 +3540,7 @@ _ppdCreateFromIPP2(
   else
     strlcpy(ppdname, "Unknown", sizeof(ppdname));
 
-  sizes = cupsArrayNew3((cups_array_func_t)pwg_compare_sizes, NULL, NULL, 0, (cups_acopy_func_t)pwg_copy_size, (cups_afree_func_t)free);
+  sizes = cupsArrayNew3((cups_array_func_t)pwg_compare_sizes, NULL, NULL, 0, (cups_acopy_func_t)pwg_copy_size, _cupsArrayFree);
 
   if ((attr = ippFindAttribute(supported, "media-col-database", IPP_TAG_BEGIN_COLLECTION)) != NULL)
   {
@@ -4494,8 +4495,8 @@ _ppdCreateFromIPP2(
     };
 
     count       = ippGetCount(attr);
-    names       = cupsArrayNew3((cups_array_func_t)strcmp, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
-    fin_options = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    names       = cupsArrayNew3((cups_array_func_t)_cupsArrayStrcmp, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
+    fin_options = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
    /*
     * Staple/Bind/Stitch
@@ -4851,7 +4852,7 @@ _ppdCreateFromIPP2(
     cupsFilePuts(fp, "*cupsFinishingTemplate none: \"\"\n");
     cupsFilePrintf(fp, "*%s.cupsFinishingTemplate none/%s: \"\"\n", lang->language, _cupsLangString(lang, _("None")));
 
-    templates = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    templates = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
     count     = ippGetCount(attr);
 
     for (i = 0; i < count; i ++)
@@ -5371,11 +5372,13 @@ pwg_add_message(cups_array_t *a,	/* I - Message catalog */
  * 'pwg_compare_finishings()' - Compare two finishings values.
  */
 
-static int				/* O - Result of comparison */
+static int /* O - Result of comparison */
 pwg_compare_finishings(
-    _pwg_finishings_t *a,		/* I - First finishings value */
-    _pwg_finishings_t *b)		/* I - Second finishings value */
+    _pwg_finishings_t *a, /* I - First finishings value */
+    _pwg_finishings_t *b, /* I - Second finishings value */
+    void *data)           /* Unused */
 {
+  (void)data;
   return ((int)b->value - (int)a->value);
 }
 
@@ -5384,10 +5387,12 @@ pwg_compare_finishings(
  * 'pwg_compare_sizes()' - Compare two media sizes...
  */
 
-static int				/* O - Result of comparison */
-pwg_compare_sizes(cups_size_t *a,	/* I - First media size */
-                  cups_size_t *b)	/* I - Second media size */
+static int                        /* O - Result of comparison */
+pwg_compare_sizes(cups_size_t *a, /* I - First media size */
+                  cups_size_t *b, /* I - Second media size */
+                  void *data)     /* Unused */
 {
+  (void)data;
   return (strcmp(a->media, b->media));
 }
 
@@ -5396,12 +5401,13 @@ pwg_compare_sizes(cups_size_t *a,	/* I - First media size */
  * 'pwg_copy_size()' - Copy a media size.
  */
 
-static cups_size_t *			/* O - New media size */
-pwg_copy_size(cups_size_t *size)	/* I - Media size to copy */
+static cups_size_t *             /* O - New media size */
+pwg_copy_size(cups_size_t *size, /* I - Media size to copy */
+              void *data)        /* Unused*/
 {
-  cups_size_t	*newsize = (cups_size_t *)calloc(1, sizeof(cups_size_t));
-					/* New media size */
-
+  cups_size_t *newsize = (cups_size_t *)calloc(1, sizeof(cups_size_t));
+  /* New media size */
+  (void)data;
   if (newsize)
     memcpy(newsize, size, sizeof(cups_size_t));
 
@@ -5414,9 +5420,10 @@ pwg_copy_size(cups_size_t *size)	/* I - Media size to copy */
  */
 
 static void
-pwg_free_finishings(
-    _pwg_finishings_t *f)		/* I - Finishings value */
+pwg_free_finishings(_pwg_finishings_t *f, /* I - Finishings value */
+                    void *data)           /* Unused */
 {
+  (void)data;
   cupsFreeOptions(f->num_options, f->options);
   free(f);
 }

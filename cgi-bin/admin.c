@@ -1985,7 +1985,7 @@ do_list_printers(http_t *http)		/* I - HTTP connection */
     * Allocate an array and copy the device strings...
     */
 
-    printer_devices = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    printer_devices = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
     for (attr = ippFindAttribute(response, "device-uri", IPP_TAG_URI);
          attr;

@@ -28,7 +28,7 @@
  * Local functions...
  */
 
-static int	ppd_compare_cparams(ppd_cparam_t *a, ppd_cparam_t *b);
+static int	ppd_compare_cparams(ppd_cparam_t *a, ppd_cparam_t *b, void *data);
 static void	ppd_handle_media(ppd_file_t *ppd);
 
 
@@ -1105,10 +1105,12 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
  * 'ppd_compare_cparams()' - Compare the order of two custom parameters.
  */
 
-static int				/* O - Result of comparison */
-ppd_compare_cparams(ppd_cparam_t *a,	/* I - First parameter */
-                    ppd_cparam_t *b)	/* I - Second parameter */
+static int                           /* O - Result of comparison */
+ppd_compare_cparams(ppd_cparam_t *a, /* I - First parameter */
+                    ppd_cparam_t *b, /* I - Second parameter */
+                    void *data)      /* Unused */
 {
+  (void)data;
   return (a->order - b->order);
 }
 

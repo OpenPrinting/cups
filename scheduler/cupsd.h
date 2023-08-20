@@ -220,3 +220,7 @@ extern void		cupsdStopSelect(void);
 /* server.c */
 extern void		cupsdStartServer(void);
 extern void		cupsdStopServer(void);
+
+extern int		_cupsArrayStrcmp(const char *s1, const char *s2, void *data);
+extern char		*_cupsArrayStrdup(const char *element, void *data);
+extern void		_cupsArrayFree(void *element, void *data);

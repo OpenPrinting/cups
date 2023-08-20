@@ -1578,7 +1578,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has bad length %d (RFC 8011 section 4.1.6.3).", (int)strlen(detailed_status_message));
       }
 
-      a = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+      a = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
       for (attrptr = ippFirstAttribute(response), group = ippGetGroupTag(attrptr);
 	   attrptr;
@@ -2654,7 +2654,7 @@ init_data(ipptool_test_t *data)	/* I - Data */
   data->family       = AF_UNSPEC;
   data->def_transfer = IPPTOOL_TRANSFER_AUTO;
   data->def_version  = 11;
-  data->errors       = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+  data->errors       = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
   data->pass         = 1;
   data->prev_pass    = 1;
   data->request_id   = (CUPS_RAND() % 1000) * 137;
@@ -5704,7 +5704,7 @@ with_distinct_values(
   }
 
   // Collect values and determine they are all unique...
-  values = cupsArrayNew3((cups_array_func_t)strcmp, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+  values = cupsArrayNew3((cups_array_func_t)_cupsArrayStrcmp, NULL, NULL, 0, (cups_acopy_func_t)_cupsArrayStrdup, _cupsArrayFree);
 
   for (i = 0; i < count; i ++)
   {

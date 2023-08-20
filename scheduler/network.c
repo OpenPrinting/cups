@@ -22,7 +22,7 @@
  */
 
 static void	cupsdNetIFFree(void);
-static int	compare_netif(cupsd_netif_t *a, cupsd_netif_t *b);
+static int	compare_netif(cupsd_netif_t *a, cupsd_netif_t *b, void *data);
 
 
 /*
@@ -285,9 +285,11 @@ cupsdNetIFUpdate(void)
  * 'compare_netif()' - Compare two network interfaces.
  */
 
-static int				/* O - Result of comparison */
-compare_netif(cupsd_netif_t *a,		/* I - First network interface */
-              cupsd_netif_t *b)		/* I - Second network interface */
+static int                      /* O - Result of comparison */
+compare_netif(cupsd_netif_t *a, /* I - First network interface */
+              cupsd_netif_t *b, /* I - Second network interface */
+              void *data)       /* Unused */
 {
+  (void)data;
   return (strcmp(a->name, b->name));
 }

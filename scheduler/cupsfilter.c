@@ -60,7 +60,7 @@ static mime_type_t	*add_printer_filters(const char *command,
 					     mime_type_t **prefilter_type);
 static void		check_cb(void *context, _cups_fc_result_t result,
 				 const char *message);
-static int		compare_pids(mime_filter_t *a, mime_filter_t *b);
+static int		compare_pids(mime_filter_t *a, mime_filter_t *b, void *data);
 static char		*escape_options(int num_options, cups_option_t *options);
 static int		exec_filter(const char *filter, char **argv,
 			            char **envp, int infd, int outfd);
@@ -769,14 +769,17 @@ check_cb(void              *context,	/* I - Context (command name) */
  * 'compare_pids()' - Compare two filter PIDs...
  */
 
-static int				/* O - Result of comparison */
-compare_pids(mime_filter_t *a,		/* I - First filter */
-             mime_filter_t *b)		/* I - Second filter */
+static int                     /* O - Result of comparison */
+compare_pids(mime_filter_t *a, /* I - First filter */
+             mime_filter_t *b, /* I - Second filter */
+             void *data)       /* Unused */
 {
- /*
-  * Because we're particularly lazy, we store the process ID in the "cost"
-  * variable...
-  */
+  /*
+   * Because we're particularly lazy, we store the process ID in the "cost"
+   * variable...
+   */
+
+  (void)data;
 
   return (a->cost - b->cost);
 }

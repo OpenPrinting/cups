@@ -1216,10 +1216,10 @@ cupsdAddString(cups_array_t **a,	/* IO - String array */
                const char   *s)		/* I  - String to copy and add */
 {
   if (!*a)
-    *a = cupsArrayNew3((cups_array_func_t)strcmp, NULL,
+    *a = cupsArrayNew3((cups_array_func_t)_cupsArrayStrcmp, NULL,
 		       (cups_ahash_func_t)NULL, 0,
-		       (cups_acopy_func_t)strdup,
-		       (cups_afree_func_t)free);
+		       (cups_acopy_func_t)_cupsArrayStrdup,
+		       _cupsArrayFree);
 
   return (cupsArrayAdd(*a, (char *)s));
 }

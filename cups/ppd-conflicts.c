@@ -218,7 +218,7 @@ cupsResolveConflicts(
   cupsArraySave(ppd->sorted_attrs);
 
   resolvers = NULL;
-  pass      = cupsArrayNew((cups_array_func_t)_cups_strcasecmp, NULL);
+  pass      = cupsArrayNew((cups_array_func_t)_cupsArrayStrcasecmp, NULL);
   tries     = 0;
 
   while (tries < 100 &&
@@ -228,7 +228,7 @@ cupsResolveConflicts(
     tries ++;
 
     if (!resolvers)
-      resolvers = cupsArrayNew((cups_array_func_t)_cups_strcasecmp, NULL);
+      resolvers = cupsArrayNew((cups_array_func_t)_cupsArrayStrcasecmp, NULL);
 
     for (consts = (_ppd_cups_uiconsts_t *)cupsArrayFirst(active), changed = 0;
          consts;
