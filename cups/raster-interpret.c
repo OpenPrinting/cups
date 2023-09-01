@@ -1116,7 +1116,19 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 
 	    cur ++;
 
-            if (*cur == 'b')
+	   /*
+	    * Return NULL if we reached NULL terminator, a lone backslash
+            * is not a valid character in PostScript.
+	    */
+
+	    if (!*cur)
+	    {
+	      *ptr = NULL;
+
+	      return (NULL);
+	    }
+
+	    if (*cur == 'b')
 	      *valptr++ = '\b';
 	    else if (*cur == 'f')
 	      *valptr++ = '\f';
