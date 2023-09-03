@@ -218,7 +218,7 @@ typedef struct ippeve_printer_s		/**** Printer data ****/
   cups_array_t		*jobs;		/* Jobs */
   ippeve_job_t		*active_job;	/* Current active/pending job */
   int			next_job_id;	/* Next job-id value */
-  _cups_rwlock_t	rwlock;		/* Printer lock */
+  cups_rwlock_t	rwlock;		/* Printer lock */
 } ippeve_printer_t;
 
 struct ippeve_job_s			/**** Job data ****/
@@ -851,7 +851,7 @@ clean_jobs(ippeve_printer_t *printer)	/* I - Printer */
 
   cleantime = time(NULL) - 60;
 
-  _cupsRWLockWrite(&(printer->rwlock));
+  cupsRWLockWrite(&(printer->rwlock));
   for (job = (ippeve_job_t *)cupsArrayFirst(printer->jobs);
        job;
        job = (ippeve_job_t *)cupsArrayNext(printer->jobs))
@@ -862,7 +862,7 @@ clean_jobs(ippeve_printer_t *printer)	/* I - Printer */
     }
     else
       break;
-  _cupsRWUnlock(&(printer->rwlock));
+  cupsRWUnlock(&(printer->rwlock));
 }
 
 
@@ -1118,7 +1118,7 @@ create_job(ippeve_client_t *client)	/* I - Client */
 			uuid[64];	/* job-uuid value */
 
 
-  _cupsRWLockWrite(&(client->printer->rwlock));
+  cupsRWLockWrite(&(client->printer->rwlock));
   if (client->printer->active_job &&
       client->printer->active_job->state < IPP_JSTATE_CANCELED)
   {
@@ -1126,7 +1126,7 @@ create_job(ippeve_client_t *client)	/* I - Client */
     * Only accept a single job at a time...
     */
 
-    _cupsRWUnlock(&(client->printer->rwlock));
+    cupsRWUnlock(&(client->printer->rwlock));
     return (NULL);
   }
 
@@ -1137,7 +1137,7 @@ create_job(ippeve_client_t *client)	/* I - Client */
   if ((job = calloc(1, sizeof(ippeve_job_t))) == NULL)
   {
     perror("Unable to allocate memory for job");
-    _cupsRWUnlock(&(client->printer->rwlock));
+    cupsRWUnlock(&(client->printer->rwlock));
     return (NULL);
   }
 
@@ -1213,7 +1213,7 @@ create_job(ippeve_client_t *client)	/* I - Client */
   cupsArrayAdd(client->printer->jobs, job);
   client->printer->active_job = job;
 
-  _cupsRWUnlock(&(client->printer->rwlock));
+  cupsRWUnlock(&(client->printer->rwlock));
 
   return (job);
 }
@@ -1706,7 +1706,7 @@ create_printer(
     printer->hostname = strdup(temp);
   }
 
-  _cupsRWInit(&(printer->rwlock));
+  cupsRWInit(&(printer->rwlock));
 
  /*
   * Create the listener sockets...
@@ -2345,9 +2345,9 @@ find_job(ippeve_client_t *client)		/* I - Client */
   else if ((attr = ippFindAttribute(client->request, "job-id", IPP_TAG_INTEGER)) != NULL)
     key.id = ippGetInteger(attr, 0);
 
-  _cupsRWLockRead(&(client->printer->rwlock));
+  cupsRWLockRead(&(client->printer->rwlock));
   job = (ippeve_job_t *)cupsArrayFind(client->printer->jobs, &key);
-  _cupsRWUnlock(&(client->printer->rwlock));
+  cupsRWUnlock(&(client->printer->rwlock));
 
   return (job);
 }
@@ -2366,7 +2366,7 @@ finish_document_data(
 			buffer[4096];	/* Copy buffer */
   ssize_t		bytes;		/* Bytes read */
   cups_array_t		*ra;		/* Attributes to send in response */
-  _cups_thread_t        t;              /* Thread */
+  cups_thread_t        t;              /* Thread */
 
 
  /*
@@ -2439,11 +2439,11 @@ finish_document_data(
   * Process the job...
   */
 
-  t = _cupsThreadCreate((_cups_thread_func_t)process_job, job);
+  t = cupsThreadCreate((cups_thread_func_t)process_job, job);
 
   if (t)
   {
-    _cupsThreadDetach(t);
+    cupsThreadDetach(t);
   }
   else
   {
@@ -2574,7 +2574,7 @@ finish_document_uri(
   * Get the document format for the job...
   */
 
-  _cupsRWLockWrite(&(client->printer->rwlock));
+  cupsRWLockWrite(&(client->printer->rwlock));
 
   if ((attr = ippFindAttribute(job->attrs, "document-format", IPP_TAG_MIMETYPE)) != NULL)
     job->format = ippGetString(attr, 0, NULL);
@@ -2587,14 +2587,14 @@ finish_document_uri(
 
   if ((job->fd = create_job_file(job, filename, sizeof(filename), client->printer->directory, NULL)) < 0)
   {
-    _cupsRWUnlock(&(client->printer->rwlock));
+    cupsRWUnlock(&(client->printer->rwlock));
 
     respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to create print file: %s", strerror(errno));
 
     goto abort_job;
   }
 
-  _cupsRWUnlock(&(client->printer->rwlock));
+  cupsRWUnlock(&(client->printer->rwlock));
 
   if (!strcmp(scheme, "file"))
   {
@@ -2715,13 +2715,13 @@ finish_document_uri(
     goto abort_job;
   }
 
-  _cupsRWLockWrite(&(client->printer->rwlock));
+  cupsRWLockWrite(&(client->printer->rwlock));
 
   job->fd       = -1;
   job->filename = strdup(filename);
   job->state    = IPP_JSTATE_PENDING;
 
-  _cupsRWUnlock(&(client->printer->rwlock));
+  cupsRWUnlock(&(client->printer->rwlock));
 
  /*
   * Process the job...
@@ -3178,7 +3178,7 @@ ipp_cancel_job(ippeve_client_t *client)	/* I - Client */
         * Cancel the job...
 	*/
 
-	_cupsRWLockWrite(&(client->printer->rwlock));
+	cupsRWLockWrite(&(client->printer->rwlock));
 
 	if (job->state == IPP_JSTATE_PROCESSING ||
 	    (job->state == IPP_JSTATE_HELD && job->fd >= 0))
@@ -3189,7 +3189,7 @@ ipp_cancel_job(ippeve_client_t *client)	/* I - Client */
 	  job->completed = time(NULL);
 	}
 
-	_cupsRWUnlock(&(client->printer->rwlock));
+	cupsRWUnlock(&(client->printer->rwlock));
 
 	respond_ipp(client, IPP_STATUS_OK, NULL);
         break;
@@ -3211,7 +3211,7 @@ ipp_cancel_my_jobs(
   ippeve_job_t		*job;		/* Job information */
 
 
-  _cupsRWLockWrite(&client->printer->rwlock);
+  cupsRWLockWrite(&client->printer->rwlock);
 
   if ((job = client->printer->active_job) != NULL)
   {
@@ -3240,7 +3240,7 @@ ipp_cancel_my_jobs(
 
   respond_ipp(client, IPP_STATUS_OK, NULL);
 
-  _cupsRWUnlock(&client->printer->rwlock);
+  cupsRWUnlock(&client->printer->rwlock);
 }
 
 
@@ -3530,7 +3530,7 @@ ipp_get_jobs(ippeve_client_t *client)	/* I - Client */
 
   respond_ipp(client, IPP_STATUS_OK, NULL);
 
-  _cupsRWLockRead(&(client->printer->rwlock));
+  cupsRWLockRead(&(client->printer->rwlock));
 
   for (count = 0, job = (ippeve_job_t *)cupsArrayFirst(client->printer->jobs);
        (limit <= 0 || count < limit) && job;
@@ -3557,7 +3557,7 @@ ipp_get_jobs(ippeve_client_t *client)	/* I - Client */
 
   cupsArrayDelete(ra);
 
-  _cupsRWUnlock(&(client->printer->rwlock));
+  cupsRWUnlock(&(client->printer->rwlock));
 }
 
 
@@ -3582,7 +3582,7 @@ ipp_get_printer_attributes(
 
   respond_ipp(client, IPP_STATUS_OK, NULL);
 
-  _cupsRWLockRead(&(printer->rwlock));
+  cupsRWLockRead(&(printer->rwlock));
 
   copy_attributes(client->response, printer->attrs, ra, IPP_TAG_ZERO,
 		  IPP_TAG_CUPS_CONST);
@@ -3700,7 +3700,7 @@ ipp_get_printer_attributes(
   if (!ra || cupsArrayFind(ra, "queued-job-count"))
     ippAddInteger(client->response, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "queued-job-count", printer->active_job && printer->active_job->state < IPP_JSTATE_CANCELED);
 
-  _cupsRWUnlock(&(printer->rwlock));
+  cupsRWUnlock(&(printer->rwlock));
 
   cupsArrayDelete(ra);
 }
@@ -3918,7 +3918,7 @@ ipp_send_document(
   * Then finish getting the document data and process things...
   */
 
-  _cupsRWLockWrite(&(client->printer->rwlock));
+  cupsRWLockWrite(&(client->printer->rwlock));
 
   copy_attributes(job->attrs, client->request, NULL, IPP_TAG_JOB, 0);
 
@@ -3929,7 +3929,7 @@ ipp_send_document(
   else
     job->format = "application/octet-stream";
 
-  _cupsRWUnlock(&(client->printer->rwlock));
+  cupsRWUnlock(&(client->printer->rwlock));
 
   if (have_data)
     finish_document_data(client, job);
@@ -4005,7 +4005,7 @@ ipp_send_uri(ippeve_client_t *client)	/* I - Client */
   * Then finish getting the document data and process things...
   */
 
-  _cupsRWLockWrite(&(client->printer->rwlock));
+  cupsRWLockWrite(&(client->printer->rwlock));
 
   copy_attributes(job->attrs, client->request, NULL, IPP_TAG_JOB, 0);
 
@@ -4016,7 +4016,7 @@ ipp_send_uri(ippeve_client_t *client)	/* I - Client */
   else
     job->format = "application/octet-stream";
 
-  _cupsRWUnlock(&(client->printer->rwlock));
+  cupsRWUnlock(&(client->printer->rwlock));
 
   finish_document_uri(client, job);
 }
@@ -5745,14 +5745,14 @@ process_attr_message(
       * Update Printer Status attribute...
       */
 
-      _cupsRWLockWrite(&job->printer->rwlock);
+      cupsRWLockWrite(&job->printer->rwlock);
 
       if ((attr = ippFindAttribute(job->printer->attrs, option->name, IPP_TAG_ZERO)) != NULL)
         ippDeleteAttribute(job->printer->attrs, attr);
 
       cupsEncodeOption(job->printer->attrs, IPP_TAG_PRINTER, option->name, option->value);
 
-      _cupsRWUnlock(&job->printer->rwlock);
+      cupsRWUnlock(&job->printer->rwlock);
     }
     else
     {
@@ -7199,7 +7199,7 @@ register_printer(
     const char	*uuid = ippGetString(printer_uuid, 0, NULL);
 					/* "printer-uuid" value */
 
-    _cupsRWLockWrite(&printer->rwlock);
+    cupsRWLockWrite(&printer->rwlock);
 
     snprintf(new_dnssd_name, sizeof(new_dnssd_name), "%s (%c%c%c%c%c%c)", printer->dnssd_name, toupper(uuid[39]), toupper(uuid[40]), toupper(uuid[41]), toupper(uuid[42]), toupper(uuid[43]), toupper(uuid[44]));
 
@@ -7208,7 +7208,7 @@ register_printer(
 
     fprintf(stderr, "DNS-SD name collision, trying new DNS-SD service name '%s'.\n", printer->dnssd_name);
 
-    _cupsRWUnlock(&printer->rwlock);
+    cupsRWUnlock(&printer->rwlock);
 
     printer->dnssd_collision = 0;
   }
@@ -7669,11 +7669,11 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
     {
       if ((client = create_client(printer, printer->ipv4)) != NULL)
       {
-        _cups_thread_t t = _cupsThreadCreate((_cups_thread_func_t)process_client, client);
+        cups_thread_t t = cupsThreadCreate((cups_thread_func_t)process_client, client);
 
         if (t)
         {
-          _cupsThreadDetach(t);
+          cupsThreadDetach(t);
         }
         else
 	{
@@ -7687,11 +7687,11 @@ run_printer(ippeve_printer_t *printer)	/* I - Printer */
     {
       if ((client = create_client(printer, printer->ipv6)) != NULL)
       {
-        _cups_thread_t t = _cupsThreadCreate((_cups_thread_func_t)process_client, client);
+        cups_thread_t t = cupsThreadCreate((cups_thread_func_t)process_client, client);
 
         if (t)
         {
-          _cupsThreadDetach(t);
+          cupsThreadDetach(t);
         }
         else
 	{
@@ -7850,7 +7850,7 @@ show_media(ippeve_client_t  *client)	/* I - Client connection */
     const char	*val;			/* Form value */
     pwg_media_t	*media;			/* Media info */
 
-    _cupsRWLockWrite(&printer->rwlock);
+    cupsRWLockWrite(&printer->rwlock);
 
     ippDeleteAttribute(printer->attrs, media_col_ready);
     media_col_ready = NULL;
@@ -7919,7 +7919,7 @@ show_media(ippeve_client_t  *client)	/* I - Client connection */
     if (!media_ready)
       media_ready = ippAddOutOfBand(printer->attrs, IPP_TAG_PRINTER, IPP_TAG_NOVALUE, "media-ready");
 
-    _cupsRWUnlock(&printer->rwlock);
+    cupsRWUnlock(&printer->rwlock);
   }
 
   if (printer->web_forms)
@@ -8107,7 +8107,7 @@ show_status(ippeve_client_t  *client)	/* I - Client connection */
 
   if (cupsArrayCount(printer->jobs) > 0)
   {
-    _cupsRWLockRead(&(printer->rwlock));
+    cupsRWLockRead(&(printer->rwlock));
 
     html_printf(client, "<table class=\"striped\" summary=\"Jobs\"><thead><tr><th>Job #</th><th>Name</th><th>Owner</th><th>Status</th></tr></thead><tbody>\n");
     for (job = (ippeve_job_t *)cupsArrayFirst(printer->jobs); job; job = (ippeve_job_t *)cupsArrayNext(printer->jobs))
@@ -8140,7 +8140,7 @@ show_status(ippeve_client_t  *client)	/* I - Client connection */
     }
     html_printf(client, "</tbody></table>\n");
 
-    _cupsRWUnlock(&(printer->rwlock));
+    cupsRWUnlock(&(printer->rwlock));
   }
 
   html_footer(client);
@@ -8245,7 +8245,7 @@ show_supplies(
     char	name[64];		/* Form field */
     const char	*val;			/* Form value */
 
-    _cupsRWLockWrite(&printer->rwlock);
+    cupsRWLockWrite(&printer->rwlock);
 
     ippDeleteAttribute(printer->attrs, supply);
     supply = NULL;
@@ -8282,7 +8282,7 @@ show_supplies(
       }
     }
 
-    _cupsRWUnlock(&printer->rwlock);
+    cupsRWUnlock(&printer->rwlock);
   }
 
   if (printer->web_forms)

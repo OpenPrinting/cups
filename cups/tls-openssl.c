@@ -52,7 +52,7 @@ static char		*tls_common_name = NULL;
 //static X509_CRL		*tls_crl = NULL;/* Certificate revocation list */
 static char		*tls_keypath = NULL;
 					/* Server cert keychain path */
-static _cups_mutex_t	tls_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	tls_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex for keychain/certs */
 static int		tls_options = -1,/* Options for TLS connections */
 			tls_min_version = _HTTP_TLS_1_0,
@@ -293,7 +293,7 @@ cupsSetServerCredentials(
     return (0);
   }
 
-  _cupsMutexLock(&tls_mutex);
+  cupsMutexLock(&tls_mutex);
 
  /*
   * Free old values...
@@ -313,7 +313,7 @@ cupsSetServerCredentials(
   tls_auto_create = auto_create;
   tls_common_name = _cupsStrAlloc(common_name);
 
-  _cupsMutexUnlock(&tls_mutex);
+  cupsMutexUnlock(&tls_mutex);
 
   return (1);
 }
@@ -1038,7 +1038,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     else
       cn = tls_common_name;
 
-    _cupsMutexLock(&tls_mutex);
+    cupsMutexLock(&tls_mutex);
 
     if (cn)
     {
@@ -1087,13 +1087,13 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 	http->status = HTTP_STATUS_ERROR;
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create server credentials."), 1);
 	SSL_CTX_free(context);
-        _cupsMutexUnlock(&tls_mutex);
+        cupsMutexUnlock(&tls_mutex);
 
 	return (-1);
       }
     }
 
-    _cupsMutexUnlock(&tls_mutex);
+    cupsMutexUnlock(&tls_mutex);
 
     DEBUG_printf(("4_httpTLSStart: Using private key file '%s'.", keyfile));
     DEBUG_printf(("4_httpTLSStart: Using certificate file '%s'.", crtfile));
@@ -1134,7 +1134,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   SSL_CTX_set_cipher_list(context, cipherlist);
 
   // Setup a TLS session
-  _cupsMutexLock(&tls_mutex);
+  cupsMutexLock(&tls_mutex);
   if (!tls_bio_method)
   {
     tls_bio_method = BIO_meth_new(BIO_get_new_index(), "http");
@@ -1145,7 +1145,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     BIO_meth_set_puts(tls_bio_method, http_bio_puts);
     BIO_meth_set_write(tls_bio_method, http_bio_write);
   }
-  _cupsMutexUnlock(&tls_mutex);
+  cupsMutexUnlock(&tls_mutex);
 
   bio = BIO_new(tls_bio_method);
   BIO_ctrl(bio, BIO_C_SET_FILE_PTR, 0, (char *)http);
@@ -1482,7 +1482,7 @@ http_get_date(X509 *cert,		// I - Certificate
 static void
 http_load_crl(void)
 {
-  _cupsMutexLock(&tls_mutex);
+  cupsMutexLock(&tls_mutex);
 
   if (!openssl_x509_crl_init(&tls_crl))
   {
@@ -1566,7 +1566,7 @@ http_load_crl(void)
     }
   }
 
-  _cupsMutexUnlock(&tls_mutex);
+  cupsMutexUnlock(&tls_mutex);
 }
 #endif // 0
 

@@ -168,7 +168,7 @@ typedef struct ipptool_test_s		/**** Test Data ****/
   char		test_id[1024];		/* Test identifier */
   ipptool_transfer_t transfer;		/* To chunk or not to chunk */
   int		version;		/* IPP version number to use */
-  _cups_thread_t monitor_thread;	/* Monitoring thread ID */
+  cups_thread_t monitor_thread;	/* Monitoring thread ID */
   int		monitor_done;		/* Set to 1 to stop monitor thread */
   char		*monitor_uri;		/* MONITOR-PRINTER-STATE URI */
   useconds_t	monitor_delay,		/* MONITOR-PRINTER-STATE DELAY value, if any */
@@ -1195,7 +1195,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
   if (data->monitor_uri)
   {
     data->monitor_done   = 0;
-    data->monitor_thread = _cupsThreadCreate((_cups_thread_func_t)do_monitor_printer_state, data);
+    data->monitor_thread = cupsThreadCreate((cups_thread_func_t)do_monitor_printer_state, data);
   }
 
  /*
@@ -2141,7 +2141,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
   if (data->monitor_thread)
   {
     data->monitor_done = 1;
-    _cupsThreadWait(data->monitor_thread);
+    cupsThreadWait(data->monitor_thread);
   }
 
   if (data->output == IPPTOOL_OUTPUT_PLIST)

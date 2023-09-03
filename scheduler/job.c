@@ -585,7 +585,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
     if (stat(filename, &fileinfo))
       fileinfo.st_size = 0;
 
-    _cupsRWLockWrite(&MimeDatabase->lock);
+    cupsRWLockWrite(&MimeDatabase->lock);
 
     if (job->retry_as_raster)
     {
@@ -622,7 +622,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 
       ippSetString(job->attrs, &job->reasons, 0, "document-unprintable-error");
 
-      _cupsRWUnlock(&MimeDatabase->lock);
+      cupsRWUnlock(&MimeDatabase->lock);
 
       goto abort_job;
     }
@@ -711,7 +711,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       filters = prefilters;
     }
 
-    _cupsRWUnlock(&MimeDatabase->lock);
+    cupsRWUnlock(&MimeDatabase->lock);
   }
 
  /*
@@ -1923,7 +1923,7 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     * Find all the d##### files...
     */
 
-    _cupsRWLockRead(&MimeDatabase->lock);
+    cupsRWLockRead(&MimeDatabase->lock);
 
     for (fileid = 1; fileid < 10000; fileid ++)
     {
@@ -1990,7 +1990,7 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
 	                                      "vnd.cups-raw");
     }
 
-    _cupsRWUnlock(&MimeDatabase->lock);
+    cupsRWUnlock(&MimeDatabase->lock);
   }
 
  /*
@@ -4512,7 +4512,7 @@ load_job_cache(const char *filename)	/* I - job.cache filename */
 
       number --;
 
-      _cupsRWLockRead(&MimeDatabase->lock);
+      cupsRWLockRead(&MimeDatabase->lock);
 
       job->compressions[number] = compression;
       job->filetypes[number]    = mimeType(MimeDatabase, super, type);
@@ -4541,7 +4541,7 @@ load_job_cache(const char *filename)	/* I - job.cache filename */
 	                                    "vnd.cups-raw");
       }
 
-      _cupsRWUnlock(&MimeDatabase->lock);
+      cupsRWUnlock(&MimeDatabase->lock);
     }
     else
       cupsdLogMessage(CUPSD_LOG_ERROR, "Unknown %s directive on line %d of %s.", line, linenum, filename);

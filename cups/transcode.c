@@ -25,7 +25,7 @@
  */
 
 #ifdef HAVE_ICONV_H
-static _cups_mutex_t	map_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	map_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex to control access to maps */
 static iconv_t		map_from_utf8 = (iconv_t)-1;
 					/* Convert from UTF-8 to charset */
@@ -142,7 +142,7 @@ cupsCharsetToUTF8(
   */
 
 #ifdef HAVE_ICONV_H
-  _cupsMutexLock(&map_mutex);
+  cupsMutexLock(&map_mutex);
 
   if (map_encoding != encoding)
   {
@@ -167,12 +167,12 @@ cupsCharsetToUTF8(
     iconv(map_to_utf8, (char **)&src, &srclen, &altdestptr, &outBytesLeft);
     *altdestptr = '\0';
 
-    _cupsMutexUnlock(&map_mutex);
+    cupsMutexUnlock(&map_mutex);
 
     return ((int)(altdestptr - (char *)dest));
   }
 
-  _cupsMutexUnlock(&map_mutex);
+  cupsMutexUnlock(&map_mutex);
 #endif /* HAVE_ICONV_H */
 
  /*
@@ -271,7 +271,7 @@ cupsUTF8ToCharset(
   * Convert input UTF-8 to legacy charset...
   */
 
-  _cupsMutexLock(&map_mutex);
+  cupsMutexLock(&map_mutex);
 
   if (map_encoding != encoding)
   {
@@ -296,12 +296,12 @@ cupsUTF8ToCharset(
     iconv(map_from_utf8, &altsrc, &srclen, &destptr, &outBytesLeft);
     *destptr = '\0';
 
-    _cupsMutexUnlock(&map_mutex);
+    cupsMutexUnlock(&map_mutex);
 
     return ((int)(destptr - dest));
   }
 
-  _cupsMutexUnlock(&map_mutex);
+  cupsMutexUnlock(&map_mutex);
 #endif /* HAVE_ICONV_H */
 
  /*

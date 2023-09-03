@@ -118,6 +118,7 @@
     <ClCompile Include="..\cups\dest-options.c" />
     <ClCompile Include="..\cups\dest.c" />
     <ClCompile Include="..\cups\dir.c" />
+    <ClCompile Include="..\cups\dnssd.c" />
     <ClCompile Include="..\cups\encode.c" />
     <ClCompile Include="..\cups\file.c" />
     <ClCompile Include="..\cups\getdevices.c" />
@@ -174,8 +175,10 @@
     <ClInclude Include="..\cups\array.h" />
     <ClInclude Include="..\cups\cups-private.h" />
     <ClInclude Include="..\cups\cups.h" />
+    <ClInclude Include="..\cups\debug-internal.h" />
     <ClInclude Include="..\cups\debug-private.h" />
     <ClInclude Include="..\cups\dir.h" />
+    <ClInclude Include="..\cups\dnssd.h" />
     <ClInclude Include="..\cups\file-private.h" />
     <ClInclude Include="..\cups\file.h" />
     <ClInclude Include="..\cups\globals.h" />
@@ -193,7 +196,7 @@
     <ClInclude Include="..\cups\raster-private.h" />
     <ClInclude Include="..\cups\raster.h" />
     <ClInclude Include="..\cups\string-private.h" />
-    <ClInclude Include="..\cups\thread-private.h" />
+    <ClInclude Include="..\cups\thread.h" />
     <ClInclude Include="..\cups\transcode.h" />
     <ClInclude Include="..\cups\versioning.h" />
     <ClInclude Include="config.h" />

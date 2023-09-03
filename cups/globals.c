@@ -28,14 +28,14 @@
 static int		cups_global_index = 0;
 					/* Next thread number */
 #endif /* DEBUG */
-static _cups_threadkey_t cups_globals_key = _CUPS_THREADKEY_INITIALIZER;
+static cups_thread_key_t cups_globals_key = CUPS_THREADKEY_INITIALIZER;
 					/* Thread local storage key */
 #ifdef HAVE_PTHREAD_H
 static pthread_once_t	cups_globals_key_once = PTHREAD_ONCE_INIT;
 					/* One-time initialization object */
 #endif /* HAVE_PTHREAD_H */
 #if defined(HAVE_PTHREAD_H) || defined(_WIN32)
-static _cups_mutex_t	cups_global_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	cups_global_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Global critical section */
 #endif /* HAVE_PTHREAD_H || _WIN32 */
 
@@ -93,14 +93,14 @@ _cupsGlobals(void)
   * See if we have allocated the data yet...
   */
 
-  if ((cg = (_cups_globals_t *)_cupsThreadGetData(cups_globals_key)) == NULL)
+  if ((cg = (_cups_globals_t *)cupsThreadGetData(cups_globals_key)) == NULL)
   {
    /*
     * No, allocate memory as set the pointer for the key...
     */
 
     if ((cg = cups_globals_alloc()) != NULL)
-      _cupsThreadSetData(cups_globals_key, cg);
+      cupsThreadSetData(cups_globals_key, cg);
   }
 
  /*

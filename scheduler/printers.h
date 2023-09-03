@@ -54,7 +54,7 @@ typedef struct cupsd_job_s cupsd_job_t;
 
 struct cupsd_printer_s
 {
-  _cups_rwlock_t lock;			/* Concurrency lock for background updates */
+  cups_rwlock_t lock;			/* Concurrency lock for background updates */
   int		printer_id;		/* Printer ID */
   char		*uri,			/* Printer URI */
 		*uuid,			/* Printer UUID */

@@ -56,7 +56,7 @@
  * Local globals...
  */
 
-static _cups_mutex_t log_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t log_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex for logging */
 static size_t	log_linesize = 0;	/* Size of line for output file */
 static char	*log_line = NULL;	/* Line for output file */
@@ -1256,7 +1256,7 @@ cupsdWriteErrorLog(int        level,	/* I - Log level */
   * Not using syslog; check the log file...
   */
 
-  _cupsMutexLock(&log_mutex);
+  cupsMutexLock(&log_mutex);
 
   if (!cupsdCheckLogFile(&ErrorFile, ErrorLog))
   {
@@ -1273,7 +1273,7 @@ cupsdWriteErrorLog(int        level,	/* I - Log level */
     cupsFileFlush(ErrorFile);
   }
 
-  _cupsMutexUnlock(&log_mutex);
+  cupsMutexUnlock(&log_mutex);
 
   return (ret);
 }

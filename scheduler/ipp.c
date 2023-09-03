@@ -2716,7 +2716,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
       }
 
       // Run a background thread to create the PPD...
-      _cupsThreadCreate((_cups_thread_func_t)create_local_bg_thread, printer);
+      cupsThreadCreate((cups_thread_func_t)create_local_bg_thread, printer);
     }
     else if (!strcmp(ppd_name, "raw"))
     {
@@ -4912,7 +4912,7 @@ copy_printer_attrs(
   * and document-format attributes that may be provided by the client.
   */
 
-  _cupsRWLockRead(&printer->lock);
+  cupsRWLockRead(&printer->lock);
 
   curtime = time(NULL);
 
@@ -5079,7 +5079,7 @@ copy_printer_attrs(
     copy_attrs(con->response, printer->ppd_attrs, ra, IPP_TAG_ZERO, 0, NULL);
   copy_attrs(con->response, CommonData, ra, IPP_TAG_ZERO, IPP_TAG_COPY, NULL);
 
-  _cupsRWUnlock(&printer->lock);
+  cupsRWUnlock(&printer->lock);
 }
 
 
@@ -5429,7 +5429,7 @@ create_local_bg_thread(
 
   if (_ppdCreateFromIPP(fromppd, sizeof(fromppd), response))
   {
-    _cupsRWLockWrite(&printer->lock);
+    cupsRWLockWrite(&printer->lock);
 
     if ((!printer->info || !*(printer->info)) && (attr = ippFindAttribute(response, "printer-info", IPP_TAG_TEXT)) != NULL)
       cupsdSetString(&printer->info, ippGetString(attr, 0, NULL));
@@ -5440,7 +5440,7 @@ create_local_bg_thread(
     if ((!printer->geo_location || !*(printer->geo_location)) && (attr = ippFindAttribute(response, "printer-geo-location", IPP_TAG_URI)) != NULL)
       cupsdSetString(&printer->geo_location, ippGetString(attr, 0, NULL));
 
-    _cupsRWUnlock(&printer->lock);
+    cupsRWUnlock(&printer->lock);
 
     if ((from = cupsFileOpen(fromppd, "r")) == NULL)
     {
@@ -5680,7 +5680,7 @@ create_local_printer(
   * Run a background thread to create the PPD...
   */
 
-  _cupsThreadCreate((_cups_thread_func_t)create_local_bg_thread, printer);
+  cupsThreadCreate((cups_thread_func_t)create_local_bg_thread, printer);
 
  /*
   * Return printer attributes...
@@ -8704,7 +8704,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     strlcpy(type, "octet-stream", sizeof(type));
   }
 
-  _cupsRWLockRead(&MimeDatabase->lock);
+  cupsRWLockRead(&MimeDatabase->lock);
 
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
@@ -8731,7 +8731,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   else
     filetype = mimeType(MimeDatabase, super, type);
 
-  _cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeDatabase->lock);
 
   if (filetype &&
       (!format ||
@@ -9952,7 +9952,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     strlcpy(type, "octet-stream", sizeof(type));
   }
 
-  _cupsRWLockRead(&MimeDatabase->lock);
+  cupsRWLockRead(&MimeDatabase->lock);
 
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
@@ -9983,7 +9983,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
   else
     filetype = mimeType(MimeDatabase, super, type);
 
-  _cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeDatabase->lock);
 
   if (filetype)
   {
@@ -11472,7 +11472,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    _cupsRWLockRead(&MimeDatabase->lock);
+    cupsRWLockRead(&MimeDatabase->lock);
 
     if ((strcmp(super, "application") || strcmp(type, "octet-stream")) &&
 	!mimeType(MimeDatabase, super, type))
@@ -11485,12 +11485,12 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
       ippAddString(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_MIMETYPE,
                    "document-format", NULL, format->values[0].string.text);
 
-      _cupsRWUnlock(&MimeDatabase->lock);
+      cupsRWUnlock(&MimeDatabase->lock);
 
       return;
     }
 
-    _cupsRWUnlock(&MimeDatabase->lock);
+    cupsRWUnlock(&MimeDatabase->lock);
   }
 
  /*

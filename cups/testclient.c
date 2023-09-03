@@ -18,7 +18,7 @@
 #include <cups/cups.h>
 #include <cups/raster.h>
 #include <cups/string-private.h>
-#include <cups/thread-private.h>
+#include <cups/thread.h>
 
 
 /*
@@ -59,7 +59,7 @@ typedef struct _client_data_s
  */
 
 static int		client_count = 0;
-static _cups_mutex_t	client_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	client_mutex = CUPS_MUTEX_INITIALIZER;
 static int		verbosity = 0;
 
 
@@ -242,28 +242,28 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   while (client_count < num_clients)
   {
-    _cupsMutexLock(&client_mutex);
+    cupsMutexLock(&client_mutex);
     if (client_count < MAX_CLIENTS)
     {
-      _cups_thread_t	tid;		/* New thread */
+      cups_thread_t	tid;		/* New thread */
 
       client_count ++;
-      _cupsMutexUnlock(&client_mutex);
-      tid = _cupsThreadCreate((_cups_thread_func_t)run_client, &data);
-      _cupsThreadDetach(tid);
+      cupsMutexUnlock(&client_mutex);
+      tid = cupsThreadCreate((cups_thread_func_t)run_client, &data);
+      cupsThreadDetach(tid);
     }
     else
     {
-      _cupsMutexUnlock(&client_mutex);
+      cupsMutexUnlock(&client_mutex);
       sleep(1);
     }
   }
 
   while (client_count > 0)
   {
-    _cupsMutexLock(&client_mutex);
+    cupsMutexLock(&client_mutex);
     printf("%d RUNNING CLIENTS\n", client_count);
-    _cupsMutexUnlock(&client_mutex);
+    cupsMutexUnlock(&client_mutex);
     sleep(1);
   }
 
@@ -759,7 +759,7 @@ static void *				/* O - Thread exit code */
 run_client(
     _client_data_t *data)		/* I - Client data */
 {
-  _cups_thread_t monitor_id;		/* Monitoring thread ID */
+  cups_thread_t monitor_id;		/* Monitoring thread ID */
   const char	*name;			/* Job name */
   char		tempfile[1024] = "";	/* Temporary file (if any) */
   _client_data_t ldata;			/* Local client data */
@@ -780,7 +780,7 @@ run_client(
   * Start monitoring the printer in the background...
   */
 
-  monitor_id = _cupsThreadCreate((_cups_thread_func_t)monitor_printer, &ldata);
+  monitor_id = cupsThreadCreate((cups_thread_func_t)monitor_printer, &ldata);
 
  /*
   * Open a connection to the printer...
@@ -954,11 +954,11 @@ run_client(
   if (tempfile[0] && !ldata.keepfile)
     unlink(tempfile);
 
-  _cupsThreadWait(monitor_id);
+  cupsThreadWait(monitor_id);
 
-  _cupsMutexLock(&client_mutex);
+  cupsMutexLock(&client_mutex);
   client_count --;
-  _cupsMutexUnlock(&client_mutex);
+  cupsMutexUnlock(&client_mutex);
 
   return (NULL);
 }

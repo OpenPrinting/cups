@@ -22,7 +22,7 @@
 #  include "http-private.h"
 #  include "language-private.h"
 #  include "pwg-private.h"
-#  include "thread-private.h"
+#  include "thread.h"
 #  include <cups/cups.h>
 #  ifdef __APPLE__
 #    include <sys/cdefs.h>

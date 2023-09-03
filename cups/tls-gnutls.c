@@ -29,7 +29,7 @@ static char		*tls_common_name = NULL;
 static gnutls_x509_crl_t tls_crl = NULL;/* Certificate revocation list */
 static char		*tls_keypath = NULL;
 					/* Server cert keychain path */
-static _cups_mutex_t	tls_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	tls_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex for keychain/certs */
 static int		tls_options = -1,/* Options for TLS connections */
 			tls_min_version = _HTTP_TLS_1_0,
@@ -282,7 +282,7 @@ cupsSetServerCredentials(
     return (0);
   }
 
-  _cupsMutexLock(&tls_mutex);
+  cupsMutexLock(&tls_mutex);
 
  /*
   * Free old values...
@@ -302,7 +302,7 @@ cupsSetServerCredentials(
   tls_auto_create = auto_create;
   tls_common_name = _cupsStrAlloc(common_name);
 
-  _cupsMutexUnlock(&tls_mutex);
+  cupsMutexUnlock(&tls_mutex);
 
   return (1);
 }
@@ -406,7 +406,7 @@ httpCredentialsAreValidForName(
       size_t		cserial_size,	/* Size of cert serial number */
 			rserial_size;	/* Size of revoked serial number */
 
-      _cupsMutexLock(&tls_mutex);
+      cupsMutexLock(&tls_mutex);
 
       if (gnutls_x509_crl_get_crt_count(tls_crl) > 0)
       {
@@ -428,7 +428,7 @@ httpCredentialsAreValidForName(
 	gnutls_x509_crl_iter_deinit(iter);
       }
 
-      _cupsMutexUnlock(&tls_mutex);
+      cupsMutexUnlock(&tls_mutex);
     }
 
     gnutls_x509_crt_deinit(cert);
@@ -980,7 +980,7 @@ http_gnutls_default_path(char   *buffer,/* I - Path buffer */
 static void
 http_gnutls_load_crl(void)
 {
-  _cupsMutexLock(&tls_mutex);
+  cupsMutexLock(&tls_mutex);
 
   if (!gnutls_x509_crl_init(&tls_crl))
   {
@@ -1064,7 +1064,7 @@ http_gnutls_load_crl(void)
     }
   }
 
-  _cupsMutexUnlock(&tls_mutex);
+  cupsMutexUnlock(&tls_mutex);
 }
 
 
@@ -1407,7 +1407,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
     if (isdigit(hostname[0] & 255) || hostname[0] == '[')
       hostname[0] = '\0';		/* Don't allow numeric addresses */
 
-    _cupsMutexLock(&tls_mutex);
+    cupsMutexLock(&tls_mutex);
 
     if (hostname[0])
       cn = hostname;
@@ -1472,7 +1472,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
 	http->error  = errno = EINVAL;
 	http->status = HTTP_STATUS_ERROR;
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create server credentials."), 1);
-	_cupsMutexUnlock(&tls_mutex);
+	cupsMutexUnlock(&tls_mutex);
 
 	return (-1);
       }
@@ -1480,7 +1480,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
 
     DEBUG_printf(("4_httpTLSStart: Using certificate \"%s\" and private key \"%s\".", crtfile, keyfile));
 
-    _cupsMutexUnlock(&tls_mutex);
+    cupsMutexUnlock(&tls_mutex);
 
     status = gnutls_certificate_set_x509_key_file(*credentials, crtfile, keyfile, GNUTLS_X509_FMT_PEM);
   }

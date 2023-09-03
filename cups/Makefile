@@ -25,6 +25,7 @@ COREOBJS	=	\
 		dest-localization.o \
 		dest-options.o \
 		dir.o \
+		dnssd.o \
 		encode.o \
 		file.o \
 		getputfile.o \
@@ -97,6 +98,7 @@ TESTOBJS	= \
 		testcreds.o \
 		testcups.o \
 		testdest.o \
+		testdnssd.o \
 		testfile.o \
 		testgetdests.o \
 		testhttp.o \
@@ -124,12 +126,14 @@ COREHEADERS	=	\
 		array.h \
 		cups.h \
 		dir.h \
+		dnssd.h \
 		file.h \
 		http.h \
 		ipp.h \
 		language.h \
 		pwg.h \
 		raster.h \
+		thread.h \
 		transcode.h \
 		versioning.h
 
@@ -152,8 +156,7 @@ COREHEADERSPRIV =	\
 		language-private.h \
 		pwg-private.h \
 		raster-private.h \
-		string-private.h \
-		thread-private.h
+		string-private.h
 
 DRIVERHEADERSPRIV	=	\
 		ppd-private.h \
@@ -183,6 +186,7 @@ UNITTARGETS =	\
 		testcreds \
 		testcups \
 		testdest \
+		testdnssd \
 		testfile \
 		testgetdests \
 		testhttp \
@@ -369,7 +373,7 @@ libcups.2.dylib:	$(LIBOBJS)
 	echo Linking $@...
 	$(DSO) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ \
 		-install_name $(libdir)/$@ \
-		-current_version 2.14.0 \
+		-current_version 2.15.0 \
 		-compatibility_version 2.0.0 \
 		$(LIBOBJS) $(LIBS)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
@@ -384,7 +388,7 @@ libcups.2.dylib:	$(LIBOBJS)
 libcups.la:    $(LIBOBJS)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ $(LIBOBJS:.o=.lo) \
-		-rpath $(LIBDIR) -version-info 2:14 $(LIBS)
+		-rpath $(LIBDIR) -version-info 2:15 $(LIBS)
 
 
 #
@@ -405,7 +409,7 @@ libcups.a:	$(LIBOBJS)
 libcups2.def: $(LIBOBJS) $(IMAGEOBJS) Makefile
 	echo Generating $@...
 	echo "LIBRARY libcups2" >libcups2.def
-	echo "VERSION 2.14" >>libcups2.def
+	echo "VERSION 2.15" >>libcups2.def
 	echo "EXPORTS" >>libcups2.def
 	(nm $(LIBOBJS) $(IMAGEOBJS) 2>/dev/null | grep "T _" | awk '{print $$3}'; \
 	 echo __cups_strcpy; echo __cups_strlcat; echo __cups_strlcpy; \
@@ -435,7 +439,7 @@ libcupsimage.2.dylib:	$(IMAGEOBJS) libcups.2.dylib
 	echo Linking $@...
 	$(DSO) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ \
 		-install_name $(libdir)/$@ \
-		-current_version 2.3.0 \
+		-current_version 2.15.0 \
 		-compatibility_version 2.0.0 \
 		$(IMAGEOBJS) $(LINKCUPS)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
@@ -450,7 +454,7 @@ libcupsimage.2.dylib:	$(IMAGEOBJS) libcups.2.dylib
 libcupsimage.la:       $(IMAGEOBJS) libcups.la
 	echo Linking $@...
 	$(DSO) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ $(IMAGEOBJS:.o=.lo) \
-		$(LINKCUPS) -rpath $(LIBDIR) -version-info 2:3
+		$(LINKCUPS) -rpath $(LIBDIR) -version-info 2:15
 
 
 #
@@ -565,6 +569,16 @@ testcups:	testcups.o $(LIBCUPSSTATIC)
 testdest:	testdest.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o $@ testdest.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testdnssd (dependency on static libraries is intentional)
+#
+
+testdnssd:	testdnssd.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testdnssd.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 

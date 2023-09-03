@@ -1026,11 +1026,11 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
             if ((filename = get_file(con, &filestats, buf, sizeof(buf))) != NULL)
             {
-	      _cupsRWLockRead(&MimeDatabase->lock);
+	      cupsRWLockRead(&MimeDatabase->lock);
 
 	      type = mimeFileType(MimeDatabase, filename, NULL, NULL);
 
-	      _cupsRWUnlock(&MimeDatabase->lock);
+	      cupsRWUnlock(&MimeDatabase->lock);
 
               cupsdLogClient(con, CUPSD_LOG_DEBUG, "filename=\"%s\", type=%s/%s", filename, type ? type->super : "", type ? type->type : "");
 

@@ -2657,7 +2657,7 @@ ippNewRequest(ipp_op_t op)		/* I - Operation code */
   ipp_t		*request;		/* IPP request message */
   cups_lang_t	*language;		/* Current language localization */
   static int	request_id = 0;		/* Current request ID */
-  static _cups_mutex_t request_mutex = _CUPS_MUTEX_INITIALIZER;
+  static cups_mutex_t request_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex for request ID */
 
 
@@ -2674,12 +2674,12 @@ ippNewRequest(ipp_op_t op)		/* I - Operation code */
   * Set the operation and request ID...
   */
 
-  _cupsMutexLock(&request_mutex);
+  cupsMutexLock(&request_mutex);
 
   request->request.op.operation_id = op;
   request->request.op.request_id   = ++request_id;
 
-  _cupsMutexUnlock(&request_mutex);
+  cupsMutexUnlock(&request_mutex);
 
  /*
   * Use UTF-8 as the character set...

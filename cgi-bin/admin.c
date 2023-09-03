@@ -82,7 +82,7 @@ main(void)
     exit(1);
   }
 
-  fprintf(stderr, "DEBUG: http=%p\n", http);
+  fprintf(stderr, "DEBUG: http=%p\n", (void *)http);
 
  /*
   * Set the web interface section...
@@ -2644,7 +2644,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 
   title = cgiText(is_class ? _("Set Class Options") : _("Set Printer Options"));
 
-  fprintf(stderr, "DEBUG: do_set_options(http=%p, is_class=%d)\n", http,
+  fprintf(stderr, "DEBUG: do_set_options(http=%p, is_class=%d)\n", (void *)http,
           is_class);
 
  /*

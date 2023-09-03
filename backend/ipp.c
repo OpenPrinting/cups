@@ -129,7 +129,7 @@ static const char * const remote_job_states[] =
   "+cups-remote-aborted",
   "+cups-remote-completed"
 };
-static _cups_mutex_t	report_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	report_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex to control access */
 static int		num_attr_cache = 0;
 					/* Number of cached attributes */
@@ -1463,7 +1463,7 @@ main(int  argc,				/* I - Number of command-line args */
     monitor.job_name = print_job_name;
   }
 
-  _cupsThreadCreate((_cups_thread_func_t)monitor_printer, &monitor);
+  cupsThreadCreate((cups_thread_func_t)monitor_printer, &monitor);
 
  /*
   * Validate access to the printer...
@@ -3126,7 +3126,7 @@ report_attr(ipp_attribute_t *attr)	/* I - Attribute */
 
   *valptr = '\0';
 
-  _cupsMutexLock(&report_mutex);
+  cupsMutexLock(&report_mutex);
 
   if ((cached = cupsGetOption(attr->name, num_attr_cache,
                               attr_cache)) == NULL || strcmp(cached, value))
@@ -3140,7 +3140,7 @@ report_attr(ipp_attribute_t *attr)	/* I - Attribute */
     fprintf(stderr, "ATTR: %s=%s\n", attr->name, value);
   }
 
-  _cupsMutexUnlock(&report_mutex);
+  cupsMutexUnlock(&report_mutex);
 }
 
 
@@ -3577,7 +3577,7 @@ update_reasons(ipp_attribute_t *attr,	/* I - printer-state-reasons or NULL */
           op ? op : ' ', cupsArrayCount(new_reasons),
 	  cupsArrayCount(state_reasons));
 
-  _cupsMutexLock(&report_mutex);
+  cupsMutexLock(&report_mutex);
 
   if (op == '+')
   {
@@ -3683,7 +3683,7 @@ update_reasons(ipp_attribute_t *attr,	/* I - printer-state-reasons or NULL */
 
   cupsArrayDelete(new_reasons);
 
-  _cupsMutexUnlock(&report_mutex);
+  cupsMutexUnlock(&report_mutex);
 
  /*
   * Report changes and return...

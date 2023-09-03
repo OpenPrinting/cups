@@ -13,7 +13,7 @@
 #  include <cups/array.h>
 #  include <cups/ipp.h>
 #  include <cups/file.h>
-#  include <cups/thread-private.h>
+#  include <cups/thread.h>
 #  include <regex.h>
 
 
@@ -107,7 +107,7 @@ typedef struct _mime_s			/**** MIME Database ****/
   cups_array_t		*srcs;		/* Filters sorted by source type */
   mime_error_cb_t	error_cb;	/* Error message callback */
   void			*error_ctx;	/* Pointer for callback */
-  _cups_rwlock_t	lock;	/* Read/write lock for guarding data for background updates */
+  cups_rwlock_t	lock;	/* Read/write lock for guarding data for background updates */
 } mime_t;
 
 

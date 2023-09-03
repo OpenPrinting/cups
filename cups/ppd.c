@@ -47,7 +47,7 @@ typedef struct _ppd_line_s
  * Local globals...
  */
 
-static _cups_threadkey_t ppd_globals_key = _CUPS_THREADKEY_INITIALIZER;
+static cups_thread_key_t ppd_globals_key = CUPS_THREADKEY_INITIALIZER;
 					/* Thread local storage key */
 #ifdef HAVE_PTHREAD_H
 static pthread_once_t	ppd_globals_key_once = PTHREAD_ONCE_INIT;
@@ -365,14 +365,14 @@ _ppdGlobals(void)
   * See if we have allocated the data yet...
   */
 
-  if ((pg = (_ppd_globals_t *)_cupsThreadGetData(ppd_globals_key)) == NULL)
+  if ((pg = (_ppd_globals_t *)cupsThreadGetData(ppd_globals_key)) == NULL)
   {
    /*
     * No, allocate memory as set the pointer for the key...
     */
 
     if ((pg = ppd_globals_alloc()) != NULL)
-      _cupsThreadSetData(ppd_globals_key, pg);
+      cupsThreadSetData(ppd_globals_key, pg);
   }
 
  /*

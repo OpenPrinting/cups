@@ -611,6 +611,10 @@ extern ipp_attribute_t	*cupsEncodeOption(ipp_t *ipp, ipp_tag_t group_tag, const 
 /* New in CUPS 2.4 */
 extern void		cupsSetOAuthCB(cups_oauth_cb_t cb, void *data) _CUPS_API_2_4;
 
+/* New in CUPS 2.5 */
+extern size_t		cupsConcatString(char *dst, const char *src, size_t dstsize) _CUPS_PUBLIC;
+extern size_t		cupsCopyString(char *dst, const char *src, size_t dstsize) _CUPS_PUBLIC;
+
 
 #  ifdef __cplusplus
 }
