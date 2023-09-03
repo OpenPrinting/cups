@@ -118,7 +118,7 @@
 #media "w595h72/8.26x1.00\"" 595 72
 
 // Common stuff for all drivers...
-Attribute "cupsVersion" "" "2.4"
+Attribute "cupsVersion" "" "2.5"
 Attribute "FileSystem" "" "False"
 Attribute "LandscapeOrientation" "" "Plus90"
 Attribute "TTRasterizer" "" "Type42"
@@ -132,7 +132,7 @@ Copyright "information."
 
 Font *
 
-Version "2.4"
+Version "2.5"
 
 // DYMO Label Printer
 {
