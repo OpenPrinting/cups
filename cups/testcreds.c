@@ -62,7 +62,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     if ((http = httpConnect2(hostname, port, NULL, AF_UNSPEC, HTTP_ENCRYPTION_ALWAYS, 1, 30000, NULL)) == NULL)
     {
-      printf("ERROR: Unable to connect to \"%s\" on port %d: %s\n", hostname, port, cupsLastErrorString());
+      printf("ERROR: Unable to connect to \"%s\" on port %d: %s\n", hostname, port, cupsGetErrorString());
       return (1);
     }
 
@@ -77,7 +77,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       if (trust == HTTP_TRUST_OK)
         puts("    Trust: OK");
       else
-        printf("    Trust: %s (%s)\n", trusts[trust], cupsLastErrorString());
+        printf("    Trust: %s (%s)\n", trusts[trust], cupsGetErrorString());
       printf("    Expiration: %s\n", httpGetDateString(httpCredentialsGetExpiration(hcreds)));
       printf("    IsValidName: %d\n", httpCredentialsAreValidForName(hcreds, hostname));
       printf("    String: \"%s\"\n", hinfo);

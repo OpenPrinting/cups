@@ -490,7 +490,7 @@ list_options(cups_dest_t *dest)		/* I - Destination to list */
   if ((http = cupsConnectDest(dest, CUPS_DEST_FLAGS_NONE, 30000, NULL, resource, sizeof(resource), NULL, NULL)) == NULL)
   {
     _cupsLangPrintf(stderr, _("lpoptions: Unable to get PPD file for %s: %s"),
-		    dest->name, cupsLastErrorString());
+		    dest->name, cupsGetErrorString());
     return;
   }
 
@@ -499,7 +499,7 @@ list_options(cups_dest_t *dest)		/* I - Destination to list */
     httpClose(http);
 
     _cupsLangPrintf(stderr, _("lpoptions: Unable to get PPD file for %s: %s"),
-		    dest->name, cupsLastErrorString());
+		    dest->name, cupsGetErrorString());
     return;
   }
 

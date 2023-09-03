@@ -525,7 +525,7 @@ cupsGetServerPPD(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
 
   close(fd);
 
-  if (cupsLastError() != IPP_STATUS_OK)
+  if (cupsGetError() != IPP_STATUS_OK)
   {
     unlink(pg->ppd_filename);
     return (NULL);
@@ -656,7 +656,7 @@ cups_get_printer_uri(
     ippDelete(response);
   }
 
-  if (cupsLastError() != IPP_STATUS_ERROR_NOT_FOUND)
+  if (cupsGetError() != IPP_STATUS_ERROR_NOT_FOUND)
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("No printer-uri found"), 1);
 
   *host     = '\0';

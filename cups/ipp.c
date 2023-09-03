@@ -4675,7 +4675,7 @@ ippTimeToDate(time_t t)			/* I - Time in seconds */
  *
  * This function validates the contents of an attribute based on the name and
  * value tag.  1 is returned if the attribute is valid, 0 otherwise.  On
- * failure, @link cupsLastErrorString@ is set to a human-readable message.
+ * failure, @link cupsGetErrorString@ is set to a human-readable message.
  *
  * @since CUPS 1.7/macOS 10.9@
  */
@@ -5182,7 +5182,7 @@ ippValidateAttribute(
  * 'ippValidateAttributes()' - Validate all attributes in an IPP message.
  *
  * This function validates the contents of the IPP message, including each
- * attribute.  Like @link ippValidateAttribute@, @link cupsLastErrorString@ is
+ * attribute.  Like @link ippValidateAttribute@, @link cupsGetErrorString@ is
  * set to a human-readable message on failure.
  *
  * @since CUPS 1.7/macOS 10.9@

@@ -139,7 +139,7 @@ main(int  argc,				/* I - Number of command-line args */
   options      = NULL;
   ppdfile      = NULL;
   title        = NULL;
-  user         = cupsUser();
+  user         = cupsGetUser();
   all_filters  = 0;
   removeppd    = 0;
   removeinfile = 0;
@@ -1361,10 +1361,10 @@ get_job_file(const char *job)		/* I - Job ID */
 
   httpClose(http);
 
-  if (cupsLastError() != IPP_OK)
+  if (cupsGetError() != IPP_OK)
   {
     _cupsLangPrintf(stderr, _("cupsfilter: Unable to get job file - %s"),
-                    cupsLastErrorString());
+                    cupsGetErrorString());
     unlink(TempFile);
     exit(1);
   }

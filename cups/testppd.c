@@ -1101,7 +1101,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     http = httpConnect2(host, port, NULL, AF_UNSPEC, !strcmp(scheme, "ipps") ? HTTP_ENCRYPTION_ALWAYS : HTTP_ENCRYPTION_IF_REQUESTED, 1, 30000, NULL);
     if (!http)
     {
-      printf("Unable to connect to \"%s:%d\": %s\n", host, port, cupsLastErrorString());
+      printf("Unable to connect to \"%s:%d\": %s\n", host, port, cupsGetErrorString());
       return (1);
     }
 
@@ -1133,7 +1133,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       if ((filename = cupsGetServerPPD(CUPS_HTTP_DEFAULT, argv[1])) == NULL)
       {
-        printf("%s: %s\n", argv[1], cupsLastErrorString());
+        printf("%s: %s\n", argv[1], cupsGetErrorString());
         return (1);
       }
     }
@@ -1155,7 +1155,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       if (!filename)
       {
-        printf("%s: %s\n", printer, cupsLastErrorString());
+        printf("%s: %s\n", printer, cupsGetErrorString());
         return (1);
       }
     }
@@ -1358,7 +1358,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       puts("\nPPD Cache:");
       if ((pc = _ppdCacheCreateWithPPD(ppd)) == NULL)
-        printf("    Unable to create: %s\n", cupsLastErrorString());
+        printf("    Unable to create: %s\n", cupsGetErrorString());
       else
       {
         _ppdCacheWriteFile(pc, "t.cache", NULL);

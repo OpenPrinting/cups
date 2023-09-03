@@ -295,6 +295,32 @@ cupsDoRequest(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_
 
 
 /*
+ * 'cupsGetError()' - Return the last IPP status code received on the current thread.
+ *
+ * @since CUPS 2.5@
+ */
+
+ipp_status_t				/* O - IPP status code from last request */
+cupsGetError(void)
+{
+  return (_cupsGlobals()->last_error);
+}
+
+
+/*
+ * 'cupsGetErrorString()' - Return the last IPP status-message received on the current thread.
+ *
+ * @since CUPS 2.5@
+ */
+
+const char *				/* O - status-message text from last request */
+cupsGetErrorString(void)
+{
+  return (_cupsGlobals()->last_status_message);
+}
+
+
+/*
  * 'cupsGetResponse()' - Get a response to an IPP request.
  *
  * Use this function to get the response for an IPP request sent using
@@ -466,28 +492,28 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
 
 
 /*
- * 'cupsLastError()' - Return the last IPP status code received on the current
- *                     thread.
+ * 'cupsLastError()' - Return the last IPP status code received on the current thread.
+ *
+ * @deprecated@
  */
 
 ipp_status_t				/* O - IPP status code from last request */
 cupsLastError(void)
 {
-  return (_cupsGlobals()->last_error);
+  return (cupsGetError());
 }
 
 
 /*
- * 'cupsLastErrorString()' - Return the last IPP status-message received on the
- *                           current thread.
+ * 'cupsLastErrorString()' - Return the last IPP status-message received on the current thread.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @deprecated@
  */
 
 const char *				/* O - status-message text from last request */
 cupsLastErrorString(void)
 {
-  return (_cupsGlobals()->last_status_message);
+  return (cupsGetErrorString());
 }
 
 

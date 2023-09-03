@@ -282,7 +282,7 @@ print_job(int  outfd,			/* I - Command file descriptor */
            "ldfA%03dlocalhost\n"
            "UdfA%03dlocalhost\n"
            "N%s\n",
-	   cupsUser(), jobname, sequence, sequence, jobname);
+	   cupsGetUser(), jobname, sequence, sequence, jobname);
 
  /*
   * Send the control file...

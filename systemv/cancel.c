@@ -288,7 +288,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       }
       else
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                     "requesting-user-name", NULL, cupsUser());
+                     "requesting-user-name", NULL, cupsGetUser());
 
       if (purge)
       {
@@ -302,7 +302,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       * Do the request and get back a response...
       */
 
-      if (op == IPP_CANCEL_JOBS && (!user || _cups_strcasecmp(user, cupsUser())))
+      if (op == IPP_CANCEL_JOBS && (!user || _cups_strcasecmp(user, cupsGetUser())))
         response = cupsDoRequest(http, request, "/admin/");
       else
         response = cupsDoRequest(http, request, "/jobs/");
@@ -312,7 +312,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       {
 	_cupsLangPrintf(stderr, _("%s: %s failed: %s"), argv[0],
 	        	op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
-        		cupsLastErrorString());
+        		cupsGetErrorString());
 
           ippDelete(response);
 
@@ -360,7 +360,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     }
     else
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                   "requesting-user-name", NULL, cupsUser());
+                   "requesting-user-name", NULL, cupsGetUser());
 
     ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", (char)purge);
 
@@ -375,7 +375,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     {
       _cupsLangPrintf(stderr, _("%s: %s failed: %s"), argv[0],
 		      op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
-        	      cupsLastErrorString());
+        	      cupsGetErrorString());
 
       ippDelete(response);
 

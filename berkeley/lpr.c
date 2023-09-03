@@ -182,7 +182,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      {
 		char	email[1024];	/* EMail address */
 
-		snprintf(email, sizeof(email), "mailto:%s@%s", cupsUser(), httpGetHostname(NULL, buffer, sizeof(buffer)));
+		snprintf(email, sizeof(email), "mailto:%s@%s", cupsGetUser(), httpGetHostname(NULL, buffer, sizeof(buffer)));
 		num_options = cupsAddOption("notify-recipient-uri", email, num_options, &options);
 	      }
 	      break;
@@ -225,13 +225,13 @@ main(int  argc,				/* I - Number of command-line arguments */
 						dest->options[j].value,
 						num_options, &options);
 	      }
-	      else if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+	      else if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		       cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
 	      {
 		_cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		return (1);
 	      }
-	      else if (cupsLastError() == IPP_STATUS_ERROR_NOT_FOUND)
+	      else if (cupsGetError() == IPP_STATUS_ERROR_NOT_FOUND)
 	      {
 		_cupsLangPrintf(stderr,
 				_("%s: Error - The printer or class does not exist."), argv[0]);
@@ -340,8 +340,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 		                      dest->options[j].value,
 				      num_options, &options);
     }
-    else if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-	     cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+    else if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+	     cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
     {
       _cupsLangPrintf(stderr,
 		      _("%s: Error - add '/version=1.1' to server "
@@ -352,8 +352,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (printer == NULL)
   {
-    if (!cupsGetNamedDest(NULL, NULL, NULL) && cupsLastError() == IPP_STATUS_ERROR_NOT_FOUND)
-      _cupsLangPrintf(stderr, _("%s: Error - %s"), argv[0], cupsLastErrorString());
+    if (!cupsGetNamedDest(NULL, NULL, NULL) && cupsGetError() == IPP_STATUS_ERROR_NOT_FOUND)
+      _cupsLangPrintf(stderr, _("%s: Error - %s"), argv[0], cupsGetErrorString());
     else
       _cupsLangPrintf(stderr, _("%s: Error - scheduler not responding."), argv[0]);
 
@@ -406,7 +406,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_OK)
     {
-      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
       cupsCancelJob2(CUPS_HTTP_DEFAULT, printer, job_id, 0);
       return (1);
     }
@@ -414,7 +414,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (job_id < 1)
   {
-    _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+    _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
     return (1);
   }
 

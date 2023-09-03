@@ -153,7 +153,7 @@ cupsGetDevices(
   if (status != HTTP_STATUS_OK)
   {
     _cupsSetHTTPError(status);
-    return (cupsLastError());
+    return (cupsGetError());
   }
 
  /*
@@ -256,5 +256,5 @@ cupsGetDevices(
 
   ippDelete(response);
 
-  return (cupsLastError());
+  return (cupsGetError());
 }

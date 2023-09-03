@@ -248,7 +248,7 @@ dsc_header(int num_pages)		/* I - Number of pages or 0 if not known */
   const char	*job_id = getenv("IPP_JOB_ID");
 					/* job-id value */
 
-  ppdEmitJCL(ppd, stdout, job_id ? atoi(job_id) : 0, cupsUser(), job_name ? job_name : "Unknown");
+  ppdEmitJCL(ppd, stdout, job_id ? atoi(job_id) : 0, cupsGetUser(), job_name ? job_name : "Unknown");
 #endif /* !CUPS_LITE */
 
   puts("%!PS-Adobe-3.0");
@@ -816,7 +816,7 @@ pdf_to_ps(const char    *filename,	/* I - Filename */
 
   pdf_argv[0] = "printer";
   pdf_argv[1] = job_id;
-  pdf_argv[2] = cupsUser();
+  pdf_argv[2] = cupsGetUser();
   pdf_argv[3] = job_name;
   pdf_argv[4] = "1";
   pdf_argv[5] = pdf_options;

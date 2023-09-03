@@ -820,7 +820,7 @@ main(int  argc,				/* I - Number of command-line args */
       trust = httpCredentialsGetTrust(creds, hostname);
       httpCredentialsString(creds, credinfo, sizeof(credinfo));
 
-      fprintf(stderr, "DEBUG: %s (%s)\n", trust_msgs[trust], cupsLastErrorString());
+      fprintf(stderr, "DEBUG: %s (%s)\n", trust_msgs[trust], cupsGetErrorString());
       fprintf(stderr, "DEBUG: Printer credentials: %s\n", credinfo);
 
       if (!httpLoadCredentials(NULL, &lcreds, hostname))
@@ -930,10 +930,10 @@ main(int  argc,				/* I - Number of command-line args */
     }
 
     supported  = cupsDoRequest(http, request, resource);
-    ipp_status = cupsLastError();
+    ipp_status = cupsGetError();
 
     fprintf(stderr, "DEBUG: Get-Printer-Attributes: %s (%s)\n",
-            ippErrorString(ipp_status), cupsLastErrorString());
+            ippErrorString(ipp_status), cupsGetErrorString());
 
     if (ipp_status <= IPP_STATUS_OK_CONFLICTING)
       password_tries = 0;
@@ -1478,10 +1478,10 @@ main(int  argc,				/* I - Number of command-line args */
 
     response = cupsDoRequest(http, request, resource);
 
-    ipp_status = cupsLastError();
+    ipp_status = cupsGetError();
 
     fprintf(stderr, "DEBUG: Validate-Job: %s (%s)\n",
-            ippErrorString(ipp_status), cupsLastErrorString());
+            ippErrorString(ipp_status), cupsGetErrorString());
     debug_attributes(response);
 
     if ((job_auth = ippFindAttribute(response, "job-authorization-uri",
@@ -1682,11 +1682,11 @@ main(int  argc,				/* I - Number of command-line args */
       ippDelete(request);
     }
 
-    ipp_status = cupsLastError();
+    ipp_status = cupsGetError();
 
     fprintf(stderr, "DEBUG: %s: %s (%s)\n",
             (num_files > 1 || create_job) ? "Create-Job" : "Print-Job",
-            ippErrorString(ipp_status), cupsLastErrorString());
+            ippErrorString(ipp_status), cupsGetErrorString());
     debug_attributes(response);
 
     if (ipp_status > IPP_STATUS_OK_CONFLICTING)
@@ -1877,15 +1877,15 @@ main(int  argc,				/* I - Number of command-line args */
 	response = cupsGetResponse(http, resource);
 	ippDelete(request);
 
-	fprintf(stderr, "DEBUG: Send-Document: %s (%s)\n", ippErrorString(cupsLastError()), cupsLastErrorString());
+	fprintf(stderr, "DEBUG: Send-Document: %s (%s)\n", ippErrorString(cupsGetError()), cupsGetErrorString());
         debug_attributes(response);
 
-	if (cupsLastError() > IPP_STATUS_OK_CONFLICTING && !job_canceled)
+	if (cupsGetError() > IPP_STATUS_OK_CONFLICTING && !job_canceled)
 	{
 	  ipp_attribute_t *reasons = ippFindAttribute(response, "job-state-reasons", IPP_TAG_KEYWORD);
 					/* job-state-reasons values */
 
-	  ipp_status = cupsLastError();
+	  ipp_status = cupsGetError();
 
           if (ippContainsString(reasons, "document-format-error"))
             ipp_status = IPP_STATUS_ERROR_DOCUMENT_FORMAT_ERROR;
@@ -2031,7 +2031,7 @@ main(int  argc,				/* I - Number of command-line args */
 
       check_printer_state(http, uri, resource, argv[2], version);
 
-      if (cupsLastError() <= IPP_STATUS_OK_CONFLICTING)
+      if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
         password_tries = 0;
 
      /*
@@ -2064,7 +2064,7 @@ main(int  argc,				/* I - Number of command-line args */
 
       httpReconnect2(http, 30000, NULL);
       response   = cupsDoRequest(http, request, resource);
-      ipp_status = cupsLastError();
+      ipp_status = cupsGetError();
 
       if (ipp_status == IPP_STATUS_ERROR_NOT_FOUND || ipp_status == IPP_STATUS_ERROR_NOT_POSSIBLE)
       {
@@ -2081,7 +2081,7 @@ main(int  argc,				/* I - Number of command-line args */
       }
 
       fprintf(stderr, "DEBUG: Get-Job-Attributes: %s (%s)\n",
-	      ippErrorString(ipp_status), cupsLastErrorString());
+	      ippErrorString(ipp_status), cupsGetErrorString());
       debug_attributes(response);
 
       if (ipp_status <= IPP_STATUS_OK_CONFLICTING)
@@ -2178,7 +2178,7 @@ main(int  argc,				/* I - Number of command-line args */
   {
     cancel_job(http, uri, job_id, resource, argv[2], version);
 
-    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+    if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
       _cupsLangPrintFilter(stderr, "ERROR", _("Unable to cancel print job."));
   }
 
@@ -2188,7 +2188,7 @@ main(int  argc,				/* I - Number of command-line args */
 
   check_printer_state(http, uri, resource, argv[2], version);
 
-  if (cupsLastError() <= IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
     password_tries = 0;
 
  /*
@@ -2426,7 +2426,7 @@ check_printer_state(
   }
 
   fprintf(stderr, "DEBUG: Get-Printer-Attributes: %s (%s)\n",
-	  ippErrorString(cupsLastError()), cupsLastErrorString());
+	  ippErrorString(cupsGetError()), cupsGetErrorString());
   debug_attributes(response);
   ippDelete(response);
 
@@ -2544,7 +2544,7 @@ monitor_printer(
                                                    monitor->resource,
 						   monitor->user,
 						   monitor->version);
-      if (cupsLastError() <= IPP_STATUS_OK_CONFLICTING)
+      if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
         password_tries = 0;
 
       if (monitor->job_id == 0 && monitor->create_job)
@@ -2586,9 +2586,9 @@ monitor_printer(
       response = cupsDoRequest(http, request, monitor->resource);
 
       fprintf(stderr, "DEBUG: (monitor) %s: %s (%s)\n", ippOpString(job_op),
-	      ippErrorString(cupsLastError()), cupsLastErrorString());
+	      ippErrorString(cupsGetError()), cupsGetErrorString());
 
-      if (cupsLastError() <= IPP_STATUS_OK_CONFLICTING)
+      if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
         password_tries = 0;
 
       if (job_op == IPP_OP_GET_JOB_ATTRIBUTES)
@@ -2761,9 +2761,9 @@ monitor_printer(
       cancel_job(http, monitor->uri, monitor->job_id, monitor->resource,
                  monitor->user, monitor->version);
 
-      if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+      if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
       {
-	fprintf(stderr, "DEBUG: (monitor) cancel_job() = %s\n", cupsLastErrorString());
+	fprintf(stderr, "DEBUG: (monitor) cancel_job() = %s\n", cupsGetErrorString());
 	_cupsLangPrintFilter(stderr, "ERROR", _("Unable to cancel print job."));
       }
     }

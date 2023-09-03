@@ -1552,7 +1552,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   else if (!ippValidateAttribute(attr))
   {
     send_ipp_status(con, IPP_ATTRIBUTES, _("Bad job-name value: %s"),
-                    cupsLastErrorString());
+                    cupsGetErrorString());
 
     if ((attr = ippCopyAttribute(con->response, attr, 0)) != NULL)
       attr->group_tag = IPP_TAG_UNSUPPORTED_GROUP;
@@ -5342,7 +5342,7 @@ create_local_bg_thread(
 
   if ((http = httpConnect2(host, port, NULL, AF_UNSPEC, encryption, 1, 30000, NULL)) == NULL)
   {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to connect to %s:%d: %s", printer->name, host, port, cupsLastErrorString());
+    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to connect to %s:%d: %s", printer->name, host, port, cupsGetErrorString());
     return (NULL);
   }
 
@@ -5358,9 +5358,9 @@ create_local_bg_thread(
   ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
   response = cupsDoRequest(http, request, resource);
-  status   = cupsLastError();
+  status   = cupsGetError();
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsLastError()), cupsLastErrorString());
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsGetError()), cupsGetErrorString());
 
   if (status == IPP_STATUS_ERROR_BAD_REQUEST || status == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
@@ -5380,7 +5380,7 @@ create_local_bg_thread(
 
     response = cupsDoRequest(http, request, resource);
 
-    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: IPP/1.1 Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsLastError()), cupsLastErrorString());
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: IPP/1.1 Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsGetError()), cupsGetErrorString());
   }
 
  /*
@@ -5401,7 +5401,7 @@ create_local_bg_thread(
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
 		 "requested-attributes", NULL, "media-col-database");
     response2 = cupsDoRequest(http, request, resource);
-    //ipp_status = cupsLastError();
+    //ipp_status = cupsGetError();
     if (response2)
     {
       if ((attr = ippFindAttribute(response2, "media-col-database",
@@ -5475,7 +5475,7 @@ create_local_bg_thread(
     }
   }
   else
-    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: PPD creation failed: %s", printer->name, cupsLastErrorString());
+    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: PPD creation failed: %s", printer->name, cupsGetErrorString());
 
   ippDelete(response);
 

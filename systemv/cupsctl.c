@@ -189,13 +189,13 @@ main(int  argc,				/* I - Number of command-line args */
   {
     if (!cupsAdminSetServerSettings(http, num_settings, settings))
     {
-      _cupsLangPrintf(stderr, "cupsctl: %s", cupsLastErrorString());
+      _cupsLangPrintf(stderr, "cupsctl: %s", cupsGetErrorString());
       return (1);
     }
   }
   else if (!cupsAdminGetServerSettings(http, &num_settings, &settings))
   {
-    _cupsLangPrintf(stderr, "cupsctl: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "cupsctl: %s", cupsGetErrorString());
     return (1);
   }
   else

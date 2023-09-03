@@ -4316,7 +4316,7 @@ http_send(http_t       *http,		/* I - HTTP connection */
     if (http->default_fields[HTTP_FIELD_USER_AGENT])
       httpSetField(http, HTTP_FIELD_USER_AGENT, http->default_fields[HTTP_FIELD_USER_AGENT]);
     else
-      httpSetField(http, HTTP_FIELD_USER_AGENT, cupsUserAgent());
+      httpSetField(http, HTTP_FIELD_USER_AGENT, cupsGetUserAgent());
   }
 
  /*

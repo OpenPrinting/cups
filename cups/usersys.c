@@ -113,6 +113,19 @@ static void	cups_set_user(_cups_client_conf_t *cc, const char *value);
 /*
  * 'cupsEncryption()' - Get the current encryption settings.
  *
+ * @deprecated@
+ */
+
+http_encryption_t			/* O - Encryption settings */
+cupsEncryption(void)
+{
+  return (cupsGetEncryption());
+}
+
+
+/*
+ * 'cupsGetEncryption()' - Get the current encryption settings.
+ *
  * The default encryption setting comes from the CUPS_ENCRYPTION
  * environment variable, then the ~/.cups/client.conf file, and finally the
  * /etc/cups/client.conf file. If not set, the default is
@@ -122,10 +135,12 @@ static void	cups_set_user(_cups_client_conf_t *cc, const char *value);
  * in a program. Multi-threaded programs that override the setting via the
  * @link cupsSetEncryption@ function need to do so in each thread for the same
  * setting to be used.
+ *
+ * @since CUPS 2.5@
  */
 
 http_encryption_t			/* O - Encryption settings */
-cupsEncryption(void)
+cupsGetEncryption(void)
 {
   _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
 
@@ -193,6 +208,81 @@ cupsGetPassword2(const char *prompt,	/* I - Prompt string */
 
 
 /*
+ * 'cupsGetServer()' - Return the hostname/address of the current server.
+ *
+ * The default server comes from the CUPS_SERVER environment variable, then the
+ * ~/.cups/client.conf file, and finally the /etc/cups/client.conf file. If not
+ * set, the default is the local system - either "localhost" or a domain socket
+ * path.
+ *
+ * The returned value can be a fully-qualified hostname, a numeric IPv4 or IPv6
+ * address, or a domain socket pathname.
+ *
+ * Note: The current server is tracked separately for each thread in a program.
+ * Multi-threaded programs that override the server via the
+ * @link cupsSetServer@ function need to do so in each thread for the same
+ * server to be used.
+ *
+ * @since CUPS 2.5@
+ */
+
+const char *				/* O - Server name */
+cupsGetServer(void)
+{
+  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
+
+
+  if (!cg->server[0])
+    _cupsSetDefaults();
+
+  return (cg->server);
+}
+
+
+/*
+ * 'cupsGetUser()' - Return the current user's name.
+ *
+ * Note: The current user name is tracked separately for each thread in a
+ * program. Multi-threaded programs that override the user name with the
+ * @link cupsSetUser@ function need to do so in each thread for the same user
+ * name to be used.
+ *
+ * @since CUPS 2.5@
+ */
+
+const char *				/* O - User name */
+cupsGetUser(void)
+{
+  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
+
+
+  if (!cg->user[0])
+    _cupsSetDefaults();
+
+  return (cg->user);
+}
+
+
+/*
+ * 'cupsGetUserAgent()' - Return the default HTTP User-Agent string.
+ *
+ * @since CUPS 2.5@
+ */
+
+const char *				/* O - User-Agent string */
+cupsGetUserAgent(void)
+{
+  _cups_globals_t *cg = _cupsGlobals();	/* Thread globals */
+
+
+  if (!cg->user_agent[0])
+    cupsSetUserAgent(NULL);
+
+  return (cg->user_agent);
+}
+
+
+/*
  * 'cupsServer()' - Return the hostname/address of the current server.
  *
  * The default server comes from the CUPS_SERVER environment variable, then the
@@ -207,18 +297,14 @@ cupsGetPassword2(const char *prompt,	/* I - Prompt string */
  * Multi-threaded programs that override the server via the
  * @link cupsSetServer@ function need to do so in each thread for the same
  * server to be used.
+ *
+ * @deprecated@
  */
 
 const char *				/* O - Server name */
 cupsServer(void)
 {
-  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
-
-
-  if (!cg->server[0])
-    _cupsSetDefaults();
-
-  return (cg->server);
+  return (cupsGetServer());
 }
 
 
@@ -231,7 +317,7 @@ cupsServer(void)
  * in a program. Multi-threaded programs that override the callback need to do
  * so in each thread for the same callback to be used.
  *
- * @since CUPS 1.5/macOS 10.7@
+ * @deprecated@
  */
 
 void
@@ -239,11 +325,8 @@ cupsSetClientCertCB(
     cups_client_cert_cb_t cb,		/* I - Callback function */
     void                  *user_data)	/* I - User data pointer */
 {
-  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
-
-
-  cg->client_cert_cb	= cb;
-  cg->client_cert_data	= user_data;
+  (void)cb;
+  (void)user_data;
 }
 
 
@@ -251,27 +334,16 @@ cupsSetClientCertCB(
  * 'cupsSetCredentials()' - Set the default credentials to be used for SSL/TLS
  *			    connections.
  *
- * Note: The default credentials are tracked separately for each thread in a
- * program. Multi-threaded programs that override the setting need to do so in
- * each thread for the same setting to be used.
- *
- * @since CUPS 1.5/macOS 10.7@
+ * @deprecated@
  */
 
 int					/* O - Status of call (0 = success) */
 cupsSetCredentials(
     cups_array_t *credentials)		/* I - Array of credentials */
 {
-  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
+  (void)credentials;
 
-
-  if (cupsArrayCount(credentials) < 1)
-    return (-1);
-
-  _httpFreeCredentials(cg->tls_credentials);
-  cg->tls_credentials = _httpCreateCredentials(credentials);
-
-  return (cg->tls_credentials ? 0 : -1);
+  return (-1);
 }
 
 
@@ -485,7 +557,7 @@ cupsSetServer(const char *server)	/* I - Server name */
  * in a program. Multi-threaded programs that override the callback need to do
  * so in each thread for the same callback to be used.
  *
- * @since CUPS 1.5/macOS 10.7@
+ * @deprecated@
  */
 
 void
@@ -493,11 +565,8 @@ cupsSetServerCertCB(
     cups_server_cert_cb_t cb,		/* I - Callback function */
     void		  *user_data)	/* I - User data pointer */
 {
-  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
-
-
-  cg->server_cert_cb	= cb;
-  cg->server_cert_data	= user_data;
+  (void)cb;
+  (void)user_data;
 }
 
 
@@ -679,37 +748,27 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
  * program. Multi-threaded programs that override the user name with the
  * @link cupsSetUser@ function need to do so in each thread for the same user
  * name to be used.
+ *
+ * @deprecated@
  */
 
 const char *				/* O - User name */
 cupsUser(void)
 {
-  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
-
-
-  if (!cg->user[0])
-    _cupsSetDefaults();
-
-  return (cg->user);
+  return (cupsGetUser());
 }
 
 
 /*
  * 'cupsUserAgent()' - Return the default HTTP User-Agent string.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @deprecated@
  */
 
 const char *				/* O - User-Agent string */
 cupsUserAgent(void)
 {
-  _cups_globals_t *cg = _cupsGlobals();	/* Thread globals */
-
-
-  if (!cg->user_agent[0])
-    cupsSetUserAgent(NULL);
-
-  return (cg->user_agent);
+  return (cupsGetUserAgent());
 }
 
 

@@ -44,13 +44,13 @@ cupsCancelDestJob(http_t      *http,	/* I - Connection to destination */
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, info->uri);
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", job_id);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
     ippDelete(cupsDoRequest(http, request, info->resource));
     cupsFreeDestInfo(info);
   }
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -129,7 +129,7 @@ cupsCloseDestJob(
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id",
                 job_id);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (ippGetOperation(request) == IPP_OP_SEND_DOCUMENT)
     ippAddBoolean(request, IPP_TAG_OPERATION, "last-document", 1);
 
@@ -139,10 +139,10 @@ cupsCloseDestJob(
 
   ippDelete(cupsDoRequest(http, request, info->resource));
 
-  DEBUG_printf(("1cupsCloseDestJob: %s (%s)", ippErrorString(cupsLastError()),
-                cupsLastErrorString()));
+  DEBUG_printf(("1cupsCloseDestJob: %s (%s)", ippErrorString(cupsGetError()),
+                cupsGetErrorString()));
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -210,7 +210,7 @@ cupsCreateDestJob(
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                NULL, info->uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (title)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name", NULL,
                  title);
@@ -237,10 +237,10 @@ cupsCreateDestJob(
   * Return the status code from the Create-Job request...
   */
 
-  DEBUG_printf(("1cupsCreateDestJob: %s (%s)", ippErrorString(cupsLastError()),
-                cupsLastErrorString()));
+  DEBUG_printf(("1cupsCreateDestJob: %s (%s)", ippErrorString(cupsGetError()),
+                cupsGetErrorString()));
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -285,9 +285,9 @@ cupsFinishDestDocument(
   ippDelete(cupsGetResponse(http, info->resource));
 
   DEBUG_printf(("1cupsFinishDestDocument: %s (%s)",
-                ippErrorString(cupsLastError()), cupsLastErrorString()));
+                ippErrorString(cupsGetError()), cupsGetErrorString()));
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -358,7 +358,7 @@ cupsStartDestDocument(
                NULL, info->uri);
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", job_id);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (docname)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "document-name",
                  NULL, docname);

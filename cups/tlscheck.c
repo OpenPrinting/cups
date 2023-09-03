@@ -170,7 +170,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (!http)
   {
-    printf("%s: ERROR (%s)\n", server, cupsLastErrorString());
+    printf("%s: ERROR (%s)\n", server, cupsGetErrorString());
     return (1);
   }
 
@@ -763,7 +763,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipps", NULL, server, port, resource);
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
     ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
     response = cupsDoRequest(http, request, resource);

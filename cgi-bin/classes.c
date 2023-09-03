@@ -235,12 +235,12 @@ do_class_op(http_t      *http,		/* I - HTTP connection */
   snprintf(resource, sizeof(resource), "/classes/%s", printer);
   ippDelete(cupsDoRequest(http, request, resource));
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_OK_CONFLICT)
   {
     cgiStartHTML(title);
     cgiShowIPPError(_("Unable to do maintenance command"));

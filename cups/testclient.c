@@ -676,7 +676,7 @@ monitor_printer(
 
       request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->uri);
-      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
       ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
       response = cupsDoRequest(http, request, data->resource);
@@ -706,7 +706,7 @@ monitor_printer(
         request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->uri);
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", data->job_id);
-        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(jattrs) / sizeof(jattrs[0])), NULL, jattrs);
 
         response = cupsDoRequest(http, request, data->resource);
@@ -794,7 +794,7 @@ run_client(
 
   request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
   ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
   response = cupsDoRequest(http, request, ldata.resource);
@@ -861,7 +861,7 @@ run_client(
   {
     request = ippNewRequest(IPP_OP_CREATE_JOB);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
     if ((name = strrchr(ldata.docfile, '/')) != NULL)
       name ++;
@@ -878,25 +878,25 @@ run_client(
     if (verbosity)
       show_attributes("Create-Job response", 0, response);
 
-    if (cupsLastError() == IPP_STATUS_ERROR_BUSY)
+    if (cupsGetError() == IPP_STATUS_ERROR_BUSY)
     {
       puts("Printer is busy - retrying in 5 seconds...");
       sleep(5);
       ippDelete(response);
       response = NULL;
     }
-    else if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+    else if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
     {
-      printf("Unable to create print job: %s\n", cupsLastErrorString());
+      printf("Unable to create print job: %s\n", cupsGetErrorString());
 
       ldata.job_state = IPP_JSTATE_ABORTED;
       ippDelete(response);
       response = NULL;
     }
   }
-  while (cupsLastError() == IPP_STATUS_ERROR_BUSY);
+  while (cupsGetError() == IPP_STATUS_ERROR_BUSY);
 
-  if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+  if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
     goto cleanup;
 
   if ((attr = ippFindAttribute(response, "job-id", IPP_TAG_INTEGER)) == NULL)
@@ -917,7 +917,7 @@ run_client(
   request = ippNewRequest(IPP_OP_SEND_DOCUMENT);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", ldata.job_id);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_MIMETYPE, "document-format", NULL, ldata.docformat);
   ippAddBoolean(request, IPP_TAG_OPERATION, "last-document", 1);
 
@@ -929,9 +929,9 @@ run_client(
   if (verbosity)
     show_attributes("Send-Document response", 0, response);
 
-  if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+  if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
   {
-    printf("Unable to print file: %s\n", cupsLastErrorString());
+    printf("Unable to print file: %s\n", cupsGetErrorString());
 
     ldata.job_state = IPP_JSTATE_ABORTED;
 

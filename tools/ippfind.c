@@ -2292,23 +2292,23 @@ list_service(ippfind_srv_t *service)	/* I - Service */
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
                    service->uri);
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                   "requesting-user-name", NULL, cupsUser());
+                   "requesting-user-name", NULL, cupsGetUser());
       ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                     "requested-attributes",
                     (int)(sizeof(rattrs) / sizeof(rattrs[0])), NULL, rattrs);
 
       response = cupsDoRequest(http, request, service->resource);
 
-      if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST && version > 11)
+      if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST && version > 11)
         version = 11;
     }
-    while (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE && version > 11);
+    while (cupsGetError() > IPP_STATUS_OK_EVENTS_COMPLETE && version > 11);
 
    /*
     * Show results...
     */
 
-    if (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE)
+    if (cupsGetError() > IPP_STATUS_OK_EVENTS_COMPLETE)
     {
       _cupsLangPrintf(stdout, "%s: unavailable", service->uri);
       return (0);

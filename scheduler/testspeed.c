@@ -324,13 +324,13 @@ do_test(const char        *server,	/* I - Server to use */
               0.000001 * (end.tv_usec - start.tv_usec);
     elapsed += reqtime;
 
-    switch (cupsLastError())
+    switch (cupsGetError())
     {
       case IPP_OK :
       case IPP_NOT_FOUND :
           if (verbose)
 	  {
-	    printf("succeeded: %s (%.6f)\n", cupsLastErrorString(), reqtime);
+	    printf("succeeded: %s (%.6f)\n", cupsGetErrorString(), reqtime);
 	    fflush(stdout);
 	  }
           break;
@@ -340,7 +340,7 @@ do_test(const char        *server,	/* I - Server to use */
 	    printf("testspeed(%d): %s ", (int)getpid(),
 	           ippOpString(ops[i & 3]));
 
-	  printf("failed: %s\n", cupsLastErrorString());
+	  printf("failed: %s\n", cupsGetErrorString());
           httpClose(http);
 	  return (1);
     }

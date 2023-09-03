@@ -288,7 +288,7 @@ extern void		_cupsSetHTTPError(http_status_t status) _CUPS_INTERNAL;
 #  ifdef HAVE_GSSAPI
 extern int		_cupsSetNegotiateAuthString(http_t *http, const char *method, const char *resource) _CUPS_PRIVATE;
 #  endif /* HAVE_GSSAPI */
-extern char		*_cupsUserDefault(char *name, size_t namesize) _CUPS_INTERNAL;
+extern char		*_cupsGetUserDefault(char *name, size_t namesize) _CUPS_INTERNAL;
 
 
 /*

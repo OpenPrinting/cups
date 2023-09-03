@@ -187,7 +187,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 
       if (cupsCancelJob2(CUPS_HTTP_DEFAULT, name, job_id, 0) != IPP_OK)
       {
-        _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+        _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
 	goto error;
       }
 
@@ -202,7 +202,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 
   if (!did_cancel && cupsCancelJob2(CUPS_HTTP_DEFAULT, name, 0, 0) != IPP_OK)
     {
-      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
       goto error;
     }
 

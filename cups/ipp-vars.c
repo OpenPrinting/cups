@@ -149,7 +149,7 @@ _ippVarsGet(_ipp_vars_t *v,		/* I - IPP variables */
   else if (!strcmp(name, "resource"))
     return (v->resource);
   else if (!strcmp(name, "user"))
-    return (cupsUser());
+    return (cupsGetUser());
   else
     return (cupsGetOption(name, v->num_vars, v->vars));
 }

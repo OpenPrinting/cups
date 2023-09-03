@@ -295,7 +295,7 @@ show_devices(
   if (cupsGetDevices(CUPS_HTTP_DEFAULT, timeout, include_schemes,
                      exclude_schemes, device_cb, &long_status) != IPP_OK)
   {
-    _cupsLangPrintf(stderr, "lpinfo: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
     return (1);
   }
 
@@ -374,7 +374,7 @@ show_models(
 
     if (response->request.status.status_code > IPP_OK_CONFLICT)
     {
-      _cupsLangPrintf(stderr, "lpinfo: %s", cupsLastErrorString());
+      _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
       ippDelete(response);
       return (1);
     }
@@ -473,7 +473,7 @@ show_models(
   }
   else
   {
-    _cupsLangPrintf(stderr, "lpinfo: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
 
     return (1);
   }

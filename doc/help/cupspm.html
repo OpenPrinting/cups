@@ -395,8 +395,8 @@ span.string {
 <li><a href="#cupsSetUser">cupsSetUser</a></li>
 <li><a href="#cupsSetUserAgent">cupsSetUserAgent</a></li>
 <li><a href="#cupsStartDestDocument">cupsStartDestDocument</a></li>
-<li><a href="#cupsUser">cupsUser</a></li>
-<li><a href="#cupsUserAgent">cupsUserAgent</a></li>
+<li><a href="#cupsGetUser">cupsGetUser</a></li>
+<li><a href="#cupsGetUserAgent">cupsGetUserAgent</a></li>
 <li><a href="#httpAcceptConnection">httpAcceptConnection</a></li>
 <li><a href="#httpAddCredential">httpAddCredential</a></li>
 <li><a href="#httpAddrAny">httpAddrAny</a></li>
@@ -809,7 +809,7 @@ int main(void)
 </li>
 <li><p><code>CUPS_DEST_FLAGS_REMOVED</code>: The destination has gone away and should be removed from the list of destinations a user can select.</p>
 </li>
-<li><p><code>CUPS_DEST_FLAGS_ERROR</code>: An error occurred. The reason for the error can be found by calling the <code>cupsLastError</code> and/or <code>cupsLastErrorString</code> functions.</p>
+<li><p><code>CUPS_DEST_FLAGS_ERROR</code>: An error occurred. The reason for the error can be found by calling the <code>cupsGetError</code> and/or <code>cupsGetErrorString</code> functions.</p>
 </li>
 </ul>
 <p>The callback function returns 0 to stop enumeration or 1 to continue.</p>
@@ -1179,7 +1179,7 @@ if (cupsCreateDestJob(CUPS_HTTP_DEFAULT, dest, info,
   printf(&quot;Created job: %d\n&quot;, job_id);
 else
   printf(&quot;Unable to create job: %s\n&quot;,
-         cupsLastErrorString());
+         cupsGetErrorString());
 </code></pre>
 <p>Once the job is created, you submit documents for the job using the <code>cupsStartDestDocument</code>, <code>cupsWriteRequestData</code>, and <code>cupsFinishDestDocument</code> functions:</p>
 <pre><code>http_status_t
@@ -1230,7 +1230,7 @@ if (cupsStartDestDocument(CUPS_HTTP_DEFAULT, dest, info,
     puts(&quot;Document send succeeded.&quot;);
   else
     printf(&quot;Document send failed: %s\n&quot;,
-           cupsLastErrorString());
+           cupsGetErrorString());
 }
 
 fclose(fp);
@@ -1328,17 +1328,17 @@ ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                                     filename);
 </code></pre>
 <p>Both <code>cupsDoRequest</code> and <code>cupsDoFileRequest</code> free the IPP request. If a valid IPP response is received, it is stored in a new IPP message (<code>ipp_t</code>) and returned to the caller. Otherwise <code>NULL</code> is returned.</p>
-<p>The status from the most recent request can be queried using the <code>cupsLastError</code> function, for example:</p>
-<pre><code>if (cupsLastError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
+<p>The status from the most recent request can be queried using the <code>cupsGetError</code> function, for example:</p>
+<pre><code>if (cupsGetError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
 {
   /* request failed */
 }
 </code></pre>
-<p>A human-readable error message is also available using the <code>cupsLastErrorString</code> function:</p>
-<pre><code>if (cupsLastError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
+<p>A human-readable error message is also available using the <code>cupsGetErrorString</code> function:</p>
+<pre><code>if (cupsGetError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
 {
   /* request failed */
-  printf(&quot;Request failed: %s\n&quot;, cupsLastErrorString());
+  printf(&quot;Request failed: %s\n&quot;, cupsGetErrorString());
 }
 </code></pre>
 <h3 class="title" id="processing-the-ipp-response">Processing the IPP Response</h3>
@@ -3744,10 +3744,10 @@ if this is the last document to be submitted in the job.  Returns
 <code>HTTP_CONTINUE</code> on success.
 
 </p>
-<h3 class="function"><a id="cupsUser">cupsUser</a></h3>
+<h3 class="function"><a id="cupsGetUser">cupsGetUser</a></h3>
 <p class="description">Return the current user's name.</p>
 <p class="code">
-const char *cupsUser(void);</p>
+const char *cupsGetUser(void);</p>
 <h4 class="returnvalue">Return Value</h4>
 <p class="description">User name</p>
 <h4 class="discussion">Discussion</h4>
@@ -3755,10 +3755,10 @@ const char *cupsUser(void);</p>
 program. Multi-threaded programs that override the user name with the
 <a href="#cupsSetUser"><code>cupsSetUser</code></a> function need to do so in each thread for the same user
 name to be used.</p>
-<h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="cupsUserAgent">cupsUserAgent</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="cupsGetUserAgent">cupsGetUserAgent</a></h3>
 <p class="description">Return the default HTTP User-Agent string.</p>
 <p class="code">
-const char *cupsUserAgent(void);</p>
+const char *cupsGetUserAgent(void);</p>
 <h4 class="returnvalue">Return Value</h4>
 <p class="description">User-Agent string</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="httpAcceptConnection">httpAcceptConnection</a></h3>
@@ -6979,7 +6979,7 @@ int ippValidateAttribute(<a href="#ipp_attribute_t">ipp_attribute_t</a> *attr);<
 <h4 class="discussion">Discussion</h4>
 <p class="discussion">This function validates the contents of an attribute based on the name and
 value tag.  1 is returned if the attribute is valid, 0 otherwise.  On
-failure, <a href="#cupsLastErrorString"><code>cupsLastErrorString</code></a> is set to a human-readable message.
+failure, <a href="#cupsGetErrorString"><code>cupsGetErrorString</code></a> is set to a human-readable message.
 
 </p>
 <h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="ippValidateAttributes">ippValidateAttributes</a></h3>
@@ -6995,7 +6995,7 @@ int ippValidateAttributes(<a href="#ipp_t">ipp_t</a> *ipp);</p>
 <p class="description">1 if valid, 0 otherwise</p>
 <h4 class="discussion">Discussion</h4>
 <p class="discussion">This function validates the contents of the IPP message, including each
-attribute.  Like <a href="#ippValidateAttribute"><code>ippValidateAttribute</code></a>, <a href="#cupsLastErrorString"><code>cupsLastErrorString</code></a> is
+attribute.  Like <a href="#ippValidateAttribute"><code>ippValidateAttribute</code></a>, <a href="#cupsGetErrorString"><code>cupsGetErrorString</code></a> is
 set to a human-readable message on failure.
 
 </p>

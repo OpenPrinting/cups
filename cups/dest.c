@@ -897,7 +897,7 @@ _cupsCreateDest(const char *name,	/* I - Printer name */
   request = ippNewRequest(IPP_OP_CUPS_CREATE_LOCAL_PRINTER);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, "ipp://localhost/");
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
   ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_URI, "device-uri", NULL, device_uri);
   ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME, "printer-name", NULL, name);
@@ -920,7 +920,7 @@ _cupsCreateDest(const char *name,	/* I - Printer name */
   if ((attr = ippFindAttribute(response, "printer-state", IPP_TAG_ENUM)) != NULL)
     state = (ipp_pstate_t)ippGetInteger(attr, 0);
 
-  while (state == IPP_PSTATE_STOPPED && cupsLastError() == IPP_STATUS_OK)
+  while (state == IPP_PSTATE_STOPPED && cupsGetError() == IPP_STATUS_OK)
   {
     sleep(1);
     ippDelete(response);
@@ -928,7 +928,7 @@ _cupsCreateDest(const char *name,	/* I - Printer name */
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", NULL, "printer-state");
 
     response = cupsDoRequest(http, request, "/");
@@ -1427,7 +1427,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		NULL, pattrs);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+               "requesting-user-name", NULL, cupsGetUser());
 
   if (name && op != IPP_OP_CUPS_GET_DEFAULT)
   {
@@ -1770,7 +1770,7 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
   if (!dest_name)
   {
     set_as_default = 1;
-    dest_name      = _cupsUserDefault(defname, sizeof(defname));
+    dest_name      = _cupsGetUserDefault(defname, sizeof(defname));
 
     if (dest_name)
     {
@@ -2064,7 +2064,7 @@ cupsSetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
 
   num_temps = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &temps, 0, 0);
 
-  if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+  if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
   {
     cupsFreeDests(num_temps, temps);
     return (-1);
@@ -2250,12 +2250,12 @@ cupsSetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
 
 
 /*
- * '_cupsUserDefault()' - Get the user default printer from environment
+ * '_cupsGetUserDefault()' - Get the user default printer from environment
  *                        variables and location information.
  */
 
 char *					/* O - Default printer or NULL */
-_cupsUserDefault(char   *name,		/* I - Name buffer */
+_cupsGetUserDefault(char   *name,		/* I - Name buffer */
                  size_t namesize)	/* I - Size of name buffer */
 {
   const char	*env;			/* LPDEST or PRINTER env variable */
@@ -2288,7 +2288,7 @@ _cupsUserDefault(char   *name,		/* I - Name buffer */
   else
     name[0] = '\0';
 
-  DEBUG_printf(("1_cupsUserDefault: Returning \"%s\".", name));
+  DEBUG_printf(("1_cupsGetUserDefault: Returning \"%s\".", name));
 
   return (*name ? name : NULL);
 
@@ -3456,7 +3456,7 @@ cups_enum_dests(
 
   memset(&data, 0, sizeof(data));
 
-  user_default = _cupsUserDefault(data.def_name, sizeof(data.def_name));
+  user_default = _cupsGetUserDefault(data.def_name, sizeof(data.def_name));
 
   snprintf(filename, sizeof(filename), "%s/lpoptions", cg->cups_serverroot);
   data.num_dests = cups_get_dests(filename, NULL, NULL, 1, user_default != NULL, data.num_dests, &data.dests);

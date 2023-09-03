@@ -146,7 +146,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   ippAddStrings(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD, "notify-events",
                 num_events, NULL, events);
@@ -154,10 +154,10 @@ main(int  argc,				/* I - Number of command-line arguments */
                "notify-pull-method", NULL, "ippget");
 
   response = cupsDoRequest(http, request, uri);
-  if (cupsLastError() >= IPP_BAD_REQUEST)
+  if (cupsGetError() >= IPP_BAD_REQUEST)
   {
     fprintf(stderr, "Create-%s-Subscription: %s\n",
-            strstr(uri, "/jobs") ? "Job" : "Printer", cupsLastErrorString());
+            strstr(uri, "/jobs") ? "Job" : "Printer", cupsGetErrorString());
     ippDelete(response);
     httpClose(http);
     return (1);
@@ -203,7 +203,7 @@ main(int  argc,				/* I - Number of command-line arguments */
                    uri);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                 "requesting-user-name", NULL, cupsUser());
+                 "requesting-user-name", NULL, cupsGetUser());
 
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
                   "notify-subscription-ids", subscription_id);
@@ -213,10 +213,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     response = cupsDoRequest(http, request, uri);
 
-    printf(" %s\n", ippErrorString(cupsLastError()));
+    printf(" %s\n", ippErrorString(cupsGetError()));
 
-    if (cupsLastError() >= IPP_BAD_REQUEST)
-      fprintf(stderr, "Get-Notifications: %s\n", cupsLastErrorString());
+    if (cupsGetError() >= IPP_BAD_REQUEST)
+      fprintf(stderr, "Get-Notifications: %s\n", cupsGetErrorString());
     else if (response)
     {
       print_attributes(response, 0);
@@ -257,17 +257,17 @@ main(int  argc,				/* I - Number of command-line arguments */
                  uri);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
                 "notify-subscription-id", subscription_id);
 
   ippDelete(cupsDoRequest(http, request, uri));
 
-  printf(" %s\n", ippErrorString(cupsLastError()));
+  printf(" %s\n", ippErrorString(cupsGetError()));
 
-  if (cupsLastError() >= IPP_BAD_REQUEST)
-    fprintf(stderr, "Cancel-Subscription: %s\n", cupsLastErrorString());
+  if (cupsGetError() >= IPP_BAD_REQUEST)
+    fprintf(stderr, "Cancel-Subscription: %s\n", cupsGetErrorString());
 
  /*
   * Close the connection and return...

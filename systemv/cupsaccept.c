@@ -174,7 +174,7 @@ main(int  argc,				/* I - Number of command-line arguments */
                    "printer-uri", NULL, uri);
 
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                   "requesting-user-name", NULL, cupsUser());
+                   "requesting-user-name", NULL, cupsGetUser());
 
       if (reason != NULL)
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
@@ -186,11 +186,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-      if (cupsLastError() > IPP_OK_CONFLICT)
+      if (cupsGetError() > IPP_OK_CONFLICT)
       {
 	_cupsLangPrintf(stderr,
 			_("%s: Operation failed: %s"),
-			command, ippErrorString(cupsLastError()));
+			command, ippErrorString(cupsGetError()));
 	return (1);
       }
 
@@ -216,9 +216,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-        if (cupsLastError() > IPP_OK_CONFLICT)
+        if (cupsGetError() > IPP_OK_CONFLICT)
 	{
-	  _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+	  _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
 	  return (1);
 	}
       }

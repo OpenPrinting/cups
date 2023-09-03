@@ -399,7 +399,7 @@ cups_create_localizations(
                               30000, NULL)) == NULL)
     {
       DEBUG_printf(("4cups_create_localizations: Unable to connect to "
-                    "%s:%d: %s", hostname, port, cupsLastErrorString()));
+                    "%s:%d: %s", hostname, port, cupsGetErrorString()));
       return;
     }
   }
@@ -411,7 +411,7 @@ cups_create_localizations(
   if ((temp = cupsTempFile2(tempfile, sizeof(tempfile))) == NULL)
   {
     DEBUG_printf(("4cups_create_localizations: Unable to create temporary "
-                  "file: %s", cupsLastErrorString()));
+                  "file: %s", cupsGetErrorString()));
     if (http2 != http)
       httpClose(http2);
     return;

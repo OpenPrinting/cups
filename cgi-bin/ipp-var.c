@@ -472,7 +472,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
 
     job_printer_name = strrchr(job_printer_uri, '/') + 1;
 
-    if (cupsLastError() <= IPP_OK_CONFLICT)
+    if (cupsGetError() <= IPP_OK_CONFLICT)
     {
       const char *path = strstr(job_printer_uri, "/printers/");
       if (!path)
@@ -494,7 +494,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
     else
       cgiStartHTML(cgiText(_("Move All Jobs")));
 
-    if (cupsLastError() > IPP_OK_CONFLICT)
+    if (cupsGetError() > IPP_OK_CONFLICT)
     {
       if (job_id)
 	cgiShowIPPError(_("Unable to move job"));
@@ -575,7 +575,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
 			      1, &hold_option)) < 1)
   {
     cgiSetVariable("MESSAGE", cgiText(_("Unable to send command to printer driver")));
-    cgiSetVariable("ERROR", cupsLastErrorString());
+    cgiSetVariable("ERROR", cupsGetErrorString());
     cgiStartHTML(title);
     cgiCopyTemplateLang("error.tmpl");
     cgiEndHTML();
@@ -592,10 +592,10 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
   if (status == HTTP_CONTINUE)
     cupsFinishDocument(http, dest);
 
-  if (cupsLastError() >= IPP_REDIRECTION_OTHER_SITE)
+  if (cupsGetError() >= IPP_REDIRECTION_OTHER_SITE)
   {
     cgiSetVariable("MESSAGE", cgiText(_("Unable to send command to printer driver")));
-    cgiSetVariable("ERROR", cupsLastErrorString());
+    cgiSetVariable("ERROR", cupsGetErrorString());
     cgiStartHTML(title);
     cgiCopyTemplateLang("error.tmpl");
     cgiEndHTML();
@@ -752,7 +752,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
     ippDelete(response);
   }
 
-  if (cupsLastError() <= IPP_OK_CONFLICT)
+  if (cupsGetError() <= IPP_OK_CONFLICT)
   {
    /*
     * Automatically reload the printer status page...
@@ -762,7 +762,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
     snprintf(refresh, sizeof(refresh), "2;URL=%s", uri);
     cgiSetVariable("refresh_page", refresh);
   }
-  else if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  else if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
@@ -770,7 +770,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
 
   cgiStartHTML(cgiText(_("Print Test Page")));
 
-  if (cupsLastError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_OK_CONFLICT)
     cgiShowIPPError(_("Unable to print test page"));
   else
   {
@@ -1332,7 +1332,7 @@ void
 cgiShowIPPError(const char *message)	/* I - Contextual message */
 {
   cgiSetVariable("MESSAGE", cgiText(message));
-  cgiSetVariable("ERROR", cupsLastErrorString());
+  cgiSetVariable("ERROR", cupsGetErrorString());
   cgiCopyTemplateLang("error.tmpl");
 }
 

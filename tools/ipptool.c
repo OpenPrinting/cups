@@ -944,7 +944,7 @@ do_monitor_printer_state(
 
   if ((http = httpConnect2(host, port, NULL, data->family, encryption, 1, 30000, NULL)) == NULL)
   {
-    print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", host, port, cupsLastErrorString());
+    print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", host, port, cupsGetErrorString());
     return (0);
   }
 
@@ -966,7 +966,7 @@ do_monitor_printer_state(
   ippSetRequestId(request, data->request_id * 100 - 1);
   ippSetVersion(request, data->version / 10, data->version % 10);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->monitor_uri);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
   for (i = data->num_monitor_expects, expect = data->monitor_expects, num_pattrs = 0; i > 0; i --, expect ++)
   {
@@ -1471,7 +1471,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
       * No response, log error...
       */
 
-      add_stringf(data->errors, "IPP request failed with status %s (%s)", ippErrorString(cupsLastError()), cupsLastErrorString());
+      add_stringf(data->errors, "IPP request failed with status %s (%s)", ippErrorString(cupsGetError()), cupsGetErrorString());
     }
     else
     {
@@ -1613,7 +1613,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	}
 
 	if (!ippValidateAttribute(attrptr))
-	  cupsArrayAdd(data->errors, (void *)cupsLastErrorString());
+	  cupsArrayAdd(data->errors, (void *)cupsGetErrorString());
 
 	if (ippGetName(attrptr))
 	{
@@ -1686,7 +1686,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 	    continue;
 
 	  if (!data->statuses[i].repeat_match || repeat_count >= data->statuses[i].repeat_limit)
-	    add_stringf(data->errors, "EXPECTED: STATUS %s (got %s)", ippErrorString(data->statuses[i].status), ippErrorString(cupsLastError()));
+	    add_stringf(data->errors, "EXPECTED: STATUS %s (got %s)", ippErrorString(data->statuses[i].status), ippErrorString(cupsGetError()));
 	}
 
 	if ((attrptr = ippFindAttribute(response, "status-message", IPP_TAG_TEXT)) != NULL)
@@ -1975,7 +1975,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
     cupsFilePuts(data->outfile, "<key>Successful</key>\n");
     cupsFilePuts(data->outfile, data->prev_pass ? "<true />\n" : "<false />\n");
     cupsFilePuts(data->outfile, "<key>StatusCode</key>\n");
-    print_xml_string(data->outfile, "string", ippErrorString(cupsLastError()));
+    print_xml_string(data->outfile, "string", ippErrorString(cupsGetError()));
     cupsFilePuts(data->outfile, "<key>ResponseAttributes</key>\n");
     cupsFilePuts(data->outfile, "<array>\n");
     cupsFilePuts(data->outfile, "<dict>\n");
@@ -2040,7 +2040,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
     if (!data->prev_pass || (data->verbosity && response))
     {
       cupsFilePrintf(cupsFileStdout(), "        RECEIVED: %lu bytes in response\n", (unsigned long)ippLength(response));
-      cupsFilePrintf(cupsFileStdout(), "        status-code = %s (%s)\n", ippErrorString(cupsLastError()), cupsLastErrorString());
+      cupsFilePrintf(cupsFileStdout(), "        status-code = %s (%s)\n", ippErrorString(cupsGetError()), cupsGetErrorString());
 
       if (data->verbosity && response)
       {
@@ -2050,7 +2050,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
     }
   }
   else if (!data->prev_pass && data->output != IPPTOOL_OUTPUT_QUIET)
-    fprintf(stderr, "%s\n", cupsLastErrorString());
+    fprintf(stderr, "%s\n", cupsGetErrorString());
 
   if (data->prev_pass && data->output >= IPPTOOL_OUTPUT_LIST && !data->verbosity && data->num_displayed > 0)
   {
@@ -2222,7 +2222,7 @@ do_tests(const char     *testfile,	/* I - Test file to use */
 
   if ((data->http = httpConnect2(data->vars->host, data->vars->port, NULL, data->family, encryption, 1, 30000, NULL)) == NULL)
   {
-    print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", data->vars->host, data->vars->port, cupsLastErrorString());
+    print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", data->vars->host, data->vars->port, cupsGetErrorString());
     return (0);
   }
 

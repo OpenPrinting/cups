@@ -352,7 +352,9 @@ create_job(http_t        *http,		/* I - HTTP connection */
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name",
                  NULL, title);
 
-  cupsEncodeOptions(request, num_options, options);
+  cupsEncodeOptions2(request, num_options, options, IPP_TAG_OPERATION);
+  cupsEncodeOptions2(request, num_options, options, IPP_TAG_JOB);
+  cupsEncodeOptions2(request, num_options, options, IPP_TAG_SUBSCRIPTION);
 
  /*
   * Do the request...
@@ -362,9 +364,9 @@ create_job(http_t        *http,		/* I - HTTP connection */
 
   response = cupsDoRequest(http, request, uri);
 
-  if (!response || cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (!response || cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    syslog(LOG_ERR, "Unable to create job - %s", cupsLastErrorString());
+    syslog(LOG_ERR, "Unable to create job - %s", cupsGetErrorString());
 
     ippDelete(response);
 
@@ -473,7 +475,7 @@ get_printer(http_t        *http,	/* I - HTTP connection */
 
   response = cupsDoRequest(http, request, "/");
 
-  if (!response || cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (!response || cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
    /*
     * If we can't find the printer by name, look up the printer-name
@@ -506,10 +508,10 @@ get_printer(http_t        *http,	/* I - HTTP connection */
 
     response = cupsDoRequest(http, request, "/");
 
-    if (!response || cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+    if (!response || cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       syslog(LOG_ERR, "Unable to get list of printers - %s",
-             cupsLastErrorString());
+             cupsGetErrorString());
 
       ippDelete(response);
 
@@ -747,9 +749,9 @@ print_file(http_t     *http,		/* I - HTTP connection */
 
   ippDelete(cupsDoFileRequest(http, request, uri, filename));
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    syslog(LOG_ERR, "Unable to send document - %s", cupsLastErrorString());
+    syslog(LOG_ERR, "Unable to send document - %s", cupsGetErrorString());
 
     return (-1);
   }
@@ -802,7 +804,7 @@ recv_print_job(
   * Connect to the server...
   */
 
-  http = httpConnect2(cupsServer(), ippPort(), NULL, AF_UNSPEC, cupsEncryption(), 1, 30000, NULL);
+  http = httpConnect2(cupsGetServer(), ippPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL);
   if (!http)
   {
     syslog(LOG_ERR, "Unable to connect to server: %s", strerror(errno));
@@ -899,7 +901,7 @@ recv_print_job(
           }
 	  else
 	  {
-	    if ((fd = cupsTempFd(control, sizeof(control))) < 0)
+	    if ((fd = cupsCreateTempFd(NULL, NULL, control, sizeof(control))) < 0)
 	    {
 	      syslog(LOG_ERR, "Unable to open temporary control file \"%s\" - %s",
         	     control, strerror(errno));
@@ -935,7 +937,7 @@ recv_print_job(
 
 	  strlcpy(data[num_data], name, sizeof(data[0]));
 
-          if ((fd = cupsTempFd(temp[num_data], sizeof(temp[0]))) < 0)
+          if ((fd = cupsCreateTempFd(NULL, NULL, temp[num_data], sizeof(temp[0]))) < 0)
 	  {
 	    syslog(LOG_ERR, "Unable to open temporary data file \"%s\" - %s",
         	   temp[num_data], strerror(errno));
@@ -1228,9 +1230,9 @@ remove_jobs(const char *dest,		/* I - Destination */
   * Try connecting to the local server...
   */
 
-  if ((http = httpConnect2(cupsServer(), ippPort(), NULL, AF_UNSPEC, cupsEncryption(), 1, 30000, NULL)) == NULL)
+  if ((http = httpConnect2(cupsGetServer(), ippPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL)) == NULL)
   {
-    syslog(LOG_ERR, "Unable to connect to server %s: %s", cupsServer(),
+    syslog(LOG_ERR, "Unable to connect to server %s: %s", cupsGetServer(),
            strerror(errno));
     return (1);
   }
@@ -1274,10 +1276,10 @@ remove_jobs(const char *dest,		/* I - Destination */
 
     ippDelete(cupsDoRequest(http, request, "/jobs"));
 
-    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+    if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       syslog(LOG_WARNING, "Cancel of job ID %d failed: %s\n", id,
-             cupsLastErrorString());
+             cupsGetErrorString());
       httpClose(http);
       return (1);
     }
@@ -1348,11 +1350,11 @@ send_state(const char *queue,		/* I - Destination */
   * Try connecting to the local server...
   */
 
-  if ((http = httpConnect2(cupsServer(), ippPort(), NULL, AF_UNSPEC, cupsEncryption(), 1, 30000, NULL)) == NULL)
+  if ((http = httpConnect2(cupsGetServer(), ippPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL)) == NULL)
   {
-    syslog(LOG_ERR, "Unable to connect to server %s: %s", cupsServer(),
+    syslog(LOG_ERR, "Unable to connect to server %s: %s", cupsGetServer(),
            strerror(errno));
-    printf("Unable to connect to server %s: %s", cupsServer(), strerror(errno));
+    printf("Unable to connect to server %s: %s", cupsGetServer(), strerror(errno));
     return (1);
   }
 
@@ -1363,8 +1365,8 @@ send_state(const char *queue,		/* I - Destination */
   if (get_printer(http, queue, dest, sizeof(dest), NULL, NULL, NULL, &state))
   {
     syslog(LOG_ERR, "Unable to get printer %s: %s", queue,
-           cupsLastErrorString());
-    printf("Unable to get printer %s: %s", queue, cupsLastErrorString());
+           cupsGetErrorString());
+    printf("Unable to get printer %s: %s", queue, cupsGetErrorString());
     return (1);
   }
 
@@ -1425,9 +1427,9 @@ send_state(const char *queue,		/* I - Destination */
   jobcount = 0;
   response = cupsDoRequest(http, request, "/");
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    printf("get-jobs failed: %s\n", cupsLastErrorString());
+    printf("get-jobs failed: %s\n", cupsGetErrorString());
     ippDelete(response);
     return (1);
   }

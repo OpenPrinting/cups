@@ -4047,7 +4047,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     p->pc = _ppdCacheCreateWithPPD(ppd);
 
     if (!p->pc)
-      cupsdLogMessage(CUPSD_LOG_WARN, "Unable to create cache of \"%s\": %s", ppd_name, cupsLastErrorString());
+      cupsdLogMessage(CUPSD_LOG_WARN, "Unable to create cache of \"%s\": %s", ppd_name, cupsGetErrorString());
 
     ppdMarkDefaults(ppd);
 

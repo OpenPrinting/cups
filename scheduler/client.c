@@ -625,7 +625,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  else
 	    cupsdLogClient(con, CUPSD_LOG_DEBUG,
 	                   "HTTP_STATE_WAITING Closing on error: %s",
-			   cupsLastErrorString());
+			   cupsGetErrorString());
 
 	  cupsdCloseClient(con);
 	  return;
@@ -1600,7 +1600,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	    if ((ipp_state = ippRead(con->http, con->request)) == IPP_STATE_ERROR)
 	    {
               cupsdLogClient(con, CUPSD_LOG_ERROR, "IPP read error: %s",
-                             cupsLastErrorString());
+                             cupsGetErrorString());
 
 	      cupsdSendError(con, HTTP_STATUS_BAD_REQUEST, CUPSD_AUTH_NONE);
 	      cupsdCloseClient(con);
@@ -2640,7 +2640,7 @@ cupsd_start_tls(cupsd_client_t    *con,	/* I - Client connection */
   if (httpEncryption(con->http, e))
   {
     cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to encrypt connection: %s",
-                   cupsLastErrorString());
+                   cupsGetErrorString());
     return (-1);
   }
 

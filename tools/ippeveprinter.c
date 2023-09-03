@@ -2640,7 +2640,7 @@ finish_document_uri(
 
     if ((http = httpConnect2(hostname, port, NULL, AF_UNSPEC, encryption, 1, 30000, NULL)) == NULL)
     {
-      respond_ipp(client, IPP_STATUS_ERROR_DOCUMENT_ACCESS, "Unable to connect to %s: %s", hostname, cupsLastErrorString());
+      respond_ipp(client, IPP_STATUS_ERROR_DOCUMENT_ACCESS, "Unable to connect to %s: %s", hostname, cupsGetErrorString());
 
       close(job->fd);
       job->fd = -1;
@@ -5798,7 +5798,7 @@ process_client(ippeve_client_t *client)	/* I - Client */
 
 	if (httpEncryption(client->http, HTTP_ENCRYPTION_ALWAYS))
 	{
-	  fprintf(stderr, "%s Unable to encrypt connection: %s\n", client->hostname, cupsLastErrorString());
+	  fprintf(stderr, "%s Unable to encrypt connection: %s\n", client->hostname, cupsGetErrorString());
 	  break;
         }
 
@@ -6007,7 +6007,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
 
       if (httpEncryption(client->http, HTTP_ENCRYPTION_REQUIRED))
       {
-        fprintf(stderr, "%s Unable to encrypt connection: %s\n", client->hostname, cupsLastErrorString());
+        fprintf(stderr, "%s Unable to encrypt connection: %s\n", client->hostname, cupsGetErrorString());
 	return (0);
       }
 
@@ -6263,7 +6263,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
 	{
 	  if (ipp_state == IPP_STATE_ERROR)
 	  {
-            fprintf(stderr, "%s IPP read error (%s).\n", client->hostname, cupsLastErrorString());
+            fprintf(stderr, "%s IPP read error (%s).\n", client->hostname, cupsGetErrorString());
 	    respond_http(client, HTTP_STATUS_BAD_REQUEST, NULL, NULL, 0);
 	    return (0);
 	  }
@@ -6801,9 +6801,9 @@ process_job(ippeve_job_t *job)		/* I - Job */
         snprintf(service, sizeof(service), "%d", port);
 
         if ((addrlist = httpAddrGetList(host, AF_UNSPEC, service)) == NULL)
-          fprintf(stderr, "[Job %d] Unable to find \"%s\": %s\n", job->id, host, cupsLastErrorString());
+          fprintf(stderr, "[Job %d] Unable to find \"%s\": %s\n", job->id, host, cupsGetErrorString());
         else if (!httpAddrConnect2(addrlist, &mystdout, 30000, &(job->cancel)))
-          fprintf(stderr, "[Job %d] Unable to connect to \"%s\": %s\n", job->id, host, cupsLastErrorString());
+          fprintf(stderr, "[Job %d] Unable to connect to \"%s\": %s\n", job->id, host, cupsGetErrorString());
 
         httpAddrFreeList(addrlist);
       }

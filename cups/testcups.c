@@ -174,7 +174,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       if ((http_status = cupsGetPPD3(CUPS_HTTP_DEFAULT, argv[2], &modtime,
                                      buffer, sizeof(buffer))) != HTTP_STATUS_OK)
         printf("Unable to get PPD: %d (%s)\n", (int)http_status,
-               cupsLastErrorString());
+               cupsGetErrorString());
       else
         puts(buffer);
     }
@@ -200,7 +200,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 				  NULL)) <= 0)
       {
 	printf("Unable to create print job on %s: %s\n", argv[1],
-	       cupsLastErrorString());
+	       cupsGetErrorString());
 	return (1);
       }
 
@@ -433,7 +433,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   if (cupsPrintFile(dest->name, "../test/testfile.pdf", "Test Page",
                     dest->num_options, dest->options) <= 0)
   {
-    printf("FAIL (%s)\n", cupsLastErrorString());
+    printf("FAIL (%s)\n", cupsGetErrorString());
     return (1);
   }
   else

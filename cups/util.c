@@ -29,7 +29,7 @@
  * Pass @code CUPS_JOBID_ALL@ to cancel all jobs or @code CUPS_JOBID_CURRENT@
  * to cancel the current job on the named destination.
  *
- * Use the @link cupsLastError@ and @link cupsLastErrorString@ functions to get
+ * Use the @link cupsGetError@ and @link cupsGetErrorString@ functions to get
  * the cause of any failure.
  *
  * @exclude all@
@@ -53,7 +53,7 @@ cupsCancelJob(const char *name,		/* I - Name of printer or class */
  * Pass @code CUPS_JOBID_ALL@ to cancel all jobs or @code CUPS_JOBID_CURRENT@
  * to cancel the current job on the named destination.
  *
- * Use the @link cupsLastError@ and @link cupsLastErrorString@ functions to get
+ * Use the @link cupsGetError@ and @link cupsGetErrorString@ functions to get
  * the cause of any failure.
  *
  * @since CUPS 1.4/macOS 10.6@ @exclude all@
@@ -118,7 +118,7 @@ cupsCancelJob2(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP_
   }
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   if (purge && job_id >= 0)
     ippAddBoolean(request, IPP_TAG_OPERATION, "purge-job", 1);
@@ -131,7 +131,7 @@ cupsCancelJob2(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP_
 
   ippDelete(cupsDoRequest(http, request, "/jobs/"));
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -232,7 +232,7 @@ cupsFinishDocument(http_t     *http,	/* I - Connection to server or @code CUPS_H
 
   ippDelete(cupsGetResponse(http, resource));
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -332,7 +332,7 @@ cupsGetDefault2(http_t *http)		/* I - Connection to server or @code CUPS_HTTP_DE
   * See if we have a user default printer set...
   */
 
-  if (_cupsUserDefault(cg->def_printer, sizeof(cg->def_printer)))
+  if (_cupsGetUserDefault(cg->def_printer, sizeof(cg->def_printer)))
     return (cg->def_printer);
 
  /*
@@ -506,7 +506,7 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
                "printer-uri", NULL, uri);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+               "requesting-user-name", NULL, cupsGetUser());
 
   if (myjobs)
     ippAddBoolean(request, IPP_TAG_OPERATION, "my-jobs", 1);
@@ -932,7 +932,7 @@ cupsStartDocument(
                NULL, printer_uri);
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", job_id);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (docname)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "document-name",
                  NULL, docname);

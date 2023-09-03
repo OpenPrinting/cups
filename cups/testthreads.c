@@ -18,7 +18,7 @@
 // Local functions...
 //
 
-static bool	enum_dests_cb(void *_name, unsigned flags, cups_dest_t *dest);
+static int	enum_dests_cb(void *_name, unsigned flags, cups_dest_t *dest);
 static void	*run_query(cups_dest_t *dest);
 static void	show_supported(http_t *http, cups_dest_t *dest, cups_dinfo_t *dinfo, const char *option, const char *value);
 
@@ -44,7 +44,7 @@ main(int  argc,				// I - Number of command-line arguments
 // 'enum_dests_cb()' - Destination enumeration function...
 //
 
-static bool				// O - `true` to continue, `false` to stop
+static int				// O - 1 to continue, 0 to stop
 enum_dests_cb(void        *_name,	// I - Printer name, if any
               unsigned    flags,	// I - Enumeration flags
               cups_dest_t *dest)	// I - Found destination
@@ -58,7 +58,7 @@ enum_dests_cb(void        *_name,	// I - Printer name, if any
 
   // If a name was specified, compare it...
   if (name && strcasecmp(name, dest->name))
-    return (true);			// Continue
+    return (1);				// Continue
 
   // Copy the destination and run the query on a separate thread...
   cupsCopyDest(dest, 0, &cdest);
@@ -222,7 +222,7 @@ show_supported(http_t       *http,	// I - Connection to destination
 	    for (i = 0; i < count; i ++)
 	    {
 	      size_t j;			// Looping var
-	      size_t len;		// Length of value
+	      int len;		// Length of value
 	      unsigned char *data = ippGetOctetString(attr, i, &len);
 					// Pointer to octet string
 

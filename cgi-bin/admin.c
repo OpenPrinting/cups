@@ -568,12 +568,12 @@ do_am_class(http_t *http,		/* I - HTTP connection */
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_OK_CONFLICT)
   {
     cgiStartHTML(title);
     cgiShowIPPError(modify ? _("Unable to modify class") :
@@ -818,8 +818,8 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     {
       fprintf(stderr,
               "ERROR: CUPS-Get-Devices request failed with status %x: %s\n",
-	      cupsLastError(), cupsLastErrorString());
-      if (cupsLastError() == IPP_NOT_AUTHORIZED)
+	      cupsGetError(), cupsGetErrorString());
+      if (cupsGetError() == IPP_NOT_AUTHORIZED)
       {
 	puts("Status: 401\n");
 	exit(0);
@@ -1187,12 +1187,12 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     else
       ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-    if (cupsLastError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsLastError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_OK_CONFLICT)
     {
       cgiStartHTML(title);
       cgiShowIPPError(modify ? _("Unable to modify printer") :
@@ -1363,7 +1363,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
       cgiStartHTML(cgiText(_("Change Settings")));
       cgiSetVariable("MESSAGE",
                      cgiText(_("Unable to change server settings")));
-      cgiSetVariable("ERROR", cupsLastErrorString());
+      cgiSetVariable("ERROR", cupsGetErrorString());
       cgiCopyTemplateLang("error.tmpl");
       cgiEndHTML();
       return;
@@ -1484,7 +1484,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 
       if (!cupsAdminSetServerSettings(http, num_newsettings, newsettings))
       {
-        if (cupsLastError() == IPP_NOT_AUTHORIZED)
+        if (cupsGetError() == IPP_NOT_AUTHORIZED)
 	{
 	  puts("Status: 401\n");
 	  exit(0);
@@ -1493,7 +1493,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 	cgiStartHTML(cgiText(_("Change Settings")));
 	cgiSetVariable("MESSAGE",
                        cgiText(_("Unable to change server settings")));
-	cgiSetVariable("ERROR", cupsLastErrorString());
+	cgiSetVariable("ERROR", cupsGetErrorString());
 	cgiCopyTemplateLang("error.tmpl");
       }
       else
@@ -1831,12 +1831,12 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
   * Show the results...
   */
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() <= IPP_OK_CONFLICT)
+  else if (cupsGetError() <= IPP_OK_CONFLICT)
   {
    /*
     * Redirect successful updates back to the classes page...
@@ -1847,7 +1847,7 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
 
   cgiStartHTML(cgiText(_("Delete Class")));
 
-  if (cupsLastError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_OK_CONFLICT)
     cgiShowIPPError(_("Unable to delete class"));
   else
     cgiCopyTemplateLang("class-deleted.tmpl");
@@ -1916,12 +1916,12 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
   * Show the results...
   */
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() <= IPP_OK_CONFLICT)
+  else if (cupsGetError() <= IPP_OK_CONFLICT)
   {
    /*
     * Redirect successful updates back to the printers page...
@@ -1932,7 +1932,7 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
 
   cgiStartHTML(cgiText(_("Delete Printer")));
 
-  if (cupsLastError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_OK_CONFLICT)
     cgiShowIPPError(_("Unable to delete printer"));
   else
     cgiCopyTemplateLang("printer-deleted.tmpl");
@@ -2165,7 +2165,7 @@ do_menu(http_t *http)			/* I - HTTP connection */
   {
     cgiSetVariable("SETTINGS_MESSAGE",
                    cgiText(_("Unable to open cupsd.conf file:")));
-    cgiSetVariable("SETTINGS_ERROR", cupsLastErrorString());
+    cgiSetVariable("SETTINGS_ERROR", cupsGetErrorString());
   }
 
   if ((val = cupsGetOption(CUPS_SERVER_DEBUG_LOGGING, num_settings,
@@ -2341,12 +2341,12 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 
     cgiStartHTML(cgiText(_("Set Allowed Users")));
 
-    if (cupsLastError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsLastError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_OK_CONFLICT)
       cgiShowIPPError(_("Unable to get printer attributes"));
     else
       cgiCopyTemplateLang("users.tmpl");
@@ -2489,12 +2489,12 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 
     ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-    if (cupsLastError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsLastError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_OK_CONFLICT)
     {
       cgiStartHTML(cgiText(_("Set Allowed Users")));
       cgiShowIPPError(_("Unable to change printer"));
@@ -2576,12 +2576,12 @@ do_set_default(http_t *http)		/* I - HTTP connection */
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_OK_CONFLICT)
   {
     cgiStartHTML(title);
     cgiShowIPPError(_("Unable to set server default"));
@@ -3309,12 +3309,12 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     else
       ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-    if (cupsLastError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsLastError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_OK_CONFLICT)
     {
       cgiStartHTML(title);
       cgiShowIPPError(_("Unable to set options"));
@@ -3408,12 +3408,12 @@ do_set_sharing(http_t *http)		/* I - HTTP connection */
     ippDelete(response);
   }
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_OK_CONFLICT)
   {
     cgiStartHTML(cgiText(_("Set Publishing")));
     cgiShowIPPError(_("Unable to change printer-is-shared attribute"));
