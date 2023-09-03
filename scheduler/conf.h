@@ -235,12 +235,10 @@ VAR int			NumMimeTypes		VALUE(0);
 VAR const char		**MimeTypes		VALUE(NULL);
 					/* Array of MIME types */
 
-#ifdef HAVE_TLS
 VAR int			CreateSelfSignedCerts	VALUE(TRUE);
 					/* Automatically create self-signed certs? */
 VAR char		*ServerKeychain		VALUE(NULL);
 					/* Keychain holding cert + key */
-#endif /* HAVE_TLS */
 
 #ifdef HAVE_ONDEMAND
 VAR int			IdleExitTimeout		VALUE(60);

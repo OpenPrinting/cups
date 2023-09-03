@@ -36,9 +36,7 @@ static int		check_if_modified(cupsd_client_t *con,
 			                  struct stat *filestats);
 static int		compare_clients(cupsd_client_t *a, cupsd_client_t *b,
 			                void *data);
-#ifdef HAVE_TLS
 static int		cupsd_start_tls(cupsd_client_t *con, http_encryption_t e);
-#endif /* HAVE_TLS */
 static char		*get_file(cupsd_client_t *con, struct stat *filestats,
 			          char *filename, size_t len);
 static http_status_t	install_cupsd_conf(cupsd_client_t *con);
@@ -352,7 +350,6 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   if (cupsArrayCount(Clients) == MaxClients)
     cupsdPauseListening();
 
-#ifdef HAVE_TLS
  /*
   * See if we are connecting on a secure port...
   */
@@ -368,7 +365,6 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   }
   else
     con->auto_ssl = 1;
-#endif /* HAVE_TLS */
 }
 
 
@@ -439,14 +435,12 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
     cupsArrayRemove(ActiveClients, con);
     cupsdSetBusyState(0);
 
-#ifdef HAVE_TLS
    /*
     * Shutdown encryption as needed...
     */
 
     if (httpIsEncrypted(con->http))
       partial = 1;
-#endif /* HAVE_TLS */
 
     if (partial)
     {
@@ -588,7 +582,6 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
     return;
   }
 
-#ifdef HAVE_TLS
   if (con->auto_ssl)
   {
    /*
@@ -612,7 +605,6 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
       return;
     }
   }
-#endif /* HAVE_TLS */
 
   switch (httpGetState(con->http))
   {
@@ -922,7 +914,6 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
       if (!_cups_strcasecmp(httpGetField(con->http, HTTP_FIELD_CONNECTION), "Upgrade") && strstr(httpGetField(con->http, HTTP_FIELD_UPGRADE), "TLS/") != NULL && !httpIsEncrypted(con->http))
       {
-#ifdef HAVE_TLS
        /*
         * Do encryption stuff...
 	*/
@@ -940,13 +931,6 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  cupsdCloseClient(con);
 	  return;
 	}
-#else
-	if (!cupsdSendError(con, HTTP_STATUS_NOT_IMPLEMENTED, CUPSD_AUTH_NONE))
-	{
-	  cupsdCloseClient(con);
-	  return;
-	}
-#endif /* HAVE_TLS */
       }
 
       httpClearFields(con->http);
@@ -978,7 +962,6 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
       if (!_cups_strcasecmp(httpGetField(con->http, HTTP_FIELD_CONNECTION),
                             "Upgrade") && !httpIsEncrypted(con->http))
       {
-#ifdef HAVE_TLS
        /*
         * Do encryption stuff...
 	*/
@@ -997,13 +980,6 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  cupsdCloseClient(con);
 	  return;
 	}
-#else
-	if (!cupsdSendError(con, HTTP_STATUS_NOT_IMPLEMENTED, CUPSD_AUTH_NONE))
-	{
-	  cupsdCloseClient(con);
-	  return;
-	}
-#endif /* HAVE_TLS */
       }
 
       if ((status = cupsdIsAuthorized(con, NULL)) != HTTP_STATUS_OK)
@@ -1922,7 +1898,6 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
 
   cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdSendError code=%d, auth_type=%d", code, auth_type);
 
-#ifdef HAVE_TLS
  /*
   * Force client to upgrade for authentication if that is how the
   * server is configured...
@@ -1935,7 +1910,6 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
   {
     code = HTTP_STATUS_UPGRADE_REQUIRED;
   }
-#endif /* HAVE_TLS */
 
  /*
   * Put the request in the access_log file...
@@ -2655,7 +2629,6 @@ compare_clients(cupsd_client_t *a,	/* I - First client */
 }
 
 
-#ifdef HAVE_TLS
 /*
  * 'cupsd_start_tls()' - Start encryption on a connection.
  */
@@ -2674,7 +2647,6 @@ cupsd_start_tls(cupsd_client_t    *con,	/* I - Client connection */
   cupsdLogClient(con, CUPSD_LOG_DEBUG, "Connection now encrypted.");
   return (0);
 }
-#endif /* HAVE_TLS */
 
 
 /*

@@ -188,7 +188,7 @@ tls.o: tls.c cups-private.h string-private.h ../config.h \
   ipp-private.h ../cups/cups.h file.h ipp.h http.h array.h language.h \
   pwg.h http-private.h ../cups/language.h ../cups/http.h \
   language-private.h ../cups/transcode.h pwg-private.h thread-private.h \
-  debug-internal.h debug-private.h tls-darwin.c tls-darwin.h
+  debug-internal.h debug-private.h
 transcode.o: transcode.c cups-private.h string-private.h ../config.h \
   ../cups/versioning.h array-private.h ../cups/array.h versioning.h \
   ipp-private.h ../cups/cups.h file.h ipp.h http.h array.h language.h \

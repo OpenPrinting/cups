@@ -372,7 +372,6 @@ dnssdBuildTxtRecord(
   * Get the URL scheme for the admin page...
   */
 
-#  ifdef HAVE_TLS
   for (lis = (cupsd_listener_t *)cupsArrayFirst(Listeners); lis; lis = (cupsd_listener_t *)cupsArrayNext(Listeners))
   {
     if (lis->encryption != HTTP_ENCRYPTION_NEVER)
@@ -381,7 +380,6 @@ dnssdBuildTxtRecord(
       break;
     }
   }
-#  endif /* HAVE_TLS */
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
   keyvalue[count  ][0] = "adminurl";
@@ -411,10 +409,8 @@ dnssdBuildTxtRecord(
   keyvalue[count  ][0] = "UUID";
   keyvalue[count++][1] = p->uuid + 9;
 
-#ifdef HAVE_TLS
   keyvalue[count  ][0] = "TLS";
-  keyvalue[count++][1] = "1.2";
-#endif /* HAVE_TLS */
+  keyvalue[count++][1] = "1.3";
 
   if ((urf_supported = ippFindAttribute(p->ppd_attrs, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
   {
@@ -717,9 +713,7 @@ dnssdDeregisterPrinter(
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
-#    endif /* HAVE_TLS */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
 #  endif /* HAVE_MDNSRESPONDER */
   }
@@ -995,10 +989,8 @@ dnssdRegisterInstance(
 #  ifdef HAVE_MDNSRESPONDER
     if (!strcmp(type, "_printer._tcp"))
       srv = &p->printer_srv;		/* Target LPD service */
-#    ifdef HAVE_TLS
     else if (!strcmp(type, "_ipps._tcp"))
       srv = &p->ipps_srv;		/* Target IPPS service */
-#    endif /* HAVE_TLS */
     else
       srv = &p->ipp_srv;		/* Target IPP service */
 
@@ -1219,10 +1211,8 @@ dnssdRegisterPrinter(
 
   status = dnssdRegisterInstance(NULL, p, name, "_printer._tcp", NULL, 0, NULL, 0, from_callback);
 
-#  ifdef HAVE_TLS
   if (status)
     dnssdRegisterInstance(NULL, p, name, "_ipps._tcp", DNSSDSubTypes, DNSSDPort, &ipp_txt, 0, from_callback);
-#  endif /* HAVE_TLS */
 
   if (status)
   {
@@ -1257,9 +1247,7 @@ dnssdRegisterPrinter(
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
-#    endif /* HAVE_TLS */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
 #  endif /* HAVE_MDNSRESPONDER */
   }

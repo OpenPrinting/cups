@@ -1280,7 +1280,6 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     send_http_error(con, HTTP_UNAUTHORIZED, printer);
     return (NULL);
   }
-#ifdef HAVE_TLS
   else if (auth_info && !con->http->tls &&
            !httpAddrLocalhost(con->http->hostaddr))
   {
@@ -1291,7 +1290,6 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     send_http_error(con, HTTP_UPGRADE_REQUIRED, printer);
     return (NULL);
   }
-#endif /* HAVE_TLS */
 
  /*
   * See if the printer is accepting jobs...
@@ -11421,9 +11419,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
 {
   http_status_t		status;		/* Policy status */
   ipp_attribute_t	*attr;		/* Current attribute */
-#ifdef HAVE_TLS
   ipp_attribute_t	*auth_info;	/* auth-info attribute */
-#endif /* HAVE_TLS */
   ipp_attribute_t	*format,	/* Document-format attribute */
 			*name;		/* Job-name attribute */
   cups_ptype_t		dtype;		/* Destination type (printer/class) */
@@ -11550,9 +11546,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-#ifdef HAVE_TLS
   auth_info = ippFindAttribute(con->request, "auth-info", IPP_TAG_TEXT);
-#endif /* HAVE_TLS */
 
   if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
   {
@@ -11566,7 +11560,6 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
     send_http_error(con, HTTP_UNAUTHORIZED, printer);
     return;
   }
-#ifdef HAVE_TLS
   else if (auth_info && !con->http->tls &&
            !httpAddrLocalhost(con->http->hostaddr))
   {
@@ -11577,7 +11570,6 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
     send_http_error(con, HTTP_UPGRADE_REQUIRED, printer);
     return;
   }
-#endif /* HAVE_TLS */
 
  /*
   * Everything was ok, so return OK status...

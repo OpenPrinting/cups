@@ -9,10 +9,10 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
-AC_ARG_WITH([tls], AS_HELP_STRING([--with-tls=...], [use cdsa (macOS), gnutls, or openssl for TLS support]))
+AC_ARG_WITH([tls], AS_HELP_STRING([--with-tls=...], [use gnutls or openssl for TLS support]))
 AS_IF([test "x$with_tls" = x], [
     with_tls="yes"
-], [test "$with_tls" != cdsa -a "$with_tls" != gnutls -a "$with_tls" != openssl -a "$with_tls" != no -a "$with_tls" != yes], [
+], [test "$with_tls" != gnutls -a "$with_tls" != openssl -a "$with_tls" != yes], [
     AC_MSG_ERROR([Unsupported --with-tls value "$with_tls" specified.])
 ])
 
@@ -33,7 +33,6 @@ AS_IF([test $with_tls = yes -o $with_tls = openssl], [
 	    TLSLIBS="$($PKGCONFIG --libs openssl)"
 	    TLSFLAGS="$($PKGCONFIG --cflags openssl)"
 	    PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES openssl"
-	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	    AC_DEFINE([HAVE_OPENSSL], [1], [Do we have the OpenSSL library?])
 	], [
 	    AC_MSG_RESULT([no])
@@ -49,7 +48,6 @@ AS_IF([test $with_tls = yes -o $with_tls = openssl], [
 		with_tls="openssl"
 		TLSLIBS="-lssl -lcrypto"
 		PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $TLSLIBS"
-		AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 		AC_DEFINE([HAVE_OPENSSL], [1], [Do we have the OpenSSL library?])
 	    ])
 	])
@@ -76,7 +74,6 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	    TLSLIBS="$($PKGCONFIG --libs gnutls)"
 	    TLSFLAGS="$($PKGCONFIG --cflags gnutls)"
 	    PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES gnutls"
-	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	    AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
 	], [
 	    AC_MSG_RESULT([no])
@@ -88,7 +85,6 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	TLSLIBS="$($LIBGNUTLSCONFIG --libs)"
 	TLSFLAGS="$($LIBGNUTLSCONFIG --cflags)"
 	PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $TLSLIBS"
-	AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
     ])
 
@@ -109,44 +105,14 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
     ])
 ])
 
-dnl Finally try using CSDA SSL (macOS)...
-AS_IF([test $with_tls = yes -o $with_tls = cdsa], [
-    dnl Look for CDSA...
-    AS_IF([test $host_os_name = darwin], [
-	AC_CHECK_HEADER([Security/SecureTransport.h], [
-	    have_tls="1"
-	    with_tls="cdsa"
-	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
-	    AC_DEFINE([HAVE_CDSASSL], [1], [Do we have the macOS SecureTransport API?])
-	    CUPS_SERVERKEYCHAIN="/Library/Keychains/System.keychain"
-
-	    dnl Check for the various security headers...
-	    AC_CHECK_HEADER([Security/SecCertificate.h], [
-		AC_DEFINE([HAVE_SECCERTIFICATE_H], [1], [Have the <Security/SecCertificate.h> header?])
-	    ])
-	    AC_CHECK_HEADER([Security/SecItem.h], [
-		AC_DEFINE([HAVE_SECITEM_H], [1], [Have the <Security/SecItem.h> header?])
-	    ])
-	    AC_CHECK_HEADER([Security/SecPolicy.h], [
-		AC_DEFINE([HAVE_SECPOLICY_H], [1], [Have the <Security/SecPolicy.h header?])
-	    ])
-	])
-    ], [test $with_tls = cdsa], [
-        AC_MSG_ERROR([--with-tls=cdsa is not compatible with your host operating system.])
-    ])
-])
-
-IPPALIASES="http"
 AS_IF([test $have_tls = 1], [
     AC_MSG_NOTICE([    Using TLSLIBS="$TLSLIBS"])
     AC_MSG_NOTICE([    Using TLSFLAGS="$TLSFLAGS"])
-    IPPALIASES="http https ipps"
-], [test $with_tls = yes], [
-    AC_MSG_ERROR([--with-tls=yes was specified but no compatible TLS libraries could be found.])
+], [
+    AC_MSG_ERROR([No compatible TLS libraries could be found.])
 ])
 
 AC_SUBST([CUPS_SERVERKEYCHAIN])
-AC_SUBST([IPPALIASES])
 AC_SUBST([TLSFLAGS])
 AC_SUBST([TLSLIBS])
 

@@ -130,8 +130,6 @@ cupsGetDevices(
 	  break;
 	}
       }
-
-#ifdef HAVE_TLS
       else if (status == HTTP_STATUS_UPGRADE_REQUIRED)
       {
        /*
@@ -143,7 +141,6 @@ cupsGetDevices(
 	if (!httpReconnect2(http, 30000, NULL))
 	  httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
       }
-#endif /* HAVE_TLS */
     }
   }
   while (status == HTTP_STATUS_UNAUTHORIZED ||

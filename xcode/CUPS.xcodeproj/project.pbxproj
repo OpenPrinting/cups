@@ -3168,7 +3168,6 @@
 
 /* Begin PBXFileReference section */
 		2706965A1CADF3E200FFE5FB /* libcups_ios.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libcups_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		270B267D17F5C06700C8A3A9 /* tls-darwin.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-darwin.c"; path = "../cups/tls-darwin.c"; sourceTree = "<group>"; };
 		270B267E17F5C06700C8A3A9 /* tls-gnutls.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-gnutls.c"; path = "../cups/tls-gnutls.c"; sourceTree = "<group>"; };
 		270B268117F5C5D600C8A3A9 /* tls-sspi.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-sspi.c"; path = "../cups/tls-sspi.c"; sourceTree = "<group>"; };
 		270CCDA7135E3C9E00007BE2 /* testmime */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testmime; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3311,7 +3310,6 @@
 		27D3037D134148CB00F022B1 /* libcups2.def */ = {isa = PBXFileReference; lastKnownFileType = text; name = libcups2.def; path = ../cups/libcups2.def; sourceTree = "<group>"; };
 		27F89DA21B3AC43B00E5A4B7 /* testraster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = testraster.c; path = ../cups/testraster.c; sourceTree = "<group>"; };
 		27F9A76D28CBFC03002CCEE0 /* tls-openssl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-openssl.c"; path = "../cups/tls-openssl.c"; sourceTree = "<group>"; };
-		27F9A76E28CBFC03002CCEE0 /* tls-darwin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "tls-darwin.h"; path = "../cups/tls-darwin.h"; sourceTree = "<group>"; };
 		720DD6C21358FD5F0064AA82 /* snmp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = snmp; sourceTree = BUILT_PRODUCTS_DIR; };
 		720DD6D21358FDDE0064AA82 /* snmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = snmp.c; path = ../backend/snmp.c; sourceTree = "<group>"; };
 		720E854120164E7A00C6C411 /* ipp-file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "ipp-file.c"; path = "../cups/ipp-file.c"; sourceTree = "<group>"; };
@@ -4993,8 +4991,6 @@
 				72220F02133305BB00FCA411 /* string.c */,
 				72220F03133305BB00FCA411 /* tempfile.c */,
 				72220F05133305BB00FCA411 /* thread.c */,
-				27F9A76E28CBFC03002CCEE0 /* tls-darwin.h */,
-				270B267D17F5C06700C8A3A9 /* tls-darwin.c */,
 				270B267E17F5C06700C8A3A9 /* tls-gnutls.c */,
 				27F9A76D28CBFC03002CCEE0 /* tls-openssl.c */,
 				270B268117F5C5D600C8A3A9 /* tls-sspi.c */,
@@ -11766,6 +11762,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -11831,6 +11828,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;

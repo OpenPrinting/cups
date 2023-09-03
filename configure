@@ -709,7 +709,6 @@ PAMDIR
 EXPORT_TLSLIBS
 TLSLIBS
 TLSFLAGS
-IPPALIASES
 CUPS_SERVERKEYCHAIN
 LIBGNUTLSCONFIG
 PTHREAD_FLAGS
@@ -1632,7 +1631,7 @@ Optional Packages:
   --with-ldarchflags      set program architecture flags
   --with-domainsocket     set unix domain socket name
   --with-gssservicename   set default gss service name
-  --with-tls=...          use cdsa (macOS), gnutls, or openssl for TLS support
+  --with-tls=...          use gnutls or openssl for TLS support
   --with-pam-module       set the PAM module to use
   --with-dnssd=...        enable DNS Service Discovery support (avahi,
                           mdnsresponder, no, yes)
@@ -9698,7 +9697,7 @@ then :
 
     with_tls="yes"
 
-elif test "$with_tls" != cdsa -a "$with_tls" != gnutls -a "$with_tls" != openssl -a "$with_tls" != no -a "$with_tls" != yes
+elif test "$with_tls" != gnutls -a "$with_tls" != openssl -a "$with_tls" != yes
 then :
 
     as_fn_error $? "Unsupported --with-tls value \"$with_tls\" specified." "$LINENO" 5
@@ -9729,9 +9728,6 @@ printf "%s\n" "yes" >&6; }
 	    TLSLIBS="$($PKGCONFIG --libs openssl)"
 	    TLSFLAGS="$($PKGCONFIG --cflags openssl)"
 	    PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES openssl"
-
-printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
-
 
 printf "%s\n" "#define HAVE_OPENSSL 1" >>confdefs.h
 
@@ -9795,9 +9791,6 @@ then :
 		with_tls="openssl"
 		TLSLIBS="-lssl -lcrypto"
 		PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $TLSLIBS"
-
-printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
-
 
 printf "%s\n" "#define HAVE_OPENSSL 1" >>confdefs.h
 
@@ -9953,9 +9946,6 @@ printf "%s\n" "yes" >&6; }
 	    TLSFLAGS="$($PKGCONFIG --cflags gnutls)"
 	    PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES gnutls"
 
-printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
-
-
 printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
 
 
@@ -9975,9 +9965,6 @@ then :
 	TLSLIBS="$($LIBGNUTLSCONFIG --libs)"
 	TLSFLAGS="$($LIBGNUTLSCONFIG --cflags)"
 	PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $TLSLIBS"
-
-printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
-
 
 printf "%s\n" "#define HAVE_GNUTLS 1" >>confdefs.h
 
@@ -10022,70 +10009,6 @@ fi
 
 fi
 
-if test $with_tls = yes -o $with_tls = cdsa
-then :
-
-        if test $host_os_name = darwin
-then :
-
-	ac_fn_c_check_header_compile "$LINENO" "Security/SecureTransport.h" "ac_cv_header_Security_SecureTransport_h" "$ac_includes_default"
-if test "x$ac_cv_header_Security_SecureTransport_h" = xyes
-then :
-
-	    have_tls="1"
-	    with_tls="cdsa"
-
-printf "%s\n" "#define HAVE_TLS 1" >>confdefs.h
-
-
-printf "%s\n" "#define HAVE_CDSASSL 1" >>confdefs.h
-
-	    CUPS_SERVERKEYCHAIN="/Library/Keychains/System.keychain"
-
-	    	    ac_fn_c_check_header_compile "$LINENO" "Security/SecCertificate.h" "ac_cv_header_Security_SecCertificate_h" "$ac_includes_default"
-if test "x$ac_cv_header_Security_SecCertificate_h" = xyes
-then :
-
-
-printf "%s\n" "#define HAVE_SECCERTIFICATE_H 1" >>confdefs.h
-
-
-fi
-
-	    ac_fn_c_check_header_compile "$LINENO" "Security/SecItem.h" "ac_cv_header_Security_SecItem_h" "$ac_includes_default"
-if test "x$ac_cv_header_Security_SecItem_h" = xyes
-then :
-
-
-printf "%s\n" "#define HAVE_SECITEM_H 1" >>confdefs.h
-
-
-fi
-
-	    ac_fn_c_check_header_compile "$LINENO" "Security/SecPolicy.h" "ac_cv_header_Security_SecPolicy_h" "$ac_includes_default"
-if test "x$ac_cv_header_Security_SecPolicy_h" = xyes
-then :
-
-
-printf "%s\n" "#define HAVE_SECPOLICY_H 1" >>confdefs.h
-
-
-fi
-
-
-fi
-
-
-elif test $with_tls = cdsa
-then :
-
-        as_fn_error $? "--with-tls=cdsa is not compatible with your host operating system." "$LINENO" 5
-
-fi
-
-fi
-
-IPPALIASES="http"
 if test $have_tls = 1
 then :
 
@@ -10093,15 +10016,12 @@ then :
 printf "%s\n" "$as_me:     Using TLSLIBS=\"$TLSLIBS\"" >&6;}
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}:     Using TLSFLAGS=\"$TLSFLAGS\"" >&5
 printf "%s\n" "$as_me:     Using TLSFLAGS=\"$TLSFLAGS\"" >&6;}
-    IPPALIASES="http https ipps"
 
-elif test $with_tls = yes
-then :
+else $as_nop
 
-    as_fn_error $? "--with-tls=yes was specified but no compatible TLS libraries could be found." "$LINENO" 5
+    as_fn_error $? "No compatible TLS libraries could be found." "$LINENO" 5
 
 fi
-
 
 
 

@@ -78,14 +78,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
 	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
 
 	      if (http)
 		httpEncryption(http, HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
 	      break;
 
 	  case 'U' : /* Username */

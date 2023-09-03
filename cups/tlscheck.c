@@ -16,10 +16,6 @@
 #include "cups-private.h"
 
 
-#ifndef HAVE_TLS
-int main(void) { puts("Sorry, no TLS support compiled in."); return (1); }
-#else
-
 /*
  * Local functions...
  */
@@ -822,4 +818,3 @@ usage(void)
 
   exit(1);
 }
-#endif /* !HAVE_TLS */

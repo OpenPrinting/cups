@@ -240,14 +240,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'E' : /* Enable the printer/enable encryption */
 	      if (printer == NULL)
 	      {
-#ifdef HAVE_TLS
 		cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 
 		if (http)
 		  httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
-#else
-		_cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
 		break;
 	      }
 

@@ -1630,7 +1630,6 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   if (auth == CUPSD_AUTH_DENY && best->satisfy == CUPSD_AUTH_SATISFY_ALL)
     return (HTTP_FORBIDDEN);
 
-#ifdef HAVE_TLS
  /*
   * See if encryption is required...
   */
@@ -1647,7 +1646,6 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
                     "cupsdIsAuthorized: Need upgrade to TLS...");
     return (HTTP_UPGRADE_REQUIRED);
   }
-#endif /* HAVE_TLS */
 
  /*
   * Now see what access level is required...

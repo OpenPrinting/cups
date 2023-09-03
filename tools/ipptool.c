@@ -342,12 +342,7 @@ main(int  argc,				/* I - Number of command-line args */
               break;
 
 	  case 'E' : /* Encrypt with TLS */
-#ifdef HAVE_TLS
 	      data.encryption = HTTP_ENCRYPT_REQUIRED;
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."),
-			      argv[0]);
-#endif /* HAVE_TLS */
 	      break;
 
           case 'I' : /* Ignore errors */
@@ -390,11 +385,7 @@ main(int  argc,				/* I - Number of command-line args */
               break;
 
 	  case 'S' : /* Encrypt with SSL */
-#ifdef HAVE_TLS
 	      data.encryption = HTTP_ENCRYPT_ALWAYS;
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), "ipptool");
-#endif /* HAVE_TLS */
 	      break;
 
 	  case 'T' : /* Set timeout */
@@ -641,11 +632,7 @@ main(int  argc,				/* I - Number of command-line args */
 	}
       }
     }
-    else if (!strncmp(argv[i], "ipp://", 6) || !strncmp(argv[i], "http://", 7)
-#ifdef HAVE_TLS
-	     || !strncmp(argv[i], "ipps://", 7) || !strncmp(argv[i], "https://", 8)
-#endif /* HAVE_TLS */
-	     )
+    else if (!strncmp(argv[i], "ipp://", 6) || !strncmp(argv[i], "http://", 7) || !strncmp(argv[i], "ipps://", 7) || !strncmp(argv[i], "https://", 8))
     {
      /*
       * Set URI...
@@ -657,10 +644,8 @@ main(int  argc,				/* I - Number of command-line args */
         usage();
       }
 
-#ifdef HAVE_TLS
       if (!strncmp(argv[i], "ipps://", 7) || !strncmp(argv[i], "https://", 8))
         data.encryption = HTTP_ENCRYPT_ALWAYS;
-#endif /* HAVE_TLS */
 
       if (!_ippVarsSet(data.vars, "uri", argv[i]))
       {
@@ -3870,7 +3855,7 @@ print_json_attr(
 }
 
 
-/* 
+/*
  * 'print_json_string()' - Print a string in JSON format.
  */
 
