@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.5b1 - (TBA)
 Changes in CUPS v2.5b1 (TBA)
 ----------------------------
 
+- Added `cupsDNSSD` APIs.
+- Added `cupsConcatString` and `cupsCopyString` string APIs.
 - Fixed delays in lpd backend (Issue #741)
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
