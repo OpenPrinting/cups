@@ -799,11 +799,7 @@ cupsdReadConfiguration(void)
     cupsdLogMessage(CUPSD_LOG_INFO, "No %s, using defaults.", CupsFilesFile);
   else
   {
-#ifdef HAVE_SYSTEMD_SD_JOURNAL_H
-    sd_journal_print(LOG_ERR, "Unable to open \"%s\" - %s", CupsFilesFile, strerror(errno));
-#else
-    syslog(LOG_LPR, "Unable to open \"%s\" - %s", CupsFilesFile, strerror(errno));
-#endif /* HAVE_SYSTEMD_SD_JOURNAL_H */
+    fprintf(stderr, "Unable to read \"%s\" - %s\n", CupsFilesFile, strerror(errno));
 
     return (0);
   }
