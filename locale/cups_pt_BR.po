@@ -5728,7 +5728,7 @@ msgstr ""
 
 #. TRANSLATORS: Glossy
 msgid "coating-type.glossy"
-msgstr "Brilhoso
+msgstr "Brilhoso"
 
 #. TRANSLATORS: High Gloss
 msgid "coating-type.high-gloss"
