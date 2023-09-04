@@ -73,7 +73,7 @@ unittests:	$(UNITTARGETS)
 #
 
 clean:
-	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS) 
+	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS)
 
 
 #
@@ -81,7 +81,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #

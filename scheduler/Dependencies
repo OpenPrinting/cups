@@ -2,27 +2,27 @@ auth.o: auth.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -33,27 +33,27 @@ banners.o: banners.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -63,27 +63,27 @@ cert.o: cert.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -94,27 +94,27 @@ classes.o: classes.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -125,27 +125,27 @@ client.o: client.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -156,27 +156,27 @@ colorman.o: colorman.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -186,27 +186,27 @@ conf.o: conf.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -217,27 +217,27 @@ dirsvc.o: dirsvc.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -247,27 +247,27 @@ env.o: env.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -277,27 +277,27 @@ file.o: file.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -307,27 +307,27 @@ main.o: main.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -337,27 +337,27 @@ ipp.o: ipp.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -368,27 +368,27 @@ listen.o: listen.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -398,27 +398,27 @@ job.o: job.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -429,27 +429,27 @@ log.o: log.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -458,27 +458,27 @@ log.o: log.c cupsd.h ../cups/cups-private.h ../cups/string-private.h \
 network.o: network.c ../cups/http-private.h ../config.h \
   ../cups/language.h ../cups/array.h ../cups/versioning.h ../cups/http.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
-  ../cups/pwg.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/pwg.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../cups/array-private.h ../cups/language-private.h ../cups/transcode.h \
   ../cups/pwg-private.h ../cups/thread.h ../cups/file-private.h \
@@ -491,27 +491,27 @@ policy.o: policy.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -522,27 +522,27 @@ printers.o: printers.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -553,27 +553,27 @@ process.o: process.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -584,27 +584,27 @@ quotas.o: quotas.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -615,27 +615,27 @@ select.o: select.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -644,27 +644,27 @@ select.o: select.c cupsd.h ../cups/cups-private.h \
 server.o: server.c ../cups/http-private.h ../config.h ../cups/language.h \
   ../cups/array.h ../cups/versioning.h ../cups/http.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
-  ../cups/pwg.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/pwg.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   cupsd.h ../cups/cups-private.h ../cups/string-private.h \
   ../cups/array-private.h ../cups/language-private.h ../cups/transcode.h \
   ../cups/pwg-private.h ../cups/thread.h ../cups/file-private.h \
@@ -676,27 +676,27 @@ statbuf.o: statbuf.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -707,27 +707,27 @@ subscriptions.o: subscriptions.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -738,27 +738,27 @@ sysman.o: sysman.c cupsd.h ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h sysman.h statbuf.h cert.h auth.h \
@@ -778,27 +778,27 @@ cupsfilter.o: cupsfilter.c ../cups/cups-private.h \
   ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/file-private.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/raster.h mime.h
@@ -807,27 +807,27 @@ cups-deviced.o: cups-deviced.c util.h ../cups/array-private.h \
   ../cups/cups-private.h ../cups/string-private.h ../config.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
   ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/dir.h
 cups-exec.o: cups-exec.c ../cups/string-private.h ../config.h \
@@ -836,27 +836,27 @@ cups-lpd.o: cups-lpd.c ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/versioning.h ../cups/array-private.h \
   ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
   ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h
 testlpd.o: testlpd.c ../cups/cups.h ../cups/file.h ../cups/versioning.h \
@@ -881,27 +881,27 @@ util.o: util.c util.h ../cups/array-private.h ../cups/array.h \
   ../cups/string-private.h ../config.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h
 cups-driverd.o: cups-driverd.cxx util.h ../cups/array-private.h \
@@ -909,27 +909,27 @@ cups-driverd.o: cups-driverd.cxx util.h ../cups/array-private.h \
   ../cups/cups-private.h ../cups/string-private.h ../config.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
   ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  /usr/local/include/openssl/err.h \
-  /usr/local/include/openssl/opensslconf.h \
-  /usr/local/include/openssl/opensslfeatures.h \
-  /usr/local/include/openssl/ossl_typ.h /usr/local/include/openssl/bio.h \
-  /usr/local/include/openssl/crypto.h /usr/local/include/openssl/stack.h \
-  /usr/local/include/openssl/safestack.h \
-  /usr/local/include/openssl/opensslv.h \
-  /usr/local/include/openssl/lhash.h /usr/local/include/openssl/rand.h \
-  /usr/local/include/openssl/ssl.h /usr/local/include/openssl/hmac.h \
-  /usr/local/include/openssl/evp.h /usr/local/include/openssl/objects.h \
-  /usr/local/include/openssl/obj_mac.h /usr/local/include/openssl/asn1.h \
-  /usr/local/include/openssl/bn.h /usr/local/include/openssl/pem.h \
-  /usr/local/include/openssl/x509.h /usr/local/include/openssl/buffer.h \
-  /usr/local/include/openssl/ec.h /usr/local/include/openssl/ecdsa.h \
-  /usr/local/include/openssl/ecdh.h /usr/local/include/openssl/rsa.h \
-  /usr/local/include/openssl/dsa.h /usr/local/include/openssl/dh.h \
-  /usr/local/include/openssl/sha.h /usr/local/include/openssl/x509_vfy.h \
-  /usr/local/include/openssl/pkcs7.h /usr/local/include/openssl/pem2.h \
-  /usr/local/include/openssl/ssl2.h /usr/local/include/openssl/ssl3.h \
-  /usr/local/include/openssl/tls1.h /usr/local/include/openssl/dtls1.h \
-  /usr/local/include/openssl/ssl23.h /usr/local/include/openssl/srtp.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/dir.h ../cups/ppd-private.h ../cups/ppd.h \
   ../cups/raster.h ../ppdc/ppdc.h

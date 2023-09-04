@@ -105,7 +105,7 @@ clean:
 #
 
 depend:
-	$(CXX) -MM $(ALL_CXXFLAGS) $(OBJS:.o=.cxx) >Dependencies
+	$(CXX) -MM $(ALL_CFLAGS) $(OBJS:.o=.cxx) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #

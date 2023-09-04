@@ -115,8 +115,8 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) >Dependencies
-	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) >>Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
+	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >>Dependencies
 
 
 #
