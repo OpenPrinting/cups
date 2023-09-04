@@ -5,6 +5,7 @@ Changes in CUPS v2.4.7 (TBA)
 -----------------------------------
 
 - Fixed delays in lpd backend (Issue #741)
+- Fixed printing to stderr if we can't open cups-files.conf (Issue #777)
 - Fixed purging job files via `cancel -x` (Issue #742)
 - Fixed a bug in the PPD command interpretation code (Issue #768)
 
