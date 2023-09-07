@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS 2.4.7 - TBA
 Changes in CUPS v2.4.7 (TBA)
 -----------------------------------
 
+- Added OpenSSL support for cupsHashData (Issue #762)
 - Fixed delays in lpd backend (Issue #741)
 - Fixed printing to stderr if we can't open cups-files.conf (Issue #777)
 - Fixed purging job files via `cancel -x` (Issue #742)
