@@ -177,9 +177,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 {
   int		ipv4,			/* SNMP IPv4 socket */
 		ipv6;			/* SNMP IPv6 socket */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -202,18 +200,12 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Catch SIGALRM signals...
   */
 
-#ifdef HAVE_SIGSET
-  sigset(SIGALRM, alarm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   sigaddset(&action.sa_mask, SIGALRM);
   action.sa_handler = alarm_handler;
   sigaction(SIGALRM, &action, NULL);
-#else
-  signal(SIGALRM, alarm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Open the SNMP socket...
@@ -427,10 +419,6 @@ alarm_handler(int sig)			/* I - Signal number */
   */
 
   (void)sig;
-
-#if !defined(HAVE_SIGSET) && !defined(HAVE_SIGACTION)
-  signal(SIGALRM, alarm_handler);
-#endif /* !HAVE_SIGSET && !HAVE_SIGACTION */
 
   if (DebugLevel)
     backendMessage("DEBUG: ALARM!\n");
@@ -1132,7 +1120,7 @@ read_snmp_response(int fd)		/* I - SNMP socket file descriptor */
                               scheme, sizeof(scheme),
                               userpass, sizeof(userpass),
                               hostname, sizeof(hostname), &port,
-                              resource, sizeof(resource)) >= HTTP_URI_OK)
+                              resource, sizeof(resource)) >= HTTP_URI_STATUS_OK)
 	    device->uri = strdup((char *)packet.object_value.string.bytes);
 	}
 	break;
@@ -1328,7 +1316,7 @@ try_connect(http_addr_t *addr,		/* I - Socket address */
     return (-1);
   }
 
-  _httpAddrSetPort(addr, port);
+  httpAddrSetPort(addr, port);
 
   alarm(1);
 

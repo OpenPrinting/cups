@@ -263,7 +263,7 @@ struct _cups_dir_s			/**** Directory data structure ****/
 void
 cupsDirClose(cups_dir_t *dp)		/* I - Directory pointer */
 {
-  DEBUG_printf(("cupsDirClose(dp=%p)", (void *)dp));
+  DEBUG_printf("cupsDirClose(dp=%p)", (void *)dp);
 
  /*
   * Range check input...
@@ -293,7 +293,7 @@ cupsDirOpen(const char *directory)	/* I - Directory name */
   cups_dir_t	*dp;			/* Directory */
 
 
-  DEBUG_printf(("cupsDirOpen(directory=\"%s\")", directory));
+  DEBUG_printf("cupsDirOpen(directory=\"%s\")", directory);
 
  /*
   * Range check input...
@@ -348,7 +348,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
   char		filename[1024];		/* Full filename */
 
 
-  DEBUG_printf(("2cupsDirRead(dp=%p)", (void *)dp));
+  DEBUG_printf("2cupsDirRead(dp=%p)", (void *)dp);
 
  /*
   * Range check input...
@@ -373,7 +373,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
       return (NULL);
     }
 
-    DEBUG_printf(("4cupsDirRead: readdir() returned \"%s\"...", entry->d_name));
+    DEBUG_printf("4cupsDirRead: readdir() returned \"%s\"...", entry->d_name);
 
    /*
     * Skip "." and ".."...
@@ -415,7 +415,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
 void
 cupsDirRewind(cups_dir_t *dp)		/* I - Directory pointer */
 {
-  DEBUG_printf(("cupsDirRewind(dp=%p)", (void *)dp));
+  DEBUG_printf("cupsDirRewind(dp=%p)", (void *)dp);
 
  /*
   * Range check input...

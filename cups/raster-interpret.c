@@ -542,7 +542,7 @@ _cupsRasterExecPS(
   while ((obj = scan_ps(st, &codeptr)) != NULL)
   {
 #ifdef DEBUG
-    DEBUG_printf(("_cupsRasterExecPS: Stack (%d objects)", st->num_objs));
+    DEBUG_printf("_cupsRasterExecPS: Stack (%d objects)", st->num_objs);
     DEBUG_object("_cupsRasterExecPS", obj);
 #endif /* DEBUG */
 
@@ -650,7 +650,7 @@ _cupsRasterExecPS(
       case CUPS_PS_OTHER :
           _cupsRasterAddError("Unknown operator \"%s\".\n", obj->value.other);
 	  error = 1;
-          DEBUG_printf(("_cupsRasterExecPS: Unknown operator \"%s\".", obj->value.other));
+          DEBUG_printf("_cupsRasterExecPS: Unknown operator \"%s\".", obj->value.other);
           break;
     }
 
@@ -974,7 +974,7 @@ roll_stack(_cups_ps_stack_t *st,	/* I - Stack */
   int			n;		/* Index into array */
 
 
-  DEBUG_printf(("3roll_stack(st=%p, s=%d, c=%d)", st, s, c));
+  DEBUG_printf("3roll_stack(st=%p, s=%d, c=%d)", st, s, c);
 
  /*
   * Range check input...
@@ -1447,7 +1447,7 @@ setpagedevice(
     obj ++;
 
 #ifdef DEBUG
-    DEBUG_printf(("4setpagedevice: /%s ", name));
+    DEBUG_printf("4setpagedevice: /%s ", name);
     DEBUG_object("setpagedevice", obj);
 #endif /* DEBUG */
 
@@ -1598,7 +1598,7 @@ setpagedevice(
       * Ignore unknown name+value...
       */
 
-      DEBUG_printf(("4setpagedevice: Unknown name (\"%s\") or value...\n", name));
+      DEBUG_printf("4setpagedevice: Unknown name (\"%s\") or value...\n", name);
 
       while (obj[1].type != CUPS_PS_NAME && obj < end)
         obj ++;
@@ -1621,86 +1621,86 @@ DEBUG_object(const char *prefix,	/* I - Prefix string */
   switch (obj->type)
   {
     case CUPS_PS_NAME :
-	DEBUG_printf(("4%s: /%s\n", prefix, obj->value.name));
+	DEBUG_printf("4%s: /%s\n", prefix, obj->value.name);
 	break;
 
     case CUPS_PS_NUMBER :
-	DEBUG_printf(("4%s: %g\n", prefix, obj->value.number));
+	DEBUG_printf("4%s: %g\n", prefix, obj->value.number);
 	break;
 
     case CUPS_PS_STRING :
-	DEBUG_printf(("4%s: (%s)\n", prefix, obj->value.string));
+	DEBUG_printf("4%s: (%s)\n", prefix, obj->value.string);
 	break;
 
     case CUPS_PS_BOOLEAN :
 	if (obj->value.boolean)
-	  DEBUG_printf(("4%s: true", prefix));
+	  DEBUG_printf("4%s: true", prefix);
 	else
-	  DEBUG_printf(("4%s: false", prefix));
+	  DEBUG_printf("4%s: false", prefix);
 	break;
 
     case CUPS_PS_NULL :
-	DEBUG_printf(("4%s: null", prefix));
+	DEBUG_printf("4%s: null", prefix);
 	break;
 
     case CUPS_PS_START_ARRAY :
-	DEBUG_printf(("4%s: [", prefix));
+	DEBUG_printf("4%s: [", prefix);
 	break;
 
     case CUPS_PS_END_ARRAY :
-	DEBUG_printf(("4%s: ]", prefix));
+	DEBUG_printf("4%s: ]", prefix);
 	break;
 
     case CUPS_PS_START_DICT :
-	DEBUG_printf(("4%s: <<", prefix));
+	DEBUG_printf("4%s: <<", prefix);
 	break;
 
     case CUPS_PS_END_DICT :
-	DEBUG_printf(("4%s: >>", prefix));
+	DEBUG_printf("4%s: >>", prefix);
 	break;
 
     case CUPS_PS_START_PROC :
-	DEBUG_printf(("4%s: {", prefix));
+	DEBUG_printf("4%s: {", prefix);
 	break;
 
     case CUPS_PS_END_PROC :
-	DEBUG_printf(("4%s: }", prefix));
+	DEBUG_printf("4%s: }", prefix);
 	break;
 
     case CUPS_PS_CLEARTOMARK :
-	DEBUG_printf(("4%s: --cleartomark--", prefix));
+	DEBUG_printf("4%s: --cleartomark--", prefix);
         break;
 
     case CUPS_PS_COPY :
-	DEBUG_printf(("4%s: --copy--", prefix));
+	DEBUG_printf("4%s: --copy--", prefix);
         break;
 
     case CUPS_PS_DUP :
-	DEBUG_printf(("4%s: --dup--", prefix));
+	DEBUG_printf("4%s: --dup--", prefix);
         break;
 
     case CUPS_PS_INDEX :
-	DEBUG_printf(("4%s: --index--", prefix));
+	DEBUG_printf("4%s: --index--", prefix);
         break;
 
     case CUPS_PS_POP :
-	DEBUG_printf(("4%s: --pop--", prefix));
+	DEBUG_printf("4%s: --pop--", prefix);
         break;
 
     case CUPS_PS_ROLL :
-	DEBUG_printf(("4%s: --roll--", prefix));
+	DEBUG_printf("4%s: --roll--", prefix);
         break;
 
     case CUPS_PS_SETPAGEDEVICE :
-	DEBUG_printf(("4%s: --setpagedevice--", prefix));
+	DEBUG_printf("4%s: --setpagedevice--", prefix);
         break;
 
     case CUPS_PS_STOPPED :
-	DEBUG_printf(("4%s: --stopped--", prefix));
+	DEBUG_printf("4%s: --stopped--", prefix);
         break;
 
     case CUPS_PS_OTHER :
-	DEBUG_printf(("4%s: --%s--", prefix, obj->value.other));
+	DEBUG_printf("4%s: --%s--", prefix, obj->value.other);
 	break;
   }
 }

@@ -37,7 +37,7 @@ httpAddrConnect(
     http_addrlist_t *addrlist,		/* I - List of potential addresses */
     int             *sock)		/* O - Socket */
 {
-  DEBUG_printf(("httpAddrConnect(addrlist=%p, sock=%p)", (void *)addrlist, (void *)sock));
+  DEBUG_printf("httpAddrConnect(addrlist=%p, sock=%p)", (void *)addrlist, (void *)sock);
 
   return (httpAddrConnect2(addrlist, sock, 30000, NULL));
 }
@@ -89,7 +89,7 @@ httpAddrConnect2(
 #endif /* DEBUG */
 
 
-  DEBUG_printf(("httpAddrConnect2(addrlist=%p, sock=%p, msec=%d, cancel=%p)", (void *)addrlist, (void *)sock, msec, (void *)cancel));
+  DEBUG_printf("httpAddrConnect2(addrlist=%p, sock=%p, msec=%d, cancel=%p)", (void *)addrlist, (void *)sock, msec, (void *)cancel);
 
   if (!sock)
   {
@@ -132,7 +132,7 @@ httpAddrConnect2(
       * Create the socket...
       */
 
-      DEBUG_printf(("2httpAddrConnect2: Trying %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr))));
+      DEBUG_printf("2httpAddrConnect2: Trying %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)));
 
       if ((fds[nfds] = (int)socket(httpAddrFamily(&(addrlist->addr)), SOCK_STREAM, 0)) < 0)
       {
@@ -185,7 +185,7 @@ httpAddrConnect2(
       * Do an asynchronous connect by setting the socket non-blocking...
       */
 
-      DEBUG_printf(("httpAddrConnect2: Setting non-blocking connect()"));
+      DEBUG_printf("httpAddrConnect2: Setting non-blocking connect()");
 
       flags = fcntl(fds[nfds], F_GETFL, 0);
       fcntl(fds[nfds], F_SETFL, flags | O_NONBLOCK);
@@ -197,7 +197,7 @@ httpAddrConnect2(
 
       if (!connect(fds[nfds], &(addrlist->addr.addr), (socklen_t)httpAddrLength(&(addrlist->addr))))
       {
-	DEBUG_printf(("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr))));
+	DEBUG_printf("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)));
 
 #ifdef O_NONBLOCK
 	fcntl(fds[nfds], F_SETFL, flags);
@@ -220,7 +220,7 @@ httpAddrConnect2(
       if (errno != EINPROGRESS && errno != EWOULDBLOCK)
 #endif /* _WIN32 */
       {
-	DEBUG_printf(("1httpAddrConnect2: Unable to connect to %s:%d: %s", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)), strerror(errno)));
+	DEBUG_printf("1httpAddrConnect2: Unable to connect to %s:%d: %s", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)), strerror(errno));
 	httpAddrClose(NULL, fds[nfds]);
 	addrlist = addrlist->next;
 	continue;
@@ -287,7 +287,7 @@ httpAddrConnect2(
 
       result = poll(pfds, (nfds_t)nfds, addrlist ? 100 : remaining > 250 ? 250 : remaining);
 
-      DEBUG_printf(("1httpAddrConnect2: poll() returned %d (%d)", result, errno));
+      DEBUG_printf("1httpAddrConnect2: poll() returned %d (%d)", result, errno);
 
 #  else
       FD_ZERO(&input_set);
@@ -301,7 +301,7 @@ httpAddrConnect2(
 
       result = select(max_fd + 1, &input_set, &output_set, &error_set, &timeout);
 
-      DEBUG_printf(("1httpAddrConnect2: select() returned %d (%d)", result, errno));
+      DEBUG_printf("1httpAddrConnect2: select() returned %d (%d)", result, errno);
 #  endif /* HAVE_POLL */
     }
 #  ifdef _WIN32
@@ -317,7 +317,7 @@ httpAddrConnect2(
       for (i = 0; i < nfds; i ++)
       {
 #  ifdef HAVE_POLL
-	DEBUG_printf(("pfds[%d].revents=%x\n", i, pfds[i].revents));
+	DEBUG_printf("pfds[%d].revents=%x\n", i, pfds[i].revents);
 	if (pfds[i].revents && !(pfds[i].revents & (POLLERR | POLLHUP)))
 #  else
 	if (FD_ISSET(fds[i], &input_set) && !FD_ISSET(fds[i], &error_set))
@@ -329,7 +329,7 @@ httpAddrConnect2(
 #  ifdef DEBUG
 	  len   = sizeof(peer);
 	  if (!getpeername(fds[i], (struct sockaddr *)&peer, &len))
-	    DEBUG_printf(("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&peer, temp, sizeof(temp)), httpAddrPort(&peer)));
+	    DEBUG_printf("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&peer, temp, sizeof(temp)), httpAddrPort(&peer));
 #  endif /* DEBUG */
 
           break;

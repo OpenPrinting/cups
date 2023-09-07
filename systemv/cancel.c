@@ -77,10 +77,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 
 	      if (http)
-		httpEncryption(http, HTTP_ENCRYPT_REQUIRED);
+		httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'U' : /* Username */

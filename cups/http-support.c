@@ -830,7 +830,7 @@ httpGetDateTime(const char *s)		/* I - Date/time string */
 		{ 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366 };
 
 
-  DEBUG_printf(("2httpGetDateTime(s=\"%s\")", s));
+  DEBUG_printf("2httpGetDateTime(s=\"%s\")", s);
 
  /*
   * Extract the date and time from the formatted string...
@@ -860,7 +860,7 @@ httpGetDateTime(const char *s)		/* I - Date/time string */
   if (i >= 12)
     return (0);
 
-  DEBUG_printf(("4httpGetDateTime: i=%d", i));
+  DEBUG_printf("4httpGetDateTime: i=%d", i);
 
  /*
   * Now convert the date and time to a UNIX time value in seconds since
@@ -873,14 +873,14 @@ httpGetDateTime(const char *s)		/* I - Date/time string */
   else
     days = normal_days[i] + day - 1;
 
-  DEBUG_printf(("4httpGetDateTime: days=%d", days));
+  DEBUG_printf("4httpGetDateTime: days=%d", days);
 
   days += (year - 1970) * 365 +		/* 365 days per year (normally) */
           ((year - 1) / 4 - 492) -	/* + leap days */
 	  ((year - 1) / 100 - 19) +	/* - 100 year days */
           ((year - 1) / 400 - 4);	/* + 400 year days */
 
-  DEBUG_printf(("4httpGetDateTime: days=%d\n", days));
+  DEBUG_printf("4httpGetDateTime: days=%d\n", days);
 
   return (days * 86400 + hour * 3600 + min * 60 + sec);
 }
@@ -1331,7 +1331,7 @@ _httpSetDigestAuthString(
   _cups_globals_t *cg = _cupsGlobals();	/* Per-thread globals */
 
 
-  DEBUG_printf(("2_httpSetDigestAuthString(http=%p, nonce=\"%s\", method=\"%s\", resource=\"%s\")", (void *)http, nonce, method, resource));
+  DEBUG_printf("2_httpSetDigestAuthString(http=%p, nonce=\"%s\", method=\"%s\", resource=\"%s\")", (void *)http, nonce, method, resource);
 
   if (nonce && *nonce && strcmp(nonce, http->nonce))
   {
@@ -1481,14 +1481,14 @@ httpStateString(http_state_t state)	/* I - HTTP state value */
 
 
 /*
- * '_httpStatus()' - Return the localized string describing a HTTP status code.
+ * '_httpStatusString()' - Return the localized string describing a HTTP status code.
  *
  * The returned string is localized using the passed message catalog.
  */
 
 const char *				/* O - Localized status string */
-_httpStatus(cups_lang_t   *lang,	/* I - Language */
-            http_status_t status)	/* I - HTTP status code */
+_httpStatusString(cups_lang_t   *lang,	/* I - Language */
+                  http_status_t status)	/* I - HTTP status code */
 {
   const char	*s;			/* Status string */
 
@@ -1584,12 +1584,25 @@ _httpStatus(cups_lang_t   *lang,	/* I - Language */
 /*
  * 'httpStatus()' - Return a short string describing a HTTP status code.
  *
+ * @deprecated@ @exclude all@
+ */
+
+const char *				/* O - Localized status string */
+httpStatus(http_status_t status)	/* I - HTTP status code */
+{
+  return (httpStatusString(status));
+}
+
+
+/*
+ * 'httpStatusString()' - Return a short string describing a HTTP status code.
+ *
  * The returned string is localized to the current POSIX locale and is based
  * on the status strings defined in RFC 7231.
  */
 
 const char *				/* O - Localized status string */
-httpStatus(http_status_t status)	/* I - HTTP status code */
+httpStatusString(http_status_t status)	/* I - HTTP status code */
 {
   _cups_globals_t *cg = _cupsGlobals();	/* Global data */
 
@@ -1597,7 +1610,7 @@ httpStatus(http_status_t status)	/* I - HTTP status code */
   if (!cg->lang_default)
     cg->lang_default = cupsLangDefault();
 
-  return (_httpStatus(cg->lang_default, status));
+  return (_httpStatusString(cg->lang_default, status));
 }
 
 /*
@@ -1744,7 +1757,7 @@ _httpResolveURI(
 #endif /* DEBUG */
 
 
-  DEBUG_printf(("_httpResolveURI(uri=\"%s\", resolved_uri=%p, resolved_size=" CUPS_LLFMT ", options=0x%x, cb=%p, context=%p)", uri, (void *)resolved_uri, CUPS_LLCAST resolved_size, options, (void *)cb, context));
+  DEBUG_printf("_httpResolveURI(uri=\"%s\", resolved_uri=%p, resolved_size=" CUPS_LLFMT ", options=0x%x, cb=%p, context=%p)", uri, (void *)resolved_uri, CUPS_LLCAST resolved_size, options, (void *)cb, context);
 
  /*
   * Get the device URI...
@@ -1765,7 +1778,7 @@ _httpResolveURI(
     if (options & _HTTP_RESOLVE_STDERR)
       _cupsLangPrintFilter(stderr, "ERROR", _("Bad device-uri \"%s\"."), uri);
 
-    DEBUG_printf(("2_httpResolveURI: httpSeparateURI returned %d!", status));
+    DEBUG_printf("2_httpResolveURI: httpSeparateURI returned %d!", status);
     DEBUG_puts("2_httpResolveURI: Returning NULL");
     return (NULL);
   }
@@ -1927,7 +1940,7 @@ _httpResolveURI(
 	  {
 	    if (errno != EINTR && errno != EAGAIN)
 	    {
-	      DEBUG_printf(("2_httpResolveURI: poll error: %s", strerror(errno)));
+	      DEBUG_printf("2_httpResolveURI: poll error: %s", strerror(errno));
 	      break;
 	    }
 	  }
@@ -2123,7 +2136,7 @@ _httpResolveURI(
     uri = resolved_uri;
   }
 
-  DEBUG_printf(("2_httpResolveURI: Returning \"%s\"", uri));
+  DEBUG_printf("2_httpResolveURI: Returning \"%s\"", uri);
 
   return (uri);
 }
@@ -2310,7 +2323,7 @@ http_resolve_cb(
   uint8_t		valueLen;	/* Length of value */
 
 
-  DEBUG_printf(("4http_resolve_cb(sdRef=%p, flags=%x, interfaceIndex=%u, errorCode=%d, fullName=\"%s\", hostTarget=\"%s\", port=%u, txtLen=%u, txtRecord=%p, context=%p)", (void *)sdRef, flags, interfaceIndex, errorCode, fullName, hostTarget, port, txtLen, (void *)txtRecord, context));
+  DEBUG_printf("4http_resolve_cb(sdRef=%p, flags=%x, interfaceIndex=%u, errorCode=%d, fullName=\"%s\", hostTarget=\"%s\", port=%u, txtLen=%u, txtRecord=%p, context=%p)", (void *)sdRef, flags, interfaceIndex, errorCode, fullName, hostTarget, port, txtLen, (void *)txtRecord, context);
 
  /*
   * If we have a UUID, compare it...
@@ -2421,7 +2434,7 @@ http_resolve_cb(
     http_addrlist_t	*addrlist,	/* List of addresses */
 			*addr;		/* Current address */
 
-    DEBUG_printf(("5http_resolve_cb: Looking up \"%s\".", hostTarget));
+    DEBUG_printf("5http_resolve_cb: Looking up \"%s\".", hostTarget);
 
     snprintf(fqdn, sizeof(fqdn), "%d", ntohs(port));
     if ((addrlist = httpAddrGetList(hostTarget, AF_UNSPEC, fqdn)) != NULL)
@@ -2432,7 +2445,7 @@ http_resolve_cb(
 
         if (!error)
 	{
-	  DEBUG_printf(("5http_resolve_cb: Found \"%s\".", fqdn));
+	  DEBUG_printf("5http_resolve_cb: Found \"%s\".", fqdn);
 
 	  if ((hostptr = fqdn + strlen(fqdn) - 6) <= fqdn ||
 	      _cups_strcasecmp(hostptr, ".local"))
@@ -2463,7 +2476,7 @@ http_resolve_cb(
   else
     httpAssembleURI(HTTP_URI_CODING_ALL, uribuf->buffer, (int)uribuf->bufsize, scheme, NULL, hostTarget, ntohs(port), resource);
 
-  DEBUG_printf(("5http_resolve_cb: Resolved URI is \"%s\"...", uribuf->buffer));
+  DEBUG_printf("5http_resolve_cb: Resolved URI is \"%s\"...", uribuf->buffer);
 }
 
 #elif defined(HAVE_AVAHI)
@@ -2650,7 +2663,7 @@ http_resolve_cb(
   {
     if (uribuf->options & _HTTP_RESOLVE_STDERR)
       fprintf(stderr, "DEBUG: Unable to find interface name for interface %d: %s\n", interface, strerror(errno));
-    DEBUG_printf(("Unable to find interface name for interface %d: %s\n", interface, strerror(errno)));
+    DEBUG_printf("Unable to find interface name for interface %d: %s\n", interface, strerror(errno));
     ifname[0] = '\0';
   }
 
@@ -2678,7 +2691,7 @@ http_resolve_cb(
     http_addrlist_t	*addrlist,	/* List of addresses */
 			*addr;		/* Current address */
 
-    DEBUG_printf(("5http_resolve_cb: Looking up \"%s\".", hostTarget));
+    DEBUG_printf("5http_resolve_cb: Looking up \"%s\".", hostTarget);
 
     snprintf(fqdn, sizeof(fqdn), "%d", ntohs(port));
     if ((addrlist = httpAddrGetList(hostTarget, AF_UNSPEC, fqdn)) != NULL)
@@ -2689,7 +2702,7 @@ http_resolve_cb(
 
         if (!error)
 	{
-	  DEBUG_printf(("5http_resolve_cb: Found \"%s\".", fqdn));
+	  DEBUG_printf("5http_resolve_cb: Found \"%s\".", fqdn);
 
 	  if ((hostptr = fqdn + strlen(fqdn) - 6) <= fqdn ||
 	      _cups_strcasecmp(hostptr, ".local"))
@@ -2715,7 +2728,7 @@ http_resolve_cb(
   */
 
   httpAssembleURI(HTTP_URI_CODING_ALL, uribuf->buffer, (int)uribuf->bufsize, scheme, NULL, hostTarget, port, resource);
-  DEBUG_printf(("5http_resolve_cb: Resolved URI is \"%s\".", uribuf->buffer));
+  DEBUG_printf("5http_resolve_cb: Resolved URI is \"%s\".", uribuf->buffer);
 
   avahi_simple_poll_quit(uribuf->poll);
 }

@@ -281,7 +281,7 @@ cups_globals_alloc(void)
 				// User profile (home) directory
     char	*homeptr;	// Pointer into homedir
 
-    DEBUG_printf(("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile));
+    DEBUG_printf("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile);
 
     if (!strncmp(userprofile, "C:\\", 3))
       userprofile += 2;
@@ -294,7 +294,7 @@ cups_globals_alloc(void)
         *homeptr = '/';
     }
 
-    DEBUG_printf(("cups_globals_alloc: homedir=\"%s\"", homedir));
+    DEBUG_printf("cups_globals_alloc: homedir=\"%s\"", homedir);
   }
 
   cg->home = homedir;

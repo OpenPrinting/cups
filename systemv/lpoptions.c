@@ -132,7 +132,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      break;
 
 	  case 'E' : /* Encrypt connection */
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'l' : /* -l (list options) */

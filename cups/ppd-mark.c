@@ -396,7 +396,7 @@ ppdFindMarkedChoice(ppd_file_t *ppd,	/* I - PPD file */
 		*marked;		/* Marked choice */
 
 
-  DEBUG_printf(("2ppdFindMarkedChoice(ppd=%p, option=\"%s\")", ppd, option));
+  DEBUG_printf("2ppdFindMarkedChoice(ppd=%p, option=\"%s\")", ppd, option);
 
   if ((key.option = ppdFindOption(ppd, option)) == NULL)
   {
@@ -700,12 +700,12 @@ ppd_debug_marked(ppd_file_t *ppd,		/* I - PPD file data */
   ppd_choice_t	*c;			/* Current choice */
 
 
-  DEBUG_printf(("2cupsMarkOptions: %s", title));
+  DEBUG_printf("2cupsMarkOptions: %s", title);
 
   for (c = (ppd_choice_t *)cupsArrayFirst(ppd->marked);
        c;
        c = (ppd_choice_t *)cupsArrayNext(ppd->marked))
-    DEBUG_printf(("2cupsMarkOptions: %s=%s", c->option->keyword, c->choice));
+    DEBUG_printf("2cupsMarkOptions: %s=%s", c->option->keyword, c->choice);
 }
 #endif /* DEBUG */
 

@@ -642,9 +642,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   cups_page_header2_t	header;		/* Page header from file */
   unsigned		y;		/* Current line */
   ppd_file_t		*ppd;		/* PPD file */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -695,17 +693,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   Canceled = 0;
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGTERM, CancelJob);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = CancelJob;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGTERM, CancelJob);
-#endif /* HAVE_SIGSET */
 
  /*
   * Initialize the print device...

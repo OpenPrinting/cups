@@ -69,7 +69,7 @@ static int	remove_jobs(const char *name, const char *agent,
 static int	send_state(const char *name, const char *list,
 		           int longstatus);
 static char	*smart_gets(char *s, int len, FILE *fp);
-static void	smart_strlcpy(char *dst, const char *src, size_t dstsize);
+static void	smart_cupsCopyString(char *dst, const char *src, size_t dstsize);
 
 
 /*
@@ -176,16 +176,16 @@ main(int  argc,				/* I - Number of command-line arguments */
   if (getpeername(0, (struct sockaddr *)&hostaddr, &hostlen))
   {
     syslog(LOG_WARNING, "Unable to get client address - %s", strerror(errno));
-    strlcpy(hostname, "unknown", sizeof(hostname));
+    cupsCopyString(hostname, "unknown", sizeof(hostname));
   }
   else
   {
-    httpAddrString(&hostaddr, hostip, sizeof(hostip));
+    httpAddrGetString(&hostaddr, hostip, sizeof(hostip));
 
     if (hostlookups)
       httpAddrLookup(&hostaddr, hostname, sizeof(hostname));
     else
-      strlcpy(hostname, hostip, sizeof(hostname));
+      cupsCopyString(hostname, hostip, sizeof(hostname));
 
 #ifdef AF_INET6
     if (hostaddr.addr.sa_family == AF_INET6)
@@ -448,7 +448,7 @@ get_printer(http_t        *http,	/* I - HTTP connection */
   * See if the name is a queue name optionally with an instance name.
   */
 
-  strlcpy(dest, name, destsize);
+  cupsCopyString(dest, name, destsize);
   if ((value = strchr(dest, '/')) != NULL)
     *value = '\0';
 
@@ -575,7 +575,7 @@ get_printer(http_t        *http,	/* I - HTTP connection */
         * Found a match, use this one!
 	*/
 
-	strlcpy(dest, name_attr->values[0].string.text, destsize);
+	cupsCopyString(dest, name_attr->values[0].string.text, destsize);
 
 	if (accepting && accepting_attr)
 	  *accepting = accepting_attr->values[0].boolean;
@@ -910,7 +910,7 @@ recv_print_job(
 	      break;
 	    }
 
-	    strlcpy(filename, control, sizeof(filename));
+	    cupsCopyString(filename, control, sizeof(filename));
 	  }
 	  break;
 
@@ -935,7 +935,7 @@ recv_print_job(
 	    break;
 	  }
 
-	  strlcpy(data[num_data], name, sizeof(data[0]));
+	  cupsCopyString(data[num_data], name, sizeof(data[0]));
 
           if ((fd = cupsCreateTempFd(NULL, NULL, temp[num_data], sizeof(temp[0]))) < 0)
 	  {
@@ -946,7 +946,7 @@ recv_print_job(
 	    break;
 	  }
 
-	  strlcpy(filename, temp[num_data], sizeof(filename));
+	  cupsCopyString(filename, temp[num_data], sizeof(filename));
 
           num_data ++;
 	  break;
@@ -1049,15 +1049,15 @@ recv_print_job(
 	switch (line[0])
 	{
 	  case 'J' : /* Job name */
-	      smart_strlcpy(title, line + 1, sizeof(title));
+	      smart_cupsCopyString(title, line + 1, sizeof(title));
 	      break;
 
           case 'N' : /* Document name */
-              smart_strlcpy(docname, line + 1, sizeof(docname));
+              smart_cupsCopyString(docname, line + 1, sizeof(docname));
               break;
 
 	  case 'P' : /* User identification */
-	      smart_strlcpy(user, line + 1, sizeof(user));
+	      smart_cupsCopyString(user, line + 1, sizeof(user));
 	      break;
 
 	  case 'L' : /* Print banner page */
@@ -1109,7 +1109,7 @@ recv_print_job(
       {
 	syslog(LOG_WARNING, "No username specified by client! "
 		            "Using \"anonymous\"...");
-	strlcpy(user, "anonymous", sizeof(user));
+	cupsCopyString(user, "anonymous", sizeof(user));
       }
 
      /*
@@ -1138,7 +1138,7 @@ recv_print_job(
 	  switch (line[0])
 	  {
 	    case 'N' : /* Document name */
-		smart_strlcpy(docname, line + 1, sizeof(docname));
+		smart_cupsCopyString(docname, line + 1, sizeof(docname));
 		break;
 
 	    case 'c' : /* Plot CIF file */
@@ -1518,7 +1518,7 @@ send_state(const char *queue,		/* I - Destination */
     */
 
     if (jobstate == IPP_JSTATE_PROCESSING)
-      strlcpy(rankstr, "active", sizeof(rankstr));
+      cupsCopyString(rankstr, "active", sizeof(rankstr));
     else
     {
       snprintf(rankstr, sizeof(rankstr), "%d%s", rank, ranks[rank % 10]);
@@ -1533,7 +1533,7 @@ send_state(const char *queue,		/* I - Destination */
 	snprintf(namestr, sizeof(namestr), "%d copies of %s", jobcopies,
 	         jobname);
       else
-	strlcpy(namestr, jobname, sizeof(namestr));
+	cupsCopyString(namestr, jobname, sizeof(namestr));
 
       printf("%s: %-33.33s [job %d localhost]\n", jobuser, rankstr, jobid);
       printf("        %-39.39s %.0f bytes\n", namestr, 1024.0 * jobsize);
@@ -1612,11 +1612,11 @@ smart_gets(char *s,			/* I - Pointer to line buffer */
 
 
 /*
- * 'smart_strlcpy()' - Copy a string and convert from ISO-8859-1 to UTF-8 as needed.
+ * 'smart_cupsCopyString()' - Copy a string and convert from ISO-8859-1 to UTF-8 as needed.
  */
 
 static void
-smart_strlcpy(char       *dst,		/* I - Output buffer */
+smart_cupsCopyString(char       *dst,		/* I - Output buffer */
               const char *src,		/* I - Input string */
               size_t     dstsize)	/* I - Size of output buffer */
 {

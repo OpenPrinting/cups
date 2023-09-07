@@ -187,7 +187,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'h' : /* Connect to host */

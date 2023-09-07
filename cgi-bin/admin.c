@@ -956,9 +956,9 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       if (httpGet(http, uri))
         httpGet(http, uri);
 
-      while ((get_status = httpUpdate(http)) == HTTP_CONTINUE);
+      while ((get_status = httpUpdate(http)) == HTTP_STATUS_CONTINUE);
 
-      if (get_status != HTTP_OK)
+      if (get_status != HTTP_STATUS_OK)
       {
         httpFlush(http);
 
@@ -1598,13 +1598,13 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 
     status = cupsPutFile(http, "/admin/conf/cupsd.conf", tempfile);
 
-    if (status == HTTP_UNAUTHORIZED)
+    if (status == HTTP_STATUS_UNAUTHORIZED)
     {
       puts("Status: 401\n");
       unlink(tempfile);
       exit(0);
     }
-    else if (status != HTTP_CREATED)
+    else if (status != HTTP_STATUS_CREATED)
     {
       cgiSetVariable("MESSAGE",
                      cgiText(_("Unable to upload cupsd.conf file")));

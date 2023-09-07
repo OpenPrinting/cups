@@ -67,11 +67,11 @@ cupsAddOption(const char    *name,	/* I  - Name of option */
 		diff;			/* Result of search */
 
 
-  DEBUG_printf(("2cupsAddOption(name=\"%s\", value=\"%s\", num_options=%d, options=%p)", name, value, num_options, (void *)options));
+  DEBUG_printf("2cupsAddOption(name=\"%s\", value=\"%s\", num_options=%d, options=%p)", name, value, num_options, (void *)options);
 
   if (!name || !name[0] || !value || !options || num_options < 0)
   {
-    DEBUG_printf(("3cupsAddOption: Returning %d", num_options));
+    DEBUG_printf("3cupsAddOption: Returning %d", num_options);
     return (num_options);
   }
 
@@ -146,7 +146,7 @@ cupsAddOption(const char    *name,	/* I  - Name of option */
 
   temp->value = _cupsStrAlloc(value);
 
-  DEBUG_printf(("3cupsAddOption: Returning %d", num_options));
+  DEBUG_printf("3cupsAddOption: Returning %d", num_options);
 
   return (num_options);
 }
@@ -164,7 +164,7 @@ cupsFreeOptions(
   int	i;				/* Looping var */
 
 
-  DEBUG_printf(("cupsFreeOptions(num_options=%d, options=%p)", num_options, (void *)options));
+  DEBUG_printf("cupsFreeOptions(num_options=%d, options=%p)", num_options, (void *)options);
 
   if (num_options <= 0 || !options)
     return;
@@ -224,7 +224,7 @@ cupsGetOption(const char    *name,	/* I - Name of option */
 	match;				/* Matching index */
 
 
-  DEBUG_printf(("2cupsGetOption(name=\"%s\", num_options=%d, options=%p)", name, num_options, (void *)options));
+  DEBUG_printf("2cupsGetOption(name=\"%s\", num_options=%d, options=%p)", name, num_options, (void *)options);
 
   if (!name || num_options <= 0 || !options)
   {
@@ -236,7 +236,7 @@ cupsGetOption(const char    *name,	/* I - Name of option */
 
   if (!diff)
   {
-    DEBUG_printf(("3cupsGetOption: Returning \"%s\"", options[match].value));
+    DEBUG_printf("3cupsGetOption: Returning \"%s\"", options[match].value);
     return (options[match].value);
   }
 
@@ -269,7 +269,7 @@ cupsParseOptions(
 	quote;				/* Quote character */
 
 
-  DEBUG_printf(("cupsParseOptions(arg=\"%s\", num_options=%d, options=%p)", arg, num_options, (void *)options));
+  DEBUG_printf("cupsParseOptions(arg=\"%s\", num_options=%d, options=%p)", arg, num_options, (void *)options);
 
  /*
   * Range check input...
@@ -277,7 +277,7 @@ cupsParseOptions(
 
   if (!arg)
   {
-    DEBUG_printf(("1cupsParseOptions: Returning %d", num_options));
+    DEBUG_printf("1cupsParseOptions: Returning %d", num_options);
     return (num_options);
   }
 
@@ -294,7 +294,7 @@ cupsParseOptions(
   if ((copyarg = strdup(arg)) == NULL)
   {
     DEBUG_puts("1cupsParseOptions: Unable to copy arg string");
-    DEBUG_printf(("1cupsParseOptions: Returning %d", num_options));
+    DEBUG_printf("1cupsParseOptions: Returning %d", num_options);
     return (num_options);
   }
 
@@ -353,7 +353,7 @@ cupsParseOptions(
     if ((sep = *ptr) == '=')
       *ptr++ = '\0';
 
-    DEBUG_printf(("2cupsParseOptions: name=\"%s\"", name));
+    DEBUG_printf("2cupsParseOptions: name=\"%s\"", name);
 
     if (sep != '=')
     {
@@ -444,7 +444,7 @@ cupsParseOptions(
     if (*ptr != '\0')
       *ptr++ = '\0';
 
-    DEBUG_printf(("2cupsParseOptions: value=\"%s\"", value));
+    DEBUG_printf("2cupsParseOptions: value=\"%s\"", value);
 
    /*
     * Skip trailing whitespace...
@@ -467,7 +467,7 @@ cupsParseOptions(
 
   free(copyarg);
 
-  DEBUG_printf(("1cupsParseOptions: Returning %d", num_options));
+  DEBUG_printf("1cupsParseOptions: Returning %d", num_options);
 
   return (num_options);
 }
@@ -489,7 +489,7 @@ cupsRemoveOption(
   cups_option_t	*option;		/* Current option */
 
 
-  DEBUG_printf(("2cupsRemoveOption(name=\"%s\", num_options=%d, options=%p)", name, num_options, (void *)options));
+  DEBUG_printf("2cupsRemoveOption(name=\"%s\", num_options=%d, options=%p)", name, num_options, (void *)options);
 
  /*
   * Range check input...
@@ -497,7 +497,7 @@ cupsRemoveOption(
 
   if (!name || num_options < 1 || !options)
   {
-    DEBUG_printf(("3cupsRemoveOption: Returning %d", num_options));
+    DEBUG_printf("3cupsRemoveOption: Returning %d", num_options);
     return (num_options);
   }
 
@@ -531,7 +531,7 @@ cupsRemoveOption(
   * Return the new number of options...
   */
 
-  DEBUG_printf(("3cupsRemoveOption: Returning %d", num_options));
+  DEBUG_printf("3cupsRemoveOption: Returning %d", num_options);
   return (num_options);
 }
 
@@ -608,7 +608,7 @@ _cupsGet1284Values(
 
     *ptr = '\0';
     num_values = cupsAddOption(key, value, num_values, values);
-	  
+
     if (!*device_id)
       break;
     device_id ++;
@@ -649,7 +649,7 @@ cups_find_option(
   cups_option_t	key;			/* Search key */
 
 
-  DEBUG_printf(("7cups_find_option(name=\"%s\", num_options=%d, options=%p, prev=%d, rdiff=%p)", name, num_options, (void *)options, prev, (void *)rdiff));
+  DEBUG_printf("7cups_find_option(name=\"%s\", num_options=%d, options=%p, prev=%d, rdiff=%p)", name, num_options, (void *)options, prev, (void *)rdiff);
 
 #ifdef DEBUG
   for (left = 0; left < num_options; left ++)

@@ -659,7 +659,7 @@ cupsdProcessIPPRequest(
       httpSetLength(con->http, length);
     }
 
-    if (cupsdSendHeader(con, HTTP_OK, "application/ipp", CUPSD_AUTH_NONE))
+    if (cupsdSendHeader(con, HTTP_STATUS_OK, "application/ipp", CUPSD_AUTH_NONE))
     {
      /*
       * Tell the caller the response header was sent successfully...
@@ -769,7 +769,7 @@ accept_jobs(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -898,7 +898,7 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
     * No, check the default policy and then add the class...
     */
 
-    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, NULL);
       return;
@@ -910,7 +910,7 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
     pclass->printer_id = NextPrinterId ++;
   }
   else if ((status = cupsdCheckPolicy(pclass->op_policy_ptr, con,
-                                      NULL)) != HTTP_OK)
+                                      NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, pclass);
     return;
@@ -1268,7 +1268,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
   auth_info = ippFindAttribute(con->request, "auth-info", IPP_TAG_TEXT);
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return (NULL);
@@ -1277,7 +1277,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
            !strcmp(printer->auth_info_required[0], "negotiate") &&
            !con->username[0])
   {
-    send_http_error(con, HTTP_UNAUTHORIZED, printer);
+    send_http_error(con, HTTP_STATUS_UNAUTHORIZED, printer);
     return (NULL);
   }
   else if (auth_info && !con->http->tls &&
@@ -1287,7 +1287,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     * Require encryption of auth-info over non-local connections...
     */
 
-    send_http_error(con, HTTP_UPGRADE_REQUIRED, printer);
+    send_http_error(con, HTTP_STATUS_UPGRADE_REQUIRED, printer);
     return (NULL);
   }
 
@@ -2008,7 +2008,7 @@ add_job_subscriptions(
 	if (httpSeparateURI(HTTP_URI_CODING_ALL, recipient,
 	                    scheme, sizeof(scheme), userpass, sizeof(userpass),
 			    host, sizeof(host), &port,
-			    resource, sizeof(resource)) < HTTP_URI_OK)
+			    resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
         {
           send_ipp_status(con, IPP_NOT_POSSIBLE,
 	                  _("Bad notify-recipient-uri \"%s\"."), recipient);
@@ -2289,7 +2289,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
     * No, check the default policy then add the printer...
     */
 
-    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, NULL);
       return;
@@ -2301,7 +2301,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
     printer->printer_id = NextPrinterId ++;
   }
   else if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con,
-                                      NULL)) != HTTP_OK)
+                                      NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -2372,7 +2372,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 
     cupsdLogMessage(CUPSD_LOG_DEBUG, "%s device-uri: %s", printer->name, httpURIStatusString(uri_status));
 
-    if (uri_status < HTTP_URI_OK)
+    if (uri_status < HTTP_URI_STATUS_OK)
     {
       send_ipp_status(con, IPP_NOT_POSSIBLE, _("Bad device-uri \"%s\"."),
 		      attr->values[0].string.text);
@@ -3098,7 +3098,7 @@ authenticate_job(cupsd_client_t  *con,	/* I - Client connection */
 
     if (printer && printer->num_auth_info_required > 0 &&
         !strcmp(printer->auth_info_required[0], "negotiate"))
-      send_http_error(con, HTTP_UNAUTHORIZED, printer);
+      send_http_error(con, HTTP_STATUS_UNAUTHORIZED, printer);
     else
       send_ipp_status(con, IPP_NOT_AUTHORIZED,
 		      _("No authentication information provided."));
@@ -3111,7 +3111,7 @@ authenticate_job(cupsd_client_t  *con,	/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                     cupsdFindDest(job->dest));
     return;
   }
@@ -3273,7 +3273,7 @@ cancel_all_jobs(cupsd_client_t  *con,	/* I - Client connection */
     * Check policy...
     */
 
-    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, NULL);
       return;
@@ -3331,7 +3331,7 @@ cancel_all_jobs(cupsd_client_t  *con,	/* I - Client connection */
     */
 
     if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con,
-                                   NULL)) != HTTP_OK)
+                                   NULL)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, printer);
       return;
@@ -3541,7 +3541,7 @@ cancel_job(cupsd_client_t  *con,	/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                     cupsdFindDest(job->dest));
     return;
   }
@@ -3636,7 +3636,7 @@ cancel_subscription(
 
   if ((status = cupsdCheckPolicy(sub->dest ? sub->dest->op_policy_ptr :
                                              DefaultPolicyPtr,
-                                 con, sub->owner)) != HTTP_OK)
+                                 con, sub->owner)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, sub->dest);
     return;
@@ -3988,7 +3988,7 @@ close_job(cupsd_client_t  *con,		/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                     cupsdFindDest(job->dest));
     return;
   }
@@ -5523,7 +5523,7 @@ create_local_printer(
   * Check any other policy limits...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -5832,13 +5832,13 @@ create_subscriptions(
   if (printer)
   {
     if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con,
-                                   NULL)) != HTTP_OK)
+                                   NULL)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, printer);
       return;
     }
   }
-  else if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  else if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -5917,7 +5917,7 @@ create_subscriptions(
 	if (httpSeparateURI(HTTP_URI_CODING_ALL, recipient,
 	                    scheme, sizeof(scheme), userpass, sizeof(userpass),
 			    host, sizeof(host), &port,
-			    resource, sizeof(resource)) < HTTP_URI_OK)
+			    resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
         {
           send_ipp_status(con, IPP_NOT_POSSIBLE,
 	                  _("Bad notify-recipient-uri \"%s\"."), recipient);
@@ -6029,7 +6029,7 @@ create_subscriptions(
 	memcpy(temp, user_data->values[0].unknown.data, (size_t)user_data->values[0].unknown.length);
 	temp[user_data->values[0].unknown.length] = '\0';
 
-	if (httpSeparateURI(HTTP_URI_CODING_ALL, temp, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_OK)
+	if (httpSeparateURI(HTTP_URI_CODING_ALL, temp, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
 	{
 	  send_ipp_status(con, IPP_NOT_POSSIBLE, _("Bad notify-user-data \"%s\"."), temp);
 	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
@@ -6163,7 +6163,7 @@ delete_printer(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -6260,7 +6260,7 @@ get_default(cupsd_client_t *con)	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -6310,7 +6310,7 @@ get_devices(cupsd_client_t *con)	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -6463,7 +6463,7 @@ get_document(cupsd_client_t  *con,	/* I - Client connection */
   */
 
   if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con,
-                                 job->username)) != HTTP_OK)
+                                 job->username)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -6617,7 +6617,7 @@ get_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
   else
     policy = DefaultPolicyPtr;
 
-  if ((status = cupsdCheckPolicy(policy, con, job->username)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(policy, con, job->username)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -6739,7 +6739,7 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
   else
     policy = DefaultPolicyPtr;
 
-  if ((status = cupsdCheckPolicy(policy, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(policy, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -7106,7 +7106,7 @@ get_notifications(cupsd_client_t *con)	/* I - Client connection */
 
     if ((status = cupsdCheckPolicy(sub->dest ? sub->dest->op_policy_ptr :
                                                DefaultPolicyPtr,
-                                   con, sub->owner)) != HTTP_OK)
+                                   con, sub->owner)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, sub->dest);
       return;
@@ -7217,7 +7217,7 @@ get_ppd(cupsd_client_t  *con,		/* I - Client connection */
     * Check policy...
     */
 
-    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+    if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, NULL);
       return;
@@ -7269,7 +7269,7 @@ get_ppd(cupsd_client_t  *con,		/* I - Client connection */
     * Check policy...
     */
 
-    if ((status = cupsdCheckPolicy(dest->op_policy_ptr, con, NULL)) != HTTP_OK)
+    if ((status = cupsdCheckPolicy(dest->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
     {
       send_http_error(con, status, dest);
       return;
@@ -7377,7 +7377,7 @@ get_ppds(cupsd_client_t *con)		/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -7537,7 +7537,7 @@ get_printer_attrs(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -7593,7 +7593,7 @@ get_printer_supported(
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -7648,7 +7648,7 @@ get_printers(cupsd_client_t *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -7834,7 +7834,7 @@ get_subscription_attrs(
   else
     policy = DefaultPolicyPtr;
 
-  if ((status = cupsdCheckPolicy(policy, con, sub->owner)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(policy, con, sub->owner)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, sub->dest);
     return;
@@ -7954,7 +7954,7 @@ get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
   else
     policy = DefaultPolicyPtr;
 
-  if ((status = cupsdCheckPolicy(policy, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(policy, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -8125,7 +8125,7 @@ hold_job(cupsd_client_t  *con,		/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
 		    cupsdFindDest(job->dest));
     return;
   }
@@ -8210,7 +8210,7 @@ hold_new_jobs(cupsd_client_t  *con,	/* I - Connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -8405,7 +8405,7 @@ move_job(cupsd_client_t  *con,		/* I - Client connection */
   */
 
   if ((status = cupsdCheckPolicy(dprinter->op_policy_ptr, con,
-                                 job ? job->username : NULL)) != HTTP_OK)
+                                 job ? job->username : NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, dprinter);
     return;
@@ -8439,7 +8439,7 @@ move_job(cupsd_client_t  *con,		/* I - Client connection */
 
     if (!validate_user(job, con, job->username, username, sizeof(username)))
     {
-      send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+      send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                       cupsdFindDest(job->dest));
       return;
     }
@@ -9067,7 +9067,7 @@ reject_jobs(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -9149,7 +9149,7 @@ release_held_new_jobs(
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -9281,7 +9281,7 @@ release_job(cupsd_client_t  *con,	/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                     cupsdFindDest(job->dest));
     return;
   }
@@ -9371,7 +9371,7 @@ renew_subscription(
 
   if ((status = cupsdCheckPolicy(sub->dest ? sub->dest->op_policy_ptr :
                                              DefaultPolicyPtr,
-                                 con, sub->owner)) != HTTP_OK)
+                                 con, sub->owner)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, sub->dest);
     return;
@@ -9523,7 +9523,7 @@ restart_job(cupsd_client_t  *con,	/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                     cupsdFindDest(job->dest));
     return;
   }
@@ -9844,7 +9844,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                     cupsdFindDest(job->dest));
     return;
   }
@@ -10173,7 +10173,7 @@ send_http_error(
                               IPP_TAG_URI)) == NULL)
     uri = ippFindAttribute(con->request, "job-uri", IPP_TAG_URI);
 
-  cupsdLogMessage(status == HTTP_FORBIDDEN ? CUPSD_LOG_ERROR : CUPSD_LOG_DEBUG,
+  cupsdLogMessage(status == HTTP_STATUS_FORBIDDEN ? CUPSD_LOG_ERROR : CUPSD_LOG_DEBUG,
                   "[Client %d] Returning HTTP %s for %s (%s) from %s",
                   con->number, httpStatus(status),
 		  con->request ?
@@ -10189,7 +10189,7 @@ send_http_error(
 
     auth_type = CUPSD_AUTH_NONE;
 
-    if (status == HTTP_UNAUTHORIZED &&
+    if (status == HTTP_STATUS_UNAUTHORIZED &&
         printer->num_auth_info_required > 0 &&
         !strcmp(printer->auth_info_required[0], "negotiate") &&
 	con->request &&
@@ -10218,7 +10218,7 @@ send_http_error(
       else
 	snprintf(resource, sizeof(resource), "/printers/%s", printer->name);
 
-      if ((auth = cupsdFindBest(resource, HTTP_POST)) == NULL ||
+      if ((auth = cupsdFindBest(resource, HTTP_STATE_POST)) == NULL ||
 	  auth->type == CUPSD_AUTH_NONE)
 	auth = cupsdFindPolicyOp(printer->op_policy_ptr,
 				 con->request ?
@@ -10322,7 +10322,7 @@ set_default(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
@@ -10470,7 +10470,7 @@ set_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
 
   if (!validate_user(job, con, job->username, username, sizeof(username)))
   {
-    send_http_error(con, con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED,
+    send_http_error(con, con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED,
                     cupsdFindDest(job->dest));
     return;
   }
@@ -10784,7 +10784,7 @@ set_printer_attrs(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -11130,7 +11130,7 @@ start_printer(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -11212,7 +11212,7 @@ stop_printer(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -11548,7 +11548,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
 
   auth_info = ippFindAttribute(con->request, "auth-info", IPP_TAG_TEXT);
 
-  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_OK)
+  if ((status = cupsdCheckPolicy(printer->op_policy_ptr, con, NULL)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, printer);
     return;
@@ -11557,7 +11557,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
            !strcmp(printer->auth_info_required[0], "negotiate") &&
            !con->username[0])
   {
-    send_http_error(con, HTTP_UNAUTHORIZED, printer);
+    send_http_error(con, HTTP_STATUS_UNAUTHORIZED, printer);
     return;
   }
   else if (auth_info && !con->http->tls &&
@@ -11567,7 +11567,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
     * Require encryption of auth-info over non-local connections...
     */
 
-    send_http_error(con, HTTP_UPGRADE_REQUIRED, printer);
+    send_http_error(con, HTTP_STATUS_UPGRADE_REQUIRED, printer);
     return;
   }
 
@@ -11641,5 +11641,5 @@ validate_user(cupsd_job_t    *job,	/* I - Job */
   printer = cupsdFindDest(job->dest);
 
   return (cupsdCheckPolicy(printer ? printer->op_policy_ptr : DefaultPolicyPtr,
-                           con, owner) == HTTP_OK);
+                           con, owner) == HTTP_STATUS_OK);
 }

@@ -12093,6 +12093,7 @@
 				HEADER_SEARCH_PATHS = (
 					.,
 					..,
+					/usr/local/include,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -12159,6 +12160,7 @@
 				HEADER_SEARCH_PATHS = (
 					.,
 					..,
+					/usr/local/include,
 				);
 				OTHER_CFLAGS = (
 					"-D_CUPS_SOURCE",

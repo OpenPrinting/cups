@@ -34,7 +34,7 @@ _cupsRasterAddError(const char *f,	/* I - Printf-style error message */
   ssize_t	bytes;			/* Bytes in message string */
 
 
-  DEBUG_printf(("_cupsRasterAddError(f=\"%s\", ...)", f));
+  DEBUG_printf("_cupsRasterAddError(f=\"%s\", ...)", f);
 
   va_start(ap, f);
   bytes = vsnprintf(s, sizeof(s), f, ap);
@@ -43,7 +43,7 @@ _cupsRasterAddError(const char *f,	/* I - Printf-style error message */
   if (bytes <= 0)
     return;
 
-  DEBUG_printf(("1_cupsRasterAddError: %s", s));
+  DEBUG_printf("1_cupsRasterAddError: %s", s);
 
   bytes ++;
 

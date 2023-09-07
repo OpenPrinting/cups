@@ -55,7 +55,7 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
   * Range check input...
   */
 
-  DEBUG_printf(("ppdLocalize(ppd=%p)", ppd));
+  DEBUG_printf("ppdLocalize(ppd=%p)", ppd);
 
   if (!ppd)
     return (-1);
@@ -599,8 +599,7 @@ _ppdLocalizedAttr(ppd_file_t *ppd,	/* I - PPD file */
   ppd_attr_t	*attr;			/* Current attribute */
 
 
-  DEBUG_printf(("4_ppdLocalizedAttr(ppd=%p, keyword=\"%s\", spec=\"%s\", "
-                "ll_CC=\"%s\")", ppd, keyword, spec, ll_CC));
+  DEBUG_printf("4_ppdLocalizedAttr(ppd=%p, keyword=\"%s\", spec=\"%s\", ll_CC=\"%s\")", ppd, keyword, spec, ll_CC);
 
  /*
   * Look for Keyword.ll_CC, then Keyword.ll...
@@ -668,8 +667,7 @@ _ppdLocalizedAttr(ppd_file_t *ppd,	/* I - PPD file */
 
 #ifdef DEBUG
   if (attr)
-    DEBUG_printf(("5_ppdLocalizedAttr: *%s %s/%s: \"%s\"\n", attr->name,
-                  attr->spec, attr->text, attr->value ? attr->value : ""));
+    DEBUG_printf("5_ppdLocalizedAttr: *%s %s/%s: \"%s\"\n", attr->name, attr->spec, attr->text, attr->value ? attr->value : "");
   else
     DEBUG_puts("5_ppdLocalizedAttr: NOT FOUND");
 #endif /* DEBUG */
@@ -724,7 +722,6 @@ ppd_ll_CC(char   *ll_CC,		/* O - Country-specific locale name */
       strlcpy(ll_CC, "zh_CN", ll_CC_size);
   }
 
-  DEBUG_printf(("8ppd_ll_CC: lang->language=\"%s\", ll_CC=\"%s\"...",
-                lang->language, ll_CC));
+  DEBUG_printf("8ppd_ll_CC: lang->language=\"%s\", ll_CC=\"%s\"...", lang->language, ll_CC);
   return (lang);
 }

@@ -690,7 +690,7 @@ cupsdReadConfiguration(void)
   FatalErrors              = parse_fatal_errors(CUPS_DEFAULT_FATAL_ERRORS);
   default_auth_type        = CUPSD_AUTH_BASIC;
   CreateSelfSignedCerts    = TRUE;
-  DefaultEncryption        = HTTP_ENCRYPT_REQUIRED;
+  DefaultEncryption        = HTTP_ENCRYPTION_REQUIRED;
   DirtyCleanInterval       = DEFAULT_KEEPALIVE;
   JobKillDelay             = DEFAULT_TIMEOUT;
   JobRetryLimit            = 5;
@@ -2076,19 +2076,19 @@ parse_aaa(cupsd_location_t *loc,	/* I - Location */
     */
 
     if (!_cups_strcasecmp(value, "never"))
-      loc->encryption = HTTP_ENCRYPT_NEVER;
+      loc->encryption = HTTP_ENCRYPTION_NEVER;
     else if (!_cups_strcasecmp(value, "always"))
     {
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Encryption value \"%s\" on line %d of %s is invalid in this "
 		      "context. Using \"required\" instead.", value, linenum, ConfigurationFile);
 
-      loc->encryption = HTTP_ENCRYPT_REQUIRED;
+      loc->encryption = HTTP_ENCRYPTION_REQUIRED;
     }
     else if (!_cups_strcasecmp(value, "required"))
-      loc->encryption = HTTP_ENCRYPT_REQUIRED;
+      loc->encryption = HTTP_ENCRYPTION_REQUIRED;
     else if (!_cups_strcasecmp(value, "ifrequested"))
-      loc->encryption = HTTP_ENCRYPT_IF_REQUESTED;
+      loc->encryption = HTTP_ENCRYPTION_IF_REQUESTED;
     else
     {
       cupsdLogMessage(CUPSD_LOG_ERROR,
@@ -3140,7 +3140,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	lis->fd = -1;
 
         if (!_cups_strcasecmp(line, "SSLPort") || !_cups_strcasecmp(line, "SSLListen"))
-          lis->encryption = HTTP_ENCRYPT_ALWAYS;
+          lis->encryption = HTTP_ENCRYPTION_ALWAYS;
 
 	httpAddrString(&lis->address, temp, sizeof(temp));
 
@@ -3213,11 +3213,11 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
       */
 
       if (!value || !_cups_strcasecmp(value, "never"))
-	DefaultEncryption = HTTP_ENCRYPT_NEVER;
+	DefaultEncryption = HTTP_ENCRYPTION_NEVER;
       else if (!_cups_strcasecmp(value, "required"))
-	DefaultEncryption = HTTP_ENCRYPT_REQUIRED;
+	DefaultEncryption = HTTP_ENCRYPTION_REQUIRED;
       else if (!_cups_strcasecmp(value, "ifrequested"))
-	DefaultEncryption = HTTP_ENCRYPT_IF_REQUESTED;
+	DefaultEncryption = HTTP_ENCRYPTION_IF_REQUESTED;
       else
       {
 	cupsdLogMessage(CUPSD_LOG_WARN,

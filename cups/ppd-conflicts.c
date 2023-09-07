@@ -528,7 +528,7 @@ cupsResolveConflicts(
 
   cupsArrayRestore(ppd->sorted_attrs);
 
-  DEBUG_printf(("1cupsResolveConflicts: Returning %d options:", num_newopts));
+  DEBUG_printf("1cupsResolveConflicts: Returning %d options:", num_newopts);
 #ifdef DEBUG
   for (i = 0; i < num_newopts; i ++)
     DEBUG_printf(("1cupsResolveConflicts: options[%d]: %s=%s", i,
@@ -710,7 +710,7 @@ ppd_load_constraints(ppd_file_t *ppd)	/* I - PPD file */
 		*ptr;			/* Pointer into option or choice */
 
 
-  DEBUG_printf(("7ppd_load_constraints(ppd=%p)", ppd));
+  DEBUG_printf("7ppd_load_constraints(ppd=%p)", ppd);
 
  /*
   * Create an array to hold the constraint data...

@@ -124,9 +124,7 @@ main(int  argc,				/* I - Number of command-line args */
   cups_array_t	*requested,		/* requested-attributes values */
 		*exclude,		/* exclude-schemes values */
 		*include;		/* include-schemes values */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
   setbuf(stderr, NULL);
@@ -201,18 +199,12 @@ main(int  argc,				/* I - Number of command-line args */
   * Listen to child signals...
   */
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGCHLD, sigchld_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   sigaddset(&action.sa_mask, SIGCHLD);
   action.sa_handler = sigchld_handler;
   sigaction(SIGCHLD, &action, NULL);
-#else
-  signal(SIGCLD, sigchld_handler);	/* No, SIGCLD isn't a typo... */
-#endif /* HAVE_SIGSET */
 
  /*
   * Try opening the backend directory...
@@ -713,14 +705,6 @@ sigchld_handler(int sig)		/* I - Signal number */
   */
 
   dead_children = 1;
-
- /*
-  * Reset the signal handler as needed...
-  */
-
-#if !defined(HAVE_SIGSET) && !defined(HAVE_SIGACTION)
-  signal(SIGCLD, sigchld_handler);
-#endif /* !HAVE_SIGSET && !HAVE_SIGACTION */
 }
 
 

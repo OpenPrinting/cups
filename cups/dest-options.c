@@ -88,7 +88,7 @@ cupsAddDestMediaOptions(
   else
     db = dinfo->media_db;
 
-  DEBUG_printf(("1cupsAddDestMediaOptions: size->media=\"%s\"", size->media));
+  DEBUG_printf("1cupsAddDestMediaOptions: size->media=\"%s\"", size->media);
 
   for (mdb = (_cups_media_db_t *)cupsArrayFirst(db); mdb; mdb = (_cups_media_db_t *)cupsArrayNext(db))
   {
@@ -122,7 +122,7 @@ cupsAddDestMediaOptions(
     return (num_options);
   }
 
-  DEBUG_printf(("1cupsAddDestMediaOptions: MATCH mdb%p [key=\"%s\" size_name=\"%s\" source=\"%s\" type=\"%s\" width=%d length=%d B%d L%d R%d T%d]", (void *)mdb, mdb->key, mdb->size_name, mdb->source, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top));
+  DEBUG_printf("1cupsAddDestMediaOptions: MATCH mdb%p [key=\"%s\" size_name=\"%s\" source=\"%s\" type=\"%s\" width=%d length=%d B%d L%d R%d T%d]", (void *)mdb, mdb->key, mdb->size_name, mdb->source, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top);
 
   if (mdb->source)
   {
@@ -186,7 +186,7 @@ cupsAddDestMediaOptions2(
   else
     db = dinfo->media_db;
 
-  DEBUG_printf(("1cupsAddDestMediaOptions2: media->media=\"%s\"", media->media));
+  DEBUG_printf("1cupsAddDestMediaOptions2: media->media=\"%s\"", media->media);
 
   for (mdb = (_cups_media_db_t *)cupsArrayFirst(db); mdb; mdb = (_cups_media_db_t *)cupsArrayNext(db))
   {
@@ -220,7 +220,7 @@ cupsAddDestMediaOptions2(
     return (num_options);
   }
 
-  DEBUG_printf(("1cupsAddDestMediaOptions2: MATCH mdb%p [key=\"%s\" size_name=\"%s\" source=\"%s\" type=\"%s\" width=%d length=%d B%d L%d R%d T%d]", (void *)mdb, mdb->key, mdb->size_name, mdb->source, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top));
+  DEBUG_printf("1cupsAddDestMediaOptions2: MATCH mdb%p [key=\"%s\" size_name=\"%s\" source=\"%s\" type=\"%s\" width=%d length=%d B%d L%d R%d T%d]", (void *)mdb, mdb->key, mdb->size_name, mdb->source, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top);
 
   if (mdb->source)
   {
@@ -786,7 +786,7 @@ cupsCopyDestInfo(
   };
 
 
-  DEBUG_printf(("cupsCopyDestInfo(http=%p, dest=%p(%s))", (void *)http, (void *)dest, dest ? dest->name : ""));
+  DEBUG_printf("cupsCopyDestInfo(http=%p, dest=%p(%s))", (void *)http, (void *)dest, dest ? dest->name : "");
 
  /*
   * Get the default connection as needed...
@@ -807,12 +807,12 @@ cupsCopyDestInfo(
 #endif /* AF_LOCAL */
   else if ((strcmp(http->hostname, cg->server) && cg->server[0] != '/') || cg->ipp_port != httpAddrPort(http->hostaddr))
   {
-    DEBUG_printf(("1cupsCopyDestInfo: Connection to device (%s).", http->hostname));
+    DEBUG_printf("1cupsCopyDestInfo: Connection to device (%s).", http->hostname);
     dflags = CUPS_DEST_FLAGS_DEVICE;
   }
   else
   {
-    DEBUG_printf(("1cupsCopyDestInfo: Connection to server (%s).", http->hostname));
+    DEBUG_printf("1cupsCopyDestInfo: Connection to server (%s).", http->hostname);
     dflags = CUPS_DEST_FLAGS_NONE;
   }
 
@@ -859,7 +859,7 @@ cupsCopyDestInfo(
 
     if (status > IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED)
     {
-      DEBUG_printf(("1cupsCopyDestInfo: Get-Printer-Attributes for '%s' returned %s (%s)", dest->name, ippErrorString(status), cupsGetErrorString()));
+      DEBUG_printf("1cupsCopyDestInfo: Get-Printer-Attributes for '%s' returned %s (%s)", dest->name, ippErrorString(status), cupsGetErrorString());
 
       ippDelete(response);
       response = NULL;
@@ -899,7 +899,7 @@ cupsCopyDestInfo(
     return (NULL);
   }
 
-  DEBUG_printf(("1cupsCopyDestInfo: version=%d, uri=\"%s\", resource=\"%s\".", version, uri, resource));
+  DEBUG_printf("1cupsCopyDestInfo: version=%d, uri=\"%s\", resource=\"%s\".", version, uri, resource);
 
   dinfo->version  = version;
   dinfo->uri      = uri;
@@ -1341,7 +1341,7 @@ cupsGetDestMediaByName(
   {
     if ((pwg = pwgMediaForLegacy(name)) == NULL)
     {
-      DEBUG_printf(("1cupsGetDestMediaByName: Unknown size '%s'.", name));
+      DEBUG_printf("1cupsGetDestMediaByName: Unknown size '%s'.", name);
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unknown media size name."), 1);
       return (0);
     }
@@ -1415,7 +1415,7 @@ cupsGetDestMediaByName2(
   {
     if ((pwg = pwgMediaForLegacy(name)) == NULL)
     {
-      DEBUG_printf(("1cupsGetDestMediaByName: Unknown size '%s'.", name));
+      DEBUG_printf("1cupsGetDestMediaByName: Unknown size '%s'.", name);
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unknown media size name."), 1);
       return (false);
     }
@@ -2213,7 +2213,7 @@ cups_create_cached(http_t       *http,	/* I - Connection to destination */
 			*first;		/* First entry this size */
 
 
-  DEBUG_printf(("3cups_create_cached(http=%p, dinfo=%p, flags=%u)", (void *)http, (void *)dinfo, flags));
+  DEBUG_printf("3cups_create_cached(http=%p, dinfo=%p, flags=%u)", (void *)http, (void *)dinfo, flags);
 
   if (dinfo->cached_db)
     cupsArrayDelete(dinfo->cached_db);
@@ -2242,13 +2242,13 @@ cups_create_cached(http_t       *http,	/* I - Connection to destination */
        mdb;
        mdb = (_cups_media_db_t *)cupsArrayNext(db))
   {
-    DEBUG_printf(("4cups_create_cached: %p key=\"%s\", type=\"%s\", %dx%d, B%d L%d R%d T%d", (void *)mdb, mdb->key, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top));
+    DEBUG_printf("4cups_create_cached: %p key=\"%s\", type=\"%s\", %dx%d, B%d L%d R%d T%d", (void *)mdb, mdb->key, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top);
 
     if (flags & CUPS_MEDIA_FLAGS_BORDERLESS)
     {
       if (!mdb->left && !mdb->right && !mdb->top && !mdb->bottom)
       {
-        DEBUG_printf(("4cups_create_cached: add %p", (void *)mdb));
+        DEBUG_printf("4cups_create_cached: add %p", (void *)mdb);
         cupsArrayAdd(dinfo->cached_db, mdb);
       }
     }
@@ -2256,7 +2256,7 @@ cups_create_cached(http_t       *http,	/* I - Connection to destination */
     {
       if (first->width != mdb->width || first->length != mdb->length)
       {
-	DEBUG_printf(("4cups_create_cached: add %p", (void *)first));
+	DEBUG_printf("4cups_create_cached: add %p", (void *)first);
         cupsArrayAdd(dinfo->cached_db, first);
         first = mdb;
       }
@@ -2266,14 +2266,14 @@ cups_create_cached(http_t       *http,	/* I - Connection to destination */
     }
     else
     {
-      DEBUG_printf(("4cups_create_cached: add %p", (void *)mdb));
+      DEBUG_printf("4cups_create_cached: add %p", (void *)mdb);
       cupsArrayAdd(dinfo->cached_db, mdb);
     }
   }
 
   if (flags & CUPS_MEDIA_FLAGS_DUPLEX)
   {
-    DEBUG_printf(("4cups_create_cached: add %p", (void *)first));
+    DEBUG_printf("4cups_create_cached: add %p", (void *)first);
     cupsArrayAdd(dinfo->cached_db, first);
   }
 }
@@ -2561,7 +2561,7 @@ cups_create_media_db(
         mdb.key = media_key;
       }
 
-      DEBUG_printf(("1cups_create_media_db: Adding media: key=\"%s\", width=%d, length=%d, source=\"%s\", type=\"%s\".", mdb.key, mdb.width, mdb.length, mdb.source, mdb.type));
+      DEBUG_printf("1cups_create_media_db: Adding media: key=\"%s\", width=%d, length=%d, source=\"%s\", type=\"%s\".", mdb.key, mdb.width, mdb.length, mdb.source, mdb.type);
 
       cupsArrayAdd(db, &mdb);
     }

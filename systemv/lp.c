@@ -93,7 +93,7 @@ main(int  argc,				/* I - Number of command-line arguments */
         switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'U' : /* Username */
@@ -611,11 +611,11 @@ main(int  argc,				/* I - Number of command-line arguments */
     status = cupsStartDocument(CUPS_HTTP_DEFAULT, printer, job_id, NULL,
                                format, 1);
 
-    while (status == HTTP_CONTINUE &&
+    while (status == HTTP_STATUS_CONTINUE &&
            (bytes = read(0, buffer, sizeof(buffer))) > 0)
       status = cupsWriteRequestData(CUPS_HTTP_DEFAULT, buffer, (size_t)bytes);
 
-    if (status != HTTP_CONTINUE)
+    if (status != HTTP_STATUS_CONTINUE)
     {
       _cupsLangPrintf(stderr, _("%s: Error - unable to queue from stdin - %s."),
 		      argv[0], httpStatus(status));

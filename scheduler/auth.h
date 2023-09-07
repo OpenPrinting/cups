@@ -107,7 +107,7 @@ typedef struct cupsd_client_s cupsd_client_t;
 
 VAR cups_array_t	*Locations	VALUE(NULL);
 					/* Authorization locations */
-VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPT_REQUIRED);
+VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPTION_REQUIRED);
 					/* Default encryption for authentication */
 
 

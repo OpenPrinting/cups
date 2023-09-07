@@ -83,7 +83,7 @@ cupsCharsetToUTF8(
   * Check for valid arguments...
   */
 
-  DEBUG_printf(("2cupsCharsetToUTF8(dest=%p, src=\"%s\", maxout=%d, encoding=%d)", (void *)dest, src, maxout, encoding));
+  DEBUG_printf("2cupsCharsetToUTF8(dest=%p, src=\"%s\", maxout=%d, encoding=%d)", (void *)dest, src, maxout, encoding);
 
   if (!dest || !src || maxout < 1)
   {
@@ -346,7 +346,7 @@ cupsUTF8ToUTF32(
   * Check for valid arguments and clear output...
   */
 
-  DEBUG_printf(("2cupsUTF8ToUTF32(dest=%p, src=\"%s\", maxout=%d)", (void *)dest, src, maxout));
+  DEBUG_printf("2cupsUTF8ToUTF32(dest=%p, src=\"%s\", maxout=%d)", (void *)dest, src, maxout);
 
   if (dest)
     *dest = 0;
@@ -378,7 +378,7 @@ cupsUTF8ToUTF32(
 
       *dest++ = ch;
 
-      DEBUG_printf(("4cupsUTF8ToUTF32: %02x => %08X", src[-1], ch));
+      DEBUG_printf("4cupsUTF8ToUTF32: %02x => %08X", src[-1], ch);
       continue;
     }
     else if ((ch & 0xe0) == 0xc0)
@@ -528,7 +528,7 @@ cupsUTF8ToUTF32(
 
   *dest = 0;
 
-  DEBUG_printf(("3cupsUTF8ToUTF32: Returning %d characters", maxout - 1 - i));
+  DEBUG_printf("3cupsUTF8ToUTF32: Returning %d characters", maxout - 1 - i);
 
   return (maxout - 1 - i);
 }
@@ -566,7 +566,7 @@ cupsUTF32ToUTF8(
   * Check for valid arguments and clear output...
   */
 
-  DEBUG_printf(("2cupsUTF32ToUTF8(dest=%p, src=%p, maxout=%d)", (void *)dest, (void *)src, maxout));
+  DEBUG_printf("2cupsUTF32ToUTF8(dest=%p, src=%p, maxout=%d)", (void *)dest, (void *)src, maxout);
 
   if (dest)
     *dest = '\0';
@@ -585,7 +585,7 @@ cupsUTF32ToUTF8(
   start = dest;
   swap  = *src == 0xfffe0000;
 
-  DEBUG_printf(("4cupsUTF32ToUTF8: swap=%d", swap));
+  DEBUG_printf("4cupsUTF32ToUTF8: swap=%d", swap);
 
   if (*src == 0xfffe0000 || *src == 0xfeff)
     src ++;
@@ -630,7 +630,7 @@ cupsUTF32ToUTF8(
       *dest++ = (cups_utf8_t)ch;
       i --;
 
-      DEBUG_printf(("4cupsUTF32ToUTF8: %08x => %02x", (unsigned)ch, dest[-1]));
+      DEBUG_printf("4cupsUTF32ToUTF8: %08x => %02x", (unsigned)ch, dest[-1]);
     }
     else if (ch < 0x800)
     {
@@ -699,7 +699,7 @@ cupsUTF32ToUTF8(
 
   *dest = '\0';
 
-  DEBUG_printf(("3cupsUTF32ToUTF8: Returning %d", (int)(dest - start)));
+  DEBUG_printf("3cupsUTF32ToUTF8: Returning %d", (int)(dest - start));
 
   return ((int)(dest - start));
 }

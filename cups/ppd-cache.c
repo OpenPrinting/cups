@@ -506,7 +506,7 @@ _ppdCacheCreateWithFile(
   _pwg_print_quality_t print_quality;	/* Print quality for preset */
 
 
-  DEBUG_printf(("_ppdCacheCreateWithFile(filename=\"%s\")", filename));
+  DEBUG_printf("_ppdCacheCreateWithFile(filename=\"%s\")", filename);
 
  /*
   * Range check input...
@@ -546,7 +546,7 @@ _ppdCacheCreateWithFile(
   if (strncmp(line, "#CUPS-PPD-CACHE-", 16))
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
-    DEBUG_printf(("_ppdCacheCreateWithFile: Wrong first line \"%s\".", line));
+    DEBUG_printf("_ppdCacheCreateWithFile: Wrong first line \"%s\".", line);
     cupsFileClose(fp);
     return (NULL);
   }
@@ -697,7 +697,7 @@ _ppdCacheCreateWithFile(
     {
       if (sscanf(value, "%127s%40s", pwg_keyword, ppd_keyword) != 2)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad Bin on line %d.", linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad Bin on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -1091,7 +1091,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   char			msg_id[256];	/* Message identifier */
 
 
-  DEBUG_printf(("_ppdCacheCreateWithPPD(ppd=%p)", ppd));
+  DEBUG_printf("_ppdCacheCreateWithPPD(ppd=%p)", ppd);
 
  /*
   * Range check input...
@@ -2265,7 +2265,7 @@ _ppdCacheGetFinishingValues(
   * Range check input...
   */
 
-  DEBUG_printf(("_ppdCacheGetFinishingValues(ppd=%p, pc=%p, max_values=%d, values=%p)", ppd, pc, max_values, values));
+  DEBUG_printf("_ppdCacheGetFinishingValues(ppd=%p, pc=%p, max_values=%d, values=%p)", ppd, pc, max_values, values);
 
   if (!ppd || !pc || max_values < 1 || !values)
   {
@@ -2286,11 +2286,11 @@ _ppdCacheGetFinishingValues(
        f;
        f = (_pwg_finishings_t *)cupsArrayNext(pc->finishings))
   {
-    DEBUG_printf(("_ppdCacheGetFinishingValues: Checking %d (%s)", (int)f->value, ippEnumString("finishings", (int)f->value)));
+    DEBUG_printf("_ppdCacheGetFinishingValues: Checking %d (%s)", (int)f->value, ippEnumString("finishings", (int)f->value));
 
     for (i = f->num_options, option = f->options; i > 0; i --, option ++)
     {
-      DEBUG_printf(("_ppdCacheGetFinishingValues: %s=%s?", option->name, option->value));
+      DEBUG_printf("_ppdCacheGetFinishingValues: %s=%s?", option->name, option->value);
 
       if ((choice = ppdFindMarkedChoice(ppd, option->name)) == NULL || _cups_strcasecmp(option->value, choice->choice))
       {
@@ -2301,7 +2301,7 @@ _ppdCacheGetFinishingValues(
 
     if (i == 0)
     {
-      DEBUG_printf(("_ppdCacheGetFinishingValues: Adding %d (%s)", (int)f->value, ippEnumString("finishings", (int)f->value)));
+      DEBUG_printf("_ppdCacheGetFinishingValues: Adding %d (%s)", (int)f->value, ippEnumString("finishings", (int)f->value));
 
       values[num_values ++] = (int)f->value;
 
@@ -2321,7 +2321,7 @@ _ppdCacheGetFinishingValues(
     num_values ++;
   }
 
-  DEBUG_printf(("_ppdCacheGetFinishingValues: Returning %d.", num_values));
+  DEBUG_printf("_ppdCacheGetFinishingValues: Returning %d.", num_values);
 
   return (num_values);
 }
@@ -2566,7 +2566,7 @@ _ppdCacheGetPageSize(
       ppd_name = attr->values[0].string.text;
   }
 
-  DEBUG_printf(("1_ppdCacheGetPageSize: ppd_name=\"%s\"", ppd_name));
+  DEBUG_printf("1_ppdCacheGetPageSize: ppd_name=\"%s\"", ppd_name);
 
   if (ppd_name)
   {
@@ -2585,7 +2585,7 @@ _ppdCacheGetPageSize(
 	if (exact)
 	  *exact = 1;
 
-        DEBUG_printf(("1_ppdCacheGetPageSize: Returning \"%s\"", ppd_name));
+        DEBUG_printf("1_ppdCacheGetPageSize: Returning \"%s\"", ppd_name);
 
         return (size->map.ppd);
       }
@@ -2678,7 +2678,7 @@ _ppdCacheGetPageSize(
       if (exact)
 	*exact = 1;
 
-      DEBUG_printf(("1_ppdCacheGetPageSize: Returning \"%s\"", size->map.ppd));
+      DEBUG_printf("1_ppdCacheGetPageSize: Returning \"%s\"", size->map.ppd);
 
       return (size->map.ppd);
     }

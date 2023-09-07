@@ -328,7 +328,7 @@ cat_drv(const char *name,		/* I - PPD name */
   // Pull out the path to the .drv file...
   if (httpSeparateURI(HTTP_URI_CODING_ALL, name, scheme, sizeof(scheme),
                       userpass, sizeof(userpass), host, sizeof(host), &port,
-		      resource, sizeof(resource)) < HTTP_URI_OK)
+		      resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
   {
     fprintf(stderr, "ERROR: Bad PPD name \"%s\".\n", name);
 

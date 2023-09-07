@@ -490,7 +490,7 @@ cupsDNSSDNew(
   cups_dnssd_t	*dnssd;			// DNS-SD context
 
 
-  DEBUG_printf(("cupsDNSSDNew(error_cb=%p, cb_data=%p)", (void *)error_cb, cb_data));
+  DEBUG_printf("cupsDNSSDNew(error_cb=%p, cb_data=%p)", (void *)error_cb, cb_data);
 
   // Allocate memory...
   if ((dnssd = (cups_dnssd_t *)calloc(1, sizeof(cups_dnssd_t))) == NULL)
@@ -537,7 +537,7 @@ cupsDNSSDNew(
     return (NULL);
   }
 
-  DEBUG_printf(("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor));
+  DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
 
 #elif _WIN32
 
@@ -555,7 +555,7 @@ cupsDNSSDNew(
 
   avahi_simple_poll_set_func(dnssd->poll, (AvahiPollFunc)avahi_poll_cb, dnssd);
 
-  DEBUG_printf(("2cupsDNSSDNew: dnssd->poll=%p", (void *)dnssd->poll));
+  DEBUG_printf("2cupsDNSSDNew: dnssd->poll=%p", (void *)dnssd->poll);
 
   if ((dnssd->client = avahi_client_new(avahi_simple_poll_get(dnssd->poll), AVAHI_CLIENT_NO_FAIL, (AvahiClientCallback)avahi_client_cb, dnssd, &error)) == NULL)
   {
@@ -567,7 +567,7 @@ cupsDNSSDNew(
     return (NULL);
   }
 
-  DEBUG_printf(("2cupsDNSSDNew: dnssd->client=%p", (void *)dnssd->client));
+  DEBUG_printf("2cupsDNSSDNew: dnssd->client=%p", (void *)dnssd->client);
 
   if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))avahi_monitor, dnssd)) == 0)
   {
@@ -577,10 +577,10 @@ cupsDNSSDNew(
     return (NULL);
   }
 
-  DEBUG_printf(("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor));
+  DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
 #endif // HAVE_MDNSRESPONDER
 
-  DEBUG_printf(("2cupsDNSSDNew: Returning %p.", (void *)dnssd));
+  DEBUG_printf("2cupsDNSSDNew: Returning %p.", (void *)dnssd);
 
   return (dnssd);
 }
@@ -927,7 +927,7 @@ cupsDNSSDResolveNew(
   cups_dnssd_resolve_t	*resolve;	// Resolve request
 
 
-  DEBUG_printf(("cupsDNSSDResolveNew(dnssd=%p, if_index=%u, name=\"%s\", type=\"%s\", domain=\"%s\", resolve_cb=%p, cb_data=%p)", (void *)dnssd, (unsigned)if_index, name, type, domain, (void *)resolve_cb, cb_data));
+  DEBUG_printf("cupsDNSSDResolveNew(dnssd=%p, if_index=%u, name=\"%s\", type=\"%s\", domain=\"%s\", resolve_cb=%p, cb_data=%p)", (void *)dnssd, (unsigned)if_index, name, type, domain, (void *)resolve_cb, cb_data);
 
   // Range check input...
   if (!dnssd || !name || !type || !resolve_cb)
@@ -1018,7 +1018,7 @@ cupsDNSSDServiceAdd(
   size_t	i;			// Looping var
 
 
-  DEBUG_printf(("cupsDNSSDServiceAdd(service=%p, types=\"%s\", domain=\"%s\", host=\"%s\", port=%u, num_txt=%u, txt=%p)", (void *)service, types, domain, host, port, (unsigned)num_txt, (void *)txt));
+  DEBUG_printf("cupsDNSSDServiceAdd(service=%p, types=\"%s\", domain=\"%s\", host=\"%s\", port=%u, num_txt=%u, txt=%p)", (void *)service, types, domain, host, port, (unsigned)num_txt, (void *)txt);
 
   // Range check input...
   if (!service || !types)
@@ -1105,7 +1105,7 @@ cupsDNSSDServiceAdd(
     char	subtype[256];		// Subtype string
     char 	*start, *end;		// Pointers into sub-types...
 
-    DEBUG_printf(("cupsDNSSDServiceAdd: Registered '%s.%s.%s'.", service->name, regtype, domain));
+    DEBUG_printf("cupsDNSSDServiceAdd: Registered '%s.%s.%s'.", service->name, regtype, domain);
 
     for (start = subtypes; ret && start && *start; start = end)
     {
@@ -1121,7 +1121,7 @@ cupsDNSSDServiceAdd(
         ret = false;
       }
 
-      DEBUG_printf(("cupsDNSSDServiceAdd: Registered '%s.%s.%s'.", service->name, subtype, domain));
+      DEBUG_printf("cupsDNSSDServiceAdd: Registered '%s.%s.%s'.", service->name, subtype, domain);
     }
   }
 
@@ -1133,7 +1133,7 @@ cupsDNSSDServiceAdd(
 
   done:
 
-  DEBUG_printf(("2cupsDNSSDServiceAdd: Returning %s.", ret ? "true" : "false"));
+  DEBUG_printf("2cupsDNSSDServiceAdd: Returning %s.", ret ? "true" : "false");
   return (ret);
 }
 
@@ -1146,7 +1146,7 @@ void
 cupsDNSSDServiceDelete(
     cups_dnssd_service_t *service)	// I - Service
 {
-  DEBUG_printf(("cupsDNSSDServiceDelete(service=%p)", (void *)service));
+  DEBUG_printf("cupsDNSSDServiceDelete(service=%p)", (void *)service);
 
   if (service)
   {
@@ -1209,7 +1209,7 @@ cupsDNSSDServiceNew(
   cups_dnssd_service_t	*service;	// Service registration
 
 
-  DEBUG_printf(("cupsDNSSDServiceNew(dnssd=%p, if_index=%u, name=\"%s\", cb=%p, cb_data=%p)", (void *)dnssd, (unsigned)if_index, name, (void *)cb, cb_data));
+  DEBUG_printf("cupsDNSSDServiceNew(dnssd=%p, if_index=%u, name=\"%s\", cb=%p, cb_data=%p)", (void *)dnssd, (unsigned)if_index, name, (void *)cb, cb_data);
 
   // Range check input...
   if (!dnssd || !name || !cb)
@@ -1259,7 +1259,7 @@ cupsDNSSDServiceNew(
 
   cupsMutexUnlock(&dnssd->mutex);
 
-  DEBUG_printf(("2cupsDNSSDServiceNew: Returning %p.", (void *)service));
+  DEBUG_printf("2cupsDNSSDServiceNew: Returning %p.", (void *)service);
   return (service);
 }
 
@@ -1278,7 +1278,7 @@ cupsDNSSDServicePublish(
   bool		ret = true;		// Return value
 
 
-  DEBUG_printf(("cupsDNSSDServicePublish(service=%p)", (void *)service));
+  DEBUG_printf("cupsDNSSDServicePublish(service=%p)", (void *)service);
 
 #if _WIN32
   (void)service;
@@ -1289,7 +1289,7 @@ cupsDNSSDServicePublish(
   avahi_simple_poll_wakeup(service->dnssd->poll);
 #endif // _WIN32
 
-  DEBUG_printf(("2cupsDNSSDServicePublish: Returning %s.", ret ? "true" : "false"));
+  DEBUG_printf("2cupsDNSSDServicePublish: Returning %s.", ret ? "true" : "false");
   return (ret);
 }
 
@@ -1988,7 +1988,7 @@ avahi_if_index(uint32_t if_index)	// I - DNS-SD interface index
 static void *				// O - Exit status
 avahi_monitor(cups_dnssd_t *dnssd)	// I - DNS-SD context
 {
-  DEBUG_printf(("avahi_monitor(dnssd=%p)", (void *)dnssd));
+  DEBUG_printf("avahi_monitor(dnssd=%p)", (void *)dnssd);
 
   DEBUG_puts("2avahi_monitor: Locking mutex.");
   cupsMutexLock(&dnssd->mutex);
@@ -2016,12 +2016,12 @@ avahi_poll_cb(struct pollfd *ufds,	// I - File descriptors for poll
   int	ret;				// Return value
 
 
-  DEBUG_printf(("avahi_poll_cb(ufds=%p, nfds=%u, timeout=%d, dnssd=%p)", (void *)ufds, nfds, timeout, (void *)dnssd));
+  DEBUG_printf("avahi_poll_cb(ufds=%p, nfds=%u, timeout=%d, dnssd=%p)", (void *)ufds, nfds, timeout, (void *)dnssd);
 
   cupsMutexUnlock(&dnssd->mutex);
   DEBUG_puts("2avahi_poll_cb: Polling sockets...");
   ret = poll(ufds, nfds, timeout);
-  DEBUG_printf(("2avahi_poll_cb: poll() returned %d...", ret));
+  DEBUG_printf("2avahi_poll_cb: poll() returned %d...", ret);
   cupsMutexLock(&dnssd->mutex);
 
   return (ret);
@@ -2080,7 +2080,7 @@ avahi_resolve_cb(
   char		fullname[1024];		// Full service name
 
 
-  DEBUG_printf(("avahi_resolve_cb(resolver=%p, if_index=%d, protocol=%d, event=%d, name=\"%s\", type=\"%s\", domain=\"%s\", host=\"%s\", address=%p, port=%u, txtrec=%p, flags=%u, resolve=%p)", (void *)resolver, if_index, protocol, event, name, type, domain, host, (void *)address, (unsigned)port, (void *)txtrec, (unsigned)flags, (void *)resolve));
+  DEBUG_printf("avahi_resolve_cb(resolver=%p, if_index=%d, protocol=%d, event=%d, name=\"%s\", type=\"%s\", domain=\"%s\", host=\"%s\", address=%p, port=%u, txtrec=%p, flags=%u, resolve=%p)", (void *)resolver, if_index, protocol, event, name, type, domain, host, (void *)address, (unsigned)port, (void *)txtrec, (unsigned)flags, (void *)resolve);
 
   if (!resolver)
     return;

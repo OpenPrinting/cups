@@ -127,7 +127,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  switch (*opt)
 	  {
 	    case 'E' :
-	        cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	        cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	        break;
 
 	    case 'U' :

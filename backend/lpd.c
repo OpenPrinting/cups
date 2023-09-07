@@ -121,9 +121,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 		copies;			/* Number of copies */
   ssize_t	bytes = 0;		/* Initial bytes read */
   char		buffer[16384];		/* Initial print buffer */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
   int		num_jobopts;		/* Number of job options */
   cups_option_t	*jobopts = NULL;	/* Job options */
 
@@ -138,10 +136,6 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Ignore SIGPIPE and catch SIGTERM signals...
   */
 
-#ifdef HAVE_SIGSET
-  sigset(SIGPIPE, SIG_IGN);
-  sigset(SIGTERM, sigterm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
   action.sa_handler = SIG_IGN;
   sigaction(SIGPIPE, &action, NULL);
@@ -150,10 +144,6 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   sigaddset(&action.sa_mask, SIGTERM);
   action.sa_handler = sigterm_handler;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGPIPE, SIG_IGN);
-  signal(SIGTERM, sigterm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Check command-line...
@@ -582,7 +572,7 @@ cups_rresvport(int *port,		/* IO - Port number to bind to */
     * Set the port number...
     */
 
-    _httpAddrSetPort(&addr, *port);
+    httpAddrSetPort(&addr, *port);
 
    /*
     * Try binding the port to the socket; return if all is OK...

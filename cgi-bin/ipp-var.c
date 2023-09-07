@@ -586,10 +586,10 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
   }
 
   status = cupsStartDocument(http, dest, job_id, NULL, CUPS_FORMAT_COMMAND, 1);
-  if (status == HTTP_CONTINUE)
+  if (status == HTTP_STATUS_CONTINUE)
     status = cupsWriteRequestData(http, command_file,
 				  strlen(command_file));
-  if (status == HTTP_CONTINUE)
+  if (status == HTTP_STATUS_CONTINUE)
     cupsFinishDocument(http, dest);
 
   if (cupsGetError() >= IPP_REDIRECTION_OTHER_SITE)

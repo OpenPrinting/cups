@@ -342,7 +342,7 @@ main(int  argc,				/* I - Number of command-line args */
               break;
 
 	  case 'E' : /* Encrypt with TLS */
-	      data.encryption = HTTP_ENCRYPT_REQUIRED;
+	      data.encryption = HTTP_ENCRYPTION_REQUIRED;
 	      break;
 
           case 'I' : /* Ignore errors */
@@ -385,7 +385,7 @@ main(int  argc,				/* I - Number of command-line args */
               break;
 
 	  case 'S' : /* Encrypt with SSL */
-	      data.encryption = HTTP_ENCRYPT_ALWAYS;
+	      data.encryption = HTTP_ENCRYPTION_ALWAYS;
 	      break;
 
 	  case 'T' : /* Set timeout */
@@ -645,7 +645,7 @@ main(int  argc,				/* I - Number of command-line args */
       }
 
       if (!strncmp(argv[i], "ipps://", 7) || !strncmp(argv[i], "https://", 8))
-        data.encryption = HTTP_ENCRYPT_ALWAYS;
+        data.encryption = HTTP_ENCRYPTION_ALWAYS;
 
       if (!_ippVarsSet(data.vars, "uri", argv[i]))
       {
@@ -1447,7 +1447,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
     cupsArrayClear(data->errors);
 
-    if (httpGetVersion(data->http) != HTTP_1_1)
+    if (httpGetVersion(data->http) != HTTP_VERSION_1_1)
     {
       int version = (int)httpGetVersion(data->http);
 

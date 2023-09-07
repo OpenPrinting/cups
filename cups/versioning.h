@@ -10,6 +10,8 @@
 
 #ifndef _CUPS_VERSIONING_H_
 #  define _CUPS_VERSIONING_H_
+#  include <stdbool.h>
+
 
 /*
  * This header defines several macros that add compiler-specific attributes for

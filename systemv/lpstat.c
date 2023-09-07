@@ -85,7 +85,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      break;
 
 	  case 'E' : /* Encrypt */
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'H' : /* Show server and port */

@@ -110,7 +110,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (httpSeparateURI(HTTP_URI_CODING_ALL, argv[1], scheme, sizeof(scheme),
                       username, sizeof(username), host, sizeof(host), &port,
-		      resource, sizeof(resource)) < HTTP_URI_OK)
+		      resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
   {
     fprintf(stderr, "ERROR: Bad RSS URI \"%s\"!\n", argv[1]);
     return (1);
@@ -171,7 +171,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     close(fd);
 
-    if (status != HTTP_OK && status != HTTP_NOT_FOUND)
+    if (status != HTTP_STATUS_OK && status != HTTP_STATUS_NOT_FOUND)
     {
       fprintf(stderr, "ERROR: Unable to GET %s from %s on port %d: %d %s\n",
 	      resource, host, port, status, httpStatus(status));
@@ -246,7 +246,7 @@ main(int  argc,				/* I - Number of command-line arguments */
           * Upload the RSS file...
 	  */
 
-          if ((status = cupsPutFile(http, resource, filename)) != HTTP_CREATED)
+          if ((status = cupsPutFile(http, resource, filename)) != HTTP_STATUS_CREATED)
             fprintf(stderr, "ERROR: Unable to PUT %s from %s on port %d: %d %s\n",
 	            resource, host, port, status, httpStatus(status));
 	}

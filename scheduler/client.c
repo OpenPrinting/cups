@@ -144,7 +144,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   if (getsockname(httpGetFd(con->http), (struct sockaddr *)&con->clientaddr, &addrlen) || addrlen == 0)
     con->clientaddr = lis->address;
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Server address is \"%s\".", httpAddrString(&con->clientaddr, name, sizeof(name)));
+  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Server address is \"%s\".", httpAddrGetString(&con->clientaddr, name, sizeof(name)));
 
  /*
   * Check the number of clients on the same address...
@@ -153,7 +153,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   for (count = 0, tempcon = (cupsd_client_t *)cupsArrayFirst(Clients);
        tempcon;
        tempcon = (cupsd_client_t *)cupsArrayNext(Clients))
-    if (httpAddrEqual(httpGetAddress(tempcon->http), httpGetAddress(con->http)))
+    if (httpAddrIsEqual(httpGetAddress(tempcon->http), httpGetAddress(con->http)))
     {
       count ++;
       if (count >= MaxClientsPerHost)
@@ -216,7 +216,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
       */
 
       for (addr = addrlist; addr; addr = addr->next)
-        if (httpAddrEqual(httpGetAddress(con->http), &(addr->addr)))
+        if (httpAddrIsEqual(httpGetAddress(con->http), &(addr->addr)))
           break;
     }
     else
@@ -263,7 +263,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
 #endif /* HAVE_TCPD_H */
 
 #ifdef AF_LOCAL
-  if (httpAddrFamily(httpGetAddress(con->http)) == AF_LOCAL)
+  if (httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
   {
 #  ifdef __APPLE__
     socklen_t	peersize;		/* Size of peer credentials */
@@ -293,8 +293,8 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
 #endif /* AF_LOCAL */
   cupsdLogClient(con, CUPSD_LOG_DEBUG, "Accepted from %s:%d (IPv%d)",
                  httpGetHostname(con->http, NULL, 0),
-		 httpAddrPort(httpGetAddress(con->http)),
-		 httpAddrFamily(httpGetAddress(con->http)) == AF_INET ? 4 : 6);
+		 httpAddrGetPort(httpGetAddress(con->http)),
+		 httpAddrGetFamily(httpGetAddress(con->http)) == AF_INET ? 4 : 6);
 
  /*
   * Get the local address the client connected to...
@@ -310,7 +310,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
     con->serverport = LocalPort;
   }
 #ifdef AF_LOCAL
-  else if (httpAddrFamily(&temp) == AF_LOCAL)
+  else if (httpAddrGetFamily(&temp) == AF_LOCAL)
   {
     strlcpy(con->servername, "localhost", sizeof(con->servername));
     con->serverport = LocalPort;
@@ -318,14 +318,14 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
 #endif /* AF_LOCAL */
   else
   {
-    if (httpAddrLocalhost(&temp))
+    if (httpAddrIsLocalhost(&temp))
       strlcpy(con->servername, "localhost", sizeof(con->servername));
     else if (HostNameLookups)
       httpAddrLookup(&temp, con->servername, sizeof(con->servername));
     else
-      httpAddrString(&temp, con->servername, sizeof(con->servername));
+      httpAddrGetString(&temp, con->servername, sizeof(con->servername));
 
-    con->serverport = httpAddrPort(&(lis->address));
+    con->serverport = httpAddrGetPort(&(lis->address));
   }
 
  /*
@@ -555,9 +555,9 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
   status = HTTP_STATUS_CONTINUE;
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdReadClient: error=%d, used=%d, state=%s, data_encoding=HTTP_ENCODING_%s, data_remaining=" CUPS_LLFMT ", request=%p(%s), file=%d", httpError(con->http), (int)httpGetReady(con->http), httpStateString(httpGetState(con->http)), httpIsChunked(con->http) ? "CHUNKED" : "LENGTH", CUPS_LLCAST httpGetRemaining(con->http), con->request, con->request ? ippStateString(ippGetState(con->request)) : "", con->file);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdReadClient: error=%d, used=%d, state=%s, data_encoding=HTTP_ENCODING_%s, data_remaining=" CUPS_LLFMT ", request=%p(%s), file=%d", httpGetError(con->http), (int)httpGetReady(con->http), httpStateString(httpGetState(con->http)), httpIsChunked(con->http) ? "CHUNKED" : "LENGTH", CUPS_LLCAST httpGetRemaining(con->http), con->request, con->request ? ippStateString(ippGetState(con->request)) : "", con->file);
 
-  if (httpError(con->http) == EPIPE && !httpGetReady(con->http) && recv(httpGetFd(con->http), buf, 1, MSG_PEEK) < 1)
+  if (httpGetError(con->http) == EPIPE && !httpGetReady(con->http) && recv(httpGetFd(con->http), buf, 1, MSG_PEEK) < 1)
   {
    /*
     * Connection closed...
@@ -618,10 +618,10 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	    con->operation == HTTP_STATE_UNKNOWN_METHOD ||
 	    con->operation == HTTP_STATE_UNKNOWN_VERSION)
 	{
-	  if (httpError(con->http))
+	  if (httpGetError(con->http))
 	    cupsdLogClient(con, CUPSD_LOG_DEBUG,
 			   "HTTP_STATE_WAITING Closing for error %d (%s)",
-			   httpError(con->http), strerror(httpError(con->http)));
+			   httpGetError(con->http), strerror(httpGetError(con->http)));
 	  else
 	    cupsdLogClient(con, CUPSD_LOG_DEBUG,
 	                   "HTTP_STATE_WAITING Closing on error: %s",
@@ -769,10 +769,10 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
 	if (status != HTTP_STATUS_OK && status != HTTP_STATUS_CONTINUE)
 	{
-	  if (httpError(con->http) && httpError(con->http) != EPIPE)
+	  if (httpGetError(con->http) && httpGetError(con->http) != EPIPE)
 	    cupsdLogClient(con, CUPSD_LOG_DEBUG,
                            "Closing for error %d (%s) while reading headers.",
-                           httpError(con->http), strerror(httpError(con->http)));
+                           httpGetError(con->http), strerror(httpGetError(con->http)));
 	  else
 	    cupsdLogClient(con, CUPSD_LOG_DEBUG,
 	                   "Closing on EOF while reading headers.");
@@ -1484,10 +1484,10 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	{
           if ((bytes = httpRead2(con->http, line, sizeof(line))) < 0)
 	  {
-	    if (httpError(con->http) && httpError(con->http) != EPIPE)
+	    if (httpGetError(con->http) && httpGetError(con->http) != EPIPE)
 	      cupsdLogClient(con, CUPSD_LOG_DEBUG,
                              "HTTP_STATE_PUT_RECV Closing for error %d (%s)",
-                             httpError(con->http), strerror(httpError(con->http)));
+                             httpGetError(con->http), strerror(httpGetError(con->http)));
 	    else
 	      cupsdLogClient(con, CUPSD_LOG_DEBUG,
 			     "HTTP_STATE_PUT_RECV Closing on EOF.");
@@ -1664,10 +1664,10 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      return;
             else if ((bytes = httpRead2(con->http, line, sizeof(line))) < 0)
 	    {
-	      if (httpError(con->http) && httpError(con->http) != EPIPE)
+	      if (httpGetError(con->http) && httpGetError(con->http) != EPIPE)
 		cupsdLogClient(con, CUPSD_LOG_DEBUG,
 			       "HTTP_STATE_POST_SEND Closing for error %d (%s)",
-                               httpError(con->http), strerror(httpError(con->http)));
+                               httpGetError(con->http), strerror(httpGetError(con->http)));
 	      else
 		cupsdLogClient(con, CUPSD_LOG_DEBUG,
 			       "HTTP_STATE_POST_SEND Closing on EOF.");
@@ -2000,8 +2000,8 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
 	     "<P>%s</P>\n"
 	     "</BODY>\n"
 	     "</HTML>\n",
-	     _httpStatus(con->language, code), redirect,
-	     _httpStatus(con->language, code), text);
+	     _httpStatusString(con->language, code), redirect,
+	     _httpStatusString(con->language, code), text);
 
    /*
     * Send an error message back to the client.  If the error code is a
@@ -2110,7 +2110,7 @@ cupsdSendHeader(
       auth_size = sizeof(auth_str) - (size_t)(auth_key - auth_str);
 
 #if defined(SO_PEERCRED) && defined(AF_LOCAL)
-      if (httpAddrFamily(httpGetAddress(con->http)) == AF_LOCAL)
+      if (httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
       {
         strlcpy(auth_key, ", PeerCred", auth_size);
         auth_key += 10;
@@ -2234,7 +2234,7 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 		 "response=%p(%s), "
 		 "pipe_pid=%d, "
 		 "file=%d",
-		 httpError(con->http), (int)httpGetReady(con->http),
+		 httpGetError(con->http), (int)httpGetReady(con->http),
 		 httpStateString(httpGetState(con->http)),
 		 httpIsChunked(con->http) ? "CHUNKED" : "LENGTH",
 		 CUPS_LLCAST httpGetLength2(con->http),
@@ -2456,7 +2456,7 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
       if (httpWrite2(con->http, con->header, (size_t)con->header_used) < 0)
       {
 	cupsdLogClient(con, CUPSD_LOG_DEBUG, "Closing for error %d (%s)",
-		       httpError(con->http), strerror(httpError(con->http)));
+		       httpGetError(con->http), strerror(httpGetError(con->http)));
 	cupsdCloseClient(con);
 	return;
       }
@@ -2492,7 +2492,7 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 	if (httpWrite2(con->http, "", 0) < 0)
 	{
 	  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Closing for error %d (%s)",
-			 httpError(con->http), strerror(httpError(con->http)));
+			 httpGetError(con->http), strerror(httpGetError(con->http)));
 	  cupsdCloseClient(con);
 	  return;
 	}
@@ -2637,7 +2637,7 @@ static int				/* O - 0 on success, -1 on error */
 cupsd_start_tls(cupsd_client_t    *con,	/* I - Client connection */
                 http_encryption_t e)	/* I - Encryption mode */
 {
-  if (httpEncryption(con->http, e))
+  if (httpSetEncryption(con->http, e))
   {
     cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to encrypt connection: %s",
                    cupsGetErrorString());
@@ -3343,7 +3343,7 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
     strlcpy(lang, "LANG=C", sizeof(lang));
 
   strlcpy(remote_addr, "REMOTE_ADDR=", sizeof(remote_addr));
-  httpAddrString(httpGetAddress(con->http), remote_addr + 12,
+  httpAddrGetString(httpGetAddress(con->http), remote_addr + 12,
                  sizeof(remote_addr) - 12);
 
   snprintf(remote_host, sizeof(remote_host), "REMOTE_HOST=%s",
@@ -3551,7 +3551,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   * Then validate...
   */
 
-  if (httpAddrLocalhost(httpGetAddress(con->http)))
+  if (httpAddrIsLocalhost(httpGetAddress(con->http)))
   {
    /*
     * Only allow "localhost" or the equivalent IPv4 or IPv6 numerical

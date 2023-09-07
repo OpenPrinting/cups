@@ -82,8 +82,7 @@ ppdCollect2(ppd_file_t    *ppd,		/* I - PPD file data */
   float		*orders;		/* Collected order values */
 
 
-  DEBUG_printf(("ppdCollect2(ppd=%p, section=%d, min_order=%f, choices=%p)",
-                ppd, section, min_order, choices));
+  DEBUG_printf("ppdCollect2(ppd=%p, section=%d, min_order=%f, choices=%p)", ppd, section, min_order, choices);
 
   if (!ppd || !choices)
   {
@@ -196,7 +195,7 @@ ppdCollect2(ppd_file_t    *ppd,		/* I - PPD file data */
 
   free(orders);
 
-  DEBUG_printf(("2ppdCollect2: %d marked choices...", count));
+  DEBUG_printf("2ppdCollect2: %d marked choices...", count);
 
  /*
   * Return the array and number of choices; if 0, free the array since
@@ -618,8 +617,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
   struct lconv	*loc;			/* Locale data */
 
 
-  DEBUG_printf(("ppdEmitString(ppd=%p, section=%d, min_order=%f)",
-                ppd, section, min_order));
+  DEBUG_printf("ppdEmitString(ppd=%p, section=%d, min_order=%f)", ppd, section, min_order);
 
  /*
   * Range check input...
@@ -753,8 +751,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
   * Allocate memory...
   */
 
-  DEBUG_printf(("2ppdEmitString: Allocating %d bytes for string...",
-                (int)bufsize));
+  DEBUG_printf("2ppdEmitString: Allocating %d bytes for string...", (int)bufsize);
 
   if ((buffer = calloc(1, bufsize)) == NULL)
   {
@@ -871,8 +868,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
       * Send DSC comments with option...
       */
 
-      DEBUG_printf(("2ppdEmitString: Adding code for %s=%s...",
-		    choices[i]->option->keyword, choices[i]->choice));
+      DEBUG_printf("2ppdEmitString: Adding code for %s=%s...", choices[i]->option->keyword, choices[i]->choice);
 
       if ((!_cups_strcasecmp(choices[i]->option->keyword, "PageSize") ||
            !_cups_strcasecmp(choices[i]->option->keyword, "PageRegion")) &&
@@ -1080,8 +1076,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 		      "} stopped cleartomark\n", (size_t)(bufend - bufptr + 1));
       bufptr += strlen(bufptr);
 
-      DEBUG_printf(("2ppdEmitString: Offset in string is %d...",
-                    (int)(bufptr - buffer)));
+      DEBUG_printf("2ppdEmitString: Offset in string is %d...", (int)(bufptr - buffer));
     }
     else if (choices[i]->code)
     {

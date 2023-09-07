@@ -174,16 +174,6 @@ AC_CHECK_FUNCS([setpgid])
 dnl Check for vsyslog function.
 AC_CHECK_FUNCS([vsyslog])
 
-dnl Checks for signal functions.
-AS_CASE(["$host_os_name"], [linux* | gnu*], [
-    # Do not use sigset on Linux or GNU HURD
-], [*], [
-    # Use sigset on other platforms, if available
-    AC_CHECK_FUNCS([sigset])
-])
-
-AC_CHECK_FUNCS([sigaction])
-
 dnl Checks for wait functions.
 AC_CHECK_FUNCS([waitpid wait3])
 
@@ -271,16 +261,14 @@ dnl ZLIB
 INSTALL_GZIP=""
 LIBZ=""
 AC_CHECK_HEADER([zlib.h], [
-    AC_CHECK_LIB([z], [gzgets], [
-	AC_DEFINE([HAVE_LIBZ], [1], [Have zlib library?])
+    AC_CHECK_LIB([z], [inflateCopy], [
 	LIBZ="-lz"
 	LIBS="$LIBS -lz"
-	AC_CHECK_LIB([z], [inflateCopy], [
-	    AC_DEFINE([HAVE_INFLATECOPY], [1], [Have inflateCopy function?])
-	])
 	AS_IF([test "x$GZIPPROG" != x], [
 	    INSTALL_GZIP="-z"
 	])
+    ], [
+        AC_MSG_ERROR([Required zlib library not found.])
     ])
 ])
 AC_SUBST([INSTALL_GZIP])

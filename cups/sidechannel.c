@@ -110,9 +110,7 @@ cupsSideChannelRead(
 #endif /* HAVE_POLL */
 
 
-  DEBUG_printf(("cupsSideChannelRead(command=%p, status=%p, data=%p, "
-                "datalen=%p(%d), timeout=%.3f)", command, status, data,
-		datalen, datalen ? *datalen : -1, timeout));
+  DEBUG_printf("cupsSideChannelRead(command=%p, status=%p, data=%p, datalen=%p(%d), timeout=%.3f)", command, status, data, datalen, datalen ? *datalen : -1, timeout);
 
  /*
   * Range check input...
@@ -177,7 +175,7 @@ cupsSideChannelRead(
   while ((bytes = read(CUPS_SC_FD, buffer, _CUPS_SC_MAX_BUFFER)) < 0)
     if (errno != EINTR && errno != EAGAIN)
     {
-      DEBUG_printf(("1cupsSideChannelRead: Read error: %s", strerror(errno)));
+      DEBUG_printf("1cupsSideChannelRead: Read error: %s", strerror(errno));
 
       _cupsBufferRelease(buffer);
 
@@ -193,7 +191,7 @@ cupsSideChannelRead(
 
   if (bytes < 4)
   {
-    DEBUG_printf(("1cupsSideChannelRead: Short read of " CUPS_LLFMT " bytes", CUPS_LLCAST bytes));
+    DEBUG_printf("1cupsSideChannelRead: Short read of " CUPS_LLFMT " bytes", CUPS_LLCAST bytes);
 
     _cupsBufferRelease(buffer);
 
@@ -210,7 +208,7 @@ cupsSideChannelRead(
   if (buffer[0] < CUPS_SC_CMD_SOFT_RESET ||
       buffer[0] >= CUPS_SC_CMD_MAX)
   {
-    DEBUG_printf(("1cupsSideChannelRead: Bad command %d!", buffer[0]));
+    DEBUG_printf("1cupsSideChannelRead: Bad command %d!", buffer[0]);
 
     _cupsBufferRelease(buffer);
 
@@ -261,7 +259,7 @@ cupsSideChannelRead(
 
   _cupsBufferRelease(buffer);
 
-  DEBUG_printf(("1cupsSideChannelRead: Returning status=%d", *status));
+  DEBUG_printf("1cupsSideChannelRead: Returning status=%d", *status);
 
   return (0);
 }
@@ -304,9 +302,7 @@ cupsSideChannelSNMPGet(
 			real_oidlen;	/* Length of returned OID string */
 
 
-  DEBUG_printf(("cupsSideChannelSNMPGet(oid=\"%s\", data=%p, datalen=%p(%d), "
-                "timeout=%.3f)", oid, data, datalen, datalen ? *datalen : -1,
-		timeout));
+  DEBUG_printf("cupsSideChannelSNMPGet(oid=\"%s\", data=%p, datalen=%p(%d), timeout=%.3f)", oid, data, datalen, datalen ? *datalen : -1, timeout);
 
  /*
   * Range check input...
@@ -413,8 +409,7 @@ cupsSideChannelSNMPWalk(
   char			last_oid[2048];	/* Last OID */
 
 
-  DEBUG_printf(("cupsSideChannelSNMPWalk(oid=\"%s\", timeout=%.3f, cb=%p, "
-                "context=%p)", oid, timeout, cb, context));
+  DEBUG_printf("cupsSideChannelSNMPWalk(oid=\"%s\", timeout=%.3f, cb=%p, context=%p)", oid, timeout, cb, context);
 
  /*
   * Range check input...

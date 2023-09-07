@@ -40,6 +40,7 @@
 #define lseek		_lseek
 #define mkdir(d,p)	_mkdir(d)
 #define open		_open
+#define poll		WSAPoll
 #define read	        _read
 #define rmdir		_rmdir
 #define snprintf	_snprintf
@@ -218,21 +219,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Do we have posix_spawn?
- */
-
-/* #undef HAVE_POSIX_SPAWN */
-
-
-/*
- * Do we have ZLIB?
- */
-
-#define HAVE_LIBZ 1
-#define HAVE_INFLATECOPY 1
-
-
-/*
  * Do we have PAM stuff?
  */
 
@@ -341,14 +327,6 @@ typedef unsigned long useconds_t;
 
 #define HAVE_SNPRINTF 1
 #define HAVE_VSNPRINTF 1
-
-
-/*
- * What signal functions to use?
- */
-
-/* #undef HAVE_SIGSET */
-/* #undef HAVE_SIGACTION */
 
 
 /*
@@ -639,15 +617,6 @@ typedef unsigned long useconds_t;
  */
 
 #define CUPS_DEFAULT_GSSSERVICENAME "host"
-
-
-/*
- * Select/poll interfaces...
- */
-
-/* #undef HAVE_POLL */
-/* #undef HAVE_EPOLL */
-/* #undef HAVE_KQUEUE */
 
 
 /*

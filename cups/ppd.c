@@ -519,7 +519,7 @@ _ppdOpen(
 			};
 
 
-  DEBUG_printf(("_ppdOpen(fp=%p)", fp));
+  DEBUG_printf("_ppdOpen(fp=%p)", fp);
 
  /*
   * Default to "OK" status...
@@ -592,7 +592,7 @@ _ppdOpen(
 
   mask = ppd_read(fp, &line, keyword, name, text, &string, 0, pg);
 
-  DEBUG_printf(("2_ppdOpen: mask=%x, keyword=\"%s\"...", mask, keyword));
+  DEBUG_printf("2_ppdOpen: mask=%x, keyword=\"%s\"...", mask, keyword);
 
   if (mask == 0 ||
       strcmp(keyword, "PPD-Adobe") ||
@@ -611,7 +611,7 @@ _ppdOpen(
     return (NULL);
   }
 
-  DEBUG_printf(("2_ppdOpen: keyword=%s, string=%p", keyword, string));
+  DEBUG_printf("2_ppdOpen: keyword=%s, string=%p", keyword, string);
 
  /*
   * Allocate memory for the PPD file record...
@@ -706,7 +706,7 @@ _ppdOpen(
 	   strncmp(ll_CC, keyword, ll_CC_len) &&
 	   strncmp(ll, keyword, ll_len)))
       {
-	DEBUG_printf(("2_ppdOpen: Ignoring localization: \"%s\"\n", keyword));
+	DEBUG_printf("2_ppdOpen: Ignoring localization: \"%s\"\n", keyword);
 	free(string);
 	string = NULL;
 	continue;
@@ -727,7 +727,7 @@ _ppdOpen(
 
 	if (i >= (int)(sizeof(color_keywords) / sizeof(color_keywords[0])))
 	{
-	  DEBUG_printf(("2_ppdOpen: Ignoring localization: \"%s\"\n", keyword));
+	  DEBUG_printf("2_ppdOpen: Ignoring localization: \"%s\"\n", keyword);
 	  free(string);
 	  string = NULL;
 	  continue;
@@ -760,7 +760,7 @@ _ppdOpen(
 	                             encoding)) == NULL)
 	    goto error;
 
-          DEBUG_printf(("2_ppdOpen: Adding to group %s...", group->text));
+          DEBUG_printf("2_ppdOpen: Adding to group %s...", group->text);
           option = ppd_get_option(group, keyword);
 	  group  = NULL;
 	}
@@ -1270,7 +1270,7 @@ _ppdOpen(
       * Add an option record to the current sub-group, group, or file...
       */
 
-      DEBUG_printf(("2_ppdOpen: name=\"%s\" (%d)", name, (int)strlen(name)));
+      DEBUG_printf("2_ppdOpen: name=\"%s\" (%d)", name, (int)strlen(name));
 
       if (name[0] == '*')
         _cups_strcpy(name, name + 1); /* Eliminate leading asterisk */
@@ -1289,7 +1289,7 @@ _ppdOpen(
 	                           encoding)) == NULL)
 	  goto error;
 
-        DEBUG_printf(("2_ppdOpen: Adding to group %s...", group->text));
+        DEBUG_printf("2_ppdOpen: Adding to group %s...", group->text);
         option = ppd_get_option(group, name);
 	group  = NULL;
       }
@@ -1515,7 +1515,7 @@ _ppdOpen(
 	{
 	  strlcpy(option->defchoice, tchoice, sizeof(option->defchoice));
 
-	  DEBUG_printf(("2_ppdOpen: Reset Default%s to %s...", option->keyword, tchoice));
+	  DEBUG_printf("2_ppdOpen: Reset Default%s to %s...", option->keyword, tchoice);
 	}
       }
 
@@ -1550,7 +1550,7 @@ _ppdOpen(
 	{
 	  strlcpy(option->defchoice, tchoice, sizeof(option->defchoice));
 
-	  DEBUG_printf(("2_ppdOpen: Reset Default%s to %s...", option->keyword, tchoice));
+	  DEBUG_printf("2_ppdOpen: Reset Default%s to %s...", option->keyword, tchoice);
 	}
       }
 
@@ -1714,7 +1714,7 @@ _ppdOpen(
 
 	strlcpy(option->defchoice, string, sizeof(option->defchoice));
 
-        DEBUG_printf(("2_ppdOpen: Set %s to %s...", keyword, option->defchoice));
+        DEBUG_printf("2_ppdOpen: Set %s to %s...", keyword, option->defchoice);
       }
       else
       {
@@ -1744,7 +1744,7 @@ _ppdOpen(
 	    strlcpy(toption->defchoice, string, sizeof(toption->defchoice));
 	  }
 
-	  DEBUG_printf(("2_ppdOpen: Set %s to %s...", keyword, toption->defchoice));
+	  DEBUG_printf("2_ppdOpen: Set %s to %s...", keyword, toption->defchoice);
 	}
       }
     }
@@ -1992,7 +1992,7 @@ _ppdOpen(
 	         (PPD_KEYWORD | PPD_OPTION | PPD_STRING) &&
 	     !strcmp(keyword, option->keyword))
     {
-      DEBUG_printf(("2_ppdOpen: group=%p, subgroup=%p", group, subgroup));
+      DEBUG_printf("2_ppdOpen: group=%p, subgroup=%p", group, subgroup);
 
       if (!_cups_strcasecmp(name, "custom") || !_cups_strncasecmp(name, "custom.", 7))
       {
@@ -2775,7 +2775,7 @@ ppd_get_group(ppd_file_t      *ppd,	/* I - PPD file */
 
   if (i == 0)
   {
-    DEBUG_printf(("8ppd_get_group: Adding group %s...", name));
+    DEBUG_printf("8ppd_get_group: Adding group %s...", name);
 
     if (pg->ppd_conform == PPD_CONFORM_STRICT && strlen(text) >= sizeof(group->text))
     {
@@ -3198,7 +3198,7 @@ ppd_read(cups_file_t    *fp,		/* I - File to read from */
 
     *lineptr = '\0';
 
-    DEBUG_printf(("9ppd_read: LINE=\"%s\"", line->buffer));
+    DEBUG_printf("9ppd_read: LINE=\"%s\"", line->buffer);
 
    /*
     * The dynamically created PPDs for older style macOS
@@ -3437,7 +3437,7 @@ ppd_update_filters(ppd_file_t     *ppd,	/* I - PPD file */
 
   char		program[1024] = { 0 };	/* Command to run */
 
-  DEBUG_printf(("4ppd_update_filters(ppd=%p, cg=%p)", ppd, pg));
+  DEBUG_printf("4ppd_update_filters(ppd=%p, cg=%p)", ppd, pg);
 
  /*
   * See if we have any cupsFilter2 lines...
@@ -3464,7 +3464,7 @@ ppd_update_filters(ppd_file_t     *ppd,	/* I - PPD file */
     *   src/type dst/type cost maxsize(n) program
     */
 
-    DEBUG_printf(("5ppd_update_filters: cupsFilter2=\"%s\"", attr->value));
+    DEBUG_printf("5ppd_update_filters: cupsFilter2=\"%s\"", attr->value);
 
     if (sscanf(attr->value, "%15[^/]/%255s%*[ \t]%15[^/]/%255s%d%*[ \t]%1023[^\n]",
 	       srcsuper, srctype, dstsuper, dsttype, &cost, program) != 6)
@@ -3489,7 +3489,7 @@ ppd_update_filters(ppd_file_t     *ppd,	/* I - PPD file */
 	ptr ++;
 
       _cups_strcpy(program, ptr);
-      DEBUG_printf(("5ppd_update_filters: New program=\"%s\"", program));
+      DEBUG_printf("5ppd_update_filters: New program=\"%s\"", program);
     }
 
    /*
@@ -3500,7 +3500,7 @@ ppd_update_filters(ppd_file_t     *ppd,	/* I - PPD file */
 
     snprintf(buffer, sizeof(buffer), "%s/%s %d %s", srcsuper, srctype, cost,
              program);
-    DEBUG_printf(("5ppd_update_filters: Adding \"%s\".", buffer));
+    DEBUG_printf("5ppd_update_filters: Adding \"%s\".", buffer);
 
    /*
     * Add a cupsFilter-compatible string to the filters array.

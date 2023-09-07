@@ -2377,7 +2377,7 @@ list_service(ippfind_srv_t *service)	/* I - Service */
       return (0);
     }
 
-    if (httpGet(http, service->resource))
+    if (!httpWriteRequest(http, "GET", service->resource))
     {
       _cupsLangPrintf(stdout, "%s unavailable", service->uri);
       return (0);
@@ -2409,7 +2409,7 @@ list_service(ippfind_srv_t *service)	/* I - Service */
     int	sock;				/* Socket */
 
 
-    if (!httpAddrConnect(addrlist, &sock))
+    if (!httpAddrConnect2(addrlist, &sock, 30000, NULL))
     {
       _cupsLangPrintf(stdout, "%s unavailable", service->uri);
       httpAddrFreeList(addrlist);

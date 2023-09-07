@@ -76,7 +76,7 @@ cupsCloseDestJob(
   ipp_attribute_t	*attr;		/* operations-supported attribute */
 
 
-  DEBUG_printf(("cupsCloseDestJob(http=%p, dest=%p(%s/%s), info=%p, job_id=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id));
+  DEBUG_printf("cupsCloseDestJob(http=%p, dest=%p(%s/%s), info=%p, job_id=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id);
 
  /*
   * Get the default connection as needed...
@@ -139,8 +139,7 @@ cupsCloseDestJob(
 
   ippDelete(cupsDoRequest(http, request, info->resource));
 
-  DEBUG_printf(("1cupsCloseDestJob: %s (%s)", ippErrorString(cupsGetError()),
-                cupsGetErrorString()));
+  DEBUG_printf("1cupsCloseDestJob: %s (%s)", ippErrorString(cupsGetError()), cupsGetErrorString());
 
   return (cupsGetError());
 }
@@ -170,8 +169,7 @@ cupsCreateDestJob(
   ipp_attribute_t	*attr;		/* job-id attribute */
 
 
-  DEBUG_printf(("cupsCreateDestJob(http=%p, dest=%p(%s/%s), info=%p, "
-                "job_id=%p, title=\"%s\", num_options=%d, options=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, (void *)job_id, title, num_options, (void *)options));
+  DEBUG_printf("cupsCreateDestJob(http=%p, dest=%p(%s/%s), info=%p, job_id=%p, title=\"%s\", num_options=%d, options=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, (void *)job_id, title, num_options, (void *)options);
 
  /*
   * Get the default connection as needed...
@@ -228,7 +226,7 @@ cupsCreateDestJob(
   if ((attr = ippFindAttribute(response, "job-id", IPP_TAG_INTEGER)) != NULL)
   {
     *job_id = attr->values[0].integer;
-    DEBUG_printf(("1cupsCreateDestJob: job-id=%d", *job_id));
+    DEBUG_printf("1cupsCreateDestJob: job-id=%d", *job_id);
   }
 
   ippDelete(response);
@@ -237,8 +235,7 @@ cupsCreateDestJob(
   * Return the status code from the Create-Job request...
   */
 
-  DEBUG_printf(("1cupsCreateDestJob: %s (%s)", ippErrorString(cupsGetError()),
-                cupsGetErrorString()));
+  DEBUG_printf("1cupsCreateDestJob: %s (%s)", ippErrorString(cupsGetError()), cupsGetErrorString());
 
   return (cupsGetError());
 }
@@ -258,7 +255,7 @@ cupsFinishDestDocument(
     cups_dest_t  *dest,			/* I - Destination */
     cups_dinfo_t *info) 		/* I - Destination information */
 {
-  DEBUG_printf(("cupsFinishDestDocument(http=%p, dest=%p(%s/%s), info=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info));
+  DEBUG_printf("cupsFinishDestDocument(http=%p, dest=%p(%s/%s), info=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info);
 
  /*
   * Get the default connection as needed...
@@ -284,8 +281,7 @@ cupsFinishDestDocument(
 
   ippDelete(cupsGetResponse(http, info->resource));
 
-  DEBUG_printf(("1cupsFinishDestDocument: %s (%s)",
-                ippErrorString(cupsGetError()), cupsGetErrorString()));
+  DEBUG_printf("1cupsFinishDestDocument: %s (%s)", ippErrorString(cupsGetError()), cupsGetErrorString());
 
   return (cupsGetError());
 }
@@ -320,7 +316,7 @@ cupsStartDestDocument(
   http_status_t	status;			/* HTTP status */
 
 
-  DEBUG_printf(("cupsStartDestDocument(http=%p, dest=%p(%s/%s), info=%p, job_id=%d, docname=\"%s\", format=\"%s\", num_options=%d, options=%p, last_document=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id, docname, format, num_options, (void *)options, last_document));
+  DEBUG_printf("cupsStartDestDocument(http=%p, dest=%p(%s/%s), info=%p, job_id=%d, docname=\"%s\", format=\"%s\", num_options=%d, options=%p, last_document=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id, docname, format, num_options, (void *)options, last_document);
 
  /*
   * Get the default connection as needed...

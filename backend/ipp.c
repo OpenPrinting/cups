@@ -265,9 +265,7 @@ main(int  argc,				/* I - Number of command-line args */
   int		fd;			/* File descriptor */
   off_t		bytes = 0;		/* Bytes copied */
   char		buffer[16384];		/* Copy buffer */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
   int		version;		/* IPP version */
   ppd_file_t	*ppd = NULL;		/* PPD file */
   _ppd_cache_t	*pc = NULL;		/* PPD cache and mapping data */
@@ -284,10 +282,6 @@ main(int  argc,				/* I - Number of command-line args */
   * Ignore SIGPIPE and catch SIGTERM signals...
   */
 
-#ifdef HAVE_SIGSET
-  sigset(SIGPIPE, SIG_IGN);
-  sigset(SIGTERM, sigterm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
   action.sa_handler = SIG_IGN;
   sigaction(SIGPIPE, &action, NULL);
@@ -296,10 +290,6 @@ main(int  argc,				/* I - Number of command-line args */
   sigaddset(&action.sa_mask, SIGTERM);
   action.sa_handler = sigterm_handler;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGPIPE, SIG_IGN);
-  signal(SIGTERM, sigterm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Check command-line...
@@ -796,8 +786,8 @@ main(int  argc,				/* I - Number of command-line args */
     * Validate TLS credentials...
     */
 
-    cups_array_t	*creds;		/* TLS credentials */
-    cups_array_t	*lcreds = NULL;	/* Loaded credentials */
+    char		*creds;		/* TLS credentials */
+    char		*lcreds = NULL;	/* Loaded credentials */
     http_trust_t	trust;		/* Trust level */
     char		credinfo[1024],	/* Information on credentials */
 			lcredinfo[1024];/* Information on saved credentials */
@@ -815,21 +805,23 @@ main(int  argc,				/* I - Number of command-line args */
 
     fputs("DEBUG: Connection is encrypted.\n", stderr);
 
-    if (!httpCopyCredentials(http, &creds))
+    if ((creds = httpCopyPeerCredentials(http)) != NULL)
     {
-      trust = httpCredentialsGetTrust(creds, hostname);
-      httpCredentialsString(creds, credinfo, sizeof(credinfo));
+      trust = cupsGetCredentialsTrust(NULL, hostname, creds);
+      cupsGetCredentialsInfo(creds, credinfo, sizeof(credinfo));
 
       fprintf(stderr, "DEBUG: %s (%s)\n", trust_msgs[trust], cupsGetErrorString());
       fprintf(stderr, "DEBUG: Printer credentials: %s\n", credinfo);
 
-      if (!httpLoadCredentials(NULL, &lcreds, hostname))
+      if ((lcreds = cupsCopyCredentials(NULL, hostname)) != NULL)
       {
-        httpCredentialsString(lcreds, lcredinfo, sizeof(lcredinfo));
+        cupsGetCredentialsInfo(lcreds, lcredinfo, sizeof(lcredinfo));
 	fprintf(stderr, "DEBUG: Stored credentials: %s\n", lcredinfo);
       }
       else
+      {
         fputs("DEBUG: No stored credentials.\n", stderr);
+      }
 
       update_reasons(NULL, "-cups-pki-invalid,cups-pki-changed,cups-pki-expired,cups-pki-unknown");
       if (trusts[trust])
@@ -845,11 +837,11 @@ main(int  argc,				/* I - Number of command-line args */
         * can detect changes...
         */
 
-        httpSaveCredentials(NULL, creds, hostname);
+        cupsSaveCredentials(NULL, hostname, creds, /*key*/NULL);
       }
 
-      httpFreeCredentials(lcreds);
-      httpFreeCredentials(creds);
+      free(lcreds);
+      free(creds);
     }
     else
     {
@@ -864,8 +856,8 @@ main(int  argc,				/* I - Number of command-line args */
   _cupsLangPrintFilter(stderr, "INFO", _("Connected to printer."));
 
   fprintf(stderr, "DEBUG: Connected to %s:%d...\n",
-	  httpAddrString(http->hostaddr, addrname, sizeof(addrname)),
-	  httpAddrPort(http->hostaddr));
+	  httpAddrGetString(http->hostaddr, addrname, sizeof(addrname)),
+	  httpAddrGetPort(http->hostaddr));
 
  /*
   * Build a URI for the printer and fill the standard IPP attributes for

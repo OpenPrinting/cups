@@ -149,9 +149,7 @@ backendRunLoop(
   struct timeval timeout;		/* Timeout for select() */
   time_t	curtime,		/* Current time */
 		snmp_update = 0;
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
   fprintf(stderr,
@@ -168,17 +166,11 @@ backendRunLoop(
 
   if (!print_fd)
   {
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-    sigset(SIGTERM, SIG_IGN);
-#elif defined(HAVE_SIGACTION)
     memset(&action, 0, sizeof(action));
 
     sigemptyset(&action.sa_mask);
     action.sa_handler = SIG_IGN;
     sigaction(SIGTERM, &action, NULL);
-#else
-    signal(SIGTERM, SIG_IGN);
-#endif /* HAVE_SIGSET */
   }
   else if (print_fd < 0)
   {

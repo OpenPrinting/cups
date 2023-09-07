@@ -158,9 +158,7 @@ main(int  argc,				/* I - Number of command-line args */
   AvahiClient	*client;		/* Client information */
   int		error;			/* Error code, if any */
 #endif /* HAVE_AVAHI */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -169,17 +167,11 @@ main(int  argc,				/* I - Number of command-line args */
 
   setbuf(stderr, NULL);
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGTERM, sigterm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = sigterm_handler;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGTERM, sigterm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Check command-line...

@@ -2213,7 +2213,7 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
   else
     snprintf(resource, sizeof(resource), "/printers/%s", p->name);
 
-  if ((auth = cupsdFindBest(resource, HTTP_POST)) == NULL ||
+  if ((auth = cupsdFindBest(resource, HTTP_STATE_POST)) == NULL ||
       auth->type == CUPSD_AUTH_NONE)
     auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_PRINT_JOB);
 

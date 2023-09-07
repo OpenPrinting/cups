@@ -1050,13 +1050,13 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
     * Eliminate simple GET, POST, and PUT requests...
     */
 
-    if ((con->operation == HTTP_GET &&
+    if ((con->operation == HTTP_STATE_GET &&
          strncmp(con->uri, "/admin/conf", 11) &&
 	 strncmp(con->uri, "/admin/log", 10)) ||
-	(con->operation == HTTP_POST && !con->request &&
+	(con->operation == HTTP_STATE_POST && !con->request &&
 	 strncmp(con->uri, "/admin", 6)) ||
-	(con->operation != HTTP_GET && con->operation != HTTP_POST &&
-	 con->operation != HTTP_PUT))
+	(con->operation != HTTP_STATE_GET && con->operation != HTTP_STATE_POST &&
+	 con->operation != HTTP_STATE_PUT))
       return (1);
 
     if (con->request && con->response &&

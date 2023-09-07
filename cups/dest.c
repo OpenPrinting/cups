@@ -610,7 +610,7 @@ cupsConnectDest(
   http_t	*http;			/* Connection to server */
 
 
-  DEBUG_printf(("cupsConnectDest(dest=%p, flags=0x%x, msec=%d, cancel=%p(%d), resource=\"%s\", resourcesize=" CUPS_LLFMT ", cb=%p, user_data=%p)", (void *)dest, flags, msec, (void *)cancel, cancel ? *cancel : -1, resource, CUPS_LLCAST resourcesize, (void *)cb, user_data));
+  DEBUG_printf("cupsConnectDest(dest=%p, flags=0x%x, msec=%d, cancel=%p(%d), resource=\"%s\", resourcesize=" CUPS_LLFMT ", cb=%p, user_data=%p)", (void *)dest, flags, msec, (void *)cancel, cancel ? *cancel : -1, resource, CUPS_LLCAST resourcesize, (void *)cb, user_data);
 
  /*
   * Range check input...
@@ -1117,7 +1117,7 @@ _cupsGetDestResource(
   int		port;			/* Port number */
 
 
-  DEBUG_printf(("_cupsGetDestResource(dest=%p(%s), flags=%u, resource=%p, resourcesize=%d)", (void *)dest, dest->name, flags, (void *)resource, (int)resourcesize));
+  DEBUG_printf("_cupsGetDestResource(dest=%p(%s), flags=%u, resource=%p, resourcesize=%d)", (void *)dest, dest->name, flags, (void *)resource, (int)resourcesize);
 
  /*
   * Range check input...
@@ -1139,14 +1139,14 @@ _cupsGetDestResource(
   device_uri  = cupsGetOption("device-uri", dest->num_options, dest->options);
   printer_uri = cupsGetOption("printer-uri-supported", dest->num_options, dest->options);
 
-  DEBUG_printf(("1_cupsGetDestResource: device-uri=\"%s\", printer-uri-supported=\"%s\".", device_uri, printer_uri));
+  DEBUG_printf("1_cupsGetDestResource: device-uri=\"%s\", printer-uri-supported=\"%s\".", device_uri, printer_uri);
 
 #ifdef HAVE_DNSSD
   if (((flags & CUPS_DEST_FLAGS_DEVICE) || !printer_uri) && device_uri && strstr(device_uri, "._tcp"))
   {
     if ((device_uri = cups_dnssd_resolve(dest, device_uri, 5000, NULL, NULL, NULL)) != NULL)
     {
-      DEBUG_printf(("1_cupsGetDestResource: Resolved device-uri=\"%s\".", device_uri));
+      DEBUG_printf("1_cupsGetDestResource: Resolved device-uri=\"%s\".", device_uri);
     }
     else
     {
@@ -1176,7 +1176,7 @@ _cupsGetDestResource(
 
     if (uri)
     {
-      DEBUG_printf(("1_cupsGetDestResource: Local printer-uri-supported=\"%s\"", uri));
+      DEBUG_printf("1_cupsGetDestResource: Local printer-uri-supported=\"%s\"", uri);
 
       dest->num_options = cupsAddOption("printer-uri-supported", uri, dest->num_options, &dest->options);
 
@@ -1202,7 +1202,7 @@ _cupsGetDestResource(
     return (NULL);
   }
 
-  DEBUG_printf(("1_cupsGetDestResource: resource=\"%s\"", resource));
+  DEBUG_printf("1_cupsGetDestResource: resource=\"%s\"", resource);
 
   return (uri);
 }
@@ -1399,7 +1399,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		};
 
 
-  DEBUG_printf(("_cupsGetDests(http=%p, op=%x(%s), name=\"%s\", dests=%p, type=%x, mask=%x)", (void *)http, op, ippOpString(op), name, (void *)dests, type, mask));
+  DEBUG_printf("_cupsGetDests(http=%p, op=%x(%s), name=\"%s\", dests=%p, type=%x, mask=%x)", (void *)http, op, ippOpString(op), name, (void *)dests, type, mask);
 
 #ifdef __APPLE__
  /*
@@ -1407,7 +1407,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
   */
 
   appleGetPaperSize(media_default, sizeof(media_default));
-  DEBUG_printf(("1_cupsGetDests: Default media is '%s'.", media_default));
+  DEBUG_printf("1_cupsGetDests: Default media is '%s'.", media_default);
 #endif /* __APPLE__ */
 
  /*
@@ -1527,7 +1527,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 	  for (i = 0; i < attr->num_values; i ++)
 	    if (!_cups_strcasecmp(media_default, attr->values[i].string.text))
 	    {
-              DEBUG_printf(("1_cupsGetDests: Setting media to '%s'.", media_default));
+              DEBUG_printf("1_cupsGetDests: Setting media to '%s'.", media_default);
 	      num_options = cupsAddOption("media", media_default, num_options, &options);
               break;
 	    }
@@ -1655,7 +1655,7 @@ cupsGetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
   _cups_getdata_t data;                 /* Enumeration data */
 
 
-  DEBUG_printf(("cupsGetDests2(http=%p, dests=%p)", (void *)http, (void *)dests));
+  DEBUG_printf("cupsGetDests2(http=%p, dests=%p)", (void *)http, (void *)dests);
 
 /*
   * Range check the input...
@@ -1717,7 +1717,7 @@ cupsGetDests2(http_t      *http,	/* I - Connection to server or @code CUPS_HTTP_
   if (data.num_dests > 0)
     _cupsSetError(IPP_STATUS_OK, NULL, 0);
 
-  DEBUG_printf(("1cupsGetDests2: Returning %d destinations.", data.num_dests));
+  DEBUG_printf("1cupsGetDests2: Returning %d destinations.", data.num_dests);
 
   return (data.num_dests);
 }
@@ -1759,7 +1759,7 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
   _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
 
 
-  DEBUG_printf(("cupsGetNamedDest(http=%p, name=\"%s\", instance=\"%s\")", (void *)http, name, instance));
+  DEBUG_printf("cupsGetNamedDest(http=%p, name=\"%s\", instance=\"%s\")", (void *)http, name, instance);
 
  /*
   * If "name" is NULL, find the default destination...
@@ -1827,7 +1827,7 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
       DEBUG_puts("1cupsGetNamedDest: Asking server for default printer...");
     }
     else
-      DEBUG_printf(("1cupsGetNamedDest: Using name=\"%s\"...", name));
+      DEBUG_printf("1cupsGetNamedDest: Using name=\"%s\"...", name);
   }
 
  /*
@@ -1884,7 +1884,7 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
     dest = data.dest;
   }
 
-  DEBUG_printf(("1cupsGetNamedDest: Got dest=%p", (void *)dest));
+  DEBUG_printf("1cupsGetNamedDest: Got dest=%p", (void *)dest);
 
   if (instance)
     dest->instance = _cupsStrAlloc(instance);
@@ -2288,7 +2288,7 @@ _cupsGetUserDefault(char   *name,		/* I - Name buffer */
   else
     name[0] = '\0';
 
-  DEBUG_printf(("1_cupsGetUserDefault: Returning \"%s\".", name));
+  DEBUG_printf("1_cupsGetUserDefault: Returning \"%s\".", name);
 
   return (*name ? name : NULL);
 
@@ -2596,7 +2596,7 @@ cups_dnssd_browse_cb(
 					/* Enumeration data */
 
 
-  DEBUG_printf(("5cups_dnssd_browse_cb(sdRef=%p, flags=%x, interfaceIndex=%d, errorCode=%d, serviceName=\"%s\", regtype=\"%s\", replyDomain=\"%s\", context=%p)", (void *)sdRef, flags, interfaceIndex, errorCode, serviceName, regtype, replyDomain, context));
+  DEBUG_printf("5cups_dnssd_browse_cb(sdRef=%p, flags=%x, interfaceIndex=%d, errorCode=%d, serviceName=\"%s\", regtype=\"%s\", replyDomain=\"%s\", context=%p)", (void *)sdRef, flags, interfaceIndex, errorCode, serviceName, regtype, replyDomain, context);
 
  /*
   * Don't do anything on error...
@@ -2642,12 +2642,12 @@ cups_dnssd_browse_cb(
   (void)protocol;
   (void)context;
 
-  DEBUG_printf(("cups_dnssd_browse_cb(..., name=\"%s\", type=\"%s\", domain=\"%s\", ...);", name, type, domain));
+  DEBUG_printf("cups_dnssd_browse_cb(..., name=\"%s\", type=\"%s\", domain=\"%s\", ...);", name, type, domain);
 
   switch (event)
   {
     case AVAHI_BROWSER_FAILURE:
-	DEBUG_printf(("cups_dnssd_browse_cb: %s", avahi_strerror(avahi_client_errno(client))));
+	DEBUG_printf("cups_dnssd_browse_cb: %s", avahi_strerror(avahi_client_errno(client)));
 	avahi_simple_poll_quit(data->simple_poll);
 	break;
 
@@ -2687,7 +2687,7 @@ cups_dnssd_client_cb(
 
   (void)client;
 
-  DEBUG_printf(("cups_dnssd_client_cb(client=%p, state=%d, context=%p)", client, state, context));
+  DEBUG_printf("cups_dnssd_client_cb(client=%p, state=%d, context=%p)", client, state, context);
 
  /*
   * If the connection drops, quit.
@@ -2724,7 +2724,7 @@ cups_dnssd_free_device(
     _cups_dnssd_device_t *device,	/* I - Device */
     _cups_dnssd_data_t   *data)		/* I - Enumeration data */
 {
-  DEBUG_printf(("5cups_dnssd_free_device(device=%p(%s), data=%p)", (void *)device, device->dest.name, (void *)data));
+  DEBUG_printf("5cups_dnssd_free_device(device=%p(%s), data=%p)", (void *)device, device->dest.name, (void *)data);
 
 #  ifdef HAVE_MDNSRESPONDER
   if (device->ref)
@@ -2763,7 +2763,7 @@ cups_dnssd_get_device(
 			name[128];	/* Queue name */
 
 
-  DEBUG_printf(("5cups_dnssd_get_device(data=%p, serviceName=\"%s\", regtype=\"%s\", replyDomain=\"%s\")", (void *)data, serviceName, regtype, replyDomain));
+  DEBUG_printf("5cups_dnssd_get_device(data=%p, serviceName=\"%s\", regtype=\"%s\", replyDomain=\"%s\")", (void *)data, serviceName, regtype, replyDomain);
 
  /*
   * See if this is an existing device...
@@ -2869,7 +2869,7 @@ cups_dnssd_get_device(
 
   if (device->state == _CUPS_DNSSD_ACTIVE)
   {
-    DEBUG_printf(("6cups_dnssd_get_device: Remove callback for \"%s\".", device->dest.name));
+    DEBUG_printf("6cups_dnssd_get_device: Remove callback for \"%s\".", device->dest.name);
 
     (*data->cb)(data->user_data, CUPS_DEST_FLAGS_REMOVED, &device->dest);
     device->state = _CUPS_DNSSD_NEW;
@@ -2902,17 +2902,17 @@ cups_dnssd_poll_cb(
   int			val;		/* Return value */
 
 
-  DEBUG_printf(("cups_dnssd_poll_cb(pollfds=%p, num_pollfds=%d, timeout=%d, context=%p)", pollfds, num_pollfds, timeout, context));
+  DEBUG_printf("cups_dnssd_poll_cb(pollfds=%p, num_pollfds=%d, timeout=%d, context=%p)", pollfds, num_pollfds, timeout, context);
 
   (void)timeout;
 
   val = poll(pollfds, num_pollfds, _CUPS_DNSSD_MAXTIME);
 
-  DEBUG_printf(("cups_dnssd_poll_cb: poll() returned %d", val));
+  DEBUG_printf("cups_dnssd_poll_cb: poll() returned %d", val);
 
   if (val < 0)
   {
-    DEBUG_printf(("cups_dnssd_poll_cb: %s", strerror(errno)));
+    DEBUG_printf("cups_dnssd_poll_cb: %s", strerror(errno));
   }
   else if (val > 0)
   {
@@ -2970,7 +2970,7 @@ cups_dnssd_query_cb(
 
 
 #  ifdef HAVE_MDNSRESPONDER
-  DEBUG_printf(("5cups_dnssd_query_cb(sdRef=%p, flags=%x, interfaceIndex=%d, errorCode=%d, fullName=\"%s\", rrtype=%u, rrclass=%u, rdlen=%u, rdata=%p, ttl=%u, context=%p)", (void *)sdRef, flags, interfaceIndex, errorCode, fullName, rrtype, rrclass, rdlen, rdata, ttl, context));
+  DEBUG_printf("5cups_dnssd_query_cb(sdRef=%p, flags=%x, interfaceIndex=%d, errorCode=%d, fullName=\"%s\", rrtype=%u, rrclass=%u, rdlen=%u, rdata=%p, ttl=%u, context=%p)", (void *)sdRef, flags, interfaceIndex, errorCode, fullName, rrtype, rrclass, rdlen, rdata, ttl, context);
 
  /*
   * Only process "add" data...
@@ -2980,7 +2980,7 @@ cups_dnssd_query_cb(
     return;
 
 #  else /* HAVE_AVAHI */
-  DEBUG_printf(("cups_dnssd_query_cb(browser=%p, interfaceIndex=%d, protocol=%d, event=%d, fullName=\"%s\", rrclass=%u, rrtype=%u, rdata=%p, rdlen=%u, flags=%x, context=%p)", browser, interfaceIndex, protocol, event, fullName, rrclass, rrtype, rdata, (unsigned)rdlen, flags, context));
+  DEBUG_printf("cups_dnssd_query_cb(browser=%p, interfaceIndex=%d, protocol=%d, event=%d, fullName=\"%s\", rrclass=%u, rrtype=%u, rdata=%p, rdlen=%u, flags=%x, context=%p)", browser, interfaceIndex, protocol, event, fullName, rrclass, rrtype, rdata, (unsigned)rdlen, flags, context);
 
  /*
   * Only process "add" data...
@@ -2989,7 +2989,7 @@ cups_dnssd_query_cb(
   if (event != AVAHI_BROWSER_NEW)
   {
     if (event == AVAHI_BROWSER_FAILURE)
-      DEBUG_printf(("cups_dnssd_query_cb: %s", avahi_strerror(avahi_client_errno(client))));
+      DEBUG_printf("cups_dnssd_query_cb: %s", avahi_strerror(avahi_client_errno(client)));
 
     return;
   }
@@ -3064,11 +3064,11 @@ cups_dnssd_query_cb(
 	  memcpy(value, txt, (size_t)(txtnext - txt));
 	value[txtnext - txt] = '\0';
 
-	DEBUG_printf(("6cups_dnssd_query_cb: %s=%s", key, value));
+	DEBUG_printf("6cups_dnssd_query_cb: %s=%s", key, value);
       }
       else
       {
-	DEBUG_printf(("6cups_dnssd_query_cb: '%s' with no value.", key));
+	DEBUG_printf("6cups_dnssd_query_cb: '%s' with no value.", key);
 	continue;
       }
 
@@ -3223,7 +3223,7 @@ cups_dnssd_query_cb(
                     !strcmp(device->regtype, "_ipps._tcp") ? "ipps" : "ipp",
                     NULL, uriname, 0, saw_printer_type ? "/cups" : "/");
 
-    DEBUG_printf(("6cups_dnssd_query: device-uri=\"%s\"", uri));
+    DEBUG_printf("6cups_dnssd_query: device-uri=\"%s\"", uri);
 
     device->dest.num_options = cupsAddOption("device-uri", uri, device->dest.num_options, &device->dest.options);
   }
@@ -3321,7 +3321,7 @@ cups_dnssd_resolve_cb(void *context)	/* I - Resolve data */
 
   gettimeofday(&curtime, NULL);
 
-  DEBUG_printf(("4cups_dnssd_resolve_cb: curtime=%d.%06d, end_time=%d.%06d", (int)curtime.tv_sec, (int)curtime.tv_usec, (int)resolve->end_time.tv_sec, (int)resolve->end_time.tv_usec));
+  DEBUG_printf("4cups_dnssd_resolve_cb: curtime=%d.%06d, end_time=%d.%06d", (int)curtime.tv_sec, (int)curtime.tv_usec, (int)resolve->end_time.tv_sec, (int)resolve->end_time.tv_usec);
 
   return (curtime.tv_sec < resolve->end_time.tv_sec ||
           (curtime.tv_sec == resolve->end_time.tv_sec &&
@@ -3436,7 +3436,7 @@ cups_enum_dests(
   _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
 
 
-  DEBUG_printf(("cups_enum_dests(flags=%x, msec=%d, cancel=%p, type=%x, mask=%x, cb=%p, user_data=%p)", flags, msec, (void *)cancel, type, mask, (void *)cb, (void *)user_data));
+  DEBUG_printf("cups_enum_dests(flags=%x, msec=%d, cancel=%p, type=%x, mask=%x, cb=%p, user_data=%p)", flags, msec, (void *)cancel, type, mask, (void *)cb, (void *)user_data);
 
  /*
   * Range check input...
@@ -3501,7 +3501,7 @@ cups_enum_dests(
       *data.def_instance++ = '\0';
   }
 
-  DEBUG_printf(("1cups_enum_dests: def_name=\"%s\", def_instance=\"%s\"", data.def_name, data.def_instance));
+  DEBUG_printf("1cups_enum_dests: def_name=\"%s\", def_instance=\"%s\"", data.def_name, data.def_instance);
 
  /*
   * Get ready to enumerate...
@@ -3531,7 +3531,7 @@ cups_enum_dests(
 
       if ((dest = cupsGetDest(data.def_name, data.def_instance, num_dests, dests)) != NULL)
       {
-	DEBUG_printf(("1cups_enum_dests: Setting is_default on \"%s/%s\".", dest->name, dest->instance));
+	DEBUG_printf("1cups_enum_dests: Setting is_default on \"%s/%s\".", dest->name, dest->instance);
         dest->is_default = 1;
       }
     }
@@ -3735,7 +3735,7 @@ cups_enum_dests(
     * Check for input...
     */
 
-    DEBUG_printf(("1cups_enum_dests: remaining=%d", remaining));
+    DEBUG_printf("1cups_enum_dests: remaining=%d", remaining);
 
     cups_elapsed(&curtime);
 
@@ -3774,7 +3774,7 @@ cups_enum_dests(
       break;
     }
 
-    DEBUG_printf(("1cups_enum_dests: got_data=%d", data.got_data));
+    DEBUG_printf("1cups_enum_dests: got_data=%d", data.got_data);
 #  endif /* HAVE_MDNSRESPONDER */
 
     remaining -= cups_elapsed(&curtime);
@@ -3792,7 +3792,7 @@ cups_enum_dests(
 
       if (!device->ref && device->state == _CUPS_DNSSD_NEW)
       {
-        DEBUG_printf(("1cups_enum_dests: Querying '%s'.", device->fullName));
+        DEBUG_printf("1cups_enum_dests: Querying '%s'.", device->fullName);
 
 #  ifdef HAVE_MDNSRESPONDER
         device->ref = data.main_ref;
@@ -3812,14 +3812,14 @@ cups_enum_dests(
 #  else /* HAVE_AVAHI */
         if ((device->ref = avahi_record_browser_new(data.client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, device->fullName, AVAHI_DNS_CLASS_IN, AVAHI_DNS_TYPE_TXT, 0, cups_dnssd_query_cb, &data)) != NULL)
         {
-          DEBUG_printf(("1cups_enum_dests: Query ref=%p", device->ref));
+          DEBUG_printf("1cups_enum_dests: Query ref=%p", device->ref);
           count ++;
         }
         else
         {
           device->state = _CUPS_DNSSD_ERROR;
 
-          DEBUG_printf(("1cups_enum_dests: Query failed: %s", avahi_strerror(avahi_client_errno(data.client))));
+          DEBUG_printf("1cups_enum_dests: Query failed: %s", avahi_strerror(avahi_client_errno(data.client)));
         }
 #  endif /* HAVE_MDNSRESPONDER */
       }
@@ -3827,7 +3827,7 @@ cups_enum_dests(
       {
         completed ++;
 
-        DEBUG_printf(("1cups_enum_dests: Query for \"%s\" is complete.", device->fullName));
+        DEBUG_printf("1cups_enum_dests: Query for \"%s\" is complete.", device->fullName);
 
         if ((device->type & mask) == type)
         {
@@ -3869,11 +3869,11 @@ cups_enum_dests(
 	  {
 	    if (!strcasecmp(dest->name, data.def_name) && !data.def_instance)
 	    {
-	      DEBUG_printf(("1cups_enum_dests: Setting is_default on discovered \"%s\".", dest->name));
+	      DEBUG_printf("1cups_enum_dests: Setting is_default on discovered \"%s\".", dest->name);
 	      dest->is_default = 1;
 	    }
 
-	    DEBUG_printf(("1cups_enum_dests: Add callback for \"%s\".", device->dest.name));
+	    DEBUG_printf("1cups_enum_dests: Add callback for \"%s\".", device->dest.name);
 	    if (!(*cb)(user_data, CUPS_DEST_FLAGS_NONE, dest))
 	    {
 	      remaining = -1;
@@ -3887,12 +3887,12 @@ cups_enum_dests(
     }
 
 #  ifdef HAVE_AVAHI
-    DEBUG_printf(("1cups_enum_dests: remaining=%d, browsers=%d, completed=%d, count=%d, devices count=%d", remaining, data.browsers, completed, count, cupsArrayCount(data.devices)));
+    DEBUG_printf("1cups_enum_dests: remaining=%d, browsers=%d, completed=%d, count=%d, devices count=%d", remaining, data.browsers, completed, count, cupsArrayCount(data.devices));
 
     if (data.browsers == 0 && completed == cupsArrayCount(data.devices))
       break;
 #  else
-    DEBUG_printf(("1cups_enum_dests: remaining=%d, completed=%d, count=%d, devices count=%d", remaining, completed, count, cupsArrayCount(data.devices)));
+    DEBUG_printf("1cups_enum_dests: remaining=%d, completed=%d, count=%d, devices count=%d", remaining, completed, count, cupsArrayCount(data.devices));
 
     if (completed == cupsArrayCount(data.devices))
       break;
@@ -4146,7 +4146,7 @@ cups_get_dests(
   int		linenum;		/* Current line number */
 
 
-  DEBUG_printf(("7cups_get_dests(filename=\"%s\", match_name=\"%s\", match_inst=\"%s\", load_all=%d, user_default_set=%d, num_dests=%d, dests=%p)", filename, match_name, match_inst, load_all, user_default_set, num_dests, (void *)dests));
+  DEBUG_printf("7cups_get_dests(filename=\"%s\", match_name=\"%s\", match_inst=\"%s\", load_all=%d, user_default_set=%d, num_dests=%d, dests=%p)", filename, match_name, match_inst, load_all, user_default_set, num_dests, (void *)dests);
 
  /*
   * Try to open the file...
@@ -4387,7 +4387,7 @@ cups_name_cb(_cups_namedata_t *data,    /* I - Data from cupsGetNamedDest */
              unsigned         flags,    /* I - Enumeration flags */
              cups_dest_t      *dest)    /* I - Destination */
 {
-  DEBUG_printf(("2cups_name_cb(data=%p(%s), flags=%x, dest=%p(%s)", (void *)data, data->name, flags, (void *)dest, dest->name));
+  DEBUG_printf("2cups_name_cb(data=%p(%s), flags=%x, dest=%p(%s)", (void *)data, data->name, flags, (void *)dest, dest->name);
 
   if (!(flags & CUPS_DEST_FLAGS_REMOVED) && !dest->instance && !strcasecmp(data->name, dest->name))
   {

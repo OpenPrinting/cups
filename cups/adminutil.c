@@ -586,7 +586,7 @@ cupsAdminSetServerSettings(
   else
     remote_any = -1;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: remote_any=%d", remote_any));
+  DEBUG_printf("1cupsAdminSetServerSettings: remote_any=%d", remote_any);
 
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ADMIN, num_settings,
                            settings)) != NULL)

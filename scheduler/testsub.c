@@ -53,9 +53,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   ipp_t		*request,		/* IPP request */
 		*response;		/* IPP response */
   ipp_attribute_t *attr;		/* Current attribute */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -114,20 +112,12 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Catch CTRL-C and SIGTERM...
   */
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGINT, sigterm_handler);
-  sigset(SIGTERM, sigterm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = sigterm_handler;
   sigaction(SIGINT, &action, NULL);
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGINT, sigterm_handler);
-  signal(SIGTERM, sigterm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Create the subscription...

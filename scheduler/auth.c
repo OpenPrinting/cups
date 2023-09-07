@@ -1573,9 +1573,9 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     if (httpAddrLocalhost(httpGetAddress(con->http)) ||
         !strcmp(hostname, ServerName) ||
 	cupsArrayFind(ServerAlias, (void *)hostname))
-      return (HTTP_OK);
+      return (HTTP_STATUS_OK);
     else
-      return (HTTP_FORBIDDEN);
+      return (HTTP_STATUS_FORBIDDEN);
   }
 
   best = con->best;
@@ -1628,13 +1628,13 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: auth=CUPSD_AUTH_%s...", auth ? "DENY" : "ALLOW");
 
   if (auth == CUPSD_AUTH_DENY && best->satisfy == CUPSD_AUTH_SATISFY_ALL)
-    return (HTTP_FORBIDDEN);
+    return (HTTP_STATUS_FORBIDDEN);
 
  /*
   * See if encryption is required...
   */
 
-  if ((best->encryption >= HTTP_ENCRYPT_REQUIRED && !con->http->tls &&
+  if ((best->encryption >= HTTP_ENCRYPTION_REQUIRED && !con->http->tls &&
       _cups_strcasecmp(hostname, "localhost") &&
       !httpAddrLocalhost(hostaddr) &&
       best->satisfy == CUPSD_AUTH_SATISFY_ALL) &&
@@ -1644,7 +1644,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   {
     cupsdLogMessage(CUPSD_LOG_DEBUG,
                     "cupsdIsAuthorized: Need upgrade to TLS...");
-    return (HTTP_UPGRADE_REQUIRED);
+    return (HTTP_STATUS_UPGRADE_REQUIRED);
   }
 
  /*
@@ -1653,7 +1653,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
   if (best->level == CUPSD_AUTH_ANON ||	/* Anonymous access - allow it */
       (type == CUPSD_AUTH_NONE && cupsArrayCount(best->names) == 0))
-    return (HTTP_OK);
+    return (HTTP_STATUS_OK);
 
   if (!con->username[0] && type == CUPSD_AUTH_NONE &&
       best->limit == CUPSD_AUTH_LIMIT_IPP)
@@ -1674,9 +1674,9 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       strlcpy(username, attr->values[0].string.text, sizeof(username));
     }
     else if (best->satisfy == CUPSD_AUTH_SATISFY_ALL || auth == CUPSD_AUTH_DENY)
-      return (HTTP_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
+      return (HTTP_STATUS_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
     else
-      return (HTTP_OK);			/* unless overridden with Satisfy */
+      return (HTTP_STATUS_OK);			/* unless overridden with Satisfy */
   }
   else
   {
@@ -1690,9 +1690,9 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 #endif /* HAVE_AUTHORIZATION_H */
     {
       if (best->satisfy == CUPSD_AUTH_SATISFY_ALL || auth == CUPSD_AUTH_DENY)
-	return (HTTP_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
+	return (HTTP_STATUS_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
       else
-	return (HTTP_OK);		/* unless overridden with Satisfy */
+	return (HTTP_STATUS_OK);		/* unless overridden with Satisfy */
     }
 
 
@@ -1705,7 +1705,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       cupsdLogMessage(CUPSD_LOG_ERROR, "Authorized using %s, expected %s.",
                       types[con->type], types[type]);
 
-      return (HTTP_UNAUTHORIZED);
+      return (HTTP_STATUS_UNAUTHORIZED);
     }
 
     strlcpy(username, con->username, sizeof(username));
@@ -1768,7 +1768,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     */
 
     if (cupsArrayCount(best->names) == 0)
-      return (HTTP_OK);
+      return (HTTP_STATUS_OK);
 
    /*
     * Otherwise check the user list and return OK if this user is
@@ -1789,7 +1789,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 	   name = (char *)cupsArrayNext(best->names))
       {
 	if (!_cups_strncasecmp(name, "@AUTHKEY(", 9) && check_authref(con, name + 9))
-	  return (HTTP_OK);
+	  return (HTTP_STATUS_OK);
       }
 
       for (name = (char *)cupsArrayFirst(best->names);
@@ -1798,10 +1798,10 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       {
 	if (!_cups_strcasecmp(name, "@SYSTEM") && SystemGroupAuthKey &&
 	    check_authref(con, SystemGroupAuthKey))
-	  return (HTTP_OK);
+	  return (HTTP_STATUS_OK);
       }
 
-      return (HTTP_FORBIDDEN);
+      return (HTTP_STATUS_FORBIDDEN);
     }
 #endif /* HAVE_AUTHORIZATION_H */
 
@@ -1811,7 +1811,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     {
       if (!_cups_strcasecmp(name, "@OWNER") && owner &&
           !_cups_strcasecmp(username, ownername))
-	return (HTTP_OK);
+	return (HTTP_STATUS_OK);
       else if (!_cups_strcasecmp(name, "@SYSTEM"))
       {
 	/* Do @SYSTEM later, when every other entry fails */
@@ -1820,10 +1820,10 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       else if (name[0] == '@')
       {
         if (cupsdCheckGroup(username, pw, name + 1))
-          return (HTTP_OK);
+          return (HTTP_STATUS_OK);
       }
       else if (!_cups_strcasecmp(username, name))
-        return (HTTP_OK);
+        return (HTTP_STATUS_OK);
     }
 
     for (name = (char *)cupsArrayFirst(best->names);
@@ -1834,11 +1834,11 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       {
         for (i = 0; i < NumSystemGroups; i ++)
 	  if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
-	    return (HTTP_OK);
+	    return (HTTP_STATUS_OK);
       }
     }
 
-    return (con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED);
+    return (con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED);
   }
 
  /*
@@ -1864,7 +1864,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership...", name);
 
     if (cupsdCheckGroup(username, pw, name))
-      return (HTTP_OK);
+      return (HTTP_STATUS_OK);
   }
 
   for (name = (char *)cupsArrayFirst(best->names);
@@ -1877,7 +1877,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
       for (i = 0; i < NumSystemGroups; i ++)
 	if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
-	  return (HTTP_OK);
+	  return (HTTP_STATUS_OK);
     }
   }
 
@@ -1887,7 +1887,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdIsAuthorized: User not in group(s).");
 
-  return (con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED);
+  return (con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED);
 }
 
 

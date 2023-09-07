@@ -55,9 +55,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   cups_lang_t	*lang;			/* Language info */
   char		temp[1024];		/* Temporary string */
   int		templen;		/* Length of temporary string */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* POSIX sigaction data */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -70,15 +68,9 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Ignore SIGPIPE signals...
   */
 
-#ifdef HAVE_SIGSET
-  sigset(SIGPIPE, SIG_IGN);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
   action.sa_handler = SIG_IGN;
   sigaction(SIGPIPE, &action, NULL);
-#else
-  signal(SIGPIPE, SIG_IGN);
-#endif /* HAVE_SIGSET */
 
  /*
   * Validate command-line options...

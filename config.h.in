@@ -135,21 +135,6 @@
 
 
 /*
- * Do we have posix_spawn?
- */
-
-#undef HAVE_POSIX_SPAWN
-
-
-/*
- * Do we have ZLIB?
- */
-
-#undef HAVE_LIBZ
-#undef HAVE_INFLATECOPY
-
-
-/*
  * Do we have PAM stuff?
  */
 
@@ -249,14 +234,6 @@
 
 #undef HAVE_SNPRINTF
 #undef HAVE_VSNPRINTF
-
-
-/*
- * What signal functions to use?
- */
-
-#undef HAVE_SIGSET
-#undef HAVE_SIGACTION
 
 
 /*
@@ -547,15 +524,6 @@
  */
 
 #define CUPS_DEFAULT_GSSSERVICENAME	""
-
-
-/*
- * Select/poll interfaces...
- */
-
-#undef HAVE_POLL
-#undef HAVE_EPOLL
-#undef HAVE_KQUEUE
 
 
 /*

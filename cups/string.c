@@ -407,7 +407,7 @@ _cupsStrFree(const char *s)		/* I - String to free */
 #ifdef DEBUG_GUARDS
     if (key->guard != _CUPS_STR_GUARD)
     {
-      DEBUG_printf(("5_cupsStrFree: Freeing string %p(%s), guard=%08x, ref_count=%d", key, key->str, key->guard, key->ref_count));
+      DEBUG_printf("5_cupsStrFree: Freeing string %p(%s), guard=%08x, ref_count=%d", key, key->str, key->guard, key->ref_count);
       abort();
     }
 #endif /* DEBUG_GUARDS */
