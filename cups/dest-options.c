@@ -615,16 +615,14 @@ cupsCopyDestConflicts(
 
       if (cupsArrayFind(resolvers, c))
       {
-        DEBUG_printf(("1cupsCopyDestConflicts: Resolver loop with %s.",
-                      c->name));
+        DEBUG_printf("1cupsCopyDestConflicts: Resolver loop with %s.", c->name);
         have_conflicts = -1;
         goto cleanup;
       }
 
       if ((r = cupsArrayFind(dinfo->resolvers, c)) == NULL)
       {
-        DEBUG_printf(("1cupsCopyDestConflicts: Resolver %s not found.",
-                      c->name));
+        DEBUG_printf("1cupsCopyDestConflicts: Resolver %s not found.", c->name);
         have_conflicts = -1;
         goto cleanup;
       }
@@ -1490,8 +1488,7 @@ cupsGetDestMediaBySize(
 
   if ((pwg = pwgMediaForSize(width, length)) == NULL)
   {
-    DEBUG_printf(("1cupsGetDestMediaBySize: Invalid size %dx%d.", width,
-                  length));
+    DEBUG_printf("1cupsGetDestMediaBySize: Invalid size %dx%d.", width, length);
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalid media size."), 1);
     return (0);
   }
@@ -1563,8 +1560,7 @@ cupsGetDestMediaBySize2(
 
   if ((pwg = pwgMediaForSize(width, length)) == NULL)
   {
-    DEBUG_printf(("1cupsGetDestMediaBySize2: Invalid size %dx%d.", width,
-                  length));
+    DEBUG_printf("1cupsGetDestMediaBySize2: Invalid size %dx%d.", width, length);
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalid media size."), 1);
     return (0);
   }
@@ -2620,8 +2616,7 @@ cups_create_media_db(
       if ((pwg = pwgMediaForPWG(val->string.text)) == NULL)
         if ((pwg = pwgMediaForLegacy(val->string.text)) == NULL)
 	{
-	  DEBUG_printf(("3cups_create_media_db: Ignoring unknown size '%s'.",
-			val->string.text));
+	  DEBUG_printf("3cups_create_media_db: Ignoring unknown size '%s'.", val->string.text);
 	  continue;
 	}
 

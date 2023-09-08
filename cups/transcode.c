@@ -410,8 +410,7 @@ cupsUTF8ToUTF32(
 
       *dest++ = ch32;
 
-      DEBUG_printf(("4cupsUTF8ToUTF32: %02x %02x => %08X",
-                    src[-2], src[-1], (unsigned)ch32));
+      DEBUG_printf("4cupsUTF8ToUTF32: %02x %02x => %08X", src[-2], src[-1], (unsigned)ch32);
     }
     else if ((ch & 0xf0) == 0xe0)
     {
@@ -452,8 +451,7 @@ cupsUTF8ToUTF32(
 
       *dest++ = ch32;
 
-      DEBUG_printf(("4cupsUTF8ToUTF32: %02x %02x %02x => %08X",
-                    src[-3], src[-2], src[-1], (unsigned)ch32));
+      DEBUG_printf("4cupsUTF8ToUTF32: %02x %02x %02x => %08X", src[-3], src[-2], src[-1], (unsigned)ch32);
     }
     else if ((ch & 0xf8) == 0xf0)
     {
@@ -504,8 +502,7 @@ cupsUTF8ToUTF32(
 
       *dest++ = ch32;
 
-      DEBUG_printf(("4cupsUTF8ToUTF32: %02x %02x %02x %02x => %08X",
-                    src[-4], src[-3], src[-2], src[-1], (unsigned)ch32));
+      DEBUG_printf("4cupsUTF8ToUTF32: %02x %02x %02x %02x => %08X", src[-4], src[-3], src[-2], src[-1], (unsigned)ch32);
     }
     else
     {
@@ -649,8 +646,7 @@ cupsUTF32ToUTF8(
       *dest++ = (cups_utf8_t)(0x80 | (ch & 0x3f));
       i -= 2;
 
-      DEBUG_printf(("4cupsUTF32ToUTF8: %08x => %02x %02x", (unsigned)ch,
-                    dest[-2], dest[-1]));
+      DEBUG_printf("4cupsUTF32ToUTF8: %08x => %02x %02x", (unsigned)ch, dest[-2], dest[-1]);
     }
     else if (ch < 0x10000)
     {
@@ -670,8 +666,7 @@ cupsUTF32ToUTF8(
       *dest++ = (cups_utf8_t)(0x80 | (ch & 0x3f));
       i -= 3;
 
-      DEBUG_printf(("4cupsUTF32ToUTF8: %08x => %02x %02x %02x", (unsigned)ch,
-                    dest[-3], dest[-2], dest[-1]));
+      DEBUG_printf("4cupsUTF32ToUTF8: %08x => %02x %02x %02x", (unsigned)ch, dest[-3], dest[-2], dest[-1]);
     }
     else
     {
@@ -692,8 +687,7 @@ cupsUTF32ToUTF8(
       *dest++ = (cups_utf8_t)(0x80 | (ch & 0x3f));
       i -= 4;
 
-      DEBUG_printf(("4cupsUTF32ToUTF8: %08x => %02x %02x %02x %02x",
-                    (unsigned)ch, dest[-4], dest[-3], dest[-2], dest[-1]));
+      DEBUG_printf("4cupsUTF32ToUTF8: %08x => %02x %02x %02x %02x", (unsigned)ch, dest[-4], dest[-3], dest[-2], dest[-1]);
     }
   }
 

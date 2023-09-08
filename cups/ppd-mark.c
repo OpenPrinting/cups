@@ -406,8 +406,7 @@ ppdFindMarkedChoice(ppd_file_t *ppd,	/* I - PPD file */
 
   marked = (ppd_choice_t *)cupsArrayFind(ppd->marked, &key);
 
-  DEBUG_printf(("3ppdFindMarkedChoice: Returning %p(%s)...", marked,
-                marked ? marked->choice : "NULL"));
+  DEBUG_printf("3ppdFindMarkedChoice: Returning %p(%s)...", marked, marked ? marked->choice : "NULL");
 
   return (marked);
 }
@@ -542,8 +541,7 @@ ppdMarkOption(ppd_file_t *ppd,		/* I - PPD file record */
               const char *option,	/* I - Keyword */
               const char *choice)	/* I - Option name */
 {
-  DEBUG_printf(("ppdMarkOption(ppd=%p, option=\"%s\", choice=\"%s\")",
-        	ppd, option, choice));
+  DEBUG_printf("ppdMarkOption(ppd=%p, option=\"%s\", choice=\"%s\")", ppd, option, choice);
 
  /*
   * Range check input...
@@ -776,8 +774,7 @@ ppd_mark_option(ppd_file_t *ppd,	/* I - PPD file */
   struct lconv	*loc;			/* Locale data */
 
 
-  DEBUG_printf(("7ppd_mark_option(ppd=%p, option=\"%s\", choice=\"%s\")",
-        	ppd, option, choice));
+  DEBUG_printf("7ppd_mark_option(ppd=%p, option=\"%s\", choice=\"%s\")", ppd, option, choice);
 
  /*
   * AP_D_InputSlot is the "default input slot" on macOS, and setting

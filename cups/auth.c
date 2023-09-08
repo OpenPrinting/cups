@@ -128,10 +128,8 @@ cupsDoAuthentication(
   if (!http || !method || !resource)
     return (-1);
 
-  DEBUG_printf(("2cupsDoAuthentication: digest_tries=%d, userpass=\"%s\"",
-                http->digest_tries, http->userpass));
-  DEBUG_printf(("2cupsDoAuthentication: WWW-Authenticate=\"%s\"",
-                httpGetField(http, HTTP_FIELD_WWW_AUTHENTICATE)));
+  DEBUG_printf("2cupsDoAuthentication: digest_tries=%d, userpass=\"%s\"", http->digest_tries, http->userpass);
+  DEBUG_printf("2cupsDoAuthentication: WWW-Authenticate=\"%s\"", httpGetField(http, HTTP_FIELD_WWW_AUTHENTICATE));
 
  /*
   * Clear the current authentication string...
@@ -147,8 +145,7 @@ cupsDoAuthentication(
   {
     if ((localauth = cups_local_auth(http)) == 0)
     {
-      DEBUG_printf(("2cupsDoAuthentication: authstring=\"%s\"",
-                    http->authstring));
+      DEBUG_printf("2cupsDoAuthentication: authstring=\"%s\"", http->authstring);
 
       if (http->status == HTTP_STATUS_UNAUTHORIZED)
 	http->digest_tries ++;
@@ -523,8 +520,7 @@ _cupsSetNegotiateAuthString(
   }
   else
   {
-    DEBUG_printf(("1_cupsSetNegotiateAuthString: Kerberos credentials too "
-                  "large - %d bytes!", (int)output_token.length));
+    DEBUG_printf("1_cupsSetNegotiateAuthString: Kerberos credentials too large - %d bytes!", (int)output_token.length);
     gss_release_buffer(&minor_status, &output_token);
 
     return (CUPS_GSS_FAIL);
@@ -833,9 +829,7 @@ cups_gss_getname(
   char		  buf[1024];		/* Name buffer */
 
 
-  DEBUG_printf(("7cups_gss_getname(http=%p, service_name=\"%s\")", http,
-                service_name));
-
+  DEBUG_printf("7cups_gss_getname(http=%p, service_name=\"%s\")", http, service_name);
 
  /*
   * Get the hostname...
@@ -849,8 +843,7 @@ cups_gss_getname(
     {
       if (gethostname(http->gsshost, sizeof(http->gsshost)) < 0)
       {
-	DEBUG_printf(("1cups_gss_getname: gethostname() failed: %s",
-		      strerror(errno)));
+	DEBUG_printf("1cups_gss_getname: gethostname() failed: %s", strerror(errno));
 	http->gsshost[0] = '\0';
 	return (NULL);
       }
@@ -873,8 +866,7 @@ cups_gss_getname(
 	}
 	else
 	{
-	  DEBUG_printf(("1cups_gss_getname: gethostbyname(\"%s\") failed.",
-			http->gsshost));
+	  DEBUG_printf("1cups_gss_getname: gethostbyname(\"%s\") failed.", http->gsshost);
 	  http->gsshost[0] = '\0';
 	  return (NULL);
 	}
@@ -939,8 +931,7 @@ cups_gss_printf(OM_uint32  major_status,/* I - Major status code */
     gss_display_status(&err_minor_status, minor_status, GSS_C_MECH_CODE,
 		       GSS_C_NULL_OID, &msg_ctx, &minor_status_string);
 
-  DEBUG_printf(("1%s: %s, %s", message, (char *)major_status_string.value,
-	        (char *)minor_status_string.value));
+  DEBUG_printf("1%s: %s, %s", message, (char *)major_status_string.value, (char *)minor_status_string.value);
 
   gss_release_buffer(&err_minor_status, &major_status_string);
   gss_release_buffer(&err_minor_status, &minor_status_string);
@@ -1022,8 +1013,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
     status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &http->auth_ref);
     if (status != errAuthorizationSuccess)
     {
-      DEBUG_printf(("8cups_local_auth: AuthorizationCreate() returned %d",
-		    (int)status));
+      DEBUG_printf("8cups_local_auth: AuthorizationCreate() returned %d", (int)status);
       return (-1);
     }
 
@@ -1057,8 +1047,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
 
       httpSetAuthString(http, "AuthRef", buffer);
 
-      DEBUG_printf(("8cups_local_auth: Returning authstring=\"%s\"",
-		    http->authstring));
+      DEBUG_printf("8cups_local_auth: Returning authstring=\"%s\"", http->authstring);
       return (0);
     }
     else if (status == errAuthorizationCanceled)
@@ -1098,8 +1087,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
     {
       httpSetAuthString(http, "PeerCred", username);
 
-      DEBUG_printf(("8cups_local_auth: Returning authstring=\"%s\"",
-		    http->authstring));
+      DEBUG_printf("8cups_local_auth: Returning authstring=\"%s\"", http->authstring);
 
       return (0);
     }
@@ -1158,8 +1146,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
 
       httpSetAuthString(http, "Local", certificate);
 
-      DEBUG_printf(("8cups_local_auth: Returning authstring=\"%s\"",
-		    http->authstring));
+      DEBUG_printf("8cups_local_auth: Returning authstring=\"%s\"", http->authstring);
 
       return (0);
     }

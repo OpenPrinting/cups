@@ -104,8 +104,7 @@ cupsAddOption(const char    *name,	/* I  - Name of option */
     * No matching option name...
     */
 
-    DEBUG_printf(("4cupsAddOption: New option inserted at index %d...",
-                  insert));
+    DEBUG_printf("4cupsAddOption: New option inserted at index %d...", insert);
 
     if (num_options == 0)
       temp = (cups_option_t *)malloc(sizeof(cups_option_t));
@@ -122,8 +121,7 @@ cupsAddOption(const char    *name,	/* I  - Name of option */
 
     if (insert < num_options)
     {
-      DEBUG_printf(("4cupsAddOption: Shifting %d options...",
-                    (int)(num_options - insert)));
+      DEBUG_printf("4cupsAddOption: Shifting %d options...", (int)(num_options - insert));
       memmove(temp + insert + 1, temp + insert, (size_t)(num_options - insert) * sizeof(cups_option_t));
     }
 
@@ -137,8 +135,7 @@ cupsAddOption(const char    *name,	/* I  - Name of option */
     * Match found; free the old value...
     */
 
-    DEBUG_printf(("4cupsAddOption: Option already exists at index %d...",
-                  insert));
+    DEBUG_printf("4cupsAddOption: Option already exists at index %d...", insert);
 
     temp = *options + insert;
     _cupsStrFree(temp->value);
@@ -653,8 +650,7 @@ cups_find_option(
 
 #ifdef DEBUG
   for (left = 0; left < num_options; left ++)
-    DEBUG_printf(("9cups_find_option: options[%d].name=\"%s\", .value=\"%s\"",
-                  left, options[left].name, options[left].value));
+    DEBUG_printf("9cups_find_option: options[%d].name=\"%s\", .value=\"%s\"", left, options[left].name, options[left].value);
 #endif /* DEBUG */
 
   key.name = (char *)name;

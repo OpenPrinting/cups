@@ -32,8 +32,7 @@ ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
 		*attr;			/* Current attribute */
 
 
-  DEBUG_printf(("2ppdFindAttr(ppd=%p, name=\"%s\", spec=\"%s\")", ppd, name,
-                spec));
+  DEBUG_printf("2ppdFindAttr(ppd=%p, name=\"%s\", spec=\"%s\")", ppd, name, spec);
 
  /*
   * Range check input...

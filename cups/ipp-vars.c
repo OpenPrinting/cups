@@ -229,7 +229,7 @@ _ippVarsSet(_ipp_vars_t *v,		/* I - IPP variables */
       * Resolve URI...
       */
 
-      if (!_httpResolveURI(value, resolved, sizeof(resolved), _HTTP_RESOLVE_DEFAULT, NULL, NULL))
+      if (!httpResolveURI(value, resolved, sizeof(resolved), HTTP_RESOLVE_DEFAULT, NULL, NULL))
         return (0);
 
       value = resolved;

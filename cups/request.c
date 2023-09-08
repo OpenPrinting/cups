@@ -390,8 +390,7 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
   * Wait for a response from the server...
   */
 
-  DEBUG_printf(("2cupsGetResponse: Update loop, http->status=%d...",
-                http->status));
+  DEBUG_printf("2cupsGetResponse: Update loop, http->status=%d...", http->status);
 
   do
   {
@@ -478,9 +477,7 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
 
     attr = ippFindAttribute(response, "status-message", IPP_TAG_TEXT);
 
-    DEBUG_printf(("1cupsGetResponse: status-code=%s, status-message=\"%s\"",
-                  ippErrorString(response->request.status.status_code),
-                  attr ? attr->values[0].string.text : ""));
+    DEBUG_printf("1cupsGetResponse: status-code=%s, status-message=\"%s\"", ippErrorString(response->request.status.status_code), attr ? attr->values[0].string.text : "");
 
     _cupsSetError(response->request.status.status_code,
                   attr ? attr->values[0].string.text :
@@ -653,8 +650,7 @@ cupsSendRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
   }
   else if (http->state != HTTP_STATE_WAITING)
   {
-    DEBUG_printf(("1cupsSendRequest: Unknown HTTP state (%d), "
-                  "reconnecting.", http->state));
+    DEBUG_printf("1cupsSendRequest: Unknown HTTP state (%d), reconnecting.", http->state);
     if (httpReconnect2(http, 30000, NULL))
       return (HTTP_STATUS_ERROR);
   }
@@ -1139,8 +1135,7 @@ _cupsSetError(ipp_status_t status,	/* I - IPP status code */
       cg->last_status_message = _cupsStrAlloc(message);
   }
 
-  DEBUG_printf(("4_cupsSetError: last_error=%s, last_status_message=\"%s\"",
-                ippErrorString(cg->last_error), cg->last_status_message));
+  DEBUG_printf("4_cupsSetError: last_error=%s, last_status_message=\"%s\"", ippErrorString(cg->last_error), cg->last_status_message);
 }
 
 
@@ -1198,8 +1193,7 @@ _cupsSetHTTPError(http_status_t status)	/* I - HTTP status code */
         break;
 
     default :
-	DEBUG_printf(("4_cupsSetHTTPError: HTTP error %d mapped to "
-	              "IPP_STATUS_ERROR_SERVICE_UNAVAILABLE!", status));
+	DEBUG_printf("4_cupsSetHTTPError: HTTP error %d mapped to IPP_STATUS_ERROR_SERVICE_UNAVAILABLE!", status);
 	_cupsSetError(IPP_STATUS_ERROR_SERVICE_UNAVAILABLE, httpStatus(status), 0);
 	break;
   }

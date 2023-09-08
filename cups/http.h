@@ -423,12 +423,14 @@ extern time_t		httpCredentialsGetExpiration(cups_array_t *credentials) _CUPS_DEP
 extern http_trust_t	httpCredentialsGetTrust(cups_array_t *credentials, const char *common_name) _CUPS_DEPRECATED_MSG("Use cupsGetCredentialsTrust instead.");
 extern size_t		httpCredentialsString(cups_array_t *credentials, char *buffer, size_t bufsize) _CUPS_DEPRECATED_MSG("Use cupsGetCredentialsInfo instead.");
 
-extern char		*httpDecode64(char *out, const char *in) _CUPS_DEPRECATED_MSG("Use httpDecode64_2 instead.");
-extern char		*httpDecode64_2(char *out, int *outlen, const char *in) _CUPS_PUBLIC;
+extern char		*httpDecode64(char *out, const char *in) _CUPS_DEPRECATED_MSG("Use httpDecode64_3 instead.");
+extern char		*httpDecode64_2(char *out, int *outlen, const char *in) _CUPS_DEPRECATED_MSG("Use httpDecode64_3 instead.");
+extern char		*httpDecode64_3(char *out, size_t *outlen, const char *in, const char **end) _CUPS_PUBLIC;
 extern int		httpDelete(http_t *http, const char *uri) _CUPS_DEPRECATED_MSG("Use httpWriteRequest instead.");
 
 extern char		*httpEncode64(char *out, const char *in) _CUPS_DEPRECATED_MSG("Use httpEncode64_2 instead.");
 extern char		*httpEncode64_2(char *out, int outlen, const char *in, int inlen) _CUPS_PUBLIC;
+extern char		*httpEncode64_3(char *out, size_t outlen, const char *in, size_t inlen, bool url) _CUPS_PUBLIC;
 extern int		httpEncryption(http_t *http, http_encryption_t e) _CUPS_DEPRECATED_MSG("Use httpSetEncryption instead.");
 extern int		httpError(http_t *http) _CUPS_DEPRECATED_MSG("Use httpGetError instead.");
 

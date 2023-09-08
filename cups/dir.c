@@ -392,8 +392,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
 
     if (stat(filename, &(dp->entry.fileinfo)))
     {
-      DEBUG_printf(("3cupsDirRead: stat() failed for \"%s\" - %s...", filename,
-                    strerror(errno)));
+      DEBUG_printf("3cupsDirRead: stat() failed for \"%s\" - %s...", filename, strerror(errno));
       continue;
     }
 

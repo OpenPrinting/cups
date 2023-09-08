@@ -1,62 +1,57 @@
-/*
- * TLS check program for CUPS.
- *
- * Copyright © 2021-2023 by OpenPrinting.
- * Copyright © 2007-2017 by Apple Inc.
- * Copyright © 1997-2006 by Easy Software Products.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
- */
-
-/*
- * Include necessary headers...
- */
+//
+// TLS check program for CUPS.
+//
+// Copyright © 2021-2023 by OpenPrinting.
+// Copyright © 2007-2017 by Apple Inc.
+// Copyright © 1997-2006 by Easy Software Products.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
 #include "cups-private.h"
 
 
-/*
- * Local functions...
- */
+//
+// Local functions...
+//
 
-static void	usage(void) _CUPS_NORETURN;
+static void	usage(FILE *fp) _CUPS_NORETURN;
 
 
-/*
- * 'main()' - Main entry.
- */
+//
+// 'main()' - Main entry.
+//
 
-int					/* O - Exit status */
-main(int  argc,				/* I - Number of command-line arguments */
-     char *argv[])			/* I - Command-line arguments */
+int					// O - Exit status
+main(int  argc,				// I - Number of command-line arguments
+     char *argv[])			// I - Command-line arguments
 {
-  int		i;			/* Looping var */
-  http_t	*http;			/* HTTP connection */
-  const char	*server = NULL;		/* Hostname from command-line */
-  int		port = 0;		/* Port number */
-  cups_array_t	*creds;			/* Server credentials */
-  char		creds_str[2048];	/* Credentials string */
-  const char	*cipherName = "UNKNOWN";/* Cipher suite name */
-  int		dhBits = 0;		/* Diffie-Hellman bits */
-  int		tlsVersion = 0;		/* TLS version number */
-  char		uri[1024],		/* Printer URI */
-		scheme[32],		/* URI scheme */
-		host[256],		/* Hostname */
-		userpass[256],		/* Username/password */
-		resource[256];		/* Resource path */
-  int		af = AF_UNSPEC,		/* Address family */
+  int		i;			// Looping var
+  http_t	*http = NULL;		// HTTP connection
+  const char	*server = NULL;		// Hostname from command-line
+  int		port = 0;		// Port number
+  char		*creds;			// Server credentials
+  char		creds_str[2048];	// Credentials string
+  const char	*cipherName;		// Cipher suite name
+  int		tlsVersion = 0;		// TLS version number
+  char		uri[1024],		// Printer URI
+		scheme[32],		// URI scheme
+		host[256],		// Hostname
+		userpass[256],		// Username/password
+		resource[256];		// Resource path
+  int		af = AF_UNSPEC,		// Address family
 		tls_options = _HTTP_TLS_NONE,
-					/* TLS options */
+					// TLS options
 		tls_min_version = _HTTP_TLS_1_0,
 		tls_max_version = _HTTP_TLS_MAX,
-		verbose = 0;		/* Verbosity */
-  ipp_t		*request,		/* IPP Get-Printer-Attributes request */
-		*response;		/* IPP Get-Printer-Attributes response */
-  ipp_attribute_t *attr;		/* Current attribute */
-  const char	*name;			/* Attribute name */
-  char		value[1024];		/* Attribute (string) value */
-  static const char * const pattrs[] =	/* Requested attributes */
+		verbose = 0;		// Verbosity
+  ipp_t		*request,		// IPP Get-Printer-Attributes request
+		*response;		// IPP Get-Printer-Attributes response
+  ipp_attribute_t *attr;		// Current attribute
+  const char	*name;			// Attribute name
+  char		value[1024];		// Attribute (string) value
+  static const char * const pattrs[] =	// Requested attributes
   {
     "color-supported",
     "compression-supported",
@@ -77,6 +72,10 @@ main(int  argc,				/* I - Number of command-line arguments */
     if (!strcmp(argv[i], "--dh"))
     {
       tls_options |= _HTTP_TLS_ALLOW_DH;
+    }
+    else if (!strcmp(argv[i], "--help"))
+    {
+      usage(stdout);
     }
     else if (!strcmp(argv[i], "--no-cbc"))
     {
@@ -124,8 +123,8 @@ main(int  argc,				/* I - Number of command-line arguments */
     }
     else if (argv[i][0] == '-')
     {
-      printf("tlscheck: Unknown option '%s'.\n", argv[i]);
-      usage();
+      fprintf(stderr, "tlscheck: Unknown option '%s'.\n", argv[i]);
+      usage(stderr);
     }
     else if (!server)
     {
@@ -137,7 +136,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       else
       {
         server = argv[i];
-        strlcpy(resource, "/ipp/print", sizeof(resource));
+        cupsCopyString(resource, "/ipp/print", sizeof(resource));
       }
     }
     else if (!port && (argv[i][0] == '=' || isdigit(argv[i][0] & 255)))
@@ -149,13 +148,13 @@ main(int  argc,				/* I - Number of command-line arguments */
     }
     else
     {
-      printf("tlscheck: Unexpected argument '%s'.\n", argv[i]);
-      usage();
+      fprintf(stderr, "tlscheck: Unexpected argument '%s'.\n", argv[i]);
+      usage(stderr);
     }
   }
 
   if (!server)
-    usage();
+    usage(stderr);
 
   if (!port)
     port = 631;
@@ -170,25 +169,22 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (!http)
   {
-    printf("%s: ERROR (%s)\n", server, cupsGetErrorString());
+    fprintf(stderr, "tlscheck: Unable to connect to '%s:%d': %s\n", server, port, cupsGetErrorString());
     return (1);
   }
 
-  if (httpCopyCredentials(http, &creds))
+  if ((creds = httpCopyPeerCredentials(http)) == NULL)
   {
-    strlcpy(creds_str, "Unable to get server X.509 credentials.", sizeof(creds_str));
+    cupsCopyString(creds_str, "Unable to get server X.509 credentials.", sizeof(creds_str));
   }
   else
   {
-    if (!httpCredentialsString(creds, creds_str, sizeof(creds_str)))
-      strlcpy(creds_str, "Unable to convert X.509 credential to string.", sizeof(creds_str));
-    httpFreeCredentials(creds);
+    if (!cupsGetCredentialsInfo(creds, creds_str, sizeof(creds_str)))
+      cupsCopyString(creds_str, "Unable to convert X.509 credential to string.", sizeof(creds_str));
+    free(creds);
   }
 
 #ifdef HAVE_OPENSSL
-  int	cipherBits;			// Encryption key bits
-  char	cipherStr[1024];		// Combined cipher name
-
   switch (SSL_version(http->tls))
   {
     default :
@@ -214,548 +210,31 @@ main(int  argc,				/* I - Number of command-line arguments */
 #  endif // TLS1_3_VERSION
   }
 
-  snprintf(cipherStr, sizeof(cipherStr), "%s_%dbits", SSL_get_cipher_name(http->tls), SSL_get_cipher_bits(http->tls, &cipherBits));
+  cipherName = SSL_get_cipher_name(http->tls);
 
-  cipherName = cipherStr;
-
-#elif defined(HAVE_GNUTLS)
-#elif defined(__APPLE__)
-  SSLProtocol protocol;
-  SSLCipherSuite cipher;
-  char unknownCipherName[256];
-  int paramsNeeded = 0;
-  const void *params;
-  size_t paramsLen;
-  OSStatus err;
-
-  if ((err = SSLGetNegotiatedProtocolVersion(http->tls, &protocol)) != noErr)
-  {
-    printf("%s: ERROR (No protocol version - %d)\n", server, (int)err);
-    httpClose(http);
-    return (1);
-  }
-
-  switch (protocol)
+#else // HAVE_GNUTLS
+  switch (gnutls_protocol_get_version(http->tls))
   {
     default :
         tlsVersion = 0;
         break;
-    case kSSLProtocol3 :
-        tlsVersion = 30;
-        break;
-    case kTLSProtocol1 :
+    case GNUTLS_TLS1_0 :
         tlsVersion = 10;
         break;
-    case kTLSProtocol11 :
+    case GNUTLS_TLS1_1 :
         tlsVersion = 11;
         break;
-    case kTLSProtocol12 :
+    case GNUTLS_TLS1_2 :
         tlsVersion = 12;
         break;
-  }
-
-  if ((err = SSLGetNegotiatedCipher(http->tls, &cipher)) != noErr)
-  {
-    printf("%s: ERROR (No cipher suite - %d)\n", server, (int)err);
-    httpClose(http);
-    return (1);
-  }
-
-  switch (cipher)
-  {
-    case TLS_NULL_WITH_NULL_NULL:
-	cipherName = "TLS_NULL_WITH_NULL_NULL";
-	break;
-    case TLS_RSA_WITH_NULL_MD5:
-	cipherName = "TLS_RSA_WITH_NULL_MD5";
-	break;
-    case TLS_RSA_WITH_NULL_SHA:
-	cipherName = "TLS_RSA_WITH_NULL_SHA";
-	break;
-    case TLS_RSA_WITH_RC4_128_MD5:
-	cipherName = "TLS_RSA_WITH_RC4_128_MD5";
-	break;
-    case TLS_RSA_WITH_RC4_128_SHA:
-	cipherName = "TLS_RSA_WITH_RC4_128_SHA";
-	break;
-    case TLS_RSA_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_RSA_WITH_3DES_EDE_CBC_SHA";
-	break;
-    case TLS_RSA_WITH_NULL_SHA256:
-	cipherName = "TLS_RSA_WITH_NULL_SHA256";
-	break;
-    case TLS_RSA_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_RSA_WITH_AES_128_CBC_SHA256";
-	break;
-    case TLS_RSA_WITH_AES_256_CBC_SHA256:
-	cipherName = "TLS_RSA_WITH_AES_256_CBC_SHA256";
-	break;
-    case TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_DSS_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_DH_DSS_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_RSA_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_DH_RSA_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_DSS_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_RSA_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_DHE_RSA_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_DSS_WITH_AES_256_CBC_SHA256:
-	cipherName = "TLS_DH_DSS_WITH_AES_256_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_RSA_WITH_AES_256_CBC_SHA256:
-	cipherName = "TLS_DH_RSA_WITH_AES_256_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_DSS_WITH_AES_256_CBC_SHA256:
-	cipherName = "TLS_DHE_DSS_WITH_AES_256_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_RSA_WITH_AES_256_CBC_SHA256:
-	cipherName = "TLS_DHE_RSA_WITH_AES_256_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_RC4_128_MD5:
-	cipherName = "TLS_DH_anon_WITH_RC4_128_MD5";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_DH_anon_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_DH_anon_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_AES_256_CBC_SHA256:
-	cipherName = "TLS_DH_anon_WITH_AES_256_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_PSK_WITH_RC4_128_SHA:
-	cipherName = "TLS_PSK_WITH_RC4_128_SHA";
-	break;
-    case TLS_PSK_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_PSK_WITH_3DES_EDE_CBC_SHA";
-	break;
-    case TLS_PSK_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_PSK_WITH_AES_128_CBC_SHA";
-	break;
-    case TLS_PSK_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_PSK_WITH_AES_256_CBC_SHA";
-	break;
-    case TLS_DHE_PSK_WITH_RC4_128_SHA:
-	cipherName = "TLS_DHE_PSK_WITH_RC4_128_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_PSK_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_DHE_PSK_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_PSK_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_DHE_PSK_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_RSA_PSK_WITH_RC4_128_SHA:
-	cipherName = "TLS_RSA_PSK_WITH_RC4_128_SHA";
-	break;
-    case TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA";
-	break;
-    case TLS_RSA_PSK_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_RSA_PSK_WITH_AES_128_CBC_SHA";
-	break;
-    case TLS_RSA_PSK_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_RSA_PSK_WITH_AES_256_CBC_SHA";
-	break;
-    case TLS_PSK_WITH_NULL_SHA:
-	cipherName = "TLS_PSK_WITH_NULL_SHA";
-	break;
-    case TLS_DHE_PSK_WITH_NULL_SHA:
-	cipherName = "TLS_DHE_PSK_WITH_NULL_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_RSA_PSK_WITH_NULL_SHA:
-	cipherName = "TLS_RSA_PSK_WITH_NULL_SHA";
-	break;
-    case TLS_RSA_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_RSA_WITH_AES_128_GCM_SHA256";
-	break;
-    case TLS_RSA_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_RSA_WITH_AES_256_GCM_SHA384";
-	break;
-    case TLS_DHE_RSA_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_RSA_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_RSA_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_DH_RSA_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_RSA_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_DH_RSA_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_DSS_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_DSS_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_DHE_DSS_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_DSS_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_DH_DSS_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_DSS_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_DH_DSS_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_DH_anon_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_DH_anon_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_PSK_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_PSK_WITH_AES_128_GCM_SHA256";
-	break;
-    case TLS_PSK_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_PSK_WITH_AES_256_GCM_SHA384";
-	break;
-    case TLS_DHE_PSK_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_DHE_PSK_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_PSK_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_DHE_PSK_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_RSA_PSK_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_RSA_PSK_WITH_AES_128_GCM_SHA256";
-	break;
-    case TLS_RSA_PSK_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_RSA_PSK_WITH_AES_256_GCM_SHA384";
-	break;
-    case TLS_PSK_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_PSK_WITH_AES_128_CBC_SHA256";
-	break;
-    case TLS_PSK_WITH_AES_256_CBC_SHA384:
-	cipherName = "TLS_PSK_WITH_AES_256_CBC_SHA384";
-	break;
-    case TLS_PSK_WITH_NULL_SHA256:
-	cipherName = "TLS_PSK_WITH_NULL_SHA256";
-	break;
-    case TLS_PSK_WITH_NULL_SHA384:
-	cipherName = "TLS_PSK_WITH_NULL_SHA384";
-	break;
-    case TLS_DHE_PSK_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_DHE_PSK_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_PSK_WITH_AES_256_CBC_SHA384:
-	cipherName = "TLS_DHE_PSK_WITH_AES_256_CBC_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_PSK_WITH_NULL_SHA256:
-	cipherName = "TLS_DHE_PSK_WITH_NULL_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_PSK_WITH_NULL_SHA384:
-	cipherName = "TLS_DHE_PSK_WITH_NULL_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_RSA_PSK_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_RSA_PSK_WITH_AES_128_CBC_SHA256";
-	break;
-    case TLS_RSA_PSK_WITH_AES_256_CBC_SHA384:
-	cipherName = "TLS_RSA_PSK_WITH_AES_256_CBC_SHA384";
-	break;
-    case TLS_RSA_PSK_WITH_NULL_SHA256:
-	cipherName = "TLS_RSA_PSK_WITH_NULL_SHA256";
-	break;
-    case TLS_RSA_PSK_WITH_NULL_SHA384:
-	cipherName = "TLS_RSA_PSK_WITH_NULL_SHA384";
-	break;
-    case TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384:
-	cipherName = "TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384:
-	cipherName = "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256:
-	cipherName = "TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384:
-	cipherName = "TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256:
-	cipherName = "TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384:
-	cipherName = "TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384";
-	paramsNeeded = 1;
-	break;
-    case TLS_RSA_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_RSA_WITH_AES_128_CBC_SHA";
-	break;
-    case TLS_DH_DSS_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_DH_DSS_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_RSA_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_DH_RSA_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_DSS_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_DHE_DSS_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_RSA_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_DHE_RSA_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_DH_anon_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_RSA_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_RSA_WITH_AES_256_CBC_SHA";
-	break;
-    case TLS_DH_DSS_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_DH_DSS_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_RSA_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_DH_RSA_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_DSS_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_DHE_DSS_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DHE_RSA_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_DHE_RSA_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_DH_anon_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_DH_anon_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_NULL_SHA:
-	cipherName = "TLS_ECDH_ECDSA_WITH_NULL_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_RC4_128_SHA:
-	cipherName = "TLS_ECDH_ECDSA_WITH_RC4_128_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_NULL_SHA:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_NULL_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_RC4_128_SHA:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_RC4_128_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_NULL_SHA:
-	cipherName = "TLS_ECDH_RSA_WITH_NULL_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_RC4_128_SHA:
-	cipherName = "TLS_ECDH_RSA_WITH_RC4_128_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_ECDH_RSA_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_RSA_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_ECDH_RSA_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_NULL_SHA:
-	cipherName = "TLS_ECDHE_RSA_WITH_NULL_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_RC4_128_SHA:
-	cipherName = "TLS_ECDHE_RSA_WITH_RC4_128_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_anon_WITH_NULL_SHA:
-	cipherName = "TLS_ECDH_anon_WITH_NULL_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_anon_WITH_RC4_128_SHA:
-	cipherName = "TLS_ECDH_anon_WITH_RC4_128_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA:
-	cipherName = "TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_anon_WITH_AES_128_CBC_SHA:
-	cipherName = "TLS_ECDH_anon_WITH_AES_128_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    case TLS_ECDH_anon_WITH_AES_256_CBC_SHA:
-	cipherName = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
-	paramsNeeded = 1;
-	break;
-    default :
-        snprintf(unknownCipherName, sizeof(unknownCipherName), "UNKNOWN_%04X", cipher);
-        cipherName = unknownCipherName;
+    case GNUTLS_TLS1_3 :
+        tlsVersion = 13;
         break;
   }
+  cipherName = gnutls_session_get_desc(http->tls);
+#endif // HAVE_OPENSSL
 
-  if (cipher == TLS_RSA_WITH_RC4_128_MD5 ||
-      cipher == TLS_RSA_WITH_RC4_128_SHA)
-  {
-    printf("%s: ERROR (Printers MUST NOT negotiate RC4 cipher suites.)\n", server);
-    httpClose(http);
-    return (1);
-  }
-
-  if ((err = SSLGetDiffieHellmanParams(http->tls, &params, &paramsLen)) != noErr && paramsNeeded)
-  {
-    printf("%s: ERROR (Unable to get Diffie-Hellman parameters - %d)\n", server, (int)err);
-    httpClose(http);
-    return (1);
-  }
-
-  if (paramsLen < 128 && paramsLen != 0)
-  {
-    printf("%s: ERROR (Diffie-Hellman parameters MUST be at least 2048 bits, but Printer uses only %d bits/%d bytes)\n", server, (int)paramsLen * 8, (int)paramsLen);
-    httpClose(http);
-    return (1);
-  }
-
-  dhBits = (int)paramsLen * 8;
-#endif /* HAVE_OPENSSL */
-
-  if (dhBits > 0)
-    printf("%s: OK (TLS: %d.%d, %s, %d DH bits)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName, dhBits);
-  else
-    printf("%s: OK (TLS: %d.%d, %s)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName);
-
+  printf("%s: OK (TLS: %d.%d, %s)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName);
   printf("    %s\n", creds_str);
 
   if (verbose)
@@ -790,31 +269,32 @@ main(int  argc,				/* I - Number of command-line arguments */
 }
 
 
-/*
- * 'usage()' - Show program usage.
- */
+//
+// 'usage()' - Show program usage.
+//
 
 static void
-usage(void)
+usage(FILE *fp)				// I - Output file
 {
-  puts("Usage: ./tlscheck [options] server [port]");
-  puts("       ./tlscheck [options] ipps://server[:port]/path");
-  puts("");
-  puts("Options:");
-  puts("  --dh        Allow DH/DHE key exchange");
-  puts("  --no-cbc    Disable CBC cipher suites");
-  puts("  --no-tls10  Disable TLS/1.0");
-  puts("  --rc4       Allow RC4 encryption");
-  puts("  --tls10     Only use TLS/1.0");
-  puts("  --tls11     Only use TLS/1.1");
-  puts("  --tls12     Only use TLS/1.2");
-  puts("  --tls13     Only use TLS/1.3");
-  puts("  --verbose   Be verbose");
-  puts("  -4          Connect using IPv4 addresses only");
-  puts("  -6          Connect using IPv6 addresses only");
-  puts("  -v          Be verbose");
-  puts("");
-  puts("The default port is 631.");
+  fputs("Usage: ./tlscheck [OPTIONS] SERVER [PORT]\n", fp);
+  fputs("       ./tlscheck [OPTIONS] ipps://SERVER[:PORT]/PATH\n", fp);
+  fputs("\n", fp);
+  fputs("Options:\n", fp);
+  fputs("  --dh        Allow DH/DHE key exchange\n", fp);
+  fputs("  --help      Show help\n", fp);
+  fputs("  --no-cbc    Disable CBC cipher suites\n", fp);
+  fputs("  --no-tls10  Disable TLS/1.0\n", fp);
+  fputs("  --rc4       Allow RC4 encryption\n", fp);
+  fputs("  --tls10     Only use TLS/1.0\n", fp);
+  fputs("  --tls11     Only use TLS/1.1\n", fp);
+  fputs("  --tls12     Only use TLS/1.2\n", fp);
+  fputs("  --tls13     Only use TLS/1.3\n", fp);
+  fputs("  --verbose   Be verbose\n", fp);
+  fputs("  -4          Connect using IPv4 addresses only\n", fp);
+  fputs("  -6          Connect using IPv6 addresses only\n", fp);
+  fputs("  -v          Be verbose\n", fp);
+  fputs("\n", fp);
+  fputs("The default port is 631.\n", fp);
 
-  exit(1);
+  exit(fp == stderr);
 }

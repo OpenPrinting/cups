@@ -446,8 +446,7 @@ httpConnectEncrypt(
     int               port,		// I - Port number
     http_encryption_t encryption)	// I - Type of encryption to use
 {
-  DEBUG_printf(("httpConnectEncrypt(host=\"%s\", port=%d, encryption=%d)",
-                host, port, encryption));
+  DEBUG_printf("httpConnectEncrypt(host=\"%s\", port=%d, encryption=%d)", host, port, encryption);
 
   return (httpConnect2(host, port, NULL, AF_UNSPEC, encryption, 1, 30000, NULL));
 }
@@ -2181,8 +2180,7 @@ httpReconnect2(http_t *http,		// I - HTTP connection
 #endif // _WIN32
     http->status = HTTP_STATUS_ERROR;
 
-    DEBUG_printf(("1httpReconnect2: httpAddrConnect failed: %s",
-                  strerror(http->error)));
+    DEBUG_printf("1httpReconnect2: httpAddrConnect failed: %s", strerror(http->error));
 
     return (-1);
   }
@@ -3899,13 +3897,11 @@ http_read_chunk(http_t *http,		// I - HTTP connection
 
     if (http->data_remaining < 0)
     {
-      DEBUG_printf(("8http_read_chunk: Negative chunk length \"%s\" ("
-                    CUPS_LLFMT ")", len, CUPS_LLCAST http->data_remaining));
+      DEBUG_printf("8http_read_chunk: Negative chunk length \"%s\" (" CUPS_LLFMT ")", len, CUPS_LLCAST http->data_remaining);
       return (0);
     }
 
-    DEBUG_printf(("8http_read_chunk: Got chunk length \"%s\" (" CUPS_LLFMT ")",
-                  len, CUPS_LLCAST http->data_remaining));
+    DEBUG_printf("8http_read_chunk: Got chunk length \"%s\" (" CUPS_LLFMT ")", len, CUPS_LLCAST http->data_remaining);
 
     if (http->data_remaining == 0)
     {

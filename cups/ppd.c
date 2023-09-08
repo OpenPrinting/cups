@@ -579,8 +579,7 @@ _ppdOpen(
     ll_CC_len = strlen(ll_CC);
     ll_len    = strlen(ll);
 
-    DEBUG_printf(("2_ppdOpen: Loading localizations matching \"%s\" and \"%s\"",
-                  ll_CC, ll));
+    DEBUG_printf("2_ppdOpen: Loading localizations matching \"%s\" and \"%s\"", ll_CC, ll);
   }
 
  /*
@@ -650,9 +649,7 @@ _ppdOpen(
 
   while ((mask = ppd_read(fp, &line, keyword, name, text, &string, 1, pg)) != 0)
   {
-    DEBUG_printf(("2_ppdOpen: mask=%x, keyword=\"%s\", name=\"%s\", "
-                  "text=\"%s\", string=%d chars...", mask, keyword, name, text,
-		  string ? (int)strlen(string) : 0));
+    DEBUG_printf("2_ppdOpen: mask=%x, keyword=\"%s\", name=\"%s\", text=\"%s\", string=%d chars...", mask, keyword, name, text, string ? (int)strlen(string) : 0);
 
     if (strncmp(keyword, "Default", 7) && !string &&
         pg->ppd_conform != PPD_CONFORM_RELAXED)
@@ -751,8 +748,7 @@ _ppdOpen(
 
         ui_keyword = 1;
 
-        DEBUG_printf(("2_ppdOpen: FOUND ADOBE UI KEYWORD %s WITHOUT OPENUI!",
-	              keyword));
+        DEBUG_printf("2_ppdOpen: FOUND ADOBE UI KEYWORD %s WITHOUT OPENUI!", keyword);
 
         if (!group)
 	{
@@ -795,8 +791,7 @@ _ppdOpen(
 	      !strcmp(ppd->attrs[j]->name + 7, keyword) &&
 	      ppd->attrs[j]->value)
 	  {
-	    DEBUG_printf(("2_ppdOpen: Setting Default%s to %s via attribute...",
-	                  option->keyword, ppd->attrs[j]->value));
+	    DEBUG_printf("2_ppdOpen: Setting Default%s to %s via attribute...", option->keyword, ppd->attrs[j]->value);
 	    strlcpy(option->defchoice, ppd->attrs[j]->value,
 	            sizeof(option->defchoice));
 	    break;
@@ -1278,8 +1273,7 @@ _ppdOpen(
       for (i = (int)strlen(name) - 1; i > 0 && _cups_isspace(name[i]); i --)
         name[i] = '\0'; /* Eliminate trailing spaces */
 
-      DEBUG_printf(("2_ppdOpen: OpenUI of %s in group %s...", name,
-                    group ? group->text : "(null)"));
+      DEBUG_printf("2_ppdOpen: OpenUI of %s in group %s...", name, group ? group->text : "(null)");
 
       if (subgroup != NULL)
         option = ppd_get_option(subgroup, name);
@@ -1327,8 +1321,7 @@ _ppdOpen(
 	    !strcmp(ppd->attrs[j]->name + 7, name) &&
 	    ppd->attrs[j]->value)
 	{
-	  DEBUG_printf(("2_ppdOpen: Setting Default%s to %s via attribute...",
-	                option->keyword, ppd->attrs[j]->value));
+	  DEBUG_printf("2_ppdOpen: Setting Default%s to %s via attribute...", option->keyword, ppd->attrs[j]->value);
 	  strlcpy(option->defchoice, ppd->attrs[j]->value,
 	          sizeof(option->defchoice));
 	  break;
@@ -1446,8 +1439,7 @@ _ppdOpen(
 	    !strcmp(ppd->attrs[j]->name + 7, name) &&
 	    ppd->attrs[j]->value)
 	{
-	  DEBUG_printf(("2_ppdOpen: Setting Default%s to %s via attribute...",
-	                option->keyword, ppd->attrs[j]->value));
+	  DEBUG_printf("2_ppdOpen: Setting Default%s to %s via attribute...", option->keyword, ppd->attrs[j]->value);
 	  strlcpy(option->defchoice, ppd->attrs[j]->value,
 	          sizeof(option->defchoice));
 	  break;
@@ -2078,8 +2070,7 @@ _ppdOpen(
 
 #ifdef DEBUG
   if (!cupsFileEOF(fp))
-    DEBUG_printf(("1_ppdOpen: Premature EOF at %lu...\n",
-                  (unsigned long)cupsFileTell(fp)));
+    DEBUG_printf("1_ppdOpen: Premature EOF at %lu...\n", (unsigned long)cupsFileTell(fp));
 #endif /* DEBUG */
 
   if (pg->ppd_status != PPD_OK)
@@ -2766,8 +2757,7 @@ ppd_get_group(ppd_file_t      *ppd,	/* I - PPD file */
   ppd_group_t	*group;			/* Group */
 
 
-  DEBUG_printf(("7ppd_get_group(ppd=%p, name=\"%s\", text=\"%s\", cg=%p)",
-                ppd, name, text, pg));
+  DEBUG_printf("7ppd_get_group(ppd=%p, name=\"%s\", text=\"%s\", cg=%p)", ppd, name, text, pg);
 
   for (i = ppd->num_groups, group = ppd->groups; i > 0; i --, group ++)
     if (!strcmp(group->name, name))
@@ -2823,8 +2813,7 @@ ppd_get_option(ppd_group_t *group,	/* I - Group */
   ppd_option_t	*option;		/* Option */
 
 
-  DEBUG_printf(("7ppd_get_option(group=%p(\"%s\"), name=\"%s\")",
-                group, group->name, name));
+  DEBUG_printf("7ppd_get_option(group=%p(\"%s\"), name=\"%s\")", group, group->name, name);
 
   for (i = group->num_options, option = group->options; i > 0; i --, option ++)
     if (!strcmp(option->keyword, name))
@@ -3475,9 +3464,7 @@ ppd_update_filters(ppd_file_t     *ppd,	/* I - PPD file */
       return (0);
     }
 
-    DEBUG_printf(("5ppd_update_filters: srcsuper=\"%s\", srctype=\"%s\", "
-                  "dstsuper=\"%s\", dsttype=\"%s\", cost=%d, program=\"%s\"",
-		  srcsuper, srctype, dstsuper, dsttype, cost, program));
+    DEBUG_printf("5ppd_update_filters: srcsuper=\"%s\", srctype=\"%s\", dstsuper=\"%s\", dsttype=\"%s\", cost=%d, program=\"%s\"", srcsuper, srctype, dstsuper, dsttype, cost, program);
 
     if (!strncmp(program, "maxsize(", 8) &&
         (ptr = strchr(program + 8, ')')) != NULL)

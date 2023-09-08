@@ -629,8 +629,7 @@ cupsFileFlush(cups_file_t *fp)		/* I - CUPS file */
 
   bytes = (ssize_t)(fp->ptr - fp->buf);
 
-  DEBUG_printf(("2cupsFileFlush: Flushing " CUPS_LLFMT " bytes...",
-                CUPS_LLCAST bytes));
+  DEBUG_printf("2cupsFileFlush: Flushing " CUPS_LLFMT " bytes...", CUPS_LLCAST bytes);
 
   if (bytes > 0)
   {
@@ -725,8 +724,7 @@ cupsFileGetConf(cups_file_t *fp,	/* I  - CUPS file */
   * Range check input...
   */
 
-  DEBUG_printf(("2cupsFileGetConf(fp=%p, buf=%p, buflen=" CUPS_LLFMT
-                ", value=%p, linenum=%p)", (void *)fp, (void *)buf, CUPS_LLCAST buflen, (void *)value, (void *)linenum));
+  DEBUG_printf("2cupsFileGetConf(fp=%p, buf=%p, buflen=" CUPS_LLFMT ", value=%p, linenum=%p)", (void *)fp, (void *)buf, CUPS_LLCAST buflen, (void *)value, (void *)linenum);
 
   if (!fp || (fp->mode != 'r' && fp->mode != 's') ||
       !buf || buflen < 2 || !value)
@@ -1078,8 +1076,7 @@ cupsFileOpen(const char *filename,	/* I - Name of file */
   http_addrlist_t *addrlist;		/* Host address list */
 
 
-  DEBUG_printf(("cupsFileOpen(filename=\"%s\", mode=\"%s\")", filename,
-                mode));
+  DEBUG_printf("cupsFileOpen(filename=\"%s\", mode=\"%s\")", filename, mode);
 
  /*
   * Range check input...
@@ -1668,8 +1665,7 @@ cupsFileRead(cups_file_t *fp,		/* I - CUPS file */
     if (fp->ptr >= fp->end)
       if (cups_fill(fp) <= 0)
       {
-        DEBUG_printf(("4cupsFileRead: cups_fill() returned -1, total="
-	              CUPS_LLFMT, CUPS_LLCAST total));
+        DEBUG_printf("4cupsFileRead: cups_fill() returned -1, total=" CUPS_LLFMT, CUPS_LLCAST total);
 
         if (total > 0)
           return ((ssize_t)total);
@@ -1887,8 +1883,7 @@ cupsFileSeek(cups_file_t *fp,		/* I - CUPS file */
       fp->ptr    = NULL;
       fp->end    = NULL;
 
-      DEBUG_printf(("2cupsFileSeek: lseek() returned " CUPS_LLFMT,
-                    CUPS_LLCAST fp->pos));
+      DEBUG_printf("2cupsFileSeek: lseek() returned " CUPS_LLFMT, CUPS_LLCAST fp->pos);
     }
   }
   else
@@ -1922,8 +1917,7 @@ cupsFileSeek(cups_file_t *fp,		/* I - CUPS file */
       fp->ptr    = NULL;
       fp->end    = NULL;
 
-      DEBUG_printf(("2cupsFileSeek: lseek() returned " CUPS_LLFMT,
-                    CUPS_LLCAST fp->pos));
+      DEBUG_printf("2cupsFileSeek: lseek() returned " CUPS_LLFMT, CUPS_LLCAST fp->pos);
     }
   }
 
@@ -2180,8 +2174,7 @@ cups_compress(cups_file_t *fp,		/* I - CUPS file */
     * Flush the current buffer...
     */
 
-    DEBUG_printf(("9cups_compress: avail_in=%d, avail_out=%d",
-                  fp->stream.avail_in, fp->stream.avail_out));
+    DEBUG_printf("9cups_compress: avail_in=%d, avail_out=%d", fp->stream.avail_in, fp->stream.avail_out);
 
     if (fp->stream.avail_out < (uInt)(sizeof(fp->cbuf) / 8))
     {
@@ -2251,8 +2244,7 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 	* Can't read from file!
 	*/
 
-        DEBUG_printf(("9cups_fill: cups_read() returned " CUPS_LLFMT,
-	              CUPS_LLCAST bytes));
+        DEBUG_printf("9cups_fill: cups_read() returned " CUPS_LLFMT, CUPS_LLCAST bytes);
 
         fp->eof = 1;
 
@@ -2270,8 +2262,7 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 	fp->ptr = fp->buf;
 	fp->end = fp->buf + bytes;
 
-        DEBUG_printf(("9cups_fill: Returning " CUPS_LLFMT,
-	              CUPS_LLCAST bytes));
+        DEBUG_printf("9cups_fill: Returning " CUPS_LLFMT, CUPS_LLCAST bytes);
 
 	return (bytes);
       }

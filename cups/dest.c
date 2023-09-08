@@ -219,7 +219,7 @@ static void		cups_dnssd_query_cb(AvahiRecordBrowser *browser,
 static const char	*cups_dnssd_resolve(cups_dest_t *dest, const char *uri,
 					    int msec, int *cancel,
 					    cups_dest_cb_t cb, void *user_data);
-static int		cups_dnssd_resolve_cb(void *context);
+static bool		cups_dnssd_resolve_cb(void *context);
 static void		cups_dnssd_unquote(char *dst, const char *src,
 			                   size_t dstsize);
 static int		cups_elapsed(struct timeval *t);
@@ -382,8 +382,7 @@ _cupsAppleCopyDefaultPrinter(void)
     return (NULL);
   }
 
-  DEBUG_printf(("1_cupsAppleCopyDefaultPrinter: Got locations, %d entries.",
-                (int)CFArrayGetCount(locations)));
+  DEBUG_printf("1_cupsAppleCopyDefaultPrinter: Got locations, %d entries.", (int)CFArrayGetCount(locations));
 
   if ((locprinter = appleGetPrinter(locations, network, NULL)) != NULL)
     CFRetain(locprinter);
@@ -2791,8 +2790,7 @@ cups_dnssd_get_device(
       _cupsStrFree(device->domain);
       device->domain = _cupsStrAlloc(replyDomain);
 
-      DEBUG_printf(("6cups_dnssd_get_device: Updating '%s' to use local "
-                    "domain.", device->dest.name));
+      DEBUG_printf("6cups_dnssd_get_device: Updating '%s' to use local domain.", device->dest.name);
 
       update = 1;
     }
@@ -2807,16 +2805,14 @@ cups_dnssd_get_device(
       _cupsStrFree(device->regtype);
       device->regtype = _cupsStrAlloc(regtype);
 
-      DEBUG_printf(("6cups_dnssd_get_device: Updating '%s' to use IPPS.",
-		    device->dest.name));
+      DEBUG_printf("6cups_dnssd_get_device: Updating '%s' to use IPPS.", device->dest.name);
 
       update = 1;
     }
 
     if (!update)
     {
-      DEBUG_printf(("6cups_dnssd_get_device: No changes to '%s'.",
-                    device->dest.name));
+      DEBUG_printf("6cups_dnssd_get_device: No changes to '%s'.", device->dest.name);
       return (device);
     }
   }
@@ -2826,10 +2822,7 @@ cups_dnssd_get_device(
     * No, add the device...
     */
 
-    DEBUG_printf(("6cups_dnssd_get_device: Adding '%s' for %s with domain "
-                  "'%s'.", serviceName,
-                  !strcmp(regtype, "_ipps._tcp") ? "IPPS" : "IPP",
-                  replyDomain));
+    DEBUG_printf("6cups_dnssd_get_device: Adding '%s' for %s with domain '%s'.", serviceName, !strcmp(regtype, "_ipps._tcp") ? "IPPS" : "IPP", replyDomain);
 
     if ((device = calloc(1, sizeof(_cups_dnssd_device_t))) == NULL)
       return (NULL);
@@ -3228,8 +3221,7 @@ cups_dnssd_query_cb(
     device->dest.num_options = cupsAddOption("device-uri", uri, device->dest.num_options, &device->dest.options);
   }
   else
-    DEBUG_printf(("6cups_dnssd_query: Ignoring TXT record for '%s'.",
-                  fullName));
+    DEBUG_printf("6cups_dnssd_query: Ignoring TXT record for '%s'.", fullName);
 }
 
 
@@ -3273,7 +3265,7 @@ cups_dnssd_resolve(
   if (cb)
     (*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_RESOLVING, dest);
 
-  if ((uri = _httpResolveURI(uri, tempuri, sizeof(tempuri), _HTTP_RESOLVE_DEFAULT, cups_dnssd_resolve_cb, &resolve)) == NULL)
+  if ((uri = httpResolveURI(uri, tempuri, sizeof(tempuri), HTTP_RESOLVE_DEFAULT, cups_dnssd_resolve_cb, &resolve)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to resolve printer-uri."), 1);
 
@@ -3297,7 +3289,7 @@ cups_dnssd_resolve(
  * 'cups_dnssd_resolve_cb()' - See if we should continue resolving.
  */
 
-static int				/* O - 1 to continue, 0 to stop */
+static bool				/* O - `true` to continue, `false` to stop */
 cups_dnssd_resolve_cb(void *context)	/* I - Resolve data */
 {
   _cups_dnssd_resolve_t	*resolve = (_cups_dnssd_resolve_t *)context;
@@ -3312,7 +3304,7 @@ cups_dnssd_resolve_cb(void *context)	/* I - Resolve data */
   if (resolve->cancel && *(resolve->cancel))
   {
     DEBUG_puts("4cups_dnssd_resolve_cb: Canceled.");
-    return (0);
+    return (false);
   }
 
  /*
@@ -4170,8 +4162,7 @@ cups_get_dests(
     * See what type of line it is...
     */
 
-    DEBUG_printf(("9cups_get_dests: linenum=%d line=\"%s\" lineptr=\"%s\"",
-                  linenum, line, lineptr));
+    DEBUG_printf("9cups_get_dests: linenum=%d line=\"%s\" lineptr=\"%s\"", linenum, line, lineptr);
 
     if ((_cups_strcasecmp(line, "dest") && _cups_strcasecmp(line, "default")) || !lineptr)
     {
@@ -4210,8 +4201,7 @@ cups_get_dests(
     if (*lineptr)
       *lineptr++ = '\0';
 
-    DEBUG_printf(("9cups_get_dests: name=\"%s\", instance=\"%s\"", name,
-                  instance));
+    DEBUG_printf("9cups_get_dests: name=\"%s\", instance=\"%s\"", name, instance);
 
    /*
     * Match and/or ignore missing destinations...

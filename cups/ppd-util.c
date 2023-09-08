@@ -631,7 +631,7 @@ cups_get_printer_uri(
     }
     else if ((attr = ippFindAttribute(response, "printer-uri-supported", IPP_TAG_URI)) != NULL)
     {
-      httpSeparateURI(HTTP_URI_CODING_ALL, _httpResolveURI(attr->values[0].string.text, uri, sizeof(uri), _HTTP_RESOLVE_DEFAULT, NULL, NULL), scheme, sizeof(scheme), username, sizeof(username), host, hostsize, port, resource, resourcesize);
+      httpSeparateURI(HTTP_URI_CODING_ALL, httpResolveURI(attr->values[0].string.text, uri, sizeof(uri), HTTP_RESOLVE_DEFAULT, NULL, NULL), scheme, sizeof(scheme), username, sizeof(username), host, hostsize, port, resource, resourcesize);
       ippDelete(response);
 
       DEBUG_printf("5cups_get_printer_uri: Resolved to host=\"%s\", port=%d, resource=\"%s\"", host, *port, resource);

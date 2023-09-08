@@ -178,8 +178,7 @@ _cupsArrayAddStrings(cups_array_t *a,	/* I - Array */
       else
         end = start + strlen(start);
 
-      DEBUG_printf(("1_cupsArrayAddStrings: Adding \"%s\", end=\"%s\"", start,
-                    end));
+      DEBUG_printf("1_cupsArrayAddStrings: Adding \"%s\", end=\"%s\"", start, end);
 
       if (!cupsArrayFind(a, start))
         status &= cupsArrayAdd(a, start);
@@ -1262,8 +1261,7 @@ cups_array_find(cups_array_t *a,	/* I - Array */
       current = (left + right) / 2;
       diff    = (*(a->compare))(e, a->elements[current], a->data);
 
-      DEBUG_printf(("9cups_array_find: left=%d, right=%d, current=%d, diff=%d",
-                    left, right, current, diff));
+      DEBUG_printf("9cups_array_find: left=%d, right=%d, current=%d, diff=%d", left, right, current, diff);
 
       if (diff == 0)
 	break;

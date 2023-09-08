@@ -53,22 +53,21 @@ cupsBackendDeviceURI(char **argv)	/* I - Command-line arguments */
     device_uri = argv[0];
   }
 
-  options = _HTTP_RESOLVE_STDERR;
+  options = 0 /*_HTTP_RESOLVE_STDERR*/;
   if ((auth_info_required = getenv("AUTH_INFO_REQUIRED")) != NULL &&
       !strcmp(auth_info_required, "negotiate"))
-    options |= _HTTP_RESOLVE_FQDN;
+    options |= HTTP_RESOLVE_FQDN;
 
   if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL)
   {
     if ((ppdattr = ppdFindAttr(ppd, "cupsIPPFaxOut", NULL)) != NULL &&
         !_cups_strcasecmp(ppdattr->value, "true"))
-      options |= _HTTP_RESOLVE_FAXOUT;
+      options |= HTTP_RESOLVE_FAXOUT;
 
     ppdClose(ppd);
   }
 
-  return (_httpResolveURI(device_uri, cg->resolved_uri,
-                          sizeof(cg->resolved_uri), options, NULL, NULL));
+  return (httpResolveURI(device_uri, cg->resolved_uri, sizeof(cg->resolved_uri), options, NULL, NULL));
 }
 
 

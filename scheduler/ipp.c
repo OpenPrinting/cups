@@ -5320,7 +5320,7 @@ create_local_bg_thread(
   {
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "%s: Resolving mDNS URI \"%s\".", printer->name, printer->device_uri);
 
-    if (!_httpResolveURI(printer->device_uri, uri, sizeof(uri), _HTTP_RESOLVE_DEFAULT, NULL, NULL))
+    if (!httpResolveURI(printer->device_uri, uri, sizeof(uri), HTTP_RESOLVE_DEFAULT, NULL, NULL))
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Couldn't resolve mDNS URI \"%s\".", printer->name, printer->device_uri);
       return (NULL);

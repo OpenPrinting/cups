@@ -332,8 +332,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
       }
     }
 
-    DEBUG_printf(("2cupsPutFd: starting attempt, authstring=\"%s\"...",
-                  http->authstring));
+    DEBUG_printf("2cupsPutFd: starting attempt, authstring=\"%s\"...", http->authstring);
 
     httpClearFields(http);
     httpSetField(http, HTTP_FIELD_TRANSFER_ENCODING, "chunked");

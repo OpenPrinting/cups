@@ -65,7 +65,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   for (i = 1; i < argc; i ++)
     if (!strcmp(argv[i], "-E"))
-      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
     else if (!strcmp(argv[i], "-e"))
     {
       i ++;

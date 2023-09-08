@@ -554,8 +554,7 @@ _ppdCacheCreateWithFile(
   if (atoi(line + 16) != _PPD_CACHE_VERSION)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Out of date PPD cache file."), 1);
-    DEBUG_printf(("_ppdCacheCreateWithFile: Cache file has version %s, "
-                  "expected %d.", line + 16, _PPD_CACHE_VERSION));
+    DEBUG_printf("_ppdCacheCreateWithFile: Cache file has version %s, expected %d.", line + 16, _PPD_CACHE_VERSION);
     cupsFileClose(fp);
     return (NULL);
   }
@@ -585,13 +584,11 @@ _ppdCacheCreateWithFile(
 
   while (cupsFileGetConf(fp, line, sizeof(line), &value, &linenum))
   {
-    DEBUG_printf(("_ppdCacheCreateWithFile: line=\"%s\", value=\"%s\", "
-                  "linenum=%d", line, value, linenum));
+    DEBUG_printf("_ppdCacheCreateWithFile: line=\"%s\", value=\"%s\", linenum=%d", line, value, linenum);
 
     if (!value)
     {
-      DEBUG_printf(("_ppdCacheCreateWithFile: Missing value on line %d.",
-                    linenum));
+      DEBUG_printf("_ppdCacheCreateWithFile: Missing value on line %d.", linenum);
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
       goto create_error;
     }
@@ -679,16 +676,14 @@ _ppdCacheCreateWithFile(
 
       if ((num_bins = atoi(value)) <= 0 || num_bins > 65536)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad NumBins value %d on line "
-		      "%d.", num_sizes, linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad NumBins value %d on line %d.", num_sizes, linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
 
       if ((pc->bins = calloc((size_t)num_bins, sizeof(pwg_map_t))) == NULL)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Unable to allocate %d bins.",
-	              num_sizes));
+        DEBUG_printf("_ppdCacheCreateWithFile: Unable to allocate %d bins.", num_sizes);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 	goto create_error;
       }
@@ -704,8 +699,7 @@ _ppdCacheCreateWithFile(
 
       if (pc->num_bins >= num_bins)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Too many Bin's on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Too many Bin's on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -727,8 +721,7 @@ _ppdCacheCreateWithFile(
 
       if ((num_sizes = atoi(value)) < 0 || num_sizes > 65536)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad NumSizes value %d on line "
-	              "%d.", num_sizes, linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad NumSizes value %d on line %d.", num_sizes, linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -737,8 +730,7 @@ _ppdCacheCreateWithFile(
       {
 	if ((pc->sizes = calloc((size_t)num_sizes, sizeof(pwg_size_t))) == NULL)
 	{
-	  DEBUG_printf(("_ppdCacheCreateWithFile: Unable to allocate %d sizes.",
-			num_sizes));
+	  DEBUG_printf("_ppdCacheCreateWithFile: Unable to allocate %d sizes.", num_sizes);
 	  _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 	  goto create_error;
 	}
@@ -748,8 +740,7 @@ _ppdCacheCreateWithFile(
     {
       if (pc->num_sizes >= num_sizes)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Too many Size's on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Too many Size's on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -760,8 +751,7 @@ _ppdCacheCreateWithFile(
 		 &(size->width), &(size->length), &(size->left),
 		 &(size->bottom), &(size->right), &(size->top)) != 8)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad Size on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad Size on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -775,8 +765,7 @@ _ppdCacheCreateWithFile(
     {
       if (pc->custom_max_width > 0)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Too many CustomSize's on line "
-	              "%d.", linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Too many CustomSize's on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -787,8 +776,7 @@ _ppdCacheCreateWithFile(
 		 &(pc->custom_size.bottom), &(pc->custom_size.right),
 		 &(pc->custom_size.top)) != 8)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad CustomSize on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad CustomSize on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -817,16 +805,14 @@ _ppdCacheCreateWithFile(
 
       if ((num_sources = atoi(value)) <= 0 || num_sources > 65536)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad NumSources value %d on "
-	              "line %d.", num_sources, linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad NumSources value %d on line %d.", num_sources, linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
 
       if ((pc->sources = calloc((size_t)num_sources, sizeof(pwg_map_t))) == NULL)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Unable to allocate %d sources.",
-	              num_sources));
+        DEBUG_printf("_ppdCacheCreateWithFile: Unable to allocate %d sources.", num_sources);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 	goto create_error;
       }
@@ -835,16 +821,14 @@ _ppdCacheCreateWithFile(
     {
       if (sscanf(value, "%127s%40s", pwg_keyword, ppd_keyword) != 2)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad Source on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad Source on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
 
       if (pc->num_sources >= num_sources)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Too many Source's on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Too many Source's on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -866,16 +850,14 @@ _ppdCacheCreateWithFile(
 
       if ((num_types = atoi(value)) <= 0 || num_types > 65536)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad NumTypes value %d on "
-	              "line %d.", num_types, linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad NumTypes value %d on line %d.", num_types, linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
 
       if ((pc->types = calloc((size_t)num_types, sizeof(pwg_map_t))) == NULL)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Unable to allocate %d types.",
-	              num_types));
+        DEBUG_printf("_ppdCacheCreateWithFile: Unable to allocate %d types.", num_types);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 	goto create_error;
       }
@@ -884,16 +866,14 @@ _ppdCacheCreateWithFile(
     {
       if (sscanf(value, "%127s%40s", pwg_keyword, ppd_keyword) != 2)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad Type on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad Type on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
 
       if (pc->num_types >= num_types)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Too many Type's on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Too many Type's on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -919,8 +899,7 @@ _ppdCacheCreateWithFile(
 	  print_quality >= _PWG_PRINT_QUALITY_MAX ||
 	  valueptr == value || !*valueptr)
       {
-        DEBUG_printf(("_ppdCacheCreateWithFile: Bad Preset on line %d.",
-	              linenum));
+        DEBUG_printf("_ppdCacheCreateWithFile: Bad Preset on line %d.", linenum);
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
@@ -987,31 +966,27 @@ _ppdCacheCreateWithFile(
     }
     else
     {
-      DEBUG_printf(("_ppdCacheCreateWithFile: Unknown %s on line %d.", line,
-		    linenum));
+      DEBUG_printf("_ppdCacheCreateWithFile: Unknown %s on line %d.", line, linenum);
     }
   }
 
   if (pc->num_sizes < num_sizes)
   {
-    DEBUG_printf(("_ppdCacheCreateWithFile: Not enough sizes (%d < %d).",
-                  pc->num_sizes, num_sizes));
+    DEBUG_printf("_ppdCacheCreateWithFile: Not enough sizes (%d < %d).", pc->num_sizes, num_sizes);
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
     goto create_error;
   }
 
   if (pc->num_sources < num_sources)
   {
-    DEBUG_printf(("_ppdCacheCreateWithFile: Not enough sources (%d < %d).",
-                  pc->num_sources, num_sources));
+    DEBUG_printf("_ppdCacheCreateWithFile: Not enough sources (%d < %d).", pc->num_sources, num_sources);
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
     goto create_error;
   }
 
   if (pc->num_types < num_types)
   {
-    DEBUG_printf(("_ppdCacheCreateWithFile: Not enough types (%d < %d).",
-                  pc->num_types, num_types));
+    DEBUG_printf("_ppdCacheCreateWithFile: Not enough types (%d < %d).", pc->num_types, num_types);
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
     goto create_error;
   }
@@ -1120,8 +1095,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   {
     if ((pc->sizes = calloc((size_t)ppd->num_sizes, sizeof(pwg_size_t))) == NULL)
     {
-      DEBUG_printf(("_ppdCacheCreateWithPPD: Unable to allocate %d "
-		    "pwg_size_t's.", ppd->num_sizes));
+      DEBUG_printf("_ppdCacheCreateWithPPD: Unable to allocate %d pwg_size_t's.", ppd->num_sizes);
       goto create_error;
     }
 
@@ -1298,8 +1272,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
     if ((pc->sources = calloc((size_t)input_slot->num_choices, sizeof(pwg_map_t))) == NULL)
     {
-      DEBUG_printf(("_ppdCacheCreateWithPPD: Unable to allocate %d "
-                    "pwg_map_t's for InputSlot.", input_slot->num_choices));
+      DEBUG_printf("_ppdCacheCreateWithPPD: Unable to allocate %d pwg_map_t's for InputSlot.", input_slot->num_choices);
       goto create_error;
     }
 
@@ -1393,8 +1366,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
     if ((pc->types = calloc((size_t)media_type->num_choices, sizeof(pwg_map_t))) == NULL)
     {
-      DEBUG_printf(("_ppdCacheCreateWithPPD: Unable to allocate %d "
-                    "pwg_map_t's for MediaType.", media_type->num_choices));
+      DEBUG_printf("_ppdCacheCreateWithPPD: Unable to allocate %d pwg_map_t's for MediaType.", media_type->num_choices);
       goto create_error;
     }
 
@@ -1483,8 +1455,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   {
     if ((pc->bins = calloc((size_t)output_bin->num_choices, sizeof(pwg_map_t))) == NULL)
     {
-      DEBUG_printf(("_ppdCacheCreateWithPPD: Unable to allocate %d "
-                    "pwg_map_t's for OutputBin.", output_bin->num_choices));
+      DEBUG_printf("_ppdCacheCreateWithPPD: Unable to allocate %d pwg_map_t's for OutputBin.", output_bin->num_choices);
       goto create_error;
     }
 
@@ -2526,8 +2497,7 @@ _ppdCacheGetPageSize(
   const char	*ppd_name;		/* PPD media name */
 
 
-  DEBUG_printf(("_ppdCacheGetPageSize(pc=%p, job=%p, keyword=\"%s\", exact=%p)",
-	        pc, job, keyword, exact));
+  DEBUG_printf("_ppdCacheGetPageSize(pc=%p, job=%p, keyword=\"%s\", exact=%p)", pc, job, keyword, exact);
 
  /*
   * Range check input...
@@ -2555,8 +2525,7 @@ _ppdCacheGetPageSize(
 
 #ifdef DEBUG
     if (attr)
-      DEBUG_printf(("1_ppdCacheGetPageSize: Found attribute %s (%s)",
-                    attr->name, ippTagString(attr->value_tag)));
+      DEBUG_printf("1_ppdCacheGetPageSize: Found attribute %s (%s)", attr->name, ippTagString(attr->value_tag));
     else
       DEBUG_puts("1_ppdCacheGetPageSize: Did not find media attribute.");
 #endif /* DEBUG */
@@ -2576,8 +2545,7 @@ _ppdCacheGetPageSize(
 
     for (i = pc->num_sizes, size = pc->sizes; i > 0; i --, size ++)
     {
-      DEBUG_printf(("2_ppdCacheGetPageSize: size[%d]=[\"%s\" \"%s\"]",
-                    (int)(size - pc->sizes), size->map.pwg, size->map.ppd));
+      DEBUG_printf("2_ppdCacheGetPageSize: size[%d]=[\"%s\" \"%s\"]", (int)(size - pc->sizes), size->map.pwg, size->map.ppd);
 
       if (!_cups_strcasecmp(ppd_name, size->map.ppd) ||
           !_cups_strcasecmp(ppd_name, size->map.pwg))
@@ -2686,8 +2654,7 @@ _ppdCacheGetPageSize(
 
   if (closest)
   {
-    DEBUG_printf(("1_ppdCacheGetPageSize: Returning \"%s\" (closest)",
-                  closest->map.ppd));
+    DEBUG_printf("1_ppdCacheGetPageSize: Returning \"%s\" (closest)", closest->map.ppd);
 
     return (closest->map.ppd);
   }
@@ -2722,8 +2689,7 @@ _ppdCacheGetPageSize(
     else if (exact)
       *exact = 1;
 
-    DEBUG_printf(("1_ppdCacheGetPageSize: Returning \"%s\" (custom)",
-                  pc->custom_ppd_size));
+    DEBUG_printf("1_ppdCacheGetPageSize: Returning \"%s\" (custom)", pc->custom_ppd_size);
 
     return (pc->custom_ppd_size);
   }

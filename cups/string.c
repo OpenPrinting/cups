@@ -171,9 +171,7 @@ _cupsStrAlloc(const char *s)		/* I - String */
     item->ref_count ++;
 
 #ifdef DEBUG_GUARDS
-    DEBUG_printf(("5_cupsStrAlloc: Using string %p(%s) for \"%s\", guard=%08x, "
-                  "ref_count=%d", item, item->str, s, item->guard,
-		  item->ref_count));
+    DEBUG_printf("5_cupsStrAlloc: Using string %p(%s) for \"%s\", guard=%08x, ref_count=%d", item, item->str, s, item->guard, item->ref_count);
 
     if (item->guard != _CUPS_STR_GUARD)
       abort();
@@ -203,9 +201,7 @@ _cupsStrAlloc(const char *s)		/* I - String */
 #ifdef DEBUG_GUARDS
   item->guard = _CUPS_STR_GUARD;
 
-  DEBUG_printf(("5_cupsStrAlloc: Created string %p(%s) for \"%s\", guard=%08x, "
-		"ref_count=%d", item, item->str, s, item->guard,
-		item->ref_count));
+  DEBUG_printf("5_cupsStrAlloc: Created string %p(%s) for \"%s\", guard=%08x, ref_count=%d", item, item->str, s, item->guard, item->ref_count);
 #endif /* DEBUG_GUARDS */
 
  /*
@@ -263,8 +259,7 @@ _cupsStrFlush(void)
   _cups_sp_item_t	*item;		/* Current item */
 
 
-  DEBUG_printf(("4_cupsStrFlush: %d strings in array",
-                cupsArrayCount(stringpool)));
+  DEBUG_printf("4_cupsStrFlush: %d strings in array", cupsArrayCount(stringpool));
 
   cupsMutexLock(&sp_mutex);
 
@@ -451,8 +446,7 @@ _cupsStrRetain(const char *s)		/* I - String to retain */
 #ifdef DEBUG_GUARDS
     if (item->guard != _CUPS_STR_GUARD)
     {
-      DEBUG_printf(("5_cupsStrRetain: Retaining string %p(%s), guard=%08x, "
-                    "ref_count=%d", item, s, item->guard, item->ref_count));
+      DEBUG_printf("5_cupsStrRetain: Retaining string %p(%s), guard=%08x, ref_count=%d", item, s, item->guard, item->ref_count);
       abort();
     }
 #endif /* DEBUG_GUARDS */
@@ -671,30 +665,6 @@ _cups_strcpy(char       *dst,		/* I - Destination string */
 
   *dst = '\0';
 }
-
-
-/*
- * '_cups_strdup()' - Duplicate a string.
- */
-
-#ifndef HAVE_STRDUP
-char 	*				/* O - New string pointer */
-_cups_strdup(const char *s)		/* I - String to duplicate */
-{
-  char		*t;			/* New string pointer */
-  size_t	slen;			/* Length of string */
-
-
-  if (!s)
-    return (NULL);
-
-  slen = strlen(s);
-  if ((t = malloc(slen + 1)) == NULL)
-    return (NULL);
-
-  return (memcpy(t, s, slen + 1));
-}
-#endif /* !HAVE_STRDUP */
 
 
 /*

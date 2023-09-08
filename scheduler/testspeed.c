@@ -64,7 +64,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   children   = 5;
   server     = (char *)cupsServer();
   port       = ippPort();
-  encryption = HTTP_ENCRYPT_IF_REQUESTED;
+  encryption = HTTP_ENCRYPTION_IF_REQUESTED;
   verbose    = 0;
   opstring   = NULL;
 
@@ -75,7 +75,7 @@ main(int  argc,				/* I - Number of command-line arguments */
         switch (*ptr)
 	{
 	  case 'E' : /* Enable encryption */
-	      encryption = HTTP_ENCRYPT_REQUIRED;
+	      encryption = HTTP_ENCRYPTION_REQUIRED;
 	      break;
 
 	  case 'c' : /* Number of children */
@@ -130,7 +130,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   {
     printf("testspeed: Simulating %d clients with %d requests to %s with "
            "%sencryption...\n", children, requests, server,
-	   encryption == HTTP_ENCRYPT_IF_REQUESTED ? "no " : "");
+	   encryption == HTTP_ENCRYPTION_IF_REQUESTED ? "no " : "");
   }
 
   start = time(NULL);
@@ -156,7 +156,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     strlcpy(options, "-cr", sizeof(options));
 
-    if (encryption == HTTP_ENCRYPT_REQUIRED)
+    if (encryption == HTTP_ENCRYPTION_REQUIRED)
       strlcat(options, "E", sizeof(options));
 
     if (verbose)

@@ -398,8 +398,7 @@ cups_create_localizations(
     if ((http2 = httpConnect2(hostname, port, NULL, AF_UNSPEC, encryption, 1,
                               30000, NULL)) == NULL)
     {
-      DEBUG_printf(("4cups_create_localizations: Unable to connect to "
-                    "%s:%d: %s", hostname, port, cupsGetErrorString()));
+      DEBUG_printf("4cups_create_localizations: Unable to connect to %s:%d: %s", hostname, port, cupsGetErrorString());
       return;
     }
   }
@@ -410,8 +409,7 @@ cups_create_localizations(
 
   if ((temp = cupsTempFile2(tempfile, sizeof(tempfile))) == NULL)
   {
-    DEBUG_printf(("4cups_create_localizations: Unable to create temporary "
-                  "file: %s", cupsGetErrorString()));
+    DEBUG_printf("4cups_create_localizations: Unable to create temporary file: %s", cupsGetErrorString());
     if (http2 != http)
       httpClose(http2);
     return;
@@ -431,8 +429,7 @@ cups_create_localizations(
     dinfo->localizations = _cupsMessageLoad(tempfile, _CUPS_MESSAGE_STRINGS);
   }
 
-  DEBUG_printf(("4cups_create_localizations: %d messages loaded.",
-                cupsArrayCount(dinfo->localizations)));
+  DEBUG_printf("4cups_create_localizations: %d messages loaded.", cupsArrayCount(dinfo->localizations));
 
  /*
   * Cleanup...

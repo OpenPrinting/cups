@@ -84,10 +84,6 @@ extern "C" {
 //
 
 #  define _HTTP_MAX_SBUFFER	65536	/* Size of (de)compression buffer */
-#  define _HTTP_RESOLVE_DEFAULT	0	/* Just resolve with default options */
-#  define _HTTP_RESOLVE_STDERR	1	/* Log resolve progress to stderr */
-#  define _HTTP_RESOLVE_FQDN	2	/* Resolve to a FQDN */
-#  define _HTTP_RESOLVE_FAXOUT	4	/* Resolve FaxOut service? */
 
 #  define _HTTP_TLS_NONE	0	/* No TLS options */
 #  define _HTTP_TLS_ALLOW_RC4	1	/* Allow RC4 cipher suites */
@@ -252,8 +248,6 @@ extern char		*_httpDecodeURI(char *dst, const char *src, size_t dstsize) _CUPS_P
 extern void		_httpDisconnect(http_t *http) _CUPS_PRIVATE;
 extern char		*_httpEncodeURI(char *dst, const char *src, size_t dstsize) _CUPS_PRIVATE;
 extern void		_httpFreeCredentials(_http_tls_credentials_t *hcreds) _CUPS_PRIVATE;
-// TODO: OK to remove _httpResolveURI?
-extern const char	*_httpResolveURI(const char *uri, char *resolved_uri, size_t resolved_size, int options, int (*cb)(void *context), void *context) _CUPS_PRIVATE;
 extern int		_httpSetDigestAuthString(http_t *http, const char *nonce, const char *method, const char *resource) _CUPS_PRIVATE;
 extern const char	*_httpStatusString(cups_lang_t *lang, http_status_t status) _CUPS_PRIVATE;
 extern void		_httpTLSInitialize(void) _CUPS_PRIVATE;
