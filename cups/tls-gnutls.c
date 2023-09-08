@@ -1549,7 +1549,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     }
 
     status      = gnutls_server_name_set(http->tls, GNUTLS_NAME_DNS, hostname, strlen(hostname));
-    credentials = _httpUseCredentials(cg->credentials);
+    credentials = _httpUseCredentials(cg->tls_credentials);
   }
   else
   {
@@ -2089,7 +2089,7 @@ gnutls_load_crl(void)
 	  }
 
 	  decoded = (size_t)(alloc_data - num_data);
-	  httpDecode64((char *)data + num_data, &decoded, line, NULL);
+	  httpDecode64_3((char *)data + num_data, &decoded, line, NULL);
 	  num_data += (size_t)decoded;
 	}
       }

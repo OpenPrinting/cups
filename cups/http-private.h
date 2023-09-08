@@ -258,6 +258,7 @@ extern bool		_httpTLSStart(http_t *http) _CUPS_PRIVATE;
 extern void		_httpTLSStop(http_t *http) _CUPS_PRIVATE;
 extern int		_httpTLSWrite(http_t *http, const char *buf, int len) _CUPS_PRIVATE;
 extern int		_httpUpdate(http_t *http, http_status_t *status) _CUPS_PRIVATE;
+extern _http_tls_credentials_t *_httpUseCredentials(_http_tls_credentials_t *hcreds) _CUPS_PRIVATE;
 extern int		_httpWait(http_t *http, int msec, int usessl) _CUPS_PRIVATE;
 
 
