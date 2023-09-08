@@ -108,7 +108,7 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
       *nameptr = '\0';
 
       if (!strncmp(name, "printer_state_history", 21))
-        strlcpy(name, "printer_state_history", sizeof(name));
+        cupsCopyString(name, "printer_state_history", sizeof(name));
 
      /*
       * Possibly add it to the list of attributes...
@@ -326,7 +326,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
 	  * Pull the name from the URI...
 	  */
 
-	  strlcpy(current_dest, strrchr(attr->values[0].string.text, '/') + 1,
+	  cupsCopyString(current_dest, strrchr(attr->values[0].string.text, '/') + 1,
 	          sizeof(current_dest));
           dest = current_dest;
 	}
@@ -854,7 +854,7 @@ cgiRewriteURL(const char *uri,		/* I - Current URI */
       * Force the specified resource name instead of the one in the URL...
       */
 
-      strlcpy(resource, newresource, sizeof(resource));
+      cupsCopyString(resource, newresource, sizeof(resource));
     }
     else
     {
@@ -896,7 +896,7 @@ cgiRewriteURL(const char *uri,		/* I - Current URI */
       * Make URI relative to the current server...
       */
 
-      strlcpy(url, resource, (size_t)urlsize);
+      cupsCopyString(url, resource, (size_t)urlsize);
     }
     else
     {
@@ -911,7 +911,7 @@ cgiRewriteURL(const char *uri,		/* I - Current URI */
     }
   }
   else
-    strlcpy(url, uri, (size_t)urlsize);
+    cupsCopyString(url, uri, (size_t)urlsize);
 
   return (url);
 }
@@ -1016,31 +1016,31 @@ cgiSetIPPObjectVars(
         remaining = sizeof(value) - (size_t)(valptr - value);
 
         if (!strcmp(attr->values[i].string.text, "printer-stopped"))
-	  strlcpy(valptr, _("Printer Paused"), remaining);
+	  cupsCopyString(valptr, _("Printer Paused"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "printer-added"))
-	  strlcpy(valptr, _("Printer Added"), remaining);
+	  cupsCopyString(valptr, _("Printer Added"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "printer-modified"))
-	  strlcpy(valptr, _("Printer Modified"), remaining);
+	  cupsCopyString(valptr, _("Printer Modified"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "printer-deleted"))
-	  strlcpy(valptr, _("Printer Deleted"), remaining);
+	  cupsCopyString(valptr, _("Printer Deleted"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "job-created"))
-	  strlcpy(valptr, _("Job Created"), remaining);
+	  cupsCopyString(valptr, _("Job Created"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "job-completed"))
-	  strlcpy(valptr, _("Job Completed"), remaining);
+	  cupsCopyString(valptr, _("Job Completed"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "job-stopped"))
-	  strlcpy(valptr, _("Job Stopped"), remaining);
+	  cupsCopyString(valptr, _("Job Stopped"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "job-config-changed"))
-	  strlcpy(valptr, _("Job Options Changed"), remaining);
+	  cupsCopyString(valptr, _("Job Options Changed"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "server-restarted"))
-	  strlcpy(valptr, _("Server Restarted"), remaining);
+	  cupsCopyString(valptr, _("Server Restarted"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "server-started"))
-	  strlcpy(valptr, _("Server Started"), remaining);
+	  cupsCopyString(valptr, _("Server Started"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "server-stopped"))
-	  strlcpy(valptr, _("Server Stopped"), remaining);
+	  cupsCopyString(valptr, _("Server Stopped"), remaining);
 	else if (!strcmp(attr->values[i].string.text, "server-audit"))
-	  strlcpy(valptr, _("Server Security Auditing"), remaining);
+	  cupsCopyString(valptr, _("Server Security Auditing"), remaining);
 	else
-          strlcpy(valptr, attr->values[i].string.text, remaining);
+          cupsCopyString(valptr, attr->values[i].string.text, remaining);
 
         valptr += strlen(valptr);
       }
@@ -1101,7 +1101,7 @@ cgiSetIPPObjectVars(
 
 	  httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "http",
 	                  userpass, host, port, resource);
-          strlcpy(name, uri, sizeof(name));
+          cupsCopyString(name, uri, sizeof(name));
 	}
 	else
 	{
@@ -1110,7 +1110,7 @@ cgiSetIPPObjectVars(
 	  */
 
 	  snprintf(uri, sizeof(uri), "/rss%s", resource);
-          strlcpy(name, resource + 1, sizeof(name));
+          cupsCopyString(name, resource + 1, sizeof(name));
 	}
       }
       else
@@ -1119,8 +1119,8 @@ cgiSetIPPObjectVars(
         * Other...
 	*/
 
-        strlcpy(uri, attr->values[0].string.text, sizeof(uri));
-	strlcpy(name, resource, sizeof(name));
+        cupsCopyString(uri, attr->values[0].string.text, sizeof(uri));
+	cupsCopyString(name, resource, sizeof(name));
       }
 
       cgiSetArray("notify_recipient_uri", element, uri);
@@ -1151,7 +1151,7 @@ cgiSetIPPObjectVars(
     for (i = 0; i < attr->num_values; i ++)
     {
       if (i)
-	strlcat(valptr, ", ", sizeof(value) - (size_t)(valptr - value));
+	cupsConcatString(valptr, ", ", sizeof(value) - (size_t)(valptr - value));
 
       valptr += strlen(valptr);
 
@@ -1171,7 +1171,7 @@ cgiSetIPPObjectVars(
 	    break;
 
 	case IPP_TAG_NOVALUE :
-	    strlcat(valptr, "novalue", sizeof(value) - (size_t)(valptr - value));
+	    cupsConcatString(valptr, "novalue", sizeof(value) - (size_t)(valptr - value));
 	    break;
 
 	case IPP_TAG_RANGE :
@@ -1207,7 +1207,7 @@ cgiSetIPPObjectVars(
 	case IPP_TAG_CHARSET :
 	case IPP_TAG_LANGUAGE :
 	case IPP_TAG_MIMETYPE :
-	    strlcat(valptr, attr->values[i].string.text,
+	    cupsConcatString(valptr, attr->values[i].string.text,
 	            sizeof(value) - (size_t)(valptr - value));
 	    break;
 
@@ -1460,7 +1460,7 @@ cgiShowJobs(http_t     *http,		/* I - Connection to server */
       cgiSetVariable("PRINTER_URI_SUPPORTED", val);
     }
     else
-      strlcpy(val, "/jobs/", sizeof(val));
+      cupsCopyString(val, "/jobs/", sizeof(val));
 
     cgiSetVariable("THISURL", val);
 

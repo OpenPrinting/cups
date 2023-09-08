@@ -1450,7 +1450,7 @@ cupsd_start_notifier(
   * notifier program...
   */
 
-  strlcpy(scheme, sub->recipient, sizeof(scheme));
+  cupsCopyString(scheme, sub->recipient, sizeof(scheme));
   if ((ptr = strchr(scheme, ':')) != NULL)
     *ptr = '\0';
 

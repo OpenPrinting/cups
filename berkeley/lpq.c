@@ -499,7 +499,7 @@ show_jobs(const char *command,		/* I - Command name */
       */
 
       if (jobstate == IPP_JOB_PROCESSING)
-	strlcpy(rankstr, "active", sizeof(rankstr));
+	cupsCopyString(rankstr, "active", sizeof(rankstr));
       else
       {
        /*
@@ -523,7 +523,7 @@ show_jobs(const char *command,		/* I - Command name */
 	  snprintf(namestr, sizeof(namestr), "%d copies of %s", jobcopies,
 	           jobname);
 	else
-	  strlcpy(namestr, jobname, sizeof(namestr));
+	  cupsCopyString(namestr, jobname, sizeof(namestr));
 
         _cupsLangPrintf(stdout, _("%s: %-33.33s [job %d localhost]"),
 	                jobuser, rankstr, jobid);

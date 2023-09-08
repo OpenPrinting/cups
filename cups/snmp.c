@@ -121,7 +121,7 @@ _cupsSNMPDefaultCommunity(void)
 
   if (!cg->snmp_community[0])
   {
-    strlcpy(cg->snmp_community, "public", sizeof(cg->snmp_community));
+    cupsCopyString(cg->snmp_community, "public", sizeof(cg->snmp_community));
 
     snprintf(line, sizeof(line), "%s/snmp.conf", cg->cups_serverroot);
     if ((fp = cupsFileOpen(line, "r")) != NULL)
@@ -131,7 +131,7 @@ _cupsSNMPDefaultCommunity(void)
 	if (!_cups_strcasecmp(line, "Community"))
 	{
 	  if (value)
-	    strlcpy(cg->snmp_community, value, sizeof(cg->snmp_community));
+	    cupsCopyString(cg->snmp_community, value, sizeof(cg->snmp_community));
 	  else
 	    cg->snmp_community[0] = '\0';
 
@@ -668,7 +668,7 @@ _cupsSNMPWrite(
   packet.request_id   = request_id;
   packet.object_type  = CUPS_ASN1_NULL_VALUE;
 
-  strlcpy(packet.community, community, sizeof(packet.community));
+  cupsCopyString(packet.community, community, sizeof(packet.community));
 
   for (i = 0; oid[i] >= 0 && i < (CUPS_SNMP_MAX_OID - 1); i ++)
     packet.object_name[i] = oid[i];

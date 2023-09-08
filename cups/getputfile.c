@@ -68,7 +68,7 @@ cupsGetFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
   * Then send GET requests to the HTTP server...
   */
 
-  strlcpy(if_modified_since, httpGetField(http, HTTP_FIELD_IF_MODIFIED_SINCE),
+  cupsCopyString(if_modified_since, httpGetField(http, HTTP_FIELD_IF_MODIFIED_SINCE),
           sizeof(if_modified_since));
 
   do

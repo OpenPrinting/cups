@@ -191,7 +191,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
     * If no username is in the device URI, then use the print job user...
     */
 
-    strlcpy(username, argv[2], sizeof(username));
+    cupsCopyString(username, argv[2], sizeof(username));
   }
 
  /*
@@ -466,7 +466,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Sanitize the document title...
   */
 
-  strlcpy(title, argv[3], sizeof(title));
+  cupsCopyString(title, argv[3], sizeof(title));
 
   if (sanitize_title)
   {
@@ -986,7 +986,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
     }
 
     if (orighost && _cups_strcasecmp(orighost, "localhost"))
-      strlcpy(localhost, orighost, sizeof(localhost));
+      cupsCopyString(localhost, orighost, sizeof(localhost));
     else
       httpGetHostname(NULL, localhost, sizeof(localhost));
 

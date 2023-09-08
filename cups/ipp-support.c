@@ -699,7 +699,7 @@ ippAttributeString(
           ptr = ippEnumString(attr->name, val->integer);
 
           if (buffer && bufptr < bufend)
-            strlcpy(bufptr, ptr, (size_t)(bufend - bufptr + 1));
+            cupsCopyString(bufptr, ptr, (size_t)(bufend - bufptr + 1));
 
           bufptr += strlen(ptr);
           break;
@@ -713,7 +713,7 @@ ippAttributeString(
 
       case IPP_TAG_BOOLEAN :
           if (buffer && bufptr < bufend)
-            strlcpy(bufptr, val->boolean ? "true" : "false", (size_t)(bufend - bufptr + 1));
+            cupsCopyString(bufptr, val->boolean ? "true" : "false", (size_t)(bufend - bufptr + 1));
 
           bufptr += val->boolean ? 4 : 5;
           break;
@@ -757,7 +757,7 @@ ippAttributeString(
 		       val->date[10]);
 
             if (buffer && bufptr < bufend)
-              strlcpy(bufptr, temp, (size_t)(bufend - bufptr + 1));
+              cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr + 1));
 
             bufptr += strlen(temp);
           }
@@ -801,7 +801,7 @@ ippAttributeString(
             bufptr ++;
 
             if (buffer && bufptr < bufend)
-              strlcpy(bufptr, val->string.language, (size_t)(bufend - bufptr));
+              cupsCopyString(bufptr, val->string.language, (size_t)(bufend - bufptr));
             bufptr += strlen(val->string.language);
 
             if (buffer && bufptr < bufend)
@@ -850,7 +850,7 @@ ippAttributeString(
       default :
           ptr = ippTagString(attr->value_tag);
           if (buffer && bufptr < bufend)
-            strlcpy(bufptr, ptr, (size_t)(bufend - bufptr + 1));
+            cupsCopyString(bufptr, ptr, (size_t)(bufend - bufptr + 1));
           bufptr += strlen(ptr);
           break;
     }

@@ -1008,7 +1008,7 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "printer-state-message",
                                IPP_TAG_TEXT)) != NULL)
   {
-    strlcpy(pclass->state_message, attr->values[0].string.text,
+    cupsCopyString(pclass->state_message, attr->values[0].string.text,
             sizeof(pclass->state_message));
 
     cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, pclass, NULL, "%s",
@@ -2428,7 +2428,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
     }
 
     if (printer->sanitized_device_uri)
-      strlcpy(old_device_uri, printer->sanitized_device_uri,
+      cupsCopyString(old_device_uri, printer->sanitized_device_uri,
               sizeof(old_device_uri));
     else
       old_device_uri[0] = '\0';
@@ -2569,7 +2569,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "printer-state-message",
                                IPP_TAG_TEXT)) != NULL)
   {
-    strlcpy(printer->state_message, attr->values[0].string.text,
+    cupsCopyString(printer->state_message, attr->values[0].string.text,
             sizeof(printer->state_message));
 
     cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, printer, NULL, "%s",
@@ -2650,7 +2650,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
     need_restart_job = 1;
     changed_driver   = 1;
 
-    strlcpy(srcfile, con->filename, sizeof(srcfile));
+    cupsCopyString(srcfile, con->filename, sizeof(srcfile));
 
     if ((fp = cupsFileOpen(srcfile, "rb")))
     {
@@ -3725,7 +3725,7 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
   * Figure out who is printing...
   */
 
-  strlcpy(username, get_username(con), sizeof(username));
+  cupsCopyString(username, get_username(con), sizeof(username));
 
   if ((name = strchr(username, '@')) != NULL)
     *name = '\0';			/* Strip @REALM */
@@ -4181,7 +4181,7 @@ copy_banner(cupsd_client_t *con,	/* I - Client connection */
   * Try the localized banner file under the subdirectory...
   */
 
-  strlcpy(attrname, job->attrs->attrs->next->values[0].string.text,
+  cupsCopyString(attrname, job->attrs->attrs->next->values[0].string.text,
           sizeof(attrname));
   if (strlen(attrname) > 2 && attrname[2] == '-')
   {
@@ -4667,7 +4667,7 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
         }
       }
       else if (!strncmp(buffer, "*cupsProtocol:", 14))
-        strlcpy(cups_protocol, buffer, sizeof(cups_protocol));
+        cupsCopyString(cups_protocol, buffer, sizeof(cups_protocol));
 
     cupsFileClose(dst);
   }
@@ -6330,7 +6330,7 @@ get_devices(cupsd_client_t *con)	/* I - Client connection */
   if (requested)
     url_encode_attr(requested, requested_str, sizeof(requested_str));
   else
-    strlcpy(requested_str, "requested-attributes=all", sizeof(requested_str));
+    cupsCopyString(requested_str, "requested-attributes=all", sizeof(requested_str));
 
   if (exclude)
     url_encode_attr(exclude, exclude_str, sizeof(exclude_str));
@@ -6880,7 +6880,7 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
     return;
   }
   else if (attr && attr->values[0].boolean)
-    strlcpy(username, get_username(con), sizeof(username));
+    cupsCopyString(username, get_username(con), sizeof(username));
   else
     username[0] = '\0';
 
@@ -7409,7 +7409,7 @@ get_ppds(cupsd_client_t *con)		/* I - Client connection */
   if (requested)
     url_encode_attr(requested, requested_str, sizeof(requested_str));
   else
-    strlcpy(requested_str, "requested-attributes=all", sizeof(requested_str));
+    cupsCopyString(requested_str, "requested-attributes=all", sizeof(requested_str));
 
   if (device)
     url_encode_attr(device, device_str, sizeof(device_str));
@@ -7986,7 +7986,7 @@ get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "my-subscriptions",
                                IPP_TAG_BOOLEAN)) != NULL &&
       attr->values[0].boolean)
-    strlcpy(username, get_username(con), sizeof(username));
+    cupsCopyString(username, get_username(con), sizeof(username));
   else
     username[0] = '\0';
 
@@ -8700,8 +8700,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     * Auto-type it!
     */
 
-    strlcpy(super, "application", sizeof(super));
-    strlcpy(type, "octet-stream", sizeof(type));
+    cupsCopyString(super, "application", sizeof(super));
+    cupsCopyString(type, "octet-stream", sizeof(type));
   }
 
   cupsRWLockRead(&MimeDatabase->lock);
@@ -9081,10 +9081,10 @@ reject_jobs(cupsd_client_t  *con,	/* I - Client connection */
 
   if ((attr = ippFindAttribute(con->request, "printer-state-message",
                                IPP_TAG_TEXT)) == NULL)
-    strlcpy(printer->state_message, "Rejecting Jobs",
+    cupsCopyString(printer->state_message, "Rejecting Jobs",
             sizeof(printer->state_message));
   else
-    strlcpy(printer->state_message, attr->values[0].string.text,
+    cupsCopyString(printer->state_message, attr->values[0].string.text,
             sizeof(printer->state_message));
 
   cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, printer, NULL,
@@ -9948,8 +9948,8 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     * No document format attribute?  Auto-type it!
     */
 
-    strlcpy(super, "application", sizeof(super));
-    strlcpy(type, "octet-stream", sizeof(type));
+    cupsCopyString(super, "application", sizeof(super));
+    cupsCopyString(type, "octet-stream", sizeof(type));
   }
 
   cupsRWLockRead(&MimeDatabase->lock);
@@ -11022,7 +11022,7 @@ set_printer_defaults(
     * OK, anything else must be a user-defined default...
     */
 
-    strlcpy(name, attr->name, sizeof(name));
+    cupsCopyString(name, attr->name, sizeof(name));
     name[namelen - 8] = '\0';		/* Strip "-default" */
 
     switch (attr->value_tag)
@@ -11224,10 +11224,10 @@ stop_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   if ((attr = ippFindAttribute(con->request, "printer-state-message",
                                IPP_TAG_TEXT)) == NULL)
-    strlcpy(printer->state_message, "Paused", sizeof(printer->state_message));
+    cupsCopyString(printer->state_message, "Paused", sizeof(printer->state_message));
   else
   {
-    strlcpy(printer->state_message, attr->values[0].string.text,
+    cupsCopyString(printer->state_message, attr->values[0].string.text,
             sizeof(printer->state_message));
   }
 
@@ -11262,7 +11262,7 @@ url_encode_attr(ipp_attribute_t *attr,	/* I - Attribute */
 	*bufend;			/* End of buffer */
 
 
-  strlcpy(buffer, attr->name, bufsize);
+  cupsCopyString(buffer, attr->name, bufsize);
   bufptr = buffer + strlen(buffer);
   bufend = buffer + bufsize - 1;
 
@@ -11368,7 +11368,7 @@ user_allowed(cupsd_printer_t *p,	/* I - Printer or class */
     * Strip @REALM for username check...
     */
 
-    strlcpy(baseuser, username, sizeof(baseuser));
+    cupsCopyString(baseuser, username, sizeof(baseuser));
 
     if ((baseptr = strchr(baseuser, '@')) != NULL)
       *baseptr = '\0';
@@ -11632,7 +11632,7 @@ validate_user(cupsd_job_t    *job,	/* I - Job */
   * Get the best authenticated username that is available.
   */
 
-  strlcpy(username, get_username(con), userlen);
+  cupsCopyString(username, get_username(con), userlen);
 
  /*
   * Check the username against the owner...

@@ -133,7 +133,7 @@ ppdcSource::import_ppd(const char *f)	// I - Filename
 
   for (i = 0; i < ppd->num_filters; i ++)
   {
-    strlcpy(line, ppd->filters[i], sizeof(line));
+    cupsCopyString(line, ppd->filters[i], sizeof(line));
 
     for (ptr = line; *ptr; ptr ++)
       if (isspace(*ptr & 255))

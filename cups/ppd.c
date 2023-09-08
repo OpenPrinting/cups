@@ -558,20 +558,20 @@ _ppdOpen(
 
     if (!strcmp(lang->language, "zh_HK"))
     {					/* Traditional Chinese + variants */
-      strlcpy(ll_CC, "zh_TW.", sizeof(ll_CC));
-      strlcpy(ll, "zh_", sizeof(ll));
+      cupsCopyString(ll_CC, "zh_TW.", sizeof(ll_CC));
+      cupsCopyString(ll, "zh_", sizeof(ll));
     }
     else if (!strncmp(lang->language, "zh", 2))
-      strlcpy(ll, "zh_", sizeof(ll));	/* Any Chinese variant */
+      cupsCopyString(ll, "zh_", sizeof(ll));	/* Any Chinese variant */
     else if (!strncmp(lang->language, "jp", 2))
     {					/* Any Japanese variant */
-      strlcpy(ll_CC, "ja", sizeof(ll_CC));
-      strlcpy(ll, "jp", sizeof(ll));
+      cupsCopyString(ll_CC, "ja", sizeof(ll_CC));
+      cupsCopyString(ll, "jp", sizeof(ll));
     }
     else if (!strncmp(lang->language, "nb", 2) || !strncmp(lang->language, "no", 2))
     {					/* Any Norwegian variant */
-      strlcpy(ll_CC, "nb", sizeof(ll_CC));
-      strlcpy(ll, "no", sizeof(ll));
+      cupsCopyString(ll_CC, "nb", sizeof(ll_CC));
+      cupsCopyString(ll, "no", sizeof(ll));
     }
     else
       snprintf(ll, sizeof(ll), "%2.2s.", lang->language);
@@ -792,23 +792,23 @@ _ppdOpen(
 	      ppd->attrs[j]->value)
 	  {
 	    DEBUG_printf("2_ppdOpen: Setting Default%s to %s via attribute...", option->keyword, ppd->attrs[j]->value);
-	    strlcpy(option->defchoice, ppd->attrs[j]->value,
+	    cupsCopyString(option->defchoice, ppd->attrs[j]->value,
 	            sizeof(option->defchoice));
 	    break;
 	  }
 
         if (!strcmp(keyword, "PageSize"))
-	  strlcpy(option->text, _("Media Size"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Media Size"), sizeof(option->text));
 	else if (!strcmp(keyword, "MediaType"))
-	  strlcpy(option->text, _("Media Type"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Media Type"), sizeof(option->text));
 	else if (!strcmp(keyword, "InputSlot"))
-	  strlcpy(option->text, _("Media Source"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Media Source"), sizeof(option->text));
 	else if (!strcmp(keyword, "ColorModel"))
-	  strlcpy(option->text, _("Output Mode"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Output Mode"), sizeof(option->text));
 	else if (!strcmp(keyword, "Resolution"))
-	  strlcpy(option->text, _("Resolution"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Resolution"), sizeof(option->text));
         else
-	  strlcpy(option->text, keyword, sizeof(option->text));
+	  cupsCopyString(option->text, keyword, sizeof(option->text));
       }
     }
 
@@ -898,8 +898,8 @@ _ppdOpen(
       ppd->num_profiles ++;
 
       memset(profile, 0, sizeof(ppd_profile_t));
-      strlcpy(profile->resolution, name, sizeof(profile->resolution));
-      strlcpy(profile->media_type, text, sizeof(profile->media_type));
+      cupsCopyString(profile->resolution, name, sizeof(profile->resolution));
+      cupsCopyString(profile->media_type, text, sizeof(profile->media_type));
 
       profile->density      = (float)_cupsStrScand(string, &sptr, loc);
       profile->gamma        = (float)_cupsStrScand(sptr, &sptr, loc);
@@ -1127,7 +1127,7 @@ _ppdOpen(
 	    goto error;
 	  }
 
-	strlcpy(choice->text, text[0] ? text : _("Custom"),
+	cupsCopyString(choice->text, text[0] ? text : _("Custom"),
 		sizeof(choice->text));
 
 	choice->code = strdup(string);
@@ -1167,7 +1167,7 @@ _ppdOpen(
 	      goto error;
 	    }
 
-	  strlcpy(choice->text, text[0] ? text : _("Custom"),
+	  cupsCopyString(choice->text, text[0] ? text : _("Custom"),
 		  sizeof(choice->text));
         }
       }
@@ -1195,7 +1195,7 @@ _ppdOpen(
       ppd->num_emulations = 1;
       ppd->emulations     = calloc(1, sizeof(ppd_emul_t));
 
-      strlcpy(ppd->emulations[0].name, string, sizeof(ppd->emulations[0].name));
+      cupsCopyString(ppd->emulations[0].name, string, sizeof(ppd->emulations[0].name));
     }
     else if (!strcmp(keyword, "JobPatchFile"))
     {
@@ -1322,7 +1322,7 @@ _ppdOpen(
 	    ppd->attrs[j]->value)
 	{
 	  DEBUG_printf("2_ppdOpen: Setting Default%s to %s via attribute...", option->keyword, ppd->attrs[j]->value);
-	  strlcpy(option->defchoice, ppd->attrs[j]->value,
+	  cupsCopyString(option->defchoice, ppd->attrs[j]->value,
 	          sizeof(option->defchoice));
 	  break;
 	}
@@ -1333,17 +1333,17 @@ _ppdOpen(
       else
       {
         if (!strcmp(name, "PageSize"))
-	  strlcpy(option->text, _("Media Size"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Media Size"), sizeof(option->text));
 	else if (!strcmp(name, "MediaType"))
-	  strlcpy(option->text, _("Media Type"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Media Type"), sizeof(option->text));
 	else if (!strcmp(name, "InputSlot"))
-	  strlcpy(option->text, _("Media Source"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Media Source"), sizeof(option->text));
 	else if (!strcmp(name, "ColorModel"))
-	  strlcpy(option->text, _("Output Mode"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Output Mode"), sizeof(option->text));
 	else if (!strcmp(name, "Resolution"))
-	  strlcpy(option->text, _("Resolution"), sizeof(option->text));
+	  cupsCopyString(option->text, _("Resolution"), sizeof(option->text));
         else
-	  strlcpy(option->text, name, sizeof(option->text));
+	  cupsCopyString(option->text, name, sizeof(option->text));
       }
 
       option->section = PPD_ORDER_ANY;
@@ -1357,7 +1357,7 @@ _ppdOpen(
       */
 
       if (!_cups_strcasecmp(name, "PageRegion"))
-        strlcpy(custom_name, "CustomPageSize", sizeof(custom_name));
+        cupsCopyString(custom_name, "CustomPageSize", sizeof(custom_name));
       else
         snprintf(custom_name, sizeof(custom_name), "Custom%s", name);
 
@@ -1373,7 +1373,7 @@ _ppdOpen(
 	    goto error;
 	  }
 
-	strlcpy(choice->text,
+	cupsCopyString(choice->text,
 	        custom_attr->text[0] ? custom_attr->text : _("Custom"),
 		sizeof(choice->text));
         choice->code = strdup(custom_attr->value);
@@ -1440,7 +1440,7 @@ _ppdOpen(
 	    ppd->attrs[j]->value)
 	{
 	  DEBUG_printf("2_ppdOpen: Setting Default%s to %s via attribute...", option->keyword, ppd->attrs[j]->value);
-	  strlcpy(option->defchoice, ppd->attrs[j]->value,
+	  cupsCopyString(option->defchoice, ppd->attrs[j]->value,
 	          sizeof(option->defchoice));
 	  break;
 	}
@@ -1449,7 +1449,7 @@ _ppdOpen(
         cupsCharsetToUTF8((cups_utf8_t *)option->text, text,
 	                   sizeof(option->text), encoding);
       else
-        strlcpy(option->text, name, sizeof(option->text));
+        cupsCopyString(option->text, name, sizeof(option->text));
 
       option->section = PPD_ORDER_JCL;
       group = NULL;
@@ -1475,7 +1475,7 @@ _ppdOpen(
 	  goto error;
 	}
 
-	strlcpy(choice->text,
+	cupsCopyString(choice->text,
 	        custom_attr->text[0] ? custom_attr->text : _("Custom"),
 		sizeof(choice->text));
         choice->code = strdup(custom_attr->value);
@@ -1505,7 +1505,7 @@ _ppdOpen(
 
 	if (ppdFindChoice(option, tchoice))
 	{
-	  strlcpy(option->defchoice, tchoice, sizeof(option->defchoice));
+	  cupsCopyString(option->defchoice, tchoice, sizeof(option->defchoice));
 
 	  DEBUG_printf("2_ppdOpen: Reset Default%s to %s...", option->keyword, tchoice);
 	}
@@ -1540,7 +1540,7 @@ _ppdOpen(
 
 	if (ppdFindChoice(option, tchoice))
 	{
-	  strlcpy(option->defchoice, tchoice, sizeof(option->defchoice));
+	  cupsCopyString(option->defchoice, tchoice, sizeof(option->defchoice));
 
 	  DEBUG_printf("2_ppdOpen: Reset Default%s to %s...", option->keyword, tchoice);
 	}
@@ -1704,7 +1704,7 @@ _ppdOpen(
         * Set the default as part of the current option...
 	*/
 
-	strlcpy(option->defchoice, string, sizeof(option->defchoice));
+	cupsCopyString(option->defchoice, string, sizeof(option->defchoice));
 
         DEBUG_printf("2_ppdOpen: Set %s to %s...", keyword, option->defchoice);
       }
@@ -1729,11 +1729,11 @@ _ppdOpen(
 
 	    snprintf(toption->defchoice, sizeof(toption->defchoice), "_%s", string);
 	    if (!ppdFindChoice(toption, toption->defchoice))
-	      strlcpy(toption->defchoice, string, sizeof(toption->defchoice));
+	      cupsCopyString(toption->defchoice, string, sizeof(toption->defchoice));
 	  }
 	  else
 	  {
-	    strlcpy(toption->defchoice, string, sizeof(toption->defchoice));
+	    cupsCopyString(toption->defchoice, string, sizeof(toption->defchoice));
 	  }
 
 	  DEBUG_printf("2_ppdOpen: Set %s to %s...", keyword, toption->defchoice);
@@ -1925,7 +1925,7 @@ _ppdOpen(
       {
         char cname[PPD_MAX_NAME];	/* Rewrite with a leading underscore */
         snprintf(cname, sizeof(cname), "_%s", name);
-        strlcpy(name, cname, sizeof(name));
+        cupsCopyString(name, cname, sizeof(name));
       }
 
       if ((size = ppdPageSize(ppd, name)) == NULL)
@@ -1954,7 +1954,7 @@ _ppdOpen(
       {
         char cname[PPD_MAX_NAME];	/* Rewrite with a leading underscore */
         snprintf(cname, sizeof(cname), "_%s", name);
-        strlcpy(name, cname, sizeof(name));
+        cupsCopyString(name, cname, sizeof(name));
       }
 
       if ((size = ppdPageSize(ppd, name)) == NULL)
@@ -1990,7 +1990,7 @@ _ppdOpen(
       {
         char cname[PPD_MAX_NAME];	/* Rewrite with a leading underscore */
         snprintf(cname, sizeof(cname), "_%s", name);
-        strlcpy(name, cname, sizeof(name));
+        cupsCopyString(name, cname, sizeof(name));
       }
 
       if (!strcmp(keyword, "PageSize"))
@@ -2018,11 +2018,11 @@ _ppdOpen(
         cupsCharsetToUTF8((cups_utf8_t *)choice->text, text,
 	                   sizeof(choice->text), encoding);
       else if (!strcmp(name, "True"))
-        strlcpy(choice->text, _("Yes"), sizeof(choice->text));
+        cupsCopyString(choice->text, _("Yes"), sizeof(choice->text));
       else if (!strcmp(name, "False"))
-        strlcpy(choice->text, _("No"), sizeof(choice->text));
+        cupsCopyString(choice->text, _("No"), sizeof(choice->text));
       else
-        strlcpy(choice->text, name, sizeof(choice->text));
+        cupsCopyString(choice->text, name, sizeof(choice->text));
 
       if (option->section == PPD_ORDER_JCL)
         ppd_decode(string);		/* Decode quoted string */
@@ -2387,14 +2387,14 @@ ppd_add_attr(ppd_file_t *ppd,		/* I - PPD file data */
   if (!_cups_strcasecmp(spec, "custom") || !_cups_strncasecmp(spec, "custom.", 7))
   {
     temp->spec[0] = '_';
-    strlcpy(temp->spec + 1, spec, sizeof(temp->spec) - 1);
+    cupsCopyString(temp->spec + 1, spec, sizeof(temp->spec) - 1);
   }
   else {
-      strlcpy(temp->spec, spec, sizeof(temp->spec));
+      cupsCopyString(temp->spec, spec, sizeof(temp->spec));
   }
 
-  strlcpy(temp->name, name, sizeof(temp->name));
-  strlcpy(temp->text, text, sizeof(temp->text));
+  cupsCopyString(temp->name, name, sizeof(temp->name));
+  cupsCopyString(temp->text, text, sizeof(temp->text));
   temp->value = (char *)value;
 
  /*
@@ -2435,7 +2435,7 @@ ppd_add_choice(ppd_option_t *option,	/* I - Option */
   option->num_choices ++;
 
   memset(choice, 0, sizeof(ppd_choice_t));
-  strlcpy(choice->choice, name, sizeof(choice->choice));
+  cupsCopyString(choice->choice, name, sizeof(choice->choice));
 
   return (choice);
 }
@@ -2465,7 +2465,7 @@ ppd_add_size(ppd_file_t *ppd,		/* I - PPD file */
   ppd->num_sizes ++;
 
   memset(size, 0, sizeof(ppd_size_t));
-  strlcpy(size->name, name, sizeof(size->name));
+  cupsCopyString(size->name, name, sizeof(size->name));
 
   return (size);
 }
@@ -2684,7 +2684,7 @@ ppd_get_coption(ppd_file_t *ppd,	/* I - PPD file */
   if ((copt = calloc(1, sizeof(ppd_coption_t))) == NULL)
     return (NULL);
 
-  strlcpy(copt->keyword, name, sizeof(copt->keyword));
+  cupsCopyString(copt->keyword, name, sizeof(copt->keyword));
 
   copt->params = cupsArrayNew((cups_array_func_t)NULL, NULL);
 
@@ -2725,8 +2725,8 @@ ppd_get_cparam(ppd_coption_t *opt,	/* I - PPD file */
     return (NULL);
 
   cparam->type = PPD_CUSTOM_UNKNOWN;
-  strlcpy(cparam->name, param, sizeof(cparam->name));
-  strlcpy(cparam->text, text[0] ? text : param, sizeof(cparam->text));
+  cupsCopyString(cparam->name, param, sizeof(cparam->name));
+  cupsCopyString(cparam->text, text[0] ? text : param, sizeof(cparam->text));
 
  /*
   * Add this record to the array...
@@ -2791,7 +2791,7 @@ ppd_get_group(ppd_file_t      *ppd,	/* I - PPD file */
     ppd->num_groups ++;
 
     memset(group, 0, sizeof(ppd_group_t));
-    strlcpy(group->name, name, sizeof(group->name));
+    cupsCopyString(group->name, name, sizeof(group->name));
 
     cupsCharsetToUTF8((cups_utf8_t *)group->text, text,
 	               sizeof(group->text), encoding);
@@ -2834,7 +2834,7 @@ ppd_get_option(ppd_group_t *group,	/* I - Group */
     group->num_options ++;
 
     memset(option, 0, sizeof(ppd_option_t));
-    strlcpy(option->keyword, name, sizeof(option->keyword));
+    cupsCopyString(option->keyword, name, sizeof(option->keyword));
   }
 
   return (option);

@@ -464,7 +464,7 @@ cupsdLoadAllClasses(void)
       */
 
       if (value)
-	strlcpy(p->state_message, value, sizeof(p->state_message));
+	cupsCopyString(p->state_message, value, sizeof(p->state_message));
     }
     else if (!_cups_strcasecmp(line, "StateTime"))
     {
@@ -719,7 +719,7 @@ cupsdSaveAllClasses(void)
       switch (pclass->num_auth_info_required)
       {
         case 1 :
-            strlcpy(value, pclass->auth_info_required[0], sizeof(value));
+            cupsCopyString(value, pclass->auth_info_required[0], sizeof(value));
 	    break;
 
         case 2 :

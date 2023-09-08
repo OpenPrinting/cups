@@ -11,6 +11,7 @@
  * Include necessary headers...
  */
 
+#include <cups/cups.h>
 #include <cups/string-private.h>
 #include "mime.h"
 
@@ -92,7 +93,7 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
       DEBUG_printf(("1mimeAddFilter: Replacing filter \"%s\", cost %d.",
                     temp->filter, temp->cost));
       temp->cost = cost;
-      strlcpy(temp->filter, filter, sizeof(temp->filter));
+      cupsCopyString(temp->filter, filter, sizeof(temp->filter));
     }
   }
   else
@@ -117,7 +118,7 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
     temp->src  = src;
     temp->dst  = dst;
     temp->cost = cost;
-    strlcpy(temp->filter, filter, sizeof(temp->filter));
+    cupsCopyString(temp->filter, filter, sizeof(temp->filter));
 
     DEBUG_puts("1mimeAddFilter: Adding new filter.");
     cupsArrayAdd(mime->filters, temp);

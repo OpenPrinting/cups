@@ -3218,14 +3218,14 @@ _ppdCreateFromIPP2(
   cupsFilePuts(fp, "*PCFileName: \"ippeve.ppd\"\n");
 
   if ((attr = ippFindAttribute(supported, "printer-make-and-model", IPP_TAG_TEXT)) != NULL)
-    strlcpy(make, ippGetString(attr, 0, NULL), sizeof(make));
+    cupsCopyString(make, ippGetString(attr, 0, NULL), sizeof(make));
   else
-    strlcpy(make, "Unknown Printer", sizeof(make));
+    cupsCopyString(make, "Unknown Printer", sizeof(make));
 
   if (!_cups_strncasecmp(make, "Hewlett Packard ", 16) || !_cups_strncasecmp(make, "Hewlett-Packard ", 16))
   {
     model = make + 16;
-    strlcpy(make, "HP", sizeof(make));
+    cupsCopyString(make, "HP", sizeof(make));
   }
   else if ((model = strchr(make, ' ')) != NULL)
     *model++ = '\0';
@@ -3493,17 +3493,17 @@ _ppdCreateFromIPP2(
       y_dim      = ippFindAttribute(media_size, "y-dimension", IPP_TAG_INTEGER);
 
       if (x_dim && y_dim && (pwg = pwgMediaForSize(ippGetInteger(x_dim, 0), ippGetInteger(y_dim, 0))) != NULL)
-	strlcpy(ppdname, pwg->ppd, sizeof(ppdname));
+	cupsCopyString(ppdname, pwg->ppd, sizeof(ppdname));
       else
-	strlcpy(ppdname, "Unknown", sizeof(ppdname));
+	cupsCopyString(ppdname, "Unknown", sizeof(ppdname));
     }
     else
-      strlcpy(ppdname, "Unknown", sizeof(ppdname));
+      cupsCopyString(ppdname, "Unknown", sizeof(ppdname));
   }
   else if ((pwg = pwgMediaForPWG(ippGetString(ippFindAttribute(supported, "media-default", IPP_TAG_ZERO), 0, NULL))) != NULL)
-    strlcpy(ppdname, pwg->ppd, sizeof(ppdname));
+    cupsCopyString(ppdname, pwg->ppd, sizeof(ppdname));
   else
-    strlcpy(ppdname, "Unknown", sizeof(ppdname));
+    cupsCopyString(ppdname, "Unknown", sizeof(ppdname));
 
   sizes = cupsArrayNew3((cups_array_func_t)pwg_compare_sizes, NULL, NULL, 0, (cups_acopy_func_t)pwg_copy_size, (cups_afree_func_t)free);
 
@@ -3548,7 +3548,7 @@ _ppdCreateFromIPP2(
 	if (temp.bottom == 0 && temp.left == 0 && temp.right == 0 && temp.top == 0)
 	  snprintf(temp.media, sizeof(temp.media), "%s.Borderless", pwg->ppd);
 	else
-	  strlcpy(temp.media, pwg->ppd, sizeof(temp.media));
+	  cupsCopyString(temp.media, pwg->ppd, sizeof(temp.media));
 
 	if (!cupsArrayFind(sizes, &temp))
 	  cupsArrayAdd(sizes, &temp);
@@ -3649,7 +3649,7 @@ _ppdCreateFromIPP2(
 	if (temp.bottom == 0 && temp.left == 0 && temp.right == 0 && temp.top == 0)
 	  snprintf(temp.media, sizeof(temp.media), "%s.Borderless", pwg->ppd);
 	else
-	  strlcpy(temp.media, pwg->ppd, sizeof(temp.media));
+	  cupsCopyString(temp.media, pwg->ppd, sizeof(temp.media));
 
 	if (!cupsArrayFind(sizes, &temp))
 	  cupsArrayAdd(sizes, &temp);
@@ -3720,7 +3720,7 @@ _ppdCreateFromIPP2(
 	  if (temp.bottom == 0 && temp.left == 0 && temp.right == 0 && temp.top == 0)
 	    snprintf(temp.media, sizeof(temp.media), "%s.Borderless", pwg->ppd);
 	  else
-	    strlcpy(temp.media, pwg->ppd, sizeof(temp.media));
+	    cupsCopyString(temp.media, pwg->ppd, sizeof(temp.media));
 
 	  if (!cupsArrayFind(sizes, &temp))
 	    cupsArrayAdd(sizes, &temp);
@@ -3924,7 +3924,7 @@ _ppdCreateFromIPP2(
   if ((attr = ippFindAttribute(ippGetCollection(defattr, 0), "media-type", IPP_TAG_ZERO)) != NULL)
     pwg_ppdize_name(ippGetString(attr, 0, NULL), ppdname, sizeof(ppdname));
   else
-    strlcpy(ppdname, "Unknown", sizeof(ppdname));
+    cupsCopyString(ppdname, "Unknown", sizeof(ppdname));
 
   if ((attr = ippFindAttribute(supported, "media-type-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 1)
   {
@@ -4099,7 +4099,7 @@ _ppdCreateFromIPP2(
     else
     {
       xres = yres = 300;
-      strlcpy(ppdname, "300dpi", sizeof(ppdname));
+      cupsCopyString(ppdname, "300dpi", sizeof(ppdname));
     }
 
     cupsFilePrintf(fp, "*DefaultResolution: %s\n", ppdname);
@@ -4378,7 +4378,7 @@ _ppdCreateFromIPP2(
   if ((attr = ippFindAttribute(supported, "output-bin-default", IPP_TAG_ZERO)) != NULL)
     pwg_ppdize_name(ippGetString(attr, 0, NULL), ppdname, sizeof(ppdname));
   else
-    strlcpy(ppdname, "Unknown", sizeof(ppdname));
+    cupsCopyString(ppdname, "Unknown", sizeof(ppdname));
 
   if ((attr = ippFindAttribute(supported, "output-bin-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 0)
   {
@@ -5078,27 +5078,27 @@ _pwgInputSlotForSource(
     return (NULL);
 
   if (_cups_strcasecmp(media_source, "main"))
-    strlcpy(name, "Cassette", namesize);
+    cupsCopyString(name, "Cassette", namesize);
   else if (_cups_strcasecmp(media_source, "alternate"))
-    strlcpy(name, "Multipurpose", namesize);
+    cupsCopyString(name, "Multipurpose", namesize);
   else if (_cups_strcasecmp(media_source, "large-capacity"))
-    strlcpy(name, "LargeCapacity", namesize);
+    cupsCopyString(name, "LargeCapacity", namesize);
   else if (_cups_strcasecmp(media_source, "bottom"))
-    strlcpy(name, "Lower", namesize);
+    cupsCopyString(name, "Lower", namesize);
   else if (_cups_strcasecmp(media_source, "middle"))
-    strlcpy(name, "Middle", namesize);
+    cupsCopyString(name, "Middle", namesize);
   else if (_cups_strcasecmp(media_source, "top"))
-    strlcpy(name, "Upper", namesize);
+    cupsCopyString(name, "Upper", namesize);
   else if (_cups_strcasecmp(media_source, "rear"))
-    strlcpy(name, "Rear", namesize);
+    cupsCopyString(name, "Rear", namesize);
   else if (_cups_strcasecmp(media_source, "side"))
-    strlcpy(name, "Side", namesize);
+    cupsCopyString(name, "Side", namesize);
   else if (_cups_strcasecmp(media_source, "envelope"))
-    strlcpy(name, "Envelope", namesize);
+    cupsCopyString(name, "Envelope", namesize);
   else if (_cups_strcasecmp(media_source, "main-roll"))
-    strlcpy(name, "Roll", namesize);
+    cupsCopyString(name, "Roll", namesize);
   else if (_cups_strcasecmp(media_source, "alternate-roll"))
-    strlcpy(name, "Roll2", namesize);
+    cupsCopyString(name, "Roll2", namesize);
   else
     pwg_ppdize_name(media_source, name, namesize);
 
@@ -5125,29 +5125,29 @@ _pwgMediaTypeForType(
     return (NULL);
 
   if (_cups_strcasecmp(media_type, "auto"))
-    strlcpy(name, "Auto", namesize);
+    cupsCopyString(name, "Auto", namesize);
   else if (_cups_strcasecmp(media_type, "cardstock"))
-    strlcpy(name, "Cardstock", namesize);
+    cupsCopyString(name, "Cardstock", namesize);
   else if (_cups_strcasecmp(media_type, "envelope"))
-    strlcpy(name, "Envelope", namesize);
+    cupsCopyString(name, "Envelope", namesize);
   else if (_cups_strcasecmp(media_type, "photographic-glossy"))
-    strlcpy(name, "Glossy", namesize);
+    cupsCopyString(name, "Glossy", namesize);
   else if (_cups_strcasecmp(media_type, "photographic-high-gloss"))
-    strlcpy(name, "HighGloss", namesize);
+    cupsCopyString(name, "HighGloss", namesize);
   else if (_cups_strcasecmp(media_type, "photographic-matte"))
-    strlcpy(name, "Matte", namesize);
+    cupsCopyString(name, "Matte", namesize);
   else if (_cups_strcasecmp(media_type, "stationery"))
-    strlcpy(name, "Plain", namesize);
+    cupsCopyString(name, "Plain", namesize);
   else if (_cups_strcasecmp(media_type, "stationery-coated"))
-    strlcpy(name, "Coated", namesize);
+    cupsCopyString(name, "Coated", namesize);
   else if (_cups_strcasecmp(media_type, "stationery-inkjet"))
-    strlcpy(name, "Inkjet", namesize);
+    cupsCopyString(name, "Inkjet", namesize);
   else if (_cups_strcasecmp(media_type, "stationery-letterhead"))
-    strlcpy(name, "Letterhead", namesize);
+    cupsCopyString(name, "Letterhead", namesize);
   else if (_cups_strcasecmp(media_type, "stationery-preprinted"))
-    strlcpy(name, "Preprinted", namesize);
+    cupsCopyString(name, "Preprinted", namesize);
   else if (_cups_strcasecmp(media_type, "transparency"))
-    strlcpy(name, "Transparency", namesize);
+    cupsCopyString(name, "Transparency", namesize);
   else
     pwg_ppdize_name(media_type, name, namesize);
 
@@ -5186,7 +5186,7 @@ _pwgPageSizeForMedia(
     * Use a standard Adobe name...
     */
 
-    strlcpy(name, media->ppd, namesize);
+    cupsCopyString(name, media->ppd, namesize);
   }
   else if (!media->pwg || !strncmp(media->pwg, "custom_", 7) ||
            (sizeptr = strchr(media->pwg, '_')) == NULL ||
@@ -5490,7 +5490,7 @@ pwg_unppdize_name(const char *ppd,	/* I - PPD keyword */
 
     if (!*ppdptr)
     {
-      strlcpy(name, ppd, namesize);
+      cupsCopyString(name, ppd, namesize);
       return;
     }
   }

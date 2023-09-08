@@ -160,7 +160,7 @@ AC_CHECK_FUNCS([statfs statvfs])
 dnl Checks for string functions.
 dnl TODO: Remove strdup, snprintf, and vsnprintf checks since they are C99?
 AC_CHECK_FUNCS([strdup snprintf vsnprintf])
-AC_CHECK_FUNCS([strlcat strlcpy])
+AC_CHECK_FUNCS([cupsConcatString cupsCopyString])
 
 dnl Check for random number functions...
 AC_CHECK_FUNCS([random lrand48 arc4random])

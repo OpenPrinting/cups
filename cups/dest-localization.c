@@ -180,7 +180,7 @@ cupsLocalizeDestMedia(
     if (!size->bottom && !size->left && !size->right && !size->top)
       snprintf(lstr, sizeof(lstr), _cupsLangString(lang, _("%s (Borderless)")), lsize);
     else
-      strlcpy(lstr, lsize, sizeof(lstr));
+      cupsCopyString(lstr, lsize, sizeof(lstr));
   }
   else if (!lsource)
   {
@@ -292,7 +292,7 @@ cupsLocalizeDestValue(
     pwg_media_t *media = pwgMediaForPWG(value);
     cups_size_t size;
 
-    strlcpy(size.media, value, sizeof(size.media));
+    cupsCopyString(size.media, value, sizeof(size.media));
     size.width  = media ? media->width : 0;
     size.length = media ? media->length : 0;
     size.left   = 0;

@@ -432,7 +432,7 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
     if (job_id)
       *job_id = proc->job_id;
 
-    strlcpy(name, proc->name, namelen);
+    cupsCopyString(name, proc->name, namelen);
     cupsArrayRemove(process_array, proc);
     free(proc);
   }
@@ -441,7 +441,7 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
     if (job_id)
       *job_id = 0;
 
-    strlcpy(name, "unknown", namelen);
+    cupsCopyString(name, "unknown", namelen);
   }
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%p, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, name, CUPS_LLCAST namelen, job_id, job_id ? *job_id : 0, name);

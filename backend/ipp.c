@@ -634,7 +634,7 @@ main(int  argc,				/* I - Number of command-line args */
 
     if (ptr)
     {
-      strlcpy(username, ptr, sizeof(username));
+      cupsCopyString(username, ptr, sizeof(username));
       cupsSetUser(ptr);
     }
 
@@ -1315,7 +1315,7 @@ main(int  argc,				/* I - Number of command-line args */
       cupsMarkOptions(ppd, num_options, options);
 
       if ((mandatory = ppdFindAttr(ppd, "cupsMandatory", NULL)) != NULL)
-        strlcpy(mandatory_attrs, mandatory->value, sizeof(mandatory_attrs));
+        cupsCopyString(mandatory_attrs, mandatory->value, sizeof(mandatory_attrs));
     }
 
    /*
@@ -2462,7 +2462,7 @@ debug_attributes(ipp_t *ipp)		/* I - Request or response message */
     }
 
     if (!strcmp(name, "job-password"))
-      strlcpy(buffer, "---", sizeof(buffer));
+      cupsCopyString(buffer, "---", sizeof(buffer));
     else
       ippAttributeString(attr, buffer, sizeof(buffer));
 
@@ -3176,12 +3176,12 @@ report_printer_state(ipp_t *ipp)	/* I - IPP response */
       if (i)
         snprintf(valptr, sizeof(value) - (size_t)(valptr - value), " %s", ippGetString(pmja, i, NULL));
       else
-        strlcpy(value, ippGetString(pmja, i, NULL), sizeof(value));
+        cupsCopyString(value, ippGetString(pmja, i, NULL), sizeof(value));
     }
 
     if (strcmp(value, mandatory_attrs))
     {
-      strlcpy(mandatory_attrs, value, sizeof(mandatory_attrs));
+      cupsCopyString(mandatory_attrs, value, sizeof(mandatory_attrs));
       fprintf(stderr, "PPD: cupsMandatory=\"%s\"\n", value);
     }
   }
@@ -3192,7 +3192,7 @@ report_printer_state(ipp_t *ipp)	/* I - IPP response */
     char	*ptr;			/* Pointer into message */
 
 
-    strlcpy(value, "INFO: ", sizeof(value));
+    cupsCopyString(value, "INFO: ", sizeof(value));
     for (ptr = psm->values[0].string.text, valptr = value + 6;
          *ptr && valptr < (value + sizeof(value) - 6);
 	 ptr ++)

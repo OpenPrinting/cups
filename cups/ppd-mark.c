@@ -436,7 +436,7 @@ ppdFindOption(ppd_file_t *ppd,		/* I - PPD file data */
     ppd_option_t	key;		/* Option search key */
 
 
-    strlcpy(key.keyword, option, sizeof(key.keyword));
+    cupsCopyString(key.keyword, option, sizeof(key.keyword));
 
     return ((ppd_option_t *)cupsArrayFind(ppd->options, &key));
   }

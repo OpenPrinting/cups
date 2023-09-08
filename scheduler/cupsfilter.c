@@ -197,7 +197,7 @@ main(int  argc,				/* I - Number of command-line args */
 		  if (!strcmp(command, "convert"))
 		    num_options = cupsAddOption("copies", argv[i], num_options, &options);
 		  else
-		    strlcpy(cupsfilesconf, argv[i], sizeof(cupsfilesconf));
+		    cupsCopyString(cupsfilesconf, argv[i], sizeof(cupsfilesconf));
 		}
 		else
 		{
@@ -649,7 +649,7 @@ add_printer_filter(
     char filename[1024];		/* Full path to program */
 
     if (program[0] == '/')
-      strlcpy(filename, program, sizeof(filename));
+      cupsCopyString(filename, program, sizeof(filename));
     else
       snprintf(filename, sizeof(filename), "%s/filter/%s", ServerBin, program);
 
@@ -821,7 +821,7 @@ escape_options(
     if (sptr > s)
       *sptr++ = ' ';
 
-    strlcpy(sptr, option->name, bytes - (size_t)(sptr - s));
+    cupsCopyString(sptr, option->name, bytes - (size_t)(sptr - s));
     sptr += strlen(sptr);
     *sptr++ = '=';
 
@@ -1061,11 +1061,11 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   if (!access("/System/Library/Frameworks/ApplicationServices.framework/"
 	      "Versions/A/Frameworks/PrintCore.framework/Versions/A/"
 	      "Resources/English.lproj/Generic.ppd", 0))
-    strlcpy(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
+    cupsCopyString(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
                  "Versions/A/Frameworks/PrintCore.framework/Versions/A/"
 		 "Resources/English.lproj/Generic.ppd", sizeof(ppd));
   else
-    strlcpy(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
+    cupsCopyString(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
                  "Versions/A/Frameworks/PrintCore.framework/Versions/A/"
 		 "Resources/Generic.ppd", sizeof(ppd));
 #else
@@ -1088,14 +1088,14 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
       snprintf(printer_location, sizeof(printer_location),
                "PRINTER_LOCATION=%s", temp);
     else
-      strlcpy(printer_location, "PRINTER_LOCATION=Unknown",
+      cupsCopyString(printer_location, "PRINTER_LOCATION=Unknown",
               sizeof(printer_location));
   }
   else
   {
     snprintf(printer_info, sizeof(printer_info), "PRINTER_INFO=%s",
              printer ? printer : "Unknown");
-    strlcpy(printer_location, "PRINTER_LOCATION=Unknown",
+    cupsCopyString(printer_location, "PRINTER_LOCATION=Unknown",
             sizeof(printer_location));
   }
 
@@ -1183,7 +1183,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
     next = (mime_filter_t *)cupsArrayNext(filters);
 
     if (filter->filter[0] == '/')
-      strlcpy(program, filter->filter, sizeof(program));
+      cupsCopyString(program, filter->filter, sizeof(program));
     else
       snprintf(program, sizeof(program), "%s/filter/%s", ServerBin,
 	       filter->filter);
@@ -1449,7 +1449,7 @@ read_cups_files_conf(
   else
     set_string(&ServerBin, CUPS_SERVERBIN);
 
-  strlcpy(line, filename, sizeof(line));
+  cupsCopyString(line, filename, sizeof(line));
   if ((ptr = strrchr(line, '/')) != NULL)
     *ptr = '\0';
   else

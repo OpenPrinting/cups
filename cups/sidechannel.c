@@ -490,7 +490,7 @@ cupsSideChannelSNMPWalk(
       */
 
       current_oid = real_data;
-      strlcpy(last_oid, current_oid, sizeof(last_oid));
+      cupsCopyString(last_oid, current_oid, sizeof(last_oid));
     }
   }
   while (status == CUPS_SC_STATUS_OK);

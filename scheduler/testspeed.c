@@ -150,17 +150,17 @@ main(int  argc,				/* I - Number of command-line arguments */
     snprintf(reqstr, sizeof(reqstr), "%d", requests);
 
     if (port == 631 || server[0] == '/')
-      strlcpy(serverstr, server, sizeof(serverstr));
+      cupsCopyString(serverstr, server, sizeof(serverstr));
     else
       snprintf(serverstr, sizeof(serverstr), "%s:%d", server, port);
 
-    strlcpy(options, "-cr", sizeof(options));
+    cupsCopyString(options, "-cr", sizeof(options));
 
     if (encryption == HTTP_ENCRYPTION_REQUIRED)
-      strlcat(options, "E", sizeof(options));
+      cupsConcatString(options, "E", sizeof(options));
 
     if (verbose)
-      strlcat(options, "v", sizeof(options));
+      cupsConcatString(options, "v", sizeof(options));
 
     for (i = 0; i < children; i ++)
     {

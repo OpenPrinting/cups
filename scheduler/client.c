@@ -306,20 +306,20 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
     cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to get local address - %s",
                    strerror(errno));
 
-    strlcpy(con->servername, "localhost", sizeof(con->servername));
+    cupsCopyString(con->servername, "localhost", sizeof(con->servername));
     con->serverport = LocalPort;
   }
 #ifdef AF_LOCAL
   else if (httpAddrGetFamily(&temp) == AF_LOCAL)
   {
-    strlcpy(con->servername, "localhost", sizeof(con->servername));
+    cupsCopyString(con->servername, "localhost", sizeof(con->servername));
     con->serverport = LocalPort;
   }
 #endif /* AF_LOCAL */
   else
   {
     if (httpAddrIsLocalhost(&temp))
-      strlcpy(con->servername, "localhost", sizeof(con->servername));
+      cupsCopyString(con->servername, "localhost", sizeof(con->servername));
     else if (HostNameLookups)
       httpAddrLookup(&temp, con->servername, sizeof(con->servername));
     else
@@ -732,7 +732,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  * con->uri are HTTP_MAX_URI bytes in size...
 	  */
 
-          strlcpy(con->uri, resource, sizeof(con->uri));
+          cupsCopyString(con->uri, resource, sizeof(con->uri));
 	}
 
        /*
@@ -1067,7 +1067,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      else
               {
 		if (type == NULL)
-	          strlcpy(line, "text/plain", sizeof(line));
+	          cupsCopyString(line, "text/plain", sizeof(line));
 		else
 	          snprintf(line, sizeof(line), "%s/%s", type->super, type->type);
 
@@ -1405,7 +1405,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
 		type = mimeFileType(MimeDatabase, filename, NULL, NULL);
 		if (type == NULL)
-		  strlcpy(line, "text/plain", sizeof(line));
+		  cupsCopyString(line, "text/plain", sizeof(line));
 		else
 		  snprintf(line, sizeof(line), "%s/%s", type->super, type->type);
 
@@ -1925,7 +1925,7 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
   * never disable it in that case.
   */
 
-  strlcpy(location, httpGetField(con->http, HTTP_FIELD_LOCATION), sizeof(location));
+  cupsCopyString(location, httpGetField(con->http, HTTP_FIELD_LOCATION), sizeof(location));
 
   httpClearFields(con->http);
   httpClearCookie(con->http);
@@ -2083,11 +2083,11 @@ cupsdSendHeader(
 
     if (auth_type == CUPSD_AUTH_BASIC)
     {
-      strlcpy(auth_str, "Basic realm=\"CUPS\"", sizeof(auth_str));
+      cupsCopyString(auth_str, "Basic realm=\"CUPS\"", sizeof(auth_str));
     }
     else if (auth_type == CUPSD_AUTH_NEGOTIATE)
     {
-      strlcpy(auth_str, "Negotiate", sizeof(auth_str));
+      cupsCopyString(auth_str, "Negotiate", sizeof(auth_str));
     }
 
     if (con->best && !con->is_browser && !_cups_strcasecmp(httpGetHostname(con->http, NULL, 0), "localhost"))
@@ -2112,7 +2112,7 @@ cupsdSendHeader(
 #if defined(SO_PEERCRED) && defined(AF_LOCAL)
       if (httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
       {
-        strlcpy(auth_key, ", PeerCred", auth_size);
+        cupsCopyString(auth_key, ", PeerCred", auth_size);
         auth_key += 10;
         auth_size -= 10;
       }
@@ -2141,14 +2141,14 @@ cupsdSendHeader(
 	    snprintf(auth_key, auth_size, ", AuthRef key=\"%s\", Local trc=\"y\"", SystemGroupAuthKey);
           else
 #endif /* HAVE_AUTHORIZATION_H */
-	  strlcpy(auth_key, ", Local trc=\"y\"", auth_size);
+	  cupsCopyString(auth_key, ", Local trc=\"y\"", auth_size);
 	  need_local = 0;
 	  break;
 	}
       }
 
       if (need_local)
-	strlcat(auth_key, ", Local", auth_size);
+	cupsConcatString(auth_key, ", Local", auth_size);
     }
 
     if (auth_str[0])
@@ -2685,12 +2685,12 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
   }
   else if ((!strncmp(con->uri, "/ppd/", 5) || !strncmp(con->uri, "/printers/", 10) || !strncmp(con->uri, "/classes/", 9)) && !strcmp(con->uri + strlen(con->uri) - 4, ".ppd"))
   {
-    strlcpy(dest, strchr(con->uri + 1, '/') + 1, sizeof(dest));
+    cupsCopyString(dest, strchr(con->uri + 1, '/') + 1, sizeof(dest));
     dest[strlen(dest) - 4] = '\0'; /* Strip .ppd */
 
     if ((p = cupsdFindDest(dest)) == NULL)
     {
-      strlcpy(filename, "/", len);
+      cupsCopyString(filename, "/", len);
       cupsdLogClient(con, CUPSD_LOG_INFO, "No destination \"%s\" found.", dest);
       return (NULL);
     }
@@ -2722,12 +2722,12 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
   }
   else if ((!strncmp(con->uri, "/icons/", 7) || !strncmp(con->uri, "/printers/", 10) || !strncmp(con->uri, "/classes/", 9)) && !strcmp(con->uri + strlen(con->uri) - 4, ".png"))
   {
-    strlcpy(dest, strchr(con->uri + 1, '/') + 1, sizeof(dest));
+    cupsCopyString(dest, strchr(con->uri + 1, '/') + 1, sizeof(dest));
     dest[strlen(dest) - 4] = '\0'; /* Strip .png */
 
     if ((p = cupsdFindDest(dest)) == NULL)
     {
-      strlcpy(filename, "/", len);
+      cupsCopyString(filename, "/", len);
       cupsdLogClient(con, CUPSD_LOG_INFO, "No destination \"%s\" found.", dest);
       return (NULL);
     }
@@ -2762,18 +2762,18 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
   }
   else if (!strcmp(con->uri, "/admin/conf/cupsd.conf"))
   {
-    strlcpy(filename, ConfigurationFile, len);
+    cupsCopyString(filename, ConfigurationFile, len);
 
     perm_check = 0;
   }
   else if (!strncmp(con->uri, "/admin/log/", 11))
   {
     if (!strncmp(con->uri + 11, "access_log", 10) && AccessLog[0] == '/')
-      strlcpy(filename, AccessLog, len);
+      cupsCopyString(filename, AccessLog, len);
     else if (!strncmp(con->uri + 11, "error_log", 9) && ErrorLog[0] == '/')
-      strlcpy(filename, ErrorLog, len);
+      cupsCopyString(filename, ErrorLog, len);
     else if (!strncmp(con->uri + 11, "page_log", 8) && PageLog[0] == '/')
-      strlcpy(filename, PageLog, len);
+      cupsCopyString(filename, PageLog, len);
     else
       return (NULL);
 
@@ -2791,24 +2791,24 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
     snprintf(filename, len, "%s/rss/%s", CacheDir, con->uri + 5);
   else if (!strncmp(con->uri, "/strings/", 9) && !strcmp(con->uri + strlen(con->uri) - 8, ".strings"))
   {
-    strlcpy(dest, con->uri + 9, sizeof(dest));
+    cupsCopyString(dest, con->uri + 9, sizeof(dest));
     dest[strlen(dest) - 8] = '\0';
 
     if ((p = cupsdFindDest(dest)) == NULL)
     {
-      strlcpy(filename, "/", len);
+      cupsCopyString(filename, "/", len);
       cupsdLogClient(con, CUPSD_LOG_INFO, "No destination \"%s\" found.", dest);
       return (NULL);
     }
 
     if (!p->strings)
     {
-      strlcpy(filename, "/", len);
+      cupsCopyString(filename, "/", len);
       cupsdLogClient(con, CUPSD_LOG_INFO, "No strings files for \"%s\".", dest);
       return (NULL);
     }
 
-    strlcpy(filename, p->strings, len);
+    cupsCopyString(filename, p->strings, len);
 
     perm_check = 0;
   }
@@ -2894,7 +2894,7 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
     */
 
     if (con->uri[strlen(con->uri) - 1] != '/')
-      strlcat(con->uri, "/", sizeof(con->uri));
+      cupsConcatString(con->uri, "/", sizeof(con->uri));
 
    /*
     * Find the directory index file, trying every language...
@@ -2926,7 +2926,7 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
       ptr  = filename + strlen(filename);
       plen = len - (size_t)(ptr - filename);
 
-      strlcpy(ptr, "index.html", plen);
+      cupsCopyString(ptr, "index.html", plen);
       status = lstat(filename, filestats);
     }
     while (status && language[0]);
@@ -3222,7 +3222,7 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
   argv[0] = command;
 
   if (options)
-    strlcpy(argbuf, options, sizeof(argbuf));
+    cupsCopyString(argbuf, options, sizeof(argbuf));
   else
     argbuf[0] = '\0';
 
@@ -3340,9 +3340,9 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
   else if (con->language)
     snprintf(lang, sizeof(lang), "LANG=%s.UTF8", con->language->language);
   else
-    strlcpy(lang, "LANG=C", sizeof(lang));
+    cupsCopyString(lang, "LANG=C", sizeof(lang));
 
-  strlcpy(remote_addr, "REMOTE_ADDR=", sizeof(remote_addr));
+  cupsCopyString(remote_addr, "REMOTE_ADDR=", sizeof(remote_addr));
   httpAddrGetString(httpGetAddress(con->http), remote_addr + 12,
                  sizeof(remote_addr) - 12);
 
@@ -3537,7 +3537,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   * Copy the Host: header for later use...
   */
 
-  strlcpy(con->clientname, httpGetField(con->http, HTTP_FIELD_HOST),
+  cupsCopyString(con->clientname, httpGetField(con->http, HTTP_FIELD_HOST),
           sizeof(con->clientname));
   if ((ptr = strrchr(con->clientname, ':')) != NULL && !strchr(ptr, ']'))
   {

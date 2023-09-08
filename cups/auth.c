@@ -512,7 +512,7 @@ _cupsSetNegotiateAuthString(
       authsize         = sizeof(http->_authstring);
     }
 
-    strlcpy(http->authstring, "Negotiate ", (size_t)authsize);
+    cupsCopyString(http->authstring, "Negotiate ", (size_t)authsize);
     httpEncode64_2(http->authstring + 10, authsize - 10, output_token.value,
 		   (int)output_token.length);
 
@@ -862,7 +862,7 @@ cups_gss_getname(
 	  * Use the resolved hostname...
 	  */
 
-	  strlcpy(http->gsshost, host->h_name, sizeof(http->gsshost));
+	  cupsCopyString(http->gsshost, host->h_name, sizeof(http->gsshost));
 	}
 	else
 	{

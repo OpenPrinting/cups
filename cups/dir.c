@@ -15,6 +15,7 @@
  * Include necessary headers...
  */
 
+#include "cups.h"
 #include "string-private.h"
 #include "debug-internal.h"
 #include "dir.h"
@@ -184,7 +185,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
   * Copy the name over and convert the file information...
   */
 
-  strlcpy(dp->entry.filename, entry.cFileName, sizeof(dp->entry.filename));
+  cupsCopyString(dp->entry.filename, entry.cFileName, sizeof(dp->entry.filename));
 
   if (entry.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
     dp->entry.fileinfo.st_mode = 0755 | S_IFDIR;
@@ -325,7 +326,7 @@ cupsDirOpen(const char *directory)	/* I - Directory name */
   * Copy the directory name for later use...
   */
 
-  strlcpy(dp->directory, directory, sizeof(dp->directory));
+  cupsCopyString(dp->directory, directory, sizeof(dp->directory));
 
  /*
   * Return the new directory structure...
@@ -386,7 +387,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
     * Copy the name over and get the file information...
     */
 
-    strlcpy(dp->entry.filename, entry->d_name, sizeof(dp->entry.filename));
+    cupsCopyString(dp->entry.filename, entry->d_name, sizeof(dp->entry.filename));
 
     snprintf(filename, sizeof(filename), "%s/%s", dp->directory, entry->d_name);
 

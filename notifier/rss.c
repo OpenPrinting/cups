@@ -182,7 +182,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       return (1);
     }
 
-    strlcpy(newname, filename, sizeof(newname));
+    cupsCopyString(newname, filename, sizeof(newname));
 
     httpAssembleURI(HTTP_URI_CODING_ALL, baseurl, sizeof(baseurl), "http",
                     NULL, host, port, resource);

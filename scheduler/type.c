@@ -13,6 +13,7 @@
  * Include necessary headers...
  */
 
+#include <cups/cups.h>
 #include <cups/string-private.h>
 #include <locale.h>
 #include "mime.h"
@@ -131,7 +132,7 @@ mimeAddType(mime_t     *mime,		/* I - MIME database */
     return (NULL);
   }
 
-  strlcpy(temp->super, super, sizeof(temp->super));
+  cupsCopyString(temp->super, super, sizeof(temp->super));
   memcpy(temp->type, type, typelen);
   temp->priority = 100;
 
@@ -512,7 +513,7 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
         case MIME_MAGIC_MATCH :
 	    if ((size_t)length[0] > (sizeof(temp->value.matchv) - 1))
 	      return (-1);
-	    strlcpy(temp->value.matchv, value[0], sizeof(temp->value.matchv));
+	    cupsCopyString(temp->value.matchv, value[0], sizeof(temp->value.matchv));
 	    break;
 	case MIME_MAGIC_ASCII :
 	case MIME_MAGIC_PRINTABLE :
@@ -559,7 +560,7 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
 	    if ((size_t)length[0] > (sizeof(temp->value.localev) - 1))
 	      return (-1);
 
-	    strlcpy(temp->value.localev, value[0], sizeof(temp->value.localev));
+	    cupsCopyString(temp->value.localev, value[0], sizeof(temp->value.localev));
 	    break;
 	case MIME_MAGIC_CONTAINS :
 	    temp->offset = strtol(value[0], NULL, 0);
@@ -715,8 +716,8 @@ mimeType(mime_t     *mime,		/* I - MIME database */
   * Lookup the type in the array...
   */
 
-  strlcpy(key.super, super, sizeof(key.super));
-  strlcpy(key.type, type, sizeof(key.type));
+  cupsCopyString(key.super, super, sizeof(key.super));
+  cupsCopyString(key.type, type, sizeof(key.type));
 
   mt = (mime_type_t *)cupsArrayFind(mime->types, &key);
   DEBUG_printf("1mimeType: Returning %p.", mt);

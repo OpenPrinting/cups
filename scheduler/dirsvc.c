@@ -355,7 +355,7 @@ dnssdBuildTxtRecord(
     */
 
     if ((ptr = DNSSDHostName + strlen(DNSSDHostName) - 1) >= DNSSDHostName && *ptr == '.')
-      strlcpy(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
+      cupsCopyString(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
     else
       snprintf(admin_hostname, sizeof(admin_hostname), "%s.", DNSSDHostName);
   }
@@ -425,7 +425,7 @@ dnssdBuildTxtRecord(
       if (ptr > urf_str && ptr < (urf_str + sizeof(urf_str) - 1))
 	*ptr++ = ',';
 
-      strlcpy(ptr, value, sizeof(urf_str) - (size_t)(ptr - urf_str));
+      cupsCopyString(ptr, value, sizeof(urf_str) - (size_t)(ptr - urf_str));
       ptr += strlen(ptr);
 
       if (ptr >= (urf_str + sizeof(urf_str) - 1))
@@ -1045,7 +1045,7 @@ dnssdRegisterInstance(
   if (subtypes)
     snprintf(temp, sizeof(temp), "%s,%s", type, subtypes);
   else
-    strlcpy(temp, type, sizeof(temp));
+    cupsCopyString(temp, type, sizeof(temp));
 
   *srv  = DNSSDMaster;
   error = DNSServiceRegister(srv, kDNSServiceFlagsShareConnection,
@@ -1079,7 +1079,7 @@ dnssdRegisterInstance(
     char	*start,			/* Start of subtype */
 		subtype[256];		/* Subtype string */
 
-    strlcpy(temp, subtypes, sizeof(temp));
+    cupsCopyString(temp, subtypes, sizeof(temp));
 
     for (start = temp; *start; start = ptr)
     {
@@ -1190,15 +1190,15 @@ dnssdRegisterPrinter(
       if (DNSSDComputerName)
 	snprintf(name, sizeof(name), "%s @ %s", p->info, DNSSDComputerName);
       else
-	strlcpy(name, p->info, sizeof(name));
+	cupsCopyString(name, p->info, sizeof(name));
     }
     else if (DNSSDComputerName)
       snprintf(name, sizeof(name), "%s @ %s", p->name, DNSSDComputerName);
     else
-      strlcpy(name, p->name, sizeof(name));
+      cupsCopyString(name, p->name, sizeof(name));
   }
   else
-    strlcpy(name, p->reg_name, sizeof(name));
+    cupsCopyString(name, p->reg_name, sizeof(name));
 
  /*
   * Register IPP and LPD...
@@ -1526,7 +1526,7 @@ dnssdUpdateDNSSDName(int from_callback)	/* I - Called from callback? */
     if (DNSSDComputerName)
       snprintf(webif, sizeof(webif), "CUPS @ %s", DNSSDComputerName);
     else
-      strlcpy(webif, "CUPS", sizeof(webif));
+      cupsCopyString(webif, "CUPS", sizeof(webif));
 
     dnssdDeregisterInstance(&WebIFSrv, from_callback);
     dnssdRegisterInstance(&WebIFSrv, NULL, webif, "_http._tcp", "_printer", DNSSDPort, NULL, 1, from_callback);
@@ -1565,7 +1565,7 @@ get_auth_info_required(
       if (i)
 	*bufptr++ = ',';
 
-      strlcpy(bufptr, p->auth_info_required[i], bufsize - (size_t)(bufptr - buffer));
+      cupsCopyString(bufptr, p->auth_info_required[i], bufsize - (size_t)(bufptr - buffer));
       bufptr += strlen(bufptr);
     }
 
@@ -1598,11 +1598,11 @@ get_auth_info_required(
           return (NULL);
 
       case CUPSD_AUTH_NEGOTIATE :
-	  strlcpy(buffer, "negotiate", bufsize);
+	  cupsCopyString(buffer, "negotiate", bufsize);
 	  break;
 
       default :
-	  strlcpy(buffer, "username,password", bufsize);
+	  cupsCopyString(buffer, "username,password", bufsize);
 	  break;
     }
 

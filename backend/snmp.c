@@ -498,7 +498,7 @@ fix_make_model(
     make_model[0] = 'H';
     make_model[1] = 'P';
     make_model[2] = ' ';
-    strlcpy(make_model + 3, mmptr, (size_t)make_model_size - 3);
+    cupsCopyString(make_model + 3, mmptr, (size_t)make_model_size - 3);
   }
   else if (!_cups_strncasecmp(old_make_model, "deskjet", 7))
     snprintf(make_model, (size_t)make_model_size, "HP DeskJet%s", old_make_model + 7);
@@ -507,7 +507,7 @@ fix_make_model(
   else if (!_cups_strncasecmp(old_make_model, "stylus_pro_", 11))
     snprintf(make_model, (size_t)make_model_size, "EPSON Stylus Pro %s", old_make_model + 11);
   else
-    strlcpy(make_model, old_make_model, (size_t)make_model_size);
+    cupsCopyString(make_model, old_make_model, (size_t)make_model_size);
 
   if ((mmptr = strstr(make_model, ", Inc.,")) != NULL)
   {
@@ -721,7 +721,7 @@ probe_device(snmp_cache_t *device)	/* I - Device */
 	    * Insert hostname/address...
 	    */
 
-	    strlcpy(uriptr, device->addrname, sizeof(uri) - (size_t)(uriptr - uri));
+	    cupsCopyString(uriptr, device->addrname, sizeof(uri) - (size_t)(uriptr - uri));
 	    uriptr += strlen(uriptr);
 	    format += 2;
 	  }
@@ -1182,7 +1182,7 @@ scan_devices(int ipv4,			/* I - SNMP IPv4 socket */
     {
       char	ifname[255];		/* Interface name */
 
-      strlcpy(ifname, address + 4, sizeof(ifname));
+      cupsCopyString(ifname, address + 4, sizeof(ifname));
       if (ifname[0])
         ifname[strlen(ifname) - 1] = '\0';
 

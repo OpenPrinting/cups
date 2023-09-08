@@ -811,7 +811,7 @@ main(int  argc,				/* I - Number of command-line args */
         * Anchor for HTML output...
         */
 
-        strlcpy(anchor, line + 4, sizeof(anchor));
+        cupsCopyString(anchor, line + 4, sizeof(anchor));
       }
       else if (strncmp(line, ".\\\"", 3))
       {
@@ -856,7 +856,7 @@ main(int  argc,				/* I - Number of command-line args */
         if (!line[0])
           continue;			// Skip initial blank line
       }
-      
+
       html_fputs(line, &font, outfile);
       putc('\n', outfile);
 
@@ -944,7 +944,7 @@ html_alternate(const char *s,		/* I - String */
 		manfile[1024],		// Man page filename
 		manurl[1024];		// Man page URL
 
-        strlcpy(name, s, sizeof(name));
+        cupsCopyString(name, s, sizeof(name));
         if ((size_t)(end - s) < sizeof(name))
           name[end - s] = '\0';
 

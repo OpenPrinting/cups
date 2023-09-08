@@ -718,7 +718,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
       *uriptr++ = '\0';
 
-      strlcpy(make, uriptr, sizeof(make));
+      cupsCopyString(make, uriptr, sizeof(make));
 
       if ((makeptr = strchr(make, ' ')) != NULL)
         *makeptr = '\0';
@@ -727,13 +727,13 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       else if (!_cups_strncasecmp(make, "laserjet", 8) ||
                !_cups_strncasecmp(make, "deskjet", 7) ||
                !_cups_strncasecmp(make, "designjet", 9))
-        strlcpy(make, "HP", sizeof(make));
+        cupsCopyString(make, "HP", sizeof(make));
       else if (!_cups_strncasecmp(make, "phaser", 6))
-        strlcpy(make, "Xerox", sizeof(make));
+        cupsCopyString(make, "Xerox", sizeof(make));
       else if (!_cups_strncasecmp(make, "stylus", 6))
-        strlcpy(make, "Epson", sizeof(make));
+        cupsCopyString(make, "Epson", sizeof(make));
       else
-        strlcpy(make, "Generic", sizeof(make));
+        cupsCopyString(make, "Generic", sizeof(make));
 
       if (!cgiGetVariable("CURRENT_MAKE"))
         cgiSetVariable("CURRENT_MAKE", make);
@@ -782,7 +782,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     if ((attr = ippFindAttribute(oldinfo, "device-uri", IPP_TAG_URI)) != NULL)
     {
-      strlcpy(uri, attr->values[0].string.text, sizeof(uri));
+      cupsCopyString(uri, attr->values[0].string.text, sizeof(uri));
       if ((uriptr = strchr(uri, ':')) != NULL && strncmp(uriptr, "://", 3) == 0)
         *uriptr = '\0';
 
@@ -1137,7 +1137,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
                  NULL, cgiGetVariable("PRINTER_INFO"));
 
-    strlcpy(uri, cgiGetVariable("DEVICE_URI"), sizeof(uri));
+    cupsCopyString(uri, cgiGetVariable("DEVICE_URI"), sizeof(uri));
 
    /*
     * Strip make and model from URI...
@@ -1375,15 +1375,15 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     */
 
     if (cgiGetVariable("KERBEROS"))
-      strlcpy(default_auth_type, "Negotiate", sizeof(default_auth_type));
+      cupsCopyString(default_auth_type, "Negotiate", sizeof(default_auth_type));
     else
     {
       val = cupsGetOption("DefaultAuthType", num_settings, settings);
 
       if (!val || !_cups_strcasecmp(val, "Negotiate"))
-        strlcpy(default_auth_type, "Basic", sizeof(default_auth_type));
+        cupsCopyString(default_auth_type, "Basic", sizeof(default_auth_type));
       else
-        strlcpy(default_auth_type, val, sizeof(default_auth_type));
+        cupsCopyString(default_auth_type, val, sizeof(default_auth_type));
     }
 
     fprintf(stderr, "DEBUG: DefaultAuthType %s\n", default_auth_type);
@@ -1718,7 +1718,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     * well...
     */
 
-    strlcat(filename, ".default", sizeof(filename));
+    cupsConcatString(filename, ".default", sizeof(filename));
 
     if (!stat(filename, &info) && info.st_size < (1024 * 1024) &&
         (cupsd = cupsFileOpen(filename, "r")) != NULL)
@@ -3230,7 +3230,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 	  * Get default option name...
 	  */
 
-	  strlcpy(keyword, line + 8, sizeof(keyword));
+	  cupsCopyString(keyword, line + 8, sizeof(keyword));
 
 	  for (keyptr = keyword; *keyptr; keyptr ++)
 	    if (*keyptr == ':' || isspace(*keyptr & 255))
@@ -3486,7 +3486,7 @@ get_option_value(
     * Not a custom choice...
     */
 
-    strlcpy(buffer, val, bufsize);
+    cupsCopyString(buffer, val, bufsize);
     return (buffer);
   }
 

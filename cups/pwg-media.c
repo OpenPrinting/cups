@@ -920,7 +920,7 @@ pwgMediaForPWG(const char *pwg)		/* I - PWG size name */
         size->width  = w;
         size->length = l;
 
-        strlcpy(cg->pwg_name, pwg, sizeof(cg->pwg_name));
+        cupsCopyString(cg->pwg_name, pwg, sizeof(cg->pwg_name));
 	size->pwg = cg->pwg_name;
 
         if (numer == 100)

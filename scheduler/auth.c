@@ -205,7 +205,7 @@ cupsdAddNameMask(cups_array_t **masks,	/* IO - Masks array (created as needed) *
     * Deny *interface*...
     */
 
-    strlcpy(ifname, name + 4, sizeof(ifname));
+    cupsCopyString(ifname, name + 4, sizeof(ifname));
 
     ifptr = ifname + strlen(ifname) - 1;
 
@@ -357,7 +357,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       if (authinfo->count == 1 && authinfo->items[0].value &&
           authinfo->items[0].valueLength >= 2)
       {
-        strlcpy(username, authinfo->items[0].value, sizeof(username));
+        cupsCopyString(username, authinfo->items[0].value, sizeof(username));
 
         cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" using AuthRef.", username);
       }
@@ -389,7 +389,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
         return;
       }
 
-      strlcpy(username, pwd->pw_name, sizeof(username));
+      cupsCopyString(username, pwd->pw_name, sizeof(username));
 
       cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" using AuthRef + PeerCred.", username);
     }
@@ -471,7 +471,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       return;
     }
 
-    strlcpy(username, authorization + 9, sizeof(username));
+    cupsCopyString(username, authorization + 9, sizeof(username));
 
 #  ifdef HAVE_GSSAPI
     con->gss_uid = CUPSD_UCRED_UID(peercred);
@@ -499,7 +499,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       return;
     }
 
-    strlcpy(username, localuser->username, sizeof(username));
+    cupsCopyString(username, localuser->username, sizeof(username));
     con->type = localuser->type;
 
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as %s using Local.", username);
@@ -552,7 +552,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       return;
     }
 
-    strlcpy(password, ptr, sizeof(password));
+    cupsCopyString(password, ptr, sizeof(password));
 
    /*
     * Validate the username and password...
@@ -572,8 +572,8 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       cupsd_authdata_t	data;		/* Authentication data */
 
 
-      strlcpy(data.username, username, sizeof(data.username));
-      strlcpy(data.password, password, sizeof(data.password));
+      cupsCopyString(data.username, username, sizeof(data.username));
+      cupsCopyString(data.password, password, sizeof(data.password));
 
 #  ifdef __sun
       pamdata.conv        = (int (*)(int, struct pam_message **,
@@ -815,7 +815,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 	return;
       }
 
-      strlcpy(username, output_token.value, sizeof(username));
+      cupsCopyString(username, output_token.value, sizeof(username));
 
       cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" using Negotiate.", username);
 
@@ -864,7 +864,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
 
     if (sscanf(authorization, "%255s", scheme) != 1)
-      strlcpy(scheme, "UNKNOWN", sizeof(scheme));
+      cupsCopyString(scheme, "UNKNOWN", sizeof(scheme));
 
     cupsdLogClient(con, CUPSD_LOG_ERROR, "Bad authentication data \"%s ...\".", scheme);
     return;
@@ -876,8 +876,8 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   * data and return...
   */
 
-  strlcpy(con->username, username, sizeof(con->username));
-  strlcpy(con->password, password, sizeof(con->password));
+  cupsCopyString(con->username, username, sizeof(con->username));
+  cupsCopyString(con->password, password, sizeof(con->password));
 }
 
 
@@ -1409,7 +1409,7 @@ cupsdFindBest(const char   *path,	/* I - Resource path */
   * URIs...
   */
 
-  strlcpy(uri, path, sizeof(uri));
+  cupsCopyString(uri, path, sizeof(uri));
 
   if ((uriptr = strchr(uri, '?')) != NULL)
     *uriptr = '\0';		/* Drop trailing query string */
@@ -1671,7 +1671,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       cupsdLogMessage(CUPSD_LOG_DEBUG,
                       "cupsdIsAuthorized: requesting-user-name=\"%s\"",
                       attr->values[0].string.text);
-      strlcpy(username, attr->values[0].string.text, sizeof(username));
+      cupsCopyString(username, attr->values[0].string.text, sizeof(username));
     }
     else if (best->satisfy == CUPSD_AUTH_SATISFY_ALL || auth == CUPSD_AUTH_DENY)
       return (HTTP_STATUS_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
@@ -1708,7 +1708,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       return (HTTP_STATUS_UNAUTHORIZED);
     }
 
-    strlcpy(username, con->username, sizeof(username));
+    cupsCopyString(username, con->username, sizeof(username));
   }
 
  /*
@@ -1725,7 +1725,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
   if (owner)
   {
-    strlcpy(ownername, owner, sizeof(ownername));
+    cupsCopyString(ownername, owner, sizeof(ownername));
 
     if ((ptr = strchr(ownername, '@')) != NULL)
       *ptr = '\0';

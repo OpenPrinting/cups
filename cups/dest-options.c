@@ -1160,11 +1160,11 @@ cupsGetDestMediaByIndex(
   }
 
   if (nsize->key)
-    strlcpy(size->media, nsize->key, sizeof(size->media));
+    cupsCopyString(size->media, nsize->key, sizeof(size->media));
   else if (nsize->size_name)
-    strlcpy(size->media, nsize->size_name, sizeof(size->media));
+    cupsCopyString(size->media, nsize->size_name, sizeof(size->media));
   else if ((pwg = pwgMediaForSize(nsize->width, nsize->length)) != NULL)
-    strlcpy(size->media, pwg->pwg, sizeof(size->media));
+    cupsCopyString(size->media, pwg->pwg, sizeof(size->media));
   else
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), 0);
@@ -1936,18 +1936,18 @@ cups_collection_string(
         if (!ippGetBoolean(member, 0))
         {
 	  if (bufptr < bufend)
-	    strlcpy(bufptr, "no", (size_t)(bufend - bufptr + 1));
+	    cupsCopyString(bufptr, "no", (size_t)(bufend - bufptr + 1));
 	  bufptr += 2;
         }
 
 	if (bufptr < bufend)
-	  strlcpy(bufptr, mname, (size_t)(bufend - bufptr + 1));
+	  cupsCopyString(bufptr, mname, (size_t)(bufend - bufptr + 1));
 	bufptr += strlen(mname);
         continue;
       }
 
       if (bufptr < bufend)
-        strlcpy(bufptr, mname, (size_t)(bufend - bufptr + 1));
+        cupsCopyString(bufptr, mname, (size_t)(bufend - bufptr + 1));
       bufptr += strlen(mname);
 
       if (bufptr < bufend)
@@ -2028,7 +2028,7 @@ cups_collection_string(
 		    snprintf(temp, sizeof(temp), "%04u-%02u-%02uT%02u:%02u:%02u%c%02u%02u", year, date[2], date[3], date[4], date[5], date[6], date[8], date[9], date[10]);
 
 		  if (bufptr < bufend)
-		    strlcpy(bufptr, temp, (size_t)(bufend - bufptr + 1));
+		    cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr + 1));
 
 		  bufptr += strlen(temp);
 		}
@@ -2048,7 +2048,7 @@ cups_collection_string(
                     snprintf(temp, sizeof(temp), "%dx%d%s", xres, yres, units == IPP_RES_PER_INCH ? "dpi" : "dpcm");
 
 		  if (bufptr < bufend)
-		    strlcpy(bufptr, temp, (size_t)(bufend - bufptr + 1));
+		    cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr + 1));
 
 		  bufptr += strlen(temp);
                 }
@@ -2064,7 +2064,7 @@ cups_collection_string(
 		  snprintf(temp, sizeof(temp), "%d-%d", lower, upper);
 
 		  if (bufptr < bufend)
-		    strlcpy(bufptr, temp, (size_t)(bufend - bufptr + 1));
+		    cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr + 1));
 
 		  bufptr += strlen(temp);
                 }
@@ -2335,7 +2335,7 @@ cups_create_defaults(
     if (!ippGetName(attr) || ippGetGroupTag(attr) != IPP_TAG_PRINTER)
       continue;
 
-    strlcpy(name, ippGetName(attr), sizeof(name));
+    cupsCopyString(name, ippGetName(attr), sizeof(name));
     if ((nameptr = name + strlen(name) - 8) <= name || strcmp(nameptr, "-default"))
       continue;
 
@@ -2544,7 +2544,7 @@ cups_create_media_db(
           * Key is just the size name...
           */
 
-          strlcpy(media_key, mdb.size_name, sizeof(media_key));
+          cupsCopyString(media_key, mdb.size_name, sizeof(media_key));
         }
 
        /*
@@ -2552,7 +2552,7 @@ cups_create_media_db(
         */
 
         if (!mdb.bottom && !mdb.left && !mdb.right && !mdb.top)
-          strlcat(media_key, "_borderless", sizeof(media_key));
+          cupsConcatString(media_key, "_borderless", sizeof(media_key));
 
         mdb.key = media_key;
       }

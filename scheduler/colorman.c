@@ -388,7 +388,7 @@ apple_register_profiles(
 	snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
 		 attr->value);
       else
-	strlcpy(iccfile, attr->value, sizeof(iccfile));
+	cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
       if (access(iccfile, 0))
       {
@@ -488,7 +488,7 @@ apple_register_profiles(
 	  snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
 	           attr->value);
         else
-	  strlcpy(iccfile, attr->value, sizeof(iccfile));
+	  cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
         if (_cupsFileCheck(iccfile, _CUPS_FILE_CHECK_FILE, !RunUser,
 	                   cupsdLogFCMessage, p))
@@ -1409,7 +1409,7 @@ colord_register_printer(
         snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
                  attr->value);
       else
-        strlcpy(iccfile, attr->value, sizeof(iccfile));
+        cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
       if (_cupsFileCheck(iccfile, _CUPS_FILE_CHECK_FILE, !RunUser,
 			 cupsdLogFCMessage, p))

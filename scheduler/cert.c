@@ -61,7 +61,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
 
   cert->pid  = pid;
   cert->type = type;
-  strlcpy(cert->username, username, sizeof(cert->username));
+  cupsCopyString(cert->username, username, sizeof(cert->username));
 
   for (i = 0; i < 32; i ++)
     cert->certificate[i] = hex[CUPS_RAND() & 15];

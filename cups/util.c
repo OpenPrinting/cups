@@ -362,7 +362,7 @@ cupsGetDefault2(http_t *http)		/* I - Connection to server or @code CUPS_HTTP_DE
     if ((attr = ippFindAttribute(response, "printer-name",
                                  IPP_TAG_NAME)) != NULL)
     {
-      strlcpy(cg->def_printer, attr->values[0].string.text,
+      cupsCopyString(cg->def_printer, attr->values[0].string.text,
               sizeof(cg->def_printer));
       ippDelete(response);
       return (cg->def_printer);
@@ -481,7 +481,7 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
     }
   }
   else
-    strlcpy(uri, "ipp://localhost/", sizeof(uri));
+    cupsCopyString(uri, "ipp://localhost/", sizeof(uri));
 
   if (!http)
     if ((http = _cupsConnect()) == NULL)

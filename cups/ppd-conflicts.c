@@ -869,7 +869,7 @@ ppd_load_constraints(ppd_file_t *ppd)	/* I - PPD file */
     consts->num_constraints = i;
     consts->constraints     = constptr;
 
-    strlcpy(consts->resolver, constattr->spec, sizeof(consts->resolver));
+    cupsCopyString(consts->resolver, constattr->spec, sizeof(consts->resolver));
 
     for (i = 0, vptr = strchr(constattr->value, '*');
 	 vptr;
@@ -902,7 +902,7 @@ ppd_load_constraints(ppd_file_t *ppd)	/* I - PPD file */
       if (!_cups_strncasecmp(option, "Custom", 6) && !_cups_strcasecmp(choice, "True"))
       {
 	_cups_strcpy(option, option + 6);
-	strlcpy(choice, "Custom", sizeof(choice));
+	cupsCopyString(choice, "Custom", sizeof(choice));
       }
 
       constptr->option      = ppdFindOption(ppd, option);

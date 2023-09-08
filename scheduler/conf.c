@@ -591,7 +591,7 @@ cupsdReadConfiguration(void)
   else
     PrintcapFormat = PRINTCAP_BSD;
 
-  strlcpy(temp, ConfigurationFile, sizeof(temp));
+  cupsCopyString(temp, ConfigurationFile, sizeof(temp));
   if ((slash = strrchr(temp, '/')) != NULL)
     *slash = '\0';
 
@@ -866,7 +866,7 @@ cupsdReadConfiguration(void)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to get hostname: %s",
                       strerror(errno));
-      strlcpy(temp, "localhost", sizeof(temp));
+      cupsCopyString(temp, "localhost", sizeof(temp));
     }
 
     cupsdSetString(&ServerName, temp);
@@ -1735,7 +1735,7 @@ get_address(const char  *value,		/* I - Value string */
   * is only digits, then we have a port number by itself...
   */
 
-  strlcpy(buffer, value, sizeof(buffer));
+  cupsCopyString(buffer, value, sizeof(buffer));
 
   if ((portname = strrchr(buffer, ':')) != NULL && !strchr(portname, ']'))
   {
@@ -2454,7 +2454,7 @@ parse_fatal_errors(const char *s)	/* I - FatalErrors string */
   * Loop through the value string,...
   */
 
-  strlcpy(value, s, sizeof(value));
+  cupsCopyString(value, s, sizeof(value));
 
   fatal = CUPSD_FATAL_NONE;
 
@@ -2530,7 +2530,7 @@ parse_groups(const char *s,		/* I - Space-delimited groups */
   * Make a copy of the string and parse out the groups...
   */
 
-  strlcpy(value, s, sizeof(value));
+  cupsCopyString(value, s, sizeof(value));
 
   status   = 1;
   valstart = value;
@@ -2617,7 +2617,7 @@ parse_protocols(const char *s)		/* I - Space-delimited protocols */
   * Loop through the value string,...
   */
 
-  strlcpy(value, s, sizeof(value));
+  cupsCopyString(value, s, sizeof(value));
 
   protocols = 0;
 
@@ -2900,7 +2900,7 @@ parse_variable(
 	}
 
 	if (value[0] == '/')
-	  strlcpy(temp, value, sizeof(temp));
+	  cupsCopyString(temp, value, sizeof(temp));
 	else
 	  snprintf(temp, sizeof(temp), "%s/%s", ServerRoot, value);
 

@@ -908,7 +908,7 @@ _cupsCreateDest(const char *name,	/* I - Printer name */
   response = cupsDoRequest(http, request, "/");
 
   if ((attr = ippFindAttribute(response, "printer-uri-supported", IPP_TAG_URI)) != NULL)
-    strlcpy(uri, ippGetString(attr, 0, NULL), urisize);
+    cupsCopyString(uri, ippGetString(attr, 0, NULL), urisize);
   else
   {
     ippDelete(response);
@@ -1549,7 +1549,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 	  * Add a default option...
 	  */
 
-          strlcpy(optname, attr->name, sizeof(optname));
+          cupsCopyString(optname, attr->name, sizeof(optname));
 	  optname[ptr - attr->name] = '\0';
 
 	  if (_cups_strcasecmp(optname, "media") || !cupsGetOption("media", num_options, options))
@@ -2269,7 +2269,7 @@ _cupsGetUserDefault(char   *name,		/* I - Name buffer */
 
   if (env)
   {
-    strlcpy(name, env, namesize);
+    cupsCopyString(name, env, namesize);
     return (name);
   }
 
@@ -2417,7 +2417,7 @@ appleGetPaperSize(char   *name,		/* I - Paper size name buffer */
       !CFStringGetCString(defaultPaperID, name, (CFIndex)namesize, kCFStringEncodingUTF8))
     name[0] = '\0';
   else if ((pwgmedia = pwgMediaForLegacy(name)) != NULL)
-    strlcpy(name, pwgmedia->pwg, namesize);
+    cupsCopyString(name, pwgmedia->pwg, namesize);
 
   if (defaultPaperID)
     CFRelease(defaultPaperID);
@@ -3026,7 +3026,7 @@ cups_dnssd_query_cb(
     device->state     = _CUPS_DNSSD_PENDING;
     make_and_model[0] = '\0';
 
-    strlcpy(model, "Unknown", sizeof(model));
+    cupsCopyString(model, "Unknown", sizeof(model));
 
     for (txt = rdata, txtend = txt + rdlen;
 	 txt < txtend;
@@ -3068,10 +3068,10 @@ cups_dnssd_query_cb(
       if (!_cups_strcasecmp(key, "usb_MFG") ||
           !_cups_strcasecmp(key, "usb_MANU") ||
 	  !_cups_strcasecmp(key, "usb_MANUFACTURER"))
-	strlcpy(make_and_model, value, sizeof(make_and_model));
+	cupsCopyString(make_and_model, value, sizeof(make_and_model));
       else if (!_cups_strcasecmp(key, "usb_MDL") ||
                !_cups_strcasecmp(key, "usb_MODEL"))
-	strlcpy(model, value, sizeof(model));
+	cupsCopyString(model, value, sizeof(model));
       else if (!_cups_strcasecmp(key, "product") && !strstr(value, "Ghostscript"))
       {
 	if (value[0] == '(')
@@ -3083,14 +3083,14 @@ cups_dnssd_query_cb(
 	  if ((ptr = value + strlen(value) - 1) > value && *ptr == ')')
 	    *ptr = '\0';
 
-	  strlcpy(model, value + 1, sizeof(model));
+	  cupsCopyString(model, value + 1, sizeof(model));
 	}
 	else
-	  strlcpy(model, value, sizeof(model));
+	  cupsCopyString(model, value, sizeof(model));
       }
       else if (!_cups_strcasecmp(key, "ty"))
       {
-	strlcpy(model, value, sizeof(model));
+	cupsCopyString(model, value, sizeof(model));
 
 	if ((ptr = strchr(model, ',')) != NULL)
 	  *ptr = '\0';
@@ -3195,8 +3195,8 @@ cups_dnssd_query_cb(
 
     if (make_and_model[0])
     {
-      strlcat(make_and_model, " ", sizeof(make_and_model));
-      strlcat(make_and_model, model, sizeof(make_and_model));
+      cupsConcatString(make_and_model, " ", sizeof(make_and_model));
+      cupsConcatString(make_and_model, model, sizeof(make_and_model));
 
       device->dest.num_options = cupsAddOption("printer-make-and-model", make_and_model, device->dest.num_options, &device->dest.options);
     }
@@ -3473,14 +3473,14 @@ cups_enum_dests(
     if (dest->instance)
       snprintf(data.def_name, sizeof(data.def_name), "%s/%s", dest->name, dest->instance);
     else
-      strlcpy(data.def_name, dest->name, sizeof(data.def_name));
+      cupsCopyString(data.def_name, dest->name, sizeof(data.def_name));
   }
   else
   {
     const char	*default_printer;	/* Server default printer */
 
     if ((default_printer = cupsGetDefault2(http)) != NULL)
-      strlcpy(data.def_name, default_printer, sizeof(data.def_name));
+      cupsCopyString(data.def_name, default_printer, sizeof(data.def_name));
   }
 
   if (data.def_name[0])
@@ -4092,7 +4092,7 @@ cups_get_default(const char *filename,	/* I - File to read */
     {
       if (!_cups_strcasecmp(line, "default") && value)
       {
-        strlcpy(namebuf, value, namesize);
+        cupsCopyString(namebuf, value, namesize);
 
 	if ((nameptr = strchr(namebuf, ' ')) != NULL)
 	  *nameptr = '\0';
@@ -4328,9 +4328,9 @@ cups_make_string(
 
       case IPP_TAG_BOOLEAN :
 	  if (attr->values[i].boolean)
-	    strlcpy(ptr, "true", (size_t)(end - ptr + 1));
+	    cupsCopyString(ptr, "true", (size_t)(end - ptr + 1));
 	  else
-	    strlcpy(ptr, "false", (size_t)(end - ptr + 1));
+	    cupsCopyString(ptr, "false", (size_t)(end - ptr + 1));
 	  break;
 
       case IPP_TAG_RANGE :

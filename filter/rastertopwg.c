@@ -218,16 +218,16 @@ main(int  argc,				/* I - Number of command-line args */
                              options)) != NULL)
     {
       if (!strcmp(val, "automatic"))
-        strlcpy(outheader.OutputType, "Automatic",
+        cupsCopyString(outheader.OutputType, "Automatic",
                 sizeof(outheader.OutputType));
       else if (!strcmp(val, "graphics"))
-        strlcpy(outheader.OutputType, "Graphics", sizeof(outheader.OutputType));
+        cupsCopyString(outheader.OutputType, "Graphics", sizeof(outheader.OutputType));
       else if (!strcmp(val, "photo"))
-        strlcpy(outheader.OutputType, "Photo", sizeof(outheader.OutputType));
+        cupsCopyString(outheader.OutputType, "Photo", sizeof(outheader.OutputType));
       else if (!strcmp(val, "text"))
-        strlcpy(outheader.OutputType, "Text", sizeof(outheader.OutputType));
+        cupsCopyString(outheader.OutputType, "Text", sizeof(outheader.OutputType));
       else if (!strcmp(val, "text-and-graphics"))
-        strlcpy(outheader.OutputType, "TextAndGraphics",
+        cupsCopyString(outheader.OutputType, "TextAndGraphics",
                 sizeof(outheader.OutputType));
       else
       {
@@ -253,22 +253,22 @@ main(int  argc,				/* I - Number of command-line args */
                              options)) != NULL)
     {
       if (!strcmp(val, "absolute"))
-        strlcpy(outheader.cupsRenderingIntent, "Absolute",
+        cupsCopyString(outheader.cupsRenderingIntent, "Absolute",
                 sizeof(outheader.cupsRenderingIntent));
       else if (!strcmp(val, "automatic"))
-        strlcpy(outheader.cupsRenderingIntent, "Automatic",
+        cupsCopyString(outheader.cupsRenderingIntent, "Automatic",
                 sizeof(outheader.cupsRenderingIntent));
       else if (!strcmp(val, "perceptual"))
-        strlcpy(outheader.cupsRenderingIntent, "Perceptual",
+        cupsCopyString(outheader.cupsRenderingIntent, "Perceptual",
                 sizeof(outheader.cupsRenderingIntent));
       else if (!strcmp(val, "relative"))
-        strlcpy(outheader.cupsRenderingIntent, "Relative",
+        cupsCopyString(outheader.cupsRenderingIntent, "Relative",
                 sizeof(outheader.cupsRenderingIntent));
       else if (!strcmp(val, "relative-bpc"))
-        strlcpy(outheader.cupsRenderingIntent, "RelativeBpc",
+        cupsCopyString(outheader.cupsRenderingIntent, "RelativeBpc",
                 sizeof(outheader.cupsRenderingIntent));
       else if (!strcmp(val, "saturation"))
-        strlcpy(outheader.cupsRenderingIntent, "Saturation",
+        cupsCopyString(outheader.cupsRenderingIntent, "Saturation",
                 sizeof(outheader.cupsRenderingIntent));
       else
       {
@@ -279,7 +279,7 @@ main(int  argc,				/* I - Number of command-line args */
 
     if (inheader.cupsPageSizeName[0] && (pwg_size = _ppdCacheGetSize(cache, inheader.cupsPageSizeName)) != NULL && pwg_size->map.pwg)
     {
-      strlcpy(outheader.cupsPageSizeName, pwg_size->map.pwg,
+      cupsCopyString(outheader.cupsPageSizeName, pwg_size->map.pwg,
 	      sizeof(outheader.cupsPageSizeName));
     }
     else
@@ -288,7 +288,7 @@ main(int  argc,				/* I - Number of command-line args */
 				  (int)(2540.0 * inheader.cupsPageSize[1] / 72.0));
 
       if (pwg_media)
-        strlcpy(outheader.cupsPageSizeName, pwg_media->pwg,
+        cupsCopyString(outheader.cupsPageSizeName, pwg_media->pwg,
                 sizeof(outheader.cupsPageSizeName));
       else
       {

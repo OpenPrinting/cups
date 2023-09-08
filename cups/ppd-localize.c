@@ -74,13 +74,13 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
   {
     if ((locattr = _ppdLocalizedAttr(ppd, "Translation", group->name,
                                      ll_CC)) != NULL)
-      strlcpy(group->text, locattr->text, sizeof(group->text));
+      cupsCopyString(group->text, locattr->text, sizeof(group->text));
 
     for (j = group->num_options, option = group->options; j > 0; j --, option ++)
     {
       if ((locattr = _ppdLocalizedAttr(ppd, "Translation", option->keyword,
                                        ll_CC)) != NULL)
-	strlcpy(option->text, locattr->text, sizeof(option->text));
+	cupsCopyString(option->text, locattr->text, sizeof(option->text));
 
       for (k = option->num_choices, choice = option->choices;
            k > 0;
@@ -98,7 +98,7 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
 	}
 
         if (locattr)
-	  strlcpy(choice->text, locattr->text, sizeof(choice->text));
+	  cupsCopyString(choice->text, locattr->text, sizeof(choice->text));
       }
     }
   }
@@ -119,7 +119,7 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
 
       if ((locattr = _ppdLocalizedAttr(ppd, ckeyword, cparam->name,
                                        ll_CC)) != NULL)
-        strlcpy(cparam->text, locattr->text, sizeof(cparam->text));
+        cupsCopyString(cparam->text, locattr->text, sizeof(cparam->text));
     }
   }
 
@@ -131,7 +131,7 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
   {
     if ((locattr = _ppdLocalizedAttr(ppd, "APCustomColorMatchingName",
                                      attr->spec, ll_CC)) != NULL)
-      strlcpy(attr->text, locattr->text, sizeof(attr->text));
+      cupsCopyString(attr->text, locattr->text, sizeof(attr->text));
   }
 
   for (attr = ppdFindAttr(ppd, "cupsICCProfile", NULL);
@@ -142,7 +142,7 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
 
     if ((locattr = _ppdLocalizedAttr(ppd, "cupsICCProfile", attr->spec,
                                      ll_CC)) != NULL)
-      strlcpy(attr->text, locattr->text, sizeof(attr->text));
+      cupsCopyString(attr->text, locattr->text, sizeof(attr->text));
 
     cupsArrayRestore(ppd->sorted_attrs);
   }
@@ -159,7 +159,7 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
 
     if ((locattr = _ppdLocalizedAttr(ppd, "APPrinterPreset", attr->spec,
                                      ll_CC)) != NULL)
-      strlcpy(attr->text, locattr->text, sizeof(attr->text));
+      cupsCopyString(attr->text, locattr->text, sizeof(attr->text));
 
     cupsArrayRestore(ppd->sorted_attrs);
   }
@@ -284,7 +284,7 @@ ppdLocalizeIPPReason(
 
       if (message && strcmp(message, msgid))
       {
-        strlcpy(buffer, _cupsLangString(lang, message), bufsize);
+        cupsCopyString(buffer, _cupsLangString(lang, message), bufsize);
 	return (buffer);
       }
     }
@@ -305,7 +305,7 @@ ppdLocalizeIPPReason(
     * the value...
     */
 
-    strlcpy(buffer, locattr->text, bufsize);
+    cupsCopyString(buffer, locattr->text, bufsize);
 
     for (valptr = locattr->value, bufptr = buffer; *valptr && bufptr < bufend;)
     {
@@ -693,7 +693,7 @@ ppd_ll_CC(char   *ll_CC,		/* O - Country-specific locale name */
 
   if ((lang = cupsLangDefault()) == NULL)
   {
-    strlcpy(ll_CC, "en_US", ll_CC_size);
+    cupsCopyString(ll_CC, "en_US", ll_CC_size);
     return (NULL);
   }
 
@@ -701,7 +701,7 @@ ppd_ll_CC(char   *ll_CC,		/* O - Country-specific locale name */
   * Copy the locale name...
   */
 
-  strlcpy(ll_CC, lang->language, ll_CC_size);
+  cupsCopyString(ll_CC, lang->language, ll_CC_size);
 
   if (strlen(ll_CC) == 2)
   {
@@ -711,15 +711,15 @@ ppd_ll_CC(char   *ll_CC,		/* O - Country-specific locale name */
     */
 
     if (!strcmp(ll_CC, "cs"))
-      strlcpy(ll_CC, "cs_CZ", ll_CC_size);
+      cupsCopyString(ll_CC, "cs_CZ", ll_CC_size);
     else if (!strcmp(ll_CC, "en"))
-      strlcpy(ll_CC, "en_US", ll_CC_size);
+      cupsCopyString(ll_CC, "en_US", ll_CC_size);
     else if (!strcmp(ll_CC, "ja"))
-      strlcpy(ll_CC, "ja_JP", ll_CC_size);
+      cupsCopyString(ll_CC, "ja_JP", ll_CC_size);
     else if (!strcmp(ll_CC, "sv"))
-      strlcpy(ll_CC, "sv_SE", ll_CC_size);
+      cupsCopyString(ll_CC, "sv_SE", ll_CC_size);
     else if (!strcmp(ll_CC, "zh"))	/* Simplified Chinese */
-      strlcpy(ll_CC, "zh_CN", ll_CC_size);
+      cupsCopyString(ll_CC, "zh_CN", ll_CC_size);
   }
 
   DEBUG_printf("8ppd_ll_CC: lang->language=\"%s\", ll_CC=\"%s\"...", lang->language, ll_CC);

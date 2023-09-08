@@ -361,9 +361,9 @@ add_device(
   * Copy the strings over...
   */
 
-  strlcpy(device->device_class, device_class, sizeof(device->device_class));
-  strlcpy(device->device_info, device_info, sizeof(device->device_info));
-  strlcpy(device->device_uri, device_uri, sizeof(device->device_uri));
+  cupsCopyString(device->device_class, device_class, sizeof(device->device_class));
+  cupsCopyString(device->device_info, device_info, sizeof(device->device_info));
+  cupsCopyString(device->device_uri, device_uri, sizeof(device->device_uri));
 
  /*
   * Add the device to the array and return...
@@ -480,7 +480,7 @@ get_device(cupsd_backend_t *backend)	/* I - Backend to read from */
     *   class URI "make model" "name" ["1284 device ID"] ["location"]
     */
 
-    strlcpy(temp, line, sizeof(temp));
+    cupsCopyString(temp, line, sizeof(temp));
 
    /*
     * device-class

@@ -539,7 +539,7 @@ main(int  argc,				/* I - Number of command-line args */
 	      if (i >= argc)
 	        usage(1);
 
-	      strlcpy(directory, argv[i], sizeof(directory));
+	      cupsCopyString(directory, argv[i], sizeof(directory));
 	      break;
 
 	  case 'f' : /* -f type/subtype[,...] */
@@ -819,7 +819,7 @@ authenticate_request(
     return (HTTP_STATUS_SERVER_ERROR);
   }
 
-  strlcpy(client->username, data.username, sizeof(client->username));
+  cupsCopyString(client->username, data.username, sizeof(client->username));
 
   pam_end(pamh, PAM_SUCCESS);
 
@@ -1696,12 +1696,12 @@ create_printer(
     const char *avahi_name = avahi_client_get_host_name_fqdn(DNSSDClient);
 
     if (avahi_name)
-      strlcpy(temp, avahi_name, sizeof(temp));
+      cupsCopyString(temp, avahi_name, sizeof(temp));
     else
 #endif /* HAVE_AVAHI */
 
     if ((tempptr = strstr(httpGetHostname(NULL, temp, sizeof(temp)), ".lan")) != NULL && !tempptr[5])
-      strlcpy(tempptr, ".local", sizeof(temp) - (size_t)(tempptr - temp));
+      cupsCopyString(tempptr, ".local", sizeof(temp) - (size_t)(tempptr - temp));
 
     printer->hostname = strdup(temp);
   }
@@ -5962,7 +5962,7 @@ process_http(ippeve_client_t *client)	/* I - Client connection */
     return (0);
   }
 
-  strlcpy(client->host_field, httpGetField(client->http, HTTP_FIELD_HOST), sizeof(client->host_field));
+  cupsCopyString(client->host_field, httpGetField(client->http, HTTP_FIELD_HOST), sizeof(client->host_field));
   if ((ptr = strrchr(client->host_field, ':')) != NULL)
   {
    /*
@@ -7167,7 +7167,7 @@ register_printer(
     if (ptr > formats && ptr < (formats + sizeof(formats) - 1))
       *ptr++ = ',';
 
-    strlcpy(ptr, value, sizeof(formats) - (size_t)(ptr - formats));
+    cupsCopyString(ptr, value, sizeof(formats) - (size_t)(ptr - formats));
     ptr += strlen(ptr);
 
     if (ptr >= (formats + sizeof(formats) - 1))
@@ -7182,7 +7182,7 @@ register_printer(
     if (ptr > urf && ptr < (urf + sizeof(urf) - 1))
       *ptr++ = ',';
 
-    strlcpy(ptr, value, sizeof(urf) - (size_t)(ptr - urf));
+    cupsCopyString(ptr, value, sizeof(urf) - (size_t)(ptr - urf));
     ptr += strlen(ptr);
 
     if (ptr >= (urf + sizeof(urf) - 1))
@@ -7273,7 +7273,7 @@ register_printer(
   if (printer->dnssd_subtypes && *(printer->dnssd_subtypes))
     snprintf(regtype, sizeof(regtype), "_ipp._tcp,%s", printer->dnssd_subtypes);
   else
-    strlcpy(regtype, "_ipp._tcp", sizeof(regtype));
+    cupsCopyString(regtype, "_ipp._tcp", sizeof(regtype));
 
   if ((error = DNSServiceRegister(&(printer->ipp_ref), kDNSServiceFlagsShareConnection | kDNSServiceFlagsNoAutoRename, ifindex, printer->dnssd_name, regtype, NULL /* domain */, NULL /* host */, htons(printer->port), TXTRecordGetLength(&ipp_txt), TXTRecordGetBytesPtr(&ipp_txt), (DNSServiceRegisterReply)dnssd_callback, printer)) != kDNSServiceErr_NoError)
   {
@@ -7294,7 +7294,7 @@ register_printer(
   if (printer->dnssd_subtypes && *(printer->dnssd_subtypes))
     snprintf(regtype, sizeof(regtype), "_ipps._tcp,%s", printer->dnssd_subtypes);
   else
-    strlcpy(regtype, "_ipps._tcp", sizeof(regtype));
+    cupsCopyString(regtype, "_ipps._tcp", sizeof(regtype));
 
   if ((error = DNSServiceRegister(&(printer->ipps_ref), kDNSServiceFlagsShareConnection | kDNSServiceFlagsNoAutoRename, ifindex, printer->dnssd_name, regtype, NULL /* domain */, NULL /* host */, htons(printer->port), TXTRecordGetLength(&ipp_txt), TXTRecordGetBytesPtr(&ipp_txt), (DNSServiceRegisterReply)dnssd_callback, printer)) != kDNSServiceErr_NoError)
   {

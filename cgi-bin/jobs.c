@@ -170,7 +170,7 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
     char	url[1024];		/* Encoded URL */
 
 
-    strlcpy(url, "5;URL=", sizeof(url));
+    cupsCopyString(url, "5;URL=", sizeof(url));
     cgiFormEncode(url + 6, getenv("HTTP_REFERER"), sizeof(url) - 6);
     cgiSetVariable("refresh_page", url);
   }

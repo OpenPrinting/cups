@@ -181,7 +181,7 @@ backendNetworkSideCB(
 	    for (dataptr = data + strlen(data) + 1;
 	         count > 0 && dataptr < (data + sizeof(data) - 1);
 	         count --, dataptr += strlen(dataptr))
-	      strlcpy(dataptr, snmp_value, sizeof(data) - (size_t)(dataptr - data));
+	      cupsCopyString(dataptr, snmp_value, sizeof(data) - (size_t)(dataptr - data));
 
 	    fprintf(stderr, "DEBUG: Returning %s %s\n", data,
 	            data + strlen(data) + 1);
@@ -326,7 +326,7 @@ backendNetworkSideCB(
 	    if (_cupsSNMPRead(snmp_fd, &packet, 1.0) &&
 	        packet.object_type == CUPS_ASN1_OCTET_STRING)
 	    {
-	      strlcpy(data, (char *)packet.object_value.string.bytes,
+	      cupsCopyString(data, (char *)packet.object_value.string.bytes,
 	              sizeof(data));
 	      datalen = (int)strlen(data);
 	      status  = CUPS_SC_STATUS_OK;
@@ -338,7 +338,7 @@ backendNetworkSideCB(
 
 	if ((device_id = getenv("1284DEVICEID")) != NULL)
 	{
-	  strlcpy(data, device_id, sizeof(data));
+	  cupsCopyString(data, device_id, sizeof(data));
 	  datalen = (int)strlen(data);
 	  status  = CUPS_SC_STATUS_OK;
 	  break;

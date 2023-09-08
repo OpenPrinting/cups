@@ -477,7 +477,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     * question marks so that the title does not cause a PJL syntax error.
     */
 
-    strlcpy(temp, title, sizeof(temp));
+    cupsCopyString(temp, title, sizeof(temp));
 
     for (ptr = temp; *ptr; ptr ++)
       if (*ptr == '\"')
@@ -514,7 +514,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     * question marks so that the user does not cause a PJL syntax error.
     */
 
-    strlcpy(temp, user, sizeof(temp));
+    cupsCopyString(temp, user, sizeof(temp));
 
     for (ptr = temp; *ptr; ptr ++)
       if (*ptr == '\"')
@@ -830,7 +830,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 		  case PPD_CUSTOM_STRING :
 		      if (cparam->current.custom_string)
 		      {
-			strlcpy(bufptr, cparam->current.custom_string, (size_t)(bufend - bufptr));
+			cupsCopyString(bufptr, cparam->current.custom_string, (size_t)(bufend - bufptr));
 			bufptr += strlen(bufptr);
 		      }
 		      break;
@@ -850,7 +850,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
         * Otherwise just copy the option code directly...
 	*/
 
-        strlcpy(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
+        cupsCopyString(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
         bufptr += strlen(bufptr);
       }
     }
@@ -861,7 +861,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
       * options...
       */
 
-      strlcpy(bufptr, "[{\n", (size_t)(bufend - bufptr + 1));
+      cupsCopyString(bufptr, "[{\n", (size_t)(bufend - bufptr + 1));
       bufptr += 3;
 
      /*
@@ -885,7 +885,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	float		values[5];	/* Values for custom command */
 
 
-        strlcpy(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
+        cupsCopyString(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
         bufptr += 37;
 
         size = ppdPageSize(ppd, "Custom");
@@ -980,7 +980,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	  * Level 2 command sequence...
 	  */
 
-	  strlcpy(bufptr, ppd_custom_code, (size_t)(bufend - bufptr + 1));
+	  cupsCopyString(bufptr, ppd_custom_code, (size_t)(bufend - bufptr + 1));
           bufptr += strlen(bufptr);
 	}
       }
@@ -1072,7 +1072,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	  *bufptr++ = '\n';
       }
 
-      strlcpy(bufptr, "%%EndFeature\n"
+      cupsCopyString(bufptr, "%%EndFeature\n"
 		      "} stopped cleartomark\n", (size_t)(bufend - bufptr + 1));
       bufptr += strlen(bufptr);
 
@@ -1080,7 +1080,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
     }
     else if (choices[i]->code)
     {
-      strlcpy(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
+      cupsCopyString(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
       bufptr += strlen(bufptr);
     }
 

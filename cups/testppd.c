@@ -1175,7 +1175,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 
       if ((realsize = readlink(filename, realfile, sizeof(realfile) - 1)) < 0)
-        strlcpy(realfile, "Unknown", sizeof(realfile));
+        cupsCopyString(realfile, "Unknown", sizeof(realfile));
       else
         realfile[realsize] = '\0';
 

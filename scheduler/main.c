@@ -337,7 +337,7 @@ main(int  argc,				/* I - Number of command-line args */
       return (1);
     }
 
-    strlcpy(filename, ConfigurationFile, len);
+    cupsCopyString(filename, ConfigurationFile, len);
     if ((slash = strrchr(filename, '/')) == NULL)
     {
       free(filename);
@@ -347,7 +347,7 @@ main(int  argc,				/* I - Number of command-line args */
       return (1);
     }
 
-    strlcpy(slash, "/cups-files.conf", len - (size_t)(slash - filename));
+    cupsCopyString(slash, "/cups-files.conf", len - (size_t)(slash - filename));
     cupsdSetString(&CupsFilesFile, filename);
     free(filename);
   }
@@ -1477,7 +1477,7 @@ process_children(void)
 
             if (job->printer)
 	    {
-	      strlcpy(job->printer->state_message, message,
+	      cupsCopyString(job->printer->state_message, message,
 		       sizeof(job->printer->state_message));
 	    }
 
@@ -2006,7 +2006,7 @@ service_checkout(int shutdown)          /* I - Shutting down? */
   {
     int shared_printers = 0;		/* Do we have shared printers? */
 
-    strlcpy(pidfile, CUPS_KEEPALIVE, sizeof(pidfile));
+    cupsCopyString(pidfile, CUPS_KEEPALIVE, sizeof(pidfile));
 
    /*
     * If printer sharing is on see if there are any actual shared printers...

@@ -46,7 +46,7 @@ ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
   */
 
   memset(&key, 0, sizeof(key));
-  strlcpy(key.name, name, sizeof(key.name));
+  cupsCopyString(key.name, name, sizeof(key.name));
 
  /*
   * Return the first matching attribute, if any...
@@ -164,7 +164,7 @@ _ppdNormalizeMakeAndModel(
 
   if (make_and_model[0] == '(')
   {
-    strlcpy(buffer, make_and_model + 1, bufsize);
+    cupsCopyString(buffer, make_and_model + 1, bufsize);
 
     if ((bufptr = strrchr(buffer, ')')) != NULL)
       *bufptr = '\0';
@@ -230,7 +230,7 @@ _ppdNormalizeMakeAndModel(
     snprintf(buffer, bufsize, "HP %s", make_and_model);
   }
   else
-    strlcpy(buffer, make_and_model, bufsize);
+    cupsCopyString(buffer, make_and_model, bufsize);
 
  /*
   * Clean up the make...

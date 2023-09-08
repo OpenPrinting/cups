@@ -61,8 +61,8 @@ _cups_snprintf
 _cups_strcasecmp
 _cups_strcpy
 _cups_strcpy
-_cups_strlcat
-_cups_strlcpy
+_cups_cupsConcatString
+_cups_cupsCopyString
 _cups_strncasecmp
 _cups_vsnprintf
 _httpAddrSetPort

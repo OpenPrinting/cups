@@ -132,7 +132,7 @@ ppdcCatalog::ppdcCatalog(const char *l,	// I - Locale
       char	baseloc[3];		// Base locale...
 
 
-      strlcpy(baseloc, l, sizeof(baseloc));
+      cupsCopyString(baseloc, l, sizeof(baseloc));
       snprintf(pofile, sizeof(pofile), "%s/%s/cups_%s.po", cg->localedir,
                baseloc, baseloc);
 
@@ -449,7 +449,7 @@ ppdcCatalog::load_messages(
 	if (haveid && havestr)
 	  add_message(id, str);
 
-	strlcpy(id, ptr, sizeof(id));
+	cupsCopyString(id, ptr, sizeof(id));
 	str[0] = '\0';
 	haveid  = 1;
 	havestr = 0;
@@ -467,14 +467,14 @@ ppdcCatalog::load_messages(
 	  return (-1);
 	}
 
-	strlcpy(str, ptr, sizeof(str));
+	cupsCopyString(str, ptr, sizeof(str));
 	havestr = 1;
 	which   = 2;
       }
       else if (line[0] == '\"' && which == 2)
-	strlcat(str, ptr, sizeof(str));
+	cupsConcatString(str, ptr, sizeof(str));
       else if (line[0] == '\"' && which == 1)
-	strlcat(id, ptr, sizeof(id));
+	cupsConcatString(id, ptr, sizeof(id));
       else
       {
 	_cupsLangPrintf(stderr, _("ppdc: Unexpected text on line %d of %s."),

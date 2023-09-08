@@ -557,7 +557,7 @@ cgi_add_variable(const char *name,	/* I - Variable name */
 
     if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
     {
-      /* 
+      /*
        * Rollback changes
        */
 
@@ -934,7 +934,7 @@ cgi_initialize_multipart(
     {
       if ((ptr = strstr(line + 20, " name=\"")) != NULL)
       {
-        strlcpy(name, ptr + 7, sizeof(name));
+        cupsCopyString(name, ptr + 7, sizeof(name));
 
 	if ((ptr = strchr(name, '\"')) != NULL)
 	  *ptr = '\0';
@@ -942,7 +942,7 @@ cgi_initialize_multipart(
 
       if ((ptr = strstr(line + 20, " filename=\"")) != NULL)
       {
-        strlcpy(filename, ptr + 11, sizeof(filename));
+        cupsCopyString(filename, ptr + 11, sizeof(filename));
 
 	if ((ptr = strchr(filename, '\"')) != NULL)
 	  *ptr = '\0';
@@ -952,7 +952,7 @@ cgi_initialize_multipart(
     {
       for (ptr = line + 13; isspace(*ptr & 255); ptr ++);
 
-      strlcpy(mimetype, ptr, sizeof(mimetype));
+      cupsCopyString(mimetype, ptr, sizeof(mimetype));
 
       for (ptr = mimetype + strlen(mimetype) - 1;
            ptr > mimetype && isspace(*ptr & 255);

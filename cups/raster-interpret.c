@@ -175,7 +175,7 @@ _cupsRasterInterpretPPD(
   h->cupsImagingBBox[2]          = 612.0f;
   h->cupsImagingBBox[3]          = 792.0f;
 
-  strlcpy(h->cupsPageSizeName, "Letter", sizeof(h->cupsPageSizeName));
+  cupsCopyString(h->cupsPageSizeName, "Letter", sizeof(h->cupsPageSizeName));
 
 #ifdef __APPLE__
  /*
@@ -259,7 +259,7 @@ _cupsRasterInterpretPPD(
     right  = size->right;
     top    = size->top;
 
-    strlcpy(h->cupsPageSizeName, size->name, sizeof(h->cupsPageSizeName));
+    cupsCopyString(h->cupsPageSizeName, size->name, sizeof(h->cupsPageSizeName));
 
     h->cupsPageSize[0] = size->width;
     h->cupsPageSize[1] = size->length;
@@ -1455,13 +1455,13 @@ setpagedevice(
     */
 
     if (!strcmp(name, "MediaClass") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->MediaClass, obj->value.string, sizeof(h->MediaClass));
+      cupsCopyString(h->MediaClass, obj->value.string, sizeof(h->MediaClass));
     else if (!strcmp(name, "MediaColor") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->MediaColor, obj->value.string, sizeof(h->MediaColor));
+      cupsCopyString(h->MediaColor, obj->value.string, sizeof(h->MediaColor));
     else if (!strcmp(name, "MediaType") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->MediaType, obj->value.string, sizeof(h->MediaType));
+      cupsCopyString(h->MediaType, obj->value.string, sizeof(h->MediaType));
     else if (!strcmp(name, "OutputType") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->OutputType, obj->value.string, sizeof(h->OutputType));
+      cupsCopyString(h->OutputType, obj->value.string, sizeof(h->OutputType));
     else if (!strcmp(name, "AdvanceDistance") && obj->type == CUPS_PS_NUMBER)
       h->AdvanceDistance = (unsigned)obj->value.number;
     else if (!strcmp(name, "AdvanceMedia") && obj->type == CUPS_PS_NUMBER)
@@ -1580,16 +1580,16 @@ setpagedevice(
       if ((i = atoi(name + 10)) < 0 || i > 15)
         return (-1);
 
-      strlcpy(h->cupsString[i], obj->value.string, sizeof(h->cupsString[i]));
+      cupsCopyString(h->cupsString[i], obj->value.string, sizeof(h->cupsString[i]));
     }
     else if (!strcmp(name, "cupsMarkerType") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->cupsMarkerType, obj->value.string, sizeof(h->cupsMarkerType));
+      cupsCopyString(h->cupsMarkerType, obj->value.string, sizeof(h->cupsMarkerType));
     else if (!strcmp(name, "cupsPageSizeName") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->cupsPageSizeName, obj->value.string,
+      cupsCopyString(h->cupsPageSizeName, obj->value.string,
               sizeof(h->cupsPageSizeName));
     else if (!strcmp(name, "cupsRenderingIntent") &&
              obj->type == CUPS_PS_STRING)
-      strlcpy(h->cupsRenderingIntent, obj->value.string,
+      cupsCopyString(h->cupsRenderingIntent, obj->value.string,
               sizeof(h->cupsRenderingIntent));
     else
     {

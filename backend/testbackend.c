@@ -84,7 +84,7 @@ main(int  argc,				/* I - Number of command-line args */
   if (getcwd(libpath, sizeof(libpath)) &&
       (ptr = strrchr(libpath, '/')) != NULL && !strcmp(ptr, "/backend"))
   {
-    strlcpy(ptr, "/cups", sizeof(libpath) - (size_t)(ptr - libpath));
+    cupsCopyString(ptr, "/cups", sizeof(libpath) - (size_t)(ptr - libpath));
     if (!access(libpath, 0))
     {
 #ifdef __APPLE__
@@ -152,7 +152,7 @@ main(int  argc,				/* I - Number of command-line args */
   }
 
   if (!access(scheme, X_OK))
-    strlcpy(backend, scheme, sizeof(backend));
+    cupsCopyString(backend, scheme, sizeof(backend));
   else
   {
     if ((serverbin = getenv("CUPS_SERVERBIN")) == NULL)

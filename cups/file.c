@@ -176,7 +176,7 @@ _cupsFileCheck(
   * Now check the containing directory...
   */
 
-  strlcpy(temp, filename, sizeof(temp));
+  cupsCopyString(temp, filename, sizeof(temp));
   if ((ptr = strrchr(temp, '/')) != NULL)
   {
     if (ptr == temp)
@@ -536,7 +536,7 @@ cupsFileFind(const char *filename,	/* I - File to find */
 
     if (!access(filename, 0))
     {
-      strlcpy(buffer, filename, (size_t)bufsize);
+      cupsCopyString(buffer, filename, (size_t)bufsize);
       return (buffer);
     }
     else
@@ -561,7 +561,7 @@ cupsFileFind(const char *filename,	/* I - File to find */
       if (bufptr > buffer && bufptr[-1] != '/' && bufptr < bufend)
         *bufptr++ = '/';
 
-      strlcpy(bufptr, filename, (size_t)(bufend - bufptr));
+      cupsCopyString(bufptr, filename, (size_t)(bufend - bufptr));
 
 #ifdef _WIN32
       if (!access(buffer, 0))
@@ -588,7 +588,7 @@ cupsFileFind(const char *filename,	/* I - File to find */
   if (bufptr > buffer && bufptr[-1] != '/' && bufptr < bufend)
     *bufptr++ = '/';
 
-  strlcpy(bufptr, filename, (size_t)(bufend - bufptr));
+  cupsCopyString(bufptr, filename, (size_t)(bufend - bufptr));
 
   if (!access(buffer, 0))
   {
@@ -1119,7 +1119,7 @@ cupsFileOpen(const char *filename,	/* I - Name of file */
         break;
 
     case 's' : /* Read/write socket */
-        strlcpy(hostname, filename, sizeof(hostname));
+        cupsCopyString(hostname, filename, sizeof(hostname));
 	if ((portname = strrchr(hostname, ':')) != NULL)
 	  *portname++ = '\0';
 	else

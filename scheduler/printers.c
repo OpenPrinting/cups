@@ -1117,7 +1117,7 @@ cupsdLoadAllPrinters(void)
       */
 
       if (value)
-	strlcpy(p->state_message, value, sizeof(p->state_message));
+	cupsCopyString(p->state_message, value, sizeof(p->state_message));
     }
     else if (!_cups_strcasecmp(line, "StateTime"))
     {
@@ -1474,7 +1474,7 @@ cupsdSaveAllPrinters(void)
       switch (printer->num_auth_info_required)
       {
         case 1 :
-            strlcpy(value, printer->auth_info_required[0], sizeof(value));
+            cupsCopyString(value, printer->auth_info_required[0], sizeof(value));
 	    break;
 
         case 2 :
@@ -1587,7 +1587,7 @@ cupsdSaveAllPrinters(void)
         if (i)
 	  *ptr++ = ',';
 
-        strlcpy(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
+        cupsCopyString(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
         ptr += strlen(ptr);
       }
 
@@ -1646,7 +1646,7 @@ cupsdSaveAllPrinters(void)
         if (i)
 	  *ptr++ = ',';
 
-        strlcpy(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
+        cupsCopyString(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
         ptr += strlen(ptr);
       }
 
@@ -1666,7 +1666,7 @@ cupsdSaveAllPrinters(void)
         if (i)
 	  *ptr++ = ',';
 
-        strlcpy(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
+        cupsCopyString(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
         ptr += strlen(ptr);
       }
 
@@ -1876,7 +1876,7 @@ cupsdSetDeviceURI(cupsd_printer_t *p,	/* I - Printer */
   * info in it...
   */
 
-  strlcpy(buffer, uri, sizeof(buffer));
+  cupsCopyString(buffer, uri, sizeof(buffer));
 
  /*
   * Find the end of the scheme:// part...
@@ -3029,9 +3029,9 @@ cupsdValidateDest(
   */
 
   if (!_cups_strcasecmp(hostname, "localhost"))
-    strlcpy(hostname, ServerName, sizeof(hostname));
+    cupsCopyString(hostname, ServerName, sizeof(hostname));
 
-  strlcpy(localname, hostname, sizeof(localname));
+  cupsCopyString(localname, hostname, sizeof(localname));
 
   if (!_cups_strcasecmp(hostname, ServerName))
   {
@@ -3466,7 +3466,7 @@ add_printer_filter(
   if (strcmp(program, "-"))
   {
     if (program[0] == '/')
-      strlcpy(filename, program, sizeof(filename));
+      cupsCopyString(filename, program, sizeof(filename));
     else
       snprintf(filename, sizeof(filename), "%s/filter/%s", ServerBin, program);
 
@@ -3653,20 +3653,20 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
       if (!_cups_strcasecmp(type->super, "application"))
       {
         if (!_cups_strcasecmp(type->type, "pdf"))
-	  strlcat(pdl, "application/pdf,", sizeof(pdl));
+	  cupsConcatString(pdl, "application/pdf,", sizeof(pdl));
         else if (!_cups_strcasecmp(type->type, "postscript"))
-	  strlcat(pdl, "application/postscript,", sizeof(pdl));
+	  cupsConcatString(pdl, "application/postscript,", sizeof(pdl));
       }
       else if (!_cups_strcasecmp(type->super, "image"))
       {
         if (!_cups_strcasecmp(type->type, "jpeg"))
-	  strlcat(pdl, "image/jpeg,", sizeof(pdl));
+	  cupsConcatString(pdl, "image/jpeg,", sizeof(pdl));
 	else if (!_cups_strcasecmp(type->type, "png"))
-	  strlcat(pdl, "image/png,", sizeof(pdl));
+	  cupsConcatString(pdl, "image/png,", sizeof(pdl));
 	else if (!_cups_strcasecmp(type->type, "pwg-raster"))
-	  strlcat(pdl, "image/pwg-raster,", sizeof(pdl));
+	  cupsConcatString(pdl, "image/pwg-raster,", sizeof(pdl));
 	else if (!_cups_strcasecmp(type->type, "urf"))
-	  strlcat(pdl, "image/urf,", sizeof(pdl));
+	  cupsConcatString(pdl, "image/urf,", sizeof(pdl));
       }
     }
 
@@ -4738,7 +4738,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		       "printer-resolution-supported", IPP_RES_PER_INCH,
 		       300, 300);
       ippAddResolution(p->ppd_attrs, IPP_TAG_PRINTER, "pwg-raster-document-resolution-supported", IPP_RES_PER_INCH, 300, 300);
-      strlcpy(urf_rs, "RS300", sizeof(urf_rs));
+      cupsCopyString(urf_rs, "RS300", sizeof(urf_rs));
       urf[num_urf ++] = urf_rs;
     }
 

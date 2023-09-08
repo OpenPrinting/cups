@@ -1373,7 +1373,7 @@ set_printer_options(
         * Get default option name...
 	*/
 
-        strlcpy(keyword, line + 8, sizeof(keyword));
+        cupsCopyString(keyword, line + 8, sizeof(keyword));
 
 	for (keyptr = keyword; *keyptr; keyptr ++)
 	  if (*keyptr == ':' || isspace(*keyptr & 255))

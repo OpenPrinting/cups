@@ -219,7 +219,7 @@ _cupsRasterInitPWGHeader(
 
   memset(h, 0, sizeof(cups_page_header2_t));
 
-  strlcpy(h->cupsPageSizeName, media->pwg, sizeof(h->cupsPageSizeName));
+  cupsCopyString(h->cupsPageSizeName, media->pwg, sizeof(h->cupsPageSizeName));
 
   h->PageSize[0] = (unsigned)(72 * media->width / 2540);
   h->PageSize[1] = (unsigned)(72 * media->length / 2540);
@@ -679,7 +679,7 @@ _cupsRasterReadHeader(
 	    return (0);
 	  }
 
-	  strlcpy(r->header.MediaClass, "PwgRaster", sizeof(r->header.MediaClass));
+	  cupsCopyString(r->header.MediaClass, "PwgRaster", sizeof(r->header.MediaClass));
 					      /* PwgRaster */
           r->header.cupsBitsPerPixel = appleheader[0];
           r->header.cupsColorSpace   = appleheader[1] >= (sizeof(rawcspace) / sizeof(rawcspace[0])) ? CUPS_CSPACE_DEVICE1 : rawcspace[appleheader[1]];
@@ -710,9 +710,9 @@ _cupsRasterReadHeader(
           r->header.MediaPosition = appleheader[5];
 
           if (appleheader[4] < (int)(sizeof(apple_media_types) / sizeof(apple_media_types[0])))
-            strlcpy(r->header.MediaType, apple_media_types[appleheader[4]], sizeof(r->header.MediaType));
+            cupsCopyString(r->header.MediaType, apple_media_types[appleheader[4]], sizeof(r->header.MediaType));
           else
-            strlcpy(r->header.MediaType, "other", sizeof(r->header.MediaType));
+            cupsCopyString(r->header.MediaType, "other", sizeof(r->header.MediaType));
         }
         break;
   }
@@ -1048,13 +1048,13 @@ _cupsRasterWriteHeader(
     cups_page_header2_t	fh;		/* File page header */
 
     memset(&fh, 0, sizeof(fh));
-    strlcpy(fh.MediaClass, "PwgRaster", sizeof(fh.MediaClass));
-    strlcpy(fh.MediaColor, r->header.MediaColor, sizeof(fh.MediaColor));
-    strlcpy(fh.MediaType, r->header.MediaType, sizeof(fh.MediaType));
-    strlcpy(fh.OutputType, r->header.OutputType, sizeof(fh.OutputType));
-    strlcpy(fh.cupsRenderingIntent, r->header.cupsRenderingIntent,
+    cupsCopyString(fh.MediaClass, "PwgRaster", sizeof(fh.MediaClass));
+    cupsCopyString(fh.MediaColor, r->header.MediaColor, sizeof(fh.MediaColor));
+    cupsCopyString(fh.MediaType, r->header.MediaType, sizeof(fh.MediaType));
+    cupsCopyString(fh.OutputType, r->header.OutputType, sizeof(fh.OutputType));
+    cupsCopyString(fh.cupsRenderingIntent, r->header.cupsRenderingIntent,
             sizeof(fh.cupsRenderingIntent));
-    strlcpy(fh.cupsPageSizeName, r->header.cupsPageSizeName,
+    cupsCopyString(fh.cupsPageSizeName, r->header.cupsPageSizeName,
             sizeof(fh.cupsPageSizeName));
 
     fh.CutMedia              = htonl(r->header.CutMedia);

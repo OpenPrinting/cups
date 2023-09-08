@@ -347,7 +347,7 @@ _cupsStrFormatd(char         *buf,	/* I - String */
   }
   else
   {
-    strlcpy(buf, temp, (size_t)(bufend - buf + 1));
+    cupsCopyString(buf, temp, (size_t)(bufend - buf + 1));
     bufptr = buf + strlen(buf);
   }
 
@@ -521,7 +521,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
 
     if (loc && loc->decimal_point)
     {
-      strlcpy(tempptr, loc->decimal_point, sizeof(temp) - (size_t)(tempptr - temp));
+      cupsCopyString(tempptr, loc->decimal_point, sizeof(temp) - (size_t)(tempptr - temp));
       tempptr += strlen(tempptr);
     }
     else if (tempptr < (temp + sizeof(temp) - 1))
@@ -728,11 +728,11 @@ _cups_strncasecmp(const char *s,	/* I - First string */
 
 #ifndef HAVE_STRLCAT
 /*
- * '_cups_strlcat()' - Safely concatenate two strings.
+ * '_cups_cupsConcatString()' - Safely concatenate two strings.
  */
 
 size_t					/* O - Length of string */
-_cups_strlcat(char       *dst,		/* O - Destination string */
+_cups_cupsConcatString(char       *dst,		/* O - Destination string */
               const char *src,		/* I - Source string */
 	      size_t     size)		/* I - Size of destination string buffer */
 {
@@ -774,11 +774,11 @@ _cups_strlcat(char       *dst,		/* O - Destination string */
 
 #ifndef HAVE_STRLCPY
 /*
- * '_cups_strlcpy()' - Safely copy two strings.
+ * '_cups_cupsCopyString()' - Safely copy two strings.
  */
 
 size_t					/* O - Length of string */
-_cups_strlcpy(char       *dst,		/* O - Destination string */
+_cups_cupsCopyString(char       *dst,		/* O - Destination string */
               const char *src,		/* I - Source string */
 	      size_t      size)		/* I - Size of destination string buffer */
 {

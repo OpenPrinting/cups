@@ -271,7 +271,7 @@ main(int  argc,				/* I - Argument Count */
 
   fputs("cupsCharsetToUTF8(CUPS_ISO8859_1): ", stdout);
 
-  strlcpy(legsrc, legdest, sizeof(legsrc));
+  cupsCopyString(legsrc, legdest, sizeof(legsrc));
 
   len = cupsCharsetToUTF8(utf8dest, legsrc, 1024, CUPS_ISO8859_1);
   if ((size_t)len != strlen((char *)utf8latin))
@@ -322,7 +322,7 @@ main(int  argc,				/* I - Argument Count */
 
   fputs("cupsCharsetToUTF8(CUPS_ISO8859_7): ", stdout);
 
-  strlcpy(legsrc, legdest, sizeof(legsrc));
+  cupsCopyString(legsrc, legdest, sizeof(legsrc));
 
   len = cupsCharsetToUTF8(utf8dest, legsrc, 1024, CUPS_ISO8859_7);
   if ((size_t)len != strlen((char *)utf8greek))
@@ -368,7 +368,7 @@ main(int  argc,				/* I - Argument Count */
 
   fputs("cupsCharsetToUTF8(CUPS_WINDOWS_932): ", stdout);
 
-  strlcpy(legsrc, legdest, sizeof(legsrc));
+  cupsCopyString(legsrc, legdest, sizeof(legsrc));
 
   len = cupsCharsetToUTF8(utf8dest, legsrc, 1024, CUPS_WINDOWS_932);
   if ((size_t)len != strlen((char *)utf8japan))
@@ -415,7 +415,7 @@ main(int  argc,				/* I - Argument Count */
 #if !defined(__linux__) && !defined(__GLIBC__)
   fputs("cupsCharsetToUTF8(CUPS_EUC_JP): ", stdout);
 
-  strlcpy(legsrc, legdest, sizeof(legsrc));
+  cupsCopyString(legsrc, legdest, sizeof(legsrc));
 
   len = cupsCharsetToUTF8(utf8dest, legsrc, 1024, CUPS_EUC_JP);
   if ((size_t)len != strlen((char *)utf8japan))
@@ -462,7 +462,7 @@ main(int  argc,				/* I - Argument Count */
 
   fputs("cupsCharsetToUTF8(CUPS_WINDOWS_950): ", stdout);
 
-  strlcpy(legsrc, legdest, sizeof(legsrc));
+  cupsCopyString(legsrc, legdest, sizeof(legsrc));
 
   len = cupsCharsetToUTF8(utf8dest, legsrc, 1024, CUPS_WINDOWS_950);
   if ((size_t)len != strlen((char *)utf8taiwan))
@@ -508,7 +508,7 @@ main(int  argc,				/* I - Argument Count */
 
   fputs("cupsCharsetToUTF8(CUPS_EUC_TW): ", stdout);
 
-  strlcpy(legsrc, legdest, sizeof(legsrc));
+  cupsCopyString(legsrc, legdest, sizeof(legsrc));
 
   len = cupsCharsetToUTF8(utf8dest, legsrc, 1024, CUPS_EUC_TW);
   if ((size_t)len != strlen((char *)utf8taiwan))

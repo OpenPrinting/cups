@@ -529,7 +529,7 @@ check_dest(const char  *command,	/* I  - Command name */
       *num_dests = cupsGetDests(dests);
     else
     {
-      strlcpy(printer, name, sizeof(printer));
+      cupsCopyString(printer, name, sizeof(printer));
       if ((pptr = strchr(printer, '/')) != NULL)
         *pptr++ = '\0';
 
@@ -1503,7 +1503,7 @@ show_jobs(const char *dests,		/* I - Destinations */
 	      if (i)
 		snprintf(aptr, sizeof(alerts) - (size_t)(aptr - alerts), " %s", reasons->values[i].string.text);
 	      else
-		strlcpy(alerts, reasons->values[i].string.text, sizeof(alerts));
+		cupsCopyString(alerts, reasons->values[i].string.text, sizeof(alerts));
 
 	      aptr += strlen(aptr);
 	    }
@@ -1846,7 +1846,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 	      if (i)
 		snprintf(aptr, sizeof(alerts) - (size_t)(aptr - alerts), " %s", reasons->values[i].string.text);
 	      else
-		strlcpy(alerts, reasons->values[i].string.text, sizeof(alerts));
+		cupsCopyString(alerts, reasons->values[i].string.text, sizeof(alerts));
 
 	      aptr += strlen(aptr);
 	    }
@@ -1966,7 +1966,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 		  if (i)
 		    snprintf(aptr, sizeof(alerts) - (size_t)(aptr - alerts), " %s", reasons->values[i].string.text);
 		  else
-		    strlcpy(alerts, reasons->values[i].string.text, sizeof(alerts));
+		    cupsCopyString(alerts, reasons->values[i].string.text, sizeof(alerts));
 
 		  aptr += strlen(aptr);
 		}

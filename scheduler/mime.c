@@ -11,6 +11,7 @@
  * Include necessary headers...
  */
 
+#include <cups/cups.h>
 #include <cups/string-private.h>
 #include <cups/dir.h>
 #include "mime-private.h"
@@ -815,8 +816,8 @@ mime_load_convs(
       * Force * / * to be "application/octet-stream"...
       */
 
-      strlcpy(super, "application", sizeof(super));
-      strlcpy(type, "octet-stream", sizeof(type));
+      cupsCopyString(super, "application", sizeof(super));
+      cupsCopyString(type, "octet-stream", sizeof(type));
     }
 
    /*

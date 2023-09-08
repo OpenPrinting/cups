@@ -35,7 +35,7 @@ ppdFindCustomOption(ppd_file_t *ppd,	/* I - PPD file */
   if (!ppd)
     return (NULL);
 
-  strlcpy(key.keyword, keyword, sizeof(key.keyword));
+  cupsCopyString(key.keyword, keyword, sizeof(key.keyword));
   return ((ppd_coption_t *)cupsArrayFind(ppd->coptions, &key));
 }
 

@@ -1167,7 +1167,7 @@ main(int  argc,				/* I - Number of command-line args */
 			*regtype,	/* Registration type */
 			*domain;	/* Domain, if any */
 
-    strlcpy(buf, search, sizeof(buf));
+    cupsCopyString(buf, search, sizeof(buf));
 
     if (!strncmp(buf, "_http._", 7) || !strncmp(buf, "_https._", 8) || !strncmp(buf, "_ipp._", 6) || !strncmp(buf, "_ipps._", 7))
     {
@@ -1992,24 +1992,24 @@ exec_program(ippfind_srv_t *service,	/* I - Service */
 
           *kptr = '\0';
           if (!keyword[0] || !strcmp(keyword, "service_uri"))
-	    strlcpy(tptr, service->uri, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->uri, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_domain"))
-	    strlcpy(tptr, service->domain, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->domain, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_hostname"))
-	    strlcpy(tptr, service->host, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->host, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_name"))
-	    strlcpy(tptr, service->name, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->name, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_path"))
-	    strlcpy(tptr, service->resource, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->resource, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_port"))
-	    strlcpy(tptr, port + 21, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, port + 21, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_scheme"))
-	    strlcpy(tptr, scheme + 22, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, scheme + 22, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strncmp(keyword, "txt_", 4))
 	  {
 	    const char *val = cupsGetOption(keyword + 4, service->num_txt, service->txt);
 	    if (val)
-	      strlcpy(tptr, val, sizeof(temp) - (size_t)(tptr - temp));
+	      cupsCopyString(tptr, val, sizeof(temp) - (size_t)(tptr - temp));
 	    else
 	      *tptr = '\0';
 	  }
@@ -2053,7 +2053,7 @@ exec_program(ippfind_srv_t *service,	/* I - Service */
   */
 
   if (strchr(args[0], '/') && !access(args[0], X_OK))
-    strlcpy(program, args[0], sizeof(program));
+    cupsCopyString(program, args[0], sizeof(program));
   else if (!cupsFileFind(args[0], getenv("PATH"), 1, program, sizeof(program)))
   {
     _cupsLangPrintf(stderr, _("ippfind: Unable to execute \"%s\": %s"),
@@ -2329,7 +2329,7 @@ list_service(ippfind_srv_t *service)	/* I - Service */
     if ((attr = ippFindAttribute(response, "printer-state-reasons",
                                  IPP_TAG_KEYWORD)) != NULL)
     {
-      strlcpy(preasons, ippGetString(attr, 0, NULL), sizeof(preasons));
+      cupsCopyString(preasons, ippGetString(attr, 0, NULL), sizeof(preasons));
 
       for (i = 1, count = ippGetCount(attr), ptr = preasons + strlen(preasons),
                end = preasons + sizeof(preasons) - 1;
@@ -2337,11 +2337,11 @@ list_service(ippfind_srv_t *service)	/* I - Service */
            i ++, ptr += strlen(ptr))
       {
         *ptr++ = ',';
-        strlcpy(ptr, ippGetString(attr, i, NULL), (size_t)(end - ptr + 1));
+        cupsCopyString(ptr, ippGetString(attr, i, NULL), (size_t)(end - ptr + 1));
       }
     }
     else
-      strlcpy(preasons, "none", sizeof(preasons));
+      cupsCopyString(preasons, "none", sizeof(preasons));
 
     ippDelete(response);
     httpClose(http);

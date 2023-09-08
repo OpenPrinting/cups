@@ -903,13 +903,13 @@ httpSeparateURI(
   if (!strncmp(uri, "//", 2))
   {
     // Workaround for HP IPP client bug...
-    strlcpy(scheme, "ipp", (size_t)schemelen);
+    cupsCopyString(scheme, "ipp", (size_t)schemelen);
     status = HTTP_URI_STATUS_MISSING_SCHEME;
   }
   else if (*uri == '/')
   {
     // Filename...
-    strlcpy(scheme, "file", (size_t)schemelen);
+    cupsCopyString(scheme, "file", (size_t)schemelen);
     status = HTTP_URI_STATUS_MISSING_SCHEME;
   }
   else
@@ -1159,7 +1159,7 @@ _httpSetDigestAuthString(
 
   if (nonce && *nonce && strcmp(nonce, http->nonce))
   {
-    strlcpy(http->nonce, nonce, sizeof(http->nonce));
+    cupsCopyString(http->nonce, nonce, sizeof(http->nonce));
 
     if (nonce == http->nextnonce)
       http->nextnonce[0] = '\0';
@@ -1171,7 +1171,7 @@ _httpSetDigestAuthString(
     http->nonce_count ++;
   }
 
-  strlcpy(username, http->userpass, sizeof(username));
+  cupsCopyString(username, http->userpass, sizeof(username));
   if ((password = strchr(username, ':')) != NULL)
     *password++ = '\0';
   else

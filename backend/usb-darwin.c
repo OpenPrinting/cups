@@ -461,7 +461,7 @@ print_device(const char *uri,		/* I - Device URI */
       */
 
       if (driverBundlePath == NULL || !CFStringGetCString(driverBundlePath, print_buffer, sizeof(print_buffer), kCFStringEncodingUTF8))
-        strlcpy(print_buffer, "USB class driver", sizeof(print_buffer));
+        cupsCopyString(print_buffer, "USB class driver", sizeof(print_buffer));
 
       fputs("STATE: +apple-missing-usbclassdriver-error\n", stderr);
       _cupsLangPrintFilter(stderr, "ERROR",
@@ -1223,10 +1223,10 @@ static Boolean list_device_cb(io_service_t obj, printer_interface_t printerIntf,
     modelstr[0] = '/';
 
     if (make  == NULL || !CFStringGetCString(make, makestr, sizeof(makestr), kCFStringEncodingUTF8))
-      strlcpy(makestr, "Unknown", sizeof(makestr));
+      cupsCopyString(makestr, "Unknown", sizeof(makestr));
 
     if (model == NULL || !CFStringGetCString(model, &modelstr[1], sizeof(modelstr)-1, kCFStringEncodingUTF8))
-      strlcpy(modelstr + 1, "Printer", sizeof(modelstr) - 1);
+      cupsCopyString(modelstr + 1, "Printer", sizeof(modelstr) - 1);
 
     optionsstr[0] = '\0';
     if (serial != NULL && CFStringGetCString(serial, serialstr, sizeof(serialstr), kCFStringEncodingUTF8))
@@ -1235,7 +1235,7 @@ static Boolean list_device_cb(io_service_t obj, printer_interface_t printerIntf,
       snprintf(optionsstr, sizeof(optionsstr), "?location=%x", (unsigned)intfLocation);
 
     httpAssembleURI(HTTP_URI_CODING_ALL, uristr, sizeof(uristr), "usb", NULL, makestr, 0, modelstr);
-    strlcat(uristr, optionsstr, sizeof(uristr));
+    cupsConcatString(uristr, optionsstr, sizeof(uristr));
 
     cupsBackendReport("direct", uristr, make_modelstr, make_modelstr, idstr,
                           NULL);
@@ -2033,7 +2033,7 @@ static void parse_options(char *options,
 			     value);
     }
     else if (!_cups_strcasecmp(name, "serial"))
-      strlcpy(serial, value, (size_t)serial_size);
+      cupsCopyString(serial, value, (size_t)serial_size);
     else if (!_cups_strcasecmp(name, "location") && location)
       *location = (UInt32)strtoul(value, NULL, 16);
   }
@@ -2360,7 +2360,7 @@ static void parse_pserror(char *sockBuffer,
     }
 
     /* move everything over... */
-    strlcpy(gErrorBuffer, pLineEnd, sizeof(gErrorBuffer));
+    cupsCopyString(gErrorBuffer, pLineEnd, sizeof(gErrorBuffer));
     gErrorBufferPtr = gErrorBuffer;
     pLineEnd = (char *)next_line((const char *)gErrorBuffer);
   }

@@ -110,7 +110,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   httpDecode64_2(temp, &templen, argv[2]);
 
   if (!strncmp(temp, "mailto:", 7))
-    strlcpy(mailtoReplyTo, temp + 7, sizeof(mailtoReplyTo));
+    cupsCopyString(mailtoReplyTo, temp + 7, sizeof(mailtoReplyTo));
   else if (temp[0])
     fprintf(stderr, "WARNING: Bad notify-user-data value (%d bytes) ignored!\n",
             templen);
@@ -393,12 +393,12 @@ load_configuration(void)
   mailtoCc[0] = '\0';
 
   if ((server_admin = getenv("SERVER_ADMIN")) != NULL)
-    strlcpy(mailtoFrom, server_admin, sizeof(mailtoFrom));
+    cupsCopyString(mailtoFrom, server_admin, sizeof(mailtoFrom));
   else
     snprintf(mailtoFrom, sizeof(mailtoFrom), "root@%s",
              httpGetHostname(NULL, line, sizeof(line)));
 
-  strlcpy(mailtoSendmail, "/usr/sbin/sendmail", sizeof(mailtoSendmail));
+  cupsCopyString(mailtoSendmail, "/usr/sbin/sendmail", sizeof(mailtoSendmail));
 
   mailtoSMTPServer[0] = '\0';
 
@@ -438,21 +438,21 @@ load_configuration(void)
     }
 
     if (!_cups_strcasecmp(line, "Cc"))
-      strlcpy(mailtoCc, value, sizeof(mailtoCc));
+      cupsCopyString(mailtoCc, value, sizeof(mailtoCc));
     else if (!_cups_strcasecmp(line, "From"))
-      strlcpy(mailtoFrom, value, sizeof(mailtoFrom));
+      cupsCopyString(mailtoFrom, value, sizeof(mailtoFrom));
     else if (!_cups_strcasecmp(line, "Sendmail"))
     {
-      strlcpy(mailtoSendmail, value, sizeof(mailtoSendmail));
+      cupsCopyString(mailtoSendmail, value, sizeof(mailtoSendmail));
       mailtoSMTPServer[0] = '\0';
     }
     else if (!_cups_strcasecmp(line, "SMTPServer"))
     {
       mailtoSendmail[0] = '\0';
-      strlcpy(mailtoSMTPServer, value, sizeof(mailtoSMTPServer));
+      cupsCopyString(mailtoSMTPServer, value, sizeof(mailtoSMTPServer));
     }
     else if (!_cups_strcasecmp(line, "Subject"))
-      strlcpy(mailtoSubject, value, sizeof(mailtoSubject));
+      cupsCopyString(mailtoSubject, value, sizeof(mailtoSubject));
     else
     {
       fprintf(stderr,
@@ -491,7 +491,7 @@ pipe_sendmail(const char *to)		/* I - To: address */
   * First break the mailtoSendmail string into arguments...
   */
 
-  strlcpy(line, mailtoSendmail, sizeof(line));
+  cupsCopyString(line, mailtoSendmail, sizeof(line));
   argv[0] = line;
   argc    = 1;
 

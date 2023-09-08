@@ -334,7 +334,7 @@ ppd_locale(ppd_file_t *ppd)		// I - PPD file
         snprintf(locale, sizeof(locale), "%s_%s", languages[i].language,
 	         ppd->lang_version + vlen + 1);
       else
-        strlcpy(locale, languages[i].language, sizeof(locale));
+        cupsCopyString(locale, languages[i].language, sizeof(locale));
 
       return (locale);
     }

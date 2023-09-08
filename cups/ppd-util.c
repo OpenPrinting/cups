@@ -176,9 +176,9 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     httpGetHostname(http, hostname, sizeof(hostname));
   else
   {
-    strlcpy(hostname, cupsServer(), sizeof(hostname));
+    cupsCopyString(hostname, cupsServer(), sizeof(hostname));
     if (hostname[0] == '/')
-      strlcpy(hostname, "localhost", sizeof(hostname));
+      cupsCopyString(hostname, "localhost", sizeof(hostname));
   }
 
   if (!_cups_strcasecmp(hostname, "localhost"))
@@ -342,7 +342,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     * Redirect localhost to domain socket...
     */
 
-    strlcpy(hostname, cupsServer(), sizeof(hostname));
+    cupsCopyString(hostname, cupsServer(), sizeof(hostname));
     port = 0;
 
     DEBUG_printf("2cupsGetPPD3: Redirecting to \"%s\".", hostname);
@@ -357,7 +357,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
   DEBUG_printf("2cupsGetPPD3: Local hostname=\"%s\"", localhost);
 
   if (!_cups_strcasecmp(localhost, hostname))
-    strlcpy(hostname, "localhost", sizeof(hostname));
+    cupsCopyString(hostname, "localhost", sizeof(hostname));
 
  /*
   * Get the hostname and port number we are connected to...
@@ -409,7 +409,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
   * And send a request to the HTTP server...
   */
 
-  strlcat(resource, ".ppd", sizeof(resource));
+  cupsConcatString(resource, ".ppd", sizeof(resource));
 
   if (*modtime > 0)
     httpSetField(http2, HTTP_FIELD_IF_MODIFIED_SINCE,
@@ -428,7 +428,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     *modtime = httpGetDateTime(httpGetField(http2, HTTP_FIELD_DATE));
 
     if (tempfile[0])
-      strlcpy(buffer, tempfile, bufsize);
+      cupsCopyString(buffer, tempfile, bufsize);
   }
   else if (status != HTTP_STATUS_NOT_MODIFIED)
   {

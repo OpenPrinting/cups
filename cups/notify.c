@@ -134,7 +134,7 @@ cupsNotifySubject(cups_lang_t *lang,	/* I - Language data */
 	     state);
   }
   else if (subscribed)
-    strlcpy(buffer, subscribed->values[0].string.text, sizeof(buffer));
+    cupsCopyString(buffer, subscribed->values[0].string.text, sizeof(buffer));
   else
     return (NULL);
 

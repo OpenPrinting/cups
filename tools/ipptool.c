@@ -459,7 +459,7 @@ main(int  argc,				/* I - Number of command-line args */
 		usage();
               }
 
-              strlcpy(name, argv[i], sizeof(name));
+              cupsCopyString(name, argv[i], sizeof(name));
 	      if ((value = strchr(name, '=')) != NULL)
 	        *value++ = '\0';
 	      else
@@ -495,12 +495,12 @@ main(int  argc,				/* I - Number of command-line args */
 		  {
 		    snprintf(filename, sizeof(filename), "%s/ipptool/%s.gz", cg->cups_datadir, argv[i]);
 		    if (access(filename, 0))
-		      strlcpy(filename, argv[i], sizeof(filename));
+		      cupsCopyString(filename, argv[i], sizeof(filename));
 		  }
 		}
 	      }
               else
-		strlcpy(filename, argv[i], sizeof(filename));
+		cupsCopyString(filename, argv[i], sizeof(filename));
 
 	      _ippVarsSet(data.vars, "filename", filename);
 
@@ -1092,9 +1092,9 @@ do_monitor_printer_state(
 
 	    case IPP_TAG_BOOLEAN :
 		if (ippGetBoolean(found, last))
-		  strlcpy(buffer, "true", sizeof(buffer));
+		  cupsCopyString(buffer, "true", sizeof(buffer));
 		else
-		  strlcpy(buffer, "false", sizeof(buffer));
+		  cupsCopyString(buffer, "false", sizeof(buffer));
 		break;
 
 	    case IPP_TAG_CHARSET :
@@ -1107,7 +1107,7 @@ do_monitor_printer_state(
 	    case IPP_TAG_TEXTLANG :
 	    case IPP_TAG_URI :
 	    case IPP_TAG_URISCHEME :
-		strlcpy(buffer, ippGetString(found, last, NULL), sizeof(buffer));
+		cupsCopyString(buffer, ippGetString(found, last, NULL), sizeof(buffer));
 		break;
 
 	    default :
@@ -1720,7 +1720,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
             char	group_name[256],/* Parent attribute name */
 			*group_ptr;	/* Pointer into parent attribute name */
 
-	    strlcpy(group_name, expect->name, sizeof(group_name));
+	    cupsCopyString(group_name, expect->name, sizeof(group_name));
 	    if ((group_ptr = strchr(group_name, '/')) != NULL)
 	      *group_ptr = '\0';
 
@@ -1867,9 +1867,9 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 
 		case IPP_TAG_BOOLEAN :
 		    if (ippGetBoolean(found, last))
-		      strlcpy(buffer, "true", sizeof(buffer));
+		      cupsCopyString(buffer, "true", sizeof(buffer));
 		    else
-		      strlcpy(buffer, "false", sizeof(buffer));
+		      cupsCopyString(buffer, "false", sizeof(buffer));
 		    break;
 
 		case IPP_TAG_RESOLUTION :
@@ -1897,7 +1897,7 @@ do_test(_ipp_file_t    *f,		/* I - IPP data file */
 		case IPP_TAG_TEXTLANG :
 		case IPP_TAG_URI :
 		case IPP_TAG_URISCHEME :
-		    strlcpy(buffer, ippGetString(found, last, NULL), sizeof(buffer));
+		    cupsCopyString(buffer, ippGetString(found, last, NULL), sizeof(buffer));
 		    break;
 
 		default :
@@ -2511,7 +2511,7 @@ get_filename(const char *testfile,	/* I - Current test file */
     * Use the path as-is...
     */
 
-    strlcpy(dst, src, dstsize);
+    cupsCopyString(dst, src, dstsize);
   }
   else
   {
@@ -2519,13 +2519,13 @@ get_filename(const char *testfile,	/* I - Current test file */
     * Make path relative to testfile...
     */
 
-    strlcpy(dst, testfile, dstsize);
+    cupsCopyString(dst, testfile, dstsize);
     if ((dstptr = strrchr(dst, '/')) != NULL)
       dstptr ++;
     else
       dstptr = dst; /* Should never happen */
 
-    strlcpy(dstptr, src, dstsize - (size_t)(dstptr - dst));
+    cupsCopyString(dstptr, src, dstsize - (size_t)(dstptr - dst));
 
 #if _WIN32
     if (_access(dst, 0))
@@ -4372,7 +4372,7 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
 
       if (_ippFileReadToken(f, temp, sizeof(temp)))
       {
-        strlcpy(data->pause, temp, sizeof(data->pause));
+        cupsCopyString(data->pause, temp, sizeof(data->pause));
       }
       else
       {
@@ -5284,11 +5284,11 @@ token_cb(_ipp_file_t    *f,		/* I - IPP file data */
       data->last_expect    = NULL;
       data->file[0]        = '\0';
       data->ignore_errors  = data->def_ignore_errors;
-      strlcpy(data->name, f->filename, sizeof(data->name));
+      cupsCopyString(data->name, f->filename, sizeof(data->name));
       if ((ptr = strrchr(data->name, '.')) != NULL)
         *ptr = '\0';
       data->repeat_interval = 5000000;
-      strlcpy(data->resource, data->vars->resource, sizeof(data->resource));
+      cupsCopyString(data->resource, data->vars->resource, sizeof(data->resource));
       data->skip_previous = 0;
       data->pass_test     = 0;
       data->skip_test     = 0;
@@ -5986,7 +5986,7 @@ with_value(ipptool_test_t *data,	/* I - Test data */
           if ((!strcmp(value, "true") || !strcmp(value, "1")) == ippGetBoolean(attr, i))
           {
             if (!matchbuf[0])
-	      strlcpy(matchbuf, value, matchlen);
+	      cupsCopyString(matchbuf, value, matchlen);
 
 	    if (!(flags & IPPTOOL_WITH_ALL))
 	    {
@@ -6023,7 +6023,7 @@ with_value(ipptool_test_t *data,	/* I - Test data */
           if (!strcmp(value, temp))
           {
             if (!matchbuf[0])
-	      strlcpy(matchbuf, value, matchlen);
+	      cupsCopyString(matchbuf, value, matchlen);
 
 	    if (!(flags & IPPTOOL_WITH_ALL))
 	    {
@@ -6097,7 +6097,7 @@ with_value(ipptool_test_t *data,	/* I - Test data */
 	                 0, NULL, 0))
 	    {
 	      if (!matchbuf[0])
-		strlcpy(matchbuf, get_string(attr, i, flags, temp, sizeof(temp)), matchlen);
+		cupsCopyString(matchbuf, get_string(attr, i, flags, temp, sizeof(temp)), matchlen);
 
 	      if (!(flags & IPPTOOL_WITH_ALL))
 	      {
@@ -6125,7 +6125,7 @@ with_value(ipptool_test_t *data,	/* I - Test data */
 	    if (!compare_uris(value, get_string(attr, i, flags, temp, sizeof(temp))))
 	    {
 	      if (!matchbuf[0])
-		strlcpy(matchbuf, get_string(attr, i, flags, temp, sizeof(temp)), matchlen);
+		cupsCopyString(matchbuf, get_string(attr, i, flags, temp, sizeof(temp)), matchlen);
 
 	      if (!(flags & IPPTOOL_WITH_ALL))
 	      {
@@ -6190,7 +6190,7 @@ with_value(ipptool_test_t *data,	/* I - Test data */
             if (!result)
 	    {
 	      if (!matchbuf[0])
-		strlcpy(matchbuf, get_string(attr, i, flags, temp, sizeof(temp)), matchlen);
+		cupsCopyString(matchbuf, get_string(attr, i, flags, temp, sizeof(temp)), matchlen);
 
 	      if (!(flags & IPPTOOL_WITH_ALL))
 	      {
@@ -6249,7 +6249,7 @@ with_value(ipptool_test_t *data,	/* I - Test data */
 	    if (!regexec(&re, temp, 0, NULL, 0))
 	    {
 	      if (!matchbuf[0])
-		strlcpy(matchbuf, temp, matchlen);
+		cupsCopyString(matchbuf, temp, matchlen);
 
 	      if (!(flags & IPPTOOL_WITH_ALL))
 	      {
@@ -6514,7 +6514,7 @@ with_value_from(
 	  if (ippContainsString(fromattr, value))
 	  {
 	    if (!matchbuf[0])
-	      strlcpy(matchbuf, value, matchlen);
+	      cupsCopyString(matchbuf, value, matchlen);
 	  }
 	  else
 	  {
@@ -6536,7 +6536,7 @@ with_value_from(
             if (!compare_uris(value, ippGetString(fromattr, j, NULL)))
             {
               if (!matchbuf[0])
-                strlcpy(matchbuf, value, matchlen);
+                cupsCopyString(matchbuf, value, matchlen);
               break;
             }
           }

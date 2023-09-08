@@ -295,7 +295,7 @@ backendGetDeviceID(
     }
     else
     {
-      strlcpy(temp, make_model, sizeof(temp));
+      cupsCopyString(temp, make_model, sizeof(temp));
 
       if ((tempptr = strchr(temp, ' ')) != NULL)
         *tempptr = '\0';
@@ -436,7 +436,7 @@ backendGetMakeModel(
     * Use "Unknown" as the printer make and model...
     */
 
-    strlcpy(make_model, "Unknown", make_model_size);
+    cupsCopyString(make_model, "Unknown", make_model_size);
   }
 
   cupsFreeOptions(num_values, values);

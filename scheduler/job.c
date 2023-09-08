@@ -939,7 +939,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
                           IPP_TAG_LANGUAGE);
 
 #ifdef __APPLE__
-  strlcpy(apple_language, "APPLE_LANGUAGE=", sizeof(apple_language));
+  cupsCopyString(apple_language, "APPLE_LANGUAGE=", sizeof(apple_language));
   _cupsAppleLanguage(attr->values[0].string.text,
 		     apple_language + 15, sizeof(apple_language) - 15);
 #endif /* __APPLE__ */
@@ -952,7 +952,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 	* the POSIX locale...
 	*/
 
-	strlcpy(lang, "LANG=C", sizeof(lang));
+	cupsCopyString(lang, "LANG=C", sizeof(lang));
 	break;
 
     case 2 :
@@ -982,7 +982,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       (ptr = strstr(attr->values[0].string.text, "charset=")) != NULL)
     snprintf(charset, sizeof(charset), "CHARSET=%s", ptr + 8);
   else
-    strlcpy(charset, "CHARSET=utf-8", sizeof(charset));
+    cupsCopyString(charset, "CHARSET=utf-8", sizeof(charset));
 
   snprintf(content_type, sizeof(content_type), "CONTENT_TYPE=%s/%s",
            job->filetypes[job->current_file]->super,
@@ -1010,14 +1010,14 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       * All of these strcpy's are safe because we allocated the psr string...
       */
 
-      strlcpy(printer_state_reasons, "PRINTER_STATE_REASONS=", psrlen);
+      cupsCopyString(printer_state_reasons, "PRINTER_STATE_REASONS=", psrlen);
       for (psrptr = printer_state_reasons + 22, i = 0;
            i < job->printer->num_reasons;
 	   i ++)
       {
         if (i)
 	  *psrptr++ = ',';
-	strlcpy(psrptr, job->printer->reasons[i], psrlen - (size_t)(psrptr - printer_state_reasons));
+	cupsCopyString(psrptr, job->printer->reasons[i], psrlen - (size_t)(psrptr - printer_state_reasons));
 	psrptr += strlen(psrptr);
       }
     }
@@ -1046,7 +1046,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 	     job->printer->auth_info_required[2],
 	     job->printer->auth_info_required[3]);
   else
-    strlcpy(auth_info_required, "AUTH_INFO_REQUIRED=none",
+    cupsCopyString(auth_info_required, "AUTH_INFO_REQUIRED=none",
 	    sizeof(auth_info_required));
 
   envc = cupsdLoadEnv(envp, (int)(sizeof(envp) / sizeof(envp[0])));
@@ -1135,7 +1135,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       snprintf(command, sizeof(command), "%s/filter/%s", ServerBin,
                filter->filter);
     else
-      strlcpy(command, filter->filter, sizeof(command));
+      cupsCopyString(command, filter->filter, sizeof(command));
 
     if (i < (cupsArrayCount(filters) - 1))
     {
@@ -2298,7 +2298,7 @@ cupsdSaveJob(cupsd_job_t *job)		/* I - Job */
     * Remove backup file and mark this job as clean...
     */
 
-    strlcat(filename, ".O", sizeof(filename));
+    cupsConcatString(filename, ".O", sizeof(filename));
     unlink(filename);
 
     job->dirty = 0;
@@ -3033,7 +3033,7 @@ dump_job_history(cupsd_job_t *job)	/* I - Job */
     snprintf(temp, sizeof(temp), "[Job %d] printer-state-reasons=", job->id);
     ptr = temp + strlen(temp);
     if (printer->num_reasons == 0)
-      strlcpy(ptr, "none", sizeof(temp) - (size_t)(ptr - temp));
+      cupsCopyString(ptr, "none", sizeof(temp) - (size_t)(ptr - temp));
     else
     {
       for (i = 0;
@@ -3043,7 +3043,7 @@ dump_job_history(cupsd_job_t *job)	/* I - Job */
         if (i)
 	  *ptr++ = ',';
 
-	strlcpy(ptr, printer->reasons[i], sizeof(temp) - (size_t)(ptr - temp));
+	cupsCopyString(ptr, printer->reasons[i], sizeof(temp) - (size_t)(ptr - temp));
 	ptr += strlen(ptr);
       }
     }
@@ -3933,7 +3933,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
   *optptr = '\0';
 
   snprintf(title, title_size, "%s-%d", job->printer->name, job->id);
-  strlcpy(copies, "1", copies_size);
+  cupsCopyString(copies, "1", copies_size);
 
   for (attr = job->attrs->attrs; attr != NULL; attr = attr->next)
   {
@@ -3950,7 +3950,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
     else if (!strcmp(attr->name, "job-name") &&
 	     (attr->value_tag == IPP_TAG_NAME ||
 	      attr->value_tag == IPP_TAG_NAMELANG))
-      strlcpy(title, attr->values[0].string.text, title_size);
+      cupsCopyString(title, attr->values[0].string.text, title_size);
     else if (attr->group_tag == IPP_TAG_JOB)
     {
      /*
@@ -4009,18 +4009,18 @@ get_options(cupsd_job_t *job,		/* I - Job */
       */
 
       if (optptr > options)
-	strlcat(optptr, " ", optlength - (size_t)(optptr - options));
+	cupsConcatString(optptr, " ", optlength - (size_t)(optptr - options));
 
       if (attr->value_tag != IPP_TAG_BOOLEAN)
       {
-	strlcat(optptr, attr->name, optlength - (size_t)(optptr - options));
-	strlcat(optptr, "=", optlength - (size_t)(optptr - options));
+	cupsConcatString(optptr, attr->name, optlength - (size_t)(optptr - options));
+	cupsConcatString(optptr, "=", optlength - (size_t)(optptr - options));
       }
 
       for (i = 0; i < attr->num_values; i ++)
       {
 	if (i)
-	  strlcat(optptr, ",", optlength - (size_t)(optptr - options));
+	  cupsConcatString(optptr, ",", optlength - (size_t)(optptr - options));
 
 	optptr += strlen(optptr);
 
@@ -4034,9 +4034,9 @@ get_options(cupsd_job_t *job,		/* I - Job */
 
 	  case IPP_TAG_BOOLEAN :
 	      if (!attr->values[i].boolean)
-		strlcat(optptr, "no", optlength - (size_t)(optptr - options));
+		cupsConcatString(optptr, "no", optlength - (size_t)(optptr - options));
 
-	      strlcat(optptr, attr->name, optlength - (size_t)(optptr - options));
+	      cupsConcatString(optptr, attr->name, optlength - (size_t)(optptr - options));
 	      break;
 
 	  case IPP_TAG_RANGE :
@@ -4129,10 +4129,10 @@ get_options(cupsd_job_t *job,		/* I - Job */
   for (i = num_pwgppds, pwgppd = pwgppds; i > 0; i --, pwgppd ++)
   {
     *optptr++ = ' ';
-    strlcpy(optptr, pwgppd->name, optlength - (size_t)(optptr - options));
+    cupsCopyString(optptr, pwgppd->name, optlength - (size_t)(optptr - options));
     optptr += strlen(optptr);
     *optptr++ = '=';
-    strlcpy(optptr, pwgppd->value, optlength - (size_t)(optptr - options));
+    cupsCopyString(optptr, pwgppd->value, optlength - (size_t)(optptr - options));
     optptr += strlen(optptr);
   }
 
@@ -5413,7 +5413,7 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
       if (loglevel < CUPSD_LOG_DEBUG &&
           strcmp(job->printer->state_message, ptr))
       {
-	strlcpy(job->printer->state_message, ptr,
+	cupsCopyString(job->printer->state_message, ptr,
 		sizeof(job->printer->state_message));
 
 	event |= CUPSD_EVENT_PRINTER_STATE | CUPSD_EVENT_JOB_PROGRESS;

@@ -6270,14 +6270,14 @@ then :
 
 fi
 
-ac_fn_c_check_func "$LINENO" "strlcat" "ac_cv_func_strlcat"
-if test "x$ac_cv_func_strlcat" = xyes
+ac_fn_c_check_func "$LINENO" "cupsConcatString" "ac_cv_func_cupsConcatString"
+if test "x$ac_cv_func_cupsConcatString" = xyes
 then :
   printf "%s\n" "#define HAVE_STRLCAT 1" >>confdefs.h
 
 fi
-ac_fn_c_check_func "$LINENO" "strlcpy" "ac_cv_func_strlcpy"
-if test "x$ac_cv_func_strlcpy" = xyes
+ac_fn_c_check_func "$LINENO" "cupsCopyString" "ac_cv_func_cupsCopyString"
+if test "x$ac_cv_func_cupsCopyString" = xyes
 then :
   printf "%s\n" "#define HAVE_STRLCPY 1" >>confdefs.h
 

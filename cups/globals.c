@@ -226,7 +226,7 @@ cups_globals_alloc(void)
     * Open the registry...
     */
 
-    strlcpy(installdir, "C:/Program Files/cups.org", sizeof(installdir));
+    cupsCopyString(installdir, "C:/Program Files/cups.org", sizeof(installdir));
 
     if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\cups.org", 0, KEY_READ, &key))
     {
@@ -286,7 +286,7 @@ cups_globals_alloc(void)
     if (!strncmp(userprofile, "C:\\", 3))
       userprofile += 2;
 
-    strlcpy(homedir, userprofile, sizeof(homedir));
+    cupsCopyString(homedir, userprofile, sizeof(homedir));
     for (homeptr = homedir; *homeptr; homeptr ++)
     {
       // Convert back slashes to forward slashes

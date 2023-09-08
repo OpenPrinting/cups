@@ -93,7 +93,7 @@ cgiCopyTemplateLang(const char *tmpl)	/* I - Base filename */
   if ((lang = getenv("LANG")) != NULL)
   {
     locale[0] = '/';
-    strlcpy(locale + 1, lang, sizeof(locale) - 1);
+    cupsCopyString(locale + 1, lang, sizeof(locale) - 1);
 
     if ((locptr = strchr(locale, '.')) != NULL)
       *locptr = '\0';			/* Strip charset */
@@ -482,19 +482,19 @@ cgi_copy(FILE *out,			/* I - Output file */
 	      if ((innerval = cgiGetArray(innername, atoi(innerptr) - 1)) == NULL)
 	        *s = '\0';
 	      else
-	        strlcpy(s, innerval, sizeof(compare) - (size_t)(s - compare));
+	        cupsCopyString(s, innerval, sizeof(compare) - (size_t)(s - compare));
 	    }
 	    else if (innername[0] == '?')
 	    {
 	      if ((innerval = cgiGetArray(innername + 1, element)) == NULL)
 		*s = '\0';
 	      else
-	        strlcpy(s, innerval, sizeof(compare) - (size_t)(s - compare));
+	        cupsCopyString(s, innerval, sizeof(compare) - (size_t)(s - compare));
             }
 	    else if ((innerval = cgiGetArray(innername, element)) == NULL)
 	      snprintf(s, sizeof(compare) - (size_t)(s - compare), "{%s}", innername);
 	    else
-	      strlcpy(s, innerval, sizeof(compare) - (size_t)(s - compare));
+	      cupsCopyString(s, innerval, sizeof(compare) - (size_t)(s - compare));
 
             s += strlen(s);
 	  }

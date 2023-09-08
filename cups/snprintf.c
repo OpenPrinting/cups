@@ -184,7 +184,7 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	    {
 	      if ((bufptr + templen) > bufend)
 	      {
-		strlcpy(bufptr, temp, (size_t)(bufend - bufptr));
+		cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr));
 		bufptr = bufend;
 	      }
 	      else
@@ -216,7 +216,7 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	    {
 	      if ((bufptr + templen) > bufend)
 	      {
-		strlcpy(bufptr, temp, (size_t)(bufend - bufptr));
+		cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr));
 		bufptr = bufend;
 	      }
 	      else
@@ -241,7 +241,7 @@ _cups_vsnprintf(char       *buffer,	/* O - Output buffer */
 	    {
 	      if ((bufptr + templen) > bufend)
 	      {
-		strlcpy(bufptr, temp, (size_t)(bufend - bufptr));
+		cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr));
 		bufptr = bufend;
 	      }
 	      else

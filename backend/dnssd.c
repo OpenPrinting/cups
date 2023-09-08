@@ -753,7 +753,7 @@ exec_backend(char **argv)		/* I - Command-line arguments */
   * Extract the scheme from the URI...
   */
 
-  strlcpy(scheme, resolved_uri, sizeof(scheme));
+  cupsCopyString(scheme, resolved_uri, sizeof(scheme));
   if ((ptr = strchr(scheme, ':')) != NULL)
     *ptr = '\0';
 
@@ -1043,7 +1043,7 @@ query_callback(
   make_and_model[0] = '\0';
   pdl[0]            = '\0';
 
-  strlcpy(model, "Unknown", sizeof(model));
+  cupsCopyString(model, "Unknown", sizeof(model));
 
   for (data = rdata, dataend = data + rdlen;
        data < dataend;
@@ -1096,9 +1096,9 @@ query_callback(
 
     if (!_cups_strcasecmp(key, "usb_MFG") || !_cups_strcasecmp(key, "usb_MANU") ||
 	!_cups_strcasecmp(key, "usb_MANUFACTURER"))
-      strlcpy(make_and_model, value, sizeof(make_and_model));
+      cupsCopyString(make_and_model, value, sizeof(make_and_model));
     else if (!_cups_strcasecmp(key, "usb_MDL") || !_cups_strcasecmp(key, "usb_MODEL"))
-      strlcpy(model, value, sizeof(model));
+      cupsCopyString(model, value, sizeof(model));
     else if (!_cups_strcasecmp(key, "product") && !strstr(value, "Ghostscript"))
     {
       if (value[0] == '(')
@@ -1110,20 +1110,20 @@ query_callback(
 	if ((ptr = value + strlen(value) - 1) > value && *ptr == ')')
 	  *ptr = '\0';
 
-	strlcpy(model, value + 1, sizeof(model));
+	cupsCopyString(model, value + 1, sizeof(model));
       }
       else
-	strlcpy(model, value, sizeof(model));
+	cupsCopyString(model, value, sizeof(model));
     }
     else if (!_cups_strcasecmp(key, "ty"))
     {
-      strlcpy(model, value, sizeof(model));
+      cupsCopyString(model, value, sizeof(model));
 
       if ((ptr = strchr(model, ',')) != NULL)
 	*ptr = '\0';
     }
     else if (!_cups_strcasecmp(key, "pdl"))
-      strlcpy(pdl, value, sizeof(pdl));
+      cupsCopyString(pdl, value, sizeof(pdl));
     else if (!_cups_strcasecmp(key, "priority"))
       device->priority = atoi(value);
     else if ((device->type == CUPS_DEVICE_IPP ||
@@ -1180,11 +1180,11 @@ query_callback(
   {
     value[0] = '\0';
     if (strstr(pdl, "application/pdf"))
-      strlcat(value, ",PDF", sizeof(value));
+      cupsConcatString(value, ",PDF", sizeof(value));
     if (strstr(pdl, "application/postscript"))
-      strlcat(value, ",PS", sizeof(value));
+      cupsConcatString(value, ",PS", sizeof(value));
     if (strstr(pdl, "application/vnd.hp-PCL"))
-      strlcat(value, ",PCL", sizeof(value));
+      cupsConcatString(value, ",PCL", sizeof(value));
     for (ptr = strstr(pdl, "image/"); ptr; ptr = strstr(ptr, "image/"))
     {
       char *valptr = value + strlen(value);
@@ -1219,8 +1219,8 @@ query_callback(
 
   if (make_and_model[0])
   {
-    strlcat(make_and_model, " ", sizeof(make_and_model));
-    strlcat(make_and_model, model, sizeof(make_and_model));
+    cupsConcatString(make_and_model, " ", sizeof(make_and_model));
+    cupsConcatString(make_and_model, model, sizeof(make_and_model));
 
     if (!_cups_strncasecmp(make_and_model, "EPSON EPSON ", 12))
       _cups_strcpy(make_and_model, make_and_model + 6);
