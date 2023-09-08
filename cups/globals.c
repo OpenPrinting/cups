@@ -63,11 +63,7 @@ static void		cups_globals_init(void);
 void
 _cupsGlobalLock(void)
 {
-#ifdef HAVE_PTHREAD_H
-  pthread_mutex_lock(&cups_global_mutex);
-#elif defined(_WIN32)
-  EnterCriticalSection(&cups_global_mutex.m_criticalSection);
-#endif /* HAVE_PTHREAD_H */
+  cupsMutexLock(&cups_global_mutex);
 }
 
 
@@ -118,11 +114,7 @@ _cupsGlobals(void)
 void
 _cupsGlobalUnlock(void)
 {
-#ifdef HAVE_PTHREAD_H
-  pthread_mutex_unlock(&cups_global_mutex);
-#elif defined(_WIN32)
-  LeaveCriticalSection(&cups_global_mutex.m_criticalSection);
-#endif /* HAVE_PTHREAD_H */
+  cupsMutexUnlock(&cups_global_mutex);
 }
 
 
