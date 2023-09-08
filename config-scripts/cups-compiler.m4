@@ -228,7 +228,7 @@ AS_IF([test -n "$GCC"], [
 AS_CASE([$host_os_name], [linux*], [
     # glibc 2.8 and higher breaks peer credentials unless you
     # define _GNU_SOURCE...
-    OPTIM="$OPTIM -D_GNU_SOURCE"
+    OPTIM="$OPTIM -D_GNU_SOURCE -D__TIMESIZE=64"
 
     # The -z relro option is provided by the Linux linker command to
     # make relocatable data read-only.

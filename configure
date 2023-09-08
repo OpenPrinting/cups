@@ -6273,13 +6273,13 @@ fi
 ac_fn_c_check_func "$LINENO" "cupsConcatString" "ac_cv_func_cupsConcatString"
 if test "x$ac_cv_func_cupsConcatString" = xyes
 then :
-  printf "%s\n" "#define HAVE_STRLCAT 1" >>confdefs.h
+  printf "%s\n" "#define HAVE_CUPSCONCATSTRING 1" >>confdefs.h
 
 fi
 ac_fn_c_check_func "$LINENO" "cupsCopyString" "ac_cv_func_cupsCopyString"
 if test "x$ac_cv_func_cupsCopyString" = xyes
 then :
-  printf "%s\n" "#define HAVE_STRLCPY 1" >>confdefs.h
+  printf "%s\n" "#define HAVE_CUPSCOPYSTRING 1" >>confdefs.h
 
 fi
 
@@ -8303,7 +8303,7 @@ case $host_os_name in #(
 
     # glibc 2.8 and higher breaks peer credentials unless you
     # define _GNU_SOURCE...
-    OPTIM="$OPTIM -D_GNU_SOURCE"
+    OPTIM="$OPTIM -D_GNU_SOURCE -D__TIMESIZE=64"
 
     # The -z relro option is provided by the Linux linker command to
     # make relocatable data read-only.
