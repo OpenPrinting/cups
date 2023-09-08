@@ -3346,8 +3346,8 @@ http_add_field(http_t       *http,	// I - HTTP connection
     else if ((mcombined = realloc(http->fields[field], total + 1)) != NULL)
     {
       http->fields[field] = mcombined;
-      strlcat(mcombined, ", ", total + 1);
-      strlcat(mcombined, value, total + 1);
+      cupsConcatString(mcombined, ", ", total + 1);
+      cupsConcatString(mcombined, value, total + 1);
     }
   }
   else
