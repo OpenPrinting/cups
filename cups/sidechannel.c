@@ -21,10 +21,8 @@
 #  include <unistd.h>
 #  include <sys/select.h>
 #  include <sys/time.h>
-#endif /* _WIN32 */
-#ifdef HAVE_POLL
 #  include <poll.h>
-#endif /* HAVE_POLL */
+#endif /* _WIN32 */
 
 
 /*
@@ -102,12 +100,7 @@ cupsSideChannelRead(
   ssize_t	bytes;			/* Bytes read */
   int		templen;		/* Data length from message */
   int		nfds;			/* Number of file descriptors */
-#ifdef HAVE_POLL
   struct pollfd	pfd;			/* Poll structure for poll() */
-#else /* select() */
-  fd_set	input_set;		/* Input set for select() */
-  struct timeval stimeout;		/* Timeout value for select() */
-#endif /* HAVE_POLL */
 
 
   DEBUG_printf("cupsSideChannelRead(command=%p, status=%p, data=%p, datalen=%p(%d), timeout=%.3f)", command, status, data, datalen, datalen ? *datalen : -1, timeout);
@@ -123,28 +116,14 @@ cupsSideChannelRead(
   * See if we have pending data on the side-channel socket...
   */
 
-#ifdef HAVE_POLL
   pfd.fd     = CUPS_SC_FD;
   pfd.events = POLLIN;
 
-  while ((nfds = poll(&pfd, 1,
-		      timeout < 0.0 ? -1 : (int)(timeout * 1000))) < 0 &&
-	 (errno == EINTR || errno == EAGAIN))
-    ;
-
-#else /* select() */
-  FD_ZERO(&input_set);
-  FD_SET(CUPS_SC_FD, &input_set);
-
-  stimeout.tv_sec  = (int)timeout;
-  stimeout.tv_usec = (int)(timeout * 1000000) % 1000000;
-
-  while ((nfds = select(CUPS_SC_FD + 1, &input_set, NULL, NULL,
-			timeout < 0.0 ? NULL : &stimeout)) < 0 &&
-	 (errno == EINTR || errno == EAGAIN))
-    ;
-
-#endif /* HAVE_POLL */
+  do
+  {
+    nfds = poll(&pfd, 1, timeout < 0.0 ? -1 : (int)(timeout * 1000));
+  }
+  while (nfds < 0 && (errno == EINTR || errno == EAGAIN));
 
   if (nfds < 1)
   {
@@ -520,12 +499,7 @@ cupsSideChannelWrite(
 {
   char		*buffer;		/* Message buffer */
   ssize_t	bytes;			/* Bytes written */
-#ifdef HAVE_POLL
   struct pollfd	pfd;			/* Poll structure for poll() */
-#else /* select() */
-  fd_set	output_set;		/* Output set for select() */
-  struct timeval stimeout;		/* Timeout value for select() */
-#endif /* HAVE_POLL */
 
 
  /*
@@ -540,7 +514,6 @@ cupsSideChannelWrite(
   * See if we can safely write to the side-channel socket...
   */
 
-#ifdef HAVE_POLL
   pfd.fd     = CUPS_SC_FD;
   pfd.events = POLLOUT;
 
@@ -551,25 +524,6 @@ cupsSideChannelWrite(
   }
   else if (poll(&pfd, 1, (int)(timeout * 1000)) < 1)
     return (-1);
-
-#else /* select() */
-  FD_ZERO(&output_set);
-  FD_SET(CUPS_SC_FD, &output_set);
-
-  if (timeout < 0.0)
-  {
-    if (select(CUPS_SC_FD + 1, NULL, &output_set, NULL, NULL) < 1)
-      return (-1);
-  }
-  else
-  {
-    stimeout.tv_sec  = (int)timeout;
-    stimeout.tv_usec = (int)(timeout * 1000000) % 1000000;
-
-    if (select(CUPS_SC_FD + 1, NULL, &output_set, NULL, &stimeout) < 1)
-      return (-1);
-  }
-#endif /* HAVE_POLL */
 
  /*
   * Write a side-channel message in the format:

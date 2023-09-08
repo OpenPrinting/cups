@@ -508,11 +508,6 @@ main(int  argc,				/* I - Number of command-line args */
 
   getrlimit(RLIMIT_NOFILE, &limit);
 
-#if !defined(HAVE_POLL) && !defined(HAVE_EPOLL) && !defined(HAVE_KQUEUE)
-  if (limit.rlim_max > FD_SETSIZE)
-    MaxFDs = FD_SETSIZE;
-  else
-#endif /* !HAVE_POLL && !HAVE_EPOLL && !HAVE_KQUEUE */
 #ifdef RLIM_INFINITY
   if (limit.rlim_max == RLIM_INFINITY)
     MaxFDs = 16384;

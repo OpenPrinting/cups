@@ -21,9 +21,9 @@
 #  include <notify.h>
 #endif /* HAVE_NOTIFY_H */
 
-#ifdef HAVE_POLL
+#ifndef _WIN32
 #  include <poll.h>
-#endif /* HAVE_POLL */
+#endif /* !_WIN32 */
 
 #ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
@@ -3410,12 +3410,7 @@ cups_enum_dests(
                 main_fd;                /* File descriptor for lookups */
   DNSServiceRef ipp_ref = NULL;		/* IPP browser */
   DNSServiceRef ipps_ref = NULL;	/* IPPS browser */
-#    ifdef HAVE_POLL
   struct pollfd pfd;                    /* Polling data */
-#    else
-  fd_set        input;                  /* Input set for select() */
-  struct timeval timeout;               /* Timeout for select() */
-#    endif /* HAVE_POLL */
 #  else /* HAVE_AVAHI */
   int           error;                  /* Error value */
   AvahiServiceBrowser *ipp_ref = NULL;  /* IPP browser */
@@ -3732,21 +3727,10 @@ cups_enum_dests(
     cups_elapsed(&curtime);
 
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_POLL
     pfd.fd     = main_fd;
     pfd.events = POLLIN;
 
     nfds = poll(&pfd, 1, remaining > _CUPS_DNSSD_MAXTIME ? _CUPS_DNSSD_MAXTIME : remaining);
-
-#    else
-    FD_ZERO(&input);
-    FD_SET(main_fd, &input);
-
-    timeout.tv_sec  = 0;
-    timeout.tv_usec = 1000 * (remaining > _CUPS_DNSSD_MAXTIME ? _CUPS_DNSSD_MAXTIME : remaining);
-
-    nfds = select(main_fd + 1, &input, NULL, NULL, &timeout);
-#    endif /* HAVE_POLL */
 
     if (nfds > 0)
       DNSServiceProcessResult(data.main_ref);

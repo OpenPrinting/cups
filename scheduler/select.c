@@ -301,6 +301,8 @@ cupsdDoSelect(long timeout)		// I - Timeout in seconds
   else
     nfds = poll(cupsd_pollfds, (nfds_t)count, -1);
 
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "poll(nfds=%d, timeout=%ld) returned %d", count, timeout < 86400 ? timeout * 1000 : -1, nfds);
+
   if (nfds > 0)
   {
     // Do callbacks for each file descriptor...
@@ -310,7 +312,12 @@ cupsdDoSelect(long timeout)		// I - Timeout in seconds
         continue;
 
       if ((fdptr = find_fd(pfd->fd)) == NULL)
+      {
+        cupsdLogMessage(CUPSD_LOG_DEBUG, "cups_pollfds[%d] not found", pfd->fd);
         continue;
+      }
+
+      cupsdLogMessage(CUPSD_LOG_DEBUG, "cups_pollfds[%d].revents=%d", pfd->fd, pfd->revents);
 
       retain_fd(fdptr);
 

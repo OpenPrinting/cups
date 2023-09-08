@@ -2754,12 +2754,7 @@ _httpWait(http_t *http,			// I - HTTP connection
           int    msec,			// I - Milliseconds to wait
 	  int    usessl)		// I - Use TLS context?
 {
-#ifdef HAVE_POLL
   struct pollfd		pfd;		// Polled file descriptor
-#else
-  fd_set		input_set;	// select() input set
-  struct timeval	timeout;	// Timeout
-#endif // HAVE_POLL
   int			nfds;		// Result from select()/poll()
 
 
@@ -2779,7 +2774,6 @@ _httpWait(http_t *http,			// I - HTTP connection
   }
 
   // Then try doing a select() or poll() to poll the socket...
-#ifdef HAVE_POLL
   pfd.fd     = http->fd;
   pfd.events = POLLIN;
 
@@ -2787,34 +2781,11 @@ _httpWait(http_t *http,			// I - HTTP connection
   {
     nfds = poll(&pfd, 1, msec);
   }
-  while (nfds < 0 && (errno == EINTR || errno == EAGAIN));
-
-#else
-  do
-  {
-    FD_ZERO(&input_set);
-    FD_SET(http->fd, &input_set);
-
-    DEBUG_printf("6_httpWait: msec=%d, http->fd=%d", msec, http->fd);
-
-    if (msec >= 0)
-    {
-      timeout.tv_sec  = msec / 1000;
-      timeout.tv_usec = (msec % 1000) * 1000;
-
-      nfds = select(http->fd + 1, &input_set, NULL, NULL, &timeout);
-    }
-    else
-      nfds = select(http->fd + 1, &input_set, NULL, NULL, NULL);
-
-    DEBUG_printf("6_httpWait: select() returned %d...", nfds);
-  }
-#  ifdef _WIN32
+#ifdef _WIN32
   while (nfds < 0 && (WSAGetLastError() == WSAEINTR || WSAGetLastError() == WSAEWOULDBLOCK));
-#  else
+#else
   while (nfds < 0 && (errno == EINTR || errno == EAGAIN));
-#  endif // _WIN32
-#endif // HAVE_POLL
+#endif // _WIN32
 
   DEBUG_printf("5_httpWait: returning with nfds=%d, errno=%d...", nfds, errno);
 
@@ -4276,40 +4247,23 @@ http_write(http_t     *http,		// I - HTTP connection
 
     if (http->timeout_value > 0.0)
     {
-#ifdef HAVE_POLL
       struct pollfd	pfd;		// Polled file descriptor
-#else
-      fd_set		output_set;	// Output ready for write?
-      struct timeval	timeout;	// Timeout value
-#endif // HAVE_POLL
       int		nfds;		// Result from select()/poll()
 
       do
       {
-#ifdef HAVE_POLL
 	pfd.fd     = http->fd;
 	pfd.events = POLLOUT;
 
-	while ((nfds = poll(&pfd, 1, http->wait_value)) < 0 && (errno == EINTR || errno == EAGAIN))
-	  // Repeat as needed...
-
-#else
-	do
-	{
-	  FD_ZERO(&output_set);
-	  FD_SET(http->fd, &output_set);
-
-	  timeout.tv_sec  = http->wait_value / 1000;
-	  timeout.tv_usec = 1000 * (http->wait_value % 1000);
-
-	  nfds = select(http->fd + 1, NULL, &output_set, NULL, &timeout);
-	}
+        do
+        {
+          nfds = poll(&pfd, 1, http->wait_value);
+        }
 #  ifdef _WIN32
 	while (nfds < 0 && (WSAGetLastError() == WSAEINTR || WSAGetLastError() == WSAEWOULDBLOCK));
 #  else
 	while (nfds < 0 && (errno == EINTR || errno == EAGAIN));
 #  endif // _WIN32
-#endif // HAVE_POLL
 
         if (nfds < 0)
 	{

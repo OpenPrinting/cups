@@ -15,9 +15,9 @@
 
 #include "cups-private.h"
 #include "snmp-private.h"
-#ifdef HAVE_POLL
+#ifndef _WIN32
 #  include <poll.h>
-#endif /* HAVE_POLL */
+#endif /* !_WIN32 */
 
 
 /*
@@ -365,35 +365,20 @@ _cupsSNMPRead(int         fd,		/* I - SNMP socket file descriptor */
   if (timeout >= 0.0)
   {
     int			ready;		/* Data ready on socket? */
-#ifdef HAVE_POLL
     struct pollfd	pfd;		/* Polled file descriptor */
 
     pfd.fd     = fd;
     pfd.events = POLLIN;
 
-    while ((ready = poll(&pfd, 1, (int)(timeout * 1000.0))) < 0 &&
-           (errno == EINTR || errno == EAGAIN));
-
-#else
-    fd_set		input_set;	/* select() input set */
-    struct timeval	stimeout;	/* select() timeout */
-
     do
     {
-      FD_ZERO(&input_set);
-      FD_SET(fd, &input_set);
-
-      stimeout.tv_sec  = (int)timeout;
-      stimeout.tv_usec = (int)((timeout - stimeout.tv_sec) * 1000000);
-
-      ready = select(fd + 1, &input_set, NULL, NULL, &stimeout);
+      ready = poll(&pfd, 1, (int)(timeout * 1000.0));
     }
-#  ifdef _WIN32
-    while (ready < 0 && WSAGetLastError() == WSAEINTR);
-#  else
+#ifdef _WIN32
+    while (ready < 0 && (WSAGetLastError() == WSAEINTR || WSAGetLastError() == WSAEAGAIN));
+#else
     while (ready < 0 && (errno == EINTR || errno == EAGAIN));
-#  endif /* _WIN32 */
-#endif /* HAVE_POLL */
+#endif /* _WIN32 */
 
    /*
     * If we don't have any data ready, return right away...
