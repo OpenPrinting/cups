@@ -227,8 +227,8 @@ AS_IF([test -n "$GCC"], [
 # Add general compiler options per platform...
 AS_CASE([$host_os_name], [linux*], [
     # glibc 2.8 and higher breaks peer credentials unless you
-    # define _GNU_SOURCE...
-    OPTIM="$OPTIM -D_GNU_SOURCE -D__TIMESIZE=64"
+    # define _GNU_SOURCE...  32-bit Linux needs 64-bit time/file offsets...
+    OPTIM="$OPTIM -D_GNU_SOURCE -D__TIME_BITS=64 -D__FILE_BITS=64"
 
     # The -z relro option is provided by the Linux linker command to
     # make relocatable data read-only.
