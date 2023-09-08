@@ -11,6 +11,7 @@
  * Include necessary headers...
  */
 
+#include "cups.h"
 #include "string-private.h"
 #include "language-private.h"
 #include <stdlib.h>
