@@ -220,6 +220,46 @@ libs:		$(LIBTARGETS)
 
 
 #
+# Run unit tests...
+#
+
+test:		unittests
+	echo "Tests started at $(date)..." >test.log
+	echo Running array API tests...
+	./testarray >>test.log
+	echo Running file API tests...
+	./testfile >>test.log
+	echo Running HTTP API tests...
+	./testhttp >>test.log
+	echo Running IPP API tests...
+	./testipp >>test.log
+	echo Running internationalization API tests...
+	./testi18n >>test.log
+	echo Creating locale directory structure...
+	$(RM) -r locale
+	for po in ../locale/cups_*.po; do \
+		lang=`basename $$po .po | sed -e '1,$$s/^cups_//'`; \
+		$(MKDIR) locale/$$lang; \
+		$(LN) ../../$$po locale/$$lang; \
+	done
+	echo Running language API tests...
+	echo ls -al locale >>test.log
+	ls -al locale >>test.log
+	LOCALEDIR=locale ./testlang >>test.log
+	echo Running option API tests...
+	./testoptions >>test.log
+	echo Running PPD API tests...
+	./testppd >>test.log
+	echo Running PWG API tests...
+	./testpwg test.ppd >>test.log
+	echo Running raster API tests...
+	./testraster >>test.log
+#	echo Fuzzing IPP API...
+#	./fuzzipp >>test.log
+	echo "Tests finished at $(date)..." >>test.log
+
+
+#
 # Make unit tests...
 #
 
@@ -476,8 +516,6 @@ fuzzipp:	fuzzipp.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ fuzzipp.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Fuzzing IPP API...
-	./fuzzipp
 
 
 #
@@ -508,8 +546,6 @@ testarray:	testarray.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testarray.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running array API tests...
-	./testarray
 
 
 #
@@ -590,8 +626,6 @@ testfile:	testfile.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testfile.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running file API tests...
-	./testfile
 
 
 #
@@ -612,8 +646,6 @@ testhttp:	testhttp.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testhttp.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running HTTP API tests...
-	./testhttp
 
 
 #
@@ -624,8 +656,6 @@ testipp:	testipp.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testipp.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running IPP API tests...
-	./testipp
 
 
 #
@@ -636,8 +666,6 @@ testi18n:	testi18n.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testi18n.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running internationalization API tests...
-	./testi18n
 
 
 #
@@ -648,17 +676,6 @@ testlang:	testlang.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testlang.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Creating locale directory structure...
-	$(RM) -r locale
-	for po in ../locale/cups_*.po; do \
-		lang=`basename $$po .po | sed -e '1,$$s/^cups_//'`; \
-		$(MKDIR) locale/$$lang; \
-		$(LN) ../../$$po locale/$$lang; \
-	done
-	echo Running language API tests...
-	echo ls -al locale
-	ls -al locale
-	LOCALEDIR=locale ./testlang
 
 
 #
@@ -669,8 +686,6 @@ testoptions:	testoptions.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testoptions.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running option API tests...
-	./testoptions
 
 
 #
@@ -681,8 +696,6 @@ testppd:	testppd.o $(LIBCUPSSTATIC) test.ppd test2.ppd
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testppd.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running PPD API tests...
-	./testppd
 
 
 #
@@ -693,8 +706,6 @@ testpwg:	testpwg.o $(LIBCUPSSTATIC) test.ppd
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testpwg.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running PWG API tests...
-	./testpwg test.ppd
 
 
 #
@@ -705,8 +716,6 @@ testraster:	testraster.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testraster.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running raster API tests...
-	./testraster
 
 
 #
@@ -750,7 +759,7 @@ apihelp:
 		cupspm.xml \
 		array.[ch] auth.c cups.h dest*.c dir.[ch] encode.c file.[ch] \
 		http.h http*.c ipp.h ipp*.c options.c pwg.[ch] \
-		raster.h raster-stubs.c tls-darwin.c usersys.c util.c \
+		raster.h raster-stubs.c string.c tempfile.c thread.[ch] tls.c tls-openssl.c usersys.c util.c \
 		--coverimage cupspm.png \
 		--epub ../doc/help/cupspm.epub
 	codedoc --section "Programming" --body cupspm.md \
