@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS and Xcode.
  *
- * Copyright © 2021 by OpenPrinting
+ * Copyright © 2021-2023 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -19,8 +19,8 @@
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.4rc1"
-#define CUPS_MINIMAL "CUPS/2.4rc1"
+#define CUPS_SVERSION "CUPS v2.5.0"
+#define CUPS_MINIMAL "CUPS/2.5.0"
 
 
 /*
@@ -137,21 +137,6 @@
 
 
 /*
- * Do we have posix_spawn?
- */
-
-#define HAVE_POSIX_SPAWN 1
-
-
-/*
- * Do we have ZLIB?
- */
-
-#define HAVE_LIBZ 1
-#define HAVE_INFLATECOPY 1
-
-
-/*
  * Do we have PAM stuff?
  */
 
@@ -265,14 +250,6 @@
 
 
 /*
- * What signal functions to use?
- */
-
-#define HAVE_SIGSET 1
-#define HAVE_SIGACTION 1
-
-
-/*
  * What wait functions to use?
  */
 
@@ -306,10 +283,8 @@
  * Which encryption libraries do we have?
  */
 
-#define HAVE_TLS 1
-#define HAVE_CDSASSL 1
+#define HAVE_OPENSSL 1
 /* #undef HAVE_GNUTLS */
-/* #undef HAVE_SSPISSL */
 
 
 /*
@@ -573,15 +548,6 @@
  */
 
 #define CUPS_DEFAULT_GSSSERVICENAME "host"
-
-
-/*
- * Select/poll interfaces...
- */
-
-#define HAVE_POLL 1
-/* #undef HAVE_EPOLL */
-#define HAVE_KQUEUE 1
 
 
 /*

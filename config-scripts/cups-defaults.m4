@@ -1,7 +1,7 @@
 dnl
 dnl Default cupsd configuration settings for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2021-2023 by OpenPrinting.
 dnl Copyright © 2007-2018 by Apple Inc.
 dnl Copyright © 2006-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -10,7 +10,7 @@ dnl information.
 dnl
 
 dnl Set a default systemd WantedBy directive
-SYSTEMD_WANTED_BY="printers.target"
+SYSTEMD_WANTED_BY="printer.target"
 
 dnl Default languages...
 LANGUAGES="$(ls -1 locale/cups_*.po 2>/dev/null | sed -e '1,$s/locale\/cups_//' -e '1,$s/\.po//' | tr '\n' ' ')"
@@ -335,7 +335,7 @@ AS_IF([test x$default_printcap != xno], [
     AS_IF([test "x$default_printcap" = "xdefault"], [
 	AS_CASE([$host_os_name], [darwin*], [
 	    CUPS_DEFAULT_PRINTCAP="/Library/Preferences/org.cups.printers.plist"
-	], [sunos*], [
+	], [sunos* | solaris*], [
 	    CUPS_DEFAULT_PRINTCAP="/etc/printers.conf"
 	], [*], [
 	    CUPS_DEFAULT_PRINTCAP="/etc/printcap"
@@ -428,3 +428,31 @@ AS_IF([test $CUPS_WEBIF = Yes || test $CUPS_BROWSING = Yes], [
   SYSTEMD_WANTED_BY="$SYSTEMD_WANTED_BY multi-user.target"], [
   ])
 AC_SUBST([SYSTEMD_WANTED_BY])
+
+dnl Set default value of IdleExitTimeout
+AC_ARG_WITH([idle_exit_timeout], AS_HELP_STRING([--with-idle-exit-timeout], [set the default value for IdleExitTimeout, default=60]), [
+    AS_IF([test "x$withval" = "xno"], [
+	EXIT_TIMEOUT=0
+    ], [
+	EXIT_TIMEOUT=$withval
+    ])
+], [
+    EXIT_TIMEOUT=60
+])
+
+AC_SUBST([EXIT_TIMEOUT])
+
+dnl set TimeoutStartSec for cups.service
+dnl - if used as --without-*, it sets TimeoutStartSec to infinity
+AC_ARG_WITH([systemd-timeoutstartsec],
+    AS_HELP_STRING([--with-systemd-timeoutstartsec],
+	[set TimeoutStartSec value in cups.service, default=default value in systemd]), [
+    AS_IF([ test "x$withval" = "xno" ], [
+	TIMEOUTSTARTSEC="TimeoutStartSec=infinity"
+    ], [
+	TIMEOUTSTARTSEC="TimeoutStartSec=$withval"
+    ])
+], [
+    TIMEOUTSTARTSEC=""
+])
+AC_SUBST([TIMEOUTSTARTSEC])

@@ -2,7 +2,7 @@
  * "cupsaccept", "cupsdisable", "cupsenable", and "cupsreject" commands for
  * CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -90,11 +90,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), command);
-#endif /* HAVE_TLS */
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'U' : /* Username */
@@ -178,7 +174,7 @@ main(int  argc,				/* I - Number of command-line arguments */
                    "printer-uri", NULL, uri);
 
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                   "requesting-user-name", NULL, cupsUser());
+                   "requesting-user-name", NULL, cupsGetUser());
 
       if (reason != NULL)
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
@@ -190,11 +186,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-      if (cupsLastError() > IPP_OK_CONFLICT)
+      if (cupsGetError() > IPP_OK_CONFLICT)
       {
 	_cupsLangPrintf(stderr,
 			_("%s: Operation failed: %s"),
-			command, ippErrorString(cupsLastError()));
+			command, ippErrorString(cupsGetError()));
 	return (1);
       }
 
@@ -220,9 +216,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-        if (cupsLastError() > IPP_OK_CONFLICT)
+        if (cupsGetError() > IPP_OK_CONFLICT)
 	{
-	  _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+	  _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
 	  return (1);
 	}
       }

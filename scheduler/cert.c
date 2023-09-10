@@ -1,10 +1,12 @@
 /*
  * Authentication certificate routines for the CUPS scheduler.
  *
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2007-2016 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -50,7 +52,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
   * Allocate memory for the certificate...
   */
 
-  if ((cert = calloc(sizeof(cupsd_cert_t), 1)) == NULL)
+  if ((cert = calloc(1, sizeof(cupsd_cert_t))) == NULL)
     return;
 
  /*
@@ -59,7 +61,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
 
   cert->pid  = pid;
   cert->type = type;
-  strlcpy(cert->username, username, sizeof(cert->username));
+  cupsCopyString(cert->username, username, sizeof(cert->username));
 
   for (i = 0; i < 32; i ++)
     cert->certificate[i] = hex[CUPS_RAND() & 15];
@@ -83,7 +85,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
 
   if (pid == 0)
   {
-#if defined(HAVE_ACL_INIT) && !defined(SUPPORT_SNAPPED_CUPSD)
+#if defined(HAVE_ACL_INIT) && !CUPS_SNAP
     acl_t		acl;		/* ACL information */
     acl_entry_t		entry;		/* ACL entry */
     acl_permset_t	permset;	/* Permissions */
@@ -92,7 +94,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
 #  endif /* HAVE_MBR_UID_TO_UUID */
     static int		acls_not_supported = 0;
 					/* Only warn once */
-#endif /* HAVE_ACL_INIT && !SUPPORT_SNAPPED_CUPSD */
+#endif /* HAVE_ACL_INIT && !CUPS_SNAP */
 
 
    /*
@@ -104,7 +106,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
     /* ACLs do not work when cupsd is running in a Snap, and certificates
        need root as group owner to be only accessible for CUPS and not the
        unprivileged sub-processes */
-#ifdef SUPPORT_SNAPPED_CUPSD
+#if CUPS_SNAP
     fchown(fd, RunUser, 0);
 #else
     fchown(fd, RunUser, SystemGroupIDs[0]);
@@ -238,7 +240,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
       acl_free(acl);
     }
 #  endif /* HAVE_ACL_INIT */
-#endif /* SUPPORT_SNAPPED_CUPSD */
+#endif /* CUPS_SNAP */
 
     RootCertTime = time(NULL);
   }
@@ -442,5 +444,12 @@ ctcompare(const char *a,		/* I - First string */
     b ++;
   }
 
-  return (result);
+ /*
+  * The while loop finishes when *a == '\0' or *b == '\0'
+  * so after the while loop either both *a and *b == '\0',
+  * or one points inside a string, so when we apply bitwise OR on *a,
+  * *b and result, we get a non-zero return value if the compared strings don't match.
+  */
+
+  return (result | *a | *b);
 }

@@ -1,7 +1,7 @@
 dnl
 dnl TLS stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2021-2023 by OpenPrinting.
 dnl Copyright © 2007-2019 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -9,10 +9,10 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
-AC_ARG_WITH([tls], AS_HELP_STRING([--with-tls=...], [use cdsa (macOS) or gnutls for TLS support]))
+AC_ARG_WITH([tls], AS_HELP_STRING([--with-tls=...], [use gnutls or openssl for TLS support]))
 AS_IF([test "x$with_tls" = x], [
     with_tls="yes"
-], [test "$with_tls" != cdsa -a "$with_tls" != gnutls -a "$with_tls" != no -a "$with_tls" != yes], [
+], [test "$with_tls" != gnutls -a "$with_tls" != openssl -a "$with_tls" != yes], [
     AC_MSG_ERROR([Unsupported --with-tls value "$with_tls" specified.])
 ])
 
@@ -21,30 +21,44 @@ TLSLIBS=""
 have_tls="0"
 CUPS_SERVERKEYCHAIN=""
 
-dnl First try using CSDA SSL (macOS)...
-AS_IF([test $with_tls = yes -o $with_tls = cdsa], [
-    dnl Look for CDSA...
-    AS_IF([test $host_os_name = darwin], [
-	AC_CHECK_HEADER([Security/SecureTransport.h], [
+dnl First look for OpenSSL/LibreSSL...
+AS_IF([test $with_tls = yes -o $with_tls = openssl], [
+    AS_IF([test "x$PKGCONFIG" != x], [
+	# Find openssl using pkg-config...
+        AC_MSG_CHECKING([for openssl package])
+	AS_IF([$PKGCONFIG --exists openssl], [
+	    AC_MSG_RESULT([yes])
 	    have_tls="1"
-	    with_tls="cdsa"
-	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
-	    AC_DEFINE([HAVE_CDSASSL], [1], [Do we have the macOS SecureTransport API?])
-	    CUPS_SERVERKEYCHAIN="/Library/Keychains/System.keychain"
+	    with_tls="openssl"
+	    TLSLIBS="$($PKGCONFIG --libs openssl)"
+	    TLSFLAGS="$($PKGCONFIG --cflags openssl)"
+	    PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES openssl"
+	    AC_DEFINE([HAVE_OPENSSL], [1], [Do we have the OpenSSL library?])
+	], [
+	    AC_MSG_RESULT([no])
+	])
+    ], [
+	# Find openssl using legacy library/header checks...
+	SAVELIBS="$LIBS"
+	LIBS="-lcrypto $LIBS"
 
-	    dnl Check for the various security headers...
-	    AC_CHECK_HEADER([Security/SecCertificate.h], [
-		AC_DEFINE([HAVE_SECCERTIFICATE_H], [1], [Have the <Security/SecCertificate.h> header?])
-	    ])
-	    AC_CHECK_HEADER([Security/SecItem.h], [
-		AC_DEFINE([HAVE_SECITEM_H], [1], [Have the <Security/SecItem.h> header?])
-	    ])
-	    AC_CHECK_HEADER([Security/SecPolicy.h], [
-		AC_DEFINE([HAVE_SECPOLICY_H], [1], [Have the <Security/SecPolicy.h header?])
+	AC_CHECK_LIB([ssl], [SSL_new], [
+	    AC_CHECK_HEADER([openssl/ssl.h], [
+		have_tls="1"
+		with_tls="openssl"
+		TLSLIBS="-lssl -lcrypto"
+		PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $TLSLIBS"
+		AC_DEFINE([HAVE_OPENSSL], [1], [Do we have the OpenSSL library?])
 	    ])
 	])
-    ], [test $with_tls = cdsa], [
-        AC_MSG_ERROR([--with-tls=cdsa is not compatible with your host operating system.])
+
+	LIBS="$SAVELIBS"
+    ])
+
+    AS_IF([test $have_tls = 1], [
+	CUPS_SERVERKEYCHAIN="ssl"
+    ], [test $with_tls = openssl], [
+        AC_MSG_ERROR([--with-tls=openssl was specified but neither the OpenSSL nor LibreSSL library were found.])
     ])
 ])
 
@@ -60,7 +74,6 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	    TLSLIBS="$($PKGCONFIG --libs gnutls)"
 	    TLSFLAGS="$($PKGCONFIG --cflags gnutls)"
 	    PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES gnutls"
-	    AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	    AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
 	], [
 	    AC_MSG_RESULT([no])
@@ -72,7 +85,6 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
 	TLSLIBS="$($LIBGNUTLSCONFIG --libs)"
 	TLSFLAGS="$($LIBGNUTLSCONFIG --cflags)"
 	PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $TLSLIBS"
-	AC_DEFINE([HAVE_TLS], [1], [Do we support TLS?])
 	AC_DEFINE([HAVE_GNUTLS], [1], [Do we have the GNU TLS library?])
     ])
 
@@ -93,17 +105,14 @@ AS_IF([test $with_tls = yes -o $with_tls = gnutls], [
     ])
 ])
 
-IPPALIASES="http"
 AS_IF([test $have_tls = 1], [
     AC_MSG_NOTICE([    Using TLSLIBS="$TLSLIBS"])
     AC_MSG_NOTICE([    Using TLSFLAGS="$TLSFLAGS"])
-    IPPALIASES="http https ipps"
-], [test $with_tls = yes], [
-    AC_MSG_ERROR([--with-tls=yes was specified but no compatible TLS libraries could be found.])
+], [
+    AC_MSG_ERROR([No compatible TLS libraries could be found.])
 ])
 
 AC_SUBST([CUPS_SERVERKEYCHAIN])
-AC_SUBST([IPPALIASES])
 AC_SUBST([TLSFLAGS])
 AC_SUBST([TLSLIBS])
 

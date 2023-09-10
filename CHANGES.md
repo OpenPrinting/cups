@@ -1,166 +1,18 @@
-Changes in OpenPrinting CUPS
-============================
+CHANGES - OpenPrinting CUPS 2.5b1 - (TBA)
+==============================================
 
-CUPS v2.4-b1 (Pending)
-----------------------
+Changes in CUPS v2.5b1 (TBA)
+----------------------------
 
-- Added support for CUPS running in a Snapcraft snap.
-- Added support for AirPrint and Mopria clients (Issue #105)
-- Added configure support for specifying systemd dependencies in the CUPS
-  service file (Issue #144)
-- Added several features and improvements to `ipptool` (Issue #153)
-- The `ipptool` command now correctly reports an error when a test file cannot
-  be found.
-- Fixed Kerberos authentication for the web interface (Issue #19)
-- The ZPL sample driver now supports more "standard" label sizes (Issue #70)
-- Fixed reporting of printer instances when enumerating and when no options are
-  set for the main instance (Issue #71)
-- Reverted USB read limit enforcement change from CUPS 2.2.12 (Issue #72)
-- The IPP backend did not return the correct status code when a job was canceled
-  at the printer/server (Issue #74)
-- The `testlang` unit test program now loops over all of the available locales
-  by default (Issue #85)
-- The `cupsfilter` command now shows error messages when options are used
-  incorrectly (Issue #88)
-- The PPD functions now treat boolean values as case-insensitive (Issue #106)
-- Temporary queue names no longer end with an underscore (Issue #110)
-- The USB backend now runs as root (Issue #121)
-- Added pkg-config file for libcups (Issue #122)
-- Fixed a PPD memory leak caused by emulator definitions (Issue #124)
-- Fixed a `DISPLAY` bug in `ipptool` (Issue #139)
-- The scheduler now includes the `[Job N]` prefix for job log messages, even
-  when using syslog logging (Issue #154)
-- Added support for locales using the GB18030 character set (Issue #159)
-- `httpReconnect2` did not reset the socket file descriptor when the TLS
-  negotiation failed (Apple #5907)
-- `httpUpdate` did not reset the socket file descriptor when the TLS
-  negotiation failed (Apple #5915)
-- The IPP backend now retries Validate-Job requests (Issue #132)
-- Now show better error messages when a driver interface program fails to
-  provide a PPD file (Issue #148)
-- Added dark mode support to the CUPS web interface (Issue #152)
-- Added a workaround for Solaris in `httpAddrConnect2` (Issue #156)
-- Fixed an interaction between `--remote-admin` and `--remote-any` for the
-  `cupsctl` command (Issue #158)
-- Now use a 60 second timeout for reading USB backchannel data (Issue #160)
-- The USB backend now tries harder to find a serial number (Issue #170)
-- Fixed `@IF(name)` handling in `cupsd.conf` (Apple #5918)
-- Fixed documentation and added examples for CUPS' limited CGI support
-  (Apple #5940)
-- Fixed the `lpc` command prompt (Apple #5946)
-- Now always pass "localhost" in the `Host:` header when talking over a domain
-  socket or the loopback interface (Issue #185)
-- Fixed a job history update issue in the scheduler (Issue #187)
-- Fixed `job-pages-per-set` value for duplex print jobs.
-- Fixed an edge case in `ippReadIO` to make sure that only complete attributes
-  and values are retained on an error (Issue #195)
-- Hardened `ippReadIO` to prevent invalid IPP messages from being propagated
-  (Issue #195, Issue #196)
-- The scheduler now supports the "everywhere" model directly (Issue #201)
-- Fixed some IPP Everywhere option mapping problems (Issue #238)
-- Fixed support for "job-hold-until" with the Restart-Job operation (Issue #250)
-- Documentation fixes (Issue #92, Issue #163, Issue #177, Issue #184)
-- Localization updates (Issue #123, Issue #129, Issue #134, Issue #146,
-  Issue #164)
-- USB quirk updates (Issue #192, Apple #5766, Apple #5838, Apple #5843,
-  Apple #5867)
-- Web interface updates (Issue #142, Issue #218)
-- The `ippeveprinter` tool now automatically uses an available port.
-- Fixed some Windows issues.
-- Deprecated cups-config (Issue #97)
-- Deprecated Kerberos (`AuthType Negotiate`) authentication (Issue #98)
-- Removed support for the (long deprecated and unused) `FontPath`,
-  `LPDConfigFile`, `KeepAliveTimeout`, `RIPCache`, and `SMBConfigFile`
-  directives in `cupsd.conf` and `cups-files.conf`.
-- Stubbed out deprecated `httpMD5` functions.
-
-
-CUPS v2.3.3op2 (February 1, 2021)
----------------------------------
-
-- Security: Fixed a buffer (read) overflow in the `ippReadIO` function
-  (CVE-2020-10001)
-- Clarified the documentation for the "Listen" directive (Issue #53)
-- Fixed duplicate ColorModel entries for AirPrint printers (Issue 59)
-- Fixed directory/permission defaults for Debian kfreebsd-based systems
-  (Issue #60, Issue #61)
-- Fixed crash bug in `ppdOpen` (Issue #64, Issue #78)
-- Fixed regression in `snprintf` emulation function (Issue #67)
-- The scheduler's systemd service file now waits for the nslcd service to start
-  (Issue #69)
-- The libusb-based USB backend now uses a simpler read timer implementation to
-  avoid a regression in a previous change (Issue #72)
-- The PPD caching code now only tracks the `APPrinterIconPath` value on macOS
-  (Issue #73)
-- Fixed segfault in help.cgi when searching in man pages (Issue #81)
-- Root certificates were incorrectly stored in "~/.cups/ssl".
-
-
-CUPS v2.3.3op1 (November 27, 2020)
-----------------------------------
-
-- The automated test suite can now be activated using `make test` for
-  consistency with other projects and CI environments - the old `make check`
-  continues to work as well, and the previous test server behavior can be
-  accessed by running `make testserver`.
-- ippeveprinter now supports multiple icons and strings files.
-- ippeveprinter now uses the system's FQDN with Avahi.
-- ippeveprinter now supports Get-Printer-Attributes on "/".
-- ippeveprinter now uses a deterministic "printer-uuid" value.
-- ippeveprinter now uses system sounds on macOS for Identify-Printer.
-- Updated ippfind to look for files in "~/Desktop" on Windows.
-- Updated ippfind to honor `SKIP-XXX` directives with `PAUSE`.
-- Updated IPP Everywhere support to work around printers that only advertise
-  color raster support but really also support grayscale (Issue #1)
-- ipptool now supports DNS-SD URIs like `ipps://My%20Printer._ipps._tcp.local`
-  (Issue #5)
-- The scheduler now allows root backends to have world read permissions but not
-  world execute permissions (Issue #21)
-- Failures to bind IPv6 listener sockets no longer cause errors if IPv6 is
-  disabled on the host (Issue #25)
-- The SNMP backend now supports the HP and Ricoh vendor MIBs (Issue #28)
-- The scheduler no longer includes a timestamp in files it writes (Issue #29)
-- The systemd service names are now "cups.service" and "cups-lpd.service"
-  (Issue #30, Issue #31)
-- The scheduler no longer adds the local hostname to the ServerAlias list
-  (Issue #32)
-- Added `LogFileGroup` directive in "cups-files.conf" to control the group
-  owner of log files (Issue #34)
-- Added `--with-max-log-size` configure option (Issue #35)
-- Added `--enable-sync-on-close` configure option (Issue #37)
-- Added `--with-error-policy` configure option (Issue #38)
-- IPP Everywhere PPDs could have an "unknown" default InputSlot (Issue #44)
-- The `httpAddrListen` function now uses a listen backlog of 128.
-- Added USB quirks (Apple issue #5789, #5823, #5831)
-- Fixed IPP Everywhere v1.1 conformance issues in ippeveprinter.
-- Fixed DNS-SD name collision support in ippeveprinter.
-- Fixed compiler and code analyzer warnings.
-- Fixed TLS support on Windows.
-- Fixed ippfind sub-type searches with Avahi.
-- Fixed the default hostname used by ippeveprinter on macOS.
-- Fixed resolution of local IPP-USB printers with Avahi.
-- Fixed coverity issues (Issue #2)
-- Fixed `httpAddrConnect` issues (Issue #3)
-- Fixed web interface device URI issue (Issue #4)
-- Fixed lp/lpr "printer/class not found" error reporting (Issue #6)
-- Fixed xinetd support for LPD clients (Issue #7)
-- Fixed libtool build issue (Issue #11)
-- Fixed a memory leak in the scheduler (Issue #12)
-- Fixed a potential integer overflow in the PPD hashing code (Issue #13)
-- Fixed output-bin and print-quality handling issues (Issue #18)
-- Fixed PPD options getting mapped to odd IPP values like "tray---4" (Issue #23)
-- Fixed remote access to the cupsd.conf and log files (Issue #24)
-- Fixed the automated test suite when running in certain build/CI environments
-  (Issue #25)
-- Fixed a logging regression caused by a previous change for Apple issue #5604
-  (Issue #25)
-- Fixed fax phone number handling with GNOME (Issue #40)
-- Fixed potential rounding error in rastertopwg filter (Issue #41)
-- Fixed the "uri-security-supported" value from the scheduler (Issue #42)
-- Fixed IPP backend crash bug with "printer-alert" values (Issue #43)
-- Removed old Solaris inetconv(1m) reference in cups-lpd man page (Issue #46)
-- Fixed default options that incorrectly use the "custom" prefix (Issue #48)
-- Fixed a memory leak when resolving DNS-SD URIs (Issue #49)
-- Fixed systemd status reporting by adopting the notify interface (Issue #51)
-- Fixed crash in rastertopwg (Apple issue #5773)
-- Fixed cupsManualCopies values in IPP Everywhere PPDs (Apple issue #5807)
+- Added `cupsDNSSD` APIs.
+- Added `cupsConcatString` and `cupsCopyString` string APIs.
+- Added OpenSSL support for `cupsHashData` (Issue #762)
+- Fixed delays in lpd backend (Issue #741)
+- Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
+  the default printer is not set (Issue #719)
+- Fixed printing multiple files on specific printers (Issue #643)
+- Fixed printing to stderr if we can't open cups-files.conf (Issue #777)
+- Fixed purging job files via `cancel -x` (Issue #742)
+- Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
+  handling (fixes CVE-2023-34241)
+- Fixed a bug in the PPD command interpretation code (Issue #768)

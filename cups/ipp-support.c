@@ -1,6 +1,7 @@
 /*
  * Internet Printing Protocol support functions for CUPS.
  *
+ * Copyright © 2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -698,7 +699,7 @@ ippAttributeString(
           ptr = ippEnumString(attr->name, val->integer);
 
           if (buffer && bufptr < bufend)
-            strlcpy(bufptr, ptr, (size_t)(bufend - bufptr + 1));
+            cupsCopyString(bufptr, ptr, (size_t)(bufend - bufptr + 1));
 
           bufptr += strlen(ptr);
           break;
@@ -712,7 +713,7 @@ ippAttributeString(
 
       case IPP_TAG_BOOLEAN :
           if (buffer && bufptr < bufend)
-            strlcpy(bufptr, val->boolean ? "true" : "false", (size_t)(bufend - bufptr + 1));
+            cupsCopyString(bufptr, val->boolean ? "true" : "false", (size_t)(bufend - bufptr + 1));
 
           bufptr += val->boolean ? 4 : 5;
           break;
@@ -742,7 +743,7 @@ ippAttributeString(
           {
             unsigned year;		/* Year */
 
-            year = ((unsigned)val->date[0] << 8) + (unsigned)val->date[1];
+            year = ((unsigned)val->date[0] << 8) | (unsigned)val->date[1];
 
 	    if (val->date[9] == 0 && val->date[10] == 0)
 	      snprintf(temp, sizeof(temp), "%04u-%02u-%02uT%02u:%02u:%02uZ",
@@ -756,7 +757,7 @@ ippAttributeString(
 		       val->date[10]);
 
             if (buffer && bufptr < bufend)
-              strlcpy(bufptr, temp, (size_t)(bufend - bufptr + 1));
+              cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr + 1));
 
             bufptr += strlen(temp);
           }
@@ -800,7 +801,7 @@ ippAttributeString(
             bufptr ++;
 
             if (buffer && bufptr < bufend)
-              strlcpy(bufptr, val->string.language, (size_t)(bufend - bufptr));
+              cupsCopyString(bufptr, val->string.language, (size_t)(bufend - bufptr));
             bufptr += strlen(val->string.language);
 
             if (buffer && bufptr < bufend)
@@ -849,7 +850,7 @@ ippAttributeString(
       default :
           ptr = ippTagString(attr->value_tag);
           if (buffer && bufptr < bufend)
-            strlcpy(bufptr, ptr, (size_t)(bufend - bufptr + 1));
+            cupsCopyString(bufptr, ptr, (size_t)(bufend - bufptr + 1));
           bufptr += strlen(ptr);
           break;
     }
@@ -1764,6 +1765,9 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
     "printer-state-change-time",
     "printer-state-message",
     "printer-state-reasons",
+    "printer-strings-languages-supported",
+					/* IPP JPS3 */
+    "printer-strings-uri",		/* IPP JPS3 */
     "printer-supply",
     "printer-supply-description",
     "printer-supply-info-uri",
@@ -2410,7 +2414,7 @@ ippPort(void)
   if (!cg->ipp_port)
     _cupsSetDefaults();
 
-  DEBUG_printf(("1ippPort: Returning %d...", cg->ipp_port));
+  DEBUG_printf("1ippPort: Returning %d...", cg->ipp_port);
 
   return (cg->ipp_port);
 }
@@ -2423,7 +2427,7 @@ ippPort(void)
 void
 ippSetPort(int p)			/* I - Port number to use */
 {
-  DEBUG_printf(("ippSetPort(p=%d)", p));
+  DEBUG_printf("ippSetPort(p=%d)", p);
 
   _cupsGlobals()->ipp_port = p;
 }

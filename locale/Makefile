@@ -1,7 +1,7 @@
 #
 # Locale file makefile for CUPS.
 #
-# Copyright © 2021 by OpenPrinting.
+# Copyright © 2021-2023 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1993-2007 by Easy Software Products.
 #
@@ -12,8 +12,8 @@
 include ../Makedefs
 
 
-OBJS	=	checkpo.o po2strings.o strings2po.o
-TARGETS	=	checkpo po2strings strings2po
+OBJS	=	checkpo.o po2strings.o
+TARGETS	=	checkpo po2strings
 
 
 #
@@ -50,7 +50,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #
@@ -179,19 +179,6 @@ po2strings:	po2strings.o ../cups/$(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o po2strings po2strings.o \
 		$(LINKCUPSSTATIC)
-	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-
-
-#
-# strings2po - A simple utility which uses iconv to convert macOS .strings files
-#              to GNU gettext message catalogs.
-#
-# strings2po filename.strings filename.po
-#
-
-strings2po:	strings2po.o
-	echo Linking $@...
-	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o strings2po strings2po.o
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 

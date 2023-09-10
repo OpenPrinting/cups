@@ -440,7 +440,7 @@ main(int  argc,				/* I - Number of command-line args */
 	    if (i)
 	      *p++ = ',';
 
-	    strlcpy(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - printer_reasons));
+	    cupsCopyString(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - printer_reasons));
 	    p += strlen(p);
 	  }
 	  if (!dbus_message_iter_append_string(&iter, &printer_reasons))
@@ -512,7 +512,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  if (i)
 	    *p++ = ',';
 
-	  strlcpy(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - job_reasons));
+	  cupsCopyString(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - job_reasons));
 	  p += strlen(p);
 	}
 	if (!dbus_message_iter_append_string(&iter, &job_reasons))

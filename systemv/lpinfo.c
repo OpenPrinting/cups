@@ -1,7 +1,7 @@
 /*
  * "lpinfo" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -187,11 +187,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'h' : /* Connect to host */
@@ -299,7 +295,7 @@ show_devices(
   if (cupsGetDevices(CUPS_HTTP_DEFAULT, timeout, include_schemes,
                      exclude_schemes, device_cb, &long_status) != IPP_OK)
   {
-    _cupsLangPrintf(stderr, "lpinfo: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
     return (1);
   }
 
@@ -378,7 +374,7 @@ show_models(
 
     if (response->request.status.status_code > IPP_OK_CONFLICT)
     {
-      _cupsLangPrintf(stderr, "lpinfo: %s", cupsLastErrorString());
+      _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
       ippDelete(response);
       return (1);
     }
@@ -477,7 +473,7 @@ show_models(
   }
   else
   {
-    _cupsLangPrintf(stderr, "lpinfo: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
 
     return (1);
   }
@@ -500,7 +496,6 @@ usage(void)
   _cupsLangPuts(stdout, _("-h server[:port]        Connect to the named server and port"));
   _cupsLangPuts(stdout, _("-l                      Show verbose (long) output"));
   _cupsLangPuts(stdout, _("-m                      Show models"));
-  _cupsLangPuts(stdout, _("-U username             Specify the username to use for authentication"));
   _cupsLangPuts(stdout, _("-v                      Show devices"));
   _cupsLangPuts(stdout, _("--device-id device-id   Show models matching the given IEEE 1284 device ID"));
   _cupsLangPuts(stdout, _("--exclude-schemes scheme-list\n"

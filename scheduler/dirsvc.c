@@ -1,7 +1,7 @@
 /*
  * Directory services routines for the CUPS scheduler.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -355,7 +355,7 @@ dnssdBuildTxtRecord(
     */
 
     if ((ptr = DNSSDHostName + strlen(DNSSDHostName) - 1) >= DNSSDHostName && *ptr == '.')
-      strlcpy(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
+      cupsCopyString(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
     else
       snprintf(admin_hostname, sizeof(admin_hostname), "%s.", DNSSDHostName);
   }
@@ -372,7 +372,6 @@ dnssdBuildTxtRecord(
   * Get the URL scheme for the admin page...
   */
 
-#  ifdef HAVE_TLS
   for (lis = (cupsd_listener_t *)cupsArrayFirst(Listeners); lis; lis = (cupsd_listener_t *)cupsArrayNext(Listeners))
   {
     if (lis->encryption != HTTP_ENCRYPTION_NEVER)
@@ -381,7 +380,6 @@ dnssdBuildTxtRecord(
       break;
     }
   }
-#  endif /* HAVE_TLS */
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
   keyvalue[count  ][0] = "adminurl";
@@ -411,10 +409,8 @@ dnssdBuildTxtRecord(
   keyvalue[count  ][0] = "UUID";
   keyvalue[count++][1] = p->uuid + 9;
 
-#ifdef HAVE_TLS
   keyvalue[count  ][0] = "TLS";
-  keyvalue[count++][1] = "1.2";
-#endif /* HAVE_TLS */
+  keyvalue[count++][1] = "1.3";
 
   if ((urf_supported = ippFindAttribute(p->ppd_attrs, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
   {
@@ -429,7 +425,7 @@ dnssdBuildTxtRecord(
       if (ptr > urf_str && ptr < (urf_str + sizeof(urf_str) - 1))
 	*ptr++ = ',';
 
-      strlcpy(ptr, value, sizeof(urf_str) - (size_t)(ptr - urf_str));
+      cupsCopyString(ptr, value, sizeof(urf_str) - (size_t)(ptr - urf_str));
       ptr += strlen(ptr);
 
       if (ptr >= (urf_str + sizeof(urf_str) - 1))
@@ -717,9 +713,7 @@ dnssdDeregisterPrinter(
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
-#    endif /* HAVE_TLS */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
 #  endif /* HAVE_MDNSRESPONDER */
   }
@@ -995,10 +989,8 @@ dnssdRegisterInstance(
 #  ifdef HAVE_MDNSRESPONDER
     if (!strcmp(type, "_printer._tcp"))
       srv = &p->printer_srv;		/* Target LPD service */
-#    ifdef HAVE_TLS
     else if (!strcmp(type, "_ipps._tcp"))
       srv = &p->ipps_srv;		/* Target IPPS service */
-#    endif /* HAVE_TLS */
     else
       srv = &p->ipp_srv;		/* Target IPP service */
 
@@ -1053,7 +1045,7 @@ dnssdRegisterInstance(
   if (subtypes)
     snprintf(temp, sizeof(temp), "%s,%s", type, subtypes);
   else
-    strlcpy(temp, type, sizeof(temp));
+    cupsCopyString(temp, type, sizeof(temp));
 
   *srv  = DNSSDMaster;
   error = DNSServiceRegister(srv, kDNSServiceFlagsShareConnection,
@@ -1087,7 +1079,7 @@ dnssdRegisterInstance(
     char	*start,			/* Start of subtype */
 		subtype[256];		/* Subtype string */
 
-    strlcpy(temp, subtypes, sizeof(temp));
+    cupsCopyString(temp, subtypes, sizeof(temp));
 
     for (start = temp; *start; start = ptr)
     {
@@ -1198,15 +1190,15 @@ dnssdRegisterPrinter(
       if (DNSSDComputerName)
 	snprintf(name, sizeof(name), "%s @ %s", p->info, DNSSDComputerName);
       else
-	strlcpy(name, p->info, sizeof(name));
+	cupsCopyString(name, p->info, sizeof(name));
     }
     else if (DNSSDComputerName)
       snprintf(name, sizeof(name), "%s @ %s", p->name, DNSSDComputerName);
     else
-      strlcpy(name, p->name, sizeof(name));
+      cupsCopyString(name, p->name, sizeof(name));
   }
   else
-    strlcpy(name, p->reg_name, sizeof(name));
+    cupsCopyString(name, p->reg_name, sizeof(name));
 
  /*
   * Register IPP and LPD...
@@ -1219,10 +1211,8 @@ dnssdRegisterPrinter(
 
   status = dnssdRegisterInstance(NULL, p, name, "_printer._tcp", NULL, 0, NULL, 0, from_callback);
 
-#  ifdef HAVE_TLS
   if (status)
     dnssdRegisterInstance(NULL, p, name, "_ipps._tcp", DNSSDSubTypes, DNSSDPort, &ipp_txt, 0, from_callback);
-#  endif /* HAVE_TLS */
 
   if (status)
   {
@@ -1257,9 +1247,7 @@ dnssdRegisterPrinter(
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
-#    endif /* HAVE_TLS */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
 #  endif /* HAVE_MDNSRESPONDER */
   }
@@ -1538,7 +1526,7 @@ dnssdUpdateDNSSDName(int from_callback)	/* I - Called from callback? */
     if (DNSSDComputerName)
       snprintf(webif, sizeof(webif), "CUPS @ %s", DNSSDComputerName);
     else
-      strlcpy(webif, "CUPS", sizeof(webif));
+      cupsCopyString(webif, "CUPS", sizeof(webif));
 
     dnssdDeregisterInstance(&WebIFSrv, from_callback);
     dnssdRegisterInstance(&WebIFSrv, NULL, webif, "_http._tcp", "_printer", DNSSDPort, NULL, 1, from_callback);
@@ -1577,7 +1565,7 @@ get_auth_info_required(
       if (i)
 	*bufptr++ = ',';
 
-      strlcpy(bufptr, p->auth_info_required[i], bufsize - (size_t)(bufptr - buffer));
+      cupsCopyString(bufptr, p->auth_info_required[i], bufsize - (size_t)(bufptr - buffer));
       bufptr += strlen(bufptr);
     }
 
@@ -1593,7 +1581,7 @@ get_auth_info_required(
   else
     snprintf(resource, sizeof(resource), "/printers/%s", p->name);
 
-  if ((auth = cupsdFindBest(resource, HTTP_POST)) == NULL ||
+  if ((auth = cupsdFindBest(resource, HTTP_STATE_POST)) == NULL ||
       auth->type == CUPSD_AUTH_NONE)
     auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_PRINT_JOB);
 
@@ -1610,11 +1598,11 @@ get_auth_info_required(
           return (NULL);
 
       case CUPSD_AUTH_NEGOTIATE :
-	  strlcpy(buffer, "negotiate", bufsize);
+	  cupsCopyString(buffer, "negotiate", bufsize);
 	  break;
 
       default :
-	  strlcpy(buffer, "username,password", bufsize);
+	  cupsCopyString(buffer, "username,password", bufsize);
 	  break;
     }
 

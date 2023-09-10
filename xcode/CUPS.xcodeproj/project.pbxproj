@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -287,7 +287,6 @@
 		271286B11CC13DFF00E517C7 /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E6136B64B000836530 /* Kerberos.framework */; };
 		271286B21CC13DFF00E517C7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E7136B64B000836530 /* Security.framework */; };
 		271286B31CC13DFF00E517C7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E8136B64B000836530 /* SystemConfiguration.framework */; };
-		271286B91CC13E1000E517C7 /* strings2po.c in Sources */ = {isa = PBXBuildFile; fileRef = 271286861CC13D9600E517C7 /* strings2po.c */; };
 		271286C11CC13E2100E517C7 /* libcups.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups.dylib */; };
 		271286C21CC13E2100E517C7 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E5136B64AF00836530 /* CoreFoundation.framework */; };
 		271286C31CC13E2100E517C7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2C15B4913D003F877F /* IOKit.framework */; };
@@ -318,6 +317,18 @@
 		271287321CC140EB00E517C7 /* libcups_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4332F155844CF002E172D /* libcups_static.a */; };
 		271287331CC140EB00E517C7 /* libcupsppdc_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 724FA7401CC03AAF0092477B /* libcupsppdc_static.a */; };
 		271287341CC140F500E517C7 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC591926750C000F61D3 /* CoreFoundation.framework */; };
+		272A5C0B2AA41D5A00027F9B /* dnssd.h in Headers */ = {isa = PBXBuildFile; fileRef = 272A5C0A2AA41D5A00027F9B /* dnssd.h */; };
+		272A5C0C2AA41D5A00027F9B /* dnssd.h in Headers */ = {isa = PBXBuildFile; fileRef = 272A5C0A2AA41D5A00027F9B /* dnssd.h */; };
+		272A5C0E2AA41D6B00027F9B /* dnssd.c in Sources */ = {isa = PBXBuildFile; fileRef = 272A5C0D2AA41D6B00027F9B /* dnssd.c */; };
+		272A5C0F2AA41D6B00027F9B /* dnssd.c in Sources */ = {isa = PBXBuildFile; fileRef = 272A5C0D2AA41D6B00027F9B /* dnssd.c */; };
+		272A5C162AA41D7A00027F9B /* libcups_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4332F155844CF002E172D /* libcups_static.a */; };
+		272A5C172AA41D7A00027F9B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC591926750C000F61D3 /* CoreFoundation.framework */; };
+		272A5C182AA41D7A00027F9B /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC5A1926750C000F61D3 /* libiconv.dylib */; };
+		272A5C192AA41D7A00027F9B /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC5B1926750C000F61D3 /* libresolv.dylib */; };
+		272A5C1A2AA41D7A00027F9B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC5C1926750C000F61D3 /* libz.dylib */; };
+		272A5C1B2AA41D7A00027F9B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC5D1926750C000F61D3 /* Security.framework */; };
+		272A5C1C2AA41D7A00027F9B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC5E1926750C000F61D3 /* SystemConfiguration.framework */; };
+		272A5C232AA41DB300027F9B /* testdnssd.c in Sources */ = {isa = PBXBuildFile; fileRef = 272A5C222AA41DB300027F9B /* testdnssd.c */; };
 		273B1EA1226B3E4800428143 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC591926750C000F61D3 /* CoreFoundation.framework */; };
 		273B1EA2226B3E4800428143 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC5B1926750C000F61D3 /* libresolv.dylib */; };
 		273B1EA3226B3E4800428143 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2767FC5C1926750C000F61D3 /* libz.dylib */; };
@@ -901,12 +912,12 @@
 		72D53A3015B4923F003F877F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E5136B64AF00836530 /* CoreFoundation.framework */; };
 		72D53A3115B4923F003F877F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E7136B64B000836530 /* Security.framework */; };
 		72D53A3215B4923F003F877F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E8136B64B000836530 /* SystemConfiguration.framework */; };
-		72D53A3415B4925B003F877F /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A3315B4925B003F877F /* ApplicationServices.framework */; };
+		72D53A3415B4925B003F877F /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A3315B4925B003F877F /* ApplicationServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		72D53A3515B49270003F877F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2C15B4913D003F877F /* IOKit.framework */; };
 		72D53A3815B4929D003F877F /* colorman.c in Sources */ = {isa = PBXBuildFile; fileRef = 72D53A3615B4929D003F877F /* colorman.c */; };
 		72D53A3A15B492FA003F877F /* libpam.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A3915B492FA003F877F /* libpam.dylib */; };
-		72D53A3B15B4930A003F877F /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2915B49110003F877F /* GSS.framework */; };
-		72D53A3C15B4930A003F877F /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E6136B64B000836530 /* Kerberos.framework */; };
+		72D53A3B15B4930A003F877F /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2915B49110003F877F /* GSS.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		72D53A3C15B4930A003F877F /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E6136B64B000836530 /* Kerberos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		72F75A5C1336F988004BB496 /* cupstestppd.c in Sources */ = {isa = PBXBuildFile; fileRef = 72F75A5B1336F988004BB496 /* cupstestppd.c */; };
 		72F75A671336FA38004BB496 /* libcups.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups.dylib */; };
 /* End PBXBuildFile section */
@@ -1618,6 +1629,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2712871E1CC140BE00E517C7;
 			remoteInfo = genstrings;
+		};
+		272A5C122AA41D7A00027F9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 274FF6891333B1C400317ECB;
+			remoteInfo = libcups_static;
 		};
 		273B1EC1226B3F2600428143 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2670,6 +2688,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		272A5C1D2AA41D7A00027F9B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		273B1EA6226B3E4800428143 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3169,7 +3196,6 @@
 
 /* Begin PBXFileReference section */
 		2706965A1CADF3E200FFE5FB /* libcups_ios.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libcups_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		270B267D17F5C06700C8A3A9 /* tls-darwin.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-darwin.c"; path = "../cups/tls-darwin.c"; sourceTree = "<group>"; };
 		270B267E17F5C06700C8A3A9 /* tls-gnutls.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-gnutls.c"; path = "../cups/tls-gnutls.c"; sourceTree = "<group>"; };
 		270B268117F5C5D600C8A3A9 /* tls-sspi.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-sspi.c"; path = "../cups/tls-sspi.c"; sourceTree = "<group>"; };
 		270CCDA7135E3C9E00007BE2 /* testmime */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testmime; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3210,7 +3236,6 @@
 		271286831CC13D9600E517C7 /* checkpo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = checkpo.c; path = ../locale/checkpo.c; sourceTree = "<group>"; };
 		271286841CC13D9600E517C7 /* cups.pot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cups.pot; path = ../locale/cups.pot; sourceTree = "<group>"; };
 		271286851CC13D9600E517C7 /* po2strings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = po2strings.c; path = ../locale/po2strings.c; sourceTree = "<group>"; };
-		271286861CC13D9600E517C7 /* strings2po.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = strings2po.c; path = ../locale/strings2po.c; sourceTree = "<group>"; };
 		271286961CC13DC000E517C7 /* checkpo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = checkpo; sourceTree = BUILT_PRODUCTS_DIR; };
 		271286A71CC13DF100E517C7 /* po2strings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = po2strings; sourceTree = BUILT_PRODUCTS_DIR; };
 		271286B81CC13DFF00E517C7 /* strings2po */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = strings2po; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3222,6 +3247,10 @@
 		271287191CC13FDB00E517C7 /* mantohtml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mantohtml.c; path = ../man/mantohtml.c; sourceTree = "<group>"; };
 		2712871D1CC140B400E517C7 /* genstrings.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = genstrings.cxx; path = ../ppdc/genstrings.cxx; sourceTree = "<group>"; };
 		2712872C1CC140BE00E517C7 /* genstrings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = genstrings; sourceTree = BUILT_PRODUCTS_DIR; };
+		272A5C0A2AA41D5A00027F9B /* dnssd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dnssd.h; path = ../cups/dnssd.h; sourceTree = "<group>"; };
+		272A5C0D2AA41D6B00027F9B /* dnssd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dnssd.c; path = ../cups/dnssd.c; sourceTree = "<group>"; };
+		272A5C212AA41D7A00027F9B /* testdnssd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testdnssd; sourceTree = BUILT_PRODUCTS_DIR; };
+		272A5C222AA41DB300027F9B /* testdnssd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = testdnssd.c; path = ../cups/testdnssd.c; sourceTree = "<group>"; };
 		2732E089137A3F5200FAFEF6 /* cancel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cancel.c; path = ../systemv/cancel.c; sourceTree = "<group>"; };
 		2732E08A137A3F5200FAFEF6 /* cupsaccept.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cupsaccept.c; path = ../systemv/cupsaccept.c; sourceTree = "<group>"; };
 		2732E08C137A3F5200FAFEF6 /* lp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = lp.c; path = ../systemv/lp.c; sourceTree = "<group>"; };
@@ -3309,10 +3338,10 @@
 		278C58E8136B64B000836530 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		279AE6F42395B80F004DD600 /* libpam.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpam.tbd; path = usr/lib/libpam.tbd; sourceTree = SDKROOT; };
 		27A0347B1A8BDB1300650675 /* lpadmin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lpadmin; sourceTree = BUILT_PRODUCTS_DIR; };
-		27C89C8F2613E7C300A58F43 /* cups-snap.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-snap.m4"; path = "../config-scripts/cups-snap.m4"; sourceTree = "<group>"; };
 		27C89C902613E7C300A58F43 /* cups-tls.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-tls.m4"; path = "../config-scripts/cups-tls.m4"; sourceTree = "<group>"; };
 		27D3037D134148CB00F022B1 /* libcups2.def */ = {isa = PBXFileReference; lastKnownFileType = text; name = libcups2.def; path = ../cups/libcups2.def; sourceTree = "<group>"; };
 		27F89DA21B3AC43B00E5A4B7 /* testraster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = testraster.c; path = ../cups/testraster.c; sourceTree = "<group>"; };
+		27F9A76D28CBFC03002CCEE0 /* tls-openssl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-openssl.c"; path = "../cups/tls-openssl.c"; sourceTree = "<group>"; };
 		720DD6C21358FD5F0064AA82 /* snmp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = snmp; sourceTree = BUILT_PRODUCTS_DIR; };
 		720DD6D21358FDDE0064AA82 /* snmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = snmp.c; path = ../backend/snmp.c; sourceTree = "<group>"; };
 		720E854120164E7A00C6C411 /* ipp-file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "ipp-file.c"; path = "../cups/ipp-file.c"; sourceTree = "<group>"; };
@@ -3520,7 +3549,6 @@
 		727EF036192E3498001EF690 /* html.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = html.c; path = "../cgi-bin/html.c"; sourceTree = "<group>"; };
 		727EF037192E3498001EF690 /* ipp-var.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "ipp-var.c"; path = "../cgi-bin/ipp-var.c"; sourceTree = "<group>"; };
 		727EF038192E3498001EF690 /* jobs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jobs.c; path = "../cgi-bin/jobs.c"; sourceTree = "<group>"; };
-		727EF039192E3498001EF690 /* makedocset.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = makedocset.c; path = "../cgi-bin/makedocset.c"; sourceTree = "<group>"; };
 		727EF03A192E3498001EF690 /* printers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = printers.c; path = "../cgi-bin/printers.c"; sourceTree = "<group>"; };
 		727EF03B192E3498001EF690 /* search.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = search.c; path = "../cgi-bin/search.c"; sourceTree = "<group>"; };
 		727EF03C192E3498001EF690 /* template.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = template.c; path = "../cgi-bin/template.c"; sourceTree = "<group>"; };
@@ -3958,6 +3986,20 @@
 				271287341CC140F500E517C7 /* CoreFoundation.framework in Frameworks */,
 				271287321CC140EB00E517C7 /* libcups_static.a in Frameworks */,
 				271287331CC140EB00E517C7 /* libcupsppdc_static.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		272A5C152AA41D7A00027F9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				272A5C162AA41D7A00027F9B /* libcups_static.a in Frameworks */,
+				272A5C172AA41D7A00027F9B /* CoreFoundation.framework in Frameworks */,
+				272A5C182AA41D7A00027F9B /* libiconv.dylib in Frameworks */,
+				272A5C192AA41D7A00027F9B /* libresolv.dylib in Frameworks */,
+				272A5C1A2AA41D7A00027F9B /* libz.dylib in Frameworks */,
+				272A5C1B2AA41D7A00027F9B /* Security.framework in Frameworks */,
+				272A5C1C2AA41D7A00027F9B /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4701,7 +4743,6 @@
 				271286841CC13D9600E517C7 /* cups.pot */,
 				271287191CC13FDB00E517C7 /* mantohtml.c */,
 				271286851CC13D9600E517C7 /* po2strings.c */,
-				271286861CC13D9600E517C7 /* strings2po.c */,
 			);
 			name = tools;
 			sourceTree = "<group>";
@@ -4722,6 +4763,7 @@
 				270D02251D707E3700EA9403 /* testcreds.c */,
 				273BF6C61333B5370022CAAB /* testcups.c */,
 				2767FC5119266A36000F61D3 /* testdest.c */,
+				272A5C222AA41DB300027F9B /* testdnssd.c */,
 				727EF045192E3544001EF690 /* testfile.c */,
 				727EF03E192E3498001EF690 /* testhi.c */,
 				278C58E2136B647200836530 /* testhttp.c */,
@@ -4931,6 +4973,7 @@
 				273B1EAA226B3E4800428143 /* ippevepcl */,
 				273B1EBB226B3E5200428143 /* ippeveps */,
 				274770E02345342B0089BC31 /* testthreads */,
+				272A5C212AA41D7A00027F9B /* testdnssd */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4938,6 +4981,7 @@
 		72220EB41333050100FCA411 /* libcups */ = {
 			isa = PBXGroup;
 			children = (
+				272A5C0D2AA41D6B00027F9B /* dnssd.c */,
 				72220EB51333052D00FCA411 /* adminutil.c */,
 				72220EB81333056300FCA411 /* array.c */,
 				72220EBB1333056300FCA411 /* auth.c */,
@@ -4996,8 +5040,8 @@
 				72220F02133305BB00FCA411 /* string.c */,
 				72220F03133305BB00FCA411 /* tempfile.c */,
 				72220F05133305BB00FCA411 /* thread.c */,
-				270B267D17F5C06700C8A3A9 /* tls-darwin.c */,
 				270B267E17F5C06700C8A3A9 /* tls-gnutls.c */,
+				27F9A76D28CBFC03002CCEE0 /* tls-openssl.c */,
 				270B268117F5C5D600C8A3A9 /* tls-sspi.c */,
 				727AD5B619100A58009F6862 /* tls.c */,
 				72220F06133305BB00FCA411 /* transcode.c */,
@@ -5015,6 +5059,7 @@
 				72220EB91333056300FCA411 /* array.h */,
 				72220EBE1333056300FCA411 /* backend.h */,
 				72220EC11333056300FCA411 /* cups.h */,
+				272A5C0A2AA41D5A00027F9B /* dnssd.h */,
 				72220ED9133305BB00FCA411 /* file.h */,
 				72220EE3133305BB00FCA411 /* http.h */,
 				72220EE7133305BB00FCA411 /* ipp.h */,
@@ -5211,7 +5256,6 @@
 				727EF036192E3498001EF690 /* html.c */,
 				727EF037192E3498001EF690 /* ipp-var.c */,
 				727EF038192E3498001EF690 /* jobs.c */,
-				727EF039192E3498001EF690 /* makedocset.c */,
 				727EF03A192E3498001EF690 /* printers.c */,
 				727EF03B192E3498001EF690 /* search.c */,
 				727EF03C192E3498001EF690 /* template.c */,
@@ -5273,7 +5317,6 @@
 				72E65BB018DC799B00097E89 /* cups-pam.m4 */,
 				72E65BB118DC799B00097E89 /* cups-poll.m4 */,
 				72E65BB318DC799B00097E89 /* cups-sharedlibs.m4 */,
-				27C89C8F2613E7C300A58F43 /* cups-snap.m4 */,
 				72E65BB518DC799B00097E89 /* cups-threads.m4 */,
 				27C89C902613E7C300A58F43 /* cups-tls.m4 */,
 			);
@@ -5354,6 +5397,7 @@
 				7253C470216ED69400494ADD /* pwg.h in Headers */,
 				270696551CADF3E200FFE5FB /* transcode.h in Headers */,
 				270696561CADF3E200FFE5FB /* versioning.h in Headers */,
+				272A5C0C2AA41D5A00027F9B /* dnssd.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5405,6 +5449,7 @@
 				72220F28133305BB00FCA411 /* md5-internal.h in Headers */,
 				72220F2F133305BB00FCA411 /* ppd-private.h in Headers */,
 				72220F33133305BB00FCA411 /* pwg-private.h in Headers */,
+				272A5C0B2AA41D5A00027F9B /* dnssd.h in Headers */,
 				72220F38133305BB00FCA411 /* snmp-private.h in Headers */,
 				72220F3B133305BB00FCA411 /* string-private.h in Headers */,
 				72220F3E133305BB00FCA411 /* thread-private.h in Headers */,
@@ -6104,6 +6149,24 @@
 			name = genstrings;
 			productName = ppdc;
 			productReference = 2712872C1CC140BE00E517C7 /* genstrings */;
+			productType = "com.apple.product-type.tool";
+		};
+		272A5C102AA41D7A00027F9B /* testdnssd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 272A5C1E2AA41D7A00027F9B /* Build configuration list for PBXNativeTarget "testdnssd" */;
+			buildPhases = (
+				272A5C132AA41D7A00027F9B /* Sources */,
+				272A5C152AA41D7A00027F9B /* Frameworks */,
+				272A5C1D2AA41D7A00027F9B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				272A5C112AA41D7A00027F9B /* PBXTargetDependency */,
+			);
+			name = testdnssd;
+			productName = testcups;
+			productReference = 272A5C212AA41D7A00027F9B /* testdnssd */;
 			productType = "com.apple.product-type.tool";
 		};
 		273B1E9A226B3E4800428143 /* ippevepcl */ = {
@@ -7288,7 +7351,8 @@
 		72BF96371333042100B1EAD7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1220;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Apple Inc.";
 				TargetAttributes = {
 					270695FD1CADF3E200FFE5FB = {
@@ -7393,6 +7457,7 @@
 				270D02131D707E0200EA9403 /* testcreds */,
 				273BF6BC1333B5000022CAAB /* testcups */,
 				2767FC4619266A0D000F61D3 /* testdest */,
+				272A5C102AA41D7A00027F9B /* testdnssd */,
 				724FA5701CC037810092477B /* testfile */,
 				724FA6AC1CC0393E0092477B /* testhi */,
 				278C58CA136B640300836530 /* testhttp */,
@@ -7453,6 +7518,7 @@
 				270696271CADF3E200FFE5FB /* pwg-media.c in Sources */,
 				270696281CADF3E200FFE5FB /* dest-localization.c in Sources */,
 				270696291CADF3E200FFE5FB /* request.c in Sources */,
+				272A5C0F2AA41D6B00027F9B /* dnssd.c in Sources */,
 				2706962C1CADF3E200FFE5FB /* snprintf.c in Sources */,
 				2706962D1CADF3E200FFE5FB /* string.c in Sources */,
 				7253C455216E980000494ADD /* raster-error.c in Sources */,
@@ -7685,7 +7751,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				271286B91CC13E1000E517C7 /* strings2po.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7734,6 +7799,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2712872D1CC140D200E517C7 /* genstrings.cxx in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		272A5C132AA41D7A00027F9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				272A5C232AA41DB300027F9B /* testdnssd.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8020,6 +8093,7 @@
 				72220F17133305BB00FCA411 /* globals.c in Sources */,
 				72220F18133305BB00FCA411 /* http-addr.c in Sources */,
 				72220F19133305BB00FCA411 /* http-addrlist.c in Sources */,
+				272A5C0E2AA41D6B00027F9B /* dnssd.c in Sources */,
 				72220F1B133305BB00FCA411 /* http-support.c in Sources */,
 				7253C45A216E981900494ADD /* raster-interpret.c in Sources */,
 				72A8B3D71C188CB800A1A547 /* ppd-util.c in Sources */,
@@ -8973,6 +9047,11 @@
 			target = 2712871E1CC140BE00E517C7 /* genstrings */;
 			targetProxy = 271287351CC1411000E517C7 /* PBXContainerItemProxy */;
 		};
+		272A5C112AA41D7A00027F9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 274FF6891333B1C400317ECB /* libcups_static */;
+			targetProxy = 272A5C122AA41D7A00027F9B /* PBXContainerItemProxy */;
+		};
 		273B1EC2226B3F2600428143 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 273B1E9A226B3E4800428143 /* ippevepcl */;
@@ -9515,6 +9594,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -9535,6 +9615,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -9551,6 +9632,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -9560,6 +9643,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -9569,6 +9654,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -9578,6 +9665,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -9587,6 +9676,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9597,6 +9688,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9607,6 +9700,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9617,6 +9712,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9627,6 +9724,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9637,6 +9736,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9647,6 +9748,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9657,6 +9760,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9667,6 +9772,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9677,6 +9784,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9687,6 +9796,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9697,6 +9808,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9707,6 +9820,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9717,6 +9832,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9727,6 +9844,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9737,6 +9856,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9747,6 +9868,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9757,6 +9880,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9767,6 +9892,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9777,6 +9904,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9787,6 +9916,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9797,6 +9928,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9807,6 +9940,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9817,6 +9952,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9827,6 +9964,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9837,6 +9976,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9847,6 +9988,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9857,6 +10000,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9867,6 +10012,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9877,6 +10024,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9887,6 +10036,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9897,6 +10048,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9907,6 +10060,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9917,6 +10072,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9927,6 +10084,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9937,6 +10096,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9947,6 +10108,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9957,6 +10120,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9967,6 +10132,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9977,6 +10144,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9987,6 +10156,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -9997,6 +10168,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10007,7 +10180,14 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_PEDANTIC = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 			};
 			name = Debug;
 		};
@@ -10016,7 +10196,14 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_PEDANTIC = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 			};
 			name = Release;
 		};
@@ -10025,6 +10212,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10034,6 +10223,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10043,6 +10234,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10052,6 +10245,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10061,6 +10256,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10070,6 +10267,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10079,6 +10278,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10088,6 +10289,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10097,6 +10300,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/monitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10107,6 +10312,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/monitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10117,6 +10324,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/monitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10127,6 +10336,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/monitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10137,6 +10348,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/notifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10147,6 +10360,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/notifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10157,6 +10372,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/notifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10167,6 +10384,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/notifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10177,6 +10396,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10186,6 +10407,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10195,6 +10418,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10205,7 +10430,31 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		272A5C1F2AA41D7A00027F9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		272A5C202AA41D7A00027F9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10215,6 +10464,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/ippeveprinter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10225,6 +10476,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/ippeveprinter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10235,6 +10488,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/ippeveprinter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10245,6 +10500,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/ippeveprinter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10255,6 +10512,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10264,6 +10523,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10272,6 +10533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10280,6 +10542,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10289,6 +10552,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10298,6 +10563,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10307,6 +10574,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10317,6 +10586,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10326,6 +10597,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -10335,6 +10607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -10345,7 +10618,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10358,7 +10633,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10371,6 +10648,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10381,6 +10660,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10391,6 +10672,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10401,6 +10684,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10411,6 +10696,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10421,6 +10708,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/daemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10431,6 +10720,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10441,6 +10732,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10451,8 +10744,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/local/lib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = libcups_static;
@@ -10466,8 +10761,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/local/lib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = libcups_static;
@@ -10481,6 +10778,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10491,6 +10790,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10501,6 +10802,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10511,6 +10814,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10521,6 +10826,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10531,6 +10838,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10541,6 +10850,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10551,6 +10862,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10561,6 +10874,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10571,6 +10886,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10581,6 +10898,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10591,6 +10910,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10601,6 +10922,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10611,6 +10934,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10621,6 +10946,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = testdest;
 			};
 			name = Debug;
@@ -10630,6 +10957,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = testdest;
 			};
 			name = Release;
@@ -10639,6 +10968,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10648,6 +10979,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10671,8 +11004,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -10684,7 +11018,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INSTALL_PATH = /usr/sbin;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -10710,14 +11044,15 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INSTALL_PATH = /usr/sbin;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -10729,6 +11064,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10739,6 +11076,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10749,9 +11088,11 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0.0;
 				DYLIB_CURRENT_VERSION = 2.12.0;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10764,9 +11105,11 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0.0;
 				DYLIB_CURRENT_VERSION = 2.12.0;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10779,6 +11122,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10789,6 +11134,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/sbin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10799,7 +11146,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10810,7 +11159,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10821,6 +11172,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_MODE_FLAG = "u+rwX,go-rwX";
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10832,6 +11185,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_MODE_FLAG = "u+rwX,go-rwX";
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10843,6 +11198,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10853,6 +11210,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10863,6 +11222,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10873,6 +11234,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10883,6 +11246,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10893,6 +11258,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10903,6 +11270,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10913,6 +11282,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/backend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -10923,6 +11294,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10932,6 +11305,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10941,6 +11316,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10950,6 +11327,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10959,6 +11338,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10968,6 +11349,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10977,6 +11360,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -10986,6 +11371,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10995,6 +11382,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11004,6 +11393,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11013,6 +11404,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11022,6 +11415,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11031,6 +11426,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11040,6 +11437,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11049,6 +11448,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11058,6 +11459,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11067,6 +11470,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11076,6 +11481,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11085,6 +11492,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11094,6 +11503,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11103,6 +11514,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11112,6 +11525,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11121,6 +11536,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11130,6 +11547,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11139,6 +11558,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11148,6 +11569,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11157,6 +11580,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11166,6 +11591,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11175,6 +11602,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11184,6 +11613,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11193,6 +11624,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11202,6 +11635,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11211,6 +11646,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11220,6 +11657,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11229,6 +11668,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11238,6 +11679,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11247,6 +11690,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11256,6 +11701,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11265,6 +11712,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11274,6 +11723,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11283,6 +11734,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11292,6 +11745,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11301,6 +11756,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11310,6 +11767,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11319,6 +11778,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11328,6 +11789,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11337,6 +11800,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11346,6 +11811,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11355,8 +11822,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11368,8 +11837,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11381,8 +11852,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11394,8 +11867,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11407,8 +11882,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
@@ -11422,8 +11899,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/cups;
@@ -11437,7 +11916,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11448,7 +11929,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11459,8 +11942,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11472,8 +11957,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11485,6 +11972,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11495,6 +11984,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/libexec/cups/filter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11505,6 +11996,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11515,6 +12008,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11525,6 +12020,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -11534,6 +12031,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -11566,9 +12065,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -11579,6 +12080,7 @@
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
@@ -11591,6 +12093,7 @@
 				HEADER_SEARCH_PATHS = (
 					.,
 					..,
+					/usr/local/include,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -11630,8 +12133,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -11642,6 +12147,7 @@
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
@@ -11654,6 +12160,7 @@
 				HEADER_SEARCH_PATHS = (
 					.,
 					..,
+					/usr/local/include,
 				);
 				OTHER_CFLAGS = (
 					"-D_CUPS_SOURCE",
@@ -11669,6 +12176,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "ipptool copy";
 			};
@@ -11679,6 +12188,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "ipptool copy";
 			};
@@ -11689,6 +12200,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11699,6 +12212,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11709,7 +12224,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -11720,7 +12237,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				INSTALL_PATH = /usr/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -12040,6 +12559,15 @@
 			buildConfigurations = (
 				2712872A1CC140BE00E517C7 /* Debug */,
 				2712872B1CC140BE00E517C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		272A5C1E2AA41D7A00027F9B /* Build configuration list for PBXNativeTarget "testdnssd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				272A5C1F2AA41D7A00027F9B /* Debug */,
+				272A5C202AA41D7A00027F9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

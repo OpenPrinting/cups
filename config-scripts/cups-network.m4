@@ -12,7 +12,7 @@ dnl
 AC_CHECK_HEADER([resolv.h], [
     AC_DEFINE([HAVE_RESOLV_H], [1], [Have the <resolv.h> header?])
 ], [
-]. [
+], [
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <arpa/inet.h>

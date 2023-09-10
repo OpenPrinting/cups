@@ -1,7 +1,7 @@
 .\"
 .\" ippeveprinter man page for CUPS.
 .\"
-.\" Copyright © 2021 by OpenPrinting.
+.\" Copyright © 2021-2023 by OpenPrinting.
 .\" Copyright © 2014-2019 by Apple Inc.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -118,12 +118,15 @@ When specifying a directory,
 will create an output file using the job ID and name.
 .TP 5
 \fB\-F \fIoutput-type/subtype[,...]\fR
-Specifies the output MIME media type.
+Specifies the output MIME media type that is provided to the printer command.
 The default is "application/postscript" when the \fB\-P\fR option is specified.
 .TP 5
 \fB\-M \fImanufacturer\fR
 Set the manufacturer of the printer.
 The default is "Example".
+.TP 5
+\fB\-K \fIkeypath\fR
+Set location of server X.509 certificates and keys.
 .TP 5
 \fB\-P \fIfilename.ppd\fR
 Load printer attributes from the specified PPD file.
@@ -136,6 +139,14 @@ printer command ("\-c ippeveps").
 \fB\-V 2.0\fR
 Specifies the maximum IPP version to report.
 2.0 is the default.
+.TP 5
+\fB-a \fIfilename.conf\fR
+Load printer attributes from "filename.conf".
+Attribute files can be created using the
+.BR ipptool (1)
+command with the
+.I \-\-ippserver
+option.
 .TP 5
 \fB\-c \fIcommand\fR
 Run the specified command for each document that is printed.
@@ -271,4 +282,4 @@ command whenever a job is sent to the server:
 .BR ippeveps (7),
 PWG Internet Printing Protocol Workgroup (http://www.pwg.org/ipp)
 .SH COPYRIGHT
-Copyright \[co] 2021 by OpenPrinting.
+Copyright \[co] 2021-2023 by OpenPrinting.

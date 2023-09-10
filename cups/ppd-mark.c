@@ -396,7 +396,7 @@ ppdFindMarkedChoice(ppd_file_t *ppd,	/* I - PPD file */
 		*marked;		/* Marked choice */
 
 
-  DEBUG_printf(("2ppdFindMarkedChoice(ppd=%p, option=\"%s\")", ppd, option));
+  DEBUG_printf("2ppdFindMarkedChoice(ppd=%p, option=\"%s\")", ppd, option);
 
   if ((key.option = ppdFindOption(ppd, option)) == NULL)
   {
@@ -406,8 +406,7 @@ ppdFindMarkedChoice(ppd_file_t *ppd,	/* I - PPD file */
 
   marked = (ppd_choice_t *)cupsArrayFind(ppd->marked, &key);
 
-  DEBUG_printf(("3ppdFindMarkedChoice: Returning %p(%s)...", marked,
-                marked ? marked->choice : "NULL"));
+  DEBUG_printf("3ppdFindMarkedChoice: Returning %p(%s)...", marked, marked ? marked->choice : "NULL");
 
   return (marked);
 }
@@ -437,7 +436,7 @@ ppdFindOption(ppd_file_t *ppd,		/* I - PPD file data */
     ppd_option_t	key;		/* Option search key */
 
 
-    strlcpy(key.keyword, option, sizeof(key.keyword));
+    cupsCopyString(key.keyword, option, sizeof(key.keyword));
 
     return ((ppd_option_t *)cupsArrayFind(ppd->options, &key));
   }
@@ -542,8 +541,7 @@ ppdMarkOption(ppd_file_t *ppd,		/* I - PPD file record */
               const char *option,	/* I - Keyword */
               const char *choice)	/* I - Option name */
 {
-  DEBUG_printf(("ppdMarkOption(ppd=%p, option=\"%s\", choice=\"%s\")",
-        	ppd, option, choice));
+  DEBUG_printf("ppdMarkOption(ppd=%p, option=\"%s\", choice=\"%s\")", ppd, option, choice);
 
  /*
   * Range check input...
@@ -700,12 +698,12 @@ ppd_debug_marked(ppd_file_t *ppd,		/* I - PPD file data */
   ppd_choice_t	*c;			/* Current choice */
 
 
-  DEBUG_printf(("2cupsMarkOptions: %s", title));
+  DEBUG_printf("2cupsMarkOptions: %s", title);
 
   for (c = (ppd_choice_t *)cupsArrayFirst(ppd->marked);
        c;
        c = (ppd_choice_t *)cupsArrayNext(ppd->marked))
-    DEBUG_printf(("2cupsMarkOptions: %s=%s", c->option->keyword, c->choice));
+    DEBUG_printf("2cupsMarkOptions: %s=%s", c->option->keyword, c->choice);
 }
 #endif /* DEBUG */
 
@@ -776,8 +774,7 @@ ppd_mark_option(ppd_file_t *ppd,	/* I - PPD file */
   struct lconv	*loc;			/* Locale data */
 
 
-  DEBUG_printf(("7ppd_mark_option(ppd=%p, option=\"%s\", choice=\"%s\")",
-        	ppd, option, choice));
+  DEBUG_printf("7ppd_mark_option(ppd=%p, option=\"%s\", choice=\"%s\")", ppd, option, choice);
 
  /*
   * AP_D_InputSlot is the "default input slot" on macOS, and setting

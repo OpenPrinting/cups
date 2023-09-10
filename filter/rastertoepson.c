@@ -462,11 +462,10 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
       *comp_ptr++ = temp;
 
      /*
-      * Check the last bit in the current byte and the first bit in the
-      * next byte...
+      * Check the last bit in the current byte...
       */
 
-      if ((temp & 0x01) && comp_ptr < line_end && *comp_ptr & 0x80)
+      if ((temp & 0x01) && comp_ptr < line_end)
         *comp_ptr &= 0x7f;
     }
   }
@@ -973,9 +972,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   ppd_file_t		*ppd;		/* PPD file */
   int			page;		/* Current page */
   unsigned		y;		/* Current line */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -988,7 +985,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
    /*
     * We don't have the correct number of arguments; write an error message
@@ -1026,17 +1023,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   Canceled = 0;
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGTERM, CancelJob);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = CancelJob;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGTERM, CancelJob);
-#endif /* HAVE_SIGSET */
 
  /*
   * Initialize the print device...

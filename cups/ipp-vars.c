@@ -72,7 +72,7 @@ _ippVarsExpand(_ipp_vars_t *v,		/* I - IPP variables */
       }
       else if (!strncmp(src, "$ENV[", 5))
       {
-	strlcpy(temp, src + 5, sizeof(temp));
+	cupsCopyString(temp, src + 5, sizeof(temp));
 
 	for (tempptr = temp; *tempptr; tempptr ++)
 	  if (*tempptr == ']')
@@ -89,7 +89,7 @@ _ippVarsExpand(_ipp_vars_t *v,		/* I - IPP variables */
         if (src[1] == '{')
 	{
 	  src += 2;
-	  strlcpy(temp, src, sizeof(temp));
+	  cupsCopyString(temp, src, sizeof(temp));
 	  if ((tempptr = strchr(temp, '}')) != NULL)
 	    *tempptr = '\0';
 	  else
@@ -97,7 +97,7 @@ _ippVarsExpand(_ipp_vars_t *v,		/* I - IPP variables */
 	}
 	else
 	{
-	  strlcpy(temp, src + 1, sizeof(temp));
+	  cupsCopyString(temp, src + 1, sizeof(temp));
 
 	  for (tempptr = temp; *tempptr; tempptr ++)
 	    if (!isalnum(*tempptr & 255) && *tempptr != '-' && *tempptr != '_')
@@ -114,7 +114,7 @@ _ippVarsExpand(_ipp_vars_t *v,		/* I - IPP variables */
 
       if (value)
       {
-        strlcpy(dstptr, value, (size_t)(dstend - dstptr + 1));
+        cupsCopyString(dstptr, value, (size_t)(dstend - dstptr + 1));
 	dstptr += strlen(dstptr);
       }
     }
@@ -149,7 +149,7 @@ _ippVarsGet(_ipp_vars_t *v,		/* I - IPP variables */
   else if (!strcmp(name, "resource"))
     return (v->resource);
   else if (!strcmp(name, "user"))
-    return (cupsUser());
+    return (cupsGetUser());
   else
     return (cupsGetOption(name, v->num_vars, v->vars));
 }
@@ -229,7 +229,7 @@ _ippVarsSet(_ipp_vars_t *v,		/* I - IPP variables */
       * Resolve URI...
       */
 
-      if (!_httpResolveURI(value, resolved, sizeof(resolved), _HTTP_RESOLVE_DEFAULT, NULL, NULL))
+      if (!httpResolveURI(value, resolved, sizeof(resolved), HTTP_RESOLVE_DEFAULT, NULL, NULL))
         return (0);
 
       value = resolved;

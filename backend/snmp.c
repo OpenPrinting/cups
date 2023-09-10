@@ -1,6 +1,7 @@
 /*
  * SNMP discovery backend for CUPS.
  *
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2014 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
@@ -13,6 +14,9 @@
  */
 
 #include "backend-private.h"
+#ifndef HAVE_GETIFADDRS
+#  include <cups/getifaddrs-internal.h>
+#endif // !HAVE_GETIFADDRS
 #include <cups/array.h>
 #include <cups/file.h>
 #include <cups/http-private.h>
@@ -173,9 +177,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 {
   int		ipv4,			/* SNMP IPv4 socket */
 		ipv6;			/* SNMP IPv6 socket */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -198,18 +200,12 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Catch SIGALRM signals...
   */
 
-#ifdef HAVE_SIGSET
-  sigset(SIGALRM, alarm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   sigaddset(&action.sa_mask, SIGALRM);
   action.sa_handler = alarm_handler;
   sigaction(SIGALRM, &action, NULL);
-#else
-  signal(SIGALRM, alarm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Open the SNMP socket...
@@ -295,7 +291,12 @@ add_cache(http_addr_t *addr,		/* I - Device IP address */
                addr, addrname, uri ? uri : "(null)", id ? id : "(null)",
 	       make_and_model ? make_and_model : "(null)");
 
-  temp = calloc(1, sizeof(snmp_cache_t));
+  if ((temp = calloc(1, sizeof(snmp_cache_t))) == NULL)
+  {
+    perror("DEBUG: Unable to allocate cache entry");
+    return;
+  }
+
   memcpy(&(temp->address), addr, sizeof(temp->address));
 
   temp->addrname = strdup(addrname);
@@ -419,10 +420,6 @@ alarm_handler(int sig)			/* I - Signal number */
 
   (void)sig;
 
-#if !defined(HAVE_SIGSET) && !defined(HAVE_SIGACTION)
-  signal(SIGALRM, alarm_handler);
-#endif /* !HAVE_SIGSET && !HAVE_SIGACTION */
-
   if (DebugLevel)
     backendMessage("DEBUG: ALARM!\n");
 }
@@ -501,7 +498,7 @@ fix_make_model(
     make_model[0] = 'H';
     make_model[1] = 'P';
     make_model[2] = ' ';
-    strlcpy(make_model + 3, mmptr, (size_t)make_model_size - 3);
+    cupsCopyString(make_model + 3, mmptr, (size_t)make_model_size - 3);
   }
   else if (!_cups_strncasecmp(old_make_model, "deskjet", 7))
     snprintf(make_model, (size_t)make_model_size, "HP DeskJet%s", old_make_model + 7);
@@ -510,7 +507,7 @@ fix_make_model(
   else if (!_cups_strncasecmp(old_make_model, "stylus_pro_", 11))
     snprintf(make_model, (size_t)make_model_size, "EPSON Stylus Pro %s", old_make_model + 11);
   else
-    strlcpy(make_model, old_make_model, (size_t)make_model_size);
+    cupsCopyString(make_model, old_make_model, (size_t)make_model_size);
 
   if ((mmptr = strstr(make_model, ", Inc.,")) != NULL)
   {
@@ -613,22 +610,25 @@ get_interface_addresses(
     return (NULL);
 
   for (addr = addrs, first = NULL, last = NULL; addr; addr = addr->ifa_next)
+  {
     if ((addr->ifa_flags & IFF_BROADCAST) && addr->ifa_broadaddr &&
         addr->ifa_broadaddr->sa_family == AF_INET &&
 	(!ifname || !strcmp(ifname, addr->ifa_name)))
     {
-      current = calloc(1, sizeof(http_addrlist_t));
+      if ((current = calloc(1, sizeof(http_addrlist_t))) != NULL)
+      {
+	memcpy(&(current->addr), addr->ifa_broadaddr,
+	       sizeof(struct sockaddr_in));
 
-      memcpy(&(current->addr), addr->ifa_broadaddr,
-             sizeof(struct sockaddr_in));
+	if (!last)
+	  first = current;
+	else
+	  last->next = current;
 
-      if (!last)
-        first = current;
-      else
-        last->next = current;
-
-      last = current;
+	last = current;
+      }
     }
+  }
 
   freeifaddrs(addrs);
 
@@ -721,7 +721,7 @@ probe_device(snmp_cache_t *device)	/* I - Device */
 	    * Insert hostname/address...
 	    */
 
-	    strlcpy(uriptr, device->addrname, sizeof(uri) - (size_t)(uriptr - uri));
+	    cupsCopyString(uriptr, device->addrname, sizeof(uri) - (size_t)(uriptr - uri));
 	    uriptr += strlen(uriptr);
 	    format += 2;
 	  }
@@ -1120,7 +1120,7 @@ read_snmp_response(int fd)		/* I - SNMP socket file descriptor */
                               scheme, sizeof(scheme),
                               userpass, sizeof(userpass),
                               hostname, sizeof(hostname), &port,
-                              resource, sizeof(resource)) >= HTTP_URI_OK)
+                              resource, sizeof(resource)) >= HTTP_URI_STATUS_OK)
 	    device->uri = strdup((char *)packet.object_value.string.bytes);
 	}
 	break;
@@ -1182,7 +1182,7 @@ scan_devices(int ipv4,			/* I - SNMP IPv4 socket */
     {
       char	ifname[255];		/* Interface name */
 
-      strlcpy(ifname, address + 4, sizeof(ifname));
+      cupsCopyString(ifname, address + 4, sizeof(ifname));
       if (ifname[0])
         ifname[strlen(ifname) - 1] = '\0';
 
@@ -1316,7 +1316,7 @@ try_connect(http_addr_t *addr,		/* I - Socket address */
     return (-1);
   }
 
-  _httpAddrSetPort(addr, port);
+  httpAddrSetPort(addr, port);
 
   alarm(1);
 

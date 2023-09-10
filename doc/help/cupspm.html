@@ -8,7 +8,7 @@
 <meta name="generator" content="codedoc v3.7">
 <meta name="author" content="Michael R Sweet">
 <meta name="language" content="en-US">
-<meta name="copyright" content="Copyright © 2021 by OpenPrinting. All Rights Reserved.">
+<meta name="copyright" content="Copyright © 2021-2023 by OpenPrinting. All Rights Reserved.">
 <meta name="version" content="2.4.0">
 <style type="text/css"><!--
 body {
@@ -248,7 +248,7 @@ span.string {
 <div class="header">
 <h1 class="title">CUPS Programming Manual</h1>
 <p>Michael R Sweet</p>
-<p>Copyright © 2021 by OpenPrinting. All Rights Reserved.</p>
+<p>Copyright © 2021-2023 by OpenPrinting. All Rights Reserved.</p>
 </div>
 <div class="contents">
 <h2 class="title">Contents</h2>
@@ -395,8 +395,8 @@ span.string {
 <li><a href="#cupsSetUser">cupsSetUser</a></li>
 <li><a href="#cupsSetUserAgent">cupsSetUserAgent</a></li>
 <li><a href="#cupsStartDestDocument">cupsStartDestDocument</a></li>
-<li><a href="#cupsUser">cupsUser</a></li>
-<li><a href="#cupsUserAgent">cupsUserAgent</a></li>
+<li><a href="#cupsGetUser">cupsGetUser</a></li>
+<li><a href="#cupsGetUserAgent">cupsGetUserAgent</a></li>
 <li><a href="#httpAcceptConnection">httpAcceptConnection</a></li>
 <li><a href="#httpAddCredential">httpAddCredential</a></li>
 <li><a href="#httpAddrAny">httpAddrAny</a></li>
@@ -688,7 +688,7 @@ span.string {
 </div>
 <div class="body">
 <blockquote>
-<p>Please <a href="https://github.com/openprinting/cups/issues">file issues on Github</a> to provide feedback on this document.</p>
+<p>Please <a href="https://github.com/openprinting/cups/issues">file issues on GitHub</a> to provide feedback on this document.</p>
 </blockquote>
 <h2 class="title" id="introduction">Introduction</h2>
 <p>CUPS provides the &quot;cups&quot; library to talk to the different parts of CUPS and with Internet Printing Protocol (IPP) printers. The &quot;cups&quot; library functions are accessed by including the <code>&lt;cups/cups.h&gt;</code> header.</p>
@@ -709,12 +709,12 @@ span.string {
 <p>Similarly, printer and job management applications can use standard query operations to obtain the status information in a common, generic form and use standard management operations to control the state of those printers and jobs.</p>
 <blockquote>
 <p><strong>Note:</strong></p>
-<p>CUPS printer drivers necessarily depend on specific file formats and certain implementation details of the CUPS software. Please consult the Postscript and raster printer driver developer documentation on the <a href="https://openprinting.github.io/cups">OpenPrinting CUPS web site</a> for more information.</p>
+<p>CUPS printer drivers necessarily depend on specific file formats and certain implementation details of the CUPS software. Please consult the Postscript and raster printer driver developer documentation on the <a href="https://openprinting.github.io/cups">OpenPrinting CUPS website</a> for more information.</p>
 </blockquote>
 <h3 class="title" id="terms-used-in-this-document">Terms Used in This Document</h3>
 <p>A <em>Destination</em> is a printer or print queue that accepts print jobs. A <em>Print Job</em> is a collection of one or more documents that are processed by a destination using options supplied when creating the job. A <em>Document</em> is a file (JPEG image, PDF file, etc.) suitable for printing. An <em>Option</em> controls some aspect of printing, such as the media used. <em>Media</em> is the sheets or roll that is printed on. An <em>Attribute</em> is an option encoded for an Internet Printing Protocol (IPP) request.</p>
 <h3 class="title" id="compiling-programs-that-use-the-cups-api">Compiling Programs That Use the CUPS API</h3>
-<p>The CUPS libraries can be used from any C, C++, or Objective C program. The method of compiling against the libraries varies depending on the operating system and installation of CUPS. The following sections show how to compile a simple program (shown below) in two common environments.</p>
+<p>The CUPS libraries can be used from any C, C++, or Objective-C program. The method of compiling against the libraries varies depending on the operating system and installation of CUPS. The following sections show how to compile a simple program (shown below) in two common environments.</p>
 <p>The following simple program lists the available destinations:</p>
 <pre><code>#include &lt;stdio.h&gt;
 #include &lt;cups/cups.h&gt;
@@ -809,7 +809,7 @@ int main(void)
 </li>
 <li><p><code>CUPS_DEST_FLAGS_REMOVED</code>: The destination has gone away and should be removed from the list of destinations a user can select.</p>
 </li>
-<li><p><code>CUPS_DEST_FLAGS_ERROR</code>: An error occurred. The reason for the error can be found by calling the <code>cupsLastError</code> and/or <code>cupsLastErrorString</code> functions.</p>
+<li><p><code>CUPS_DEST_FLAGS_ERROR</code>: An error occurred. The reason for the error can be found by calling the <code>cupsGetError</code> and/or <code>cupsGetErrorString</code> functions.</p>
 </li>
 </ul>
 <p>The callback function returns 0 to stop enumeration or 1 to continue.</p>
@@ -1179,7 +1179,7 @@ if (cupsCreateDestJob(CUPS_HTTP_DEFAULT, dest, info,
   printf(&quot;Created job: %d\n&quot;, job_id);
 else
   printf(&quot;Unable to create job: %s\n&quot;,
-         cupsLastErrorString());
+         cupsGetErrorString());
 </code></pre>
 <p>Once the job is created, you submit documents for the job using the <code>cupsStartDestDocument</code>, <code>cupsWriteRequestData</code>, and <code>cupsFinishDestDocument</code> functions:</p>
 <pre><code>http_status_t
@@ -1230,7 +1230,7 @@ if (cupsStartDestDocument(CUPS_HTTP_DEFAULT, dest, info,
     puts(&quot;Document send succeeded.&quot;);
   else
     printf(&quot;Document send failed: %s\n&quot;,
-           cupsLastErrorString());
+           cupsGetErrorString());
 }
 
 fclose(fp);
@@ -1280,7 +1280,7 @@ ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
 <p><strong>Note:</strong></p>
 <p>If we wanted to query the scheduler instead of the device, we would look up the &quot;printer-uri-supported&quot; option instead of the &quot;device-uri&quot; value.</p>
 </blockquote>
-<p>The <code>ippAddString</code> function adds the &quot;printer-uri&quot; attribute the the IPP request. The <code>IPP_TAG_OPERATION</code> argument specifies that the attribute is part of the operation. The <code>IPP_TAG_URI</code> argument specifies that the value is a Universal Resource Identifier (URI) string. The <code>NULL</code> argument specifies there is no language (English, French, Japanese, etc.) associated with the string, and the <code>printer_uri</code> argument specifies the string value.</p>
+<p>The <code>ippAddString</code> function adds the &quot;printer-uri&quot; attribute to the IPP request. The <code>IPP_TAG_OPERATION</code> argument specifies that the attribute is part of the operation. The <code>IPP_TAG_URI</code> argument specifies that the value is a Universal Resource Identifier (URI) string. The <code>NULL</code> argument specifies there is no language (English, French, Japanese, etc.) associated with the string, and the <code>printer_uri</code> argument specifies the string value.</p>
 <p>The IPP Get-Printer-Attributes request also supports an IPP attribute called &quot;requested-attributes&quot; that lists the attributes and values you are interested in. For example, the following code requests the printer state attributes:</p>
 <pre><code>static const char * const requested_attributes[] =
 {
@@ -1328,17 +1328,17 @@ ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                                     filename);
 </code></pre>
 <p>Both <code>cupsDoRequest</code> and <code>cupsDoFileRequest</code> free the IPP request. If a valid IPP response is received, it is stored in a new IPP message (<code>ipp_t</code>) and returned to the caller. Otherwise <code>NULL</code> is returned.</p>
-<p>The status from the most recent request can be queried using the <code>cupsLastError</code> function, for example:</p>
-<pre><code>if (cupsLastError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
+<p>The status from the most recent request can be queried using the <code>cupsGetError</code> function, for example:</p>
+<pre><code>if (cupsGetError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
 {
   /* request failed */
 }
 </code></pre>
-<p>A human-readable error message is also available using the <code>cupsLastErrorString</code> function:</p>
-<pre><code>if (cupsLastError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
+<p>A human-readable error message is also available using the <code>cupsGetErrorString</code> function:</p>
+<pre><code>if (cupsGetError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
 {
   /* request failed */
-  printf(&quot;Request failed: %s\n&quot;, cupsLastErrorString());
+  printf(&quot;Request failed: %s\n&quot;, cupsGetErrorString());
 }
 </code></pre>
 <h3 class="title" id="processing-the-ipp-response">Processing the IPP Response</h3>
@@ -3744,10 +3744,10 @@ if this is the last document to be submitted in the job.  Returns
 <code>HTTP_CONTINUE</code> on success.
 
 </p>
-<h3 class="function"><a id="cupsUser">cupsUser</a></h3>
+<h3 class="function"><a id="cupsGetUser">cupsGetUser</a></h3>
 <p class="description">Return the current user's name.</p>
 <p class="code">
-const char *cupsUser(void);</p>
+const char *cupsGetUser(void);</p>
 <h4 class="returnvalue">Return Value</h4>
 <p class="description">User name</p>
 <h4 class="discussion">Discussion</h4>
@@ -3755,10 +3755,10 @@ const char *cupsUser(void);</p>
 program. Multi-threaded programs that override the user name with the
 <a href="#cupsSetUser"><code>cupsSetUser</code></a> function need to do so in each thread for the same user
 name to be used.</p>
-<h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="cupsUserAgent">cupsUserAgent</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="cupsGetUserAgent">cupsGetUserAgent</a></h3>
 <p class="description">Return the default HTTP User-Agent string.</p>
 <p class="code">
-const char *cupsUserAgent(void);</p>
+const char *cupsGetUserAgent(void);</p>
 <h4 class="returnvalue">Return Value</h4>
 <p class="description">User-Agent string</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="httpAcceptConnection">httpAcceptConnection</a></h3>
@@ -6979,7 +6979,7 @@ int ippValidateAttribute(<a href="#ipp_attribute_t">ipp_attribute_t</a> *attr);<
 <h4 class="discussion">Discussion</h4>
 <p class="discussion">This function validates the contents of an attribute based on the name and
 value tag.  1 is returned if the attribute is valid, 0 otherwise.  On
-failure, <a href="#cupsLastErrorString"><code>cupsLastErrorString</code></a> is set to a human-readable message.
+failure, <a href="#cupsGetErrorString"><code>cupsGetErrorString</code></a> is set to a human-readable message.
 
 </p>
 <h3 class="function"><span class="info">&#160;CUPS 1.7/macOS 10.9&#160;</span><a id="ippValidateAttributes">ippValidateAttributes</a></h3>
@@ -6995,7 +6995,7 @@ int ippValidateAttributes(<a href="#ipp_t">ipp_t</a> *ipp);</p>
 <p class="description">1 if valid, 0 otherwise</p>
 <h4 class="discussion">Discussion</h4>
 <p class="discussion">This function validates the contents of the IPP message, including each
-attribute.  Like <a href="#ippValidateAttribute"><code>ippValidateAttribute</code></a>, <a href="#cupsLastErrorString"><code>cupsLastErrorString</code></a> is
+attribute.  Like <a href="#ippValidateAttribute"><code>ippValidateAttribute</code></a>, <a href="#cupsGetErrorString"><code>cupsGetErrorString</code></a> is
 set to a human-readable message on failure.
 
 </p>
@@ -7546,7 +7546,7 @@ bottom, right, top) </td></tr>
 <tr><th>cupsMediaType </th>
 <td class="description">Media type code</td></tr>
 <tr><th>cupsNumColors <span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span></th>
-<td class="description">Number of color compoents </td></tr>
+<td class="description">Number of color components </td></tr>
 <tr><th>cupsPageSizeName[64] <span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span></th>
 <td class="description">PageSize name </td></tr>
 <tr><th>cupsPageSize[2] <span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span></th>

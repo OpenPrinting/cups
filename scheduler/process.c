@@ -1,10 +1,12 @@
 /*
  * Process management routines for the CUPS scheduler.
  *
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2007-2017 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -16,23 +18,20 @@
 #ifdef __APPLE__
 #  include <libgen.h>
 #endif /* __APPLE__ */
-#ifdef HAVE_POSIX_SPAWN
-#  include <spawn.h>
 extern char **environ;
 /* Don't use posix_spawn on systems with bugs in their implementations... */
-#  if defined(OpenBSD) && OpenBSD < 201505
-#    define USE_POSIX_SPAWN 0
-#  elif defined(__UCLIBC__) && __UCLIBC_MAJOR__ == 1 && __UCLIBC_MINOR__ == 0 && __UCLIBC_SUBLEVEL__ < 27
-#    define USE_POSIX_SPAWN 0
-#  elif defined(__UCLIBC__) && __UCLIBC_MAJOR__ < 1
-#    define USE_POSIX_SPAWN 0
-#  else /* All other platforms */
-#    define USE_POSIX_SPAWN 1
-#  endif /* ... */
-#else
+#if defined(OpenBSD) && OpenBSD < 201505
 #  define USE_POSIX_SPAWN 0
-#endif /* HAVE_POSIX_SPAWN */
-
+#elif defined(__UCLIBC__) && __UCLIBC_MAJOR__ == 1 && __UCLIBC_MINOR__ == 0 && __UCLIBC_SUBLEVEL__ < 27
+#  define USE_POSIX_SPAWN 0
+#elif defined(__UCLIBC__) && __UCLIBC_MAJOR__ < 1
+#  define USE_POSIX_SPAWN 0
+#else /* All other platforms */
+#  define USE_POSIX_SPAWN 1
+#endif /* OpenBSD && OpenBSD < 201505 */
+#if USE_POSIX_SPAWN
+#  include <spawn.h>
+#endif // USE_POSIX_SPAWN
 
 /*
  * Process structure...
@@ -433,7 +432,7 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
     if (job_id)
       *job_id = proc->job_id;
 
-    strlcpy(name, proc->name, namelen);
+    cupsCopyString(name, proc->name, namelen);
     cupsArrayRemove(process_array, proc);
     free(proc);
   }
@@ -442,7 +441,7 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
     if (job_id)
       *job_id = 0;
 
-    strlcpy(name, "unknown", namelen);
+    cupsCopyString(name, "unknown", namelen);
   }
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%p, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, name, CUPS_LLCAST namelen, job_id, job_id ? *job_id : 0, name);
@@ -483,14 +482,14 @@ cupsdStartProcess(
   posix_spawn_file_actions_t actions;	/* Spawn file actions */
   posix_spawnattr_t attrs;		/* Spawn attributes */
   sigset_t	defsignals;		/* Default signals */
-#elif defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
-  struct sigaction action;		/* POSIX signal handler */
-#endif /* USE_POSIX_SPAWN */
-#if defined(__APPLE__)
+#  if defined(__APPLE__)
   char		processPath[1024],	/* CFProcessPath environment variable */
 		linkpath[1024];		/* Link path for symlinks... */
   int		linkbytes;		/* Bytes for link path */
-#endif /* __APPLE__ */
+#  endif /* __APPLE__ */
+#else
+  struct sigaction action;		/* POSIX signal handler */
+#endif // USE_POSIX_SPAWN
 
 
   *pid = 0;
@@ -543,7 +542,7 @@ cupsdStartProcess(
 
     envp[0] = processPath;		/* Replace <CFProcessPath> string */
   }
-#endif	/* __APPLE__ */
+#endif /* __APPLE__ */
 
  /*
   * Use helper program when we have a sandbox profile...
@@ -744,11 +743,11 @@ cupsdStartProcess(
     if (!RunUser && setgid(Group))
       exit(errno + 100);
 
-#  ifdef SUPPORT_SNAPPED_CUPSD
+#  if CUPS_SNAP
     if (!RunUser && setgroups(0, NULL))
 #  else
     if (!RunUser && setgroups(1, &Group))
-#  endif /* SUPPORT_SNAPPED_CUPSD */
+#  endif /* CUPS_SNAP */
       exit(errno + 100);
 
    /*
@@ -768,11 +767,6 @@ cupsdStartProcess(
     * Unblock signals before doing the exec...
     */
 
-#  ifdef HAVE_SIGSET
-    sigset(SIGTERM, SIG_DFL);
-    sigset(SIGCHLD, SIG_DFL);
-    sigset(SIGPIPE, SIG_DFL);
-#  elif defined(HAVE_SIGACTION)
     memset(&action, 0, sizeof(action));
 
     sigemptyset(&action.sa_mask);
@@ -781,11 +775,6 @@ cupsdStartProcess(
     sigaction(SIGTERM, &action, NULL);
     sigaction(SIGCHLD, &action, NULL);
     sigaction(SIGPIPE, &action, NULL);
-#  else
-    signal(SIGTERM, SIG_DFL);
-    signal(SIGCHLD, SIG_DFL);
-    signal(SIGPIPE, SIG_DFL);
-#  endif /* HAVE_SIGSET */
 
     cupsdReleaseSignals();
 

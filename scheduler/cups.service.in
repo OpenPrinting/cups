@@ -8,6 +8,7 @@ Requires=cups.socket
 ExecStart=@sbindir@/cupsd -l
 Type=notify
 Restart=on-failure
+@TIMEOUTSTARTSEC@
 
 [Install]
 Also=cups.socket cups.path

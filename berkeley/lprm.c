@@ -1,7 +1,7 @@
 /*
  * "lprm" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -66,11 +66,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'P' : /* Cancel jobs on a printer */
@@ -82,6 +78,13 @@ main(int  argc,			/* I - Number of command-line arguments */
 	      else
 	      {
 		i ++;
+
+		if (i >= argc)
+		{
+		  _cupsLangPrintf(stderr, _("%s: Error - expected destination after \"-P\" option."), argv[0]);
+		  usage();
+		}
+
 		name = argv[i];
 	      }
 
@@ -184,7 +187,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 
       if (cupsCancelJob2(CUPS_HTTP_DEFAULT, name, job_id, 0) != IPP_OK)
       {
-        _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+        _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
 	goto error;
       }
 
@@ -199,7 +202,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 
   if (!did_cancel && cupsCancelJob2(CUPS_HTTP_DEFAULT, name, 0, 0) != IPP_OK)
     {
-      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
       goto error;
     }
 

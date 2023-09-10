@@ -5,6 +5,7 @@
  * created from driver information files, and dynamically generated PPD files
  * using driver helper programs.
  *
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -151,7 +152,7 @@ static ppd_info_t	*add_ppd(const char *filename, const char *name,
 				 size_t size, int model_number, int type,
 				 const char *scheme);
 static int		cat_drv(const char *name, int request_id);
-static void		cat_ppd(const char *name, int request_id);
+static void		cat_ppd(const char *name, int request_id) _CUPS_NORETURN;
 static int		cat_static(const char *name, int request_id);
 static int		cat_tar(const char *name, int request_id);
 static int		compare_inodes(struct stat *a, struct stat *b);
@@ -161,12 +162,12 @@ static int		compare_names(const ppd_info_t *p0,
 			              const ppd_info_t *p1);
 static int		compare_ppds(const ppd_info_t *p0,
 			             const ppd_info_t *p1);
-static void		dump_ppds_dat(const char *filename);
+static void		dump_ppds_dat(const char *filename) _CUPS_NORETURN;
 static void		free_array(cups_array_t *a);
 static cups_file_t	*get_file(const char *name, int request_id,
 			          const char *subdir, char *buffer,
 			          size_t bufsize, char **subfile);
-static void		list_ppds(int request_id, int limit, const char *opt);
+static void		list_ppds(int request_id, int limit, const char *opt) _CUPS_NORETURN;
 static int		load_drivers(cups_array_t *include,
 			             cups_array_t *exclude);
 static int		load_drv(const char *filename, const char *name,
@@ -265,18 +266,18 @@ add_ppd(const char *filename,		/* I - PPD filename */
   ppd->record.model_number = model_number;
   ppd->record.type         = type;
 
-  strlcpy(ppd->record.filename, filename, sizeof(ppd->record.filename));
-  strlcpy(ppd->record.name, name, sizeof(ppd->record.name));
-  strlcpy(ppd->record.languages[0], language,
+  cupsCopyString(ppd->record.filename, filename, sizeof(ppd->record.filename));
+  cupsCopyString(ppd->record.name, name, sizeof(ppd->record.name));
+  cupsCopyString(ppd->record.languages[0], language,
           sizeof(ppd->record.languages[0]));
-  strlcpy(ppd->record.products[0], product, sizeof(ppd->record.products[0]));
-  strlcpy(ppd->record.psversions[0], psversion,
+  cupsCopyString(ppd->record.products[0], product, sizeof(ppd->record.products[0]));
+  cupsCopyString(ppd->record.psversions[0], psversion,
           sizeof(ppd->record.psversions[0]));
-  strlcpy(ppd->record.make, make, sizeof(ppd->record.make));
-  strlcpy(ppd->record.make_and_model, make_and_model,
+  cupsCopyString(ppd->record.make, make, sizeof(ppd->record.make));
+  cupsCopyString(ppd->record.make_and_model, make_and_model,
           sizeof(ppd->record.make_and_model));
-  strlcpy(ppd->record.device_id, device_id, sizeof(ppd->record.device_id));
-  strlcpy(ppd->record.scheme, scheme, sizeof(ppd->record.scheme));
+  cupsCopyString(ppd->record.device_id, device_id, sizeof(ppd->record.device_id));
+  cupsCopyString(ppd->record.scheme, scheme, sizeof(ppd->record.scheme));
 
  /*
   * Strip confusing (and often wrong) "recommended" suffix added by
@@ -327,7 +328,7 @@ cat_drv(const char *name,		/* I - PPD name */
   // Pull out the path to the .drv file...
   if (httpSeparateURI(HTTP_URI_CODING_ALL, name, scheme, sizeof(scheme),
                       userpass, sizeof(userpass), host, sizeof(host), &port,
-		      resource, sizeof(resource)) < HTTP_URI_OK)
+		      resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
   {
     fprintf(stderr, "ERROR: Bad PPD name \"%s\".\n", name);
 
@@ -444,7 +445,7 @@ cat_ppd(const char *name,		/* I - PPD name */
     exit(1);
   }
 
-  strlcpy(scheme, name, sizeof(scheme));
+  cupsCopyString(scheme, name, sizeof(scheme));
   if ((sptr = strchr(scheme, ':')) != NULL)
   {
     *sptr = '\0';
@@ -669,7 +670,10 @@ cat_tar(const char *name,		/* I - PPD name */
     }
 
     if (cupsFileTell(fp) != next)
-      cupsFileSeek(fp, next);
+    {
+      if (cupsFileSeek(fp, next) != next)
+        break;
+    }
   }
 
   cupsFileClose(fp);
@@ -786,7 +790,7 @@ dump_ppds_dat(const char *filename)	/* I - Filename */
   */
 
   if (filename)
-    strlcpy(temp, filename, sizeof(temp));
+    cupsCopyString(temp, filename, sizeof(temp));
   else
     temp[0] = '\0';
 
@@ -1644,7 +1648,7 @@ load_drv(const char  *filename,		/* I - Actual filename */
     nick_name  = d->find_attr("NickName", NULL);
 
     if (nick_name)
-      strlcpy(make_model, nick_name->value->value, sizeof(make_model));
+      cupsCopyString(make_model, nick_name->value->value, sizeof(make_model));
     else if (_cups_strncasecmp(d->model_name->value, d->manufacturer->value,
                          strlen(d->manufacturer->value)))
       snprintf(make_model, sizeof(make_model), "%s %s, %s",
@@ -1684,7 +1688,7 @@ load_drv(const char  *filename,		/* I - Actual filename */
 	  ppd = add_ppd(name, uri, "en", d->manufacturer->value, make_model, device_id ? device_id->value->value : "", product->value->value,
 		        ps_version ? ps_version->value->value : "(3010) 0", mtime, (size_t)size, d->model_number, type, "drv");
 	else if (products_found < PPD_MAX_PROD)
-	  strlcpy(ppd->record.products[products_found], product->value->value, sizeof(ppd->record.products[0]));
+	  cupsCopyString(ppd->record.products[products_found], product->value->value, sizeof(ppd->record.products[0]));
 	else
 	  break;
 
@@ -1854,7 +1858,7 @@ load_drivers(cups_array_t *include,	/* I - Drivers to include */
         device_id[0] = '\0';
 	product[0]   = '\0';
 	psversion[0] = '\0';
-	strlcpy(type_str, "postscript", sizeof(type_str));
+	cupsCopyString(type_str, "postscript", sizeof(type_str));
 
         if (sscanf(line, "\"%255[^\"]\"%127s%*[ \t]\"%127[^\"]\""
 	                 "%*[ \t]\"%127[^\"]\"%*[ \t]\"%255[^\"]\""
@@ -1916,7 +1920,7 @@ load_drivers(cups_array_t *include,	/* I - Drivers to include */
 	      else
 	        ptr = start + strlen(start);
 
-              strlcpy(ppd->record.languages[i], start,
+              cupsCopyString(ppd->record.languages[i], start,
 	              sizeof(ppd->record.languages[0]));
 
 	      start = ptr;
@@ -1974,7 +1978,6 @@ load_ppd(const char  *filename,		/* I - Real filename */
   cups_array_t	*products,		/* Product array */
 		*psversions,		/* PSVersion array */
 		*cups_languages;	/* cupsLanguages array */
-  int		new_ppd;		/* Is this a new PPD? */
   struct				/* LanguageVersion translation table */
   {
     const char	*version,		/* LanguageVersion string */
@@ -2020,7 +2023,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
   manufacturer[0]  = '\0';
   device_id[0]     = '\0';
   lang_encoding[0] = '\0';
-  strlcpy(lang_version, "en", sizeof(lang_version));
+  cupsCopyString(lang_version, "en", sizeof(lang_version));
   model_number     = 0;
   install_group    = 0;
   type             = PPD_TYPE_POSTSCRIPT;
@@ -2044,7 +2047,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
 
       // Make sure device ID ends with a semicolon...
       if (device_id[0] && device_id[strlen(device_id) - 1] != ';')
-	strlcat(device_id, ";", sizeof(device_id));
+	cupsConcatString(device_id, ";", sizeof(device_id));
     }
     else if (!strncmp(line, "*Product:", 9))
     {
@@ -2143,7 +2146,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
     cupsCharsetToUTF8((cups_utf8_t *)make_model, nick_name,
 		      sizeof(make_model), _ppdGetEncoding(lang_encoding));
   else
-    strlcpy(make_model, model_name, sizeof(make_model));
+    cupsCopyString(make_model, model_name, sizeof(make_model));
 
   while (isspace(make_model[0] & 255))
     _cups_strcpy(make_model, make_model + 1);
@@ -2183,7 +2186,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
     _cups_strcpy(manufacturer, manufacturer + 1);
 
   if (!_cups_strncasecmp(make_model, manufacturer, strlen(manufacturer)))
-    strlcpy(temp, make_model, sizeof(temp));
+    cupsCopyString(temp, make_model, sizeof(temp));
   else
     snprintf(temp, sizeof(temp), "%s %s", manufacturer, make_model);
 
@@ -2199,7 +2202,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
     * Nope, copy the first part of the make and model then...
     */
 
-    strlcpy(manufacturer, make_model, sizeof(manufacturer));
+    cupsCopyString(manufacturer, make_model, sizeof(manufacturer));
 
    /*
     * Truncate at the first space, dash, or slash, or make the
@@ -2213,13 +2216,13 @@ load_ppd(const char  *filename,		/* I - Real filename */
     if (*ptr && ptr > manufacturer)
       *ptr = '\0';
     else
-      strlcpy(manufacturer, "Other", sizeof(manufacturer));
+      cupsCopyString(manufacturer, "Other", sizeof(manufacturer));
   }
   else if (!_cups_strncasecmp(manufacturer, "LHAG", 4) ||
 	   !_cups_strncasecmp(manufacturer, "linotype", 8))
-    strlcpy(manufacturer, "LHAG", sizeof(manufacturer));
+    cupsCopyString(manufacturer, "LHAG", sizeof(manufacturer));
   else if (!_cups_strncasecmp(manufacturer, "Hewlett", 7))
-    strlcpy(manufacturer, "HP", sizeof(manufacturer));
+    cupsCopyString(manufacturer, "HP", sizeof(manufacturer));
 
  /*
   * Fix the lang_version as needed...
@@ -2233,7 +2236,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
   if (ptr)
   {
    /*
-    * Setup the country suffix...
+    * Set the country suffix...
     */
 
     country[0] = '_';
@@ -2267,16 +2270,14 @@ load_ppd(const char  *filename,		/* I - Real filename */
     * Unknown language; use "xx"...
     */
 
-    strlcpy(lang_version, "xx", sizeof(lang_version));
+    cupsCopyString(lang_version, "xx", sizeof(lang_version));
   }
 
  /*
   * Record the PPD file...
   */
 
-  new_ppd = !ppd;
-
-  if (new_ppd)
+  if (!ppd)
   {
    /*
     * Add new PPD file...
@@ -2305,19 +2306,19 @@ load_ppd(const char  *filename,		/* I - Real filename */
     ppd->record.model_number = model_number;
     ppd->record.type         = type;
 
-    strlcpy(ppd->record.filename, name, sizeof(ppd->record.filename));
-    strlcpy(ppd->record.name, name, sizeof(ppd->record.name));
-    strlcpy(ppd->record.languages[0], lang_version,
+    cupsCopyString(ppd->record.filename, name, sizeof(ppd->record.filename));
+    cupsCopyString(ppd->record.name, name, sizeof(ppd->record.name));
+    cupsCopyString(ppd->record.languages[0], lang_version,
 	    sizeof(ppd->record.languages[0]));
-    strlcpy(ppd->record.products[0], (char *)cupsArrayFirst(products),
+    cupsCopyString(ppd->record.products[0], (char *)cupsArrayFirst(products),
 	    sizeof(ppd->record.products[0]));
-    strlcpy(ppd->record.psversions[0], (char *)cupsArrayFirst(psversions),
+    cupsCopyString(ppd->record.psversions[0], (char *)cupsArrayFirst(psversions),
 	    sizeof(ppd->record.psversions[0]));
-    strlcpy(ppd->record.make, manufacturer, sizeof(ppd->record.make));
-    strlcpy(ppd->record.make_and_model, make_model,
+    cupsCopyString(ppd->record.make, manufacturer, sizeof(ppd->record.make));
+    cupsCopyString(ppd->record.make_and_model, make_model,
 	    sizeof(ppd->record.make_and_model));
-    strlcpy(ppd->record.device_id, device_id, sizeof(ppd->record.device_id));
-    strlcpy(ppd->record.scheme, scheme, sizeof(ppd->record.scheme));
+    cupsCopyString(ppd->record.device_id, device_id, sizeof(ppd->record.device_id));
+    cupsCopyString(ppd->record.scheme, scheme, sizeof(ppd->record.scheme));
   }
 
  /*
@@ -2327,19 +2328,19 @@ load_ppd(const char  *filename,		/* I - Real filename */
   for (i = 1;
        i < PPD_MAX_PROD && (ptr = (char *)cupsArrayNext(products)) != NULL;
        i ++)
-    strlcpy(ppd->record.products[i], ptr,
+    cupsCopyString(ppd->record.products[i], ptr,
 	    sizeof(ppd->record.products[0]));
 
   for (i = 1;
        i < PPD_MAX_VERS && (ptr = (char *)cupsArrayNext(psversions)) != NULL;
        i ++)
-    strlcpy(ppd->record.psversions[i], ptr,
+    cupsCopyString(ppd->record.psversions[i], ptr,
 	    sizeof(ppd->record.psversions[0]));
 
   for (i = 1, ptr = (char *)cupsArrayFirst(cups_languages);
        i < PPD_MAX_LANG && ptr;
        i ++, ptr = (char *)cupsArrayNext(cups_languages))
-    strlcpy(ppd->record.languages[i], ptr,
+    cupsCopyString(ppd->record.languages[i], ptr,
 	    sizeof(ppd->record.languages[0]));
 
  /*
@@ -2399,7 +2400,12 @@ load_ppds(const char *d,		/* I - Actual directory */
   * Nope, add it to the Inodes array and continue...
   */
 
-  dinfoptr = (struct stat *)malloc(sizeof(struct stat));
+  if ((dinfoptr = (struct stat *)malloc(sizeof(struct stat))) == NULL)
+  {
+    fputs("ERROR: [cups-driverd] Unable to allocate memory for directory info.\n",
+          stderr);
+    exit(1);
+  }
   memcpy(dinfoptr, &dinfo, sizeof(struct stat));
   cupsArrayAdd(Inodes, dinfoptr);
 
@@ -2441,7 +2447,7 @@ load_ppds(const char *d,		/* I - Actual directory */
     if (p[0])
       snprintf(name, sizeof(name), "%s/%s", p, dent->filename);
     else
-      strlcpy(name, dent->filename, sizeof(name));
+      cupsCopyString(name, dent->filename, sizeof(name));
 
     if (S_ISDIR(dent->fileinfo.st_mode))
     {
@@ -2468,8 +2474,8 @@ load_ppds(const char *d,		/* I - Actual directory */
 			   _cupsFileCheckFilter, NULL))
 	  continue;
 
-	strlcat(filename, "/Contents/Resources/PPDs", sizeof(filename));
-	strlcat(name, "/Contents/Resources/PPDs", sizeof(name));
+	cupsConcatString(filename, "/Contents/Resources/PPDs", sizeof(filename));
+	cupsConcatString(name, "/Contents/Resources/PPDs", sizeof(name));
 
 	load_ppds(filename, name, 0);
       }
@@ -2492,8 +2498,8 @@ load_ppds(const char *d,		/* I - Actual directory */
     * See if this file has been scanned before...
     */
 
-    strlcpy(key.record.filename, name, sizeof(key.record.filename));
-    strlcpy(key.record.name, name, sizeof(key.record.name));
+    cupsCopyString(key.record.filename, name, sizeof(key.record.filename));
+    cupsCopyString(key.record.name, name, sizeof(key.record.name));
 
     ppd = (ppd_info_t *)cupsArrayFind(PPDsByName, &key);
 
@@ -2621,11 +2627,10 @@ load_ppds_dat(char   *filename,		/* I - Filename buffer */
       {
 	if ((ppd = (ppd_info_t *)calloc(1, sizeof(ppd_info_t))) == NULL)
 	{
-	  if (verbose)
-	    fputs("ERROR: [cups-driverd] Unable to allocate memory for PPD!\n",
-		  stderr);
-	  exit(1);
-	}
+    fputs("ERROR: [cups-driverd] Unable to allocate memory for PPD!\n",
+          stderr);
+    exit(1);
+  }
 
 	if (cupsFileRead(fp, (char *)&(ppd->record), sizeof(ppd_rec_t)) > 0)
 	{
@@ -2747,7 +2752,7 @@ read_tar(cups_file_t *fp,		/* I - Archive to read */
       snprintf(name, namesize, "%s/%s", record.header.prefix,
                record.header.pathname);
     else
-      strlcpy(name, record.header.pathname, namesize);
+      cupsCopyString(name, record.header.pathname, namesize);
 
     info->st_mtime = strtol(record.header.mtime, NULL, 8);
     info->st_size  = strtoll(record.header.size, NULL, 8);

@@ -1,7 +1,7 @@
 /*
  * "lpstat" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -33,7 +33,7 @@ static int	show_jobs(const char *dests, const char *users, int long_status,
 		          int ranking, const char *which);
 static int	show_printers(const char *printers, int num_dests,
 		              cups_dest_t *dests, int long_status);
-static void	show_scheduler(void);
+static int	show_scheduler(void);
 static void	usage(void) _CUPS_NORETURN;
 
 
@@ -85,13 +85,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      break;
 
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr,
-			      _("%s: Sorry, no encryption support."),
-			      argv[0]);
-#endif /* HAVE_TLS */
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'H' : /* Show server and port */
@@ -186,7 +180,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		  cupsFreeDests(num_dests, dests);
 		  num_dests = cupsGetDests(&dests);
 
-		  if (num_dests == 0 && (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST || cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
+		  if (num_dests == 0 && (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST || cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
 		  {
 		    _cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		    return (1);
@@ -230,8 +224,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 		num_dests = dests ? 1 : 0;
 
 		if (num_dests == 0 &&
-		    (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		     cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
+		    (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		     cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
 		{
 		  _cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		  return (1);
@@ -363,8 +357,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 		  num_dests = cupsGetDests(&dests);
 
 		  if (num_dests == 0 &&
-		      (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
+		      (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		       cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
 		  {
 		    _cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		    return (1);
@@ -378,7 +372,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'r' : /* Show scheduler status */
 	      op = 'r';
 
-	      show_scheduler();
+	      if (!show_scheduler())
+		return (0);
 	      break;
 
 	  case 's' : /* Show summary */
@@ -390,8 +385,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 		num_dests = cupsGetDests(&dests);
 
 		if (num_dests == 0 &&
-		    (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		     cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
+		    (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		     cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
 		{
 		  _cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		  return (1);
@@ -412,15 +407,17 @@ main(int  argc,				/* I - Number of command-line arguments */
 		num_dests = cupsGetDests(&dests);
 
 		if (num_dests == 0 &&
-		    (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		     cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
+		    (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		     cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
 		{
 		  _cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		  return (1);
 		}
 	      }
 
-	      show_scheduler();
+	      if (!show_scheduler())
+		return (0);
+
 	      show_default(cupsGetDest(NULL, NULL, num_dests, dests));
 	      status |= show_classes(NULL);
 	      status |= show_devices(NULL, num_dests, dests);
@@ -472,8 +469,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 		  num_dests = cupsGetDests(&dests);
 
 		  if (num_dests == 0 &&
-		      (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
+		      (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		       cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED))
 		  {
 		    _cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		    return (1);
@@ -498,7 +495,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
 
   if (!op)
-    status |= show_jobs(NULL, cupsUser(), long_status, ranking, which);
+    status |= show_jobs(NULL, cupsGetUser(), long_status, ranking, which);
 
   return (status);
 }
@@ -532,14 +529,14 @@ check_dest(const char  *command,	/* I  - Command name */
       *num_dests = cupsGetDests(dests);
     else
     {
-      strlcpy(printer, name, sizeof(printer));
+      cupsCopyString(printer, name, sizeof(printer));
       if ((pptr = strchr(printer, '/')) != NULL)
         *pptr++ = '\0';
 
       if ((*dests = cupsGetNamedDest(CUPS_HTTP_DEFAULT, printer, pptr)) == NULL)
       {
-	if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-	    cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+	if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+	    cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
 	  _cupsLangPrintf(stderr,
 			  _("%s: Error - add '/version=1.1' to server name."),
 			  command);
@@ -599,8 +596,8 @@ check_dest(const char  *command,	/* I  - Command name */
 
     if (!cupsGetDest(printer, NULL, *num_dests, *dests))
     {
-      if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-          cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+      if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+          cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
 	_cupsLangPrintf(stderr,
 	                _("%s: Error - add '/version=1.1' to server name."),
 			command);
@@ -714,7 +711,7 @@ show_accepting(const char  *printers,	/* I - Destinations */
 		NULL, pattrs);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -722,8 +719,13 @@ show_accepting(const char  *printers,	/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsGetError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
+  else if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST || cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server name."),
@@ -731,9 +733,9 @@ show_accepting(const char  *printers,	/* I - Destinations */
     ippDelete(response);
     return (1);
   }
-  else if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "lpstat: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpstat: %s", cupsGetErrorString());
     ippDelete(response);
     return (1);
   }
@@ -894,7 +896,7 @@ show_classes(const char *dests)		/* I - Destinations */
 		NULL, cattrs);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -902,8 +904,14 @@ show_classes(const char *dests)		/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsGetError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
+  if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+      cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server name."),
@@ -911,9 +919,9 @@ show_classes(const char *dests)		/* I - Destinations */
     ippDelete(response);
     return (1);
   }
-  else if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "lpstat: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpstat: %s", cupsGetErrorString());
     ippDelete(response);
     return (1);
   }
@@ -922,7 +930,7 @@ show_classes(const char *dests)		/* I - Destinations */
   {
     if (response->request.status.status_code > IPP_OK_CONFLICT)
     {
-      _cupsLangPrintf(stderr, "lpstat: %s", cupsLastErrorString());
+      _cupsLangPrintf(stderr, "lpstat: %s", cupsGetErrorString());
       ippDelete(response);
       return (1);
     }
@@ -1152,7 +1160,7 @@ show_devices(const char  *printers,	/* I - Destinations */
 		NULL, pattrs);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -1160,8 +1168,14 @@ show_devices(const char  *printers,	/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsGetError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
+  if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+      cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server name."),
@@ -1169,9 +1183,9 @@ show_devices(const char  *printers,	/* I - Destinations */
     ippDelete(response);
     return (1);
   }
-  else if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "lpstat: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpstat: %s", cupsGetErrorString());
     ippDelete(response);
     return (1);
   }
@@ -1341,7 +1355,7 @@ show_jobs(const char *dests,		/* I - Destinations */
 		NULL, jattrs);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "which-jobs",
                NULL, which);
@@ -1352,8 +1366,14 @@ show_jobs(const char *dests,		/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsGetError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
+  if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+      cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server name."),
@@ -1361,9 +1381,9 @@ show_jobs(const char *dests,		/* I - Destinations */
     ippDelete(response);
     return (1);
   }
-  else if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "lpstat: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpstat: %s", cupsGetErrorString());
     ippDelete(response);
     return (1);
   }
@@ -1483,7 +1503,7 @@ show_jobs(const char *dests,		/* I - Destinations */
 	      if (i)
 		snprintf(aptr, sizeof(alerts) - (size_t)(aptr - alerts), " %s", reasons->values[i].string.text);
 	      else
-		strlcpy(alerts, reasons->values[i].string.text, sizeof(alerts));
+		cupsCopyString(alerts, reasons->values[i].string.text, sizeof(alerts));
 
 	      aptr += strlen(aptr);
 	    }
@@ -1581,7 +1601,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 		NULL, pattrs);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -1589,8 +1609,14 @@ show_printers(const char  *printers,	/* I - Destinations */
 
   response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsGetError() == IPP_STATUS_ERROR_SERVICE_UNAVAILABLE)
+  {
+    _cupsLangPrintf(stderr, _("%s: Scheduler is not running."), "lpstat");
+    ippDelete(response);
+    return (1);
+  }
+  if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+      cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server name."),
@@ -1598,9 +1624,9 @@ show_printers(const char  *printers,	/* I - Destinations */
     ippDelete(response);
     return (1);
   }
-  else if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "lpstat: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpstat: %s", cupsGetErrorString());
     ippDelete(response);
     return (1);
   }
@@ -1820,7 +1846,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 	      if (i)
 		snprintf(aptr, sizeof(alerts) - (size_t)(aptr - alerts), " %s", reasons->values[i].string.text);
 	      else
-		strlcpy(alerts, reasons->values[i].string.text, sizeof(alerts));
+		cupsCopyString(alerts, reasons->values[i].string.text, sizeof(alerts));
 
 	      aptr += strlen(aptr);
 	    }
@@ -1940,7 +1966,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 		  if (i)
 		    snprintf(aptr, sizeof(alerts) - (size_t)(aptr - alerts), " %s", reasons->values[i].string.text);
 		  else
-		    strlcpy(alerts, reasons->values[i].string.text, sizeof(alerts));
+		    cupsCopyString(alerts, reasons->values[i].string.text, sizeof(alerts));
 
 		  aptr += strlen(aptr);
 		}
@@ -2019,7 +2045,7 @@ show_printers(const char  *printers,	/* I - Destinations */
  * 'show_scheduler()' - Show scheduler status.
  */
 
-static void
+static int				/* 1 on success, 0 on failure */
 show_scheduler(void)
 {
   http_t	*http;			/* Connection to server */
@@ -2030,9 +2056,13 @@ show_scheduler(void)
   {
     _cupsLangPuts(stdout, _("scheduler is running"));
     httpClose(http);
+    return (1);
   }
   else
+  {
     _cupsLangPuts(stdout, _("scheduler is not running"));
+    return (0);
+  }
 }
 
 

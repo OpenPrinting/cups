@@ -12,14 +12,14 @@ lpstat - print cups status information
 <h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
 <b>lpstat</b>
 [
+<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
+] [
 <b>-E</b>
 ] [
 <b>-H</b>
 ] [
 <b>-U</b>
 <i>username</i>
-] [
-<b>-h </b><i>hostname</i>[<b>:</b><i>port</i>]
 ] [
 <b>-l</b>
 ] [
@@ -91,6 +91,7 @@ If no classes are specified then all classes are listed.
 <dd style="margin-left: 5.0em">Shows all available destinations on the local network.
 <dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
 <dd style="margin-left: 5.0em">Specifies an alternate server.
+Note: This option must occur before all others.
 <dt><b>-l</b>
 <dd style="margin-left: 5.0em">Shows a long listing of printers, classes, or jobs.
 <dt><b>-o </b>[<i>destination(s)</i>]
@@ -127,7 +128,7 @@ Also, printer and class names are <i>not</i> case-sensitive.
 <a href="man-lprm.html?TOPIC=Man+Pages"><b>lprm</b>(1),</a>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021 by OpenPrinting.
+Copyright &copy; 2021-2023 by OpenPrinting.
 
 </body>
 </html>

@@ -29,7 +29,7 @@
  * Pass @code CUPS_JOBID_ALL@ to cancel all jobs or @code CUPS_JOBID_CURRENT@
  * to cancel the current job on the named destination.
  *
- * Use the @link cupsLastError@ and @link cupsLastErrorString@ functions to get
+ * Use the @link cupsGetError@ and @link cupsGetErrorString@ functions to get
  * the cause of any failure.
  *
  * @exclude all@
@@ -53,7 +53,7 @@ cupsCancelJob(const char *name,		/* I - Name of printer or class */
  * Pass @code CUPS_JOBID_ALL@ to cancel all jobs or @code CUPS_JOBID_CURRENT@
  * to cancel the current job on the named destination.
  *
- * Use the @link cupsLastError@ and @link cupsLastErrorString@ functions to get
+ * Use the @link cupsGetError@ and @link cupsGetErrorString@ functions to get
  * the cause of any failure.
  *
  * @since CUPS 1.4/macOS 10.6@ @exclude all@
@@ -118,7 +118,7 @@ cupsCancelJob2(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP_
   }
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   if (purge && job_id >= 0)
     ippAddBoolean(request, IPP_TAG_OPERATION, "purge-job", 1);
@@ -131,7 +131,7 @@ cupsCancelJob2(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP_
 
   ippDelete(cupsDoRequest(http, request, "/jobs/"));
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -161,7 +161,7 @@ cupsCreateJob(
   cups_dinfo_t  *info;                  /* Destination information */
 
 
-  DEBUG_printf(("cupsCreateJob(http=%p, name=\"%s\", title=\"%s\", num_options=%d, options=%p)", (void *)http, name, title, num_options, (void *)options));
+  DEBUG_printf("cupsCreateJob(http=%p, name=\"%s\", title=\"%s\", num_options=%d, options=%p)", (void *)http, name, title, num_options, (void *)options);
 
  /*
   * Range check input...
@@ -197,7 +197,7 @@ cupsCreateJob(
   }
 
   status = cupsCreateDestJob(http, dest, info, &job_id, title, num_options, options);
-  DEBUG_printf(("1cupsCreateJob: cupsCreateDestJob returned %04x (%s)", status, ippErrorString(status)));
+  DEBUG_printf("1cupsCreateJob: cupsCreateDestJob returned %04x (%s)", status, ippErrorString(status));
 
   cupsFreeDestInfo(info);
   cupsFreeDests(1, dest);
@@ -232,7 +232,7 @@ cupsFinishDocument(http_t     *http,	/* I - Connection to server or @code CUPS_H
 
   ippDelete(cupsGetResponse(http, resource));
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -332,7 +332,7 @@ cupsGetDefault2(http_t *http)		/* I - Connection to server or @code CUPS_HTTP_DE
   * See if we have a user default printer set...
   */
 
-  if (_cupsUserDefault(cg->def_printer, sizeof(cg->def_printer)))
+  if (_cupsGetUserDefault(cg->def_printer, sizeof(cg->def_printer)))
     return (cg->def_printer);
 
  /*
@@ -362,7 +362,7 @@ cupsGetDefault2(http_t *http)		/* I - Connection to server or @code CUPS_HTTP_DE
     if ((attr = ippFindAttribute(response, "printer-name",
                                  IPP_TAG_NAME)) != NULL)
     {
-      strlcpy(cg->def_printer, attr->values[0].string.text,
+      cupsCopyString(cg->def_printer, attr->values[0].string.text,
               sizeof(cg->def_printer));
       ippDelete(response);
       return (cg->def_printer);
@@ -481,7 +481,7 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
     }
   }
   else
-    strlcpy(uri, "ipp://localhost/", sizeof(uri));
+    cupsCopyString(uri, "ipp://localhost/", sizeof(uri));
 
   if (!http)
     if ((http = _cupsConnect()) == NULL)
@@ -506,7 +506,7 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
                "printer-uri", NULL, uri);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+               "requesting-user-name", NULL, cupsGetUser());
 
   if (myjobs)
     ippAddBoolean(request, IPP_TAG_OPERATION, "my-jobs", 1);
@@ -705,7 +705,7 @@ cupsPrintFile(const char    *name,	/* I - Destination name */
               int           num_options,/* I - Number of options */
 	      cups_option_t *options)	/* I - Options */
 {
-  DEBUG_printf(("cupsPrintFile(name=\"%s\", filename=\"%s\", title=\"%s\", num_options=%d, options=%p)", name, filename, title, num_options, (void *)options));
+  DEBUG_printf("cupsPrintFile(name=\"%s\", filename=\"%s\", title=\"%s\", num_options=%d, options=%p)", name, filename, title, num_options, (void *)options);
 
   return (cupsPrintFiles2(CUPS_HTTP_DEFAULT, name, 1, &filename, title,
                           num_options, options));
@@ -728,7 +728,7 @@ cupsPrintFile2(
     int           num_options,		/* I - Number of options */
     cups_option_t *options)		/* I - Options */
 {
-  DEBUG_printf(("cupsPrintFile2(http=%p, name=\"%s\", filename=\"%s\",  title=\"%s\", num_options=%d, options=%p)", (void *)http, name, filename, title, num_options, (void *)options));
+  DEBUG_printf("cupsPrintFile2(http=%p, name=\"%s\", filename=\"%s\",  title=\"%s\", num_options=%d, options=%p)", (void *)http, name, filename, title, num_options, (void *)options);
 
   return (cupsPrintFiles2(http, name, 1, &filename, title, num_options,
                           options));
@@ -751,7 +751,7 @@ cupsPrintFiles(
     int           num_options,		/* I - Number of options */
     cups_option_t *options)		/* I - Options */
 {
-  DEBUG_printf(("cupsPrintFiles(name=\"%s\", num_files=%d, files=%p, title=\"%s\", num_options=%d, options=%p)", name, num_files, (void *)files, title, num_options, (void *)options));
+  DEBUG_printf("cupsPrintFiles(name=\"%s\", num_files=%d, files=%p, title=\"%s\", num_options=%d, options=%p)", name, num_files, (void *)files, title, num_options, (void *)options);
 
  /*
   * Print the file(s)...
@@ -792,7 +792,7 @@ cupsPrintFiles2(
   char		*cancel_message;	/* Error message to preserve */
 
 
-  DEBUG_printf(("cupsPrintFiles2(http=%p, name=\"%s\", num_files=%d, files=%p, title=\"%s\", num_options=%d, options=%p)", (void *)http, name, num_files, (void *)files, title, num_options, (void *)options));
+  DEBUG_printf("cupsPrintFiles2(http=%p, name=\"%s\", num_files=%d, files=%p, title=\"%s\", num_options=%d, options=%p)", (void *)http, name, num_files, (void *)files, title, num_options, (void *)options);
 
  /*
   * Range check input...
@@ -908,7 +908,7 @@ cupsStartDocument(
     const char *format,			/* I - MIME type or @code CUPS_FORMAT_foo@ */
     int        last_document)		/* I - 1 for last document in job, 0 otherwise */
 {
-  char		resource[1024],		/* Resource for destinatio */
+  char		resource[1024],		/* Resource for destination */
 		printer_uri[1024];	/* Printer URI */
   ipp_t		*request;		/* Send-Document request */
   http_status_t	status;			/* HTTP status */
@@ -932,7 +932,7 @@ cupsStartDocument(
                NULL, printer_uri);
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", job_id);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (docname)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "document-name",
                  NULL, docname);

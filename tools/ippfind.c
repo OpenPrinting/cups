@@ -3,7 +3,7 @@
  * commands such as IPP and Bonjour conformance tests.  This tool is
  * inspired by the UNIX "find" command, thus its name.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group
  * Copyright © 2008-2018 by Apple Inc.
  *
@@ -1167,7 +1167,7 @@ main(int  argc,				/* I - Number of command-line args */
 			*regtype,	/* Registration type */
 			*domain;	/* Domain, if any */
 
-    strlcpy(buf, search, sizeof(buf));
+    cupsCopyString(buf, search, sizeof(buf));
 
     if (!strncmp(buf, "_http._", 7) || !strncmp(buf, "_https._", 8) || !strncmp(buf, "_ipp._", 6) || !strncmp(buf, "_ipps._", 7))
     {
@@ -1376,7 +1376,6 @@ main(int  argc,				/* I - Number of command-line args */
       */
 
       int	active = 0,		/* Number of active resolves */
-		resolved = 0,		/* Number of resolved services */
 		processed = 0;		/* Number of processed services */
 
       for (service = (ippfind_srv_t *)cupsArrayFirst(services);
@@ -1385,9 +1384,6 @@ main(int  argc,				/* I - Number of command-line args */
       {
         if (service->is_processed)
           processed ++;
-
-        if (service->is_resolved)
-          resolved ++;
 
         if (!service->ref && !service->is_resolved)
         {
@@ -1935,7 +1931,7 @@ exec_program(ippfind_srv_t *service,	/* I - Service */
     if (strncmp(environ[i], "IPPFIND_", 8))
       myenvc ++;
 
-  if ((myenvp = calloc(sizeof(char *), (size_t)(myenvc + 1))) == NULL)
+  if ((myenvp = calloc((size_t)(myenvc + 1), sizeof(char *))) == NULL)
   {
     _cupsLangPuts(stderr, _("ippfind: Out of memory."));
     exit(IPPFIND_EXIT_MEMORY);
@@ -1960,7 +1956,7 @@ exec_program(ippfind_srv_t *service,	/* I - Service */
   * Allocate and copy command-line arguments...
   */
 
-  if ((myargv = calloc(sizeof(char *), (size_t)(num_args + 1))) == NULL)
+  if ((myargv = calloc((size_t)(num_args + 1), sizeof(char *))) == NULL)
   {
     _cupsLangPuts(stderr, _("ippfind: Out of memory."));
     exit(IPPFIND_EXIT_MEMORY);
@@ -1996,24 +1992,24 @@ exec_program(ippfind_srv_t *service,	/* I - Service */
 
           *kptr = '\0';
           if (!keyword[0] || !strcmp(keyword, "service_uri"))
-	    strlcpy(tptr, service->uri, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->uri, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_domain"))
-	    strlcpy(tptr, service->domain, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->domain, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_hostname"))
-	    strlcpy(tptr, service->host, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->host, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_name"))
-	    strlcpy(tptr, service->name, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->name, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_path"))
-	    strlcpy(tptr, service->resource, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, service->resource, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_port"))
-	    strlcpy(tptr, port + 21, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, port + 21, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strcmp(keyword, "service_scheme"))
-	    strlcpy(tptr, scheme + 22, sizeof(temp) - (size_t)(tptr - temp));
+	    cupsCopyString(tptr, scheme + 22, sizeof(temp) - (size_t)(tptr - temp));
 	  else if (!strncmp(keyword, "txt_", 4))
 	  {
 	    const char *val = cupsGetOption(keyword + 4, service->num_txt, service->txt);
 	    if (val)
-	      strlcpy(tptr, val, sizeof(temp) - (size_t)(tptr - temp));
+	      cupsCopyString(tptr, val, sizeof(temp) - (size_t)(tptr - temp));
 	    else
 	      *tptr = '\0';
 	  }
@@ -2057,7 +2053,7 @@ exec_program(ippfind_srv_t *service,	/* I - Service */
   */
 
   if (strchr(args[0], '/') && !access(args[0], X_OK))
-    strlcpy(program, args[0], sizeof(program));
+    cupsCopyString(program, args[0], sizeof(program));
   else if (!cupsFileFind(args[0], getenv("PATH"), 1, program, sizeof(program)))
   {
     _cupsLangPrintf(stderr, _("ippfind: Unable to execute \"%s\": %s"),
@@ -2167,7 +2163,9 @@ get_service(cups_array_t *services,	/* I - Service array */
   * Yes, add the service...
   */
 
-  service           = calloc(sizeof(ippfind_srv_t), 1);
+  if ((service = calloc(1, sizeof(ippfind_srv_t))) == NULL)
+    return (NULL);
+
   service->name     = strdup(serviceName);
   service->domain   = strdup(replyDomain);
   service->regtype  = strdup(regtype);
@@ -2294,23 +2292,23 @@ list_service(ippfind_srv_t *service)	/* I - Service */
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
                    service->uri);
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                   "requesting-user-name", NULL, cupsUser());
+                   "requesting-user-name", NULL, cupsGetUser());
       ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                     "requested-attributes",
                     (int)(sizeof(rattrs) / sizeof(rattrs[0])), NULL, rattrs);
 
       response = cupsDoRequest(http, request, service->resource);
 
-      if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST && version > 11)
+      if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST && version > 11)
         version = 11;
     }
-    while (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE && version > 11);
+    while (cupsGetError() > IPP_STATUS_OK_EVENTS_COMPLETE && version > 11);
 
    /*
     * Show results...
     */
 
-    if (cupsLastError() > IPP_STATUS_OK_EVENTS_COMPLETE)
+    if (cupsGetError() > IPP_STATUS_OK_EVENTS_COMPLETE)
     {
       _cupsLangPrintf(stdout, "%s: unavailable", service->uri);
       return (0);
@@ -2331,7 +2329,7 @@ list_service(ippfind_srv_t *service)	/* I - Service */
     if ((attr = ippFindAttribute(response, "printer-state-reasons",
                                  IPP_TAG_KEYWORD)) != NULL)
     {
-      strlcpy(preasons, ippGetString(attr, 0, NULL), sizeof(preasons));
+      cupsCopyString(preasons, ippGetString(attr, 0, NULL), sizeof(preasons));
 
       for (i = 1, count = ippGetCount(attr), ptr = preasons + strlen(preasons),
                end = preasons + sizeof(preasons) - 1;
@@ -2339,11 +2337,11 @@ list_service(ippfind_srv_t *service)	/* I - Service */
            i ++, ptr += strlen(ptr))
       {
         *ptr++ = ',';
-        strlcpy(ptr, ippGetString(attr, i, NULL), (size_t)(end - ptr + 1));
+        cupsCopyString(ptr, ippGetString(attr, i, NULL), (size_t)(end - ptr + 1));
       }
     }
     else
-      strlcpy(preasons, "none", sizeof(preasons));
+      cupsCopyString(preasons, "none", sizeof(preasons));
 
     ippDelete(response);
     httpClose(http);
@@ -2379,7 +2377,7 @@ list_service(ippfind_srv_t *service)	/* I - Service */
       return (0);
     }
 
-    if (httpGet(http, service->resource))
+    if (!httpWriteRequest(http, "GET", service->resource))
     {
       _cupsLangPrintf(stdout, "%s unavailable", service->uri);
       return (0);
@@ -2411,7 +2409,7 @@ list_service(ippfind_srv_t *service)	/* I - Service */
     int	sock;				/* Socket */
 
 
-    if (!httpAddrConnect(addrlist, &sock))
+    if (!httpAddrConnect2(addrlist, &sock, 30000, NULL))
     {
       _cupsLangPrintf(stdout, "%s unavailable", service->uri);
       httpAddrFreeList(addrlist);
@@ -2501,9 +2499,12 @@ new_expr(ippfind_op_t op,		/* I - Operation */
       if (!strcmp(args[num_args], ";"))
         break;
 
-     temp->num_args = num_args;
-     temp->args     = malloc((size_t)num_args * sizeof(char *));
-     memcpy(temp->args, args, (size_t)num_args * sizeof(char *));
+    temp->num_args = num_args;
+    temp->args     = malloc((size_t)num_args * sizeof(char *));
+    if (temp->args == NULL)
+      return (NULL);
+
+    memcpy(temp->args, args, (size_t)num_args * sizeof(char *));
   }
 
   return (temp);

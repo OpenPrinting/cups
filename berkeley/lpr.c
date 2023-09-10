@@ -1,7 +1,7 @@
 /*
  * "lpr" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -69,11 +69,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (ch = *opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'U' : /* Username */
@@ -186,7 +182,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      {
 		char	email[1024];	/* EMail address */
 
-		snprintf(email, sizeof(email), "mailto:%s@%s", cupsUser(), httpGetHostname(NULL, buffer, sizeof(buffer)));
+		snprintf(email, sizeof(email), "mailto:%s@%s", cupsGetUser(), httpGetHostname(NULL, buffer, sizeof(buffer)));
 		num_options = cupsAddOption("notify-recipient-uri", email, num_options, &options);
 	      }
 	      break;
@@ -229,13 +225,13 @@ main(int  argc,				/* I - Number of command-line arguments */
 						dest->options[j].value,
 						num_options, &options);
 	      }
-	      else if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+	      else if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		       cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
 	      {
 		_cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		return (1);
 	      }
-	      else if (cupsLastError() == IPP_STATUS_ERROR_NOT_FOUND)
+	      else if (cupsGetError() == IPP_STATUS_ERROR_NOT_FOUND)
 	      {
 		_cupsLangPrintf(stderr,
 				_("%s: Error - The printer or class does not exist."), argv[0]);
@@ -344,8 +340,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 		                      dest->options[j].value,
 				      num_options, &options);
     }
-    else if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-	     cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+    else if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+	     cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
     {
       _cupsLangPrintf(stderr,
 		      _("%s: Error - add '/version=1.1' to server "
@@ -356,8 +352,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (printer == NULL)
   {
-    if (!cupsGetNamedDest(NULL, NULL, NULL) && cupsLastError() == IPP_STATUS_ERROR_NOT_FOUND)
-      _cupsLangPrintf(stderr, _("%s: Error - %s"), argv[0], cupsLastErrorString());
+    if (!cupsGetNamedDest(NULL, NULL, NULL) && cupsGetError() == IPP_STATUS_ERROR_NOT_FOUND)
+      _cupsLangPrintf(stderr, _("%s: Error - %s"), argv[0], cupsGetErrorString());
     else
       _cupsLangPrintf(stderr, _("%s: Error - scheduler not responding."), argv[0]);
 
@@ -395,11 +391,11 @@ main(int  argc,				/* I - Number of command-line arguments */
     status = cupsStartDocument(CUPS_HTTP_DEFAULT, printer, job_id, NULL,
                                format, 1);
 
-    while (status == HTTP_CONTINUE &&
+    while (status == HTTP_STATUS_CONTINUE &&
            (bytes = read(0, buffer, sizeof(buffer))) > 0)
       status = cupsWriteRequestData(CUPS_HTTP_DEFAULT, buffer, (size_t)bytes);
 
-    if (status != HTTP_CONTINUE)
+    if (status != HTTP_STATUS_CONTINUE)
     {
       _cupsLangPrintf(stderr, _("%s: Error - unable to queue from stdin - %s."),
 		      argv[0], httpStatus(status));
@@ -410,7 +406,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_OK)
     {
-      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
       cupsCancelJob2(CUPS_HTTP_DEFAULT, printer, job_id, 0);
       return (1);
     }
@@ -418,7 +414,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (job_id < 1)
   {
-    _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+    _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
     return (1);
   }
 

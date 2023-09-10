@@ -506,7 +506,7 @@ main(int  argc,				/* I - Number of command-line args */
         * Indent...
 	*/
 
-	float amount = 3.0;		/* Indentation */
+	float amount = 3.0f;		/* Indentation */
 
         if (line[3])
           amount = (float)atof(line + 4);
@@ -552,7 +552,7 @@ main(int  argc,				/* I - Number of command-line args */
         * .HP i
 	*/
 
-	float amount = 3.0;		/* Indentation */
+	float amount = 3.0f;		/* Indentation */
 
         if (line[3])
           amount = (float)atof(line + 4);
@@ -585,7 +585,7 @@ main(int  argc,				/* I - Number of command-line args */
         * .TP i
 	*/
 
-	float amount = 3.0;		/* Indentation */
+	float amount = 3.0f;		/* Indentation */
 
         if (line[3])
           amount = (float)atof(line + 4);
@@ -624,7 +624,7 @@ main(int  argc,				/* I - Number of command-line args */
         * .IP x i
 	*/
 
-        float amount = 3.0;		/* Indentation */
+        float amount = 3.0f;		/* Indentation */
         const char *newlist = NULL;	/* New list style */
         const char *newtype = NULL;	/* New list numbering type */
 
@@ -811,7 +811,7 @@ main(int  argc,				/* I - Number of command-line args */
         * Anchor for HTML output...
         */
 
-        strlcpy(anchor, line + 4, sizeof(anchor));
+        cupsCopyString(anchor, line + 4, sizeof(anchor));
       }
       else if (strncmp(line, ".\\\"", 3))
       {
@@ -856,7 +856,7 @@ main(int  argc,				/* I - Number of command-line args */
         if (!line[0])
           continue;			// Skip initial blank line
       }
-      
+
       html_fputs(line, &font, outfile);
       putc('\n', outfile);
 
@@ -944,7 +944,7 @@ html_alternate(const char *s,		/* I - String */
 		manfile[1024],		// Man page filename
 		manurl[1024];		// Man page URL
 
-        strlcpy(name, s, sizeof(name));
+        cupsCopyString(name, s, sizeof(name));
         if ((size_t)(end - s) < sizeof(name))
           name[end - s] = '\0';
 
@@ -989,7 +989,7 @@ html_alternate(const char *s,		/* I - String */
       link = 0;
     }
 
-    i = 1 - i;
+    i ^= 1;
 
    /*
     * Skip trailing whitespace...

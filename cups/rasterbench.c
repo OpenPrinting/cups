@@ -125,7 +125,7 @@ compute_median(double *secs)		/* I - Array of time samples */
 
 
  /*
-  * Sort the array into ascending order using a quicky bubble sort...
+  * Sort the array into ascending order using a quick bubble sort...
   */
 
   for (i = 0; i < (TEST_PASSES - 1); i ++)

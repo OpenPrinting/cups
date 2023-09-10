@@ -1,7 +1,7 @@
 /*
  * "lpq" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -78,14 +78,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 
 	      if (http)
-		httpEncryption(http, HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
+		httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'U' : /* Username */
@@ -134,8 +130,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	      if ((named_dest = cupsGetNamedDest(http, dest, instance)) == NULL)
 	      {
-		if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		    cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+		if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		    cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
 		  _cupsLangPrintf(stderr, _("%s: Error - add '/version=1.1' to server name."), argv[0]);
 		else if (instance)
 		  _cupsLangPrintf(stderr, _("%s: Error - unknown destination \"%s/%s\"."), argv[0], dest, instance);
@@ -205,8 +201,8 @@ main(int  argc,				/* I - Number of command-line arguments */
   {
     if ((named_dest = cupsGetNamedDest(http, NULL, NULL)) == NULL)
     {
-      if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-          cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+      if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+          cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
       {
 	_cupsLangPrintf(stderr,
 	                _("%s: Error - add '/version=1.1' to server name."),
@@ -394,7 +390,7 @@ show_jobs(const char *command,		/* I - Command name */
   }
   else
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                 "requesting-user-name", NULL, cupsUser());
+                 "requesting-user-name", NULL, cupsGetUser());
 
   ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                 "requested-attributes",
@@ -410,7 +406,7 @@ show_jobs(const char *command,		/* I - Command name */
   {
     if (response->request.status.status_code > IPP_OK_CONFLICT)
     {
-      _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+      _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
       ippDelete(response);
       return (0);
     }
@@ -503,7 +499,7 @@ show_jobs(const char *command,		/* I - Command name */
       */
 
       if (jobstate == IPP_JOB_PROCESSING)
-	strlcpy(rankstr, "active", sizeof(rankstr));
+	cupsCopyString(rankstr, "active", sizeof(rankstr));
       else
       {
        /*
@@ -527,7 +523,7 @@ show_jobs(const char *command,		/* I - Command name */
 	  snprintf(namestr, sizeof(namestr), "%d copies of %s", jobcopies,
 	           jobname);
 	else
-	  strlcpy(namestr, jobname, sizeof(namestr));
+	  cupsCopyString(namestr, jobname, sizeof(namestr));
 
         _cupsLangPrintf(stdout, _("%s: %-33.33s [job %d localhost]"),
 	                jobuser, rankstr, jobid);
@@ -547,7 +543,7 @@ show_jobs(const char *command,		/* I - Command name */
   }
   else
   {
-    _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+    _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
     return (0);
   }
 
@@ -601,7 +597,7 @@ show_printer(const char *command,	/* I - Command name */
   {
     if (response->request.status.status_code > IPP_OK_CONFLICT)
     {
-      _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+      _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
       ippDelete(response);
       return;
     }
@@ -628,7 +624,7 @@ show_printer(const char *command,	/* I - Command name */
     ippDelete(response);
   }
   else
-    _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+    _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
 }
 
 

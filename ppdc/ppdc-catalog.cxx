@@ -31,9 +31,6 @@ typedef enum
 // Local functions...
 //
 
-#if defined(__APPLE__) && defined(CUPS_BUNDLEDIR)
-static void	apple_add_message(CFStringRef key, CFStringRef val, ppdcCatalog *c);
-#endif /* __APPLE__ && CUPS_BUNDLEDIR */
 static int	get_utf8(char *&ptr);
 static int	get_utf16(cups_file_t *fp, ppdc_cs_t &cs);
 static int	put_utf8(int ch, char *&ptr, char *end);
@@ -58,69 +55,7 @@ ppdcCatalog::ppdcCatalog(const char *l,	// I - Locale
   {
     // Try loading the base messages for this locale...
     char	pofile[1024];		// Message catalog file
-
-
-#if defined(__APPLE__) && defined(CUPS_BUNDLEDIR)
-    char		applelang[256];	// Apple language ID
-    CFURLRef		url;		// URL to cups.strings file
-    CFReadStreamRef	stream = NULL;	// File stream
-    CFPropertyListRef	plist = NULL;	// Localization file
-
-    snprintf(pofile, sizeof(pofile), CUPS_BUNDLEDIR "/Resources/%s.lproj/cups.strings", _cupsAppleLanguage(l, applelang, sizeof(applelang)));
-    if (access(pofile, 0))
-    {
-      // Try alternate lproj directory names...
-      const char *tl = l;		// Temporary locale string
-
-      if (!strncmp(l, "en", 2))
-	tl = "English";
-      else if (!strncmp(l, "nb", 2))
-        tl = "no";
-      else if (!strncmp(l, "nl", 2))
-	tl = "Dutch";
-      else if (!strncmp(l, "fr", 2))
-	tl = "French";
-      else if (!strncmp(l, "de", 2))
-	tl = "German";
-      else if (!strncmp(l, "it", 2))
-	tl = "Italian";
-      else if (!strncmp(l, "ja", 2))
-	tl = "Japanese";
-      else if (!strncmp(l, "es", 2))
-	tl = "Spanish";
-
-      snprintf(pofile, sizeof(pofile), CUPS_BUNDLEDIR "/Resources/%s.lproj/cups.strings", tl);
-    }
-
-    url = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault, (UInt8 *)pofile, (CFIndex)strlen(pofile), false);
-    if (url)
-    {
-      stream = CFReadStreamCreateWithFile(kCFAllocatorDefault, url);
-
-      if (stream)
-      {
-       /*
-	* Read the property list containing the localization data.
-	*/
-
-	CFReadStreamOpen(stream);
-
-	plist = CFPropertyListCreateWithStream(kCFAllocatorDefault, stream, 0, kCFPropertyListImmutable, NULL, NULL);
-
-	if (plist && CFGetTypeID(plist) == CFDictionaryGetTypeID())
-	  CFDictionaryApplyFunction((CFDictionaryRef)plist, (CFDictionaryApplierFunction)apple_add_message, this);
-
-	if (plist)
-	  CFRelease(plist);
-
-	CFRelease(stream);
-      }
-
-      CFRelease(url);
-    }
-
-#else
-    _cups_globals_t	*cg = _cupsGlobals();
+    _cups_globals_t *cg = _cupsGlobals();
 					// Global information
 
     snprintf(pofile, sizeof(pofile), "%s/%s/cups_%s.po", cg->localedir, l, l);
@@ -131,13 +66,12 @@ ppdcCatalog::ppdcCatalog(const char *l,	// I - Locale
       char	baseloc[3];		// Base locale...
 
 
-      strlcpy(baseloc, l, sizeof(baseloc));
+      cupsCopyString(baseloc, l, sizeof(baseloc));
       snprintf(pofile, sizeof(pofile), "%s/%s/cups_%s.po", cg->localedir,
                baseloc, baseloc);
 
       load_messages(pofile);
     }
-#endif /* __APPLE__ && CUPS_BUNDLEDIR */
   }
 
   if (f && *f)
@@ -448,7 +382,7 @@ ppdcCatalog::load_messages(
 	if (haveid && havestr)
 	  add_message(id, str);
 
-	strlcpy(id, ptr, sizeof(id));
+	cupsCopyString(id, ptr, sizeof(id));
 	str[0] = '\0';
 	haveid  = 1;
 	havestr = 0;
@@ -466,14 +400,14 @@ ppdcCatalog::load_messages(
 	  return (-1);
 	}
 
-	strlcpy(str, ptr, sizeof(str));
+	cupsCopyString(str, ptr, sizeof(str));
 	havestr = 1;
 	which   = 2;
       }
       else if (line[0] == '\"' && which == 2)
-	strlcat(str, ptr, sizeof(str));
+	cupsConcatString(str, ptr, sizeof(str));
       else if (line[0] == '\"' && which == 1)
-	strlcat(id, ptr, sizeof(id));
+	cupsConcatString(id, ptr, sizeof(id));
       else
       {
 	_cupsLangPrintf(stderr, _("ppdc: Unexpected text on line %d of %s."),
@@ -652,27 +586,6 @@ ppdcCatalog::save_messages(
 
   return (0);
 }
-
-
-#if defined(__APPLE__) && defined(CUPS_BUNDLEDIR)
-//
-// 'apple_add_message()' - Add a message from a localization dictionary.
-//
-
-static void
-apple_add_message(CFStringRef key,	// I - Localization key
-                  CFStringRef val,	// I - Localized value
-                  ppdcCatalog *c)	// I - Message catalog
-{
-  char	id[1024],			// Message id
-	str[1024];			// Localized message
-
-
-  if (CFStringGetCString(key, id, sizeof(id), kCFStringEncodingUTF8) &&
-      CFStringGetCString(val, str, sizeof(str), kCFStringEncodingUTF8))
-    c->add_message(id, str);
-}
-#endif /* __APPLE__ && CUPS_BUNDLEDIR */
 
 
 //

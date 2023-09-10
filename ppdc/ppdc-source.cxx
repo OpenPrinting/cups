@@ -170,7 +170,7 @@ ppdcSource::find_include(
   if (*f == '<')
   {
     // Remove the surrounding <> from the name...
-    strlcpy(temp, f + 1, sizeof(temp));
+    cupsCopyString(temp, f + 1, sizeof(temp));
     ptr = temp + strlen(temp) - 1;
 
     if (*ptr != '>')
@@ -189,7 +189,7 @@ ppdcSource::find_include(
     if (base && *base && f[0] != '/')
       snprintf(n, (size_t)nlen, "%s/%s", base, f);
     else
-      strlcpy(n, f, (size_t)nlen);
+      cupsCopyString(n, f, (size_t)nlen);
 
     if (!access(n, 0))
       return (n);
@@ -895,7 +895,7 @@ ppdcSource::get_filter(ppdcFile *fp)	// I - File to read
     while (isspace(*ptr))
       ptr ++;
 
-    strlcpy(program, ptr, sizeof(program));
+    cupsCopyString(program, ptr, sizeof(program));
   }
   else
   {
@@ -1653,12 +1653,12 @@ ppdcSource::get_po(ppdcFile *fp)	// I - File to read
   }
 
   // Figure out the current directory...
-  strlcpy(basedir, fp->filename, sizeof(basedir));
+  cupsCopyString(basedir, fp->filename, sizeof(basedir));
 
   if ((baseptr = strrchr(basedir, '/')) != NULL)
     *baseptr = '\0';
   else
-    strlcpy(basedir, ".", sizeof(basedir));
+    cupsCopyString(basedir, ".", sizeof(basedir));
 
   // Find the po file...
   pofilename[0] = '\0';
@@ -1998,7 +1998,7 @@ ppdcSource::get_token(ppdcFile *fp,	// I - File to read
 	var = find_variable(name);
 	if (var)
 	{
-	  strlcpy(bufptr, var->value->value, (size_t)(bufend - bufptr + 1));
+	  cupsCopyString(bufptr, var->value->value, (size_t)(bufend - bufptr + 1));
 	  bufptr += strlen(bufptr);
 	}
 	else
@@ -2578,12 +2578,12 @@ ppdcSource::scan_file(ppdcFile   *fp,	// I - File to read
         continue;
 
       // Figure out the current directory...
-      strlcpy(basedir, fp->filename, sizeof(basedir));
+      cupsCopyString(basedir, fp->filename, sizeof(basedir));
 
       if ((baseptr = strrchr(basedir, '/')) != NULL)
 	*baseptr = '\0';
       else
-	strlcpy(basedir, ".", sizeof(basedir));
+	cupsCopyString(basedir, ".", sizeof(basedir));
 
       // Find the include file...
       if (find_include(inctemp, basedir, incname, sizeof(incname)))
@@ -2792,7 +2792,7 @@ ppdcSource::scan_file(ppdcFile   *fp,	// I - File to read
       if (have_cutter <= 0 || cond_state)
         continue;
 
-      if ((o = d->find_option("CutMedia")) == NULL)
+      if (!d->find_option("CutMedia"))
       {
         o = new ppdcOption(PPDC_BOOLEAN, "CutMedia", "Cut Media", PPDC_SECTION_ANY, 10.0f);
 
@@ -2805,9 +2805,8 @@ ppdcSource::scan_file(ppdcFile   *fp,	// I - File to read
 
 	c = new ppdcChoice("True", NULL, "<</CutMedia 4>>setpagedevice");
 	o->add_choice(c);
+        o = NULL;
       }
-
-      o = NULL;
     }
     else if (!_cups_strcasecmp(temp, "Darkness"))
     {
@@ -3480,7 +3479,7 @@ ppdcSource::write_file(const char *f)	// I - File to write
                    d->model_name->value);
     cupsFilePuts(fp, "{\n");
 
-    // Write the copyright stings...
+    // Write the copyright strings...
     for (st = (ppdcString *)d->copyright->first();
          st;
 	 st = (ppdcString *)d->copyright->next())

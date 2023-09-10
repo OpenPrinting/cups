@@ -1,6 +1,7 @@
 /*
  * HTTP address list routines for CUPS.
  *
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -17,10 +18,8 @@
 #ifdef HAVE_RESOLV_H
 #  include <resolv.h>
 #endif /* HAVE_RESOLV_H */
-#ifdef HAVE_POLL
-#  include <poll.h>
-#endif /* HAVE_POLL */
 #ifndef _WIN32
+#  include <poll.h>
 #  include <fcntl.h>
 #endif /* _WIN32 */
 
@@ -36,7 +35,7 @@ httpAddrConnect(
     http_addrlist_t *addrlist,		/* I - List of potential addresses */
     int             *sock)		/* O - Socket */
 {
-  DEBUG_printf(("httpAddrConnect(addrlist=%p, sock=%p)", (void *)addrlist, (void *)sock));
+  DEBUG_printf("httpAddrConnect(addrlist=%p, sock=%p)", (void *)addrlist, (void *)sock);
 
   return (httpAddrConnect2(addrlist, sock, 30000, NULL));
 }
@@ -66,18 +65,9 @@ httpAddrConnect2(
   int			nfds,		/* Number of file descriptors */
 			fds[100];	/* Socket file descriptors */
   http_addrlist_t	*addrs[100];	/* Addresses */
-#ifndef HAVE_POLL
   int			max_fd = -1;	/* Highest file descriptor */
-#endif /* !HAVE_POLL */
 #ifdef O_NONBLOCK
-#  ifdef HAVE_POLL
   struct pollfd		pfds[100];	/* Polled file descriptors */
-#  else
-  fd_set		input_set,	/* select() input set */
-			output_set,	/* select() output set */
-			error_set;	/* select() error set */
-  struct timeval	timeout;	/* Timeout */
-#  endif /* HAVE_POLL */
 #endif /* O_NONBLOCK */
 #ifdef DEBUG
 #  ifndef _WIN32
@@ -88,7 +78,7 @@ httpAddrConnect2(
 #endif /* DEBUG */
 
 
-  DEBUG_printf(("httpAddrConnect2(addrlist=%p, sock=%p, msec=%d, cancel=%p)", (void *)addrlist, (void *)sock, msec, (void *)cancel));
+  DEBUG_printf("httpAddrConnect2(addrlist=%p, sock=%p, msec=%d, cancel=%p)", (void *)addrlist, (void *)sock, msec, (void *)cancel);
 
   if (!sock)
   {
@@ -131,7 +121,7 @@ httpAddrConnect2(
       * Create the socket...
       */
 
-      DEBUG_printf(("2httpAddrConnect2: Trying %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr))));
+      DEBUG_printf("2httpAddrConnect2: Trying %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)));
 
       if ((fds[nfds] = (int)socket(httpAddrFamily(&(addrlist->addr)), SOCK_STREAM, 0)) < 0)
       {
@@ -184,7 +174,7 @@ httpAddrConnect2(
       * Do an asynchronous connect by setting the socket non-blocking...
       */
 
-      DEBUG_printf(("httpAddrConnect2: Setting non-blocking connect()"));
+      DEBUG_printf("httpAddrConnect2: Setting non-blocking connect()");
 
       flags = fcntl(fds[nfds], F_GETFL, 0);
       fcntl(fds[nfds], F_SETFL, flags | O_NONBLOCK);
@@ -196,7 +186,7 @@ httpAddrConnect2(
 
       if (!connect(fds[nfds], &(addrlist->addr.addr), (socklen_t)httpAddrLength(&(addrlist->addr))))
       {
-	DEBUG_printf(("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr))));
+	DEBUG_printf("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)));
 
 #ifdef O_NONBLOCK
 	fcntl(fds[nfds], F_SETFL, flags);
@@ -219,7 +209,7 @@ httpAddrConnect2(
       if (errno != EINPROGRESS && errno != EWOULDBLOCK)
 #endif /* _WIN32 */
       {
-	DEBUG_printf(("1httpAddrConnect2: Unable to connect to %s:%d: %s", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)), strerror(errno)));
+	DEBUG_printf("1httpAddrConnect2: Unable to connect to %s:%d: %s", httpAddrString(&(addrlist->addr), temp, sizeof(temp)), httpAddrPort(&(addrlist->addr)), strerror(errno));
 	httpAddrClose(NULL, fds[nfds]);
 	addrlist = addrlist->next;
 	continue;
@@ -229,10 +219,8 @@ httpAddrConnect2(
       fcntl(fds[nfds], F_SETFL, flags);
 #endif /* !_WIN32 */
 
-#ifndef HAVE_POLL
       if (fds[nfds] > max_fd)
 	max_fd = fds[nfds];
-#endif /* !HAVE_POLL */
 
       addrs[nfds] = addrlist;
       nfds ++;
@@ -277,7 +265,6 @@ httpAddrConnect2(
 	return (NULL);
       }
 
-#  ifdef HAVE_POLL
       for (i = 0; i < nfds; i ++)
       {
 	pfds[i].fd     = fds[i];
@@ -286,22 +273,7 @@ httpAddrConnect2(
 
       result = poll(pfds, (nfds_t)nfds, addrlist ? 100 : remaining > 250 ? 250 : remaining);
 
-      DEBUG_printf(("1httpAddrConnect2: poll() returned %d (%d)", result, errno));
-
-#  else
-      FD_ZERO(&input_set);
-      for (i = 0; i < nfds; i ++)
-	FD_SET(fds[i], &input_set);
-      output_set = input_set;
-      error_set  = input_set;
-
-      timeout.tv_sec  = 0;
-      timeout.tv_usec = (addrlist ? 100 : remaining > 250 ? 250 : remaining) * 1000;
-
-      result = select(max_fd + 1, &input_set, &output_set, &error_set, &timeout);
-
-      DEBUG_printf(("1httpAddrConnect2: select() returned %d (%d)", result, errno));
-#  endif /* HAVE_POLL */
+      DEBUG_printf("1httpAddrConnect2: poll() returned %d (%d)", result, errno);
     }
 #  ifdef _WIN32
     while (result < 0 && (WSAGetLastError() == WSAEINTR || WSAGetLastError() == WSAEWOULDBLOCK));
@@ -315,12 +287,8 @@ httpAddrConnect2(
 
       for (i = 0; i < nfds; i ++)
       {
-#  ifdef HAVE_POLL
-	DEBUG_printf(("pfds[%d].revents=%x\n", i, pfds[i].revents));
+	DEBUG_printf("pfds[%d].revents=%x\n", i, pfds[i].revents);
 	if (pfds[i].revents && !(pfds[i].revents & (POLLERR | POLLHUP)))
-#  else
-	if (FD_ISSET(fds[i], &input_set) && !FD_ISSET(fds[i], &error_set))
-#  endif /* HAVE_POLL */
 	{
 	  *sock    = fds[i];
 	  connaddr = addrs[i];
@@ -328,16 +296,12 @@ httpAddrConnect2(
 #  ifdef DEBUG
 	  len   = sizeof(peer);
 	  if (!getpeername(fds[i], (struct sockaddr *)&peer, &len))
-	    DEBUG_printf(("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&peer, temp, sizeof(temp)), httpAddrPort(&peer)));
+	    DEBUG_printf("1httpAddrConnect2: Connected to %s:%d...", httpAddrString(&peer, temp, sizeof(temp)), httpAddrPort(&peer));
 #  endif /* DEBUG */
 
           break;
 	}
-#  ifdef HAVE_POLL
 	else if (pfds[i].revents & (POLLERR | POLLHUP))
-#  else
-	else if (FD_ISSET(fds[i], &error_set))
-#  endif /* HAVE_POLL */
         {
 #  ifdef __sun
           // Solaris incorrectly returns errors when you poll() a socket that is
@@ -500,6 +464,9 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
   http_addrlist_t	*first,		/* First address in list */
 			*addr,		/* Current address in list */
 			*temp;		/* New address */
+  char			ipv6[64],	/* IPv6 address */
+			*ipv6zone;	/* Pointer to zone separator */
+  int			ipv6len;	/* Length of IPv6 address */
   _cups_globals_t	*cg = _cupsGlobals();
 					/* Global data */
 
@@ -558,7 +525,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
     {
       addr = first;
       first->addr.un.sun_family = AF_LOCAL;
-      strlcpy(first->addr.un.sun_path, hostname, sizeof(first->addr.un.sun_path));
+      cupsCopyString(first->addr.un.sun_path, hostname, sizeof(first->addr.un.sun_path));
     }
   }
   else
@@ -569,9 +536,6 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
     struct addrinfo	hints,		/* Address lookup hints */
 			*results,	/* Address lookup results */
 			*current;	/* Current result */
-    char		ipv6[64],	/* IPv6 address */
-			*ipv6zone;	/* Pointer to zone separator */
-    int			ipv6len;	/* Length of IPv6 address */
     int			error;		/* getaddrinfo() error */
 
 
@@ -596,7 +560,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
         * Copy the newer address format which supports link-local addresses...
 	*/
 
-	strlcpy(ipv6, hostname + 4, sizeof(ipv6));
+	cupsCopyString(ipv6, hostname + 4, sizeof(ipv6));
 	if ((ipv6len = (int)strlen(ipv6) - 1) >= 0 && ipv6[ipv6len] == ']')
 	{
           ipv6[ipv6len] = '\0';
@@ -616,7 +580,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
         * Copy the regular non-link-local IPv6 address...
 	*/
 
-	strlcpy(ipv6, hostname + 1, sizeof(ipv6));
+	cupsCopyString(ipv6, hostname + 1, sizeof(ipv6));
 	if ((ipv6len = (int)strlen(ipv6) - 1) >= 0 && ipv6[ipv6len] == ']')
 	{
           ipv6[ipv6len] = '\0';
@@ -745,10 +709,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 	    return (NULL);
 
           first->addr.ipv4.sin_family = AF_INET;
-          first->addr.ipv4.sin_addr.s_addr = htonl((((((((unsigned)ip[0] << 8) |
-	                                               (unsigned)ip[1]) << 8) |
-						     (unsigned)ip[2]) << 8) |
-						   (unsigned)ip[3]));
+          first->addr.ipv4.sin_addr.s_addr = htonl((ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3]);
           first->addr.ipv4.sin_port = htons(portnum);
 	}
       }

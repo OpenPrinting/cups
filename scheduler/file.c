@@ -315,7 +315,7 @@ cupsdRemoveFile(const char *filename)	/* I - File to remove */
   int			fd;		/* File descriptor */
   struct stat		info;		/* File information */
   char			buffer[512];	/* Data buffer */
-  int			i;		/* Looping var */
+  size_t			i;		/* Looping var */
 
 
  /*

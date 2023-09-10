@@ -1,6 +1,7 @@
 /*
  * IPP test program for CUPS.
  *
+ * Copyright © 2022-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products.
  *
@@ -318,6 +319,13 @@ main(int  argc,			/* I - Number of command-line arguments */
 #ifdef DEBUG
   const char	*name;		/* Option name */
 #endif /* DEBUG */
+  static const char * const test_strings[] =
+  {				/* Test strings */
+    "one-string",
+    "two-string",
+    "red-string",
+    "blue-string"
+  };
 
 
   status = 0;
@@ -746,6 +754,28 @@ main(int  argc,			/* I - Number of command-line arguments */
     else
       puts("PASS");
 
+    fputs("ippDeleteValues: ", stdout);
+    attr = ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "test-strings", 4, NULL, test_strings);
+    if (ippGetCount(attr) != 4)
+    {
+      printf("FAIL (got %d values, expected 4 values)\n", ippGetCount(attr));
+      status = 1;
+    }
+    else if (!ippDeleteValues(request, &attr, 3, 1))
+    {
+      puts("FAIL (returned 0)");
+      status = 1;
+    }
+    else if (ippGetCount(attr) != 3)
+    {
+      printf("FAIL (got %d values, expected 3 values)\n", ippGetCount(attr));
+      status = 1;
+    }
+    else
+    {
+      puts("PASS");
+    }
+
     ippDelete(request);
 
 #ifdef DEBUG
@@ -825,7 +855,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 
 	if (state != IPP_STATE_DATA)
 	{
-	  printf("Error reading IPP message from \"%s\": %s\n", argv[i], cupsLastErrorString());
+	  printf("Error reading IPP message from \"%s\": %s\n", argv[i], cupsGetErrorString());
 	  status = 1;
 
 	  ippDelete(request);
@@ -853,7 +883,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 
 	if (state != IPP_STATE_DATA)
 	{
-	  printf("Error reading IPP message from \"%s\": %s\n", argv[i], cupsLastErrorString());
+	  printf("Error reading IPP message from \"%s\": %s\n", argv[i], cupsGetErrorString());
 	  status = 1;
 
 	  ippDelete(request);

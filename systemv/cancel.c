@@ -1,7 +1,7 @@
 /*
  * "cancel" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -77,14 +77,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 
 	      if (http)
-		httpEncryption(http, HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
+		httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'U' : /* Username */
@@ -260,6 +256,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       *    attributes-natural-language
       *    printer-uri + job-id *or* job-uri
       *    [requesting-user-name]
+      *    [purge-job] or [purge-jobs]
       */
 
       request = ippNewRequest(op);
@@ -291,16 +288,21 @@ main(int  argc,				/* I - Number of command-line arguments */
       }
       else
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                     "requesting-user-name", NULL, cupsUser());
+                     "requesting-user-name", NULL, cupsGetUser());
 
       if (purge)
-	ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", (char)purge);
+      {
+	if (op == IPP_CANCEL_JOB)
+	  ippAddBoolean(request, IPP_TAG_OPERATION, "purge-job", (char)purge);
+	else
+	  ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", (char)purge);
+      }
 
      /*
       * Do the request and get back a response...
       */
 
-      if (op == IPP_CANCEL_JOBS && (!user || _cups_strcasecmp(user, cupsUser())))
+      if (op == IPP_CANCEL_JOBS && (!user || _cups_strcasecmp(user, cupsGetUser())))
         response = cupsDoRequest(http, request, "/admin/");
       else
         response = cupsDoRequest(http, request, "/jobs/");
@@ -310,7 +312,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       {
 	_cupsLangPrintf(stderr, _("%s: %s failed: %s"), argv[0],
 	        	op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
-        		cupsLastErrorString());
+        		cupsGetErrorString());
 
           ippDelete(response);
 
@@ -358,7 +360,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     }
     else
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                   "requesting-user-name", NULL, cupsUser());
+                   "requesting-user-name", NULL, cupsGetUser());
 
     ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", (char)purge);
 
@@ -373,7 +375,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     {
       _cupsLangPrintf(stderr, _("%s: %s failed: %s"), argv[0],
 		      op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
-        	      cupsLastErrorString());
+        	      cupsGetErrorString());
 
       ippDelete(response);
 

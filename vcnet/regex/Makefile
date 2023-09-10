@@ -19,7 +19,7 @@ LIBS=
 # Internal stuff, should not need changing.
 OBJPRODN=regcomp.o regexec.o regerror.o regfree.o
 OBJS=$(OBJPRODN) split.o debug.o main.o
-H=cclass.h cname.h regex2.h utils.h
+H=regex2.h utils.h
 REGSRC=regcomp.c regerror.c regexec.c regfree.c
 ALLSRC=$(REGSRC) engine.c debug.c main.c split.c
 
@@ -27,11 +27,6 @@ ALLSRC=$(REGSRC) engine.c debug.c main.c split.c
 LINTFLAGS=-I. -Dstatic= -Dconst= -DREDEBUG
 LINTC=regcomp.c regexec.c regerror.c regfree.c debug.c main.c
 JUNKLINT=possible pointer alignment|null effect
-
-# arrangements to build forward-reference header files
-.SUFFIXES:	.ih .h
-.c.ih:
-	sh ./mkh $(MKHFLAGS) -p $< >$@
 
 default:	r
 
@@ -52,11 +47,11 @@ $(REGEXH):	$(REGEXHSRC) mkh
 
 # dependencies
 $(OBJPRODN) debug.o:	utils.h regex.h regex2.h
-regcomp.o:	cclass.h cname.h regcomp.ih
-regexec.o:	engine.c engine.ih
-regerror.o:	regerror.ih
-debug.o:	debug.ih
-main.o:	main.ih
+regcomp.o:	regcomp.h
+regexec.o:	engine.c engine.h
+regerror.o:	regerror.h
+debug.o:	debug.h
+main.o:	main.h
 
 # tester
 re:	$(OBJS)
@@ -92,7 +87,7 @@ fullprint:
 	ti README WHATSNEW notes todo | list
 	ti *.h | list
 	list *.c
-	list regex.3 regex.7
+	list rxspenser.3 rxspenser.7
 
 print:
 	ti README WHATSNEW notes todo | list
@@ -103,9 +98,9 @@ print:
 mf.tmp:	Makefile
 	sed '/^REGEXH=/s/=.*/=regex.h/' Makefile | sed '/#DEL$$/d' >$@
 
-DTRH=cclass.h cname.h regex2.h utils.h
+DTRH=regex2.h utils.h
 PRE=COPYRIGHT README WHATSNEW
-POST=mkh regex.3 regex.7 tests $(DTRH) $(ALLSRC) fake/*.[ch]
+POST=mkh rxspenser.3 rxspenser.7 tests $(DTRH) $(ALLSRC) fake/*.[ch]
 FILES=$(PRE) Makefile $(POST)
 DTR=$(PRE) Makefile=mf.tmp $(POST)
 dtr:	$(FILES) mf.tmp
@@ -123,7 +118,7 @@ tidy:
 	rm -f junk* core core.* *.core dtr *.tmp lint
 
 clean:	tidy
-	rm -f *.o *.s *.ih re libregex.a
+	rm -f *.o *.s re libregex.a
 
 # don't do this one unless you know what you're doing
 spotless:	clean

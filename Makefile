@@ -1,7 +1,7 @@
 #
 # Top-level Makefile for CUPS.
 #
-# Copyright © 2020 by OpenPrinting
+# Copyright © 2020-2023 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -107,7 +107,7 @@ distclean:	clean
 	$(RM) desktop/cups.desktop
 	$(RM) doc/index.html
 	$(RM) packaging/cups.list
-	$(RM) scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/org.cups.cups-lpdAT.service scheduler/org.cups.cupsd.path scheduler/org.cups.cupsd.service scheduler/org.cups.cupsd.socket
+	$(RM) scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket
 	$(RM) templates/header.tmpl
 	-$(RM) doc/*/index.html
 	-$(RM) templates/*/header.tmpl
@@ -244,6 +244,7 @@ testserver:	all unittests
 
 
 check test:	all unittests
+	cd cups; make test
 	echo Running CUPS test suite...
 	cd test; ./run-stp-tests.sh 1 0 n n
 

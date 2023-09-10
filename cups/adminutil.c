@@ -1,7 +1,7 @@
 /*
  * Administration utility API definitions for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2001-2007 by Easy Software Products.
  *
@@ -264,18 +264,17 @@ cupsAdminGetServerSettings(
 	    )
 	  remote_access = 1;
       }
-      else if (!_cups_strcasecmp(line, "Browsing"))
+      else if (!_cups_strcasecmp(line, "Browsing") && value)
       {
 	browsing = !_cups_strcasecmp(value, "yes") ||
 	           !_cups_strcasecmp(value, "on") ||
 	           !_cups_strcasecmp(value, "true");
       }
-      else if (!_cups_strcasecmp(line, "LogLevel"))
+      else if (!_cups_strcasecmp(line, "LogLevel") && value)
       {
 	debug_logging = !_cups_strncasecmp(value, "debug", 5);
       }
-      else if (!_cups_strcasecmp(line, "<Policy") &&
-               !_cups_strcasecmp(value, "default"))
+      else if (!_cups_strcasecmp(line, "<Policy") && value && !_cups_strcasecmp(value, "default"))
       {
 	in_policy = 1;
       }
@@ -506,8 +505,7 @@ cupsAdminSetServerSettings(
   else
     old_debug_logging = 0;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: old debug_logging=%d",
-                old_debug_logging));
+  DEBUG_printf("1cupsAdminSetServerSettings: old debug_logging=%d", old_debug_logging);
 
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ADMIN, cupsd_num_settings,
                            cupsd_settings)) != NULL)
@@ -515,8 +513,7 @@ cupsAdminSetServerSettings(
   else
     old_remote_admin = 0;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: old remote_admin=%d",
-                old_remote_admin));
+  DEBUG_printf("1cupsAdminSetServerSettings: old remote_admin=%d", old_remote_admin);
 
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ANY, cupsd_num_settings,
                            cupsd_settings)) != NULL)
@@ -524,8 +521,7 @@ cupsAdminSetServerSettings(
   else
     old_remote_any = 0;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: old remote_any=%d",
-                old_remote_any));
+  DEBUG_printf("1cupsAdminSetServerSettings: old remote_any=%d", old_remote_any);
 
   if ((val = cupsGetOption(CUPS_SERVER_SHARE_PRINTERS, cupsd_num_settings,
                            cupsd_settings)) != NULL)
@@ -533,8 +529,7 @@ cupsAdminSetServerSettings(
   else
     old_share_printers = 0;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: old share_printers=%d",
-                old_share_printers));
+  DEBUG_printf("1cupsAdminSetServerSettings: old share_printers=%d", old_share_printers);
 
   if ((val = cupsGetOption(CUPS_SERVER_USER_CANCEL_ANY, cupsd_num_settings,
                            cupsd_settings)) != NULL)
@@ -542,8 +537,7 @@ cupsAdminSetServerSettings(
   else
     old_user_cancel_any = 0;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: old user_cancel_any=%d",
-                old_user_cancel_any));
+  DEBUG_printf("1cupsAdminSetServerSettings: old user_cancel_any=%d", old_user_cancel_any);
 
   cupsFreeOptions(cupsd_num_settings, cupsd_settings);
 
@@ -568,8 +562,7 @@ cupsAdminSetServerSettings(
   else
     debug_logging = -1;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: debug_logging=%d",
-                debug_logging));
+  DEBUG_printf("1cupsAdminSetServerSettings: debug_logging=%d", debug_logging);
 
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ANY, num_settings, settings)) != NULL)
   {
@@ -587,7 +580,7 @@ cupsAdminSetServerSettings(
   else
     remote_any = -1;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: remote_any=%d", remote_any));
+  DEBUG_printf("1cupsAdminSetServerSettings: remote_any=%d", remote_any);
 
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ADMIN, num_settings,
                            settings)) != NULL)
@@ -606,8 +599,7 @@ cupsAdminSetServerSettings(
   else
     remote_admin = -1;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: remote_admin=%d",
-                remote_admin));
+  DEBUG_printf("1cupsAdminSetServerSettings: remote_admin=%d", remote_admin);
 
   if ((val = cupsGetOption(CUPS_SERVER_SHARE_PRINTERS, num_settings,
                            settings)) != NULL)
@@ -626,8 +618,7 @@ cupsAdminSetServerSettings(
   else
     share_printers = -1;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: share_printers=%d",
-                share_printers));
+  DEBUG_printf("1cupsAdminSetServerSettings: share_printers=%d", share_printers);
 
   if ((val = cupsGetOption(CUPS_SERVER_USER_CANCEL_ANY, num_settings,
                            settings)) != NULL)
@@ -646,8 +637,7 @@ cupsAdminSetServerSettings(
   else
     user_cancel_any = -1;
 
-  DEBUG_printf(("1cupsAdminSetServerSettings: user_cancel_any=%d",
-                user_cancel_any));
+  DEBUG_printf("1cupsAdminSetServerSettings: user_cancel_any=%d", user_cancel_any);
 
  /*
   * Create a temporary file for the new cupsd.conf file...
@@ -840,7 +830,7 @@ cupsAdminSetServerSettings(
 
 	if (remote_admin)
           cupsFilePuts(temp, "  # Allow remote administration...\n");
-	else if (remote_admin == 0)
+	else
           cupsFilePuts(temp, "  # Restrict access to the admin pages...\n");
 
         cupsFilePuts(temp, "  Order allow,deny\n");

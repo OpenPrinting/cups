@@ -11,6 +11,7 @@
  * Include necessary headers...
  */
 
+#include "cups.h"
 #include "string-private.h"
 #include "debug-private.h"
 #include "array-private.h"
@@ -303,7 +304,7 @@ main(void)
       * the same buffer in the first place... :)
       */
 
-      strlcpy(word, text, sizeof(word));
+      cupsCopyString(word, text, sizeof(word));
 
      /*
       * Grab the next word and compare...

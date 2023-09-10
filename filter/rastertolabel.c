@@ -1095,9 +1095,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   ppd_file_t		*ppd;		/* PPD file */
   int			num_options;	/* Number of options */
   cups_option_t		*options;	/* Options */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -1110,7 +1108,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
    /*
     * We don't have the correct number of arguments; write an error message
@@ -1148,17 +1146,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   Canceled = 0;
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGTERM, CancelJob);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = CancelJob;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGTERM, CancelJob);
-#endif /* HAVE_SIGSET */
 
  /*
   * Open the PPD file and apply options...
@@ -1221,7 +1213,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     * Loop for each line on the page...
     */
 
-    for (y = 0; y < header.cupsHeight && !Canceled; y ++)
+    for (y = 0; y < header.cupsHeight; y ++)
     {
      /*
       * Let the user know how far we have progressed...

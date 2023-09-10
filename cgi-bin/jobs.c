@@ -138,7 +138,7 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
   *
   *    attributes-charset
   *    attributes-natural-language
-  *    job-uri or printer-uri (purge-jobs)
+  *    job-uri
   *    requesting-user-name
   */
 
@@ -161,7 +161,7 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
 
   ippDelete(cupsDoRequest(http, request, "/jobs"));
 
-  if (cupsLastError() <= IPP_OK_CONFLICT && getenv("HTTP_REFERER"))
+  if (cupsGetError() <= IPP_OK_CONFLICT && getenv("HTTP_REFERER"))
   {
    /*
     * Redirect successful updates back to the parent page...
@@ -170,11 +170,11 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
     char	url[1024];		/* Encoded URL */
 
 
-    strlcpy(url, "5;URL=", sizeof(url));
+    cupsCopyString(url, "5;URL=", sizeof(url));
     cgiFormEncode(url + 6, getenv("HTTP_REFERER"), sizeof(url) - 6);
     cgiSetVariable("refresh_page", url);
   }
-  else if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  else if (cupsGetError() == IPP_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
@@ -182,7 +182,7 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
 
   cgiStartHTML(cgiText(_("Jobs")));
 
-  if (cupsLastError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_OK_CONFLICT)
     cgiShowIPPError(_("Job operation failed"));
   else if (op == IPP_CANCEL_JOB)
     cgiCopyTemplateLang("job-cancel.tmpl");

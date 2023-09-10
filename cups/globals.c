@@ -1,7 +1,7 @@
 /*
  * Global variable access routines for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -14,6 +14,7 @@
  */
 
 #include "cups-private.h"
+#include "debug-internal.h"
 #ifndef _WIN32
 #  include <pwd.h>
 #endif /* !_WIN32 */
@@ -27,14 +28,14 @@
 static int		cups_global_index = 0;
 					/* Next thread number */
 #endif /* DEBUG */
-static _cups_threadkey_t cups_globals_key = _CUPS_THREADKEY_INITIALIZER;
+static cups_thread_key_t cups_globals_key = CUPS_THREADKEY_INITIALIZER;
 					/* Thread local storage key */
 #ifdef HAVE_PTHREAD_H
 static pthread_once_t	cups_globals_key_once = PTHREAD_ONCE_INIT;
 					/* One-time initialization object */
 #endif /* HAVE_PTHREAD_H */
 #if defined(HAVE_PTHREAD_H) || defined(_WIN32)
-static _cups_mutex_t	cups_global_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	cups_global_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Global critical section */
 #endif /* HAVE_PTHREAD_H || _WIN32 */
 
@@ -62,11 +63,7 @@ static void		cups_globals_init(void);
 void
 _cupsGlobalLock(void)
 {
-#ifdef HAVE_PTHREAD_H
-  pthread_mutex_lock(&cups_global_mutex);
-#elif defined(_WIN32)
-  EnterCriticalSection(&cups_global_mutex.m_criticalSection);
-#endif /* HAVE_PTHREAD_H */
+  cupsMutexLock(&cups_global_mutex);
 }
 
 
@@ -92,14 +89,14 @@ _cupsGlobals(void)
   * See if we have allocated the data yet...
   */
 
-  if ((cg = (_cups_globals_t *)_cupsThreadGetData(cups_globals_key)) == NULL)
+  if ((cg = (_cups_globals_t *)cupsThreadGetData(cups_globals_key)) == NULL)
   {
    /*
     * No, allocate memory as set the pointer for the key...
     */
 
     if ((cg = cups_globals_alloc()) != NULL)
-      _cupsThreadSetData(cups_globals_key, cg);
+      cupsThreadSetData(cups_globals_key, cg);
   }
 
  /*
@@ -117,11 +114,7 @@ _cupsGlobals(void)
 void
 _cupsGlobalUnlock(void)
 {
-#ifdef HAVE_PTHREAD_H
-  pthread_mutex_unlock(&cups_global_mutex);
-#elif defined(_WIN32)
-  LeaveCriticalSection(&cups_global_mutex.m_criticalSection);
-#endif /* HAVE_PTHREAD_H */
+  cupsMutexUnlock(&cups_global_mutex);
 }
 
 
@@ -179,12 +172,13 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
 static _cups_globals_t *		/* O - Pointer to global data */
 cups_globals_alloc(void)
 {
-  _cups_globals_t *cg = malloc(sizeof(_cups_globals_t));
+  _cups_globals_t *cg = calloc(1, sizeof(_cups_globals_t));
 					/* Pointer to global data */
 #ifdef _WIN32
   HKEY		key;			/* Registry key */
   DWORD		size;			/* Size of string */
-  static char	installdir[1024] = "",	/* Install directory */
+  static char	homedir[1024] = "",	/* Home directory */
+		installdir[1024] = "",	/* Install directory */
 		confdir[1024] = "",	/* Server root directory */
 		localedir[1024] = "";	/* Locale directory */
 #endif /* _WIN32 */
@@ -198,7 +192,6 @@ cups_globals_alloc(void)
   * callback values...
   */
 
-  memset(cg, 0, sizeof(_cups_globals_t));
   cg->encryption     = (http_encryption_t)-1;
   cg->password_cb    = (cups_password_cb2_t)_cupsGetPassword;
   cg->trust_first    = -1;
@@ -225,7 +218,7 @@ cups_globals_alloc(void)
     * Open the registry...
     */
 
-    strlcpy(installdir, "C:/Program Files/cups.org", sizeof(installdir));
+    cupsCopyString(installdir, "C:/Program Files/cups.org", sizeof(installdir));
 
     if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\cups.org", 0, KEY_READ, &key))
     {
@@ -274,7 +267,29 @@ cups_globals_alloc(void)
   if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
     cg->localedir = localedir;
 
-  cg->home = getenv("HOME");
+  if (!homedir[0])
+  {
+    const char	*userprofile = getenv("USERPROFILE");
+				// User profile (home) directory
+    char	*homeptr;	// Pointer into homedir
+
+    DEBUG_printf("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile);
+
+    if (!strncmp(userprofile, "C:\\", 3))
+      userprofile += 2;
+
+    cupsCopyString(homedir, userprofile, sizeof(homedir));
+    for (homeptr = homedir; *homeptr; homeptr ++)
+    {
+      // Convert back slashes to forward slashes
+      if (*homeptr == '\\')
+        *homeptr = '/';
+    }
+
+    DEBUG_printf("cups_globals_alloc: homedir=\"%s\"", homedir);
+  }
+
+  cg->home = homedir;
 
 #else
 #  ifdef HAVE_GETEUID
@@ -325,10 +340,12 @@ cups_globals_alloc(void)
 
   if (!cg->home)
   {
-    struct passwd	*pw;		/* User info */
+    struct passwd	pw;		/* User info */
+    struct passwd	*result;	/* Auxiliary pointer */
 
-    if ((pw = getpwuid(getuid())) != NULL)
-      cg->home = _cupsStrAlloc(pw->pw_dir);
+    getpwuid_r(getuid(), &pw, cg->pw_buf, PW_BUF_SIZE, &result);
+    if (result)
+      cg->home = _cupsStrAlloc(pw.pw_dir);
   }
 #endif /* _WIN32 */
 
@@ -363,9 +380,7 @@ cups_globals_free(_cups_globals_t *cg)	/* I - Pointer to global data */
 
   httpClose(cg->http);
 
-#ifdef HAVE_TLS
   _httpFreeCredentials(cg->tls_credentials);
-#endif /* HAVE_TLS */
 
   cupsFileClose(cg->stdio_files[0]);
   cupsFileClose(cg->stdio_files[1]);

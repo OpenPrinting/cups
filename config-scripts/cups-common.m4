@@ -1,7 +1,7 @@
 dnl
 dnl Common configuration stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2021-2023 by OpenPrinting.
 dnl Copyright © 2007-2019 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -160,7 +160,7 @@ AC_CHECK_FUNCS([statfs statvfs])
 dnl Checks for string functions.
 dnl TODO: Remove strdup, snprintf, and vsnprintf checks since they are C99?
 AC_CHECK_FUNCS([strdup snprintf vsnprintf])
-AC_CHECK_FUNCS([strlcat strlcpy])
+AC_CHECK_FUNCS([cupsConcatString cupsCopyString])
 
 dnl Check for random number functions...
 AC_CHECK_FUNCS([random lrand48 arc4random])
@@ -173,16 +173,6 @@ AC_CHECK_FUNCS([setpgid])
 
 dnl Check for vsyslog function.
 AC_CHECK_FUNCS([vsyslog])
-
-dnl Checks for signal functions.
-AS_CASE(["$host_os_name"], [linux* | gnu*], [
-    # Do not use sigset on Linux or GNU HURD
-], [*], [
-    # Use sigset on other platforms, if available
-    AC_CHECK_FUNCS([sigset])
-])
-
-AC_CHECK_FUNCS([sigaction])
 
 dnl Checks for wait functions.
 AC_CHECK_FUNCS([waitpid wait3])
@@ -271,16 +261,14 @@ dnl ZLIB
 INSTALL_GZIP=""
 LIBZ=""
 AC_CHECK_HEADER([zlib.h], [
-    AC_CHECK_LIB([z], [gzgets], [
-	AC_DEFINE([HAVE_LIBZ], [1], [Have zlib library?])
+    AC_CHECK_LIB([z], [inflateCopy], [
 	LIBZ="-lz"
 	LIBS="$LIBS -lz"
-	AC_CHECK_LIB([z], [inflateCopy], [
-	    AC_DEFINE([HAVE_INFLATECOPY], [1], [Have inflateCopy function?])
-	])
 	AS_IF([test "x$GZIPPROG" != x], [
 	    INSTALL_GZIP="-z"
 	])
+    ], [
+        AC_MSG_ERROR([Required zlib library not found.])
     ])
 ])
 AC_SUBST([INSTALL_GZIP])
@@ -483,7 +471,7 @@ AS_CASE(["$COMPONENTS"], [all], [
     LIBHEADERS="\$(COREHEADERS)"
     LIBHEADERSPRIV="\$(COREHEADERSPRIV)"
 ], [*], [
-    AC_MSG_ERROR([Bad build component "$COMPONENT" specified.])
+    AC_MSG_ERROR([Bad build component "$COMPONENTS" specified.])
 ])
 
 AC_SUBST([BUILDDIRS])

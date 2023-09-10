@@ -53,9 +53,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   ipp_t		*request,		/* IPP request */
 		*response;		/* IPP response */
   ipp_attribute_t *attr;		/* Current attribute */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -67,7 +65,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   for (i = 1; i < argc; i ++)
     if (!strcmp(argv[i], "-E"))
-      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
     else if (!strcmp(argv[i], "-e"))
     {
       i ++;
@@ -114,20 +112,12 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Catch CTRL-C and SIGTERM...
   */
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGINT, sigterm_handler);
-  sigset(SIGTERM, sigterm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = sigterm_handler;
   sigaction(SIGINT, &action, NULL);
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGINT, sigterm_handler);
-  signal(SIGTERM, sigterm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Create the subscription...
@@ -146,7 +136,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   ippAddStrings(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD, "notify-events",
                 num_events, NULL, events);
@@ -154,10 +144,10 @@ main(int  argc,				/* I - Number of command-line arguments */
                "notify-pull-method", NULL, "ippget");
 
   response = cupsDoRequest(http, request, uri);
-  if (cupsLastError() >= IPP_BAD_REQUEST)
+  if (cupsGetError() >= IPP_BAD_REQUEST)
   {
     fprintf(stderr, "Create-%s-Subscription: %s\n",
-            strstr(uri, "/jobs") ? "Job" : "Printer", cupsLastErrorString());
+            strstr(uri, "/jobs") ? "Job" : "Printer", cupsGetErrorString());
     ippDelete(response);
     httpClose(http);
     return (1);
@@ -203,7 +193,7 @@ main(int  argc,				/* I - Number of command-line arguments */
                    uri);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                 "requesting-user-name", NULL, cupsUser());
+                 "requesting-user-name", NULL, cupsGetUser());
 
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
                   "notify-subscription-ids", subscription_id);
@@ -213,10 +203,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     response = cupsDoRequest(http, request, uri);
 
-    printf(" %s\n", ippErrorString(cupsLastError()));
+    printf(" %s\n", ippErrorString(cupsGetError()));
 
-    if (cupsLastError() >= IPP_BAD_REQUEST)
-      fprintf(stderr, "Get-Notifications: %s\n", cupsLastErrorString());
+    if (cupsGetError() >= IPP_BAD_REQUEST)
+      fprintf(stderr, "Get-Notifications: %s\n", cupsGetErrorString());
     else if (response)
     {
       print_attributes(response, 0);
@@ -257,17 +247,17 @@ main(int  argc,				/* I - Number of command-line arguments */
                  uri);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
                 "notify-subscription-id", subscription_id);
 
   ippDelete(cupsDoRequest(http, request, uri));
 
-  printf(" %s\n", ippErrorString(cupsLastError()));
+  printf(" %s\n", ippErrorString(cupsGetError()));
 
-  if (cupsLastError() >= IPP_BAD_REQUEST)
-    fprintf(stderr, "Cancel-Subscription: %s\n", cupsLastErrorString());
+  if (cupsGetError() >= IPP_BAD_REQUEST)
+    fprintf(stderr, "Cancel-Subscription: %s\n", cupsGetErrorString());
 
  /*
   * Close the connection and return...

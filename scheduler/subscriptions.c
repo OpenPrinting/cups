@@ -621,7 +621,7 @@ cupsdExpireSubscriptions(
   curtime = time(NULL);
   update  = 0;
 
-  cupsdLogMessage(CUPSD_LOG_INFO, "Expiring subscriptions...");
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "Expiring subscriptions...");
 
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
@@ -1450,7 +1450,7 @@ cupsd_start_notifier(
   * notifier program...
   */
 
-  strlcpy(scheme, sub->recipient, sizeof(scheme));
+  cupsCopyString(scheme, sub->recipient, sizeof(scheme));
   if ((ptr = strchr(scheme, ':')) != NULL)
     *ptr = '\0';
 

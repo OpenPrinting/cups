@@ -39,14 +39,14 @@
 <TD>
 <SELECT NAME="PPD_NAME" SIZE="10">
 {op=add-printer?:<OPTION VALUE="__no_change__" SELECTED>Controlador actual - {current_make_and_model}</OPTION>:}
-{show_ipp_everywhere?<OPTION VALUE="everywhere" SELECTED>{current_make_and_model} - IPP Everywhere &trade;</OPTION>:}
+{show_ipp_everywhere?<OPTION VALUE="everywhere" SELECTED>{current_make_and_model?{current_make_and_model} -:} IPP Everywhere &trade;</OPTION>:}
 {[ppd_name]<OPTION VALUE="{ppd_name}" {op=modify-printer?:{?current_make_and_model={ppd_make_and_model}?SELECTED:}}>{ppd_make_and_model} ({ppd_natural_language})
 }</SELECT>
 </TD>
 </TR>
 <TR>
 <TH CLASS="label">O proporcione un archivo PPD:</TH>
-<TD><INPUT TYPE="HIDDEN" NAME="MAX_FILE_SIZE" VALUE="262144"><INPUT
+<TD><INPUT TYPE="HIDDEN" NAME="MAX_FILE_SIZE" VALUE="2097152"><INPUT
 TYPE="FILE" NAME="PPD_FILE"></TD>
 </TR>
 <TR>

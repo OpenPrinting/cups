@@ -3,7 +3,7 @@
 #
 # Original version by Jason McMullan <jmcc@ontv.com>.
 #
-# Copyright © 2020 by OpenPrinting
+# Copyright © 2020-2023 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1999-2007 by Easy Software Products, all rights reserved.
 #
@@ -46,8 +46,8 @@ Release: 0
 Epoch: 1
 License: GPL
 Group: System Environment/Daemons
-Source: https://github.com/apple/cups/releases/download/v%{version}/cups-%{version}-source.tar.gz
-Url: http://www.cups.org
+Source: https://github.com/OpenPrinting/cups/releases/download/v%{version}/cups-%{version}-source.tar.gz
+Url: https://openprinting.github.io/cups
 Packager: Anonymous <anonymous@example.com>
 Vendor: OpenPrinting
 

@@ -1,7 +1,7 @@
 dnl
 dnl Directory stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2021-2023 by OpenPrinting.
 dnl Copyright © 2007-2017 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -184,7 +184,7 @@ AC_SUBST([CUPS_DOCROOT])
 
 # Locale data
 AS_IF([test "$localedir" = "\${datarootdir}/locale"], [
-    AS_CASE(["$host_os_name"], [linux* | gnu* | *bsd* | darwin*], [
+    AS_CASE(["$host_os_name"], [linux* | gnu* | *bsd* | darwin* | solaris*], [
 	CUPS_LOCALEDIR="$datarootdir/locale"
     ], [*], [
 	# This is the standard System V location...
@@ -266,6 +266,12 @@ AC_ARG_WITH([rundir], AS_HELP_STRING([--with-rundir], [set transient run-time st
     AS_CASE(["$host_os_name"], [darwin*], [
 	# Darwin (macOS)
 	CUPS_STATEDIR="$CUPS_SERVERROOT"
+    ], [sunos* | solaris*], [
+	AS_IF([test -d /system/volatile], [
+	     CUPS_STATEDIR="/system/volatile/cups"
+	], [
+	     CUPS_STATEDIR="$localstatedir/run/cups"
+	])
     ], [*], [
 	# All others
 	CUPS_STATEDIR="$localstatedir/run/cups"

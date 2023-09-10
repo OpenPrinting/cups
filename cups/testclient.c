@@ -1,7 +1,7 @@
 /*
  * Simulated client test program for CUPS.
  *
- * Copyright © 2020 by OpenPrinting
+ * Copyright © 2020-2023 by OpenPrinting
  * Copyright © 2017-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -18,7 +18,7 @@
 #include <cups/cups.h>
 #include <cups/raster.h>
 #include <cups/string-private.h>
-#include <cups/thread-private.h>
+#include <cups/thread.h>
 
 
 /*
@@ -59,7 +59,7 @@ typedef struct _client_data_s
  */
 
 static int		client_count = 0;
-static _cups_mutex_t	client_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	client_mutex = CUPS_MUTEX_INITIALIZER;
 static int		verbosity = 0;
 
 
@@ -242,28 +242,28 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   while (client_count < num_clients)
   {
-    _cupsMutexLock(&client_mutex);
+    cupsMutexLock(&client_mutex);
     if (client_count < MAX_CLIENTS)
     {
-      _cups_thread_t	tid;		/* New thread */
+      cups_thread_t	tid;		/* New thread */
 
       client_count ++;
-      _cupsMutexUnlock(&client_mutex);
-      tid = _cupsThreadCreate((_cups_thread_func_t)run_client, &data);
-      _cupsThreadDetach(tid);
+      cupsMutexUnlock(&client_mutex);
+      tid = cupsThreadCreate((cups_thread_func_t)run_client, &data);
+      cupsThreadDetach(tid);
     }
     else
     {
-      _cupsMutexUnlock(&client_mutex);
+      cupsMutexUnlock(&client_mutex);
       sleep(1);
     }
   }
 
   while (client_count > 0)
   {
-    _cupsMutexLock(&client_mutex);
+    cupsMutexLock(&client_mutex);
     printf("%d RUNNING CLIENTS\n", client_count);
-    _cupsMutexUnlock(&client_mutex);
+    cupsMutexUnlock(&client_mutex);
     sleep(1);
   }
 
@@ -392,7 +392,7 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
   }
 
  /*
-  * Figure out the the media, resolution, and color mode...
+  * Figure out the media, resolution, and color mode...
   */
 
   if ((attr = ippFindAttribute(response, "media-ready", IPP_TAG_KEYWORD)) != NULL)
@@ -599,7 +599,7 @@ make_raster_file(ipp_t      *response,  /* I - Printer attributes */
 
   memset(line, 0xff, header.cupsBytesPerLine);
 
-  for (y = 0; y < header.cupsHeight; y ++)
+  for (; y < header.cupsHeight; y ++)
     cupsRasterWritePixels(ras, line, header.cupsBytesPerLine);
 
   free(line);
@@ -676,7 +676,7 @@ monitor_printer(
 
       request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->uri);
-      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
       ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
       response = cupsDoRequest(http, request, data->resource);
@@ -692,7 +692,7 @@ monitor_printer(
         printf("PRINTER: %s (%s)\n", ippEnumString("printer-state", (int)printer_state), printer_state_reasons);
 
         data->printer_state = printer_state;
-        strlcpy(data->printer_state_reasons, printer_state_reasons, sizeof(data->printer_state_reasons));
+        cupsCopyString(data->printer_state_reasons, printer_state_reasons, sizeof(data->printer_state_reasons));
       }
 
       ippDelete(response);
@@ -706,7 +706,7 @@ monitor_printer(
         request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, data->uri);
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", data->job_id);
-        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(jattrs) / sizeof(jattrs[0])), NULL, jattrs);
 
         response = cupsDoRequest(http, request, data->resource);
@@ -722,7 +722,7 @@ monitor_printer(
           printf("JOB %d: %s (%s)\n", data->job_id, ippEnumString("job-state", (int)job_state), job_state_reasons);
 
           data->job_state = job_state;
-          strlcpy(data->job_state_reasons, job_state_reasons, sizeof(data->job_state_reasons));
+          cupsCopyString(data->job_state_reasons, job_state_reasons, sizeof(data->job_state_reasons));
         }
 
         ippDelete(response);
@@ -759,7 +759,7 @@ static void *				/* O - Thread exit code */
 run_client(
     _client_data_t *data)		/* I - Client data */
 {
-  _cups_thread_t monitor_id;		/* Monitoring thread ID */
+  cups_thread_t monitor_id;		/* Monitoring thread ID */
   const char	*name;			/* Job name */
   char		tempfile[1024] = "";	/* Temporary file (if any) */
   _client_data_t ldata;			/* Local client data */
@@ -780,7 +780,7 @@ run_client(
   * Start monitoring the printer in the background...
   */
 
-  monitor_id = _cupsThreadCreate((_cups_thread_func_t)monitor_printer, &ldata);
+  monitor_id = cupsThreadCreate((cups_thread_func_t)monitor_printer, &ldata);
 
  /*
   * Open a connection to the printer...
@@ -794,7 +794,7 @@ run_client(
 
   request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
   ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
   response = cupsDoRequest(http, request, ldata.resource);
@@ -861,7 +861,7 @@ run_client(
   {
     request = ippNewRequest(IPP_OP_CREATE_JOB);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
     if ((name = strrchr(ldata.docfile, '/')) != NULL)
       name ++;
@@ -878,25 +878,25 @@ run_client(
     if (verbosity)
       show_attributes("Create-Job response", 0, response);
 
-    if (cupsLastError() == IPP_STATUS_ERROR_BUSY)
+    if (cupsGetError() == IPP_STATUS_ERROR_BUSY)
     {
       puts("Printer is busy - retrying in 5 seconds...");
       sleep(5);
       ippDelete(response);
       response = NULL;
     }
-    else if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+    else if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
     {
-      printf("Unable to create print job: %s\n", cupsLastErrorString());
+      printf("Unable to create print job: %s\n", cupsGetErrorString());
 
       ldata.job_state = IPP_JSTATE_ABORTED;
       ippDelete(response);
       response = NULL;
     }
   }
-  while (cupsLastError() == IPP_STATUS_ERROR_BUSY);
+  while (cupsGetError() == IPP_STATUS_ERROR_BUSY);
 
-  if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+  if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
     goto cleanup;
 
   if ((attr = ippFindAttribute(response, "job-id", IPP_TAG_INTEGER)) == NULL)
@@ -917,7 +917,7 @@ run_client(
   request = ippNewRequest(IPP_OP_SEND_DOCUMENT);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, ldata.uri);
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", ldata.job_id);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_MIMETYPE, "document-format", NULL, ldata.docformat);
   ippAddBoolean(request, IPP_TAG_OPERATION, "last-document", 1);
 
@@ -929,9 +929,9 @@ run_client(
   if (verbosity)
     show_attributes("Send-Document response", 0, response);
 
-  if (cupsLastError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
+  if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
   {
-    printf("Unable to print file: %s\n", cupsLastErrorString());
+    printf("Unable to print file: %s\n", cupsGetErrorString());
 
     ldata.job_state = IPP_JSTATE_ABORTED;
 
@@ -954,11 +954,11 @@ run_client(
   if (tempfile[0] && !ldata.keepfile)
     unlink(tempfile);
 
-  _cupsThreadWait(monitor_id);
+  cupsThreadWait(monitor_id);
 
-  _cupsMutexLock(&client_mutex);
+  cupsMutexLock(&client_mutex);
   client_count --;
-  _cupsMutexUnlock(&client_mutex);
+  cupsMutexUnlock(&client_mutex);
 
   return (NULL);
 }

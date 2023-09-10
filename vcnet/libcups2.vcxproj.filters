@@ -242,7 +242,7 @@
     <ClInclude Include="..\cups\string-private.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cups\thread-private.h">
+    <ClInclude Include="..\cups\thread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\cups\transcode.h">

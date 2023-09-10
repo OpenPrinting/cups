@@ -1,10 +1,12 @@
 /*
  * GZIP/raw pre-filter for CUPS.
  *
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 1993-2007 by Easy Software Products.
+ * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 1993-2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -32,7 +34,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Check command-line...
   */
 
-  if (argc < 6 || argc > 7)
+  if (argc != 6 && argc != 7)
   {
     _cupsLangPrintf(stderr,
                     _("Usage: %s job-id user title copies options [file]"),
@@ -46,9 +48,14 @@ main(int  argc,				/* I - Number of command-line arguments */
   */
 
   if (!getenv("FINAL_CONTENT_TYPE"))
-    copies = atoi(argv[4]);
+  {
+    if ((copies = atoi(argv[4])) < 1)
+      copies = 1;
+  }
   else
+  {
     copies = 1;
+  }
 
  /*
   * Open the file...

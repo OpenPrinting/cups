@@ -1,7 +1,7 @@
 /*
  * Printer definitions for the CUPS scheduler.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright @ 2007-2017 by Apple Inc.
  * Copyright @ 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -54,7 +54,7 @@ typedef struct cupsd_job_s cupsd_job_t;
 
 struct cupsd_printer_s
 {
-  _cups_rwlock_t lock;			/* Concurrency lock for background updates */
+  cups_rwlock_t lock;			/* Concurrency lock for background updates */
   int		printer_id;		/* Printer ID */
   char		*uri,			/* Printer URI */
 		*uuid,			/* Printer UUID */
@@ -119,9 +119,7 @@ struct cupsd_printer_s
 		*pdl;			/* pdl value for TXT record */
   cupsd_srv_t	ipp_srv;		/* IPP service(s) */
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
   cupsd_srv_t	ipps_srv;		/* IPPS service(s) */
-#    endif /* HAVE_TLS */
   cupsd_srv_t	printer_srv;		/* LPD service */
 #  endif /* HAVE_MDNSRESPONDER */
 #endif /* HAVE_DNSSD */

@@ -336,7 +336,7 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
 
             *ptr++ = '\0';
 
-            strlcpy(section, sectptr, sizeof(section));
+            cupsCopyString(section, sectptr, sizeof(section));
 
 	    while (isspace(*ptr & 255))
               ptr ++;
@@ -771,7 +771,7 @@ help_load_directory(
     if (relative)
       snprintf(relname, sizeof(relname), "%s/%s", relative, dent->filename);
     else
-      strlcpy(relname, dent->filename, sizeof(relname));
+      cupsCopyString(relname, dent->filename, sizeof(relname));
 
    /*
     * Check if we have a HTML file...
@@ -851,7 +851,7 @@ help_load_file(
   off_t		offset;			/* File offset */
   char		quote;			/* Quote character */
   help_word_t	*word;			/* Current word */
-  int		wordlen;		/* Length of word */
+  size_t		wordlen;		/* Length of word */
 
 
   if ((fp = cupsFileOpen(filename, "r")) == NULL)
@@ -860,7 +860,7 @@ help_load_file(
   node   = NULL;
   offset = 0;
 
-  strlcpy(section, "Other", sizeof(section));
+  cupsCopyString(section, "Other", sizeof(section));
 
   while (cupsFileGets(fp, line, sizeof(line)))
   {
@@ -876,7 +876,7 @@ help_load_file(
 
       for (ptr += 13; isspace(*ptr & 255); ptr ++);
 
-      strlcpy(section, ptr, sizeof(section));
+      cupsCopyString(section, ptr, sizeof(section));
       if ((ptr = strstr(section, "-->")) != NULL)
       {
        /*
@@ -1136,9 +1136,9 @@ help_load_file(
 
 	for (text = ptr, ptr ++; *ptr && isalnum(*ptr & 255); ptr ++);
 
-	wordlen = (int)(ptr - text);
+	wordlen = (size_t)(ptr - text);
 
-        memcpy(temp, text, (size_t)wordlen);
+        memcpy(temp, text, wordlen);
 	temp[wordlen] = '\0';
 
         ptr --;
