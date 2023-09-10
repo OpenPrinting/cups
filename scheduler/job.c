@@ -529,10 +529,6 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 			final_content_type[1024] = "",
 					/* FINAL_CONTENT_TYPE env variable */
 			lang[255],	/* LANG env variable */
-#ifdef __APPLE__
-			apple_language[255],
-					/* APPLE_LANGUAGE env variable */
-#endif /* __APPLE__ */
 			auth_info_required[255],
 					/* AUTH_INFO_REQUIRED env variable */
 			ppd[1024],	/* PPD env variable */
@@ -938,12 +934,6 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
   attr = ippFindAttribute(job->attrs, "attributes-natural-language",
                           IPP_TAG_LANGUAGE);
 
-#ifdef __APPLE__
-  cupsCopyString(apple_language, "APPLE_LANGUAGE=", sizeof(apple_language));
-  _cupsAppleLanguage(attr->values[0].string.text,
-		     apple_language + 15, sizeof(apple_language) - 15);
-#endif /* __APPLE__ */
-
   switch (strlen(attr->values[0].string.text))
   {
     default :
@@ -1053,9 +1043,6 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 
   envp[envc ++] = charset;
   envp[envc ++] = lang;
-#ifdef __APPLE__
-  envp[envc ++] = apple_language;
-#endif /* __APPLE__ */
   envp[envc ++] = ppd;
   envp[envc ++] = content_type;
   envp[envc ++] = device_uri;
