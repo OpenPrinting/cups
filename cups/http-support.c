@@ -1155,7 +1155,7 @@ _httpSetDigestAuthString(
   _cups_globals_t *cg = _cupsGlobals();	// Per-thread globals
 
 
-  DEBUG_printf("2_httpSetDigestAuthString(http=%p, nonce=\"%s\", method=\"%s\", resource=\"%s\")", (void *)http, nonce, method, resource);
+  DEBUG_printf("2_httpSetDigestAuthString(http=%p, nonce=\"%s\", method=\"%s\", resource=\"%s\", qop=\"%s\")", (void *)http, nonce, method, resource, http->qop);
 
   if (nonce && *nonce && strcmp(nonce, http->nonce))
   {
@@ -1177,16 +1177,36 @@ _httpSetDigestAuthString(
   else
     return (0);
 
-  if (http->algorithm[0])
+  if (http->qop[0])
   {
     // Follow RFC 2617/7616...
-    int		i;			// Looping var
-    char	cnonce[65];		// cnonce value
-    const char	*hashalg;		// Hashing algorithm
+    int		i;			/* Looping var */
+    char	cnonce[65];		/* cnonce value */
+    const char	*hashalg;		/* Hashing algorithm */
+    const char	*qop;			/* quality of protection */
+
+    DEBUG_puts("3_httpSetDigestAuthString: Follow RFC 2617/7616...");
 
     for (i = 0; i < 64; i ++)
       cnonce[i] = "0123456789ABCDEF"[CUPS_RAND() & 15];
     cnonce[64] = '\0';
+
+    if (!_cups_strcasecmp(http->qop, "auth"))
+    {
+     /*
+      * RFC 2617: "auth" | "auth-int" | token
+      */
+
+      qop = "auth";
+    }
+    else
+    {
+     /*
+      * Some other qop we don't support, skip this one...
+      */
+
+      return (0);
+    }
 
     if (!_cups_strcasecmp(http->algorithm, "MD5"))
     {
@@ -1223,15 +1243,15 @@ _httpSetDigestAuthString(
     cupsHashString(hash, hashsize, ha2, sizeof(ha2));
 
     // KD = H(H(A1):nonce:nc:cnonce:qop:H(A2))
-    snprintf(temp, sizeof(temp), "%s:%s:%08x:%s:%s:%s", ha1, http->nonce, http->nonce_count, cnonce, "auth", ha2);
+    snprintf(temp, sizeof(temp), "%s:%s:%08x:%s:%s:%s", ha1, http->nonce, http->nonce_count, cnonce, qop, ha2);
     hashsize = (size_t)cupsHashData(hashalg, (unsigned char *)temp, strlen(temp), hash, sizeof(hash));
     cupsHashString(hash, hashsize, kd, sizeof(kd));
 
     // Pass the RFC 2617/7616 WWW-Authenticate header...
     if (http->opaque[0])
-      snprintf(digest, sizeof(digest), "username=\"%s\", realm=\"%s\", nonce=\"%s\", algorithm=%s, qop=auth, opaque=\"%s\", cnonce=\"%s\", nc=%08x, uri=\"%s\", response=\"%s\"", cupsGetUser(), http->realm, http->nonce, http->algorithm, http->opaque, cnonce, http->nonce_count, resource, kd);
+      snprintf(digest, sizeof(digest), "username=\"%s\", realm=\"%s\", nonce=\"%s\", algorithm=%s, qop=%s, opaque=\"%s\", cnonce=\"%s\", nc=%08x, uri=\"%s\", response=\"%s\"", cupsUser(), http->realm, http->nonce, http->algorithm, qop, http->opaque, cnonce, http->nonce_count, resource, kd);
     else
-      snprintf(digest, sizeof(digest), "username=\"%s\", realm=\"%s\", nonce=\"%s\", algorithm=%s, qop=auth, cnonce=\"%s\", nc=%08x, uri=\"%s\", response=\"%s\"", username, http->realm, http->nonce, http->algorithm, cnonce, http->nonce_count, resource, kd);
+      snprintf(digest, sizeof(digest), "username=\"%s\", realm=\"%s\", nonce=\"%s\", algorithm=%s, qop=%s, cnonce=\"%s\", nc=%08x, uri=\"%s\", response=\"%s\"", username, http->realm, http->nonce, http->algorithm, qop, cnonce, http->nonce_count, resource, kd);
   }
   else
   {
@@ -1241,6 +1261,8 @@ _httpSetDigestAuthString(
       DEBUG_puts("3_httpSetDigestAuthString: MD5 Digest is disabled.");
       return (0);
     }
+
+    DEBUG_puts("3_httpSetDigestAuthString: Use old RFC 2069 Digest method...");
 
     // H(A1) = H(username:realm:password)
     snprintf(temp, sizeof(temp), "%s:%s:%s", username, http->realm, password);
