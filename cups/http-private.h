@@ -221,8 +221,6 @@ struct _http_s				// HTTP connection structure
 					/* Next nonce value from Authentication-Info */
 			opaque[HTTP_MAX_VALUE],
 					/* Opaque value from WWW-Authenticate */
-			qop[HTTP_MAX_VALUE],
-					/* qop value from WWW-Authenticate */
 			realm[HTTP_MAX_VALUE];
 					/* Realm from WWW-Authenticate */
 
@@ -231,6 +229,9 @@ struct _http_s				// HTTP connection structure
 					/* Allocated field values */
   			*default_fields[HTTP_FIELD_MAX];
 					/* Default field values, if any */
+  /**** New in CUPS 2.5 ****/
+  char  		qop[HTTP_MAX_VALUE];
+					/* qop value from WWW-Authenticate */
 };
 #  endif /* !_HTTP_NO_PRIVATE */
 
