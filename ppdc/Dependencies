@@ -1,9 +1,9 @@
 ppdc-array.o: ppdc-array.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -28,10 +28,10 @@ ppdc-array.o: ppdc-array.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-attr.o: ppdc-attr.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -56,10 +56,10 @@ ppdc-attr.o: ppdc-attr.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-catalog.o: ppdc-catalog.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -84,10 +84,10 @@ ppdc-catalog.o: ppdc-catalog.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-choice.o: ppdc-choice.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -112,10 +112,10 @@ ppdc-choice.o: ppdc-choice.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-constraint.o: ppdc-constraint.cxx ppdc-private.h ppdc.h \
   ../cups/file.h ../cups/versioning.h ../cups/cups-private.h \
-  ../cups/string-private.h ../config.h ../cups/array-private.h \
-  ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h \
-  ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/string-private.h ../config.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/ipp.h ../cups/http.h ../cups/array.h ../cups/language.h \
+  ../cups/pwg.h ../cups/http-private.h \
   \
   \
   \
@@ -140,10 +140,10 @@ ppdc-constraint.o: ppdc-constraint.cxx ppdc-private.h ppdc.h \
   ../cups/thread.h
 ppdc-driver.o: ppdc-driver.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -168,10 +168,10 @@ ppdc-driver.o: ppdc-driver.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-file.o: ppdc-file.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -196,10 +196,10 @@ ppdc-file.o: ppdc-file.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-filter.o: ppdc-filter.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -224,10 +224,10 @@ ppdc-filter.o: ppdc-filter.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-font.o: ppdc-font.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -252,10 +252,10 @@ ppdc-font.o: ppdc-font.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-group.o: ppdc-group.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -280,10 +280,10 @@ ppdc-group.o: ppdc-group.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-import.o: ppdc-import.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -308,10 +308,10 @@ ppdc-import.o: ppdc-import.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h ../cups/ppd.h ../cups/raster.h
 ppdc-mediasize.o: ppdc-mediasize.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -336,10 +336,10 @@ ppdc-mediasize.o: ppdc-mediasize.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-message.o: ppdc-message.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -364,10 +364,10 @@ ppdc-message.o: ppdc-message.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-option.o: ppdc-option.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -392,10 +392,10 @@ ppdc-option.o: ppdc-option.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-profile.o: ppdc-profile.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -420,10 +420,10 @@ ppdc-profile.o: ppdc-profile.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-shared.o: ppdc-shared.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -448,10 +448,10 @@ ppdc-shared.o: ppdc-shared.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-source.o: ppdc-source.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -477,10 +477,10 @@ ppdc-source.o: ppdc-source.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../data/label.h
 ppdc-string.o: ppdc-string.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -505,10 +505,10 @@ ppdc-string.o: ppdc-string.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc-variable.o: ppdc-variable.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -533,10 +533,10 @@ ppdc-variable.o: ppdc-variable.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 genstrings.o: genstrings.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -561,10 +561,10 @@ genstrings.o: genstrings.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdc.o: ppdc.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -589,10 +589,10 @@ ppdc.o: ppdc.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdhtml.o: ppdhtml.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -617,10 +617,10 @@ ppdhtml.o: ppdhtml.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 ppdi.o: ppdi.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -644,10 +644,11 @@ ppdi.o: ppdi.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h
 ppdmerge.o: ppdmerge.cxx ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/versioning.h ../cups/array-private.h \
-  ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
-  ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h \
+  ../config.h ../cups/versioning.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  \
   \
   \
   \
@@ -672,10 +673,10 @@ ppdmerge.o: ppdmerge.cxx ../cups/cups-private.h ../cups/string-private.h \
   ../cups/thread.h ../cups/ppd-private.h ../cups/ppd.h ../cups/raster.h
 ppdpo.o: ppdpo.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -700,10 +701,10 @@ ppdpo.o: ppdpo.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/thread.h
 testcatalog.o: testcatalog.cxx ppdc-private.h ppdc.h ../cups/file.h \
   ../cups/versioning.h ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/array-private.h ../cups/array.h \
+  ../config.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \

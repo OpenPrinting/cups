@@ -12,7 +12,7 @@
  */
 
 #include <cups/string-private.h>
-#include <cups/array-private.h>
+#include <cups/array.h>
 #include <unistd.h>
 
 

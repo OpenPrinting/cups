@@ -147,7 +147,6 @@ HEADERS		=	\
 		$(LIBHEADERS)
 
 COREHEADERSPRIV =	\
-		array-private.h \
 		cups-private.h \
 		debug-private.h \
 		file-private.h \

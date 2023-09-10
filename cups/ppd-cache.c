@@ -953,9 +953,9 @@ _ppdCacheCreateWithFile(
     else if (!_cups_strcasecmp(line, "Mandatory"))
     {
       if (pc->mandatory)
-        _cupsArrayAddStrings(pc->mandatory, value, ' ');
+        cupsArrayAddStrings(pc->mandatory, value, ' ');
       else
-        pc->mandatory = _cupsArrayNewStrings(value, ' ');
+        pc->mandatory = cupsArrayNewStrings(value, ' ');
     }
     else if (!_cups_strcasecmp(line, "SupportFile"))
     {
@@ -1985,7 +1985,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
     pc->password = strdup(ppd_attr->value);
 
   if ((ppd_attr = ppdFindAttr(ppd, "cupsMandatory", NULL)) != NULL)
-    pc->mandatory = _cupsArrayNewStrings(ppd_attr->value, ' ');
+    pc->mandatory = cupsArrayNewStrings(ppd_attr->value, ' ');
 
  /*
   * Support files...

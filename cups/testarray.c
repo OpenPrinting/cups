@@ -1,359 +1,318 @@
-/*
- * Array test program for CUPS.
- *
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
+//
+// Array test program for CUPS.
+//
+// Copyright © 2021-2023 by OpenPrinting.
+// Copyright © 2007-2014 by Apple Inc.
+// Copyright © 1997-2006 by Easy Software Products.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
-/*
- * Include necessary headers...
- */
-
-#include "cups.h"
 #include "string-private.h"
 #include "debug-private.h"
-#include "array-private.h"
+#include "cups.h"
 #include "dir.h"
+#include "test-internal.h"
 
 
-/*
- * Local functions...
- */
+//
+// Local functions...
+//
 
 static double	get_seconds(void);
 static int	load_words(const char *filename, cups_array_t *array);
 
 
-/*
- * 'main()' - Main entry.
- */
+//
+// 'main()' - Main entry.
+//
 
-int					/* O - Exit status */
+int					// O - Exit status
 main(void)
 {
-  int		i;			/* Looping var */
-  cups_array_t	*array,			/* Test array */
-		*dup_array;		/* Duplicate array */
-  int		status;			/* Exit status */
-  char		*text;			/* Text from array */
-  char		word[256];		/* Word from file */
-  double	start,			/* Start time */
-		end;			/* End time */
-  cups_dir_t	*dir;			/* Current directory */
-  cups_dentry_t	*dent;			/* Directory entry */
-  char		*saved[32];		/* Saved entries */
-  void		*data;			/* User data for arrays */
+  int		i;			// Looping var
+  cups_array_t	*array,			// Test array
+		*dup_array;		// Duplicate array
+  int		status;			// Exit status
+  char		*text;			// Text from array
+  char		word[256];		// Word from file
+  double	start,			// Start time
+		end;			// End time
+  cups_dir_t	*dir;			// Current directory
+  cups_dentry_t	*dent;			// Directory entry
+  char		*saved[32];		// Saved entries
+  void		*data;			// User data for arrays
 
 
- /*
-  * No errors so far...
-  */
-
+  // No errors so far...
   status = 0;
 
- /*
-  * cupsArrayNew()
-  */
-
-  fputs("cupsArrayNew: ", stdout);
+  // cupsArrayNew()
+  testBegin("cupsArrayNew3");
 
   data  = (void *)"testarray";
-  array = cupsArrayNew((cups_array_func_t)strcmp, data);
+  array = cupsArrayNew3((cups_array_cb_t)strcmp, data, NULL, 0, (cups_acopy_cb_t)strdup, (cups_afree_cb_t)free);
 
   if (array)
-    puts("PASS");
+  {
+    testEnd(true);
+  }
   else
   {
-    puts("FAIL (returned NULL, expected pointer)");
+    testEndMessage(false, "returned NULL, expected pointer");
     status ++;
   }
 
- /*
-  * cupsArrayUserData()
-  */
-
-  fputs("cupsArrayUserData: ", stdout);
-  if (cupsArrayUserData(array) == data)
-    puts("PASS");
+  // cupsArrayGetUserData()
+  testBegin("cupsArrayGetUserData");
+  if (cupsArrayGetUserData(array) == data)
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned %p instead of %p!)\n", cupsArrayUserData(array),
-           data);
+    testEndMessage(false, "returned %p instead of %p", cupsArrayGetUserData(array), data);
     status ++;
   }
 
- /*
-  * cupsArrayAdd()
-  */
+  // cupsArrayAdd()
+  testBegin("cupsArrayAdd");
 
-  fputs("cupsArrayAdd: ", stdout);
-
-  if (!cupsArrayAdd(array, strdup("One Fish")))
+  if (!cupsArrayAdd(array, "One Fish"))
   {
-    puts("FAIL (\"One Fish\")");
+    testEndMessage(false, "\"One Fish\"");
     status ++;
   }
   else
   {
-    if (!cupsArrayAdd(array, strdup("Two Fish")))
+    if (!cupsArrayAdd(array, "Two Fish"))
     {
-      puts("FAIL (\"Two Fish\")");
+      testEndMessage(false, "\"Two Fish\"");
       status ++;
     }
     else
     {
-      if (!cupsArrayAdd(array, strdup("Red Fish")))
+      if (!cupsArrayAdd(array, "Red Fish"))
       {
-	puts("FAIL (\"Red Fish\")");
+	testEndMessage(false, "\"Red Fish\"");
 	status ++;
       }
       else
       {
-        if (!cupsArrayAdd(array, strdup("Blue Fish")))
+        if (!cupsArrayAdd(array, "Blue Fish"))
 	{
-	  puts("FAIL (\"Blue Fish\")");
+	  testEndMessage(false, "\"Blue Fish\"");
 	  status ++;
 	}
 	else
-	  puts("PASS");
+	  testEnd(true);
       }
     }
   }
 
- /*
-  * cupsArrayCount()
-  */
-
-  fputs("cupsArrayCount: ", stdout);
-  if (cupsArrayCount(array) == 4)
-    puts("PASS");
+  // cupsArrayGetCount()
+  testBegin("cupsArrayGetCount");
+  if (cupsArrayGetCount(array) == 4)
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned %d, expected 4)\n", cupsArrayCount(array));
+    testEndMessage(false, "returned %d, expected 4", cupsArrayGetCount(array));
     status ++;
   }
 
- /*
-  * cupsArrayFirst()
-  */
-
-  fputs("cupsArrayFirst: ", stdout);
-  if ((text = (char *)cupsArrayFirst(array)) != NULL &&
-      !strcmp(text, "Blue Fish"))
-    puts("PASS");
+  // cupsArrayGetFirst()
+  testBegin("cupsArrayGetFirst");
+  if ((text = (char *)cupsArrayGetFirst(array)) != NULL && !strcmp(text, "Blue Fish"))
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned \"%s\", expected \"Blue Fish\")\n", text);
+    testEndMessage(false, "returned \"%s\", expected \"Blue Fish\"", text);
     status ++;
   }
 
- /*
-  * cupsArrayNext()
-  */
-
-  fputs("cupsArrayNext: ", stdout);
-  if ((text = (char *)cupsArrayNext(array)) != NULL &&
-      !strcmp(text, "One Fish"))
-    puts("PASS");
+  // cupsArrayGetNext()
+  testBegin("cupsArrayGetNext");
+  if ((text = (char *)cupsArrayGetNext(array)) != NULL && !strcmp(text, "One Fish"))
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned \"%s\", expected \"One Fish\")\n", text);
+    testEndMessage(false, "returned \"%s\", expected \"One Fish\"", text);
     status ++;
   }
 
- /*
-  * cupsArrayLast()
-  */
-
-  fputs("cupsArrayLast: ", stdout);
-  if ((text = (char *)cupsArrayLast(array)) != NULL &&
-      !strcmp(text, "Two Fish"))
-    puts("PASS");
+  // cupsArrayGetLast()
+  testBegin("cupsArrayGetLast");
+  if ((text = (char *)cupsArrayGetLast(array)) != NULL && !strcmp(text, "Two Fish"))
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned \"%s\", expected \"Two Fish\")\n", text);
+    testEndMessage(false, "returned \"%s\", expected \"Two Fish\"", text);
     status ++;
   }
 
- /*
-  * cupsArrayPrev()
-  */
-
-  fputs("cupsArrayPrev: ", stdout);
-  if ((text = (char *)cupsArrayPrev(array)) != NULL &&
-      !strcmp(text, "Red Fish"))
-    puts("PASS");
+  // cupsArrayGetPrev()
+  testBegin("cupsArrayGetPrev");
+  if ((text = (char *)cupsArrayGetPrev(array)) != NULL && !strcmp(text, "Red Fish"))
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned \"%s\", expected \"Red Fish\")\n", text);
+    testEndMessage(false, "returned \"%s\", expected \"Red Fish\"", text);
     status ++;
   }
 
- /*
-  * cupsArrayFind()
-  */
-
-  fputs("cupsArrayFind: ", stdout);
-  if ((text = (char *)cupsArrayFind(array, (void *)"One Fish")) != NULL &&
-      !strcmp(text, "One Fish"))
-    puts("PASS");
+  // cupsArrayFind()
+  testBegin("cupsArrayFind");
+  if ((text = (char *)cupsArrayFind(array, (void *)"One Fish")) != NULL && !strcmp(text, "One Fish"))
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned \"%s\", expected \"One Fish\")\n", text);
+    testEndMessage(false, "returned \"%s\", expected \"One Fish\"", text);
     status ++;
   }
 
- /*
-  * cupsArrayCurrent()
-  */
-
-  fputs("cupsArrayCurrent: ", stdout);
-  if ((text = (char *)cupsArrayCurrent(array)) != NULL &&
-      !strcmp(text, "One Fish"))
-    puts("PASS");
+  // cupsArrayGetCurrent()
+  testBegin("cupsArrayGetCurrent");
+  if ((text = (char *)cupsArrayGetCurrent(array)) != NULL && !strcmp(text, "One Fish"))
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned \"%s\", expected \"One Fish\")\n", text);
+    testEndMessage(false, "returned \"%s\", expected \"One Fish\"", text);
     status ++;
   }
 
- /*
-  * cupsArrayDup()
-  */
-
-  fputs("cupsArrayDup: ", stdout);
-  if ((dup_array = cupsArrayDup(array)) != NULL &&
-      cupsArrayCount(dup_array) == 4)
-    puts("PASS");
+  // cupsArrayDup()
+  testBegin("cupsArrayDup");
+  if ((dup_array = cupsArrayDup(array)) != NULL && cupsArrayGetCount(dup_array) == 4)
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned %p with %d elements, expected pointer with 4 elements)\n", (void *)dup_array, cupsArrayCount(dup_array));
+    testEndMessage(false, "returned %p with %d elements, expected pointer with 4 elements", (void *)dup_array, cupsArrayGetCount(dup_array));
     status ++;
   }
 
- /*
-  * cupsArrayRemove()
-  */
-
-  fputs("cupsArrayRemove: ", stdout);
-  if (cupsArrayRemove(array, (void *)"One Fish") &&
-      cupsArrayCount(array) == 3)
-    puts("PASS");
+  // cupsArrayRemove()
+  testBegin("cupsArrayRemove");
+  if (cupsArrayRemove(array, (void *)"One Fish") && cupsArrayGetCount(array) == 3)
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (returned 0 with %d elements, expected 1 with 4 elements)\n",
-           cupsArrayCount(array));
+    testEndMessage(false, "returned 0 with %d elements, expected 1 with 4 elements", cupsArrayGetCount(array));
     status ++;
   }
 
- /*
-  * cupsArrayClear()
-  */
-
-  fputs("cupsArrayClear: ", stdout);
+  // cupsArrayClear()
+  testBegin("cupsArrayClear");
   cupsArrayClear(array);
-  if (cupsArrayCount(array) == 0)
-    puts("PASS");
+  if (cupsArrayGetCount(array) == 0)
+  {
+    testEnd(true);
+  }
   else
   {
-    printf("FAIL (%d elements, expected 0 elements)\n",
-           cupsArrayCount(array));
+    testEndMessage(false, "%d elements, expected 0 elements", cupsArrayGetCount(array));
     status ++;
   }
 
- /*
-  * Now load this source file and grab all of the unique words...
-  */
-
-  fputs("Load unique words: ", stdout);
-  fflush(stdout);
+  // Now load this source file and grab all of the unique words...
+  testBegin("Load unique words");
 
   start = get_seconds();
 
   if ((dir = cupsDirOpen(".")) == NULL)
   {
-    puts("FAIL (cupsDirOpen failed)");
+    testEndMessage(false, "cupsDirOpen failed");
     status ++;
   }
   else
   {
+    bool load_status = true;		// Load status
+
     while ((dent = cupsDirRead(dir)) != NULL)
     {
       i = (int)strlen(dent->filename) - 2;
 
-      if (i > 0 && dent->filename[i] == '.' &&
-          (dent->filename[i + 1] == 'c' ||
-	   dent->filename[i + 1] == 'h'))
-	load_words(dent->filename, array);
+      if (i > 0 && dent->filename[i] == '.' && (dent->filename[i + 1] == 'c' || dent->filename[i + 1] == 'h'))
+      {
+	if (!load_words(dent->filename, array))
+	{
+	  load_status = false;
+	  break;
+	}
+      }
     }
 
     cupsDirClose(dir);
 
-    end = get_seconds();
-
-    printf("%d words in %.3f seconds (%.0f words/sec), ", cupsArrayCount(array),
-           end - start, cupsArrayCount(array) / (end - start));
-    fflush(stdout);
-
-    for (text = (char *)cupsArrayFirst(array); text;)
+    if (load_status)
     {
-     /*
-      * Copy this word to the word buffer (safe because we strdup'd from
-      * the same buffer in the first place... :)
-      */
+      end = get_seconds();
 
-      cupsCopyString(word, text, sizeof(word));
+      for (text = (char *)cupsArrayGetFirst(array); text;)
+      {
+        // Copy this word to the word buffer (safe because we strdup'd from
+	// the same buffer in the first place... :)
+	cupsCopyString(word, text, sizeof(word));
 
-     /*
-      * Grab the next word and compare...
-      */
+        // Grab the next word and compare...
+	if ((text = (char *)cupsArrayGetNext(array)) == NULL)
+	  break;
 
-      if ((text = (char *)cupsArrayNext(array)) == NULL)
-	break;
+	if (strcmp(word, text) >= 0)
+	  break;
+      }
 
-      if (strcmp(word, text) >= 0)
-	break;
+      if (text)
+      {
+	testEndMessage(false, "\"%s\" >= \"%s\"", word, text);
+	status ++;
+      }
+      else
+      {
+	testEndMessage(true, "%d words in %.3f seconds - %.0f words/sec", cupsArrayGetCount(array), end - start, cupsArrayGetCount(array) / (end - start));
+      }
     }
-
-    if (text)
-    {
-      printf("FAIL (\"%s\" >= \"%s\"!)\n", word, text);
-      status ++;
-    }
-    else
-      puts("PASS");
   }
 
- /*
-  * Test deleting with iteration...
-  */
+  // Test deleting with iteration...
+  testBegin("Delete While Iterating");
 
-  fputs("Delete While Iterating: ", stdout);
-
-  text = (char *)cupsArrayFirst(array);
+  text = (char *)cupsArrayGetFirst(array);
   cupsArrayRemove(array, text);
-  free(text);
 
-  text = (char *)cupsArrayNext(array);
+  text = (char *)cupsArrayGetNext(array);
   if (!text)
   {
-    puts("FAIL (cupsArrayNext returned NULL!)");
+    testEndMessage(false, "cupsArrayGetNext returned NULL");
     status ++;
   }
   else
-    puts("PASS");
+  {
+    testEnd(true);
+  }
 
- /*
-  * Test save/restore...
-  */
+  // Test save/restore...
+  testBegin("cupsArraySave");
 
-  fputs("cupsArraySave: ", stdout);
-
-  for (i = 0, text = (char *)cupsArrayFirst(array);
-       i < 32;
-       i ++, text = (char *)cupsArrayNext(array))
+  for (i = 0, text = (char *)cupsArrayGetFirst(array); i < 32; i ++, text = (char *)cupsArrayGetNext(array))
   {
     saved[i] = text;
 
@@ -362,11 +321,11 @@ main(void)
   }
 
   if (i < 32)
-    printf("FAIL (depth = %d)\n", i);
+    testEndMessage(false, "depth = %d", i);
   else
-    puts("PASS");
+    testEnd(true);
 
-  fputs("cupsArrayRestore: ", stdout);
+  testBegin("cupsArrayRestore");
 
   while (i > 0)
   {
@@ -378,115 +337,129 @@ main(void)
   }
 
   if (i)
-    printf("FAIL (depth = %d)\n", i);
+    testEndMessage(false, "depth = %d", i);
   else
-    puts("PASS");
+    testEnd(true);
 
- /*
-  * Delete the arrays...
-  */
-
+  // Delete the arrays...
   cupsArrayDelete(array);
   cupsArrayDelete(dup_array);
 
- /*
-  * Test the array with string functions...
-  */
-
-  fputs("_cupsArrayNewStrings(\" \\t\\nfoo bar\\tboo\\nfar\", ' '): ", stdout);
-  array = _cupsArrayNewStrings(" \t\nfoo bar\tboo\nfar", ' ');
+  // Test the array with string functions...
+  testBegin("cupsArrayNewStrings(\" \\t\\nfoo bar\\tboo\\nfar\", ' ')");
+  array = cupsArrayNewStrings(" \t\nfoo bar\tboo\nfar", ' ');
   if (!array)
   {
     status = 1;
-    puts("FAIL (unable to create array)");
+    testEndMessage(false, "unable to create array");
   }
-  else if (cupsArrayCount(array) != 4)
+  else if (cupsArrayGetCount(array) != 4)
   {
     status = 1;
-    printf("FAIL (got %d elements, expected 4)\n", cupsArrayCount(array));
+    testEndMessage(false, "got %u elements, expected 4", (unsigned)cupsArrayGetCount(array));
   }
-  else if (strcmp(text = (char *)cupsArrayFirst(array), "bar"))
+  else if (strcmp(text = (char *)cupsArrayGetFirst(array), "bar"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"bar\")\n", text);
+    testEndMessage(false, "first element \"%s\", expected \"bar\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "boo"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "boo"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"boo\")\n", text);
+    testEndMessage(false, "second element \"%s\", expected \"boo\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "far"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "far"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"far\")\n", text);
+    testEndMessage(false, "third element \"%s\", expected \"far\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "foo"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "foo"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"foo\")\n", text);
+    testEndMessage(false, "fourth element \"%s\", expected \"foo\"", text);
   }
   else
-    puts("PASS");
+  {
+    testEnd(true);
+  }
 
-  fputs("_cupsArrayAddStrings(array, \"foo2,bar2\", ','): ", stdout);
-  _cupsArrayAddStrings(array, "foo2,bar2", ',');
+  testBegin("cupsArrayAddStrings(array, \"foo2,bar2\", ',')");
+  cupsArrayAddStrings(array, "foo2,bar2", ',');
 
-  if (cupsArrayCount(array) != 6)
+  if (cupsArrayGetCount(array) != 6)
   {
     status = 1;
-    printf("FAIL (got %d elements, expected 6)\n", cupsArrayCount(array));
+    testEndMessage(false, "got %u elements, expected 6", (unsigned)cupsArrayGetCount(array));
   }
-  else if (strcmp(text = (char *)cupsArrayFirst(array), "bar"))
+  else if (strcmp(text = (char *)cupsArrayGetFirst(array), "bar"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"bar\")\n", text);
+    testEndMessage(false, "first element \"%s\", expected \"bar\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "bar2"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "bar2"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"bar2\")\n", text);
+    testEndMessage(false, "second element \"%s\", expected \"bar2\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "boo"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "boo"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"boo\")\n", text);
+    testEndMessage(false, "third element \"%s\", expected \"boo\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "far"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "far"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"far\")\n", text);
+    testEndMessage(false, "fourth element \"%s\", expected \"far\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "foo"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "foo"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"foo\")\n", text);
+    testEndMessage(false, "fifth element \"%s\", expected \"foo\"", text);
   }
-  else if (strcmp(text = (char *)cupsArrayNext(array), "foo2"))
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "foo2"))
   {
     status = 1;
-    printf("FAIL (first element \"%s\", expected \"foo2\")\n", text);
+    testEndMessage(false, "sixth element \"%s\", expected \"foo2\"", text);
   }
   else
-    puts("PASS");
+    testEnd(true);
 
   cupsArrayDelete(array);
 
- /*
-  * Summarize the results and return...
-  */
-
-  if (!status)
-    puts("\nALL TESTS PASSED!");
+  testBegin("cupsArrayNewStrings(\"{value='foo'},{value=\"bar\"}\", ',')");
+  array = cupsArrayNewStrings("{value='foo'},{value=\"bar\"}", ',');
+  if (!array)
+  {
+    status = 1;
+    testEndMessage(false, "unable to create array");
+  }
+  else if (cupsArrayGetCount(array) != 2)
+  {
+    status = 1;
+    testEndMessage(false, "got %u elements, expected 2", (unsigned)cupsArrayGetCount(array));
+  }
+  else if (strcmp(text = (char *)cupsArrayGetFirst(array), "{value=\"bar\"}"))
+  {
+    status = 1;
+    testEndMessage(false, "first element \"%s\", expected \"{value=\"var\"}\"", text);
+  }
+  else if (strcmp(text = (char *)cupsArrayGetNext(array), "{value='foo'}"))
+  {
+    status = 1;
+    testEndMessage(false, "second element \"%s\", expected \"{value='foo'}\"", text);
+  }
   else
-    printf("\n%d TEST(S) FAILED!\n", status);
+    testEnd(true);
+
+  cupsArrayDelete(array);
 
   return (status);
 }
 
 
-/*
- * 'get_seconds()' - Get the current time in seconds...
- */
+//
+// 'get_seconds()' - Get the current time in seconds...
+//
 
 #ifdef _WIN32
 #  include <windows.h>
@@ -503,37 +476,39 @@ get_seconds(void)
 static double
 get_seconds(void)
 {
-  struct timeval	curtime;	/* Current time */
+  struct timeval	curtime;	// Current time
 
 
   gettimeofday(&curtime, NULL);
   return (curtime.tv_sec + 0.000001 * curtime.tv_usec);
 }
-#endif /* _WIN32 */
+#endif // _WIN32
 
 
-/*
- * 'load_words()' - Load words from a file.
- */
+//
+// 'load_words()' - Load words from a file.
+//
 
-static int				/* O - 1 on success, 0 on failure */
-load_words(const char   *filename,	/* I - File to load */
-           cups_array_t *array)		/* I - Array to add to */
+static int				// O - 1 on success, 0 on failure
+load_words(const char   *filename,	// I - File to load
+           cups_array_t *array)		// I - Array to add to
 {
-  FILE		*fp;			/* Test file */
-  char		word[256];		/* Word from file */
+  FILE		*fp;			// Test file
+  char		word[256];		// Word from file
 
+
+  testProgress();
 
   if ((fp = fopen(filename, "r")) == NULL)
   {
-    perror(filename);
+    testEndMessage(false, "%s: %s", filename, strerror(errno));
     return (0);
   }
 
   while (fscanf(fp, "%255s", word) == 1)
   {
     if (!cupsArrayFind(array, word))
-      cupsArrayAdd(array, strdup(word));
+      cupsArrayAdd(array, word);
   }
 
   fclose(fp);

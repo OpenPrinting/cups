@@ -1,8 +1,9 @@
 checkpo.o: checkpo.c ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/versioning.h ../cups/array-private.h \
-  ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
-  ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h \
+  ../config.h ../cups/versioning.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  \
   \
   \
   \
@@ -27,10 +28,10 @@ checkpo.o: checkpo.c ../cups/cups-private.h ../cups/string-private.h \
   ../cups/thread.h
 po2strings.o: po2strings.c ../cups/cups-private.h \
   ../cups/string-private.h ../config.h ../cups/versioning.h \
-  ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \

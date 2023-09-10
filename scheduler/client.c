@@ -72,13 +72,13 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
 #endif /* HAVE_TCPD_H */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAcceptClient(lis=%p(%d)) Clients=%d", lis, lis->fd, cupsArrayCount(Clients));
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAcceptClient(lis=%p(%d)) Clients=%d", lis, lis->fd, cupsArrayGetCount(Clients));
 
  /*
   * Make sure we don't have a full set of clients already...
   */
 
-  if (cupsArrayCount(Clients) == MaxClients)
+  if (cupsArrayGetCount(Clients) == MaxClients)
     return;
 
   cupsdSetBusyState(1);
@@ -88,7 +88,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   */
 
   if (!Clients)
-    Clients = cupsArrayNew(NULL, NULL);
+    Clients = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, NULL);
 
   if (!Clients)
   {
@@ -99,7 +99,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   }
 
   if (!ActiveClients)
-    ActiveClients = cupsArrayNew((cups_array_func_t)compare_clients, NULL);
+    ActiveClients = cupsArrayNew3((cups_array_func_t)compare_clients, NULL, NULL, 0, NULL, NULL);
 
   if (!ActiveClients)
   {
@@ -150,9 +150,9 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   * Check the number of clients on the same address...
   */
 
-  for (count = 0, tempcon = (cupsd_client_t *)cupsArrayFirst(Clients);
+  for (count = 0, tempcon = (cupsd_client_t *)cupsArrayGetFirst(Clients);
        tempcon;
-       tempcon = (cupsd_client_t *)cupsArrayNext(Clients))
+       tempcon = (cupsd_client_t *)cupsArrayGetNext(Clients))
     if (httpAddrIsEqual(httpGetAddress(tempcon->http), httpGetAddress(con->http)))
     {
       count ++;
@@ -347,7 +347,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   * Temporarily suspend accept()'s until we lose a client...
   */
 
-  if (cupsArrayCount(Clients) == MaxClients)
+  if (cupsArrayGetCount(Clients) == MaxClients)
     cupsdPauseListening();
 
  /*
@@ -378,11 +378,11 @@ cupsdCloseAllClients(void)
   cupsd_client_t	*con;		/* Current client */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCloseAllClients() Clients=%d", cupsArrayCount(Clients));
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCloseAllClients() Clients=%d", cupsArrayGetCount(Clients));
 
-  for (con = (cupsd_client_t *)cupsArrayFirst(Clients);
+  for (con = (cupsd_client_t *)cupsArrayGetFirst(Clients);
        con;
-       con = (cupsd_client_t *)cupsArrayNext(Clients))
+       con = (cupsd_client_t *)cupsArrayGetNext(Clients))
     if (cupsdCloseClient(con))
       cupsdCloseClient(con);
 }
@@ -517,7 +517,7 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
     * limit...
     */
 
-    if (cupsArrayCount(Clients) == MaxClients)
+    if (cupsArrayGetCount(Clients) == MaxClients)
       cupsdResumeListening();
 
    /*
@@ -2118,9 +2118,9 @@ cupsdSendHeader(
       }
 #endif /* SO_PEERCRED && AF_LOCAL */
 
-      for (name = (char *)cupsArrayFirst(con->best->names);
+      for (name = (char *)cupsArrayGetFirst(con->best->names);
            name;
-	   name = (char *)cupsArrayNext(con->best->names))
+	   name = (char *)cupsArrayGetNext(con->best->names))
       {
         cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdSendHeader: require \"%s\"", name);
 
@@ -3612,9 +3612,9 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   * Check for (alias) name matches...
   */
 
-  for (a = (cupsd_alias_t *)cupsArrayFirst(ServerAlias);
+  for (a = (cupsd_alias_t *)cupsArrayGetFirst(ServerAlias);
        a;
-       a = (cupsd_alias_t *)cupsArrayNext(ServerAlias))
+       a = (cupsd_alias_t *)cupsArrayGetNext(ServerAlias))
   {
    /*
     * "ServerAlias *" allows all host values through...
@@ -3637,9 +3637,9 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   }
 
 #ifdef HAVE_DNSSD
-  for (a = (cupsd_alias_t *)cupsArrayFirst(DNSSDAlias);
+  for (a = (cupsd_alias_t *)cupsArrayGetFirst(DNSSDAlias);
        a;
-       a = (cupsd_alias_t *)cupsArrayNext(DNSSDAlias))
+       a = (cupsd_alias_t *)cupsArrayGetNext(DNSSDAlias))
   {
    /*
     * "ServerAlias *" allows all host values through...
@@ -3666,9 +3666,9 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   * Check for interface hostname matches...
   */
 
-  for (netif = (cupsd_netif_t *)cupsArrayFirst(NetIFList);
+  for (netif = (cupsd_netif_t *)cupsArrayGetFirst(NetIFList);
        netif;
-       netif = (cupsd_netif_t *)cupsArrayNext(NetIFList))
+       netif = (cupsd_netif_t *)cupsArrayGetNext(NetIFList))
   {
     if (!_cups_strncasecmp(con->clientname, netif->hostname, netif->hostlen))
     {

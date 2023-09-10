@@ -254,9 +254,6 @@
     <ClInclude Include="..\cups\raster-private.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cups\array-private.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\cups\versioning.h">
       <Filter>Header Files</Filter>
     </ClInclude>

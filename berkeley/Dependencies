@@ -1,8 +1,8 @@
 lpc.o: lpc.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
-  ../cups/versioning.h ../cups/array-private.h ../cups/array.h \
+  ../cups/versioning.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
-  ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -26,10 +26,10 @@ lpc.o: lpc.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h
 lpq.o: lpq.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
-  ../cups/versioning.h ../cups/array-private.h ../cups/array.h \
+  ../cups/versioning.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
-  ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -53,10 +53,10 @@ lpq.o: lpq.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h
 lpr.o: lpr.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
-  ../cups/versioning.h ../cups/array-private.h ../cups/array.h \
+  ../cups/versioning.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
-  ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -80,10 +80,11 @@ lpr.o: lpr.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h
 lprm.o: lprm.c ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/versioning.h ../cups/array-private.h \
-  ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
-  ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h \
+  ../config.h ../cups/versioning.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  \
   \
   \
   \

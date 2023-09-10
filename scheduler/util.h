@@ -14,7 +14,6 @@
  * Include necessary headers...
  */
 
-#  include <cups/array-private.h>
 #  include <cups/file-private.h>
 #  include <signal.h>
 

@@ -547,7 +547,7 @@ main(int  argc,				/* I - Number of command-line args */
 	      if (i >= argc)
 	        usage(1);
 
-	      docformats = _cupsArrayNewStrings(argv[i], ',');
+	      docformats = cupsArrayNewStrings(argv[i], ',');
 	      legacy     = 1;
 	      break;
 
@@ -689,7 +689,7 @@ main(int  argc,				/* I - Number of command-line args */
   */
 
   if (!docformats)
-    docformats = _cupsArrayNewStrings(ppm_color > 0 ? "image/jpeg,image/pwg-raster,image/urf": "image/pwg-raster,image/urf", ',');
+    docformats = cupsArrayNewStrings(ppm_color > 0 ? "image/jpeg,image/pwg-raster,image/urf": "image/pwg-raster,image/urf", ',');
 
   if (attrfile)
     attrs = load_ippserver_attributes(servername, serverport, attrfile, docformats);

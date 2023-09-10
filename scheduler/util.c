@@ -143,7 +143,7 @@ cups_array_t *				/* O - CUPS array */
 cupsdCreateStringsArray(const char *s)	/* I - Comma-delimited strings */
 {
   if (s && *s)
-    return (_cupsArrayNewStrings(s, ','));
+    return (cupsArrayNewStrings(s, ','));
   else
     return (NULL);
 }

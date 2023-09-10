@@ -1,9 +1,9 @@
 ipp.o: ipp.c backend-private.h ../cups/cups-private.h \
   ../cups/string-private.h ../config.h ../cups/versioning.h \
-  ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -53,15 +53,16 @@ lpd.o: lpd.c ../cups/http-private.h ../config.h ../cups/language.h \
   \
   \
   backend-private.h ../cups/cups-private.h ../cups/string-private.h \
-  ../cups/array-private.h ../cups/language-private.h ../cups/transcode.h \
-  ../cups/pwg-private.h ../cups/thread.h ../cups/snmp-private.h \
-  ../cups/backend.h ../cups/sidechannel.h
+  ../cups/debug-internal.h ../cups/debug-private.h \
+  ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
+  ../cups/thread.h ../cups/snmp-private.h ../cups/backend.h \
+  ../cups/sidechannel.h
 dnssd.o: dnssd.c backend-private.h ../cups/cups-private.h \
   ../cups/string-private.h ../config.h ../cups/versioning.h \
-  ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -87,10 +88,10 @@ dnssd.o: dnssd.c backend-private.h ../cups/cups-private.h \
   ../cups/sidechannel.h
 snmp.o: snmp.c backend-private.h ../cups/cups-private.h \
   ../cups/string-private.h ../config.h ../cups/versioning.h \
-  ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -139,14 +140,16 @@ socket.o: socket.c ../cups/http-private.h ../config.h ../cups/language.h \
   \
   \
   backend-private.h ../cups/cups-private.h ../cups/string-private.h \
-  ../cups/array-private.h ../cups/language-private.h ../cups/transcode.h \
-  ../cups/pwg-private.h ../cups/thread.h ../cups/snmp-private.h \
-  ../cups/backend.h ../cups/sidechannel.h
+  ../cups/debug-internal.h ../cups/debug-private.h \
+  ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
+  ../cups/thread.h ../cups/snmp-private.h ../cups/backend.h \
+  ../cups/sidechannel.h
 test1284.o: test1284.c ../cups/string-private.h ../config.h \
   ../cups/versioning.h ieee1284.c backend-private.h \
-  ../cups/cups-private.h ../cups/array-private.h ../cups/array.h \
-  ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
-  ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  ../cups/cups-private.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
   \
   \
   \
@@ -176,8 +179,8 @@ testbackend.o: testbackend.c ../cups/string-private.h ../config.h \
   ../cups/versioning.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
   ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
   ../cups/sidechannel.h backend-private.h ../cups/cups-private.h \
-  ../cups/array-private.h ../cups/ipp-private.h ../cups/http-private.h \
-  \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -202,10 +205,10 @@ testbackend.o: testbackend.c ../cups/string-private.h ../config.h \
   ../cups/thread.h ../cups/snmp-private.h ../cups/backend.h
 testsupplies.o: testsupplies.c backend-private.h ../cups/cups-private.h \
   ../cups/string-private.h ../config.h ../cups/versioning.h \
-  ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -231,10 +234,10 @@ testsupplies.o: testsupplies.c backend-private.h ../cups/cups-private.h \
   ../cups/sidechannel.h
 usb.o: usb.c backend-private.h ../cups/cups-private.h \
   ../cups/string-private.h ../config.h ../cups/versioning.h \
-  ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -257,6 +260,5 @@ usb.o: usb.c backend-private.h ../cups/cups-private.h \
   \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/snmp-private.h ../cups/backend.h \
-  ../cups/sidechannel.h usb-darwin.c ../cups/debug-private.h \
-  ../cups/file-private.h ../cups/ppd-private.h ../cups/ppd.h \
-  ../cups/raster.h
+  ../cups/sidechannel.h usb-darwin.c ../cups/file-private.h \
+  ../cups/ppd-private.h ../cups/ppd.h ../cups/raster.h

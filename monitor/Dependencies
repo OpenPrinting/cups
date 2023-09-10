@@ -1,8 +1,8 @@
 bcp.o: bcp.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
-  ../cups/versioning.h ../cups/array-private.h ../cups/array.h \
+  ../cups/versioning.h ../cups/debug-internal.h ../cups/debug-private.h \
   ../cups/ipp-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
-  ../cups/http.h ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
+  ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
   \
   \
   \
@@ -26,10 +26,11 @@ bcp.o: bcp.c ../cups/cups-private.h ../cups/string-private.h ../config.h \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h ../cups/ppd.h ../cups/raster.h
 tbcp.o: tbcp.c ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/versioning.h ../cups/array-private.h \
-  ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
-  ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h \
+  ../config.h ../cups/versioning.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  \
   \
   \
   \

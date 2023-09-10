@@ -1253,11 +1253,11 @@ cupsdReadConfiguration(void)
   {
     // Build default list of common sizes for North America and worldwide...
     if (!strcasecmp(DefaultPaperSize, "Letter"))
-      ReadyPaperSizes = _cupsArrayNewStrings("Letter,Legal,Tabloid,4x6,Env10", ',');
+      ReadyPaperSizes = cupsArrayNewStrings("Letter,Legal,Tabloid,4x6,Env10", ',');
     else if (!strcasecmp(DefaultPaperSize, "A4"))
-      ReadyPaperSizes = _cupsArrayNewStrings("A4,A3,A5,A6,EnvDL", ',');
+      ReadyPaperSizes = cupsArrayNewStrings("A4,A3,A5,A6,EnvDL", ',');
     else
-      ReadyPaperSizes = _cupsArrayNewStrings(DefaultPaperSize, ',');
+      ReadyPaperSizes = cupsArrayNewStrings(DefaultPaperSize, ',');
   }
 
  /*
@@ -3314,9 +3314,9 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
       */
 
       if (ReadyPaperSizes)
-        _cupsArrayAddStrings(ReadyPaperSizes, value, ',');
+        cupsArrayAddStrings(ReadyPaperSizes, value, ',');
       else
-        ReadyPaperSizes = _cupsArrayNewStrings(value, ',');
+        ReadyPaperSizes = cupsArrayNewStrings(value, ',');
     }
     else if (!_cups_strcasecmp(line, "ServerTokens") && value)
     {

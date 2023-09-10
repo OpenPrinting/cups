@@ -13,7 +13,6 @@
 #  define _CUPS_CUPS_PRIVATE_H_
 #  include "string-private.h"
 #  include "debug-internal.h"
-#  include "array-private.h"
 #  include "ipp-private.h"
 #  include "http-private.h"
 #  include "language-private.h"

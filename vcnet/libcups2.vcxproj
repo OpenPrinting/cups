@@ -171,7 +171,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cups\adminutil.h" />
-    <ClInclude Include="..\cups\array-private.h" />
     <ClInclude Include="..\cups\array.h" />
     <ClInclude Include="..\cups\cups-private.h" />
     <ClInclude Include="..\cups\cups.h" />

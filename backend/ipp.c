@@ -15,7 +15,6 @@
 
 #include "backend-private.h"
 #include <cups/ppd-private.h>
-#include <cups/array-private.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -333,7 +332,7 @@ main(int  argc,				/* I - Number of command-line args */
   if ((auth_info_required = getenv("AUTH_INFO_REQUIRED")) == NULL)
     auth_info_required = "none";
 
-  state_reasons = _cupsArrayNewStrings(getenv("PRINTER_STATE_REASONS"), ',');
+  state_reasons = cupsArrayNewStrings(getenv("PRINTER_STATE_REASONS"), ',');
 
 #ifdef HAVE_GSSAPI
  /*
@@ -3549,7 +3548,7 @@ update_reasons(ipp_attribute_t *attr,	/* I - printer-state-reasons or NULL */
     else
       op = '\0';
 
-    new_reasons = _cupsArrayNewStrings(s, ',');
+    new_reasons = cupsArrayNewStrings(s, ',');
   }
   else
     return;
