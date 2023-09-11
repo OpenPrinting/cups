@@ -75,7 +75,7 @@ typedef void (*cups_dnssd_query_cb_t)(cups_dnssd_query_t *query, void *cb_data, 
 
 typedef struct _cups_dnssd_resolve_s cups_dnssd_resolve_t;
 					// DNS resolve request
-typedef void (*cups_dnssd_resolve_cb_t)(cups_dnssd_resolve_t *res, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, const char *host, uint16_t port, size_t num_txt, cups_option_t *txt);
+typedef void (*cups_dnssd_resolve_cb_t)(cups_dnssd_resolve_t *res, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, const char *host, uint16_t port, int num_txt, cups_option_t *txt);
 					// DNS-SD resolve callback
 
 typedef struct _cups_dnssd_service_s cups_dnssd_service_t;
@@ -105,7 +105,7 @@ extern void		cupsDNSSDResolveDelete(cups_dnssd_resolve_t *res) _CUPS_PUBLIC;
 extern cups_dnssd_t	*cupsDNSSDResolveGetContext(cups_dnssd_resolve_t *res) _CUPS_PUBLIC;
 extern cups_dnssd_resolve_t *cupsDNSSDResolveNew(cups_dnssd_t *dnssd, uint32_t if_index, const char *name, const char *type, const char *domain, cups_dnssd_resolve_cb_t resolve_cb, void *cb_data) _CUPS_PUBLIC;
 
-extern bool		cupsDNSSDServiceAdd(cups_dnssd_service_t *service, const char *types, const char *domain, const char *host, uint16_t port, size_t num_txt, cups_option_t *txt) _CUPS_PUBLIC;
+extern bool		cupsDNSSDServiceAdd(cups_dnssd_service_t *service, const char *types, const char *domain, const char *host, uint16_t port, int num_txt, cups_option_t *txt) _CUPS_PUBLIC;
 extern void		cupsDNSSDServiceDelete(cups_dnssd_service_t *service) _CUPS_PUBLIC;
 extern cups_dnssd_t	*cupsDNSSDServiceGetContext(cups_dnssd_service_t *service) _CUPS_PUBLIC;
 extern const char	*cupsDNSSDServiceGetName(cups_dnssd_service_t *service) _CUPS_PUBLIC;
@@ -114,7 +114,7 @@ extern bool		cupsDNSSDServicePublish(cups_dnssd_service_t *service) _CUPS_PUBLIC
 extern bool		cupsDNSSDServiceSetLocation(cups_dnssd_service_t *service, const char *geo_uri) _CUPS_PUBLIC;
 
 extern bool		cupsDNSSDAssembleFullName(char *fullname, size_t fullsize, const char *name, const char *type, const char *domain);
-extern size_t		cupsDNSSDDecodeTXT(const unsigned char *txtrec, uint16_t txtlen, cups_option_t **txt) _CUPS_PUBLIC;
+extern int		cupsDNSSDDecodeTXT(const unsigned char *txtrec, uint16_t txtlen, cups_option_t **txt) _CUPS_PUBLIC;
 extern bool		cupsDNSSDSeparateFullName(const char *fullname, char *name, size_t namesize, char *type, size_t typesize, char *domain, size_t domainsize);
 
 

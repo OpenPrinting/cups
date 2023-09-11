@@ -244,13 +244,13 @@ cupsDNSSDCopyHostName(
 // function and freed using the @link cupsFreeOptions@ function.
 //
 
-size_t					// O - Number of key/value pairs
+int					// O - Number of key/value pairs
 cupsDNSSDDecodeTXT(
     const unsigned char *txtrec,	// I - TXT record data
     uint16_t            txtlen,		// I - TXT record length
     cups_option_t       **txt)		// O - Key/value pairs
 {
-  size_t	num_txt = 0;		// Number of key/value pairs
+  int		num_txt = 0;		// Number of key/value pairs
   unsigned char	keylen;			// Length of key/value
   char		key[256],		// Key/value buffer
 		*value;			// Pointer to value
@@ -906,7 +906,7 @@ cupsDNSSDResolveGetContext(
 //     const char           *fullname,
 //     const char           *host,
 //     uint16_t             port,
-//     size_t               num_txt,
+//     int                  num_txt,
 //     cups_option_t        *txt)
 // {
 //     // Process resolved service
@@ -1011,14 +1011,14 @@ cupsDNSSDServiceAdd(
     const char           *domain,	// I - Domain name or `NULL` for default
     const char           *host,		// I - Host name or `NULL` for default
     uint16_t             port,		// I - Port number or `0` for none
-    size_t               num_txt,	// I - Number of TXT record values
+    int                  num_txt,	// I - Number of TXT record values
     cups_option_t        *txt)		// I - TXT record values
 {
   bool		ret = true;		// Return value
-  size_t	i;			// Looping var
+  int		i;			// Looping var
 
 
-  DEBUG_printf("cupsDNSSDServiceAdd(service=%p, types=\"%s\", domain=\"%s\", host=\"%s\", port=%u, num_txt=%u, txt=%p)", (void *)service, types, domain, host, port, (unsigned)num_txt, (void *)txt);
+  DEBUG_printf("cupsDNSSDServiceAdd(service=%p, types=\"%s\", domain=\"%s\", host=\"%s\", port=%u, num_txt=%d, txt=%p)", (void *)service, types, domain, host, port, num_txt, (void *)txt);
 
   // Range check input...
   if (!service || !types)
@@ -1698,7 +1698,7 @@ mdns_resolve_cb(
     const unsigned char  *txtrec,	// I - TXT record
     cups_dnssd_resolve_t *resolve)	// I - Resolve request
 {
-  size_t	num_txt;		// Number of TXT key/value pairs
+  int		num_txt;		// Number of TXT key/value pairs
   cups_option_t	*txt;			// TXT key/value pairs
 
 
@@ -2075,7 +2075,7 @@ avahi_resolve_cb(
     cups_dnssd_resolve_t   *resolve)	// I - Resolve request
 {
   AvahiStringList *txtpair;		// Current pair
-  size_t	num_txt = 0;		// Number of TXT key/value pairs
+  int		num_txt = 0;		// Number of TXT key/value pairs
   cups_option_t	*txt = NULL;		// TXT key/value pairs
   char		fullname[1024];		// Full service name
 

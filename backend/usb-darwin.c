@@ -316,7 +316,7 @@ static CFStringRef deviceIDCopySerialNumber(CFStringRef deviceID);
  * 'list_devices()' - List all USB devices.
  */
 
-void list_devices()
+void list_devices(void)
 {
   iterate_printers(list_device_cb, NULL);
 }

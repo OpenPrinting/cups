@@ -56,13 +56,13 @@ main(int  argc,				/* I - Number of command-line arguments */
   cancel = 0;
 
   if (!strcmp(command, "cupsaccept"))
-    op = CUPS_ACCEPT_JOBS;
+    op = IPP_OP_CUPS_ACCEPT_JOBS;
   else if (!strcmp(command, "cupsreject"))
-    op = CUPS_REJECT_JOBS;
+    op = IPP_OP_CUPS_REJECT_JOBS;
   else if (!strcmp(command, "cupsdisable"))
-    op = IPP_PAUSE_PRINTER;
+    op = IPP_OP_PAUSE_PRINTER;
   else if (!strcmp(command, "cupsenable"))
-    op = IPP_RESUME_PRINTER;
+    op = IPP_OP_RESUME_PRINTER;
   else
   {
     _cupsLangPrintf(stderr, _("%s: Don't know what to do."), command);
@@ -80,9 +80,9 @@ main(int  argc,				/* I - Number of command-line arguments */
     if (!strcmp(argv[i], "--help"))
       usage(command);
     else if (!strcmp(argv[i], "--hold"))
-      op = IPP_HOLD_NEW_JOBS;
+      op = IPP_OP_HOLD_NEW_JOBS;
     else if (!strcmp(argv[i], "--release"))
-      op = IPP_RELEASE_HELD_NEW_JOBS;
+      op = IPP_OP_RELEASE_HELD_NEW_JOBS;
     else if (argv[i][0] == '-')
     {
       for (opt = argv[i] + 1; *opt; opt ++)
@@ -186,7 +186,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-      if (cupsGetError() > IPP_OK_CONFLICT)
+      if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
       {
 	_cupsLangPrintf(stderr,
 			_("%s: Operation failed: %s"),
@@ -209,14 +209,14 @@ main(int  argc,				/* I - Number of command-line arguments */
 	*    printer-uri
 	*/
 
-	request = ippNewRequest(IPP_PURGE_JOBS);
+	request = ippNewRequest(IPP_OP_PURGE_JOBS);
 
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
                      "printer-uri", NULL, uri);
 
 	ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-        if (cupsGetError() > IPP_OK_CONFLICT)
+        if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
 	{
 	  _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
 	  return (1);

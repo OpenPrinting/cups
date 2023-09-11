@@ -1060,8 +1060,8 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
       return (1);
 
     if (con->request && con->response &&
-        (con->response->request.status.status_code < IPP_REDIRECTION_OTHER_SITE ||
-	 con->response->request.status.status_code == IPP_NOT_FOUND))
+        (con->response->request.status.status_code < IPP_STATUS_REDIRECTION_OTHER_SITE ||
+	 con->response->request.status.status_code == IPP_STATUS_ERROR_NOT_FOUND))
     {
      /*
       * Check successful requests...
@@ -1141,9 +1141,9 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
       };
 
 
-      if ((op <= IPP_SCHEDULE_JOB_AFTER && standard_ops[op] > AccessLogLevel) ||
-          (op >= CUPS_GET_DEFAULT && op <= CUPS_GET_PPD &&
-	   cups_ops[op - CUPS_GET_DEFAULT] > AccessLogLevel))
+      if ((op <= IPP_OP_SCHEDULE_JOB_AFTER && standard_ops[op] > AccessLogLevel) ||
+          (op >= IPP_OP_CUPS_GET_DEFAULT && op <= IPP_OP_CUPS_GET_PPD &&
+	   cups_ops[op - IPP_OP_CUPS_GET_DEFAULT] > AccessLogLevel))
         return (1);
     }
   }

@@ -63,7 +63,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   requests   = 100;
   children   = 5;
   server     = (char *)cupsServer();
-  port       = ippPort();
+  port       = ippGetPort();
   encryption = HTTP_ENCRYPTION_IF_REQUESTED;
   verbose    = 0;
   opstring   = NULL;
@@ -253,11 +253,11 @@ do_test(const char        *server,	/* I - Server to use */
   int		op;			/* Current operation */
   static ipp_op_t ops[5] =		/* Operations to test... */
 		{
-		  IPP_PRINT_JOB,
-		  CUPS_GET_DEFAULT,
-		  CUPS_GET_PRINTERS,
-		  CUPS_GET_CLASSES,
-		  IPP_GET_JOBS
+		  IPP_OP_PRINT_JOB,
+		  IPP_OP_CUPS_GET_DEFAULT,
+		  IPP_OP_CUPS_GET_PRINTERS,
+		  IPP_OP_CUPS_GET_CLASSES,
+		  IPP_OP_GET_JOBS
 		};
 
 
@@ -302,7 +302,7 @@ do_test(const char        *server,	/* I - Server to use */
 
     switch (op)
     {
-      case IPP_GET_JOBS :
+      case IPP_OP_GET_JOBS :
 	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                        NULL, "ipp://localhost/printers/");
 
@@ -310,7 +310,7 @@ do_test(const char        *server,	/* I - Server to use */
 	  ippDelete(cupsDoRequest(http, request, "/"));
           break;
 
-      case IPP_PRINT_JOB :
+      case IPP_OP_PRINT_JOB :
 	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                        NULL, "ipp://localhost/printers/test");
 	  ippDelete(cupsDoFileRequest(http, request, "/printers/test",
@@ -326,8 +326,8 @@ do_test(const char        *server,	/* I - Server to use */
 
     switch (cupsGetError())
     {
-      case IPP_OK :
-      case IPP_NOT_FOUND :
+      case IPP_STATUS_OK :
+      case IPP_STATUS_ERROR_NOT_FOUND :
           if (verbose)
 	  {
 	    printf("succeeded: %s (%.6f)\n", cupsGetErrorString(), reqtime);

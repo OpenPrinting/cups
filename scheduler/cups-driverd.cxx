@@ -336,7 +336,7 @@ cat_drv(const char *name,		/* I - PPD name */
     {
       snprintf(message, sizeof(message), "Bad PPD name \"%s\".", name);
 
-      cupsdSendIPPHeader(IPP_NOT_FOUND, request_id);
+      cupsdSendIPPHeader(IPP_STATUS_ERROR_NOT_FOUND, request_id);
       cupsdSendIPPGroup(IPP_TAG_OPERATION);
       cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
       cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -381,7 +381,7 @@ cat_drv(const char *name,		/* I - PPD name */
 
     if (request_id)
     {
-      cupsdSendIPPHeader(IPP_OK, request_id);
+      cupsdSendIPPHeader(IPP_STATUS_OK, request_id);
       cupsdSendIPPGroup(IPP_TAG_OPERATION);
       cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
       cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -404,7 +404,7 @@ cat_drv(const char *name,		/* I - PPD name */
     {
       snprintf(message, sizeof(message), "PPD \"%s\" not found.", name);
 
-      cupsdSendIPPHeader(IPP_NOT_FOUND, request_id);
+      cupsdSendIPPHeader(IPP_STATUS_ERROR_NOT_FOUND, request_id);
       cupsdSendIPPGroup(IPP_TAG_OPERATION);
       cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
       cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -505,7 +505,7 @@ cat_ppd(const char *name,		/* I - PPD name */
         snprintf(message, sizeof(message), "Unable to access \"%s\" - %s",
 		 line, strerror(errno));
 
-	cupsdSendIPPHeader(IPP_NOT_FOUND, request_id);
+	cupsdSendIPPHeader(IPP_STATUS_ERROR_NOT_FOUND, request_id);
 	cupsdSendIPPGroup(IPP_TAG_OPERATION);
 	cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
 	cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -523,7 +523,7 @@ cat_ppd(const char *name,		/* I - PPD name */
 
     if (request_id)
     {
-      cupsdSendIPPHeader(IPP_OK, request_id);
+      cupsdSendIPPHeader(IPP_STATUS_OK, request_id);
       cupsdSendIPPGroup(IPP_TAG_OPERATION);
       cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
       cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -575,7 +575,7 @@ cat_static(const char *name,		/* I - PPD name */
 
   if (request_id)
   {
-    cupsdSendIPPHeader(IPP_OK, request_id);
+    cupsdSendIPPHeader(IPP_STATUS_OK, request_id);
     cupsdSendIPPGroup(IPP_TAG_OPERATION);
     cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
     cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -636,7 +636,7 @@ cat_tar(const char *name,		/* I - PPD name */
     {
       if (request_id)
       {
-	cupsdSendIPPHeader(IPP_OK, request_id);
+	cupsdSendIPPHeader(IPP_STATUS_OK, request_id);
 	cupsdSendIPPGroup(IPP_TAG_OPERATION);
 	cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
 	cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -684,7 +684,7 @@ cat_tar(const char *name,		/* I - PPD name */
   {
     snprintf(buffer, sizeof(buffer), "PPD \"%s\" not found.", name);
 
-    cupsdSendIPPHeader(IPP_NOT_FOUND, request_id);
+    cupsdSendIPPHeader(IPP_STATUS_ERROR_NOT_FOUND, request_id);
     cupsdSendIPPGroup(IPP_TAG_OPERATION);
     cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
     cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -873,7 +873,7 @@ get_file(const char *name,		/* I - Name */
     {
       snprintf(message, sizeof(message), "Bad PPD name \"%s\".", name);
 
-      cupsdSendIPPHeader(IPP_NOT_FOUND, request_id);
+      cupsdSendIPPHeader(IPP_STATUS_ERROR_NOT_FOUND, request_id);
       cupsdSendIPPGroup(IPP_TAG_OPERATION);
       cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
       cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -984,7 +984,7 @@ get_file(const char *name,		/* I - Name */
       snprintf(message, sizeof(message), "Unable to open \"%s\" - %s",
 	       buffer, strerror(errno));
 
-      cupsdSendIPPHeader(IPP_NOT_FOUND, request_id);
+      cupsdSendIPPHeader(IPP_STATUS_ERROR_NOT_FOUND, request_id);
       cupsdSendIPPGroup(IPP_TAG_OPERATION);
       cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
       cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -1464,7 +1464,7 @@ list_ppds(int        request_id,	/* I - Request ID */
 
       if (request_id)
       {
-	cupsdSendIPPHeader(IPP_OK, request_id);
+	cupsdSendIPPHeader(IPP_STATUS_OK, request_id);
 	cupsdSendIPPGroup(IPP_TAG_OPERATION);
 	cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
 	cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language",
@@ -1569,7 +1569,7 @@ list_ppds(int        request_id,	/* I - Request ID */
 
   if (!sent_header && request_id)
   {
-    cupsdSendIPPHeader(IPP_NOT_FOUND, request_id);
+    cupsdSendIPPHeader(IPP_STATUS_ERROR_NOT_FOUND, request_id);
     cupsdSendIPPGroup(IPP_TAG_OPERATION);
     cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
     cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language", "en-US");

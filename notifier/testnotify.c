@@ -44,16 +44,16 @@ main(int  argc,				/* I - Number of command-line arguments */
   for (;;)
   {
     event = ippNew();
-    while ((state = ippReadFile(0, event)) != IPP_DATA)
+    while ((state = ippReadFile(0, event)) != IPP_STATE_DATA)
     {
-      if (state <= IPP_IDLE)
+      if (state <= IPP_STATE_IDLE)
         break;
     }
 
-    if (state == IPP_ERROR)
+    if (state == IPP_STATE_ERROR)
       fputs("DEBUG: ippReadFile() returned IPP_ERROR!\n", stderr);
 
-    if (state <= IPP_IDLE)
+    if (state <= IPP_STATE_IDLE)
     {
       ippDelete(event);
       return (0);

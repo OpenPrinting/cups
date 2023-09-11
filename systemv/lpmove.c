@@ -160,7 +160,7 @@ move_job(http_t     *http,		/* I - HTTP connection to server */
   *    requesting-user-name
   */
 
-  request = ippNewRequest(CUPS_MOVE_JOB);
+  request = ippNewRequest(IPP_OP_CUPS_MOVE_JOB);
 
   if (jobid)
   {
@@ -190,7 +190,7 @@ move_job(http_t     *http,		/* I - HTTP connection to server */
 
   ippDelete(cupsDoRequest(http, request, "/jobs"));
 
-  if (cupsGetError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     _cupsLangPrintf(stderr, "lpmove: %s", cupsGetErrorString());
     return (1);

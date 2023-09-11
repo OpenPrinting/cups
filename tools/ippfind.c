@@ -100,7 +100,7 @@ typedef struct ippfind_srv_s		// Service information
 		*host,			// Hostname
 		*resource,		// Resource path
 		*uri;			// URI
-  size_t	num_txt;		// Number of TXT record keys
+  int		num_txt;		// Number of TXT record keys
   cups_option_t	*txt;			// TXT record keys
   int		port;			// Port number
   bool		is_local,		// Is a local service?
@@ -128,12 +128,12 @@ static int	ipp_version = 20;	// IPP version for LIST
 static void		browse_callback(cups_dnssd_browse_t *browse, void *context, cups_dnssd_flags_t flags, uint32_t if_index, const char *serviceName, const char *regtype, const char *replyDomain);
 static int		compare_services(ippfind_srv_t *a, ippfind_srv_t *b);
 static int		eval_expr(ippfind_srv_t *service, ippfind_expr_t *expressions);
-static int		exec_program(ippfind_srv_t *service, size_t num_args, char **args);
+static int		exec_program(ippfind_srv_t *service, int num_args, char **args);
 static ippfind_srv_t	*get_service(ippfind_srvs_t *services, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
 static double		get_time(void);
 static int		list_service(ippfind_srv_t *service);
 static ippfind_expr_t	*new_expr(ippfind_op_t op, bool invert, const char *value, const char *regex, char **args);
-static void		resolve_callback(cups_dnssd_resolve_t *resolve, void *context, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullName, const char *hostTarget, uint16_t port, size_t num_txt, cups_option_t *txt);
+static void		resolve_callback(cups_dnssd_resolve_t *resolve, void *context, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullName, const char *hostTarget, uint16_t port, int num_txt, cups_option_t *txt);
 static void		set_service_uri(ippfind_srv_t *service);
 static void		show_usage(void) _CUPS_NORETURN;
 static void		show_version(void) _CUPS_NORETURN;
@@ -1071,7 +1071,7 @@ main(int  argc,				// I - Number of command-line args
   while (get_time() < endtime)
   {
     // Process any services that we have found...
-    size_t	j,			// Looping var
+    int		j,			// Looping var
 		count,			// Number of services
 		active = 0,		// Number of active resolves
 		resolved = 0,		// Number of resolved services
@@ -1299,7 +1299,7 @@ eval_expr(ippfind_srv_t  *service,	// I - Service
 
 static int				// O - 1 if program terminated successfully, 0 otherwise
 exec_program(ippfind_srv_t *service,	// I - Service
-             size_t        num_args,	// I - Number of command-line args
+             int           num_args,	// I - Number of command-line args
              char          **args)	// I - Command-line arguments
 {
   char		**myargv,		// Command-line arguments
@@ -1313,7 +1313,7 @@ exec_program(ippfind_srv_t *service,	// I - Service
 		scheme[128],		// IPPFIND_SERVICE_SCHEME
 		uri[1024],		// IPPFIND_SERVICE_URI
 		txt[100][256];		// IPPFIND_TXT_foo
-  size_t	i,			// Looping var
+  int		i,			// Looping var
 		myenvc;			// Number of environment variables
   int		status;			// Exit status of program
 #ifndef _WIN32
@@ -1541,7 +1541,7 @@ get_service(ippfind_srvs_t *services,	// I - Service array
 	    const char     *regtype,	// I - Type of service
 	    const char     *replyDomain)// I - Service domain
 {
-  size_t	i,			// Looping var
+  int		i,			// Looping var
 		count;			// Number of services
   ippfind_srv_t	key,			// Search key
 		*service;		// Service
@@ -1641,7 +1641,7 @@ list_service(ippfind_srv_t *service)	// I - Service
     ipp_t		*request,	// IPP request
 			*response;	// IPP response
     ipp_attribute_t	*attr;		// IPP attribute
-    size_t		i,		// Looping var
+    int			i,		// Looping var
 			count;		// Number of values
     int			version;	// IPP version
     bool		paccepting;	// printer-is-accepting-jobs value
@@ -1885,17 +1885,17 @@ resolve_callback(
     const char           *fullName,	// I - Full service name
     const char           *hostTarget,	// I - Hostname
     uint16_t             port,		// I - Port number
-    size_t               num_txt,	// I - Number of TXT key/value pairs
+    int                  num_txt,	// I - Number of TXT key/value pairs
     cups_option_t        *txt)		// I - TXT key/value pairs
 {
   ippfind_srv_t		*service = (ippfind_srv_t *)context;
 					// Service
-  size_t		i;		// Looping var
+  int			i;		// Looping var
   char			*value;		// Pointer into value
 
 
   if (getenv("IPPFIND_DEBUG"))
-    fprintf(stderr, "R flags=0x%04X, if_index=%u, fullName=\"%s\", hostTarget=\"%s\", port=%u, num_txt=%u, txt=%p\n", flags, if_index, fullName, hostTarget, port, (unsigned)num_txt, txt);
+    fprintf(stderr, "R flags=0x%04X, if_index=%u, fullName=\"%s\", hostTarget=\"%s\", port=%u, num_txt=%d, txt=%p\n", flags, if_index, fullName, hostTarget, port, num_txt, (void *)txt);
 
   (void)resolve;
   (void)if_index;

@@ -109,15 +109,15 @@ _cupsRasterClearError(void)
 
 
 /*
- * '_cupsRasterErrorString()' - Return the last error from a raster function.
+ * 'cupsRasterGetErrorString()' - Return the last error from a raster function.
  *
  * If there are no recent errors, NULL is returned.
  *
- * @since CUPS 1.3/macOS 10.5@
+ * @since CUPS 2.5@
  */
 
 const char *				/* O - Last error */
-_cupsRasterErrorString(void)
+cupsRasterGetErrorString(void)
 {
   _cups_globals_t	*cg = _cupsGlobals();
 					/* Thread globals */

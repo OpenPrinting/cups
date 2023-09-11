@@ -70,7 +70,7 @@ cupsdAddPolicyOp(cupsd_policy_t   *p,	/* I - Policy */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddPolicyOp(p=%p, po=%p, op=%x(%s))",
-                  p, po, op, ippOpString(op));
+                  (void *)p, (void *)po, op, ippOpString(op));
 
   if (!p)
     return (NULL);
@@ -114,7 +114,7 @@ cupsdCheckPolicy(cupsd_policy_t *p,	/* I - Policy */
 
   if (!p || !con)
   {
-    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdCheckPolicy: p=%p, con=%p.", p, con);
+    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdCheckPolicy: p=%p, con=%p.", (void *)p, (void *)con);
 
     return (HTTP_STATUS_SERVER_ERROR);
   }
@@ -212,7 +212,7 @@ cupsdFindPolicyOp(cupsd_policy_t *p,	/* I - Policy */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFindPolicyOp(p=%p, op=%x(%s))",
-                  p, op, ippOpString(op));
+                  (void *)p, op, ippOpString(op));
 
  /*
   * Range check...
@@ -270,13 +270,13 @@ cupsdGetPrivateAttrs(
 #ifdef DEBUG
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "cupsdGetPrivateAttrs(policy=%p(%s), con=%p(%d), "
-		  "printer=%p(%s), owner=\"%s\")", policy, policy ? policy->name : "", con,
-		  con->number, printer, printer ? printer->name : "", owner);
+		  "printer=%p(%s), owner=\"%s\")", (void *)policy, policy ? policy->name : "", (void *)con,
+		  con->number, (void *)printer, printer ? printer->name : "", owner);
 #endif /* DEBUG */
 
   if (!policy)
   {
-    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdGetPrivateAttrs: policy=%p, con=%p, printer=%p, owner=\"%s\", DefaultPolicyPtr=%p: This should never happen, please report a bug.", policy, con, printer, owner, DefaultPolicyPtr);
+    cupsdLogMessage(CUPSD_LOG_CRIT, "cupsdGetPrivateAttrs: policy=%p, con=%p, printer=%p, owner=\"%s\", DefaultPolicyPtr=%p: This should never happen, please report a bug.", (void *)policy, (void *)con, (void *)printer, owner, (void *)DefaultPolicyPtr);
     policy = DefaultPolicyPtr;
   }
 
@@ -291,9 +291,9 @@ cupsdGetPrivateAttrs(
 
   switch (con->request->request.op.operation_id)
   {
-    case IPP_GET_SUBSCRIPTIONS :
-    case IPP_GET_SUBSCRIPTION_ATTRIBUTES :
-    case IPP_GET_NOTIFICATIONS :
+    case IPP_OP_GET_SUBSCRIPTIONS :
+    case IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES :
+    case IPP_OP_GET_NOTIFICATIONS :
         access_ptr = policy->sub_access;
 	attrs_ptr  = policy->sub_attrs;
 	break;

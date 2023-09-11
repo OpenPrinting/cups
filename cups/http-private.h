@@ -231,7 +231,7 @@ struct _http_s				// HTTP connection structure
 					/* Default field values, if any */
   /**** New in CUPS 2.5 ****/
   char  		qop[HTTP_MAX_VALUE];
-					/* qop value from WWW-Authenticate */
+					/* Quality of Protection (qop) value from WWW-Authenticate */
 };
 #  endif /* !_HTTP_NO_PRIVATE */
 

@@ -1,7 +1,7 @@
 /*
  * Authentication functions for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -312,9 +312,9 @@ cupsDoAuthentication(
       char nonce[HTTP_MAX_VALUE];	/* nonce="xyz" string */
 
       cups_auth_param(schemedata, "algorithm", http->algorithm, sizeof(http->algorithm));
+      cups_auth_param(schemedata, "nonce", nonce, sizeof(nonce));
       cups_auth_param(schemedata, "opaque", http->opaque, sizeof(http->opaque));
       cups_auth_param(schemedata, "qop", http->qop, sizeof(http->qop));
-      cups_auth_param(schemedata, "nonce", nonce, sizeof(nonce));
       cups_auth_param(schemedata, "realm", http->realm, sizeof(http->realm));
 
       if (_httpSetDigestAuthString(http, nonce, method, resource))
@@ -830,7 +830,7 @@ cups_gss_getname(
   char		  buf[1024];		/* Name buffer */
 
 
-  DEBUG_printf("7cups_gss_getname(http=%p, service_name=\"%s\")", http, service_name);
+  DEBUG_printf("7cups_gss_getname(http=%p, service_name=\"%s\")", (void *)http, service_name);
 
  /*
   * Get the hostname...

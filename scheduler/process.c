@@ -444,7 +444,7 @@ cupsdFinishProcess(int    pid,		/* I - Process ID */
     cupsCopyString(name, "unknown", namelen);
   }
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%p, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, name, CUPS_LLCAST namelen, job_id, job_id ? *job_id : 0, name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdFinishProcess(pid=%d, name=%p, namelen=" CUPS_LLFMT ", job_id=%p(%d)) = \"%s\"", pid, (void *)name, CUPS_LLCAST namelen, (void *)job_id, job_id ? *job_id : 0, name);
 
   return (name);
 }
@@ -827,8 +827,8 @@ cupsdStartProcess(
 		  "cupsdStartProcess(command=\"%s\", argv=%p, envp=%p, "
 		  "infd=%d, outfd=%d, errfd=%d, backfd=%d, sidefd=%d, root=%d, "
 		  "profile=%p, job=%p(%d), pid=%p) = %d",
-		  command, argv, envp, infd, outfd, errfd, backfd, sidefd,
-		  root, profile, job, job ? job->id : 0, pid, *pid);
+		  command, (void *)argv, (void *)envp, infd, outfd, errfd, backfd, sidefd,
+		  root, (void *)profile, (void *)job, job ? job->id : 0, (void *)pid, *pid);
 
   return (*pid);
 }
@@ -864,17 +864,20 @@ cupsd_requote(char       *dst,		/* I - Destination buffer */
   dstptr = dst;
   dstend = dst + dstsize - 2;
 
-  while (*src && dstptr < dstend)
+  if (src)
   {
-    ch = *src++;
+    while (*src && dstptr < dstend)
+    {
+      ch = *src++;
 
-    if (ch == '/' && !*src)
-      break;				/* Don't add trailing slash */
+      if (ch == '/' && !*src)
+	break;				/* Don't add trailing slash */
 
-    if (strchr(".?*()[]^$\\\"", ch))
-      *dstptr++ = '\\';
+      if (strchr(".?*()[]^$\\\"", ch))
+	*dstptr++ = '\\';
 
-    *dstptr++ = (char)ch;
+      *dstptr++ = (char)ch;
+    }
   }
 
   *dstptr = '\0';

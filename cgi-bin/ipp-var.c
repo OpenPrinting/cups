@@ -309,7 +309,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
       char	job_uri[1024];		/* Job URI */
 
 
-      request = ippNewRequest(IPP_GET_JOB_ATTRIBUTES);
+      request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
 
       snprintf(job_uri, sizeof(job_uri), "ipp://localhost/jobs/%d", job_id);
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri",
@@ -351,7 +351,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
     * Get the list of available destinations...
     */
 
-    request = ippNewRequest(CUPS_GET_PRINTERS);
+    request = ippNewRequest(IPP_OP_CUPS_GET_PRINTERS);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                  "requested-attributes", NULL, "printer-uri-supported");
@@ -428,7 +428,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
     const char	*job_printer_name;	/* New printer name */
 
 
-    request = ippNewRequest(CUPS_MOVE_JOB);
+    request = ippNewRequest(IPP_OP_CUPS_MOVE_JOB);
 
     if (job_id)
     {
@@ -472,7 +472,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
 
     job_printer_name = strrchr(job_printer_uri, '/') + 1;
 
-    if (cupsGetError() <= IPP_OK_CONFLICT)
+    if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
     {
       const char *path = strstr(job_printer_uri, "/printers/");
       if (!path)
@@ -494,7 +494,7 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
     else
       cgiStartHTML(cgiText(_("Move All Jobs")));
 
-    if (cupsGetError() > IPP_OK_CONFLICT)
+    if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       if (job_id)
 	cgiShowIPPError(_("Unable to move job"));
@@ -592,7 +592,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
   if (status == HTTP_STATUS_CONTINUE)
     cupsFinishDocument(http, dest);
 
-  if (cupsGetError() >= IPP_REDIRECTION_OTHER_SITE)
+  if (cupsGetError() >= IPP_STATUS_REDIRECTION_OTHER_SITE)
   {
     cgiSetVariable("MESSAGE", cgiText(_("Unable to send command to printer driver")));
     cgiSetVariable("ERROR", cupsGetErrorString());
@@ -620,7 +620,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
       */
 
       snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
-      request = ippNewRequest(IPP_GET_JOB_ATTRIBUTES);
+      request = ippNewRequest(IPP_OP_GET_JOB_ATTRIBUTES);
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri",
 		   NULL, uri);
       if (user)
@@ -633,8 +633,8 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
 	cgiSetIPPVars(response, NULL, NULL, NULL, 0);
 
       attr = ippFindAttribute(response, "job-state", IPP_TAG_ENUM);
-      if (!attr || attr->values[0].integer >= IPP_JOB_STOPPED ||
-          attr->values[0].integer == IPP_JOB_HELD)
+      if (!attr || attr->values[0].integer >= IPP_JSTATE_STOPPED ||
+          attr->values[0].integer == IPP_JSTATE_HELD)
       {
 	ippDelete(response);
 	break;
@@ -728,7 +728,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
   *    requesting-user-name
   */
 
-  request = ippNewRequest(IPP_PRINT_JOB);
+  request = ippNewRequest(IPP_OP_PRINT_JOB);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                NULL, uri);
@@ -752,7 +752,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
     ippDelete(response);
   }
 
-  if (cupsGetError() <= IPP_OK_CONFLICT)
+  if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
   {
    /*
     * Automatically reload the printer status page...
@@ -762,7 +762,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
     snprintf(refresh, sizeof(refresh), "2;URL=%s", uri);
     cgiSetVariable("refresh_page", refresh);
   }
-  else if (cupsGetError() == IPP_NOT_AUTHORIZED)
+  else if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
@@ -770,7 +770,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
 
   cgiStartHTML(cgiText(_("Print Test Page")));
 
-  if (cupsGetError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     cgiShowIPPError(_("Unable to print test page"));
   else
   {
@@ -937,7 +937,7 @@ cgiSetIPPObjectVars(
 
   fprintf(stderr, "DEBUG2: cgiSetIPPObjectVars(obj=%p, prefix=\"%s\", "
                   "element=%d)\n",
-          obj, prefix ? prefix : "(null)", element);
+          (void *)obj, prefix ? prefix : "(null)", element);
 
  /*
   * Set common CGI template variables...
@@ -1256,7 +1256,7 @@ cgiSetIPPVars(ipp_t      *response,	/* I - Response data to be copied... */
 
   fprintf(stderr, "DEBUG2: cgiSetIPPVars(response=%p, filter_name=\"%s\", "
                   "filter_value=\"%s\", prefix=\"%s\", parent_el=%d)\n",
-          response, filter_name ? filter_name : "(null)",
+          (void *)response, filter_name ? filter_name : "(null)",
 	  filter_value ? filter_value : "(null)",
 	  prefix ? prefix : "(null)", parent_el);
 
@@ -1370,7 +1370,7 @@ cgiShowJobs(http_t     *http,		/* I - Connection to server */
   *    printer-uri
   */
 
-  request = ippNewRequest(IPP_GET_JOBS);
+  request = ippNewRequest(IPP_OP_GET_JOBS);
 
   if (dest)
   {

@@ -157,7 +157,7 @@ cupsdUpdateQuota(
       * This job is too old to count towards the quota, ignore it...
       */
 
-      if (JobAutoPurge && !job->printer && job->state_value > IPP_JOB_STOPPED)
+      if (JobAutoPurge && !job->printer && job->state_value > IPP_JSTATE_STOPPED)
         cupsdDeleteJob(job, CUPSD_JOB_PURGE);
 
       continue;

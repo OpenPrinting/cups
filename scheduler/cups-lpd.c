@@ -804,7 +804,7 @@ recv_print_job(
   * Connect to the server...
   */
 
-  http = httpConnect2(cupsGetServer(), ippPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL);
+  http = httpConnect2(cupsGetServer(), ippGetPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL);
   if (!http)
   {
     syslog(LOG_ERR, "Unable to connect to server: %s", strerror(errno));
@@ -1230,7 +1230,7 @@ remove_jobs(const char *dest,		/* I - Destination */
   * Try connecting to the local server...
   */
 
-  if ((http = httpConnect2(cupsGetServer(), ippPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL)) == NULL)
+  if ((http = httpConnect2(cupsGetServer(), ippGetPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL)) == NULL)
   {
     syslog(LOG_ERR, "Unable to connect to server %s: %s", cupsGetServer(),
            strerror(errno));
@@ -1350,7 +1350,7 @@ send_state(const char *queue,		/* I - Destination */
   * Try connecting to the local server...
   */
 
-  if ((http = httpConnect2(cupsGetServer(), ippPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL)) == NULL)
+  if ((http = httpConnect2(cupsGetServer(), ippGetPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL)) == NULL)
   {
     syslog(LOG_ERR, "Unable to connect to server %s: %s", cupsGetServer(),
            strerror(errno));

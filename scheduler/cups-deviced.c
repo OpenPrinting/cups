@@ -269,7 +269,7 @@ main(int  argc,				/* I - Number of command-line args */
   if (getenv("SOFTWARE"))
     puts("Content-Type: application/ipp\n");
 
-  cupsdSendIPPHeader(IPP_OK, request_id);
+  cupsdSendIPPHeader(IPP_STATUS_OK, request_id);
   cupsdSendIPPGroup(IPP_TAG_OPERATION);
   cupsdSendIPPString(IPP_TAG_CHARSET, "attributes-charset", "utf-8");
   cupsdSendIPPString(IPP_TAG_LANGUAGE, "attributes-natural-language", "en-US");

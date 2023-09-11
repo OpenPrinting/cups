@@ -37,7 +37,6 @@ COREOBJS	=	\
 		http-support.o \
 		ipp.o \
 		ipp-file.o \
-		ipp-vars.o \
 		ipp-support.o \
 		langprintf.o \
 		language.o \
@@ -46,6 +45,7 @@ COREOBJS	=	\
 		notify.o \
 		options.o \
 		pwg-media.o \
+		rand.o \
 		raster-error.o \
 		raster-stream.o \
 		raster-stubs.o \
@@ -110,6 +110,7 @@ TESTOBJS	= \
 		testpwg.o \
 		testraster.o \
 		testsnmp.o \
+		testtestpage.o \
 		testthreads.o \
 		tlscheck.o
 OBJS	=	\
@@ -197,6 +198,7 @@ UNITTARGETS =	\
 		testpwg \
 		testraster \
 		testsnmp \
+		testtestpage \
 		testthreads \
 		tlscheck
 
@@ -253,6 +255,8 @@ test:		unittests
 	./testpwg test.ppd >>test.log
 	echo Running raster API tests...
 	./testraster >>test.log
+	echo Running raster testpage API tests...
+	./testtestpage >>test.log
 #	echo Fuzzing IPP API...
 #	./fuzzipp >>test.log
 	echo "Tests finished at $(date)..." >>test.log
@@ -728,6 +732,16 @@ testsnmp:	testsnmp.o $(LIBCUPSSTATIC)
 
 
 #
+# testtestpage (dependency on static CUPS library is intentional)
+#
+
+testtestpage:	testtestpage.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testtestpage.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
 # testthreads (dependency on static CUPS library is intentional)
 #
 
@@ -754,15 +768,10 @@ tlscheck:	tlscheck.o $(LIBCUPSSTATIC)
 apihelp:
 	echo "Generating CUPS Programming Manual..."
 	$(RM) cupspm.xml
-	codedoc --section "Programming" --body cupspm.md \
-		cupspm.xml \
-		array.[ch] auth.c cups.h dest*.c dir.[ch] encode.c file.[ch] \
-		http.h http*.c ipp.h ipp*.c options.c pwg.[ch] \
-		raster.h raster-stubs.c string.c tempfile.c thread.[ch] tls.c tls-openssl.c usersys.c util.c \
-		--coverimage cupspm.png \
-		--epub ../doc/help/cupspm.epub
-	codedoc --section "Programming" --body cupspm.md \
-		cupspm.xml > ../doc/help/cupspm.html
+	codedoc --section "Programming" --body cupspm.md cupspm.xml \
+		$(COREOBJS:.o=.c) $(COREHEADERS) tls-openssl.c \
+		--coverimage cupspm.png --epub ../doc/help/cupspm.epub
+	codedoc --section "Programming" --body cupspm.md cupspm.xml > ../doc/help/cupspm.html
 	$(RM) cupspm.xml
 	echo "Generating Administration APIs help..."
 	codedoc --section "Programming" --title "Administration APIs" \

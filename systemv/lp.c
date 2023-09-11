@@ -624,7 +624,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       return (1);
     }
 
-    if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_OK)
+    if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_STATUS_OK)
     {
       _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
       cupsCancelJob2(CUPS_HTTP_DEFAULT, printer, job_id, 0);
@@ -658,7 +658,7 @@ restart_job(const char *command,	/* I - Command name */
   char		uri[HTTP_MAX_URI];	/* URI for job */
 
 
-  request = ippNewRequest(IPP_RESTART_JOB);
+  request = ippNewRequest(IPP_OP_RESTART_JOB);
 
   snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
 
@@ -681,7 +681,7 @@ restart_job(const char *command,	/* I - Command name */
 		      "name."), command);
     return (1);
   }
-  else if (cupsGetError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
     return (1);
@@ -709,7 +709,7 @@ set_job_attrs(
   if (num_options == 0)
     return (0);
 
-  request = ippNewRequest(IPP_SET_JOB_ATTRIBUTES);
+  request = ippNewRequest(IPP_OP_SET_JOB_ATTRIBUTES);
 
   snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
 
@@ -731,7 +731,7 @@ set_job_attrs(
 		      "name."), command);
     return (1);
   }
-  else if (cupsGetError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
     return (1);

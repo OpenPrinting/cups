@@ -85,7 +85,7 @@ static const char * const http_states[] =
 
 static const char	*http_copy_decode(char *dst, const char *src, size_t dstsize, const char *term, int decode);
 static char		*http_copy_encode(char *dst, const char *src, char *dstend, const char *reserved, const char *term, int encode);
-static void 		http_resolve_cb(cups_dnssd_resolve_t *res, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, const char *host, uint16_t port, size_t num_txt, cups_option_t *txt);
+static void 		http_resolve_cb(cups_dnssd_resolve_t *res, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, const char *host, uint16_t port, int num_txt, cups_option_t *txt);
 
 
 //
@@ -594,7 +594,7 @@ char *					// O - Encoded string
 httpEncode64(char       *out,		// I - String to write to
              const char *in)		// I - String to read from
 {
-  return (httpEncode64_2(out, 512, in, (int)strlen(in)));
+  return (httpEncode64_3(out, 512, in, (size_t)strlen(in), false));
 }
 
 
@@ -610,7 +610,7 @@ httpEncode64_2(char       *out,		// I - String to write to
                const char *in,		// I - String to read from
 	       int        inlen)	// I - Size of input string
 {
-  return (httpEncode64_3(out, outlen, in, inlen, false));
+  return (httpEncode64_3(out, (size_t)outlen, in, (size_t)inlen, false));
 }
 
 
@@ -960,7 +960,7 @@ httpSeparateURI(
     if ((sep = strpbrk(uri, "@/")) != NULL && *sep == '@')
     {
       // Get a username:password combo...
-      uri = http_copy_decode(username, uri, usernamelen, "@", decoding & HTTP_URI_CODING_USERNAME);
+      uri = http_copy_decode(username, uri, (size_t)usernamelen, "@", decoding & HTTP_URI_CODING_USERNAME);
 
       if (!uri)
       {
@@ -993,7 +993,7 @@ httpSeparateURI(
         uri ++;
       }
 
-      uri = http_copy_decode(host, uri, hostlen, "]", decoding & HTTP_URI_CODING_HOSTNAME);
+      uri = http_copy_decode(host, uri, (size_t)hostlen, "]", decoding & HTTP_URI_CODING_HOSTNAME);
 
       if (!uri)
       {
@@ -1051,7 +1051,7 @@ httpSeparateURI(
       }
 
       // Then copy the hostname or IPv4 address to the buffer...
-      uri = http_copy_decode(host, uri, hostlen, ":?/", decoding & HTTP_URI_CODING_HOSTNAME);
+      uri = http_copy_decode(host, uri, (size_t)hostlen, ":?/", decoding & HTTP_URI_CODING_HOSTNAME);
 
       if (!uri)
       {
@@ -1103,20 +1103,20 @@ httpSeparateURI(
 
     // Copy any query string...
     if (*uri == '?')
-      uri = http_copy_decode(resource + 1, uri, resourcelen - 1, NULL, decoding & HTTP_URI_CODING_QUERY);
+      uri = http_copy_decode(resource + 1, uri, (size_t)resourcelen - 1, NULL, decoding & HTTP_URI_CODING_QUERY);
     else
       resource[1] = '\0';
   }
   else
   {
-    uri = http_copy_decode(resource, uri, resourcelen, "?", decoding & HTTP_URI_CODING_RESOURCE);
+    uri = http_copy_decode(resource, uri, (size_t)resourcelen, "?", decoding & HTTP_URI_CODING_RESOURCE);
 
     if (uri && *uri == '?')
     {
       // Concatenate any query string...
       char *resptr = resource + strlen(resource);
 
-      uri = http_copy_decode(resptr, uri, resourcelen - (int)(resptr - resource), NULL, decoding & HTTP_URI_CODING_QUERY);
+      uri = http_copy_decode(resptr, uri, (size_t)(resourcelen - (resptr - resource)), NULL, decoding & HTTP_URI_CODING_QUERY);
     }
   }
 
@@ -1183,7 +1183,7 @@ _httpSetDigestAuthString(
     int		i;			/* Looping var */
     char	cnonce[65];		/* cnonce value */
     const char	*hashalg;		/* Hashing algorithm */
-    const char	*qop;			/* quality of protection */
+    const char	*qop;			/* Quality of Protection */
 
     DEBUG_puts("3_httpSetDigestAuthString: Follow RFC 2617/7616...");
 
@@ -1208,7 +1208,7 @@ _httpSetDigestAuthString(
       return (0);
     }
 
-    if (!_cups_strcasecmp(http->algorithm, "MD5"))
+    if (!http->algorithm[0] || !_cups_strcasecmp(http->algorithm, "MD5"))
     {
       // RFC 2617 Digest with MD5
       if (cg->digestoptions == _CUPS_DIGESTOPTIONS_DENYMD5)
@@ -1540,7 +1540,7 @@ _httpDecodeURI(char       *dst,		// I - Destination buffer
                const char *src,		// I - Source URI
 	       size_t     dstsize)	// I - Size of destination buffer
 {
-  if (http_copy_decode(dst, src, (int)dstsize, NULL, 1))
+  if (http_copy_decode(dst, src, dstsize, NULL, 1))
     return (dst);
   else
     return (NULL);
@@ -1838,7 +1838,7 @@ http_resolve_cb(
     const char           *fullname,	// I - Full service name
     const char           *host,		// I - Hostname
     uint16_t             port,		// I - Port number
-    size_t               num_txt,	// I - Number of TXT key/value pairs
+    int                  num_txt,	// I - Number of TXT key/value pairs
     cups_option_t        *txt)		// I - TXT key/value pairs
 {
   _http_uribuf_t	*uribuf = (_http_uribuf_t *)cb_data;

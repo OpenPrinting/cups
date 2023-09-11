@@ -145,7 +145,7 @@ static char		mandatory_attrs[1024] = "";
  * Local functions...
  */
 
-static void		adjust_options(int num_options, cups_option_t *options);
+static int		adjust_options(int num_options, cups_option_t **options);
 static void		cancel_job(http_t *http, const char *uri, int id,
 			           const char *resource, const char *user,
 				   int version);
@@ -2288,9 +2288,9 @@ main(int  argc,				/* I - Number of command-line args */
  * Support for each PPD x IPP option pair is added adhoc, based on demand.
  */
 
-static void
+static int					/* O - New number of options */
 adjust_options(int num_options,			/* I - Number of options */
-	       cups_option_t *options)		/* I - Array of job options */
+	       cups_option_t **options)		/* I - Array of job options */
 {
   const char *ppd_option_value = NULL;		/* PPD option value */
   const char *ipp_attr_value = NULL;		/* IPP attribute value */
@@ -2301,33 +2301,35 @@ adjust_options(int num_options,			/* I - Number of options */
   if (options == NULL || num_options < 2)
   {
     fprintf(stderr, "DEBUG: adjust_options(): Invalid values.\n");
-    return;
+    return (num_options);
   }
 
  /*
   * PPD option ColorModel and IPP attribute print-color-mode
   */
 
-  ppd_option_value = cupsGetOption("ColorModel", num_options, options);
-  ipp_attr_value = cupsGetOption("print-color-mode", num_options, options);
+  ppd_option_value = cupsGetOption("ColorModel", num_options, *options);
+  ipp_attr_value = cupsGetOption("print-color-mode", num_options, *options);
 
   if (!ppd_option_value || !ipp_attr_value)
-    return;
+    return (num_options);
 
   if (strcmp(ipp_attr_value, "monochrome") && (!strcmp(ppd_option_value, "Gray")
 					       || !strcmp(ppd_option_value, "FastGray")
 					       || !strcmp(ppd_option_value, "DeviceGray")))
   {
     fprintf(stderr, "DEBUG: adjust_options(): Adjusting print-color-mode to monochrome.\n");
-    num_options = cupsAddOption("print-color-mode", "monochrome", num_options, &options);
+    num_options = cupsAddOption("print-color-mode", "monochrome", num_options, options);
   }
   else if (strcmp(ipp_attr_value, "color") && (!strcmp(ppd_option_value, "CMY")
 					       || !strcmp(ppd_option_value, "CMYK")
 					       || !strcmp(ppd_option_value, "RGB")))
   {
     fprintf(stderr, "DEBUG: adjust_options(): Adjusting print-color-mode to color.\n");
-    num_options = cupsAddOption("print-color-mode", "color", num_options, &options);
+    num_options = cupsAddOption("print-color-mode", "color", num_options, options);
   }
+
+  return (num_options);
 }
 
 
@@ -2797,6 +2799,8 @@ new_request(
   const char	*keyword;		/* PWG keyword */
 
 
+  (void)compression; // TODO: Add compression support???
+
  /*
   * Create the IPP request...
   */
@@ -2942,7 +2946,7 @@ new_request(
       */
 
       fputs("DEBUG: Adding all operation/job attributes.\n", stderr);
-      adjust_options(num_options, options);
+      num_options = adjust_options(num_options, &options);
       cupsEncodeOptions2(request, num_options, options, IPP_TAG_OPERATION);
       cupsEncodeOptions2(request, num_options, options, IPP_TAG_JOB);
     }
@@ -2974,8 +2978,8 @@ password_cb(const char *prompt,		/* I - Prompt (not used) */
 
   fprintf(stderr, "DEBUG: password_cb(prompt=\"%s\", http=%p, method=\"%s\", "
                   "resource=\"%s\", password_tries=%p(%d)), password=%p\n",
-          prompt, http, method, resource, password_tries, *password_tries,
-          password);
+          prompt, (void *)http, method, resource, (void *)password_tries, *password_tries,
+          (void *)password);
 
   (void)prompt;
   (void)method;

@@ -155,7 +155,7 @@ backendRunLoop(
   fprintf(stderr,
           "DEBUG: backendRunLoop(print_fd=%d, device_fd=%d, snmp_fd=%d, "
 	  "addr=%p, use_bc=%d, side_cb=%p)\n",
-          print_fd, device_fd, snmp_fd, addr, use_bc, side_cb);
+          print_fd, device_fd, snmp_fd, (void *)addr, use_bc, (void *)side_cb);
 
  /*
   * If we are printing data from a print driver on stdin, ignore SIGTERM
@@ -420,7 +420,7 @@ backendWaitLoop(
 
 
   fprintf(stderr, "DEBUG: backendWaitLoop(snmp_fd=%d, addr=%p, side_cb=%p)\n",
-	  snmp_fd, addr, side_cb);
+	  snmp_fd, (void *)addr, (void *)side_cb);
 
  /*
   * Now loop until we receive data from stdin...

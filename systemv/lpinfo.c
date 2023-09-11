@@ -293,7 +293,7 @@ show_devices(
     const char *exclude_schemes)	/* I - List of schemes to exclude */
 {
   if (cupsGetDevices(CUPS_HTTP_DEFAULT, timeout, include_schemes,
-                     exclude_schemes, device_cb, &long_status) != IPP_OK)
+                     exclude_schemes, device_cb, &long_status) != IPP_STATUS_OK)
   {
     _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
     return (1);
@@ -331,7 +331,7 @@ show_models(
   * Build a CUPS_GET_PPDS request...
   */
 
-  request = ippNewRequest(CUPS_GET_PPDS);
+  request = ippNewRequest(IPP_OP_CUPS_GET_PPDS);
 
   if (device_id)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT, "ppd-device-id",
@@ -372,7 +372,7 @@ show_models(
     * Loop through the device list and display them...
     */
 
-    if (response->request.status.status_code > IPP_OK_CONFLICT)
+    if (response->request.status.status_code > IPP_STATUS_OK_CONFLICTING)
     {
       _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
       ippDelete(response);

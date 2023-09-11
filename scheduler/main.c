@@ -1455,11 +1455,11 @@ process_children(void)
 	      job->status = -status;	/* Backend failed */
 
 	      if (job->current_file < job->num_files)
-	        cupsdSetJobState(job, IPP_JOB_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
+	        cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
 	    }
           }
 
-	  if (job->state_value == IPP_JOB_PROCESSING &&
+	  if (job->state_value == IPP_JSTATE_PROCESSING &&
 	      job->status_level > CUPSD_LOG_ERROR &&
 	      (job->filters[i] || !WIFEXITED(status)))
 	  {
@@ -1500,7 +1500,7 @@ process_children(void)
 	* filters are done, and if so move to the next file.
 	*/
 
-	if (job->state_value >= IPP_JOB_CANCELED)
+	if (job->state_value >= IPP_JSTATE_CANCELED)
 	{
 	 /*
 	  * Remove the job from the active list if there are no processes still
@@ -1705,13 +1705,13 @@ select_timeout(int fds)			/* I - Number of descriptors returned */
       why     = "kill unresponsive jobs";
     }
 
-    if (job->state_value == IPP_JOB_HELD && job->hold_until < timeout)
+    if (job->state_value == IPP_JSTATE_HELD && job->hold_until < timeout)
     {
       timeout = job->hold_until;
       why     = "release held jobs";
     }
 
-    if (job->state_value == IPP_JOB_PENDING && timeout > (now + 10))
+    if (job->state_value == IPP_JSTATE_PENDING && timeout > (now + 10))
     {
       timeout = now + 10;
       why     = "start pending jobs";

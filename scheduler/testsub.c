@@ -101,8 +101,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Connect to the server...
   */
 
-  if ((http = httpConnectEncrypt(cupsServer(), ippPort(),
-                                 cupsEncryption())) == NULL)
+  if ((http = httpConnect2(cupsGetServer(), ippGetPort(), NULL, AF_UNSPEC, cupsGetEncryption(), 1, 30000, NULL)) == NULL)
   {
     perror(cupsServer());
     return (1);
@@ -125,12 +124,12 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (strstr(uri, "/jobs/"))
   {
-    request = ippNewRequest(IPP_CREATE_JOB_SUBSCRIPTION);
+    request = ippNewRequest(IPP_OP_CREATE_JOB_SUBSCRIPTIONS);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, uri);
   }
   else
   {
-    request = ippNewRequest(IPP_CREATE_PRINTER_SUBSCRIPTION);
+    request = ippNewRequest(IPP_OP_CREATE_PRINTER_SUBSCRIPTIONS);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
                  uri);
   }
@@ -144,7 +143,7 @@ main(int  argc,				/* I - Number of command-line arguments */
                "notify-pull-method", NULL, "ippget");
 
   response = cupsDoRequest(http, request, uri);
-  if (cupsGetError() >= IPP_BAD_REQUEST)
+  if (cupsGetError() >= IPP_STATUS_ERROR_BAD_REQUEST)
   {
     fprintf(stderr, "Create-%s-Subscription: %s\n",
             strstr(uri, "/jobs") ? "Job" : "Printer", cupsGetErrorString());
@@ -184,7 +183,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     printf("\nGet-Notifications(%d,%d):", subscription_id, sequence_number);
     fflush(stdout);
 
-    request = ippNewRequest(IPP_GET_NOTIFICATIONS);
+    request = ippNewRequest(IPP_OP_GET_NOTIFICATIONS);
 
     if (strstr(uri, "/jobs/"))
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, uri);
@@ -205,7 +204,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     printf(" %s\n", ippErrorString(cupsGetError()));
 
-    if (cupsGetError() >= IPP_BAD_REQUEST)
+    if (cupsGetError() >= IPP_STATUS_ERROR_BAD_REQUEST)
       fprintf(stderr, "Get-Notifications: %s\n", cupsGetErrorString());
     else if (response)
     {
@@ -238,7 +237,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   printf("\nCancel-Subscription:");
   fflush(stdout);
 
-  request = ippNewRequest(IPP_CANCEL_SUBSCRIPTION);
+  request = ippNewRequest(IPP_OP_CANCEL_SUBSCRIPTION);
 
   if (strstr(uri, "/jobs/"))
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", NULL, uri);
@@ -256,7 +255,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   printf(" %s\n", ippErrorString(cupsGetError()));
 
-  if (cupsGetError() >= IPP_BAD_REQUEST)
+  if (cupsGetError() >= IPP_STATUS_ERROR_BAD_REQUEST)
     fprintf(stderr, "Cancel-Subscription: %s\n", cupsGetErrorString());
 
  /*

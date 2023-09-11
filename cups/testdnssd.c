@@ -37,7 +37,7 @@ typedef struct testdata_s		// Test data structure
 static void	browse_cb(cups_dnssd_browse_t *browse, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *name, const char *regtype, const char *domain);
 static void	error_cb(void *cb_data, const char *message);
 static void	query_cb(cups_dnssd_query_t *query, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, uint16_t rrtype, const void *qdata, uint16_t qlen);
-static void	resolve_cb(cups_dnssd_resolve_t *res, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, const char *host, uint16_t port, size_t num_txt, cups_option_t *txt);
+static void	resolve_cb(cups_dnssd_resolve_t *res, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, const char *host, uint16_t port, int num_txt, cups_option_t *txt);
 static void	service_cb(cups_dnssd_service_t *service, void *cb_data, cups_dnssd_flags_t flags);
 static void	usage(const char *arg);
 
@@ -325,12 +325,12 @@ resolve_cb(
     const char           *fullname,	// I - Full service name
     const char           *host,		// I - Hostname
     uint16_t             port,		// I - Port number
-    size_t               num_txt,	// I - Number of key/value pairs in TXT record
+    int                  num_txt,	// I - Number of key/value pairs in TXT record
     cups_option_t        *txt)		// I - Key/value pairs
 {
   testdata_t	*data = (testdata_t *)cb_data;
 					// Test data
-  size_t	i;			// Looping var
+  int		i;			// Looping var
   char		message[2048],		// Message string
 		*mptr;			// Pointer into message string
   const char	*prefix = " txt=";	// Prefix string

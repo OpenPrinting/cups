@@ -126,18 +126,18 @@ main(int  argc,				/* I - Number of command-line arguments */
     */
 
     msg = ippNew();
-    while ((state = ippReadFile(0, msg)) != IPP_DATA)
+    while ((state = ippReadFile(0, msg)) != IPP_STATE_DATA)
     {
-      if (state <= IPP_IDLE)
+      if (state <= IPP_STATE_IDLE)
         break;
     }
 
     fprintf(stderr, "DEBUG: state=%d\n", state);
 
-    if (state == IPP_ERROR)
+    if (state == IPP_STATE_ERROR)
       fputs("DEBUG: ippReadFile() returned IPP_ERROR!\n", stderr);
 
-    if (state <= IPP_IDLE)
+    if (state <= IPP_STATE_IDLE)
     {
      /*
       * Out of messages, free memory and then exit...

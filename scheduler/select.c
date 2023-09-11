@@ -207,7 +207,7 @@ cupsdAddSelect(int             fd,	// I - File descriptor
 
 
   // Range check input...
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddSelect(fd=%d, read_cb=%p, write_cb=%p, data=%p)", fd, read_cb, write_cb, data);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddSelect(fd=%d, read_cb=%p, write_cb=%p, data=%p)", fd, (void *)read_cb, (void *)write_cb, (void *)data);
 
   if (fd < 0)
     return (0);

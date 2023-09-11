@@ -404,7 +404,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       return (1);
     }
 
-    if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_OK)
+    if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_STATUS_OK)
     {
       _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
       cupsCancelJob2(CUPS_HTTP_DEFAULT, printer, job_id, 0);

@@ -92,7 +92,7 @@ cupsdDeregisterPrinter(
   */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG,
-                  "cupsdDeregisterPrinter(p=%p(%s), removeit=%d)", p, p->name,
+                  "cupsdDeregisterPrinter(p=%p(%s), removeit=%d)", (void *)p, p->name,
 		  removeit);
 
   if (!Browsing || !p->shared ||
@@ -118,7 +118,7 @@ cupsdDeregisterPrinter(
 void
 cupsdRegisterPrinter(cupsd_printer_t *p)/* I - Printer */
 {
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdRegisterPrinter(p=%p(%s))", p,
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdRegisterPrinter(p=%p(%s))", (void *)p,
                   p->name);
 
   if (!Browsing || !BrowseLocalProtocols ||
@@ -705,7 +705,7 @@ dnssdDeregisterPrinter(
 
 {
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
-                  "dnssdDeregisterPrinter(p=%p(%s), clear_name=%d)", p, p->name,
+                  "dnssdDeregisterPrinter(p=%p(%s), clear_name=%d)", (void *)p, p->name,
                   clear_name);
 
   if (p->ipp_srv)
@@ -1583,7 +1583,7 @@ get_auth_info_required(
 
   if ((auth = cupsdFindBest(resource, HTTP_STATE_POST)) == NULL ||
       auth->type == CUPSD_AUTH_NONE)
-    auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_PRINT_JOB);
+    auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_OP_PRINT_JOB);
 
   if (auth)
   {

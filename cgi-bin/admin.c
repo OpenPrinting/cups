@@ -347,7 +347,7 @@ do_am_class(http_t *http,		/* I - HTTP connection */
     *    attributes-natural-language
     */
 
-    request = ippNewRequest(CUPS_GET_PRINTERS);
+    request = ippNewRequest(IPP_OP_CUPS_GET_PRINTERS);
 
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_ENUM, "printer-type",
 		  CUPS_PRINTER_LOCAL);
@@ -421,7 +421,7 @@ do_am_class(http_t *http,		/* I - HTTP connection */
       *    printer-uri
       */
 
-      request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
+      request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 
       httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                        "localhost", 0, "/classes/%s", name);
@@ -536,7 +536,7 @@ do_am_class(http_t *http,		/* I - HTTP connection */
   *    member-uris
   */
 
-  request = ippNewRequest(CUPS_ADD_CLASS);
+  request = ippNewRequest(IPP_OP_CUPS_ADD_MODIFY_CLASS);
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                    "localhost", 0, "/classes/%s", name);
@@ -552,7 +552,7 @@ do_am_class(http_t *http,		/* I - HTTP connection */
   ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-accepting-jobs", 1);
 
   ippAddInteger(request, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state",
-                IPP_PRINTER_IDLE);
+                IPP_PSTATE_IDLE);
 
   if ((num_printers = cgiGetSize("MEMBER_URIS")) > 0)
   {
@@ -568,12 +568,12 @@ do_am_class(http_t *http,		/* I - HTTP connection */
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsGetError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsGetError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     cgiStartHTML(title);
     cgiShowIPPError(modify ? _("Unable to modify class") :
@@ -660,7 +660,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     *    printer-uri
     */
 
-    request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
+    request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s",
@@ -799,7 +799,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     current_device = 0;
     if (cupsGetDevices(http, 5, CUPS_INCLUDE_ALL, CUPS_EXCLUDE_NONE,
                        (cups_device_cb_t)choose_device_cb,
-		       (void *)title) == IPP_OK)
+		       (void *)title) == IPP_STATUS_OK)
     {
       fputs("DEBUG: Got device list!\n", stderr);
 
@@ -819,7 +819,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       fprintf(stderr,
               "ERROR: CUPS-Get-Devices request failed with status %x: %s\n",
 	      cupsGetError(), cupsGetErrorString());
-      if (cupsGetError() == IPP_NOT_AUTHORIZED)
+      if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
       {
 	puts("Status: 401\n");
 	exit(0);
@@ -1010,7 +1010,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     *    printer-uri
     */
 
-    request = ippNewRequest(CUPS_GET_PPDS);
+    request = ippNewRequest(IPP_OP_CUPS_GET_PPDS);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                  NULL, "ipp://localhost/printers/");
@@ -1051,7 +1051,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
         ippDelete(response);
 
-	request = ippNewRequest(CUPS_GET_PPDS);
+	request = ippNewRequest(IPP_OP_CUPS_GET_PPDS);
 
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                      NULL, "ipp://localhost/printers/");
@@ -1115,7 +1115,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     *    printer-state
     */
 
-    request = ippNewRequest(CUPS_ADD_PRINTER);
+    request = ippNewRequest(IPP_OP_CUPS_ADD_MODIFY_PRINTER);
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s",
@@ -1171,7 +1171,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
                   var && (!strcmp(var, "1") || !strcmp(var, "on")));
 
     ippAddInteger(request, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state",
-                  IPP_PRINTER_IDLE);
+                  IPP_PSTATE_IDLE);
 
    /*
     * Do the request and get back a response...
@@ -1187,12 +1187,12 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     else
       ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-    if (cupsGetError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsGetError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       cgiStartHTML(title);
       cgiShowIPPError(modify ? _("Unable to modify printer") :
@@ -1484,7 +1484,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 
       if (!cupsAdminSetServerSettings(http, num_newsettings, newsettings))
       {
-        if (cupsGetError() == IPP_NOT_AUTHORIZED)
+        if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
 	{
 	  puts("Status: 401\n");
 	  exit(0);
@@ -1816,7 +1816,7 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
   *    printer-uri
   */
 
-  request = ippNewRequest(CUPS_DELETE_CLASS);
+  request = ippNewRequest(IPP_OP_CUPS_DELETE_CLASS);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                NULL, uri);
@@ -1831,12 +1831,12 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
   * Show the results...
   */
 
-  if (cupsGetError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsGetError() <= IPP_OK_CONFLICT)
+  else if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
   {
    /*
     * Redirect successful updates back to the classes page...
@@ -1847,7 +1847,7 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
 
   cgiStartHTML(cgiText(_("Delete Class")));
 
-  if (cupsGetError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     cgiShowIPPError(_("Unable to delete class"));
   else
     cgiCopyTemplateLang("class-deleted.tmpl");
@@ -1901,7 +1901,7 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
   *    printer-uri
   */
 
-  request = ippNewRequest(CUPS_DELETE_PRINTER);
+  request = ippNewRequest(IPP_OP_CUPS_DELETE_PRINTER);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                NULL, uri);
@@ -1916,12 +1916,12 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
   * Show the results...
   */
 
-  if (cupsGetError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsGetError() <= IPP_OK_CONFLICT)
+  else if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
   {
    /*
     * Redirect successful updates back to the printers page...
@@ -1932,7 +1932,7 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
 
   cgiStartHTML(cgiText(_("Delete Printer")));
 
-  if (cupsGetError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     cgiShowIPPError(_("Unable to delete printer"));
   else
     cgiCopyTemplateLang("printer-deleted.tmpl");
@@ -1960,7 +1960,7 @@ do_list_printers(http_t *http)		/* I - HTTP connection */
   * Get the list of printers and their devices...
   */
 
-  request = ippNewRequest(CUPS_GET_PRINTERS);
+  request = ippNewRequest(IPP_OP_CUPS_GET_PRINTERS);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                "requested-attributes", NULL, "device-uri");
@@ -2000,7 +2000,7 @@ do_list_printers(http_t *http)		/* I - HTTP connection */
 
     ippDelete(response);
 
-    request = ippNewRequest(CUPS_GET_DEVICES);
+    request = ippNewRequest(IPP_OP_CUPS_GET_DEVICES);
 
     if ((response = cupsDoRequest(http, request, "/")) != NULL)
     {
@@ -2316,7 +2316,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
     *    requested-attributes
     */
 
-    request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
+    request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, is_class ? "/classes/%s" : "/printers/%s",
@@ -2341,12 +2341,12 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 
     cgiStartHTML(cgiText(_("Set Allowed Users")));
 
-    if (cupsGetError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsGetError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
       cgiShowIPPError(_("Unable to get printer attributes"));
     else
       cgiCopyTemplateLang("users.tmpl");
@@ -2411,7 +2411,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
     *    requesting-user-name-{allowed,denied}
     */
 
-    request = ippNewRequest(is_class ? CUPS_ADD_CLASS : CUPS_ADD_PRINTER);
+    request = ippNewRequest(is_class ? IPP_OP_CUPS_ADD_MODIFY_CLASS : IPP_OP_CUPS_ADD_MODIFY_PRINTER);
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, is_class ? "/classes/%s" : "/printers/%s",
@@ -2489,12 +2489,12 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 
     ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-    if (cupsGetError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsGetError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       cgiStartHTML(cgiText(_("Set Allowed Users")));
       cgiShowIPPError(_("Unable to change printer"));
@@ -2562,7 +2562,7 @@ do_set_default(http_t *http)		/* I - HTTP connection */
   *    printer-uri
   */
 
-  request = ippNewRequest(CUPS_SET_DEFAULT);
+  request = ippNewRequest(IPP_OP_CUPS_SET_DEFAULT);
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                    "localhost", 0, is_class ? "/classes/%s" : "/printers/%s",
@@ -2576,12 +2576,12 @@ do_set_default(http_t *http)		/* I - HTTP connection */
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsGetError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsGetError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     cgiStartHTML(title);
     cgiShowIPPError(_("Unable to set server default"));
@@ -2764,7 +2764,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     * Get the printer attributes...
     */
 
-    request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
+    request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s", printer);
@@ -3277,8 +3277,8 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     *    [ppd file]
     */
 
-    request = ippNewRequest(is_class ? CUPS_ADD_MODIFY_CLASS :
-                                       CUPS_ADD_MODIFY_PRINTER);
+    request = ippNewRequest(is_class ? IPP_OP_CUPS_ADD_MODIFY_CLASS :
+                                       IPP_OP_CUPS_ADD_MODIFY_PRINTER);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                  NULL, uri);
@@ -3309,12 +3309,12 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     else
       ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-    if (cupsGetError() == IPP_NOT_AUTHORIZED)
+    if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
     {
       puts("Status: 401\n");
       exit(0);
     }
-    else if (cupsGetError() > IPP_OK_CONFLICT)
+    else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       cgiStartHTML(title);
       cgiShowIPPError(_("Unable to set options"));
@@ -3387,7 +3387,7 @@ do_set_sharing(http_t *http)		/* I - HTTP connection */
   *    printer-is-shared
   */
 
-  request = ippNewRequest(is_class ? CUPS_ADD_CLASS : CUPS_ADD_PRINTER);
+  request = ippNewRequest(is_class ? IPP_OP_CUPS_ADD_MODIFY_CLASS : IPP_OP_CUPS_ADD_MODIFY_PRINTER);
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                    "localhost", 0, is_class ? "/classes/%s" : "/printers/%s",
@@ -3408,12 +3408,12 @@ do_set_sharing(http_t *http)		/* I - HTTP connection */
     ippDelete(response);
   }
 
-  if (cupsGetError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsGetError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     cgiStartHTML(cgiText(_("Set Publishing")));
     cgiShowIPPError(_("Unable to change printer-is-shared attribute"));

@@ -1363,34 +1363,34 @@ cupsdReadConfiguration(void)
 	cupsdAddString(&(p->job_attrs), "notify-user-data");
 
 	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Create-Job Print-Job Print-URI Validate-Job>");
-	  po = cupsdAddPolicyOp(p, NULL, IPP_CREATE_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_PRINT_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_PRINT_URI);
-	  cupsdAddPolicyOp(p, po, IPP_VALIDATE_JOB);
+	  po = cupsdAddPolicyOp(p, NULL, IPP_OP_CREATE_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_PRINT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_PRINT_URI);
+	  cupsdAddPolicyOp(p, po, IPP_OP_VALIDATE_JOB);
 
 	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
 	  po->order_type = CUPSD_AUTH_ALLOW;
 	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
 	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job>");
-	  po = cupsdAddPolicyOp(p, NULL, IPP_SEND_DOCUMENT);
-	  cupsdAddPolicyOp(p, po, IPP_SEND_URI);
-	  cupsdAddPolicyOp(p, po, IPP_HOLD_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_RELEASE_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_RESTART_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_PURGE_JOBS);
-	  cupsdAddPolicyOp(p, po, IPP_SET_JOB_ATTRIBUTES);
-	  cupsdAddPolicyOp(p, po, IPP_CREATE_JOB_SUBSCRIPTION);
-	  cupsdAddPolicyOp(p, po, IPP_RENEW_SUBSCRIPTION);
-	  cupsdAddPolicyOp(p, po, IPP_CANCEL_SUBSCRIPTION);
-	  cupsdAddPolicyOp(p, po, IPP_GET_NOTIFICATIONS);
-	  cupsdAddPolicyOp(p, po, IPP_REPROCESS_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_CANCEL_CURRENT_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_SUSPEND_CURRENT_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_RESUME_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_CANCEL_MY_JOBS);
-	  cupsdAddPolicyOp(p, po, IPP_CLOSE_JOB);
-	  cupsdAddPolicyOp(p, po, CUPS_MOVE_JOB);
+	  po = cupsdAddPolicyOp(p, NULL, IPP_OP_SEND_DOCUMENT);
+	  cupsdAddPolicyOp(p, po, IPP_OP_SEND_URI);
+	  cupsdAddPolicyOp(p, po, IPP_OP_HOLD_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_RELEASE_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_RESTART_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_PURGE_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_SET_JOB_ATTRIBUTES);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CREATE_JOB_SUBSCRIPTIONS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_RENEW_SUBSCRIPTION);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CANCEL_SUBSCRIPTION);
+	  cupsdAddPolicyOp(p, po, IPP_OP_GET_NOTIFICATIONS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_REPROCESS_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CANCEL_CURRENT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_SUSPEND_CURRENT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_RESUME_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CANCEL_MY_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CLOSE_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_MOVE_JOB);
 
 	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
 	  po->order_type = CUPSD_AUTH_ALLOW;
@@ -1402,7 +1402,7 @@ cupsdReadConfiguration(void)
 	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
 	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit CUPS-Authenticate-Job>");
-	  po = cupsdAddPolicyOp(p, NULL, CUPS_GET_DOCUMENT);
+	  po = cupsdAddPolicyOp(p, NULL, IPP_OP_CUPS_GET_DOCUMENT);
 
 	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
 	  po->order_type = CUPSD_AUTH_ALLOW;
@@ -1417,29 +1417,29 @@ cupsdReadConfiguration(void)
 	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
 	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Pause-Printer Resume-Printer  Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Add-Printer CUPS-Delete-Printer CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs CUPS-Set-Default>");
-	  po = cupsdAddPolicyOp(p, NULL, IPP_PAUSE_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_RESUME_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_SET_PRINTER_ATTRIBUTES);
-	  cupsdAddPolicyOp(p, po, IPP_ENABLE_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_DISABLE_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_PAUSE_PRINTER_AFTER_CURRENT_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_HOLD_NEW_JOBS);
-	  cupsdAddPolicyOp(p, po, IPP_RELEASE_HELD_NEW_JOBS);
-	  cupsdAddPolicyOp(p, po, IPP_DEACTIVATE_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_ACTIVATE_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_RESTART_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_SHUTDOWN_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_STARTUP_PRINTER);
-	  cupsdAddPolicyOp(p, po, IPP_PROMOTE_JOB);
-	  cupsdAddPolicyOp(p, po, IPP_SCHEDULE_JOB_AFTER);
-	  cupsdAddPolicyOp(p, po, IPP_CANCEL_JOBS);
-	  cupsdAddPolicyOp(p, po, CUPS_ADD_PRINTER);
-	  cupsdAddPolicyOp(p, po, CUPS_DELETE_PRINTER);
-	  cupsdAddPolicyOp(p, po, CUPS_ADD_CLASS);
-	  cupsdAddPolicyOp(p, po, CUPS_DELETE_CLASS);
-	  cupsdAddPolicyOp(p, po, CUPS_ACCEPT_JOBS);
-	  cupsdAddPolicyOp(p, po, CUPS_REJECT_JOBS);
-	  cupsdAddPolicyOp(p, po, CUPS_SET_DEFAULT);
+	  po = cupsdAddPolicyOp(p, NULL, IPP_OP_PAUSE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_RESUME_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_SET_PRINTER_ATTRIBUTES);
+	  cupsdAddPolicyOp(p, po, IPP_OP_ENABLE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_DISABLE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_PAUSE_PRINTER_AFTER_CURRENT_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_HOLD_NEW_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_RELEASE_HELD_NEW_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_DEACTIVATE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_ACTIVATE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_RESTART_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_SHUTDOWN_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_STARTUP_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_PROMOTE_JOB);
+	  cupsdAddPolicyOp(p, po, IPP_OP_SCHEDULE_JOB_AFTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CANCEL_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_ADD_MODIFY_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_DELETE_PRINTER);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_ADD_MODIFY_CLASS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_DELETE_CLASS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_ACCEPT_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_REJECT_JOBS);
+	  cupsdAddPolicyOp(p, po, IPP_OP_CUPS_SET_DEFAULT);
 
 	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
 	  po->order_type = CUPSD_AUTH_ALLOW;
@@ -1453,7 +1453,7 @@ cupsdReadConfiguration(void)
 	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
 	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit Cancel-Job>");
-	  po = cupsdAddPolicyOp(p, NULL, IPP_CANCEL_JOB);
+	  po = cupsdAddPolicyOp(p, NULL, IPP_OP_CANCEL_JOB);
 
 	  cupsdLogMessage(CUPSD_LOG_INFO, "Order Deny,Allow");
 	  po->order_type = CUPSD_AUTH_ALLOW;
@@ -1465,7 +1465,7 @@ cupsdReadConfiguration(void)
 	cupsdLogMessage(CUPSD_LOG_INFO, "</Limit>");
 
 	cupsdLogMessage(CUPSD_LOG_INFO, "<Limit CUPS-Authenticate-Job>");
-	  po = cupsdAddPolicyOp(p, NULL, CUPS_AUTHENTICATE_JOB);
+	  po = cupsdAddPolicyOp(p, NULL, IPP_OP_CUPS_AUTHENTICATE_JOB);
 
 	  cupsdLogMessage(CUPSD_LOG_INFO, "AuthType Default");
 	  po->type = CUPSD_AUTH_DEFAULT;
@@ -4144,10 +4144,10 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
 
   if (cupsArrayCount(pol->ops) > 1)
   {
-    if ((op = cupsdFindPolicyOp(pol, IPP_VALIDATE_JOB)) == NULL ||
+    if ((op = cupsdFindPolicyOp(pol, IPP_OP_VALIDATE_JOB)) == NULL ||
 	op->op == IPP_ANY_OPERATION)
     {
-      if ((op = cupsdFindPolicyOp(pol, IPP_PRINT_JOB)) != NULL &&
+      if ((op = cupsdFindPolicyOp(pol, IPP_OP_PRINT_JOB)) != NULL &&
 	  op->op != IPP_ANY_OPERATION)
       {
        /*
@@ -4157,16 +4157,16 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
 
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Validate-Job defined in policy %s - using Print-Job's policy.", pol->name);
 
-	cupsdAddPolicyOp(pol, op, IPP_VALIDATE_JOB);
+	cupsdAddPolicyOp(pol, op, IPP_OP_VALIDATE_JOB);
       }
       else
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Validate-Job defined in policy %s and no suitable template found.", pol->name);
     }
 
-    if ((op = cupsdFindPolicyOp(pol, IPP_CANCEL_JOBS)) == NULL ||
+    if ((op = cupsdFindPolicyOp(pol, IPP_OP_CANCEL_JOBS)) == NULL ||
 	op->op == IPP_ANY_OPERATION)
     {
-      if ((op = cupsdFindPolicyOp(pol, IPP_PAUSE_PRINTER)) != NULL &&
+      if ((op = cupsdFindPolicyOp(pol, IPP_OP_PAUSE_PRINTER)) != NULL &&
 	  op->op != IPP_ANY_OPERATION)
       {
        /*
@@ -4176,16 +4176,16 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
 
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Cancel-Jobs defined in policy %s - using Pause-Printer's policy.", pol->name);
 
-	cupsdAddPolicyOp(pol, op, IPP_CANCEL_JOBS);
+	cupsdAddPolicyOp(pol, op, IPP_OP_CANCEL_JOBS);
       }
       else
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Cancel-Jobs defined in policy %s and no suitable template found.", pol->name);
     }
 
-    if ((op = cupsdFindPolicyOp(pol, IPP_CANCEL_MY_JOBS)) == NULL ||
+    if ((op = cupsdFindPolicyOp(pol, IPP_OP_CANCEL_MY_JOBS)) == NULL ||
 	op->op == IPP_ANY_OPERATION)
     {
-      if ((op = cupsdFindPolicyOp(pol, IPP_SEND_DOCUMENT)) != NULL &&
+      if ((op = cupsdFindPolicyOp(pol, IPP_OP_SEND_DOCUMENT)) != NULL &&
 	  op->op != IPP_ANY_OPERATION)
       {
        /*
@@ -4195,16 +4195,16 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
 
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Cancel-My-Jobs defined in policy %s - using Send-Document's policy.", pol->name);
 
-	cupsdAddPolicyOp(pol, op, IPP_CANCEL_MY_JOBS);
+	cupsdAddPolicyOp(pol, op, IPP_OP_CANCEL_MY_JOBS);
       }
       else
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Cancel-My-Jobs defined in policy %s and no suitable template found.", pol->name);
     }
 
-    if ((op = cupsdFindPolicyOp(pol, IPP_CLOSE_JOB)) == NULL ||
+    if ((op = cupsdFindPolicyOp(pol, IPP_OP_CLOSE_JOB)) == NULL ||
 	op->op == IPP_ANY_OPERATION)
     {
-      if ((op = cupsdFindPolicyOp(pol, IPP_SEND_DOCUMENT)) != NULL &&
+      if ((op = cupsdFindPolicyOp(pol, IPP_OP_SEND_DOCUMENT)) != NULL &&
 	  op->op != IPP_ANY_OPERATION)
       {
        /*
@@ -4214,16 +4214,16 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
 
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Close-Job defined in policy %s - using Send-Document's policy.", pol->name);
 
-	cupsdAddPolicyOp(pol, op, IPP_CLOSE_JOB);
+	cupsdAddPolicyOp(pol, op, IPP_OP_CLOSE_JOB);
       }
       else
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Close-Job defined in policy %s and no suitable template found.", pol->name);
     }
 
-    if ((op = cupsdFindPolicyOp(pol, CUPS_GET_DOCUMENT)) == NULL ||
+    if ((op = cupsdFindPolicyOp(pol, IPP_OP_CUPS_GET_DOCUMENT)) == NULL ||
 	op->op == IPP_ANY_OPERATION)
     {
-      if ((op = cupsdFindPolicyOp(pol, IPP_SEND_DOCUMENT)) != NULL &&
+      if ((op = cupsdFindPolicyOp(pol, IPP_OP_SEND_DOCUMENT)) != NULL &&
 	  op->op != IPP_ANY_OPERATION)
       {
        /*
@@ -4233,7 +4233,7 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
 
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for CUPS-Get-Document defined in policy %s - using Send-Document's policy.", pol->name);
 
-	cupsdAddPolicyOp(pol, op, CUPS_GET_DOCUMENT);
+	cupsdAddPolicyOp(pol, op, IPP_OP_CUPS_GET_DOCUMENT);
       }
       else
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for CUPS-Get-Document defined in policy %s and no suitable template found.", pol->name);

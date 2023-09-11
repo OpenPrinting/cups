@@ -1338,7 +1338,7 @@ get_job_file(const char *job)		/* I - Job ID */
     exit(1);
   }
 
-  request = ippNewRequest(CUPS_GET_DOCUMENT);
+  request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
 
   snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", (int)jobid);
 
@@ -1361,7 +1361,7 @@ get_job_file(const char *job)		/* I - Job ID */
 
   httpClose(http);
 
-  if (cupsGetError() != IPP_OK)
+  if (cupsGetError() != IPP_STATUS_OK)
   {
     _cupsLangPrintf(stderr, _("cupsfilter: Unable to get job file - %s"),
                     cupsGetErrorString());

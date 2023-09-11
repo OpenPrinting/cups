@@ -93,7 +93,7 @@ cupsdAddPrinter(const char *name)	/* I - Name of printer */
   cupsdSetDeviceURI(p, "file:///dev/null");
 
   p->config_time = time(NULL);
-  p->state       = IPP_PRINTER_STOPPED;
+  p->state       = IPP_PSTATE_STOPPED;
   p->state_time  = time(NULL);
   p->accepting   = 0;
   p->shared      = DefaultShared;
@@ -182,10 +182,10 @@ cupsdCreateCommonData(void)
 		};
   static const int orients[4] =/* orientation-requested-supported values */
 		{
-		  IPP_PORTRAIT,
-		  IPP_LANDSCAPE,
-		  IPP_REVERSE_LANDSCAPE,
-		  IPP_REVERSE_PORTRAIT
+		  IPP_ORIENT_PORTRAIT,
+		  IPP_ORIENT_LANDSCAPE,
+		  IPP_ORIENT_REVERSE_LANDSCAPE,
+		  IPP_ORIENT_REVERSE_PORTRAIT
 		};
   static const char * const holds[] =	/* job-hold-until-supported values */
 		{
@@ -620,7 +620,7 @@ cupsdDeletePrinter(
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdDeletePrinter(p=%p(%s), update=%d)",
-                  p, p->name, update);
+                  (void *)p, p->name, update);
 
  /*
   * Save the current position in the Printers array...
@@ -632,12 +632,12 @@ cupsdDeletePrinter(
   * Stop printing on this printer...
   */
 
-  cupsdSetPrinterState(p, IPP_PRINTER_STOPPED, update);
+  cupsdSetPrinterState(p, IPP_PSTATE_STOPPED, update);
 
-  p->state = IPP_PRINTER_STOPPED;	/* Force for browsed printers */
+  p->state = IPP_PSTATE_STOPPED;	/* Force for browsed printers */
 
   if (p->job)
-    cupsdSetJobState(p->job, IPP_JOB_PENDING, CUPSD_JOB_FORCE,
+    cupsdSetJobState(p->job, IPP_JSTATE_PENDING, CUPSD_JOB_FORCE,
                      update ? "Job stopped due to printer being deleted." :
 		              "Job stopped.");
 
@@ -891,7 +891,7 @@ cupsdLoadAllPrinters(void)
 
         p = cupsdAddPrinter(value);
 	p->accepting = 1;
-	p->state     = IPP_PRINTER_IDLE;
+	p->state     = IPP_PSTATE_IDLE;
 
        /*
         * Set the default printer as needed...
@@ -944,7 +944,7 @@ cupsdLoadAllPrinters(void)
 	  }
 	}
 
-        if (strncmp(p->device_uri, "file:", 5) && p->state != IPP_PRINTER_STOPPED)
+        if (strncmp(p->device_uri, "file:", 5) && p->state != IPP_PSTATE_STOPPED)
 	{
 	 /*
           * See if the backend exists...
@@ -961,7 +961,7 @@ cupsdLoadAllPrinters(void)
 	    * Backend does not exist, stop printer...
 	    */
 
-	    p->state = IPP_PRINTER_STOPPED;
+	    p->state = IPP_PSTATE_STOPPED;
 	    snprintf(p->state_message, sizeof(p->state_message), "Backend %s does not exist!", line);
 	  }
         }
@@ -1090,10 +1090,10 @@ cupsdLoadAllPrinters(void)
       */
 
       if (value && !_cups_strcasecmp(value, "idle"))
-        p->state = IPP_PRINTER_IDLE;
+        p->state = IPP_PSTATE_IDLE;
       else if (value && !_cups_strcasecmp(value, "stopped"))
       {
-        p->state = IPP_PRINTER_STOPPED;
+        p->state = IPP_PSTATE_STOPPED;
 
         for (i = 0 ; i < p->num_reasons; i ++)
 	  if (!strcmp("paused", p->reasons[i]))
@@ -1518,7 +1518,7 @@ cupsdSaveAllPrinters(void)
     if (printer->port_monitor)
       cupsFilePutConf(fp, "PortMonitor", printer->port_monitor);
 
-    if (printer->state == IPP_PRINTER_STOPPED)
+    if (printer->state == IPP_PSTATE_STOPPED)
     {
       cupsFilePuts(fp, "State Stopped\n");
 
@@ -2215,7 +2215,7 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
 
   if ((auth = cupsdFindBest(resource, HTTP_STATE_POST)) == NULL ||
       auth->type == CUPSD_AUTH_NONE)
-    auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_PRINT_JOB);
+    auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_OP_PRINT_JOB);
 
   if (auth)
   {
@@ -2550,7 +2550,7 @@ cupsdSetPrinterReasons(
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
-		  "cupsdSetPrinterReasons(p=%p(%s),s=\"%s\"", p, p->name, s);
+		  "cupsdSetPrinterReasons(p=%p(%s),s=\"%s\"", (void *)p, p->name, s);
 
   if (s[0] == '-' || s[0] == '+')
   {
@@ -2622,8 +2622,8 @@ cupsdSetPrinterReasons(
 	  if (i < p->num_reasons)
 	    memmove(p->reasons + i, p->reasons + i + 1, (size_t)(p->num_reasons - i) * sizeof(char *));
 
-          if (!strcmp(reason, "paused") && p->state == IPP_PRINTER_STOPPED)
-	    cupsdSetPrinterState(p, IPP_PRINTER_IDLE, 1);
+          if (!strcmp(reason, "paused") && p->state == IPP_PSTATE_STOPPED)
+	    cupsdSetPrinterState(p, IPP_PSTATE_IDLE, 1);
 
           if (!strcmp(reason, "cups-waiting-for-job-completed") && p->job)
             p->job->completed = 0;
@@ -2658,8 +2658,8 @@ cupsdSetPrinterReasons(
 	p->num_reasons ++;
         changed = 1;
 
-	if (!strcmp(reason, "paused") && p->state != IPP_PRINTER_STOPPED)
-	  cupsdSetPrinterState(p, IPP_PRINTER_STOPPED, 1);
+	if (!strcmp(reason, "paused") && p->state != IPP_PSTATE_STOPPED)
+	  cupsdSetPrinterState(p, IPP_PSTATE_STOPPED, 1);
 
 	if (!strcmp(reason, "cups-waiting-for-job-completed") && p->job)
 	  p->job->completed = 1;
@@ -2703,11 +2703,11 @@ cupsdSetPrinterState(
 
   if (old_state != s)
   {
-    cupsdAddEvent(s == IPP_PRINTER_STOPPED ? CUPSD_EVENT_PRINTER_STOPPED :
+    cupsdAddEvent(s == IPP_PSTATE_STOPPED ? CUPSD_EVENT_PRINTER_STOPPED :
                       CUPSD_EVENT_PRINTER_STATE, p, NULL,
 		  "%s \"%s\" state changed to %s.",
 		  (p->type & CUPS_PRINTER_CLASS) ? "Class" : "Printer",
-		  p->name, printer_states[p->state - IPP_PRINTER_IDLE]);
+		  p->name, printer_states[p->state - IPP_PSTATE_IDLE]);
 
    /*
     * Let the browse code know this needs to be updated...
@@ -2720,7 +2720,7 @@ cupsdSetPrinterState(
   * Set/clear the paused reason as needed...
   */
 
-  if (s == IPP_PRINTER_STOPPED)
+  if (s == IPP_PSTATE_STOPPED)
     cupsdSetPrinterReasons(p, "+paused");
   else
     cupsdSetPrinterReasons(p, "-paused");
@@ -2730,17 +2730,17 @@ cupsdSetPrinterState(
     for (job = (cupsd_job_t *)cupsArrayFirst(ActiveJobs);
 	 job;
 	 job = (cupsd_job_t *)cupsArrayNext(ActiveJobs))
-      if (job->reasons && job->state_value == IPP_JOB_PENDING &&
+      if (job->reasons && job->state_value == IPP_JSTATE_PENDING &&
 	  !_cups_strcasecmp(job->dest, p->name))
 	ippSetString(job->attrs, &job->reasons, 0,
-		     s == IPP_PRINTER_STOPPED ? "printer-stopped" : "none");
+		     s == IPP_PSTATE_STOPPED ? "printer-stopped" : "none");
   }
 
  /*
   * Clear the message for the queue when going to processing...
   */
 
-  if (s == IPP_PRINTER_PROCESSING)
+  if (s == IPP_PSTATE_PROCESSING)
     p->state_message[0] = '\0';
 
  /*
@@ -2756,7 +2756,7 @@ cupsdSetPrinterState(
   */
 
   if (update &&
-      (old_state == IPP_PRINTER_STOPPED) != (s == IPP_PRINTER_STOPPED))
+      (old_state == IPP_PSTATE_STOPPED) != (s == IPP_PSTATE_STOPPED))
     dirty_printer(p);
 }
 
@@ -2773,14 +2773,14 @@ cupsdStopPrinter(cupsd_printer_t *p,	/* I - Printer to stop */
   * Set the printer state...
   */
 
-  cupsdSetPrinterState(p, IPP_PRINTER_STOPPED, update);
+  cupsdSetPrinterState(p, IPP_PSTATE_STOPPED, update);
 
  /*
   * See if we have a job printing on this printer...
   */
 
-  if (p->job && p->job->state_value == IPP_JOB_PROCESSING)
-    cupsdSetJobState(p->job, IPP_JOB_PENDING, CUPSD_JOB_DEFAULT,
+  if (p->job && p->job->state_value == IPP_JSTATE_PROCESSING)
+    cupsdSetJobState(p->job, IPP_JSTATE_PENDING, CUPSD_JOB_DEFAULT,
                      "Job stopped due to printer being paused.");
 }
 
@@ -3396,7 +3396,7 @@ add_printer_filter(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "add_printer_filter(p=%p(%s), filtertype=%p(%s/%s), "
-		  "filter=\"%s\")", p, p->name, filtertype, filtertype->super,
+		  "filter=\"%s\")", (void *)p, p->name, (void *)filtertype, filtertype->super,
 		  filtertype->type, filter);
 
  /*

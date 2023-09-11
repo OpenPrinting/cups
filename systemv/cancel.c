@@ -53,7 +53,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Setup to cancel individual print jobs...
   */
 
-  op        = IPP_CANCEL_JOB;
+  op        = IPP_OP_CANCEL_JOB;
   purge     = 0;
   dest      = NULL;
   user      = NULL;
@@ -103,7 +103,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      break;
 
 	  case 'a' : /* Cancel all jobs */
-	      op = purge ? IPP_PURGE_JOBS : IPP_CANCEL_JOBS;
+	      op = purge ? IPP_OP_PURGE_JOBS : IPP_OP_CANCEL_JOBS;
 	      break;
 
 	  case 'h' : /* Connect to host */
@@ -133,7 +133,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      break;
 
 	  case 'u' : /* Username */
-	      op = IPP_CANCEL_MY_JOBS;
+	      op = IPP_OP_CANCEL_MY_JOBS;
 
 	      if (opt[1] != '\0')
 	      {
@@ -157,8 +157,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'x' : /* Purge job(s) */
 	      purge = 1;
 
-	      if (op == IPP_CANCEL_JOBS)
-		op = IPP_PURGE_JOBS;
+	      if (op == IPP_OP_CANCEL_JOBS)
+		op = IPP_OP_PURGE_JOBS;
 	      break;
 
 	  default :
@@ -201,7 +201,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	*/
 
         dest   = NULL;
-	op     = IPP_CANCEL_JOB;
+	op     = IPP_OP_CANCEL_JOB;
         job_id = atoi(job + 1);
       }
       else if (isdigit(argv[i][0] & 255))
@@ -211,7 +211,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	*/
 
         dest   = NULL;
-	op     = IPP_CANCEL_JOB;
+	op     = IPP_OP_CANCEL_JOB;
         job_id = atoi(argv[i]);
       }
       else
@@ -283,8 +283,8 @@ main(int  argc,				/* I - Number of command-line arguments */
                      "requesting-user-name", NULL, user);
 	ippAddBoolean(request, IPP_TAG_OPERATION, "my-jobs", 1);
 
-        if (op == IPP_CANCEL_JOBS)
-          op = IPP_CANCEL_MY_JOBS;
+        if (op == IPP_OP_CANCEL_JOBS)
+          op = IPP_OP_CANCEL_MY_JOBS;
       }
       else
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
@@ -292,7 +292,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       if (purge)
       {
-	if (op == IPP_CANCEL_JOB)
+	if (op == IPP_OP_CANCEL_JOB)
 	  ippAddBoolean(request, IPP_TAG_OPERATION, "purge-job", (char)purge);
 	else
 	  ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", (char)purge);
@@ -302,16 +302,16 @@ main(int  argc,				/* I - Number of command-line arguments */
       * Do the request and get back a response...
       */
 
-      if (op == IPP_CANCEL_JOBS && (!user || _cups_strcasecmp(user, cupsGetUser())))
+      if (op == IPP_OP_CANCEL_JOBS && (!user || _cups_strcasecmp(user, cupsGetUser())))
         response = cupsDoRequest(http, request, "/admin/");
       else
         response = cupsDoRequest(http, request, "/jobs/");
 
       if (response == NULL ||
-          response->request.status.status_code > IPP_OK_CONFLICT)
+          response->request.status.status_code > IPP_STATUS_OK_CONFLICTING)
       {
 	_cupsLangPrintf(stderr, _("%s: %s failed: %s"), argv[0],
-	        	op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
+	        	op == IPP_OP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
         		cupsGetErrorString());
 
           ippDelete(response);
@@ -323,7 +323,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     }
   }
 
-  if (num_dests == 0 && op != IPP_CANCEL_JOB)
+  if (num_dests == 0 && op != IPP_OP_CANCEL_JOB)
   {
    /*
     * Open a connection to the server...
@@ -371,10 +371,10 @@ main(int  argc,				/* I - Number of command-line arguments */
     response = cupsDoRequest(http, request, "/admin/");
 
     if (response == NULL ||
-        response->request.status.status_code > IPP_OK_CONFLICT)
+        response->request.status.status_code > IPP_STATUS_OK_CONFLICTING)
     {
       _cupsLangPrintf(stderr, _("%s: %s failed: %s"), argv[0],
-		      op == IPP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
+		      op == IPP_OP_PURGE_JOBS ? "purge-jobs" : "cancel-job",
         	      cupsGetErrorString());
 
       ippDelete(response);

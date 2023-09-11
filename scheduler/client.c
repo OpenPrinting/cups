@@ -72,7 +72,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
 #endif /* HAVE_TCPD_H */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAcceptClient(lis=%p(%d)) Clients=%d", lis, lis->fd, cupsArrayGetCount(Clients));
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAcceptClient(lis=%p(%d)) Clients=%d", (void *)lis, lis->fd, cupsArrayGetCount(Clients));
 
  /*
   * Make sure we don't have a full set of clients already...
@@ -555,7 +555,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
   status = HTTP_STATUS_CONTINUE;
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdReadClient: error=%d, used=%d, state=%s, data_encoding=HTTP_ENCODING_%s, data_remaining=" CUPS_LLFMT ", request=%p(%s), file=%d", httpGetError(con->http), (int)httpGetReady(con->http), httpStateString(httpGetState(con->http)), httpIsChunked(con->http) ? "CHUNKED" : "LENGTH", CUPS_LLCAST httpGetRemaining(con->http), con->request, con->request ? ippStateString(ippGetState(con->request)) : "", con->file);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdReadClient: error=%d, used=%d, state=%s, data_encoding=HTTP_ENCODING_%s, data_remaining=" CUPS_LLFMT ", request=%p(%s), file=%d", httpGetError(con->http), (int)httpGetReady(con->http), httpStateString(httpGetState(con->http)), httpIsChunked(con->http) ? "CHUNKED" : "LENGTH", CUPS_LLCAST httpGetRemaining(con->http), (void *)con->request, con->request ? ippStateString(ippGetState(con->request)) : "", con->file);
 
   if (httpGetError(con->http) == EPIPE && !httpGetReady(con->http) && recv(httpGetFd(con->http), buf, 1, MSG_PEEK) < 1)
   {
@@ -1626,7 +1626,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 			      con->request->request.op.version[1],
 			      ippOpString(con->request->request.op.operation_id),
 			      con->request->request.op.request_id);
-	      con->bytes += (off_t)ippLength(con->request);
+	      con->bytes += (off_t)ippGetLength(con->request);
 	    }
 	  }
 
@@ -2223,7 +2223,7 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
   ipp_state_t	ipp_state;		/* IPP state value */
 
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG, "con->http=%p", con->http);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG, "con->http=%p", (void *)con->http);
   cupsdLogClient(con, CUPSD_LOG_DEBUG,
 		 "cupsdWriteClient "
 		 "error=%d, "
@@ -2238,7 +2238,7 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 		 httpStateString(httpGetState(con->http)),
 		 httpIsChunked(con->http) ? "CHUNKED" : "LENGTH",
 		 CUPS_LLCAST httpGetLength2(con->http),
-		 con->response,
+		 (void *)con->response,
 		 con->response ? ippStateString(ippGetState(con->request)) : "",
 		 con->pipe_pid, con->file);
 
@@ -2578,7 +2578,7 @@ check_if_modified(
   if (*ptr == '\0')
     return (1);
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "check_if_modified: filestats=%p(" CUPS_LLFMT ", %d)) If-Modified-Since=\"%s\"", filestats, CUPS_LLCAST filestats->st_size, (int)filestats->st_mtime, ptr);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "check_if_modified: filestats=%p(" CUPS_LLFMT ", %d)) If-Modified-Since=\"%s\"", (void *)filestats, CUPS_LLCAST filestats->st_size, (int)filestats->st_mtime, ptr);
 
   while (*ptr != '\0')
   {
@@ -2953,7 +2953,7 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
     }
   }
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "get_file: filestats=%p, filename=%p, len=" CUPS_LLFMT ", returning \"%s\".", filestats, filename, CUPS_LLCAST len, status ? "(null)" : filename);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "get_file: filestats=%p, filename=%p, len=" CUPS_LLFMT ", returning \"%s\".", (void *)filestats, (void *)filename, CUPS_LLCAST len, status ? "(null)" : filename);
 
   if (status)
     return (NULL);
@@ -3091,7 +3091,7 @@ is_cgi(cupsd_client_t *con,		/* I - Client connection */
 
   if (!type || _cups_strcasecmp(type->super, "application"))
   {
-    cupsdLogClient(con, CUPSD_LOG_DEBUG2, "is_cgi: filename=\"%s\", filestats=%p, type=%s/%s, returning 0.", filename, filestats, type ? type->super : "unknown", type ? type->type : "unknown");
+    cupsdLogClient(con, CUPSD_LOG_DEBUG2, "is_cgi: filename=\"%s\", filestats=%p, type=%s/%s, returning 0.", filename, (void *)filestats, type ? type->super : "unknown", type ? type->type : "unknown");
     return (0);
   }
 
@@ -3106,11 +3106,11 @@ is_cgi(cupsd_client_t *con,		/* I - Client connection */
     if (options)
       cupsdSetStringf(&con->options, " %s", options);
 
-    cupsdLogClient(con, CUPSD_LOG_DEBUG2, "is_cgi: filename=\"%s\", filestats=%p, type=%s/%s, returning 1.", filename, filestats, type->super, type->type);
+    cupsdLogClient(con, CUPSD_LOG_DEBUG2, "is_cgi: filename=\"%s\", filestats=%p, type=%s/%s, returning 1.", filename, (void *)filestats, type->super, type->type);
     return (1);
   }
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "is_cgi: filename=\"%s\", filestats=%p, type=%s/%s, returning 0.", filename, filestats, type->super, type->type);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "is_cgi: filename=\"%s\", filestats=%p, type=%s/%s, returning 0.", filename, (void *)filestats, type->super, type->type);
   return (0);
 }
 
@@ -3217,7 +3217,7 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
   * be consistent with Apache...
   */
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "pipe_command: infile=%d, outfile=%p, command=\"%s\", options=\"%s\", root=%d", infile, outfile, command, options ? options : "(null)", root);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "pipe_command: infile=%d, outfile=%p, command=\"%s\", options=\"%s\", root=%d", infile, (void *)outfile, command, options ? options : "(null)", root);
 
   argv[0] = command;
 
@@ -3700,7 +3700,7 @@ write_file(cupsd_client_t *con,		/* I - Client connection */
 {
   con->file = open(filename, O_RDONLY);
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "write_file: code=%d, filename=\"%s\" (%d), type=\"%s\", filestats=%p.", code, filename, con->file, type ? type : "(null)", filestats);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "write_file: code=%d, filename=\"%s\" (%d), type=\"%s\", filestats=%p.", code, filename, con->file, type ? type : "(null)", (void *)filestats);
 
   if (con->file < 0)
     return (0);
