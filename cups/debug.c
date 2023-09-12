@@ -12,7 +12,6 @@
  */
 
 #include "cups-private.h"
-#include "debug-internal.h"
 #ifdef _WIN32
 #  include <sys/timeb.h>
 #  include <time.h>

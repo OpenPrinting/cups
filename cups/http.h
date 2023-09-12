@@ -11,7 +11,7 @@
 
 #ifndef _CUPS_HTTP_H_
 #  define _CUPS_HTTP_H_
-#  include "versioning.h"
+#  include "base.h"
 #  include "array.h"
 #  include <string.h>
 #  include <time.h>

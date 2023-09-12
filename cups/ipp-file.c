@@ -1257,7 +1257,7 @@ ippFileWriteAttributes(
       case IPP_TAG_STRING :
 	  for (i = 0; i < count; i ++)
 	  {
-	    size_t	len;		// Length of octetString
+	    int		len;		// Length of octetString
 	    const char	*s = (const char *)ippGetOctetString(attr, i, &len);
 					// octetString value
 

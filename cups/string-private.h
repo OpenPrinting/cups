@@ -20,7 +20,7 @@
 #  include <errno.h>
 #  include <locale.h>
 #  include <time.h>
-#  include <cups/versioning.h>
+#  include <cups/base.h>
 #  if defined(_WIN32) && !defined(__CUPS_SSIZE_T_DEFINED)
 #    define __CUPS_SSIZE_T_DEFINED
 #    include <stddef.h>

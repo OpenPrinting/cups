@@ -102,6 +102,17 @@ unittests:	$(UNITTARGETS)
 
 
 #
+# Run unit tests...
+#
+
+test:		unittests
+	echo "Tests started at $(date)..." >test.log
+	echo Running MIME API tests...
+	./testmime >>test.log
+	echo "Tests finished at $(date)..." >>test.log
+
+
+#
 # Clean all object files...
 #
 
@@ -417,8 +428,6 @@ testmime:	testmime.o libcupsmime.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testmime.o libcupsmime.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running MIME tests...
-	./testmime
 
 
 #

@@ -30,13 +30,13 @@
 
 static bool				// O - `true` on success, `false` on failure
 cupsRasterWriteTest(
-    cups_raster_t      *ras,		// I - Raster stream
-    cups_page_header2_t *header,		// I - Raster page header (front side)
+    cups_raster_t       *ras,		// I - Raster stream
+    cups_page_header2_t *header,	// I - Raster page header (front side)
     cups_page_header2_t *back_header,	// I - Raster page header (back side)
-    const char         *sheet_back,	// I - Back side transform needed
-    ipp_orient_t       orientation,	// I - Output orientation
-    int	               num_copies,	// I - Number of copies
-    int                num_pages)	// I - Number of pages
+    const char          *sheet_back,	// I - Back side transform needed
+    ipp_orient_t        orientation,	// I - Output orientation
+    int	                num_copies,	// I - Number of copies
+    int                 num_pages)	// I - Number of pages
 {
   int			copy,		// Current copy number
 			page;		// Current page number

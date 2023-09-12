@@ -28,6 +28,7 @@ COREOBJS	=	\
 		dnssd.o \
 		encode.o \
 		file.o \
+		form.o \
 		getputfile.o \
 		globals.o \
 		hash.o \
@@ -38,6 +39,8 @@ COREOBJS	=	\
 		ipp.o \
 		ipp-file.o \
 		ipp-support.o \
+		json.o \
+		jwt.o \
 		langprintf.o \
 		language.o \
 		md5.o \
@@ -100,12 +103,15 @@ TESTOBJS	= \
 		testdest.o \
 		testdnssd.o \
 		testfile.o \
+		testform.o \
 		testgetdests.o \
 		testhttp.o \
 		testi18n.o \
 		testipp.o \
-		testoptions.o \
+		testjson.o \
+		testjwt.o \
 		testlang.o \
+		testoptions.o \
 		testppd.o \
 		testpwg.o \
 		testraster.o \
@@ -129,8 +135,11 @@ COREHEADERS	=	\
 		dir.h \
 		dnssd.h \
 		file.h \
+		form.h \
 		http.h \
 		ipp.h \
+		json.h \
+		jwt.h \
 		language.h \
 		pwg.h \
 		raster.h \
@@ -153,6 +162,7 @@ COREHEADERSPRIV =	\
 		file-private.h \
 		http-private.h \
 		ipp-private.h \
+		json-private.h \
 		language-private.h \
 		pwg-private.h \
 		raster-private.h \
@@ -188,10 +198,13 @@ UNITTARGETS =	\
 		testdest \
 		testdnssd \
 		testfile \
+		testform \
 		testgetdests \
 		testhttp \
 		testi18n \
 		testipp \
+		testjson \
+		testjwt \
 		testlang \
 		testoptions \
 		testppd \
@@ -230,12 +243,18 @@ test:		unittests
 	./testarray >>test.log
 	echo Running file API tests...
 	./testfile >>test.log
+	echo Running form API tests...
+	./testform >>test.log
 	echo Running HTTP API tests...
 	./testhttp >>test.log
 	echo Running IPP API tests...
 	./testipp >>test.log
 	echo Running internationalization API tests...
 	./testi18n >>test.log
+	echo Running JSON API tests...
+	./testjson >>test.log
+	echo Running JWT API tests...
+	./testjwt >>test.log
 	echo Creating locale directory structure...
 	$(RM) -r locale
 	for po in ../locale/cups_*.po; do \
@@ -632,6 +651,16 @@ testfile:	testfile.o $(LIBCUPSSTATIC)
 
 
 #
+# testform (dependency on static CUPS library is intentional)
+#
+
+testform:	testform.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testform.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
 # testgetdests (dependency on static CUPS library is intentional)
 #
 
@@ -668,6 +697,26 @@ testipp:	testipp.o $(LIBCUPSSTATIC)
 testi18n:	testi18n.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testi18n.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testjson (dependency on static CUPS library is intentional)
+#
+
+testjson:	testjson.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testjson.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testjwt (dependency on static CUPS library is intentional)
+#
+
+testjwt:	testjwt.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testjwt.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 

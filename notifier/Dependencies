@@ -1,8 +1,8 @@
-dbus.o: dbus.c ../cups/cups.h ../cups/file.h ../cups/versioning.h \
-  ../cups/ipp.h ../cups/http.h ../cups/array.h ../cups/language.h \
-  ../cups/pwg.h ../cups/string-private.h ../config.h
+dbus.o: dbus.c ../cups/cups.h ../cups/file.h ../cups/base.h ../cups/ipp.h \
+  ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/string-private.h ../config.h
 mailto.o: mailto.c ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/versioning.h ../cups/debug-internal.h \
+  ../config.h ../cups/base.h ../cups/debug-internal.h \
   ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
   ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
@@ -29,12 +29,11 @@ mailto.o: mailto.c ../cups/cups-private.h ../cups/string-private.h \
   \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
   ../cups/thread.h
-rss.o: rss.c ../cups/cups.h ../cups/file.h ../cups/versioning.h \
-  ../cups/ipp.h ../cups/http.h ../cups/array.h ../cups/language.h \
-  ../cups/pwg.h ../cups/string-private.h ../config.h \
-  ../cups/ipp-private.h
+rss.o: rss.c ../cups/cups.h ../cups/file.h ../cups/base.h ../cups/ipp.h \
+  ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/string-private.h ../config.h ../cups/ipp-private.h
 testnotify.o: testnotify.c ../cups/cups-private.h \
-  ../cups/string-private.h ../config.h ../cups/versioning.h \
+  ../cups/string-private.h ../config.h ../cups/base.h \
   ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/array.h ../cups/language.h ../cups/pwg.h \

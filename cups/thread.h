@@ -10,7 +10,7 @@
 
 #ifndef _CUPS_THREAD_H_
 #  define _CUPS_THREAD_H_
-#  include "versioning.h"
+#  include "base.h"
 #  ifdef __cplusplus
 extern "C" {
 #  endif // __cplusplus
