@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2021-03-07 10:33-0500\n"
+"POT-Creation-Date: 2023-09-13 13:50-0400\n"
 "PO-Revision-Date: 2015-01-28 12:00-0800\n"
 "Last-Translator: Aleksandr Proklov\n"
 "Language-Team: Russian - PuppyRus Linux Team\n"
@@ -1154,10 +1154,6 @@ msgid "%s: %s failed: %s"
 msgstr "%s: ошибка %s: %s"
 
 #, c-format
-msgid "%s: Bad printer URI \"%s\"."
-msgstr ""
-
-#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s: Неверная версия %s для \"-V\"."
 
@@ -1428,11 +1424,7 @@ msgid "%s: Operation failed: %s"
 msgstr "%s: Операция не удалась: %s"
 
 #, c-format
-msgid "%s: Sorry, no encryption support."
-msgstr "%s:  Нет поддержки шифрования."
-
-#, c-format
-msgid "%s: Unable to connect to \"%s:%d\": %s"
+msgid "%s: Scheduler is not running."
 msgstr ""
 
 #, c-format
@@ -1442,10 +1434,6 @@ msgstr "%s: Не удается подключиться к серверу."
 #, c-format
 msgid "%s: Unable to contact server."
 msgstr "%s: Не удается установить связь с сервером."
-
-#, c-format
-msgid "%s: Unable to create PPD file: %s"
-msgstr ""
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1464,16 +1452,8 @@ msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: Не удается открыть PPD-файл: %s в строке %d."
 
 #, c-format
-msgid "%s: Unable to query printer: %s"
-msgstr ""
-
-#, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
 msgstr "%s: Не удается прочитать базу данных MIME из \"%s\" или \"%s\"."
-
-#, c-format
-msgid "%s: Unable to resolve \"%s\"."
-msgstr ""
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -1870,13 +1850,13 @@ msgid ""
 "standard output"
 msgstr ""
 
-msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
-
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
 
 msgid "-P page-list            Specify a list of pages to print"
+msgstr ""
+
+msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 msgid "-R                      Show the ranking of jobs"
@@ -2933,6 +2913,10 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "Попытка установить %s printer-state на неверное значение %d"
 
 #, c-format
+msgid "Attribute \"%s\" has empty value."
+msgstr ""
+
+#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr ""
 
@@ -3051,6 +3035,9 @@ msgstr "Неверное значение document-format \"%s\"."
 msgid "Bad document-format-default \"%s\"."
 msgstr "Неверное значение document-format-default \"%s\"."
 
+msgid "Bad extKeyUsage extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad filename buffer"
 msgstr "Ошибка в буфере filename"
 
@@ -3080,6 +3067,9 @@ msgstr "Неверное значение job-state."
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr "Неверный job-uri \"%s\"."
+
+msgid "Bad keyUsage extension in X.509 certificate request."
+msgstr ""
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3127,6 +3117,9 @@ msgid "Bad resource in URI"
 msgstr ""
 
 msgid "Bad scheme in URI"
+msgstr ""
+
+msgid "Bad subjectAltName extension in X.509 certificate request."
 msgstr ""
 
 msgid "Bad username in URI"
@@ -3637,6 +3630,9 @@ msgstr "Фолио"
 msgid "Forbidden"
 msgstr "Запрещено"
 
+msgid "Form data too large."
+msgstr ""
+
 msgid "Found"
 msgstr ""
 
@@ -3679,6 +3675,9 @@ msgstr ""
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "IPP атрибут 1setOf с недопустимым значением."
 
+msgid "IPP Everywhere driver requires an IPP connection."
+msgstr ""
+
 msgid "IPP attribute has no name."
 msgstr "IPP атрибут не имеет имени."
 
@@ -3711,6 +3710,9 @@ msgstr "IPP переполнение значения language length"
 
 msgid "IPP language length too large."
 msgstr "IPP language length слишком длинное."
+
+msgid "IPP member attribute outside of collection."
+msgstr ""
 
 msgid "IPP member name is not empty."
 msgstr "IPP member name не пустое."
@@ -3816,6 +3818,15 @@ msgstr "Наклейки Internet Postage 3-Part"
 msgid "Internet Printing Protocol"
 msgstr "Протокол интернет-печати"
 
+msgid "Invalid JSON data."
+msgstr ""
+
+msgid "Invalid JSON web token."
+msgstr ""
+
+msgid "Invalid form data."
+msgstr ""
+
 msgid "Invalid group tag."
 msgstr ""
 
@@ -3878,6 +3889,9 @@ msgid "JIS B8"
 msgstr ""
 
 msgid "JIS B9"
+msgstr ""
+
+msgid "JSON file too large."
 msgstr ""
 
 #, c-format
@@ -3990,9 +4004,6 @@ msgstr ""
 
 msgid "Long-Edge (Portrait)"
 msgstr "По длинной стороне (книжная)"
-
-msgid "Looking for printer."
-msgstr "Поиск принтера."
 
 msgid "Main Roll"
 msgstr ""
@@ -4155,9 +4166,6 @@ msgstr "Нет атрибутов в запросе."
 msgid "No authentication information provided."
 msgstr "Нет информации для проверки подлинности."
 
-msgid "No common name specified."
-msgstr ""
-
 msgid "No community name"
 msgstr "Нет имени сообщества"
 
@@ -4275,6 +4283,9 @@ msgstr "Oki"
 
 msgid "Online Help"
 msgstr "Интернет справка"
+
+msgid "Only WGS-84 coordinates are supported."
+msgstr ""
 
 msgid "Only local users can create a local printer."
 msgstr ""
@@ -4849,6 +4860,9 @@ msgstr "Не удается добавить группу"
 msgid "Unable to add document to print job."
 msgstr "Не удается добавить документ в задание печати."
 
+msgid "Unable to add extension to X.509 certificate."
+msgstr ""
+
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
 msgstr "Не удается добавить задание для назначения \"%s\""
@@ -4865,7 +4879,8 @@ msgstr "Не удается выделить память для страниц�
 msgid "Unable to allocate memory for pages array"
 msgstr "Не удается выделить память для страниц"
 
-msgid "Unable to allocate memory for printer"
+#, c-format
+msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
 msgid "Unable to cancel print job."
@@ -4881,6 +4896,10 @@ msgid "Unable to change server settings"
 msgstr "Не удается изменить настройки сервера"
 
 #, c-format
+msgid "Unable to commit PPD file: %s"
+msgstr ""
+
+#, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
 msgstr "Не удается компилировать mimeMediaType регулярное выражение: %s."
 
@@ -4890,6 +4909,9 @@ msgstr "Не удается компилировать naturalLanguage регу�
 
 msgid "Unable to configure printer options."
 msgstr "Не удается настроить параметры принтера."
+
+msgid "Unable to configure private key context."
+msgstr ""
 
 msgid "Unable to connect to host."
 msgstr "Не удается подключиться к хосту."
@@ -4903,16 +4925,22 @@ msgstr ""
 msgid "Unable to copy PPD file - %s"
 msgstr "Не удается копировать PPD-файл - %s"
 
-msgid "Unable to copy PPD file."
-msgstr "Не удается копировать PPD-файл."
+msgid "Unable to create X.509 certificate signing request."
+msgstr ""
 
-msgid "Unable to create credentials from array."
+msgid "Unable to create X.509 certificate."
 msgstr ""
 
 msgid "Unable to create printer-uri"
 msgstr "Не удается создать printer-uri"
 
 msgid "Unable to create printer."
+msgstr ""
+
+msgid "Unable to create private key context."
+msgstr ""
+
+msgid "Unable to create private key."
 msgstr ""
 
 msgid "Unable to create server credentials."
@@ -4938,58 +4966,14 @@ msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr "Невозможно редактировать файлы cupsd.conf больше 1 МБ"
 
 #, c-format
-msgid "Unable to establish a secure connection to host (%d)."
-msgstr ""
-
-msgid ""
-"Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr ""
-"Не удается установить защищенное соединение (неправильная цепочка "
-"сертификатов)."
-
-msgid ""
-"Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr ""
-"Не удается установить защищенное соединение (недействительный сертификат)."
-
-msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr "Не удается установить защищенное соединение (сертификат просрочен)."
-
-msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr ""
-"Не удается установить защищенное соединение (несовпадение имени хоста)."
-
-msgid ""
-"Unable to establish a secure connection to host (peer dropped connection "
-"before responding)."
-msgstr ""
-"Не удается установить защищенное соединение (соединение разорвано удаленной "
-"стороной.)"
-
-msgid ""
-"Unable to establish a secure connection to host (self-signed certificate)."
-msgstr ""
-"Не удается установить защищенное соединение (самоподписанный сертификат)."
-
-msgid ""
-"Unable to establish a secure connection to host (untrusted certificate)."
-msgstr "Не удается установить защищенное соединение (ненадежный сертификат)."
-
-msgid "Unable to establish a secure connection to host."
-msgstr "Не удается установить защищенное соединение."
-
-#, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "Не удается найти назначение для задания"
 
-msgid "Unable to find printer."
-msgstr "Не удается найти принтер."
-
-msgid "Unable to find server credentials."
-msgstr "Не удается найти учетные данные сервера."
+msgid "Unable to finish request."
+msgstr ""
 
 msgid "Unable to get backend exit status."
 msgstr "Не удается получить код завершения от backend."
@@ -5014,6 +4998,18 @@ msgstr "Не удается получить статус принтера"
 
 msgid "Unable to get printer status."
 msgstr "Не удается получить статус принтера."
+
+msgid "Unable to import X.509 certificate request."
+msgstr ""
+
+msgid "Unable to import credentials."
+msgstr ""
+
+msgid "Unable to initialize private key context."
+msgstr ""
+
+msgid "Unable to load X.509 CA certificate and private key."
+msgstr ""
 
 msgid "Unable to load help index."
 msgstr "Не удается загрузить содержание справки."
@@ -5065,8 +5061,7 @@ msgstr "Не удается напечатать пробную страницу
 msgid "Unable to read print data."
 msgstr "Не удается считать данные печати."
 
-#, c-format
-msgid "Unable to register \"%s.%s\": %d"
+msgid "Unable to read response."
 msgstr ""
 
 msgid "Unable to rename job document file."
@@ -5074,6 +5069,14 @@ msgstr ""
 
 msgid "Unable to resolve printer-uri."
 msgstr "Не удается определить printer-uri"
+
+#, c-format
+msgid "Unable to run cups-driverd: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save PPD file: %s"
+msgstr ""
 
 msgid "Unable to see in file"
 msgstr "Не удается увидеть в файле"
@@ -5099,8 +5102,20 @@ msgstr "Не удается загрузить файл cupsd.conf"
 msgid "Unable to use legacy USB class driver."
 msgstr "Не удается использовать устаревший драйвер USB."
 
+msgid "Unable to verify X.509 certificate request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate."
+msgstr ""
+
 msgid "Unable to write print data"
 msgstr "Не удается записать данные печати"
+
+msgid "Unable to write private key."
+msgstr ""
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5118,10 +5133,6 @@ msgstr "Неизвестный"
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
 msgstr "Неизвестный выбор \"%s\" для параметра \"%s\"."
-
-#, c-format
-msgid "Unknown directive \"%s\" on line %d of \"%s\" ignored."
-msgstr ""
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
@@ -5190,6 +5201,9 @@ msgstr ""
 
 msgid "Unsupported 'job-name' value."
 msgstr "Неподдерживаемое значение 'job-name'."
+
+msgid "Unsupported URI scheme."
+msgstr ""
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
@@ -5354,6 +5368,9 @@ msgstr ""
 
 #, c-format
 msgid "Using spool directory \"%s\"."
+msgstr ""
+
+msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
 
 msgid "Value uses indefinite length"
@@ -5690,6 +5707,9 @@ msgstr "Не удалось выполнить cups-deviced."
 
 msgid "cups-driverd failed to execute."
 msgstr "Не удалось выполнить cups-driverd."
+
+msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7049,10 +7069,6 @@ msgid "insert-sheet"
 msgstr ""
 
 #, c-format
-msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
-
-#, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind: неправильное регулярное выражение: %s"
 
@@ -7117,16 +7133,8 @@ msgid "ippfind: Too many parenthesis."
 msgstr "ippfind: Слишком много скобок."
 
 #, c-format
-msgid "ippfind: Unable to browse or resolve: %s"
-msgstr "ippfind: Не удается просмотреть или определить: %s"
-
-#, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
 msgstr "ippfind: Не удается выполнить \"%s\": %s"
-
-#, c-format
-msgid "ippfind: Unable to use Bonjour: %s"
-msgstr "ippfind: Не удается использовать Bonjour: %s"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
@@ -7167,6 +7175,10 @@ msgstr "ipptool: Отсутствуют секунды для \"-i\"."
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool: Необходим URI перед указанием тест-файла."
+
+#, c-format
+msgid "ipptool: Unable to allocate memory: %s"
+msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -15275,6 +15287,10 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#, c-format
+#~ msgid "%s: Sorry, no encryption support."
+#~ msgstr "%s:  Нет поддержки шифрования."
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr "Для экспорта драйверов принтера требуется пароль Samba"
 
@@ -15287,8 +15303,70 @@ msgstr ""
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Экспортировать принтеры в Samba"
 
+#~ msgid "Looking for printer."
+#~ msgstr "Поиск принтера."
+
+#~ msgid "Unable to copy PPD file."
+#~ msgstr "Не удается копировать PPD-файл."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate chain "
+#~ "invalid)."
+#~ msgstr ""
+#~ "Не удается установить защищенное соединение (неправильная цепочка "
+#~ "сертификатов)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate not yet "
+#~ "valid)."
+#~ msgstr ""
+#~ "Не удается установить защищенное соединение (недействительный сертификат)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (expired certificate)."
+#~ msgstr "Не удается установить защищенное соединение (сертификат просрочен)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (host name mismatch)."
+#~ msgstr ""
+#~ "Не удается установить защищенное соединение (несовпадение имени хоста)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (peer dropped connection "
+#~ "before responding)."
+#~ msgstr ""
+#~ "Не удается установить защищенное соединение (соединение разорвано "
+#~ "удаленной стороной.)"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (self-signed certificate)."
+#~ msgstr ""
+#~ "Не удается установить защищенное соединение (самоподписанный сертификат)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (untrusted certificate)."
+#~ msgstr ""
+#~ "Не удается установить защищенное соединение (ненадежный сертификат)."
+
+#~ msgid "Unable to establish a secure connection to host."
+#~ msgstr "Не удается установить защищенное соединение."
+
+#~ msgid "Unable to find printer."
+#~ msgstr "Не удается найти принтер."
+
+#~ msgid "Unable to find server credentials."
+#~ msgstr "Не удается найти учетные данные сервера."
+
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl: Не удается задать Listen или Port."
+
+#, c-format
+#~ msgid "ippfind: Unable to browse or resolve: %s"
+#~ msgstr "ippfind: Не удается просмотреть или определить: %s"
+
+#, c-format
+#~ msgid "ippfind: Unable to use Bonjour: %s"
+#~ msgstr "ippfind: Не удается использовать Bonjour: %s"
 
 #~ msgid "lpadmin: Unable to open PPD file \"%s\" - %s"
 #~ msgstr "lpadmin: Не удается открыть PPD-файл \"%s\" - %s"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2021-03-07 10:33-0500\n"
+"POT-Creation-Date: 2023-09-13 13:50-0400\n"
 "PO-Revision-Date: 2014-11-15 19:27+0900\n"
 "Last-Translator: OPFC TRANSCUPS <opfc-transcups@sourceforge.jp>\n"
 "Language-Team: Japanese - OPFC TRANSCUPS <opfc-transcups@sourceforge.jp>\n"
@@ -1182,10 +1182,6 @@ msgid "%s: %s failed: %s"
 msgstr "%s: %s に失敗しました: %s"
 
 #, c-format
-msgid "%s: Bad printer URI \"%s\"."
-msgstr ""
-
-#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s: -V オプションにおいて %s は不正なバージョンです。"
 
@@ -1446,11 +1442,7 @@ msgid "%s: Operation failed: %s"
 msgstr "%s: 操作に失敗しました: %s"
 
 #, c-format
-msgid "%s: Sorry, no encryption support."
-msgstr "%s: 残念ながら、暗号化サポートはコンパイル時に組み込まれていません。"
-
-#, c-format
-msgid "%s: Unable to connect to \"%s:%d\": %s"
+msgid "%s: Scheduler is not running."
 msgstr ""
 
 #, c-format
@@ -1460,10 +1452,6 @@ msgstr "%s: サーバーに接続できません"
 #, c-format
 msgid "%s: Unable to contact server."
 msgstr "%s: サーバーに連絡できません。"
-
-#, c-format
-msgid "%s: Unable to create PPD file: %s"
-msgstr ""
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1482,17 +1470,9 @@ msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: PPD ファイルを開けません: %s の %d 行目"
 
 #, c-format
-msgid "%s: Unable to query printer: %s"
-msgstr ""
-
-#, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
 msgstr ""
 "%s: \"%s\" または \"%s\" から MIME データベースを読み取ることができません。"
-
-#, c-format
-msgid "%s: Unable to resolve \"%s\"."
-msgstr ""
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -1889,13 +1869,13 @@ msgid ""
 "standard output"
 msgstr ""
 
-msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
-
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
 
 msgid "-P page-list            Specify a list of pages to print"
+msgstr ""
+
+msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 msgid "-R                      Show the ranking of jobs"
@@ -2952,6 +2932,10 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "%s printer-state に 不正な値 %d を設定しようとしています。"
 
 #, c-format
+msgid "Attribute \"%s\" has empty value."
+msgstr ""
+
+#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr ""
 
@@ -3070,6 +3054,9 @@ msgstr "\"%s\" は不正な document-format です。"
 msgid "Bad document-format-default \"%s\"."
 msgstr "\"%s\" は不正な document-format-default です。"
 
+msgid "Bad extKeyUsage extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad filename buffer"
 msgstr "不正なファイル名バッファーです。"
 
@@ -3099,6 +3086,9 @@ msgstr "不正な job-state 値です。"
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr "\"%s\" は無効な job-uri 属性です。"
+
+msgid "Bad keyUsage extension in X.509 certificate request."
+msgstr ""
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3147,6 +3137,9 @@ msgstr "URI のリソースが不正"
 
 msgid "Bad scheme in URI"
 msgstr "URI のスキームが不正"
+
+msgid "Bad subjectAltName extension in X.509 certificate request."
+msgstr ""
 
 msgid "Bad username in URI"
 msgstr "URI のユーザー名が不正"
@@ -3667,6 +3660,9 @@ msgstr "フォリオ"
 msgid "Forbidden"
 msgstr "Forbidden"
 
+msgid "Form data too large."
+msgstr ""
+
 msgid "Found"
 msgstr ""
 
@@ -3709,6 +3705,9 @@ msgstr ""
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "IPP の 1setOf 属性が value タグと互換性がありません。"
 
+msgid "IPP Everywhere driver requires an IPP connection."
+msgstr ""
+
 msgid "IPP attribute has no name."
 msgstr "IPP の属性に名前がありません。"
 
@@ -3741,6 +3740,9 @@ msgstr "IPP の language length の値がオーバーフローしています。
 
 msgid "IPP language length too large."
 msgstr "IPP の language の長さが長すぎます。"
+
+msgid "IPP member attribute outside of collection."
+msgstr ""
 
 msgid "IPP member name is not empty."
 msgstr "IPP のメンバー名が空ではありません。"
@@ -3846,6 +3848,15 @@ msgstr "Internet Postage 3-Part"
 msgid "Internet Printing Protocol"
 msgstr "インターネット印刷プロトコル"
 
+msgid "Invalid JSON data."
+msgstr ""
+
+msgid "Invalid JSON web token."
+msgstr ""
+
+msgid "Invalid form data."
+msgstr ""
+
 msgid "Invalid group tag."
 msgstr ""
 
@@ -3909,6 +3920,9 @@ msgstr "JIS B8"
 
 msgid "JIS B9"
 msgstr "JIS B9"
+
+msgid "JSON file too large."
+msgstr ""
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4020,9 +4034,6 @@ msgstr ""
 
 msgid "Long-Edge (Portrait)"
 msgstr "長辺給紙 (縦向き)"
-
-msgid "Looking for printer."
-msgstr "プリンターを探しています。"
 
 msgid "Main Roll"
 msgstr ""
@@ -4185,9 +4196,6 @@ msgstr "リクエストに属性がありません。"
 msgid "No authentication information provided."
 msgstr "認証情報が提供されていません。"
 
-msgid "No common name specified."
-msgstr ""
-
 msgid "No community name"
 msgstr "コミュニティ名がありません"
 
@@ -4304,6 +4312,9 @@ msgstr "Oki"
 
 msgid "Online Help"
 msgstr "オンラインヘルプ"
+
+msgid "Only WGS-84 coordinates are supported."
+msgstr ""
 
 msgid "Only local users can create a local printer."
 msgstr ""
@@ -4881,6 +4892,9 @@ msgstr "クラスを追加できません"
 msgid "Unable to add document to print job."
 msgstr "ドキュメントを印刷ジョブに追加できません。"
 
+msgid "Unable to add extension to X.509 certificate."
+msgstr ""
+
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
 msgstr "宛先 \"%s\"にジョブを追加できません。"
@@ -4897,7 +4911,8 @@ msgstr "ページ情報のメモリー割り当てができません"
 msgid "Unable to allocate memory for pages array"
 msgstr "ページアレイのメモリー割り当てができません"
 
-msgid "Unable to allocate memory for printer"
+#, c-format
+msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
 msgid "Unable to cancel print job."
@@ -4913,6 +4928,10 @@ msgid "Unable to change server settings"
 msgstr "サーバーの設定を変更できません"
 
 #, c-format
+msgid "Unable to commit PPD file: %s"
+msgstr ""
+
+#, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
 msgstr "mimeMediaType の正規表現を解釈できませんでした: %s。"
 
@@ -4922,6 +4941,9 @@ msgstr "naturalLanguage の正規表現を解釈できませんでした: %s。"
 
 msgid "Unable to configure printer options."
 msgstr "プリンターオプションを設定できません。"
+
+msgid "Unable to configure private key context."
+msgstr ""
 
 msgid "Unable to connect to host."
 msgstr "ホストに接続できません。"
@@ -4933,16 +4955,22 @@ msgstr "プリンターと交信できません。クラス内の次のプリン
 msgid "Unable to copy PPD file - %s"
 msgstr "PPD ファイルをコピーできません - %s"
 
-msgid "Unable to copy PPD file."
-msgstr "PPD ファイルをコピーできません。"
+msgid "Unable to create X.509 certificate signing request."
+msgstr ""
 
-msgid "Unable to create credentials from array."
+msgid "Unable to create X.509 certificate."
 msgstr ""
 
 msgid "Unable to create printer-uri"
 msgstr "printer-uri を作成できません"
 
 msgid "Unable to create printer."
+msgstr ""
+
+msgid "Unable to create private key context."
+msgstr ""
+
+msgid "Unable to create private key."
 msgstr ""
 
 msgid "Unable to create server credentials."
@@ -4968,52 +4996,14 @@ msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr "1MB 以上の cupsd.conf ファイルは編集できません"
 
 #, c-format
-msgid "Unable to establish a secure connection to host (%d)."
-msgstr ""
-
-msgid ""
-"Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr "ホストへの安全な接続が確立できません (認証パスが無効です)。"
-
-msgid ""
-"Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr "ホストへの安全な接続が確立できません (認証がまだ有効ではありません)。"
-
-msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr "ホストへの安全な接続が確立できません (認証が期限切れです)。"
-
-msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr "ホストへの安全な接続が確立できません (ホスト名が一致しません)。"
-
-msgid ""
-"Unable to establish a secure connection to host (peer dropped connection "
-"before responding)."
-msgstr ""
-"ホストへの安全な接続が確立できません (応答がある前に接続が切断されました)。"
-
-msgid ""
-"Unable to establish a secure connection to host (self-signed certificate)."
-msgstr "ホストへの安全な接続が確立できません (自己署名証明書です)。"
-
-msgid ""
-"Unable to establish a secure connection to host (untrusted certificate)."
-msgstr "ホストへの安全な接続が確立できません (信用できない証明書です)。"
-
-msgid "Unable to establish a secure connection to host."
-msgstr "ホストへの安全な接続を確立できません。"
-
-#, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "ジョブの宛先が見つかりません"
 
-msgid "Unable to find printer."
-msgstr "プリンターが見つかりません。"
-
-msgid "Unable to find server credentials."
-msgstr "サーバー証明書を見つけられません。"
+msgid "Unable to finish request."
+msgstr ""
 
 msgid "Unable to get backend exit status."
 msgstr "バックエンドの終了ステータスを取得できません。"
@@ -5038,6 +5028,18 @@ msgstr "プリンターの状態を取得できません"
 
 msgid "Unable to get printer status."
 msgstr "プリンターの状態を取得できません。"
+
+msgid "Unable to import X.509 certificate request."
+msgstr ""
+
+msgid "Unable to import credentials."
+msgstr ""
+
+msgid "Unable to initialize private key context."
+msgstr ""
+
+msgid "Unable to load X.509 CA certificate and private key."
+msgstr ""
 
 msgid "Unable to load help index."
 msgstr "ヘルプの索引を読み込めません。"
@@ -5089,8 +5091,7 @@ msgstr "テストページを印刷できません"
 msgid "Unable to read print data."
 msgstr "プリントデータを読み込めません。"
 
-#, c-format
-msgid "Unable to register \"%s.%s\": %d"
+msgid "Unable to read response."
 msgstr ""
 
 msgid "Unable to rename job document file."
@@ -5098,6 +5099,14 @@ msgstr ""
 
 msgid "Unable to resolve printer-uri."
 msgstr "printer-uri を解決できません。"
+
+#, c-format
+msgid "Unable to run cups-driverd: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save PPD file: %s"
+msgstr ""
 
 msgid "Unable to see in file"
 msgstr "ファイルを読み込むことができません"
@@ -5123,8 +5132,20 @@ msgstr "cupsd.conf ファイルをアップロードできません"
 msgid "Unable to use legacy USB class driver."
 msgstr "古いタイプの USB クラスドライバーは使用できません。"
 
+msgid "Unable to verify X.509 certificate request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate."
+msgstr ""
+
 msgid "Unable to write print data"
 msgstr "プリントデータを書き込めません"
+
+msgid "Unable to write private key."
+msgstr ""
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5142,10 +5163,6 @@ msgstr "未知"
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
 msgstr "\"%s\" (オプション \"%s\" 用) は未知の設定です。"
-
-#, c-format
-msgid "Unknown directive \"%s\" on line %d of \"%s\" ignored."
-msgstr ""
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
@@ -5214,6 +5231,9 @@ msgstr ""
 
 msgid "Unsupported 'job-name' value."
 msgstr "サポートされていない 'job-name' の値です。"
+
+msgid "Unsupported URI scheme."
+msgstr ""
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
@@ -5377,6 +5397,9 @@ msgstr "使い方: snmp [ホスト名またはIPアドレス]"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
+msgstr ""
+
+msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
 
 msgid "Value uses indefinite length"
@@ -5713,6 +5736,9 @@ msgstr "cups-deviced の実行に失敗しました。"
 
 msgid "cups-driverd failed to execute."
 msgstr "cups-driverd の実行に失敗しました。"
+
+msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7073,10 +7099,6 @@ msgid "insert-sheet"
 msgstr ""
 
 #, c-format
-msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
-
-#, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind: 不正な正規表現です: %s"
 
@@ -7141,16 +7163,8 @@ msgid "ippfind: Too many parenthesis."
 msgstr "ippfind: カッコが多すぎます。"
 
 #, c-format
-msgid "ippfind: Unable to browse or resolve: %s"
-msgstr "ippfind: %s をブラウズできないか名前解決できません。"
-
-#, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
 msgstr "ippfind: \"%s\" を実行できません: %s"
-
-#, c-format
-msgid "ippfind: Unable to use Bonjour: %s"
-msgstr "ippfind: Bonjour を利用できません: %s"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
@@ -7192,6 +7206,10 @@ msgstr "ipptool: \"-i\" に秒数の指定がありません。"
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool: テストファイルの前に URI の指定が必要です。"
+
+#, c-format
+msgid "ipptool: Unable to allocate memory: %s"
+msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -15344,6 +15362,11 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#, c-format
+#~ msgid "%s: Sorry, no encryption support."
+#~ msgstr ""
+#~ "%s: 残念ながら、暗号化サポートはコンパイル時に組み込まれていません。"
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr ""
 #~ "プリンタードライバーをエクスポートするには Samba のパスワードが必要です。"
@@ -15358,8 +15381,65 @@ msgstr ""
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Samba へプリンターをエクスポート"
 
+#~ msgid "Looking for printer."
+#~ msgstr "プリンターを探しています。"
+
+#~ msgid "Unable to copy PPD file."
+#~ msgstr "PPD ファイルをコピーできません。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate chain "
+#~ "invalid)."
+#~ msgstr "ホストへの安全な接続が確立できません (認証パスが無効です)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate not yet "
+#~ "valid)."
+#~ msgstr ""
+#~ "ホストへの安全な接続が確立できません (認証がまだ有効ではありません)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (expired certificate)."
+#~ msgstr "ホストへの安全な接続が確立できません (認証が期限切れです)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (host name mismatch)."
+#~ msgstr "ホストへの安全な接続が確立できません (ホスト名が一致しません)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (peer dropped connection "
+#~ "before responding)."
+#~ msgstr ""
+#~ "ホストへの安全な接続が確立できません (応答がある前に接続が切断されまし"
+#~ "た)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (self-signed certificate)."
+#~ msgstr "ホストへの安全な接続が確立できません (自己署名証明書です)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (untrusted certificate)."
+#~ msgstr "ホストへの安全な接続が確立できません (信用できない証明書です)。"
+
+#~ msgid "Unable to establish a secure connection to host."
+#~ msgstr "ホストへの安全な接続を確立できません。"
+
+#~ msgid "Unable to find printer."
+#~ msgstr "プリンターが見つかりません。"
+
+#~ msgid "Unable to find server credentials."
+#~ msgstr "サーバー証明書を見つけられません。"
+
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl: Listen あるいは Port を直接設定できません。"
+
+#, c-format
+#~ msgid "ippfind: Unable to browse or resolve: %s"
+#~ msgstr "ippfind: %s をブラウズできないか名前解決できません。"
+
+#, c-format
+#~ msgid "ippfind: Unable to use Bonjour: %s"
+#~ msgstr "ippfind: Bonjour を利用できません: %s"
 
 #~ msgid "lpadmin: Unable to open PPD file \"%s\" - %s"
 #~ msgstr "lpadmin: PPD ファイル \"%s\" を開けません - %s"

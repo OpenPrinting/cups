@@ -248,7 +248,6 @@
 // TRANSLATORS: Message is "subject: error"
 "%s: %s" = "%s: %s";
 "%s: %s failed: %s" = "%s: %s failed: %s";
-"%s: Bad printer URI \"%s\"." = "%s: Bad printer URI “%s”.";
 "%s: Bad version %s for \"-V\"." = "%s: Bad version %s for “-V”.";
 "%s: Don't know what to do." = "%s: Don’t know what to do.";
 "%s: Error - %s" = "%s: Error - %s";
@@ -312,18 +311,14 @@
 "%s: Need job ID (\"-i jobid\") before \"-H restart\"." = "%s: Need job ID (“-i jobid”) before “-H restart”.";
 "%s: No filter to convert from %s/%s to %s/%s." = "%s: No filter to convert from %s/%s to %s/%s.";
 "%s: Operation failed: %s" = "%s: Operation failed: %s";
-"%s: Sorry, no encryption support." = "%s: Sorry, no encryption support.";
-"%s: Unable to connect to \"%s:%d\": %s" = "%s: Unable to connect to “%s:%d”: %s";
+"%s: Scheduler is not running." = "%s: Scheduler is not running.";
 "%s: Unable to connect to server." = "%s: Unable to connect to server.";
 "%s: Unable to contact server." = "%s: Unable to contact server.";
-"%s: Unable to create PPD file: %s" = "%s: Unable to create PPD file: %s";
 "%s: Unable to determine MIME type of \"%s\"." = "%s: Unable to determine MIME type of “%s”.";
 "%s: Unable to open \"%s\": %s" = "%s: Unable to open “%s”: %s";
 "%s: Unable to open %s: %s" = "%s: Unable to open %s: %s";
 "%s: Unable to open PPD file: %s on line %d." = "%s: Unable to open PPD file: %s on line %d.";
-"%s: Unable to query printer: %s" = "%s: Unable to query printer: %s";
 "%s: Unable to read MIME database from \"%s\" or \"%s\"." = "%s: Unable to read MIME database from “%s” or “%s”.";
-"%s: Unable to resolve \"%s\"." = "%s: Unable to resolve “%s”.";
 "%s: Unknown argument \"%s\"." = "%s: Unknown argument “%s”.";
 "%s: Unknown destination \"%s\"." = "%s: Unknown destination “%s”.";
 "%s: Unknown destination MIME type %s/%s." = "%s: Unknown destination MIME type %s/%s.";
@@ -444,9 +439,9 @@
 "-P destination          Show status for the specified destination" = "-P destination          Show status for the specified destination";
 "-P destination          Specify the destination" = "-P destination          Specify the destination";
 "-P filename.plist       Produce XML plist to a file and test report to standard output" = "-P filename.plist       Produce XML plist to a file and test report to standard output";
-"-P filename.ppd         Load printer attributes from PPD file" = "-P filename.ppd         Load printer attributes from PPD file";
 "-P number[-number]      Match port to number or range" = "-P number[-number]      Match port to number or range";
 "-P page-list            Specify a list of pages to print" = "-P page-list            Specify a list of pages to print";
+"-R                      Repeat tests on server-error-busy" = "-R                      Repeat tests on server-error-busy";
 "-R                      Show the ranking of jobs" = "-R                      Show the ranking of jobs";
 "-R name-default         Remove the default value for the named option" = "-R name-default         Remove the default value for the named option";
 "-R root-directory       Set alternate root" = "-R root-directory       Set alternate root";
@@ -786,6 +781,7 @@
 "AppSocket/HP JetDirect" = "AppSocket/HP JetDirect";
 "Applicator" = "Applicator";
 "Attempt to set %s printer-state to bad value %d." = "Attempt to set %s printer-state to bad value %d.";
+"Attribute \"%s\" has empty value." = "Attribute “%s” has empty value.";
 "Attribute \"%s\" is in the wrong group." = "Attribute “%s” is in the wrong group.";
 "Attribute \"%s\" is the wrong value type." = "Attribute “%s” is the wrong value type.";
 "Attribute groups are out of order (%x < %x)." = "Attribute groups are out of order (%x < %x).";
@@ -822,6 +818,7 @@
 "Bad device-uri scheme \"%s\"." = "Bad device-uri scheme “%s”.";
 "Bad document-format \"%s\"." = "Bad document-format “%s”.";
 "Bad document-format-default \"%s\"." = "Bad document-format-default “%s”.";
+"Bad extKeyUsage extension in X.509 certificate request." = "Bad extKeyUsage extension in X.509 certificate request.";
 "Bad filename buffer" = "Bad filename buffer";
 "Bad hostname/address in URI" = "Bad hostname/address in URI";
 "Bad job-name value: %s" = "Bad job-name value: %s";
@@ -831,6 +828,7 @@
 "Bad job-sheets value type." = "Bad job-sheets value type.";
 "Bad job-state value." = "Bad job-state value.";
 "Bad job-uri \"%s\"." = "Bad job-uri “%s”.";
+"Bad keyUsage extension in X.509 certificate request." = "Bad keyUsage extension in X.509 certificate request.";
 "Bad notify-pull-method \"%s\"." = "Bad notify-pull-method “%s”.";
 "Bad notify-recipient-uri \"%s\"." = "Bad notify-recipient-uri “%s”.";
 "Bad notify-user-data \"%s\"." = "Bad notify-user-data “%s”.";
@@ -844,6 +842,7 @@
 "Bad request version number %d.%d." = "Bad request version number %d.%d.";
 "Bad resource in URI" = "Bad resource in URI";
 "Bad scheme in URI" = "Bad scheme in URI";
+"Bad subjectAltName extension in X.509 certificate request." = "Bad subjectAltName extension in X.509 certificate request.";
 "Bad username in URI" = "Bad username in URI";
 "Bad value string" = "Bad value string";
 "Bad/empty URI" = "Bad/empty URI";
@@ -1001,6 +1000,7 @@
 "Fold" = "Fold";
 "Folio" = "Folio";
 "Forbidden" = "Forbidden";
+"Form data too large." = "Form data too large.";
 "Found" = "Found";
 "General" = "General";
 "Generic" = "Generic";
@@ -1015,6 +1015,7 @@
 "Help file not in index." = "Help file not in index.";
 "High" = "High";
 "IPP 1setOf attribute with incompatible value tags." = "IPP 1setOf attribute with incompatible value tags.";
+"IPP Everywhere driver requires an IPP connection." = "IPP Everywhere driver requires an IPP connection.";
 "IPP attribute has no name." = "IPP attribute has no name.";
 "IPP attribute is not a member of the message." = "IPP attribute is not a member of the message.";
 "IPP begCollection value not 0 bytes." = "IPP begCollection value not 0 bytes.";
@@ -1026,6 +1027,7 @@
 "IPP integer value not 4 bytes." = "IPP integer value not 4 bytes.";
 "IPP language length overflows value." = "IPP language length overflows value.";
 "IPP language length too large." = "IPP language length too large.";
+"IPP member attribute outside of collection." = "IPP member attribute outside of collection.";
 "IPP member name is not empty." = "IPP member name is not empty.";
 "IPP memberName value is empty." = "IPP memberName value is empty.";
 "IPP memberName with no attribute." = "IPP memberName with no attribute.";
@@ -1060,6 +1062,9 @@
 "Internet Postage 2-Part" = "Internet Postage 2-Part";
 "Internet Postage 3-Part" = "Internet Postage 3-Part";
 "Internet Printing Protocol" = "Internet Printing Protocol";
+"Invalid JSON data." = "Invalid JSON data.";
+"Invalid JSON web token." = "Invalid JSON web token.";
+"Invalid form data." = "Invalid form data.";
 "Invalid group tag." = "Invalid group tag.";
 "Invalid media name arguments." = "Invalid media name arguments.";
 "Invalid media size." = "Invalid media size.";
@@ -1081,6 +1086,7 @@
 "JIS B7" = "JIS B7";
 "JIS B8" = "JIS B8";
 "JIS B9" = "JIS B9";
+"JSON file too large." = "JSON file too large.";
 "Job #%d cannot be restarted - no files." = "Job #%d cannot be restarted - no files.";
 "Job #%d does not exist." = "Job #%d does not exist.";
 "Job #%d is already aborted - can't cancel." = "Job #%d is already aborted - can’t cancel.";
@@ -1114,7 +1120,6 @@
 "Listening on port %d." = "Listening on port %d.";
 "Local printer created." = "Local printer created.";
 "Long-Edge (Portrait)" = "Long-Edge (Portrait)";
-"Looking for printer." = "Looking for printer.";
 "Main Roll" = "Main Roll";
 "Manual Feed" = "Manual Feed";
 "Media Size" = "Media Size";
@@ -1165,7 +1170,6 @@
 "No active jobs on %s." = "No active jobs on %s.";
 "No attributes in request." = "No attributes in request.";
 "No authentication information provided." = "No authentication information provided.";
-"No common name specified." = "No common name specified.";
 "No community name" = "No community name";
 "No default destination." = "No default destination.";
 "No default printer." = "No default printer.";
@@ -1205,6 +1209,7 @@
 "Off (1-Sided)" = "Off (1-Sided)";
 "Oki" = "Oki";
 "Online Help" = "Online Help";
+"Only WGS-84 coordinates are supported." = "Only WGS-84 coordinates are supported.";
 "Only local users can create a local printer." = "Only local users can create a local printer.";
 "Open of %s failed: %s" = "Open of %s failed: %s";
 "OpenGroup without a CloseGroup first" = "OpenGroup without a CloseGroup first";
@@ -1383,26 +1388,31 @@
 "Unable to access help file." = "Unable to access help file.";
 "Unable to add class" = "Unable to add class";
 "Unable to add document to print job." = "Unable to add document to print job.";
+"Unable to add extension to X.509 certificate." = "Unable to add extension to X.509 certificate.";
 "Unable to add job for destination \"%s\"." = "Unable to add job for destination “%s”.";
 "Unable to add printer" = "Unable to add printer";
 "Unable to allocate memory for file types." = "Unable to allocate memory for file types.";
 "Unable to allocate memory for page info" = "Unable to allocate memory for page info";
 "Unable to allocate memory for pages array" = "Unable to allocate memory for pages array";
-"Unable to allocate memory for printer" = "Unable to allocate memory for printer";
+"Unable to allocate memory for printer: %s" = "Unable to allocate memory for printer: %s";
 "Unable to cancel print job." = "Unable to cancel print job.";
 "Unable to change printer" = "Unable to change printer";
 "Unable to change printer-is-shared attribute" = "Unable to change printer-is-shared attribute";
 "Unable to change server settings" = "Unable to change server settings";
+"Unable to commit PPD file: %s" = "Unable to commit PPD file: %s";
 "Unable to compile mimeMediaType regular expression: %s." = "Unable to compile mimeMediaType regular expression: %s.";
 "Unable to compile naturalLanguage regular expression: %s." = "Unable to compile naturalLanguage regular expression: %s.";
 "Unable to configure printer options." = "Unable to configure printer options.";
+"Unable to configure private key context." = "Unable to configure private key context.";
 "Unable to connect to host." = "Unable to connect to host.";
 "Unable to contact printer, queuing on next printer in class." = "Unable to contact printer, queuing on next printer in class.";
 "Unable to copy PPD file - %s" = "Unable to copy PPD file - %s";
-"Unable to copy PPD file." = "Unable to copy PPD file.";
-"Unable to create credentials from array." = "Unable to create credentials from array.";
+"Unable to create X.509 certificate signing request." = "Unable to create X.509 certificate signing request.";
+"Unable to create X.509 certificate." = "Unable to create X.509 certificate.";
 "Unable to create printer-uri" = "Unable to create printer-uri";
 "Unable to create printer." = "Unable to create printer.";
+"Unable to create private key context." = "Unable to create private key context.";
+"Unable to create private key." = "Unable to create private key.";
 "Unable to create server credentials." = "Unable to create server credentials.";
 "Unable to create spool directory \"%s\": %s" = "Unable to create spool directory “%s”: %s";
 "Unable to create temporary file" = "Unable to create temporary file";
@@ -1410,19 +1420,9 @@
 "Unable to delete printer" = "Unable to delete printer";
 "Unable to do maintenance command" = "Unable to do maintenance command";
 "Unable to edit cupsd.conf files larger than 1MB" = "Unable to edit cupsd.conf files larger than 1MB";
-"Unable to establish a secure connection to host (%d)." = "Unable to establish a secure connection to host (%d).";
-"Unable to establish a secure connection to host (certificate chain invalid)." = "Unable to establish a secure connection to host (certificate chain invalid).";
-"Unable to establish a secure connection to host (certificate not yet valid)." = "Unable to establish a secure connection to host (certificate not yet valid).";
-"Unable to establish a secure connection to host (expired certificate)." = "Unable to establish a secure connection to host (expired certificate).";
-"Unable to establish a secure connection to host (host name mismatch)." = "Unable to establish a secure connection to host (host name mismatch).";
-"Unable to establish a secure connection to host (peer dropped connection before responding)." = "Unable to establish a secure connection to host (peer dropped connection before responding).";
-"Unable to establish a secure connection to host (self-signed certificate)." = "Unable to establish a secure connection to host (self-signed certificate).";
-"Unable to establish a secure connection to host (untrusted certificate)." = "Unable to establish a secure connection to host (untrusted certificate).";
-"Unable to establish a secure connection to host." = "Unable to establish a secure connection to host.";
 "Unable to execute command \"%s\": %s" = "Unable to execute command “%s”: %s";
 "Unable to find destination for job" = "Unable to find destination for job";
-"Unable to find printer." = "Unable to find printer.";
-"Unable to find server credentials." = "Unable to find server credentials.";
+"Unable to finish request." = "Unable to finish request.";
 "Unable to get backend exit status." = "Unable to get backend exit status.";
 "Unable to get class list" = "Unable to get class list";
 "Unable to get class status" = "Unable to get class status";
@@ -1431,6 +1431,10 @@
 "Unable to get printer list" = "Unable to get printer list";
 "Unable to get printer status" = "Unable to get printer status";
 "Unable to get printer status." = "Unable to get printer status.";
+"Unable to import X.509 certificate request." = "Unable to import X.509 certificate request.";
+"Unable to import credentials." = "Unable to import credentials.";
+"Unable to initialize private key context." = "Unable to initialize private key context.";
+"Unable to load X.509 CA certificate and private key." = "Unable to load X.509 CA certificate and private key.";
 "Unable to load help index." = "Unable to load help index.";
 "Unable to locate printer \"%s\"." = "Unable to locate printer “%s”.";
 "Unable to locate printer." = "Unable to locate printer.";
@@ -1447,9 +1451,11 @@
 "Unable to open raster file" = "Unable to open raster file";
 "Unable to print test page" = "Unable to print test page";
 "Unable to read print data." = "Unable to read print data.";
-"Unable to register \"%s.%s\": %d" = "Unable to register “%s.%s”: %d";
+"Unable to read response." = "Unable to read response.";
 "Unable to rename job document file." = "Unable to rename job document file.";
 "Unable to resolve printer-uri." = "Unable to resolve printer-uri.";
+"Unable to run cups-driverd: %s" = "Unable to run cups-driverd: %s";
+"Unable to save PPD file: %s" = "Unable to save PPD file: %s";
 "Unable to see in file" = "Unable to see in file";
 "Unable to send command to printer driver" = "Unable to send command to printer driver";
 "Unable to send data to printer." = "Unable to send data to printer.";
@@ -1458,13 +1464,16 @@
 "Unable to start backend process." = "Unable to start backend process.";
 "Unable to upload cupsd.conf file" = "Unable to upload cupsd.conf file";
 "Unable to use legacy USB class driver." = "Unable to use legacy USB class driver.";
+"Unable to verify X.509 certificate request." = "Unable to verify X.509 certificate request.";
+"Unable to write X.509 certificate signing request." = "Unable to write X.509 certificate signing request.";
+"Unable to write X.509 certificate." = "Unable to write X.509 certificate.";
 "Unable to write print data" = "Unable to write print data";
+"Unable to write private key." = "Unable to write private key.";
 "Unable to write uncompressed print data: %s" = "Unable to write uncompressed print data: %s";
 "Unauthorized" = "Unauthorized";
 "Units" = "Units";
 "Unknown" = "Unknown";
 "Unknown choice \"%s\" for option \"%s\"." = "Unknown choice “%s” for option “%s”.";
-"Unknown directive \"%s\" on line %d of \"%s\" ignored." = "Unknown directive “%s” on line %d of “%s” ignored.";
 "Unknown encryption option value: \"%s\"." = "Unknown encryption option value: “%s”.";
 "Unknown file order: \"%s\"." = "Unknown file order: “%s”.";
 "Unknown format character: \"%c\"." = "Unknown format character: “%c”.";
@@ -1484,6 +1493,7 @@
 "Unsupported 'document-format' value \"%s\"." = "Unsupported ‘document-format’ value “%s”.";
 "Unsupported 'job-hold-until' value." = "Unsupported ‘job-hold-until’ value.";
 "Unsupported 'job-name' value." = "Unsupported ‘job-name’ value.";
+"Unsupported URI scheme." = "Unsupported URI scheme.";
 "Unsupported character set \"%s\"." = "Unsupported character set “%s”.";
 "Unsupported compression \"%s\"." = "Unsupported compression “%s”.";
 "Unsupported document-format \"%s\"." = "Unsupported document-format “%s”.";
@@ -1523,6 +1533,7 @@
 "Usage: ppdpo [options] -o filename.po filename.drv [ ... filenameN.drv ]" = "Usage: ppdpo [options] -o filename.po filename.drv [ … filenameN.drv ]";
 "Usage: snmp [host-or-ip-address]" = "Usage: snmp [host-or-ip-address]";
 "Using spool directory \"%s\"." = "Using spool directory “%s”.";
+"Validation of subjectAltName in X.509 certificate request failed." = "Validation of subjectAltName in X.509 certificate request failed.";
 "Value uses indefinite length" = "Value uses indefinite length";
 "VarBind uses indefinite length" = "VarBind uses indefinite length";
 "Version uses indefinite length" = "Version uses indefinite length";
@@ -1680,6 +1691,7 @@
 "covering-name.pre-printed" = "Pre-printed";
 "cups-deviced failed to execute." = "cups-deviced failed to execute.";
 "cups-driverd failed to execute." = "cups-driverd failed to execute.";
+"cups-driverd failed to get PPD file - see error_log for details." = "cups-driverd failed to get PPD file - see error_log for details.";
 "cupsctl: Cannot set %s directly." = "cupsctl: Cannot set %s directly.";
 "cupsctl: Unable to connect to server: %s" = "cupsctl: Unable to connect to server: %s";
 "cupsctl: Unknown option \"%s\"" = "cupsctl: Unknown option “%s”";
@@ -2336,7 +2348,6 @@
 "insert-count" = "Insert Count";
 // TRANSLATORS: Insert Sheet
 "insert-sheet" = "Insert Sheet";
-"ippeveprinter: Unable to open \"%s\": %s on line %d." = "ippeveprinter: Unable to open “%s”: %s on line %d.";
 "ippfind: Bad regular expression: %s" = "ippfind: Bad regular expression: %s";
 "ippfind: Cannot use --and after --or." = "ippfind: Cannot use --and after --or.";
 "ippfind: Expected key name after %s." = "ippfind: Expected key name after %s.";
@@ -2355,9 +2366,7 @@
 "ippfind: Missing semi-colon after %s." = "ippfind: Missing semi-colon after %s.";
 "ippfind: Out of memory." = "ippfind: Out of memory.";
 "ippfind: Too many parenthesis." = "ippfind: Too many parenthesis.";
-"ippfind: Unable to browse or resolve: %s" = "ippfind: Unable to browse or resolve: %s";
 "ippfind: Unable to execute \"%s\": %s" = "ippfind: Unable to execute “%s”: %s";
-"ippfind: Unable to use Bonjour: %s" = "ippfind: Unable to use Bonjour: %s";
 "ippfind: Unknown variable \"{%s}\"." = "ippfind: Unknown variable “{%s}”.";
 "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", and \"-X\"." = "ipptool: “-i” and “-n” are incompatible with “--ippserver”, “-P”, and “-X”.";
 "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"." = "ipptool: “-i” and “-n” are incompatible with “-P” and “-X”.";
@@ -2370,6 +2379,7 @@
 "ipptool: Missing name=value for \"-d\"." = "ipptool: Missing name=value for “-d”.";
 "ipptool: Missing seconds for \"-i\"." = "ipptool: Missing seconds for “-i”.";
 "ipptool: URI required before test file." = "ipptool: URI required before test file.";
+"ipptool: Unable to allocate memory: %s" = "ipptool: Unable to allocate memory: %s";
 // TRANSLATORS: Job Account ID
 "job-account-id" = "Job Account ID";
 // TRANSLATORS: Job Account Type

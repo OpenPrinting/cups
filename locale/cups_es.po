@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2021-03-07 10:33-0500\n"
+"POT-Creation-Date: 2023-09-13 13:50-0400\n"
 "PO-Revision-Date: 2016-06-26 21:17+0100\n"
 "Last-Translator: Juan Pablo González Riopedre <jpgriopedre@yahoo.es>\n"
 "Language-Team: Spanish\n"
@@ -1189,10 +1189,6 @@ msgid "%s: %s failed: %s"
 msgstr "%s: %s ha fallado: %s"
 
 #, c-format
-msgid "%s: Bad printer URI \"%s\"."
-msgstr "%s: URI de impresora \"%s\" no válida."
-
-#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s: Versión %s incorrecta para \"-V\"."
 
@@ -1456,12 +1452,8 @@ msgid "%s: Operation failed: %s"
 msgstr "%s: La operación ha fallado: %s"
 
 #, c-format
-msgid "%s: Sorry, no encryption support."
-msgstr "%s: Lo siento, no está implementado el cifrado."
-
-#, c-format
-msgid "%s: Unable to connect to \"%s:%d\": %s"
-msgstr "%s: No se ha podido conectar a \"%s:%d\": %s"
+msgid "%s: Scheduler is not running."
+msgstr ""
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1470,10 +1462,6 @@ msgstr "%s: No se ha podido conectar al servidor."
 #, c-format
 msgid "%s: Unable to contact server."
 msgstr "%s: No se ha podido contactar con el servidor."
-
-#, c-format
-msgid "%s: Unable to create PPD file: %s"
-msgstr "%s: No se ha podido crear el archivo PPD: %s"
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1492,16 +1480,8 @@ msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: No se ha podido abrir el archivo PPD: %s en la línea %d."
 
 #, c-format
-msgid "%s: Unable to query printer: %s"
-msgstr ""
-
-#, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
 msgstr "%s: No se pudo leer base de datos MIME desde \"%s\" o \"%s\"."
-
-#, c-format
-msgid "%s: Unable to resolve \"%s\"."
-msgstr "%s: No se ha podido resolver \"%s\"."
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -1898,13 +1878,13 @@ msgid ""
 "standard output"
 msgstr ""
 
-msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
-
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
 
 msgid "-P page-list            Specify a list of pages to print"
+msgstr ""
+
+msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 msgid "-R                      Show the ranking of jobs"
@@ -2963,6 +2943,10 @@ msgstr ""
 "%d."
 
 #, c-format
+msgid "Attribute \"%s\" has empty value."
+msgstr ""
+
+#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "El atributo \"%s\" está en el grupo equivocado."
 
@@ -3081,6 +3065,9 @@ msgstr "document-format \"%s\" incorrecto."
 msgid "Bad document-format-default \"%s\"."
 msgstr "document-format-default \"%s\" incorrecto."
 
+msgid "Bad extKeyUsage extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad filename buffer"
 msgstr "Nombre de archivo del búfer incorrecto"
 
@@ -3110,6 +3097,9 @@ msgstr "Valor job-state incorrecto."
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr "job-uri \"%s\" incorrecto."
+
+msgid "Bad keyUsage extension in X.509 certificate request."
+msgstr ""
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3158,6 +3148,9 @@ msgstr "Recurso incorrecto en URI"
 
 msgid "Bad scheme in URI"
 msgstr "Esquema incorrecto en URI"
+
+msgid "Bad subjectAltName extension in X.509 certificate request."
+msgstr ""
 
 msgid "Bad username in URI"
 msgstr "Nombre de usuario incorrecto en URI"
@@ -3672,6 +3665,9 @@ msgstr "Folio"
 msgid "Forbidden"
 msgstr "Prohibido"
 
+msgid "Form data too large."
+msgstr ""
+
 msgid "Found"
 msgstr ""
 
@@ -3714,6 +3710,9 @@ msgstr "Alta"
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "Atributo IPP 1setOf con etiquetas de valor incompatibles."
 
+msgid "IPP Everywhere driver requires an IPP connection."
+msgstr ""
+
 msgid "IPP attribute has no name."
 msgstr "Atributo IPP sin nombre."
 
@@ -3746,6 +3745,9 @@ msgstr "IPP la longitud del idioma sobrepasa el valor."
 
 msgid "IPP language length too large."
 msgstr "Longitud de idioma IPP demasiado larga."
+
+msgid "IPP member attribute outside of collection."
+msgstr ""
 
 msgid "IPP member name is not empty."
 msgstr "IPP el nombre del miembro no está vacío."
@@ -3851,6 +3853,15 @@ msgstr "Correo por Internet Parte-3"
 msgid "Internet Printing Protocol"
 msgstr "Protocolo de Impresión de Internet IPP"
 
+msgid "Invalid JSON data."
+msgstr ""
+
+msgid "Invalid JSON web token."
+msgstr ""
+
+msgid "Invalid form data."
+msgstr ""
+
 msgid "Invalid group tag."
 msgstr ""
 
@@ -3914,6 +3925,9 @@ msgstr "JIS B8"
 
 msgid "JIS B9"
 msgstr "JIS B9"
+
+msgid "JSON file too large."
+msgstr ""
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4025,9 +4039,6 @@ msgstr "Impresora creada localmente."
 
 msgid "Long-Edge (Portrait)"
 msgstr "Lado largo (retrato)"
-
-msgid "Looking for printer."
-msgstr ""
 
 msgid "Main Roll"
 msgstr ""
@@ -4190,9 +4201,6 @@ msgstr "No hay atributos en la solicitud."
 msgid "No authentication information provided."
 msgstr "No se ha proporcionado información de autentificación."
 
-msgid "No common name specified."
-msgstr ""
-
 msgid "No community name"
 msgstr "No hay nombre de comunidad"
 
@@ -4311,6 +4319,9 @@ msgstr "Oki"
 
 msgid "Online Help"
 msgstr "Ayuda en línea"
+
+msgid "Only WGS-84 coordinates are supported."
+msgstr ""
 
 msgid "Only local users can create a local printer."
 msgstr "Sólo usuarios locales pueden crear una impresora local."
@@ -4893,6 +4904,9 @@ msgstr "No se ha podido añadir la clase"
 msgid "Unable to add document to print job."
 msgstr "No se ha podido añadir el documento al trabajo de impresión."
 
+msgid "Unable to add extension to X.509 certificate."
+msgstr ""
+
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
 msgstr "No se ha podido añadir el trabajo para el destino \"%s\"."
@@ -4909,7 +4923,8 @@ msgstr "No se ha podido reservar memoria para la información de página."
 msgid "Unable to allocate memory for pages array"
 msgstr "No se ha podido reservar memoria para la secuencia de páginas"
 
-msgid "Unable to allocate memory for printer"
+#, c-format
+msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
 msgid "Unable to cancel print job."
@@ -4925,6 +4940,10 @@ msgid "Unable to change server settings"
 msgstr "No se ha podido cambiar la configuración del servidor"
 
 #, c-format
+msgid "Unable to commit PPD file: %s"
+msgstr ""
+
+#, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
 msgstr "No se ha podido compilar la expresión regular mimeMediaType: %s."
 
@@ -4934,6 +4953,9 @@ msgstr "No se ha podido compilar la expresión regular naturalLanguage: %s."
 
 msgid "Unable to configure printer options."
 msgstr "No se han podido configurar las opciones de impresión."
+
+msgid "Unable to configure private key context."
+msgstr ""
 
 msgid "Unable to connect to host."
 msgstr "No se ha podido conectar al equipo."
@@ -4947,10 +4969,10 @@ msgstr ""
 msgid "Unable to copy PPD file - %s"
 msgstr "No se ha podido copiar el archivo PPD - %s"
 
-msgid "Unable to copy PPD file."
-msgstr "No se ha podido copiar el archivo PPD."
+msgid "Unable to create X.509 certificate signing request."
+msgstr ""
 
-msgid "Unable to create credentials from array."
+msgid "Unable to create X.509 certificate."
 msgstr ""
 
 msgid "Unable to create printer-uri"
@@ -4958,6 +4980,12 @@ msgstr "No se ha podido crear printer-uri"
 
 msgid "Unable to create printer."
 msgstr "No se ha podido crear la impresora."
+
+msgid "Unable to create private key context."
+msgstr ""
+
+msgid "Unable to create private key."
+msgstr ""
 
 msgid "Unable to create server credentials."
 msgstr "No se han podido crear las credenciales del servidor."
@@ -4982,65 +5010,14 @@ msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr "No se pueden editar archivos cupsd.conf mayores de 1MB"
 
 #, c-format
-msgid "Unable to establish a secure connection to host (%d)."
-msgstr ""
-
-msgid ""
-"Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr ""
-"No se ha podido establecer una conexión segura con el equipo (cadena "
-"certificado incorrecta)."
-
-msgid ""
-"Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr ""
-"No se ha podido establecer una conexión segura con el equipo (el certificado "
-"aún no es válido)."
-
-msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr ""
-"No se ha podido establecer una conexión segura con el equipo (certificado "
-"caducado)."
-
-msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr ""
-"No se ha podido establecer una conexión segura con el equipo (el nombre de "
-"equipo no coincide)."
-
-msgid ""
-"Unable to establish a secure connection to host (peer dropped connection "
-"before responding)."
-msgstr ""
-"No se ha podido establecer una conexión segura con el equipo (el par cortó "
-"la conexión antes de responder)."
-
-msgid ""
-"Unable to establish a secure connection to host (self-signed certificate)."
-msgstr ""
-"No se ha podido establecer una conexión segura con el equipo (certificado "
-"auto-firmado)."
-
-msgid ""
-"Unable to establish a secure connection to host (untrusted certificate)."
-msgstr ""
-"No se ha podido establecer una conexión segura con el equipo (certificado no "
-"seguro)."
-
-msgid "Unable to establish a secure connection to host."
-msgstr "No se ha podido establecer una conexión segura al equipo."
-
-#, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "No se ha podido encontrar destino para el trabajo"
 
-msgid "Unable to find printer."
-msgstr "No se ha podido encontrar la impresora."
-
-msgid "Unable to find server credentials."
-msgstr "No se han podido encontrar las credenciales del servidor."
+msgid "Unable to finish request."
+msgstr ""
 
 msgid "Unable to get backend exit status."
 msgstr "No se ha podido obtener el estado de salida del programa backend."
@@ -5065,6 +5042,18 @@ msgstr "No se ha podido obtener el estado de la impresora"
 
 msgid "Unable to get printer status."
 msgstr "No se ha podido obtener el estado de la impresora."
+
+msgid "Unable to import X.509 certificate request."
+msgstr ""
+
+msgid "Unable to import credentials."
+msgstr ""
+
+msgid "Unable to initialize private key context."
+msgstr ""
+
+msgid "Unable to load X.509 CA certificate and private key."
+msgstr ""
 
 msgid "Unable to load help index."
 msgstr "No se ha podido cargar el índice de ayuda."
@@ -5116,8 +5105,7 @@ msgstr "No se ha podido imprimir la página de prueba"
 msgid "Unable to read print data."
 msgstr "No se han podido leer los datos de impresión."
 
-#, c-format
-msgid "Unable to register \"%s.%s\": %d"
+msgid "Unable to read response."
 msgstr ""
 
 msgid "Unable to rename job document file."
@@ -5125,6 +5113,14 @@ msgstr "No se ha podido renombrar el archivo del documento de trabajo."
 
 msgid "Unable to resolve printer-uri."
 msgstr "No se ha podido resolver printer-uri."
+
+#, c-format
+msgid "Unable to run cups-driverd: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save PPD file: %s"
+msgstr ""
 
 msgid "Unable to see in file"
 msgstr "No se ha podido mirar en el archivo"
@@ -5151,8 +5147,20 @@ msgid "Unable to use legacy USB class driver."
 msgstr ""
 "No se ha podido usar el controlador de dispositivo de clase USB obsoleto."
 
+msgid "Unable to verify X.509 certificate request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate."
+msgstr ""
+
 msgid "Unable to write print data"
 msgstr "No se han podido escribir los datos de impresión"
+
+msgid "Unable to write private key."
+msgstr ""
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5170,10 +5178,6 @@ msgstr "Desconocido"
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
 msgstr "Preferencia \"%s\" desconocida para la opción \"%s\"."
-
-#, c-format
-msgid "Unknown directive \"%s\" on line %d of \"%s\" ignored."
-msgstr ""
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
@@ -5242,6 +5246,9 @@ msgstr ""
 
 msgid "Unsupported 'job-name' value."
 msgstr "Valor 'job-name' no implementado."
+
+msgid "Unsupported URI scheme."
+msgstr ""
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
@@ -5408,6 +5415,9 @@ msgstr "Uso: snmp [equipo-o-dirección-ip]"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
+msgstr ""
+
+msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
 
 msgid "Value uses indefinite length"
@@ -5743,6 +5753,9 @@ msgstr "Ha fallado al ejecutarse cups-deviced."
 
 msgid "cups-driverd failed to execute."
 msgstr "Ha fallado al ejecutarse cups-driverd."
+
+msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7105,10 +7118,6 @@ msgid "insert-sheet"
 msgstr ""
 
 #, c-format
-msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
-
-#, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind: Expresión regular incorrecta: %s"
 
@@ -7173,16 +7182,8 @@ msgid "ippfind: Too many parenthesis."
 msgstr "ippfind: Demasiados paréntesis."
 
 #, c-format
-msgid "ippfind: Unable to browse or resolve: %s"
-msgstr "ippfind: No se ha podido examinar o resolver: %s"
-
-#, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
 msgstr "ippfind: No se ha podido ejecutar \"%s\": %s"
-
-#, c-format
-msgid "ippfind: Unable to use Bonjour: %s"
-msgstr "ippfind: No se ha podido usar Bonjour: %s"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
@@ -7223,6 +7224,10 @@ msgstr "ipptool: Falta el número de segundos para \"-i\"."
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool: Se requiere un URI antes del archivo de prueba."
+
+#, c-format
+msgid "ipptool: Unable to allocate memory: %s"
+msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -15345,6 +15350,26 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#, c-format
+#~ msgid "%s: Bad printer URI \"%s\"."
+#~ msgstr "%s: URI de impresora \"%s\" no válida."
+
+#, c-format
+#~ msgid "%s: Sorry, no encryption support."
+#~ msgstr "%s: Lo siento, no está implementado el cifrado."
+
+#, c-format
+#~ msgid "%s: Unable to connect to \"%s:%d\": %s"
+#~ msgstr "%s: No se ha podido conectar a \"%s:%d\": %s"
+
+#, c-format
+#~ msgid "%s: Unable to create PPD file: %s"
+#~ msgstr "%s: No se ha podido crear el archivo PPD: %s"
+
+#, c-format
+#~ msgid "%s: Unable to resolve \"%s\"."
+#~ msgstr "%s: No se ha podido resolver \"%s\"."
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr ""
 #~ "Se requiere una contraseña Samba para exportar los controladores de "
@@ -15361,8 +15386,73 @@ msgstr ""
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Exportar impresoras a Samba"
 
+#~ msgid "Unable to copy PPD file."
+#~ msgstr "No se ha podido copiar el archivo PPD."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate chain "
+#~ "invalid)."
+#~ msgstr ""
+#~ "No se ha podido establecer una conexión segura con el equipo (cadena "
+#~ "certificado incorrecta)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate not yet "
+#~ "valid)."
+#~ msgstr ""
+#~ "No se ha podido establecer una conexión segura con el equipo (el "
+#~ "certificado aún no es válido)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (expired certificate)."
+#~ msgstr ""
+#~ "No se ha podido establecer una conexión segura con el equipo (certificado "
+#~ "caducado)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (host name mismatch)."
+#~ msgstr ""
+#~ "No se ha podido establecer una conexión segura con el equipo (el nombre "
+#~ "de equipo no coincide)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (peer dropped connection "
+#~ "before responding)."
+#~ msgstr ""
+#~ "No se ha podido establecer una conexión segura con el equipo (el par "
+#~ "cortó la conexión antes de responder)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (self-signed certificate)."
+#~ msgstr ""
+#~ "No se ha podido establecer una conexión segura con el equipo (certificado "
+#~ "auto-firmado)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (untrusted certificate)."
+#~ msgstr ""
+#~ "No se ha podido establecer una conexión segura con el equipo (certificado "
+#~ "no seguro)."
+
+#~ msgid "Unable to establish a secure connection to host."
+#~ msgstr "No se ha podido establecer una conexión segura al equipo."
+
+#~ msgid "Unable to find printer."
+#~ msgstr "No se ha podido encontrar la impresora."
+
+#~ msgid "Unable to find server credentials."
+#~ msgstr "No se han podido encontrar las credenciales del servidor."
+
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl: No se puede establecer Listen o Port directamente."
+
+#, c-format
+#~ msgid "ippfind: Unable to browse or resolve: %s"
+#~ msgstr "ippfind: No se ha podido examinar o resolver: %s"
+
+#, c-format
+#~ msgid "ippfind: Unable to use Bonjour: %s"
+#~ msgstr "ippfind: No se ha podido usar Bonjour: %s"
 
 #~ msgid "lpadmin: Unable to open PPD file \"%s\" - %s"
 #~ msgstr "lpadmin: No se ha podido abrir el archivo PPD \"%s\" - %s"
