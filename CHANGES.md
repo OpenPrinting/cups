@@ -14,6 +14,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed hanging of `lpstat` on IBM AIX (Issue #773)
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
+- Fixed RFC 1179 port reserving behavior in LPD backend (Issue #743)
 - Fixed printing multiple files on specific printers (Issue #643)
 - Fixed printing to stderr if we can't open cups-files.conf (Issue #777)
 - Fixed purging job files via `cancel -x` (Issue #742)
