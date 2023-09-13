@@ -10,6 +10,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Updated `cupsArray` APIs.
 - Fixed Digest authentication support (Issue #260)
 - Fixed delays in lpd backend (Issue #741)
+- Fixed extensive looping in scheduler (Issue #604)
+- Fixed hanging of `lpstat` on IBM AIX (Issue #773)
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
 - Fixed printing multiple files on specific printers (Issue #643)
