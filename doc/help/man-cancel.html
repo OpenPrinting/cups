@@ -1,87 +1,104 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>cancel(1)</title>
-</head>
-<body>
-<h1 class="title">cancel(1)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-cancel - cancel jobs
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>cancel</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cancel(1)</title>
+  </head>
+  <body>
+    <h1 id="cancel-1">cancel(1)</h1>
+    <h2 id="cancel-1.name">Name</h2>
+<p>cancel - cancel jobs
+</p>
+    <h2 id="cancel-1.synopsis">Synopsis</h2>
+<p><strong>cancel</strong>
 [
-<b>-h</b>
-<i>hostname[:port]</i>
+<strong>-h</strong>
+<em>hostname[:port]</em>
 ] [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ] [
-<b>-a</b>
+<strong>-a</strong>
 ] [
-<b>-u</b>
-<i>username</i>
+<strong>-u</strong>
+<em>username</em>
 ] [
-<b>-x</b>
+<strong>-x</strong>
 ] [
-<i>id</i>
+<em>id</em>
 ] [
-<i>destination</i>
+<em>destination</em>
 ] [
-<i>destination-id</i>
+<em>destination-id</em>
 ]
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-The <b>cancel</b> command cancels print jobs.
-If no <i>destination</i> or <i>id</i> is specified, the currently printing job on the default destination is canceled.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-The following options are recognized by <b>cancel</b>:
-<dl class="man">
-<dt><b>-a</b>
-<dd style="margin-left: 5.0em">Cancel all jobs on the named destination, or all jobs on all
+</p>
+    <h2 id="cancel-1.description">Description</h2>
+<p>The <strong>cancel</strong> command cancels print jobs.
+If no <em>destination</em> or <em>id</em> is specified, the currently printing job on the default destination is canceled.
+</p>
+    <h2 id="cancel-1.options">Options</h2>
+<p>The following options are recognized by <strong>cancel</strong>:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a</strong><br>
+Cancel all jobs on the named destination, or all jobs on all
 destinations if none is provided.
-<dt><b>-E</b>
-<dd style="margin-left: 5.0em">Forces encryption when connecting to the server.
-<dt><b>-h </b><i>hostname</i>[<i>:port</i>]
-<dd style="margin-left: 5.0em">Specifies an alternate server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>hostname</em>[<em>:port</em>]<br>
+Specifies an alternate server.
 Note: This option must occur before all others.
-<dt><b>-U </b><i>username</i>
-<dd style="margin-left: 5.0em">Specifies the username to use when connecting to the server.
-<dt><b>-u </b><i>username</i>
-<dd style="margin-left: 5.0em">Cancels jobs owned by <i>username</i>.
-<dt><b>-x</b>
-<dd style="margin-left: 5.0em">Deletes job data files in addition to canceling.
-</dl>
-<h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
-Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, "/", or "#". Also, printer and class names are <i>not</i> case-sensitive.
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
-Cancel the current print job:
-<pre class="man">
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Specifies the username to use when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u </strong><em>username</em><br>
+Cancels jobs owned by <em>username</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-x</strong><br>
+Deletes job data files in addition to canceling.
+</p>
+    <h2 id="cancel-1.conforming-to">Conforming To</h2>
+<p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;. Also, printer and class names are <em>not</em> case-sensitive.
+</p>
+    <h2 id="cancel-1.examples">Examples</h2>
+<p>Cancel the current print job:
+</p>
+    <pre>
     cancel
 
 </pre>
-Cancel job "myprinter-42":
-<pre class="man">
+<p>Cancel job &quot;myprinter-42&quot;:
+</p>
+    <pre>
     cancel myprinter-42
 
 </pre>
-Cancel all jobs:
-<pre class="man">
+<p>Cancel all jobs:
+</p>
+    <pre>
     cancel -a
 </pre>
-<h2 class="title"><a name="NOTES">Notes</a></h2>
-Administrators wishing to prevent unauthorized cancellation of jobs via the <i>-u</i> option should require authentication for Cancel-Jobs operations in
-<a href="man-cupsd.conf.html?TOPIC=Man+Pages"><b>cupsd.conf</b>(5).</a>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-cupsd.conf.html?TOPIC=Man+Pages"><b>cupsd.conf</b>(5),</a>
-<a href="man-lp.html?TOPIC=Man+Pages"><b>lp</b>(1),</a>
-<a href="man-lpmove.html?TOPIC=Man+Pages"><b>lpmove</b>(8),</a>
-<a href="man-lpstat.html?TOPIC=Man+Pages"><b>lpstat</b>(1),</a>
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
+    <h2 id="cancel-1.notes">Notes</h2>
+<p>Administrators wishing to prevent unauthorized cancellation of jobs via the <em>-u</em> option should require authentication for Cancel-Jobs operations in
+<strong>cupsd.conf</strong>(5).
 
-</body>
+</p>
+    <h2 id="cancel-1.see-also">See Also</h2>
+<p><strong>cupsd.conf</strong>(5),
+
+<strong>lp</strong>(1),
+
+<strong>lpmove</strong>(8),
+
+<strong>lpstat</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="cancel-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

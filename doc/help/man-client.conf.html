@@ -1,108 +1,140 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>client.conf(5)</title>
-</head>
-<body>
-<h1 class="title">client.conf(5)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-client.conf - client configuration file for cups (deprecated on macos)
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-The <b>client.conf</b> file configures the CUPS client and is normally located in the <i>/etc/cups</i> and/or <i>~/.cups</i> directories.
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>client.conf(5)</title>
+  </head>
+  <body>
+    <h1 id="client.conf-5">client.conf(5)</h1>
+    <h2 id="client.conf-5.name">Name</h2>
+<p>client.conf - client configuration file for cups (deprecated on macos)
+</p>
+    <h2 id="client.conf-5.description">Description</h2>
+<p>The <strong>client.conf</strong> file configures the CUPS client and is normally located in the <em>/etc/cups</em> and/or <em>~/.cups</em> directories.
 Each line in the file can be a configuration directive, a blank line, or a comment. Comment lines start with the # character.
-<p><b>Note:</b> Starting with macOS 10.7, this file is only used by command-line and X11 applications plus the IPP backend.
-The <b>ServerName</b> directive is not supported on macOS at all.
-Starting with macOS 10.12, all applications can access these settings in the <i>/Library/Preferences/org.cups.PrintingPrefs.plist</i> file instead.
+</p>
+    <p><strong>Note:</strong> Starting with macOS 10.7, this file is only used by command-line and X11 applications plus the IPP backend.
+The <strong>ServerName</strong> directive is not supported on macOS at all.
+Starting with macOS 10.12, all applications can access these settings in the <em>/Library/Preferences/org.cups.PrintingPrefs.plist</em> file instead.
 See the NOTES section below for more information.
-<h3><a name="DIRECTIVES">Directives</a></h3>
-The following directives are understood by the client. Consult the online help for detailed descriptions:
-<dl class="man">
-<dt><a name="AllowAnyRoot"></a><b>AllowAnyRoot Yes</b>
-<dd style="margin-left: 5.0em"><dt><b>AllowAnyRoot No</b>
-<dd style="margin-left: 5.0em">Specifies whether to allow TLS with certificates that have not been signed by a trusted Certificate Authority.
-The default is "Yes".
-<dt><a name="AllowExpiredCerts"></a><b>AllowExpiredCerts Yes</b>
-<dd style="margin-left: 5.0em"><dt><b>AllowExpiredCerts No</b>
-<dd style="margin-left: 5.0em">Specifies whether to allow TLS with expired certificates.
-The default is "No".
-<dt><a name="DigestOptions"></a><b>DigestOptions DenyMD5</b>
-<dd style="margin-left: 5.0em"><dt><b>DigestOptions None</b>
-<dd style="margin-left: 5.0em">Specifies HTTP Digest authentication options.
-<b>DenyMD5</b> disables support for the original MD5 hash algorithm.
-<dt><a name="Encryption"></a><b>Encryption IfRequested</b>
-<dd style="margin-left: 5.0em"><dt><b>Encryption Never</b>
-<dd style="margin-left: 5.0em"><dt><b>Encryption Required</b>
-<dd style="margin-left: 5.0em">Specifies the level of encryption that should be used.
-<dt><a name="GSSServiceName"></a><b>GSSServiceName </b><i>name</i>
-<dd style="margin-left: 5.0em">Specifies the Kerberos service name that is used for authentication, typically "host", "http", or "ipp".
-CUPS adds the remote hostname ("name@server.example.com") for you. The default name is "http".
-<dt><a name="ServerName"></a><b>ServerName </b><i>hostname-or-ip-address</i>[<i>:port</i>]
-<dd style="margin-left: 5.0em"><dt><b>ServerName </b><i>/domain/socket</i>
-<dd style="margin-left: 5.0em">Specifies the address and optionally the port to use when connecting to the server.
-<b>Note: This directive is not supported on macOS 10.7 or later.</b>
-<dt><b>ServerName </b><i>hostname-or-ip-address</i>[<i>:port</i>]<b>/version=1.1</b>
-<dd style="margin-left: 5.0em">Specifies the address and optionally the port to use when connecting to a server running CUPS 1.3.12 and earlier.
-<dt><a name="SSLOptions"></a><b>SSLOptions </b>[<i>AllowDH</i>] [<i>AllowRC4</i>] [<i>AllowSSL3</i>] [<i>DenyCBC</i>] [<i>DenyTLS1.0</i>] [<i>MaxTLS1.0</i>] [<i>MaxTLS1.1</i>] [<i>MaxTLS1.2</i>] [<i>MaxTLS1.3</i>] [<i>MinTLS1.0</i>] [<i>MinTLS1.1</i>] [<i>MinTLS1.2</i>] [<i>MinTLS1.3</i>]
-<dd style="margin-left: 5.0em"><dt><b>SSLOptions None</b>
-<dd style="margin-left: 5.0em">Sets encryption options (only in /etc/cups/client.conf).
+</p>
+    <h3 id="client.conf-5.description.directives">Directives</h3>
+<p>The following directives are understood by the client. Consult the online help for detailed descriptions:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AllowAnyRoot Yes</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AllowAnyRoot No</strong><br>
+Specifies whether to allow TLS with certificates that have not been signed by a trusted Certificate Authority.
+The default is &quot;Yes&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AllowExpiredCerts Yes</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AllowExpiredCerts No</strong><br>
+Specifies whether to allow TLS with expired certificates.
+The default is &quot;No&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DigestOptions DenyMD5</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DigestOptions None</strong><br>
+Specifies HTTP Digest authentication options.
+<strong>DenyMD5</strong> disables support for the original MD5 hash algorithm.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Encryption IfRequested</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Encryption Never</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Encryption Required</strong><br>
+Specifies the level of encryption that should be used.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>GSSServiceName </strong><em>name</em><br>
+Specifies the Kerberos service name that is used for authentication, typically &quot;host&quot;, &quot;http&quot;, or &quot;ipp&quot;.
+CUPS adds the remote hostname (&quot;name@server.example.com&quot;) for you. The default name is &quot;http&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>hostname-or-ip-address</em>[<em>:port</em>]<br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>/domain/socket</em><br>
+Specifies the address and optionally the port to use when connecting to the server.
+<strong>Note: This directive is not supported on macOS 10.7 or later.</strong>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>hostname-or-ip-address</em>[<em>:port</em>]<strong>/version=1.1</strong><br>
+Specifies the address and optionally the port to use when connecting to a server running CUPS 1.3.12 and earlier.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions </strong>[<em>AllowDH</em>] [<em>AllowRC4</em>] [<em>AllowSSL3</em>] [<em>DenyCBC</em>] [<em>DenyTLS1.0</em>] [<em>MaxTLS1.0</em>] [<em>MaxTLS1.1</em>] [<em>MaxTLS1.2</em>] [<em>MaxTLS1.3</em>] [<em>MinTLS1.0</em>] [<em>MinTLS1.1</em>] [<em>MinTLS1.2</em>] [<em>MinTLS1.3</em>]<br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions None</strong><br>
+Sets encryption options (only in /etc/cups/client.conf).
 By default, CUPS only supports encryption using TLS v1.0 or higher using known secure cipher suites.
-Security is reduced when <i>Allow</i> options are used.
-Security is enhanced when <i>Deny</i> options are used.
-The <i>AllowDH</i> option enables cipher suites using plain Diffie-Hellman key negotiation (not supported on systems using GNU TLS).
-The <i>AllowRC4</i> option enables the 128-bit RC4 cipher suites, which are required for some older clients.
-The <i>AllowSSL3</i> option enables SSL v3.0, which is required for some older clients that do not support TLS v1.0.
-The <i>DenyCBC</i> option disables all CBC cipher suites.
-The <i>DenyTLS1.0</i> option disables TLS v1.0 support - this sets the minimum protocol version to TLS v1.1.
-The <i>MinTLS</i> options set the minimum TLS version to support.
-The <i>MaxTLS</i> options set the maximum TLS version to support.
+Security is reduced when <em>Allow</em> options are used.
+Security is enhanced when <em>Deny</em> options are used.
+The <em>AllowDH</em> option enables cipher suites using plain Diffie-Hellman key negotiation (not supported on systems using GNU TLS).
+The <em>AllowRC4</em> option enables the 128-bit RC4 cipher suites, which are required for some older clients.
+The <em>AllowSSL3</em> option enables SSL v3.0, which is required for some older clients that do not support TLS v1.0.
+The <em>DenyCBC</em> option disables all CBC cipher suites.
+The <em>DenyTLS1.0</em> option disables TLS v1.0 support - this sets the minimum protocol version to TLS v1.1.
+The <em>MinTLS</em> options set the minimum TLS version to support.
+The <em>MaxTLS</em> options set the maximum TLS version to support.
 Not all operating systems support TLS 1.3 at this time.
-<dt><a name="TrustOnFirstUse"></a><b>TrustOnFirstUse Yes</b>
-<dd style="margin-left: 5.0em"><dt><b>TrustOnFirstUse No</b>
-<dd style="margin-left: 5.0em">Specifies whether to trust new TLS certificates by default.
-The default is "Yes".
-<dt><a name="User"></a><b>User </b><i>name</i>
-<dd style="margin-left: 5.0em">Specifies the default user name to use for requests.
-<dt><a name="UserAgentTokens"></a><b>UserAgentTokens None</b>
-<dd style="margin-left: 5.0em"><dt><b>UserAgentTokens ProductOnly</b>
-<dd style="margin-left: 5.0em"><dt><b>UserAgentTokens Major</b>
-<dd style="margin-left: 5.0em"><dt><b>UserAgentTokens Minor</b>
-<dd style="margin-left: 5.0em"><dt><b>UserAgentTokens Minimal</b>
-<dd style="margin-left: 5.0em"><dt><b>UserAgentTokens OS</b>
-<dd style="margin-left: 5.0em"><dt><b>UserAgentTokens Full</b>
-<dd style="margin-left: 5.0em">Specifies what information is included in the User-Agent header of HTTP requests.
-"None" disables the User-Agent header.
-"ProductOnly" reports "CUPS".
-"Major" reports "CUPS/major IPP/2".
-"Minor" reports "CUPS/major.minor IPP/2.1".
-"Minimal" reports "CUPS/major.minor.patch IPP/2.1".
-"OS" reports "CUPS/major.minor.path (osname osversion) IPP/2.1".
-"Full" reports "CUPS/major.minor.path (osname osversion; architecture) IPP/2.1".
-The default is "Minimal".
-<dt><a name="ValidateCerts"></a><b>ValidateCerts Yes</b>
-<dd style="margin-left: 5.0em"><dt><b>ValidateCerts No</b>
-<dd style="margin-left: 5.0em">Specifies whether to only allow TLS with certificates whose common name matches the hostname.
-The default is "No".
-</dl>
-<h2 class="title"><a name="NOTES">Notes</a></h2>
-The <b>client.conf</b> file is deprecated on macOS and will no longer be supported in a future version of CUPS.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TrustOnFirstUse Yes</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TrustOnFirstUse No</strong><br>
+Specifies whether to trust new TLS certificates by default.
+The default is &quot;Yes&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>User </strong><em>name</em><br>
+Specifies the default user name to use for requests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens None</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens ProductOnly</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens Major</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens Minor</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens Minimal</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens OS</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens Full</strong><br>
+Specifies what information is included in the User-Agent header of HTTP requests.
+&quot;None&quot; disables the User-Agent header.
+&quot;ProductOnly&quot; reports &quot;CUPS&quot;.
+&quot;Major&quot; reports &quot;CUPS/major IPP/2&quot;.
+&quot;Minor&quot; reports &quot;CUPS/major.minor IPP/2.1&quot;.
+&quot;Minimal&quot; reports &quot;CUPS/major.minor.patch IPP/2.1&quot;.
+&quot;OS&quot; reports &quot;CUPS/major.minor.path (osname osversion) IPP/2.1&quot;.
+&quot;Full&quot; reports &quot;CUPS/major.minor.path (osname osversion; architecture) IPP/2.1&quot;.
+The default is &quot;Minimal&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ValidateCerts Yes</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ValidateCerts No</strong><br>
+Specifies whether to only allow TLS with certificates whose common name matches the hostname.
+The default is &quot;No&quot;.
+</p>
+    <h2 id="client.conf-5.notes">Notes</h2>
+<p>The <strong>client.conf</strong> file is deprecated on macOS and will no longer be supported in a future version of CUPS.
 Configuration settings can instead be viewed or changed using the
-<b>defaults</b>(1)
+<strong>defaults</strong>(1)
+
 command:
-<pre class="man">
-defaults write /Library/Preferences/org.cups.PrintingPrefs.plist Encryption Required
+</p>
+    <pre>defaults write /Library/Preferences/org.cups.PrintingPrefs.plist Encryption Required
 defaults write /Library/Preferences/org.cups.PrintingPrefs.plist TrustOnFirstUse -bool NO
 
 defaults read /Library/Preferences/org.cups.PrintingPrefs.plist Encryption
 </pre>
-On Linux and other systems using GNU TLS, the <i>/etc/cups/ssl/site.crl</i> file, if present, provides a list of revoked X.509 certificates and is used when validating certificates.
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-cups.html?TOPIC=Man+Pages"><b>cups</b>(1),</a>
-<b>default</b>(1),
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
+<p>On Linux and other systems using GNU TLS, the <em>/etc/cups/ssl/site.crl</em> file, if present, provides a list of revoked X.509 certificates and is used when validating certificates.
+</p>
+    <h2 id="client.conf-5.see-also">See Also</h2>
+<p><strong>cups</strong>(1),
 
-</body>
+<strong>default</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="client.conf-5.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

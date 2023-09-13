@@ -1,95 +1,114 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>ppdc(1)</title>
-</head>
-<body>
-<h1 class="title">ppdc(1)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-ppdc - cups ppd compiler (deprecated)
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>ppdc</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>ppdc(1)</title>
+  </head>
+  <body>
+    <h1 id="ppdc-1">ppdc(1)</h1>
+    <h2 id="ppdc-1.name">Name</h2>
+<p>ppdc - cups ppd compiler (deprecated)
+</p>
+    <h2 id="ppdc-1.synopsis">Synopsis</h2>
+<p><strong>ppdc</strong>
 [
-<b>-D </b><i>name</i>[<b>=</b><i>value</i>]
+<strong>-D </strong><em>name</em>[<strong>=</strong><em>value</em>]
 ] [
-<b>-I</b>
-<i>include-directory</i>
+<strong>-I</strong>
+<em>include-directory</em>
 ] [
-<b>-c</b>
-<i>message-catalog</i>
+<strong>-c</strong>
+<em>message-catalog</em>
 ] [
-<b>-d</b>
-<i>output-directory</i>
+<strong>-d</strong>
+<em>output-directory</em>
 ] [
-<b>-l</b>
-<i>language(s)</i>
+<strong>-l</strong>
+<em>language(s)</em>
 ] [
-<b>-m</b>
+<strong>-m</strong>
 ] [
-<b>-t</b>
+<strong>-t</strong>
 ] [
-<b>-v</b>
+<strong>-v</strong>
 ] [
-<b>-z</b>
+<strong>-z</strong>
 ] [
-<b>--cr</b>
+<strong>--cr</strong>
 ] [
-<b>--crlf</b>
+<strong>--crlf</strong>
 ] [
-<b>--lf</b>
+<strong>--lf</strong>
 ]
-<i>source-file</i>
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>ppdc</b> compiles PPDC source files into one or more PPD files.
-<b>This program is deprecated and will be removed in a future release of CUPS.</b>
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-<b>ppdc</b> supports the following options:
-<dl class="man">
-<dt><b>-D </b><i>name</i>[<b>=</b><i>value</i>]
-<dd style="margin-left: 5.0em">Sets the named variable for use in the source file.
-It is equivalent to using the <i>#define</i> directive in the source file.
-<dt><b>-I </b><i>include-directory</i>
-<dd style="margin-left: 5.0em">Specifies an alternate include directory.
-Multiple <i>-I</i> options can be supplied to add additional directories.
-<dt><b>-c </b><i>message-catalog</i>
-<dd style="margin-left: 5.0em">Specifies a single message catalog file in GNU gettext (filename.po) or Apple strings (filename.strings) format to be used for localization.
-<dt><b>-d </b><i>output-directory</i>
-<dd style="margin-left: 5.0em">Specifies the output directory for PPD files.
-The default output directory is "ppd".
-<dt><b>-l </b><i>language(s)</i>
-<dd style="margin-left: 5.0em">Specifies one or more languages to use when localizing the PPD file(s).
-The default language is "en" (English).
-Separate multiple languages with commas, for example "de_DE,en_UK,es_ES,es_MX,es_US,fr_CA,fr_FR,it_IT" will create PPD files with German, UK English, Spanish (Spain, Mexico, and US), French (France and Canada), and Italian languages in each file.
-<dt><b>-m</b>
-<dd style="margin-left: 5.0em">Specifies that the output filename should be based on the ModelName value instead of FileName or PCFileName.
-<dt><b>-t</b>
-<dd style="margin-left: 5.0em">Specifies that PPD files should be tested instead of generated.
-<dt><b>-v</b>
-<dd style="margin-left: 5.0em">Specifies verbose output, basically a running status of which files are being loaded or written.
-<b>-z</b>
+<em>source-file</em>
+</p>
+    <h2 id="ppdc-1.description">Description</h2>
+<p><strong>ppdc</strong> compiles PPDC source files into one or more PPD files.
+<strong>This program is deprecated and will be removed in a future release of CUPS.</strong>
+</p>
+    <h2 id="ppdc-1.options">Options</h2>
+<p><strong>ppdc</strong> supports the following options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-D </strong><em>name</em>[<strong>=</strong><em>value</em>]<br>
+Sets the named variable for use in the source file.
+It is equivalent to using the <em>#define</em> directive in the source file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-I </strong><em>include-directory</em><br>
+Specifies an alternate include directory.
+Multiple <em>-I</em> options can be supplied to add additional directories.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c </strong><em>message-catalog</em><br>
+Specifies a single message catalog file in GNU gettext (filename.po) or Apple strings (filename.strings) format to be used for localization.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>output-directory</em><br>
+Specifies the output directory for PPD files.
+The default output directory is &quot;ppd&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l </strong><em>language(s)</em><br>
+Specifies one or more languages to use when localizing the PPD file(s).
+The default language is &quot;en&quot; (English).
+Separate multiple languages with commas, for example &quot;de_DE,en_UK,es_ES,es_MX,es_US,fr_CA,fr_FR,it_IT&quot; will create PPD files with German, UK English, Spanish (Spain, Mexico, and US), French (France and Canada), and Italian languages in each file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m</strong><br>
+Specifies that the output filename should be based on the ModelName value instead of FileName or PCFileName.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong><br>
+Specifies that PPD files should be tested instead of generated.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v</strong><br>
+Specifies verbose output, basically a running status of which files are being loaded or written.
+<strong>-z</strong>
 Generates compressed PPD files (filename.ppd.gz).
 The default is to generate uncompressed PPD files.
-<dt><b>--cr</b>
-<dd style="margin-left: 5.0em"><dt><b>--crlf</b>
-<dd style="margin-left: 5.0em"><dt><b>--lf</b>
-<dd style="margin-left: 5.0em">Specifies the line ending to use - carriage return, carriage return and line feed, or line feed alone.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--cr</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--crlf</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--lf</strong><br>
+Specifies the line ending to use - carriage return, carriage return and line feed, or line feed alone.
 The default is to use the line feed character alone.
-</dl>
-<h2 class="title"><a name="NOTES">Notes</a></h2>
-PPD files are deprecated and will no longer be supported in a future feature release of CUPS.
+</p>
+    <h2 id="ppdc-1.notes">Notes</h2>
+<p>PPD files are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<a href="man-ippeveprinter.html?TOPIC=Man+Pages"><b>ippeveprinter</b>(1).</a>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-ppdhtml.html?TOPIC=Man+Pages"><b>ppdhtml</b>(1),</a>
-<a href="man-ppdi.html?TOPIC=Man+Pages"><b>ppdi</b>(1),</a>
-<a href="man-ppdmerge.html?TOPIC=Man+Pages"><b>ppdmerge</b>(1),</a>
-<a href="man-ppdpo.html?TOPIC=Man+Pages"><b>ppdpo</b>(1),</a>
-<a href="man-ppdcfile.html?TOPIC=Man+Pages"><b>ppdcfile</b>(5),</a>
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
+<strong>ippeveprinter</strong>(1).
 
-</body>
+</p>
+    <h2 id="ppdc-1.see-also">See Also</h2>
+<p><strong>ppdhtml</strong>(1),
+
+<strong>ppdi</strong>(1),
+
+<strong>ppdmerge</strong>(1),
+
+<strong>ppdpo</strong>(1),
+
+<strong>ppdcfile</strong>(5),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="ppdc-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

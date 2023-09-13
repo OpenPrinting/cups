@@ -1,92 +1,110 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>cupsenable(8)</title>
-</head>
-<body>
-<h1 class="title">cupsenable(8)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-cupsdisable, cupsenable - stop/start printers and classes
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>cupsdisable</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cupsenable(8)</title>
+  </head>
+  <body>
+    <h1 id="cupsenable-8">cupsenable(8)</h1>
+    <h2 id="cupsenable-8.name">Name</h2>
+<p>cupsdisable, cupsenable - stop/start printers and classes
+</p>
+    <h2 id="cupsenable-8.synopsis">Synopsis</h2>
+<p><strong>cupsdisable</strong>
 [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ] [
-<b>-c</b>
+<strong>-c</strong>
 ] [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-r</b>
-<i>reason</i>
+<strong>-r</strong>
+<em>reason</em>
 ] [
-<b>--hold</b>
+<strong>--hold</strong>
 ]
-<i>destination(s)</i>
+<em>destination(s)</em>
 <br>
-<b>cupsenable</b>
+<strong>cupsenable</strong>
 [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ] [
-<b>-c</b>
+<strong>-c</strong>
 ] [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>--release</b>
+<strong>--release</strong>
 ]
-<i>destination(s)</i>
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>cupsenable</b>
+<em>destination(s)</em>
+</p>
+    <h2 id="cupsenable-8.description">Description</h2>
+<p><strong>cupsenable</strong>
 starts the named printers or classes while
-<b>cupsdisable</b>
+<strong>cupsdisable</strong>
 stops the named printers or classes.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-The following options may be used:
-<dl class="man">
-<dt><b>-E</b>
-<dd style="margin-left: 5.0em">Forces encryption of the connection to the server.
-<dt><b>-U </b><i>username</i>
-<dd style="margin-left: 5.0em">Uses the specified username when connecting to the server.
-<dt><b>-c</b>
-<dd style="margin-left: 5.0em">Cancels all jobs on the named destination.
-<dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
-<dd style="margin-left: 5.0em">Uses the specified server and port.
-<dt><b>--hold</b>
-<dd style="margin-left: 5.0em">Holds remaining jobs on the named printer.
+</p>
+    <h2 id="cupsenable-8.options">Options</h2>
+<p>The following options may be used:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption of the connection to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Uses the specified username when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c</strong><br>
+Cancels all jobs on the named destination.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Uses the specified server and port.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--hold</strong><br>
+Holds remaining jobs on the named printer.
 Useful for allowing the current job to complete before performing maintenance.
-<dt><b>-r "</b><i>reason</i><b>"</b>
-<dd style="margin-left: 5.0em">Sets the message associated with the stopped state.
-If no reason is specified then the message is set to "Reason Unknown".
-<dt><b>--release</b>
-<dd style="margin-left: 5.0em">Releases pending jobs for printing.
-Use after running <b>cupsdisable</b> with the <i>--hold</i> option to resume printing.
-</dl>
-<h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
-Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, "/", or "#".
-Also, printer and class names are <i>not</i> case-sensitive.
-<p>The System V versions of these commands are <b>disable</b> and <b>enable</b>, respectively.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r &quot;</strong><em>reason</em><strong>&quot;</strong><br>
+Sets the message associated with the stopped state.
+If no reason is specified then the message is set to &quot;Reason Unknown&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--release</strong><br>
+Releases pending jobs for printing.
+Use after running <strong>cupsdisable</strong> with the <em>--hold</em> option to resume printing.
+</p>
+    <h2 id="cupsenable-8.conforming-to">Conforming To</h2>
+<p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;.
+Also, printer and class names are <em>not</em> case-sensitive.
+</p>
+    <p>The System V versions of these commands are <strong>disable</strong> and <strong>enable</strong>, respectively.
 They have been renamed to avoid conflicts with the
-<b>bash</b>(1)
-built-in commands of the same names.
-<p>The CUPS versions of <b>disable</b> and <b>enable</b> may ask the user for an access password depending on the printing system configuration.
-This differs from the System V versions which require the root user to execute these commands.
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-cupsaccept.html?TOPIC=Man+Pages"><b>cupsaccept</b>(8),</a>
-<b>cupsreject</b>(8),
-<a href="man-cancel.html?TOPIC=Man+Pages"><b>cancel</b>(1),</a>
-<a href="man-lp.html?TOPIC=Man+Pages"><b>lp</b>(1),</a>
-<a href="man-lpadmin.html?TOPIC=Man+Pages"><b>lpadmin</b>(8),</a>
-<a href="man-lpstat.html?TOPIC=Man+Pages"><b>lpstat</b>(1),</a>
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
+<strong>bash</strong>(1)
 
-</body>
+built-in commands of the same names.
+</p>
+    <p>The CUPS versions of <strong>disable</strong> and <strong>enable</strong> may ask the user for an access password depending on the printing system configuration.
+This differs from the System V versions which require the root user to execute these commands.
+</p>
+    <h2 id="cupsenable-8.see-also">See Also</h2>
+<p><strong>cupsaccept</strong>(8),
+
+<strong>cupsreject</strong>(8),
+
+<strong>cancel</strong>(1),
+
+<strong>lp</strong>(1),
+
+<strong>lpadmin</strong>(8),
+
+<strong>lpstat</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="cupsenable-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

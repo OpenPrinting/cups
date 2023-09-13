@@ -860,7 +860,10 @@ help_load_file(
   node   = NULL;
   offset = 0;
 
-  cupsCopyString(section, "Other", sizeof(section));
+  if (strstr(filename, "/man-") != NULL)
+    cupsCopyString(section, "Man Pages", sizeof(section));
+  else
+    cupsCopyString(section, "Other", sizeof(section));
 
   while (cupsFileGets(fp, line, sizeof(line)))
   {
