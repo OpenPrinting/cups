@@ -187,7 +187,6 @@
 		270696511CADF3E200FFE5FB /* ipp.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220EE7133305BB00FCA411 /* ipp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		270696521CADF3E200FFE5FB /* language.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220EEB133305BB00FCA411 /* language.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		270696551CADF3E200FFE5FB /* transcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220F07133305BB00FCA411 /* transcode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		270696561CADF3E200FFE5FB /* versioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220F0A133305BB00FCA411 /* versioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2706965B1CAE1A9A00FFE5FB /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F09133305BB00FCA411 /* util.c */; };
 		270CCDBC135E3D3E00007BE2 /* testmime.c in Sources */ = {isa = PBXBuildFile; fileRef = 270CCDBB135E3D3E00007BE2 /* testmime.c */; };
 		270D02191D707E0200EA9403 /* libcups_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4332F155844CF002E172D /* libcups_static.a */; };
@@ -497,6 +496,30 @@
 		27F515502AAFCCDA0045EE21 /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F5154F2AAFCCDA0045EE21 /* thread.h */; };
 		27F515512AAFCCDA0045EE21 /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F5154F2AAFCCDA0045EE21 /* thread.h */; };
 		27F515522AAFCCDA0045EE21 /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F5154F2AAFCCDA0045EE21 /* thread.h */; };
+		27F5155B2AB1F7440045EE21 /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F515532AB1F7430045EE21 /* json.c */; };
+		27F5155C2AB1F7440045EE21 /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F515532AB1F7430045EE21 /* json.c */; };
+		27F5155D2AB1F7440045EE21 /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F515532AB1F7430045EE21 /* json.c */; };
+		27F5155E2AB1F7440045EE21 /* json-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515542AB1F7440045EE21 /* json-private.h */; };
+		27F5155F2AB1F7440045EE21 /* json-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515542AB1F7440045EE21 /* json-private.h */; };
+		27F515602AB1F7440045EE21 /* json-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515542AB1F7440045EE21 /* json-private.h */; };
+		27F515612AB1F7440045EE21 /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515552AB1F7440045EE21 /* base.h */; };
+		27F515622AB1F7440045EE21 /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515552AB1F7440045EE21 /* base.h */; };
+		27F515632AB1F7440045EE21 /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515552AB1F7440045EE21 /* base.h */; };
+		27F515642AB1F7440045EE21 /* jwt.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515562AB1F7440045EE21 /* jwt.h */; };
+		27F515652AB1F7440045EE21 /* jwt.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515562AB1F7440045EE21 /* jwt.h */; };
+		27F515662AB1F7440045EE21 /* jwt.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515562AB1F7440045EE21 /* jwt.h */; };
+		27F515672AB1F7440045EE21 /* form.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F515572AB1F7440045EE21 /* form.c */; };
+		27F515682AB1F7440045EE21 /* form.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F515572AB1F7440045EE21 /* form.c */; };
+		27F515692AB1F7440045EE21 /* form.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F515572AB1F7440045EE21 /* form.c */; };
+		27F5156A2AB1F7440045EE21 /* json.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515582AB1F7440045EE21 /* json.h */; };
+		27F5156B2AB1F7440045EE21 /* json.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515582AB1F7440045EE21 /* json.h */; };
+		27F5156C2AB1F7440045EE21 /* json.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515582AB1F7440045EE21 /* json.h */; };
+		27F5156D2AB1F7440045EE21 /* form.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515592AB1F7440045EE21 /* form.h */; };
+		27F5156E2AB1F7440045EE21 /* form.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515592AB1F7440045EE21 /* form.h */; };
+		27F5156F2AB1F7440045EE21 /* form.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515592AB1F7440045EE21 /* form.h */; };
+		27F515702AB1F7440045EE21 /* jwt.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F5155A2AB1F7440045EE21 /* jwt.c */; };
+		27F515712AB1F7440045EE21 /* jwt.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F5155A2AB1F7440045EE21 /* jwt.c */; };
+		27F515722AB1F7440045EE21 /* jwt.c in Sources */ = {isa = PBXBuildFile; fileRef = 27F5155A2AB1F7440045EE21 /* jwt.c */; };
 		7200511218F492F200E7B81B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E5136B64AF00836530 /* CoreFoundation.framework */; };
 		720DD6CD1358FD720064AA82 /* libcups.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups.dylib */; };
 		720DD6D31358FDDE0064AA82 /* snmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 720DD6D21358FDDE0064AA82 /* snmp.c */; };
@@ -571,7 +594,6 @@
 		72220F41133305BB00FCA411 /* transcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220F07133305BB00FCA411 /* transcode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		72220F42133305BB00FCA411 /* usersys.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F08133305BB00FCA411 /* usersys.c */; };
 		72220F43133305BB00FCA411 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F09133305BB00FCA411 /* util.c */; };
-		72220F44133305BB00FCA411 /* versioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220F0A133305BB00FCA411 /* versioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		72220F481333063D00FCA411 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220F471333063D00FCA411 /* config.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		72220F6613330A7000FCA411 /* libcups.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups.dylib */; };
 		72220F9013330B0C00FCA411 /* auth.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F6913330B0C00FCA411 /* auth.c */; };
@@ -3349,6 +3371,14 @@
 		27F515442AAFBECF0045EE21 /* rand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rand.c; path = ../cups/rand.c; sourceTree = "<group>"; };
 		27F515452AAFBECF0045EE21 /* test-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "test-internal.h"; path = "../cups/test-internal.h"; sourceTree = "<group>"; };
 		27F5154F2AAFCCDA0045EE21 /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = thread.h; path = ../cups/thread.h; sourceTree = "<group>"; };
+		27F515532AB1F7430045EE21 /* json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = json.c; path = ../cups/json.c; sourceTree = "<group>"; };
+		27F515542AB1F7440045EE21 /* json-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "json-private.h"; path = "../cups/json-private.h"; sourceTree = "<group>"; };
+		27F515552AB1F7440045EE21 /* base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base.h; path = ../cups/base.h; sourceTree = "<group>"; };
+		27F515562AB1F7440045EE21 /* jwt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jwt.h; path = ../cups/jwt.h; sourceTree = "<group>"; };
+		27F515572AB1F7440045EE21 /* form.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = form.c; path = ../cups/form.c; sourceTree = "<group>"; };
+		27F515582AB1F7440045EE21 /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json.h; path = ../cups/json.h; sourceTree = "<group>"; };
+		27F515592AB1F7440045EE21 /* form.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = form.h; path = ../cups/form.h; sourceTree = "<group>"; };
+		27F5155A2AB1F7440045EE21 /* jwt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jwt.c; path = ../cups/jwt.c; sourceTree = "<group>"; };
 		27F89DA21B3AC43B00E5A4B7 /* testraster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = testraster.c; path = ../cups/testraster.c; sourceTree = "<group>"; };
 		27F9A76D28CBFC03002CCEE0 /* tls-openssl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-openssl.c"; path = "../cups/tls-openssl.c"; sourceTree = "<group>"; };
 		720DD6C21358FD5F0064AA82 /* snmp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = snmp; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3424,7 +3454,6 @@
 		72220F07133305BB00FCA411 /* transcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = transcode.h; path = ../cups/transcode.h; sourceTree = "<group>"; };
 		72220F08133305BB00FCA411 /* usersys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = usersys.c; path = ../cups/usersys.c; sourceTree = "<group>"; };
 		72220F09133305BB00FCA411 /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = util.c; path = ../cups/util.c; sourceTree = "<group>"; };
-		72220F0A133305BB00FCA411 /* versioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = versioning.h; path = ../cups/versioning.h; sourceTree = "<group>"; };
 		72220F471333063D00FCA411 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		72220F5B13330A5A00FCA411 /* cupsd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsd; sourceTree = BUILT_PRODUCTS_DIR; };
 		72220F6913330B0C00FCA411 /* auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = auth.c; path = ../scheduler/auth.c; sourceTree = SOURCE_ROOT; };
@@ -5003,6 +5032,7 @@
 				272A5C0D2AA41D6B00027F9B /* dnssd.c */,
 				72220ED6133305BB00FCA411 /* encode.c */,
 				72220ED8133305BB00FCA411 /* file.c */,
+				27F515572AB1F7440045EE21 /* form.c */,
 				72220EDA133305BB00FCA411 /* getdevices.c */,
 				72220EDB133305BB00FCA411 /* getifaddrs.c */,
 				72220EDC133305BB00FCA411 /* getputfile.c */,
@@ -5015,6 +5045,8 @@
 				720E854120164E7A00C6C411 /* ipp-file.c */,
 				72220EE5133305BB00FCA411 /* ipp-support.c */,
 				72220EE6133305BB00FCA411 /* ipp.c */,
+				27F515532AB1F7430045EE21 /* json.c */,
+				27F5155A2AB1F7440045EE21 /* jwt.c */,
 				72220EE8133305BB00FCA411 /* langprintf.c */,
 				72220EEA133305BB00FCA411 /* language.c */,
 				27D3037D134148CB00F022B1 /* libcups2.def */,
@@ -5064,12 +5096,16 @@
 				72220EB71333056300FCA411 /* adminutil.h */,
 				72220EB91333056300FCA411 /* array.h */,
 				72220EBE1333056300FCA411 /* backend.h */,
+				27F515552AB1F7440045EE21 /* base.h */,
 				72220EC11333056300FCA411 /* cups.h */,
 				72220ED4133305BB00FCA411 /* dir.h */,
 				272A5C0A2AA41D5A00027F9B /* dnssd.h */,
 				72220ED9133305BB00FCA411 /* file.h */,
+				27F515592AB1F7440045EE21 /* form.h */,
 				72220EE3133305BB00FCA411 /* http.h */,
 				72220EE7133305BB00FCA411 /* ipp.h */,
+				27F515582AB1F7440045EE21 /* json.h */,
+				27F515562AB1F7440045EE21 /* jwt.h */,
 				72220EEB133305BB00FCA411 /* language.h */,
 				72220EF7133305BB00FCA411 /* ppd.h */,
 				2767FC7519269687000F61D3 /* pwg.h */,
@@ -5077,7 +5113,6 @@
 				72220EFD133305BB00FCA411 /* sidechannel.h */,
 				27F5154F2AAFCCDA0045EE21 /* thread.h */,
 				72220F07133305BB00FCA411 /* transcode.h */,
-				72220F0A133305BB00FCA411 /* versioning.h */,
 			);
 			name = "Public Headers";
 			sourceTree = "<group>";
@@ -5092,6 +5127,7 @@
 				72220ED7133305BB00FCA411 /* file-private.h */,
 				72220EE0133305BB00FCA411 /* http-private.h */,
 				72220EE4133305BB00FCA411 /* ipp-private.h */,
+				27F515542AB1F7440045EE21 /* json-private.h */,
 				72220EE9133305BB00FCA411 /* language-private.h */,
 				72220EF5133305BB00FCA411 /* ppd-private.h */,
 				72220EF9133305BB00FCA411 /* pwg-private.h */,
@@ -5378,15 +5414,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F5156B2AB1F7440045EE21 /* json.h in Headers */,
 				27F515512AAFCCDA0045EE21 /* thread.h in Headers */,
 				2706963E1CADF3E200FFE5FB /* array.h in Headers */,
 				7253C469216ED5D400494ADD /* raster.h in Headers */,
 				722A24F42178D091000CAB20 /* debug-private.h in Headers */,
 				27F5154D2AAFBECF0045EE21 /* test-internal.h in Headers */,
+				27F5156E2AB1F7440045EE21 /* form.h in Headers */,
 				270696401CADF3E200FFE5FB /* cups-private.h in Headers */,
 				270696421CADF3E200FFE5FB /* file-private.h in Headers */,
 				270696431CADF3E200FFE5FB /* http-private.h in Headers */,
 				270696441CADF3E200FFE5FB /* ipp-private.h in Headers */,
+				27F515652AB1F7440045EE21 /* jwt.h in Headers */,
 				270696451CADF3E200FFE5FB /* language-private.h in Headers */,
 				270696461CADF3E200FFE5FB /* md5-internal.h in Headers */,
 				270696481CADF3E200FFE5FB /* pwg-private.h in Headers */,
@@ -5397,13 +5436,14 @@
 				27F515472AAFBECF0045EE21 /* raster-testpage.h in Headers */,
 				722A24F02178D00D000CAB20 /* debug-internal.h in Headers */,
 				2706964E1CADF3E200FFE5FB /* dir.h in Headers */,
+				27F515622AB1F7440045EE21 /* base.h in Headers */,
 				2706964F1CADF3E200FFE5FB /* file.h in Headers */,
 				270696501CADF3E200FFE5FB /* http.h in Headers */,
 				270696511CADF3E200FFE5FB /* ipp.h in Headers */,
 				270696521CADF3E200FFE5FB /* language.h in Headers */,
 				7253C470216ED69400494ADD /* pwg.h in Headers */,
 				270696551CADF3E200FFE5FB /* transcode.h in Headers */,
-				270696561CADF3E200FFE5FB /* versioning.h in Headers */,
+				27F5155F2AB1F7440045EE21 /* json-private.h in Headers */,
 				272A5C0C2AA41D5A00027F9B /* dnssd.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5421,12 +5461,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F5156C2AB1F7440045EE21 /* json.h in Headers */,
+				27F515602AB1F7440045EE21 /* json-private.h in Headers */,
+				27F5156F2AB1F7440045EE21 /* form.h in Headers */,
 				27F515522AAFCCDA0045EE21 /* thread.h in Headers */,
 				27F5154E2AAFBECF0045EE21 /* test-internal.h in Headers */,
+				27F515662AB1F7440045EE21 /* jwt.h in Headers */,
 				722A24F52178D091000CAB20 /* debug-private.h in Headers */,
 				274FF6C61333B1C400317ECB /* dir.h in Headers */,
 				27F515482AAFBECF0045EE21 /* raster-testpage.h in Headers */,
 				722A24F12178D00D000CAB20 /* debug-internal.h in Headers */,
+				27F515632AB1F7440045EE21 /* base.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5444,15 +5489,18 @@
 				72220F1D133305BB00FCA411 /* http.h in Headers */,
 				72220F21133305BB00FCA411 /* ipp.h in Headers */,
 				27F5154C2AAFBECF0045EE21 /* test-internal.h in Headers */,
+				27F5156D2AB1F7440045EE21 /* form.h in Headers */,
 				72220F25133305BB00FCA411 /* language.h in Headers */,
 				72220F31133305BB00FCA411 /* ppd.h in Headers */,
 				722A24F32178D091000CAB20 /* debug-private.h in Headers */,
+				27F5155E2AB1F7440045EE21 /* json-private.h in Headers */,
 				72220F37133305BB00FCA411 /* sidechannel.h in Headers */,
 				72220F41133305BB00FCA411 /* transcode.h in Headers */,
-				72220F44133305BB00FCA411 /* versioning.h in Headers */,
 				72220ECD1333056300FCA411 /* cups-private.h in Headers */,
 				72220F11133305BB00FCA411 /* file-private.h in Headers */,
+				27F5156A2AB1F7440045EE21 /* json.h in Headers */,
 				72220F1A133305BB00FCA411 /* http-private.h in Headers */,
+				27F515642AB1F7440045EE21 /* jwt.h in Headers */,
 				72220F1E133305BB00FCA411 /* ipp-private.h in Headers */,
 				72220F23133305BB00FCA411 /* language-private.h in Headers */,
 				7253C46F216ED69200494ADD /* pwg.h in Headers */,
@@ -5467,6 +5515,7 @@
 				27F515502AAFCCDA0045EE21 /* thread.h in Headers */,
 				27F515462AAFBECF0045EE21 /* raster-testpage.h in Headers */,
 				7253C468216ED5D300494ADD /* raster.h in Headers */,
+				27F515612AB1F7440045EE21 /* base.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7504,15 +7553,18 @@
 				270696071CADF3E200FFE5FB /* debug.c in Sources */,
 				270696081CADF3E200FFE5FB /* dest.c in Sources */,
 				270696091CADF3E200FFE5FB /* dir.c in Sources */,
+				27F5155C2AB1F7440045EE21 /* json.c in Sources */,
 				2706960B1CADF3E200FFE5FB /* encode.c in Sources */,
 				2706960C1CADF3E200FFE5FB /* file.c in Sources */,
 				2706960F1CADF3E200FFE5FB /* getputfile.c in Sources */,
 				270696101CADF3E200FFE5FB /* globals.c in Sources */,
 				270696111CADF3E200FFE5FB /* http-addr.c in Sources */,
 				270696121CADF3E200FFE5FB /* http-addrlist.c in Sources */,
+				27F515712AB1F7440045EE21 /* jwt.c in Sources */,
 				270696131CADF3E200FFE5FB /* http-support.c in Sources */,
 				7253C464216ED51500494ADD /* raster-stubs.c in Sources */,
 				270696141CADF3E200FFE5FB /* http.c in Sources */,
+				27F515682AB1F7440045EE21 /* form.c in Sources */,
 				7253C458216E981200494ADD /* raster-stream.c in Sources */,
 				270696161CADF3E200FFE5FB /* dest-options.c in Sources */,
 				270696171CADF3E200FFE5FB /* ipp-support.c in Sources */,
@@ -7931,11 +7983,13 @@
 				7253C459216E981200494ADD /* raster-stream.c in Sources */,
 				274FF68D1333B1C400317ECB /* ppd-attr.c in Sources */,
 				274FF68E1333B1C400317ECB /* auth.c in Sources */,
+				27F5155D2AB1F7440045EE21 /* json.c in Sources */,
 				274FF68F1333B1C400317ECB /* backchannel.c in Sources */,
 				274FF6901333B1C400317ECB /* backend.c in Sources */,
 				274FF6911333B1C400317ECB /* ppd-conflicts.c in Sources */,
 				274FF6921333B1C400317ECB /* ppd-custom.c in Sources */,
 				274FF6931333B1C400317ECB /* debug.c in Sources */,
+				27F515722AB1F7440045EE21 /* jwt.c in Sources */,
 				274FF6941333B1C400317ECB /* dest.c in Sources */,
 				274FF6951333B1C400317ECB /* dir.c in Sources */,
 				274FF6961333B1C400317ECB /* ppd-emit.c in Sources */,
@@ -7953,6 +8007,7 @@
 				7253C45B216E981A00494ADD /* raster-interpret.c in Sources */,
 				72A8B3D81C188CB900A1A547 /* ppd-util.c in Sources */,
 				2767FC7419268F0C000F61D3 /* dest-options.c in Sources */,
+				27F515692AB1F7440045EE21 /* form.c in Sources */,
 				274FF6A11333B1C400317ECB /* ipp-support.c in Sources */,
 				274FF6A21333B1C400317ECB /* ipp.c in Sources */,
 				274FF6A31333B1C400317ECB /* langprintf.c in Sources */,
@@ -8086,6 +8141,7 @@
 				7253C457216E981000494ADD /* raster-stream.c in Sources */,
 				72220EC71333056300FCA411 /* ppd-attr.c in Sources */,
 				727AD5B719100A58009F6862 /* tls.c in Sources */,
+				27F5155B2AB1F7440045EE21 /* json.c in Sources */,
 				72220EC81333056300FCA411 /* auth.c in Sources */,
 				72220EC91333056300FCA411 /* backchannel.c in Sources */,
 				72220ECA1333056300FCA411 /* backend.c in Sources */,
@@ -8116,6 +8172,7 @@
 				72220F22133305BB00FCA411 /* langprintf.c in Sources */,
 				72220F24133305BB00FCA411 /* language.c in Sources */,
 				72220F26133305BB00FCA411 /* ppd-localize.c in Sources */,
+				27F515702AB1F7440045EE21 /* jwt.c in Sources */,
 				72220F27133305BB00FCA411 /* ppd-mark.c in Sources */,
 				72220F29133305BB00FCA411 /* md5.c in Sources */,
 				7284F9F01BFCCDB10026F886 /* hash.c in Sources */,
@@ -8133,6 +8190,7 @@
 				7253C45E216ED51500494ADD /* raster-interstub.c in Sources */,
 				72220F39133305BB00FCA411 /* snmp.c in Sources */,
 				72220F3A133305BB00FCA411 /* snprintf.c in Sources */,
+				27F515672AB1F7440045EE21 /* form.c in Sources */,
 				72220F3C133305BB00FCA411 /* string.c in Sources */,
 				72220F3D133305BB00FCA411 /* tempfile.c in Sources */,
 				72CF95E418A13543000FCAE4 /* dest-localization.c in Sources */,
