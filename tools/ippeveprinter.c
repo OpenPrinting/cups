@@ -4124,7 +4124,8 @@ load_legacy_attributes(
 		right, top;
     const char	*source;		// media-source, if any
 
-    pwg = pwgMediaForPWG(media[i]);
+    if ((pwg = pwgMediaForPWG(media[i])) == NULL)
+      continue;
 
     if (pwg->width < 21000 && pwg->length < 21000)
     {
@@ -4166,7 +4167,8 @@ load_legacy_attributes(
       ipp_t		*media_size;	// media-size member attribute
 
       i ++;
-      pwg2 = pwgMediaForPWG(media[i]);
+      if ((pwg2 = pwgMediaForPWG(media[i])) == NULL)
+        continue;
 
       media_size = ippNew();
       ippAddRange(media_size, IPP_TAG_ZERO, "x-dimension", pwg->width, pwg2->width);
@@ -4189,27 +4191,28 @@ load_legacy_attributes(
   }
 
   // media-col-default
-  pwg = pwgMediaForPWG(ready[0]);
+  if ((pwg = pwgMediaForPWG(ready[0])) != NULL)
+  {
+    if (pwg->width == 21000)
+      col = create_media_col(ready[0], "main", "stationery", create_media_size(pwg->width, pwg->length), ppm_color > 0 ? media_bottom_margin_supported_color[1] : media_bottom_margin_supported[0], media_lr_margin_supported[0], media_lr_margin_supported[0], ppm_color > 0 ? media_top_margin_supported_color[1] : media_top_margin_supported[0]);
+    else
+      col = create_media_col(ready[0], "main", "stationery", create_media_size(pwg->width, pwg->length), ppm_color > 0 ? media_bottom_margin_supported_color[1] : media_bottom_margin_supported[0], media_lr_margin_supported[1], media_lr_margin_supported[1], ppm_color > 0 ? media_top_margin_supported_color[1] : media_top_margin_supported[0]);
 
-  if (pwg->width == 21000)
-    col = create_media_col(ready[0], "main", "stationery", create_media_size(pwg->width, pwg->length), ppm_color > 0 ? media_bottom_margin_supported_color[1] : media_bottom_margin_supported[0], media_lr_margin_supported[0], media_lr_margin_supported[0], ppm_color > 0 ? media_top_margin_supported_color[1] : media_top_margin_supported[0]);
-  else
-    col = create_media_col(ready[0], "main", "stationery", create_media_size(pwg->width, pwg->length), ppm_color > 0 ? media_bottom_margin_supported_color[1] : media_bottom_margin_supported[0], media_lr_margin_supported[1], media_lr_margin_supported[1], ppm_color > 0 ? media_top_margin_supported_color[1] : media_top_margin_supported[0]);
+    ippAddCollection(attrs, IPP_TAG_PRINTER, "media-col-default", col);
 
-  ippAddCollection(attrs, IPP_TAG_PRINTER, "media-col-default", col);
-
-  ippDelete(col);
+    ippDelete(col);
+  }
 
   // media-col-ready
-  attr = ippAddCollections(attrs, IPP_TAG_PRINTER, "media-col-ready", num_ready, NULL);
-  for (i = 0; i < num_ready; i ++)
+  for (i = 0, attr = NULL; i < num_ready; i ++)
   {
     int		bottom, left,		// media-xxx-margins
 		right, top;
     const char	*source,		// media-source
 		*type;			// media-type
 
-    pwg = pwgMediaForPWG(ready[i]);
+    if ((pwg = pwgMediaForPWG(ready[i])) == NULL)
+      continue;
 
     if (pwg->width < 21000 && pwg->length < 21000)
     {
@@ -4249,7 +4252,12 @@ load_legacy_attributes(
     }
 
     col = create_media_col(ready[i], source, type, create_media_size(pwg->width, pwg->length), bottom, left, right, top);
-    ippSetCollection(attrs, &attr, i, col);
+
+    if (attr)
+      ippSetCollection(attrs, &attr, ippGetCount(attr), col);
+    else
+      attr = ippAddCollection(attrs, IPP_TAG_PRINTER, "media-col-ready", col);
+
     ippDelete(col);
   }
 
@@ -4277,7 +4285,8 @@ load_legacy_attributes(
   // media-size-supported
   for (i = 0, attr = NULL; i < num_media; i ++)
   {
-    pwg = pwgMediaForPWG(media[i]);
+    if ((pwg = pwgMediaForPWG(media[i])) == NULL)
+      continue;
 
     if (!strncmp(media[i], "roll_min_", 9) && i < (num_media - 1))
     {
@@ -4285,7 +4294,8 @@ load_legacy_attributes(
       pwg_media_t	*pwg2;		// Max size
 
       i ++;
-      pwg2 = pwgMediaForPWG(media[i]);
+      if ((pwg2 = pwgMediaForPWG(media[i])) == NULL)
+        continue;
 
       col = create_media_size_range(pwg->width, pwg2->width, pwg->length, pwg2->length);
     }
