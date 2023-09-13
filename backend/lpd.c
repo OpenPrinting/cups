@@ -70,7 +70,7 @@ static int	abort_job = 0;		/* Non-zero if we get SIGTERM */
  * Local functions...
  */
 
-static int	cups_rresvport(int *port, int family);
+static int	cups_rresvport(int *port, int min, int family);
 static int	lpd_command(int lpd_fd, char *format, ...)
 #    ifdef __GNUC__
 __attribute__ ((__format__ (__printf__, 2, 3)))
@@ -552,6 +552,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 
 static int				/* O  - Socket or -1 on error */
 cups_rresvport(int *port,		/* IO - Port number to bind to */
+               int min,			/* I  - Minimim port number use */
                int family)		/* I  - Address family */
 {
   http_addr_t	addr;			/* Socket address */
@@ -576,7 +577,7 @@ cups_rresvport(int *port,		/* IO - Port number to bind to */
   * Try to bind the socket to a reserved port...
   */
 
-  while (*port > 511)
+  while (*port >= min)
   {
    /*
     * Set the port number...
@@ -801,11 +802,14 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       else
       {
        /*
-	* We're running as root and want to comply with RFC 1179.  Reserve a
-	* privileged lport between 721 and 731...
+	* We're running as root and want to either:
+	* a) comply with RFC 1179 and reserve a lport between 721 and 731
+	* b) just reserve a privileged port between 512 and 1023
 	*/
 
-	if ((fd = cups_rresvport(&lport, addr->addr.addr.sa_family)) < 0)
+	if ((fd = cups_rresvport(&lport,
+				 reserve == RESERVE_RFC1179 ? 721 : 512,
+				 addr->addr.addr.sa_family)) < 0)
 	{
 	  perror("DEBUG: Unable to reserve port");
 	  sleep(1);

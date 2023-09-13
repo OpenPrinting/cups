@@ -10,6 +10,7 @@ Changes in CUPS v2.4.7 (TBA)
 - Fixed hanging of `lpstat` on IBM AIX (Issue #773)
 - Fixed printing to stderr if we can't open cups-files.conf (Issue #777)
 - Fixed purging job files via `cancel -x` (Issue #742)
+- Fixed RFC 1179 port reserving behavior in LPD backend (Issue #743)
 - Fixed a bug in the PPD command interpretation code (Issue #768)
 
 
