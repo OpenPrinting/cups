@@ -121,6 +121,7 @@
     <ClCompile Include="..\cups\dnssd.c" />
     <ClCompile Include="..\cups\encode.c" />
     <ClCompile Include="..\cups\file.c" />
+    <ClCompile Include="..\cups\form.c" />
     <ClCompile Include="..\cups\getdevices.c" />
     <ClCompile Include="..\cups\getputfile.c" />
     <ClCompile Include="..\cups\globals.c" />
@@ -133,6 +134,8 @@
     <ClCompile Include="..\cups\ipp-support.c" />
     <ClCompile Include="..\cups\ipp-vars.c" />
     <ClCompile Include="..\cups\ipp.c" />
+    <ClCompile Include="..\cups\json.c" />
+    <ClCompile Include="..\cups\jwt.c" />
     <ClCompile Include="..\cups\langprintf.c" />
     <ClCompile Include="..\cups\language.c" />
     <ClCompile Include="..\cups\md5.c" />
@@ -150,6 +153,7 @@
     <ClCompile Include="..\cups\ppd-util.c" />
     <ClCompile Include="..\cups\ppd.c" />
     <ClCompile Include="..\cups\pwg-media.c" />
+    <ClCompile Include="..\cups\rand.c" />
     <ClCompile Include="..\cups\raster-error.c" />
     <ClCompile Include="..\cups\raster-interpret.c" />
     <ClCompile Include="..\cups\raster-interstub.c" />
@@ -180,11 +184,15 @@
     <ClInclude Include="..\cups\dnssd.h" />
     <ClInclude Include="..\cups\file-private.h" />
     <ClInclude Include="..\cups\file.h" />
+    <ClInclude Include="..\cups\form.h" />
     <ClInclude Include="..\cups\globals.h" />
     <ClInclude Include="..\cups\http-private.h" />
     <ClInclude Include="..\cups\http.h" />
     <ClInclude Include="..\cups\ipp-private.h" />
     <ClInclude Include="..\cups\ipp.h" />
+    <ClInclude Include="..\cups\json.h" />
+    <ClInclude Include="..\cups\json-private.h" />
+    <ClInclude Include="..\cups\jwt.h" />
     <ClInclude Include="..\cups\language-private.h" />
     <ClInclude Include="..\cups\language.h" />
     <ClInclude Include="..\cups\md5-private.h" />
@@ -193,6 +201,7 @@
     <ClInclude Include="..\cups\pwg-private.h" />
     <ClInclude Include="..\cups\pwg.h" />
     <ClInclude Include="..\cups\raster-private.h" />
+    <ClInclude Include="..\cups\raster-testpage.h" />
     <ClInclude Include="..\cups\raster.h" />
     <ClInclude Include="..\cups\string-private.h" />
     <ClInclude Include="..\cups\thread.h" />
