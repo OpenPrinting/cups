@@ -2401,16 +2401,19 @@ do_tests(const char     *testfile,	// I - Test file to use
   if ((file = ippFileNew(data->parent, NULL, (ipp_ferror_cb_t)error_cb, data)) == NULL)
   {
     print_fatal_error(data, "Unable to create test file parser: %s", cupsGetErrorString());
-    return (false);
+    data->pass = false;
   }
-
-  if (!ippFileOpen(file, testfile, "r"))
+  else if (ippFileOpen(file, testfile, "r"))
   {
-    print_fatal_error(data, "Unable to open '%s': %s", testfile, cupsGetErrorString());
-    return (false);
+    // Successfully opened file, read from it...
+    ippFileRead(file, (ipp_ftoken_cb_t)token_cb, true);
   }
-
-  ippFileRead(file, (ipp_ftoken_cb_t)token_cb, true);
+  else
+  {
+    // Report the error...
+    print_fatal_error(data, "Unable to open '%s': %s", testfile, cupsGetErrorString());
+    data->pass = false;
+  }
 
   ippFileDelete(file);
 

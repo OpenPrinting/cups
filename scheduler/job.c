@@ -767,8 +767,6 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       cupsdLogJob(job, CUPSD_LOG_DEBUG,
 		  "Unable to add decompression filter - %s", strerror(errno));
 
-      cupsArrayDelete(filters);
-
       abort_message = "Stopping job because the scheduler ran out of memory.";
 
       goto abort_job;

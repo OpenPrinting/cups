@@ -289,7 +289,7 @@ cupsRasterInitHeader(
   }
 
   // Initialize the page header...
-  memset(h, 0, sizeof(cups_page_header_t));
+  memset(h, 0, sizeof(cups_page_header2_t));
 
   cupsCopyString(h->MediaClass, "PwgRaster", sizeof(h->MediaClass));
   cupsCopyString(h->MediaColor, media->color, sizeof(h->MediaColor));

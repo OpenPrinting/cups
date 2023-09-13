@@ -5774,7 +5774,7 @@ create_subscriptions(
   int			interval,	/* notify-time-interval */
 			lease;		/* notify-lease-duration */
   unsigned		mask;		/* notify-events */
-  ipp_attribute_t	*notify_events,/* notify-events(-default) */
+  ipp_attribute_t	*notify_events,	/* notify-events(-default) */
 			*notify_lease;	/* notify-lease-duration(-default) */
 
 
@@ -5884,19 +5884,16 @@ create_subscriptions(
 
     if (printer)
     {
-      notify_events = ippFindAttribute(printer->attrs, "notify-events-default",
-                                       IPP_TAG_KEYWORD);
-      notify_lease  = ippFindAttribute(printer->attrs,
-                                       "notify-lease-duration-default",
-                                       IPP_TAG_INTEGER);
+      // Get default events and lease duration for printer/class...
+      notify_events = ippFindAttribute(printer->attrs, "notify-events-default", IPP_TAG_KEYWORD);
 
-      if (notify_lease)
+      if ((notify_lease = ippFindAttribute(printer->attrs, "notify-lease-duration-default", IPP_TAG_INTEGER)) != NULL)
         lease = notify_lease->values[0].integer;
     }
     else
     {
+      // No defaults...
       notify_events = NULL;
-      notify_lease  = NULL;
     }
 
     while (attr && attr->group_tag != IPP_TAG_ZERO)
