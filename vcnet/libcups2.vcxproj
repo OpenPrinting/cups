@@ -132,7 +132,6 @@
     <ClCompile Include="..\cups\http.c" />
     <ClCompile Include="..\cups\ipp-file.c" />
     <ClCompile Include="..\cups\ipp-support.c" />
-    <ClCompile Include="..\cups\ipp-vars.c" />
     <ClCompile Include="..\cups\ipp.c" />
     <ClCompile Include="..\cups\json.c" />
     <ClCompile Include="..\cups\jwt.c" />
