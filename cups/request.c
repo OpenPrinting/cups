@@ -25,9 +25,11 @@
 #ifndef O_BINARY
 #  define O_BINARY 0
 #endif /* O_BINARY */
-#ifndef MSG_DONTWAIT
+#ifdef _AIX
+#  define MSG_DONTWAIT MSG_NONBLOCK
+#elif !defined(MSG_DONTWAIT)
 #  define MSG_DONTWAIT 0
-#endif /* !MSG_DONTWAIT */
+#endif /* _AIX */
 
 
 /*

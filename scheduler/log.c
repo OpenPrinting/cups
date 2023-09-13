@@ -22,6 +22,9 @@
 #  include <systemd/sd-journal.h>
 #endif /* HAVE_ASL_H */
 #include <syslog.h>
+#ifndef va_copy
+#  define va_copy(__list1, __list2) ((void)(__list1 = __list2))
+#endif
 
 
 /*
