@@ -2522,7 +2522,6 @@ load_ppds(const char *d,		// I - Actual directory
     line[0] = '\0';
     cupsFileGets(fp, line, sizeof(line));
 
-    fprintf(stderr, "ERROR: '%s' => '%s'\n", filename, line);
     if (!strncmp(line, "*PPD-Adobe:", 11))
     {
      /*

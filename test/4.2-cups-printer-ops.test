@@ -1,6 +1,7 @@
 #
 # Verify that the CUPS printer operations work.
 #
+# Copyright © 2023 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 2001-2006 by Easy Software Products. All rights reserved.
 #
@@ -19,7 +20,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	FILE testhp.ppd
 
@@ -42,7 +43,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	# What statuses are OK?
 	STATUS successful-ok
@@ -63,7 +64,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	# What statuses are OK?
 	STATUS successful-ok
@@ -84,7 +85,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	# What statuses are OK?
 	STATUS client-error-not-found
@@ -105,7 +106,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/
+	ATTR uri printer-uri $scheme://$hostname:$port/
 	ATTR name requesting-user-name $user
 
         GROUP subscription
@@ -132,7 +133,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test2
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test2
 
 	FILE testhp.ppd
 
@@ -155,7 +156,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test2
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test2
 
 	# What statuses are OK?
 	STATUS successful-ok
@@ -176,7 +177,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test2
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test2
 
 	GROUP printer
 	ATTR uri device-uri file:/tmp/Test2
@@ -202,7 +203,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	GROUP printer
 	ATTR uri device-uri file:/tmp/Test1
@@ -231,7 +232,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	# What statuses are OK?
 	STATUS successful-ok
@@ -272,7 +273,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	# What statuses are OK?
 	STATUS successful-ok
@@ -318,7 +319,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	# What statuses are OK?
 	STATUS successful-ok

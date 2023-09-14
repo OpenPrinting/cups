@@ -19,7 +19,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR name requesting-user-name $user
 	ATTR name job-sheets "none\,none"
 
@@ -40,7 +40,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR name requesting-user-name $user
 
 	FILE ../examples/testfile.ps
@@ -65,7 +65,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR integer job-id $job-id
 
 	# What statuses are OK?
@@ -90,7 +90,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test2
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test2
 	ATTR name requesting-user-name $user
 
         GROUP subscription
@@ -119,7 +119,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test2
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test2
 	ATTR integer job-id $job-id
 
 	# What statuses are OK?
@@ -144,7 +144,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR name requesting-user-name $user
 
 	FILE ../examples/testfile.txt
@@ -169,7 +169,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR name requesting-user-name $user
 
 	GROUP job
@@ -197,7 +197,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR integer job-id $job-id
 	ATTR name requesting-user-name $user
 
@@ -220,7 +220,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR integer job-id $job-id
 	ATTR name requesting-user-name $user
 
@@ -243,7 +243,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 	ATTR name requesting-user-name $user
 	GROUP job
 	ATTR keyword job-hold-until indefinite
@@ -270,7 +270,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri job-uri $method://$hostname:$port/jobs/$job-id
+	ATTR uri job-uri $scheme://$hostname:$port/jobs/$job-id
 	ATTR name requesting-user-name $user
 
 	# What statuses are OK?
@@ -292,7 +292,7 @@
 	GROUP operation
 	ATTR charset attributes-charset utf-8
 	ATTR language attributes-natural-language en
-	ATTR uri printer-uri $method://$hostname:$port/printers/Test1
+	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	# What statuses are OK?
 	STATUS successful-ok
