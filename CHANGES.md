@@ -6,7 +6,10 @@ Changes in CUPS v2.5b1 (TBA)
 
 - Added `cupsDNSSD` APIs.
 - Added `cupsConcatString` and `cupsCopyString` string APIs.
+- Added new API for form, JSON, JWT, IPP, raster
 - Added OpenSSL support for `cupsHashData` (Issue #762)
+- Building with TLS support is now required - CUPS supports OpenSSL, GNUTLS
+  and LibreSSL
 - Updated `cupsArray` APIs.
 - Fixed Digest authentication support (Issue #260)
 - Fixed delays in lpd backend (Issue #741)
@@ -22,3 +25,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed a bug in the PPD command interpretation code (Issue #768)
+- Removed `HAVE_LIBZ` and `HAVE_POLL` defines, making CUPS to depend
+  on the functionality
+- Removed `mantohtml` script for generating html pages (use
+  `https://www.msweet.org/mantohtml/`)
+- Removed SSPI and Security.framework support (CDSA)
