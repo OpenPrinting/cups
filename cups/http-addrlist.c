@@ -318,6 +318,23 @@ httpAddrConnect2(
       {
 #  ifdef HAVE_POLL
 	DEBUG_printf(("pfds[%d].revents=%x\n", i, pfds[i].revents));
+#    ifdef __sun
+	// Solaris connect runs asynchronously returning EINPROGRESS. Following
+	// poll() does not detect the socket is not connected and returns
+	// POLLIN|POLLOUT. Check the connection status and update error flag.
+	int            sres, serr;
+	socklen_t      slen = sizeof(serr);
+	sres = getsockopt(fds[i], SOL_SOCKET, SO_ERROR, &serr, &slen);
+	if (sres || serr)
+	{
+	  pfds[i].revents |= POLLERR;
+#      ifdef DEBUG
+	  DEBUG_printf(("1httpAddrConnect2: getsockopt returned: %d with error: %s", sres, strerror(serr)));
+#      endif
+	}
+#    endif // __sun
+
+
 	if (pfds[i].revents && !(pfds[i].revents & (POLLERR | POLLHUP)))
 #  else
 	if (FD_ISSET(fds[i], &input_set) && !FD_ISSET(fds[i], &error_set))
@@ -340,18 +357,6 @@ httpAddrConnect2(
 	else if (FD_ISSET(fds[i], &error_set))
 #  endif /* HAVE_POLL */
         {
-#  ifdef __sun
-          // Solaris incorrectly returns errors when you poll() a socket that is
-          // still connecting.  This check prevents us from removing the socket
-          // from the pool if the "error" is EINPROGRESS...
-          int		sockerr;	// Current error on socket
-          socklen_t	socklen = sizeof(sockerr);
-					// Size of error variable
-
-          if (!getsockopt(fds[i], SOL_SOCKET, SO_ERROR, &sockerr, &socklen) && (!sockerr || sockerr == EINPROGRESS))
-            continue;			// Not an error
-#  endif // __sun
-
          /*
           * Error on socket, remove from the "pool"...
           */
