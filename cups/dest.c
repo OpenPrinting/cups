@@ -67,7 +67,7 @@ typedef struct _cups_dnssd_data_s	// Enumeration data
   cups_ptype_t		type,		// Printer type filter
 			mask;		// Printer type mask
   cups_array_t		*devices;	// Devices found so far
-  size_t		num_dests;	// Number of lpoptions destinations
+  int			num_dests;	// Number of lpoptions destinations
   cups_dest_t		*dests;		// lpoptions destinations
   char			def_name[1024],	// Default printer name, if any
 			*def_instance;	// Default printer instance, if any

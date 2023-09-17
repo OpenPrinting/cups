@@ -513,7 +513,7 @@ _cupsRasterExecPS(
 			*codeptr;	/* Pointer into copy of code */
 
 
-  DEBUG_printf("_cupsRasterExecPS(h=%p, preferred_bits=%p, code=\"%s\")\n", h, preferred_bits, code);
+  DEBUG_printf("_cupsRasterExecPS(h=%p, preferred_bits=%p, code=\"%s\")\n", (void *)h, (void *)preferred_bits, code);
 
  /*
   * Copy the PostScript code and create a stack...
@@ -973,7 +973,7 @@ roll_stack(_cups_ps_stack_t *st,	/* I - Stack */
   int			n;		/* Index into array */
 
 
-  DEBUG_printf("3roll_stack(st=%p, s=%d, c=%d)", st, s, c);
+  DEBUG_printf("3roll_stack(st=%p, s=%d, c=%d)", (void *)st, s, c);
 
  /*
   * Range check input...

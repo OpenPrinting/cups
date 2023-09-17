@@ -171,7 +171,7 @@ httpAddrGetLength(
 #endif // AF_INET6
 #ifdef AF_LOCAL
   if (addr->addr.sa_family == AF_LOCAL)
-    return ((int)(offsetof(struct sockaddr_un, sun_path) + strlen(addr->un.sun_path) + 1));
+    return ((size_t)(offsetof(struct sockaddr_un, sun_path) + strlen(addr->un.sun_path) + 1));
   else
 #endif // AF_LOCAL
   if (addr->addr.sa_family == AF_INET)

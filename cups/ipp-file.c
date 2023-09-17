@@ -29,7 +29,7 @@ struct _ipp_file_s			// IPP data file
   off_t			save_pos;	// Saved position
   ipp_tag_t		group_tag;	// Current group for attributes
   ipp_t			*attrs;		// Current attributes
-  size_t		num_vars;	// Number of variables
+  int			num_vars;	// Number of variables
   cups_option_t		*vars;		// Variables
   ipp_fattr_cb_t	attr_cb;	// Attribute (filter) callback
   ipp_ferror_cb_t	error_cb;	// Error reporting callback
@@ -45,7 +45,7 @@ struct _ipp_file_s			// IPP data file
 //
 
 static bool	expand_buffer(ipp_file_t *file, size_t buffer_size);
-static bool	parse_value(ipp_file_t *file, ipp_t *ipp, ipp_attribute_t **attr, size_t element);
+static bool	parse_value(ipp_file_t *file, ipp_t *ipp, ipp_attribute_t **attr, int element);
 static bool	report_error(ipp_file_t *file, const char *message, ...) _CUPS_FORMAT(2,3);
 static bool	write_string(ipp_file_t *file, const char *s, size_t len);
 
@@ -1159,7 +1159,7 @@ ippFileWriteAttributes(
   const char		*name;		// Attribute name
   ipp_tag_t		group_tag,	// Group tag
 			value_tag;	// Value tag
-  size_t		i,		// Looping var
+  int			i,		// Looping var
 			count;		// Number of values
 
 
@@ -1262,7 +1262,7 @@ ippFileWriteAttributes(
 					// octetString value
 
 	    ret &= cupsFilePuts(file->fp, i ? "," : " ");
-	    ret &= write_string(file, s, len);
+	    ret &= write_string(file, s, (size_t)len);
 	  }
 	  break;
 
@@ -1558,7 +1558,7 @@ static bool				// O  - `true` on success or `false` on error
 parse_value(ipp_file_t      *file,	// I  - IPP data file
             ipp_t           *ipp,	// I  - IPP message
             ipp_attribute_t **attr,	// IO - IPP attribute
-            size_t          element)	// I  - Element number
+            int             element)	// I  - Element number
 {
   char		value[2049],		// Value string
 		*valueptr,		// Pointer into value string

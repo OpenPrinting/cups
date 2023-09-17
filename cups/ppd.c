@@ -519,7 +519,7 @@ _ppdOpen(
 			};
 
 
-  DEBUG_printf("_ppdOpen(fp=%p)", fp);
+  DEBUG_printf("_ppdOpen(fp=%p)", (void *)fp);
 
  /*
   * Default to "OK" status...
@@ -610,7 +610,7 @@ _ppdOpen(
     return (NULL);
   }
 
-  DEBUG_printf("2_ppdOpen: keyword=%s, string=%p", keyword, string);
+  DEBUG_printf("2_ppdOpen: keyword=%s, string=%p", keyword, (void *)string);
 
  /*
   * Allocate memory for the PPD file record...
@@ -1984,7 +1984,7 @@ _ppdOpen(
 	         (PPD_KEYWORD | PPD_OPTION | PPD_STRING) &&
 	     !strcmp(keyword, option->keyword))
     {
-      DEBUG_printf("2_ppdOpen: group=%p, subgroup=%p", group, subgroup);
+      DEBUG_printf("2_ppdOpen: group=%p, subgroup=%p", (void *)group, (void *)subgroup);
 
       if (!_cups_strcasecmp(name, "custom") || !_cups_strncasecmp(name, "custom.", 7))
       {
@@ -2757,7 +2757,7 @@ ppd_get_group(ppd_file_t      *ppd,	/* I - PPD file */
   ppd_group_t	*group;			/* Group */
 
 
-  DEBUG_printf("7ppd_get_group(ppd=%p, name=\"%s\", text=\"%s\", cg=%p)", ppd, name, text, pg);
+  DEBUG_printf("7ppd_get_group(ppd=%p, name=\"%s\", text=\"%s\", cg=%p)", (void *)ppd, name, text, (void *)pg);
 
   for (i = ppd->num_groups, group = ppd->groups; i > 0; i --, group ++)
     if (!strcmp(group->name, name))
@@ -2813,7 +2813,7 @@ ppd_get_option(ppd_group_t *group,	/* I - Group */
   ppd_option_t	*option;		/* Option */
 
 
-  DEBUG_printf("7ppd_get_option(group=%p(\"%s\"), name=\"%s\")", group, group->name, name);
+  DEBUG_printf("7ppd_get_option(group=%p(\"%s\"), name=\"%s\")", (void *)group, group->name, name);
 
   for (i = group->num_options, option = group->options; i > 0; i --, option ++)
     if (!strcmp(option->keyword, name))
@@ -3426,7 +3426,7 @@ ppd_update_filters(ppd_file_t     *ppd,	/* I - PPD file */
 
   char		program[1024] = { 0 };	/* Command to run */
 
-  DEBUG_printf("4ppd_update_filters(ppd=%p, cg=%p)", ppd, pg);
+  DEBUG_printf("4ppd_update_filters(ppd=%p, cg=%p)", (void *)ppd, (void *)pg);
 
  /*
   * See if we have any cupsFilter2 lines...

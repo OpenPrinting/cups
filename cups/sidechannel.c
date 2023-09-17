@@ -103,7 +103,7 @@ cupsSideChannelRead(
   struct pollfd	pfd;			/* Poll structure for poll() */
 
 
-  DEBUG_printf("cupsSideChannelRead(command=%p, status=%p, data=%p, datalen=%p(%d), timeout=%.3f)", command, status, data, datalen, datalen ? *datalen : -1, timeout);
+  DEBUG_printf("cupsSideChannelRead(command=%p, status=%p, data=%p, datalen=%p(%d), timeout=%.3f)", (void *)command, (void *)status, (void *)data, (void *)datalen, datalen ? *datalen : -1, timeout);
 
  /*
   * Range check input...
@@ -281,7 +281,7 @@ cupsSideChannelSNMPGet(
 			real_oidlen;	/* Length of returned OID string */
 
 
-  DEBUG_printf("cupsSideChannelSNMPGet(oid=\"%s\", data=%p, datalen=%p(%d), timeout=%.3f)", oid, data, datalen, datalen ? *datalen : -1, timeout);
+  DEBUG_printf("cupsSideChannelSNMPGet(oid=\"%s\", data=%p, datalen=%p(%d), timeout=%.3f)", oid, (void *)data, (void *)datalen, datalen ? *datalen : -1, timeout);
 
  /*
   * Range check input...
@@ -388,7 +388,7 @@ cupsSideChannelSNMPWalk(
   char			last_oid[2048];	/* Last OID */
 
 
-  DEBUG_printf("cupsSideChannelSNMPWalk(oid=\"%s\", timeout=%.3f, cb=%p, context=%p)", oid, timeout, cb, context);
+  DEBUG_printf("cupsSideChannelSNMPWalk(oid=\"%s\", timeout=%.3f, cb=%p, context=%p)", oid, timeout, (void *)cb, context);
 
  /*
   * Range check input...

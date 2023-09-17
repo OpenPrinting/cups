@@ -144,7 +144,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
   * Range check input...
   */
 
-  DEBUG_printf("cupsGetPPD3(http=%p, name=\"%s\", modtime=%p(%d), buffer=%p, bufsize=%d)", http, name, modtime, modtime ? (int)*modtime : 0, buffer, (int)bufsize);
+  DEBUG_printf("cupsGetPPD3(http=%p, name=\"%s\", modtime=%p(%d), buffer=%p, bufsize=%d)", (void *)http, name, (void *)modtime, modtime ? (int)*modtime : 0, (void *)buffer, (int)bufsize);
 
   if (!name)
   {
@@ -561,7 +561,7 @@ cups_get_printer_uri(
 		};
 
 
-  DEBUG_printf("4cups_get_printer_uri(http=%p, name=\"%s\", host=%p, hostsize=%d, resource=%p, resourcesize=%d)", http, name, host, hostsize, resource, resourcesize);
+  DEBUG_printf("4cups_get_printer_uri(http=%p, name=\"%s\", host=%p, hostsize=%d, resource=%p, resourcesize=%d)", (void *)http, name, (void *)host, hostsize, (void *)resource, resourcesize);
 
  /*
   * Setup the printer URI...

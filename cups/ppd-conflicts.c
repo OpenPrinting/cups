@@ -637,7 +637,7 @@ ppdInstallableConflict(
   cups_array_t	*active;		/* Active conflicts */
 
 
-  DEBUG_printf("2ppdInstallableConflict(ppd=%p, option=\"%s\", choice=\"%s\")", ppd, option, choice);
+  DEBUG_printf("2ppdInstallableConflict(ppd=%p, option=\"%s\", choice=\"%s\")", (void *)ppd, option, choice);
 
  /*
   * Range check input...
@@ -705,7 +705,7 @@ ppd_load_constraints(ppd_file_t *ppd)	/* I - PPD file */
 		*ptr;			/* Pointer into option or choice */
 
 
-  DEBUG_printf("7ppd_load_constraints(ppd=%p)", ppd);
+  DEBUG_printf("7ppd_load_constraints(ppd=%p)", (void *)ppd);
 
  /*
   * Create an array to hold the constraint data...
@@ -952,7 +952,7 @@ ppd_test_constraints(
   char			firstpage[255];	/* AP_FIRSTPAGE_Keyword string */
 
 
-  DEBUG_printf("7ppd_test_constraints(ppd=%p, option=\"%s\", choice=\"%s\", num_options=%d, options=%p, which=%d)", ppd, option, choice, num_options, options, which);
+  DEBUG_printf("7ppd_test_constraints(ppd=%p, option=\"%s\", choice=\"%s\", num_options=%d, options=%p, which=%d)", (void *)ppd, option, choice, num_options, (void *)options, which);
 
   if (!ppd->cups_uiconstraints)
     ppd_load_constraints(ppd);

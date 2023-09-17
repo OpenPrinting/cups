@@ -55,7 +55,7 @@ ppdLocalize(ppd_file_t *ppd)		/* I - PPD file */
   * Range check input...
   */
 
-  DEBUG_printf("ppdLocalize(ppd=%p)", ppd);
+  DEBUG_printf("ppdLocalize(ppd=%p)", (void *)ppd);
 
   if (!ppd)
     return (-1);
@@ -599,7 +599,7 @@ _ppdLocalizedAttr(ppd_file_t *ppd,	/* I - PPD file */
   ppd_attr_t	*attr;			/* Current attribute */
 
 
-  DEBUG_printf("4_ppdLocalizedAttr(ppd=%p, keyword=\"%s\", spec=\"%s\", ll_CC=\"%s\")", ppd, keyword, spec, ll_CC);
+  DEBUG_printf("4_ppdLocalizedAttr(ppd=%p, keyword=\"%s\", spec=\"%s\", ll_CC=\"%s\")", (void *)ppd, keyword, spec, ll_CC);
 
  /*
   * Look for Keyword.ll_CC, then Keyword.ll...

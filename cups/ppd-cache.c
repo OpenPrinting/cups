@@ -1066,7 +1066,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   char			msg_id[256];	/* Message identifier */
 
 
-  DEBUG_printf("_ppdCacheCreateWithPPD(ppd=%p)", ppd);
+  DEBUG_printf("_ppdCacheCreateWithPPD(ppd=%p)", (void *)ppd);
 
  /*
   * Range check input...
@@ -1359,7 +1359,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       {"Recycled", -1, "stationery-recycled"},
       {"Transparen", 10, "transparency"},
     };
-    const size_t num_standard_types = sizeof(standard_types) / sizeof(standard_types[0]);
+    const int num_standard_types = (int)(sizeof(standard_types) / sizeof(standard_types[0]));
 					/* Length of the standard_types array */
     int match_counts[sizeof(standard_types) / sizeof(standard_types[0])] = {0};
 					/* Number of matches for each standard type */
@@ -1389,7 +1389,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
             match_counts[j] ++;
           }
         }
-        else if (!_cups_strncasecmp(choice->choice, standard_types[j].ppd_name, standard_types[j].match_length))
+        else if (!_cups_strncasecmp(choice->choice, standard_types[j].ppd_name, (size_t)standard_types[j].match_length))
         {
           pwg_name = standard_types[j].pwg_name;
           match_counts[j] ++;
@@ -2236,7 +2236,7 @@ _ppdCacheGetFinishingValues(
   * Range check input...
   */
 
-  DEBUG_printf("_ppdCacheGetFinishingValues(ppd=%p, pc=%p, max_values=%d, values=%p)", ppd, pc, max_values, values);
+  DEBUG_printf("_ppdCacheGetFinishingValues(ppd=%p, pc=%p, max_values=%d, values=%p)", (void *)ppd, (void *)pc, max_values, (void *)values);
 
   if (!ppd || !pc || max_values < 1 || !values)
   {
@@ -2497,7 +2497,7 @@ _ppdCacheGetPageSize(
   const char	*ppd_name;		/* PPD media name */
 
 
-  DEBUG_printf("_ppdCacheGetPageSize(pc=%p, job=%p, keyword=\"%s\", exact=%p)", pc, job, keyword, exact);
+  DEBUG_printf("_ppdCacheGetPageSize(pc=%p, job=%p, keyword=\"%s\", exact=%p)", (void *)pc, (void *)job, keyword, (void *)exact);
 
  /*
   * Range check input...

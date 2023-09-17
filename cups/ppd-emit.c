@@ -82,7 +82,7 @@ ppdCollect2(ppd_file_t    *ppd,		/* I - PPD file data */
   float		*orders;		/* Collected order values */
 
 
-  DEBUG_printf("ppdCollect2(ppd=%p, section=%d, min_order=%f, choices=%p)", ppd, section, min_order, choices);
+  DEBUG_printf("ppdCollect2(ppd=%p, section=%d, min_order=%f, choices=%p)", (void *)ppd, section, min_order, (void *)choices);
 
   if (!ppd || !choices)
   {
@@ -617,7 +617,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
   struct lconv	*loc;			/* Locale data */
 
 
-  DEBUG_printf("ppdEmitString(ppd=%p, section=%d, min_order=%f)", ppd, section, min_order);
+  DEBUG_printf("ppdEmitString(ppd=%p, section=%d, min_order=%f)", (void *)ppd, section, min_order);
 
  /*
   * Range check input...

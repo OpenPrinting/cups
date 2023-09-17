@@ -1530,8 +1530,8 @@ ippCopyCredentialsString(
 {
   char		*s = NULL,		// Combined string
 		*ptr;			// Pointer into string
-  size_t	i,			// Looping var
-		slen;			// Length of combined string
+  int		i;			// Looping var
+  size_t	slen;			// Length of combined string
 
 
   if (attr && ippGetValueTag(attr) == IPP_TAG_TEXT)
