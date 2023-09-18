@@ -262,10 +262,8 @@ cupsdCreateCommonData(void)
 		};
   static const char * const compressions[] =
 		{			/* document-compression-supported values */
-		  "none"
-#ifdef HAVE_LIBZ
-		  ,"gzip"
-#endif /* HAVE_LIBZ */
+		  "none",
+		  "gzip"
 		};
   static const char * const media_col_supported[] =
 		{			/* media-col-supported values */

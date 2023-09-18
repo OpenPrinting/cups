@@ -8604,11 +8604,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "compression",
                                IPP_TAG_KEYWORD)) != NULL)
   {
-    if (strcmp(attr->values[0].string.text, "none")
-#ifdef HAVE_LIBZ
-        && strcmp(attr->values[0].string.text, "gzip")
-#endif /* HAVE_LIBZ */
-      )
+    if (strcmp(attr->values[0].string.text, "none") && strcmp(attr->values[0].string.text, "gzip"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES,
                       _("Unsupported compression \"%s\"."),
@@ -8618,10 +8614,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
       return;
     }
 
-#ifdef HAVE_LIBZ
     if (!strcmp(attr->values[0].string.text, "gzip"))
       compression = CUPS_FILE_GZIP;
-#endif /* HAVE_LIBZ */
   }
 
  /*
@@ -9856,11 +9850,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "compression",
                                IPP_TAG_KEYWORD)) != NULL)
   {
-    if (strcmp(attr->values[0].string.text, "none")
-#ifdef HAVE_LIBZ
-        && strcmp(attr->values[0].string.text, "gzip")
-#endif /* HAVE_LIBZ */
-      )
+    if (strcmp(attr->values[0].string.text, "none") && strcmp(attr->values[0].string.text, "gzip"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES, _("Unsupported compression \"%s\"."),
         	      attr->values[0].string.text);
@@ -9869,10 +9859,8 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-#ifdef HAVE_LIBZ
     if (!strcmp(attr->values[0].string.text, "gzip"))
       compression = CUPS_FILE_GZIP;
-#endif /* HAVE_LIBZ */
   }
 
  /*
@@ -11438,11 +11426,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "compression",
                                IPP_TAG_KEYWORD)) != NULL)
   {
-    if (strcmp(attr->values[0].string.text, "none")
-#ifdef HAVE_LIBZ
-        && strcmp(attr->values[0].string.text, "gzip")
-#endif /* HAVE_LIBZ */
-      )
+    if (strcmp(attr->values[0].string.text, "none") && strcmp(attr->values[0].string.text, "gzip"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES,
                       _("Unsupported 'compression' value \"%s\"."),

@@ -49,7 +49,7 @@ typedef struct _cups_file_s cups_file_t;// CUPS file type
 //
 
 extern int		cupsFileClose(cups_file_t *fp) _CUPS_PUBLIC;
-extern int		cupsFileCompression(cups_file_t *fp) _CUPS_PUBLIC;
+extern int		cupsFileCompression(cups_file_t *fp) _CUPS_DEPRECATED_MSG("Use cupsFileIsCompressed instead.");
 extern int		cupsFileEOF(cups_file_t *fp) _CUPS_PUBLIC;
 extern const char	*cupsFileFind(const char *filename, const char *path, int executable, char *buffer, int bufsize) _CUPS_PUBLIC;
 extern int		cupsFileFlush(cups_file_t *fp) _CUPS_PUBLIC;
@@ -57,6 +57,7 @@ extern int		cupsFileGetChar(cups_file_t *fp) _CUPS_PUBLIC;
 extern char		*cupsFileGetConf(cups_file_t *fp, char *buf, size_t buflen, char **value, int *linenum) _CUPS_PUBLIC;
 extern size_t		cupsFileGetLine(cups_file_t *fp, char *buf, size_t buflen) _CUPS_PUBLIC;
 extern char		*cupsFileGets(cups_file_t *fp, char *buf, size_t buflen) _CUPS_PUBLIC;
+extern bool		cupsFileIsCompressed(cups_file_t *fp) _CUPS_PUBLIC;
 extern int		cupsFileLock(cups_file_t *fp, int block) _CUPS_PUBLIC;
 extern int		cupsFileNumber(cups_file_t *fp) _CUPS_PUBLIC;
 extern cups_file_t	*cupsFileOpen(const char *filename, const char *mode) _CUPS_PUBLIC;
