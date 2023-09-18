@@ -6001,14 +6001,6 @@ then :
 printf "%s\n" "#define STDC_HEADERS 1" >>confdefs.h
 
 fi
-ac_fn_c_check_header_compile "$LINENO" "crypt.h" "ac_cv_header_crypt_h" "$ac_includes_default"
-if test "x$ac_cv_header_crypt_h" = xyes
-then :
-
-printf "%s\n" "#define HAVE_CRYPT_H 1" >>confdefs.h
-
-fi
-
 ac_fn_c_check_header_compile "$LINENO" "langinfo.h" "ac_cv_header_langinfo_h" "$ac_includes_default"
 if test "x$ac_cv_header_langinfo_h" = xyes
 then :
@@ -6022,14 +6014,6 @@ if test "x$ac_cv_header_malloc_h" = xyes
 then :
 
 printf "%s\n" "#define HAVE_MALLOC_H 1" >>confdefs.h
-
-fi
-
-ac_fn_c_check_header_compile "$LINENO" "shadow.h" "ac_cv_header_shadow_h" "$ac_includes_default"
-if test "x$ac_cv_header_shadow_h" = xyes
-then :
-
-printf "%s\n" "#define HAVE_SHADOW_H 1" >>confdefs.h
 
 fi
 
@@ -8580,69 +8564,6 @@ printf "%s\n" "#define HAVE_HSTRERROR 1" >>confdefs.h
 
 fi
 
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing rresvport_af" >&5
-printf %s "checking for library containing rresvport_af... " >&6; }
-if test ${ac_cv_search_rresvport_af+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_func_search_save_LIBS=$LIBS
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-char rresvport_af ();
-int
-main (void)
-{
-return rresvport_af ();
-  ;
-  return 0;
-}
-_ACEOF
-for ac_lib in '' nsl
-do
-  if test -z "$ac_lib"; then
-    ac_res="none required"
-  else
-    ac_res=-l$ac_lib
-    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
-  fi
-  if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_search_rresvport_af=$ac_res
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext
-  if test ${ac_cv_search_rresvport_af+y}
-then :
-  break
-fi
-done
-if test ${ac_cv_search_rresvport_af+y}
-then :
-
-else $as_nop
-  ac_cv_search_rresvport_af=no
-fi
-rm conftest.$ac_ext
-LIBS=$ac_func_search_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_rresvport_af" >&5
-printf "%s\n" "$ac_cv_search_rresvport_af" >&6; }
-ac_res=$ac_cv_search_rresvport_af
-if test "$ac_res" != no
-then :
-  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-
-
-printf "%s\n" "#define HAVE_RRESVPORT_AF 1" >>confdefs.h
-
-
-fi
-
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing __res_init" >&5
 printf %s "checking for library containing __res_init... " >&6; }
 if test ${ac_cv_search___res_init+y}
@@ -10488,9 +10409,6 @@ then :
 	    # Darwin and macOS...
 	    with_dnssd="mdnsresponder"
 
-printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
-
-
 printf "%s\n" "#define HAVE_MDNSRESPONDER 1" >>confdefs.h
 
 	    DNSSD_BACKEND="dnssd"
@@ -10528,9 +10446,6 @@ then :
 		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 		with_dnssd="mdnsresponder"
-
-printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
-
 
 printf "%s\n" "#define HAVE_MDNSRESPONDER 1" >>confdefs.h
 
@@ -10594,9 +10509,6 @@ printf "%s\n" "yes" >&6; }
 		PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES avahi-client"
 
 printf "%s\n" "#define HAVE_AVAHI 1" >>confdefs.h
-
-
-printf "%s\n" "#define HAVE_DNSSD 1" >>confdefs.h
 
 
 else $as_nop

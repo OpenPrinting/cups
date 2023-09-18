@@ -4960,7 +4960,6 @@ copy_printer_attrs(
   if (!ra || cupsArrayFind(ra, "printer-current-time"))
     ippAddDate(con->response, IPP_TAG_PRINTER, "printer-current-time", ippTimeToDate(curtime));
 
-#ifdef HAVE_DNSSD
   if (!ra || cupsArrayFind(ra, "printer-dns-sd-name"))
   {
     if (printer->reg_name)
@@ -4968,7 +4967,6 @@ copy_printer_attrs(
     else
       ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_NOVALUE, "printer-dns-sd-name", 0);
   }
-#endif /* HAVE_DNSSD */
 
   if (!ra || cupsArrayFind(ra, "printer-error-policy"))
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_NAME, "printer-error-policy", NULL, printer->error_policy);
@@ -5617,12 +5615,9 @@ create_local_printer(
   * compare case-insensitively.
   */
 
-#ifdef HAVE_DNSSD
   if (DNSSDHostName)
     nameptr = DNSSDHostName;
-  else
-#endif
-  if (ServerName)
+  else if (ServerName)
     nameptr = ServerName;
   else
     nameptr = NULL;

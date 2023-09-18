@@ -27,9 +27,6 @@ AC_SEARCH_LIBS([getifaddrs], [nsl], [
 AC_SEARCH_LIBS([hstrerror], [nsl socket resolv], [
     AC_DEFINE([HAVE_HSTRERROR], [1], [Have the hstrerror function?])
 ])
-AC_SEARCH_LIBS([rresvport_af], [nsl], [
-    AC_DEFINE([HAVE_RRESVPORT_AF], [1], [Have the rresvport_af function?])
-])
 AC_SEARCH_LIBS([__res_init], [resolv bind], [
     AC_DEFINE([HAVE_RES_INIT], [1], [Have res_init function?])
 ], [

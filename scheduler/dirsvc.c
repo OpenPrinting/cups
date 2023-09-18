@@ -36,7 +36,6 @@ static int	avahi_running = 0;
  * Local functions...
  */
 
-#ifdef HAVE_DNSSD
 static char		*get_auth_info_required(cupsd_printer_t *p,
 			                        char *buffer, size_t bufsize);
 #  ifdef __APPLE__
@@ -73,7 +72,6 @@ static void		dnssdStop(void);
 static void		dnssdUpdate(void);
 #  endif /* HAVE_MDNSRESPONDER */
 static void		dnssdUpdateDNSSDName(int from_callback);
-#endif /* HAVE_DNSSD */
 
 
 /*
@@ -103,10 +101,8 @@ cupsdDeregisterPrinter(
   * Announce the deletion...
   */
 
-#ifdef HAVE_DNSSD
   if (removeit && (BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdDeregisterPrinter(p, 1, 0);
-#endif /* HAVE_DNSSD */
 }
 
 
@@ -125,10 +121,8 @@ cupsdRegisterPrinter(cupsd_printer_t *p)/* I - Printer */
       (p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
     return;
 
-#ifdef HAVE_DNSSD
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdRegisterPrinter(p, 0);
-#endif /* HAVE_DNSSD */
 }
 
 
@@ -142,7 +136,6 @@ cupsdStartBrowsing(void)
   if (!Browsing || !BrowseLocalProtocols)
     return;
 
-#ifdef HAVE_DNSSD
   if (BrowseLocalProtocols & BROWSE_DNSSD)
   {
 #  ifdef HAVE_MDNSRESPONDER
@@ -218,7 +211,6 @@ cupsdStartBrowsing(void)
   */
 
   dnssdRegisterAllPrinters(0);
-#endif /* HAVE_DNSSD */
 }
 
 
@@ -232,7 +224,6 @@ cupsdStopBrowsing(void)
   if (!Browsing || !BrowseLocalProtocols)
     return;
 
-#ifdef HAVE_DNSSD
  /*
   * De-register the individual printers
   */
@@ -245,11 +236,9 @@ cupsdStopBrowsing(void)
 
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdStop();
-#endif /* HAVE_DNSSD */
 }
 
 
-#ifdef HAVE_DNSSD
 /*
  * 'cupsdUpdateDNSSDName()' - Update the computer name we use for browsing...
  */
@@ -1611,4 +1600,3 @@ get_auth_info_required(
 
   return ("none");
 }
-#endif /* HAVE_DNSSD */
