@@ -455,20 +455,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Do we have getaddrinfo()?
- */
-
-#define HAVE_GETADDRINFO 1
-
-
-/*
- * Do we have getnameinfo()?
- */
-
-#define HAVE_GETNAMEINFO 1
-
-
-/*
  * Do we have getifaddrs()?
  */
 

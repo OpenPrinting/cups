@@ -362,20 +362,6 @@
 
 
 /*
- * Do we have getaddrinfo()?
- */
-
-#undef HAVE_GETADDRINFO
-
-
-/*
- * Do we have getnameinfo()?
- */
-
-#undef HAVE_GETNAMEINFO
-
-
-/*
  * Do we have getifaddrs()?
  */
 
