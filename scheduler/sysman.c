@@ -1021,13 +1021,11 @@ sysUpdateNames(void)
        p = (cupsd_printer_t *)cupsArrayNext(Printers))
     cupsdDeregisterPrinter(p, 1);
 
-#  ifdef HAVE_DNSSD
  /*
   * Update the computer name and BTMM domain list...
   */
 
   cupsdUpdateDNSSDName();
-#  endif /* HAVE_DNSSD */
 
  /*
   * Now re-register them...

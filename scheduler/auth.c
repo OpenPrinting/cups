@@ -18,12 +18,6 @@
 
 #include "cupsd.h"
 #include <grp.h>
-#ifdef HAVE_SHADOW_H
-#  include <shadow.h>
-#endif /* HAVE_SHADOW_H */
-#ifdef HAVE_CRYPT_H
-#  include <crypt.h>
-#endif /* HAVE_CRYPT_H */
 #if HAVE_LIBPAM
 #  ifdef HAVE_PAM_PAM_APPL_H
 #    include <pam/pam_appl.h>
@@ -628,86 +622,9 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       }
 
       pam_end(pamh, PAM_SUCCESS);
-
 #else
-     /*
-      * Use normal UNIX password file-based authentication...
-      */
-
-      char		*pass;		/* Encrypted password */
-      struct passwd	*pw;		/* User password data */
-#  ifdef HAVE_SHADOW_H
-      struct spwd	*spw;		/* Shadow password data */
-#  endif /* HAVE_SHADOW_H */
-
-
-      pw = getpwnam(username);		/* Get the current password */
-      endpwent();			/* Close the password file */
-
-      if (!pw)
-      {
-       /*
-	* No such user...
-	*/
-
-	cupsdLogClient(con, CUPSD_LOG_ERROR, "Unknown username \"%s\".", username);
-	return;
-      }
-
-#  ifdef HAVE_SHADOW_H
-      spw = getspnam(username);
-      endspent();
-
-      if (!spw && !strcmp(pw->pw_passwd, "x"))
-      {
-       /*
-	* Don't allow blank passwords!
-	*/
-
-	cupsdLogClient(con, CUPSD_LOG_ERROR, "Username \"%s\" has no shadow password.", username);
-	return;
-      }
-
-      if (spw && !spw->sp_pwdp[0] && !pw->pw_passwd[0])
-#  else
-      if (!pw->pw_passwd[0])
-#  endif /* HAVE_SHADOW_H */
-      {
-       /*
-	* Don't allow blank passwords!
-	*/
-
-	cupsdLogClient(con, CUPSD_LOG_ERROR, "Username \"%s\" has no password.", username);
-	return;
-      }
-
-     /*
-      * OK, the password isn't blank, so compare with what came from the
-      * client...
-      */
-
-      pass = crypt(password, pw->pw_passwd);
-
-      if (!pass || strcmp(pw->pw_passwd, pass))
-      {
-#  ifdef HAVE_SHADOW_H
-	if (spw)
-	{
-	  pass = crypt(password, spw->sp_pwdp);
-
-	  if (pass == NULL || strcmp(spw->sp_pwdp, pass))
-	  {
-	    cupsdLogClient(con, CUPSD_LOG_ERROR, "Authentication failed for user \"%s\".", username);
-	    return;
-	  }
-	}
-	else
-#  endif /* HAVE_SHADOW_H */
-	{
-	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Authentication failed for user \"%s\".", username);
-	  return;
-	}
-      }
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "No authentication support is available.");
+      return;
 #endif /* HAVE_LIBPAM */
     }
 

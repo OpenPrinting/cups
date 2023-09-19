@@ -145,20 +145,6 @@
 
 
 /*
- * Do we have <shadow.h>?
- */
-
-#undef HAVE_SHADOW_H
-
-
-/*
- * Do we have <crypt.h>?
- */
-
-#undef HAVE_CRYPT_H
-
-
-/*
  * Use <stdint.h>?
  */
 
@@ -313,13 +299,6 @@
 
 
 /*
- * Do we have DNS Service Discovery (aka Bonjour) support?
- */
-
-#undef HAVE_DNSSD
-
-
-/*
  * Do we have mDNSResponder for DNS-SD?
  */
 
@@ -352,27 +331,6 @@
  */
 
 #undef HAVE_TM_GMTOFF
-
-
-/*
- * Do we have rresvport_af()?
- */
-
-#undef HAVE_RRESVPORT_AF
-
-
-/*
- * Do we have getaddrinfo()?
- */
-
-#undef HAVE_GETADDRINFO
-
-
-/*
- * Do we have getnameinfo()?
- */
-
-#undef HAVE_GETNAMEINFO
 
 
 /*

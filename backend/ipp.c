@@ -92,9 +92,7 @@ static char		username[256] = "",
 					/* Password for device URI */
 static const char * const pattrs[] =	/* Printer attributes we want */
 {
-#ifdef HAVE_LIBZ
   "compression-supported",
-#endif /* HAVE_LIBZ */
   "copies-supported",
   "cups-version",
   "document-format-supported",
@@ -236,9 +234,7 @@ main(int  argc,				/* I - Number of command-line args */
   int		job_id;			/* job-id value */
   ipp_attribute_t *job_sheets;		/* job-media-sheets-completed */
   ipp_attribute_t *job_state;		/* job-state */
-#ifdef HAVE_LIBZ
   ipp_attribute_t *compression_sup;	/* compression-supported */
-#endif /* HAVE_LIBZ */
   ipp_attribute_t *copies_sup;		/* copies-supported */
   ipp_attribute_t *cups_version;	/* cups-version */
   ipp_attribute_t *encryption_sup;	/* job-password-encryption-supported */
@@ -538,7 +534,6 @@ main(int  argc,				/* I - Number of command-line args */
 			       value);
 	}
       }
-#ifdef HAVE_LIBZ
       else if (!_cups_strcasecmp(name, "compression"))
       {
         if (!_cups_strcasecmp(value, "true") || !_cups_strcasecmp(value, "yes") ||
@@ -552,7 +547,6 @@ main(int  argc,				/* I - Number of command-line args */
 		 !_cups_strcasecmp(value, "none"))
 	  compression = "none";
       }
-#endif /* HAVE_LIBZ */
       else if (!_cups_strcasecmp(name, "contimeout"))
       {
         int value_int = atoi(value);
@@ -872,9 +866,7 @@ main(int  argc,				/* I - Number of command-line args */
   * copies...
   */
 
-#ifdef HAVE_LIBZ
   compression_sup      = NULL;
-#endif /* HAVE_LIBZ */
   copies_sup           = NULL;
   cups_version         = NULL;
   encryption_sup       = NULL;
@@ -1076,9 +1068,7 @@ main(int  argc,				/* I - Number of command-line args */
     * Check for supported attributes...
     */
 
-#ifdef HAVE_LIBZ
-    if ((compression_sup = ippFindAttribute(supported, "compression-supported",
-                                            IPP_TAG_KEYWORD)) != NULL)
+    if ((compression_sup = ippFindAttribute(supported, "compression-supported", IPP_TAG_KEYWORD)) != NULL)
     {
      /*
       * Check whether the requested compression is supported and/or default to
@@ -1103,7 +1093,6 @@ main(int  argc,				/* I - Number of command-line args */
                   compression);
       }
     }
-#endif /* HAVE_LIBZ */
 
     if ((copies_sup = ippFindAttribute(supported, "copies-supported",
 	                               IPP_TAG_RANGE)) != NULL)
@@ -2838,13 +2827,11 @@ new_request(
     fprintf(stderr, "DEBUG: document-format=\"%s\"\n", format);
   }
 
-#ifdef HAVE_LIBZ
   if (compression && op != IPP_OP_CREATE_JOB && op != IPP_OP_VALIDATE_JOB)
   {
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "compression", NULL, compression);
     fprintf(stderr, "DEBUG: compression=\"%s\"\n", compression);
   }
-#endif /* HAVE_LIBZ */
 
  /*
   * Handle options on the command-line...

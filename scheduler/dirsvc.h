@@ -28,7 +28,6 @@ VAR int			Browsing	VALUE(TRUE),
 			BrowseLocalProtocols
 					VALUE(BROWSE_ALL);
 					/* Protocols to support for local printers */
-#ifdef HAVE_DNSSD
 VAR char		*DNSSDComputerName VALUE(NULL),
 					/* Computer/server name */
 			*DNSSDHostName	VALUE(NULL),
@@ -52,7 +51,6 @@ VAR AvahiClient		*DNSSDClient	VALUE(NULL);
 #  endif /* HAVE_MDNSRESPONDER */
 VAR cupsd_srv_t		WebIFSrv	VALUE(NULL);
 					/* Service reference for the web interface */
-#endif /* HAVE_DNSSD */
 
 
 /*
@@ -63,6 +61,4 @@ extern void	cupsdDeregisterPrinter(cupsd_printer_t *p, int removeit);
 extern void	cupsdRegisterPrinter(cupsd_printer_t *p);
 extern void	cupsdStartBrowsing(void);
 extern void	cupsdStopBrowsing(void);
-#ifdef HAVE_DNSSD
 extern void	cupsdUpdateDNSSDName(void);
-#endif /* HAVE_DNSSD */

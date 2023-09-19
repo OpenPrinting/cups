@@ -942,8 +942,7 @@ poll_callback(
 #endif /* HAVE_AVAHI */
 
 
-#ifdef HAVE_DNSSD
-#  ifdef HAVE_MDNSRESPONDER
+#ifdef HAVE_MDNSRESPONDER
 /*
  * 'query_callback()' - Process query data.
  */
@@ -1234,7 +1233,6 @@ query_callback(
   else
     device->make_and_model = strdup(model);
 }
-#endif /* HAVE_DNSSD */
 
 
 /*

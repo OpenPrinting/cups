@@ -398,7 +398,7 @@ cupsFileClose(cups_file_t *fp)		// I - CUPS file
 //
 // 'cupsFileCompression()' - Return whether a file is compressed.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @deprecated@ @exclude all@
 //
 
 int					// O - @code CUPS_FILE_NONE@ or @code CUPS_FILE_GZIP@
@@ -843,6 +843,19 @@ cupsFileGets(cups_file_t *fp,		// I - CUPS file
   DEBUG_printf("4cupsFileGets: pos=" CUPS_LLFMT, CUPS_LLCAST fp->pos);
 
   return (buf);
+}
+
+
+//
+// 'cupsFileIsCompressed()' - Return whether a file is compressed.
+//
+// @since CUPS 2.5@
+//
+
+bool					// O - `true` if file is compressed, `false` otherwise
+cupsFileIsCompressed(cups_file_t *fp)	// I - CUPS file
+{
+  return (fp ? fp->compressed != 0 : false);
 }
 
 

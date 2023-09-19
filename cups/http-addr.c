@@ -337,6 +337,7 @@ httpAddrLookup(
     char              *name,		// I - Host name buffer
     int               namelen)		// I - Size of name buffer
 {
+  int			error;		// Any error from getnameinfo
   _cups_globals_t	*cg = _cupsGlobals();
 					// Global data
 
@@ -385,45 +386,17 @@ httpAddrLookup(
   }
 #endif // HAVE_RES_INIT
 
-#ifdef HAVE_GETNAMEINFO
+  // STR #2486: httpAddrLookup() fails when getnameinfo() returns EAI_AGAIN
+  //
+  // FWIW, I think this is really a bug in the implementation of
+  // getnameinfo(), but falling back on httpAddrString() is easy to do...
+  if ((error = getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), name, (socklen_t)namelen, NULL, 0, 0)) != 0)
   {
-    // STR #2486: httpAddrLookup() fails when getnameinfo() returns EAI_AGAIN
-    //
-    // FWIW, I think this is really a bug in the implementation of
-    // getnameinfo(), but falling back on httpAddrString() is easy to do...
-    int error = getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), name, (socklen_t)namelen, NULL, 0, 0);
+    if (error == EAI_FAIL)
+      cg->need_res_init = 1;
 
-    if (error)
-    {
-      if (error == EAI_FAIL)
-        cg->need_res_init = 1;
-
-      return (httpAddrGetString(addr, name, (size_t)namelen));
-    }
+    return (httpAddrGetString(addr, name, (size_t)namelen));
   }
-#else
-  {
-    struct hostent	*host;			// Host from name service
-
-#  ifdef AF_INET6
-    if (addr->addr.sa_family == AF_INET6)
-      host = gethostbyaddr((char *)&(addr->ipv6.sin6_addr), sizeof(struct in_addr), AF_INET6);
-    else
-#  endif // AF_INET6
-    host = gethostbyaddr((char *)&(addr->ipv4.sin_addr), sizeof(struct in_addr), AF_INET);
-
-    if (host == NULL)
-    {
-      // No hostname, so return the raw address...
-      if (h_errno == NO_RECOVERY)
-        cg->need_res_init = 1;
-
-      return (httpAddrGetString(addr, name, (size_t)namelen));
-    }
-
-    cupsCopyString(name, host->h_name, (size_t)namelen);
-  }
-#endif // HAVE_GETNAMEINFO
 
   DEBUG_printf("1httpAddrLookup: returning \"%s\"...", name);
 
@@ -578,7 +551,6 @@ httpAddrGetString(
     char	*sptr,			// Pointer into string
 		temps[64];		// Temporary string for address
 
-#  ifdef HAVE_GETNAMEINFO
     if (getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), temps, sizeof(temps), NULL, 0, NI_NUMERICHOST))
     {
       // If we get an error back, then the address type is not supported
@@ -592,67 +564,6 @@ httpAddrGetString(
       // Convert "%zone" to "+zone" to match URI form...
       *sptr = '+';
     }
-
-#  else
-    int		i;			// Looping var
-    unsigned	temp;			// Current value
-    const char	*prefix;		// Prefix for address
-
-    prefix = "";
-    for (sptr = temps, i = 0; i < 4 && addr->ipv6.sin6_addr.s6_addr32[i]; i ++)
-    {
-      temp = ntohl(addr->ipv6.sin6_addr.s6_addr32[i]);
-
-      snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, (temp >> 16) & 0xffff);
-      prefix = ":";
-      sptr += strlen(sptr);
-
-      temp &= 0xffff;
-
-      if (temp || i == 3 || addr->ipv6.sin6_addr.s6_addr32[i + 1])
-      {
-        snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, temp);
-	sptr += strlen(sptr);
-      }
-    }
-
-    if (i < 4)
-    {
-      while (i < 4 && !addr->ipv6.sin6_addr.s6_addr32[i])
-	i ++;
-
-      if (i < 4)
-      {
-        snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s:", prefix);
-	prefix = ":";
-	sptr += strlen(sptr);
-
-	for (; i < 4; i ++)
-	{
-          temp = ntohl(addr->ipv6.sin6_addr.s6_addr32[i]);
-
-          if ((temp & 0xffff0000) || (i > 0 && addr->ipv6.sin6_addr.s6_addr32[i - 1]))
-	  {
-            snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, (temp >> 16) & 0xffff);
-	    sptr += strlen(sptr);
-          }
-
-          snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, temp & 0xffff);
-	  sptr += strlen(sptr);
-	}
-      }
-      else if (sptr == s)
-      {
-        // Empty address...
-        cupsCopyString(temps, "::", sizeof(temps));
-      }
-      else
-      {
-        // Empty at end...
-        cupsCopyString(sptr, "::", sizeof(temps) - (size_t)(sptr - temps));
-      }
-    }
-#  endif // HAVE_GETNAMEINFO
 
     // Add "[v1." and "]" around IPv6 address to convert to URI form.
     snprintf(s, slen, "[v1.%s]", temps);

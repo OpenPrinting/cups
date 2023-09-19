@@ -108,9 +108,7 @@ typedef struct _cups_globals_s		// CUPS global state data
   unsigned		ip_addr;	// Packed IPv4 address
   char			*ip_ptrs[2];	// Pointer to packed address
   struct hostent	hostent;	// Host entry for IP address
-#  ifdef HAVE_GETADDRINFO
   char			hostname[1024];	// Hostname
-#  endif // HAVE_GETADDRINFO
   int			need_res_init;	// Need to reinitialize resolver?
 
   // ipp.c

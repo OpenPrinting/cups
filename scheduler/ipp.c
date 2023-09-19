@@ -4960,7 +4960,6 @@ copy_printer_attrs(
   if (!ra || cupsArrayFind(ra, "printer-current-time"))
     ippAddDate(con->response, IPP_TAG_PRINTER, "printer-current-time", ippTimeToDate(curtime));
 
-#ifdef HAVE_DNSSD
   if (!ra || cupsArrayFind(ra, "printer-dns-sd-name"))
   {
     if (printer->reg_name)
@@ -4968,7 +4967,6 @@ copy_printer_attrs(
     else
       ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_NOVALUE, "printer-dns-sd-name", 0);
   }
-#endif /* HAVE_DNSSD */
 
   if (!ra || cupsArrayFind(ra, "printer-error-policy"))
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_NAME, "printer-error-policy", NULL, printer->error_policy);
@@ -5617,12 +5615,9 @@ create_local_printer(
   * compare case-insensitively.
   */
 
-#ifdef HAVE_DNSSD
   if (DNSSDHostName)
     nameptr = DNSSDHostName;
-  else
-#endif
-  if (ServerName)
+  else if (ServerName)
     nameptr = ServerName;
   else
     nameptr = NULL;
@@ -8604,11 +8599,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "compression",
                                IPP_TAG_KEYWORD)) != NULL)
   {
-    if (strcmp(attr->values[0].string.text, "none")
-#ifdef HAVE_LIBZ
-        && strcmp(attr->values[0].string.text, "gzip")
-#endif /* HAVE_LIBZ */
-      )
+    if (strcmp(attr->values[0].string.text, "none") && strcmp(attr->values[0].string.text, "gzip"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES,
                       _("Unsupported compression \"%s\"."),
@@ -8618,10 +8609,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
       return;
     }
 
-#ifdef HAVE_LIBZ
     if (!strcmp(attr->values[0].string.text, "gzip"))
       compression = CUPS_FILE_GZIP;
-#endif /* HAVE_LIBZ */
   }
 
  /*
@@ -9856,11 +9845,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "compression",
                                IPP_TAG_KEYWORD)) != NULL)
   {
-    if (strcmp(attr->values[0].string.text, "none")
-#ifdef HAVE_LIBZ
-        && strcmp(attr->values[0].string.text, "gzip")
-#endif /* HAVE_LIBZ */
-      )
+    if (strcmp(attr->values[0].string.text, "none") && strcmp(attr->values[0].string.text, "gzip"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES, _("Unsupported compression \"%s\"."),
         	      attr->values[0].string.text);
@@ -9869,10 +9854,8 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-#ifdef HAVE_LIBZ
     if (!strcmp(attr->values[0].string.text, "gzip"))
       compression = CUPS_FILE_GZIP;
-#endif /* HAVE_LIBZ */
   }
 
  /*
@@ -11438,11 +11421,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "compression",
                                IPP_TAG_KEYWORD)) != NULL)
   {
-    if (strcmp(attr->values[0].string.text, "none")
-#ifdef HAVE_LIBZ
-        && strcmp(attr->values[0].string.text, "gzip")
-#endif /* HAVE_LIBZ */
-      )
+    if (strcmp(attr->values[0].string.text, "none") && strcmp(attr->values[0].string.text, "gzip"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES,
                       _("Unsupported 'compression' value \"%s\"."),

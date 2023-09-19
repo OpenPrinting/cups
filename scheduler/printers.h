@@ -114,7 +114,6 @@ struct cupsd_printer_s
   time_t	marker_time;		/* Last time marker attributes were updated */
   _ppd_cache_t	*pc;			/* PPD cache and mapping data */
 
-#ifdef HAVE_DNSSD
   char		*reg_name,		/* Name used for service registration */
 		*pdl;			/* pdl value for TXT record */
   cupsd_srv_t	ipp_srv;		/* IPP service(s) */
@@ -122,7 +121,6 @@ struct cupsd_printer_s
   cupsd_srv_t	ipps_srv;		/* IPPS service(s) */
   cupsd_srv_t	printer_srv;		/* LPD service */
 #  endif /* HAVE_MDNSRESPONDER */
-#endif /* HAVE_DNSSD */
 };
 
 

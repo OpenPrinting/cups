@@ -262,10 +262,8 @@ cupsdCreateCommonData(void)
 		};
   static const char * const compressions[] =
 		{			/* document-compression-supported values */
-		  "none"
-#ifdef HAVE_LIBZ
-		  ,"gzip"
-#endif /* HAVE_LIBZ */
+		  "none",
+		  "gzip"
 		};
   static const char * const media_col_supported[] =
 		{			/* media-col-supported values */
@@ -746,10 +744,8 @@ cupsdDeletePrinter(
   cupsdClearString(&p->alert);
   cupsdClearString(&p->alert_description);
 
-#ifdef HAVE_DNSSD
   cupsdClearString(&p->pdl);
   cupsdClearString(&p->reg_name);
-#endif /* HAVE_DNSSD */
 
   cupsArrayDelete(p->filetypes);
 
@@ -3536,6 +3532,8 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 					/* MIME type name */
   const char	*preferred = "image/urf";
 					/* document-format-preferred value */
+  char		pdl[1024];		/* Buffer to build pdl list */
+  mime_filter_t	*filter;		/* MIME filter looping var */
 
 
  /*
@@ -3610,9 +3608,7 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
   if (i)
     attr->values[0].string.text = _cupsStrAlloc("application/octet-stream");
 
-  for (type = (mime_type_t *)cupsArrayFirst(p->filetypes);
-       type;
-       i ++, type = (mime_type_t *)cupsArrayNext(p->filetypes))
+  for (type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; i ++, type = (mime_type_t *)cupsArrayNext(p->filetypes))
   {
     snprintf(mimetype, sizeof(mimetype), "%s/%s", type->super, type->type);
 
@@ -3621,63 +3617,51 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 
   ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-preferred", NULL, preferred);
 
-#ifdef HAVE_DNSSD
+ /*
+  * We only support raw printing if this is not a Tioga PrintJobMgr based
+  * queue and if application/octet-stream is a known type...
+  */
+
+  for (filter = (mime_filter_t *)cupsArrayFirst(MimeDatabase->filters); filter; filter = (mime_filter_t *)cupsArrayNext(MimeDatabase->filters))
   {
-    char		pdl[1024];	/* Buffer to build pdl list */
-    mime_filter_t	*filter;	/* MIME filter looping var */
-
-
-   /*
-    * We only support raw printing if this is not a Tioga PrintJobMgr based
-    * queue and if application/octet-stream is a known type...
-    */
-
-    for (filter = (mime_filter_t *)cupsArrayFirst(MimeDatabase->filters);
-	 filter;
-	 filter = (mime_filter_t *)cupsArrayNext(MimeDatabase->filters))
-    {
-      if (filter->dst == p->filetype && strstr(filter->filter, "PrintJobMgr"))
-	break;
-    }
-
-    pdl[0] = '\0';
-
-   /*
-    * Then list a bunch of formats that are supported by the printer...
-    */
-
-    for (type = (mime_type_t *)cupsArrayFirst(p->filetypes);
-	 type;
-	 type = (mime_type_t *)cupsArrayNext(p->filetypes))
-    {
-      if (!_cups_strcasecmp(type->super, "application"))
-      {
-        if (!_cups_strcasecmp(type->type, "pdf"))
-	  cupsConcatString(pdl, "application/pdf,", sizeof(pdl));
-        else if (!_cups_strcasecmp(type->type, "postscript"))
-	  cupsConcatString(pdl, "application/postscript,", sizeof(pdl));
-      }
-      else if (!_cups_strcasecmp(type->super, "image"))
-      {
-        if (!_cups_strcasecmp(type->type, "jpeg"))
-	  cupsConcatString(pdl, "image/jpeg,", sizeof(pdl));
-	else if (!_cups_strcasecmp(type->type, "png"))
-	  cupsConcatString(pdl, "image/png,", sizeof(pdl));
-	else if (!_cups_strcasecmp(type->type, "pwg-raster"))
-	  cupsConcatString(pdl, "image/pwg-raster,", sizeof(pdl));
-	else if (!_cups_strcasecmp(type->type, "urf"))
-	  cupsConcatString(pdl, "image/urf,", sizeof(pdl));
-      }
-    }
-
-    if (pdl[0])
-      pdl[strlen(pdl) - 1] = '\0';	/* Remove trailing comma */
-
-    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: pdl='%s'", p->name, pdl);
-
-    cupsdSetString(&p->pdl, pdl);
+    if (filter->dst == p->filetype && strstr(filter->filter, "PrintJobMgr"))
+      break;
   }
-#endif /* HAVE_DNSSD */
+
+  pdl[0] = '\0';
+
+ /*
+  * Then list a bunch of formats that are supported by the printer...
+  */
+
+  for (type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; type = (mime_type_t *)cupsArrayNext(p->filetypes))
+  {
+    if (!_cups_strcasecmp(type->super, "application"))
+    {
+      if (!_cups_strcasecmp(type->type, "pdf"))
+	cupsConcatString(pdl, "application/pdf,", sizeof(pdl));
+      else if (!_cups_strcasecmp(type->type, "postscript"))
+	cupsConcatString(pdl, "application/postscript,", sizeof(pdl));
+    }
+    else if (!_cups_strcasecmp(type->super, "image"))
+    {
+      if (!_cups_strcasecmp(type->type, "jpeg"))
+	cupsConcatString(pdl, "image/jpeg,", sizeof(pdl));
+      else if (!_cups_strcasecmp(type->type, "png"))
+	cupsConcatString(pdl, "image/png,", sizeof(pdl));
+      else if (!_cups_strcasecmp(type->type, "pwg-raster"))
+	cupsConcatString(pdl, "image/pwg-raster,", sizeof(pdl));
+      else if (!_cups_strcasecmp(type->type, "urf"))
+	cupsConcatString(pdl, "image/urf,", sizeof(pdl));
+    }
+  }
+
+  if (pdl[0])
+    pdl[strlen(pdl) - 1] = '\0';	/* Remove trailing comma */
+
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: pdl='%s'", p->name, pdl);
+
+  cupsdSetString(&p->pdl, pdl);
 }
 
 
