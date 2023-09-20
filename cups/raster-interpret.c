@@ -1117,7 +1117,7 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 
 	   /*
 	    * Return NULL if we reached NULL terminator, a lone backslash
-            * is not a valid character in PostScript.
+	    * is not a valid character in PostScript.
 	    */
 
 	    if (!*cur)
