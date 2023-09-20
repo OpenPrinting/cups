@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.4.7 - TBA
 Changes in CUPS v2.4.7 (TBA)
 -----------------------------------
 
+- CVE-2023-4504 - Fixed Heap-based buffer overflow when reading Postscript
+  in PPD files
 - Added OpenSSL support for cupsHashData (Issue #762)
 - Fixed delays in lpd backend (Issue #741)
 - Fixed extensive logging in scheduler (Issue #604)
