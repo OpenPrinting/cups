@@ -1,7 +1,7 @@
-CHANGES - OpenPrinting CUPS 2.4.7 - TBA
-==============================================
+CHANGES - OpenPrinting CUPS 2.4.7 - (2023-09-20)
+================================================
 
-Changes in CUPS v2.4.7 (TBA)
+Changes in CUPS v2.4.7 (2023-09-20)
 -----------------------------------
 
 - CVE-2023-4504 - Fixed Heap-based buffer overflow when reading Postscript
