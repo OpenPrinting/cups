@@ -1,5 +1,11 @@
-CHANGES - OpenPrinting CUPS 2.4.7 - (2023-09-20)
-================================================
+CHANGES - OpenPrinting CUPS 2.4.8 - TBA
+=======================================
+
+Changes in CUPS v2.4.8 (TBA)
+----------------------------
+
+- Really backport fix for Issue #742
+
 
 Changes in CUPS v2.4.7 (2023-09-20)
 -----------------------------------
