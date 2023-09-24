@@ -1664,7 +1664,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
       if (color_option && gray_choice)
       {
- /*
+       /*
 	* Copy and convert ColorModel (output-mode) data...
 	*/
 
