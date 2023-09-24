@@ -59,7 +59,7 @@ main(int  argc,				/* I - Number of command-line args */
     }
     else
     {
-      printf("Server settings not changed: %s\n", cupsLastErrorString());
+      printf("Server settings not changed: %s\n", cupsGetErrorString());
       return (1);
     }
   }
@@ -78,7 +78,7 @@ main(int  argc,				/* I - Number of command-line args */
   }
   else
   {
-    printf("    %s\n", cupsLastErrorString());
+    printf("    %s\n", cupsGetErrorString());
     return (1);
   }
 }

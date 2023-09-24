@@ -1,7 +1,7 @@
 /*
  * Get/put file functions for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -50,7 +50,7 @@ cupsGetFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
   * Range check input...
   */
 
-  DEBUG_printf(("cupsGetFd(http=%p, resource=\"%s\", fd=%d)", (void *)http, resource, fd));
+  DEBUG_printf("cupsGetFd(http=%p, resource=\"%s\", fd=%d)", (void *)http, resource, fd);
 
   if (!resource || fd < 0)
   {
@@ -68,7 +68,7 @@ cupsGetFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
   * Then send GET requests to the HTTP server...
   */
 
-  strlcpy(if_modified_since, httpGetField(http, HTTP_FIELD_IF_MODIFIED_SINCE),
+  cupsCopyString(if_modified_since, httpGetField(http, HTTP_FIELD_IF_MODIFIED_SINCE),
           sizeof(if_modified_since));
 
   do
@@ -157,7 +157,6 @@ cupsGetFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
 
       continue;
     }
-#ifdef HAVE_TLS
     else if (status == HTTP_STATUS_UPGRADE_REQUIRED)
     {
       /* Flush any error message... */
@@ -176,7 +175,6 @@ cupsGetFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
       /* Try again, this time with encryption enabled... */
       continue;
     }
-#endif /* HAVE_TLS */
   }
   while (status == HTTP_STATUS_UNAUTHORIZED || status == HTTP_STATUS_UPGRADE_REQUIRED);
 
@@ -203,7 +201,7 @@ cupsGetFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
   * Return the request status...
   */
 
-  DEBUG_printf(("1cupsGetFd: Returning %d...", status));
+  DEBUG_printf("1cupsGetFd: Returning %d...", status);
 
   return (status);
 }
@@ -302,7 +300,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
   * Range check input...
   */
 
-  DEBUG_printf(("cupsPutFd(http=%p, resource=\"%s\", fd=%d)", (void *)http, resource, fd));
+  DEBUG_printf("cupsPutFd(http=%p, resource=\"%s\", fd=%d)", (void *)http, resource, fd);
 
   if (!resource || fd < 0)
   {
@@ -334,8 +332,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
       }
     }
 
-    DEBUG_printf(("2cupsPutFd: starting attempt, authstring=\"%s\"...",
-                  http->authstring));
+    DEBUG_printf("2cupsPutFd: starting attempt, authstring=\"%s\"...", http->authstring);
 
     httpClearFields(http);
     httpSetField(http, HTTP_FIELD_TRANSFER_ENCODING, "chunked");
@@ -416,9 +413,10 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
 
     if (status == HTTP_STATUS_ERROR && !retries)
     {
-      DEBUG_printf(("2cupsPutFd: retry on status %d", status));
+      DEBUG_printf("2cupsPutFd: retry on status %d", status);
 
       retries ++;
+      status = HTTP_STATUS_NONE;
 
       /* Flush any error message... */
       httpFlush(http);
@@ -434,7 +432,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
       continue;
     }
 
-    DEBUG_printf(("2cupsPutFd: status=%d", status));
+    DEBUG_printf("2cupsPutFd: status=%d", status);
 
     new_auth = 0;
 
@@ -466,7 +464,6 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
 
       continue;
     }
-#ifdef HAVE_TLS
     else if (status == HTTP_STATUS_UPGRADE_REQUIRED)
     {
       /* Flush any error message... */
@@ -485,10 +482,8 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
       /* Try again, this time with encryption enabled... */
       continue;
     }
-#endif /* HAVE_TLS */
   }
-  while (status == HTTP_STATUS_UNAUTHORIZED || status == HTTP_STATUS_UPGRADE_REQUIRED ||
-         (status == HTTP_STATUS_ERROR && retries < 2));
+  while (status == HTTP_STATUS_UNAUTHORIZED || status == HTTP_STATUS_UPGRADE_REQUIRED || status == HTTP_STATUS_NONE);
 
  /*
   * See if we actually put the file or an error...
@@ -500,7 +495,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
     httpFlush(http);
   }
 
-  DEBUG_printf(("1cupsPutFd: Returning %d...", status));
+  DEBUG_printf("1cupsPutFd: Returning %d...", status);
 
   return (status);
 }

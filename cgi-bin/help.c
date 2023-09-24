@@ -193,8 +193,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 
     fprintf(stderr,
-            "DEBUG: si=%p, si->sorted=%p, cupsArrayCount(si->sorted)=%d\n", si,
-            si->sorted, cupsArrayCount(si->sorted));
+            "DEBUG: si=%p, si->sorted=%p, cupsArrayCount(si->sorted)=%d\n", (void *)si,
+            (void *)si->sorted, cupsArrayCount(si->sorted));
 
     for (i = 0, n = (help_node_t *)cupsArrayFirst(si->sorted);
          n;

@@ -120,7 +120,7 @@ cupsdStartListening(void)
 {
   int			p;		/* Port number */
   cupsd_listener_t	*lis;		/* Current listening socket */
-  char			s[256];		/* String addresss */
+  char			s[256];		/* String address */
   const char		*have_domain;	/* Have a domain socket? */
   static const char * const encryptions[] =
 		{			/* Encryption values */
@@ -193,7 +193,7 @@ cupsdStartListening(void)
     * "any" address...
     */
 
-    if ((!LocalPort || LocalEncryption == HTTP_ENCRYPT_ALWAYS) && p > 0 &&
+    if ((!LocalPort || LocalEncryption == HTTP_ENCRYPTION_ALWAYS) && p > 0 &&
         (httpAddrLocalhost(&(lis->address)) ||
          httpAddrAny(&(lis->address))))
     {
@@ -234,7 +234,7 @@ cupsdStartListening(void)
 
     cupsdSetEnv("CUPS_SERVER", have_domain);
 
-    LocalEncryption = HTTP_ENCRYPT_IF_REQUESTED;
+    LocalEncryption = HTTP_ENCRYPTION_IF_REQUESTED;
   }
   else
   {

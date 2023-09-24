@@ -157,7 +157,7 @@ backendGetDeviceID(
       * bytes.  The 1284 spec says the length is stored MSB first...
       */
 
-      length = (int)((((unsigned)device_id[0] & 255) << 8) + ((unsigned)device_id[1] & 255));
+      length = (int)((((unsigned)device_id[0] & 255) << 8) | ((unsigned)device_id[1] & 255));
 
      /*
       * Check to see if the length is larger than our buffer; first
@@ -166,7 +166,7 @@ backendGetDeviceID(
       */
 
       if (length > device_id_size || length < 14)
-	length = (int)((((unsigned)device_id[1] & 255) << 8) + ((unsigned)device_id[0] & 255));
+	length = (int)((((unsigned)device_id[1] & 255) << 8) | ((unsigned)device_id[0] & 255));
 
       if (length > device_id_size)
 	length = device_id_size;
@@ -295,7 +295,7 @@ backendGetDeviceID(
     }
     else
     {
-      strlcpy(temp, make_model, sizeof(temp));
+      cupsCopyString(temp, make_model, sizeof(temp));
 
       if ((tempptr = strchr(temp, ' ')) != NULL)
         *tempptr = '\0';
@@ -436,7 +436,7 @@ backendGetMakeModel(
     * Use "Unknown" as the printer make and model...
     */
 
-    strlcpy(make_model, "Unknown", make_model_size);
+    cupsCopyString(make_model, "Unknown", make_model_size);
   }
 
   cupsFreeOptions(num_values, values);

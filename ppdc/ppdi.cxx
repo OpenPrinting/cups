@@ -21,7 +21,7 @@
 // Local functions...
 //
 
-static void	usage(void);
+static void	usage(void) _CUPS_NORETURN;
 
 
 //
@@ -71,7 +71,6 @@ main(int  argc,				// I - Number of command-line arguments
 
 	  default :			// Unknown
 	      usage();
-	      break;
         }
     }
     else

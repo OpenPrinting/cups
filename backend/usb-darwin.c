@@ -316,7 +316,7 @@ static CFStringRef deviceIDCopySerialNumber(CFStringRef deviceID);
  * 'list_devices()' - List all USB devices.
  */
 
-void list_devices()
+void list_devices(void)
 {
   iterate_printers(list_device_cb, NULL);
 }
@@ -461,7 +461,7 @@ print_device(const char *uri,		/* I - Device URI */
       */
 
       if (driverBundlePath == NULL || !CFStringGetCString(driverBundlePath, print_buffer, sizeof(print_buffer), kCFStringEncodingUTF8))
-        strlcpy(print_buffer, "USB class driver", sizeof(print_buffer));
+        cupsCopyString(print_buffer, "USB class driver", sizeof(print_buffer));
 
       fputs("STATE: +apple-missing-usbclassdriver-error\n", stderr);
       _cupsLangPrintFilter(stderr, "ERROR",
@@ -772,7 +772,7 @@ print_device(const char *uri,		/* I - Device URI */
 	}
 	else if (bytes > 0)
 	{
-	  fprintf(stderr, "DEBUG: Wrote %d bytes of print data...\n", (int)bytes);
+	  fprintf(stderr, "DEBUG: Wrote %u bytes of print data...\n", (unsigned)bytes);
 
 	  g.print_bytes -= bytes;
 	  print_ptr   += bytes;
@@ -955,7 +955,7 @@ static void *read_thread(void *reference)
       fputs("DEBUG: Got USB return aborted during read\n", stderr);
 
    /*
-    * Make sure this loop executes no more than once every 250 miliseconds...
+    * Make sure this loop executes no more than once every 250 milliseconds...
     */
 
     if ((readstatus != kIOReturnSuccess || rbytes == 0) && (g.wait_eof || !g.read_thread_stop))
@@ -978,7 +978,7 @@ static void *read_thread(void *reference)
          if (readstatus == kIOReturnSuccess && rbytes > 0 && readbuffer[rbytes-1] == 0x4)
            break;
 
-         /* Make sure this loop executes no more than once every 250 miliseconds... */
+         /* Make sure this loop executes no more than once every 250 milliseconds... */
          mach_wait_until(start + delay);
        }
      }
@@ -1128,7 +1128,7 @@ static void iterate_printers(iterator_callback_t callBack, void *userdata)
 
   iterator_reference_t reference = { callBack, userdata, true };
 
-  IONotificationPortRef addNotification = IONotificationPortCreate(kIOMasterPortDefault);
+  IONotificationPortRef addNotification = IONotificationPortCreate(kIOMainPortDefault);
 
   int printingClass = kUSBPrintingClass;
   int printingSubclass = kUSBPrintingSubclass;
@@ -1223,10 +1223,10 @@ static Boolean list_device_cb(io_service_t obj, printer_interface_t printerIntf,
     modelstr[0] = '/';
 
     if (make  == NULL || !CFStringGetCString(make, makestr, sizeof(makestr), kCFStringEncodingUTF8))
-      strlcpy(makestr, "Unknown", sizeof(makestr));
+      cupsCopyString(makestr, "Unknown", sizeof(makestr));
 
     if (model == NULL || !CFStringGetCString(model, &modelstr[1], sizeof(modelstr)-1, kCFStringEncodingUTF8))
-      strlcpy(modelstr + 1, "Printer", sizeof(modelstr) - 1);
+      cupsCopyString(modelstr + 1, "Printer", sizeof(modelstr) - 1);
 
     optionsstr[0] = '\0';
     if (serial != NULL && CFStringGetCString(serial, serialstr, sizeof(serialstr), kCFStringEncodingUTF8))
@@ -1235,7 +1235,7 @@ static Boolean list_device_cb(io_service_t obj, printer_interface_t printerIntf,
       snprintf(optionsstr, sizeof(optionsstr), "?location=%x", (unsigned)intfLocation);
 
     httpAssembleURI(HTTP_URI_CODING_ALL, uristr, sizeof(uristr), "usb", NULL, makestr, 0, modelstr);
-    strlcat(uristr, optionsstr, sizeof(uristr));
+    cupsConcatString(uristr, optionsstr, sizeof(uristr));
 
     cupsBackendReport("direct", uristr, make_modelstr, make_modelstr, idstr,
                           NULL);
@@ -1438,23 +1438,23 @@ static kern_return_t load_classdriver(CFStringRef	    driverPath,
   * Try loading the class driver...
   */
 
-  url = CFURLCreateWithFileSystemPath(NULL, bundle, kCFURLPOSIXPathStyle, true);
+  url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, bundle, kCFURLPOSIXPathStyle, true);
 
-  if (url)
-  {
-    plugin = CFPlugInCreate(NULL, url);
-    CFRelease(url);
-  }
-  else
-    plugin = NULL;
+  if (url == NULL)
+    return (kr);
+
+  plugin = CFPlugInCreate(kCFAllocatorDefault, url);
+  CFRelease(url);
 
   if (plugin)
   {
     CFArrayRef factories = CFPlugInFindFactoriesForPlugInTypeInPlugIn(kUSBPrinterClassTypeID, plugin);
-    if (factories != NULL && CFArrayGetCount(factories) > 0)
+    if (factories == NULL)
+      return (kr);
+    if (CFArrayGetCount(factories) > 0)
     {
       CFUUIDRef factoryID = CFArrayGetValueAtIndex(factories, 0);
-      IUnknownVTbl **iunknown = CFPlugInInstanceCreate(NULL, factoryID, kUSBPrinterClassTypeID);
+      IUnknownVTbl **iunknown = CFPlugInInstanceCreate(kCFAllocatorDefault, factoryID, kUSBPrinterClassTypeID);
       if (iunknown != NULL)
       {
 	kr = (*iunknown)->QueryInterface(iunknown, CFUUIDGetUUIDBytes(kUSBPrinterClassInterfaceID), (LPVOID *)&driver);
@@ -1476,8 +1476,8 @@ static kern_return_t load_classdriver(CFStringRef	    driverPath,
 	}
 	(*iunknown)->Release(iunknown);
       }
-      CFRelease(factories);
     }
+    CFRelease(factories);
   }
 
   fprintf(stderr, "DEBUG: load_classdriver(%s) (kr:0x%08x)\n", bundlestr, (int)kr);
@@ -1592,7 +1592,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 
 			request.wLength = HostToUSBWord(size);
 			request.pData = buffer;
-			berr = (*printer)->ControlRequestTO(printer, (UInt8)0, &request);
+			berr = (*printer)->ControlRequestTO(printer, 0, &request);
 			return berr;
 		};
 
@@ -1655,7 +1655,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 		err = (*printer)->ControlRequestTO(printer, 0, &request);
 		if (err == kIOReturnSuccess)
 		{
-			CFMutableStringRef extras = CFStringCreateMutable(NULL, 0);
+			CFMutableStringRef extras = CFStringCreateMutable(kCFAllocatorDefault, 0);
 			if (manufacturer == NULL)
 			{
 				manufacturer = copy_printer_interface_indexed_description(printer, desc.iManufacturer, kUSBLanguageEnglish);
@@ -1682,7 +1682,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 					{
 						// 1284 serial number doesn't match USB serial number, so  replace the existing SERN: in device ID
 						CFRange range = CFStringFind(ret, serial, 0);
-						CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(NULL, 0, ret);
+						CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, ret);
 						CFStringReplace(deviceIDString, range, userial);
 						CFRelease(ret);
 						ret = deviceIDString;
@@ -1717,7 +1717,7 @@ static CFStringRef copy_printer_interface_deviceid(printer_interface_t printer, 
 		{
 			range = CFStringFind(ret, serial, 0);
 
-			CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(NULL, 0, ret);
+			CFMutableStringRef deviceIDString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, ret);
 			CFRelease(ret);
 
 			ret = deviceIDString;
@@ -1749,7 +1749,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	UInt8 description[256]; // Max possible descriptor length
 	IOUSBDevRequestTO	request;
 
-	memset(description, 0, 2);
+	description[0] = description[1] = 0;
 
 	request.bmRequestType = USBmakebmRequestType(kUSBIn, kUSBStandard, kUSBDevice);
 	request.bRequest = kUSBRqGetDescriptor;
@@ -1758,7 +1758,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	request.wLength = 2;
 	request.pData = &description;
 	request.completionTimeout = 0;
-	request.noDataTimeout = 60L;
+	request.noDataTimeout = 60U;
 
 	err = (*printer)->ControlRequestTO(printer, 0, &request);
 	if (err != kIOReturnSuccess && err != kIOReturnOverrun)
@@ -1777,16 +1777,16 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 		request.wLength = sizeof description;
 		request.pData = &description;
 		request.completionTimeout = 0;
-		request.noDataTimeout = 60L;
+		request.noDataTimeout = 60U;
 
 		err = (*printer)->ControlRequestTO(printer, 0, &request);
 		if (err != kIOReturnSuccess && err != kIOReturnUnderrun)
 			return NULL;
 	}
 
-	unsigned int length = description[0];
+	UInt8 length = description[0];
 	if (length == 0)
-		return CFStringCreateWithCString(NULL, "", kCFStringEncodingUTF8);
+		return CFSTR("");
 
 	if (description[1] != kUSBStringDesc)
 		return NULL;
@@ -1800,7 +1800,7 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	request.wLength = (UInt16)length;
 	request.pData = &description;
 	request.completionTimeout = 0;
-	request.noDataTimeout = 60L;
+	request.noDataTimeout = 60U;
 
 	err = (*printer)->ControlRequestTO(printer, 0, &request);
 	if (err != kIOReturnSuccess)
@@ -1809,25 +1809,20 @@ static CFStringRef copy_printer_interface_indexed_description(printer_interface_
 	if (description[1] != kUSBStringDesc)
 		return NULL;
 
-	if ((description[0] & 1) != 0)
-		description[0] &= 0xfe;
+	description[0] &= ~1;
 
-	char buffer[258] = {0};
-	unsigned int maxLength = sizeof buffer;
-	if (description[0] > 1)
-	{
-		length = (description[0]-2)/2;
+	if (description[0] < 2)
+		return CFSTR("");
 
-		if (length > maxLength - 1)
-			length = maxLength -1;
+	char buffer[(sizeof(description) - 2) / 2];
+	length = (description[0] - 2) / 2;
 
-		for (unsigned i = 0; i < length; i++)
-			buffer[i] = (char) description[2*i+2];
+	for (UInt8 i = 0; i < length; i++)
+		buffer[i] = (char) description[2 * i + 2];
 
-		buffer[length] = 0;
-	}
+	buffer[length] = 0;
 
-	return CFStringCreateWithCString(NULL, buffer, kCFStringEncodingUTF8);
+	return CFStringCreateWithCString(kCFAllocatorDefault, buffer, kCFStringEncodingUTF8);
 }
 
 /*
@@ -1888,50 +1883,58 @@ static kern_return_t registry_close(void)
  */
 
 static CFStringRef copy_value_for_key(CFStringRef deviceID,
-				      CFStringRef *keys)
+                                      CFStringRef *keys)
 {
-  CFStringRef	value = NULL;
-  CFArrayRef	kvPairs = deviceID != NULL ? CFStringCreateArrayBySeparatingStrings(NULL, deviceID, CFSTR(";")) : NULL;
-  CFIndex	max = kvPairs != NULL ? CFArrayGetCount(kvPairs) : 0;
-  CFIndex	idx = 0;
+  CFStringRef value = NULL; /* Value to return */
+  CFArrayRef kvPairs;       /* pairs derived from separating the device ID*/
+  CFIndex max;              /* The size of the array*/
 
-  while (idx < max && value == NULL)
+  if (deviceID == NULL)
+    return NULL;
+
+  kvPairs = CFStringCreateArrayBySeparatingStrings(kCFAllocatorDefault, deviceID, CFSTR(";"));
+  max = CFArrayGetCount(kvPairs);
+
+  for (CFIndex idx = 0; idx < max; idx++)
   {
     CFStringRef kvpair = CFArrayGetValueAtIndex(kvPairs, idx);
     CFIndex idxx = 0;
-    while (keys[idxx] != NULL && value == NULL)
+    for (idxx = 0; keys[idxx] != NULL; idxx++)
     {
       CFRange range = CFStringFind(kvpair, keys[idxx], kCFCompareCaseInsensitive);
-      if (range.length != -1)
+      if (range.length != kCFNotFound)
       {
 	if (range.location != 0)
 	{
-	  CFMutableStringRef theString = CFStringCreateMutableCopy(NULL, 0, kvpair);
+	  CFMutableStringRef theString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, kvpair);
 	  CFStringTrimWhitespace(theString);
 	  range = CFStringFind(theString, keys[idxx], kCFCompareCaseInsensitive);
 	  if (range.location == 0)
-	    value = CFStringCreateWithSubstring(NULL, theString, CFRangeMake(range.length, CFStringGetLength(theString) - range.length));
+	    value = CFStringCreateWithSubstring(kCFAllocatorDefault, theString, CFRangeMake(range.length, CFStringGetLength(theString) - range.length));
 
 	  CFRelease(theString);
 	}
 	else
 	{
-	  CFStringRef theString = CFStringCreateWithSubstring(NULL, kvpair, CFRangeMake(range.length, CFStringGetLength(kvpair) - range.length));
-	  CFMutableStringRef theString2 = CFStringCreateMutableCopy(NULL, 0, theString);
+	  CFStringRef theString = CFStringCreateWithSubstring(kCFAllocatorDefault, kvpair, CFRangeMake(range.length, CFStringGetLength(kvpair) - range.length));
+	  CFMutableStringRef theString2 = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, theString);
 	  CFRelease(theString);
 
 	  CFStringTrimWhitespace(theString2);
 	  value = theString2;
 	}
       }
-      idxx++;
+
+      if (value != NULL)
+      {
+        CFRelease(kvPairs);
+        return value;
+      }
     }
-    idx++;
   }
 
-  if (kvPairs != NULL)
-    CFRelease(kvPairs);
-  return value;
+  CFRelease(kvPairs);
+  return NULL;
 }
 
 
@@ -1944,9 +1947,9 @@ CFStringRef cfstr_create_trim(const char *cstr)
   CFStringRef		cfstr;
   CFMutableStringRef	cfmutablestr = NULL;
 
-  if ((cfstr = CFStringCreateWithCString(NULL, cstr, kCFStringEncodingUTF8)) != NULL)
+  if ((cfstr = CFStringCreateWithCString(kCFAllocatorDefault, cstr, kCFStringEncodingUTF8)) != NULL)
   {
-    if ((cfmutablestr = CFStringCreateMutableCopy(NULL, 1024, cfstr)) != NULL)
+    if ((cfmutablestr = CFStringCreateMutableCopy(kCFAllocatorDefault, 1024, cfstr)) != NULL)
       CFStringTrimWhitespace(cfmutablestr);
 
     CFRelease(cfstr);
@@ -2030,7 +2033,7 @@ static void parse_options(char *options,
 			     value);
     }
     else if (!_cups_strcasecmp(name, "serial"))
-      strlcpy(serial, value, (size_t)serial_size);
+      cupsCopyString(serial, value, (size_t)serial_size);
     else if (!_cups_strcasecmp(name, "location") && location)
       *location = (UInt32)strtoul(value, NULL, 16);
   }
@@ -2051,26 +2054,28 @@ static void parse_options(char *options,
  */
 static void setup_cfLanguage(void)
 {
-  CFStringRef	lang[1] = {NULL};
-  CFArrayRef	langArray = NULL;
-  const char	*requestedLang = NULL;
+  CFStringRef lang[1] = {NULL}; /* StringRef used to create the array */
+  CFArrayRef langArray;      /* The array used to set the language perference */
+  const char *requestedLang; /* The language as retrived from the language
+                                environment variable */
 
   if ((requestedLang = getenv("APPLE_LANGUAGE")) == NULL)
     requestedLang = getenv("LANG");
 
-  if (requestedLang != NULL)
+  if (requestedLang == NULL)
   {
-    lang[0] = CFStringCreateWithCString(kCFAllocatorDefault, requestedLang, kCFStringEncodingUTF8);
-    langArray = CFArrayCreate(kCFAllocatorDefault, (const void **)lang, sizeof(lang) / sizeof(lang[0]), &kCFTypeArrayCallBacks);
-
-    CFPreferencesSetValue(CFSTR("AppleLanguages"), langArray, kCFPreferencesCurrentApplication, kCFPreferencesAnyUser, kCFPreferencesAnyHost);
-    fprintf(stderr, "DEBUG: usb: AppleLanguages=\"%s\"\n", requestedLang);
-
-    CFRelease(lang[0]);
-    CFRelease(langArray);
-  }
-  else
     fputs("DEBUG: usb: LANG and APPLE_LANGUAGE environment variables missing.\n", stderr);
+    return;
+  }
+
+  lang[0] = CFStringCreateWithCString(kCFAllocatorDefault, requestedLang, kCFStringEncodingUTF8);
+  langArray = CFArrayCreate(kCFAllocatorDefault, (const void **)lang, sizeof(lang) / sizeof(lang[0]), &kCFTypeArrayCallBacks);
+
+  CFPreferencesSetValue(CFSTR("AppleLanguages"), langArray, kCFPreferencesCurrentApplication, kCFPreferencesAnyUser, kCFPreferencesAnyHost);
+  fprintf(stderr, "DEBUG: usb: AppleLanguages=\"%s\"\n", requestedLang);
+
+  CFRelease(lang[0]);
+  CFRelease(langArray);
 }
 
 #pragma mark -
@@ -2088,7 +2093,7 @@ static void run_legacy_backend(int argc,
 			       char *argv[],
 			       int fd)
 {
-  int	i;
+  size_t i;
   int	exitstatus = 0;
   int	childstatus;
   pid_t	waitpid_status;
@@ -2163,7 +2168,7 @@ static void run_legacy_backend(int argc,
       cups_serverbin = CUPS_SERVERBIN;
     snprintf(usbpath, sizeof(usbpath), "%s/backend/usb", cups_serverbin);
 
-    for (i = 0; i < argc && i < (int)(sizeof(my_argv) / sizeof(my_argv[0])) - 1; i ++)
+    for (i = 0; i < argc && i < (sizeof(my_argv) / sizeof(my_argv[0])) - 1; i++)
       my_argv[i] = argv[i];
 
     my_argv[i] = NULL;
@@ -2347,7 +2352,7 @@ static void parse_pserror(char *sockBuffer,
 
       if ((logstrlen = snprintf(logstr, sizeof(logstr), "%s: %s\n", logLevel, pCommentBegin)) >= sizeof(logstr))
       {
-	/* If the string was trucnated make sure it has a linefeed before the nul */
+	/* If the string was truncated make sure it has a linefeed before the nul */
 	logstrlen = sizeof(logstr) - 1;
 	logstr[logstrlen - 1] = '\n';
       }
@@ -2355,7 +2360,7 @@ static void parse_pserror(char *sockBuffer,
     }
 
     /* move everything over... */
-    strlcpy(gErrorBuffer, pLineEnd, sizeof(gErrorBuffer));
+    cupsCopyString(gErrorBuffer, pLineEnd, sizeof(gErrorBuffer));
     gErrorBufferPtr = gErrorBuffer;
     pLineEnd = (char *)next_line((const char *)gErrorBuffer);
   }

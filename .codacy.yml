@@ -1,7 +1,0 @@
-engines:
-  cppcheck:
-    exclude_paths:
-      - **/*
-  shellcheck:
-    exclude_paths:
-      - **/*

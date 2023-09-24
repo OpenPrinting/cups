@@ -1,30 +1,95 @@
 ippevepcl.o: ippevepcl.c ippevecommon.h ../cups/cups.h ../cups/file.h \
-  ../cups/versioning.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/base.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
   ../cups/language.h ../cups/pwg.h ../cups/raster.h \
   ../cups/string-private.h ../config.h dither.h
 ippeveprinter.o: ippeveprinter.c ../cups/cups-private.h \
-  ../cups/string-private.h ../config.h ../cups/versioning.h \
-  ../cups/array-private.h ../cups/array.h ../cups/ipp-private.h \
+  ../cups/string-private.h ../config.h ../cups/base.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
-  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
   ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
-  ../cups/thread-private.h ../cups/debug-private.h ../cups/ppd-private.h \
-  ../cups/ppd.h ../cups/raster.h printer-png.h printer-lg-png.h \
+  ../cups/thread.h ../cups/dnssd.h printer-png.h printer-lg-png.h \
   printer-sm-png.h
 ippeveps.o: ippeveps.c ippevecommon.h ../cups/cups.h ../cups/file.h \
-  ../cups/versioning.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/base.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
   ../cups/language.h ../cups/pwg.h ../cups/raster.h \
   ../cups/string-private.h ../config.h ../cups/ppd-private.h \
   ../cups/ppd.h ../cups/pwg-private.h
 ippfind.o: ippfind.c ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/versioning.h ../cups/array-private.h \
-  ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
-  ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h ../cups/language-private.h ../cups/transcode.h \
-  ../cups/pwg-private.h ../cups/thread-private.h
+  ../config.h ../cups/base.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
+  ../cups/thread.h ../cups/dnssd.h
 ipptool.o: ipptool.c ../cups/cups-private.h ../cups/string-private.h \
-  ../config.h ../cups/versioning.h ../cups/array-private.h \
-  ../cups/array.h ../cups/ipp-private.h ../cups/cups.h ../cups/file.h \
-  ../cups/ipp.h ../cups/http.h ../cups/language.h ../cups/pwg.h \
-  ../cups/http-private.h ../cups/language-private.h ../cups/transcode.h \
-  ../cups/pwg-private.h ../cups/thread-private.h
+  ../config.h ../cups/base.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
+  ../cups/thread.h ../cups/raster-testpage.h ../cups/raster-private.h \
+  ../cups/raster.h

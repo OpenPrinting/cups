@@ -53,7 +53,7 @@ cupsLocalizeDestMedia(
 			*ltype;		/* Localized media type */
 
 
-  DEBUG_printf(("cupsLocalizeDestMedia(http=%p, dest=%p, dinfo=%p, flags=%x, size=%p(\"%s\"))", (void *)http, (void *)dest, (void *)dinfo, flags, (void *)size, size ? size->media : "(null)"));
+  DEBUG_printf("cupsLocalizeDestMedia(http=%p, dest=%p, dinfo=%p, flags=%x, size=%p(\"%s\"))", (void *)http, (void *)dest, (void *)dinfo, flags, (void *)size, size ? size->media : "(null)");
 
  /*
   * Range check input...
@@ -75,7 +75,7 @@ cupsLocalizeDestMedia(
   else
     db = dinfo->media_db;
 
-  DEBUG_printf(("1cupsLocalizeDestMedia: size->media=\"%s\"", size->media));
+  DEBUG_printf("1cupsLocalizeDestMedia: size->media=\"%s\"", size->media);
 
   for (mdb = (_cups_media_db_t *)cupsArrayFirst(db); mdb; mdb = (_cups_media_db_t *)cupsArrayNext(db))
   {
@@ -162,7 +162,7 @@ cupsLocalizeDestMedia(
 
   if (mdb)
   {
-    DEBUG_printf(("1cupsLocalizeDestMedia: MATCH mdb%p [key=\"%s\" size_name=\"%s\" source=\"%s\" type=\"%s\" width=%d length=%d B%d L%d R%d T%d]", (void *)mdb, mdb->key, mdb->size_name, mdb->source, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top));
+    DEBUG_printf("1cupsLocalizeDestMedia: MATCH mdb%p [key=\"%s\" size_name=\"%s\" source=\"%s\" type=\"%s\" width=%d length=%d B%d L%d R%d T%d]", (void *)mdb, mdb->key, mdb->size_name, mdb->source, mdb->type, mdb->width, mdb->length, mdb->bottom, mdb->left, mdb->right, mdb->top);
 
     if ((lsource = cupsLocalizeDestValue(http, dest, dinfo, "media-source", mdb->source)) == mdb->source && mdb->source)
       lsource = _cupsLangString(lang, _("Other Tray"));
@@ -180,7 +180,7 @@ cupsLocalizeDestMedia(
     if (!size->bottom && !size->left && !size->right && !size->top)
       snprintf(lstr, sizeof(lstr), _cupsLangString(lang, _("%s (Borderless)")), lsize);
     else
-      strlcpy(lstr, lsize, sizeof(lstr));
+      cupsCopyString(lstr, lsize, sizeof(lstr));
   }
   else if (!lsource)
   {
@@ -212,7 +212,7 @@ cupsLocalizeDestMedia(
 
   cupsArrayAdd(dinfo->localizations, match);
 
-  DEBUG_printf(("1cupsLocalizeDestMedia: Returning \"%s\".", match->str));
+  DEBUG_printf("1cupsLocalizeDestMedia: Returning \"%s\".", match->str);
 
   return (match->str);
 }
@@ -240,7 +240,7 @@ cupsLocalizeDestOption(
   const char            *localized;     /* Localized string */
 
 
-  DEBUG_printf(("cupsLocalizeDestOption(http=%p, dest=%p, dinfo=%p, option=\"%s\")", (void *)http, (void *)dest, (void *)dinfo, option));
+  DEBUG_printf("cupsLocalizeDestOption(http=%p, dest=%p, dinfo=%p, option=\"%s\")", (void *)http, (void *)dest, (void *)dinfo, option);
 
   if (!http || !dest || !dinfo)
     return (option);
@@ -282,7 +282,7 @@ cupsLocalizeDestValue(
   const char            *localized;     /* Localized string */
 
 
-  DEBUG_printf(("cupsLocalizeDestValue(http=%p, dest=%p, dinfo=%p, option=\"%s\", value=\"%s\")", (void *)http, (void *)dest, (void *)dinfo, option, value));
+  DEBUG_printf("cupsLocalizeDestValue(http=%p, dest=%p, dinfo=%p, option=\"%s\", value=\"%s\")", (void *)http, (void *)dest, (void *)dinfo, option, value);
 
   if (!http || !dest || !dinfo)
     return (value);
@@ -292,7 +292,7 @@ cupsLocalizeDestValue(
     pwg_media_t *media = pwgMediaForPWG(value);
     cups_size_t size;
 
-    strlcpy(size.media, value, sizeof(size.media));
+    cupsCopyString(size.media, value, sizeof(size.media));
     size.width  = media ? media->width : 0;
     size.length = media ? media->length : 0;
     size.left   = 0;
@@ -325,7 +325,7 @@ cupsLocalizeDestValue(
 static void
 cups_create_localizations(
     http_t       *http,			/* I - Connection to destination */
-    cups_dinfo_t *dinfo)		/* I - Destination informations */
+    cups_dinfo_t *dinfo)		/* I - Destination information */
 {
   http_t		*http2;		/* Connection for strings file */
   http_status_t		status;		/* Request status */
@@ -369,7 +369,7 @@ cups_create_localizations(
                       sizeof(resource)) < HTTP_URI_STATUS_OK)
   {
     dinfo->localizations = _cupsMessageNew(NULL);
-    DEBUG_printf(("4cups_create_localizations: Bad printer-strings-uri value \"%s\".", attr->values[0].string.text));
+    DEBUG_printf("4cups_create_localizations: Bad printer-strings-uri value \"%s\".", attr->values[0].string.text);
     return;
   }
 
@@ -398,8 +398,7 @@ cups_create_localizations(
     if ((http2 = httpConnect2(hostname, port, NULL, AF_UNSPEC, encryption, 1,
                               30000, NULL)) == NULL)
     {
-      DEBUG_printf(("4cups_create_localizations: Unable to connect to "
-                    "%s:%d: %s", hostname, port, cupsLastErrorString()));
+      DEBUG_printf("4cups_create_localizations: Unable to connect to %s:%d: %s", hostname, port, cupsGetErrorString());
       return;
     }
   }
@@ -410,8 +409,7 @@ cups_create_localizations(
 
   if ((temp = cupsTempFile2(tempfile, sizeof(tempfile))) == NULL)
   {
-    DEBUG_printf(("4cups_create_localizations: Unable to create temporary "
-                  "file: %s", cupsLastErrorString()));
+    DEBUG_printf("4cups_create_localizations: Unable to create temporary file: %s", cupsGetErrorString());
     if (http2 != http)
       httpClose(http2);
     return;
@@ -420,7 +418,7 @@ cups_create_localizations(
   status = cupsGetFd(http2, resource, cupsFileNumber(temp));
   cupsFileClose(temp);
 
-  DEBUG_printf(("4cups_create_localizations: GET %s = %s", resource, httpStatus(status)));
+  DEBUG_printf("4cups_create_localizations: GET %s = %s", resource, httpStatusString(status));
 
   if (status == HTTP_STATUS_OK)
   {
@@ -431,8 +429,7 @@ cups_create_localizations(
     dinfo->localizations = _cupsMessageLoad(tempfile, _CUPS_MESSAGE_STRINGS);
   }
 
-  DEBUG_printf(("4cups_create_localizations: %d messages loaded.",
-                cupsArrayCount(dinfo->localizations)));
+  DEBUG_printf("4cups_create_localizations: %d messages loaded.", cupsArrayCount(dinfo->localizations));
 
  /*
   * Cleanup...

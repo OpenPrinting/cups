@@ -1,7 +1,7 @@
 #
 # Scheduler Makefile for CUPS.
 #
-# Copyright © 2020 by OpenPrinting
+# Copyright © 2020-2023 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -102,6 +102,17 @@ unittests:	$(UNITTARGETS)
 
 
 #
+# Run unit tests...
+#
+
+test:		unittests
+	echo "Tests started at $(date)..." >test.log
+	echo Running MIME API tests...
+	./testmime >>test.log
+	echo "Tests finished at $(date)..." >>test.log
+
+
+#
 # Clean all object files...
 #
 
@@ -115,8 +126,8 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) >Dependencies
-	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) >>Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
+	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >>Dependencies
 
 
 #
@@ -318,15 +329,14 @@ cupsd:	$(CUPSDOBJS) libcupsmime.a ../cups/$(LIBCUPS)
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o cupsd $(CUPSDOBJS) libcupsmime.a \
 		$(PAMLIBS) $(LIBPAPER) $(LIBMALLOC) $(DNSSDLIBS) $(SERVERLIBS) \
-		$(ONDEMANDLIBS) $(LIBWRAP) $(LIBGSSAPI) $(COMMONLIBS) $(LINKCUPS) \
-		$(APPARMORLIBS) $(SNAPDGLIBLIBS)
+		$(ONDEMANDLIBS) $(LIBWRAP) $(LIBGSSAPI) $(COMMONLIBS) $(LINKCUPS)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 cupsd-static:	$(CUPSDOBJS) libcupsmime.a ../cups/$(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o cupsd-static $(CUPSDOBJS) libcupsmime.a \
 		$(PAMLIBS) $(LIBPAPER) $(LIBMALLOC) $(SERVERLIBS) $(ONDEMANDLIBS) \
-		$(LIBWRAP) $(APPARMORLIBS) $(SNAPDGLIBLIBS) $(LINKCUPSSTATIC)
+		$(LIBWRAP) $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 
@@ -418,8 +428,6 @@ testmime:	testmime.o libcupsmime.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testmime.o libcupsmime.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running MIME tests...
-	./testmime
 
 
 #

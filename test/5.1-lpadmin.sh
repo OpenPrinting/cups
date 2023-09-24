@@ -61,3 +61,67 @@ else
 	echo "    PASSED"
 fi
 echo ""
+
+echo "Add a printer for cupSNMP/IPPSupplies test"
+echo ""
+echo "    lpadmin -p Test4 -E -v file:/dev/null -m drv:///sample.drv/zebra.ppd"
+$runcups $VALGRIND ../systemv/lpadmin -p Test4 -E -v file:/dev/null -m drv:///sample.drv/zebra.ppd 2>&1
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+echo ""
+
+echo "Turn on cupsSNMP/IPPSupplies option"
+echo ""
+echo "    lpadmin -p Test4 -o cupsSNMPSupplies=true -o cupsIPPSupplies=true"
+$runcups $VALGRIND ../systemv/lpadmin -p Test4 -o cupsSNMPSupplies=true -o cupsIPPSupplies=true 2>&1
+grep '*cupsSNMPSupplies: True' $BASE/ppd/Test4.ppd
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+grep '*cupsIPPSupplies: True' $BASE/ppd/Test4.ppd
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+echo ""
+
+echo "Turn on cupsSNMP/IPPSupplies option"
+echo ""
+echo "    lpadmin -p Test4 -o cupsSNMPSupplies=false -o cupsIPPSupplies=false"
+$runcups $VALGRIND ../systemv/lpadmin -p Test4 -o cupsSNMPSupplies=false -o cupsIPPSupplies=false 2>&1
+grep '*cupsSNMPSupplies: False' $BASE/ppd/Test4.ppd
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+grep '*cupsIPPSupplies: False' $BASE/ppd/Test4.ppd
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+echo ""
+
+echo "Delete the printer with cupsSNMP/IPPSupplies"
+echo ""
+echo "    lpadmin -x Test4"
+$runcups $VALGRIND ../systemv/lpadmin -x Test4 2>&1
+if test $? != 0; then
+	echo "    FAILED"
+	exit 1
+else
+	echo "    PASSED"
+fi
+echo ""

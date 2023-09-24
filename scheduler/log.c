@@ -1,6 +1,7 @@
 /*
  * Log file routines for the CUPS scheduler.
  *
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -21,6 +22,9 @@
 #  include <systemd/sd-journal.h>
 #endif /* HAVE_ASL_H */
 #include <syslog.h>
+#ifndef va_copy
+#  define va_copy(__list1, __list2) ((void)(__list1 = __list2))
+#endif
 
 
 /*
@@ -55,7 +59,7 @@
  * Local globals...
  */
 
-static _cups_mutex_t log_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t log_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex for logging */
 static size_t	log_linesize = 0;	/* Size of line for output file */
 static char	*log_line = NULL;	/* Line for output file */
@@ -145,8 +149,8 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
 
     if (logname[0] != '/')
     {
-      strlcpy(filename, ServerRoot, sizeof(filename));
-      strlcat(filename, "/", sizeof(filename));
+      cupsCopyString(filename, ServerRoot, sizeof(filename));
+      cupsConcatString(filename, "/", sizeof(filename));
     }
     else
       filename[0] = '\0';
@@ -167,7 +171,7 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
 	  * Insert the server name...
 	  */
 
-	  strlcpy(ptr, ServerName, sizeof(filename) - (size_t)(ptr - filename));
+	  cupsCopyString(ptr, ServerName, sizeof(filename) - (size_t)(ptr - filename));
 	  ptr += strlen(ptr);
 	}
         else
@@ -259,8 +263,8 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
 
     cupsFileClose(*lf);
 
-    strlcpy(backname, filename, sizeof(backname));
-    strlcat(backname, ".O", sizeof(backname));
+    cupsCopyString(backname, filename, sizeof(backname));
+    cupsConcatString(backname, ".O", sizeof(backname));
 
     unlink(backname);
     rename(filename, backname);
@@ -404,7 +408,7 @@ cupsdLogFCMessage(
     if (result == _CUPS_FILE_CHECK_MISSING ||
         result == _CUPS_FILE_CHECK_WRONG_TYPE)
     {
-      strlcpy(p->state_message, message, sizeof(p->state_message));
+      cupsCopyString(p->state_message, message, sizeof(p->state_message));
 
       if (cupsdSetPrinterReasons(p, "+cups-missing-filter-warning"))
         cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, p, NULL, "%s", message);
@@ -412,7 +416,7 @@ cupsdLogFCMessage(
     else if (result == _CUPS_FILE_CHECK_PERMISSIONS ||
              result == _CUPS_FILE_CHECK_RELATIVE_PATH)
     {
-      strlcpy(p->state_message, message, sizeof(p->state_message));
+      cupsCopyString(p->state_message, message, sizeof(p->state_message));
 
       if (cupsdSetPrinterReasons(p, "+cups-insecure-filter-warning"))
         cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, p, NULL, "%s", message);
@@ -518,7 +522,7 @@ cupsdLogClient(cupsd_client_t *con,	/* I - Client connection */
     snprintf(clientmsg, sizeof(clientmsg), "[Client %d] %s", con->number,
              message);
   else
-    strlcpy(clientmsg, message, sizeof(clientmsg));
+    cupsCopyString(clientmsg, message, sizeof(clientmsg));
 
   va_start(ap, message);
 
@@ -572,7 +576,7 @@ cupsdLogJob(cupsd_job_t *job,		/* I - Job */
   if (job)
     snprintf(jobmsg, sizeof(jobmsg), "[Job %d] %s", job->id, message);
   else
-    strlcpy(jobmsg, message, sizeof(jobmsg));
+    cupsCopyString(jobmsg, message, sizeof(jobmsg));
 
   va_start(ap, message);
 
@@ -784,7 +788,7 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
   if (!PageLogFormat)
     return (1);
 
-  strlcpy(number, "1", sizeof(number));
+  cupsCopyString(number, "1", sizeof(number));
   copies = 1;
   sscanf(page, "%255s%d", number, &copies);
 
@@ -802,7 +806,7 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 	    break;
 
         case 'p' :			/* Printer name */
-	    strlcpy(bufptr, job->dest, sizeof(buffer) - (size_t)(bufptr - buffer));
+	    cupsCopyString(bufptr, job->dest, sizeof(buffer) - (size_t)(bufptr - buffer));
 	    bufptr += strlen(bufptr);
 	    break;
 
@@ -812,17 +816,17 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 	    break;
 
         case 'u' :			/* Username */
-	    strlcpy(bufptr, job->username ? job->username : "-", sizeof(buffer) - (size_t)(bufptr - buffer));
+	    cupsCopyString(bufptr, job->username ? job->username : "-", sizeof(buffer) - (size_t)(bufptr - buffer));
 	    bufptr += strlen(bufptr);
 	    break;
 
         case 'T' :			/* Date and time */
-	    strlcpy(bufptr, cupsdGetDateTime(NULL, LogTimeFormat), sizeof(buffer) - (size_t)(bufptr - buffer));
+	    cupsCopyString(bufptr, cupsdGetDateTime(NULL, LogTimeFormat), sizeof(buffer) - (size_t)(bufptr - buffer));
 	    bufptr += strlen(bufptr);
 	    break;
 
         case 'P' :			/* Page number */
-	    strlcpy(bufptr, number, sizeof(buffer) - (size_t)(bufptr - buffer));
+	    cupsCopyString(bufptr, number, sizeof(buffer) - (size_t)(bufptr - buffer));
 	    bufptr += strlen(bufptr);
 	    break;
 
@@ -900,7 +904,7 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 		    case IPP_TAG_CHARSET :
 		    case IPP_TAG_LANGUAGE :
 		    case IPP_TAG_MIMETYPE :
-		        strlcpy(bufptr, attr->values[i].string.text, sizeof(buffer) - (size_t)(bufptr - buffer));
+		        cupsCopyString(bufptr, attr->values[i].string.text, sizeof(buffer) - (size_t)(bufptr - buffer));
 			bufptr += strlen(bufptr);
 		        break;
 
@@ -915,13 +919,16 @@ cupsdLogPage(cupsd_job_t *job,		/* I - Job being printed */
 			  {
 			    pwg_media_t *pwg = pwgMediaForSize(ippGetInteger(x_dimension, 0), ippGetInteger(y_dimension, 0));
 			    		/* PWG media name */
-			    strlcpy(bufptr, pwg->pwg, sizeof(buffer) - (size_t)(bufptr - buffer));
-			    break;
+			    if (pwg)
+			    {
+			      cupsCopyString(bufptr, pwg->pwg, sizeof(buffer) - (size_t)(bufptr - buffer));
+			      break;
+			    }
 			  }
 			}
 
 		    default :
-			strlcpy(bufptr, "???", sizeof(buffer) - (size_t)(bufptr - buffer));
+			cupsCopyString(bufptr, "???", sizeof(buffer) - (size_t)(bufptr - buffer));
 			bufptr += strlen(bufptr);
 		        break;
 		  }
@@ -1046,18 +1053,18 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
     * Eliminate simple GET, POST, and PUT requests...
     */
 
-    if ((con->operation == HTTP_GET &&
+    if ((con->operation == HTTP_STATE_GET &&
          strncmp(con->uri, "/admin/conf", 11) &&
 	 strncmp(con->uri, "/admin/log", 10)) ||
-	(con->operation == HTTP_POST && !con->request &&
+	(con->operation == HTTP_STATE_POST && !con->request &&
 	 strncmp(con->uri, "/admin", 6)) ||
-	(con->operation != HTTP_GET && con->operation != HTTP_POST &&
-	 con->operation != HTTP_PUT))
+	(con->operation != HTTP_STATE_GET && con->operation != HTTP_STATE_POST &&
+	 con->operation != HTTP_STATE_PUT))
       return (1);
 
     if (con->request && con->response &&
-        (con->response->request.status.status_code < IPP_REDIRECTION_OTHER_SITE ||
-	 con->response->request.status.status_code == IPP_NOT_FOUND))
+        (con->response->request.status.status_code < IPP_STATUS_REDIRECTION_OTHER_SITE ||
+	 con->response->request.status.status_code == IPP_STATUS_ERROR_NOT_FOUND))
     {
      /*
       * Check successful requests...
@@ -1137,9 +1144,9 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
       };
 
 
-      if ((op <= IPP_SCHEDULE_JOB_AFTER && standard_ops[op] > AccessLogLevel) ||
-          (op >= CUPS_GET_DEFAULT && op <= CUPS_GET_PPD &&
-	   cups_ops[op - CUPS_GET_DEFAULT] > AccessLogLevel))
+      if ((op <= IPP_OP_SCHEDULE_JOB_AFTER && standard_ops[op] > AccessLogLevel) ||
+          (op >= IPP_OP_CUPS_GET_DEFAULT && op <= IPP_OP_CUPS_GET_PPD &&
+	   cups_ops[op - IPP_OP_CUPS_GET_DEFAULT] > AccessLogLevel))
         return (1);
     }
   }
@@ -1252,7 +1259,7 @@ cupsdWriteErrorLog(int        level,	/* I - Log level */
   * Not using syslog; check the log file...
   */
 
-  _cupsMutexLock(&log_mutex);
+  cupsMutexLock(&log_mutex);
 
   if (!cupsdCheckLogFile(&ErrorFile, ErrorLog))
   {
@@ -1269,7 +1276,7 @@ cupsdWriteErrorLog(int        level,	/* I - Log level */
     cupsFileFlush(ErrorFile);
   }
 
-  _cupsMutexUnlock(&log_mutex);
+  cupsMutexUnlock(&log_mutex);
 
   return (ret);
 }

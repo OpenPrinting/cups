@@ -31,9 +31,7 @@ blockquote ol li {
 }
 
 pre.command, pre.example {
-  background: #eee;
-  margin: 0 36pt;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 p.compact {
@@ -51,10 +49,6 @@ dl.man dd {
 
 dl.man dt {
   margin-left: 0;
-}
-
-pre.man {
-  margin: 0;
 }
 
 pre.command em, pre.example em {
@@ -297,11 +291,8 @@ div.body h5 {
   margin-bottom: 0.5em;
   margin-top: 1.5em;
 }
-div.contents {
-  background: #e8e8e8;
-  border: solid thin black;
-  padding: 10px;
-}
+/*div.contents {
+}*/
 div.contents h1 {
   font-size: 110%;
 }
@@ -351,16 +342,23 @@ h1, h2, h3, h4, h5, h6 {
   page-break-inside: avoid;
 }
 blockquote {
-  border: solid thin gray;
-  box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
-  padding: 10px 10px 0;
+  background: rgba(191,191,191,0.1);
+  border-left: solid 2px #777;
+  margin: 1em 0;
+  padding: 10px;
   page-break-inside: avoid;
 }
+p.code, pre, ul.code li {
+  border-left: thin dotted gray;
+  background: rgba(191,191,191,0.1);
+}
+p code, li code {
+  background: rgba(191,191,191,0.3);
+}
 p code, li code, p.code, pre, ul.code li {
-  background: rgba(127,127,127,0.1);
-  border: thin dotted gray;
   font-family: monospace;
   hyphens: manual;
+  margin: 18pt 0;
   -webkit-hyphens: manual;
   page-break-inside: avoid;
 }

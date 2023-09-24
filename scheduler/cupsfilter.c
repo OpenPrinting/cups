@@ -1,7 +1,7 @@
 /*
  * Filtering program for CUPS.
  *
- * Copyright © 2021 by OpenPrinting
+ * Copyright © 2021-2023 by OpenPrinting
  * Copyright © 2007-2016 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -139,7 +139,7 @@ main(int  argc,				/* I - Number of command-line args */
   options      = NULL;
   ppdfile      = NULL;
   title        = NULL;
-  user         = cupsUser();
+  user         = cupsGetUser();
   all_filters  = 0;
   removeppd    = 0;
   removeinfile = 0;
@@ -197,7 +197,7 @@ main(int  argc,				/* I - Number of command-line args */
 		  if (!strcmp(command, "convert"))
 		    num_options = cupsAddOption("copies", argv[i], num_options, &options);
 		  else
-		    strlcpy(cupsfilesconf, argv[i], sizeof(cupsfilesconf));
+		    cupsCopyString(cupsfilesconf, argv[i], sizeof(cupsfilesconf));
 		}
 		else
 		{
@@ -373,7 +373,6 @@ main(int  argc,				/* I - Number of command-line args */
 	    default : /* Something we don't understand... */
 		_cupsLangPrintf(stderr, _("%s: Error - unknown option \"-%c\"."), argv[0], *opt);
 		usage(NULL);
-		break;
 	  }
 	}
       }
@@ -650,7 +649,7 @@ add_printer_filter(
     char filename[1024];		/* Full path to program */
 
     if (program[0] == '/')
-      strlcpy(filename, program, sizeof(filename));
+      cupsCopyString(filename, program, sizeof(filename));
     else
       snprintf(filename, sizeof(filename), "%s/filter/%s", ServerBin, program);
 
@@ -822,7 +821,7 @@ escape_options(
     if (sptr > s)
       *sptr++ = ' ';
 
-    strlcpy(sptr, option->name, bytes - (size_t)(sptr - s));
+    cupsCopyString(sptr, option->name, bytes - (size_t)(sptr - s));
     sptr += strlen(sptr);
     *sptr++ = '=';
 
@@ -966,11 +965,7 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
 {
   int		i;			/* Looping var */
   const char	*argv[8],		/* Command-line arguments */
-#ifdef SUPPORT_SNAPPED_CUPSD
 		*envp[21],		/* Environment variables */
-#else
-		*envp[17],		/* Environment variables */
-#endif /* SUPPORT_SNAPPED_CUPSD */
 		*temp;			/* Temporary string */
   char		*optstr,		/* Filter options */
 		content_type[1024],	/* CONTENT_TYPE */
@@ -978,24 +973,22 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
 		cups_fontpath[1024],	/* CUPS_FONTPATH */
 		cups_serverbin[1024],	/* CUPS_SERVERBIN */
 		cups_serverroot[1024],	/* CUPS_SERVERROOT */
-#ifdef SUPPORT_SNAPPED_CUPSD
-		fontconfig_file[1024],	/* FONTCONFIG_FILE */
-		fontconfig_path[1024],	/* FONTCONFIG_PATH */
-		fontconfig_sysroot[1024], /* FONTCONFIG_SYSROOT */
-#endif /* SUPPORT_SNAPPED_CUPSD */
 		final_content_type[1024] = "",
 					/* FINAL_CONTENT_TYPE */
 		lang[1024],		/* LANG */
-#ifdef SUPPORT_SNAPPED_CUPSD
-		ld_library_path[2048],	/* LD_LIBRARY_PATH */
-#endif /* SUPPORT_SNAPPED_CUPSD */
 		path[1024],		/* PATH */
 		ppd[1024],		/* PPD */
 		printer_info[255],	/* PRINTER_INFO env variable */
 		printer_location[255],	/* PRINTER_LOCATION env variable */
 		printer_name[255],	/* PRINTER env variable */
-		rip_max_cache[1024],	/* RIP_MAX_CACHE */
 		userenv[1024],		/* USER */
+#if CUPS_SNAP
+		fontconfig_file[1024],	/* FONTCONFIG_FILE */
+		fontconfig_path[1024],	/* FONTCONFIG_PATH */
+		fontconfig_sysroot[1024],
+					/* FONTCONFIG_SYSROOT */
+		ld_library_path[2048],	/* LD_LIBRARY_PATH */
+#endif /* CUPS_SNAP */
 		program[1024];		/* Program to run */
   mime_filter_t	*filter,		/* Current filter */
 		*next;			/* Next filter */
@@ -1047,9 +1040,6 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   * Setup the filter environment and command-line...
   */
 
-  /* If we are running confined in a Snap, also pass on fontconfig-related
-     environment variables and LD_LIBRARY_PATH */
-
   optstr = escape_options(num_options, options);
 
   snprintf(content_type, sizeof(content_type), "CONTENT_TYPE=%s/%s",
@@ -1059,20 +1049,8 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
            ServerBin);
   snprintf(cups_serverroot, sizeof(cups_serverroot), "CUPS_SERVERROOT=%s",
            ServerRoot);
-#ifdef SUPPORT_SNAPPED_CUPSD
-  snprintf(fontconfig_file, sizeof(fontconfig_file), "FONTCONFIG_FILE=%s",
-           getenv("FONTCONFIG_FILE"));
-  snprintf(fontconfig_path, sizeof(fontconfig_path), "FONTCONFIG_PATH=%s",
-           getenv("FONTCONFIG_PATH"));
-  snprintf(fontconfig_sysroot, sizeof(fontconfig_sysroot),
-	   "FONTCONFIG_SYSROOT=%s", getenv("FONTCONFIG_SYSROOT"));
-#endif /* SUPPORT_SNAPPED_CUPSD */
   language = cupsLangDefault();
   snprintf(lang, sizeof(lang), "LANG=%s.UTF8", language->language);
-#ifdef SUPPORT_SNAPPED_CUPSD
-  snprintf(ld_library_path, sizeof(ld_library_path), "LD_LIBRARY_PATH=%s",
-	   getenv("LD_LIBRARY_PATH"));
-#endif /* SUPPORT_SNAPPED_CUPSD */
   snprintf(path, sizeof(path), "PATH=%s", Path);
   if (ppdfile)
     snprintf(ppd, sizeof(ppd), "PPD=%s", ppdfile);
@@ -1083,16 +1061,17 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   if (!access("/System/Library/Frameworks/ApplicationServices.framework/"
 	      "Versions/A/Frameworks/PrintCore.framework/Versions/A/"
 	      "Resources/English.lproj/Generic.ppd", 0))
-    strlcpy(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
+    cupsCopyString(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
                  "Versions/A/Frameworks/PrintCore.framework/Versions/A/"
 		 "Resources/English.lproj/Generic.ppd", sizeof(ppd));
   else
-    strlcpy(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
+    cupsCopyString(ppd, "PPD=/System/Library/Frameworks/ApplicationServices.framework/"
                  "Versions/A/Frameworks/PrintCore.framework/Versions/A/"
 		 "Resources/Generic.ppd", sizeof(ppd));
 #else
-    snprintf(ppd, sizeof(ppd), "PPD=%s/model/laserjet.ppd", DataDir);
+  snprintf(ppd, sizeof(ppd), "PPD=%s/model/laserjet.ppd", DataDir);
 #endif /* __APPLE__ */
+
   snprintf(userenv, sizeof(userenv), "USER=%s", user);
 
   if (printer &&
@@ -1109,14 +1088,14 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
       snprintf(printer_location, sizeof(printer_location),
                "PRINTER_LOCATION=%s", temp);
     else
-      strlcpy(printer_location, "PRINTER_LOCATION=Unknown",
+      cupsCopyString(printer_location, "PRINTER_LOCATION=Unknown",
               sizeof(printer_location));
   }
   else
   {
     snprintf(printer_info, sizeof(printer_info), "PRINTER_INFO=%s",
              printer ? printer : "Unknown");
-    strlcpy(printer_location, "PRINTER_LOCATION=Unknown",
+    cupsCopyString(printer_location, "PRINTER_LOCATION=Unknown",
             sizeof(printer_location));
   }
 
@@ -1135,52 +1114,53 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   if (!argv[4])
     argv[4] = "1";
 
-  envp[0]  = "<CFProcessPath>";
-  envp[1]  = content_type;
-  envp[2]  = cups_datadir;
-  envp[3]  = cups_fontpath;
-  envp[4]  = cups_serverbin;
-  envp[5]  = cups_serverroot;
-  envp[6]  = lang;
-  envp[7]  = path;
-#ifdef SUPPORT_SNAPPED_CUPSD
-  envp[8]  = ld_library_path;
-  envp[9]  = ppd;
-  envp[10] = printer_info;
-  envp[11] = printer_location;
-  envp[12] = printer_name;
-  envp[13] = rip_max_cache;
-  envp[14] = userenv;
-  envp[15] = "CHARSET=utf-8";
-  envp[16] = fontconfig_file;
-  envp[17] = fontconfig_path;
-  envp[18] = fontconfig_sysroot;
-  if (final_content_type[0])
-  {
-    envp[19] = final_content_type;
-    envp[20] = NULL;
-  }
-  else
-    envp[19] = NULL;
-#else
-  envp[8]  = ppd;
-  envp[9]  = printer_info;
-  envp[10] = printer_location;
-  envp[11] = printer_name;
-  envp[12] = rip_max_cache;
-  envp[13] = userenv;
-  envp[14] = "CHARSET=utf-8";
-  if (final_content_type[0])
-  {
-    envp[15] = final_content_type;
-    envp[16] = NULL;
-  }
-  else
-    envp[15] = NULL;
-#endif /* SUPPORT_SNAPPED_CUPSD */
-
   for (i = 0; argv[i]; i ++)
     fprintf(stderr, "DEBUG: argv[%d]=\"%s\"\n", i, argv[i]);
+
+  i = 0;
+#ifdef __APPLE__
+  envp[i ++] = "<CFProcessPath>";
+#endif /* __APPLE__ */
+  envp[i ++] = content_type;
+  envp[i ++] = cups_datadir;
+  envp[i ++] = cups_fontpath;
+  envp[i ++] = cups_serverbin;
+  envp[i ++] = cups_serverroot;
+  envp[i ++] = lang;
+  envp[i ++] = path;
+  envp[i ++] = ppd;
+  envp[i ++] = printer_info;
+  envp[i ++] = printer_location;
+  envp[i ++] = printer_name;
+  envp[i ++] = userenv;
+  envp[i ++] = "CHARSET=utf-8";
+  if (final_content_type[0])
+    envp[i ++] = final_content_type;
+
+#if CUPS_SNAP
+  if ((temp = getenv("FONTCONFIG_FILE")) != NULL)
+  {
+    snprintf(fontconfig_file, sizeof(fontconfig_file), "FONTCONFIG_FILE=%s", temp);
+    envp[i ++] = fontconfig_file;
+  }
+  if ((temp = getenv("FONTCONFIG_PATH")) != NULL)
+  {
+    snprintf(fontconfig_path, sizeof(fontconfig_path), "FONTCONFIG_PATH=%s", temp);
+    envp[i ++] = fontconfig_path;
+  }
+  if ((temp = getenv("FONTCONFIG_SYSROOT")) != NULL)
+  {
+    snprintf(fontconfig_sysroot, sizeof(fontconfig_sysroot), "FONTCONFIG_SYSROOT=%s", temp);
+    envp[i ++] = fontconfig_sysroot;
+  }
+  if ((temp = getenv("LD_LIBRARY_PATH")) != NULL)
+  {
+    snprintf(ld_library_path, sizeof(ld_library_path), "LD_LIBRARY_PATH=%s", temp);
+    envp[i ++] = ld_library_path;
+  }
+#endif /* CUPS_SNAP */
+
+  envp[i] = NULL;
 
   for (i = 0; envp[i]; i ++)
     fprintf(stderr, "DEBUG: envp[%d]=\"%s\"\n", i, envp[i]);
@@ -1189,53 +1169,49 @@ exec_filters(mime_type_t   *srctype,	/* I - Source type */
   * Execute all of the filters...
   */
 
-  pids            = cupsArrayNew((cups_array_func_t)compare_pids, NULL);
-  current         = 0;
-  filterfds[0][0] = -1;
+  pids            =  cupsArrayNew((cups_array_func_t)compare_pids, NULL);
+  current         =  1;
+  filterfds[0][0] =  infile ? -1 : 0;
   filterfds[0][1] = -1;
   filterfds[1][0] = -1;
   filterfds[1][1] = -1;
 
-  if (!infile)
-    filterfds[0][0] = 0;
-
   for (filter = (mime_filter_t *)cupsArrayFirst(filters);
        filter;
-       filter = next, current = 1 - current)
+       filter = next, current ^= 1)
   {
     next = (mime_filter_t *)cupsArrayNext(filters);
 
     if (filter->filter[0] == '/')
-      strlcpy(program, filter->filter, sizeof(program));
+      cupsCopyString(program, filter->filter, sizeof(program));
     else
       snprintf(program, sizeof(program), "%s/filter/%s", ServerBin,
 	       filter->filter);
 
-    if (filterfds[!current][1] > 1)
+    if (filterfds[current][1] > 1)
     {
-      close(filterfds[1 - current][0]);
-      close(filterfds[1 - current][1]);
+      close(filterfds[current][0]);
+      close(filterfds[current][1]);
 
-      filterfds[1 - current][0] = -1;
-      filterfds[1 - current][0] = -1;
+      filterfds[current][0] = -1;
+      filterfds[current][1] = -1;
     }
 
     if (next)
-      open_pipe(filterfds[1 - current]);
+      open_pipe(filterfds[current]);
     else if (outfile)
     {
-      filterfds[1 - current][1] = open(outfile, O_CREAT | O_TRUNC | O_WRONLY,
-                                       0666);
+      filterfds[current][1] = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 
-      if (filterfds[1 - current][1] < 0)
+      if (filterfds[current][1] < 0)
         fprintf(stderr, "ERROR: Unable to create \"%s\" - %s\n", outfile,
 	        strerror(errno));
     }
     else
-      filterfds[1 - current][1] = 1;
+      filterfds[current][1] = 1;
 
     pid = exec_filter(program, (char **)argv, (char **)envp,
-                      filterfds[current][0], filterfds[1 - current][1]);
+                      filterfds[current ^ 1][0], filterfds[current][1]);
 
     if (pid > 0)
     {
@@ -1362,7 +1338,7 @@ get_job_file(const char *job)		/* I - Job ID */
     exit(1);
   }
 
-  request = ippNewRequest(CUPS_GET_DOCUMENT);
+  request = ippNewRequest(IPP_OP_CUPS_GET_DOCUMENT);
 
   snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", (int)jobid);
 
@@ -1385,10 +1361,10 @@ get_job_file(const char *job)		/* I - Job ID */
 
   httpClose(http);
 
-  if (cupsLastError() != IPP_OK)
+  if (cupsGetError() != IPP_STATUS_OK)
   {
     _cupsLangPrintf(stderr, _("cupsfilter: Unable to get job file - %s"),
-                    cupsLastErrorString());
+                    cupsGetErrorString());
     unlink(TempFile);
     exit(1);
   }
@@ -1473,7 +1449,7 @@ read_cups_files_conf(
   else
     set_string(&ServerBin, CUPS_SERVERBIN);
 
-  strlcpy(line, filename, sizeof(line));
+  cupsCopyString(line, filename, sizeof(line));
   if ((ptr = strrchr(line, '/')) != NULL)
     *ptr = '\0';
   else
@@ -1498,14 +1474,12 @@ read_cups_files_conf(
     cupsFileClose(fp);
   }
 
-  /* Set the PATH environment variable for external executables, pass
-     through the PATH from the environment in which cupsd was called
-     if we are running confined in a Snap */
-#ifdef SUPPORT_SNAPPED_CUPSD
-  snprintf(line, sizeof(line), "%s/filter:%s:" CUPS_BINDIR ":" CUPS_SBINDIR ":/bin:/usr/bin", ServerBin, getenv("PATH"));
-#else
+#if CUPS_SNAP
+  if ((temp = getenv("PATH")) != NULL)
+    snprintf(line, sizeof(line), "%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR ":%s", ServerBin, temp);
+  else
+#endif /* CUPS_SNAP */
   snprintf(line, sizeof(line), "%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR ":/bin:/usr/bin", ServerBin);
-#endif /* SUPPORT_SNAPPED_CUPSD */
   set_string(&Path, line);
 
   return (0);

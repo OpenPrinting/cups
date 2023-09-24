@@ -21,7 +21,7 @@
 // Local functions...
 //
 
-static void	usage(void);
+static void	usage(void) _CUPS_NORETURN;
 
 
 //
@@ -155,7 +155,7 @@ main(int  argc,				// I - Number of command-line arguments
 
 		locales = new ppdcArray();
 
-		strlcpy(temp, argv[i], sizeof(temp));
+		cupsCopyString(temp, argv[i], sizeof(temp));
 		for (start = temp; *start; start = end)
 		{
 		  if ((end = strchr(start, ',')) != NULL)
@@ -229,7 +229,6 @@ main(int  argc,				// I - Number of command-line arguments
 
 	  default :			// Unknown
 	      usage();
-	      break;
 	}
     }
     else
@@ -340,7 +339,7 @@ main(int  argc,				// I - Number of command-line arguments
 	else
 	{
 	  // Leave PCFileName as-is...
-	  strlcpy(pcfilename, outname, sizeof(pcfilename));
+	  cupsCopyString(pcfilename, outname, sizeof(pcfilename));
 	}
 
 	// Open the PPD file for writing...
@@ -393,7 +392,7 @@ main(int  argc,				// I - Number of command-line arguments
 	return (1);
       }
 
-      if (templocales != locales)
+      if (templocales && templocales != locales)
         templocales->release();
 
       cupsFileClose(fp);

@@ -1,6 +1,7 @@
 /*
  * Generic Adobe PostScript printer command for ippeveprinter/CUPS.
  *
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -72,7 +73,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   num_options = get_options(&options);
   if ((ipp_copies = getenv("IPP_COPIES")) != NULL)
-    copies = atoi(ipp_copies);
+  {
+    if ((copies = atoi(ipp_copies)) < 1)
+      copies = 1;
+  }
   else
     copies = 1;
 
@@ -137,16 +141,16 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     switch (leftcount)
     {
       case 0 :
-          b = (unsigned)((((((data[0] << 8) | data[1]) << 8) | data[2]) << 8) | data[3]);
+          b = (unsigned)((data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3]);
 	  break;
       case 1 :
-          b = (unsigned)((((((leftdata[0] << 8) | data[0]) << 8) | data[1]) << 8) | data[2]);
+          b = (unsigned)((leftdata[0] << 24) | (data[0] << 16) | (data[1] << 8) | data[2]);
 	  break;
       case 2 :
-          b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | data[0]) << 8) | data[1]);
+          b = (unsigned)((leftdata[0] << 24) | (leftdata[1] << 16) | (data[0] << 8) | data[1]);
 	  break;
       case 3 :
-          b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | leftdata[2]) << 8) | data[0]);
+          b = (unsigned)((leftdata[0] << 24) | (leftdata[1] << 16) | (leftdata[2] << 8) | data[0]);
 	  break;
     }
 
@@ -163,13 +167,13 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     }
     else
     {
-      c[4] = (b % 85) + '!';
+      c[4] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[3] = (b % 85) + '!';
+      c[3] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[2] = (b % 85) + '!';
+      c[2] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[1] = (b % 85) + '!';
+      c[1] = (unsigned char) ((b % 85) + '!');
       b /= 85;
       c[0] = (unsigned char)(b + '!');
 
@@ -185,7 +189,7 @@ ascii85(const unsigned char *data,	/* I - Data to write */
   if (length > 0)
   {
     // Copy any remainder into the leftdata array...
-    if ((length - leftcount) > 0)
+    if (length > leftcount)
       memcpy(leftdata + leftcount, data, (size_t)(length - leftcount));
 
     memset(leftdata + length, 0, (size_t)(4 - length));
@@ -205,15 +209,15 @@ ascii85(const unsigned char *data,	/* I - Data to write */
     if (leftcount > 0)
     {
       // Write the remaining bytes as needed...
-      b = (unsigned)((((((leftdata[0] << 8) | leftdata[1]) << 8) | leftdata[2]) << 8) | leftdata[3]);
+      b = (unsigned)((leftdata[0] << 24) | (leftdata[1] << 16) | (leftdata[2] << 8) | leftdata[3]);
 
-      c[4] = (b % 85) + '!';
+      c[4] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[3] = (b % 85) + '!';
+      c[3] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[2] = (b % 85) + '!';
+      c[2] = (unsigned char) ((b % 85) + '!');
       b /= 85;
-      c[1] = (b % 85) + '!';
+      c[1] = (unsigned char) ((b % 85) + '!');
       b /= 85;
       c[0] = (unsigned char)(b + '!');
 
@@ -244,7 +248,7 @@ dsc_header(int num_pages)		/* I - Number of pages or 0 if not known */
   const char	*job_id = getenv("IPP_JOB_ID");
 					/* job-id value */
 
-  ppdEmitJCL(ppd, stdout, job_id ? atoi(job_id) : 0, cupsUser(), job_name ? job_name : "Unknown");
+  ppdEmitJCL(ppd, stdout, job_id ? atoi(job_id) : 0, cupsGetUser(), job_name ? job_name : "Unknown");
 #endif /* !CUPS_LITE */
 
   puts("%!PS-Adobe-3.0");
@@ -297,7 +301,7 @@ dsc_header(int num_pages)		/* I - Number of pages or 0 if not known */
  */
 
 static void
-dsc_page(int page)			/* I - Page numebr (1-based) */
+dsc_page(int page)			/* I - Page number (1-based) */
 {
   printf("%%%%Page: (%d) %d\n", page, page);
 
@@ -417,10 +421,8 @@ get_options(cups_option_t **options)	/* O - Options */
   * Load PPD file and the corresponding IPP <-> PPD cache data...
   */
 
-  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL)
+  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL && (ppd_cache = _ppdCacheCreateWithPPD(ppd)) != NULL)
   {
-    ppd_cache = _ppdCacheCreateWithPPD(ppd);
-
     /* TODO: Fix me - values are names, not numbers... Also need to support finishings-col */
     if ((value = getenv("IPP_FINISHINGS")) == NULL)
       value = getenv("IPP_FINISHINGS_DEFAULT");
@@ -428,7 +430,7 @@ get_options(cups_option_t **options)	/* O - Options */
     if (value)
     {
       char	*ptr;			/* Pointer into value */
-      int	fin;			/* Current value */
+      long	fin;			/* Current value */
 
       for (fin = strtol(value, &ptr, 10); fin > 0; fin = strtol(ptr + 1, &ptr, 10))
       {
@@ -531,8 +533,8 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
   int		copy;			/* Current copy */
   int		width = 0,		/* Width */
 		height = 0,		/* Height */
-		depth = 0,		/* Number of colors */
-		length;			/* Length of marker */
+		depth = 0;		/* Number of colors */
+	ssize_t		length;			/* Length of marker */
   unsigned char	buffer[65536],		/* Copy buffer */
 		*bufptr,		/* Pointer info buffer */
 		*bufend;		/* End of buffer */
@@ -541,7 +543,7 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
   float		page_left,		/* Left margin */
 		page_top,		/* Top margin */
 		page_width,		/* Page width in points */
-		page_height,		/* Page heigth in points */
+		page_height,		/* Page height in points */
 		x_factor,		/* X image scaling factor */
 		y_factor,		/* Y image scaling factor */
 		page_scaling;		/* Image scaling factor */
@@ -628,7 +630,7 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
 	bufend += bytes;
       }
 
-      length = (size_t)((bufptr[1] << 8) | bufptr[2]);
+      length = (ssize_t)((bufptr[1] << 8) | bufptr[2]);
 
       if ((*bufptr >= 0xc0 && *bufptr <= 0xc3) || (*bufptr >= 0xc5 && *bufptr <= 0xc7) || (*bufptr >= 0xc9 && *bufptr <= 0xcb) || (*bufptr >= 0xcd && *bufptr <= 0xcf))
       {
@@ -814,7 +816,7 @@ pdf_to_ps(const char    *filename,	/* I - Filename */
 
   pdf_argv[0] = "printer";
   pdf_argv[1] = job_id;
-  pdf_argv[2] = cupsUser();
+  pdf_argv[2] = cupsGetUser();
   pdf_argv[3] = job_name;
   pdf_argv[4] = "1";
   pdf_argv[5] = pdf_options;
@@ -900,7 +902,7 @@ ps_to_ps(const char    *filename,	/* I - Filename */
 		first_page,			/* First page */
 		last_page;			/* Last page */
   const char	*page_ranges;			/* page-ranges option */
-  long		first_pos = -1;			/* Offset for first page */
+  long		first_pos;			/* Offset for first page */
   char		line[1024];			/* Line from file */
 
 
@@ -953,7 +955,11 @@ ps_to_ps(const char    *filename,	/* I - Filename */
     if (!strncmp(line, "%%Page:", 7))
       break;
 
-    first_pos = ftell(fp);
+    if ((first_pos = ftell(fp)) < 0)
+    {
+      perror("DEBUG: ftell failed");
+      first_pos = 0;
+    }
 
     if (line[0] != '%')
       fputs(line, stdout);
@@ -966,7 +972,13 @@ ps_to_ps(const char    *filename,	/* I - Filename */
       int copy_page = 0;		/* Do we copy the page data? */
 
       if (fp != stdin)
-        fseek(fp, first_pos, SEEK_SET);
+      {
+        if (fseek(fp, first_pos, SEEK_SET) < 0)
+	{
+	  perror("ERROR: Unable to seek within PostScript file");
+	  break;
+	}
+      }
 
       page = 0;
       while (fgets(line, sizeof(line), fp))
@@ -1004,7 +1016,7 @@ ps_to_ps(const char    *filename,	/* I - Filename */
  *
  * The current implementation locally-decodes the raster data and then writes
  * whole, non-blank lines as 1-line high images with base-85 encoding, resulting
- * in between 10 and 20 times larger output.  A alternate implementation (if it
+ * in between 10 and 20 times larger output.  An alternate implementation (if it
  * is deemed necessary) would be to implement a PostScript decode procedure that
  * handles the modified packbits decompression so that we just have the base-85
  * encoding overhead (25%).  Furthermore, Level 3 PostScript printers also
@@ -1119,7 +1131,7 @@ raster_to_ps(const char *filename)	/* I - Filename */
         break;
     }
 
-    fprintf(stderr, "DEBUG: y=%d at end...\n", y);
+    fprintf(stderr, "DEBUG: y=%u at end...\n", y);
 
     puts("grestore grestore");
     puts("showpage");

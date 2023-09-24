@@ -1,6 +1,6 @@
 *.a
 *.bck
-*.cgi
+/cgi-bin/*.cgi
 *.o
 /autom4te.cache
 /config.h
@@ -47,6 +47,7 @@
 /cups/libcupsimage.so.2
 /cups/locale/
 /cups/rasterbench
+/cups/test.json
 /cups/test.pwg
 /cups/test.raster
 /cups/testadmin
@@ -57,17 +58,22 @@
 /cups/testcreds
 /cups/testcups
 /cups/testdest
+/cups/testdnssd
 /cups/testfile
+/cups/testform
 /cups/testgetdests
 /cups/testhttp
 /cups/testi18n
 /cups/testipp
+/cups/testjson
+/cups/testjwt
 /cups/testlang
 /cups/testoptions
 /cups/testppd
 /cups/testpwg
 /cups/testraster
 /cups/testsnmp
+/cups/testtestpage
 /cups/testthreads
 /cups/tlscheck
 /desktop/cups.desktop
@@ -83,7 +89,6 @@
 /locale/checkpo
 /locale/po2strings
 /locale/strings2po
-/man/mantohtml
 /monitor/bcp
 /monitor/tbcp
 /notifier/dbus
@@ -123,6 +128,7 @@
 /scheduler/testmime
 /scheduler/testspeed
 /scheduler/testsub
+/scratch
 /systemv/cancel
 /systemv/cupsaccept
 /systemv/cupsaddsmb

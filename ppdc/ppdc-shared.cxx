@@ -45,7 +45,7 @@ ppdcShared::release(void)
 #ifdef DEBUG
   if (use < 0)
   {
-    fprintf(stderr, "ERROR: Over-release of %s: %p\n", class_name(), this);
+    fprintf(stderr, "ERROR: Over-release of %s: %p\n", class_name(), (void *)this);
     abort();
   }
 #endif /* DEBUG */

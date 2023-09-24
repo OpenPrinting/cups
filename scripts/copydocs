@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Script to copy the CUPS online help files to a CUPS web site subdirectory.
+# Script to copy the CUPS online help files to a CUPS website subdirectory.
 # The normal HTML headers are replaced by Jekyll headers.
 #
 # Usage: scripts/copydocs DESTINATION-DIR

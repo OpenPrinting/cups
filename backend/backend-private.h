@@ -268,7 +268,7 @@ extern "C" {
 #define CUPS_TC_hours				11
 #define CUPS_TC_thousandthsOfOunces		12
 #define CUPS_TC_tenthsOfGrams			13
-#define CUPS_TC_hundrethsOfFluidOunces		14
+#define CUPS_TC_hundredthsOfFluidOunces		14
 #define CUPS_TC_tenthsOfMilliliters		15
 #define CUPS_TC_feet				16
 #define CUPS_TC_meters				17

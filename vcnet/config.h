@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS on Windows.
  *
- * Copyright © 2021 by OpenPrinting
+ * Copyright © 2021-2023 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -40,6 +40,7 @@
 #define lseek		_lseek
 #define mkdir(d,p)	_mkdir(d)
 #define open		_open
+#define poll		WSAPoll
 #define read	        _read
 #define rmdir		_rmdir
 #define snprintf	_snprintf
@@ -100,8 +101,8 @@ typedef unsigned long useconds_t;
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.4rc1"
-#define CUPS_MINIMAL "CUPS/2.4rc1"
+#define CUPS_SVERSION "CUPS v2.5.0"
+#define CUPS_MINIMAL "CUPS/2.5.0"
 
 
 /*
@@ -218,21 +219,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Do we have posix_spawn?
- */
-
-/* #undef HAVE_POSIX_SPAWN */
-
-
-/*
- * Do we have ZLIB?
- */
-
-#define HAVE_LIBZ 1
-#define HAVE_INFLATECOPY 1
-
-
-/*
  * Do we have PAM stuff?
  */
 
@@ -240,20 +226,6 @@ typedef unsigned long useconds_t;
 /* #undef HAVE_PAM_PAM_APPL_H */
 /* #undef HAVE_PAM_SET_ITEM */
 /* #undef HAVE_PAM_SETCRED */
-
-
-/*
- * Do we have <shadow.h>?
- */
-
-/* #undef HAVE_SHADOW_H */
-
-
-/*
- * Do we have <crypt.h>?
- */
-
-/* #undef HAVE_CRYPT_H */
 
 
 /*
@@ -344,14 +316,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * What signal functions to use?
- */
-
-/* #undef HAVE_SIGSET */
-/* #undef HAVE_SIGACTION */
-
-
-/*
  * What wait functions to use?
  */
 
@@ -385,10 +349,8 @@ typedef unsigned long useconds_t;
  * Which encryption libraries do we have?
  */
 
-#define HAVE_TLS 1
-/* #undef HAVE_CDSASSL */
+#define HAVE_OPENSSL 1
 /* #undef HAVE_GNUTLS */
-#define HAVE_SSPISSL 1
 
 
 /*
@@ -430,13 +392,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Do we have DNS Service Discovery (aka Bonjour) support?
- */
-
-#define HAVE_DNSSD 1
-
-
-/*
  * Do we have mDNSResponder for DNS-SD?
  */
 
@@ -469,27 +424,6 @@ typedef unsigned long useconds_t;
  */
 
 /* #undef HAVE_TM_GMTOFF */
-
-
-/*
- * Do we have rresvport_af()?
- */
-
-/* #undef HAVE_RRESVPORT_AF */
-
-
-/*
- * Do we have getaddrinfo()?
- */
-
-#define HAVE_GETADDRINFO 1
-
-
-/*
- * Do we have getnameinfo()?
- */
-
-#define HAVE_GETNAMEINFO 1
 
 
 /*
@@ -641,15 +575,6 @@ typedef unsigned long useconds_t;
  */
 
 #define CUPS_DEFAULT_GSSSERVICENAME "host"
-
-
-/*
- * Select/poll interfaces...
- */
-
-/* #undef HAVE_POLL */
-/* #undef HAVE_EPOLL */
-/* #undef HAVE_KQUEUE */
 
 
 /*

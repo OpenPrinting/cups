@@ -73,15 +73,15 @@ main(void)
     */
 
     if (!strcmp(op, "cancel-job"))
-      do_job_op(http, job_id, IPP_CANCEL_JOB);
+      do_job_op(http, job_id, IPP_OP_CANCEL_JOB);
     else if (!strcmp(op, "hold-job"))
-      do_job_op(http, job_id, IPP_HOLD_JOB);
+      do_job_op(http, job_id, IPP_OP_HOLD_JOB);
     else if (!strcmp(op, "move-job"))
       cgiMoveJobs(http, NULL, job_id);
     else if (!strcmp(op, "release-job"))
-      do_job_op(http, job_id, IPP_RELEASE_JOB);
+      do_job_op(http, job_id, IPP_OP_RELEASE_JOB);
     else if (!strcmp(op, "restart-job"))
-      do_job_op(http, job_id, IPP_RESTART_JOB);
+      do_job_op(http, job_id, IPP_OP_RESTART_JOB);
     else
     {
      /*
@@ -138,7 +138,7 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
   *
   *    attributes-charset
   *    attributes-natural-language
-  *    job-uri or printer-uri (purge-jobs)
+  *    job-uri
   *    requesting-user-name
   */
 
@@ -161,7 +161,7 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
 
   ippDelete(cupsDoRequest(http, request, "/jobs"));
 
-  if (cupsLastError() <= IPP_OK_CONFLICT && getenv("HTTP_REFERER"))
+  if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING && getenv("HTTP_REFERER"))
   {
    /*
     * Redirect successful updates back to the parent page...
@@ -170,11 +170,11 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
     char	url[1024];		/* Encoded URL */
 
 
-    strlcpy(url, "5;URL=", sizeof(url));
+    cupsCopyString(url, "5;URL=", sizeof(url));
     cgiFormEncode(url + 6, getenv("HTTP_REFERER"), sizeof(url) - 6);
     cgiSetVariable("refresh_page", url);
   }
-  else if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  else if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
@@ -182,15 +182,15 @@ do_job_op(http_t      *http,		/* I - HTTP connection */
 
   cgiStartHTML(cgiText(_("Jobs")));
 
-  if (cupsLastError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     cgiShowIPPError(_("Job operation failed"));
-  else if (op == IPP_CANCEL_JOB)
+  else if (op == IPP_OP_CANCEL_JOB)
     cgiCopyTemplateLang("job-cancel.tmpl");
-  else if (op == IPP_HOLD_JOB)
+  else if (op == IPP_OP_HOLD_JOB)
     cgiCopyTemplateLang("job-hold.tmpl");
-  else if (op == IPP_RELEASE_JOB)
+  else if (op == IPP_OP_RELEASE_JOB)
     cgiCopyTemplateLang("job-release.tmpl");
-  else if (op == IPP_RESTART_JOB)
+  else if (op == IPP_OP_RESTART_JOB)
     cgiCopyTemplateLang("job-restart.tmpl");
 
   cgiEndHTML();

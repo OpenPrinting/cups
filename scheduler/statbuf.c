@@ -299,7 +299,7 @@ cupsdStatBufUpdate(
   * Copy the message to the line buffer...
   */
 
-  strlcpy(line, message, (size_t)linelen);
+  cupsCopyString(line, message, (size_t)linelen);
 
  /*
   * Copy over the buffer data we've used up...

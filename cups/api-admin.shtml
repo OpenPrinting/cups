@@ -47,7 +47,7 @@ enable_web_interface(void)
 
   if (!<a href="#cupsAdminGetServerSettings">cupsAdminGetServerSettings</a>(CUPS_HTTP_DEFAULT, &amp;num_settings, &amp;settings))
   {
-    fprintf(stderr, "ERROR: Unable to get server settings: %s\n", cupsLastErrorString());
+    fprintf(stderr, "ERROR: Unable to get server settings: %s\n", cupsGetErrorString());
     return;
   }
 
@@ -55,7 +55,7 @@ enable_web_interface(void)
 
   if (!<a href="#cupsAdminSetServerSettings">cupsAdminSetServerSettings</a>(CUPS_HTTP_DEFAULT, num_settings, settings))
   {
-    fprintf(stderr, "ERROR: Unable to set server settings: %s\n", cupsLastErrorString());
+    fprintf(stderr, "ERROR: Unable to set server settings: %s\n", cupsGetErrorString());
   }
 
   <a href="api-cups.html#cupsFreeOptions">cupsFreeOptions</a>(num_settings, settings);
@@ -64,7 +64,7 @@ enable_web_interface(void)
 
 <h3><a name="DEVICES">Devices</a></h3>
 
-<p>Printers can be discovered through the CUPS scheduler using the <a href="#cupsGetDevices"><code>cupsGetDevices</code></a> API. Typically this API is used to locate printers to add the the system. Each device that is found will cause a supplied callback function to be executed. For example, to list the available printer devices that can be found within 30 seconds:</p>
+<p>Printers can be discovered through the CUPS scheduler using the <a href="#cupsGetDevices"><code>cupsGetDevices</code></a> API. Typically this API is used to locate printers to add to the system. Each device that is found will cause a supplied callback function to be executed. For example, to list the available printer devices that can be found within 30 seconds:</p>
 
 <pre class="example">
 #include &lt;cups/cups.h&gt;

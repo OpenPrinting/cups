@@ -3,8 +3,8 @@
 # Perform the complete set of IPP compliance tests specified in the
 # CUPS Software Test Plan.
 #
-# Copyright © 2020-2021 by OpenPrinting
-# Copyright © 2007-2019 by Apple Inc.
+# Copyright © 2020-2023 by OpenPrinting
+# Copyright © 2007-2021 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -357,6 +357,7 @@ cat >$BASE/share/banners/classified <<EOF
 EOF
 ln -s $root/data $BASE/share
 ln -s $root/ppdc/sample.drv $BASE/share/drv
+ln -s $root/conf/cgi.types $BASE/share/mime
 ln -s $root/conf/mime.types $BASE/share/mime
 ln -s $root/conf/mime.convs $BASE/share/mime
 ln -s $root/data/*.h $BASE/share/ppdc
@@ -998,7 +999,10 @@ fi
 
 # Pages printed on Test1 (within 1 page for timing-dependent cancel issues)
 count=`$GREP '^Test1 ' $BASE/log/page_log | awk 'BEGIN{count=0}{count=count+$7}END{print count}'`
-expected=`expr $pjobs \* 2 + 34`
+# expected numbers of pages from page ranges tests:
+# - 5 pages for the job with a lower limit undefined (-5)
+# - 4 pages for the job with a upper limit undefined (5-)
+expected=`expr $pjobs \* 2 + 34 + 5 + 4`
 expected2=`expr $expected + 2`
 if test $count -lt $expected -a $count -gt $expected2; then
 	echo "FAIL: Printer 'Test1' produced $count page(s), expected $expected."
@@ -1033,9 +1037,19 @@ else
 	echo "    <p>PASS: Printer 'Test3' correctly produced $count page(s).</p>" >>$strfile
 fi
 
+# Number of requests from 5.1-lpadmin.sh: cupsSNMP/IPPSupplies tests - total 5 in 'expected':
+# - 2 requests for creating a queue - CUPS-Get-PPD and CUPS-Add-Modify-Printer
+# - 1 request for setting cupsSNMP/IPPSupplies to True - CUPS-Add-Modify-Printer
+# - 1 request for setting cupsSNMP/IPPSupplies to False - CUPS-Add-Modify-Printer
+# - 1 request for deleting the queue - CUPS-Delete-Printer
+
+# Number of requests related to undefined page range limits - total 4 in 'expected'
+# 2 requests (Create-Job, Send-Document) * number of jobs (2 - one for undefined
+# low limit, one for undefined upper limit)
+
 # Requests logged
 count=`wc -l $BASE/log/access_log | awk '{print $1}'`
-expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2`
+expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2 + 5 + 4`
 if test $count != $expected; then
 	echo "FAIL: $count requests logged, expected $expected."
 	echo "    <p>FAIL: $count requests logged, expected $expected.</p>" >>$strfile
@@ -1120,10 +1134,10 @@ fi
 
 # Warning log messages
 count=`$GREP '^W ' $BASE/log/error_log | $GREP -v CreateProfile | $GREP -v 'libusb error' | $GREP -v ColorManager | $GREP -v 'Avahi client failed' | wc -l | awk '{print $1}'`
-if test $count != 12; then
-	echo "FAIL: $count warning messages, expected 12."
+if test $count != 14; then
+	echo "FAIL: $count warning messages, expected 14."
 	$GREP '^W ' $BASE/log/error_log
-	echo "    <p>FAIL: $count warning messages, expected 12.</p>" >>$strfile
+	echo "    <p>FAIL: $count warning messages, expected 14.</p>" >>$strfile
 	echo "    <pre>" >>$strfile
 	$GREP '^W ' $BASE/log/error_log | sed -e '1,$s/&/&amp;/g' -e '1,$s/</&lt;/g' >>$strfile
 	echo "    </pre>" >>$strfile

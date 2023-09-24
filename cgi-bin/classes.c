@@ -97,7 +97,7 @@ main(void)
     * Get the default destination...
     */
 
-    request = ippNewRequest(CUPS_GET_DEFAULT);
+    request = ippNewRequest(IPP_OP_CUPS_GET_DEFAULT);
 
     ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                   "requested-attributes",
@@ -148,13 +148,13 @@ main(void)
       printf("Location: %s\n\n", uri);
     }
     else if (!strcmp(op, "start-class"))
-      do_class_op(http, pclass, IPP_RESUME_PRINTER, cgiText(_("Resume Class")));
+      do_class_op(http, pclass, IPP_OP_RESUME_PRINTER, cgiText(_("Resume Class")));
     else if (!strcmp(op, "stop-class"))
-      do_class_op(http, pclass, IPP_PAUSE_PRINTER, cgiText(_("Pause Class")));
+      do_class_op(http, pclass, IPP_OP_PAUSE_PRINTER, cgiText(_("Pause Class")));
     else if (!strcmp(op, "accept-jobs"))
-      do_class_op(http, pclass, CUPS_ACCEPT_JOBS, cgiText(_("Accept Jobs")));
+      do_class_op(http, pclass, IPP_OP_CUPS_ACCEPT_JOBS, cgiText(_("Accept Jobs")));
     else if (!strcmp(op, "reject-jobs"))
-      do_class_op(http, pclass, CUPS_REJECT_JOBS, cgiText(_("Reject Jobs")));
+      do_class_op(http, pclass, IPP_OP_CUPS_REJECT_JOBS, cgiText(_("Reject Jobs")));
     else if (!strcmp(op, "cancel-jobs"))
       do_class_op(http, pclass, IPP_OP_CANCEL_JOBS, cgiText(_("Cancel Jobs")));
     else if (!_cups_strcasecmp(op, "print-test-page"))
@@ -235,12 +235,12 @@ do_class_op(http_t      *http,		/* I - HTTP connection */
   snprintf(resource, sizeof(resource), "/classes/%s", printer);
   ippDelete(cupsDoRequest(http, request, resource));
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     cgiStartHTML(title);
     cgiShowIPPError(_("Unable to do maintenance command"));
@@ -264,13 +264,13 @@ do_class_op(http_t      *http,		/* I - HTTP connection */
 
     cgiSetVariable("IS_CLASS", "YES");
 
-    if (op == IPP_PAUSE_PRINTER)
+    if (op == IPP_OP_PAUSE_PRINTER)
       cgiCopyTemplateLang("printer-stop.tmpl");
-    else if (op == IPP_RESUME_PRINTER)
+    else if (op == IPP_OP_RESUME_PRINTER)
       cgiCopyTemplateLang("printer-start.tmpl");
-    else if (op == CUPS_ACCEPT_JOBS)
+    else if (op == IPP_OP_CUPS_ACCEPT_JOBS)
       cgiCopyTemplateLang("printer-accept.tmpl");
-    else if (op == CUPS_REJECT_JOBS)
+    else if (op == IPP_OP_CUPS_REJECT_JOBS)
       cgiCopyTemplateLang("printer-reject.tmpl");
     else if (op == IPP_OP_CANCEL_JOBS)
       cgiCopyTemplateLang("printer-cancel-jobs.tmpl");
@@ -315,7 +315,7 @@ show_all_classes(http_t     *http,	/* I - Connection to server */
   *    requesting-user-name
   */
 
-  request = ippNewRequest(CUPS_GET_CLASSES);
+  request = ippNewRequest(IPP_OP_CUPS_GET_CLASSES);
 
   if (user)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
@@ -454,7 +454,7 @@ show_class(http_t     *http,		/* I - Connection to server */
   *    printer-uri
   */
 
-  request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
+  request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                    "localhost", 0, "/classes/%s", pclass);
@@ -478,7 +478,7 @@ show_class(http_t     *http,		/* I - Connection to server */
 
     if (pclass && (attr = ippFindAttribute(response, "printer-state",
                                             IPP_TAG_ENUM)) != NULL &&
-        attr->values[0].integer == IPP_PRINTER_PROCESSING)
+        attr->values[0].integer == IPP_PSTATE_PROCESSING)
     {
      /*
       * Class is processing - automatically refresh the page until we

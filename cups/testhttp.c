@@ -1,46 +1,43 @@
-/*
- * HTTP test program for CUPS.
- *
- * Copyright © 2021 by OpenPrinting.
- * Copyright © 2007-2018 by Apple Inc.
- * Copyright © 1997-2006 by Easy Software Products.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
- */
-
-/*
- * Include necessary headers...
- */
+//
+// HTTP test program for CUPS.
+//
+// Copyright © 2021-2023 by OpenPrinting.
+// Copyright © 2007-2018 by Apple Inc.
+// Copyright © 1997-2006 by Easy Software Products.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
 #include "cups-private.h"
+#include "test-internal.h"
 
 
-/*
- * Types and structures...
- */
+//
+// Types and structures...
+//
 
-typedef struct uri_test_s		/**** URI test cases ****/
+typedef struct uri_test_s		// URI test cases
 {
-  http_uri_status_t	result;		/* Expected return value */
-  const char		*uri,		/* URI */
-			*scheme,	/* Scheme string */
-			*username,	/* Username:password string */
-			*hostname,	/* Hostname string */
-			*resource;	/* Resource string */
-  int			port,		/* Port number */
-			assemble_port;	/* Port number for httpAssembleURI() */
-  http_uri_coding_t	assemble_coding;/* Coding for httpAssembleURI() */
+  http_uri_status_t	result;		// Expected return value
+  const char		*uri,		// URI
+			*scheme,	// Scheme string
+			*username,	// Username:password string
+			*hostname,	// Hostname string
+			*resource;	// Resource string
+  int			port,		// Port number
+			assemble_port;	// Port number for httpAssembleURI()
+  http_uri_coding_t	assemble_coding;// Coding for httpAssembleURI()
 } uri_test_t;
 
 
-/*
- * Local globals...
- */
+//
+// Local globals...
+//
 
-static uri_test_t	uri_tests[] =	/* URI test data */
+static uri_test_t	uri_tests[] =	// URI test data
 			{
-			  /* Start with valid URIs */
+			  // Start with valid URIs
 			  { HTTP_URI_STATUS_OK, "file:/filename",
 			    "file", "", "", "/filename", 0, 0,
 			    HTTP_URI_CODING_MOST },
@@ -120,7 +117,7 @@ static uri_test_t	uri_tests[] =	/* URI test data */
 			    "smb", "", "server", "/Some Printer", 0, 0,
 			    HTTP_URI_CODING_ALL },
 
-			  /* Missing scheme */
+			  // Missing scheme
 			  { HTTP_URI_STATUS_MISSING_SCHEME, "/path/to/file/index.html",
 			    "file", "", "", "/path/to/file/index.html", 0, 0,
 			    HTTP_URI_CODING_MOST  },
@@ -128,12 +125,12 @@ static uri_test_t	uri_tests[] =	/* URI test data */
 			    "ipp", "", "server", "/ipp", 631, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Unknown scheme */
+			  // Unknown scheme
 			  { HTTP_URI_STATUS_UNKNOWN_SCHEME, "vendor://server/resource",
 			    "vendor", "", "server", "/resource", 0, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Missing resource */
+			  // Missing resource
 			  { HTTP_URI_STATUS_MISSING_RESOURCE, "socket://[::192.168.2.1]",
 			    "socket", "", "::192.168.2.1", "/", 9100, 0,
 			    HTTP_URI_CODING_MOST  },
@@ -141,12 +138,12 @@ static uri_test_t	uri_tests[] =	/* URI test data */
 			    "socket", "", "192.168.1.1", "/", 9101, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Bad URI */
+			  // Bad URI
 			  { HTTP_URI_STATUS_BAD_URI, "",
 			    "", "", "", "", 0, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Bad scheme */
+			  // Bad scheme
 			  { HTTP_URI_STATUS_BAD_SCHEME, "://server/ipp",
 			    "", "", "", "", 0, 0,
 			    HTTP_URI_CODING_MOST  },
@@ -154,12 +151,12 @@ static uri_test_t	uri_tests[] =	/* URI test data */
 			    "", "", "", "", 0, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Bad username */
+			  // Bad username
 			  { HTTP_URI_STATUS_BAD_USERNAME, "http://username:passwor%6@server/resource",
 			    "http", "", "", "", 80, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Bad hostname */
+			  // Bad hostname
 			  { HTTP_URI_STATUS_BAD_HOSTNAME, "http://[/::1]/index.html",
 			    "http", "", "", "", 80, 0,
 			    HTTP_URI_CODING_MOST  },
@@ -176,12 +173,12 @@ static uri_test_t	uri_tests[] =	/* URI test data */
 			    "ipp", "", "", "", 631, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Bad port number */
+			  // Bad port number
 			  { HTTP_URI_STATUS_BAD_PORT, "http://127.0.0.1:9999a/index.html",
 			    "http", "", "127.0.0.1", "", 0, 0,
 			    HTTP_URI_CODING_MOST  },
 
-			  /* Bad resource */
+			  // Bad resource
 			  { HTTP_URI_STATUS_BAD_RESOURCE, "mailto:\r\nbla",
 			    "mailto", "", "", "", 0, 0,
 			    HTTP_URI_CODING_MOST  },
@@ -195,83 +192,78 @@ static uri_test_t	uri_tests[] =	/* URI test data */
 static const char * const base64_tests[][2] =
 			{
 			  { "A", "QQ==" },
-			  /* 010000 01 */
+			  // 010000 01
 			  { "AB", "QUI=" },
-			  /* 010000 010100 0010 */
+			  // 010000 010100 0010
 			  { "ABC", "QUJD" },
-			  /* 010000 010100 001001 000011 */
+			  // 010000 010100 001001 000011
 			  { "ABCD", "QUJDRA==" },
-			  /* 010000 010100 001001 000011 010001 00 */
+			  // 010000 010100 001001 000011 010001 00
 			  { "ABCDE", "QUJDREU=" },
-			  /* 010000 010100 001001 000011 010001 000100 0101 */
+			  // 010000 010100 001001 000011 010001 000100 0101
 			  { "ABCDEF", "QUJDREVG" },
-			  /* 010000 010100 001001 000011 010001 000100 010101 000110 */
+			  // 010000 010100 001001 000011 010001 000100 010101 000110
 			};
 
 
-/*
- * 'main()' - Main entry.
- */
+//
+// 'main()' - Main entry.
+//
 
-int					/* O - Exit status */
-main(int  argc,				/* I - Number of command-line arguments */
-     char *argv[])			/* I - Command-line arguments */
+int					// O - Exit status
+main(int  argc,				// I - Number of command-line arguments
+     char *argv[])			// I - Command-line arguments
 {
-  int		i, j, k;		/* Looping vars */
-  http_t	*http;			/* HTTP connection */
-  http_encryption_t encryption;		/* Encryption type */
-  http_status_t	status;			/* Status of GET command */
-  int		failures;		/* Number of test failures */
-  char		buffer[8192];		/* Input buffer */
-  long		bytes;			/* Number of bytes read */
-  FILE		*out;			/* Output file */
-  char		encode[256],		/* Base64-encoded string */
-		decode[256];		/* Base64-decoded string */
-  int		decodelen;		/* Length of decoded string */
-  char		scheme[HTTP_MAX_URI],	/* Scheme from URI */
-		hostname[HTTP_MAX_URI],	/* Hostname from URI */
-		username[HTTP_MAX_URI],	/* Username:password from URI */
-		resource[HTTP_MAX_URI];	/* Resource from URI */
-  int		port;			/* Port number from URI */
-  http_uri_status_t uri_status;		/* Status of URI separation */
-  http_addrlist_t *addrlist,		/* Address list */
-		*addr;			/* Current address */
-  off_t		length, total;		/* Length and total bytes */
-  time_t	start, current;		/* Start and end time */
-  const char	*encoding;		/* Negotiated Content-Encoding */
+  int		i, j, k;		// Looping vars
+  http_t	*http;			// HTTP connection
+  http_encryption_t encryption;		// Encryption type
+  http_status_t	status;			// Status of GET command
+  int		failures;		// Number of test failures
+  char		buffer[8192];		// Input buffer
+  long		bytes;			// Number of bytes read
+  FILE		*out;			// Output file
+  char		encode[256],		// Base64-encoded string
+		decode[256];		// Base64-decoded string
+  size_t	decodelen;		// Length of decoded string
+  const char	*decodeptr;		// Pointer into Base64 string
+  char		scheme[HTTP_MAX_URI],	// Scheme from URI
+		hostname[HTTP_MAX_URI],	// Hostname from URI
+		username[HTTP_MAX_URI],	// Username:password from URI
+		resource[HTTP_MAX_URI];	// Resource from URI
+  int		port;			// Port number from URI
+  http_uri_status_t uri_status;		// Status of URI separation
+  http_addrlist_t *addrlist,		// Address list
+		*addr;			// Current address
+  off_t		length, total;		// Length and total bytes
+  time_t	start, current;		// Start and end time
+  const char	*encoding;		// Negotiated Content-Encoding
   static const char * const uri_status_strings[] =
-		{
-		  "HTTP_URI_STATUS_OVERFLOW",
-		  "HTTP_URI_STATUS_BAD_ARGUMENTS",
-		  "HTTP_URI_STATUS_BAD_RESOURCE",
-		  "HTTP_URI_STATUS_BAD_PORT",
-		  "HTTP_URI_STATUS_BAD_HOSTNAME",
-		  "HTTP_URI_STATUS_BAD_USERNAME",
-		  "HTTP_URI_STATUS_BAD_SCHEME",
-		  "HTTP_URI_STATUS_BAD_URI",
-		  "HTTP_URI_STATUS_OK",
-		  "HTTP_URI_STATUS_MISSING_SCHEME",
-		  "HTTP_URI_STATUS_UNKNOWN_SCHEME",
-		  "HTTP_URI_STATUS_MISSING_RESOURCE"
-		};
+  {					// URI encode/decode status strings
+    "HTTP_URI_STATUS_OVERFLOW",
+    "HTTP_URI_STATUS_BAD_ARGUMENTS",
+    "HTTP_URI_STATUS_BAD_RESOURCE",
+    "HTTP_URI_STATUS_BAD_PORT",
+    "HTTP_URI_STATUS_BAD_HOSTNAME",
+    "HTTP_URI_STATUS_BAD_USERNAME",
+    "HTTP_URI_STATUS_BAD_SCHEME",
+    "HTTP_URI_STATUS_BAD_URI",
+    "HTTP_URI_STATUS_OK",
+    "HTTP_URI_STATUS_MISSING_SCHEME",
+    "HTTP_URI_STATUS_UNKNOWN_SCHEME",
+    "HTTP_URI_STATUS_MISSING_RESOURCE"
+  };
 
 
- /*
-  * Do API tests if we don't have a URL on the command-line...
-  */
-
+  // Do API tests if we don't have a URL on the command-line...
   if (argc == 1)
   {
     failures = 0;
 
-   /*
-    * httpGetDateString()/httpGetDateTime()
-    */
-
-    fputs("httpGetDateString()/httpGetDateTime(): ", stdout);
+    // httpGetDateString2()/httpGetDateTime()
+    testBegin("httpGetDateString2()/httpGetDateTime()");
 
     start = time(NULL);
-    strlcpy(buffer, httpGetDateString(start), sizeof(buffer));
+    httpGetDateString2(start, buffer, sizeof(buffer));
     current = httpGetDateTime(buffer);
 
     i = (int)(current - start);
@@ -279,31 +271,25 @@ main(int  argc,				/* I - Number of command-line arguments */
       i = -i;
 
     if (!i)
-      puts("PASS");
+      testEnd(true);
     else
     {
       failures ++;
-      puts("FAIL");
-      printf("    Difference is %d seconds, %02d:%02d:%02d...\n", i, i / 3600,
-             (i / 60) % 60, i % 60);
-      printf("    httpGetDateString(%d) returned \"%s\"\n", (int)start, buffer);
-      printf("    httpGetDateTime(\"%s\") returned %d\n", buffer, (int)current);
-      printf("    httpGetDateString(%d) returned \"%s\"\n", (int)current,
-             httpGetDateString(current));
+      testEnd(false);
+      testError("Difference is %d seconds, %02d:%02d:%02d.", i, i / 3600, (i / 60) % 60, i % 60);
+      testError("httpGetDateString(%d) returned \"%s\"", (int)start, buffer);
+      testError("httpGetDateTime(\"%s\") returned %d", buffer, (int)current);
+      testError("httpGetDateString2(%d) returned \"%s\"", (int)current, httpGetDateString2(current, buffer, sizeof(buffer)));
     }
 
-   /*
-    * httpDecode64_2()/httpEncode64_2()
-    */
-
-    fputs("httpDecode64_2()/httpEncode64_2(): ", stdout);
+    // httpDecode64_3()/httpEncode64_3()
+    testBegin("httpDecode64_3()/httpEncode64_3()");
 
     for (i = 0, j = 0; i < (int)(sizeof(base64_tests) / sizeof(base64_tests[0])); i ++)
     {
-      httpEncode64_2(encode, sizeof(encode), base64_tests[i][0],
-                     (int)strlen(base64_tests[i][0]));
-      decodelen = (int)sizeof(decode);
-      httpDecode64_2(decode, &decodelen, base64_tests[i][1]);
+      httpEncode64_3(encode, sizeof(encode), base64_tests[i][0], strlen(base64_tests[i][0]), false);
+      decodelen = sizeof(decode);
+      httpDecode64_3(decode, &decodelen, base64_tests[i][1], &decodeptr);
 
       if (strcmp(decode, base64_tests[i][0]))
       {
@@ -311,12 +297,23 @@ main(int  argc,				/* I - Number of command-line arguments */
 
         if (j)
 	{
-	  puts("FAIL");
+	  testEnd(false);
 	  j = 1;
 	}
 
-        printf("    httpDecode64_2() returned \"%s\", expected \"%s\"...\n",
-	       decode, base64_tests[i][0]);
+        testError("httpDecode64_3() returned \"%s\", expected \"%s\".", decode, base64_tests[i][0]);
+      }
+      else if (*decodeptr)
+      {
+        failures ++;
+
+        if (j)
+        {
+          testEnd(false);
+          j = 1;
+	}
+
+        testError("httpDecode64_3() returned \"%s\", expected end of string.", decodeptr);
       }
 
       if (strcmp(encode, base64_tests[i][1]))
@@ -325,182 +322,109 @@ main(int  argc,				/* I - Number of command-line arguments */
 
         if (j)
 	{
-	  puts("FAIL");
+	  testEnd(false);
 	  j = 1;
 	}
 
-        printf("    httpEncode64_2() returned \"%s\", expected \"%s\"...\n",
-	       encode, base64_tests[i][1]);
+        testError("httpEncode64_3() returned \"%s\", expected \"%s\".", encode, base64_tests[i][1]);
       }
     }
 
     if (!j)
-      puts("PASS");
+      testEnd(true);
 
-#if 0
-   /*
-    * _httpDigest()
-    */
-
-    fputs("_httpDigest(MD5): ", stdout);
-    if (!_httpDigest(buffer, sizeof(buffer), "MD5", "Mufasa", "http-auth@example.org", "Circle of Life", "7ypf/xlj9XXwfDPEoM4URrv/xwf94BcCAzFZH4GiTo0v", 1, "f2/wE4q74E6zIJEtWaHKaf5wv/H5QzzpXusqGemxURZJ", "auth", "GET", "/dir/index.html"))
-    {
-      failures ++;
-      puts("FAIL (unable to calculate hash)");
-    }
-    else if (strcmp(buffer, "8ca523f5e9506fed4657c9700eebdbec"))
-    {
-      failures ++;
-      printf("FAIL (got \"%s\", expected \"8ca523f5e9506fed4657c9700eebdbec\")\n", buffer);
-    }
-    else
-      puts("PASS");
-
-    fputs("_httpDigest(SHA-256): ", stdout);
-    if (!_httpDigest(buffer, sizeof(buffer), "SHA-256", "Mufasa", "http-auth@example.org", "Circle of Life", "7ypf/xlj9XXwfDPEoM4URrv/xwf94BcCAzFZH4GiTo0v", 1, "f2/wE4q74E6zIJEtWaHKaf5wv/H5QzzpXusqGemxURZJ", "auth", "GET", "/dir/index.html"))
-    {
-      failures ++;
-      puts("FAIL (unable to calculate hash)");
-    }
-    else if (strcmp(buffer, "753927fa0e85d155564e2e272a28d1802ca10daf4496794697cf8db5856cb6c1"))
-    {
-      failures ++;
-      printf("FAIL (got \"%s\", expected \"753927fa0e85d155564e2e272a28d1802ca10daf4496794697cf8db5856cb6c1\")\n", buffer);
-    }
-    else
-      puts("PASS");
-#endif /* 0 */
-
-   /*
-    * httpGetHostname()
-    */
-
-    fputs("httpGetHostname(): ", stdout);
+    // httpGetHostname()
+    testBegin("httpGetHostname()");
 
     if (httpGetHostname(NULL, hostname, sizeof(hostname)))
-      printf("PASS (%s)\n", hostname);
+      testEndMessage(true, "%s", hostname);
     else
     {
       failures ++;
-      puts("FAIL");
+      testEnd(false);
     }
 
-   /*
-    * httpAddrGetList()
-    */
-
-    printf("httpAddrGetList(%s): ", hostname);
+    // httpAddrGetList()
+    testBegin("httpAddrGetList(%s)", hostname);
 
     addrlist = httpAddrGetList(hostname, AF_UNSPEC, NULL);
     if (addrlist)
     {
       for (i = 0, addr = addrlist; addr; i ++, addr = addr->next)
       {
-        char	numeric[1024];		/* Numeric IP address */
+        char	numeric[1024];		// Numeric IP address
 
 
-	httpAddrString(&(addr->addr), numeric, sizeof(numeric));
+	httpAddrGetString(&(addr->addr), numeric, sizeof(numeric));
 	if (!strcmp(numeric, "UNKNOWN"))
 	  break;
       }
 
       if (addr)
-        printf("FAIL (bad address for %s)\n", hostname);
+        testEndMessage(false, "bad address for %s", hostname);
       else
-        printf("PASS (%d address(es) for %s)\n", i, hostname);
+        testEndMessage(true, "%d address(es) for %s", i, hostname);
 
       httpAddrFreeList(addrlist);
     }
     else if (isdigit(hostname[0] & 255))
     {
-      puts("FAIL (ignored because hostname is numeric)");
+      testEndMessage(false, "ignored because hostname is numeric");
     }
     else
     {
       failures ++;
-      puts("FAIL");
+      testEnd(false);
     }
 
-   /*
-    * Test httpSeparateURI()...
-    */
-
-    fputs("httpSeparateURI(): ", stdout);
+    // Test httpSeparateURI()...
+    testBegin("httpSeparateURI()");
     for (i = 0, j = 0; i < (int)(sizeof(uri_tests) / sizeof(uri_tests[0])); i ++)
     {
-      uri_status = httpSeparateURI(HTTP_URI_CODING_MOST,
-				   uri_tests[i].uri, scheme, sizeof(scheme),
-                                   username, sizeof(username),
-				   hostname, sizeof(hostname), &port,
-				   resource, sizeof(resource));
-      if (uri_status != uri_tests[i].result ||
-          strcmp(scheme, uri_tests[i].scheme) ||
-	  strcmp(username, uri_tests[i].username) ||
-	  strcmp(hostname, uri_tests[i].hostname) ||
-	  port != uri_tests[i].port ||
-	  strcmp(resource, uri_tests[i].resource))
+      uri_status = httpSeparateURI(HTTP_URI_CODING_MOST, uri_tests[i].uri, scheme, sizeof(scheme), username, sizeof(username), hostname, sizeof(hostname), &port, resource, sizeof(resource));
+      if (uri_status != uri_tests[i].result || strcmp(scheme, uri_tests[i].scheme) || strcmp(username, uri_tests[i].username) || strcmp(hostname, uri_tests[i].hostname) || port != uri_tests[i].port || strcmp(resource, uri_tests[i].resource))
       {
         failures ++;
 
 	if (!j)
 	{
-	  puts("FAIL");
+	  testEnd(false);
 	  j = 1;
 	}
 
-        printf("    \"%s\":\n", uri_tests[i].uri);
+        testError("\"%s\":", uri_tests[i].uri);
 
 	if (uri_status != uri_tests[i].result)
-	  printf("        Returned %s instead of %s\n",
-	         uri_status_strings[uri_status + 8],
-		 uri_status_strings[uri_tests[i].result + 8]);
+	  testError("    Returned %s instead of %s", uri_status_strings[uri_status + 8], uri_status_strings[uri_tests[i].result + 8]);
 
         if (strcmp(scheme, uri_tests[i].scheme))
-	  printf("        Scheme \"%s\" instead of \"%s\"\n",
-	         scheme, uri_tests[i].scheme);
+	  testError("    Scheme \"%s\" instead of \"%s\"", scheme, uri_tests[i].scheme);
 
 	if (strcmp(username, uri_tests[i].username))
-	  printf("        Username \"%s\" instead of \"%s\"\n",
-	         username, uri_tests[i].username);
+	  testError("    Username \"%s\" instead of \"%s\"", username, uri_tests[i].username);
 
 	if (strcmp(hostname, uri_tests[i].hostname))
-	  printf("        Hostname \"%s\" instead of \"%s\"\n",
-	         hostname, uri_tests[i].hostname);
+	  testError("    Hostname \"%s\" instead of \"%s\"", hostname, uri_tests[i].hostname);
 
 	if (port != uri_tests[i].port)
-	  printf("        Port %d instead of %d\n",
-	         port, uri_tests[i].port);
+	  testError("    Port %d instead of %d", port, uri_tests[i].port);
 
 	if (strcmp(resource, uri_tests[i].resource))
-	  printf("        Resource \"%s\" instead of \"%s\"\n",
-	         resource, uri_tests[i].resource);
+	  testError("    Resource \"%s\" instead of \"%s\"", resource, uri_tests[i].resource);
       }
     }
 
     if (!j)
-      printf("PASS (%d URIs tested)\n",
-             (int)(sizeof(uri_tests) / sizeof(uri_tests[0])));
+      testEndMessage(true, "%d URIs tested", (int)(sizeof(uri_tests) / sizeof(uri_tests[0])));
 
-   /*
-    * Test httpAssembleURI()...
-    */
-
-    fputs("httpAssembleURI(): ", stdout);
-    for (i = 0, j = 0, k = 0;
-         i < (int)(sizeof(uri_tests) / sizeof(uri_tests[0]));
-	 i ++)
-      if (uri_tests[i].result == HTTP_URI_STATUS_OK &&
-          !strstr(uri_tests[i].uri, "%64") &&
-          strstr(uri_tests[i].uri, "//"))
+    // Test httpAssembleURI()...
+    testBegin("httpAssembleURI()");
+    for (i = 0, j = 0, k = 0; i < (int)(sizeof(uri_tests) / sizeof(uri_tests[0])); i ++)
+    {
+      if (uri_tests[i].result == HTTP_URI_STATUS_OK && !strstr(uri_tests[i].uri, "%64") && strstr(uri_tests[i].uri, "//"))
       {
         k ++;
-	uri_status = httpAssembleURI(uri_tests[i].assemble_coding,
-				     buffer, sizeof(buffer),
-	                             uri_tests[i].scheme,
-				     uri_tests[i].username,
-	                             uri_tests[i].hostname,
-				     uri_tests[i].assemble_port,
-				     uri_tests[i].resource);
+	uri_status = httpAssembleURI(uri_tests[i].assemble_coding, buffer, sizeof(buffer), uri_tests[i].scheme, uri_tests[i].username, uri_tests[i].hostname, uri_tests[i].assemble_port, uri_tests[i].resource);
 
         if (uri_status != HTTP_URI_STATUS_OK)
 	{
@@ -508,12 +432,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	  if (!j)
 	  {
-	    puts("FAIL");
+	    testEnd(false);
 	    j = 1;
 	  }
 
-          printf("    \"%s\": %s\n", uri_tests[i].uri,
-	         uri_status_strings[uri_status + 8]);
+          testError("\"%s\": %s", uri_tests[i].uri, uri_status_strings[uri_status + 8]);
         }
 	else if (strcmp(buffer, uri_tests[i].uri))
 	{
@@ -521,95 +444,104 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	  if (!j)
 	  {
-	    puts("FAIL");
+	    testEnd(false);
 	    j = 1;
 	  }
 
-          printf("    \"%s\": assembled = \"%s\"\n", uri_tests[i].uri,
-	         buffer);
+          testError("\"%s\": assembled = \"%s\"", uri_tests[i].uri, buffer);
 	}
       }
+    }
 
     if (!j)
-      printf("PASS (%d URIs tested)\n", k);
+      testEndMessage(true, "%d URIs tested", k);
 
-   /*
-    * httpAssembleUUID
-    */
-
-    fputs("httpAssembleUUID: ", stdout);
-    httpAssembleUUID("hostname.example.com", 631, "printer", 12345, buffer,
-                     sizeof(buffer));
+    // httpAssembleUUID
+    testBegin("httpAssembleUUID");
+    httpAssembleUUID("hostname.example.com", 631, "printer", 12345, buffer, sizeof(buffer));
     if (strncmp(buffer, "urn:uuid:", 9))
     {
-      printf("FAIL (%s)\n", buffer);
+      testEndMessage(false, "%s", buffer);
       failures ++;
     }
     else
-      printf("PASS (%s)\n", buffer);
-
-   /*
-    * Show a summary and return...
-    */
-
-    if (failures)
-      printf("\n%d TESTS FAILED!\n", failures);
-    else
-      puts("\nALL TESTS PASSED!");
+      testEndMessage(true, "%s", buffer);
 
     return (failures);
   }
   else if (strstr(argv[1], "._tcp"))
   {
-   /*
-    * Test resolving an mDNS name.
-    */
+    // Test resolving an mDNS name.
+    char	resolved[1024];		// Resolved URI
 
-    char	resolved[1024];		/* Resolved URI */
+    testBegin("httpResolveURI(%s, HTTP_RESOLVE_DEFAULT)", argv[1]);
 
-
-    printf("_httpResolveURI(%s, _HTTP_RESOLVE_DEFAULT): ", argv[1]);
-    fflush(stdout);
-
-    if (!_httpResolveURI(argv[1], resolved, sizeof(resolved),
-                         _HTTP_RESOLVE_DEFAULT, NULL, NULL))
+    if (!httpResolveURI(argv[1], resolved, sizeof(resolved), HTTP_RESOLVE_DEFAULT, NULL, NULL))
     {
-      puts("FAIL");
+      testEnd(false);
       return (1);
     }
     else
-      printf("PASS (%s)\n", resolved);
+      testEndMessage(true, "%s", resolved);
 
-    printf("_httpResolveURI(%s, _HTTP_RESOLVE_FQDN): ", argv[1]);
-    fflush(stdout);
+    testBegin("httpResolveURI(%s, HTTP_RESOLVE_FQDN)", argv[1]);
 
-    if (!_httpResolveURI(argv[1], resolved, sizeof(resolved),
-                         _HTTP_RESOLVE_FQDN, NULL, NULL))
+    if (!httpResolveURI(argv[1], resolved, sizeof(resolved), HTTP_RESOLVE_FQDN, NULL, NULL))
     {
-      puts("FAIL");
+      testEnd(false);
       return (1);
     }
     else if (strstr(resolved, ".local:"))
     {
-      printf("FAIL (%s)\n", resolved);
+      testEndMessage(false, "%s", resolved);
       return (1);
     }
     else
     {
-      printf("PASS (%s)\n", resolved);
+      testEndMessage(true, "%s", resolved);
       return (0);
     }
   }
+  else if (!strcmp(argv[1], "-d") && argc == 3)
+  {
+    // Test httpDecode64
+    size_t	bufsize = sizeof(buffer);
+					// Output size
+
+    if (httpDecode64_3(buffer, &bufsize, argv[2], NULL))
+    {
+      fwrite(buffer, 1, bufsize, stdout);
+      return (0);
+    }
+
+    return (1);
+  }
+  else if (!strcmp(argv[1], "-e") && argc == 3)
+  {
+    // Test httpEncode64 for Base64
+    if (httpEncode64_3(buffer, sizeof(buffer), argv[2], strlen(argv[2]), false))
+    {
+      puts(buffer);
+      return (0);
+    }
+
+    return (1);
+  }
+  else if (!strcmp(argv[1], "-E") && argc == 3)
+  {
+    // Test httpEncode64 for Base64url
+    if (httpEncode64_3(buffer, sizeof(buffer), argv[2], strlen(argv[2]), true))
+    {
+      puts(buffer);
+      return (0);
+    }
+
+    return (1);
+  }
   else if (!strcmp(argv[1], "-u") && argc == 3)
   {
-   /*
-    * Test URI separation...
-    */
-
-    uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, argv[2], scheme,
-                                 sizeof(scheme), username, sizeof(username),
-				 hostname, sizeof(hostname), &port,
-				 resource, sizeof(resource));
+    // Test URI separation...
+    uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, argv[2], scheme, sizeof(scheme), username, sizeof(username), hostname, sizeof(hostname), &port, resource, sizeof(resource));
     printf("uri_status = %s\n", uri_status_strings[uri_status + 8]);
     printf("scheme     = \"%s\"\n", scheme);
     printf("username   = \"%s\"\n", username);
@@ -620,10 +552,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     return (0);
   }
 
- /*
-  * Test HTTP GET requests...
-  */
-
+  // Test HTTP GET requests...
   http = NULL;
   out = stdout;
 
@@ -661,34 +590,35 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     if (httpIsEncrypted(http))
     {
-      cups_array_t *creds;
-      char info[1024];
+      char *creds;
+      char info[1024], expstr[256];
       static const char *trusts[] = { "OK", "Invalid", "Changed", "Expired", "Renewed", "Unknown" };
-      if (!httpCopyCredentials(http, &creds))
+      if ((creds = httpCopyPeerCredentials(http)) != NULL)
       {
-	cups_array_t *lcreds;
-        http_trust_t trust = httpCredentialsGetTrust(creds, hostname);
+	char *lcreds;
+        http_trust_t trust = cupsGetCredentialsTrust(NULL, hostname, creds);
 
-        httpCredentialsString(creds, info, sizeof(info));
+        cupsGetCredentialsInfo(creds, info, sizeof(info));
 
-	printf("Count: %d\n", cupsArrayCount(creds));
+//	printf("Count: %u\n", (unsigned)cupsArrayGetCount(creds));
         printf("Trust: %s\n", trusts[trust]);
-        printf("Expiration: %s\n", httpGetDateString(httpCredentialsGetExpiration(creds)));
-        printf("IsValidName: %d\n", httpCredentialsAreValidForName(creds, hostname));
+        printf("Expiration: %s\n", httpGetDateString2(cupsGetCredentialsExpiration(creds), expstr, sizeof(expstr)));
+        printf("IsValidName: %s\n", cupsAreCredentialsValidForName(hostname, creds) ? "true" : "false");
         printf("String: \"%s\"\n", info);
 
-	printf("LoadCredentials: %d\n", httpLoadCredentials(NULL, &lcreds, hostname));
-	httpCredentialsString(lcreds, info, sizeof(info));
-	printf("    Count: %d\n", cupsArrayCount(lcreds));
+	printf("LoadCredentials: %s\n", (lcreds = cupsCopyCredentials(NULL, hostname)) != NULL ? "true" : "false");
+	cupsGetCredentialsInfo(lcreds, info, sizeof(info));
+//	printf("    Count: %u\n", (unsigned)cupsArrayGetCount(lcreds));
 	printf("    String: \"%s\"\n", info);
 
-        if (lcreds && cupsArrayCount(creds) == cupsArrayCount(lcreds))
+#if 0
+        if (lcreds && cupsArrayGetCount(creds) == cupsArrayGetCount(lcreds))
         {
           http_credential_t	*cred, *lcred;
 
-          for (i = 1, cred = (http_credential_t *)cupsArrayFirst(creds), lcred = (http_credential_t *)cupsArrayFirst(lcreds);
+          for (i = 1, cred = (http_credential_t *)cupsArrayGetFirst(creds), lcred = (http_credential_t *)cupsArrayGetFirst(lcreds);
                cred && lcred;
-               i ++, cred = (http_credential_t *)cupsArrayNext(creds), lcred = (http_credential_t *)cupsArrayNext(lcreds))
+               i ++, cred = (http_credential_t *)cupsArrayGetNext(creds), lcred = (http_credential_t *)cupsArrayGetNext(lcreds))
           {
             if (cred->datalen != lcred->datalen)
               printf("    Credential #%d: Different lengths (saved=%d, current=%d)\n", i, (int)cred->datalen, (int)lcred->datalen);
@@ -698,18 +628,22 @@ main(int  argc,				/* I - Number of command-line arguments */
               printf("    Credential #%d: Matches\n", i);
           }
         }
+#endif // 0
 
         if (trust != HTTP_TRUST_OK)
 	{
-	  printf("SaveCredentials: %d\n", httpSaveCredentials(NULL, creds, hostname));
-	  trust = httpCredentialsGetTrust(creds, hostname);
+	  printf("SaveCredentials: %s\n", cupsSaveCredentials(NULL, hostname, creds, /*key*/NULL) ? "true" : "false");
+	  trust = cupsGetCredentialsTrust(NULL, hostname, creds);
 	  printf("New Trust: %s\n", trusts[trust]);
 	}
 
-        httpFreeCredentials(creds);
+        free(creds);
+        free(lcreds);
       }
       else
+      {
         puts("No credentials!");
+      }
     }
 
     printf("Checking file \"%s\"...\n", resource);
@@ -735,17 +669,17 @@ main(int  argc,				/* I - Number of command-line arguments */
       httpSetField(http, HTTP_FIELD_AUTHORIZATION, httpGetAuthString(http));
       httpSetField(http, HTTP_FIELD_ACCEPT_LANGUAGE, "en");
 
-      if (httpHead(http, resource))
+      if (httpWriteRequest(http, "HEAD", resource))
       {
-        if (httpReconnect2(http, 30000, NULL))
-        {
-          status = HTTP_STATUS_ERROR;
-          break;
-        }
-        else
+        if (!httpReconnect2(http, 30000, NULL))
         {
           status = HTTP_STATUS_UNAUTHORIZED;
           continue;
+        }
+        else
+        {
+          status = HTTP_STATUS_ERROR;
+          break;
         }
       }
 
@@ -755,19 +689,13 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       if (status == HTTP_STATUS_UNAUTHORIZED)
       {
-       /*
-	* Flush any error message...
-	*/
-
+        // Flush any error message...
 	httpFlush(http);
 
-       /*
-	* See if we can do authentication...
-	*/
-
+        // See if we can do authentication...
         new_auth = 1;
 
-	if (cupsDoAuthentication(http, "HEAD", resource))
+	if (!cupsDoAuthentication(http, "HEAD", resource))
 	{
 	  status = HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED;
 	  break;
@@ -781,26 +709,24 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	continue;
       }
-#ifdef HAVE_TLS
       else if (status == HTTP_STATUS_UPGRADE_REQUIRED)
       {
-	/* Flush any error message... */
+	// Flush any error message...
 	httpFlush(http);
 
-	/* Reconnect... */
+	// Reconnect...
 	if (httpReconnect2(http, 30000, NULL))
 	{
 	  status = HTTP_STATUS_ERROR;
 	  break;
 	}
 
-	/* Upgrade with encryption... */
-	httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
+	// Upgrade with encryption...
+	httpSetEncryption(http, HTTP_ENCRYPTION_REQUIRED);
 
-	/* Try again, this time with encryption enabled... */
+	// Try again, this time with encryption enabled...
 	continue;
       }
-#endif /* HAVE_TLS */
     }
     while (status == HTTP_STATUS_UNAUTHORIZED ||
            status == HTTP_STATUS_UPGRADE_REQUIRED);
@@ -837,17 +763,17 @@ main(int  argc,				/* I - Number of command-line arguments */
       httpSetField(http, HTTP_FIELD_ACCEPT_LANGUAGE, "en");
       httpSetField(http, HTTP_FIELD_ACCEPT_ENCODING, encoding);
 
-      if (httpGet(http, resource))
+      if (httpWriteRequest(http, "GET", resource))
       {
-        if (httpReconnect2(http, 30000, NULL))
-        {
-          status = HTTP_STATUS_ERROR;
-          break;
-        }
-        else
+        if (!httpReconnect2(http, 30000, NULL))
         {
           status = HTTP_STATUS_UNAUTHORIZED;
           continue;
+        }
+        else
+        {
+          status = HTTP_STATUS_ERROR;
+          break;
         }
       }
 
@@ -857,19 +783,13 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       if (status == HTTP_STATUS_UNAUTHORIZED)
       {
-       /*
-	* Flush any error message...
-	*/
-
+        // Flush any error message...
 	httpFlush(http);
 
-       /*
-	* See if we can do authentication...
-	*/
-
+        // See if we can do authentication...
         new_auth = 1;
 
-	if (cupsDoAuthentication(http, "GET", resource))
+	if (!cupsDoAuthentication(http, "GET", resource))
 	{
 	  status = HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED;
 	  break;
@@ -883,26 +803,24 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 	continue;
       }
-#ifdef HAVE_TLS
       else if (status == HTTP_STATUS_UPGRADE_REQUIRED)
       {
-	/* Flush any error message... */
+	// Flush any error message...
 	httpFlush(http);
 
-	/* Reconnect... */
+	// Reconnect...
 	if (httpReconnect2(http, 30000, NULL))
 	{
 	  status = HTTP_STATUS_ERROR;
 	  break;
 	}
 
-	/* Upgrade with encryption... */
-	httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
+	// Upgrade with encryption...
+	httpSetEncryption(http, HTTP_ENCRYPTION_REQUIRED);
 
-	/* Try again, this time with encryption enabled... */
+	// Try again, this time with encryption enabled...
 	continue;
       }
-#endif /* HAVE_TLS */
     }
     while (status == HTTP_STATUS_UNAUTHORIZED || status == HTTP_STATUS_UPGRADE_REQUIRED);
 
@@ -912,10 +830,10 @@ main(int  argc,				/* I - Number of command-line arguments */
       printf("GET failed with status %d...\n", status);
 
     start  = time(NULL);
-    length = httpGetLength2(http);
+    length = httpGetLength(http);
     total  = 0;
 
-    while ((bytes = httpRead2(http, buffer, sizeof(buffer))) > 0)
+    while ((bytes = httpRead(http, buffer, sizeof(buffer))) > 0)
     {
       total += bytes;
       fwrite(buffer, (size_t)bytes, 1, out);

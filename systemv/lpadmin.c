@@ -1,7 +1,7 @@
 /*
  * "lpadmin" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -240,14 +240,10 @@ main(int  argc,				/* I - Number of command-line arguments */
 	  case 'E' : /* Enable the printer/enable encryption */
 	      if (printer == NULL)
 	      {
-#ifdef HAVE_TLS
 		cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 
 		if (http)
 		  httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
-#else
-		_cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
 		break;
 	      }
 
@@ -625,7 +621,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     return (1);
 #endif /* __APPLE__ */
   }
-  else if ((ppd_name && strcmp(ppd_name, "everywhere")) || file)
+  else if ((ppd_name && strcmp(ppd_name, "everywhere") && strncmp(ppd_name, "driverless:", 11)) || file)
   {
     _cupsLangPuts(stderr, _("lpadmin: Printer drivers are deprecated and will stop working in a future version of CUPS."));
   }
@@ -705,7 +701,7 @@ add_printer_to_class(http_t *http,	/* I - Server connection */
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
                "printer-uri", NULL, uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -729,7 +725,7 @@ add_printer_to_class(http_t *http,	/* I - Server connection */
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
                "printer-uri", NULL, uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * See if the printer is already in the class...
@@ -783,9 +779,9 @@ add_printer_to_class(http_t *http,	/* I - Server connection */
   ippDelete(response);
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
@@ -824,7 +820,7 @@ default_printer(http_t *http,		/* I - Server connection */
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
                "printer-uri", NULL, uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -832,9 +828,9 @@ default_printer(http_t *http,		/* I - Server connection */
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
@@ -872,7 +868,7 @@ delete_printer(http_t *http,		/* I - Server connection */
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
                "printer-uri", NULL, uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -880,9 +876,9 @@ delete_printer(http_t *http,		/* I - Server connection */
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
@@ -926,7 +922,7 @@ delete_printer_from_class(
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
                "printer-uri", NULL, uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
  /*
   * Do the request and get back a response...
@@ -935,7 +931,7 @@ delete_printer_from_class(
   if ((response = cupsDoRequest(http, request, "/classes/")) == NULL ||
       response->request.status.status_code == IPP_STATUS_ERROR_NOT_FOUND)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     ippDelete(response);
 
@@ -987,7 +983,7 @@ delete_printer_from_class(
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
         	 "printer-uri", NULL, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                 "requesting-user-name", NULL, cupsUser());
+                 "requesting-user-name", NULL, cupsGetUser());
   }
   else
   {
@@ -1007,7 +1003,7 @@ delete_printer_from_class(
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
         	 "printer-uri", NULL, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                 "requesting-user-name", NULL, cupsUser());
+                 "requesting-user-name", NULL, cupsGetUser());
 
    /*
     * Delete the printer from the class...
@@ -1031,9 +1027,9 @@ delete_printer_from_class(
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
@@ -1074,7 +1070,7 @@ delete_printer_option(http_t *http,	/* I - Server connection */
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
                "printer-uri", NULL, uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+               "requesting-user-name", NULL, cupsGetUser());
   ippAddInteger(request, IPP_TAG_PRINTER, IPP_TAG_DELETEATTR, option, 0);
 
  /*
@@ -1083,9 +1079,9 @@ delete_printer_option(http_t *http,	/* I - Server connection */
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
@@ -1120,13 +1116,13 @@ enable_printer(http_t *http,		/* I - Server connection */
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL, "localhost", ippPort(), "/printers/%s", printer);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
@@ -1134,13 +1130,13 @@ enable_printer(http_t *http,		/* I - Server connection */
   request = ippNewRequest(IPP_OP_RESUME_PRINTER);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
   ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
@@ -1184,7 +1180,7 @@ get_printer_type(http_t *http,		/* I - Server connection */
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                "requested-attributes", NULL, "printer-type");
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+               "requesting-user-name", NULL, cupsGetUser());
 
  /*
   * Do the request...
@@ -1259,7 +1255,7 @@ set_printer_options(
     request = ippNewRequest(IPP_OP_CUPS_ADD_MODIFY_PRINTER);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
  /*
   * Add the options...
@@ -1325,7 +1321,7 @@ set_printer_options(
 					/* Status code */
 
       _cupsLangPrintf(stderr, _("lpadmin: Unable to open PPD \"%s\": %s on line %d."), ppdfile, ppdErrorString(status), linenum);
-      return (1);
+      goto error;
     }
 
     ppdMarkDefaults(ppd);
@@ -1334,25 +1330,15 @@ set_printer_options(
     if ((out = cupsTempFile2(tempfile, sizeof(tempfile))) == NULL)
     {
       _cupsLangPrintError(NULL, _("lpadmin: Unable to create temporary file"));
-      ippDelete(request);
-      if (ppdfile != file)
-        unlink(ppdfile);
-      if (copied_options)
-        cupsFreeOptions(num_options, options);
-      return (1);
+      goto error;
     }
 
     if ((in = cupsFileOpen(ppdfile, "r")) == NULL)
     {
       _cupsLangPrintf(stderr, _("lpadmin: Unable to open PPD \"%s\": %s"), ppdfile, strerror(errno));
-      ippDelete(request);
-      if (ppdfile != file)
-	unlink(ppdfile);
-      if (copied_options)
-        cupsFreeOptions(num_options, options);
       cupsFileClose(out);
       unlink(tempfile);
-      return (1);
+      goto error;
     }
 
     while (cupsFileGets(in, line, sizeof(line)))
@@ -1387,7 +1373,7 @@ set_printer_options(
         * Get default option name...
 	*/
 
-        strlcpy(keyword, line + 8, sizeof(keyword));
+        cupsCopyString(keyword, line + 8, sizeof(keyword));
 
 	for (keyptr = keyword; *keyptr; keyptr ++)
 	  if (*keyptr == ':' || isspace(*keyptr & 255))
@@ -1488,14 +1474,30 @@ set_printer_options(
   * Check the response...
   */
 
-  if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsLastErrorString());
+    _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
     return (1);
   }
   else
     return (0);
+
+ /*
+  * Error handling...
+  */
+
+  error:
+
+  ippDelete(request);
+
+  if (ppdfile != file)
+    unlink(ppdfile);
+
+  if (copied_options)
+    cupsFreeOptions(num_options, options);
+
+  return (1);
 }
 
 

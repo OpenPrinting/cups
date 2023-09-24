@@ -1,7 +1,7 @@
 #
 # Backend makefile for CUPS.
 #
-# Copyright © 2021 by OpenPrinting.
+# Copyright © 2021-2023 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -20,7 +20,7 @@ include ../Makedefs
 # UBACKENDS are installed mode 0755 so cupsd will run them as an unprivileged
 # user...
 #
-# See http://www.cups.org/doc/api-filter.html for more info...
+# See <http://openprinting.github.io/cups/doc/api-filter.html> for more info...
 RBACKENDS =	\
 		ipp \
 		lpd \
@@ -88,7 +88,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #
@@ -123,14 +123,8 @@ install-exec:	$(INSTALLXPC)
 	for file in $(UBACKENDS); do \
 		$(INSTALL_BIN) $$file $(SERVERBIN)/backend; \
 	done
-	for file in $(IPPALIASES); do \
-		$(RM) $(SERVERBIN)/backend/$$file; \
-		$(LN) ipp $(SERVERBIN)/backend/$$file; \
-	done
-	if test "x$(DNSSD_BACKEND)" != x -a `uname` = Darwin; then \
-		$(RM) $(SERVERBIN)/backend/mdns; \
-		$(LN) $(DNSSD_BACKEND) $(SERVERBIN)/backend/mdns; \
-	fi
+	$(RM) $(SERVERBIN)/backend/ipps; \
+	$(LN) ipp $(SERVERBIN)/backend/ipps; \
 	if test "x$(SYMROOT)" != "x"; then \
 		$(INSTALL_DIR) $(SYMROOT); \
 		for file in $(RBACKENDS) $(UBACKENDS); do \
@@ -143,10 +137,8 @@ install-xpc:	ipp
 	echo Installing XPC backends in $(SERVERBIN)/apple
 	$(INSTALL_DIR) -m 755 $(SERVERBIN)/apple
 	$(INSTALL_BIN) ipp $(SERVERBIN)/apple
-	for file in $(IPPALIASES); do \
-		$(RM) $(SERVERBIN)/apple/$$file; \
-		$(LN) ipp $(SERVERBIN)/apple/$$file; \
-	done
+	$(RM) $(SERVERBIN)/apple/ipps
+	$(LN) ipp $(SERVERBIN)/apple/ipps
 
 
 #
@@ -169,16 +161,12 @@ install-libs:
 
 uninstall:
 	$(RM) $(SERVERBIN)/apple/ipp
-	for file in $(IPPALIASES); do \
-		$(RM) $(SERVERBIN)/apple/$$file; \
-	done
+	$(RM) $(SERVERBIN)/apple/ipps
 	-$(RMDIR) $(SERVERBIN)/apple
 	for file in $(RBACKENDS) $(UBACKENDS); do \
 		$(RM) $(SERVERBIN)/backend/$$file; \
 	done
-	for file in $(IPPALIASES); do \
-		$(RM) $(SERVERBIN)/backend/$$file; \
-	done
+	$(RM) $(SERVERBIN)/backend/ipps
 	-$(RMDIR) $(SERVERBIN)/backend
 	-$(RMDIR) $(SERVERBIN)
 
@@ -247,10 +235,8 @@ ipp:	ipp.o ../cups/$(LIBCUPS) libbackend.a
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o ipp ipp.o libbackend.a $(LINKCUPS)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	$(RM) http https ipps
-	for file in $(IPPALIASES); do \
-		$(LN) ipp $$file; \
-	done
+	$(RM) ipps
+	$(LN) ipp ipps
 
 
 #

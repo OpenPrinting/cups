@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2021-03-07 10:33-0500\n"
+"POT-Creation-Date: 2023-09-13 13:50-0400\n"
 "PO-Revision-Date: 2012-09-29 11:21+0200\n"
 "Last-Translator: Àngel Mompó <mecatxis@gmail.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -1186,10 +1186,6 @@ msgid "%s: %s failed: %s"
 msgstr "%s: %s ha fallat: %s"
 
 #, c-format
-msgid "%s: Bad printer URI \"%s\"."
-msgstr ""
-
-#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr ""
 
@@ -1453,11 +1449,7 @@ msgid "%s: Operation failed: %s"
 msgstr "%s: ha fallat l'operació: %s"
 
 #, c-format
-msgid "%s: Sorry, no encryption support."
-msgstr "%s: ho sento, no està compilada la compatibilitat pel xifrat."
-
-#, c-format
-msgid "%s: Unable to connect to \"%s:%d\": %s"
+msgid "%s: Scheduler is not running."
 msgstr ""
 
 #, c-format
@@ -1467,10 +1459,6 @@ msgstr "%s: no es pot connectar al servidor."
 #, c-format
 msgid "%s: Unable to contact server."
 msgstr "%s: no es pot contactar amb el servidor."
-
-#, c-format
-msgid "%s: Unable to create PPD file: %s"
-msgstr ""
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1489,16 +1477,8 @@ msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: no es pot obrir el fitxer PPD: %s a la línia %d."
 
 #, c-format
-msgid "%s: Unable to query printer: %s"
-msgstr ""
-
-#, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
 msgstr "%s: no es pot llegir la base de dades MIME de «%s» o «%s»."
-
-#, c-format
-msgid "%s: Unable to resolve \"%s\"."
-msgstr ""
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -1895,13 +1875,13 @@ msgid ""
 "standard output"
 msgstr ""
 
-msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
-
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
 
 msgid "-P page-list            Specify a list of pages to print"
+msgstr ""
+
+msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 msgid "-R                      Show the ranking of jobs"
@@ -2959,6 +2939,10 @@ msgstr ""
 "S'ha intentat posar l'estat de la impressora %s a un valor incorrecte %d."
 
 #, c-format
+msgid "Attribute \"%s\" has empty value."
+msgstr ""
+
+#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr ""
 
@@ -3077,6 +3061,9 @@ msgstr "La document-format «%s» és incorrecta."
 msgid "Bad document-format-default \"%s\"."
 msgstr "La document-format-default «%s» és incorrecta."
 
+msgid "Bad extKeyUsage extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad filename buffer"
 msgstr "El nom del fitxer de la memòria cau és incorrecte"
 
@@ -3106,6 +3093,9 @@ msgstr "El valor de la job-state és incorrecte."
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr "La job-uri «%s» és incorrecta."
+
+msgid "Bad keyUsage extension in X.509 certificate request."
+msgstr ""
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3153,6 +3143,9 @@ msgid "Bad resource in URI"
 msgstr ""
 
 msgid "Bad scheme in URI"
+msgstr ""
+
+msgid "Bad subjectAltName extension in X.509 certificate request."
 msgstr ""
 
 msgid "Bad username in URI"
@@ -3668,6 +3661,9 @@ msgstr "Foli"
 msgid "Forbidden"
 msgstr "Prohibit"
 
+msgid "Form data too large."
+msgstr ""
+
 msgid "Found"
 msgstr ""
 
@@ -3711,6 +3707,9 @@ msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr ""
 "L'atribut 1setOf del IPP té etiquetes amb valors que no són compatibles."
 
+msgid "IPP Everywhere driver requires an IPP connection."
+msgstr ""
+
 msgid "IPP attribute has no name."
 msgstr "L'atribut del IPP no té nom."
 
@@ -3742,6 +3741,9 @@ msgid "IPP language length overflows value."
 msgstr "El valor de la longitud del llenguatge del IPP desborda."
 
 msgid "IPP language length too large."
+msgstr ""
+
+msgid "IPP member attribute outside of collection."
 msgstr ""
 
 msgid "IPP member name is not empty."
@@ -3850,6 +3852,15 @@ msgstr "Franqueig per Internet en 3 parts"
 msgid "Internet Printing Protocol"
 msgstr "Protocol d'impressió per Internet"
 
+msgid "Invalid JSON data."
+msgstr ""
+
+msgid "Invalid JSON web token."
+msgstr ""
+
+msgid "Invalid form data."
+msgstr ""
+
 msgid "Invalid group tag."
 msgstr ""
 
@@ -3913,6 +3924,9 @@ msgstr "JIS B8"
 
 msgid "JIS B9"
 msgstr "JIS B9"
+
+msgid "JSON file too large."
+msgstr ""
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4024,9 +4038,6 @@ msgstr ""
 
 msgid "Long-Edge (Portrait)"
 msgstr "Costat-llarg (vertical)"
-
-msgid "Looking for printer."
-msgstr "S'està buscant la impressora."
 
 msgid "Main Roll"
 msgstr ""
@@ -4189,9 +4200,6 @@ msgstr "No hi ha atributs en demanda."
 msgid "No authentication information provided."
 msgstr "No s'ha donat cap informació d'autenticació."
 
-msgid "No common name specified."
-msgstr ""
-
 msgid "No community name"
 msgstr "Ho hi na cap nom de comunitat"
 
@@ -4310,6 +4318,9 @@ msgstr "Oki"
 
 msgid "Online Help"
 msgstr "Ajuda en línia"
+
+msgid "Only WGS-84 coordinates are supported."
+msgstr ""
 
 msgid "Only local users can create a local printer."
 msgstr ""
@@ -4891,6 +4902,9 @@ msgstr "No es pot afegir la classe"
 msgid "Unable to add document to print job."
 msgstr "No es pot obrir el documenta la feina."
 
+msgid "Unable to add extension to X.509 certificate."
+msgstr ""
+
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
 msgstr "No es pot afegir la feina al destí «%s»."
@@ -4907,7 +4921,8 @@ msgstr "No s'ha pogut assignar memòria per la pàgina d'informació"
 msgid "Unable to allocate memory for pages array"
 msgstr "No s'ha pogut assignar memòria per la matriu de pàgines"
 
-msgid "Unable to allocate memory for printer"
+#, c-format
+msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
 msgid "Unable to cancel print job."
@@ -4923,6 +4938,10 @@ msgid "Unable to change server settings"
 msgstr "No es pot canviar la configuració del servidor"
 
 #, c-format
+msgid "Unable to commit PPD file: %s"
+msgstr ""
+
+#, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
 msgstr ""
 
@@ -4932,6 +4951,9 @@ msgstr ""
 
 msgid "Unable to configure printer options."
 msgstr "No es poden configurar les opcions de la impressora."
+
+msgid "Unable to configure private key context."
+msgstr ""
 
 msgid "Unable to connect to host."
 msgstr "No es pot connectar a l'amfitrió."
@@ -4945,16 +4967,22 @@ msgstr ""
 msgid "Unable to copy PPD file - %s"
 msgstr "No es pot copiar el fitxer PPD - %s"
 
-msgid "Unable to copy PPD file."
-msgstr "No es pot copiar el fitxer PPD."
+msgid "Unable to create X.509 certificate signing request."
+msgstr ""
 
-msgid "Unable to create credentials from array."
+msgid "Unable to create X.509 certificate."
 msgstr ""
 
 msgid "Unable to create printer-uri"
 msgstr "No es pot crear el printer-uri"
 
 msgid "Unable to create printer."
+msgstr ""
+
+msgid "Unable to create private key context."
+msgstr ""
+
+msgid "Unable to create private key."
 msgstr ""
 
 msgid "Unable to create server credentials."
@@ -4980,64 +5008,13 @@ msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr "No es poden editar fitxers cupsd.conf més grans d'1MB"
 
 #, c-format
-msgid "Unable to establish a secure connection to host (%d)."
-msgstr ""
-
-msgid ""
-"Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (la cadena del "
-"certificat no és vàlida)."
-
-msgid ""
-"Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
-"encara no és vàlid)."
-
-msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (ha expirat el "
-"certificat)."
-
-msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (hi ha un error en "
-"el nom de l'amfitrió)."
-
-msgid ""
-"Unable to establish a secure connection to host (peer dropped connection "
-"before responding)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (s'ha tallat la "
-"connexió abans de respondre)."
-
-msgid ""
-"Unable to establish a secure connection to host (self-signed certificate)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat és "
-"autosignat)."
-
-msgid ""
-"Unable to establish a secure connection to host (untrusted certificate)."
-msgstr ""
-"No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat no "
-"és de confiança)."
-
-msgid "Unable to establish a secure connection to host."
-msgstr "No es pot establir una connexió segura amb l'amfitrió."
-
-#, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "No es pot trobar el destí de la feina"
 
-msgid "Unable to find printer."
-msgstr "No es pot trobar la impressora."
-
-msgid "Unable to find server credentials."
+msgid "Unable to finish request."
 msgstr ""
 
 msgid "Unable to get backend exit status."
@@ -5063,6 +5040,18 @@ msgstr "No es pot obtenir l'estat de la impressora"
 
 msgid "Unable to get printer status."
 msgstr "No es pot obtenir l'estat de la impressora."
+
+msgid "Unable to import X.509 certificate request."
+msgstr ""
+
+msgid "Unable to import credentials."
+msgstr ""
+
+msgid "Unable to initialize private key context."
+msgstr ""
+
+msgid "Unable to load X.509 CA certificate and private key."
+msgstr ""
 
 msgid "Unable to load help index."
 msgstr "No es pot carregar l'índex de l'ajuda."
@@ -5114,14 +5103,21 @@ msgstr "No es pot imprimir la pàgina de prova"
 msgid "Unable to read print data."
 msgstr "No es poden llegir les dades d'impressió."
 
-#, c-format
-msgid "Unable to register \"%s.%s\": %d"
+msgid "Unable to read response."
 msgstr ""
 
 msgid "Unable to rename job document file."
 msgstr ""
 
 msgid "Unable to resolve printer-uri."
+msgstr ""
+
+#, c-format
+msgid "Unable to run cups-driverd: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save PPD file: %s"
 msgstr ""
 
 msgid "Unable to see in file"
@@ -5148,8 +5144,20 @@ msgstr "No es pot penjar el fitxer cups.conf"
 msgid "Unable to use legacy USB class driver."
 msgstr "No es pot fer servir el controlador de la classe USB antic."
 
+msgid "Unable to verify X.509 certificate request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate."
+msgstr ""
+
 msgid "Unable to write print data"
 msgstr "No es poden escriure les dades d'impressió"
+
+msgid "Unable to write private key."
+msgstr ""
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5167,10 +5175,6 @@ msgstr "Desconegut"
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
 msgstr "La tria de «%s» per l'opció «%s» és desconeguda."
-
-#, c-format
-msgid "Unknown directive \"%s\" on line %d of \"%s\" ignored."
-msgstr ""
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
@@ -5238,6 +5242,9 @@ msgid "Unsupported 'job-hold-until' value."
 msgstr ""
 
 msgid "Unsupported 'job-name' value."
+msgstr ""
+
+msgid "Unsupported URI scheme."
 msgstr ""
 
 #, c-format
@@ -5396,6 +5403,9 @@ msgstr "Sintaxi: snmp [adreça-amfitrió-o-ip]"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
+msgstr ""
+
+msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
 
 msgid "Value uses indefinite length"
@@ -5731,6 +5741,9 @@ msgstr "no s'ha pogut executar correctament la cups-deviced."
 
 msgid "cups-driverd failed to execute."
 msgstr "no s'ha pogut executar correctament la cups-driverd"
+
+msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7089,10 +7102,6 @@ msgid "insert-sheet"
 msgstr ""
 
 #, c-format
-msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
-
-#, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr ""
 
@@ -7157,15 +7166,7 @@ msgid "ippfind: Too many parenthesis."
 msgstr ""
 
 #, c-format
-msgid "ippfind: Unable to browse or resolve: %s"
-msgstr ""
-
-#, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
-msgstr ""
-
-#, c-format
-msgid "ippfind: Unable to use Bonjour: %s"
 msgstr ""
 
 #, c-format
@@ -7207,6 +7208,10 @@ msgstr "ipptool: falten els segons a «-i»."
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool: falta l'URI abans del fitxer de prova."
+
+#, c-format
+msgid "ipptool: Unable to allocate memory: %s"
+msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -15334,6 +15339,10 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#, c-format
+#~ msgid "%s: Sorry, no encryption support."
+#~ msgstr "%s: ho sento, no està compilada la compatibilitat pel xifrat."
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr ""
 #~ "Necessiteu una contrasenya de Samba per exportar els controladors "
@@ -15349,6 +15358,63 @@ msgstr ""
 
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Exportar les impressores al Samba"
+
+#~ msgid "Looking for printer."
+#~ msgstr "S'està buscant la impressora."
+
+#~ msgid "Unable to copy PPD file."
+#~ msgstr "No es pot copiar el fitxer PPD."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate chain "
+#~ "invalid)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (la cadena del "
+#~ "certificat no és vàlida)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate not yet "
+#~ "valid)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
+#~ "encara no és vàlid)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (expired certificate)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (ha expirat el "
+#~ "certificat)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (host name mismatch)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (hi ha un error "
+#~ "en el nom de l'amfitrió)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (peer dropped connection "
+#~ "before responding)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (s'ha tallat la "
+#~ "connexió abans de respondre)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (self-signed certificate)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
+#~ "és autosignat)."
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (untrusted certificate)."
+#~ msgstr ""
+#~ "No s'ha pogut establir una connexió segura amb l'amfitrió (el certificat "
+#~ "no és de confiança)."
+
+#~ msgid "Unable to establish a secure connection to host."
+#~ msgstr "No es pot establir una connexió segura amb l'amfitrió."
+
+#~ msgid "Unable to find printer."
+#~ msgstr "No es pot trobar la impressora."
 
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl: no es pot establir Listen o Port directament."

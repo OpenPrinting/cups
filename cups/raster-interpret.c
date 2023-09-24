@@ -54,7 +54,7 @@ typedef struct
     char	name[64];		/* Name value */
     double	number;			/* Number value */
     char	other[64];		/* Other operator */
-    char	string[64];		/* Sring value */
+    char	string[64];		/* String value */
   }			value;		/* Value */
 } _cups_ps_obj_t;
 
@@ -129,7 +129,7 @@ _cupsRasterInterpretPPD(
     cups_option_t       *options,	/* I - Options */
     cups_interpret_cb_t func)		/* I - Optional page header callback (@code NULL@ for none) */
 {
-  int		status;			/* Cummulative status */
+  int		status;			/* Cumulative status */
   char		*code;			/* Code to run */
   const char	*val;			/* Option value */
   ppd_size_t	*size;			/* Current size */
@@ -175,7 +175,7 @@ _cupsRasterInterpretPPD(
   h->cupsImagingBBox[2]          = 612.0f;
   h->cupsImagingBBox[3]          = 792.0f;
 
-  strlcpy(h->cupsPageSizeName, "Letter", sizeof(h->cupsPageSizeName));
+  cupsCopyString(h->cupsPageSizeName, "Letter", sizeof(h->cupsPageSizeName));
 
 #ifdef __APPLE__
  /*
@@ -259,7 +259,7 @@ _cupsRasterInterpretPPD(
     right  = size->right;
     top    = size->top;
 
-    strlcpy(h->cupsPageSizeName, size->name, sizeof(h->cupsPageSizeName));
+    cupsCopyString(h->cupsPageSizeName, size->name, sizeof(h->cupsPageSizeName));
 
     h->cupsPageSize[0] = size->width;
     h->cupsPageSize[1] = size->length;
@@ -353,10 +353,10 @@ _cupsRasterInterpretPPD(
                                         h->cupsBorderlessScalingFactor);
   h->ImagingBoundingBox[3] = (unsigned)(top *
                                         h->cupsBorderlessScalingFactor);
-  h->cupsImagingBBox[0]    = (float)left;
-  h->cupsImagingBBox[1]    = (float)bottom;
-  h->cupsImagingBBox[2]    = (float)right;
-  h->cupsImagingBBox[3]    = (float)top;
+  h->cupsImagingBBox[0]    = left;
+  h->cupsImagingBBox[1]    = bottom;
+  h->cupsImagingBBox[2]    = right;
+  h->cupsImagingBBox[3]    = top;
 
  /*
   * Use the callback to validate the page header...
@@ -513,8 +513,7 @@ _cupsRasterExecPS(
 			*codeptr;	/* Pointer into copy of code */
 
 
-  DEBUG_printf(("_cupsRasterExecPS(h=%p, preferred_bits=%p, code=\"%s\")\n",
-                h, preferred_bits, code));
+  DEBUG_printf("_cupsRasterExecPS(h=%p, preferred_bits=%p, code=\"%s\")\n", (void *)h, (void *)preferred_bits, code);
 
  /*
   * Copy the PostScript code and create a stack...
@@ -542,7 +541,7 @@ _cupsRasterExecPS(
   while ((obj = scan_ps(st, &codeptr)) != NULL)
   {
 #ifdef DEBUG
-    DEBUG_printf(("_cupsRasterExecPS: Stack (%d objects)", st->num_objs));
+    DEBUG_printf("_cupsRasterExecPS: Stack (%d objects)", st->num_objs);
     DEBUG_object("_cupsRasterExecPS", obj);
 #endif /* DEBUG */
 
@@ -650,7 +649,7 @@ _cupsRasterExecPS(
       case CUPS_PS_OTHER :
           _cupsRasterAddError("Unknown operator \"%s\".\n", obj->value.other);
 	  error = 1;
-          DEBUG_printf(("_cupsRasterExecPS: Unknown operator \"%s\".", obj->value.other));
+          DEBUG_printf("_cupsRasterExecPS: Unknown operator \"%s\".", obj->value.other);
           break;
     }
 
@@ -727,7 +726,10 @@ copy_stack(_cups_ps_stack_t *st,	/* I - Stack */
 
   while (c > 0)
   {
-    if (!push_stack(st, st->objs + n))
+    _cups_ps_obj_t	temp;		/* Temporary copy of object */
+
+    temp = st->objs[n];
+    if (!push_stack(st, &temp))
       return (-1);
 
     n ++;
@@ -971,7 +973,7 @@ roll_stack(_cups_ps_stack_t *st,	/* I - Stack */
   int			n;		/* Index into array */
 
 
-  DEBUG_printf(("3roll_stack(st=%p, s=%d, c=%d)", st, s, c));
+  DEBUG_printf("3roll_stack(st=%p, s=%d, c=%d)", (void *)st, s, c);
 
  /*
   * Range check input...
@@ -1113,7 +1115,19 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 
 	    cur ++;
 
-            if (*cur == 'b')
+	   /*
+	    * Return NULL if we reached NULL terminator, a lone backslash
+	    * is not a valid character in PostScript.
+	    */
+
+	    if (!*cur)
+	    {
+	      *ptr = NULL;
+
+	      return (NULL);
+	    }
+
+	    if (*cur == 'b')
 	      *valptr++ = '\b';
 	    else if (*cur == 'f')
 	      *valptr++ = '\f';
@@ -1444,7 +1458,7 @@ setpagedevice(
     obj ++;
 
 #ifdef DEBUG
-    DEBUG_printf(("4setpagedevice: /%s ", name));
+    DEBUG_printf("4setpagedevice: /%s ", name);
     DEBUG_object("setpagedevice", obj);
 #endif /* DEBUG */
 
@@ -1453,13 +1467,13 @@ setpagedevice(
     */
 
     if (!strcmp(name, "MediaClass") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->MediaClass, obj->value.string, sizeof(h->MediaClass));
+      cupsCopyString(h->MediaClass, obj->value.string, sizeof(h->MediaClass));
     else if (!strcmp(name, "MediaColor") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->MediaColor, obj->value.string, sizeof(h->MediaColor));
+      cupsCopyString(h->MediaColor, obj->value.string, sizeof(h->MediaColor));
     else if (!strcmp(name, "MediaType") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->MediaType, obj->value.string, sizeof(h->MediaType));
+      cupsCopyString(h->MediaType, obj->value.string, sizeof(h->MediaType));
     else if (!strcmp(name, "OutputType") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->OutputType, obj->value.string, sizeof(h->OutputType));
+      cupsCopyString(h->OutputType, obj->value.string, sizeof(h->OutputType));
     else if (!strcmp(name, "AdvanceDistance") && obj->type == CUPS_PS_NUMBER)
       h->AdvanceDistance = (unsigned)obj->value.number;
     else if (!strcmp(name, "AdvanceMedia") && obj->type == CUPS_PS_NUMBER)
@@ -1578,16 +1592,16 @@ setpagedevice(
       if ((i = atoi(name + 10)) < 0 || i > 15)
         return (-1);
 
-      strlcpy(h->cupsString[i], obj->value.string, sizeof(h->cupsString[i]));
+      cupsCopyString(h->cupsString[i], obj->value.string, sizeof(h->cupsString[i]));
     }
     else if (!strcmp(name, "cupsMarkerType") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->cupsMarkerType, obj->value.string, sizeof(h->cupsMarkerType));
+      cupsCopyString(h->cupsMarkerType, obj->value.string, sizeof(h->cupsMarkerType));
     else if (!strcmp(name, "cupsPageSizeName") && obj->type == CUPS_PS_STRING)
-      strlcpy(h->cupsPageSizeName, obj->value.string,
+      cupsCopyString(h->cupsPageSizeName, obj->value.string,
               sizeof(h->cupsPageSizeName));
     else if (!strcmp(name, "cupsRenderingIntent") &&
              obj->type == CUPS_PS_STRING)
-      strlcpy(h->cupsRenderingIntent, obj->value.string,
+      cupsCopyString(h->cupsRenderingIntent, obj->value.string,
               sizeof(h->cupsRenderingIntent));
     else
     {
@@ -1595,7 +1609,7 @@ setpagedevice(
       * Ignore unknown name+value...
       */
 
-      DEBUG_printf(("4setpagedevice: Unknown name (\"%s\") or value...\n", name));
+      DEBUG_printf("4setpagedevice: Unknown name (\"%s\") or value...\n", name);
 
       while (obj[1].type != CUPS_PS_NAME && obj < end)
         obj ++;
@@ -1618,86 +1632,86 @@ DEBUG_object(const char *prefix,	/* I - Prefix string */
   switch (obj->type)
   {
     case CUPS_PS_NAME :
-	DEBUG_printf(("4%s: /%s\n", prefix, obj->value.name));
+	DEBUG_printf("4%s: /%s\n", prefix, obj->value.name);
 	break;
 
     case CUPS_PS_NUMBER :
-	DEBUG_printf(("4%s: %g\n", prefix, obj->value.number));
+	DEBUG_printf("4%s: %g\n", prefix, obj->value.number);
 	break;
 
     case CUPS_PS_STRING :
-	DEBUG_printf(("4%s: (%s)\n", prefix, obj->value.string));
+	DEBUG_printf("4%s: (%s)\n", prefix, obj->value.string);
 	break;
 
     case CUPS_PS_BOOLEAN :
 	if (obj->value.boolean)
-	  DEBUG_printf(("4%s: true", prefix));
+	  DEBUG_printf("4%s: true", prefix);
 	else
-	  DEBUG_printf(("4%s: false", prefix));
+	  DEBUG_printf("4%s: false", prefix);
 	break;
 
     case CUPS_PS_NULL :
-	DEBUG_printf(("4%s: null", prefix));
+	DEBUG_printf("4%s: null", prefix);
 	break;
 
     case CUPS_PS_START_ARRAY :
-	DEBUG_printf(("4%s: [", prefix));
+	DEBUG_printf("4%s: [", prefix);
 	break;
 
     case CUPS_PS_END_ARRAY :
-	DEBUG_printf(("4%s: ]", prefix));
+	DEBUG_printf("4%s: ]", prefix);
 	break;
 
     case CUPS_PS_START_DICT :
-	DEBUG_printf(("4%s: <<", prefix));
+	DEBUG_printf("4%s: <<", prefix);
 	break;
 
     case CUPS_PS_END_DICT :
-	DEBUG_printf(("4%s: >>", prefix));
+	DEBUG_printf("4%s: >>", prefix);
 	break;
 
     case CUPS_PS_START_PROC :
-	DEBUG_printf(("4%s: {", prefix));
+	DEBUG_printf("4%s: {", prefix);
 	break;
 
     case CUPS_PS_END_PROC :
-	DEBUG_printf(("4%s: }", prefix));
+	DEBUG_printf("4%s: }", prefix);
 	break;
 
     case CUPS_PS_CLEARTOMARK :
-	DEBUG_printf(("4%s: --cleartomark--", prefix));
+	DEBUG_printf("4%s: --cleartomark--", prefix);
         break;
 
     case CUPS_PS_COPY :
-	DEBUG_printf(("4%s: --copy--", prefix));
+	DEBUG_printf("4%s: --copy--", prefix);
         break;
 
     case CUPS_PS_DUP :
-	DEBUG_printf(("4%s: --dup--", prefix));
+	DEBUG_printf("4%s: --dup--", prefix);
         break;
 
     case CUPS_PS_INDEX :
-	DEBUG_printf(("4%s: --index--", prefix));
+	DEBUG_printf("4%s: --index--", prefix);
         break;
 
     case CUPS_PS_POP :
-	DEBUG_printf(("4%s: --pop--", prefix));
+	DEBUG_printf("4%s: --pop--", prefix);
         break;
 
     case CUPS_PS_ROLL :
-	DEBUG_printf(("4%s: --roll--", prefix));
+	DEBUG_printf("4%s: --roll--", prefix);
         break;
 
     case CUPS_PS_SETPAGEDEVICE :
-	DEBUG_printf(("4%s: --setpagedevice--", prefix));
+	DEBUG_printf("4%s: --setpagedevice--", prefix);
         break;
 
     case CUPS_PS_STOPPED :
-	DEBUG_printf(("4%s: --stopped--", prefix));
+	DEBUG_printf("4%s: --stopped--", prefix);
         break;
 
     case CUPS_PS_OTHER :
-	DEBUG_printf(("4%s: --%s--", prefix, obj->value.other));
+	DEBUG_printf("4%s: --%s--", prefix, obj->value.other);
 	break;
   }
 }

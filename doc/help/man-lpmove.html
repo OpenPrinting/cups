@@ -1,75 +1,84 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>lpmove(8)</title>
-</head>
-<body>
-<h1 class="title">lpmove(8)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-lpmove - move a job or all jobs to a new destination
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>lpmove</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>lpmove(8)</title>
+  </head>
+  <body>
+    <h1 id="lpmove-8">lpmove(8)</h1>
+    <h2 id="lpmove-8.name">Name</h2>
+<p>lpmove - move a job or all jobs to a new destination
+</p>
+    <h2 id="lpmove-8.synopsis">Synopsis</h2>
+<p><strong>lpmove</strong>
 [
-<b>-E</b>
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ]
-<i>job</i>
-<i>destination</i>
+<em>job</em>
+<em>destination</em>
 <br>
-<b>lpmove</b>
+<strong>lpmove</strong>
 [
-<b>-E</b>
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ]
-<i>source</i>
-<i>destination</i>
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>lpmove</b> moves the specified <i>job</i> or all jobs from <i>source</i> to <i>destination</i>. <i>job</i> can be the job ID number or the old destination and job ID.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-The <b>lpmove</b> command supports the following options:
-<dl class="man">
-<dt><b>-E</b>
-<dd style="margin-left: 5.0em">Forces encryption when connecting to the server.
-<dt><b>-U </b><i>username</i>
-<dd style="margin-left: 5.0em">Specifies an alternate username.
-<dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
-<dd style="margin-left: 5.0em">Specifies an alternate server.
-</dl>
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
-Move job 123 from "oldprinter" to "newprinter":
-<pre class="man">
-
+<em>source</em>
+<em>destination</em>
+</p>
+    <h2 id="lpmove-8.description">Description</h2>
+<p><strong>lpmove</strong> moves the specified <em>job</em> or all jobs from <em>source</em> to <em>destination</em>. <em>job</em> can be the job ID number or the old destination and job ID.
+</p>
+    <h2 id="lpmove-8.options">Options</h2>
+<p>The <strong>lpmove</strong> command supports the following options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Specifies an alternate username.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Specifies an alternate server.
+Note: This option must occur before all others.
+</p>
+    <h2 id="lpmove-8.examples">Examples</h2>
+<p>Move job 123 from &quot;oldprinter&quot; to &quot;newprinter&quot;:
+</p>
+    <pre>
     lpmove 123 newprinter
 
-            <i>or</i>
+            <em>or</em>
 
     lpmove oldprinter-123 newprinter
 
 </pre>
-Move all jobs from "oldprinter" to "newprinter":
-<pre class="man">
-
+<p>Move all jobs from &quot;oldprinter&quot; to &quot;newprinter&quot;:
+</p>
+    <pre>
     lpmove oldprinter newprinter
 </pre>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>cancel</b>(1),
-<b>lp</b>(1),
-<b>lpr</b>(1),
-<b>lprm</b>(1),
+    <h2 id="lpmove-8.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>lp</strong>(1),
+
+<strong>lpr</strong>(1),
+
+<strong>lprm</strong>(1),
+
 <br>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021 by OpenPrinting.
-
-</body>
+</p>
+    <h2 id="lpmove-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

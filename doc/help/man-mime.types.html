@@ -1,97 +1,120 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>mime.types(5)</title>
-</head>
-<body>
-<h1 class="title">mime.types(5)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-mime.types - mime type description file for cups
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-The <b>mime.types</b> file defines the recognized file types.
-<p>Additional file types are specified in files with the extension <i>.types</i> in the CUPS configuration directory.
-<p>Each line in the <b>mime.types</b> file is a comment, blank, or rule line.
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>mime.types(5)</title>
+  </head>
+  <body>
+    <h1 id="mime.types-5">mime.types(5)</h1>
+    <h2 id="mime.types-5.name">Name</h2>
+<p>mime.types - mime type description file for cups
+</p>
+    <h2 id="mime.types-5.description">Description</h2>
+<p>The <strong>mime.types</strong> file defines the recognized file types.
+</p>
+    <p>Additional file types are specified in files with the extension <em>.types</em> in the CUPS configuration directory.
+</p>
+    <p>Each line in the <strong>mime.types</strong> file is a comment, blank, or rule line.
 Comment lines start with the # character.
 Rule lines start with the MIME media type and are optionally followed by a series of file recognition rules:
-<pre class="man">
-
-    <i>mime/type </i>[ <i>rule </i>... <i>rule </i>]
-
-</pre>
-Rules can be extended over multiple lines using the backslash character (\):
-<pre class="man">
-
-    <i>mime/type </i>[ <i>really-really-really-long-rule </i>... <b>\
-      </b><i>rule </i>]
+</p>
+    <pre>
+    <em>mime/type </em>[ <em>rule </em>... <em>rule </em>]
 
 </pre>
-MIME media types specified by the <i>mime/type</i> field are case-insensitive and are sorted in ascending alphanumeric order for the purposes of matching.
-See the "TYPE MATCHING AND PRIORITY" section for more information.
-<p>The rules may be grouped using parenthesis, joined using "+" for a logical AND, joined using "," or whitespace for a logical OR, and negated using "!".
-<h3><a name="RULES">Rules</a></h3>
-Rules take two forms - a filename extension by itself and functions with test
+<p>Rules can be extended over multiple lines using the backslash character (\):
+</p>
+    <pre>
+    <em>mime/type </em>[ <em>really-really-really-long-rule </em>... <strong>\
+      </strong><em>rule </em>]
+
+</pre>
+<p>MIME media types specified by the <em>mime/type</em> field are case-insensitive and are sorted in ascending alphanumeric order for the purposes of matching.
+See the &quot;TYPE MATCHING AND PRIORITY&quot; section for more information.
+</p>
+    <p>The rules may be grouped using parenthesis, joined using &quot;+&quot; for a logical AND, joined using &quot;,&quot; or whitespace for a logical OR, and negated using &quot;!&quot;.
+</p>
+    <h3 id="mime.types-5.description.rules">Rules</h3>
+<p>Rules take two forms - a filename extension by itself and functions with test
 values inside parenthesis.
 The following functions are available:
-<dl class="man">
-<dt><b>match("</b><i>pattern</i><b>")</b>
-<dd style="margin-left: 5.0em">True if the filename matches the given shell wildcard <i>pattern</i>.
-<dt><b>ascii(</b><i>offset</i><b>,</b><i>length</i><b>)</b>
-<dd style="margin-left: 5.0em">True if the <i>length</i> bytes starting at <i>offset</i> are valid printable ASCII (CR, NL, TAB, BS, 32-126).
-<dt><b>printable(</b><i>offset</i><b>,</b><i>length</i><b>)</b>
-<dd style="margin-left: 5.0em">True if the <i>length</i> bytes starting at <i>offset</i> are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
-<dt><b>priority(</b><i>number</i><b>)</b>
-<dd style="margin-left: 5.0em">Specifies the relative priority of this MIME media type.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>match(&quot;</strong><em>pattern</em><strong>&quot;)</strong><br>
+True if the filename matches the given shell wildcard <em>pattern</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ascii(</strong><em>offset</em><strong>,</strong><em>length</em><strong>)</strong><br>
+True if the <em>length</em> bytes starting at <em>offset</em> are valid printable ASCII (CR, NL, TAB, BS, 32-126).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>printable(</strong><em>offset</em><strong>,</strong><em>length</em><strong>)</strong><br>
+True if the <em>length</em> bytes starting at <em>offset</em> are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>priority(</strong><em>number</em><strong>)</strong><br>
+Specifies the relative priority of this MIME media type.
 The default priority is 100.
 Larger values have higher priority while smaller values have lower priority.
-<dt><b>string(</b><i>offset</i><b>,"</b><i>string</i><b>")</b>
-<dd style="margin-left: 5.0em">True if the bytes starting at <i>offset</i> are identical to <i>string</i>.
-<dt><b>istring(</b><i>offset</i><b>,"</b><i>string</i><b>")</b>
-<dd style="margin-left: 5.0em">True if the bytes starting at <i>offset</i> match <i>string</i> without respect to case.
-<dt><b>char(</b><i>offset</i><b>,</b><i>value</i><b>)</b>
-<dd style="margin-left: 5.0em">True if the byte at <i>offset</i> is identical to <i>value</i>.
-<dt><b>short(</b><i>offset</i><b>,</b><i>value</i><b>)</b>
-<dd style="margin-left: 5.0em">True if the 16-bit big-endian integer at <i>offset</i> is identical to <i>value</i>.
-<dt><b>int(</b><i>offset</i><b>,</b><i>value</i><b>)</b>
-<dd style="margin-left: 5.0em">True if the 32-bit big-endian integer at <i>offset</i> is identical to <i>value</i>.
-<dt><b>locale("</b><i>string</i><b>")</b>
-<dd style="margin-left: 5.0em">True if current locale matches <i>string</i>.
-<dt><b>contains(</b><i>offset</i><b>,</b><i>range</i><b>,"</b><i>string</i><b>")</b>
-<dd style="margin-left: 5.0em">True if the bytes starting at <i>offset</i> for <i>range</i> bytes contains <i>string</i>.
-</dl>
-<h3><a name="STRING_CONSTANTS">String Constants</a></h3>
-String constants can be specified inside quotes ("") for strings containing whitespace and angle brackets (&lt;>) for hexadecimal strings.
-<h3><a name="TYPE_MATCHING_AND_PRIORITY">Type Matching And Priority</a></h3>
-When CUPS needs to determine the MIME media type of a given file, it checks every MIME media type defined in the <i>.types</i> files.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>string(</strong><em>offset</em><strong>,&quot;</strong><em>string</em><strong>&quot;)</strong><br>
+True if the bytes starting at <em>offset</em> are identical to <em>string</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>istring(</strong><em>offset</em><strong>,&quot;</strong><em>string</em><strong>&quot;)</strong><br>
+True if the bytes starting at <em>offset</em> match <em>string</em> without respect to case.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>char(</strong><em>offset</em><strong>,</strong><em>value</em><strong>)</strong><br>
+True if the byte at <em>offset</em> is identical to <em>value</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>short(</strong><em>offset</em><strong>,</strong><em>value</em><strong>)</strong><br>
+True if the 16-bit big-endian integer at <em>offset</em> is identical to <em>value</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>int(</strong><em>offset</em><strong>,</strong><em>value</em><strong>)</strong><br>
+True if the 32-bit big-endian integer at <em>offset</em> is identical to <em>value</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>locale(&quot;</strong><em>string</em><strong>&quot;)</strong><br>
+True if current locale matches <em>string</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>contains(</strong><em>offset</em><strong>,</strong><em>range</em><strong>,&quot;</strong><em>string</em><strong>&quot;)</strong><br>
+True if the bytes starting at <em>offset</em> for <em>range</em> bytes contains <em>string</em>.
+</p>
+    <h3 id="mime.types-5.description.string-constants">String Constants</h3>
+<p>String constants can be specified inside quotes (&quot;&quot;) for strings containing whitespace and angle brackets (&lt;>) for hexadecimal strings.
+</p>
+    <h3 id="mime.types-5.description.type-matching-and-priority">Type Matching And Priority</h3>
+<p>When CUPS needs to determine the MIME media type of a given file, it checks every MIME media type defined in the <em>.types</em> files.
 When two or more types match a given file, the type chosen will depend on the type name and priority, with higher-priority types being used over lower-priority ones.
 If the types have the same priority, the type names are sorted alphanumerically in ascending order and the first type is chosen.
-<p>For example, if two types "text/bar" and "text/foo" are defined as matching the
-extension "doc", normally the type "text/bar" will be chosen since its name is
-alphanumerically smaller than "text/foo".
-However, if "text/foo" also defines a higher priority than "text/bar", "text/foo" will be chosen instead.
-<h2 class="title"><a name="FILES">Files</a></h2>
-<i>/etc/cups</i> - Typical CUPS configuration directory.
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
-Define two MIME media types for raster data, with one being a subset with higher priority:
-<pre class="man">
+</p>
+    <p>For example, if two types &quot;text/bar&quot; and &quot;text/foo&quot; are defined as matching the
+extension &quot;doc&quot;, normally the type &quot;text/bar&quot; will be chosen since its name is
+alphanumerically smaller than &quot;text/foo&quot;.
+However, if &quot;text/foo&quot; also defines a higher priority than &quot;text/bar&quot;, &quot;text/foo&quot; will be chosen instead.
+</p>
+    <h2 id="mime.types-5.files">Files</h2>
+<p><em>/etc/cups</em> - Typical CUPS configuration directory.
+</p>
+    <h2 id="mime.types-5.examples">Examples</h2>
+<p>Define two MIME media types for raster data, with one being a subset with higher priority:
+</p>
+    <pre>
+    application/vnd.cups-raster  string(0,&quot;RaSt&quot;) string(0,&quot;tSaR&quot;) \
+                                  string(0,&quot;RaS2&quot;) string(0,&quot;2SaR&quot;) \
+                                  string(0,&quot;RaS3&quot;) string(0,&quot;3SaR&quot;)
 
-    application/vnd.cups-raster  string(0,"RaSt") string(0,"tSaR") \
-                                  string(0,"RaS2") string(0,"2SaR") \
-                                  string(0,"RaS3") string(0,"3SaR")
-
-    image/pwg-raster              string(0,"RaS2") + \
+    image/pwg-raster              string(0,&quot;RaS2&quot;) + \
                                   string(4,PwgRaster&lt;00>) priority(150)
 </pre>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>cups-files.conf</b>(5),
-<b>cupsd.conf</b>(5),
-<b>cupsd</b>(8),
-<b>cupsfilter</b>(8),
-<b>mime.convs</b>(5),
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021 by OpenPrinting.
+    <h2 id="mime.types-5.see-also">See Also</h2>
+<p><strong>cups-files.conf</strong>(5),
 
-</body>
+<strong>cupsd.conf</strong>(5),
+
+<strong>cupsd</strong>(8),
+
+<strong>cupsfilter</strong>(8),
+
+<strong>mime.convs</strong>(5),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="mime.types-5.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

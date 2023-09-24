@@ -1,6 +1,7 @@
 #
 # CGI makefile for CUPS.
 #
+# Copyright © 2022-2023 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products.
 #
@@ -23,7 +24,6 @@ OBJS	=	\
 		classes.o \
 		help.o \
 		jobs.o \
-		makedocset.o \
 		printers.o \
 		testcgi.o \
 		testhi.o \
@@ -73,7 +73,7 @@ unittests:	$(UNITTARGETS)
 #
 
 clean:
-	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS) makedocset
+	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS)
 
 
 #
@@ -81,7 +81,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #

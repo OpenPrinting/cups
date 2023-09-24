@@ -82,8 +82,7 @@ ppdCollect2(ppd_file_t    *ppd,		/* I - PPD file data */
   float		*orders;		/* Collected order values */
 
 
-  DEBUG_printf(("ppdCollect2(ppd=%p, section=%d, min_order=%f, choices=%p)",
-                ppd, section, min_order, choices));
+  DEBUG_printf("ppdCollect2(ppd=%p, section=%d, min_order=%f, choices=%p)", (void *)ppd, section, min_order, (void *)choices);
 
   if (!ppd || !choices)
   {
@@ -98,14 +97,14 @@ ppdCollect2(ppd_file_t    *ppd,		/* I - PPD file data */
   */
 
   count = 0;
-  if ((collect = calloc(sizeof(ppd_choice_t *),
-                        (size_t)cupsArrayCount(ppd->marked))) == NULL)
+  if ((collect = calloc((size_t)cupsArrayCount(ppd->marked),
+                        sizeof(ppd_choice_t *))) == NULL)
   {
     *choices = NULL;
     return (0);
   }
 
-  if ((orders = calloc(sizeof(float), (size_t)cupsArrayCount(ppd->marked))) == NULL)
+  if ((orders = calloc((size_t)cupsArrayCount(ppd->marked), sizeof(float))) == NULL)
   {
     *choices = NULL;
     free(collect);
@@ -196,7 +195,7 @@ ppdCollect2(ppd_file_t    *ppd,		/* I - PPD file data */
 
   free(orders);
 
-  DEBUG_printf(("2ppdCollect2: %d marked choices...", count));
+  DEBUG_printf("2ppdCollect2: %d marked choices...", count);
 
  /*
   * Return the array and number of choices; if 0, free the array since
@@ -478,7 +477,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     * question marks so that the title does not cause a PJL syntax error.
     */
 
-    strlcpy(temp, title, sizeof(temp));
+    cupsCopyString(temp, title, sizeof(temp));
 
     for (ptr = temp; *ptr; ptr ++)
       if (*ptr == '\"')
@@ -515,7 +514,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     * question marks so that the user does not cause a PJL syntax error.
     */
 
-    strlcpy(temp, user, sizeof(temp));
+    cupsCopyString(temp, user, sizeof(temp));
 
     for (ptr = temp; *ptr; ptr ++)
       if (*ptr == '\"')
@@ -618,8 +617,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
   struct lconv	*loc;			/* Locale data */
 
 
-  DEBUG_printf(("ppdEmitString(ppd=%p, section=%d, min_order=%f)",
-                ppd, section, min_order));
+  DEBUG_printf("ppdEmitString(ppd=%p, section=%d, min_order=%f)", (void *)ppd, section, min_order);
 
  /*
   * Range check input...
@@ -753,8 +751,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
   * Allocate memory...
   */
 
-  DEBUG_printf(("2ppdEmitString: Allocating %d bytes for string...",
-                (int)bufsize));
+  DEBUG_printf("2ppdEmitString: Allocating %d bytes for string...", (int)bufsize);
 
   if ((buffer = calloc(1, bufsize)) == NULL)
   {
@@ -833,7 +830,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 		  case PPD_CUSTOM_STRING :
 		      if (cparam->current.custom_string)
 		      {
-			strlcpy(bufptr, cparam->current.custom_string, (size_t)(bufend - bufptr));
+			cupsCopyString(bufptr, cparam->current.custom_string, (size_t)(bufend - bufptr));
 			bufptr += strlen(bufptr);
 		      }
 		      break;
@@ -853,7 +850,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
         * Otherwise just copy the option code directly...
 	*/
 
-        strlcpy(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
+        cupsCopyString(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
         bufptr += strlen(bufptr);
       }
     }
@@ -864,15 +861,14 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
       * options...
       */
 
-      strlcpy(bufptr, "[{\n", (size_t)(bufend - bufptr + 1));
+      cupsCopyString(bufptr, "[{\n", (size_t)(bufend - bufptr + 1));
       bufptr += 3;
 
      /*
       * Send DSC comments with option...
       */
 
-      DEBUG_printf(("2ppdEmitString: Adding code for %s=%s...",
-		    choices[i]->option->keyword, choices[i]->choice));
+      DEBUG_printf("2ppdEmitString: Adding code for %s=%s...", choices[i]->option->keyword, choices[i]->choice);
 
       if ((!_cups_strcasecmp(choices[i]->option->keyword, "PageSize") ||
            !_cups_strcasecmp(choices[i]->option->keyword, "PageRegion")) &&
@@ -889,7 +885,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	float		values[5];	/* Values for custom command */
 
 
-        strlcpy(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
+        cupsCopyString(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
         bufptr += 37;
 
         size = ppdPageSize(ppd, "Custom");
@@ -984,7 +980,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	  * Level 2 command sequence...
 	  */
 
-	  strlcpy(bufptr, ppd_custom_code, (size_t)(bufend - bufptr + 1));
+	  cupsCopyString(bufptr, ppd_custom_code, (size_t)(bufend - bufptr + 1));
           bufptr += strlen(bufptr);
 	}
       }
@@ -1076,16 +1072,15 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	  *bufptr++ = '\n';
       }
 
-      strlcpy(bufptr, "%%EndFeature\n"
+      cupsCopyString(bufptr, "%%EndFeature\n"
 		      "} stopped cleartomark\n", (size_t)(bufend - bufptr + 1));
       bufptr += strlen(bufptr);
 
-      DEBUG_printf(("2ppdEmitString: Offset in string is %d...",
-                    (int)(bufptr - buffer)));
+      DEBUG_printf("2ppdEmitString: Offset in string is %d...", (int)(bufptr - buffer));
     }
     else if (choices[i]->code)
     {
-      strlcpy(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
+      cupsCopyString(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
       bufptr += strlen(bufptr);
     }
 

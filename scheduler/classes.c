@@ -220,7 +220,7 @@ cupsdFindAvailablePrinter(
       i = 0;
 
     if (c->printers[i]->accepting &&
-        (c->printers[i]->state == IPP_PRINTER_IDLE ||
+        (c->printers[i]->state == IPP_PSTATE_IDLE ||
          ((c->printers[i]->type & CUPS_PRINTER_REMOTE) && !c->printers[i]->job)))
     {
       c->last_printer = i;
@@ -317,7 +317,7 @@ cupsdLoadAllClasses(void)
           p = cupsdAddClass(value);
 
 	p->accepting = 1;
-	p->state     = IPP_PRINTER_IDLE;
+	p->state     = IPP_PSTATE_IDLE;
 
         if (!_cups_strcasecmp(line, "<DefaultClass"))
 	  DefaultPrinter = p;
@@ -415,7 +415,7 @@ cupsdLoadAllClasses(void)
 	{
 	  cupsdSetString(&temp->make_model, "Remote Printer on unknown");
 
-          temp->state = IPP_PRINTER_STOPPED;
+          temp->state = IPP_PSTATE_STOPPED;
 	  temp->type  |= CUPS_PRINTER_REMOTE;
 
 	  cupsdSetString(&temp->location, "Location Unknown");
@@ -436,10 +436,10 @@ cupsdLoadAllClasses(void)
       */
 
       if (!_cups_strcasecmp(value, "idle"))
-        p->state = IPP_PRINTER_IDLE;
+        p->state = IPP_PSTATE_IDLE;
       else if (!_cups_strcasecmp(value, "stopped"))
       {
-        p->state = IPP_PRINTER_STOPPED;
+        p->state = IPP_PSTATE_STOPPED;
 
         for (i = 0 ; i < p->num_reasons; i ++)
 	  if (!strcmp("paused", p->reasons[i]))
@@ -464,7 +464,7 @@ cupsdLoadAllClasses(void)
       */
 
       if (value)
-	strlcpy(p->state_message, value, sizeof(p->state_message));
+	cupsCopyString(p->state_message, value, sizeof(p->state_message));
     }
     else if (!_cups_strcasecmp(line, "StateTime"))
     {
@@ -719,7 +719,7 @@ cupsdSaveAllClasses(void)
       switch (pclass->num_auth_info_required)
       {
         case 1 :
-            strlcpy(value, pclass->auth_info_required[0], sizeof(value));
+            cupsCopyString(value, pclass->auth_info_required[0], sizeof(value));
 	    break;
 
         case 2 :
@@ -746,7 +746,7 @@ cupsdSaveAllClasses(void)
     if (pclass->location)
       cupsFilePutConf(fp, "Location", pclass->location);
 
-    if (pclass->state == IPP_PRINTER_STOPPED)
+    if (pclass->state == IPP_PSTATE_STOPPED)
       cupsFilePuts(fp, "State Stopped\n");
     else
       cupsFilePuts(fp, "State Idle\n");

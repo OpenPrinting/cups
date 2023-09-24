@@ -1,7 +1,7 @@
 #
 # ESP Package Manager (EPM) file list for CUPS.
 #
-# Copyright © 2020 by OpenPrinting
+# Copyright © 2020-2023 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -348,12 +348,12 @@ l 0755 root sys /usr/bsd/lprm $BINDIR/lprm
 %system darwin
 f 0555 root sys $LIBDIR/libcups.2.dylib cups/libcups.2.dylib nostrip()
 l 0755 root sys $LIBDIR/libcups.dylib libcups.2.dylib
-f 0555 root sys $LIBDIR/libcupsimage.2.dylib filter/libcupsimage.2.dylib nostrip()
+f 0555 root sys $LIBDIR/libcupsimage.2.dylib cups/libcupsimage.2.dylib nostrip()
 l 0755 root sys $LIBDIR/libcupsimage.dylib libcupsimage.2.dylib
 %system !darwin
 f 0555 root sys $LIBDIR/libcups.so.2 cups/libcups.so.2 nostrip()
 l 0755 root sys $LIBDIR/libcups.so libcups.so.2
-f 0555 root sys $LIBDIR/libcupsimage.so.2 filter/libcupsimage.so.2 nostrip()
+f 0555 root sys $LIBDIR/libcupsimage.so.2 cups/libcupsimage.so.2 nostrip()
 l 0755 root sys $LIBDIR/libcupsimage.so libcupsimage.so.2
 %system all
 %subpackage
@@ -508,7 +508,7 @@ f 0444 root sys $INCLUDEDIR/cups/versioning.h cups/versioning.h
 
 %if INSTALLSTATIC
 f 0444 root sys $LIBDIR/libcups.a cups/libcups.a
-f 0444 root sys $LIBDIR/libcupsimage.a filter/libcupsimage.a
+f 0444 root sys $LIBDIR/libcupsimage.a cups/libcupsimage.a
 %endif
 
 d 0755 root sys $DOCDIR/help -

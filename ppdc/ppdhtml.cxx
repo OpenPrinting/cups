@@ -20,7 +20,7 @@
 // Local functions...
 //
 
-static void	usage(void);
+static void	usage(void) _CUPS_NORETURN;
 
 
 //
@@ -80,7 +80,6 @@ main(int  argc,				// I - Number of command-line arguments
 
 	  default :			// Unknown
 	      usage();
-	      break;
 	}
     }
     else
@@ -100,7 +99,7 @@ main(int  argc,				// I - Number of command-line arguments
       for (g = (ppdcGroup *)d->groups->first(); g; g = (ppdcGroup *)d->groups->next())
 	for (o = (ppdcOption *)g->options->first(); o; o = (ppdcOption *)g->options->next())
 	{
-	  if ((compo = composite->find_option(o->name->value)) == NULL)
+	  if (!composite->find_option(o->name->value))
 	    composite->add_option(new ppdcOption(o));
 	}
 

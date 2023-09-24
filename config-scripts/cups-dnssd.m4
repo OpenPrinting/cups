@@ -1,7 +1,7 @@
 dnl
 dnl DNS Service Discovery (aka Bonjour) stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2021-2023 by OpenPrinting.
 dnl Copyright © 2007-2019 by Apple Inc.
 dnl
 dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -34,7 +34,6 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
 	AS_CASE(["$host_os_name"], [darwin*], [
 	    # Darwin and macOS...
 	    with_dnssd="mdnsresponder"
-	    AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
 	    AC_DEFINE([HAVE_MDNSRESPONDER], [1], [Have mDNSResponder library?])
 	    DNSSD_BACKEND="dnssd"
 	    IPPFIND_BIN="ippfind"
@@ -54,7 +53,6 @@ AS_IF([test $with_dnssd = yes -o $with_dnssd = mdnsresponder], [
 	    ], [
 		AC_MSG_RESULT([yes])
 		with_dnssd="mdnsresponder"
-		AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
 		AC_DEFINE([HAVE_MDNSRESPONDER], [1], [Have mDNSResponder library?])
 		DNSSDLIBS="-ldns_sd"
 		DNSSD_BACKEND="dnssd"
@@ -89,7 +87,6 @@ AS_IF([test $with_dnssd = avahi -o $with_dnssd = yes], [
 	    IPPFIND_MAN="ippfind.1"
 		PKGCONFIG_REQUIRES="$PKGCONFIG_REQUIRES avahi-client"
 	    AC_DEFINE([HAVE_AVAHI], [1], [Have Avahi client library?])
-	    AC_DEFINE([HAVE_DNSSD], [1], [Have DNS-SD support?])
 	], [
 	    AC_MSG_RESULT([no])
 	    AS_IF([test $with_dnssd = avahi], [

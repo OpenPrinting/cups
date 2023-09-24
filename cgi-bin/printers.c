@@ -98,7 +98,7 @@ main(void)
     * Get the default destination...
     */
 
-    request = ippNewRequest(CUPS_GET_DEFAULT);
+    request = ippNewRequest(IPP_OP_CUPS_GET_DEFAULT);
 
     ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                   "requested-attributes",
@@ -149,15 +149,15 @@ main(void)
       printf("Location: %s\n\n", uri);
     }
     else if (!strcmp(op, "start-printer"))
-      do_printer_op(http, printer, IPP_RESUME_PRINTER,
+      do_printer_op(http, printer, IPP_OP_RESUME_PRINTER,
                     cgiText(_("Resume Printer")));
     else if (!strcmp(op, "stop-printer"))
-      do_printer_op(http, printer, IPP_PAUSE_PRINTER,
+      do_printer_op(http, printer, IPP_OP_PAUSE_PRINTER,
                     cgiText(_("Pause Printer")));
     else if (!strcmp(op, "accept-jobs"))
-      do_printer_op(http, printer, CUPS_ACCEPT_JOBS, cgiText(_("Accept Jobs")));
+      do_printer_op(http, printer, IPP_OP_CUPS_ACCEPT_JOBS, cgiText(_("Accept Jobs")));
     else if (!strcmp(op, "reject-jobs"))
-      do_printer_op(http, printer, CUPS_REJECT_JOBS, cgiText(_("Reject Jobs")));
+      do_printer_op(http, printer, IPP_OP_CUPS_REJECT_JOBS, cgiText(_("Reject Jobs")));
     else if (!strcmp(op, "cancel-jobs"))
       do_printer_op(http, printer, IPP_OP_CANCEL_JOBS, cgiText(_("Cancel Jobs")));
     else if (!_cups_strcasecmp(op, "print-self-test-page"))
@@ -244,12 +244,12 @@ do_printer_op(http_t      *http,	/* I - HTTP connection */
   snprintf(resource, sizeof(resource), "/printers/%s", printer);
   ippDelete(cupsDoRequest(http, request, resource));
 
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
+  if (cupsGetError() == IPP_STATUS_ERROR_NOT_AUTHORIZED)
   {
     puts("Status: 401\n");
     exit(0);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
     cgiStartHTML(title);
     cgiShowIPPError(_("Unable to do maintenance command"));
@@ -271,13 +271,13 @@ do_printer_op(http_t      *http,	/* I - HTTP connection */
 
     cgiStartHTML(title);
 
-    if (op == IPP_PAUSE_PRINTER)
+    if (op == IPP_OP_PAUSE_PRINTER)
       cgiCopyTemplateLang("printer-stop.tmpl");
-    else if (op == IPP_RESUME_PRINTER)
+    else if (op == IPP_OP_RESUME_PRINTER)
       cgiCopyTemplateLang("printer-start.tmpl");
-    else if (op == CUPS_ACCEPT_JOBS)
+    else if (op == IPP_OP_CUPS_ACCEPT_JOBS)
       cgiCopyTemplateLang("printer-accept.tmpl");
-    else if (op == CUPS_REJECT_JOBS)
+    else if (op == IPP_OP_CUPS_REJECT_JOBS)
       cgiCopyTemplateLang("printer-reject.tmpl");
     else if (op == IPP_OP_CANCEL_JOBS)
       cgiCopyTemplateLang("printer-cancel-jobs.tmpl");
@@ -308,7 +308,7 @@ show_all_printers(http_t     *http,	/* I - Connection to server */
 
 
   fprintf(stderr, "DEBUG: show_all_printers(http=%p, user=\"%s\")\n",
-          http, user ? user : "(null)");
+          (void *)http, user ? user : "(null)");
 
  /*
   * Show the standard header...
@@ -327,7 +327,7 @@ show_all_printers(http_t     *http,	/* I - Connection to server */
   *    requesting-user-name
   */
 
-  request = ippNewRequest(CUPS_GET_PRINTERS);
+  request = ippNewRequest(IPP_OP_CUPS_GET_PRINTERS);
 
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_ENUM,
                 "printer-type", 0);
@@ -463,7 +463,7 @@ show_printer(http_t     *http,		/* I - Connection to server */
 
 
   fprintf(stderr, "DEBUG: show_printer(http=%p, printer=\"%s\")\n",
-          http, printer ? printer : "(null)");
+          (void *)http, printer ? printer : "(null)");
 
  /*
   * Build an IPP_GET_PRINTER_ATTRIBUTES request, which requires the following
@@ -474,7 +474,7 @@ show_printer(http_t     *http,		/* I - Connection to server */
   *    printer-uri
   */
 
-  request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
+  request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                    "localhost", 0, "/printers/%s", printer);
@@ -498,7 +498,7 @@ show_printer(http_t     *http,		/* I - Connection to server */
 
     if (printer && (attr = ippFindAttribute(response, "printer-state",
                                             IPP_TAG_ENUM)) != NULL &&
-        attr->values[0].integer == IPP_PRINTER_PROCESSING)
+        attr->values[0].integer == IPP_PSTATE_PROCESSING)
     {
      /*
       * Printer is processing - automatically refresh the page until we

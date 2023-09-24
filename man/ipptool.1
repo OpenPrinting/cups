@@ -1,13 +1,13 @@
 .\"
 .\" ipptool man page.
 .\"
-.\" Copyright © 2021 by OpenPrinting.
+.\" Copyright © 2021-2023 by OpenPrinting.
 .\" Copyright © 2010-2019 by Apple Inc.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptool 1 "CUPS" "2021-02-28" "OpenPrinting"
+.TH ipptool 1 "CUPS" "2021-10-20" "OpenPrinting"
 .SH NAME
 ipptool \- perform internet printing protocol requests
 .SH SYNOPSIS
@@ -59,6 +59,8 @@ ipptool \- perform internet printing protocol requests
 ] [
 .B \-i
 .I seconds
+] [
+.B \-j
 ] [
 .B \-n
 .I repeat-count
@@ -171,6 +173,11 @@ Specifies that the (last)
 should be repeated at the specified interval.
 This option is incompatible with the \fB\-X\fR (XML plist output) option.
 .TP 5
+.B \-j
+Specifies that
+.B ipptool
+will produce JSON output.
+.TP 5
 .B \-l
 Specifies that plain text output is desired.
 .TP 5
@@ -196,36 +203,37 @@ program returns 0 if all tests were successful and 1 otherwise.
 .SH FILES
 The following standard files are available:
 .nf
-.I color.jpg
-.I create\-printer\-subscription.test
-.I document\-a4.pdf
-.I document\-a4.ps
-.I document\-letter.pdf
-.I document\-letter.ps
-.I get\-completed\-jobs.test
-.I get\-jobs.test
-.I get\-notifications.test
-.I get\-printer\-attributes.test
-.I get\-subscriptions.test
-.I gray.jpg
-.I ipp\-1.1.test
-.I ipp\-2.0.test
-.I ipp\-2.1.test
-.I ipp\-2.2.test
-.I ipp\-everywhere.test
-.I onepage\-a4.pdf
-.I onepage\-a4.ps
-.I onepage\-letter.pdf
-.I onepage\-letter.ps
-.I print\-job.test
-.I print\-job\-deflate.test
-.I print\-job\-gzip.test
-.I testfile.jpg
-.I testfile.pcl
-.I testfile.pdf
-.I testfile.ps
-.I testfile.txt
-.I validate\-job.test
+
+    color.jpg
+    create\-printer\-subscription.test
+    document\-a4.pdf
+    document\-a4.ps
+    document\-letter.pdf
+    document\-letter.ps
+    get\-completed\-jobs.test
+    get\-jobs.test
+    get\-notifications.test
+    get\-printer\-attributes.test
+    get\-subscriptions.test
+    gray.jpg
+    ipp\-1.1.test
+    ipp\-2.0.test
+    ipp\-2.1.test
+    ipp\-2.2.test
+    ipp\-everywhere.test
+    onepage\-a4.pdf
+    onepage\-a4.ps
+    onepage\-letter.pdf
+    onepage\-letter.ps
+    print\-job.test
+    print\-job\-deflate.test
+    print\-job\-gzip.test
+    testfile.jpg
+    testfile.pcl
+    testfile.pdf
+    testfile.ps
+    testfile.txt
+    validate\-job.test
 .fi
 .SH CONFORMING TO
 The
@@ -246,8 +254,8 @@ Send email notifications to "user@example.com" when "myprinter" changes:
 .fi
 .SH SEE ALSO
 .BR ipptoolfile (5),
-IANA IPP Registry (http://www.iana.org/assignments/ipp\-registrations),
-PWG Internet Printing Protocol Workgroup (http://www.pwg.org/ipp)
-RFC 8011 (http://tools.ietf.org/html/rfc8011),
+IANA IPP Registry (https://www.iana.org/assignments/ipp\-registrations),
+PWG Internet Printing Protocol Workgroup (https://www.pwg.org/ipp)
+RFC 8011 (https://datatracker.ietf.org/doc/html/rfc8011),
 .SH COPYRIGHT
-Copyright \[co] 2021 by OpenPrinting.
+Copyright \[co] 2021-2023 by OpenPrinting.

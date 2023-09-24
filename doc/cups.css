@@ -1,5 +1,5 @@
 /* Layout CSS */
-.header {
+.cups-header {
   background: rgba(46,46,46,.9);
   box-shadow: 0 2px 5px rgba(0,0,0,0.25);
   color: white;
@@ -11,7 +11,7 @@
   top: 0;
   width: 100%;
 }
-.header ul {
+.cups-header ul {
   list-style: none;
   margin: 0;
   -webkit-margin-before: 0;
@@ -20,37 +20,37 @@
   -webkit-margin-end: 5px;
   -webkit-padding-start: 0;
 }
-.header ul li {
+.cups-header ul li {
   float: left;
 }
-.header a {
+.cups-header a {
   display: block;
   padding: 5px 10px !important;
 }
-.header a:link, .header a:visited {
+.cups-header a:link, .cups-header a:visited {
   color: white !important;
   text-decoration: none !important;
 }
-.header a:hover {
+.cups-header a:hover {
   background: #cccccc !important;
   color: #333333 !important;
   text-decoration: none !important;
 }
-.header a.active {
+.cups-header a.active {
   background: white !important;
   box-shadow: rgba(0,0,0,0.1) 0 0 10px 0 inset;
   color: black !important;
   text-decoration: none !important;
 }
 
-.body {
+.cups-body {
   padding: 40px 20px;
 }
-.row .body {
+.row .cups-body {
   padding: 0;
 }
 
-.footer {
+.cups-footer {
   background: rgba(46,46,46,.9);
   bottom: 0;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.25);
@@ -62,7 +62,7 @@
   position: fixed;
   width: 100%;
 }
-.footer a:link, footer a:hover, .footer a:visited {
+.cups-footer a:link, footer a:hover, .cups-footer a:visited {
   color: white !important;
   text-decoration: none !important;
 }
@@ -131,6 +131,7 @@ pre {
 }
 
 blockquote {
+  background: rgba(191,191,191,0.1);
   border-left: solid 2px #777;
   margin: 1em 0;
   padding: 10px;
@@ -141,9 +142,7 @@ blockquote ol li {
 }
 
 pre.command, pre.example {
-  background: #eee;
-  margin: 0 36pt;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 p.example {
@@ -209,34 +208,9 @@ table.page {
   width: 100%;
 }
 
-td.body {
+td.cups-body {
   height: 100%;
   vertical-align: top;
-}
-
-td.sel, td.unsel {
-  border-left: thin solid #cccccc;
-  padding: 0 5px;
-  text-align: center;
-  vertical-align: middle;
-  width: 14%;
-}
-
-td.sel {
-  background: url(images/sel.gif);
-}
-
-td.unsel {
-  background: url(images/unsel.gif);
-}
-
-td.sel a, td.sel a:hover, td.unsel a:link:hover, td.unsel a:visited:hover,
-td.unsel a:active, td.unsel a, td.unsel a:visited {
-  color: #666666;
-  display: block;
-  font-weight: normal;
-  padding: 8px;
-  text-decoration: none;
 }
 
 td.trailer {
@@ -283,7 +257,7 @@ tr.data th {
 }
 
 div.table table {
-  border: solid thin #999999;
+  border: solid thin rgba(191,191,191,.3);
   border-collapse: collapse;
   border-spacing: 0;
   margin-left: auto;
@@ -301,14 +275,14 @@ div.table caption {
 
 div.table table td {
   background: white;
-  border: solid thin #bbbbbb;
+  border: solid thin rgba(191,191,191,.45);
   padding: 5pt 10pt 0;
 }
 
 div.table table th {
-  background: #f0f0f0;
+  background: rgba(191,191,191,.15);
   border: none;
-  border-bottom: solid thin #999999;
+  border-bottom: solid thin rgba(191,191,191,.3);
 }
 
 div.figure table {
@@ -367,7 +341,7 @@ h1.title {
   display: none;
 }
 
-h2.title, h3.title, .row .body h2, .row .body h3 {
+h2.title, h3.title, .row .cups-body h2, .row .cups-body h3 {
   border-bottom: solid 2pt black;
 }
 
@@ -396,9 +370,9 @@ table.list {
 table.list th {
   background: white;
   border-bottom: solid thin #cccccc;
+  border-right: 2px solid rgba(191,191,191,.45);
   color: #444444;
-  padding-top: 10pt;
-  padding-left: 5pt;
+  padding: 5px 10px 5px 12px;
   text-align: left;
   vertical-align: bottom;
   white-space: nowrap;
@@ -409,17 +383,16 @@ table.list th a {
 }
 
 table.list td {
-  border-bottom: solid thin #eeeeee;
-  padding-top: 5pt;
-  padding-left: 5pt;
+  border-bottom: solid thin rgba(191,191,191,.45);
+  padding: 5px 2px 5px 10px;
 }
 
 table.list tr:nth-child(even) {
-  background: #f8f8f8;
+  background: rgba(191,191,191,0.15);
 }
 
 table.list tr:nth-child(odd) {
-  background: #f4f4f4;
+  background: rgba(191,191,191,0.3);
 }
 
 div.sidebar {
@@ -454,8 +427,8 @@ div.sidebar p.l2 {
 }
 
 table.inset {
-  background: #f0f0f0;
-  border: thin solid #e0e0e0;
+  background: #f4f4f4;
+  border: thin solid rgba(191,191,191,0.5);
   margin-top: 1em;
   padding: 0;
   width: 100%;
@@ -474,7 +447,7 @@ table.inset caption {
 }
 
 table.inset td {
-  padding: 2px;
+  padding: 2px 5px;
 }
 
 dt {
@@ -528,15 +501,15 @@ div.tab {
 }
 
 /* API documentation styles... */
-div.body h1 {
+div.cups-body h1 {
 }
-div.body h2 {
+div.cups-body h2 {
 }
-div.body h3 {
+div.cups-body h3 {
 }
-div.body h4 {
+div.cups-body h4 {
 }
-div.body h5 {
+div.cups-body h5 {
 }
 div.contents {
 }
@@ -592,12 +565,17 @@ h1, h2, h3, h4, h5, h6 {
 blockquote {
   page-break-inside: avoid;
 }
+p.code, pre, ul.code li {
+  border-left: thin dotted gray;
+  background: rgba(191,191,191,0.1);
+}
+p code, li code {
+  background: rgba(191,191,191,0.3);
+}
 p code, li code, p.code, pre, ul.code li {
-  background: rgba(127,127,127,0.1);
-  border: thin dotted gray;
   font-family: monospace;
-  font-size: 90%;
   hyphens: manual;
+  margin: 18pt 0;
   -webkit-hyphens: manual;
   page-break-inside: avoid;
 }
@@ -636,25 +614,6 @@ ul.contents > li {
 ul.contents li ul.code, ul.contents li ul.subcontents {
   padding-left: 2em;
 }
-table.list {
-  border-collapse: collapse;
-  width: 100%;
-}
-table.list tr:nth-child(even) {
-  background: rgba(127,127,127,0.1);
-}
-table.list th {
-  border-right: 2px solid gray;
-  font-family: monospace;
-  padding: 5px 10px 5px 12px;
-  text-align: left;
-  vertical-align: top;
-}
-table.list td {
-  padding: 5px 2px 5px 10px;
-  text-align: left;
-  vertical-align: top;
-}
 
 /* iPhone/iPod touch overrides */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px),
@@ -666,19 +625,19 @@ table.list td {
     display: none;
   }
 
-  .header {
+  .cups-header {
     margin: 0;
     position: relative;
   }
-  .header ul li {
+  .cups-header ul li {
     float: none;
   }
 
-  .body {
+  .cups-body {
     padding: 0;
   }
 
-  .footer {
+  .cups-footer {
     font-size: 10px;
     height: auto;
     position: relative;
@@ -719,5 +678,34 @@ table.list td {
   }
   .no-mobile {
     display: none;
+  }
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  a:link, a:visited, table.list th a {
+    color: #6666ff;
+  }
+  a:link:hover, a:visited:hover, a:active, table.list th a {
+    color: #ff66ff;
+  }
+  hr {
+    color: #666;
+  }
+  table.inset {
+    background: #1d1d1d;
+  }
+  h2.title, h3.title, .row .cups-body h2, .row .cups-body h3 {
+    border-bottom: solid 2pt #ccc;
+  }
+  div.table table td, table.list th {
+    background: black;
+  }
+  table.list th {
+    color: #666;
   }
 }

@@ -1,231 +1,276 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>ipptool(1)</title>
-</head>
-<body>
-<h1 class="title">ipptool(1)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-ipptool - perform internet printing protocol requests
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>ipptool</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>ipptool(1)</title>
+  </head>
+  <body>
+    <h1 id="ipptool-1">ipptool(1)</h1>
+    <h2 id="ipptool-1.name">Name</h2>
+<p>ipptool - perform internet printing protocol requests
+</p>
+    <h2 id="ipptool-1.synopsis">Synopsis</h2>
+<p><strong>ipptool</strong>
 [
-<b>--help</b>
+<strong>--help</strong>
 ] [
-<b>--ippserver</b>
-<i>filename</i>
+<strong>--ippserver</strong>
+<em>filename</em>
 ] [
-<b>--stop-after-include-error</b>
+<strong>--stop-after-include-error</strong>
 ] [
-<b>--version</b>
+<strong>--version</strong>
 ] [
-<b>-4</b>
+<strong>-4</strong>
 ] [
-<b>-6</b>
+<strong>-6</strong>
 ] [
-<b>-C</b>
+<strong>-C</strong>
 ] [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-I</b>
+<strong>-I</strong>
 ] [
-<b>-L</b>
+<strong>-L</strong>
 ] [
-<b>-P</b>
-<i>filename.plist</i>
+<strong>-P</strong>
+<em>filename.plist</em>
 ] [
-<b>-S</b>
+<strong>-S</strong>
 ] [
-<b>-T</b>
-<i>seconds</i>
+<strong>-T</strong>
+<em>seconds</em>
 ] [
-<b>-V</b>
-<i>version</i>
+<strong>-V</strong>
+<em>version</em>
 ] [
-<b>-X</b>
+<strong>-X</strong>
 ] [
-<b>-c</b>
+<strong>-c</strong>
 ] [
-<b>-d</b>
-<i>name=value</i>
+<strong>-d</strong>
+<em>name=value</em>
 ] [
-<b>-f</b>
-<i>filename</i>
+<strong>-f</strong>
+<em>filename</em>
 ] [
-<b>-h</b>
+<strong>-h</strong>
 ] [
-<b>-i</b>
-<i>seconds</i>
+<strong>-i</strong>
+<em>seconds</em>
 ] [
-<b>-n</b>
-<i>repeat-count</i>
+<strong>-j</strong>
 ] [
-<b>-q</b>
+<strong>-n</strong>
+<em>repeat-count</em>
 ] [
-<b>-t</b>
+<strong>-q</strong>
 ] [
-<b>-v</b><b>]</b>
-<i>printer-uri</i>
-<i>testfile</i>
+<strong>-t</strong>
+] [
+<strong>-v ]</strong>
+<em>printer-uri</em>
+<em>testfile</em>
 [ ...
-<i>testfile</i>
+<em>testfile</em>
 ]
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>ipptool</b>
+</p>
+    <h2 id="ipptool-1.description">Description</h2>
+<p><strong>ipptool</strong>
 sends IPP requests to the specified
-<i>printer-uri</i>
+<em>printer-uri</em>
 and tests and/or displays the results.
 Each named
-<i>testfile</i>
+<em>testfile</em>
 defines one or more requests, including the expected response status, attributes, and values.
 Output is either a plain text, formatted text, CSV, or XML report on the standard output, with a non-zero exit status indicating that one or more tests have failed.
 The
-<i>testfile</i>
+<em>testfile</em>
 format is described in
-<b>ipptoolfile</b>(5).
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-The following options are recognized by
-<b>ipptool:</b>
-<dl class="man">
-<dt><b>--help</b>
-<dd style="margin-left: 5.0em">Shows program help.
-<dt><b>--ippserver </b><i>filename</i>
-<dd style="margin-left: 5.0em">Specifies that the test results should be written to the named
-<b>ippserver</b>
-attributes file.
-<dt><b>--stop-after-include-error</b>
-<dd style="margin-left: 5.0em">Tells
-<b>ipptool</b>
-to stop if an error occurs in an included file. Normally
-<b>ipptool</b>
-will continue with subsequent tests after the INCLUDE directive.
-<dt><b>--version</b>
-<dd style="margin-left: 5.0em">Shows the version of
-<b>ipptool</b>
-being used.
-<dt><b>-4</b>
-<dd style="margin-left: 5.0em">Specifies that
-<b>ipptool</b>
-must connect to the printer or server using IPv4.
-<dt><b>-6</b>
-<dd style="margin-left: 5.0em">Specifies that
-<b>ipptool</b>
-must connect to the printer or server using IPv6.
-<dt><b>-C</b>
-<dd style="margin-left: 5.0em">Specifies that requests should be sent using the HTTP/1.1 "Transfer-Encoding: chunked" header, which is required for conformance by all versions of IPP.
-The default is to use "Transfer-Encoding: chunked" for requests with attached files and "Content-Length:" for requests without attached files.
-<dt><b>-E</b>
-<dd style="margin-left: 5.0em">Forces TLS encryption when connecting to the server using the HTTP "Upgrade" header.
-<dt><b>-I</b>
-<dd style="margin-left: 5.0em">Specifies that
-<b>ipptool</b>
-will continue past errors.
-<dt><b>-L</b>
-<dd style="margin-left: 5.0em">Specifies that requests should be sent using the HTTP/1.0 "Content-Length:" header, which is required for conformance by all versions of IPP.
-The default is to use "Transfer-Encoding: chunked" for requests with attached files and "Content-Length:" for requests without attached files.
-<dt><b>-P</b><i> filename.plist</i>
-<dd style="margin-left: 5.0em">Specifies that the test results should be written to the named XML (Apple plist) file in addition to the regular test report (<b>-t</b>).
-This option is incompatible with the <b>-i</b> (interval) and <b>-n</b> (repeat-count) options.
-<dt><b>-S</b>
-<dd style="margin-left: 5.0em">Forces (dedicated) TLS encryption when connecting to the server.
-<dt><b>-T</b><i> seconds</i>
-<dd style="margin-left: 5.0em">Specifies a timeout for IPP requests in seconds.
-<dt><b>-V</b><i> version</i>
-<dd style="margin-left: 5.0em">Specifies the default IPP version to use: 1.0, 1.1, 2.0, 2.1, or 2.2. If not specified, version 1.1 is used.
-<dt><b>-X</b>
-<dd style="margin-left: 5.0em">Specifies that XML (Apple plist) output is desired instead of the plain text report.
-This option is incompatible with the <b>-i</b> (interval) and <b>-n</b> (repeat-count) options.
-<dt><b>-c</b>
-<dd style="margin-left: 5.0em">Specifies that CSV (comma-separated values) output is desired instead of the plain text output.
-<dt><b>-d</b><i> name=value</i>
-<dd style="margin-left: 5.0em">Defines the named variable.
-<dt><b>-f</b><i> filename</i>
-<dd style="margin-left: 5.0em">Defines the default request filename for tests.
-<dt><b>-h</b>
-<dd style="margin-left: 5.0em">Validate HTTP response headers.
-<dt><b>-i</b><i> seconds</i>
-<dd style="margin-left: 5.0em">Specifies that the (last)
-<i>testfile</i>
-should be repeated at the specified interval.
-This option is incompatible with the <b>-X</b> (XML plist output) option.
-<dt><b>-l</b>
-<dd style="margin-left: 5.0em">Specifies that plain text output is desired.
-<dt><b>-n</b><i> repeat-count</i>
-<dd style="margin-left: 5.0em">Specifies that the (last)
-<i>testfile</i>
-should be repeated the specified number of times.
-This option is incompatible with the <i>-X</i> (XML plist output) option.
-<dt><b>-q</b>
-<dd style="margin-left: 5.0em">Be quiet and produce no output.
-<dt><b>-t</b>
-<dd style="margin-left: 5.0em">Specifies that CUPS test report output is desired instead of the plain text output.
-<dt><b>-v</b>
-<dd style="margin-left: 5.0em">Specifies that all request and response attributes should be output in CUPS test mode (<b>-t</b>).
-This is the default for XML output.
-</dl>
-<h2 class="title"><a name="EXIT_STATUS">Exit Status</a></h2>
-The
-<b>ipptool</b>
-program returns 0 if all tests were successful and 1 otherwise.
-<h2 class="title"><a name="FILES">Files</a></h2>
-The following standard files are available:
-<pre class="man">
-<i>color.jpg</i>
-<i>create-printer-subscription.test</i>
-<i>document-a4.pdf</i>
-<i>document-a4.ps</i>
-<i>document-letter.pdf</i>
-<i>document-letter.ps</i>
-<i>get-completed-jobs.test</i>
-<i>get-jobs.test</i>
-<i>get-notifications.test</i>
-<i>get-printer-attributes.test</i>
-<i>get-subscriptions.test</i>
-<i>gray.jpg</i>
-<i>ipp-1.1.test</i>
-<i>ipp-2.0.test</i>
-<i>ipp-2.1.test</i>
-<i>ipp-2.2.test</i>
-<i>ipp-everywhere.test</i>
-<i>onepage-a4.pdf</i>
-<i>onepage-a4.ps</i>
-<i>onepage-letter.pdf</i>
-<i>onepage-letter.ps</i>
-<i>print-job.test</i>
-<i>print-job-deflate.test</i>
-<i>print-job-gzip.test</i>
-<i>testfile.jpg</i>
-<i>testfile.pcl</i>
-<i>testfile.pdf</i>
-<i>testfile.ps</i>
-<i>testfile.txt</i>
-<i>validate-job.test</i>
-</pre>
-<h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
-The
-<b>ipptool</b>
-program is unique to CUPS and conforms to the Internet Printing Protocol up to version 2.2.
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
-Get a list of completed jobs for "myprinter":
-<pre class="man">
+<strong>ipptoolfile</strong>(5).
 
+</p>
+    <h2 id="ipptool-1.options">Options</h2>
+<p>The following options are recognized by
+<strong>ipptool:</strong>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--help</strong><br>
+Shows program help.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--ippserver </strong><em>filename</em><br>
+Specifies that the test results should be written to the named
+<strong>ippserver</strong>
+attributes file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--stop-after-include-error</strong><br>
+Tells
+<strong>ipptool</strong>
+to stop if an error occurs in an included file. Normally
+<strong>ipptool</strong>
+will continue with subsequent tests after the INCLUDE directive.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
+Shows the version of
+<strong>ipptool</strong>
+being used.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-4</strong><br>
+Specifies that
+<strong>ipptool</strong>
+must connect to the printer or server using IPv4.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-6</strong><br>
+Specifies that
+<strong>ipptool</strong>
+must connect to the printer or server using IPv6.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-C</strong><br>
+Specifies that requests should be sent using the HTTP/1.1 &quot;Transfer-Encoding: chunked&quot; header, which is required for conformance by all versions of IPP.
+The default is to use &quot;Transfer-Encoding: chunked&quot; for requests with attached files and &quot;Content-Length:&quot; for requests without attached files.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces TLS encryption when connecting to the server using the HTTP &quot;Upgrade&quot; header.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-I</strong><br>
+Specifies that
+<strong>ipptool</strong>
+will continue past errors.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-L</strong><br>
+Specifies that requests should be sent using the HTTP/1.0 &quot;Content-Length:&quot; header, which is required for conformance by all versions of IPP.
+The default is to use &quot;Transfer-Encoding: chunked&quot; for requests with attached files and &quot;Content-Length:&quot; for requests without attached files.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-P</strong><em> filename.plist</em>
+<br>
+Specifies that the test results should be written to the named XML (Apple plist) file in addition to the regular test report (<strong>-t</strong>).
+This option is incompatible with the <strong>-i</strong> (interval) and <strong>-n</strong> (repeat-count) options.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-S</strong><br>
+Forces (dedicated) TLS encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-T</strong><em> seconds</em>
+<br>
+Specifies a timeout for IPP requests in seconds.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V</strong><em> version</em>
+<br>
+Specifies the default IPP version to use: 1.0, 1.1, 2.0, 2.1, or 2.2. If not specified, version 1.1 is used.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-X</strong><br>
+Specifies that XML (Apple plist) output is desired instead of the plain text report.
+This option is incompatible with the <strong>-i</strong> (interval) and <strong>-n</strong> (repeat-count) options.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c</strong><br>
+Specifies that CSV (comma-separated values) output is desired instead of the plain text output.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d</strong><em> name=value</em>
+<br>
+Defines the named variable.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-f</strong><em> filename</em>
+<br>
+Defines the default request filename for tests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h</strong><br>
+Validate HTTP response headers.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i</strong><em> seconds</em>
+<br>
+Specifies that the (last)
+<em>testfile</em>
+should be repeated at the specified interval.
+This option is incompatible with the <strong>-X</strong> (XML plist output) option.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-j</strong><br>
+Specifies that
+<strong>ipptool</strong>
+will produce JSON output.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l</strong><br>
+Specifies that plain text output is desired.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-n</strong><em> repeat-count</em>
+<br>
+Specifies that the (last)
+<em>testfile</em>
+should be repeated the specified number of times.
+This option is incompatible with the <em>-X</em> (XML plist output) option.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-q</strong><br>
+Be quiet and produce no output.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong><br>
+Specifies that CUPS test report output is desired instead of the plain text output.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v</strong><br>
+Specifies that all request and response attributes should be output in CUPS test mode (<strong>-t</strong>).
+This is the default for XML output.
+</p>
+    <h2 id="ipptool-1.exit-status">Exit Status</h2>
+<p>The
+<strong>ipptool</strong>
+program returns 0 if all tests were successful and 1 otherwise.
+</p>
+    <h2 id="ipptool-1.files">Files</h2>
+<p>The following standard files are available:
+</p>
+    <pre>
+    color.jpg
+    create-printer-subscription.test
+    document-a4.pdf
+    document-a4.ps
+    document-letter.pdf
+    document-letter.ps
+    get-completed-jobs.test
+    get-jobs.test
+    get-notifications.test
+    get-printer-attributes.test
+    get-subscriptions.test
+    gray.jpg
+    ipp-1.1.test
+    ipp-2.0.test
+    ipp-2.1.test
+    ipp-2.2.test
+    ipp-everywhere.test
+    onepage-a4.pdf
+    onepage-a4.ps
+    onepage-letter.pdf
+    onepage-letter.ps
+    print-job.test
+    print-job-deflate.test
+    print-job-gzip.test
+    testfile.jpg
+    testfile.pcl
+    testfile.pdf
+    testfile.ps
+    testfile.txt
+    validate-job.test
+</pre>
+    <h2 id="ipptool-1.conforming-to">Conforming To</h2>
+<p>The
+<strong>ipptool</strong>
+program is unique to CUPS and conforms to the Internet Printing Protocol up to version 2.2.
+</p>
+    <h2 id="ipptool-1.examples">Examples</h2>
+<p>Get a list of completed jobs for &quot;myprinter&quot;:
+</p>
+    <pre>
     ipptool ipp://localhost/printers/myprinter get-completed-jobs.test
 </pre>
-<p>Send email notifications to "user@example.com" when "myprinter" changes:
-<pre class="man">
-
+    <p>Send email notifications to &quot;user@example.com&quot; when &quot;myprinter&quot; changes:
+</p>
+    <pre>
     ipptool -d recipient=mailto:user@example.com \
         ipp://localhost/printers/myprinter create-printer-subscription.test
 </pre>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>ipptoolfile</b>(5),
-IANA IPP Registry (<a href="http://www.iana.org/assignments/ipp\-registrations)">http://www.iana.org/assignments/ipp\-registrations)</a>,
-PWG Internet Printing Protocol Workgroup (<a href="http://www.pwg.org/ipp">http://www.pwg.org/ipp</a>)
-RFC 8011 (<a href="http://tools.ietf.org/html/rfc8011)">http://tools.ietf.org/html/rfc8011)</a>,
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021 by OpenPrinting.
+    <h2 id="ipptool-1.see-also">See Also</h2>
+<p><strong>ipptoolfile</strong>(5),
 
-</body>
+IANA IPP Registry (<a href="https://www.iana.org/assignments/ipp-registrations">https://www.iana.org/assignments/ipp-registrations</a>),
+PWG Internet Printing Protocol Workgroup (<a href="https://www.pwg.org/ipp">https://www.pwg.org/ipp</a>)
+RFC 8011 (<a href="https://datatracker.ietf.org/doc/html/rfc8011">https://datatracker.ietf.org/doc/html/rfc8011</a>),
+</p>
+    <h2 id="ipptool-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

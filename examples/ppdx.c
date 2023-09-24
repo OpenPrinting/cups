@@ -201,7 +201,7 @@ ppdxWriteData(const char *name,		/* I - Base name of keyword */
   if (!name || (!data && datasize > 0) || datasize > PPDX_MAX_DATA)
     return;
 
-  strlcpy(line, "PPD:", sizeof(line));
+  cupsCopyString(line, "PPD:", sizeof(line));
   lineptr = line + 4;
   lineend = line + sizeof(line) - 2;
 
@@ -254,7 +254,7 @@ ppdxWriteData(const char *name,		/* I - Base name of keyword */
 	lineptr = line + 4;
       }
 
-      strlcpy(lineptr, pair, lineend - lineptr);
+      cupsCopyString(lineptr, pair, lineend - lineptr);
       lineptr += len;
 
      /*
@@ -286,7 +286,7 @@ ppdxWriteData(const char *name,		/* I - Base name of keyword */
     lineptr = line + 4;
   }
 
-  strlcpy(lineptr, pair, lineend - lineptr);
+  cupsCopyString(lineptr, pair, lineend - lineptr);
   lineptr += len;
 
   *lineptr++ = '\n';

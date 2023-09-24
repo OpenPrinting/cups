@@ -1,6 +1,7 @@
 /*
  * String functions for CUPS.
  *
+ * Copyright © 2023 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -23,7 +24,7 @@
  * Local globals...
  */
 
-static _cups_mutex_t	sp_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	sp_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex to control access to pool */
 static cups_array_t	*stringpool = NULL;
 					/* Global string pool */
@@ -34,6 +35,90 @@ static cups_array_t	*stringpool = NULL;
  */
 
 static int	compare_sp_items(_cups_sp_item_t *a, _cups_sp_item_t *b);
+
+
+//
+// 'cupsConcatString()' - Safely concatenate two strings.
+//
+
+size_t					// O - Length of string
+cupsConcatString(char       *dst,	// O - Destination string
+                 const char *src,	// I - Source string
+	         size_t     dstsize)	// I - Size of destination string buffer
+{
+  // Range check input...
+  if (!dst || !src || dstsize == 0)
+    return (0);
+
+#ifdef HAVE_STRLCAT
+  return (strlcat(dst, src, dstsize));
+
+#else
+  size_t	srclen;			// Length of source string
+  size_t	dstlen;			// Length of destination string
+
+
+  // Figure out how much room is left...
+  dstlen = strlen(dst);
+
+  if (dstsize < (dstlen + 1))
+    return (dstlen);		        // No room, return immediately...
+
+  dstsize -= dstlen + 1;
+
+  // Figure out how much room is needed...
+  srclen = strlen(src);
+
+  // Copy the appropriate amount...
+  if (srclen > dstsize)
+    srclen = dstsize;
+
+  memmove(dst + dstlen, src, srclen);
+  dst[dstlen + srclen] = '\0';
+
+  return (dstlen + srclen);
+#endif // HAVE_STRLCAT
+}
+
+
+//
+// 'cupsCopyString()' - Safely copy two strings.
+//
+
+size_t					// O - Length of string
+cupsCopyString(char       *dst,		// O - Destination string
+               const char *src,		// I - Source string
+	       size_t     dstsize)	// I - Size of destination string buffer
+{
+  // Range check input...
+  if (!dst || !src || dstsize == 0)
+  {
+    if (dst)
+      *dst = '\0';
+    return (0);
+  }
+
+#ifdef HAVE_STRLCPY
+  return (strlcpy(dst, src, dstsize));
+
+#else
+  size_t	srclen;			// Length of source string
+
+  // Figure out how much room is needed...
+  dstsize --;
+
+  srclen = strlen(src);
+
+  // Copy the appropriate amount...
+  if (srclen > dstsize)
+    srclen = dstsize;
+
+  memmove(dst, src, srclen);
+  dst[srclen] = '\0';
+
+  return (srclen);
+#endif // HAVE_STRLCPY
+}
 
 
 /*
@@ -59,14 +144,14 @@ _cupsStrAlloc(const char *s)		/* I - String */
   * Get the string pool...
   */
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   if (!stringpool)
     stringpool = cupsArrayNew((cups_array_func_t)compare_sp_items, NULL);
 
   if (!stringpool)
   {
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
 
     return (NULL);
   }
@@ -86,15 +171,13 @@ _cupsStrAlloc(const char *s)		/* I - String */
     item->ref_count ++;
 
 #ifdef DEBUG_GUARDS
-    DEBUG_printf(("5_cupsStrAlloc: Using string %p(%s) for \"%s\", guard=%08x, "
-                  "ref_count=%d", item, item->str, s, item->guard,
-		  item->ref_count));
+    DEBUG_printf("5_cupsStrAlloc: Using string %p(%s) for \"%s\", guard=%08x, ref_count=%d", item, item->str, s, item->guard, item->ref_count);
 
     if (item->guard != _CUPS_STR_GUARD)
       abort();
 #endif /* DEBUG_GUARDS */
 
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
 
     return (item->str);
   }
@@ -107,7 +190,7 @@ _cupsStrAlloc(const char *s)		/* I - String */
   item = (_cups_sp_item_t *)calloc(1, sizeof(_cups_sp_item_t) + slen);
   if (!item)
   {
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
 
     return (NULL);
   }
@@ -118,9 +201,7 @@ _cupsStrAlloc(const char *s)		/* I - String */
 #ifdef DEBUG_GUARDS
   item->guard = _CUPS_STR_GUARD;
 
-  DEBUG_printf(("5_cupsStrAlloc: Created string %p(%s) for \"%s\", guard=%08x, "
-		"ref_count=%d", item, item->str, s, item->guard,
-		item->ref_count));
+  DEBUG_printf("5_cupsStrAlloc: Created string %p(%s) for \"%s\", guard=%08x, ref_count=%d", item, item->str, s, item->guard, item->ref_count);
 #endif /* DEBUG_GUARDS */
 
  /*
@@ -129,7 +210,7 @@ _cupsStrAlloc(const char *s)		/* I - String */
 
   cupsArrayAdd(stringpool, item);
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 
   return (item->str);
 }
@@ -178,10 +259,9 @@ _cupsStrFlush(void)
   _cups_sp_item_t	*item;		/* Current item */
 
 
-  DEBUG_printf(("4_cupsStrFlush: %d strings in array",
-                cupsArrayCount(stringpool)));
+  DEBUG_printf("4_cupsStrFlush: %d strings in array", cupsArrayCount(stringpool));
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   for (item = (_cups_sp_item_t *)cupsArrayFirst(stringpool);
        item;
@@ -191,7 +271,7 @@ _cupsStrFlush(void)
   cupsArrayDelete(stringpool);
   stringpool = NULL;
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 }
 
 
@@ -267,7 +347,7 @@ _cupsStrFormatd(char         *buf,	/* I - String */
   }
   else
   {
-    strlcpy(buf, temp, (size_t)(bufend - buf + 1));
+    cupsCopyString(buf, temp, (size_t)(bufend - buf + 1));
     bufptr = buf + strlen(buf);
   }
 
@@ -308,7 +388,7 @@ _cupsStrFree(const char *s)		/* I - String to free */
   * See if the string is already in the pool...
   */
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   key = (_cups_sp_item_t *)(s - offsetof(_cups_sp_item_t, str));
 
@@ -322,7 +402,7 @@ _cupsStrFree(const char *s)		/* I - String to free */
 #ifdef DEBUG_GUARDS
     if (key->guard != _CUPS_STR_GUARD)
     {
-      DEBUG_printf(("5_cupsStrFree: Freeing string %p(%s), guard=%08x, ref_count=%d", key, key->str, key->guard, key->ref_count));
+      DEBUG_printf("5_cupsStrFree: Freeing string %p(%s), guard=%08x, ref_count=%d", key, key->str, key->guard, key->ref_count);
       abort();
     }
 #endif /* DEBUG_GUARDS */
@@ -341,7 +421,7 @@ _cupsStrFree(const char *s)		/* I - String to free */
     }
   }
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 }
 
 
@@ -366,17 +446,16 @@ _cupsStrRetain(const char *s)		/* I - String to retain */
 #ifdef DEBUG_GUARDS
     if (item->guard != _CUPS_STR_GUARD)
     {
-      DEBUG_printf(("5_cupsStrRetain: Retaining string %p(%s), guard=%08x, "
-                    "ref_count=%d", item, s, item->guard, item->ref_count));
+      DEBUG_printf("5_cupsStrRetain: Retaining string %p(%s), guard=%08x, ref_count=%d", item, s, item->guard, item->ref_count);
       abort();
     }
 #endif /* DEBUG_GUARDS */
 
-    _cupsMutexLock(&sp_mutex);
+    cupsMutexLock(&sp_mutex);
 
     item->ref_count ++;
 
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
   }
 
   return ((char *)s);
@@ -442,7 +521,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
 
     if (loc && loc->decimal_point)
     {
-      strlcpy(tempptr, loc->decimal_point, sizeof(temp) - (size_t)(tempptr - temp));
+      cupsCopyString(tempptr, loc->decimal_point, sizeof(temp) - (size_t)(tempptr - temp));
       tempptr += strlen(tempptr);
     }
     else if (tempptr < (temp + sizeof(temp) - 1))
@@ -517,7 +596,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
 
   *tempptr = '\0';
 
-  return (strtod(temp, NULL));
+  return (atof(temp));
 }
 
 
@@ -540,7 +619,7 @@ _cupsStrStatistics(size_t *alloc_bytes,	/* O - Allocated bytes */
   * Loop through strings in pool, counting everything up...
   */
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   for (count = 0, abytes = 0, tbytes = 0,
            item = (_cups_sp_item_t *)cupsArrayFirst(stringpool);
@@ -557,7 +636,7 @@ _cupsStrStatistics(size_t *alloc_bytes,	/* O - Allocated bytes */
     tbytes += item->ref_count * len;
   }
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 
  /*
   * Return values...
@@ -586,30 +665,6 @@ _cups_strcpy(char       *dst,		/* I - Destination string */
 
   *dst = '\0';
 }
-
-
-/*
- * '_cups_strdup()' - Duplicate a string.
- */
-
-#ifndef HAVE_STRDUP
-char 	*				/* O - New string pointer */
-_cups_strdup(const char *s)		/* I - String to duplicate */
-{
-  char		*t;			/* New string pointer */
-  size_t	slen;			/* Length of string */
-
-
-  if (!s)
-    return (NULL);
-
-  slen = strlen(s);
-  if ((t = malloc(slen + 1)) == NULL)
-    return (NULL);
-
-  return (memcpy(t, s, slen + 1));
-}
-#endif /* !HAVE_STRDUP */
 
 
 /*
@@ -703,11 +758,11 @@ _cups_strcasestr(const char *haystack,	/* I - String in which to searh */
 
 #ifndef HAVE_STRLCAT
 /*
- * '_cups_strlcat()' - Safely concatenate two strings.
+ * '_cups_cupsConcatString()' - Safely concatenate two strings.
  */
 
 size_t					/* O - Length of string */
-_cups_strlcat(char       *dst,		/* O - Destination string */
+_cups_cupsConcatString(char       *dst,		/* O - Destination string */
               const char *src,		/* I - Source string */
 	      size_t     size)		/* I - Size of destination string buffer */
 {
@@ -749,16 +804,19 @@ _cups_strlcat(char       *dst,		/* O - Destination string */
 
 #ifndef HAVE_STRLCPY
 /*
- * '_cups_strlcpy()' - Safely copy two strings.
+ * '_cups_cupsCopyString()' - Safely copy two strings.
  */
 
 size_t					/* O - Length of string */
-_cups_strlcpy(char       *dst,		/* O - Destination string */
+_cups_cupsCopyString(char       *dst,		/* O - Destination string */
               const char *src,		/* I - Source string */
 	      size_t      size)		/* I - Size of destination string buffer */
 {
   size_t	srclen;			/* Length of source string */
 
+
+  if (size == 0)
+    return (0);
 
  /*
   * Figure out how much room is needed...

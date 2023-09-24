@@ -1,7 +1,7 @@
 /*
  * Printer definitions for the CUPS scheduler.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright @ 2007-2017 by Apple Inc.
  * Copyright @ 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -54,7 +54,7 @@ typedef struct cupsd_job_s cupsd_job_t;
 
 struct cupsd_printer_s
 {
-  _cups_rwlock_t lock;			/* Concurrency lock for background updates */
+  cups_rwlock_t lock;			/* Concurrency lock for background updates */
   int		printer_id;		/* Printer ID */
   char		*uri,			/* Printer URI */
 		*uuid,			/* Printer UUID */
@@ -114,17 +114,13 @@ struct cupsd_printer_s
   time_t	marker_time;		/* Last time marker attributes were updated */
   _ppd_cache_t	*pc;			/* PPD cache and mapping data */
 
-#ifdef HAVE_DNSSD
   char		*reg_name,		/* Name used for service registration */
 		*pdl;			/* pdl value for TXT record */
   cupsd_srv_t	ipp_srv;		/* IPP service(s) */
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
   cupsd_srv_t	ipps_srv;		/* IPPS service(s) */
-#    endif /* HAVE_TLS */
   cupsd_srv_t	printer_srv;		/* LPD service */
 #  endif /* HAVE_MDNSRESPONDER */
-#endif /* HAVE_DNSSD */
 };
 
 
@@ -180,7 +176,7 @@ extern int		cupsdSetPrinterReasons(cupsd_printer_t *p,
 extern void		cupsdSetPrinterState(cupsd_printer_t *p, ipp_pstate_t s,
 			                     int update);
 #define			cupsdStartPrinter(p,u) cupsdSetPrinterState((p), \
-						   IPP_PRINTER_IDLE, (u))
+						   IPP_PSTATE_IDLE, (u))
 extern void		cupsdStopPrinter(cupsd_printer_t *p, int update);
 extern int		cupsdUpdatePrinterPPD(cupsd_printer_t *p,
 			                      int num_keywords,

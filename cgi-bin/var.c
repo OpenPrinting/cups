@@ -304,7 +304,7 @@ cgiInitialize(void)
     if (boundary)
       boundary += 9;
 
-    if (content_type && !strncmp(content_type, "multipart/form-data; ", 21))
+    if (!strncmp(content_type, "multipart/form-data; ", 21))
     {
       if (!cgi_initialize_multipart(boundary))
         return (0);
@@ -553,14 +553,27 @@ cgi_add_variable(const char *name,	/* I - Variable name */
     if (!temp_vars)
       return;
 
-    form_vars  = temp_vars;
+    var = temp_vars + form_count;
+
+    if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
+    {
+      /*
+       * Rollback changes
+       */
+
+      if (form_alloc == 0)
+        free(temp_vars);
+      return;
+    }
+    form_vars = temp_vars;
     form_alloc += 16;
   }
-
-  var = form_vars + form_count;
-
-  if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
-    return;
+  else
+  {
+    var = form_vars + form_count;
+    if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
+      return;
+  }
 
   var->name            = strdup(name);
   var->nvalues         = element + 1;
@@ -921,7 +934,7 @@ cgi_initialize_multipart(
     {
       if ((ptr = strstr(line + 20, " name=\"")) != NULL)
       {
-        strlcpy(name, ptr + 7, sizeof(name));
+        cupsCopyString(name, ptr + 7, sizeof(name));
 
 	if ((ptr = strchr(name, '\"')) != NULL)
 	  *ptr = '\0';
@@ -929,7 +942,7 @@ cgi_initialize_multipart(
 
       if ((ptr = strstr(line + 20, " filename=\"")) != NULL)
       {
-        strlcpy(filename, ptr + 11, sizeof(filename));
+        cupsCopyString(filename, ptr + 11, sizeof(filename));
 
 	if ((ptr = strchr(filename, '\"')) != NULL)
 	  *ptr = '\0';
@@ -939,7 +952,7 @@ cgi_initialize_multipart(
     {
       for (ptr = line + 13; isspace(*ptr & 255); ptr ++);
 
-      strlcpy(mimetype, ptr, sizeof(mimetype));
+      cupsCopyString(mimetype, ptr, sizeof(mimetype));
 
       for (ptr = mimetype + strlen(mimetype) - 1;
            ptr > mimetype && isspace(*ptr & 255);

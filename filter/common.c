@@ -206,7 +206,7 @@ UpdatePageVars(void)
 
   switch (Orientation & 3)
   {
-    case 0 : /* Portait */
+    case 0 : /* Portrait */
         break;
 
     case 1 : /* Landscape */
@@ -301,7 +301,7 @@ WriteLabelProlog(const char *label,	/* I - Page label */
 
   if ((classification = getenv("CLASSIFICATION")) == NULL)
     classification = "";
-  if (strcmp(classification, "none") == 0)
+  else if (strcmp(classification, "none") == 0)
     classification = "";
 
  /*

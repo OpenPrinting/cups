@@ -1,84 +1,98 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>cupsaccept(8)</title>
-</head>
-<body>
-<h1 class="title">cupsaccept(8)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-cupsaccept/cupsreject - accept/reject jobs sent to a destination
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>cupsaccept</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cupsaccept(8)</title>
+  </head>
+  <body>
+    <h1 id="cupsaccept-8">cupsaccept(8)</h1>
+    <h2 id="cupsaccept-8.name">Name</h2>
+<p>cupsaccept/cupsreject - accept/reject jobs sent to a destination
+</p>
+    <h2 id="cupsaccept-8.synopsis">Synopsis</h2>
+<p><strong>cupsaccept</strong>
 [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ] [
-<b>-h</b>
-<i>hostname[:port]</i>
+<strong>-h</strong>
+<em>hostname[:port]</em>
 ]
-<i>destination(s)</i>
+<em>destination(s)</em>
 <br>
-<b>cupsreject</b>
+<strong>cupsreject</strong>
 [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ] [
-<b>-h</b>
-<i>hostname[:port]</i>
+<strong>-h</strong>
+<em>hostname[:port]</em>
 ] [
-<b>-r</b>
-<i>reason</i>
+<strong>-r</strong>
+<em>reason</em>
 ]
-<i>destination(s)</i>
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-The
-<b>cupsaccept</b>
-command instructs the printing system to accept print jobs to the specified destinations.
+<em>destination(s)</em>
+</p>
+    <h2 id="cupsaccept-8.description">Description</h2>
 <p>The
-<b>cupsreject</b>
+<strong>cupsaccept</strong>
+command instructs the printing system to accept print jobs to the specified destinations.
+</p>
+    <p>The
+<strong>cupsreject</strong>
 command instructs the printing system to reject print jobs to the
 specified destinations.
-The <i>-r</i> option sets the reason for rejecting print jobs. If not specified, the reason defaults to "Reason Unknown".
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-The following options are supported by both
-<b>cupsaccept</b>
+The <em>-r</em> option sets the reason for rejecting print jobs. If not specified, the reason defaults to &quot;Reason Unknown&quot;.
+</p>
+    <h2 id="cupsaccept-8.options">Options</h2>
+<p>The following options are supported by both
+<strong>cupsaccept</strong>
 and
-<b>cupsreject</b>:
-<dl class="man">
-<dt><b>-E</b>
-<dd style="margin-left: 5.0em">Forces encryption when connecting to the server.
-<dt><b>-U </b><i>username</i>
-<dd style="margin-left: 5.0em">Sets the username that is sent when connecting to the server.
-<dt><b>-h </b><i>hostname[:port]</i>
-<dd style="margin-left: 5.0em">Chooses an alternate server.
-<dt><b>-r </b>"<i>reason</i>"
-<dd style="margin-left: 5.0em">Sets the reason string that is shown for a printer that is rejecting jobs.
-</dl>
-<h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
-The
-<b>cupsaccept</b>
+<strong>cupsreject</strong>:
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Sets the username that is sent when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>hostname[:port]</em><br>
+Chooses an alternate server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong>&quot;<em>reason</em>&quot;<br>
+Sets the reason string that is shown for a printer that is rejecting jobs.
+</p>
+    <h2 id="cupsaccept-8.conforming-to">Conforming To</h2>
+<p>The
+<strong>cupsaccept</strong>
 and
-<b>cupsreject</b>
-commands correspond to the System V printing system commands "accept" and "reject", respectively.
-Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, "/", or "#".
-Also, printer and class names are <i>not</i> case-sensitive.
-<p>Finally, the CUPS versions may ask the user for an access password depending on the printing system configuration.
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>cancel</b>(1),
-<b>cupsenable</b>(8),
-<b>lp</b>(1),
-<b>lpadmin</b>(8),
-<b>lpstat</b>(1),
+<strong>cupsreject</strong>
+commands correspond to the System V printing system commands &quot;accept&quot; and &quot;reject&quot;, respectively.
+Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;.
+Also, printer and class names are <em>not</em> case-sensitive.
+</p>
+    <p>Finally, the CUPS versions may ask the user for an access password depending on the printing system configuration.
+</p>
+    <h2 id="cupsaccept-8.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>cupsenable</strong>(8),
+
+<strong>lp</strong>(1),
+
+<strong>lpadmin</strong>(8),
+
+<strong>lpstat</strong>(1),
+
 <br>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021 by OpenPrinting.
-
-</body>
+</p>
+    <h2 id="cupsaccept-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>

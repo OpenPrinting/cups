@@ -473,7 +473,7 @@ print_device(const char *uri,		/* I - Device URI */
       {
 	iostatus = libusb_bulk_transfer(g.printer->handle,
 					g.printer->write_endp,
-					print_buffer, g.print_bytes,
+					print_ptr, g.print_bytes,
 					&bytes, 0);
        /*
 	* Ignore timeout errors, but retain the number of bytes written to
@@ -496,7 +496,7 @@ print_device(const char *uri,		/* I - Device URI */
 
 	  iostatus = libusb_bulk_transfer(g.printer->handle,
 					  g.printer->write_endp,
-					  print_buffer, g.print_bytes,
+					  print_ptr, g.print_bytes,
 					  &bytes, 0);
 	}
 
@@ -511,7 +511,7 @@ print_device(const char *uri,		/* I - Device URI */
 
 	  iostatus = libusb_bulk_transfer(g.printer->handle,
 					  g.printer->write_endp,
-					  print_buffer, g.print_bytes,
+					  print_ptr, g.print_bytes,
 					  &bytes, 0);
         }
 
@@ -1046,7 +1046,7 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
               char          *buffer,	/* I - String buffer */
               size_t        bufsize)	/* I - Number of bytes in buffer */
 {
-  int	length;				/* Length of device ID */
+  size_t	length;				/* Length of device ID */
 
 
   if (libusb_control_transfer(printer->handle,
@@ -1065,7 +1065,7 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
   * bytes.  The 1284 spec says the length is stored MSB first...
   */
 
-  length = (int)((((unsigned)buffer[0] & 255) << 8) | ((unsigned)buffer[1] & 255));
+  length = (((unsigned)buffer[0] & 255) << 8) | ((unsigned)buffer[1] & 255);
 
  /*
   * Check to see if the length is larger than our buffer or less than 14 bytes
@@ -1076,7 +1076,7 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
   */
 
   if (length > bufsize || length < 14)
-    length = (int)((((unsigned)buffer[1] & 255) << 8) | ((unsigned)buffer[0] & 255));
+    length = (((unsigned)buffer[1] & 255) << 8) | ((unsigned)buffer[0] & 255);
 
   if (length > bufsize)
     length = bufsize;
@@ -1098,7 +1098,7 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
   * nul-terminate.
   */
 
-  memmove(buffer, buffer + 2, (size_t)length);
+  memmove(buffer, buffer + 2, length);
   buffer[length] = '\0';
 
   return (0);
@@ -1123,7 +1123,7 @@ list_cb(usb_printer_t *printer,		/* I - Printer */
   */
 
   if (backendGetMakeModel(device_id, make_model, sizeof(make_model)))
-    strlcpy(make_model, "Unknown", sizeof(make_model));
+    cupsCopyString(make_model, "Unknown", sizeof(make_model));
 
  /*
   * Report the printer...
@@ -1354,7 +1354,7 @@ make_device_uri(
              (des = cupsGetOption("DES", num_values, values)) != NULL)
       _ppdNormalizeMakeAndModel(des, tempmfg, sizeof(tempmfg));
     else
-      strlcpy(tempmfg, "Unknown", sizeof(tempmfg));
+      cupsCopyString(tempmfg, "Unknown", sizeof(tempmfg));
 
     if ((tempptr = strchr(tempmfg, ' ')) != NULL)
       *tempptr = '\0';
@@ -1427,7 +1427,7 @@ open_device(usb_printer_t *printer,	/* I - Printer */
   int	number1 = -1,			/* Configuration/interface/altset */
         number2 = -1,			/* numbers */
         errcode = 0;
-  char	current;			/* Current configuration */
+  unsigned char	current;			/* Current configuration */
 
 
  /*
@@ -1504,7 +1504,7 @@ open_device(usb_printer_t *printer,	/* I - Printer */
                 LIBUSB_REQUEST_TYPE_STANDARD | LIBUSB_ENDPOINT_IN |
 		LIBUSB_RECIPIENT_DEVICE,
 		8, /* GET_CONFIGURATION */
-		0, 0, (unsigned char *)&current, 1, 5000) < 0)
+		0, 0, &current, 1, 5000) < 0)
     current = 0;			/* Assume not configured */
 
   printer->origconf = current;
@@ -1644,8 +1644,8 @@ print_cb(usb_printer_t *printer,	/* I - Printer */
   * Work on copies of the URIs...
   */
 
-  strlcpy(requested_uri, (char *)data, sizeof(requested_uri));
-  strlcpy(detected_uri, device_uri, sizeof(detected_uri));
+  cupsCopyString(requested_uri, (char *)data, sizeof(requested_uri));
+  cupsCopyString(detected_uri, device_uri, sizeof(detected_uri));
 
  /*
   * libusb-discovered URIs can have an "interface" specification and this
@@ -1748,7 +1748,7 @@ static void *read_thread(void *reference)
       fputs("DEBUG: Got USB return aborted during read.\n", stderr);
 
    /*
-    * Make sure this loop executes no more than once every 250 miliseconds...
+    * Make sure this loop executes no more than once every 250 milliseconds...
     */
 
     if ((readstatus != LIBUSB_SUCCESS || rbytes == 0) &&

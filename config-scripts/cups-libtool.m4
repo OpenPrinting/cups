@@ -1,7 +1,7 @@
 dnl
-dnl Libtool stuff for CUPS.
+dnl GNU libtool stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2021-2023 by OpenPrinting.
 dnl Copyright © 2007-2018 by Apple Inc.
 dnl Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 dnl
@@ -9,20 +9,23 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
-AC_ARG_ENABLE([libtool_unsupported], AS_HELP_STRING([--enable-libtool-unsupported=/path/to/libtool], [build with libtool (UNSUPPORTED)]), [
-    AS_IF([test x$enable_libtool_unsupported != xno], [
-	AS_IF([test x$enable_libtool_unsupported = xyes], [
-	    AC_MSG_ERROR([Use --enable-libtool-unsupported=/path/to/libtool.])
-	])
-	LIBTOOL="$enable_libtool_unsupported"
-	enable_shared="no"
-	AC_MSG_WARN([WARNING: libtool is not supported.])
-    ], [
-	LIBTOOL=""
-    ])
+AC_ARG_ENABLE([libtool_unsupported], [
+    AS_HELP_STRING([--enable-libtool-unsupported=/path/to/libtool], [build with libtool (UNSUPPORTED)])
+], [
+], [
+    enable_libtool_unsupported=no
 ])
 
-AS_IF([test x$LIBTOOL != x], [
+AS_IF([test x$enable_libtool_unsupported != xno], [
+    AS_IF([test "x$enable_libtool_unsupported" = xyes], [
+        AC_MSG_ERROR([Use '--enable-libtool-unsupported=/path/to/libtool'.])
+    ],[
+        AC_MSG_WARN([libtool is not supported.])
+    ])
+
+    LIBTOOL="$enable_libtool_unsupported"
+    enable_shared="no"
+
     DSO="\$(LIBTOOL) --mode=link --tag=CC ${CC}"
     DSOXX="\$(LIBTOOL) --mode=link --tag=CXX ${CXX}"
 

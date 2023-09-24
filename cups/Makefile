@@ -1,7 +1,7 @@
 #
 # Library Makefile for CUPS.
 #
-# Copyright © 2021 by OpenPrinting.
+# Copyright © 2021-2023 by OpenPrinting.
 # Copyright © 2007-2021 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 #
@@ -25,8 +25,10 @@ COREOBJS	=	\
 		dest-localization.o \
 		dest-options.o \
 		dir.o \
+		dnssd.o \
 		encode.o \
 		file.o \
+		form.o \
 		getputfile.o \
 		globals.o \
 		hash.o \
@@ -36,8 +38,9 @@ COREOBJS	=	\
 		http-support.o \
 		ipp.o \
 		ipp-file.o \
-		ipp-vars.o \
 		ipp-support.o \
+		json.o \
+		jwt.o \
 		langprintf.o \
 		language.o \
 		md5.o \
@@ -45,6 +48,7 @@ COREOBJS	=	\
 		notify.o \
 		options.o \
 		pwg-media.o \
+		rand.o \
 		raster-error.o \
 		raster-stream.o \
 		raster-stubs.o \
@@ -97,17 +101,22 @@ TESTOBJS	= \
 		testcreds.o \
 		testcups.o \
 		testdest.o \
+		testdnssd.o \
 		testfile.o \
+		testform.o \
 		testgetdests.o \
 		testhttp.o \
 		testi18n.o \
 		testipp.o \
-		testoptions.o \
+		testjson.o \
+		testjwt.o \
 		testlang.o \
+		testoptions.o \
 		testppd.o \
 		testpwg.o \
 		testraster.o \
 		testsnmp.o \
+		testtestpage.o \
 		testthreads.o \
 		tlscheck.o
 OBJS	=	\
@@ -124,12 +133,17 @@ COREHEADERS	=	\
 		array.h \
 		cups.h \
 		dir.h \
+		dnssd.h \
 		file.h \
+		form.h \
 		http.h \
 		ipp.h \
+		json.h \
+		jwt.h \
 		language.h \
 		pwg.h \
 		raster.h \
+		thread.h \
 		transcode.h \
 		versioning.h
 
@@ -143,17 +157,16 @@ HEADERS		=	\
 		$(LIBHEADERS)
 
 COREHEADERSPRIV =	\
-		array-private.h \
 		cups-private.h \
 		debug-private.h \
 		file-private.h \
 		http-private.h \
 		ipp-private.h \
+		json-private.h \
 		language-private.h \
 		pwg-private.h \
 		raster-private.h \
-		string-private.h \
-		thread-private.h
+		string-private.h
 
 DRIVERHEADERSPRIV	=	\
 		ppd-private.h \
@@ -174,7 +187,6 @@ LIBTARGETS =	\
 		libcupsimage.a
 
 UNITTARGETS =	\
-		fuzzipp \
 		rasterbench \
 		testadmin \
 		testarray \
@@ -184,17 +196,22 @@ UNITTARGETS =	\
 		testcreds \
 		testcups \
 		testdest \
+		testdnssd \
 		testfile \
+		testform \
 		testgetdests \
 		testhttp \
 		testi18n \
 		testipp \
+		testjson \
+		testjwt \
 		testlang \
 		testoptions \
 		testppd \
 		testpwg \
 		testraster \
 		testsnmp \
+		testtestpage \
 		testthreads \
 		tlscheck
 
@@ -217,6 +234,54 @@ libs:		$(LIBTARGETS)
 
 
 #
+# Run unit tests...
+#
+
+test:		unittests
+	echo "Tests started at $(date)..." >test.log
+	echo Running array API tests...
+	./testarray >>test.log
+	echo Running file API tests...
+	./testfile >>test.log
+	echo Running form API tests...
+	./testform >>test.log
+	echo Running HTTP API tests...
+	./testhttp >>test.log
+	echo Running IPP API tests...
+	./testipp >>test.log
+	echo Running internationalization API tests...
+	./testi18n >>test.log
+	echo Running JSON API tests...
+	./testjson >>test.log
+	echo Running JWT API tests...
+	./testjwt >>test.log
+	echo Creating locale directory structure...
+	$(RM) -r locale
+	for po in ../locale/cups_*.po; do \
+		lang=`basename $$po .po | sed -e '1,$$s/^cups_//'`; \
+		$(MKDIR) locale/$$lang; \
+		$(LN) ../../$$po locale/$$lang; \
+	done
+	echo Running language API tests...
+	echo ls -al locale >>test.log
+	ls -al locale >>test.log
+	LOCALEDIR=locale ./testlang >>test.log
+	echo Running option API tests...
+	./testoptions >>test.log
+	echo Running PPD API tests...
+	./testppd >>test.log
+	echo Running PWG API tests...
+	./testpwg test.ppd >>test.log
+	echo Running raster API tests...
+	./testraster >>test.log
+	echo Running raster testpage API tests...
+	./testtestpage >>test.log
+#	echo Fuzzing IPP API...
+#	./fuzzipp >>test.log
+	echo "Tests finished at $(date)..." >>test.log
+
+
+#
 # Make unit tests...
 #
 
@@ -228,7 +293,7 @@ unittests:	$(UNITTARGETS)
 #
 
 clean:
-	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS)
+	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS) fuzzipp
 	$(RM) libcups.so libcups.dylib
 	$(RM) libcupsimage.so libcupsimage.dylib
 
@@ -238,7 +303,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #
@@ -370,7 +435,7 @@ libcups.2.dylib:	$(LIBOBJS)
 	echo Linking $@...
 	$(DSO) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ \
 		-install_name $(libdir)/$@ \
-		-current_version 2.14.0 \
+		-current_version 2.15.0 \
 		-compatibility_version 2.0.0 \
 		$(LIBOBJS) $(LIBS)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
@@ -385,7 +450,7 @@ libcups.2.dylib:	$(LIBOBJS)
 libcups.la:    $(LIBOBJS)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ $(LIBOBJS:.o=.lo) \
-		-rpath $(LIBDIR) -version-info 2:14 $(LIBS)
+		-rpath $(LIBDIR) -version-info 2:15 $(LIBS)
 
 
 #
@@ -406,10 +471,10 @@ libcups.a:	$(LIBOBJS)
 libcups2.def: $(LIBOBJS) $(IMAGEOBJS) Makefile
 	echo Generating $@...
 	echo "LIBRARY libcups2" >libcups2.def
-	echo "VERSION 2.14" >>libcups2.def
+	echo "VERSION 2.15" >>libcups2.def
 	echo "EXPORTS" >>libcups2.def
 	(nm $(LIBOBJS) $(IMAGEOBJS) 2>/dev/null | grep "T _" | awk '{print $$3}'; \
-	 echo __cups_strcpy; echo __cups_strlcat; echo __cups_strlcpy; \
+	 echo __cups_strcpy; echo __cups_cupsConcatString; echo __cups_cupsCopyString; \
 	 echo __cups_snprintf; echo __cups_vsnprintf; echo __cups_gettimeofday) | \
 		grep -v -E \
 		    -e 'cups_debug|Apple|BackChannel|Backend|FileCheck|Filter|GSSService|SetNegotiate|SideChannel|SNMP' \
@@ -436,7 +501,7 @@ libcupsimage.2.dylib:	$(IMAGEOBJS) libcups.2.dylib
 	echo Linking $@...
 	$(DSO) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ \
 		-install_name $(libdir)/$@ \
-		-current_version 2.3.0 \
+		-current_version 2.15.0 \
 		-compatibility_version 2.0.0 \
 		$(IMAGEOBJS) $(LINKCUPS)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
@@ -451,7 +516,7 @@ libcupsimage.2.dylib:	$(IMAGEOBJS) libcups.2.dylib
 libcupsimage.la:       $(IMAGEOBJS) libcups.la
 	echo Linking $@...
 	$(DSO) $(ARCHFLAGS) $(ALL_DSOFLAGS) -o $@ $(IMAGEOBJS:.o=.lo) \
-		$(LINKCUPS) -rpath $(LIBDIR) -version-info 2:3
+		$(LINKCUPS) -rpath $(LIBDIR) -version-info 2:15
 
 
 #
@@ -473,8 +538,6 @@ fuzzipp:	fuzzipp.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ fuzzipp.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Fuzzing IPP API...
-	./fuzzipp
 
 
 #
@@ -505,8 +568,6 @@ testarray:	testarray.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testarray.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running array API tests...
-	./testarray
 
 
 #
@@ -570,6 +631,16 @@ testdest:	testdest.o $(LIBCUPSSTATIC)
 
 
 #
+# testdnssd (dependency on static libraries is intentional)
+#
+
+testdnssd:	testdnssd.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testdnssd.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
 # testfile (dependency on static CUPS library is intentional)
 #
 
@@ -577,8 +648,16 @@ testfile:	testfile.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testfile.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running file API tests...
-	./testfile
+
+
+#
+# testform (dependency on static CUPS library is intentional)
+#
+
+testform:	testform.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testform.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 
 #
@@ -599,8 +678,6 @@ testhttp:	testhttp.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testhttp.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running HTTP API tests...
-	./testhttp
 
 
 #
@@ -611,8 +688,6 @@ testipp:	testipp.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testipp.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running IPP API tests...
-	./testipp
 
 
 #
@@ -623,8 +698,26 @@ testi18n:	testi18n.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testi18n.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running internationalization API tests...
-	./testi18n
+
+
+#
+# testjson (dependency on static CUPS library is intentional)
+#
+
+testjson:	testjson.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testjson.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testjwt (dependency on static CUPS library is intentional)
+#
+
+testjwt:	testjwt.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testjwt.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 
 #
@@ -635,17 +728,6 @@ testlang:	testlang.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testlang.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Creating locale directory structure...
-	$(RM) -r locale
-	for po in ../locale/cups_*.po; do \
-		lang=`basename $$po .po | sed -e '1,$$s/^cups_//'`; \
-		$(MKDIR) locale/$$lang; \
-		$(LN) ../../$$po locale/$$lang; \
-	done
-	echo Running language API tests...
-	echo ls -al locale
-	ls -al locale
-	LOCALEDIR=locale ./testlang
 
 
 #
@@ -656,8 +738,6 @@ testoptions:	testoptions.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testoptions.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running option API tests...
-	./testoptions
 
 
 #
@@ -668,8 +748,6 @@ testppd:	testppd.o $(LIBCUPSSTATIC) test.ppd test2.ppd
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testppd.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running PPD API tests...
-	./testppd
 
 
 #
@@ -680,8 +758,6 @@ testpwg:	testpwg.o $(LIBCUPSSTATIC) test.ppd
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testpwg.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running PWG API tests...
-	./testpwg test.ppd
 
 
 #
@@ -692,8 +768,6 @@ testraster:	testraster.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testraster.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Running raster API tests...
-	./testraster
 
 
 #
@@ -703,6 +777,16 @@ testraster:	testraster.o $(LIBCUPSSTATIC)
 testsnmp:	testsnmp.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o $@ testsnmp.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testtestpage (dependency on static CUPS library is intentional)
+#
+
+testtestpage:	testtestpage.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testtestpage.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 
@@ -733,15 +817,10 @@ tlscheck:	tlscheck.o $(LIBCUPSSTATIC)
 apihelp:
 	echo "Generating CUPS Programming Manual..."
 	$(RM) cupspm.xml
-	codedoc --section "Programming" --body cupspm.md \
-		cupspm.xml \
-		array.[ch] auth.c cups.h dest*.c dir.[ch] encode.c file.[ch] \
-		http.h http*.c ipp.h ipp*.c options.c pwg.[ch] \
-		raster.h raster-stubs.c tls-darwin.c usersys.c util.c \
-		--coverimage cupspm.png \
-		--epub ../doc/help/cupspm.epub
-	codedoc --section "Programming" --body cupspm.md \
-		cupspm.xml > ../doc/help/cupspm.html
+	codedoc --section "Programming" --body cupspm.md cupspm.xml \
+		$(COREOBJS:.o=.c) $(COREHEADERS) tls-openssl.c \
+		--coverimage cupspm.png --epub ../doc/help/cupspm.epub
+	codedoc --section "Programming" --body cupspm.md cupspm.xml > ../doc/help/cupspm.html
 	$(RM) cupspm.xml
 	echo "Generating Administration APIs help..."
 	codedoc --section "Programming" --title "Administration APIs" \
@@ -775,4 +854,4 @@ sloc:
 #
 
 include Dependencies
-tls.o: tls-darwin.c tls-gnutls.c tls-sspi.c
+tls.o: tls-gnutls.c tls-openssl.c

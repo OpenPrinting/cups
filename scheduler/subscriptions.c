@@ -62,8 +62,8 @@ cupsdAddEvent(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
 		  "cupsdAddEvent(event=%s, dest=%p(%s), job=%p(%d), text=\"%s\", ...)",
-		  cupsdEventName(event), dest, dest ? dest->name : "",
-		  job, job ? job->id : 0, text);
+		  cupsdEventName(event), (void *)dest, dest ? dest->name : "",
+		  (void *)job, job ? job->id : 0, text);
 
  /*
   * Keep track of events with any OS-supplied notification mechanisms...
@@ -171,7 +171,7 @@ cupsdAddEvent(
 	ippAddInteger(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_ENUM, "printer-state", (int)dest->state);
 
 	if (dest->num_reasons == 0)
-	  ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "printer-state-reasons", NULL, dest->state == IPP_PRINTER_STOPPED ? "paused" : "none");
+	  ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "printer-state-reasons", NULL, dest->state == IPP_PSTATE_STOPPED ? "paused" : "none");
 	else
 	  ippAddStrings(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "printer-state-reasons", dest->num_reasons, NULL, (const char * const *)dest->reasons);
 
@@ -192,14 +192,14 @@ cupsdAddEvent(
 
 	switch (job->state_value)
 	{
-	  case IPP_JOB_PENDING :
-	      if (dest && dest->state == IPP_PRINTER_STOPPED)
+	  case IPP_JSTATE_PENDING :
+	      if (dest && dest->state == IPP_PSTATE_STOPPED)
 		ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "printer-stopped");
 	      else
 		ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "none");
 	      break;
 
-	  case IPP_JOB_HELD :
+	  case IPP_JSTATE_HELD :
 	      if (ippFindAttribute(job->attrs, "job-hold-until", IPP_TAG_KEYWORD) != NULL ||
 		  ippFindAttribute(job->attrs, "job-hold-until", IPP_TAG_NAME) != NULL)
 		ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "job-hold-until-specified");
@@ -207,23 +207,23 @@ cupsdAddEvent(
 		ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "job-incoming");
 	      break;
 
-	  case IPP_JOB_PROCESSING :
+	  case IPP_JSTATE_PROCESSING :
 	      ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "job-printing");
 	      break;
 
-	  case IPP_JOB_STOPPED :
+	  case IPP_JSTATE_STOPPED :
 	      ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "job-stopped");
 	      break;
 
-	  case IPP_JOB_CANCELED :
+	  case IPP_JSTATE_CANCELED :
 	      ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "job-canceled-by-user");
 	      break;
 
-	  case IPP_JOB_ABORTED :
+	  case IPP_JSTATE_ABORTED :
 	      ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "aborted-by-system");
 	      break;
 
-	  case IPP_JOB_COMPLETED :
+	  case IPP_JSTATE_COMPLETED :
 	      ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "job-completed-successfully");
 	      break;
 	}
@@ -264,7 +264,7 @@ cupsdAddSubscription(
   cupsdLogMessage(CUPSD_LOG_DEBUG,
 		  "cupsdAddSubscription(mask=%x, dest=%p(%s), job=%p(%d), "
 		  "uri=\"%s\")",
-		  mask, dest, dest ? dest->name : "", job, job ? job->id : 0,
+		  mask, (void *)dest, dest ? dest->name : "", (void *)job, job ? job->id : 0,
 		  uri ? uri : "(null)");
 
   if (!Subscriptions)
@@ -621,7 +621,7 @@ cupsdExpireSubscriptions(
   curtime = time(NULL);
   update  = 0;
 
-  cupsdLogMessage(CUPSD_LOG_INFO, "Expiring subscriptions...");
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "Expiring subscriptions...");
 
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
@@ -1255,7 +1255,7 @@ cupsd_send_dbus(cupsd_eventmask_t event,/* I - Event to send */
   else if (event & CUPSD_EVENT_JOB_CREATED)
     what = "JobQueuedLocal";
   else if ((event & CUPSD_EVENT_JOB_STATE) && job &&
-	   job->state_value == IPP_JOB_PROCESSING)
+	   job->state_value == IPP_JSTATE_PROCESSING)
     what = "JobStartedLocal";
   else
     return;
@@ -1319,7 +1319,7 @@ cupsd_send_notification(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
 		  "cupsd_send_notification(sub=%p(%d), event=%p(%s))",
-		  sub, sub->id, event, cupsdEventName(event->event));
+		  (void *)sub, sub->id, (void *)event, cupsdEventName(event->event));
 
  /*
   * Allocate the events array as needed...
@@ -1381,13 +1381,13 @@ cupsd_send_notification(
       if (sub->pipe < 0)
 	break;
 
-      event->attrs->state = IPP_IDLE;
+      event->attrs->state = IPP_STATE_IDLE;
 
-      while ((state = ippWriteFile(sub->pipe, event->attrs)) != IPP_DATA)
-	if (state == IPP_ERROR)
+      while ((state = ippWriteFile(sub->pipe, event->attrs)) != IPP_STATE_DATA)
+	if (state == IPP_STATE_ERROR)
 	  break;
 
-      if (state == IPP_ERROR)
+      if (state == IPP_STATE_ERROR)
       {
 	if (errno == EPIPE)
 	{
@@ -1450,7 +1450,7 @@ cupsd_start_notifier(
   * notifier program...
   */
 
-  strlcpy(scheme, sub->recipient, sizeof(scheme));
+  cupsCopyString(scheme, sub->recipient, sizeof(scheme));
   if ((ptr = strchr(scheme, ':')) != NULL)
     *ptr = '\0';
 

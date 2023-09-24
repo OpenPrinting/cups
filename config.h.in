@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS.
  *
- * Copyright © 2020-2021 by OpenPrinting
+ * Copyright © 2020-2023 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -135,21 +135,6 @@
 
 
 /*
- * Do we have posix_spawn?
- */
-
-#undef HAVE_POSIX_SPAWN
-
-
-/*
- * Do we have ZLIB?
- */
-
-#undef HAVE_LIBZ
-#undef HAVE_INFLATECOPY
-
-
-/*
  * Do we have PAM stuff?
  */
 
@@ -157,20 +142,6 @@
 #undef HAVE_PAM_PAM_APPL_H
 #undef HAVE_PAM_SET_ITEM
 #undef HAVE_PAM_SETCRED
-
-
-/*
- * Do we have <shadow.h>?
- */
-
-#undef HAVE_SHADOW_H
-
-
-/*
- * Do we have <crypt.h>?
- */
-
-#undef HAVE_CRYPT_H
 
 
 /*
@@ -252,14 +223,6 @@
 
 
 /*
- * What signal functions to use?
- */
-
-#undef HAVE_SIGSET
-#undef HAVE_SIGACTION
-
-
-/*
  * What wait functions to use?
  */
 
@@ -293,10 +256,8 @@
  * Which encryption libraries do we have?
  */
 
-#undef HAVE_TLS
-#undef HAVE_CDSASSL
+#undef HAVE_OPENSSL
 #undef HAVE_GNUTLS
-#undef HAVE_SSPISSL
 
 
 /*
@@ -338,13 +299,6 @@
 
 
 /*
- * Do we have DNS Service Discovery (aka Bonjour) support?
- */
-
-#undef HAVE_DNSSD
-
-
-/*
  * Do we have mDNSResponder for DNS-SD?
  */
 
@@ -377,27 +331,6 @@
  */
 
 #undef HAVE_TM_GMTOFF
-
-
-/*
- * Do we have rresvport_af()?
- */
-
-#undef HAVE_RRESVPORT_AF
-
-
-/*
- * Do we have getaddrinfo()?
- */
-
-#undef HAVE_GETADDRINFO
-
-
-/*
- * Do we have getnameinfo()?
- */
-
-#undef HAVE_GETNAMEINFO
 
 
 /*
@@ -552,15 +485,6 @@
 
 
 /*
- * Select/poll interfaces...
- */
-
-#undef HAVE_POLL
-#undef HAVE_EPOLL
-#undef HAVE_KQUEUE
-
-
-/*
  * Do we have the <dlfcn.h> header?
  */
 
@@ -650,20 +574,6 @@
 #undef HAVE_SYS_STATVFS_H
 #undef HAVE_SYS_VFS_H
 
-/*
- * Do we want Snap packaging support and have the needed libraries and
- * utilities?
- */
-
-#undef HAVE_APPARMOR
-#undef HAVE_SNAPDGLIB
-#undef HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC
-#undef HAVE_SNAPCTL_IS_CONNECTED
-#undef OUR_SNAP_NAME
-#undef SNAPCTL
-#undef CUPS_CONTROL_SLOT
-#undef SUPPORT_SNAPPED_CUPSD
-#undef SUPPORT_SNAPPED_CLIENTS
 
 /*
  * Location of macOS localization bundle, if any.
@@ -695,5 +605,34 @@ static __inline int _cups_abs(int i) { return (i < 0 ? -i : i); }
 #    define abs(x) ((x) < 0 ? -(x) : (x))
 #  endif /* __GNUC__ || __STDC_VERSION__ */
 #endif /* !HAVE_ABS && !abs */
+
+
+/*
+ * Building as a snap (snapcraft.io)?
+ */
+
+#undef CUPS_SNAP
+
+
+/*
+ * Have the apparmor library?
+ */
+
+#undef HAVE_LIBAPPARMOR
+
+
+/*
+ * Have the snapd-glib library?
+ */
+
+#undef HAVE_LIBSNAPDGLIB
+
+
+/*
+ * Have the snapd_client_run_snapctl2_sync function?
+ */
+
+#undef HAVE_SNAPD_CLIENT_RUN_SNAPCTL2_SYNC
+
 
 #endif /* !_CUPS_CONFIG_H_ */

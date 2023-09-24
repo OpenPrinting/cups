@@ -83,7 +83,7 @@ ppdcFile::get()
 int					// O - Next character in file
 ppdcFile::peek()
 {
-  // Return immediaely if there is no open file...
+  // Return immediately if there is no open file...
   if (!fp)
     return (EOF);
 

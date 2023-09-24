@@ -32,8 +32,7 @@ ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
 		*attr;			/* Current attribute */
 
 
-  DEBUG_printf(("2ppdFindAttr(ppd=%p, name=\"%s\", spec=\"%s\")", ppd, name,
-                spec));
+  DEBUG_printf("2ppdFindAttr(ppd=%p, name=\"%s\", spec=\"%s\")", (void *)ppd, name, spec);
 
  /*
   * Range check input...
@@ -47,7 +46,7 @@ ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
   */
 
   memset(&key, 0, sizeof(key));
-  strlcpy(key.name, name, sizeof(key.name));
+  cupsCopyString(key.name, name, sizeof(key.name));
 
  /*
   * Return the first matching attribute, if any...
@@ -165,15 +164,17 @@ _ppdNormalizeMakeAndModel(
 
   if (make_and_model[0] == '(')
   {
-    strlcpy(buffer, make_and_model + 1, bufsize);
+    cupsCopyString(buffer, make_and_model + 1, bufsize);
 
     if ((bufptr = strrchr(buffer, ')')) != NULL)
       *bufptr = '\0';
   }
-  else if (!_cups_strncasecmp(make_and_model, "XPrint", 6))
+  else if (!_cups_strncasecmp(make_and_model, "XPrint ", 7))
   {
    /*
     * Xerox XPrint...
+    * Note: We check for the space after XPrint to ensure we do not display
+    * Xerox for Xprinter devices, which are NOT by Xerox.
     */
 
     snprintf(buffer, bufsize, "Xerox %s", make_and_model);
@@ -229,7 +230,7 @@ _ppdNormalizeMakeAndModel(
     snprintf(buffer, bufsize, "HP %s", make_and_model);
   }
   else
-    strlcpy(buffer, make_and_model, bufsize);
+    cupsCopyString(buffer, make_and_model, bufsize);
 
  /*
   * Clean up the make...

@@ -1,7 +1,7 @@
 /*
  * "lpmove" command for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2021-2023 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -63,12 +63,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
-
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'h' : /* Connect to host */
@@ -165,7 +160,7 @@ move_job(http_t     *http,		/* I - HTTP connection to server */
   *    requesting-user-name
   */
 
-  request = ippNewRequest(CUPS_MOVE_JOB);
+  request = ippNewRequest(IPP_OP_CUPS_MOVE_JOB);
 
   if (jobid)
   {
@@ -182,7 +177,7 @@ move_job(http_t     *http,		/* I - HTTP connection to server */
   }
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
 
   httpAssembleURIf(HTTP_URI_CODING_ALL, printer_uri, sizeof(printer_uri),
                    "ipp", NULL, "localhost", 0, "/printers/%s", dest);
@@ -195,9 +190,9 @@ move_job(http_t     *http,		/* I - HTTP connection to server */
 
   ippDelete(cupsDoRequest(http, request, "/jobs"));
 
-  if (cupsLastError() > IPP_OK_CONFLICT)
+  if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "lpmove: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "lpmove: %s", cupsGetErrorString());
     return (1);
   }
   else

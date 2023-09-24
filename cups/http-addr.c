@@ -1,97 +1,95 @@
-/*
- * HTTP address routines for CUPS.
- *
- * Copyright © 2007-2021 by Apple Inc.
- * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
- */
-
-/*
- * Include necessary headers...
- */
+//
+// HTTP address routines for CUPS.
+//
+// Copyright © 2923 by OpenPrinting.
+// Copyright © 2007-2021 by Apple Inc.
+// Copyright © 1997-2006 by Easy Software Products, all rights reserved.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
 #include "cups-private.h"
-#include "debug-internal.h"
 #include <sys/stat.h>
 #ifdef HAVE_RESOLV_H
 #  include <resolv.h>
-#endif /* HAVE_RESOLV_H */
+#endif // HAVE_RESOLV_H
 #ifdef __APPLE__
 #  include <CoreFoundation/CoreFoundation.h>
 #  ifdef HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME
 #    include <SystemConfiguration/SystemConfiguration.h>
-#  endif /* HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME */
-#endif /* __APPLE__ */
+#  endif // HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME
+#endif // __APPLE__
 
 
-/*
- * 'httpAddrAny()' - Check for the "any" address.
- *
- * @since CUPS 1.2/macOS 10.5@
- */
+//
+// 'httpAddrAny()' - Check for the "any" address.
+//
+// @deprecated@ @exclude all@
+//
 
-int					/* O - 1 if "any", 0 otherwise */
-httpAddrAny(const http_addr_t *addr)	/* I - Address to check */
+int					// O - 1 if "any", 0 otherwise
+httpAddrAny(const http_addr_t *addr)	// I - Address to check
 {
-  if (!addr)
-    return (0);
-
-#ifdef AF_INET6
-  if (addr->addr.sa_family == AF_INET6 &&
-      IN6_IS_ADDR_UNSPECIFIED(&(addr->ipv6.sin6_addr)))
-    return (1);
-#endif /* AF_INET6 */
-
-  if (addr->addr.sa_family == AF_INET &&
-      ntohl(addr->ipv4.sin_addr.s_addr) == 0x00000000)
-    return (1);
-
-  return (0);
+  return (httpAddrIsAny(addr) ? 1 : 0);
 }
 
 
-/*
- * 'httpAddrClose()' - Close a socket created by @link httpAddrConnect@ or
- *                     @link httpAddrListen@.
- *
- * Pass @code NULL@ for sockets created with @link httpAddrConnect2@ and the
- * listen address for sockets created with @link httpAddrListen@.  This function
- * ensures that domain sockets are removed when closed.
- *
- * @since CUPS 2.0/OS 10.10@
- */
+//
+// 'httpAddrClose()' - Close a socket created by @link httpAddrConnect@ or
+//                     @link httpAddrListen@.
+//
+// Pass `NULL` for sockets created with @link httpAddrConnect2@ and the
+// listen address for sockets created with @link httpAddrListen@.  This function
+// ensures that domain sockets are removed when closed.
+//
+// @since CUPS 2.0/OS 10.10@
+//
 
-int						/* O - 0 on success, -1 on failure */
-httpAddrClose(http_addr_t *addr,		/* I - Listen address or @code NULL@ */
-              int         fd)			/* I - Socket file descriptor */
+int						// O - 0 on success, -1 on failure
+httpAddrClose(http_addr_t *addr,		// I - Listen address or `NULL`
+              int         fd)			// I - Socket file descriptor
 {
 #ifdef _WIN32
   if (closesocket(fd))
 #else
   if (close(fd))
-#endif /* _WIN32 */
+#endif // _WIN32
     return (-1);
 
 #ifdef AF_LOCAL
   if (addr && addr->addr.sa_family == AF_LOCAL)
     return (unlink(addr->un.sun_path));
-#endif /* AF_LOCAL */
+#endif // AF_LOCAL
 
   return (0);
 }
 
 
-/*
- * 'httpAddrEqual()' - Compare two addresses.
- *
- * @since CUPS 1.2/macOS 10.5@
- */
+//
+// 'httpAddrEqual()' - Compare two addresses.
+//
+// @deprecated@ @exclude all@
+//
 
-int						/* O - 1 if equal, 0 if not */
-httpAddrEqual(const http_addr_t *addr1,		/* I - First address */
-              const http_addr_t *addr2)		/* I - Second address */
+int					// O - 1 if equal, 0 if not
+httpAddrEqual(const http_addr_t *addr1,	// I - First address
+              const http_addr_t *addr2)	// I - Second address
+{
+  return (httpAddrIsEqual(addr1, addr2) ? 1 : 0);
+}
+
+
+//
+// 'httpAddrIsEqual()' - Compare two addresses.
+//
+// @since CUPS 2.5@
+//
+
+bool					// O - `true` if equal, `false` if not
+httpAddrIsEqual(
+    const http_addr_t *addr1,		// I - First address
+    const http_addr_t *addr2)		// I - Second address
 {
   if (!addr1 && !addr2)
     return (1);
@@ -105,25 +103,63 @@ httpAddrEqual(const http_addr_t *addr1,		/* I - First address */
 #ifdef AF_LOCAL
   if (addr1->addr.sa_family == AF_LOCAL)
     return (!strcmp(addr1->un.sun_path, addr2->un.sun_path));
-#endif /* AF_LOCAL */
+#endif // AF_LOCAL
 
 #ifdef AF_INET6
   if (addr1->addr.sa_family == AF_INET6)
     return (!memcmp(&(addr1->ipv6.sin6_addr), &(addr2->ipv6.sin6_addr), 16));
-#endif /* AF_INET6 */
+#endif // AF_INET6
 
   return (addr1->ipv4.sin_addr.s_addr == addr2->ipv4.sin_addr.s_addr);
 }
 
 
-/*
- * 'httpAddrLength()' - Return the length of the address in bytes.
- *
- * @since CUPS 1.2/macOS 10.5@
- */
+//
+// 'httpAddrIsAny()' - Check for the "any" address.
+//
+// @since CUPS 2.5@
+//
 
-int					/* O - Length in bytes */
-httpAddrLength(const http_addr_t *addr)	/* I - Address */
+bool					// O - `true` if "any" address, `false` otherwise
+httpAddrIsAny(const http_addr_t *addr)	// I - Address to check
+{
+  if (!addr)
+    return (false);
+
+#ifdef AF_INET6
+  if (addr->addr.sa_family == AF_INET6 && IN6_IS_ADDR_UNSPECIFIED(&(addr->ipv6.sin6_addr)))
+    return (true);
+#endif // AF_INET6
+
+  if (addr->addr.sa_family == AF_INET && ntohl(addr->ipv4.sin_addr.s_addr) == 0x00000000)
+    return (true);
+
+  return (false);
+}
+
+
+//
+// 'httpAddrLength()' - Return the length of the address in bytes.
+//
+// @deprecated@ @exclude all@
+//
+
+int					// O - Length in bytes
+httpAddrLength(const http_addr_t *addr)	// I - Address
+{
+  return ((int)httpAddrGetLength(addr));
+}
+
+
+//
+// 'httpAddrGetLength()' - Return the length of the address in bytes.
+//
+// @since CUPS 2.5@
+//
+
+size_t					// O - Length in bytes
+httpAddrGetLength(
+    const http_addr_t *addr)		// I - Address
 {
   if (!addr)
     return (0);
@@ -132,53 +168,43 @@ httpAddrLength(const http_addr_t *addr)	/* I - Address */
   if (addr->addr.sa_family == AF_INET6)
     return (sizeof(addr->ipv6));
   else
-#endif /* AF_INET6 */
+#endif // AF_INET6
 #ifdef AF_LOCAL
   if (addr->addr.sa_family == AF_LOCAL)
-    return ((int)(offsetof(struct sockaddr_un, sun_path) + strlen(addr->un.sun_path) + 1));
+    return ((size_t)(offsetof(struct sockaddr_un, sun_path) + strlen(addr->un.sun_path) + 1));
   else
-#endif /* AF_LOCAL */
+#endif // AF_LOCAL
   if (addr->addr.sa_family == AF_INET)
     return (sizeof(addr->ipv4));
   else
     return (0);
-
 }
 
 
-/*
- * 'httpAddrListen()' - Create a listening socket bound to the specified
- *                      address and port.
- *
- * @since CUPS 1.7/macOS 10.9@
- */
+//
+// 'httpAddrListen()' - Create a listening socket bound to the specified
+//                      address and port.
+//
+// @since CUPS 1.7/macOS 10.9@
+//
 
-int					/* O - Socket or -1 on error */
-httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
-               int         port)	/* I - Port number to bind to */
+int					// O - Socket or -1 on error
+httpAddrListen(http_addr_t *addr,	// I - Address to bind to
+               int         port)	// I - Port number to bind to
 {
-  int		fd = -1,		/* Socket */
-		val,			/* Socket value */
-                status;			/* Bind status */
+  int		fd = -1,		// Socket
+		val,			// Socket value
+                status;			// Bind status
 
 
- /*
-  * Range check input...
-  */
-
+  // Range check input...
   if (!addr || port < 0)
     return (-1);
 
- /*
-  * Make sure the network stack is initialized...
-  */
-
+  // Make sure the network stack is initialized...
   httpInitialize();
 
- /*
-  * Create the socket and set options...
-  */
-
+  // Create the socket and set options...
   if ((fd = socket(addr->addr.sa_family, SOCK_STREAM, 0)) < 0)
   {
     _cupsSetHTTPError(HTTP_STATUS_ERROR);
@@ -191,47 +217,32 @@ httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
 #ifdef IPV6_V6ONLY
   if (addr->addr.sa_family == AF_INET6)
     setsockopt(fd, IPPROTO_IPV6, IPV6_V6ONLY, CUPS_SOCAST &val, sizeof(val));
-#endif /* IPV6_V6ONLY */
+#endif // IPV6_V6ONLY
 
- /*
-  * Bind the socket...
-  */
-
+  // Bind the socket...
 #ifdef AF_LOCAL
   if (addr->addr.sa_family == AF_LOCAL)
   {
-    mode_t	mask;			/* Umask setting */
+    mode_t	mask;			// Umask setting
 
-   /*
-    * Remove any existing domain socket file...
-    */
-
+    // Remove any existing domain socket file...
     unlink(addr->un.sun_path);
 
-   /*
-    * Save the current umask and set it to 0 so that all users can access
-    * the domain socket...
-    */
-
+    // Save the current umask and set it to 0 so that all users can access
+    // the domain socket...
     mask = umask(0);
 
-   /*
-    * Bind the domain socket...
-    */
-
+    // Bind the domain socket...
     status = bind(fd, (struct sockaddr *)addr, (socklen_t)httpAddrLength(addr));
 
-   /*
-    * Restore the umask and fix permissions...
-    */
-
+    // Restore the umask and fix permissions...
     umask(mask);
     chmod(addr->un.sun_path, 0140777);
   }
   else
-#endif /* AF_LOCAL */
+#endif // AF_LOCAL
   {
-    _httpAddrSetPort(addr, port);
+    httpAddrSetPort(addr, port);
 
     status = bind(fd, (struct sockaddr *)addr, (socklen_t)httpAddrLength(addr));
   }
@@ -245,11 +256,8 @@ httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
     return (-1);
   }
 
- /*
-  * Listen...
-  */
-
-  if (listen(fd, 128))
+  // Listen...
+  if (listen(fd, INT_MAX))
   {
     _cupsSetHTTPError(HTTP_STATUS_ERROR);
 
@@ -258,81 +266,85 @@ httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
     return (-1);
   }
 
- /*
-  * Close on exec...
-  */
-
+  // Close on exec...
 #ifndef _WIN32
   fcntl(fd, F_SETFD, fcntl(fd, F_GETFD) | FD_CLOEXEC);
-#endif /* !_WIN32 */
+#endif // !_WIN32
 
 #ifdef SO_NOSIGPIPE
- /*
-  * Disable SIGPIPE for this socket.
-  */
-
+  // Disable SIGPIPE for this socket.
   val = 1;
   setsockopt(fd, SOL_SOCKET, SO_NOSIGPIPE, CUPS_SOCAST &val, sizeof(val));
-#endif /* SO_NOSIGPIPE */
+#endif // SO_NOSIGPIPE
 
   return (fd);
 }
 
 
-/*
- * 'httpAddrLocalhost()' - Check for the local loopback address.
- *
- * @since CUPS 1.2/macOS 10.5@
- */
+//
+// 'httpAddrLocalhost()' - Check for the local loopback address.
+//
+// @deprecated@ @exclude all@
+//
 
-int					/* O - 1 if local host, 0 otherwise */
+int					// O - 1 if local host, 0 otherwise
 httpAddrLocalhost(
-    const http_addr_t *addr)		/* I - Address to check */
+    const http_addr_t *addr)		// I - Address to check
 {
-  if (!addr)
-    return (1);
-
-#ifdef AF_INET6
-  if (addr->addr.sa_family == AF_INET6 &&
-      IN6_IS_ADDR_LOOPBACK(&(addr->ipv6.sin6_addr)))
-    return (1);
-#endif /* AF_INET6 */
-
-#ifdef AF_LOCAL
-  if (addr->addr.sa_family == AF_LOCAL)
-    return (1);
-#endif /* AF_LOCAL */
-
-  if (addr->addr.sa_family == AF_INET &&
-      (ntohl(addr->ipv4.sin_addr.s_addr) & 0xff000000) == 0x7f000000)
-    return (1);
-
-  return (0);
+  return (httpAddrIsLocalhost(addr) ? 1 : 0);
 }
 
 
-/*
- * 'httpAddrLookup()' - Lookup the hostname associated with the address.
- *
- * @since CUPS 1.2/macOS 10.5@
- */
+//
+// 'httpAddrIsLocalhost()' - Check for the local loopback address.
+//
+// @since CUPS 2.5@
+//
 
-char *					/* O - Host name */
-httpAddrLookup(
-    const http_addr_t *addr,		/* I - Address to lookup */
-    char              *name,		/* I - Host name buffer */
-    int               namelen)		/* I - Size of name buffer */
+bool					// O - `true` if local host, `false` otherwise
+httpAddrIsLocalhost(
+    const http_addr_t *addr)		// I - Address to check
 {
+  if (!addr)
+    return (true);
+
+#ifdef AF_INET6
+  if (addr->addr.sa_family == AF_INET6 && IN6_IS_ADDR_LOOPBACK(&(addr->ipv6.sin6_addr)))
+    return (true);
+#endif // AF_INET6
+
+#ifdef AF_LOCAL
+  if (addr->addr.sa_family == AF_LOCAL)
+    return (true);
+#endif // AF_LOCAL
+
+  if (addr->addr.sa_family == AF_INET && (ntohl(addr->ipv4.sin_addr.s_addr) & 0xff000000) == 0x7f000000)
+    return (true);
+
+  return (false);
+}
+
+
+//
+// 'httpAddrLookup()' - Lookup the hostname associated with the address.
+//
+// @since CUPS 1.2/macOS 10.5@
+//
+
+char *					// O - Host name
+httpAddrLookup(
+    const http_addr_t *addr,		// I - Address to lookup
+    char              *name,		// I - Host name buffer
+    int               namelen)		// I - Size of name buffer
+{
+  int			error;		// Any error from getnameinfo
   _cups_globals_t	*cg = _cupsGlobals();
-					/* Global data */
+					// Global data
 
 
-  DEBUG_printf(("httpAddrLookup(addr=%p, name=%p, namelen=%d)", (void *)addr, (void *)name, namelen));
+  DEBUG_printf("httpAddrLookup(addr=%p, name=%p, namelen=%d)", (void *)addr, (void *)name, namelen);
 
- /*
-  * Range check input...
-  */
-
+  // Range check input...
   if (!addr || !name || namelen <= 2)
   {
     if (name && namelen >= 1)
@@ -344,104 +356,73 @@ httpAddrLookup(
 #ifdef AF_LOCAL
   if (addr->addr.sa_family == AF_LOCAL)
   {
-    strlcpy(name, addr->un.sun_path, (size_t)namelen);
+    cupsCopyString(name, addr->un.sun_path, (size_t)namelen);
     return (name);
   }
-#endif /* AF_LOCAL */
+#endif // AF_LOCAL
 
- /*
-  * Optimize lookups for localhost/loopback addresses...
-  */
-
+  // Optimize lookups for localhost/loopback addresses...
   if (httpAddrLocalhost(addr))
   {
-    strlcpy(name, "localhost", (size_t)namelen);
+    cupsCopyString(name, "localhost", (size_t)namelen);
     return (name);
   }
 
 #ifdef HAVE_RES_INIT
- /*
-  * STR #2920: Initialize resolver after failure in cups-polld
-  *
-  * If the previous lookup failed, re-initialize the resolver to prevent
-  * temporary network errors from persisting.  This *should* be handled by
-  * the resolver libraries, but apparently the glibc folks do not agree.
-  *
-  * We set a flag at the end of this function if we encounter an error that
-  * requires reinitialization of the resolver functions.  We then call
-  * res_init() if the flag is set on the next call here or in httpAddrLookup().
-  */
-
+  // STR #2920: Initialize resolver after failure in cups-polld
+  //
+  // If the previous lookup failed, re-initialize the resolver to prevent
+  // temporary network errors from persisting.  This *should* be handled by
+  // the resolver libraries, but apparently the glibc folks do not agree.
+  //
+  // We set a flag at the end of this function if we encounter an error that
+  // requires reinitialization of the resolver functions.  We then call
+  // res_init() if the flag is set on the next call here or in httpAddrLookup().
   if (cg->need_res_init)
   {
     res_init();
 
     cg->need_res_init = 0;
   }
-#endif /* HAVE_RES_INIT */
+#endif // HAVE_RES_INIT
 
-#ifdef HAVE_GETNAMEINFO
+  // STR #2486: httpAddrLookup() fails when getnameinfo() returns EAI_AGAIN
+  //
+  // FWIW, I think this is really a bug in the implementation of
+  // getnameinfo(), but falling back on httpAddrString() is easy to do...
+  if ((error = getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), name, (socklen_t)namelen, NULL, 0, 0)) != 0)
   {
-   /*
-    * STR #2486: httpAddrLookup() fails when getnameinfo() returns EAI_AGAIN
-    *
-    * FWIW, I think this is really a bug in the implementation of
-    * getnameinfo(), but falling back on httpAddrString() is easy to
-    * do...
-    */
+    if (error == EAI_FAIL)
+      cg->need_res_init = 1;
 
-    int error = getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), name, (socklen_t)namelen, NULL, 0, 0);
-
-    if (error)
-    {
-      if (error == EAI_FAIL)
-        cg->need_res_init = 1;
-
-      return (httpAddrString(addr, name, namelen));
-    }
+    return (httpAddrGetString(addr, name, (size_t)namelen));
   }
-#else
-  {
-    struct hostent	*host;			/* Host from name service */
 
-
-#  ifdef AF_INET6
-    if (addr->addr.sa_family == AF_INET6)
-      host = gethostbyaddr((char *)&(addr->ipv6.sin6_addr),
-                	   sizeof(struct in_addr), AF_INET6);
-    else
-#  endif /* AF_INET6 */
-    host = gethostbyaddr((char *)&(addr->ipv4.sin_addr),
-                	 sizeof(struct in_addr), AF_INET);
-
-    if (host == NULL)
-    {
-     /*
-      * No hostname, so return the raw address...
-      */
-
-      if (h_errno == NO_RECOVERY)
-        cg->need_res_init = 1;
-
-      return (httpAddrString(addr, name, namelen));
-    }
-
-    strlcpy(name, host->h_name, (size_t)namelen);
-  }
-#endif /* HAVE_GETNAMEINFO */
-
-  DEBUG_printf(("1httpAddrLookup: returning \"%s\"...", name));
+  DEBUG_printf("1httpAddrLookup: returning \"%s\"...", name);
 
   return (name);
 }
 
 
-/*
- * 'httpAddrFamily()' - Get the address family of an address.
- */
+//
+// 'httpAddrFamily()' - Get the address family of an address.
+//
+// @deprecated@ @exclude all@
+//
 
-int					/* O - Address family */
-httpAddrFamily(http_addr_t *addr)	/* I - Address */
+int					// O - Address family
+httpAddrFamily(http_addr_t *addr)	// I - Address
+{
+  return (httpAddrGetFamily(addr));
+}
+
+
+//
+// 'httpAddrGetFamily()' - Get the address family of an address.
+//
+
+int					// O - Address family
+httpAddrGetFamily(http_addr_t *addr)	// I - Address
 {
   if (addr)
     return (addr->addr.sa_family);
@@ -450,21 +431,34 @@ httpAddrFamily(http_addr_t *addr)	/* I - Address */
 }
 
 
-/*
- * 'httpAddrPort()' - Get the port number associated with an address.
- *
- * @since CUPS 1.7/macOS 10.9@
- */
+//
+// 'httpAddrPort()' - Get the port number associated with an address.
+//
+// @deprecated@ @exclude all@
+//
 
-int					/* O - Port number */
-httpAddrPort(http_addr_t *addr)		/* I - Address */
+int					// O - Port number
+httpAddrPort(http_addr_t *addr)		// I - Address
+{
+  return (httpAddrGetPort(addr));
+}
+
+
+//
+// 'httpAddrGetPort()' - Get the port number associated with an address.
+//
+// @since CUPS 2.5@
+//
+
+int					// O - Port number
+httpAddrGetPort(http_addr_t *addr)	// I - Address
 {
   if (!addr)
     return (-1);
 #ifdef AF_INET6
   else if (addr->addr.sa_family == AF_INET6)
     return (ntohs(addr->ipv6.sin6_port));
-#endif /* AF_INET6 */
+#endif // AF_INET6
   else if (addr->addr.sa_family == AF_INET)
     return (ntohs(addr->ipv4.sin_port));
   else
@@ -472,13 +466,15 @@ httpAddrPort(http_addr_t *addr)		/* I - Address */
 }
 
 
-/*
- * '_httpAddrSetPort()' - Set the port number associated with an address.
- */
+//
+// 'httpAddrSetPort()' - Set the port number associated with an address.
+//
+// @since CUPS 2.5@
+//
 
 void
-_httpAddrSetPort(http_addr_t *addr,	/* I - Address */
-                 int         port)	/* I - Port */
+httpAddrSetPort(http_addr_t *addr,	// I - Address
+		int         port)	// I - Port
 {
   if (!addr || port <= 0)
     return;
@@ -487,29 +483,42 @@ _httpAddrSetPort(http_addr_t *addr,	/* I - Address */
   if (addr->addr.sa_family == AF_INET6)
     addr->ipv6.sin6_port = htons(port);
   else
-#endif /* AF_INET6 */
+#endif // AF_INET6
   if (addr->addr.sa_family == AF_INET)
     addr->ipv4.sin_port = htons(port);
 }
 
 
-/*
- * 'httpAddrString()' - Convert an address to a numeric string.
- *
- * @since CUPS 1.2/macOS 10.5@
- */
+//
+// 'httpAddrString()' - Convert an address to a numeric string.
+//
+// @deprecated@ @exclude all@
+//
 
-char *					/* O - Numeric address string */
-httpAddrString(const http_addr_t *addr,	/* I - Address to convert */
-               char              *s,	/* I - String buffer */
-	       int               slen)	/* I - Length of string */
+char *					// O - Numeric address string
+httpAddrString(const http_addr_t *addr,	// I - Address to convert
+               char              *s,	// I - String buffer
+	       int               slen)	// I - Length of string
 {
-  DEBUG_printf(("httpAddrString(addr=%p, s=%p, slen=%d)", (void *)addr, (void *)s, slen));
+  return (httpAddrGetString(addr, s, (size_t)slen));
+}
 
- /*
-  * Range check input...
-  */
 
+//
+// 'httpAddrGetString()' - Convert an address to a numeric string.
+//
+// @since CUPS 2.5@
+//
+
+char *					// O - Numeric address string
+httpAddrGetString(
+    const http_addr_t *addr,		// I - Address to convert
+    char              *s,		// I - String buffer
+    size_t            slen)		// I - Length of string
+{
+  DEBUG_printf("httpAddrGetString(addr=%p, s=%p, slen=%u)", (void *)addr, (void *)s, (unsigned)slen);
+
+  // Range check input...
   if (!addr || !s || slen <= 2)
   {
     if (s && slen >= 1)
@@ -522,147 +531,69 @@ httpAddrString(const http_addr_t *addr,	/* I - Address to convert */
   if (addr->addr.sa_family == AF_LOCAL)
   {
     if (addr->un.sun_path[0] == '/')
-      strlcpy(s, addr->un.sun_path, (size_t)slen);
+      cupsCopyString(s, addr->un.sun_path, (size_t)slen);
     else
-      strlcpy(s, "localhost", (size_t)slen);
+      cupsCopyString(s, "localhost", (size_t)slen);
   }
   else
-#endif /* AF_LOCAL */
+#endif // AF_LOCAL
   if (addr->addr.sa_family == AF_INET)
   {
-    unsigned temp;			/* Temporary address */
+    unsigned temp;			// Temporary address
 
     temp = ntohl(addr->ipv4.sin_addr.s_addr);
 
-    snprintf(s, (size_t)slen, "%d.%d.%d.%d", (temp >> 24) & 255,
-             (temp >> 16) & 255, (temp >> 8) & 255, temp & 255);
+    snprintf(s, slen, "%d.%d.%d.%d", (temp >> 24) & 255, (temp >> 16) & 255, (temp >> 8) & 255, temp & 255);
   }
 #ifdef AF_INET6
   else if (addr->addr.sa_family == AF_INET6)
   {
-    char	*sptr,			/* Pointer into string */
-		temps[64];		/* Temporary string for address */
+    char	*sptr,			// Pointer into string
+		temps[64];		// Temporary string for address
 
-#  ifdef HAVE_GETNAMEINFO
     if (getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), temps, sizeof(temps), NULL, 0, NI_NUMERICHOST))
     {
-     /*
-      * If we get an error back, then the address type is not supported
-      * and we should zero out the buffer...
-      */
-
+      // If we get an error back, then the address type is not supported
+      // and we should zero out the buffer...
       s[0] = '\0';
 
       return (NULL);
     }
     else if ((sptr = strchr(temps, '%')) != NULL)
     {
-     /*
-      * Convert "%zone" to "+zone" to match URI form...
-      */
-
+      // Convert "%zone" to "+zone" to match URI form...
       *sptr = '+';
     }
 
-#  else
-    int		i;			/* Looping var */
-    unsigned	temp;			/* Current value */
-    const char	*prefix;		/* Prefix for address */
-
-
-    prefix = "";
-    for (sptr = temps, i = 0; i < 4 && addr->ipv6.sin6_addr.s6_addr32[i]; i ++)
-    {
-      temp = ntohl(addr->ipv6.sin6_addr.s6_addr32[i]);
-
-      snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, (temp >> 16) & 0xffff);
-      prefix = ":";
-      sptr += strlen(sptr);
-
-      temp &= 0xffff;
-
-      if (temp || i == 3 || addr->ipv6.sin6_addr.s6_addr32[i + 1])
-      {
-        snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, temp);
-	sptr += strlen(sptr);
-      }
-    }
-
-    if (i < 4)
-    {
-      while (i < 4 && !addr->ipv6.sin6_addr.s6_addr32[i])
-	i ++;
-
-      if (i < 4)
-      {
-        snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s:", prefix);
-	prefix = ":";
-	sptr += strlen(sptr);
-
-	for (; i < 4; i ++)
-	{
-          temp = ntohl(addr->ipv6.sin6_addr.s6_addr32[i]);
-
-          if ((temp & 0xffff0000) ||
-	      (i > 0 && addr->ipv6.sin6_addr.s6_addr32[i - 1]))
-	  {
-            snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, (temp >> 16) & 0xffff);
-	    sptr += strlen(sptr);
-          }
-
-          snprintf(sptr, sizeof(temps) - (size_t)(sptr - temps), "%s%x", prefix, temp & 0xffff);
-	  sptr += strlen(sptr);
-	}
-      }
-      else if (sptr == s)
-      {
-       /*
-        * Empty address...
-	*/
-
-        strlcpy(temps, "::", sizeof(temps));
-      }
-      else
-      {
-       /*
-	* Empty at end...
-	*/
-
-        strlcpy(sptr, "::", sizeof(temps) - (size_t)(sptr - temps));
-      }
-    }
-#  endif /* HAVE_GETNAMEINFO */
-
-   /*
-    * Add "[v1." and "]" around IPv6 address to convert to URI form.
-    */
-
-    snprintf(s, (size_t)slen, "[v1.%s]", temps);
+    // Add "[v1." and "]" around IPv6 address to convert to URI form.
+    snprintf(s, slen, "[v1.%s]", temps);
   }
-#endif /* AF_INET6 */
+#endif // AF_INET6
   else
-    strlcpy(s, "UNKNOWN", (size_t)slen);
+  {
+    cupsCopyString(s, "UNKNOWN", slen);
+  }
 
-  DEBUG_printf(("1httpAddrString: returning \"%s\"...", s));
+  DEBUG_printf("1httpAddrGetString: returning \"%s\"...", s);
 
   return (s);
 }
 
 
-/*
- * 'httpGetAddress()' - Get the address of the connected peer of a connection.
- *
- * For connections created with @link httpConnect2@, the address is for the
- * server.  For connections created with @link httpAccept@, the address is for
- * the client.
- *
- * Returns @code NULL@ if the socket is currently unconnected.
- *
- * @since CUPS 2.0/OS 10.10@
- */
+//
+// 'httpGetAddress()' - Get the address of the connected peer of a connection.
+//
+// For connections created with @link httpConnect2@, the address is for the
+// server.  For connections created with @link httpAccept@, the address is for
+// the client.
+//
+// Returns `NULL` if the socket is currently unconnected.
+//
+// @since CUPS 2.0/OS 10.10@
+//
 
-http_addr_t *				/* O - Connected address or @code NULL@ */
-httpGetAddress(http_t *http)		/* I - HTTP connection */
+http_addr_t *				// O - Connected address or `NULL`
+httpGetAddress(http_t *http)		// I - HTTP connection
 {
   if (http)
     return (http->hostaddr);
@@ -671,29 +602,26 @@ httpGetAddress(http_t *http)		/* I - HTTP connection */
 }
 
 
-/*
- * 'httpGetHostByName()' - Lookup a hostname or IPv4 address, and return
- *                         address records for the specified name.
- *
- * @deprecated@ @exclude all@
- */
+//
+// 'httpGetHostByName()' - Lookup a hostname or IPv4 address, and return
+//                         address records for the specified name.
+//
+// @deprecated@ @exclude all@
+//
 
-struct hostent *			/* O - Host entry */
-httpGetHostByName(const char *name)	/* I - Hostname or IP address */
+struct hostent *			// O - Host entry
+httpGetHostByName(const char *name)	// I - Hostname or IP address
 {
-  const char		*nameptr;	/* Pointer into name */
-  unsigned		ip[4];		/* IP address components */
+  const char		*nameptr;	// Pointer into name
+  unsigned		ip[4];		// IP address components
   _cups_globals_t	*cg = _cupsGlobals();
-  					/* Pointer to library globals */
+  					// Pointer to library globals
 
 
-  DEBUG_printf(("httpGetHostByName(name=\"%s\")", name));
+  DEBUG_printf("httpGetHostByName(name=\"%s\")", name);
 
- /*
-  * Avoid lookup delays and configuration problems when connecting
-  * to the localhost address...
-  */
-
+  // Avoid lookup delays and configuration problems when connecting
+  // to the localhost address...
   if (!strcmp(name, "localhost"))
     name = "127.0.0.1";
 
@@ -713,10 +641,7 @@ httpGetHostByName(const char *name)	/* I - Hostname or IP address */
 #ifdef AF_LOCAL
   if (name[0] == '/')
   {
-   /*
-    * A domain socket address, so make an AF_LOCAL entry and return it...
-    */
-
+    // A domain socket address, so make an AF_LOCAL entry and return it...
     cg->hostent.h_name      = (char *)name;
     cg->hostent.h_aliases   = NULL;
     cg->hostent.h_addrtype  = AF_LOCAL;
@@ -729,31 +654,23 @@ httpGetHostByName(const char *name)	/* I - Hostname or IP address */
 
     return (&cg->hostent);
   }
-#endif /* AF_LOCAL */
+#endif // AF_LOCAL
 
   for (nameptr = name; isdigit(*nameptr & 255) || *nameptr == '.'; nameptr ++);
 
   if (!*nameptr)
   {
-   /*
-    * We have an IPv4 address; break it up and provide the host entry
-    * to the caller.
-    */
-
+    // We have an IPv4 address; break it up and provide the host entry
+    // to the caller.
     if (sscanf(name, "%u.%u.%u.%u", ip, ip + 1, ip + 2, ip + 3) != 4)
-      return (NULL);			/* Must have 4 numbers */
+      return (NULL);			// Must have 4 numbers
 
     if (ip[0] > 255 || ip[1] > 255 || ip[2] > 255 || ip[3] > 255)
-      return (NULL);			/* Invalid byte ranges! */
+      return (NULL);			// Invalid byte ranges!
 
-    cg->ip_addr = htonl((((((((unsigned)ip[0] << 8) | (unsigned)ip[1]) << 8) |
-                           (unsigned)ip[2]) << 8) |
-                         (unsigned)ip[3]));
+    cg->ip_addr = htonl((ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3]);
 
-   /*
-    * Fill in the host entry and return it...
-    */
-
+    // Fill in the host entry and return it...
     cg->hostent.h_name      = (char *)name;
     cg->hostent.h_aliases   = NULL;
     cg->hostent.h_addrtype  = AF_INET;
@@ -768,11 +685,7 @@ httpGetHostByName(const char *name)	/* I - Hostname or IP address */
   }
   else
   {
-   /*
-    * Use the gethostbyname() function to get the IPv4 address for
-    * the name...
-    */
-
+    // Use the gethostbyname() function to get the IPv4 address for the name...
     DEBUG_puts("1httpGetHostByName: returning domain lookup address(es)...");
 
     return (gethostbyname(name));
@@ -780,22 +693,22 @@ httpGetHostByName(const char *name)	/* I - Hostname or IP address */
 }
 
 
-/*
- * 'httpGetHostname()' - Get the FQDN for the connection or local system.
- *
- * When "http" points to a connected socket, return the hostname or
- * address that was used in the call to httpConnect() or httpConnectEncrypt(),
- * or the address of the client for the connection from httpAcceptConnection().
- * Otherwise, return the FQDN for the local system using both gethostname()
- * and gethostbyname() to get the local hostname with domain.
- *
- * @since CUPS 1.2/macOS 10.5@
- */
+//
+// 'httpGetHostname()' - Get the FQDN for the connection or local system.
+//
+// When "http" points to a connected socket, return the hostname or
+// address that was used in the call to httpConnect() or httpConnectEncrypt(),
+// or the address of the client for the connection from httpAcceptConnection().
+// Otherwise, return the FQDN for the local system using both gethostname()
+// and gethostbyname() to get the local hostname with domain.
+//
+// @since CUPS 1.2/macOS 10.5@
+//
 
-const char *				/* O - FQDN for connection or system */
-httpGetHostname(http_t *http,		/* I - HTTP connection or NULL */
-                char   *s,		/* I - String buffer for name */
-                int    slen)		/* I - Size of buffer */
+const char *				// O - FQDN for connection or system
+httpGetHostname(http_t *http,		// I - HTTP connection or NULL
+                char   *s,		// I - String buffer for name
+                int    slen)		// I - Size of buffer
 {
   if (http)
   {
@@ -807,44 +720,37 @@ httpGetHostname(http_t *http,		/* I - HTTP connection or NULL */
 	return (http->hostname);
     }
     else if (http->hostname[0] == '/')
-      strlcpy(s, "localhost", (size_t)slen);
+    {
+      cupsCopyString(s, "localhost", (size_t)slen);
+    }
     else
-      strlcpy(s, http->hostname, (size_t)slen);
+    {
+      cupsCopyString(s, http->hostname, (size_t)slen);
+    }
   }
   else
   {
-   /*
-    * Get the hostname...
-    */
-
+    // Get the hostname...
     if (!s || slen <= 1)
       return (NULL);
 
     if (gethostname(s, (size_t)slen) < 0)
-      strlcpy(s, "localhost", (size_t)slen);
+      cupsCopyString(s, "localhost", (size_t)slen);
 
     if (!strchr(s, '.'))
     {
 #ifdef HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME
-     /*
-      * The hostname is not a FQDN, so use the local hostname from the
-      * SystemConfiguration framework...
-      */
-
-      SCDynamicStoreRef	sc = SCDynamicStoreCreate(kCFAllocatorDefault,
-                                                  CFSTR("libcups"), NULL, NULL);
-					/* System configuration data */
+      // The hostname is not a FQDN, so use the local hostname from the
+      // SystemConfiguration framework...
+      SCDynamicStoreRef	sc = SCDynamicStoreCreate(kCFAllocatorDefault, CFSTR("libcups"), NULL, NULL);
+					// System configuration data
       CFStringRef	local = sc ? SCDynamicStoreCopyLocalHostName(sc) : NULL;
-					/* Local host name */
-      char		localStr[1024];	/* Local host name C string */
+					// Local host name
+      char		localStr[1024];	// Local host name C string
 
-      if (local && CFStringGetCString(local, localStr, sizeof(localStr),
-                                      kCFStringEncodingUTF8))
+      if (local && CFStringGetCString(local, localStr, sizeof(localStr), kCFStringEncodingUTF8))
       {
-       /*
-        * Append ".local." to the hostname we get...
-	*/
-
+        // Append ".local." to the hostname we get...
         snprintf(s, (size_t)slen, "%s.local.", localStr);
       }
 
@@ -854,72 +760,57 @@ httpGetHostname(http_t *http,		/* I - HTTP connection or NULL */
         CFRelease(sc);
 
 #else
-     /*
-      * The hostname is not a FQDN, so look it up...
-      */
-
-      struct hostent	*host;		/* Host entry to get FQDN */
+      // The hostname is not a FQDN, so look it up...
+      struct hostent	*host;		// Host entry to get FQDN
 
       if ((host = gethostbyname(s)) != NULL && host->h_name)
       {
-       /*
-        * Use the resolved hostname...
-	*/
-
-	strlcpy(s, host->h_name, (size_t)slen);
+        // Use the resolved hostname...
+	cupsCopyString(s, host->h_name, (size_t)slen);
       }
-#endif /* HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME */
+#endif // HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME
     }
 
-   /*
-    * Make sure .local hostnames end with a period...
-    */
-
+    // Make sure .local hostnames end with a period...
     if (strlen(s) > 6 && !strcmp(s + strlen(s) - 6, ".local"))
-      strlcat(s, ".", (size_t)slen);
+      cupsConcatString(s, ".", (size_t)slen);
   }
 
- /*
-  * Convert the hostname to lowercase as needed...
-  */
-
+  // Convert the hostname to lowercase as needed...
   if (s[0] != '/')
   {
-    char	*ptr;			/* Pointer into string */
+    char	*ptr;			// Pointer into string
 
     for (ptr = s; *ptr; ptr ++)
       *ptr = (char)_cups_tolower((int)*ptr);
   }
 
- /*
-  * Return the hostname with as much domain info as we have...
-  */
-
+  // Return the hostname with as much domain info as we have...
   return (s);
 }
 
 
-/*
- * 'httpResolveHostname()' - Resolve the hostname of the HTTP connection
- *                           address.
- *
- * @since CUPS 2.0/OS 10.10@
- */
+//
+// 'httpResolveHostname()' - Resolve the hostname of the HTTP connection
+//                           address.
+//
+// @since CUPS 2.0/OS 10.10@
+//
 
-const char *				/* O - Resolved hostname or @code NULL@ */
-httpResolveHostname(http_t *http,	/* I - HTTP connection */
-                    char   *buffer,	/* I - Hostname buffer */
-                    size_t bufsize)	/* I - Size of buffer */
+const char *				// O - Resolved hostname or `NULL`
+httpResolveHostname(http_t *http,	// I - HTTP connection
+                    char   *buffer,	// I - Hostname buffer
+                    size_t bufsize)	// I - Size of buffer
 {
   if (!http)
     return (NULL);
 
   if (isdigit(http->hostname[0] & 255) || http->hostname[0] == '[')
   {
-    char	temp[1024];		/* Temporary string */
+    char	temp[1024];		// Temporary string
 
     if (httpAddrLookup(http->hostaddr, temp, sizeof(temp)))
-      strlcpy(http->hostname, temp, sizeof(http->hostname));
+      cupsCopyString(http->hostname, temp, sizeof(http->hostname));
     else
       return (NULL);
   }
@@ -927,14 +818,18 @@ httpResolveHostname(http_t *http,	/* I - HTTP connection */
   if (buffer)
   {
     if (http->hostname[0] == '/')
-      strlcpy(buffer, "localhost", bufsize);
+      cupsCopyString(buffer, "localhost", bufsize);
     else
-      strlcpy(buffer, http->hostname, bufsize);
+      cupsCopyString(buffer, http->hostname, bufsize);
 
     return (buffer);
   }
   else if (http->hostname[0] == '/')
+  {
     return ("localhost");
+  }
   else
+  {
     return (http->hostname);
+  }
 }

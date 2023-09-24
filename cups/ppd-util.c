@@ -30,8 +30,7 @@
 
 static int	cups_get_printer_uri(http_t *http, const char *name,
 		                     char *host, int hostsize, int *port,
-				     char *resource, int resourcesize,
-				     int depth);
+				     char *resource, int resourcesize);
 
 
 /*
@@ -145,9 +144,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
   * Range check input...
   */
 
-  DEBUG_printf(("cupsGetPPD3(http=%p, name=\"%s\", modtime=%p(%d), buffer=%p, "
-                "bufsize=%d)", http, name, modtime,
-		modtime ? (int)*modtime : 0, buffer, (int)bufsize));
+  DEBUG_printf("cupsGetPPD3(http=%p, name=\"%s\", modtime=%p(%d), buffer=%p, bufsize=%d)", (void *)http, name, (void *)modtime, modtime ? (int)*modtime : 0, (void *)buffer, (int)bufsize);
 
   if (!name)
   {
@@ -179,9 +176,9 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     httpGetHostname(http, hostname, sizeof(hostname));
   else
   {
-    strlcpy(hostname, cupsServer(), sizeof(hostname));
+    cupsCopyString(hostname, cupsServer(), sizeof(hostname));
     if (hostname[0] == '/')
-      strlcpy(hostname, "localhost", sizeof(hostname));
+      cupsCopyString(hostname, "localhost", sizeof(hostname));
   }
 
   if (!_cups_strcasecmp(hostname, "localhost"))
@@ -200,7 +197,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
 
       if (buffer[0])
       {
-        DEBUG_printf(("2cupsGetPPD3: Using filename \"%s\".", buffer));
+        DEBUG_printf("2cupsGetPPD3: Using filename \"%s\".", buffer);
 
         unlink(buffer);
 
@@ -254,7 +251,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
 	  tmpdir = "/tmp";
 #endif /* __APPLE__ */
 
-        DEBUG_printf(("2cupsGetPPD3: tmpdir=\"%s\".", tmpdir));
+        DEBUG_printf("2cupsGetPPD3: tmpdir=\"%s\".", tmpdir);
 
        /*
 	* Make the temporary name using the specified directory...
@@ -285,7 +282,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
 	  if (!symlink(ppdname, buffer))
 	    break;
 
-	  DEBUG_printf(("2cupsGetPPD3: Symlink \"%s\" to \"%s\" failed: %s", ppdname, buffer, strerror(errno)));
+	  DEBUG_printf("2cupsGetPPD3: Symlink \"%s\" to \"%s\" failed: %s", ppdname, buffer, strerror(errno));
 
 	  tries ++;
 	}
@@ -303,12 +300,12 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
 
       if (*modtime >= ppdinfo.st_mtime)
       {
-        DEBUG_printf(("2cupsGetPPD3: Returning not-modified, filename=\"%s\".", buffer));
+        DEBUG_printf("2cupsGetPPD3: Returning not-modified, filename=\"%s\".", buffer);
         return (HTTP_STATUS_NOT_MODIFIED);
       }
       else
       {
-        DEBUG_printf(("2cupsGetPPD3: Returning ok, filename=\"%s\", modtime=%ld.", buffer, (long)ppdinfo.st_mtime));
+        DEBUG_printf("2cupsGetPPD3: Returning ok, filename=\"%s\", modtime=%ld.", buffer, (long)ppdinfo.st_mtime);
         *modtime = ppdinfo.st_mtime;
 	return (HTTP_STATUS_OK);
       }
@@ -331,13 +328,13 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     }
   }
 
-  if (!cups_get_printer_uri(http, name, hostname, sizeof(hostname), &port, resource, sizeof(resource), 0))
+  if (!cups_get_printer_uri(http, name, hostname, sizeof(hostname), &port, resource, sizeof(resource)))
   {
     DEBUG_puts("2cupsGetPPD3: Unable to get printer URI.");
     return (HTTP_STATUS_NOT_FOUND);
   }
 
-  DEBUG_printf(("2cupsGetPPD3: Printer hostname=\"%s\", port=%d", hostname, port));
+  DEBUG_printf("2cupsGetPPD3: Printer hostname=\"%s\", port=%d", hostname, port);
 
   if (cupsServer()[0] == '/' && !_cups_strcasecmp(hostname, "localhost") && port == ippPort())
   {
@@ -345,10 +342,10 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     * Redirect localhost to domain socket...
     */
 
-    strlcpy(hostname, cupsServer(), sizeof(hostname));
+    cupsCopyString(hostname, cupsServer(), sizeof(hostname));
     port = 0;
 
-    DEBUG_printf(("2cupsGetPPD3: Redirecting to \"%s\".", hostname));
+    DEBUG_printf("2cupsGetPPD3: Redirecting to \"%s\".", hostname);
   }
 
  /*
@@ -357,10 +354,10 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
 
   httpGetHostname(NULL, localhost, sizeof(localhost));
 
-  DEBUG_printf(("2cupsGetPPD3: Local hostname=\"%s\"", localhost));
+  DEBUG_printf("2cupsGetPPD3: Local hostname=\"%s\"", localhost);
 
   if (!_cups_strcasecmp(localhost, hostname))
-    strlcpy(hostname, "localhost", sizeof(hostname));
+    cupsCopyString(hostname, "localhost", sizeof(hostname));
 
  /*
   * Get the hostname and port number we are connected to...
@@ -369,8 +366,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
   httpGetHostname(http, http_hostname, sizeof(http_hostname));
   http_port = httpAddrPort(http->hostaddr);
 
-  DEBUG_printf(("2cupsGetPPD3: Connection hostname=\"%s\", port=%d",
-                http_hostname, http_port));
+  DEBUG_printf("2cupsGetPPD3: Connection hostname=\"%s\", port=%d", http_hostname, http_port);
 
  /*
   * Reconnect to the correct server as needed...
@@ -413,7 +409,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
   * And send a request to the HTTP server...
   */
 
-  strlcat(resource, ".ppd", sizeof(resource));
+  cupsConcatString(resource, ".ppd", sizeof(resource));
 
   if (*modtime > 0)
     httpSetField(http2, HTTP_FIELD_IF_MODIFIED_SINCE,
@@ -432,7 +428,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     *modtime = httpGetDateTime(httpGetField(http2, HTTP_FIELD_DATE));
 
     if (tempfile[0])
-      strlcpy(buffer, tempfile, bufsize);
+      cupsCopyString(buffer, tempfile, bufsize);
   }
   else if (status != HTTP_STATUS_NOT_MODIFIED)
   {
@@ -453,7 +449,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
   * Return the PPD file...
   */
 
-  DEBUG_printf(("2cupsGetPPD3: Returning status %d", status));
+  DEBUG_printf("2cupsGetPPD3: Returning status %d", status);
 
   return (status);
 }
@@ -526,7 +522,7 @@ cupsGetServerPPD(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
 
   close(fd);
 
-  if (cupsLastError() != IPP_STATUS_OK)
+  if (cupsGetError() != IPP_STATUS_OK)
   {
     unlink(pg->ppd_filename);
     return (NULL);
@@ -549,8 +545,7 @@ cups_get_printer_uri(
     int        hostsize,		/* I - Size of hostname buffer */
     int        *port,			/* O - Port number */
     char       *resource,		/* I - Resource buffer */
-    int        resourcesize,		/* I - Size of resource buffer */
-    int        depth)			/* I - Depth of query */
+    int        resourcesize)		/* I - Size of resource buffer */
 {
   int		i;			/* Looping var */
   ipp_t		*request,		/* IPP request */
@@ -566,7 +561,7 @@ cups_get_printer_uri(
 		};
 
 
-  DEBUG_printf(("4cups_get_printer_uri(http=%p, name=\"%s\", host=%p, hostsize=%d, resource=%p, resourcesize=%d, depth=%d)", http, name, host, hostsize, resource, resourcesize, depth));
+  DEBUG_printf("4cups_get_printer_uri(http=%p, name=\"%s\", host=%p, hostsize=%d, resource=%p, resourcesize=%d)", (void *)http, name, (void *)host, hostsize, (void *)resource, resourcesize);
 
  /*
   * Setup the printer URI...
@@ -582,7 +577,7 @@ cups_get_printer_uri(
     return (0);
   }
 
-  DEBUG_printf(("5cups_get_printer_uri: printer-uri=\"%s\"", uri));
+  DEBUG_printf("5cups_get_printer_uri: printer-uri=\"%s\"", uri);
 
  /*
   * Build an IPP_GET_PRINTER_ATTRIBUTES request, which requires the following
@@ -614,11 +609,11 @@ cups_get_printer_uri(
       * Get the first actual printer name in the class...
       */
 
-      DEBUG_printf(("5cups_get_printer_uri: Got member-uris with %d values.", ippGetCount(attr)));
+      DEBUG_printf("5cups_get_printer_uri: Got member-uris with %d values.", ippGetCount(attr));
 
       for (i = 0; i < attr->num_values; i ++)
       {
-        DEBUG_printf(("5cups_get_printer_uri: member-uris[%d]=\"%s\"", i, ippGetString(attr, i, NULL)));
+        DEBUG_printf("5cups_get_printer_uri: member-uris[%d]=\"%s\"", i, ippGetString(attr, i, NULL));
 
 	httpSeparateURI(HTTP_URI_CODING_ALL, attr->values[i].string.text, scheme, sizeof(scheme), username, sizeof(username), host, hostsize, port, resource, resourcesize);
 	if (!strncmp(resource, "/printers/", 10))
@@ -629,17 +624,17 @@ cups_get_printer_uri(
 
           ippDelete(response);
 
-	  DEBUG_printf(("5cups_get_printer_uri: Found printer member with host=\"%s\", port=%d, resource=\"%s\"", host, *port, resource));
+	  DEBUG_printf("5cups_get_printer_uri: Found printer member with host=\"%s\", port=%d, resource=\"%s\"", host, *port, resource);
 	  return (1);
 	}
       }
     }
     else if ((attr = ippFindAttribute(response, "printer-uri-supported", IPP_TAG_URI)) != NULL)
     {
-      httpSeparateURI(HTTP_URI_CODING_ALL, _httpResolveURI(attr->values[0].string.text, uri, sizeof(uri), _HTTP_RESOLVE_DEFAULT, NULL, NULL), scheme, sizeof(scheme), username, sizeof(username), host, hostsize, port, resource, resourcesize);
+      httpSeparateURI(HTTP_URI_CODING_ALL, httpResolveURI(attr->values[0].string.text, uri, sizeof(uri), HTTP_RESOLVE_DEFAULT, NULL, NULL), scheme, sizeof(scheme), username, sizeof(username), host, hostsize, port, resource, resourcesize);
       ippDelete(response);
 
-      DEBUG_printf(("5cups_get_printer_uri: Resolved to host=\"%s\", port=%d, resource=\"%s\"", host, *port, resource));
+      DEBUG_printf("5cups_get_printer_uri: Resolved to host=\"%s\", port=%d, resource=\"%s\"", host, *port, resource);
 
       if (!strncmp(resource, "/classes/", 9))
       {
@@ -658,7 +653,7 @@ cups_get_printer_uri(
     ippDelete(response);
   }
 
-  if (cupsLastError() != IPP_STATUS_ERROR_NOT_FOUND)
+  if (cupsGetError() != IPP_STATUS_ERROR_NOT_FOUND)
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("No printer-uri found"), 1);
 
   *host     = '\0';

@@ -1,12 +1,14 @@
 /*
  * Color management routines for the CUPS scheduler.
  *
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2007-2014 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  *
- * Original DBUS/colord code is Copyright 2011 Red Hat, Inc.
+ * Original DBUS/colord code is Copyright © 2011 Red Hat, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -386,7 +388,7 @@ apple_register_profiles(
 	snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
 		 attr->value);
       else
-	strlcpy(iccfile, attr->value, sizeof(iccfile));
+	cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
       if (access(iccfile, 0))
       {
@@ -486,7 +488,7 @@ apple_register_profiles(
 	  snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
 	           attr->value);
         else
-	  strlcpy(iccfile, attr->value, sizeof(iccfile));
+	  cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
         if (_cupsFileCheck(iccfile, _CUPS_FILE_CHECK_FILE, !RunUser,
 	                   cupsdLogFCMessage, p))
@@ -900,8 +902,6 @@ colord_create_device(
   DBusError	error;			/* D-Bus error */
   const char	*device_path;		/* Device object path */
   const char	*profile_path;		/* Profile path */
-  char		*default_profile_path = NULL;
-					/* Default profile path */
   char		device_id[1024];	/* Device ID as understood by colord */
   char		format_str[1024];	/* Qualifier format as a string */
 
@@ -982,10 +982,7 @@ colord_create_device(
     colord_device_add_profile(device_path, profile_path, relation);
   }
 
-out:
-
-  if (default_profile_path)
-    free(default_profile_path);
+  out:
 
   if (message)
     dbus_message_unref(message);
@@ -1412,7 +1409,7 @@ colord_register_printer(
         snprintf(iccfile, sizeof(iccfile), "%s/profiles/%s", DataDir,
                  attr->value);
       else
-        strlcpy(iccfile, attr->value, sizeof(iccfile));
+        cupsCopyString(iccfile, attr->value, sizeof(iccfile));
 
       if (_cupsFileCheck(iccfile, _CUPS_FILE_CHECK_FILE, !RunUser,
 			 cupsdLogFCMessage, p))

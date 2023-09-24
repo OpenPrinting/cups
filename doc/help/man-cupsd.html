@@ -1,123 +1,151 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>cupsd(8)</title>
-</head>
-<body>
-<h1 class="title">cupsd(8)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-cupsd - cups scheduler
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>cupsd</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cupsd(8)</title>
+  </head>
+  <body>
+    <h1 id="cupsd-8">cupsd(8)</h1>
+    <h2 id="cupsd-8.name">Name</h2>
+<p>cupsd - cups scheduler
+</p>
+    <h2 id="cupsd-8.synopsis">Synopsis</h2>
+<p><strong>cupsd</strong>
 [
-<b>-c</b>
-<i>cupsd.conf</i>
+<strong>-c</strong>
+<em>cupsd.conf</em>
 ] [
-<b>-f</b>
+<strong>-f</strong>
 ] [
-<b>-F</b>
+<strong>-F</strong>
 ] [
-<b>-h</b>
+<strong>-h</strong>
 ] [
-<b>-l</b>
+<strong>-l</strong>
 ] [
-<b>-s</b>
-<i>cups-files.conf</i>
+<strong>-s</strong>
+<em>cups-files.conf</em>
 ] [
-<b>-t</b>
+<strong>-t</strong>
 ]
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>cupsd</b>
+</p>
+    <h2 id="cupsd-8.description">Description</h2>
+<p><strong>cupsd</strong>
 is the scheduler for CUPS. It implements a printing system based upon the Internet Printing Protocol, version 2.1, and supports most of the requirements for IPP Everywhere. If no options are specified on the command-line then the default configuration file
-<i>/etc/cups/cupsd.conf</i>
+<em>/etc/cups/cupsd.conf</em>
 will be used.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-<dl class="man">
-<dt><b>-c</b><i> cupsd.conf</i>
-<dd style="margin-left: 5.0em">Uses the named cupsd.conf configuration file.
-<dt><b>-f</b>
-<dd style="margin-left: 5.0em">Run
-<b>cupsd</b>
-in the foreground; the default is to run in the background as a "daemon".
-<dt><b>-F</b>
-<dd style="margin-left: 5.0em">Run
-<b>cupsd</b>
-in the foreground but detach the process from the controlling terminal and current directory. This is useful for running
-<b>cupsd</b>
-from
-<b>init</b>(8).
-<dt><b>-h</b>
-<dd style="margin-left: 5.0em">Shows the program usage.
-<dt><b>-l</b>
-<dd style="margin-left: 5.0em">This option is passed to
-<b>cupsd</b>
-when it is run from
-<b>launchd</b>(8)
-or
-<b>systemd</b>(8).
-<dt><b>-s</b><i> cups-files.conf</i>
-<dd style="margin-left: 5.0em">Uses the named cups-files.conf configuration file.
-<dt><b>-t</b>
-<dd style="margin-left: 5.0em">Test the configuration file for syntax errors.
-</dl>
-<h2 class="title"><a name="FILES">Files</a></h2>
-<pre class="man">
-<i>/etc/cups/classes.conf</i>
-<i>/etc/cups/cups-files.conf</i>
-<i>/etc/cups/cupsd.conf</i>
-<i>/usr/share/cups/mime/mime.convs</i>
-<i>/usr/share/cups/mime/mime.types</i>
-<i>/etc/cups/printers.conf</i>
-<i>/etc/cups/subscriptions.conf</i>
-</pre>
-<h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
-<b>cupsd</b>
-implements all of the required IPP/2.1 attributes and operations. It also implements several CUPS-specific administrative operations.
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
+</p>
+    <h2 id="cupsd-8.options">Options</h2>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c</strong><em> cupsd.conf</em>
+<br>
+Uses the named cupsd.conf configuration file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-f</strong><br>
 Run
-<b>cupsd</b>
-in the background with the default configuration file:
-<pre class="man">
+<strong>cupsd</strong>
+in the foreground; the default is to run in the background as a &quot;daemon&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-F</strong><br>
+Run
+<strong>cupsd</strong>
+in the foreground but detach the process from the controlling terminal and current directory. This is useful for running
+<strong>cupsd</strong>
+from
+<strong>init</strong>(8).
 
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h</strong><br>
+Shows the program usage.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l</strong><br>
+This option is passed to
+<strong>cupsd</strong>
+when it is run from
+<strong>launchd</strong>(8)
+
+or
+<strong>systemd</strong>(8).
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s</strong><em> cups-files.conf</em>
+<br>
+Uses the named cups-files.conf configuration file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong><br>
+Test the configuration file for syntax errors.
+</p>
+    <h2 id="cupsd-8.files">Files</h2>
+    <pre><em>/etc/cups/classes.conf</em>
+<em>/etc/cups/cups-files.conf</em>
+<em>/etc/cups/cupsd.conf</em>
+<em>/usr/share/cups/mime/mime.convs</em>
+<em>/usr/share/cups/mime/mime.types</em>
+<em>/etc/cups/printers.conf</em>
+<em>/etc/cups/subscriptions.conf</em>
+</pre>
+    <h2 id="cupsd-8.conforming-to">Conforming To</h2>
+<p><strong>cupsd</strong>
+implements all of the required IPP/2.1 attributes and operations. It also implements several CUPS-specific administrative operations.
+</p>
+    <h2 id="cupsd-8.examples">Examples</h2>
+<p>Run
+<strong>cupsd</strong>
+in the background with the default configuration file:
+</p>
+    <pre>
     cupsd
 
 </pre>
-Test a configuration file called
-<i>test.conf</i>:
-<pre class="man">
+<p>Test a configuration file called
+<em>test.conf</em>:
 
+</p>
+    <pre>
     cupsd -t -c test.conf
 
 </pre>
-Run
-<b>cupsd</b>
+<p>Run
+<strong>cupsd</strong>
 in the foreground with a test configuration file called
-<i>test.conf</i>:
-<pre class="man">
+<em>test.conf</em>:
 
+</p>
+    <pre>
     cupsd -f -c test.conf
 
 </pre>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<b>backend</b>(7),
-<b>classes.conf</b>(5),
-<b>cups</b>(1),
-<b>cups-files.conf</b>(5),
-<b>cups-lpd</b>(8),
-<b>cupsd.conf</b>(5),
-<b>cupsd-helper</b>(8),
-<b>cupsd-logs</b>(8),
-<b>filter</b>(7),
-<b>launchd</b>(8),
-<b>mime.convs</b>(5),
-<b>mime.types</b>(5),
-<b>printers.conf</b>(5),
-<b>systemd</b>(8),
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021 by OpenPrinting.
+    <h2 id="cupsd-8.see-also">See Also</h2>
+<p><strong>backend</strong>(7),
 
-</body>
+<strong>classes.conf</strong>(5),
+
+<strong>cups</strong>(1),
+
+<strong>cups-files.conf</strong>(5),
+
+<strong>cups-lpd</strong>(8),
+
+<strong>cupsd.conf</strong>(5),
+
+<strong>cupsd-helper</strong>(8),
+
+<strong>cupsd-logs</strong>(8),
+
+<strong>filter</strong>(7),
+
+<strong>launchd</strong>(8),
+
+<strong>mime.convs</strong>(5),
+
+<strong>mime.types</strong>(5),
+
+<strong>printers.conf</strong>(5),
+
+<strong>systemd</strong>(8),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="cupsd-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
 </html>
