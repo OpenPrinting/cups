@@ -2252,6 +2252,9 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
       {
 	properties =
 	  (choice_properties_t *)calloc(1, sizeof(choice_properties_t));
+	/* No memory for choice properties, skip option */
+	if (properties == NULL)
+	  break;
 
 	c = option->choices[k].choice;
 
@@ -2645,6 +2648,9 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	/* Add the properties of this choice */
 	cupsArrayAdd(choice_properties, properties);
       }
+      /* Memory allocation failure, skip option */
+      if (k < option->num_choices)
+	goto skip;
 
      /*
       * Find the best choice for each field of the color/quality preset
@@ -2656,6 +2662,9 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	for (k = 0; k < option->num_choices; k ++)
         {
 	  properties = cupsArrayIndex(choice_properties, k);
+	  /* Should never happen, to satisfy GitHub code scanning */
+	  if (properties == NULL)
+	    continue;
 
 	  /* presets[0][0]: Mono/Draft */
 	  if (best_mono_draft >= 0 &&
@@ -2765,6 +2774,10 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
       for (k = 0; k < option->num_choices; k ++)
       {
 	properties = cupsArrayIndex(choice_properties, k);
+	/* Should never happen, to satisfy GitHub code scanning */
+	if (properties == NULL)
+	  continue;
+
 	c = option->choices[k].choice;
 
 	/* Vendor-specific options */
@@ -3046,7 +3059,8 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 
       }
 
-      for (k = 0; k < option->num_choices; k ++)
+    skip:
+      for (k = 0; k < cupsArrayGetCount(choice_properties); k ++)
 	free(cupsArrayIndex(choice_properties, k));
       cupsArrayDelete(choice_properties);
     }
