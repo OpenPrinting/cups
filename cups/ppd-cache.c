@@ -505,7 +505,7 @@ _ppdCacheCreateWithFile(
 					/* Print color mode for preset */
   _pwg_print_quality_t print_quality;	/* Print quality for preset */
   _pwg_print_content_optimize_t print_content_optimize;
-                                        /* Content optimize for preset */
+                                        /* Content optimize for mapping */
 
 
   DEBUG_printf("_ppdCacheCreateWithFile(filename=\"%s\")", filename);
@@ -910,10 +910,10 @@ _ppdCacheCreateWithFile(
           cupsParseOptions(valueptr, 0,
 	                   pc->presets[print_color_mode] + print_quality);
     }
-    else if (!_cups_strcasecmp(line, "OptimizePreset"))
+    else if (!_cups_strcasecmp(line, "OptimizeMapping"))
     {
      /*
-      * Preset print_content_optimize name=value ...
+      * OptimizeMapping print_content_optimize name=value ...
       */
 
       print_content_optimize = (_pwg_print_content_optimize_t)strtol(value, &valueptr, 10);
@@ -922,15 +922,15 @@ _ppdCacheCreateWithFile(
           print_content_optimize >= _PWG_PRINT_CONTENT_OPTIMIZE_MAX ||
 	  valueptr == value || !*valueptr)
       {
-        DEBUG_printf(("ppdCacheCreateWithFile: Bad Optimize Preset on line %d.",
+        DEBUG_printf(("ppdCacheCreateWithFile: Bad optimize mapping on line %d.",
 	              linenum));
 	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad PPD cache file."), 1);
 	goto create_error;
       }
 
-      pc->num_optimize_presets[print_content_optimize] =
+      pc->num_optimize_mappings[print_content_optimize] =
           cupsParseOptions(valueptr, 0,
-	                   pc->optimize_presets + print_content_optimize);
+	                   pc->optimize_mappings + print_content_optimize);
     }
     else if (!_cups_strcasecmp(line, "SidesOption"))
       pc->sides_option = strdup(value);
@@ -1508,7 +1508,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   if ((ppd_attr = ppdFindAttr(ppd, "APPrinterPreset", NULL)) != NULL)
   {
    /*
-    * "Classic" Mac OS approach
+    * "Classic" approach
     */
 
    /*
@@ -2232,12 +2232,12 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 			      pc->num_presets[k][l], &(pc->presets[k][l]));
 	for (k = 0; k < 5; k ++)
 	  if (cupsGetOption(option->choices[0].choice + 4,
-			    pc->num_optimize_presets[k],
-			    pc->optimize_presets[k]))
-	    pc->num_optimize_presets[k] =
+			    pc->num_optimize_mappings[k],
+			    pc->optimize_mappings[k]))
+	    pc->num_optimize_mappings[k] =
 	      cupsAddOption(o, option->choices[0].choice,
-			    pc->num_optimize_presets[k],
-			    &(pc->optimize_presets[k]));
+			    pc->num_optimize_mappings[k],
+			    &(pc->optimize_mappings[k]));
 	continue;
       }
 
@@ -2902,29 +2902,29 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
 	}
 
        /*
-	* Find the best choice for each field of the content optimize presets
+	* Find the best choice for each field of the content optimize mappings
 	*/
 
 	/* Find best choice for each task */
-	/* optimize_presets[1]: Photo */
+	/* optimize_mappings[1]: Photo */
 	if (properties->for_photo > best_photo)
 	{
 	  best_photo = properties->for_photo;
 	  best_photo_ch = k;
 	}
-	/* optimize_presets[2]: Graphics */
+	/* optimize_mappings[2]: Graphics */
 	if (properties->for_graphics > best_graphics)
 	{
 	  best_graphics = properties->for_graphics;
 	  best_graphics_ch = k;
 	}
-	/* optimize_presets[3]: Text */
+	/* optimize_mappings[3]: Text */
 	if (properties->for_text > best_text)
 	{
 	  best_text = properties->for_text;
 	  best_text_ch = k;
 	}
-	/* optimize_presets[4]: Text and Graphics */
+	/* optimize_mappings[4]: Text and Graphics */
 	if (properties->for_tg > best_tg)
 	{
 	  best_tg = properties->for_tg;
@@ -3020,41 +3020,41 @@ _ppdCacheAssignPresets(ppd_file_t *ppd,
       if (sets_optimization)
       {
 
-	/* optimize_presets[1]: Photo */
+	/* optimize_mappings[1]: Photo */
 	if (best_photo_ch >= 0)
-	  pc->num_optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_PHOTO] =
+	  pc->num_optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_PHOTO] =
 	    cupsAddOption
 	      (o, option->choices[best_photo_ch].choice,
-	       pc->num_optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_PHOTO],
-	       &(pc->optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_PHOTO]));
+	       pc->num_optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_PHOTO],
+	       &(pc->optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_PHOTO]));
 
-	/* optimize_presets[2]: Graphics */
+	/* optimize_mappings[2]: Graphics */
 	if (best_graphics_ch >= 0)
-	  pc->num_optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_GRAPHICS] =
+	  pc->num_optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_GRAPHICS] =
 	    cupsAddOption
 	      (o, option->choices[best_graphics_ch].choice,
-	       pc->num_optimize_presets
+	       pc->num_optimize_mappings
 	         [_PWG_PRINT_CONTENT_OPTIMIZE_GRAPHICS],
-	       &(pc->optimize_presets
+	       &(pc->optimize_mappings
 		 [_PWG_PRINT_CONTENT_OPTIMIZE_GRAPHICS]));
 
-	/* optimize_presets[1]: Text */
+	/* optimize_mappings[1]: Text */
 	if (best_text_ch >= 0)
-	  pc->num_optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_TEXT] =
+	  pc->num_optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_TEXT] =
 	    cupsAddOption
 	      (o, option->choices[best_text_ch].choice,
-	       pc->num_optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_TEXT],
-	       &(pc->optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_TEXT]));
+	       pc->num_optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_TEXT],
+	       &(pc->optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_TEXT]));
 
-	/* optimize_presets[1]: Text and Graphics */
+	/* optimize_mappings[1]: Text and Graphics */
 	if (best_tg_ch >= 0)
-	  pc->num_optimize_presets
+	  pc->num_optimize_mappings
 	    [_PWG_PRINT_CONTENT_OPTIMIZE_TEXT_AND_GRAPHICS] =
 	    cupsAddOption
 	      (o, option->choices[best_tg_ch].choice,
-	       pc->num_optimize_presets
+	       pc->num_optimize_mappings
 	         [_PWG_PRINT_CONTENT_OPTIMIZE_TEXT_AND_GRAPHICS],
-	       &(pc->optimize_presets
+	       &(pc->optimize_mappings
 		   [_PWG_PRINT_CONTENT_OPTIMIZE_TEXT_AND_GRAPHICS]));
 
       }
@@ -3159,8 +3159,8 @@ _ppdCacheDestroy(_ppd_cache_t *pc)	/* I - PPD cache and mapping data */
 	cupsFreeOptions(pc->num_presets[i][j], pc->presets[i][j]);
 
   for (i = _PWG_PRINT_CONTENT_OPTIMIZE_AUTO; i < _PWG_PRINT_CONTENT_OPTIMIZE_MAX; i ++)
-    if (pc->num_optimize_presets[i])
-      cupsFreeOptions(pc->num_optimize_presets[i], pc->optimize_presets[i]);
+    if (pc->num_optimize_mappings[i])
+      cupsFreeOptions(pc->num_optimize_mappings[i], pc->optimize_mappings[i]);
 
   free(pc);
 }
@@ -4045,14 +4045,14 @@ _ppdCacheWriteFile(
       }
 
  /*
-  * Optimization Presets...
+  * Optimization Mappings...
   */
 
   for (i = _PWG_PRINT_CONTENT_OPTIMIZE_AUTO; i < _PWG_PRINT_CONTENT_OPTIMIZE_MAX; i ++)
-    if (pc->num_optimize_presets[i])
+    if (pc->num_optimize_mappings[i])
     {
-      cupsFilePrintf(fp, "OptimizePreset %d", i);
-      for (k = pc->num_optimize_presets[i], option = pc->optimize_presets[i];
+      cupsFilePrintf(fp, "OptimizeMapping %d", i);
+      for (k = pc->num_optimize_mappings[i], option = pc->optimize_mappings[i];
 	   k > 0;
 	   k --, option ++)
 	cupsFilePrintf(fp, " %s=%s", option->name, option->value);

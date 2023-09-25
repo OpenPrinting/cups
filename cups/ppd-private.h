@@ -141,10 +141,10 @@ struct _ppd_cache_s			/**** PPD cache and PWG conversion data ****/
 					/* Number of print-color-mode/print-quality options */
   cups_option_t	*presets[_PWG_PRINT_COLOR_MODE_MAX][_PWG_PRINT_QUALITY_MAX];
 					/* print-color-mode/print-quality options */
-  int		num_optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_MAX];
+  int		num_optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_MAX];
 					/* Number of print-content-optimize
 					   options */
-  cups_option_t	*optimize_presets[_PWG_PRINT_CONTENT_OPTIMIZE_MAX];
+  cups_option_t	*optimize_mappings[_PWG_PRINT_CONTENT_OPTIMIZE_MAX];
 					/* print-content-optimize options */
   char		*sides_option,		/* PPD option for sides */
 		*sides_1sided,		/* Choice for one-sided */

@@ -3760,7 +3760,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
       ippFindAttribute(job->attrs, "print-content-optimize", IPP_TAG_ZERO))
   {
    /*
-    * Map print-content-optimize to a preset...
+    * Map print-content-optimize...
     */
 
     if ((attr = ippFindAttribute(job->attrs, "print-content-optimize",
@@ -3795,17 +3795,17 @@ get_options(cupsd_job_t *job,		/* I - Job */
                  (print_content_optimize == _PWG_PRINT_CONTENT_OPTIMIZE_TEXT ?
 		  "text" :
                   "text and graphics")))));
-    if (pc->num_optimize_presets[print_content_optimize] > 0)
+    if (pc->num_optimize_mappings[print_content_optimize] > 0)
     {
      /*
-      * Copy the preset options as long as the corresponding names are not
+      * Copy the mapped options as long as the corresponding names are not
       * already defined in the IPP request and also if it does not change
       * the print quality preset (as long as we do not print in high quality)
       * ...
       */
 
-      for (i = pc->num_optimize_presets[print_content_optimize],
-	       preset = pc->optimize_presets[print_content_optimize];
+      for (i = pc->num_optimize_mappings[print_content_optimize],
+	       preset = pc->optimize_mappings[print_content_optimize];
 	   i > 0;
 	   i --, preset ++)
       {
@@ -3813,7 +3813,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
 	    (print_quality == _PWG_PRINT_QUALITY_HIGH ||
 	     cupsGetOption(preset->name, num_pwgppds, pwgppds) == NULL))
         {
-          cupsdLogJob(job, CUPSD_LOG_DEBUG, "Adding content optimization preset option %s=%s", preset->name, preset->value);
+          cupsdLogJob(job, CUPSD_LOG_DEBUG, "Adding content optimization mapping option %s=%s", preset->name, preset->value);
 
 	  num_pwgppds = cupsAddOption(preset->name, preset->value, num_pwgppds, &pwgppds);
         }
