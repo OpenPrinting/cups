@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: Coverity
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: update build environment
         run: sudo apt-get update --fix-missing -y
       - name: install prerequisites
