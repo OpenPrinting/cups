@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: show Ubuntu version
       run: cat /etc/os-release | grep PRETTY_NAME | awk -F '=' '{print $2}'
     - name: update build environment
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: show Ubuntu version
       run: cat /etc/os-release | grep PRETTY_NAME | awk -F '=' '{print $2}'
     - name: setup multiarch for i386
@@ -62,7 +62,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: configure
       run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
     - name: make
@@ -75,7 +75,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.3.1
     - name: nuget restore
