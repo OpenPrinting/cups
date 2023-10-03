@@ -254,14 +254,6 @@ hash_data(const char    *algorithm,	// I - Algorithm
   {
     md = EVP_sha512();
   }
-  else if (!strcmp(algorithm, "sha2-512_224"))
-  {
-    md = EVP_sha512_224();
-  }
-  else if (!strcmp(algorithm, "sha2-512_256"))
-  {
-    md = EVP_sha512_256();
-  }
 
   if (md)
   {
