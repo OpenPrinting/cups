@@ -27,6 +27,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed a bug in the PPD command interpretation code (Issue #768)
 - Removed `HAVE_LIBZ` and `HAVE_POLL` defines, making CUPS to depend
   on the functionality
+- Removed hash support for SHA2-512-224 and SHA2-512-256
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
 - Removed SSPI and Security.framework support (CDSA)
