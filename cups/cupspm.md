@@ -2,7 +2,7 @@
 title: CUPS Programming Manual
 author: Michael R Sweet
 copyright: Copyright © 2021-2023 by OpenPrinting. All Rights Reserved.
-version: 2.4.0
+version: 2.5.0
 ...
 
 > Please [file issues on GitHub](https://github.com/openprinting/cups/issues) to
@@ -158,31 +158,31 @@ The `type` and `mask` arguments are bitfields that allow the caller to filter
 the destinations based on categories and/or capabilities.  The destination's
 "printer-type" value is masked by the `mask` value and compared to the `type`
 value when filtering.  For example, to only enumerate destinations that are
-hosted on the local system, pass `CUPS_PRINTER_LOCAL` for the `type` argument
-and `CUPS_PRINTER_DISCOVERED` for the `mask` argument.  The following constants
+hosted on the local system, pass `CUPS_PTYPE_LOCAL` for the `type` argument
+and `CUPS_PTYPE_DISCOVERED` for the `mask` argument.  The following constants
 can be used for filtering:
 
-- `CUPS_PRINTER_CLASS`: A collection of destinations.
-- `CUPS_PRINTER_FAX`: A facsimile device.
-- `CUPS_PRINTER_LOCAL`: A local printer or class.  This constant has the value 0
+- `CUPS_PTYPE_CLASS`: A collection of destinations.
+- `CUPS_PTYPE_FAX`: A facsimile device.
+- `CUPS_PTYPE_LOCAL`: A local printer or class.  This constant has the value 0
   (no bits set) and is only used for the `type` argument and is paired with the
-  `CUPS_PRINTER_REMOTE` or `CUPS_PRINTER_DISCOVERED` constant passed in the
+  `CUPS_PTYPE_REMOTE` or `CUPS_PTYPE_DISCOVERED` constant passed in the
   `mask` argument.
-- `CUPS_PRINTER_REMOTE`: A remote (shared) printer or class.
-- `CUPS_PRINTER_DISCOVERED`: An available network printer or class.
-- `CUPS_PRINTER_BW`: Can do B&W printing.
-- `CUPS_PRINTER_COLOR`: Can do color printing.
-- `CUPS_PRINTER_DUPLEX`: Can do two-sided printing.
-- `CUPS_PRINTER_STAPLE`: Can staple output.
-- `CUPS_PRINTER_COLLATE`: Can quickly collate copies.
-- `CUPS_PRINTER_PUNCH`: Can punch output.
-- `CUPS_PRINTER_COVER`: Can cover output.
-- `CUPS_PRINTER_BIND`: Can bind output.
-- `CUPS_PRINTER_SORT`: Can sort output (mailboxes, etc.)
-- `CUPS_PRINTER_SMALL`: Can print on Letter/Legal/A4-size media.
-- `CUPS_PRINTER_MEDIUM`: Can print on Tabloid/B/C/A3/A2-size media.
-- `CUPS_PRINTER_LARGE`: Can print on D/E/A1/A0-size media.
-- `CUPS_PRINTER_VARIABLE`: Can print on rolls and custom-size media.
+- `CUPS_PTYPE_REMOTE`: A remote (shared) printer or class.
+- `CUPS_PTYPE_DISCOVERED`: An available network printer or class.
+- `CUPS_PTYPE_BW`: Can do B&W printing.
+- `CUPS_PTYPE_COLOR`: Can do color printing.
+- `CUPS_PTYPE_DUPLEX`: Can do two-sided printing.
+- `CUPS_PTYPE_STAPLE`: Can staple output.
+- `CUPS_PTYPE_COLLATE`: Can quickly collate copies.
+- `CUPS_PTYPE_PUNCH`: Can punch output.
+- `CUPS_PTYPE_COVER`: Can cover output.
+- `CUPS_PTYPE_BIND`: Can bind output.
+- `CUPS_PTYPE_SORT`: Can sort output (mailboxes, etc.)
+- `CUPS_PTYPE_SMALL`: Can print on Letter/Legal/A4-size media.
+- `CUPS_PTYPE_MEDIUM`: Can print on Tabloid/B/C/A3/A2-size media.
+- `CUPS_PTYPE_LARGE`: Can print on D/E/A1/A0-size media.
+- `CUPS_PTYPE_VARIABLE`: Can print on rolls and custom-size media.
 
 The `cb` argument specifies a function to call for every destination that is
 found:
