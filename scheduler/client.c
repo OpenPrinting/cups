@@ -2695,13 +2695,13 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
       return (NULL);
     }
 
-    if (p->type & CUPS_PRINTER_CLASS)
+    if (p->type & CUPS_PTYPE_CLASS)
     {
       int i;				/* Looping var */
 
       for (i = 0; i < p->num_printers; i ++)
       {
-	if (!(p->printers[i]->type & CUPS_PRINTER_CLASS))
+	if (!(p->printers[i]->type & CUPS_PTYPE_CLASS))
 	{
 	  snprintf(filename, len, "%s/ppd/%s.ppd", ServerRoot, p->printers[i]->name);
 	  if (!access(filename, 0))
@@ -2732,13 +2732,13 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
       return (NULL);
     }
 
-    if (p->type & CUPS_PRINTER_CLASS)
+    if (p->type & CUPS_PTYPE_CLASS)
     {
       int i;				/* Looping var */
 
       for (i = 0; i < p->num_printers; i ++)
       {
-	if (!(p->printers[i]->type & CUPS_PRINTER_CLASS))
+	if (!(p->printers[i]->type & CUPS_PTYPE_CLASS))
 	{
 	  snprintf(filename, len, "%s/images/%s.png", CacheDir, p->printers[i]->name);
 	  if (!access(filename, 0))

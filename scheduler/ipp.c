@@ -518,7 +518,7 @@ cupsdProcessIPPRequest(
 		break;
 
 	    case IPP_OP_CUPS_GET_CLASSES :
-		get_printers(con, CUPS_PRINTER_CLASS);
+		get_printers(con, CUPS_PTYPE_CLASS);
 		break;
 
 	    case IPP_OP_CUPS_ADD_MODIFY_PRINTER :
@@ -714,7 +714,7 @@ cupsdTimeoutJob(cupsd_job_t *job)	/* I - Job to timeout */
   printer = cupsdFindDest(job->dest);
   attr    = ippFindAttribute(job->attrs, "job-sheets", IPP_TAG_NAME);
 
-  if (printer && !(printer->type & CUPS_PRINTER_REMOTE) &&
+  if (printer && !(printer->type & CUPS_PTYPE_REMOTE) &&
       attr && attr->num_values > 1)
   {
    /*
@@ -785,7 +785,7 @@ accept_jobs(cupsd_client_t  *con,	/* I - Client connection */
   cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, printer, NULL,
                 "Now accepting jobs.");
 
-  if (dtype & CUPS_PRINTER_CLASS)
+  if (dtype & CUPS_PTYPE_CLASS)
   {
     cupsdMarkDirty(CUPSD_DIRTY_CLASSES);
 
@@ -956,7 +956,7 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
 
   if ((attr = ippFindAttribute(con->request, "printer-is-shared", IPP_TAG_BOOLEAN)) != NULL)
   {
-    if (pclass->type & CUPS_PRINTER_REMOTE)
+    if (pclass->type & CUPS_PTYPE_REMOTE)
     {
      /*
       * Cannot re-share remote printers.
@@ -1052,7 +1052,7 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
 
 	return;
       }
-      else if (dtype & CUPS_PRINTER_CLASS)
+      else if (dtype & CUPS_PTYPE_CLASS)
       {
         send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST,
 			_("Nested classes are not allowed."));
@@ -1576,7 +1576,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     return (NULL);
   }
 
-  job->dtype   = printer->type & (CUPS_PRINTER_CLASS | CUPS_PRINTER_REMOTE);
+  job->dtype   = printer->type & (CUPS_PTYPE_CLASS | CUPS_PTYPE_REMOTE);
   job->attrs   = con->request;
   job->dirty   = 1;
   con->request = ippNewRequest(job->attrs->request.op.operation_id);
@@ -1745,7 +1745,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     ippSetString(job->attrs, &job->reasons, 0, "none");
   }
 
-  if (!(printer->type & CUPS_PRINTER_REMOTE) || Classification)
+  if (!(printer->type & CUPS_PTYPE_REMOTE) || Classification)
   {
    /*
     * Add job sheets options...
@@ -1878,7 +1878,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     * See if we need to add the starting sheet...
     */
 
-    if (!(printer->type & CUPS_PRINTER_REMOTE))
+    if (!(printer->type & CUPS_PTYPE_REMOTE))
     {
       cupsdLogJob(job, CUPSD_LOG_INFO, "Adding start banner page \"%s\".",
 		  attr->values[0].string.text);
@@ -2515,7 +2515,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    if (printer->type & CUPS_PRINTER_REMOTE)
+    if (printer->type & CUPS_PTYPE_REMOTE)
     {
      /*
       * Cannot re-share remote printers.
@@ -4816,7 +4816,7 @@ copy_job_attrs(cupsd_client_t *con,	/* I - Client connection */
   {
     httpAssembleURIf(HTTP_URI_CODING_ALL, job_uri, sizeof(job_uri), "ipp", NULL,
 		     con->clientname, con->clientport,
-		     (job->dtype & CUPS_PRINTER_CLASS) ? "/classes/%s" :
+		     (job->dtype & CUPS_PTYPE_CLASS) ? "/classes/%s" :
 		                                         "/printers/%s",
 		     job->dest);
     ippAddString(con->response, IPP_TAG_JOB, IPP_TAG_URI,
@@ -4938,7 +4938,7 @@ copy_printer_attrs(
         }
         else
 	{
-	  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "ipps" : "ipp", NULL, con->clientname, con->clientport, (p2->type & CUPS_PRINTER_CLASS) ? "/classes/%s" : "/printers/%s", p2->name);
+	  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "ipps" : "ipp", NULL, con->clientname, con->clientport, (p2->type & CUPS_PTYPE_CLASS) ? "/classes/%s" : "/printers/%s", p2->name);
 	  member_uris->values[i].string.text = _cupsStrAlloc(uri);
         }
       }
@@ -4981,7 +4981,7 @@ copy_printer_attrs(
       "stop-printer"
     };
 
-    if (printer->type & CUPS_PRINTER_CLASS)
+    if (printer->type & CUPS_PTYPE_CLASS)
       ippAddString(con->response, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_NAME), "printer-error-policy-supported", NULL, "retry-current-job");
     else
       ippAddStrings(con->response, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_NAME), "printer-error-policy-supported", sizeof(errors) / sizeof(errors[0]), NULL, errors);
@@ -5005,7 +5005,7 @@ copy_printer_attrs(
 
   if (!ra || cupsArrayFind(ra, "printer-more-info"))
   {
-    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "https" : "http", NULL, con->clientname, con->clientport, (printer->type & CUPS_PRINTER_CLASS) ? "/classes/%s" : "/printers/%s", printer->name);
+    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "https" : "http", NULL, con->clientname, con->clientport, (printer->type & CUPS_PTYPE_CLASS) ? "/classes/%s" : "/printers/%s", printer->name);
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-more-info", NULL, uri);
   }
 
@@ -5045,13 +5045,13 @@ copy_printer_attrs(
     type = printer->type;
 
     if (printer == DefaultPrinter)
-      type |= CUPS_PRINTER_DEFAULT;
+      type |= CUPS_PTYPE_DEFAULT;
 
     if (!printer->accepting)
-      type |= CUPS_PRINTER_REJECTING;
+      type |= CUPS_PTYPE_REJECTING;
 
     if (!printer->shared)
-      type |= CUPS_PRINTER_NOT_SHARED;
+      type |= CUPS_PTYPE_NOT_SHARED;
 
     ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-type", (int)type);
   }
@@ -5061,7 +5061,7 @@ copy_printer_attrs(
 
   if (!ra || cupsArrayFind(ra, "printer-uri-supported"))
   {
-    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "ipps" : "ipp", NULL, con->clientname, con->clientport, (printer->type & CUPS_PRINTER_CLASS) ? "/classes/%s" : "/printers/%s", printer->name);
+    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "ipps" : "ipp", NULL, con->clientname, con->clientport, (printer->type & CUPS_PTYPE_CLASS) ? "/classes/%s" : "/printers/%s", printer->name);
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-uri-supported", NULL, uri);
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "printer-uri-supported=\"%s\"", uri);
   }
@@ -5806,7 +5806,7 @@ create_subscriptions(
   }
   else if (!strncmp(resource, "/classes", 8) && strlen(resource) <= 9)
   {
-    dtype   = CUPS_PRINTER_CLASS;
+    dtype   = CUPS_PTYPE_CLASS;
     printer = NULL;
   }
   else if (!cupsdValidateDest(uri->values[0].string.text, &dtype, &printer))
@@ -6173,7 +6173,7 @@ delete_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   cupsdAddEvent(CUPSD_EVENT_PRINTER_DELETED, printer, NULL,
                 "%s \"%s\" deleted by \"%s\".",
-		(dtype & CUPS_PRINTER_CLASS) ? "Class" : "Printer",
+		(dtype & CUPS_PTYPE_CLASS) ? "Class" : "Printer",
 		printer->name, get_username(con));
 
   cupsdExpireSubscriptions(printer, NULL);
@@ -6203,7 +6203,7 @@ delete_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   temporary = printer->temporary;
 
-  if (dtype & CUPS_PRINTER_CLASS)
+  if (dtype & CUPS_PTYPE_CLASS)
   {
     cupsdLogMessage(CUPSD_LOG_INFO, "Class \"%s\" deleted by \"%s\".",
                     printer->name, get_username(con));
@@ -6695,14 +6695,14 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
   {
     dest    = NULL;
     dtype   = (cups_ptype_t)0;
-    dmask   = CUPS_PRINTER_CLASS;
+    dmask   = CUPS_PTYPE_CLASS;
     printer = NULL;
   }
   else if (!strncmp(resource, "/classes", 8) && strlen(resource) <= 9)
   {
     dest    = NULL;
-    dtype   = CUPS_PRINTER_CLASS;
-    dmask   = CUPS_PRINTER_CLASS;
+    dtype   = CUPS_PTYPE_CLASS;
+    dmask   = CUPS_PTYPE_CLASS;
     printer = NULL;
   }
   else if ((dest = cupsdValidateDest(uri->values[0].string.text, &dtype,
@@ -6718,8 +6718,8 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
   }
   else
   {
-    dtype &= CUPS_PRINTER_CLASS;
-    dmask = CUPS_PRINTER_CLASS;
+    dtype &= CUPS_PTYPE_CLASS;
+    dmask = CUPS_PTYPE_CLASS;
   }
 
  /*
@@ -7273,16 +7273,16 @@ get_ppd(cupsd_client_t  *con,		/* I - Client connection */
 
     snprintf(filename, sizeof(filename), "%s/ppd/%s.ppd", ServerRoot, dest->name);
 
-    if ((dtype & CUPS_PRINTER_REMOTE) && access(filename, 0))
+    if ((dtype & CUPS_PTYPE_REMOTE) && access(filename, 0))
     {
       send_ipp_status(con, IPP_STATUS_CUPS_SEE_OTHER, _("See remote printer."));
       ippAddString(con->response, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, dest->uri);
       return;
     }
-    else if (dtype & CUPS_PRINTER_CLASS)
+    else if (dtype & CUPS_PTYPE_CLASS)
     {
       for (i = 0; i < dest->num_printers; i ++)
-        if (!(dest->printers[i]->type & CUPS_PRINTER_CLASS))
+        if (!(dest->printers[i]->type & CUPS_PTYPE_CLASS))
 	{
 	  snprintf(filename, sizeof(filename), "%s/ppd/%s.ppd", ServerRoot, dest->printers[i]->name);
 
@@ -7616,7 +7616,7 @@ get_printer_supported(
 
 static void
 get_printers(cupsd_client_t *con,	/* I - Client connection */
-             int            type)	/* I - 0 or CUPS_PRINTER_CLASS */
+             int            type)	/* I - 0 or CUPS_PTYPE_CLASS */
 {
   http_status_t	status;			/* Policy status */
   ipp_attribute_t *attr;		/* Current attribute */
@@ -7739,7 +7739,7 @@ get_printers(cupsd_client_t *con,	/* I - Client connection */
     if (printer_id && printer->printer_id != printer_id)
       continue;
 
-    if ((!type || (printer->type & CUPS_PRINTER_CLASS) == type) &&
+    if ((!type || (printer->type & CUPS_PTYPE_CLASS) == type) &&
         (printer->type & printer_mask) == printer_type &&
 	(!location ||
 	 (printer->location && !_cups_strcasecmp(printer->location, location))))
@@ -8216,7 +8216,7 @@ hold_new_jobs(cupsd_client_t  *con,	/* I - Connection */
 
   cupsdSetPrinterReasons(printer, "+hold-new-jobs");
 
-  if (dtype & CUPS_PRINTER_CLASS)
+  if (dtype & CUPS_PTYPE_CLASS)
     cupsdLogMessage(CUPSD_LOG_INFO,
                     "Class \"%s\" now holding pending/new jobs (\"%s\").",
                     printer->name, get_username(con));
@@ -9076,7 +9076,7 @@ reject_jobs(cupsd_client_t  *con,	/* I - Client connection */
   cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, printer, NULL,
                 "No longer accepting jobs.");
 
-  if (dtype & CUPS_PRINTER_CLASS)
+  if (dtype & CUPS_PTYPE_CLASS)
   {
     cupsdMarkDirty(CUPSD_DIRTY_CLASSES);
 
@@ -9149,7 +9149,7 @@ release_held_new_jobs(
 
   cupsdSetPrinterReasons(printer, "-hold-new-jobs");
 
-  if (dtype & CUPS_PRINTER_CLASS)
+  if (dtype & CUPS_PTYPE_CLASS)
     cupsdLogMessage(CUPSD_LOG_INFO,
                     "Class \"%s\" now printing pending/new jobs (\"%s\").",
                     printer->name, get_username(con));
@@ -10193,7 +10193,7 @@ send_http_error(
       cupsd_location_t *auth;		/* Pointer to authentication element */
 
 
-      if (printer->type & CUPS_PRINTER_CLASS)
+      if (printer->type & CUPS_PTYPE_CLASS)
 	snprintf(resource, sizeof(resource), "/classes/%s", printer->name);
       else
 	snprintf(resource, sizeof(resource), "/printers/%s", printer->name);
@@ -10972,7 +10972,7 @@ set_printer_defaults(
         continue;
 
       if (strcmp(attr->values[0].string.text, "retry-current-job") &&
-          ((printer->type & CUPS_PRINTER_CLASS) ||
+          ((printer->type & CUPS_PTYPE_CLASS) ||
 	   (strcmp(attr->values[0].string.text, "abort-job") &&
 	    strcmp(attr->values[0].string.text, "retry-job") &&
 	    strcmp(attr->values[0].string.text, "stop-printer"))))
@@ -11124,7 +11124,7 @@ start_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   cupsdStartPrinter(printer, 1);
 
-  if (dtype & CUPS_PRINTER_CLASS)
+  if (dtype & CUPS_PTYPE_CLASS)
     cupsdLogMessage(CUPSD_LOG_INFO, "Class \"%s\" started by \"%s\".",
                     printer->name, get_username(con));
   else
@@ -11213,7 +11213,7 @@ stop_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   cupsdStopPrinter(printer, 1);
 
-  if (dtype & CUPS_PRINTER_CLASS)
+  if (dtype & CUPS_PTYPE_CLASS)
     cupsdLogMessage(CUPSD_LOG_INFO, "Class \"%s\" stopped by \"%s\".",
                     printer->name, get_username(con));
   else

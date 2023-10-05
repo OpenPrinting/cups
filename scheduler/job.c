@@ -350,7 +350,7 @@ cupsdCheckJobs(void)
       printer = cupsdFindDest(job->dest);
       pclass  = NULL;
 
-      while (printer && (printer->type & CUPS_PRINTER_CLASS))
+      while (printer && (printer->type & CUPS_PTYPE_CLASS))
       {
        /*
         * If the class is remote, just pass it to the remote server...
@@ -360,7 +360,7 @@ cupsdCheckJobs(void)
 
         if (pclass->state == IPP_PSTATE_STOPPED)
 	  printer = NULL;
-        else if (pclass->type & CUPS_PRINTER_REMOTE)
+        else if (pclass->type & CUPS_PTYPE_REMOTE)
 	  break;
 	else
 	  printer = cupsdFindAvailablePrinter(printer->name);
@@ -842,7 +842,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
                 job->job_sheets->values[0].string.text,
                 job->job_sheets->values[1].string.text);
 
-  if (job->printer->type & CUPS_PRINTER_REMOTE)
+  if (job->printer->type & CUPS_PTYPE_REMOTE)
     banner_page = 0;
   else if (job->job_sheets == NULL)
     banner_page = 0;
@@ -1072,7 +1072,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
     envp[envc ++] = classification;
   }
 
-  if (job->dtype & CUPS_PRINTER_CLASS)
+  if (job->dtype & CUPS_PTYPE_CLASS)
   {
     snprintf(class_name, sizeof(class_name), "CLASS=%s", job->dest);
     envp[envc ++] = class_name;
@@ -2111,7 +2111,7 @@ cupsdMoveJob(cupsd_job_t     *job,	/* I - Job */
 		p->name);
 
   cupsdSetString(&job->dest, p->name);
-  job->dtype = p->type & (CUPS_PRINTER_CLASS | CUPS_PRINTER_REMOTE);
+  job->dtype = p->type & (CUPS_PTYPE_CLASS | CUPS_PTYPE_REMOTE);
 
   if ((attr = ippFindAttribute(job->attrs, "job-printer-uri",
                                IPP_TAG_URI)) != NULL)
@@ -3246,7 +3246,7 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
 	  * act...
 	  */
 
-          if (job->dtype & CUPS_PRINTER_CLASS)
+          if (job->dtype & CUPS_PTYPE_CLASS)
 	  {
 	   /*
 	    * Queued on a class - mark the job as pending and we'll retry on
@@ -3277,7 +3277,7 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
 	      ippSetString(job->attrs, &job->reasons, 0, "none");
 	    }
           }
-	  else if ((job->printer->type & CUPS_PRINTER_FAX) ||
+	  else if ((job->printer->type & CUPS_PTYPE_FAX) ||
         	   !strcmp(job->printer->error_policy, "retry-job"))
 	  {
             if (job_state == IPP_JSTATE_COMPLETED)
@@ -3864,7 +3864,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
   * Map destination-uris value...
   */
 
-  if ((job->printer->type & CUPS_PRINTER_FAX) && (attr = ippFindAttribute(job->attrs, "destination-uris", IPP_TAG_BEGIN_COLLECTION)) != NULL)
+  if ((job->printer->type & CUPS_PTYPE_FAX) && (attr = ippFindAttribute(job->attrs, "destination-uris", IPP_TAG_BEGIN_COLLECTION)) != NULL)
   {
     ipp_t *ipp = ippGetCollection(attr, 0);	// Collection value
     const char *destination_uri = ippGetString(ippFindAttribute(ipp, "destination-uri", IPP_TAG_URI), 0, NULL);
@@ -3971,7 +3971,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
           strcmp(attr->name, "job-password") &&
           strcmp(attr->name, "job-password-encryption") &&
           strcmp(attr->name, "job-uuid") &&
-          !(job->printer->type & CUPS_PRINTER_REMOTE))
+          !(job->printer->type & CUPS_PTYPE_REMOTE))
 	continue;
 
       if ((!strcmp(attr->name, "job-impressions") ||
@@ -5432,7 +5432,7 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
                   "%s", job->printer->state_message);
   if (event & CUPSD_EVENT_PRINTER_STATE)
     cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, job->printer, NULL,
-		  (job->printer->type & CUPS_PRINTER_CLASS) ?
+		  (job->printer->type & CUPS_PTYPE_CLASS) ?
 		      "Class \"%s\" state changed." :
 		      "Printer \"%s\" state changed.",
 		  job->printer->name);

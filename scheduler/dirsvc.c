@@ -94,7 +94,7 @@ cupsdDeregisterPrinter(
 		  removeit);
 
   if (!Browsing || !p->shared ||
-      (p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+      (p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
     return;
 
  /*
@@ -118,7 +118,7 @@ cupsdRegisterPrinter(cupsd_printer_t *p)/* I - Printer */
                   p->name);
 
   if (!Browsing || !BrowseLocalProtocols ||
-      (p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+      (p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
     return;
 
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
@@ -328,7 +328,7 @@ dnssdBuildTxtRecord(
 
   keyvalue[count  ][0] = "rp";
   keyvalue[count++][1] = rp_str;
-  snprintf(rp_str, sizeof(rp_str), "%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
+  snprintf(rp_str, sizeof(rp_str), "%s/%s", (p->type & CUPS_PTYPE_CLASS) ? "classes" : "printers", p->name);
 
   keyvalue[count  ][0] = "ty";
   keyvalue[count++][1] = p->make_model ? p->make_model : "Unknown";
@@ -370,7 +370,7 @@ dnssdBuildTxtRecord(
     }
   }
 
-  httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
+  httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PTYPE_CLASS) ? "classes" : "printers", p->name);
   keyvalue[count  ][0] = "adminurl";
   keyvalue[count++][1] = adminurl_str;
 
@@ -428,7 +428,7 @@ dnssdBuildTxtRecord(
   keyvalue[count  ][0] = "mopria-certified";
   keyvalue[count++][1] = "1.3";
 
-  if (p->type & CUPS_PRINTER_FAX)
+  if (p->type & CUPS_PTYPE_FAX)
   {
     keyvalue[count  ][0] = "Fax";
     keyvalue[count++][1] = "T";
@@ -436,61 +436,61 @@ dnssdBuildTxtRecord(
     keyvalue[count++][1] = rp_str;
   }
 
-  if (p->type & CUPS_PRINTER_COLOR)
+  if (p->type & CUPS_PTYPE_COLOR)
   {
     keyvalue[count  ][0] = "Color";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLOR) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_COLOR) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_DUPLEX)
+  if (p->type & CUPS_PTYPE_DUPLEX)
   {
     keyvalue[count  ][0] = "Duplex";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_DUPLEX) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_DUPLEX) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_STAPLE)
+  if (p->type & CUPS_PTYPE_STAPLE)
   {
     keyvalue[count  ][0] = "Staple";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_STAPLE) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_STAPLE) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_COPIES)
+  if (p->type & CUPS_PTYPE_COPIES)
   {
     keyvalue[count  ][0] = "Copies";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COPIES) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_COPIES) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_COLLATE)
+  if (p->type & CUPS_PTYPE_COLLATE)
   {
     keyvalue[count  ][0] = "Collate";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLLATE) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_COLLATE) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_PUNCH)
+  if (p->type & CUPS_PTYPE_PUNCH)
   {
     keyvalue[count  ][0] = "Punch";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_PUNCH) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_PUNCH) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_BIND)
+  if (p->type & CUPS_PTYPE_BIND)
   {
     keyvalue[count  ][0] = "Bind";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_BIND) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_BIND) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_SORT)
+  if (p->type & CUPS_PTYPE_SORT)
   {
     keyvalue[count  ][0] = "Sort";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_SORT) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_SORT) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_MFP)
+  if (p->type & CUPS_PTYPE_MFP)
   {
     keyvalue[count  ][0] = "Scan";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_MFP) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_MFP) ? "T" : "F";
   }
 
-  snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PRINTER_REMOTE);
+  snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PTYPE_REMOTE);
 
   keyvalue[count  ][0] = "printer-type";
   keyvalue[count++][1] = type_str;
@@ -642,7 +642,7 @@ dnssdDeregisterAllPrinters(
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers);
        p;
        p = (cupsd_printer_t *)cupsArrayNext(Printers))
-    if (!(p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+    if (!(p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
       dnssdDeregisterPrinter(p, 1, from_callback);
 }
 
@@ -870,7 +870,7 @@ dnssdRegisterAllPrinters(int from_callback)	/* I - Called from callback? */
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers);
        p;
        p = (cupsd_printer_t *)cupsArrayNext(Printers))
-    if (!(p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+    if (!(p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
       dnssdRegisterPrinter(p, from_callback);
 }
 
@@ -1209,7 +1209,7 @@ dnssdRegisterPrinter(
     * Use the "_fax-ipp" service type for fax queues, otherwise use "_ipp"...
     */
 
-    if (p->type & CUPS_PRINTER_FAX)
+    if (p->type & CUPS_PTYPE_FAX)
       status = dnssdRegisterInstance(NULL, p, name, "_fax-ipp._tcp", DNSSDSubTypes, DNSSDPort, &ipp_txt, 1, from_callback);
     else
       status = dnssdRegisterInstance(NULL, p, name, "_ipp._tcp", DNSSDSubTypes, DNSSDPort, &ipp_txt, 1, from_callback);
@@ -1565,7 +1565,7 @@ get_auth_info_required(
   * Figure out the authentication data requirements to advertise...
   */
 
-  if (p->type & CUPS_PRINTER_CLASS)
+  if (p->type & CUPS_PTYPE_CLASS)
     snprintf(resource, sizeof(resource), "/classes/%s", p->name);
   else
     snprintf(resource, sizeof(resource), "/printers/%s", p->name);

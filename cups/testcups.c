@@ -54,9 +54,9 @@ main(int  argc,				/* I - Number of command-line arguments */
   {
     if (!strcmp(argv[1], "enum"))
     {
-      cups_ptype_t	mask = CUPS_PRINTER_LOCAL,
+      cups_ptype_t	mask = CUPS_PTYPE_LOCAL,
 					/* Printer type mask */
-			type = CUPS_PRINTER_LOCAL;
+			type = CUPS_PTYPE_LOCAL;
 					/* Printer type */
       int		msec = 0;	/* Timeout in milliseconds */
 
@@ -66,85 +66,85 @@ main(int  argc,				/* I - Number of command-line arguments */
           msec = (int)(atof(argv[i]) * 1000);
         else if (!_cups_strcasecmp(argv[i], "bw"))
         {
-          mask |= CUPS_PRINTER_BW;
-          type |= CUPS_PRINTER_BW;
+          mask |= CUPS_PTYPE_BW;
+          type |= CUPS_PTYPE_BW;
         }
         else if (!_cups_strcasecmp(argv[i], "color"))
         {
-          mask |= CUPS_PRINTER_COLOR;
-          type |= CUPS_PRINTER_COLOR;
+          mask |= CUPS_PTYPE_COLOR;
+          type |= CUPS_PTYPE_COLOR;
         }
         else if (!_cups_strcasecmp(argv[i], "mono"))
         {
-          mask |= CUPS_PRINTER_COLOR;
+          mask |= CUPS_PTYPE_COLOR;
         }
         else if (!_cups_strcasecmp(argv[i], "duplex"))
         {
-          mask |= CUPS_PRINTER_DUPLEX;
-          type |= CUPS_PRINTER_DUPLEX;
+          mask |= CUPS_PTYPE_DUPLEX;
+          type |= CUPS_PTYPE_DUPLEX;
         }
         else if (!_cups_strcasecmp(argv[i], "simplex"))
         {
-          mask |= CUPS_PRINTER_DUPLEX;
+          mask |= CUPS_PTYPE_DUPLEX;
         }
         else if (!_cups_strcasecmp(argv[i], "staple"))
         {
-          mask |= CUPS_PRINTER_STAPLE;
-          type |= CUPS_PRINTER_STAPLE;
+          mask |= CUPS_PTYPE_STAPLE;
+          type |= CUPS_PTYPE_STAPLE;
         }
         else if (!_cups_strcasecmp(argv[i], "copies"))
         {
-          mask |= CUPS_PRINTER_COPIES;
-          type |= CUPS_PRINTER_COPIES;
+          mask |= CUPS_PTYPE_COPIES;
+          type |= CUPS_PTYPE_COPIES;
         }
         else if (!_cups_strcasecmp(argv[i], "collate"))
         {
-          mask |= CUPS_PRINTER_COLLATE;
-          type |= CUPS_PRINTER_COLLATE;
+          mask |= CUPS_PTYPE_COLLATE;
+          type |= CUPS_PTYPE_COLLATE;
         }
         else if (!_cups_strcasecmp(argv[i], "punch"))
         {
-          mask |= CUPS_PRINTER_PUNCH;
-          type |= CUPS_PRINTER_PUNCH;
+          mask |= CUPS_PTYPE_PUNCH;
+          type |= CUPS_PTYPE_PUNCH;
         }
         else if (!_cups_strcasecmp(argv[i], "cover"))
         {
-          mask |= CUPS_PRINTER_COVER;
-          type |= CUPS_PRINTER_COVER;
+          mask |= CUPS_PTYPE_COVER;
+          type |= CUPS_PTYPE_COVER;
         }
         else if (!_cups_strcasecmp(argv[i], "bind"))
         {
-          mask |= CUPS_PRINTER_BIND;
-          type |= CUPS_PRINTER_BIND;
+          mask |= CUPS_PTYPE_BIND;
+          type |= CUPS_PTYPE_BIND;
         }
         else if (!_cups_strcasecmp(argv[i], "sort"))
         {
-          mask |= CUPS_PRINTER_SORT;
-          type |= CUPS_PRINTER_SORT;
+          mask |= CUPS_PTYPE_SORT;
+          type |= CUPS_PTYPE_SORT;
         }
         else if (!_cups_strcasecmp(argv[i], "mfp"))
         {
-          mask |= CUPS_PRINTER_MFP;
-          type |= CUPS_PRINTER_MFP;
+          mask |= CUPS_PTYPE_MFP;
+          type |= CUPS_PTYPE_MFP;
         }
         else if (!_cups_strcasecmp(argv[i], "printer"))
         {
-          mask |= CUPS_PRINTER_MFP;
+          mask |= CUPS_PTYPE_MFP;
         }
         else if (!_cups_strcasecmp(argv[i], "large"))
         {
-          mask |= CUPS_PRINTER_LARGE;
-          type |= CUPS_PRINTER_LARGE;
+          mask |= CUPS_PTYPE_LARGE;
+          type |= CUPS_PTYPE_LARGE;
         }
         else if (!_cups_strcasecmp(argv[i], "medium"))
         {
-          mask |= CUPS_PRINTER_MEDIUM;
-          type |= CUPS_PRINTER_MEDIUM;
+          mask |= CUPS_PTYPE_MEDIUM;
+          type |= CUPS_PTYPE_MEDIUM;
         }
         else if (!_cups_strcasecmp(argv[i], "small"))
         {
-          mask |= CUPS_PRINTER_SMALL;
-          type |= CUPS_PRINTER_SMALL;
+          mask |= CUPS_PTYPE_SMALL;
+          type |= CUPS_PTYPE_SMALL;
         }
         else
           fprintf(stderr, "Unknown argument \"%s\" ignored...\n", argv[i]);

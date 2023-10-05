@@ -818,7 +818,7 @@ cupsdFindPrinter(const char *name)	/* I - Name of printer to find */
   cupsd_printer_t	*p;		/* Printer in list */
 
 
-  if ((p = cupsdFindDest(name)) != NULL && (p->type & CUPS_PRINTER_CLASS))
+  if ((p = cupsdFindDest(name)) != NULL && (p->type & CUPS_PTYPE_CLASS))
     return (NULL);
   else
     return (p);
@@ -1448,7 +1448,7 @@ cupsdSaveAllPrinters(void)
     * Skip printer classes and temporary queues...
     */
 
-    if ((printer->type & CUPS_PRINTER_CLASS) || printer->temporary)
+    if ((printer->type & CUPS_PTYPE_CLASS) || printer->temporary)
       continue;
 
    /*
@@ -1778,9 +1778,9 @@ cupsdSetAuthInfoRequired(
 
     if (p->num_auth_info_required > 1 ||
         strcmp(p->auth_info_required[0], "none"))
-      p->type |= CUPS_PRINTER_AUTHENTICATED;
+      p->type |= CUPS_PTYPE_AUTHENTICATED;
     else
-      p->type &= (cups_ptype_t)~CUPS_PRINTER_AUTHENTICATED;
+      p->type &= (cups_ptype_t)~CUPS_PTYPE_AUTHENTICATED;
 
     return (1);
   }
@@ -2204,7 +2204,7 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
 
   auth_supported = "requesting-user-name";
 
-  if (p->type & CUPS_PRINTER_CLASS)
+  if (p->type & CUPS_PTYPE_CLASS)
     snprintf(resource, sizeof(resource), "/classes/%s", p->name);
   else
     snprintf(resource, sizeof(resource), "/printers/%s", p->name);
@@ -2229,12 +2229,12 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
 #endif /* HAVE_GSSAPI */
 
     if (auth_type != CUPSD_AUTH_NONE)
-      p->type |= CUPS_PRINTER_AUTHENTICATED;
+      p->type |= CUPS_PTYPE_AUTHENTICATED;
     else
-      p->type &= (cups_ptype_t)~CUPS_PRINTER_AUTHENTICATED;
+      p->type &= (cups_ptype_t)~CUPS_PTYPE_AUTHENTICATED;
   }
   else
-    p->type &= (cups_ptype_t)~CUPS_PRINTER_AUTHENTICATED;
+    p->type &= (cups_ptype_t)~CUPS_PTYPE_AUTHENTICATED;
 
  /*
   * Create the required IPP attributes for a printer...
@@ -2315,10 +2315,10 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
   * or class...
   */
 
-  if (p->type & CUPS_PRINTER_CLASS)
+  if (p->type & CUPS_PTYPE_CLASS)
   {
     p->raw = 1;
-    p->type &= (cups_ptype_t)~CUPS_PRINTER_OPTIONS;
+    p->type &= (cups_ptype_t)~CUPS_PTYPE_OPTIONS;
 
    /*
     * Add class-specific attributes...
@@ -2337,14 +2337,14 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
 
       attr    = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_NAME,
 			      "member-names", p->num_printers, NULL, NULL);
-      p->type |= CUPS_PRINTER_OPTIONS;
+      p->type |= CUPS_PTYPE_OPTIONS;
 
       for (i = 0; i < p->num_printers; i ++)
       {
 	if (attr != NULL)
 	  attr->values[i].string.text = _cupsStrAlloc(p->printers[i]->name);
 
-	p->type &= (cups_ptype_t)~CUPS_PRINTER_OPTIONS | p->printers[i]->type;
+	p->type &= (cups_ptype_t)~CUPS_PTYPE_OPTIONS | p->printers[i]->type;
       }
     }
   }
@@ -2377,7 +2377,7 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
 	   filter = (char *)cupsArrayNext(p->pc->filters))
 	add_printer_filter(p, p->filetype, filter);
     }
-    else if (!(p->type & CUPS_PRINTER_REMOTE))
+    else if (!(p->type & CUPS_PTYPE_REMOTE))
     {
      /*
       * Add a filter from application/vnd.cups-raw to printer/name to
@@ -2502,7 +2502,7 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
   * Force sharing off for remote queues...
   */
 
-  if (p->type & CUPS_PRINTER_REMOTE)
+  if (p->type & CUPS_PTYPE_REMOTE)
     p->shared = 0;
 
  /*
@@ -2702,7 +2702,7 @@ cupsdSetPrinterState(
     cupsdAddEvent(s == IPP_PSTATE_STOPPED ? CUPSD_EVENT_PRINTER_STOPPED :
                       CUPSD_EVENT_PRINTER_STATE, p, NULL,
 		  "%s \"%s\" state changed to %s.",
-		  (p->type & CUPS_PRINTER_CLASS) ? "Class" : "Printer",
+		  (p->type & CUPS_PTYPE_CLASS) ? "Class" : "Printer",
 		  p->name, printer_states[p->state - IPP_PSTATE_IDLE]);
 
    /*
@@ -3015,7 +3015,7 @@ cupsdValidateDest(
       *printer = p;
 
     if (dtype)
-      *dtype = p->type & (CUPS_PRINTER_CLASS | CUPS_PRINTER_REMOTE);
+      *dtype = p->type & (CUPS_PTYPE_CLASS | CUPS_PTYPE_REMOTE);
 
     return (p->name);
   }
@@ -3071,7 +3071,7 @@ cupsdValidateDest(
         *printer = p;
 
       if (dtype)
-	*dtype = p->type & (CUPS_PRINTER_CLASS | CUPS_PRINTER_REMOTE);
+	*dtype = p->type & (CUPS_PTYPE_CLASS | CUPS_PTYPE_REMOTE);
 
       return (p->name);
     }
@@ -3358,7 +3358,7 @@ add_printer_defaults(cupsd_printer_t *p)/* I - Printer */
     ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_NOVALUE, "orientation-requested-default", NULL, NULL);
 
   if (!cupsGetOption("print-color-mode", p->num_options, p->options))
-    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "print-color-mode-default", NULL, (p->type & CUPS_PRINTER_COLOR) ? "color" : "monochrome");
+    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "print-color-mode-default", NULL, (p->type & CUPS_PTYPE_COLOR) ? "color" : "monochrome");
 
   if (!cupsGetOption("print-quality", p->num_options, p->options))
     ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_ENUM, "print-quality-default", IPP_QUALITY_NORMAL);
@@ -3739,7 +3739,7 @@ delete_printer_filters(
 static void
 dirty_printer(cupsd_printer_t *p)	/* I - Printer */
 {
-  if (p->type & CUPS_PRINTER_CLASS)
+  if (p->type & CUPS_PTYPE_CLASS)
     cupsdMarkDirty(CUPSD_DIRTY_CLASSES);
   else
     cupsdMarkDirty(CUPSD_DIRTY_PRINTERS);
@@ -3943,15 +3943,15 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
   cupsdClearString(&(p->make_model));
 
-  p->type &= (cups_ptype_t)~CUPS_PRINTER_OPTIONS;
-  p->type |= CUPS_PRINTER_BW;
+  p->type &= (cups_ptype_t)~CUPS_PTYPE_OPTIONS;
+  p->type |= CUPS_PTYPE_BW;
 
   finishings[0]  = IPP_FINISHINGS_NONE;
   num_finishings = 1;
 
   p->ppd_attrs = ippNew();
 
-  if (p->type & CUPS_PRINTER_FAX)
+  if (p->type & CUPS_PTYPE_FAX)
   {
     /* confirmation-sheet-print-default */
     ippAddBoolean(p->ppd_attrs, IPP_TAG_PRINTER, "confirmation-sheet-default", 0);
@@ -4036,14 +4036,14 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     ppdMarkDefaults(ppd);
 
     if (ppd->color_device)
-      p->type |= CUPS_PRINTER_COLOR;
+      p->type |= CUPS_PTYPE_COLOR;
     if (ppd->variable_sizes)
-      p->type |= CUPS_PRINTER_VARIABLE;
+      p->type |= CUPS_PTYPE_VARIABLE;
     if (!ppd->manual_copies)
-      p->type |= CUPS_PRINTER_COPIES;
+      p->type |= CUPS_PTYPE_COPIES;
     if ((ppd_attr = ppdFindAttr(ppd, "cupsFax", NULL)) != NULL)
       if (ppd_attr->value && !_cups_strcasecmp(ppd_attr->value, "true"))
-	p->type |= CUPS_PRINTER_FAX;
+	p->type |= CUPS_PTYPE_FAX;
 
     ippAddBoolean(p->ppd_attrs, IPP_TAG_PRINTER, "color-supported", (char)ppd->color_device);
 
@@ -4741,7 +4741,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     if (duplex && duplex->num_choices > 1 &&
 	!ppdInstallableConflict(ppd, duplex->keyword, "DuplexTumble"))
     {
-      p->type |= CUPS_PRINTER_DUPLEX;
+      p->type |= CUPS_PTYPE_DUPLEX;
 
       ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "pwg-raster-document-sheet-back", NULL, "normal");
 
@@ -4769,7 +4769,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     }
 
     if (ppdFindOption(ppd, "Collate") != NULL)
-      p->type |= CUPS_PRINTER_COLLATE;
+      p->type |= CUPS_PTYPE_COLLATE;
 
     if (p->pc && p->pc->finishings)
     {
@@ -4796,11 +4796,11 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
           case IPP_FINISHINGS_EDGE_STITCH_TOP :
           case IPP_FINISHINGS_EDGE_STITCH_RIGHT :
           case IPP_FINISHINGS_EDGE_STITCH_BOTTOM :
-              p->type |= CUPS_PRINTER_BIND;
+              p->type |= CUPS_PTYPE_BIND;
               break;
 
           case IPP_FINISHINGS_COVER :
-              p->type |= CUPS_PRINTER_COVER;
+              p->type |= CUPS_PTYPE_COVER;
               break;
 
           case IPP_FINISHINGS_PUNCH :
@@ -4820,7 +4820,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
           case IPP_FINISHINGS_PUNCH_QUAD_TOP :
           case IPP_FINISHINGS_PUNCH_QUAD_RIGHT :
           case IPP_FINISHINGS_PUNCH_QUAD_BOTTOM :
-              p->type |= CUPS_PRINTER_PUNCH;
+              p->type |= CUPS_PTYPE_PUNCH;
               break;
 
           case IPP_FINISHINGS_STAPLE :
@@ -4836,7 +4836,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
           case IPP_FINISHINGS_STAPLE_TRIPLE_TOP :
           case IPP_FINISHINGS_STAPLE_TRIPLE_RIGHT :
           case IPP_FINISHINGS_STAPLE_TRIPLE_BOTTOM :
-              p->type |= CUPS_PRINTER_STAPLE;
+              p->type |= CUPS_PTYPE_STAPLE;
               break;
 
           default :
@@ -4871,20 +4871,20 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
     for (i = 0; i < ppd->num_sizes; i ++)
       if (ppd->sizes[i].length > 1728)
-	p->type |= CUPS_PRINTER_LARGE;
+	p->type |= CUPS_PTYPE_LARGE;
       else if (ppd->sizes[i].length > 1008)
-	p->type |= CUPS_PRINTER_MEDIUM;
+	p->type |= CUPS_PTYPE_MEDIUM;
       else
-	p->type |= CUPS_PRINTER_SMALL;
+	p->type |= CUPS_PTYPE_SMALL;
 
     if ((ppd_attr = ppdFindAttr(ppd, "APICADriver", NULL)) != NULL &&
         ppd_attr->value && !_cups_strcasecmp(ppd_attr->value, "true"))
     {
       if ((ppd_attr = ppdFindAttr(ppd, "APScannerOnly", NULL)) != NULL &&
 	  ppd_attr->value && !_cups_strcasecmp(ppd_attr->value, "true"))
-        p->type |= CUPS_PRINTER_SCANNER;
+        p->type |= CUPS_PTYPE_SCANNER;
       else
-        p->type |= CUPS_PRINTER_MFP;
+        p->type |= CUPS_PTYPE_MFP;
     }
 
    /*
@@ -4900,13 +4900,13 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	if (!_cups_strncasecmp(filter, "application/vnd.cups-command", 28) &&
 	    _cups_isspace(filter[28]))
 	{
-	  p->type |= CUPS_PRINTER_COMMANDS;
+	  p->type |= CUPS_PTYPE_COMMANDS;
 	  break;
 	}
       }
     }
 
-    if (p->type & CUPS_PRINTER_COMMANDS)
+    if (p->type & CUPS_PTYPE_COMMANDS)
     {
       char	*commands,		/* Copy of commands */
 		*start,			/* Start of name */
@@ -5025,7 +5025,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     }
 
     if (ppdFindAttr(ppd, "APRemoteQueueID", NULL))
-      p->type |= CUPS_PRINTER_REMOTE;
+      p->type |= CUPS_PTYPE_REMOTE;
 
 #ifdef HAVE_APPLICATIONSERVICES_H
    /*
@@ -5193,7 +5193,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       * Tell the client this is really a hard-wired remote printer.
       */
 
-      p->type |= CUPS_PRINTER_REMOTE;
+      p->type |= CUPS_PTYPE_REMOTE;
 
      /*
       * Then set the make-and-model accordingly...

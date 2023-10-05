@@ -35,7 +35,7 @@ cupsdAddClass(const char *name)		/* I - Name of class */
     * Change from a printer to a class...
     */
 
-    c->type = CUPS_PRINTER_CLASS;
+    c->type = CUPS_PTYPE_CLASS;
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
 		     ServerName, RemotePort, "/classes/%s", name);
@@ -165,7 +165,7 @@ cupsdDeletePrinterFromClasses(
   for (c = (cupsd_printer_t *)cupsArrayFirst(Printers);
        c;
        c = (cupsd_printer_t *)cupsArrayNext(Printers))
-    if (c->type & CUPS_PRINTER_CLASS)
+    if (c->type & CUPS_PTYPE_CLASS)
       changed |= cupsdDeletePrinterFromClass(c, p);
 
   return (changed);
@@ -221,7 +221,7 @@ cupsdFindAvailablePrinter(
 
     if (c->printers[i]->accepting &&
         (c->printers[i]->state == IPP_PSTATE_IDLE ||
-         ((c->printers[i]->type & CUPS_PRINTER_REMOTE) && !c->printers[i]->job)))
+         ((c->printers[i]->type & CUPS_PTYPE_REMOTE) && !c->printers[i]->job)))
     {
       c->last_printer = i;
       return (c->printers[i]);
@@ -245,7 +245,7 @@ cupsdFindClass(const char *name)	/* I - Name of class */
   cupsd_printer_t	*c;		/* Current class/printer */
 
 
-  if ((c = cupsdFindDest(name)) != NULL && (c->type & CUPS_PRINTER_CLASS))
+  if ((c = cupsdFindDest(name)) != NULL && (c->type & CUPS_PTYPE_CLASS))
     return (c);
   else
     return (NULL);
@@ -308,7 +308,7 @@ cupsdLoadAllClasses(void)
 
         if ((p = cupsdFindDest(value)) != NULL)
 	{
-	  p->type = CUPS_PRINTER_CLASS;
+	  p->type = CUPS_PTYPE_CLASS;
 	  cupsdSetStringf(&p->uri, "ipp://%s:%d/classes/%s", ServerName,
 	                  LocalPort, value);
 	  cupsdSetString(&p->error_policy, "retry-job");
@@ -416,7 +416,7 @@ cupsdLoadAllClasses(void)
 	  cupsdSetString(&temp->make_model, "Remote Printer on unknown");
 
           temp->state = IPP_PSTATE_STOPPED;
-	  temp->type  |= CUPS_PRINTER_REMOTE;
+	  temp->type  |= CUPS_PTYPE_REMOTE;
 
 	  cupsdSetString(&temp->location, "Location Unknown");
 	  cupsdSetString(&temp->info, "No Information Available");
@@ -696,8 +696,8 @@ cupsdSaveAllClasses(void)
     * Skip remote destinations and regular printers...
     */
 
-    if ((pclass->type & CUPS_PRINTER_REMOTE) ||
-        !(pclass->type & CUPS_PRINTER_CLASS))
+    if ((pclass->type & CUPS_PTYPE_REMOTE) ||
+        !(pclass->type & CUPS_PTYPE_CLASS))
       continue;
 
    /*

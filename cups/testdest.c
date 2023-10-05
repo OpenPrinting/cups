@@ -70,38 +70,38 @@ main(int  argc,				/* I - Number of command-line arguments */
     {
       if (!strcmp(argv[i], "grayscale"))
       {
-        type |= CUPS_PRINTER_BW;
-	mask |= CUPS_PRINTER_BW;
+        type |= CUPS_PTYPE_BW;
+	mask |= CUPS_PTYPE_BW;
       }
       else if (!strcmp(argv[i], "color"))
       {
-        type |= CUPS_PRINTER_COLOR;
-	mask |= CUPS_PRINTER_COLOR;
+        type |= CUPS_PTYPE_COLOR;
+	mask |= CUPS_PTYPE_COLOR;
       }
       else if (!strcmp(argv[i], "duplex"))
       {
-        type |= CUPS_PRINTER_DUPLEX;
-	mask |= CUPS_PRINTER_DUPLEX;
+        type |= CUPS_PTYPE_DUPLEX;
+	mask |= CUPS_PTYPE_DUPLEX;
       }
       else if (!strcmp(argv[i], "staple"))
       {
-        type |= CUPS_PRINTER_STAPLE;
-	mask |= CUPS_PRINTER_STAPLE;
+        type |= CUPS_PTYPE_STAPLE;
+	mask |= CUPS_PTYPE_STAPLE;
       }
       else if (!strcmp(argv[i], "small"))
       {
-        type |= CUPS_PRINTER_SMALL;
-	mask |= CUPS_PRINTER_SMALL;
+        type |= CUPS_PTYPE_SMALL;
+	mask |= CUPS_PTYPE_SMALL;
       }
       else if (!strcmp(argv[i], "medium"))
       {
-        type |= CUPS_PRINTER_MEDIUM;
-	mask |= CUPS_PRINTER_MEDIUM;
+        type |= CUPS_PTYPE_MEDIUM;
+	mask |= CUPS_PTYPE_MEDIUM;
       }
       else if (!strcmp(argv[i], "large"))
       {
-        type |= CUPS_PRINTER_LARGE;
-	mask |= CUPS_PRINTER_LARGE;
+        type |= CUPS_PTYPE_LARGE;
+	mask |= CUPS_PTYPE_LARGE;
       }
       else
         usage(argv[i]);

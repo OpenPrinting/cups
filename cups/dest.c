@@ -860,7 +860,7 @@ _cupsCreateDest(const char *name,	// I - Printer name
 //
 // The @code type@ and @code mask@ arguments allow the caller to filter the
 // destinations that are enumerated.  Passing 0 for both will enumerate all
-// printers.  The constant @code CUPS_PRINTER_DISCOVERED@ is used to filter on
+// printers.  The constant @code CUPS_PTYPE_DISCOVERED@ is used to filter on
 // destinations that are available but have not yet been added locally.
 //
 // Enumeration happens on the current thread and does not return until all
@@ -897,7 +897,7 @@ cupsEnumDests(
 //
 // The @code type@ and @code mask@ arguments allow the caller to filter the
 // destinations that are enumerated.  Passing 0 for both will enumerate all
-// printers.  The constant @code CUPS_PRINTER_DISCOVERED@ is used to filter on
+// printers.  The constant @code CUPS_PTYPE_DISCOVERED@ is used to filter on
 // destinations that are available but have not yet been added locally.
 //
 // Enumeration happens on the current thread and does not return until all
@@ -1599,7 +1599,7 @@ cupsGetDests2(http_t      *http,	// I - Connection to server or @code CUPS_HTTP_
     * cupsd.
     */
 
-    cups_enum_dests(http, 0, _CUPS_DNSSD_GET_DESTS, NULL, 0, CUPS_PRINTER_DISCOVERED, (cups_dest_cb_t)cups_get_cb, &data);
+    cups_enum_dests(http, 0, _CUPS_DNSSD_GET_DESTS, NULL, 0, CUPS_PTYPE_DISCOVERED, (cups_dest_cb_t)cups_get_cb, &data);
   }
   else
   {
@@ -2698,7 +2698,7 @@ cups_dest_query_cb(
 			model[256],	// Model
 			uriname[1024],	// Name for URI
 			uri[1024];	// Printer URI
-    cups_ptype_t	type = CUPS_PRINTER_DISCOVERED | CUPS_PRINTER_BW;
+    cups_ptype_t	type = CUPS_PTYPE_DISCOVERED | CUPS_PTYPE_BW;
 					// Printer type
     bool		saw_printer_type = false;
 					// Did we see a printer-type key?
@@ -2805,66 +2805,66 @@ cups_dest_query_cb(
       {
         // Value is either NNNN or 0xXXXX
 	saw_printer_type = true;
-        type             = (cups_ptype_t)strtol(value, NULL, 0) | CUPS_PRINTER_DISCOVERED;
+        type             = (cups_ptype_t)strtol(value, NULL, 0) | CUPS_PTYPE_DISCOVERED;
       }
       else if (!saw_printer_type)
       {
 	if (!_cups_strcasecmp(key, "air") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_AUTHENTICATED;
+	  type |= CUPS_PTYPE_AUTHENTICATED;
 	}
 	else if (!_cups_strcasecmp(key, "bind") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_BIND;
+	  type |= CUPS_PTYPE_BIND;
 	}
 	else if (!_cups_strcasecmp(key, "collate") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_COLLATE;
+	  type |= CUPS_PTYPE_COLLATE;
 	}
 	else if (!_cups_strcasecmp(key, "color") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_COLOR;
+	  type |= CUPS_PTYPE_COLOR;
 	}
 	else if (!_cups_strcasecmp(key, "copies") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_COPIES;
+	  type |= CUPS_PTYPE_COPIES;
 	}
 	else if (!_cups_strcasecmp(key, "duplex") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_DUPLEX;
+	  type |= CUPS_PTYPE_DUPLEX;
 	}
 	else if (!_cups_strcasecmp(key, "fax") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_MFP;
+	  type |= CUPS_PTYPE_MFP;
 	}
 	else if (!_cups_strcasecmp(key, "papercustom") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_VARIABLE;
+	  type |= CUPS_PTYPE_VARIABLE;
 	}
 	else if (!_cups_strcasecmp(key, "papermax"))
 	{
 	  if (!_cups_strcasecmp(value, "legal-a4"))
-	    type |= CUPS_PRINTER_SMALL;
+	    type |= CUPS_PTYPE_SMALL;
 	  else if (!_cups_strcasecmp(value, "isoc-a2"))
-	    type |= CUPS_PRINTER_MEDIUM;
+	    type |= CUPS_PTYPE_MEDIUM;
 	  else if (!_cups_strcasecmp(value, ">isoc-a2"))
-	    type |= CUPS_PRINTER_LARGE;
+	    type |= CUPS_PTYPE_LARGE;
 	}
 	else if (!_cups_strcasecmp(key, "punch") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_PUNCH;
+	  type |= CUPS_PTYPE_PUNCH;
 	}
 	else if (!_cups_strcasecmp(key, "scan") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_MFP;
+	  type |= CUPS_PTYPE_MFP;
 	}
 	else if (!_cups_strcasecmp(key, "sort") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_SORT;
+	  type |= CUPS_PTYPE_SORT;
 	}
 	else if (!_cups_strcasecmp(key, "staple") && !_cups_strcasecmp(value, "t"))
 	{
-	  type |= CUPS_PRINTER_STAPLE;
+	  type |= CUPS_PTYPE_STAPLE;
 	}
       }
     }
@@ -3139,7 +3139,7 @@ cups_enum_dests(
   data.user_data = user_data;
   data.devices   = cupsArrayNew3((cups_array_func_t)cups_dnssd_compare_devices, NULL, NULL, 0, NULL, (cups_afree_func_t)cups_dnssd_free_device);
 
-  if (!(mask & CUPS_PRINTER_DISCOVERED) || !(type & CUPS_PRINTER_DISCOVERED))
+  if (!(mask & CUPS_PTYPE_DISCOVERED) || !(type & CUPS_PTYPE_DISCOVERED))
   {
     // Get the list of local printers and pass them to the callback function...
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, type, mask);
@@ -3225,7 +3225,7 @@ cups_enum_dests(
   }
 
   // Return early if the caller doesn't want to do discovery...
-  if ((mask & CUPS_PRINTER_DISCOVERED) && !(type & CUPS_PRINTER_DISCOVERED))
+  if ((mask & CUPS_PTYPE_DISCOVERED) && !(type & CUPS_PTYPE_DISCOVERED))
     goto enum_finished;
 
   // Get DNS-SD printers...
