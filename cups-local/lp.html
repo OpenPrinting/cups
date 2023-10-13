@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>lp(1)</title>
+  </head>
+  <body>
+    <h1 id="lp-1">lp(1)</h1>
+    <h2 id="lp-1.name">Name</h2>
+<p>lp - print files
+</p>
+    <h2 id="lp-1.synopsis">Synopsis</h2>
+<p><strong>lp</strong>
+[
+<strong>-h </strong><em>hostname</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-c</strong>
+] [
+<strong>-d </strong><em>destination</em>[<strong>/</strong><em>instance</em>]
+] [
+<strong>-m</strong>
+] [
+<strong>-n</strong>
+<em>num-copies</em>
+] [
+<strong>-o </strong><em>option</em>[<strong>=</strong><em>value</em>]
+] [
+<strong>-q</strong>
+<em>priority</em>
+] [
+<strong>-s</strong>
+] [
+<strong>-t</strong>
+<em>title</em>
+] [
+<strong>-H</strong>
+<em>handling</em>
+] [
+<strong>-P</strong>
+<em>page-list</em>
+] [
+<strong>--</strong>
+] [
+<em>file(s)</em>
+]
+<br>
+<strong>lp</strong>
+[
+<strong>-h </strong><em>hostname</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-c</strong>
+] [
+<strong>-i</strong>
+<em>job-id</em>
+] [
+<strong>-n</strong>
+<em>num-copies</em>
+] [
+<strong>-o </strong><em>option</em>[<strong>=</strong><em>value</em>]
+] [
+<strong>-q</strong>
+<em>priority</em>
+] [
+<strong>-t</strong>
+<em>title</em>
+] [
+<strong>-H</strong>
+<em>handling</em>
+] [
+<strong>-P</strong>
+<em>page-list</em>
+]
+</p>
+    <h2 id="lp-1.description">Description</h2>
+<p><strong>lp</strong> submits files for printing or alters a pending job.
+Use a filename of &quot;-&quot; to force printing from the standard input.
+</p>
+    <h3 id="lp-1.description.the-default-destination">The Default Destination</h3>
+<p>CUPS provides many ways to set the default destination. The <strong>LPDEST</strong> and <strong>PRINTER</strong> environment variables are consulted first.
+If neither are set, the current default set using the
+<strong>lpoptions</strong>(1)
+
+command is used, followed by the default set using the
+<strong>lpadmin</strong>(8)
+
+command.
+</p>
+    <h2 id="lp-1.options">Options</h2>
+<p>The following options are recognized by <em>lp</em>:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--</strong><br>
+Marks the end of options; use this to print a file whose name begins with a dash (-).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Specifies the username to use when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c</strong><br>
+This option is provided for backwards-compatibility only. On systems that support it, this option forces the print file to be copied to the spool directory before printing.
+In CUPS, print files are always sent to the scheduler via IPP which has the same effect.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>destination</em><br>
+Prints files to the named printer.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>hostname</em>[<strong>:</strong><em>port</em>]<br>
+Chooses an alternate server.
+Note: This option must occur before all others.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i </strong><em>job-id</em><br>
+Specifies an existing job to modify.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m</strong><br>
+Sends an email when the job is completed.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-n </strong><em>copies</em><br>
+Sets the number of copies to print.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o &quot;</strong><em>name</em><strong>=</strong><em>value </em>[ ... <em>name</em><strong>=</strong><em>value </em>]<strong>&quot;</strong><br>
+Sets one or more job options.
+See &quot;COMMON JOB OPTIONS&quot; below.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-q </strong><em>priority</em><br>
+Sets the job priority from 1 (lowest) to 100 (highest).
+The default priority is 50.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s</strong><br>
+Do not report the resulting job IDs (silent mode.)
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t &quot;</strong><em>name</em><strong>&quot;</strong><br>
+Sets the job name.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-H </strong><em>hh:mm</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-H hold</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-H immediate</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-H restart</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-H resume</strong><br>
+Specifies when the job should be printed.
+A value of <em>immediate</em> will print the file immediately, a value of <em>hold</em> will hold the job indefinitely, and a UTC time value (HH:MM) will hold the job until the specified UTC (not local) time.
+Use a value of <em>resume</em> with the <em>-i</em> option to resume a held job.
+Use a value of <em>restart</em> with the <em>-i</em> option to restart a completed job.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-P </strong><em>page-list</em><br>
+Specifies which pages to print in the document.
+The list can contain a list of numbers and ranges (#-#) separated by commas, e.g., &quot;1,3-5,16&quot;.
+The page numbers refer to the output pages and not the document's original pages - options like &quot;number-up&quot; can affect the numbering of the pages.
+</p>
+    <h3 id="lp-1.options.common-job-options">Common Job Options</h3>
+<p>Aside from the printer-specific options reported by the
+<strong>lpoptions</strong>(1)
+
+command, the following generic options are available:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-sheets=</strong><em>name</em><br>
+Prints a cover page (banner) with the document.
+The &quot;name&quot; can be &quot;classified&quot;, &quot;confidential&quot;, &quot;secret&quot;, &quot;standard&quot;, &quot;topsecret&quot;, or &quot;unclassified&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o media=</strong><em>size</em><br>
+Sets the page size to <em>size</em>. Most printers support at least the size names &quot;a4&quot;, &quot;letter&quot;, and &quot;legal&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o number-up=</strong>{<em>2|4|6|9|16</em>}<br>
+Prints 2, 4, 6, 9, or 16 document (input) pages on each output page.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o orientation-requested=4</strong><br>
+Prints the job in landscape (rotated 90 degrees counter-clockwise).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o orientation-requested=5</strong><br>
+Prints the job in landscape (rotated 90 degrees clockwise).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o orientation-requested=6</strong><br>
+Prints the job in reverse portrait (rotated 180 degrees).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o print-quality=3</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o print-quality=4</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o print-quality=5</strong><br>
+Specifies the output quality - draft (3), normal (4), or best (5).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o sides=one-sided</strong><br>
+Prints on one side of the paper.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o sides=two-sided-long-edge</strong><br>
+Prints on both sides of the paper for portrait output.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o sides=two-sided-short-edge</strong><br>
+Prints on both sides of the paper for landscape output.
+</p>
+    <h2 id="lp-1.conforming-to">Conforming To</h2>
+<p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;.
+Also, printer and class names are <em>not</em> case-sensitive.
+</p>
+    <p>The <em>-q</em> option accepts a different range of values than the Solaris lp command, matching the IPP job priority values (1-100, 100 is highest priority) instead of the Solaris values (0-39, 0 is highest priority).
+</p>
+    <h2 id="lp-1.examples">Examples</h2>
+<p>Print two copies of a document to the default printer:
+</p>
+    <pre>
+    lp -n 2 filename
+
+</pre>
+<p>Print a double-sided legal document to a printer called &quot;foo&quot;:
+</p>
+    <pre>
+    lp -d foo -o media=legal -o sides=two-sided-long-edge filename
+
+</pre>
+<p>Print a presentation document 2-up to a printer called &quot;bar&quot;:
+</p>
+    <pre>
+    lp -d bar -o number-up=2 filename
+</pre>
+    <h2 id="lp-1.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>lpadmin</strong>(8),
+
+<strong>lpoptions</strong>(1),
+
+<strong>lpq</strong>(1),
+
+<strong>lpr</strong>(1),
+
+<strong>lprm</strong>(1),
+
+<strong>lpstat</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="lp-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2022 by OpenPrinting.
+  </body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.2">
+    <title>ipptoolfile(5)</title>
+  </head>
+  <body>
+    <h1 id="ipptoolfile-5">ipptoolfile(5)</h1>
+    <h2 id="ipptoolfile-5.name">Name</h2>
+<p>ipptoolfile - ipptool file format
+</p>
+    <h2 id="ipptoolfile-5.description">Description</h2>
+<p>The
+<a href="ipptool.html"><strong>ipptool</strong>(1)</a>
+
+program accepts free-form plain text files that describe one or more IPP requests.
+Comments start with the &quot;#&quot; character and continue to the end of the line.
+Each request is enclosed by curly braces, for example:
+</p>
+    <pre>
+    # This is a comment
+    {
+      # The name of the test
+      NAME &quot;Print PDF File&quot;
+
+      # The request to send
+      OPERATION Print-Job
+
+      GROUP operation-attributes-tag
+      ATTR charset attributes-charset utf-8
+      ATTR language attributes-natural-language en
+      ATTR uri printer-uri $uri
+      ATTR name requesting-user-name $user
+      ATTR mimeMediaType document-format application/pdf
+
+      GROUP job-attributes-tag
+      ATTR collection media-col {
+        # US Letter plain paper from the &quot;main&quot; tray
+        MEMBER collection media-size {
+          MEMBER integer x-dimension 21590
+          MEMBER integer y-dimension 27940
+        }
+        MEMBER integer media-top-margin 423
+        MEMBER integer media-bottom-margin 423
+        MEMBER integer media-left-margin 423
+        MEMBER integer media-right-margin 423
+        MEMBER keyword media-source &quot;main&quot;
+        MEMBER keyword media-type &quot;stationery&quot;
+      }
+
+      FILE testfile.pdf
+
+      # The response to expect
+      STATUS successful-ok
+      EXPECT job-id OF-TYPE integer WITH-VALUE >0
+      EXPECT job-uri OF-TYPE uri
+    }
+    {
+      # The name of the test
+      NAME &quot;Wait for Job to Complete&quot;
+
+      # The request to send
+      OPERATION Get-Job-Attributes
+
+      GROUP operation-attributes-tag
+      ATTR charset attributes-charset utf-8
+      ATTR language attributes-natural-language en
+      ATTR uri printer-uri $uri
+      ATTR integer job-id $job-id
+      ATTR name requesting-user-name $user
+
+      # The response to expect
+      STATUS successful-ok
+      EXPECT job-id OF-TYPE integer WITH-VALUE $job-id
+      EXPECT job-uri OF-TYPE uri
+      EXPECT job-state OF-TYPE enum WITH-VALUE >5 REPEAT-NO-MATCH
+      EXPECT job-originating-user-name OF-TYPE name WITH-VALUE &quot;$user&quot;
+
+      # Show the job state until completed...
+      DISPLAY job-state
+      DISPLAY job-state-reasons
+    }
+</pre>
+    <h3 id="ipptoolfile-5.description.top-level-directives">Top-Level Directives</h3>
+<p>The following directives can be used outside of a <em>test</em>:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>{ </strong><em>test </em><strong>}</strong><br>
+Defines a test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEFINE </strong><em>variable-name value</em><br>
+Defines the named variable to the given value. This is equivalent to specifying <em>-d variable-name=value</em> on the
+<strong>ipptool</strong>(8)
+
+command-line.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEFINE-DEFAULT </strong><em>variable-name value</em><br>
+Defines the named variable to the given value if it does not already have a value.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FILE-ID &quot;</strong><em>identifier</em><strong>&quot;</strong><br>
+Specifies an identifier string for the current file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IGNORE-ERRORS yes</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IGNORE-ERRORS no</strong><br>
+Specifies whether, by default,
+<strong>ipptool</strong>(8)
+
+will ignore errors and continue with subsequent tests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>INCLUDE &quot;</strong><em>filename</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>INCLUDE &lt;</strong><em>filename</em><strong>></strong><br>
+Includes another test file. The first form includes a file relative to the current test file, while the second form includes a file from the
+<strong>ipptool</strong>(8)
+
+include directory.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>INCLUDE-IF-DEFINED </strong><em>name </em><strong>&quot;</strong><em>filename</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>INCLUDE-IF-DEFINED </strong><em>name </em><strong>&lt;</strong><em>filename</em><strong>></strong><br>
+Includes another test file if the named variable is defined. The first form includes a file relative to the current test file, while the second form includes a file from the
+<strong>ipptool</strong>(8)
+
+include directory.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>INCLUDE-IF-NOT-DEFINED </strong><em>name </em><strong>&quot;</strong><em>filename</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>INCLUDE-IF-NOT-DEFINED </strong><em>name </em><strong>&lt;</strong><em>filename</em><strong>></strong><br>
+Includes another test file if the named variable is not defined. The first form includes a file relative to the current test file, while the second form includes a file from the
+<strong>ipptool</strong>(8)
+
+include directory.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SKIP-IF-DEFINED </strong><em>variable-name</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SKIP-IF-NOT-DEFINED </strong><em>variable-name</em><br>
+Specifies that the remainder of the test file should be skipped when the variable is or is not defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>STOP-AFTER-INCLUDE-ERROR no</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>STOP-AFTER-INCLUDE-ERROR yes</strong><br>
+Specifies whether tests will be stopped after an error in an included file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TRANSFER auto</strong><br>
+Specifies that tests will, by default, use &quot;Transfer-Encoding: chunked&quot; for requests with attached files and &quot;Content-Length:&quot; for requests without attached files.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TRANSFER chunked</strong><br>
+Specifies that tests will, by default, use the HTTP/1.1 &quot;Transfer-Encoding: chunked&quot; header. This is the default and is equivalent to specifying <em>-c</em> on the
+<strong>ipptool</strong>(8)
+
+command-line. Support for chunked requests is required for conformance with all versions of IPP.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TRANSFER length</strong><br>
+Specifies that tests will, by default, use the HTTP/1.0 &quot;Content-Length:&quot; header. This is equivalent to specifying <em>-l</em> on the
+<strong>ipptool</strong>(8)
+
+command-line. Support for content length requests is required for conformance with all versions of IPP.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 1.0</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 1.1</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 2.0</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 2.1</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 2.2</strong><br>
+Specifies the default IPP version number to use for the tests that follow.
+</p>
+    <h3 id="ipptoolfile-5.description.test-directives">Test Directives</h3>
+<p>The following directives are understood within a <em>test</em>:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR </strong><em>out-of-band-tag attribute-name</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR </strong><em>tag attribute-name value(s)</em><br>
+Adds an attribute to the test request.
+Out-of-band tags (admin-define, delete-attribute, no-value, not-settable, unknown, unsupported) have no value.
+Values for other tags are delimited by the comma (&quot;,&quot;) character - escape commas using the &quot;\&quot; character.
+Common attributes and values are listed in the IANA IPP registry - see references below.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR collection </strong><em>attribute-name </em><strong>{ MEMBER </strong><em>tag member-name value(s) ... </em><strong>}</strong> [ <em>... </em><strong>,{ </strong><em>... </em><strong>} </strong>]<br>
+Adds a collection attribute to the test request.
+Member attributes follow the same syntax as regular attributes and can themselves be nested collections.
+Multiple collection values can be supplied as needed, separated by commas.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COMPRESSION deflate</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COMPRESSION gzip</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COMPRESSION none</strong><br>
+Uses the specified compression on the document data following the attributes in a Print-Job or Send-Document request.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DELAY </strong><em>seconds</em>[<em>,repeat-seconds</em>]<br>
+Specifies a delay in seconds before this test will be run.
+If two values are specified, the second value is used as the delay between repeated tests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DISPLAY </strong><em>attribute-name</em><br>
+Specifies that value of the named attribute should be output as part of the
+test report.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>EXPECT </strong><em>attribute-name </em>[ <em>predicate(s) </em>]<br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>EXPECT ?</strong><em>attribute-name predicate(s)</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>EXPECT !</strong><em>attribute-name</em><br>
+Specifies that the response must/may/must not include the named attribute. Additional requirements can be added as predicates - see the &quot;EXPECT PREDICATES&quot; section for more information on predicates. Attribute names can specify member attributes by separating the attribute and member names with the forward slash, for example &quot;media-col/media-size/x-dimension&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>EXPECT-ALL </strong><em>attribute-name </em>[ <em>predicate(s) </em>]<br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>EXPECT-ALL ?</strong><em>attribute-name predicate(s)</em><br>
+Specifies that the response must/may include the named attribute and that all occurrences of that attribute must match the given predicates.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FILE filename</strong><br>
+Specifies a file to include at the end of the request. This is typically used when sending a test print file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>GENERATE-FILE { </strong><em>parameters</em><strong> }</strong><br>
+Specifies that
+<strong>ipptool</strong>
+should generate PWG or Apple raster data for the printer.
+See the &quot;GENERATE-FILE PARAMETERS&quot; section for information on the parameters you can specify.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>GROUP tag</strong><br>
+Specifies the group tag for subsequent attributes in the request.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IGNORE-ERRORS yes</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IGNORE-ERRORS no</strong><br>
+Specifies whether
+<strong>ipptool</strong>(8)
+
+will ignore errors and continue with subsequent tests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>MONITOR-PRINTER-STATE </strong>[ <em>printer-uri </em>] <strong>{ EXPECT </strong><em>attribute-name </em>[ <em>predicate(s) </em>] <strong>}</strong><br>
+Specifies printer state monitoring tests to run in parallel with the test operation.
+The monitoring tests will run until all of the <strong>EXPECT</strong> conditions are satisfied or the primary test operation has completed, whichever occurs first.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>NAME &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+Specifies the human-readable name of the test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>OPERATION </strong><em>operation-code</em><br>
+Specifies the operation to be performed.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PASS-IF-DEFINED </strong><em>variable-name</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PASS-IF-NOT-DEFINED </strong><em>variable-name</em><br>
+Specifies that the current test should be passed automatically when the variable is or is not defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PAUSE &quot;</strong><em>message</em><strong>&quot;</strong><br>
+Displays the provided message and waits for the user to press a key to continue.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REQUEST-ID </strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REQUEST-ID random</strong><br>
+Specifies the request-id value to use in the request, either an integer or the word &quot;random&quot; to use a randomly generated value (the default).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOURCE </strong><em>path</em><br>
+Specifies an alternate resource path that is used for the HTTP POST request. The default is the resource from the URI provided to the
+<strong>ipptool</strong>(8)
+
+program.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SKIP-IF-DEFINED </strong><em>variable-name</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SKIP-IF-NOT-DEFINED </strong><em>variable-name</em><br>
+Specifies that the current test should be skipped when the variable is or is not defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SKIP-PREVIOUS-ERROR yes</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SKIP-PREVIOUS-ERROR no</strong><br>
+Specifies whether
+<strong>ipptool</strong>(8)
+
+will skip the current test if the previous test resulted in an error/failure.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>STATUS </strong><em>status-code </em>[ <em>predicate</em> ]<br>
+Specifies an expected response status-code value. Additional requirements can be added as predicates - see the &quot;STATUS PREDICATES&quot; section for more information on predicates.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TEST-ID &quot;</strong><em>identifier</em>&quot;<br>
+Specifies an identifier string for the current test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TRANSFER auto</strong><br>
+Specifies that this test will use &quot;Transfer-Encoding: chunked&quot; if it has an attached file or &quot;Content-Length:&quot; otherwise.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TRANSFER chunked</strong><br>
+Specifies that this test will use the HTTP/1.1 &quot;Transfer-Encoding: chunked&quot; header.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TRANSFER length</strong><br>
+Specifies that this test will use the HTTP/1.0 &quot;Content-Length:&quot; header.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 1.0</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 1.1</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 2.0</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 2.1</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>VERSION 2.2</strong><br>
+Specifies the IPP version number to use for this test.
+</p>
+    <h3 id="ipptoolfile-5.description.expect-predicates">Expect Predicates</h3>
+<p>The following predicates are understood following the <strong>EXPECT</strong> test directive:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COUNT </strong><em>number</em><br>
+Requires the <strong>EXPECT</strong> attribute to have the specified number of values.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEFINE-MATCH </strong><em>variable-name</em><br>
+Defines the variable to &quot;1&quot; when the <strong>EXPECT</strong> condition matches.
+A side-effect of this predicate is that this <strong>EXPECT</strong> will never fail a test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEFINE-NO-MATCH </strong><em>variable-name</em><br>
+Defines the variable to &quot;1&quot; when the <strong>EXPECT</strong> condition does not match.
+A side-effect of this predicate is that this <strong>EXPECT</strong> will never fail a test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEFINE-VALUE </strong><em>variable-name</em><br>
+Defines the variable to the value of the attribute when the <strong>EXPECT</strong> condition matches.
+A side-effect of this predicate is that this <strong>EXPECT</strong> will never fail a test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DISPLAY-MATCH </strong><em>&quot;message&quot;</em><br>
+Displays the specified message when the <strong>EXPECT</strong> condition matches.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IF-DEFINED </strong><em>variable-name</em><br>
+Makes the <strong>EXPECT</strong> conditions apply only if the specified variable is defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IF-NOT-DEFINED </strong><em>variable-name</em><br>
+Makes the <strong>EXPECT</strong> conditions apply only if the specified variable is not defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IN-GROUP </strong><em>tag</em><br>
+Requires the <strong>EXPECT</strong> attribute to be in the specified group tag.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>OF-TYPE </strong><em>tag[(limits)|tag|...]</em><br>
+Requires the <strong>EXPECT</strong> attribute to use one of the specified value tag(s).
+Most value tags also support the specification of limits in parenthesis, for example &quot;name(42)&quot; would allow nameWith/WithoutLanguage strings up to 42 octets in length, &quot;name(4:MAX)&quot; would allow nameWith/WithoutLanguage strings between 4 and 255 octets in length, and &quot;integer(-273:MAX)&quot; would allow integers between -273 and 2147483647.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REPEAT-LIMIT </strong><em>number</em><br>
+<br>
+Specifies the maximum number of times to repeat if the <strong>REPEAT-MATCH</strong> or <strong>REPEAT-NO-MATCH</strong> predicate is specified. The default value is 1000.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REPEAT-MATCH</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REPEAT-NO-MATCH</strong><br>
+Specifies that the current test should be repeated when the <strong>EXPECT</strong> condition matches or does not match.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SAME-COUNT-AS </strong><em>attribute-name</em><br>
+Requires the <strong>EXPECT</strong> attribute to have the same number of values as the specified parallel attribute.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SAVE-CONTENT </strong><em>filespec</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SAVE-ALL-CONTENT </strong><em>filespec</em><br>
+Saves all &quot;http&quot; or &quot;https&quot; URI values to the specified location.
+The filespec value is a filename or directory path and can contain the special strings &quot;%basename%&quot; to insert the base filename from the URI, &quot;%ext%&quot; to insert the extension from the URI, and &quot;%index%&quot; to insert the value number starting at 1.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-CONTENT available</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-CONTENT available</strong><br>
+Requires that all URI values be accessible.
+A &quot;http&quot; or &quot;https&quot; URI must respond to a GET request while a &quot;ipp&quot; or &quot;ipps&quot; URI must respond to a HEAD request.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-CONTENT valid</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-CONTENT valid</strong><br>
+Requires that all &quot;http&quot; and &quot;https&quot; URI values be accessible and provide valid content.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-CONTENT valid-icon</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-CONTENT valid-icon</strong><br>
+Requires that all &quot;http&quot; and &quot;https&quot; URI values be accessible and provide valid PNG images for icons - 48x48, 128x128, or 512x512 in size with transparency.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-HOSTNAMES &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-HOSTNAMES &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that all URI values contain a matching hostname.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-MIME-TYPES </strong><em>mime/type[,...,mime/type]</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-MIME-TYPES </strong><em>mime/type[,...,mime/type]</em><br>
+Requires that all URI values provide one of the listed MIME media types.
+For non-content tests, the target Printer must respond to HTTP HEAD requests with the MIME media type that would be returned by a GET or POST requests.
+For &quot;http&quot; and &quot;https&quot; content tests,
+<strong>ipptool</strong>
+sends a HTTP GET request.
+For &quot;ipp&quot; and &quot;ipps&quot; content tests,
+<strong>ipptool</strong>
+sends an IPP Get-Printer-Attributes request.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-RESOURCES &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-RESOURCES &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that all URI values contain a matching resource (including leading /).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-SCHEMES &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-SCHEMES &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that all URI values contain a matching scheme.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+Requires that all values of the <strong>EXPECT</strong> attribute match the literal string. Comparisons are case-sensitive.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &lt;</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES =</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES ></strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES </strong><em>number</em>[<em>,...,number</em>]<br>
+Requires that all values of the <strong>EXPECT</strong> attribute match the number(s) or numeric comparison. When comparing rangeOfInteger values, the &quot;&lt;&quot; and &quot;>&quot; operators only check the upper bound of the range.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &quot;false&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &quot;true&quot;</strong><br>
+Requires that all values of the <strong>EXPECT</strong> attribute match the boolean value given.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that all values of the <strong>EXPECT</strong> attribute match the regular expression, which must conform to the POSIX regular expression syntax.
+Comparisons are case-sensitive.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES-FROM </strong><em>attribute-name</em><br>
+Requires that all value(s) of the <strong>EXPECT</strong> attribute matches the value(s) in the specified attribute.
+For example, &quot;EXPECT-ALL media-col-database/media-source WITH-ALL-VALUES-FROM media-source-supported&quot; requires that all the &quot;media-source&quot; values are listed as a value of the &quot;media-source-supported&quot; attribute.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-DISTINCT-VALUES</strong><br>
+Requires that all values of the <strong>EXPECT</strong> attribute are unique.
+Comparisons are case-sensitive.
+Only charset, collection, enum, integer, keyword, mimeMediaType, naturalLanguage, rangeOfInteger, resolution, uriScheme attributes support this predicate.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-HOSTNAME &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-HOSTNAME &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that at least one URI value contains a matching hostname.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-RESOURCE &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-RESOURCE &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that at least one URI value contains a matching resource (including leading /).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-SCHEME &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-SCHEME &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that at least one URI value contains a matching scheme.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
+Requires that at least one value of the <strong>EXPECT</strong> attribute matches the literal string. Comparisons are case-sensitive.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &lt;</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE =</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE ></strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE </strong><em>number</em>[<em>,...,number</em>]<br>
+Requires that at least one value of the <strong>EXPECT</strong> attribute matches the number(s) or numeric comparison. When comparing rangeOfInteger values, the &quot;&lt;&quot; and &quot;>&quot; operators only check the upper bound of the range.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &quot;false&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &quot;true&quot;</strong><br>
+Requires that at least one value of the <strong>EXPECT</strong> attribute matches the boolean value given.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &quot;/</strong><em>regular expression</em><strong>/&quot;</strong><br>
+Requires that at least one value of the <strong>EXPECT</strong> attribute matches the regular expression, which must conform to the POSIX regular expression syntax. Comparisons are case-sensitive.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE-FROM </strong><em>attribute-name</em><br>
+Requires that the value(s) of the <strong>EXPECT</strong> attribute matches the value(s) in the specified attribute.
+For example, &quot;EXPECT job-sheets WITH-VALUE-FROM job-sheets-supported&quot; requires that the &quot;job-sheets&quot; value is listed as a value of the &quot;job-sheets-supported&quot; attribute.
+</p>
+    <h3 id="ipptoolfile-5.description.status-predicates">Status Predicates</h3>
+<p>The following predicates are understood following the <strong>STATUS</strong> test directive:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEFINE-MATCH </strong><em>variable-name</em><br>
+Defines the variable to &quot;1&quot; when the <strong>STATUS</strong> matches. A side-effect of this predicate is that this <strong>STATUS</strong> will never fail a test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEFINE-NO-MATCH </strong><em>variable-name</em><br>
+Defines the variable to &quot;1&quot; when the <strong>STATUS</strong> does not match. A side-effect of this predicate is that this <strong>STATUS</strong> will never fail a test.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IF-DEFINED </strong><em>variable-name</em><br>
+Makes the <strong>STATUS</strong> apply only if the specified variable is defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IF-NOT-DEFINED </strong><em>variable-name</em><br>
+Makes the <strong>STATUS</strong> apply only if the specified variable is not defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REPEAT-LIMIT </strong><em>number</em><br>
+<br>
+Specifies the maximum number of times to repeat. The default value is 1000.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REPEAT-MATCH</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>REPEAT-NO-MATCH</strong><br>
+Specifies that the current test should be repeated when the response status-code matches or does not match the value specified by the STATUS directive.
+</p>
+    <h3 id="ipptoolfile-5.description.operation-codes">Operation Codes</h3>
+<p>Operation codes correspond to the hexadecimal numbers (0xHHHH) and names from RFC 8011 and other IPP extension specifications. Here is a complete list of names supported by
+<strong>ipptool</strong>(8):
+
+</p>
+    <pre>
+    Acknowledge-Document
+    Acknowledge-Identify-Printer
+    Acknowledge-Job
+    Activate-Printer
+    Add-Document-Images
+    Allocate-Printer-Resources
+    Cancel-Current-Job
+    Cancel-Job
+    Cancel-Jobs
+    Cancel-My-Jobs
+    Cancel-Resource
+    Cancel-Subscription
+    Close-Job
+    Create-Job
+    Create-Job-Subscriptions
+    Create-Printer
+    Create-Printer-Subscriptions
+    Create-Resource
+    Create-Resource-Subscriptions
+    Create-System-Subscriptions
+    CUPS-Accept-Jobs
+    CUPS-Accept-Jobs
+    CUPS-Add-Modify-Class
+    CUPS-Add-Modify-Printer
+    CUPS-Authenticate-Job
+    CUPS-Create-Local-Printer
+    CUPS-Delete-Class
+    CUPS-Delete-Printer
+    CUPS-Get-Classes
+    CUPS-Get-Default
+    CUPS-Get-Devices
+    CUPS-Get-Document
+    CUPS-Get-PPD
+    CUPS-Get-PPDs
+    CUPS-Get-Printers
+    CUPS-Move-Job
+    CUPS-Reject-Jobs
+    CUPS-Set-Default
+    Deactivate-Printer
+    Deallocate-Printer-Resources
+    Delete-Printer
+    Deregister-Output-Device
+    Disable-All-Printers
+    Disable-Printer
+    Enable-All-Printers
+    Enable-Printer
+    Fetch-Document
+    Fetch-Job
+    Get-Job-Attributes
+    Get-Jobs
+    Get-Next-Document-Data
+    Get-Notifications
+    Get-Output-Device-Attributes
+    Get-Printer-Attributes
+    Get-Printer-Support-Files
+    Get-Printer-Supported-Values
+    Get-Printers
+    Get-Subscription-Attributes
+    Get-Subscriptions
+    Get-System-Attributes
+    Get-System-Supported-Values
+    Hold-Job
+    Hold-New-Jobs
+    Identify-Printer
+    Install-Resource
+    Pause-All-Printers
+    Pause-All-Printers-After-Current-Job
+    Pause-Printer
+    Pause-Printer-After-Current-Job
+    Print-Job
+    Print-URI
+    Promote-Job
+    Purge-Jobs
+    Register-Output-Device
+    Release-Held-New-Jobs
+    Release-Job
+    Renew-Subscription
+    Reprocess-Job
+    Restart-Job
+    Restart-Printer
+    Restart-System
+    Resubmit-Job
+    Resume-All-Printers
+    Resume-Job
+    Resume-Printer
+    Schedule-Job-After
+    Send-Document
+    Send-Hardcopy-Document
+    Send-Notifications
+    Send-Resource-Data
+    Send-URI
+    Set-Job-Attributes
+    Set-Printer-Attributes
+    Set-Resource-Attributes
+    Set-System-Attributes
+    Shutdown-All-Printers
+    Shutdown-One-Printer
+    Shutdown-Printer
+    Startup-All-Printers
+    Startup-One-Printer
+    Startup-Printer
+    Suspend-Current-Job
+    Update-Active-Jobs
+    Update-Document-Status
+    Update-Job-Status
+    Update-Output-Device-Attributes
+    Validate-Document
+    Validate-Job
+</pre>
+    <h3 id="ipptoolfile-5.description.status-codes">Status Codes</h3>
+<p>Status codes correspond to the hexadecimal numbers (0xHHHH) and names from RFC 8011 and other IPP extension specifications. Here is a complete list of the names supported by
+<strong>ipptool</strong>(8):
+
+</p>
+    <pre>
+    client-error-account-authorization-failed
+    client-error-account-closed
+    client-error-account-info-needed
+    client-error-account-limit-reached
+    client-error-attributes-not-settable
+    client-error-attributes-or-values-not-supported
+    client-error-bad-request
+    client-error-charset-not-supported
+    client-error-compression-error
+    client-error-compression-not-supported
+    client-error-conflicting-attributes
+    client-error-document-access-error
+    client-error-document-format-error
+    client-error-document-format-not-supported
+    client-error-document-password-error
+    client-error-document-permission-error
+    client-error-document-security-error
+    client-error-document-unprintable-error
+    client-error-forbidden
+    client-error-gone
+    client-error-ignored-all-notifications
+    client-error-ignored-all-subscriptions
+    client-error-not-authenticated
+    client-error-not-authorized
+    client-error-not-fetchable
+    client-error-not-found
+    client-error-not-possible
+    client-error-print-support-file-not-found
+    client-error-request-entity-too-large
+    client-error-request-value-too-long
+    client-error-timeout
+    client-error-too-many-subscriptions
+    client-error-uri-scheme-not-supported
+    cups-error-account-authorization-failed
+    cups-error-account-closed
+    cups-error-account-info-needed
+    cups-error-account-limit-reached
+    cups-see-other
+    redirection-other-site
+    server-error-busy
+    server-error-device-error
+    server-error-internal-error
+    server-error-job-canceled
+    server-error-multiple-document-jobs-not-supported
+    server-error-not-accepting-jobs
+    server-error-operation-not-supported
+    server-error-printer-is-deactivated
+    server-error-service-unavailable
+    server-error-temporary-error
+    server-error-version-not-supported
+    successful-ok
+    successful-ok-but-cancel-subscription
+    successful-ok-conflicting-attributes
+    successful-ok-events-complete
+    successful-ok-ignored-notifications
+    successful-ok-ignored-or-substituted-attributes
+    successful-ok-ignored-subscriptions
+    successful-ok-too-many-events
+</pre>
+    <h3 id="ipptoolfile-5.description.tags">Tags</h3>
+<p>Value and group tags correspond to the names from RFC 8011 and other IPP extension specifications. Here are the group tags:
+</p>
+    <pre>
+    document-attributes-tag
+    event-notification-attributes-tag
+    job | job-attributes-tag
+    operation | operation-attributes-tag
+    printer | printer-attributes-tag
+    resource-attributes-tag
+    subscription-attributes-tag
+    system-attributes-tag
+    unsupported-attributes-tag
+</pre>
+    <p>Here are the value tags:
+</p>
+    <pre>
+    admin-define
+    boolean
+    charset
+    collection | begCollection
+    dateTime
+    default
+    delete-attribute
+    enum
+    integer
+    keyword
+    language | naturalLanguage
+    mimetype | mimeMediaType
+    name | nameWithLanguage | nameWithoutLanguage
+    no-value
+    not-settable
+    octetString
+    rangeOfInteger
+    resolution
+    text | textWithLanguage | textWithoutLanguage
+    unknown
+    unsupported
+    uri
+    uriScheme
+</pre>
+    <h3 id="ipptoolfile-5.description.variables">Variables</h3>
+<p>The
+<strong>ipptool</strong>(8)
+
+program maintains a list of variables that can be used in any literal string or attribute value by specifying &quot;<em>$variable-name</em>&quot;. Aside from variables defined using the <em>-d</em> option or <strong>DEFINE</strong> directive, the following pre-defined variables are available:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$$</strong><br>
+Inserts a single &quot;$&quot; character.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$ENV[</strong><em>name</em><strong>]</strong><br>
+Inserts the value of the named environment variable, or an empty string if the environment variable is not defined.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$basename</strong><br>
+Inserts the base filename (without directory path) of the path provided to
+<strong>ipptool</strong>(8)
+
+with the <em>-f</em> option.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$date-current</strong><br>
+Inserts the current date and time using the ISO-8601 format (&quot;yyyy-mm-ddThh:mm:ssZ&quot;).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$date-start</strong><br>
+Inserts the starting date and time using the ISO-8601 format (&quot;yyyy-mm-ddThh:mm:ssZ&quot;).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$filename</strong><br>
+Inserts the filename provided to
+<strong>ipptool</strong>(8)
+
+with the <em>-f</em> option.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$filetype</strong><br>
+Inserts the MIME media type for the filename provided to
+<strong>ipptool</strong>(8)
+
+with the <em>-f</em> option.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$hostname</strong><br>
+Inserts the hostname from the URI provided to
+<strong>ipptool</strong>(8).
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$job-id</strong><br>
+Inserts the last &quot;job-id&quot; attribute value returned in a test response or 0 if no &quot;job-id&quot; attribute has been seen.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$job-uri</strong><br>
+Inserts the last &quot;job-uri&quot; attribute value returned in a test response or an empty string if no &quot;job-uri&quot; attribute has been seen.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$notify-subscription-id</strong><br>
+Inserts the last &quot;notify-subscription-id&quot; attribute value returned in a test response or 0 if no &quot;notify-subscription-id&quot; attribute has been seen.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$port</strong><br>
+Inserts the port number from the URI provided to
+<strong>ipptool</strong>(8).
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$resource</strong><br>
+Inserts the resource path from the URI provided to
+<strong>ipptool</strong>(8).
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$scheme</strong><br>
+Inserts the scheme from the URI provided to
+<strong>ipptool</strong>(8).
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$uri</strong><br>
+Inserts the URI provided to
+<strong>ipptool</strong>(8).
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$uriuser</strong><br>
+Inserts the username from the URI provided to
+<strong>ipptool</strong>(8),
+
+if any.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>$user</strong><br>
+Inserts the current user's login name.
+</p>
+    <h2 id="ipptoolfile-5.generate-file-parameters">Generate-File Parameters</h2>
+<p>The
+<strong>GENERATE-FILE</strong>
+directive dynamically generates raster pages for the destination printer.
+Each page consists of a black border and the text &quot;TEST-PAGE ####&quot; repeated in the interior in several shades of gray and colors.
+The following parameters are supported:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COLORSPACE auto</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COLORSPACE bi-level</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COLORSPACE color</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COLORSPACE monochrome</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>COLORSPACE </strong><em>colorspace_bits</em><br>
+Specifies the output color space and bit depth.
+&quot;auto&quot; chooses an available combination with preference for full color, &quot;bi-level&quot; chooses a B&amp;W (bitmap) color space, &quot;color&quot; chooses a full color combination, and &quot;monochrome&quot; chooses a grayscale combination.
+Otherwise, the value must be one of the registered IPP &quot;pwg-raster-document-type-supported&quot; keywords.
+<em>NOTE:</em> The &quot;device N&quot; color spaces are not current supported.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FORMAT image/pwg-raster</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FORMAT image/urf</strong><br>
+Specifies the raster format to use, either &quot;image/pwg-raster&quot; (PWG Raster) or &quot;image/urf&quot; (Apple Raster).
+The default is &quot;image/urf&quot; if supported, &quot;image/pwg-raster&quot; otherwise.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>MEDIA default</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>MEDIA ready</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>MEDIA </strong><em>media-size-name</em><br>
+Specifies the output media size.
+&quot;default&quot; uses the printer's default media size while &quot;ready&quot; uses the first ready (loaded) media reported by the printer.
+Other media size names must conform the PWG self-describing media size format.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>NUM-COPIES </strong><em>copies</em><br>
+Specifies the number of copies to produce.
+The default is 1 copy.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>NUM-PAGES </strong><em>pages</em><br>
+Specifies the number of pages to produce.
+The default is 1 page for single-sided output and 2 pages for double-sided output.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ORIENTATION landscape</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ORIENTATION portrait</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ORIENTATION reverse-landscape</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ORIENTATION reverse-portrait</strong><br>
+Specifies the orientation of the output.
+The default is &quot;portrait&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOLUTION default</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOLUTION max</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOLUTION min</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOLUTION </strong><em>resolution</em><strong>dpcm</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOLUTION </strong><em>horzontal</em><strong>x</strong><em>vertical</em><strong>dpcm</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOLUTION </strong><em>resolution</em><strong>dpi</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RESOLUTION </strong><em>horizontal</em><strong>x</strong><em>vertical</em><strong>dpi</strong><br>
+Specifies the output resolution using the printer's supported resolutions or as specified in dots per inch or dots per centimeter.
+&quot;default&quot; uses the median resolution of the printer and is the default, &quot;min&quot; uses the lowest resolution of the printer, and &quot;max&quot; uses the highest resolution of the printer.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong> SIDES one-sided</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong> SIDES two-sided-long-edge</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong> SIDES two-sided-short-edge</strong><br>
+Specifies whether to print on one or both sides of the media.
+The default is &quot;two-sided-long-edge&quot; for portrait output and &quot;two-sided-short-edge&quot; for landscape output when supported by the printer, otherwise &quot;one-sided&quot; is used.
+</p>
+    <h2 id="ipptoolfile-5.examples">Examples</h2>
+<p>Query the &quot;foo-default&quot; and &quot;foo-supported&quot; Printer Description attributes and validate that all of its values are 'bar', 'baz', or 'none':
+</p>
+    <pre>{
+  NAME &quot;Validate 'foo' Attribute&quot;
+  OPERATION Get-Printer-Attributes
+  GROUP operation-attributes-tag
+  ATTR charset attributes-charset utf-8
+  ATTR language attributes-natural-language en
+  ATTR uri printer-uri $uri
+  ATTR keyword requested-attributes foo-default,foo-supported
+  EXPECT foo-default OF-TYPE keyword IN-GROUP printer-attributes-tag
+      COUNT 1 WITH-VALUE &quot;/^(bar|baz|none)$$/&quot;
+  EXPECT foo-supported OF-TYPE keyword IN-GROUP printer-attributes-tag
+      WITH-ALL-VALUES &quot;/^(bar|baz|none)$$/&quot;
+}
+</pre>
+<p>Query the &quot;media-col-ready&quot; Printer Status attribute and validate that the collection values contain &quot;media-size&quot; and &quot;media-source&quot; member attributes:
+</p>
+    <pre>{
+  NAME &quot;Validate 'foo' Attribute&quot;
+  OPERATION Get-Printer-Attributes
+  GROUP operation-attributes-tag
+  ATTR charset attributes-charset utf-8
+  ATTR language attributes-natural-language en
+  ATTR uri printer-uri $uri
+  ATTR keyword requested-attributes media-col-ready
+  EXPECT media-col-ready OF-TYPE collection IN-GROUP printer-attributes-tag
+  EXPECT-ALL media-col-ready/media-size OF-TYPE collection COUNT 1
+  EXPECT-ALL media-col-ready/media-size/x-dimension OF-TYPE integer(1:MAX) COUNT 1
+  EXPECT-ALL media-col-ready/media-size/y-dimension OF-TYPE integer(0:MAX) COUNT 1
+  EXPECT-ALL media-col-ready/media-source OF-TYPE keyword|name COUNT 1
+}
+</pre>
+    <h2 id="ipptoolfile-5.see-also">See Also</h2>
+<a href="ipptool.html"><p><strong>ipptool</strong>(1)</a>
+
+</p>
+    <p>IANA IPP Registry (<a href="https://www.iana.org/assignments/ipp-registrations">https://www.iana.org/assignments/ipp-registrations</a>)
+</p>
+    <p>PWG Internet Printing Protocol Workgroup (<a href="https://www.pwg.org/ipp">https://www.pwg.org/ipp</a>)
+</p>
+    <p>PWG 5101.1-2023: PWG Media Standardized Names v2.1 (<a href="https://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn21-20230915-5101.1.pdf">https://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn21-20230915-5101.1.pdf</a>)
+</p>
+    <p>RFC 8011 (<a href="https://datatracker.ietf.org/doc/html/rfc8011">https://datatracker.ietf.org/doc/html/rfc8011</a>)
+</p>
+    <h2 id="ipptoolfile-5.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2023 by OpenPrinting.
+  </body>
+</html>

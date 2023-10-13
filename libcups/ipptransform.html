@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.2">
+    <title>ipptransform(1)</title>
+  </head>
+  <body>
+    <h1 id="ipptransform-1">ipptransform(1)</h1>
+    <h2 id="ipptransform-1.name">Name</h2>
+<p>ipptransform - convert document data to alternate formats
+<br>
+ippevepcl - convert document data to hp pcl
+<br>
+ippeveps - convert document data to postscript
+</p>
+    <h2 id="ipptransform-1.synopsis">Synopsis</h2>
+<p><strong>ipptransform</strong>
+[
+<strong>--help</strong>
+] [
+<strong>-d</strong>
+<em>device-uri</em>
+] [
+<strong>-f</strong>
+<em>output-filename</em>
+] [
+<strong>-i</strong>
+<em>input/format</em>
+] [
+<strong>-m</strong>
+<em>output/format</em>
+] [
+<strong>-o</strong>
+<em>&quot;name=value [... name=value]&quot;</em>
+] [
+<strong>-r</strong>
+<em>resolution[,...,resolution]</em>
+] [
+<strong>-s</strong>
+<em>{flipped|manual-tumble|normal|rotated}</em>
+] [
+<strong>-t</strong>
+<em>type[,...,type]</em>
+] [
+<strong>-v</strong>
+]
+<em>filename</em>
+</p>
+    <h2 id="ipptransform-1.description">Description</h2>
+<p><strong>ipptransform</strong>
+converts the input file into the output format and optionally sends the output to a network printer.
+</p>
+    <h2 id="ipptransform-1.options">Options</h2>
+<p>The following options are recognized by
+<strong>ipptransform:</strong>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--help</strong><br>
+Shows program help.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d</strong><em> device-uri</em>
+<br>
+Specifies an output device as a URI.
+Currently only the &quot;ipp&quot;, &quot;ipps&quot;, and &quot;socket&quot; URI schemes are supported, for example &quot;socket://10.0.1.42&quot; to send print data to an AppSocket printer at IP address 10.0.1.42.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i</strong><em> input/format</em>
+<br>
+Specifies the MIME media type of the input file.
+Currently the &quot;application/pdf&quot; (PDF) and &quot;image/jpeg&quot; (JPEG) MIME media types are supported.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m</strong><em> output/format</em>
+<br>
+Specifies the MIME media type of the output file.
+Current the &quot;application/vnd.hp-pcl&quot; (HP PCL) and &quot;image/pwg-raster&quot; (PWG Raster) MIME media types are supported.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o</strong><em> &quot;name=value</em><strong>[...</strong><em>name=value]&quot;</em>
+<br>
+Specifies one or more named options for the conversion.
+Currently the &quot;copies&quot;, &quot;media&quot;, &quot;media-col&quot;, &quot;page-ranges&quot;, &quot;print-color-mode&quot;, &quot;print-quality&quot;, &quot;printer-resolution&quot;, and &quot;sides&quot; options are supported.
+See the NAMED OPTIONS section for more information.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r</strong><em> resolution[,...,resolution]</em>
+<br>
+Specifies the supported resolutions.
+Resolutions are of the form &quot;NNNdpi&quot; or &quot;NNNxNNNdpi&quot;, for example &quot;300dpi&quot; or &quot;600x300dpi&quot;.
+HP PCL output only supports resolutions of &quot;300dpi&quot; and &quot;600dpi&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s</strong> {flipped|manual-tumble|normal|rotated}
+<br>
+Specifies the coordinate system for the back side of duplex sheets.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong> type[,...,type]
+<br>
+Specifies the output color spaces and bit depths, separated by commas.
+Types include &quot;adobe-rgb_8&quot; and &quot;adobe-rgb_16&quot; for 8-bit and 16-bit AdobeRGB, &quot;black_1&quot; and &quot;black_8&quot; for 1-bit and 8-bit black, &quot;cmyk_8&quot; for 8-bit CMYK, &quot;sgray_1&quot; and &quot;sgray_8&quot; for 1-bit and 8-bit grayscale with a 2.2 gamma correction, and &quot;srgb_8&quot; for 8-bit sRGB color.
+Run
+<strong>ipptransform</strong>
+with the
+<em>--help</em>
+option to see the list of supported color spaces and bit depths.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v</strong><br>
+Increases the verbosity for any diagnostics.
+</p>
+    <h2 id="ipptransform-1.named-options">Named Options</h2>
+<p>The following named options are supported:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>copies</strong><br>
+Specifies the number of copies to produce.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>media</strong><br>
+Specifies the media size as a PWG standardized media size name.
+For example, US Letter (8.5x11in) is &quot;na_letter_8.5x11in&quot; and ISO A4 is &quot;iso_a4_210x297mm&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>media-col</strong><br>
+Specifies the media size as a collection.
+Both the &quot;media-size&quot; and &quot;media-size-name&quot; members can be used to specify the size.
+For example, both &quot;media-col={media-size={x-dimension=21000 y-dimension=29700}}&quot; and &quot;media-col={media-size-name=iso_a4_210x297mm}&quot; specify ISO A4 media.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>page-ranges</strong><br>
+Selects a single range of pages to print.
+For example, the value &quot;5-12&quot; selects pages 5 through 12.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>print-color-mode</strong><br>
+Specifies the color mode as &quot;auto&quot; (automatic), &quot;monochrome&quot; (grayscale), or &quot;color&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>print-quality</strong><br>
+Specifies the print quality with value 3 (draft), 4 (normal), or 5 (high/best).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>print-scaling</strong><br>
+Specifies the scaling to use when converting image files.
+The values &quot;auto&quot;, &quot;fit&quot;, and &quot;fill&quot; are supported.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>printer-resolution</strong><br>
+Specifies the print resolution using one of the supported print resolutions.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>sides</strong><br>
+Specifies whether to do 1-sided printing (&quot;one-sided&quot;) or 2-sided printing (&quot;two-sided-long-edge&quot; for portrait and &quot;two-sided-short-edge&quot; for landscape).
+</p>
+    <h2 id="ipptransform-1.diagnostics">Diagnostics</h2>
+<p><strong>ipptransform</strong>
+sends all messages to the standard error.
+Each message is prefixed with &quot;ERROR&quot;, &quot;INFO&quot;, or &quot;DEBUG&quot; depending on the level of verbosity.
+</p>
+    <h2 id="ipptransform-1.exit-status">Exit Status</h2>
+<p>The
+<strong>ipptransform</strong>
+program returns 0 if the input file is converted successfully and 1 otherwise.
+</p>
+    <h2 id="ipptransform-1.environment">Environment</h2>
+<p><strong>ipptransform</strong>
+recognizes the following environment variables:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>CONTENT_TYPE</strong><br>
+Specifies the MIME media type of the input file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DEVICE_URI</strong><br>
+Specifies the output device as a URI.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DOCUMENT_NAME</strong><br>
+Specifies the title of the input file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_xxx</strong><br>
+Specifies the value of the &quot;xxx&quot; Job Template attribute, where &quot;xxx&quot; is converted to uppercase.
+For example, the &quot;media&quot; Job Template attribute is stored as the &quot;IPP_MEDIA&quot; environment variable.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_xxx_DEFAULT</strong><br>
+Specifies the default value of the corresponding &quot;xxx-default&quot; Printer Description attribute, where &quot;xxx&quot; is converted to uppercase.
+For example, the &quot;media-default&quot; Printer Description attribute is stored as the &quot;IPP_MEDIA_DEFAULT&quot; environment variable.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_RESOLUTION_SUPPORTED</strong><br>
+Lists the supported output resolutions.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_SHEET_BACK</strong><br>
+Specifies the coordinate system of the back side of duplex sheets.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_TYPE_SUPPORTED</strong><br>
+Lists the supported output color spaces and bit depths.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;">IPPTRANSFORM_MAX_RASTER<br>
+Specifies the maximum number of bytes to use when generating raster data.
+The default is 16MB.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>OUTPUT_TYPE</strong><br>
+Specifies the MIME media type of the output file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SERVER_LOGLEVEL</strong><br>
+Specifies the log level (verbosity) as &quot;error&quot;, &quot;info&quot;, or &quot;debug&quot;.
+</p>
+    <h2 id="ipptransform-1.examples">Examples</h2>
+<p>Print a PDF file to a PCL printer at 10.0.1.42:
+</p>
+    <pre>
+    ipptransform -d socket://10.0.1.42 -m application/vnd.hp-pcl \
+        filename.pdf
+</pre>
+    <p>Print a PDF file to an IPP Everywhere printer at 10.0.1.42:
+</p>
+    <pre>
+    ipptransform -d ipp://10.0.1.42/ipp/print -m image/pwg-raster \
+        filename.pdf
+</pre>
+    <p>Convert a JPEG file to sRGB PWG Raster at 600dpi:
+</p>
+    <pre>
+    ipptransform -m image/pwg-raster -r 600dpi -t sgray_8,srgb_8 \
+        filename.jpg >filename.ras
+</pre>
+    <h2 id="ipptransform-1.see-also">See Also</h2>
+<a href="ipptool.html"><p><strong>ipptool</strong>(1),</a>
+
+</p>
+    <h2 id="ipptransform-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2023 by OpenPrinting.
+Copyright &copy; 2016-2019 by the Printer Working Group.
+Copyright &copy; 2016-2019 by Apple Inc.
+  </body>
+</html>

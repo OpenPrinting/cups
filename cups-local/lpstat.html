@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>lpstat(1)</title>
+  </head>
+  <body>
+    <h1 id="lpstat-1">lpstat(1)</h1>
+    <h2 id="lpstat-1.name">Name</h2>
+<p>lpstat - print cups status information
+</p>
+    <h2 id="lpstat-1.synopsis">Synopsis</h2>
+<p><strong>lpstat</strong>
+[
+<strong>-h </strong><em>hostname</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>-E</strong>
+] [
+<strong>-H</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-l</strong>
+] [
+<strong>-W</strong>
+<em>which-jobs</em>
+] [
+<strong>-a</strong>
+[
+<em>destination(s)</em>
+] ] [
+<strong>-c</strong>
+[
+<em>class(es)</em>
+] ] [
+<strong>-d</strong>
+] [
+<strong>-e</strong>
+] [
+<strong>-o</strong>
+[
+<em>destination(s)</em>
+] ] [
+<strong>-p</strong>
+[
+<em>printer(s)</em>
+] ] [
+<strong>-r</strong>
+] [
+<strong>-R</strong>
+] [
+<strong>-s</strong>
+] [
+<strong>-t</strong>
+] [
+<strong>-u</strong>
+[
+<em>user(s)</em>
+] ] [
+<strong>-v</strong>
+[
+<em>printer(s)</em>
+] ]
+</p>
+    <h2 id="lpstat-1.description">Description</h2>
+<p><strong>lpstat</strong> displays status information about the current classes, jobs, and printers.
+When run with no arguments, <strong>lpstat</strong> will list active jobs queued by the current user.
+</p>
+    <h2 id="lpstat-1.options">Options</h2>
+<p>The <strong>lpstat</strong> command supports the following options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-H</strong><br>
+Shows the server hostname and port.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-R</strong><br>
+Shows the ranking of print jobs.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Specifies an alternate username.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W </strong><em>which-jobs</em><br>
+Specifies which jobs to show, &quot;completed&quot; or &quot;not-completed&quot; (the default).
+This option <em>must</em> appear before the <em>-o</em> option and/or any printer names, otherwise the default (&quot;not-completed&quot;) value will be used in the request to the scheduler.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a </strong>[<em>printer(s)</em>]<br>
+Shows the accepting state of printer queues.
+If no printers are specified then all printers are listed.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c </strong>[<em>class(es)</em>]<br>
+Shows the printer classes and the printers that belong to them.
+If no classes are specified then all classes are listed.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d</strong><br>
+Shows the current default destination.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-e</strong><br>
+Shows all available destinations on the local network.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Specifies an alternate server.
+Note: This option must occur before all others.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l</strong><br>
+Shows a long listing of printers, classes, or jobs.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong>[<em>destination(s)</em>]<br>
+Shows the jobs queued on the specified destinations.
+If no destinations are specified all jobs are shown.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p </strong>[<em>printer(s)</em>]<br>
+Shows the printers and whether they are enabled for printing.
+If no printers are specified then all printers are listed.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r</strong><br>
+Shows whether the CUPS server is running.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s</strong><br>
+Shows a status summary, including the default destination, a list of classes and their member printers, and a list of printers and their associated devices.
+This is equivalent to using the <em>-d</em>, <em>-c</em>, and <em>-v</em> options.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong><br>
+Shows all status information.
+This is equivalent to using the <em>-r</em>, <em>-d</em>, <em>-c</em>, <em>-v</em>, <em>-a</em>, <em>-p</em>, and <em>-o</em> options.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u </strong>[<em>user(s)</em>]<br>
+Shows a list of print jobs queued by the specified users.
+If no users are specified, lists the jobs queued by the current user.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v </strong>[<em>printer(s)</em>]<br>
+Shows the printers and what device they are attached to.
+If no printers are specified then all printers are listed.
+</p>
+    <h2 id="lpstat-1.conforming-to">Conforming To</h2>
+<p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, and &quot;#&quot;.
+Also, printer and class names are <em>not</em> case-sensitive.
+</p>
+    <p>The <em>-h</em>, <em>-e</em>, <em>-E</em>, <em>-U</em>, and <em>-W</em> options are unique to CUPS.
+</p>
+    <p>The Solaris <em>-f</em>, <em>-P</em>, and <em>-S</em> options are silently ignored.
+</p>
+    <h2 id="lpstat-1.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>lp</strong>(1),
+
+<strong>lpq</strong>(1),
+
+<strong>lpr</strong>(1),
+
+<strong>lprm</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="lpstat-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2022 by OpenPrinting.
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cupsenable(8)</title>
+  </head>
+  <body>
+    <h1 id="cupsenable-8">cupsenable(8)</h1>
+    <h2 id="cupsenable-8.name">Name</h2>
+<p>cupsdisable, cupsenable - stop/start printers and classes
+</p>
+    <h2 id="cupsenable-8.synopsis">Synopsis</h2>
+<p><strong>cupsdisable</strong>
+[
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-c</strong>
+] [
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>-r</strong>
+<em>reason</em>
+] [
+<strong>--hold</strong>
+]
+<em>destination(s)</em>
+<br>
+<strong>cupsenable</strong>
+[
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-c</strong>
+] [
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>--release</strong>
+]
+<em>destination(s)</em>
+</p>
+    <h2 id="cupsenable-8.description">Description</h2>
+<p><strong>cupsenable</strong>
+starts the named printers or classes while
+<strong>cupsdisable</strong>
+stops the named printers or classes.
+</p>
+    <h2 id="cupsenable-8.options">Options</h2>
+<p>The following options may be used:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption of the connection to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Uses the specified username when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c</strong><br>
+Cancels all jobs on the named destination.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Uses the specified server and port.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--hold</strong><br>
+Holds remaining jobs on the named printer.
+Useful for allowing the current job to complete before performing maintenance.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r &quot;</strong><em>reason</em><strong>&quot;</strong><br>
+Sets the message associated with the stopped state.
+If no reason is specified then the message is set to &quot;Reason Unknown&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--release</strong><br>
+Releases pending jobs for printing.
+Use after running <strong>cupsdisable</strong> with the <em>--hold</em> option to resume printing.
+</p>
+    <h2 id="cupsenable-8.conforming-to">Conforming To</h2>
+<p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;.
+Also, printer and class names are <em>not</em> case-sensitive.
+</p>
+    <p>The System V versions of these commands are <strong>disable</strong> and <strong>enable</strong>, respectively.
+They have been renamed to avoid conflicts with the
+<strong>bash</strong>(1)
+
+build-in commands of the same names.
+</p>
+    <p>The CUPS versions of <strong>disable</strong> and <strong>enable</strong> may ask the user for an access password depending on the printing system configuration.
+This differs from the System V versions which require the root user to execute these commands.
+</p>
+    <h2 id="cupsenable-8.see-also">See Also</h2>
+<p><strong>cupsaccept</strong>(8),
+
+<strong>cupsreject</strong>(8),
+
+<strong>cancel</strong>(1),
+
+<strong>lp</strong>(1),
+
+<strong>lpadmin</strong>(8),
+
+<strong>lpstat</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="cupsenable-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2022 by OpenPrinting.
+  </body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>lpr(1)</title>
+  </head>
+  <body>
+    <h1 id="lpr-1">lpr(1)</h1>
+    <h2 id="lpr-1.name">Name</h2>
+<p>lpr - print files
+</p>
+    <h2 id="lpr-1.synopsis">Synopsis</h2>
+<p><strong>lpr</strong>
+[
+<strong>-H </strong><em>server</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-P </strong><em>destination</em>[<strong>/</strong><em>instance</em>]
+] [
+<strong>-#</strong>
+<em>num-copies</em>
+[
+<strong>-h</strong>
+] [
+<strong>-l</strong>
+] [
+<strong>-m</strong>
+] [
+<strong>-o </strong><em>option</em>[<strong>=</strong><em>value</em>]
+] [
+<strong>-p</strong>
+] [
+<strong>-q</strong>
+] [
+<strong>-r</strong>
+] [
+<strong>-C</strong>
+<em>title</em>
+] [
+<strong>-J</strong>
+<em>title</em>
+] [
+<strong>-T</strong>
+<em>title</em>
+] [
+<em>file(s)</em>
+]
+</p>
+    <h2 id="lpr-1.description">Description</h2>
+<p><strong>lpr</strong> submits files for printing.
+Files named on the command line are sent to the named printer or the default destination if no destination is specified.
+If no files are listed on the command-line, <strong>lpr</strong> reads the print file from the standard input.
+</p>
+    <h3 id="lpr-1.description.the-default-destination">The Default Destination</h3>
+<p>CUPS provides many ways to set the default destination. The <strong>LPDEST</strong> and <strong>PRINTER</strong> environment variables are consulted first.
+If neither are set, the current default set using the
+<strong>lpoptions</strong>(1)
+
+command is used, followed by the default set using the
+<strong>lpadmin</strong>(8)
+
+command.
+</p>
+    <h2 id="lpr-1.options">Options</h2>
+<p>The following options are recognized by <em>lpr</em>:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-H </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Specifies an alternate server.
+Note: This option must occur before all others.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-C &quot;</strong><em>name</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-J &quot;</strong><em>name</em><strong>&quot;</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-T &quot;</strong><em>name</em><strong>&quot;</strong><br>
+Sets the job name/title.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-P </strong><em>destination</em>[<strong>/</strong><em>instance</em>]<br>
+Prints files to the named printer.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Specifies an alternate username.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-# </strong><em>copies</em><br>
+Sets the number of copies to print.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h</strong><br>
+Disables banner printing. This option is equivalent to <em>-o job-sheets=none</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l</strong><br>
+Specifies that the print file is already formatted for the destination and should be sent without filtering.
+This option is equivalent to <em>-o raw</em>.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m</strong><br>
+Send an email on job completion.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>option</em>[<strong>=</strong><em>value</em>]<br>
+Sets a job option.
+See &quot;COMMON JOB OPTIONS&quot; below.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p</strong><br>
+Specifies that the print file should be formatted with a shaded header with the date, time, job name, and page number.
+This option is equivalent to <em>-o prettyprint</em> and is only useful when printing text files.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-q</strong><br>
+Hold job for printing.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r</strong><br>
+Specifies that the named print files should be deleted after submitting them.
+</p>
+    <h3 id="lpr-1.options.common-job-options">Common Job Options</h3>
+<p>Aside from the printer-specific options reported by the
+<strong>lpoptions</strong>(1)
+
+command, the following generic options are available:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-sheets=</strong><em>name</em><br>
+Prints a cover page (banner) with the document.
+The &quot;name&quot; can be &quot;classified&quot;, &quot;confidential&quot;, &quot;secret&quot;, &quot;standard&quot;, &quot;topsecret&quot;, or &quot;unclassified&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o media=</strong><em>size</em><br>
+Sets the page size to <em>size</em>. Most printers support at least the size names &quot;a4&quot;, &quot;letter&quot;, and &quot;legal&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o number-up=</strong>{<em>2|4|6|9|16</em>}<br>
+Prints 2, 4, 6, 9, or 16 document (input) pages on each output page.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o orientation-requested=4</strong><br>
+Prints the job in landscape (rotated 90 degrees counter-clockwise).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o orientation-requested=5</strong><br>
+Prints the job in landscape (rotated 90 degrees clockwise).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o orientation-requested=6</strong><br>
+Prints the job in reverse portrait (rotated 180 degrees).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o print-quality=3</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o print-quality=4</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o print-quality=5</strong><br>
+Specifies the output quality - draft (3), normal (4), or best (5).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o sides=one-sided</strong><br>
+Prints on one side of the paper.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o sides=two-sided-long-edge</strong><br>
+Prints on both sides of the paper for portrait output.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o sides=two-sided-short-edge</strong><br>
+Prints on both sides of the paper for landscape output.
+</p>
+    <h2 id="lpr-1.notes">Notes</h2>
+<p>The <em>-c</em>, <em>-d</em>, <em>-f</em>, <em>-g</em>, <em>-i</em>, <em>-n</em>, <em>-t</em>, <em>-v</em>, and <em>-w</em> options are not supported by CUPS and produce a warning message if used.
+</p>
+    <h2 id="lpr-1.examples">Examples</h2>
+<p>Print two copies of a document to the default printer:
+</p>
+    <pre>
+    lpr -# 2 filename
+
+</pre>
+<p>Print a double-sided legal document to a printer called &quot;foo&quot;:
+</p>
+    <pre>
+    lpr -P foo -o media=legal -o sides=two-sided-long-edge filename
+
+</pre>
+<p>Print a presentation document 2-up to a printer called &quot;foo&quot;:
+</p>
+    <pre>
+    lpr -P foo -o number-up=2 filename
+</pre>
+    <h2 id="lpr-1.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>lp</strong>(1),
+
+<strong>lpadmin</strong>(8),
+
+<strong>lpoptions</strong>(1),
+
+<strong>lpq</strong>(1),
+
+<strong>lprm</strong>(1),
+
+<strong>lpstat</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="lpr-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2022 by OpenPrinting.
+  </body>
+</html>

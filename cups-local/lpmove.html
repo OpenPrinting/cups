@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>lpmove(8)</title>
+  </head>
+  <body>
+    <h1 id="lpmove-8">lpmove(8)</h1>
+    <h2 id="lpmove-8.name">Name</h2>
+<p>lpmove - move a job or all jobs to a new destination
+</p>
+    <h2 id="lpmove-8.synopsis">Synopsis</h2>
+<p><strong>lpmove</strong>
+[
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+]
+<em>job</em>
+<em>destination</em>
+<br>
+<strong>lpmove</strong>
+[
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
+] [
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+]
+<em>source</em>
+<em>destination</em>
+</p>
+    <h2 id="lpmove-8.description">Description</h2>
+<p><strong>lpmove</strong> moves the specified <em>job</em> or all jobs from <em>source</em> to <em>destination</em>. <em>job</em> can be the job ID number or the old destination and job ID.
+</p>
+    <h2 id="lpmove-8.options">Options</h2>
+<p>The <strong>lpmove</strong> command supports the following options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Specifies an alternate username.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Specifies an alternate server.
+Note: This option must occur before all others.
+</p>
+    <h2 id="lpmove-8.examples">Examples</h2>
+<p>Move job 123 from &quot;oldprinter&quot; to &quot;newprinter&quot;:
+</p>
+    <pre>
+    lpmove 123 newprinter
+
+            <em>or</em>
+
+    lpmove oldprinter-123 newprinter
+
+</pre>
+<p>Move all jobs from &quot;oldprinter&quot; to &quot;newprinter&quot;:
+</p>
+    <pre>
+    lpmove oldprinter newprinter
+</pre>
+    <h2 id="lpmove-8.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>lp</strong>(1),
+
+<strong>lpr</strong>(1),
+
+<strong>lprm</strong>(1),
+
+<br>
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="lpmove-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2022 by OpenPrinting.
+  </body>
+</html>

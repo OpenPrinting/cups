@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: rgba(127,127,127,0.5);
+  border-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 4px 10px;
+}
+h4 span.info {
+  padding: 2px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table caption {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: rgba(127,127,127,0.125);
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+table.figure tbody td {
+  border-bottom: none;
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cupsaccept(8)</title>
+  </head>
+  <body>
+    <h1 id="cupsaccept-8">cupsaccept(8)</h1>
+    <h2 id="cupsaccept-8.name">Name</h2>
+<p>cupsaccept/cupsreject - accept/reject jobs sent to a destination
+</p>
+    <h2 id="cupsaccept-8.synopsis">Synopsis</h2>
+<p><strong>cupsaccept</strong>
+[
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-h</strong>
+<em>hostname[:port]</em>
+]
+<em>destination(s)</em>
+<br>
+<strong>cupsreject</strong>
+[
+<strong>-E</strong>
+] [
+<strong>-U</strong>
+<em>username</em>
+] [
+<strong>-h</strong>
+<em>hostname[:port]</em>
+] [
+<strong>-r</strong>
+<em>reason</em>
+]
+<em>destination(s)</em>
+</p>
+    <h2 id="cupsaccept-8.description">Description</h2>
+<p>The
+<strong>cupsaccept</strong>
+command instructs the printing system to accept print jobs to the specified destinations.
+</p>
+    <p>The
+<strong>cupsreject</strong>
+command instructs the printing system to reject print jobs to the
+specified destinations.
+The <em>-r</em> option sets the reason for rejecting print jobs. If not specified, the reason defaults to &quot;Reason Unknown&quot;.
+</p>
+    <h2 id="cupsaccept-8.options">Options</h2>
+<p>The following options are supported by both
+<strong>cupsaccept</strong>
+and
+<strong>cupsreject</strong>:
+
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Forces encryption when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Sets the username that is sent when connecting to the server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>hostname[:port]</em><br>
+Chooses an alternate server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong>&quot;<em>reason</em>&quot;<br>
+Sets the reason string that is shown for a printer that is rejecting jobs.
+</p>
+    <h2 id="cupsaccept-8.conforming-to">Conforming To</h2>
+<p>The
+<strong>cupsaccept</strong>
+and
+<strong>cupsreject</strong>
+commands correspond to the System V printing system commands &quot;accept&quot; and &quot;reject&quot;, respectively.
+Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;.
+Also, printer and class names are <em>not</em> case-sensitive.
+</p>
+    <p>Finally, the CUPS versions may ask the user for an access password depending on the printing system configuration.
+</p>
+    <h2 id="cupsaccept-8.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>cupsenable</strong>(8),
+
+<strong>lp</strong>(1),
+
+<strong>lpadmin</strong>(8),
+
+<strong>lpstat</strong>(1),
+
+<br>
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="cupsaccept-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2021-2022 by OpenPrinting.
+  </body>
+</html>
