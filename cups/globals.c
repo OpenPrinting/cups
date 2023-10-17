@@ -137,7 +137,7 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
   switch (reason)
   {
     case DLL_PROCESS_ATTACH :		/* Called on library initialization */
-        InitializeCriticalSection(&cups_global_mutex.m_criticalSection);
+        cupsMutexInit(&cups_global_mutex);
 
         if ((cups_globals_key = TlsAlloc()) == TLS_OUT_OF_INDEXES)
           return (FALSE);
@@ -153,7 +153,7 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
           cups_globals_free(cg);
 
         TlsFree(cups_globals_key);
-        DeleteCriticalSection(&cups_global_mutex.m_criticalSection);
+	cupsMutexDestroy(&cups_global_mutex);
         break;
 
     default:

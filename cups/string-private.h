@@ -11,7 +11,7 @@
 
 #ifndef _CUPS_STRING_PRIVATE_H_
 #  define _CUPS_STRING_PRIVATE_H_
-#  include "config.h"
+#  include <config.h>
 #  include <stdio.h>
 #  include <stdlib.h>
 #  include <stdarg.h>

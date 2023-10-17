@@ -61,12 +61,10 @@ _cups_cupsConcatString
 _cups_cupsCopyString
 _cups_gettimeofday
 _cups_safe_vsnprintf
-_cups_snprintf
 _cups_strcasecmp
 _cups_strcpy
 _cups_strcpy
 _cups_strncasecmp
-_cups_vsnprintf
 _httpCreateCredentials
 _httpDecodeURI
 _httpDisconnect
@@ -229,6 +227,7 @@ cupsFileGetChar
 cupsFileGetConf
 cupsFileGetLine
 cupsFileGets
+cupsFileIsCompressed
 cupsFileLock
 cupsFileNumber
 cupsFileOpen

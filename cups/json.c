@@ -10,6 +10,7 @@
 #include "cups-private.h"
 #include "json-private.h"
 #include <sys/stat.h>
+#include <fcntl.h>
 
 
 //

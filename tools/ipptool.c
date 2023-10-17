@@ -18,6 +18,7 @@
 #include <cups/raster-testpage.h>
 #include <regex.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 #ifdef _WIN32
 #  include <windows.h>
 #  ifndef R_OK
