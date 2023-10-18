@@ -264,6 +264,13 @@ httpAssembleURI(
     }
 
     // Finish things off with the port number...
+    if (!strcmp(scheme, "http") && port == 80)
+      port = 0;
+    else if (!strcmp(scheme, "https") && port == 443)
+      port = 0;
+    else if ((!strcmp(scheme, "ipp") || !strcmp(scheme, "ipps")) && port == 631)
+      port = 0;
+
     if (port > 0)
     {
       snprintf(ptr, (size_t)(end - ptr + 1), ":%d", port);
