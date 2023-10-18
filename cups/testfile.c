@@ -558,7 +558,7 @@ read_write_tests(bool compression)	// I - Use compression?
 
     for (i = 0; i < 256; i ++)
     {
-      if (!cupsFilePutChar(fp, i))
+      if (cupsFilePutChar(fp, i))
         break;
     }
 
@@ -620,7 +620,7 @@ read_write_tests(bool compression)	// I - Use compression?
     // cupsFileClose()
     testBegin("cupsFileClose()");
 
-    if (cupsFileClose(fp))
+    if (!cupsFileClose(fp))
     {
       testEnd(true);
     }
@@ -801,7 +801,7 @@ read_write_tests(bool compression)	// I - Use compression?
     // cupsFileClose()
     testBegin("cupsFileClose()");
 
-    if (cupsFileClose(fp))
+    if (!cupsFileClose(fp))
     {
       testEnd(true);
     }
