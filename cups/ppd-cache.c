@@ -3479,6 +3479,20 @@ _ppdCreateFromIPP2(
     goto bad_ppd;
 
  /*
+  * cupsUrfSupported
+  */
+  if ((attr = ippFindAttribute(supported, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
+  {
+    cupsFilePuts(fp, "*cupsUrfSupported: \"");
+    for (i = 0, count = ippGetCount(attr); i < count; i ++)
+    {
+      keyword = ippGetString(attr, i, NULL);
+      cupsFilePrintf(fp, "%s%s", keyword, i ? "" : ",");
+    }
+    cupsFilePuts(fp, "\"\n");
+  }
+
+ /*
   * PageSize/PageRegion/ImageableArea/PaperDimension
   */
 
