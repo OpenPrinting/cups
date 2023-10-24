@@ -193,6 +193,9 @@ install-headers:
 		$(INSTALL_DIR) -m 755 $(PRIVATEINCLUDE); \
 		$(INSTALL_DATA) config.h $(PRIVATEINCLUDE)/config.h; \
 	fi
+	echo Installing base.h into $(INCLUDEDIR)...;
+	$(INSTALL_DIR) -m 755 $(INCLUDEDIR);
+	$(INSTALL_DATA) cups/base.h $(INCLUDEDIR)/base.h;
 
 
 #
