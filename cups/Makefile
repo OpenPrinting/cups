@@ -131,6 +131,7 @@ OBJS	=	\
 
 COREHEADERS	=	\
 		array.h \
+		base.h \
 		cups.h \
 		dir.h \
 		dnssd.h \
@@ -144,8 +145,7 @@ COREHEADERS	=	\
 		pwg.h \
 		raster.h \
 		thread.h \
-		transcode.h \
-		versioning.h
+		transcode.h
 
 DRIVERHEADERS	=	\
 		adminutil.h \
