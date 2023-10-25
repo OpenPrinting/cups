@@ -25,6 +25,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed a bug in the PPD command interpretation code (Issue #768)
+- Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
 - Removed `HAVE_LIBZ` and `HAVE_POLL` defines, making CUPS to depend
   on the functionality
 - Removed hash support for SHA2-512-224 and SHA2-512-256
