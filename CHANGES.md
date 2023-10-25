@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS 2.4.8 - TBA
 Changes in CUPS v2.4.8 (TBA)
 ----------------------------
 
+- Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
 - Really backport fix for Issue #742
 
 
