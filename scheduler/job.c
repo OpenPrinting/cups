@@ -1420,10 +1420,10 @@ cupsdDeleteJob(cupsd_job_t       *job,	/* I - Job */
     job->num_files = 0;
   }
 
+  unload_job(job);
+
   if (job->history)
     free_job_history(job);
-
-  unload_job(job);
 
   cupsArrayRemove(Jobs, job);
   cupsArrayRemove(ActiveJobs, job);
