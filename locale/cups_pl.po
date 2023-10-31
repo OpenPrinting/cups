@@ -37,17 +37,17 @@ msgstr ""
 
 #: systemv/lpstat.c:1897 systemv/lpstat.c:2016
 msgid "\t\t(all)"
-msgstr ""
+msgstr "\t\t(wszystkie)"
 
 #: systemv/lpstat.c:1900 systemv/lpstat.c:1903 systemv/lpstat.c:2019
 #: systemv/lpstat.c:2022
 msgid "\t\t(none)"
-msgstr ""
+msgstr "\t\t(brak)"
 
 #: berkeley/lpc.c:441
 #, c-format
 msgid "\t%d entries"
-msgstr ""
+msgstr "\t%d wpisów"
 
 #: systemv/lpstat.c:816 systemv/lpstat.c:832
 #, c-format
@@ -56,132 +56,132 @@ msgstr ""
 
 #: systemv/lpstat.c:1878 systemv/lpstat.c:1997
 msgid "\tAfter fault: continue"
-msgstr ""
+msgstr "\tPo błędzie: kontynuuj"
 
 #: systemv/lpstat.c:1511 systemv/lpstat.c:1851 systemv/lpstat.c:1971
 #, c-format
 msgid "\tAlerts: %s"
-msgstr ""
+msgstr "\tAlerty: %s"
 
 #: systemv/lpstat.c:1901 systemv/lpstat.c:2020
 msgid "\tBanner required"
-msgstr ""
+msgstr "\tSzablon wymagany"
 
 #: systemv/lpstat.c:1902 systemv/lpstat.c:2021
 msgid "\tCharset sets:"
-msgstr ""
+msgstr "\tZestawy znaków:"
 
 #: systemv/lpstat.c:1870 systemv/lpstat.c:1989
 msgid "\tConnection: direct"
-msgstr ""
+msgstr "\tPołączenie: bezpośrednie"
 
 #: systemv/lpstat.c:1861 systemv/lpstat.c:1981
 msgid "\tConnection: remote"
-msgstr ""
+msgstr "\tPołączenie: zdalne"
 
 #: systemv/lpstat.c:1827 systemv/lpstat.c:1947
 msgid "\tContent types: any"
-msgstr ""
+msgstr "\tTyp zawartości: każdy"
 
 #: systemv/lpstat.c:1905 systemv/lpstat.c:2024
 msgid "\tDefault page size:"
-msgstr ""
+msgstr "\tDomyślna wielkość strony:"
 
 #: systemv/lpstat.c:1904 systemv/lpstat.c:2023
 msgid "\tDefault pitch:"
-msgstr ""
+msgstr "\tDomyślny poziom:"
 
 #: systemv/lpstat.c:1906 systemv/lpstat.c:2025
 msgid "\tDefault port settings:"
-msgstr ""
+msgstr "\"Domyślne ustawienia portu:"
 
 #: systemv/lpstat.c:1833 systemv/lpstat.c:1953
 #, c-format
 msgid "\tDescription: %s"
-msgstr ""
+msgstr "\tOpis: %s"
 
 #: systemv/lpstat.c:1826 systemv/lpstat.c:1946
 msgid "\tForm mounted:"
-msgstr ""
+msgstr "\tForma zamontowana:"
 
 #: systemv/lpstat.c:1899 systemv/lpstat.c:2018
 msgid "\tForms allowed:"
-msgstr ""
+msgstr "\tFormy dozwolone:"
 
 #: systemv/lpstat.c:1865 systemv/lpstat.c:1985
 #, c-format
 msgid "\tInterface: %s.ppd"
-msgstr ""
+msgstr "\tInterfejs: %s.ppd"
 
 #: systemv/lpstat.c:1874 systemv/lpstat.c:1993
 #, c-format
 msgid "\tInterface: %s/ppd/%s.ppd"
-msgstr ""
+msgstr "\tInterfejs: %s/ppd/%s.ppd"
 
 #: systemv/lpstat.c:1856 systemv/lpstat.c:1976
 #, c-format
 msgid "\tLocation: %s"
-msgstr ""
+msgstr "\tLokalizacja: %s"
 
 #: systemv/lpstat.c:1877 systemv/lpstat.c:1996
 msgid "\tOn fault: no alert"
-msgstr ""
+msgstr "\tPo błędzie: brak alertów"
 
 #: systemv/lpstat.c:1828 systemv/lpstat.c:1948
 msgid "\tPrinter types: unknown"
-msgstr ""
+msgstr "\tTypy drukarki: nieznane"
 
 #: systemv/lpstat.c:1494
 #, c-format
 msgid "\tStatus: %s"
-msgstr ""
+msgstr "\tStan: %s"
 
 #: systemv/lpstat.c:1882 systemv/lpstat.c:1896 systemv/lpstat.c:2001
 #: systemv/lpstat.c:2015
 msgid "\tUsers allowed:"
-msgstr ""
+msgstr "\tUżytkownicy upoważnieni:"
 
 #: systemv/lpstat.c:1889 systemv/lpstat.c:2008
 msgid "\tUsers denied:"
-msgstr ""
+msgstr "\tUżytkownicy nieupoważnieni:"
 
 #: berkeley/lpc.c:443
 msgid "\tdaemon present"
-msgstr ""
+msgstr "\tusługa dostępna"
 
 #: berkeley/lpc.c:439
 msgid "\tno entries"
-msgstr ""
+msgstr "\tbrak wpisów"
 
 #: berkeley/lpc.c:411 berkeley/lpc.c:423
 #, c-format
 msgid "\tprinter is on device '%s' speed -1"
-msgstr ""
+msgstr "\tdrukarka jest na urządzeniu '%s' speed -1"
 
 #: berkeley/lpc.c:436
 msgid "\tprinting is disabled"
-msgstr ""
+msgstr "\tdrukowanie jest wyłączone"
 
 #: berkeley/lpc.c:434
 msgid "\tprinting is enabled"
-msgstr ""
+msgstr "\tdrukowanie jest włączone"
 
 #: systemv/lpstat.c:1514
 #, c-format
 msgid "\tqueued for %s"
-msgstr ""
+msgstr "\tSkolejkowane w %s"
 
 #: berkeley/lpc.c:431
 msgid "\tqueuing is disabled"
-msgstr ""
+msgstr "\tkolejkowanie jest wyłączone"
 
 #: berkeley/lpc.c:429
 msgid "\tqueuing is enabled"
-msgstr ""
+msgstr "\tkolejkowanie jest włączone"
 
 #: systemv/lpstat.c:1821 systemv/lpstat.c:1941
 msgid "\treason unknown"
-msgstr ""
+msgstr "\tnieznany powód"
 
 #: systemv/cupstestppd.c:430
 msgid ""
@@ -1266,32 +1266,32 @@ msgstr ""
 #: systemv/lpstat.c:810
 #, c-format
 msgid "%s accepting requests since %s"
-msgstr ""
+msgstr "%s akcetpuje zapytania od %s"
 
 #: scheduler/ipp.c:10519
 #, c-format
 msgid "%s cannot be changed."
-msgstr ""
+msgstr "%s nie możę być zmieniona."
 
 #: berkeley/lpc.c:176
 #, c-format
 msgid "%s is not implemented by the CUPS version of lpc."
-msgstr ""
+msgstr "%s nie jest zaimplementowne w wersji lpc CUPSa."
 
 #: berkeley/lpq.c:620
 #, c-format
 msgid "%s is not ready"
-msgstr ""
+msgstr "%s nie jest gotowa"
 
 #: berkeley/lpq.c:613
 #, c-format
 msgid "%s is ready"
-msgstr ""
+msgstr "%s jest gotowa"
 
 #: berkeley/lpq.c:616
 #, c-format
 msgid "%s is ready and printing"
-msgstr ""
+msgstr "%s jest gotowa i drukuje"
 
 #: filter/rastertoepson.c:996 filter/rastertohp.c:666
 #: filter/rastertolabel.c:1119
@@ -1302,27 +1302,27 @@ msgstr ""
 #: systemv/lpstat.c:814
 #, c-format
 msgid "%s not accepting requests since %s -"
-msgstr ""
+msgstr "%s nie akceptuje zapytań od %s -"
 
 #: scheduler/ipp.c:610
 #, c-format
 msgid "%s not supported."
-msgstr ""
+msgstr "%s nie wspierany."
 
 #: systemv/lpstat.c:825
 #, c-format
 msgid "%s/%s accepting requests since %s"
-msgstr ""
+msgstr "%s/%s akceptuje zapytania od %s"
 
 #: systemv/lpstat.c:830
 #, c-format
 msgid "%s/%s not accepting requests since %s -"
-msgstr ""
+msgstr "%s/%s nie akceptuje zapytań od %s -"
 
 #: berkeley/lpq.c:528
 #, c-format
 msgid "%s: %-33.33s [job %d localhost]"
-msgstr ""
+msgstr "%s: %-33.33s [zadanie %d localhost]"
 
 #. TRANSLATORS: Message is "subject: error"
 #: cups/langprintf.c:70 scheduler/cupsfilter.c:764 systemv/lpadmin.c:784
@@ -1336,32 +1336,32 @@ msgstr ""
 #: systemv/cancel.c:313 systemv/cancel.c:376
 #, c-format
 msgid "%s: %s failed: %s"
-msgstr ""
+msgstr "%s: %s nieudany: %s"
 
 #: tools/ippfind.c:662 tools/ipptool.c:464
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
-msgstr ""
+msgstr "%s: Zła wersja %s dla \"-V\"."
 
 #: systemv/cupsaccept.c:68
 #, c-format
 msgid "%s: Don't know what to do."
-msgstr ""
+msgstr "%s: Nie wiem co robić."
 
 #: berkeley/lpr.c:356 systemv/lp.c:588
 #, c-format
 msgid "%s: Error - %s"
-msgstr ""
+msgstr "%s: Błąd - %s"
 
 #: berkeley/lpq.c:230
 #, c-format
 msgid "%s: Error - %s environment variable names non-existent destination \"%s\"."
-msgstr ""
+msgstr "%s: Błąd - zmienna środowiskowa %s zawiera nieistiejącą destynację \"%s\"."
 
 #: berkeley/lpr.c:237 systemv/lp.c:164
 #, c-format
 msgid "%s: Error - The printer or class does not exist."
-msgstr ""
+msgstr "%s: Błąd - Drukarka lub klasa nie istnieje."
 
 #: berkeley/lpq.c:135 berkeley/lpq.c:208 berkeley/lpr.c:231 berkeley/lpr.c:347
 #: systemv/lp.c:157 systemv/lp.c:579 systemv/lp.c:680 systemv/lp.c:730
@@ -1372,577 +1372,585 @@ msgstr ""
 #: systemv/lpstat.c:1622
 #, c-format
 msgid "%s: Error - add '/version=1.1' to server name."
-msgstr ""
+msgstr "%s: Błąd - dodaj '/version=1.1' do nazwy serwera."
 
 #: systemv/lp.c:240
 #, c-format
 msgid "%s: Error - bad job ID."
-msgstr ""
+msgstr "%s: Błąd- zły identyfikator zadania."
 
 #: systemv/lp.c:229
 #, c-format
 msgid "%s: Error - cannot print files and alter jobs simultaneously."
-msgstr ""
+msgstr "%s: Błąd - nie można drukować plików i zmieniać zadań jednocześnie."
 
 #: systemv/lp.c:516
 #, c-format
 msgid "%s: Error - cannot print from stdin if files or a job ID are provided."
-msgstr ""
+msgstr "%s: Błąd - nie można drukować ze stdin jeśli pliki lub identyfikator zadania są podane."
 
 #: berkeley/lpr.c:262 systemv/lp.c:282
 #, c-format
 msgid "%s: Error - copies must be 1 or more."
-msgstr ""
+msgstr "%s: Błąd - liczba kopii musi być 1 lub większa"
 
 #: scheduler/cupsfilter.c:368
 #, c-format
 msgid "%s: Error - expected \"username\" after \"-U\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagane \"username\" po opcji \"-U\"."
 
 #: scheduler/cupsfilter.c:337
 #, c-format
 msgid "%s: Error - expected PPD file after \"-%c\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany plik PPD po opcji \"-%c\"."
 
 #: systemv/lp.c:468
 #, c-format
 msgid "%s: Error - expected character set after \"-S\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany zestaw znaków po opcji \"-S\"."
 
 #: systemv/lp.c:487
 #, c-format
 msgid "%s: Error - expected content type after \"-T\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany typ treści po opcji \"-T\"."
 
 #: berkeley/lpr.c:253
 #, c-format
 msgid "%s: Error - expected copies after \"-#\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana liczba kopii po opcji \"-#\"."
 
 #: systemv/lp.c:273
 #, c-format
 msgid "%s: Error - expected copies after \"-n\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagane liczba kopii po opcji \"-n\"."
 
 #: scheduler/cupsfilter.c:287
 #, c-format
 msgid "%s: Error - expected destination MIME type after \"-m\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany typ MIME destynacji po opcji \"-m\"."
 
 #: berkeley/lpr.c:209 berkeley/lprm.c:84
 #, c-format
 msgid "%s: Error - expected destination after \"-P\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana destynacja po opcji \"-P\"."
 
 #: systemv/lp.c:133
 #, c-format
 msgid "%s: Error - expected destination after \"-d\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana destynacja po opcji \"-d\"."
 
 #: scheduler/cupsfilter.c:204
 #, c-format
 msgid "%s: Error - expected filename after \"-c\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa pliku po opcji \"-c\"."
 
 #: systemv/lp.c:180
 #, c-format
 msgid "%s: Error - expected form after \"-f\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana forma po opcji \"-f\"."
 
 #: systemv/lp.c:404
 #, c-format
 msgid "%s: Error - expected hold name after \"-H\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany tryb wstrzymania po opcji \"-H\"."
 
 #: berkeley/lpr.c:106
 #, c-format
 msgid "%s: Error - expected hostname after \"-H\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa komputera po opcji \"-H\"."
 
 #: berkeley/lpq.c:169 berkeley/lprm.c:134 systemv/cancel.c:127
 #: systemv/cupsaccept.c:130 systemv/lp.c:200 systemv/lpstat.c:299
 #, c-format
 msgid "%s: Error - expected hostname after \"-h\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa komputera po opcji \"-h\"."
 
 #: scheduler/cupsfilter.c:238
 #, c-format
 msgid "%s: Error - expected input file after \"-f\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa pliku wejściowego po opcji \"-f\"."
 
 #: scheduler/cupsfilter.c:270
 #, c-format
 msgid "%s: Error - expected job-id after \"-j\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany identyfikator zadania po opcji \"-j\"."
 
 #: systemv/lp.c:384
 #, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana lista trybów po opcji \"-y\"."
 
 #: berkeley/lpr.c:282
 #, c-format
 msgid "%s: Error - expected name after \"-%c\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa po opcji \"-%c\"."
 
 #: scheduler/cupsfilter.c:188
 #, c-format
 msgid "%s: Error - expected name=value after \"-a\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa=wartość po opcji \"-a\"."
 
 #: scheduler/cupsfilter.c:323
 #, c-format
 msgid "%s: Error - expected name=value after \"-o\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa=wartość po opcji \"-o\"."
 
 #: scheduler/cupsfilter.c:300
 #, c-format
 msgid "%s: Error - expected number of copies after \"-n\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana liczba kopii po opcji \"-n\"."
 
 #: berkeley/lpr.c:158 systemv/lp.c:301
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana opcja=wartość po opcji \"-o\"."
 
 #: systemv/lp.c:447
 #, c-format
 msgid "%s: Error - expected page list after \"-P\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana lista stron po opcji \"-P\"."
 
 #: scheduler/cupsfilter.c:217
 #, c-format
 msgid "%s: Error - expected printer name after \"-d\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa drukarki po opcji \"-d\"."
 
 #: systemv/lp.c:322
 #, c-format
 msgid "%s: Error - expected priority after \"-%c\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany priorytet po opcji \"-%c\"."
 
 #: systemv/cupsaccept.c:149
 #, c-format
 msgid "%s: Error - expected reason text after \"-r\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany tekst powodu po opcji \"-r\"."
 
 #: scheduler/cupsfilter.c:254
 #, c-format
 msgid "%s: Error - expected source MIME type after \"-i\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany typ MIME źródła po opcji \"-i\"."
 
 #: scheduler/cupsfilter.c:351
 #, c-format
 msgid "%s: Error - expected title after \"-%c\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany tytuł po opcji \"-%c\"."
 
 #: systemv/lp.c:365
 #, c-format
 msgid "%s: Error - expected title after \"-t\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagany tytuł po opcji \"-t\"."
 
 #: berkeley/lpq.c:98 berkeley/lpr.c:86 berkeley/lprm.c:114 systemv/cancel.c:97
 #: systemv/cupsaccept.c:107 systemv/lp.c:110 systemv/lpadmin.c:435
 #: systemv/lpstat.c:124
 #, c-format
 msgid "%s: Error - expected username after \"-U\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa użytkownika po opcji \"-U\"."
 
 #: systemv/cancel.c:149
 #, c-format
 msgid "%s: Error - expected username after \"-u\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagana nazwa użytkownika po opcji \"-u\"."
 
 #: berkeley/lpr.c:131
 #, c-format
 msgid "%s: Error - expected value after \"-%c\" option."
-msgstr ""
+msgstr "%s: Błąð - wymagana wartość po opcji \"-%c\"."
 
 #: systemv/lpstat.c:144 systemv/lpstat.c:153
 #, c-format
 msgid "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" option."
-msgstr ""
+msgstr "%s: Błąd - wymagane \"completed\", \"not-completed\" lub \"all\" po opcji \"-W\"."
 
 #: berkeley/lpq.c:235
 #, c-format
 msgid "%s: Error - no default destination available."
-msgstr ""
+msgstr "%s: Błąd - brak domyślnej destynacji."
 
 #: systemv/lp.c:342
 #, c-format
 msgid "%s: Error - priority must be between 1 and 100."
-msgstr ""
+msgstr "%s: Błąd - priorytet musi zawierać się pomiędzy 1 a 100."
 
 #: berkeley/lpr.c:358 systemv/lp.c:590
 #, c-format
 msgid "%s: Error - scheduler not responding."
-msgstr ""
+msgstr "%s: Błąd - planista wydruku nie dpowiada."
 
 #: berkeley/lpr.c:323 systemv/lp.c:548
 #, c-format
 msgid "%s: Error - too many files - \"%s\"."
-msgstr ""
+msgstr "%s: Błąd - za duzo plików - \"%s\"."
 
 #: berkeley/lpr.c:305 systemv/lp.c:531
 #, c-format
 msgid "%s: Error - unable to access \"%s\" - %s"
-msgstr ""
+msgstr "%s: Błąd - nie mogę uzyskać dostępu do \"%s\" - %s"
 
 #: berkeley/lpr.c:400 systemv/lp.c:620
 #, c-format
 msgid "%s: Error - unable to queue from stdin - %s."
-msgstr ""
+msgstr "%s: Błąd - nie mogę kolejkować z stdin - %s."
 
 #: berkeley/lprm.c:96 berkeley/lprm.c:183 systemv/cancel.c:224
 #, c-format
 msgid "%s: Error - unknown destination \"%s\"."
-msgstr ""
+msgstr "%s: Błąd - nieznana destynacja \"%s\"."
 
 #: berkeley/lpq.c:137
 #, c-format
 msgid "%s: Error - unknown destination \"%s/%s\"."
-msgstr ""
+msgstr "%s: Błąd - nieznana destynacja \"%s/%s\"."
 
 #: berkeley/lpr.c:291 berkeley/lprm.c:149 systemv/cancel.c:165
 #: systemv/cupsaccept.c:158 systemv/lp.c:506 systemv/lpstat.c:485
 #, c-format
 msgid "%s: Error - unknown option \"%c\"."
-msgstr ""
+msgstr "%s: Błąd - nieznana opcja \"%c\"."
 
 #: systemv/lp.c:498
 #, c-format
 msgid "%s: Error - unknown option \"%s\"."
-msgstr ""
+msgstr "%s: Błąd - nieznana opcja \"%s\"."
 
 #: scheduler/cupsfilter.c:374
 #, c-format
 msgid "%s: Error - unknown option \"-%c\"."
-msgstr ""
+msgstr "%s: Błąd- nieznana opcja \"-%c\"."
 
 #: systemv/lp.c:220
 #, c-format
 msgid "%s: Expected job ID after \"-i\" option."
-msgstr ""
+msgstr "%s: Wymagany identyfikator zadania po opcji \"-i\"."
 
 #: systemv/lpstat.c:545 systemv/lpstat.c:585
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
-msgstr ""
+msgstr "%s: Nieprawidłowa nazwa destynacji w liście \"%s\"."
 
 #: scheduler/cupsfilter.c:617
 #, c-format
 msgid "%s: Invalid filter string \"%s\"."
-msgstr ""
+msgstr "%s: Nieprawidłowy ciąg znaków filtra \"%s\"."
 
 #: tools/ipptool.c:391
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
-msgstr ""
+msgstr "%s: Brak nazwy pliku dla \"-P\"."
 
 #: tools/ippfind.c:634 tools/ipptool.c:426
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
-msgstr ""
+msgstr "%s: Brak limitu czasu dla \"-T\"."
 
 #: tools/ippfind.c:647 tools/ipptool.c:438
 #, c-format
 msgid "%s: Missing version for \"-V\"."
-msgstr ""
+msgstr "%s: Brak wersji dla \"-V\"."
 
 #: systemv/lp.c:424
 #, c-format
 msgid "%s: Need job ID (\"-i jobid\") before \"-H restart\"."
-msgstr ""
+msgstr "%s: Wymagany identyfikator zadania (\"-i jobid\") przed \"-H restart\"."
 
 #: scheduler/cupsfilter.c:489
 #, c-format
 msgid "%s: No filter to convert from %s/%s to %s/%s."
-msgstr ""
+msgstr "%s: Brak filtra aby przekonwertować %s/%s do %s/%s."
 
 #: systemv/cupsaccept.c:192
 #, c-format
 msgid "%s: Operation failed: %s"
-msgstr ""
+msgstr "%s: Operacja nie powiodła się: %s"
 
 #: systemv/lpstat.c:724 systemv/lpstat.c:909 systemv/lpstat.c:1173
 #: systemv/lpstat.c:1371 systemv/lpstat.c:1614
 #, c-format
 msgid "%s: Scheduler is not running."
-msgstr ""
+msgstr "%s: Planista wydruku jest wyłączony."
 
 #: berkeley/lpq.c:289 scheduler/cupsfilter.c:1336 systemv/cancel.c:247
 #, c-format
 msgid "%s: Unable to connect to server."
-msgstr ""
+msgstr "%s: Nie można połączyć się z serwerem."
 
 #: systemv/cancel.c:336
 #, c-format
 msgid "%s: Unable to contact server."
-msgstr ""
+msgstr "%s: Nie można skontaktować się z serwerem."
 
 #: scheduler/cupsfilter.c:454
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
-msgstr ""
+msgstr "%s: Nie można wykryć typu MIME \"%s\"."
 
 #: tools/ipptool.c:336 tools/ipptool.c:400 tools/ipptool.c:703
 #, c-format
 msgid "%s: Unable to open \"%s\": %s"
-msgstr ""
+msgstr "%s: Nie można otworzyć \"%s\": %s"
 
 #: ppdc/ppdmerge.cxx:85
 #, c-format
 msgid "%s: Unable to open %s: %s"
-msgstr ""
+msgstr "%s: Nie można otworzyć %s: %s"
 
 #: scheduler/cupsfilter.c:712 ppdc/ppdmerge.cxx:101
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
-msgstr ""
+msgstr "%s: Nie można otworzyć pliku PPD: %s w linii %d."
 
 #: scheduler/cupsfilter.c:423
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
-msgstr ""
+msgstr "%s: Nie można czytać bazy MIME z \"%s\" i \"%s\"."
 
 #: systemv/lpinfo.c:235
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
-msgstr ""
+msgstr "%s: Nieznany argument \"%s\"."
 
 #: berkeley/lpq.c:139 systemv/lpstat.c:606
 #, c-format
 msgid "%s: Unknown destination \"%s\"."
-msgstr ""
+msgstr "%s: Nieznana destynacja \"%s\"."
 
 #: scheduler/cupsfilter.c:466
 #, c-format
 msgid "%s: Unknown destination MIME type %s/%s."
-msgstr ""
+msgstr "%s: Nieznany typ MIME destynacji %s/%s."
 
 #: scheduler/cupsfilter.c:1534 systemv/lpinfo.c:228 systemv/lpmove.c:90
 #, c-format
 msgid "%s: Unknown option \"%c\"."
-msgstr ""
+msgstr "%s: Nieznana opcja \"%c\"."
 
 #: tools/ippeveprinter.c:380 tools/ippeveprinter.c:566 tools/ippfind.c:542
 #, c-format
 msgid "%s: Unknown option \"%s\"."
-msgstr ""
+msgstr "%s: Nieznana opcja \"%s\"."
 
 #: tools/ippeveprinter.c:555 tools/ippfind.c:813 tools/ipptool.c:646
 #, c-format
 msgid "%s: Unknown option \"-%c\"."
-msgstr ""
+msgstr "%s: Nieznana opcja \"-%c\"."
 
 #: scheduler/cupsfilter.c:446
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
-msgstr ""
+msgstr "%s: Nieznany typ MIME źródłą %s/%s."
 
 #: berkeley/lpr.c:144
 #, c-format
 msgid "%s: Warning - \"%c\" format modifier not supported - output may not be correct."
-msgstr ""
+msgstr "%s: Ostrzeżenie - modyfikator formatu \"%c\" nie jest obsługiwany - rezultat może być nieprawidłowy."
 
 #: systemv/lp.c:473
 #, c-format
 msgid "%s: Warning - character set option ignored."
-msgstr ""
+msgstr "%s: Ostrzeżenie - opcja zestawu znaków zignorowana."
 
 #: systemv/lp.c:492
 #, c-format
 msgid "%s: Warning - content type option ignored."
-msgstr ""
+msgstr "%s: Osyrzeżenie - opcja typu treści zignorowana."
 
 #: systemv/lp.c:185
 #, c-format
 msgid "%s: Warning - form option ignored."
-msgstr ""
+msgstr "%s: Ostrzeżenie - opcja formy zignorowana."
 
 #: systemv/lp.c:389
 #, c-format
 msgid "%s: Warning - mode option ignored."
-msgstr ""
+msgstr "%s: Ostrzeżenie - opcja trybu zignorowana."
 
 #: tools/ippfind.c:2037
 msgid "( expressions )         Group expressions"
-msgstr ""
+msgstr "( wyrażenia )           Wyrażenia grup"
 
 #: berkeley/lprm.c:237
 msgid "-                       Cancel all jobs"
-msgstr ""
+msgstr "-                       Anuluj wszystkie zadania"
 
 #: berkeley/lpr.c:434
 msgid "-# num-copies           Specify the number of copies to print"
-msgstr ""
+msgstr "-# num-copies           Liczba kopii do wydrukowania"
 
 #: systemv/cupsctl.c:232
 msgid "--[no-]debug-logging    Turn debug logging on/off"
-msgstr ""
+msgstr "--[no-]debug-logging    Włącz/Wyłącz zapisywanie danych debugowania"
 
 #: systemv/cupsctl.c:233
 msgid "--[no-]remote-admin     Turn remote administration on/off"
-msgstr ""
+msgstr "--[no-]remote-admin     Włącz/Wyłącz zdalną administrację"
 
 #: systemv/cupsctl.c:234
 msgid "--[no-]remote-any       Allow/prevent access from the Internet"
-msgstr ""
+msgstr "--[no-]remote-any       Zezwól/Odmów dostępu z sieci Internet"
 
 #: systemv/cupsctl.c:235
 msgid "--[no-]share-printers   Turn printer sharing on/off"
-msgstr ""
+msgstr "--[no-]share-printers   Włącz/Wyłącz udostępnianie drukarki"
 
 #: systemv/cupsctl.c:236
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
-msgstr ""
+msgstr "--[no-]user-cancel-any  Zezwól/Odmów użytkownikom na znulowanie każdego zadania"
 
 #: systemv/lpinfo.c:500
 msgid "--device-id device-id   Show models matching the given IEEE 1284 device ID"
-msgstr ""
+msgstr "--device-id device-id   Wyświetl modele pasujące do podanego identyfikatora IEEE 1284"
 
 #: tools/ippfind.c:2019
 msgid "--domain regex          Match domain to regular expression"
-msgstr ""
+msgstr "--domain regex          Znajdź domenę zgodną z podanym wyrażeniem regularnym"
 
 #: systemv/lpinfo.c:501
 msgid ""
 "--exclude-schemes scheme-list\n"
 "                        Exclude the specified URI schemes"
 msgstr ""
+"--exclude-schemes scheme-list\n"
+"                        Pomiń wskazane schematy URI"
 
 #: tools/ippfind.c:2020
 msgid ""
 "--exec utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
+"--exec utility [argument ...] ;\n"
+"                        Uruchom program jeśli prawdziwe"
 
 #: tools/ippfind.c:2040
 msgid "--false                 Always false"
-msgstr ""
+msgstr "--false                 Zawsze nieprawda"
 
 #: tools/ippeveprinter.c:6868
 msgid "--help                  Show program help"
-msgstr ""
+msgstr "--help                  Pokaż pomoc programu"
 
 #: systemv/cupsaccept.c:246
 msgid "--hold                  Hold new jobs"
-msgstr ""
+msgstr "--hold                  Wstrzymaj nowe zadania"
 
 #: tools/ippfind.c:2022
 msgid "--host regex            Match hostname to regular expression"
-msgstr ""
+msgstr "--host regex            Znajdź nazwę komputera zgodną z wyrażeniem regularnym"
 
 #: systemv/lpinfo.c:503
 msgid ""
 "--include-schemes scheme-list\n"
 "                        Include only the specified URI schemes"
 msgstr ""
+"--include-schemes scheme-list\n"
+"                        Uwzględnij jedynie podane schematy URI"
 
 #: tools/ipptool.c:6448
 msgid "--ippserver filename    Produce ippserver attribute file"
-msgstr ""
+msgstr "--ippserver filename    Stwórz plik z atrybutami serwera IPP"
 
 #: systemv/lpinfo.c:505
 msgid "--language locale       Show models matching the given locale"
-msgstr ""
+msgstr "--language locale       Wyświetl modele zgodne z podaną lokalizacją"
 
 #: tools/ippfind.c:2023
 msgid "--literal-name name     Match service name to literal name value"
-msgstr ""
+msgstr "--literal-name name     Znajdź nazwę zgodną z podaną"
 
 #: tools/ippfind.c:2024
 msgid "--local                 True if service is local"
-msgstr ""
+msgstr "--local                 Prawda jeśli usługa jest lokalna"
 
 #: tools/ippfind.c:2025
 msgid "--ls                    List attributes"
-msgstr ""
+msgstr "--ls                    Wyświetl atrybuty"
 
 #: systemv/lpinfo.c:506
 msgid "--make-and-model name   Show models matching the given make and model name"
-msgstr ""
+msgstr "--make-and-model name   Wyświetl urządzenia pasujące do podanej nazwy marki lub modelu"
 
 #: tools/ippfind.c:2026
 msgid "--name regex            Match service name to regular expression"
-msgstr ""
+msgstr "--name regex            Znajdź nazwę usługi pasującą do podanego wyrażenia regularnego"
 
 #: tools/ippeveprinter.c:6869
 msgid "--no-web-forms          Disable web forms for media and supplies"
-msgstr ""
+msgstr "--no-web-forms          Wyłącz formularze web dla mediów i materiałów eksploatacyjnych"
 
 #: tools/ippfind.c:2039
 msgid "--not expression        Unary NOT of expression"
-msgstr ""
+msgstr "--not expression        Jednoargumentowy NOT wyrażenia"
 
 #: tools/ippeveprinter.c:6870
 msgid "--pam-service service   Use the named PAM service"
-msgstr ""
+msgstr "--pam-service service   Użyj podanej usługi PAM"
 
 #: tools/ippfind.c:2027
 msgid "--path regex            Match resource path to regular expression"
-msgstr ""
+msgstr "--path regex            Znajdź ścieżkę zasobu pasująca do podanego wyrażenia regularnego"
 
 #: tools/ippfind.c:2028
 msgid "--port number[-number]  Match port to number or range"
-msgstr ""
+msgstr "--port number[-number]  Dopasuj numer portu do liczby lub zakresu"
 
 #: tools/ippfind.c:2029
 msgid "--print                 Print URI if true"
-msgstr ""
+msgstr "--print                 Wyświetl URI jeśli prawda"
 
 #: tools/ippfind.c:2030
 msgid "--print-name            Print service name if true"
-msgstr ""
+msgstr "--print-name            Wyświetl nazwę usługi jeśli prawda"
 
 #: systemv/lpinfo.c:507
 msgid "--product name          Show models matching the given PostScript product"
-msgstr ""
+msgstr "--product name          Wyświetl modele pasujące do podanego produktu PostScript"
 
 #: tools/ippfind.c:2031
 msgid "--quiet                 Quietly report match via exit code"
-msgstr ""
+msgstr "--quiet                 Raportuj dopasowanie po cichu używając kodu wyjścia"
 
 #: systemv/cupsaccept.c:248
 msgid "--release               Release previously held jobs"
-msgstr ""
+msgstr "--release               Zwolnij wstrzymane uprzednio zadania"
 
 #: tools/ippfind.c:2032
 msgid "--remote                True if service is remote"
-msgstr ""
+msgstr "--remote                Prawda jeśli usługa jest zdalna"
 
 #: tools/ipptool.c:6449
 msgid ""
 "--stop-after-include-error\n"
 "                        Stop tests after a failed INCLUDE"
 msgstr ""
+"--stop-after-include-error\n"
+"                        Zatrzymaj testy po nieudanym INCLUDE"
 
 #: systemv/lpinfo.c:508
 msgid "--timeout seconds       Specify the maximum number of seconds to discover devices"
-msgstr ""
+msgstr "--timeout seconds       Ustaw maksymalny czas w sekundach na wykrycie urządzeń"
 
 #: tools/ippfind.c:2041
 msgid "--true                  Always true"
-msgstr ""
+msgstr "--true                  Zawsze prawda"
 
 #: tools/ippfind.c:2033
 msgid "--txt key               True if the TXT record contains the key"
-msgstr ""
+msgstr "--txt key               Prawda jeśli rekord TXT zawiera klucz"
 
 #: tools/ippfind.c:2034
 msgid "--txt-* regex           Match TXT record key to regular expression"
-msgstr ""
+msgstr "--txt-* regex           Znajdź klucz rekordu TXT pasujący do podanego wyrażenia regularnego"
 
 #: tools/ippfind.c:2035
 msgid "--uri regex             Match URI to regular expression"
-msgstr ""
+msgstr "--uri regex             Znajdź URI pasujące do podanego wyrażenia regularnego"
 
 #: tools/ippeveprinter.c:6871 tools/ippfind.c:2003
 msgid "--version               Show program version"
-msgstr ""
+msgstr "--version               Wyświetl wersję programu"
 
 #: tools/ipptool.c:6451
 msgid "--version               Show version"
-msgstr ""
+msgstr "--version               Wyświetl wersję"
 
 #: ppdc/sample.c:315
 msgid "-1"
@@ -1997,7 +2005,7 @@ msgid "-2"
 msgstr ""
 
 #: tools/ippeveprinter.c:6872
-msgid "-2                      Set 2-sided printing support (default=1-sided)"
+msgid "-2                      Ustaw wsparcie dla 2-stronnego drukowania (domyślnie=1-stronne)"
 msgstr ""
 
 #: ppdc/sample.c:414
@@ -2026,7 +2034,7 @@ msgstr ""
 
 #: tools/ippfind.c:1999 tools/ipptool.c:6452
 msgid "-4                      Connect using IPv4"
-msgstr ""
+msgstr "-4                      Połącz poprzez IPv4"
 
 #: ppdc/sample.c:410
 msgid "-40"
@@ -2054,7 +2062,7 @@ msgstr ""
 
 #: tools/ippfind.c:2000 tools/ipptool.c:6453
 msgid "-6                      Connect using IPv6"
-msgstr ""
+msgstr "-6                      Połącz poprzez IPv6"
 
 #: ppdc/sample.c:406
 msgid "-60"
@@ -2102,80 +2110,82 @@ msgstr ""
 
 #: tools/ippeveprinter.c:6873
 msgid "-A                      Enable authentication"
-msgstr ""
+msgstr "-A                      Włącz autoryzację"
 
 #: tools/ipptool.c:6454
 msgid "-C                      Send requests using chunking (default)"
-msgstr ""
+msgstr "-C                      Wysyłaj zapytania używając kwałkowania (domyślne)"
 
 #: systemv/lpadmin.c:1519
 msgid "-D description          Specify the textual description of the printer"
-msgstr ""
+msgstr "-D description          Ustaw tekstowy opis drukarki"
 
 #: tools/ippeveprinter.c:6874
 msgid "-D device-uri           Set the device URI for the printer"
-msgstr ""
+msgstr "-D device-uri           Ustaw URI urządzenia dla drukarki"
 
 #: systemv/lpadmin.c:1521
 msgid "-E                      Enable and accept jobs on the printer (after -p)"
-msgstr ""
+msgstr "-E                      Włącz i akceptuj zadania na drukarce (po -p)"
 
 #: berkeley/lpq.c:641 berkeley/lpr.c:435 berkeley/lprm.c:238
 #: systemv/cancel.c:404 systemv/cupsaccept.c:241 systemv/cupsctl.c:229
 #: systemv/lp.c:756 systemv/lpadmin.c:1520 systemv/lpinfo.c:495
 #: systemv/lpmove.c:213 systemv/lpoptions.c:540 systemv/lpstat.c:2075
 msgid "-E                      Encrypt the connection to the server"
-msgstr ""
+msgstr "-E                      Szyfruj połączenie do serwera"
 
 #: tools/ipptool.c:6455
 msgid "-E                      Test with encryption using HTTP Upgrade to TLS"
-msgstr ""
+msgstr "-E                      Testuj z szyfrowaniem przy pomocy HTTP Upgrade do TLS"
 
 #: scheduler/main.c:2084
 msgid "-F                      Run in the foreground but detach from console."
-msgstr ""
+msgstr "-F                      Uruchom w pierwszym planie ale odłącz się od konsoli"
 
 #: tools/ippeveprinter.c:6875
 msgid "-F output-type/subtype  Set the output format for the printer"
-msgstr ""
+msgstr "-F output-type/subtype  Ustaw format wyjściowy dla drukarki"
 
 #: systemv/lpstat.c:2080
 msgid "-H                      Show the default server and port"
-msgstr ""
+msgstr "-H                      Wyświetl domyślny serwer i port"
 
 #: systemv/lp.c:758
 msgid "-H HH:MM                Hold the job until the specified UTC time"
-msgstr ""
+msgstr "-H HH:MM                Wstrzymaj zadanie do podanego czasu UTC"
 
 #: systemv/lp.c:759
 msgid "-H hold                 Hold the job until released/resumed"
-msgstr ""
+msgstr "-H hold                 Wstrzymaj zadanie dopóki się zwolni/wznowi"
 
 #: systemv/lp.c:760
 msgid "-H immediate            Print the job as soon as possible"
-msgstr ""
+msgstr "-H immediate            Wydrukuj zadanie jak szybko tylko się da"
 
 #: systemv/lp.c:761
 msgid "-H restart              Reprint the job"
-msgstr ""
+msgstr "-H restart              Wydrukuj ponownie zadanie"
 
 #: systemv/lp.c:762
 msgid "-H resume               Resume a held job"
-msgstr ""
+msgstr "-H resume               Wznów wstrzymane zadanie"
 
 #: berkeley/lpr.c:436
 msgid "-H server[:port]        Connect to the named server and port"
-msgstr ""
+msgstr "-H server[:port]        Połącz z podnym serwerem i portem"
 
 #: tools/ipptool.c:6456
 msgid "-I                      Ignore errors"
-msgstr ""
+msgstr "-I                      Ignoruj błędy"
 
 #: systemv/cupstestppd.c:3857
 msgid ""
 "-I {filename,filters,none,profiles}\n"
 "                          Ignore specific warnings"
 msgstr ""
+"-I {filename,filters,none,profiles}\n"
+"                          Ignoruj podane typy ostrzeżeń"
 
 #: tools/ippeveprinter.c:6876
 msgid "-K keypath              Set location of server X.509 certificates and keys."
@@ -3417,17 +3427,17 @@ msgstr ""
 
 #: berkeley/lpc.c:200
 msgid "?Invalid help command unknown."
-msgstr ""
+msgstr "?Nieprawidłowa komenda pomocy."
 
 #: scheduler/ipp.c:2283
 #, c-format
 msgid "A class named \"%s\" already exists."
-msgstr ""
+msgstr "Klasa o nazwie \"%s\" już istnieje."
 
 #: scheduler/ipp.c:892
 #, c-format
 msgid "A printer named \"%s\" already exists."
-msgstr ""
+msgstr "Drukarka o nazwie \"%s\" już istnieje."
 
 #: ppdc/sample.c:15
 msgid "A0"
@@ -3571,7 +3581,7 @@ msgstr "Akceptowanie zadań"
 
 #: cups/http-support.c:1339
 msgid "Accepted"
-msgstr ""
+msgstr "Zaakceptowano"
 
 #: cgi-bin/admin.c:336
 msgid "Add Class"
@@ -3583,7 +3593,7 @@ msgstr "Dodawanie drukarki"
 
 #: ppdc/sample.c:163
 msgid "Address"
-msgstr ""
+msgstr "Adres"
 
 #: cgi-bin/admin.c:172 cgi-bin/admin.c:246 cgi-bin/admin.c:2255
 msgid "Administration"
@@ -3591,7 +3601,7 @@ msgstr "Administracja"
 
 #: ppdc/sample.c:434
 msgid "Always"
-msgstr ""
+msgstr "Zawsze"
 
 #: backend/socket.c:105
 msgid "AppSocket/HP JetDirect"
@@ -3901,7 +3911,7 @@ msgstr ""
 
 #: cups/http-support.c:1484
 msgid "Bad/empty URI"
-msgstr ""
+msgstr "Zły/pusty URI"
 
 #: cgi-bin/admin.c:2800 cgi-bin/admin.c:3049
 msgid "Banners"
@@ -3918,11 +3928,11 @@ msgstr ""
 #: backend/usb-darwin.c:2032
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
-msgstr ""
+msgstr "Opcja waiteof wymaga zmiennej Boolean \"%s\"."
 
 #: filter/pstops.c:2018
 msgid "Buffer overflow detected, aborting."
-msgstr ""
+msgstr "Wykryto przepełnienie bufora, przerywam."
 
 #: ppdc/sample.c:287
 msgid "CMYK"
@@ -3938,7 +3948,7 @@ msgstr "Anulowanie zadań"
 
 #: backend/ipp.c:2351
 msgid "Canceling print job."
-msgstr ""
+msgstr "Anulowanie zadania wydruku."
 
 #: scheduler/ipp.c:965 scheduler/ipp.c:2524
 msgid "Cannot change printer-is-shared for remote queues."
@@ -3950,7 +3960,7 @@ msgstr ""
 
 #: ppdc/sample.c:281
 msgid "Cassette"
-msgstr ""
+msgstr "Kaseta"
 
 #: cgi-bin/admin.c:1363 cgi-bin/admin.c:1493 cgi-bin/admin.c:1506
 #: cgi-bin/admin.c:1519
@@ -3960,7 +3970,7 @@ msgstr "Zmiana ustawień"
 #: scheduler/ipp.c:2061 scheduler/ipp.c:5968
 #, c-format
 msgid "Character set \"%s\" not supported."
-msgstr ""
+msgstr "Zestaw znaków \"%s\" nie jest wspierany."
 
 #: cgi-bin/classes.c:181 cgi-bin/classes.c:307
 msgid "Classes"
@@ -3976,7 +3986,7 @@ msgstr ""
 
 #: cups/ppd-cache.c:4200 ppdc/sample.c:286
 msgid "Color"
-msgstr ""
+msgstr "Kolor"
 
 #: cups/ppd-cache.c:4161 ppdc/sample.c:284
 msgid "Color Mode"
@@ -3988,6 +3998,9 @@ msgid ""
 "\n"
 "exit    help    quit    status  ?"
 msgstr ""
+"Komendy mogą być skrócane.  Lista komend:\n"
+"\n"
+"exit    help    quit    status  ?"
 
 #: cups/snmp.c:933
 msgid "Community name uses indefinite length"
@@ -3995,39 +4008,39 @@ msgstr ""
 
 #: backend/ipp.c:855 backend/lpd.c:924 backend/socket.c:367
 msgid "Connected to printer."
-msgstr ""
+msgstr "Połączony z drukarką."
 
 #: backend/ipp.c:691 backend/lpd.c:745 backend/socket.c:287
 msgid "Connecting to printer."
-msgstr ""
+msgstr "Łączenie z drukarką."
 
 #: cups/http-support.c:1327
 msgid "Continue"
-msgstr ""
+msgstr "Kontynuuj"
 
 #: ppdc/sample.c:370
 msgid "Continuous"
-msgstr ""
+msgstr "Ciągły"
 
 #: backend/lpd.c:1073 backend/lpd.c:1205
 msgid "Control file sent successfully."
-msgstr ""
+msgstr "Plik kontrolny wysłany poprawnie."
 
 #: backend/ipp.c:1387 backend/lpd.c:438
 msgid "Copying print data."
-msgstr ""
+msgstr "Kopiowanie danych wydruku."
 
 #: cups/http-support.c:1336
 msgid "Created"
-msgstr ""
+msgstr "Utworzony"
 
 #: cups/tls-gnutls.c:876 cups/tls-openssl.c:849
 msgid "Credentials do not validate against site CA certificate."
-msgstr ""
+msgstr "Poświadczenia niezgodne z certyfikatem strony CA."
 
 #: cups/tls-gnutls.c:894 cups/tls-openssl.c:867
 msgid "Credentials have expired."
-msgstr ""
+msgstr "Poświadczenia wygasły."
 
 #: cups/ppd.c:1130 cups/ppd.c:1170 cups/ppd.c:1377 cups/ppd.c:1479
 msgid "Custom"
@@ -4063,7 +4076,7 @@ msgstr ""
 
 #: backend/lpd.c:1158
 msgid "Data file sent successfully."
-msgstr ""
+msgstr "Plik danych wysłany poprawnie."
 
 #: cups/ppd-cache.c:4214 cups/ppd-cache.c:4223
 msgid "Deep Color"
@@ -4803,40 +4816,40 @@ msgstr ""
 
 #: cups/json.c:724 cups/json.c:1101
 msgid "Invalid JSON data."
-msgstr ""
+msgstr "Nieprawidłowe dane JSON."
 
 #: cups/jwt.c:726
 msgid "Invalid JSON web token."
-msgstr ""
+msgstr "Nieprawidłowy token JSON."
 
 #: cups/form.c:100
 msgid "Invalid form data."
-msgstr ""
+msgstr "Nieprawidłowe dane formularza."
 
 #: cups/ipp.c:2702 cups/ipp.c:2711
 msgid "Invalid group tag."
-msgstr ""
+msgstr "Nieprawidłowy znacznik grupy."
 
 #: cups/pwg-media.c:330 cups/pwg-media.c:349
 msgid "Invalid media name arguments."
-msgstr ""
+msgstr "Nieprawidłowe argumenty nazy medium."
 
 #: cups/dest-options.c:1492 cups/dest-options.c:1564
 msgid "Invalid media size."
-msgstr ""
+msgstr "Nieprawidłowy rozmiar medium."
 
 #: cups/ipp.c:2753
 msgid "Invalid named IPP attribute in collection."
-msgstr ""
+msgstr "Nieprawidłowo nazwany argument IPP w kolekcji."
 
 #: scheduler/ipp.c:2732 scheduler/ipp.c:7229
 msgid "Invalid ppd-name value."
-msgstr ""
+msgstr "Nieprawidłowa wartość nazwy ppd."
 
 #: filter/commandtops.c:108
 #, c-format
 msgid "Invalid printer command \"%s\"."
-msgstr ""
+msgstr "Nieprawidłowa komenda drukarki \"%s\"."
 
 #: cups/ppd.c:1399
 msgid "JCL"
@@ -4978,11 +4991,11 @@ msgstr "Zadanie nie powiodło się"
 
 #: scheduler/ipp.c:10610 scheduler/ipp.c:10627 scheduler/ipp.c:10638
 msgid "Job state cannot be changed."
-msgstr ""
+msgstr "Stan zadania nie może być zmieniony."
 
 #: scheduler/ipp.c:9361
 msgid "Job subscriptions cannot be renewed."
-msgstr ""
+msgstr "Subskrypcje zadania nie mogą być odnowione."
 
 #: cgi-bin/jobs.c:91 cgi-bin/jobs.c:102 cgi-bin/jobs.c:183
 msgid "Jobs"
@@ -4990,11 +5003,11 @@ msgstr "Kolejka wydruku"
 
 #: backend/lpd.c:155
 msgid "LPD/LPR Host or Printer"
-msgstr ""
+msgstr "LPD/LPR Komputer lub Drukarka"
 
 #: cups/dest.c:1764
 msgid "LPDEST environment variable names default destination that does not exist."
-msgstr ""
+msgstr "Zmienna środowiskowa LPDEST zawiera domyślną destynację, która nie istnieje."
 
 #: ppdc/sample.c:238
 msgid "Label Printer"
@@ -5007,7 +5020,7 @@ msgstr ""
 #: scheduler/ipp.c:2070 scheduler/ipp.c:5977
 #, c-format
 msgid "Language \"%s\" not supported."
-msgstr ""
+msgstr "Język \"%s\" nie jest wspierany."
 
 #: ppdc/sample.c:164
 msgid "Large Address"
@@ -5031,7 +5044,7 @@ msgstr ""
 
 #: cups/ppd.c:299
 msgid "Line longer than the maximum allowed (255 characters)"
-msgstr ""
+msgstr "Linia dłuższa niż dopuszczalny limit (255 znaków)"
 
 #: cgi-bin/admin.c:1956
 msgid "List Available Printers"
@@ -5040,11 +5053,11 @@ msgstr "Wyszukiwanie dostępnych drukarek"
 #: tools/ippeveprinter.c:1588
 #, c-format
 msgid "Listening on port %d."
-msgstr ""
+msgstr "Nasłuchiwanie na porcie %d."
 
 #: scheduler/ipp.c:5689
 msgid "Local printer created."
-msgstr ""
+msgstr "Lokalna drukarka utworzona."
 
 #: cups/ppd-cache.c:4328 ppdc/sample.c:274
 msgid "Long-Edge (Portrait)"
@@ -5080,7 +5093,7 @@ msgstr ""
 
 #: cups/ppd.c:288
 msgid "Memory allocation error"
-msgstr ""
+msgstr "Błąd alokacji pamięci"
 
 #: cups/ppd.c:308
 msgid "Missing CloseGroup"
@@ -5110,56 +5123,56 @@ msgstr "Brak zmiennej formatu"
 
 #: scheduler/ipp.c:9886
 msgid "Missing last-document attribute in request."
-msgstr ""
+msgstr "Brak atrybutu last-document w zapytaniu."
 
 #: cups/pwg-media.c:589
 msgid "Missing media or media-col."
-msgstr ""
+msgstr "Brak media lub media-col."
 
 #: cups/pwg-media.c:508
 msgid "Missing media-size in media-col."
-msgstr ""
+msgstr "Brak media-size in media-col."
 
 #: scheduler/ipp.c:7079
 msgid "Missing notify-subscription-ids attribute."
-msgstr ""
+msgstr "Brak atrybutu notify-subsciption-ids."
 
 #: cups/ppd.c:306
 msgid "Missing option keyword"
-msgstr ""
+msgstr "Brak słowa kluczowego option"
 
 #: scheduler/ipp.c:3203 scheduler/ipp.c:3228
 msgid "Missing requesting-user-name attribute."
-msgstr ""
+msgstr "Brak atrybutu requesting-user-name."
 
 #: scheduler/ipp.c:5539 scheduler/ipp.c:5565
 #, c-format
 msgid "Missing required attribute \"%s\"."
-msgstr ""
+msgstr "Brak wymaganego atrybutu \"%s\"."
 
 #: scheduler/ipp.c:349
 msgid "Missing required attributes."
-msgstr ""
+msgstr "Brak wymaganych atrybutów."
 
 #: cups/http-support.c:1496
 msgid "Missing resource in URI"
-msgstr ""
+msgstr "Brak adresu w URI"
 
 #: cups/http-support.c:1490
 msgid "Missing scheme in URI"
-msgstr ""
+msgstr "Brak schematu w URI"
 
 #: cups/ppd.c:290
 msgid "Missing value string"
-msgstr ""
+msgstr "Brak danej tekstowej"
 
 #: cups/pwg-media.c:496
 msgid "Missing x-dimension in media-size."
-msgstr ""
+msgstr "Brak x-dimension w media-size."
 
 #: cups/pwg-media.c:502
 msgid "Missing y-dimension in media-size."
-msgstr ""
+msgstr "Brak y-dimension w media-size."
 
 #: systemv/lpinfo.c:440 systemv/lpinfo.c:464
 #, c-format
@@ -5172,7 +5185,7 @@ msgstr ""
 
 #: tools/ippfind.c:2036
 msgid "Modifiers:"
-msgstr ""
+msgstr "Modyfikatory:"
 
 #: cgi-bin/admin.c:336
 msgid "Modify Class"
@@ -5192,84 +5205,84 @@ msgstr "Przenoszenie zadania"
 
 #: cups/http-support.c:1345
 msgid "Moved Permanently"
-msgstr ""
+msgstr "Przeniesiono na stałe"
 
 #: cups/ppd.c:287
 msgid "NULL PPD file pointer"
-msgstr ""
+msgstr "Zerowy wskaźnik pliku PPD"
 
 #: cups/snmp.c:980
 msgid "Name OID uses indefinite length"
-msgstr ""
+msgstr "Nazwa OID ma nieskończoną długość"
 
 #: scheduler/ipp.c:1058
 msgid "Nested classes are not allowed."
-msgstr ""
+msgstr "Zagnieżdżone klasy nie są dozwolone."
 
 #: ppdc/sample.c:435
 msgid "Never"
-msgstr ""
+msgstr "Nigdy"
 
 #: cups/tls-gnutls.c:837 cups/tls-openssl.c:810
 msgid "New credentials are not valid for name."
-msgstr ""
+msgstr "Nowe poświadczenia są niepoprawne dla tej nazwy."
 
 #: cups/tls-gnutls.c:830 cups/tls-openssl.c:803
 msgid "New credentials are older than stored credentials."
-msgstr ""
+msgstr "Nowe poświadczenia są starsze niż te zachowane."
 
 #: cups/ppd.c:2023
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: cups/http-support.c:1342
 msgid "No Content"
-msgstr ""
+msgstr "Brak Zawartości"
 
 #: cups/ppd-cache.c:3192
 msgid "No IPP attributes."
-msgstr ""
+msgstr "Brak atrybutów IPP."
 
 #: cups/ppd-util.c:489
 msgid "No PPD name"
-msgstr ""
+msgstr "Brak nazwy PPD"
 
 #: cups/snmp.c:974
 msgid "No VarBind SEQUENCE"
-msgstr ""
+msgstr "Brak VarBind SEQUENCE"
 
 #: cups/request.c:578 cups/request.c:945
 msgid "No active connection"
-msgstr ""
+msgstr "Brak aktywnego połączenia"
 
 #: cups/request.c:359
 msgid "No active connection."
-msgstr ""
+msgstr "Brak aktywnego połączenia."
 
 #: scheduler/ipp.c:3483
 #, c-format
 msgid "No active jobs on %s."
-msgstr ""
+msgstr "Brak aktywnych zadań na %s."
 
 #: scheduler/ipp.c:209
 msgid "No attributes in request."
-msgstr ""
+msgstr "Brak atrybutów w zapytaniu."
 
 #: scheduler/ipp.c:3104
 msgid "No authentication information provided."
-msgstr ""
+msgstr "Nie podano danych autoryzacji."
 
 #: cups/snmp.c:931
 msgid "No community name"
-msgstr ""
+msgstr "Brak nazwy wspólnoty"
 
 #: cups/dest.c:1768 cups/dest.c:1780
 msgid "No default destination."
-msgstr ""
+msgstr "Brak domyślnego miejsca docelowego."
 
 #: scheduler/ipp.c:6277
 msgid "No default printer."
-msgstr ""
+msgstr "Brak domyślnej drukarki."
 
 #: cgi-bin/ipp-var.c:415 scheduler/ipp.c:7660
 msgid "No destinations added."
@@ -5277,134 +5290,134 @@ msgstr "Nie dodano miejsc docelowych"
 
 #: backend/usb.c:179
 msgid "No device URI found in argv[0] or in DEVICE_URI environment variable."
-msgstr ""
+msgstr "Brak URI urządzenia w argv[0] i zmiennej środowiskowej DEVICE_URI."
 
 #: cups/snmp.c:961
 msgid "No error-index"
-msgstr ""
+msgstr "Brak error-index"
 
 #: cups/snmp.c:953
 msgid "No error-status"
-msgstr ""
+msgstr "Brak error-status"
 
 #: scheduler/ipp.c:8633 scheduler/ipp.c:9900
 msgid "No file in print request."
-msgstr ""
+msgstr "Brak pliku w zapytaniu drukowania."
 
 #: cups/ppd-util.c:159
 msgid "No modification time"
-msgstr ""
+msgstr "Brak czasu modyfikacji"
 
 #: cups/snmp.c:978
 msgid "No name OID"
-msgstr ""
+msgstr "Brak nazwy OID"
 
 #: filter/rastertoepson.c:1152 filter/rastertohp.c:824
 #: filter/rastertolabel.c:1281
 msgid "No pages were found."
-msgstr ""
+msgstr "Brak stron."
 
 #: cups/ppd-util.c:152
 msgid "No printer name"
-msgstr ""
+msgstr "Brak nazy drukarki"
 
 #: cups/ppd-util.c:657
 msgid "No printer-uri found"
-msgstr ""
+msgstr "Brak printer-uri"
 
 #: cups/ppd-util.c:641
 msgid "No printer-uri found for class"
-msgstr ""
+msgstr "Brak printer-uri dla klasy"
 
 #: scheduler/ipp.c:6684
 msgid "No printer-uri in request."
-msgstr ""
+msgstr "Brak printer-uri w zapytaniu."
 
 #: cups/http.c:2004
 msgid "No request URI."
-msgstr ""
+msgstr "Brak adresu URI zapytania."
 
 #: cups/http.c:2021
 msgid "No request protocol version."
-msgstr ""
+msgstr "Brak wersji protokołu zapytania."
 
 #: cups/request.c:367
 msgid "No request sent."
-msgstr ""
+msgstr "Nie wysłano zapytania."
 
 #: cups/snmp.c:945
 msgid "No request-id"
-msgstr ""
+msgstr "Brak request-id"
 
 #: cups/tls-gnutls.c:854 cups/tls-openssl.c:827
 msgid "No stored credentials, not valid for name."
-msgstr ""
+msgstr "Brak zapisanych poświadczeń, nieprawidłowe dla nazwy."
 
 #: scheduler/ipp.c:5865
 msgid "No subscription attributes in request."
-msgstr ""
+msgstr "Brak atrybutów subskrypcji w zapytaniu."
 
 #: scheduler/ipp.c:8014
 msgid "No subscriptions found."
-msgstr ""
+msgstr "Nie zanaleziono subskrypcji."
 
 #: cups/snmp.c:969
 msgid "No variable-bindings SEQUENCE"
-msgstr ""
+msgstr "Brak variable-bindings SEQUENCE"
 
 #: cups/snmp.c:924
 msgid "No version number"
-msgstr ""
+msgstr "Brak numeru wersji"
 
 #: ppdc/sample.c:372
 msgid "Non-continuous (Mark sensing)"
-msgstr ""
+msgstr "Nie ciągły (Mark sensing)"
 
 #: ppdc/sample.c:371
 msgid "Non-continuous (Web sensing)"
-msgstr ""
+msgstr "Nie ciągły (Web sensing)"
 
 #: cups/ppd-cache.c:4515 cups/ppd-cache.c:4593 cups/ppd-cache.c:4681
 #: cups/ppd-cache.c:4771 cups/ppd-cache.c:4818
 msgid "None"
-msgstr ""
+msgstr "Żaden"
 
 #: cups/ppd-cache.c:4008 cups/ppd-cache.c:4079 cups/ppd-cache.c:4117
 #: ppdc/sample.c:249
 msgid "Normal"
-msgstr ""
+msgstr "Normalny"
 
 #: cups/http-support.c:1367
 msgid "Not Found"
-msgstr ""
+msgstr "Nie Znaleziono"
 
 #: cups/http-support.c:1379
 msgid "Not Implemented"
-msgstr ""
+msgstr "Niezaimplementowany"
 
 #: ppdc/sample.c:278
 msgid "Not Installed"
-msgstr ""
+msgstr "Niezainstalowany"
 
 #: cups/http-support.c:1354
 msgid "Not Modified"
-msgstr ""
+msgstr "Niezmodyfikowany"
 
 #: cups/http-support.c:1382
 msgid "Not Supported"
-msgstr ""
+msgstr "Nieobsługiwany"
 
 #: scheduler/ipp.c:1510 scheduler/ipp.c:11164
 msgid "Not allowed to print."
-msgstr ""
+msgstr "Nieuprawniony do drukowania."
 
 #: ppdc/sample.c:146
 msgid "Note"
-msgstr ""
+msgstr "Notatka"
 
 #: cups/http-support.c:1333 cups/http-support.c:1487 cups/ppd.c:285
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: cups/ppd-cache.c:4328 ppdc/sample.c:273
 msgid "Off (1-Sided)"
@@ -5420,16 +5433,16 @@ msgstr "Pomoc online"
 
 #: cups/dnssd.c:1333
 msgid "Only WGS-84 coordinates are supported."
-msgstr ""
+msgstr "Tylko koordynaty WGS-84 są wspierane."
 
 #: scheduler/ipp.c:5518
 msgid "Only local users can create a local printer."
-msgstr ""
+msgstr "Tylko lokalni użytkownicy mogą utworzyć lokalną drukarkę."
 
 #: cups/adminutil.c:203
 #, c-format
 msgid "Open of %s failed: %s"
-msgstr ""
+msgstr "Otwarcie %s nie powiodło się: %s"
 
 #: cups/ppd.c:293
 msgid "OpenGroup without a CloseGroup first"
@@ -5446,7 +5459,7 @@ msgstr "Polityka operacyjna"
 #: filter/pstops.c:2166
 #, c-format
 msgid "Option \"%s\" cannot be included via %%%%IncludeFeature."
-msgstr ""
+msgstr "Opcja \"%s\" nie może być użyta przez %%%%IncludeFeature."
 
 #: cgi-bin/admin.c:2791 cgi-bin/admin.c:2875
 msgid "Options Installed"
@@ -5461,31 +5474,31 @@ msgstr "Opcje zainstalowane"
 #: ppdc/ppdc.cxx:425 ppdc/ppdhtml.cxx:172 ppdc/ppdi.cxx:118
 #: ppdc/ppdmerge.cxx:355 ppdc/ppdpo.cxx:242
 msgid "Options:"
-msgstr ""
+msgstr "Opcje:"
 
 #: cups/dest-localization.c:170
 msgid "Other Media"
-msgstr ""
+msgstr "Inne Media"
 
 #: cups/dest-localization.c:168
 msgid "Other Tray"
-msgstr ""
+msgstr "Inny zasobnik"
 
 #: cups/ppd-cache.c:556
 msgid "Out of date PPD cache file."
-msgstr ""
+msgstr "Przeterminowany plik PPD w pamięci podręcznej"
 
 #: cups/ppd-cache.c:2018
 msgid "Out of memory."
-msgstr ""
+msgstr "Brak pamięci"
 
 #: cups/ppd.c:807 cups/ppd.c:1342
 msgid "Output Mode"
-msgstr ""
+msgstr "Tryb wyjściowy"
 
 #: ppdc/sample.c:263
 msgid "PCL Laser Printer"
-msgstr ""
+msgstr "Drukarka laserowa PCL"
 
 #: ppdc/sample.c:149
 msgid "PRC16K"
@@ -5513,15 +5526,15 @@ msgstr ""
 
 #: cups/dest.c:1766
 msgid "PRINTER environment variable names default destination that does not exist."
-msgstr ""
+msgstr "Zmienna środowiskowa PRINTER zawiera domyślną destynację, która nie istnieje."
 
 #: cups/snmp.c:941
 msgid "Packet does not contain a Get-Response-PDU"
-msgstr ""
+msgstr "Pakiet nie zawiera Get-Response-PDU"
 
 #: cups/snmp.c:920
 msgid "Packet does not start with SEQUENCE"
-msgstr ""
+msgstr "Pakiet nie zaczyna się od SEQUENCE"
 
 #: ppdc/sample.c:365
 msgid "ParamCustominCutInterval"
@@ -5534,7 +5547,7 @@ msgstr ""
 #: cups/auth.c:264 cups/auth.c:420
 #, c-format
 msgid "Password for %s on %s? "
-msgstr ""
+msgstr "Hasło do %s na %s? "
 
 #: cgi-bin/classes.c:153
 msgid "Pause Class"
@@ -5590,7 +5603,7 @@ msgstr ""
 
 #: backend/ipp.c:963 backend/ipp.c:971
 msgid "Preparing to print."
-msgstr ""
+msgstr "Przygotowanie do wydruku."
 
 #: ppdc/sample.c:300
 msgid "Print Density"
@@ -5598,15 +5611,15 @@ msgstr ""
 
 #: cups/notify.c:69
 msgid "Print Job:"
-msgstr ""
+msgstr "Zadanie wydruku:"
 
 #: ppdc/sample.c:345
 msgid "Print Mode"
-msgstr ""
+msgstr "Tryb wydruku"
 
 #: cups/ppd-cache.c:3996 cups/ppd-cache.c:4068 cups/ppd-cache.c:4110
 msgid "Print Quality"
-msgstr ""
+msgstr "Jakość wydruku"
 
 #: ppdc/sample.c:388
 msgid "Print Rate"
@@ -5618,7 +5631,7 @@ msgstr "Drukowanie strony testowej drukarki"
 
 #: ppdc/sample.c:332
 msgid "Print Speed"
-msgstr ""
+msgstr "Szybkość wydruku"
 
 #: cgi-bin/ipp-var.c:771
 msgid "Print Test Page"
@@ -5634,24 +5647,24 @@ msgstr ""
 
 #: backend/socket.c:398 backend/usb-unix.c:177
 msgid "Print file sent."
-msgstr ""
+msgstr "Plik wydruku wysłany."
 
 #: backend/ipp.c:2270
 msgid "Print job canceled at printer."
-msgstr ""
+msgstr "Zadanie wydruku anulowane na drukarce."
 
 #: backend/ipp.c:2262
 msgid "Print job too large."
-msgstr ""
+msgstr "Zadanie wydruku za duże."
 
 #: backend/ipp.c:1722
 msgid "Print job was not accepted."
-msgstr ""
+msgstr "Zadanie wydruku odrzucone."
 
 #: scheduler/ipp.c:5593
 #, c-format
 msgid "Printer \"%s\" already exists."
-msgstr ""
+msgstr "Drukarka \"%s\" już isnieje,"
 
 #: cgi-bin/ipp-var.c:1021
 msgid "Printer Added"
@@ -5659,7 +5672,7 @@ msgstr "Drukarka dodana"
 
 #: ppdc/sample.c:265
 msgid "Printer Default"
-msgstr ""
+msgstr "Drukarka domyślna"
 
 #: cgi-bin/ipp-var.c:1025
 msgid "Printer Deleted"
@@ -5675,23 +5688,23 @@ msgstr "Drukarka wyłączona"
 
 #: ppdc/sample.c:299
 msgid "Printer Settings"
-msgstr ""
+msgstr "Ustawienia drukarki"
 
 #: backend/ipp.c:2265
 msgid "Printer cannot print supplied content."
-msgstr ""
+msgstr "Drukarka nie może wydrukować dostarczonej treści."
 
 #: backend/ipp.c:2268
 msgid "Printer cannot print with supplied options."
-msgstr ""
+msgstr "Drukarka nie może wydrukować z podanymi opcjami."
 
 #: cups/ppd-cache.c:5056
 msgid "Printer does not support required IPP attributes or document formats."
-msgstr ""
+msgstr "Drukarka nie obsługuje wymaganych atrybutów IPP lub formatu dokumentu."
 
 #: cups/notify.c:113
 msgid "Printer:"
-msgstr ""
+msgstr "Drukarka:"
 
 #: cgi-bin/printers.c:190 cgi-bin/printers.c:317
 msgid "Printers"
@@ -5701,7 +5714,7 @@ msgstr "Drukarki"
 #: filter/rastertolabel.c:1228
 #, c-format
 msgid "Printing page %d, %u%% complete."
-msgstr ""
+msgstr "Drukowanie strony %d, %u%% wydrukowane."
 
 #: cups/ppd-cache.c:4678
 msgid "Punch"
@@ -5713,7 +5726,7 @@ msgstr ""
 
 #: scheduler/ipp.c:1505 scheduler/ipp.c:11159
 msgid "Quota limit reached."
-msgstr ""
+msgstr "Osiągnięto limit graniczny."
 
 #: berkeley/lpq.c:492
 msgid "Rank    Owner   Job     File(s)                         Total Size"
@@ -5726,24 +5739,24 @@ msgstr "Odmowa wykonywania zadań"
 #: backend/lpd.c:1069 backend/lpd.c:1201
 #, c-format
 msgid "Remote host did not accept control file (%d)."
-msgstr ""
+msgstr "Zdalny komputer odrzucił plik kontrolny (%d)."
 
 #: backend/lpd.c:1154
 #, c-format
 msgid "Remote host did not accept data file (%d)."
-msgstr ""
+msgstr "Zdalny komputer odrzucił plik danych (%d)."
 
 #: ppdc/sample.c:433
 msgid "Reprint After Error"
-msgstr ""
+msgstr "Ponów wydruk po błędzie"
 
 #: cups/http-support.c:1370
 msgid "Request Entity Too Large"
-msgstr ""
+msgstr "Jednostka zapytania za duża"
 
 #: cups/ppd.c:809 cups/ppd.c:1344 ppdc/sample.c:239
 msgid "Resolution"
-msgstr ""
+msgstr "Rozdzielczość"
 
 #: cgi-bin/classes.c:151
 msgid "Resume Class"
@@ -5755,19 +5768,19 @@ msgstr "Włączanie drukarki"
 
 #: ppdc/sample.c:165
 msgid "Return Address"
-msgstr ""
+msgstr "Adres zwrotny"
 
 #: ppdc/sample.c:454
 msgid "Rewind"
-msgstr ""
+msgstr "Przewiń"
 
 #: cups/snmp.c:922
 msgid "SEQUENCE uses indefinite length"
-msgstr ""
+msgstr "SEQUENCE ma nieskończoną długość"
 
 #: cups/http-support.c:1394
 msgid "SSL/TLS Negotiation Error"
-msgstr ""
+msgstr "Błąd negocjacji SSL/TLS"
 
 #: ppdc/sample.c:245
 msgid "Second Roll (DUO/Twin Only)"
@@ -5775,19 +5788,19 @@ msgstr ""
 
 #: cups/http-support.c:1351
 msgid "See Other"
-msgstr ""
+msgstr "Zobacz inne"
 
 #: scheduler/ipp.c:7283 scheduler/ipp.c:7302
 msgid "See remote printer."
-msgstr ""
+msgstr "Sprawdż zdalną drukarkę."
 
 #: cups/tls-gnutls.c:901 cups/tls-openssl.c:874
 msgid "Self-signed credentials are blocked."
-msgstr ""
+msgstr "Poświadczenia z podpisem własnym są blokowane."
 
 #: backend/usb-darwin.c:570 backend/usb-libusb.c:344
 msgid "Sending data to printer."
-msgstr ""
+msgstr "Wysyłanie danych do drukarki."
 
 #: cgi-bin/ipp-var.c:1035
 msgid "Server Restarted"
@@ -5807,11 +5820,11 @@ msgstr "Serwer zatrzymany"
 
 #: cups/tls-gnutls.c:1513 cups/tls-openssl.c:1534
 msgid "Server credentials not set."
-msgstr ""
+msgstr "Poświadczenia serwera nieustanowione."
 
 #: cups/http-support.c:1388
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Usługa niedostępna"
 
 #: cgi-bin/admin.c:2296 cgi-bin/admin.c:2342 cgi-bin/admin.c:2499
 #: cgi-bin/admin.c:2518
@@ -5849,7 +5862,7 @@ msgstr ""
 #: backend/lpd.c:1110
 #, c-format
 msgid "Spooling job, %.0f%% complete."
-msgstr ""
+msgstr "Buforowanie zadania, %.0f%% wykonano."
 
 #: ppdc/sample.c:346
 msgid "Standard"
@@ -5868,7 +5881,7 @@ msgstr "Szablon początkowy"
 #: filter/rastertolabel.c:1204
 #, c-format
 msgid "Starting page %d."
-msgstr ""
+msgstr "Zaczynam stronę %d."
 
 #: ppdc/sample.c:156
 msgid "Statement"
@@ -5878,11 +5891,11 @@ msgstr ""
 #: scheduler/ipp.c:9349
 #, c-format
 msgid "Subscription #%d does not exist."
-msgstr ""
+msgstr "Subskrypcja #%d nie istnieje."
 
 #: tools/ippfind.c:2047
 msgid "Substitutions:"
-msgstr ""
+msgstr "Subskrypcje:"
 
 #: ppdc/sample.c:157
 msgid "Super A"
@@ -5927,38 +5940,38 @@ msgstr ""
 #: scheduler/ipp.c:1341
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
-msgstr ""
+msgstr "Atrybut \"%s\" jest wymagany dla zadań wydruku."
 
 #: scheduler/ipp.c:6755 scheduler/ipp.c:6835 scheduler/ipp.c:6848
 #: scheduler/ipp.c:6860 scheduler/ipp.c:6875
 #, c-format
 msgid "The %s attribute cannot be provided with job-ids."
-msgstr ""
+msgstr "Atrybut %s nie może być podany w job-ids."
 
 #: scheduler/ipp.c:1320
 #, c-format
 msgid "The '%s' Job Status attribute cannot be supplied in a job creation request."
-msgstr ""
+msgstr "Atrybut Job Status '%s' nie może być podany w zapytaniu tworzenia zadania."
 
 #: scheduler/ipp.c:5252
 #, c-format
 msgid "The '%s' operation attribute cannot be supplied in a Create-Job request."
-msgstr ""
+msgstr "Atrybut operacji '%s' nie może być podany w zapytaniu Create-Job."
 
 #: scheduler/ipp.c:7325
 #, c-format
 msgid "The PPD file \"%s\" could not be found."
-msgstr ""
+msgstr "Nie znaleziono pliku PPD \"%s\"."
 
 #: scheduler/ipp.c:7314
 #, c-format
 msgid "The PPD file \"%s\" could not be opened: %s"
-msgstr ""
+msgstr "Plik PPD \"%s\" nie został odczytany: %s"
 
 #: filter/rastertoepson.c:1043 filter/rastertohp.c:713
 #: filter/rastertolabel.c:1168
 msgid "The PPD file could not be opened."
-msgstr ""
+msgstr "Otwarcie pliku PPD nie powiodło się."
 
 #: cgi-bin/admin.c:515
 msgid "The class name may only contain up to 127 printable characters and may not contain spaces, slashes (/), or the pound sign (#)."
@@ -5966,55 +5979,55 @@ msgstr "Nazwa klasy może zawierać do 127 znaków oprócz spacji, ukośników (
 
 #: scheduler/ipp.c:2097
 msgid "The notify-lease-duration attribute cannot be used with job subscriptions."
-msgstr ""
+msgstr "Atrybut notify-lease-duration nie może być użyty w subskrypcji zadania."
 
 #: scheduler/ipp.c:2080 scheduler/ipp.c:5987
 #, c-format
 msgid "The notify-user-data value is too large (%d > 63 octets)."
-msgstr ""
+msgstr "Wartość notify-user-data jest za duża (%d > 63 oktetów)."
 
 #: backend/ipp.c:983
 msgid "The printer configuration is incorrect or the printer no longer exists."
-msgstr ""
+msgstr "Konfiguracji drukarki jest nieprawidłowa lub drukarka nie istnieje."
 
 #: backend/lpd.c:670 backend/lpd.c:1062 backend/lpd.c:1144 backend/lpd.c:1194
 msgid "The printer did not respond."
-msgstr ""
+msgstr "Drukarka nie odpowiedziała."
 
 #: backend/ipp.c:756 backend/ipp.c:946 backend/ipp.c:1060 backend/ipp.c:1514
 #: backend/ipp.c:1694 backend/lpd.c:881 backend/socket.c:346
 #: backend/usb-unix.c:117 backend/usb-unix.c:407 backend/usb-unix.c:490
 msgid "The printer is in use."
-msgstr ""
+msgstr "Drukarka jest w użyciu."
 
 #: backend/runloop.c:228 backend/runloop.c:348
 msgid "The printer is not connected."
-msgstr ""
+msgstr "Drukarka jest niepodłączona."
 
 #: backend/ipp.c:734 backend/ipp.c:767 backend/ipp.c:942 backend/lpd.c:860
 #: backend/lpd.c:901 backend/socket.c:325 backend/socket.c:358
 msgid "The printer is not responding."
-msgstr ""
+msgstr "Drukarka nie odpowiada."
 
 #: backend/runloop.c:370
 msgid "The printer is now connected."
-msgstr ""
+msgstr "Drukarka jest teraz podłączona."
 
 #: backend/usb-darwin.c:1346
 msgid "The printer is now online."
-msgstr ""
+msgstr "Drukarka jest teraz w trybie online."
 
 #: backend/usb-darwin.c:1385
 msgid "The printer is offline."
-msgstr ""
+msgstr "Drukarka w trybie offline."
 
 #: backend/ipp.c:750 backend/lpd.c:875 backend/socket.c:340
 msgid "The printer is unreachable at this time."
-msgstr ""
+msgstr "Drukarka jest nieosiągalna w tym momencie."
 
 #: backend/ipp.c:743 backend/lpd.c:868 backend/socket.c:333
 msgid "The printer may not exist or is unavailable at this time."
-msgstr ""
+msgstr "Drukarka nie istnieje lub jest nieosiągalna w tym momencie."
 
 #: cgi-bin/admin.c:699
 msgid "The printer name may only contain up to 127 printable characters and may not contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the pound sign (#)."
@@ -6029,46 +6042,46 @@ msgstr "Nazwa drukarki może zawierać do 127 znaków oprócz spacji, ukośnikó
 #: scheduler/ipp.c:10314 scheduler/ipp.c:10776 scheduler/ipp.c:11122
 #: scheduler/ipp.c:11204 scheduler/ipp.c:11538
 msgid "The printer or class does not exist."
-msgstr ""
+msgstr "Drukarka lub klasa nie istnieje,"
 
 #: scheduler/ipp.c:1261
 msgid "The printer or class is not shared."
-msgstr ""
+msgstr "Drukarka lub klasa nie jest udostępniona."
 
 #: scheduler/ipp.c:870 scheduler/ipp.c:2261
 #, c-format
 msgid "The printer-uri \"%s\" contains invalid characters."
-msgstr ""
+msgstr "Atrybut printer-uri \"%s\" zawiera nieprawidłowe znaki."
 
 #: scheduler/ipp.c:3245
 msgid "The printer-uri attribute is required."
-msgstr ""
+msgstr "Atrybut printer-uri jest wymagany."
 
 #: scheduler/ipp.c:854
 msgid "The printer-uri must be of the form \"ipp://HOSTNAME/classes/CLASSNAME\"."
-msgstr ""
+msgstr "Atrybut printer-uri musi być w formacie \"ipp://KOMPUTER/classes/NAZWA_KLASY\"."
 
 #: scheduler/ipp.c:2245
 msgid "The printer-uri must be of the form \"ipp://HOSTNAME/printers/PRINTERNAME\"."
-msgstr ""
+msgstr "Atrybut printer-uri musi być w formacie \"ipp://KOMPUTER/classes/NAZWA_DRUKARKI\"."
 
 #: scheduler/client.c:1981
 msgid "The web interface is currently disabled. Run \"cupsctl WebInterface=yes\" to enable it."
-msgstr ""
+msgstr "Interfejs webowy jest wyłączony. Uruchom \"cupsctl WebInterface=yes\" aby go włączyć."
 
 #: scheduler/ipp.c:6819
 #, c-format
 msgid "The which-jobs value \"%s\" is not supported."
-msgstr ""
+msgstr "Wartość which-jobs \"%s\" jest nie wspierana."
 
 #: scheduler/ipp.c:6084
 msgid "There are too many subscriptions."
-msgstr ""
+msgstr "Jest za dużo subskrypcji."
 
 #: backend/usb-darwin.c:402 backend/usb-darwin.c:468 backend/usb-darwin.c:532
 #: backend/usb-darwin.c:553 backend/usb-libusb.c:269 backend/usb-libusb.c:323
 msgid "There was an unrecoverable USB error."
-msgstr ""
+msgstr "Wystąpił nienaprawialny błąd USB."
 
 #: ppdc/sample.c:440
 msgid "Thermal Transfer Media"
@@ -6076,54 +6089,54 @@ msgstr ""
 
 #: scheduler/ipp.c:1499
 msgid "Too many active jobs."
-msgstr ""
+msgstr "Za dużo aktywnych zadań."
 
 #: scheduler/ipp.c:1393
 #, c-format
 msgid "Too many job-sheets values (%d > 2)."
-msgstr ""
+msgstr "Za duża wartość job-sheets (%d > 2)."
 
 #: scheduler/ipp.c:2586
 #, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
-msgstr ""
+msgstr "Za duża wartość printer-state-reasons (%d > %d)."
 
 #: ppdc/sample.c:294
 msgid "Transparency"
-msgstr ""
+msgstr "Przeźroczystość"
 
 #: ppdc/sample.c:289
 msgid "Tray"
-msgstr ""
+msgstr "Zasobnik"
 
 #: ppdc/sample.c:266
 msgid "Tray 1"
-msgstr ""
+msgstr "Zasobnik 1"
 
 #: ppdc/sample.c:267
 msgid "Tray 2"
-msgstr ""
+msgstr "Zasobnik 2"
 
 #: ppdc/sample.c:268
 msgid "Tray 3"
-msgstr ""
+msgstr "Zasobnik 3"
 
 #: ppdc/sample.c:269
 msgid "Tray 4"
-msgstr ""
+msgstr "Zasobnik 4"
 
 #: cups/tls-gnutls.c:823 cups/tls-gnutls.c:882 cups/tls-openssl.c:796
 #: cups/tls-openssl.c:855
 msgid "Trust on first use is disabled."
-msgstr ""
+msgstr "Zaufane pierwsze użycie jest wyłączone."
 
 #: cups/http-support.c:1373
 msgid "URI Too Long"
-msgstr ""
+msgstr "URI za długie"
 
 #: cups/http-support.c:1463
 msgid "URI too large"
-msgstr ""
+msgstr "URI za duże"
 
 #: ppdc/sample.c:124
 msgid "US Fanfold"
@@ -6175,17 +6188,17 @@ msgstr "Nie można stworzyć klasy"
 
 #: backend/ipp.c:1887
 msgid "Unable to add document to print job."
-msgstr ""
+msgstr "Nie można dodać dokumentu do zadania wydruku."
 
 #: cups/tls-openssl.c:1204 cups/tls-openssl.c:1213 cups/tls-openssl.c:1222
 #: cups/tls-openssl.c:1231
 msgid "Unable to add extension to X.509 certificate."
-msgstr ""
+msgstr "Nie można dodać rozszerzenia do certyfikatu X.509."
 
 #: scheduler/ipp.c:1574
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
-msgstr ""
+msgstr "Nie można dodać zadania dla destynacji \"%s\"."
 
 #: cgi-bin/admin.c:831 cgi-bin/admin.c:1199
 msgid "Unable to add printer"
@@ -6193,24 +6206,24 @@ msgstr "Nie można dodać drukarki"
 
 #: scheduler/ipp.c:1179
 msgid "Unable to allocate memory for file types."
-msgstr ""
+msgstr "Nie moża zaalokować pamięci dla typów plików."
 
 #: filter/pstops.c:407
 msgid "Unable to allocate memory for page info"
-msgstr ""
+msgstr "Nie można zaalokować pamięci dla informacji o stronach"
 
 #: filter/pstops.c:401
 msgid "Unable to allocate memory for pages array"
-msgstr ""
+msgstr "Nie można zaalokować pamięci dla tablicy stron"
 
 #: tools/ippeveprinter.c:1500
 #, c-format
 msgid "Unable to allocate memory for printer: %s"
-msgstr ""
+msgstr "Nie można zaalokować pamięci dla drukarki: %s"
 
 #: backend/ipp.c:2173 backend/ipp.c:2760
 msgid "Unable to cancel print job."
-msgstr ""
+msgstr "Nie można anulować zadania wydruku."
 
 #: cgi-bin/admin.c:2500
 msgid "Unable to change printer"
@@ -6227,72 +6240,72 @@ msgstr "Nie można zmienić ustawień serwera"
 #: scheduler/ipp.c:4754
 #, c-format
 msgid "Unable to commit PPD file: %s"
-msgstr ""
+msgstr "Nie można zainstalować pliku PPD: %s"
 
 #: cups/ipp.c:4645
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
-msgstr ""
+msgstr "Nie można skompilować wyrażenia regularnego mimeMediaType: %s."
 
 #: cups/ipp.c:4603
 #, c-format
 msgid "Unable to compile naturalLanguage regular expression: %s."
-msgstr ""
+msgstr "Nie można skompilować wyrażenia regularnego naturalLanguage: %s."
 
 #: filter/commandtops.c:401
 msgid "Unable to configure printer options."
-msgstr ""
+msgstr "Nie można skonfigurować ustawień drukarki."
 
 #: cups/tls-openssl.c:2066 cups/tls-openssl.c:2068
 msgid "Unable to configure private key context."
-msgstr ""
+msgstr "Nie można skonfigurować kontekstu klucza prywatnego."
 
 #: cups/adminutil.c:159 cups/request.c:1082
 msgid "Unable to connect to host."
-msgstr ""
+msgstr "Nie można połączyć się z komputerem."
 
 #: backend/ipp.c:713 backend/ipp.c:1265 backend/lpd.c:841 backend/socket.c:306
 #: backend/usb-unix.c:103
 msgid "Unable to contact printer, queuing on next printer in class."
-msgstr ""
+msgstr "Nie można połączyć się z drukarką, kolejkowanie na następnej drukarce w klasie."
 
 #: scheduler/ipp.c:2688
 #, c-format
 msgid "Unable to copy PPD file - %s"
-msgstr ""
+msgstr "Nie można skopiować pliku PPD - %s"
 
 #: cups/tls-openssl.c:528
 msgid "Unable to create X.509 certificate signing request."
-msgstr ""
+msgstr "Nie można stworzyć zapytania podpisu certyfikatu X.509."
 
 #: cups/tls-openssl.c:227 cups/tls-openssl.c:1016
 msgid "Unable to create X.509 certificate."
-msgstr ""
+msgstr "Nie można stworzyć certyfikatu X.509."
 
 #: cups/ppd-util.c:572 cups/util.c:478
 msgid "Unable to create printer-uri"
-msgstr ""
+msgstr "Nie można stworzyć printer-uri"
 
 #: scheduler/ipp.c:5603
 msgid "Unable to create printer."
-msgstr ""
+msgstr "Nie można utworzyć drukarki."
 
 #: cups/tls-openssl.c:2062
 msgid "Unable to create private key context."
-msgstr ""
+msgstr "Nie można stworzyć kontekstu klucza prywatnego."
 
 #: cups/tls-openssl.c:2070
 msgid "Unable to create private key."
-msgstr ""
+msgstr "Nie można utworzyć klucza prywatnego."
 
 #: cups/tls-gnutls.c:1646 cups/tls-gnutls.c:1662 cups/tls-openssl.c:1654
 msgid "Unable to create server credentials."
-msgstr ""
+msgstr "Nie można utworzyć poświadczeń serwera."
 
 #: tools/ippeveprinter.c:597
 #, c-format
 msgid "Unable to create spool directory \"%s\": %s"
-msgstr ""
+msgstr "Nie można utworzyć katalogu buforowania \"%s\": %s"
 
 #: cgi-bin/admin.c:1548 cgi-bin/admin.c:1560 scheduler/cupsfilter.c:1351
 msgid "Unable to create temporary file"
@@ -6317,7 +6330,7 @@ msgstr "Nie można edytować pliku cupsd.conf większego niż 1MB"
 #: tools/ippeveprinter.c:1491
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
-msgstr ""
+msgstr "Nie można wykonać komendy \"%s\": %s"
 
 #: cgi-bin/ipp-var.c:344
 msgid "Unable to find destination for job"
@@ -6325,11 +6338,11 @@ msgstr "Nie można odnaleźć miejsca docelowego dla zadania"
 
 #: cups/request.c:386
 msgid "Unable to finish request."
-msgstr ""
+msgstr "Nie można zakończyć zapytania."
 
 #: backend/ipp.c:3428
 msgid "Unable to get backend exit status."
-msgstr ""
+msgstr "Nie można pobrać stanu wyjścia backendu."
 
 #: cgi-bin/classes.c:426
 msgid "Unable to get class list"
@@ -6357,23 +6370,23 @@ msgstr "Nie można pobrać stanu drukarki"
 
 #: backend/ipp.c:1007
 msgid "Unable to get printer status."
-msgstr ""
+msgstr "Nie można pobrać stanu drukarki."
 
 #: cups/tls-openssl.c:1001
 msgid "Unable to import X.509 certificate request."
-msgstr ""
+msgstr "Nie można zaimportować zapytania certyfikatu X.509."
 
 #: cups/tls-gnutls.c:797 cups/tls-openssl.c:768
 msgid "Unable to import credentials."
-msgstr ""
+msgstr "Nie można zaimportować poświadczeń."
 
 #: cups/tls-openssl.c:2064
 msgid "Unable to initialize private key context."
-msgstr ""
+msgstr "Nie można zainicjować kontekstu klucza prywatnego."
 
 #: cups/tls-gnutls.c:1236 cups/tls-openssl.c:281 cups/tls-openssl.c:1264
 msgid "Unable to load X.509 CA certificate and private key."
-msgstr ""
+msgstr "Nie można wczytać certyfikatu CA X.509 i klucza prywatnego."
 
 #: cgi-bin/help.c:82
 msgid "Unable to load help index."
@@ -6382,11 +6395,11 @@ msgstr "Nie można wczytać indeksu pomocy"
 #: backend/network.c:69
 #, c-format
 msgid "Unable to locate printer \"%s\"."
-msgstr ""
+msgstr "Nie można znaleźć drukarki \"%s\"."
 
 #: backend/dnssd.c:745 backend/ipp.c:325 backend/lpd.c:174 backend/socket.c:147
 msgid "Unable to locate printer."
-msgstr ""
+msgstr "Nie można znaleźć drukarki."
 
 #: cgi-bin/admin.c:579
 msgid "Unable to modify class"
@@ -6414,12 +6427,12 @@ msgstr "Nie można otworzyć pliku cupsd.conf:"
 
 #: backend/usb-unix.c:127
 msgid "Unable to open device file"
-msgstr ""
+msgstr "Nie można otworzyć pliku urządzenia"
 
 #: scheduler/ipp.c:6498
 #, c-format
 msgid "Unable to open document #%d in job #%d."
-msgstr ""
+msgstr "Nie można otworzyć dokumentu #%d w zadaniu #%d."
 
 #: cgi-bin/help.c:356
 msgid "Unable to open help file."
@@ -6429,12 +6442,12 @@ msgstr "Nie można otworzyć pliku pomocy."
 #: backend/socket.c:134 backend/usb.c:216 filter/gziptoany.c:72
 #: filter/pstops.c:254
 msgid "Unable to open print file"
-msgstr ""
+msgstr "Nie można otworzyć pliku wydruku"
 
 #: filter/rastertoepson.c:1009 filter/rastertohp.c:679
 #: filter/rastertolabel.c:1132
 msgid "Unable to open raster file"
-msgstr ""
+msgstr "Nie można otworzyć pliku rastrowego"
 
 #: cgi-bin/ipp-var.c:774
 msgid "Unable to print test page"
@@ -6443,33 +6456,33 @@ msgstr "Nie można wydrukować strony testowej"
 #: backend/runloop.c:78 backend/runloop.c:299 backend/usb-darwin.c:640
 #: backend/usb-darwin.c:684 backend/usb-libusb.c:414 backend/usb-libusb.c:449
 msgid "Unable to read print data."
-msgstr ""
+msgstr "Nie można wczytać danych wydruku."
 
 #: cups/request.c:423
 msgid "Unable to read response."
-msgstr ""
+msgstr "Nie można odczytać odpowiedzi."
 
 #: scheduler/ipp.c:8811 scheduler/ipp.c:10057
 msgid "Unable to rename job document file."
-msgstr ""
+msgstr "Nie można zmienić nazwy pliku dokumentu w zadaniu wydruku."
 
 #: cups/dest.c:2945
 msgid "Unable to resolve printer-uri."
-msgstr ""
+msgstr "Nie można przetłumaczyć adresu printer-uri."
 
 #: scheduler/ipp.c:4524
 #, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr ""
+msgstr "Nie można uruchomić cups-driverd: %s"
 
 #: scheduler/ipp.c:4698
 #, c-format
 msgid "Unable to save PPD file: %s"
-msgstr ""
+msgstr "Nie można zapisać pliku PPD: %s"
 
 #: filter/pstops.c:519
 msgid "Unable to see in file"
-msgstr ""
+msgstr "Nie można zobaczyć w pliku"
 
 #: cgi-bin/ipp-var.c:577 cgi-bin/ipp-var.c:597
 msgid "Unable to send command to printer driver"
@@ -6477,7 +6490,7 @@ msgstr "Nie można wysłać komendy do sterownika drukarki"
 
 #: backend/usb-darwin.c:762 backend/usb-libusb.c:525
 msgid "Unable to send data to printer."
-msgstr ""
+msgstr "Nie można wysłać danych do drukarki."
 
 #: cgi-bin/admin.c:3320
 msgid "Unable to set options"
@@ -6489,7 +6502,7 @@ msgstr "Nie można ustawić ustawień domyślnych serwera"
 
 #: backend/ipp.c:3313 backend/ipp.c:3380 backend/ipp.c:3388
 msgid "Unable to start backend process."
-msgstr ""
+msgstr "Nie można uruchomić procesu backendu."
 
 #: cgi-bin/admin.c:1610
 msgid "Unable to upload cupsd.conf file"
@@ -6497,36 +6510,36 @@ msgstr "Nie można wgrać pliku cupsd.conf"
 
 #: backend/usb-darwin.c:2158 backend/usb-darwin.c:2182
 msgid "Unable to use legacy USB class driver."
-msgstr ""
+msgstr "Nie można użyć sterownika USB starego typu."
 
 #: cups/tls-openssl.c:1007
 msgid "Unable to verify X.509 certificate request."
-msgstr ""
+msgstr "Nie można zweryfikować certyfikatu X.509 zapytania."
 
 #: cups/tls-openssl.c:604
 msgid "Unable to write X.509 certificate signing request."
-msgstr ""
+msgstr "Nie można zapisać zapytania podpisywania certyfikatu X.509."
 
 #: cups/tls-openssl.c:385 cups/tls-openssl.c:1282
 msgid "Unable to write X.509 certificate."
-msgstr ""
+msgstr "Nie można zapisać certyfikatu X.509."
 
 #: backend/runloop.c:107 backend/runloop.c:354
 msgid "Unable to write print data"
-msgstr ""
+msgstr "Nie można zapisać danych drukowania"
 
 #: cups/tls-openssl.c:370 cups/tls-openssl.c:589
 msgid "Unable to write private key."
-msgstr ""
+msgstr "Nie można zapisać klucza prywatnego."
 
 #: filter/gziptoany.c:91
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
-msgstr ""
+msgstr "Nie można zapisać rozpakowanych danych drukowania: %s"
 
 #: cups/http-support.c:1361
 msgid "Unauthorized"
-msgstr ""
+msgstr "Nieupoważniony"
 
 #: cgi-bin/admin.c:3016
 msgid "Units"
@@ -6534,164 +6547,164 @@ msgstr "Jednostki"
 
 #: cups/http-support.c:1401 cups/http-support.c:1500 cups/ppd.c:315
 msgid "Unknown"
-msgstr ""
+msgstr "Nieznany"
 
 #: filter/pstops.c:2174
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
-msgstr ""
+msgstr "Nieznany wybór \"%s\" dla opcji \"%s\"."
 
 #: backend/ipp.c:508
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
-msgstr ""
+msgstr "Nieznana wartość opcji szyfrowania: \"%s\"."
 
 #: backend/lpd.c:320
 #, c-format
 msgid "Unknown file order: \"%s\"."
-msgstr ""
+msgstr "Nieznana kolejność pliku: \"%s\"."
 
 #: backend/lpd.c:291
 #, c-format
 msgid "Unknown format character: \"%c\"."
-msgstr ""
+msgstr "Nieznany znak formatu: \"%c\"."
 
 #: cups/hash.c:308
 msgid "Unknown hash algorithm."
-msgstr ""
+msgstr "Nieznany algorytm haszowania."
 
 #: cups/dest-options.c:1343 cups/dest-options.c:1417
 msgid "Unknown media size name."
-msgstr ""
+msgstr "Nieznana nazwa media size."
 
 #: backend/ipp.c:573
 #, c-format
 msgid "Unknown option \"%s\" with value \"%s\"."
-msgstr ""
+msgstr "Nieznana opcja \"%s\" z wartością \"%s\"."
 
 #: filter/pstops.c:2157
 #, c-format
 msgid "Unknown option \"%s\"."
-msgstr ""
+msgstr "Nieznana opcja \"%s\"."
 
 #: backend/lpd.c:306
 #, c-format
 msgid "Unknown print mode: \"%s\"."
-msgstr ""
+msgstr "Nieznany tryb wydruku: \"%s\"."
 
 #: scheduler/ipp.c:10998
 #, c-format
 msgid "Unknown printer-error-policy \"%s\"."
-msgstr ""
+msgstr "Nieznany printer-error-policy \"%s\"."
 
 #: scheduler/ipp.c:10981
 #, c-format
 msgid "Unknown printer-op-policy \"%s\"."
-msgstr ""
+msgstr "Nieznany printer-op-policy \"%s\"."
 
 #: cups/http.c:2066
 msgid "Unknown request method."
-msgstr ""
+msgstr "Nieznana metoda zapytania."
 
 #: cups/http.c:2085
 msgid "Unknown request version."
-msgstr ""
+msgstr "Nieznana wersja zapytania."
 
 #: cups/http-support.c:1493
 msgid "Unknown scheme in URI"
-msgstr ""
+msgstr "Nieznany schemat w URI."
 
 #: cups/http-addrlist.c:811
 msgid "Unknown service name."
-msgstr ""
+msgstr "Nieznana nazwa usługi."
 
 #: backend/ipp.c:537
 #, c-format
 msgid "Unknown version option value: \"%s\"."
-msgstr ""
+msgstr "Nieznana wartość opcji wersji: \"%s\"."
 
 #: scheduler/ipp.c:11448
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
-msgstr ""
+msgstr "Nieobsługiwana wartość 'compression' \"%s\"."
 
 #: scheduler/ipp.c:11480
 #, c-format
 msgid "Unsupported 'document-format' value \"%s\"."
-msgstr ""
+msgstr "Nieobsługiwana wartość 'document-format' \"%s\"."
 
 #: scheduler/ipp.c:8154 scheduler/ipp.c:10540 scheduler/ipp.c:11499
 msgid "Unsupported 'job-hold-until' value."
-msgstr ""
+msgstr "Nieobsługiwana wartość 'job-hold-until'."
 
 #: scheduler/ipp.c:11515
 msgid "Unsupported 'job-name' value."
-msgstr ""
+msgstr "Nieobsługiwana wartość 'job-name'."
 
 #: cups/json.c:1173
 msgid "Unsupported URI scheme."
-msgstr ""
+msgstr "Nieobsługiwany schemat URI."
 
 #: scheduler/ipp.c:300
 #, c-format
 msgid "Unsupported character set \"%s\"."
-msgstr ""
+msgstr "Nieobsługiwany zestaw znaków \"%s\"."
 
 #: scheduler/ipp.c:8614 scheduler/ipp.c:9865
 #, c-format
 msgid "Unsupported compression \"%s\"."
-msgstr ""
+msgstr "Nieobsługiwana kompresja \"%s\"."
 
 #: scheduler/ipp.c:8754 scheduler/ipp.c:10022
 #, c-format
 msgid "Unsupported document-format \"%s\"."
-msgstr ""
+msgstr "Nieobsługiwany document-format \"%s\"."
 
 #: scheduler/ipp.c:10005
 #, c-format
 msgid "Unsupported document-format \"%s/%s\"."
-msgstr ""
+msgstr "Nieobsługiwny document-format \"%s/%s\"."
 
 #: scheduler/ipp.c:1359
 #, c-format
 msgid "Unsupported format \"%s\"."
-msgstr ""
+msgstr "Nieobsługiwany format \"%s\"."
 
 #: scheduler/ipp.c:1457
 msgid "Unsupported margins."
-msgstr ""
+msgstr "Nieobsługiwane marginesy."
 
 #: cups/pwg-media.c:583
 msgid "Unsupported media value."
-msgstr ""
+msgstr "Nieobsługiwane wartość media"
 
 #: filter/pstops.c:2439
 #, c-format
 msgid "Unsupported number-up value %d, using number-up=1."
-msgstr ""
+msgstr "Nieobsługiwana wartość number-up %d, ustawiam number-up=1."
 
 #: filter/pstops.c:2473
 #, c-format
 msgid "Unsupported number-up-layout value %s, using number-up-layout=lrtb."
-msgstr ""
+msgstr "Nieobsługiwana wartość number-up-layout %s, ustawiam number-up-layout=lrtb."
 
 #: filter/pstops.c:2524
 #, c-format
 msgid "Unsupported page-border value %s, using page-border=none."
-msgstr ""
+msgstr "Nieobsługiwana wartość page-border %s, ustawiam page-border=none."
 
 #: filter/rastertopwg.c:150 filter/rastertopwg.c:157 filter/rastertopwg.c:166
 #: filter/rastertopwg.c:203
 msgid "Unsupported raster data."
-msgstr ""
+msgstr "Nieobsługiwane dane rastrowe."
 
 #: cups/snmp.c:1039
 msgid "Unsupported value type"
-msgstr ""
+msgstr "Nieobsługiwany typ wartości."
 
 #: cups/http-support.c:1376
 msgid "Upgrade Required"
-msgstr ""
+msgstr "Wymagana Aktualizacja"
 
 #: systemv/cupsaccept.c:239
 #, c-format
@@ -6826,60 +6839,60 @@ msgstr ""
 #: tools/ippeveprinter.c:602
 #, c-format
 msgid "Using spool directory \"%s\"."
-msgstr ""
+msgstr "Katalog buforowania w \"%s\"."
 
 #: cups/tls-gnutls.c:1107 cups/tls-openssl.c:1186
 msgid "Validation of subjectAltName in X.509 certificate request failed."
-msgstr ""
+msgstr "Walidacja subjectAltName w zapytaniu certyfikatu X.509 nie powiodła się,"
 
 #: cups/snmp.c:991
 msgid "Value uses indefinite length"
-msgstr ""
+msgstr "Value używa nieokreśloną długość"
 
 #: cups/snmp.c:976
 msgid "VarBind uses indefinite length"
-msgstr ""
+msgstr "VarBind używa nieokreśloną długość"
 
 #: cups/snmp.c:926
 msgid "Version uses indefinite length"
-msgstr ""
+msgstr "Version używa nieokreśloną długość"
 
 #: backend/ipp.c:2009
 msgid "Waiting for job to complete."
-msgstr ""
+msgstr "Oczekiwanie za zakończenia zadania."
 
 #: backend/usb-darwin.c:433 backend/usb-darwin.c:487 backend/usb-libusb.c:221
 msgid "Waiting for printer to become available."
-msgstr ""
+msgstr "Oczekiwanie na dostępność drukarki."
 
 #: backend/socket.c:409
 msgid "Waiting for printer to finish."
-msgstr ""
+msgstr "Oczekiwanie aż drukarka skończy."
 
 #: systemv/cupstestppd.c:3853
 msgid "Warning: This program will be removed in a future version of CUPS."
-msgstr ""
+msgstr "Ostrzeżenie: Ten program zostanie usunięty w nowszych wersjach CUPS."
 
 #: cups/http-support.c:1397
 msgid "Web Interface is Disabled"
-msgstr ""
+msgstr "Interfejs webowy jest wyłączony"
 
 #: cups/ppd.c:2021
 msgid "Yes"
-msgstr ""
+msgstr "Tak"
 
 #: scheduler/client.c:1969
 msgid "You cannot access this page."
-msgstr ""
+msgstr "Nie masz dostępu do tej strony."
 
 #: scheduler/client.c:1975
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
-msgstr ""
+msgstr "Tą stronę możesz otworzyć używając URL http://%s:%d%s."
 
 #: scheduler/client.c:1967
 msgid "Your account does not have the necessary privileges."
-msgstr ""
+msgstr "Twoje konto nie posiada odpowiednich uprawnień."
 
 #: ppdc/sample.c:444
 msgid "ZPL Label Printer"
@@ -6891,7 +6904,7 @@ msgstr ""
 
 #: cups/notify.c:89
 msgid "aborted"
-msgstr ""
+msgstr "przerwano"
 
 #. TRANSLATORS: Accuracy Units
 #: locale/ipp-strings.c:2
@@ -7030,7 +7043,7 @@ msgstr ""
 
 #: cups/notify.c:86
 msgid "canceled"
-msgstr ""
+msgstr "anulowano"
 
 #. TRANSLATORS: Chamber Humidity
 #: locale/ipp-strings.c:56
@@ -7129,7 +7142,7 @@ msgstr ""
 
 #: cups/notify.c:92
 msgid "completed"
-msgstr ""
+msgstr "ukończono"
 
 #. TRANSLATORS: Print Confirmation Sheet
 #: locale/ipp-strings.c:94
@@ -7248,96 +7261,96 @@ msgstr ""
 
 #: scheduler/ipp.c:6370
 msgid "cups-deviced failed to execute."
-msgstr ""
+msgstr "uruchomienie cups-deviced nie powidło się."
 
 #: scheduler/ipp.c:7257 scheduler/ipp.c:7496
 msgid "cups-driverd failed to execute."
-msgstr ""
+msgstr "uruchomienie cups-driverd nie powiodło się."
 
 #: scheduler/ipp.c:4604
 msgid "cups-driverd failed to get PPD file - see error_log for details."
-msgstr ""
+msgstr "cups-driverd nie może pobrać pliku PPD - zobacz error_log po więcej informacji."
 
 #: systemv/cupsctl.c:166
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
-msgstr ""
+msgstr "cupsctl: Nie można ustawić %s bezpośrednio."
 
 #: systemv/cupsctl.c:179
 #, c-format
 msgid "cupsctl: Unable to connect to server: %s"
-msgstr ""
+msgstr "cupsctl: Nie można połączyć się z serwerem: %s"
 
 #: systemv/cupsctl.c:222
 #, c-format
 msgid "cupsctl: Unknown option \"%s\""
-msgstr ""
+msgstr "cupsctl: Nieznana opcja \"%s\""
 
 #: systemv/cupsctl.c:224
 #, c-format
 msgid "cupsctl: Unknown option \"-%c\""
-msgstr ""
+msgstr "cupsctl: Nieznana opcja \"-%c\""
 
 #: scheduler/main.c:171
 msgid "cupsd: Expected config filename after \"-c\" option."
-msgstr ""
+msgstr "cupsd: Wymagana nazwa pliku konfiguracyjnego przy opcji \"-c\""
 
 #: scheduler/main.c:266
 msgid "cupsd: Expected cups-files.conf filename after \"-s\" option."
-msgstr ""
+msgstr "cupsd: Wymagana nazwa pliku cups-files.conf przy opcji \"-s\""
 
 #: scheduler/main.c:240
 msgid "cupsd: On-demand support not compiled in, running in normal mode."
-msgstr ""
+msgstr "cupsd: Wsparcie usługi na żądanie nieobsługiwane, uruchamiam w trybie normalnym."
 
 #: scheduler/main.c:277
 msgid "cupsd: Relative cups-files.conf filename not allowed."
-msgstr ""
+msgstr "cupsd: Relatywna nazwa pliku cups-files.conf jest niedozwolona."
 
 #: scheduler/main.c:202 scheduler/main.c:209
 msgid "cupsd: Unable to get current directory."
-msgstr ""
+msgstr "cupsd: Nie można ustalić bieżącego katalogu."
 
 #: scheduler/main.c:335 scheduler/main.c:345
 msgid "cupsd: Unable to get path to cups-files.conf file."
-msgstr ""
+msgstr "cupsd: Nie można pobrać ścieżki do pliku cups-files.conf."
 
 #: scheduler/main.c:316
 #, c-format
 msgid "cupsd: Unknown argument \"%s\" - aborting."
-msgstr ""
+msgstr "cupsd: Nieznany argument \"%s\" - przerywam działanie."
 
 #: scheduler/main.c:308
 #, c-format
 msgid "cupsd: Unknown option \"%c\" - aborting."
-msgstr ""
+msgstr "cupsd: Nieznana opcja \"%c\" - przerywam działanie."
 
 #: scheduler/cupsfilter.c:1324
 #, c-format
 msgid "cupsfilter: Invalid document number %d."
-msgstr ""
+msgstr "cupsfilter: Nieprawidłowy numer dokumentu %d."
 
 #: scheduler/cupsfilter.c:1318
 #, c-format
 msgid "cupsfilter: Invalid job ID %d."
-msgstr ""
+msgstr "cupsfilter: Nieprawidłowy identyfikator zadania %d."
 
 #: scheduler/cupsfilter.c:389
 msgid "cupsfilter: Only one filename can be specified."
-msgstr ""
+msgstr "cupsfilter: Może być podana tylko jedna nazwa pliku."
 
 #: scheduler/cupsfilter.c:1366
 #, c-format
 msgid "cupsfilter: Unable to get job file - %s"
-msgstr ""
+msgstr "cupsfilter: Nie można pobrać pliku zadania - %s"
 
 #: systemv/cupstestppd.c:238
 msgid "cupstestppd: The -q option is incompatible with the -v option."
-msgstr ""
+msgstr "cupstestppd: Opcja -q jest niekompatybilna z opcją -v."
 
 #: systemv/cupstestppd.c:254
 msgid "cupstestppd: The -v option is incompatible with the -q option."
-msgstr ""
+msgstr "cupstestppd: Opcja -v jest niekompatybilna z opcją -q."
 
 #. TRANSLATORS: Detailed Status Message
 #: locale/ipp-strings.c:140
@@ -7347,12 +7360,12 @@ msgstr ""
 #: systemv/lpstat.c:1270 systemv/lpstat.c:1273 systemv/lpstat.c:1276
 #, c-format
 msgid "device for %s/%s: %s"
-msgstr ""
+msgstr "urządzenie dla %s/%s: %s"
 
 #: systemv/lpstat.c:1256 systemv/lpstat.c:1259 systemv/lpstat.c:1262
 #, c-format
 msgid "device for %s: %s"
-msgstr ""
+msgstr "urządzenie dla %s: %s"
 
 #. TRANSLATORS: Copies
 #: locale/ipp-strings.c:142
@@ -7636,11 +7649,11 @@ msgstr ""
 
 #: cups/snmp.c:963
 msgid "error-index uses indefinite length"
-msgstr ""
+msgstr "error-index ma niezdefiniowaną długość"
 
 #: cups/snmp.c:955
 msgid "error-status uses indefinite length"
-msgstr ""
+msgstr "error-status ma niezdefiniowaną długość"
 
 #: tools/ippfind.c:2043
 msgid ""
@@ -8915,15 +8928,15 @@ msgstr ""
 
 #: cups/notify.c:77
 msgid "held"
-msgstr ""
+msgstr "wstrzymano"
 
 #: berkeley/lpc.c:196
 msgid "help\t\tGet help on commands."
-msgstr ""
+msgstr "help\t\tPokazuje informację o komendach."
 
 #: cups/notify.c:118
 msgid "idle"
-msgstr ""
+msgstr "wolna"
 
 #. TRANSLATORS: Imposition Template
 #: locale/ipp-strings.c:756
@@ -8958,66 +8971,66 @@ msgstr ""
 #: tools/ippfind.c:1846
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
-msgstr ""
+msgstr "ippfind: Złe wyrażenie regularne: %s"
 
 #: tools/ippfind.c:226
 msgid "ippfind: Cannot use --and after --or."
-msgstr ""
+msgstr "ippfind: Nie można użyc --and po --or."
 
 #: tools/ippfind.c:495
 #, c-format
 msgid "ippfind: Expected key name after %s."
-msgstr ""
+msgstr "ippfind: Wymagana nazwa klucza po %s."
 
 #: tools/ippfind.c:445 tools/ippfind.c:619
 #, c-format
 msgid "ippfind: Expected port range after %s."
-msgstr ""
+msgstr "ippfind: Wymagany zakres portów po %s."
 
 #: tools/ippfind.c:259
 #, c-format
 msgid "ippfind: Expected program after %s."
-msgstr ""
+msgstr "ippfind: Wymagana nazwa programu po %s."
 
 #: tools/ippfind.c:276
 #, c-format
 msgid "ippfind: Expected semi-colon after %s."
-msgstr ""
+msgstr "ippfind: Wymagany średnik po %s."
 
 #: tools/ippfind.c:1398
 msgid "ippfind: Missing close brace in substitution."
-msgstr ""
+msgstr "ippfind: Brak zamykającej klamry w podstawieniu."
 
 #: tools/ippfind.c:917
 msgid "ippfind: Missing close parenthesis."
-msgstr ""
+msgstr "ippfind: Brak zamykającego nawiasu."
 
 #: tools/ippfind.c:233
 msgid "ippfind: Missing expression before \"--and\"."
-msgstr ""
+msgstr "ippfind: Brak wyrażenia przed \"--and\"."
 
 #: tools/ippfind.c:358
 msgid "ippfind: Missing expression before \"--or\"."
-msgstr ""
+msgstr "ippfind: Brak wyrażenia przed \"--or\"."
 
 #: tools/ippfind.c:756
 #, c-format
 msgid "ippfind: Missing key name after %s."
-msgstr ""
+msgstr "ippfind: Brak nazw klucza po %s."
 
 #: tools/ippfind.c:327 tools/ippfind.c:606
 #, c-format
 msgid "ippfind: Missing name after %s."
-msgstr ""
+msgstr "ippfind: Brak nazwy po %s."
 
 #: tools/ippfind.c:891
 msgid "ippfind: Missing open parenthesis."
-msgstr ""
+msgstr "ippfind: Brak otwierającego nawiasu."
 
 #: tools/ippfind.c:786
 #, c-format
 msgid "ippfind: Missing program after %s."
-msgstr ""
+msgstr "ippfind: Brak nazwy programu po %s."
 
 #: tools/ippfind.c:245 tools/ippfind.c:299 tools/ippfind.c:340
 #: tools/ippfind.c:430 tools/ippfind.c:512 tools/ippfind.c:527
@@ -9025,80 +9038,80 @@ msgstr ""
 #: tools/ippfind.c:771
 #, c-format
 msgid "ippfind: Missing regular expression after %s."
-msgstr ""
+msgstr "ippfind: Brak wyrażenia regularnego po %s."
 
 #: tools/ippfind.c:804
 #, c-format
 msgid "ippfind: Missing semi-colon after %s."
-msgstr ""
+msgstr "ippfind: Brak średnika po %s."
 
 #: tools/ippfind.c:1348 tools/ippfind.c:1372
 msgid "ippfind: Out of memory."
-msgstr ""
+msgstr "ippfind: Brak pamięci."
 
 #: tools/ippfind.c:864
 msgid "ippfind: Too many parenthesis."
-msgstr ""
+msgstr "ippfind: Za dużo nawiasów."
 
 #: tools/ippfind.c:1474 tools/ippfind.c:1498
 #, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
-msgstr ""
+msgstr "ippfind: Nie mogę uruchomić \"%s\": %s"
 
 #: tools/ippfind.c:1427
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
-msgstr ""
+msgstr "ippfind: Nieznana zmienna \"{%s}\"."
 
 #: tools/ipptool.c:602 tools/ipptool.c:628
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", and \"-X\"."
-msgstr ""
+msgstr "ipptool: \"-i\" i \"-n\" są niekompatybilne z \"-ippserver\", \"-P\" i \"-X\"."
 
 #: tools/ipptool.c:408 tools/ipptool.c:474
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
-msgstr ""
+msgstr "ipptool: \"-i\" i \"-n\" są niekomaptybilne z \"-P\" i \"-X\"."
 
 #: tools/ipptool.c:667
 #, c-format
 msgid "ipptool: Bad URI \"%s\"."
-msgstr ""
+msgstr "ipptool: Złe URI \"%s\"."
 
 #: tools/ipptool.c:595
 msgid "ipptool: Invalid seconds for \"-i\"."
-msgstr ""
+msgstr "ipptool: Niepoprawne sekundy dla \"-i\"."
 
 #: tools/ipptool.c:657
 msgid "ipptool: May only specify a single URI."
-msgstr ""
+msgstr "ipptool: Można podać tylko jeden URI."
 
 #: tools/ipptool.c:620
 msgid "ipptool: Missing count for \"-n\"."
-msgstr ""
+msgstr "ipptool: Brak liczby powtórzeń dla \"-n\"."
 
 #: tools/ipptool.c:326
 msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr ""
+msgstr "ipptool: Brak nazwy pliku dla \"-ippserver\"."
 
 #: tools/ipptool.c:506
 msgid "ipptool: Missing filename for \"-f\"."
-msgstr ""
+msgstr "ipptool: Brak nazwy pliku dla \"-f\"."
 
 #: tools/ipptool.c:488
 msgid "ipptool: Missing name=value for \"-d\"."
-msgstr ""
+msgstr "ipptool: Brak zmienna=wartość dla \"-d\"."
 
 #: tools/ipptool.c:587
 msgid "ipptool: Missing seconds for \"-i\"."
-msgstr ""
+msgstr "ipptool: Brak sekund dla \"-i\"."
 
 #: tools/ipptool.c:680
 msgid "ipptool: URI required before test file."
-msgstr ""
+msgstr "ipptool: Wymagane URI przed plikiem testowym."
 
 #: tools/ipptool.c:793
 #, c-format
 msgid "ipptool: Unable to allocate memory: %s"
-msgstr ""
+msgstr "ipptool: Nie mogę zaalokować pamięci: %s"
 
 #. TRANSLATORS: Job Account ID
 #: locale/ipp-strings.c:768
@@ -9996,170 +10009,178 @@ msgstr ""
 
 #: systemv/lpadmin.c:123 systemv/lpadmin.c:374
 msgid "lpadmin: Class name can only contain printable characters."
-msgstr ""
+msgstr "lpadmin: Nazwa klasy może zawierać tylko drukowalne znaki."
 
 #: systemv/lpadmin.c:213
 #, c-format
 msgid "lpadmin: Expected PPD after \"-%c\" option."
-msgstr ""
+msgstr "lpadmin: Wymagane PPD po opcji \"-%c\"."
 
 #: systemv/lpadmin.c:455
 msgid "lpadmin: Expected allow/deny:userlist after \"-u\" option."
-msgstr ""
+msgstr "lpadmin: Wymagane allow/deny:userlist po opcji \"-u\"."
 
 #: systemv/lpadmin.c:365
 msgid "lpadmin: Expected class after \"-r\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana klasa po opcji \"-r\"."
 
 #: systemv/lpadmin.c:113
 msgid "lpadmin: Expected class name after \"-c\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana nazwa klasy po opcji \"-c\"."
 
 #: systemv/lpadmin.c:549
 msgid "lpadmin: Expected description after \"-D\" option."
-msgstr ""
+msgstr "lpadmin: Wymagany opis po opcji \"-D\"."
 
 #: systemv/lpadmin.c:485
 msgid "lpadmin: Expected device URI after \"-v\" option."
-msgstr ""
+msgstr "lpadmin: Wymagany URI urządzenia po opcji \"-v\"."
 
 #: systemv/lpadmin.c:562
 msgid "lpadmin: Expected file type(s) after \"-I\" option."
-msgstr ""
+msgstr "lpadmin: Wymagany typ pliku(ów) po opcji \"-I\"."
 
 #: systemv/lpadmin.c:192
 msgid "lpadmin: Expected hostname after \"-h\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana nazwa komputera po opcji \"-h\"."
 
 #: systemv/lpadmin.c:581
 msgid "lpadmin: Expected location after \"-L\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana lokalizacja po opcji \"-L\"."
 
 #: systemv/lpadmin.c:278
 msgid "lpadmin: Expected model after \"-m\" option."
-msgstr ""
+msgstr "lpadmin: Wymagany model po opcji \"-m\"."
 
 #: systemv/lpadmin.c:413
 msgid "lpadmin: Expected name after \"-R\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana nazwa po opcji \"-R\"."
 
 #: systemv/lpadmin.c:298
 msgid "lpadmin: Expected name=value after \"-o\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana zmienna=wartość po opcji \"-o\"."
 
 #: systemv/lpadmin.c:318
 msgid "lpadmin: Expected printer after \"-p\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana drukarka po opcji \"-p\"."
 
 #: systemv/lpadmin.c:155
 msgid "lpadmin: Expected printer name after \"-d\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana nazwa drukarki po opcji \"-d\"."
 
 #: systemv/lpadmin.c:518
 msgid "lpadmin: Expected printer or class after \"-x\" option."
-msgstr ""
+msgstr "lpadmin: Wymagana drukarka lub klasa po opcji \"-x\"."
 
 #: systemv/lpadmin.c:947
 msgid "lpadmin: No member names were seen."
-msgstr ""
+msgstr "lpadmin: Brak nazw członków."
 
 #: systemv/lpadmin.c:741
 #, c-format
 msgid "lpadmin: Printer %s is already a member of class %s."
-msgstr ""
+msgstr "lpadmin: Drukarka %s jużjest członkiem klasy %s."
 
 #: systemv/lpadmin.c:961
 #, c-format
 msgid "lpadmin: Printer %s is not a member of class %s."
-msgstr ""
+msgstr "lpadmin: Drukarka %s nie jest członkiem klasy %s."
 
 #: systemv/lpadmin.c:626
 msgid "lpadmin: Printer drivers are deprecated and will stop working in a future version of CUPS."
-msgstr ""
+msgstr "lpadmin: Sterowniki drukarek są przestarzałę i przestaną być wspierane w nowszych wersjach CUPS."
 
 #: systemv/lpadmin.c:164 systemv/lpadmin.c:327 systemv/lpadmin.c:527
 msgid "lpadmin: Printer name can only contain printable characters."
-msgstr ""
+msgstr "lpadmin: Nazwa drukarki musi zawierać tylko drukowalne znaki."
 
 #: systemv/lpadmin.c:614
 msgid "lpadmin: Raw queues are deprecated and will stop working in a future version of CUPS."
-msgstr ""
+msgstr "lpadmin: Raw queues są przestarzałe i przestaną być wspierane w nowszych wersjach CUPS."
 
 #: systemv/lpadmin.c:612
 msgid "lpadmin: Raw queues are no longer supported on macOS."
-msgstr ""
+msgstr "lpadmin: Raw queues nie są wspierane na macOS."
 
 #: systemv/lpadmin.c:231
 msgid "lpadmin: System V interface scripts are no longer supported for security reasons."
-msgstr ""
+msgstr "lpadmin: Skrypty interfejsu System V nie są wspierane ze względów bezpieczeństwa."
 
 #: systemv/lpadmin.c:97
 msgid ""
 "lpadmin: Unable to add a printer to the class:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Nie można dodać drukarki do klasy:\n"
+"         Trzeba podać najpierw nazwę drukarki."
 
 #: systemv/lpadmin.c:89 systemv/lpadmin.c:139 systemv/lpadmin.c:257
 #: systemv/lpadmin.c:340 systemv/lpadmin.c:389 systemv/lpadmin.c:501
 #: systemv/lpadmin.c:645
 #, c-format
 msgid "lpadmin: Unable to connect to server: %s"
-msgstr ""
+msgstr "lpadmin: Nie mogę połączyć się z serwerem: %s"
 
 #: systemv/lpadmin.c:1332
 msgid "lpadmin: Unable to create temporary file"
-msgstr ""
+msgstr "lpadmin: Nie mogę utworzyć pliku tymczasowego"
 
 #: systemv/lpadmin.c:397
 msgid ""
 "lpadmin: Unable to delete option:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Nie można usunąć opcji:\n"
+"         Trzeba najpierw podać nazwę drukarki."
 
 #: systemv/lpadmin.c:1338
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s"
-msgstr ""
+msgstr "lpadmin: Nie mogę otworzyć PPD \"%s\": %s"
 
 #: systemv/lpadmin.c:1323
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s on line %d."
-msgstr ""
+msgstr "lpadmin: Nie mogę otworzyć PPD \"%s\": %s w linii %d."
 
 #: systemv/lpadmin.c:349
 msgid ""
 "lpadmin: Unable to remove a printer from the class:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Nie można usunąć drukarki z klasy:\n"
+"         Trzeba najpierw podać nazwę drukarki."
 
 #: systemv/lpadmin.c:634
 msgid ""
 "lpadmin: Unable to set the printer options:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Nie można ustawić opcji drukarki:\n"
+"         Trzeba najpierw podać nazwę drukarki."
 
 #: systemv/lpadmin.c:468
 #, c-format
 msgid "lpadmin: Unknown allow/deny option \"%s\"."
-msgstr ""
+msgstr "lpadmin: Nieznana opcja allow/deny \"%s\"."
 
 #: systemv/lpadmin.c:597
 #, c-format
 msgid "lpadmin: Unknown argument \"%s\"."
-msgstr ""
+msgstr "lpadmin: Nieznany argument \"%s\"."
 
 #: systemv/lpadmin.c:590
 #, c-format
 msgid "lpadmin: Unknown option \"%c\"."
-msgstr ""
+msgstr "lpadmin: Nieznana opcja \"%c\"."
 
 #: systemv/lpadmin.c:618
 msgid "lpadmin: Use the 'everywhere' model for shared printers."
-msgstr ""
+msgstr "lpadmin: Użyj modelu 'everywhere' dla udostępnionych drukarek."
 
 #: systemv/lpadmin.c:566
 msgid "lpadmin: Warning - content type list ignored."
-msgstr ""
+msgstr "lpadmin: Ostrzeżenie - lista typów zawartości zignorowana."
 
 #: berkeley/lpc.c:63 berkeley/lpc.c:91 berkeley/lpc.c:127
 msgid "lpc> "
@@ -10167,69 +10188,69 @@ msgstr ""
 
 #: systemv/lpinfo.c:81
 msgid "lpinfo: Expected 1284 device ID string after \"--device-id\"."
-msgstr ""
+msgstr "lpinfo: Wymagany identyfikator urządzenia 1284 po \"--device-id\"."
 
 #: systemv/lpinfo.c:130
 msgid "lpinfo: Expected language after \"--language\"."
-msgstr ""
+msgstr "lpinfo: Wymagana nazwa języka po \"--language\"."
 
 #: systemv/lpinfo.c:145
 msgid "lpinfo: Expected make and model after \"--make-and-model\"."
-msgstr ""
+msgstr "lpinfo: Wymagany nazwa modelu po \"--make-and-model\"."
 
 #: systemv/lpinfo.c:160
 msgid "lpinfo: Expected product string after \"--product\"."
-msgstr ""
+msgstr "lpinfo: Wymagana nazwa produktu po \"--product\"."
 
 #: systemv/lpinfo.c:97
 msgid "lpinfo: Expected scheme list after \"--exclude-schemes\"."
-msgstr ""
+msgstr "lpinfo: Wymagana lista schematów po \"--exclude-schemes\"."
 
 #: systemv/lpinfo.c:115
 msgid "lpinfo: Expected scheme list after \"--include-schemes\"."
-msgstr ""
+msgstr "lpinfo: Wymagana lista schematów po \"--include-schemes\"."
 
 #: systemv/lpinfo.c:175
 msgid "lpinfo: Expected timeout after \"--timeout\"."
-msgstr ""
+msgstr "lpinfo: Wymagany limit czasu po \"--timeout\"."
 
 #: systemv/lpmove.c:125
 #, c-format
 msgid "lpmove: Unable to connect to server: %s"
-msgstr ""
+msgstr "lpmove: Nie mogę połączyć się z serwerem: %s"
 
 #: systemv/lpmove.c:113
 #, c-format
 msgid "lpmove: Unknown argument \"%s\"."
-msgstr ""
+msgstr "lpmove: Nieznany argument: \"%s\"."
 
 #: systemv/lpoptions.c:149 systemv/lpoptions.c:167 systemv/lpoptions.c:246
 msgid "lpoptions: No printers."
-msgstr ""
+msgstr "lpoptions: Brak drukarek."
 
 #: systemv/lpoptions.c:223
 #, c-format
 msgid "lpoptions: Unable to add printer or instance: %s"
-msgstr ""
+msgstr "lpoptions: Nie mogę dodać drukarki lub instancji: %s"
 
 #: systemv/lpoptions.c:492 systemv/lpoptions.c:501
 #, c-format
 msgid "lpoptions: Unable to get PPD file for %s: %s"
-msgstr ""
+msgstr "lpoptions: Nie mogę pobrać pliku PPD dla %s: %s"
 
 #: systemv/lpoptions.c:511
 #, c-format
 msgid "lpoptions: Unable to open PPD file for %s."
-msgstr ""
+msgstr "lpoptions: Nie mogę otworzyć pliku PPD dla %s."
 
 #: systemv/lpoptions.c:95
 msgid "lpoptions: Unknown printer or class."
-msgstr ""
+msgstr "lpoptions: Nieznana drukarka lub klasa."
 
 #: systemv/lpstat.c:1110
 #, c-format
 msgid "lpstat: error - %s environment variable names non-existent destination \"%s\"."
-msgstr ""
+msgstr "lpstat: błąd - zmienna środowiskowa %s wskazuje niestniejącą destynację \"%s\"."
 
 #. TRANSLATORS: Amount of Material
 #: locale/ipp-strings.c:1124
@@ -13069,7 +13090,7 @@ msgstr ""
 #: systemv/lpstat.c:1046
 #, c-format
 msgid "members of class %s:"
-msgstr ""
+msgstr "członkowie klasy %s:"
 
 #. TRANSLATORS: Multiple Document Handling
 #: locale/ipp-strings.c:2258
@@ -13153,11 +13174,11 @@ msgstr ""
 
 #: berkeley/lpq.c:551
 msgid "no entries"
-msgstr ""
+msgstr "brak wpisów"
 
 #: systemv/lpstat.c:1114
 msgid "no system default destination"
-msgstr ""
+msgstr "brak domyślnej destynacji"
 
 #. TRANSLATORS: Noise Removal
 #: locale/ipp-strings.c:2290
@@ -13321,12 +13342,12 @@ msgstr ""
 #: scheduler/ipp.c:2034 scheduler/ipp.c:5941
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" is already used."
-msgstr ""
+msgstr "notify-recipient-uri URI \"%s\" już jest w użyciu."
 
 #: scheduler/ipp.c:2024 scheduler/ipp.c:5931
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" uses unknown scheme."
-msgstr ""
+msgstr "notify-recipient-uri URI \"%s\" używa nieznanego schematu."
 
 #. TRANSLATORS: Notify Sequence Numbers
 #: locale/ipp-strings.c:2352
@@ -13725,7 +13746,7 @@ msgstr ""
 
 #: cups/notify.c:74
 msgid "pending"
-msgstr ""
+msgstr "oczekuje"
 
 #. TRANSLATORS: Platform Shape
 #: locale/ipp-strings.c:2510
@@ -13755,475 +13776,475 @@ msgstr ""
 #: ppdc/ppdc.cxx:102 ppdc/ppdpo.cxx:81
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
-msgstr ""
+msgstr "ppdc: Dodaję katalog include \"%s\"."
 
 #: ppdc/ppdpo.cxx:123
 #, c-format
 msgid "ppdc: Adding/updating UI text from %s."
-msgstr ""
+msgstr "ppdc: Dodaję/uaktualniam tekst UI z %s."
 
 #: ppdc/ppdc-source.cxx:362
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Zła wartość boolean (%s) w linii %d w %s."
 
 #: ppdc/ppdc-import.cxx:257
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
-msgstr ""
+msgstr "ppdc: Zły atrybut czcionki: %s"
 
 #: ppdc/ppdc-source.cxx:1753
 #, c-format
 msgid "ppdc: Bad resolution name \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Zła nazwa \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1065
 #, c-format
 msgid "ppdc: Bad status keyword %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Złe słowo kluczowe stanu %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1987
 #, c-format
 msgid "ppdc: Bad variable substitution ($%c) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Złe podstawienie zmiennej ($%c) w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2673
 #, c-format
 msgid "ppdc: Choice found on line %d of %s with no Option."
-msgstr ""
+msgstr "ppdc: Znaleziono Choice w linii %d w %s bez Option."
 
 #: ppdc/ppdc-source.cxx:1650
 #, c-format
 msgid "ppdc: Duplicate #po for locale %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Duplikat #po dla lokalizacji %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:884
 #, c-format
 msgid "ppdc: Expected a filter definition on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana definicja filtra w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:907
 #, c-format
 msgid "ppdc: Expected a program name on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa programu w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:346
 #, c-format
 msgid "ppdc: Expected boolean value on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana wartość boolean w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1045
 #, c-format
 msgid "ppdc: Expected charset after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany znak po Font w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:399
 #, c-format
 msgid "ppdc: Expected choice code on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany kod wyboru w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:387
 #, c-format
 msgid "ppdc: Expected choice name/text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa/tekst wyboru w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:455
 #, c-format
 msgid "ppdc: Expected color order for ColorModel on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana kolejność kolorów dla ColorModel w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:444
 #, c-format
 msgid "ppdc: Expected colorspace for ColorModel on line %d of %s."
-msgstr ""
+msgstr "ppdc Wymagane colorspace dla ColorModel w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:466
 #, c-format
 msgid "ppdc: Expected compression for ColorModel on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana kompresja dla ColorModel w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:647
 #, c-format
 msgid "ppdc: Expected constraints string for UIConstraints on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany łańcuch znaków ograniczeń dla UIConstraints w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2858
 #, c-format
 msgid "ppdc: Expected driver type keyword following DriverType on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagane słowo kluczowe typu sterownika po DriverType w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:778
 #, c-format
 msgid "ppdc: Expected duplex type after Duplex on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany typ dupleksu po Duplex w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1029
 #, c-format
 msgid "ppdc: Expected encoding after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagane kodowanie po Font w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1641
 #, c-format
 msgid "ppdc: Expected filename after #po %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa pliku po #po %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1157
 #, c-format
 msgid "ppdc: Expected group name/text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa/tekst grupy w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2572
 #, c-format
 msgid "ppdc: Expected include filename on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa pliku include w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1454
 #, c-format
 msgid "ppdc: Expected integer on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana liczba w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1633
 #, c-format
 msgid "ppdc: Expected locale after #po on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa tłumaczenia po #po w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:305
 #, c-format
 msgid "ppdc: Expected name after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa po %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:3230
 #, c-format
 msgid "ppdc: Expected name after FileName on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa po FileName w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1010
 #, c-format
 msgid "ppdc: Expected name after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa po Font w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:3061
 #, c-format
 msgid "ppdc: Expected name after Manufacturer on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa po Manufacturer w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:3094
 #, c-format
 msgid "ppdc: Expected name after MediaSize on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa po MediaSize w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:3184
 #, c-format
 msgid "ppdc: Expected name after ModelName on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa po ModelName w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:3247
 #, c-format
 msgid "ppdc: Expected name after PCFileName on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa po PCFileName w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1108
 #, c-format
 msgid "ppdc: Expected name/text after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa/tekst po %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1197
 #, c-format
 msgid "ppdc: Expected name/text after Installable on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa/tekst po Installable w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1734
 #, c-format
 msgid "ppdc: Expected name/text after Resolution on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa/test po Resolution w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:431
 #, c-format
 msgid "ppdc: Expected name/text combination for ColorModel on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana kombinacja nazwa/tekst dla ColorModel w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1526
 #, c-format
 msgid "ppdc: Expected option name/text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana nazwa/tekst opcji w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1560
 #, c-format
 msgid "ppdc: Expected option section on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana sekcji opcji w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1538
 #, c-format
 msgid "ppdc: Expected option type on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany typ opcji w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1717
 #, c-format
 msgid "ppdc: Expected override field after Resolution on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagane pole zastępcze po Resolution w linii %d w %s."
 
 #: ppdc/ppdc-catalog.cxx:319 ppdc/ppdc-catalog.cxx:331
 #, c-format
 msgid "ppdc: Expected quoted string on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany zacytowany łańcuch znaków w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:956
 #, c-format
 msgid "ppdc: Expected real number on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana liczba rzeczywista w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:524
 #, c-format
 msgid "ppdc: Expected resolution/mediatype following ColorProfile on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana rozdzielczość/typ medium po ColorProfile w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1817
 #, c-format
 msgid "ppdc: Expected resolution/mediatype following SimpleColorProfile on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana rozdzielczość/typ medium po SimpleColorProfile w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:313
 #, c-format
 msgid "ppdc: Expected selector after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymaganay selektor po %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1053
 #, c-format
 msgid "ppdc: Expected status after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany stan po Font w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2748
 #, c-format
 msgid "ppdc: Expected string after Copyright on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany łańcuch znaków po Copyright w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:3350
 #, c-format
 msgid "ppdc: Expected string after Version on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagany łańcuch znaków po Version w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:680
 #, c-format
 msgid "ppdc: Expected two option names on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagane dwie nazwy opcji w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:324
 #, c-format
 msgid "ppdc: Expected value after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana wartość po %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1037
 #, c-format
 msgid "ppdc: Expected version after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana wersja po Font w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:179
 #, c-format
 msgid "ppdc: Invalid #include/#po filename \"%s\"."
-msgstr ""
+msgstr "ppdc: Nieprawidłowe nazwa pliku #include/#po \"%s\"."
 
 #: ppdc/ppdc-source.cxx:924
 #, c-format
 msgid "ppdc: Invalid cost for filter on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieprawidłowy koszt filtra w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:916
 #, c-format
 msgid "ppdc: Invalid empty MIME type for filter on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieprawidłowy pusty typ MIME dla filtra w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:932
 #, c-format
 msgid "ppdc: Invalid empty program name for filter on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieprawidłowa pusta nazwa programu dla filtra w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1580
 #, c-format
 msgid "ppdc: Invalid option section \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieprawidłowa sekcja opcji \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1552
 #, c-format
 msgid "ppdc: Invalid option type \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieprawidłowy typ opcji \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc.cxx:239 ppdc/ppdpo.cxx:110
 #, c-format
 msgid "ppdc: Loading driver information file \"%s\"."
-msgstr ""
+msgstr "ppdc: Wczytuję plik informacji sterownika \"%s\"."
 
 #: ppdc/ppdc.cxx:176
 #, c-format
 msgid "ppdc: Loading messages for locale \"%s\"."
-msgstr ""
+msgstr "ppdc: Wczytuję tłumaczenia dla lokalizacji \"%s\"."
 
 #: ppdc/ppdc.cxx:115
 #, c-format
 msgid "ppdc: Loading messages from \"%s\"."
-msgstr ""
+msgstr "ppdc: Wczytuję tłumaczenia z \"%s\"."
 
 #: ppdc/ppdc-source.cxx:2365 ppdc/ppdc-source.cxx:2597
 #, c-format
 msgid "ppdc: Missing #endif at end of \"%s\"."
-msgstr ""
+msgstr "ppdc: Brak #endif na końcu \"%s\"."
 
 #: ppdc/ppdc-source.cxx:2466 ppdc/ppdc-source.cxx:2501
 #: ppdc/ppdc-source.cxx:2531
 #, c-format
 msgid "ppdc: Missing #if on line %d of %s."
-msgstr ""
+msgstr "ppdc: Brak #if w linii %d w %s."
 
 #: ppdc/ppdc-catalog.cxx:396
 #, c-format
 msgid "ppdc: Need a msgid line before any translation strings on line %d of %s."
-msgstr ""
+msgstr "ppdc: Wymagana linia msgid przed tłumaczeniami w linii %d w %s."
 
 #: ppdc/ppdc-driver.cxx:707
 #, c-format
 msgid "ppdc: No message catalog provided for locale %s."
-msgstr ""
+msgstr "ppdc: Brak katalogu tłumaczeń dla lokalizacji %s."
 
 #: ppdc/ppdc-source.cxx:1603 ppdc/ppdc-source.cxx:2835
 #: ppdc/ppdc-source.cxx:2921 ppdc/ppdc-source.cxx:3014
 #: ppdc/ppdc-source.cxx:3147 ppdc/ppdc-source.cxx:3280
 #, c-format
 msgid "ppdc: Option %s defined in two different groups on line %d of %s."
-msgstr ""
+msgstr "ppdc: Opcja %s zdefiniowana w dwóch różnych grupach w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:1596
 #, c-format
 msgid "ppdc: Option %s redefined with a different type on line %d of %s."
-msgstr ""
+msgstr "ppdc: Opcja %s zdefiniowana ponownie z innym typem w linii %d z %s."
 
 #: ppdc/ppdc-source.cxx:657
 #, c-format
 msgid "ppdc: Option constraint must *name on line %d of %s."
-msgstr ""
+msgstr "ppdc: Ograniczenie opcji musi *name w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2448
 #, c-format
 msgid "ppdc: Too many nested #if's on line %d of %s."
-msgstr ""
+msgstr "ppdc: Za dużo zagnieżdżonych #if w linii %d w %s."
 
 #: ppdc/ppdc.cxx:362
 #, c-format
 msgid "ppdc: Unable to create PPD file \"%s\" - %s."
-msgstr ""
+msgstr "ppdc: Nie mogę stworzyć pliku PPD \"%s\" - %s."
 
 #: ppdc/ppdc.cxx:254
 #, c-format
 msgid "ppdc: Unable to create output directory %s: %s"
-msgstr ""
+msgstr "ppdc: Nie mogę stworzyć katalogu wyjściowego %s: %s"
 
 #: ppdc/ppdc.cxx:275
 #, c-format
 msgid "ppdc: Unable to create output pipes: %s"
-msgstr ""
+msgstr "ppdc: Nie mogę stworzyć potoków wyjściowych: %s"
 
 #: ppdc/ppdc.cxx:291 ppdc/ppdc.cxx:297
 #, c-format
 msgid "ppdc: Unable to execute cupstestppd: %s"
-msgstr ""
+msgstr "ppdc: Nie mogę uruchomić cupstestppd: %s"
 
 #: ppdc/ppdc-source.cxx:1682
 #, c-format
 msgid "ppdc: Unable to find #po file %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nie mogę znaleźć pliku #po %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2604
 #, c-format
 msgid "ppdc: Unable to find include file \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nie mogę znaleźć pliku include \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc.cxx:187
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
-msgstr ""
+msgstr "ppdc: Nie mogę znaleźć tłumaczenia dla \"%s\" - %s"
 
 #: ppdc/ppdc.cxx:124
 #, c-format
 msgid "ppdc: Unable to load localization file \"%s\" - %s"
-msgstr ""
+msgstr "ppdc: Nie mogę wczytać pliku tłumaczeń \"%s\" - %s"
 
 #: ppdc/ppdc-file.cxx:37
 #, c-format
 msgid "ppdc: Unable to open %s: %s"
-msgstr ""
+msgstr "ppdc: Nie mogę otworzyć %s: %s"
 
 #: ppdc/ppdc-source.cxx:2008
 #, c-format
 msgid "ppdc: Undefined variable (%s) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Niezadeklarowna zmienna (%s) w linii %d w %s."
 
 #: ppdc/ppdc-catalog.cxx:413
 #, c-format
 msgid "ppdc: Unexpected text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Niespodziewany tekst w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2877
 #, c-format
 msgid "ppdc: Unknown driver type %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieznany typ sterownika %s w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:858
 #, c-format
 msgid "ppdc: Unknown duplex type \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieznany typ dupleksu \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:3107
 #, c-format
 msgid "ppdc: Unknown media size \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieznana wielkość medium \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc-catalog.cxx:441
 #, c-format
 msgid "ppdc: Unknown message catalog format for \"%s\"."
-msgstr ""
+msgstr "ppdc: Nieznany format katalogu tłumaczeń dla \"%s\""
 
 #: ppdc/ppdc-source.cxx:3361
 #, c-format
 msgid "ppdc: Unknown token \"%s\" seen on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieznany token \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:966
 #, c-format
 msgid "ppdc: Unknown trailing characters in real number \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nieprawidłowe znaki na końcu liczby rzeczywistej \"%s\" w linii %d w %s."
 
 #: ppdc/ppdc-source.cxx:2118
 #, c-format
 msgid "ppdc: Unterminated string starting with %c on line %d of %s."
-msgstr ""
+msgstr "ppdc: Niezakończony łańcuch znaków rozpoczynający się od %c w linii %d w %s."
 
 #: ppdc/ppdc.cxx:353
 #, c-format
 msgid "ppdc: Warning - overlapping filename \"%s\"."
-msgstr ""
+msgstr "ppdc: Ostrzeżenie - nakładająca się nazwa pliku \"%s\"."
 
 #: ppdc/ppdc.cxx:368
 #, c-format
 msgid "ppdc: Writing %s."
-msgstr ""
+msgstr "ppdc: Zapisuję %s."
 
 #: ppdc/ppdc.cxx:137
 #, c-format
 msgid "ppdc: Writing PPD files to directory \"%s\"."
-msgstr ""
+msgstr "ppdc: Zapisuję pliki PPD do katalogu \"%s\"."
 
 #: ppdc/ppdmerge.cxx:125
 #, c-format
 msgid "ppdmerge: Bad LanguageVersion \"%s\" in %s."
-msgstr ""
+msgstr "ppdmerge: Zły LanguageVersion \"%s\" w %s."
 
 #: ppdc/ppdmerge.cxx:162
 #, c-format
 msgid "ppdmerge: Ignoring PPD file %s."
-msgstr ""
+msgstr "ppdmerge: Ignoruję plik PPD %s."
 
 #: ppdc/ppdmerge.cxx:146
 #, c-format
 msgid "ppdmerge: Unable to backup %s to %s - %s"
-msgstr ""
+msgstr "ppdmerge: Nieudana kopia bezpieczeństwa %s do %s - %s"
 
 #. TRANSLATORS: Pre-dial String
 #: locale/ipp-strings.c:2520
@@ -14523,37 +14544,37 @@ msgstr ""
 #: systemv/lpstat.c:1812
 #, c-format
 msgid "printer %s disabled since %s -"
-msgstr ""
+msgstr "drukarka %s jest wyłączona od %s -"
 
 #: systemv/lpstat.c:1804
 #, c-format
 msgid "printer %s is holding new jobs.  enabled since %s"
-msgstr ""
+msgstr "drukarka %s wstrzymuje nowe zadania.  włączona od %s"
 
 #: systemv/lpstat.c:1806
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
-msgstr ""
+msgstr "drukarka %s jest wolna.  włączona od %s"
 
 #: systemv/lpstat.c:1809
 #, c-format
 msgid "printer %s now printing %s-%d.  enabled since %s"
-msgstr ""
+msgstr "drukarka %s drukuje %s-%d.  włączona od %s"
 
 #: systemv/lpstat.c:1930
 #, c-format
 msgid "printer %s/%s disabled since %s -"
-msgstr ""
+msgstr "drukarka %s/%s wyłączona od %s -"
 
 #: systemv/lpstat.c:1916
 #, c-format
 msgid "printer %s/%s is idle.  enabled since %s"
-msgstr ""
+msgstr "drukarka %s/%s jest wolna.  włączona od %s"
 
 #: systemv/lpstat.c:1923
 #, c-format
 msgid "printer %s/%s now printing %s-%d.  enabled since %s"
-msgstr ""
+msgstr "drukarka %s/%s drukuje %s-%d.  włączona od %s"
 
 #. TRANSLATORS: Printer Kind
 #: locale/ipp-strings.c:2638
@@ -18622,7 +18643,7 @@ msgstr ""
 
 #: cups/notify.c:80 cups/notify.c:121
 msgid "processing"
-msgstr ""
+msgstr "przetwarzanie"
 
 #. TRANSLATORS: Proof Print
 #: locale/ipp-strings.c:4264
@@ -18681,7 +18702,7 @@ msgstr ""
 
 #: cups/snmp.c:947
 msgid "request-id uses indefinite length"
-msgstr ""
+msgstr "request-id ma niezdefiniowaną długość"
 
 #. TRANSLATORS: Requested Attributes
 #: locale/ipp-strings.c:4284
@@ -18740,11 +18761,11 @@ msgstr ""
 
 #: systemv/lpstat.c:2060
 msgid "scheduler is not running"
-msgstr ""
+msgstr "planista wydruków nie jest uruchomiony"
 
 #: systemv/lpstat.c:2054
 msgid "scheduler is running"
-msgstr ""
+msgstr "planista wydruków jest uruchomiony"
 
 #. TRANSLATORS: Separator Sheets
 #: locale/ipp-strings.c:4306
@@ -18804,11 +18825,11 @@ msgstr ""
 #: cups/adminutil.c:1387
 #, c-format
 msgid "stat of %s failed: %s"
-msgstr ""
+msgstr "odczyt stanu %s nie powiódł się: %s"
 
 #: berkeley/lpc.c:198
 msgid "status\t\tShow status of daemon and queue."
-msgstr ""
+msgstr "status\t\tPokazuje stan usługi i kolejki."
 
 #. TRANSLATORS: Status Message
 #: locale/ipp-strings.c:4328
@@ -18882,7 +18903,7 @@ msgstr ""
 
 #: cups/notify.c:83 cups/notify.c:124
 msgid "stopped"
-msgstr ""
+msgstr "zatrzymano"
 
 #. TRANSLATORS: Subject
 #: locale/ipp-strings.c:4356
@@ -19096,15 +19117,15 @@ msgstr ""
 
 #: cups/notify.c:95 cups/notify.c:127
 msgid "unknown"
-msgstr ""
+msgstr "nieznany"
 
 #: cups/notify.c:104
 msgid "untitled"
-msgstr ""
+msgstr "bez nazwy"
 
 #: cups/snmp.c:972
 msgid "variable-bindings uses indefinite length"
-msgstr ""
+msgstr "variable-bindings ma nieustaloną długość"
 
 #. TRANSLATORS: X Accuracy
 #: locale/ipp-strings.c:4436
@@ -19163,40 +19184,40 @@ msgstr ""
 
 #: tools/ippfind.c:2049
 msgid "{service_domain}        Domain name"
-msgstr ""
+msgstr "{service_domain}        Nazwa domeny"
 
 #: tools/ippfind.c:2050
 msgid "{service_hostname}      Fully-qualified domain name"
-msgstr ""
+msgstr "{service_hostname}      Pełna nazwa domeny"
 
 #: tools/ippfind.c:2051
 msgid "{service_name}          Service instance name"
-msgstr ""
+msgstr "{service_name}          Nazwa instancji usługi"
 
 #: tools/ippfind.c:2052
 msgid "{service_port}          Port number"
-msgstr ""
+msgstr "{service_port}          Numer portu"
 
 #: tools/ippfind.c:2053
 msgid "{service_regtype}       DNS-SD registration type"
-msgstr ""
+msgstr "{service_regtype}       Typ rejestracji DNS-SD"
 
 #: tools/ippfind.c:2054
 msgid "{service_scheme}        URI scheme"
-msgstr ""
+msgstr "{service_scheme}        Schemat URI"
 
 #: tools/ippfind.c:2055
 msgid "{service_uri}           URI"
-msgstr ""
+msgstr "{service_uri}           URI"
 
 #: tools/ippfind.c:2056
 msgid "{txt_*}                 Value of TXT record key"
-msgstr ""
+msgstr "{txt_*}                 Wartość klucza TXT"
 
 #: tools/ippfind.c:2048
 msgid "{}                      URI"
-msgstr ""
+msgstr "{}                      URI"
 
 #: cups/dest.c:1772
 msgid "~/.cups/lpoptions file names default destination that does not exist."
-msgstr ""
+msgstr "~/.cups/lpoptions domyślna destynacja z pliku nie isnieje."
