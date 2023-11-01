@@ -1,0 +1,37 @@
+<H2 CLASS="title">Tworzenie klasy</H2>
+
+<FORM METHOD="POST" ACTION="/admin">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
+
+<TABLE>
+<TR>
+<TH CLASS="label">Nazwa:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_NAME" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>(Może zawierać wszystkie znaki oprócz "/", "#", i spacji)</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">Opis:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_INFO" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>(Zrozumiały dla użytkownika opis urządzenia np. "HP LaserJet z duplekserem")</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">Lokalizacja:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_LOCATION" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>(Zrozumiała dla użytkownika lokalizacja urządzenia np. "Laboratorium 1")</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">Członkowie:</TH>
+<TD>
+<SELECT NAME="MEMBER_URIS" SIZE="10" MULTIPLE>
+{[member_uris]<OPTION VALUE="{member_uris}" {?member_selected}>{member_names}}
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="Dodaj klasę"></TD>
+</TR>
+</TABLE>
+
+</FORM>
