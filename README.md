@@ -153,6 +153,22 @@ then you need to use the `-oraw` or `-l` options:
 This will prevent the filters from misinterpreting your print file.
 
 
+Contributing Code and Translations
+----------------------------------
+
+Code contributions should be submitted as pull requests on the Github site:
+
+    http://github.com/OpenPrinting/cups/pulls
+
+See the file "CONTRIBUTING.md" for more details.
+
+PAPPL uses [Weblate][WL] to manage the localization of the web interface,
+command-line programs, and common IPP attributes and values, and those likewise
+end up as pull requests on Github.
+
+[WL]: https://hosted.weblate.org
+
+
 Legal Stuff
 -----------
 
