@@ -3039,8 +3039,23 @@ ippReadIO(void       *src,		/* I - Data source */
 
           DEBUG_printf(("2ippReadIO: name length=%d", n));
 
-          if (n && parent)
+          if (n && parent && ipp->membername_seen)
           {
+	    /*
+	     * According to RFC 8010, attributes within collection must not have name.
+	     * Instead, name must be encoded as value of special dedicated attribute,
+	     * IPP_TAG_MEMBERNAME
+	     *
+	     * Unfortunately, some devices violate this specification and encode collection
+	     * member names as attribute names.
+	     *
+	     * Pantum M7300FDW is known to have this bug in firmware.
+	     *
+	     * So if we have not seen IPP_TAG_MEMBERNAME while decoding the current
+	     * message, we allow sender to violate this rule and treat attribute
+	     * name as member name.
+	     */
+
             _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalid named IPP attribute in collection."), 1);
             DEBUG_puts("1ippReadIO: bad attribute name in collection.");
 	    goto rollback;
@@ -3185,6 +3200,7 @@ ippReadIO(void       *src,		/* I - Data source */
 	    DEBUG_printf(("2ippReadIO: membername, ipp->current=%p, ipp->prev=%p", (void *)ipp->current, (void *)ipp->prev));
 
 	    value = attr->values;
+	    ipp->membername_seen = 1;
 	  }
 	  else if (tag != IPP_TAG_END_COLLECTION)
 	  {

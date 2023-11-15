@@ -126,6 +126,7 @@ struct _ipp_s				/**** IPP Request/Response/Notification ****/
   ipp_attribute_t	*last;		/* Last attribute in list */
   ipp_attribute_t	*current;	/* Current attribute (for read/write) */
   ipp_tag_t		curtag;		/* Current attribute group tag */
+  int			membername_seen;/* IPP parser: IPP_TAG_MEMBERNAME seen */
 
 /**** New in CUPS 1.2 ****/
   ipp_attribute_t	*prev;		/* Previous attribute (for read) @since CUPS 1.2/macOS 10.5@ */
