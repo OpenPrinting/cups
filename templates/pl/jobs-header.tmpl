@@ -1,0 +1,5 @@
+{?which_jobs=?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="Pokaż aktywne zadania"></FORM>}
+{?which_jobs=completed?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="completed"><INPUT TYPE="SUBMIT" VALUE="Pokaż zakończone zadania"></FORM>}
+{?which_jobs=all?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="all"><INPUT TYPE="SUBMIT" VALUE="Pokaż wszystkie zadania"></FORM>}
+
+<P ALIGN="CENTER">{?which_jobs=?Aktywne zadania w kolejności wykonywania▼; wstrzymane zadania na początku.:{which_jobs=all?Zadania w kolejności wykonania▼:Zakończone zadania w kolejności wykonania lub anulowania▲}}</P>

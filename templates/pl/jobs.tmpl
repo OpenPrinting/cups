@@ -1,0 +1,36 @@
+{#job_id=0?:
+<TABLE CLASS="list" SUMMARY="Job List">
+<THEAD>
+<TR><TH>Identyfikator</TH><TH>Nazwa</TH><TH>Użytkownik</TH><TH>Rozmiar</TH><TH>Liczba stron</TH><TH>Stan</TH><TH>Kontrola</TH></TR>
+</THEAD>
+<TBODY>
+{[job_id]
+<TR VALIGN="TOP">
+<TD><A HREF="{job_printer_uri}">{job_printer_name}</A>-{job_id}{?phone? ({phone}):}&nbsp;</TD>
+<TD>{?job_name=?Nieznana:{job_name}}&nbsp;</TD>
+<TD>{?job_originating_user_name=?Nie podano:{job_originating_user_name}}&nbsp;</TD>
+<TD>{job_k_octets}k&nbsp;</TD>
+<TD>{job_impressions_completed=0?Niewiadoma:{?job_impressions_completed}}&nbsp;</TD>
+<TD>{job_state=3?czeka od<BR>{?time_at_creation=?Nieznany:{time_at_creation}}:{job_state=4?wstrzymany od<BR>{?time_at_creation=?Nieznany:{time_at_creation}}:
+{job_state=5?przetwarzany od<BR>{?time_at_processing=?Nieznany:{time_at_processing}}:{job_state=6?zatrzymany:
+{job_state=7?anulowany o<BR>{?time_at_completed=?Nieznany:{time_at_completed}}:{job_state=8?przerwany:zakończony o<BR>{?time_at_completed=?Nieznany:{time_at_completed}}}}}}}}&nbsp;{job_printer_state_message?<BR>
+<EM>"{job_printer_state_message}"</EM>:}</TD>
+<TD>
+{job_preserved>0?{job_state>5?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="restart-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}"><INPUT TYPE="SUBMIT" VALUE="Wydrukuj ponownie"></FORM>:}:}
+{job_state=4?{job_hold_until=auth-info-required?Wstrzymany do autoryzacji.:
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="release-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="Wznów zadanie"></FORM>:}:}
+{job_state=3?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="hold-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="Zatrzymaj zadanie"></FORM>:}
+{job_state<7?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="cancel-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="Anuluj zadanie"></FORM>
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="move-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="SUBMIT" VALUE="Przenieś zadanie"></FORM>:}
+&nbsp;</TD>
+</TR>
+}
+</TBODY>
+</TABLE>
+}

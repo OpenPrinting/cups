@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="/cups.css" type="text/css">
+    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta name="viewport" content="width=device-width">
+    <title>Home - CUPS @CUPS_VERSION@</title>
+  </head>
+  <body>
+    <div class="cups-header">
+      <ul>
+	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
+	<li><a class="active" href="/">Start</a></li>
+	<li><a href="/admin">Administracja</a></li>
+	<li><a href="/classes/">Klasy</a></li>
+	<li><a href="/help/">Pomoc</a></li>
+	<li><a href="/jobs/">Kolejka</a></li>
+	<li><a href="/printers/">Drukarki</a></li>
+      </ul>
+    </div>
+    <div class="cups-body">
+      <div class="row">
+	<h1>OpenPrinting CUPS @CUPS_VERSION@</h1>
+	<p>Oparty na standardach i otwartych źródłach system wydruku stworzony przez <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> na Linux® i inne systemy typu Unix®. CUPS używa <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> do drukowania na lokalnych i sieciowych drukarkach.</p>
+      </div>
+      <div class="row">
+	<div class="thirds">
+	  <h2>CUPS dla użytkowników</h2>
+	  <p><a href="help/overview.html">Przegląd CUPS</a></p>
+	  <p><a href="help/options.html">Drukowanie i ustawienia z linii poleceń</a></p>
+	</div>
+	<div class="thirds">
+	  <h2>CUPS dla administratorów</h2>
+	  <p><a href="help/admin.html">Dodawanie drukarek i klas</a></p>
+	  <p><a href="help/policies.html">Zarządzanie politykami operacyjnymi</a></p>
+	  <p><a href="help/network.html">Użytkowanie drukarek sieciowych</a></p>
+	  <p><a href="help/firewalls.html">Firewalle</a></p>
+	  <p><a href="help/man-cupsd.conf.html">Skrypt cupsd.conf</a></p>
+	</div>
+	<div class="thirds">
+	  <h2>CUPS dla programistów</h2>
+	  <p><a href="help/cupspm.html">Podręcznik programowania CUPS</a></p>
+	  <p><a href="help/api-filter.html">Programowanie filtrów i zadań serwera</a></p>
+	</div>
+      </div>
+    </div>
+    <div class="cups-footer">Prawa autorskie &copy; 2021-2023 OpenPrinting. Wszystkie prawa zastrzeżone.</div>
+  </body>
+</html>
