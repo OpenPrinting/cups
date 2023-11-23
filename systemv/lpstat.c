@@ -1478,7 +1478,7 @@ show_jobs(const char *dests,		/* I - Destinations */
       if (match_list(dests, dest) && match_list(users, username))
       {
 	if (!strcmp(which, "successful") && (!reasons || (reasons &&
-	    strcmp(reasons->name, "job-completed-successfully"))))
+	    strcmp(reasons->values[0].string.text, "job-completed-successfully"))))
 	  continue;
 
 	snprintf(temp, sizeof(temp), "%s-%d", dest, jobid);
