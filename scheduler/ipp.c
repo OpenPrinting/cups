@@ -5409,6 +5409,10 @@ create_local_bg_thread(
       if ((attr = ippFindAttribute(response2, "media-col-database",
 				   IPP_TAG_ZERO)) != NULL)
       {
+	cupsdLogMessage(CUPSD_LOG_WARN, "The printer %s does not support requests"
+			" with attribute set \"all,media-col-database\", which breaks IPP"
+			" conformance (RFC 8011, 4.2.5.1 \"requested-attributes\")"
+			" - report the issue to your printer manufacturer", printer->name);
        /*
 	* Copy "media-col-database" attribute into the original
 	* IPP response
