@@ -2600,7 +2600,7 @@ cupsdSetJobState(
 	* reasons message there...
 	*/
 
-	if (action > CUPSD_JOB_DEFAULT || !job || !job->printer)
+	if (action >= CUPSD_JOB_FORCE && job && job->printer)
 	  ippSetString(job->attrs, &job->reasons, 0, "processing-to-stop-point");
 	break;
   }
