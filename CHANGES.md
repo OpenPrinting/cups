@@ -6,8 +6,12 @@ Changes in CUPS v2.5b1 (TBA)
 
 - Added `cupsDNSSD` APIs.
 - Added `cupsConcatString` and `cupsCopyString` string APIs.
+- Added a new argument value for `lpstat` argument '-W' - `successful` -
+  to get successfully printed jobs (Issue #830)
 - Added new API for form, JSON, JWT, IPP, raster
 - Added OpenSSL support for `cupsHashData` (Issue #762)
+- Added warning if the device has to do IPP request for 'all,media-col-database'
+  in separate requests (Issue #829)
 - Building with TLS support is now required - CUPS supports OpenSSL, GNUTLS
   and LibreSSL
 - Updated `cupsArray` APIs.
