@@ -1080,7 +1080,7 @@ colord_create_profile(
 
   dbus_message_iter_get_basic(&args, &profile_path);
   cupsdLogMessage(CUPSD_LOG_DEBUG, "Created profile \"%s\".", profile_path);
-  cupsArrayAdd(profiles, strdup(profile_path));
+  cupsArrayAdd(profiles, profile_path);
 
 out:
 

@@ -16,6 +16,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed extensive looping in scheduler (Issue #604)
 - Fixed hanging of `lpstat` on IBM AIX (Issue #773)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)
+- Fixed memory leak when creating color profiles (Issue #814)
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
