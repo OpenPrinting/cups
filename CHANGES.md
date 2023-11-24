@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.4.8 - TBA
 Changes in CUPS v2.4.8 (TBA)
 ----------------------------
 
+- Added new value for 'lpstat' option '-W' - successfull - for getting
+  successfully printed jobs (Issue #830)
 - Fixed memory leak when creating color profiles (Issue #815)
 - Fixed memory leak when unloading a job (Issue #813)
 - Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)

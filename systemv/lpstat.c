@@ -147,16 +147,16 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 		if (i >= argc)
 		{
-		  _cupsLangPrintf(stderr, _("%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" option."), argv[0]);
+		  _cupsLangPrintf(stderr, _("%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all\" after \"-W\" option."), argv[0]);
 		  usage();
 		}
 
 		which = argv[i];
 	      }
 
-	      if (strcmp(which, "completed") && strcmp(which, "not-completed") && strcmp(which, "all"))
+	      if (strcmp(which, "completed") && strcmp(which, "not-completed") && strcmp(which, "all") && strcmp(which, "successful"))
 	      {
-		_cupsLangPrintf(stderr, _("%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" option."), argv[0]);
+		_cupsLangPrintf(stderr, _("%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all\" after \"-W\" option."), argv[0]);
 		usage();
 	      }
 	      break;
@@ -1364,7 +1364,7 @@ show_jobs(const char *dests,		/* I - Destinations */
                NULL, cupsUser());
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "which-jobs",
-               NULL, which);
+               NULL, !strcmp(which, "successful") ? "completed" : which);
 
  /*
   * Do the request and get back a response...
@@ -1402,6 +1402,7 @@ show_jobs(const char *dests,		/* I - Destinations */
 
     if (!strcmp(which, "aborted") ||
         !strcmp(which, "canceled") ||
+        !strcmp(which, "successful") ||
         !strcmp(which, "completed"))
       time_at = "time-at-completed";
     else
@@ -1482,7 +1483,11 @@ show_jobs(const char *dests,		/* I - Destinations */
 
       if (match_list(dests, dest) && match_list(users, username))
       {
-        snprintf(temp, sizeof(temp), "%s-%d", dest, jobid);
+	if (!strcmp(which, "successful") && (!reasons || (reasons &&
+	    strcmp(reasons->values[0].string.text, "job-completed-successfully"))))
+	  continue;
+
+	snprintf(temp, sizeof(temp), "%s-%d", dest, jobid);
 
 	_cupsStrDate(date, sizeof(date), jobtime);
 
@@ -1563,7 +1568,7 @@ show_printers(const char  *printers,	/* I - Destinations */
   int		jobid;			/* Job ID of current job */
   char		printer_uri[HTTP_MAX_URI],
 					/* Printer URI */
-		printer_state_time[255];/* Printer state time */
+	printer_state_time[255];/* Printer state time */
   _cups_globals_t *cg = _cupsGlobals();	/* Global data */
   static const char *pattrs[] =		/* Attributes we need for printers... */
 		{
