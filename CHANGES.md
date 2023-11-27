@@ -25,6 +25,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
+- Fixed setting job state reasons for successful jobs (Issue #832)
 - Fixed RFC 1179 port reserving behavior in LPD backend (Issue #743)
 - Fixed printing multiple files on specific printers (Issue #643)
 - Fixed printing to stderr if we can't open cups-files.conf (Issue #777)
