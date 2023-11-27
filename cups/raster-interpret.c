@@ -1047,6 +1047,8 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
   int			parens;		/* Parenthesis nesting level */
 
 
+  if (!*ptr)
+    return (NULL);
  /*
   * Skip leading whitespace...
   */
