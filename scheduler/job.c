@@ -2593,8 +2593,16 @@ cupsdSetJobState(
     case IPP_JSTATE_CANCELED :
     case IPP_JSTATE_COMPLETED :
 	set_time(job, "time-at-completed");
-	ippSetString(job->attrs, &job->reasons, 0, "processing-to-stop-point");
-        break;
+
+       /*
+	* Set the reasons here only if we call finalize_job()
+	* at the end of this function, so finished jobs can get proper
+	* reasons message there...
+	*/
+
+	if (action >= CUPSD_JOB_FORCE && job && job->printer)
+	  ippSetString(job->attrs, &job->reasons, 0, "processing-to-stop-point");
+	break;
   }
 
  /*
