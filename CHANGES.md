@@ -15,6 +15,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Building with TLS support is now required - CUPS supports OpenSSL, GNUTLS
   and LibreSSL
 - Updated `cupsArray` APIs.
+- Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed Digest authentication support (Issue #260)
 - Fixed delays in lpd backend (Issue #741)
 - Fixed extensive looping in scheduler (Issue #604)
