@@ -11,6 +11,7 @@ Changes in CUPS v2.4.8 (TBA)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed memory leak when creating color profiles (Issue #815)
 - Fixed memory leak when unloading a job (Issue #813)
+- Fixed setting job state reasons for successful jobs (Issue #832)
 - Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
 - Really backport fix for Issue #742
 
