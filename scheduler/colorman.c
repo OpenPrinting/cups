@@ -1014,7 +1014,7 @@ colord_create_profile(
   DBusError	error;			/* D-Bus error */
   char		*idstr;			/* Profile ID string */
   size_t	idstrlen;		/* Profile ID allocated length */
-  const char	*profile_path;		/* Device object path */
+  char		*profile_path;		/* Device object path */
   char		format_str[1024];	/* Qualifier format as a string */
 
 
