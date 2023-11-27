@@ -8,6 +8,7 @@ Changes in CUPS v2.4.8 (TBA)
   successfully printed jobs (Issue #830)
 - Added warning if the device has to be asked for 'all,media-col-database' separately
   (Issue #829)
+- Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed memory leak when creating color profiles (Issue #815)
 - Fixed memory leak when unloading a job (Issue #813)
 - Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
