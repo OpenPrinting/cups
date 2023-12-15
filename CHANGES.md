@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.5b1 - (TBA)
 Changes in CUPS v2.5b1 (TBA)
 ----------------------------
 
+- Added additional check on socket if `revents` from `poll()` returns POLLHUP
+  together with POLLIN or POLLOUT in `httpAddrConnect2()` (Issue #839)
 - Added `cupsDNSSD` APIs.
 - Added `cupsConcatString` and `cupsCopyString` string APIs.
 - Added a new argument value for `lpstat` argument '-W' - `successful` -
