@@ -318,21 +318,38 @@ httpAddrConnect2(
       {
 #  ifdef HAVE_POLL
 	DEBUG_printf(("pfds[%d].revents=%x\n", i, pfds[i].revents));
-#    ifdef __sun
-	// Solaris connect runs asynchronously returning EINPROGRESS. Following
-	// poll() does not detect the socket is not connected and returns
-	// POLLIN|POLLOUT. Check the connection status and update error flag.
-	int            sres, serr;
-	socklen_t      slen = sizeof(serr);
-	sres = getsockopt(fds[i], SOL_SOCKET, SO_ERROR, &serr, &slen);
-	if (sres || serr)
+
+#    ifdef _WIN32
+	if (((WSAGetLastError() == WSAEINPROGRESS) && (pfds[i].revents & POLLIN) && (pfds[i].revents & POLLOUT)) ||
+	    ((pfds[i].revents & POLLHUP) && (pfds[i].revents & (POLLIN|POLLOUT))))
+#    else
+	if (((errno == EINPROGRESS) && (pfds[i].revents & POLLIN) && (pfds[i].revents & POLLOUT)) ||
+	    ((pfds[i].revents & POLLHUP) && (pfds[i].revents & (POLLIN|POLLOUT))))
+#    endif /* _WIN32 */
 	{
-	  pfds[i].revents |= POLLERR;
-#      ifdef DEBUG
-	  DEBUG_printf(("1httpAddrConnect2: getsockopt returned: %d with error: %s", sres, strerror(serr)));
-#      endif
+	  // Some systems generate POLLIN or POLLOUT together with POLLHUP when doing
+	  // asynchronous connections. The solution seems to be to use getsockopt to
+	  // check the SO_ERROR value and ignore the POLLHUP if there is no error or
+	  // the error is EINPROGRESS.
+
+	  int	    sres,		 /* Return value from getsockopt() - 0, or -1 if error */
+		    serr;		 /* Option SO_ERROR value */
+	  socklen_t slen = sizeof(serr); /* Option value size */
+
+	  sres = getsockopt(fds[i], SOL_SOCKET, SO_ERROR, &serr, &slen);
+
+	  if (sres || serr)
+	  {
+	    pfds[i].revents |= POLLERR;
+#    ifdef DEBUG
+	    DEBUG_printf(("1httpAddrConnect2: getsockopt returned: %d with error: %s", sres, strerror(serr)));
+#    endif
+	  }
+	  else if (pfds[i].revents && (pfds[i].revents & POLLHUP) && (pfds[i].revents & (POLLIN | POLLOUT)))
+	  {
+	    pfds[i].revents &= ~POLLHUP;
+	  }
 	}
-#    endif // __sun
 
 
 	if (pfds[i].revents && !(pfds[i].revents & (POLLERR | POLLHUP)))

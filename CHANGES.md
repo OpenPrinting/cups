@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS 2.4.8 - TBA
 Changes in CUPS v2.4.8 (TBA)
 ----------------------------
 
+- Added additional check on socket if `revents` from `poll()` returns POLLHUP
+  together with POLLIN or POLLOUT in `httpAddrConnect2()` (Issue #839)
 - Added new value for 'lpstat' option '-W' - successfull - for getting
   successfully printed jobs (Issue #830)
 - Added warning if the device has to be asked for 'all,media-col-database' separately
