@@ -1,5 +1,22 @@
 <H2 CLASS="title">{op=modify-printer?Modyfikowanie {printer_name}:Dodawanie drukarki}</H2>
 
+<SCRIPT TYPE="text/javascript"><!--
+function filterItems(el) {
+  var value = el.value.toLowerCase();
+  var form = el.form;
+  var sel = form.PPD_NAME;
+  var opt = sel.options;
+
+  for (var i=0; i<opt.length; i++) {
+    if (value && opt[i].text.toLowerCase().indexOf(value) == -1) {
+      opt[i].hidden = true;
+    } else {
+      opt[i].hidden = false;
+    }
+  }
+}
+--></SCRIPT>
+
 <FORM METHOD="POST" ACTION="/admin" ENCTYPE="multipart/form-data">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
 <INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
@@ -33,6 +50,10 @@
 <TR>
 <TH CLASS="label">Wybierz sterownik PPD:</TH>
 <TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Wybierz innego producenta"></TD>
+</TR>
+<TR>
+<TH CLASS="label">Filtruj według modelu:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PPD_FILTER" PLACEHOLDER="🔍" ONKEYUP="filterItems(this);"></TD>
 </TR>
 <TR>
 <TH CLASS="label">Model:</TH>

@@ -1,5 +1,22 @@
 <H2 CLASS="title">{op=modify-printer?{printer_name} ändern:Drucker hinzufügen (Schritt 5/5)}</H2>
 
+<SCRIPT TYPE="text/javascript"><!--
+function filterItems(el) {
+  var value = el.value.toLowerCase();
+  var form = el.form;
+  var sel = form.PPD_NAME;
+  var opt = sel.options;
+
+  for (var i=0; i<opt.length; i++) {
+    if (value && opt[i].text.toLowerCase().indexOf(value) == -1) {
+      opt[i].hidden = true;
+    } else {
+      opt[i].hidden = false;
+    }
+  }
+}
+--></SCRIPT>
+
 <FORM METHOD="POST" ACTION="/admin" ENCTYPE="multipart/form-data">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
 <INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
@@ -33,6 +50,10 @@ Drucker {?printer_is_shared=?nicht:{?printer_is_shared=0?nicht:}} im Netzwerk fr
 <TR>
 <TH CLASS="label">Hersteller:</TH>
 <TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Anderen Hersteller/Marke wählen"></TD>
+</TR>
+<TR>
+<TH CLASS="label">Nach Modell filtern:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PPD_FILTER" PLACEHOLDER="🔍" ONKEYUP="filterItems(this);"></TD>
 </TR>
 <TR>
 <TH CLASS="label">Modell:</TH>
