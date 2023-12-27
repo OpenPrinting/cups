@@ -888,7 +888,12 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
         cupsCopyString(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
         bufptr += 37;
 
-        size = ppdPageSize(ppd, "Custom");
+        if ((size = ppdPageSize(ppd, "Custom")) == NULL)
+        {
+          free(buffer);
+          free(choices);
+          return(NULL);
+        }
 
         memset(values, 0, sizeof(values));
 
