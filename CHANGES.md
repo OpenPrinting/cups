@@ -14,6 +14,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added OpenSSL support for `cupsHashData` (Issue #762)
 - Added warning if the device has to do IPP request for 'all,media-col-database'
   in separate requests (Issue #829)
+- Added driver filter to web interface (Issue #848)
 - Building with TLS support is now required - CUPS supports OpenSSL, GNUTLS
   and LibreSSL
 - Updated `cupsArray` APIs.
