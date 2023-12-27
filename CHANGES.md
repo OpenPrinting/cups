@@ -4,20 +4,20 @@ CHANGES - OpenPrinting CUPS 2.5b1 - (TBA)
 Changes in CUPS v2.5b1 (TBA)
 ----------------------------
 
-- Added additional check on socket if `revents` from `poll()` returns POLLHUP
-  together with POLLIN or POLLOUT in `httpAddrConnect2()` (Issue #839)
 - Added `cupsDNSSD` APIs.
 - Added `cupsConcatString` and `cupsCopyString` string APIs.
 - Added a new argument value for `lpstat` argument '-W' - `successful` -
   to get successfully printed jobs (Issue #830)
-- Added new API for form, JSON, JWT, IPP, raster
+- Added new APIs for form, JSON, JWT, IPP, and raster setup.
 - Added OpenSSL support for `cupsHashData` (Issue #762)
 - Added warning if the device has to do IPP request for 'all,media-col-database'
   in separate requests (Issue #829)
 - Added driver filter to web interface (Issue #848)
 - Building with TLS support is now required - CUPS supports OpenSSL, GNUTLS
-  and LibreSSL
+  and LibreSSL.
 - Updated `cupsArray` APIs.
+- Updated `httpAddrConnect2()` to handle `POLLHUP` together with `POLLIN` or
+  `POLLOUT` (Issue #839)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed Digest authentication support (Issue #260)
 - Fixed delays in lpd backend (Issue #741)
