@@ -31,8 +31,12 @@
 {?printer_is_shared=?Нет совместного доступа:{?printer_is_shared=0?Нет совместного доступа:Разрешить совместный доступ}} к этому принтеру</TD>
 </TR>
 <TR>
-<TH CLASS="label">Создать:</TH>
-<TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Выбрать другую модель"></TD>
+<TH CLASS="label">Производитель:</TH>
+<TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Выбрать другого производителя"></TD>
+</TR>
+<TR>
+<TH CLASS="label">Фильтр по модели:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PPD_FILTER" PLACEHOLDER="🔍" ONKEYUP="filterItems(this);"></TD>
 </TR>
 <TR>
 <TH CLASS="label">Модель:</TH>
@@ -51,7 +55,7 @@ TYPE="FILE" NAME="PPD_FILE"></TD>
 </TR>
 <TR>
 <TD></TD>
-<TD><INPUT TYPE="SUBMIT" VALUE="{op=add-printer?Добавить принтер:Сохранить}"></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="{op=add-printer?Добавить принтер:Изменить принтер}"></TD>
 </TR>
 </TABLE>
 

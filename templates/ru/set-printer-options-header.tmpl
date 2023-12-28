@@ -1,17 +1,17 @@
-<H2 CLASS="title">Установить параметры по умолчанию для {printer_name}</H2>
+<H2 CLASS="title">Установка параметров по умолчанию для {printer_name}</H2>
 
 <FORM METHOD="POST" ACTION="/admin">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
 <INPUT TYPE="HIDDEN" NAME="PRINTER_NAME" VALUE="{printer_name}">
 <INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
-{HAVE_AUTOCONFIGURE?<INPUT TYPE="SUBMIT" NAME="AUTOCONFIGURE" VALUE="Запрос принтера для параметров по умолчанию">:}
+{HAVE_AUTOCONFIGURE?<INPUT TYPE="SUBMIT" NAME="AUTOCONFIGURE" VALUE="Запросить параметры по умолчанию у принтера">:}
 
 <SCRIPT TYPE="text/javascript"><!--
 function update_paramtable(option)
 {
   var cb = document.getElementById("select-" + option)
   var paramstable = document.getElementById(option + "-params");
-  if (cb.value == "Custom")
+  if (cb.value == "Пользовательские параметры")
     paramstable.style.display = "table";
   else
     paramstable.style.display = "none";
