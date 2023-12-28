@@ -1,5 +1,5 @@
 {#job_id=0?:
-<TABLE CLASS="list" SUMMARY="Задания">
+<TABLE CLASS="list" SUMMARY="Список заданий">
 <THEAD>
 <TR><TH>Номер</TH><TH>Название</TH><TH>Пользователь</TH><TH>Размер</TH><TH>Страниц</TH><TH>Статус</TH><TH>Управление</TH></TR>
 </THEAD>
@@ -7,13 +7,13 @@
 {[job_id]
 <TR VALIGN="TOP">
 <TD><A HREF="{job_printer_uri}">{job_printer_name}</A>-{job_id}{?phone? ({phone}):}&nbsp;</TD>
-<TD>{?job_name=?Неизвестное:{job_name}}&nbsp;</TD>
-<TD>{?job_originating_user_name=?Приостановлено пользователем:{job_originating_user_name}}&nbsp;</TD>
+<TD>{?job_name=?Неизвестно:{job_name}}&nbsp;</TD>
+<TD>{?job_originating_user_name=?Приостановка:{job_originating_user_name}}&nbsp;</TD>
 <TD>{job_k_octets}k&nbsp;</TD>
 <TD>{job_impressions_completed=0?Неизвестно:{?job_impressions_completed}}&nbsp;</TD>
-<TD>{job_state=3?В очереди<BR>{?time_at_creation=?Unknown:{time_at_creation}}:{job_state=4?Приостановлено с<BR>{?time_at_creation=?Unknown:{time_at_creation}}:
-{job_state=5?Создано<BR>{?time_at_processing=?Unknown:{time_at_processing}}:{job_state=6?Остановлено:
-{job_state=7?Отменено<BR>{?time_at_completed=?Unknown:{time_at_completed}}:{job_state=8?Прервано:Завершено<BR>{?time_at_completed=?Unknown:{time_at_completed}}}}}}}}&nbsp;{job_printer_state_message?<BR>
+<TD>{job_state=3?в очереди с<BR>{?time_at_creation=?Неизвестно:{time_at_creation}}:{job_state=4?удерживается с<BR>{?time_at_creation=?Неизвестно:{time_at_creation}}:
+{job_state=5?в обработке с<BR>{?time_at_processing=?Неизвестно:{time_at_processing}}:{job_state=6?остановлено:
+{job_state=7?отменено<BR>{?time_at_completed=?Неизвестно:{time_at_completed}}:{job_state=8?прервано:завершено<BR>{?time_at_completed=?Неизвестно:{time_at_completed}}}}}}}}&nbsp;{job_printer_state_message?<BR>
 <EM>"{job_printer_state_message}"</EM>:}</TD>
 <TD>
 {job_preserved>0?{job_state>5?
@@ -23,7 +23,7 @@
 <INPUT TYPE="SUBMIT" VALUE="Продолжить"></FORM>:}
 {job_state=3?
 <FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="hold-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
-<INPUT TYPE="SUBMIT" VALUE="Приостановить"></FORM>:}
+<INPUT TYPE="SUBMIT" VALUE="Удерживать"></FORM>:}
 {job_state<7?
 <FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="cancel-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
 <INPUT TYPE="SUBMIT" VALUE="Отменить"></FORM>
