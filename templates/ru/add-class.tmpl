@@ -1,4 +1,4 @@
-<H2 CLASS="title">Новая группа</H2>
+<H2 CLASS="title">Добавление группы</H2>
 
 <FORM METHOD="POST" ACTION="/admin">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
@@ -13,15 +13,15 @@
 <TR>
 <TH CLASS="label">Описание:</TH>
 <TD><INPUT TYPE="TEXT" NAME="PRINTER_INFO" SIZE="40" MAXLENGTH="127"><BR>
-<SMALL>(Расширенное описание группы, например, "Дуплексный принтер")</SMALL></TD>
+<SMALL>(расширенное описание группы, например "Дуплексный принтер")</SMALL></TD>
 </TR>
 <TR>
 <TH CLASS="label">Расположение:</TH>
 <TD><INPUT TYPE="TEXT" NAME="PRINTER_LOCATION" SIZE="40" MAXLENGTH="127"><BR>
-<SMALL>(Месторасположение группы, например, "Кабинет 55")</SMALL></TD>
+<SMALL>(месторасположение группы, например "Кабинет 55")</SMALL></TD>
 </TR>
 <TR>
-<TH CLASS="label">Состав группы:</TH>
+<TH CLASS="label">Состав:</TH>
 <TD>
 <SELECT NAME="MEMBER_URIS" SIZE="10" MULTIPLE>
 {[member_uris]<OPTION VALUE="{member_uris}" {?member_selected}>{member_names}}
@@ -30,7 +30,7 @@
 </TR>
 <TR>
 <TD></TD>
-<TD><INPUT TYPE="SUBMIT" VALUE="Добавить группу"></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="Сохранить"></TD>
 </TR>
 </TABLE>
 
