@@ -142,6 +142,16 @@ uninstall:
 
 
 #
+# Run unit tests...
+#
+
+test:	unittests
+	echo Testing CGI API...
+	./testcgi
+	echo Testing help index API...
+	./testhi
+
+#
 # libcupscgi.a
 #
 
@@ -211,8 +221,6 @@ testcgi:	testcgi.o ../Makedefs libcupscgi.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testcgi.o libcupscgi.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Testing CGI API...
-	./testcgi
 
 
 #
@@ -224,8 +232,6 @@ testhi:	testhi.o ../Makedefs libcupscgi.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testhi.o libcupscgi.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Testing help index API...
-	./testhi
 
 
 #

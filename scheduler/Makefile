@@ -102,17 +102,6 @@ unittests:	$(UNITTARGETS)
 
 
 #
-# Run unit tests...
-#
-
-test:		unittests
-	echo "Tests started at $(date)..." >test.log
-	echo Running MIME API tests...
-	./testmime >>test.log
-	echo "Tests finished at $(date)..." >>test.log
-
-
-#
 # Clean all object files...
 #
 
@@ -319,6 +308,17 @@ uninstall:
 		echo Uninstalling xinetd configuration file for cups-lpd...; \
 		$(RM) $(BUILDROOT)$(XINETD)/cups-lpd; \
 	fi
+
+
+#
+# Run unit tests...
+#
+
+test:		unittests
+	echo "Tests started at $(date)..." >test.log
+	echo Running MIME API tests...
+	./testmime >>test.log
+	echo "Tests finished at $(date)..." >>test.log
 
 
 #
