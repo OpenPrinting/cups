@@ -172,6 +172,13 @@ uninstall:
 
 
 #
+# Run unit tests... (doesn't actually run these currently)
+#
+
+test:	unittests
+
+
+#
 # test1284
 #
 
