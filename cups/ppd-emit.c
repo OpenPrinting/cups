@@ -892,7 +892,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
         {
           free(buffer);
           free(choices);
-          return(NULL);
+          return (NULL);
         }
 
         memset(values, 0, sizeof(values));
