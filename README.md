@@ -34,7 +34,7 @@ for more information.
 > and iOS at <https://github.com/apple/cups>.
 
 [1]: https://support.apple.com/en-us/HT201311
-[2]: https://www.pwg.org/ipp/everywhere.html
+[2]: https://www.pwg.org/printers
 [3]: https://github.com/openprinting/cups-filters
 
 

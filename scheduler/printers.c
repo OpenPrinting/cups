@@ -4485,7 +4485,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
       for (media_col_ready = NULL, media_ready = NULL, i = p->pc->num_sizes, pwgsize = p->pc->sizes; i > 0; i --, pwgsize ++)
       {
-	ipp_t *col;			// media-col-ready value
+	ipp_t	*col;			// media-col-ready value
+	char	source[128];		// media-source value
 
         // Skip printer sizes that don't have a PPD size or aren't in the ready
         // sizes array...
@@ -4500,6 +4501,13 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
         // Add or append a media-col-ready value
 	col = new_media_col(pwgsize);
+
+        // Add "media-source" for iOS 17 (Issue #738)
+	if (media_col_ready)
+	  snprintf(source, sizeof(source), "auto.%d", ippGetCount(media_col_ready) + 1);
+	else
+	  cupsCopyString(source, "auto", sizeof(source));
+	ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-source", NULL, source);
 
 	if (media_col_ready)
 	  ippSetCollection(p->ppd_attrs, &media_col_ready, ippGetCount(media_col_ready), col);

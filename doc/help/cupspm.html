@@ -271,6 +271,12 @@ span.string {
 <li><a href="#processing-the-ipp-response">Processing the IPP Response</a></li>
 <li><a href="#authentication">Authentication</a></li>
 </ul></li>
+<li><a href="#ipp-data-file-api">IPP Data File API</a><ul class="subcontents">
+<li><a href="#creating-an-ipp-data-file">Creating an IPP Data File</a></li>
+<li><a href="#reading-a-data-file">Reading a Data File</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#writing-ipp-data-files">Writing IPP Data Files</a></li>
+</ul></li>
 <li><a href="#FUNCTIONS">Functions</a><ul class="subcontents">
 <li><a href="#DllMain">DllMain</a></li>
 <li><a href="#cupsAddDest">cupsAddDest</a></li>
@@ -945,24 +951,24 @@ span.string {
 <h3 class="title" id="compiling-programs-that-use-the-cups-api">Compiling Programs That Use the CUPS API</h3>
 <p>The CUPS libraries can be used from any C, C++, or Objective-C program. The method of compiling against the libraries varies depending on the operating system and installation of CUPS. The following sections show how to compile a simple program (shown below) in two common environments.</p>
 <p>The following simple program lists the available destinations:</p>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;cups/cups.h&gt;
+<pre><code class="language-c"><span class="directive">#include &lt;stdio.h&gt;</span>
+<span class="directive">#include &lt;cups/cups.h&gt;</span>
 
-int print_dest(void *user_data, unsigned flags, cups_dest_t *dest)
+<span class="reserved">int</span> print_dest(<span class="reserved">void</span> *user_data, <span class="reserved">unsigned</span> flags, cups_dest_t *dest)
 {
-  if (dest-&gt;instance)
-    printf(&quot;%s/%s\n&quot;, dest-&gt;name, dest-&gt;instance);
-  else
+  <span class="reserved">if</span> (dest-&gt;instance)
+    printf(<span class="string">&quot;%s/%s\n&quot;</span>, dest-&gt;name, dest-&gt;instance);
+  <span class="reserved">else</span>
     puts(dest-&gt;name);
 
-  return (1);
+  <span class="reserved">return</span> (<span class="number">1</span>);
 }
 
-int main(void)
+<span class="reserved">int</span> main(<span class="reserved">void</span>)
 {
-  cupsEnumDests(CUPS_DEST_FLAGS_NONE, 1000, NULL, 0, 0, print_dest, NULL);
+  cupsEnumDests(CUPS_DEST_FLAGS_NONE, <span class="number">1000</span>, NULL, <span class="number">0</span>, <span class="number">0</span>, print_dest, NULL);
 
-  return (0);
+  <span class="reserved">return</span> (<span class="number">0</span>);
 }
 </code></pre>
 <h4 id="compiling-with-xcode">Compiling with Xcode</h4>
@@ -971,19 +977,19 @@ int main(void)
 <p>Finally, click on the <code>main.c</code> file in the sidebar and copy the example program to the file. Build and run (CMD+R) to see the list of destinations.</p>
 <h4 id="compiling-with-gcc">Compiling with GCC</h4>
 <p>From the command-line, create a file called <code>simple.c</code> using your favorite editor, copy the example to this file, and save. Then run the following command to compile it with GCC and run it:</p>
-<pre><code>gcc -o simple `cups-config --cflags` simple.c `cups-config --libs`
+<pre><code>gcc -o simple `pkg-config --cflags cups` simple.c `pkg-config --libs cups`
 ./simple
 </code></pre>
-<p>The <code>cups-config</code> command provides the compiler flags (<code>cups-config --cflags</code>) and libraries (<code>cups-config --libs</code>) needed for the local system.</p>
+<p>The <code>pkg-config</code> command provides the compiler flags (<code>pkg-config --cflags cups</code>) and libraries (<code>pkg-config --libs cups</code>) needed for the local system.</p>
 <h2 class="title" id="working-with-destinations">Working with Destinations</h2>
 <p>Destinations, which in CUPS represent individual printers or classes (collections or pools) of printers, are represented by the <code>cups_dest_t</code> structure which includes the name (<code>name</code>), instance (<code>instance</code>, saved options/settings), whether the destination is the default for the user (<code>is_default</code>), and the options and basic information associated with that destination (<code>num_options</code> and <code>options</code>).</p>
 <p>Historically destinations have been manually maintained by the administrator of a system or network, but CUPS also supports dynamic discovery of destinations on the current network.</p>
 <h3 class="title" id="finding-available-destinations">Finding Available Destinations</h3>
-<p>The <code>cupsEnumDests</code> function finds all of the available destinations:</p>
-<pre><code> int
- cupsEnumDests(unsigned flags, int msec, int *cancel,
-               cups_ptype_t type, cups_ptype_t mask,
-               cups_dest_cb_t cb, void *user_data)
+<p>The <a href="#cupsEnumDests"><code>cupsEnumDests</code></a> function finds all of the available destinations:</p>
+<pre><code class="language-c"><span class="reserved">int</span>
+cupsEnumDests(<span class="reserved">unsigned</span> flags, <span class="reserved">int</span> msec, <span class="reserved">int</span> *cancel,
+              cups_ptype_t type, cups_ptype_t mask,
+              cups_dest_cb_t cb, <span class="reserved">void</span> *user_data)
 </code></pre>
 <p>The <code>flags</code> argument specifies enumeration options, which at present must be <code>CUPS_DEST_FLAGS_NONE</code>.</p>
 <p>The <code>msec</code> argument specifies the maximum amount of time that should be used for enumeration in milliseconds - interactive applications should keep this value to 5000 or less when run on the main thread.</p>
@@ -1028,8 +1034,8 @@ int main(void)
 </li>
 </ul>
 <p>The <code>cb</code> argument specifies a function to call for every destination that is found:</p>
-<pre><code>typedef int (*cups_dest_cb_t)(void *user_data,
-                              unsigned flags,
+<pre><code class="language-c"><span class="reserved">typedef</span> <span class="reserved">int</span> (*cups_dest_cb_t)(<span class="reserved">void</span> *user_data,
+                              <span class="reserved">unsigned</span> flags,
                               cups_dest_t *dest);
 </code></pre>
 <p>The callback function receives a copy of the <code>user_data</code> argument along with a bitfield (<code>flags</code>) and the destination that was found. The <code>flags</code> argument can have any of the following constant (bit) values set:</p>
@@ -1038,79 +1044,79 @@ int main(void)
 </li>
 <li><p><code>CUPS_DEST_FLAGS_REMOVED</code>: The destination has gone away and should be removed from the list of destinations a user can select.</p>
 </li>
-<li><p><code>CUPS_DEST_FLAGS_ERROR</code>: An error occurred. The reason for the error can be found by calling the <code>cupsLastError</code> and/or <code>cupsLastErrorString</code> functions.</p>
+<li><p><code>CUPS_DEST_FLAGS_ERROR</code>: An error occurred. The reason for the error can be found by calling the <a href="#cupsGetError"><code>cupsGetError</code></a> and/or <a href="#cupsGetErrorString"><code>cupsGetErrorString</code></a> functions.</p>
 </li>
 </ul>
-<p>The callback function returns 0 to stop enumeration or 1 to continue.</p>
+<p>The callback function returns <code>0</code> to stop enumeration or <code>1</code> to continue.</p>
 <blockquote>
 <p><strong>Note:</strong></p>
 <p>The callback function will likely be called multiple times for the same destination, so it is up to the caller to suppress any duplicate destinations.</p>
 </blockquote>
 <p>The following example shows how to use <code>cupsEnumDests</code> to get a filtered array of destinations:</p>
-<pre><code>typedef struct
+<pre><code class="language-c"><span class="reserved">typedef</span> <span class="reserved">struct</span>
 {
-  int num_dests;
+  <span class="reserved">int</span> num_dests;
   cups_dest_t *dests;
 } my_user_data_t;
 
-int
-my_dest_cb(my_user_data_t *user_data, unsigned flags,
+<span class="reserved">int</span>
+my_dest_cb(my_user_data_t *user_data, <span class="reserved">unsigned</span> flags,
            cups_dest_t *dest)
 {
-  if (flags &amp; CUPS_DEST_FLAGS_REMOVED)
+  <span class="reserved">if</span> (flags &amp; CUPS_DEST_FLAGS_REMOVED)
   {
-   /*
-    * Remove destination from array...
-    */
+   <span class="comment">/*</span>
+<span class="comment">    * Remove destination from array...</span>
+<span class="comment">    */</span>
 
     user_data-&gt;num_dests =
         cupsRemoveDest(dest-&gt;name, dest-&gt;instance,
                        user_data-&gt;num_dests,
                        &amp;(user_data-&gt;dests));
   }
-  else
+  <span class="reserved">else</span>
   {
-   /*
-    * Add destination to array...
-    */
+   <span class="comment">/*</span>
+<span class="comment">    * Add destination to array...</span>
+<span class="comment">    */</span>
 
     user_data-&gt;num_dests =
         cupsCopyDest(dest, user_data-&gt;num_dests,
                      &amp;(user_data-&gt;dests));
   }
 
-  return (1);
+  <span class="reserved">return</span> (<span class="number">1</span>);
 }
 
-int
+<span class="reserved">int</span>
 my_get_dests(cups_ptype_t type, cups_ptype_t mask,
              cups_dest_t **dests)
 {
-  my_user_data_t user_data = { 0, NULL };
+  my_user_data_t user_data = { <span class="number">0</span>, NULL };
 
-  if (!cupsEnumDests(CUPS_DEST_FLAGS_NONE, 1000, NULL, type,
+  <span class="reserved">if</span> (!cupsEnumDests(CUPS_DEST_FLAGS_NONE, <span class="number">1000</span>, NULL, type,
                      mask, (cups_dest_cb_t)my_dest_cb,
                      &amp;user_data))
   {
-   /*
-    * An error occurred, free all of the destinations and
-    * return...
-    */
+   <span class="comment">/*</span>
+<span class="comment">    * An error occurred, free all of the destinations and</span>
+<span class="comment">    * return...</span>
+<span class="comment">    */</span>
 
     cupsFreeDests(user_data.num_dests, user_data.dests);
 
     *dests = NULL;
 
-    return (0);
+    <span class="reserved">return</span> (<span class="number">0</span>);
   }
 
- /*
-  * Return the destination array...
-  */
+ <span class="comment">/*</span>
+<span class="comment">  * Return the destination array...</span>
+<span class="comment">  */</span>
 
   *dests = user_data.dests;
 
-  return (user_data.num_dests);
+  <span class="reserved">return</span> (user_data.num_dests);
 }
 </code></pre>
 <h3 class="title" id="basic-destination-information">Basic Destination Information</h3>
@@ -1139,25 +1145,25 @@ my_get_dests(cups_ptype_t type, cups_ptype_t mask,
 <li><p>&quot;printer-uri-supported&quot;: The URI associated with the destination; if not set, this destination was discovered but is not yet setup as a local printer.</p>
 </li>
 </ul>
-<p>Use the <code>cupsGetOption</code> function to retrieve the value. For example, the following code gets the make and model of a destination:</p>
-<pre><code>const char *model = cupsGetOption(&quot;printer-make-and-model&quot;,
+<p>Use the <a href="#cupsGetOption"><code>cupsGetOption</code></a> function to retrieve the value. For example, the following code gets the make and model of a destination:</p>
+<pre><code class="language-c"><span class="reserved">const</span> <span class="reserved">char</span> *model = cupsGetOption(<span class="string">&quot;printer-make-and-model&quot;</span>,
                                   dest-&gt;num_options,
                                   dest-&gt;options);
 </code></pre>
 <h3 class="title" id="detailed-destination-information">Detailed Destination Information</h3>
-<p>Once a destination has been chosen, the <code>cupsCopyDestInfo</code> function can be used to gather detailed information about the destination:</p>
-<pre><code>cups_dinfo_t *
+<p>Once a destination has been chosen, the <a href="#cupsCopyDestInfo"><code>cupsCopyDestInfo</code></a> function can be used to gather detailed information about the destination:</p>
+<pre><code class="language-c">cups_dinfo_t *
 cupsCopyDestInfo(http_t *http, cups_dest_t *dest);
 </code></pre>
 <p>The <code>http</code> argument specifies a connection to the CUPS scheduler and is typically the constant <code>CUPS_HTTP_DEFAULT</code>. The <code>dest</code> argument specifies the destination to query.</p>
 <p>The <code>cups_dinfo_t</code> structure that is returned contains a snapshot of the supported options and their supported, ready, and default values. It also can report constraints between different options and values, and recommend changes to resolve those constraints.</p>
 <h4 id="getting-supported-options-and-values">Getting Supported Options and Values</h4>
-<p>The <code>cupsCheckDestSupported</code> function can be used to test whether a particular option or option and value is supported:</p>
-<pre><code>int
+<p>The <a href="#cupsCheckDestSupported"><code>cupsCheckDestSupported</code></a> function can be used to test whether a particular option or option and value is supported:</p>
+<pre><code class="language-c"><span class="reserved">int</span>
 cupsCheckDestSupported(http_t *http, cups_dest_t *dest,
                        cups_dinfo_t *info,
-                       const char *option,
-                       const char *value);
+                       <span class="reserved">const</span> <span class="reserved">char</span> *option,
+                       <span class="reserved">const</span> <span class="reserved">char</span> *value);
 </code></pre>
 <p>The <code>option</code> argument specifies the name of the option to check. The following constants can be used to check the various standard options:</p>
 <ul>
@@ -1183,117 +1189,131 @@ cupsCheckDestSupported(http_t *http, cups_dest_t *dest,
 </li>
 </ul>
 <p>If the <code>value</code> argument is <code>NULL</code>, the <code>cupsCheckDestSupported</code> function returns whether the option is supported by the destination. Otherwise, the function returns whether the specified value of the option is supported.</p>
-<p>The <code>cupsFindDestSupported</code> function returns the IPP attribute containing the supported values for a given option:</p>
-<pre><code> ipp_attribute_t *
- cupsFindDestSupported(http_t *http, cups_dest_t *dest,
-                       cups_dinfo_t *dinfo,
-                       const char *option);
+<p>The <a href="#cupsFindDestSupported"><code>cupsFindDestSupported</code></a> function returns the IPP attribute containing the supported values for a given option:</p>
+<pre><code class="language-c">ipp_attribute_t *
+cupsFindDestSupported(http_t *http, cups_dest_t *dest,
+                      cups_dinfo_t *dinfo,
+                      <span class="reserved">const</span> <span class="reserved">char</span> *option);
 </code></pre>
 <p>For example, the following code prints the supported finishing processes for a destination, if any, to the standard output:</p>
-<pre><code>cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT,
+<pre><code class="language-c">cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT,
                                       dest);
 
-if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, dest, info,
+<span class="reserved">if</span> (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, dest, info,
                            CUPS_FINISHINGS, NULL))
 {
   ipp_attribute_t *finishings =
       cupsFindDestSupported(CUPS_HTTP_DEFAULT, dest, info,
                             CUPS_FINISHINGS);
-  int i, count = ippGetCount(finishings);
+  <span class="reserved">int</span> i, count = ippGetCount(finishings);
 
-  puts(&quot;finishings supported:&quot;);
-  for (i = 0; i &lt; count; i ++)
-    printf(&quot;  %d\n&quot;, ippGetInteger(finishings, i));
+  puts(<span class="string">&quot;finishings supported:&quot;</span>);
+  <span class="reserved">for</span> (i = <span class="number">0</span>; i &lt; count; i ++)
+  {
+    <span class="reserved">int</span> val = ippGetInteger(finishings, i);
+    printf(<span class="string">&quot;  %d (%s)\n&quot;</span>, val,
+           ippEnumString(<span class="string">&quot;finishings&quot;</span>, val));
 }
-else
-  puts(&quot;finishings not supported.&quot;);
+<span class="reserved">else</span>
+{
+  puts(<span class="string">&quot;finishings not supported.&quot;</span>);
+}
 </code></pre>
 <p>The &quot;job-creation-attributes&quot; option can be queried to get a list of supported options. For example, the following code prints the list of supported options to the standard output:</p>
-<pre><code>ipp_attribute_t *attrs =
+<pre><code class="language-c">ipp_attribute_t *attrs =
     cupsFindDestSupported(CUPS_HTTP_DEFAULT, dest, info,
-                          &quot;job-creation-attributes&quot;);
-int i, count = ippGetCount(attrs);
+                          <span class="string">&quot;job-creation-attributes&quot;</span>);
+<span class="reserved">int</span> i, count = ippGetCount(attrs);
 
-for (i = 0; i &lt; count; i ++)
+<span class="reserved">for</span> (i = <span class="number">0</span>; i &lt; count; i ++)
   puts(ippGetString(attrs, i, NULL));
 </code></pre>
 <h4 id="getting-default-values">Getting Default Values</h4>
-<p>There are two sets of default values - user defaults that are available via the <code>num_options</code> and <code>options</code> members of the <code>cups_dest_t</code> structure, and destination defaults that available via the <code>cups_dinfo_t</code> structure and the <code>cupsFindDestDefault</code> function which returns the IPP attribute containing the default value(s) for a given option:</p>
-<pre><code>ipp_attribute_t *
+<p>There are two sets of default values - user defaults that are available via the <code>num_options</code> and <code>options</code> members of the <code>cups_dest_t</code> structure, and destination defaults that available via the <code>cups_dinfo_t</code> structure and the <a href="#cupsFindDestDefault"><code>cupsFindDestDefault</code></a> function which returns the IPP attribute containing the default value(s) for a given option:</p>
+<pre><code class="language-c">ipp_attribute_t *
 cupsFindDestDefault(http_t *http, cups_dest_t *dest,
                     cups_dinfo_t *dinfo,
-                    const char *option);
+                    <span class="reserved">const</span> <span class="reserved">char</span> *option);
 </code></pre>
-<p>The user defaults from <code>cupsGetOption</code> should always take preference over the destination defaults. For example, the following code prints the default finishings value(s) to the standard output:</p>
-<pre><code>const char *def_value =
+<p>The user defaults from <a href="#cupsGetOption"><code>cupsGetOption</code></a> should always take preference over the destination defaults. For example, the following code prints the default finishings value(s) to the standard output:</p>
+<pre><code class="language-c"><span class="reserved">const</span> <span class="reserved">char</span> *def_value =
     cupsGetOption(CUPS_FINISHINGS, dest-&gt;num_options,
                   dest-&gt;options);
 ipp_attribute_t *def_attr =
     cupsFindDestDefault(CUPS_HTTP_DEFAULT, dest, info,
                         CUPS_FINISHINGS);
 
-if (def_value != NULL)
+<span class="reserved">if</span> (def_value != NULL)
 {
-  printf(&quot;Default finishings: %s\n&quot;, def_value);
+  printf(<span class="string">&quot;Default finishings: %s\n&quot;</span>, def_value);
 }
-else
+<span class="reserved">else</span>
 {
-  int i, count = ippGetCount(def_attr);
+  <span class="reserved">int</span> i, count = ippGetCount(def_attr);
 
-  printf(&quot;Default finishings: %d&quot;,
-         ippGetInteger(def_attr, 0));
-  for (i = 1; i &lt; count; i ++)
-    printf(&quot;,%d&quot;, ippGetInteger(def_attr, i));
-  putchar('\n');
+  printf(<span class="string">&quot;Default finishings: %d&quot;</span>,
+         ippGetInteger(def_attr, <span class="number">0</span>));
+  <span class="reserved">for</span> (i = <span class="number">1</span>; i &lt; count; i ++)
+    printf(<span class="string">&quot;,%d&quot;</span>, ippGetInteger(def_attr, i));
+  putchar(<span class="string">'\n'</span>);
 }
 </code></pre>
 <h4 id="getting-ready-loaded-values">Getting Ready (Loaded) Values</h4>
 <p>The finishings and media options also support queries for the ready, or loaded, values. For example, a printer may have punch and staple finishers installed but be out of staples - the supported values will list both punch and staple finishing processes but the ready values will only list the punch processes. Similarly, a printer may support hundreds of different sizes of media but only have a single size loaded at any given time - the ready values are limited to the media that is actually in the printer.</p>
-<p>The <code>cupsFindDestReady</code> function finds the IPP attribute containing the ready values for a given option:</p>
-<pre><code>ipp_attribute_t *
+<p>The <a href="#cupsFindDestReady"><code>cupsFindDestReady</code></a> function finds the IPP attribute containing the ready values for a given option:</p>
+<pre><code class="language-c">ipp_attribute_t *
 cupsFindDestReady(http_t *http, cups_dest_t *dest,
-                  cups_dinfo_t *dinfo, const char *option);
+                  cups_dinfo_t *dinfo, <span class="reserved">const</span> <span class="reserved">char</span> *option);
 </code></pre>
 <p>For example, the following code lists the ready finishing processes:</p>
-<pre><code>ipp_attribute_t *ready_finishings =
+<pre><code class="language-c">ipp_attribute_t *ready_finishings =
     cupsFindDestReady(CUPS_HTTP_DEFAULT, dest, info,
                       CUPS_FINISHINGS);
 
-if (ready_finishings != NULL)
+<span class="reserved">if</span> (ready_finishings != NULL)
 {
-  int i, count = ippGetCount(ready_finishings);
+  <span class="reserved">int</span> i, count = ippGetCount(ready_finishings);
 
-  puts(&quot;finishings ready:&quot;);
-  for (i = 0; i &lt; count; i ++)
-    printf(&quot;  %d\n&quot;, ippGetInteger(ready_finishings, i));
+  puts(<span class="string">&quot;finishings ready:&quot;</span>);
+  <span class="reserved">for</span> (i = <span class="number">0</span>; i &lt; count; i ++)
+  {
+    <span class="reserved">int</span> val = ippGetInteger(ready_finishings, i);
+    printf(<span class="string">&quot;  %d (%s)\n&quot;</span>, val,
+           ippEnumString(<span class="string">&quot;finishings&quot;</span>, val));
 }
-else
-  puts(&quot;no finishings are ready.&quot;);
-</code></pre>
-<h4 id="media-size-options">Media Size Options</h4>
-<p>CUPS provides functions for querying the dimensions and margins for each of the supported media size options. The <code>cups_size_t</code> structure is used to describe a media size:</p>
-<pre><code>typedef struct cups_size_s
+<span class="reserved">else</span>
 {
-  char media[128];
-  int width, length;
-  int bottom, left, right, top;
-} cups_size_t;
+  puts(<span class="string">&quot;no finishings are ready.&quot;</span>);
+}
 </code></pre>
+<h4 id="media-options">Media Options</h4>
+<p>CUPS provides functions for querying the dimensions, margins, color, source (tray/roll), and type for each of the supported media size options. The <code>cups_media_t</code> structure is used to describe media:</p>
+<pre><code class="language-c"><span class="reserved">typedef</span> <span class="reserved">struct</span> cups_media_s
+{
+  <span class="reserved">char</span> media[<span class="number">128</span>];
+  <span class="reserved">char</span> color[<span class="number">128</span>];
+  <span class="reserved">char</span> source[<span class="number">128</span>];
+  <span class="reserved">char</span> type[<span class="number">128</span>];
+  <span class="reserved">int</span> width, length;
+  <span class="reserved">int</span> bottom, left, right, top;
+} cups_media_t;
+</code></pre>
+<p>The &quot;media&quot; member specifies a PWG self-describing media size name such as &quot;na_letter_8.5x11in&quot;, &quot;iso_a4_210x297mm&quot;, etc. The &quot;color&quot; member specifies a PWG media color name such as &quot;white&quot;, &quot;blue&quot;, etc. The &quot;source&quot; member specifies a standard keyword for the paper tray or roll such as &quot;tray-1&quot;, &quot;manual&quot;, &quot;by-pass-tray&quot; (multi-purpose tray), etc. The &quot;type&quot; member specifies a PWG media type name such as &quot;stationery&quot; (plain paper), &quot;photographic&quot;, &quot;envelope&quot;, &quot;transparency&quot;, etc.</p>
 <p>The <code>width</code> and <code>length</code> members specify the dimensions of the media in hundredths of millimeters (1/2540th of an inch). The <code>bottom</code>, <code>left</code>, <code>right</code>, and <code>top</code> members specify the margins of the printable area, also in hundredths of millimeters.</p>
-<p>The <code>cupsGetDestMediaByName</code> and <code>cupsGetDestMediaBySize</code> functions lookup the media size information using a standard media size name or dimensions in hundredths of millimeters:</p>
-<pre><code>int
-cupsGetDestMediaByName(http_t *http, cups_dest_t *dest,
-                       cups_dinfo_t *dinfo,
-                       const char *media,
-                       unsigned flags, cups_size_t *size);
+<p>The <a href="#cupsGetDestMediaByName2"><code>cupsGetDestMediaByName2</code></a> and <a href="#cupsGetDestMediaBySize2"><code>cupsGetDestMediaBySize2</code></a> functions lookup the media information using a standard media size name or dimensions in hundredths of millimeters:</p>
+<pre><code class="language-c"><span class="reserved">bool</span>
+cupsGetDestMediaByName2(http_t *http, cups_dest_t *dest,
+                        cups_dinfo_t *dinfo,
+                        <span class="reserved">const</span> <span class="reserved">char</span> *name,
+                        <span class="reserved">unsigned</span> flags, cups_media_t *media);
 
-int
-cupsGetDestMediaBySize(http_t *http, cups_dest_t *dest,
-                       cups_dinfo_t *dinfo,
-                       int width, int length,
-                       unsigned flags, cups_size_t *size);
+<span class="reserved">bool</span>
+cupsGetDestMediaBySize2(http_t *http, cups_dest_t *dest,
+                        cups_dinfo_t *dinfo,
+                        <span class="reserved">int</span> width, <span class="reserved">int</span> length,
+                        <span class="reserved">unsigned</span> flags, cups_media_t *media);
 </code></pre>
-<p>The <code>media</code>, <code>width</code>, and <code>length</code> arguments specify the size to lookup. The <code>flags</code> argument specifies a bitfield controlling various lookup options:</p>
+<p>The <code>name</code>, <code>width</code>, and <code>length</code> arguments specify the size to lookup. The <code>flags</code> argument specifies a bitfield controlling various lookup options:</p>
 <ul>
 <li><p><code>CUPS_MEDIA_FLAGS_DEFAULT</code>: Find the closest size supported by the printer.</p>
 </li>
@@ -1306,95 +1326,121 @@ cupsGetDestMediaBySize(http_t *http, cups_dest_t *dest,
 <li><p><code>CUPS_MEDIA_FLAGS_READY</code>: If the printer supports media sensing or configuration of the media in each tray/source, find the size amongst the &quot;ready&quot; media.</p>
 </li>
 </ul>
-<p>If a matching size is found for the destination, the size information is stored in the structure pointed to by the <code>size</code> argument and 1 is returned. Otherwise 0 is returned.</p>
+<p>If a matching size is found for the destination, the size information is stored in the structure pointed to by the <code>media</code> argument and <code>true</code> is returned. Otherwise <code>false</code> is returned.</p>
 <p>For example, the following code prints the margins for two-sided printing on US Letter media:</p>
-<pre><code>cups_size_t size;
+<pre><code class="language-c">cups_media_t media:
 
-if (cupsGetDestMediaByName(CUPS_HTTP_DEFAULT, dest, info,
-                           CUPS_MEDIA_LETTER,
-                           CUPS_MEDIA_FLAGS_DUPLEX, &amp;size))
+<span class="reserved">if</span> (cupsGetDestMediaByName2(CUPS_HTTP_DEFAULT, dest, info,
+                            CUPS_MEDIA_LETTER,
+                            CUPS_MEDIA_FLAGS_DUPLEX, &amp;size))
 {
-  puts(&quot;Margins for duplex US Letter:&quot;);
-  printf(&quot;  Bottom: %.2fin\n&quot;, size.bottom / 2540.0);
-  printf(&quot;    Left: %.2fin\n&quot;, size.left / 2540.0);
-  printf(&quot;   Right: %.2fin\n&quot;, size.right / 2540.0);
-  printf(&quot;     Top: %.2fin\n&quot;, size.top / 2540.0);
+  puts(<span class="string">&quot;Margins for duplex US Letter:&quot;</span>);
+  printf(<span class="string">&quot;  Bottom: %.2fin\n&quot;</span>, media.bottom / <span class="number">2540.0</span>);
+  printf(<span class="string">&quot;    Left: %.2fin\n&quot;</span>, media.left / <span class="number">2540.0</span>);
+  printf(<span class="string">&quot;   Right: %.2fin\n&quot;</span>, media.right / <span class="number">2540.0</span>);
+  printf(<span class="string">&quot;     Top: %.2fin\n&quot;</span>, media.top / <span class="number">2540.0</span>);
 }
-else
-  puts(&quot;Margins for duplex US Letter are not available.&quot;);
+<span class="reserved">else</span>
+{
+  puts(<span class="string">&quot;Margins for duplex US Letter are not available.&quot;</span>);
+}
 </code></pre>
-<p>You can also enumerate all of the sizes that match a given <code>flags</code> value using the <code>cupsGetDestMediaByIndex</code> and <code>cupsGetDestMediaCount</code> functions:</p>
-<pre><code>int
-cupsGetDestMediaByIndex(http_t *http, cups_dest_t *dest,
-                        cups_dinfo_t *dinfo, int n,
-                        unsigned flags, cups_size_t *size);
+<p>You can also enumerate all of the sizes that match a given <code>flags</code> value using the <a href="#cupsGetDestMediaByIndex2"><code>cupsGetDestMediaByIndex2</code></a> and <a href="#cupsGetDestMediaCount"><code>cupsGetDestMediaCount</code></a> functions:</p>
+<pre><code class="language-c"><span class="reserved">bool</span>
+cupsGetDestMediaByIndex2(http_t *http, cups_dest_t *dest,
+                         cups_dinfo_t *dinfo, size_t n,
+                         <span class="reserved">unsigned</span> flags, cups_media_t *media);
 
-int
+<span class="reserved">int</span>
 cupsGetDestMediaCount(http_t *http, cups_dest_t *dest,
-                      cups_dinfo_t *dinfo, unsigned flags);
+                      cups_dinfo_t *dinfo, <span class="reserved">unsigned</span> flags);
 </code></pre>
 <p>For example, the following code prints the list of ready media and corresponding margins:</p>
-<pre><code>cups_size_t size;
-int i;
-int count = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT,
-                                  dest, info,
-                                  CUPS_MEDIA_FLAGS_READY);
+<pre><code class="language-c">cups_media_t media;
+size_t i;
+size_t count = (size_t)cupsGetDestMediaCount(CUPS_HTTP_DEFAULT,
+                                             dest, info,
+                                             CUPS_MEDIA_FLAGS_READY);
 
-for (i = 0; i &lt; count; i ++)
+<span class="reserved">for</span> (i = <span class="number">0</span>; i &lt; count; i ++)
 {
-  if (cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, dest, info,
-                              i, CUPS_MEDIA_FLAGS_READY,
-                              &amp;size))
+  <span class="reserved">if</span> (cupsGetDestMediaByIndex2(CUPS_HTTP_DEFAULT, dest, info,
+                               i, CUPS_MEDIA_FLAGS_READY,
+                               &amp;media))
   {
-    printf(&quot;%s:\n&quot;, size.name);
-    printf(&quot;   Width: %.2fin\n&quot;, size.width / 2540.0);
-    printf(&quot;  Length: %.2fin\n&quot;, size.length / 2540.0);
-    printf(&quot;  Bottom: %.2fin\n&quot;, size.bottom / 2540.0);
-    printf(&quot;    Left: %.2fin\n&quot;, size.left / 2540.0);
-    printf(&quot;   Right: %.2fin\n&quot;, size.right / 2540.0);
-    printf(&quot;     Top: %.2fin\n&quot;, size.top / 2540.0);
+    printf(<span class="string">&quot;%s:\n&quot;</span>, media.name);
+    printf(<span class="string">&quot;   Width: %.2fin\n&quot;</span>, media.width / <span class="number">2540.0</span>);
+    printf(<span class="string">&quot;  Length: %.2fin\n&quot;</span>, media.length / <span class="number">2540.0</span>);
+    printf(<span class="string">&quot;  Bottom: %.2fin\n&quot;</span>, media.bottom / <span class="number">2540.0</span>);
+    printf(<span class="string">&quot;    Left: %.2fin\n&quot;</span>, media.left / <span class="number">2540.0</span>);
+    printf(<span class="string">&quot;   Right: %.2fin\n&quot;</span>, media.right / <span class="number">2540.0</span>);
+    printf(<span class="string">&quot;     Top: %.2fin\n&quot;</span>, media.top / <span class="number">2540.0</span>);
   }
 }
 </code></pre>
-<p>Finally, the <code>cupsGetDestMediaDefault</code> function returns the default media size:</p>
-<pre><code>int
-cupsGetDestMediaDefault(http_t *http, cups_dest_t *dest,
-                        cups_dinfo_t *dinfo, unsigned flags,
-                        cups_size_t *size);
+<p>Finally, the <a href="#cupsGetDestMediaDefault2"><code>cupsGetDestMediaDefault2</code></a> function returns the default media:</p>
+<pre><code class="language-c"><span class="reserved">int</span>
+cupsGetDestMediaDefault2(http_t *http, cups_dest_t *dest,
+                         cups_dinfo_t *dinfo, <span class="reserved">unsigned</span> flags,
+                         cups_media_t *media);
 </code></pre>
 <h4 id="localizing-options-and-values">Localizing Options and Values</h4>
-<p>CUPS provides three functions to get localized, human-readable strings in the user's current locale for options and values: <code>cupsLocalizeDestMedia</code>, <code>cupsLocalizeDestOption</code>, and <code>cupsLocalizeDestValue</code>:</p>
-<pre><code>const char *
-cupsLocalizeDestMedia(http_t *http, cups_dest_t *dest,
-                      cups_dinfo_t *info, unsigned flags,
-                      cups_size_t *size);
+<p>CUPS provides three functions to get localized, human-readable strings in the user's current locale for options and values: <a href="#cupsLocalizeDestMedia2"><code>cupsLocalizeDestMedia2</code></a>, <a href="#cupsLocalizeDestOption"><code>cupsLocalizeDestOption</code></a>, and <a href="#cupsLocalizeDestValue"><code>cupsLocalizeDestValue</code></a>:</p>
+<pre><code class="language-c"><span class="reserved">const</span> <span class="reserved">char</span> *
+cupsLocalizeDestMedia2(http_t *http, cups_dest_t *dest,
+                       cups_dinfo_t *info, <span class="reserved">unsigned</span> flags,
+                       cups_media_t *media);
 
-const char *
+<span class="reserved">const</span> <span class="reserved">char</span> *
 cupsLocalizeDestOption(http_t *http, cups_dest_t *dest,
                        cups_dinfo_t *info,
-                       const char *option);
+                       <span class="reserved">const</span> <span class="reserved">char</span> *option);
 
-const char *
+<span class="reserved">const</span> <span class="reserved">char</span> *
 cupsLocalizeDestValue(http_t *http, cups_dest_t *dest,
                       cups_dinfo_t *info,
-                      const char *option, const char *value);
+                      <span class="reserved">const</span> <span class="reserved">char</span> *option, <span class="reserved">const</span> <span class="reserved">char</span> *value);
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong></p>
+<p>These functions require a valid <code>http_t</code> connection to work. Use the <a href="#cupsConnectDest"><code>cupsConnectDest</code></a> function to connect to the destination for its localization information.</p>
+</blockquote>
+<p>For example, the following code will list the localized media names for a destination:</p>
+<pre><code class="language-c"><span class="reserved">char</span> resource[<span class="number">256</span>];
+http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_NONE,
+                               <span class="comment">/*msec*/</span><span class="number">30000</span>, <span class="comment">/*cancel*/</span>NULL,
+                               resource, <span class="reserved">sizeof</span>(resource),
+                               <span class="comment">/*dest_cb*/</span>NULL, <span class="comment">/*user_data*/</span>NULL);
+
+size_t i;
+size_t count = (size_t)cupsGetDestMediaCount(http, dest, info,
+                                             CUPS_MEDIA_FLAGS_DEFAULT);
+cups_media_t media;
+<span class="reserved">for</span> (i = <span class="number">0</span>; i &lt; count; i ++)
+{
+  <span class="reserved">if</span> (cupsGetDestMediaByIndex2(http, dest, info, i,
+                               CUPS_MEDIA_FLAGS_DEFAULT, &amp;media))
+    printf(<span class="string">&quot;%s: %s\n&quot;</span>, media.name,
+           cupsLocalizeDestMedia2(http, dest, info,
+                                  CUPS_MEDIA_FLAGS_DEFAULT, &amp;media));
+}
 </code></pre>
 <h3 class="title" id="submitting-a-print-job">Submitting a Print Job</h3>
-<p>Once you are ready to submit a print job, you create a job using the <code>cupsCreateDestJob</code> function:</p>
-<pre><code>ipp_status_t
+<p>Once you are ready to submit a print job, you create a job using the <a href="#cupsCreateDestJob"><code>cupsCreateDestJob</code></a> function:</p>
+<pre><code class="language-c">ipp_status_t
 cupsCreateDestJob(http_t *http, cups_dest_t *dest,
-                  cups_dinfo_t *info, int *job_id,
-                  const char *title, int num_options,
+                  cups_dinfo_t *info, <span class="reserved">int</span> *job_id,
+                  <span class="reserved">const</span> <span class="reserved">char</span> *title, <span class="reserved">int</span> num_options,
                   cups_option_t *options);
 </code></pre>
 <p>The <code>title</code> argument specifies a name for the print job such as &quot;My Document&quot;. The <code>num_options</code> and <code>options</code> arguments specify the options for the print job which are allocated using the <code>cupsAddOption</code> function.</p>
 <p>When successful, the job's numeric identifier is stored in the integer pointed to by the <code>job_id</code> argument and <code>IPP_STATUS_OK</code> is returned. Otherwise, an IPP error status is returned.</p>
 <p>For example, the following code creates a new job that will print 42 copies of a two-sided US Letter document:</p>
-<pre><code>int job_id = 0;
-int num_options = 0;
+<pre><code class="language-c"><span class="reserved">int</span> job_id = <span class="number">0</span>;
+<span class="reserved">int</span> num_options = <span class="number">0</span>;
 cups_option_t *options = NULL;
 
-num_options = cupsAddOption(CUPS_COPIES, &quot;42&quot;,
+num_options = cupsAddOption(CUPS_COPIES, <span class="string">&quot;42&quot;</span>,
                             num_options, &amp;options);
 num_options = cupsAddOption(CUPS_MEDIA, CUPS_MEDIA_LETTER,
                             num_options, &amp;options);
@@ -1402,26 +1448,26 @@ num_options = cupsAddOption(CUPS_SIDES,
                             CUPS_SIDES_TWO_SIDED_PORTRAIT,
                             num_options, &amp;options);
 
-if (cupsCreateDestJob(CUPS_HTTP_DEFAULT, dest, info,
-                      &amp;job_id, &quot;My Document&quot;, num_options,
+<span class="reserved">if</span> (cupsCreateDestJob(CUPS_HTTP_DEFAULT, dest, info,
+                      &amp;job_id, <span class="string">&quot;My Document&quot;</span>, num_options,
                       options) == IPP_STATUS_OK)
-  printf(&quot;Created job: %d\n&quot;, job_id);
-else
-  printf(&quot;Unable to create job: %s\n&quot;,
-         cupsLastErrorString());
+  printf(<span class="string">&quot;Created job: %d\n&quot;</span>, job_id);
+<span class="reserved">else</span>
+  printf(<span class="string">&quot;Unable to create job: %s\n&quot;</span>,
+         cupsGetErrorString());
 </code></pre>
-<p>Once the job is created, you submit documents for the job using the <code>cupsStartDestDocument</code>, <code>cupsWriteRequestData</code>, and <code>cupsFinishDestDocument</code> functions:</p>
-<pre><code>http_status_t
+<p>Once the job is created, you submit documents for the job using the <a href="#cupsStartDestDocument"><code>cupsStartDestDocument</code></a>, <a href="#cupsWriteRequestData"><code>cupsWriteRequestData</code></a>, and <a href="#cupsFinishDestDocument"><code>cupsFinishDestDocument</code></a> functions:</p>
+<pre><code class="language-c">http_status_t
 cupsStartDestDocument(http_t *http, cups_dest_t *dest,
-                      cups_dinfo_t *info, int job_id,
-                      const char *docname,
-                      const char *format,
-                      int num_options,
+                      cups_dinfo_t *info, <span class="reserved">int</span> job_id,
+                      <span class="reserved">const</span> <span class="reserved">char</span> *docname,
+                      <span class="reserved">const</span> <span class="reserved">char</span> *format,
+                      <span class="reserved">int</span> num_options,
                       cups_option_t *options,
-                      int last_document);
+                      <span class="reserved">int</span> last_document);
 
 http_status_t
-cupsWriteRequestData(http_t *http, const char *buffer,
+cupsWriteRequestData(http_t *http, <span class="reserved">const</span> <span class="reserved">char</span> *buffer,
                      size_t length);
 
 ipp_status_t
@@ -1430,36 +1476,38 @@ cupsFinishDestDocument(http_t *http, cups_dest_t *dest,
 </code></pre>
 <p>The <code>docname</code> argument specifies the name of the document, typically the original filename. The <code>format</code> argument specifies the MIME media type of the document, including the following constants:</p>
 <ul>
+<li><p><code>CUPS_FORMAT_AUTO</code>: &quot;application/octet-stream&quot;</p>
+</li>
 <li><p><code>CUPS_FORMAT_JPEG</code>: &quot;image/jpeg&quot;</p>
 </li>
 <li><p><code>CUPS_FORMAT_PDF</code>: &quot;application/pdf&quot;</p>
-</li>
-<li><p><code>CUPS_FORMAT_POSTSCRIPT</code>: &quot;application/postscript&quot;</p>
 </li>
 <li><p><code>CUPS_FORMAT_TEXT</code>: &quot;text/plain&quot;</p>
 </li>
 </ul>
 <p>The <code>num_options</code> and <code>options</code> arguments specify per-document print options, which at present must be 0 and <code>NULL</code>. The <code>last_document</code> argument specifies whether this is the last document in the job.</p>
 <p>For example, the following code submits a PDF file to the job that was just created:</p>
-<pre><code>FILE *fp = fopen(&quot;filename.pdf&quot;, &quot;rb&quot;);
+<pre><code class="language-c">FILE *fp = fopen(<span class="string">&quot;filename.pdf&quot;</span>, <span class="string">&quot;rb&quot;</span>);
 size_t bytes;
-char buffer[65536];
+<span class="reserved">char</span> buffer[<span class="number">65536</span>];
 
-if (cupsStartDestDocument(CUPS_HTTP_DEFAULT, dest, info,
-                          job_id, &quot;filename.pdf&quot;, 0, NULL,
-                          1) == HTTP_STATUS_CONTINUE)
+<span class="reserved">if</span> (cupsStartDestDocument(CUPS_HTTP_DEFAULT, dest, info,
+                          job_id, <span class="string">&quot;filename.pdf&quot;</span>, <span class="number">0</span>, NULL,
+                          <span class="number">1</span>) == HTTP_STATUS_CONTINUE)
 {
-  while ((bytes = fread(buffer, 1, sizeof(buffer), fp)) &gt; 0)
-    if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, buffer,
+  <span class="reserved">while</span> ((bytes = fread(buffer, <span class="number">1</span>, <span class="reserved">sizeof</span>(buffer), fp)) &gt; <span class="number">0</span>)
+  {
+    <span class="reserved">if</span> (cupsWriteRequestData(CUPS_HTTP_DEFAULT, buffer,
                              bytes) != HTTP_STATUS_CONTINUE)
-      break;
+      <span class="reserved">break</span>;
+  }
 
-  if (cupsFinishDestDocument(CUPS_HTTP_DEFAULT, dest,
+  <span class="reserved">if</span> (cupsFinishDestDocument(CUPS_HTTP_DEFAULT, dest,
                              info) == IPP_STATUS_OK)
-    puts(&quot;Document send succeeded.&quot;);
-  else
-    printf(&quot;Document send failed: %s\n&quot;,
-           cupsLastErrorString());
+    puts(<span class="string">&quot;Document send succeeded.&quot;</span>);
+  <span class="reserved">else</span>
+    printf(<span class="string">&quot;Document send failed: %s\n&quot;</span>,
+           cupsGetErrorString());
 }
 
 fclose(fp);
@@ -1467,162 +1515,235 @@ fclose(fp);
 <h2 class="title" id="sending-ipp-requests">Sending IPP Requests</h2>
 <p>CUPS provides a rich API for sending IPP requests to the scheduler or printers, typically from management or utility applications whose primary purpose is not to send print jobs.</p>
 <h3 class="title" id="connecting-to-the-scheduler-or-printer">Connecting to the Scheduler or Printer</h3>
-<p>The connection to the scheduler or printer is represented by the HTTP connection type <code>http_t</code>. The <code>cupsConnectDest</code> function connects to the scheduler or printer associated with the destination:</p>
-<pre><code>http_t *
-cupsConnectDest(cups_dest_t *dest, unsigned flags, int msec,
-                int *cancel, char *resource,
+<p>The connection to the scheduler or printer is represented by the HTTP connection type <code>http_t</code>. The <a href="#cupsConnectDest"><code>cupsConnectDest</code></a> function connects to the scheduler or printer associated with the destination:</p>
+<pre><code class="language-c">http_t *
+cupsConnectDest(cups_dest_t *dest, <span class="reserved">unsigned</span> flags, <span class="reserved">int</span> msec,
+                <span class="reserved">int</span> *cancel, <span class="reserved">char</span> *resource,
                 size_t resourcesize, cups_dest_cb_t cb,
-                void *user_data);
+                <span class="reserved">void</span> *user_data);
 </code></pre>
 <p>The <code>dest</code> argument specifies the destination to connect to.</p>
 <p>The <code>flags</code> argument specifies whether you want to connect to the scheduler (<code>CUPS_DEST_FLAGS_NONE</code>) or device/printer (<code>CUPS_DEST_FLAGS_DEVICE</code>) associated with the destination.</p>
 <p>The <code>msec</code> argument specifies how long you are willing to wait for the connection to be established in milliseconds. Specify a value of <code>-1</code> to wait indefinitely.</p>
 <p>The <code>cancel</code> argument specifies the address of an integer variable that can be set to a non-zero value to cancel the connection. Specify a value of <code>NULL</code> to not provide a cancel variable.</p>
 <p>The <code>resource</code> and <code>resourcesize</code> arguments specify the address and size of a character string array to hold the path to use when sending an IPP request.</p>
-<p>The <code>cb</code> and <code>user_data</code> arguments specify a destination callback function that returns 1 to continue connecting or 0 to stop. The destination callback work the same way as the one used for the <code>cupsEnumDests</code> function.</p>
+<p>The <code>cb</code> and <code>user_data</code> arguments specify a destination callback function that returns 1 to continue connecting or 0 to stop. The destination callback works the same way as the one used for the <a href="#cupsEnumDests"><code>cupsEnumDests</code></a> function.</p>
 <p>On success, a HTTP connection is returned that can be used to send IPP requests and get IPP responses.</p>
 <p>For example, the following code connects to the printer associated with a destination with a 30 second timeout:</p>
-<pre><code>char resource[256];
+<pre><code class="language-c"><span class="reserved">char</span> resource[<span class="number">256</span>];
 http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_DEVICE,
-                               30000, NULL, resource,
-                               sizeof(resource), NULL, NULL);
+                               <span class="number">30000</span>, <span class="comment">/*cancel*/</span>NULL, resource,
+                               <span class="reserved">sizeof</span>(resource),
+                               <span class="comment">/*cb*/</span>NULL, <span class="comment">/*user_data*/</span>NULL);
 </code></pre>
 <h3 class="title" id="creating-an-ipp-request">Creating an IPP Request</h3>
 <p>IPP requests are represented by the IPP message type <code>ipp_t</code> and each IPP attribute in the request is representing using the type <code>ipp_attribute_t</code>. Each IPP request includes an operation code (<code>IPP_OP_CREATE_JOB</code>, <code>IPP_OP_GET_PRINTER_ATTRIBUTES</code>, etc.) and a 32-bit integer identifier.</p>
 <p>The <code>ippNewRequest</code> function creates a new IPP request:</p>
-<pre><code>ipp_t *
+<pre><code class="language-c">ipp_t *
 ippNewRequest(ipp_op_t op);
 </code></pre>
 <p>The <code>op</code> argument specifies the IPP operation code for the request. For example, the following code creates an IPP Get-Printer-Attributes request:</p>
-<pre><code>ipp_t *request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+<pre><code class="language-c">ipp_t *request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
 </code></pre>
 <p>The request identifier is automatically set to a unique value for the current process.</p>
 <p>Each IPP request starts with two IPP attributes, &quot;attributes-charset&quot; and &quot;attributes-natural-language&quot;, followed by IPP attribute(s) that specify the target of the operation. The <code>ippNewRequest</code> automatically adds the correct &quot;attributes-charset&quot; and &quot;attributes-natural-language&quot; attributes, but you must add the target attribute(s). For example, the following code adds the &quot;printer-uri&quot; attribute to the IPP Get-Printer-Attributes request to specify which printer is being queried:</p>
-<pre><code>const char *printer_uri = cupsGetOption(&quot;device-uri&quot;,
+<pre><code class="language-c"><span class="reserved">const</span> <span class="reserved">char</span> *printer_uri = cupsGetOption(<span class="string">&quot;device-uri&quot;</span>,
                                         dest-&gt;num_options,
                                         dest-&gt;options);
 
 ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-             &quot;printer-uri&quot;, NULL, printer_uri);
+             <span class="string">&quot;printer-uri&quot;</span>, <span class="comment">/*language*/</span>NULL, printer_uri);
+```c
 </code></pre>
 <blockquote>
 <p><strong>Note:</strong></p>
 <p>If we wanted to query the scheduler instead of the device, we would look up the &quot;printer-uri-supported&quot; option instead of the &quot;device-uri&quot; value.</p>
 </blockquote>
-<p>The <code>ippAddString</code> function adds the &quot;printer-uri&quot; attribute to the IPP request. The <code>IPP_TAG_OPERATION</code> argument specifies that the attribute is part of the operation. The <code>IPP_TAG_URI</code> argument specifies that the value is a Universal Resource Identifier (URI) string. The <code>NULL</code> argument specifies there is no language (English, French, Japanese, etc.) associated with the string, and the <code>printer_uri</code> argument specifies the string value.</p>
+<p>The <a href="#ippAddString"><code>ippAddString</code></a> function adds the &quot;printer-uri&quot; attribute to the IPP request. The <code>IPP_TAG_OPERATION</code> argument specifies that the attribute is part of the operation. The <code>IPP_TAG_URI</code> argument specifies that the value is a Universal Resource Identifier (URI) string. The <code>NULL</code> argument specifies there is no language (English, French, Japanese, etc.) associated with the string, and the <code>printer_uri</code> argument specifies the string value.</p>
 <p>The IPP Get-Printer-Attributes request also supports an IPP attribute called &quot;requested-attributes&quot; that lists the attributes and values you are interested in. For example, the following code requests the printer state attributes:</p>
-<pre><code>static const char * const requested_attributes[] =
+<pre><code class="language-c"><span class="reserved">static</span> <span class="reserved">const</span> <span class="reserved">char</span> * <span class="reserved">const</span> requested_attributes[] =
 {
-  &quot;printer-state&quot;,
-  &quot;printer-state-message&quot;,
-  &quot;printer-state-reasons&quot;
+  <span class="string">&quot;printer-state&quot;</span>,
+  <span class="string">&quot;printer-state-message&quot;</span>,
+  <span class="string">&quot;printer-state-reasons&quot;</span>
 };
 
 ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-              &quot;requested-attributes&quot;, 3, NULL,
+              <span class="string">&quot;requested-attributes&quot;</span>, <span class="number">3</span>, <span class="comment">/*language*/</span>NULL,
               requested_attributes);
 </code></pre>
-<p>The <code>ippAddStrings</code> function adds an attribute with one or more strings, in this case three. The <code>IPP_TAG_KEYWORD</code> argument specifies that the strings are keyword values, which are used for attribute names. All strings use the same language (<code>NULL</code>), and the attribute will contain the three strings in the array <code>requested_attributes</code>.</p>
+<p>The <a href="#ippAddStrings"><code>ippAddStrings</code></a> function adds an attribute with one or more strings, in this case three. The <code>IPP_TAG_KEYWORD</code> argument specifies that the strings are keyword values, which are used for attribute names. All strings use the same language (<code>NULL</code> for none), and the attribute will contain the three strings in the array <code>requested_attributes</code>.</p>
 <p>CUPS provides many functions to adding attributes of different types:</p>
 <ul>
-<li><p><code>ippAddBoolean</code> adds a boolean (<code>IPP_TAG_BOOLEAN</code>) attribute with one value.</p>
+<li><p><a href="#ippAddBoolean"><code>ippAddBoolean</code></a> adds a boolean (<code>IPP_TAG_BOOLEAN</code>) attribute with one value.</p>
 </li>
-<li><p><code>ippAddInteger</code> adds an enum (<code>IPP_TAG_ENUM</code>) or integer (<code>IPP_TAG_INTEGER</code>) attribute with one value.</p>
+<li><p><a href="#ippAddInteger"><code>ippAddInteger</code></a> adds an enum (<code>IPP_TAG_ENUM</code>) or integer (<code>IPP_TAG_INTEGER</code>) attribute with one value.</p>
 </li>
-<li><p><code>ippAddIntegers</code> adds an enum or integer attribute with one or more values.</p>
+<li><p><a href="#ippAddIntegers"><code>ippAddIntegers</code></a> adds an enum or integer attribute with one or more values.</p>
 </li>
-<li><p><code>ippAddOctetString</code> adds an octetString attribute with one value.</p>
+<li><p><a href="#ippAddOctetString"><code>ippAddOctetString</code></a> adds an octetString attribute with one value.</p>
 </li>
-<li><p><code>ippAddOutOfBand</code> adds a admin-defined (<code>IPP_TAG_ADMINDEFINE</code>), default (<code>IPP_TAG_DEFAULT</code>), delete-attribute (<code>IPP_TAG_DELETEATTR</code>), no-value (<code>IPP_TAG_NOVALUE</code>), not-settable (<code>IPP_TAG_NOTSETTABLE</code>), unknown (<code>IPP_TAG_UNKNOWN</code>), or unsupported (<code>IPP_TAG_UNSUPPORTED_VALUE</code>) out-of-band attribute.</p>
+<li><p><a href="#ippAddOutOfBand"><code>ippAddOutOfBand</code></a> adds a admin-defined (<code>IPP_TAG_ADMINDEFINE</code>), default (<code>IPP_TAG_DEFAULT</code>), delete-attribute (<code>IPP_TAG_DELETEATTR</code>), no-value (<code>IPP_TAG_NOVALUE</code>), not-settable (<code>IPP_TAG_NOTSETTABLE</code>), unknown (<code>IPP_TAG_UNKNOWN</code>), or unsupported (<code>IPP_TAG_UNSUPPORTED_VALUE</code>) out-of-band attribute.</p>
 </li>
-<li><p><code>ippAddRange</code> adds a rangeOfInteger attribute with one range.</p>
+<li><p><a href="#ippAddRange"><code>ippAddRange</code></a> adds a rangeOfInteger attribute with one range.</p>
 </li>
-<li><p><code>ippAddRanges</code> adds a rangeOfInteger attribute with one or more ranges.</p>
+<li><p><a href="#ippAddRanges"><code>ippAddRanges</code></a> adds a rangeOfInteger attribute with one or more ranges.</p>
 </li>
-<li><p><code>ippAddResolution</code> adds a resolution attribute with one resolution.</p>
+<li><p><a href="#ippAddResolution"><code>ippAddResolution</code></a> adds a resolution attribute with one resolution.</p>
 </li>
-<li><p><code>ippAddResolutions</code> adds a resolution attribute with one or more resolutions.</p>
+<li><p><a href="#ippAddResolutions"><code>ippAddResolutions</code></a> adds a resolution attribute with one or more resolutions.</p>
 </li>
-<li><p><code>ippAddString</code> adds a charset (<code>IPP_TAG_CHARSET</code>), keyword (<code>IPP_TAG_KEYWORD</code>), mimeMediaType (<code>IPP_TAG_MIMETYPE</code>), name (<code>IPP_TAG_NAME</code> and <code>IPP_TAG_NAMELANG</code>), naturalLanguage (<code>IPP_TAG_NATURAL_LANGUAGE</code>), text (<code>IPP_TAG_TEXT</code> and <code>IPP_TAG_TEXTLANG</code>), uri (<code>IPP_TAG_URI</code>), or uriScheme (<code>IPP_TAG_URISCHEME</code>) attribute with one value.</p>
+<li><p><a href="#ippAddString"><code>ippAddString</code></a> adds a charset (<code>IPP_TAG_CHARSET</code>), keyword (<code>IPP_TAG_KEYWORD</code>), mimeMediaType (<code>IPP_TAG_MIMETYPE</code>), name (<code>IPP_TAG_NAME</code> and <code>IPP_TAG_NAMELANG</code>), naturalLanguage (<code>IPP_TAG_NATURAL_LANGUAGE</code>), text (<code>IPP_TAG_TEXT</code> and <code>IPP_TAG_TEXTLANG</code>), uri (<code>IPP_TAG_URI</code>), or uriScheme (<code>IPP_TAG_URISCHEME</code>) attribute with one value.</p>
 </li>
-<li><p><code>ippAddStrings</code> adds a charset, keyword, mimeMediaType, name, naturalLanguage, text, uri, or uriScheme attribute with one or more values.</p>
+<li><p><a href="#ippAddStrings"><code>ippAddStrings</code></a> adds a charset, keyword, mimeMediaType, name, naturalLanguage, text, uri, or uriScheme attribute with one or more values.</p>
 </li>
 </ul>
 <h3 class="title" id="sending-the-ipp-request">Sending the IPP Request</h3>
-<p>Once you have created the IPP request, you can send it using the <code>cupsDoRequest</code> function. For example, the following code sends the IPP Get-Printer-Attributes request to the destination and saves the response:</p>
-<pre><code>ipp_t *response = cupsDoRequest(http, request, resource);
+<p>Once you have created the IPP request, you can send it using the <a href="#cupsDoRequest"><code>cupsDoRequest</code></a> function. For example, the following code sends the IPP Get-Printer-Attributes request to the destination and saves the response:</p>
+<pre><code class="language-c">ipp_t *response = cupsDoRequest(http, request, resource);
 </code></pre>
-<p>For requests like Send-Document that include a file, the <code>cupsDoFileRequest</code> function should be used:</p>
-<pre><code>ipp_t *response = cupsDoFileRequest(http, request, resource,
+<p>For requests like Send-Document that include a file, the <a href="#cupsDoFileRequest"><code>cupsDoFileRequest</code></a> function should be used:</p>
+<pre><code class="language-c">ipp_t *response = cupsDoFileRequest(http, request, resource,
                                     filename);
 </code></pre>
 <p>Both <code>cupsDoRequest</code> and <code>cupsDoFileRequest</code> free the IPP request. If a valid IPP response is received, it is stored in a new IPP message (<code>ipp_t</code>) and returned to the caller. Otherwise <code>NULL</code> is returned.</p>
-<p>The status from the most recent request can be queried using the <code>cupsLastError</code> function, for example:</p>
-<pre><code>if (cupsLastError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
+<p>The status from the most recent request can be queried using the <a href="#cupsGetError"><code>cupsGetError</code></a> function, for example:</p>
+<pre><code class="language-c"><span class="reserved">if</span> (cupsGetError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
 {
-  /* request failed */
+  <span class="comment">/* request failed */</span>
 }
 </code></pre>
-<p>A human-readable error message is also available using the <code>cupsLastErrorString</code> function:</p>
-<pre><code>if (cupsLastError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
+<p>A human-readable error message is also available using the <code>cupsGetErrorString</code> function:</p>
+<pre><code class="language-c"><span class="reserved">if</span> (cupsGetError() &gt;= IPP_STATUS_ERROR_BAD_REQUEST)
 {
-  /* request failed */
-  printf(&quot;Request failed: %s\n&quot;, cupsLastErrorString());
+  <span class="comment">/* request failed */</span>
+  printf(<span class="string">&quot;Request failed: %s\n&quot;</span>, cupsGetErrorString());
 }
 </code></pre>
 <h3 class="title" id="processing-the-ipp-response">Processing the IPP Response</h3>
 <p>Each response to an IPP request is also an IPP message (<code>ipp_t</code>) with its own IPP attributes (<code>ipp_attribute_t</code>) that includes a status code (<code>IPP_STATUS_OK</code>, <code>IPP_STATUS_ERROR_BAD_REQUEST</code>, etc.) and the corresponding 32-bit integer identifier from the request.</p>
 <p>For example, the following code finds the printer state attributes and prints their values:</p>
-<pre><code>ipp_attribute_t *attr;
+<pre><code class="language-c">ipp_attribute_t *attr;
 
-if ((attr = ippFindAttribute(response, &quot;printer-state&quot;,
+<span class="reserved">if</span> ((attr = ippFindAttribute(response, <span class="string">&quot;printer-state&quot;</span>,
                              IPP_TAG_ENUM)) != NULL)
 {
-  printf(&quot;printer-state=%s\n&quot;,
-         ippEnumString(&quot;printer-state&quot;, ippGetInteger(attr, 0)));
+  printf(<span class="string">&quot;printer-state=%s\n&quot;</span>,
+         ippEnumString(<span class="string">&quot;printer-state&quot;</span>, ippGetInteger(attr, <span class="number">0</span>)));
 }
-else
-  puts(&quot;printer-state=unknown&quot;);
+<span class="reserved">else</span>
+  puts(<span class="string">&quot;printer-state=unknown&quot;</span>);
 
-if ((attr = ippFindAttribute(response, &quot;printer-state-message&quot;,
+<span class="reserved">if</span> ((attr = ippFindAttribute(response, <span class="string">&quot;printer-state-message&quot;</span>,
                              IPP_TAG_TEXT)) != NULL)
 {
-  printf(&quot;printer-state-message=\&quot;%s\&quot;\n&quot;,
-         ippGetString(attr, 0, NULL)));
+  printf(<span class="string">&quot;printer-state-message=\&quot;%s\&quot;\n&quot;</span>,
+         ippGetString(attr, <span class="number">0</span>, NULL)));
 }
 
-if ((attr = ippFindAttribute(response, &quot;printer-state-reasons&quot;,
+<span class="reserved">if</span> ((attr = ippFindAttribute(response, <span class="string">&quot;printer-state-reasons&quot;</span>,
                              IPP_TAG_KEYWORD)) != NULL)
 {
-  int i, count = ippGetCount(attr);
+  <span class="reserved">int</span> i, count = ippGetCount(attr);
 
-  puts(&quot;printer-state-reasons=&quot;);
-  for (i = 0; i &lt; count; i ++)
-    printf(&quot;    %s\n&quot;, ippGetString(attr, i, NULL)));
+  puts(<span class="string">&quot;printer-state-reasons=&quot;</span>);
+  <span class="reserved">for</span> (i = <span class="number">0</span>; i &lt; count; i ++)
+    printf(<span class="string">&quot;    %s\n&quot;</span>, ippGetString(attr, i, NULL)));
 }
 </code></pre>
-<p>The <code>ippGetCount</code> function returns the number of values in an attribute.</p>
-<p>The <code>ippGetInteger</code> and <code>ippGetString</code> functions return a single integer or string value from an attribute.</p>
-<p>The <code>ippEnumString</code> function converts a enum value to its keyword (string) equivalent.</p>
-<p>Once you are done using the IPP response message, free it using the <code>ippDelete</code> function:</p>
-<pre><code>ippDelete(response);
+<p>The <a href="#ippGetCount"><code>ippGetCount</code></a> function returns the number of values in an attribute.</p>
+<p>The <a href="#ippGetInteger"><code>ippGetInteger</code></a> and <a href="#ippGetString"><code>ippGetString</code></a> functions return a single integer or string value from an attribute.</p>
+<p>The <a href="#ippEnumString"><code>ippEnumString</code></a> function converts a enum value to its keyword (string) equivalent.</p>
+<p>Once you are done using the IPP response message, free it using the <a href="#ippDelete"><code>ippDelete</code></a> function:</p>
+<pre><code class="language-c">ippDelete(response);
 </code></pre>
 <h3 class="title" id="authentication">Authentication</h3>
-<p>CUPS normally handles authentication through the console. GUI applications should set a password callback using the <code>cupsSetPasswordCB2</code> function:</p>
-<pre><code>void
-cupsSetPasswordCB2(cups_password_cb2_t cb, void *user_data);
+<p>CUPS normally handles authentication through the console. GUI applications should set a password callback using the <a href="#cupsSetPasswordCB2"><code>cupsSetPasswordCB2</code></a> function:</p>
+<pre><code class="language-c"><span class="reserved">void</span>
+cupsSetPasswordCB2(cups_password_cb2_t cb, <span class="reserved">void</span> *user_data);
 </code></pre>
-<p>The password callback will be called when needed and is responsible for setting the current user name using <code>cupsSetUser</code> and returning a string:</p>
-<pre><code>const char *
-cups_password_cb2(const char *prompt, http_t *http,
-                  const char *method, const char *resource,
-                  void *user_data);
+<p>The password callback will be called when needed and is responsible for setting the current user name using <a href="#cupsSetUser"><code>cupsSetUser</code></a> and returning a string:</p>
+<pre><code class="language-c"><span class="reserved">const</span> <span class="reserved">char</span> *
+cups_password_cb2(<span class="reserved">const</span> <span class="reserved">char</span> *prompt, http_t *http,
+                  <span class="reserved">const</span> <span class="reserved">char</span> *method, <span class="reserved">const</span> <span class="reserved">char</span> *resource,
+                  <span class="reserved">void</span> *user_data);
 </code></pre>
 <p>The <code>prompt</code> argument is a string from CUPS that should be displayed to the user.</p>
-<p>The <code>http</code> argument is the connection hosting the request that is being authenticated. The password callback can call the <code>httpGetField</code> and <code>httpGetSubField</code> functions to look for additional details concerning the authentication challenge.</p>
+<p>The <code>http</code> argument is the connection hosting the request that is being authenticated. The password callback can call the <a href="#httpGetField"><code>httpGetField</code></a> and <a href="#httpGetSubField"><code>httpGetSubField</code></a> functions to look for additional details concerning the authentication challenge.</p>
 <p>The <code>method</code> argument specifies the HTTP method used for the request and is typically &quot;POST&quot;.</p>
 <p>The <code>resource</code> argument specifies the path used for the request.</p>
 <p>The <code>user_data</code> argument provides the user data pointer from the <code>cupsSetPasswordCB2</code> call.</p>
+<h2 class="title" id="ipp-data-file-api">IPP Data File API</h2>
+<p>The IPP data file API provides functions to read and write IPP attributes and other commands or data using a common base format that supports tools such as <code>ipptool</code> and <code>ippeveprinter</code>.</p>
+<h3 class="title" id="creating-an-ipp-data-file">Creating an IPP Data File</h3>
+<p>The <a href="#ippFileNew"><code>ippFileNew</code></a> function creates a new IPP data file (<code>ipp_file_t</code>) object:</p>
+<pre><code class="language-c">ipp_file_t *parent = NULL;
+<span class="reserved">void</span> *data;
+ipp_file_t *file = ippFileNew(parent, attr_cb, error_cb, data);
+</code></pre>
+<p>The &quot;parent&quot; IPP data file pointer is typically used to support nested files and is normally <code>NULL</code> for a new file. The &quot;data&quot; argument supplies your application data to the callbacks. The &quot;attr_cb&quot; callback function is used to filter IPP attributes; return <code>true</code> to include the attribute and <code>false</code> to ignore it:</p>
+<pre><code class="language-c"><span class="reserved">bool</span>
+attr_cb(ipp_file_t *file, <span class="reserved">void</span> *cb_data, <span class="reserved">const</span> <span class="reserved">char</span> *name)
+{
+  ... determine whether to use an attribute named <span class="string">&quot;name&quot;</span> ...
+}
+</code></pre>
+<p>The &quot;error_cb&quot; callback function is used to record/report errors when reading the file:</p>
+<pre><code class="language-c"><span class="reserved">bool</span>
+error_cb(ipp_file_t *file, <span class="reserved">void</span> *cb_data, <span class="reserved">const</span> <span class="reserved">char</span> *error)
+{
+  ... display/record error <span class="reserved">and</span> <span class="reserved">return</span> `<span class="reserved">true</span>` to <span class="reserved">continue</span> <span class="reserved">or</span> `<span class="reserved">false</span>` to stop ...
+}
+</code></pre>
+<h3 class="title" id="reading-a-data-file">Reading a Data File</h3>
+<p>The <a href="#ippFileOpen"><code>ippFileOpen</code></a> function opens the specified data file and <a href="#ippFileRead"><code>ippFileRead</code></a> reads from it:</p>
+<pre><code class="language-c"><span class="reserved">if</span> (ippFileOpen(file, <span class="string">&quot;somefile&quot;</span>, <span class="string">&quot;r&quot;</span>))
+{
+  <span class="comment">// Opened successfully, now read it...</span>
+  ippFileRead(file, token_cb, <span class="comment">/*with_groups*/</span><span class="reserved">false</span>);
+  ippFileClose(file);
+}
+</code></pre>
+<p>The token callback function passed to <code>ippFileRead</code> handles custom directives in your data file:</p>
+<pre><code class="language-c"><span class="reserved">bool</span>
+token_cb(ipp_file_t *file, <span class="reserved">void</span> *cb_data, <span class="reserved">const</span> <span class="reserved">char</span> *token)
+{
+  ... handle token, <span class="reserved">return</span> `<span class="reserved">true</span>` to <span class="reserved">continue</span> <span class="reserved">or</span> `<span class="reserved">false</span>` to stop ...
+}
+</code></pre>
+<p>The &quot;token&quot; parameter contains the token to be processed. The callback can use the <a href="#ippFileReadToken"><code>ippFileReadToken</code></a> function to read additional tokens from the file and the <a href="#ippFileExpandToken"><code>ippFileExpandToken</code></a> function to expand any variables in the token string. Return <code>false</code> to stop reading the file and <code>true</code> to continue. The default <code>NULL</code> callback reports an unknown token error through the error callback end returns <code>false</code>.</p>
+<p>Once read, you call the <a href="#ippFileGetAttributes"><code>ippFileGetAttributes</code></a> function to get the IPP attributes from the file.</p>
+<h3 class="title" id="variables">Variables</h3>
+<p>Each IPP data file object has associated variables that can be used when reading the file. The default set of variables is:</p>
+<ul>
+<li><p>&quot;date-current&quot;: Current date in ISO-8601 format</p>
+</li>
+<li><p>&quot;date-start&quot;: Start date (when file opened) in ISO-8601 format</p>
+</li>
+<li><p>&quot;filename&quot;: Associated data/document filename, if any</p>
+</li>
+<li><p>&quot;filetype&quot;: MIME media type of associated data/document filename, if any</p>
+</li>
+<li><p>&quot;hostname&quot;: Hostname or IP address from the &quot;uri&quot; value, if any</p>
+</li>
+<li><p>&quot;port&quot;: Port number from the &quot;uri&quot; value, if any</p>
+</li>
+<li><p>&quot;resource&quot;: Resource path from the &quot;uri&quot; value, if any</p>
+</li>
+<li><p>&quot;scheme&quot;: URI scheme from the &quot;uri&quot; value, if any</p>
+</li>
+<li><p>&quot;uri&quot;: URI, if any</p>
+</li>
+<li><p>&quot;uriuser&quot;: Username from the &quot;uri&quot; value, if any</p>
+</li>
+<li><p>&quot;uripassword&quot;: Password from the &quot;uri&quot; value, if any</p>
+</li>
+<li><p>&quot;user&quot;: Current login user</p>
+</li>
+</ul>
+<p>The <a href="#ippFileGetVar"><code>ippFileGetVar</code></a>, <a href="#ippFileSetVar"><code>ippFileSetVar</code></a>, and <a href="#ippFileSetVarf"><code>ippFileSetVarf</code></a> functions get and set file variables, respectively.</p>
+<h3 class="title" id="writing-ipp-data-files">Writing IPP Data Files</h3>
+<p>As when reading an IPP data file, the <a href="#ippFileNew"><code>ippFileNew</code></a> function creates a new file object, <a href="#ippFileOpen"><code>ippFileOpen</code></a> opens the file, and <a href="#ippFileClose"><code>ippFileClose</code></a> closes the file. However, you call <a href="#ippFileWriteAttributes"><code>ippFileWriteAttributes</code></a> to write the attributes in an IPP message (<code>ipp_t</code>), <a href="#ippFileWriteComment"><code>ippFileWriteComment</code></a> to write a comment in the file, and <a href="#ippWriteToken"><code>ippWriteToken</code></a> or <a href="#ippWriteTokenf"><code>ippWriteTokenf</code></a> to write a token or value to the file.</p>
 <h2 class="title"><a id="FUNCTIONS">Functions</a></h2>
 <h3 class="function"><a id="DllMain">DllMain</a></h3>
 <p class="description">Main entry for library.</p>
