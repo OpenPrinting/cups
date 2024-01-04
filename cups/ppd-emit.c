@@ -885,17 +885,17 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	float		values[5];	/* Values for custom command */
 
 
-        cupsCopyString(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
-        bufptr += 37;
+	cupsCopyString(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
+	bufptr += 37;
 
-        if ((size = ppdPageSize(ppd, "Custom")) == NULL)
-        {
-          free(buffer);
-          free(choices);
-          return (NULL);
-        }
+	if ((size = ppdPageSize(ppd, "Custom")) == NULL)
+	{
+	  free(buffer);
+	  free(choices);
+	  return (NULL);
+	}
 
-        memset(values, 0, sizeof(values));
+	memset(values, 0, sizeof(values));
 
 	if ((attr = ppdFindAttr(ppd, "ParamCustomPageSize", "Width")) != NULL)
 	{
