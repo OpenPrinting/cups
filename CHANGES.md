@@ -38,6 +38,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed printing to stderr if we can't open cups-files.conf (Issue #777)
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed memory leak when creating color profiles (Issue #814)
+- Fixed crash in `ppdEmitString()` if there is no record for page size `Custom`
+  (Issue #849)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed setting job state reasons for successful jobs (Issue #832)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
