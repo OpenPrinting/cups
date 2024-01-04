@@ -3229,8 +3229,6 @@ cups_enum_dests(
     goto enum_finished;
 
   // Get DNS-SD printers...
-  gettimeofday(&curtime, NULL);
-
   if ((dnssd = cupsDNSSDNew(dnssd_error_cb, NULL)) == NULL)
   {
     DEBUG_puts("1cups_enum_dests: Unable to create service browser, returning 0.");
@@ -3268,14 +3266,12 @@ cups_enum_dests(
   else
     remaining = msec;
 
+  gettimeofday(&curtime, NULL);
+
   while (remaining > 0 && (!cancel || !*cancel))
   {
     // Check for input...
     DEBUG_printf("1cups_enum_dests: remaining=%d", remaining);
-
-    cups_elapsed(&curtime);
-
-    remaining -= cups_elapsed(&curtime);
 
     cupsRWLockRead(&data.rwlock);
 
@@ -3369,6 +3365,8 @@ cups_enum_dests(
       break;
 
     usleep(100000);
+
+    remaining -= cups_elapsed(&curtime);
   }
 
   // Return...
