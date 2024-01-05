@@ -434,6 +434,8 @@ cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
   cupsArrayDelete(dnssd->resolves);
   cupsArrayDelete(dnssd->services);
 
+  cupsMutexUnlock(&dnssd->mutex);
+
 #ifdef HAVE_MDNSRESPONDER
   cupsThreadCancel(dnssd->monitor);
   cupsThreadWait(dnssd->monitor);
@@ -447,7 +449,6 @@ cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
   avahi_simple_poll_free(dnssd->poll);
 #endif // HAVE_MDNSRESPONDER
 
-  cupsMutexUnlock(&dnssd->mutex);
   cupsMutexDestroy(&dnssd->mutex);
   free(dnssd);
 }
