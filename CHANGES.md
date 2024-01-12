@@ -16,6 +16,7 @@ Changes in CUPS v2.4.8 (TBA)
 - Fixed setting job state reasons for successful jobs (Issue #832)
 - Added additional check on socket if `revents` from `poll()` returns POLLHUP
   together with POLLIN or POLLOUT in `httpAddrConnect2()` (Issue #839)
+- Fixed crash in `ppdEmitString()` if `size` is NULL (Issue #850)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
 
