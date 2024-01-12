@@ -3,6 +3,7 @@
  *
  * This file is included from "usb.c" when compiled on UNIX/Linux.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2013 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *

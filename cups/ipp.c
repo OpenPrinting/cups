@@ -1,6 +1,7 @@
 /*
  * Internet Printing Protocol functions for CUPS.
  *
+ * Copyright © 2022-2024 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *

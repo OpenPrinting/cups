@@ -1,6 +1,7 @@
 /*
  * TBCP port monitor for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1993-2006 by Easy Software Products.
  *

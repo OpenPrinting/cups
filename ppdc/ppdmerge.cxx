@@ -1,6 +1,7 @@
 //
 // PPD file merge utility for the CUPS PPD Compiler.
 //
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 2002-2007 by Easy Software Products.
 //

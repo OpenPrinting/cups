@@ -1,6 +1,7 @@
 /*
  * D-Bus notifier for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2008-2014 by Apple Inc.
  * Copyright (C) 2011, 2013 Red Hat, Inc.
  * Copyright (C) 2007 Tim Waugh <twaugh@redhat.com>

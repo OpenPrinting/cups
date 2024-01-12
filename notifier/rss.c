@@ -1,6 +1,7 @@
 /*
  * RSS notifier for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2015 by Apple Inc.
  * Copyright 2007 by Easy Software Products.
  *
