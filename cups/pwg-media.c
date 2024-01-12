@@ -1,7 +1,7 @@
 /*
  * PWG media name API implementation for CUPS.
  *
- * Copyright © 2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2009-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more

@@ -1,6 +1,7 @@
 /*
  * MD5 password support for CUPS (deprecated).
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2017 by Apple Inc.
  * Copyright 1997-2005 by Easy Software Products.
  *

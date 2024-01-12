@@ -1,7 +1,7 @@
 //
 // Threading definitions for CUPS.
 //
-// Copyright © 2021-2022 by OpenPrinting.
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright © 2009-2017 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more

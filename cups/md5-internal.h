@@ -1,6 +1,7 @@
 /*
  * Private MD5 definitions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2010 by Apple Inc.
  * Copyright 2005 by Easy Software Products
  *

@@ -1,7 +1,7 @@
 //
 // CUPS cupsGetDests API test program for CUPS.
 //
-// Copyright © 2023 by OpenPrinting.
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright © 2017 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more

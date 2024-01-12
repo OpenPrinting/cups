@@ -1,7 +1,7 @@
 //
 // DNS-SD API test program for CUPS.
 //
-// Copyright © 2022 by OpenPrinting.
+// Copyright © 2022-2024 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.

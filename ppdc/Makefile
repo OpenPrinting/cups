@@ -1,6 +1,7 @@
 #
 # Makefile for the CUPS PPD Compiler.
 #
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 2002-2006 by Easy Software Products.
 #

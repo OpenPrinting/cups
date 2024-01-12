@@ -1,6 +1,7 @@
 /*
  * Server start/stop routines for the CUPS scheduler.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2019 by Apple Inc.
  * Copyright 1997-2006 by Easy Software Products, all rights reserved.
  *

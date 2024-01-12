@@ -1,6 +1,7 @@
 /*
  * Localized printf/puts functions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 2002-2007 by Easy Software Products.
  *

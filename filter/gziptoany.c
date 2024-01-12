@@ -1,7 +1,7 @@
 /*
  * GZIP/raw pre-filter for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2015 by Apple Inc.
  * Copyright © 1993-2007 by Easy Software Products.
  *

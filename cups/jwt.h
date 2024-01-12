@@ -1,7 +1,7 @@
 //
 // JSON Web Token API definitions for CUPS.
 //
-// Copyright © 2023 by OpenPrinting.
+// Copyright © 2023-2024 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.

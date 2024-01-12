@@ -1,6 +1,7 @@
 /*
  * USB backend for macOS.
  *
+ * Copyright © 2022-2024 by OpenPrinting.
  * Copyright © 2005-2021 Apple Inc. All rights reserved.
  *
  * IMPORTANT:  This Apple software is supplied to you by Apple Computer,

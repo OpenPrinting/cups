@@ -1,7 +1,7 @@
 //
 // Private string definitions for CUPS.
 //
-// Copyright © 2023 by OpenPrinting.
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
