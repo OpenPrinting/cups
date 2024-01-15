@@ -42,6 +42,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed setting job state reasons for successful jobs (Issue #832)
 - Fixed crash in `ppdEmitString()` if there is no record for page size `Custom`
   (Issue #849)
+- Fixed reporting `media-source-supported` when sharing printer which has numbers as strings
+  instead of keywords as `InputSlot` values (Issue #859)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
