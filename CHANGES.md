@@ -40,6 +40,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed memory leak when creating color profiles (Issue #814)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed setting job state reasons for successful jobs (Issue #832)
+- Fixed infinite loop in IPP backend if hostname is IP address with Kerberos (Issue #838)
 - Fixed crash in `ppdEmitString()` if there is no record for page size `Custom`
   (Issue #849)
 - Fixed reporting `media-source-supported` when sharing printer which has numbers as strings
