@@ -409,6 +409,19 @@ main(int  argc,				/* I - Number of command-line args */
   else
     cupsSetEncryption(HTTP_ENCRYPTION_IF_REQUESTED);
 
+  if (!strcmp(auth_info_required, "negotiate") &&
+      (isdigit(hostname[0] & 255) || hostname[0] == '['))
+  {
+   /*
+    * IP addresses are not allowed with Kerberos...
+    */
+
+    _cupsLangPrintFilter(stderr, "ERROR",
+			 _("IP address is not allowed as hostname when using Negotiate - use FQDN."));
+    update_reasons(NULL, "-connecting-to-device");
+    return (CUPS_BACKEND_FAILED);
+  }
+
  /*
   * See if there are any options...
   */
