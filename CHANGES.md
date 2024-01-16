@@ -27,6 +27,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed Digest authentication support (Issue #260)
 - Fixed extensive looping in scheduler (Issue #604)
 - Fixed printing multiple files on specific printers (Issue #643)
+- Fixed printing of jobs with job name longer than 255 chars on older printers (Issue #644)
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
 - Fixed ready media support for iOS 17+ (Issue #738)
