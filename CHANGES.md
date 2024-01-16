@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS 2.4.8 - TBA
 Changes in CUPS v2.4.8 (TBA)
 ----------------------------
 
+- Fixed printing of jobs with job name longer than 255 chars on older printers (Issue #644)
 - Really backport fix for Issue #742
 - Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
 - Fixed memory leak when unloading a job (Issue #813)

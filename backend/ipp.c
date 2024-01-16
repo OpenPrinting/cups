@@ -219,7 +219,7 @@ main(int  argc,				/* I - Number of command-line args */
   off_t		compatsize = 0;		/* Size of compatibility file */
   int		port;			/* Port number (not used) */
   char		uri[HTTP_MAX_URI];	/* Updated URI without user/pass */
-  char		print_job_name[1024];	/* Update job-name for Print-Job */
+  char		print_job_name[256];	/* Update job-name for Print-Job */
   http_status_t	http_status;		/* Status of HTTP request */
   ipp_status_t	ipp_status;		/* Status of IPP request */
   http_t	*http;			/* HTTP connection */
@@ -1484,6 +1484,10 @@ main(int  argc,				/* I - Number of command-line args */
   }
   else
   {
+   /*
+    * TODO: make this compatible with UTF-8 - possible UTF-8 truncation here..
+    */
+
     snprintf(print_job_name, sizeof(print_job_name), "%s - %s", argv[1],
              argv[3]);
     monitor.job_name = print_job_name;
