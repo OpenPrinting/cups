@@ -652,6 +652,97 @@ _cupsStrStatistics(size_t *alloc_bytes,	/* O - Allocated bytes */
 }
 
 
+/* 
+ * '_cups_snprintf()' - Copy formatted string into a buffer without
+ *                      UTF-8 truncation.
+ */
+
+int                                  /* O - Number of characters copied without null terminator */
+_cups_snprintf(unsigned char *dst,   /* I - Destination buffer */
+               size_t dst_len,       /* I - Maximum size of destination buffer */
+               const char *format,   /* I - Formatted string */
+               ...)                  /* I - Additional arguments as needed */
+{
+  int copied = -1;                   /* Return value, -1 if error */
+  unsigned int last_char;            /* Array index for the last valid character */
+  unsigned int i;                    /* Array iterator */
+  va_list ap;                        /* Argument pointer */
+
+
+  if (!dst || dst_len <= 1 || !format)
+    return (copied);
+
+  last_char = dst_len - 2;
+  memset(dst, 0, dst_len);
+
+  va_start(ap, format);
+  copied = vsnprintf(dst, dst_len, format, ap);
+  va_end(ap);
+
+  if (copied < 0)
+  {
+    dst[0] = '\0';
+    return (copied);
+  }
+
+ /*
+  * Return if the last valid character suggests it is not
+  * a part of UTF-8 multibyte character... (does not
+  * have 8th bit set)
+  */
+
+  if (! (dst[last_char] & 0x80))
+    return (copied);
+
+ /*
+  * Get to the first byte of UTF-8 multibyte character if possible...
+  */
+
+  for (i = last_char; (i > 0) && ((last_char - i) < 3) && ((dst[i] & 0xc0) == 0x80); i--) ;
+
+ /*
+  * Check if the first byte of UTF-8 multibyte content matches with number of bytes
+  * we passed until we got the first byte.
+  * If not, cut all bytes belonging to the last multibyte character and update the return value.
+  *
+  * Types (x contains binary representation of character when encoded in UTF-8, divided among
+  * bytes):
+  * 0xxxxxxx
+  * 110xxxxx 10xxxxxx
+  * 1110xxxx 10xxxxxx 10xxxxxx
+  * 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+  *
+  * We always use bitwise AND between character and binary number which has set bits on positions
+  * matching with expected prefix of first byte - this way we get prefix if the character
+  * matches it and it indicates it is a complete UTF-8 multibyte sequence.
+  */
+
+  switch (last_char - i)
+  {
+    case 0:
+        copied--;
+        break;
+    case 1:
+        if ((dst[i] & 0xe0) != 0xc0)
+          copied -= 2;
+        break;
+    case 2:
+        if ((dst[i] & 0xf0) != 0xe0)
+          copied -= 3;
+        break;
+    case 3:
+        if ((dst[i] & 0xf8) != 0xf0)
+          copied -= 4;
+    default:
+        break;
+  }
+
+  dst[i] = '\0';
+
+  return (copied);
+}
+
+
 /*
  * '_cups_strcpy()' - Copy a string allowing for overlapping strings.
  */
