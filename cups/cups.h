@@ -419,6 +419,7 @@ extern ipp_attribute_t	*cupsFindDestReady(http_t *http, cups_dest_t *dest, cups_
 extern ipp_attribute_t	*cupsFindDestSupported(http_t *http, cups_dest_t *dest, cups_dinfo_t *dinfo, const char *option) _CUPS_PUBLIC;
 extern ipp_status_t	cupsFinishDestDocument(http_t *http, cups_dest_t *dest, cups_dinfo_t *info) _CUPS_PUBLIC;
 extern ipp_status_t	cupsFinishDocument(http_t *http, const char *name) _CUPS_PUBLIC;
+extern int		cupsFormatString(unsigned char *dst, size_t dst_len, const char *format, ...) _CUPS_PUBLIC;
 extern void		cupsFreeDestInfo(cups_dinfo_t *dinfo) _CUPS_PUBLIC;
 extern void		cupsFreeDests(int num_dests, cups_dest_t *dests) _CUPS_PUBLIC;
 extern void		cupsFreeJobs(int num_jobs, cups_job_t *jobs) _CUPS_PUBLIC;

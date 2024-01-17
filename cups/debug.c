@@ -570,7 +570,7 @@ _cups_safe_vsnprintf(
 	    * C character escapes...
 	    */
 
-            for (bufend --; *s && bufptr < bufend; s ++)
+            for (; *s && bufptr < bufend; s ++)
 	    {
 	      if (*s == '\n')
 	      {
@@ -626,7 +626,6 @@ _cups_safe_vsnprintf(
 	      }
             }
 
-            bufend ++;
 	    break;
 
 	case 'n' : /* Output number of chars so far */
@@ -636,10 +635,11 @@ _cups_safe_vsnprintf(
     }
     else
     {
-      bytes ++;
-
       if (bufptr < bufend)
-        *bufptr++ = *format;
+      {
+	*bufptr++ = *format;
+	bytes ++;
+      }
 
       format ++;
     }
