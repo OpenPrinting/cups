@@ -635,11 +635,10 @@ _cups_safe_vsnprintf(
     }
     else
     {
+      bytes ++;
+
       if (bufptr < bufend)
-      {
 	*bufptr++ = *format;
-	bytes ++;
-      }
 
       format ++;
     }

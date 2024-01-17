@@ -127,7 +127,7 @@ cupsCopyString(char       *dst,		// O - Destination string
  * The function prevents UTF-8 truncation.
  */
 
-int					 /* O - Number of characters copied without null terminator */
+int					 /* O - Number of characters printed without null terminator */
 cupsFormatString(unsigned char	*dst,	 /* I - Destination buffer */
 		 size_t		dst_len, /* I - Maximum size of destination buffer */
 		 const char	*format, /* I - Formatted string */
@@ -191,28 +191,18 @@ cupsFormatString(unsigned char	*dst,	 /* I - Destination buffer */
   {
     case 0:
 	dst[i] = '\0';
-	copied--;
 	break;
     case 1:
 	if ((dst[i] & 0xe0) != 0xc0)
-	{
 	  dst[i] = '\0';
-	  copied -= 2;
-	}
 	break;
     case 2:
 	if ((dst[i] & 0xf0) != 0xe0)
-	{
 	  dst[i] = '\0';
-	  copied -= 3;
-	}
 	break;
     case 3:
 	if ((dst[i] & 0xf8) != 0xf0)
-	{
 	  dst[i] = '\0';
-	  copied -= 4;
-	}
     default:
 	break;
   }
