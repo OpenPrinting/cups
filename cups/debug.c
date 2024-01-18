@@ -489,9 +489,9 @@ _cups_safe_vsnprintf(
 
 	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, double));
 
-            bytes += (int)strlen(temp);
+	    bytes += (int)strlen(temp);
 
-            if (bufptr)
+	    if (bufptr)
 	    {
 	      cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr));
 	      bufptr += strlen(bufptr);
@@ -568,63 +568,205 @@ _cups_safe_vsnprintf(
            /*
 	    * Copy the C string, replacing control chars and \ with
 	    * C character escapes...
+	    *
+	    * If we don't fit into buffer with multibyte char, we set bufptr to the end
+	    * of the array to mark we could not fit in next character. This will prevent missing a
+	    * character which does not manage to fit in, but the next one will be printed.
+	    *
+	    * Every bytes incrementation happens before writing bytes from source to destination
+	    * - it is because the return value must be a number of bytes which would have been written
+	    * in case the destination buffer size is too small.
 	    */
 
-            for (; *s && bufptr < bufend; s ++)
+	    for (; *s && bufptr < bufend; s ++)
 	    {
 	      if (*s == '\n')
 	      {
-	        *bufptr++ = '\\';
-		*bufptr++ = 'n';
 		bytes += 2;
+
+		if ((bufptr + 1) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = '\\';
+		*bufptr++ = 'n';
 	      }
 	      else if (*s == '\r')
 	      {
-	        *bufptr++ = '\\';
-		*bufptr++ = 'r';
 		bytes += 2;
+
+		if ((bufptr + 1) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = '\\';
+		*bufptr++ = 'r';
 	      }
 	      else if (*s == '\t')
 	      {
-	        *bufptr++ = '\\';
-		*bufptr++ = 't';
 		bytes += 2;
+
+		if ((bufptr + 1) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = '\\';
+		*bufptr++ = 't';
 	      }
 	      else if (*s == '\\')
 	      {
-	        *bufptr++ = '\\';
-		*bufptr++ = '\\';
 		bytes += 2;
+
+		if ((bufptr + 1) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = '\\';
+		*bufptr++ = '\\';
 	      }
 	      else if (*s == '\'')
 	      {
-	        *bufptr++ = '\\';
-		*bufptr++ = '\'';
 		bytes += 2;
+
+		if ((bufptr + 1) >= bufend)
+		{
+		  bufptr = bufend;;
+		  break;
+		}
+
+		*bufptr++ = '\\';
+		*bufptr++ = '\'';
 	      }
 	      else if (*s == '\"')
 	      {
-	        *bufptr++ = '\\';
-		*bufptr++ = '\"';
 		bytes += 2;
+
+		if ((bufptr + 1) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = '\\';
+		*bufptr++ = '\"';
 	      }
 	      else if ((*s & 255) < ' ')
 	      {
-	        if ((bufptr + 2) >= bufend)
-	          break;
+		bytes += 4;
 
-	        *bufptr++ = '\\';
+		if ((bufptr + 3) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = '\\';
 		*bufptr++ = '0';
 		*bufptr++ = '0' + *s / 8;
 		*bufptr++ = '0' + (*s & 7);
+	      }
+	      else if (((unsigned char)*s & 224) == 192)
+	      {
+	       /*
+		* UTF-8 multibyte character - 2 bytes - structure:
+		* 110xxxxx 10xxxxxx
+		*
+		* We always use bitwise AND between character and number which binary represenation
+		* has set bits on positions matching with expected prefix of first byte
+		* - this way we get prefix if the character matches it and it indicates
+		* it is a complete UTF-8 multibyte sequence.
+		*/
+
+		if (strlen(s) < 2)
+		  break;
+
+		bytes += 2;
+
+		if ((bufptr + 1) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = *s++;
+		*bufptr++ = *s;
+	      }
+	      else if (((unsigned char)*s & 240) == 224)
+	      {
+	       /*
+		* UTF-8 multibyte character - 3 bytes - structure:
+		* 1110xxxx 10xxxxxx 10xxxxxx
+		*/
+
+		if (strlen(s) < 3)
+		  break;
+
+		bytes += 3;
+
+		if ((bufptr + 2) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = *s++;
+		*bufptr++ = *s++;
+		*bufptr++ = *s;
+	      }
+	      else if (((unsigned char)*s & 248) == 240)
+	      {
+	       /*
+		* UTF-8 multibyte character - 4 bytes - structure:
+		* 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+		*/
+
+		if (strlen(s) < 4)
+		  break;
+
 		bytes += 4;
+
+		if ((bufptr + 3) >= bufend)
+		{
+		  bufptr = bufend;
+		  break;
+		}
+
+		*bufptr++ = *s++;
+		*bufptr++ = *s++;
+		*bufptr++ = *s++;
+		*bufptr++ = *s;
+	      }
+	      else if (((unsigned char)*s & 192) == 128)
+	      {
+	       /*
+		* UTF-8 dangling byte - ignore it. Structure:
+		* 10xxxxxx
+		*/
+
+		continue;
 	      }
 	      else
 	      {
-	        *bufptr++ = *s;
+		*bufptr++ = *s;
 		bytes ++;
 	      }
-            }
+	    }
+
+	   /*
+	    * In case we still have data in source array, but no longer have free space
+	    * in destination array, add its remaining length into bytes to return the total
+	    * length of possible string if there is enough space.
+	    */
+	    if (s && *s)
+	      bytes += strlen(s);
 
 	    break;
 
