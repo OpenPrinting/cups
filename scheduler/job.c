@@ -1832,7 +1832,7 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     else
       ippSetString(job->attrs, &job->reasons, 0, "none");
   }
-  else if (job->state_value == IPP_JSTATE_COMPLETED && !strcmp(job->reasons, "processing-to-stop-point"))
+  else if (job->state_value == IPP_JSTATE_COMPLETED && !strcmp(ippGetString(job->reasons, 0, NULL), "processing-to-stop-point"))
   {
    /*
     * Try to fix job reasons for older jobs finished before openprinting/cups #832 was applied...
