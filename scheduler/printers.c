@@ -1577,9 +1577,7 @@ cupsdSaveAllPrinters(void)
       snprintf(value, sizeof(value), "%s ", marker->name);
 
       for (i = 0, ptr = value + strlen(value);
-           i < marker->num_values && ptr < (value + sizeof(value) - 1);
-	   i ++)
-      {
+           i < marker->num_values && ptr < (value + (sizeof(value) - 1)); i++) {
         if (i)
 	  *ptr++ = ',';
 
@@ -1636,9 +1634,7 @@ cupsdSaveAllPrinters(void)
       snprintf(value, sizeof(value), "%s ", marker->name);
 
       for (i = 0, ptr = value + strlen(value);
-           i < marker->num_values && ptr < (value + sizeof(value) - 1);
-	   i ++)
-      {
+           i < marker->num_values && ptr < (value + (sizeof(value) - 1)); i++) {
         if (i)
 	  *ptr++ = ',';
 
@@ -1656,8 +1652,7 @@ cupsdSaveAllPrinters(void)
       snprintf(value, sizeof(value), "%s ", marker->name);
 
       for (i = 0, ptr = value + strlen(value);
-           i < marker->num_values && ptr < (value + sizeof(value) - 1);
-	   i ++)
+           i < marker->num_values && ptr < (value + (sizeof(value) - 1)); i++)
       {
         if (i)
 	  *ptr++ = ',';
@@ -2144,7 +2139,7 @@ cupsdSetPrinterAttr(
       level = ippGetInteger(levels, i);
       type  = ippGetString(types, i, NULL);
 
-      for (psptr = pstype; *type && psptr < (pstype + sizeof(pstype) - 1); type ++)
+      for (psptr = pstype; *type && psptr < (pstype + (sizeof(pstype) - 1)); type++)
         if (*type == '-')
 	{
 	  type ++;
@@ -2590,7 +2585,7 @@ cupsdSetPrinterReasons(
       sptr ++;
 
     for (rptr = reason; *sptr && !isspace(*sptr & 255) && *sptr != ','; sptr ++)
-      if (rptr < (reason + sizeof(reason) - 1))
+      if (rptr < (reason + (sizeof(reason) - 1)))
         *rptr++ = *sptr;
 
     if (rptr == reason)

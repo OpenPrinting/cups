@@ -98,7 +98,7 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
           break;
         else if (nameptr > name && ch == '?')
 	  break;
-	else if (nameptr < (name + sizeof(name) - 1))
+	else if (nameptr < (name + (sizeof(name) - 1)))
 	{
 	  if (ch == '_')
 	    *nameptr++ = '-';
@@ -876,7 +876,7 @@ cgiRewriteURL(const char *uri,		/* I - Current URI */
 	    *resptr++ = hexchars[*rawptr & 15];
 	  }
 	}
-	else if (resptr < (resource + sizeof(resource) - 1))
+	else if (resptr < (resource + (sizeof(resource) - 1)))
 	  *resptr++ = *rawptr;
 
       *resptr = '\0';
@@ -968,7 +968,7 @@ cgiSetIPPObjectVars(
     else
       nameptr = name;
 
-    for (i = 0; attr->name[i] && nameptr < (name + sizeof(name) - 1); i ++)
+    for (i = 0; attr->name[i] && nameptr < (name + (sizeof(name) - 1)); i++)
       if (attr->name[i] == '-')
 	*nameptr++ = '_';
       else

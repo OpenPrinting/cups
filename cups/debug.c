@@ -406,7 +406,7 @@ _cups_safe_vsnprintf(
 
 	while (isdigit(*format & 255))
 	{
-	  if (tptr < (tformat + sizeof(tformat) - 1))
+	  if (tptr < (tformat + (sizeof(tformat) - 1)))
 	    *tptr++ = *format;
 
 	  width = width * 10 + *format++ - '0';
@@ -415,7 +415,7 @@ _cups_safe_vsnprintf(
 
       if (*format == '.')
       {
-	if (tptr < (tformat + sizeof(tformat) - 1))
+	if (tptr < (tformat + (sizeof(tformat) - 1)))
 	  *tptr++ = *format;
 
         format ++;
@@ -438,7 +438,7 @@ _cups_safe_vsnprintf(
 
 	  while (isdigit(*format & 255))
 	  {
-	    if (tptr < (tformat + sizeof(tformat) - 1))
+	    if (tptr < (tformat + (sizeof(tformat) - 1)))
 	      *tptr++ = *format;
 
 	    prec = prec * 10 + *format++ - '0';
@@ -460,7 +460,7 @@ _cups_safe_vsnprintf(
       }
       else if (*format == 'h' || *format == 'l' || *format == 'L')
       {
-	if (tptr < (tformat + sizeof(tformat) - 1))
+	if (tptr < (tformat + (sizeof(tformat) - 1)))
 	  *tptr++ = *format;
 
         size = *format++;
@@ -471,7 +471,7 @@ _cups_safe_vsnprintf(
       if (!*format)
         break;
 
-      if (tptr < (tformat + sizeof(tformat) - 1))
+      if (tptr < (tformat + (sizeof(tformat) - 1)))
         *tptr++ = *format;
 
       type  = *format++;
