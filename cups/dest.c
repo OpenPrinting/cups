@@ -552,7 +552,7 @@ cupsConnectDest(
         uri = cups_dest_resolve(dest, uri, msec, cancel, cb, user_data);
     }
   }
-  else if ((uri = cupsGetOption("printer-uri-supported", dest->num_options, dest->options)) == NULL)
+  else
   {
     if ((uri = cupsGetOption("device-uri", dest->num_options, dest->options)) != NULL)
     {
