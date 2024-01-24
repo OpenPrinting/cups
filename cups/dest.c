@@ -552,7 +552,8 @@ cupsConnectDest(
         uri = cups_dest_resolve(dest, uri, msec, cancel, cb, user_data);
     }
   }
-  else
+  else if (cupsGetOption("printer-is-temporary", dest->num_options, dest->options) == NULL
+	   || !strcmp(cupsGetOption("printer-is-temporary", dest->num_options, dest->options), "true"))
   {
     if ((uri = cupsGetOption("device-uri", dest->num_options, dest->options)) != NULL)
     {
