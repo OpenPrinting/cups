@@ -1138,11 +1138,6 @@ cups_array_add(cups_array_t *a,		// I - Array
   a->num_elements ++;
   a->insert = current;
 
-#ifdef DEBUG
-  for (current = 0; current < a->num_elements; current ++)
-    DEBUG_printf("9cups_array_add: a->elements[" CUPS_LLFMT "]=%p", CUPS_LLCAST current, a->elements[current]);
-#endif // DEBUG
-
   DEBUG_puts("9cups_array_add: returning 1");
 
   return (1);
