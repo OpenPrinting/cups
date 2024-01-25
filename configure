@@ -6235,39 +6235,6 @@ then :
 fi
 
 
-ac_fn_c_check_func "$LINENO" "strdup" "ac_cv_func_strdup"
-if test "x$ac_cv_func_strdup" = xyes
-then :
-  printf "%s\n" "#define HAVE_STRDUP 1" >>confdefs.h
-
-fi
-ac_fn_c_check_func "$LINENO" "snprintf" "ac_cv_func_snprintf"
-if test "x$ac_cv_func_snprintf" = xyes
-then :
-  printf "%s\n" "#define HAVE_SNPRINTF 1" >>confdefs.h
-
-fi
-ac_fn_c_check_func "$LINENO" "vsnprintf" "ac_cv_func_vsnprintf"
-if test "x$ac_cv_func_vsnprintf" = xyes
-then :
-  printf "%s\n" "#define HAVE_VSNPRINTF 1" >>confdefs.h
-
-fi
-
-ac_fn_c_check_func "$LINENO" "cupsConcatString" "ac_cv_func_cupsConcatString"
-if test "x$ac_cv_func_cupsConcatString" = xyes
-then :
-  printf "%s\n" "#define HAVE_CUPSCONCATSTRING 1" >>confdefs.h
-
-fi
-ac_fn_c_check_func "$LINENO" "cupsCopyString" "ac_cv_func_cupsCopyString"
-if test "x$ac_cv_func_cupsCopyString" = xyes
-then :
-  printf "%s\n" "#define HAVE_CUPSCOPYSTRING 1" >>confdefs.h
-
-fi
-
-
 ac_fn_c_check_func "$LINENO" "random" "ac_cv_func_random"
 if test "x$ac_cv_func_random" = xyes
 then :

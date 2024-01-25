@@ -1314,7 +1314,7 @@ format_log_line(const char *message,	/* I - Printf-style format string */
   * Format the log message...
   */
 
-  len = _cups_safe_vsnprintf(log_line, log_linesize, message, ap);
+  len = cupsFormatStringv(log_line, log_linesize, message, ap);
 
  /*
   * Resize the buffer as needed...

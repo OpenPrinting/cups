@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -156,7 +156,6 @@
 		270696271CADF3E200FFE5FB /* pwg-media.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220EF8133305BB00FCA411 /* pwg-media.c */; };
 		270696281CADF3E200FFE5FB /* dest-localization.c in Sources */ = {isa = PBXBuildFile; fileRef = 72CF95E118A13543000FCAE4 /* dest-localization.c */; };
 		270696291CADF3E200FFE5FB /* request.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220EFB133305BB00FCA411 /* request.c */; };
-		2706962C1CADF3E200FFE5FB /* snprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F00133305BB00FCA411 /* snprintf.c */; };
 		2706962D1CADF3E200FFE5FB /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F02133305BB00FCA411 /* string.c */; };
 		2706962E1CADF3E200FFE5FB /* tempfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F03133305BB00FCA411 /* tempfile.c */; };
 		2706962F1CADF3E200FFE5FB /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F05133305BB00FCA411 /* thread.c */; };
@@ -393,7 +392,6 @@
 		274FF6AF1333B1C400317ECB /* request.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220EFB133305BB00FCA411 /* request.c */; };
 		274FF6B01333B1C400317ECB /* sidechannel.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220EFC133305BB00FCA411 /* sidechannel.c */; };
 		274FF6B11333B1C400317ECB /* snmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220EFF133305BB00FCA411 /* snmp.c */; };
-		274FF6B21333B1C400317ECB /* snprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F00133305BB00FCA411 /* snprintf.c */; };
 		274FF6B31333B1C400317ECB /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F02133305BB00FCA411 /* string.c */; };
 		274FF6B41333B1C400317ECB /* tempfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F03133305BB00FCA411 /* tempfile.c */; };
 		274FF6B51333B1C400317ECB /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F05133305BB00FCA411 /* thread.c */; };
@@ -564,7 +562,6 @@
 		72220F37133305BB00FCA411 /* sidechannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220EFD133305BB00FCA411 /* sidechannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		72220F38133305BB00FCA411 /* snmp-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220EFE133305BB00FCA411 /* snmp-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		72220F39133305BB00FCA411 /* snmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220EFF133305BB00FCA411 /* snmp.c */; };
-		72220F3A133305BB00FCA411 /* snprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F00133305BB00FCA411 /* snprintf.c */; };
 		72220F3B133305BB00FCA411 /* string-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220F01133305BB00FCA411 /* string-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		72220F3C133305BB00FCA411 /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F02133305BB00FCA411 /* string.c */; };
 		72220F3D133305BB00FCA411 /* tempfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F03133305BB00FCA411 /* tempfile.c */; };
@@ -3317,7 +3314,6 @@
 		72220EFD133305BB00FCA411 /* sidechannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sidechannel.h; path = ../cups/sidechannel.h; sourceTree = "<group>"; };
 		72220EFE133305BB00FCA411 /* snmp-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "snmp-private.h"; path = "../cups/snmp-private.h"; sourceTree = "<group>"; };
 		72220EFF133305BB00FCA411 /* snmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = snmp.c; path = ../cups/snmp.c; sourceTree = "<group>"; };
-		72220F00133305BB00FCA411 /* snprintf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = snprintf.c; path = ../cups/snprintf.c; sourceTree = "<group>"; };
 		72220F01133305BB00FCA411 /* string-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "string-private.h"; path = "../cups/string-private.h"; sourceTree = "<group>"; };
 		72220F02133305BB00FCA411 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = string.c; path = ../cups/string.c; sourceTree = "<group>"; };
 		72220F03133305BB00FCA411 /* tempfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tempfile.c; path = ../cups/tempfile.c; sourceTree = "<group>"; };
@@ -4920,7 +4916,6 @@
 				72220EFB133305BB00FCA411 /* request.c */,
 				72220EFC133305BB00FCA411 /* sidechannel.c */,
 				72220EFF133305BB00FCA411 /* snmp.c */,
-				72220F00133305BB00FCA411 /* snprintf.c */,
 				72220F02133305BB00FCA411 /* string.c */,
 				72220F03133305BB00FCA411 /* tempfile.c */,
 				27F515452AAFBECF0045EE21 /* test-internal.h */,
@@ -7338,7 +7333,6 @@
 				270696281CADF3E200FFE5FB /* dest-localization.c in Sources */,
 				270696291CADF3E200FFE5FB /* request.c in Sources */,
 				272A5C0F2AA41D6B00027F9B /* dnssd.c in Sources */,
-				2706962C1CADF3E200FFE5FB /* snprintf.c in Sources */,
 				2706962D1CADF3E200FFE5FB /* string.c in Sources */,
 				7253C455216E980000494ADD /* raster-error.c in Sources */,
 				2706965B1CAE1A9A00FFE5FB /* util.c in Sources */,
@@ -7762,7 +7756,6 @@
 				274FF6AF1333B1C400317ECB /* request.c in Sources */,
 				274FF6B01333B1C400317ECB /* sidechannel.c in Sources */,
 				274FF6B11333B1C400317ECB /* snmp.c in Sources */,
-				274FF6B21333B1C400317ECB /* snprintf.c in Sources */,
 				274FF6B31333B1C400317ECB /* string.c in Sources */,
 				274FF6B41333B1C400317ECB /* tempfile.c in Sources */,
 				274FF6B51333B1C400317ECB /* thread.c in Sources */,
@@ -7918,7 +7911,6 @@
 				72220F36133305BB00FCA411 /* sidechannel.c in Sources */,
 				7253C45E216ED51500494ADD /* raster-interstub.c in Sources */,
 				72220F39133305BB00FCA411 /* snmp.c in Sources */,
-				72220F3A133305BB00FCA411 /* snprintf.c in Sources */,
 				27F515672AB1F7440045EE21 /* form.c in Sources */,
 				72220F3C133305BB00FCA411 /* string.c in Sources */,
 				72220F3D133305BB00FCA411 /* tempfile.c in Sources */,

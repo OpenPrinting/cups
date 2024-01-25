@@ -125,7 +125,6 @@ extern int _cups_toupper(int ch);
 // Functions...
 //
 
-extern ssize_t	_cups_safe_vsnprintf(char *buffer, size_t bufsize, const char *format, va_list args) _CUPS_PRIVATE;
 extern void	_cups_strcpy(char *dst, const char *src) _CUPS_PRIVATE;
 extern int	_cups_strcasecmp(const char *, const char *) _CUPS_PRIVATE;
 extern int	_cups_strncasecmp(const char *, const char *, size_t n) _CUPS_PRIVATE;

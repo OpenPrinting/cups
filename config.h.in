@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS.
  *
- * Copyright © 2020-2023 by OpenPrinting
+ * Copyright © 2020-2024 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -178,15 +178,6 @@
 
 
 /*
- * Do we have the strXXX() functions?
- */
-
-#undef HAVE_STRDUP
-#undef HAVE_STRLCAT
-#undef HAVE_STRLCPY
-
-
-/*
  * Do we have the geteuid() function?
  */
 
@@ -212,14 +203,6 @@
  */
 
 #undef HAVE_SYSTEMD_SD_JOURNAL_H
-
-
-/*
- * Do we have the (v)snprintf() functions?
- */
-
-#undef HAVE_SNPRINTF
-#undef HAVE_VSNPRINTF
 
 
 /*

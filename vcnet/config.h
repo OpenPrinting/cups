@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS on Windows.
  *
- * Copyright © 2021-2023 by OpenPrinting
+ * Copyright © 2021-2024 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -271,15 +271,6 @@ typedef unsigned long useconds_t;
 
 
 /*
- * Do we have the strXXX() functions?
- */
-
-#define HAVE_STRDUP 1
-/* #undef HAVE_STRLCAT */
-/* #undef HAVE_STRLCPY */
-
-
-/*
  * Do we have the geteuid() function?
  */
 
@@ -305,14 +296,6 @@ typedef unsigned long useconds_t;
  */
 
 /* #undef HAVE_SYSTEMD_SD_JOURNAL_H */
-
-
-/*
- * Do we have the (v)snprintf() functions?
- */
-
-#define HAVE_SNPRINTF 1
-#define HAVE_VSNPRINTF 1
 
 
 /*
