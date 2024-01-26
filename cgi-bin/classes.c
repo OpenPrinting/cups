@@ -444,7 +444,37 @@ show_class(http_t     *http,		/* I - Connection to server */
   ipp_attribute_t *attr;		/* IPP attribute */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
   char		refresh[1024];		/* Refresh URL */
+  void			*search;	/* Search data */
+  int count;		/* Number of classes */
+  cups_array_t		*classes;	/* Array of class objects */
 
+  /*
+  Build a CUPS_GET_CLASSES request
+  and get back a response 
+  */
+
+  request = ippNewRequest(IPP_OP_CUPS_GET_CLASSES);
+  cgiGetAttributes(request, "classes.tmpl");
+  response = cupsDoRequest(http, request, "/");
+  
+  /*
+  Get a count of Classes with name pclass
+  */
+  search = cgiCompileSearch(pclass);
+  classes = cgiGetIPPObjects(response, search);
+  count   = cupsArrayCount(classes);
+
+  /*
+  if no class with class name pclass , then rendering Http:404
+  */
+
+  if(count==0)
+  {
+    char erlog[]="404:NOT FOUND";
+    cgiStartHTML(erlog);
+    cgiEndHTML();
+    return;
+  }
 
  /*
   * Build an IPP_GET_PRINTER_ATTRIBUTES request, which requires the following

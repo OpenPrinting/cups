@@ -461,10 +461,42 @@ show_printer(http_t     *http,		/* I - Connection to server */
   ipp_attribute_t *attr;		/* IPP attribute */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
   char		refresh[1024];		/* Refresh URL */
-
+  void			*search;	/* Search data */
+  int count;		/* Number of printers */
+  cups_array_t		*printers;	/* Array of printer objects */
 
   fprintf(stderr, "DEBUG: show_printer(http=%p, printer=\"%s\")\n",
           (void *)http, printer ? printer : "(null)");
+  
+  /*
+  * Build a CUPS_GET_PRINTERS request,
+  * and get back a response 
+  */
+
+  request = ippNewRequest(IPP_OP_CUPS_GET_PRINTERS);
+  cgiGetAttributes(request, "printers.tmpl");
+  response = cupsDoRequest(http, request, "/");
+
+  /*
+  * Get a count of printers with name printer
+  */
+  search = cgiCompileSearch(printer);
+  printers  = cgiGetIPPObjects(response, search);
+  count   = cupsArrayCount(printers);
+
+  /*
+  if no printers with printer name printer , then rendering Http:404
+  */
+
+  if(count==0)
+  {
+    char erlog[]="404:NOT FOUND";
+    cgiStartHTML(erlog);
+    cgiEndHTML();
+    return;
+  }
+
+
 
  /*
   * Build an IPP_GET_PRINTER_ATTRIBUTES request, which requires the following
