@@ -490,7 +490,7 @@ show_printer(http_t     *http,		/* I - Connection to server */
 
   if(count==0)
   {
-    char erlog[]="404:NOT FOUND";
+    char erlog[]="404:NO PRINTERS";
     cgiStartHTML(erlog);
     cgiEndHTML();
     return;

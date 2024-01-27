@@ -470,7 +470,7 @@ show_class(http_t     *http,		/* I - Connection to server */
 
   if(count==0)
   {
-    char erlog[]="404:NOT FOUND";
+    char erlog[]="404:NO CLASSES";
     cgiStartHTML(erlog);
     cgiEndHTML();
     return;
