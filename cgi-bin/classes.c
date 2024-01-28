@@ -465,13 +465,14 @@ show_class(http_t     *http,		/* I - Connection to server */
   count   = cupsArrayCount(classes);
 
   /*
-  if no class with class name pclass , then rendering Http:404
+  if no class with class name pclass , then rendering NOT FOUND
   */
 
   if(count==0)
   {
-    char erlog[]="404:NO CLASSES";
-    cgiStartHTML(erlog);
+    cgiStartHTML(pclass);
+    cgiSetVariable("CLASS_NAME", "0");
+    cgiCopyTemplateLang("classes.tmpl");
     cgiEndHTML();
     return;
   }

@@ -485,13 +485,14 @@ show_printer(http_t     *http,		/* I - Connection to server */
   count   = cupsArrayCount(printers);
 
   /*
-  if no printers with printer name printer , then rendering Http:404
+  if no printers with printer name printer , then rendering NOT FOUND
   */
 
   if(count==0)
   {
-    char erlog[]="404:NO PRINTERS";
-    cgiStartHTML(erlog);
+    cgiStartHTML(printer);
+    cgiSetVariable("PRINTER_NAME", "0");
+    cgiCopyTemplateLang("printers.tmpl");
     cgiEndHTML();
     return;
   }
