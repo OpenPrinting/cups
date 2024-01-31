@@ -333,7 +333,7 @@ ippAddCredentialsString(
         if (*cptr == '\n')
           cptr ++;			// Skip LF
       }
-      else if ((cptr = strchr(cptr, '\n')) != NULL)
+      else if ((cptr = strchr(cstart, '\n')) != NULL)
       {
         // Terminate on LF
         *cptr++ = '\0';

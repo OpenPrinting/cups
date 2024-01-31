@@ -197,7 +197,7 @@ cupsFormatStringv(
 
 
   // Range check input...
-  if (!buffer || bufsize < 2 || !format || !ap)
+  if (!buffer || bufsize < 2 || !format)
     return (-1);
 
   // Loop through the format string, formatting as needed...
