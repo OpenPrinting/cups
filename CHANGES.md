@@ -39,6 +39,7 @@ Changes in CUPS v2.4.7 (2023-09-20)
 - Fixed purging job files via `cancel -x` (Issue #742)
 - Fixed RFC 1179 port reserving behavior in LPD backend (Issue #743)
 - Fixed a bug in the PPD command interpretation code (Issue #768)
+- Fixed Oki 407 freeze when printing larger jobs (Issue #877)
 
 
 Changes in CUPS v2.4.6 (2023-06-22)
