@@ -374,3 +374,6 @@
 
 # GoDEX label printers (https://github.com/OpenPrinting/cups/issues/440)
 0x195f 0x0001 unidir no-reattach
+
+# Oki Data Corp. OKIPOS 407II (https://github.com/OpenPrinting/cups/issues/877)
+0x06bc 0x0183 unidir
