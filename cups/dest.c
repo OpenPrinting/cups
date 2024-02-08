@@ -1827,7 +1827,7 @@ cupsGetNamedDest(http_t     *http,	/* I - Connection to server or @code CUPS_HTT
       DEBUG_puts("1cupsGetNamedDest: Asking server for default printer...");
     }
     else
-      DEBUG_printf(("1cupsGetNamedDest: Using name=\"%s\"...", name));
+      DEBUG_printf(("1cupsGetNamedDest: Using dest_name=\"%s\"...", dest_name));
   }
 
  /*
