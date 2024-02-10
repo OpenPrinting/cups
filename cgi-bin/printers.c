@@ -1,17 +1,3 @@
-/*
- * Printer status CGI for CUPS.
- *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
- */
-
 #include "cgi-private.h"
 #include <errno.h>
 
@@ -461,43 +447,10 @@ show_printer(http_t     *http,		/* I - Connection to server */
   ipp_attribute_t *attr;		/* IPP attribute */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
   char		refresh[1024];		/* Refresh URL */
-  void			*search;	/* Search data */
-  int count;		/* Number of printers */
-  cups_array_t		*printers;	/* Array of printer objects */
+
 
   fprintf(stderr, "DEBUG: show_printer(http=%p, printer=\"%s\")\n",
           (void *)http, printer ? printer : "(null)");
-  
-  /*
-  * Build a CUPS_GET_PRINTERS request,
-  * and get back a response 
-  */
-
-  request = ippNewRequest(IPP_OP_CUPS_GET_PRINTERS);
-  cgiGetAttributes(request, "printers.tmpl");
-  response = cupsDoRequest(http, request, "/");
-
-  /*
-  * Get a count of printers with name printer
-  */
-  search = cgiCompileSearch(printer);
-  printers  = cgiGetIPPObjects(response, search);
-  count   = cupsArrayCount(printers);
-
-  /*
-  if no printers with printer name printer , then rendering NOT FOUND
-  */
-
-  if(count==0)
-  {
-    cgiStartHTML(printer);
-    cgiSetVariable("PRINTER_NAME", "0");
-    cgiCopyTemplateLang("printers.tmpl");
-    cgiEndHTML();
-    return;
-  }
-
-
 
  /*
   * Build an IPP_GET_PRINTER_ATTRIBUTES request, which requires the following

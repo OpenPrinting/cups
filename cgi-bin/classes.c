@@ -1,17 +1,3 @@
-/*
- * Class status CGI for CUPS.
- *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
- */
-
 #include "cgi-private.h"
 
 
@@ -444,38 +430,7 @@ show_class(http_t     *http,		/* I - Connection to server */
   ipp_attribute_t *attr;		/* IPP attribute */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
   char		refresh[1024];		/* Refresh URL */
-  void			*search;	/* Search data */
-  int count;		/* Number of classes */
-  cups_array_t		*classes;	/* Array of class objects */
 
-  /*
-  Build a CUPS_GET_CLASSES request
-  and get back a response 
-  */
-
-  request = ippNewRequest(IPP_OP_CUPS_GET_CLASSES);
-  cgiGetAttributes(request, "classes.tmpl");
-  response = cupsDoRequest(http, request, "/");
-  
-  /*
-  Get a count of Classes with name pclass
-  */
-  search = cgiCompileSearch(pclass);
-  classes = cgiGetIPPObjects(response, search);
-  count   = cupsArrayCount(classes);
-
-  /*
-  if no class with class name pclass , then rendering NOT FOUND
-  */
-
-  if(count==0)
-  {
-    cgiStartHTML(pclass);
-    cgiSetVariable("CLASS_NAME", "0");
-    cgiCopyTemplateLang("classes.tmpl");
-    cgiEndHTML();
-    return;
-  }
 
  /*
   * Build an IPP_GET_PRINTER_ATTRIBUTES request, which requires the following
