@@ -25,6 +25,8 @@ Changes in CUPS v2.5b1 (TBA)
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)
 - Fixed Digest authentication support (Issue #260)
+- Fixed the web interface not showing an error for a non-existent printer
+  (Issue #423)
 - Fixed extensive looping in scheduler (Issue #604)
 - Fixed printing multiple files on specific printers (Issue #643)
 - Fixed printing of jobs with job name longer than 255 chars on older printers (Issue #644)

@@ -1106,8 +1106,19 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      }
 	      else if (!strncmp(con->uri, "/classes", 8))
 	      {
+	        if (strlen(con->uri) > 9 && !cupsdFindClass(con->uri + 9))
+	        {
+		  if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
+		  {
+		    cupsdCloseClient(con);
+		    return;
+		  }
+
+		  break;
+	        }
+
 		cupsdSetStringf(&con->command, "%s/cgi-bin/classes.cgi", ServerBin);
-                if (con->uri[8] && con->uri[9])
+		if (con->uri[8] && con->uri[9])
 		  cupsdSetString(&con->options, con->uri + 8);
 		else
 		  cupsdSetString(&con->options, NULL);
@@ -1122,6 +1133,17 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      }
               else if (!strncmp(con->uri, "/printers", 9))
 	      {
+	        if (strlen(con->uri) > 10 && !cupsdFindPrinter(con->uri + 10))
+	        {
+		  if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
+		  {
+		    cupsdCloseClient(con);
+		    return;
+		  }
+
+		  break;
+	        }
+
 		cupsdSetStringf(&con->command, "%s/cgi-bin/printers.cgi", ServerBin);
                 if (con->uri[9] && con->uri[10])
 		  cupsdSetString(&con->options, con->uri + 9);
