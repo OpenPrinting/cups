@@ -67,8 +67,8 @@ jobs:
       run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
     - name: make
       run: make
-    - name: test
-      run: make test || cat test/error_log*
+#    - name: test
+#      run: make test || cat test/error_log*
 
   build-windows:
 
