@@ -60,7 +60,6 @@ _cupsStrStatistics
 _cups_cupsConcatString
 _cups_cupsCopyString
 _cups_gettimeofday
-_cups_safe_vsnprintf
 _cups_strcasecmp
 _cups_strcpy
 _cups_strcpy
@@ -253,6 +252,8 @@ cupsFinishDestDocument
 cupsFinishDocument
 cupsFormDecode
 cupsFormEncode
+cupsFormatString
+cupsFormatStringv
 cupsFreeDestInfo
 cupsFreeDests
 cupsFreeJobs
