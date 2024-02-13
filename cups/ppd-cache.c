@@ -3435,7 +3435,7 @@ _ppdCreateFromIPP2(
 
   if ((attr = ippFindAttribute(supported, "document-format-supported", IPP_TAG_MIMETYPE)) != NULL)
   {
-    is_apple = ippContainsString(attr, "image/urf");
+    is_apple = ippContainsString(attr, "image/urf") && (ippFindAttribute(supported, "urf-supported", IPP_TAG_KEYWORD) != NULL);
     is_pdf   = ippContainsString(attr, "application/pdf");
     is_pwg   = ippContainsString(attr, "image/pwg-raster") && !is_apple;
 
