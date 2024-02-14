@@ -13,6 +13,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added a new argument value for `lpstat` argument '-W' - `successful` -
   to get successfully printed jobs (Issue #830)
 - Added driver filter to web interface (Issue #848)
+- Added support for PAM modules password-auth and system-auth (Issue #892)
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.
 - Updated CUPS to require ZLIB.
