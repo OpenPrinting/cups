@@ -71,6 +71,10 @@ AS_IF([test x$enable_pam != xno], [
 	    PAMMOD="pam_${with_pam_module}.so"
 	], [test -f /etc/pam.d/common-auth], [
 	    PAMFILE="pam.common"
+	], [test -f /etc/pam.d/password-auth], [
+	    PAMFILE="pam.password"
+	], [test -f /etc/pam.d/system-auth], [
+	    PAMFILE="pam.system"
 	], [
 	    moddir=""
 	    for dir in /lib/security /lib64/security /lib/x86_64-linux-gnu/security /var/lib/pam; do
