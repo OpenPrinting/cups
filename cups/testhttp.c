@@ -369,7 +369,11 @@ main(int  argc,				// I - Number of command-line arguments
     }
     else if (isdigit(hostname[0] & 255))
     {
-      testEndMessage(false, "ignored because hostname is numeric");
+      testEndMessage(true, "ignored because hostname is numeric");
+    }
+    else if (strncmp(hostname, "mac-", 4) && isdigit(hostname[4]))
+    {
+      testEndMessage(true, "ignored because GitHub Actions macOS runner doesn't resolve its own hostname");
     }
     else
     {
