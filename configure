@@ -10396,6 +10396,16 @@ then :
 
 	    PAMFILE="pam.common"
 
+elif test -f /etc/pam.d/password-auth
+then :
+
+	    PAMFILE="pam.password"
+
+elif test -f /etc/pam.d/system-auth
+then :
+
+	    PAMFILE="pam.system"
+
 else $as_nop
 
 	    moddir=""

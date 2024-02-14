@@ -8,6 +8,7 @@ Changes in CUPS v2.4.8 (TBA)
   (Issue #829)
 - Added new value for 'lpstat' option '-W' - successfull - for getting
   successfully printed jobs (Issue #830)
+- Added support for PAM modules password-auth and system-auth (Issue #892)
 - Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
 - Fixed the web interface not showing an error for a non-existent printer
   (Issue #423)
