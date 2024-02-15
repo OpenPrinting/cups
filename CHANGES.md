@@ -52,6 +52,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
 - Fixed Oki 407 freeze when printing larger jobs (Issue #877)
+- Fixed checking for required attributes during PPD generation (Issue #890)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
