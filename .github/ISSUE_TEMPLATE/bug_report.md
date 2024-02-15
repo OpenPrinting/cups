@@ -7,6 +7,9 @@ assignees: ''
 
 ---
 
+**Before you write the report**
+Read the [REPORTING_ISSUES.md](https://github.com/OpenPrinting/cups/blob/master/REPORTING_ISSUES.md) file in the main repository and prepare data mentioned there which looks relevant to you issue.
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
@@ -29,4 +32,4 @@ If applicable, add screenshots to help explain your problem.
  - CUPS version [e.g. 2.4.2]
 
 **Additional context**
-Follow the instructions from the [REPORTING-ISSUES](https://github.com/OpenPrinting/cups/blob/master/REPORTING_ISSUES.md) document and provide all information regarding the issue.
+Any additional information which are relevant to the issue.
