@@ -26,6 +26,7 @@ Changes in CUPS v2.4.8 (TBA)
   instead of keywords as `InputSlot` values (Issue #859)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
+- Fixed checking for required attributes during PPD generation (Issue #890)
 
 
 Changes in CUPS v2.4.7 (2023-09-20)
