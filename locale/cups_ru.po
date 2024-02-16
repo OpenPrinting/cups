@@ -173,63 +173,63 @@ msgstr "        %-39.39s %.0f байт"
 
 #, c-format
 msgid "        PASS    Default%s"
-msgstr "        УСПЕШНО    Default%s"
+msgstr "        PASS    Default%s"
 
 msgid "        PASS    DefaultImageableArea"
-msgstr "        УСПЕШНО    DefaultImageableArea"
+msgstr "        PASS    DefaultImageableArea"
 
 msgid "        PASS    DefaultPaperDimension"
-msgstr "        УСПЕШНО    DefaultPaperDimension"
+msgstr "        PASS    DefaultPaperDimension"
 
 msgid "        PASS    FileVersion"
-msgstr "        УСПЕШНО    FileVersion"
+msgstr "        PASS    FileVersion"
 
 msgid "        PASS    FormatVersion"
-msgstr "        УСПЕШНО    FormatVersion"
+msgstr "        PASS    FormatVersion"
 
 msgid "        PASS    LanguageEncoding"
-msgstr "        УСПЕШНО    LanguageEncoding"
+msgstr "        PASS    LanguageEncoding"
 
 msgid "        PASS    LanguageVersion"
-msgstr "        УСПЕШНО    LanguageVersion"
+msgstr "        PASS    LanguageVersion"
 
 msgid "        PASS    Manufacturer"
-msgstr "        УСПЕШНО    Manufacturer"
+msgstr "        PASS    Manufacturer"
 
 msgid "        PASS    ModelName"
-msgstr "        УСПЕШНО    ModelName"
+msgstr "        PASS    ModelName"
 
 msgid "        PASS    NickName"
-msgstr "        УСПЕШНО    NickName"
+msgstr "        PASS    NickName"
 
 msgid "        PASS    PCFileName"
-msgstr "        УСПЕШНО    PCFileName"
+msgstr "        PASS    PCFileName"
 
 msgid "        PASS    PSVersion"
-msgstr "        УСПЕШНО    PSVersion"
+msgstr "        PASS    PSVersion"
 
 msgid "        PASS    PageRegion"
-msgstr "        УСПЕШНО    PageRegion"
+msgstr "        PASS    PageRegion"
 
 msgid "        PASS    PageSize"
-msgstr "        УСПЕШНО    PageSize"
+msgstr "        PASS    PageSize"
 
 msgid "        PASS    Product"
-msgstr "        УСПЕШНО    Product"
+msgstr "        PASS    Product"
 
 msgid "        PASS    ShortNickName"
-msgstr "        УСПЕШНО    ShortNickName"
+msgstr "        PASS    ShortNickName"
 
 #, c-format
 msgid "        WARN    %s has no corresponding options."
-msgstr "\tВНИМАНИЕ\t%s не содержит соответствующих параметров."
+msgstr "        WARN    %s не содержит соответствующих параметров."
 
 #, c-format
 msgid ""
 "        WARN    %s shares a common prefix with %s\n"
 "                REF: Page 15, section 3.2."
 msgstr ""
-"\tВНИМАНИЕ\t%s использует общий префикс совместно с %s\n"
+"        WARN    %s использует общий префикс совместно с %s\n"
 "                REF: Стр. 15, раздел 3.2."
 
 #, c-format
@@ -238,37 +238,37 @@ msgid ""
 "be named Duplex.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
-"\tВНИМАНИЕ\tКлючевое слово-вариант дуплекса %s может привести к"
+"        WARN    Ключевое слово-вариант дуплекса %s может привести к"
 " некорректным "
 "результатам. Используйте имя 'Duplex'.\n"
 "                REF: Стр. 122, раздел 5.17."
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
-msgstr "\tВНИМАНИЕ\tФайл содержит комбинацию окончаний строки CR, LF, CR LF."
+msgstr "        WARN    Файл содержит комбинацию окончаний строки CR, LF, CR LF."
 
 msgid ""
 "        WARN    LanguageEncoding required by PPD 4.3 spec.\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
-"\tВНИМАНИЕ\tLanguageEncoding требуется спецификацией PPD 4.3.\n"
+"        WARN    LanguageEncoding требуется спецификацией PPD 4.3.\n"
 "                REF: Стр. 56-57, раздел 5.3."
 
 #, c-format
 msgid "        WARN    Line %d only contains whitespace."
-msgstr "\tВНИМАНИЕ\tСтрока %d содержит только пробелы."
+msgstr "        WARN    Строка %d содержит только пробелы."
 
 msgid ""
 "        WARN    Manufacturer required by PPD 4.3 spec.\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
-"\tВНИМАНИЕ\tManufacturer требуется спецификацией PPD 4.3.\n"
+"        WARN    Manufacturer требуется спецификацией PPD 4.3.\n"
 "                REF: Стр. 58-59, раздел 5.3."
 
 msgid ""
 "        WARN    Non-Windows PPD files should use lines ending with only LF, "
 "not CR LF."
 msgstr ""
-"\tВНИМАНИЕ\tPPD-файлы не из Windows должны использовать строки только с "
+"        WARN    PPD-файлы не из Windows должны использовать строки только с "
 "окончанием LF, а не с CR LF."
 
 #, c-format
@@ -276,42 +276,42 @@ msgid ""
 "        WARN    Obsolete PPD version %.1f.\n"
 "                REF: Page 42, section 5.2."
 msgstr ""
-"\tВНИМАНИЕ\tУстаревшая версия PPD %.1f.\n"
+"        WARN    Устаревшая версия PPD %.1f.\n"
 "                REF: Стр. 42, раздел 5.2."
 
 msgid ""
 "        WARN    PCFileName longer than 8.3 in violation of PPD spec.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
-"\tВНИМАНИЕ\tPCFileName длиннее чем 8.3 нарушает спецификацию PPD.\n"
+"        WARN    PCFileName длиннее чем 8.3 нарушает спецификацию PPD.\n"
 "                REF: Стр. 61-62, раздел 5.3."
 
 msgid ""
 "        WARN    PCFileName should contain a unique filename.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
-"\tВНИМАНИЕ\tPCFilename должен содержать уникальное название.\n"
+"        WARN    PCFilename должен содержать уникальное название.\n"
 "                REF: Стр. 61-62, раздел 5.3."
 
 msgid ""
 "        WARN    Protocols contains PJL but JCL attributes are not set.\n"
 "                REF: Pages 78-79, section 5.7."
 msgstr ""
-"\tВНИМАНИЕ\tProtocols содержит PJL, но атрибуты JCL не настроены.\n"
+"        WARN    Protocols содержит PJL, но атрибуты JCL не настроены.\n"
 "                REF: Стр. 78-79, раздел 5.7."
 
 msgid ""
 "        WARN    Protocols contains both PJL and BCP; expected TBCP.\n"
 "                REF: Pages 78-79, section 5.7."
 msgstr ""
-"\tВНИМАНИЕ\tProtocols содержит PJL и BCP; ожидается TBCP.\n"
+"        WARN    Protocols содержит PJL и BCP; ожидается TBCP.\n"
 "                REF: Стр. 78-79, раздел 5.7."
 
 msgid ""
 "        WARN    ShortNickName required by PPD 4.3 spec.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
-"\tВНИМАНИЕ\tShortNickName требуется спецификацией PPD 4.3.\n"
+"        WARN    ShortNickName требуется спецификацией PPD 4.3.\n"
 "                REF: Стр. 64-65, раздел 5.3."
 
 #, c-format
@@ -489,7 +489,7 @@ msgid ""
 "      **FAIL**  %s must be 1284DeviceID\n"
 "                REF: Page 72, section 5.5"
 msgstr ""
-"\t**СБОЙ**  %s должно соответствовать 1284DeviceID\n"
+"      **FAIL**  %s должно соответствовать 1284DeviceID\n"
 "                REF: Стр. 72, раздел 5.5"
 
 #, c-format
@@ -497,7 +497,7 @@ msgid ""
 "      **FAIL**  Bad Default%s %s\n"
 "                REF: Page 40, section 4.5."
 msgstr ""
-"\t**СБОЙ**  Неверный Default%s %s\n"
+"      **FAIL**  Неверный Default%s %s\n"
 "                REF: Стр. 40, раздел 4.5."
 
 #, c-format
@@ -505,7 +505,7 @@ msgid ""
 "      **FAIL**  Bad DefaultImageableArea %s\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
-"\t**СБОЙ**  Неверный DefaultImageableArea %s\n"
+"      **FAIL**  Неверный DefaultImageableArea %s\n"
 "                REF: Стр. 102, раздел 5.15."
 
 #, c-format
@@ -513,7 +513,7 @@ msgid ""
 "      **FAIL**  Bad DefaultPaperDimension %s\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
-"\t**СБОЙ**  Неверный DefaultPaperDimension %s\n"
+"      **FAIL**  Неверный DefaultPaperDimension %s\n"
 "                REF: Стр. 103, раздел 5.15."
 
 #, c-format
@@ -521,7 +521,7 @@ msgid ""
 "      **FAIL**  Bad FileVersion \"%s\"\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"\t**СБОЙ**  Неверный FileVersion \"%s\"\n"
+"      **FAIL**  Неверный FileVersion \"%s\"\n"
 "                REF: Стр. 56, раздел 5.3."
 
 #, c-format
@@ -529,30 +529,30 @@ msgid ""
 "      **FAIL**  Bad FormatVersion \"%s\"\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"\t**СБОЙ**  Неверный FormatVersion \"%s\"\n"
+"      **FAIL**  Неверный FormatVersion \"%s\"\n"
 "                REF: Стр. 56, раздел 5.3."
 
 msgid ""
 "      **FAIL**  Bad JobPatchFile attribute in file\n"
 "                REF: Page 24, section 3.4."
 msgstr ""
-"\t**СБОЙ**  Неверный JobPatchFile атрибут в файле\n"
+"      **FAIL**  Неверный JobPatchFile атрибут в файле\n"
 "                REF: Стр. 24, раздел 3.4."
 
 #, c-format
 msgid "      **FAIL**  Bad LanguageEncoding %s - must be ISOLatin1."
-msgstr "\t**СБОЙ**  Неверный LanguageEncoding %s - должен быть UTF-8."
+msgstr "      **FAIL**  Неверный LanguageEncoding %s - должен быть UTF-8."
 
 #, c-format
 msgid "      **FAIL**  Bad LanguageVersion %s - must be English."
-msgstr "\t**СБОЙ**  Неверный LanguageVersion %s - должен быть Russian."
+msgstr "      **FAIL**  Неверный LanguageVersion %s - должен быть Russian."
 
 #, c-format
 msgid ""
 "      **FAIL**  Bad Manufacturer (should be \"%s\")\n"
 "                REF: Page 211, table D.1."
 msgstr ""
-"\t**СБОЙ**  Неверный Manufacturer (должен быть \"%s\")\n"
+"      **FAIL**  Неверный Manufacturer (должен быть \"%s\")\n"
 "                REF: Стр. 211, таблица D.1."
 
 #, c-format
@@ -560,28 +560,28 @@ msgid ""
 "      **FAIL**  Bad ModelName - \"%c\" not allowed in string.\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
-"\t**СБОЙ**  Неверный ModelName - \"%c\" не разрешено в строке.\n"
+"      **FAIL**  Неверный ModelName - \"%c\" не разрешено в строке.\n"
 "                REF: Стр. 59-60, раздел 5.3."
 
 msgid ""
 "      **FAIL**  Bad PSVersion - not \"(string) int\".\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
-"\t**СБОЙ**  Неверный PSVersion - не \"(string) int\".\n"
+"      **FAIL**  Неверный PSVersion - не \"(string) int\".\n"
 "                REF: Стр. 62-64, раздел 5.3."
 
 msgid ""
 "      **FAIL**  Bad Product - not \"(string)\".\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
-"\t**СБОЙ**  Неверный Product - не \"(string)\".\n"
+"      **FAIL**  Неверный Product - не \"(string)\".\n"
 "                REF: Стр. 62, раздел 5.3."
 
 msgid ""
 "      **FAIL**  Bad ShortNickName - longer than 31 chars.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
-"\t**СБОЙ**  Неверный ShortNickName - длиннее чем 31 символ.\n"
+"      **FAIL**  Неверный ShortNickName - длиннее чем 31 символ.\n"
 "                REF: Стр. 64-65, раздел 5.3."
 
 #, c-format
@@ -589,19 +589,19 @@ msgid ""
 "      **FAIL**  Bad option %s choice %s\n"
 "                REF: Page 84, section 5.9"
 msgstr ""
-"\t**СБОЙ**  Для параметра %s используется неверный вариант выбора %s\n"
+"      **FAIL**  Для параметра %s используется неверный вариант выбора %s\n"
 "                REF: Стр. 84, раздел 5.9"
 
 #, c-format
 msgid "      **FAIL**  Default option code cannot be interpreted: %s"
-msgstr "\t**СБОЙ**  Не удается опознать код параметра по умолчанию: %s"
+msgstr "      **FAIL**  Не удается опознать код параметра по умолчанию: %s"
 
 #, c-format
 msgid ""
 "      **FAIL**  Default translation string for option %s choice %s contains "
 "8-bit characters."
 msgstr ""
-"\t**СБОЙ**  Стандартная строка перевода для параметра %s, варианта выбора %s,"
+"      **FAIL**  Стандартная строка перевода для параметра %s, варианта выбора %s,"
 " содержит 8-битные "
 "символы."
 
@@ -610,62 +610,62 @@ msgid ""
 "      **FAIL**  Default translation string for option %s contains 8-bit "
 "characters."
 msgstr ""
-"\t**СБОЙ**  Стандартный перевод для параметра %s содержит 8-битовые символы."
+"      **FAIL**  Стандартный перевод для параметра %s содержит 8-битовые символы."
 
 #, c-format
 msgid "      **FAIL**  Group names %s and %s differ only by case."
-msgstr "\t**СБОЙ**  Имена групп %s и %s отличаются только регистром символов."
+msgstr "      **FAIL**  Имена групп %s и %s отличаются только регистром символов."
 
 #, c-format
 msgid "      **FAIL**  Multiple occurrences of option %s choice name %s."
 msgstr ""
-"\t**СБОЙ**  Для варианта выбора параметра %s несколько раз встречается имя %s."
+"      **FAIL**  Для варианта выбора параметра %s несколько раз встречается имя %s."
 
 #, c-format
 msgid "      **FAIL**  Option %s choice names %s and %s differ only by case."
 msgstr ""
-"\t**СБОЙ**  Для варианта выбора параметра %s имена %s и %s отличаются только"
+"      **FAIL**  Для варианта выбора параметра %s имена %s и %s отличаются только"
 " регистром."
 
 #, c-format
 msgid "      **FAIL**  Option names %s and %s differ only by case."
 msgstr ""
-"\t**СБОЙ**  Имена параметра %s и %s отличаются только регистром символов."
+"      **FAIL**  Имена параметра %s и %s отличаются только регистром символов."
 
 #, c-format
 msgid ""
 "      **FAIL**  REQUIRED Default%s\n"
 "                REF: Page 40, section 4.5."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ Default%s\n"
+"      **FAIL**  ТРЕБУЕТСЯ Default%s\n"
 "                REF: Стр. 40, раздел 4.5."
 
 msgid ""
 "      **FAIL**  REQUIRED DefaultImageableArea\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ DefaultImageableArea\n"
+"      **FAIL**  ТРЕБУЕТСЯ DefaultImageableArea\n"
 "                REF: Стр. 102, раздел 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED DefaultPaperDimension\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ DefaultPaperDimension\n"
+"      **FAIL**  ТРЕБУЕТСЯ DefaultPaperDimension\n"
 "                REF: Стр. 103, раздел 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED FileVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ FileVersion\n"
+"      **FAIL**  ТРЕБУЕТСЯ FileVersion\n"
 "                REF: Стр. 56, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED FormatVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ FormatVersion\n"
+"      **FAIL**  ТРЕБУЕТСЯ FormatVersion\n"
 "                REF: Стр. 56, раздел 5.3."
 
 #, c-format
@@ -674,7 +674,7 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ ImageableArea для PageSize %s\n"
+"      **FAIL**  ТРЕБУЕТСЯ ImageableArea для PageSize %s\n"
 "                REF: Стр. 41, раздел 5.\n"
 "                REF: Стр. 102, раздел 5.15."
 
@@ -682,56 +682,56 @@ msgid ""
 "      **FAIL**  REQUIRED LanguageEncoding\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ LanguageEncoding\n"
+"      **FAIL**  ТРЕБУЕТСЯ LanguageEncoding\n"
 "                REF: Стр. 56-57, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED LanguageVersion\n"
 "                REF: Pages 57-58, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ LanguageVersion\n"
+"      **FAIL**  ТРЕБУЕТСЯ LanguageVersion\n"
 "                REF: Стр. 57-58, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED Manufacturer\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ Manufacturer\n"
+"      **FAIL**  ТРЕБУЕТСЯ Manufacturer\n"
 "                REF: Стр. 58-59, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED ModelName\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ ModelName\n"
+"      **FAIL**  ТРЕБУЕТСЯ ModelName\n"
 "                REF: Стр. 59-60, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED NickName\n"
 "                REF: Page 60, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ NickName\n"
+"      **FAIL**  ТРЕБУЕТСЯ NickName\n"
 "                REF: Стр. 60, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PCFileName\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ PCFileName\n"
+"      **FAIL**  ТРЕБУЕТСЯ PCFileName\n"
 "                REF: Стр. 61-62, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PSVersion\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ PSVersion\n"
+"      **FAIL**  ТРЕБУЕТСЯ PSVersion\n"
 "                REF: Стр. 62-64, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PageRegion\n"
 "                REF: Page 100, section 5.14."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ PageRegion\n"
+"      **FAIL**  ТРЕБУЕТСЯ PageRegion\n"
 "                REF: Стр. 100, раздел 5.14."
 
 msgid ""
@@ -739,7 +739,7 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 99, section 5.14."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ PageSize\n"
+"      **FAIL**  ТРЕБУЕТСЯ PageSize\n"
 "                REF: Стр. 41, раздел 5.\n"
 "                REF: Стр. 99, раздел 5.14."
 
@@ -747,7 +747,7 @@ msgid ""
 "      **FAIL**  REQUIRED PageSize\n"
 "                REF: Pages 99-100, section 5.14."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ PageSize\n"
+"      **FAIL**  ТРЕБУЕТСЯ PageSize\n"
 "                REF: Стр. 99-100, раздел 5.14."
 
 #, c-format
@@ -756,7 +756,7 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ PaperDimension для PageSize %s\n"
+"      **FAIL**  ТРЕБУЕТСЯ PaperDimension для PageSize %s\n"
 "                REF: Стр. 41, раздел 5.\n"
 "                REF: Стр. 103, раздел 5.15."
 
@@ -764,19 +764,19 @@ msgid ""
 "      **FAIL**  REQUIRED Product\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ Product\n"
+"      **FAIL**  ТРЕБУЕТСЯ Product\n"
 "                REF: Стр. 62, раздел 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED ShortNickName\n"
 "                REF: Page 64-65, section 5.3."
 msgstr ""
-"\t**СБОЙ**  ТРЕБУЕТСЯ ShortNickName\n"
+"      **FAIL**  ТРЕБУЕТСЯ ShortNickName\n"
 "                REF: Стр. 64-65, раздел 5.3."
 
 #, c-format
 msgid "      **FAIL**  Unable to open PPD file - %s on line %d."
-msgstr "\t**СБОЙ**  Не удается открыть PPD-файл - %s в строке %d."
+msgstr "      **FAIL**  Не удается открыть PPD-файл - %s в строке %d."
 
 #, c-format
 msgid "    %d ERRORS FOUND"
@@ -889,10 +889,10 @@ msgid "  -z                      Compress PPD files using GNU zip."
 msgstr "  -z                      Сжимать PPD-файлы с помощью GNU zip."
 
 msgid " FAIL"
-msgstr " СБОЙ"
+msgstr " FAIL"
 
 msgid " PASS"
-msgstr " УСПЕШНО"
+msgstr " PASS"
 
 msgid "! expression            Unary NOT of expression"
 msgstr "! expression            Унарный НЕ выражения"

@@ -1,7 +1,7 @@
 <H2 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
-({printer_state=3?ожидает:{printer_state=4?выполняет печать:приостановлен}},
+({printer_state=3?ожидает:{printer_state=4?печатает:приостановлен}},
 {printer_is_accepting_jobs=0?не принимает задания:принимает задания},
-{server_is_sharing_printers=0?не:{printer_is_shared=0?не:}} использует совместный доступ{default_name={printer_name}?, установлен по умолчанию:})</H2>
+{server_is_sharing_printers=0?нет совместного доступа:{printer_is_shared=0?нет совместного доступа:разрешен совместный доступ}} {default_name={printer_name}?, выбран по умолчанию:})</H2>
 
 <FORM METHOD="POST" ACTION="{printer_uri_supported}" NAME="maintenance">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
@@ -9,7 +9,7 @@
 <OPTION VALUE="">Обслуживание</OPTION>
 <OPTION VALUE="print-test-page">Печать пробной страницы</OPTION>
 {printer_commands~.*Clean.*?<OPTION VALUE="clean-print-heads">Очистить головки</OPTION>:}
-{printer_commands~.*PrintSelfTestPage.*?<OPTION VALUE="print-self-test-page">Печать страницы самопроверки</OPTION>:}
+{printer_commands~.*PrintSelfTestPage.*?<OPTION VALUE="print-self-test-page">Печать пробной страницы самого принтера</OPTION>:}
 {printer_state=5?<OPTION VALUE="start-printer">Продолжить печать</OPTION>:<OPTION VALUE="stop-printer">Приостановить печать</OPTION>}
 {printer_is_accepting_jobs=0?<OPTION VALUE="accept-jobs">Принимать задания</OPTION>:<OPTION VALUE="reject-jobs">Не принимать задания</OPTION>}
 <OPTION VALUE="move-jobs">Переместить все задания</OPTION>
