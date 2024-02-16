@@ -1,8 +1,8 @@
 <FORM ACTION="/help/{?HELPFILE}" METHOD="GET">
 {TOPIC?<INPUT TYPE="HIDDEN" NAME="TOPIC" VALUE="{TOPIC}">:}
 
-<P ALIGN="CENTER"><B>Поиск в
-{HELPTITLE?{HELPTITLE}:{TOPIC?{TOPIC}:справке}}:</B> <INPUT
+<P ALIGN="CENTER"><B>Поиск
+{HELPTITLE?в {HELPTITLE}:{TOPIC?в {TOPIC}:по справке}}:</B> <INPUT
 TYPE="SEARCH" NAME="QUERY" VALUE="{?QUERY}" SIZE="40" PLACEHOLDER=""
 AUTOSAVE="org.cups.help" RESULTS="20">
 <INPUT TYPE="SUBMIT" NAME="SEARCH" VALUE="Найти">
@@ -32,9 +32,9 @@ AUTOSAVE="org.cups.help" RESULTS="20">
 <HR NOSHADE>:}
 {HELPTITLE?<FORM ACTION="/help/{?HELPFILE}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="PRINTABLE" VALUE="YES"><INPUT TYPE="SUBMIT" VALUE="Показать версию для печати"></FORM>:
 
-<H1>Онлайн-справка</H1>
+<H1>Справка</H1>
 
-<P>Это интерфейс онлайн-справки CUPS. Сделайте поисковый запрос выше или нажмите любую из ссылок на документацию, чтобы получить результаты поиска.</P>
+<P>Это интерфейс справки CUPS. Введите поисковый запрос выше или нажмите на любую из ссылок документации для получения результатов поиска.</P>
 
 <P>Если вы пока мало знакомы с CUPS, прочтите раздел "<a
 href="/help/overview.html">Введение в CUPS</a>".</P>
