@@ -27,6 +27,7 @@ Changes in CUPS v2.4.8 (TBA)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
 - Fixed checking for required attributes during PPD generation (Issue #890)
+- Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
 
 
 Changes in CUPS v2.4.7 (2023-09-20)

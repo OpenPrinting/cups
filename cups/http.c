@@ -4024,7 +4024,31 @@ http_create(
   http->version  = HTTP_VERSION_1_1;
 
   if (host)
-    strlcpy(http->hostname, host, sizeof(http->hostname));
+  {
+    DEBUG_printf(("5http_create: host=\"%s\"", host));
+
+    if (!strncmp(host, "fe80::", 6))
+    {
+      // IPv6 link local address, convert to IPvFuture format...
+      char	*zoneid;		// Pointer to zoneid separator
+
+      snprintf(http->hostname, sizeof(http->hostname), "[v1.%s]", host);
+      if ((zoneid = strchr(http->hostname, '%')) != NULL)
+        *zoneid = '+';
+    }
+    else if (isxdigit(host[0]) && isxdigit(host[1]) && isxdigit(host[2]) && isxdigit(host[3]) && host[4] == ':')
+    {
+      // IPv6 address, convert to URI format...
+      snprintf(http->hostname, sizeof(http->hostname), "[%s]", host);
+    }
+    else
+    {
+      // Not an IPv6 numeric address...
+      strlcpy(http->hostname, host, sizeof(http->hostname));
+    }
+
+    DEBUG_printf(("5http_create: http->hostname=\"%s\"", http->hostname));
+  }
 
   if (port == 443)			/* Always use encryption for https */
     http->encryption = HTTP_ENCRYPTION_ALWAYS;
