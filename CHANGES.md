@@ -19,7 +19,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Updated CUPS to require ZLIB.
 - Updated CUPS to require support for `poll` API.
 - Updated `cupsArray` APIs to support modern naming and types.
-- Updated `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
+- Updated `cups_enum_dests()` timeout for listing available IPP printers
+  (Issue #751)
 - Updated `httpAddrConnect2()` to handle `POLLHUP` together with `POLLIN` or
   `POLLOUT` (Issue #839)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
@@ -30,7 +31,8 @@ Changes in CUPS v2.5b1 (TBA)
   (Issue #423)
 - Fixed extensive looping in scheduler (Issue #604)
 - Fixed printing multiple files on specific printers (Issue #643)
-- Fixed printing of jobs with job name longer than 255 chars on older printers (Issue #644)
+- Fixed printing of jobs with job name longer than 255 chars on older printers
+  (Issue #644)
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
 - Fixed ready media support for iOS 17+ (Issue #738)
@@ -44,15 +46,17 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed memory leak when creating color profiles (Issue #814)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed setting job state reasons for successful jobs (Issue #832)
-- Fixed infinite loop in IPP backend if hostname is IP address with Kerberos (Issue #838)
+- Fixed infinite loop in IPP backend if hostname is IP address with Kerberos
+  (Issue #838)
 - Fixed crash in `ppdEmitString()` if there is no record for page size `Custom`
   (Issue #849)
-- Fixed reporting `media-source-supported` when sharing printer which has numbers as strings
-  instead of keywords as `InputSlot` values (Issue #859)
+- Fixed reporting `media-source-supported` when sharing printer which has
+  numbers as strings instead of keywords as `InputSlot` values (Issue #859)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
 - Fixed Oki 407 freeze when printing larger jobs (Issue #877)
 - Fixed checking for required attributes during PPD generation (Issue #890)
+- Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
