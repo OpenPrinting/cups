@@ -545,6 +545,11 @@ cupsDNSSDNew(
 #else // HAVE_AVAHI
   int error;				// Error code
 
+  // Avahi client callback is first run when client is created.
+  // Ignore the initial call to prevent regenerating hostnames
+  // and registrations for nothing...
+  dnssd->config_changes = -1;
+
   if ((dnssd->poll = avahi_simple_poll_new()) == NULL)
   {
     // Unable to create the background thread...
@@ -1096,7 +1101,7 @@ cupsDNSSDServiceAdd(
     *subtypes++ = '\0';
 
   // Add the service entry...
-  if ((error = avahi_entry_group_add_service_strlst(service->group, avahi_if_index(service->if_index), AVAHI_PROTO_UNSPEC, /*flags*/0, service->name, regtype, domain, host, port, txtrec)) < 0)
+  if ((error = avahi_entry_group_add_service_strlst(service->group, avahi_if_index(service->if_index), AVAHI_PROTO_UNSPEC, /*flags*/0, service->name, regtype, domain, NULL, port, txtrec)) < 0)
   {
     report_error(service->dnssd, "Unable to register '%s.%s': %s", service->name, regtype, avahi_strerror(error));
     ret = false;
