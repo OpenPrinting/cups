@@ -10,7 +10,7 @@
 .\"
 .TH lpoptions 1 "CUPS" "2022-05-02" "OpenPrinting"
 .SH NAME
-lpoptions \- display or set printer options and defaults
+lpoptions \- display or set user printer options and defaults
 .SH SYNOPSIS
 .B lpoptions
 [
@@ -107,6 +107,13 @@ command.
 \fI~/.cups/lpoptions\fR - user defaults and instances created by non-root users.
 .br
 \fI/etc/cups/lpoptions\fR - system-wide defaults and instances created by the root user.
+.SH ENVIRONMENT VARIABLES
+.TP 5
+.B LPDEST
+Specifies the default print queue (System V standard).
+.TP 5
+.B PRINTER
+Specifies the default print queue (Berkeley standard).
 .SH CONFORMING TO
 The \fBlpoptions\fR command is unique to CUPS.
 .SH SEE ALSO

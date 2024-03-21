@@ -7,7 +7,7 @@
   <body>
     <h1 id="lpoptions-1">lpoptions(1)</h1>
     <h2 id="lpoptions-1.name">Name</h2>
-<p>lpoptions - display or set printer options and defaults
+<p>lpoptions - display or set user printer options and defaults
 </p>
     <h2 id="lpoptions-1.synopsis">Synopsis</h2>
 <p><strong>lpoptions</strong>
@@ -113,6 +113,13 @@ command.
 <p><em>~/.cups/lpoptions</em> - user defaults and instances created by non-root users.
 <br>
 <em>/etc/cups/lpoptions</em> - system-wide defaults and instances created by the root user.
+</p>
+    <h2 id="lpoptions-1.environment-variables">Environment Variables</h2>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>LPDEST</strong><br>
+Specifies the default print queue (System V standard).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PRINTER</strong><br>
+Specifies the default print queue (Berkeley standard).
 </p>
     <h2 id="lpoptions-1.conforming-to">Conforming To</h2>
 <p>The <strong>lpoptions</strong> command is unique to CUPS.

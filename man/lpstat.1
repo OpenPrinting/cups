@@ -82,7 +82,7 @@ Shows the ranking of print jobs.
 Specifies an alternate username.
 .TP 5
 \fB\-W \fIwhich-jobs\fR
-Specifies which jobs to show, "all, "successful", "completed" or "not-completed" (the default).
+Specifies which jobs to show, "all", "successful", "completed" or "not-completed" (the default).
 This option \fImust\fR appear before the \fI-o\fR option and/or any printer names, otherwise the default ("not-completed") value will be used in the request to the scheduler.
 .TP 5
 \fB\-a \fR[\fIprinter(s)\fR]
@@ -94,7 +94,7 @@ Shows the printer classes and the printers that belong to them.
 If no classes are specified then all classes are listed.
 .TP 5
 .B \-d
-Shows the current default destination.
+Shows the current default destination, either the lpoptions default (if set), or the scheduler default (otherwise).
 .TP 5
 .B \-e
 Shows all available destinations on the local network.
@@ -132,6 +132,13 @@ If no users are specified, lists the jobs queued by the current user.
 \fB\-v \fR[\fIprinter(s)\fR]
 Shows the printers and what device they are attached to.
 If no printers are specified then all printers are listed.
+.SH ENVIRONMENT VARIABLES
+.TP 5
+.B LPDEST
+Specifies the default print queue (System V standard).
+.TP 5
+.B PRINTER
+Specifies the default print queue (Berkeley standard).
 .SH CONFORMING TO
 Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, "/", and "#".
 Also, printer and class names are \fInot\fR case-sensitive.
