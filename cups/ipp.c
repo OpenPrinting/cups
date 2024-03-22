@@ -2012,7 +2012,7 @@ ippFindNextAttribute(ipp_t      *ipp,	/* I - IPP message */
 
     value_tag = (ipp_tag_t)(attr->value_tag & IPP_TAG_CUPS_MASK);
 
-    if (attr->name != NULL && _cups_strcasecmp(attr->name, name) == 0 &&
+    if (attr->name != NULL && strcmp(attr->name, name) == 0 &&
         (value_tag == type || type == IPP_TAG_ZERO || name == parent ||
 	 (value_tag == IPP_TAG_TEXTLANG && type == IPP_TAG_TEXT) ||
 	 (value_tag == IPP_TAG_NAMELANG && type == IPP_TAG_NAME)))
