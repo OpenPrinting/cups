@@ -493,7 +493,7 @@ typedef enum ipp_tag_e			// Value and group tag values for attributes
   IPP_TAG_LANGUAGE,			// Language value
   IPP_TAG_MIMETYPE,			// MIME media type value
   IPP_TAG_MEMBERNAME,			// Collection member name value @exclude all@
-  IPP_TAG_EXTENSION = 0x7f,		// Extension point for 32-bit tags @exclude all@
+  IPP_TAG_EXTENSION = 0x7f,		// Extension point for 32-bit tags (part of value)
   IPP_TAG_CUPS_MASK = 0x7fffffff,	// Mask for copied attribute values @private@
   // The following expression is used to avoid compiler warnings with +/-0x80000000
   IPP_TAG_CUPS_CONST = -0x7fffffff-1	// Bitflag for copied/const attribute values @private@

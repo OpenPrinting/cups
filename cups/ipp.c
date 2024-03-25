@@ -2139,7 +2139,7 @@ ippGetOctetString(
     int             *datalen)		// O - Length of octetString data
 {
   // Range check input...
-  if (!attr || attr->value_tag != IPP_TAG_STRING || element < 0 || element >= attr->num_values)
+  if (!attr || (attr->value_tag != IPP_TAG_STRING && attr->value_tag != IPP_TAG_EXTENSION) || element < 0 || element >= attr->num_values)
   {
     if (datalen)
       *datalen = 0;
@@ -2669,25 +2669,6 @@ ippReadIO(void        *src,		// I - Data source
 
 	  // Read this attribute...
           tag = (ipp_tag_t)buffer[0];
-          if (tag == IPP_TAG_EXTENSION)
-          {
-            // Read 32-bit "extension" tag...
-	    if ((*cb)(src, buffer, 4) < 4)
-	    {
-	      DEBUG_puts("1ippReadIO: Callback returned EOF/error");
-	      goto rollback;
-	    }
-
-	    tag = (ipp_tag_t)((buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3]);
-
-            if (tag & IPP_TAG_CUPS_CONST)
-            {
-              // Fail if the high bit is set in the tag...
-	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP extension tag larger than 0x7FFFFFFF."), 1);
-	      DEBUG_printf("1ippReadIO: bad tag 0x%x.", tag);
-	      goto rollback;
-            }
-          }
 
 	  if (tag == IPP_TAG_END)
 	  {
@@ -3507,7 +3488,7 @@ ippSetOctetString(
 
 
   // Range check input...
-  if (!ipp || !attr || !*attr || ((*attr)->value_tag != IPP_TAG_STRING && (*attr)->value_tag != IPP_TAG_NOVALUE && (*attr)->value_tag != IPP_TAG_UNKNOWN) || element < 0 || element > (*attr)->num_values || datalen < 0 || datalen > IPP_MAX_LENGTH)
+  if (!ipp || !attr || !*attr || ((*attr)->value_tag != IPP_TAG_STRING && (*attr)->value_tag != IPP_TAG_NOVALUE && (*attr)->value_tag != IPP_TAG_UNKNOWN && (*attr)->value_tag != IPP_TAG_EXTENSION) || element < 0 || element > (*attr)->num_values || datalen < 0 || datalen > IPP_MAX_LENGTH)
     return (0);
 
   // Set the value and return...
@@ -4089,6 +4070,16 @@ ippSetValueTag(
     case IPP_TAG_KEYWORD :
         if (temp_tag == IPP_TAG_NAME || temp_tag == IPP_TAG_NAMELANG)
           break;			// Silently "allow" name -> keyword
+
+        return (0);
+
+    case IPP_TAG_EXTENSION :
+        if (temp_tag == IPP_TAG_STRING && value_tag == IPP_TAG_EXTENSION)
+        {
+          // Allow octetString -> extension
+          (*attr)->value_tag = value_tag;
+          break;
+        }
 
     default :
         return (0);
@@ -4866,22 +4857,10 @@ ippWriteIO(void        *dst,		// I - Destination
 	    }
 
             // Write the value tag, name length, and name string...
-            DEBUG_printf("2ippWriteIO: writing value tag=%x(%s)", attr->value_tag, ippTagString(attr->value_tag));
-            DEBUG_printf("2ippWriteIO: writing name=%d,\"%s\"", n, attr->name);
+	    DEBUG_printf("2ippWriteIO: writing value tag=%x(%s)", attr->value_tag, ippTagString(attr->value_tag));
+	    DEBUG_printf("2ippWriteIO: writing name=%d,\"%s\"", n, attr->name);
 
-            if (attr->value_tag > 0xff)
-            {
-              *bufptr++ = IPP_TAG_EXTENSION;
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 24);
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 16);
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 8);
-	      *bufptr++ = (ipp_uchar_t)attr->value_tag;
-            }
-            else
-            {
-	      *bufptr++ = (ipp_uchar_t)attr->value_tag;
-	    }
-
+	    *bufptr++ = (ipp_uchar_t)attr->value_tag;
 	    *bufptr++ = (ipp_uchar_t)(n >> 8);
 	    *bufptr++ = (ipp_uchar_t)n;
 	    memcpy(bufptr, attr->name, (size_t)n);
