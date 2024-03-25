@@ -23,6 +23,8 @@ Changes in CUPS v2.5b1 (TBA)
   (Issue #751)
 - Updated `httpAddrConnect2()` to handle `POLLHUP` together with `POLLIN` or
   `POLLOUT` (Issue #839)
+- Updated `cupsRasterReadPixels` and `cupsRasterWritePixels` to not try reading
+  or writing if the number of bytes passed is 0 (Issue #914)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)

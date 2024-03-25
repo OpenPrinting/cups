@@ -1038,7 +1038,7 @@ _cupsRasterReadPixels(
   DEBUG_printf("_cupsRasterReadPixels(r=%p, p=%p, len=%u)", (void *)r, (void *)p, len);
 
   if (r == NULL || r->mode != CUPS_RASTER_READ || r->remaining == 0 ||
-      r->header.cupsBytesPerLine == 0)
+      r->header.cupsBytesPerLine == 0 || len == 0)
   {
     DEBUG_puts("1_cupsRasterReadPixels: Returning 0.");
     return (0);
