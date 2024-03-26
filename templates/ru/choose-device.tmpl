@@ -15,17 +15,17 @@
 <TH CLASS="label">Установленные принтеры\:</TH>
 <TD>
 {[device_uri]{device_class!network?<INPUT TYPE="RADIO" NAME="DEVICE_URI" ID="{device_uri}"
-VALUE="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">
-<LABEL FOR="{device_uri}">{device_info} {?device_make_and_model!Unknown?({device_make_and_model}):}</LABEL><BR>
+VALUE="{device_uri}{?device_make_and_model!Неизвестно?|{device_make_and_model}:}">
+<LABEL FOR="{device_uri}">{device_info} {?device_make_and_model!Неизвестно?({device_make_and_model}):}</LABEL><BR>
 :}}
 </TD>
 </TR>
 <TR>
 <TH CLASS="label">Найденные сетевые принтеры\:</TH>
 <TD>
-{[device_uri]{device_class=network?{device_uri~[a-z]+://?<INPUT TYPE="RADIO" NAME="DEVICE_URI" ID="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}"
-VALUE="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">
-<LABEL FOR="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}" title="{device_uri}">{device_info} {?device_make_and_model!Unknown?({device_make_and_model}):}</LABEL><BR>
+{[device_uri]{device_class=network?{device_uri~[a-z]+://?<INPUT TYPE="RADIO" NAME="DEVICE_URI" ID="{device_uri}{?device_make_and_model!Неизвестно?|{device_make_and_model}:}"
+VALUE="{device_uri}{?device_make_and_model!Неизвестно?|{device_make_and_model}:}">
+<LABEL FOR="{device_uri}{?device_make_and_model!Неизвестно?|{device_make_and_model}:}" title="{device_uri}">{device_info} {?device_make_and_model!Неизвестно?({device_make_and_model}):}</LABEL><BR>
 :}:}}
 </TD>
 </TR>
@@ -33,9 +33,9 @@ VALUE="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">
 <TR>
 <TH CLASS="label">Другие сетевые принтеры\:</TH>
 <TD>
-{[device_uri]{device_class=network?{device_uri~[a-z]+://?:<INPUT TYPE="RADIO" NAME="DEVICE_URI" ID="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}"
-VALUE="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">
-<LABEL FOR="{device_uri}{?device_make_and_model!Unknown?|{device_make_and_model}:}">{device_info} {?device_make_and_model!Unknown?({device_make_and_model}):}</LABEL><BR>
+{[device_uri]{device_class=network?{device_uri~[a-z]+://?:<INPUT TYPE="RADIO" NAME="DEVICE_URI" ID="{device_uri}{?device_make_and_model!Неизвестно?|{device_make_and_model}:}"
+VALUE="{device_uri}{?device_make_and_model!Неизвестно?|{device_make_and_model}:}">
+<LABEL FOR="{device_uri}{?device_make_and_model!Неизвестно?|{device_make_and_model}:}">{device_info} {?device_make_and_model!Неизвестно?({device_make_and_model}):}</LABEL><BR>
 }:}}
 </TD>
 </TR>

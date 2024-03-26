@@ -1,22 +1,5 @@
 <H2 CLASS="title">{op=modify-printer?Изменение {printer_name}:Добавление принтера}</H2>
 
-<SCRIPT TYPE="text/javascript"><!--
-function filterItems(el) {
-  var value = el.value.toLowerCase();
-  var form = el.form;
-  var sel = form.PPD_NAME;
-  var opt = sel.options;
-
-  for (var i=0; i<opt.length; i++) {
-    if (value && opt[i].text.toLowerCase().indexOf(value) == -1) {
-      opt[i].hidden = true;
-    } else {
-      opt[i].hidden = false;
-    }
-  }
-}
---></SCRIPT>
-
 <FORM METHOD="POST" ACTION="/admin" ENCTYPE="multipart/form-data">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
 <INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
@@ -48,8 +31,8 @@ function filterItems(el) {
 {?printer_is_shared=?Нет совместного доступа:{?printer_is_shared=0?Нет совместного доступа:Разрешить совместный доступ}} к этому принтеру</TD>
 </TR>
 <TR>
-<TH CLASS="label">Производитель:</TH>
-<TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Выбрать другого производителя"></TD>
+<TH CLASS="label">Марка:</TH>
+<TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Выбрать другую марку или производителя"></TD>
 </TR>
 <TR>
 <TH CLASS="label">Фильтр по модели:</TH>
@@ -61,7 +44,7 @@ function filterItems(el) {
 <SELECT NAME="PPD_NAME" SIZE="10">
 {op=add-printer?:<OPTION VALUE="__no_change__" SELECTED>Текущий драйвер - {current_make_and_model}</OPTION>:}
 {show_ipp_everywhere?<OPTION VALUE="everywhere" SELECTED>{current_make_and_model?{current_make_and_model} -:} IPP Everywhere &trade;</OPTION>:}
-{[ppd_name]<OPTION VALUE="{ppd_name}" {op=modify-printer?:{?current_make_and_model={ppd_make_and_model}?SELECTED:}}>{ppd_make_and_model} ({ppd_natural_language})</OPTION>
+{[ppd_name]<OPTION VALUE="{ppd_name}" {op=modify-printer?:{?current_make_and_model={ppd_make_and_model}?SELECTED:}}>{ppd_make_and_model} ({ppd_natural_language})
 }</SELECT>
 </TD>
 </TR>
@@ -72,7 +55,7 @@ TYPE="FILE" NAME="PPD_FILE"></TD>
 </TR>
 <TR>
 <TD></TD>
-<TD><INPUT TYPE="SUBMIT" VALUE="{op=add-printer?Добавить принтер:Сохранить}"></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="{op=add-printer?Добавить принтер:Изменить принтер}"></TD>
 </TR>
 </TABLE>
 

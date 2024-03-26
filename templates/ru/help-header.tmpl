@@ -1,11 +1,11 @@
 <FORM ACTION="/help/{?HELPFILE}" METHOD="GET">
 {TOPIC?<INPUT TYPE="HIDDEN" NAME="TOPIC" VALUE="{TOPIC}">:}
 
-<P ALIGN="CENTER"><B>Поиск
-{HELPTITLE?в {HELPTITLE}:{TOPIC?в {TOPIC}:по справке}}:</B> <INPUT
+<P ALIGN="CENTER"><B>Поиск в
+{HELPTITLE?{HELPTITLE}:{TOPIC?{TOPIC}:справке}}:</B> <INPUT
 TYPE="SEARCH" NAME="QUERY" VALUE="{?QUERY}" SIZE="40" PLACEHOLDER=""
 AUTOSAVE="org.cups.help" RESULTS="20">
-<INPUT TYPE="SUBMIT" NAME="SEARCH" VALUE="Поиск">
+<INPUT TYPE="SUBMIT" NAME="SEARCH" VALUE="Найти">
 <INPUT TYPE="SUBMIT" NAME="CLEAR" VALUE="Очистить"></P>
 
 </FORM>
@@ -32,12 +32,11 @@ AUTOSAVE="org.cups.help" RESULTS="20">
 <HR NOSHADE>:}
 {HELPTITLE?<FORM ACTION="/help/{?HELPFILE}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="PRINTABLE" VALUE="YES"><INPUT TYPE="SUBMIT" VALUE="Показать версию для печати"></FORM>:
 
-<H1>Справка</H1>
+<H1>Онлайн-справка</H1>
 
-<P>Это справка CUPS. Введите выше слова для поиска в справке и нажмите "Поиск", чтобы показать результаты поиска.</P>
+<P>Это интерфейс онлайн-справки CUPS. Сделайте поисковый запрос выше или нажмите любую из ссылок на документацию, чтобы получить результаты поиска.</P>
 
 <P>Если вы пока мало знакомы с CUPS, прочтите раздел "<a
-href="/help/overview.html">Введение в CUPS</a>". Опытные пользователи
-могут обратиться к разделу "<a href="/help/whatsnew.html">Что нового в CUPS 1.6</a>".</P>
+href="/help/overview.html">Введение в CUPS</a>".</P>
 
-<P><A HREF="https://openprinting.github.io/cups/">Веб-сайт CUPS</A> так же содержит большое количество ресурсов для пользователей, включая форум, ответы на часто задаваемые вопросы и форму для регистрации ошибок и пожеланий.</P>}
+<P><A HREF="https://openprinting.github.io/cups/">Веб-сайт CUPS</A> также содержит большое количество ресурсов для пользователей, включая форум, ответы на часто задаваемые вопросы и форму для регистрации ошибок и пожеланий.</P>}
