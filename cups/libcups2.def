@@ -57,8 +57,6 @@ _cupsStrFree
 _cupsStrRetain
 _cupsStrScand
 _cupsStrStatistics
-_cups_cupsConcatString
-_cups_cupsCopyString
 _cups_gettimeofday
 _cups_strcasecmp
 _cups_strcpy
@@ -81,7 +79,6 @@ _httpTLSWrite
 _httpUpdate
 _httpUseCredentials
 _httpWait
-_ippCheckOptions
 _ippFindOption
 _ppdCacheCreateWithFile
 _ppdCacheCreateWithPPD
