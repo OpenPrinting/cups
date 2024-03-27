@@ -742,7 +742,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
         gettimeofday(&(con->start), NULL);
 
         cupsdLogClient(con, CUPSD_LOG_DEBUG, "%s %s HTTP/%d.%d",
-	               httpStateString(con->operation) + 11, con->uri,
+	               httpStateString(con->operation), con->uri,
 		       httpGetVersion(con->http) / 100,
                        httpGetVersion(con->http) % 100);
 
