@@ -58,6 +58,8 @@ Changes in CUPS v2.5b1 (TBA)
   (Issue #862)
 - Fixed Oki 407 freeze when printing larger jobs (Issue #877)
 - Fixed checking for required attributes during PPD generation (Issue #890)
+- Fixed pwg-raster-document-resolution-supported and urf-supported values
+  (Issue #901)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
 - Fixed encoding of `IPP_TAG_EXTENSION` values in IPP messages (Issue #913)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
