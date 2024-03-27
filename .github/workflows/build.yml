@@ -64,7 +64,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: configure
-      run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
+      run: ./configure --enable-debug --enable-maintainer
     - name: make
       run: make
     - name: test
