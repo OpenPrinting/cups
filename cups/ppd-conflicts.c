@@ -207,8 +207,12 @@ cupsResolveConflicts(
   newopts     = NULL;
 
   for (i = 0; i < *num_options; i ++)
+  {
+    if (!*options)
+      return (0);
     num_newopts = cupsAddOption((*options)[i].name, (*options)[i].value,
                                 num_newopts, &newopts);
+  }
   if (option && _cups_strcasecmp(option, "Collate"))
     num_newopts = cupsAddOption(option, choice, num_newopts, &newopts);
 
