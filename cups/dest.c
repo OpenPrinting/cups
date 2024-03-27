@@ -814,7 +814,9 @@ _cupsCreateDest(const char *name,	// I - Printer name
   response = cupsDoRequest(http, request, "/");
 
   if ((attr = ippFindAttribute(response, "printer-uri-supported", IPP_TAG_URI)) != NULL)
+  {
     cupsCopyString(uri, ippGetString(attr, 0, NULL), urisize);
+  }
   else
   {
     ippDelete(response);

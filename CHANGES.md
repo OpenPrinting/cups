@@ -5,7 +5,8 @@ Changes in CUPS v2.5b1 (TBA)
 ----------------------------
 
 - Added `cupsDNSSD` APIs.
-- Added `cupsConcatString` and `cupsCopyString` string APIs.
+- Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
+  APIs.
 - Added new APIs for form, JSON, JWT, IPP, and raster setup.
 - Added OpenSSL support for `cupsHashData` (Issue #762)
 - Added warning if the device has to do IPP request for 'all,media-col-database'
@@ -56,6 +57,8 @@ Changes in CUPS v2.5b1 (TBA)
   numbers as strings instead of keywords as `InputSlot` values (Issue #859)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
+- Fixed potential race condition for the creation of temporary queues
+  (Issue #871)
 - Fixed Oki 407 freeze when printing larger jobs (Issue #877)
 - Fixed checking for required attributes during PPD generation (Issue #890)
 - Fixed pwg-raster-document-resolution-supported and urf-supported values

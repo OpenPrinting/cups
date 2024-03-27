@@ -5592,8 +5592,19 @@ create_local_printer(
 
   if ((printer = cupsdFindDest(name)) != NULL)
   {
-    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Printer \"%s\" already exists."), name);
+    printer->state_time = time(NULL);
+    send_ipp_status(con, IPP_STATUS_OK, _("Printer \"%s\" already exists."), name);
     goto add_printer_attributes;
+  }
+
+  for (printer = (cupsd_printer_t *)cupsArrayGetFirst(Printers); printer; printer = (cupsd_printer_t *)cupsArrayGetNext(Printers))
+  {
+    if (printer->device_uri && !strcmp(ptr, printer->device_uri))
+    {
+      printer->state_time = time(NULL);
+      send_ipp_status(con, IPP_STATUS_OK, _("Printer \"%s\" already exists."), printer->name);
+      goto add_printer_attributes;
+    }
   }
 
  /*
