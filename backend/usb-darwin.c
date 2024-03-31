@@ -300,7 +300,7 @@ static void sigquit_handler(int sig, siginfo_t *si, void *unused) _CUPS_NORETURN
 
 #ifdef PARSE_PS_ERRORS
 static const char *next_line (const char *buffer);
-static void parse_pserror (char *sockBuffer, int len);
+static void parse_pserror (char *sockBuffer, UInt32 len);
 #endif /* PARSE_PS_ERRORS */
 
 static printer_interface_t usb_printer_interface_interface(io_service_t usbClass);
@@ -932,8 +932,8 @@ static void *read_thread(void *reference)
     readstatus = (*g.classdriver)->ReadPipe(g.classdriver, readbuffer, &rbytes);
     if (readstatus == kIOReturnSuccess && rbytes > 0)
     {
-      fprintf(stderr, "DEBUG: Read %d bytes of back-channel data...\n",
-              (int)rbytes);
+      fprintf(stderr, "DEBUG: Read %u bytes of back-channel data...\n",
+              (unsigned)rbytes);
       cupsBackChannelWrite((char*)readbuffer, rbytes, 1.0);
 
       /* cntrl-d is echoed by the printer.
@@ -2312,7 +2312,7 @@ static const char *next_line (const char *buffer)
  */
 
 static void parse_pserror(char *sockBuffer,
-			  int len)
+			  UInt32 len)
 {
   static char  gErrorBuffer[1024] = "";
   static char *gErrorBufferPtr = gErrorBuffer;
