@@ -269,7 +269,7 @@ cupsDNSSDDecodeTXT(
   {
     // Format is a length byte followed by "key=value"
     keylen = *txtptr++;
-    if (keylen == 0 || (txtptr + keylen) > txtend)
+    if (keylen == 0 || (txtptr + keylen) > txtend || keylen >= sizeof(key))
       break;				// Bogus length
 
     // Copy the data to a C string...
