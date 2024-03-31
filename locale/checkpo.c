@@ -24,7 +24,7 @@
  * Local functions...
  */
 
-static char		*abbreviate(const char *s, char *buf, int bufsize);
+static char		*abbreviate(const char *s, char *buf, size_t bufsize);
 static cups_array_t	*collect_formats(const char *id);
 static void		free_formats(cups_array_t *fmts);
 
@@ -289,19 +289,22 @@ main(int  argc,				/* I - Number of command-line args */
  * 'abbreviate()' - Abbreviate a message string as needed.
  */
 
-static char *				/* O - Abbreviated string */
-abbreviate(const char *s,		/* I - String to abbreviate */
-           char       *buf,		/* I - Buffer */
-	   int        bufsize)		/* I - Size of buffer */
+static char *              /* O - Abbreviated string */
+abbreviate(const char *s,  /* I - String to abbreviate */
+           char *buf,      /* I - Buffer */
+           size_t bufsize) /* I - Size of buffer */
 {
   char	*bufptr;			/* Pointer into buffer */
 
+  if (bufsize < 4)
+    return (buf);
 
-  for (bufptr = buf, bufsize -= 4; *s && bufsize > 0; s ++)
-  {
+  // We want to reserve space for the \0
+  for (bufptr = buf, bufsize -= 4; *s && bufsize > 1; s++) {
     if (*s == '\n')
     {
-      if (bufsize < 2)
+      // We want to reserve space for the \0
+      if (bufsize <= 2)
         break;
 
       *bufptr++ = '\\';
@@ -310,7 +313,8 @@ abbreviate(const char *s,		/* I - String to abbreviate */
     }
     else if (*s == '\t')
     {
-      if (bufsize < 2)
+      // We want to reserve space for the \0
+      if (bufsize <= 2)
         break;
 
       *bufptr++ = '\\';
@@ -319,7 +323,8 @@ abbreviate(const char *s,		/* I - String to abbreviate */
     }
     else if (*s >= 0 && *s < ' ')
     {
-      if (bufsize < 4)
+      // We want to reserve space for the \0
+      if (bufsize <= 4)
         break;
 
       snprintf(bufptr, (size_t)bufsize, "\\%03o", *s);
@@ -333,8 +338,8 @@ abbreviate(const char *s,		/* I - String to abbreviate */
     }
   }
 
-  if (*s)
-    memcpy(bufptr, "...", 4);
+  if (*s && bufsize >= sizeof("..."))
+    strcpy(bufptr, "...");
   else
     *bufptr = '\0';
 
