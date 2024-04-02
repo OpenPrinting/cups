@@ -28,6 +28,8 @@ Changes in CUPS v2.4.8 (TBA)
   (Issue #862)
 - Fixed checking for required attributes during PPD generation (Issue #890)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
+- Fixed CGI program initialization and validation of form checkbox and text
+  fields.
 
 
 Changes in CUPS v2.4.7 (2023-09-20)

@@ -2,10 +2,11 @@
  * Online help CGI for CUPS.
  *
  * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2011 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2007-2011 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -172,7 +173,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   if (cgiGetVariable("CLEAR"))
     cgiSetVariable("QUERY", "");
 
-  query = cgiGetVariable("QUERY");
+  query = cgiGetTextfield("QUERY");
   si    = helpSearchIndex(hi, query, topic, helpfile);
 
   cgiClearVariables();

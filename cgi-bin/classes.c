@@ -2,10 +2,11 @@
  * Class status CGI for CUPS.
  *
  * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2007-2016 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -334,7 +335,7 @@ show_all_classes(http_t     *http,	/* I - Connection to server */
     * Get a list of matching job objects.
     */
 
-    if ((var = cgiGetVariable("QUERY")) != NULL &&
+    if ((var = cgiGetTextfield("QUERY")) != NULL &&
         !cgiGetVariable("CLEAR"))
       search = cgiCompileSearch(var);
     else

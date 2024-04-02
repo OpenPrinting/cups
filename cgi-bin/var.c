@@ -179,6 +179,41 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
 
 
 /*
+ * 'cgiGetCheckbox()' - Get a checkbox value, deleting any invalid values.
+ */
+
+const char *				/* O - Value or NULL */
+cgiGetCheckbox(const char *name)	/* I - Name of form field */
+{
+  _cgi_var_t	*var = cgi_find_variable(name);
+					/* Found variable */
+  const char	*value = var ? var->values[var->nvalues - 1] : NULL;
+
+
+  if (value && _cups_strcasecmp(value, "checkbox"))
+  {
+   /*
+    * Delete the invalid checkbox value...
+    */
+
+    int i = var - form_vars, j;
+
+    form_count --;
+
+    for (j = 0; j < var->nvalues; j ++)
+      free(var->values[j]);
+    free(var->name);
+    free(var->values);
+
+    if (i < form_count)
+      memmove(var, var + 1, (size_t)(form_count - i) * sizeof(_cgi_var_t));
+  }
+
+  return (value);
+}
+
+
+/*
  * 'cgiGetCookie()' - Get a cookie value.
  */
 
@@ -214,6 +249,41 @@ cgiGetSize(const char *name)		/* I - Name of variable */
     return (0);
 
   return (var->nvalues);
+}
+
+
+/*
+ * 'cgiGetTextfield()' - Get a textfield value, deleting any invalid values.
+ */
+
+const char *				/* O - Value or NULL */
+cgiGetTextfield(const char *name)	/* I - Name of form field */
+{
+  _cgi_var_t	*var = cgi_find_variable(name);
+					/* Found variable */
+  const char	*value = var ? var->values[var->nvalues - 1] : NULL;
+
+
+  if (value && strchr(value, '\"') != NULL)
+  {
+   /*
+    * Delete the invalid text field value...
+    */
+
+    int i = var - form_vars, j;
+
+    form_count --;
+
+    for (j = 0; j < var->nvalues; j ++)
+      free(var->values[j]);
+    free(var->name);
+    free(var->values);
+
+    if (i < form_count)
+      memmove(var, var + 1, (size_t)(form_count - i) * sizeof(_cgi_var_t));
+  }
+
+  return (value);
 }
 
 
