@@ -20,6 +20,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Updated CUPS to require ZLIB.
 - Updated CUPS to require support for `poll` API.
 - Updated `cupsArray` APIs to support modern naming and types.
+- Updated internal usage of CUPS array API to include callback pointer even when
+  not used (Issue #674)
 - Updated `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)
 - Updated `httpAddrConnect2()` to handle `POLLHUP` together with `POLLIN` or

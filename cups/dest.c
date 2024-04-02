@@ -125,7 +125,7 @@ static int		cups_block_cb(cups_dest_block_t block, unsigned flags, cups_dest_t *
 #endif // __BLOCKS__
 static int		cups_compare_dests(cups_dest_t *a, cups_dest_t *b);
 static void		cups_dest_browse_cb(cups_dnssd_browse_t *browse, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *name, const char *regtype, const char *domain);
-static int		cups_dnssd_compare_devices(_cups_dnssd_device_t *a, _cups_dnssd_device_t *b);
+static int		cups_dnssd_compare_devices(_cups_dnssd_device_t *a, _cups_dnssd_device_t *b, void *data);
 static void		cups_dnssd_free_device(_cups_dnssd_device_t *device, _cups_dnssd_data_t *data);
 static _cups_dnssd_device_t *cups_dnssd_get_device(_cups_dnssd_data_t *data, const char *serviceName, const char *regtype, const char *replyDomain);
 static void		cups_dest_query_cb(cups_dnssd_query_t *query, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, uint16_t rrtype, const void *qdata, uint16_t qlen);

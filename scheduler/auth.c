@@ -157,8 +157,8 @@ cupsdAddName(cupsd_location_t *loc,	/* I - Location to add to */
 
   if (!loc->names)
     loc->names = cupsArrayNew3(NULL, NULL, NULL, 0,
-                               (cups_acopy_func_t)_cupsStrPrivAlloc,
-                               (cups_afree_func_t)_cupsStrPrivFree);
+                               (cups_acopy_func_t)_cupsArrayStrdup,
+                               (cups_afree_func_t)_cupsArrayFree);
 
   if (!cupsArrayAdd(loc->names, name))
   {
