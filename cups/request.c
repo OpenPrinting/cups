@@ -60,8 +60,13 @@ cupsDoFileRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HT
       * Can't get file information!
       */
 
+      char message[255];	// Array for errno message+filename
+
+
+      cupsFormatString(message, sizeof(message), "%s - %s", strerror(errno), filename);
+
       _cupsSetError(errno == ENOENT ? IPP_STATUS_ERROR_NOT_FOUND : IPP_STATUS_ERROR_NOT_AUTHORIZED,
-                    NULL, 0);
+                    message, 0);
 
       ippDelete(request);
 
