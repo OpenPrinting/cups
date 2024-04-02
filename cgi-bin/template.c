@@ -2,10 +2,11 @@
  * CGI template function.
  *
  * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include "cgi-private.h"
@@ -397,6 +398,8 @@ cgi_copy(FILE *out,			/* I - Output file */
      /*
       * See if the terminating character requires another test...
       */
+
+      fprintf(stderr, "DEBUG2: %*s\"{%s}\"  mapped to \"%s\"...\n", indent, "", name, outptr);
 
       if (ch == '}')
       {

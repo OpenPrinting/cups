@@ -335,9 +335,9 @@ do_am_class(http_t *http,		/* I - HTTP connection */
 
   title = cgiText(modify ? _("Modify Class") : _("Add Class"));
   op    = cgiGetVariable("OP");
-  name  = cgiGetVariable("PRINTER_NAME");
+  name  = cgiGetTextfield("PRINTER_NAME");
 
-  if (cgiGetVariable("PRINTER_LOCATION") == NULL)
+  if (cgiGetTextfield("PRINTER_LOCATION") == NULL)
   {
    /*
     * Build a CUPS_GET_PRINTERS request, which requires the
@@ -544,10 +544,10 @@ do_am_class(http_t *http,		/* I - HTTP connection */
                NULL, uri);
 
   ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-location",
-               NULL, cgiGetVariable("PRINTER_LOCATION"));
+               NULL, cgiGetTextfield("PRINTER_LOCATION"));
 
   ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
-               NULL, cgiGetVariable("PRINTER_INFO"));
+               NULL, cgiGetTextfield("PRINTER_INFO"));
 
   ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-accepting-jobs", 1);
 
@@ -643,7 +643,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		};
 
 
-  ptr = cgiGetVariable("DEVICE_URI");
+  ptr = cgiGetTextfield("DEVICE_URI");
   fprintf(stderr, "DEBUG: do_am_printer: DEVICE_URI=\"%s\"\n",
           ptr ? ptr : "(null)");
 
@@ -664,7 +664,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s",
-		     cgiGetVariable("PRINTER_NAME"));
+		     cgiGetTextfield("PRINTER_NAME"));
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                  NULL, uri);
 
@@ -687,7 +687,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     fprintf(stderr, "DEBUG: file->mimetype=%s\n", file->mimetype);
   }
 
-  if ((name = cgiGetVariable("PRINTER_NAME")) != NULL)
+  if ((name = cgiGetTextfield("PRINTER_NAME")) != NULL)
   {
     for (ptr = name; *ptr; ptr ++)
       if ((*ptr >= 0 && *ptr <= ' ') || *ptr == 127 || *ptr == '/' || *ptr == '\\' || *ptr == '?' || *ptr == '\'' || *ptr == '\"' || *ptr == '#')
@@ -704,7 +704,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     }
   }
 
-  if ((var = cgiGetVariable("DEVICE_URI")) != NULL)
+  if ((var = cgiGetTextfield("DEVICE_URI")) != NULL)
   {
     if ((uriptr = strrchr(var, '|')) != NULL)
     {
@@ -880,7 +880,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     cgiCopyTemplateLang("choose-serial.tmpl");
     cgiEndHTML();
   }
-  else if (!name || !cgiGetVariable("PRINTER_LOCATION"))
+  else if (!name || !cgiGetTextfield("PRINTER_LOCATION"))
   {
     cgiStartHTML(title);
 
@@ -1119,7 +1119,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s",
-		     cgiGetVariable("PRINTER_NAME"));
+		     cgiGetTextfield("PRINTER_NAME"));
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                  NULL, uri);
 
@@ -1132,12 +1132,12 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     }
 
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-location",
-                 NULL, cgiGetVariable("PRINTER_LOCATION"));
+                 NULL, cgiGetTextfield("PRINTER_LOCATION"));
 
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
-                 NULL, cgiGetVariable("PRINTER_INFO"));
+                 NULL, cgiGetTextfield("PRINTER_INFO"));
 
-    cupsCopyString(uri, cgiGetVariable("DEVICE_URI"), sizeof(uri));
+    cupsCopyString(uri, cgiGetTextfield("DEVICE_URI"), sizeof(uri));
 
    /*
     * Strip make and model from URI...
@@ -1166,7 +1166,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-accepting-jobs", 1);
 
-    var = cgiGetVariable("printer_is_shared");
+    var = cgiGetCheckbox("printer_is_shared");
     ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-shared",
                   var && (!strcmp(var, "1") || !strcmp(var, "on")));
 
@@ -1307,29 +1307,29 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     * Get the checkbox values from the form...
     */
 
-    debug_logging        = cgiGetVariable("DEBUG_LOGGING") ? "1" : "0";
-    remote_admin         = cgiGetVariable("REMOTE_ADMIN") ? "1" : "0";
-    remote_any           = cgiGetVariable("REMOTE_ANY") ? "1" : "0";
-    share_printers       = cgiGetVariable("SHARE_PRINTERS") ? "1" : "0";
-    user_cancel_any      = cgiGetVariable("USER_CANCEL_ANY") ? "1" : "0";
+    debug_logging        = cgiGetCheckbox("DEBUG_LOGGING") ? "1" : "0";
+    remote_admin         = cgiGetCheckbox("REMOTE_ADMIN") ? "1" : "0";
+    remote_any           = cgiGetCheckbox("REMOTE_ANY") ? "1" : "0";
+    share_printers       = cgiGetCheckbox("SHARE_PRINTERS") ? "1" : "0";
+    user_cancel_any      = cgiGetCheckbox("USER_CANCEL_ANY") ? "1" : "0";
 
-    advanced = cgiGetVariable("ADVANCEDSETTINGS") != NULL;
+    advanced = cgiGetCheckbox("ADVANCEDSETTINGS") != NULL;
     if (advanced)
     {
      /*
       * Get advanced settings...
       */
 
-      browse_web_if        = cgiGetVariable("BROWSE_WEB_IF") ? "Yes" : "No";
-      max_clients          = cgiGetVariable("MAX_CLIENTS");
-      max_log_size         = cgiGetVariable("MAX_LOG_SIZE");
-      preserve_jobs        = cgiGetVariable("PRESERVE_JOBS");
+      browse_web_if        = cgiGetCheckbox("BROWSE_WEB_IF") ? "Yes" : "No";
+      max_clients          = cgiGetTextfield("MAX_CLIENTS");
+      max_log_size         = cgiGetTextfield("MAX_LOG_SIZE");
+      preserve_jobs        = cgiGetTextfield("PRESERVE_JOBS");
 
       if (preserve_jobs)
       {
-        max_jobs             = cgiGetVariable("MAX_JOBS");
-	preserve_job_history = cgiGetVariable("PRESERVE_JOB_HISTORY");
-	preserve_job_files   = cgiGetVariable("PRESERVE_JOB_FILES");
+        max_jobs             = cgiGetTextfield("MAX_JOBS");
+	preserve_job_history = cgiGetTextfield("PRESERVE_JOB_HISTORY");
+	preserve_job_files   = cgiGetTextfield("PRESERVE_JOB_FILES");
 
 	if (!max_jobs || atoi(max_jobs) < 0)
 	  max_jobs = "500";
@@ -1374,7 +1374,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     * Get authentication settings...
     */
 
-    if (cgiGetVariable("KERBEROS"))
+    if (cgiGetCheckbox("KERBEROS"))
       cupsCopyString(default_auth_type, "Negotiate", sizeof(default_auth_type));
     else
     {
@@ -1795,7 +1795,7 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
     return;
   }
 
-  if ((pclass = cgiGetVariable("PRINTER_NAME")) != NULL)
+  if ((pclass = cgiGetTextfield("PRINTER_NAME")) != NULL)
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/classes/%s", pclass);
   else
@@ -1880,7 +1880,7 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
     return;
   }
 
-  if ((printer = cgiGetVariable("PRINTER_NAME")) != NULL)
+  if ((printer = cgiGetTextfield("PRINTER_NAME")) != NULL)
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s", printer);
   else
@@ -2171,22 +2171,32 @@ do_menu(http_t *http)			/* I - HTTP connection */
   if ((val = cupsGetOption(CUPS_SERVER_DEBUG_LOGGING, num_settings,
                            settings)) != NULL && atoi(val))
     cgiSetVariable("DEBUG_LOGGING", "CHECKED");
+  else
+    cgiSetVariable("DEBUG_LOGGING", "");
 
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ADMIN, num_settings,
                            settings)) != NULL && atoi(val))
     cgiSetVariable("REMOTE_ADMIN", "CHECKED");
+  else
+    cgiSetVariable("REMOTE_ADMIN", "");
 
   if ((val = cupsGetOption(CUPS_SERVER_REMOTE_ANY, num_settings,
                            settings)) != NULL && atoi(val))
     cgiSetVariable("REMOTE_ANY", "CHECKED");
+  else
+    cgiSetVariable("REMOTE_ANY", "");
 
   if ((val = cupsGetOption(CUPS_SERVER_SHARE_PRINTERS, num_settings,
                            settings)) != NULL && atoi(val))
     cgiSetVariable("SHARE_PRINTERS", "CHECKED");
+  else
+    cgiSetVariable("SHARE_PRINTERS", "");
 
   if ((val = cupsGetOption(CUPS_SERVER_USER_CANCEL_ANY, num_settings,
                            settings)) != NULL && atoi(val))
     cgiSetVariable("USER_CANCEL_ANY", "CHECKED");
+  else
+    cgiSetVariable("USER_CANCEL_ANY", "");
 
 #ifdef HAVE_GSSAPI
   cgiSetVariable("HAVE_GSSAPI", "1");
@@ -2205,6 +2215,8 @@ do_menu(http_t *http)			/* I - HTTP connection */
   if (!_cups_strcasecmp(val, "yes") || !_cups_strcasecmp(val, "on") ||
       !_cups_strcasecmp(val, "true"))
     cgiSetVariable("BROWSE_WEB_IF", "CHECKED");
+  else
+    cgiSetVariable("BROWSE_WEB_IF", "");
 
   if ((val = cupsGetOption("PreserveJobHistory", num_settings,
                            settings)) == NULL)
@@ -2288,7 +2300,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 
 
   is_class = cgiGetVariable("IS_CLASS");
-  printer  = cgiGetVariable("PRINTER_NAME");
+  printer  = cgiGetTextfield("PRINTER_NAME");
 
   if (!printer)
   {
@@ -2299,7 +2311,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
     return;
   }
 
-  users = cgiGetVariable("users");
+  users = cgiGetTextfield("users");
   type  = cgiGetVariable("type");
 
   if (!users || !type ||
@@ -2541,7 +2553,7 @@ do_set_default(http_t *http)		/* I - HTTP connection */
 
 
   is_class = cgiGetVariable("IS_CLASS");
-  printer  = cgiGetVariable("PRINTER_NAME");
+  printer  = cgiGetTextfield("PRINTER_NAME");
   title    = cgiText(_("Set As Server Default"));
 
   if (!printer)
@@ -2651,7 +2663,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
   * Get the printer name...
   */
 
-  if ((printer = cgiGetVariable("PRINTER_NAME")) != NULL)
+  if ((printer = cgiGetTextfield("PRINTER_NAME")) != NULL)
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, is_class ? "/classes/%s" : "/printers/%s",
 		     printer);
@@ -3365,8 +3377,8 @@ do_set_sharing(http_t *http)		/* I - HTTP connection */
 
 
   is_class = cgiGetVariable("IS_CLASS");
-  printer  = cgiGetVariable("PRINTER_NAME");
-  shared   = cgiGetVariable("SHARED");
+  printer  = cgiGetTextfield("PRINTER_NAME");
+  shared   = cgiGetCheckbox("SHARED");
 
   if (!printer || !shared)
   {
