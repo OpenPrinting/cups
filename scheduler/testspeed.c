@@ -1,6 +1,7 @@
 /*
  * Scheduler speed test for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1997-2005 by Easy Software Products.
  *
@@ -63,8 +64,8 @@ main(int  argc,				/* I - Number of command-line arguments */
   requests   = 100;
   children   = 5;
   server     = (char *)cupsServer();
-  port       = ippPort();
-  encryption = HTTP_ENCRYPT_IF_REQUESTED;
+  port       = ippGetPort();
+  encryption = HTTP_ENCRYPTION_IF_REQUESTED;
   verbose    = 0;
   opstring   = NULL;
 
@@ -75,7 +76,7 @@ main(int  argc,				/* I - Number of command-line arguments */
         switch (*ptr)
 	{
 	  case 'E' : /* Enable encryption */
-	      encryption = HTTP_ENCRYPT_REQUIRED;
+	      encryption = HTTP_ENCRYPTION_REQUIRED;
 	      break;
 
 	  case 'c' : /* Number of children */
@@ -130,7 +131,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   {
     printf("testspeed: Simulating %d clients with %d requests to %s with "
            "%sencryption...\n", children, requests, server,
-	   encryption == HTTP_ENCRYPT_IF_REQUESTED ? "no " : "");
+	   encryption == HTTP_ENCRYPTION_IF_REQUESTED ? "no " : "");
   }
 
   start = time(NULL);
@@ -150,17 +151,17 @@ main(int  argc,				/* I - Number of command-line arguments */
     snprintf(reqstr, sizeof(reqstr), "%d", requests);
 
     if (port == 631 || server[0] == '/')
-      strlcpy(serverstr, server, sizeof(serverstr));
+      cupsCopyString(serverstr, server, sizeof(serverstr));
     else
       snprintf(serverstr, sizeof(serverstr), "%s:%d", server, port);
 
-    strlcpy(options, "-cr", sizeof(options));
+    cupsCopyString(options, "-cr", sizeof(options));
 
-    if (encryption == HTTP_ENCRYPT_REQUIRED)
-      strlcat(options, "E", sizeof(options));
+    if (encryption == HTTP_ENCRYPTION_REQUIRED)
+      cupsConcatString(options, "E", sizeof(options));
 
     if (verbose)
-      strlcat(options, "v", sizeof(options));
+      cupsConcatString(options, "v", sizeof(options));
 
     for (i = 0; i < children; i ++)
     {
@@ -253,11 +254,11 @@ do_test(const char        *server,	/* I - Server to use */
   int		op;			/* Current operation */
   static ipp_op_t ops[5] =		/* Operations to test... */
 		{
-		  IPP_PRINT_JOB,
-		  CUPS_GET_DEFAULT,
-		  CUPS_GET_PRINTERS,
-		  CUPS_GET_CLASSES,
-		  IPP_GET_JOBS
+		  IPP_OP_PRINT_JOB,
+		  IPP_OP_CUPS_GET_DEFAULT,
+		  IPP_OP_CUPS_GET_PRINTERS,
+		  IPP_OP_CUPS_GET_CLASSES,
+		  IPP_OP_GET_JOBS
 		};
 
 
@@ -302,7 +303,7 @@ do_test(const char        *server,	/* I - Server to use */
 
     switch (op)
     {
-      case IPP_GET_JOBS :
+      case IPP_OP_GET_JOBS :
 	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                        NULL, "ipp://localhost/printers/");
 
@@ -310,7 +311,7 @@ do_test(const char        *server,	/* I - Server to use */
 	  ippDelete(cupsDoRequest(http, request, "/"));
           break;
 
-      case IPP_PRINT_JOB :
+      case IPP_OP_PRINT_JOB :
 	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                        NULL, "ipp://localhost/printers/test");
 	  ippDelete(cupsDoFileRequest(http, request, "/printers/test",
@@ -324,13 +325,13 @@ do_test(const char        *server,	/* I - Server to use */
               0.000001 * (end.tv_usec - start.tv_usec);
     elapsed += reqtime;
 
-    switch (cupsLastError())
+    switch (cupsGetError())
     {
-      case IPP_OK :
-      case IPP_NOT_FOUND :
+      case IPP_STATUS_OK :
+      case IPP_STATUS_ERROR_NOT_FOUND :
           if (verbose)
 	  {
-	    printf("succeeded: %s (%.6f)\n", cupsLastErrorString(), reqtime);
+	    printf("succeeded: %s (%.6f)\n", cupsGetErrorString(), reqtime);
 	    fflush(stdout);
 	  }
           break;
@@ -340,7 +341,7 @@ do_test(const char        *server,	/* I - Server to use */
 	    printf("testspeed(%d): %s ", (int)getpid(),
 	           ippOpString(ops[i & 3]));
 
-	  printf("failed: %s\n", cupsLastErrorString());
+	  printf("failed: %s\n", cupsGetErrorString());
           httpClose(http);
 	  return (1);
     }

@@ -1,7 +1,7 @@
 /*
  * LIBUSB interface code for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -1126,7 +1126,7 @@ list_cb(usb_printer_t *printer,		/* I - Printer */
   */
 
   if (backendGetMakeModel(device_id, make_model, sizeof(make_model)))
-    strlcpy(make_model, "Unknown", sizeof(make_model));
+    cupsCopyString(make_model, "Unknown", sizeof(make_model));
 
  /*
   * Report the printer...
@@ -1357,7 +1357,7 @@ make_device_uri(
              (des = cupsGetOption("DES", num_values, values)) != NULL)
       _ppdNormalizeMakeAndModel(des, tempmfg, sizeof(tempmfg));
     else
-      strlcpy(tempmfg, "Unknown", sizeof(tempmfg));
+      cupsCopyString(tempmfg, "Unknown", sizeof(tempmfg));
 
     if ((tempptr = strchr(tempmfg, ' ')) != NULL)
       *tempptr = '\0';
@@ -1647,8 +1647,8 @@ print_cb(usb_printer_t *printer,	/* I - Printer */
   * Work on copies of the URIs...
   */
 
-  strlcpy(requested_uri, (char *)data, sizeof(requested_uri));
-  strlcpy(detected_uri, device_uri, sizeof(detected_uri));
+  cupsCopyString(requested_uri, (char *)data, sizeof(requested_uri));
+  cupsCopyString(detected_uri, device_uri, sizeof(detected_uri));
 
  /*
   * libusb-discovered URIs can have an "interface" specification and this

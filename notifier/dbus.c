@@ -1,12 +1,14 @@
 /*
  * D-Bus notifier for CUPS.
  *
- * Copyright 2008-2014 by Apple Inc.
- * Copyright (C) 2011, 2013 Red Hat, Inc.
- * Copyright (C) 2007 Tim Waugh <twaugh@redhat.com>
- * Copyright 1997-2005 by Easy Software Products.
+ * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2008-2014 by Apple Inc.
+ * Copyright © 2011, 2013 Red Hat, Inc.
+ * Copyright © 2007 Tim Waugh <twaugh@redhat.com>
+ * Copyright © 1997-2005 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -229,18 +231,18 @@ main(int  argc,				/* I - Number of command-line args */
     */
 
     msg = ippNew();
-    while ((state = ippReadFile(0, msg)) != IPP_DATA)
+    while ((state = ippReadFile(0, msg)) != IPP_STATE_DATA)
     {
-      if (state <= IPP_IDLE)
+      if (state <= IPP_STATE_IDLE)
         break;
     }
 
     fprintf(stderr, "DEBUG: state=%d\n", state);
 
-    if (state == IPP_ERROR)
+    if (state == IPP_STATE_ERROR)
       fputs("DEBUG: ippReadFile() returned IPP_ERROR!\n", stderr);
 
-    if (state <= IPP_IDLE)
+    if (state <= IPP_STATE_IDLE)
     {
      /*
       * Out of messages, free memory and then exit...
@@ -440,7 +442,7 @@ main(int  argc,				/* I - Number of command-line args */
 	    if (i)
 	      *p++ = ',';
 
-	    strlcpy(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - printer_reasons));
+	    cupsCopyString(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - printer_reasons));
 	    p += strlen(p);
 	  }
 	  if (!dbus_message_iter_append_string(&iter, &printer_reasons))
@@ -512,7 +514,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  if (i)
 	    *p++ = ',';
 
-	  strlcpy(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - job_reasons));
+	  cupsCopyString(p, ippGetString(attr, i, NULL), reasons_length - (size_t)(p - job_reasons));
 	  p += strlen(p);
 	}
 	if (!dbus_message_iter_append_string(&iter, &job_reasons))

@@ -249,6 +249,7 @@ span.string {
 <!--
   Administrative API header for CUPS.
 
+  Copyright © 2020-2024 by OpenPrinting.
   Copyright © 2016 by Apple Inc.
 
   Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -347,7 +348,7 @@ enable_web_interface(void)
 
   if (!<a href="#cupsAdminGetServerSettings">cupsAdminGetServerSettings</a>(CUPS_HTTP_DEFAULT, &amp;num_settings, &amp;settings))
   {
-    fprintf(stderr, "ERROR: Unable to get server settings: %s\n", cupsLastErrorString());
+    fprintf(stderr, "ERROR: Unable to get server settings: %s\n", cupsGetErrorString());
     return;
   }
 
@@ -355,7 +356,7 @@ enable_web_interface(void)
 
   if (!<a href="#cupsAdminSetServerSettings">cupsAdminSetServerSettings</a>(CUPS_HTTP_DEFAULT, num_settings, settings))
   {
-    fprintf(stderr, "ERROR: Unable to set server settings: %s\n", cupsLastErrorString());
+    fprintf(stderr, "ERROR: Unable to set server settings: %s\n", cupsGetErrorString());
   }
 
   <a href="api-cups.html#cupsFreeOptions">cupsFreeOptions</a>(num_settings, settings);
@@ -499,8 +500,7 @@ being provided by the <a href="#cupsEnumDests"><code>cupsEnumDests</code></a> an
 </p>
 <h2 class="title"><a id="TYPES">Data Types</a></h2>
 <h3 class="typedef"><a id="cups_device_cb_t"><span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span>cups_device_cb_t</a></h3>
-<p class="description">Device callback
-</p>
+<p class="description">Device callback </p>
 <p class="code">
 typedef void (*cups_device_cb_t)(const char *device_class, const char *device_id, const char *device_info, const char *device_make_and_model, const char *device_uri, const char *device_location, void *user_data);
 </p>

@@ -1,7 +1,7 @@
 dnl
 dnl Compiler tests for CUPS.
 dnl
-dnl Copyright © 2021-2023 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2018 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -227,8 +227,8 @@ AS_IF([test -n "$GCC"], [
 # Add general compiler options per platform...
 AS_CASE([$host_os_name], [linux*], [
     # glibc 2.8 and higher breaks peer credentials unless you
-    # define _GNU_SOURCE...
-    OPTIM="$OPTIM -D_GNU_SOURCE"
+    # define _GNU_SOURCE...  32-bit Linux needs 64-bit time/file offsets...
+    OPTIM="$OPTIM -D_GNU_SOURCE -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64"
 
     # The -z relro option is provided by the Linux linker command to
     # make relocatable data read-only.

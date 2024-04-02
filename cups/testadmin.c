@@ -1,6 +1,7 @@
 /*
  * Admin function test program for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2013 by Apple Inc.
  * Copyright 2006 by Easy Software Products.
  *
@@ -59,7 +60,7 @@ main(int  argc,				/* I - Number of command-line args */
     }
     else
     {
-      printf("Server settings not changed: %s\n", cupsLastErrorString());
+      printf("Server settings not changed: %s\n", cupsGetErrorString());
       return (1);
     }
   }
@@ -78,7 +79,7 @@ main(int  argc,				/* I - Number of command-line args */
   }
   else
   {
-    printf("    %s\n", cupsLastErrorString());
+    printf("    %s\n", cupsGetErrorString());
     return (1);
   }
 }

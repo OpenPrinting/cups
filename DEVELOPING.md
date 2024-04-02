@@ -8,10 +8,10 @@ contributing to the CUPS project.
 How To Contact The Developers
 -----------------------------
 
-The Linux Foundation's "printing-architecture" mailing list is the primary means
-of asking questions and informally discussing issues and feature requests with
-the OpenPrinting developers.  To subscribe or see the mailing list archives, go
-to <https://lists.linuxfoundation.org/mailman/listinfo/printing-architecture>.
+The Linux "printing-architecture" mailing list is the primary means of asking
+questions and informally discussing issues and feature requests with the
+OpenPrinting developers.  To subscribe or see the mailing list archives, go
+to <https://subspace.kernel.org/lists.linux.dev.html>.
 
 
 Interfaces

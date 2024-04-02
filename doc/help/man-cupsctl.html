@@ -1,91 +1,107 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>cupsctl(8)</title>
-</head>
-<body>
-<h1 class="title">cupsctl(8)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-cupsctl - configure cupsd.conf options
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>cupsctl</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cupsctl(8)</title>
+  </head>
+  <body>
+    <h1 id="cupsctl-8">cupsctl(8)</h1>
+    <h2 id="cupsctl-8.name">Name</h2>
+<p>cupsctl - configure cupsd.conf options
+</p>
+    <h2 id="cupsctl-8.synopsis">Synopsis</h2>
+<p><strong>cupsctl</strong>
 [
-<b>-h</b>
-<i>server</i>[<b>:</b><i>port</i>]
+<strong>-h</strong>
+<em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-U</b>
-<i>username</i>
+<strong>-U</strong>
+<em>username</em>
 ] [
-<b>--</b>[<b>no-</b>]<b>debug-logging</b>
+<strong>--</strong>[<strong>no-</strong>]<strong>debug-logging</strong>
 ] [
-<b>--</b>[<b>no-</b>]<b>remote-admin</b>
+<strong>--</strong>[<strong>no-</strong>]<strong>remote-admin</strong>
 ] [
-<b>--</b>[<b>no-</b>]<b>remote-any</b>
+<strong>--</strong>[<strong>no-</strong>]<strong>remote-any</strong>
 ] [
-<b>--</b>[<b>no-</b>]<b>share-printers</b>
+<strong>--</strong>[<strong>no-</strong>]<strong>share-printers</strong>
 ] [
-<b>--</b>[<b>no-</b>]<b>user-cancel-any</b>
+<strong>--</strong>[<strong>no-</strong>]<strong>user-cancel-any</strong>
 ] [
-<i>name=value</i>
+<em>name=value</em>
 ]
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>cupsctl</b> updates or queries the <i>cupsd.conf</i> file for a server. When
+</p>
+    <h2 id="cupsctl-8.description">Description</h2>
+<p><strong>cupsctl</strong> updates or queries the <em>cupsd.conf</em> file for a server. When
 no changes are requested, the current configuration values are written to the
-standard output in the format "name=value", one per line.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-The following options are recognized:
-<dl class="man">
-<dt><b>-E</b>
-<dd style="margin-left: 5.0em">Enables encryption on the connection to the scheduler.
-<dt><b>-U </b><i>username</i>
-<dd style="margin-left: 5.0em">Specifies an alternate username to use when authenticating with the scheduler.
-<dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
-<dd style="margin-left: 5.0em">Specifies the server address.
+standard output in the format &quot;name=value&quot;, one per line.
+</p>
+    <h2 id="cupsctl-8.options">Options</h2>
+<p>The following options are recognized:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Enables encryption on the connection to the scheduler.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>username</em><br>
+Specifies an alternate username to use when authenticating with the scheduler.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Specifies the server address.
 Note: This option must occur before all others.
-<dt><b>--</b>[<b>no-</b>]<b>debug-logging</b>
-<dd style="margin-left: 5.0em">Enables (disables) debug logging to the <i>error_log</i> file.
-<dt><b>--</b>[<b>no-</b>]<b>remote-admin</b>
-<dd style="margin-left: 5.0em">Enables (disables) remote administration.
-<dt><b>--</b>[<b>no-</b>]<b>remote-any</b>
-<dd style="margin-left: 5.0em">Enables (disables) printing from any address, e.g., the Internet.
-<dt><b>--</b>[<b>no-</b>]<b>share-printers</b>
-<dd style="margin-left: 5.0em">Enables (disables) sharing of local printers with other computers.
-<dt><b>--</b>[<b>no-</b>]<b>user-cancel-any</b>
-<dd style="margin-left: 5.0em">Allows (prevents) users to cancel jobs owned by others.
-</dl>
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
-Display the current settings:
-<pre class="man">
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--</strong>[<strong>no-</strong>]<strong>debug-logging</strong><br>
+Enables (disables) debug logging to the <em>error_log</em> file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--</strong>[<strong>no-</strong>]<strong>remote-admin</strong><br>
+Enables (disables) remote administration.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--</strong>[<strong>no-</strong>]<strong>remote-any</strong><br>
+Enables (disables) printing from any address, e.g., the Internet.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--</strong>[<strong>no-</strong>]<strong>share-printers</strong><br>
+Enables (disables) sharing of local printers with other computers.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--</strong>[<strong>no-</strong>]<strong>user-cancel-any</strong><br>
+Allows (prevents) users to cancel jobs owned by others.
+</p>
+    <h2 id="cupsctl-8.examples">Examples</h2>
+<p>Display the current settings:
+</p>
+    <pre>
     cupsctl
 
 </pre>
-Enable debug logging:
-<pre class="man">
+<p>Enable debug logging:
+</p>
+    <pre>
     cupsctl --debug-logging
 
 </pre>
-Get the current debug logging state:
-<pre class="man">
+<p>Get the current debug logging state:
+</p>
+    <pre>
     cupsctl | grep '^_debug_logging' | awk -F= '{print $2}'
 
 </pre>
-Disable printer sharing:
-<pre class="man">
+<p>Disable printer sharing:
+</p>
+    <pre>
     cupsctl --no-share-printers
 </pre>
-<h2 class="title"><a name="KNOWN_ISSUES">Known Issues</a></h2>
-You cannot set the Listen or Port directives using <b>cupsctl</b>.
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-cupsd.conf.html?TOPIC=Man+Pages"><b>cupsd.conf</b>(5),</a>
-<a href="man-cupsd.html?TOPIC=Man+Pages"><b>cupsd</b>(8),</a>
+    <h2 id="cupsctl-8.known-issues">Known Issues</h2>
+<p>You cannot set the Listen or Port directives using <strong>cupsctl</strong>.
+</p>
+    <h2 id="cupsctl-8.see-also">See Also</h2>
+<p><strong>cupsd.conf</strong>(5),
+
+<strong>cupsd</strong>(8),
+
 <br>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
-
-</body>
+</p>
+    <h2 id="cupsctl-8.copyright">Copyright</h2>
+<p>Copyright &copy; 2020-2024 by OpenPrinting.
+  </body>
 </html>

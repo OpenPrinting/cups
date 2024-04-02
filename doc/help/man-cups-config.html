@@ -1,107 +1,124 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>cups-config(1)</title>
-</head>
-<body>
-<h1 class="title">cups-config(1)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-cups-config - get cups api, compiler, directory, and link information (deprecated).
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>cups-config</b>
-<i>--api-version</i>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cups-config(1)</title>
+  </head>
+  <body>
+    <h1 id="cups-config-1">cups-config(1)</h1>
+    <h2 id="cups-config-1.name">Name</h2>
+<p>cups-config - get cups api, compiler, directory, and link information (deprecated).
+</p>
+    <h2 id="cups-config-1.synopsis">Synopsis</h2>
+<p><strong>cups-config</strong>
+<em>--api-version</em>
 <br>
-<b>cups-config</b>
-<i>--build</i>
+<strong>cups-config</strong>
+<em>--build</em>
 <br>
-<b>cups-config</b>
-<i>--cflags</i>
+<strong>cups-config</strong>
+<em>--cflags</em>
 <br>
-<b>cups-config</b>
-<i>--datadir</i>
+<strong>cups-config</strong>
+<em>--datadir</em>
 <br>
-<b>cups-config</b>
-<i>--help</i>
+<strong>cups-config</strong>
+<em>--help</em>
 <br>
-<b>cups-config</b>
-<i>--ldflags</i>
+<strong>cups-config</strong>
+<em>--ldflags</em>
 <br>
-<b>cups-config</b>
+<strong>cups-config</strong>
 [
-<i>--image</i>
+<em>--image</em>
 ] [
-<i>--static</i>
+<em>--static</em>
 ]
-<i>--libs</i>
+<em>--libs</em>
 <br>
-<b>cups-config</b>
-<i>--serverbin</i>
+<strong>cups-config</strong>
+<em>--serverbin</em>
 <br>
-<b>cups-config</b>
-<i>--serverroot</i>
+<strong>cups-config</strong>
+<em>--serverroot</em>
 <br>
-<b>cups-config</b>
-<i>--version</i>
+<strong>cups-config</strong>
+<em>--version</em>
 <br>
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-The <b>cups-config</b> command allows application developers to determine the necessary command-line options for the compiler and linker, as well as the installation directories for filters, configuration files, and drivers.
+</p>
+    <h2 id="cups-config-1.description">Description</h2>
+<p>The <strong>cups-config</strong> command allows application developers to determine the necessary command-line options for the compiler and linker, as well as the installation directories for filters, configuration files, and drivers.
 All values are reported to the standard output.
-<b>Note:</b>
+<strong>Note:</strong>
 This command is deprecated and will be removed in a future version of CUPS.
 The
-<b>pkg-config</b>(1)
+<strong>pkg-config</strong>(1)
+
 command should be used instead.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-The <b>cups-config</b> command accepts the following command-line options:
-<dl class="man">
-<dt><b>--api-version</b>
-<dd style="margin-left: 5.0em">Reports the current API version (major.minor).
-<dt><b>--build</b>
-<dd style="margin-left: 5.0em">Reports a system-specific build number.
-<dt><b>--cflags</b>
-<dd style="margin-left: 5.0em">Reports the necessary compiler options.
-<dt><b>--datadir</b>
-<dd style="margin-left: 5.0em">Reports the default CUPS data directory.
-<dt><b>--help</b>
-<dd style="margin-left: 5.0em">Reports the program usage message.
-<dt><b>--ldflags</b>
-<dd style="margin-left: 5.0em">Reports the necessary linker options.
-<dt><b>--libs</b>
-<dd style="margin-left: 5.0em">Reports the necessary libraries to link to.
-<dt><b>--serverbin</b>
-<dd style="margin-left: 5.0em">Reports the default CUPS binary directory, where filters and backends are stored.
-<dt><b>--serverroot</b>
-<dd style="margin-left: 5.0em">Reports the default CUPS configuration file directory.
-<dt><b>--static</b>
-<dd style="margin-left: 5.0em">When used with <i>--libs</i>, reports the static libraries instead of the default (shared) libraries.
-<dt><b>--version</b>
-<dd style="margin-left: 5.0em">Reports the full version number of the CUPS installation (major.minor.patch).
-</dl>
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
-Show the currently installed version of CUPS:
-<pre class="man">
+</p>
+    <h2 id="cups-config-1.options">Options</h2>
+<p>The <strong>cups-config</strong> command accepts the following command-line options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--api-version</strong><br>
+Reports the current API version (major.minor).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--build</strong><br>
+Reports a system-specific build number.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--cflags</strong><br>
+Reports the necessary compiler options.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--datadir</strong><br>
+Reports the default CUPS data directory.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--help</strong><br>
+Reports the program usage message.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--ldflags</strong><br>
+Reports the necessary linker options.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--libs</strong><br>
+Reports the necessary libraries to link to.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--serverbin</strong><br>
+Reports the default CUPS binary directory, where filters and backends are stored.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--serverroot</strong><br>
+Reports the default CUPS configuration file directory.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--static</strong><br>
+When used with <em>--libs</em>, reports the static libraries instead of the default (shared) libraries.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
+Reports the full version number of the CUPS installation (major.minor.patch).
+</p>
+    <h2 id="cups-config-1.examples">Examples</h2>
+<p>Show the currently installed version of CUPS:
+</p>
+    <pre>
     cups-config --version
 
 </pre>
-Compile a simple one-file CUPS filter:
-<pre class="man">
+<p>Compile a simple one-file CUPS filter:
+</p>
+    <pre>
     cc `cups-config --cflags --ldflags` -o filter filter.c \
         `cups-config --libs`
 </pre>
-<h2 class="title"><a name="DEPRECATED_OPTIONS">Deprecated Options</a></h2>
-The following options are deprecated but continue to work for backwards compatibility:
-<dl class="man">
-<dt><b>--image</b>
-<dd style="margin-left: 5.0em">Formerly used to add the CUPS imaging library to the list of libraries.
-</dl>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-cups.html?TOPIC=Man+Pages"><b>cups</b>(1),</a>
-<b>pkg-config</b>(1),
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
+    <h2 id="cups-config-1.deprecated-options">Deprecated Options</h2>
+<p>The following options are deprecated but continue to work for backwards compatibility:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--image</strong><br>
+Formerly used to add the CUPS imaging library to the list of libraries.
+</p>
+    <h2 id="cups-config-1.see-also">See Also</h2>
+<p><strong>cups</strong>(1),
 
-</body>
+<strong>pkg-config</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="cups-config-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2020-2024 by OpenPrinting.
+  </body>
 </html>

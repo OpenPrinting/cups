@@ -1,6 +1,7 @@
 /*
  * Localized printf/puts functions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 2002-2007 by Easy Software Products.
  *
@@ -69,7 +70,7 @@ _cupsLangPrintError(const char *prefix,	/* I - Non-localized message prefix */
 	   /* TRANSLATORS: Message is "subject: error" */
 	   _cupsLangString(cg->lang_default, _("%s: %s")),
 	   _cupsLangString(cg->lang_default, message), strerror(last_errno));
-  strlcat(buffer, "\n", sizeof(buffer));
+  cupsConcatString(buffer, "\n", sizeof(buffer));
 
  /*
   * Convert and write to stderr...
@@ -179,7 +180,7 @@ _cupsLangPrintf(FILE       *fp,		/* I - File to write to */
 	    _cupsLangString(cg->lang_default, message), ap);
   va_end(ap);
 
-  strlcat(buffer, "\n", sizeof(buffer));
+  cupsConcatString(buffer, "\n", sizeof(buffer));
 
  /*
   * Transcode to the destination charset...
@@ -279,14 +280,14 @@ _cupsSetLocale(char *argv[])		/* IO - Command-line arguments */
 
   if (lc_time)
   {
-    strlcpy(new_lc_time, lc_time, sizeof(new_lc_time));
+    cupsCopyString(new_lc_time, lc_time, sizeof(new_lc_time));
     if ((charset = strchr(new_lc_time, '.')) == NULL)
       charset = new_lc_time + strlen(new_lc_time);
 
-    strlcpy(charset, ".UTF-8", sizeof(new_lc_time) - (size_t)(charset - new_lc_time));
+    cupsCopyString(charset, ".UTF-8", sizeof(new_lc_time) - (size_t)(charset - new_lc_time));
   }
   else
-    strlcpy(new_lc_time, "C", sizeof(new_lc_time));
+    cupsCopyString(new_lc_time, "C", sizeof(new_lc_time));
 
   setlocale(LC_TIME, new_lc_time);
 #endif /* LC_TIME */

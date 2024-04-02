@@ -1,6 +1,7 @@
 /*
  * EPSON ESC/P and ESC/P2 filter for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2018 by Apple Inc.
  * Copyright 1993-2007 by Easy Software Products.
  *
@@ -972,9 +973,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   ppd_file_t		*ppd;		/* PPD file */
   int			page;		/* Current page */
   unsigned		y;		/* Current line */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -1025,17 +1024,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   Canceled = 0;
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGTERM, CancelJob);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
   action.sa_handler = CancelJob;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGTERM, CancelJob);
-#endif /* HAVE_SIGSET */
 
  /*
   * Initialize the print device...

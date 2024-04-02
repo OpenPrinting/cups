@@ -1,6 +1,7 @@
 /*
  * Quota routines for the CUPS scheduler.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2011 by Apple Inc.
  * Copyright 1997-2007 by Easy Software Products.
  *
@@ -40,7 +41,7 @@ cupsdFindQuota(
   if (!p || !username)
     return (NULL);
 
-  strlcpy(match.username, username, sizeof(match.username));
+  cupsCopyString(match.username, username, sizeof(match.username));
   if ((ptr = strchr(match.username, '@')) != NULL)
     *ptr = '\0';			/* Strip @domain/@KDC */
 
@@ -157,7 +158,7 @@ cupsdUpdateQuota(
       * This job is too old to count towards the quota, ignore it...
       */
 
-      if (JobAutoPurge && !job->printer && job->state_value > IPP_JOB_STOPPED)
+      if (JobAutoPurge && !job->printer && job->state_value > IPP_JSTATE_STOPPED)
         cupsdDeleteJob(job, CUPSD_JOB_PURGE);
 
       continue;
@@ -203,7 +204,7 @@ add_quota(cupsd_printer_t *p,		/* I - Printer */
   if ((q = calloc(1, sizeof(cupsd_quota_t))) == NULL)
     return (NULL);
 
-  strlcpy(q->username, username, sizeof(q->username));
+  cupsCopyString(q->username, username, sizeof(q->username));
   if ((ptr = strchr(q->username, '@')) != NULL)
     *ptr = '\0';			/* Strip @domain/@KDC */
 

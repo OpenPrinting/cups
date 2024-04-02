@@ -1,6 +1,7 @@
 /*
  * IEEE-1284 support functions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2015 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -295,7 +296,7 @@ backendGetDeviceID(
     }
     else
     {
-      strlcpy(temp, make_model, sizeof(temp));
+      cupsCopyString(temp, make_model, sizeof(temp));
 
       if ((tempptr = strchr(temp, ' ')) != NULL)
         *tempptr = '\0';
@@ -436,7 +437,7 @@ backendGetMakeModel(
     * Use "Unknown" as the printer make and model...
     */
 
-    strlcpy(make_model, "Unknown", make_model_size);
+    cupsCopyString(make_model, "Unknown", make_model_size);
   }
 
   cupsFreeOptions(num_values, values);

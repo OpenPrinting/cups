@@ -1,7 +1,7 @@
 /*
  * Authorization routines for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -18,12 +18,6 @@
 
 #include "cupsd.h"
 #include <grp.h>
-#ifdef HAVE_SHADOW_H
-#  include <shadow.h>
-#endif /* HAVE_SHADOW_H */
-#ifdef HAVE_CRYPT_H
-#  include <crypt.h>
-#endif /* HAVE_CRYPT_H */
 #if HAVE_LIBPAM
 #  ifdef HAVE_PAM_PAM_APPL_H
 #    include <pam/pam_appl.h>
@@ -106,7 +100,7 @@ cupsdAddIPMask(
   cupsd_authmask_t	temp;		/* New host/domain mask */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddIPMask(masks=%p(%p), address=%x:%x:%x:%x, netmask=%x:%x:%x:%x)", masks, *masks, address[0], address[1], address[2], address[3], netmask[0], netmask[1], netmask[2], netmask[3]);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddIPMask(masks=%p(%p), address=%x:%x:%x:%x, netmask=%x:%x:%x:%x)", (void *)masks, (void *)*masks, address[0], address[1], address[2], address[3], netmask[0], netmask[1], netmask[2], netmask[3]);
 
   temp.type = CUPSD_AUTH_IP;
   memcpy(temp.mask.ip.address, address, sizeof(temp.mask.ip.address));
@@ -159,7 +153,7 @@ void
 cupsdAddName(cupsd_location_t *loc,	/* I - Location to add to */
              char             *name)	/* I - Name to add */
 {
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddName(loc=%p, name=\"%s\")", loc, name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddName(loc=%p, name=\"%s\")", (void *)loc, name);
 
   if (!loc->names)
     loc->names = cupsArrayNew3(NULL, NULL, NULL, 0,
@@ -189,7 +183,7 @@ cupsdAddNameMask(cups_array_t **masks,	/* IO - Masks array (created as needed) *
 			*ifptr;		/* Pointer to end of name */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddNameMask(masks=%p(%p), name=\"%s\")", masks, *masks, name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddNameMask(masks=%p(%p), name=\"%s\")", (void *)masks, (void *)*masks, name);
 
   if (!_cups_strcasecmp(name, "@LOCAL"))
   {
@@ -206,7 +200,7 @@ cupsdAddNameMask(cups_array_t **masks,	/* IO - Masks array (created as needed) *
     * Deny *interface*...
     */
 
-    strlcpy(ifname, name + 4, sizeof(ifname));
+    cupsCopyString(ifname, name + 4, sizeof(ifname));
 
     ifptr = ifname + strlen(ifname) - 1;
 
@@ -275,7 +269,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   con->best = cupsdFindBest(con->uri, httpGetState(con->http));
   con->type = CUPSD_AUTH_NONE;
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "con->uri=\"%s\", con->best=%p(%s)", con->uri, con->best, con->best ? con->best->location : "");
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "con->uri=\"%s\", con->best=%p(%s)", con->uri, (void *)con->best, con->best ? con->best->location : "");
 
   if (con->best && con->best->type != CUPSD_AUTH_NONE)
   {
@@ -358,7 +352,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       if (authinfo->count == 1 && authinfo->items[0].value &&
           authinfo->items[0].valueLength >= 2)
       {
-        strlcpy(username, authinfo->items[0].value, sizeof(username));
+        cupsCopyString(username, authinfo->items[0].value, sizeof(username));
 
         cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" using AuthRef.", username);
       }
@@ -390,7 +384,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
         return;
       }
 
-      strlcpy(username, pwd->pw_name, sizeof(username));
+      cupsCopyString(username, pwd->pw_name, sizeof(username));
 
       cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" using AuthRef + PeerCred.", username);
     }
@@ -472,7 +466,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       return;
     }
 
-    strlcpy(username, authorization + 9, sizeof(username));
+    cupsCopyString(username, authorization + 9, sizeof(username));
 
 #  ifdef HAVE_GSSAPI
     con->gss_uid = CUPSD_UCRED_UID(peercred);
@@ -500,7 +494,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       return;
     }
 
-    strlcpy(username, localuser->username, sizeof(username));
+    cupsCopyString(username, localuser->username, sizeof(username));
     con->type = localuser->type;
 
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as %s using Local.", username);
@@ -553,7 +547,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       return;
     }
 
-    strlcpy(password, ptr, sizeof(password));
+    cupsCopyString(password, ptr, sizeof(password));
 
    /*
     * Validate the username and password...
@@ -573,8 +567,8 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       cupsd_authdata_t	data;		/* Authentication data */
 
 
-      strlcpy(data.username, username, sizeof(data.username));
-      strlcpy(data.password, password, sizeof(data.password));
+      cupsCopyString(data.username, username, sizeof(data.username));
+      cupsCopyString(data.password, password, sizeof(data.password));
 
 #  ifdef __sun
       pamdata.conv        = (int (*)(int, struct pam_message **,
@@ -629,86 +623,9 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       }
 
       pam_end(pamh, PAM_SUCCESS);
-
 #else
-     /*
-      * Use normal UNIX password file-based authentication...
-      */
-
-      char		*pass;		/* Encrypted password */
-      struct passwd	*pw;		/* User password data */
-#  ifdef HAVE_SHADOW_H
-      struct spwd	*spw;		/* Shadow password data */
-#  endif /* HAVE_SHADOW_H */
-
-
-      pw = getpwnam(username);		/* Get the current password */
-      endpwent();			/* Close the password file */
-
-      if (!pw)
-      {
-       /*
-	* No such user...
-	*/
-
-	cupsdLogClient(con, CUPSD_LOG_ERROR, "Unknown username \"%s\".", username);
-	return;
-      }
-
-#  ifdef HAVE_SHADOW_H
-      spw = getspnam(username);
-      endspent();
-
-      if (!spw && !strcmp(pw->pw_passwd, "x"))
-      {
-       /*
-	* Don't allow blank passwords!
-	*/
-
-	cupsdLogClient(con, CUPSD_LOG_ERROR, "Username \"%s\" has no shadow password.", username);
-	return;
-      }
-
-      if (spw && !spw->sp_pwdp[0] && !pw->pw_passwd[0])
-#  else
-      if (!pw->pw_passwd[0])
-#  endif /* HAVE_SHADOW_H */
-      {
-       /*
-	* Don't allow blank passwords!
-	*/
-
-	cupsdLogClient(con, CUPSD_LOG_ERROR, "Username \"%s\" has no password.", username);
-	return;
-      }
-
-     /*
-      * OK, the password isn't blank, so compare with what came from the
-      * client...
-      */
-
-      pass = crypt(password, pw->pw_passwd);
-
-      if (!pass || strcmp(pw->pw_passwd, pass))
-      {
-#  ifdef HAVE_SHADOW_H
-	if (spw)
-	{
-	  pass = crypt(password, spw->sp_pwdp);
-
-	  if (pass == NULL || strcmp(spw->sp_pwdp, pass))
-	  {
-	    cupsdLogClient(con, CUPSD_LOG_ERROR, "Authentication failed for user \"%s\".", username);
-	    return;
-	  }
-	}
-	else
-#  endif /* HAVE_SHADOW_H */
-	{
-	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Authentication failed for user \"%s\".", username);
-	  return;
-	}
-      }
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "No authentication support is available.");
+      return;
 #endif /* HAVE_LIBPAM */
     }
 
@@ -816,7 +733,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 	return;
       }
 
-      strlcpy(username, output_token.value, sizeof(username));
+      cupsCopyString(username, output_token.value, sizeof(username));
 
       cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" using Negotiate.", username);
 
@@ -865,7 +782,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
 
     if (sscanf(authorization, "%255s", scheme) != 1)
-      strlcpy(scheme, "UNKNOWN", sizeof(scheme));
+      cupsCopyString(scheme, "UNKNOWN", sizeof(scheme));
 
     cupsdLogClient(con, CUPSD_LOG_ERROR, "Bad authentication data \"%s ...\".", scheme);
     return;
@@ -877,8 +794,8 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   * data and return...
   */
 
-  strlcpy(con->username, username, sizeof(con->username));
-  strlcpy(con->password, password, sizeof(con->password));
+  cupsCopyString(con->username, username, sizeof(con->username));
+  cupsCopyString(con->password, password, sizeof(con->password));
 }
 
 
@@ -1144,7 +1061,7 @@ cupsdCheckGroup(
 #endif /* HAVE_MBR_UID_TO_UUID */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCheckGroup(username=\"%s\", user=%p, groupname=\"%s\")", username, user, groupname);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCheckGroup(username=\"%s\", user=%p, groupname=\"%s\")", username, (void *)user, groupname);
 
  /*
   * Validate input...
@@ -1410,7 +1327,7 @@ cupsdFindBest(const char   *path,	/* I - Resource path */
   * URIs...
   */
 
-  strlcpy(uri, path, sizeof(uri));
+  cupsCopyString(uri, path, sizeof(uri));
 
   if ((uriptr = strchr(uri, '?')) != NULL)
     *uriptr = '\0';		/* Drop trailing query string */
@@ -1560,7 +1477,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 		};
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: con->uri=\"%s\", con->best=%p(%s)", con->uri, con->best, con->best ? con->best->location ? con->best->location : "(null)" : "");
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: con->uri=\"%s\", con->best=%p(%s)", con->uri, (void *)con->best, con->best ? con->best->location ? con->best->location : "(null)" : "");
   if (owner)
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: owner=\"%s\"", owner);
 
@@ -1575,9 +1492,9 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     if (httpAddrLocalhost(httpGetAddress(con->http)) ||
         !strcmp(hostname, ServerName) ||
 	cupsArrayFind(ServerAlias, (void *)hostname))
-      return (HTTP_OK);
+      return (HTTP_STATUS_OK);
     else
-      return (HTTP_FORBIDDEN);
+      return (HTTP_STATUS_FORBIDDEN);
   }
 
   best = con->best;
@@ -1630,14 +1547,13 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: auth=CUPSD_AUTH_%s...", auth ? "DENY" : "ALLOW");
 
   if (auth == CUPSD_AUTH_DENY && best->satisfy == CUPSD_AUTH_SATISFY_ALL)
-    return (HTTP_FORBIDDEN);
+    return (HTTP_STATUS_FORBIDDEN);
 
-#ifdef HAVE_TLS
  /*
   * See if encryption is required...
   */
 
-  if ((best->encryption >= HTTP_ENCRYPT_REQUIRED && !con->http->tls &&
+  if ((best->encryption >= HTTP_ENCRYPTION_REQUIRED && !con->http->tls &&
       _cups_strcasecmp(hostname, "localhost") &&
       !httpAddrLocalhost(hostaddr) &&
       best->satisfy == CUPSD_AUTH_SATISFY_ALL) &&
@@ -1647,9 +1563,8 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   {
     cupsdLogMessage(CUPSD_LOG_DEBUG,
                     "cupsdIsAuthorized: Need upgrade to TLS...");
-    return (HTTP_UPGRADE_REQUIRED);
+    return (HTTP_STATUS_UPGRADE_REQUIRED);
   }
-#endif /* HAVE_TLS */
 
  /*
   * Now see what access level is required...
@@ -1657,7 +1572,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
   if (best->level == CUPSD_AUTH_ANON ||	/* Anonymous access - allow it */
       (type == CUPSD_AUTH_NONE && cupsArrayCount(best->names) == 0))
-    return (HTTP_OK);
+    return (HTTP_STATUS_OK);
 
   if (!con->username[0] && type == CUPSD_AUTH_NONE &&
       best->limit == CUPSD_AUTH_LIMIT_IPP)
@@ -1675,12 +1590,12 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       cupsdLogMessage(CUPSD_LOG_DEBUG,
                       "cupsdIsAuthorized: requesting-user-name=\"%s\"",
                       attr->values[0].string.text);
-      strlcpy(username, attr->values[0].string.text, sizeof(username));
+      cupsCopyString(username, attr->values[0].string.text, sizeof(username));
     }
     else if (best->satisfy == CUPSD_AUTH_SATISFY_ALL || auth == CUPSD_AUTH_DENY)
-      return (HTTP_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
+      return (HTTP_STATUS_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
     else
-      return (HTTP_OK);			/* unless overridden with Satisfy */
+      return (HTTP_STATUS_OK);			/* unless overridden with Satisfy */
   }
   else
   {
@@ -1694,9 +1609,9 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 #endif /* HAVE_AUTHORIZATION_H */
     {
       if (best->satisfy == CUPSD_AUTH_SATISFY_ALL || auth == CUPSD_AUTH_DENY)
-	return (HTTP_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
+	return (HTTP_STATUS_UNAUTHORIZED);	/* Non-anonymous needs user/pass */
       else
-	return (HTTP_OK);		/* unless overridden with Satisfy */
+	return (HTTP_STATUS_OK);		/* unless overridden with Satisfy */
     }
 
 
@@ -1709,10 +1624,10 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       cupsdLogMessage(CUPSD_LOG_ERROR, "Authorized using %s, expected %s.",
                       types[con->type], types[type]);
 
-      return (HTTP_UNAUTHORIZED);
+      return (HTTP_STATUS_UNAUTHORIZED);
     }
 
-    strlcpy(username, con->username, sizeof(username));
+    cupsCopyString(username, con->username, sizeof(username));
   }
 
  /*
@@ -1729,7 +1644,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
   if (owner)
   {
-    strlcpy(ownername, owner, sizeof(ownername));
+    cupsCopyString(ownername, owner, sizeof(ownername));
 
     if ((ptr = strchr(ownername, '@')) != NULL)
       *ptr = '\0';
@@ -1772,7 +1687,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     */
 
     if (cupsArrayCount(best->names) == 0)
-      return (HTTP_OK);
+      return (HTTP_STATUS_OK);
 
    /*
     * Otherwise check the user list and return OK if this user is
@@ -1793,7 +1708,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 	   name = (char *)cupsArrayNext(best->names))
       {
 	if (!_cups_strncasecmp(name, "@AUTHKEY(", 9) && check_authref(con, name + 9))
-	  return (HTTP_OK);
+	  return (HTTP_STATUS_OK);
       }
 
       for (name = (char *)cupsArrayFirst(best->names);
@@ -1802,10 +1717,10 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       {
 	if (!_cups_strcasecmp(name, "@SYSTEM") && SystemGroupAuthKey &&
 	    check_authref(con, SystemGroupAuthKey))
-	  return (HTTP_OK);
+	  return (HTTP_STATUS_OK);
       }
 
-      return (HTTP_FORBIDDEN);
+      return (HTTP_STATUS_FORBIDDEN);
     }
 #endif /* HAVE_AUTHORIZATION_H */
 
@@ -1815,7 +1730,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     {
       if (!_cups_strcasecmp(name, "@OWNER") && owner &&
           !_cups_strcasecmp(username, ownername))
-	return (HTTP_OK);
+	return (HTTP_STATUS_OK);
       else if (!_cups_strcasecmp(name, "@SYSTEM"))
       {
 	/* Do @SYSTEM later, when every other entry fails */
@@ -1824,10 +1739,10 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       else if (name[0] == '@')
       {
         if (cupsdCheckGroup(username, pw, name + 1))
-          return (HTTP_OK);
+          return (HTTP_STATUS_OK);
       }
       else if (!_cups_strcasecmp(username, name))
-        return (HTTP_OK);
+        return (HTTP_STATUS_OK);
     }
 
     for (name = (char *)cupsArrayFirst(best->names);
@@ -1838,11 +1753,11 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       {
         for (i = 0; i < NumSystemGroups; i ++)
 	  if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
-	    return (HTTP_OK);
+	    return (HTTP_STATUS_OK);
       }
     }
 
-    return (con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED);
+    return (con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED);
   }
 
  /*
@@ -1868,7 +1783,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership...", name);
 
     if (cupsdCheckGroup(username, pw, name))
-      return (HTTP_OK);
+      return (HTTP_STATUS_OK);
   }
 
   for (name = (char *)cupsArrayFirst(best->names);
@@ -1881,7 +1796,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
       for (i = 0; i < NumSystemGroups; i ++)
 	if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
-	  return (HTTP_OK);
+	  return (HTTP_STATUS_OK);
     }
   }
 
@@ -1891,7 +1806,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdIsAuthorized: User not in group(s).");
 
-  return (con->username[0] ? HTTP_FORBIDDEN : HTTP_UNAUTHORIZED);
+  return (con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED);
 }
 
 
@@ -1942,6 +1857,8 @@ cupsdNewLocation(const char *location)	/* I - Location path */
 static int				// O - 1 if authorized, 0 otherwise
 check_admin_access(cupsd_client_t *con) // I - Client connection
 {
+  (void)con;
+
 #if defined(HAVE_LIBAPPARMOR) && defined(HAVE_LIBSNAPDGLIB)
  /*
   * If the client accesses locally via domain socket, find out whether it

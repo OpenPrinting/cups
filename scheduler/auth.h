@@ -1,7 +1,7 @@
 /*
  * Authorization definitions for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -107,10 +107,8 @@ typedef struct cupsd_client_s cupsd_client_t;
 
 VAR cups_array_t	*Locations	VALUE(NULL);
 					/* Authorization locations */
-#ifdef HAVE_TLS
-VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPT_REQUIRED);
+VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPTION_REQUIRED);
 					/* Default encryption for authentication */
-#endif /* HAVE_TLS */
 
 
 /*

@@ -1,6 +1,7 @@
 /*
  * Dynamic wrapper for Bonjour SDK for Windows.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -8,7 +9,7 @@
  */
 
 //#include <cups/http-private.h>
-#include <cups/thread-private.h>
+#include <cups/thread.h>
 #include "dns_sd.h"
 
 
@@ -17,7 +18,7 @@
  */
 
 static int		dnssd_initialized = 0;
-static _cups_mutex_t	dnssd_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	dnssd_mutex = CUPS_MUTEX_INITIALIZER;
 static DNSServiceErrorType (*dnssd_add_record)(DNSServiceRef sdRef, DNSRecordRef *RecordRef, DNSServiceFlags flags, uint16_t rrtype, uint16_t rdlen, const void *rdata, uint32_t ttl);
 static DNSServiceErrorType (*dnssd_browse)(DNSServiceRef *sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, const char *regtype, const char *domain, DNSServiceBrowseReply callBack, void *context);
 static DNSServiceErrorType (*dnssd_construct_full_name)(char * const fullName, const char * const service, const char * const regtype, const char * const domain);
@@ -48,7 +49,7 @@ static DNSServiceErrorType (*dnssd_txt_set_value)(TXTRecordRef *txtRecord, const
 static void
 dnssd_init(void)
 {
-  _cupsMutexLock(&dnssd_mutex);
+  cupsMutexLock(&dnssd_mutex);
   if (!dnssd_initialized)
   {
     HINSTANCE	dll_handle = LoadLibraryA("dnssd.dll");
@@ -80,7 +81,7 @@ dnssd_init(void)
 
     dnssd_initialized = 1;
   }
-  _cupsMutexUnlock(&dnssd_mutex);
+  cupsMutexUnlock(&dnssd_mutex);
 }
 
 

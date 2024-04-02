@@ -1,6 +1,7 @@
 /*
  * Printer option program for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -132,7 +133,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	      break;
 
 	  case 'E' : /* Encrypt connection */
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'l' : /* -l (list options) */
@@ -360,7 +361,7 @@ main(int  argc,				/* I - Number of command-line arguments */
         *ptr++ = ' ';
 
       if (!options[i].value[0])
-        strlcpy(ptr, options[i].name, sizeof(buffer) - (size_t)(ptr - buffer));
+        cupsCopyString(ptr, options[i].name, sizeof(buffer) - (size_t)(ptr - buffer));
       else if (strchr(options[i].value, ' ') != NULL ||
                strchr(options[i].value, '\t') != NULL)
 	snprintf(ptr, sizeof(buffer) - (size_t)(ptr - buffer), "%s=\'%s\'", options[i].name, options[i].value);
@@ -452,7 +453,7 @@ list_group(ppd_file_t  *ppd,		/* I - PPD file */
 	    }
 
             if (ptr < (buffer + sizeof(buffer) - 1))
-	      strlcpy(ptr, "}", sizeof(buffer) - (size_t)(ptr - buffer));
+	      cupsCopyString(ptr, "}", sizeof(buffer) - (size_t)(ptr - buffer));
 	  }
 	}
       }
@@ -490,7 +491,7 @@ list_options(cups_dest_t *dest)		/* I - Destination to list */
   if ((http = cupsConnectDest(dest, CUPS_DEST_FLAGS_NONE, 30000, NULL, resource, sizeof(resource), NULL, NULL)) == NULL)
   {
     _cupsLangPrintf(stderr, _("lpoptions: Unable to get PPD file for %s: %s"),
-		    dest->name, cupsLastErrorString());
+		    dest->name, cupsGetErrorString());
     return;
   }
 
@@ -499,7 +500,7 @@ list_options(cups_dest_t *dest)		/* I - Destination to list */
     httpClose(http);
 
     _cupsLangPrintf(stderr, _("lpoptions: Unable to get PPD file for %s: %s"),
-		    dest->name, cupsLastErrorString());
+		    dest->name, cupsGetErrorString());
     return;
   }
 

@@ -1,7 +1,7 @@
 /*
  * MIME typing routines for CUPS.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -13,6 +13,7 @@
  * Include necessary headers...
  */
 
+#include <cups/cups.h>
 #include <cups/string-private.h>
 #include <locale.h>
 #include "mime.h"
@@ -106,7 +107,7 @@ mimeAddType(mime_t     *mime,		/* I - MIME database */
 
   if ((temp = mimeType(mime, super, type)) != NULL)
   {
-    DEBUG_printf(("1mimeAddType: Returning %p (existing).", temp));
+    DEBUG_printf("1mimeAddType: Returning %p (existing).", temp);
     return (temp);
   }
 
@@ -131,13 +132,13 @@ mimeAddType(mime_t     *mime,		/* I - MIME database */
     return (NULL);
   }
 
-  strlcpy(temp->super, super, sizeof(temp->super));
+  cupsCopyString(temp->super, super, sizeof(temp->super));
   memcpy(temp->type, type, typelen);
   temp->priority = 100;
 
   cupsArrayAdd(mime->types, temp);
 
-  DEBUG_printf(("1mimeAddType: Returning %p (new).", temp));
+  DEBUG_printf("1mimeAddType: Returning %p (new).", temp);
   return (temp);
 }
 
@@ -240,7 +241,7 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
         current->prev   = NULL;
 	current->parent = temp;
 
-        DEBUG_printf(("1mimeAddTypeRule: Creating new AND group %p.", temp));
+        DEBUG_printf("1mimeAddTypeRule: Creating new AND group %p.", temp);
       }
       else if (current->parent)
       {
@@ -512,7 +513,7 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
         case MIME_MAGIC_MATCH :
 	    if ((size_t)length[0] > (sizeof(temp->value.matchv) - 1))
 	      return (-1);
-	    strlcpy(temp->value.matchv, value[0], sizeof(temp->value.matchv));
+	    cupsCopyString(temp->value.matchv, value[0], sizeof(temp->value.matchv));
 	    break;
 	case MIME_MAGIC_ASCII :
 	case MIME_MAGIC_PRINTABLE :
@@ -559,7 +560,7 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
 	    if ((size_t)length[0] > (sizeof(temp->value.localev) - 1))
 	      return (-1);
 
-	    strlcpy(temp->value.localev, value[0], sizeof(temp->value.localev));
+	    cupsCopyString(temp->value.localev, value[0], sizeof(temp->value.localev));
 	    break;
 	case MIME_MAGIC_CONTAINS :
 	    temp->offset = strtol(value[0], NULL, 0);
@@ -630,7 +631,7 @@ mimeFileType(mime_t     *mime,		/* I - MIME database */
 
   if (fb.length <= 0)
   {
-    DEBUG_printf(("1mimeFileType: Unable to read from \"%s\": %s", pathname, strerror(errno)));
+    DEBUG_printf("1mimeFileType: Unable to read from \"%s\": %s", pathname, strerror(errno));
     DEBUG_puts("1mimeFileType: Returning NULL.");
 
     cupsFileClose(fb.fp);
@@ -674,7 +675,7 @@ mimeFileType(mime_t     *mime,		/* I - MIME database */
   if (compression)
   {
     *compression = cupsFileCompression(fb.fp);
-    DEBUG_printf(("1mimeFileType: *compression=%d", *compression));
+    DEBUG_printf("1mimeFileType: *compression=%d", *compression);
   }
 
   cupsFileClose(fb.fp);
@@ -715,11 +716,11 @@ mimeType(mime_t     *mime,		/* I - MIME database */
   * Lookup the type in the array...
   */
 
-  strlcpy(key.super, super, sizeof(key.super));
-  strlcpy(key.type, type, sizeof(key.type));
+  cupsCopyString(key.super, super, sizeof(key.super));
+  cupsCopyString(key.type, type, sizeof(key.type));
 
   mt = (mime_type_t *)cupsArrayFind(mime->types, &key);
-  DEBUG_printf(("1mimeType: Returning %p.", mt));
+  DEBUG_printf("1mimeType: Returning %p.", mt);
   return (mt);
 }
 
@@ -811,7 +812,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_ASCII fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_ASCII fb->length=%d", fb->length);
 	  }
 
          /*
@@ -861,7 +862,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_PRINTABLE fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_PRINTABLE fb->length=%d", fb->length);
 	  }
 
          /*
@@ -916,7 +917,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_REGEX fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_REGEX fb->length=%d", fb->length);
 
             DEBUG_printf(("5mime_check_rules: loaded %d byte fb->buffer at %d, starts "
 	                  "with \"%c%c%c%c\".",
@@ -939,7 +940,7 @@ mime_check_rules(
             result = !regexec(&(rules->value.rev), temp, 0, NULL, 0);
           }
 
-          DEBUG_printf(("5mime_check_rules: result=%d", result));
+          DEBUG_printf("5mime_check_rules: result=%d", result);
 	  break;
 
       case MIME_MAGIC_STRING :
@@ -968,7 +969,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_STRING fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_STRING fb->length=%d", fb->length);
 
             DEBUG_printf(("5mime_check_rules: loaded %d byte fb->buffer at %d, starts "
 	                  "with \"%c%c%c%c\".",
@@ -985,7 +986,7 @@ mime_check_rules(
 	    result = 0;
 	  else
             result = !memcmp(fb->buffer + rules->offset - fb->offset, rules->value.stringv, (size_t)rules->length);
-          DEBUG_printf(("5mime_check_rules: result=%d", result));
+          DEBUG_printf("5mime_check_rules: result=%d", result);
 	  break;
 
       case MIME_MAGIC_ISTRING :
@@ -1011,7 +1012,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_ISTRING fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_ISTRING fb->length=%d", fb->length);
 	  }
 
          /*
@@ -1047,7 +1048,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_CHAR fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_CHAR fb->length=%d", fb->length);
 	  }
 
 	 /*
@@ -1084,7 +1085,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_SHORT fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_SHORT fb->length=%d", fb->length);
 	  }
 
 	 /*
@@ -1127,7 +1128,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_INT fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_INT fb->length=%d", fb->length);
 	  }
 
 	 /*
@@ -1178,7 +1179,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf(("4mime_check_rules: MIME_MAGIC_CONTAINS fb->length=%d", fb->length));
+	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_CONTAINS fb->length=%d", fb->length);
 	  }
 
          /*

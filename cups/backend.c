@@ -1,6 +1,7 @@
 /*
  * Backend functions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2015 by Apple Inc.
  * Copyright 2006 by Easy Software Products.
  *
@@ -40,7 +41,7 @@ cupsBackendDeviceURI(char **argv)	/* I - Command-line arguments */
   const char	*device_uri,		/* Device URI */
 		*auth_info_required;	/* AUTH_INFO_REQUIRED env var */
   _cups_globals_t *cg = _cupsGlobals();	/* Global info */
-  int		options;		/* Resolve options */
+  http_resolve_t options;		/* Resolve options */
   ppd_file_t	*ppd;			/* PPD file */
   ppd_attr_t	*ppdattr;		/* PPD attribute */
 
@@ -53,22 +54,21 @@ cupsBackendDeviceURI(char **argv)	/* I - Command-line arguments */
     device_uri = argv[0];
   }
 
-  options = _HTTP_RESOLVE_STDERR;
+  options = 0 /*_HTTP_RESOLVE_STDERR*/;
   if ((auth_info_required = getenv("AUTH_INFO_REQUIRED")) != NULL &&
       !strcmp(auth_info_required, "negotiate"))
-    options |= _HTTP_RESOLVE_FQDN;
+    options |= HTTP_RESOLVE_FQDN;
 
   if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL)
   {
     if ((ppdattr = ppdFindAttr(ppd, "cupsIPPFaxOut", NULL)) != NULL &&
         !_cups_strcasecmp(ppdattr->value, "true"))
-      options |= _HTTP_RESOLVE_FAXOUT;
+      options |= HTTP_RESOLVE_FAXOUT;
 
     ppdClose(ppd);
   }
 
-  return (_httpResolveURI(device_uri, cg->resolved_uri,
-                          sizeof(cg->resolved_uri), options, NULL, NULL));
+  return (httpResolveURI(device_uri, cg->resolved_uri, sizeof(cg->resolved_uri), options, NULL, NULL));
 }
 
 

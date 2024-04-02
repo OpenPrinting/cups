@@ -1,6 +1,7 @@
 /*
  * CGI support library definitions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -69,11 +70,13 @@ extern char		*cgiFormEncode(char *dst, const char *src,
 extern void		cgiFreeSearch(void *search);
 extern char		*cgiGetArray(const char *name, int element);
 extern void		cgiGetAttributes(ipp_t *request, const char *tmpl);
+extern const char	*cgiGetCheckbox(const char *name);
 extern const char	*cgiGetCookie(const char *name);
 extern const cgi_file_t	*cgiGetFile(void);
 extern cups_array_t	*cgiGetIPPObjects(ipp_t *response, void *search);
 extern int		cgiGetSize(const char *name);
 extern char		*cgiGetTemplateDir(void);
+extern const char	*cgiGetTextfield(const char *name);
 extern char		*cgiGetVariable(const char *name);
 extern int		cgiInitialize(void);
 extern int		cgiIsPOST(void);

@@ -1,6 +1,7 @@
 /*
  * Line Printer Daemon backend for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -63,14 +64,14 @@ static int	abort_job = 0;		/* Non-zero if we get SIGTERM */
 
 #define RESERVE_NONE		0	/* Don't reserve a privileged port */
 #define RESERVE_RFC1179		1	/* Reserve port 721-731 */
-#define RESERVE_ANY		2	/* Reserve port 1-1023 */
+#define RESERVE_ANY		2	/* Reserve port 512-1023 */
 
 
 /*
  * Local functions...
  */
 
-static int	cups_rresvport(int *port, int family);
+static int	cups_rresvport(int *port, int min, int family);
 static int	lpd_command(int lpd_fd, char *format, ...)
 #    ifdef __GNUC__
 __attribute__ ((__format__ (__printf__, 2, 3)))
@@ -121,9 +122,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 		copies;			/* Number of copies */
   ssize_t	bytes = 0;		/* Initial bytes read */
   char		buffer[16384];		/* Initial print buffer */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
   int		num_jobopts;		/* Number of job options */
   cups_option_t	*jobopts = NULL;	/* Job options */
 
@@ -138,10 +137,6 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Ignore SIGPIPE and catch SIGTERM signals...
   */
 
-#ifdef HAVE_SIGSET
-  sigset(SIGPIPE, SIG_IGN);
-  sigset(SIGTERM, sigterm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
   action.sa_handler = SIG_IGN;
   sigaction(SIGPIPE, &action, NULL);
@@ -150,10 +145,6 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   sigaddset(&action.sa_mask, SIGTERM);
   action.sa_handler = sigterm_handler;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGPIPE, SIG_IGN);
-  signal(SIGTERM, sigterm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Check command-line...
@@ -201,7 +192,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
     * If no username is in the device URI, then use the print job user...
     */
 
-    strlcpy(username, argv[2], sizeof(username));
+    cupsCopyString(username, argv[2], sizeof(username));
   }
 
  /*
@@ -476,7 +467,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Sanitize the document title...
   */
 
-  strlcpy(title, argv[3], sizeof(title));
+  cupsCopyString(title, argv[3], sizeof(title));
 
   if (sanitize_title)
   {
@@ -552,6 +543,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 
 static int				/* O  - Socket or -1 on error */
 cups_rresvport(int *port,		/* IO - Port number to bind to */
+               int min,			/* I  - Minimim port number use */
                int family)		/* I  - Address family */
 {
   http_addr_t	addr;			/* Socket address */
@@ -576,13 +568,13 @@ cups_rresvport(int *port,		/* IO - Port number to bind to */
   * Try to bind the socket to a reserved port...
   */
 
-  while (*port > 511)
+  while (*port >= min)
   {
    /*
     * Set the port number...
     */
 
-    _httpAddrSetPort(&addr, *port);
+    httpAddrSetPort(&addr, *port);
 
    /*
     * Try binding the port to the socket; return if all is OK...
@@ -775,7 +767,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
 
       if (lport < 721 && reserve == RESERVE_RFC1179)
 	lport = 731;
-      else if (lport < 1)
+      else if (lport < 512)
 	lport = 1023;
 
 #ifdef HAVE_GETEUID
@@ -801,11 +793,14 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       else
       {
        /*
-	* We're running as root and want to comply with RFC 1179.  Reserve a
-	* privileged lport between 721 and 731...
+	* We're running as root and want to either:
+	* a) comply with RFC 1179 and reserve a lport between 721 and 731
+	* b) just reserve a privileged port between 512 and 1023
 	*/
 
-	if ((fd = cups_rresvport(&lport, addr->addr.addr.sa_family)) < 0)
+	if ((fd = cups_rresvport(&lport,
+				 reserve == RESERVE_RFC1179 ? 721 : 512,
+				 addr->addr.addr.sa_family)) < 0)
 	{
 	  perror("DEBUG: Unable to reserve port");
 	  sleep(1);
@@ -996,7 +991,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
     }
 
     if (orighost && _cups_strcasecmp(orighost, "localhost"))
-      strlcpy(localhost, orighost, sizeof(localhost));
+      cupsCopyString(localhost, orighost, sizeof(localhost));
     else
       httpGetHostname(NULL, localhost, sizeof(localhost));
 

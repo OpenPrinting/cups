@@ -1,7 +1,7 @@
 dnl
 dnl PAM stuff for CUPS.
 dnl
-dnl Copyright © 2021 by OpenPrinting.
+dnl Copyright © 2020-2024 by OpenPrinting.
 dnl Copyright © 2007-2017 by Apple Inc.
 dnl Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 dnl
@@ -71,6 +71,10 @@ AS_IF([test x$enable_pam != xno], [
 	    PAMMOD="pam_${with_pam_module}.so"
 	], [test -f /etc/pam.d/common-auth], [
 	    PAMFILE="pam.common"
+	], [test -f /etc/pam.d/password-auth], [
+	    PAMFILE="pam.password"
+	], [test -f /etc/pam.d/system-auth], [
+	    PAMFILE="pam.system"
 	], [
 	    moddir=""
 	    for dir in /lib/security /lib64/security /lib/x86_64-linux-gnu/security /var/lib/pam; do

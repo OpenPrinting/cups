@@ -1,6 +1,7 @@
 /*
  * Notification routines for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2013 by Apple Inc.
  * Copyright 2005-2006 by Easy Software Products.
  *
@@ -134,7 +135,7 @@ cupsNotifySubject(cups_lang_t *lang,	/* I - Language data */
 	     state);
   }
   else if (subscribed)
-    strlcpy(buffer, subscribed->values[0].string.text, sizeof(buffer));
+    cupsCopyString(buffer, subscribed->values[0].string.text, sizeof(buffer));
   else
     return (NULL);
 

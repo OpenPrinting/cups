@@ -1,6 +1,7 @@
 /*
  * AppSocket backend for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -78,9 +79,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   ssize_t	bytes = 0,		/* Initial bytes read */
 		tbytes;			/* Total number of bytes written */
   char		buffer[1024];		/* Initial print buffer */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
  /*
@@ -93,15 +92,9 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Ignore SIGPIPE signals...
   */
 
-#ifdef HAVE_SIGSET
-  sigset(SIGPIPE, SIG_IGN);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
   action.sa_handler = SIG_IGN;
   sigaction(SIGPIPE, &action, NULL);
-#else
-  signal(SIGPIPE, SIG_IGN);
-#endif /* HAVE_SIGSET */
 
  /*
   * Check command-line...

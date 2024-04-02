@@ -1,6 +1,7 @@
 /*
  * Online help index routines for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -336,7 +337,7 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
 
             *ptr++ = '\0';
 
-            strlcpy(section, sectptr, sizeof(section));
+            cupsCopyString(section, sectptr, sizeof(section));
 
 	    while (isspace(*ptr & 255))
               ptr ++;
@@ -771,7 +772,7 @@ help_load_directory(
     if (relative)
       snprintf(relname, sizeof(relname), "%s/%s", relative, dent->filename);
     else
-      strlcpy(relname, dent->filename, sizeof(relname));
+      cupsCopyString(relname, dent->filename, sizeof(relname));
 
    /*
     * Check if we have a HTML file...
@@ -860,7 +861,10 @@ help_load_file(
   node   = NULL;
   offset = 0;
 
-  strlcpy(section, "Other", sizeof(section));
+  if (strstr(filename, "/man-") != NULL)
+    cupsCopyString(section, "Man Pages", sizeof(section));
+  else
+    cupsCopyString(section, "Other", sizeof(section));
 
   while (cupsFileGets(fp, line, sizeof(line)))
   {
@@ -876,7 +880,7 @@ help_load_file(
 
       for (ptr += 13; isspace(*ptr & 255); ptr ++);
 
-      strlcpy(section, ptr, sizeof(section));
+      cupsCopyString(section, ptr, sizeof(section));
       if ((ptr = strstr(section, "-->")) != NULL)
       {
        /*

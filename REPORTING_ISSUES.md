@@ -10,11 +10,11 @@ The steps you are asked to do differ based on how your printer is connected (USB
 ## HOW TO FIND OUT THAT I USE DRIVERLESS PRINTING
 
 For network printers:
-* your printer is seen by `lpstat -e`, but not by `lpstat -a` - this means you print via temporary queue, which works only via driverless means,
+* your printer is seen by `lpstat -l -e` and it is marked as `network` in the output - you print via temporary queue, which works only via driverless means,
 
 or
 
-* your printer is seen by `lpstat -a`, its PPD file at `/etc/cups/ppd` has `IPP Everywhere` or `driverless` in its `Nickname` entry and its connection is `ipp` or `ipps` when you check the connection uri (f.e. by `lpstat -v <printer_name>`)
+* your printer is seen by `lpstat -l -e`, marked as `permanent` in the output, its PPD file at `/etc/cups/ppd` has `IPP Everywhere` or `driverless` in its `Nickname` entry and its connection is `ipp` or `ipps` when you check the connection uri (f.e. by `lpstat -v <printer_name>`)
 
 If any of them apply, your device works in driverless mode.
 
@@ -44,14 +44,9 @@ Please do the steps below and provide the mentioned information (**use attachmen
     See whether the printer is available (f.e. in case the printer is not shown in application) - shows both temporary and permanent queues:
 
     ```
-        $ lpstat -e
-        HP_LaserJet_M1536dnf_MFP_42307C
-    ```
-
-    See whether there are installed printers which accept jobs:
-
-    ```
-        $ lpstat -a
+        $ lpstat -l -e
+        HP_LaserJet_M1536dnf_MFP_42307C network none ipp://HP%20LaserJet%20M1536dnf%20MFP%2042307C._ipp._tcp.local/
+        hp-laserjet permanent ipp://localhost/printers/hp-laserjet ipp://192.168.5.5/ipp/print
     ```
 
     See its available options (in case an application doesn't show some options):

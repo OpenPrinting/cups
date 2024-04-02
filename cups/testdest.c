@@ -1,6 +1,7 @@
 /*
  * CUPS destination API test program for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2012-2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
@@ -70,38 +71,38 @@ main(int  argc,				/* I - Number of command-line arguments */
     {
       if (!strcmp(argv[i], "grayscale"))
       {
-        type |= CUPS_PRINTER_BW;
-	mask |= CUPS_PRINTER_BW;
+        type |= CUPS_PTYPE_BW;
+	mask |= CUPS_PTYPE_BW;
       }
       else if (!strcmp(argv[i], "color"))
       {
-        type |= CUPS_PRINTER_COLOR;
-	mask |= CUPS_PRINTER_COLOR;
+        type |= CUPS_PTYPE_COLOR;
+	mask |= CUPS_PTYPE_COLOR;
       }
       else if (!strcmp(argv[i], "duplex"))
       {
-        type |= CUPS_PRINTER_DUPLEX;
-	mask |= CUPS_PRINTER_DUPLEX;
+        type |= CUPS_PTYPE_DUPLEX;
+	mask |= CUPS_PTYPE_DUPLEX;
       }
       else if (!strcmp(argv[i], "staple"))
       {
-        type |= CUPS_PRINTER_STAPLE;
-	mask |= CUPS_PRINTER_STAPLE;
+        type |= CUPS_PTYPE_STAPLE;
+	mask |= CUPS_PTYPE_STAPLE;
       }
       else if (!strcmp(argv[i], "small"))
       {
-        type |= CUPS_PRINTER_SMALL;
-	mask |= CUPS_PRINTER_SMALL;
+        type |= CUPS_PTYPE_SMALL;
+	mask |= CUPS_PTYPE_SMALL;
       }
       else if (!strcmp(argv[i], "medium"))
       {
-        type |= CUPS_PRINTER_MEDIUM;
-	mask |= CUPS_PRINTER_MEDIUM;
+        type |= CUPS_PTYPE_MEDIUM;
+	mask |= CUPS_PTYPE_MEDIUM;
       }
       else if (!strcmp(argv[i], "large"))
       {
-        type |= CUPS_PRINTER_LARGE;
-	mask |= CUPS_PRINTER_LARGE;
+        type |= CUPS_PTYPE_LARGE;
+	mask |= CUPS_PTYPE_LARGE;
       }
       else
         usage(argv[i]);
@@ -136,7 +137,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (!dest)
   {
-    printf("testdest: Unable to get destination \"%s\": %s\n", argv[i], cupsLastErrorString());
+    printf("testdest: Unable to get destination \"%s\": %s\n", argv[i], cupsGetErrorString());
     return (1);
   }
 
@@ -144,13 +145,13 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if ((http = cupsConnectDest(dest, dflags, 30000, NULL, NULL, 0, NULL, NULL)) == NULL)
   {
-    printf("testdest: Unable to connect to destination \"%s\": %s\n", dest->name, cupsLastErrorString());
+    printf("testdest: Unable to connect to destination \"%s\": %s\n", dest->name, cupsGetErrorString());
     return (1);
   }
 
   if ((dinfo = cupsCopyDestInfo(http, dest)) == NULL)
   {
-    printf("testdest: Unable to get information for destination \"%s\": %s\n", dest->name, cupsLastErrorString());
+    printf("testdest: Unable to get information for destination \"%s\": %s\n", dest->name, cupsGetErrorString());
     return (1);
   }
 
@@ -428,7 +429,7 @@ print_file(http_t        *http,		/* I - Connection to destination */
 
   if (cupsCreateDestJob(http, dest, dinfo, &job_id, title, num_options, options) > IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED)
   {
-    printf("Unable to create job: %s\n", cupsLastErrorString());
+    printf("Unable to create job: %s\n", cupsGetErrorString());
     cupsFileClose(fp);
     return;
   }
@@ -437,7 +438,7 @@ print_file(http_t        *http,		/* I - Connection to destination */
 
   if (cupsStartDestDocument(http, dest, dinfo, job_id, title, CUPS_FORMAT_AUTO, 0, NULL, 1) != HTTP_STATUS_CONTINUE)
   {
-    printf("Unable to send document: %s\n", cupsLastErrorString());
+    printf("Unable to send document: %s\n", cupsGetErrorString());
     cupsFileClose(fp);
     return;
   }
@@ -446,7 +447,7 @@ print_file(http_t        *http,		/* I - Connection to destination */
   {
     if (cupsWriteRequestData(http, buffer, (size_t)bytes) != HTTP_STATUS_CONTINUE)
     {
-      printf("Unable to write document data: %s\n", cupsLastErrorString());
+      printf("Unable to write document data: %s\n", cupsGetErrorString());
       break;
     }
   }
@@ -455,7 +456,7 @@ print_file(http_t        *http,		/* I - Connection to destination */
 
   if (cupsFinishDestDocument(http, dest, dinfo) > IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED)
   {
-    printf("Unable to send document: %s\n", cupsLastErrorString());
+    printf("Unable to send document: %s\n", cupsGetErrorString());
     return;
   }
 

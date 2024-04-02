@@ -1,6 +1,7 @@
 //
 // PPD file compiler main entry for the CUPS PPD Compiler.
 //
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright 2007-2014 by Apple Inc.
 // Copyright 2002-2007 by Easy Software Products.
 //
@@ -155,7 +156,7 @@ main(int  argc,				// I - Number of command-line arguments
 
 		locales = new ppdcArray();
 
-		strlcpy(temp, argv[i], sizeof(temp));
+		cupsCopyString(temp, argv[i], sizeof(temp));
 		for (start = temp; *start; start = end)
 		{
 		  if ((end = strchr(start, ',')) != NULL)
@@ -339,7 +340,7 @@ main(int  argc,				// I - Number of command-line arguments
 	else
 	{
 	  // Leave PCFileName as-is...
-	  strlcpy(pcfilename, outname, sizeof(pcfilename));
+	  cupsCopyString(pcfilename, outname, sizeof(pcfilename));
 	}
 
 	// Open the PPD file for writing...

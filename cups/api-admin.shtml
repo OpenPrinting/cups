@@ -1,6 +1,7 @@
 <!--
   Administrative API documentation for CUPS.
 
+  Copyright © 2020-2024 by OpenPrinting.
   Copyright © 2016 by Apple Inc.
 
   Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -47,7 +48,7 @@ enable_web_interface(void)
 
   if (!<a href="#cupsAdminGetServerSettings">cupsAdminGetServerSettings</a>(CUPS_HTTP_DEFAULT, &amp;num_settings, &amp;settings))
   {
-    fprintf(stderr, "ERROR: Unable to get server settings: %s\n", cupsLastErrorString());
+    fprintf(stderr, "ERROR: Unable to get server settings: %s\n", cupsGetErrorString());
     return;
   }
 
@@ -55,7 +56,7 @@ enable_web_interface(void)
 
   if (!<a href="#cupsAdminSetServerSettings">cupsAdminSetServerSettings</a>(CUPS_HTTP_DEFAULT, num_settings, settings))
   {
-    fprintf(stderr, "ERROR: Unable to set server settings: %s\n", cupsLastErrorString());
+    fprintf(stderr, "ERROR: Unable to set server settings: %s\n", cupsGetErrorString());
   }
 
   <a href="api-cups.html#cupsFreeOptions">cupsFreeOptions</a>(num_settings, settings);

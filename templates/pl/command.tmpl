@@ -1,0 +1,8 @@
+<H2 CLASS="title">{title} na {printer_name}</H2>
+
+<P>{job_state>5?:<IMG SRC="/images/wait.gif" WIDTH="16" HEIGHT="16"
+ALIGN="ABSMIDDLE" ALT="Busy Indicator"> }Komenda wydruku
+{job_state=3?oczekuje:{job_state=4?wstrzymana:
+{job_state=5?wykonywana:{job_state=6?zatrzymana:
+{job_state=7?anulowana:{job_state=8?przerwana:zakończona}}}}}}{job_state=9?:{job_printer_state_message?,
+<EM>"{job_printer_state_message}"</EM>:}}</P>

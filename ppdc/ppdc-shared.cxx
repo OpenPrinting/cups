@@ -1,6 +1,7 @@
 //
 // Shared data class for the CUPS PPD Compiler.
 //
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright 2007-2009 by Apple Inc.
 // Copyright 2002-2005 by Easy Software Products.
 //
@@ -45,7 +46,7 @@ ppdcShared::release(void)
 #ifdef DEBUG
   if (use < 0)
   {
-    fprintf(stderr, "ERROR: Over-release of %s: %p\n", class_name(), this);
+    fprintf(stderr, "ERROR: Over-release of %s: %p\n", class_name(), (void *)this);
     abort();
   }
 #endif /* DEBUG */

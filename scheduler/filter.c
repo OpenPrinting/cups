@@ -1,6 +1,7 @@
 /*
  * File type conversion routines for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2011 by Apple Inc.
  * Copyright 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -11,6 +12,7 @@
  * Include necessary headers...
  */
 
+#include <cups/cups.h>
 #include <cups/string-private.h>
 #include "mime.h"
 
@@ -92,7 +94,7 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
       DEBUG_printf(("1mimeAddFilter: Replacing filter \"%s\", cost %d.",
                     temp->filter, temp->cost));
       temp->cost = cost;
-      strlcpy(temp->filter, filter, sizeof(temp->filter));
+      cupsCopyString(temp->filter, filter, sizeof(temp->filter));
     }
   }
   else
@@ -117,7 +119,7 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
     temp->src  = src;
     temp->dst  = dst;
     temp->cost = cost;
-    strlcpy(temp->filter, filter, sizeof(temp->filter));
+    cupsCopyString(temp->filter, filter, sizeof(temp->filter));
 
     DEBUG_puts("1mimeAddFilter: Adding new filter.");
     cupsArrayAdd(mime->filters, temp);
@@ -128,7 +130,7 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
   * Return the new/updated filter...
   */
 
-  DEBUG_printf(("1mimeAddFilter: Returning %p.", temp));
+  DEBUG_printf("1mimeAddFilter: Returning %p.", temp);
 
   return (temp);
 }
@@ -240,16 +242,13 @@ mimeFilterLookup(mime_t      *mime,	/* I - MIME database */
 		*filter;		/* Matching filter */
 
 
-  DEBUG_printf(("2mimeFilterLookup(mime=%p, src=%p(%s/%s), dst=%p(%s/%s))", mime,
-                src, src ? src->super : "???", src ? src->type : "???",
-		dst, dst ? dst->super : "???", dst ? dst->type : "???"));
+  DEBUG_printf("2mimeFilterLookup(mime=%p, src=%p(%s/%s), dst=%p(%s/%s))", mime, src, src ? src->super : "???", src ? src->type : "???", dst, dst ? dst->super : "???", dst ? dst->type : "???");
 
   key.src = src;
   key.dst = dst;
 
   filter = (mime_filter_t *)cupsArrayFind(mime->filters, &key);
-  DEBUG_printf(("3mimeFilterLookup: Returning %p(%s).", filter,
-                filter ? filter->filter : "???"));
+  DEBUG_printf("3mimeFilterLookup: Returning %p(%s).", filter, filter ? filter->filter : "???");
   return (filter);
 }
 
@@ -317,10 +316,7 @@ mime_find_filters(
 			*listptr;	/* Pointer in list */
 
 
-  DEBUG_printf(("2mime_find_filters(mime=%p, src=%p(%s/%s), srcsize=" CUPS_LLFMT
-                ", dst=%p(%s/%s), cost=%p, list=%p)", mime, src, src->super,
-		src->type, CUPS_LLCAST srcsize, dst, dst->super, dst->type,
-		cost, list));
+  DEBUG_printf("2mime_find_filters(mime=%p, src=%p(%s/%s), srcsize=" CUPS_LLFMT ", dst=%p(%s/%s), cost=%p, list=%p)", mime, src, src->super, src->type, CUPS_LLCAST srcsize, dst, dst->super, dst->type, cost, list);
 
  /*
   * See if there is a filter that can convert the files directly...

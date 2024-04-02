@@ -1,7 +1,7 @@
 #
 # CGI makefile for CUPS.
 #
-# Copyright © 2022-2023 by OpenPrinting.
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products.
 #
@@ -73,7 +73,7 @@ unittests:	$(UNITTARGETS)
 #
 
 clean:
-	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS) 
+	$(RM) $(OBJS) $(TARGETS) $(UNITTARGETS)
 
 
 #
@@ -81,7 +81,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #
@@ -140,6 +140,16 @@ uninstall:
 	done
 	-$(RMDIR) $(SERVERBIN)/cgi-bin
 
+
+#
+# Run unit tests...
+#
+
+test:	unittests
+	echo Testing CGI API...
+	./testcgi
+	echo Testing help index API...
+	./testhi
 
 #
 # libcupscgi.a
@@ -211,8 +221,6 @@ testcgi:	testcgi.o ../Makedefs libcupscgi.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testcgi.o libcupscgi.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Testing CGI API...
-	./testcgi
 
 
 #
@@ -224,8 +232,6 @@ testhi:	testhi.o ../Makedefs libcupscgi.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testhi.o libcupscgi.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
-	echo Testing help index API...
-	./testhi
 
 
 #

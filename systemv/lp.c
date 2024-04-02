@@ -1,7 +1,7 @@
 /*
  * "lp" command for CUPS.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -93,11 +93,7 @@ main(int  argc,				/* I - Number of command-line arguments */
         switch (*opt)
 	{
 	  case 'E' : /* Encrypt */
-#ifdef HAVE_TLS
-	      cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
-#else
-	      _cupsLangPrintf(stderr, _("%s: Sorry, no encryption support."), argv[0]);
-#endif /* HAVE_TLS */
+	      cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	      break;
 
 	  case 'U' : /* Username */
@@ -154,15 +150,15 @@ main(int  argc,				/* I - Number of command-line arguments */
 						dest->options[j].value,
 						num_options, &options);
 	      }
-	      else if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-		       cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+	      else if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+		       cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
 	      {
 		_cupsLangPrintf(stderr,
 				_("%s: Error - add '/version=1.1' to server "
 				  "name."), argv[0]);
 		return (1);
 	      }
-	      else if (cupsLastError() == IPP_STATUS_ERROR_NOT_FOUND)
+	      else if (cupsGetError() == IPP_STATUS_ERROR_NOT_FOUND)
 	      {
 		_cupsLangPrintf(stderr,
 				_("%s: Error - The printer or class does not exist."), argv[0]);
@@ -255,7 +251,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		char	email[1024];	/* EMail address */
 
 
-		snprintf(email, sizeof(email), "mailto:%s@%s", cupsUser(), httpGetHostname(NULL, buffer, sizeof(buffer)));
+		snprintf(email, sizeof(email), "mailto:%s@%s", cupsGetUser(), httpGetHostname(NULL, buffer, sizeof(buffer)));
 		num_options = cupsAddOption("notify-recipient-uri", email, num_options, &options);
 	      }
 
@@ -576,8 +572,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 		                      dest->options[j].value,
 				      num_options, &options);
     }
-    else if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-	     cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+    else if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+	     cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
     {
       _cupsLangPrintf(stderr,
 		      _("%s: Error - add '/version=1.1' to server "
@@ -588,8 +584,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (printer == NULL)
   {
-    if (!cupsGetNamedDest(NULL, NULL, NULL) && cupsLastError() == IPP_STATUS_ERROR_NOT_FOUND)
-      _cupsLangPrintf(stderr, _("%s: Error - %s"), argv[0], cupsLastErrorString());
+    if (!cupsGetNamedDest(NULL, NULL, NULL) && cupsGetError() == IPP_STATUS_ERROR_NOT_FOUND)
+      _cupsLangPrintf(stderr, _("%s: Error - %s"), argv[0], cupsGetErrorString());
     else
       _cupsLangPrintf(stderr, _("%s: Error - scheduler not responding."), argv[0]);
 
@@ -615,11 +611,11 @@ main(int  argc,				/* I - Number of command-line arguments */
     status = cupsStartDocument(CUPS_HTTP_DEFAULT, printer, job_id, NULL,
                                format, 1);
 
-    while (status == HTTP_CONTINUE &&
+    while (status == HTTP_STATUS_CONTINUE &&
            (bytes = read(0, buffer, sizeof(buffer))) > 0)
       status = cupsWriteRequestData(CUPS_HTTP_DEFAULT, buffer, (size_t)bytes);
 
-    if (status != HTTP_CONTINUE)
+    if (status != HTTP_STATUS_CONTINUE)
     {
       _cupsLangPrintf(stderr, _("%s: Error - unable to queue from stdin - %s."),
 		      argv[0], httpStatus(status));
@@ -628,9 +624,9 @@ main(int  argc,				/* I - Number of command-line arguments */
       return (1);
     }
 
-    if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_OK)
+    if (cupsFinishDocument(CUPS_HTTP_DEFAULT, printer) != IPP_STATUS_OK)
     {
-      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+      _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
       cupsCancelJob2(CUPS_HTTP_DEFAULT, printer, job_id, 0);
       return (1);
     }
@@ -638,7 +634,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (job_id < 1)
   {
-    _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsLastErrorString());
+    _cupsLangPrintf(stderr, "%s: %s", argv[0], cupsGetErrorString());
     return (1);
   }
   else if (!silent)
@@ -662,7 +658,7 @@ restart_job(const char *command,	/* I - Command name */
   char		uri[HTTP_MAX_URI];	/* URI for job */
 
 
-  request = ippNewRequest(IPP_RESTART_JOB);
+  request = ippNewRequest(IPP_OP_RESTART_JOB);
 
   snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
 
@@ -670,24 +666,24 @@ restart_job(const char *command,	/* I - Command name */
                "job-uri", NULL, uri);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+               "requesting-user-name", NULL, cupsGetUser());
 
   if (job_hold_until)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "job-hold-until", NULL, job_hold_until);
 
   ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs"));
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+      cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server "
 		      "name."), command);
     return (1);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+    _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
     return (1);
   }
 
@@ -713,7 +709,7 @@ set_job_attrs(
   if (num_options == 0)
     return (0);
 
-  request = ippNewRequest(IPP_SET_JOB_ATTRIBUTES);
+  request = ippNewRequest(IPP_OP_SET_JOB_ATTRIBUTES);
 
   snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
 
@@ -721,23 +717,23 @@ set_job_attrs(
                "job-uri", NULL, uri);
 
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+               "requesting-user-name", NULL, cupsGetUser());
 
   cupsEncodeOptions(request, num_options, options);
 
   ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/jobs"));
 
-  if (cupsLastError() == IPP_STATUS_ERROR_BAD_REQUEST ||
-      cupsLastError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  if (cupsGetError() == IPP_STATUS_ERROR_BAD_REQUEST ||
+      cupsGetError() == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
   {
     _cupsLangPrintf(stderr,
 		    _("%s: Error - add '/version=1.1' to server "
 		      "name."), command);
     return (1);
   }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
+  else if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
   {
-    _cupsLangPrintf(stderr, "%s: %s", command, cupsLastErrorString());
+    _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
     return (1);
   }
 

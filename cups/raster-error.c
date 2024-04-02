@@ -1,6 +1,7 @@
 /*
  * Raster error handling for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 2007 by Easy Software Products.
  *
@@ -34,7 +35,7 @@ _cupsRasterAddError(const char *f,	/* I - Printf-style error message */
   ssize_t	bytes;			/* Bytes in message string */
 
 
-  DEBUG_printf(("_cupsRasterAddError(f=\"%s\", ...)", f));
+  DEBUG_printf("_cupsRasterAddError(f=\"%s\", ...)", f);
 
   va_start(ap, f);
   bytes = vsnprintf(s, sizeof(s), f, ap);
@@ -43,7 +44,7 @@ _cupsRasterAddError(const char *f,	/* I - Printf-style error message */
   if (bytes <= 0)
     return;
 
-  DEBUG_printf(("1_cupsRasterAddError: %s", s));
+  DEBUG_printf("1_cupsRasterAddError: %s", s);
 
   bytes ++;
 
@@ -109,15 +110,15 @@ _cupsRasterClearError(void)
 
 
 /*
- * '_cupsRasterErrorString()' - Return the last error from a raster function.
+ * 'cupsRasterGetErrorString()' - Return the last error from a raster function.
  *
  * If there are no recent errors, NULL is returned.
  *
- * @since CUPS 1.3/macOS 10.5@
+ * @since CUPS 2.5@
  */
 
 const char *				/* O - Last error */
-_cupsRasterErrorString(void)
+cupsRasterGetErrorString(void)
 {
   _cups_globals_t	*cg = _cupsGlobals();
 					/* Thread globals */

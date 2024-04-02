@@ -1,7 +1,7 @@
 //
 // Driver info file for CUPS-supplied PPDs.
 //
-// Copyright © 2021-2023 by OpenPrinting.
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1993-2006 by Easy Software Products.
 //
@@ -118,12 +118,12 @@
 #media "w595h72/8.26x1.00\"" 595 72
 
 // Common stuff for all drivers...
-Attribute "cupsVersion" "" "2.4"
+Attribute "cupsVersion" "" "2.5"
 Attribute "FileSystem" "" "False"
 Attribute "LandscapeOrientation" "" "Plus90"
 Attribute "TTRasterizer" "" "Type42"
 
-Copyright "Copyright (c) 2021-2023 by OpenPrinting."
+Copyright "Copyright (c) 2020-2024 by OpenPrinting."
 Copyright "Copyright (c) 2007-2019 by Apple Inc."
 Copyright "Copyright (c) 1997-2007 by Easy Software Products."
 Copyright ""
@@ -132,7 +132,7 @@ Copyright "information."
 
 Font *
 
-Version "2.4"
+Version "2.5"
 
 // DYMO Label Printer
 {

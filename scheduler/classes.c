@@ -1,6 +1,7 @@
 /*
  * Printer class routines for the CUPS scheduler.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2017 by Apple Inc.
  * Copyright 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -35,7 +36,7 @@ cupsdAddClass(const char *name)		/* I - Name of class */
     * Change from a printer to a class...
     */
 
-    c->type = CUPS_PRINTER_CLASS;
+    c->type = CUPS_PTYPE_CLASS;
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
 		     ServerName, RemotePort, "/classes/%s", name);
@@ -165,7 +166,7 @@ cupsdDeletePrinterFromClasses(
   for (c = (cupsd_printer_t *)cupsArrayFirst(Printers);
        c;
        c = (cupsd_printer_t *)cupsArrayNext(Printers))
-    if (c->type & CUPS_PRINTER_CLASS)
+    if (c->type & CUPS_PTYPE_CLASS)
       changed |= cupsdDeletePrinterFromClass(c, p);
 
   return (changed);
@@ -220,8 +221,8 @@ cupsdFindAvailablePrinter(
       i = 0;
 
     if (c->printers[i]->accepting &&
-        (c->printers[i]->state == IPP_PRINTER_IDLE ||
-         ((c->printers[i]->type & CUPS_PRINTER_REMOTE) && !c->printers[i]->job)))
+        (c->printers[i]->state == IPP_PSTATE_IDLE ||
+         ((c->printers[i]->type & CUPS_PTYPE_REMOTE) && !c->printers[i]->job)))
     {
       c->last_printer = i;
       return (c->printers[i]);
@@ -245,7 +246,7 @@ cupsdFindClass(const char *name)	/* I - Name of class */
   cupsd_printer_t	*c;		/* Current class/printer */
 
 
-  if ((c = cupsdFindDest(name)) != NULL && (c->type & CUPS_PRINTER_CLASS))
+  if ((c = cupsdFindDest(name)) != NULL && (c->type & CUPS_PTYPE_CLASS))
     return (c);
   else
     return (NULL);
@@ -308,7 +309,7 @@ cupsdLoadAllClasses(void)
 
         if ((p = cupsdFindDest(value)) != NULL)
 	{
-	  p->type = CUPS_PRINTER_CLASS;
+	  p->type = CUPS_PTYPE_CLASS;
 	  cupsdSetStringf(&p->uri, "ipp://%s:%d/classes/%s", ServerName,
 	                  LocalPort, value);
 	  cupsdSetString(&p->error_policy, "retry-job");
@@ -317,7 +318,7 @@ cupsdLoadAllClasses(void)
           p = cupsdAddClass(value);
 
 	p->accepting = 1;
-	p->state     = IPP_PRINTER_IDLE;
+	p->state     = IPP_PSTATE_IDLE;
 
         if (!_cups_strcasecmp(line, "<DefaultClass"))
 	  DefaultPrinter = p;
@@ -415,8 +416,8 @@ cupsdLoadAllClasses(void)
 	{
 	  cupsdSetString(&temp->make_model, "Remote Printer on unknown");
 
-          temp->state = IPP_PRINTER_STOPPED;
-	  temp->type  |= CUPS_PRINTER_REMOTE;
+          temp->state = IPP_PSTATE_STOPPED;
+	  temp->type  |= CUPS_PTYPE_REMOTE;
 
 	  cupsdSetString(&temp->location, "Location Unknown");
 	  cupsdSetString(&temp->info, "No Information Available");
@@ -436,10 +437,10 @@ cupsdLoadAllClasses(void)
       */
 
       if (!_cups_strcasecmp(value, "idle"))
-        p->state = IPP_PRINTER_IDLE;
+        p->state = IPP_PSTATE_IDLE;
       else if (!_cups_strcasecmp(value, "stopped"))
       {
-        p->state = IPP_PRINTER_STOPPED;
+        p->state = IPP_PSTATE_STOPPED;
 
         for (i = 0 ; i < p->num_reasons; i ++)
 	  if (!strcmp("paused", p->reasons[i]))
@@ -464,7 +465,7 @@ cupsdLoadAllClasses(void)
       */
 
       if (value)
-	strlcpy(p->state_message, value, sizeof(p->state_message));
+	cupsCopyString(p->state_message, value, sizeof(p->state_message));
     }
     else if (!_cups_strcasecmp(line, "StateTime"))
     {
@@ -696,8 +697,8 @@ cupsdSaveAllClasses(void)
     * Skip remote destinations and regular printers...
     */
 
-    if ((pclass->type & CUPS_PRINTER_REMOTE) ||
-        !(pclass->type & CUPS_PRINTER_CLASS))
+    if ((pclass->type & CUPS_PTYPE_REMOTE) ||
+        !(pclass->type & CUPS_PTYPE_CLASS))
       continue;
 
    /*
@@ -719,7 +720,7 @@ cupsdSaveAllClasses(void)
       switch (pclass->num_auth_info_required)
       {
         case 1 :
-            strlcpy(value, pclass->auth_info_required[0], sizeof(value));
+            cupsCopyString(value, pclass->auth_info_required[0], sizeof(value));
 	    break;
 
         case 2 :
@@ -746,7 +747,7 @@ cupsdSaveAllClasses(void)
     if (pclass->location)
       cupsFilePutConf(fp, "Location", pclass->location);
 
-    if (pclass->state == IPP_PRINTER_STOPPED)
+    if (pclass->state == IPP_PSTATE_STOPPED)
       cupsFilePuts(fp, "State Stopped\n");
     else
       cupsFilePuts(fp, "State Idle\n");

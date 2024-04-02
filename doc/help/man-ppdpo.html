@@ -1,55 +1,66 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>ppdpo(1)</title>
-</head>
-<body>
-<h1 class="title">ppdpo(1)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-ppdpo - ppd message catalog generator (deprecated)
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>ppdpo</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>ppdpo(1)</title>
+  </head>
+  <body>
+    <h1 id="ppdpo-1">ppdpo(1)</h1>
+    <h2 id="ppdpo-1.name">Name</h2>
+<p>ppdpo - ppd message catalog generator (deprecated)
+</p>
+    <h2 id="ppdpo-1.synopsis">Synopsis</h2>
+<p><strong>ppdpo</strong>
 [
-<b>-D </b><i>name</i>[<b>=</b><i>value</i>]
+<strong>-D </strong><em>name</em>[<strong>=</strong><em>value</em>]
 ] [
-<b>-I</b>
-<i>include-directory</i>
+<strong>-I</strong>
+<em>include-directory</em>
 ] [
-<b>-o</b>
-<i>output-file</i>
+<strong>-o</strong>
+<em>output-file</em>
 ]
-<i>source-file</i>
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>ppdpo</b> extracts UI strings from PPDC source files and updates either a GNU gettext or macOS strings format message catalog source file for translation.
-<b>This program is deprecated and will be removed in a future release of CUPS.</b>
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-<b>ppdpo</b> supports the following options:
-<dl class="man">
-<dt><b>-D </b><i>name</i>[<b>=</b><i>value</i>]
-<dd style="margin-left: 5.0em">Sets the named variable for use in the source file.
-It is equivalent to using the <i>#define</i> directive in the source file.
-<dt><b>-I </b><i>include-directory</i>
-<dd style="margin-left: 5.0em">Specifies an alternate include directory.
-Multiple <i>-I</i> options can be supplied to add additional directories.
-<dt><b>-o </b><i>output-file</i>
-<dd style="margin-left: 5.0em">Specifies the output file.
-The supported extensions are <i>.po</i> or <i>.po.gz</i> for GNU gettext format message catalogs and <i>.strings</i> for macOS strings files.
-</dl>
-<h2 class="title"><a name="NOTES">Notes</a></h2>
-PPD files are deprecated and will no longer be supported in a future feature release of CUPS.
+<em>source-file</em>
+</p>
+    <h2 id="ppdpo-1.description">Description</h2>
+<p><strong>ppdpo</strong> extracts UI strings from PPDC source files and updates either a GNU gettext or macOS strings format message catalog source file for translation.
+<strong>This program is deprecated and will be removed in a future release of CUPS.</strong>
+</p>
+    <h2 id="ppdpo-1.options">Options</h2>
+<p><strong>ppdpo</strong> supports the following options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-D </strong><em>name</em>[<strong>=</strong><em>value</em>]<br>
+Sets the named variable for use in the source file.
+It is equivalent to using the <em>#define</em> directive in the source file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-I </strong><em>include-directory</em><br>
+Specifies an alternate include directory.
+Multiple <em>-I</em> options can be supplied to add additional directories.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>output-file</em><br>
+Specifies the output file.
+The supported extensions are <em>.po</em> or <em>.po.gz</em> for GNU gettext format message catalogs and <em>.strings</em> for macOS strings files.
+</p>
+    <h2 id="ppdpo-1.notes">Notes</h2>
+<p>PPD files are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<a href="man-ippeveprinter.html?TOPIC=Man+Pages"><b>ippeveprinter</b>(1).</a>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-ppdc.html?TOPIC=Man+Pages"><b>ppdc</b>(1),</a>
-<a href="man-ppdhtml.html?TOPIC=Man+Pages"><b>ppdhtml</b>(1),</a>
-<a href="man-ppdi.html?TOPIC=Man+Pages"><b>ppdi</b>(1),</a>
-<a href="man-ppdmerge.html?TOPIC=Man+Pages"><b>ppdmerge</b>(1),</a>
-<b>ppdcfile(5),</b>
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
+<strong>ippeveprinter</strong>(1).
 
-</body>
+</p>
+    <h2 id="ppdpo-1.see-also">See Also</h2>
+<p><strong>ppdc</strong>(1),
+
+<strong>ppdhtml</strong>(1),
+
+<strong>ppdi</strong>(1),
+
+<strong>ppdmerge</strong>(1),
+
+<strong>ppdcfile(5),</strong>
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="ppdpo-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2020-2024 by OpenPrinting.
+  </body>
 </html>

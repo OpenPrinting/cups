@@ -1,6 +1,7 @@
 /*
  * CGI form variable and array functions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products.
  *
@@ -178,6 +179,41 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
 
 
 /*
+ * 'cgiGetCheckbox()' - Get a checkbox value, deleting any invalid values.
+ */
+
+const char *				/* O - Value or NULL */
+cgiGetCheckbox(const char *name)	/* I - Name of form field */
+{
+  _cgi_var_t	*var = cgi_find_variable(name);
+					/* Found variable */
+  const char	*value = var ? var->values[var->nvalues - 1] : NULL;
+
+
+  if (value && _cups_strcasecmp(value, "checkbox"))
+  {
+   /*
+    * Delete the invalid checkbox value...
+    */
+
+    int i = var - form_vars, j;
+
+    form_count --;
+
+    for (j = 0; j < var->nvalues; j ++)
+      free(var->values[j]);
+    free(var->name);
+    free(var->values);
+
+    if (i < form_count)
+      memmove(var, var + 1, (size_t)(form_count - i) * sizeof(_cgi_var_t));
+  }
+
+  return (value);
+}
+
+
+/*
  * 'cgiGetCookie()' - Get a cookie value.
  */
 
@@ -213,6 +249,41 @@ cgiGetSize(const char *name)		/* I - Name of variable */
     return (0);
 
   return (var->nvalues);
+}
+
+
+/*
+ * 'cgiGetTextfield()' - Get a textfield value, deleting any invalid values.
+ */
+
+const char *				/* O - Value or NULL */
+cgiGetTextfield(const char *name)	/* I - Name of form field */
+{
+  _cgi_var_t	*var = cgi_find_variable(name);
+					/* Found variable */
+  const char	*value = var ? var->values[var->nvalues - 1] : NULL;
+
+
+  if (value && strchr(value, '\"') != NULL)
+  {
+   /*
+    * Delete the invalid text field value...
+    */
+
+    int i = var - form_vars, j;
+
+    form_count --;
+
+    for (j = 0; j < var->nvalues; j ++)
+      free(var->values[j]);
+    free(var->name);
+    free(var->values);
+
+    if (i < form_count)
+      memmove(var, var + 1, (size_t)(form_count - i) * sizeof(_cgi_var_t));
+  }
+
+  return (value);
 }
 
 
@@ -557,7 +628,7 @@ cgi_add_variable(const char *name,	/* I - Variable name */
 
     if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
     {
-      /* 
+      /*
        * Rollback changes
        */
 
@@ -934,7 +1005,7 @@ cgi_initialize_multipart(
     {
       if ((ptr = strstr(line + 20, " name=\"")) != NULL)
       {
-        strlcpy(name, ptr + 7, sizeof(name));
+        cupsCopyString(name, ptr + 7, sizeof(name));
 
 	if ((ptr = strchr(name, '\"')) != NULL)
 	  *ptr = '\0';
@@ -942,7 +1013,7 @@ cgi_initialize_multipart(
 
       if ((ptr = strstr(line + 20, " filename=\"")) != NULL)
       {
-        strlcpy(filename, ptr + 11, sizeof(filename));
+        cupsCopyString(filename, ptr + 11, sizeof(filename));
 
 	if ((ptr = strchr(filename, '\"')) != NULL)
 	  *ptr = '\0';
@@ -952,7 +1023,7 @@ cgi_initialize_multipart(
     {
       for (ptr = line + 13; isspace(*ptr & 255); ptr ++);
 
-      strlcpy(mimetype, ptr, sizeof(mimetype));
+      cupsCopyString(mimetype, ptr, sizeof(mimetype));
 
       for (ptr = mimetype + strlen(mimetype) - 1;
            ptr > mimetype && isspace(*ptr & 255);

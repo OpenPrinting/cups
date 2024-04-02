@@ -1,7 +1,7 @@
 #
 # Locale file makefile for CUPS.
 #
-# Copyright © 2021-2023 by OpenPrinting.
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1993-2007 by Easy Software Products.
 #
@@ -50,7 +50,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #

@@ -3,6 +3,7 @@
  *
  * THIS PROGRAM IS DEPRECATED AND WILL BE REMOVED IN A FUTURE VERSION OF CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1856,7 +1857,7 @@ check_constraints(ppd_file_t *ppd,	/* I - PPD file */
         if (!_cups_strncasecmp(option, "Custom", 6) && !_cups_strcasecmp(choice, "True"))
 	{
 	  _cups_strcpy(option, option + 6);
-	  strlcpy(choice, "Custom", sizeof(choice));
+	  cupsCopyString(choice, "Custom", sizeof(choice));
 	}
 
         if ((o = ppdFindOption(ppd, option)) == NULL)
@@ -1957,13 +1958,13 @@ check_constraints(ppd_file_t *ppd,	/* I - PPD file */
       if (!_cups_strncasecmp(c->option1, "Custom", 6) &&
           !_cups_strcasecmp(c->choice1, "True"))
       {
-	strlcpy(option, c->option1 + 6, sizeof(option));
-	strlcpy(choice, "Custom", sizeof(choice));
+	cupsCopyString(option, c->option1 + 6, sizeof(option));
+	cupsCopyString(choice, "Custom", sizeof(choice));
       }
       else
       {
-	strlcpy(option, c->option1, sizeof(option));
-	strlcpy(choice, c->choice1, sizeof(choice));
+	cupsCopyString(option, c->option1, sizeof(option));
+	cupsCopyString(choice, c->choice1, sizeof(choice));
       }
 
       if ((o = ppdFindOption(ppd, option)) == NULL)
@@ -1998,13 +1999,13 @@ check_constraints(ppd_file_t *ppd,	/* I - PPD file */
       if (!_cups_strncasecmp(c->option2, "Custom", 6) &&
           !_cups_strcasecmp(c->choice2, "True"))
       {
-	strlcpy(option, c->option2 + 6, sizeof(option));
-	strlcpy(choice, "Custom", sizeof(choice));
+	cupsCopyString(option, c->option2 + 6, sizeof(option));
+	cupsCopyString(choice, "Custom", sizeof(choice));
       }
       else
       {
-	strlcpy(option, c->option2, sizeof(option));
-	strlcpy(choice, c->choice2, sizeof(choice));
+	cupsCopyString(option, c->option2, sizeof(option));
+	cupsCopyString(choice, c->choice2, sizeof(choice));
       }
 
       if ((o = ppdFindOption(ppd, option)) == NULL)
@@ -3268,12 +3269,12 @@ check_sizes(ppd_file_t *ppd,		/* I - PPD file */
         size_t ppdlen = strlen(pwg_media->ppd);
 					/* Length of standard PPD name */
 
-        strlcpy(buf, pwg_media->ppd, sizeof(buf));
+        cupsCopyString(buf, pwg_media->ppd, sizeof(buf));
 
         if (strcmp(size->name, buf) && size->width > size->length)
         {
           if (!strcmp(pwg_media->ppd, "DoublePostcardRotated"))
-            strlcpy(buf, "DoublePostcard", sizeof(buf));
+            cupsCopyString(buf, "DoublePostcard", sizeof(buf));
           else if (strstr(size->name, ".Transverse"))
             snprintf(buf, sizeof(buf), "%s.Transverse", pwg_media->ppd);
           else
@@ -3285,7 +3286,7 @@ check_sizes(ppd_file_t *ppd,		/* I - PPD file */
         if (size->left == 0 && size->bottom == 0 &&
 	    size->right == size->width && size->top == size->length)
         {
-          strlcat(buf, ".Fullbleed", sizeof(buf) - strlen(buf));
+          cupsConcatString(buf, ".Fullbleed", sizeof(buf) - strlen(buf));
 	  if (_cups_strcasecmp(size->name, buf))
 	  {
 	   /*
@@ -3365,9 +3366,9 @@ check_sizes(ppd_file_t *ppd,		/* I - PPD file */
 
         if (size->left == 0 && size->bottom == 0 &&
 	    size->right == size->width && size->top == size->length)
-          strlcat(buf, ".Fullbleed", sizeof(buf));
+          cupsConcatString(buf, ".Fullbleed", sizeof(buf));
         else if (size->width > size->length)
-          strlcat(buf, ".Transverse", sizeof(buf));
+          cupsConcatString(buf, ".Transverse", sizeof(buf));
 
         if (_cups_strcasecmp(size->name, buf))
         {
@@ -3460,7 +3461,7 @@ check_translations(ppd_file_t *ppd,	/* I - PPD file */
       if (!strcmp(language, "en"))
         continue;
 
-      strlcpy(ll, language, sizeof(ll));
+      cupsCopyString(ll, language, sizeof(ll));
 
      /*
       * Loop through all options and choices...
@@ -3660,7 +3661,7 @@ check_translations(ppd_file_t *ppd,	/* I - PPD file */
 
 	cupsArraySave(languages);
 
-	strlcpy(ll, language, sizeof(ll));
+	cupsCopyString(ll, language, sizeof(ll));
 
 	if (!cupsArrayFind(languages, ll) &&
 	    strcmp(ll, "zh") && strcmp(ll, "en"))
@@ -3893,7 +3894,7 @@ valid_path(const char *keyword,		/* I - Keyword using path */
   * the same capitalization...
   */
 
-  strlcpy(temp, path, sizeof(temp));
+  cupsCopyString(temp, path, sizeof(temp));
 
   while ((ptr = strrchr(temp, '/')) != NULL)
   {

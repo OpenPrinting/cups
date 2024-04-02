@@ -1,6 +1,7 @@
 #
 # Chinese message catalog for CUPS.
 #
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2018 by Apple Inc.
 # Copyright © 2005-2007 by Easy Software Products.
 #
@@ -12,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2021-03-07 10:33-0500\n"
+"POT-Creation-Date: 2023-09-13 13:50-0400\n"
 "PO-Revision-Date: 2022-07-14 12:43+0800\n"
 "Last-Translator: Tyson Tan <tysontan@tysontan.com>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -1155,10 +1156,6 @@ msgid "%s: %s failed: %s"
 msgstr "%s：%s 失败：%s"
 
 #, c-format
-msgid "%s: Bad printer URI \"%s\"."
-msgstr "%s：无效的打印机 URI“%s”。"
-
-#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s：用于“-V”的版本 %s 无效。"
 
@@ -1414,12 +1411,8 @@ msgid "%s: Operation failed: %s"
 msgstr "%s：操作失败：%s"
 
 #, c-format
-msgid "%s: Sorry, no encryption support."
-msgstr "%s：抱歉，无加密支持。"
-
-#, c-format
-msgid "%s: Unable to connect to \"%s:%d\": %s"
-msgstr "%s：无法连接到“%s:%d”：%s"
+msgid "%s: Scheduler is not running."
+msgstr ""
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1428,10 +1421,6 @@ msgstr "%s：无法连接到服务器。"
 #, c-format
 msgid "%s: Unable to contact server."
 msgstr "%s：无法与服务器通信。"
-
-#, c-format
-msgid "%s: Unable to create PPD file: %s"
-msgstr "%s：无法创建 PPD 文件：%s"
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1450,16 +1439,8 @@ msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%1$s：无法打开 PPD 文件：行 %3$d 上的 %2$s。"
 
 #, c-format
-msgid "%s: Unable to query printer: %s"
-msgstr "%s：无法查询打印机：%s"
-
-#, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
 msgstr "%s：无法从“%s”或“%s”读取 MIME 数据库。"
-
-#, c-format
-msgid "%s: Unable to resolve \"%s\"."
-msgstr "%s：无法解析“%s”。"
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -1854,13 +1835,13 @@ msgid ""
 "standard output"
 msgstr ""
 
-msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
-
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
 
 msgid "-P page-list            Specify a list of pages to print"
+msgstr ""
+
+msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 msgid "-R                      Show the ranking of jobs"
@@ -2917,6 +2898,10 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "尝试设置 %s 打印机状态为无效值 %d。"
 
 #, c-format
+msgid "Attribute \"%s\" has empty value."
+msgstr ""
+
+#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "属性“%s”位于错误的组。"
 
@@ -3035,6 +3020,9 @@ msgstr "无效的 document-format 值“%s”。"
 msgid "Bad document-format-default \"%s\"."
 msgstr "无效的 document-format-default 值“%s”。"
 
+msgid "Bad extKeyUsage extension in X.509 certificate request."
+msgstr ""
+
 msgid "Bad filename buffer"
 msgstr "无效的文件名缓存"
 
@@ -3064,6 +3052,9 @@ msgstr "无效的 job-state 值。"
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr "无效的 job-uri 值“%s”。"
+
+msgid "Bad keyUsage extension in X.509 certificate request."
+msgstr ""
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3112,6 +3103,9 @@ msgstr "URI 中的资源无效"
 
 msgid "Bad scheme in URI"
 msgstr "URI 中的方案无效"
+
+msgid "Bad subjectAltName extension in X.509 certificate request."
+msgstr ""
 
 msgid "Bad username in URI"
 msgstr "URI 中的用户名无效"
@@ -3626,6 +3620,9 @@ msgstr "对开本"
 msgid "Forbidden"
 msgstr "已禁止"
 
+msgid "Form data too large."
+msgstr ""
+
 msgid "Found"
 msgstr "已发现"
 
@@ -3668,6 +3665,9 @@ msgstr "高"
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "带有不兼容值标签的 IPP 1setOf 属性。"
 
+msgid "IPP Everywhere driver requires an IPP connection."
+msgstr ""
+
 msgid "IPP attribute has no name."
 msgstr "IPP 属性未命名。"
 
@@ -3700,6 +3700,9 @@ msgstr "IPP 语言长度溢出值限制。"
 
 msgid "IPP language length too large."
 msgstr "IPP 语言长度太长。"
+
+msgid "IPP member attribute outside of collection."
+msgstr ""
 
 msgid "IPP member name is not empty."
 msgstr "IPP 成员名称非空。"
@@ -3805,6 +3808,15 @@ msgstr "网邮 3 部"
 msgid "Internet Printing Protocol"
 msgstr "互联网打印协议"
 
+msgid "Invalid JSON data."
+msgstr ""
+
+msgid "Invalid JSON web token."
+msgstr ""
+
+msgid "Invalid form data."
+msgstr ""
+
 msgid "Invalid group tag."
 msgstr "无效的组标签。"
 
@@ -3868,6 +3880,9 @@ msgstr "JIS B8"
 
 msgid "JIS B9"
 msgstr "JIS B9"
+
+msgid "JSON file too large."
+msgstr ""
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -3979,9 +3994,6 @@ msgstr "已创建本地打印机。"
 
 msgid "Long-Edge (Portrait)"
 msgstr "长边翻转 (竖版)"
-
-msgid "Looking for printer."
-msgstr "正在寻找打印机。"
 
 msgid "Main Roll"
 msgstr ""
@@ -4144,9 +4156,6 @@ msgstr "请求中无属性。"
 msgid "No authentication information provided."
 msgstr "未提供认证信息。"
 
-msgid "No common name specified."
-msgstr "未指定通用名称。"
-
 msgid "No community name"
 msgstr "无社群名称"
 
@@ -4263,6 +4272,9 @@ msgstr "日冲"
 
 msgid "Online Help"
 msgstr "在线帮助"
+
+msgid "Only WGS-84 coordinates are supported."
+msgstr ""
 
 msgid "Only local users can create a local printer."
 msgstr "本地打印机只能使用本地用户创建。"
@@ -4835,6 +4847,9 @@ msgstr "无法添加类"
 msgid "Unable to add document to print job."
 msgstr "无法向打印任务添加文档。"
 
+msgid "Unable to add extension to X.509 certificate."
+msgstr ""
+
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
 msgstr "无法向目标“%s”添加任务。"
@@ -4851,7 +4866,8 @@ msgstr "无法为页面信息分配内存"
 msgid "Unable to allocate memory for pages array"
 msgstr "无法为页面组分配内存"
 
-msgid "Unable to allocate memory for printer"
+#, c-format
+msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
 msgid "Unable to cancel print job."
@@ -4867,6 +4883,10 @@ msgid "Unable to change server settings"
 msgstr "无法更改服务器选项"
 
 #, c-format
+msgid "Unable to commit PPD file: %s"
+msgstr ""
+
+#, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
 msgstr "无法编译 mimeMediaType 正则表达式：%s。"
 
@@ -4876,6 +4896,9 @@ msgstr "无法编译 naturalLanguage 正则表达式：%s。"
 
 msgid "Unable to configure printer options."
 msgstr "无法配置打印机选项。"
+
+msgid "Unable to configure private key context."
+msgstr ""
 
 msgid "Unable to connect to host."
 msgstr "无法连接主机。"
@@ -4887,17 +4910,23 @@ msgstr "无法联系打印机，已列队于类中的下一台打印机。"
 msgid "Unable to copy PPD file - %s"
 msgstr "无法复制 PPD 文件 — %s"
 
-msgid "Unable to copy PPD file."
-msgstr "无法复制 PPD 文件。"
+msgid "Unable to create X.509 certificate signing request."
+msgstr ""
 
-msgid "Unable to create credentials from array."
-msgstr "无法从打印组创建服务器凭据。"
+msgid "Unable to create X.509 certificate."
+msgstr ""
 
 msgid "Unable to create printer-uri"
 msgstr "无法创建 printer-uri。"
 
 msgid "Unable to create printer."
 msgstr "无法创建打印机。"
+
+msgid "Unable to create private key context."
+msgstr ""
+
+msgid "Unable to create private key."
+msgstr ""
 
 msgid "Unable to create server credentials."
 msgstr "无法创建服务器凭据。"
@@ -4922,51 +4951,14 @@ msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr "无法编辑大小超过 1MB 的 cupsd.conf 文件"
 
 #, c-format
-msgid "Unable to establish a secure connection to host (%d)."
-msgstr ""
-
-msgid ""
-"Unable to establish a secure connection to host (certificate chain invalid)."
-msgstr "无法建立到主机的安全连接 (无效证书链)。"
-
-msgid ""
-"Unable to establish a secure connection to host (certificate not yet valid)."
-msgstr "无法建立到主机的安全连接 (证书尚未生效)。"
-
-msgid "Unable to establish a secure connection to host (expired certificate)."
-msgstr "无法建立到主机的安全连接 (证书已过期)。"
-
-msgid "Unable to establish a secure connection to host (host name mismatch)."
-msgstr "无法建立到主机的安全连接 (主机名不匹配)。"
-
-msgid ""
-"Unable to establish a secure connection to host (peer dropped connection "
-"before responding)."
-msgstr "无法建立到主机的安全连接 (对方在回复前断开连接)。"
-
-msgid ""
-"Unable to establish a secure connection to host (self-signed certificate)."
-msgstr "无法建立到主机的安全连接 (自签发证书)。"
-
-msgid ""
-"Unable to establish a secure connection to host (untrusted certificate)."
-msgstr "无法建立到主机的安全连接 (未信任的证书)。"
-
-msgid "Unable to establish a secure connection to host."
-msgstr "无法建立到主机的安全连接。"
-
-#, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "找不到任务目的地"
 
-msgid "Unable to find printer."
-msgstr "找不到打印机。"
-
-msgid "Unable to find server credentials."
-msgstr "找不到服务器凭据。"
+msgid "Unable to finish request."
+msgstr ""
 
 msgid "Unable to get backend exit status."
 msgstr "无法获取后端退出状态。"
@@ -4991,6 +4983,18 @@ msgstr "无法获取打印机状态"
 
 msgid "Unable to get printer status."
 msgstr "无法获取打印机状态。"
+
+msgid "Unable to import X.509 certificate request."
+msgstr ""
+
+msgid "Unable to import credentials."
+msgstr ""
+
+msgid "Unable to initialize private key context."
+msgstr ""
+
+msgid "Unable to load X.509 CA certificate and private key."
+msgstr ""
 
 msgid "Unable to load help index."
 msgstr "无法载入帮助索引。"
@@ -5042,8 +5046,7 @@ msgstr "无法打印测试页"
 msgid "Unable to read print data."
 msgstr "无法读取打印数据。"
 
-#, c-format
-msgid "Unable to register \"%s.%s\": %d"
+msgid "Unable to read response."
 msgstr ""
 
 msgid "Unable to rename job document file."
@@ -5051,6 +5054,14 @@ msgstr "无法重命名任务文档。"
 
 msgid "Unable to resolve printer-uri."
 msgstr "无法解析 printer-uri。"
+
+#, c-format
+msgid "Unable to run cups-driverd: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save PPD file: %s"
+msgstr ""
 
 # "Unable to read file" perhaps?
 msgid "Unable to see in file"
@@ -5077,8 +5088,20 @@ msgstr "无法上传 cupsd.conf 文件"
 msgid "Unable to use legacy USB class driver."
 msgstr "无法使用老式 USB 类驱动。"
 
+msgid "Unable to verify X.509 certificate request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate signing request."
+msgstr ""
+
+msgid "Unable to write X.509 certificate."
+msgstr ""
+
 msgid "Unable to write print data"
 msgstr "无法写入打印数据"
+
+msgid "Unable to write private key."
+msgstr ""
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5096,10 +5119,6 @@ msgstr "未知"
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
 msgstr "选项“%2$s”带有未知选择“%1$s”。"
-
-#, c-format
-msgid "Unknown directive \"%s\" on line %d of \"%s\" ignored."
-msgstr ""
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
@@ -5168,6 +5187,9 @@ msgstr "不支持的“job-hold-until”值。"
 
 msgid "Unsupported 'job-name' value."
 msgstr "不支持的“job-name”值。"
+
+msgid "Unsupported URI scheme."
+msgstr ""
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
@@ -5327,6 +5349,9 @@ msgstr "用法：snmp [host-or-ip-address]"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
+msgstr ""
+
+msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
 
 msgid "Value uses indefinite length"
@@ -5662,6 +5687,9 @@ msgstr "无法执行 cups-deviced。"
 
 msgid "cups-driverd failed to execute."
 msgstr "无法执行 cups-driverd。"
+
+msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7019,10 +7047,6 @@ msgid "insert-sheet"
 msgstr ""
 
 #, c-format
-msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
-
-#, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind：无效的正则表达式：%s"
 
@@ -7087,16 +7111,8 @@ msgid "ippfind: Too many parenthesis."
 msgstr "ippfind：括号过多。"
 
 #, c-format
-msgid "ippfind: Unable to browse or resolve: %s"
-msgstr "ippfind：无法浏览或解析：%s"
-
-#, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
 msgstr "ippfind：无法执行“%s”：%s"
-
-#, c-format
-msgid "ippfind: Unable to use Bonjour: %s"
-msgstr "ippfind：无法使用 Bonjour：%s"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
@@ -7137,6 +7153,10 @@ msgstr "ipptool：“-i”选项后缺少秒数。"
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool：测试文件前需要 URI。"
+
+#, c-format
+msgid "ipptool: Unable to allocate memory: %s"
+msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -15231,6 +15251,30 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "~/.cups/lpoptions 文件所指定的默认目标不存在。"
 
+#, c-format
+#~ msgid "%s: Bad printer URI \"%s\"."
+#~ msgstr "%s：无效的打印机 URI“%s”。"
+
+#, c-format
+#~ msgid "%s: Sorry, no encryption support."
+#~ msgstr "%s：抱歉，无加密支持。"
+
+#, c-format
+#~ msgid "%s: Unable to connect to \"%s:%d\": %s"
+#~ msgstr "%s：无法连接到“%s:%d”：%s"
+
+#, c-format
+#~ msgid "%s: Unable to create PPD file: %s"
+#~ msgstr "%s：无法创建 PPD 文件：%s"
+
+#, c-format
+#~ msgid "%s: Unable to query printer: %s"
+#~ msgstr "%s：无法查询打印机：%s"
+
+#, c-format
+#~ msgid "%s: Unable to resolve \"%s\"."
+#~ msgstr "%s：无法解析“%s”。"
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr "需要 Samba 密码以导出打印机驱动"
 
@@ -15243,8 +15287,68 @@ msgstr "~/.cups/lpoptions 文件所指定的默认目标不存在。"
 #~ msgid "Export Printers to Samba"
 #~ msgstr "将打印机导出到 Samba"
 
+#~ msgid "Looking for printer."
+#~ msgstr "正在寻找打印机。"
+
+#~ msgid "No common name specified."
+#~ msgstr "未指定通用名称。"
+
+#~ msgid "Unable to copy PPD file."
+#~ msgstr "无法复制 PPD 文件。"
+
+#~ msgid "Unable to create credentials from array."
+#~ msgstr "无法从打印组创建服务器凭据。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate chain "
+#~ "invalid)."
+#~ msgstr "无法建立到主机的安全连接 (无效证书链)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (certificate not yet "
+#~ "valid)."
+#~ msgstr "无法建立到主机的安全连接 (证书尚未生效)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (expired certificate)."
+#~ msgstr "无法建立到主机的安全连接 (证书已过期)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (host name mismatch)."
+#~ msgstr "无法建立到主机的安全连接 (主机名不匹配)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (peer dropped connection "
+#~ "before responding)."
+#~ msgstr "无法建立到主机的安全连接 (对方在回复前断开连接)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (self-signed certificate)."
+#~ msgstr "无法建立到主机的安全连接 (自签发证书)。"
+
+#~ msgid ""
+#~ "Unable to establish a secure connection to host (untrusted certificate)."
+#~ msgstr "无法建立到主机的安全连接 (未信任的证书)。"
+
+#~ msgid "Unable to establish a secure connection to host."
+#~ msgstr "无法建立到主机的安全连接。"
+
+#~ msgid "Unable to find printer."
+#~ msgstr "找不到打印机。"
+
+#~ msgid "Unable to find server credentials."
+#~ msgstr "找不到服务器凭据。"
+
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl：无法直接设置 Listen 或 Port 值。"
+
+#, c-format
+#~ msgid "ippfind: Unable to browse or resolve: %s"
+#~ msgstr "ippfind：无法浏览或解析：%s"
+
+#, c-format
+#~ msgid "ippfind: Unable to use Bonjour: %s"
+#~ msgstr "ippfind：无法使用 Bonjour：%s"
 
 #~ msgid "lpadmin: Unable to open PPD file \"%s\" - %s"
 #~ msgstr "lpadmin：无法打开 PPD 文件“%s”- %s"

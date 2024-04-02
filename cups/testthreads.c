@@ -1,43 +1,37 @@
-/*
- * Threaded test program for CUPS.
- *
- * Copyright © 2012-2019 by Apple Inc.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
- */
-
-/*
- * Include necessary headers...
- */
+//
+// Threaded test program for CUPS.
+//
+// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2012-2019 by Apple Inc.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
 #include <stdio.h>
 #include <errno.h>
 #include <cups/cups.h>
-#include <cups/thread-private.h>
+#include <cups/thread.h>
 
 
-/*
- * Local functions...
- */
+//
+// Local functions...
+//
 
 static int	enum_dests_cb(void *_name, unsigned flags, cups_dest_t *dest);
 static void	*run_query(cups_dest_t *dest);
 static void	show_supported(http_t *http, cups_dest_t *dest, cups_dinfo_t *dinfo, const char *option, const char *value);
 
 
-/*
- * 'main()' - Main entry.
- */
+//
+// 'main()' - Main entry.
+//
 
-int					/* O - Exit status */
-main(int  argc,				/* I - Number of command-line arguments */
-     char *argv[])			/* I - Command-line arguments */
+int					// O - Exit status
+main(int  argc,				// I - Number of command-line arguments
+     char *argv[])			// I - Command-line arguments
 {
- /*
-  * Go through all the available destinations to find the requested one...
-  */
-
+  // Go through all the available destinations to find the requested one...
   (void)argc;
 
   cupsEnumDests(CUPS_DEST_FLAGS_NONE, -1, NULL, 0, 0, enum_dests_cb, argv[1]);
@@ -46,68 +40,59 @@ main(int  argc,				/* I - Number of command-line arguments */
 }
 
 
-/*
- * 'enum_dests_cb()' - Destination enumeration function...
- */
+//
+// 'enum_dests_cb()' - Destination enumeration function...
+//
 
-static int				/* O - 1 to continue, 0 to stop */
-enum_dests_cb(void        *_name,	/* I - Printer name, if any */
-              unsigned    flags,	/* I - Enumeration flags */
-              cups_dest_t *dest)	/* I - Found destination */
+static int				// O - 1 to continue, 0 to stop
+enum_dests_cb(void        *_name,	// I - Printer name, if any
+              unsigned    flags,	// I - Enumeration flags
+              cups_dest_t *dest)	// I - Found destination
 {
   const char		*name = (const char *)_name;
-					/* Printer name */
-  cups_dest_t		*cdest;		/* Copied destination */
+					// Printer name
+  cups_dest_t		*cdest;		// Copied destination
 
 
   (void)flags;
 
- /*
-  * If a name was specified, compare it...
-  */
-
+  // If a name was specified, compare it...
   if (name && strcasecmp(name, dest->name))
-    return (1);				/* Continue */
+    return (1);				// Continue
 
- /*
-  * Copy the destination and run the query on a separate thread...
-  */
-
+  // Copy the destination and run the query on a separate thread...
   cupsCopyDest(dest, 0, &cdest);
-  _cupsThreadWait(_cupsThreadCreate((_cups_thread_func_t)run_query, cdest));
+  cupsThreadWait(cupsThreadCreate((cups_thread_func_t)run_query, cdest));
 
   cupsFreeDests(1, cdest);
 
- /*
-  * Continue if no name was specified or the name matches...
-  */
-
+  // Continue if no name was specified or the name matches...
   return (!name || !strcasecmp(name, dest->name));
 }
 
 
-/*
- * 'run_query()' - Query printer capabilities on a separate thread.
- */
+//
+// 'run_query()' - Query printer capabilities on a separate thread.
+//
 
-static void *				/* O - Return value (not used) */
-run_query(cups_dest_t *dest)		/* I - Destination to query */
+static void *				// O - Return value (not used)
+run_query(cups_dest_t *dest)		// I - Destination to query
 {
-  http_t	*http;			/* Connection to destination */
-  cups_dinfo_t	*dinfo;			/* Destination info */
+  http_t	*http;			// Connection to destination
+  cups_dinfo_t	*dinfo;			// Destination info
   unsigned	dflags = CUPS_DEST_FLAGS_NONE;
-					/* Destination flags */
+					// Destination flags
 
 
   if ((http = cupsConnectDest(dest, dflags, 300, NULL, NULL, 0, NULL, NULL)) == NULL)
   {
-    printf("testthreads: Unable to connect to destination \"%s\": %s\n", dest->name, cupsLastErrorString());
+    printf("testthreads: Unable to connect to destination \"%s\": %s\n", dest->name, cupsGetErrorString());
     return (NULL);
   }
 
   if ((dinfo = cupsCopyDestInfo(http, dest)) == NULL)
   {
-    printf("testdest: Unable to get information for destination \"%s\": %s\n", dest->name, cupsLastErrorString());
+    printf("testdest: Unable to get information for destination \"%s\": %s\n", dest->name, cupsGetErrorString());
     return (NULL);
   }
 
@@ -120,20 +105,20 @@ run_query(cups_dest_t *dest)		/* I - Destination to query */
 
 
 
-/*
- * 'show_supported()' - Show supported options, values, etc.
- */
+//
+// 'show_supported()' - Show supported options, values, etc.
+//
 
 static void
-show_supported(http_t       *http,	/* I - Connection to destination */
-	       cups_dest_t  *dest,	/* I - Destination */
-	       cups_dinfo_t *dinfo,	/* I - Destination information */
-	       const char   *option,	/* I - Option, if any */
-	       const char   *value)	/* I - Value, if any */
+show_supported(http_t       *http,	// I - Connection to destination
+	       cups_dest_t  *dest,	// I - Destination
+	       cups_dinfo_t *dinfo,	// I - Destination information
+	       const char   *option,	// I - Option, if any
+	       const char   *value)	// I - Value, if any
 {
-  ipp_attribute_t	*attr;		/* Attribute */
-  int			i,		/* Looping var */
-			count;		/* Number of values */
+  ipp_attribute_t	*attr;		// Attribute
+  size_t		i,		// Looping var
+			count;		// Number of values
 
 
   if (!option)
@@ -148,7 +133,7 @@ show_supported(http_t       *http,	/* I - Connection to destination */
     else
     {
       static const char * const options[] =
-      {					/* List of standard options */
+      {					// List of standard options
         CUPS_COPIES,
 	CUPS_FINISHINGS,
 	CUPS_MEDIA,
@@ -236,8 +221,10 @@ show_supported(http_t       *http,	/* I - Connection to destination */
         case IPP_TAG_STRING :
 	    for (i = 0; i < count; i ++)
 	    {
-	      int j, len;
+	      size_t j;			// Looping var
+	      int len;		// Length of value
 	      unsigned char *data = ippGetOctetString(attr, i, &len);
+					// Pointer to octet string
 
               fputs("        ", stdout);
 	      for (j = 0; j < len; j ++)

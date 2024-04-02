@@ -1,6 +1,9 @@
 #
 # Man page makefile for CUPS.
 #
+# The "html" target depends on "mantohtml" from https://www.msweet.org/mantohtml
+#
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1993-2006 by Easy Software Products.
 #
@@ -203,25 +206,21 @@ local:	html
 # Make html versions of man pages...
 #
 
-html:	$(MAN1) $(MAN5) $(MAN7) $(MAN8) mantohtml
+html:	$(MAN1) $(MAN5) $(MAN7) $(MAN8)
 	echo Converting man pages to HTML...
 	for file in $(MAN1); do \
 		echo "    $$file..."; \
-		./mantohtml $$file >../doc/help/man-`basename $$file .1`.html; \
+		mantohtml $$file >../doc/help/man-`basename $$file .1`.html; \
 	done
 	for file in $(MAN5); do \
 		echo "    $$file..."; \
-		./mantohtml $$file >../doc/help/man-`basename $$file .5`.html; \
+		mantohtml $$file >../doc/help/man-`basename $$file .5`.html; \
 	done
 	for file in $(MAN7); do \
 		echo "    $$file..."; \
-		./mantohtml $$file >../doc/help/man-`basename $$file .7`.html; \
+		mantohtml $$file >../doc/help/man-`basename $$file .7`.html; \
 	done
 	for file in $(MAN8); do \
 		echo "    $$file..."; \
-		./mantohtml $$file >../doc/help/man-`basename $$file .8`.html; \
+		mantohtml $$file >../doc/help/man-`basename $$file .8`.html; \
 	done
-
-mantohtml:	mantohtml.o ../cups/$(LIBCUPSSTATIC)
-	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ mantohtml.o $(LINKCUPSSTATIC)
-	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@

@@ -1,7 +1,7 @@
 /*
  * Authentication functions for CUPS.
  *
- * Copyright © 2021 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -120,7 +120,7 @@ cupsDoAuthentication(
   _cups_globals_t *cg = _cupsGlobals();	/* Global data */
 
 
-  DEBUG_printf(("cupsDoAuthentication(http=%p, method=\"%s\", resource=\"%s\")", (void *)http, method, resource));
+  DEBUG_printf("cupsDoAuthentication(http=%p, method=\"%s\", resource=\"%s\")", (void *)http, method, resource);
 
   if (!http)
     http = _cupsConnect();
@@ -128,10 +128,8 @@ cupsDoAuthentication(
   if (!http || !method || !resource)
     return (-1);
 
-  DEBUG_printf(("2cupsDoAuthentication: digest_tries=%d, userpass=\"%s\"",
-                http->digest_tries, http->userpass));
-  DEBUG_printf(("2cupsDoAuthentication: WWW-Authenticate=\"%s\"",
-                httpGetField(http, HTTP_FIELD_WWW_AUTHENTICATE)));
+  DEBUG_printf("2cupsDoAuthentication: digest_tries=%d, userpass=\"%s\"", http->digest_tries, http->userpass);
+  DEBUG_printf("2cupsDoAuthentication: WWW-Authenticate=\"%s\"", httpGetField(http, HTTP_FIELD_WWW_AUTHENTICATE));
 
  /*
   * Clear the current authentication string...
@@ -147,8 +145,7 @@ cupsDoAuthentication(
   {
     if ((localauth = cups_local_auth(http)) == 0)
     {
-      DEBUG_printf(("2cupsDoAuthentication: authstring=\"%s\"",
-                    http->authstring));
+      DEBUG_printf("2cupsDoAuthentication: authstring=\"%s\"", http->authstring);
 
       if (http->status == HTTP_STATUS_UNAUTHORIZED)
 	http->digest_tries ++;
@@ -174,7 +171,7 @@ cupsDoAuthentication(
     * Check the scheme name...
     */
 
-    DEBUG_printf(("2cupsDoAuthentication: Trying scheme \"%s\"...", scheme));
+    DEBUG_printf("2cupsDoAuthentication: Trying scheme \"%s\"...", scheme);
 
 #ifdef HAVE_GSSAPI
     if (!_cups_strcasecmp(scheme, "Negotiate") && !cups_is_local_connection(http))
@@ -241,7 +238,7 @@ cupsDoAuthentication(
       * Other schemes not yet supported...
       */
 
-      DEBUG_printf(("2cupsDoAuthentication: Scheme \"%s\" not yet supported.", scheme));
+      DEBUG_printf("2cupsDoAuthentication: Scheme \"%s\" not yet supported.", scheme);
       continue;
     }
 
@@ -264,7 +261,7 @@ cupsDoAuthentication(
       if (cups_auth_param(schemedata, "username", default_username, sizeof(default_username)))
 	cupsSetUser(default_username);
 
-      snprintf(prompt, sizeof(prompt), _cupsLangString(cg->lang_default, _("Password for %s on %s? ")), cupsUser(), http->hostname[0] == '/' ? "localhost" : http->hostname);
+      snprintf(prompt, sizeof(prompt), _cupsLangString(cg->lang_default, _("Password for %s on %s? ")), cupsGetUser(), http->hostname[0] == '/' ? "localhost" : http->hostname);
 
       http->digest_tries  = _cups_strncasecmp(scheme, "Digest", 6) != 0;
       http->userpass[0]   = '\0';
@@ -276,14 +273,14 @@ cupsDoAuthentication(
 	return (-1);
       }
 
-      snprintf(http->userpass, sizeof(http->userpass), "%s:%s", cupsUser(), password);
+      snprintf(http->userpass, sizeof(http->userpass), "%s:%s", cupsGetUser(), password);
     }
     else if (http->status == HTTP_STATUS_UNAUTHORIZED)
       http->digest_tries ++;
 
     if (http->status == HTTP_STATUS_UNAUTHORIZED && http->digest_tries >= 3)
     {
-      DEBUG_printf(("1cupsDoAuthentication: Too many authentication tries (%d)", http->digest_tries));
+      DEBUG_printf("1cupsDoAuthentication: Too many authentication tries (%d)", http->digest_tries);
 
       http->status = HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED;
       return (-1);
@@ -315,8 +312,9 @@ cupsDoAuthentication(
       char nonce[HTTP_MAX_VALUE];	/* nonce="xyz" string */
 
       cups_auth_param(schemedata, "algorithm", http->algorithm, sizeof(http->algorithm));
-      cups_auth_param(schemedata, "opaque", http->opaque, sizeof(http->opaque));
       cups_auth_param(schemedata, "nonce", nonce, sizeof(nonce));
+      cups_auth_param(schemedata, "opaque", http->opaque, sizeof(http->opaque));
+      cups_auth_param(schemedata, "qop", http->qop, sizeof(http->qop));
       cups_auth_param(schemedata, "realm", http->realm, sizeof(http->realm));
 
       if (_httpSetDigestAuthString(http, nonce, method, resource))
@@ -329,7 +327,7 @@ cupsDoAuthentication(
 
   if (http->authstring && http->authstring[0])
   {
-    DEBUG_printf(("1cupsDoAuthentication: authstring=\"%s\".", http->authstring));
+    DEBUG_printf("1cupsDoAuthentication: authstring=\"%s\".", http->authstring);
 
     return (0);
   }
@@ -375,7 +373,7 @@ _cupsSetNegotiateAuthString(
 
   if (!strcmp(http->hostname, "localhost") || http->hostname[0] == '/' || isdigit(http->hostname[0] & 255) || !strchr(http->hostname, '.'))
   {
-    DEBUG_printf(("1_cupsSetNegotiateAuthString: Kerberos not available for host \"%s\".", http->hostname));
+    DEBUG_printf("1_cupsSetNegotiateAuthString: Kerberos not available for host \"%s\".", http->hostname);
     return (CUPS_GSS_NONE);
   }
 
@@ -420,7 +418,7 @@ _cupsSetNegotiateAuthString(
 
     snprintf(prompt, sizeof(prompt),
              _cupsLangString(cg->lang_default, _("Password for %s on %s? ")),
-	     cupsUser(), http->gsshost);
+	     cupsGetUser(), http->gsshost);
 
     if ((password = cupsGetPassword2(prompt, http, method, resource)) == NULL)
       return (CUPS_GSS_FAIL);
@@ -429,7 +427,7 @@ _cupsSetNegotiateAuthString(
     * Try to acquire credentials...
     */
 
-    username = cupsUser();
+    username = cupsGetUser();
     if (!strchr(username, '@'))
     {
       snprintf(userbuf, sizeof(userbuf), "%s@%s", username, http->gsshost);
@@ -515,7 +513,7 @@ _cupsSetNegotiateAuthString(
       authsize         = sizeof(http->_authstring);
     }
 
-    strlcpy(http->authstring, "Negotiate ", (size_t)authsize);
+    cupsCopyString(http->authstring, "Negotiate ", (size_t)authsize);
     httpEncode64_2(http->authstring + 10, authsize - 10, output_token.value,
 		   (int)output_token.length);
 
@@ -523,8 +521,7 @@ _cupsSetNegotiateAuthString(
   }
   else
   {
-    DEBUG_printf(("1_cupsSetNegotiateAuthString: Kerberos credentials too "
-                  "large - %d bytes!", (int)output_token.length));
+    DEBUG_printf("1_cupsSetNegotiateAuthString: Kerberos credentials too large - %d bytes!", (int)output_token.length);
     gss_release_buffer(&minor_status, &output_token);
 
     return (CUPS_GSS_FAIL);
@@ -550,7 +547,7 @@ cups_auth_find(const char *www_authenticate,	/* I - Pointer into WWW-Authenticat
   size_t	schemelen = strlen(scheme);	/* Length of scheme */
 
 
-  DEBUG_printf(("8cups_auth_find(www_authenticate=\"%s\", scheme=\"%s\"(%d))", www_authenticate, scheme, (int)schemelen));
+  DEBUG_printf("8cups_auth_find(www_authenticate=\"%s\", scheme=\"%s\"(%d))", www_authenticate, scheme, (int)schemelen);
 
   while (*www_authenticate)
   {
@@ -558,10 +555,10 @@ cups_auth_find(const char *www_authenticate,	/* I - Pointer into WWW-Authenticat
     * Skip leading whitespace and commas...
     */
 
-    DEBUG_printf(("9cups_auth_find: Before whitespace: \"%s\"", www_authenticate));
+    DEBUG_printf("9cups_auth_find: Before whitespace: \"%s\"", www_authenticate);
     while (isspace(*www_authenticate & 255) || *www_authenticate == ',')
       www_authenticate ++;
-    DEBUG_printf(("9cups_auth_find: After whitespace: \"%s\"", www_authenticate));
+    DEBUG_printf("9cups_auth_find: After whitespace: \"%s\"", www_authenticate);
 
    /*
     * See if this is "Scheme" followed by whitespace or the end of the string.
@@ -573,7 +570,7 @@ cups_auth_find(const char *www_authenticate,	/* I - Pointer into WWW-Authenticat
       * Yes, this is the start of the scheme-specific information...
       */
 
-      DEBUG_printf(("9cups_auth_find: Returning \"%s\".", www_authenticate));
+      DEBUG_printf("9cups_auth_find: Returning \"%s\".", www_authenticate);
 
       return (www_authenticate);
     }
@@ -594,13 +591,13 @@ cups_auth_find(const char *www_authenticate,	/* I - Pointer into WWW-Authenticat
         while (*www_authenticate && *www_authenticate != '\"')
           www_authenticate ++;
 
-        DEBUG_printf(("9cups_auth_find: After quoted: \"%s\"", www_authenticate));
+        DEBUG_printf("9cups_auth_find: After quoted: \"%s\"", www_authenticate);
       }
 
       www_authenticate ++;
     }
 
-    DEBUG_printf(("9cups_auth_find: After skip: \"%s\"", www_authenticate));
+    DEBUG_printf("9cups_auth_find: After skip: \"%s\"", www_authenticate);
   }
 
   DEBUG_puts("9cups_auth_find: Returning NULL.");
@@ -626,7 +623,7 @@ cups_auth_param(const char *scheme,		/* I - Pointer to auth data */
   int		param;				/* Is this a parameter? */
 
 
-  DEBUG_printf(("8cups_auth_param(scheme=\"%s\", name=\"%s\", value=%p, valsize=%d)", scheme, name, (void *)value, (int)valsize));
+  DEBUG_printf("8cups_auth_param(scheme=\"%s\", name=\"%s\", value=%p, valsize=%d)", scheme, name, (void *)value, (int)valsize);
 
   while (!isspace(*scheme & 255) && *scheme)
     scheme ++;
@@ -668,7 +665,7 @@ cups_auth_param(const char *scheme,		/* I - Pointer to auth data */
 
       *valptr = '\0';
 
-      DEBUG_printf(("9cups_auth_param: Returning \"%s\".", value));
+      DEBUG_printf("9cups_auth_param: Returning \"%s\".", value);
 
       return (value);
     }
@@ -733,7 +730,7 @@ cups_auth_scheme(const char *www_authenticate,	/* I - Pointer into WWW-Authentic
   int		param;				/* Is this a parameter? */
 
 
-  DEBUG_printf(("8cups_auth_scheme(www_authenticate=\"%s\", scheme=%p, schemesize=%u)", www_authenticate, (void *)scheme, (unsigned)schemesize));
+  DEBUG_printf("8cups_auth_scheme(www_authenticate=\"%s\", scheme=%p, schemesize=%u)", www_authenticate, (void *)scheme, (unsigned)schemesize);
 
   while (*www_authenticate)
   {
@@ -771,7 +768,7 @@ cups_auth_scheme(const char *www_authenticate,	/* I - Pointer into WWW-Authentic
     {
       *sptr = '\0';
 
-      DEBUG_printf(("9cups_auth_scheme: Returning \"%s\".", start));
+      DEBUG_printf("9cups_auth_scheme: Returning \"%s\".", start);
 
       return (start);
     }
@@ -833,9 +830,7 @@ cups_gss_getname(
   char		  buf[1024];		/* Name buffer */
 
 
-  DEBUG_printf(("7cups_gss_getname(http=%p, service_name=\"%s\")", http,
-                service_name));
-
+  DEBUG_printf("7cups_gss_getname(http=%p, service_name=\"%s\")", (void *)http, service_name);
 
  /*
   * Get the hostname...
@@ -849,8 +844,7 @@ cups_gss_getname(
     {
       if (gethostname(http->gsshost, sizeof(http->gsshost)) < 0)
       {
-	DEBUG_printf(("1cups_gss_getname: gethostname() failed: %s",
-		      strerror(errno)));
+	DEBUG_printf("1cups_gss_getname: gethostname() failed: %s", strerror(errno));
 	http->gsshost[0] = '\0';
 	return (NULL);
       }
@@ -869,12 +863,11 @@ cups_gss_getname(
 	  * Use the resolved hostname...
 	  */
 
-	  strlcpy(http->gsshost, host->h_name, sizeof(http->gsshost));
+	  cupsCopyString(http->gsshost, host->h_name, sizeof(http->gsshost));
 	}
 	else
 	{
-	  DEBUG_printf(("1cups_gss_getname: gethostbyname(\"%s\") failed.",
-			http->gsshost));
+	  DEBUG_printf("1cups_gss_getname: gethostbyname(\"%s\") failed.", http->gsshost);
 	  http->gsshost[0] = '\0';
 	  return (NULL);
 	}
@@ -888,7 +881,7 @@ cups_gss_getname(
 
   snprintf(buf, sizeof(buf), "%s@%s", service_name, http->gsshost);
 
-  DEBUG_printf(("8cups_gss_getname: Looking up \"%s\".", buf));
+  DEBUG_printf("8cups_gss_getname: Looking up \"%s\".", buf);
 
   token.value  = buf;
   token.length = strlen(buf);
@@ -939,8 +932,7 @@ cups_gss_printf(OM_uint32  major_status,/* I - Major status code */
     gss_display_status(&err_minor_status, minor_status, GSS_C_MECH_CODE,
 		       GSS_C_NULL_OID, &msg_ctx, &minor_status_string);
 
-  DEBUG_printf(("1%s: %s, %s", message, (char *)major_status_string.value,
-	        (char *)minor_status_string.value));
+  DEBUG_printf("1%s: %s, %s", message, (char *)major_status_string.value, (char *)minor_status_string.value);
 
   gss_release_buffer(&err_minor_status, &major_status_string);
   gss_release_buffer(&err_minor_status, &minor_status_string);
@@ -992,7 +984,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
 #  endif /* HAVE_AUTHORIZATION_H */
 
 
-  DEBUG_printf(("7cups_local_auth(http=%p) hostaddr=%s, hostname=\"%s\"", (void *)http, httpAddrString(http->hostaddr, filename, sizeof(filename)), http->hostname));
+  DEBUG_printf("7cups_local_auth(http=%p) hostaddr=%s, hostname=\"%s\"", (void *)http, httpAddrString(http->hostaddr, filename, sizeof(filename)), http->hostname);
 
  /*
   * See if we are accessing localhost...
@@ -1022,8 +1014,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
     status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &http->auth_ref);
     if (status != errAuthorizationSuccess)
     {
-      DEBUG_printf(("8cups_local_auth: AuthorizationCreate() returned %d",
-		    (int)status));
+      DEBUG_printf("8cups_local_auth: AuthorizationCreate() returned %d", (int)status);
       return (-1);
     }
 
@@ -1057,14 +1048,13 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
 
       httpSetAuthString(http, "AuthRef", buffer);
 
-      DEBUG_printf(("8cups_local_auth: Returning authstring=\"%s\"",
-		    http->authstring));
+      DEBUG_printf("8cups_local_auth: Returning authstring=\"%s\"", http->authstring);
       return (0);
     }
     else if (status == errAuthorizationCanceled)
       return (-1);
 
-    DEBUG_printf(("9cups_local_auth: AuthorizationCopyRights() returned %d", (int)status));
+    DEBUG_printf("9cups_local_auth: AuthorizationCopyRights() returned %d", (int)status);
 
   /*
    * Fall through to try certificates...
@@ -1084,22 +1074,21 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
       cups_auth_find(www_auth, "PeerCred"))
   {
    /*
-    * Verify that the current cupsUser() matches the current UID...
+    * Verify that the current cupsGetUser() matches the current UID...
     */
 
     struct passwd	pwd;		/* Password information */
     struct passwd	*result;	/* Auxiliary pointer */
     const char		*username;	/* Current username */
 
-    username = cupsUser();
+    username = cupsGetUser();
 
     getpwnam_r(username, &pwd, cg->pw_buf, PW_BUF_SIZE, &result);
     if (result && pwd.pw_uid == getuid())
     {
       httpSetAuthString(http, "PeerCred", username);
 
-      DEBUG_printf(("8cups_local_auth: Returning authstring=\"%s\"",
-		    http->authstring));
+      DEBUG_printf("8cups_local_auth: Returning authstring=\"%s\"", http->authstring);
 
       return (0);
     }
@@ -1122,7 +1111,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
     * No certificate for this PID; see if we can get the root certificate...
     */
 
-    DEBUG_printf(("9cups_local_auth: Unable to open file \"%s\": %s", filename, strerror(errno)));
+    DEBUG_printf("9cups_local_auth: Unable to open file \"%s\": %s", filename, strerror(errno));
 
     if (!cups_auth_param(schemedata, "trc", trc, sizeof(trc)))
     {
@@ -1135,7 +1124,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
 
     snprintf(filename, sizeof(filename), "%s/certs/0", cg->cups_statedir);
     if ((fp = fopen(filename, "r")) == NULL)
-      DEBUG_printf(("9cups_local_auth: Unable to open file \"%s\": %s", filename, strerror(errno)));
+      DEBUG_printf("9cups_local_auth: Unable to open file \"%s\": %s", filename, strerror(errno));
   }
 
   if (fp)
@@ -1158,8 +1147,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
 
       httpSetAuthString(http, "Local", certificate);
 
-      DEBUG_printf(("8cups_local_auth: Returning authstring=\"%s\"",
-		    http->authstring));
+      DEBUG_printf("8cups_local_auth: Returning authstring=\"%s\"", http->authstring);
 
       return (0);
     }

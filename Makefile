@@ -244,6 +244,8 @@ testserver:	all unittests
 
 
 check test:	all unittests
+	cd cups; make test
+	cd scheduler; make test
 	echo Running CUPS test suite...
 	cd test; ./run-stp-tests.sh 1 0 n n
 

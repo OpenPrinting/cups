@@ -1,6 +1,7 @@
 /*
  * Status buffer routines for the CUPS scheduler.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -299,7 +300,7 @@ cupsdStatBufUpdate(
   * Copy the message to the line buffer...
   */
 
-  strlcpy(line, message, (size_t)linelen);
+  cupsCopyString(line, message, (size_t)linelen);
 
  /*
   * Copy over the buffer data we've used up...

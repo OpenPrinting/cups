@@ -1,6 +1,7 @@
 /*
  * Network interface functions for the CUPS scheduler.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -46,7 +47,7 @@ cupsdNetIFFind(const char *name)	/* I - Name of interface */
   * Search for the named interface...
   */
 
-  strlcpy(key.name, name, sizeof(key.name));
+  cupsCopyString(key.name, name, sizeof(key.name));
 
   return ((cupsd_netif_t *)cupsArrayFind(NetIFList, &key));
 }
@@ -161,7 +162,7 @@ cupsdNetIFUpdate(void)
       */
 
       if (httpAddrLocalhost((http_addr_t *)(addr->ifa_addr)))
-        strlcpy(hostname, "localhost", sizeof(hostname));
+        cupsCopyString(hostname, "localhost", sizeof(hostname));
       else
 	httpAddrString((http_addr_t *)(addr->ifa_addr), hostname,
 		       sizeof(hostname));
@@ -182,7 +183,7 @@ cupsdNetIFUpdate(void)
     * Copy all of the information...
     */
 
-    strlcpy(temp->name, addr->ifa_name, sizeof(temp->name));
+    cupsCopyString(temp->name, addr->ifa_name, sizeof(temp->name));
     temp->hostlen = hostlen;
     memcpy(temp->hostname, hostname, hostlen + 1);
 

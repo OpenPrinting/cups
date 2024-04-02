@@ -1,7 +1,7 @@
 /*
  * Directory services routines for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -36,7 +36,6 @@ static int	avahi_running = 0;
  * Local functions...
  */
 
-#ifdef HAVE_DNSSD
 static char		*get_auth_info_required(cupsd_printer_t *p,
 			                        char *buffer, size_t bufsize);
 #  ifdef __APPLE__
@@ -73,7 +72,6 @@ static void		dnssdStop(void);
 static void		dnssdUpdate(void);
 #  endif /* HAVE_MDNSRESPONDER */
 static void		dnssdUpdateDNSSDName(int from_callback);
-#endif /* HAVE_DNSSD */
 
 
 /*
@@ -92,21 +90,19 @@ cupsdDeregisterPrinter(
   */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG,
-                  "cupsdDeregisterPrinter(p=%p(%s), removeit=%d)", p, p->name,
+                  "cupsdDeregisterPrinter(p=%p(%s), removeit=%d)", (void *)p, p->name,
 		  removeit);
 
   if (!Browsing || !p->shared ||
-      (p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+      (p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
     return;
 
  /*
   * Announce the deletion...
   */
 
-#ifdef HAVE_DNSSD
   if (removeit && (BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdDeregisterPrinter(p, 1, 0);
-#endif /* HAVE_DNSSD */
 }
 
 
@@ -118,17 +114,15 @@ cupsdDeregisterPrinter(
 void
 cupsdRegisterPrinter(cupsd_printer_t *p)/* I - Printer */
 {
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdRegisterPrinter(p=%p(%s))", p,
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdRegisterPrinter(p=%p(%s))", (void *)p,
                   p->name);
 
   if (!Browsing || !BrowseLocalProtocols ||
-      (p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+      (p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
     return;
 
-#ifdef HAVE_DNSSD
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdRegisterPrinter(p, 0);
-#endif /* HAVE_DNSSD */
 }
 
 
@@ -142,7 +136,6 @@ cupsdStartBrowsing(void)
   if (!Browsing || !BrowseLocalProtocols)
     return;
 
-#ifdef HAVE_DNSSD
   if (BrowseLocalProtocols & BROWSE_DNSSD)
   {
 #  ifdef HAVE_MDNSRESPONDER
@@ -218,7 +211,6 @@ cupsdStartBrowsing(void)
   */
 
   dnssdRegisterAllPrinters(0);
-#endif /* HAVE_DNSSD */
 }
 
 
@@ -232,7 +224,6 @@ cupsdStopBrowsing(void)
   if (!Browsing || !BrowseLocalProtocols)
     return;
 
-#ifdef HAVE_DNSSD
  /*
   * De-register the individual printers
   */
@@ -245,11 +236,9 @@ cupsdStopBrowsing(void)
 
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDMaster)
     dnssdStop();
-#endif /* HAVE_DNSSD */
 }
 
 
-#ifdef HAVE_DNSSD
 /*
  * 'cupsdUpdateDNSSDName()' - Update the computer name we use for browsing...
  */
@@ -339,7 +328,7 @@ dnssdBuildTxtRecord(
 
   keyvalue[count  ][0] = "rp";
   keyvalue[count++][1] = rp_str;
-  snprintf(rp_str, sizeof(rp_str), "%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
+  snprintf(rp_str, sizeof(rp_str), "%s/%s", (p->type & CUPS_PTYPE_CLASS) ? "classes" : "printers", p->name);
 
   keyvalue[count  ][0] = "ty";
   keyvalue[count++][1] = p->make_model ? p->make_model : "Unknown";
@@ -355,7 +344,7 @@ dnssdBuildTxtRecord(
     */
 
     if ((ptr = DNSSDHostName + strlen(DNSSDHostName) - 1) >= DNSSDHostName && *ptr == '.')
-      strlcpy(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
+      cupsCopyString(admin_hostname, DNSSDHostName, sizeof(admin_hostname));
     else
       snprintf(admin_hostname, sizeof(admin_hostname), "%s.", DNSSDHostName);
   }
@@ -372,7 +361,6 @@ dnssdBuildTxtRecord(
   * Get the URL scheme for the admin page...
   */
 
-#  ifdef HAVE_TLS
   for (lis = (cupsd_listener_t *)cupsArrayFirst(Listeners); lis; lis = (cupsd_listener_t *)cupsArrayNext(Listeners))
   {
     if (lis->encryption != HTTP_ENCRYPTION_NEVER)
@@ -381,9 +369,8 @@ dnssdBuildTxtRecord(
       break;
     }
   }
-#  endif /* HAVE_TLS */
 
-  httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PRINTER_CLASS) ? "classes" : "printers", p->name);
+  httpAssembleURIf(HTTP_URI_CODING_ALL, adminurl_str, sizeof(adminurl_str), admin_scheme,  NULL, admin_hostname, DNSSDPort, "/%s/%s", (p->type & CUPS_PTYPE_CLASS) ? "classes" : "printers", p->name);
   keyvalue[count  ][0] = "adminurl";
   keyvalue[count++][1] = adminurl_str;
 
@@ -411,10 +398,8 @@ dnssdBuildTxtRecord(
   keyvalue[count  ][0] = "UUID";
   keyvalue[count++][1] = p->uuid + 9;
 
-#ifdef HAVE_TLS
   keyvalue[count  ][0] = "TLS";
-  keyvalue[count++][1] = "1.2";
-#endif /* HAVE_TLS */
+  keyvalue[count++][1] = "1.3";
 
   if ((urf_supported = ippFindAttribute(p->ppd_attrs, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
   {
@@ -429,7 +414,7 @@ dnssdBuildTxtRecord(
       if (ptr > urf_str && ptr < (urf_str + sizeof(urf_str) - 1))
 	*ptr++ = ',';
 
-      strlcpy(ptr, value, sizeof(urf_str) - (size_t)(ptr - urf_str));
+      cupsCopyString(ptr, value, sizeof(urf_str) - (size_t)(ptr - urf_str));
       ptr += strlen(ptr);
 
       if (ptr >= (urf_str + sizeof(urf_str) - 1))
@@ -443,7 +428,7 @@ dnssdBuildTxtRecord(
   keyvalue[count  ][0] = "mopria-certified";
   keyvalue[count++][1] = "1.3";
 
-  if (p->type & CUPS_PRINTER_FAX)
+  if (p->type & CUPS_PTYPE_FAX)
   {
     keyvalue[count  ][0] = "Fax";
     keyvalue[count++][1] = "T";
@@ -451,61 +436,61 @@ dnssdBuildTxtRecord(
     keyvalue[count++][1] = rp_str;
   }
 
-  if (p->type & CUPS_PRINTER_COLOR)
+  if (p->type & CUPS_PTYPE_COLOR)
   {
     keyvalue[count  ][0] = "Color";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLOR) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_COLOR) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_DUPLEX)
+  if (p->type & CUPS_PTYPE_DUPLEX)
   {
     keyvalue[count  ][0] = "Duplex";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_DUPLEX) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_DUPLEX) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_STAPLE)
+  if (p->type & CUPS_PTYPE_STAPLE)
   {
     keyvalue[count  ][0] = "Staple";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_STAPLE) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_STAPLE) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_COPIES)
+  if (p->type & CUPS_PTYPE_COPIES)
   {
     keyvalue[count  ][0] = "Copies";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COPIES) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_COPIES) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_COLLATE)
+  if (p->type & CUPS_PTYPE_COLLATE)
   {
     keyvalue[count  ][0] = "Collate";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_COLLATE) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_COLLATE) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_PUNCH)
+  if (p->type & CUPS_PTYPE_PUNCH)
   {
     keyvalue[count  ][0] = "Punch";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_PUNCH) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_PUNCH) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_BIND)
+  if (p->type & CUPS_PTYPE_BIND)
   {
     keyvalue[count  ][0] = "Bind";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_BIND) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_BIND) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_SORT)
+  if (p->type & CUPS_PTYPE_SORT)
   {
     keyvalue[count  ][0] = "Sort";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_SORT) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_SORT) ? "T" : "F";
   }
 
-  if (p->type & CUPS_PRINTER_MFP)
+  if (p->type & CUPS_PTYPE_MFP)
   {
     keyvalue[count  ][0] = "Scan";
-    keyvalue[count++][1] = (p->type & CUPS_PRINTER_MFP) ? "T" : "F";
+    keyvalue[count++][1] = (p->type & CUPS_PTYPE_MFP) ? "T" : "F";
   }
 
-  snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PRINTER_REMOTE);
+  snprintf(type_str, sizeof(type_str), "0x%X", p->type | CUPS_PTYPE_REMOTE);
 
   keyvalue[count  ][0] = "printer-type";
   keyvalue[count++][1] = type_str;
@@ -657,7 +642,7 @@ dnssdDeregisterAllPrinters(
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers);
        p;
        p = (cupsd_printer_t *)cupsArrayNext(Printers))
-    if (!(p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+    if (!(p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
       dnssdDeregisterPrinter(p, 1, from_callback);
 }
 
@@ -709,7 +694,7 @@ dnssdDeregisterPrinter(
 
 {
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
-                  "dnssdDeregisterPrinter(p=%p(%s), clear_name=%d)", p, p->name,
+                  "dnssdDeregisterPrinter(p=%p(%s), clear_name=%d)", (void *)p, p->name,
                   clear_name);
 
   if (p->ipp_srv)
@@ -717,9 +702,7 @@ dnssdDeregisterPrinter(
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
-#    endif /* HAVE_TLS */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
 #  endif /* HAVE_MDNSRESPONDER */
   }
@@ -887,7 +870,7 @@ dnssdRegisterAllPrinters(int from_callback)	/* I - Called from callback? */
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers);
        p;
        p = (cupsd_printer_t *)cupsArrayNext(Printers))
-    if (!(p->type & (CUPS_PRINTER_REMOTE | CUPS_PRINTER_SCANNER)))
+    if (!(p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
       dnssdRegisterPrinter(p, from_callback);
 }
 
@@ -995,10 +978,8 @@ dnssdRegisterInstance(
 #  ifdef HAVE_MDNSRESPONDER
     if (!strcmp(type, "_printer._tcp"))
       srv = &p->printer_srv;		/* Target LPD service */
-#    ifdef HAVE_TLS
     else if (!strcmp(type, "_ipps._tcp"))
       srv = &p->ipps_srv;		/* Target IPPS service */
-#    endif /* HAVE_TLS */
     else
       srv = &p->ipp_srv;		/* Target IPP service */
 
@@ -1053,7 +1034,7 @@ dnssdRegisterInstance(
   if (subtypes)
     snprintf(temp, sizeof(temp), "%s,%s", type, subtypes);
   else
-    strlcpy(temp, type, sizeof(temp));
+    cupsCopyString(temp, type, sizeof(temp));
 
   *srv  = DNSSDMaster;
   error = DNSServiceRegister(srv, kDNSServiceFlagsShareConnection,
@@ -1087,7 +1068,7 @@ dnssdRegisterInstance(
     char	*start,			/* Start of subtype */
 		subtype[256];		/* Subtype string */
 
-    strlcpy(temp, subtypes, sizeof(temp));
+    cupsCopyString(temp, subtypes, sizeof(temp));
 
     for (start = temp; *start; start = ptr)
     {
@@ -1198,15 +1179,15 @@ dnssdRegisterPrinter(
       if (DNSSDComputerName)
 	snprintf(name, sizeof(name), "%s @ %s", p->info, DNSSDComputerName);
       else
-	strlcpy(name, p->info, sizeof(name));
+	cupsCopyString(name, p->info, sizeof(name));
     }
     else if (DNSSDComputerName)
       snprintf(name, sizeof(name), "%s @ %s", p->name, DNSSDComputerName);
     else
-      strlcpy(name, p->name, sizeof(name));
+      cupsCopyString(name, p->name, sizeof(name));
   }
   else
-    strlcpy(name, p->reg_name, sizeof(name));
+    cupsCopyString(name, p->reg_name, sizeof(name));
 
  /*
   * Register IPP and LPD...
@@ -1219,10 +1200,8 @@ dnssdRegisterPrinter(
 
   status = dnssdRegisterInstance(NULL, p, name, "_printer._tcp", NULL, 0, NULL, 0, from_callback);
 
-#  ifdef HAVE_TLS
   if (status)
     dnssdRegisterInstance(NULL, p, name, "_ipps._tcp", DNSSDSubTypes, DNSSDPort, &ipp_txt, 0, from_callback);
-#  endif /* HAVE_TLS */
 
   if (status)
   {
@@ -1230,7 +1209,7 @@ dnssdRegisterPrinter(
     * Use the "_fax-ipp" service type for fax queues, otherwise use "_ipp"...
     */
 
-    if (p->type & CUPS_PRINTER_FAX)
+    if (p->type & CUPS_PTYPE_FAX)
       status = dnssdRegisterInstance(NULL, p, name, "_fax-ipp._tcp", DNSSDSubTypes, DNSSDPort, &ipp_txt, 1, from_callback);
     else
       status = dnssdRegisterInstance(NULL, p, name, "_ipp._tcp", DNSSDSubTypes, DNSSDPort, &ipp_txt, 1, from_callback);
@@ -1257,9 +1236,7 @@ dnssdRegisterPrinter(
     dnssdDeregisterInstance(&p->ipp_srv, from_callback);
 
 #  ifdef HAVE_MDNSRESPONDER
-#    ifdef HAVE_TLS
     dnssdDeregisterInstance(&p->ipps_srv, from_callback);
-#    endif /* HAVE_TLS */
     dnssdDeregisterInstance(&p->printer_srv, from_callback);
 #  endif /* HAVE_MDNSRESPONDER */
   }
@@ -1538,7 +1515,7 @@ dnssdUpdateDNSSDName(int from_callback)	/* I - Called from callback? */
     if (DNSSDComputerName)
       snprintf(webif, sizeof(webif), "CUPS @ %s", DNSSDComputerName);
     else
-      strlcpy(webif, "CUPS", sizeof(webif));
+      cupsCopyString(webif, "CUPS", sizeof(webif));
 
     dnssdDeregisterInstance(&WebIFSrv, from_callback);
     dnssdRegisterInstance(&WebIFSrv, NULL, webif, "_http._tcp", "_printer", DNSSDPort, NULL, 1, from_callback);
@@ -1577,7 +1554,7 @@ get_auth_info_required(
       if (i)
 	*bufptr++ = ',';
 
-      strlcpy(bufptr, p->auth_info_required[i], bufsize - (size_t)(bufptr - buffer));
+      cupsCopyString(bufptr, p->auth_info_required[i], bufsize - (size_t)(bufptr - buffer));
       bufptr += strlen(bufptr);
     }
 
@@ -1588,14 +1565,14 @@ get_auth_info_required(
   * Figure out the authentication data requirements to advertise...
   */
 
-  if (p->type & CUPS_PRINTER_CLASS)
+  if (p->type & CUPS_PTYPE_CLASS)
     snprintf(resource, sizeof(resource), "/classes/%s", p->name);
   else
     snprintf(resource, sizeof(resource), "/printers/%s", p->name);
 
-  if ((auth = cupsdFindBest(resource, HTTP_POST)) == NULL ||
+  if ((auth = cupsdFindBest(resource, HTTP_STATE_POST)) == NULL ||
       auth->type == CUPSD_AUTH_NONE)
-    auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_PRINT_JOB);
+    auth = cupsdFindPolicyOp(p->op_policy_ptr, IPP_OP_PRINT_JOB);
 
   if (auth)
   {
@@ -1610,11 +1587,11 @@ get_auth_info_required(
           return (NULL);
 
       case CUPSD_AUTH_NEGOTIATE :
-	  strlcpy(buffer, "negotiate", bufsize);
+	  cupsCopyString(buffer, "negotiate", bufsize);
 	  break;
 
       default :
-	  strlcpy(buffer, "username,password", bufsize);
+	  cupsCopyString(buffer, "username,password", bufsize);
 	  break;
     }
 
@@ -1623,4 +1600,3 @@ get_auth_info_required(
 
   return ("none");
 }
-#endif /* HAVE_DNSSD */

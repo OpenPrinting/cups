@@ -1,6 +1,7 @@
 #
 # Makefile for the CUPS PPD Compiler.
 #
+# Copyright © 2020-2024 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 2002-2006 by Easy Software Products.
 #
@@ -105,7 +106,7 @@ clean:
 #
 
 depend:
-	$(CXX) -MM $(ALL_CXXFLAGS) $(OBJS:.o=.cxx) >Dependencies
+	$(CXX) -MM $(ALL_CFLAGS) $(OBJS:.o=.cxx) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
 
 
 #

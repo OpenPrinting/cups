@@ -1,6 +1,7 @@
 /*
  * Imaging library stubs for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -49,13 +50,13 @@ cupsRasterClose(cups_raster_t *r)	/* I - Stream to close */
  *
  * If there are no recent errors, `NULL` is returned.
  *
- * @since CUPS 1.3/macOS 10.5@
+ * @deprecated@ @exclude all@
  */
 
 const char *				/* O - Last error or `NULL` */
 cupsRasterErrorString(void)
 {
-  return (_cupsRasterErrorString());
+  return (cupsRasterGetErrorString());
 }
 
 
@@ -71,9 +72,9 @@ cupsRasterErrorString(void)
  * inch.
  *
  * The "sheet_back" argument specifies a "pwg-raster-document-sheet-back" value
- * to apply for the back side of a page.  Pass @code NULL@ for the front side.
+ * to apply for the back side of a page.  Pass `NULL` for the front side.
  *
- * @since CUPS 2.2/macOS 10.12@
+ * @deprecated@ @exclude all@
  */
 
 int					/* O - 1 on success, 0 on failure */
@@ -84,7 +85,7 @@ cupsRasterInitPWGHeader(
     int                 xdpi,		/* I - Cross-feed direction (horizontal) resolution */
     int                 ydpi,		/* I - Feed direction (vertical) resolution */
     const char          *sides,		/* I - IPP "sides" option value */
-    const char          *sheet_back)	/* I - Transform for back side or @code NULL@ for none */
+    const char          *sheet_back)	/* I - Transform for back side or `NULL` for none */
 {
   return (_cupsRasterInitPWGHeader(h, media, type, xdpi, ydpi, sides, sheet_back));
 }
@@ -98,18 +99,18 @@ cupsRasterInitPWGHeader(
  * image processor (RIP) filters that generate raster data, "fd" will be 1
  * (stdout).
  *
- * When writing raster data, the @code CUPS_RASTER_WRITE@,
- * @code CUPS_RASTER_WRITE_COMPRESS@, or @code CUPS_RASTER_WRITE_PWG@ mode can
+ * When writing raster data, the `CUPS_RASTER_WRITE`,
+ * `CUPS_RASTER_WRITE_COMPRESS`, or `CUPS_RASTER_WRITE_PWG` mode can
  * be used - compressed and PWG output is generally 25-50% smaller but adds a
  * 100-300% execution time overhead.
  */
 
 cups_raster_t *				/* O - New stream */
 cupsRasterOpen(int         fd,		/* I - File descriptor */
-               cups_mode_t mode)	/* I - Mode - @code CUPS_RASTER_READ@,
-	                                       @code CUPS_RASTER_WRITE@,
-					       @code CUPS_RASTER_WRITE_COMPRESSED@,
-					       or @code CUPS_RASTER_WRITE_PWG@ */
+               cups_mode_t mode)	/* I - Mode - `CUPS_RASTER_READ`,
+	                                       `CUPS_RASTER_WRITE`,
+					       `CUPS_RASTER_WRITE_COMPRESSED`,
+					       or `CUPS_RASTER_WRITE_PWG` */
 {
   if (mode == CUPS_RASTER_READ)
     return (_cupsRasterNew(cups_read_fd, (void *)((intptr_t)fd), mode));
@@ -124,20 +125,20 @@ cupsRasterOpen(int         fd,		/* I - File descriptor */
  * This function associates a raster stream with the given callback function and
  * context pointer.
  *
- * When writing raster data, the @code CUPS_RASTER_WRITE@,
- * @code CUPS_RASTER_WRITE_COMPRESS@, or @code CUPS_RASTER_WRITE_PWG@ mode can
+ * When writing raster data, the `CUPS_RASTER_WRITE`,
+ * `CUPS_RASTER_WRITE_COMPRESS`, or `CUPS_RASTER_WRITE_PWG` mode can
  * be used - compressed and PWG output is generally 25-50% smaller but adds a
  * 100-300% execution time overhead.
  */
 
 cups_raster_t *				/* O - New stream */
 cupsRasterOpenIO(
-    cups_raster_iocb_t iocb,		/* I - Read/write callback */
+    cups_raster_cb_t   iocb,		/* I - Read/write callback */
     void               *ctx,		/* I - Context pointer for callback */
-    cups_mode_t        mode)		/* I - Mode - @code CUPS_RASTER_READ@,
-	                                       @code CUPS_RASTER_WRITE@,
-					       @code CUPS_RASTER_WRITE_COMPRESSED@,
-					       or @code CUPS_RASTER_WRITE_PWG@ */
+    cups_raster_mode_t mode)		/* I - Mode - `CUPS_RASTER_READ`,
+	                                       `CUPS_RASTER_WRITE`,
+					       `CUPS_RASTER_WRITE_COMPRESSED`,
+					       or `CUPS_RASTER_WRITE_PWG` */
 {
   return (_cupsRasterNew(iocb, ctx, mode));
 }

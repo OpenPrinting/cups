@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS and Xcode.
  *
- * Copyright © 2021-2023 by OpenPrinting
+ * Copyright © 2021-2024 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -137,21 +137,6 @@
 
 
 /*
- * Do we have posix_spawn?
- */
-
-#define HAVE_POSIX_SPAWN 1
-
-
-/*
- * Do we have ZLIB?
- */
-
-#define HAVE_LIBZ 1
-#define HAVE_INFLATECOPY 1
-
-
-/*
  * Do we have PAM stuff?
  */
 
@@ -161,20 +146,6 @@
 #  define HAVE_PAM_SET_ITEM 1
 #  define HAVE_PAM_SETCRED 1
 #endif /* TARGET_OS_OSX */
-
-
-/*
- * Do we have <shadow.h>?
- */
-
-/* #undef HAVE_SHADOW_H */
-
-
-/*
- * Do we have <crypt.h>?
- */
-
-/* #undef HAVE_CRYPT_H */
 
 
 /*
@@ -220,15 +191,6 @@
 
 
 /*
- * Do we have the strXXX() functions?
- */
-
-#define HAVE_STRDUP 1
-#define HAVE_STRLCAT 1
-#define HAVE_STRLCPY 1
-
-
-/*
  * Do we have the geteuid() function?
  */
 
@@ -254,22 +216,6 @@
  */
 
 /* #undef HAVE_SYSTEMD_SD_JOURNAL_H */
-
-
-/*
- * Do we have the (v)snprintf() functions?
- */
-
-#define HAVE_SNPRINTF 1
-#define HAVE_VSNPRINTF 1
-
-
-/*
- * What signal functions to use?
- */
-
-#define HAVE_SIGSET 1
-#define HAVE_SIGACTION 1
 
 
 /*
@@ -306,7 +252,6 @@
  * Which encryption libraries do we have?
  */
 
-#define HAVE_TLS 1
 #define HAVE_OPENSSL 1
 /* #undef HAVE_GNUTLS */
 
@@ -355,13 +300,6 @@
 
 
 /*
- * Do we have DNS Service Discovery (aka Bonjour) support?
- */
-
-#define HAVE_DNSSD 1
-
-
-/*
  * Do we have mDNSResponder for DNS-SD?
  */
 
@@ -394,27 +332,6 @@
  */
 
 #define HAVE_TM_GMTOFF 1
-
-
-/*
- * Do we have rresvport_af()?
- */
-
-#define HAVE_RRESVPORT_AF 1
-
-
-/*
- * Do we have getaddrinfo()?
- */
-
-#define HAVE_GETADDRINFO 1
-
-
-/*
- * Do we have getnameinfo()?
- */
-
-#define HAVE_GETNAMEINFO 1
 
 
 /*
@@ -572,15 +489,6 @@
  */
 
 #define CUPS_DEFAULT_GSSSERVICENAME "host"
-
-
-/*
- * Select/poll interfaces...
- */
-
-#define HAVE_POLL 1
-/* #undef HAVE_EPOLL */
-#define HAVE_KQUEUE 1
 
 
 /*

@@ -5,7 +5,7 @@
  *
  *   ./testlang [-l locale] [-p ppd] ["String to localize"]
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -19,9 +19,6 @@
 
 #include "cups-private.h"
 #include "ppd-private.h"
-#ifdef __APPLE__
-#  include <CoreFoundation/CoreFoundation.h>
-#endif /* __APPLE__ */
 #include <cups/dir.h>
 
 
@@ -30,9 +27,6 @@
  */
 
 static int	show_ppd(const char *filename);
-#ifdef __APPLE__
-static int	test_apple(void);
-#endif // __APPLE__
 static int	test_language(const char *locale);
 static int	test_string(cups_lang_t *language, const char *msgid);
 static void	usage(void);
@@ -147,10 +141,6 @@ main(int  argc,				/* I - Number of command-line arguments */
       cupsDirClose(dir);
     }
 
-#ifdef __APPLE__
-    errors += test_apple();
-#endif // __APPLE__
-
     if (!errors)
       puts("ALL TESTS PASSED");
   }
@@ -208,101 +198,6 @@ show_ppd(const char *filename)		/* I - Filename */
 
   return (0);
 }
-
-
-#ifdef __APPLE__
-/*
- * 'test_apple()' - Test macOS locale handing...
- */
-
-static int				/* O - Number of errors */
-test_apple(void)
-{
-  int		errors = 0;		/* Number of errors */
-  CFIndex	i,			/* Looping var */
-		num_locales;		/* Number of locales */
-  CFArrayRef	locales;		/* Locales */
-  CFStringRef	locale_id,		/* Current locale ID */
-		language_id;		/* Current language ID */
-  cups_lang_t	*language = NULL;	/* Message catalog */
-  char		locale_str[256],	/* Locale ID C string */
-		language_str[256],	/* Language ID C string */
-		buffer[1024],		/* String buffer */
-		*bufptr;		/* Pointer to ".UTF-8" in POSIX locale */
-  size_t	buflen;			/* Length of POSIX locale */
-
-
- /*
-  * Test all possible language IDs for compatibility with _cupsAppleLocale...
-  */
-
-  locales     = CFLocaleCopyAvailableLocaleIdentifiers();
-  num_locales = CFArrayGetCount(locales);
-
-  printf("CFLocaleCopyAvailableLocaleIdentifiers: %d locales\n", (int)num_locales);
-
-  for (i = 0; i < num_locales; i ++)
-  {
-    locale_id   = CFArrayGetValueAtIndex(locales, i);
-    language_id = CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, locale_id);
-
-    printf("CFStringGetCString(locale_id %d): ", (int)i);
-    if (!locale_id || !CFStringGetCString(locale_id, locale_str, (CFIndex)sizeof(locale_str), kCFStringEncodingASCII))
-    {
-      puts("FAIL");
-      errors ++;
-      continue;
-    }
-    else
-      printf("PASS (\"%s\")\n", locale_str);
-
-    printf("CFStringGetCString(language_id %d): ", (int)i);
-    if (!language_id || !CFStringGetCString(language_id, language_str, (CFIndex)sizeof(language_str), kCFStringEncodingASCII))
-    {
-      printf("%d %s: FAIL (unable to get language ID string)\n", (int)i + 1, locale_str);
-      errors ++;
-      continue;
-    }
-    else
-      printf("PASS (\"%s\")\n", language_str);
-
-    printf("_cupsAppleLocale(\"%s\"): ", language_str);
-    if (!_cupsAppleLocale(language_id, buffer, sizeof(buffer)))
-    {
-      puts("FAIL");
-      errors ++;
-      continue;
-    }
-    else
-      printf("PASS (\"%s\")\n", buffer);
-
-    if ((bufptr = strstr(buffer, ".UTF-8")) != NULL)
-      buflen = (size_t)(bufptr - buffer);
-    else
-      buflen = strlen(buffer);
-
-    printf("cupsLangGet(\"%s\"): ", buffer);
-    if ((language = cupsLangGet(buffer)) == NULL)
-    {
-      puts("FAIL");
-      errors ++;
-      continue;
-    }
-    else if (strncasecmp(language->language, buffer, buflen))
-    {
-      printf("FAIL (got \"%s\")\n", language->language);
-      errors ++;
-      continue;
-    }
-    else
-      puts("PASS");
-  }
-
-  CFRelease(locales);
-
-  return (errors);
-}
-#endif // __APPLE__
 
 
 /*

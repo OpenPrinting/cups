@@ -1,7 +1,7 @@
 /*
  * PWG media name API implementation for CUPS.
  *
- * Copyright © 2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2009-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -319,7 +319,7 @@ pwgFormatSizeName(char       *keyword,	/* I - Keyword buffer */
   * Range check input...
   */
 
-  DEBUG_printf(("pwgFormatSize(keyword=%p, keysize=" CUPS_LLFMT ", prefix=\"%s\", name=\"%s\", width=%d, length=%d, units=\"%s\")", (void *)keyword, CUPS_LLCAST keysize, prefix, name, width, length, units));
+  DEBUG_printf("pwgFormatSize(keyword=%p, keysize=" CUPS_LLFMT ", prefix=\"%s\", name=\"%s\", width=%d, length=%d, units=\"%s\")", (void *)keyword, CUPS_LLCAST keysize, prefix, name, width, length, units);
 
   if (keyword)
     *keyword = '\0';
@@ -920,7 +920,7 @@ pwgMediaForPWG(const char *pwg)		/* I - PWG size name */
         size->width  = w;
         size->length = l;
 
-        strlcpy(cg->pwg_name, pwg, sizeof(cg->pwg_name));
+        cupsCopyString(cg->pwg_name, pwg, sizeof(cg->pwg_name));
 	size->pwg = cg->pwg_name;
 
         if (numer == 100)

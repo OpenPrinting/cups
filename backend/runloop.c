@@ -1,6 +1,7 @@
 /*
  * Common run loop APIs for CUPS backends.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2014 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
@@ -149,15 +150,13 @@ backendRunLoop(
   struct timeval timeout;		/* Timeout for select() */
   time_t	curtime,		/* Current time */
 		snmp_update = 0;
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
   fprintf(stderr,
           "DEBUG: backendRunLoop(print_fd=%d, device_fd=%d, snmp_fd=%d, "
 	  "addr=%p, use_bc=%d, side_cb=%p)\n",
-          print_fd, device_fd, snmp_fd, addr, use_bc, side_cb);
+          print_fd, device_fd, snmp_fd, (void *)addr, use_bc, (void *)side_cb);
 
  /*
   * If we are printing data from a print driver on stdin, ignore SIGTERM
@@ -168,17 +167,11 @@ backendRunLoop(
 
   if (!print_fd)
   {
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-    sigset(SIGTERM, SIG_IGN);
-#elif defined(HAVE_SIGACTION)
     memset(&action, 0, sizeof(action));
 
     sigemptyset(&action.sa_mask);
     action.sa_handler = SIG_IGN;
     sigaction(SIGTERM, &action, NULL);
-#else
-    signal(SIGTERM, SIG_IGN);
-#endif /* HAVE_SIGSET */
   }
   else if (print_fd < 0)
   {
@@ -428,7 +421,7 @@ backendWaitLoop(
 
 
   fprintf(stderr, "DEBUG: backendWaitLoop(snmp_fd=%d, addr=%p, side_cb=%p)\n",
-	  snmp_fd, addr, side_cb);
+	  snmp_fd, (void *)addr, (void *)side_cb);
 
  /*
   * Now loop until we receive data from stdin...

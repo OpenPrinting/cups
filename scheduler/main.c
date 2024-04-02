@@ -1,7 +1,7 @@
 /*
  * Main loop for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -81,9 +81,7 @@ static void		usage(int status) _CUPS_NORETURN;
 static int		parent_signal = 0;
 					/* Set to signal number from child */
 static int		holdcount = 0;	/* Number of times "hold" was called */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
 static sigset_t		holdmask;	/* Old POSIX signal mask */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 static int		dead_children = 0;
 					/* Dead children? */
 static int		stop_scheduler = 0;
@@ -121,9 +119,7 @@ main(int  argc,				/* I - Number of command-line args */
 			event_time;	/* Last event notification time */
   long			timeout;	/* Timeout for cupsdDoSelect() */
   struct rlimit		limit;		/* Runtime limit */
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   struct sigaction	action;		/* Actions for POSIX signals */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 #ifdef __APPLE__
   int			use_sysman = 1;	/* Use system management functions? */
 #else
@@ -341,7 +337,7 @@ main(int  argc,				/* I - Number of command-line args */
       return (1);
     }
 
-    strlcpy(filename, ConfigurationFile, len);
+    cupsCopyString(filename, ConfigurationFile, len);
     if ((slash = strrchr(filename, '/')) == NULL)
     {
       free(filename);
@@ -351,7 +347,7 @@ main(int  argc,				/* I - Number of command-line args */
       return (1);
     }
 
-    strlcpy(slash, "/cups-files.conf", len - (size_t)(slash - filename));
+    cupsCopyString(slash, "/cups-files.conf", len - (size_t)(slash - filename));
     cupsdSetString(&CupsFilesFile, filename);
     free(filename);
   }
@@ -417,12 +413,6 @@ main(int  argc,				/* I - Number of command-line args */
     * Setup signal handlers for the parent...
     */
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-    sigset(SIGUSR1, parent_handler);
-    sigset(SIGCHLD, parent_handler);
-
-    sigset(SIGHUP, SIG_IGN);
-#elif defined(HAVE_SIGACTION)
     memset(&action, 0, sizeof(action));
     sigemptyset(&action.sa_mask);
     sigaddset(&action.sa_mask, SIGUSR1);
@@ -433,12 +423,6 @@ main(int  argc,				/* I - Number of command-line args */
     sigemptyset(&action.sa_mask);
     action.sa_handler = SIG_IGN;
     sigaction(SIGHUP, &action, NULL);
-#else
-    signal(SIGUSR1, parent_handler);
-    signal(SIGCLD, parent_handler);
-
-    signal(SIGHUP, SIG_IGN);
-#endif /* HAVE_SIGSET */
 
     if (fork() > 0)
     {
@@ -524,11 +508,6 @@ main(int  argc,				/* I - Number of command-line args */
 
   getrlimit(RLIMIT_NOFILE, &limit);
 
-#if !defined(HAVE_POLL) && !defined(HAVE_EPOLL) && !defined(HAVE_KQUEUE)
-  if (limit.rlim_max > FD_SETSIZE)
-    MaxFDs = FD_SETSIZE;
-  else
-#endif /* !HAVE_POLL && !HAVE_EPOLL && !HAVE_KQUEUE */
 #ifdef RLIM_INFINITY
   if (limit.rlim_max == RLIM_INFINITY)
     MaxFDs = 16384;
@@ -605,12 +584,6 @@ main(int  argc,				/* I - Number of command-line args */
   * Catch hangup and child signals and ignore broken pipes...
   */
 
-#ifdef HAVE_SIGSET /* Use System V signals over POSIX to avoid bugs */
-  sigset(SIGCHLD, sigchld_handler);
-  sigset(SIGHUP, sighup_handler);
-  sigset(SIGPIPE, SIG_IGN);
-  sigset(SIGTERM, sigterm_handler);
-#elif defined(HAVE_SIGACTION)
   memset(&action, 0, sizeof(action));
 
   sigemptyset(&action.sa_mask);
@@ -633,12 +606,6 @@ main(int  argc,				/* I - Number of command-line args */
   sigaddset(&action.sa_mask, SIGCHLD);
   action.sa_handler = sigterm_handler;
   sigaction(SIGTERM, &action, NULL);
-#else
-  signal(SIGCLD, sigchld_handler);	/* No, SIGCLD isn't a typo... */
-  signal(SIGHUP, sighup_handler);
-  signal(SIGPIPE, SIG_IGN);
-  signal(SIGTERM, sigterm_handler);
-#endif /* HAVE_SIGSET */
 
  /*
   * Initialize authentication certificates...
@@ -741,7 +708,7 @@ main(int  argc,				/* I - Number of command-line args */
 	for (con = (cupsd_client_t *)cupsArrayFirst(Clients);
 	     con;
 	     con = (cupsd_client_t *)cupsArrayNext(Clients))
-	  if (httpGetState(con->http) == HTTP_WAITING)
+	  if (httpGetState(con->http) == HTTP_STATE_WAITING)
 	    cupsdCloseClient(con);
 	  else
 	    con->http->keep_alive = HTTP_KEEPALIVE_OFF;
@@ -858,9 +825,7 @@ main(int  argc,				/* I - Number of command-line args */
       * Got an error from select!
       */
 
-#ifdef HAVE_DNSSD
       cupsd_printer_t	*p;		/* Current printer */
-#endif /* HAVE_DNSSD */
 
       if (errno == EINTR)		/* Just interrupted by a signal */
         continue;
@@ -900,14 +865,9 @@ main(int  argc,				/* I - Number of command-line args */
 			job->print_pipes[0], job->print_pipes[1],
 			job->back_pipes[0], job->back_pipes[1]);
 
-#ifdef HAVE_DNSSD
-      for (p = (cupsd_printer_t *)cupsArrayFirst(Printers);
-	   p;
-	   p = (cupsd_printer_t *)cupsArrayNext(Printers))
+      for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
         cupsdLogMessage(CUPSD_LOG_EMERG, "printer[%s] reg_name=\"%s\"", p->name,
 	                p->reg_name ? p->reg_name : "(null)");
-#endif /* HAVE_DNSSD */
-
       break;
     }
 
@@ -1277,24 +1237,17 @@ cupsdFreeStrings(cups_array_t **a)	/* IO - String array */
 void
 cupsdHoldSignals(void)
 {
-#if defined(HAVE_SIGACTION) && !defined(HAVE_SIGSET)
   sigset_t		newmask;	/* New POSIX signal mask */
-#endif /* HAVE_SIGACTION && !HAVE_SIGSET */
 
 
   holdcount ++;
   if (holdcount > 1)
     return;
 
-#ifdef HAVE_SIGSET
-  sighold(SIGTERM);
-  sighold(SIGCHLD);
-#elif defined(HAVE_SIGACTION)
   sigemptyset(&newmask);
   sigaddset(&newmask, SIGTERM);
   sigaddset(&newmask, SIGCHLD);
   sigprocmask(SIG_BLOCK, &newmask, &holdmask);
-#endif /* HAVE_SIGSET */
 }
 
 
@@ -1309,12 +1262,7 @@ cupsdReleaseSignals(void)
   if (holdcount > 0)
     return;
 
-#ifdef HAVE_SIGSET
-  sigrelse(SIGTERM);
-  sigrelse(SIGCHLD);
-#elif defined(HAVE_SIGACTION)
   sigprocmask(SIG_SETMASK, &holdmask, NULL);
-#endif /* HAVE_SIGSET */
 }
 
 
@@ -1500,11 +1448,11 @@ process_children(void)
 	      job->status = -status;	/* Backend failed */
 
 	      if (job->current_file < job->num_files)
-	        cupsdSetJobState(job, IPP_JOB_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
+	        cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
 	    }
           }
 
-	  if (job->state_value == IPP_JOB_PROCESSING &&
+	  if (job->state_value == IPP_JSTATE_PROCESSING &&
 	      job->status_level > CUPSD_LOG_ERROR &&
 	      (job->filters[i] || !WIFEXITED(status)))
 	  {
@@ -1517,7 +1465,7 @@ process_children(void)
 
             if (job->printer)
 	    {
-	      strlcpy(job->printer->state_message, message,
+	      cupsCopyString(job->printer->state_message, message,
 		       sizeof(job->printer->state_message));
 	    }
 
@@ -1545,7 +1493,7 @@ process_children(void)
 	* filters are done, and if so move to the next file.
 	*/
 
-	if (job->state_value >= IPP_JOB_CANCELED)
+	if (job->state_value >= IPP_JSTATE_CANCELED)
 	{
 	 /*
 	  * Remove the job from the active list if there are no processes still
@@ -1750,13 +1698,13 @@ select_timeout(int fds)			/* I - Number of descriptors returned */
       why     = "kill unresponsive jobs";
     }
 
-    if (job->state_value == IPP_JOB_HELD && job->hold_until < timeout)
+    if (job->state_value == IPP_JSTATE_HELD && job->hold_until < timeout)
     {
       timeout = job->hold_until;
       why     = "release held jobs";
     }
 
-    if (job->state_value == IPP_JOB_PENDING && timeout > (now + 10))
+    if (job->state_value == IPP_JSTATE_PENDING && timeout > (now + 10))
     {
       timeout = now + 10;
       why     = "start pending jobs";
@@ -1803,14 +1751,6 @@ sigchld_handler(int sig)		/* I - Signal number */
   */
 
   dead_children = 1;
-
- /*
-  * Reset the signal handler as needed...
-  */
-
-#if !defined(HAVE_SIGSET) && !defined(HAVE_SIGACTION)
-  signal(SIGCLD, sigchld_handler);
-#endif /* !HAVE_SIGSET && !HAVE_SIGACTION */
 }
 
 
@@ -1825,10 +1765,6 @@ sighup_handler(int sig)			/* I - Signal number */
 
   NeedReload = RELOAD_ALL;
   ReloadTime = time(NULL);
-
-#if !defined(HAVE_SIGSET) && !defined(HAVE_SIGACTION)
-  signal(SIGHUP, sighup_handler);
-#endif /* !HAVE_SIGSET && !HAVE_SIGACTION */
 }
 
 
@@ -1910,10 +1846,8 @@ service_add_listener(int fd,		/* I - Socket file descriptor */
   lis->fd        = fd;
   lis->on_demand = 1;
 
-#  ifdef HAVE_TLS
   if (httpAddrPort(&(lis->address)) == 443)
-    lis->encryption = HTTP_ENCRYPT_ALWAYS;
-#  endif /* HAVE_TLS */
+    lis->encryption = HTTP_ENCRYPTION_ALWAYS;
 }
 #endif /* HAVE_ONDEMAND */
 
@@ -2060,7 +1994,7 @@ service_checkout(int shutdown)          /* I - Shutting down? */
   {
     int shared_printers = 0;		/* Do we have shared printers? */
 
-    strlcpy(pidfile, CUPS_KEEPALIVE, sizeof(pidfile));
+    cupsCopyString(pidfile, CUPS_KEEPALIVE, sizeof(pidfile));
 
    /*
     * If printer sharing is on see if there are any actual shared printers...

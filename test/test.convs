@@ -6,3 +6,5 @@ application/postscript application/vnd.cups-raster 100 pstoraster
 image/jpeg application/pdf 100 imagetopdf
 text/plain application/pdf 100 texttopdf
 
+image/urf application/vnd.cups-raster 0 rastertopwg
+image/pwg-raster application/vnd.cups-raster 0 rastertopwg

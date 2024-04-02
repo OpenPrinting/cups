@@ -1,6 +1,7 @@
 /*
  * "lpc" command for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2014 by Apple Inc.
  * Copyright 1997-2006 by Easy Software Products.
  *
@@ -266,7 +267,7 @@ show_status(http_t     *http,		/* I - HTTP connection to server */
   *    attributes-natural-language
   */
 
-  request = ippNewRequest(CUPS_GET_PRINTERS);
+  request = ippNewRequest(IPP_OP_CUPS_GET_PRINTERS);
 
   ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                 "requested-attributes", sizeof(requested) / sizeof(requested[0]),
@@ -301,7 +302,7 @@ show_status(http_t     *http,		/* I - HTTP connection to server */
 
       printer   = NULL;
       device    = "file:/dev/null";
-      pstate    = IPP_PRINTER_IDLE;
+      pstate    = IPP_PSTATE_IDLE;
       jobcount  = 0;
       accepting = 1;
 
@@ -430,7 +431,7 @@ show_status(http_t     *http,		/* I - HTTP connection to server */
 	else
 	  _cupsLangPuts(stdout, _("\tqueuing is disabled"));
 
-        if (pstate != IPP_PRINTER_STOPPED)
+        if (pstate != IPP_PSTATE_STOPPED)
 	  _cupsLangPuts(stdout, _("\tprinting is enabled"));
 	else
 	  _cupsLangPuts(stdout, _("\tprinting is disabled"));

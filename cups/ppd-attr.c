@@ -1,6 +1,7 @@
 /*
  * PPD model-specific attribute routines for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2015 by Apple Inc.
  * Copyright 1997-2006 by Easy Software Products.
  *
@@ -32,8 +33,7 @@ ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
 		*attr;			/* Current attribute */
 
 
-  DEBUG_printf(("2ppdFindAttr(ppd=%p, name=\"%s\", spec=\"%s\")", ppd, name,
-                spec));
+  DEBUG_printf("2ppdFindAttr(ppd=%p, name=\"%s\", spec=\"%s\")", (void *)ppd, name, spec);
 
  /*
   * Range check input...
@@ -47,7 +47,7 @@ ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
   */
 
   memset(&key, 0, sizeof(key));
-  strlcpy(key.name, name, sizeof(key.name));
+  cupsCopyString(key.name, name, sizeof(key.name));
 
  /*
   * Return the first matching attribute, if any...
@@ -165,7 +165,7 @@ _ppdNormalizeMakeAndModel(
 
   if (make_and_model[0] == '(')
   {
-    strlcpy(buffer, make_and_model + 1, bufsize);
+    cupsCopyString(buffer, make_and_model + 1, bufsize);
 
     if ((bufptr = strrchr(buffer, ')')) != NULL)
       *bufptr = '\0';
@@ -231,7 +231,7 @@ _ppdNormalizeMakeAndModel(
     snprintf(buffer, bufsize, "HP %s", make_and_model);
   }
   else
-    strlcpy(buffer, make_and_model, bufsize);
+    cupsCopyString(buffer, make_and_model, bufsize);
 
  /*
   * Clean up the make...

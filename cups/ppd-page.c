@@ -1,6 +1,7 @@
 /*
  * Page size functions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2015 by Apple Inc.
  * Copyright 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -36,7 +37,7 @@ ppdPageSize(ppd_file_t *ppd,		/* I - PPD file record */
   ppd_cparam_t	*cparam;		/* Custom option parameter */
 
 
-  DEBUG_printf(("2ppdPageSize(ppd=%p, name=\"%s\")", ppd, name));
+  DEBUG_printf("2ppdPageSize(ppd=%p, name=\"%s\")", (void *)ppd, name);
 
   if (!ppd)
   {
@@ -132,8 +133,7 @@ ppdPageSize(ppd_file_t *ppd,		/* I - PPD file record */
       * Return the page size...
       */
 
-      DEBUG_printf(("3ppdPageSize: Returning %p (\"%s\", %gx%g)", size,
-                    size->name, size->width, size->length));
+      DEBUG_printf("3ppdPageSize: Returning %p (\"%s\", %gx%g)", (void *)size, size->name, size->width, size->length);
 
       return (size);
     }
@@ -146,8 +146,7 @@ ppdPageSize(ppd_file_t *ppd,		/* I - PPD file record */
       for (i = ppd->num_sizes, size = ppd->sizes; i > 0; i --, size ++)
 	if (!_cups_strcasecmp(name, size->name))
 	{
-	  DEBUG_printf(("3ppdPageSize: Returning %p (\"%s\", %gx%g)", size,
-			size->name, size->width, size->length));
+	  DEBUG_printf("3ppdPageSize: Returning %p (\"%s\", %gx%g)", (void *)size, size->name, size->width, size->length);
 
           return (size);
 	}
@@ -162,8 +161,7 @@ ppdPageSize(ppd_file_t *ppd,		/* I - PPD file record */
     for (i = ppd->num_sizes, size = ppd->sizes; i > 0; i --, size ++)
       if (size->marked)
       {
-	DEBUG_printf(("3ppdPageSize: Returning %p (\"%s\", %gx%g)", size,
-		      size->name, size->width, size->length));
+	DEBUG_printf("3ppdPageSize: Returning %p (\"%s\", %gx%g)", (void *)size, size->name, size->width, size->length);
 
         return (size);
       }

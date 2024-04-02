@@ -1,0 +1,41 @@
+<FORM ACTION="/help/{?HELPFILE}" METHOD="GET">
+{TOPIC?<INPUT TYPE="HIDDEN" NAME="TOPIC" VALUE="{TOPIC}">:}
+
+<P ALIGN="CENTER"><B>Szukaj w
+{HELPTITLE?{HELPTITLE}:{TOPIC?{TOPIC}:wszystkich dokumentach}}:</B> <INPUT
+TYPE="SEARCH" NAME="QUERY" VALUE="{?QUERY}" SIZE="40" PLACEHOLDER=""
+AUTOSAVE="org.cups.help" RESULTS="20">
+<INPUT TYPE="SUBMIT" NAME="SEARCH" VALUE="Szukaj">
+<INPUT TYPE="SUBMIT" NAME="CLEAR" VALUE="Wyczyść"></P>
+
+</FORM>
+
+<!-- Bookmarks -->
+<DIV CLASS="sidebar"><TABLE CLASS="inset" SUMMARY="Contents">
+<TR><TD>
+
+<H3 CLASS="title">Dokumenty pomocy online</H3>
+
+<P CLASS="l0"><A HREF="/help/{QUERY??QUERY={QUERY}:}">Wszystkie dokumenty</A></P>
+<HR>
+
+{[BMTEXT]<P CLASS="l{BMINDENT}"><A HREF="{BMLINK}">{BMTEXT}</A></P>
+}
+</TD></TR>
+</TABLE></DIV>
+
+{QUERY?<P>Wyniki wyszukiwania we {HELPFILE?{HELPTITLE}:{TOPIC?{TOPIC}:wszystkich dokumentach}}\:</P>
+{QTEXT?<UL>
+{[QTEXT]<LI><A HREF="{QLINK}">{QTEXT}</A>{QPTEXT? (in <I><A HREF="{QPLINK}">{QPTEXT}</A></I>):}</LI>}
+{QTEXT?</UL>:}
+:<P>Nic nie znaleziono.</P>}
+<HR NOSHADE>:}
+{HELPTITLE?<FORM ACTION="/help/{?HELPFILE}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="PRINTABLE" VALUE="YES"><INPUT TYPE="SUBMIT" VALUE="Przeglądaj wersję do wydruku"></FORM>:
+
+<H1>Pomoc online</H1>
+
+<P>To jest pomoc online dla systemu CUPS. Wprowadź hasła wyszukiwania powyżej lub kliknij dowolny link dokumentacji żeby wyświetlić informacje pomocy online.</P>
+
+<P>Jeśli jesteś nowym użytkownikiem CUPS, zapoznaj się z "<a href="/help/overview.html">Przegląd CUPS</a>"</P>
+
+<P><A HREF="https://openprinting.github.io/cups/">Strona domowa CUPS</A> również zawiera wiele zasobów między innymi forum dyskusyjne, odpowiedzi na często zadawane pytania i formularz do zgłaszania błędów oraz nowych funkcji.</P>}

@@ -1,16 +1,12 @@
 /*
  * String functions for CUPS.
  *
- * Copyright © 2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #define _CUPS_STRING_C_
@@ -24,7 +20,7 @@
  * Local globals...
  */
 
-static _cups_mutex_t	sp_mutex = _CUPS_MUTEX_INITIALIZER;
+static cups_mutex_t	sp_mutex = CUPS_MUTEX_INITIALIZER;
 					/* Mutex to control access to pool */
 static cups_array_t	*stringpool = NULL;
 					/* Global string pool */
@@ -35,6 +31,475 @@ static cups_array_t	*stringpool = NULL;
  */
 
 static int compare_sp_items(_cups_sp_item_t *a, _cups_sp_item_t *b, void *data);
+static void	validate_end(char *s, char *end);
+
+
+//
+// 'cupsConcatString()' - Safely concatenate two UTF-8 strings.
+//
+// @since CUPS 2.5@
+//
+
+size_t					// O - Length of string
+cupsConcatString(char       *dst,	// O - Destination string
+                 const char *src,	// I - Source string
+	         size_t     dstsize)	// I - Size of destination string buffer
+{
+  size_t	srclen;			// Length of source string
+  size_t	dstlen;			// Length of destination string
+
+
+  // Range check input...
+  if (!dst || !src || dstsize == 0)
+    return (0);
+
+  // Figure out how much room is left...
+  dstlen = strlen(dst);
+
+  if (dstsize < (dstlen + 1))
+    return (dstlen);		        // No room, return immediately...
+
+  dstsize -= dstlen + 1;
+
+  // Figure out how much room is needed...
+  srclen = strlen(src);
+
+  // Copy the appropriate amount...
+  if (srclen <= dstsize)
+  {
+    // String fits, just copy over...
+    memmove(dst + dstlen, src, srclen);
+    dst[dstlen + srclen] = '\0';
+  }
+  else
+  {
+    // String too big, copy what we can and clean up the end...
+    memmove(dst + dstlen, src, dstsize);
+    dst[dstlen + dstsize] = '\0';
+
+    validate_end(dst, dst + dstlen + dstsize);
+  }
+
+  return (dstlen + srclen);
+}
+
+
+//
+// 'cupsCopyString()' - Safely copy a UTF-8 string.
+//
+// @since CUPS 2.5@
+//
+
+size_t					// O - Length of string
+cupsCopyString(char       *dst,		// O - Destination string
+               const char *src,		// I - Source string
+	       size_t     dstsize)	// I - Size of destination string buffer
+{
+  size_t	srclen;			// Length of source string
+
+
+  // Range check input...
+  if (!dst || !src || dstsize == 0)
+  {
+    if (dst)
+      *dst = '\0';
+    return (0);
+  }
+
+  // Figure out how much room is needed...
+  dstsize --;
+
+  srclen = strlen(src);
+
+  // Copy the appropriate amount...
+  if (srclen <= dstsize)
+  {
+    // Source string will fit...
+    memmove(dst, src, srclen);
+    dst[srclen] = '\0';
+  }
+  else
+  {
+    // Source string too big, copy what we can and clean up the end...
+    memmove(dst, src, dstsize);
+    dst[dstsize] = '\0';
+
+    validate_end(dst, dst + dstsize);
+  }
+
+  return (srclen);
+}
+
+
+//
+// 'cupsFormatString()' - Format a UTF-8 string into a fixed size buffer.
+//
+// This function formats a UTF-8 string into a fixed size buffer, escaping
+// special/control characters as needed so they can be safely displayed or
+// logged.
+//
+// @since CUPS 2.5@
+//
+
+ssize_t					// O - Number of bytes formatted
+cupsFormatString(
+    char       *buffer,			// O - Output buffer
+    size_t     bufsize,			// O - Size of output buffer
+    const char *format,			// I - `printf`-style format string
+    ...)				// I - Additional arguments
+{
+  va_list	ap;			// Pointer to additional arguments
+  ssize_t	ret;			// Return value
+
+
+  // Range check input...
+  if (!buffer || bufsize < 2 || !format)
+    return (-1);
+
+  // Format the string...
+  va_start(ap, format);
+  ret = cupsFormatStringv(buffer, bufsize, format, ap);
+  va_end(ap);
+
+  // Return the number of bytes that could have been written...
+  return (ret);
+}
+
+
+//
+// 'cupsFormatStringv()' - Format a UTF-8 string into a fixed size buffer (`va_list` version).
+//
+// This function formats a UTF-8 string into a fixed size buffer using a
+// variable argument pointer, escaping special/control characters as needed so
+// they can be safely displayed or logged.
+//
+// @since CUPS 2.5@
+//
+
+ssize_t					// O - Number of bytes formatted
+cupsFormatStringv(
+    char       *buffer,			// O - Output buffer
+    size_t     bufsize,			// O - Size of output buffer
+    const char *format,			// I - printf-style format string
+    va_list    ap)			// I - Pointer to additional arguments
+{
+  char		*bufptr,		// Pointer to position in buffer
+		*bufend,		// Pointer to end of buffer
+		size,			// Size character (h, l, L)
+		type;			// Format type character
+  int		width,			// Width of field
+		prec;			// Number of characters of precision
+  char		tformat[100],		// Temporary format string for snprintf()
+		*tptr,			// Pointer into temporary format
+		temp[1024];		// Buffer for formatted numbers
+  char		*s;			// Pointer to string
+  ssize_t	bytes;			// Total number of bytes needed
+
+
+  // Range check input...
+  if (!buffer || bufsize < 2 || !format)
+    return (-1);
+
+  // Loop through the format string, formatting as needed...
+  bufptr = buffer;
+  bufend = buffer + bufsize - 1;
+  bytes  = 0;
+
+  while (*format)
+  {
+    if (*format == '%')
+    {
+      // Format character...
+      tptr = tformat;
+      *tptr++ = *format++;
+
+      if (*format == '%')
+      {
+        if (bufptr < bufend)
+	  *bufptr++ = *format;
+        bytes ++;
+        format ++;
+	continue;
+      }
+      else if (strchr(" -+#\'", *format))
+      {
+        *tptr++ = *format++;
+      }
+
+      if (*format == '*')
+      {
+        // Get width from argument...
+	format ++;
+	width = va_arg(ap, int);
+
+	snprintf(tptr, sizeof(tformat) - (size_t)(tptr - tformat), "%d", width);
+	tptr += strlen(tptr);
+      }
+      else
+      {
+	width = 0;
+
+	while (isdigit(*format & 255))
+	{
+	  if (tptr < (tformat + sizeof(tformat) - 1))
+	    *tptr++ = *format;
+
+	  width = width * 10 + *format++ - '0';
+	}
+      }
+
+      if (*format == '.')
+      {
+	if (tptr < (tformat + sizeof(tformat) - 1))
+	  *tptr++ = *format;
+
+        format ++;
+
+        if (*format == '*')
+	{
+          // Get precision from argument...
+	  format ++;
+	  prec = va_arg(ap, int);
+
+	  snprintf(tptr, sizeof(tformat) - (size_t)(tptr - tformat), "%d", prec);
+	  tptr += strlen(tptr);
+	}
+	else
+	{
+	  prec = 0;
+
+	  while (isdigit(*format & 255))
+	  {
+	    if (tptr < (tformat + sizeof(tformat) - 1))
+	      *tptr++ = *format;
+
+	    prec = prec * 10 + *format++ - '0';
+	  }
+	}
+      }
+
+      if (*format == 'l' && format[1] == 'l')
+      {
+        size = 'L';
+
+	if (tptr < (tformat + sizeof(tformat) - 2))
+	{
+	  *tptr++ = 'l';
+	  *tptr++ = 'l';
+	}
+
+	format += 2;
+      }
+      else if (*format == 'h' || *format == 'l' || *format == 'L')
+      {
+	if (tptr < (tformat + sizeof(tformat) - 1))
+	  *tptr++ = *format;
+
+        size = *format++;
+      }
+      else
+      {
+        size = 0;
+      }
+
+      if (!*format)
+        break;
+
+      if (tptr < (tformat + sizeof(tformat) - 1))
+        *tptr++ = *format;
+
+      type  = *format++;
+      *tptr = '\0';
+
+      switch (type)
+      {
+	case 'E' : // Floating point formats
+	case 'G' :
+	case 'e' :
+	case 'f' :
+	case 'g' :
+	    if ((size_t)(width + 2) > sizeof(temp))
+	      break;
+
+	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, double));
+
+            bytes += (int)strlen(temp);
+
+            if (bufptr < bufend)
+	    {
+	      cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr));
+	      bufptr += strlen(bufptr);
+	    }
+	    break;
+
+        case 'B' : // Integer formats
+	case 'X' :
+	case 'b' :
+        case 'd' :
+	case 'i' :
+	case 'o' :
+	case 'u' :
+	case 'x' :
+	    if ((size_t)(width + 2) > sizeof(temp))
+	      break;
+
+#  ifdef HAVE_LONG_LONG
+            if (size == 'L')
+	      snprintf(temp, sizeof(temp), tformat, va_arg(ap, long long));
+	    else
+#  endif // HAVE_LONG_LONG
+            if (size == 'l')
+	      snprintf(temp, sizeof(temp), tformat, va_arg(ap, long));
+	    else
+	      snprintf(temp, sizeof(temp), tformat, va_arg(ap, int));
+
+            bytes += (int)strlen(temp);
+
+	    if (bufptr < bufend)
+	    {
+	      cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr));
+	      bufptr += strlen(bufptr);
+	    }
+	    break;
+
+	case 'p' : // Pointer value
+	    if ((size_t)(width + 2) > sizeof(temp))
+	      break;
+
+	    snprintf(temp, sizeof(temp), tformat, va_arg(ap, void *));
+
+            bytes += (int)strlen(temp);
+
+	    if (bufptr < bufend)
+	    {
+	      cupsCopyString(bufptr, temp, (size_t)(bufend - bufptr));
+	      bufptr += strlen(bufptr);
+	    }
+	    break;
+
+        case 'c' : // Character or character array
+	    bytes += width;
+
+	    if (bufptr < bufend)
+	    {
+	      if (width <= 1)
+	      {
+	        *bufptr++ = (char)va_arg(ap, int);
+	      }
+	      else
+	      {
+		if ((bufptr + width) > bufend)
+		  width = (int)(bufend - bufptr);
+
+		memcpy(bufptr, va_arg(ap, char *), (size_t)width);
+		bufptr += width;
+	      }
+	    }
+	    break;
+
+	case 's' : // String
+	    if ((s = va_arg(ap, char *)) == NULL)
+	      s = "(null)";
+
+            // Copy the C string, replacing control chars and \ with C character escapes...
+            for (; *s && bufptr < bufend; s ++)
+	    {
+	      if (*s == '\n')
+	      {
+	        *bufptr++ = '\\';
+	        if (bufptr < bufend)
+		  *bufptr++ = 'n';
+		bytes += 2;
+	      }
+	      else if (*s == '\r')
+	      {
+	        *bufptr++ = '\\';
+	        if (bufptr < bufend)
+		  *bufptr++ = 'r';
+		bytes += 2;
+	      }
+	      else if (*s == '\t')
+	      {
+	        *bufptr++ = '\\';
+	        if (bufptr < bufend)
+		  *bufptr++ = 't';
+		bytes += 2;
+	      }
+	      else if (*s == '\\')
+	      {
+	        *bufptr++ = '\\';
+	        if (bufptr < bufend)
+		  *bufptr++ = '\\';
+		bytes += 2;
+	      }
+	      else if (*s == '\'')
+	      {
+	        *bufptr++ = '\\';
+	        if (bufptr < bufend)
+		  *bufptr++ = '\'';
+		bytes += 2;
+	      }
+	      else if (*s == '\"')
+	      {
+	        *bufptr++ = '\\';
+	        if (bufptr < bufend)
+		  *bufptr++ = '\"';
+		bytes += 2;
+	      }
+	      else if ((*s & 255) < ' ')
+	      {
+	        *bufptr++ = '\\';
+	        if (bufptr < bufend)
+		  *bufptr++ = '0';
+	        if (bufptr < bufend)
+		  *bufptr++ = '0' + *s / 8;
+	        if (bufptr < bufend)
+		  *bufptr++ = '0' + (*s & 7);
+		bytes += 4;
+	      }
+	      else
+	      {
+	        *bufptr++ = *s;
+		bytes ++;
+	      }
+            }
+
+            if (bufptr >= bufend)
+	      bytes += 2 * strlen(s);
+	    break;
+
+	case 'n' : // Output number of chars so far
+	    *(va_arg(ap, int *)) = (int)bytes;
+	    break;
+      }
+    }
+    else
+    {
+      // Literal character...
+      bytes ++;
+
+      if (bufptr < bufend)
+        *bufptr++ = *format++;
+    }
+  }
+
+  // Nul-terminate the string and return the number of characters needed.
+  if (bufptr < bufend)
+  {
+    // Everything fit in the buffer...
+    *bufptr = '\0';
+  }
+  else
+  {
+    // Make sure the last characters are valid UTF-8...
+    *bufend = '\0';
+
+    validate_end(buffer, bufend);
+  }
+
+  return (bytes);
+}
+
 
 /*
  * '_cupsStrAlloc()' - Allocate/reference a string.
@@ -59,14 +524,14 @@ _cupsStrAlloc(const char *s)		/* I - String */
   * Get the string pool...
   */
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   if (!stringpool)
     stringpool = cupsArrayNew((cups_array_func_t)compare_sp_items, NULL);
 
   if (!stringpool)
   {
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
 
     return (NULL);
   }
@@ -86,15 +551,13 @@ _cupsStrAlloc(const char *s)		/* I - String */
     item->ref_count ++;
 
 #ifdef DEBUG_GUARDS
-    DEBUG_printf(("5_cupsStrAlloc: Using string %p(%s) for \"%s\", guard=%08x, "
-                  "ref_count=%d", item, item->str, s, item->guard,
-		  item->ref_count));
+    DEBUG_printf("5_cupsStrAlloc: Using string %p(%s) for \"%s\", guard=%08x, ref_count=%d", item, item->str, s, item->guard, item->ref_count);
 
     if (item->guard != _CUPS_STR_GUARD)
       abort();
 #endif /* DEBUG_GUARDS */
 
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
 
     return (item->str);
   }
@@ -107,7 +570,7 @@ _cupsStrAlloc(const char *s)		/* I - String */
   item = (_cups_sp_item_t *)calloc(1, sizeof(_cups_sp_item_t) + slen);
   if (!item)
   {
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
 
     return (NULL);
   }
@@ -118,9 +581,7 @@ _cupsStrAlloc(const char *s)		/* I - String */
 #ifdef DEBUG_GUARDS
   item->guard = _CUPS_STR_GUARD;
 
-  DEBUG_printf(("5_cupsStrAlloc: Created string %p(%s) for \"%s\", guard=%08x, "
-		"ref_count=%d", item, item->str, s, item->guard,
-		item->ref_count));
+  DEBUG_printf("5_cupsStrAlloc: Created string %p(%s) for \"%s\", guard=%08x, ref_count=%d", item, item->str, s, item->guard, item->ref_count);
 #endif /* DEBUG_GUARDS */
 
  /*
@@ -129,35 +590,9 @@ _cupsStrAlloc(const char *s)		/* I - String */
 
   cupsArrayAdd(stringpool, item);
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 
   return (item->str);
-}
-
-
-/*
- * '_cupsStrPrivAlloc()' - Allocate/reference a string.
- */
-
-char *                           /* O - String pointer */
-_cupsStrPrivAlloc(const char *s, /* I - String */
-                  void *data)    /* Unused */
-{
-  (void)data;
-  return _cupsStrAlloc(s);
-}
-
-
-/*
- * '_cupsStrPrivFree()' - Free a string.
- */
-
-void                            /* O - String pointer */
-_cupsStrPrivFree(const char *s, /* I - String */
-                 void *data)    /* Unused */
-{
-  (void)data;
-  _cupsStrFree(s);
 }
 
 
@@ -204,10 +639,9 @@ _cupsStrFlush(void)
   _cups_sp_item_t	*item;		/* Current item */
 
 
-  DEBUG_printf(("4_cupsStrFlush: %d strings in array",
-                cupsArrayCount(stringpool)));
+  DEBUG_printf("4_cupsStrFlush: %d strings in array", cupsArrayCount(stringpool));
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   for (item = (_cups_sp_item_t *)cupsArrayFirst(stringpool);
        item;
@@ -217,7 +651,7 @@ _cupsStrFlush(void)
   cupsArrayDelete(stringpool);
   stringpool = NULL;
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 }
 
 
@@ -293,7 +727,7 @@ _cupsStrFormatd(char         *buf,	/* I - String */
   }
   else
   {
-    strlcpy(buf, temp, (size_t)(bufend - buf + 1));
+    cupsCopyString(buf, temp, (size_t)(bufend - buf + 1));
     bufptr = buf + strlen(buf);
   }
 
@@ -334,7 +768,7 @@ _cupsStrFree(const char *s)		/* I - String to free */
   * See if the string is already in the pool...
   */
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   key = (_cups_sp_item_t *)(s - offsetof(_cups_sp_item_t, str));
 
@@ -348,7 +782,7 @@ _cupsStrFree(const char *s)		/* I - String to free */
 #ifdef DEBUG_GUARDS
     if (key->guard != _CUPS_STR_GUARD)
     {
-      DEBUG_printf(("5_cupsStrFree: Freeing string %p(%s), guard=%08x, ref_count=%d", key, key->str, key->guard, key->ref_count));
+      DEBUG_printf("5_cupsStrFree: Freeing string %p(%s), guard=%08x, ref_count=%d", key, key->str, key->guard, key->ref_count);
       abort();
     }
 #endif /* DEBUG_GUARDS */
@@ -367,7 +801,7 @@ _cupsStrFree(const char *s)		/* I - String to free */
     }
   }
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 }
 
 
@@ -392,17 +826,16 @@ _cupsStrRetain(const char *s)		/* I - String to retain */
 #ifdef DEBUG_GUARDS
     if (item->guard != _CUPS_STR_GUARD)
     {
-      DEBUG_printf(("5_cupsStrRetain: Retaining string %p(%s), guard=%08x, "
-                    "ref_count=%d", item, s, item->guard, item->ref_count));
+      DEBUG_printf("5_cupsStrRetain: Retaining string %p(%s), guard=%08x, ref_count=%d", item, s, item->guard, item->ref_count);
       abort();
     }
 #endif /* DEBUG_GUARDS */
 
-    _cupsMutexLock(&sp_mutex);
+    cupsMutexLock(&sp_mutex);
 
     item->ref_count ++;
 
-    _cupsMutexUnlock(&sp_mutex);
+    cupsMutexUnlock(&sp_mutex);
   }
 
   return ((char *)s);
@@ -468,7 +901,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
 
     if (loc && loc->decimal_point)
     {
-      strlcpy(tempptr, loc->decimal_point, sizeof(temp) - (size_t)(tempptr - temp));
+      cupsCopyString(tempptr, loc->decimal_point, sizeof(temp) - (size_t)(tempptr - temp));
       tempptr += strlen(tempptr);
     }
     else if (tempptr < (temp + sizeof(temp) - 1))
@@ -566,7 +999,7 @@ _cupsStrStatistics(size_t *alloc_bytes,	/* O - Allocated bytes */
   * Loop through strings in pool, counting everything up...
   */
 
-  _cupsMutexLock(&sp_mutex);
+  cupsMutexLock(&sp_mutex);
 
   for (count = 0, abytes = 0, tbytes = 0,
            item = (_cups_sp_item_t *)cupsArrayFirst(stringpool);
@@ -583,7 +1016,7 @@ _cupsStrStatistics(size_t *alloc_bytes,	/* O - Allocated bytes */
     tbytes += item->ref_count * len;
   }
 
-  _cupsMutexUnlock(&sp_mutex);
+  cupsMutexUnlock(&sp_mutex);
 
  /*
   * Return values...
@@ -615,30 +1048,6 @@ _cups_strcpy(char       *dst,		/* I - Destination string */
 
 
 /*
- * '_cups_strdup()' - Duplicate a string.
- */
-
-#ifndef HAVE_STRDUP
-char 	*				/* O - New string pointer */
-_cups_strdup(const char *s)		/* I - String to duplicate */
-{
-  char		*t;			/* New string pointer */
-  size_t	slen;			/* Length of string */
-
-
-  if (!s)
-    return (NULL);
-
-  slen = strlen(s);
-  if ((t = malloc(slen + 1)) == NULL)
-    return (NULL);
-
-  return (memcpy(t, s, slen + 1));
-}
-#endif /* !HAVE_STRDUP */
-
-
-/*
  * '_cups_strcasecmp()' - Do a case-insensitive comparison.
  */
 
@@ -646,15 +1055,16 @@ int				/* O - Result of comparison (-1, 0, or 1) */
 _cups_strcasecmp(const char *s,	/* I - First string */
                  const char *t)	/* I - Second string */
 {
-  char u, v;
+  int diff;
+
+
   while (*s != '\0' && *t != '\0')
   {
-    u = _cups_tolower(*s);
-    v = _cups_tolower(*t);
+    diff = _cups_tolower(*s) - _cups_tolower(*t);
 
-    if (u < v)
+    if (diff < 0)
       return (-1);
-    else if (u > v)
+    else if (diff > 0)
       return (1);
 
     s ++;
@@ -679,14 +1089,15 @@ _cups_strncasecmp(const char *s,	/* I - First string */
                   const char *t,	/* I - Second string */
 		  size_t     n)		/* I - Maximum number of characters to compare */
 {
-  char u, v;
+  int diff;
+
+
   while (*s != '\0' && *t != '\0' && n > 0)
   {
-    u = _cups_tolower(*s);
-    v = _cups_tolower(*t);
-    if (u < v)
+    diff = _cups_tolower(*s) - _cups_tolower(*t);
+    if (diff < 0)
       return (-1);
-    else if (u > v)
+    else if (diff > 0)
       return (1);
 
     s ++;
@@ -705,102 +1116,61 @@ _cups_strncasecmp(const char *s,	/* I - First string */
 }
 
 
-#ifndef HAVE_STRLCAT
-/*
- * '_cups_strlcat()' - Safely concatenate two strings.
- */
-
-size_t					/* O - Length of string */
-_cups_strlcat(char       *dst,		/* O - Destination string */
-              const char *src,		/* I - Source string */
-	      size_t     size)		/* I - Size of destination string buffer */
-{
-  size_t	srclen;			/* Length of source string */
-  size_t	dstlen;			/* Length of destination string */
-
-
- /*
-  * Figure out how much room is left...
-  */
-
-  dstlen = strlen(dst);
-
-  if (size < (dstlen + 1))
-    return (dstlen);		        /* No room, return immediately... */
-
-  size -= dstlen + 1;
-
- /*
-  * Figure out how much room is needed...
-  */
-
-  srclen = strlen(src);
-
- /*
-  * Copy the appropriate amount...
-  */
-
-  if (srclen > size)
-    srclen = size;
-
-  memmove(dst + dstlen, src, srclen);
-  dst[dstlen + srclen] = '\0';
-
-  return (dstlen + srclen);
-}
-#endif /* !HAVE_STRLCAT */
-
-
-#ifndef HAVE_STRLCPY
-/*
- * '_cups_strlcpy()' - Safely copy two strings.
- */
-
-size_t					/* O - Length of string */
-_cups_strlcpy(char       *dst,		/* O - Destination string */
-              const char *src,		/* I - Source string */
-	      size_t      size)		/* I - Size of destination string buffer */
-{
-  size_t	srclen;			/* Length of source string */
-
-
-  if (size == 0)
-    return (0);
-
- /*
-  * Figure out how much room is needed...
-  */
-
-  size --;
-
-  srclen = strlen(src);
-
- /*
-  * Copy the appropriate amount...
-  */
-
-  if (srclen > size)
-    srclen = size;
-
-  memmove(dst, src, srclen);
-  dst[srclen] = '\0';
-
-  return (srclen);
-}
-#endif /* !HAVE_STRLCPY */
-
-
 /*
  * 'compare_sp_items()' - Compare two string pool items...
  */
 
-static int                           /* O - Result of comparison */
-compare_sp_items(_cups_sp_item_t *a, /* I - First item */
-                 _cups_sp_item_t *b, /* I - Second item */
-                 void *data)         /* Unused */
+static int				/* O - Result of comparison */
+compare_sp_items(_cups_sp_item_t *a,	/* I - First item */
+                 _cups_sp_item_t *b,	/* I - Second item */
+                 void            *data)         /* I - Unused */
 {
   (void)data;
-  return (strcmp(a->str, b->str));
+ 
+ return (strcmp(a->str, b->str));
+}
+
+
+//
+// 'validate_end()' - Validate the last UTF-8 character in a buffer.
+//
+
+static void
+validate_end(char *s,			// I - Pointer to start of string
+             char *end)			// I - Pointer to end of string
+{
+  char *ptr = end - 1;			// Pointer into string
+
+
+  if (ptr > s && *ptr & 0x80)
+  {
+    while ((*ptr & 0xc0) == 0x80 && ptr > s)
+      ptr --;
+
+    if ((*ptr & 0xe0) == 0xc0)
+    {
+      // Verify 2-byte UTF-8 sequence...
+      if ((end - ptr) != 2)
+        *ptr = '\0';
+    }
+    else if ((*ptr & 0xf0) == 0xe0)
+    {
+      // Verify 3-byte UTF-8 sequence...
+      if ((end - ptr) != 3)
+        *ptr = '\0';
+    }
+    else if ((*ptr & 0xf8) == 0xf0)
+    {
+      // Verify 4-byte UTF-8 sequence...
+      if ((end - ptr) != 4)
+        *ptr = '\0';
+    }
+    else if (*ptr & 0x80)
+    {
+      // Invalid sequence at end...
+      *ptr = '\0';
+    }
+  }
 }
 
 
@@ -808,10 +1178,11 @@ compare_sp_items(_cups_sp_item_t *a, /* I - First item */
  * '_cupsArrayStrcasecmp()' - Compare two strings...
  */
 
-int _cupsArrayStrcasecmp(const char *s, /* I - First string */
+int /* O - Result of comparison */
+_cupsArrayStrcasecmp(const char *s, /* I - First string */
                          const char *t, /* I - Second string */
-                         void *data)    /* Unused */
+                         void *data)    /* I - Unused */
 {
   (void)data;
-  return _cups_strcasecmp(s, t);
+  return (_cups_strcasecmp(s, t));
 }

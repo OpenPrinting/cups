@@ -1,7 +1,7 @@
 /*
  * System management functions for the CUPS scheduler.
  *
- * Copyright © 2021-2023 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright @ 2007-2018 by Apple Inc.
  * Copyright @ 2006 by Easy Software Products.
  *
@@ -1021,13 +1021,11 @@ sysUpdateNames(void)
        p = (cupsd_printer_t *)cupsArrayNext(Printers))
     cupsdDeregisterPrinter(p, 1);
 
-#  ifdef HAVE_DNSSD
  /*
   * Update the computer name and BTMM domain list...
   */
 
   cupsdUpdateDNSSDName();
-#  endif /* HAVE_DNSSD */
 
  /*
   * Now re-register them...

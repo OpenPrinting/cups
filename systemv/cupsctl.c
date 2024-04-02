@@ -1,6 +1,7 @@
 /*
  * Scheduler control program for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products.
  *
@@ -127,7 +128,7 @@ main(int  argc,				/* I - Number of command-line args */
 	  switch (*opt)
 	  {
 	    case 'E' :
-	        cupsSetEncryption(HTTP_ENCRYPT_REQUIRED);
+	        cupsSetEncryption(HTTP_ENCRYPTION_REQUIRED);
 	        break;
 
 	    case 'U' :
@@ -189,13 +190,13 @@ main(int  argc,				/* I - Number of command-line args */
   {
     if (!cupsAdminSetServerSettings(http, num_settings, settings))
     {
-      _cupsLangPrintf(stderr, "cupsctl: %s", cupsLastErrorString());
+      _cupsLangPrintf(stderr, "cupsctl: %s", cupsGetErrorString());
       return (1);
     }
   }
   else if (!cupsAdminGetServerSettings(http, &num_settings, &settings))
   {
-    _cupsLangPrintf(stderr, "cupsctl: %s", cupsLastErrorString());
+    _cupsLangPrintf(stderr, "cupsctl: %s", cupsGetErrorString());
     return (1);
   }
   else

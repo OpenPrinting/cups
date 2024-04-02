@@ -1,6 +1,7 @@
 /*
  * Destination job support for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2012-2017 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
@@ -44,13 +45,13 @@ cupsCancelDestJob(http_t      *http,	/* I - Connection to destination */
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, info->uri);
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", job_id);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsUser());
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name", NULL, cupsGetUser());
 
     ippDelete(cupsDoRequest(http, request, info->resource));
     cupsFreeDestInfo(info);
   }
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -76,7 +77,7 @@ cupsCloseDestJob(
   ipp_attribute_t	*attr;		/* operations-supported attribute */
 
 
-  DEBUG_printf(("cupsCloseDestJob(http=%p, dest=%p(%s/%s), info=%p, job_id=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id));
+  DEBUG_printf("cupsCloseDestJob(http=%p, dest=%p(%s/%s), info=%p, job_id=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id);
 
  /*
   * Get the default connection as needed...
@@ -129,7 +130,7 @@ cupsCloseDestJob(
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id",
                 job_id);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (ippGetOperation(request) == IPP_OP_SEND_DOCUMENT)
     ippAddBoolean(request, IPP_TAG_OPERATION, "last-document", 1);
 
@@ -139,10 +140,9 @@ cupsCloseDestJob(
 
   ippDelete(cupsDoRequest(http, request, info->resource));
 
-  DEBUG_printf(("1cupsCloseDestJob: %s (%s)", ippErrorString(cupsLastError()),
-                cupsLastErrorString()));
+  DEBUG_printf("1cupsCloseDestJob: %s (%s)", ippErrorString(cupsGetError()), cupsGetErrorString());
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -170,8 +170,7 @@ cupsCreateDestJob(
   ipp_attribute_t	*attr;		/* job-id attribute */
 
 
-  DEBUG_printf(("cupsCreateDestJob(http=%p, dest=%p(%s/%s), info=%p, "
-                "job_id=%p, title=\"%s\", num_options=%d, options=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, (void *)job_id, title, num_options, (void *)options));
+  DEBUG_printf("cupsCreateDestJob(http=%p, dest=%p(%s/%s), info=%p, job_id=%p, title=\"%s\", num_options=%d, options=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, (void *)job_id, title, num_options, (void *)options);
 
  /*
   * Get the default connection as needed...
@@ -210,7 +209,7 @@ cupsCreateDestJob(
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                NULL, info->uri);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (title)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name", NULL,
                  title);
@@ -228,7 +227,7 @@ cupsCreateDestJob(
   if ((attr = ippFindAttribute(response, "job-id", IPP_TAG_INTEGER)) != NULL)
   {
     *job_id = attr->values[0].integer;
-    DEBUG_printf(("1cupsCreateDestJob: job-id=%d", *job_id));
+    DEBUG_printf("1cupsCreateDestJob: job-id=%d", *job_id);
   }
 
   ippDelete(response);
@@ -237,10 +236,9 @@ cupsCreateDestJob(
   * Return the status code from the Create-Job request...
   */
 
-  DEBUG_printf(("1cupsCreateDestJob: %s (%s)", ippErrorString(cupsLastError()),
-                cupsLastErrorString()));
+  DEBUG_printf("1cupsCreateDestJob: %s (%s)", ippErrorString(cupsGetError()), cupsGetErrorString());
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -258,7 +256,7 @@ cupsFinishDestDocument(
     cups_dest_t  *dest,			/* I - Destination */
     cups_dinfo_t *info) 		/* I - Destination information */
 {
-  DEBUG_printf(("cupsFinishDestDocument(http=%p, dest=%p(%s/%s), info=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info));
+  DEBUG_printf("cupsFinishDestDocument(http=%p, dest=%p(%s/%s), info=%p)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info);
 
  /*
   * Get the default connection as needed...
@@ -284,10 +282,9 @@ cupsFinishDestDocument(
 
   ippDelete(cupsGetResponse(http, info->resource));
 
-  DEBUG_printf(("1cupsFinishDestDocument: %s (%s)",
-                ippErrorString(cupsLastError()), cupsLastErrorString()));
+  DEBUG_printf("1cupsFinishDestDocument: %s (%s)", ippErrorString(cupsGetError()), cupsGetErrorString());
 
-  return (cupsLastError());
+  return (cupsGetError());
 }
 
 
@@ -320,7 +317,7 @@ cupsStartDestDocument(
   http_status_t	status;			/* HTTP status */
 
 
-  DEBUG_printf(("cupsStartDestDocument(http=%p, dest=%p(%s/%s), info=%p, job_id=%d, docname=\"%s\", format=\"%s\", num_options=%d, options=%p, last_document=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id, docname, format, num_options, (void *)options, last_document));
+  DEBUG_printf("cupsStartDestDocument(http=%p, dest=%p(%s/%s), info=%p, job_id=%d, docname=\"%s\", format=\"%s\", num_options=%d, options=%p, last_document=%d)", (void *)http, (void *)dest, dest ? dest->name : NULL, dest ? dest->instance : NULL, (void *)info, job_id, docname, format, num_options, (void *)options, last_document);
 
  /*
   * Get the default connection as needed...
@@ -358,7 +355,7 @@ cupsStartDestDocument(
                NULL, info->uri);
   ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", job_id);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
-               NULL, cupsUser());
+               NULL, cupsGetUser());
   if (docname)
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "document-name",
                  NULL, docname);

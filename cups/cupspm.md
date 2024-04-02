@@ -1,8 +1,8 @@
 ---
 title: CUPS Programming Manual
 author: Michael R Sweet
-copyright: Copyright © 2021-2023 by OpenPrinting. All Rights Reserved.
-version: 2.4.0
+copyright: Copyright © 2020-2024 by OpenPrinting. All Rights Reserved.
+version: 2.5.0
 ...
 
 > Please [file issues on GitHub](https://github.com/openprinting/cups/issues) to
@@ -71,25 +71,27 @@ to compile a simple program (shown below) in two common environments.
 
 The following simple program lists the available destinations:
 
-    #include <stdio.h>
-    #include <cups/cups.h>
+```c
+#include <stdio.h>
+#include <cups/cups.h>
 
-    int print_dest(void *user_data, unsigned flags, cups_dest_t *dest)
-    {
-      if (dest->instance)
-        printf("%s/%s\n", dest->name, dest->instance);
-      else
-        puts(dest->name);
+int print_dest(void *user_data, unsigned flags, cups_dest_t *dest)
+{
+  if (dest->instance)
+    printf("%s/%s\n", dest->name, dest->instance);
+  else
+    puts(dest->name);
 
-      return (1);
-    }
+  return (1);
+}
 
-    int main(void)
-    {
-      cupsEnumDests(CUPS_DEST_FLAGS_NONE, 1000, NULL, 0, 0, print_dest, NULL);
+int main(void)
+{
+  cupsEnumDests(CUPS_DEST_FLAGS_NONE, 1000, NULL, 0, 0, print_dest, NULL);
 
-      return (0);
-    }
+  return (0);
+}
+```
 
 
 ### Compiling with Xcode
@@ -113,11 +115,11 @@ From the command-line, create a file called `simple.c` using your favorite
 editor, copy the example to this file, and save.  Then run the following command
 to compile it with GCC and run it:
 
-    gcc -o simple `cups-config --cflags` simple.c `cups-config --libs`
+    gcc -o simple `pkg-config --cflags cups` simple.c `pkg-config --libs cups`
     ./simple
 
-The `cups-config` command provides the compiler flags (`cups-config --cflags`)
-and libraries (`cups-config --libs`) needed for the local system.
+The `pkg-config` command provides the compiler flags (`pkg-config --cflags cups`)
+and libraries (`pkg-config --libs cups`) needed for the local system.
 
 
 # Working with Destinations
@@ -136,12 +138,14 @@ the current network.
 
 ## Finding Available Destinations
 
-The `cupsEnumDests` function finds all of the available destinations:
+The [`cupsEnumDests`](@@) function finds all of the available destinations:
 
-     int
-     cupsEnumDests(unsigned flags, int msec, int *cancel,
-                   cups_ptype_t type, cups_ptype_t mask,
-                   cups_dest_cb_t cb, void *user_data)
+```c
+int
+cupsEnumDests(unsigned flags, int msec, int *cancel,
+              cups_ptype_t type, cups_ptype_t mask,
+              cups_dest_cb_t cb, void *user_data)
+```
 
 The `flags` argument specifies enumeration options, which at present must be
 `CUPS_DEST_FLAGS_NONE`.
@@ -158,38 +162,40 @@ The `type` and `mask` arguments are bitfields that allow the caller to filter
 the destinations based on categories and/or capabilities.  The destination's
 "printer-type" value is masked by the `mask` value and compared to the `type`
 value when filtering.  For example, to only enumerate destinations that are
-hosted on the local system, pass `CUPS_PRINTER_LOCAL` for the `type` argument
-and `CUPS_PRINTER_DISCOVERED` for the `mask` argument.  The following constants
+hosted on the local system, pass `CUPS_PTYPE_LOCAL` for the `type` argument
+and `CUPS_PTYPE_DISCOVERED` for the `mask` argument.  The following constants
 can be used for filtering:
 
-- `CUPS_PRINTER_CLASS`: A collection of destinations.
-- `CUPS_PRINTER_FAX`: A facsimile device.
-- `CUPS_PRINTER_LOCAL`: A local printer or class.  This constant has the value 0
+- `CUPS_PTYPE_CLASS`: A collection of destinations.
+- `CUPS_PTYPE_FAX`: A facsimile device.
+- `CUPS_PTYPE_LOCAL`: A local printer or class.  This constant has the value 0
   (no bits set) and is only used for the `type` argument and is paired with the
-  `CUPS_PRINTER_REMOTE` or `CUPS_PRINTER_DISCOVERED` constant passed in the
+  `CUPS_PTYPE_REMOTE` or `CUPS_PTYPE_DISCOVERED` constant passed in the
   `mask` argument.
-- `CUPS_PRINTER_REMOTE`: A remote (shared) printer or class.
-- `CUPS_PRINTER_DISCOVERED`: An available network printer or class.
-- `CUPS_PRINTER_BW`: Can do B&W printing.
-- `CUPS_PRINTER_COLOR`: Can do color printing.
-- `CUPS_PRINTER_DUPLEX`: Can do two-sided printing.
-- `CUPS_PRINTER_STAPLE`: Can staple output.
-- `CUPS_PRINTER_COLLATE`: Can quickly collate copies.
-- `CUPS_PRINTER_PUNCH`: Can punch output.
-- `CUPS_PRINTER_COVER`: Can cover output.
-- `CUPS_PRINTER_BIND`: Can bind output.
-- `CUPS_PRINTER_SORT`: Can sort output (mailboxes, etc.)
-- `CUPS_PRINTER_SMALL`: Can print on Letter/Legal/A4-size media.
-- `CUPS_PRINTER_MEDIUM`: Can print on Tabloid/B/C/A3/A2-size media.
-- `CUPS_PRINTER_LARGE`: Can print on D/E/A1/A0-size media.
-- `CUPS_PRINTER_VARIABLE`: Can print on rolls and custom-size media.
+- `CUPS_PTYPE_REMOTE`: A remote (shared) printer or class.
+- `CUPS_PTYPE_DISCOVERED`: An available network printer or class.
+- `CUPS_PTYPE_BW`: Can do B&W printing.
+- `CUPS_PTYPE_COLOR`: Can do color printing.
+- `CUPS_PTYPE_DUPLEX`: Can do two-sided printing.
+- `CUPS_PTYPE_STAPLE`: Can staple output.
+- `CUPS_PTYPE_COLLATE`: Can quickly collate copies.
+- `CUPS_PTYPE_PUNCH`: Can punch output.
+- `CUPS_PTYPE_COVER`: Can cover output.
+- `CUPS_PTYPE_BIND`: Can bind output.
+- `CUPS_PTYPE_SORT`: Can sort output (mailboxes, etc.)
+- `CUPS_PTYPE_SMALL`: Can print on Letter/Legal/A4-size media.
+- `CUPS_PTYPE_MEDIUM`: Can print on Tabloid/B/C/A3/A2-size media.
+- `CUPS_PTYPE_LARGE`: Can print on D/E/A1/A0-size media.
+- `CUPS_PTYPE_VARIABLE`: Can print on rolls and custom-size media.
 
 The `cb` argument specifies a function to call for every destination that is
 found:
 
-    typedef int (*cups_dest_cb_t)(void *user_data,
-                                  unsigned flags,
-                                  cups_dest_t *dest);
+```c
+typedef int (*cups_dest_cb_t)(void *user_data,
+                              unsigned flags,
+                              cups_dest_t *dest);
+```
 
 The callback function receives a copy of the `user_data` argument along with a
 bitfield \(`flags`) and the destination that was found.  The `flags` argument
@@ -199,9 +205,10 @@ can have any of the following constant (bit) values set:
 - `CUPS_DEST_FLAGS_REMOVED`: The destination has gone away and should be removed
   from the list of destinations a user can select.
 - `CUPS_DEST_FLAGS_ERROR`: An error occurred.  The reason for the error can be
-  found by calling the `cupsLastError` and/or `cupsLastErrorString` functions.
+  found by calling the [`cupsGetError`](@@) and/or [`cupsGetErrorString`](@@)
+  functions.
 
-The callback function returns 0 to stop enumeration or 1 to continue.
+The callback function returns `0` to stop enumeration or `1` to continue.
 
 > **Note:**
 >
@@ -212,71 +219,73 @@ The callback function returns 0 to stop enumeration or 1 to continue.
 The following example shows how to use `cupsEnumDests` to get a filtered array
 of destinations:
 
-    typedef struct
-    {
-      int num_dests;
-      cups_dest_t *dests;
-    } my_user_data_t;
+```c
+typedef struct
+{
+  int num_dests;
+  cups_dest_t *dests;
+} my_user_data_t;
 
-    int
-    my_dest_cb(my_user_data_t *user_data, unsigned flags,
-               cups_dest_t *dest)
-    {
-      if (flags & CUPS_DEST_FLAGS_REMOVED)
-      {
-       /*
-        * Remove destination from array...
-        */
+int
+my_dest_cb(my_user_data_t *user_data, unsigned flags,
+           cups_dest_t *dest)
+{
+  if (flags & CUPS_DEST_FLAGS_REMOVED)
+  {
+   /*
+    * Remove destination from array...
+    */
 
-        user_data->num_dests =
-            cupsRemoveDest(dest->name, dest->instance,
-                           user_data->num_dests,
-                           &(user_data->dests));
-      }
-      else
-      {
-       /*
-        * Add destination to array...
-        */
+    user_data->num_dests =
+        cupsRemoveDest(dest->name, dest->instance,
+                       user_data->num_dests,
+                       &(user_data->dests));
+  }
+  else
+  {
+   /*
+    * Add destination to array...
+    */
 
-        user_data->num_dests =
-            cupsCopyDest(dest, user_data->num_dests,
-                         &(user_data->dests));
-      }
+    user_data->num_dests =
+        cupsCopyDest(dest, user_data->num_dests,
+                     &(user_data->dests));
+  }
 
-      return (1);
-    }
+  return (1);
+}
 
-    int
-    my_get_dests(cups_ptype_t type, cups_ptype_t mask,
-                 cups_dest_t **dests)
-    {
-      my_user_data_t user_data = { 0, NULL };
+int
+my_get_dests(cups_ptype_t type, cups_ptype_t mask,
+             cups_dest_t **dests)
+{
+  my_user_data_t user_data = { 0, NULL };
 
-      if (!cupsEnumDests(CUPS_DEST_FLAGS_NONE, 1000, NULL, type,
-                         mask, (cups_dest_cb_t)my_dest_cb,
-                         &user_data))
-      {
-       /*
-        * An error occurred, free all of the destinations and
-        * return...
-        */
+  if (!cupsEnumDests(CUPS_DEST_FLAGS_NONE, 1000, NULL, type,
+                     mask, (cups_dest_cb_t)my_dest_cb,
+                     &user_data))
+  {
+   /*
+    * An error occurred, free all of the destinations and
+    * return...
+    */
 
-        cupsFreeDests(user_data.num_dests, user_data.dests);
+    cupsFreeDests(user_data.num_dests, user_data.dests);
 
-        *dests = NULL;
+    *dests = NULL;
 
-        return (0);
-      }
+    return (0);
+  }
 
-     /*
-      * Return the destination array...
-      */
+ /*
+  * Return the destination array...
+  */
 
-      *dests = user_data.dests;
+  *dests = user_data.dests;
 
-      return (user_data.num_dests);
-    }
+  return (user_data.num_dests);
+}
+```
 
 
 ## Basic Destination Information
@@ -309,21 +318,25 @@ destination attributes:
 - "printer-uri-supported": The URI associated with the destination; if not set,
   this destination was discovered but is not yet setup as a local printer.
 
-Use the `cupsGetOption` function to retrieve the value.  For example, the
+Use the [`cupsGetOption`](@@) function to retrieve the value.  For example, the
 following code gets the make and model of a destination:
 
-    const char *model = cupsGetOption("printer-make-and-model",
-                                      dest->num_options,
-                                      dest->options);
+```c
+const char *model = cupsGetOption("printer-make-and-model",
+                                  dest->num_options,
+                                  dest->options);
+```
 
 
 ## Detailed Destination Information
 
-Once a destination has been chosen, the `cupsCopyDestInfo` function can be used
-to gather detailed information about the destination:
+Once a destination has been chosen, the [`cupsCopyDestInfo`](@@) function can be
+used to gather detailed information about the destination:
 
-    cups_dinfo_t *
-    cupsCopyDestInfo(http_t *http, cups_dest_t *dest);
+```c
+cups_dinfo_t *
+cupsCopyDestInfo(http_t *http, cups_dest_t *dest);
+```
 
 The `http` argument specifies a connection to the CUPS scheduler and is
 typically the constant `CUPS_HTTP_DEFAULT`.  The `dest` argument specifies the
@@ -337,14 +350,16 @@ to resolve those constraints.
 
 ### Getting Supported Options and Values
 
-The `cupsCheckDestSupported` function can be used to test whether a particular
-option or option and value is supported:
+The [`cupsCheckDestSupported`](@@) function can be used to test whether a
+particular option or option and value is supported:
 
-    int
-    cupsCheckDestSupported(http_t *http, cups_dest_t *dest,
-                           cups_dinfo_t *info,
-                           const char *option,
-                           const char *value);
+```c
+int
+cupsCheckDestSupported(http_t *http, cups_dest_t *dest,
+                       cups_dinfo_t *info,
+                       const char *option,
+                       const char *value);
+```
 
 The `option` argument specifies the name of the option to check.  The following
 constants can be used to check the various standard options:
@@ -386,46 +401,57 @@ If the `value` argument is `NULL`, the `cupsCheckDestSupported` function returns
 whether the option is supported by the destination.  Otherwise, the function
 returns whether the specified value of the option is supported.
 
-The `cupsFindDestSupported` function returns the IPP attribute containing the
-supported values for a given option:
+The [`cupsFindDestSupported`](@@) function returns the IPP attribute containing
+the supported values for a given option:
 
-     ipp_attribute_t *
-     cupsFindDestSupported(http_t *http, cups_dest_t *dest,
-                           cups_dinfo_t *dinfo,
-                           const char *option);
+```c
+ipp_attribute_t *
+cupsFindDestSupported(http_t *http, cups_dest_t *dest,
+                      cups_dinfo_t *dinfo,
+                      const char *option);
+```
 
 For example, the following code prints the supported finishing processes for a
 destination, if any, to the standard output:
 
-    cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT,
-                                          dest);
+```c
+cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT,
+                                      dest);
 
-    if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, dest, info,
-                               CUPS_FINISHINGS, NULL))
-    {
-      ipp_attribute_t *finishings =
-          cupsFindDestSupported(CUPS_HTTP_DEFAULT, dest, info,
-                                CUPS_FINISHINGS);
-      int i, count = ippGetCount(finishings);
+if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, dest, info,
+                           CUPS_FINISHINGS, NULL))
+{
+  ipp_attribute_t *finishings =
+      cupsFindDestSupported(CUPS_HTTP_DEFAULT, dest, info,
+                            CUPS_FINISHINGS);
+  int i, count = ippGetCount(finishings);
 
-      puts("finishings supported:");
-      for (i = 0; i < count; i ++)
-        printf("  %d\n", ippGetInteger(finishings, i));
-    }
-    else
-      puts("finishings not supported.");
+  puts("finishings supported:");
+  for (i = 0; i < count; i ++)
+  {
+    int val = ippGetInteger(finishings, i);
+    printf("  %d (%s)\n", val,
+           ippEnumString("finishings", val));
+}
+else
+{
+  puts("finishings not supported.");
+}
+```
 
 The "job-creation-attributes" option can be queried to get a list of supported
 options.  For example, the following code prints the list of supported options
 to the standard output:
 
-    ipp_attribute_t *attrs =
-        cupsFindDestSupported(CUPS_HTTP_DEFAULT, dest, info,
-                              "job-creation-attributes");
-    int i, count = ippGetCount(attrs);
+```c
+ipp_attribute_t *attrs =
+    cupsFindDestSupported(CUPS_HTTP_DEFAULT, dest, info,
+                          "job-creation-attributes");
+int i, count = ippGetCount(attrs);
 
-    for (i = 0; i < count; i ++)
-      puts(ippGetString(attrs, i, NULL));
+for (i = 0; i < count; i ++)
+  puts(ippGetString(attrs, i, NULL));
+```
 
 
 ### Getting Default Values
@@ -433,39 +459,43 @@ to the standard output:
 There are two sets of default values - user defaults that are available via the
 `num_options` and `options` members of the `cups_dest_t` structure, and
 destination defaults that available via the `cups_dinfo_t` structure and the
-`cupsFindDestDefault` function which returns the IPP attribute containing the
-default value(s) for a given option:
+[`cupsFindDestDefault`](@@) function which returns the IPP attribute containing
+the default value(s) for a given option:
 
-    ipp_attribute_t *
-    cupsFindDestDefault(http_t *http, cups_dest_t *dest,
-                        cups_dinfo_t *dinfo,
-                        const char *option);
+```c
+ipp_attribute_t *
+cupsFindDestDefault(http_t *http, cups_dest_t *dest,
+                    cups_dinfo_t *dinfo,
+                    const char *option);
+```
 
-The user defaults from `cupsGetOption` should always take preference over the
-destination defaults.  For example, the following code prints the default
+The user defaults from [`cupsGetOption`](@@) should always take preference over
+the destination defaults.  For example, the following code prints the default
 finishings value(s) to the standard output:
 
-    const char *def_value =
-        cupsGetOption(CUPS_FINISHINGS, dest->num_options,
-                      dest->options);
-    ipp_attribute_t *def_attr =
-        cupsFindDestDefault(CUPS_HTTP_DEFAULT, dest, info,
-                            CUPS_FINISHINGS);
+```c
+const char *def_value =
+    cupsGetOption(CUPS_FINISHINGS, dest->num_options,
+                  dest->options);
+ipp_attribute_t *def_attr =
+    cupsFindDestDefault(CUPS_HTTP_DEFAULT, dest, info,
+                        CUPS_FINISHINGS);
 
-    if (def_value != NULL)
-    {
-      printf("Default finishings: %s\n", def_value);
-    }
-    else
-    {
-      int i, count = ippGetCount(def_attr);
+if (def_value != NULL)
+{
+  printf("Default finishings: %s\n", def_value);
+}
+else
+{
+  int i, count = ippGetCount(def_attr);
 
-      printf("Default finishings: %d",
-             ippGetInteger(def_attr, 0));
-      for (i = 1; i < count; i ++)
-        printf(",%d", ippGetInteger(def_attr, i));
-      putchar('\n');
-    }
+  printf("Default finishings: %d",
+         ippGetInteger(def_attr, 0));
+  for (i = 1; i < count; i ++)
+    printf(",%d", ippGetInteger(def_attr, i));
+  putchar('\n');
+}
+```
 
 
 ### Getting Ready (Loaded) Values
@@ -478,66 +508,90 @@ Similarly, a printer may support hundreds of different sizes of media but only
 have a single size loaded at any given time - the ready values are limited to
 the media that is actually in the printer.
 
-The `cupsFindDestReady` function finds the IPP attribute containing the ready
-values for a given option:
+The [`cupsFindDestReady`](@@) function finds the IPP attribute containing the
+ready values for a given option:
 
-    ipp_attribute_t *
-    cupsFindDestReady(http_t *http, cups_dest_t *dest,
-                      cups_dinfo_t *dinfo, const char *option);
+```c
+ipp_attribute_t *
+cupsFindDestReady(http_t *http, cups_dest_t *dest,
+                  cups_dinfo_t *dinfo, const char *option);
+```
 
 For example, the following code lists the ready finishing processes:
 
-    ipp_attribute_t *ready_finishings =
-        cupsFindDestReady(CUPS_HTTP_DEFAULT, dest, info,
-                          CUPS_FINISHINGS);
+```c
+ipp_attribute_t *ready_finishings =
+    cupsFindDestReady(CUPS_HTTP_DEFAULT, dest, info,
+                      CUPS_FINISHINGS);
 
-    if (ready_finishings != NULL)
-    {
-      int i, count = ippGetCount(ready_finishings);
+if (ready_finishings != NULL)
+{
+  int i, count = ippGetCount(ready_finishings);
 
-      puts("finishings ready:");
-      for (i = 0; i < count; i ++)
-        printf("  %d\n", ippGetInteger(ready_finishings, i));
-    }
-    else
-      puts("no finishings are ready.");
+  puts("finishings ready:");
+  for (i = 0; i < count; i ++)
+  {
+    int val = ippGetInteger(ready_finishings, i);
+    printf("  %d (%s)\n", val,
+           ippEnumString("finishings", val));
+}
+else
+{
+  puts("no finishings are ready.");
+}
+```
 
 
-### Media Size Options
+### Media Options
 
-CUPS provides functions for querying the dimensions and margins for each of the
-supported media size options.  The `cups_size_t` structure is used to describe a
-media size:
+CUPS provides functions for querying the dimensions, margins, color, source
+(tray/roll), and type for each of the supported media size options.  The
+`cups_media_t` structure is used to describe media:
 
-    typedef struct cups_size_s
-    {
-      char media[128];
-      int width, length;
-      int bottom, left, right, top;
-    } cups_size_t;
+```c
+typedef struct cups_media_s
+{
+  char media[128];
+  char color[128];
+  char source[128];
+  char type[128];
+  int width, length;
+  int bottom, left, right, top;
+} cups_media_t;
+```
+
+The "media" member specifies a PWG self-describing media size name such as
+"na\_letter\_8.5x11in", "iso\_a4\_210x297mm", etc.  The "color" member specifies
+a PWG media color name such as "white", "blue", etc.  The "source" member
+specifies a standard keyword for the paper tray or roll such as "tray-1",
+"manual", "by-pass-tray" (multi-purpose tray), etc.  The "type" member specifies
+a PWG media type name such as "stationery" (plain paper), "photographic",
+"envelope", "transparency", etc.
 
 The `width` and `length` members specify the dimensions of the media in
 hundredths of millimeters (1/2540th of an inch).  The `bottom`, `left`, `right`,
 and `top` members specify the margins of the printable area, also in hundredths
 of millimeters.
 
-The `cupsGetDestMediaByName` and `cupsGetDestMediaBySize` functions lookup the
-media size information using a standard media size name or dimensions in
-hundredths of millimeters:
+The [`cupsGetDestMediaByName2`](@@) and [`cupsGetDestMediaBySize2`](@@)
+functions lookup the media information using a standard media size name or
+dimensions in hundredths of millimeters:
 
-    int
-    cupsGetDestMediaByName(http_t *http, cups_dest_t *dest,
-                           cups_dinfo_t *dinfo,
-                           const char *media,
-                           unsigned flags, cups_size_t *size);
+```c
+bool
+cupsGetDestMediaByName2(http_t *http, cups_dest_t *dest,
+                        cups_dinfo_t *dinfo,
+                        const char *name,
+                        unsigned flags, cups_media_t *media);
 
-    int
-    cupsGetDestMediaBySize(http_t *http, cups_dest_t *dest,
-                           cups_dinfo_t *dinfo,
-                           int width, int length,
-                           unsigned flags, cups_size_t *size);
+bool
+cupsGetDestMediaBySize2(http_t *http, cups_dest_t *dest,
+                        cups_dinfo_t *dinfo,
+                        int width, int length,
+                        unsigned flags, cups_media_t *media);
+```
 
-The `media`, `width`, and `length` arguments specify the size to lookup.  The
+The `name`, `width`, and `length` arguments specify the size to lookup.  The
 `flags` argument specifies a bitfield controlling various lookup options:
 
 - `CUPS_MEDIA_FLAGS_DEFAULT`: Find the closest size supported by the printer.
@@ -549,104 +603,150 @@ The `media`, `width`, and `length` arguments specify the size to lookup.  The
   "ready" media.
 
 If a matching size is found for the destination, the size information is stored
-in the structure pointed to by the `size` argument and 1 is returned.  Otherwise
-0 is returned.
+in the structure pointed to by the `media` argument and `true` is returned.
+Otherwise `false` is returned.
 
 For example, the following code prints the margins for two-sided printing on US
 Letter media:
 
-    cups_size_t size;
+```c
+cups_media_t media:
 
-    if (cupsGetDestMediaByName(CUPS_HTTP_DEFAULT, dest, info,
-                               CUPS_MEDIA_LETTER,
-                               CUPS_MEDIA_FLAGS_DUPLEX, &size))
-    {
-      puts("Margins for duplex US Letter:");
-      printf("  Bottom: %.2fin\n", size.bottom / 2540.0);
-      printf("    Left: %.2fin\n", size.left / 2540.0);
-      printf("   Right: %.2fin\n", size.right / 2540.0);
-      printf("     Top: %.2fin\n", size.top / 2540.0);
-    }
-    else
-      puts("Margins for duplex US Letter are not available.");
+if (cupsGetDestMediaByName2(CUPS_HTTP_DEFAULT, dest, info,
+                            CUPS_MEDIA_LETTER,
+                            CUPS_MEDIA_FLAGS_DUPLEX, &size))
+{
+  puts("Margins for duplex US Letter:");
+  printf("  Bottom: %.2fin\n", media.bottom / 2540.0);
+  printf("    Left: %.2fin\n", media.left / 2540.0);
+  printf("   Right: %.2fin\n", media.right / 2540.0);
+  printf("     Top: %.2fin\n", media.top / 2540.0);
+}
+else
+{
+  puts("Margins for duplex US Letter are not available.");
+}
+```
 
 You can also enumerate all of the sizes that match a given `flags` value using
-the `cupsGetDestMediaByIndex` and `cupsGetDestMediaCount` functions:
+the [`cupsGetDestMediaByIndex2`](@@) and [`cupsGetDestMediaCount`](@@)
+functions:
 
-    int
-    cupsGetDestMediaByIndex(http_t *http, cups_dest_t *dest,
-                            cups_dinfo_t *dinfo, int n,
-                            unsigned flags, cups_size_t *size);
+```c
+bool
+cupsGetDestMediaByIndex2(http_t *http, cups_dest_t *dest,
+                         cups_dinfo_t *dinfo, size_t n,
+                         unsigned flags, cups_media_t *media);
 
-    int
-    cupsGetDestMediaCount(http_t *http, cups_dest_t *dest,
-                          cups_dinfo_t *dinfo, unsigned flags);
+int
+cupsGetDestMediaCount(http_t *http, cups_dest_t *dest,
+                      cups_dinfo_t *dinfo, unsigned flags);
+```
 
 For example, the following code prints the list of ready media and corresponding
 margins:
 
-    cups_size_t size;
-    int i;
-    int count = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT,
-                                      dest, info,
-                                      CUPS_MEDIA_FLAGS_READY);
+```c
+cups_media_t media;
+size_t i;
+size_t count = (size_t)cupsGetDestMediaCount(CUPS_HTTP_DEFAULT,
+                                             dest, info,
+                                             CUPS_MEDIA_FLAGS_READY);
 
-    for (i = 0; i < count; i ++)
-    {
-      if (cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, dest, info,
-                                  i, CUPS_MEDIA_FLAGS_READY,
-                                  &size))
-      {
-        printf("%s:\n", size.name);
-        printf("   Width: %.2fin\n", size.width / 2540.0);
-        printf("  Length: %.2fin\n", size.length / 2540.0);
-        printf("  Bottom: %.2fin\n", size.bottom / 2540.0);
-        printf("    Left: %.2fin\n", size.left / 2540.0);
-        printf("   Right: %.2fin\n", size.right / 2540.0);
-        printf("     Top: %.2fin\n", size.top / 2540.0);
-      }
-    }
+for (i = 0; i < count; i ++)
+{
+  if (cupsGetDestMediaByIndex2(CUPS_HTTP_DEFAULT, dest, info,
+                               i, CUPS_MEDIA_FLAGS_READY,
+                               &media))
+  {
+    printf("%s:\n", media.name);
+    printf("   Width: %.2fin\n", media.width / 2540.0);
+    printf("  Length: %.2fin\n", media.length / 2540.0);
+    printf("  Bottom: %.2fin\n", media.bottom / 2540.0);
+    printf("    Left: %.2fin\n", media.left / 2540.0);
+    printf("   Right: %.2fin\n", media.right / 2540.0);
+    printf("     Top: %.2fin\n", media.top / 2540.0);
+  }
+}
+```
 
-Finally, the `cupsGetDestMediaDefault` function returns the default media size:
+Finally, the [`cupsGetDestMediaDefault2`](@@) function returns the default
+media:
 
-    int
-    cupsGetDestMediaDefault(http_t *http, cups_dest_t *dest,
-                            cups_dinfo_t *dinfo, unsigned flags,
-                            cups_size_t *size);
+```c
+int
+cupsGetDestMediaDefault2(http_t *http, cups_dest_t *dest,
+                         cups_dinfo_t *dinfo, unsigned flags,
+                         cups_media_t *media);
+```
 
 
 ### Localizing Options and Values
 
 CUPS provides three functions to get localized, human-readable strings in the
-user's current locale for options and values: `cupsLocalizeDestMedia`,
-`cupsLocalizeDestOption`, and `cupsLocalizeDestValue`:
+user's current locale for options and values: [`cupsLocalizeDestMedia2`](@@),
+[`cupsLocalizeDestOption`](@@), and [`cupsLocalizeDestValue`](@@):
 
-    const char *
-    cupsLocalizeDestMedia(http_t *http, cups_dest_t *dest,
-                          cups_dinfo_t *info, unsigned flags,
-                          cups_size_t *size);
+```c
+const char *
+cupsLocalizeDestMedia2(http_t *http, cups_dest_t *dest,
+                       cups_dinfo_t *info, unsigned flags,
+                       cups_media_t *media);
 
-    const char *
-    cupsLocalizeDestOption(http_t *http, cups_dest_t *dest,
-                           cups_dinfo_t *info,
-                           const char *option);
+const char *
+cupsLocalizeDestOption(http_t *http, cups_dest_t *dest,
+                       cups_dinfo_t *info,
+                       const char *option);
 
-    const char *
-    cupsLocalizeDestValue(http_t *http, cups_dest_t *dest,
-                          cups_dinfo_t *info,
-                          const char *option, const char *value);
+const char *
+cupsLocalizeDestValue(http_t *http, cups_dest_t *dest,
+                      cups_dinfo_t *info,
+                      const char *option, const char *value);
+```
+
+> **Note:**
+>
+> These functions require a valid `http_t` connection to work.  Use the
+> [`cupsConnectDest`](@@) function to connect to the destination for its
+> localization information.
+
+For example, the following code will list the localized media names for a
+destination:
+
+```c
+char resource[256];
+http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_NONE,
+                               /*msec*/30000, /*cancel*/NULL,
+                               resource, sizeof(resource),
+                               /*dest_cb*/NULL, /*user_data*/NULL);
+
+size_t i;
+size_t count = (size_t)cupsGetDestMediaCount(http, dest, info,
+                                             CUPS_MEDIA_FLAGS_DEFAULT);
+cups_media_t media;
+for (i = 0; i < count; i ++)
+{
+  if (cupsGetDestMediaByIndex2(http, dest, info, i,
+                               CUPS_MEDIA_FLAGS_DEFAULT, &media))
+    printf("%s: %s\n", media.name,
+           cupsLocalizeDestMedia2(http, dest, info,
+                                  CUPS_MEDIA_FLAGS_DEFAULT, &media));
+}
+```
 
 
 ## Submitting a Print Job
 
 Once you are ready to submit a print job, you create a job using the
-`cupsCreateDestJob` function:
+[`cupsCreateDestJob`](@@) function:
 
-    ipp_status_t
-    cupsCreateDestJob(http_t *http, cups_dest_t *dest,
-                      cups_dinfo_t *info, int *job_id,
-                      const char *title, int num_options,
-                      cups_option_t *options);
+```c
+ipp_status_t
+cupsCreateDestJob(http_t *http, cups_dest_t *dest,
+                  cups_dinfo_t *info, int *job_id,
+                  const char *title, int num_options,
+                  cups_option_t *options);
+```
 
 The `title` argument specifies a name for the print job such as "My Document".
 The `num_options` and `options` arguments specify the options for the print
@@ -659,54 +759,58 @@ error status is returned.
 For example, the following code creates a new job that will print 42 copies of a
 two-sided US Letter document:
 
-    int job_id = 0;
-    int num_options = 0;
-    cups_option_t *options = NULL;
+```c
+int job_id = 0;
+int num_options = 0;
+cups_option_t *options = NULL;
 
-    num_options = cupsAddOption(CUPS_COPIES, "42",
-                                num_options, &options);
-    num_options = cupsAddOption(CUPS_MEDIA, CUPS_MEDIA_LETTER,
-                                num_options, &options);
-    num_options = cupsAddOption(CUPS_SIDES,
-                                CUPS_SIDES_TWO_SIDED_PORTRAIT,
-                                num_options, &options);
+num_options = cupsAddOption(CUPS_COPIES, "42",
+                            num_options, &options);
+num_options = cupsAddOption(CUPS_MEDIA, CUPS_MEDIA_LETTER,
+                            num_options, &options);
+num_options = cupsAddOption(CUPS_SIDES,
+                            CUPS_SIDES_TWO_SIDED_PORTRAIT,
+                            num_options, &options);
 
-    if (cupsCreateDestJob(CUPS_HTTP_DEFAULT, dest, info,
-                          &job_id, "My Document", num_options,
-                          options) == IPP_STATUS_OK)
-      printf("Created job: %d\n", job_id);
-    else
-      printf("Unable to create job: %s\n",
-             cupsLastErrorString());
+if (cupsCreateDestJob(CUPS_HTTP_DEFAULT, dest, info,
+                      &job_id, "My Document", num_options,
+                      options) == IPP_STATUS_OK)
+  printf("Created job: %d\n", job_id);
+else
+  printf("Unable to create job: %s\n",
+         cupsGetErrorString());
+```
 
 Once the job is created, you submit documents for the job using the
-`cupsStartDestDocument`, `cupsWriteRequestData`, and `cupsFinishDestDocument`
-functions:
+[`cupsStartDestDocument`](@@), [`cupsWriteRequestData`](@@), and
+[`cupsFinishDestDocument`](@@) functions:
 
-    http_status_t
-    cupsStartDestDocument(http_t *http, cups_dest_t *dest,
-                          cups_dinfo_t *info, int job_id,
-                          const char *docname,
-                          const char *format,
-                          int num_options,
-                          cups_option_t *options,
-                          int last_document);
+```c
+http_status_t
+cupsStartDestDocument(http_t *http, cups_dest_t *dest,
+                      cups_dinfo_t *info, int job_id,
+                      const char *docname,
+                      const char *format,
+                      int num_options,
+                      cups_option_t *options,
+                      int last_document);
 
-    http_status_t
-    cupsWriteRequestData(http_t *http, const char *buffer,
-                         size_t length);
+http_status_t
+cupsWriteRequestData(http_t *http, const char *buffer,
+                     size_t length);
 
-    ipp_status_t
-    cupsFinishDestDocument(http_t *http, cups_dest_t *dest,
-                           cups_dinfo_t *info);
+ipp_status_t
+cupsFinishDestDocument(http_t *http, cups_dest_t *dest,
+                       cups_dinfo_t *info);
+```
 
 The `docname` argument specifies the name of the document, typically the
 original filename.  The `format` argument specifies the MIME media type of the
 document, including the following constants:
 
+- `CUPS_FORMAT_AUTO`: "application/octet-stream"
 - `CUPS_FORMAT_JPEG`: "image/jpeg"
 - `CUPS_FORMAT_PDF`: "application/pdf"
-- `CUPS_FORMAT_POSTSCRIPT`: "application/postscript"
 - `CUPS_FORMAT_TEXT`: "text/plain"
 
 The `num_options` and `options` arguments specify per-document print options,
@@ -716,28 +820,32 @@ whether this is the last document in the job.
 For example, the following code submits a PDF file to the job that was just
 created:
 
-    FILE *fp = fopen("filename.pdf", "rb");
-    size_t bytes;
-    char buffer[65536];
+```c
+FILE *fp = fopen("filename.pdf", "rb");
+size_t bytes;
+char buffer[65536];
 
-    if (cupsStartDestDocument(CUPS_HTTP_DEFAULT, dest, info,
-                              job_id, "filename.pdf", 0, NULL,
-                              1) == HTTP_STATUS_CONTINUE)
-    {
-      while ((bytes = fread(buffer, 1, sizeof(buffer), fp)) > 0)
-        if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, buffer,
-                                 bytes) != HTTP_STATUS_CONTINUE)
-          break;
+if (cupsStartDestDocument(CUPS_HTTP_DEFAULT, dest, info,
+                          job_id, "filename.pdf", 0, NULL,
+                          1) == HTTP_STATUS_CONTINUE)
+{
+  while ((bytes = fread(buffer, 1, sizeof(buffer), fp)) > 0)
+  {
+    if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, buffer,
+                             bytes) != HTTP_STATUS_CONTINUE)
+      break;
+  }
 
-      if (cupsFinishDestDocument(CUPS_HTTP_DEFAULT, dest,
-                                 info) == IPP_STATUS_OK)
-        puts("Document send succeeded.");
-      else
-        printf("Document send failed: %s\n",
-               cupsLastErrorString());
-    }
+  if (cupsFinishDestDocument(CUPS_HTTP_DEFAULT, dest,
+                             info) == IPP_STATUS_OK)
+    puts("Document send succeeded.");
+  else
+    printf("Document send failed: %s\n",
+           cupsGetErrorString());
+}
 
-    fclose(fp);
+fclose(fp);
+```
 
 
 # Sending IPP Requests
@@ -750,14 +858,16 @@ to send print jobs.
 ## Connecting to the Scheduler or Printer
 
 The connection to the scheduler or printer is represented by the HTTP connection
-type `http_t`.  The `cupsConnectDest` function connects to the scheduler or
-printer associated with the destination:
+type `http_t`.  The [`cupsConnectDest`](@@) function connects to the scheduler
+or printer associated with the destination:
 
-    http_t *
-    cupsConnectDest(cups_dest_t *dest, unsigned flags, int msec,
-                    int *cancel, char *resource,
-                    size_t resourcesize, cups_dest_cb_t cb,
-                    void *user_data);
+```c
+http_t *
+cupsConnectDest(cups_dest_t *dest, unsigned flags, int msec,
+                int *cancel, char *resource,
+                size_t resourcesize, cups_dest_cb_t cb,
+                void *user_data);
+```
 
 The `dest` argument specifies the destination to connect to.
 
@@ -777,8 +887,8 @@ The `resource` and `resourcesize` arguments specify the address and size of a
 character string array to hold the path to use when sending an IPP request.
 
 The `cb` and `user_data` arguments specify a destination callback function that
-returns 1 to continue connecting or 0 to stop.  The destination callback work
-the same way as the one used for the `cupsEnumDests` function.
+returns 1 to continue connecting or 0 to stop.  The destination callback works
+the same way as the one used for the [`cupsEnumDests`](@@) function.
 
 On success, a HTTP connection is returned that can be used to send IPP requests
 and get IPP responses.
@@ -786,10 +896,13 @@ and get IPP responses.
 For example, the following code connects to the printer associated with a
 destination with a 30 second timeout:
 
-    char resource[256];
-    http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_DEVICE,
-                                   30000, NULL, resource,
-                                   sizeof(resource), NULL, NULL);
+```c
+char resource[256];
+http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_DEVICE,
+                               30000, /*cancel*/NULL, resource,
+                               sizeof(resource),
+                               /*cb*/NULL, /*user_data*/NULL);
+```
 
 
 ## Creating an IPP Request
@@ -801,13 +914,17 @@ IPP request includes an operation code (`IPP_OP_CREATE_JOB`,
 
 The `ippNewRequest` function creates a new IPP request:
 
-    ipp_t *
-    ippNewRequest(ipp_op_t op);
+```c
+ipp_t *
+ippNewRequest(ipp_op_t op);
+```
 
 The `op` argument specifies the IPP operation code for the request.  For
 example, the following code creates an IPP Get-Printer-Attributes request:
 
-    ipp_t *request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+```c
+ipp_t *request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+```
 
 The request identifier is automatically set to a unique value for the current
 process.
@@ -820,19 +937,21 @@ add the target attribute(s).  For example, the following code adds the
 "printer-uri" attribute to the IPP Get-Printer-Attributes request to specify
 which printer is being queried:
 
-    const char *printer_uri = cupsGetOption("device-uri",
-                                            dest->num_options,
-                                            dest->options);
+```c
+const char *printer_uri = cupsGetOption("device-uri",
+                                        dest->num_options,
+                                        dest->options);
 
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-                 "printer-uri", NULL, printer_uri);
+ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
+             "printer-uri", /*language*/NULL, printer_uri);
+```c
 
 > **Note:**
 >
 > If we wanted to query the scheduler instead of the device, we would look
 > up the "printer-uri-supported" option instead of the "device-uri" value.
 
-The `ippAddString` function adds the "printer-uri" attribute to the IPP
+The [`ippAddString`](@@) function adds the "printer-uri" attribute to the IPP
 request.  The `IPP_TAG_OPERATION` argument specifies that the attribute is part
 of the operation.  The `IPP_TAG_URI` argument specifies that the value is a
 Universal Resource Identifier (URI) string.  The `NULL` argument specifies there
@@ -843,82 +962,95 @@ The IPP Get-Printer-Attributes request also supports an IPP attribute called
 "requested-attributes" that lists the attributes and values you are interested
 in.  For example, the following code requests the printer state attributes:
 
-    static const char * const requested_attributes[] =
-    {
-      "printer-state",
-      "printer-state-message",
-      "printer-state-reasons"
-    };
+```c
+static const char * const requested_attributes[] =
+{
+  "printer-state",
+  "printer-state-message",
+  "printer-state-reasons"
+};
 
-    ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-                  "requested-attributes", 3, NULL,
-                  requested_attributes);
+ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
+              "requested-attributes", 3, /*language*/NULL,
+              requested_attributes);
+```
 
-The `ippAddStrings` function adds an attribute with one or more strings, in this
-case three.  The `IPP_TAG_KEYWORD` argument specifies that the strings are
-keyword values, which are used for attribute names.  All strings use the same
-language (`NULL`), and the attribute will contain the three strings in the
-array `requested_attributes`.
+The [`ippAddStrings`](@@) function adds an attribute with one or more strings,
+in this case three.  The `IPP_TAG_KEYWORD` argument specifies that the strings
+are keyword values, which are used for attribute names.  All strings use the
+same language (`NULL` for none), and the attribute will contain the three
+strings in the array `requested_attributes`.
 
 CUPS provides many functions to adding attributes of different types:
 
-- `ippAddBoolean` adds a boolean (`IPP_TAG_BOOLEAN`) attribute with one value.
-- `ippAddInteger` adds an enum (`IPP_TAG_ENUM`) or integer (`IPP_TAG_INTEGER`)
-  attribute with one value.
-- `ippAddIntegers` adds an enum or integer attribute with one or more values.
-- `ippAddOctetString` adds an octetString attribute with one value.
-- `ippAddOutOfBand` adds a admin-defined (`IPP_TAG_ADMINDEFINE`), default
+- [`ippAddBoolean`](@@) adds a boolean (`IPP_TAG_BOOLEAN`) attribute with one
+  value.
+- [`ippAddInteger`](@@) adds an enum (`IPP_TAG_ENUM`) or integer
+  (`IPP_TAG_INTEGER`) attribute with one value.
+- [`ippAddIntegers`](@@) adds an enum or integer attribute with one or more
+  values.
+- [`ippAddOctetString`](@@) adds an octetString attribute with one value.
+- [`ippAddOutOfBand`](@@) adds a admin-defined (`IPP_TAG_ADMINDEFINE`), default
   (`IPP_TAG_DEFAULT`), delete-attribute (`IPP_TAG_DELETEATTR`), no-value
   (`IPP_TAG_NOVALUE`), not-settable (`IPP_TAG_NOTSETTABLE`), unknown
   (`IPP_TAG_UNKNOWN`), or unsupported (`IPP_TAG_UNSUPPORTED_VALUE`) out-of-band
   attribute.
-- `ippAddRange` adds a rangeOfInteger attribute with one range.
-- `ippAddRanges` adds a rangeOfInteger attribute with one or more ranges.
-- `ippAddResolution` adds a resolution attribute with one resolution.
-- `ippAddResolutions` adds a resolution attribute with one or more resolutions.
-- `ippAddString` adds a charset (`IPP_TAG_CHARSET`), keyword (`IPP_TAG_KEYWORD`),
-  mimeMediaType (`IPP_TAG_MIMETYPE`), name (`IPP_TAG_NAME` and
-  `IPP_TAG_NAMELANG`), naturalLanguage (`IPP_TAG_NATURAL_LANGUAGE`), text
+- [`ippAddRange`](@@) adds a rangeOfInteger attribute with one range.
+- [`ippAddRanges`](@@) adds a rangeOfInteger attribute with one or more ranges.
+- [`ippAddResolution`](@@) adds a resolution attribute with one resolution.
+- [`ippAddResolutions`](@@) adds a resolution attribute with one or more
+  resolutions.
+- [`ippAddString`](@@) adds a charset (`IPP_TAG_CHARSET`), keyword
+  (`IPP_TAG_KEYWORD`), mimeMediaType (`IPP_TAG_MIMETYPE`), name (`IPP_TAG_NAME`
+  and `IPP_TAG_NAMELANG`), naturalLanguage (`IPP_TAG_NATURAL_LANGUAGE`), text
   (`IPP_TAG_TEXT` and `IPP_TAG_TEXTLANG`), uri (`IPP_TAG_URI`), or uriScheme
   (`IPP_TAG_URISCHEME`) attribute with one value.
-- `ippAddStrings` adds a charset, keyword, mimeMediaType, name, naturalLanguage,
-  text, uri, or uriScheme attribute with one or more values.
+- [`ippAddStrings`](@@) adds a charset, keyword, mimeMediaType, name,
+  naturalLanguage, text, uri, or uriScheme attribute with one or more values.
 
 
 ## Sending the IPP Request
 
 Once you have created the IPP request, you can send it using the
-`cupsDoRequest` function.  For example, the following code sends the IPP
+[`cupsDoRequest`](@@) function.  For example, the following code sends the IPP
 Get-Printer-Attributes request to the destination and saves the response:
 
-    ipp_t *response = cupsDoRequest(http, request, resource);
+```c
+ipp_t *response = cupsDoRequest(http, request, resource);
+```
 
-For requests like Send-Document that include a file, the `cupsDoFileRequest`
-function should be used:
+For requests like Send-Document that include a file, the
+[`cupsDoFileRequest`](@@) function should be used:
 
-    ipp_t *response = cupsDoFileRequest(http, request, resource,
-                                        filename);
+```c
+ipp_t *response = cupsDoFileRequest(http, request, resource,
+                                    filename);
+```
 
 Both `cupsDoRequest` and `cupsDoFileRequest` free the IPP request.  If a valid
 IPP response is received, it is stored in a new IPP message (`ipp_t`) and
 returned to the caller.  Otherwise `NULL` is returned.
 
-The status from the most recent request can be queried using the `cupsLastError`
-function, for example:
+The status from the most recent request can be queried using the
+[`cupsGetError`](@@) function, for example:
 
-    if (cupsLastError() >= IPP_STATUS_ERROR_BAD_REQUEST)
-    {
-      /* request failed */
-    }
+```c
+if (cupsGetError() >= IPP_STATUS_ERROR_BAD_REQUEST)
+{
+  /* request failed */
+}
+```
 
-A human-readable error message is also available using the `cupsLastErrorString`
+A human-readable error message is also available using the `cupsGetErrorString`
 function:
 
-    if (cupsLastError() >= IPP_STATUS_ERROR_BAD_REQUEST)
-    {
-      /* request failed */
-      printf("Request failed: %s\n", cupsLastErrorString());
-    }
+```c
+if (cupsGetError() >= IPP_STATUS_ERROR_BAD_REQUEST)
+{
+  /* request failed */
+  printf("Request failed: %s\n", cupsGetErrorString());
+}
+```
 
 
 ## Processing the IPP Response
@@ -931,70 +1063,78 @@ identifier from the request.
 For example, the following code finds the printer state attributes and prints
 their values:
 
-    ipp_attribute_t *attr;
+```c
+ipp_attribute_t *attr;
 
-    if ((attr = ippFindAttribute(response, "printer-state",
-                                 IPP_TAG_ENUM)) != NULL)
-    {
-      printf("printer-state=%s\n",
-             ippEnumString("printer-state", ippGetInteger(attr, 0)));
-    }
-    else
-      puts("printer-state=unknown");
+if ((attr = ippFindAttribute(response, "printer-state",
+                             IPP_TAG_ENUM)) != NULL)
+{
+  printf("printer-state=%s\n",
+         ippEnumString("printer-state", ippGetInteger(attr, 0)));
+}
+else
+  puts("printer-state=unknown");
 
-    if ((attr = ippFindAttribute(response, "printer-state-message",
-                                 IPP_TAG_TEXT)) != NULL)
-    {
-      printf("printer-state-message=\"%s\"\n",
-             ippGetString(attr, 0, NULL)));
-    }
+if ((attr = ippFindAttribute(response, "printer-state-message",
+                             IPP_TAG_TEXT)) != NULL)
+{
+  printf("printer-state-message=\"%s\"\n",
+         ippGetString(attr, 0, NULL)));
+}
 
-    if ((attr = ippFindAttribute(response, "printer-state-reasons",
-                                 IPP_TAG_KEYWORD)) != NULL)
-    {
-      int i, count = ippGetCount(attr);
+if ((attr = ippFindAttribute(response, "printer-state-reasons",
+                             IPP_TAG_KEYWORD)) != NULL)
+{
+  int i, count = ippGetCount(attr);
 
-      puts("printer-state-reasons=");
-      for (i = 0; i < count; i ++)
-        printf("    %s\n", ippGetString(attr, i, NULL)));
-    }
+  puts("printer-state-reasons=");
+  for (i = 0; i < count; i ++)
+    printf("    %s\n", ippGetString(attr, i, NULL)));
+}
+```
 
-The `ippGetCount` function returns the number of values in an attribute.
+The [`ippGetCount`](@@) function returns the number of values in an attribute.
 
-The `ippGetInteger` and `ippGetString` functions return a single integer or
-string value from an attribute.
+The [`ippGetInteger`](@@) and [`ippGetString`](@@) functions return a single
+integer or string value from an attribute.
 
-The `ippEnumString` function converts a enum value to its keyword (string)
+The [`ippEnumString`](@@) function converts a enum value to its keyword (string)
 equivalent.
 
-Once you are done using the IPP response message, free it using the `ippDelete`
-function:
+Once you are done using the IPP response message, free it using the
+[`ippDelete`](@@) function:
 
-    ippDelete(response);
+```c
+ippDelete(response);
+```
 
 
 ## Authentication
 
 CUPS normally handles authentication through the console.  GUI applications
-should set a password callback using the `cupsSetPasswordCB2` function:
+should set a password callback using the [`cupsSetPasswordCB2`](@@) function:
 
-    void
-    cupsSetPasswordCB2(cups_password_cb2_t cb, void *user_data);
+```c
+void
+cupsSetPasswordCB2(cups_password_cb2_t cb, void *user_data);
+```
 
 The password callback will be called when needed and is responsible for setting
-the current user name using `cupsSetUser` and returning a string:
+the current user name using [`cupsSetUser`](@@) and returning a string:
 
-    const char *
-    cups_password_cb2(const char *prompt, http_t *http,
-                      const char *method, const char *resource,
-                      void *user_data);
+```c
+const char *
+cups_password_cb2(const char *prompt, http_t *http,
+                  const char *method, const char *resource,
+                  void *user_data);
+```
 
 The `prompt` argument is a string from CUPS that should be displayed to the
 user.
 
 The `http` argument is the connection hosting the request that is being
-authenticated.  The password callback can call the `httpGetField` and
-`httpGetSubField` functions to look for additional details concerning the
+authenticated.  The password callback can call the [`httpGetField`](@@) and
+[`httpGetSubField`](@@) functions to look for additional details concerning the
 authentication challenge.
 
 The `method` argument specifies the HTTP method used for the request and is
@@ -1004,3 +1144,113 @@ The `resource` argument specifies the path used for the request.
 
 The `user_data` argument provides the user data pointer from the
 `cupsSetPasswordCB2` call.
+
+
+# IPP Data File API
+
+The IPP data file API provides functions to read and write IPP attributes and
+other commands or data using a common base format that supports tools such as
+`ipptool` and `ippeveprinter`.
+
+
+## Creating an IPP Data File
+
+The [`ippFileNew`](@@) function creates a new IPP data file (`ipp_file_t`)
+object:
+
+```c
+ipp_file_t *parent = NULL;
+void *data;
+ipp_file_t *file = ippFileNew(parent, attr_cb, error_cb, data);
+```
+
+The "parent" IPP data file pointer is typically used to support nested files and
+is normally `NULL` for a new file.  The "data" argument supplies your
+application data to the callbacks.  The "attr_cb" callback function is used to
+filter IPP attributes; return `true` to include the attribute and `false` to ignore it:
+
+```c
+bool
+attr_cb(ipp_file_t *file, void *cb_data, const char *name)
+{
+  ... determine whether to use an attribute named "name" ...
+}
+```
+
+The "error_cb" callback function is used to record/report errors when reading
+the file:
+
+```c
+bool
+error_cb(ipp_file_t *file, void *cb_data, const char *error)
+{
+  ... display/record error and return `true` to continue or `false` to stop ...
+}
+```
+
+
+## Reading a Data File
+
+The [`ippFileOpen`](@@) function opens the specified data file and
+[`ippFileRead`](@@) reads from it:
+
+```c
+if (ippFileOpen(file, "somefile", "r"))
+{
+  // Opened successfully, now read it...
+  ippFileRead(file, token_cb, /*with_groups*/false);
+  ippFileClose(file);
+}
+```
+
+The token callback function passed to `ippFileRead` handles custom directives in
+your data file:
+
+```c
+bool
+token_cb(ipp_file_t *file, void *cb_data, const char *token)
+{
+  ... handle token, return `true` to continue or `false` to stop ...
+}
+```
+
+The "token" parameter contains the token to be processed.  The callback can use the [`ippFileReadToken`](@@) function to read additional tokens from the file
+and the [`ippFileExpandToken`](@@) function to expand any variables in the token
+string.  Return `false` to stop reading the file and `true` to continue.  The
+default `NULL` callback reports an unknown token error through the error
+callback end returns `false`.
+
+Once read, you call the [`ippFileGetAttributes`](@@) function to get the IPP
+attributes from the file.
+
+
+## Variables
+
+Each IPP data file object has associated variables that can be used when reading
+the file.  The default set of variables is:
+
+- "date-current": Current date in ISO-8601 format
+- "date-start": Start date (when file opened) in ISO-8601 format
+- "filename": Associated data/document filename, if any
+- "filetype": MIME media type of associated data/document filename, if any
+- "hostname": Hostname or IP address from the "uri" value, if any
+- "port": Port number from the "uri" value, if any
+- "resource": Resource path from the "uri" value, if any
+- "scheme": URI scheme from the "uri" value, if any
+- "uri": URI, if any
+- "uriuser": Username from the "uri" value, if any
+- "uripassword": Password from the "uri" value, if any
+- "user": Current login user
+
+The [`ippFileGetVar`](@@), [`ippFileSetVar`](@@), and [`ippFileSetVarf`](@@)
+functions get and set file variables, respectively.
+
+
+## Writing IPP Data Files
+
+As when reading an IPP data file, the [`ippFileNew`](@@) function creates a new
+file object, [`ippFileOpen`](@@) opens the file, and [`ippFileClose`](@@) closes
+the file.  However, you call [`ippFileWriteAttributes`](@@) to write the
+attributes in an IPP message (`ipp_t`), [`ippFileWriteComment`](@@) to write a
+comment in the file, and [`ippWriteToken`](@@) or [`ippWriteTokenf`](@@) to
+write a token or value to the file.

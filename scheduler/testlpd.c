@@ -1,6 +1,7 @@
 /*
  * cups-lpd test program for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2015 by Apple Inc.
  * Copyright 2006 by Easy Software Products, all rights reserved.
  *
@@ -282,7 +283,7 @@ print_job(int  outfd,			/* I - Command file descriptor */
            "ldfA%03dlocalhost\n"
            "UdfA%03dlocalhost\n"
            "N%s\n",
-	   cupsUser(), jobname, sequence, sequence, jobname);
+	   cupsGetUser(), jobname, sequence, sequence, jobname);
 
  /*
   * Send the control file...
@@ -412,11 +413,11 @@ remove_job(int  outfd,			/* I - Command file descriptor */
 
   for (i = 0; args[i]; i ++)
   {
-    strlcat(command, " ", sizeof(command));
-    strlcat(command, args[i], sizeof(command));
+    cupsConcatString(command, " ", sizeof(command));
+    cupsConcatString(command, args[i], sizeof(command));
   }
 
-  strlcat(command, "\n", sizeof(command));
+  cupsConcatString(command, "\n", sizeof(command));
 
   return (do_command(outfd, infd, command));
 }

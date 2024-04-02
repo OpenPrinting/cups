@@ -62,7 +62,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\vcnet;..;..\vcnet\regex;packages\libressl_native.3.5.3.2\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vcnet;..;..\vcnet\regex;packages\libressl_native.3.7.3\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_DEBUG;_WINDOWS;_USRDLL;LIBCUPS2_EXPORTS;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -72,7 +72,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>packages\libressl_native.3.7.3\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.7.3\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)libcups2.dll</OutputFile>
       <ModuleDefinitionFile>..\cups\libcups2.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -88,7 +88,7 @@
     </Midl>
     <ClCompile>
       <Optimization>MinSpace</Optimization>
-      <AdditionalIncludeDirectories>..\vcnet;..;..\vcnet\regex;packages\libressl_native.3.5.3.2\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vcnet;..;..\vcnet\regex;packages\libressl_native.3.7.3\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;NDEBUG;_WINDOWS;_USRDLL;LIBCUPS2_EXPORTS;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
@@ -96,7 +96,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.5.3.2\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>packages\libressl_native.3.7.3\build\native\lib\x64\Release\ssl.lib;packages\libressl_native.3.7.3\build\native\lib\x64\Release\crypto.lib;bcrypt.lib;ws2_32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)libcups2.dll</OutputFile>
       <ModuleDefinitionFile>..\cups\libcups2.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -118,8 +118,10 @@
     <ClCompile Include="..\cups\dest-options.c" />
     <ClCompile Include="..\cups\dest.c" />
     <ClCompile Include="..\cups\dir.c" />
+    <ClCompile Include="..\cups\dnssd.c" />
     <ClCompile Include="..\cups\encode.c" />
     <ClCompile Include="..\cups\file.c" />
+    <ClCompile Include="..\cups\form.c" />
     <ClCompile Include="..\cups\getdevices.c" />
     <ClCompile Include="..\cups\getputfile.c" />
     <ClCompile Include="..\cups\globals.c" />
@@ -130,8 +132,9 @@
     <ClCompile Include="..\cups\http.c" />
     <ClCompile Include="..\cups\ipp-file.c" />
     <ClCompile Include="..\cups\ipp-support.c" />
-    <ClCompile Include="..\cups\ipp-vars.c" />
     <ClCompile Include="..\cups\ipp.c" />
+    <ClCompile Include="..\cups\json.c" />
+    <ClCompile Include="..\cups\jwt.c" />
     <ClCompile Include="..\cups\langprintf.c" />
     <ClCompile Include="..\cups\language.c" />
     <ClCompile Include="..\cups\md5.c" />
@@ -149,13 +152,13 @@
     <ClCompile Include="..\cups\ppd-util.c" />
     <ClCompile Include="..\cups\ppd.c" />
     <ClCompile Include="..\cups\pwg-media.c" />
+    <ClCompile Include="..\cups\rand.c" />
     <ClCompile Include="..\cups\raster-error.c" />
     <ClCompile Include="..\cups\raster-interpret.c" />
     <ClCompile Include="..\cups\raster-interstub.c" />
     <ClCompile Include="..\cups\raster-stream.c" />
     <ClCompile Include="..\cups\raster-stubs.c" />
     <ClCompile Include="..\cups\request.c" />
-    <ClCompile Include="..\cups\snprintf.c" />
     <ClCompile Include="..\cups\string.c" />
     <ClCompile Include="..\cups\tempfile.c" />
     <ClCompile Include="..\cups\thread.c" />
@@ -170,19 +173,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cups\adminutil.h" />
-    <ClInclude Include="..\cups\array-private.h" />
     <ClInclude Include="..\cups\array.h" />
+    <ClInclude Include="..\cups\base.h" />
     <ClInclude Include="..\cups\cups-private.h" />
     <ClInclude Include="..\cups\cups.h" />
+    <ClInclude Include="..\cups\debug-internal.h" />
     <ClInclude Include="..\cups\debug-private.h" />
     <ClInclude Include="..\cups\dir.h" />
+    <ClInclude Include="..\cups\dnssd.h" />
     <ClInclude Include="..\cups\file-private.h" />
     <ClInclude Include="..\cups\file.h" />
+    <ClInclude Include="..\cups\form.h" />
     <ClInclude Include="..\cups\globals.h" />
     <ClInclude Include="..\cups\http-private.h" />
     <ClInclude Include="..\cups\http.h" />
     <ClInclude Include="..\cups\ipp-private.h" />
     <ClInclude Include="..\cups\ipp.h" />
+    <ClInclude Include="..\cups\json.h" />
+    <ClInclude Include="..\cups\json-private.h" />
+    <ClInclude Include="..\cups\jwt.h" />
     <ClInclude Include="..\cups\language-private.h" />
     <ClInclude Include="..\cups\language.h" />
     <ClInclude Include="..\cups\md5-private.h" />
@@ -191,11 +200,11 @@
     <ClInclude Include="..\cups\pwg-private.h" />
     <ClInclude Include="..\cups\pwg.h" />
     <ClInclude Include="..\cups\raster-private.h" />
+    <ClInclude Include="..\cups\raster-testpage.h" />
     <ClInclude Include="..\cups\raster.h" />
     <ClInclude Include="..\cups\string-private.h" />
-    <ClInclude Include="..\cups\thread-private.h" />
+    <ClInclude Include="..\cups\thread.h" />
     <ClInclude Include="..\cups\transcode.h" />
-    <ClInclude Include="..\cups\versioning.h" />
     <ClInclude Include="config.h" />
   </ItemGroup>
   <ItemGroup>

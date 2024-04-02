@@ -1,6 +1,7 @@
 /*
  * SNMP supplies functions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2008-2015 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -320,7 +321,7 @@ backendSNMPSupplies(
           supplies[i].level >= 0)
         snprintf(ptr, sizeof(value) - (size_t)(ptr - value), "%d", percent);
       else
-        strlcpy(ptr, "-1", sizeof(value) - (size_t)(ptr - value));
+        cupsCopyString(ptr, "-1", sizeof(value) - (size_t)(ptr - value));
     }
 
     fprintf(stderr, "ATTR: marker-levels=%s\n", value);
@@ -540,11 +541,11 @@ backend_init_supplies(
   if (!_cupsSNMPRead(snmp_fd, &packet, CUPS_SUPPLY_TIMEOUT) ||
       packet.object_type != CUPS_ASN1_OCTET_STRING)
   {
-    strlcpy(description, "Unknown", sizeof(description));
+    cupsCopyString(description, "Unknown", sizeof(description));
     num_supplies = 0;
   }
   else
-    strlcpy(description, (char *)packet.object_value.string.bytes,
+    cupsCopyString(description, (char *)packet.object_value.string.bytes,
             sizeof(description));
 
   fprintf(stderr, "DEBUG2: hrDeviceDesc=\"%s\"\n", description);
@@ -687,7 +688,7 @@ backend_init_supplies(
   */
 
   for (i = 0; i < num_supplies; i ++)
-    strlcpy(supplies[i].color, "none", sizeof(supplies[i].color));
+    cupsCopyString(supplies[i].color, "none", sizeof(supplies[i].color));
 
   _cupsSNMPWalk(snmp_fd, &current_addr, CUPS_SNMP_VERSION_1,
                 community, prtMarkerColorantValue,
@@ -702,7 +703,7 @@ backend_init_supplies(
     if (i)
       *ptr++ = ',';
 
-    strlcpy(ptr, supplies[i].color, sizeof(value) - (size_t)(ptr - value));
+    cupsCopyString(ptr, supplies[i].color, sizeof(value) - (size_t)(ptr - value));
   }
 
   fprintf(stderr, "ATTR: marker-colors=%s\n", value);
@@ -750,9 +751,9 @@ backend_init_supplies(
     type = supplies[i].type;
 
     if (type < CUPS_TC_other || type > CUPS_TC_covers)
-      strlcpy(ptr, "unknown", sizeof(value) - (size_t)(ptr - value));
+      cupsCopyString(ptr, "unknown", sizeof(value) - (size_t)(ptr - value));
     else
-      strlcpy(ptr, types[type - CUPS_TC_other], sizeof(value) - (size_t)(ptr - value));
+      cupsCopyString(ptr, types[type - CUPS_TC_other], sizeof(value) - (size_t)(ptr - value));
   }
 
   fprintf(stderr, "ATTR: marker-types=%s\n", value);
@@ -819,7 +820,7 @@ backend_walk_cb(cups_snmp_t *packet,	/* I - SNMP packet */
 	  if (!_cups_strcasecmp(colors[k][0],
 	                        (char *)packet->object_value.string.bytes))
 	  {
-	    strlcpy(supplies[j].color, colors[k][1], sizeof(supplies[j].color));
+	    cupsCopyString(supplies[j].color, colors[k][1], sizeof(supplies[j].color));
 	    break;
 	  }
       }
@@ -862,7 +863,7 @@ backend_walk_cb(cups_snmp_t *packet,	/* I - SNMP packet */
       case CUPS_TC_csASCII :
       case CUPS_TC_csUTF8 :
       case CUPS_TC_csUnicodeASCII :
-	  strlcpy(supplies[i - 1].name,
+	  cupsCopyString(supplies[i - 1].name,
 	          (char *)packet->object_value.string.bytes,
 		  sizeof(supplies[0].name));
           break;

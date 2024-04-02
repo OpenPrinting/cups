@@ -1,129 +1,156 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>cupstestppd(1)</title>
-</head>
-<body>
-<h1 class="title">cupstestppd(1)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-cupstestppd - test conformance of ppd files (deprecated)
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>cupstestppd</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>cupstestppd(1)</title>
+  </head>
+  <body>
+    <h1 id="cupstestppd-1">cupstestppd(1)</h1>
+    <h2 id="cupstestppd-1.name">Name</h2>
+<p>cupstestppd - test conformance of ppd files (deprecated)
+</p>
+    <h2 id="cupstestppd-1.synopsis">Synopsis</h2>
+<p><strong>cupstestppd</strong>
 [
-<b>-I</b>
-<i>category</i>
+<strong>-I</strong>
+<em>category</em>
 ] [
-<b>-R</b>
-<i>rootdir</i>
+<strong>-R</strong>
+<em>rootdir</em>
 ] [
-<b>-W</b>
-<i>category</i>
+<strong>-W</strong>
+<em>category</em>
 ] [
-<b>-q</b>
+<strong>-q</strong>
 ] [
-<b>-r</b>
+<strong>-r</strong>
 ] [
-<b>-v</b>[<b>v</b>]
+<strong>-v</strong>[<strong>v</strong>]
 ]
-<i>filename.ppd[.gz]</i>
+<em>filename.ppd[.gz]</em>
 [ ...
-<i>filename.ppd[.gz]</i>
+<em>filename.ppd[.gz]</em>
 ]
 <br>
-<b>cupstestppd</b>
+<strong>cupstestppd</strong>
 [
-<b>-R</b>
-<i>rootdir</i>
+<strong>-R</strong>
+<em>rootdir</em>
 ] [
-<b>-W</b>
-<i>category</i>
+<strong>-W</strong>
+<em>category</em>
 ] [
-<b>-q</b>
+<strong>-q</strong>
 ] [
-<b>-r</b>
+<strong>-r</strong>
 ] [
-<b>-v</b>[<b>v</b>]
+<strong>-v</strong>[<strong>v</strong>]
 ]
-<b>-</b>
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>cupstestppd</b> tests the conformance of PPD files to the Adobe PostScript Printer Description file format specification version 4.3.
+<strong>-</strong>
+</p>
+    <h2 id="cupstestppd-1.description">Description</h2>
+<p><strong>cupstestppd</strong> tests the conformance of PPD files to the Adobe PostScript Printer Description file format specification version 4.3.
 It can also be used to list the supported options and available fonts in a PPD file.
 The results of testing and any other output are sent to the standard output.
-<p>The first form of <b>cupstestppd</b> tests one or more PPD files on the command-line.
+</p>
+    <p>The first form of <strong>cupstestppd</strong> tests one or more PPD files on the command-line.
 The second form tests the PPD file provided on the standard input.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-<b>cupstestppd</b> supports the following options:
-<dl class="man">
-<dt><b>-I filename</b>
-<dd style="margin-left: 5.0em">Ignores all PCFileName warnings.
-<dt><b>-I filters</b>
-<dd style="margin-left: 5.0em">Ignores all filter errors.
-<dt><b>-I profiles</b>
-<dd style="margin-left: 5.0em">Ignores all profile errors.
-<dt><b>-R </b><i>rootdir</i>
-<dd style="margin-left: 5.0em">Specifies an alternate root directory for the filter, pre-filter, and other support file checks.
-<dt><b>-W constraints</b>
-<dd style="margin-left: 5.0em">Report all UIConstraint errors as warnings.
-<dt><b>-W defaults</b>
-<dd style="margin-left: 5.0em">Except for size-related options, report all default option errors as warnings.
-<dt><b>-W filters</b>
-<dd style="margin-left: 5.0em">Report all filter errors as warnings.
-<dt><b>-W profiles</b>
-<dd style="margin-left: 5.0em">Report all profile errors as warnings.
-<dt><b>-W sizes</b>
-<dd style="margin-left: 5.0em">Report all media size errors as warnings.
-<dt><b>-W translations</b>
-<dd style="margin-left: 5.0em">Report all translation errors as warnings.
-<dt><b>-W all</b>
-<dd style="margin-left: 5.0em">Report all of the previous errors as warnings.
-<dt><b>-W none</b>
-<dd style="margin-left: 5.0em">Report all of the previous errors as errors.
-<dt><b>-q</b>
-<dd style="margin-left: 5.0em">Specifies that no information should be displayed.
-<dt><b>-r</b>
-<dd style="margin-left: 5.0em">Relaxes the PPD conformance requirements so that common whitespace, control character, and formatting problems are not treated as hard errors.
-<dt><b>-v</b>
-<dd style="margin-left: 5.0em">Specifies that detailed conformance testing results should be displayed rather than the concise PASS/FAIL/ERROR status.
-<dt><b>-vv</b>
-<dd style="margin-left: 5.0em">Specifies that all information in the PPD file should be displayed in addition to the detailed conformance testing results.
-</dl>
-<p>The <i>-q</i>, <i>-v</i>, and <i>-vv</i> options are mutually exclusive.
-<h2 class="title"><a name="EXIT_STATUS">Exit Status</a></h2>
-<b>cupstestppd</b> returns zero on success and non-zero on error.
+</p>
+    <h2 id="cupstestppd-1.options">Options</h2>
+<p><strong>cupstestppd</strong> supports the following options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-I filename</strong><br>
+Ignores all PCFileName warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-I filters</strong><br>
+Ignores all filter errors.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-I profiles</strong><br>
+Ignores all profile errors.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-R </strong><em>rootdir</em><br>
+Specifies an alternate root directory for the filter, pre-filter, and other support file checks.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W constraints</strong><br>
+Report all UIConstraint errors as warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W defaults</strong><br>
+Except for size-related options, report all default option errors as warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W filters</strong><br>
+Report all filter errors as warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W profiles</strong><br>
+Report all profile errors as warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W sizes</strong><br>
+Report all media size errors as warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W translations</strong><br>
+Report all translation errors as warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W all</strong><br>
+Report all of the previous errors as warnings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W none</strong><br>
+Report all of the previous errors as errors.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-q</strong><br>
+Specifies that no information should be displayed.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r</strong><br>
+Relaxes the PPD conformance requirements so that common whitespace, control character, and formatting problems are not treated as hard errors.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v</strong><br>
+Specifies that detailed conformance testing results should be displayed rather than the concise PASS/FAIL/ERROR status.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-vv</strong><br>
+Specifies that all information in the PPD file should be displayed in addition to the detailed conformance testing results.
+</p>
+    <p>The <em>-q</em>, <em>-v</em>, and <em>-vv</em> options are mutually exclusive.
+</p>
+    <h2 id="cupstestppd-1.exit-status">Exit Status</h2>
+<p><strong>cupstestppd</strong> returns zero on success and non-zero on error.
 The error codes are as follows:
-<dl class="man">
-<dt>1
-<dd style="margin-left: 5.0em">Bad command-line arguments or missing PPD filename.
-<dt>2
-<dd style="margin-left: 5.0em">Unable to open or read PPD file.
-<dt>3
-<dd style="margin-left: 5.0em">The PPD file contains format errors that cannot be skipped.
-<dt>4
-<dd style="margin-left: 5.0em">The PPD file does not conform to the Adobe PPD specification.
-</dl>
-<h2 class="title"><a name="EXAMPLES">Examples</a></h2>
-The following command will test all PPD files under the current directory and print the names of each file that does not conform:
-<pre class="man">
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;">1<br>
+Bad command-line arguments or missing PPD filename.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;">2<br>
+Unable to open or read PPD file.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;">3<br>
+The PPD file contains format errors that cannot be skipped.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;">4<br>
+The PPD file does not conform to the Adobe PPD specification.
+</p>
+    <h2 id="cupstestppd-1.examples">Examples</h2>
+<p>The following command will test all PPD files under the current directory and print the names of each file that does not conform:
+</p>
+    <pre>
     find . -name \*.ppd \! -exec cupstestppd -q '{}' \; -print
 
 </pre>
-The next command tests all PPD files under the current directory and print detailed conformance testing results for the files that do not conform:
-<pre class="man">
+<p>The next command tests all PPD files under the current directory and print detailed conformance testing results for the files that do not conform:
+</p>
+    <pre>
     find . -name \*.ppd \! -exec cupstestppd -q '{}' \; \
         -exec cupstestppd -v '{}' \;
 </pre>
-<h2 class="title"><a name="NOTES">Notes</a></h2>
-PPD files are deprecated and will no longer be supported in a future feature release of CUPS.
+    <h2 id="cupstestppd-1.notes">Notes</h2>
+<p>PPD files are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<a href="man-ippeveprinter.html?TOPIC=Man+Pages"><b>ippeveprinter</b>(1).</a>
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-lpadmin.html?TOPIC=Man+Pages"><b>lpadmin</b>(8),</a>
+<strong>ippeveprinter</strong>(1).
+
+</p>
+    <h2 id="cupstestppd-1.see-also">See Also</h2>
+<p><strong>lpadmin</strong>(8),
+
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>),
 Adobe PostScript Printer Description File Format Specification, Version 4.3.
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
-
-</body>
+</p>
+    <h2 id="cupstestppd-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2020-2024 by OpenPrinting.
+  </body>
 </html>

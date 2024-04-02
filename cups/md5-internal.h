@@ -1,6 +1,7 @@
 /*
  * Private MD5 definitions for CUPS.
  *
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2010 by Apple Inc.
  * Copyright 2005 by Easy Software Products
  *
@@ -46,8 +47,11 @@
 
 #ifndef _CUPS_MD5_INTERNAL_H_
 #  define _CUPS_MD5_INTERNAL_H_
+#  include "base.h"
+#  ifdef __cplusplus
+extern "C" {
+#  endif /* __cplusplus */
 
-#  include <cups/versioning.h>
 
 /* Define the state of the MD5 Algorithm. */
 typedef struct _cups_md5_state_s {
@@ -55,10 +59,6 @@ typedef struct _cups_md5_state_s {
     unsigned int abcd[4];		/* digest buffer */
     unsigned char buf[64];		/* accumulate block */
 } _cups_md5_state_t;
-
-#  ifdef __cplusplus
-extern "C" {
-#  endif /* __cplusplus */
 
 /* Initialize the algorithm. */
 void _cupsMD5Init(_cups_md5_state_t *pms) _CUPS_INTERNAL;

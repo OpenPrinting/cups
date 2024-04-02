@@ -1,112 +1,136 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<!-- SECTION: Man Pages -->
-<head>
-	<link rel="stylesheet" type="text/css" href="../cups-printable.css">
-	<title>lpoptions(1)</title>
-</head>
-<body>
-<h1 class="title">lpoptions(1)</h1>
-<h2 class="title"><a name="NAME">Name</a></h2>
-lpoptions - display or set printer options and defaults
-<h2 class="title"><a name="SYNOPSIS">Synopsis</a></h2>
-<b>lpoptions</b>
+  <head>
+    <meta name="creator" content="mantohtml v2.0.1">
+    <title>lpoptions(1)</title>
+  </head>
+  <body>
+    <h1 id="lpoptions-1">lpoptions(1)</h1>
+    <h2 id="lpoptions-1.name">Name</h2>
+<p>lpoptions - display or set printer options and defaults
+</p>
+    <h2 id="lpoptions-1.synopsis">Synopsis</h2>
+<p><strong>lpoptions</strong>
 [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-E</b>
+<strong>-E</strong>
 ]
-<b>-d </b><i>destination</i>[<b>/</b><i>instance</i>]
+<strong>-d </strong><em>destination</em>[<strong>/</strong><em>instance</em>]
 [
-<b>-l</b>
+<strong>-l</strong>
 ]
 <br>
-<b>lpoptions</b>
+<strong>lpoptions</strong>
 [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-p </b><i>destination</i>[<b>/</b><i>instance</i>]
+<strong>-p </strong><em>destination</em>[<strong>/</strong><em>instance</em>]
 ]
-<b>-o </b><i>option</i>[<b>=</b><i>value</i>] ...
+<strong>-o </strong><em>option</em>[<strong>=</strong><em>value</em>] ...
 <br>
-<b>lpoptions</b>
+<strong>lpoptions</strong>
 [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-E</b>
+<strong>-E</strong>
 ] [
-<b>-p </b><i>destination</i>[<b>/</b><i>instance</i>]
+<strong>-p </strong><em>destination</em>[<strong>/</strong><em>instance</em>]
 ]
-<b>-r</b>
-<i>option</i>
+<strong>-r</strong>
+<em>option</em>
 <br>
-<b>lpoptions</b>
+<strong>lpoptions</strong>
 [
-<b>-h </b><i>server</i>[<b>:</b><i>port</i>]
+<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
 ] [
-<b>-E</b>
+<strong>-E</strong>
 ]
-<b>-x </b><i>destination</i>[<b>/</b><i>instance</i>]
-<h2 class="title"><a name="DESCRIPTION">Description</a></h2>
-<b>lpoptions</b> displays or sets printer options and defaults.
-If no printer is specified using the <i>-p</i> option, the default printer is used as described in
-<a href="man-lp.html?TOPIC=Man+Pages"><b>lp</b>(1).</a>
-<p>If no <i>-l</i>, <i>-o</i>, or <i>-r</i> options are specified, the current options are reported on the standard output.
-<p>Options set with the <b>lpoptions</b> command are used by the
-<a href="man-lp.html?TOPIC=Man+Pages"><b>lp</b>(1)</a>
+<strong>-x </strong><em>destination</em>[<strong>/</strong><em>instance</em>]
+</p>
+    <h2 id="lpoptions-1.description">Description</h2>
+<p><strong>lpoptions</strong> displays or sets printer options and defaults.
+If no printer is specified using the <em>-p</em> option, the default printer is used as described in
+<strong>lp</strong>(1).
+
+</p>
+    <p>If no <em>-l</em>, <em>-o</em>, or <em>-r</em> options are specified, the current options are reported on the standard output.
+</p>
+    <p>Options set with the <strong>lpoptions</strong> command are used by the
+<strong>lp</strong>(1)
+
 and
-<a href="man-lpr.html?TOPIC=Man+Pages"><b>lpr</b>(1)</a>
+<strong>lpr</strong>(1)
+
 commands when submitting jobs.
-<p>When run by the root user, <b>lpoptions</b> gets and sets default options and instances for all users in the <i>/etc/cups/lpoptions</i> file.
-Otherwise, the per-user defaults are managed in the <i>~/.cups/lpoptions</i> file.
-<h2 class="title"><a name="OPTIONS">Options</a></h2>
-<b>lpoptions</b> supports the following options:
-<dl class="man">
-<dt><b>-E</b>
-<dd style="margin-left: 5.0em">Enables encryption when communicating with the CUPS server.
-<dt><b>-d </b><i>destination</i>[<b>/</b><i>instance</i>]
-<dd style="margin-left: 5.0em">Sets the user default printer to <i>destination</i>.
-If <i>instance</i> is supplied then that particular instance is used.
+</p>
+    <p>When run by the root user, <strong>lpoptions</strong> gets and sets default options and instances for all users in the <em>/etc/cups/lpoptions</em> file.
+Otherwise, the per-user defaults are managed in the <em>~/.cups/lpoptions</em> file.
+</p>
+    <h2 id="lpoptions-1.options">Options</h2>
+<p><strong>lpoptions</strong> supports the following options:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
+Enables encryption when communicating with the CUPS server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>destination</em>[<strong>/</strong><em>instance</em>]<br>
+Sets the user default printer to <em>destination</em>.
+If <em>instance</em> is supplied then that particular instance is used.
 This option overrides the system default printer for the current user.
-<dt><b>-h </b><i>server</i>[<b>:</b><i>port</i>]
-<dd style="margin-left: 5.0em">Uses an alternate server.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]<br>
+Uses an alternate server.
 Note: This option must occur before all others.
-<dt><b>-l</b>
-<dd style="margin-left: 5.0em">Lists the printer specific options and their current settings.
-<dt><b>-o </b><i>option</i>[<b>=</b><i>value</i>]
-<dd style="margin-left: 5.0em">Specifies a new option for the named destination.
-<dt><b>-p </b><i>destination</i>[<b>/</b><i>instance</i>]
-<dd style="margin-left: 5.0em">Sets the destination and instance, if specified, for any options that follow.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l</strong><br>
+Lists the printer specific options and their current settings.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>option</em>[<strong>=</strong><em>value</em>]<br>
+Specifies a new option for the named destination.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p </strong><em>destination</em>[<strong>/</strong><em>instance</em>]<br>
+Sets the destination and instance, if specified, for any options that follow.
 If the named instance does not exist then it is created.
 Destinations can only be created using the
-<a href="man-lpadmin.html?TOPIC=Man+Pages"><b>lpadmin</b>(8)</a>
+<strong>lpadmin</strong>(8)
+
 program.
-<dt><b>-r </b><i>option</i>
-<dd style="margin-left: 5.0em">Removes the specified option from the named destination.
-<dt><b>-x </b><i>destination</i>[<b>/</b><i>instance</i>]
-<dd style="margin-left: 5.0em">Removes the options for the named destination and instance, if specified.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>option</em><br>
+Removes the specified option from the named destination.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-x </strong><em>destination</em>[<strong>/</strong><em>instance</em>]<br>
+Removes the options for the named destination and instance, if specified.
 If the named instance does not exist then this does nothing.
 Destinations can only be removed using the
-<a href="man-lpadmin.html?TOPIC=Man+Pages"><b>lpadmin</b>(8)</a>
-command.
-</dl>
-<h2 class="title"><a name="FILES">Files</a></h2>
-<i>~/.cups/lpoptions</i> - user defaults and instances created by non-root users.
-<br>
-<i>/etc/cups/lpoptions</i> - system-wide defaults and instances created by the root user.
-<h2 class="title"><a name="CONFORMING_TO">Conforming To</a></h2>
-The <b>lpoptions</b> command is unique to CUPS.
-<h2 class="title"><a name="SEE_ALSO">See Also</a></h2>
-<a href="man-cancel.html?TOPIC=Man+Pages"><b>cancel</b>(1),</a>
-<a href="man-lp.html?TOPIC=Man+Pages"><b>lp</b>(1),</a>
-<a href="man-lpadmin.html?TOPIC=Man+Pages"><b>lpadmin</b>(8),</a>
-<a href="man-lpr.html?TOPIC=Man+Pages"><b>lpr</b>(1),</a>
-<a href="man-lprm.html?TOPIC=Man+Pages"><b>lprm</b>(1),</a>
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
-<h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2021-2023 by OpenPrinting.
+<strong>lpadmin</strong>(8)
 
-</body>
+command.
+</p>
+    <h2 id="lpoptions-1.files">Files</h2>
+<p><em>~/.cups/lpoptions</em> - user defaults and instances created by non-root users.
+<br>
+<em>/etc/cups/lpoptions</em> - system-wide defaults and instances created by the root user.
+</p>
+    <h2 id="lpoptions-1.conforming-to">Conforming To</h2>
+<p>The <strong>lpoptions</strong> command is unique to CUPS.
+</p>
+    <h2 id="lpoptions-1.see-also">See Also</h2>
+<p><strong>cancel</strong>(1),
+
+<strong>lp</strong>(1),
+
+<strong>lpadmin</strong>(8),
+
+<strong>lpr</strong>(1),
+
+<strong>lprm</strong>(1),
+
+CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
+</p>
+    <h2 id="lpoptions-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2020-2024 by OpenPrinting.
+  </body>
 </html>
