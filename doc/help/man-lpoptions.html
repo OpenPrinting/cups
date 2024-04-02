@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.1">
+    <meta name="creator" content="mantohtml v2.0.2">
     <title>lpoptions(1)</title>
   </head>
   <body>
     <h1 id="lpoptions-1">lpoptions(1)</h1>
     <h2 id="lpoptions-1.name">Name</h2>
-<p>lpoptions - display or set printer options and defaults
+<p>lpoptions - display or set per-user printer options and defaults
 </p>
     <h2 id="lpoptions-1.synopsis">Synopsis</h2>
 <p><strong>lpoptions</strong>
@@ -53,16 +53,16 @@
     <h2 id="lpoptions-1.description">Description</h2>
 <p><strong>lpoptions</strong> displays or sets printer options and defaults.
 If no printer is specified using the <em>-p</em> option, the default printer is used as described in
-<strong>lp</strong>(1).
+<a href="lp.html"><strong>lp</strong>(1).</a>
 
 </p>
     <p>If no <em>-l</em>, <em>-o</em>, or <em>-r</em> options are specified, the current options are reported on the standard output.
 </p>
     <p>Options set with the <strong>lpoptions</strong> command are used by the
-<strong>lp</strong>(1)
+<a href="lp.html"><strong>lp</strong>(1)</a>
 
 and
-<strong>lpr</strong>(1)
+<a href="lpr.html"><strong>lpr</strong>(1)</a>
 
 commands when submitting jobs.
 </p>
@@ -94,7 +94,7 @@ Specifies a new option for the named destination.
 Sets the destination and instance, if specified, for any options that follow.
 If the named instance does not exist then it is created.
 Destinations can only be created using the
-<strong>lpadmin</strong>(8)
+<a href="lpadmin.html"><strong>lpadmin</strong>(8)</a>
 
 program.
 </p>
@@ -105,9 +105,18 @@ Removes the specified option from the named destination.
 Removes the options for the named destination and instance, if specified.
 If the named instance does not exist then this does nothing.
 Destinations can only be removed using the
-<strong>lpadmin</strong>(8)
+<a href="lpadmin.html"><strong>lpadmin</strong>(8)</a>
 
 command.
+</p>
+    <h2 id="lpoptions-1.environment">Environment</h2>
+<p>The following environment variables override the default destination:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>LPDEST</strong><br>
+Specifies the default print queue (System V standard).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PRINTER</strong><br>
+Specifies the default print queue (Berkeley standard).
 </p>
     <h2 id="lpoptions-1.files">Files</h2>
 <p><em>~/.cups/lpoptions</em> - user defaults and instances created by non-root users.
@@ -118,15 +127,15 @@ command.
 <p>The <strong>lpoptions</strong> command is unique to CUPS.
 </p>
     <h2 id="lpoptions-1.see-also">See Also</h2>
-<p><strong>cancel</strong>(1),
+<a href="cancel.html"><p><strong>cancel</strong>(1),</a>
 
-<strong>lp</strong>(1),
+<a href="lp.html"><strong>lp</strong>(1),</a>
 
-<strong>lpadmin</strong>(8),
+<a href="lpadmin.html"><strong>lpadmin</strong>(8),</a>
 
-<strong>lpr</strong>(1),
+<a href="lpr.html"><strong>lpr</strong>(1),</a>
 
-<strong>lprm</strong>(1),
+<a href="lprm.html"><strong>lprm</strong>(1),</a>
 
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>

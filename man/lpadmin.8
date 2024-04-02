@@ -8,9 +8,9 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lpadmin 8 "CUPS" "2021-02-28" "OpenPrinting"
+.TH lpadmin 8 "CUPS" "2024-04-02" "OpenPrinting"
 .SH NAME
-lpadmin \- configure cups printers and classes
+lpadmin \- configure cups printers and classes on cups scheduler
 .SH SYNOPSIS
 .B lpadmin
 [
@@ -58,7 +58,7 @@ It can also be used to set the server default printer or class.
 .LP
 When specified before the \fI-d\fR, \fI-p\fR, or \fI-x\fR options, the \fI-E\fR option forces encryption when connecting to the server.
 .LP
-The first form of the command (\fI-d\fR) sets the default printer or class to \fIdestination\fR.
+The first form of the command (\fI-d\fR) sets the scheduler's default printer or class to \fIdestination\fR.
 Subsequent print jobs submitted via the
 .BR lp (1)
 or

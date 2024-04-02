@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lpr 1 "CUPS" "2022-05-02" "OpenPrinting"
+.TH lpr 1 "CUPS" "2024-04-02" "OpenPrinting"
 .SH NAME
 lpr \- print files
 .SH SYNOPSIS
@@ -152,6 +152,14 @@ Prints on both sides of the paper for portrait output.
 Prints on both sides of the paper for landscape output.
 .SH NOTES
 The \fI\-c\fR, \fI\-d\fR, \fI\-f\fR, \fI\-g\fR, \fI\-i\fR, \fI\-n\fR, \fI\-t\fR, \fI\-v\fR, and \fI\-w\fR options are not supported by CUPS and produce a warning message if used.
+.SH ENVIRONMENT
+The following environment variables override the default destination:
+.TP 5
+.B LPDEST
+Specifies the default print queue (System V standard).
+.TP 5
+.B PRINTER
+Specifies the default print queue (Berkeley standard).
 .SH EXAMPLES
 Print two copies of a document to the default printer:
 .nf

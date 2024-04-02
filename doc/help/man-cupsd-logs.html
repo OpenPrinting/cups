@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.1">
+    <meta name="creator" content="mantohtml v2.0.2">
     <title>cupsd-logs(5)</title>
   </head>
   <body>
@@ -10,14 +10,14 @@
 <p>cupsd-logs - cupsd log files (access_log, error_log, and page_log)
 </p>
     <h2 id="cupsd-logs-5.description">Description</h2>
-<p><strong>cupsd</strong>(8)
+<a href="cupsd.html"><p><strong>cupsd</strong>(8)</a>
 
 normally maintains three log files: <em>access_log</em> to track requests that are submitted to the scheduler, <em>error_log</em> to track progress and errors, and <em>page_log</em> to track pages that are printed.
 Configuration directives in
-<strong>cupsd.conf</strong>(5)
+<a href="cupsd.conf.html"><strong>cupsd.conf</strong>(5)</a>
 
 and
-<strong>cups-files.conf</strong>(5)
+<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5)</a>
 
 control what information is logged and where it is stored.
 </p>
@@ -119,7 +119,7 @@ For POST requests the bytes field contains the number of bytes of non-IPP data t
 </p>
     <h3 id="cupsd-logs-5.description.error-log-file-format">Error Log File Format</h3>
 <p>The <em>error_log</em> file lists messages from the scheduler - errors, warnings, etc. The LogLevel directive in the
-<strong>cupsd.conf</strong>(5)
+<a href="cupsd.conf.html"><strong>cupsd.conf</strong>(5)</a>
 
 file controls which messages are logged:
 </p>
@@ -195,7 +195,7 @@ By default, each line contains the following information:
 
 </pre>
 <p>The PageLogFormat directive in the
-<strong>cupsd.conf</strong>(5)
+<a href="cupsd.conf.html"><strong>cupsd.conf</strong>(5)</a>
 
 file can be used to change this information.
 </p>
@@ -222,11 +222,11 @@ The format of this field is identical to the data-time field in the <em>access_l
     <p>The <em>sides</em> field contains a copy of the sides attribute provided with the IPP Create-Job or Print-Job requests or &quot;-&quot; if none was provided.
 </p>
     <h2 id="cupsd-logs-5.see-also">See Also</h2>
-<p><strong>cupsd</strong>(8),
+<a href="cupsd.html"><p><strong>cupsd</strong>(8),</a>
 
-<strong>cupsd.conf</strong>(5),
+<a href="cupsd.conf.html"><strong>cupsd.conf</strong>(5),</a>
 
-<strong>cups-files.conf</strong>(5),
+<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5),</a>
 
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>

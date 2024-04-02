@@ -24,6 +24,7 @@ Changes in CUPS v2.5b1 (TBA)
   not used (Issue #674)
 - Updated `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)
+- Updated default destination documentation (Issue #819)
 - Updated `httpAddrConnect2()` to handle `POLLHUP` together with `POLLIN` or
   `POLLOUT` (Issue #839)
 - Updated the policies help document with the correct `Order` directive to deny

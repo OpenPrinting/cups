@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH lp 1 "CUPS" "2022-05-02" "OpenPrinting"
+.TH lp 1 "CUPS" "2024-04-02" "OpenPrinting"
 .SH NAME
 lp \- print files
 .SH SYNOPSIS
@@ -195,6 +195,14 @@ Prints on both sides of the paper for portrait output.
 .TP 5
 \fB\-o sides=two\-sided\-short\-edge\fR
 Prints on both sides of the paper for landscape output.
+.SH ENVIRONMENT
+The following environment variables override the default destination:
+.TP 5
+.B LPDEST
+Specifies the default print queue (System V standard).
+.TP 5
+.B PRINTER
+Specifies the default print queue (Berkeley standard).
 .SH CONFORMING TO
 Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, "/", or "#".
 Also, printer and class names are \fInot\fR case-sensitive.

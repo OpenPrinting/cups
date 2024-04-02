@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.1">
+    <meta name="creator" content="mantohtml v2.0.2">
     <title>lpstat(1)</title>
   </head>
   <body>
@@ -83,7 +83,7 @@ Shows the ranking of print jobs.
 Specifies an alternate username.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-W </strong><em>which-jobs</em><br>
-Specifies which jobs to show, &quot;all&quot;, &quot;successful&quot;, &quot;completed&quot; or &quot;not-completed&quot; (the default).
+Specifies which jobs to show, &quot;all, &quot;successful&quot;, &quot;completed&quot; or &quot;not-completed&quot; (the default).
 This option <em>must</em> appear before the <em>-o</em> option and/or any printer names, otherwise the default (&quot;not-completed&quot;) value will be used in the request to the scheduler.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a </strong>[<em>printer(s)</em>]<br>
@@ -95,7 +95,10 @@ Shows the printer classes and the printers that belong to them.
 If no classes are specified then all classes are listed.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d</strong><br>
-Shows the current default destination.
+Shows the current default destination, either the
+<a href="lpoptions.html"><strong>lpoptions</strong>(1)</a>
+
+default (if set) or the scheduler default (otherwise).
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-e</strong><br>
 Shows all available destinations on the local network.
@@ -134,6 +137,15 @@ If no users are specified, lists the jobs queued by the current user.
 Shows the printers and what device they are attached to.
 If no printers are specified then all printers are listed.
 </p>
+    <h2 id="lpstat-1.environment">Environment</h2>
+<p>The following environment variables override the default destination:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>LPDEST</strong><br>
+Specifies the default print queue (System V standard).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PRINTER</strong><br>
+Specifies the default print queue (Berkeley standard).
+</p>
     <h2 id="lpstat-1.conforming-to">Conforming To</h2>
 <p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, and &quot;#&quot;.
 Also, printer and class names are <em>not</em> case-sensitive.
@@ -143,15 +155,15 @@ Also, printer and class names are <em>not</em> case-sensitive.
     <p>The Solaris <em>-f</em>, <em>-P</em>, and <em>-S</em> options are silently ignored.
 </p>
     <h2 id="lpstat-1.see-also">See Also</h2>
-<p><strong>cancel</strong>(1),
+<a href="cancel.html"><p><strong>cancel</strong>(1),</a>
 
-<strong>lp</strong>(1),
+<a href="lp.html"><strong>lp</strong>(1),</a>
 
-<strong>lpq</strong>(1),
+<a href="lpq.html"><strong>lpq</strong>(1),</a>
 
-<strong>lpr</strong>(1),
+<a href="lpr.html"><strong>lpr</strong>(1),</a>
 
-<strong>lprm</strong>(1),
+<a href="lprm.html"><strong>lprm</strong>(1),</a>
 
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.1">
+    <meta name="creator" content="mantohtml v2.0.2">
     <title>lp(1)</title>
   </head>
   <body>
@@ -88,10 +88,10 @@ Use a filename of &quot;-&quot; to force printing from the standard input.
     <h3 id="lp-1.description.the-default-destination">The Default Destination</h3>
 <p>CUPS provides many ways to set the default destination. The <strong>LPDEST</strong> and <strong>PRINTER</strong> environment variables are consulted first.
 If neither are set, the current default set using the
-<strong>lpoptions</strong>(1)
+<a href="lpoptions.html"><strong>lpoptions</strong>(1)</a>
 
 command is used, followed by the default set using the
-<strong>lpadmin</strong>(8)
+<a href="lpadmin.html"><strong>lpadmin</strong>(8)</a>
 
 command.
 </p>
@@ -162,7 +162,7 @@ The page numbers refer to the output pages and not the document's original pages
 </p>
     <h3 id="lp-1.options.common-job-options">Common Job Options</h3>
 <p>Aside from the printer-specific options reported by the
-<strong>lpoptions</strong>(1)
+<a href="lpoptions.html"><strong>lpoptions</strong>(1)</a>
 
 command, the following generic options are available:
 </p>
@@ -201,6 +201,15 @@ Prints on both sides of the paper for portrait output.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o sides=two-sided-short-edge</strong><br>
 Prints on both sides of the paper for landscape output.
 </p>
+    <h2 id="lp-1.environment">Environment</h2>
+<p>The following environment variables override the default destination:
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>LPDEST</strong><br>
+Specifies the default print queue (System V standard).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PRINTER</strong><br>
+Specifies the default print queue (Berkeley standard).
+</p>
     <h2 id="lp-1.conforming-to">Conforming To</h2>
 <p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;.
 Also, printer and class names are <em>not</em> case-sensitive.
@@ -226,19 +235,19 @@ Also, printer and class names are <em>not</em> case-sensitive.
     lp -d bar -o number-up=2 filename
 </pre>
     <h2 id="lp-1.see-also">See Also</h2>
-<p><strong>cancel</strong>(1),
+<a href="cancel.html"><p><strong>cancel</strong>(1),</a>
 
-<strong>lpadmin</strong>(8),
+<a href="lpadmin.html"><strong>lpadmin</strong>(8),</a>
 
-<strong>lpoptions</strong>(1),
+<a href="lpoptions.html"><strong>lpoptions</strong>(1),</a>
 
-<strong>lpq</strong>(1),
+<a href="lpq.html"><strong>lpq</strong>(1),</a>
 
-<strong>lpr</strong>(1),
+<a href="lpr.html"><strong>lpr</strong>(1),</a>
 
-<strong>lprm</strong>(1),
+<a href="lprm.html"><strong>lprm</strong>(1),</a>
 
-<strong>lpstat</strong>(1),
+<a href="lpstat.html"><strong>lpstat</strong>(1),</a>
 
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>

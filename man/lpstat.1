@@ -7,7 +7,7 @@
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
 .\"
-.TH lpstat 1 "CUPS" "2022-05-02" "OpenPrinting"
+.TH lpstat 1 "CUPS" "2024-04-02" "OpenPrinting"
 .SH NAME
 lpstat \- print cups status information
 .SH SYNOPSIS
@@ -94,7 +94,9 @@ Shows the printer classes and the printers that belong to them.
 If no classes are specified then all classes are listed.
 .TP 5
 .B \-d
-Shows the current default destination.
+Shows the current default destination, either the
+.BR lpoptions (1)
+default (if set) or the scheduler default (otherwise).
 .TP 5
 .B \-e
 Shows all available destinations on the local network.
@@ -132,6 +134,14 @@ If no users are specified, lists the jobs queued by the current user.
 \fB\-v \fR[\fIprinter(s)\fR]
 Shows the printers and what device they are attached to.
 If no printers are specified then all printers are listed.
+.SH ENVIRONMENT
+The following environment variables override the default destination:
+.TP 5
+.B LPDEST
+Specifies the default print queue (System V standard).
+.TP 5
+.B PRINTER
+Specifies the default print queue (Berkeley standard).
 .SH CONFORMING TO
 Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, "/", and "#".
 Also, printer and class names are \fInot\fR case-sensitive.

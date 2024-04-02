@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.1">
+    <meta name="creator" content="mantohtml v2.0.2">
     <title>cupsd.conf(5)</title>
   </head>
   <body>
@@ -13,7 +13,7 @@
 <p>The
 <em>cupsd.conf</em>
 file configures the CUPS scheduler,
-<strong>cupsd</strong>(8).
+<a href="cupsd.html"><strong>cupsd</strong>(8).</a>
 
 It is normally located in the
 <em>/etc/cups</em>
@@ -25,7 +25,7 @@ Comment lines start with the # character.
 </p>
     <h3 id="cupsd.conf-5.description.top-level-directives">Top-Level Directives</h3>
 <p>The following top-level directives are understood by
-<strong>cupsd</strong>(8):
+<a href="cupsd.html"><strong>cupsd</strong>(8):</a>
 
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AccessLogLevel config</strong><br>
@@ -156,7 +156,7 @@ The default is 0.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>HostNameLookups Double</strong><br>
 Specifies whether to do reverse lookups on connecting clients.
 The &quot;Double&quot; setting causes
-<strong>cupsd</strong>(8)
+<a href="cupsd.html"><strong>cupsd</strong>(8)</a>
 
 to verify that the hostname resolved from the address matches one of the addresses returned for that hostname.
 Double lookups also prevent clients with unregistered addresses from connecting to your server.
@@ -167,7 +167,7 @@ Only set this option to &quot;On&quot; or &quot;Double&quot; if absolutely requi
 Specifies the length of time to wait before shutting down due to inactivity.
 The default is &quot;60&quot; seconds.
 Note: Only applicable when
-<strong>cupsd</strong>(8)
+<a href="cupsd.html"><strong>cupsd</strong>(8)</a>
 
 is run on-demand (e.g., with <strong>-l</strong>).
 </p>
@@ -433,7 +433,7 @@ The default is &quot;No&quot;.
 </p>
     <h3 id="cupsd.conf-5.description.http-method-names">Http Method Names</h3>
 <p>The following HTTP methods are supported by
-<strong>cupsd</strong>(8):
+<a href="cupsd.html"><strong>cupsd</strong>(8):</a>
 
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">GET<br>
@@ -453,7 +453,7 @@ Used by a client to upload configuration files.
 </p>
     <h3 id="cupsd.conf-5.description.ipp-operation-names">Ipp Operation Names</h3>
 <p>The following IPP operations are supported by
-<strong>cupsd</strong>(8):
+<a href="cupsd.html"><strong>cupsd</strong>(8):</a>
 
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">CUPS-Accept-Jobs<br>
@@ -590,7 +590,7 @@ Validates options for a new job.
 </p>
     <h3 id="cupsd.conf-5.description.location-paths">Location Paths</h3>
 <p>The following paths are commonly used when configuring
-<strong>cupsd</strong>(8):
+<a href="cupsd.html"><strong>cupsd</strong>(8):</a>
 
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">/<br>
@@ -712,7 +712,7 @@ Specifies that an authenticated user must be a member of one of the named groups
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Require user {</strong><em>user-name</em>|<strong>@</strong><em>group-name</em>} ...<br>
 Specifies that an authenticated user must match one of the named users or be a member of one of the named groups.
 The group name &quot;@SYSTEM&quot; corresponds to the list of groups defined by the SystemGroup directive in the
-<strong>cups-files.conf</strong>(5)
+<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5)</a>
 
 file.
 The group name &quot;@OWNER&quot; corresponds to the owner of the resource, for example the person that submitted a print job.
@@ -741,7 +741,7 @@ The &quot;default&quot; access list is &quot;@OWNER @SYSTEM&quot;.
 &quot;@ACL&quot; maps to the printer's requesting-user-name-allowed or requesting-user-name-denied values.
 &quot;@OWNER&quot; maps to the job's owner.
 &quot;@SYSTEM&quot; maps to the groups listed for the SystemGroup directive in the
-<strong>cups-files.conf</strong>(5)
+<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5)</a>
 
 file.
 </p>
@@ -765,7 +765,7 @@ The &quot;default&quot; access list is &quot;@OWNER @SYSTEM&quot;.
 &quot;@ACL&quot; maps to the printer's requesting-user-name-allowed or requesting-user-name-denied values.
 &quot;@OWNER&quot; maps to the job's owner.
 &quot;@SYSTEM&quot; maps to the groups listed for the SystemGroup directive in the
-<strong>cups-files.conf</strong>(5)
+<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5)</a>
 
 file.
 </p>
@@ -827,7 +827,7 @@ Use &quot;%{job-impressions-completed}&quot; to insert the number of pages (side
 </p>
     <h2 id="cupsd.conf-5.notes">Notes</h2>
 <p>File, directory, and user configuration directives that used to be allowed in the <strong>cupsd.conf</strong> file are now stored in the
-<strong>cups-files.conf</strong>(5)
+<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5)</a>
 
 file instead in order to prevent certain types of privilege escalation attacks.
 </p>
@@ -868,19 +868,19 @@ often belongs to a different set of subnets from its clients.
     &lt;/Location>
 </pre>
     <h2 id="cupsd.conf-5.see-also">See Also</h2>
-<p><strong>classes.conf</strong>(5),
+<a href="classes.conf.html"><p><strong>classes.conf</strong>(5),</a>
 
-<strong>cups-files.conf</strong>(5),
+<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5),</a>
 
-<strong>cupsd</strong>(8),
+<a href="cupsd.html"><strong>cupsd</strong>(8),</a>
 
-<strong>mime.convs</strong>(5),
+<a href="mime.convs.html"><strong>mime.convs</strong>(5),</a>
 
-<strong>mime.types</strong>(5),
+<a href="mime.types.html"><strong>mime.types</strong>(5),</a>
 
-<strong>printers.conf</strong>(5),
+<a href="printers.conf.html"><strong>printers.conf</strong>(5),</a>
 
-<strong>subscriptions.conf</strong>(5),
+<a href="subscriptions.conf.html"><strong>subscriptions.conf</strong>(5),</a>
 
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>
