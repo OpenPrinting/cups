@@ -515,7 +515,7 @@ cupsdCreateCommonData(void)
   snprintf(filename, sizeof(filename), "%s/notifier", ServerBin);
   if ((dir = cupsDirOpen(filename)) != NULL)
   {
-    notifiers = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    notifiers = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
     while ((dent = cupsDirRead(dir)) != NULL)
     {
@@ -3281,7 +3281,7 @@ add_printer_defaults(cupsd_printer_t *p)/* I - Printer */
 
   if (!CommonDefaults)
   {
-    CommonDefaults = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    CommonDefaults = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
     cupsArrayAdd(CommonDefaults, _cupsStrAlloc("copies-default"));
     cupsArrayAdd(CommonDefaults, _cupsStrAlloc("document-format-default"));
@@ -3669,15 +3669,15 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
  * 'compare_printers()' - Compare two printers.
  */
 
-static int				/* O - Result of comparison */
-compare_printers(void *first,		/* I - First printer */
-                 void *second,		/* I - Second printer */
-		 void *data)		/* I - App data (not used) */
+static int                     /* O - Result of comparison */
+compare_printers(void *first,  /* I - First printer */
+                 void *second, /* I - Second printer */
+                 void *data)   /* I - App data (not used) */
 {
   (void)data;
 
   return (_cups_strcasecmp(((cupsd_printer_t *)first)->name,
-                     ((cupsd_printer_t *)second)->name));
+                           ((cupsd_printer_t *)second)->name));
 }
 
 

@@ -126,7 +126,7 @@ static int	ipp_version = 20;	// IPP version for LIST
 //
 
 static void		browse_callback(cups_dnssd_browse_t *browse, void *context, cups_dnssd_flags_t flags, uint32_t if_index, const char *serviceName, const char *regtype, const char *replyDomain);
-static int		compare_services(ippfind_srv_t *a, ippfind_srv_t *b);
+static int		compare_services(ippfind_srv_t *a, ippfind_srv_t *b, void *data);
 static int		eval_expr(ippfind_srv_t *service, ippfind_expr_t *expressions);
 static int		exec_program(ippfind_srv_t *service, int num_args, char **args);
 static ippfind_srv_t	*get_service(ippfind_srvs_t *services, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
@@ -1174,8 +1174,11 @@ browse_callback(
 
 static int				// O - Result of comparison
 compare_services(ippfind_srv_t *a,	// I - First device
-                 ippfind_srv_t *b)	// I - Second device
+                 ippfind_srv_t *b,	// I - Second device
+                 void          *data) // I - Callback data (unused)
 {
+  (void)data;
+
   return (_cups_strcasecmp(a->name, b->name));
 }
 

@@ -45,6 +45,9 @@ _cupsRasterReadHeader
 _cupsRasterReadPixels
 _cupsRasterWriteHeader
 _cupsRasterWritePixels
+_cupsArrayStrcmp
+_cupsArrayStrdup
+_cupsArrayFree
 _cupsSetDefaults
 _cupsSetError
 _cupsSetHTTPError

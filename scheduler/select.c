@@ -184,7 +184,7 @@ static struct pollfd	*cupsd_pollfds = NULL;
 // Local functions...
 //
 
-static int		compare_fds(_cupsd_fd_t *a, _cupsd_fd_t *b);
+static int	compare_fds(_cupsd_fd_t *a, _cupsd_fd_t *b, void *data);
 static _cupsd_fd_t	*find_fd(int fd);
 #define			release_fd(f) { \
 			  (f)->use --; \
@@ -429,10 +429,12 @@ cupsdStopSelect(void)
 // 'compare_fds()' - Compare file descriptors.
 //
 
-static int				// O - Result of comparison
-compare_fds(_cupsd_fd_t *a,		// I - First file descriptor
-            _cupsd_fd_t *b)		// I - Second file descriptor
+static int                  // O - Result of comparison
+compare_fds(_cupsd_fd_t *a, // I - First file descriptor
+            _cupsd_fd_t *b, // I - Second file descriptor
+            void *data)     // I - Unused
 {
+  (void)data;
   return (a->fd - b->fd);
 }
 

@@ -2891,10 +2891,10 @@ cupsdUpdateJobs(void)
  * 'compare_active_jobs()' - Compare the job IDs and priorities of two jobs.
  */
 
-static int				/* O - Difference */
-compare_active_jobs(void *first,	/* I - First job */
-                    void *second,	/* I - Second job */
-		    void *data)		/* I - App data (not used) */
+static int                        /* O - Difference */
+compare_active_jobs(void *first,  /* I - First job */
+                    void *second, /* I - Second job */
+                    void *data)   /* I - App data (not used) */
 {
   int	diff;				/* Difference */
 
@@ -2913,10 +2913,10 @@ compare_active_jobs(void *first,	/* I - First job */
  * 'compare_completed_jobs()' - Compare the job IDs and completion times of two jobs.
  */
 
-static int				/* O - Difference */
-compare_completed_jobs(void *first,	/* I - First job */
-                       void *second,	/* I - Second job */
-		       void *data)	/* I - App data (not used) */
+static int                           /* O - Difference */
+compare_completed_jobs(void *first,  /* I - First job */
+                       void *second, /* I - Second job */
+                       void *data)   /* I - App data (not used) */
 {
   int	diff;				/* Difference */
 
@@ -2935,10 +2935,10 @@ compare_completed_jobs(void *first,	/* I - First job */
  * 'compare_jobs()' - Compare the job IDs of two jobs.
  */
 
-static int				/* O - Difference */
-compare_jobs(void *first,		/* I - First job */
-             void *second,		/* I - Second job */
-	     void *data)		/* I - App data (not used) */
+static int                 /* O - Difference */
+compare_jobs(void *first,  /* I - First job */
+             void *second, /* I - Second job */
+             void *data)   /* I - App data (not used) */
 {
   (void)data;
 

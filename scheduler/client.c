@@ -34,21 +34,20 @@
 
 static int		check_if_modified(cupsd_client_t *con,
 			                  struct stat *filestats);
-static int		compare_clients(cupsd_client_t *a, cupsd_client_t *b,
-			                void *data);
+static int		compare_clients(cupsd_client_t *a, cupsd_client_t *b, void *data);
 static int		cupsd_start_tls(cupsd_client_t *con, http_encryption_t e);
 static char		*get_file(cupsd_client_t *con, struct stat *filestats,
-			          char *filename, size_t len);
+                        char *filename, size_t len);
 static http_status_t	install_cupsd_conf(cupsd_client_t *con);
 static int		is_cgi(cupsd_client_t *con, const char *filename,
-		               struct stat *filestats, mime_type_t *type);
+                    struct stat *filestats, mime_type_t *type);
 static int		is_path_absolute(const char *path);
 static int		pipe_command(cupsd_client_t *con, int infile, int *outfile,
-			             char *command, char *options, int root);
+                           char *command, char *options, int root);
 static int		valid_host(cupsd_client_t *con);
 static int		write_file(cupsd_client_t *con, http_status_t code,
-		        	   char *filename, char *type,
-				   struct stat *filestats);
+                         char *filename, char *type,
+                         struct stat *filestats);
 static void		write_pipe(cupsd_client_t *con);
 
 
@@ -2635,10 +2634,10 @@ check_if_modified(
  * 'compare_clients()' - Compare two client connections.
  */
 
-static int				/* O - Result of comparison */
-compare_clients(cupsd_client_t *a,	/* I - First client */
-                cupsd_client_t *b,	/* I - Second client */
-                void           *data)	/* I - User data (not used) */
+static int                         /* O - Result of comparison */
+compare_clients(cupsd_client_t *a, /* I - First client */
+                cupsd_client_t *b, /* I - Second client */
+                void *data)        /* I - User data (not used) */
 {
   (void)data;
 

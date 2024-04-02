@@ -43,7 +43,7 @@ typedef struct _mime_fcache_s		/**** Filter cache structure ****/
 
 static const char *mime_add_fcache(cups_array_t *filtercache, const char *name,
 		                   const char *filterpath);
-static int	mime_compare_fcache(_mime_fcache_t *a, _mime_fcache_t *b);
+static int	mime_compare_fcache(_mime_fcache_t *a, _mime_fcache_t *b, void *data);
 static void	mime_delete_fcache(cups_array_t *filtercache);
 static void	mime_delete_rules(mime_magic_t *rules);
 static void	mime_load_convs(mime_t *mime, const char *filename,
@@ -577,10 +577,12 @@ mime_add_fcache(
  * 'mime_compare_fcache()' - Compare two filter cache entries.
  */
 
-static int				/* O - Result of comparison */
-mime_compare_fcache(_mime_fcache_t *a,	/* I - First entry */
-               _mime_fcache_t *b)	/* I - Second entry */
+static int                             /* O - Result of comparison */
+mime_compare_fcache(_mime_fcache_t *a, /* I - First entry */
+                    _mime_fcache_t *b, /* I - Second entry */
+                    void *data)        /* Unused */
 {
+  (void)data;
   return (strcmp(a->name, b->name));
 }
 

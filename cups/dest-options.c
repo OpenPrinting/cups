@@ -30,17 +30,17 @@
 static void		cups_add_dconstres(cups_array_t *a, ipp_t *collection);
 static int		cups_collection_contains(ipp_t *test, ipp_t *match);
 static size_t		cups_collection_string(ipp_attribute_t *attr, char *buffer, size_t bufsize) _CUPS_NONNULL((1,2));
-static int		cups_compare_dconstres(_cups_dconstres_t *a,
-			                       _cups_dconstres_t *b);
-static int		cups_compare_media_db(_cups_media_db_t *a,
-			                      _cups_media_db_t *b);
-static _cups_media_db_t	*cups_copy_media_db(_cups_media_db_t *mdb);
+static int cups_compare_dconstres(_cups_dconstres_t *a, _cups_dconstres_t *b,
+                                  void *data);
+static int cups_compare_media_db(_cups_media_db_t *a, _cups_media_db_t *b,
+                                 void *data);
+static _cups_media_db_t *cups_copy_media_db(_cups_media_db_t *mdb, void *data);
 static void		cups_create_cached(http_t *http, cups_dinfo_t *dinfo,
 			                   unsigned flags);
 static void		cups_create_constraints(cups_dinfo_t *dinfo);
 static void		cups_create_defaults(cups_dinfo_t *dinfo);
 static void		cups_create_media_db(cups_dinfo_t *dinfo, unsigned flags);
-static void		cups_free_media_db(_cups_media_db_t *mdb);
+static void		cups_free_media_db(_cups_media_db_t *mdb, void *data);
 static int		cups_get_media_db(http_t *http, cups_dinfo_t *dinfo, pwg_media_t *pwg, unsigned flags, cups_size_t *size, cups_media_t *media);
 static int		cups_is_close_media_db(_cups_media_db_t *a,
 			                       _cups_media_db_t *b);
@@ -2129,11 +2129,12 @@ cups_collection_string(
  * 'cups_compare_dconstres()' - Compare to resolver entries.
  */
 
-static int				/* O - Result of comparison */
-cups_compare_dconstres(
-    _cups_dconstres_t *a,		/* I - First resolver */
-    _cups_dconstres_t *b)		/* I - Second resolver */
+static int                                   /* O - Result of comparison */
+cups_compare_dconstres(_cups_dconstres_t *a, /* I - First resolver */
+                       _cups_dconstres_t *b, /* I - Second resolver */
+                       void *data)           /* Unused */
 {
+  (void)data;
   return (strcmp(a->name, b->name));
 }
 
@@ -2142,13 +2143,14 @@ cups_compare_dconstres(
  * 'cups_compare_media_db()' - Compare two media entries.
  */
 
-static int				/* O - Result of comparison */
-cups_compare_media_db(
-    _cups_media_db_t *a,		/* I - First media entries */
-    _cups_media_db_t *b)		/* I - Second media entries */
+static int                                 /* O - Result of comparison */
+cups_compare_media_db(_cups_media_db_t *a, /* I - First media entries */
+                      _cups_media_db_t *b, /* I - Second media entries */
+                      void *data)          /* Unused */
 {
   int	result;				/* Result of comparison */
 
+  (void)data;
 
   if ((result = a->width - b->width) == 0)
     result = a->length - b->length;
@@ -2161,12 +2163,13 @@ cups_compare_media_db(
  * 'cups_copy_media_db()' - Copy a media entry.
  */
 
-static _cups_media_db_t *		/* O - New media entry */
-cups_copy_media_db(
-    _cups_media_db_t *mdb)		/* I - Media entry to copy */
+static _cups_media_db_t *                 /* O - New media entry */
+cups_copy_media_db(_cups_media_db_t *mdb, /* I - Media entry to copy */
+                   void *data)            /* Unused */
 {
   _cups_media_db_t *temp;		/* New media entry */
 
+  (void)data;
 
   if ((temp = calloc(1, sizeof(_cups_media_db_t))) == NULL)
     return (NULL);
@@ -2287,12 +2290,9 @@ cups_create_constraints(
   ipp_attribute_t	*attr;		/* Attribute */
   _ipp_value_t		*val;		/* Current value */
 
-
-  dinfo->constraints = cupsArrayNew3(NULL, NULL, NULL, 0, NULL,
-                                     (cups_afree_func_t)free);
-  dinfo->resolvers   = cupsArrayNew3((cups_array_func_t)cups_compare_dconstres,
-				     NULL, NULL, 0, NULL,
-                                     (cups_afree_func_t)free);
+  dinfo->constraints = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, _cupsArrayFree);
+  dinfo->resolvers = cupsArrayNew3((cups_array_func_t)cups_compare_dconstres,
+                                   NULL, NULL, 0, NULL, _cupsArrayFree);
 
   if ((attr = ippFindAttribute(dinfo->attrs, "job-constraints-supported",
 			       IPP_TAG_BEGIN_COLLECTION)) != NULL)
@@ -2651,9 +2651,10 @@ cups_create_media_db(
  */
 
 static void
-cups_free_media_db(
-    _cups_media_db_t *mdb)		/* I - Media entry to free */
+cups_free_media_db(_cups_media_db_t *mdb, /* I - Media entry to free */
+                   void *data)            /* I - Unused */
 {
+  (void)data;
   if (mdb->color)
     _cupsStrFree(mdb->color);
   if (mdb->key)
@@ -2731,11 +2732,11 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
 
       if (best->left != 0 || best->right != 0 || best->top != 0 || best->bottom != 0)
       {
-	for (mdb = (_cups_media_db_t *)cupsArrayNext(db);
-	     mdb && !cups_compare_media_db(mdb, &key);
-	     mdb = (_cups_media_db_t *)cupsArrayNext(db))
-	{
-	  if (mdb->left <= best->left && mdb->right <= best->right &&
+        for (mdb = (_cups_media_db_t *)cupsArrayNext(db);
+             mdb && !cups_compare_media_db(mdb, &key, NULL);
+             mdb = (_cups_media_db_t *)cupsArrayNext(db))
+        {
+          if (mdb->left <= best->left && mdb->right <= best->right &&
 	      mdb->top <= best->top && mdb->bottom <= best->bottom)
 	  {
 	    best = mdb;
@@ -2743,7 +2744,7 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
 		mdb->top == 0)
 	      break;
 	  }
-	}
+        }
       }
 
      /*
@@ -2762,10 +2763,10 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
       */
 
       for (mdb = (_cups_media_db_t *)cupsArrayNext(db);
-	   mdb && !cups_compare_media_db(mdb, &key);
-	   mdb = (_cups_media_db_t *)cupsArrayNext(db))
+           mdb && !cups_compare_media_db(mdb, &key, NULL);
+           mdb = (_cups_media_db_t *)cupsArrayNext(db))
       {
-	if (mdb->left >= best->left && mdb->right >= best->right &&
+        if (mdb->left >= best->left && mdb->right >= best->right &&
 	    mdb->top >= best->top && mdb->bottom >= best->bottom &&
 	    (mdb->bottom != best->bottom || mdb->left != best->left || mdb->right != best->right || mdb->top != best->top))
 	  best = mdb;
@@ -2778,10 +2779,10 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
       */
 
       for (mdb = (_cups_media_db_t *)cupsArrayNext(db);
-	   mdb && !cups_compare_media_db(mdb, &key);
-	   mdb = (_cups_media_db_t *)cupsArrayNext(db))
+           mdb && !cups_compare_media_db(mdb, &key, NULL);
+           mdb = (_cups_media_db_t *)cupsArrayNext(db))
       {
-	if (((mdb->left > 0 && mdb->left <= best->left) || best->left == 0) &&
+        if (((mdb->left > 0 && mdb->left <= best->left) || best->left == 0) &&
 	    ((mdb->right > 0 && mdb->right <= best->right) || best->right == 0) &&
 	    ((mdb->top > 0 && mdb->top <= best->top) || best->top == 0) &&
 	    ((mdb->bottom > 0 && mdb->bottom <= best->bottom) || best->bottom == 0) &&

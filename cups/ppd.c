@@ -64,22 +64,20 @@ static ppd_attr_t	*ppd_add_attr(ppd_file_t *ppd, const char *name,
 				      const char *value);
 static ppd_choice_t	*ppd_add_choice(ppd_option_t *option, const char *name);
 static ppd_size_t	*ppd_add_size(ppd_file_t *ppd, const char *name);
-static int		ppd_compare_attrs(ppd_attr_t *a, ppd_attr_t *b);
-static int		ppd_compare_choices(ppd_choice_t *a, ppd_choice_t *b);
-static int		ppd_compare_coptions(ppd_coption_t *a,
-			                     ppd_coption_t *b);
-static int		ppd_compare_options(ppd_option_t *a, ppd_option_t *b);
+static int ppd_compare_attrs(ppd_attr_t *a, ppd_attr_t *b, void *data);
+static int ppd_compare_choices(ppd_choice_t *a, ppd_choice_t *b, void *data);
+static int ppd_compare_coptions(ppd_coption_t *a, ppd_coption_t *b, void *data);
+static int ppd_compare_options(ppd_option_t *a, ppd_option_t *b, void *data);
 static int		ppd_decode(char *string);
 static void		ppd_free_filters(ppd_file_t *ppd);
 static void		ppd_free_group(ppd_group_t *group);
 static void		ppd_free_option(ppd_option_t *option);
 static ppd_coption_t	*ppd_get_coption(ppd_file_t *ppd, const char *name);
-static ppd_cparam_t	*ppd_get_cparam(ppd_coption_t *opt,
-			                const char *param,
-					const char *text);
-static ppd_group_t	*ppd_get_group(ppd_file_t *ppd, const char *name,
-			               const char *text, _ppd_globals_t *pg,
-				       cups_encoding_t encoding);
+static ppd_cparam_t *ppd_get_cparam(ppd_coption_t *opt, const char *param,
+                                    const char *text);
+static ppd_group_t *ppd_get_group(ppd_file_t *ppd, const char *name,
+                                  const char *text, _ppd_globals_t *pg,
+                                  cups_encoding_t encoding);
 static ppd_option_t	*ppd_get_option(ppd_group_t *group, const char *name);
 static _ppd_globals_t	*ppd_globals_alloc(void);
 #if defined(HAVE_PTHREAD_H) || defined(_WIN32)
@@ -88,13 +86,13 @@ static void		ppd_globals_free(_ppd_globals_t *g);
 #ifdef HAVE_PTHREAD_H
 static void		ppd_globals_init(void);
 #endif /* HAVE_PTHREAD_H */
-static int		ppd_hash_option(ppd_option_t *option);
+static int		ppd_hash_option(ppd_option_t *option, void *data);
 static int		ppd_read(cups_file_t *fp, _ppd_line_t *line,
-			         char *keyword, char *option, char *text,
-				 char **string, int ignoreblank,
-				 _ppd_globals_t *pg);
+												char *keyword, char *option, char *text,
+												char **string, int ignoreblank,
+				 								_ppd_globals_t *pg);
 static int		ppd_update_filters(ppd_file_t *ppd,
-			                   _ppd_globals_t *pg);
+			                  				 _ppd_globals_t *pg);
 
 
 /*
@@ -2475,10 +2473,12 @@ ppd_add_size(ppd_file_t *ppd,		/* I - PPD file */
  * 'ppd_compare_attrs()' - Compare two attributes.
  */
 
-static int				/* O - Result of comparison */
-ppd_compare_attrs(ppd_attr_t *a,	/* I - First attribute */
-                  ppd_attr_t *b)	/* I - Second attribute */
+static int                       /* O - Result of comparison */
+ppd_compare_attrs(ppd_attr_t *a, /* I - First attribute */
+                  ppd_attr_t *b, /* I - Second attribute */
+                  void *data)    /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(a->name, b->name));
 }
 
@@ -2487,10 +2487,12 @@ ppd_compare_attrs(ppd_attr_t *a,	/* I - First attribute */
  * 'ppd_compare_choices()' - Compare two choices...
  */
 
-static int				/* O - Result of comparison */
-ppd_compare_choices(ppd_choice_t *a,	/* I - First choice */
-                    ppd_choice_t *b)	/* I - Second choice */
+static int                           /* O - Result of comparison */
+ppd_compare_choices(ppd_choice_t *a, /* I - First choice */
+                    ppd_choice_t *b, /* I - Second choice */
+                    void *data)      /* Unused */
 {
+  (void)data;
   return (strcmp(a->option->keyword, b->option->keyword));
 }
 
@@ -2499,10 +2501,12 @@ ppd_compare_choices(ppd_choice_t *a,	/* I - First choice */
  * 'ppd_compare_coptions()' - Compare two custom options.
  */
 
-static int				/* O - Result of comparison */
-ppd_compare_coptions(ppd_coption_t *a,	/* I - First option */
-                     ppd_coption_t *b)	/* I - Second option */
+static int                             /* O - Result of comparison */
+ppd_compare_coptions(ppd_coption_t *a, /* I - First option */
+                     ppd_coption_t *b, /* I - Second option */
+                     void *data)       /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(a->keyword, b->keyword));
 }
 
@@ -2511,10 +2515,12 @@ ppd_compare_coptions(ppd_coption_t *a,	/* I - First option */
  * 'ppd_compare_options()' - Compare two options.
  */
 
-static int				/* O - Result of comparison */
-ppd_compare_options(ppd_option_t *a,	/* I - First option */
-                    ppd_option_t *b)	/* I - Second option */
+static int                           /* O - Result of comparison */
+ppd_compare_options(ppd_option_t *a, /* I - First option */
+                    ppd_option_t *b, /* I - Second option */
+                    void *data)      /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(a->keyword, b->keyword));
 }
 
@@ -2886,12 +2892,13 @@ ppd_globals_init(void)
  * 'ppd_hash_option()' - Generate a hash of the option name...
  */
 
-static int				/* O - Hash index */
-ppd_hash_option(ppd_option_t *option)	/* I - Option */
-{
+static int                            /* O - Hash index */
+ppd_hash_option(ppd_option_t *option, /* I - Option */
+                void *data) {
   int		hash = 0;		/* Hash index */
   const char	*k;			/* Pointer into keyword */
 
+  (void)data;
 
   for (hash = option->keyword[0], k = option->keyword + 1; *k;)
     hash = (int)(33U * (unsigned)hash) + *k++;

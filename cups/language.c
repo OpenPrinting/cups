@@ -113,8 +113,9 @@ static const char * const lang_encodings[] =
 
 
 static cups_lang_t	*cups_cache_lookup(const char *name, cups_encoding_t encoding);
-static int		cups_message_compare(_cups_message_t *m1, _cups_message_t *m2);
-static void		cups_message_free(_cups_message_t *m);
+static int		cups_message_compare(_cups_message_t *m1, _cups_message_t *m2,
+                                void *data);
+static void		cups_message_free(_cups_message_t *m, void *data);
 static void		cups_message_load(cups_lang_t *lang);
 static void		cups_message_puts(cups_file_t *fp, const char *s);
 static int		cups_read_strings(cups_file_t *fp, int flags, cups_array_t *a);
@@ -1032,11 +1033,12 @@ cups_cache_lookup(
  * 'cups_message_compare()' - Compare two messages.
  */
 
-static int				/* O - Result of comparison */
-cups_message_compare(
-    _cups_message_t *m1,		/* I - First message */
-    _cups_message_t *m2)		/* I - Second message */
+static int                                /* O - Result of comparison */
+cups_message_compare(_cups_message_t *m1, /* I - First message */
+                     _cups_message_t *m2, /* I - Second message */
+                     void *data)          /* Unused */
 {
+  (void)data;
   return (strcmp(m1->msg, m2->msg));
 }
 
@@ -1045,9 +1047,10 @@ cups_message_compare(
  * 'cups_message_free()' - Free a message.
  */
 
-static void
-cups_message_free(_cups_message_t *m)	/* I - Message */
+static void cups_message_free(_cups_message_t *m, /* I - Message */
+                              void *data)         /* Unused */
 {
+  (void)data;
   if (m->msg)
     free(m->msg);
 

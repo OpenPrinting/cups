@@ -46,7 +46,7 @@ static char		*rss_password;	/* Password for remote RSS */
  * Local functions...
  */
 
-static int		compare_rss(_cups_rss_t *a, _cups_rss_t *b);
+static int		compare_rss(_cups_rss_t *a, _cups_rss_t *b, void *data);
 static void		delete_message(_cups_rss_t *msg);
 static void		load_rss(cups_array_t *rss, const char *filename);
 static _cups_rss_t	*new_message(int sequence_number, char *subject,
@@ -398,10 +398,12 @@ main(int  argc,				/* I - Number of command-line arguments */
  * 'compare_rss()' - Compare two messages.
  */
 
-static int				/* O - Result of comparison */
-compare_rss(_cups_rss_t *a,		/* I - First message */
-            _cups_rss_t *b)		/* I - Second message */
+static int                  /* O - Result of comparison */
+compare_rss(_cups_rss_t *a, /* I - First message */
+            _cups_rss_t *b, /* I - Second message */
+            void *data)     /* Unused */
 {
+  (void)data;
   return (a->sequence_number - b->sequence_number);
 }
 

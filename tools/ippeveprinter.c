@@ -231,7 +231,7 @@ typedef struct ippeve_client_s		// Client data
 
 static http_status_t	authenticate_request(ippeve_client_t *client);
 static void		clean_jobs(ippeve_printer_t *printer);
-static int		compare_jobs(ippeve_job_t *a, ippeve_job_t *b);
+static int		compare_jobs(ippeve_job_t *a, ippeve_job_t *b, void *data);
 static void		copy_attributes(ipp_t *to, ipp_t *from, cups_array_t *ra, ipp_tag_t group_tag, bool quickcopy);
 static void		copy_job_attributes(ippeve_client_t *client, ippeve_job_t *job, cups_array_t *ra);
 static ippeve_client_t	*create_client(ippeve_printer_t *printer, int sock);
@@ -755,10 +755,12 @@ clean_jobs(ippeve_printer_t *printer)	// I - Printer
 // 'compare_jobs()' - Compare two jobs.
 //
 
-static int				// O - Result of comparison
-compare_jobs(ippeve_job_t *a,		// I - First job
-             ippeve_job_t *b)		// I - Second job
+static int                    // O - Result of comparison
+compare_jobs(ippeve_job_t *a, // I - First job
+             ippeve_job_t *b, // I - Second job
+             void         *data) // I - Unused
 {
+  (void)data;
   return (b->id - a->id);
 }
 
@@ -2135,7 +2137,7 @@ finish_document_data(
   // Return the job info...
   respond_ipp(client, IPP_STATUS_OK, NULL);
 
-  ra = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, NULL, NULL);
+  ra = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, NULL, NULL);
   cupsArrayAdd(ra, "job-id");
   cupsArrayAdd(ra, "job-state");
   cupsArrayAdd(ra, "job-state-message");
@@ -2152,7 +2154,7 @@ finish_document_data(
   job->state     = IPP_JSTATE_ABORTED;
   job->completed = time(NULL);
 
-  ra = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, NULL, NULL);
+  ra = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, NULL, NULL);
   cupsArrayAdd(ra, "job-id");
   cupsArrayAdd(ra, "job-state");
   cupsArrayAdd(ra, "job-state-reasons");
@@ -2385,7 +2387,7 @@ finish_document_uri(
   // Return the job info...
   respond_ipp(client, IPP_STATUS_OK, NULL);
 
-  ra = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, NULL, NULL);
+  ra = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, NULL, NULL);
   cupsArrayAdd(ra, "job-id");
   cupsArrayAdd(ra, "job-state");
   cupsArrayAdd(ra, "job-state-reasons");
@@ -2401,7 +2403,7 @@ finish_document_uri(
   job->state     = IPP_JSTATE_ABORTED;
   job->completed = time(NULL);
 
-  ra = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, NULL, NULL);
+  ra = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, NULL, NULL);
   cupsArrayAdd(ra, "job-id");
   cupsArrayAdd(ra, "job-state");
   cupsArrayAdd(ra, "job-state-reasons");
@@ -2981,7 +2983,7 @@ ipp_create_job(ippeve_client_t *client)	// I - Client
   // Return the job info...
   respond_ipp(client, IPP_STATUS_OK, NULL);
 
-  ra = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, NULL, NULL);
+  ra = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, NULL, NULL);
   cupsArrayAdd(ra, "job-id");
   cupsArrayAdd(ra, "job-state");
   cupsArrayAdd(ra, "job-state-message");

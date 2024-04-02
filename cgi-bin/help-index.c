@@ -137,9 +137,9 @@ static int		help_load_file(help_index_t *hi,
 				       const char *relative,
 				       time_t     mtime);
 static help_node_t	*help_new_node(const char *filename, const char *anchor, const char *section, const char *text, time_t mtime, off_t offset, size_t length) _CUPS_NONNULL(1,3,4);
-static int		help_sort_by_name(help_node_t *p1, help_node_t *p2);
-static int		help_sort_by_score(help_node_t *p1, help_node_t *p2);
-static int		help_sort_words(help_word_t *w1, help_word_t *w2);
+static int		help_sort_by_name(help_node_t *p1, help_node_t *p2, void *data);
+static int		help_sort_by_score(help_node_t *p1, help_node_t *p2, void *data);
+static int		help_sort_words(help_word_t *w1, help_word_t *w2, void *data);
 
 
 /*
@@ -1209,9 +1209,10 @@ help_new_node(const char   *filename,	/* I - Filename */
  * 'help_sort_nodes_by_name()' - Sort nodes by section, filename, and anchor.
  */
 
-static int				/* O - Difference */
-help_sort_by_name(help_node_t *n1,	/* I - First node */
-                  help_node_t *n2)	/* I - Second node */
+static int                         /* O - Difference */
+help_sort_by_name(help_node_t *n1, /* I - First node */
+                  help_node_t *n2, /* I - Second node */
+                  void *data)      /* Unused */
 {
   int		diff;			/* Difference */
 
@@ -1234,12 +1235,15 @@ help_sort_by_name(help_node_t *n1,	/* I - First node */
  * 'help_sort_nodes_by_score()' - Sort nodes by score and text.
  */
 
-static int				/* O - Difference */
-help_sort_by_score(help_node_t *n1,	/* I - First node */
-                   help_node_t *n2)	/* I - Second node */
+static int                          /* O - Difference */
+help_sort_by_score(help_node_t *n1, /* I - First node */
+                   help_node_t *n2, /* I - Second node */
+                   void *data)      /* I - Unused */
 {
   int		diff;			/* Difference */
 
+
+  (void)data;
 
   if (n1->score != n2->score)
     return (n2->score - n1->score);
@@ -1260,9 +1264,11 @@ help_sort_by_score(help_node_t *n1,	/* I - First node */
  * 'help_sort_words()' - Sort words alphabetically.
  */
 
-static int				/* O - Difference */
-help_sort_words(help_word_t *w1,	/* I - Second word */
-                help_word_t *w2)	/* I - Second word */
+static int                       /* O - Difference */
+help_sort_words(help_word_t *w1, /* I - Second word */
+                help_word_t *w2, /* I - Second word */
+                void *data)      /* Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(w1->text, w2->text));
 }

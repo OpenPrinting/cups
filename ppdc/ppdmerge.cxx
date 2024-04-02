@@ -175,7 +175,7 @@ main(int  argc,				// I - Number of command-line arguments
 
   // Loop through the PPD files we loaded to generate a new language list...
   if (!languages)
-    languages = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    languages = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
   for (ppd = (ppd_file_t *)cupsArrayFirst(ppds);
        ppd;

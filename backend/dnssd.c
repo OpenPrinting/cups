@@ -101,7 +101,7 @@ static void		client_callback(AvahiClient *client,
 					void *context);
 #endif /* HAVE_AVAHI */
 
-static int		compare_devices(cups_device_t *a, cups_device_t *b);
+static int		compare_devices(cups_device_t *a, cups_device_t *b, void *data);
 static void		exec_backend(char **argv) _CUPS_NORETURN;
 static cups_device_t	*get_device(cups_array_t *devices, const char *serviceName, const char *regtype, const char *replyDomain) _CUPS_NONNULL(1,2,3,4);
 #ifdef HAVE_MDNSRESPONDER
@@ -713,8 +713,10 @@ client_callback(
 
 static int				/* O - Result of comparison */
 compare_devices(cups_device_t *a,	/* I - First device */
-                cups_device_t *b)	/* I - Second device */
+                cups_device_t *b,	/* I - Second device */
+                void       *data)	/* I - Unused */
 {
+  (void)data;
   return (strcmp(a->name, b->name));
 }
 

@@ -2507,6 +2507,8 @@ cups_dest_browse_cb(
   // Get the device...
   cups_dnssd_get_device(data, serviceName, regtype, replyDomain);
 }
+
+
 //
 // 'cups_dnssd_compare_device()' - Compare two devices.
 //
@@ -2514,8 +2516,10 @@ cups_dest_browse_cb(
 static int				// O - Result of comparison
 cups_dnssd_compare_devices(
     _cups_dnssd_device_t *a,		// I - First device
-    _cups_dnssd_device_t *b)		// I - Second device
+    _cups_dnssd_device_t *b,		// I - Second device
+    void                 *data) // I - Callback data (unused)
 {
+  (void)data;
   return (strcmp(a->dest.name, b->dest.name));
 }
 

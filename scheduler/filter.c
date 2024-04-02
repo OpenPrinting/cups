@@ -40,8 +40,8 @@ typedef struct _mime_typelist_s		/**** List of source types ****/
  * Local functions...
  */
 
-static int		mime_compare_filters(mime_filter_t *, mime_filter_t *);
-static int		mime_compare_srcs(mime_filter_t *, mime_filter_t *);
+static int		mime_compare_filters(mime_filter_t *, mime_filter_t *, void *);
+static int		mime_compare_srcs(mime_filter_t *, mime_filter_t *, void *);
 static cups_array_t	*mime_find_filters(mime_t *mime, mime_type_t *src,
 				      size_t srcsize, mime_type_t *dst,
 				      int *cost, _mime_typelist_t *visited);
@@ -257,12 +257,14 @@ mimeFilterLookup(mime_t      *mime,	/* I - MIME database */
  * 'mime_compare_filters()' - Compare two filters.
  */
 
-static int				/* O - Comparison result */
-mime_compare_filters(mime_filter_t *f0,	/* I - First filter */
-                     mime_filter_t *f1)	/* I - Second filter */
+static int                              /* O - Comparison result */
+mime_compare_filters(mime_filter_t *f0, /* I - First filter */
+                     mime_filter_t *f1, /* I - Second filter */
+                     void *data)        /* Unused */
 {
   int	i;				/* Result of comparison */
 
+  (void)data;
 
   if ((i = strcmp(f0->src->super, f1->src->super)) == 0)
     if ((i = strcmp(f0->src->type, f1->src->type)) == 0)
@@ -277,13 +279,13 @@ mime_compare_filters(mime_filter_t *f0,	/* I - First filter */
  * 'mime_compare_srcs()' - Compare two filter source types.
  */
 
-static int				/* O - Comparison result */
-mime_compare_srcs(mime_filter_t *f0,	/* I - First filter */
-                  mime_filter_t *f1)	/* I - Second filter */
-{
+static int                           /* O - Comparison result */
+mime_compare_srcs(mime_filter_t *f0, /* I - First filter */
+                  mime_filter_t *f1, /* I - Second filter */
+                  void *data) {
   int	i;				/* Result of comparison */
 
-
+  (void)data;
   if ((i = strcmp(f0->src->super, f1->src->super)) == 0)
     i = strcmp(f0->src->type, f1->src->type);
 

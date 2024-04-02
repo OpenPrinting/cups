@@ -64,7 +64,8 @@ static int		check_admin_access(cupsd_client_t *con);
 static int		check_authref(cupsd_client_t *con, const char *right);
 #endif /* HAVE_AUTHORIZATION_H */
 static int		compare_locations(cupsd_location_t *a,
-			                  cupsd_location_t *b);
+																cupsd_location_t *b,
+																void *data);
 static cupsd_authmask_t	*copy_authmask(cupsd_authmask_t *am, void *data);
 static void		free_authmask(cupsd_authmask_t *am, void *data);
 #if HAVE_LIBPAM
@@ -156,8 +157,8 @@ cupsdAddName(cupsd_location_t *loc,	/* I - Location to add to */
 
   if (!loc->names)
     loc->names = cupsArrayNew3(NULL, NULL, NULL, 0,
-                               (cups_acopy_func_t)_cupsStrAlloc,
-                               (cups_afree_func_t)_cupsStrFree);
+                               (cups_acopy_func_t)_cupsStrPrivAlloc,
+                               (cups_afree_func_t)_cupsStrPrivFree);
 
   if (!cupsArrayAdd(loc->names, name))
   {
@@ -1227,7 +1228,7 @@ cupsdCopyLocation(
                       "Unable to allocate memory for %d names: %s",
 		      cupsArrayCount(loc->names), strerror(errno));
 
-      cupsdFreeLocation(temp);
+      cupsdFreeLocation(temp, NULL);
       return (NULL);
     }
   }
@@ -1243,7 +1244,7 @@ cupsdCopyLocation(
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Unable to allocate memory for %d allow rules: %s",
                       cupsArrayCount(loc->allow), strerror(errno));
-      cupsdFreeLocation(temp);
+      cupsdFreeLocation(temp, NULL);
       return (NULL);
     }
   }
@@ -1259,7 +1260,7 @@ cupsdCopyLocation(
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Unable to allocate memory for %d deny rules: %s",
                       cupsArrayCount(loc->deny), strerror(errno));
-      cupsdFreeLocation(temp);
+      cupsdFreeLocation(temp, NULL);
       return (NULL);
     }
   }
@@ -1426,9 +1427,10 @@ cupsdFindLocation(const char *location)	/* I - Connection */
  * 'cupsdFreeLocation()' - Free all memory used by a location.
  */
 
-void
-cupsdFreeLocation(cupsd_location_t *loc)/* I - Location to free */
+void cupsdFreeLocation(cupsd_location_t *loc, /* I - Location to free */
+                       void *data)            /* Unused */
 {
+  (void)data;
   cupsArrayDelete(loc->names);
   cupsArrayDelete(loc->allow);
   cupsArrayDelete(loc->deny);
@@ -2116,10 +2118,12 @@ check_authref(cupsd_client_t *con,	/* I - Connection */
  * 'compare_locations()' - Compare two locations.
  */
 
-static int				/* O - Result of comparison */
-compare_locations(cupsd_location_t *a,	/* I - First location */
-                  cupsd_location_t *b)	/* I - Second location */
+static int                             /* O - Result of comparison */
+compare_locations(cupsd_location_t *a, /* I - First location */
+                  cupsd_location_t *b, /* I - Second location */
+                  void *data)          /* Unused */
 {
+  (void)data;
   return (strcmp(b->location, a->location));
 }
 

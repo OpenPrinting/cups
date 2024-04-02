@@ -3548,7 +3548,7 @@ update_reasons(ipp_attribute_t *attr,	/* I - printer-state-reasons or NULL */
   {
     int	i;				/* Looping var */
 
-    new_reasons = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+    new_reasons = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
     op          = '\0';
 
     for (i = 0; i < attr->num_values; i ++)

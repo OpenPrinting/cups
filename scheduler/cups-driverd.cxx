@@ -145,10 +145,10 @@ static int		cat_drv(const char *name, int request_id);
 static void		cat_ppd(const char *name, int request_id) _CUPS_NORETURN;
 static int		cat_static(const char *name, int request_id);
 static int		cat_tar(const char *name, int request_id);
-static int		compare_inodes(struct stat *a, struct stat *b);
-static int		compare_matches(const ppd_info_t *p0, const ppd_info_t *p1);
-static int		compare_names(const ppd_info_t *p0, const ppd_info_t *p1);
-static int		compare_ppds(const ppd_info_t *p0, const ppd_info_t *p1);
+static int		compare_inodes(struct stat *a, struct stat *b, void *data);
+static int 		compare_matches(const ppd_info_t *p0, const ppd_info_t *p1, void *data);
+static int 		compare_names(const ppd_info_t *p0, const ppd_info_t *p1, void *data);
+static int 		compare_ppds(const ppd_info_t *p0, const ppd_info_t *p1, void *data);
 static void		dump_ppds_dat(const char *filename) _CUPS_NORETURN;
 static void		free_array(cups_array_t *a);
 static cups_file_t	*get_file(const char *name, int request_id, const char *subdir, char *buffer, size_t bufsize, char **subfile);
@@ -684,10 +684,13 @@ cat_tar(const char *name,		// I - PPD name
 // 'compare_inodes()' - Compare two inodes.
 //
 
-static int				// O - Result of comparison
-compare_inodes(struct stat *a,		// I - First inode
-               struct stat *b)		// I - Second inode
+static int                     /* O - Result of comparison */
+compare_inodes(struct stat *a, /* I - First inode */
+               struct stat *b, /* I - Second inode */
+               void *data)     /* I - Unused */
 {
+  (void)data;
+
   if (a->st_dev != b->st_dev)
     return (a->st_dev - b->st_dev);
   else
@@ -699,10 +702,12 @@ compare_inodes(struct stat *a,		// I - First inode
 // 'compare_matches()' - Compare PPD match scores for sorting.
 //
 
-static int
-compare_matches(const ppd_info_t *p0,	// I - First PPD
-                const ppd_info_t *p1)	// I - Second PPD
+static int compare_matches(const ppd_info_t *p0, /* I - First PPD */
+                           const ppd_info_t *p1, /* I - Second PPD */
+                           void             *data)           /* I - Unused */
 {
+  (void)data;
+
   if (p1->matches != p0->matches)
     return (p1->matches - p0->matches);
   else
@@ -715,12 +720,14 @@ compare_matches(const ppd_info_t *p0,	// I - First PPD
 // 'compare_names()' - Compare PPD filenames for sorting.
 //
 
-static int				// O - Result of comparison
-compare_names(const ppd_info_t *p0,	// I - First PPD file
-              const ppd_info_t *p1)	// I - Second PPD file
+static int                          /* O - Result of comparison */
+compare_names(const ppd_info_t *p0, /* I - First PPD file */
+              const ppd_info_t *p1, /* I - Second PPD file */
+              void             *data)           /* I - Unused */
 {
   int	diff;				// Difference between strings
 
+  (void)data;
 
   if ((diff = strcmp(p0->record.filename, p1->record.filename)) != 0)
     return (diff);
@@ -733,9 +740,10 @@ compare_names(const ppd_info_t *p0,	// I - First PPD file
 // 'compare_ppds()' - Compare PPD file make and model names for sorting.
 //
 
-static int				// O - Result of comparison
-compare_ppds(const ppd_info_t *p0,	// I - First PPD file
-             const ppd_info_t *p1)	// I - Second PPD file
+static int                         /* O - Result of comparison */
+compare_ppds(const ppd_info_t *p0, /* I - First PPD file */
+             const ppd_info_t *p1, /* I - Second PPD file */
+             void             *data)           /* I - Unused */
 {
   int	diff;				// Difference between strings
 
@@ -743,6 +751,8 @@ compare_ppds(const ppd_info_t *p0,	// I - First PPD file
  /*
   * First compare manufacturers...
   */
+
+  (void)data;
 
   if ((diff = _cups_strcasecmp(p0->record.make, p1->record.make)) != 0)
     return (diff);
@@ -753,7 +763,7 @@ compare_ppds(const ppd_info_t *p0,	// I - First PPD file
                           p1->record.languages[0])) != 0)
     return (diff);
   else
-    return (compare_names(p0, p1));
+    return (compare_names(p0, p1, NULL));
 }
 
 

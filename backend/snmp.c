@@ -121,7 +121,7 @@ static void		add_cache(http_addr_t *addr, const char *addrname,
 				  const char *make_and_model);
 static device_uri_t	*add_device_uri(char *value);
 static void		alarm_handler(int sig);
-static int		compare_cache(snmp_cache_t *a, snmp_cache_t *b);
+static int		compare_cache(snmp_cache_t *a, snmp_cache_t *b, void *data);
 static void		debug_printf(const char *format, ...);
 static void		fix_make_model(char *make_model,
 			               const char *old_make_model,
@@ -429,10 +429,12 @@ alarm_handler(int sig)			/* I - Signal number */
  * 'compare_cache()' - Compare two cache entries.
  */
 
-static int				/* O - Result of comparison */
-compare_cache(snmp_cache_t *a,		/* I - First cache entry */
-              snmp_cache_t *b)		/* I - Second cache entry */
+static int                     /* O - Result of comparison */
+compare_cache(snmp_cache_t *a, /* I - First cache entry */
+              snmp_cache_t *b, /* I - Second cache entry */
+              void *data)      /* I - Unused */
 {
+  (void)data;
   return (_cups_strcasecmp(a->addrname, b->addrname));
 }
 

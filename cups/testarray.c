@@ -52,7 +52,7 @@ main(void)
   testBegin("cupsArrayNew3");
 
   data  = (void *)"testarray";
-  array = cupsArrayNew3((cups_array_cb_t)strcmp, data, NULL, 0, (cups_acopy_cb_t)strdup, (cups_afree_cb_t)free);
+  array = cupsArrayNew3((cups_array_func_t)_cupsArrayStrcmp, data, NULL, 0, (cups_acopy_cb_t)_cupsArrayStrdup, (cups_afree_cb_t)_cupsArrayFree);
 
   if (array)
   {

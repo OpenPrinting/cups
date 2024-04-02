@@ -1942,7 +1942,7 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
 
     if (op == IPP_OP_GET_JOBS)
     {
-      ra = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+      ra = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
       cupsArrayAdd(ra, "job-id");
       cupsArrayAdd(ra, "job-uri");
 
@@ -1964,7 +1964,7 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
   * Create an array using "strcmp" as the comparison function...
   */
 
-  ra = cupsArrayNew((cups_array_func_t)strcmp, NULL);
+  ra = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
 
   for (i = 0; i < count; i ++)
   {

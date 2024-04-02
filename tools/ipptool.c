@@ -1742,7 +1742,7 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 	  add_stringf(data->errors, "detailed-status-message (text(MAX)) has bad length %u (RFC 8011 section 4.1.6.3).", (unsigned)strlen(detailed_status_message));
       }
 
-      a = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, NULL, NULL);
+      a = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, NULL, NULL);
 
       for (attrptr = ippGetFirstAttribute(response), group = ippGetGroupTag(attrptr);
 	   attrptr;
@@ -6864,7 +6864,7 @@ with_distinct_values(
   }
 
   // Collect values and determine they are all unique...
-  values = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, (cups_acopy_cb_t)strdup, (cups_afree_cb_t)free);
+  values = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, (cups_acopy_cb_t)strdup, (cups_afree_cb_t)free);
 
   for (i = 0; i < count; i ++)
   {
