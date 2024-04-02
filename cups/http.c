@@ -1221,6 +1221,7 @@ httpGets(char   *line,			/* I - Line to read into */
 	    continue;
 
 	  http->error = WSAGetLastError();
+	  return (NULL);
 	}
 	else if (WSAGetLastError() != http->error)
 	{
@@ -1241,6 +1242,7 @@ httpGets(char   *line,			/* I - Line to read into */
 	    continue;
 
 	  http->error = errno;
+	  return (NULL);
 	}
 	else if (errno != http->error)
 	{

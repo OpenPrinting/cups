@@ -26,6 +26,7 @@ Changes in CUPS v2.4.8 (TBA)
   instead of keywords as `InputSlot` values (Issue #859)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
+- Fixed `httpGets` timeout handling (Issue #879)
 - Fixed checking for required attributes during PPD generation (Issue #890)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
 - Fixed CGI program initialization and validation of form checkbox and text
