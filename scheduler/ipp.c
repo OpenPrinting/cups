@@ -8962,72 +8962,79 @@ read_job_ticket(cupsd_client_t *con)	/* I - Client connection */
   * the request...
   */
 
-  ticket = ippNew();
-  cupsEncodeOptions(ticket, num_options, options);
-
- /*
-  * See what the user wants to change.
-  */
-
-  for (attr = ticket->attrs; attr; attr = attr->next)
+  if ((ticket = ippNew()) != NULL)
   {
-    if (attr->group_tag != IPP_TAG_JOB || !attr->name)
-      continue;
+    cupsEncodeOptions(ticket, num_options, options);
 
-    if (!strncmp(attr->name, "date-time-at-", 13) ||
-        !strcmp(attr->name, "job-impressions-completed") ||
-	!strcmp(attr->name, "job-media-sheets-completed") ||
-	!strncmp(attr->name, "job-k-octets", 12) ||
-	!strcmp(attr->name, "job-id") ||
-	!strcmp(attr->name, "job-originating-host-name") ||
-        !strcmp(attr->name, "job-originating-user-name") ||
-	!strcmp(attr->name, "job-pages-completed") ||
-	!strcmp(attr->name, "job-printer-uri") ||
-	!strncmp(attr->name, "job-state", 9) ||
-	!strcmp(attr->name, "job-uri") ||
-	!strncmp(attr->name, "time-at-", 8))
-      continue; /* Read-only attrs */
+   /*
+    * See what the user wants to change.
+    */
 
-    if ((attr2 = ippFindAttribute(con->request, attr->name,
-                                  IPP_TAG_ZERO)) != NULL)
+    for (attr = ticket->attrs; attr; attr = attr->next)
     {
+      if (attr->group_tag != IPP_TAG_JOB || !attr->name)
+	continue;
+
+      if (!strncmp(attr->name, "date-time-at-", 13) ||
+	  !strcmp(attr->name, "job-impressions-completed") ||
+	  !strcmp(attr->name, "job-media-sheets-completed") ||
+	  !strncmp(attr->name, "job-k-octets", 12) ||
+	  !strcmp(attr->name, "job-id") ||
+	  !strcmp(attr->name, "job-originating-host-name") ||
+	  !strcmp(attr->name, "job-originating-user-name") ||
+	  !strcmp(attr->name, "job-pages-completed") ||
+	  !strcmp(attr->name, "job-printer-uri") ||
+	  !strncmp(attr->name, "job-state", 9) ||
+	  !strcmp(attr->name, "job-uri") ||
+	  !strncmp(attr->name, "time-at-", 8))
+	continue; /* Read-only attrs */
+
+      if ((attr2 = ippFindAttribute(con->request, attr->name,
+				    IPP_TAG_ZERO)) != NULL)
+      {
+       /*
+	* Some other value; first free the old value...
+	*/
+
+	if (con->request->attrs == attr2)
+	{
+	  con->request->attrs = attr2->next;
+	  prev2               = NULL;
+	}
+	else
+	{
+	  for (prev2 = con->request->attrs; prev2; prev2 = prev2->next)
+	    if (prev2->next == attr2)
+	    {
+	      prev2->next = attr2->next;
+	      break;
+	    }
+	}
+
+	if (con->request->last == attr2)
+	  con->request->last = prev2;
+
+	ippDeleteAttribute(NULL, attr2);
+      }
+
      /*
-      * Some other value; first free the old value...
+      * Add new option by copying it...
       */
 
-      if (con->request->attrs == attr2)
-      {
-	con->request->attrs = attr2->next;
-	prev2               = NULL;
-      }
-      else
-      {
-	for (prev2 = con->request->attrs; prev2; prev2 = prev2->next)
-	  if (prev2->next == attr2)
-	  {
-	    prev2->next = attr2->next;
-	    break;
-	  }
-      }
-
-      if (con->request->last == attr2)
-        con->request->last = prev2;
-
-      ippDeleteAttribute(NULL, attr2);
+      ippCopyAttribute(con->request, attr, 0);
     }
 
    /*
-    * Add new option by copying it...
+    * Free the temporary attribute list...
     */
 
-    ippCopyAttribute(con->request, attr, 0);
+    ippDelete(ticket);
   }
 
  /*
-  * Then free the attribute list and option array...
+  * Free the option array...
   */
 
-  ippDelete(ticket);
   cupsFreeOptions(num_options, options);
 }
 
