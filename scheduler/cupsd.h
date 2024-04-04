@@ -101,6 +101,15 @@ extern const char *cups_hstrerror(int);
 
 
 /*
+ * Base types...
+ */
+
+typedef struct cupsd_client_s cupsd_client_t;
+typedef struct cupsd_job_s cupsd_job_t;
+typedef struct cupsd_printer_s cupsd_printer_t;
+
+
+/*
  * Other stuff for the scheduler...
  */
 

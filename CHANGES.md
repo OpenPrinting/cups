@@ -20,6 +20,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Updated CUPS to require ZLIB.
 - Updated CUPS to require support for `poll` API.
 - Updated `cupsArray` APIs to support modern naming and types.
+- Updated IPP Everywhere printer creation error reporting (Issue #347)
 - Updated internal usage of CUPS array API to include callback pointer even when
   not used (Issue #674)
 - Updated `cups_enum_dests()` timeout for listing available IPP printers

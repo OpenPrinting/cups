@@ -50,8 +50,6 @@ typedef AvahiStringList *cupsd_txt_t;	/* TXT record */
  * Printer/class information structure...
  */
 
-typedef struct cupsd_job_s cupsd_job_t;
-
 struct cupsd_printer_s
 {
   cups_rwlock_t lock;			/* Concurrency lock for background updates */

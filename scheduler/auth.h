@@ -98,8 +98,6 @@ typedef struct
   http_encryption_t	encryption;	/* To encrypt or not to encrypt... */
 } cupsd_location_t;
 
-typedef struct cupsd_client_s cupsd_client_t;
-
 
 /*
  * Globals...
