@@ -5601,7 +5601,7 @@ create_local_printer(
     goto add_printer_attributes;
   }
 
-  for (printer = (cupsd_printer_t *)cupsArrayGetFirst(Printers); printer; printer = (cupsd_printer_t *)cupsArrayGetNext(Printers))
+  for (printer = (cupsd_printer_t *)cupsArrayFirst(Printers); printer; printer = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
     if (printer->device_uri && !strcmp(ptr, printer->device_uri))
     {
