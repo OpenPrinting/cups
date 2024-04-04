@@ -105,7 +105,7 @@ cupsdAddIPMask(
   cupsd_authmask_t	temp;		/* New host/domain mask */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddIPMask(masks=%p(%p), address=%x:%x:%x:%x, netmask=%x:%x:%x:%x)", masks, *masks, address[0], address[1], address[2], address[3], netmask[0], netmask[1], netmask[2], netmask[3]);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddIPMask(masks=%p(%p), address=%x:%x:%x:%x, netmask=%x:%x:%x:%x)", (void *)masks, (void *)*masks, address[0], address[1], address[2], address[3], netmask[0], netmask[1], netmask[2], netmask[3]);
 
   temp.type = CUPSD_AUTH_IP;
   memcpy(temp.mask.ip.address, address, sizeof(temp.mask.ip.address));
@@ -158,7 +158,7 @@ void
 cupsdAddName(cupsd_location_t *loc,	/* I - Location to add to */
              char             *name)	/* I - Name to add */
 {
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddName(loc=%p, name=\"%s\")", loc, name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddName(loc=%p, name=\"%s\")", (void *)loc, name);
 
   if (!loc->names)
     loc->names = cupsArrayNew3(NULL, NULL, NULL, 0,
@@ -188,7 +188,7 @@ cupsdAddNameMask(cups_array_t **masks,	/* IO - Masks array (created as needed) *
 			*ifptr;		/* Pointer to end of name */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddNameMask(masks=%p(%p), name=\"%s\")", masks, *masks, name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddNameMask(masks=%p(%p), name=\"%s\")", (void *)masks, (void *)*masks, name);
 
   if (!_cups_strcasecmp(name, "@LOCAL"))
   {
@@ -274,7 +274,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   con->best = cupsdFindBest(con->uri, httpGetState(con->http));
   con->type = CUPSD_AUTH_NONE;
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "con->uri=\"%s\", con->best=%p(%s)", con->uri, con->best, con->best ? con->best->location : "");
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "con->uri=\"%s\", con->best=%p(%s)", con->uri, (void *)con->best, con->best ? con->best->location : "");
 
   if (con->best && con->best->type != CUPSD_AUTH_NONE)
   {
@@ -1143,7 +1143,7 @@ cupsdCheckGroup(
 #endif /* HAVE_MBR_UID_TO_UUID */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCheckGroup(username=\"%s\", user=%p, groupname=\"%s\")", username, user, groupname);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCheckGroup(username=\"%s\", user=%p, groupname=\"%s\")", username, (void *)user, groupname);
 
  /*
   * Validate input...
@@ -1558,7 +1558,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 		};
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: con->uri=\"%s\", con->best=%p(%s)", con->uri, con->best, con->best ? con->best->location ? con->best->location : "(null)" : "");
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: con->uri=\"%s\", con->best=%p(%s)", con->uri, (void *)con->best, con->best ? con->best->location ? con->best->location : "(null)" : "");
   if (owner)
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: owner=\"%s\"", owner);
 
@@ -2129,7 +2129,6 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
 
   free(snap_name);
   g_clear_object(&snap);
-
 #  endif // CUPS_SNAP
 
   done:
@@ -2140,6 +2139,8 @@ check_admin_access(cupsd_client_t *con) // I - Client connection
   return (ret);
 
 #else
+  (void)con;
+
   // No AppArmor/snapd to deal with...
   return (1);
 #endif // HAVE_LIBAPPARMOR && HAVE_LIBSNAPDGLIB

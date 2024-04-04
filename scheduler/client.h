@@ -42,6 +42,8 @@ struct cupsd_client_s
 			*query_string;	/* QUERY_STRING environment variable */
   int			file;		/* Input/output file */
   int			file_ready;	/* Input ready on file/pipe? */
+  int			bg_pending;	/* Background response pending? */
+  cupsd_printer_t	*bg_printer;	/* Background printer */
   int			pipe_pid;	/* Pipe process ID (or 0 if not a pipe) */
   http_status_t		pipe_status;	/* HTTP status from pipe process */
   int			sent_header,	/* Non-zero if sent HTTP header */

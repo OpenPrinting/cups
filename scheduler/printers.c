@@ -620,7 +620,7 @@ cupsdDeletePrinter(
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdDeletePrinter(p=%p(%s), update=%d)",
-                  p, p->name, update);
+                  (void *)p, p->name, update);
 
  /*
   * Save the current position in the Printers array...
@@ -2550,7 +2550,7 @@ cupsdSetPrinterReasons(
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
-		  "cupsdSetPrinterReasons(p=%p(%s),s=\"%s\"", p, p->name, s);
+		  "cupsdSetPrinterReasons(p=%p(%s),s=\"%s\"", (void *)p, p->name, s);
 
   if (s[0] == '-' || s[0] == '+')
   {
@@ -3396,7 +3396,7 @@ add_printer_filter(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "add_printer_filter(p=%p(%s), filtertype=%p(%s/%s), "
-		  "filter=\"%s\")", p, p->name, filtertype, filtertype->super,
+		  "filter=\"%s\")", (void *)p, p->name, (void *)filtertype, filtertype->super,
 		  filtertype->type, filter);
 
  /*

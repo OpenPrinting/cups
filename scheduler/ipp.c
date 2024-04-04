@@ -73,7 +73,7 @@ static void	copy_subscription_attrs(cupsd_client_t *con,
 					cups_array_t *ra,
 					cups_array_t *exclude);
 static void	create_job(cupsd_client_t *con, ipp_attribute_t *uri);
-static void	*create_local_bg_thread(cupsd_printer_t *printer);
+static void	*create_local_bg_thread(cupsd_client_t *con);
 static void	create_local_printer(cupsd_client_t *con);
 static cups_array_t *create_requested_array(ipp_t *request);
 static void	create_subscriptions(cupsd_client_t *con, ipp_attribute_t *uri);
@@ -111,6 +111,7 @@ static void	send_document(cupsd_client_t *con, ipp_attribute_t *uri);
 static void	send_http_error(cupsd_client_t *con, http_status_t status,
 		                cupsd_printer_t *printer);
 static void	send_ipp_status(cupsd_client_t *con, ipp_status_t status, const char *message, ...) _CUPS_FORMAT(3, 4);
+static int	send_response(cupsd_client_t *con);
 static void	set_default(cupsd_client_t *con, ipp_attribute_t *uri);
 static void	set_job_attrs(cupsd_client_t *con, ipp_attribute_t *uri);
 static void	set_printer_attrs(cupsd_client_t *con, ipp_attribute_t *uri);
@@ -143,7 +144,7 @@ cupsdProcessIPPRequest(
   int			valid = 1;	/* Valid request? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdProcessIPPRequest(%p[%d]): operation_id=%04x(%s)", con, con->number, con->request->request.op.operation_id, ippOpString(con->request->request.op.operation_id));
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdProcessIPPRequest(%p[%d]): operation_id=%04x(%s)", (void *)con, con->number, con->request->request.op.operation_id, ippOpString(con->request->request.op.operation_id));
 
   if (LogLevel >= CUPSD_LOG_DEBUG2)
   {
@@ -615,68 +616,13 @@ cupsdProcessIPPRequest(
     }
   }
 
-  if (con->response)
+  if (!con->bg_pending && con->response)
   {
    /*
     * Sending data from the scheduler...
     */
 
-    cupsdLogClient(con, con->response->request.status.status_code >= IPP_STATUS_ERROR_BAD_REQUEST && con->response->request.status.status_code != IPP_STATUS_ERROR_NOT_FOUND ? CUPSD_LOG_ERROR : CUPSD_LOG_DEBUG, "Returning IPP %s for %s (%s) from %s.",  ippErrorString(con->response->request.status.status_code), ippOpString(con->request->request.op.operation_id), uri ? uri->values[0].string.text : "no URI", con->http->hostname);
-
-    httpClearFields(con->http);
-
-#ifdef CUPSD_USE_CHUNKING
-   /*
-    * Because older versions of CUPS (1.1.17 and older) and some IPP
-    * clients do not implement chunking properly, we cannot use
-    * chunking by default.  This may become the default in future
-    * CUPS releases, or we might add a configuration directive for
-    * it.
-    */
-
-    if (con->http->version == HTTP_1_1)
-    {
-      cupsdLogClient(con, CUPSD_LOG_DEBUG, "Transfer-Encoding: chunked");
-      cupsdSetLength(con->http, 0);
-    }
-    else
-#endif /* CUPSD_USE_CHUNKING */
-    {
-      size_t	length;			/* Length of response */
-
-
-      length = ippLength(con->response);
-
-      if (con->file >= 0 && !con->pipe_pid)
-      {
-	struct stat	fileinfo;	/* File information */
-
-	if (!fstat(con->file, &fileinfo))
-	  length += (size_t)fileinfo.st_size;
-      }
-
-      cupsdLogClient(con, CUPSD_LOG_DEBUG, "Content-Length: " CUPS_LLFMT, CUPS_LLCAST length);
-      httpSetLength(con->http, length);
-    }
-
-    if (cupsdSendHeader(con, HTTP_OK, "application/ipp", CUPSD_AUTH_NONE))
-    {
-     /*
-      * Tell the caller the response header was sent successfully...
-      */
-
-      cupsdAddSelect(httpGetFd(con->http), (cupsd_selfunc_t)cupsdReadClient, (cupsd_selfunc_t)cupsdWriteClient, con);
-
-      return (1);
-    }
-    else
-    {
-     /*
-      * Tell the caller the response header could not be sent...
-      */
-
-      return (0);
-    }
+    return (send_response(con));
   }
   else
   {
@@ -747,7 +693,7 @@ accept_jobs(cupsd_client_t  *con,	/* I - Client connection */
   cupsd_printer_t *printer;		/* Printer data */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "accept_jobs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "accept_jobs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -832,7 +778,7 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
   int		need_restart_job;	/* Need to restart job? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "add_class(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "add_class(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -1142,7 +1088,7 @@ add_file(cupsd_client_t *con,		/* I - Connection to client */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
         	  "add_file(con=%p[%d], job=%d, filetype=%s/%s, "
-		  "compression=%d)", con, con ? con->number : -1, job->id,
+		  "compression=%d)", (void *)con, con ? con->number : -1, job->id,
 		  filetype->super, filetype->type, compression);
 
  /*
@@ -1245,8 +1191,8 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "add_job(%p[%d], %p(%s), %p(%s/%s))",
-                  con, con->number, printer, printer->name,
-		  filetype, filetype ? filetype->super : "none",
+                  (void *)con, con->number, (void *)printer, printer->name,
+		  (void *)filetype, filetype ? filetype->super : "none",
 		  filetype ? filetype->type : "none");
 
  /*
@@ -2226,7 +2172,7 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 		set_port_monitor;	/* Did we set the port monitor? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "add_printer(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "add_printer(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -2717,8 +2663,21 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 	return;
       }
 
-      // Run a background thread to create the PPD...
-      _cupsThreadCreate((_cups_thread_func_t)create_local_bg_thread, printer);
+      if (!printer->printer_id)
+	printer->printer_id = NextPrinterId ++;
+
+      cupsdMarkDirty(CUPSD_DIRTY_PRINTERS);
+
+      cupsdSetPrinterAttrs(printer);
+
+      /* Run a background thread to create the PPD... */
+      cupsdLogClient(con, CUPSD_LOG_DEBUG, "Creating PPD in background thread.");
+
+      con->bg_pending = 1;
+      con->bg_printer = printer;
+
+      _cupsThreadCreate((_cups_thread_func_t)create_local_bg_thread, con);
+      return;
     }
     else if (!strcmp(ppd_name, "raw"))
     {
@@ -2883,7 +2842,7 @@ add_printer_state_reasons(
 {
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "add_printer_state_reasons(%p[%d], %p[%s])",
-                  con, con->number, p, p->name);
+                  (void *)con, con->number, (void *)p, p->name);
 
   if (p->num_reasons == 0)
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
@@ -2909,7 +2868,7 @@ add_queued_job_count(
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "add_queued_job_count(%p[%d], %p[%s])",
-                  con, con->number, p, p->name);
+                  (void *)con, con->number, (void *)p, p->name);
 
   count = cupsdGetPrinterJobCount(p->name);
 
@@ -2999,7 +2958,7 @@ authenticate_job(cupsd_client_t  *con,	/* I - Client connection */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "authenticate_job(%p[%d], %s)",
-                  con, con->number, uri->values[0].string.text);
+                  (void *)con, con->number, uri->values[0].string.text);
 
  /*
   * Start with "everything is OK" status...
@@ -3177,7 +3136,7 @@ cancel_all_jobs(cupsd_client_t  *con,	/* I - Client connection */
   cupsd_job_t	*job;			/* Job */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cancel_all_jobs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cancel_all_jobs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -3414,7 +3373,7 @@ cancel_job(cupsd_client_t  *con,	/* I - Client connection */
   cupsd_jobaction_t purge;		/* Purge the job? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cancel_job(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cancel_job(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -3615,7 +3574,7 @@ cancel_subscription(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "cancel_subscription(con=%p[%d], sub_id=%d)",
-                  con, con->number, sub_id);
+                  (void *)con, con->number, sub_id);
 
  /*
   * Is the subscription ID valid?
@@ -3721,7 +3680,7 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "check_quotas(%p[%d], %p[%s])",
-                  con, con->number, p, p->name);
+                  (void *)con, con->number, (void *)p, p->name);
 
  /*
   * Figure out who is printing...
@@ -3943,7 +3902,7 @@ close_job(cupsd_client_t  *con,		/* I - Client connection */
 			username[256];	/* User name */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "close_job(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "close_job(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -4063,7 +4022,7 @@ copy_attrs(ipp_t        *to,		/* I - Destination request */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "copy_attrs(to=%p, from=%p, ra=%p, group=%x, quickcopy=%d)",
-		  to, from, ra, group, quickcopy);
+		  (void *)to, (void *)from, (void *)ra, group, quickcopy);
 
   if (!to || !from)
     return;
@@ -4147,7 +4106,7 @@ copy_banner(cupsd_client_t *con,	/* I - Client connection */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "copy_banner(con=%p[%d], job=%p[%d], name=\"%s\")",
-                  con, con ? con->number : -1, job, job->id,
+                  (void *)con, con ? con->number : -1, (void *)job, job->id,
 		  name ? name : "(null)");
 
  /*
@@ -4492,7 +4451,7 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
 					/* cupsProtocol attribute */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "copy_model(con=%p, from=\"%s\", to=\"%s\")", con, from, to);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "copy_model(con=%p, from=\"%s\", to=\"%s\")", (void *)con, from, to);
 
  /*
   * Run cups-driverd to get the PPD file...
@@ -5106,7 +5065,7 @@ copy_subscription_attrs(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "copy_subscription_attrs(con=%p, sub=%p, ra=%p, exclude=%p)",
-		  con, sub, ra, exclude);
+		  (void *)con, (void *)sub, (void *)ra, (void *)exclude);
 
  /*
   * Copy the subscription attributes to the response using the
@@ -5220,7 +5179,7 @@ create_job(cupsd_client_t  *con,	/* I - Client connection */
   };
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "create_job(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "create_job(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -5285,11 +5244,14 @@ create_job(cupsd_client_t  *con,	/* I - Client connection */
 
 static void *				/* O - Exit status */
 create_local_bg_thread(
-    cupsd_printer_t *printer)		/* I - Printer */
+    cupsd_client_t *con)		/* I - Client */
 {
+  cupsd_printer_t *printer = con->bg_printer;
+					/* Printer */
   cups_file_t	*from,			/* Source file */
 		*to;			/* Destination file */
-  char		fromppd[1024],		/* Source PPD */
+  char		device_uri[1024],	/* Device URI */
+		fromppd[1024],		/* Source PPD */
 		toppd[1024],		/* Destination PPD */
 		scheme[32],		/* URI scheme */
 		userpass[256],		/* User:pass */
@@ -5301,7 +5263,7 @@ create_local_bg_thread(
   http_encryption_t encryption;		/* Type of encryption to use */
   http_t	*http;			/* Connection to printer */
   ipp_t		*request,		/* Request to printer */
-		*response;		/* Response from printer */
+		*response = NULL;	/* Response from printer */
   ipp_attribute_t *attr;		/* Attribute in response */
   ipp_status_t	status;			/* Status code */
   static const char * const pattrs[] =	/* Printer attributes we need */
@@ -5315,26 +5277,47 @@ create_local_bg_thread(
   * Try connecting to the printer...
   */
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Generating PPD file from \"%s\"...", printer->name, printer->device_uri);
+  _cupsRWLockRead(&printer->lock);
+  strlcpy(device_uri, printer->device_uri, sizeof(device_uri));
+  _cupsRWUnlock(&printer->lock);
 
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Generating PPD file from \"%s\"...", printer->name, device_uri);
 
-  if (strstr(printer->device_uri, "._tcp"))
+  if (strstr(device_uri, "._tcp"))
   {
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "%s: Resolving mDNS URI \"%s\".", printer->name, printer->device_uri);
+    cupsdLogMessage(CUPSD_LOG_DEBUG2, "%s: Resolving mDNS URI \"%s\".", printer->name, device_uri);
 
-    if (!_httpResolveURI(printer->device_uri, uri, sizeof(uri), _HTTP_RESOLVE_DEFAULT, NULL, NULL))
+    if (!_httpResolveURI(device_uri, uri, sizeof(uri), _HTTP_RESOLVE_DEFAULT, NULL, NULL))
     {
-      cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Couldn't resolve mDNS URI \"%s\".", printer->name, printer->device_uri);
-      return (NULL);
+      cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Couldn't resolve mDNS URI \"%s\".", printer->name, device_uri);
+
+      /* Force printer to timeout and be deleted */
+      _cupsRWLockWrite(&printer->lock);
+      printer->state_time = 0;
+      _cupsRWUnlock(&printer->lock);
+
+      send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Couldn't resolve mDNS URI \"%s\"."), printer->device_uri);
+      goto finish_response;
     }
 
+    _cupsRWLockWrite(&printer->lock);
     cupsdSetString(&printer->device_uri, uri);
+    _cupsRWUnlock(&printer->lock);
+
+    strlcpy(device_uri, uri, sizeof(device_uri));
   }
 
-  if (httpSeparateURI(HTTP_URI_CODING_ALL, printer->device_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+  if (httpSeparateURI(HTTP_URI_CODING_ALL, device_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
   {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Bad device URI \"%s\".", printer->name, printer->device_uri);
-    return (NULL);
+    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Bad device URI \"%s\".", printer->name, device_uri);
+
+    /* Force printer to timeout and be deleted */
+    _cupsRWLockWrite(&printer->lock);
+    printer->state_time = 0;
+    _cupsRWUnlock(&printer->lock);
+
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Bad device URI \"%s\"."), device_uri);
+    goto finish_response;
   }
 
   if (!strcmp(scheme, "ipps") || port == 443)
@@ -5345,7 +5328,14 @@ create_local_bg_thread(
   if ((http = httpConnect2(host, port, NULL, AF_UNSPEC, encryption, 1, 30000, NULL)) == NULL)
   {
     cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to connect to %s:%d: %s", printer->name, host, port, cupsLastErrorString());
-    return (NULL);
+
+    /* Force printer to timeout and be deleted */
+    _cupsRWLockWrite(&printer->lock);
+    printer->state_time = 0;
+    _cupsRWUnlock(&printer->lock);
+
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to connect to %s:%d: %s"), host, port, cupsLastErrorString());
+    goto finish_response;
   }
 
  /*
@@ -5389,6 +5379,7 @@ create_local_bg_thread(
   * If we did not succeed to obtain the "media-col-database" attribute
   * try to get it separately
   */
+
   if (ippFindAttribute(response, "media-col-database", IPP_TAG_ZERO) ==
       NULL)
   {
@@ -5451,17 +5442,29 @@ create_local_bg_thread(
     if ((from = cupsFileOpen(fromppd, "r")) == NULL)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to read generated PPD: %s", printer->name, strerror(errno));
-      ippDelete(response);
-      return (NULL);
+
+      /* Force printer to timeout and be deleted */
+      _cupsRWLockWrite(&printer->lock);
+      printer->state_time = 0;
+      _cupsRWUnlock(&printer->lock);
+
+      send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to read generated PPD: %s"), strerror(errno));
+      goto finish_response;
     }
 
     snprintf(toppd, sizeof(toppd), "%s/ppd/%s.ppd", ServerRoot, printer->name);
     if ((to = cupsdCreateConfFile(toppd, ConfigFilePerm)) == NULL)
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to create PPD for printer: %s", printer->name, strerror(errno));
-      ippDelete(response);
       cupsFileClose(from);
-      return (NULL);
+
+      /* Force printer to timeout and be deleted */
+      _cupsRWLockWrite(&printer->lock);
+      printer->state_time = 0;
+      _cupsRWUnlock(&printer->lock);
+
+      send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to create PPD for printer: %s"), strerror(errno));
+      goto finish_response;
     }
 
     while (cupsFileGets(from, line, sizeof(line)))
@@ -5470,9 +5473,13 @@ create_local_bg_thread(
     cupsFileClose(from);
     if (!cupsdCloseCreatedConfFile(to, toppd))
     {
+      _cupsRWLockWrite(&printer->lock);
+
       printer->config_time = time(NULL);
       printer->state       = IPP_PSTATE_IDLE;
       printer->accepting   = 1;
+
+      _cupsRWUnlock(&printer->lock);
 
       cupsdSetPrinterAttrs(printer);
 
@@ -5481,9 +5488,38 @@ create_local_bg_thread(
     }
   }
   else
+  {
     cupsdLogMessage(CUPSD_LOG_ERROR, "%s: PPD creation failed: %s", printer->name, cupsLastErrorString());
 
+    /* Force printer to timeout and be deleted */
+    _cupsRWLockWrite(&printer->lock);
+    printer->state_time = 0;
+    _cupsRWUnlock(&printer->lock);
+
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to create PPD: %s"), cupsLastErrorString());
+    goto finish_response;
+  }
+
+ /*
+  * Respond to the client...
+  */
+
+  send_ipp_status(con, IPP_STATUS_OK, _("Local printer created."));
+
+  ippAddBoolean(con->response, IPP_TAG_PRINTER, "printer-is-accepting-jobs", (char)printer->accepting);
+  ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state", (int)printer->state);
+  add_printer_state_reasons(con, printer);
+
+  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), httpIsEncrypted(con->http) ? "ipps" : "ipp", NULL, con->clientname, con->clientport, "/printers/%s", printer->name);
+  ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-uri-supported", NULL, uri);
+
+  finish_response:
+
   ippDelete(response);
+
+  con->bg_pending = 0;
+
+  send_response(con);
 
   return (NULL);
 }
@@ -5697,13 +5733,16 @@ create_local_printer(
   * Run a background thread to create the PPD...
   */
 
-  _cupsThreadCreate((_cups_thread_func_t)create_local_bg_thread, printer);
+  con->bg_pending = 1;
+  con->bg_printer = printer;
+
+  _cupsThreadCreate((_cups_thread_func_t)create_local_bg_thread, con);
+
+  return;
 
  /*
   * Return printer attributes...
   */
-
-  send_ipp_status(con, IPP_STATUS_OK, _("Local printer created."));
 
   add_printer_attributes:
 
@@ -5810,7 +5849,7 @@ create_subscriptions(
   * Is the destination valid?
   */
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "create_subscriptions(con=%p(%d), uri=\"%s\")", con, con->number, uri->values[0].string.text);
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "create_subscriptions(con=%p(%d), uri=\"%s\")", (void *)con, con->number, uri->values[0].string.text);
 
   httpSeparateURI(HTTP_URI_CODING_ALL, uri->values[0].string.text, scheme,
                   sizeof(scheme), userpass, sizeof(userpass), host,
@@ -6158,7 +6197,7 @@ delete_printer(cupsd_client_t  *con,	/* I - Client connection */
   int		temporary;		/* Temporary queue? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "delete_printer(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "delete_printer(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -6271,7 +6310,7 @@ get_default(cupsd_client_t *con)	/* I - Client connection */
   cups_array_t	*ra;			/* Requested attributes array */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_default(%p[%d])", con, con->number);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_default(%p[%d])", (void *)con, con->number);
 
  /*
   * Check policy...
@@ -6321,7 +6360,7 @@ get_devices(cupsd_client_t *con)	/* I - Client connection */
 					/* String for included schemes */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_devices(%p[%d])", con, con->number);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_devices(%p[%d])", (void *)con, con->number);
 
  /*
   * Check policy...
@@ -6414,7 +6453,7 @@ get_document(cupsd_client_t  *con,	/* I - Client connection */
 		format[1024];		/* Format for document */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_document(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_document(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -6561,7 +6600,7 @@ get_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
 		*exclude;		/* Private attributes array */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_job_attrs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_job_attrs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -6692,7 +6731,7 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
   cupsd_policy_t *policy;		/* Current policy */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_jobs(%p[%d], %s)", con, con->number,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_jobs(%p[%d], %s)", (void *)con, con->number,
                   uri->values[0].string.text);
 
  /*
@@ -7003,7 +7042,7 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
       cupsdLogMessage(CUPSD_LOG_DEBUG2,
 		      "get_jobs: job->id=%d, dest=\"%s\", username=\"%s\", "
 		      "state_value=%d, attrs=%p", job->id, job->dest,
-		      job->username, job->state_value, job->attrs);
+		      job->username, job->state_value, (void *)job->attrs);
 
       if (!job->dest || !job->username)
 	cupsdLoadJob(job);
@@ -7082,7 +7121,7 @@ get_notifications(cupsd_client_t *con)	/* I - Client connection */
 
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_notifications(con=%p[%d])",
-                  con, con->number);
+                  (void *)con, con->number);
 
  /*
   * Get subscription attributes...
@@ -7215,8 +7254,8 @@ get_ppd(cupsd_client_t  *con,		/* I - Client connection */
   cups_ptype_t		dtype;		/* Destination type */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_ppd(%p[%d], %p[%s=%s])", con,
-                  con->number, uri, uri->name, uri->values[0].string.text);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_ppd(%p[%d], %p[%s=%s])", (void *)con,
+                  con->number, (void *)uri, uri->name, uri->values[0].string.text);
 
   if (!strcmp(ippGetName(uri), "ppd-name"))
   {
@@ -7388,7 +7427,7 @@ get_ppds(cupsd_client_t *con)		/* I - Client connection */
 					/* String for included schemes */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_ppds(%p[%d])", con, con->number);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_ppds(%p[%d])", (void *)con, con->number);
 
  /*
   * Check policy...
@@ -7532,7 +7571,7 @@ get_printer_attrs(cupsd_client_t  *con,	/* I - Client connection */
   cups_array_t		*ra;		/* Requested attributes array */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_printer_attrs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_printer_attrs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -7588,7 +7627,7 @@ get_printer_supported(
   cupsd_printer_t	*printer;	/* Printer/class */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_printer_supported(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_printer_supported(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -7658,7 +7697,7 @@ get_printers(cupsd_client_t *con,	/* I - Client connection */
   int		local;			/* Local connection? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_printers(%p[%d], %x)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "get_printers(%p[%d], %x)", (void *)con,
                   con->number, type);
 
  /*
@@ -7819,7 +7858,7 @@ get_subscription_attrs(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "get_subscription_attrs(con=%p[%d], sub_id=%d)",
-                  con, con->number, sub_id);
+                  (void *)con, con->number, sub_id);
 
  /*
   * Expire subscriptions as needed...
@@ -7906,7 +7945,7 @@ get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "get_subscriptions(con=%p[%d], uri=%s)",
-                  con, con->number, uri->values[0].string.text);
+                  (void *)con, con->number, uri->values[0].string.text);
 
  /*
   * Is the destination valid?
@@ -8074,7 +8113,7 @@ hold_job(cupsd_client_t  *con,		/* I - Client connection */
   cupsd_job_t	*job;			/* Job information */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "hold_job(%p[%d], %s)", con, con->number,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "hold_job(%p[%d], %s)", (void *)con, con->number,
                   uri->values[0].string.text);
 
  /*
@@ -8205,7 +8244,7 @@ hold_new_jobs(cupsd_client_t  *con,	/* I - Connection */
   cupsd_printer_t	*printer;	/* Printer data */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "hold_new_jobs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "hold_new_jobs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -8282,7 +8321,7 @@ move_job(cupsd_client_t  *con,		/* I - Client connection */
 		*dprinter;		/* Destination printer */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "move_job(%p[%d], %s)", con, con->number,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "move_job(%p[%d], %s)", (void *)con, con->number,
                   uri->values[0].string.text);
 
  /*
@@ -8611,7 +8650,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   int		compression;		/* Document compression */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "print_job(%p[%d], %s)", con, con->number,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "print_job(%p[%d], %s)", (void *)con, con->number,
                   uri->values[0].string.text);
 
  /*
@@ -9062,7 +9101,7 @@ reject_jobs(cupsd_client_t  *con,	/* I - Client connection */
   ipp_attribute_t *attr;		/* printer-state-message text */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "reject_jobs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "reject_jobs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -9144,7 +9183,7 @@ release_held_new_jobs(
   cupsd_printer_t	*printer;	/* Printer data */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "release_held_new_jobs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "release_held_new_jobs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -9217,7 +9256,7 @@ release_job(cupsd_client_t  *con,	/* I - Client connection */
   cupsd_job_t	*job;			/* Job information */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "release_job(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "release_job(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -9354,7 +9393,7 @@ renew_subscription(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "renew_subscription(con=%p[%d], sub_id=%d)",
-                  con, con->number, sub_id);
+                  (void *)con, con->number, sub_id);
 
  /*
   * Is the subscription ID valid?
@@ -9441,7 +9480,7 @@ restart_job(cupsd_client_t  *con,	/* I - Client connection */
   int		port;			/* Port portion of URI */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "restart_job(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "restart_job(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -9792,7 +9831,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
   int			start_job;	/* Start the job? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "send_document(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "send_document(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -10304,6 +10343,82 @@ send_ipp_status(cupsd_client_t *con,	/* I - Client connection */
 
 
 /*
+ * 'send_response()' - Send the IPP response.
+ */
+
+static int				/* O - 1 on success, 0 on failure */
+send_response(cupsd_client_t *con)	/* I - Client */
+{
+  ipp_attribute_t	*uri;		/* Target URI */
+  int			ret = 0;	/* Return value */
+  static _cups_mutex_t	mutex = _CUPS_MUTEX_INITIALIZER;
+					/* Mutex for logging/access */
+
+
+  _cupsMutexLock(&mutex);
+
+  if ((uri = ippFindAttribute(con->request, "printer-uri", IPP_TAG_URI)) == NULL)
+  {
+    if ((uri = ippFindAttribute(con->request, "job-uri", IPP_TAG_URI)) == NULL)
+      uri = ippFindAttribute(con->request, "ppd-name", IPP_TAG_NAME);
+  }
+
+  cupsdLogClient(con, con->response->request.status.status_code >= IPP_STATUS_ERROR_BAD_REQUEST && con->response->request.status.status_code != IPP_STATUS_ERROR_NOT_FOUND ? CUPSD_LOG_ERROR : CUPSD_LOG_DEBUG, "Returning IPP %s for %s (%s) from %s.",  ippErrorString(con->response->request.status.status_code), ippOpString(con->request->request.op.operation_id), uri ? uri->values[0].string.text : "no URI", con->http->hostname);
+
+  httpClearFields(con->http);
+
+#ifdef CUPSD_USE_CHUNKING
+ /*
+  * Because older versions of CUPS (1.1.17 and older) and some IPP
+  * clients do not implement chunking properly, we cannot use
+  * chunking by default.  This may become the default in future
+  * CUPS releases, or we might add a configuration directive for
+  * it.
+  */
+
+  if (con->http->version == HTTP_1_1)
+  {
+    cupsdLogClient(con, CUPSD_LOG_DEBUG, "Transfer-Encoding: chunked");
+    cupsdSetLength(con->http, 0);
+  }
+  else
+#endif /* CUPSD_USE_CHUNKING */
+  {
+    size_t	length;			/* Length of response */
+
+
+    length = ippLength(con->response);
+
+    if (con->file >= 0 && !con->pipe_pid)
+    {
+      struct stat	fileinfo;	/* File information */
+
+      if (!fstat(con->file, &fileinfo))
+	length += (size_t)fileinfo.st_size;
+    }
+
+    cupsdLogClient(con, CUPSD_LOG_DEBUG, "Content-Length: " CUPS_LLFMT, CUPS_LLCAST length);
+    httpSetLength(con->http, length);
+  }
+
+  if (cupsdSendHeader(con, HTTP_STATUS_OK, "application/ipp", CUPSD_AUTH_NONE))
+  {
+   /*
+    * Tell the caller the response header was sent successfully...
+    */
+
+    cupsdAddSelect(httpGetFd(con->http), (cupsd_selfunc_t)cupsdReadClient, (cupsd_selfunc_t)cupsdWriteClient, con);
+
+    ret = 1;
+  }
+
+  _cupsMutexUnlock(&mutex);
+
+  return (ret);
+}
+
+
+/*
  * 'set_default()' - Set the default destination...
  */
 
@@ -10317,7 +10432,7 @@ set_default(cupsd_client_t  *con,	/* I - Client connection */
 			*oldprinter;	/* Old default printer */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "set_default(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "set_default(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -10399,7 +10514,7 @@ set_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
   int			check_jobs;	/* Check jobs? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "set_job_attrs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "set_job_attrs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -10779,7 +10894,7 @@ set_printer_attrs(cupsd_client_t  *con,	/* I - Client connection */
   int			changed = 0;	/* Was anything changed? */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "set_printer_attrs(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "set_printer_attrs(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -11125,7 +11240,7 @@ start_printer(cupsd_client_t  *con,	/* I - Client connection */
   cupsd_printer_t	*printer;	/* Printer data */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "start_printer(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "start_printer(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -11207,7 +11322,7 @@ stop_printer(cupsd_client_t  *con,	/* I - Client connection */
   ipp_attribute_t	*attr;		/* printer-state-message attribute */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "stop_printer(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "stop_printer(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -11449,7 +11564,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
   cupsd_printer_t	*printer;	/* Printer */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "validate_job(%p[%d], %s)", con,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "validate_job(%p[%d], %s)", (void *)con,
                   con->number, uri->values[0].string.text);
 
  /*
@@ -11642,7 +11757,7 @@ validate_user(cupsd_job_t    *job,	/* I - Job */
   cupsd_printer_t	*printer;	/* Printer for job */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "validate_user(job=%d, con=%d, owner=\"%s\", username=%p, userlen=" CUPS_LLFMT ")", job->id, con ? con->number : 0, owner ? owner : "(null)", username, CUPS_LLCAST userlen);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "validate_user(job=%d, con=%d, owner=\"%s\", username=%p, userlen=" CUPS_LLFMT ")", job->id, con ? con->number : 0, owner ? owner : "(null)", (void *)username, CUPS_LLCAST userlen);
 
  /*
   * Validate input...
