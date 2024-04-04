@@ -4,28 +4,33 @@ CHANGES - OpenPrinting CUPS 2.4.8 - TBA
 Changes in CUPS v2.4.8 (TBA)
 ----------------------------
 
-- Added warning if the device has to be asked for 'all,media-col-database' separately
-  (Issue #829)
+- Added warning if the device has to be asked for 'all,media-col-database'
+  separately (Issue #829)
 - Added new value for 'lpstat' option '-W' - successfull - for getting
   successfully printed jobs (Issue #830)
 - Added support for PAM modules password-auth and system-auth (Issue #892)
-- Raised `cups_enum_dests()` timeout for listing available IPP printers (Issue #751)
+- Raised `cups_enum_dests()` timeout for listing available IPP printers
+  (Issue #751)
 - Fixed the web interface not showing an error for a non-existent printer
   (Issue #423)
-- Fixed printing of jobs with job name longer than 255 chars on older printers (Issue #644)
+- Fixed printing of jobs with job name longer than 255 chars on older printers
+  (Issue #644)
 - Really backport fix for Issue #742
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed memory leak when creating color profiles (Issue #815)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed setting job state reasons for successful jobs (Issue #832)
-- Fixed infinite loop in IPP backend if hostname is IP address with Kerberos (Issue #838)
+- Fixed infinite loop in IPP backend if hostname is IP address with Kerberos
+  (Issue #838)
 - Added additional check on socket if `revents` from `poll()` returns POLLHUP
   together with POLLIN or POLLOUT in `httpAddrConnect2()` (Issue #839)
 - Fixed crash in `ppdEmitString()` if `size` is NULL (Issue #850)
-- Fixed reporting `media-source-supported` when sharing printer which has numbers as strings
-  instead of keywords as `InputSlot` values (Issue #859)
+- Fixed reporting `media-source-supported` when sharing printer which has
+  numbers as strings instead of keywords as `InputSlot` values (Issue #859)
 - Fixed IPP backend to support the "print-scaling" option with IPP printers
   (Issue #862)
+- Fixed potential race condition for the creation of temporary queues
+  (Issue #871)
 - Fixed `httpGets` timeout handling (Issue #879)
 - Fixed checking for required attributes during PPD generation (Issue #890)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
