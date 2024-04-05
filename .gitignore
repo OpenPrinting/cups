@@ -162,4 +162,5 @@
 /vcnet/x64
 /xcode/CUPS.xcodeproj/project.xcworkspace/
 /xcode/CUPS.xcodeproj/xcuserdata/
-
+.DS_store
+container-config

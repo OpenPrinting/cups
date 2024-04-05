@@ -185,3 +185,29 @@ logging:
   the messages to stderr.  Prefix a filename with "+" to append to an existing
   file.  You can include a single "%d" in the filename to embed the current
   process ID.
+
+Build Using Docker
+------------------
+
+### Prerequisites
+
+- Docker installed on your system
+
+### Build and Run
+
+To build and run CUPS using Docker, follow these steps:
+
+1. Clone this repository to your local machine.
+
+2. Navigate to the root directory of the cloned repository.
+
+3. Run the following command to start the Docker containers in the background:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+4. To start interactive terminal in container
+    ```bash
+    docker exec -it cups /bin/bash
+    ```
