@@ -392,6 +392,7 @@ extern char		*cupsCopyCredentialsRequest(const char *path, const char *common_na
 extern int		cupsCopyDest(cups_dest_t *dest, int num_dests, cups_dest_t **dests) _CUPS_PUBLIC;
 extern int		cupsCopyDestConflicts(http_t *http, cups_dest_t *dest, cups_dinfo_t *info, int num_options, cups_option_t *options, const char *new_option, const char *new_value, int *num_conflicts, cups_option_t **conflicts, int *num_resolved, cups_option_t **resolved) _CUPS_PUBLIC;
 extern cups_dinfo_t	*cupsCopyDestInfo(http_t *http, cups_dest_t *dest) _CUPS_PUBLIC;
+extern cups_dinfo_t	*cupsCopyDestInfo2(http_t *http, cups_dest_t *dest, cups_dest_flags_t dflags) _CUPS_PUBLIC;
 extern size_t		cupsCopyString(char *dst, const char *src, size_t dstsize) _CUPS_PUBLIC;
 extern bool		cupsCreateCredentials(const char *path, bool ca_cert, cups_credpurpose_t purpose, cups_credtype_t type, cups_credusage_t usage, const char *organization, const char *org_unit, const char *locality, const char *state_province, const char *country, const char *common_name, const char *email, size_t num_alt_names, const char * const *alt_names, const char *root_name, time_t expiration_date) _CUPS_PUBLIC;
 extern bool		cupsCreateCredentialsRequest(const char *path, cups_credpurpose_t purpose, cups_credtype_t type, cups_credusage_t usage, const char *organization, const char *org_unit, const char *locality, const char *state_province, const char *country, const char *common_name, const char *email, size_t num_alt_names, const char * const *alt_names) _CUPS_PUBLIC;

@@ -756,7 +756,7 @@ cupsCopyDestConflicts(
  * The caller is responsible for calling @link cupsFreeDestInfo@ on the return
  * value. `NULL` is returned on error.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 cups_dinfo_t *				/* O - Destination information */
@@ -764,8 +764,71 @@ cupsCopyDestInfo(
     http_t      *http,			/* I - Connection to destination */
     cups_dest_t *dest)			/* I - Destination */
 {
+  unsigned	dflags = CUPS_DEST_FLAGS_NONE;
+					/* Destination flags */
+  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
+
+
+  DEBUG_printf("cupsCopyDestInfo(http=%p, dest=%p(%s))", (void *)http, (void *)dest, dest ? dest->name : "");
+
+ /*
+  * Range check input...
+  */
+
+  if (!dest)
+    return (NULL);
+
+ /*
+  * Guess the destination flags based on the printer URI's host and port...
+  */
+
+#ifdef AF_LOCAL
+  if (http && httpAddrFamily(http->hostaddr) != AF_LOCAL)
+#else
+  if (http)
+#endif /* AF_LOCAL */
+  {
+    const char	*uri;			/* Printer URI */
+    char	scheme[32],		/* URI scheme */
+		userpass[256],		/* URI username:password */
+		host[256],		/* URI host */
+		resource[1024];		/* URI resource path */
+    int		port;			/* URI port */
+
+    if ((uri = cupsGetOption("printer-uri-supported", dest->num_options, dest->options)) == NULL || httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+    {
+      strlcpy(host, "localhost", sizeof(host));
+      port = cg->ipp_port;
+    }
+
+    if (strcmp(http->hostname, host) || port != httpAddrPort(http->hostaddr))
+    {
+      DEBUG_printf("1cupsCopyDestInfo: Connection to device (%s).", http->hostname);
+      dflags = CUPS_DEST_FLAGS_DEVICE;
+    }
+  }
+
+  return (cupsCopyDestInfo2(http, dest, dflags));
+}
+
+
+/*
+ * 'cupsCopyDestInfo2()' - Get the supported values/capabilities for the
+ *                         destination.
+ *
+ * The caller is responsible for calling @link cupsFreeDestInfo@ on the return
+ * value. `NULL` is returned on error.
+ *
+ * @since CUPS 2.5@
+ */
+
+cups_dinfo_t *				/* O - Destination information */
+cupsCopyDestInfo2(
+    http_t            *http,		/* I - Connection to destination */
+    cups_dest_t       *dest,		/* I - Destination */
+    cups_dest_flags_t dflags)		/* I - Destination flags */
+{
   cups_dinfo_t	*dinfo;			/* Destination information */
-  unsigned	dflags;			/* Destination flags */
   ipp_t		*request,		/* Get-Printer-Attributes request */
 		*response;		/* Supported attributes */
   int		tries,			/* Number of tries so far */
@@ -775,7 +838,6 @@ cupsCopyDestInfo(
   char		resource[1024];		/* URI resource path */
   int		version;		/* IPP version */
   ipp_status_t	status;			/* Status of request */
-  _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
   static const char * const requested_attrs[] =
   {					/* Requested attributes */
     "job-template",
@@ -784,7 +846,7 @@ cupsCopyDestInfo(
   };
 
 
-  DEBUG_printf("cupsCopyDestInfo(http=%p, dest=%p(%s))", (void *)http, (void *)dest, dest ? dest->name : "");
+  DEBUG_printf("cupsCopyDestInfo2(http=%p, dest=%p(%s), dflags=%x)", (void *)http, (void *)dest, dest ? dest->name : "", dflags);
 
  /*
   * Range check input...
@@ -800,43 +862,8 @@ cupsCopyDestInfo(
   if (!http)
   {
     DEBUG_puts("1cupsCopyDestInfo: Default server connection.");
-    http   = _cupsConnect();
-    dflags = CUPS_DEST_FLAGS_NONE;
-
-    if (!http)
+    if ((http = _cupsConnect()) == NULL)
       return (NULL);
-  }
-#ifdef AF_LOCAL
-  else if (httpAddrFamily(http->hostaddr) == AF_LOCAL)
-  {
-    DEBUG_puts("1cupsCopyDestInfo: Connection to server (domain socket).");
-    dflags = CUPS_DEST_FLAGS_NONE;
-  }
-#endif /* AF_LOCAL */
-  else
-  {
-    // Guess the destination flags based on the printer URI's host and port...
-    char	scheme[32],		/* URI scheme */
-		userpass[256],		/* URI username:password */
-		host[256];		/* URI host */
-    int		port;			/* URI port */
-
-    if ((uri = cupsGetOption("printer-uri-supported", dest->num_options, dest->options)) == NULL || httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
-    {
-      strlcpy(host, "localhost", sizeof(host));
-      port = cg->ipp_port;
-    }
-
-    if (strcmp(http->hostname, host) || port != httpAddrPort(http->hostaddr))
-    {
-      DEBUG_printf("1cupsCopyDestInfo: Connection to device (%s).", http->hostname);
-      dflags = CUPS_DEST_FLAGS_DEVICE;
-    }
-    else
-    {
-      DEBUG_printf("1cupsCopyDestInfo: Connection to server (%s).", http->hostname);
-      dflags = CUPS_DEST_FLAGS_NONE;
-    }
   }
 
  /*
