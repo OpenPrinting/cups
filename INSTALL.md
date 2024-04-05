@@ -211,3 +211,9 @@ To build and run CUPS using Docker, follow these steps:
     ```bash
     docker exec -it cups /bin/bash
     ```
+### Additional Information
+1. Use 'admin' as CUPS username and 'admin' as password.
+
+2. You can find the CUPS configuration files and log files in the docker-config directory of the repository on your local machine. Any changes made to these files will be reflected in the CUPS service running inside the Docker container.
+
+3. The CUPS web interface is accessible at http://localhost:631 from your web browser.
