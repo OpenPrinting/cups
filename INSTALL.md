@@ -185,35 +185,3 @@ logging:
   the messages to stderr.  Prefix a filename with "+" to append to an existing
   file.  You can include a single "%d" in the filename to embed the current
   process ID.
-
-Build Using Docker
-------------------
-
-### Prerequisites
-
-- Docker installed on your system
-
-### Build and Run
-
-To build and run CUPS using Docker, follow these steps:
-
-1. Clone this repository to your local machine.
-
-2. Navigate to the root directory of the cloned repository.
-
-3. Run the following command to start the Docker containers in the background:
-
-   ```bash
-   docker-compose up -d
-   ```
-
-4. To start interactive terminal in container
-    ```bash
-    docker exec -it cups /bin/bash
-    ```
-### Additional Information
-1. Use 'admin' as CUPS username and 'admin' as password.
-
-2. You can find the CUPS configuration files and log files in the docker-config directory of the repository on your local machine. Any changes made to these files will be reflected in the CUPS service running inside the Docker container.
-
-3. The CUPS web interface is accessible at http://localhost:631 from your web browser.
