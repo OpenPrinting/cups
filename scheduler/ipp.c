@@ -11015,6 +11015,9 @@ set_printer_defaults(
       * Only allow keywords and names...
       */
 
+      if (printer->temporary)
+        goto temporary_printer;
+
       if (attr->value_tag != IPP_TAG_NAME && attr->value_tag != IPP_TAG_KEYWORD)
         continue;
 
@@ -11035,6 +11038,9 @@ set_printer_defaults(
     }
     else if (!strcmp(attr->name, "requesting-user-name-allowed"))
     {
+      if (printer->temporary)
+        goto temporary_printer;
+
       cupsdFreeStrings(&(printer->users));
 
       printer->deny_users = 0;
@@ -11049,6 +11055,9 @@ set_printer_defaults(
     }
     else if (!strcmp(attr->name, "requesting-user-name-denied"))
     {
+      if (printer->temporary)
+        goto temporary_printer;
+
       cupsdFreeStrings(&(printer->users));
 
       printer->deny_users = 1;
@@ -11063,6 +11072,9 @@ set_printer_defaults(
     }
     else if (!strcmp(attr->name, "job-quota-period"))
     {
+      if (printer->temporary)
+        goto temporary_printer;
+
       if (attr->value_tag != IPP_TAG_INTEGER)
         continue;
 
@@ -11074,6 +11086,9 @@ set_printer_defaults(
     }
     else if (!strcmp(attr->name, "job-k-limit"))
     {
+      if (printer->temporary)
+        goto temporary_printer;
+
       if (attr->value_tag != IPP_TAG_INTEGER)
         continue;
 
@@ -11085,6 +11100,9 @@ set_printer_defaults(
     }
     else if (!strcmp(attr->name, "job-page-limit"))
     {
+      if (printer->temporary)
+        goto temporary_printer;
+
       if (attr->value_tag != IPP_TAG_INTEGER)
         continue;
 
@@ -11098,6 +11116,9 @@ set_printer_defaults(
     {
       cupsd_policy_t *p;		/* Policy */
 
+
+      if (printer->temporary)
+        goto temporary_printer;
 
       if (attr->value_tag != IPP_TAG_NAME)
         continue;
@@ -11120,6 +11141,9 @@ set_printer_defaults(
     }
     else if (!strcmp(attr->name, "printer-error-policy"))
     {
+      if (printer->temporary)
+        goto temporary_printer;
+
       if (attr->value_tag != IPP_TAG_NAME && attr->value_tag != IPP_TAG_KEYWORD)
         continue;
 
@@ -11149,6 +11173,9 @@ set_printer_defaults(
     if (namelen < 9 || strcmp(attr->name + namelen - 8, "-default") ||
         namelen > (sizeof(name) - 1) || attr->num_values != 1)
       continue;
+
+    if (printer->temporary)
+      goto temporary_printer;
 
    /*
     * OK, anything else must be a user-defined default...
@@ -11223,6 +11250,17 @@ set_printer_defaults(
   }
 
   return (1);
+
+ /*
+  * If we get here this is a temporary printer and you can't set defaults for
+  * this kind of queue...
+  */
+
+  temporary_printer:
+
+  send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Unable to save value for \"%s\" with a temporary printer."), attr->name);
+
+  return (0);
 }
 
 
