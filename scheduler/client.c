@@ -2427,23 +2427,12 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 	      httpSetField(con->http, field, value);
 
 	      if (field == HTTP_FIELD_LOCATION)
-	      {
 		con->pipe_status = HTTP_STATUS_SEE_OTHER;
-		con->sent_header = 2;
-	      }
-	      else
-	        con->sent_header = 1;
 	    }
 	    else if (!_cups_strcasecmp(con->header, "Status") && value)
-	    {
   	      con->pipe_status = (http_status_t)atoi(value);
-	      con->sent_header = 2;
-	    }
 	    else if (!_cups_strcasecmp(con->header, "Set-Cookie") && value)
-	    {
 	      httpSetCookie(con->http, value);
-	      con->sent_header = 1;
-	    }
 	  }
 
          /*
@@ -2478,6 +2467,8 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 		cupsdCloseClient(con);
 		return;
 	      }
+
+	      con->sent_header = 1;
 	    }
 	    else
 	    {
@@ -2486,6 +2477,8 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 		cupsdCloseClient(con);
 		return;
 	      }
+
+	      con->sent_header = 1;
 	    }
           }
 	  else

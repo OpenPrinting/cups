@@ -35,6 +35,7 @@ Changes in CUPS v2.4.8 (TBA)
 - Fixed `httpGets` timeout handling (Issue #879)
 - Fixed checking for required attributes during PPD generation (Issue #890)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
+- Fixed sending response headers to client (Issue #927)
 - Fixed CGI program initialization and validation of form checkbox and text
   fields.
 
