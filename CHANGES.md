@@ -35,6 +35,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Updated the "get-printer-attributes-suite.test" test file (Issue #909)
 - Updated `cupsRasterReadPixels` and `cupsRasterWritePixels` to not try reading
   or writing if the number of bytes passed is 0 (Issue #914)
+- The `ippeveprinter` program now supports the `-f` option with `-a`
+  (Issue #759)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)

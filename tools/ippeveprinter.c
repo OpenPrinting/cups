@@ -480,7 +480,6 @@ main(int  argc,				// I - Number of command-line args
 	        usage(1);
 
 	      docformats = cupsArrayNewStrings(argv[i], ',');
-	      legacy     = true;
 	      break;
 
 	  case 'i' : // -i icon.png
@@ -1684,13 +1683,17 @@ create_printer(
 
   if (docformats)
   {
+    ipp_attribute_t	*attr;		// Attribute
+
     // document-format-default
     if (!ippFindAttribute(printer->attrs, "document-format-default", IPP_TAG_MIMETYPE))
       ippAddString(printer->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-default", NULL, "application/octet-stream");
 
     // document-format-supported
-    if (!ippFindAttribute(printer->attrs, "document-format-supported", IPP_TAG_MIMETYPE))
-      ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-supported", num_formats, NULL, formats);
+    if ((attr = ippFindAttribute(printer->attrs, "document-format-supported", IPP_TAG_MIMETYPE)) != NULL)
+      ippDeleteAttribute(printer->attrs, attr);
+
+    ippAddStrings(printer->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-supported", num_formats, NULL, formats);
   }
 
   // generated-natural-language-supported
