@@ -25,6 +25,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Updated IPP Everywhere printer creation error reporting (Issue #347)
 - Updated internal usage of CUPS array API to include callback pointer even when
   not used (Issue #674)
+- Updated support for using keyword equivalents for enumerated values like
+  "print-quality" (Issue #734)
 - Updated `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)
 - Updated default destination documentation (Issue #819)
