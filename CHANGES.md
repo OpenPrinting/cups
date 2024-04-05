@@ -36,6 +36,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)
+- Fixed mapping of PPD InputSlot, MediaType, and OutputBin values (Issue #238)
 - Fixed Digest authentication support (Issue #260)
 - Fixed the web interface not showing an error for a non-existent printer
   (Issue #423)

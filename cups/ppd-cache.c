@@ -2336,7 +2336,7 @@ ppd_inputslot_for_keyword(
     return (NULL);
 
   for (i = 0; i < pc->num_sources; i ++)
-    if (!_cups_strcasecmp(keyword, pc->sources[i].pwg))
+    if (!_cups_strcasecmp(keyword, pc->sources[i].pwg) || !_cups_strcasecmp(keyword, pc->sources[i].ppd))
       return (pc->sources[i].ppd);
 
   return (NULL);
@@ -2451,7 +2451,7 @@ _ppdCacheGetMediaType(
     int	i;				/* Looping var */
 
     for (i = 0; i < pc->num_types; i ++)
-      if (!_cups_strcasecmp(keyword, pc->types[i].pwg))
+      if (!_cups_strcasecmp(keyword, pc->types[i].pwg) || !_cups_strcasecmp(keyword, pc->types[i].ppd))
         return (pc->types[i].ppd);
   }
 
@@ -2485,7 +2485,7 @@ _ppdCacheGetOutputBin(
 
 
   for (i = 0; i < pc->num_bins; i ++)
-    if (!_cups_strcasecmp(output_bin, pc->bins[i].pwg))
+    if (!_cups_strcasecmp(output_bin, pc->bins[i].pwg) || !_cups_strcasecmp(output_bin, pc->bins[i].ppd))
       return (pc->bins[i].ppd);
 
   return (NULL);
