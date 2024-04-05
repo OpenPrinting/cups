@@ -1899,7 +1899,7 @@ main(int  argc,				/* I - Number of command-line args */
 
           if (ippContainsString(reasons, "document-format-error"))
             ipp_status = IPP_STATUS_ERROR_DOCUMENT_FORMAT_ERROR;
-          else if (ippContainsString(reasons, "document-unprintable"))
+          else if (ippContainsString(reasons, "document-unprintable-error"))
             ipp_status = IPP_STATUS_ERROR_DOCUMENT_UNPRINTABLE;
 
 	  ippDelete(response);
@@ -2690,7 +2690,7 @@ monitor_printer(
             new_reasons |= _CUPS_JSR_JOB_RELEASE_WAIT;
           else if (!strcmp(attr->values[i].string.text, "document-format-error"))
             new_reasons |= _CUPS_JSR_DOCUMENT_FORMAT_ERROR;
-          else if (!strcmp(attr->values[i].string.text, "document-unprintable"))
+          else if (!strcmp(attr->values[i].string.text, "document-unprintable-error"))
             new_reasons |= _CUPS_JSR_DOCUMENT_UNPRINTABLE;
 
 	  if (!job_canceled && (!strncmp(attr->values[i].string.text, "job-canceled-", 13) || !strcmp(attr->values[i].string.text, "aborted-by-system")))
