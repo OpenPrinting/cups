@@ -550,7 +550,17 @@ _cupsEncodeOption(
           if (isalpha(*val & 255))
           {
             // Map enum keyword to integer value...
-            ippSetInteger(ipp, &attr, i, ippEnumValue(name, val));
+            int enumvalue;		// Enumeration value
+
+            if ((enumvalue = ippEnumValue(name, val)) > 0)
+            {
+              ippSetInteger(ipp, &attr, i, enumvalue);
+	    }
+	    else
+	    {
+	      ippDeleteAttribute(ipp, attr);
+	      return (NULL);
+	    }
             break;
 	  }
 
