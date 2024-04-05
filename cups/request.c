@@ -434,8 +434,6 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
       else
         http->status = HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED;
     }
-
-#ifdef HAVE_TLS
     else if (status == HTTP_STATUS_UPGRADE_REQUIRED)
     {
      /*
@@ -444,10 +442,14 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
 
       DEBUG_puts("2cupsGetResponse: Need encryption...");
 
+#ifdef HAVE_TLS
       if (!httpReconnect2(http, 30000, NULL))
         httpEncryption(http, HTTP_ENCRYPTION_REQUIRED);
-    }
+
+#else
+      http->status = HTTP_STATUS_CUPS_PKI_ERROR;
 #endif /* HAVE_TLS */
+    }
   }
 
   if (response)
