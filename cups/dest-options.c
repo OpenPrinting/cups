@@ -259,7 +259,7 @@ cupsCheckDestSupported(
     cups_dest_t  *dest,			/* I - Destination */
     cups_dinfo_t *dinfo,		/* I - Destination information */
     const char   *option,		/* I - Option */
-    const char   *value)		/* I - Value or @code NULL@ */
+    const char   *value)		/* I - Value or `NULL` */
 {
   int			i;		/* Looping var */
   char			temp[1024];	/* Temporary string */
@@ -458,13 +458,13 @@ cupsCheckDestSupported(
  * Returns 1 if there is a conflict, 0 if there are no conflicts, and -1 if
  * there was an unrecoverable error such as a resolver loop.
  *
- * If "num_conflicts" and "conflicts" are not @code NULL@, they are set to
+ * If "num_conflicts" and "conflicts" are not `NULL`, they are set to
  * contain the list of conflicting option/value pairs.  Similarly, if
- * "num_resolved" and "resolved" are not @code NULL@ they will be set to the
+ * "num_resolved" and "resolved" are not `NULL` they will be set to the
  * list of changes needed to resolve the conflict.
  *
  * If cupsCopyDestConflicts returns 1 but "num_resolved" and "resolved" are set
- * to 0 and @code NULL@, respectively, then the conflict cannot be resolved.
+ * to 0 and `NULL`, respectively, then the conflict cannot be resolved.
  *
  * @since CUPS 1.6/macOS 10.8@
  */
@@ -754,7 +754,7 @@ cupsCopyDestConflicts(
  *                        destination.
  *
  * The caller is responsible for calling @link cupsFreeDestInfo@ on the return
- * value. @code NULL@ is returned on error.
+ * value. `NULL` is returned on error.
  *
  * @since CUPS 1.6/macOS 10.8@
  */
@@ -772,7 +772,7 @@ cupsCopyDestInfo(
 		delay,			/* Current retry delay */
 		prev_delay;		/* Next retry delay */
   const char	*uri;			/* Printer URI */
-  char		resource[1024];		/* Resource path */
+  char		resource[1024];		/* URI resource path */
   int		version;		/* IPP version */
   ipp_status_t	status;			/* Status of request */
   _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
@@ -787,6 +787,13 @@ cupsCopyDestInfo(
   DEBUG_printf("cupsCopyDestInfo(http=%p, dest=%p(%s))", (void *)http, (void *)dest, dest ? dest->name : "");
 
  /*
+  * Range check input...
+  */
+
+  if (!dest)
+    return (NULL);
+
+ /*
   * Get the default connection as needed...
   */
 
@@ -795,6 +802,9 @@ cupsCopyDestInfo(
     DEBUG_puts("1cupsCopyDestInfo: Default server connection.");
     http   = _cupsConnect();
     dflags = CUPS_DEST_FLAGS_NONE;
+
+    if (!http)
+      return (NULL);
   }
 #ifdef AF_LOCAL
   else if (httpAddrFamily(http->hostaddr) == AF_LOCAL)
@@ -803,23 +813,31 @@ cupsCopyDestInfo(
     dflags = CUPS_DEST_FLAGS_NONE;
   }
 #endif /* AF_LOCAL */
-  else if ((strcmp(http->hostname, cg->server) && cg->server[0] != '/') || cg->ipp_port != httpAddrPort(http->hostaddr))
-  {
-    DEBUG_printf("1cupsCopyDestInfo: Connection to device (%s).", http->hostname);
-    dflags = CUPS_DEST_FLAGS_DEVICE;
-  }
   else
   {
-    DEBUG_printf("1cupsCopyDestInfo: Connection to server (%s).", http->hostname);
-    dflags = CUPS_DEST_FLAGS_NONE;
+    // Guess the destination flags based on the printer URI's host and port...
+    char	scheme[32],		/* URI scheme */
+		userpass[256],		/* URI username:password */
+		host[256];		/* URI host */
+    int		port;			/* URI port */
+
+    if ((uri = cupsGetOption("printer-uri-supported", dest->num_options, dest->options)) == NULL || httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+    {
+      strlcpy(host, "localhost", sizeof(host));
+      port = cg->ipp_port;
+    }
+
+    if (strcmp(http->hostname, host) || port != httpAddrPort(http->hostaddr))
+    {
+      DEBUG_printf("1cupsCopyDestInfo: Connection to device (%s).", http->hostname);
+      dflags = CUPS_DEST_FLAGS_DEVICE;
+    }
+    else
+    {
+      DEBUG_printf("1cupsCopyDestInfo: Connection to server (%s).", http->hostname);
+      dflags = CUPS_DEST_FLAGS_NONE;
+    }
   }
-
- /*
-  * Range check input...
-  */
-
-  if (!http || !dest)
-    return (NULL);
 
  /*
   * Get the printer URI and resource path...
@@ -920,7 +938,7 @@ cupsCopyDestInfo(
  * @since CUPS 1.7/macOS 10.9@
  */
 
-ipp_attribute_t	*			/* O - Default attribute or @code NULL@ for none */
+ipp_attribute_t	*			/* O - Default attribute or `NULL` for none */
 cupsFindDestDefault(
     http_t       *http,			/* I - Connection to destination */
     cups_dest_t  *dest,			/* I - Destination */
@@ -968,7 +986,7 @@ cupsFindDestDefault(
  * @since CUPS 1.7/macOS 10.9@
  */
 
-ipp_attribute_t	*			/* O - Default attribute or @code NULL@ for none */
+ipp_attribute_t	*			/* O - Default attribute or `NULL` for none */
 cupsFindDestReady(
     http_t       *http,			/* I - Connection to destination */
     cups_dest_t  *dest,			/* I - Destination */
@@ -1018,7 +1036,7 @@ cupsFindDestReady(
  * @since CUPS 1.7/macOS 10.9@
  */
 
-ipp_attribute_t	*			/* O - Default attribute or @code NULL@ for none */
+ipp_attribute_t	*			/* O - Default attribute or `NULL` for none */
 cupsFindDestSupported(
     http_t       *http,			/* I - Connection to destination */
     cups_dest_t  *dest,			/* I - Destination */
