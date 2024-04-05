@@ -18,6 +18,7 @@ Changes in CUPS v2.4.8 (TBA)
 - Fixed printing of jobs with job name longer than 255 chars on older printers
   (Issue #644)
 - Really backported fix for Issue #742
+- Fixed `cupsCopyDestInfo` device connection detection (Issue #586)
 - Fixed "Upgrade" header handling when there is no TLS support (Issue #775)
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed memory leak when creating color profiles (Issue #815)
