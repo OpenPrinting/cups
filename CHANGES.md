@@ -73,6 +73,7 @@ Changes in CUPS v2.5b1 (TBA)
   (Issue #901)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
 - Fixed encoding of `IPP_TAG_EXTENSION` values in IPP messages (Issue #913)
+- Fixed sending response headers to client (Issue #927)
 - Fixed CGI program initialization and validation of form checkbox and text
   fields.
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
