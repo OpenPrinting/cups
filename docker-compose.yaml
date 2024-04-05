@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  cups:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cups
+    # Command to be executed when the container starts
+    command:
+      - /bin/bash
+      - -c
+      - |
+        # Add a new user 'admin' with password 'admin'
+        useradd -m --create-home --password $(echo 'admin' | openssl passwd -1 -stdin) -f 0 admin
+
+        # Create a new group 'lpadmin'
+        groupadd lpadmin
+
+        # Add the user 'admin' to the 'lpadmin' group
+        usermod -aG lpadmin admin
+
+        # Grant sudo privileges to the user 'admin'
+        echo 'admin ALL=(ALL:ALL) ALL' >> /etc/sudoers
+
+        # build CUPS
+        ./configure
+        make
+        make install
+
+        # Start the CUPS daemon for remote access
+        /usr/sbin/cupsd \
+        && while [ ! -f /var/run/cups/cupsd.pid ]; do sleep 1; done \
+        && cupsctl --remote-admin --remote-any --share-printers \
+        && kill $(cat /var/run/cups/cupsd.pid) \
+        && echo "ServerAlias *" >> /etc/cups/cupsd.conf \
+        && service cups start \
+        && /usr/sbin/cupsd -f
+
+    # Expose port 631 for CUPS web interface
+    ports:
+      - "631:631"
+
+    # Bind mount for cups config files and logs
+    volumes:
+      - .:/workspaces/cups
+      - ./container-config:/etc/cups
+      - ./container-config/logs:/var/log/cups
