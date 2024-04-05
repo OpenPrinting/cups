@@ -13,6 +13,7 @@ Changes in CUPS v2.4.8 (TBA)
 - Raised `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)
 - Fixed mapping of PPD InputSlot, MediaType, and OutputBin values (Issue #238)
+- Fixed "document-unprintable-error" handling (Issue #391)
 - Fixed the web interface not showing an error for a non-existent printer
   (Issue #423)
 - Fixed printing of jobs with job name longer than 255 chars on older printers
