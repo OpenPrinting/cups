@@ -797,7 +797,7 @@ cupsCopyDestInfo(
 
     if ((uri = cupsGetOption("printer-uri-supported", dest->num_options, dest->options)) == NULL || httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
     {
-      strlcpy(host, "localhost", sizeof(host));
+      cupsCopyString(host, "localhost", sizeof(host));
       port = cg->ipp_port;
     }
 
