@@ -1080,6 +1080,11 @@ cupsDNSSDServiceAdd(
   char			*regtype,	// Registration type
 			*subtypes;	// Subtypes (if any)
 
+  // Avahi has trouble with hostnames for services that are only available on
+  // the loopback interface/localhost...
+  if (service->if_index == CUPS_DNSSD_IF_LOCAL || !_cups_strcasecmp(host, "localhost"))
+    host = NULL;
+
   // Build the string list from the TXT array...
   for (i = 0; i < num_txt; i ++)
     txtrec = avahi_string_list_add_printf(txtrec, "%s=%s", txt[i].name, txt[i].value);
