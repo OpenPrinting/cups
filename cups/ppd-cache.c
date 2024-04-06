@@ -3141,8 +3141,8 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
 
 /*
- * '_ppdCreateFromIPP()' - Create a PPD file describing the capabilities
- *                         of an IPP printer.
+ * '_ppdCreateFromIPP2()' - Create a PPD file describing the capabilities
+ *                          of an IPP printer.
  */
 
 

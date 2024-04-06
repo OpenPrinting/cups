@@ -650,7 +650,7 @@ cupsDNSSDBrowseGetContext(
 cups_dnssd_browse_t *			// O - Browse request or `NULL` on error
 cupsDNSSDBrowseNew(
     cups_dnssd_t           *dnssd,	// I - DNS-SD context
-    uint32_t               if_index,	// I - Interface index, `CUPS_DNSSD_IF_ANY`, or `CUPS_DNSSD_IF_LOCAL`
+    uint32_t               if_index,	// I - Interface index, `CUPS_DNSSD_IF_INDEX_ANY`, or `CUPS_DNSSD_IF_INDEX_LOCAL`
     const char             *types,	// I - Service types
     const char             *domain,	// I - Domain name or `NULL` for default
     cups_dnssd_browse_cb_t browse_cb,	// I - Browse callback function
@@ -784,7 +784,7 @@ cupsDNSSDQueryGetContext(
 cups_dnssd_query_t *			// O - Query request or `NULL` on error
 cupsDNSSDQueryNew(
     cups_dnssd_t          *dnssd,	// I - DNS-SD context
-    uint32_t              if_index,	// I - Interface index or `CUPS_DNSSD_IF_ANY` or `CUPS_DNSSD_IF_LOCAL`
+    uint32_t              if_index,	// I - Interface index or `CUPS_DNSSD_IF_INDEX_ANY` or `CUPS_DNSSD_IF_INDEX_LOCAL`
     const char            *fullname,	// I - Full DNS name including types and domain
     uint16_t              rrtype,	// I - Record type to query (`CUPS_DNSSD_RRTYPE_TXT`, etc.)
     cups_dnssd_query_cb_t query_cb,	// I - Query callback function
@@ -918,7 +918,7 @@ cupsDNSSDResolveGetContext(
 cups_dnssd_resolve_t *			// O - Resolve request or `NULL` on error
 cupsDNSSDResolveNew(
     cups_dnssd_t            *dnssd,	// I - DNS-SD context
-    uint32_t                if_index,	// I - Interface index or `CUPS_DNSSD_IF_ANY` or `CUPS_DNSSD_IF_LOCAL`
+    uint32_t                if_index,	// I - Interface index or `CUPS_DNSSD_IF_INDEX_ANY` or `CUPS_DNSSD_IF_INDEX_LOCAL`
     const char              *name,	// I - Service name
     const char              *type,	// I - Service type
     const char              *domain,	// I - Domain name or `NULL` for default
@@ -1082,7 +1082,7 @@ cupsDNSSDServiceAdd(
 
   // Avahi has trouble with hostnames for services that are only available on
   // the loopback interface/localhost...
-  if (service->if_index == CUPS_DNSSD_IF_LOCAL || !_cups_strcasecmp(host, "localhost"))
+  if (service->if_index == CUPS_DNSSD_IF_INDEX_LOCAL || !_cups_strcasecmp(host, "localhost"))
     host = NULL;
 
   // Build the string list from the TXT array...
@@ -1207,7 +1207,7 @@ cupsDNSSDServiceGetName(
 cups_dnssd_service_t *			// O - Service or `NULL` on error
 cupsDNSSDServiceNew(
     cups_dnssd_t            *dnssd,	// I - DNS-SD context
-    uint32_t                if_index,	// I - Interface index, `CUPS_DNSSD_IF_ANY`, or `CUPS_DNSSD_IF_LOCAL`
+    uint32_t                if_index,	// I - Interface index, `CUPS_DNSSD_IF_INDEX_ANY`, or `CUPS_DNSSD_IF_INDEX_LOCAL`
     const char              *name,	// I - Name of service
     cups_dnssd_service_cb_t cb,		// I - Service registration callback function
     void                    *cb_data)	// I - Service registration callback data
