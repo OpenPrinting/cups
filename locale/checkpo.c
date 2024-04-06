@@ -24,7 +24,7 @@
  * Local functions...
  */
 
-static char		*abbreviate(const char *s, char *buf, int bufsize);
+static char		*abbreviate(const char *s, char *buf, size_t bufsize);
 static cups_array_t	*collect_formats(const char *id);
 static void		free_formats(cups_array_t *fmts);
 
@@ -292,10 +292,16 @@ main(int  argc,				/* I - Number of command-line args */
 static char *				/* O - Abbreviated string */
 abbreviate(const char *s,		/* I - String to abbreviate */
            char       *buf,		/* I - Buffer */
-	   int        bufsize)		/* I - Size of buffer */
+	   size_t     bufsize)		/* I - Size of buffer */
 {
   char	*bufptr;			/* Pointer into buffer */
 
+
+  if (bufsize < 4)
+  {
+    *buf = '\0';
+    return (buf);
+  }
 
   for (bufptr = buf, bufsize -= 4; *s && bufsize > 0; s ++)
   {
