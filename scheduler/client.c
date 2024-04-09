@@ -425,6 +425,15 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
     con->file = -1;
   }
 
+  if (con->bg_pending)
+  {
+   /*
+    * Don't close connection when there is a background thread pending
+    */
+
+    partial = 1;
+  }
+
  /*
   * Close the socket and clear the file from the input set for select()...
   */
