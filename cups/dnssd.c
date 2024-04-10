@@ -1082,7 +1082,7 @@ cupsDNSSDServiceAdd(
 
   // Avahi has trouble with hostnames for services that are only available on
   // the loopback interface/localhost...
-  if (service->if_index == CUPS_DNSSD_IF_INDEX_LOCAL || !_cups_strcasecmp(host, "localhost"))
+  if (service->if_index == CUPS_DNSSD_IF_INDEX_LOCAL || (host && !_cups_strcasecmp(host, "localhost")))
     host = NULL;
 
   // Build the string list from the TXT array...
