@@ -35,6 +35,7 @@ typedef struct testdata_s		// Test data structure
 //
 
 static void	browse_cb(cups_dnssd_browse_t *browse, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *name, const char *regtype, const char *domain);
+static void	browse_print_cb(cups_dnssd_browse_t *browse, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *name, const char *regtype, const char *domain);
 static void	error_cb(void *cb_data, const char *message);
 static void	query_cb(cups_dnssd_query_t *query, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, uint16_t rrtype, const void *qdata, uint16_t qlen);
 static void	resolve_cb(cups_dnssd_resolve_t *res, void *cb_data, cups_dnssd_flags_t flags, uint32_t if_index, const char *fullname, const char *host, uint16_t port, int num_txt, cups_option_t *txt);
@@ -205,6 +206,38 @@ main(int  argc,				// I - Number of command-line arguments
 
     cupsArrayDelete(testdata.messages);
   }
+  else if (argc == 3 && !strcmp(argv[1], "browse") && argv[2][0] == '_')
+  {
+    // Browse for the named service...
+    size_t count = 0;			// Number of found services
+
+    if ((dnssd = cupsDNSSDNew(error_cb, &testdata)) == NULL)
+      return (1);
+
+    if ((browse = cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, argv[2], NULL, browse_print_cb, &testdata)) == NULL)
+    {
+      cupsDNSSDDelete(dnssd);
+      return (1);
+    }
+
+    for (;;)
+    {
+      size_t browse_dnssd_count;	// Saved count
+
+      sleep(1);
+
+      cupsMutexLock(&testdata.mutex);
+      browse_dnssd_count = testdata.browse_dnssd_count;
+      cupsMutexUnlock(&testdata.mutex);
+
+      if (browse_dnssd_count == count)
+        break;
+
+      count = browse_dnssd_count;
+    }
+
+    cupsDNSSDDelete(dnssd);
+  }
   else
   {
     usage(argv[1]);
@@ -247,6 +280,32 @@ browse_cb(
     data->browse_ipp_count ++;
   else if (!strncmp(regtype, "_testdnssd.", 11))
     data->browse_dnssd_count ++;
+  cupsMutexUnlock(&data->mutex);
+}
+
+
+//
+// 'browse_print_cb()' - Print browse request callback usage.
+//
+
+static void
+browse_print_cb(
+    cups_dnssd_browse_t *browse,	// I - Browse request
+    void                *cb_data,	// I - Callback data
+    cups_dnssd_flags_t  flags,		// I - Bit flags
+    uint32_t            if_index,	// I - Interface index
+    const char          *name,		// I - Service name
+    const char          *regtype,	// I - Registration type
+    const char          *domain)	// I - Domain
+{
+  testdata_t	*data = (testdata_t *)cb_data;
+					// Test data
+
+
+  printf("%5u %s.%s.%s\n", if_index, name, regtype, domain);
+
+  cupsMutexLock(&data->mutex);
+  data->browse_dnssd_count ++;
   cupsMutexUnlock(&data->mutex);
 }
 
