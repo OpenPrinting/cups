@@ -214,6 +214,9 @@ main(int  argc,				// I - Number of command-line arguments
     if ((dnssd = cupsDNSSDNew(error_cb, &testdata)) == NULL)
       return (1);
 
+    puts("IfIdx Service Name");
+    puts("----- ----------------------------------------------------------------");
+
     if ((browse = cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, argv[2], NULL, browse_print_cb, &testdata)) == NULL)
     {
       cupsDNSSDDelete(dnssd);
@@ -302,7 +305,7 @@ browse_print_cb(
 					// Test data
 
 
-  printf("%5u %s.%s.%s\n", if_index, name, regtype, domain);
+  printf("%5u %s.%s%s\n", if_index, name, regtype, domain);
 
   cupsMutexLock(&data->mutex);
   data->browse_dnssd_count ++;
