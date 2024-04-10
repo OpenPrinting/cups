@@ -5517,9 +5517,9 @@ create_local_bg_thread(
 
   ippDelete(response);
 
-  con->bg_pending = 0;
-
   send_response(con);
+
+  con->bg_pending = 0;
 
   return (NULL);
 }
