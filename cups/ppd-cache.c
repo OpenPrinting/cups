@@ -3141,7 +3141,6 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 {
   const char		*printer_uri;	/* Printer URI */
   http_t		*http = NULL;	/* HTTP connection */
-  cups_array_t		*languages;	/* List of languages */
   cups_lang_t		*lang,		/* Current language information */
 			*langs = NULL;	/* Language (strings) files */
   const char		*prefix;	/* Prefix string */
@@ -3223,12 +3222,6 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   }
 
  /*
-  * Figure out the languages to load/generate...
-  */
-
-  languages = cups_get_languages();
-
- /*
   * Standard stuff for PPD file...
   */
 
@@ -3284,7 +3277,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
     {
       keyword = ippGetString(lang_supp, i, NULL);
 
-      if (cupsArrayFind(languages, (void *)keyword) && (lang = cups_get_strings(&http, printer_uri, keyword)) != NULL)
+      if ((lang = cups_get_strings(&http, printer_uri, keyword)) != NULL)
       {
        /*
         * Add language...
@@ -3294,11 +3287,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
         langs      = lang;
 
         cupsFilePrintf(fp, "%s%s", prefix, keyword);
-        prefix = ",";
+        prefix = " ";
       }
     }
 
-    if (!strcmp(prefix, ","))
+    if (!strcmp(prefix, " "))
       cupsFilePuts(fp, "\"\n");
   }
 
@@ -3336,11 +3329,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
       if (strcmp(keyword, "attributes-charset") && strcmp(keyword, "attributes-natural-language") && strcmp(keyword, "printer-uri"))
       {
         cupsFilePrintf(fp, "%s%s", prefix, keyword);
-        prefix = ",";
+        prefix = " ";
       }
     }
 
-    if (!strcmp(prefix, ","))
+    if (!strcmp(prefix, " "))
       cupsFilePuts(fp, "\"\n");
   }
 
@@ -3353,11 +3346,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
       if (strcmp(keyword, "attributes-charset") && strcmp(keyword, "attributes-natural-language") && strcmp(keyword, "printer-uri"))
       {
         cupsFilePrintf(fp, "%s%s", prefix, keyword);
-        prefix = ",";
+        prefix = " ";
       }
     }
 
-    if (!strcmp(prefix, ","))
+    if (!strcmp(prefix, " "))
       cupsFilePuts(fp, "\"\n");
   }
 
@@ -5300,6 +5293,7 @@ cups_get_strings(
 		*response = NULL;	/* IPP response */
   const char	*strings_uri;		/* "printer-strings-uri" value */
   char		strings_file[1024] = "";/* Strings filename */
+  static int	request_id = 1000;	// Request ID
 
 
  /*
@@ -5315,6 +5309,7 @@ cups_get_strings(
 
   request = ippNew();
   ippSetOperation(request, IPP_OP_GET_PRINTER_ATTRIBUTES);
+  ippSetRequestId(request, request_id ++);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET, "attributes-charset", /*language*/NULL, "utf-8");
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", /*language*/NULL, language);
   ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", /*language*/NULL, printer_uri);
@@ -5343,7 +5338,35 @@ cups_get_strings(
 
     cupsCopyString(lang->language, language, sizeof(lang->language));
     lang->strings = _cupsMessageLoad(strings_file, _CUPS_MESSAGE_STRINGS);
+    unlink(strings_file);
   }
+#if 0
+  else
+  {
+    ipp_attribute_t *attr;
+    ipp_tag_t group_tag = IPP_TAG_ZERO, value_tag;
+    const char *name;
+    char value[2048];
+
+    puts("No printer-strings-uri in response.");
+    printf("Get-Printer-Attributes: %s\n", ippErrorString(ippGetStatusCode(response)));
+    for (attr = ippGetFirstAttribute(response); attr; attr = ippGetNextAttribute(response))
+    {
+      if (ippGetGroupTag(attr) != group_tag)
+      {
+        group_tag = ippGetGroupTag(attr);
+        puts(ippTagString(group_tag));
+      }
+
+      name      = ippGetName(attr);
+      value_tag = ippGetValueTag(attr);
+
+      ippAttributeString(attr, value, sizeof(value));
+
+      printf("  %s %s = %s\n", name, ippTagString(value_tag), value);
+    }
+  }
+#endif // 0
 
   done:
 
