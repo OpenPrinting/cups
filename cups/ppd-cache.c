@@ -33,6 +33,7 @@ static int	cups_connect(http_t **http, const char *url, char *resource, size_t r
 static cups_array_t *cups_get_languages(void);
 static cups_lang_t *cups_get_strings(http_t **http, const char *printer_uri, const char *language);
 static int	cups_get_url(http_t **http, const char *url, const char *suffix, char *name, size_t namesize);
+static const char *ppd_get_string(cups_lang_t *base, cups_lang_t *printer, const char *msgid, char *buffer, size_t bufsize);
 static const char *ppd_inputslot_for_keyword(_ppd_cache_t *pc, const char *keyword);
 static void	ppd_put_strings(cups_file_t *fp, cups_lang_t *langs, const char *ppd_option, const char *ppd_choice, const char *pwg_msgid);
 static void	pwg_add_finishing(cups_array_t *finishings, ipp_finishings_t template, const char *name, const char *value);
@@ -3005,7 +3006,9 @@ _ppdCacheWriteFile(
   */
 
   for (i = _PWG_PRINT_COLOR_MODE_MONOCHROME; i < _PWG_PRINT_COLOR_MODE_MAX; i ++)
+  {
     for (j = _PWG_PRINT_QUALITY_DRAFT; j < _PWG_PRINT_QUALITY_MAX; j ++)
+    {
       if (pc->num_presets[i][j])
       {
 	cupsFilePrintf(fp, "Preset %d %d", i, j);
@@ -3015,6 +3018,8 @@ _ppdCacheWriteFile(
 	  cupsFilePrintf(fp, " %s=%s", option->name, option->value);
 	cupsFilePutChar(fp, '\n');
       }
+    }
+  }
 
  /*
   * Duplex/sides...
@@ -3141,7 +3146,8 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 {
   const char		*printer_uri;	/* Printer URI */
   http_t		*http = NULL;	/* HTTP connection */
-  cups_lang_t		*lang,		/* Current language information */
+  cups_lang_t		*base_lang,	/* Base English language */
+			*lang,		/* Current language information */
 			*langs = NULL;	/* Language (strings) files */
   const char		*prefix;	/* Prefix string */
   cups_file_t		*fp;		/* PPD file */
@@ -3156,8 +3162,10 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 			*media_size;	/* Media size collection */
   char			make[256],	/* Make and model */
 			*model,		/* Model name */
-			ppdname[PPD_MAX_NAME];
+			ppdname[PPD_MAX_NAME],
 		    			/* PPD keyword */
+		    	ppdtext[PPD_MAX_TEXT];
+					/* PPD English text */
   int			i, j,		/* Looping vars */
 			count,		/* Number of values */
 			bottom,		/* Largest bottom margin */
@@ -3300,6 +3308,15 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
     httpClose(http);
     http = NULL;
   }
+
+  // Find the English localization...
+  for (lang = langs; lang; lang = lang->next)
+  {
+    if (!strcmp(lang->language, "en"))
+      break;
+  }
+
+  base_lang = cupsLangGet("en");
 
   if ((attr = ippFindAttribute(supported, "printer-more-info", IPP_TAG_URI)) != NULL)
     cupsFilePrintf(fp, "*APSupplies: \"%s\"\n", ippGetString(attr, 0, NULL));
@@ -3890,7 +3907,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 	{
 	  snprintf(msgid, sizeof(msgid), "media-source.%s", keyword);
 
-	  cupsFilePrintf(fp, "*InputSlot %s: \"<</MediaPosition %d>>setpagedevice\"\n", ppdname, j);
+	  cupsFilePrintf(fp, "*InputSlot %s/%s: \"<</MediaPosition %d>>setpagedevice\"\n", ppdname, ppd_get_string(base_lang, lang, msgid, ppdtext, sizeof(ppdtext)), j);
 	  ppd_put_strings(fp, langs, "InputSlot", ppdname, msgid);
 	  break;
 	}
@@ -3921,7 +3938,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       snprintf(msgid, sizeof(msgid), "media-type.%s", keyword);
 
-      cupsFilePrintf(fp, "*MediaType %s: \"<</MediaType(%s)>>setpagedevice\"\n", ppdname, keyword);
+      cupsFilePrintf(fp, "*MediaType %s/%s: \"<</MediaType(%s)>>setpagedevice\"\n", ppdname, ppd_get_string(base_lang, lang, msgid, ppdtext, sizeof(ppdtext)), keyword);
       ppd_put_strings(fp, langs, "MediaType", ppdname, msgid);
     }
     cupsFilePuts(fp, "*CloseUI: *MediaType\n");
@@ -4376,7 +4393,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       snprintf(msgid, sizeof(msgid), "output-bin.%s", keyword);
 
-      cupsFilePrintf(fp, "*OutputBin %s: \"\"\n", ppdname);
+      cupsFilePrintf(fp, "*OutputBin %s/%s: \"\"\n", ppdname, ppd_get_string(base_lang, lang, msgid, ppdtext, sizeof(ppdtext)));
       ppd_put_strings(fp, langs, "OutputBin", ppdname, msgid);
 
       if ((tray_ptr = ippGetOctetString(trays, i, &tray_len)) != NULL)
@@ -4475,11 +4492,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       cupsArrayAdd(fin_options, "*StapleLocation");
 
-      cupsFilePuts(fp, "*OpenUI *StapleLocation: PickOne\n");
+      cupsFilePrintf(fp, "*OpenUI *StapleLocation/%s: PickOne\n", _cupsLangString(base_lang, "finishing.4"));
       cupsFilePuts(fp, "*OrderDependency: 10 AnySetup *StapleLocation\n");
       ppd_put_strings(fp, langs, "Translation", "StapleLocation", "finishings.4");
       cupsFilePuts(fp, "*DefaultStapleLocation: None\n");
-      cupsFilePuts(fp, "*StapleLocation None: \"\"\n");
+      cupsFilePrintf(fp, "*StapleLocation None/%s: \"\"\n", _cupsLangString(base_lang, "finishing.3"));
       ppd_put_strings(fp, langs, "StapleLocation", "None", "finishings.3");
 
       for (; i < count; i ++)
@@ -4509,7 +4526,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
         if (!ppd_keyword)
           continue;
 
-	cupsFilePrintf(fp, "*StapleLocation %s: \"\"\n", ppd_keyword);
+	cupsFilePrintf(fp, "*StapleLocation %s/%s: \"\"\n", ppd_keyword, _cupsLangString(base_lang, msgid));
 	ppd_put_strings(fp, langs, "StapleLocation", ppd_keyword, msgid);
 	cupsFilePrintf(fp, "*cupsIPPFinishings %d/%s: \"*StapleLocation %s\"\n", value, keyword, ppd_keyword);
       }
@@ -4550,11 +4567,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       cupsArrayAdd(fin_options, "*FoldType");
 
-      cupsFilePuts(fp, "*OpenUI *FoldType: PickOne\n");
+      cupsFilePrintf(fp, "*OpenUI *FoldType/%s: PickOne\n", _cupsLangString(base_lang, "finishings.10"));
       cupsFilePuts(fp, "*OrderDependency: 10 AnySetup *FoldType\n");
       ppd_put_strings(fp, langs, "Translation", "FoldType", "finishings.10");
       cupsFilePuts(fp, "*DefaultFoldType: None\n");
-      cupsFilePuts(fp, "*FoldType None: \"\"\n");
+      cupsFilePrintf(fp, "*FoldType None/%s: \"\"\n", _cupsLangString(base_lang, "finishings.3"));
       ppd_put_strings(fp, langs, "FoldType", "None", "finishings.3");
 
       for (; i < count; i ++)
@@ -4586,7 +4603,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
         if (!ppd_keyword)
           continue;
 
-	cupsFilePrintf(fp, "*FoldType %s: \"\"\n", ppd_keyword);
+	cupsFilePrintf(fp, "*FoldType %s/%s: \"\"\n", ppd_keyword, _cupsLangString(base_lang, msgid));
 	ppd_put_strings(fp, langs, "FoldType", ppd_keyword, msgid);
 	cupsFilePrintf(fp, "*cupsIPPFinishings %d/%s: \"*FoldType %s\"\n", value, keyword, ppd_keyword);
       }
@@ -4635,11 +4652,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       cupsArrayAdd(fin_options, "*PunchMedia");
 
-      cupsFilePuts(fp, "*OpenUI *PunchMedia: PickOne\n");
+      cupsFilePrintf(fp, "*OpenUI *PunchMedia/%s: PickOne\n", _cupsLangString(base_lang, "finishings.5"));
       cupsFilePuts(fp, "*OrderDependency: 10 AnySetup *PunchMedia\n");
       ppd_put_strings(fp, langs, "Translation", "PunchMedia", "finishings.5");
       cupsFilePuts(fp, "*DefaultPunchMedia: None\n");
-      cupsFilePuts(fp, "*PunchMedia None: \"\"\n");
+      cupsFilePrintf(fp, "*PunchMedia None/%s: \"\"\n", _cupsLangString(base_lang, "finishings.3"));
       ppd_put_strings(fp, langs, "PunchMedia", "None", "finishings.3");
 
       for (i = 0; i < count; i ++)
@@ -4671,7 +4688,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
         if (!ppd_keyword)
           continue;
 
-	cupsFilePrintf(fp, "*PunchMedia %s: \"\"\n", ppd_keyword);
+	cupsFilePrintf(fp, "*PunchMedia %s/%s: \"\"\n", ppd_keyword, _cupsLangString(base_lang, msgid));
 	ppd_put_strings(fp, langs, "PunchMedia", ppd_keyword, msgid);
 	cupsFilePrintf(fp, "*cupsIPPFinishings %d/%s: \"*PunchMedia %s\"\n", value, keyword, ppd_keyword);
       }
@@ -4687,7 +4704,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
     {
       cupsArrayAdd(fin_options, "*Booklet");
 
-      cupsFilePuts(fp, "*OpenUI *Booklet: Boolean\n");
+      cupsFilePrintf(fp, "*OpenUI *Booklet/%s: Boolean\n", _cupsLangString(base_lang, "finishings.13"));
       cupsFilePuts(fp, "*OrderDependency: 10 AnySetup *Booklet\n");
       ppd_put_strings(fp, langs, "Translation", "StapleLocation", "finishings.13");
       cupsFilePuts(fp, "*DefaultBooklet: False\n");
@@ -4722,11 +4739,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       cupsArrayAdd(fin_options, "*CutMedia");
 
-      cupsFilePuts(fp, "*OpenUI *CutMedia: PickOne\n");
+      cupsFilePrintf(fp, "*OpenUI *CutMedia/%s: PickOne\n", _cupsLangString(base_lang, "finishings.11"));
       cupsFilePuts(fp, "*OrderDependency: 10 AnySetup *CutMedia\n");
       ppd_put_strings(fp, langs, "Translation", "CutMedia", "finishings.11");
       cupsFilePuts(fp, "*DefaultCutMedia: None\n");
-      cupsFilePuts(fp, "*CutMedia None: \"\"\n");
+      cupsFilePrintf(fp, "*CutMedia None/%s: \"\"\n", _cupsLangString(base_lang, "finishings.3"));
       ppd_put_strings(fp, langs, "CutMedia", "None", "finishings.3");
 
       for (i = 0; i < count; i ++)
@@ -4749,7 +4766,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 	else
 	  ppd_keyword = trim_keywords[value - IPP_FINISHINGS_TRIM_AFTER_PAGES];
 
-	cupsFilePrintf(fp, "*CutMedia %s: \"\"\n", ppd_keyword);
+	cupsFilePrintf(fp, "*CutMedia %s/%s: \"\"\n", ppd_keyword, _cupsLangString(base_lang, msgid));
 	ppd_put_strings(fp, langs, "CutMedia", ppd_keyword, msgid);
 	cupsFilePrintf(fp, "*cupsIPPFinishings %d/%s: \"*CutMedia %s\"\n", value, keyword, ppd_keyword);
       }
@@ -4766,11 +4783,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
     ipp_attribute_t *finishing_attr;	/* Current finishing member attribute */
     cups_array_t *templates;		/* Finishing templates */
 
-    cupsFilePuts(fp, "*OpenUI *cupsFinishingTemplate: PickOne\n");
+    cupsFilePrintf(fp, "*OpenUI *cupsFinishingTemplate/%s: PickOne\n", ppd_get_string(base_lang, lang, "finishing-template", ppdtext, sizeof(ppdtext)));
     cupsFilePuts(fp, "*OrderDependency: 10 AnySetup *cupsFinishingTemplate\n");
     ppd_put_strings(fp, langs, "Translation", "cupsFinishingTemplate", "finishing-template");
     cupsFilePuts(fp, "*DefaultcupsFinishingTemplate: none\n");
-    cupsFilePuts(fp, "*cupsFinishingTemplate none: \"\"\n");
+    cupsFilePrintf(fp, "*cupsFinishingTemplate none/%s: \"\"\n", _cupsLangString(lang, "finishings.3"));
     ppd_put_strings(fp, langs, "cupsFinishingTemplate", "none", "finishings.3");
 
     templates = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
@@ -4791,7 +4808,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       snprintf(msgid, sizeof(msgid), "finishing-template.%s", keyword);
 
-      cupsFilePrintf(fp, "*cupsFinishingTemplate %s: \"\n", keyword);
+      cupsFilePrintf(fp, "*cupsFinishingTemplate %s/%s: \"\n", keyword, ppd_get_string(base_lang, lang, msgid, ppdtext, sizeof(ppdtext)));
       for (finishing_attr = ippFirstAttribute(finishing_col); finishing_attr; finishing_attr = ippNextAttribute(finishing_col))
       {
         if (ippGetValueTag(finishing_attr) == IPP_TAG_BEGIN_COLLECTION)
@@ -4982,6 +4999,26 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   */
 
   cupsFilePuts(fp, "*cupsSingleFile: true\n");
+
+ /*
+  * Add localized printer-state-reasons keywords as needed...
+  */
+
+  for (lang = langs; lang; lang = lang->next)
+  {
+    _cups_message_t	*msg;		// Current message
+
+    for (msg = (_cups_message_t *)cupsArrayGetFirst(lang->strings); msg; msg = (_cups_message_t *)cupsArrayGetNext(lang->strings))
+    {
+      if (!strncmp(msg->msg, "printer-state-reasons.", 22))
+      {
+        if (!strcmp(lang->language, "en"))
+          cupsFilePrintf(fp, "*cupsIPPReason %s/%s: \"\"\n", msg->msg + 22, msg->str);
+        else
+          cupsFilePrintf(fp, "*%s.cupsIPPReason %s/%s: \"\"\n", lang->language, msg->msg + 22, msg->str);
+      }
+    }
+  }
 
  /*
   * Close up and return...
@@ -5372,9 +5409,6 @@ cups_get_strings(
 
   ippDelete(response);
 
-  if (strings_file[0])
-    unlink(strings_file);
-
   return (lang);
 }
 
@@ -5417,6 +5451,57 @@ cups_get_url(http_t     **http,		/* IO - Current HTTP connection */
 
 
 /*
+ * 'ppd_get_string()' - Get a localized string.
+ *
+ * This function looks up the msgid first in the CUPS English localization
+ * catalog, then the printer's English localization, and finally falls back on
+ * converting the keyword from "word-like-this" to "Words Like This".
+ */
+
+static const char *			// O - Localized text
+ppd_get_string(cups_lang_t *base,	// I - Base (CUPS) localization
+               cups_lang_t *printer,	// I - Printer localization
+               const char  *msgid,	// I - Message ID
+               char        *buffer,	// I - Temporary string buffer
+               size_t      bufsize)	// I - Size of temporary string buffer
+{
+  const char	*text,			// Localized text
+		*msgptr;		// Pointer into message ID
+  char		*bufptr;		// Pointer into string buffer
+
+
+  if ((text = _cupsLangString(base, msgid)) == msgid)
+  {
+    if ((text = _cupsLangString(printer, msgid)) == msgid)
+    {
+      if ((msgptr = strrchr(msgid, '.')) != NULL)
+        msgptr ++;
+      else
+        msgptr = msgid;
+
+      if (!*msgptr)
+        return ("");
+
+      cupsCopyString(buffer, msgptr, bufsize);
+      buffer[0] = toupper(buffer[0] & 255);
+      for (bufptr = buffer + 1; *bufptr; bufptr ++)
+      {
+        if (*bufptr == '-')
+        {
+          *bufptr   = ' ';
+          bufptr[1] = toupper(bufptr[1] & 255);
+        }
+      }
+
+      text = buffer;
+    }
+  }
+
+  return (text);
+}
+
+
+/*
  * 'ppd_put_strings()' - Write localization attributes to a PPD file.
  */
 
@@ -5433,7 +5518,7 @@ ppd_put_strings(cups_file_t *fp,	/* I - PPD file */
 
   for (lang = langs; lang; lang = lang->next)
   {
-    if ((text = _cupsLangString(lang, pwg_msgid)) != pwg_msgid)
+    if (strcmp(lang->language, "en") && (text = _cupsLangString(lang, pwg_msgid)) != pwg_msgid)
       cupsFilePrintf(fp, "*%s.%s %s/%s: \"\"\n", lang->language, ppd_option, ppd_choice, text);
   }
 }
