@@ -110,6 +110,8 @@ VAR char		*ConfigurationFile	VALUE(NULL),
 					/* Directory for request files */
 			*DocumentRoot		VALUE(NULL);
 					/* Root directory for documents */
+VAR cups_lang_t		*Languages		VALUE(NULL);
+					/* Languages that cupsd is providing */
 VAR cups_array_t	*ServerAlias		VALUE(NULL);
 					/* Alias names for server */
 VAR int			ServerNameIsIP		VALUE(0);

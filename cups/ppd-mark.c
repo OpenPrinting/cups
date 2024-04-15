@@ -11,10 +11,6 @@
  * PostScript is a trademark of Adobe Systems, Inc.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cups-private.h"
 #include "ppd-private.h"
 #include "debug-internal.h"
@@ -97,7 +93,7 @@ cupsMarkOptions(
     * Load PPD cache and mapping data as needed...
     */
 
-    ppd->cache = _ppdCacheCreateWithPPD(ppd);
+    ppd->cache = _ppdCacheCreateWithPPD(NULL, ppd);
   }
 
   cache = ppd->cache;

@@ -136,8 +136,6 @@ struct _ppd_cache_s			/**** PPD cache and PWG conversion data ****/
   char		*password;		/* cupsJobPassword value */
   cups_array_t	*mandatory;		/* cupsMandatory value */
   char		*charge_info_uri;	/* cupsChargeInfoURI value */
-  cups_lang_t	*langs;			/* Localization languages/strings */
-  cups_array_t	*strings;		/* TODO: REMOVE ME */
   cups_array_t	*support_files;		/* Support files - ICC profiles, etc. */
 };
 
@@ -151,7 +149,7 @@ extern int		_cupsRasterExecPS(cups_page_header2_t *h, int *preferred_bits, const
 extern int		_cupsRasterInterpretPPD(cups_page_header2_t *h, ppd_file_t *ppd, int num_options, cups_option_t *options, cups_interpret_cb_t func) _CUPS_PRIVATE;
 
 extern _ppd_cache_t	*_ppdCacheCreateWithFile(const char *filename, ipp_t **attrs) _CUPS_PRIVATE;
-extern _ppd_cache_t	*_ppdCacheCreateWithPPD(ppd_file_t *ppd) _CUPS_PRIVATE;
+extern _ppd_cache_t	*_ppdCacheCreateWithPPD(cups_lang_t *langs, ppd_file_t *ppd) _CUPS_PRIVATE;
 extern void		_ppdCacheDestroy(_ppd_cache_t *pc) _CUPS_PRIVATE;
 extern const char	*_ppdCacheGetBin(_ppd_cache_t *pc, const char *output_bin) _CUPS_PRIVATE;
 extern int		_ppdCacheGetFinishingOptions(_ppd_cache_t *pc, ipp_t *job, ipp_finishings_t value, int num_options, cups_option_t **options) _CUPS_PRIVATE;

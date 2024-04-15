@@ -8,14 +8,11 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cups-private.h"
 #include "ppd-private.h"
 #include "debug-internal.h"
 #include <math.h>
+#include <ctype.h>
 
 
 /*
@@ -37,7 +34,6 @@ static const char *ppd_get_string(cups_lang_t *base, cups_lang_t *printer, const
 static const char *ppd_inputslot_for_keyword(_ppd_cache_t *pc, const char *keyword);
 static void	ppd_put_strings(cups_file_t *fp, cups_lang_t *langs, const char *ppd_option, const char *ppd_choice, const char *pwg_msgid);
 static void	pwg_add_finishing(cups_array_t *finishings, ipp_finishings_t template, const char *name, const char *value);
-static void	pwg_add_message(cups_array_t *a, const char *msg, const char *str);
 static int	pwg_compare_finishings(_pwg_finishings_t *a, _pwg_finishings_t *b, void *data);
 static int	pwg_compare_sizes(cups_size_t *a, cups_size_t *b, void *data);
 static cups_size_t *pwg_copy_size(cups_size_t *size, void *data);
@@ -1023,7 +1019,9 @@ _ppdCacheCreateWithFile(
  */
 
 _ppd_cache_t *				/* O - PPD cache and mapping data */
-_ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
+_ppdCacheCreateWithPPD(
+    cups_lang_t *langs,			/* I - Languages to load */
+    ppd_file_t  *ppd)			/* I - PPD file */
 {
   int			i, j, k;	/* Looping vars */
   _ppd_cache_t		*pc;		/* PWG mapping data */
@@ -1068,6 +1066,8 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
   const char		*filter;	/* Current filter */
   _pwg_finishings_t	*finishings;	/* Current finishings value */
   char			msg_id[256];	/* Message identifier */
+  cups_lang_t		*lang;		/* Current language */
+  _cups_message_t	msg;		/* Message */
 
 
   DEBUG_printf("_ppdCacheCreateWithPPD(ppd=%p)", (void *)ppd);
@@ -1088,8 +1088,6 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
     DEBUG_puts("_ppdCacheCreateWithPPD: Unable to allocate _ppd_cache_t.");
     goto create_error;
   }
-
-  pc->strings = _cupsMessageNew(NULL);
 
  /*
   * Copy and convert size data...
@@ -1353,7 +1351,32 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       */
 
       snprintf(msg_id, sizeof(msg_id), "media-source.%s", pwg_name);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      msg.msg = msg_id;
+
+      for (lang = langs; lang; lang = lang->next)
+      {
+        // See if the string is already localized...
+        if (cupsArrayFind(lang->strings, &msg))
+          continue;			// Yes
+
+        // Otherwise add the text...
+        if (!strcmp(lang->language, "en"))
+        {
+          // English
+          msg.str = choice->text;
+	}
+	else
+	{
+	  // Other languauge...
+          snprintf(ppd_name, sizeof(ppd_name), "%s.InputSlot", lang->language);
+          if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
+            msg.str = ppd_attr->text;
+	  else
+	    continue;
+	}
+
+	cupsArrayAdd(lang->strings, &msg);
+      }
     }
   }
 
@@ -1464,12 +1487,38 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
         }
       }
 
+
      /*
       * Add localized text for PWG keyword to message catalog...
       */
 
       snprintf(msg_id, sizeof(msg_id), "media-type.%s", map->pwg);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      msg.msg = msg_id;
+
+      for (lang = langs; lang; lang = lang->next)
+      {
+        // See if the string is already localized...
+        if (cupsArrayFind(lang->strings, &msg))
+          continue;			// Yes
+
+        // Otherwise add the text...
+        if (!strcmp(lang->language, "en"))
+        {
+          // English
+          msg.str = choice->text;
+	}
+	else
+	{
+	  // Other languauge...
+          snprintf(ppd_name, sizeof(ppd_name), "%s.MediaType", lang->language);
+          if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
+            msg.str = ppd_attr->text;
+	  else
+	    continue;
+	}
+
+	cupsArrayAdd(lang->strings, &msg);
+      }
     }
   }
 
@@ -1497,12 +1546,38 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       map->pwg = strdup(pwg_keyword);
       map->ppd = strdup(choice->choice);
 
+
      /*
       * Add localized text for PWG keyword to message catalog...
       */
 
-      snprintf(msg_id, sizeof(msg_id), "output-bin.%s", pwg_keyword);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      snprintf(msg_id, sizeof(msg_id), "output-bin.%s", pwg_name);
+      msg.msg = msg_id;
+
+      for (lang = langs; lang; lang = lang->next)
+      {
+        // See if the string is already localized...
+        if (cupsArrayFind(lang->strings, &msg))
+          continue;			// Yes
+
+        // Otherwise add the text...
+        if (!strcmp(lang->language, "en"))
+        {
+          // English
+          msg.str = choice->text;
+	}
+	else
+	{
+	  // Other languauge...
+          snprintf(ppd_name, sizeof(ppd_name), "%s.OutputBin", lang->language);
+          if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
+            msg.str = ppd_attr->text;
+	  else
+	    continue;
+	}
+
+	cupsArrayAdd(lang->strings, &msg);
+      }
     }
   }
 
@@ -1520,12 +1595,14 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 
     do
     {
+#if 0
      /*
       * Add localized text for PWG keyword to message catalog...
       */
 
       snprintf(msg_id, sizeof(msg_id), "preset-name.%s", ppd_attr->spec);
       pwg_add_message(pc->strings, msg_id, ppd_attr->text);
+#endif // 0
 
      /*
       * Get the options for this preset...
@@ -1978,7 +2055,32 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
       */
 
       snprintf(msg_id, sizeof(msg_id), "finishing-template.%s", choice->choice);
-      pwg_add_message(pc->strings, msg_id, choice->text);
+      msg.msg = msg_id;
+
+      for (lang = langs; lang; lang = lang->next)
+      {
+        // See if the string is already localized...
+        if (cupsArrayFind(lang->strings, &msg))
+          continue;			// Yes
+
+        // Otherwise add the text...
+        if (!strcmp(lang->language, "en"))
+        {
+          // English
+          msg.str = choice->text;
+	}
+	else
+	{
+	  // Other languauge...
+          snprintf(ppd_name, sizeof(ppd_name), "%s.cupsFinishingTemplate", lang->language);
+          if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
+            msg.str = ppd_attr->text;
+	  else
+	    continue;
+	}
+
+	cupsArrayAdd(lang->strings, &msg);
+      }
     }
   }
 
@@ -2131,8 +2233,6 @@ _ppdCacheDestroy(_ppd_cache_t *pc)	/* I - PPD cache and mapping data */
   cupsArrayDelete(pc->mandatory);
 
   cupsArrayDelete(pc->support_files);
-
-  cupsArrayDelete(pc->strings);
 
   free(pc);
 }
@@ -5483,13 +5583,13 @@ ppd_get_string(cups_lang_t *base,	// I - Base (CUPS) localization
         return ("");
 
       cupsCopyString(buffer, msgptr, bufsize);
-      buffer[0] = toupper(buffer[0] & 255);
+      buffer[0] = (char)toupper(buffer[0] & 255);
       for (bufptr = buffer + 1; *bufptr; bufptr ++)
       {
         if (*bufptr == '-')
         {
           *bufptr   = ' ';
-          bufptr[1] = toupper(bufptr[1] & 255);
+          bufptr[1] = (char)toupper(bufptr[1] & 255);
         }
       }
 
@@ -5544,27 +5644,6 @@ pwg_add_finishing(
     f->num_options = cupsAddOption(name, value, 0, &f->options);
 
     cupsArrayAdd(finishings, f);
-  }
-}
-
-
-/*
- * 'pwg_add_message()' - Add a message to the PPD cached strings.
- */
-
-static void
-pwg_add_message(cups_array_t *a,	/* I - Message catalog */
-                const char   *msg,	/* I - Message identifier */
-                const char   *str)	/* I - Localized string */
-{
-  _cups_message_t	*m;		/* New message */
-
-
-  if ((m = calloc(1, sizeof(_cups_message_t))) != NULL)
-  {
-    m->msg = strdup(msg);
-    m->str = strdup(str);
-    cupsArrayAdd(a, m);
   }
 }
 

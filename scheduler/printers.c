@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cupsd.h"
 #include <cups/dir.h>
 #ifdef HAVE_APPLICATIONSERVICES_H
@@ -4028,7 +4024,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     * Add make/model and other various attributes...
     */
 
-    p->pc = _ppdCacheCreateWithPPD(ppd);
+    p->pc = _ppdCacheCreateWithPPD(Languages, ppd);
 
     if (!p->pc)
       cupsdLogMessage(CUPSD_LOG_WARN, "Unable to create cache of \"%s\": %s", ppd_name, cupsGetErrorString());
@@ -4154,6 +4150,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_TEXT,
 		 "printer-make-and-model", NULL, p->make_model);
 
+#if 0 // TODO: Save global strings
     if (p->pc && p->pc->strings)
       _cupsMessageSave(strings_name, _CUPS_MESSAGE_STRINGS, p->pc->strings);
 
@@ -4161,6 +4158,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       cupsdSetString(&p->strings, strings_name);
     else
       cupsdClearString(&p->strings);
+#endif // 0
 
     num_urf         = 0;
     urf[num_urf ++] = "V1.4";
