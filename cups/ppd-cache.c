@@ -5374,7 +5374,7 @@ cups_get_strings(
     */
 
     cupsCopyString(lang->language, language, sizeof(lang->language));
-    lang->strings = _cupsMessageLoad(strings_file, _CUPS_MESSAGE_STRINGS);
+    lang->strings = _cupsMessageLoad(NULL, strings_file, _CUPS_MESSAGE_STRINGS);
     unlink(strings_file);
   }
 #if 0

@@ -663,11 +663,11 @@ _cupsMessageFree(cups_array_t *a)	/* I - Message array */
  */
 
 cups_array_t *				/* O - New message array */
-_cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
-                 int        flags)	/* I - Load flags */
+_cupsMessageLoad(cups_array_t *a,	/* I - Existing message array */
+                 const char   *filename,/* I - Message catalog to load */
+                 int          flags)	/* I - Load flags */
 {
   cups_file_t		*fp;		/* Message file */
-  cups_array_t		*a;		/* Message array */
   _cups_message_t	*m;		/* Current message */
   char			s[4096],	/* String buffer */
 			*ptr,		/* Pointer into buffer */
@@ -676,16 +676,19 @@ _cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
 			ptrlen;		/* Length of string */
 
 
-  DEBUG_printf("4_cupsMessageLoad(filename=\"%s\")", filename);
+  DEBUG_printf("4_cupsMessageLoad(a=%p, filename=\"%s\", flags=%d)", (void *)a, filename, flags);
 
- /*
-  * Create an array to hold the messages...
-  */
-
-  if ((a = _cupsMessageNew(NULL)) == NULL)
+  if (!a)
   {
-    DEBUG_puts("5_cupsMessageLoad: Unable to allocate array!");
-    return (NULL);
+   /*
+    * Create an array to hold the messages...
+    */
+
+    if ((a = _cupsMessageNew(NULL)) == NULL)
+    {
+      DEBUG_puts("5_cupsMessageLoad: Unable to allocate array!");
+      return (NULL);
+    }
   }
 
  /*
@@ -868,7 +871,10 @@ _cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
     {
       if (m->str && (m->str[0] || (flags & _CUPS_MESSAGE_EMPTY)))
       {
-	cupsArrayAdd(a, m);
+        if (cupsArrayFind(a, m))
+          cups_message_free(m, NULL);
+        else
+	  cupsArrayAdd(a, m);
       }
       else
       {
@@ -876,10 +882,7 @@ _cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
 	* Translation is empty, don't add it... (STR #4033)
 	*/
 
-	free(m->msg);
-	if (m->str)
-	  free(m->str);
-	free(m);
+        cups_message_free(m, NULL);
       }
     }
   }
@@ -1047,16 +1050,14 @@ cups_message_compare(_cups_message_t *m1, /* I - First message */
  * 'cups_message_free()' - Free a message.
  */
 
-static void cups_message_free(_cups_message_t *m, /* I - Message */
-                              void *data)         /* Unused */
+static void
+cups_message_free(_cups_message_t *m,	/* I - Message */
+		  void            *data)/* Unused */
 {
   (void)data;
-  if (m->msg)
-    free(m->msg);
 
-  if (m->str)
-    free(m->str);
-
+  free(m->msg);
+  free(m->str);
   free(m);
 }
 
@@ -1101,7 +1102,7 @@ cups_message_load(cups_lang_t *lang)	/* I - Language */
   * Read the strings from the file...
   */
 
-  lang->strings = _cupsMessageLoad(filename, _CUPS_MESSAGE_UNQUOTE);
+  lang->strings = _cupsMessageLoad(NULL, filename, _CUPS_MESSAGE_UNQUOTE);
 }
 
 
@@ -1235,17 +1236,14 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
 
     if (m->msg && m->str)
     {
-      cupsArrayAdd(a, m);
+      if (cupsArrayFind(a, m))
+        cups_message_free(m, NULL);
+      else
+	cupsArrayAdd(a, m);
     }
     else
     {
-      if (m->msg)
-	free(m->msg);
-
-      if (m->str)
-	free(m->str);
-
-      free(m);
+      cups_message_free(m, NULL);
       break;
     }
 

@@ -69,9 +69,9 @@ main(int  argc,				/* I - Number of command-line args */
     */
 
     if (strstr(argv[i], ".strings"))
-      po = _cupsMessageLoad(argv[i], _CUPS_MESSAGE_STRINGS);
+      po = _cupsMessageLoad(NULL, argv[i], _CUPS_MESSAGE_STRINGS);
     else
-      po = _cupsMessageLoad(argv[i], _CUPS_MESSAGE_PO | _CUPS_MESSAGE_EMPTY);
+      po = _cupsMessageLoad(NULL, argv[i], _CUPS_MESSAGE_PO | _CUPS_MESSAGE_EMPTY);
 
     if (!po)
     {
