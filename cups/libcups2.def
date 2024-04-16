@@ -98,7 +98,6 @@ _ppdCacheGetSource
 _ppdCacheGetType
 _ppdCacheWriteFile
 _ppdCreateFromIPP
-_ppdCreateFromIPP2
 _ppdFreeLanguages
 _ppdGetEncoding
 _ppdGetLanguages
