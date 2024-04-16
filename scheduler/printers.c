@@ -142,6 +142,7 @@ cupsdCreateCommonData(void)
   char			filename[1024],	/* Filename */
 			*notifier;	/* Current notifier */
   cupsd_policy_t	*p;		/* Current policy */
+  cups_lang_t		*lang;		/* Current language */
   int			k_supported;	/* Maximum file size supported */
 #ifdef HAVE_STATVFS
   struct statvfs	spoolinfo;	/* FS info for spool directory */
@@ -571,6 +572,15 @@ cupsdCreateCommonData(void)
 
   /* printer-settable-attributes-supported */
   ippAddStrings(CommonData, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "printer-settable-attributes-supported", sizeof(printer_settable) / sizeof(printer_settable[0]), NULL, printer_settable);
+
+  /* printer-strings-languages-supported */
+  for (lang = Languages, attr = NULL; lang; lang = lang->next)
+  {
+    if (attr)
+      ippSetString(CommonData, &attr, ippGetCount(attr), lang->language);
+    else
+      attr = ippAddString(CommonData, IPP_TAG_PRINTER, IPP_TAG_LANGUAGE, "printer-strings-languages-supported", NULL, lang->language);
+  }
 
   /* server-is-sharing-printers */
   ippAddBoolean(CommonData, IPP_TAG_PRINTER, "server-is-sharing-printers", BrowseLocalProtocols != 0 && Browsing);
