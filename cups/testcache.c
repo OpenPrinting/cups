@@ -53,7 +53,7 @@ main(int  argc,				/* I - Number of command-line args */
     return (1);
   }
 
-  if ((pc = _ppdCacheCreateWithPPD(ppd)) == NULL)
+  if ((pc = _ppdCacheCreateWithPPD(NULL, ppd)) == NULL)
   {
     fprintf(stderr, "Unable to create PPD cache from \"%s\".\n", ppdfile);
     return (1);

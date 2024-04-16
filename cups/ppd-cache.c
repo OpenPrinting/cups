@@ -27,10 +27,10 @@
  */
 
 static int	cups_connect(http_t **http, const char *url, char *resource, size_t ressize);
-static cups_array_t *cups_get_languages(void);
 static cups_lang_t *cups_get_strings(http_t **http, const char *printer_uri, const char *language);
 static int	cups_get_url(http_t **http, const char *url, const char *suffix, char *name, size_t namesize);
 static const char *ppd_get_string(cups_lang_t *base, cups_lang_t *printer, const char *msgid, char *buffer, size_t bufsize);
+static void	ppd_get_strings(ppd_file_t *ppd, cups_lang_t *langs, const char *option, ppd_choice_t *choice, const char *pwg_msgid);
 static const char *ppd_inputslot_for_keyword(_ppd_cache_t *pc, const char *keyword);
 static void	ppd_put_strings(cups_file_t *fp, cups_lang_t *langs, const char *ppd_option, const char *ppd_choice, const char *pwg_msgid);
 static void	pwg_add_finishing(cups_array_t *finishings, ipp_finishings_t template, const char *name, const char *value);
@@ -1351,32 +1351,7 @@ _ppdCacheCreateWithPPD(
       */
 
       snprintf(msg_id, sizeof(msg_id), "media-source.%s", pwg_name);
-      msg.msg = msg_id;
-
-      for (lang = langs; lang; lang = lang->next)
-      {
-        // See if the string is already localized...
-        if (cupsArrayFind(lang->strings, &msg))
-          continue;			// Yes
-
-        // Otherwise add the text...
-        if (!strcmp(lang->language, "en"))
-        {
-          // English
-          msg.str = choice->text;
-	}
-	else
-	{
-	  // Other languauge...
-          snprintf(ppd_name, sizeof(ppd_name), "%s.InputSlot", lang->language);
-          if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
-            msg.str = ppd_attr->text;
-	  else
-	    continue;
-	}
-
-	cupsArrayAdd(lang->strings, &msg);
-      }
+      ppd_get_strings(ppd, langs, "InputSlot", choice, msg_id);
     }
   }
 
@@ -1487,38 +1462,12 @@ _ppdCacheCreateWithPPD(
         }
       }
 
-
      /*
       * Add localized text for PWG keyword to message catalog...
       */
 
       snprintf(msg_id, sizeof(msg_id), "media-type.%s", map->pwg);
-      msg.msg = msg_id;
-
-      for (lang = langs; lang; lang = lang->next)
-      {
-        // See if the string is already localized...
-        if (cupsArrayFind(lang->strings, &msg))
-          continue;			// Yes
-
-        // Otherwise add the text...
-        if (!strcmp(lang->language, "en"))
-        {
-          // English
-          msg.str = choice->text;
-	}
-	else
-	{
-	  // Other languauge...
-          snprintf(ppd_name, sizeof(ppd_name), "%s.MediaType", lang->language);
-          if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
-            msg.str = ppd_attr->text;
-	  else
-	    continue;
-	}
-
-	cupsArrayAdd(lang->strings, &msg);
-      }
+      ppd_get_strings(ppd, langs, "MediaType", choice, msg_id);
     }
   }
 
@@ -1552,32 +1501,7 @@ _ppdCacheCreateWithPPD(
       */
 
       snprintf(msg_id, sizeof(msg_id), "output-bin.%s", pwg_name);
-      msg.msg = msg_id;
-
-      for (lang = langs; lang; lang = lang->next)
-      {
-        // See if the string is already localized...
-        if (cupsArrayFind(lang->strings, &msg))
-          continue;			// Yes
-
-        // Otherwise add the text...
-        if (!strcmp(lang->language, "en"))
-        {
-          // English
-          msg.str = choice->text;
-	}
-	else
-	{
-	  // Other languauge...
-          snprintf(ppd_name, sizeof(ppd_name), "%s.OutputBin", lang->language);
-          if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
-            msg.str = ppd_attr->text;
-	  else
-	    continue;
-	}
-
-	cupsArrayAdd(lang->strings, &msg);
-      }
+      ppd_get_strings(ppd, langs, "OutputBin", choice, msg_id);
     }
   }
 
@@ -5359,62 +5283,6 @@ cups_connect(http_t     **http,		/* IO - Current HTTP connection */
 
 
 /*
- * 'cups_get_languages()' - Get the languages to load for PPDs.
- */
-
-static cups_array_t *			/* O - Array of languages */
-cups_get_languages(void)
-{
-  cups_array_t	*languages = NULL;	/* Array of languages */
-  cups_file_t	*fp;			/* CUPS_SERVERROOT/cups-files.conf file */
-  char		filename[1024];		/* Filename */
-  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
-
-
-  snprintf(filename, sizeof(filename), "%s/cups-files.conf", cg->cups_serverroot);
-
-  if ((fp = cupsFileOpen(filename, "r")) != NULL)
-  {
-   /*
-    * Read the cups-files.conf file, looking for a Languages directive...
-    */
-
-    char	line[1024],		/* Line from file */
-		*value;			/* Value from line */
-    int		linenum = 0;		/* Current line number */
-
-    while (cupsFileGetConf(fp, line, sizeof(line), &value, &linenum))
-    {
-      if (!_cups_strcasecmp(line, "Languages") && value)
-      {
-        languages = cupsArrayNewStrings(value, ' ');
-        break;
-      }
-    }
-
-    cupsFileClose(fp);
-  }
-
-  if (!languages)
-  {
-   /*
-    * No Languages directive in CUPS_SERVERROOT/cups-files.conf, so use the
-    * current locale...
-    */
-
-    cups_lang_t	*deflang;		/* Default language */
-
-    languages = cupsArrayNewStrings(NULL, ' ');
-    deflang   = cupsLangDefault();
-
-    cupsArrayAdd(languages, deflang->language);
-  }
-
-  return (languages);
-}
-
-
-/*
  * 'cups_get_strings()' - Get the strings for the specified language.
  */
 
@@ -5598,6 +5466,53 @@ ppd_get_string(cups_lang_t *base,	// I - Base (CUPS) localization
   }
 
   return (text);
+}
+
+
+//
+// 'ppd_get_strings()' - Get the strings for a given option and choice.
+//
+
+static void
+ppd_get_strings(
+    ppd_file_t   *ppd,			// I - PPD file
+    cups_lang_t  *langs,		// I - Languages
+    const char   *option,		// I - PPD option keyword
+    ppd_choice_t *choice,		// I - PPD choice
+    const char   *pwg_msgid)		// I - PWG message ID
+{
+  cups_lang_t	*lang;			// Current language
+  char		ppd_name[PPD_MAX_NAME];	// PPD main keyword
+  ppd_attr_t	*ppd_attr;		// PPD attribute
+  _cups_message_t msg;			// Message
+
+
+  msg.msg = (char *)pwg_msgid;
+
+  for (lang = langs; lang; lang = lang->next)
+  {
+    // See if the string is already localized...
+    if (cupsArrayFind(lang->strings, &msg))
+      continue;			// Yes
+
+    // Otherwise add the text...
+    if (!strcmp(lang->language, "en"))
+    {
+      // English
+      msg.str = choice->text;
+    }
+    else
+    {
+      // Other languauge...
+      snprintf(ppd_name, sizeof(ppd_name), "%s.%s", lang->language, option);
+      if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
+	msg.str = ppd_attr->text;
+      else
+	continue;
+    }
+
+    cupsArrayAdd(lang->strings, &msg);
+  }
 }
 
 

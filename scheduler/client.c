@@ -12,10 +12,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #define _CUPS_NO_DEPRECATED
 #define _HTTP_NO_PRIVATE
 #include "cupsd.h"
@@ -36,18 +32,13 @@ static int		check_if_modified(cupsd_client_t *con,
 			                  struct stat *filestats);
 static int		compare_clients(cupsd_client_t *a, cupsd_client_t *b, void *data);
 static int		cupsd_start_tls(cupsd_client_t *con, http_encryption_t e);
-static char		*get_file(cupsd_client_t *con, struct stat *filestats,
-                        char *filename, size_t len);
+static char		*get_file(cupsd_client_t *con, struct stat *filestats, char *filename, size_t len);
 static http_status_t	install_cupsd_conf(cupsd_client_t *con);
-static int		is_cgi(cupsd_client_t *con, const char *filename,
-                    struct stat *filestats, mime_type_t *type);
+static int		is_cgi(cupsd_client_t *con, const char *filename, struct stat *filestats, mime_type_t *type);
 static int		is_path_absolute(const char *path);
-static int		pipe_command(cupsd_client_t *con, int infile, int *outfile,
-                           char *command, char *options, int root);
+static int		pipe_command(cupsd_client_t *con, int infile, int *outfile, char *command, char *options, int root);
 static int		valid_host(cupsd_client_t *con);
-static int		write_file(cupsd_client_t *con, http_status_t code,
-                         char *filename, char *type,
-                         struct stat *filestats);
+static int		write_file(cupsd_client_t *con, http_status_t code, char *filename, char *type, struct stat *filestats);
 static void		write_pipe(cupsd_client_t *con);
 
 
@@ -2811,28 +2802,12 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
     return (NULL);
   }
   else if (!strncmp(con->uri, "/rss/", 5) && !strchr(con->uri + 5, '/'))
+  {
     snprintf(filename, len, "%s/rss/%s", CacheDir, con->uri + 5);
+  }
   else if (!strncmp(con->uri, "/strings/", 9) && !strcmp(con->uri + strlen(con->uri) - 8, ".strings"))
   {
-    cupsCopyString(dest, con->uri + 9, sizeof(dest));
-    dest[strlen(dest) - 8] = '\0';
-
-    if ((p = cupsdFindDest(dest)) == NULL)
-    {
-      cupsCopyString(filename, "/", len);
-      cupsdLogClient(con, CUPSD_LOG_INFO, "No destination \"%s\" found.", dest);
-      return (NULL);
-    }
-
-    if (!p->strings)
-    {
-      cupsCopyString(filename, "/", len);
-      cupsdLogClient(con, CUPSD_LOG_INFO, "No strings files for \"%s\".", dest);
-      return (NULL);
-    }
-
-    cupsCopyString(filename, p->strings, len);
-
+    snprintf(filename, len, "%s/strings/%s", ServerRoot, con->uri + 9);
     perm_check = 0;
   }
   else if (con->language)

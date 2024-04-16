@@ -4029,6 +4029,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     if (!p->pc)
       cupsdLogMessage(CUPSD_LOG_WARN, "Unable to create cache of \"%s\": %s", ppd_name, cupsGetErrorString());
 
+    cupsdWriteStrings();
+
     ppdMarkDefaults(ppd);
 
     if (ppd->color_device)

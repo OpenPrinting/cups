@@ -4986,9 +4986,31 @@ copy_printer_attrs(
   if (!ra || cupsArrayFind(ra, "printer-state-reasons"))
     add_printer_state_reasons(con, printer);
 
+  if (!ra || cupsArrayFind(ra, "printer-strings-languages-supported"))
+  {
+    cups_lang_t		*lang;		// Current language
+    ipp_attribute_t	*attr = NULL;	// Attribute
+
+    for (lang = Languages; lang; lang = lang->next)
+    {
+      if (attr)
+        ippSetString(con->response, &attr, ippGetCount(attr), lang->language);
+      else
+        attr = ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_LANGUAGE, "printer-strings-languages-supported", NULL, lang->language);
+    }
+  }
+
   if (!ra || cupsArrayFind(ra, "printer-strings-uri"))
   {
-    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "https" : "http", NULL, con->clientname, con->clientport, "/strings/%s.strings", printer->name);
+    cups_lang_t		*lang;		// Current language
+
+    for (lang = Languages; lang; lang = lang->next)
+    {
+      if (!strcmp(lang->language, con->language->language))
+        break;
+    }
+
+    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "https" : "http", NULL, con->clientname, con->clientport, "/strings/%s.strings", lang ? lang->language : "en");
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-strings-uri", NULL, uri);
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "printer-strings-uri=\"%s\"", uri);
   }
