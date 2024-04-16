@@ -3626,14 +3626,20 @@ ippserver_attr_cb(
     "identify-actions-default",
     "identify-actions-supported",
     "ipp-features-supported",
-    "ipp-versions-supproted",
+    "ipp-versions-supported",
     "ippget-event-life",
+    "job-creation-attributes-supported",
     "job-hold-until-supported",
     "job-hold-until-time-supported",
     "job-ids-supported",
     "job-k-octets-supported",
+    "job-priority-default",
+    "job-priority-supported",
     "job-settable-attributes-supported",
+    "job-sheets-default",
+    "job-sheets-supported",
     "media-col-supported",
+    "multiple-document-handling-supported",
     "multiple-document-jobs-supported",
     "multiple-operation-time-out",
     "multiple-operation-time-out-action",
@@ -3646,6 +3652,7 @@ ippserver_attr_cb(
     "notify-max-events-supported",
     "notify-pull-method-supported",
     "operations-supported",
+    "pdl-override-supported",
     "printer-alert",
     "printer-alert-description",
     "printer-camera-image-uri",
@@ -3657,18 +3664,25 @@ ippserver_attr_cb(
     "printer-detailed-status-messages",
     "printer-dns-sd-name",
     "printer-fax-log-uri",
+    "printer-geo-location",
     "printer-get-attributes-supported",
     "printer-icons",
     "printer-id",
     "printer-info",
     "printer-is-accepting-jobs",
+    "printer-location",
     "printer-message-date-time",
     "printer-message-from-operator",
     "printer-message-time",
     "printer-more-info",
+    "printer-name",
+    "printer-organization",
+    "printer-organizational-unit",
     "printer-service-type",
     "printer-settable-attributes-supported",
     "printer-state",
+    "printer-state-change-date-time",
+    "printer-state-change-time",
     "printer-state-message",
     "printer-state-reasons",
     "printer-static-resource-directory-uri",
@@ -3679,6 +3693,7 @@ ippserver_attr_cb(
     "printer-supply-info-uri",
     "printer-up-time",
     "printer-uri-supported",
+    "printer-uuid",
     "printer-xri-supported",
     "queued-job-count",
     "reference-uri-scheme-supported",
@@ -5993,7 +6008,7 @@ respond_http(
   if (code == HTTP_STATUS_CONTINUE)
   {
     // 100-continue doesn't send any headers...
-    return (httpWriteResponse(client->http, HTTP_STATUS_CONTINUE));
+    return (!httpWriteResponse(client->http, HTTP_STATUS_CONTINUE));
   }
 
   // Format an error message...
@@ -6034,7 +6049,7 @@ respond_http(
 
   httpSetLength(client->http, length);
 
-  if (!httpWriteResponse(client->http, code))
+  if (httpWriteResponse(client->http, code))
     return (false);
 
   // Send the response data...
