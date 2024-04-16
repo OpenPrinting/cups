@@ -1737,11 +1737,17 @@ cupsdWriteStrings(void)
   char		strings_file[1024];	// Strings file
 
 
+  // Make sure the strings directory is there...
+  if (cupsdCheckPermissions(ServerRoot, "strings", 0755, RunUser, Group, /*is_dir*/1, /*create_dir*/1) < 0)
+    return;
+
   // Save each language...
   for (lang = Languages; lang; lang = lang->next)
   {
     snprintf(strings_file, sizeof(strings_file), "%s/strings/%s.strings", ServerRoot, lang->language);
-    _cupsMessageSave(strings_file, _CUPS_MESSAGE_STRINGS, lang->strings);
+
+    if (_cupsMessageSave(strings_file, _CUPS_MESSAGE_STRINGS, lang->strings))
+      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to save '%s': %s", strings_file, strerror(errno));
   }
 }
 

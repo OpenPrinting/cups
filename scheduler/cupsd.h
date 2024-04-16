@@ -9,11 +9,6 @@
  * information.
  */
 
-
-/*
- * Include necessary headers.
- */
-
 #include <cups/cups-private.h>
 #include <cups/file-private.h>
 #include <cups/ppd-private.h>
@@ -230,7 +225,3 @@ extern void		cupsdStopSelect(void);
 /* server.c */
 extern void		cupsdStartServer(void);
 extern void		cupsdStopServer(void);
-
-extern int		_cupsArrayStrcmp(const char *s1, const char *s2, void *data);
-extern char		*_cupsArrayStrdup(const char *element, void *data);
-extern void		_cupsArrayFree(void *element, void *data);

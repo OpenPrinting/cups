@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-files.conf 5 "CUPS" "2021-03-06" "OpenPrinting"
+.TH cups-files.conf 5 "CUPS" "2024-04-16" "OpenPrinting"
 .SH NAME
 cups\-files.conf \- file and directory configuration file for cups
 .SH DESCRIPTION
@@ -132,6 +132,11 @@ Bad startup file permissions are fatal, for example shared TLS certificate and k
 \fBGroup \fIgroup-name-or-number\fR
 Specifies the group name or ID that will be used when executing external programs.
 The default group is operating system specific but is usually "lp" or "nobody".
+.\"#Languages
+.TP 5
+\fBLanguages \fILOCALE ... LOCALE\fR
+Lists the language locales that should be supported by the server.
+The default is English ("en") and the current system locale (if not English).
 .\"#LogFileGroup
 .TP 5
 \fBLogFileGroup \fIgroup-name-or-number\fR

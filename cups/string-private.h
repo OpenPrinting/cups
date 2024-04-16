@@ -129,10 +129,10 @@ extern void	_cups_strcpy(char *dst, const char *src) _CUPS_PRIVATE;
 extern int	_cups_strcasecmp(const char *, const char *) _CUPS_PRIVATE;
 extern int	_cups_strncasecmp(const char *, const char *, size_t n) _CUPS_PRIVATE;
 
-extern int _cupsArrayStrcasecmp(const char *s, const char *t, void *data) _CUPS_PRIVATE;
-extern int _cupsArrayStrcmp(const char *s1, const char *s2, void *data) _CUPS_PRIVATE;
-extern char *_cupsArrayStrdup(const char *element, void *data) _CUPS_PRIVATE;
-extern void _cupsArrayFree(void *element, void *data) _CUPS_PRIVATE;
+extern int	_cupsArrayStrcasecmp(const char *s, const char *t, void *data) _CUPS_PRIVATE;
+extern int	_cupsArrayStrcmp(const char *s1, const char *s2, void *data) _CUPS_PRIVATE;
+extern char	*_cupsArrayStrdup(const char *element, void *data) _CUPS_PRIVATE;
+extern void	_cupsArrayFree(void *element, void *data) _CUPS_PRIVATE;
 
 extern char	*_cupsStrAlloc(const char *s) _CUPS_PRIVATE;
 extern char	*_cupsStrDate(char *buf, size_t bufsize, time_t timeval) _CUPS_PRIVATE;

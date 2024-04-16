@@ -18,6 +18,7 @@
 #define CUPSD_DIRTY_PRINTCAP	4	/* printcap is dirty */
 #define CUPSD_DIRTY_JOBS	8	/* jobs.cache or "c" file(s) are dirty */
 #define CUPSD_DIRTY_SUBSCRIPTIONS 16	/* subscriptions.conf is dirty */
+#define CUPSD_DIRTY_STRINGS	32	/* The .strings files are dirty */
 
 
 /*
