@@ -1209,13 +1209,16 @@ help_new_node(const char   *filename,	/* I - Filename */
  * 'help_sort_nodes_by_name()' - Sort nodes by section, filename, and anchor.
  */
 
-static int                         /* O - Difference */
-help_sort_by_name(help_node_t *n1, /* I - First node */
-                  help_node_t *n2, /* I - Second node */
-                  void *data)      /* Unused */
+static int				/* O - Difference */
+help_sort_by_name(
+    help_node_t *n1,			/* I - First node */
+    help_node_t *n2,			/* I - Second node */
+    void        *data)			/* Unused */
 {
-  int		diff;			/* Difference */
+  int	diff;				/* Difference */
 
+
+  (void)data;
 
   if ((diff = strcmp(n1->filename, n2->filename)) != 0)
     return (diff);

@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cupsd.h"
 #include <cups/dir.h>
 #ifdef HAVE_APPLICATIONSERVICES_H
@@ -739,7 +735,6 @@ cupsdDeletePrinter(
   cupsdClearString(&p->port_monitor);
   cupsdClearString(&p->op_policy);
   cupsdClearString(&p->error_policy);
-  cupsdClearString(&p->strings);
 
   cupsdClearString(&p->alert);
   cupsdClearString(&p->alert_description);
@@ -3760,6 +3755,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
   char		cache_name[1024];	/* Cache filename */
   struct stat	cache_info;		/* Cache file info */
   struct stat	conf_info;		/* cupsd.conf file info */
+  struct stat	files_info;		/* cups-files.conf file info */
   ppd_file_t	*ppd;			/* PPD file */
   char		ppd_name[1024];		/* PPD filename */
   struct stat	ppd_info;		/* PPD file info */
@@ -3892,6 +3888,9 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
   if (stat(ConfigurationFile, &conf_info))
     conf_info.st_mtime = 0;
 
+  if (stat(CupsFilesFile, &files_info))
+    files_info.st_mtime = 0;
+
   snprintf(cache_name, sizeof(cache_name), "%s/%s.data", CacheDir, p->name);
   if (stat(cache_name, &cache_info))
     cache_info.st_mtime = 0;
@@ -3908,7 +3907,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
   _ppdCacheDestroy(p->pc);
   p->pc = NULL;
 
-  if (cache_info.st_mtime >= ppd_info.st_mtime && cache_info.st_mtime >= conf_info.st_mtime)
+  if (cache_info.st_mtime >= ppd_info.st_mtime && cache_info.st_mtime >= conf_info.st_mtime && cache_info.st_mtime >= files_info.st_mtime)
   {
     cupsdLogMessage(CUPSD_LOG_DEBUG, "load_ppd: Loading %s...", cache_name);
 
@@ -3918,16 +3917,6 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
      /*
       * Loaded successfully!
       */
-
-     /*
-      * Set `strings` (source for printer-strings-uri IPP attribute)
-      * if printer's .strings file with localization exists.
-      */
-
-      if (!access(strings_name, R_OK))
-	cupsdSetString(&p->strings, strings_name);
-      else
-	cupsdClearString(&p->strings);
 
       return;
     }
@@ -4028,10 +4017,12 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     * Add make/model and other various attributes...
     */
 
-    p->pc = _ppdCacheCreateWithPPD(ppd);
+    p->pc = _ppdCacheCreateWithPPD(Languages, ppd);
 
     if (!p->pc)
       cupsdLogMessage(CUPSD_LOG_WARN, "Unable to create cache of \"%s\": %s", ppd_name, cupsGetErrorString());
+
+    cupsdMarkDirty(CUPSD_DIRTY_STRINGS);
 
     ppdMarkDefaults(ppd);
 
@@ -4154,6 +4145,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_TEXT,
 		 "printer-make-and-model", NULL, p->make_model);
 
+#if 0 // TODO: Save global strings
     if (p->pc && p->pc->strings)
       _cupsMessageSave(strings_name, _CUPS_MESSAGE_STRINGS, p->pc->strings);
 
@@ -4161,6 +4153,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       cupsdSetString(&p->strings, strings_name);
     else
       cupsdClearString(&p->strings);
+#endif // 0
 
     num_urf         = 0;
     urf[num_urf ++] = "V1.4";

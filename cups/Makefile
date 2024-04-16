@@ -90,6 +90,7 @@ IMAGEOBJS	= \
 		raster-stubs.o
 
 TESTOBJS	= \
+		cachebench.o \
 		fuzzipp.o \
 		rasterbench.o \
 		testadmin.o \
@@ -186,6 +187,7 @@ LIBTARGETS =	\
 		libcupsimage.a
 
 UNITTARGETS =	\
+		cachebench \
 		rasterbench \
 		testadmin \
 		testarray \
@@ -526,6 +528,16 @@ libcupsimage.a:	$(IMAGEOBJS)
 	$(RM) $@
 	$(AR) $(ARFLAGS) $@ $(IMAGEOBJS)
 	$(RANLIB) $@
+
+
+#
+# cachebench (dependency on static CUPS library is intentional)
+#
+
+cachebench:	cachebench.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ cachebench.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 
 #

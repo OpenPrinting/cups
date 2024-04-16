@@ -115,6 +115,7 @@ static const char * const lang_encodings[] =
 static cups_lang_t	*cups_cache_lookup(const char *name, cups_encoding_t encoding);
 static int		cups_message_compare(_cups_message_t *m1, _cups_message_t *m2,
                                 void *data);
+static _cups_message_t	*cups_message_copy(_cups_message_t *m, void *data);
 static void		cups_message_free(_cups_message_t *m, void *data);
 static void		cups_message_load(cups_lang_t *lang);
 static void		cups_message_puts(cups_file_t *fp, const char *s);
@@ -663,29 +664,31 @@ _cupsMessageFree(cups_array_t *a)	/* I - Message array */
  */
 
 cups_array_t *				/* O - New message array */
-_cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
-                 int        flags)	/* I - Load flags */
+_cupsMessageLoad(cups_array_t *a,	/* I - Existing message array */
+                 const char   *filename,/* I - Message catalog to load */
+                 int          flags)	/* I - Load flags */
 {
   cups_file_t		*fp;		/* Message file */
-  cups_array_t		*a;		/* Message array */
-  _cups_message_t	*m;		/* Current message */
+  _cups_message_t	m;		/* Current message */
   char			s[4096],	/* String buffer */
-			*ptr,		/* Pointer into buffer */
-			*temp;		/* New string */
-  size_t		length,		/* Length of combined strings */
-			ptrlen;		/* Length of string */
+			msg_id[4096],	/* Message ID buffer */
+			msg_str[4096],	/* Message string buffer */
+			*ptr;		/* Pointer into buffer */
 
 
-  DEBUG_printf("4_cupsMessageLoad(filename=\"%s\")", filename);
+  DEBUG_printf("4_cupsMessageLoad(a=%p, filename=\"%s\", flags=%d)", (void *)a, filename, flags);
 
- /*
-  * Create an array to hold the messages...
-  */
-
-  if ((a = _cupsMessageNew(NULL)) == NULL)
+  if (!a)
   {
-    DEBUG_puts("5_cupsMessageLoad: Unable to allocate array!");
-    return (NULL);
+   /*
+    * Create an array to hold the messages...
+    */
+
+    if ((a = _cupsMessageNew(NULL)) == NULL)
+    {
+      DEBUG_puts("5_cupsMessageLoad: Unable to allocate array!");
+      return (NULL);
+    }
   }
 
  /*
@@ -721,7 +724,8 @@ _cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
     *     "multiple lines"
     */
 
-    m = NULL;
+    m.msg = NULL;
+    m.str = NULL;
 
     while (cupsFileGets(fp, s, sizeof(s)) != NULL)
     {
@@ -767,96 +771,36 @@ _cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
 	* Add previous message as needed...
 	*/
 
-	if (m)
-	{
-	  if (m->str && (m->str[0] || (flags & _CUPS_MESSAGE_EMPTY)))
-	  {
-	    cupsArrayAdd(a, m);
-	  }
-	  else
-	  {
-	   /*
-	    * Translation is empty, don't add it... (STR #4033)
-	    */
-
-	    free(m->msg);
-	    if (m->str)
-	      free(m->str);
-	    free(m);
-	  }
-	}
+	if (m.str && (m.str[0] || (flags & _CUPS_MESSAGE_EMPTY)))
+	  cupsArrayAdd(a, &m);
 
        /*
 	* Create a new message with the given msgid string...
 	*/
 
-	if ((m = (_cups_message_t *)calloc(1, sizeof(_cups_message_t))) == NULL)
-	  break;
-
-	if ((m->msg = strdup(ptr)) == NULL)
-	{
-	  free(m);
-	  m = NULL;
-	  break;
-	}
+        cupsCopyString(msg_id, ptr, sizeof(msg_id));
+        m.msg = msg_id;
+        m.str = NULL;
       }
-      else if (s[0] == '\"' && m)
+      else if (s[0] == '\"' && (m.msg || m.str))
       {
        /*
 	* Append to current string...
 	*/
 
-	length = strlen(m->str ? m->str : m->msg);
-	ptrlen = strlen(ptr);
-
-	if ((temp = realloc(m->str ? m->str : m->msg, length + ptrlen + 1)) == NULL)
-	{
-	  if (m->str)
-	    free(m->str);
-	  free(m->msg);
-	  free(m);
-	  m = NULL;
-	  break;
-	}
-
-	if (m->str)
-	{
-	 /*
-	  * Copy the new portion to the end of the msgstr string - safe
-	  * to use memcpy because the buffer is allocated to the correct
-	  * size...
-	  */
-
-	  m->str = temp;
-
-	  memcpy(m->str + length, ptr, ptrlen + 1);
-	}
+	if (m.str)
+          cupsConcatString(msg_str, ptr, sizeof(msg_str));
 	else
-	{
-	 /*
-	  * Copy the new portion to the end of the msgid string - safe
-	  * to use memcpy because the buffer is allocated to the correct
-	  * size...
-	  */
-
-	  m->msg = temp;
-
-	  memcpy(m->msg + length, ptr, ptrlen + 1);
-	}
+          cupsConcatString(msg_id, ptr, sizeof(msg_id));
       }
-      else if (!strncmp(s, "msgstr", 6) && m)
+      else if (!strncmp(s, "msgstr", 6) && m.msg)
       {
        /*
 	* Set the string...
 	*/
 
-	if ((m->str = strdup(ptr)) == NULL)
-	{
-	  free(m->msg);
-	  free(m);
-	  m = NULL;
-          break;
-	}
+        cupsCopyString(msg_str, ptr, sizeof(msg_str));
+        m.str = msg_str;
       }
     }
 
@@ -864,24 +808,8 @@ _cupsMessageLoad(const char *filename,	/* I - Message catalog to load */
     * Add the last message string to the array as needed...
     */
 
-    if (m)
-    {
-      if (m->str && (m->str[0] || (flags & _CUPS_MESSAGE_EMPTY)))
-      {
-	cupsArrayAdd(a, m);
-      }
-      else
-      {
-       /*
-	* Translation is empty, don't add it... (STR #4033)
-	*/
-
-	free(m->msg);
-	if (m->str)
-	  free(m->str);
-	free(m);
-      }
-    }
+    if (m.msg && m.str && (m.str[0] || (flags & _CUPS_MESSAGE_EMPTY)))
+      cupsArrayAdd(a, &m);
   }
 
  /*
@@ -932,10 +860,10 @@ _cupsMessageLookup(cups_array_t *a,	/* I - Message array */
 cups_array_t *				/* O - Array */
 _cupsMessageNew(void *context)		/* I - User data */
 {
-  return (cupsArrayNew3((cups_array_func_t)cups_message_compare, context,
-                        (cups_ahash_func_t)NULL, 0,
-			(cups_acopy_func_t)NULL,
-			(cups_afree_func_t)cups_message_free));
+  return (cupsArrayNew3((cups_array_cb_t)cups_message_compare, context,
+                        (cups_ahash_cb_t)NULL, 0,
+			(cups_acopy_cb_t)cups_message_copy,
+			(cups_afree_cb_t)cups_message_free));
 }
 
 
@@ -1043,20 +971,49 @@ cups_message_compare(_cups_message_t *m1, /* I - First message */
 }
 
 
+//
+// 'cups_message_copy()' - Copy a message.
+//
+
+static _cups_message_t *		// O - New message
+cups_message_copy(_cups_message_t *m,	// I - Message
+                  void            *data)// I - Callback data (unused)
+{
+  _cups_message_t	*newm;		// New message
+
+
+  (void)data;
+
+  if ((newm = (_cups_message_t *)malloc(sizeof(_cups_message_t))) != NULL)
+  {
+    newm->msg = strdup(m->msg);
+    newm->str = strdup(m->str);
+
+    if (!newm->msg || !newm->str)
+    {
+      free(newm->msg);
+      free(newm->str);
+      free(newm);
+
+      newm = NULL;
+    }
+  }
+
+  return (newm);
+}
+
 /*
  * 'cups_message_free()' - Free a message.
  */
 
-static void cups_message_free(_cups_message_t *m, /* I - Message */
-                              void *data)         /* Unused */
+static void
+cups_message_free(_cups_message_t *m,	/* I - Message */
+		  void            *data)/* I - Callback data (unused) */
 {
   (void)data;
-  if (m->msg)
-    free(m->msg);
 
-  if (m->str)
-    free(m->str);
-
+  free(m->msg);
+  free(m->str);
   free(m);
 }
 
@@ -1101,7 +1058,7 @@ cups_message_load(cups_lang_t *lang)	/* I - Language */
   * Read the strings from the file...
   */
 
-  lang->strings = _cupsMessageLoad(filename, _CUPS_MESSAGE_UNQUOTE);
+  lang->strings = _cupsMessageLoad(NULL, filename, _CUPS_MESSAGE_UNQUOTE);
 }
 
 
@@ -1156,7 +1113,7 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
 			*bufptr,	/* Pointer into buffer */
 			*msg,		/* Pointer to start of message */
 			*str;		/* Pointer to start of translation string */
-  _cups_message_t	*m;		/* New message */
+  _cups_message_t	m;		/* New message */
 
 
   while (cupsFileGets(fp, buffer, sizeof(buffer)))
@@ -1227,27 +1184,11 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
     * If we get this far we have a valid pair of strings, add them...
     */
 
-    if ((m = malloc(sizeof(_cups_message_t))) == NULL)
-      break;
+    m.msg = msg;
+    m.str = str;
 
-    m->msg = strdup(msg);
-    m->str = strdup(str);
-
-    if (m->msg && m->str)
-    {
-      cupsArrayAdd(a, m);
-    }
-    else
-    {
-      if (m->msg)
-	free(m->msg);
-
-      if (m->str)
-	free(m->str);
-
-      free(m);
-      break;
-    }
+    if (!cupsArrayFind(a, &m))
+      cupsArrayAdd(a, &m);
 
     return (1);
   }

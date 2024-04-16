@@ -427,7 +427,7 @@ cups_create_localizations(
     * Got the file, read it...
     */
 
-    dinfo->localizations = _cupsMessageLoad(tempfile, _CUPS_MESSAGE_STRINGS);
+    dinfo->localizations = _cupsMessageLoad(NULL, tempfile, _CUPS_MESSAGE_STRINGS);
   }
 
   DEBUG_printf("4cups_create_localizations: %d messages loaded.", cupsArrayCount(dinfo->localizations));

@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers.
- */
-
 #include "backend-private.h"
 #include <cups/ppd-private.h>
 #include <sys/types.h>
@@ -1323,7 +1319,7 @@ main(int  argc,				/* I - Number of command-line args */
       ppd_attr_t *mandatory;		/* cupsMandatory value */
 
       ppd = ppdOpenFile(getenv("PPD"));
-      pc  = _ppdCacheCreateWithPPD(ppd);
+      pc  = _ppdCacheCreateWithPPD(NULL, ppd);
 
       ppdMarkDefaults(ppd);
       cupsMarkOptions(ppd, num_options, options);

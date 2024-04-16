@@ -110,6 +110,8 @@ VAR char		*ConfigurationFile	VALUE(NULL),
 					/* Directory for request files */
 			*DocumentRoot		VALUE(NULL);
 					/* Root directory for documents */
+VAR cups_lang_t		*Languages		VALUE(NULL);
+					/* Languages that cupsd is providing */
 VAR cups_array_t	*ServerAlias		VALUE(NULL);
 					/* Alias names for server */
 VAR int			ServerNameIsIP		VALUE(0);
@@ -285,3 +287,4 @@ extern int	cupsdLogPage(cupsd_job_t *job, const char *page);
 extern int	cupsdLogRequest(cupsd_client_t *con, http_status_t code);
 extern int	cupsdReadConfiguration(void);
 extern int	cupsdWriteErrorLog(int level, const char *message);
+extern void	cupsdWriteStrings(void);

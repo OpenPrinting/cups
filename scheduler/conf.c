@@ -170,6 +170,7 @@ static const unsigned	zeros[4] =
  * Local functions...
  */
 
+static void		add_language(const char *language);
 static http_addrlist_t	*get_address(const char *value, int defport);
 static int		get_addr_and_mask(const char *value, unsigned *ip,
 			                  unsigned *mask);
@@ -606,6 +607,23 @@ cupsdReadConfiguration(void)
     cupsdSetString(&DefaultLanguage, "en");
   else
     cupsdSetString(&DefaultLanguage, language->language);
+
+  if (Languages)
+  {
+    // Free old languages...
+    cups_lang_t	*lang,			// Current language
+		*next;			// Next language
+
+    for (lang = Languages; lang; lang = next)
+    {
+      next = lang->next;
+
+      cupsArrayDelete(lang->strings);
+      free(lang);
+    }
+
+    Languages = NULL;
+  }
 
   cupsdClearString(&DefaultPaperSize);
   cupsArrayDelete(ReadyPaperSizes);
@@ -1052,6 +1070,15 @@ cupsdReadConfiguration(void)
   */
 
   cupsdSetStringf(&DefaultLocale, "%s.UTF-8", DefaultLanguage);
+
+ /*
+  * Make sure we have languages loaded...
+  */
+
+  if (!Languages)
+    add_language(DefaultLanguage);
+
+  add_language("en");
 
  /*
   * Update all relative filenames to include the full path from ServerRoot...
@@ -1696,6 +1723,74 @@ cupsdReadConfiguration(void)
   cupsdClearString(&old_requestroot);
 
   return (1);
+}
+
+
+//
+// 'cupsdWriteStrings()' - Write out strings files.
+//
+
+void
+cupsdWriteStrings(void)
+{
+  cups_lang_t	*lang;			// New language
+  char		strings_file[1024];	// Strings file
+
+
+  // Make sure the strings directory is there...
+  if (cupsdCheckPermissions(ServerRoot, "strings", 0755, RunUser, Group, /*is_dir*/1, /*create_dir*/1) < 0)
+    return;
+
+  // Save each language...
+  for (lang = Languages; lang; lang = lang->next)
+  {
+    snprintf(strings_file, sizeof(strings_file), "%s/strings/%s.strings", ServerRoot, lang->language);
+
+    if (_cupsMessageSave(strings_file, _CUPS_MESSAGE_STRINGS, lang->strings))
+      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to save '%s': %s", strings_file, strerror(errno));
+  }
+}
+
+
+//
+// 'add_language()' - Add a language to the Languages array.
+//
+
+static void
+add_language(const char *language)	// I - Language code
+{
+  cups_lang_t	*lang;			// New language
+  char		strings_file[1024];	// Strings file
+
+
+  // See if the language was already added...
+  for (lang = Languages; lang; lang = lang->next)
+  {
+    if (!strcmp(lang->language, language))
+      return;
+  }
+
+  // Not already added, so create a new entry and load any existing strings...
+  lang = (cups_lang_t *)calloc(1, sizeof(cups_lang_t));
+  cupsCopyString(lang->language, language, sizeof(lang->language));
+
+  snprintf(strings_file, sizeof(strings_file), "%s/strings/%s.strings", ServerRoot, language);
+  lang->strings = _cupsMessageLoad(NULL, strings_file, _CUPS_MESSAGE_STRINGS);
+
+  // Add the language to the list - English (en) is always first, then the rest
+  // follow...
+  if (Languages && !strcmp(Languages->language, "en"))
+  {
+    // Insert this language after the first one...
+    lang->next      = Languages->next;
+    Languages->next = lang;
+  }
+  else
+  {
+    // Insert this at the front of the list...
+    lang->next = Languages;
+    Languages  = lang;
+  }
 }
 
 
@@ -3475,7 +3570,9 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
   while (cupsFileGetConf(fp, line, sizeof(line), &value, &linenum))
   {
     if (!_cups_strcasecmp(line, "FatalErrors"))
+    {
       FatalErrors = parse_fatal_errors(value);
+    }
     else if (!_cups_strcasecmp(line, "Group") && value)
     {
      /*
@@ -3500,6 +3597,21 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 	    return (0);
 	}
       }
+    }
+    else if (!_cups_strcasecmp(line, "LogFileGroup") && value)
+    {
+     /*
+      * List of languages to support...
+      */
+      cups_array_t	*languages;	// Array of language codes
+      const char	*language;	// Current language
+
+      languages = cupsArrayNewStrings(value, ' ');
+
+      for (language = (const char *)cupsArrayGetFirst(languages); language; language = (const char *)cupsArrayGetNext(languages))
+        add_language(language);
+
+      cupsArrayDelete(languages);
     }
     else if (!_cups_strcasecmp(line, "LogFileGroup") && value)
     {

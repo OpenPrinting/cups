@@ -8,10 +8,6 @@
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include <cups/cups-private.h>
 #include <cups/file-private.h>
 #include <cups/ppd-private.h>
@@ -714,7 +710,7 @@ add_printer_filters(
     return (NULL);
   }
 
-  pc = _ppdCacheCreateWithPPD(ppd);
+  pc = _ppdCacheCreateWithPPD(NULL, ppd);
   if (!pc)
     return (NULL);
 

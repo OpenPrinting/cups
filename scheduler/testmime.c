@@ -304,7 +304,7 @@ add_ppd_filters(mime_t     *mime,	/* I - MIME database */
 		*prefilter;		/* Pre-filter type */
 
 
-  pc = _ppdCacheCreateWithPPD(ppd);
+  pc = _ppdCacheCreateWithPPD(NULL, ppd);
   if (!pc)
     return;
 

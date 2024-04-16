@@ -69,6 +69,9 @@ cupsdCleanDirty(void)
   if (DirtyFiles & CUPSD_DIRTY_SUBSCRIPTIONS)
     cupsdSaveAllSubscriptions();
 
+  if (DirtyFiles & CUPSD_DIRTY_STRINGS)
+    cupsdWriteStrings();
+
   DirtyFiles     = CUPSD_DIRTY_NONE;
   DirtyCleanTime = 0;
 

@@ -1358,7 +1358,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 	       attr->text, attr->value ? attr->value : "");
 
       puts("\nPPD Cache:");
-      if ((pc = _ppdCacheCreateWithPPD(ppd)) == NULL)
+      if ((pc = _ppdCacheCreateWithPPD(NULL, ppd)) == NULL)
         printf("    Unable to create: %s\n", cupsGetErrorString());
       else
       {
