@@ -119,7 +119,7 @@ main(int  argc,				// I - Number of command-line args
       return (1);
     }
 
-    pc       = _ppdCacheCreateWithPPD(ppd);
+    pc       = _ppdCacheCreateWithPPD(NULL, ppd);
     pc_attrs = create_attrs(pc);
 
     gettimeofday(&endtime, NULL);
