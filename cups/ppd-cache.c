@@ -4516,11 +4516,11 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       cupsArrayAdd(fin_options, "*StapleLocation");
 
-      cupsFilePrintf(fp, "*OpenUI *StapleLocation/%s: PickOne\n", _cupsLangString(base_lang, "finishing.4"));
+      cupsFilePrintf(fp, "*OpenUI *StapleLocation/%s: PickOne\n", _cupsLangString(base_lang, "finishings.4"));
       cupsFilePuts(fp, "*OrderDependency: 10 AnySetup *StapleLocation\n");
       ppd_put_strings(fp, langs, "Translation", "StapleLocation", "finishings.4");
       cupsFilePuts(fp, "*DefaultStapleLocation: None\n");
-      cupsFilePrintf(fp, "*StapleLocation None/%s: \"\"\n", _cupsLangString(base_lang, "finishing.3"));
+      cupsFilePrintf(fp, "*StapleLocation None/%s: \"\"\n", _cupsLangString(base_lang, "finishings.3"));
       ppd_put_strings(fp, langs, "StapleLocation", "None", "finishings.3");
 
       for (; i < count; i ++)
@@ -4644,7 +4644,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
       value   = ippGetInteger(attr, i);
       keyword = ippEnumString("finishings", value);
 
-      if (!strncmp(keyword, "cups-punch-", 11) || !strncmp(keyword, "punch-", 6))
+      if (!strcmp(keyword, "punch") || !strncmp(keyword, "cups-punch-", 11) || !strncmp(keyword, "punch-", 6))
         break;
     }
 
@@ -4690,7 +4690,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
         if (!strncmp(keyword, "cups-punch-", 11))
           keyword += 5;
-        else if (strncmp(keyword, "punch-", 6))
+        else if (strcmp(keyword, "punch") && strncmp(keyword, "punch-", 6))
           continue;
 
         if (cupsArrayFind(names, (char *)keyword))
