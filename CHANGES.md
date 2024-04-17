@@ -24,6 +24,7 @@ Changes in CUPS v2.4.8 (TBA)
 - Fixed "Upgrade" header handling when there is no TLS support (Issue #775)
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed memory leak when creating color profiles (Issue #815)
+- Fixed a punch finishing bug in the IPP Everywhere support (Issue #821)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed setting job state reasons for successful jobs (Issue #832)
 - Fixed infinite loop in IPP backend if hostname is IP address with Kerberos

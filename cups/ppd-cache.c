@@ -4713,7 +4713,7 @@ _ppdCreateFromIPP2(
       value   = ippGetInteger(attr, i);
       keyword = ippEnumString("finishings", value);
 
-      if (!strncmp(keyword, "cups-punch-", 11) || !strncmp(keyword, "punch-", 6))
+      if (!strcmp(keyword, "punch") || !strncmp(keyword, "cups-punch-", 11) || !strncmp(keyword, "punch-", 6))
         break;
     }
 
@@ -4759,7 +4759,7 @@ _ppdCreateFromIPP2(
 
         if (!strncmp(keyword, "cups-punch-", 11))
           keyword += 5;
-        else if (strncmp(keyword, "punch-", 6))
+        else if (strcmp(keyword, "punch") && strncmp(keyword, "punch-", 6))
           continue;
 
         if (cupsArrayFind(names, (char *)keyword))
