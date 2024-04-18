@@ -39,40 +39,43 @@ See the &quot;TYPE MATCHING AND PRIORITY&quot; section for more information.
 values inside parenthesis.
 The following functions are available:
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>match(&quot;</strong><em>pattern</em><strong>&quot;)</strong><br>
-True if the filename matches the given shell wildcard <em>pattern</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>match(&quot;</strong><em>PATTERN</em><strong>&quot;)</strong><br>
+True if the filename matches the given shell wildcard <em>PATTERN</em>.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ascii(</strong><em>offset</em><strong>,</strong><em>length</em><strong>)</strong><br>
-True if the <em>length</em> bytes starting at <em>offset</em> are valid printable ASCII (CR, NL, TAB, BS, 32-126).
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ascii(</strong><em>OFFSET</em><strong>,</strong><em>LENGTH</em><strong>)</strong><br>
+True if the <em>LENGTH</em> bytes starting at <em>OFFSET</em> are valid printable ASCII (CR, NL, TAB, BS, 32-126).
+<em>LENGTH</em> cannot exceed 8192 bytes.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>printable(</strong><em>offset</em><strong>,</strong><em>length</em><strong>)</strong><br>
-True if the <em>length</em> bytes starting at <em>offset</em> are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>printable(</strong><em>OFFSET</em><strong>,</strong><em>LENGTH</em><strong>)</strong><br>
+True if the <em>LENGTH</em> bytes starting at <em>OFFSET</em> are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
+<em>LENGTH</em> cannot exceed 8192 bytes.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>priority(</strong><em>number</em><strong>)</strong><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>priority(</strong><em>NUMBER</em><strong>)</strong><br>
 Specifies the relative priority of this MIME media type.
 The default priority is 100.
 Larger values have higher priority while smaller values have lower priority.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>string(</strong><em>offset</em><strong>,&quot;</strong><em>string</em><strong>&quot;)</strong><br>
-True if the bytes starting at <em>offset</em> are identical to <em>string</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>string(</strong><em>OFFSET</em><strong>,&quot;</strong><em>STRING</em><strong>&quot;)</strong><br>
+True if the bytes starting at <em>OFFSET</em> are identical to <em>STRING</em>.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>istring(</strong><em>offset</em><strong>,&quot;</strong><em>string</em><strong>&quot;)</strong><br>
-True if the bytes starting at <em>offset</em> match <em>string</em> without respect to case.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>istring(</strong><em>OFFSET</em><strong>,&quot;</strong><em>STRING</em><strong>&quot;)</strong><br>
+True if the bytes starting at <em>OFFSET</em> match <em>STRING</em> without respect to case.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>char(</strong><em>offset</em><strong>,</strong><em>value</em><strong>)</strong><br>
-True if the byte at <em>offset</em> is identical to <em>value</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>char(</strong><em>OFFSET</em><strong>,</strong><em>VALUE</em><strong>)</strong><br>
+True if the byte at <em>OFFSET</em> is identical to <em>VALUE</em>.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>short(</strong><em>offset</em><strong>,</strong><em>value</em><strong>)</strong><br>
-True if the 16-bit big-endian integer at <em>offset</em> is identical to <em>value</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>short(</strong><em>OFFSET</em><strong>,</strong><em>VALUE</em><strong>)</strong><br>
+True if the 16-bit big-endian integer at <em>OFFSET</em> is identical to <em>VALUE</em>.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>int(</strong><em>offset</em><strong>,</strong><em>value</em><strong>)</strong><br>
-True if the 32-bit big-endian integer at <em>offset</em> is identical to <em>value</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>int(</strong><em>OFFSET</em><strong>,</strong><em>VALUE</em><strong>)</strong><br>
+True if the 32-bit big-endian integer at <em>OFFSET</em> is identical to <em>VALUE</em>.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>locale(&quot;</strong><em>string</em><strong>&quot;)</strong><br>
-True if current locale matches <em>string</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>locale(&quot;</strong><em>STRING</em><strong>&quot;)</strong><br>
+True if current locale matches <em>STRING</em>.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>contains(</strong><em>offset</em><strong>,</strong><em>range</em><strong>,&quot;</strong><em>string</em><strong>&quot;)</strong><br>
-True if the bytes starting at <em>offset</em> for <em>range</em> bytes contains <em>string</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>contains(</strong><em>OFFSET</em><strong>,</strong><em>LENGTH</em><strong>,&quot;</strong><em>STRING</em><strong>&quot;)</strong><br>
+True if the bytes starting at <em>OFFSET</em> for <em>LENGTH</em> bytes contains <em>STRING</em>.
+<em>LENGTH</em> cannot exceed 8192 bytes.
 </p>
     <h3 id="mime.types-5.description.string-constants">String Constants</h3>
 <p>String constants can be specified inside quotes (&quot;&quot;) for strings containing whitespace and angle brackets (&lt;>) for hexadecimal strings.

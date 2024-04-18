@@ -70,12 +70,12 @@
 application/pdf			pdf regex(0,^[\n\r]*%PDF)
 application/postscript		ai eps ps string(0,%!) string(0,<04>%!) \
 				contains(0,128,<1B>%-12345X) + \
-				(contains(0,4096,"LANGUAGE=POSTSCRIPT") \
-				 contains(0,4096,"LANGUAGE = Postscript") \
-				 contains(0,4096,"LANGUAGE = PostScript") \
-				 contains(0,4096,"LANGUAGE = POSTSCRIPT") \
-				 (contains(0,4096,<0a>%!) + \
-				  !contains(0,4096,"ENTER LANGUAGE")))
+				(contains(0,8192,"LANGUAGE=POSTSCRIPT") \
+				 contains(0,8192,"LANGUAGE = Postscript") \
+				 contains(0,8192,"LANGUAGE = PostScript") \
+				 contains(0,8192,"LANGUAGE = POSTSCRIPT") \
+				 (contains(0,8192,<0a>%!) + \
+				  !contains(0,8192,"ENTER LANGUAGE")))
 
 
 ########################################################################
@@ -156,8 +156,8 @@ application/vnd.cups-raster	string(0,"RaSt") string(0,"tSaR") \
 application/vnd.cups-raw	(string(0,<1B>E) + !string(2,<1B>%0B)) \
 				string(0,<1B>@) \
 				(contains(0,128,<1B>%-12345X) + \
-				 (contains(0,4096,"LANGUAGE=PCL") \
-				  contains(0,4096,"LANGUAGE = PCL")))
+				 (contains(0,8192,"LANGUAGE=PCL") \
+				  contains(0,8192,"LANGUAGE = PCL")))
 
 ########################################################################
 #

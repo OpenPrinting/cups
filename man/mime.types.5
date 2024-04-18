@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH mime.types 5 "CUPS" "2021-02-28" "OpenPrinting"
+.TH mime.types 5 "CUPS" "2024-04-18" "OpenPrinting"
 .SH NAME
 mime.types \- mime type description file for cups
 .SH DESCRIPTION
@@ -40,40 +40,43 @@ Rules take two forms - a filename extension by itself and functions with test
 values inside parenthesis.
 The following functions are available:
 .TP 5
-\fBmatch("\fIpattern\fB")\fR
-True if the filename matches the given shell wildcard \fIpattern\fR.
+\fBmatch("\fIPATTERN\fB")\fR
+True if the filename matches the given shell wildcard \fIPATTERN\fR.
 .TP 5
-\fBascii(\fIoffset\fB,\fIlength\fB)\fR
-True if the \fIlength\fR bytes starting at \fIoffset\fR are valid printable ASCII (CR, NL, TAB, BS, 32-126).
+\fBascii(\fIOFFSET\fB,\fILENGTH\fB)\fR
+True if the \fILENGTH\fR bytes starting at \fIOFFSET\fR are valid printable ASCII (CR, NL, TAB, BS, 32-126).
+\fILENGTH\fR cannot exceed 8192 bytes.
 .TP 5
-\fBprintable(\fIoffset\fB,\fIlength\fB)\fR
-True if the \fIlength\fR bytes starting at \fIoffset\fR are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
+\fBprintable(\fIOFFSET\fB,\fILENGTH\fB)\fR
+True if the \fILENGTH\fR bytes starting at \fIOFFSET\fR are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
+\fILENGTH\fR cannot exceed 8192 bytes.
 .TP 5
-\fBpriority(\fInumber\fB)\fR
+\fBpriority(\fINUMBER\fB)\fR
 Specifies the relative priority of this MIME media type.
 The default priority is 100.
 Larger values have higher priority while smaller values have lower priority.
 .TP 5
-\fBstring(\fIoffset\fB,"\fIstring\fB")\fR
-True if the bytes starting at \fIoffset\fR are identical to \fIstring\fR.
+\fBstring(\fIOFFSET\fB,"\fISTRING\fB")\fR
+True if the bytes starting at \fIOFFSET\fR are identical to \fISTRING\fR.
 .TP 5
-\fBistring(\fIoffset\fB,"\fIstring\fB")\fR
-True if the bytes starting at \fIoffset\fR match \fIstring\fR without respect to case.
+\fBistring(\fIOFFSET\fB,"\fISTRING\fB")\fR
+True if the bytes starting at \fIOFFSET\fR match \fISTRING\fR without respect to case.
 .TP 5
-\fBchar(\fIoffset\fB,\fIvalue\fB)\fR
-True if the byte at \fIoffset\fR is identical to \fIvalue\fR.
+\fBchar(\fIOFFSET\fB,\fIVALUE\fB)\fR
+True if the byte at \fIOFFSET\fR is identical to \fIVALUE\fR.
 .TP 5
-\fBshort(\fIoffset\fB,\fIvalue\fB)\fR
-True if the 16-bit big-endian integer at \fIoffset\fR is identical to \fIvalue\fR.
+\fBshort(\fIOFFSET\fB,\fIVALUE\fB)\fR
+True if the 16-bit big-endian integer at \fIOFFSET\fR is identical to \fIVALUE\fR.
 .TP 5
-\fBint(\fIoffset\fB,\fIvalue\fB)\fR
-True if the 32-bit big-endian integer at \fIoffset\fR is identical to \fIvalue\fR.
+\fBint(\fIOFFSET\fB,\fIVALUE\fB)\fR
+True if the 32-bit big-endian integer at \fIOFFSET\fR is identical to \fIVALUE\fR.
 .TP 5
-\fBlocale("\fIstring\fB")\fR
-True if current locale matches \fIstring\fR.
+\fBlocale("\fISTRING\fB")\fR
+True if current locale matches \fISTRING\fR.
 .TP 5
-\fBcontains(\fIoffset\fB,\fIrange\fB,"\fIstring\fB")\fR
-True if the bytes starting at \fIoffset\fR for \fIrange\fR bytes contains \fIstring\fR.
+\fBcontains(\fIOFFSET\fB,\fILENGTH\fB,"\fISTRING\fB")\fR
+True if the bytes starting at \fIOFFSET\fR for \fILENGTH\fR bytes contains \fISTRING\fR.
+\fILENGTH\fR cannot exceed 8192 bytes.
 .SS STRING CONSTANTS
 String constants can be specified inside quotes ("") for strings containing whitespace and angle brackets (<>) for hexadecimal strings.
 .SS TYPE MATCHING AND PRIORITY

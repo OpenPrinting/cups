@@ -29,6 +29,8 @@ Changes in CUPS v2.5b1 (TBA)
   "print-quality" (Issue #734)
 - Updated `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)
+- Updated the `ippeveprinter` program to support the `-f` option with `-a`
+  (Issue #759)
 - Updated default destination documentation (Issue #819)
 - Updated `httpAddrConnect2()` to handle `POLLHUP` together with `POLLIN` or
   `POLLOUT` (Issue #839)
@@ -37,8 +39,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Updated the "get-printer-attributes-suite.test" test file (Issue #909)
 - Updated `cupsRasterReadPixels` and `cupsRasterWritePixels` to not try reading
   or writing if the number of bytes passed is 0 (Issue #914)
-- The `ippeveprinter` program now supports the `-f` option with `-a`
-  (Issue #759)
+- Updated and documented the MIME typing buffering limit (Issue #925)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)
