@@ -8,14 +8,6 @@
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
  */
 
-#ifdef HAVE_MDNSRESPONDER
-#  include <dns_sd.h>
-#elif defined(HAVE_AVAHI)
-#  include <avahi-client/client.h>
-#  include <avahi-client/publish.h>
-#  include <avahi-common/error.h>
-#  include <avahi-common/thread-watch.h>
-#endif /* HAVE_MDNSRESPONDER */
 #include <cups/pwg-private.h>
 
 
@@ -30,20 +22,6 @@ typedef struct
   int		page_count,		/* Count of pages */
 		k_count;		/* Count of kilobytes */
 } cupsd_quota_t;
-
-
-/*
- * DNS-SD types to make the code cleaner/clearer...
- */
-
-#ifdef HAVE_MDNSRESPONDER
-typedef DNSServiceRef cupsd_srv_t;	/* Service reference */
-typedef TXTRecordRef cupsd_txt_t;	/* TXT record */
-
-#elif defined(HAVE_AVAHI)
-typedef AvahiEntryGroup *cupsd_srv_t;	/* Service reference */
-typedef AvahiStringList *cupsd_txt_t;	/* TXT record */
-#endif /* HAVE_MDNSRESPONDER */
 
 
 /*
@@ -113,11 +91,7 @@ struct cupsd_printer_s
 
   char		*reg_name,		/* Name used for service registration */
 		*pdl;			/* pdl value for TXT record */
-  cupsd_srv_t	ipp_srv;		/* IPP service(s) */
-#  ifdef HAVE_MDNSRESPONDER
-  cupsd_srv_t	ipps_srv;		/* IPPS service(s) */
-  cupsd_srv_t	printer_srv;		/* LPD service */
-#  endif /* HAVE_MDNSRESPONDER */
+  cups_dnssd_service_t *dnssd;		/* DNS-SD service(s) */
 };
 
 
@@ -153,36 +127,21 @@ extern int		cupsdDeletePrinter(cupsd_printer_t *p, int update);
 extern void             cupsdDeleteTemporaryPrinters(int force);
 extern cupsd_printer_t	*cupsdFindDest(const char *name);
 extern cupsd_printer_t	*cupsdFindPrinter(const char *name);
-extern cupsd_quota_t	*cupsdFindQuota(cupsd_printer_t *p,
-			                const char *username);
+extern cupsd_quota_t	*cupsdFindQuota(cupsd_printer_t *p, const char *username);
 extern void		cupsdFreeQuotas(cupsd_printer_t *p);
 extern void		cupsdLoadAllPrinters(void);
-extern void		cupsdRenamePrinter(cupsd_printer_t *p,
-			                   const char *name);
+extern void		cupsdRenamePrinter(cupsd_printer_t *p, const char *name);
 extern void		cupsdSaveAllPrinters(void);
-extern int		cupsdSetAuthInfoRequired(cupsd_printer_t *p,
-			                         const char *values,
-						 ipp_attribute_t *attr);
+extern int		cupsdSetAuthInfoRequired(cupsd_printer_t *p, const char *values, ipp_attribute_t *attr);
 extern void		cupsdSetDeviceURI(cupsd_printer_t *p, const char *uri);
-extern void		cupsdSetPrinterAttr(cupsd_printer_t *p,
-			                    const char *name,
-			                    const char *value);
+extern void		cupsdSetPrinterAttr(cupsd_printer_t *p, const char *name, const char *value);
 extern void		cupsdSetPrinterAttrs(cupsd_printer_t *p);
-extern int		cupsdSetPrinterReasons(cupsd_printer_t *p,
-			                       const char *s);
-extern void		cupsdSetPrinterState(cupsd_printer_t *p, ipp_pstate_t s,
-			                     int update);
-#define			cupsdStartPrinter(p,u) cupsdSetPrinterState((p), \
-						   IPP_PSTATE_IDLE, (u))
+extern int		cupsdSetPrinterReasons(cupsd_printer_t *p, const char *s);
+extern void		cupsdSetPrinterState(cupsd_printer_t *p, ipp_pstate_t s, int update);
+#define			cupsdStartPrinter(p,u) cupsdSetPrinterState((p), IPP_PSTATE_IDLE, (u))
 extern void		cupsdStopPrinter(cupsd_printer_t *p, int update);
-extern int		cupsdUpdatePrinterPPD(cupsd_printer_t *p,
-			                      int num_keywords,
-					      cups_option_t *keywords);
+extern int		cupsdUpdatePrinterPPD(cupsd_printer_t *p, int num_keywords, cups_option_t *keywords);
 extern void		cupsdUpdatePrinters(void);
-extern cupsd_quota_t	*cupsdUpdateQuota(cupsd_printer_t *p,
-			                  const char *username, int pages,
-					  int k);
-extern const char	*cupsdValidateDest(const char *uri,
-			        	   cups_ptype_t *dtype,
-					   cupsd_printer_t **printer);
+extern cupsd_quota_t	*cupsdUpdateQuota(cupsd_printer_t *p, const char *username, int pages, int k);
+extern const char	*cupsdValidateDest(const char *uri, cups_ptype_t *dtype, cupsd_printer_t **printer);
 extern void		cupsdWritePrintcap(void);

@@ -11,6 +11,11 @@
 #include "debug-internal.h"
 #include "dnssd.h"
 
+#ifdef __APPLE__
+#  include <nameser.h>
+#  include <CoreFoundation/CoreFoundation.h>
+#  include <SystemConfiguration/SystemConfiguration.h>
+#endif // __APPLE__
 #ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
 #  if _WIN32
@@ -194,6 +199,67 @@ cupsDNSSDAssembleFullName(
 #else // HAVE_AVAHI
   return (!avahi_service_name_join(fullname, fullsize, name, type, domain));
 #endif // HAVE_MDNSRESPONDER
+}
+
+
+//
+// 'cupsDNSSDCopyComputerName()' - Copy the current human-readable name for the system.
+//
+// This function copies the current human-readable name ("My Computer") to the
+// provided buffer.  The "dnssd" parameter is a DNS-SD context created with
+// @link cupsDNSSDNew@.  The "buffer" parameter points to a character array of
+// at least 128 bytes and the "bufsize" parameter specifies the actual size of
+// the array.
+//
+
+char *					// O - Computer name or `NULL` on error
+cupsDNSSDCopyComputerName(
+    cups_dnssd_t *dnssd,		// I - DNS-SD context
+    char         *buffer,		// I - Computer name buffer
+    size_t       bufsize)		// I - Size of computer name buffer (at least 128 bytes)
+{
+  // Range check input...
+  if (buffer)
+    *buffer = '\0';
+
+  if (!dnssd || !buffer || bufsize < 128)
+    return (NULL);
+
+  // Copy the current computer name...
+#ifdef __APPLE__
+  SCDynamicStoreRef sc;			// Context for dynamic store
+  CFStringEncoding nameEncoding;	// Encoding of computer name
+  CFStringRef	nameRef;		// Computer name CFString
+
+  if ((sc = SCDynamicStoreCreate(kCFAllocatorDefault, CFSTR("libcups"), NULL, NULL)) != NULL)
+  {
+    // Get the computer name from the dynamic store...
+    if ((nameRef = SCDynamicStoreCopyComputerName(sc, &nameEncoding)) != NULL)
+    {
+      if (!CFStringGetCString(nameRef, buffer, (CFIndex)bufsize, kCFStringEncodingUTF8))
+        *buffer = '\0';
+
+      CFRelease(nameRef);
+    }
+
+    CFRelease(sc);
+  }
+
+#elif defined(HAVE_MDNSRESPONDER)
+  char	*bufptr;			// Pointer into name
+
+  cupsMutexLock(&dnssd->mutex);
+  cupsCopyString(buffer, dnssd->hostname, bufsize);
+  cupsMutexUnlock(&dnssd->mutex);
+
+  if ((bufptr = strchr(buffer, '.')) != NULL)
+    *bufptr = '\0';
+
+#else // HAVE_AVAHI
+  cupsCopyString(buffer, avahi_client_get_host_name(dnssd->client), bufsize);
+#endif // __APPLE__
+
+  return (buffer);
 }
 
 
