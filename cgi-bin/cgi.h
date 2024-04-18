@@ -70,7 +70,7 @@ extern char		*cgiFormEncode(char *dst, const char *src,
 extern void		cgiFreeSearch(void *search);
 extern char		*cgiGetArray(const char *name, int element);
 extern void		cgiGetAttributes(ipp_t *request, const char *tmpl);
-extern const char	*cgiGetCheckbox(const char *name);
+extern int		cgiGetCheckbox(const char *name);
 extern const char	*cgiGetCookie(const char *name);
 extern const cgi_file_t	*cgiGetFile(void);
 extern cups_array_t	*cgiGetIPPObjects(ipp_t *response, void *search);
