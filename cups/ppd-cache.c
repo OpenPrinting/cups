@@ -1495,7 +1495,6 @@ _ppdCacheCreateWithPPD(
       map->pwg = strdup(pwg_keyword);
       map->ppd = strdup(choice->choice);
 
-
      /*
       * Add localized text for PWG keyword to message catalog...
       */

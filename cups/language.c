@@ -772,7 +772,10 @@ _cupsMessageLoad(cups_array_t *a,	/* I - Existing message array */
 	*/
 
 	if (m.str && (m.str[0] || (flags & _CUPS_MESSAGE_EMPTY)))
+	{
+	  DEBUG_printf("5_cupsMessageLoad: Adding \"%s\"=\"%s\"", m.msg, m.str);
 	  cupsArrayAdd(a, &m);
+	}
 
        /*
 	* Create a new message with the given msgid string...
@@ -809,7 +812,10 @@ _cupsMessageLoad(cups_array_t *a,	/* I - Existing message array */
     */
 
     if (m.msg && m.str && (m.str[0] || (flags & _CUPS_MESSAGE_EMPTY)))
+    {
+      DEBUG_printf("5_cupsMessageLoad: Adding \"%s\"=\"%s\"", m.msg, m.str);
       cupsArrayAdd(a, &m);
+    }
   }
 
  /*
