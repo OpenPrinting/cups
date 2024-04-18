@@ -550,12 +550,16 @@ dnssdRegisterPrinter(
     // printers...
     cupsdSetString(&p->reg_name, name);
     cupsArrayAdd(DNSSDPrinters, p);
+
+    cupsdLogMessage(CUPSD_LOG_DEBUG2, "dnssdRegisterPrinter: Registered \"%s\" as \"%s\".", p->name, name);
   }
   else
   {
     // Registration failed for this printer...
     cupsDNSSDServiceDelete(p->dnssd);
     p->dnssd = NULL;
+
+    cupsdLogMessage(CUPSD_LOG_DEBUG2, "dnssdRegisterPrinter: Unable to register \"%s\" as \"%s\".", p->name, name);
   }
 }
 
