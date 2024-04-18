@@ -1,16 +1,12 @@
 /*
  * Administration CGI for CUPS.
  *
- * Copyright © 2021-2023 by OpenPrinting
+ * Copyright © 2021-2024 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cgi-private.h"
@@ -47,7 +43,6 @@ static void	do_menu(http_t *http);
 static void	do_set_allowed_users(http_t *http);
 static void	do_set_default(http_t *http);
 static void	do_set_options(http_t *http, int is_class);
-static void	do_set_sharing(http_t *http);
 static char	*get_option_value(ppd_file_t *ppd, const char *name,
 		                  char *buffer, size_t bufsize);
 static double	get_points(double number, const char *uval);
@@ -140,8 +135,6 @@ main(void)
       do_set_allowed_users(http);
     else if (!strcmp(op, "set-as-default"))
       do_set_default(http);
-    else if (!strcmp(op, "set-sharing"))
-      do_set_sharing(http);
     else if (!strcmp(op, "find-new-printers") ||
              !strcmp(op, "list-available-printers"))
       do_list_printers(http);
@@ -916,10 +909,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
 #ifdef __APPLE__
       if (!strncmp(var, "usb:", 4))
-        cgiSetVariable("printer_is_shared", "1");
+        cgiSetVariable("PRINTER_IS_SHARED", "1");
       else
 #endif /* __APPLE__ */
-        cgiSetVariable("printer_is_shared", "0");
+        cgiSetVariable("PRINTER_IS_SHARED", "0");
 
       cgiCopyTemplateLang("add-printer.tmpl");
     }
@@ -1166,9 +1159,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-accepting-jobs", 1);
 
-    var = cgiGetCheckbox("printer_is_shared");
-    ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-shared",
-                  var && (!strcmp(var, "1") || !strcmp(var, "on")));
+    ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-shared", cgiGetCheckbox("PRINTER_IS_SHARED"));
 
     ippAddInteger(request, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state",
                   IPP_PRINTER_IDLE);
@@ -1313,7 +1304,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     share_printers       = cgiGetCheckbox("SHARE_PRINTERS") ? "1" : "0";
     user_cancel_any      = cgiGetCheckbox("USER_CANCEL_ANY") ? "1" : "0";
 
-    advanced = cgiGetCheckbox("ADVANCEDSETTINGS") != NULL;
+    advanced = cgiGetCheckbox("ADVANCEDSETTINGS");
     if (advanced)
     {
      /*
@@ -1375,7 +1366,9 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     */
 
     if (cgiGetCheckbox("KERBEROS"))
+    {
       strlcpy(default_auth_type, "Negotiate", sizeof(default_auth_type));
+    }
     else
     {
       val = cupsGetOption("DefaultAuthType", num_settings, settings);
@@ -3358,99 +3351,6 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 
   if (filename)
     unlink(filename);
-}
-
-
-/*
- * 'do_set_sharing()' - Set printer-is-shared value.
- */
-
-static void
-do_set_sharing(http_t *http)		/* I - HTTP connection */
-{
-  ipp_t		*request,		/* IPP request */
-		*response;		/* IPP response */
-  char		uri[HTTP_MAX_URI];	/* Printer URI */
-  const char	*printer,		/* Printer name */
-		*is_class,		/* Is a class? */
-		*shared;		/* Sharing value */
-
-
-  is_class = cgiGetVariable("IS_CLASS");
-  printer  = cgiGetTextfield("PRINTER_NAME");
-  shared   = cgiGetCheckbox("SHARED");
-
-  if (!printer || !shared)
-  {
-    cgiSetVariable("ERROR", cgiText(_("Missing form variable")));
-    cgiStartHTML(cgiText(_("Set Publishing")));
-    cgiCopyTemplateLang("error.tmpl");
-    cgiEndHTML();
-    return;
-  }
-
- /*
-  * Build a CUPS-Add-Printer/CUPS-Add-Class request, which requires the
-  * following attributes:
-  *
-  *    attributes-charset
-  *    attributes-natural-language
-  *    printer-uri
-  *    printer-is-shared
-  */
-
-  request = ippNewRequest(is_class ? CUPS_ADD_CLASS : CUPS_ADD_PRINTER);
-
-  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
-                   "localhost", 0, is_class ? "/classes/%s" : "/printers/%s",
-		   printer);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
-               NULL, uri);
-
-  ippAddBoolean(request, IPP_TAG_OPERATION, "printer-is-shared", (char)atoi(shared));
-
- /*
-  * Do the request and get back a response...
-  */
-
-  if ((response = cupsDoRequest(http, request, "/admin/")) != NULL)
-  {
-    cgiSetIPPVars(response, NULL, NULL, NULL, 0);
-
-    ippDelete(response);
-  }
-
-  if (cupsLastError() == IPP_NOT_AUTHORIZED)
-  {
-    puts("Status: 401\n");
-    exit(0);
-  }
-  else if (cupsLastError() > IPP_OK_CONFLICT)
-  {
-    cgiStartHTML(cgiText(_("Set Publishing")));
-    cgiShowIPPError(_("Unable to change printer-is-shared attribute"));
-  }
-  else
-  {
-   /*
-    * Redirect successful updates back to the printer page...
-    */
-
-    char	url[1024],		/* Printer/class URL */
-		refresh[1024];		/* Refresh URL */
-
-
-    cgiRewriteURL(uri, url, sizeof(url), NULL);
-    cgiFormEncode(uri, url, sizeof(uri));
-    snprintf(refresh, sizeof(refresh), "5;URL=/admin/?OP=redirect&URL=%s", uri);
-    cgiSetVariable("refresh_page", refresh);
-
-    cgiStartHTML(cgiText(_("Set Publishing")));
-    cgiCopyTemplateLang(is_class ? "class-modified.tmpl" :
-                                   "printer-modified.tmpl");
-  }
-
-  cgiEndHTML();
 }
 
 

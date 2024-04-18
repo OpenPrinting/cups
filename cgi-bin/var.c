@@ -182,15 +182,18 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
  * 'cgiGetCheckbox()' - Get a checkbox value, deleting any invalid values.
  */
 
-const char *				/* O - Value or NULL */
+int					/* O - 1 if checked, 0 otherwise */
 cgiGetCheckbox(const char *name)	/* I - Name of form field */
 {
   _cgi_var_t	*var = cgi_find_variable(name);
 					/* Found variable */
   const char	*value = var ? var->values[var->nvalues - 1] : NULL;
+  int		ret;			/* Return value */
 
 
-  if (value && _cups_strcasecmp(value, "checkbox"))
+  ret = value && !_cups_strcasecmp(value, "checkbox");
+
+  if (!ret && value)
   {
    /*
     * Delete the invalid checkbox value...
@@ -209,7 +212,7 @@ cgiGetCheckbox(const char *name)	/* I - Name of form field */
       memmove(var, var + 1, (size_t)(form_count - i) * sizeof(_cgi_var_t));
   }
 
-  return (value);
+  return (ret);
 }
 
 
