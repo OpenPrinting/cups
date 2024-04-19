@@ -67,6 +67,9 @@ struct _cups_dnssd_s			// DNS-SD context
   AvahiClient		*client;	// Avahi client connection
   AvahiSimplePoll	*poll;		// Avahi poll class
   cups_thread_t		monitor;	// Monitoring thread
+  AvahiDomainBrowser	*dbrowser;	// Domain browser
+  size_t		num_domains;	// Number of domains
+  char			domains[32][256];// Domains
 #endif // HAVE_MDNSRESPONDER
 };
 
@@ -80,7 +83,8 @@ struct _cups_dnssd_browse_s		// DNS-SD browse request
   DNSServiceRef		ref;		// Browse reference
 #elif _WIN32
 #else // HAVE_AVAHI
-  AvahiServiceBrowser	*browser;	// Browser
+  size_t		num_browsers;	// Number of browsers
+  AvahiServiceBrowser	*browsers[33];	// Browsers
 #endif // HAVE_MDNSRESPONDER
 };
 
@@ -158,6 +162,7 @@ static cups_dnssd_flags_t mdns_to_cups(DNSServiceFlags flags, DNSServiceErrorTyp
 #else // HAVE_AVAHI
 static void		avahi_browse_cb(AvahiServiceBrowser *browser, AvahiIfIndex if_index, AvahiProtocol protocol, AvahiBrowserEvent event, const char *name, const char *type, const char *domain, AvahiLookupResultFlags flags, cups_dnssd_browse_t *browse);
 static void		avahi_client_cb(AvahiClient *c, AvahiClientState state, cups_dnssd_t *dnssd);
+static void		avahi_domain_cb(AvahiDomainBrowser *b, AvahiIfIndex interface, AvahiProtocol protocol, AvahiBrowserEvent event, const char *domain, AvahiLookupResultFlags flags, cups_dnssd_t *dnssd);
 static AvahiIfIndex	avahi_if_index(uint32_t if_index);
 static void		*avahi_monitor(cups_dnssd_t *dnssd);
 static int		avahi_poll_cb(struct pollfd *ufds, unsigned int nfds, int timeout, cups_dnssd_t *dnssd);
@@ -510,8 +515,11 @@ cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
 #elif _WIN32
 
 #else // HAVE_AVAHI
+  avahi_domain_browser_free(dnssd->dbrowser);
+
   cupsThreadCancel(dnssd->monitor);
   cupsThreadWait(dnssd->monitor);
+
   avahi_simple_poll_free(dnssd->poll);
 #endif // HAVE_MDNSRESPONDER
 
@@ -645,6 +653,8 @@ cupsDNSSDNew(
   }
 
   DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
+
+  dnssd->dbrowser = avahi_domain_browser_new(dnssd->client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, /*domain*/NULL, AVAHI_DOMAIN_BROWSER_BROWSE, /*flags*/0, (AvahiDomainBrowserCallback)avahi_domain_cb, dnssd);
 #endif // HAVE_MDNSRESPONDER
 
   DEBUG_printf("2cupsDNSSDNew: Returning %p.", (void *)dnssd);
@@ -766,16 +776,34 @@ cupsDNSSDBrowseNew(
 #elif _WIN32
 
 #else // HAVE_AVAHI
-  browse->browser = avahi_service_browser_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, types, NULL, 0, (AvahiServiceBrowserCallback)avahi_browse_cb, browse);
-  avahi_simple_poll_wakeup(dnssd->poll);
+  browse->num_browsers = 1;
+  browse->browsers[0]  = avahi_service_browser_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, types, /*domain*/NULL, /*flags*/0, (AvahiServiceBrowserCallback)avahi_browse_cb, browse);
 
-  if (!browse->browser)
+  if (!browse->browsers[0])
   {
     report_error(dnssd, "Unable to create DNS-SD browse request: %s", avahi_strerror(avahi_client_errno(dnssd->client)));
     free(browse);
     browse = NULL;
     goto done;
   }
+
+  if (!domain && dnssd->num_domains > 0)
+  {
+    // Add browsers for all domains...
+    size_t	i;			// Looping var
+
+    cupsMutexLock(&dnssd->mutex);
+
+    for (i = 0; i < dnssd->num_domains; i ++)
+    {
+      if ((browse->browsers[browse->num_browsers] = avahi_service_browser_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, types, dnssd->domains[i], /*flags*/0, (AvahiServiceBrowserCallback)avahi_browse_cb, browse)) != NULL)
+        browse->num_browsers ++;
+    }
+
+    cupsMutexUnlock(&dnssd->mutex);
+  }
+
+  avahi_simple_poll_wakeup(dnssd->poll);
 #endif // HAVE_MDNSRESPONDER
 
   cupsArrayAdd(dnssd->browses, browse);
@@ -1488,7 +1516,10 @@ delete_browse(
 #elif _WIN32
 
 #else // HAVE_AVAHI
-  avahi_service_browser_free(browse->browser);
+  size_t	i;			// Looping var
+
+  for (i = 0; i < browse->num_browsers; i ++)
+    avahi_service_browser_free(browse->browsers[i]);
 #endif // HAVE_MDNSRESPONDER
 
   free(browse);
@@ -2034,6 +2065,70 @@ avahi_client_cb(
 
     cupsMutexUnlock(&dnssd->mutex);
   }
+}
+
+
+//
+// '()' - Domain callback.
+//
+
+static void
+avahi_domain_cb(
+    AvahiDomainBrowser     *b,		// I - Browser (not used)
+    AvahiIfIndex           interface,	// I - Network interface (not used)
+    AvahiProtocol          protocol,	// I - Protocol (not used)
+    AvahiBrowserEvent      event,	// I - Event
+    const char             *domain,	// I - Domain name
+    AvahiLookupResultFlags flags,	// I - Lookup flags (not used)
+    cups_dnssd_t           *dnssd)	// I - DNS-SD context
+{
+  size_t	i;			// Looping var
+
+
+  (void)b;
+  (void)interface;
+  (void)protocol;
+  (void)flags;
+
+  DEBUG_printf("3avahi_domain_cb(..., event=%d, domain=\"%s\", ...)", event, domain);
+
+  if (!_cups_strcasecmp(domain, "local"))
+    return;
+
+  cupsMutexLock(&dnssd->mutex);
+
+  if (event == AVAHI_BROWSER_NEW)
+  {
+    // Add a domain - see if the domain is new to us...
+    for (i = 0; i < dnssd->num_domains; i ++)
+    {
+      if (!_cups_strcasecmp(dnssd->domains[i], domain))
+        break;
+    }
+
+    if (i >= dnssd->num_domains && dnssd->num_domains < (sizeof(dnssd->domains) / sizeof(dnssd->domains[0])))
+    {
+      // New, copy the domain name...
+      cupsCopyString(dnssd->domains[i], domain, sizeof(dnssd->domains[0]));
+      dnssd->num_domains ++;
+    }
+  }
+  else if (event == AVAHI_BROWSER_REMOVE)
+  {
+    // Remove the domain...
+    for (i = 0; i < dnssd->num_domains; i ++)
+    {
+      if (!_cups_strcasecmp(dnssd->domains[i], domain))
+      {
+        dnssd->num_domains --;
+        if (i < dnssd->num_domains)
+          memmove(dnssd->domains[i], dnssd->domains[i + 1], (dnssd->num_domains - i) * sizeof(dnssd->domains[0]));
+        break;
+      }
+    }
+  }
+
+  cupsMutexUnlock(&dnssd->mutex);
 }
 
 
