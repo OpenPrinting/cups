@@ -54,6 +54,7 @@ main(int  argc,				// I - Number of command-line arguments
   int			i,		// Looping var
 			ret = 0;	// Return value
   cups_dnssd_t		*dnssd;		// DNS-SD context
+  char			name[256];	// Name buffer
   cups_dnssd_browse_t	*browse;	// DNS-SD browse request
 //  cups_dnssd_query_t	*query;		// DNS-SD query request
   cups_dnssd_resolve_t	*resolve;	// DNS-SD resolve request
@@ -80,6 +81,18 @@ main(int  argc,				// I - Number of command-line arguments
       testEnd(true);
     else
       return (1);
+
+    testBegin("cupsDNSSDCopyComputerName");
+    if (cupsDNSSDCopyComputerName(dnssd, name, sizeof(name)))
+      testEndMessage(true, name);
+    else
+      testEnd(false);
+
+    testBegin("cupsDNSSDCopyHostName");
+    if (cupsDNSSDCopyHostName(dnssd, name, sizeof(name)))
+      testEndMessage(true, name);
+    else
+      testEnd(false);
 
     testBegin("cupsDNSSDBrowseNew(_ipp._tcp)");
     if ((browse = cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, "_ipp._tcp", NULL, browse_cb, &testdata)) != NULL)
