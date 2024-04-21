@@ -318,7 +318,7 @@ browse_print_cb(
 					// Test data
 
 
-  printf("%5u %s.%s%s\n", if_index, name, regtype, domain);
+  printf("%5u %s.%s.%s\n", if_index, name, regtype, domain);
 
   cupsMutexLock(&data->mutex);
   data->browse_dnssd_count ++;

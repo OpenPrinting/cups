@@ -1686,12 +1686,26 @@ mdns_browse_cb(
     const char          *domain,	// I - Domain
     cups_dnssd_browse_t *browse)	// I - Browse request
 {
+  char	temp[256],			// Temporary string
+	*tempptr;			// Pointer into temporary string
+
+
   (void)ref;
 
   if (error != kDNSServiceErr_NoError)
     report_error(browse->dnssd, "DNS-SD browse error: %s", mdns_strerror(error));
 
-  (browse->cb)(browse, browse->cb_data, mdns_to_cups(flags, error), if_index, name, regtype, domain);
+  // Strip trailing dot from registration/service type...
+  cupsCopyString(temp, regtype, sizeof(temp));
+  if ((tempptr = temp + strlen(temp) - 1) >= temp && *tempptr == '.')
+    *tempptr = '\0';
+
+  // Strip leading dot from domain...
+  if (domain && *domain == '.')
+    domain ++;				// Eliminate leading period
+
+  // Call the browse callback...
+  (browse->cb)(browse, browse->cb_data, mdns_to_cups(flags, error), if_index, name, temp, domain);
 }
 
 
