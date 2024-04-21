@@ -913,7 +913,7 @@ cupsDNSSDQueryNew(
   if (!dnssd || !fullname || !query_cb)
     return (NULL);
 
-  // Allocate memory for the queryr...
+  // Allocate memory for the resolver...
   if ((query = (cups_dnssd_query_t *)calloc(1, sizeof(cups_dnssd_query_t))) == NULL)
     return (NULL);
 
@@ -926,7 +926,7 @@ cupsDNSSDQueryNew(
 
   if (!dnssd->queries)
   {
-    // Create an array of queryrs...
+    // Create an array of resolvers...
     if ((dnssd->queries = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_func_t)delete_query)) == NULL)
     {
       // Unable to create...
@@ -1060,7 +1060,7 @@ cupsDNSSDResolveNew(
     return (NULL);
   }
 
-  // Allocate memory for the queryr...
+  // Allocate memory for the resolver...
   if ((resolve = (cups_dnssd_resolve_t *)calloc(1, sizeof(cups_dnssd_resolve_t))) == NULL)
   {
     DEBUG_printf("2cupsDNSSDResolveNew: Unable to allocate memory: %s", strerror(errno));
@@ -1076,7 +1076,7 @@ cupsDNSSDResolveNew(
 
   if (!dnssd->resolves)
   {
-    // Create an array of queryrs...
+    // Create an array of resolvers...
     DEBUG_puts("2cupsDNSSDResolveNew: Creating resolver array.");
     if ((dnssd->resolves = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_func_t)delete_resolve)) == NULL)
     {
