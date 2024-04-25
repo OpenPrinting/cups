@@ -7,12 +7,14 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cupsfilter 8 "CUPS" "2021-02-28" "OpenPrinting"
+.TH cupsfilter 8 "CUPS" "2024-04-25" "OpenPrinting"
 .SH NAME
 cupsfilter \- convert a file to another format using cups filters (deprecated)
 .SH SYNOPSIS
 .B cupsfilter
 [
+.B \-\-list\-all
+] [
 .B \-\-list\-filters
 ] [
 .B \-D
@@ -58,6 +60,9 @@ is a front-end to the CUPS filter subsystem which allows you to convert a file t
 .B cupsfilter
 generates a PDF file. The converted file is sent to the standard output.
 .SH OPTIONS
+.TP 5
+.B \-\-list\-all
+Do not actually run the filters, just print all of the filters used with the source and destination MIME media types to stdout.
 .TP 5
 .B \-\-list\-filters
 Do not actually run the filters, just print the filters used to stdout.

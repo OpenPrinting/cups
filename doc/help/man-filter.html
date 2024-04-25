@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.2">
+    <meta name="creator" content="mantohtml v2.0.1">
     <title>filter(7)</title>
   </head>
   <body>
@@ -209,27 +209,27 @@ The user executing the filter, typically &quot;lp&quot; or &quot;root&quot;; con
     <h2 id="filter-7.notes">Notes</h2>
 <p>CUPS printer drivers and backends are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<a href="ippeveprinter.html"><strong>ippeveprinter</strong>(1).</a>
+<strong>ippeveprinter</strong>(1).
 
 </p>
     <p>CUPS filters are not meant to be run directly by the user.
 Aside from the legacy System V interface issues (<em>argv[0]</em> is the printer name), CUPS filters also expect specific environment variables and file descriptors, and typically run in a user session that (on macOS) has additional restrictions that affect how it runs.
 Unless you are a developer and know what you are doing, please do not run filters directly.
 Instead, use the
-<a href="cupsfilter.html"><strong>cupsfilter</strong>(8)</a>
+<strong>cupsfilter</strong>(8)
 
 program to use the appropriate filters to do the conversions you need.
 </p>
     <h2 id="filter-7.see-also">See Also</h2>
-<a href="backend.html"><p><strong>backend</strong>(7),</a>
+<p><strong>backend</strong>(7),
 
-<a href="cups.html"><strong>cups</strong>(1),</a>
+<strong>cups</strong>(1),
 
-<a href="cups-files.conf.html"><strong>cups-files.conf</strong>(5),</a>
+<strong>cups-files.conf</strong>(5),
 
-<a href="cupsd.html"><strong>cupsd</strong>(8),</a>
+<strong>cupsd</strong>(8),
 
-<a href="cupsfilter.html"><strong>cupsfilter</strong>(8),</a>
+<strong>cupsfilter</strong>(8),
 
 <br>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)

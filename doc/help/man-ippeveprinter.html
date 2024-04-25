@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.2">
+    <meta name="creator" content="mantohtml v2.0.1">
     <title>ippeveprinter(1)</title>
   </head>
   <body>
@@ -145,7 +145,7 @@ Specifies the maximum IPP version to report.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a </strong><em>filename.conf</em><br>
 Load printer attributes from &quot;filename.conf&quot;.
 Attribute files can be created using the
-<a href="ipptool.html"><strong>ipptool</strong>(1)</a>
+<strong>ipptool</strong>(1)
 
 command with the
 <em>--ippserver</em>
@@ -157,11 +157,11 @@ If &quot;command&quot; is not an absolute path (&quot;/path/to/command&quot;),
 <strong>ippeveprinter</strong>
 looks for the command in the &quot;command&quot; subdirectory of the CUPS binary directory, typically /usr/lib/cups/command or /usr/libexec/cups/command.
 The
-<a href="cups-config.html"><strong>cups-config</strong>(1)</a>
+<strong>cups-config</strong>(1)
 
 command can be used to discover the correct binary directory (&quot;cups-config --serverbin&quot;).
 In addition, the CUPS_SERVERBIN environment variable can be used to override the default location of this directory - see the
-<a href="cups.html"><strong>cups</strong>(1)</a>
+<strong>cups</strong>(1)
 
 man page for more details.
 </p>
@@ -289,7 +289,7 @@ command whenever a job is sent to the server:
     ippeveprinter -c /usr/bin/file &quot;My Cool Printer&quot;
 </pre>
     <h2 id="ippeveprinter-1.see-also">See Also</h2>
-<a href="ippevepcl.html"><p><strong>ippevepcl</strong>(7),</a>
+<p><strong>ippevepcl</strong>(7),
 
 <strong>ippeveps</strong>(7),
 

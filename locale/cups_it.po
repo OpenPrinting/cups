@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2023-09-13 13:50-0400\n"
+"POT-Creation-Date: 2024-04-25 11:18-0400\n"
 "PO-Revision-Date: 2013-07-14 12:00+0200\n"
 "Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
 "Language-Team: Italian - Arch Linux Italian Team <giovanni@archlinux.org>\n"
@@ -809,6 +809,9 @@ msgstr "  --crlf                  Termina righe con CR + LF (Windows)."
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr ""
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr ""
 
@@ -824,11 +827,11 @@ msgstr ""
 "  -I include-dir          Aggiunge la directory include al percorso della "
 "ricerca."
 
-msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P filename.ppd         Imposta il file PPD."
+msgid "  -P FILENAME.ppd         Set PPD file."
+msgstr ""
 
-msgid "  -U username             Specify username."
-msgstr "  -U username             Specifica l'username."
+msgid "  -U USERNAME             Specify username."
+msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr ""
@@ -837,26 +840,22 @@ msgstr ""
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
 
+msgid "  -d PRINTER              Use the named printer."
+msgstr ""
+
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           Specifica la directory di output."
-
-msgid "  -d printer              Use the named printer."
-msgstr "  -d printer              Utilizza la stampante specificata."
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Utilizza tutti i filtri dal file PPD."
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
-"  -i mime/type            Imposta il tipo di MIME di input (altrimenti auto-"
-"typed)."
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j job-id[,N]           File del filtro N dal processo specificato (quello "
-"predefinito è il file 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      Specifica la lingua(e) (locale) di output."
@@ -865,13 +864,14 @@ msgid "  -m                      Use the ModelName value as the filename."
 msgstr "  -m                      Utilizza il valore di ModelName come file."
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m mime/type            Imposta il tipo di MIME di output (altrimenti "
-"application/pdf)."
 
-msgid "  -n copies               Set number of copies."
-msgstr "  -n copies               Imposta il numero di copie."
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
+msgstr ""
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -881,17 +881,14 @@ msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr ""
 "  -o filename.ppd[.gz]    Imposta il file di output (altrimenti stdout)."
 
-msgid "  -o name=value           Set option(s)."
-msgstr "  -o nome=valore           Imposta opzione(i)."
-
-msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p filename.ppd         Imposta il file PPD."
+msgid "  -p FILENAME.ppd         Set PPD file."
+msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Prova i PPD invece di generarli."
 
-msgid "  -t title                Set title."
-msgstr "  -t title                Imposta il titolo."
+msgid "  -t TITLE                Set title."
+msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Rimuove il file PPD una volta terminato."
@@ -1361,11 +1358,9 @@ msgstr "%s: errore - è previsto un valore dopo l'opzione \"-%c\"."
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
 msgstr ""
-"%s: errore - deve seguire \"completed\", \"non-completed\" oppure \"all\" "
-"dopo l'opzione \"-W\"."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -3046,6 +3041,10 @@ msgid "Bad custom parameter"
 msgstr "Il parametro personalizzato non è valido"
 
 #, c-format
+msgid "Bad device URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad device-uri \"%s\"."
 msgstr "Il device-uri \"%s\" non è valido."
 
@@ -3163,9 +3162,6 @@ msgstr "Banner"
 msgid "Bond Paper"
 msgstr "Carta per scrivere"
 
-msgid "Booklet"
-msgstr ""
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "È previsto un valore booleano per l'opzione waiteof \"%s\"."
@@ -3245,6 +3241,10 @@ msgstr "Il file del controllo è stato inviato con successo."
 
 msgid "Copying print data."
 msgstr "Copia dei dati di stampa in corso."
+
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
+msgstr ""
 
 msgid "Created"
 msgstr "Creato"
@@ -3356,9 +3356,6 @@ msgstr "Disabilitato"
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "Il documento #%d non esiste nel processo #%d."
-
-msgid "Draft"
-msgstr ""
 
 msgid "Duplexer"
 msgstr "Duplexer"
@@ -3651,12 +3648,6 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "Finito pagina %d."
 
-msgid "Finishing Preset"
-msgstr ""
-
-msgid "Fold"
-msgstr ""
-
 msgid "Folio"
 msgstr "Foglio"
 
@@ -3702,7 +3693,7 @@ msgstr ""
 msgid "Help file not in index."
 msgstr "Il file di aiuto non è nell'indice."
 
-msgid "High"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
@@ -3731,9 +3722,6 @@ msgstr "Il valore di IPP endCollection non è di 0 byte."
 
 msgid "IPP enum value not 4 bytes."
 msgstr "Il valore di IPP enum non è di 4 byte."
-
-msgid "IPP extension tag larger than 0x7FFFFFFF."
-msgstr "Il tag dell'estensione di IPP è maggiore di 0x7FFFFFFF."
 
 msgid "IPP integer value not 4 bytes."
 msgstr "Il valore intero di IPP non è di 4 byte."
@@ -4246,6 +4234,9 @@ msgstr "Non è stato trovato printer-uri per la classe"
 msgid "No printer-uri in request."
 msgstr "Nessun printer-uri nella richiesta."
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr ""
 
@@ -4278,9 +4269,6 @@ msgstr "Non-continuous (Mark sensing)"
 
 msgid "Non-continuous (Web sensing)"
 msgstr "Non-continuous (Web sensing)"
-
-msgid "None"
-msgstr ""
 
 msgid "Normal"
 msgstr "Normale"
@@ -4454,9 +4442,6 @@ msgstr "Processo di stampa:"
 msgid "Print Mode"
 msgstr "Modalità di stampa"
 
-msgid "Print Quality"
-msgstr ""
-
 msgid "Print Rate"
 msgstr "Velocità di stampa"
 
@@ -4526,9 +4511,6 @@ msgstr "Stampanti"
 
 #, c-format
 msgid "Printing page %d, %u%% complete."
-msgstr ""
-
-msgid "Punch"
 msgstr ""
 
 msgid "Quarto"
@@ -4623,9 +4605,6 @@ msgstr "Imposta le opzioni della classe"
 msgid "Set Printer Options"
 msgstr "Imposta le opzioni della stampante"
 
-msgid "Set Publishing"
-msgstr "Imposta la pubblicazione"
-
 msgid "Shipping Address"
 msgstr "Indirizzo di spedizione"
 
@@ -4641,9 +4620,6 @@ msgstr "Processo di spooling, %.0f%% completato."
 
 msgid "Standard"
 msgstr "Standard"
-
-msgid "Staple"
-msgstr ""
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4931,9 +4907,6 @@ msgstr "Non è possibile eliminare il processo di stampa."
 msgid "Unable to change printer"
 msgstr "Non è possibile modificare la stampante"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "Non è possibile modificare l'attributo printer-is-shared"
-
 msgid "Unable to change server settings"
 msgstr "Non è possibile modificare le impostazioni del server"
 
@@ -4955,6 +4928,10 @@ msgstr "Non è possibile configurare le opzioni della stampante."
 msgid "Unable to configure private key context."
 msgstr ""
 
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
+
 msgid "Unable to connect to host."
 msgstr "Non è possibile connettersi all'host."
 
@@ -4966,6 +4943,14 @@ msgstr ""
 #, c-format
 msgid "Unable to copy PPD file - %s"
 msgstr "Non è possibile copiare il file PPD - %s"
+
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create PPD: %s"
+msgstr ""
 
 msgid "Unable to create X.509 certificate signing request."
 msgstr ""
@@ -5100,6 +5085,10 @@ msgstr "non è possibile aprire il file del raster"
 msgid "Unable to print test page"
 msgstr "Non è possibile stampare la pagina di prova"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr "Non è possibile leggere i dati della stampa."
 
@@ -5118,6 +5107,10 @@ msgstr ""
 
 #, c-format
 msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
 
 msgid "Unable to see in file"
@@ -5316,7 +5309,7 @@ msgstr "Uso: cupsctl [opzioni] [param=valore ... paramN=valoreN]"
 msgid "Usage: cupsd [options]"
 msgstr "Uso: cupsd [opzioni]"
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
 msgstr ""
 
 msgid ""
@@ -15332,6 +15325,55 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#~ msgid "  -P filename.ppd         Set PPD file."
+#~ msgstr "  -P filename.ppd         Imposta il file PPD."
+
+#~ msgid "  -U username             Specify username."
+#~ msgstr "  -U username             Specifica l'username."
+
+#~ msgid "  -d printer              Use the named printer."
+#~ msgstr "  -d printer              Utilizza la stampante specificata."
+
+#~ msgid ""
+#~ "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+#~ msgstr ""
+#~ "  -i mime/type            Imposta il tipo di MIME di input (altrimenti "
+#~ "auto-typed)."
+
+#~ msgid ""
+#~ "  -j job-id[,N]           Filter file N from the specified job (default "
+#~ "is file 1)."
+#~ msgstr ""
+#~ "  -j job-id[,N]           File del filtro N dal processo specificato "
+#~ "(quello predefinito è il file 1)."
+
+#~ msgid ""
+#~ "  -m mime/type            Set output MIME type (otherwise application/"
+#~ "pdf)."
+#~ msgstr ""
+#~ "  -m mime/type            Imposta il tipo di MIME di output (altrimenti "
+#~ "application/pdf)."
+
+#~ msgid "  -n copies               Set number of copies."
+#~ msgstr "  -n copies               Imposta il numero di copie."
+
+#~ msgid "  -o name=value           Set option(s)."
+#~ msgstr "  -o nome=valore           Imposta opzione(i)."
+
+#~ msgid "  -p filename.ppd         Set PPD file."
+#~ msgstr "  -p filename.ppd         Imposta il file PPD."
+
+#~ msgid "  -t title                Set title."
+#~ msgstr "  -t title                Imposta il titolo."
+
+#, c-format
+#~ msgid ""
+#~ "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W"
+#~ "\" option."
+#~ msgstr ""
+#~ "%s: errore - deve seguire \"completed\", \"non-completed\" oppure \"all\" "
+#~ "dopo l'opzione \"-W\"."
+
 #, c-format
 #~ msgid "%s: Sorry, no encryption support."
 #~ msgstr "%s: spiacenti, nessun supporto per la crittografia."
@@ -15350,8 +15392,17 @@ msgstr ""
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Esporta le stampanti per Samba"
 
+#~ msgid "IPP extension tag larger than 0x7FFFFFFF."
+#~ msgstr "Il tag dell'estensione di IPP è maggiore di 0x7FFFFFFF."
+
 #~ msgid "Looking for printer."
 #~ msgstr "Cerca una stampante."
+
+#~ msgid "Set Publishing"
+#~ msgstr "Imposta la pubblicazione"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "Non è possibile modificare l'attributo printer-is-shared"
 
 #~ msgid "Unable to copy PPD file."
 #~ msgstr "Non è possibile copiare il file PPD."

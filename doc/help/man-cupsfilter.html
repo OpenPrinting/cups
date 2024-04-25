@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.2">
+    <meta name="creator" content="mantohtml v2.0.1">
     <title>cupsfilter(8)</title>
   </head>
   <body>
@@ -12,6 +12,8 @@
     <h2 id="cupsfilter-8.synopsis">Synopsis</h2>
 <p><strong>cupsfilter</strong>
 [
+<strong>--list-all</strong>
+] [
 <strong>--list-filters</strong>
 ] [
 <strong>-D</strong>
@@ -59,6 +61,9 @@ is a front-end to the CUPS filter subsystem which allows you to convert a file t
 generates a PDF file. The converted file is sent to the standard output.
 </p>
     <h2 id="cupsfilter-8.options">Options</h2>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--list-all</strong><br>
+Do not actually run the filters, just print all of the filters used with the source and destination MIME media types to stdout.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--list-filters</strong><br>
 Do not actually run the filters, just print the filters used to stdout.
 </p>
@@ -107,7 +112,7 @@ returns a non-zero exit status on any error.
 </p>
     <h2 id="cupsfilter-8.environment">Environment</h2>
 <p>All of the standard
-<a href="cups.html"><strong>cups</strong>(1)</a>
+<strong>cups</strong>(1)
 
 environment variables affect the operation of
 <strong>cupsfilter</strong>.
@@ -123,7 +128,7 @@ environment variables affect the operation of
     <h2 id="cupsfilter-8.notes">Notes</h2>
 <p>CUPS printer drivers, filters, and backends are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<a href="ippeveprinter.html"><strong>ippeveprinter</strong>(1).</a>
+<strong>ippeveprinter</strong>(1).
 
 </p>
     <p>Unlike when printing, filters run using the
@@ -137,9 +142,9 @@ command use the current user and security session. This may result in different 
     cupsfilter -m application/pdf -d myprinter -j 42 >preview.pdf
 </pre>
     <h2 id="cupsfilter-8.see-also">See Also</h2>
-<a href="cups.html"><p><strong>cups</strong>(1),</a>
+<p><strong>cups</strong>(1),
 
-<a href="cupsd.conf.html"><strong>cupsd.conf</strong>(5),</a>
+<strong>cupsd.conf</strong>(5),
 
 <strong>filter(7),</strong>
 

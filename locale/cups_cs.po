@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2023-09-13 13:50-0400\n"
+"POT-Creation-Date: 2024-04-25 11:18-0400\n"
 "PO-Revision-Date: 2012-09-14 10:26+0100\n"
 "Last-Translator: Jan Bartos <jan.bartos@madeta.cz>\n"
 "Language-Team: Czech\n"
@@ -684,6 +684,9 @@ msgstr ""
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr ""
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr ""
 
@@ -696,10 +699,10 @@ msgstr ""
 msgid "  -I include-dir          Add include directory to search path."
 msgstr ""
 
-msgid "  -P filename.ppd         Set PPD file."
+msgid "  -P FILENAME.ppd         Set PPD file."
 msgstr ""
 
-msgid "  -U username             Specify username."
+msgid "  -U USERNAME             Specify username."
 msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
@@ -708,20 +711,20 @@ msgstr ""
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
 
-msgid "  -d output-dir           Specify the output directory."
+msgid "  -d PRINTER              Use the named printer."
 msgstr ""
 
-msgid "  -d printer              Use the named printer."
+msgid "  -d output-dir           Specify the output directory."
 msgstr ""
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr ""
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
 
@@ -732,10 +735,13 @@ msgid "  -m                      Use the ModelName value as the filename."
 msgstr ""
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
 
-msgid "  -n copies               Set number of copies."
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
 msgstr ""
 
 msgid ""
@@ -745,16 +751,13 @@ msgstr ""
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr ""
 
-msgid "  -o name=value           Set option(s)."
-msgstr ""
-
-msgid "  -p filename.ppd         Set PPD file."
+msgid "  -p FILENAME.ppd         Set PPD file."
 msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr ""
 
-msgid "  -t title                Set title."
+msgid "  -t TITLE                Set title."
 msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
@@ -1216,8 +1219,8 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
 msgstr ""
 
 #, c-format
@@ -2895,6 +2898,10 @@ msgid "Bad custom parameter"
 msgstr "Chybný uživatelský parametr"
 
 #, c-format
+msgid "Bad device URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad device-uri \"%s\"."
 msgstr ""
 
@@ -3012,9 +3019,6 @@ msgstr "Banery"
 msgid "Bond Paper"
 msgstr "Kancelářský papír"
 
-msgid "Booklet"
-msgstr ""
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr ""
@@ -3090,6 +3094,10 @@ msgid "Control file sent successfully."
 msgstr ""
 
 msgid "Copying print data."
+msgstr ""
+
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
 msgstr ""
 
 msgid "Created"
@@ -3194,9 +3202,6 @@ msgstr "Zakázaný"
 
 #, c-format
 msgid "Document #%d does not exist in job #%d."
-msgstr ""
-
-msgid "Draft"
 msgstr ""
 
 msgid "Duplexer"
@@ -3488,12 +3493,6 @@ msgstr ""
 msgid "Finished page %d."
 msgstr ""
 
-msgid "Finishing Preset"
-msgstr ""
-
-msgid "Fold"
-msgstr ""
-
 msgid "Folio"
 msgstr "Fólie"
 
@@ -3539,7 +3538,7 @@ msgstr ""
 msgid "Help file not in index."
 msgstr ""
 
-msgid "High"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
@@ -3567,9 +3566,6 @@ msgid "IPP endCollection value not 0 bytes."
 msgstr ""
 
 msgid "IPP enum value not 4 bytes."
-msgstr ""
-
-msgid "IPP extension tag larger than 0x7FFFFFFF."
 msgstr ""
 
 msgid "IPP integer value not 4 bytes."
@@ -4077,6 +4073,9 @@ msgstr ""
 msgid "No printer-uri in request."
 msgstr ""
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr ""
 
@@ -4109,9 +4108,6 @@ msgstr "Není souvislý (Mark Sensing)"
 
 msgid "Non-continuous (Web sensing)"
 msgstr "Není souvislý (Web Sensing)"
-
-msgid "None"
-msgstr ""
 
 msgid "Normal"
 msgstr "Normální"
@@ -4285,9 +4281,6 @@ msgstr "Tisk úlohy:"
 msgid "Print Mode"
 msgstr "Režim tisku"
 
-msgid "Print Quality"
-msgstr ""
-
 msgid "Print Rate"
 msgstr "Kvalita tisku"
 
@@ -4357,9 +4350,6 @@ msgstr "Tiskárny"
 
 #, c-format
 msgid "Printing page %d, %u%% complete."
-msgstr ""
-
-msgid "Punch"
 msgstr ""
 
 msgid "Quarto"
@@ -4454,9 +4444,6 @@ msgstr "Nastavení parametrů třídy"
 msgid "Set Printer Options"
 msgstr "Nastavení parametrů tiskárny"
 
-msgid "Set Publishing"
-msgstr "Nastavení vydávání"
-
 msgid "Shipping Address"
 msgstr "Doručovací adresa"
 
@@ -4472,9 +4459,6 @@ msgstr ""
 
 msgid "Standard"
 msgstr "Standardní"
-
-msgid "Staple"
-msgstr ""
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4750,9 +4734,6 @@ msgstr ""
 msgid "Unable to change printer"
 msgstr "Nelze změnit tiskárnu"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "Nelze změnit atribut \"sdílení tiskárny\""
-
 msgid "Unable to change server settings"
 msgstr "Nelze změnit nastavení serveru"
 
@@ -4774,6 +4755,10 @@ msgstr ""
 msgid "Unable to configure private key context."
 msgstr ""
 
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
+
 msgid "Unable to connect to host."
 msgstr "Nelze se připojit k hostiteli."
 
@@ -4782,6 +4767,14 @@ msgstr ""
 
 #, c-format
 msgid "Unable to copy PPD file - %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create PPD: %s"
 msgstr ""
 
 msgid "Unable to create X.509 certificate signing request."
@@ -4917,6 +4910,10 @@ msgstr ""
 msgid "Unable to print test page"
 msgstr "Nelze vytisknout zkušební stránku"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr ""
 
@@ -4935,6 +4932,10 @@ msgstr ""
 
 #, c-format
 msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
 
 msgid "Unable to see in file"
@@ -5131,7 +5132,7 @@ msgstr ""
 msgid "Usage: cupsd [options]"
 msgstr ""
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
 msgstr ""
 
 msgid ""
@@ -15111,3 +15112,9 @@ msgstr ""
 
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Export tiskáren do Samby"
+
+#~ msgid "Set Publishing"
+#~ msgstr "Nastavení vydávání"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "Nelze změnit atribut \"sdílení tiskárny\""

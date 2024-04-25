@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2023-09-13 13:50-0400\n"
+"POT-Creation-Date: 2024-04-25 11:18-0400\n"
 "PO-Revision-Date: 2014-11-15 19:27+0900\n"
 "Last-Translator: OPFC TRANSCUPS <opfc-transcups@sourceforge.jp>\n"
 "Language-Team: Japanese - OPFC TRANSCUPS <opfc-transcups@sourceforge.jp>\n"
@@ -809,6 +809,9 @@ msgstr "  --crlf                  行末を CR + LF とする (Windows)。"
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr ""
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          使用されるフィルターのリストを表示する。"
 
@@ -823,11 +826,11 @@ msgid "  -I include-dir          Add include directory to search path."
 msgstr ""
 "  -I include-dir          インクルードディレクトリーを検索パスに含める。"
 
-msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P filename.ppd         PPD ファイルを指定する。"
+msgid "  -P FILENAME.ppd         Set PPD file."
+msgstr ""
 
-msgid "  -U username             Specify username."
-msgstr "  -U username             ユーザー名を指定する。"
+msgid "  -U USERNAME             Specify username."
+msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catalog.po           指定したメッセージカタログをロードする。"
@@ -835,27 +838,23 @@ msgstr "  -c catalog.po           指定したメッセージカタログをロ�
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr "  -c cups-files.conf      cups-files.conf を利用するよう設定する。"
 
+msgid "  -d PRINTER              Use the named printer."
+msgstr ""
+
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           出力先ディレクトリーを指定する。"
-
-msgid "  -d printer              Use the named printer."
-msgstr "  -d printer              指定されたプリンターを利用する。"
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr ""
 "  -e                      PPD ファイルからすべてのフィルターを使用する。"
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
-"  -i mime/type            入力の MIME タイプを指定する (指定がなければ自動タ"
-"イプ)。"
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j job-id[,N]           フィルターファイル N を指定されたジョブから使用す"
-"る (デフォルトは ファイル 1)。"
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      出力言語を指定する。(複数可能)"
@@ -864,13 +863,14 @@ msgid "  -m                      Use the ModelName value as the filename."
 msgstr "  -m                      ModelName の値をファイル名として使用する。"
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m mime/type            出力の MIME タイプを指定する (指定がなければ "
-"application/pdf)。"
 
-msgid "  -n copies               Set number of copies."
-msgstr "  -n copies               部数を指定する。"
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
+msgstr ""
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -882,17 +882,14 @@ msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr ""
 "  -o filename.ppd[.gz]    出力ファイルを指定する (指定がなければ標準出力)。"
 
-msgid "  -o name=value           Set option(s)."
-msgstr "  -o name=value           オプションを指定する。"
-
-msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p filename.ppd         PPD ファイルを指定する。"
+msgid "  -p FILENAME.ppd         Set PPD file."
+msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      PPD を出力しないでテストする。"
 
-msgid "  -t title                Set title."
-msgstr "  -t title                タイトルを指定する。"
+msgid "  -t TITLE                Set title."
+msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      終了したときに PPD ファイルを削除する。"
@@ -1356,11 +1353,9 @@ msgstr "%s: エラー -  \"-%c\" オプションのあとには値が必要で�
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
 msgstr ""
-"%s: エラー - \"-W\" オプションのあとには、\"completed\"、\"not-completed"
-"\"、\"all\" のいずれかが必要です。"
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -3040,6 +3035,10 @@ msgid "Bad custom parameter"
 msgstr "不正なカスタムパラメーター"
 
 #, c-format
+msgid "Bad device URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad device-uri \"%s\"."
 msgstr "\"%s\" は無効な device-uri です。"
 
@@ -3157,9 +3156,6 @@ msgstr "バナー"
 msgid "Bond Paper"
 msgstr "ボンド紙"
 
-msgid "Booklet"
-msgstr ""
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "論理値は、waiteof オプション \"%s\" であるべきです"
@@ -3239,6 +3235,10 @@ msgstr "コントロールファイルが正常に送信されました。"
 
 msgid "Copying print data."
 msgstr "印刷データをコピーしています。"
+
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
+msgstr ""
 
 msgid "Created"
 msgstr "ジョブ作成"
@@ -3352,9 +3352,6 @@ msgstr "無効"
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "ドキュメント #%d がジョブ #%d に見つかりません。"
-
-msgid "Draft"
-msgstr ""
 
 msgid "Duplexer"
 msgstr "両面オプション"
@@ -3649,12 +3646,6 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "ページ %d を終了。"
 
-msgid "Finishing Preset"
-msgstr ""
-
-msgid "Fold"
-msgstr ""
-
 msgid "Folio"
 msgstr "フォリオ"
 
@@ -3700,7 +3691,7 @@ msgstr ""
 msgid "Help file not in index."
 msgstr "ヘルプファイルが索引に含まれていません。"
 
-msgid "High"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
@@ -3729,9 +3720,6 @@ msgstr "IPP の endCollection は想定された 0 バイトになっていま�
 
 msgid "IPP enum value not 4 bytes."
 msgstr "IPP の enum 値は想定された 4 バイトになっていません。"
-
-msgid "IPP extension tag larger than 0x7FFFFFFF."
-msgstr "IPP の拡張タグが 0x7FFFFFFF より大きいです。"
 
 msgid "IPP integer value not 4 bytes."
 msgstr "IPP の整数値は想定された 4 バイトになっていません。"
@@ -4242,6 +4230,9 @@ msgstr "クラスのプリンター URI が見つかりません"
 msgid "No printer-uri in request."
 msgstr "プリンター URI のリクエストがありません。"
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr "リクエスト URI がありません。"
 
@@ -4274,9 +4265,6 @@ msgstr "非連続です (Mark sensing)"
 
 msgid "Non-continuous (Web sensing)"
 msgstr "非連続です (Web sensing)"
-
-msgid "None"
-msgstr ""
 
 msgid "Normal"
 msgstr "標準"
@@ -4450,9 +4438,6 @@ msgstr "ジョブの印刷:"
 msgid "Print Mode"
 msgstr "印刷モード"
 
-msgid "Print Quality"
-msgstr ""
-
 msgid "Print Rate"
 msgstr "印刷レート"
 
@@ -4523,9 +4508,6 @@ msgstr "プリンター"
 #, c-format
 msgid "Printing page %d, %u%% complete."
 msgstr "ページ %d, %u%% の印刷が完了しました。"
-
-msgid "Punch"
-msgstr ""
 
 msgid "Quarto"
 msgstr "Quarto"
@@ -4619,9 +4601,6 @@ msgstr "クラスオプションの設定"
 msgid "Set Printer Options"
 msgstr "プリンターオプションの設定"
 
-msgid "Set Publishing"
-msgstr "公開の設定"
-
 msgid "Shipping Address"
 msgstr "発送先ラベル"
 
@@ -4637,9 +4616,6 @@ msgstr "ジョブをスプール中、%.0f%% 完了しました。"
 
 msgid "Standard"
 msgstr "標準"
-
-msgid "Staple"
-msgstr ""
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4922,9 +4898,6 @@ msgstr "プリンターを変更できません。"
 msgid "Unable to change printer"
 msgstr "プリンターを変更できません"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "printer-is-shared 属性を変更することができません"
-
 msgid "Unable to change server settings"
 msgstr "サーバーの設定を変更できません"
 
@@ -4946,6 +4919,10 @@ msgstr "プリンターオプションを設定できません。"
 msgid "Unable to configure private key context."
 msgstr ""
 
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
+
 msgid "Unable to connect to host."
 msgstr "ホストに接続できません。"
 
@@ -4955,6 +4932,14 @@ msgstr "プリンターと交信できません。クラス内の次のプリン
 #, c-format
 msgid "Unable to copy PPD file - %s"
 msgstr "PPD ファイルをコピーできません - %s"
+
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create PPD: %s"
+msgstr ""
 
 msgid "Unable to create X.509 certificate signing request."
 msgstr ""
@@ -5089,6 +5074,10 @@ msgstr "ラスターファイルを開けません"
 msgid "Unable to print test page"
 msgstr "テストページを印刷できません"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr "プリントデータを読み込めません。"
 
@@ -5107,6 +5096,10 @@ msgstr ""
 
 #, c-format
 msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
 
 msgid "Unable to see in file"
@@ -5306,8 +5299,8 @@ msgstr "Usage: cupsctl [オプション] [パラメータ=値 ... パラメー�
 msgid "Usage: cupsd [options]"
 msgstr "使い方: cupsd [オプション]"
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
-msgstr "使い方: cupsfilter [ オプション ] [ -- ] ファイル名"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
+msgstr ""
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
@@ -15363,6 +15356,55 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#~ msgid "  -P filename.ppd         Set PPD file."
+#~ msgstr "  -P filename.ppd         PPD ファイルを指定する。"
+
+#~ msgid "  -U username             Specify username."
+#~ msgstr "  -U username             ユーザー名を指定する。"
+
+#~ msgid "  -d printer              Use the named printer."
+#~ msgstr "  -d printer              指定されたプリンターを利用する。"
+
+#~ msgid ""
+#~ "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+#~ msgstr ""
+#~ "  -i mime/type            入力の MIME タイプを指定する (指定がなければ自動"
+#~ "タイプ)。"
+
+#~ msgid ""
+#~ "  -j job-id[,N]           Filter file N from the specified job (default "
+#~ "is file 1)."
+#~ msgstr ""
+#~ "  -j job-id[,N]           フィルターファイル N を指定されたジョブから使用"
+#~ "する (デフォルトは ファイル 1)。"
+
+#~ msgid ""
+#~ "  -m mime/type            Set output MIME type (otherwise application/"
+#~ "pdf)."
+#~ msgstr ""
+#~ "  -m mime/type            出力の MIME タイプを指定する (指定がなければ "
+#~ "application/pdf)。"
+
+#~ msgid "  -n copies               Set number of copies."
+#~ msgstr "  -n copies               部数を指定する。"
+
+#~ msgid "  -o name=value           Set option(s)."
+#~ msgstr "  -o name=value           オプションを指定する。"
+
+#~ msgid "  -p filename.ppd         Set PPD file."
+#~ msgstr "  -p filename.ppd         PPD ファイルを指定する。"
+
+#~ msgid "  -t title                Set title."
+#~ msgstr "  -t title                タイトルを指定する。"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W"
+#~ "\" option."
+#~ msgstr ""
+#~ "%s: エラー - \"-W\" オプションのあとには、\"completed\"、\"not-completed"
+#~ "\"、\"all\" のいずれかが必要です。"
+
 #, c-format
 #~ msgid "%s: Sorry, no encryption support."
 #~ msgstr ""
@@ -15382,8 +15424,17 @@ msgstr ""
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Samba へプリンターをエクスポート"
 
+#~ msgid "IPP extension tag larger than 0x7FFFFFFF."
+#~ msgstr "IPP の拡張タグが 0x7FFFFFFF より大きいです。"
+
 #~ msgid "Looking for printer."
 #~ msgstr "プリンターを探しています。"
+
+#~ msgid "Set Publishing"
+#~ msgstr "公開の設定"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "printer-is-shared 属性を変更することができません"
 
 #~ msgid "Unable to copy PPD file."
 #~ msgstr "PPD ファイルをコピーできません。"
@@ -15430,6 +15481,9 @@ msgstr ""
 
 #~ msgid "Unable to find server credentials."
 #~ msgstr "サーバー証明書を見つけられません。"
+
+#~ msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+#~ msgstr "使い方: cupsfilter [ オプション ] [ -- ] ファイル名"
 
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl: Listen あるいは Port を直接設定できません。"

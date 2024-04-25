@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2023-09-13 13:50-0400\n"
+"POT-Creation-Date: 2024-04-25 11:18-0400\n"
 "PO-Revision-Date: 2022-07-14 12:43+0800\n"
 "Last-Translator: Tyson Tan <tysontan@tysontan.com>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -787,6 +787,9 @@ msgstr "  --crlf                  使用 CR + LF 行末 (Windows)。"
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr "  --lf                    使用 LF 行末 (UNIX/Linux/macOS)。"
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          列出要使用的滤镜。"
 
@@ -799,11 +802,11 @@ msgstr "  -D 名称=赋值           为指定变量赋值。"
 msgid "  -I include-dir          Add include directory to search path."
 msgstr "  -I include-dir          将引用目录加入到搜索路径。"
 
-msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P filename.ppd         设置 PPD 文件。"
+msgid "  -P FILENAME.ppd         Set PPD file."
+msgstr ""
 
-msgid "  -U username             Specify username."
-msgstr "  -U 用户名              指定用户名。"
+msgid "  -U USERNAME             Specify username."
+msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catalog.po           载入指定的消息索引。"
@@ -811,22 +814,22 @@ msgstr "  -c catalog.po           载入指定的消息索引。"
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr "  -c cups-files.conf      设置要使用的 cups-files.conf 文件。"
 
+msgid "  -d PRINTER              Use the named printer."
+msgstr ""
+
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           指定输出目录。"
-
-msgid "  -d printer              Use the named printer."
-msgstr "  -d 打印机               使用指定的打印机。"
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      使用来自 PPD 文件的所有滤镜。"
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
-msgstr "  -i mime/type            设置输入的 MIME 类型 (否则自动探测类型)。"
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
+msgstr ""
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
-msgstr "  -j job-id[,N]           从指定任务中过滤文件 N (默认为文件 1)。"
+msgstr ""
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      指定输出语言 (地域配置)。"
@@ -835,12 +838,14 @@ msgid "  -m                      Use the ModelName value as the filename."
 msgstr "  -m                      将 ModelName 值作为文件名。"
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m mime/type            设置输出 MIME 类型 (缺省为 application/pdf)。"
 
-msgid "  -n copies               Set number of copies."
-msgstr "  -n 副本数               设置副本数量。"
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
+msgstr ""
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -849,17 +854,14 @@ msgstr "  -o filename.drv         指定驱动信息文件 (缺省为 ppdi.drv)�
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr "  -o filename.ppd[.gz]    设置输出文件 (缺省为标准输出)。"
 
-msgid "  -o name=value           Set option(s)."
-msgstr "  -o 名称=赋值            设置选项。"
-
-msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p filename.ppd         指定 PPD 文件。"
+msgid "  -p FILENAME.ppd         Set PPD file."
+msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      测试而非生成 PPD 文件。"
 
-msgid "  -t title                Set title."
-msgstr "  -t 标题                 设置标题。"
+msgid "  -t TITLE                Set title."
+msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      完成后删除 PPD 文件。"
@@ -1326,9 +1328,9 @@ msgstr "%s：错误 — 在“-%c”选项后预期赋值。"
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
-msgstr "%s：错误 — 在“-W”选项后需要“completed”，“not-completed”或“all”值。"
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
+msgstr ""
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -3005,6 +3007,10 @@ msgid "Bad custom parameter"
 msgstr "无效的自定义参数"
 
 #, c-format
+msgid "Bad device URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad device-uri \"%s\"."
 msgstr "无效的 device-uri 值“%s”。"
 
@@ -3122,9 +3128,6 @@ msgstr "条幅"
 msgid "Bond Paper"
 msgstr "证券纸"
 
-msgid "Booklet"
-msgstr "册子"
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "waiteof 选项“%s”预期布里值。"
@@ -3204,6 +3207,10 @@ msgstr "已成功发送控制文件。"
 
 msgid "Copying print data."
 msgstr "正在复制打印数据。"
+
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
+msgstr ""
 
 msgid "Created"
 msgstr "创建时间"
@@ -3314,9 +3321,6 @@ msgstr "已禁用"
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "任务 #%2$d 中不包含文档 #%1$d。"
-
-msgid "Draft"
-msgstr "草稿"
 
 msgid "Duplexer"
 msgstr "双面打印器"
@@ -3608,12 +3612,6 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "已完成第 %d 页。"
 
-msgid "Finishing Preset"
-msgstr "结尾预设"
-
-msgid "Fold"
-msgstr "折纸"
-
 msgid "Folio"
 msgstr "对开本"
 
@@ -3659,8 +3657,8 @@ msgstr "哈希值缓冲区太小。"
 msgid "Help file not in index."
 msgstr "帮助文件不在索引中。"
 
-msgid "High"
-msgstr "高"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
+msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "带有不兼容值标签的 IPP 1setOf 属性。"
@@ -3688,9 +3686,6 @@ msgstr "IPP endCollection 值大小不是 0 字节。"
 
 msgid "IPP enum value not 4 bytes."
 msgstr "IPP enum 值大小不是 4 字节。"
-
-msgid "IPP extension tag larger than 0x7FFFFFFF."
-msgstr "IPP 扩展标签大于 0x7FFFFFFF。"
 
 msgid "IPP integer value not 4 bytes."
 msgstr "IPP 整数值大小不是 4 字节。"
@@ -4201,6 +4196,9 @@ msgstr "未找到类的 print-uri"
 msgid "No printer-uri in request."
 msgstr "请求中无 printer-uri。"
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr "无请求 URI。"
 
@@ -4233,9 +4231,6 @@ msgstr "非连续 (标记嗅探)"
 
 msgid "Non-continuous (Web sensing)"
 msgstr "非连续 (Web 嗅探)"
-
-msgid "None"
-msgstr "无"
 
 msgid "Normal"
 msgstr "一般"
@@ -4409,9 +4404,6 @@ msgstr "打印任务："
 msgid "Print Mode"
 msgstr "打印模式"
 
-msgid "Print Quality"
-msgstr "打印质量"
-
 msgid "Print Rate"
 msgstr "打印频率"
 
@@ -4482,9 +4474,6 @@ msgstr "打印机"
 #, c-format
 msgid "Printing page %d, %u%% complete."
 msgstr "正在打印第 %d 页，已完成 %u%%。"
-
-msgid "Punch"
-msgstr "冲压"
 
 msgid "Quarto"
 msgstr "美国四分 (Quarto)"
@@ -4581,9 +4570,6 @@ msgstr "设置类选项"
 msgid "Set Printer Options"
 msgstr "设置打印机选项"
 
-msgid "Set Publishing"
-msgstr "设置出版"
-
 msgid "Shipping Address"
 msgstr "邮寄地址"
 
@@ -4599,9 +4585,6 @@ msgstr "正在转存任务，已完成 %.0f%%。"
 
 msgid "Standard"
 msgstr "标准"
-
-msgid "Staple"
-msgstr "装订"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4876,9 +4859,6 @@ msgstr "无法取消打印任务。"
 msgid "Unable to change printer"
 msgstr "无法更换打印机"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "无法更改 printer-is-shared 属性"
-
 msgid "Unable to change server settings"
 msgstr "无法更改服务器选项"
 
@@ -4900,6 +4880,10 @@ msgstr "无法配置打印机选项。"
 msgid "Unable to configure private key context."
 msgstr ""
 
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
+
 msgid "Unable to connect to host."
 msgstr "无法连接主机。"
 
@@ -4909,6 +4893,14 @@ msgstr "无法联系打印机，已列队于类中的下一台打印机。"
 #, c-format
 msgid "Unable to copy PPD file - %s"
 msgstr "无法复制 PPD 文件 — %s"
+
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create PPD: %s"
+msgstr ""
 
 msgid "Unable to create X.509 certificate signing request."
 msgstr ""
@@ -5043,6 +5035,10 @@ msgstr "无法打开栅格文件"
 msgid "Unable to print test page"
 msgstr "无法打印测试页"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr "无法读取打印数据。"
 
@@ -5061,6 +5057,10 @@ msgstr ""
 
 #, c-format
 msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
 
 # "Unable to read file" perhaps?
@@ -5258,8 +5258,8 @@ msgstr "用法：cupsctl [options] [param=value ... paramN=valueN]"
 msgid "Usage: cupsd [options]"
 msgstr "用法：cupsd [options]"
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
-msgstr "用法：cupsfilter [ options ] [ -- ] filename"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
+msgstr ""
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
@@ -15251,9 +15251,51 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "~/.cups/lpoptions 文件所指定的默认目标不存在。"
 
+#~ msgid "  -P filename.ppd         Set PPD file."
+#~ msgstr "  -P filename.ppd         设置 PPD 文件。"
+
+#~ msgid "  -U username             Specify username."
+#~ msgstr "  -U 用户名              指定用户名。"
+
+#~ msgid "  -d printer              Use the named printer."
+#~ msgstr "  -d 打印机               使用指定的打印机。"
+
+#~ msgid ""
+#~ "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+#~ msgstr "  -i mime/type            设置输入的 MIME 类型 (否则自动探测类型)。"
+
+#~ msgid ""
+#~ "  -j job-id[,N]           Filter file N from the specified job (default "
+#~ "is file 1)."
+#~ msgstr "  -j job-id[,N]           从指定任务中过滤文件 N (默认为文件 1)。"
+
+#~ msgid ""
+#~ "  -m mime/type            Set output MIME type (otherwise application/"
+#~ "pdf)."
+#~ msgstr ""
+#~ "  -m mime/type            设置输出 MIME 类型 (缺省为 application/pdf)。"
+
+#~ msgid "  -n copies               Set number of copies."
+#~ msgstr "  -n 副本数               设置副本数量。"
+
+#~ msgid "  -o name=value           Set option(s)."
+#~ msgstr "  -o 名称=赋值            设置选项。"
+
+#~ msgid "  -p filename.ppd         Set PPD file."
+#~ msgstr "  -p filename.ppd         指定 PPD 文件。"
+
+#~ msgid "  -t title                Set title."
+#~ msgstr "  -t 标题                 设置标题。"
+
 #, c-format
 #~ msgid "%s: Bad printer URI \"%s\"."
 #~ msgstr "%s：无效的打印机 URI“%s”。"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W"
+#~ "\" option."
+#~ msgstr "%s：错误 — 在“-W”选项后需要“completed”，“not-completed”或“all”值。"
 
 #, c-format
 #~ msgid "%s: Sorry, no encryption support."
@@ -15281,17 +15323,53 @@ msgstr "~/.cups/lpoptions 文件所指定的默认目标不存在。"
 #~ msgid "A Samba username is required to export printer drivers"
 #~ msgstr "需要 Samba 用户名以导出打印机驱动"
 
+#~ msgid "Booklet"
+#~ msgstr "册子"
+
+#~ msgid "Draft"
+#~ msgstr "草稿"
+
 #~ msgid "Dymo"
 #~ msgstr "Dymo"
 
 #~ msgid "Export Printers to Samba"
 #~ msgstr "将打印机导出到 Samba"
 
+#~ msgid "Finishing Preset"
+#~ msgstr "结尾预设"
+
+#~ msgid "Fold"
+#~ msgstr "折纸"
+
+#~ msgid "High"
+#~ msgstr "高"
+
+#~ msgid "IPP extension tag larger than 0x7FFFFFFF."
+#~ msgstr "IPP 扩展标签大于 0x7FFFFFFF。"
+
 #~ msgid "Looking for printer."
 #~ msgstr "正在寻找打印机。"
 
 #~ msgid "No common name specified."
 #~ msgstr "未指定通用名称。"
+
+#~ msgid "None"
+#~ msgstr "无"
+
+#~ msgid "Print Quality"
+#~ msgstr "打印质量"
+
+#~ msgid "Punch"
+#~ msgstr "冲压"
+
+#~ msgid "Set Publishing"
+#~ msgstr "设置出版"
+
+#~ msgid "Staple"
+#~ msgstr "装订"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "无法更改 printer-is-shared 属性"
 
 #~ msgid "Unable to copy PPD file."
 #~ msgstr "无法复制 PPD 文件。"
@@ -15338,6 +15416,9 @@ msgstr "~/.cups/lpoptions 文件所指定的默认目标不存在。"
 
 #~ msgid "Unable to find server credentials."
 #~ msgstr "找不到服务器凭据。"
+
+#~ msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+#~ msgstr "用法：cupsfilter [ options ] [ -- ] filename"
 
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl：无法直接设置 Listen 或 Port 值。"

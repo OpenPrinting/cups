@@ -1,7 +1,7 @@
 /*
  * Filtering program for CUPS.
  *
- * Copyright © 2021-2023 by OpenPrinting
+ * Copyright © 2021-2024 by OpenPrinting
  * Copyright © 2007-2016 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -155,7 +155,11 @@ main(int  argc,				/* I - Number of command-line args */
   {
     if (argv[i][0] == '-')
     {
-      if (!strcmp(argv[i], "--list-filters"))
+      if (!strcmp(argv[i], "--list-all"))
+      {
+        list_filters = 2;
+      }
+      else if (!strcmp(argv[i], "--list-filters"))
       {
         list_filters = 1;
       }
@@ -524,11 +528,19 @@ main(int  argc,				/* I - Number of command-line args */
 
     mime_filter_t	*filter;	/* Current filter */
 
-    for (filter = (mime_filter_t *)cupsArrayFirst(filters);
-	 filter;
-	 filter = (mime_filter_t *)cupsArrayNext(filters))
-      if (strcmp(filter->filter, "-"))
+    for (filter = (mime_filter_t *)cupsArrayGetFirst(filters); filter; filter = (mime_filter_t *)cupsArrayGetNext(filters))
+    {
+      if (list_filters == 2)
+        _cupsLangPrintf(stdout, "%s/%s -> %s", filter->src->super, filter->src->type, filter->filter);
+      else if (strcmp(filter->filter, "-"))
         _cupsLangPuts(stdout, filter->filter);
+    }
+
+    if (list_filters == 2)
+    {
+      filter = (mime_filter_t *)cupsArrayGetLast(filters);
+      _cupsLangPrintf(stdout, "%s/%s", filter->dst->super, filter->dst->type);
+    }
 
     status = 0;
   }
@@ -1530,24 +1542,25 @@ static void
 usage(const char *opt)			/* I - Incorrect option, if any */
 {
   if (opt)
-    _cupsLangPrintf(stderr, _("%s: Unknown option \"%c\"."), "cupsfilter", *opt);
+    _cupsLangPrintf(stderr, _("%s: Unknown option \"-%c\"."), "cupsfilter", *opt);
 
-  _cupsLangPuts(stdout, _("Usage: cupsfilter [ options ] [ -- ] filename"));
+  _cupsLangPuts(stdout, _("Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"));
   _cupsLangPuts(stdout, _("Options:"));
+  _cupsLangPuts(stdout, _("  --list-all              List all filters with the MIME media types."));
   _cupsLangPuts(stdout, _("  --list-filters          List filters that will be used."));
   _cupsLangPuts(stdout, _("  -D                      Remove the input file when finished."));
-  _cupsLangPuts(stdout, _("  -P filename.ppd         Set PPD file."));
-  _cupsLangPuts(stdout, _("  -U username             Specify username."));
+  _cupsLangPuts(stdout, _("  -P FILENAME.ppd         Set PPD file."));
+  _cupsLangPuts(stdout, _("  -U USERNAME             Specify username."));
   _cupsLangPuts(stdout, _("  -c cups-files.conf      Set cups-files.conf file to use."));
-  _cupsLangPuts(stdout, _("  -d printer              Use the named printer."));
+  _cupsLangPuts(stdout, _("  -d PRINTER              Use the named printer."));
   _cupsLangPuts(stdout, _("  -e                      Use every filter from the PPD file."));
-  _cupsLangPuts(stdout, _("  -i mime/type            Set input MIME type (otherwise auto-typed)."));
-  _cupsLangPuts(stdout, _("  -j job-id[,N]           Filter file N from the specified job (default is file 1)."));
-  _cupsLangPuts(stdout, _("  -m mime/type            Set output MIME type (otherwise application/pdf)."));
-  _cupsLangPuts(stdout, _("  -n copies               Set number of copies."));
-  _cupsLangPuts(stdout, _("  -o name=value           Set option(s)."));
-  _cupsLangPuts(stdout, _("  -p filename.ppd         Set PPD file."));
-  _cupsLangPuts(stdout, _("  -t title                Set title."));
+  _cupsLangPuts(stdout, _("  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."));
+  _cupsLangPuts(stdout, _("  -j JOB-ID[,N]           Filter file N from the specified job (default is file 1)."));
+  _cupsLangPuts(stdout, _("  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."));
+  _cupsLangPuts(stdout, _("  -n COPIES               Set number of copies."));
+  _cupsLangPuts(stdout, _("  -o NAME=VALUE           Set option(s)."));
+  _cupsLangPuts(stdout, _("  -p FILENAME.ppd         Set PPD file."));
+  _cupsLangPuts(stdout, _("  -t TITLE                Set title."));
   _cupsLangPuts(stdout, _("  -u                      Remove the PPD file when finished."));
 
   exit(1);

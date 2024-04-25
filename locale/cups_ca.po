@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2023-09-13 13:50-0400\n"
+"POT-Creation-Date: 2024-04-25 11:18-0400\n"
 "PO-Revision-Date: 2012-09-29 11:21+0200\n"
 "Last-Translator: Àngel Mompó <mecatxis@gmail.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -810,6 +810,9 @@ msgstr "  --crlf                  Final de línia amb CR + LF (Windows)."
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr ""
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr ""
 
@@ -822,11 +825,11 @@ msgstr "  -D nom=valor            Estableix la variable indicada al valor."
 msgid "  -I include-dir          Add include directory to search path."
 msgstr "  -I dir-inclòs          Afegeix el directori inclòs al camí de cerca."
 
-msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P nomfitxer.ppd         Estableix el fitxer PPD."
+msgid "  -P FILENAME.ppd         Set PPD file."
+msgstr ""
 
-msgid "  -U username             Specify username."
-msgstr "  -U nomusuari             Especifica un nom d'usuari."
+msgid "  -U USERNAME             Specify username."
+msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catàleg.po           Carrega el catàleg de missatges indicat."
@@ -834,26 +837,22 @@ msgstr "  -c catàleg.po           Carrega el catàleg de missatges indicat."
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
 
+msgid "  -d PRINTER              Use the named printer."
+msgstr ""
+
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d dir-sortida           Especifica el directori de sortida."
-
-msgid "  -d printer              Use the named printer."
-msgstr "  -d impressora              Fa servir la impressora indicada."
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Fa servir tots els filtres del fitxer PPD."
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
-"  -i tipus/mime            Estableix el tipus MIME d'entrada (auto-typed si "
-"no s'especifica)."
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j id-feina[,N]           Filtra el fitxer N a la feina especificada (el "
-"fitxer per defecte és 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
@@ -865,13 +864,14 @@ msgstr ""
 "fitxer."
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m tipus/mime            Estableix el tipus MIME de sortida (application/"
-"pdf si no s'especifica)."
 
-msgid "  -n copies               Set number of copies."
-msgstr "  -n còpies               Estableix el nombre de còpies."
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
+msgstr ""
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -884,17 +884,14 @@ msgstr ""
 "  -o nomfitxer.ppd[.gz]    Estableix el fitxer de sortida (stdout si no "
 "s'especifica)."
 
-msgid "  -o name=value           Set option(s)."
-msgstr "  -o nom=valor           Estableix les opcions."
-
-msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p nomfitxer.ppd         Estableix el fitxer PPD."
+msgid "  -p FILENAME.ppd         Set PPD file."
+msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Prova els  PPDs en comptes de generar-los."
 
-msgid "  -t title                Set title."
-msgstr "  -t títol                Estableix el títol."
+msgid "  -t TITLE                Set title."
+msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Elimina el fitxer PPD quan ha acabat."
@@ -1363,11 +1360,9 @@ msgstr "%s: error - s'esperava un valor després de l'opció «-%c»."
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
 msgstr ""
-"%s: error - es requereix «completed», «not-completed», o «all» després de "
-"l'opció «-W»."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -3047,6 +3042,10 @@ msgid "Bad custom parameter"
 msgstr "El paràmetre personalitzat és incorrecte"
 
 #, c-format
+msgid "Bad device URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad device-uri \"%s\"."
 msgstr "La device-uri «%s» és incorrecta."
 
@@ -3164,9 +3163,6 @@ msgstr "Bàners"
 msgid "Bond Paper"
 msgstr "Paper de valors"
 
-msgid "Booklet"
-msgstr ""
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "S'esperava un booleà per l'opció waiteof «%s»."
@@ -3246,6 +3242,10 @@ msgstr "El fitxer de control s'ha enviat correctament."
 
 msgid "Copying print data."
 msgstr "Es copien les dades d'impressió."
+
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
+msgstr ""
 
 msgid "Created"
 msgstr "Creat"
@@ -3356,9 +3356,6 @@ msgstr "Desabilitat"
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "No s'ha trobat el document #%d a la feina #%d."
-
-msgid "Draft"
-msgstr ""
 
 msgid "Duplexer"
 msgstr "Unitat d'impressió a dues cares"
@@ -3650,12 +3647,6 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "S'ha acabat la pàgina %d."
 
-msgid "Finishing Preset"
-msgstr ""
-
-msgid "Fold"
-msgstr ""
-
 msgid "Folio"
 msgstr "Foli"
 
@@ -3701,7 +3692,7 @@ msgstr ""
 msgid "Help file not in index."
 msgstr "El fitxer d'ajuda no és a l'índex."
 
-msgid "High"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
@@ -3731,9 +3722,6 @@ msgstr "El valor de endColletion del IPP no té 0 bytes."
 
 msgid "IPP enum value not 4 bytes."
 msgstr "El valor de enum del IPP no té 4 bytes."
-
-msgid "IPP extension tag larger than 0x7FFFFFFF."
-msgstr "La etiqueta d'extension del IPP és més llarga de 0x7FFFFFFF."
 
 msgid "IPP integer value not 4 bytes."
 msgstr "El valor enter de IPP no té 4 bytes."
@@ -4248,6 +4236,9 @@ msgstr "No s'ha trobat cap printer-uri per la classe"
 msgid "No printer-uri in request."
 msgstr "No hi ha cap printer-uri a la sol·licitud."
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr ""
 
@@ -4280,9 +4271,6 @@ msgstr "Discontinu (sensible a les marques)"
 
 msgid "Non-continuous (Web sensing)"
 msgstr "Discontinu (Sensible al web)"
-
-msgid "None"
-msgstr ""
 
 msgid "Normal"
 msgstr "Normal"
@@ -4456,9 +4444,6 @@ msgstr "Feina d'impressió:"
 msgid "Print Mode"
 msgstr "Mode d'impressió"
 
-msgid "Print Quality"
-msgstr ""
-
 msgid "Print Rate"
 msgstr "Ritme d'impressió"
 
@@ -4528,9 +4513,6 @@ msgstr "Impressores"
 
 #, c-format
 msgid "Printing page %d, %u%% complete."
-msgstr ""
-
-msgid "Punch"
 msgstr ""
 
 msgid "Quarto"
@@ -4626,9 +4608,6 @@ msgstr "Definir les opcions de la classe"
 msgid "Set Printer Options"
 msgstr "Definir les opcions de la impressora"
 
-msgid "Set Publishing"
-msgstr "Establir com a pública"
-
 msgid "Shipping Address"
 msgstr "Adreça de lliurament"
 
@@ -4644,9 +4623,6 @@ msgstr "S'està posant a la cua la feina. S'ha completat el %.0f%%."
 
 msgid "Standard"
 msgstr "Estàndard"
-
-msgid "Staple"
-msgstr ""
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4932,9 +4908,6 @@ msgstr "No es pot cancel·lar la feina d'impressió."
 msgid "Unable to change printer"
 msgstr "No es pot canviar la impressora"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "No es pot canviar l'atribut printer-is-shared"
-
 msgid "Unable to change server settings"
 msgstr "No es pot canviar la configuració del servidor"
 
@@ -4956,6 +4929,10 @@ msgstr "No es poden configurar les opcions de la impressora."
 msgid "Unable to configure private key context."
 msgstr ""
 
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
+
 msgid "Unable to connect to host."
 msgstr "No es pot connectar a l'amfitrió."
 
@@ -4967,6 +4944,14 @@ msgstr ""
 #, c-format
 msgid "Unable to copy PPD file - %s"
 msgstr "No es pot copiar el fitxer PPD - %s"
+
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create PPD: %s"
+msgstr ""
 
 msgid "Unable to create X.509 certificate signing request."
 msgstr ""
@@ -5101,6 +5086,10 @@ msgstr "No es pot obrir el fitxer de trama"
 msgid "Unable to print test page"
 msgstr "No es pot imprimir la pàgina de prova"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr "No es poden llegir les dades d'impressió."
 
@@ -5119,6 +5108,10 @@ msgstr ""
 
 #, c-format
 msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
 
 msgid "Unable to see in file"
@@ -5317,7 +5310,7 @@ msgstr "Sintaxi: cupsctl [opcions] [param=valor ... paramN=valorN]"
 msgid "Usage: cupsd [options]"
 msgstr "Sintaxi: cupsd [opcions]"
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
 msgstr ""
 
 msgid ""
@@ -15340,6 +15333,55 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#~ msgid "  -P filename.ppd         Set PPD file."
+#~ msgstr "  -P nomfitxer.ppd         Estableix el fitxer PPD."
+
+#~ msgid "  -U username             Specify username."
+#~ msgstr "  -U nomusuari             Especifica un nom d'usuari."
+
+#~ msgid "  -d printer              Use the named printer."
+#~ msgstr "  -d impressora              Fa servir la impressora indicada."
+
+#~ msgid ""
+#~ "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+#~ msgstr ""
+#~ "  -i tipus/mime            Estableix el tipus MIME d'entrada (auto-typed "
+#~ "si no s'especifica)."
+
+#~ msgid ""
+#~ "  -j job-id[,N]           Filter file N from the specified job (default "
+#~ "is file 1)."
+#~ msgstr ""
+#~ "  -j id-feina[,N]           Filtra el fitxer N a la feina especificada "
+#~ "(el fitxer per defecte és 1)."
+
+#~ msgid ""
+#~ "  -m mime/type            Set output MIME type (otherwise application/"
+#~ "pdf)."
+#~ msgstr ""
+#~ "  -m tipus/mime            Estableix el tipus MIME de sortida "
+#~ "(application/pdf si no s'especifica)."
+
+#~ msgid "  -n copies               Set number of copies."
+#~ msgstr "  -n còpies               Estableix el nombre de còpies."
+
+#~ msgid "  -o name=value           Set option(s)."
+#~ msgstr "  -o nom=valor           Estableix les opcions."
+
+#~ msgid "  -p filename.ppd         Set PPD file."
+#~ msgstr "  -p nomfitxer.ppd         Estableix el fitxer PPD."
+
+#~ msgid "  -t title                Set title."
+#~ msgstr "  -t títol                Estableix el títol."
+
+#, c-format
+#~ msgid ""
+#~ "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W"
+#~ "\" option."
+#~ msgstr ""
+#~ "%s: error - es requereix «completed», «not-completed», o «all» després de "
+#~ "l'opció «-W»."
+
 #, c-format
 #~ msgid "%s: Sorry, no encryption support."
 #~ msgstr "%s: ho sento, no està compilada la compatibilitat pel xifrat."
@@ -15360,8 +15402,17 @@ msgstr ""
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Exportar les impressores al Samba"
 
+#~ msgid "IPP extension tag larger than 0x7FFFFFFF."
+#~ msgstr "La etiqueta d'extension del IPP és més llarga de 0x7FFFFFFF."
+
 #~ msgid "Looking for printer."
 #~ msgstr "S'està buscant la impressora."
+
+#~ msgid "Set Publishing"
+#~ msgstr "Establir com a pública"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "No es pot canviar l'atribut printer-is-shared"
 
 #~ msgid "Unable to copy PPD file."
 #~ msgstr "No es pot copiar el fitxer PPD."

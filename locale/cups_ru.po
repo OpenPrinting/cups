@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2023-09-13 13:50-0400\n"
+"POT-Creation-Date: 2024-04-25 11:18-0400\n"
 "PO-Revision-Date: 2015-01-28 12:00-0800\n"
 "Last-Translator: Aleksandr Proklov\n"
 "Language-Team: Russian - PuppyRus Linux Team\n"
@@ -782,6 +782,9 @@ msgstr "  --crlf                  Строки заканчиваются на C
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr ""
 
+msgid "  --list-all              List all filters with the MIME media types."
+msgstr ""
+
 msgid "  --list-filters          List filters that will be used."
 msgstr ""
 "  --list-filters          Список фильтров которые должны использоваться."
@@ -795,11 +798,11 @@ msgstr "  -D name=value           Определение переменной."
 msgid "  -I include-dir          Add include directory to search path."
 msgstr "  -I include-dir          Добавить каталог include в путь поиска."
 
-msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P filename.ppd         Задать PPD-файл."
+msgid "  -P FILENAME.ppd         Set PPD file."
+msgstr ""
 
-msgid "  -U username             Specify username."
-msgstr "  -U username             Указание имени пользователя."
+msgid "  -U USERNAME             Specify username."
+msgstr ""
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catalog.po           Загружается указанный каталог сообщений."
@@ -807,26 +810,22 @@ msgstr "  -c catalog.po           Загружается указанный ка
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr "  -c cups-files.conf      Использовать заданный cups-files.conf"
 
+msgid "  -d PRINTER              Use the named printer."
+msgstr ""
+
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           Задать выходной каталог."
-
-msgid "  -d printer              Use the named printer."
-msgstr "  -d printer              Использовать заданный принтер."
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Использовать каждый фильтр из PPD-файла."
 
-msgid "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
-"  -i mime/type            Указать MIME-тип данных на входе (иначе "
-"автоопред.)."
 
 msgid ""
-"  -j job-id[,N]           Filter file N from the specified job (default is "
+"  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j job-id[,N]           Из указанного задания выбирается файл N (по "
-"умолчанию файл 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      Задать выходной язык(и) (locale)."
@@ -836,13 +835,14 @@ msgstr ""
 "  -m                      В качестве имени файла используется ModelName."
 
 msgid ""
-"  -m mime/type            Set output MIME type (otherwise application/pdf)."
+"  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m mime/type            Указать MIME-тип данных на выходе (иначе "
-"application/pdf)."
 
-msgid "  -n copies               Set number of copies."
-msgstr "  -n copies               Указать количество копий."
+msgid "  -n COPIES               Set number of copies."
+msgstr ""
+
+msgid "  -o NAME=VALUE           Set option(s)."
+msgstr ""
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -853,17 +853,14 @@ msgstr ""
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr "  -o filename.ppd[.gz]    Задать выходной файл (иначе stdout)."
 
-msgid "  -o name=value           Set option(s)."
-msgstr "  -o name=value           Задать параметры."
-
-msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p filename.ppd         Задать PPD-файл."
+msgid "  -p FILENAME.ppd         Set PPD file."
+msgstr ""
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Тест PPDs вместо его создания."
 
-msgid "  -t title                Set title."
-msgstr "  -t title                Задать заголовок."
+msgid "  -t TITLE                Set title."
+msgstr ""
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Удалить PPD-файл после завершения."
@@ -1336,11 +1333,9 @@ msgstr "%s: Ошибка - после параметра \"-%c\" должно б
 
 #, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W\" "
-"option."
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
+"\" after \"-W\" option."
 msgstr ""
-"%s: Ошибка - требуется \"завершено\",\"не завершено\" или \"все\" после "
-"параметра \"-W\" "
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -3020,6 +3015,10 @@ msgid "Bad custom parameter"
 msgstr "Неверный индивидуальный параметр"
 
 #, c-format
+msgid "Bad device URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad device-uri \"%s\"."
 msgstr "Неверное значение device-uri \"%s\"."
 
@@ -3137,9 +3136,6 @@ msgstr "Баннеры"
 msgid "Bond Paper"
 msgstr "Документная бумага"
 
-msgid "Booklet"
-msgstr ""
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "Параметр waiteof \"%s\" должен иметь двоичное значение"
@@ -3219,6 +3215,10 @@ msgstr "Контрольный файл успешно отправлен."
 
 msgid "Copying print data."
 msgstr "Копирование данных печати."
+
+#, c-format
+msgid "Couldn't resolve mDNS URI \"%s\"."
+msgstr ""
 
 msgid "Created"
 msgstr "Создано"
@@ -3323,9 +3323,6 @@ msgstr "Отключено"
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "Документ #%d не существует в задании #%d."
-
-msgid "Draft"
-msgstr ""
 
 msgid "Duplexer"
 msgstr "Дуплексер"
@@ -3618,12 +3615,6 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "Последняя страница %d."
 
-msgid "Finishing Preset"
-msgstr ""
-
-msgid "Fold"
-msgstr ""
-
 msgid "Folio"
 msgstr "Фолио"
 
@@ -3669,7 +3660,7 @@ msgstr ""
 msgid "Help file not in index."
 msgstr "Файл справки не проиндексирован."
 
-msgid "High"
+msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
 
 msgid "IPP 1setOf attribute with incompatible value tags."
@@ -3698,9 +3689,6 @@ msgstr "IPP значение endCollection не 0 байт."
 
 msgid "IPP enum value not 4 bytes."
 msgstr "IPP значение enum не 4 байта."
-
-msgid "IPP extension tag larger than 0x7FFFFFFF."
-msgstr "IPP extension tag больше чем 0x7FFFFFFF."
 
 msgid "IPP integer value not 4 bytes."
 msgstr "IPP тип integer не 4 байта"
@@ -4212,6 +4200,9 @@ msgstr "Не указан адрес printer-uri для группы"
 msgid "No printer-uri in request."
 msgstr "Нет адреса printer-uri в запросе."
 
+msgid "No printer-uri-supported attribute."
+msgstr ""
+
 msgid "No request URI."
 msgstr "Нет запроса URI."
 
@@ -4244,9 +4235,6 @@ msgstr "С прерыванием (Mark sensing)"
 
 msgid "Non-continuous (Web sensing)"
 msgstr "С прерыванием (Web sensing)"
-
-msgid "None"
-msgstr ""
 
 msgid "Normal"
 msgstr "Нормальный"
@@ -4420,9 +4408,6 @@ msgstr "Задание печати:"
 msgid "Print Mode"
 msgstr "Режим печати"
 
-msgid "Print Quality"
-msgstr ""
-
 msgid "Print Rate"
 msgstr "Скорость печати"
 
@@ -4493,9 +4478,6 @@ msgstr "Принтеры"
 #, c-format
 msgid "Printing page %d, %u%% complete."
 msgstr "Печать страницы %d, %u%% завершена."
-
-msgid "Punch"
-msgstr ""
 
 msgid "Quarto"
 msgstr "Кватро"
@@ -4590,9 +4572,6 @@ msgstr "Настроить параметры группы"
 msgid "Set Printer Options"
 msgstr "Настроить параметры принтера"
 
-msgid "Set Publishing"
-msgstr "Настроить публикацию"
-
 msgid "Shipping Address"
 msgstr "Адрес доставки"
 
@@ -4608,9 +4587,6 @@ msgstr "Постановка в очередь, %.0f%% завершено."
 
 msgid "Standard"
 msgstr "Стандартный"
-
-msgid "Staple"
-msgstr ""
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4889,9 +4865,6 @@ msgstr "Не удается отменить задание печати."
 msgid "Unable to change printer"
 msgstr "Не удается изменить принтер"
 
-msgid "Unable to change printer-is-shared attribute"
-msgstr "Не удается изменить атрибут printer-is-shared"
-
 msgid "Unable to change server settings"
 msgstr "Не удается изменить настройки сервера"
 
@@ -4913,6 +4886,10 @@ msgstr "Не удается настроить параметры принтер
 msgid "Unable to configure private key context."
 msgstr ""
 
+#, c-format
+msgid "Unable to connect to %s:%d: %s"
+msgstr ""
+
 msgid "Unable to connect to host."
 msgstr "Не удается подключиться к хосту."
 
@@ -4924,6 +4901,14 @@ msgstr ""
 #, c-format
 msgid "Unable to copy PPD file - %s"
 msgstr "Не удается копировать PPD-файл - %s"
+
+#, c-format
+msgid "Unable to create PPD for printer: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create PPD: %s"
+msgstr ""
 
 msgid "Unable to create X.509 certificate signing request."
 msgstr ""
@@ -5058,6 +5043,10 @@ msgstr "Не удается открыть растровый файл"
 msgid "Unable to print test page"
 msgstr "Не удается напечатать пробную страницу"
 
+#, c-format
+msgid "Unable to read generated PPD: %s"
+msgstr ""
+
 msgid "Unable to read print data."
 msgstr "Не удается считать данные печати."
 
@@ -5076,6 +5065,10 @@ msgstr ""
 
 #, c-format
 msgid "Unable to save PPD file: %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
 
 msgid "Unable to see in file"
@@ -5277,7 +5270,7 @@ msgstr ""
 msgid "Usage: cupsd [options]"
 msgstr ""
 
-msgid "Usage: cupsfilter [ options ] [ -- ] filename"
+msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
 msgstr ""
 
 msgid ""
@@ -15287,6 +15280,55 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+#~ msgid "  -P filename.ppd         Set PPD file."
+#~ msgstr "  -P filename.ppd         Задать PPD-файл."
+
+#~ msgid "  -U username             Specify username."
+#~ msgstr "  -U username             Указание имени пользователя."
+
+#~ msgid "  -d printer              Use the named printer."
+#~ msgstr "  -d printer              Использовать заданный принтер."
+
+#~ msgid ""
+#~ "  -i mime/type            Set input MIME type (otherwise auto-typed)."
+#~ msgstr ""
+#~ "  -i mime/type            Указать MIME-тип данных на входе (иначе "
+#~ "автоопред.)."
+
+#~ msgid ""
+#~ "  -j job-id[,N]           Filter file N from the specified job (default "
+#~ "is file 1)."
+#~ msgstr ""
+#~ "  -j job-id[,N]           Из указанного задания выбирается файл N (по "
+#~ "умолчанию файл 1)."
+
+#~ msgid ""
+#~ "  -m mime/type            Set output MIME type (otherwise application/"
+#~ "pdf)."
+#~ msgstr ""
+#~ "  -m mime/type            Указать MIME-тип данных на выходе (иначе "
+#~ "application/pdf)."
+
+#~ msgid "  -n copies               Set number of copies."
+#~ msgstr "  -n copies               Указать количество копий."
+
+#~ msgid "  -o name=value           Set option(s)."
+#~ msgstr "  -o name=value           Задать параметры."
+
+#~ msgid "  -p filename.ppd         Set PPD file."
+#~ msgstr "  -p filename.ppd         Задать PPD-файл."
+
+#~ msgid "  -t title                Set title."
+#~ msgstr "  -t title                Задать заголовок."
+
+#, c-format
+#~ msgid ""
+#~ "%s: Error - need \"completed\", \"not-completed\", or \"all\" after \"-W"
+#~ "\" option."
+#~ msgstr ""
+#~ "%s: Ошибка - требуется \"завершено\",\"не завершено\" или \"все\" после "
+#~ "параметра \"-W\" "
+
 #, c-format
 #~ msgid "%s: Sorry, no encryption support."
 #~ msgstr "%s:  Нет поддержки шифрования."
@@ -15303,8 +15345,17 @@ msgstr ""
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Экспортировать принтеры в Samba"
 
+#~ msgid "IPP extension tag larger than 0x7FFFFFFF."
+#~ msgstr "IPP extension tag больше чем 0x7FFFFFFF."
+
 #~ msgid "Looking for printer."
 #~ msgstr "Поиск принтера."
+
+#~ msgid "Set Publishing"
+#~ msgstr "Настроить публикацию"
+
+#~ msgid "Unable to change printer-is-shared attribute"
+#~ msgstr "Не удается изменить атрибут printer-is-shared"
 
 #~ msgid "Unable to copy PPD file."
 #~ msgstr "Не удается копировать PPD-файл."
