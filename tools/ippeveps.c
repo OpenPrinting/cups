@@ -421,24 +421,29 @@ get_options(cups_option_t **options)	/* O - Options */
   * Load PPD file and the corresponding IPP <-> PPD cache data...
   */
 
-  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL && (ppd_cache = _ppdCacheCreateWithPPD(NULL, ppd)) != NULL)
+  if ((ppd = ppdOpenFile(getenv("PPD"))) != NULL && (ppd_cache = _ppdCacheCreateWithPPD(/*langs*/NULL, ppd)) != NULL)
   {
-    /* TODO: Fix me - values are names, not numbers... Also need to support finishings-col */
     if ((value = getenv("IPP_FINISHINGS")) == NULL)
       value = getenv("IPP_FINISHINGS_DEFAULT");
 
     if (value)
     {
-      char	*ptr;			/* Pointer into value */
-      long	fin;			/* Current value */
+      cups_array_t	*finishings;	/* Array of finishings values */
+      const char	*keyword;	/* Keyword/number value */
+      ipp_finishings_t	fin;		/* Current value */
 
-      for (fin = strtol(value, &ptr, 10); fin > 0; fin = strtol(ptr + 1, &ptr, 10))
+      finishings = cupsArrayNewStrings(value, ',');
+      for (keyword = (const char *)cupsArrayGetFirst(finishings); keyword; keyword = (const char *)cupsArrayGetNext(finishings))
       {
-	num_options = _ppdCacheGetFinishingOptions(ppd_cache, NULL, (ipp_finishings_t)fin, num_options, options);
+        if (isdigit(*keyword & 255))
+          fin = (ipp_finishings_t)strtol(keyword, /*endptr*/NULL, 10);
+	else
+	  fin = (ipp_finishings_t)ippEnumValue("finishings", keyword);
 
-	if (*ptr != ',')
-	  break;
+	num_options = _ppdCacheGetFinishingOptions(ppd_cache, /*job*/NULL, fin, num_options, options);
       }
+
+      cupsArrayDelete(finishings);
     }
 
     if ((value = cupsGetOption("media-source", num_media_col, media_col)) != NULL)
