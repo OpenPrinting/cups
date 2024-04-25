@@ -1153,6 +1153,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 		*auth_info;		/* auth-info attribute */
   const char	*mandatory;		/* Current mandatory job attribute */
   const char	*val;			/* Default option value */
+  const char	*job_sheets;		/* "job-sheets" value */
   int		priority;		/* Job priority */
   cupsd_job_t	*job;			/* Current job */
   char		job_uri[HTTP_MAX_URI];	/* Job URI */
@@ -1697,20 +1698,31 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     * Add job sheets options...
     */
 
-    if ((attr = ippFindAttribute(job->attrs, "job-sheets",
-                                 IPP_TAG_ZERO)) == NULL)
+    if ((attr = ippFindAttribute(job->attrs, "job-sheets-col", IPP_TAG_BEGIN_COLLECTION)) == NULL)
     {
-      cupsdLogMessage(CUPSD_LOG_DEBUG,
-                      "Adding default job-sheets values \"%s,%s\"...",
-                      printer->job_sheets[0], printer->job_sheets[1]);
+      if ((attr = ippFindAttribute(job->attrs, "job-sheets",
+				   IPP_TAG_ZERO)) == NULL)
+      {
+	cupsdLogMessage(CUPSD_LOG_DEBUG,
+			"Adding default job-sheets values \"%s,%s\"...",
+			printer->job_sheets[0], printer->job_sheets[1]);
 
-      attr = ippAddStrings(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-sheets",
-                           2, NULL, NULL);
-      ippSetString(job->attrs, &attr, 0, printer->job_sheets[0]);
-      ippSetString(job->attrs, &attr, 1, printer->job_sheets[1]);
+	attr = ippAddStrings(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-sheets",
+			     2, NULL, NULL);
+	ippSetString(job->attrs, &attr, 0, printer->job_sheets[0]);
+	ippSetString(job->attrs, &attr, 1, printer->job_sheets[1]);
+      }
     }
 
     job->job_sheets = attr;
+
+    if (ippGetValueTag(attr) == IPP_TAG_BEGIN_COLLECTION)
+      job_sheets = ippGetString(ippFindAttribute(ippGetCollection(attr, 0), "job-sheets", IPP_TAG_ZERO), 0, NULL);
+    else
+      job_sheets = ippGetString(attr, 0, NULL);
+
+    if (!job_sheets)
+      job_sheets = "none";
 
    /*
     * Enforce classification level if set...
@@ -1718,105 +1730,28 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
     if (Classification)
     {
-      cupsdLogMessage(CUPSD_LOG_INFO,
-                      "Classification=\"%s\", ClassifyOverride=%d",
-                      Classification ? Classification : "(null)",
-		      ClassifyOverride);
+      cupsdLogMessage(CUPSD_LOG_DEBUG, "Classification=\"%s\", ClassifyOverride=%d", Classification, ClassifyOverride);
 
-      if (ClassifyOverride)
+      if (ClassifyOverride && strcmp(job_sheets, Classification))
       {
-        if (!strcmp(attr->values[0].string.text, "none") &&
-	    (attr->num_values == 1 ||
-	     !strcmp(attr->values[1].string.text, "none")))
-        {
-	 /*
-          * Force the leading banner to have the classification on it...
-	  */
-
-          ippSetString(job->attrs, &attr, 0, Classification);
-
-	  cupsdLogJob(job, CUPSD_LOG_NOTICE, "CLASSIFICATION FORCED "
-	                		     "job-sheets=\"%s,none\", "
-					     "job-originating-user-name=\"%s\"",
-	              Classification, job->username);
-	}
-	else if (attr->num_values == 2 &&
-	         strcmp(attr->values[0].string.text,
-		        attr->values[1].string.text) &&
-		 strcmp(attr->values[0].string.text, "none") &&
-		 strcmp(attr->values[1].string.text, "none"))
-        {
-	 /*
-	  * Can't put two different security markings on the same document!
-	  */
-
-          ippSetString(job->attrs, &attr, 1, attr->values[0].string.text);
-
-	  cupsdLogJob(job, CUPSD_LOG_NOTICE, "CLASSIFICATION FORCED "
-	                		     "job-sheets=\"%s,%s\", "
-					     "job-originating-user-name=\"%s\"",
-		      attr->values[0].string.text,
-		      attr->values[1].string.text, job->username);
-	}
-	else if (strcmp(attr->values[0].string.text, Classification) &&
-	         strcmp(attr->values[0].string.text, "none") &&
-		 (attr->num_values == 1 ||
-	          (strcmp(attr->values[1].string.text, Classification) &&
-	           strcmp(attr->values[1].string.text, "none"))))
-        {
-	  if (attr->num_values == 1)
-            cupsdLogJob(job, CUPSD_LOG_NOTICE,
-			"CLASSIFICATION OVERRIDDEN "
-			"job-sheets=\"%s\", "
-			"job-originating-user-name=\"%s\"",
-	                attr->values[0].string.text, job->username);
-          else
-            cupsdLogJob(job, CUPSD_LOG_NOTICE,
-			"CLASSIFICATION OVERRIDDEN "
-			"job-sheets=\"%s,%s\",fffff "
-			"job-originating-user-name=\"%s\"",
-			attr->values[0].string.text,
-			attr->values[1].string.text, job->username);
-        }
-      }
-      else if (strcmp(attr->values[0].string.text, Classification) &&
-               (attr->num_values == 1 ||
-	       strcmp(attr->values[1].string.text, Classification)))
-      {
-       /*
-        * Force the banner to have the classification on it...
-	*/
-
-        if (attr->num_values > 1 &&
-	    !strcmp(attr->values[0].string.text, attr->values[1].string.text))
+        // Force the leading banner to have the classification on it...
+	if (ippGetValueTag(attr) == IPP_TAG_BEGIN_COLLECTION)
 	{
-          ippSetString(job->attrs, &attr, 0, Classification);
-          ippSetString(job->attrs, &attr, 1, Classification);
+	  ipp_t *col = ippGetCollection(attr, 0);
+	  ipp_attribute_t *attr2 = ippFindAttribute(col, "job-sheets", IPP_TAG_ZERO);
+	  if (attr2)
+	    ippSetString(col, &attr2, 0, Classification);
+	  else
+	    ippAddString(col, IPP_TAG_ZERO, IPP_TAG_NAME, "job-sheets", NULL, Classification);
 	}
-        else
+	else
 	{
-          if (attr->num_values == 1 ||
-	      strcmp(attr->values[0].string.text, "none"))
-            ippSetString(job->attrs, &attr, 0, Classification);
+	  ippSetString(job->attrs, &attr, 0, Classification);
+	  if (ippGetCount(attr) > 1)
+	    ippDeleteValues(job->attrs, &attr, 1, ippGetCount(attr) - 1);
+	}
 
-          if (attr->num_values > 1 &&
-	      strcmp(attr->values[1].string.text, "none"))
-	    ippSetString(job->attrs, &attr, 1, Classification);
-        }
-
-        if (attr->num_values > 1)
-	  cupsdLogJob(job, CUPSD_LOG_NOTICE,
-		      "CLASSIFICATION FORCED "
-		      "job-sheets=\"%s,%s\", "
-		      "job-originating-user-name=\"%s\"",
-		      attr->values[0].string.text,
-		      attr->values[1].string.text, job->username);
-        else
-	  cupsdLogJob(job, CUPSD_LOG_NOTICE,
-		      "CLASSIFICATION FORCED "
-		      "job-sheets=\"%s\", "
-		      "job-originating-user-name=\"%s\"",
-		      Classification, job->username);
+	cupsdLogJob(job, CUPSD_LOG_NOTICE, "CLASSIFICATION FORCED: job-sheets=\"%s\", job-originating-user-name=\"%s\"", Classification, job->username);
       }
     }
 

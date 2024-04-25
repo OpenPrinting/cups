@@ -8,6 +8,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.
 - Added new APIs for form, JSON, JWT, IPP, and raster setup.
+- Added "job-sheets-col" support (Issue #138)
 - Added support for wide-area DNS-SD with Avahi (Issue #319)
 - Added `cupsCopyDestInfo2` API (Issue #586)
 - Added OpenSSL support for `cupsHashData` (Issue #762)

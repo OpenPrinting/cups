@@ -829,11 +829,13 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
   if (job->job_sheets == NULL)
   {
     cupsdLogJob(job, CUPSD_LOG_DEBUG, "No job-sheets attribute.");
-    if ((job->job_sheets =
-         ippFindAttribute(job->attrs, "job-sheets", IPP_TAG_ZERO)) != NULL)
-      cupsdLogJob(job, CUPSD_LOG_DEBUG,
-		  "... but someone added one without setting job_sheets.");
+    if ((job->job_sheets = ippFindAttribute(job->attrs, "job-sheets", IPP_TAG_ZERO)) != NULL)
+      cupsdLogJob(job, CUPSD_LOG_DEBUG, "... but someone added one without setting job_sheets.");
+    else if ((job->job_sheets = ippFindAttribute(job->attrs, "job-sheets-col", IPP_TAG_BEGIN_COLLECTION)) != NULL)
+      cupsdLogJob(job, CUPSD_LOG_DEBUG, "... but someone added one without setting job_sheets.");
   }
+  else if (ippGetValueTag(job->job_sheets) == IPP_TAG_BEGIN_COLLECTION)
+    cupsdLogJob(job, CUPSD_LOG_DEBUG, "job-sheets-col={job-sheets=%s ...}", ippGetString(ippFindAttribute(ippGetCollection(job->job_sheets, 0), "job-sheets", IPP_TAG_ZERO), 0, NULL));
   else if (job->job_sheets->num_values == 1)
     cupsdLogJob(job, CUPSD_LOG_DEBUG, "job-sheets=%s",
 		job->job_sheets->values[0].string.text);
@@ -846,6 +848,8 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
     banner_page = 0;
   else if (job->job_sheets == NULL)
     banner_page = 0;
+  else if (ippGetValueTag(job->job_sheets) == IPP_TAG_BEGIN_COLLECTION && job->current_file == 0)
+    banner_page = 1;
   else if (_cups_strcasecmp(job->job_sheets->values[0].string.text, "none") != 0 &&
 	   job->current_file == 0)
     banner_page = 1;
@@ -1843,7 +1847,9 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
 
   job->impressions = ippFindAttribute(job->attrs, "job-impressions-completed", IPP_TAG_INTEGER);
   job->sheets      = ippFindAttribute(job->attrs, "job-media-sheets-completed", IPP_TAG_INTEGER);
-  job->job_sheets  = ippFindAttribute(job->attrs, "job-sheets", IPP_TAG_NAME);
+
+  if ((job->job_sheets = ippFindAttribute(job->attrs, "job-sheets", IPP_TAG_NAME)) == NULL)
+    job->job_sheets = ippFindAttribute(job->attrs, "job-sheets-col", IPP_TAG_BEGIN_COLLECTION);
 
   if (!job->impressions)
     job->impressions = ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-impressions-completed", 0);
@@ -3764,6 +3770,9 @@ get_options(cupsd_job_t *job,		/* I - Job */
 
   if (pc)
   {
+    bool have_size, have_source, have_type;
+					/* Have media info? */
+
     if ((attr = ippFindAttribute(job->attrs, "print-quality", IPP_TAG_ENUM)) != NULL)
     {
       int pq = ippGetInteger(attr, 0);
@@ -3777,33 +3786,57 @@ get_options(cupsd_job_t *job,		/* I - Job */
       }
     }
 
-    if (!ippFindAttribute(job->attrs, "InputSlot", IPP_TAG_ZERO) &&
-	!ippFindAttribute(job->attrs, "HPPaperSource", IPP_TAG_ZERO))
-    {
-      if ((ppd = _ppdCacheGetInputSlot(pc, job->attrs, NULL)) != NULL)
-	num_pwgppds = cupsAddOption(pc->source_option, ppd, num_pwgppds,
-				    &pwgppds);
-    }
-    if (!ippFindAttribute(job->attrs, "MediaType", IPP_TAG_ZERO) &&
-	(ppd = _ppdCacheGetMediaType(pc, job->attrs, NULL)) != NULL)
-    {
-      cupsdLogJob(job, CUPSD_LOG_DEBUG2, "Mapping media to MediaType=%s", ppd);
+    have_size   = ippFindAttribute(job->attrs, "PageRegion", IPP_TAG_ZERO) != NULL || ippFindAttribute(job->attrs, "PageSize", IPP_TAG_ZERO) != NULL;
+    have_source = ippFindAttribute(job->attrs, "InputSlot", IPP_TAG_ZERO) != NULL || ippFindAttribute(job->attrs, "HPPaperSource", IPP_TAG_ZERO) == NULL;
+    have_type   = ippFindAttribute(job->attrs, "MediaType", IPP_TAG_ZERO) != NULL;
 
+    if (banner_page && (attr = ippFindAttribute(job->attrs, "job-sheets-col", IPP_TAG_BEGIN_COLLECTION)) != NULL)
+    {
+      ipp_t	*col;			/* Collection value */
+
+      col = ippGetCollection(attr, 0);
+
+      if ((ppd = _ppdCacheGetInputSlot(pc, col, NULL)) != NULL)
+      {
+	cupsdLogJob(job, CUPSD_LOG_DEBUG, "Mapping media-source to %s=%s", pc->source_option, ppd);
+	num_pwgppds = cupsAddOption(pc->source_option, ppd, num_pwgppds, &pwgppds);
+	have_source = true;
+      }
+
+      if ((ppd = _ppdCacheGetMediaType(pc, col, NULL)) != NULL)
+      {
+	cupsdLogJob(job, CUPSD_LOG_DEBUG, "Mapping media-type to MediaType=%s", ppd);
+	num_pwgppds = cupsAddOption("MediaType", ppd, num_pwgppds, &pwgppds);
+	have_type   = true;
+      }
+
+      if ((ppd = _ppdCacheGetPageSize(pc, col, NULL, &exact)) != NULL)
+      {
+	cupsdLogJob(job, CUPSD_LOG_DEBUG, "Mapping media-source to InputSlot=%s", ppd);
+	num_pwgppds = cupsAddOption("PageSize", ppd, num_pwgppds, &pwgppds);
+	have_size   = true;
+      }
+    }
+
+    if (!have_source && (ppd = _ppdCacheGetInputSlot(pc, job->attrs, NULL)) != NULL)
+    {
+      cupsdLogJob(job, CUPSD_LOG_DEBUG, "Mapping media-source to %s=%s", pc->source_option, ppd);
+      num_pwgppds = cupsAddOption(pc->source_option, ppd, num_pwgppds, &pwgppds);
+    }
+    if (!have_type && (ppd = _ppdCacheGetMediaType(pc, job->attrs, NULL)) != NULL)
+    {
+      cupsdLogJob(job, CUPSD_LOG_DEBUG, "Mapping media-type to MediaType=%s", ppd);
       num_pwgppds = cupsAddOption("MediaType", ppd, num_pwgppds, &pwgppds);
     }
 
-    if (!ippFindAttribute(job->attrs, "PageRegion", IPP_TAG_ZERO) &&
-	!ippFindAttribute(job->attrs, "PageSize", IPP_TAG_ZERO) &&
-	(ppd = _ppdCacheGetPageSize(pc, job->attrs, NULL, &exact)) != NULL)
+    if (!have_size && (ppd = _ppdCacheGetPageSize(pc, job->attrs, NULL, &exact)) != NULL)
     {
-      cupsdLogJob(job, CUPSD_LOG_DEBUG2, "Mapping media to Pagesize=%s", ppd);
-
+      cupsdLogJob(job, CUPSD_LOG_DEBUG, "Mapping media-size to Pagesize=%s", ppd);
       num_pwgppds = cupsAddOption("PageSize", ppd, num_pwgppds, &pwgppds);
 
       if (!ippFindAttribute(job->attrs, "media", IPP_TAG_ZERO))
       {
-        cupsdLogJob(job, CUPSD_LOG_DEBUG2, "Adding media=%s", ppd);
-
+        cupsdLogJob(job, CUPSD_LOG_DEBUG, "Adding media=%s", ppd);
         num_pwgppds = cupsAddOption("media", ppd, num_pwgppds, &pwgppds);
       }
     }

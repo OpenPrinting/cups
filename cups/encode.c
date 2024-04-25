@@ -180,6 +180,8 @@ static const _ipp_option_t ipp_options[] =
   { 0, "job-priority-default",	IPP_TAG_INTEGER,	IPP_TAG_PRINTER },
   { 0, "job-quota-period",	IPP_TAG_INTEGER,	IPP_TAG_PRINTER },
   { 1, "job-sheets",		IPP_TAG_NAME,		IPP_TAG_JOB },
+  { 0, "job-sheets-col",	IPP_TAG_BEGIN_COLLECTION, IPP_TAG_JOB },
+  { 0, "job-sheets-col-default",IPP_TAG_BEGIN_COLLECTION, IPP_TAG_PRINTER },
   { 1, "job-sheets-default",	IPP_TAG_NAME,		IPP_TAG_PRINTER },
   { 0, "job-state",		IPP_TAG_ENUM,		IPP_TAG_ZERO }, /* never send as option */
   { 0, "job-state-message",	IPP_TAG_TEXT,		IPP_TAG_ZERO }, /* never send as option */

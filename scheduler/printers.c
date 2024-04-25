@@ -151,213 +151,226 @@ cupsdCreateCommonData(void)
   struct statfs		spoolinfo;	/* FS info for spool directory */
   double		spoolsize;	/* FS size */
 #endif /* HAVE_STATVFS */
+  static const char *const job_sheets_col[] =
+  {					/* job-sheets-col-supported values */
+    "job-sheets",
+    "media",
+    "media-col"
+  };
   static const char * const page_delivery[] =
-		{			/* page-delivery-supported values */
-		  "reverse-order",
-		  "same-order"
-		};
+  {					/* page-delivery-supported values */
+    "reverse-order",
+    "same-order"
+  };
   static const char * const print_scaling[] =
-		{			/* print-scaling-supported values */
-		  "auto",
-		  "auto-fit",
-		  "fill",
-		  "fit",
-		  "none"
-		};
-  static const int number_up[] =		/* number-up-supported values */
-		{ 1, 2, 4, 6, 9, 16 };
+  {					/* print-scaling-supported values */
+    "auto",
+    "auto-fit",
+    "fill",
+    "fit",
+    "none"
+  };
+  static const int number_up[] =	/* number-up-supported values */
+  {
+    1,
+    2,
+    4,
+    6,
+    9,
+    16
+  };
   static const char * const number_up_layout[] =
-		{			/* number-up-layout-supported values */
-		  "btlr",
-		  "btrl",
-		  "lrbt",
-		  "lrtb",
-		  "rlbt",
-		  "rltb",
-		  "tblr",
-		  "tbrl"
-		};
-  static const int orients[4] =/* orientation-requested-supported values */
-		{
-		  IPP_ORIENT_PORTRAIT,
-		  IPP_ORIENT_LANDSCAPE,
-		  IPP_ORIENT_REVERSE_LANDSCAPE,
-		  IPP_ORIENT_REVERSE_PORTRAIT
-		};
+  {					/* number-up-layout-supported values */
+    "btlr",
+    "btrl",
+    "lrbt",
+    "lrtb",
+    "rlbt",
+    "rltb",
+    "tblr",
+    "tbrl"
+  };
+  static const int orients[4] =		/* orientation-requested-supported values */
+  {
+    IPP_ORIENT_PORTRAIT,
+    IPP_ORIENT_LANDSCAPE,
+    IPP_ORIENT_REVERSE_LANDSCAPE,
+    IPP_ORIENT_REVERSE_PORTRAIT
+  };
   static const char * const holds[] =	/* job-hold-until-supported values */
-		{
-		  "no-hold",
-		  "indefinite",
-		  "day-time",
-		  "evening",
-		  "night",
-		  "second-shift",
-		  "third-shift",
-		  "weekend"
-		};
+  {
+    "no-hold",
+    "indefinite",
+    "day-time",
+    "evening",
+    "night",
+    "second-shift",
+    "third-shift",
+    "weekend"
+  };
   static const char * const versions[] =/* ipp-versions-supported values */
-		{
-		  "1.0",
-		  "1.1",
-		  "2.0",
-		  "2.1"
-		};
+  {
+    "1.0",
+    "1.1",
+    "2.0",
+    "2.1"
+  };
   static const int	ops[] =		/* operations-supported values */
-		{
-		  IPP_OP_PRINT_JOB,
-		  IPP_OP_VALIDATE_JOB,
-		  IPP_OP_CREATE_JOB,
-		  IPP_OP_SEND_DOCUMENT,
-		  IPP_OP_CANCEL_JOB,
-		  IPP_OP_GET_JOB_ATTRIBUTES,
-		  IPP_OP_GET_JOBS,
-		  IPP_OP_GET_PRINTER_ATTRIBUTES,
-		  IPP_OP_HOLD_JOB,
-		  IPP_OP_RELEASE_JOB,
-		  IPP_OP_PAUSE_PRINTER,
-		  IPP_OP_RESUME_PRINTER,
-		  IPP_OP_PURGE_JOBS,
-		  IPP_OP_SET_PRINTER_ATTRIBUTES,
-		  IPP_OP_SET_JOB_ATTRIBUTES,
-		  IPP_OP_GET_PRINTER_SUPPORTED_VALUES,
-		  IPP_OP_CREATE_PRINTER_SUBSCRIPTIONS,
-		  IPP_OP_CREATE_JOB_SUBSCRIPTIONS,
-		  IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES,
-		  IPP_OP_GET_SUBSCRIPTIONS,
-		  IPP_OP_RENEW_SUBSCRIPTION,
-		  IPP_OP_CANCEL_SUBSCRIPTION,
-		  IPP_OP_GET_NOTIFICATIONS,
-		  IPP_OP_ENABLE_PRINTER,
-		  IPP_OP_DISABLE_PRINTER,
-		  IPP_OP_HOLD_NEW_JOBS,
-		  IPP_OP_RELEASE_HELD_NEW_JOBS,
-		  IPP_OP_CANCEL_JOBS,
-		  IPP_OP_CANCEL_MY_JOBS,
-		  IPP_OP_CLOSE_JOB,
-		  IPP_OP_CUPS_GET_DEFAULT,
-		  IPP_OP_CUPS_GET_PRINTERS,
-		  IPP_OP_CUPS_ADD_MODIFY_PRINTER,
-		  IPP_OP_CUPS_DELETE_PRINTER,
-		  IPP_OP_CUPS_GET_CLASSES,
-		  IPP_OP_CUPS_ADD_MODIFY_CLASS,
-		  IPP_OP_CUPS_DELETE_CLASS,
-		  IPP_OP_CUPS_ACCEPT_JOBS,
-		  IPP_OP_CUPS_REJECT_JOBS,
-		  IPP_OP_CUPS_SET_DEFAULT,
-		  IPP_OP_CUPS_GET_DEVICES,
-		  IPP_OP_CUPS_GET_PPDS,
-		  IPP_OP_CUPS_MOVE_JOB,
-		  IPP_OP_CUPS_AUTHENTICATE_JOB,
-		  IPP_OP_CUPS_GET_PPD,
-		  IPP_OP_CUPS_GET_DOCUMENT,
-		  IPP_OP_RESTART_JOB
-		};
+  {
+    IPP_OP_PRINT_JOB,
+    IPP_OP_VALIDATE_JOB,
+    IPP_OP_CREATE_JOB,
+    IPP_OP_SEND_DOCUMENT,
+    IPP_OP_CANCEL_JOB,
+    IPP_OP_GET_JOB_ATTRIBUTES,
+    IPP_OP_GET_JOBS,
+    IPP_OP_GET_PRINTER_ATTRIBUTES,
+    IPP_OP_HOLD_JOB,
+    IPP_OP_RELEASE_JOB,
+    IPP_OP_PAUSE_PRINTER,
+    IPP_OP_RESUME_PRINTER,
+    IPP_OP_PURGE_JOBS,
+    IPP_OP_SET_PRINTER_ATTRIBUTES,
+    IPP_OP_SET_JOB_ATTRIBUTES,
+    IPP_OP_GET_PRINTER_SUPPORTED_VALUES,
+    IPP_OP_CREATE_PRINTER_SUBSCRIPTIONS,
+    IPP_OP_CREATE_JOB_SUBSCRIPTIONS,
+    IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES,
+    IPP_OP_GET_SUBSCRIPTIONS,
+    IPP_OP_RENEW_SUBSCRIPTION,
+    IPP_OP_CANCEL_SUBSCRIPTION,
+    IPP_OP_GET_NOTIFICATIONS,
+    IPP_OP_ENABLE_PRINTER,
+    IPP_OP_DISABLE_PRINTER,
+    IPP_OP_HOLD_NEW_JOBS,
+    IPP_OP_RELEASE_HELD_NEW_JOBS,
+    IPP_OP_CANCEL_JOBS,
+    IPP_OP_CANCEL_MY_JOBS,
+    IPP_OP_CLOSE_JOB,
+    IPP_OP_CUPS_GET_DEFAULT,
+    IPP_OP_CUPS_GET_PRINTERS,
+    IPP_OP_CUPS_ADD_MODIFY_PRINTER,
+    IPP_OP_CUPS_DELETE_PRINTER,
+    IPP_OP_CUPS_GET_CLASSES,
+    IPP_OP_CUPS_ADD_MODIFY_CLASS,
+    IPP_OP_CUPS_DELETE_CLASS,
+    IPP_OP_CUPS_ACCEPT_JOBS,
+    IPP_OP_CUPS_REJECT_JOBS,
+    IPP_OP_CUPS_SET_DEFAULT,
+    IPP_OP_CUPS_GET_DEVICES,
+    IPP_OP_CUPS_GET_PPDS,
+    IPP_OP_CUPS_MOVE_JOB,
+    IPP_OP_CUPS_AUTHENTICATE_JOB,
+    IPP_OP_CUPS_GET_PPD,
+    IPP_OP_CUPS_GET_DOCUMENT,
+    IPP_OP_RESTART_JOB
+  };
   static const char * const charsets[] =/* charset-supported values */
-		{
-		  "us-ascii",
-		  "utf-8"
-		};
+  {
+    "us-ascii",
+    "utf-8"
+  };
   static const char * const compressions[] =
-		{			/* document-compression-supported values */
-		  "none",
-		  "gzip"
-		};
+  {					/* document-compression-supported values */
+    "none",
+    "gzip"
+  };
   static const char * const media_col_supported[] =
-		{			/* media-col-supported values */
-		  "media-bottom-margin",
-		  "media-left-margin",
-		  "media-right-margin",
-		  "media-size",
-		  "media-source",
-		  "media-top-margin",
-		  "media-type"
-		};
+  {					/* media-col-supported values */
+    "media-bottom-margin",
+    "media-left-margin",
+    "media-right-margin",
+    "media-size",
+    "media-source",
+    "media-top-margin",
+    "media-type"
+  };
   static const char * const multiple_document_handling[] =
-		{			/* multiple-document-handling-supported values */
-		  "separate-documents-uncollated-copies",
-		  "separate-documents-collated-copies"
-		};
+  {					/* multiple-document-handling-supported values */
+    "separate-documents-uncollated-copies",
+    "separate-documents-collated-copies"
+  };
   static const char * const notify_attrs[] =
-		{			/* notify-attributes-supported values */
-		  "printer-state-change-time",
-		  "notify-lease-expiration-time",
-		  "notify-subscriber-user-name"
-		};
+  {					/* notify-attributes-supported values */
+    "printer-state-change-time",
+    "notify-lease-expiration-time",
+    "notify-subscriber-user-name"
+  };
   static const char * const notify_events[] =
-		{			/* notify-events-supported values */
-        	  "job-completed",
-        	  "job-config-changed",
-        	  "job-created",
-        	  "job-progress",
-        	  "job-state-changed",
-        	  "job-stopped",
-        	  "printer-added",
-        	  "printer-changed",
-        	  "printer-config-changed",
-        	  "printer-deleted",
-        	  "printer-finishings-changed",
-        	  "printer-media-changed",
-        	  "printer-modified",
-        	  "printer-restarted",
-        	  "printer-shutdown",
-        	  "printer-state-changed",
-        	  "printer-stopped",
-        	  "server-audit",
-        	  "server-restarted",
-        	  "server-started",
-        	  "server-stopped"
-		};
+  {					/* notify-events-supported values */
+    "job-completed",
+    "job-config-changed",
+    "job-created",
+    "job-progress",
+    "job-state-changed",
+    "job-stopped",
+    "printer-added",
+    "printer-changed",
+    "printer-config-changed",
+    "printer-deleted",
+    "printer-finishings-changed",
+    "printer-media-changed",
+    "printer-modified",
+    "printer-restarted",
+    "printer-shutdown",
+    "printer-state-changed",
+    "printer-stopped",
+    "server-audit",
+    "server-restarted",
+    "server-started",
+    "server-stopped"
+  };
   static const char * const job_settable[] =
-		{			/* job-settable-attributes-supported */
-		  "copies",
-		  "finishings",
-		  "job-hold-until",
-		  "job-name",
-		  "job-priority",
-		  "media",
-		  "media-col",
-		  "multiple-document-handling",
-		  "number-up",
-		  "output-bin",
-		  "orientation-requested",
-		  "page-ranges",
-		  "print-color-mode",
-		  "print-quality",
-		  "printer-resolution",
-		  "sides"
-		};
+  {					/* job-settable-attributes-supported */
+    "copies",
+    "finishings",
+    "job-hold-until",
+    "job-name",
+    "job-priority",
+    "media",
+    "media-col",
+    "multiple-document-handling",
+    "number-up",
+    "output-bin",
+    "orientation-requested",
+    "page-ranges",
+    "print-color-mode",
+    "print-quality",
+    "printer-resolution",
+    "sides"
+  };
   static const char * const pdf_versions[] =
-		{			/* pdf-versions-supported */
-		  "adobe-1.2",
-		  "adobe-1.3",
-		  "adobe-1.4",
-		  "adobe-1.5",
-		  "adobe-1.6",
-		  "adobe-1.7",
-		  "iso-19005-1_2005",
-		  "iso-32000-1_2008",
-		  "pwg-5102.3"
-		};
+  {					/* pdf-versions-supported */
+    "adobe-1.2",
+    "adobe-1.3",
+    "adobe-1.4",
+    "adobe-1.5",
+    "adobe-1.6",
+    "adobe-1.7",
+    "iso-19005-1_2005",
+    "iso-32000-1_2008",
+    "pwg-5102.3"
+  };
   static const char * const printer_settable[] =
-		{			/* printer-settable-attributes-supported */
-		  "printer-geo-location",
-		  "printer-info",
-		  "printer-location",
-		  "printer-organization",
-		  "printer-organizational-unit"
-	        };
+  {					/* printer-settable-attributes-supported */
+    "printer-geo-location",
+    "printer-info",
+    "printer-location",
+    "printer-organization",
+    "printer-organizational-unit"
+  };
   static const char * const which_jobs[] =
-		{			/* which-jobs-supported values */
-		  "completed",
-		  "not-completed",
-		  "aborted",
-		  "all",
-		  "canceled",
-		  "pending",
-		  "pending-held",
-		  "processing",
-		  "processing-stopped"
-		};
+  {					/* which-jobs-supported values */
+    "completed",
+    "not-completed",
+    "aborted",
+    "all",
+    "canceled",
+    "pending",
+    "pending-held",
+    "processing",
+    "processing-stopped"
+  };
 
 
   if (CommonData)
@@ -434,6 +447,9 @@ cupsdCreateCommonData(void)
 
   /* job-settable-attributes-supported */
   ippAddStrings(CommonData, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "job-settable-attributes-supported", sizeof(job_settable) / sizeof(job_settable[0]), NULL, job_settable);
+
+  /* job-sheets-col-supported */
+  ippAddStrings(CommonData, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "job-sheets-col-supported", sizeof(job_sheets_col) / sizeof(job_sheets_col[0]), NULL, job_sheets_col);
 
   /* job-sheets-supported */
   if (cupsArrayCount(Banners) > 0)
