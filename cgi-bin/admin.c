@@ -1159,7 +1159,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-accepting-jobs", 1);
 
-    ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-shared", cgiGetCheckbox("PRINTER_IS_SHARED"));
+    ippAddBoolean(request, IPP_TAG_PRINTER, "printer-is-shared", (char)cgiGetCheckbox("PRINTER_IS_SHARED"));
 
     ippAddInteger(request, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state",
                   IPP_PSTATE_IDLE);

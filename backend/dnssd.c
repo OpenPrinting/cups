@@ -249,7 +249,7 @@ browse_callback(
     const char          *regtype,	// I - Service type
     const char          *domain)	// I - Domain
 {
-  fprintf(stderr, "DEBUG2: browse_callback(browser=%p, data=%p, flags=%x, if_index==%u, name=\"%s\", regtype=\"%s\", domain=\"%s\")\n", browser, data, flags, if_index, name, regtype, domain);
+  fprintf(stderr, "DEBUG2: browse_callback(browser=%p, data=%p, flags=%x, if_index==%u, name=\"%s\", regtype=\"%s\", domain=\"%s\")\n", (void *)browser, data, flags, if_index, name, regtype, domain);
 
   // Only process "add" data...
   if (!(flags & CUPS_DNSSD_FLAGS_ADD))
@@ -486,7 +486,7 @@ query_callback(
 		device_id[2048];	// 1284 device ID
 
 
-  fprintf(stderr, "DEBUG2: query_callback(query=%p, device=%p, flags=%x, if_index=%u, fullname=\"%s\", rrtype=%u, qdata=%p, qlen=%u)\n", query, device, flags, if_index, fullname, rrtype, qdata, qlen);
+  fprintf(stderr, "DEBUG2: query_callback(query=%p, device=%p, flags=%x, if_index=%u, fullname=\"%s\", rrtype=%u, qdata=%p, qlen=%u)\n", (void *)query, (void *)device, flags, if_index, fullname, rrtype, qdata, qlen);
 
   // Only process "add" data...
   if (!(flags & CUPS_DNSSD_FLAGS_ADD))
