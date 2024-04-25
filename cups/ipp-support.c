@@ -1666,14 +1666,14 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "job-page-limit",			// CUPS extension
     "job-password-encryption-supported",
     "job-password-supported",
-    "job-presets-supported",		// IPP Presets
+    "job-presets-supported",		// IPP Driver Replacement Extensions
     "job-privacy-attributes",		// IPP Privacy Attributes
     "job-privacy-scope",		// IPP Privacy Attributes
     "job-quota-period",			// CUPS extension
-    "job-resolvers-supported",
+    "job-resolvers-supported",		// IPP Driver Replacement Extensions
     "job-settable-attributes-supported",
     "job-spooling-supported",
-    "job-triggers-supported",		// IPP Presets
+    "job-triggers-supported",		// IPP Driver Replacement Extensions
     "jpeg-k-octets-supported",		// CUPS extension
     "jpeg-x-dimension-supported",	// CUPS extension
     "jpeg-y-dimension-supported",	// CUPS extension

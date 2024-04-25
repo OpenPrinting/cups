@@ -4084,6 +4084,131 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
                     "job-password-supported", (int)strlen(p->pc->password));
     }
 
+    // job-presets-supported
+    for (attr = NULL, ppd_attr = ppdFindAttr(ppd, "APPrinterPreset", NULL); ppd_attr; ppd_attr = ppdFindAttr(ppd, "APPrinterPreset", NULL))
+    {
+      ipp_t		*col = ippNew();// job-presets-supported value
+      cups_array_t	*preset = cupsArrayNewStrings(ppd_attr->value, ' ');
+					// Preset values
+      const char	*name, *value;	// Option name and value
+      pwg_media_t	*media = NULL;	// media-size
+      const char	*source = NULL,	// media-source
+			*type = NULL;	// media-type
+
+      // Add preset attributes...
+      ippAddString(col, IPP_TAG_ZERO, IPP_TAG_NAME, "preset-name", NULL, ppd_attr->spec);
+
+      for (name = (const char *)cupsArrayGetFirst(preset), num_finishings = 0; name; name = (const char *)cupsArrayGetNext(preset))
+      {
+        // Skip categories
+        if (*name != '*')
+          continue;
+
+        // Get value for option...
+        if ((value = (const char *)cupsArrayGetNext(preset)) == NULL)
+          break;
+
+        // Map it to IPP...
+        if (!strcmp(name, "*Booklet") && num_finishings < (int)(sizeof(finishings) / sizeof(finishings[0])))
+        {
+          finishings[num_finishings ++] = IPP_FINISHINGS_BOOKLET_MAKER;
+        }
+        else if ((!strcmp(name, "*FoldType") || !strcmp(name, "*PunchMedia") || !strcmp(name, "*StapleLocation")) && num_finishings < (int)(sizeof(finishings) / sizeof(finishings[0])))
+        {
+          finishings[num_finishings ++] = ippEnumValue("finishings", value);
+        }
+        else if (!strcmp(name, "*cupsFinishingTemplate"))
+        {
+          ipp_t *finishings_col = ippNew();
+
+          ippAddString(finishings_col, IPP_TAG_ZERO, strchr(value, ' ') != NULL || isupper(*value & 255) ? IPP_TAG_NAME : IPP_TAG_KEYWORD, "finishing-template", NULL, value);
+          ippAddCollection(col, IPP_TAG_ZERO, "finishings-col", finishings_col);
+          ippDelete(finishings_col);
+        }
+        else if (!strcmp(name, "*OutputBin"))
+        {
+          ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "output-bin", NULL, _ppdCacheGetBin(p->pc, value));
+        }
+        else if (!strcmp(name, "*InputSlot"))
+        {
+          source = value;
+        }
+        else if (!strcmp(name, "*MediaType"))
+        {
+          type = value;
+        }
+        else if (!strcmp(name, "*PageSize"))
+        {
+          media = pwgMediaForPPD(value);
+        }
+        else if (!strcmp(name, "*cupsPrintQuality"))
+        {
+          if (!strcmp(value, "Draft"))
+            ippAddInteger(col, IPP_TAG_ZERO, IPP_TAG_ENUM, "print-quality", IPP_QUALITY_DRAFT);
+          else if (!strcmp(value, "High"))
+            ippAddInteger(col, IPP_TAG_ZERO, IPP_TAG_ENUM, "print-quality", IPP_QUALITY_HIGH);
+          else
+            ippAddInteger(col, IPP_TAG_ZERO, IPP_TAG_ENUM, "print-quality", IPP_QUALITY_NORMAL);
+        }
+        else if (!strcmp(name, "Duplex"))
+        {
+          if (!strcmp(value, "None"))
+            ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "sides", NULL, "one-sided");
+	  else if (!strcmp(value, "DuplexNoTumble"))
+            ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "sides", NULL, "two-sided-long-edge");
+	  else if (!strcmp(value, "DuplexTumble"))
+            ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "sides", NULL, "two-sided-short-edge");
+        }
+        else
+        {
+          // Something else...
+          ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, name, NULL, value);
+        }
+      }
+
+      if (num_finishings > 0)
+        ippAddIntegers(col, IPP_TAG_ZERO, IPP_TAG_ENUM, "finishings", num_finishings, finishings);
+
+      if (media || source || type)
+      {
+        if (!source && !type)
+	{
+	  // Just media size
+	  ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "media", NULL, media->pwg);
+	}
+	else
+	{
+	  // Size, source, and/or type
+	  ipp_t *media_col = ippNew();
+	  ipp_t *media_size = ippNew();
+
+	  ippAddInteger(media_size, IPP_TAG_ZERO, IPP_TAG_INTEGER, "x-dimension", media->width);
+	  ippAddInteger(media_size, IPP_TAG_ZERO, IPP_TAG_INTEGER, "y-dimension", media->length);
+	  ippAddCollection(media_col, IPP_TAG_ZERO, "media-size", media_size);
+	  ippDelete(media_size);
+
+          if (source)
+            ippAddString(media_col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "media-source", NULL, _ppdCacheGetSource(p->pc, source));
+
+          if (type)
+            ippAddString(media_col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "media-type", NULL, _ppdCacheGetType(p->pc, type));
+
+          ippAddCollection(col, IPP_TAG_ZERO, "media-col", media_col);
+          ippDelete(media_col);
+	}
+      }
+
+      cupsArrayDelete(preset);
+
+      // Add the value
+      if (attr)
+        ippSetCollection(p->ppd_attrs, &attr, ippGetCount(attr), col);
+      else
+        attr = ippAddCollection(p->ppd_attrs, IPP_TAG_PRINTER, "job-presets-supported", col);
+
+      ippDelete(col);
+    }
+
     if (ppd->throughput)
     {
       ippAddInteger(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_INTEGER,
@@ -4170,16 +4295,6 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
     ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_TEXT,
 		 "printer-make-and-model", NULL, p->make_model);
-
-#if 0 // TODO: Save global strings
-    if (p->pc && p->pc->strings)
-      _cupsMessageSave(strings_name, _CUPS_MESSAGE_STRINGS, p->pc->strings);
-
-    if (!access(strings_name, R_OK))
-      cupsdSetString(&p->strings, strings_name);
-    else
-      cupsdClearString(&p->strings);
-#endif // 0
 
     num_urf         = 0;
     urf[num_urf ++] = "V1.4";

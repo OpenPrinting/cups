@@ -12,6 +12,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added support for wide-area DNS-SD with Avahi (Issue #319)
 - Added `cupsCopyDestInfo2` API (Issue #586)
 - Added OpenSSL support for `cupsHashData` (Issue #762)
+- Added "job-presets-supported" support for CUPS shared printers (Issue #778)
 - Added warning if the device has to do IPP request for 'all,media-col-database'
   in separate requests (Issue #829)
 - Added a new argument value for `lpstat` argument '-W' - `successful` -
