@@ -69,6 +69,8 @@ jobs:
     - name: Install prerequisites
       run: brew install cppcheck libjpeg libpng libusb openssl@3
     - name: Configure CUPS
+      env:
+        LDFLAGS: -L/opt/homebrew/Cellar/openssl@3/3.3.0/lib
       run: ./configure --enable-debug --enable-maintainer
     - name: Build CUPS
       run: make
