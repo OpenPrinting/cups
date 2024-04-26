@@ -1847,6 +1847,14 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     else
       ippSetString(job->attrs, &job->reasons, 0, "none");
   }
+  else if (job->state_value == IPP_JSTATE_COMPLETED && !strcmp(ippGetString(job->reasons, 0, NULL), "processing-to-stop-point"))
+  {
+   /*
+    * Try to fix job reasons for older jobs finished before openprinting/cups #832 was applied...
+    */
+
+    ippSetString(job->attrs, &job->reasons, 0, "job-completed-successfully");
+  }
 
   job->impressions = ippFindAttribute(job->attrs, "job-impressions-completed", IPP_TAG_INTEGER);
   job->sheets      = ippFindAttribute(job->attrs, "job-media-sheets-completed", IPP_TAG_INTEGER);
