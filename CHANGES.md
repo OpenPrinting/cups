@@ -1,8 +1,8 @@
-CHANGES - OpenPrinting CUPS 2.4.8 - TBA
-=======================================
+CHANGES - OpenPrinting CUPS 2.4.8 - (2024-04-26)
+================================================
 
-Changes in CUPS v2.4.8 (TBA)
-----------------------------
+Changes in CUPS v2.4.8 (2024-04-26)
+-----------------------------------
 
 - Added warning if the device has to be asked for 'all,media-col-database'
   separately (Issue #829)
