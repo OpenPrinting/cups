@@ -45,9 +45,11 @@ True if the filename matches the given shell wildcard \fIpattern\fR.
 .TP 5
 \fBascii(\fIoffset\fB,\fIlength\fB)\fR
 True if the \fIlength\fR bytes starting at \fIoffset\fR are valid printable ASCII (CR, NL, TAB, BS, 32-126).
+\fIlength\fR cannot exceed 8192 bytes.
 .TP 5
 \fBprintable(\fIoffset\fB,\fIlength\fB)\fR
 True if the \fIlength\fR bytes starting at \fIoffset\fR are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
+\fIlength\fR cannot exceed 8192 bytes.
 .TP 5
 \fBpriority(\fInumber\fB)\fR
 Specifies the relative priority of this MIME media type.
@@ -72,8 +74,9 @@ True if the 32-bit big-endian integer at \fIoffset\fR is identical to \fIvalue\f
 \fBlocale("\fIstring\fB")\fR
 True if current locale matches \fIstring\fR.
 .TP 5
-\fBcontains(\fIoffset\fB,\fIrange\fB,"\fIstring\fB")\fR
-True if the bytes starting at \fIoffset\fR for \fIrange\fR bytes contains \fIstring\fR.
+\fBcontains(\fIoffset\fB,\fIlength\fB,"\fIstring\fB")\fR
+True if the bytes starting at \fIoffset\fR for \fIlength\fR bytes contains \fIstring\fR.
+\fIlength\fR cannot exceed 8192 bytes.
 .SS STRING CONSTANTS
 String constants can be specified inside quotes ("") for strings containing whitespace and angle brackets (<>) for hexadecimal strings.
 .SS TYPE MATCHING AND PRIORITY

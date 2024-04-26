@@ -10,6 +10,7 @@ Changes in CUPS v2.4.8 (TBA)
   successfully printed jobs (Issue #830)
 - Added support for PAM modules password-auth and system-auth (Issue #892)
 - Updated IPP Everywhere printer creation error reporting (Issue #347)
+- Updated and documented the MIME typing buffering limit (Issue #925)
 - Raised `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)
 - Now report an error for temporary printer defaults with lpadmin (Issue #237)

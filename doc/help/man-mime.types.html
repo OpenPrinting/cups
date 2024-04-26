@@ -36,9 +36,9 @@ The following functions are available:
 <dt><b>match("</b><i>pattern</i><b>")</b>
 <dd style="margin-left: 5.0em">True if the filename matches the given shell wildcard <i>pattern</i>.
 <dt><b>ascii(</b><i>offset</i><b>,</b><i>length</i><b>)</b>
-<dd style="margin-left: 5.0em">True if the <i>length</i> bytes starting at <i>offset</i> are valid printable ASCII (CR, NL, TAB, BS, 32-126).
+  <dd style="margin-left: 5.0em">True if the <i>length</i> bytes starting at <i>offset</i> are valid printable ASCII (CR, NL, TAB, BS, 32-126). <i>length</i> cannot exceed 8192 bytes.
 <dt><b>printable(</b><i>offset</i><b>,</b><i>length</i><b>)</b>
-<dd style="margin-left: 5.0em">True if the <i>length</i> bytes starting at <i>offset</i> are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254).
+<dd style="margin-left: 5.0em">True if the <i>length</i> bytes starting at <i>offset</i> are printable 8-bit chars (CR, NL, TAB, BS, 32-126, 128-254). <i>length</i> cannot exceed 8192 bytes.
 <dt><b>priority(</b><i>number</i><b>)</b>
 <dd style="margin-left: 5.0em">Specifies the relative priority of this MIME media type.
 The default priority is 100.
@@ -55,8 +55,8 @@ Larger values have higher priority while smaller values have lower priority.
 <dd style="margin-left: 5.0em">True if the 32-bit big-endian integer at <i>offset</i> is identical to <i>value</i>.
 <dt><b>locale("</b><i>string</i><b>")</b>
 <dd style="margin-left: 5.0em">True if current locale matches <i>string</i>.
-<dt><b>contains(</b><i>offset</i><b>,</b><i>range</i><b>,"</b><i>string</i><b>")</b>
-<dd style="margin-left: 5.0em">True if the bytes starting at <i>offset</i> for <i>range</i> bytes contains <i>string</i>.
+<dt><b>contains(</b><i>offset</i><b>,</b><i>length</i><b>,"</b><i>string</i><b>")</b>
+  <dd style="margin-left: 5.0em">True if the bytes starting at <i>offset</i> for <i>length</i> bytes contains <i>string</i>. <i>length</i> cannot exceed 8192 bytes.
 </dl>
 <h3><a name="STRING_CONSTANTS">String Constants</a></h3>
 String constants can be specified inside quotes ("") for strings containing whitespace and angle brackets (&lt;>) for hexadecimal strings.
