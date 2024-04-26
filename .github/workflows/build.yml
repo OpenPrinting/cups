@@ -17,20 +17,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: show Ubuntu version
+    - name: Checkout CUPS sources
+      uses: actions/checkout@v4
+    - name: Show Ubuntu version
       run: cat /etc/os-release | grep PRETTY_NAME | awk -F '=' '{print $2}'
-    - name: update build environment
+    - name: Update build environment
       run: sudo apt-get update --fix-missing -y && sudo apt-get upgrade --fix-missing -y
-    - name: install prerequisites
+    - name: Install prerequisites
       run: sudo apt-get install -y avahi-daemon libavahi-client-dev libssl-dev libpam-dev libusb-1.0-0-dev zlib1g-dev
-    - name: configure
+    - name: Configure CUPS
       env:
         CC: /usr/bin/gcc
       run: ./configure --enable-debug --enable-maintainer
-    - name: make
+    - name: Build CUPS
       run: make
-    - name: test
+    - name: Test CUPS
       run: make test || cat test/error_log*
 
   build-linux-i386:
@@ -38,23 +39,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: show Ubuntu version
+    - name: Checkout CUPS sources
+      uses: actions/checkout@v4
+    - name: Show Ubuntu version
       run: cat /etc/os-release | grep PRETTY_NAME | awk -F '=' '{print $2}'
-    - name: setup multiarch for i386
+    - name: Setup multiarch for i386
       run: sudo dpkg --add-architecture i386
-    - name: update build environment
+    - name: Update build environment
       run: sudo apt-get update --fix-missing -y
-    - name: install prerequisites
+    - name: Install prerequisites
       run: sudo apt-get install -y avahi-daemon libavahi-client-dev libavahi-client-dev:i386 libgnutls28-dev libgnutls28-dev:i386 libpam-dev libpam-dev:i386 libusb-1.0-0-dev libusb-1.0-0-dev:i386 zlib1g-dev zlib1g-dev:i386 crossbuild-essential-i386 libgcc-s1:i386 libstdc++6:i386
-    - name: configure
+    - name: Configure CUPS
       env:
         CC: /usr/bin/i686-linux-gnu-gcc
         CXX: /usr/bin/i686-linux-gnu-g++
       run: ./configure --enable-debug --enable-maintainer --host=i686-pc-linux-gnu --target=i686-pc-linux-gnu --with-tls=gnutls
-    - name: make
+    - name: Build CUPS
       run: make
-    - name: test
+    - name: Test CUPS
       run: make test || cat test/error_log*
 
   build-macos:
@@ -62,12 +64,15 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: configure
+    - name: Checkout CUPS sources
+      uses: actions/checkout@v4
+    - name: Install prerequisites
+      run: brew install cppcheck libjpeg libpng libusb openssl@3
+    - name: Configure CUPS
       run: ./configure --enable-debug --enable-maintainer
-    - name: make
+    - name: Build CUPS
       run: make
-    - name: test
+    - name: Test CUPS
       run: make test || cat test/error_log*
 
   build-windows:
@@ -75,10 +80,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: setup-msbuild
+    - name: Checkout CUPS sources
+      uses: actions/checkout@v4
+    - name: Configure CUPS
       uses: microsoft/setup-msbuild@v2.0.0
-    - name: nuget restore
+    - name: Install prerequisites
       run: cd vcnet; nuget restore cups.sln
-    - name: msbuild
+    - name: Build CUPS
       run: cd vcnet; msbuild cups.sln
