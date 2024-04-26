@@ -7,8 +7,10 @@ Changes in CUPS v2.5b1 (TBA)
 - Added `cupsDNSSD` APIs.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.
+- Added multiple language support for IPP Everywhere.
 - Added new APIs for form, JSON, JWT, IPP, and raster setup.
 - Added "job-sheets-col" support (Issue #138)
+- Added "--list-all" option for cupsfilter (Issue #194)
 - Added support for wide-area DNS-SD with Avahi (Issue #319)
 - Added `cupsCopyDestInfo2` API (Issue #586)
 - Added OpenSSL support for `cupsHashData` (Issue #762)
@@ -48,6 +50,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)
 - Fixed mapping of PPD InputSlot, MediaType, and OutputBin values (Issue #238)
 - Fixed Digest authentication support (Issue #260)
+- Fixed document-unprintable-error support (Issue #391)
 - Fixed the web interface not showing an error for a non-existent printer
   (Issue #423)
 - Fixed extensive looping in scheduler (Issue #604)
@@ -88,6 +91,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed sending response headers to client (Issue #927)
 - Fixed CGI program initialization and validation of form checkbox and text
   fields.
+- Fixed finishing support in ippeveps.
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
