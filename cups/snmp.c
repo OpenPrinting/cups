@@ -509,13 +509,18 @@ _cupsSNMPStringToOID(const char *src,	/* I - OID string */
        *src && dstptr < dstend;
        src ++)
   {
-    if (*src == '.')
+    if (*src == '.' && src[1])
     {
       dstptr ++;
       *dstptr = 0;
     }
     else if (isdigit(*src & 255))
+    {
+      if ((*dstptr * 10 + *src - '0') > 0xffff)
+        break;
+
       *dstptr = *dstptr * 10 + *src - '0';
+    }
     else
       break;
   }
