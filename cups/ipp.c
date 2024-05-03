@@ -1434,15 +1434,37 @@ ippCopyAttribute(
         break;
 
     case IPP_TAG_BEGIN_COLLECTION :
-        for (i = srcattr->num_values, srcval = srcattr->values, dstattr = NULL; i > 0; i --, srcval ++)
-	{
-	  if (srcval->collection)
+        if (quickcopy)
+        {
+	  for (i = srcattr->num_values, srcval = srcattr->values, dstattr = NULL; i > 0; i --, srcval ++)
 	  {
-	    if (dstattr)
-	      ippSetCollection(dst, &dstattr, ippGetCount(dstattr), srcval->collection);
-	    else
-              dstattr = ippAddCollection(dst, srcattr->group_tag, srcattr->name, srcval->collection);
-          }
+	    if (srcval->collection)
+	    {
+	      if (dstattr)
+		ippSetCollection(dst, &dstattr, ippGetCount(dstattr), srcval->collection);
+	      else
+		dstattr = ippAddCollection(dst, srcattr->group_tag, srcattr->name, srcval->collection);
+	    }
+	  }
+	}
+	else
+	{
+	  for (i = srcattr->num_values, srcval = srcattr->values, dstattr = NULL; i > 0; i --, srcval ++)
+	  {
+	    if (srcval->collection)
+	    {
+	      ipp_t *col = ippNew();	// Copy of collection
+
+	      ippCopyAttributes(col, srcval->collection, false, /*cb*/NULL, /*cb_data*/NULL);
+
+	      if (dstattr)
+		ippSetCollection(dst, &dstattr, ippGetCount(dstattr), col);
+	      else
+		dstattr = ippAddCollection(dst, srcattr->group_tag, srcattr->name, col);
+
+              col->use --;
+	    }
+	  }
 	}
         break;
 

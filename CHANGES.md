@@ -92,6 +92,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed CGI program initialization and validation of form checkbox and text
   fields.
 - Fixed finishing support in ippeveps.
+- Fixed non-quick copy of collection values.
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
