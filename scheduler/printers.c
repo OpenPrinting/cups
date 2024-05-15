@@ -4085,7 +4085,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
     }
 
     // job-presets-supported
-    for (attr = NULL, ppd_attr = ppdFindAttr(ppd, "APPrinterPreset", NULL); ppd_attr; ppd_attr = ppdFindAttr(ppd, "APPrinterPreset", NULL))
+    for (attr = NULL, ppd_attr = ppdFindAttr(ppd, "APPrinterPreset", NULL); ppd_attr; ppd_attr = ppdFindNextAttr(ppd, "APPrinterPreset", NULL))
     {
       ipp_t		*col = ippNew();// job-presets-supported value
       cups_array_t	*preset = cupsArrayNewStrings(ppd_attr->value, ' ');
