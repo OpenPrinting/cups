@@ -284,6 +284,8 @@ cgiGetTextfield(const char *name)	/* I - Name of form field */
 
     if (i < form_count)
       memmove(var, var + 1, (size_t)(form_count - i) * sizeof(_cgi_var_t));
+
+    value = NULL;
   }
 
   return (value);
