@@ -1,5 +1,10 @@
-CHANGES - OpenPrinting CUPS 2.4.8 - (2024-04-26)
-================================================
+CHANGES - OpenPrinting CUPS 2.4.9 - (TBA)
+=========================================
+
+Changes in CUPS v2.4.9 (TBA)
+----------------------------
+
+- Fixed searching for destinations in web ui (Issue #954)
 
 Changes in CUPS v2.4.8 (2024-04-26)
 -----------------------------------
