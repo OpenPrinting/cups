@@ -647,12 +647,17 @@ cupsConnectDest(
     if (cb)
       (*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_CONNECTING, dest);
 
-    if (!httpReconnect2(http, msec, cancel) && cb)
+    if (httpReconnect2(http, msec, cancel))
     {
-      if (cancel && *cancel)
-	(*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_CONNECTING, dest);
-      else
-	(*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_ERROR, dest);
+      if (cb)
+      {
+        if (cancel && *cancel)
+          (*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_CONNECTING, dest);
+        else
+          (*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_ERROR, dest);
+      }
+      httpClose(http);
+      return (NULL);
     }
     else if (cb)
       (*cb)(user_data, CUPS_DEST_FLAGS_NONE, dest);
