@@ -93,6 +93,8 @@ Changes in CUPS v2.5b1 (TBA)
   fields.
 - Fixed finishing support in ippeveps.
 - Fixed non-quick copy of collection values.
+- Fixed TLS negotiation using OpenSSL with servers that require the TLS SNI
+  extension.
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)

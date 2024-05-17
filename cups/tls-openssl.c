@@ -3,7 +3,7 @@
 //
 // Note: This file is included from tls.c
 //
-// Copyright © 2020-2023 by OpenPrinting
+// Copyright © 2020-2024 by OpenPrinting
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -1545,6 +1545,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
       int	i,			// Looping var
 		count;			// Number of certificates
 
+      DEBUG_puts("4_httpTLSStart: Using client certificate.");
       SSL_CTX_use_certificate(context, sk_X509_value(http->tls_credentials->certs, 0));
       SSL_CTX_use_PrivateKey(context, http->tls_credentials->key);
 
@@ -1719,6 +1720,9 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   if (http->mode == _HTTP_MODE_CLIENT)
   {
     // Negotiate as a client...
+    DEBUG_printf("4_httpTLSStart: Setting server name TLS extension to '%s'...", http->hostname);
+    SSL_set_tlsext_host_name(http->tls, http->hostname);
+
     DEBUG_puts("4_httpTLSStart: Calling SSL_connect...");
     if (SSL_connect(http->tls) < 1)
     {
