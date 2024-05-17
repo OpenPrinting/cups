@@ -5,6 +5,9 @@ Changes in CUPS v2.4.9 (TBA)
 ----------------------------
 
 - Fixed searching for destinations in web ui (Issue #954)
+- Fixed TLS negotiation using OpenSSL with servers that require the TLS SNI
+  extension.
+
 
 Changes in CUPS v2.4.8 (2024-04-26)
 -----------------------------------

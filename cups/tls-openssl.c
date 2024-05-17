@@ -1156,6 +1156,9 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   if (http->mode == _HTTP_MODE_CLIENT)
   {
     // Negotiate as a client...
+    DEBUG_printf(("4_httpTLSStart: Setting server name TLS extension to '%s'...", http->hostname));
+    SSL_set_tlsext_host_name(http->tls, http->hostname);
+
     DEBUG_puts("4_httpTLSStart: Calling SSL_connect...");
     if (SSL_connect(http->tls) < 1)
     {
