@@ -1782,7 +1782,7 @@ mdns_hostname_cb(
     dnssd->config_changes ++;
 
     // Notify services of the change...
-    for (service = (cups_dnssd_service_t *)cupsArrayFirst(dnssd->services); service; service = (cups_dnssd_service_t *)cupsArrayNext(dnssd->services))
+    for (service = (cups_dnssd_service_t *)cupsArrayGetFirst(dnssd->services); service; service = (cups_dnssd_service_t *)cupsArrayGetNext(dnssd->services))
       (service->cb)(service, service->cb_data, CUPS_DNSSD_FLAGS_HOST_CHANGE);
   }
   DEBUG_puts("4mdns_hostname_cb: Unlocking rwlock.");
@@ -2137,12 +2137,12 @@ avahi_client_cb(
     // Let the services know the hostname has changed...
     cups_dnssd_service_t *service;	// Current service
 
-    DEBUG_puts("4avahi_client_cb: Read locking rwlock.");
-    cupsRWLockRead(&dnssd->rwlock);
+    DEBUG_puts("4avahi_client_cb: Write locking rwlock.");
+    cupsRWLockWrite(&dnssd->rwlock);
 
     dnssd->config_changes ++;
 
-    for (service = (cups_dnssd_service_t *)cupsArrayFirst(dnssd->services); service; service = (cups_dnssd_service_t *)cupsArrayNext(dnssd->services))
+    for (service = (cups_dnssd_service_t *)cupsArrayGetFirst(dnssd->services); service; service = (cups_dnssd_service_t *)cupsArrayGetNext(dnssd->services))
       (service->cb)(service, service->cb_data, CUPS_DNSSD_FLAGS_HOST_CHANGE);
 
     DEBUG_puts("4avahi_client_cb: Unlocking rwlock.");
