@@ -2681,6 +2681,8 @@ cups_dest_query_cb(
   (void)if_index;
   (void)rrtype;
 
+  DEBUG_printf("5cups_dest_query_cb(query=%p, context=%p, flags=0x%x, if_index=%u, fullname=\"%s\", rrtype=%u, rdata=%p, rdlen=%u)", (void *)query, context, (unsigned)flags, (unsigned)if_index, fullname, rrtype, rdata, rdlen);
+
   // Only process "add" data...
   if (!(flags & CUPS_DNSSD_FLAGS_ADD) || (flags & CUPS_DNSSD_FLAGS_ERROR))
     return;
