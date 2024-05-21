@@ -65,6 +65,7 @@ struct _cups_dnssd_s			// DNS-SD context
 
 #else // HAVE_AVAHI
   cups_mutex_t		mutex;		// Avahi poll mutex
+  bool			in_callback;	// Doing a callback?
   AvahiClient		*client;	// Avahi client connection
   AvahiSimplePoll	*poll;		// Avahi poll class
   cups_thread_t		monitor;	// Monitoring thread
@@ -772,7 +773,7 @@ cupsDNSSDBrowseNew(
   if (!dnssd->browses)
   {
     // Create an array of browsers...
-    if ((dnssd->browses = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_func_t)delete_browse)) == NULL)
+    if ((dnssd->browses = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_cb_t)delete_browse)) == NULL)
     {
       // Unable to create...
       free(browse);
@@ -796,8 +797,11 @@ cupsDNSSDBrowseNew(
 #elif _WIN32
 
 #else // HAVE_AVAHI
-  DEBUG_puts("2cupsDNSSDBrowseNew: Locking mutex.");
-  cupsMutexLock(&dnssd->mutex);
+  if (!dnssd->in_callback)
+  {
+    DEBUG_puts("2cupsDNSSDBrowseNew: Locking mutex.");
+    cupsMutexLock(&dnssd->mutex);
+  }
 
   browse->num_browsers = 1;
   browse->browsers[0]  = avahi_service_browser_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, types, /*domain*/NULL, /*flags*/0, (AvahiServiceBrowserCallback)avahi_browse_cb, browse);
@@ -808,8 +812,11 @@ cupsDNSSDBrowseNew(
     free(browse);
     browse = NULL;
 
-    DEBUG_puts("2cupsDNSSDBrowseNew: Unlocking mutex.");
-    cupsMutexUnlock(&dnssd->mutex);
+    if (!dnssd->in_callback)
+    {
+      DEBUG_puts("2cupsDNSSDBrowseNew: Unlocking mutex.");
+      cupsMutexUnlock(&dnssd->mutex);
+    }
 
     goto done;
   }
@@ -826,10 +833,13 @@ cupsDNSSDBrowseNew(
     }
   }
 
-  DEBUG_puts("2cupsDNSSDBrowseNew: Unlocking mutex.");
-  cupsMutexUnlock(&dnssd->mutex);
+  if (!dnssd->in_callback)
+  {
+    DEBUG_puts("2cupsDNSSDBrowseNew: Unlocking mutex.");
+    cupsMutexUnlock(&dnssd->mutex);
 
-  avahi_simple_poll_wakeup(dnssd->poll);
+    avahi_simple_poll_wakeup(dnssd->poll);
+  }
 #endif // HAVE_MDNSRESPONDER
 
   DEBUG_printf("2cupsDNSSDBrowseNew: Adding browse=%p", (void *)browse);
@@ -940,7 +950,7 @@ cupsDNSSDQueryNew(
   {
     // Create an array of resolvers...
     DEBUG_puts("2cupsDNSSDQueryNew: Creating queries array.");
-    if ((dnssd->queries = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_func_t)delete_query)) == NULL)
+    if ((dnssd->queries = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_cb_t)delete_query)) == NULL)
     {
       // Unable to create...
       free(query);
@@ -964,13 +974,21 @@ cupsDNSSDQueryNew(
 #elif _WIN32
 
 #else // HAVE_AVAHI
-  DEBUG_puts("4avahi_poll_cb: Locking mutex.");
-  cupsMutexLock(&dnssd->mutex);
+  if (!dnssd->in_callback)
+  {
+    DEBUG_puts("4avahi_poll_cb: Locking mutex.");
+    cupsMutexLock(&dnssd->mutex);
+  }
 
   query->browser = avahi_record_browser_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, fullname, AVAHI_DNS_CLASS_IN, rrtype, 0, (AvahiRecordBrowserCallback)avahi_query_cb, query);
 
-  DEBUG_puts("4avahi_poll_cb: Unlocking mutex.");
-  cupsMutexUnlock(&dnssd->mutex);
+  if (!dnssd->in_callback)
+  {
+    DEBUG_puts("4avahi_poll_cb: Unlocking mutex.");
+    cupsMutexUnlock(&dnssd->mutex);
+
+    avahi_simple_poll_wakeup(dnssd->poll);
+  }
 
   if (!query->browser)
   {
@@ -979,8 +997,6 @@ cupsDNSSDQueryNew(
     query = NULL;
     goto done;
   }
-
-  avahi_simple_poll_wakeup(dnssd->poll);
 #endif // HAVE_MDNSRESPONDER
 
   DEBUG_printf("2cupsDNSSDQueryNew: Adding query=%p", (void *)query);
@@ -1091,23 +1107,6 @@ cupsDNSSDResolveNew(
   resolve->cb      = resolve_cb;
   resolve->cb_data = cb_data;
 
-  DEBUG_puts("2cupsDNSSDResolveNew: Write locking rwlock.");
-  cupsRWLockWrite(&dnssd->rwlock);
-
-  if (!dnssd->resolves)
-  {
-    // Create an array of resolvers...
-    DEBUG_puts("2cupsDNSSDResolveNew: Creating resolver array.");
-    if ((dnssd->resolves = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_func_t)delete_resolve)) == NULL)
-    {
-      // Unable to create...
-      DEBUG_printf("2cupsDNSSDResolveNew: Unable to allocate memory: %s", strerror(errno));
-      free(resolve);
-      resolve = NULL;
-      goto done;
-    }
-  }
-
 #ifdef HAVE_MDNSRESPONDER
   DNSServiceErrorType error;		// Error, if any
 
@@ -1123,13 +1122,21 @@ cupsDNSSDResolveNew(
 #elif _WIN32
 
 #else // HAVE_AVAHI
-  DEBUG_puts("2cupsDNSSDResolveNew: Locking mutex.");
-  cupsMutexLock(&dnssd->mutex);
+  if (!dnssd->in_callback)
+  {
+    DEBUG_puts("2cupsDNSSDResolveNew: Locking mutex.");
+    cupsMutexLock(&dnssd->mutex);
+  }
 
   resolve->resolver = avahi_service_resolver_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, name, type, domain, AVAHI_PROTO_UNSPEC, /*flags*/0, (AvahiServiceResolverCallback)avahi_resolve_cb, resolve);
 
-  DEBUG_puts("2cupsDNSSDResolveNew: Unlocking mutex.");
-  cupsMutexUnlock(&dnssd->mutex);
+  if (!dnssd->in_callback)
+  {
+    DEBUG_puts("2cupsDNSSDResolveNew: Unlocking mutex.");
+    cupsMutexUnlock(&dnssd->mutex);
+
+    avahi_simple_poll_wakeup(dnssd->poll);
+  }
 
   if (!resolve->resolver)
   {
@@ -1138,17 +1145,32 @@ cupsDNSSDResolveNew(
     resolve = NULL;
     goto done;
   }
-
-  avahi_simple_poll_wakeup(dnssd->poll);
 #endif // HAVE_MDNSRESPONDER
+
+  DEBUG_puts("2cupsDNSSDResolveNew: Write locking rwlock.");
+  cupsRWLockWrite(&dnssd->rwlock);
+
+  if (!dnssd->resolves)
+  {
+    // Create an array of resolvers...
+    DEBUG_puts("2cupsDNSSDResolveNew: Creating resolver array.");
+    if ((dnssd->resolves = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_cb_t)delete_resolve)) == NULL)
+    {
+      // Unable to create...
+      DEBUG_printf("2cupsDNSSDResolveNew: Unable to allocate memory: %s", strerror(errno));
+      free(resolve);
+      resolve = NULL;
+      goto done;
+    }
+  }
 
   DEBUG_printf("2cupsDNSSDResolveNew: Adding resolver %p.", (void *)resolve);
   cupsArrayAdd(dnssd->resolves, resolve);
 
-  done:
-
   DEBUG_puts("2cupsDNSSDResolveNew: Unlocking rwlock.");
   cupsRWUnlock(&dnssd->rwlock);
+
+  done:
 
   return (resolve);
 }
@@ -1419,7 +1441,7 @@ cupsDNSSDServiceNew(
   if (!dnssd->services)
   {
     // Create an array of services...
-    if ((dnssd->services = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_func_t)delete_service)) == NULL)
+    if ((dnssd->services = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, (cups_afree_cb_t)delete_service)) == NULL)
     {
       // Unable to create...
       free(service->name);
@@ -2135,7 +2157,9 @@ avahi_browse_cb(
         return;
   }
 
+  browse->dnssd->in_callback = true;
   (browse->cb)(browse, browse->cb_data, cups_flags, (uint32_t)if_index, name, type, domain);
+  browse->dnssd->in_callback = false;
 }
 
 
@@ -2338,7 +2362,9 @@ avahi_query_cb(
 
   DEBUG_printf("3avahi_query_cb(..., event=%s, fullname=\"%s\", ..., query=%p)", avahi_events[event], fullname, query);
 
+  query->dnssd->in_callback = true;
   (query->cb)(query, query->cb_data, event == AVAHI_BROWSER_FAILURE ? CUPS_DNSSD_FLAGS_ERROR : event == AVAHI_BROWSER_NEW ? CUPS_DNSSD_FLAGS_ADD : CUPS_DNSSD_FLAGS_NONE, (uint32_t)if_index, fullname, rrtype, rdata, rdlen);
+  query->dnssd->in_callback = false;
 }
 
 
