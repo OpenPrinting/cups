@@ -58,7 +58,7 @@
 #endif /* __APPLE__ */
 
 #ifdef HAVE_DNSSD
-#  define _CUPS_DNSSD_GET_DESTS 250     /* Milliseconds for cupsGetDests */
+#  define _CUPS_DNSSD_GET_DESTS 1000     /* Milliseconds for cupsGetDests */
 #  define _CUPS_DNSSD_MAXTIME	50	/* Milliseconds for maximum quantum of time */
 #else
 #  define _CUPS_DNSSD_GET_DESTS 0       /* Milliseconds for cupsGetDests */

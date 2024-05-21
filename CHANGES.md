@@ -7,6 +7,8 @@ Changes in CUPS v2.4.9 (TBA)
 - Fixed searching for destinations in web ui (Issue #954)
 - Fixed TLS negotiation using OpenSSL with servers that require the TLS SNI
   extension.
+- Really raised `cups_enum_dests()` timeout for listing available IPP printers
+  (Issue #751)...
 
 
 Changes in CUPS v2.4.8 (2024-04-26)
@@ -19,8 +21,6 @@ Changes in CUPS v2.4.8 (2024-04-26)
 - Added support for PAM modules password-auth and system-auth (Issue #892)
 - Updated IPP Everywhere printer creation error reporting (Issue #347)
 - Updated and documented the MIME typing buffering limit (Issue #925)
-- Raised `cups_enum_dests()` timeout for listing available IPP printers
-  (Issue #751)
 - Now report an error for temporary printer defaults with lpadmin (Issue #237)
 - Fixed mapping of PPD InputSlot, MediaType, and OutputBin values (Issue #238)
 - Fixed "document-unprintable-error" handling (Issue #391)
