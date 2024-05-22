@@ -224,11 +224,14 @@ main(int  argc,				// I - Number of command-line args
 
       bool done = sent == cupsArrayGetCount(Devices) && (time(NULL) - start) > 5;
 
-      cupsMutexUnlock(&DevicesMutex);
-
       if (done)
+      {
+	cupsMutexUnlock(&DevicesMutex);
 	break;
+      }
     }
+
+    cupsMutexUnlock(&DevicesMutex);
   }
 
   return (CUPS_BACKEND_OK);

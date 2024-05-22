@@ -1975,6 +1975,9 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
 	  }
 
 	  job->num_files = 0;
+
+	  cupsRWUnlock(&MimeDatabase->lock);
+
 	  return (0);
 	}
 
@@ -2614,7 +2617,7 @@ cupsdSetJobState(
 	* reasons message there...
 	*/
 
-	if (action >= CUPSD_JOB_FORCE && job && job->printer)
+	if (action >= CUPSD_JOB_FORCE && job->printer)
 	  ippSetString(job->attrs, &job->reasons, 0, "processing-to-stop-point");
 	break;
   }

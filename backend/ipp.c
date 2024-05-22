@@ -3583,11 +3583,11 @@ update_reasons(ipp_attribute_t *attr,	/* I - printer-state-reasons or NULL */
   remprefix = "STATE: -";
   remptr    = rem;
 
+  cupsMutexLock(&report_mutex);
+
   fprintf(stderr, "DEBUG2: op='%c', new_reasons=%d, state_reasons=%d\n",
           op ? op : ' ', cupsArrayCount(new_reasons),
 	  cupsArrayCount(state_reasons));
-
-  cupsMutexLock(&report_mutex);
 
   if (op == '+')
   {
