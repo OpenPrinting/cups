@@ -3038,24 +3038,14 @@ ippReadIO(void        *src,		// I - Data source
 
 	    case IPP_TAG_TEXTLANG :
 	    case IPP_TAG_NAMELANG :
-	        if (n < 4)
-		{
-		  if (tag == IPP_TAG_TEXTLANG)
-		    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP textWithLanguage value less than minimum 4 bytes."), 1);
-		  else
-		    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP nameWithLanguage value less than minimum 4 bytes."), 1);
-		  DEBUG_printf("1ippReadIO: bad stringWithLanguage value length %d.", n);
-		  goto rollback;
-		}
+		// postpone range-checking n after handling the broken case
 
+		// XXX is it legal to call cb with n == 0 ?
 	        if ((*cb)(src, buffer, (size_t)n) < n)
 		{
 	          DEBUG_puts("1ippReadIO: Unable to read string w/language value.");
 		  goto rollback;
 		}
-
-                bufptr = buffer;
-                bufend = buffer + n;
 
 	        // textWithLanguage and nameWithLanguage are composite
 		// values:
@@ -3064,7 +3054,73 @@ ippReadIO(void        *src,		// I - Data source
 		//   language
 		//   text-length
 		//   text
-		n = (bufptr[0] << 8) | bufptr[1];
+		//
+		// The n we just read, according to the IPP spec, should be
+		// the total length of these four, and buffer should now
+		// contain everything we need.
+		// However, some broken IPP implementations omit the total
+		// length, so in that case, n is now language-length and
+		// buffer contains the language value only.
+		// Try to identify this broken case by looking at the first
+		// two bytes in buffer: these should be language-length, but
+		// in the broken case are the first two characters of language.
+
+		if (n >= 2 && _cups_isalpha(buffer[0]) && _cups_isalpha(buffer[1]))
+		{
+		  // n is language-length, buffer contains language
+
+		  int n1; // for text-length
+
+		  DEBUG_puts("1ippReadIO: broken-with-language detected.");
+
+		  // read text-length
+		  if (n + 2 >= IPP_BUF_SIZE)
+		  {
+		    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("language length too large."), 1);
+		    DEBUG_printf(("1ippReadIO: bad language length %d.", n));
+		    goto rollback;
+		  }
+		  if ((*cb)(src, buffer + n, 2) < 2)
+		  {
+		    DEBUG_puts("1ippReadIO: unable to read text-length.");
+		    goto rollback;
+		  }
+		  n1 = (buffer[n] << 8) | buffer[n + 1]; // text-length
+		  // read text
+		  if (n + 2 + n1 >= IPP_BUF_SIZE)
+		  {
+		    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("text length too large."), 1);
+		    DEBUG_printf(("1ippReadIO: bad text length %d.", n1));
+		    goto rollback;
+		  }
+		  if ((*cb)(src, buffer + n + 2, n1) < n1)
+		  {
+		    DEBUG_puts("1ippReadIO: unable to read text.");
+		    goto rollback;
+		  }
+
+		  bufptr = buffer - 2; // slightly gross
+		  bufend = buffer + n + 2 + n1;
+		  DEBUG_printf(("1ippReadIO: computed total length %d.", 2 + n + 2 + n1));
+		  // n already contains language-length
+		}
+		else
+		{
+		  if (n < 4)
+		  {
+		    if (tag == IPP_TAG_TEXTLANG)
+		      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP textWithLanguage value less than minimum 4 bytes."), 1);
+		    else
+		      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP nameWithLanguage value less than minimum 4 bytes."), 1);
+		    DEBUG_printf("1ippReadIO: bad stringWithLanguage value length %d.", n);
+		    goto rollback;
+		  }
+
+		  bufptr = buffer;
+		  bufend = buffer + n;
+
+		  n = (bufptr[0] << 8) | bufptr[1];
+		}
 
 		if ((bufptr + 2 + n + 2) > bufend || n >= (int)sizeof(string))
 		{
