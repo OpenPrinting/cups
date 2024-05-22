@@ -82,6 +82,7 @@ void
 _cups_debug_printf(const char *format,	/* I - Printf-style format string */
                    ...)			/* I - Additional arguments as needed */
 {
+  int			result = 0;	/* Filter result */
   va_list		ap;		/* Pointer to arguments */
   struct timeval	curtime;	/* Current time */
   char			buffer[2048];	/* Output buffer */
@@ -94,8 +95,7 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
   */
 
   if (!debug_init)
-    _cups_debug_set(getenv("CUPS_DEBUG_LOG"), getenv("CUPS_DEBUG_LEVEL"),
-                    getenv("CUPS_DEBUG_FILTER"), 0);
+    _cups_debug_set(getenv("CUPS_DEBUG_LOG"), getenv("CUPS_DEBUG_LEVEL"), getenv("CUPS_DEBUG_FILTER"), 0);
 
   if (_cups_debug_fd < 0)
     return;
@@ -112,17 +112,13 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
   if (level > _cups_debug_level)
     return;
 
+  cupsMutexLock(&debug_init_mutex);
   if (debug_filter)
-  {
-    int	result;				/* Filter result */
-
-    cupsMutexLock(&debug_init_mutex);
     result = regexec(debug_filter, format, 0, NULL, 0);
-    cupsMutexUnlock(&debug_init_mutex);
+  cupsMutexUnlock(&debug_init_mutex);
 
-    if (result)
-      return;
-  }
+  if (result)
+    return;
 
  /*
   * Format the message...
@@ -166,6 +162,7 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
 void
 _cups_debug_puts(const char *s)		/* I - String to output */
 {
+  int			result = 0;	/* Filter result */
   struct timeval	curtime;	/* Current time */
   char			buffer[2048];	/* Output buffer */
   ssize_t		bytes;		/* Number of bytes in buffer */
@@ -177,8 +174,7 @@ _cups_debug_puts(const char *s)		/* I - String to output */
   */
 
   if (!debug_init)
-    _cups_debug_set(getenv("CUPS_DEBUG_LOG"), getenv("CUPS_DEBUG_LEVEL"),
-                    getenv("CUPS_DEBUG_FILTER"), 0);
+    _cups_debug_set(getenv("CUPS_DEBUG_LOG"), getenv("CUPS_DEBUG_LEVEL"), getenv("CUPS_DEBUG_FILTER"), 0);
 
   if (_cups_debug_fd < 0)
     return;
@@ -195,17 +191,13 @@ _cups_debug_puts(const char *s)		/* I - String to output */
   if (level > _cups_debug_level)
     return;
 
+  cupsMutexLock(&debug_init_mutex);
   if (debug_filter)
-  {
-    int	result;				/* Filter result */
-
-    cupsMutexLock(&debug_init_mutex);
     result = regexec(debug_filter, s, 0, NULL, 0);
-    cupsMutexUnlock(&debug_init_mutex);
+  cupsMutexUnlock(&debug_init_mutex);
 
-    if (result)
-      return;
-  }
+  if (result)
+    return;
 
  /*
   * Format the message...

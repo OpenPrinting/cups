@@ -1496,6 +1496,7 @@ _httpTLSRead(http_t *http,		// I - Connection to server
 bool					// O - `true` on success, `false` on failure
 _httpTLSStart(http_t *http)		// I - Connection to server
 {
+  const char	*keypath;		// Certificate store path
   BIO		*bio;			// Basic input/output context
   SSL_CTX	*context;		// Encryption context
   char		hostname[256],		// Hostname
@@ -1526,7 +1527,11 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     DEBUG_printf("4_httpTLSStart: tls_options=%x", tls_options);
   }
 
-  if (http->mode == _HTTP_MODE_SERVER && !tls_keypath)
+  cupsMutexLock(&tls_mutex);
+  keypath = tls_keypath;
+  cupsMutexUnlock(&tls_mutex);
+
+  if (http->mode == _HTTP_MODE_SERVER && !keypath)
   {
     DEBUG_puts("4_httpTLSStart: cupsSetServerCredentials not called.");
     http->error  = errno = EINVAL;
@@ -1600,12 +1605,12 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     if (isdigit(hostname[0] & 255) || hostname[0] == '[')
       hostname[0] = '\0';		// Don't allow numeric addresses
 
+    cupsMutexLock(&tls_mutex);
+
     if (hostname[0])
       cn = hostname;
     else
       cn = tls_common_name;
-
-    cupsMutexLock(&tls_mutex);
 
     if (cn)
     {
@@ -1709,9 +1714,10 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     BIO_meth_set_puts(tls_bio_method, http_bio_puts);
     BIO_meth_set_write(tls_bio_method, http_bio_write);
   }
-  cupsMutexUnlock(&tls_mutex);
 
   bio = BIO_new(tls_bio_method);
+  cupsMutexUnlock(&tls_mutex);
+
   BIO_ctrl(bio, BIO_C_SET_FILE_PTR, 0, (char *)http);
 
   http->tls = SSL_new(context);

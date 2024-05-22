@@ -1473,6 +1473,7 @@ _httpTLSRead(http_t *http,		// I - Connection to server
 bool					// O - `true` on success, `false` on failure
 _httpTLSStart(http_t *http)		// I - Connection to server
 {
+  const char		*keypath;	// Certificate store path
   char			hostname[256],	// Hostname
 			*hostptr;	// Pointer into hostname
   int			status;		// Status of handshake
@@ -1505,7 +1506,11 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     DEBUG_printf("4_httpTLSStart: tls_options=%x", tls_options);
   }
 
-  if (http->mode == _HTTP_MODE_SERVER && !tls_keypath)
+  cupsMutexLock(&tls_mutex);
+  keypath = tls_keypath;
+  cupsMutexUnlock(&tls_mutex);
+
+  if (http->mode == _HTTP_MODE_SERVER && !keypath)
   {
     DEBUG_puts("4_httpTLSStart: cupsSetServerCredentials not called.");
     http->error  = errno = EINVAL;

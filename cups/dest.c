@@ -2697,7 +2697,11 @@ cups_dest_query_cb(
 
   dkey.dest.name = name;
 
-  if ((device = cupsArrayFind(data->devices, &dkey)) != NULL && device->state == _CUPS_DNSSD_NEW)
+  cupsRWLockRead(&data->rwlock);
+  device = cupsArrayFind(data->devices, &dkey);
+  cupsRWUnlock(&data->rwlock);
+
+  if (device && device->state == _CUPS_DNSSD_NEW)
   {
     // Found it, pull out the make and model from the TXT record and save it...
     const uint8_t	*txt,		// Pointer into data

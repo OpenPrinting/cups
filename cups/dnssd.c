@@ -8,7 +8,6 @@
 //
 
 #include "cups-private.h"
-#include "debug-internal.h"
 #include "dnssd.h"
 
 #ifdef __APPLE__
@@ -210,476 +209,6 @@ cupsDNSSDAssembleFullName(
 
 
 //
-// 'cupsDNSSDCopyComputerName()' - Copy the current human-readable name for the system.
-//
-// This function copies the current human-readable name ("My Computer") to the
-// provided buffer.  The "dnssd" parameter is a DNS-SD context created with
-// @link cupsDNSSDNew@.  The "buffer" parameter points to a character array of
-// at least 128 bytes and the "bufsize" parameter specifies the actual size of
-// the array.
-//
-
-char *					// O - Computer name or `NULL` on error
-cupsDNSSDCopyComputerName(
-    cups_dnssd_t *dnssd,		// I - DNS-SD context
-    char         *buffer,		// I - Computer name buffer
-    size_t       bufsize)		// I - Size of computer name buffer (at least 128 bytes)
-{
-  // Range check input...
-  if (buffer)
-    *buffer = '\0';
-
-  if (!dnssd || !buffer || bufsize < 128)
-    return (NULL);
-
-  // Copy the current computer name...
-#ifdef __APPLE__
-  SCDynamicStoreRef sc;			// Context for dynamic store
-  CFStringEncoding nameEncoding;	// Encoding of computer name
-  CFStringRef	nameRef;		// Computer name CFString
-
-  if ((sc = SCDynamicStoreCreate(kCFAllocatorDefault, CFSTR("libcups"), NULL, NULL)) != NULL)
-  {
-    // Get the computer name from the dynamic store...
-    if ((nameRef = SCDynamicStoreCopyComputerName(sc, &nameEncoding)) != NULL)
-    {
-      if (!CFStringGetCString(nameRef, buffer, (CFIndex)bufsize, kCFStringEncodingUTF8))
-        *buffer = '\0';
-
-      CFRelease(nameRef);
-    }
-
-    CFRelease(sc);
-  }
-
-#elif defined(HAVE_MDNSRESPONDER)
-  char	*bufptr;			// Pointer into name
-
-  DEBUG_puts("2cupsDNSSDCopyComputerName: Read locking rwlock.");
-  cupsRWLockRead(&dnssd->rwlock);
-
-  cupsCopyString(buffer, dnssd->hostname, bufsize);
-
-  DEBUG_puts("2cupsDNSSDCopyComputerName: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
-
-  if ((bufptr = strchr(buffer, '.')) != NULL)
-    *bufptr = '\0';
-
-#else // HAVE_AVAHI
-  cupsCopyString(buffer, avahi_client_get_host_name(dnssd->client), bufsize);
-#endif // __APPLE__
-
-  return (buffer);
-}
-
-
-//
-// 'cupsDNSSDCopyHostName()' - Copy the current mDNS hostname for the system.
-//
-// This function copies the current mDNS hostname ("hostname.local") to the
-// provided buffer.  The "dnssd" parameter is a DNS-SD context created with
-// @link cupsDNSSDNew@.  The "buffer" parameter points to a character array of
-// at least 70 bytes and the "bufsize" parameter specifies the actual size of
-// the array.
-//
-
-char *					// O - mDNS hostname or `NULL` on error
-cupsDNSSDCopyHostName(
-    cups_dnssd_t *dnssd,		// I - DNS-SD context
-    char         *buffer,		// I - Hostname buffer
-    size_t       bufsize)		// I - Size of hostname buffer (at least 70 bytes)
-{
-  // Range check input...
-  if (!dnssd || !buffer || bufsize < 70)
-  {
-    if (buffer)
-      *buffer = '\0';
-
-    return (NULL);
-  }
-
-  // Copy the current hostname...
-#ifdef HAVE_MDNSRESPONDER
-  DEBUG_puts("2cupsDNSSDCopyHostName: Read locking rwlock.");
-  cupsRWLockRead(&dnssd->rwlock);
-
-  cupsCopyString(buffer, dnssd->hostname, bufsize);
-
-  DEBUG_puts("2cupsDNSSDCopyHostName: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
-
-#else // HAVE_AVAHI
-  cupsCopyString(buffer, avahi_client_get_host_name_fqdn(dnssd->client), bufsize);
-#endif // HAVE_MDNSRESPONDER
-
-  return (buffer);
-}
-
-
-//
-// 'cupsDNSSDDecodeTXT()' - Decode a TXT record into key/value pairs.
-//
-// This function converts the DNS TXT record encoding of key/value pairs into
-// `cups_option_t` elements that can be accessed using the @link cupsGetOption@
-// function and freed using the @link cupsFreeOptions@ function.
-//
-
-int					// O - Number of key/value pairs
-cupsDNSSDDecodeTXT(
-    const unsigned char *txtrec,	// I - TXT record data
-    uint16_t            txtlen,		// I - TXT record length
-    cups_option_t       **txt)		// O - Key/value pairs
-{
-  int		num_txt = 0;		// Number of key/value pairs
-  unsigned char	keylen;			// Length of key/value
-  char		key[256],		// Key/value buffer
-		*value;			// Pointer to value
-  const unsigned char *txtptr,		// Pointer into TXT record data
-		*txtend;		// End of TXT record data
-
-
-  // Range check input...
-  if (txt)
-    *txt = NULL;
-  if (!txtrec || !txtlen || !txt)
-    return (0);
-
-  // Loop through the record...
-  for (txtptr = txtrec, txtend = txtrec + txtlen; txtptr < txtend; txtptr += keylen)
-  {
-    // Format is a length byte followed by "key=value"
-    keylen = *txtptr++;
-    if (keylen == 0 || (txtptr + keylen) > txtend)
-      break;				// Bogus length
-
-    // Copy the data to a C string...
-    memcpy(key, txtptr, keylen);
-    key[keylen] = '\0';
-
-    if ((value = strchr(key, '=')) != NULL)
-    {
-      // Got value separator, add it...
-      *value++ = '\0';
-
-      num_txt = cupsAddOption(key, value, num_txt, txt);
-    }
-    else
-    {
-      // No value, stop...
-      break;
-    }
-  }
-
-  // Return the number of pairs we parsed...
-  return (num_txt);
-
-}
-
-
-//
-// 'cupsDNSSDSeparateFullName()' - Separate a full service name into an instance
-//                                 name, registration type, and domain.
-//
-// This function separates a full service name such as
-// "Example\032Name._ipp._tcp.local.") into its instance name ("Example Name"),
-// registration type ("_ipp._tcp"), and domain ("local.").
-//
-
-bool					// O - `true` on success, `false` on error
-cupsDNSSDSeparateFullName(
-    const char *fullname,		// I - Full service name
-    char       *name,			// I - Instance name buffer
-    size_t     namesize,		// I - Size of instance name buffer
-    char       *type,			// I - Registration type buffer
-    size_t     typesize,		// I - Size of registration type buffer
-    char       *domain,			// I - Domain name buffer
-    size_t     domainsize)		// I - Size of domain name buffer
-{
-  // Range check input..
-  if (!fullname || !name || !namesize || !type || !typesize || !domain || !domainsize)
-  {
-    if (name)
-      *name = '\0';
-    if (type)
-      *type = '\0';
-    if (domain)
-      *domain = '\0';
-
-    return (false);
-  }
-
-#if _WIN32 || defined(HAVE_MDNSRESPONDER)
-  bool	ret = true;			// Return value
-  char	*ptr,				// Pointer into name/type/domain
-	*end;				// Pointer to end of name/type/domain
-
-  // Get the service name...
-  for (ptr = name, end = name + namesize - 1; *fullname; fullname ++)
-  {
-    if (*fullname == '.')
-    {
-      // Service type separator...
-      break;
-    }
-    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
-    {
-      // Escaped character
-      if (ptr < end)
-        *ptr++ = (fullname[1] - '0') * 100 + (fullname[2] - '0') * 10 + fullname[3] - '0';
-      else
-        ret = false;
-
-      fullname += 3;
-    }
-    else if (ptr < end)
-      *ptr++ = *fullname;
-    else
-      ret = false;
-  }
-  *ptr = '\0';
-
-  if (*fullname)
-    fullname ++;
-
-  // Get the type...
-  for (ptr = type, end = type + typesize - 1; *fullname; fullname ++)
-  {
-    if (*fullname == '.' && fullname[1] != '_')
-    {
-      // Service type separator...
-      break;
-    }
-    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
-    {
-      // Escaped character
-      if (ptr < end)
-        *ptr++ = (fullname[1] - '0') * 100 + (fullname[2] - '0') * 10 + fullname[3] - '0';
-      else
-        ret = false;
-
-      fullname += 3;
-    }
-    else if (ptr < end)
-      *ptr++ = *fullname;
-    else
-      ret = false;
-  }
-  *ptr = '\0';
-
-  if (*fullname)
-    fullname ++;
-
-  // Get the domain...
-  for (ptr = domain, end = domain + domainsize - 1; *fullname; fullname ++)
-  {
-    if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
-    {
-      // Escaped character
-      if (ptr < end)
-        *ptr++ = (fullname[1] - '0') * 100 + (fullname[2] - '0') * 10 + fullname[3] - '0';
-      else
-        ret = false;
-
-      fullname += 3;
-    }
-    else if (ptr < end)
-      *ptr++ = *fullname;
-    else
-      ret = false;
-  }
-  *ptr = '\0';
-
-  return (ret);
-
-#else // HAVE_AVAHI
-  return (!avahi_service_name_split(fullname, name, namesize, type, typesize, domain, domainsize));
-#endif // _WIN32 || HAVE_MDNSRESPONDER
-}
-
-
-//
-// 'cupsDNSSDDelete()' - Delete a DNS-SD context and all its requests.
-//
-
-void
-cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
-{
-  if (!dnssd)
-    return;
-
-  DEBUG_puts("2cupsDNSSDDelete: Write locking rwlock.");
-  cupsRWLockWrite(&dnssd->rwlock);
-
-  cupsArrayDelete(dnssd->browses);
-  cupsArrayDelete(dnssd->queries);
-  cupsArrayDelete(dnssd->resolves);
-  cupsArrayDelete(dnssd->services);
-
-  DEBUG_puts("2cupsDNSSDDelete: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
-
-#ifdef HAVE_MDNSRESPONDER
-  cupsThreadCancel(dnssd->monitor);
-  cupsThreadWait(dnssd->monitor);
-  DNSServiceRefDeallocate(dnssd->ref);
-
-#elif _WIN32
-
-#else // HAVE_AVAHI
-  avahi_domain_browser_free(dnssd->dbrowser);
-
-  cupsThreadCancel(dnssd->monitor);
-  cupsThreadWait(dnssd->monitor);
-
-  avahi_simple_poll_free(dnssd->poll);
-#endif // HAVE_MDNSRESPONDER
-
-  cupsRWDestroy(&dnssd->rwlock);
-  free(dnssd);
-}
-
-
-//
-// 'cupsDNSSDGetConfigChanges()' - Get the number of host name/network
-//                                 configuration changes seen.
-//
-// This function returns the number of host name or network configuration
-// changes that have been seen since the context was created.  The value can be
-// used to track when local services need to be updated.  Registered services
-// will also get a callback with the `CUPS_DNSSD_FLAGS_HOST_CHANGE` bit set in
-// the "flags" argument for host name changes and/or
-// `CUPS_DNSSD_FLAGS_NETWORK_CHANGE` for network changes.
-//
-
-size_t					// O - Number of host name changes
-cupsDNSSDGetConfigChanges(
-    cups_dnssd_t *dnssd)		// I - DNS-SD context
-{
-  return (dnssd ? dnssd->config_changes : 0);
-}
-
-
-//
-// 'cupsDNSSDNew()' - Create a new DNS-SD context.
-//
-// This function creates a new DNS-SD context for browsing, querying, resolving,
-// and/or registering services.  Call @link cupsDNSSDDelete@ to stop any pending
-// browses, queries, or resolves, unregister any services, and free the DNS-SD
-// context.
-//
-
-cups_dnssd_t *				// O - DNS-SD context
-cupsDNSSDNew(
-    cups_dnssd_error_cb_t error_cb,	// I - Error callback function
-    void                  *cb_data)	// I - Error callback data
-{
-  cups_dnssd_t	*dnssd;			// DNS-SD context
-
-
-  DEBUG_printf("cupsDNSSDNew(error_cb=%p, cb_data=%p)", (void *)error_cb, cb_data);
-
-  // Allocate memory...
-  if ((dnssd = (cups_dnssd_t *)calloc(1, sizeof(cups_dnssd_t))) == NULL)
-  {
-    DEBUG_puts("2cupsDNSSDNew: Unable to allocate memory, returning NULL.");
-    return (NULL);
-  }
-
-  // Save the error callback...
-  dnssd->cb      = error_cb;
-  dnssd->cb_data = cb_data;
-
-  // Initialize the rwlock...
-  cupsRWInit(&dnssd->rwlock);
-
-  // Setup the DNS-SD connection and monitor thread...
-#ifdef HAVE_MDNSRESPONDER
-  DNSServiceErrorType error;		// Error code
-
-  if ((error = DNSServiceCreateConnection(&dnssd->ref)) != kDNSServiceErr_NoError)
-  {
-    // Unable to create connection...
-    report_error(dnssd, "Unable to initialize DNS-SD: %s", mdns_strerror(error));
-    cupsDNSSDDelete(dnssd);
-    DEBUG_puts("2cupsDNSSDNew: Unable to create DNS-SD thread - returning NULL.");
-    return (NULL);
-  }
-
-  // Monitor for hostname changes...
-  httpGetHostname(NULL, dnssd->hostname, sizeof(dnssd->hostname));
-  dnssd->hostname_ref = dnssd->ref;
-  if ((error = DNSServiceQueryRecord(&dnssd->hostname_ref, kDNSServiceFlagsShareConnection, kDNSServiceInterfaceIndexLocalOnly, "1.0.0.127.in-addr.arpa.", kDNSServiceType_PTR, kDNSServiceClass_IN, (DNSServiceQueryRecordReply)mdns_hostname_cb, dnssd)) != kDNSServiceErr_NoError)
-  {
-    report_error(dnssd, "Unable to query PTR record for local hostname: %s", mdns_strerror(error));
-    dnssd->hostname_ref = NULL;
-  }
-
-  // Start the background monitoring thread...
-  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))mdns_monitor, dnssd)) == 0)
-  {
-    report_error(dnssd, "Unable to create DNS-SD thread: %s", strerror(errno));
-    cupsDNSSDDelete(dnssd);
-    DEBUG_puts("2cupsDNSSDNew: Unable to create DNS-SD thread - returning NULL.");
-    return (NULL);
-  }
-
-  DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
-
-#elif _WIN32
-
-#else // HAVE_AVAHI
-  int error;				// Error code
-
-  // Initialize the mutex used to control access to the socket
-  cupsMutexInit(&dnssd->mutex);
-
-  // Create a polled interface for Avahi requests...
-  if ((dnssd->poll = avahi_simple_poll_new()) == NULL)
-  {
-    // Unable to create the background thread...
-    report_error(dnssd, "Unable to initialize DNS-SD: %s", strerror(errno));
-    cupsDNSSDDelete(dnssd);
-    DEBUG_puts("2cupsDNSSDNew: Unable to create simple poll - returning NULL.");
-    return (NULL);
-  }
-
-  avahi_simple_poll_set_func(dnssd->poll, (AvahiPollFunc)avahi_poll_cb, dnssd);
-
-  DEBUG_printf("2cupsDNSSDNew: dnssd->poll=%p", (void *)dnssd->poll);
-
-  if ((dnssd->client = avahi_client_new(avahi_simple_poll_get(dnssd->poll), AVAHI_CLIENT_NO_FAIL, (AvahiClientCallback)avahi_client_cb, dnssd, &error)) == NULL)
-  {
-    // Unable to create the client...
-    report_error(dnssd, "Unable to initialize DNS-SD: %s", avahi_strerror(error));
-    avahi_simple_poll_free(dnssd->poll);
-    cupsDNSSDDelete(dnssd);
-    DEBUG_puts("2cupsDNSSDNew: Unable to create Avahi client - returning NULL.");
-    return (NULL);
-  }
-
-  DEBUG_printf("2cupsDNSSDNew: dnssd->client=%p", (void *)dnssd->client);
-
-  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))avahi_monitor, dnssd)) == 0)
-  {
-    report_error(dnssd, "Unable to create DNS-SD thread: %s", strerror(errno));
-    cupsDNSSDDelete(dnssd);
-    DEBUG_puts("2cupsDNSSDNew: Unable to create DNS-SD thread - returning NULL.");
-    return (NULL);
-  }
-
-  DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
-
-  dnssd->dbrowser = avahi_domain_browser_new(dnssd->client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, /*domain*/NULL, AVAHI_DOMAIN_BROWSER_BROWSE, /*flags*/0, (AvahiDomainBrowserCallback)avahi_domain_cb, dnssd);
-#endif // HAVE_MDNSRESPONDER
-
-  DEBUG_printf("2cupsDNSSDNew: Returning %p.", (void *)dnssd);
-
-  return (dnssd);
-}
-
-
-//
 // 'cupsDNSSDBrowseDelete()' - Cancel and delete a browse request.
 //
 
@@ -856,6 +385,365 @@ cupsDNSSDBrowseNew(
 
 
 //
+// 'cupsDNSSDCopyComputerName()' - Copy the current human-readable name for the system.
+//
+// This function copies the current human-readable name ("My Computer") to the
+// provided buffer.  The "dnssd" parameter is a DNS-SD context created with
+// @link cupsDNSSDNew@.  The "buffer" parameter points to a character array of
+// at least 128 bytes and the "bufsize" parameter specifies the actual size of
+// the array.
+//
+
+char *					// O - Computer name or `NULL` on error
+cupsDNSSDCopyComputerName(
+    cups_dnssd_t *dnssd,		// I - DNS-SD context
+    char         *buffer,		// I - Computer name buffer
+    size_t       bufsize)		// I - Size of computer name buffer (at least 128 bytes)
+{
+  // Range check input...
+  if (buffer)
+    *buffer = '\0';
+
+  if (!dnssd || !buffer || bufsize < 128)
+    return (NULL);
+
+  // Copy the current computer name...
+#ifdef __APPLE__
+  SCDynamicStoreRef sc;			// Context for dynamic store
+  CFStringEncoding nameEncoding;	// Encoding of computer name
+  CFStringRef	nameRef;		// Computer name CFString
+
+  if ((sc = SCDynamicStoreCreate(kCFAllocatorDefault, CFSTR("libcups"), NULL, NULL)) != NULL)
+  {
+    // Get the computer name from the dynamic store...
+    if ((nameRef = SCDynamicStoreCopyComputerName(sc, &nameEncoding)) != NULL)
+    {
+      if (!CFStringGetCString(nameRef, buffer, (CFIndex)bufsize, kCFStringEncodingUTF8))
+        *buffer = '\0';
+
+      CFRelease(nameRef);
+    }
+
+    CFRelease(sc);
+  }
+
+#elif defined(HAVE_MDNSRESPONDER)
+  char	*bufptr;			// Pointer into name
+
+  DEBUG_puts("2cupsDNSSDCopyComputerName: Read locking rwlock.");
+  cupsRWLockRead(&dnssd->rwlock);
+
+  cupsCopyString(buffer, dnssd->hostname, bufsize);
+
+  DEBUG_puts("2cupsDNSSDCopyComputerName: Unlocking rwlock.");
+  cupsRWUnlock(&dnssd->rwlock);
+
+  if ((bufptr = strchr(buffer, '.')) != NULL)
+    *bufptr = '\0';
+
+#else // HAVE_AVAHI
+  cupsCopyString(buffer, avahi_client_get_host_name(dnssd->client), bufsize);
+#endif // __APPLE__
+
+  return (buffer);
+}
+
+
+//
+// 'cupsDNSSDCopyHostName()' - Copy the current mDNS hostname for the system.
+//
+// This function copies the current mDNS hostname ("hostname.local") to the
+// provided buffer.  The "dnssd" parameter is a DNS-SD context created with
+// @link cupsDNSSDNew@.  The "buffer" parameter points to a character array of
+// at least 70 bytes and the "bufsize" parameter specifies the actual size of
+// the array.
+//
+
+char *					// O - mDNS hostname or `NULL` on error
+cupsDNSSDCopyHostName(
+    cups_dnssd_t *dnssd,		// I - DNS-SD context
+    char         *buffer,		// I - Hostname buffer
+    size_t       bufsize)		// I - Size of hostname buffer (at least 70 bytes)
+{
+  // Range check input...
+  if (!dnssd || !buffer || bufsize < 70)
+  {
+    if (buffer)
+      *buffer = '\0';
+
+    return (NULL);
+  }
+
+  // Copy the current hostname...
+#ifdef HAVE_MDNSRESPONDER
+  DEBUG_puts("2cupsDNSSDCopyHostName: Read locking rwlock.");
+  cupsRWLockRead(&dnssd->rwlock);
+
+  cupsCopyString(buffer, dnssd->hostname, bufsize);
+
+  DEBUG_puts("2cupsDNSSDCopyHostName: Unlocking rwlock.");
+  cupsRWUnlock(&dnssd->rwlock);
+
+#else // HAVE_AVAHI
+  cupsCopyString(buffer, avahi_client_get_host_name_fqdn(dnssd->client), bufsize);
+#endif // HAVE_MDNSRESPONDER
+
+  return (buffer);
+}
+
+
+//
+// 'cupsDNSSDDecodeTXT()' - Decode a TXT record into key/value pairs.
+//
+// This function converts the DNS TXT record encoding of key/value pairs into
+// `cups_option_t` elements that can be accessed using the @link cupsGetOption@
+// function and freed using the @link cupsFreeOptions@ function.
+//
+
+int					// O - Number of key/value pairs
+cupsDNSSDDecodeTXT(
+    const unsigned char *txtrec,	// I - TXT record data
+    uint16_t            txtlen,		// I - TXT record length
+    cups_option_t       **txt)		// O - Key/value pairs
+{
+  int		num_txt = 0;		// Number of key/value pairs
+  unsigned char	keylen;			// Length of key/value
+  char		key[256],		// Key/value buffer
+		*value;			// Pointer to value
+  const unsigned char *txtptr,		// Pointer into TXT record data
+		*txtend;		// End of TXT record data
+
+
+  // Range check input...
+  if (txt)
+    *txt = NULL;
+  if (!txtrec || !txtlen || !txt)
+    return (0);
+
+  // Loop through the record...
+  for (txtptr = txtrec, txtend = txtrec + txtlen; txtptr < txtend; txtptr += keylen)
+  {
+    // Format is a length byte followed by "key=value"
+    keylen = *txtptr++;
+    if (keylen == 0 || (txtptr + keylen) > txtend)
+      break;				// Bogus length
+
+    // Copy the data to a C string...
+    memcpy(key, txtptr, keylen);
+    key[keylen] = '\0';
+
+    if ((value = strchr(key, '=')) != NULL)
+    {
+      // Got value separator, add it...
+      *value++ = '\0';
+
+      num_txt = cupsAddOption(key, value, num_txt, txt);
+    }
+    else
+    {
+      // No value, stop...
+      break;
+    }
+  }
+
+  // Return the number of pairs we parsed...
+  return (num_txt);
+
+}
+
+
+//
+// 'cupsDNSSDDelete()' - Delete a DNS-SD context and all its requests.
+//
+
+void
+cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
+{
+  if (!dnssd)
+    return;
+
+  DEBUG_puts("2cupsDNSSDDelete: Write locking rwlock.");
+  cupsRWLockWrite(&dnssd->rwlock);
+
+  cupsArrayDelete(dnssd->browses);
+  cupsArrayDelete(dnssd->queries);
+  cupsArrayDelete(dnssd->resolves);
+  cupsArrayDelete(dnssd->services);
+
+  DEBUG_puts("2cupsDNSSDDelete: Unlocking rwlock.");
+  cupsRWUnlock(&dnssd->rwlock);
+
+#ifdef HAVE_MDNSRESPONDER
+  cupsThreadCancel(dnssd->monitor);
+  cupsThreadWait(dnssd->monitor);
+  DNSServiceRefDeallocate(dnssd->ref);
+
+#elif _WIN32
+
+#else // HAVE_AVAHI
+  avahi_domain_browser_free(dnssd->dbrowser);
+
+  cupsThreadCancel(dnssd->monitor);
+  cupsThreadWait(dnssd->monitor);
+
+  avahi_simple_poll_free(dnssd->poll);
+#endif // HAVE_MDNSRESPONDER
+
+  cupsRWDestroy(&dnssd->rwlock);
+  free(dnssd);
+}
+
+
+//
+// 'cupsDNSSDGetConfigChanges()' - Get the number of host name/network
+//                                 configuration changes seen.
+//
+// This function returns the number of host name or network configuration
+// changes that have been seen since the context was created.  The value can be
+// used to track when local services need to be updated.  Registered services
+// will also get a callback with the `CUPS_DNSSD_FLAGS_HOST_CHANGE` bit set in
+// the "flags" argument for host name changes and/or
+// `CUPS_DNSSD_FLAGS_NETWORK_CHANGE` for network changes.
+//
+
+size_t					// O - Number of host name changes
+cupsDNSSDGetConfigChanges(
+    cups_dnssd_t *dnssd)		// I - DNS-SD context
+{
+  size_t	config_changes = 0;
+
+
+  if (dnssd)
+  {
+    cupsRWLockRead(&dnssd->rwlock);
+    config_changes = dnssd->config_changes;
+    cupsRWUnlock(&dnssd->rwlock);
+  }
+
+  return (config_changes);
+}
+
+
+//
+// 'cupsDNSSDNew()' - Create a new DNS-SD context.
+//
+// This function creates a new DNS-SD context for browsing, querying, resolving,
+// and/or registering services.  Call @link cupsDNSSDDelete@ to stop any pending
+// browses, queries, or resolves, unregister any services, and free the DNS-SD
+// context.
+//
+
+cups_dnssd_t *				// O - DNS-SD context
+cupsDNSSDNew(
+    cups_dnssd_error_cb_t error_cb,	// I - Error callback function
+    void                  *cb_data)	// I - Error callback data
+{
+  cups_dnssd_t	*dnssd;			// DNS-SD context
+
+
+  DEBUG_printf("cupsDNSSDNew(error_cb=%p, cb_data=%p)", (void *)error_cb, cb_data);
+
+  // Allocate memory...
+  if ((dnssd = (cups_dnssd_t *)calloc(1, sizeof(cups_dnssd_t))) == NULL)
+  {
+    DEBUG_puts("2cupsDNSSDNew: Unable to allocate memory, returning NULL.");
+    return (NULL);
+  }
+
+  // Save the error callback...
+  dnssd->cb      = error_cb;
+  dnssd->cb_data = cb_data;
+
+  // Initialize the rwlock...
+  cupsRWInit(&dnssd->rwlock);
+
+  // Setup the DNS-SD connection and monitor thread...
+#ifdef HAVE_MDNSRESPONDER
+  DNSServiceErrorType error;		// Error code
+
+  if ((error = DNSServiceCreateConnection(&dnssd->ref)) != kDNSServiceErr_NoError)
+  {
+    // Unable to create connection...
+    report_error(dnssd, "Unable to initialize DNS-SD: %s", mdns_strerror(error));
+    cupsDNSSDDelete(dnssd);
+    DEBUG_puts("2cupsDNSSDNew: Unable to create DNS-SD thread - returning NULL.");
+    return (NULL);
+  }
+
+  // Monitor for hostname changes...
+  httpGetHostname(NULL, dnssd->hostname, sizeof(dnssd->hostname));
+  dnssd->hostname_ref = dnssd->ref;
+  if ((error = DNSServiceQueryRecord(&dnssd->hostname_ref, kDNSServiceFlagsShareConnection, kDNSServiceInterfaceIndexLocalOnly, "1.0.0.127.in-addr.arpa.", kDNSServiceType_PTR, kDNSServiceClass_IN, (DNSServiceQueryRecordReply)mdns_hostname_cb, dnssd)) != kDNSServiceErr_NoError)
+  {
+    report_error(dnssd, "Unable to query PTR record for local hostname: %s", mdns_strerror(error));
+    dnssd->hostname_ref = NULL;
+  }
+
+  // Start the background monitoring thread...
+  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))mdns_monitor, dnssd)) == 0)
+  {
+    report_error(dnssd, "Unable to create DNS-SD thread: %s", strerror(errno));
+    cupsDNSSDDelete(dnssd);
+    DEBUG_puts("2cupsDNSSDNew: Unable to create DNS-SD thread - returning NULL.");
+    return (NULL);
+  }
+
+  DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
+
+#elif _WIN32
+
+#else // HAVE_AVAHI
+  int error;				// Error code
+
+  // Initialize the mutex used to control access to the socket
+  cupsMutexInit(&dnssd->mutex);
+
+  // Create a polled interface for Avahi requests...
+  if ((dnssd->poll = avahi_simple_poll_new()) == NULL)
+  {
+    // Unable to create the background thread...
+    report_error(dnssd, "Unable to initialize DNS-SD: %s", strerror(errno));
+    cupsDNSSDDelete(dnssd);
+    DEBUG_puts("2cupsDNSSDNew: Unable to create simple poll - returning NULL.");
+    return (NULL);
+  }
+
+  avahi_simple_poll_set_func(dnssd->poll, (AvahiPollFunc)avahi_poll_cb, dnssd);
+
+  DEBUG_printf("2cupsDNSSDNew: dnssd->poll=%p", (void *)dnssd->poll);
+
+  if ((dnssd->client = avahi_client_new(avahi_simple_poll_get(dnssd->poll), AVAHI_CLIENT_NO_FAIL, (AvahiClientCallback)avahi_client_cb, dnssd, &error)) == NULL)
+  {
+    // Unable to create the client...
+    report_error(dnssd, "Unable to initialize DNS-SD: %s", avahi_strerror(error));
+    avahi_simple_poll_free(dnssd->poll);
+    cupsDNSSDDelete(dnssd);
+    DEBUG_puts("2cupsDNSSDNew: Unable to create Avahi client - returning NULL.");
+    return (NULL);
+  }
+
+  DEBUG_printf("2cupsDNSSDNew: dnssd->client=%p", (void *)dnssd->client);
+
+  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))avahi_monitor, dnssd)) == 0)
+  {
+    report_error(dnssd, "Unable to create DNS-SD thread: %s", strerror(errno));
+    cupsDNSSDDelete(dnssd);
+    DEBUG_puts("2cupsDNSSDNew: Unable to create DNS-SD thread - returning NULL.");
+    return (NULL);
+  }
+
+  DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
+
+  dnssd->dbrowser = avahi_domain_browser_new(dnssd->client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, /*domain*/NULL, AVAHI_DOMAIN_BROWSER_BROWSE, /*flags*/0, (AvahiDomainBrowserCallback)avahi_domain_cb, dnssd);
+#endif // HAVE_MDNSRESPONDER
+
+  DEBUG_printf("2cupsDNSSDNew: Returning %p.", (void *)dnssd);
+
+  return (dnssd);
+}
+
+
+//
 // 'cupsDNSSDQueryDelete()' - Cancel and delete a query request.
 //
 
@@ -929,7 +817,7 @@ cupsDNSSDQueryNew(
   cups_dnssd_query_t	*query;		// Query request
 
 
-  DEBUG_printf("cupsDNSSDQueryNew(dnssd=%p, if_index=%u, fullname=\"%s\", rrtype=%u, query_cb=%p, cb_data=%p)", (void *)dnssd, if_index, fullname, rrtype, query_cb, cb_data);
+  DEBUG_printf("cupsDNSSDQueryNew(dnssd=%p, if_index=%u, fullname=\"%s\", rrtype=%u, query_cb=%p, cb_data=%p)", (void *)dnssd, if_index, fullname, rrtype, (void *)query_cb, cb_data);
 
   // Range check input...
   if (!dnssd || !fullname || !query_cb)
@@ -1066,7 +954,7 @@ cupsDNSSDResolveGetContext(
 //     const char           *fullname,
 //     const char           *host,
 //     uint16_t             port,
-//     int                  num_txt,
+//     size_t               num_txt,
 //     cups_option_t        *txt)
 // {
 //     // Process resolved service
@@ -1115,8 +1003,7 @@ cupsDNSSDResolveNew(
   {
     report_error(dnssd, "Unable to create DNS-SD query request: %s", mdns_strerror(error));
     free(resolve);
-    resolve = NULL;
-    goto done;
+    return (NULL);
   }
 
 #elif _WIN32
@@ -1142,8 +1029,7 @@ cupsDNSSDResolveNew(
   {
     report_error(dnssd, "Unable to create DNS-SD resolve request: %s", avahi_strerror(avahi_client_errno(dnssd->client)));
     free(resolve);
-    resolve = NULL;
-    goto done;
+    return (NULL);
   }
 #endif // HAVE_MDNSRESPONDER
 
@@ -1160,6 +1046,7 @@ cupsDNSSDResolveNew(
       DEBUG_printf("2cupsDNSSDResolveNew: Unable to allocate memory: %s", strerror(errno));
       free(resolve);
       resolve = NULL;
+
       goto done;
     }
   }
@@ -1167,12 +1054,133 @@ cupsDNSSDResolveNew(
   DEBUG_printf("2cupsDNSSDResolveNew: Adding resolver %p.", (void *)resolve);
   cupsArrayAdd(dnssd->resolves, resolve);
 
+  done:
+
   DEBUG_puts("2cupsDNSSDResolveNew: Unlocking rwlock.");
   cupsRWUnlock(&dnssd->rwlock);
 
-  done:
-
   return (resolve);
+}
+
+
+//
+// 'cupsDNSSDSeparateFullName()' - Separate a full service name into an instance
+//                                 name, registration type, and domain.
+//
+// This function separates a full service name such as
+// "Example\032Name._ipp._tcp.local.") into its instance name ("Example Name"),
+// registration type ("_ipp._tcp"), and domain ("local.").
+//
+
+bool					// O - `true` on success, `false` on error
+cupsDNSSDSeparateFullName(
+    const char *fullname,		// I - Full service name
+    char       *name,			// I - Instance name buffer
+    size_t     namesize,		// I - Size of instance name buffer
+    char       *type,			// I - Registration type buffer
+    size_t     typesize,		// I - Size of registration type buffer
+    char       *domain,			// I - Domain name buffer
+    size_t     domainsize)		// I - Size of domain name buffer
+{
+  // Range check input..
+  if (!fullname || !name || !namesize || !type || !typesize || !domain || !domainsize)
+  {
+    if (name)
+      *name = '\0';
+    if (type)
+      *type = '\0';
+    if (domain)
+      *domain = '\0';
+
+    return (false);
+  }
+
+#if _WIN32 || defined(HAVE_MDNSRESPONDER)
+  bool	ret = true;			// Return value
+  char	*ptr,				// Pointer into name/type/domain
+	*end;				// Pointer to end of name/type/domain
+
+  // Get the service name...
+  for (ptr = name, end = name + namesize - 1; *fullname; fullname ++)
+  {
+    if (*fullname == '.')
+    {
+      // Service type separator...
+      break;
+    }
+    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    {
+      // Escaped character
+      if (ptr < end)
+        *ptr++ = (fullname[1] - '0') * 100 + (fullname[2] - '0') * 10 + fullname[3] - '0';
+      else
+        ret = false;
+
+      fullname += 3;
+    }
+    else if (ptr < end)
+      *ptr++ = *fullname;
+    else
+      ret = false;
+  }
+  *ptr = '\0';
+
+  if (*fullname)
+    fullname ++;
+
+  // Get the type...
+  for (ptr = type, end = type + typesize - 1; *fullname; fullname ++)
+  {
+    if (*fullname == '.' && fullname[1] != '_')
+    {
+      // Service type separator...
+      break;
+    }
+    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    {
+      // Escaped character
+      if (ptr < end)
+        *ptr++ = (fullname[1] - '0') * 100 + (fullname[2] - '0') * 10 + fullname[3] - '0';
+      else
+        ret = false;
+
+      fullname += 3;
+    }
+    else if (ptr < end)
+      *ptr++ = *fullname;
+    else
+      ret = false;
+  }
+  *ptr = '\0';
+
+  if (*fullname)
+    fullname ++;
+
+  // Get the domain...
+  for (ptr = domain, end = domain + domainsize - 1; *fullname; fullname ++)
+  {
+    if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    {
+      // Escaped character
+      if (ptr < end)
+        *ptr++ = (fullname[1] - '0') * 100 + (fullname[2] - '0') * 10 + fullname[3] - '0';
+      else
+        ret = false;
+
+      fullname += 3;
+    }
+    else if (ptr < end)
+      *ptr++ = *fullname;
+    else
+      ret = false;
+  }
+  *ptr = '\0';
+
+  return (ret);
+
+#else // HAVE_AVAHI
+  return (!avahi_service_name_split(fullname, name, namesize, type, typesize, domain, domainsize));
+#endif // _WIN32 || HAVE_MDNSRESPONDER
 }
 
 
@@ -2389,7 +2397,7 @@ avahi_resolve_cb(
     cups_dnssd_resolve_t   *resolve)	// I - Resolve request
 {
   AvahiStringList *txtpair;		// Current pair
-  int		num_txt = 0;		// Number of TXT key/value pairs
+  size_t	num_txt = 0;		// Number of TXT key/value pairs
   cups_option_t	*txt = NULL;		// TXT key/value pairs
   char		fullname[1024];		// Full service name
 
