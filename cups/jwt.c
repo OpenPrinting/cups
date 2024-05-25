@@ -1091,7 +1091,7 @@ cupsJWTSetClaimValue(
   _cupsJSONDelete(jwt->claims, claim);
 
   // Add claim...
-  _cupsJSONAdd(jwt->claims, cupsJSONNewKey(jwt->claims, NULL, claim), value);
+  cupsJSONAdd(jwt->claims, cupsJSONNewKey(jwt->claims, NULL, claim), value);
 }
 
 
@@ -1175,7 +1175,7 @@ cupsJWTSetHeaderValue(
   _cupsJSONDelete(jwt->jose, header);
 
   // Add claim...
-  _cupsJSONAdd(jwt->jose, cupsJSONNewKey(jwt->jose, NULL, header), value);
+  cupsJSONAdd(jwt->jose, cupsJSONNewKey(jwt->jose, NULL, header), value);
 }
 
 

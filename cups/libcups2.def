@@ -18,7 +18,6 @@ _cupsGetUserDefault
 _cupsGlobalLock
 _cupsGlobalUnlock
 _cupsGlobals
-_cupsJSONAdd
 _cupsJSONDelete
 _cupsLangPrintError
 _cupsLangPrintf
@@ -303,6 +302,7 @@ cupsGetUserAgent
 cupsHMACData
 cupsHashData
 cupsHashString
+cupsJSONAdd
 cupsJSONDelete
 cupsJSONExportFile
 cupsJSONExportString

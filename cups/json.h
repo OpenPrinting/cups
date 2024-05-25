@@ -38,6 +38,8 @@ typedef struct _cups_json_s cups_json_t;// JSON node @since CUPS 2.5@
 // Functions...
 //
 
+extern void		cupsJSONAdd(cups_json_t *parent, cups_json_t *after, cups_json_t *node) _CUPS_PUBLIC;
+
 extern void		cupsJSONDelete(cups_json_t *json) _CUPS_PUBLIC;
 
 extern bool		cupsJSONExportFile(cups_json_t *json, const char *filename) _CUPS_PUBLIC;

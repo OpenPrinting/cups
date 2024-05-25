@@ -40,17 +40,29 @@ static void	free_json(cups_json_t *json);
 
 
 //
-// '_cupsJSONAdd()' - Add a node to a JSON node.
+// 'cupsJSONAdd()' - Add a node to a JSON node.
+//
+// This function adds an existing JSON node as a child of other JSON node.
+// The "parent" argument specifies the node to add to.  The "after" argument
+// specifies a child of the parent node or `NULL` to append to the end of the
+// children.
+//
+// Note: The node being added must not already be the child of another parent.
 //
 
 void
-_cupsJSONAdd(cups_json_t *parent,	// I - Parent JSON node
-             cups_json_t *after,	// I - Previous sibling node or `NULL` to append to the end
-             cups_json_t *node)		// I - JSON node to add
+cupsJSONAdd(cups_json_t *parent,	// I - Parent JSON node
+            cups_json_t *after,		// I - Previous sibling node or `NULL` to append to the end
+            cups_json_t *node)		// I - JSON node to add
 {
   cups_json_t	*current;		// Current node
 
 
+  // Range check input...
+  if (!parent || !node || node->parent)
+    return;
+
+  // Add the node to the parent...
   node->parent = parent;
 
   if (after)
@@ -1350,7 +1362,7 @@ cupsJSONNew(cups_json_t  *parent,	// I - Parent JSON node or `NULL` for a root n
     node->type = type;
 
     if (parent)
-      _cupsJSONAdd(parent, after, node);
+      cupsJSONAdd(parent, after, node);
   }
 
   return (node);

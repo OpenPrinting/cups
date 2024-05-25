@@ -19,7 +19,6 @@ extern "C" {
 // Functions...
 //
 
-extern void	_cupsJSONAdd(cups_json_t *parent, cups_json_t *after, cups_json_t *node) _CUPS_PRIVATE;
 extern void	_cupsJSONDelete(cups_json_t *json, const char *key) _CUPS_PRIVATE;
 
 
