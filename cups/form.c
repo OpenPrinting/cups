@@ -41,6 +41,8 @@ cupsFormDecode(const char    *data,	// I - URL-encoded form data
 		value[4096];		// Variable value
 
 
+  DEBUG_printf("cupsFormDecode(data=\"%s\", vars=%p)", data, (void *)vars);
+
   // Range check...
   if (vars)
     *vars = NULL;
@@ -65,17 +67,23 @@ cupsFormDecode(const char    *data,	// I - URL-encoded form data
   while (*data)
   {
     // Get the name and value...
+    DEBUG_printf("2cupsFormDecode: LOOP data=%p, *data='%c'", data, data ? *data : '?');
     data = decode_string(data, name, sizeof(name));
 
     if (!data || *data != '=')
+    {
+      DEBUG_printf("2cupsFormDecode: NAMEERROR data=%p, *data='%c'", data, data ? *data : '?');
       goto decode_error;
+    }
 
+    DEBUG_printf("2cupsFormDecode: name=\"%s\"", name);
     data ++;
 
     data = decode_string(data, value, sizeof(value));
 
     if (!data || (*data && *data != '&'))
     {
+      DEBUG_printf("2cupsFormDecode: VALUEERROR data=%p, *data='%c'", data, data ? *data : '?');
       goto decode_error;
     }
     else if (*data)
@@ -83,12 +91,19 @@ cupsFormDecode(const char    *data,	// I - URL-encoded form data
       data ++;
 
       if (!*data)
+      {
+	DEBUG_printf("2cupsFormDecode: POSTERROR data=%p, *data='%c'", data, data ? *data : '?');
         goto decode_error;
+      }
     }
+
+    DEBUG_printf("2cupsFormDecode: value=\"%s\"", value);
 
     // Add the variable...
     num_vars = cupsAddOption(name, value, num_vars, vars);
   }
+
+  DEBUG_printf("2cupsFormDecode: Returning %lu", (unsigned long)num_vars);
 
   return (num_vars);
 
@@ -99,6 +114,8 @@ cupsFormDecode(const char    *data,	// I - URL-encoded form data
 
   _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalid form data."), 1);
   *vars = NULL;
+
+  DEBUG_puts("2cupsFormDecode: Returning 0");
 
   return (0);
 }
@@ -216,7 +233,7 @@ decode_string(const char *data,         // I - Pointer into data string
 	*end;				// Pointer to end of buffer
 
 
-  for (ptr = buffer, end = buffer + bufsize - 1; isalnum(*data & 255) || *data == '%' || *data == '+'; data ++)
+  for (ptr = buffer, end = buffer + bufsize - 1; *data && *data != '&' && *data != '='; data ++)
   {
     if ((ch = *data) == '+')
     {
