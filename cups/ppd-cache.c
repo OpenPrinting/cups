@@ -3511,7 +3511,7 @@ _ppdCreateFromIPP2(
     for (i = 0, count = ippGetCount(attr); i < count; i ++)
     {
       keyword = ippGetString(attr, i, NULL);
-      cupsFilePrintf(fp, "%s%s", keyword, i ? "" : ",");
+      cupsFilePrintf(fp, "%s%s", keyword, i != count - 1 ? "," : "");
     }
     cupsFilePuts(fp, "\"\n");
   }
