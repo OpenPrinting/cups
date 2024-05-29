@@ -9,6 +9,7 @@ Changes in CUPS v2.4.9 (TBA)
   extension.
 - Really raised `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)...
+- Fixed `Host` header regression (Issue #967)
 
 
 Changes in CUPS v2.4.8 (2024-04-26)
