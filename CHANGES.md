@@ -89,6 +89,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
 - Fixed encoding of `IPP_TAG_EXTENSION` values in IPP messages (Issue #913)
 - Fixed sending response headers to client (Issue #927)
+- Fixed `Host` header regression (Issue #967)
 - Fixed CGI program initialization and validation of form checkbox and text
   fields.
 - Fixed finishing support in ippeveps.

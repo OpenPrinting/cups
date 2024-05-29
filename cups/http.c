@@ -4019,11 +4019,6 @@ http_send(http_t       *http,		// I - HTTP connection
 
       if (i == HTTP_FIELD_HOST)
       {
-        // Issue #185: Use "localhost" for the loopback addresses to work
-        // around an Avahi bug...
-        if (httpAddrLocalhost(http->hostaddr))
-          value = "localhost";
-
 	if (httpPrintf(http, "Host: %s:%d\r\n", value, httpAddrGetPort(http->hostaddr)) < 1)
 	{
 	  http->status = HTTP_STATUS_ERROR;
