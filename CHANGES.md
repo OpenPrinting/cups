@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS 2.4.9 - (TBA)
 Changes in CUPS v2.4.9 (TBA)
 ----------------------------
 
+- Fixed creating of `cupsUrfSupported` PPD keyword (Issue #952)
 - Fixed searching for destinations in web ui (Issue #954)
 - Fixed TLS negotiation using OpenSSL with servers that require the TLS SNI
   extension.
