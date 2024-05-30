@@ -2409,8 +2409,19 @@ avahi_resolve_cb(
 
   (void)resolver;
   (void)protocol;
-  (void)address;
   (void)flags;
+
+  // Map the addresses "127.0.0.1" (IPv4) and "::1" (IPv6) to "localhost" to work around a well-known Avahi registration bug for local-only services (Issue #970)
+  if (address->proto == AVAHI_PROTO_INET && address->data.ipv4.address == htonl(0x7f000001))
+  {
+    DEBUG_puts("4avahi_resolve_cb: Mapping 127.0.0.1 to localhost.");
+    host = "localhost";
+  }
+  else if (address->proto == AVAHI_PROTO_INET6 && address->data.ipv6.address[0] == 0 && address->data.ipv6.address[1] == 0 && address->data.ipv6.address[2] == 0 && address->data.ipv6.address[3] == 0 && address->data.ipv6.address[4] == 0 && address->data.ipv6.address[5] == 0 && address->data.ipv6.address[6] == 0 && address->data.ipv6.address[7] == 0 && address->data.ipv6.address[8] == 0 && address->data.ipv6.address[9] == 0 && address->data.ipv6.address[10] == 0 && address->data.ipv6.address[11] == 0 && address->data.ipv6.address[12] == 0 && address->data.ipv6.address[13] == 0 && address->data.ipv6.address[14] == 0 && address->data.ipv6.address[15] == 1)
+  {
+    DEBUG_puts("4avahi_resolve_cb: Mapping ::1 to localhost.");
+    host = "localhost";
+  }
 
   // Convert TXT key/value pairs into CUPS option array...
   for (txtpair = txtrec; txtpair; txtpair = avahi_string_list_get_next(txtpair))
