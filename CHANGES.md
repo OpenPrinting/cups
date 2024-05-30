@@ -11,6 +11,7 @@ Changes in CUPS v2.4.9 (TBA)
 - Really raised `cups_enum_dests()` timeout for listing available IPP printers
   (Issue #751)...
 - Fixed `Host` header regression (Issue #967)
+- Fixed DNS-SD lookups of local services with Avahi (Issue #970)
 
 
 Changes in CUPS v2.4.8 (2024-04-26)
