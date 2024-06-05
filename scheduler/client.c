@@ -541,6 +541,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 {
   char			line[32768],	/* Line from client... */
 			locale[64],	/* Locale */
+			name[128],	/* Class/Printer name */
 			*ptr;		/* Pointer into strings */
   http_status_t		status;		/* Transfer status */
   ipp_state_t		ipp_state;	/* State of IPP transfer */
@@ -1105,16 +1106,29 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      }
 	      else if (!strncmp(con->uri, "/classes", 8))
 	      {
-	        if (strlen(con->uri) > 9 && con->uri[9] != '?' && !cupsdFindClass(con->uri + 9))
-	        {
-		  if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
+		if (strlen(con->uri) > 9)
+		{
+		  if (con->uri[9] != '?')
 		  {
-		    cupsdCloseClient(con);
-		    return;
-		  }
+		    unsigned int i = 0;	// Array index
 
-		  break;
-	        }
+		    for (char *start = con->uri + 9; *start && *start != '?' && i < sizeof(name);)
+		      name[i++] = *start++;
+
+		    name[i] = '\0';
+
+		    if (!cupsdFindClass(name))
+		    {
+		      if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
+		      {
+			cupsdCloseClient(con);
+			return;
+		      }
+
+		      break;
+		    }
+		  }
+		}
 
 		cupsdSetStringf(&con->command, "%s/cgi-bin/classes.cgi", ServerBin);
 		if (con->uri[8] && con->uri[9])
@@ -1132,16 +1146,29 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      }
 	      else if (!strncmp(con->uri, "/printers", 9))
 	      {
-	        if (strlen(con->uri) > 10 && con->uri[10] != '?' && !cupsdFindPrinter(con->uri + 10))
-	        {
-		  if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
+		if (strlen(con->uri) > 10)
+		{
+		  if (con->uri[10] != '?')
 		  {
-		    cupsdCloseClient(con);
-		    return;
-		  }
+		    unsigned int i = 0;	// Array index
 
-		  break;
-	        }
+		    for (char *start = con->uri + 10; *start && *start != '?' && i < sizeof(name);)
+		      name[i++] = *start++;
+
+		    name[i] = '\0';
+
+		    if (!cupsdFindPrinter(name))
+		    {
+		      if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
+		      {
+			cupsdCloseClient(con);
+			return;
+		      }
+
+		      break;
+		    }
+		  }
+		}
 
 		cupsdSetStringf(&con->command, "%s/cgi-bin/printers.cgi", ServerBin);
                 if (con->uri[9] && con->uri[10])
