@@ -699,7 +699,7 @@ msgstr ""
 "  -I rep-inclus           Ajouter le répertoire au chemin des recherches."
 
 msgid "  -P filename.ppd         Set PPD file."
-msgstr "  -P fichier.ppd          Choisir un fichier PPD."
+msgstr "  -P fichier.ppd          Affecter un fichier PPD."
 
 msgid "  -U username             Specify username."
 msgstr "  -U nom                  Indiquer le nom d'utilisateur."
@@ -714,7 +714,7 @@ msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d répertoire-sortie    Indiquer le répertoire de sortie."
 
 msgid "  -d printer              Use the named printer."
-msgstr "  -d imprimante           Utiliser l'imprimante nommée."
+msgstr "  -d imprimante           Utiliser l'imprimante spécifiée."
 
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Utiliser tous les filtres du fichier PPD."
@@ -728,8 +728,7 @@ msgid ""
 "  -j job-id[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j job-id[,N]           Filtrer le fichier N de la tâche indiquée (par "
-"défaut, c'est le fichier 1)."
+"  -j job-id[,N]          Filtrer le fichier N de la tâche indiquée (fichier 1 par défaut)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
@@ -760,13 +759,13 @@ msgid "  -o name=value           Set option(s)."
 msgstr "  -o nom=valeur           Affecter des option(s)."
 
 msgid "  -p filename.ppd         Set PPD file."
-msgstr "  -p nomFichier.ppd       Affecter le fichier PPD."
+msgstr "  -p fichier.ppd          Affecter un fichier PPD."
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Tester les PPDs plutôt que les produire."
 
 msgid "  -t title                Set title."
-msgstr "  -t title                Affecter le titre."
+msgstr "  -t titre                Affecter le titre."
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Supprimer le fichier PPD, une fois terminé."
@@ -3135,7 +3134,7 @@ msgid "Cutter"
 msgstr "Cutter"
 
 msgid "DYMO"
-msgstr ""
+msgstr "DYMO"
 
 msgid "Dark"
 msgstr "Foncé"
@@ -4573,53 +4572,56 @@ msgid "The notify-user-data value is too large (%d > 63 octets)."
 msgstr ""
 
 msgid "The printer configuration is incorrect or the printer no longer exists."
-msgstr ""
+msgstr "La configuration de l'imprimante est incorrecte ou l'imprimante n'existe plus."
 
 msgid "The printer did not respond."
-msgstr ""
+msgstr "L'imprimante n'a pas répondu."
 
 msgid "The printer is in use."
-msgstr ""
+msgstr "L'imprimante est en cours d'utilisation."
 
 msgid "The printer is not connected."
-msgstr ""
+msgstr "L'imprimante n'est pas connectée."
 
 msgid "The printer is not responding."
-msgstr ""
+msgstr "L'imprimante ne répond pas."
 
 msgid "The printer is now connected."
-msgstr ""
+msgstr "L'imprimante est désormais connectée."
 
 msgid "The printer is now online."
-msgstr ""
+msgstr "L'imprimante est désormais en ligne."
 
 msgid "The printer is offline."
-msgstr ""
+msgstr "L'imprimante est hors ligne."
 
 msgid "The printer is unreachable at this time."
-msgstr ""
+msgstr "L'imprimante est injoignable pour le moment."
 
 msgid "The printer may not exist or is unavailable at this time."
-msgstr ""
+msgstr "L'imprimante n'existe peut-être pas ou n'est pas disponible pour le moment."
 
 msgid ""
 "The printer name may only contain up to 127 printable characters and may not "
 "contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the "
 "pound sign (#)."
 msgstr ""
+"Le nom de l'imprimante ne peut contenir que 127 caractères imprimables au maximum "
+"et ne peut pas contenir d'espaces, de barres obliques (/ \\), de guillemets (' \"), "
+"de point d'interrogation ( ?), ou de signe dièse (#)."
 
 msgid "The printer or class does not exist."
-msgstr ""
+msgstr "L'imprimante ou la classe n'existe pas."
 
 msgid "The printer or class is not shared."
-msgstr ""
+msgstr "L'imprimante ou la classe n'est pas partagée."
 
 #, c-format
 msgid "The printer-uri \"%s\" contains invalid characters."
 msgstr "Le paramètre printer-uri « %s » contient des caractères non valides."
 
 msgid "The printer-uri attribute is required."
-msgstr ""
+msgstr "Le paramètre printer-uri est obligatoire."
 
 msgid ""
 "The printer-uri must be of the form \"ipp://HOSTNAME/classes/CLASSNAME\"."
@@ -4646,7 +4648,7 @@ msgid "There are too many subscriptions."
 msgstr "Les abonnements sont trop nombreux."
 
 msgid "There was an unrecoverable USB error."
-msgstr ""
+msgstr "Une erreur USB irrécupérable s'est produite."
 
 msgid "Thermal Transfer Media"
 msgstr "Papier pour transfert thermique"
@@ -4687,7 +4689,7 @@ msgid "URI Too Long"
 msgstr "URI trop long"
 
 msgid "URI too large"
-msgstr ""
+msgstr "URI trop grande"
 
 msgid "US Fanfold"
 msgstr ""
@@ -4890,10 +4892,10 @@ msgstr ""
 
 #, c-format
 msgid "Unable to locate printer \"%s\"."
-msgstr ""
+msgstr "Impossible de trouver l'imprimante \"%s\"."
 
 msgid "Unable to locate printer."
-msgstr ""
+msgstr "Impossible de trouver l'imprimante."
 
 msgid "Unable to modify class"
 msgstr "Impossible de modifier la classe :"
@@ -4908,13 +4910,13 @@ msgid "Unable to move jobs"
 msgstr "Impossible de transférer les tâches."
 
 msgid "Unable to open PPD file"
-msgstr ""
+msgstr "Impossible d'ouvrir le fichier PPD"
 
 msgid "Unable to open cupsd.conf file:"
 msgstr "Impossible d’ouvrir le fichier cupsd.conf :"
 
 msgid "Unable to open device file"
-msgstr ""
+msgstr "Impossible d'ouvrir le fichier du périphérique"
 
 #, c-format
 msgid "Unable to open document #%d in job #%d."
@@ -5100,7 +5102,7 @@ msgid "Unsupported page-border value %s, using page-border=none."
 msgstr ""
 
 msgid "Unsupported raster data."
-msgstr ""
+msgstr "Données raster non prises en charge."
 
 msgid "Unsupported value type"
 msgstr "Type de valeur non pris en charge"
@@ -5226,32 +5228,32 @@ msgid "Version uses indefinite length"
 msgstr "La version s’avère être de longueur indéfinie"
 
 msgid "Waiting for job to complete."
-msgstr ""
+msgstr "Attente de l'achèvement de la tâche."
 
 msgid "Waiting for printer to become available."
-msgstr ""
+msgstr "Attente de l'achèvement de la tâche."
 
 msgid "Waiting for printer to finish."
-msgstr ""
+msgstr "Attente de la fin de l'impression."
 
 msgid "Warning: This program will be removed in a future version of CUPS."
 msgstr ""
 
 msgid "Web Interface is Disabled"
-msgstr ""
+msgstr "L'interface Web est désactivée"
 
 msgid "Yes"
 msgstr "Oui"
 
 msgid "You cannot access this page."
-msgstr ""
+msgstr "Vous n'avez pas accès à cette page."
 
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
 msgstr "Vous devez accéder à cette page par l’URL https://%s:%d%s."
 
 msgid "Your account does not have the necessary privileges."
-msgstr ""
+msgstr "Votre compte ne dispose pas des privilèges nécessaires."
 
 msgid "ZPL Label Printer"
 msgstr "Imprimante pour étiquettes ZPL"
@@ -15104,9 +15106,6 @@ msgstr ""
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
-
-#~ msgid "Dymo"
-#~ msgstr "Dymo"
 
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Exporter les imprimantes vers SAMBA"
