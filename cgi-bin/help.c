@@ -28,7 +28,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		*si;			/* Search index */
   help_node_t	*n;			/* Current help node */
   int		i;			/* Looping var */
-  const char	*query;			/* Search query */
+  const char	*query = NULL;		/* Search query */
   const char	*cache_dir;		/* CUPS_CACHEDIR environment variable */
   const char	*docroot;		/* CUPS_DOCROOT environment variable */
   const char	*helpfile,		/* Current help file */
@@ -172,8 +172,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (cgiGetVariable("CLEAR"))
     cgiSetVariable("QUERY", "");
+  else if ((query = cgiGetTextfield("QUERY")) != NULL)
+    query = strdup(query);
 
-  query = cgiGetTextfield("QUERY");
   si    = helpSearchIndex(hi, query, topic, helpfile);
 
   cgiClearVariables();
