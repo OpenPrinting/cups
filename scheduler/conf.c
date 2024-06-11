@@ -3084,6 +3084,26 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 
 
      /*
+      * If we are launched on-demand, do not use domain sockets from the config
+      * file.  Also check that the domain socket path is not too long...
+      */
+
+#ifdef HAVE_ONDEMAND
+      if (*value == '/' && OnDemand)
+      {
+        if (strcmp(value, CUPS_DEFAULT_DOMAINSOCKET))
+          cupsdLogMessage(CUPSD_LOG_INFO, "Ignoring %s address %s at line %d - only using domain socket from launchd/systemd.", line, value, linenum);
+        continue;
+      }
+#endif // HAVE_ONDEMAND
+
+      if (*value == '/' && strlen(value) > (sizeof(addr->addr.un.sun_path) - 1))
+      {
+        cupsdLogMessage(CUPSD_LOG_INFO, "Ignoring %s address %s at line %d - too long.", line, value, linenum);
+        continue;
+      }
+
+     /*
       * Get the address list...
       */
 
