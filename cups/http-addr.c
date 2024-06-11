@@ -226,18 +226,29 @@ httpAddrListen(http_addr_t *addr,	// I - Address to bind to
     mode_t	mask;			// Umask setting
 
     // Remove any existing domain socket file...
-    unlink(addr->un.sun_path);
+    if ((status = unlink(addr->un.sun_path)) < 0)
+    {
+      DEBUG_printf("1httpAddrListen: Unable to unlink \"%s\": %s", addr->un.sun_path, strerror(errno));
 
-    // Save the current umask and set it to 0 so that all users can access
-    // the domain socket...
-    mask = umask(0);
+      if (errno == ENOENT)
+	status = 0;
+    }
 
-    // Bind the domain socket...
-    status = bind(fd, (struct sockaddr *)addr, (socklen_t)httpAddrLength(addr));
+    if (!status)
+    {
+      // Save the current umask and set it to 0 so that all users can access
+      // the domain socket...
+      mask = umask(0);
 
-    // Restore the umask and fix permissions...
-    umask(mask);
-    chmod(addr->un.sun_path, 0140777);
+      // Bind the domain socket...
+      if ((status = bind(fd, (struct sockaddr *)addr, (socklen_t)httpAddrLength(addr))) < 0)
+      {
+	DEBUG_printf("1httpAddrListen: Unable to bind domain socket \"%s\": %s", addr->un.sun_path, strerror(errno));
+      }
+
+      // Restore the umask...
+      umask(mask);
+    }
   }
   else
 #endif // AF_LOCAL
