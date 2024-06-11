@@ -1,9 +1,10 @@
-CHANGES - OpenPrinting CUPS 2.4.9 - (TBA)
-=========================================
+CHANGES - OpenPrinting CUPS 2.4.9 - (2024-06-11)
+================================================
 
-Changes in CUPS v2.4.9 (TBA)
-----------------------------
+Changes in CUPS v2.4.9 (2024-06-11)
+-----------------------------------
 
+- Fixed domain socket handling (CVE-2024-35235)
 - Fixed creating of `cupsUrfSupported` PPD keyword (Issue #952)
 - Fixed searching for destinations in web ui (Issue #954)
 - Fixed TLS negotiation using OpenSSL with servers that require the TLS SNI
