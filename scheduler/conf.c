@@ -1048,7 +1048,7 @@ cupsdReadConfiguration(void)
   * as an error and exit!
   */
 
-  if (cupsArrayCount(Listeners) == 0)
+  if (cupsArrayCount(Listeners) == 0 && !OnDemand)
   {
    /*
     * No listeners!
