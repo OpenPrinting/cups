@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS on Windows.
  *
- * Copyright © 2021-2023 by OpenPrinting
+ * Copyright © 2021-2024 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -100,8 +100,8 @@ typedef unsigned long useconds_t;
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.4.9"
-#define CUPS_MINIMAL "CUPS/2.4.9"
+#define CUPS_SVERSION "CUPS v2.4.10"
+#define CUPS_MINIMAL "CUPS/2.4.10"
 
 
 /*
