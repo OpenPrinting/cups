@@ -2789,7 +2789,8 @@ ippReadIO(void        *src,		// I - Data source
               if (value_tag != tag)
               {
                 DEBUG_printf("1ippReadIO: Converting %s attribute from %s to %s.", attr->name, ippTagString(value_tag), ippTagString(tag));
-		ippSetValueTag(ipp, &attr, tag);
+		if (!ippSetValueTag(ipp, &attr, tag))
+		  goto rollback;
 	      }
             }
 	    else if (value_tag == IPP_TAG_INTEGER || value_tag == IPP_TAG_RANGE)
