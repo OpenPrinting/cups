@@ -1,6 +1,12 @@
 CHANGES - OpenPrinting CUPS 2.4.9 - (2024-06-11)
 ================================================
 
+Changes in CUPS v2.4.10 (TBD)
+-----------------------------
+
+- Fixed error handling when reading a mixed `1setOf` attribute.
+
+
 Changes in CUPS v2.4.9 (2024-06-11)
 -----------------------------------
 
