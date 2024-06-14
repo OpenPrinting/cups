@@ -1970,6 +1970,23 @@ service_checkin(void)
     service_add_listener(fd, 0);
   }
 #endif /* HAVE_LAUNCHD */
+
+  if (cupsArrayCount(Listeners) == 0)
+  {
+   /*
+    * No listeners!
+    */
+
+    cupsdLogMessage(CUPSD_LOG_EMERG,
+                    "No valid Listen or Port lines were found in the "
+		    "configuration file.");
+
+   /*
+    * Commit suicide...
+    */
+
+    cupsdEndProcess(getpid(), 0);
+  }
 }
 
 
