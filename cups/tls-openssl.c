@@ -852,41 +852,44 @@ cupsGetCredentialsTrust(
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("No stored credentials, not valid for name."), 1);
     trust = HTTP_TRUST_INVALID;
   }
-  else if (sk_X509_num(certs) > 1 && !http_check_roots(credentials))
+  else if (sk_X509_num(certs) > 1)
   {
-    // See if we have a site CA certificate we can compare...
-    if ((tcreds = cupsCopyCredentials(path, "_site_")) != NULL)
+    if (!http_check_roots(credentials))
     {
-      size_t	credslen,		// Length of credentials
-		tcredslen;		// Length of trust root
-
-
-      // Do a tail comparison of the root...
-      credslen  = strlen(credentials);
-      tcredslen = strlen(tcreds);
-      if (credslen <= tcredslen || strcmp(credentials + (credslen - tcredslen), tcreds))
+      // See if we have a site CA certificate we can compare...
+      if ((tcreds = cupsCopyCredentials(path, "_site_")) != NULL)
       {
-        // Certificate isn't directly generated from the CA cert...
-        trust = HTTP_TRUST_INVALID;
+	size_t	credslen,		// Length of credentials
+		  tcredslen;		// Length of trust root
+
+
+	// Do a tail comparison of the root...
+	credslen  = strlen(credentials);
+	tcredslen = strlen(tcreds);
+	if (credslen <= tcredslen || strcmp(credentials + (credslen - tcredslen), tcreds))
+	{
+	  // Certificate isn't directly generated from the CA cert...
+	  trust = HTTP_TRUST_INVALID;
+	}
+
+	if (trust != HTTP_TRUST_OK)
+	  _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials do not validate against site CA certificate."), 1);
+
+	free(tcreds);
       }
-
-      if (trust != HTTP_TRUST_OK)
-	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials do not validate against site CA certificate."), 1);
-
-      free(tcreds);
-    }
-    else if (require_ca)
-    {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
-      trust = HTTP_TRUST_INVALID;
-    }
-    else if (!cg->trust_first)
-    {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
-      trust = HTTP_TRUST_INVALID;
     }
   }
-  else if ((!cg->any_root || require_ca) && sk_X509_num(certs) == 1)
+  else if (require_ca)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials are not CA-signed."), 1);
+    trust = HTTP_TRUST_INVALID;
+  }
+  else if (!cg->trust_first)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
+    trust = HTTP_TRUST_INVALID;
+  }
+  else if (!cg->any_root || require_ca)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Self-signed credentials are blocked."), 1);
     trust = HTTP_TRUST_INVALID;
