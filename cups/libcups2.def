@@ -1,6 +1,10 @@
 LIBRARY libcups2
 VERSION 2.15
 EXPORTS
+_cupsArrayFree
+_cupsArrayStrcasecmp
+_cupsArrayStrcmp
+_cupsArrayStrdup
 _cupsBufferGet
 _cupsBufferRelease
 _cupsCharmapFlush
@@ -44,9 +48,6 @@ _cupsRasterReadHeader
 _cupsRasterReadPixels
 _cupsRasterWriteHeader
 _cupsRasterWritePixels
-_cupsArrayStrcmp
-_cupsArrayStrdup
-_cupsArrayFree
 _cupsSetDefaults
 _cupsSetError
 _cupsSetHTTPError
@@ -81,6 +82,7 @@ _httpTLSWrite
 _httpUpdate
 _httpUseCredentials
 _httpWait
+_ippCheckOptions
 _ippFindOption
 _ppdCacheCreateWithFile
 _ppdCacheCreateWithPPD
@@ -172,6 +174,7 @@ cupsCopyCredentialsRequest
 cupsCopyDest
 cupsCopyDestConflicts
 cupsCopyDestInfo
+cupsCopyDestInfo2
 cupsCopyString
 cupsCreateCredentials
 cupsCreateCredentialsRequest
@@ -183,6 +186,7 @@ cupsDNSSDAssembleFullName
 cupsDNSSDBrowseDelete
 cupsDNSSDBrowseGetContext
 cupsDNSSDBrowseNew
+cupsDNSSDCopyComputerName
 cupsDNSSDCopyHostName
 cupsDNSSDDecodeTXT
 cupsDNSSDDelete
@@ -475,6 +479,7 @@ httpClose
 httpCompareCredentials
 httpConnect
 httpConnect2
+httpConnectAgain
 httpConnectEncrypt
 httpCopyPeerCredentials
 httpDecode64
