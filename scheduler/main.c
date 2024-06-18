@@ -1977,7 +1977,7 @@ service_checkin(void)
     * No listeners!
     */
 
-    cupsdLogMessage(CUPSD_LOG_EMERG, "service_checkin: No listener sockets present.");
+    cupsdLogMessage(CUPSD_LOG_EMERG, "No listener sockets present.");
 
    /*
     * Commit suicide...
