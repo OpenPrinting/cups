@@ -1,7 +1,7 @@
 //
 // HTTP test program for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2021-2024 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -558,7 +558,7 @@ main(int  argc,				// I - Number of command-line arguments
 
   // Test HTTP GET requests...
   http = NULL;
-  out = stdout;
+  out  = stdout;
 
   for (i = 1; i < argc; i ++)
   {
@@ -600,7 +600,7 @@ main(int  argc,				// I - Number of command-line arguments
       if ((creds = httpCopyPeerCredentials(http)) != NULL)
       {
 	char *lcreds;
-        http_trust_t trust = cupsGetCredentialsTrust(NULL, hostname, creds);
+        http_trust_t trust = cupsGetCredentialsTrust(NULL, hostname, creds, /*require_ca*/true);
 
         cupsGetCredentialsInfo(creds, info, sizeof(info));
 
@@ -637,8 +637,9 @@ main(int  argc,				// I - Number of command-line arguments
         if (trust != HTTP_TRUST_OK)
 	{
 	  printf("SaveCredentials: %s\n", cupsSaveCredentials(NULL, hostname, creds, /*key*/NULL) ? "true" : "false");
-	  trust = cupsGetCredentialsTrust(NULL, hostname, creds);
+	  trust = cupsGetCredentialsTrust(NULL, hostname, creds, /*require_ca*/true);
 	  printf("New Trust: %s\n", trusts[trust]);
+ 	  printf("SaveCredentials (NULL): %s\n", cupsSaveCredentials(NULL, hostname, /*creds*/NULL, /*key*/NULL) ? "true" : "false");
 	}
 
         free(creds);
@@ -656,6 +657,7 @@ main(int  argc,				// I - Number of command-line arguments
 
     do
     {
+      puts("Sending HEAD request...");
       if (!_cups_strcasecmp(httpGetField(http, HTTP_FIELD_CONNECTION), "close"))
       {
 	httpClearFields(http);
@@ -673,7 +675,7 @@ main(int  argc,				// I - Number of command-line arguments
       httpSetField(http, HTTP_FIELD_AUTHORIZATION, httpGetAuthString(http));
       httpSetField(http, HTTP_FIELD_ACCEPT_LANGUAGE, "en");
 
-      if (httpWriteRequest(http, "HEAD", resource))
+      if (!httpWriteRequest(http, "HEAD", resource))
       {
         if (!httpReconnect2(http, 30000, NULL))
         {
@@ -749,6 +751,7 @@ main(int  argc,				// I - Number of command-line arguments
 
     do
     {
+      puts("Sending GET request...");
       if (!_cups_strcasecmp(httpGetField(http, HTTP_FIELD_CONNECTION), "close"))
       {
 	httpClearFields(http);
@@ -767,7 +770,7 @@ main(int  argc,				// I - Number of command-line arguments
       httpSetField(http, HTTP_FIELD_ACCEPT_LANGUAGE, "en");
       httpSetField(http, HTTP_FIELD_ACCEPT_ENCODING, encoding);
 
-      if (httpWriteRequest(http, "GET", resource))
+      if (!httpWriteRequest(http, "GET", resource))
       {
         if (!httpReconnect2(http, 30000, NULL))
         {

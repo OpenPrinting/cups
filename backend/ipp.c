@@ -812,7 +812,7 @@ main(int  argc,				/* I - Number of command-line args */
 
     if ((creds = httpCopyPeerCredentials(http)) != NULL)
     {
-      trust = cupsGetCredentialsTrust(NULL, hostname, creds);
+      trust = cupsGetCredentialsTrust(NULL, hostname, creds, /*require_ca*/false);
       cupsGetCredentialsInfo(creds, credinfo, sizeof(credinfo));
 
       fprintf(stderr, "DEBUG: %s (%s)\n", trust_msgs[trust], cupsGetErrorString());

@@ -188,7 +188,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
     struct stat	ppdinfo;		/* PPD file information */
 
 
-    snprintf(ppdname, sizeof(ppdname), "%s/ppd/%s.ppd", cg->cups_serverroot,
+    snprintf(ppdname, sizeof(ppdname), "%s/ppd/%s.ppd", cg->sysconfig,
              name);
     if (!stat(ppdname, &ppdinfo) && !access(ppdname, R_OK))
     {

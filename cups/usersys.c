@@ -1094,24 +1094,20 @@ _cupsSetDefaults(void)
   * present.
   */
 
-  snprintf(filename, sizeof(filename), "%s/client.conf", cg->cups_serverroot);
+  snprintf(filename, sizeof(filename), "%s/client.conf", cg->sysconfig);
   if ((fp = cupsFileOpen(filename, "r")) != NULL)
   {
     cups_read_client_conf(fp, &cc);
     cupsFileClose(fp);
   }
 
-  if (cg->home)
+  if (cg->userconfig)
   {
    /*
     * Look for ~/.cups/client.conf...
     */
 
-#if _WIN32
-    snprintf(filename, sizeof(filename), "%s/AppData/Local/cups/client.conf", cg->home);
-#else
-    snprintf(filename, sizeof(filename), "%s/.cups/client.conf", cg->home);
-#endif // _WIN32
+    snprintf(filename, sizeof(filename), "%s/client.conf", cg->userconfig);
 
     if ((fp = cupsFileOpen(filename, "r")) != NULL)
     {

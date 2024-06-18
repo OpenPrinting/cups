@@ -1368,7 +1368,7 @@ get_cupsd_conf(
   if (_cups_strcasecmp(cg->cupsd_hostname, host))
     invalidate_cupsd_cache(cg);
 
-  snprintf(name, namesize, "%s/cupsd.conf", cg->cups_serverroot);
+  snprintf(name, namesize, "%s/cupsd.conf", cg->sysconfig);
   *remote = 0;
 
 #ifndef _WIN32

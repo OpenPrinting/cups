@@ -1877,7 +1877,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 	    if (make_model && !strstr(make_model, "Raw Printer"))
 	      _cupsLangPrintf(stdout,
 	                      _("\tInterface: %s/ppd/%s.ppd"),
-			      cg->cups_serverroot, printer);
+			      cg->sysconfig, printer);
           }
 	  _cupsLangPuts(stdout, _("\tOn fault: no alert"));
 	  _cupsLangPuts(stdout, _("\tAfter fault: continue"));
@@ -1996,7 +1996,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 		if (make_model && !strstr(make_model, "Raw Printer"))
 		  _cupsLangPrintf(stdout,
 	                	  _("\tInterface: %s/ppd/%s.ppd"),
-				  cg->cups_serverroot, printer);
+				  cg->sysconfig, printer);
               }
 	      _cupsLangPuts(stdout, _("\tOn fault: no alert"));
 	      _cupsLangPuts(stdout, _("\tAfter fault: continue"));

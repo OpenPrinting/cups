@@ -702,7 +702,7 @@ test_client(const char *uri)		// I - URI
   puts("TLS Server Credentials:");
   if ((hcreds = httpCopyPeerCredentials(http)) != NULL)
   {
-    trust = cupsGetCredentialsTrust(TEST_CERT_PATH, hostname, hcreds);
+    trust = cupsGetCredentialsTrust(TEST_CERT_PATH, hostname, hcreds, /*require_ca*/false);
 
     cupsGetCredentialsInfo(hcreds, hinfo, sizeof(hinfo));
 

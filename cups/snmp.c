@@ -123,7 +123,7 @@ _cupsSNMPDefaultCommunity(void)
   {
     cupsCopyString(cg->snmp_community, "public", sizeof(cg->snmp_community));
 
-    snprintf(line, sizeof(line), "%s/snmp.conf", cg->cups_serverroot);
+    snprintf(line, sizeof(line), "%s/snmp.conf", cg->sysconfig);
     if ((fp = cupsFileOpen(line, "r")) != NULL)
     {
       linenum = 0;

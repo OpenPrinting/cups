@@ -736,12 +736,37 @@ cupsGetCredentialsInfo(
 //
 // 'cupsGetCredentialsTrust()' - Return the trust of credentials.
 //
+// This function determines the level of trust for the supplied credentials.
+// The "path" parameter specifies the certificate/key store for known
+// credentials and certificate authorities.  The "common_name" parameter
+// specifies the FQDN of the service being accessed such as
+// "printer.example.com".  The "credentials" parameter provides the credentials
+// being evaluated, which are usually obtained with the
+// @link httpCopyPeerCredentials@ function.  The "require_ca" parameter
+// specifies whether a CA-signed certificate is required for trust.
+//
+// The `AllowAnyRoot`, `AllowExpiredCerts`, `TrustOnFirstUse`, and
+// `ValidateCerts` options in the "client.conf" file (or corresponding
+// preferences file on macOS) control the trust policy, which defaults to
+// AllowAnyRoot=Yes, AllowExpiredCerts=No, TrustOnFirstUse=Yes, and
+// ValidateCerts=No.  When the "require_ca" parameter is `true` the AllowAnyRoot
+// and TrustOnFirstUse policies are turned off ("No").
+//
+// The returned trust value can be one of the following:
+//
+// - `HTTP_TRUST_OK`: Credentials are OK/trusted
+// - `HTTP_TRUST_INVALID`: Credentials are invalid
+// - `HTTP_TRUST_EXPIRED`: Credentials are expired
+// - `HTTP_TRUST_RENEWED`: Credentials have been renewed
+// - `HTTP_TRUST_UNKNOWN`: Credentials are unknown/new
+//
 
 http_trust_t				// O - Level of trust
 cupsGetCredentialsTrust(
     const char *path,			// I - Directory path for certificate/key store or `NULL` for default
     const char *common_name,		// I - Common name for trust lookup
-    const char *credentials)		// I - Credentials
+    const char *credentials,		// I - Credentials
+    bool       require_ca)		// I - Require a CA-signed certificate?
 {
   http_trust_t		trust = HTTP_TRUST_OK;
 					// Trusted?
@@ -790,7 +815,7 @@ cupsGetCredentialsTrust(
     {
       // Credentials don't match, let's look at the expiration date of the new
       // credentials and allow if the new ones have a later expiration...
-      if (!cg->trust_first)
+      if (!cg->trust_first || require_ca)
       {
         // Do not trust certificates on first use...
         _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
@@ -822,12 +847,12 @@ cupsGetCredentialsTrust(
 
     free(tcreds);
   }
-  else if (cg->validate_certs && !cupsAreCredentialsValidForName(common_name, credentials))
+  else if ((cg->validate_certs || require_ca) && !cupsAreCredentialsValidForName(common_name, credentials))
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("No stored credentials, not valid for name."), 1);
     trust = HTTP_TRUST_INVALID;
   }
-  else if (!cg->trust_first)
+  else if (sk_X509_num(certs) > 1 && !http_check_roots(credentials))
   {
     // See if we have a site CA certificate we can compare...
     if ((tcreds = cupsCopyCredentials(path, "_site_")) != NULL)
@@ -850,11 +875,21 @@ cupsGetCredentialsTrust(
 
       free(tcreds);
     }
-    else
+    else if (require_ca)
     {
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
       trust = HTTP_TRUST_INVALID;
     }
+    else if (!cg->trust_first)
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
+      trust = HTTP_TRUST_INVALID;
+    }
+  }
+  else if ((!cg->any_root || require_ca) && sk_X509_num(certs) == 1)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Self-signed credentials are blocked."), 1);
+    trust = HTTP_TRUST_INVALID;
   }
 
   if (trust == HTTP_TRUST_OK && !cg->expired_certs)
@@ -867,12 +902,6 @@ cupsGetCredentialsTrust(
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials have expired."), 1);
       trust = HTTP_TRUST_EXPIRED;
     }
-  }
-
-  if (trust == HTTP_TRUST_OK && !cg->any_root && sk_X509_num(certs) == 1)
-  {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Self-signed credentials are blocked."), 1);
-    trust = HTTP_TRUST_INVALID;
   }
 
   sk_X509_free(certs);
@@ -1320,14 +1349,14 @@ httpCopyPeerCredentials(http_t *http)	// I - Connection to server
   STACK_OF(X509) *chain;		// Certificate chain
 
 
-  DEBUG_printf("httpCopyCredentials(http=%p)", (void *)http);
+  DEBUG_printf("httpCopyPeerCredentials(http=%p)", (void *)http);
 
   if (http && http->tls)
   {
     // Get the chain of certificates for the remote end...
     chain = SSL_get_peer_cert_chain(http->tls);
 
-    DEBUG_printf("1httpCopyCredentials: chain=%p", (void *)chain);
+    DEBUG_printf("1httpCopyPeerCredentials: chain=%p", (void *)chain);
 
     if (chain)
     {
@@ -1341,6 +1370,21 @@ httpCopyPeerCredentials(http_t *http)	// I - Connection to server
 					  // Current certificate
 	BIO	*bio = BIO_new(BIO_s_mem());
 					  // Memory buffer for cert
+
+        DEBUG_printf("1httpCopyPeerCredentials: chain[%d/%d]=%p", i + 1, count, cert);
+
+#ifdef DEBUG
+	char subjectName[256], issuerName[256];
+	X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName));
+	X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuerName, sizeof(issuerName));
+	DEBUG_printf("1httpCopyPeerCredentials: subjectName=\"%s\", issuerName=\"%s\"", subjectName, issuerName);
+
+	STACK_OF(GENERAL_NAME) *names;	// subjectAltName values
+	names = X509_get_ext_d2i(cert, NID_subject_alt_name, /*crit*/NULL, /*idx*/NULL);
+	DEBUG_printf("1httpCopyPeerCredentials: subjectAltNames=%p(%d)", names, names ? sk_GENERAL_NAME_num(names) : 0);
+        if (names)
+          GENERAL_NAMES_free(names);
+#endif // DEBUG
 
 	if (bio)
 	{
@@ -1370,6 +1414,8 @@ httpCopyPeerCredentials(http_t *http)	// I - Connection to server
       }
     }
   }
+
+  DEBUG_printf("1httpCopyPeerCredentials: Returning \"%s\".", credentials);
 
   return (credentials);
 }
@@ -2331,6 +2377,8 @@ openssl_load_x509(
       X509_free(cert);
       break;
     }
+
+    cert = NULL;
   }
 
   BIO_free(bio);

@@ -69,10 +69,9 @@ typedef struct _cups_globals_s		// CUPS global state data
   // Multiple places...
   const char		*cups_datadir,	// CUPS_DATADIR environment var
 			*cups_serverbin,// CUPS_SERVERBIN environment var
-			*cups_serverroot,
-					// CUPS_SERVERROOT environment var
+			*sysconfig,	// System configuration directory (influenced by CUPS_SERVERROOT environment var)
 			*cups_statedir,	// CUPS_STATEDIR environment var
-			*home,		// HOME environment var
+			*userconfig,	// User configuration directory (influenced by various environment vars)
 			*localedir;	// LOCALDIR environment var
 
   // adminutil.c
@@ -190,7 +189,6 @@ typedef struct _cups_globals_s		// CUPS global state data
   char			pw_buf[PW_BUF_SIZE];
 					// Big buffer for struct passwd buffers
 #  endif // !_WIN32
-  const char		*userconfig;	// User-specific config files
 } _cups_globals_t;
 
 typedef struct _cups_media_db_s		// Media database

@@ -1,16 +1,15 @@
 //
 // TLS support code for CUPS using GNU TLS.
 //
-// Copyright © 2020-2023 by OpenPrinting
+// Note: This file is included from tls.c
+//
+// Copyright © 2020-2024 by OpenPrinting
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
 //
-
-//// This file is included from tls.c
-
 
 //
 // Local functions...
@@ -764,12 +763,37 @@ cupsGetCredentialsInfo(
 //
 // 'cupsGetCredentialsTrust()' - Return the trust of credentials.
 //
+// This function determines the level of trust for the supplied credentials.
+// The "path" parameter specifies the certificate/key store for known
+// credentials and certificate authorities.  The "common_name" parameter
+// specifies the FQDN of the service being accessed such as
+// "printer.example.com".  The "credentials" parameter provides the credentials
+// being evaluated, which are usually obtained with the
+// @link httpCopyPeerCredentials@ function.  The "require_ca" parameter
+// specifies whether a CA-signed certificate is required for trust.
+//
+// The `AllowAnyRoot`, `AllowExpiredCerts`, `TrustOnFirstUse`, and
+// `ValidateCerts` options in the "client.conf" file (or corresponding
+// preferences file on macOS) control the trust policy, which defaults to
+// AllowAnyRoot=Yes, AllowExpiredCerts=No, TrustOnFirstUse=Yes, and
+// ValidateCerts=No.  When the "require_ca" parameter is `true` the AllowAnyRoot
+// and TrustOnFirstUse policies are turned off ("No").
+//
+// The returned trust value can be one of the following:
+//
+// - `HTTP_TRUST_OK`: Credentials are OK/trusted
+// - `HTTP_TRUST_INVALID`: Credentials are invalid
+// - `HTTP_TRUST_EXPIRED`: Credentials are expired
+// - `HTTP_TRUST_RENEWED`: Credentials have been renewed
+// - `HTTP_TRUST_UNKNOWN`: Credentials are unknown/new
+//
 
 http_trust_t				// O - Level of trust
 cupsGetCredentialsTrust(
     const char *path,	        	// I - Directory path for certificate/key store or `NULL` for default
     const char *common_name,		// I - Common name for trust lookup
-    const char *credentials)		// I - Credentials
+    const char *credentials,		// I - Credentials
+    bool       require_ca)		// I - Require a CA-signed certificate?
 {
   http_trust_t		trust = HTTP_TRUST_OK;
 					// Trusted?
@@ -817,7 +841,7 @@ cupsGetCredentialsTrust(
     {
       // Credentials don't match, let's look at the expiration date of the new
       // credentials and allow if the new ones have a later expiration...
-      if (!cg->trust_first)
+      if (!cg->trust_first || require_ca)
       {
         // Do not trust certificates on first use...
         _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
@@ -849,12 +873,12 @@ cupsGetCredentialsTrust(
 
     free(tcreds);
   }
-  else if (cg->validate_certs && !cupsAreCredentialsValidForName(common_name, credentials))
+  else if ((cg->validate_certs || require_ca) && !cupsAreCredentialsValidForName(common_name, credentials))
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("No stored credentials, not valid for name."), 1);
     trust = HTTP_TRUST_INVALID;
   }
-  else if (!cg->trust_first)
+  else if (num_certs > 1 && !http_check_roots(credentials))
   {
     // See if we have a site CA certificate we can compare...
     if ((tcreds = cupsCopyCredentials(path, "_site_")) != NULL)
@@ -877,11 +901,21 @@ cupsGetCredentialsTrust(
 
       free(tcreds);
     }
-    else
+    else if (require_ca)
     {
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
       trust = HTTP_TRUST_INVALID;
     }
+    else if (!cg->trust_first)
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
+      trust = HTTP_TRUST_INVALID;
+    }
+  }
+  else if ((!cg->any_root || require_ca) && num_certs == 1)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Self-signed credentials are blocked."), 1);
+    trust = HTTP_TRUST_INVALID;
   }
 
   if (trust == HTTP_TRUST_OK && !cg->expired_certs)
@@ -894,12 +928,6 @@ cupsGetCredentialsTrust(
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials have expired."), 1);
       trust = HTTP_TRUST_EXPIRED;
     }
-  }
-
-  if (trust == HTTP_TRUST_OK && !cg->any_root && num_certs == 1)
-  {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Self-signed credentials are blocked."), 1);
-    trust = HTTP_TRUST_INVALID;
   }
 
   gnutls_free_certs(num_certs, certs);

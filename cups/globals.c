@@ -174,14 +174,6 @@ cups_globals_alloc(void)
 {
   _cups_globals_t *cg = calloc(1, sizeof(_cups_globals_t));
 					/* Pointer to global data */
-#ifdef _WIN32
-  HKEY		key;			/* Registry key */
-  DWORD		size;			/* Size of string */
-  static char	homedir[1024] = "",	/* Home directory */
-		installdir[1024] = "",	/* Install directory */
-		confdir[1024] = "",	/* Server root directory */
-		localedir[1024] = "";	/* Locale directory */
-#endif /* _WIN32 */
 
 
   if (!cg)
@@ -212,6 +204,13 @@ cups_globals_alloc(void)
   */
 
 #ifdef _WIN32
+  HKEY		key;			/* Registry key */
+  DWORD		size;			/* Size of string */
+  static char	installdir[1024] = "",	/* Install directory */
+		localedir[1024] = "",	/* Locale directory */
+		sysconfig[1024] = "",	/* Server configuration directory */
+		userconfig[1024] = "";	/* User configuration directory */
+
   if (!installdir[0])
   {
    /*
@@ -248,7 +247,7 @@ cups_globals_alloc(void)
       }
     }
 
-    snprintf(confdir, sizeof(confdir), "%s/conf", installdir);
+    snprintf(sysconfig, sizeof(sysconfig), "%s/conf", installdir);
     snprintf(localedir, sizeof(localedir), "%s/locale", installdir);
   }
 
@@ -258,8 +257,8 @@ cups_globals_alloc(void)
   if ((cg->cups_serverbin = getenv("CUPS_SERVERBIN")) == NULL)
     cg->cups_serverbin = installdir;
 
-  if ((cg->cups_serverroot = getenv("CUPS_SERVERROOT")) == NULL)
-    cg->cups_serverroot = confdir;
+  if ((cg->sysconfig = getenv("CUPS_SERVERROOT")) == NULL)
+    cg->sysconfig = confdir;
 
   if ((cg->cups_statedir = getenv("CUPS_STATEDIR")) == NULL)
     cg->cups_statedir = confdir;
@@ -267,31 +266,36 @@ cups_globals_alloc(void)
   if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
     cg->localedir = localedir;
 
-  if (!homedir[0])
+  if (!userconfig[0])
   {
     const char	*userprofile = getenv("USERPROFILE");
 				// User profile (home) directory
-    char	*homeptr;	// Pointer into homedir
+    char	*userptr;	// Pointer into userconfig
 
     DEBUG_printf("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile);
 
-    if (!strncmp(userprofile, "C:\\", 3))
-      userprofile += 2;
-
-    cupsCopyString(homedir, userprofile, sizeof(homedir));
-    for (homeptr = homedir; *homeptr; homeptr ++)
+    snprintf(userconfig, sizeof(userconfig), "%s/AppData/Local/cups", userprofile);
+    for (userptr = userconfig; *userptr; userptr ++)
     {
       // Convert back slashes to forward slashes
-      if (*homeptr == '\\')
-        *homeptr = '/';
+      if (*userptr == '\\')
+        *userptr = '/';
     }
 
-    DEBUG_printf("cups_globals_alloc: homedir=\"%s\"", homedir);
+    DEBUG_printf("cups_globals_alloc: userconfig=\"%s\"", userconfig);
   }
 
-  cg->home = homedir;
+  cg->userconfig = userconfig;
 
 #else
+  const char	*home = getenv("HOME");	// HOME environment variable
+  char		homedir[1024],		// Home directory from account
+		temp[1024];		// Temporary directory string
+#  ifndef __APPLE__
+  const char	*snap_common = getenv("SNAP_COMMON"),
+		*xdg_config_home = getenv("XDG_CONFIG_HOME");
+					// Environment variables
+#  endif // !__APPLE__
 #  ifdef HAVE_GETEUID
   if ((geteuid() != getuid() && getuid()) || getegid() != getgid())
 #  else
@@ -305,7 +309,7 @@ cups_globals_alloc(void)
 
     cg->cups_datadir    = CUPS_DATADIR;
     cg->cups_serverbin  = CUPS_SERVERBIN;
-    cg->cups_serverroot = CUPS_SERVERROOT;
+    cg->sysconfig       = CUPS_SERVERROOT;
     cg->cups_statedir   = CUPS_STATEDIR;
     cg->localedir       = CUPS_LOCALEDIR;
   }
@@ -321,32 +325,73 @@ cups_globals_alloc(void)
     if ((cg->cups_serverbin = getenv("CUPS_SERVERBIN")) == NULL)
       cg->cups_serverbin = CUPS_SERVERBIN;
 
-    if ((cg->cups_serverroot = getenv("CUPS_SERVERROOT")) == NULL)
-      cg->cups_serverroot = CUPS_SERVERROOT;
+    if ((cg->sysconfig = getenv("CUPS_SERVERROOT")) == NULL)
+      cg->sysconfig = CUPS_SERVERROOT;
 
     if ((cg->cups_statedir = getenv("CUPS_STATEDIR")) == NULL)
       cg->cups_statedir = CUPS_STATEDIR;
 
     if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
       cg->localedir = CUPS_LOCALEDIR;
-
-    cg->home = getenv("HOME");
-
-#  ifdef __APPLE__ /* Sandboxing now exposes the container as the home directory */
-    if (cg->home && strstr(cg->home, "/Library/Containers/"))
-      cg->home = NULL;
-#  endif /* !__APPLE__ */
   }
 
-  if (!cg->home)
+#  ifdef __APPLE__
+  if (!home)
+#else
+  if (!home && !xdg_config_home)
+#  endif // __APPLE__
+  if (!home)
   {
     struct passwd	pw;		/* User info */
     struct passwd	*result;	/* Auxiliary pointer */
 
     getpwuid_r(getuid(), &pw, cg->pw_buf, PW_BUF_SIZE, &result);
     if (result)
-      cg->home = _cupsStrAlloc(pw.pw_dir);
+    {
+      cupsCopyString(homedir, pw.pw_dir, sizeof(homedir));
+      home = homedir;
+    }
   }
+
+#  ifdef __APPLE__
+  if (home)
+  {
+    // macOS uses ~/Library/Application Support/FOO
+    snprintf(temp, sizeof(temp), "%s/Library/Application Support/cups", home);
+  }
+  else
+  {
+    // Something went wrong, use temporary directory...
+    snprintf(temp, sizeof(temp), "/private/tmp/cups%u", (unsigned)getuid());
+  }
+
+#  else
+  if (snap_common)
+  {
+    // Snaps use $SNAP_COMMON/FOO
+    snprintf(temp, sizeof(temp), "%s/cups", snap_common);
+  }
+  else if (xdg_config_home)
+  {
+    // XDG uses $XDG_CONFIG_HOME/FOO
+    snprintf(temp, sizeof(temp), "%s/cups", xdg_config_home);
+  }
+  else if (home)
+  {
+    // Use ~/.cups if it exists, otherwise ~/.config/cups (XDG standard)
+    snprintf(temp, sizeof(temp), "%s/.cups", home);
+    if (access(temp, 0))
+      snprintf(temp, sizeof(temp), "%s/.config/cups", home);
+  }
+  else
+  {
+    // Something went wrong, use temporary directory...
+    snprintf(temp, sizeof(temp), "/tmp/cups%u", (unsigned)getuid());
+  }
+#  endif // __APPLE__
+
+  // Can't use _cupsStrAlloc since it causes a loop with debug logging enabled
+  cg->userconfig = strdup(temp);
 #endif /* _WIN32 */
 
   return (cg);
@@ -388,8 +433,8 @@ cups_globals_free(_cups_globals_t *cg)	/* I - Pointer to global data */
 
   cupsFreeOptions(cg->cupsd_num_settings, cg->cupsd_settings);
 
-  if (cg->raster_error.start)
-    free(cg->raster_error.start);
+  free(cg->userconfig);
+  free(cg->raster_error.start);
 
   free(cg);
 }
