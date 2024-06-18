@@ -307,7 +307,7 @@ http_check_roots(const char *creds)	// I - Credentials
   if (!tls_root_certs)
   {
     // Load root certificates...
-    tls_root_certs = cupsArrayNew(/*cb*/NULL, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, /*free_cb*/NULL);
+    tls_root_certs = cupsArrayNew3(/*cb*/NULL, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, /*free_cb*/NULL);
 
 #  ifdef _WIN32
     int			i;		// Looping var
