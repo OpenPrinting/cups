@@ -94,17 +94,6 @@ extern "C" {
 // Types and structures...
 //
 
-typedef enum http_auth_e		// HTTP authentication types @exclude all@
-{
-  HTTP_AUTH_NONE,			// No authentication in use
-  HTTP_AUTH_BASIC,			// Basic authentication in use
-  HTTP_AUTH_MD5,			// Digest authentication in use
-  HTTP_AUTH_MD5_SESS,			// MD5-session authentication in use
-  HTTP_AUTH_MD5_INT,			// Digest authentication in use for body
-  HTTP_AUTH_MD5_SESS_INT,		// MD5-session authentication in use for body
-  HTTP_AUTH_NEGOTIATE			// GSSAPI authentication in use @since CUPS 1.3/macOS 10.5@
-} http_auth_t;
-
 typedef enum http_encoding_e		// HTTP transfer encoding values
 {
   HTTP_ENCODING_LENGTH,			// Data is sent with Content-Length
@@ -150,9 +139,9 @@ typedef enum http_field_e		// HTTP field names
   HTTP_FIELD_UPGRADE,			// Upgrade field
   HTTP_FIELD_USER_AGENT,		// User-Agent field
   HTTP_FIELD_WWW_AUTHENTICATE,		// WWW-Authenticate field
-  HTTP_FIELD_ACCEPT_ENCODING,		// Accepting-Encoding field @since CUPS 1.7/macOS 10.9@
-  HTTP_FIELD_ALLOW,			// Allow field @since CUPS 1.7/macOS 10.9@
-  HTTP_FIELD_SERVER,			// Server field @since CUPS 1.7/macOS 10.9@
+  HTTP_FIELD_ACCEPT_ENCODING,		// Accepting-Encoding field @since CUPS 1.7@
+  HTTP_FIELD_ALLOW,			// Allow field @since CUPS 1.7@
+  HTTP_FIELD_SERVER,			// Server field @since CUPS 1.7@
   HTTP_FIELD_AUTHENTICATION_INFO,	// Authentication-Info field @since CUPS 2.2.9@
   HTTP_FIELD_ACCESS_CONTROL_ALLOW_CREDENTIALS,
 					// CORS/Fetch Access-Control-Allow-Credentials field @since CUPS 2.4@
@@ -207,14 +196,14 @@ typedef enum http_state_e		// HTTP state values; states are server-oriented...
   HTTP_STATE_TRACE,			// TRACE command, waiting for blank line
   HTTP_STATE_CONNECT,			// CONNECT command, waiting for blank line
   HTTP_STATE_STATUS,			// Command complete, sending status
-  HTTP_STATE_UNKNOWN_METHOD,		// Unknown request method, waiting for blank line @since CUPS 1.7/macOS 10.9@
-  HTTP_STATE_UNKNOWN_VERSION		// Unknown request method, waiting for blank line @since CUPS 1.7/macOS 10.9@
+  HTTP_STATE_UNKNOWN_METHOD,		// Unknown request method, waiting for blank line @since CUPS 1.7@
+  HTTP_STATE_UNKNOWN_VERSION		// Unknown request method, waiting for blank line @since CUPS 1.7@
 } http_state_t;
 
 typedef enum http_status_e		// HTTP status codes
 {
   HTTP_STATUS_ERROR = -1,		// An error response from httpXxxx()
-  HTTP_STATUS_NONE = 0,			// No Expect value @since CUPS 1.7/macOS 10.9@
+  HTTP_STATUS_NONE = 0,			// No Expect value @since CUPS 1.7@
 
   HTTP_STATUS_CONTINUE = 100,		// Everything OK, keep going...
   HTTP_STATUS_SWITCHING_PROTOCOLS,	// HTTP upgrade to TLS/SSL
@@ -284,7 +273,7 @@ typedef enum http_status_e		// HTTP status codes
 
   HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED = 1000,
 					// User canceled authorization @since CUPS 1.4@
-  HTTP_STATUS_CUPS_PKI_ERROR,		// Error negotiating a secure connection @since CUPS 1.5/macOS 10.7@
+  HTTP_STATUS_CUPS_PKI_ERROR,		// Error negotiating a secure connection @since CUPS 1.5@
   HTTP_STATUS_CUPS_WEBIF_DISABLED	// Web interface is disabled @private@
 
 // Renamed status codes from latest RFCs...
@@ -339,7 +328,7 @@ typedef enum http_version_e		// HTTP version numbers @exclude all@
   HTTP_VERSION_1_1 = 101		// HTTP/1.1
 } http_version_t;
 
-typedef union _http_addr_u		// Socket address union, which makes using IPv6 and other address types easier and more portable. @since CUPS 1.2/macOS 10.5@
+typedef union _http_addr_u		// Socket address union, which makes using IPv6 and other address types easier and more portable. @since CUPS 1.2@
 {
   struct sockaddr	addr;		// Base structure for family value
   struct sockaddr_in	ipv4;		// IPv4 address
@@ -352,7 +341,7 @@ typedef union _http_addr_u		// Socket address union, which makes using IPv6 and 
   char			pad[256];	// Padding to ensure binary compatibility @private@
 } http_addr_t;
 
-typedef struct http_addrlist_s		// Socket address list, which is used to enumerate all of the addresses that are associated with a hostname. @since CUPS 1.2/macOS 10.5@ @exclude all@
+typedef struct http_addrlist_s		// Socket address list, which is used to enumerate all of the addresses that are associated with a hostname. @since CUPS 1.2@ @exclude all@
 {
   struct http_addrlist_s *next;		// Pointer to next address in list
   http_addr_t		addr;		// Address
@@ -370,7 +359,7 @@ typedef bool (*http_resolve_cb_t)(void *data);
 					// @link httpResolveURI@ callback @since CUPS 2.5@
 
 typedef int (*http_timeout_cb_t)(http_t *http, void *user_data);
-					// HTTP timeout callback @since CUPS 1.5/macOS 10.7@
+					// HTTP timeout callback @since CUPS 1.5@
 
 
 //
