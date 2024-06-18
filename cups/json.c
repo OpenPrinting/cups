@@ -1208,7 +1208,7 @@ cupsJSONImportURL(
     if (!_cups_strcasecmp(httpGetField(http, HTTP_FIELD_CONNECTION), "close"))
     {
       httpClearFields(http);
-      if (!httpReconnect2(http, 30000, NULL))
+      if (httpReconnect2(http, 30000, NULL))
       {
 	status = HTTP_STATUS_ERROR;
 	break;
@@ -1232,7 +1232,7 @@ cupsJSONImportURL(
     // Send the GET request...
     if (!httpWriteRequest(http, "GET", resource))
     {
-      if (httpReconnect2(http, 30000, NULL))
+      if (!httpReconnect2(http, 30000, NULL))
       {
         status = HTTP_STATUS_UNAUTHORIZED;
         continue;
@@ -1263,7 +1263,7 @@ cupsJSONImportURL(
         break;
       }
 
-      if (!httpReconnect2(http, 30000, NULL))
+      if (httpReconnect2(http, 30000, NULL))
       {
         status = HTTP_STATUS_ERROR;
         break;
@@ -1277,7 +1277,7 @@ cupsJSONImportURL(
       httpFlush(http);
 
       // Reconnect...
-      if (!httpReconnect2(http, 30000, NULL))
+      if (httpReconnect2(http, 30000, NULL))
       {
         status = HTTP_STATUS_ERROR;
         break;
