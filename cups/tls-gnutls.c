@@ -1338,13 +1338,19 @@ httpCopyPeerCredentials(http_t *http)	// I - HTTP connection
       while (count > 0)
       {
 	// Expand credentials string...
-	if ((credentials = realloc(credentials, alloc_creds + (size_t)certs->size + 1)) != NULL)
+	char *pem = http_der_to_pem(certs->data, certs->size);
+					// PEM-encoded certificate
+	size_t	pemsize;		// Length of PEM-encoded certificate
+
+	if (pem && (credentials = realloc(credentials, alloc_creds + (pemsize = strlen(pem)) + 1)) != NULL)
 	{
 	  // Copy PEM-encoded data...
-	  memcpy(credentials + alloc_creds, certs->data, certs->size);
-	  credentials[alloc_creds + (size_t)certs->size] = '\0';
-	  alloc_creds += (size_t)certs->size;
+	  memcpy(credentials + alloc_creds, pem, pemsize);
+	  credentials[alloc_creds + pemsize] = '\0';
+	  alloc_creds += pemsize;
 	}
+
+        free(pem);
 
         certs ++;
         count --;
@@ -1375,9 +1381,6 @@ _httpCreateCredentials(
 
   DEBUG_printf("_httpCreateCredentials(credentials=\"%s\", key=\"%s\")", credentials, key);
 
-  if (!credentials || !*credentials || !key || !*key)
-    return (NULL);
-
   if ((hcreds = calloc(1, sizeof(_http_tls_credentials_t))) == NULL)
     return (NULL);
 
@@ -1390,18 +1393,21 @@ _httpCreateCredentials(
 
   hcreds->use  = 1;
 
-  cdatum.data = (void *)credentials;
-  cdatum.size = strlen(credentials);
-  kdatum.data = (void *)key;
-  kdatum.size = strlen(key);
-
-  if ((err = gnutls_certificate_set_x509_key_mem(hcreds->creds, &cdatum, &kdatum, GNUTLS_X509_FMT_PEM)) < 0)
+  if (credentials && *credentials && key && *key)
   {
-    DEBUG_printf("1_httpCreateCredentials: set_x509_key_mem error: %s", gnutls_strerror(err));
+    cdatum.data = (void *)credentials;
+    cdatum.size = strlen(credentials);
+    kdatum.data = (void *)key;
+    kdatum.size = strlen(key);
 
-    gnutls_certificate_free_credentials(hcreds->creds);
-    free(hcreds);
-    hcreds = NULL;
+    if ((err = gnutls_certificate_set_x509_key_mem(hcreds->creds, &cdatum, &kdatum, GNUTLS_X509_FMT_PEM)) < 0)
+    {
+      DEBUG_printf("1_httpCreateCredentials: set_x509_key_mem error: %s", gnutls_strerror(err));
+
+      gnutls_certificate_free_credentials(hcreds->creds);
+      free(hcreds);
+      hcreds = NULL;
+    }
   }
 
   DEBUG_printf("1_httpCreateCredentials: Returning %p.", hcreds);
@@ -1505,7 +1511,8 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   char			hostname[256],	// Hostname
 			*hostptr;	// Pointer into hostname
   int			status;		// Status of handshake
-  _http_tls_credentials_t *credentials;	// TLS credentials
+  _http_tls_credentials_t *credentials = NULL;
+					// TLS credentials
   char			priority_string[2048];
 					// Priority string
   int			version;	// Current version
@@ -1581,8 +1588,12 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 	*hostptr = '\0';
     }
 
-    status      = gnutls_server_name_set(http->tls, GNUTLS_NAME_DNS, hostname, strlen(hostname));
-    credentials = _httpUseCredentials(cg->tls_credentials);
+    status = gnutls_server_name_set(http->tls, GNUTLS_NAME_DNS, hostname, strlen(hostname));
+    if (!status && (credentials = _httpUseCredentials(cg->tls_credentials)) == NULL)
+    {
+      if ((credentials = _httpCreateCredentials(NULL, NULL)) == NULL)
+        status = -1;
+    }
   }
   else
   {
@@ -2035,13 +2046,15 @@ gnutls_import_certs(
   gnutls_datum_t	datum;		// Data record
 
 
+  DEBUG_printf("3gnutls_import_certs(credentials=\"%s\", num_certs=%p, certs=%p)", credentials, (void *)num_certs, (void *)certs);
+
   // Import all certificates from the string...
   datum.data = (void *)credentials;
   datum.size = strlen(credentials);
 
-  if ((err = gnutls_x509_crt_list_import(certs, num_certs, &datum, GNUTLS_X509_FMT_DER, 0)) < 0)
+  if ((err = gnutls_x509_crt_list_import(certs, num_certs, &datum, GNUTLS_X509_FMT_PEM, 0)) < 0)
   {
-    DEBUG_printf("4gnutls_create_cert: crt_list_import error: %s", gnutls_strerror(err));
+    DEBUG_printf("4gnutls_import_certs: crt_list_import error: %s", gnutls_strerror(err));
     return (NULL);
   }
 

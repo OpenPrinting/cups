@@ -56,9 +56,9 @@ static bool		http_check_roots(const char *creds);
 static char		*http_copy_file(const char *path, const char *common_name, const char *ext);
 static const char	*http_default_path(char *buffer, size_t bufsize);
 static bool		http_default_san_cb(const char *common_name, const char *subject_alt_name, void *data);
-#ifdef _WIN32
+#if defined(_WIN32) || defined(HAVE_GNUTLS)
 static char		*http_der_to_pem(const unsigned char *der, size_t dersize);
-#endif // _WIN32
+#endif // _WIN32 || HAVE_GNUTLS
 static const char	*http_make_path(char *buffer, size_t bufsize, const char *dirname, const char *filename, const char *ext);
 static bool		http_save_file(const char *path, const char *common_name, const char *ext, const char *value);
 
@@ -384,6 +384,8 @@ http_check_roots(const char *creds)	// I - Credentials
   // Check all roots
   credslen = strlen(creds);
 
+  DEBUG_printf("4http_check_roots: %lu root certificates to check.", (unsigned long)cupsArrayGetCount(tls_root_certs));
+
   for (rcreds = (const char *)cupsArrayGetFirst(tls_root_certs); rcreds && !ret; rcreds = (const char *)cupsArrayGetNext(tls_root_certs))
   {
     // Compare the root against the tail of the current credentials...
@@ -519,7 +521,7 @@ http_default_san_cb(
 }
 
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(HAVE_GNUTLS)
 //
 // 'http_der_to_pem()' - Convert DER format certificate data to PEM.
 //
@@ -539,13 +541,13 @@ http_der_to_pem(
 
   // Calculate the size, accounting for Base64 expansion, line wrapping at
   // column 64, and the BEGIN/END CERTIFICATE text...
-  pemsize = 65 * 4 * dersize / 3 / 64 + /*"-----BEGIN CERTIFICATE-----"*/28 + /*"-----END CERTIFICATE-----"*/26 + 2;
+  pemsize = 2 * dersize + /*"-----BEGIN CERTIFICATE-----\n"*/28 + /*"-----END CERTIFICATE-----\n"*/26 + 1;
 
   if ((pem = calloc(1, pemsize)) == NULL)
     return (NULL);
 
   cupsCopyString(pem, "-----BEGIN CERTIFICATE-----\n", pemsize);
-  for (pemptr = pem, col = 0; dersize > 0; der += 3)
+  for (pemptr = pem + strlen(pem), col = 0; dersize > 0; der += 3)
   {
     // Encode the up to 3 characters as 4 Base64 numbers...
     switch (dersize)
@@ -591,7 +593,7 @@ http_der_to_pem(
   // Return the encoded string...
   return (pem);
 }
-#endif // _WIN32
+#endif // _WIN32 || HAVE_GNUTLS
 
 
 //
