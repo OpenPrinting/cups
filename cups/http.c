@@ -1526,6 +1526,25 @@ httpIsEncrypted(http_t *http)		// I - HTTP connection
 
 
 //
+// 'httpLoadCredentials()' - Load credentials.
+//
+// @deprecated@ @exclude all@
+//
+
+int					// O - -1 on error
+httpLoadCredentials(
+    const char   *path,			// I - Path for certs
+    cups_array_t **credentials,		// O - Array of credentials
+    const char   *common_name)		// I - Common name
+{
+  if (credentials)
+    *credentials = NULL;
+
+  return (-1);
+}
+
+
+//
 // 'httpOptions()' - Send an OPTIONS request to the server.
 //
 // @deprecated@ @exclude all@
@@ -2229,6 +2248,22 @@ httpReconnect2(http_t *http,		// I - HTTP connection
   DEBUG_printf("httpReconnect2(http=%p, msec=%d, cancel=%p)", (void *)http, msec, (void *)cancel);
 
   return (httpConnectAgain(http, msec, cancel) ? 0 : -1);
+}
+
+
+//
+// 'httpSaveCredentials()' - Save credentials.
+//
+// @deprecated@ @exclude all@
+//
+
+int					// O - -1 on error
+httpSaveCredentials(
+    const char   *path,			// I - Path for certs
+    cups_array_t *credentials,		// O - Array of credentials
+    const char   *common_name)		// I - Common name
+{
+  return (-1);
 }
 
 

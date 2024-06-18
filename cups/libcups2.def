@@ -529,6 +529,7 @@ httpHead
 httpInitialize
 httpIsChunked
 httpIsEncrypted
+httpLoadCredentials
 httpMD5
 httpMD5Final
 httpMD5String
@@ -544,6 +545,7 @@ httpReconnect
 httpReconnect2
 httpResolveHostname
 httpResolveURI
+httpSaveCredentials
 httpSeparate
 httpSeparate2
 httpSeparateURI
