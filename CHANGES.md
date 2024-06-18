@@ -1,10 +1,11 @@
-CHANGES - OpenPrinting CUPS 2.4.9 - (2024-06-11)
+CHANGES - OpenPrinting CUPS 2.4.10 - (2024-06-18)
 ================================================
 
-Changes in CUPS v2.4.10 (TBD)
+Changes in CUPS v2.4.10 (2024-06-18)
 -----------------------------
 
 - Fixed error handling when reading a mixed `1setOf` attribute.
+- Fixed scheduler start if there is only domain socket to listen on (Issue #985)
 
 
 Changes in CUPS v2.4.9 (2024-06-11)
