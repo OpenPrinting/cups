@@ -70,9 +70,9 @@ typedef struct _cups_globals_s		// CUPS global state data
   const char		*cups_datadir,	// CUPS_DATADIR environment var
 			*cups_serverbin,// CUPS_SERVERBIN environment var
 			*sysconfig,	// System configuration directory (influenced by CUPS_SERVERROOT environment var)
-			*cups_statedir,	// CUPS_STATEDIR environment var
-			*userconfig,	// User configuration directory (influenced by various environment vars)
-			*localedir;	// LOCALDIR environment var
+			*cups_statedir;	// CUPS_STATEDIR environment var
+  char			*userconfig;	// User configuration directory (influenced by various environment vars)
+  const char		*localedir;	// LOCALDIR environment var
 
   // adminutil.c
   time_t		cupsd_update;	// Last time we got or set cupsd.conf

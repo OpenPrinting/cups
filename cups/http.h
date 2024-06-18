@@ -415,6 +415,7 @@ extern void		httpClose(http_t *http) _CUPS_PUBLIC;
 extern int		httpCompareCredentials(cups_array_t *cred1, cups_array_t *cred2) _CUPS_DEPRECATED;
 extern http_t		*httpConnect(const char *host, int port) _CUPS_DEPRECATED_MSG("Use httpConnect2 instead.");
 extern http_t		*httpConnect2(const char *host, int port, http_addrlist_t *addrlist, int family, http_encryption_t encryption, int blocking, int msec, int *cancel) _CUPS_PUBLIC;
+extern bool		httpConnectAgain(http_t *http, int msec, int *cancel) _CUPS_PUBLIC;
 extern http_t		*httpConnectEncrypt(const char *host, int port, http_encryption_t encryption) _CUPS_DEPRECATED_MSG("Use httpConnect2 instead.");
 extern int		httpCopyCredentials(http_t *http, cups_array_t **credentials) _CUPS_DEPRECATED_MSG("Use httpCopyPeerCredentials instead.");
 extern char		*httpCopyPeerCredentials(http_t *http) _CUPS_PUBLIC;
