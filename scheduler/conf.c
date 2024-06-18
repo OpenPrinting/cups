@@ -559,7 +559,7 @@ cupsdReadConfiguration(void)
 
   if (!Listeners)
   {
-    fprintf(stderr, "Unable to allocate memory for array Listeners.");
+    fprintf(stderr, "Unable to allocate memory for array Listeners.\n");
     return (0);
   }
 
