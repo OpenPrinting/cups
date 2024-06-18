@@ -470,15 +470,9 @@ http_default_path(
 
   if (cg->userconfig)
   {
-    if (mkdir(cg->userconfig, 0755) && errno != EEXIST)
-    {
-      DEBUG_printf("1http_default_path: Failed to make directory '%s': %s", cg->userconfig, strerror(errno));
-      return (NULL);
-    }
-
     snprintf(buffer, bufsize, "%s/ssl", cg->userconfig);
 
-    if (mkdir(buffer, 0700) && errno != EEXIST)
+    if (!_cupsDirCreate(buffer, 0700))
     {
       DEBUG_printf("1http_default_path: Failed to make directory '%s': %s", buffer, strerror(errno));
       return (NULL);
@@ -486,15 +480,9 @@ http_default_path(
   }
   else
   {
-    if (mkdir(cg->sysconfig, 0755) && errno != EEXIST)
-    {
-      DEBUG_printf("1http_default_path: Failed to make directory '%s': %s", cg->sysconfig, strerror(errno));
-      return (NULL);
-    }
-
     snprintf(buffer, bufsize, "%s/ssl", cg->sysconfig);
 
-    if (mkdir(buffer, 0700) && errno != EEXIST)
+    if (!_cupsDirCreate(buffer, 0700))
     {
       DEBUG_printf("1http_default_path: Failed to make directory '%s': %s", buffer, strerror(errno));
       return (NULL);

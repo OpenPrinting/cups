@@ -1988,7 +1988,7 @@ cupsSetDests2(http_t      *http,	// I - Connection to server or @code CUPS_HTTP_
     * Create ~/.cups subdirectory...
     */
 
-    mkdir(cg->userconfig, 0700);
+    _cupsDirCreate(cg->userconfig, 0700);
 
     snprintf(filename, sizeof(filename), "%s/lpoptions", cg->userconfig);
   }
