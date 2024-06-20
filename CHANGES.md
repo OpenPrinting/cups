@@ -1,8 +1,15 @@
-CHANGES - OpenPrinting CUPS 2.4.10 - (2024-06-18)
-================================================
+CHANGES - OpenPrinting CUPS
+===========================
+
+
+Changes in CUPS v2.4.11 (YYYY-MM-DD)
+------------------------------------
+
+- Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
+
 
 Changes in CUPS v2.4.10 (2024-06-18)
------------------------------
+------------------------------------
 
 - Fixed error handling when reading a mixed `1setOf` attribute.
 - Fixed scheduler start if there is only domain socket to listen on (Issue #985)
