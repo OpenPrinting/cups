@@ -503,17 +503,14 @@ main(int  argc,				/* I - Number of command-line args */
 #endif /* HAVE_DBUS_THREADS_INIT */
 
  /*
-  * Set the maximum number of files...
+  * Set the maximum number of files, which for practical reasons can be limited
+  * to the number of TCP port number values (64k-1)...
   */
 
   getrlimit(RLIMIT_NOFILE, &limit);
 
-#ifdef RLIM_INFINITY
-  if (limit.rlim_max == RLIM_INFINITY)
-    MaxFDs = 16384;
-  else
-#endif /* RLIM_INFINITY */
-    MaxFDs = limit.rlim_max;
+  if ((MaxFDs = limit.rlim_max) > 65535)
+    MaxFDs = 65535;
 
   limit.rlim_cur = (rlim_t)MaxFDs;
 
