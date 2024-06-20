@@ -1455,6 +1455,12 @@ ippCopyAttribute(
 	    {
 	      ipp_t *col = ippNew();	// Copy of collection
 
+              if (!col)
+              {
+                ippDeleteAttribute(dst, dstattr);
+                return (NULL);
+              }
+
 	      ippCopyAttributes(col, srcval->collection, false, /*cb*/NULL, /*cb_data*/NULL);
 
 	      if (dstattr)
