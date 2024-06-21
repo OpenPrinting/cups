@@ -31,8 +31,8 @@
 {?printer_is_shared=?Нет совместного доступа:{?printer_is_shared=0?Нет совместного доступа:Разрешить совместный доступ}} к этому принтеру</TD>
 </TR>
 <TR>
-<TH CLASS="label">Создать:</TH>
-<TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Выбрать другую модель"></TD>
+<TH CLASS="label">Производитель:</TH>
+<TD>{PPD_MAKE} <INPUT TYPE="SUBMIT" NAME="SELECT_MAKE" VALUE="Выбрать другого производителя"></TD>
 </TR>
 <TR>
 <TH CLASS="label">Модель:</TH>
@@ -40,7 +40,7 @@
 <SELECT NAME="PPD_NAME" SIZE="10">
 {op=add-printer?:<OPTION VALUE="__no_change__" SELECTED>Текущий драйвер - {current_make_and_model}</OPTION>:}
 {show_ipp_everywhere?<OPTION VALUE="everywhere" SELECTED>{current_make_and_model?{current_make_and_model} -:} IPP Everywhere &trade;</OPTION>:}
-{[ppd_name]<OPTION VALUE="{ppd_name}" {op=modify-printer?:{?current_make_and_model={ppd_make_and_model}?SELECTED:}}>{ppd_make_and_model} ({ppd_natural_language})
+{[ppd_name]<OPTION VALUE="{ppd_name}" {op=modify-printer?:{?current_make_and_model={ppd_make_and_model}?SELECTED:}}>{ppd_make_and_model} ({ppd_natural_language})</OPTION>
 }</SELECT>
 </TD>
 </TR>
@@ -51,7 +51,7 @@ TYPE="FILE" NAME="PPD_FILE"></TD>
 </TR>
 <TR>
 <TD></TD>
-<TD><INPUT TYPE="SUBMIT" VALUE="{op=add-printer?Добавить принтер:Сохранить}"></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="{op=add-printer?Добавить принтер:Изменить принтер}"></TD>
 </TR>
 </TABLE>
 
