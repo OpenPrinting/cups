@@ -6192,6 +6192,9 @@ delete_printer(cupsd_client_t  *con,	/* I - Client connection */
   snprintf(filename, sizeof(filename), "%s/%s.data", CacheDir, printer->name);
   unlink(filename);
 
+  snprintf(filename, sizeof(filename), "%s/%s.strings", CacheDir, printer->name);
+  unlink(filename);
+
  /*
   * Unregister color profiles...
   */
