@@ -2733,7 +2733,8 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
   _cups_media_db_t	*mdb,		/* Current media database entry */
 			*best = NULL,	/* Best matching entry */
 			key;		/* Search key */
-
+  int width = pwg->width,    /* Backup the width of media */
+      length = pwg->length;  /* Backup the length of media */
 
  /*
   * Create the media database as needed...
@@ -2742,12 +2743,32 @@ cups_get_media_db(http_t       *http,	/* I - Connection to destination */
   if (flags & CUPS_MEDIA_FLAGS_READY)
   {
     cups_update_ready(http, dinfo);
+    /*
+     * reflush the pwg because the pwg may be overwritten by the cups_update_ready
+     */
+    if ((pwg = pwgMediaForSize(width, length)) == NULL)
+    {
+      DEBUG_printf("1cups_get_media_db: Invalid size %dx%d.", width, length);
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalid media size."), 1);
+      return (0);
+    }
     db = dinfo->ready_db;
   }
   else
   {
     if (!dinfo->media_db)
+    {
       cups_create_media_db(dinfo, CUPS_MEDIA_FLAGS_DEFAULT);
+      /*
+       * reflush the pwg because the pwg may be overwritten by the cups_create_media_db
+       */
+      if ((pwg = pwgMediaForSize(width, length)) == NULL)
+      {
+        DEBUG_printf("1cups_get_media_db: Invalid size %dx%d.", width, length);
+        _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalid media size."), 1);
+        return (0);
+      }
+    }
 
     db = dinfo->media_db;
   }
