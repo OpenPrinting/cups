@@ -5212,7 +5212,9 @@ process_ipp(ippeve_client_t *client)	// I - Client
       if (charset && strcasecmp(ippGetString(charset, 0, NULL), "us-ascii") && strcasecmp(ippGetString(charset, 0, NULL), "utf-8"))
       {
         // Bad character set...
-	respond_ipp(client, IPP_STATUS_ERROR_BAD_REQUEST, "Unsupported character set \"%s\".", ippGetString(charset, 0, NULL));
+	respond_ipp(client, IPP_STATUS_ERROR_CHARSET, "Unsupported character set '%s'.", ippGetString(charset, 0, NULL));
+	attr = ippCopyAttribute(client->response, charset, 0);
+        ippSetGroupTag(client->response, &attr, IPP_TAG_UNSUPPORTED_GROUP);
       }
       else if (!charset || !language || !uri)
       {
