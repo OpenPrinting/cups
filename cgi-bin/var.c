@@ -591,6 +591,9 @@ cgiSetVariable(const char *name,	/* I - Name of variable */
   }
   else
   {
+    if ((char *)var->values[0] == value)
+      return;
+
     for (i = 0; i < var->nvalues; i ++)
       if (var->values[i])
         free((char *)var->values[i]);
