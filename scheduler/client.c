@@ -1112,8 +1112,8 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 		  {
 		    unsigned int i = 0;	// Array index
 
-		    for (char *start = con->uri + 9; *start && *start != '?' && i < sizeof(name);)
-		      name[i++] = *start++;
+		    for (ptr = con->uri + 9; *ptr && *ptr != '?' && i < sizeof(name);)
+		      name[i++] = *ptr++;
 
 		    name[i] = '\0';
 
@@ -1152,8 +1152,8 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 		  {
 		    unsigned int i = 0;	// Array index
 
-		    for (char *start = con->uri + 10; *start && *start != '?' && i < sizeof(name);)
-		      name[i++] = *start++;
+		    for (ptr = con->uri + 10; *ptr && *ptr != '?' && i < sizeof(name);)
+		      name[i++] = *ptr++;
 
 		    name[i] = '\0';
 
