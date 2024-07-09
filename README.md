@@ -162,7 +162,7 @@ Code contributions should be submitted as pull requests on the Github site:
 
 See the file "CONTRIBUTING.md" for more details.
 
-PAPPL uses [Weblate][WL] to manage the localization of the web interface,
+CUPS uses [Weblate][WL] to manage the localization of the web interface,
 command-line programs, and common IPP attributes and values, and those likewise
 end up as pull requests on Github.
 
