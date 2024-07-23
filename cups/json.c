@@ -1317,7 +1317,7 @@ cupsJSONImportURL(
   else
   {
     // Save the last HTTP status as a CUPS error...
-    _cupsSetHTTPError(status);
+    _cupsSetHTTPError(http, status);
   }
 
   // Flush any remaining data...
