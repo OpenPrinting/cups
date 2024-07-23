@@ -191,7 +191,7 @@ cgiGetCheckbox(const char *name)	/* I - Name of form field */
   int		ret;			/* Return value */
 
 
-  ret = value && !_cups_strcasecmp(value, "checkbox");
+  ret = value && !_cups_strcasecmp(value, "checked");
 
   if (!ret && value)
   {

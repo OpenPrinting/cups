@@ -1314,9 +1314,9 @@ do_config_server(http_t *http)		/* I - HTTP connection */
       browse_web_if        = cgiGetCheckbox("BROWSE_WEB_IF") ? "Yes" : "No";
       max_clients          = cgiGetTextfield("MAX_CLIENTS");
       max_log_size         = cgiGetTextfield("MAX_LOG_SIZE");
-      preserve_jobs        = cgiGetTextfield("PRESERVE_JOBS");
+      preserve_jobs        = cgiGetCheckbox("PRESERVE_JOBS") ? "1" : "0";
 
-      if (preserve_jobs)
+      if (atoi(preserve_jobs))
       {
         max_jobs             = cgiGetTextfield("MAX_JOBS");
 	preserve_job_history = cgiGetTextfield("PRESERVE_JOB_HISTORY");
@@ -1325,10 +1325,12 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 	if (!max_jobs || atoi(max_jobs) < 0)
 	  max_jobs = "500";
 
-	if (!preserve_job_history)
-	  preserve_job_history = "On";
+	if (!preserve_job_history || !preserve_job_history[0] ||
+	    (strcasecmp(preserve_job_history, "yes") && strcasecmp(preserve_job_history, "no") && !atoi(preserve_job_history)))
+	  preserve_job_history = "Yes";
 
-	if (!preserve_job_files)
+	if (!preserve_job_files || !preserve_job_files[0] ||
+	    (strcasecmp(preserve_job_files, "yes") && strcasecmp(preserve_job_files, "no") && !atoi(preserve_job_files)))
 	  preserve_job_files = "1d";
       }
       else

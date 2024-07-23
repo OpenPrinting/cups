@@ -6,6 +6,7 @@ Changes in CUPS v2.4.11 (YYYY-MM-DD)
 ------------------------------------
 
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
+- Fix checkbox support (Issue #1008)
 
 
 Changes in CUPS v2.4.10 (2024-06-18)
