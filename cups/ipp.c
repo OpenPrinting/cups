@@ -3179,7 +3179,7 @@ ippReadIO(void       *src,		/* I - Data source */
 	    attr = ipp->current = ipp_add_attr(ipp, NULL, ipp->curtag, IPP_TAG_ZERO, 1);
 	    if (!attr)
 	    {
-	      _cupsSetHTTPError(HTTP_STATUS_ERROR);
+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to allocate IPP attribute."), 1);
 	      DEBUG_puts("1ippReadIO: unable to allocate attribute.");
 	      goto rollback;
 	    }
@@ -3208,7 +3208,7 @@ ippReadIO(void       *src,		/* I - Data source */
 	    if ((attr = ipp->current = ipp_add_attr(ipp, (char *)buffer, ipp->curtag, tag,
 	                                            1)) == NULL)
 	    {
-	      _cupsSetHTTPError(HTTP_STATUS_ERROR);
++	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to allocate IPP attribute."), 1);
 	      DEBUG_puts("1ippReadIO: unable to allocate attribute.");
 	      goto rollback;
 	    }
@@ -3558,7 +3558,7 @@ ippReadIO(void       *src,		/* I - Data source */
 		{
 		  if ((value->unknown.data = malloc((size_t)n)) == NULL)
 		  {
-		    _cupsSetHTTPError(HTTP_STATUS_ERROR);
+		    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to allocate IPP attribute."), 1);
 		    DEBUG_puts("1ippReadIO: Unable to allocate value");
 		    goto rollback;
 		  }
@@ -6723,7 +6723,7 @@ ipp_set_value(ipp_t           *ipp,	/* IO - IPP message */
 
   if ((temp = realloc(temp, sizeof(ipp_attribute_t) + (size_t)(alloc_values - 1) * sizeof(_ipp_value_t))) == NULL)
   {
-    _cupsSetHTTPError(HTTP_STATUS_ERROR);
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to reallocate IPP attribute value."), 1);
     DEBUG_puts("4ipp_set_value: Unable to resize attribute.");
     return (NULL);
   }

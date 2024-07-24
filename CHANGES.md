@@ -5,6 +5,7 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.11 (YYYY-MM-DD)
 ------------------------------------
 
+- Fix incorrect error message for HTTP/IPP errors (Issue #893)
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
 - Fix checkbox support (Issue #1008)
 

@@ -243,7 +243,7 @@ cupsDoIORequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
         (status >= HTTP_STATUS_BAD_REQUEST && status != HTTP_STATUS_UNAUTHORIZED &&
 	 status != HTTP_STATUS_UPGRADE_REQUIRED))
     {
-      _cupsSetHTTPError(status);
+      _cupsSetHTTPError(http, status);
       break;
     }
 
@@ -415,7 +415,7 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
 
     httpFlush(http);
 
-    _cupsSetHTTPError(status);
+    _cupsSetHTTPError(http, status);
 
    /*
     * Then handle encryption and authentication...
@@ -809,7 +809,7 @@ cupsSendRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
     {
       int temp_status;			/* Temporary status */
 
-      _cupsSetHTTPError(status);
+      _cupsSetHTTPError(http, status);
 
       do
       {
@@ -967,7 +967,7 @@ cupsWriteRequestData(
       _httpUpdate(http, &status);
       if (status >= HTTP_STATUS_MULTIPLE_CHOICES)
       {
-        _cupsSetHTTPError(status);
+        _cupsSetHTTPError(http, status);
 
 	do
 	{
@@ -1134,7 +1134,8 @@ _cupsSetError(ipp_status_t status,	/* I - IPP status code */
  */
 
 void
-_cupsSetHTTPError(http_status_t status)	/* I - HTTP status code */
+_cupsSetHTTPError(http_t	*http,	/* I - HTTP connection */
+		  http_status_t	status)	/* I - HTTP status code */
 {
   switch (status)
   {
@@ -1179,8 +1180,8 @@ _cupsSetHTTPError(http_status_t status)	/* I - HTTP status code */
         break;
 
     case HTTP_STATUS_ERROR :
-	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
-        break;
+	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, http->error != 0 ? strerror(http->error) : "Internal Server Error", 0);
+	break;
 
     default :
 	DEBUG_printf(("4_cupsSetHTTPError: HTTP error %d mapped to "

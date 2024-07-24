@@ -195,7 +195,7 @@ cupsGetFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
   }
   else
   {
-    _cupsSetHTTPError(status);
+    _cupsSetHTTPError(http, status);
     httpFlush(http);
   }
 
@@ -496,7 +496,7 @@ cupsPutFd(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_DEFA
 
   if (status != HTTP_STATUS_CREATED)
   {
-    _cupsSetHTTPError(status);
+    _cupsSetHTTPError(http, status);
     httpFlush(http);
   }
 

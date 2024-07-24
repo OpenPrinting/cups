@@ -168,7 +168,7 @@ httpAcceptConnection(int fd,		/* I - Listen socket file descriptor */
   if ((http->fd = accept(fd, (struct sockaddr *)&(http->addrlist->addr),
 			 &addrlen)) < 0)
   {
-    _cupsSetHTTPError(HTTP_STATUS_ERROR);
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     httpClose(http);
 
     return (NULL);
