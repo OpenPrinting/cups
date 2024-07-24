@@ -85,6 +85,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed Oki 407 freeze when printing larger jobs (Issue #877)
 - Fixed `httpGets` timeout handling (Issue #879)
 - Fixed checking for required attributes during PPD generation (Issue #890)
+- Fixed incorrect error message with HTTP/IPP related errors (Issue #893)
 - Fixed pwg-raster-document-resolution-supported and urf-supported values
   (Issue #901)
 - Fixed encoding of IPv6 addresses in HTTP requests (Issue #903)
