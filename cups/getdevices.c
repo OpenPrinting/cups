@@ -152,7 +152,7 @@ cupsGetDevices(
 
   if (status != HTTP_STATUS_OK)
   {
-    _cupsSetHTTPError(status);
+    _cupsSetHTTPError(http, status);
     return (cupsGetError());
   }
 
