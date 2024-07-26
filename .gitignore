@@ -163,5 +163,6 @@
 /vcnet/x64
 /xcode/CUPS.xcodeproj/project.xcworkspace/
 /xcode/CUPS.xcodeproj/xcuserdata/
+/zdohnal_debug
 .DS_store
 container-config
