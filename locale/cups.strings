@@ -876,6 +876,7 @@
 "Copying print data." = "Copying print data.";
 "Couldn't resolve mDNS URI \"%s\"." = "Couldn’t resolve mDNS URI “%s”.";
 "Created" = "Created";
+"Credentials are not CA-signed." = "Credentials are not CA-signed.";
 "Credentials do not validate against site CA certificate." = "Credentials do not validate against site CA certificate.";
 "Credentials have expired." = "Credentials have expired.";
 "Custom" = "Custom";
@@ -1385,6 +1386,7 @@
 "Unable to add extension to X.509 certificate." = "Unable to add extension to X.509 certificate.";
 "Unable to add job for destination \"%s\"." = "Unable to add job for destination “%s”.";
 "Unable to add printer" = "Unable to add printer";
+"Unable to allocate IPP attribute." = "Unable to allocate IPP attribute.";
 "Unable to allocate memory for file types." = "Unable to allocate memory for file types.";
 "Unable to allocate memory for page info" = "Unable to allocate memory for page info";
 "Unable to allocate memory for pages array" = "Unable to allocate memory for pages array";
@@ -1449,6 +1451,7 @@
 "Unable to read generated PPD: %s" = "Unable to read generated PPD: %s";
 "Unable to read print data." = "Unable to read print data.";
 "Unable to read response." = "Unable to read response.";
+"Unable to reallocate IPP attribute value." = "Unable to reallocate IPP attribute value.";
 "Unable to rename job document file." = "Unable to rename job document file.";
 "Unable to resolve printer-uri." = "Unable to resolve printer-uri.";
 "Unable to run cups-driverd: %s" = "Unable to run cups-driverd: %s";
@@ -4036,6 +4039,24 @@
 "number-of-retries" = "Number Of Retries";
 // TRANSLATORS: Number-Up
 "number-up" = "Number-Up";
+// TRANSLATORS: Number-Up Layout
+"number-up-layout" = "number-up-layout";
+// TRANSLATORS: Bottom-Top, Left-Right
+"number-up-layout.btlr" = "number-up-layout.btlr";
+// TRANSLATORS: Bottom-Top, Right-Left
+"number-up-layout.btrl" = "number-up-layout.btrl";
+// TRANSLATORS: Left-Right, Bottom-Top
+"number-up-layout.lrbt" = "number-up-layout.lrbt";
+// TRANSLATORS: Left-Right, Top-Bottom
+"number-up-layout.lrtb" = "number-up-layout.lrtb";
+// TRANSLATORS: Right-Left, Bottom-Top
+"number-up-layout.rlbt" = "number-up-layout.rlbt";
+// TRANSLATORS: Right-Left, Top-Bottom
+"number-up-layout.rltb" = "number-up-layout.rltb";
+// TRANSLATORS: Top-Bottom, Left-Right
+"number-up-layout.tblr" = "number-up-layout.tblr";
+// TRANSLATORS: Top-Bottom, Right-Left
+"number-up-layout.tbrl" = "number-up-layout.tbrl";
 // TRANSLATORS: Object Offset
 "object-offset" = "Object Offset";
 // TRANSLATORS: Object Size
@@ -4146,6 +4167,18 @@
 "output-bin.tray-9" = "Tray 9";
 // TRANSLATORS: Scanned Image Quality
 "output-compression-quality-factor" = "Scanned Image Quality";
+// TRANSLATORS: Page Border
+"page-border" = "page-border";
+// TRANSLATORS: Thin Double Border
+"page-border.double" = "page-border.double";
+// TRANSLATORS: Thick Double Border
+"page-border.double-thick" = "page-border.double-thick";
+// TRANSLATORS: No Border
+"page-border.none" = "page-border.none";
+// TRANSLATORS: Thin Single Border
+"page-border.single" = "page-border.single";
+// TRANSLATORS: Thick Single Border
+"page-border.single-thick" = "page-border.single-thick";
 // TRANSLATORS: Page Delivery
 "page-delivery" = "Page Delivery";
 // TRANSLATORS: Reverse Order Face-down
@@ -4166,6 +4199,14 @@
 "page-order-received.n-to-1-order" = "N To 1";
 // TRANSLATORS: Page Ranges
 "page-ranges" = "Page Ranges";
+// TRANSLATORS: Page Set
+"page-set" = "page-set";
+// TRANSLATORS: All Pages
+"page-set.all" = "page-set.all";
+// TRANSLATORS: Even Pages
+"page-set.even" = "page-set.even";
+// TRANSLATORS: Odd Pages
+"page-set.odd" = "page-set.odd";
 // TRANSLATORS: Pages
 "pages" = "Pages";
 // TRANSLATORS: Pages Per Subset
@@ -4189,6 +4230,26 @@
 "platform-shape.rectangle" = "Rectangle";
 // TRANSLATORS: Platform Temperature
 "platform-temperature" = "Platform Temperature";
+// TRANSLATORS: Image Position
+"position" = "position";
+// TRANSLATORS: Bottom-Center
+"position.bottom" = "position.bottom";
+// TRANSLATORS: Bottom-Left
+"position.bottom-left" = "position.bottom-left";
+// TRANSLATORS: Bottom-Right
+"position.bottom-right" = "position.bottom-right";
+// TRANSLATORS: Center
+"position.center" = "position.center";
+// TRANSLATORS: Left-Center
+"position.left" = "position.left";
+// TRANSLATORS: Right-Center
+"position.right" = "position.right";
+// TRANSLATORS: Top-Center
+"position.top" = "position.top";
+// TRANSLATORS: Top-Left
+"position.top-left" = "position.top-left";
+// TRANSLATORS: Top-Right
+"position.top-right" = "position.top-right";
 // TRANSLATORS: Post-dial String
 "post-dial-string" = "Post-dial String";
 "ppdc: Adding include directory \"%s\"." = "ppdc: Adding include directory “%s”.";

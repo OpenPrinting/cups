@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2024-04-25 11:18-0400\n"
+"POT-Creation-Date: 2024-08-07 10:25-0400\n"
 "PO-Revision-Date: 2012-12-12 11:12+0100\n"
 "Last-Translator: Stéphane Blondon <stephane.blondon@gmail.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -723,13 +723,16 @@ msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Utiliser tous les filtres du fichier PPD."
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
-msgstr "  -i MIME/TYPE            Affecter le type MIME d'entrée (sinon type automatique)"
+msgstr ""
+"  -i MIME/TYPE            Affecter le type MIME d'entrée (sinon type "
+"automatique)"
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j JOB-ID[,N]           Filtrer le fichier N de la tâche indiquée (fichier 1 par défaut)."
+"  -j JOB-ID[,N]           Filtrer le fichier N de la tâche indiquée (fichier "
+"1 par défaut)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
@@ -3111,6 +3114,9 @@ msgstr ""
 msgid "Created"
 msgstr "Créé"
 
+msgid "Credentials are not CA-signed."
+msgstr ""
+
 msgid "Credentials do not validate against site CA certificate."
 msgstr ""
 
@@ -4565,7 +4571,9 @@ msgid "The notify-user-data value is too large (%d > 63 octets)."
 msgstr ""
 
 msgid "The printer configuration is incorrect or the printer no longer exists."
-msgstr "La configuration de l'imprimante est incorrecte ou l'imprimante n'existe plus."
+msgstr ""
+"La configuration de l'imprimante est incorrecte ou l'imprimante n'existe "
+"plus."
 
 msgid "The printer did not respond."
 msgstr "L'imprimante n'a pas répondu."
@@ -4592,16 +4600,17 @@ msgid "The printer is unreachable at this time."
 msgstr "L'imprimante est injoignable pour le moment."
 
 msgid "The printer may not exist or is unavailable at this time."
-msgstr "L'imprimante n'existe peut-être pas ou n'est pas disponible pour le moment."
+msgstr ""
+"L'imprimante n'existe peut-être pas ou n'est pas disponible pour le moment."
 
 msgid ""
 "The printer name may only contain up to 127 printable characters and may not "
 "contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the "
 "pound sign (#)."
 msgstr ""
-"Le nom de l'imprimante ne peut contenir que 127 caractères imprimables au maximum "
-"et ne peut pas contenir d'espaces, de barres obliques (/ \\), de guillemets (' \"), "
-"de point d'interrogation ( ?), ou de signe dièse (#)."
+"Le nom de l'imprimante ne peut contenir que 127 caractères imprimables au "
+"maximum et ne peut pas contenir d'espaces, de barres obliques (/ \\), de "
+"guillemets (' \"), de point d'interrogation ( ?), ou de signe dièse (#)."
 
 msgid "The printer or class does not exist."
 msgstr "L'imprimante ou la classe n'existe pas."
@@ -4732,6 +4741,9 @@ msgstr "Impossible d’ajouter la tâche à la destination \"%s\"."
 
 msgid "Unable to add printer"
 msgstr "Impossible d’ajouter l’imprimante :"
+
+msgid "Unable to allocate IPP attribute."
+msgstr ""
 
 msgid "Unable to allocate memory for file types."
 msgstr ""
@@ -4936,6 +4948,9 @@ msgid "Unable to read print data."
 msgstr ""
 
 msgid "Unable to read response."
+msgstr ""
+
+msgid "Unable to reallocate IPP attribute value."
 msgstr ""
 
 msgid "Unable to rename job document file."
@@ -10455,6 +10470,42 @@ msgstr ""
 msgid "number-up"
 msgstr ""
 
+#. TRANSLATORS: Number-Up Layout
+msgid "number-up-layout"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Left-Right
+msgid "number-up-layout.btlr"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Right-Left
+msgid "number-up-layout.btrl"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Bottom-Top
+msgid "number-up-layout.lrbt"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Top-Bottom
+msgid "number-up-layout.lrtb"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Bottom-Top
+msgid "number-up-layout.rlbt"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Top-Bottom
+msgid "number-up-layout.rltb"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Left-Right
+msgid "number-up-layout.tblr"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Right-Left
+msgid "number-up-layout.tbrl"
+msgstr ""
+
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
 msgstr ""
@@ -10675,6 +10726,30 @@ msgstr ""
 msgid "output-compression-quality-factor"
 msgstr ""
 
+#. TRANSLATORS: Page Border
+msgid "page-border"
+msgstr ""
+
+#. TRANSLATORS: Thin Double Border
+msgid "page-border.double"
+msgstr ""
+
+#. TRANSLATORS: Thick Double Border
+msgid "page-border.double-thick"
+msgstr ""
+
+#. TRANSLATORS: No Border
+msgid "page-border.none"
+msgstr ""
+
+#. TRANSLATORS: Thin Single Border
+msgid "page-border.single"
+msgstr ""
+
+#. TRANSLATORS: Thick Single Border
+msgid "page-border.single-thick"
+msgstr ""
+
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
 msgstr ""
@@ -10713,6 +10788,22 @@ msgstr ""
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
+msgstr ""
+
+#. TRANSLATORS: Page Set
+msgid "page-set"
+msgstr ""
+
+#. TRANSLATORS: All Pages
+msgid "page-set.all"
+msgstr ""
+
+#. TRANSLATORS: Even Pages
+msgid "page-set.even"
+msgstr ""
+
+#. TRANSLATORS: Odd Pages
+msgid "page-set.odd"
 msgstr ""
 
 #. TRANSLATORS: Pages
@@ -10760,6 +10851,46 @@ msgstr ""
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
+msgstr ""
+
+#. TRANSLATORS: Image Position
+msgid "position"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Center
+msgid "position.bottom"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Left
+msgid "position.bottom-left"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Right
+msgid "position.bottom-right"
+msgstr ""
+
+#. TRANSLATORS: Center
+msgid "position.center"
+msgstr ""
+
+#. TRANSLATORS: Left-Center
+msgid "position.left"
+msgstr ""
+
+#. TRANSLATORS: Right-Center
+msgid "position.right"
+msgstr ""
+
+#. TRANSLATORS: Top-Center
+msgid "position.top"
+msgstr ""
+
+#. TRANSLATORS: Top-Left
+msgid "position.top-left"
+msgstr ""
+
+#. TRANSLATORS: Top-Right
+msgid "position.top-right"
 msgstr ""
 
 #. TRANSLATORS: Post-dial String
