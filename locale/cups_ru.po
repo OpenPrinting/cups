@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2024-04-25 11:18-0400\n"
+"POT-Creation-Date: 2024-08-07 10:25-0400\n"
 "PO-Revision-Date: 2015-01-28 12:00-0800\n"
 "Last-Translator: Aleksandr Proklov\n"
 "Language-Team: Russian - PuppyRus Linux Team\n"
@@ -3223,6 +3223,9 @@ msgstr ""
 msgid "Created"
 msgstr "Создано"
 
+msgid "Credentials are not CA-signed."
+msgstr ""
+
 msgid "Credentials do not validate against site CA certificate."
 msgstr ""
 
@@ -4846,6 +4849,9 @@ msgstr "Не удается добавить задание для назнач�
 msgid "Unable to add printer"
 msgstr "Не удается добавить принтер"
 
+msgid "Unable to allocate IPP attribute."
+msgstr ""
+
 msgid "Unable to allocate memory for file types."
 msgstr "Не удается выделить память для типов файлов."
 
@@ -5051,6 +5057,9 @@ msgid "Unable to read print data."
 msgstr "Не удается считать данные печати."
 
 msgid "Unable to read response."
+msgstr ""
+
+msgid "Unable to reallocate IPP attribute value."
 msgstr ""
 
 msgid "Unable to rename job document file."
@@ -10593,6 +10602,42 @@ msgstr ""
 msgid "number-up"
 msgstr ""
 
+#. TRANSLATORS: Number-Up Layout
+msgid "number-up-layout"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Left-Right
+msgid "number-up-layout.btlr"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Top, Right-Left
+msgid "number-up-layout.btrl"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Bottom-Top
+msgid "number-up-layout.lrbt"
+msgstr ""
+
+#. TRANSLATORS: Left-Right, Top-Bottom
+msgid "number-up-layout.lrtb"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Bottom-Top
+msgid "number-up-layout.rlbt"
+msgstr ""
+
+#. TRANSLATORS: Right-Left, Top-Bottom
+msgid "number-up-layout.rltb"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Left-Right
+msgid "number-up-layout.tblr"
+msgstr ""
+
+#. TRANSLATORS: Top-Bottom, Right-Left
+msgid "number-up-layout.tbrl"
+msgstr ""
+
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
 msgstr ""
@@ -10813,6 +10858,30 @@ msgstr ""
 msgid "output-compression-quality-factor"
 msgstr ""
 
+#. TRANSLATORS: Page Border
+msgid "page-border"
+msgstr ""
+
+#. TRANSLATORS: Thin Double Border
+msgid "page-border.double"
+msgstr ""
+
+#. TRANSLATORS: Thick Double Border
+msgid "page-border.double-thick"
+msgstr ""
+
+#. TRANSLATORS: No Border
+msgid "page-border.none"
+msgstr ""
+
+#. TRANSLATORS: Thin Single Border
+msgid "page-border.single"
+msgstr ""
+
+#. TRANSLATORS: Thick Single Border
+msgid "page-border.single-thick"
+msgstr ""
+
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
 msgstr ""
@@ -10851,6 +10920,22 @@ msgstr ""
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
+msgstr ""
+
+#. TRANSLATORS: Page Set
+msgid "page-set"
+msgstr ""
+
+#. TRANSLATORS: All Pages
+msgid "page-set.all"
+msgstr ""
+
+#. TRANSLATORS: Even Pages
+msgid "page-set.even"
+msgstr ""
+
+#. TRANSLATORS: Odd Pages
+msgid "page-set.odd"
 msgstr ""
 
 #. TRANSLATORS: Pages
@@ -10898,6 +10983,46 @@ msgstr ""
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
+msgstr ""
+
+#. TRANSLATORS: Image Position
+msgid "position"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Center
+msgid "position.bottom"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Left
+msgid "position.bottom-left"
+msgstr ""
+
+#. TRANSLATORS: Bottom-Right
+msgid "position.bottom-right"
+msgstr ""
+
+#. TRANSLATORS: Center
+msgid "position.center"
+msgstr ""
+
+#. TRANSLATORS: Left-Center
+msgid "position.left"
+msgstr ""
+
+#. TRANSLATORS: Right-Center
+msgid "position.right"
+msgstr ""
+
+#. TRANSLATORS: Top-Center
+msgid "position.top"
+msgstr ""
+
+#. TRANSLATORS: Top-Left
+msgid "position.top-left"
+msgstr ""
+
+#. TRANSLATORS: Top-Right
+msgid "position.top-right"
 msgstr ""
 
 #. TRANSLATORS: Post-dial String

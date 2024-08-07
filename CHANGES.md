@@ -22,6 +22,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added driver filter to web interface (Issue #848)
 - Added support for PAM modules password-auth and system-auth (Issue #892)
 - Added Docker support (Issue #929)
+- Added localizations for deprecated IPP attributes/options (Issue #1020)
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.
 - Updated CUPS to require ZLIB.
@@ -46,6 +47,7 @@ Changes in CUPS v2.5b1 (TBA)
   or writing if the number of bytes passed is 0 (Issue #914)
 - Updated and documented the MIME typing buffering limit (Issue #925)
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
+- Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)

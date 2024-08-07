@@ -1,3 +1,65 @@
+/* TRANSLATORS: Number-Up Layout */
+_("number-up-layout");
+/* TRANSLATORS: Bottom-Top, Left-Right */
+_("number-up-layout.btlr");
+/* TRANSLATORS: Bottom-Top, Right-Left */
+_("number-up-layout.btrl");
+/* TRANSLATORS: Left-Right, Bottom-Top */
+_("number-up-layout.lrbt");
+/* TRANSLATORS: Left-Right, Top-Bottom */
+_("number-up-layout.lrtb");
+/* TRANSLATORS: Right-Left, Bottom-Top */
+_("number-up-layout.rlbt");
+/* TRANSLATORS: Right-Left, Top-Bottom */
+_("number-up-layout.rltb");
+/* TRANSLATORS: Top-Bottom, Left-Right */
+_("number-up-layout.tblr");
+/* TRANSLATORS: Top-Bottom, Right-Left */
+_("number-up-layout.tbrl");
+
+/* TRANSLATORS: Page Border */
+_("page-border");
+/* TRANSLATORS: No Border */
+_("page-border.none");
+/* TRANSLATORS: Thin Single Border */
+_("page-border.single");
+/* TRANSLATORS: Thick Single Border */
+_("page-border.single-thick");
+/* TRANSLATORS: Thin Double Border */
+_("page-border.double");
+/* TRANSLATORS: Thick Double Border */
+_("page-border.double-thick");
+
+/* TRANSLATORS: Page Set */
+_("page-set");
+/* TRANSLATORS: All Pages */
+_("page-set.all");
+/* TRANSLATORS: Even Pages */
+_("page-set.even");
+/* TRANSLATORS: Odd Pages */
+_("page-set.odd");
+
+/* TRANSLATORS: Image Position */
+_("position");
+/* TRANSLATORS: Bottom-Center */
+_("position.bottom");
+/* TRANSLATORS: Bottom-Left */
+_("position.bottom-left");
+/* TRANSLATORS: Bottom-Right */
+_("position.bottom-right");
+/* TRANSLATORS: Center */
+_("position.center");
+/* TRANSLATORS: Left-Center */
+_("position.left");
+/* TRANSLATORS: Right-Center */
+_("position.right");
+/* TRANSLATORS: Top-Center */
+_("position.top");
+/* TRANSLATORS: Top-Left */
+_("position.top-left");
+/* TRANSLATORS: Top-Right */
+_("position.top-right");
+
 /* TRANSLATORS: Accuracy Units */
 _("accuracy-units");
 /* TRANSLATORS: Millimeters */
