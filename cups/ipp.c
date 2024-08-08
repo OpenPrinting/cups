@@ -3208,7 +3208,7 @@ ippReadIO(void       *src,		/* I - Data source */
 	    if ((attr = ipp->current = ipp_add_attr(ipp, (char *)buffer, ipp->curtag, tag,
 	                                            1)) == NULL)
 	    {
-+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to allocate IPP attribute."), 1);
+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to allocate IPP attribute."), 1);
 	      DEBUG_puts("1ippReadIO: unable to allocate attribute.");
 	      goto rollback;
 	    }

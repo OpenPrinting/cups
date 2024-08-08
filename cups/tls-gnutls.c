@@ -1310,7 +1310,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
                   strerror(errno)));
     http->error  = errno;
     http->status = HTTP_STATUS_ERROR;
-    _cupsSetHTTPError(HTTP_STATUS_ERROR);
+    _cupsSetHTTPError(http, HTTP_STATUS_ERROR);
 
     return (-1);
   }
