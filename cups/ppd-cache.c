@@ -211,7 +211,7 @@ _cupsConvertOptions(
   media_type   = _ppdCacheGetType(pc, cupsGetOption("MediaType", num_options, options));
   size         = _ppdCacheGetSize(pc, keyword);
 
-  if (size || media_source || media_type)
+  if (media_col_sup && (size || media_source || media_type))
   {
    /*
     * Add a media-col value...
