@@ -178,6 +178,8 @@ VAR gid_t		LogFileGroup		VALUE(0);
 					/* Group ID for log files */
 VAR cupsd_loglevel_t	LogLevel		VALUE(CUPSD_LOG_WARN);
 					/* Error log level */
+VAR int			StripUserDomain		VALUE(FALSE);
+					/* Strip domain in local username? */
 VAR cupsd_time_t	LogTimeFormat		VALUE(CUPSD_TIME_STANDARD);
 					/* Log file time format */
 VAR cups_file_t		*LogStderr		VALUE(NULL);

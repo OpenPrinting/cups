@@ -6,6 +6,9 @@
 # List of events that are considered fatal errors for the scheduler...
 #FatalErrors @CUPS_FATAL_ERRORS@
 
+# Strip domain in local username?
+#StripUserDomain No
+
 # Do we call fsync() after writing configuration or status files?
 #SyncOnClose @CUPS_SYNC_ON_CLOSE@
 

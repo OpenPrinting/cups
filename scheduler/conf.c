@@ -150,7 +150,8 @@ static const cupsd_var_t	cupsfiles_vars[] =
 #ifdef HAVE_AUTHORIZATION_H
   { "SystemGroupAuthKey",	&SystemGroupAuthKey,	CUPSD_VARTYPE_STRING },
 #endif /* HAVE_AUTHORIZATION_H */
-  { "TempDir",			&TempDir,		CUPSD_VARTYPE_PATHNAME }
+  { "TempDir",			&TempDir,		CUPSD_VARTYPE_PATHNAME },
+  { "StripUserDomain",		&StripUserDomain,		CUPSD_VARTYPE_BOOLEAN }
 };
 
 static int		default_auth_type = CUPSD_AUTH_AUTO;
@@ -731,6 +732,7 @@ cupsdReadConfiguration(void)
   LogFilePerm              = CUPS_DEFAULT_LOG_FILE_PERM;
   LogFileGroup             = Group;
   LogLevel                 = CUPSD_LOG_WARN;
+  StripUserDomain          = FALSE;
   LogTimeFormat            = CUPSD_TIME_STANDARD;
   MaxClients               = 100;
   MaxClientsPerHost        = 0;
