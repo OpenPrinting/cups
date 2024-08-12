@@ -30,21 +30,24 @@ TESTOPTIONS	=
 # Make all targets...
 #
 
-all:
-	chmod +x cups-config
-	echo Using ARCHFLAGS="$(ARCHFLAGS)"
-	echo Using ALL_CFLAGS="$(ALL_CFLAGS)"
-	echo Using ALL_CXXFLAGS="$(ALL_CXXFLAGS)"
-	echo Using CC="$(CC)"
-	echo Using CXX="$(CC)"
-	echo Using DSOFLAGS="$(DSOFLAGS)"
-	echo Using LDFLAGS="$(LDFLAGS)"
-	echo Using LIBS="$(LIBS)"
-	for dir in $(DIRS); do\
-		echo Making all in $$dir... ;\
-		(cd $$dir ; $(MAKE) $(MFLAGS) all $(UNITTESTS)) || exit 1;\
-	done
+.PHONY: all $(DIRS)
 
+all: cups-config $(DIRS)
+	@echo "Using ARCHFLAGS=$(ARCHFLAGS)"
+	@echo "Using ALL_CFLAGS=$(ALL_CFLAGS)"
+	@echo "Using ALL_CXXFLAGS=$(ALL_CXXFLAGS)"
+	@echo "Using CC=$(CC)"
+	@echo "Using CXX=$(CXX)"
+	@echo "Using DSOFLAGS=$(DSOFLAGS)"
+	@echo "Using LDFLAGS=$(LDFLAGS)"
+	@echo "Using LIBS=$(LIBS)"
+
+cups-config:
+	chmod +x cups-config
+
+$(DIRS):
+	@echo "Making all in $@..."
+	$(MAKE) -C $@ $(MFLAGS) all $(UNITTESTS) || exit 1
 
 #
 # Make library targets...
