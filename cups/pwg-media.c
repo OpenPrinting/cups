@@ -953,13 +953,16 @@ pwg_media_t *				/* O - PWG media name */
 pwgMediaForSize(int width,		/* I - Width in hundredths of millimeters */
 		int length)		/* I - Length in hundredths of millimeters */
 {
+  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
+
+
  /*
   * Adobe uses a size matching algorithm with an epsilon of 5 points, which
   * is just about 176/2540ths...  But a lot of international media sizes are
   * very close so use 0.5mm (50/2540ths) as the maximum delta.
   */
 
-  return (_pwgMediaNearSize(width, length, _PWG_EPSILON));
+  return (_pwgMediaNearSize(&cg->pwg_media, cg->pwg_name, sizeof(cg->pwg_name), cg->ppd_name, sizeof(cg->ppd_name), width, length, _PWG_EPSILON));
 }
 
 
@@ -967,10 +970,15 @@ pwgMediaForSize(int width,		/* I - Width in hundredths of millimeters */
  * '_pwgMediaNearSize()' - Get the PWG media size within the given tolerance.
  */
 
-pwg_media_t *				/* O - PWG media name */
-_pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters */
-		  int length,		/* I - Length in hundredths of millimeters */
-		  int epsilon)		/* I - Match within this tolernace. PWG units */
+pwg_media_t *				/* O - PWG media */
+_pwgMediaNearSize(pwg_media_t *pwg,	/* I - Media buffer */
+                  char        *keyword,	/* I - Media keyword buffer */
+                  size_t      keysize,	/* I - Size of media keyword buffer */
+                  char        *ppdname,	/* I - PPD name buffer */
+                  size_t      ppdsize,	/* I - Size of PPD name buffer */
+                  int         width,	/* I - Width in hundredths of millimeters */
+		  int         length,	/* I - Length in hundredths of millimeters */
+		  int         epsilon)	/* I - Match within this tolernace. PWG units */
 {
   int		i;			/* Looping var */
   pwg_media_t	*media,			/* Current media */
@@ -979,7 +987,6 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
 		best_dw = 999,		/* Best difference in width and length */
 		best_dl = 999;
   char		wstr[32], lstr[32];	/* Width and length as strings */
-  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
 
 
  /*
@@ -993,17 +1000,15 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
   * Look for a standard size...
   */
 
-  for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])),
-	   media = (pwg_media_t *)cups_pwg_media;
-       i > 0;
-       i --, media ++)
+  for (i = (int)(sizeof(cups_pwg_media) / sizeof(cups_pwg_media[0])), media = (pwg_media_t *)cups_pwg_media; i > 0; i --, media ++)
   {
-
     dw = abs(media->width - width);
     dl = abs(media->length - length);
 
     if (!dw && !dl)
+    {
       return (media);
+    }
     else if (dw <= epsilon && dl <= epsilon)
     {
       if (dw <= best_dw && dl <= best_dl)
@@ -1024,20 +1029,23 @@ _pwgMediaNearSize(int width,	        /* I - Width in hundredths of millimeters *
   *     custom_WIDTHxHEIGHTuu_WIDTHxHEIGHTuu
   */
 
-  pwgFormatSizeName(cg->pwg_name, sizeof(cg->pwg_name), "custom", NULL, width,
-                    length, NULL);
+  if (keyword)
+    pwgFormatSizeName(keyword, keysize, "custom", NULL, width, length, NULL);
 
-  cg->pwg_media.pwg    = cg->pwg_name;
-  cg->pwg_media.width  = width;
-  cg->pwg_media.length = length;
+  if (ppdname)
+  {
+    if ((width % 635) == 0 && (length % 635) == 0)
+      snprintf(ppdname, ppdsize, "%sx%s", pwg_format_inches(wstr, sizeof(wstr), width), pwg_format_inches(lstr, sizeof(lstr), length));
+    else
+      snprintf(ppdname, ppdsize, "%sx%smm", pwg_format_millimeters(wstr, sizeof(wstr), width), pwg_format_millimeters(lstr, sizeof(lstr), length));
+  }
 
-  if ((width % 635) == 0 && (length % 635) == 0)
-    snprintf(cg->ppd_name, sizeof(cg->ppd_name), "%sx%s", pwg_format_inches(wstr, sizeof(wstr), width), pwg_format_inches(lstr, sizeof(lstr), length));
-  else
-    snprintf(cg->ppd_name, sizeof(cg->ppd_name), "%sx%smm", pwg_format_millimeters(wstr, sizeof(wstr), width), pwg_format_millimeters(lstr, sizeof(lstr), length));
-  cg->pwg_media.ppd = cg->ppd_name;
+  pwg->pwg    = keyword;
+  pwg->ppd    = ppdname;
+  pwg->width  = width;
+  pwg->length = length;
 
-  return (&(cg->pwg_media));
+  return (pwg);
 }
 
 
