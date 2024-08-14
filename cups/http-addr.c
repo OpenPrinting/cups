@@ -721,8 +721,12 @@ httpGetHostname(http_t *http,		// I - HTTP connection or NULL
                 char   *s,		// I - String buffer for name
                 int    slen)		// I - Size of buffer
 {
+  DEBUG_printf("httpGetHostname(http=%p, s=%p, slen=%d)", (void *)http, (void *)s, slen);
+
   if (http)
   {
+    DEBUG_printf("1httpGetHostname: http->hostname=\"%s\"", http->hostname);
+
     if (!s || slen <= 1)
     {
       if (http->hostname[0] == '/')
@@ -748,6 +752,8 @@ httpGetHostname(http_t *http,		// I - HTTP connection or NULL
     if (gethostname(s, (size_t)slen) < 0)
       cupsCopyString(s, "localhost", (size_t)slen);
 
+    DEBUG_printf("1httpGetHostname: gethostname() returned \"%s\".", s);
+
     if (!strchr(s, '.'))
     {
 #ifdef HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME
@@ -763,6 +769,7 @@ httpGetHostname(http_t *http,		// I - HTTP connection or NULL
       {
         // Append ".local." to the hostname we get...
         snprintf(s, (size_t)slen, "%s.local.", localStr);
+        DEBUG_printf("1httpGetHostname: SCDynamicStoreCopyLocalHostName() returned \"%s\".", s);
       }
 
       if (local)
@@ -778,6 +785,7 @@ httpGetHostname(http_t *http,		// I - HTTP connection or NULL
       {
         // Use the resolved hostname...
 	cupsCopyString(s, host->h_name, (size_t)slen);
+        DEBUG_printf("1httpGetHostname: gethostbyname() returned \"%s\".", s);
       }
 #endif // HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME
     }
