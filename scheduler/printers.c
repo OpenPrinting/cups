@@ -1,7 +1,7 @@
 /*
  * Printer routines for the CUPS scheduler.
  *
- * Copyright © 2020-2023 by OpenPrinting
+ * Copyright © 2020-2024 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -2695,11 +2695,19 @@ cupsdSetPrinterState(
 
 
  /*
-  * Set the new state...
+  * Set the new state and clear/set the reasons and message...
   */
 
   old_state = p->state;
   p->state  = s;
+
+  if (s == IPP_PSTATE_STOPPED)
+    cupsdSetPrinterReasons(p, "+paused");
+  else
+    cupsdSetPrinterReasons(p, "-paused");
+
+  if (s == IPP_PSTATE_PROCESSING)
+    p->state_message[0] = '\0';
 
   if (old_state != s)
   {
@@ -2716,32 +2724,20 @@ cupsdSetPrinterState(
     p->state_time = time(NULL);
   }
 
- /*
-  * Set/clear the paused reason as needed...
-  */
-
-  if (s == IPP_PRINTER_STOPPED)
-    cupsdSetPrinterReasons(p, "+paused");
-  else
-    cupsdSetPrinterReasons(p, "-paused");
-
   if (old_state != s)
   {
-    for (job = (cupsd_job_t *)cupsArrayFirst(ActiveJobs);
-	 job;
-	 job = (cupsd_job_t *)cupsArrayNext(ActiveJobs))
+   /*
+    * Set/clear the printer-stopped reason as needed...
+    */
+
+    for (job = (cupsd_job_t *)cupsArrayFirst(ActiveJobs); job; job = (cupsd_job_t *)cupsArrayNext(ActiveJobs))
+    {
       if (job->reasons && job->state_value == IPP_JOB_PENDING &&
 	  !_cups_strcasecmp(job->dest, p->name))
 	ippSetString(job->attrs, &job->reasons, 0,
 		     s == IPP_PRINTER_STOPPED ? "printer-stopped" : "none");
+    }
   }
-
- /*
-  * Clear the message for the queue when going to processing...
-  */
-
-  if (s == IPP_PRINTER_PROCESSING)
-    p->state_message[0] = '\0';
 
  /*
   * Let the browse protocols reflect the change...
