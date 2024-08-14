@@ -829,7 +829,7 @@ cupsGetCredentialsTrust(
 
         trust = HTTP_TRUST_INVALID;
       }
-      else if (!cupsAreCredentialsValidForName(credentials, common_name))
+      else if (!cupsAreCredentialsValidForName(common_name, credentials))
       {
         // The common name does not match the issued certificate...
         _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("New credentials are not valid for name."), 1);
