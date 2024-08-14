@@ -636,7 +636,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		};
 
 
-  ptr = cgiGetTextfield("DEVICE_URI");
+  ptr = cgiGetVariable("DEVICE_URI");
   fprintf(stderr, "DEBUG: do_am_printer: DEVICE_URI=\"%s\"\n",
           ptr ? ptr : "(null)");
 
@@ -697,7 +697,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     }
   }
 
-  if ((var = cgiGetTextfield("DEVICE_URI")) != NULL)
+  if ((var = cgiGetVariable("DEVICE_URI")) != NULL)
   {
     if ((uriptr = strrchr(var, '|')) != NULL)
     {
@@ -1130,7 +1130,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
                  NULL, cgiGetTextfield("PRINTER_INFO"));
 
-    strlcpy(uri, cgiGetTextfield("DEVICE_URI"), sizeof(uri));
+    strlcpy(uri, cgiGetVariable("DEVICE_URI"), sizeof(uri));
 
    /*
     * Strip make and model from URI...

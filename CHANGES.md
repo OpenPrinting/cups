@@ -7,6 +7,7 @@ Changes in CUPS v2.4.11 (YYYY-MM-DD)
 
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
 - Fixed incorrect error message for HTTP/IPP errors (Issue #893)
+- Fixed adding and modifying of printers via the web interface (Issue #998)
 - Fixed checkbox support (Issue #1008)
 - Fixed printer state notifications (Issue #1013)
 
