@@ -11,6 +11,7 @@ Changes in CUPS v2.4.11 (YYYY-MM-DD)
   (Issue #990)
 - Fixed issues with cupsGetDestMediaByXxx (Issue #993)
 - Fixed adding and modifying of printers via the web interface (Issue #998)
+- Fixed HTTP PeerCred authentication for domain users (Issue #1001)
 - Fixed checkbox support (Issue #1008)
 - Fixed printer state notifications (Issue #1013)
 

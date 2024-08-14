@@ -154,6 +154,7 @@ static const cupsd_var_t	cupsfiles_vars[] =
 #endif /* HAVE_TLS */
   { "ServerRoot",		&ServerRoot,		CUPSD_VARTYPE_PATHNAME },
   { "StateDir",			&StateDir,		CUPSD_VARTYPE_STRING },
+  { "StripUserDomain",		&StripUserDomain,	CUPSD_VARTYPE_BOOLEAN },
   { "SyncOnClose",		&SyncOnClose,		CUPSD_VARTYPE_BOOLEAN },
 #ifdef HAVE_AUTHORIZATION_H
   { "SystemGroupAuthKey",	&SystemGroupAuthKey,	CUPSD_VARTYPE_STRING },
@@ -729,6 +730,7 @@ cupsdReadConfiguration(void)
   LogFilePerm              = CUPS_DEFAULT_LOG_FILE_PERM;
   LogFileGroup             = Group;
   LogLevel                 = CUPSD_LOG_WARN;
+  StripUserDomain          = FALSE;
   LogTimeFormat            = CUPSD_TIME_STANDARD;
   MaxClients               = 100;
   MaxClientsPerHost        = 0;

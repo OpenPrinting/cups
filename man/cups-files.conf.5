@@ -210,6 +210,17 @@ Note: the standard CUPS filter and backend environment variables cannot be overr
 \fBStateDir \fIdirectory\fR
 Specifies the directory to use for PID and local certificate files.
 The default is "/var/run/cups" or "/etc/cups" depending on the platform.
+.\"#StripUserDomain
+.TP 5
+\StripUserDomain Yes\fR
+.TP 5
+\StripUserDomain No\fR
+Specifies whether to remove domain from user name during local user authentication (e.g., "user@example.com" –> "user").
+This practice can be beneficial for maintaining compatibility with older versions of Kerberos.
+However, enabling this option can have negative consequences.
+It may result in confusion between domain and local users with identical names, potentially leading
+to incorrect assignment of user permissions and unintentional permission escalation,
+thus creating a security risk. Therefore, it is advisable to avoid using this option in most cases.
 .\"#SyncOnClose
 .TP 5
 \fBSyncOnClose Yes\fR

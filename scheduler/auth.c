@@ -1722,14 +1722,14 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   * Strip any @domain or @KDC from the username and owner...
   */
 
-  if ((ptr = strchr(username, '@')) != NULL)
+  if (StripUserDomain && (ptr = strchr(username, '@')) != NULL)
     *ptr = '\0';
 
   if (owner)
   {
     strlcpy(ownername, owner, sizeof(ownername));
 
-    if ((ptr = strchr(ownername, '@')) != NULL)
+    if (StripUserDomain && (ptr = strchr(ownername, '@')) != NULL)
       *ptr = '\0';
   }
   else
