@@ -288,7 +288,7 @@ cgiGetTextfield(const char *name)	/* I - Name of form field */
     value = NULL;
   }
 
-  return (value);
+  return (value ? strdup(value) : NULL);
 }
 
 
