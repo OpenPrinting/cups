@@ -1043,7 +1043,8 @@ _ppdCacheCreateWithPPD(
 			ppd_name[PPD_MAX_NAME];
 					/* Normalized PPD name */
   const char		*pwg_name;	/* Standard PWG media name */
-  pwg_media_t		*pwg_media;	/* PWG media data */
+  pwg_media_t		*pwg_media,	/* PWG media data */
+			pwg_mediatemp;	/* PWG media data buffer */
   _pwg_print_color_mode_t pwg_print_color_mode;
 					/* print-color-mode index */
   _pwg_print_quality_t	pwg_print_quality;
@@ -1162,9 +1163,7 @@ _ppdCacheCreateWithPPD(
       * dimensions that are <= 0...
       */
 
-      if ((pwg_media = _pwgMediaNearSize(PWG_FROM_POINTS(ppd_size->width),
-					PWG_FROM_POINTS(ppd_size->length),
-					0)) == NULL)
+      if ((pwg_media = _pwgMediaNearSize(&pwg_mediatemp, /*keyword*/NULL, /*keysize*/0, /*ppdname*/NULL, /*ppdsize*/0, PWG_FROM_POINTS(ppd_size->width), PWG_FROM_POINTS(ppd_size->length), /*epsilon*/0)) == NULL)
 	continue;
 
       new_width      = pwg_media->width;

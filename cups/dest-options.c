@@ -8,10 +8,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cups-private.h"
 #include "debug-internal.h"
 
@@ -2414,7 +2410,6 @@ cups_create_media_db(
 			*media_attr,	/* media-xxx */
 			*x_dimension,	/* x-dimension */
 			*y_dimension;	/* y-dimension */
-  pwg_media_t		*pwg;		/* PWG media info */
   cups_array_t		*db;		/* New media database array */
   _cups_media_db_t	mdb;		/* Media entry */
   char			media_key[256];	/* Synthesized media-key value */
@@ -2550,8 +2545,12 @@ cups_create_media_db(
 
       if (!mdb.key)
       {
-        if (!mdb.size_name && (pwg = pwgMediaForSize(mdb.width, mdb.length)) != NULL)
-	  mdb.size_name = (char *)pwg->pwg;
+        pwg_media_t	pwg;		/* PWG media info */
+	char		keyword[128],	/* PWG size keyword */
+			ppdname[41];	/* PPD size name */
+
+        if (!mdb.size_name && _pwgMediaNearSize(&pwg, keyword, sizeof(keyword), ppdname, sizeof(ppdname), mdb.width, mdb.length, _PWG_EPSILON))
+	  mdb.size_name = keyword;
 
         if (!mdb.size_name)
         {
@@ -2658,24 +2657,26 @@ cups_create_media_db(
          i > 0;
          i --, val ++)
     {
+      pwg_media_t	*pwg;		/* PWG media information */
+
       if ((pwg = pwgMediaForPWG(val->string.text)) == NULL)
+      {
         if ((pwg = pwgMediaForLegacy(val->string.text)) == NULL)
 	{
 	  DEBUG_printf("3cups_create_media_db: Ignoring unknown size '%s'.", val->string.text);
 	  continue;
 	}
+      }
 
       mdb.width  = pwg->width;
       mdb.length = pwg->length;
 
-      if (flags != CUPS_MEDIA_FLAGS_READY &&
-          !strncmp(val->string.text, "custom_min_", 11))
+      if (flags != CUPS_MEDIA_FLAGS_READY && !strncmp(val->string.text, "custom_min_", 11))
       {
         mdb.size_name   = NULL;
         dinfo->min_size = mdb;
       }
-      else if (flags != CUPS_MEDIA_FLAGS_READY &&
-	       !strncmp(val->string.text, "custom_max_", 11))
+      else if (flags != CUPS_MEDIA_FLAGS_READY && !strncmp(val->string.text, "custom_max_", 11))
       {
         mdb.size_name   = NULL;
         dinfo->max_size = mdb;
