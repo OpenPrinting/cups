@@ -5285,7 +5285,7 @@ create_local_bg_thread(
 
   request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
   ippSetVersion(request, 2, 0);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, printer->device_uri);
+  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, device_uri);
   ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
   response = cupsDoRequest(http, request, resource);
@@ -5306,7 +5306,7 @@ create_local_bg_thread(
 
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
     ippSetVersion(request, 1, 1);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, printer->device_uri);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, device_uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", NULL, "all");
 
     response = cupsDoRequest(http, request, resource);
@@ -5329,7 +5329,7 @@ create_local_bg_thread(
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
     ippSetVersion(request, 2, 0);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-		 "printer-uri", NULL, uri);
+		 "printer-uri", NULL, device_uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
 		 "requested-attributes", NULL, "media-col-database");
     response2 = cupsDoRequest(http, request, resource);
