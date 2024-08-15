@@ -14,6 +14,7 @@ Changes in CUPS v2.4.11 (YYYY-MM-DD)
 - Fixed HTTP PeerCred authentication for domain users (Issue #1001)
 - Fixed checkbox support (Issue #1008)
 - Fixed printer state notifications (Issue #1013)
+- Fixed IPP Everywhere printer setup (Issue #1033)
 
 
 Changes in CUPS v2.4.10 (2024-06-18)
