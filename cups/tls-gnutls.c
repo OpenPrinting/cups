@@ -1717,7 +1717,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   }
 
   if (!status && credentials)
-    status = gnutls_credentials_set(http->tls, GNUTLS_CRD_CERTIFICATE, credentials);
+    status = gnutls_credentials_set(http->tls, GNUTLS_CRD_CERTIFICATE, credentials->creds);
 
   if (status)
   {
