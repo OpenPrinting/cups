@@ -22,6 +22,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added driver filter to web interface (Issue #848)
 - Added support for PAM modules password-auth and system-auth (Issue #892)
 - Added Docker support (Issue #929)
+- Added a systemd slice to the systemd services included with the scheduler
 - Added localizations for deprecated IPP attributes/options (Issue #1020)
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.

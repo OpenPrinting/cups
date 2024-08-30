@@ -1,0 +1,3 @@
+[Unit]
+Description=CUPS Slice
+Documentation=man:cups(1)

@@ -6,4 +6,5 @@ Documentation=man:cups-lpd(8)
 ExecStart=-@CUPS_SERVERBIN@/daemon/cups-lpd
 StandardInput=socket
 User=@CUPS_USER@
+Slice=system-cups.slice
 
