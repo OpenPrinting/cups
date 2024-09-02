@@ -195,6 +195,7 @@ install-data:
 	if test "x$(SYSTEMD_DIR)" != x; then \
 		echo Installing systemd configuration files...; \
 		$(INSTALL_DIR) $(BUILDROOT)$(SYSTEMD_DIR); \
+		$(INSTALL_DATA) system-cups.slice $(BUILDROOT)$(SYSTEMD_DIR); \
 		$(INSTALL_DATA) cups.path $(BUILDROOT)$(SYSTEMD_DIR); \
 		$(INSTALL_DATA) cups.service $(BUILDROOT)$(SYSTEMD_DIR); \
 		$(INSTALL_DATA) cups.socket $(BUILDROOT)$(SYSTEMD_DIR); \
