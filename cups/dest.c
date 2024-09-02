@@ -3148,8 +3148,7 @@ cups_dnssd_query_cb(
       }
       else if (!saw_printer_type)
       {
-	if (!_cups_strcasecmp(key, "air") &&
-		 !_cups_strcasecmp(value, "t"))
+	if (!_cups_strcasecmp(key, "air") && _cups_strcasecmp(value, "none"))
 	  type |= CUPS_PRINTER_AUTHENTICATED;
 	else if (!_cups_strcasecmp(key, "bind") &&
 		 !_cups_strcasecmp(value, "t"))
