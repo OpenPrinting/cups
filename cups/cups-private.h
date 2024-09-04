@@ -26,6 +26,9 @@
 #  ifdef __cplusplus
 extern "C" {
 #  endif // __cplusplus
+#  ifdef _WIN32
+typedef int mode_t;			// Windows doesn't support mode_t type @private@
+#  endif // _WIN32
 
 
 //
