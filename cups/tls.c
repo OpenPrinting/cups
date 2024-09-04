@@ -18,7 +18,9 @@
 #  include <Security/Security.h>
 #endif // __APPLE__
 #ifdef _WIN32
+#  pragma comment(lib, "crypt32.lib")	// Link in crypt32 library...
 #  include <tchar.h>
+#  include <wincrypt.h>
 #else
 #  include <poll.h>
 #  include <signal.h>
