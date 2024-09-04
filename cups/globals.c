@@ -258,10 +258,10 @@ cups_globals_alloc(void)
     cg->cups_serverbin = installdir;
 
   if ((cg->sysconfig = getenv("CUPS_SERVERROOT")) == NULL)
-    cg->sysconfig = confdir;
+    cg->sysconfig = sysconfig;
 
   if ((cg->cups_statedir = getenv("CUPS_STATEDIR")) == NULL)
-    cg->cups_statedir = confdir;
+    cg->cups_statedir = sysconfig;
 
   if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
     cg->localedir = localedir;
