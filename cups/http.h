@@ -406,6 +406,7 @@ extern http_t		*httpConnect(const char *host, int port) _CUPS_DEPRECATED_MSG("Us
 extern http_t		*httpConnect2(const char *host, int port, http_addrlist_t *addrlist, int family, http_encryption_t encryption, int blocking, int msec, int *cancel) _CUPS_PUBLIC;
 extern bool		httpConnectAgain(http_t *http, int msec, int *cancel) _CUPS_PUBLIC;
 extern http_t		*httpConnectEncrypt(const char *host, int port, http_encryption_t encryption) _CUPS_DEPRECATED_MSG("Use httpConnect2 instead.");
+extern http_t		*httpConnectURI(const char *uri, char *host, size_t hsize, int *port, char *resource, size_t rsize, bool blocking, int msec, int *cancel, bool require_ca) _CUPS_PUBLIC;
 extern int		httpCopyCredentials(http_t *http, cups_array_t **credentials) _CUPS_DEPRECATED_MSG("Use httpCopyPeerCredentials instead.");
 extern char		*httpCopyPeerCredentials(http_t *http) _CUPS_PUBLIC;
 extern int		httpCredentialsAreValidForName(cups_array_t *credentials, const char *common_name) _CUPS_DEPRECATED_MSG("Use cupsAreCredentialsValidForName instead.");

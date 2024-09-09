@@ -554,6 +554,114 @@ httpConnectEncrypt(
 
 
 //
+// 'httpConnectURI()' - Connect to a HTTP service using a URI.
+//
+// This function creates a connection to a HTTP server.  The "uri" argument
+// specifies a "http", "https", "ipp", or "ipps" URI for the service.
+//
+// The resource path for the service is returned in the buffer pointed to by
+// the "resource" argument of size "rsize".
+//
+// The "msec" argument specifies how long to try to connect to the server or `0`
+// to just create an unconnected `http_t` object.  The "cancel" argument
+// specifies an integer variable that can be set to a non-zero value to cancel
+// the connection process.
+//
+// The "require_ca" argument specifies whether to verify that the service
+// connection is using a CA-signed X.509 certificate.
+//
+// @since CUPS 2.5@
+//
+
+http_t *				// O - New HTTP connection
+httpConnectURI(const char *uri,		// I - Service to connect to
+               char       *host,	// I - Host name buffer (`NULL` for don't care)
+               size_t     hsize,	// I - Size of host name buffer
+               int        *port,	// O - Port number (`NULL` for don't care)
+               char       *resource,	// I - Resource path buffer (`NULL` for don't care)
+               size_t     rsize,	// I - Size of resource path buffer
+               bool       blocking,	// I - `true` for blocking connection, `false` for non-blocking
+               int        msec,		// I - Connection timeout in milliseconds, `0` means don't connect
+               int        *cancel,	// I - Pointer to "cancel" variable or `NULL` for none
+               bool       require_ca)	// I - `true` to require a CA-signed X.509 certificate
+{
+  http_t	*http;			// New HTTP connection
+  char		scheme[32],		// URI scheme
+		userpass[32],		// URI username:password
+		lhost[256],		// URI host (local copy)
+		lresource[256];		// URI resource (local copy)
+  int		lport;			// URI port (local copy)
+  http_encryption_t encryption;		// Type of encryption to use
+
+
+  DEBUG_printf("httpConnectURI(uri=\"%s\", host=%p, hsize=%u, port=%p, resource=%p, rsize=%u, blocking=%d, msec=%d, cancel=%p, require_ca=%s)", uri, (void *)host, (unsigned)hsize, (void *)port, (void *)resource, (unsigned)rsize, blocking, msec, (void *)cancel, require_ca ? "true" : "false");
+
+  // Range check input...
+  if (!uri)
+  {
+    if (host)
+      *host = '\0';
+
+    if (port)
+      *port = 0;
+
+    if (resource)
+      *resource = '\0';
+
+    return (NULL);
+  }
+
+  if (!host)
+  {
+    host  = lhost;
+    hsize = sizeof(lhost);
+  }
+
+  if (!port)
+    port = &lport;
+
+  if (!resource)
+  {
+    resource = lresource;
+    rsize    = sizeof(lresource);
+  }
+
+  // Get the URI components...
+  if (httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, hsize, port, resource, rsize) < HTTP_URI_STATUS_OK)
+    return (NULL);
+
+  DEBUG_printf("1httpConnectURI: scheme=\"%s\", host=\"%s\", port=%d, resource=\"%s\"", scheme, host, *port, resource);
+
+  if (!strcmp(scheme, "https") || !strcmp(scheme, "ipps") || *port == 443)
+    encryption = HTTP_ENCRYPTION_ALWAYS;
+  else
+    encryption = HTTP_ENCRYPTION_IF_REQUESTED;
+
+  http = httpConnect2(host, *port, /*addrlist*/NULL, AF_UNSPEC, encryption, blocking, msec, cancel);
+
+  if (httpIsEncrypted(http) && require_ca)
+  {
+    // Validate trust with service...
+    char	*creds;			// Peer credentials...
+    http_trust_t trust;			// Trust in credentials...
+
+    creds = httpCopyPeerCredentials(http);
+    trust = cupsGetCredentialsTrust(/*path*/NULL, host, creds, require_ca);
+
+    free(creds);
+
+    if (trust != HTTP_TRUST_OK)
+    {
+      httpClose(http);
+      http = NULL;
+    }
+  }
+
+  return (http);
+}
+
+
+//
 // 'httpDelete()' - Send a DELETE request to the server.
 //
 // @deprecated@ @exclude all@
