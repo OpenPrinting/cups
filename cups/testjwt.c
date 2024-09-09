@@ -293,11 +293,72 @@ main(int  argc,				// I - Number of command-line arguments
   else
   {
     // Try loading JWT string on the command-line...
+    cups_json_t	*jwks = NULL;		// JWT Key Set, if any
+
     for (i = 1; i < argc; i ++)
     {
-      if ((jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_COMPACT)) != NULL)
+      if (!access(argv[i], R_OK))
       {
-//	printf("%s: OK, %u key/value pairs in root object.\n", argv[i], (unsigned)(cupsJSONGetCount(json) / 2));
+        if ((jwks = cupsJSONImportFile(argv[i])) == NULL)
+        {
+	  fprintf(stderr, "%s: %s\n", argv[i], cupsGetErrorString());
+	  return (1);
+        }
+      }
+      else if ((jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_COMPACT)) != NULL)
+      {
+        cups_json_t	*claims = cupsJWTGetClaims(jwt);
+					// All claims
+        cups_json_t	*headers = cupsJWTGetHeaders(jwt);
+					// All JOSE headers
+        char		*temp;		// Temporary string
+	const char	*aud = cupsJWTGetClaimString(jwt, CUPS_JWT_AUD);
+					// Audience
+	const char	*iss = cupsJWTGetClaimString(jwt, CUPS_JWT_ISS);
+					// Issuer
+	const char	*jti = cupsJWTGetClaimString(jwt, CUPS_JWT_JTI);
+					// JWT ID
+	const char	*name = cupsJWTGetClaimString(jwt, CUPS_JWT_NAME);
+					// Display name
+	const char	*sub = cupsJWTGetClaimString(jwt, CUPS_JWT_SUB);
+					// Subject (username/ID)
+	double		iat = cupsJWTGetClaimNumber(jwt, CUPS_JWT_IAT);
+					// Issue time
+	double		exp = cupsJWTGetClaimNumber(jwt, CUPS_JWT_EXP);
+					// Expiration time
+	double		nbf = cupsJWTGetClaimNumber(jwt, CUPS_JWT_NBF);
+					// Not before time
+	char		date[256];	// Date
+
+	if (iss)
+	  printf("Issuer: %s\n", iss);
+	if (name)
+	  printf("Display Name: %s\n", name);
+	if (sub)
+	  printf("Subject: %s\n", sub);
+	if (aud)
+	  printf("Audience: %s\n", aud);
+	if (jti)
+	  printf("JWT ID: %s\n", jti);
+	if (iat > 0.0)
+	  printf("Issued On: %s\n", httpGetDateString2((time_t)iat, date, sizeof(date)));
+	if (exp > 0.0)
+	  printf("Expires On: %s\n", httpGetDateString2((time_t)exp, date, sizeof(date)));
+	if (nbf > 0.0)
+	  printf("Not Before: %s\n", httpGetDateString2((time_t)nbf, date, sizeof(date)));
+        printf("Valid: %s\n", jwks ? (cupsJWTHasValidSignature(jwt, jwks) ? "yes" : "no") : "unknown");
+
+        if ((temp = cupsJSONExportString(headers)) != NULL)
+        {
+          printf("\njose=%s\n", temp);
+          free(temp);
+	}
+
+        if ((temp = cupsJSONExportString(claims)) != NULL)
+        {
+          printf("\nclaims=%s\n", temp);
+          free(temp);
+	}
 
         cupsJWTDelete(jwt);
       }
