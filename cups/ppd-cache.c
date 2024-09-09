@@ -4916,7 +4916,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 	}
       }
       cupsFilePuts(fp, "\"\n");
-      ppd_put_strings(fp, langs, "cupsFinishingTemplate", keyword, msgid);
+      ppd_put_strings(fp, langs, "cupsFinishingTemplate", ppdname, msgid);
       cupsFilePuts(fp, "*End\n");
     }
 
@@ -4956,7 +4956,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 					/* Preset name */
       ipp_attribute_t *member;		/* Member attribute in preset */
       const char *member_name;		/* Member attribute name */
-      char      	member_value[256];	/* Member attribute value */
+      char      member_value[256];	/* Member attribute value */
 
       if (!preset || !preset_name)
         continue;
@@ -5085,8 +5085,9 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 
       cupsFilePuts(fp, "\"\n*End\n");
 
-//      if ((localized_name = _cupsMessageLookup(strings, preset_name)) != preset_name)
-//        cupsFilePrintf(fp, "*%s.APPrinterPreset %s/%s: \"\"\n", lang->language, preset_name, localized_name);
+      pwg_ppdize_name(preset_name, ppdname, sizeof(ppdname));
+      snprintf(msgid, sizeof(msgid), "preset-name.%s", preset_name);
+      ppd_put_strings(fp, langs, "APPrinterPreset", ppdname, msgid);
     }
   }
 
