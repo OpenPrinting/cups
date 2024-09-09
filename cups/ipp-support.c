@@ -128,7 +128,8 @@ static const char * const ipp_status_oks[] =	// "OK" status codes
 		{
 		  "cups-authentication-canceled",
 		  "cups-pki-error",
-		  "cups-upgrade-required"
+		  "cups-upgrade-required",
+		  "cups-oauth"
 		};
 static const char * const ipp_std_ops[] =
 		{
@@ -2257,9 +2258,8 @@ ippErrorString(ipp_status_t error)	// I - Error status
            error <= IPP_STATUS_ERROR_TOO_MANY_DOCUMENTS)
     return (ipp_status_500s[error - IPP_STATUS_ERROR_INTERNAL]);
   else if (error >= IPP_STATUS_ERROR_CUPS_AUTHENTICATION_CANCELED &&
-           error <= IPP_STATUS_ERROR_CUPS_UPGRADE_REQUIRED)
-    return (ipp_status_1000s[error -
-                             IPP_STATUS_ERROR_CUPS_AUTHENTICATION_CANCELED]);
+           error <= IPP_STATUS_ERROR_CUPS_OAUTH)
+    return (ipp_status_1000s[error - IPP_STATUS_ERROR_CUPS_AUTHENTICATION_CANCELED]);
 
  /*
   * No, build an "0xxxxx" error string...

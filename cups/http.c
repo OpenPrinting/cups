@@ -97,7 +97,8 @@ static const char * const http_fields[] =
 			  "Optional-WWW-Authenticate",
 			  "Origin",
 			  "OSCORE",
-			  "Strict-Transport-Security"
+			  "Strict-Transport-Security",
+			  "Accept"
 			};
 
 

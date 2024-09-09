@@ -162,6 +162,7 @@ typedef enum http_field_e		// HTTP field names
   HTTP_FIELD_ORIGIN,			// RFC 6454 Origin field @since CUPS 2.4@
   HTTP_FIELD_OSCORE,			// RFC 8613 OSCORE field @since CUPS 2.4@
   HTTP_FIELD_STRICT_TRANSPORT_SECURITY,	// HSTS Strict-Transport-Security field @since CUPS 2.4@
+  HTTP_FIELD_ACCEPT,			// Accept field @since CUPS 2.5@
   HTTP_FIELD_MAX			// Maximum field index
 } http_field_t;
 

@@ -448,7 +448,9 @@ typedef enum ipp_status_e		// IPP status code values
   IPP_STATUS_ERROR_CUPS_AUTHENTICATION_CANCELED = 0x1000,
 					// cups-authentication-canceled - Authentication canceled by user @since CUPS 1.5/macOS 10.7@
   IPP_STATUS_ERROR_CUPS_PKI,		// cups-pki-error - Error negotiating a secure connection @since CUPS 1.5/macOS 10.7@
-  IPP_STATUS_ERROR_CUPS_UPGRADE_REQUIRED// cups-upgrade-required - TLS upgrade required @since CUPS 1.5/macOS 10.7@
+  IPP_STATUS_ERROR_CUPS_UPGRADE_REQUIRED,
+					// cups-upgrade-required - TLS upgrade required @since CUPS 1.5/macOS 10.7@
+  IPP_STATUS_ERROR_CUPS_OAUTH		// cups-oauth - OAuth error
 } ipp_status_t;
 
 typedef enum ipp_tag_e			// Value and group tag values for attributes

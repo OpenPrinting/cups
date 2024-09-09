@@ -46,6 +46,7 @@ COREOBJS	=	\
 		md5.o \
 		md5passwd.o \
 		notify.o \
+		oauth.o \
 		options.o \
 		pwg-media.o \
 		rand.o \
@@ -111,6 +112,7 @@ TESTOBJS	= \
 		testjson.o \
 		testjwt.o \
 		testlang.o \
+		testoauth.o \
 		testoptions.o \
 		testppd.o \
 		testpwg.o \
@@ -142,6 +144,7 @@ COREHEADERS	=	\
 		json.h \
 		jwt.h \
 		language.h \
+		oauth.h \
 		pwg.h \
 		raster.h \
 		thread.h \
@@ -207,6 +210,7 @@ UNITTARGETS =	\
 		testjson \
 		testjwt \
 		testlang \
+		testoauth \
 		testoptions \
 		testppd \
 		testpwg \
@@ -737,6 +741,16 @@ testjwt:	testjwt.o $(LIBCUPSSTATIC)
 testlang:	testlang.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testlang.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testoauth (dependency on static libraries is intentional)
+#
+
+testoauth:	testoauth.o $(LIBCUPS_STATIC)
+	echo Linking $@...
+	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testoauth.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 

@@ -344,8 +344,8 @@ INSTALLXPC=""
 AS_CASE([$host_os_name], [darwin*], [
     BACKLIBS="$BACKLIBS -framework IOKit"
     SERVERLIBS="$SERVERLIBS -framework IOKit -weak_framework ApplicationServices"
-    LIBS="-framework CoreFoundation -framework Security $LIBS"
-    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC -framework CoreFoundation -framework Security"
+    LIBS="-framework CoreFoundation -framework CoreServices -framework Security $LIBS"
+    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC -framework CoreFoundation -framework CoreServices -framework Security"
 
     dnl Check for framework headers...
     AC_CHECK_HEADER([ApplicationServices/ApplicationServices.h], [
