@@ -1,7 +1,7 @@
 /*
  * IPP routines for the CUPS scheduler.
  *
- * Copyright © 2020-2023 by OpenPrinting
+ * Copyright © 2020-2024 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -5415,6 +5415,13 @@ create_local_bg_thread(
       }
       ippDelete(response2);
     }
+  }
+
+  // Validate response from printer...
+  if (!ippValidateAttributes(response))
+  {
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Printer returned invalid data: %s"), cupsLastErrorString());
+    goto finish_response;
   }
 
   // TODO: Grab printer icon file...
