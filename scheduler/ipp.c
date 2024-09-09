@@ -5356,6 +5356,13 @@ create_local_bg_thread(
     }
   }
 
+  // Validate response from printer...
+  if (!ippValidateAttributes(response))
+  {
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Printer returned invalid data: %s"), cupsGetErrorString());
+    goto finish_response;
+  }
+
   // TODO: Grab printer icon file...
   httpClose(http);
 
