@@ -3183,11 +3183,12 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   ipp_t			*media_col,	/* Media collection */
 			*media_size;	/* Media size collection */
   char			make[256],	/* Make and model */
-			*model,		/* Model name */
+			*mptr,		/* Pointer into make and model */
 			ppdname[PPD_MAX_NAME],
 		    			/* PPD keyword */
 		    	ppdtext[PPD_MAX_TEXT];
 					/* PPD English text */
+  const char		*model;		/* Model name */
   int			i, j,		/* Looping vars */
 			count,		/* Number of values */
 			bottom,		/* Largest bottom margin */
@@ -3252,6 +3253,92 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   }
 
  /*
+  * Get a sanitized make and model...
+  */
+
+  if ((attr = ippFindAttribute(supported, "printer-make-and-model", IPP_TAG_TEXT)) != NULL && ippValidateAttribute(attr))
+  {
+   /*
+    * Sanitize the model name to only contain PPD-safe characters.
+    */
+
+    cupsCopyString(make, ippGetString(attr, 0, NULL), sizeof(make));
+
+    for (mptr = make; *mptr; mptr ++)
+    {
+      if (*mptr < ' ' || *mptr >= 127 || *mptr == '\"')
+      {
+       /*
+	* Truncate the make and model on the first bad character...
+	*/
+
+	*mptr = '\0';
+	break;
+      }
+    }
+
+    while (mptr > make)
+    {
+     /*
+      * Strip trailing whitespace...
+      */
+
+      mptr --;
+      if (*mptr == ' ')
+	*mptr = '\0';
+    }
+
+    if (!make[0])
+    {
+     /*
+      * Use a default make and model if nothing remains...
+      */
+
+      cupsCopyString(make, "Unknown", sizeof(make));
+    }
+  }
+  else
+  {
+   /*
+    * Use a default make and model...
+    */
+
+    cupsCopyString(make, "Unknown", sizeof(make));
+  }
+
+  if (!_cups_strncasecmp(make, "Hewlett Packard ", 16) || !_cups_strncasecmp(make, "Hewlett-Packard ", 16))
+  {
+   /*
+    * Normalize HP printer make and model...
+    */
+
+    model = make + 16;
+    cupsCopyString(make, "HP", sizeof(make));
+
+    if (!_cups_strncasecmp(model, "HP ", 3))
+      model += 3;
+  }
+  else if ((mptr = strchr(make, ' ')) != NULL)
+  {
+   /*
+    * Separate "MAKE MODEL"...
+    */
+
+    while (*mptr && *mptr == ' ')
+      *mptr++ = '\0';
+
+    model = mptr;
+  }
+  else
+  {
+   /*
+    * No separate model name...
+    */
+
+    model = "Printer";
+  }
+
+ /*
   * Standard stuff for PPD file...
   */
 
@@ -3264,22 +3351,6 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   cupsFilePuts(fp, "*LanguageLevel: \"3\"\n");
   cupsFilePuts(fp, "*FileSystem: False\n");
   cupsFilePuts(fp, "*PCFileName: \"ippeve.ppd\"\n");
-
-  if ((attr = ippFindAttribute(supported, "printer-make-and-model", IPP_TAG_TEXT)) != NULL)
-    cupsCopyString(make, ippGetString(attr, 0, NULL), sizeof(make));
-  else
-    cupsCopyString(make, "Unknown Printer", sizeof(make));
-
-  if (!_cups_strncasecmp(make, "Hewlett Packard ", 16) || !_cups_strncasecmp(make, "Hewlett-Packard ", 16))
-  {
-    model = make + 16;
-    cupsCopyString(make, "HP", sizeof(make));
-  }
-  else if ((model = strchr(make, ' ')) != NULL)
-    *model++ = '\0';
-  else
-    model = make;
-
   cupsFilePrintf(fp, "*Manufacturer: \"%s\"\n", make);
   cupsFilePrintf(fp, "*ModelName: \"%s\"\n", model);
   cupsFilePrintf(fp, "*Product: \"(%s)\"\n", model);
