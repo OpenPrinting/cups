@@ -290,16 +290,16 @@ test_language(const char *lang)		/* I - Locale language code, NULL for default *
       puts("PASS");
   }
 
-  printf("language->language: \"%s\"\n", language->language);
-  printf("_cupsEncodingName(language): \"%s\"\n", _cupsEncodingName(language->encoding));
+  printf("language->language: \"%s\"\n", language ? language->language : NULL);
+  printf("_cupsEncodingName(language): \"%s\"\n", language ? _cupsEncodingName(language->encoding) : NULL);
 
   errors += test_string(language, "No");
   errors += test_string(language, "Yes");
 
   if (language != language2)
   {
-    printf("language2->language: \"%s\"\n", language2->language);
-    printf("_cupsEncodingName(language2): \"%s\"\n", _cupsEncodingName(language2->encoding));
+    printf("language2->language: \"%s\"\n", language2 ? language2->language : NULL);
+    printf("_cupsEncodingName(language2): \"%s\"\n", language2 ? _cupsEncodingName(language2->encoding) : NULL);
   }
 
   loc = localeconv();
@@ -344,6 +344,9 @@ test_string(cups_lang_t *language,	/* I - Language */
   * For the POSIX locale, the string pointers should be the same.
   * For any other locale, the string pointers should be different.
   */
+
+  if (!language)
+    return (1);
 
   printf("_cupsLangString(\"%s\"): ", msgid);
   msgstr = _cupsLangString(language, msgid);

@@ -561,6 +561,7 @@ _cupsEncodeOption(
 	    else
 	    {
 	      ippDeleteAttribute(ipp, attr);
+	      free(copy);
 	      return (NULL);
 	    }
             break;
@@ -684,8 +685,7 @@ _cupsEncodeOption(
     }
   }
 
-  if (copy)
-    free(copy);
+  free(copy);
 
   return (attr);
 }

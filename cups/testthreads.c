@@ -117,7 +117,7 @@ show_supported(http_t       *http,	// I - Connection to destination
 	       const char   *value)	// I - Value, if any
 {
   ipp_attribute_t	*attr;		// Attribute
-  size_t		i,		// Looping var
+  int			i,		// Looping var
 			count;		// Number of values
 
 
@@ -221,8 +221,8 @@ show_supported(http_t       *http,	// I - Connection to destination
         case IPP_TAG_STRING :
 	    for (i = 0; i < count; i ++)
 	    {
-	      size_t j;			// Looping var
-	      int len;		// Length of value
+	      int j;			// Looping var
+	      int len;			// Length of value
 	      unsigned char *data = ippGetOctetString(attr, i, &len);
 					// Pointer to octet string
 

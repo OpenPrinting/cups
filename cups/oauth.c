@@ -590,7 +590,7 @@ cupsOAuthGetAuthorizationCode(
 				*error_code,		// Error code
 				*error_desc,		// Error description
 				*state_value;		// State value
-		  size_t	num_form;		// Number of form variables
+		  int		num_form;		// Number of form variables
 		  cups_option_t	*form = NULL;		// Form variables
 
 		  num_form    = cupsFormDecode(reqres + resourcelen, &form);
@@ -973,7 +973,7 @@ cupsOAuthGetTokens(
   const char	*token_ep;		// Token endpoint
   char		*value,			// Prior value
 		*nonce = NULL;		// Prior nonce value
-  size_t	num_form = 0;		// Number of form variables
+  int		num_form = 0;		// Number of form variables
   cups_option_t	*form = NULL;		// Form variables
   char		*request = NULL;	// Form request data
   cups_json_t	*response = NULL;	// JSON response variables
@@ -1180,7 +1180,7 @@ cupsOAuthMakeAuthorizationURL(
   const char	*authorization_ep;	// Authorization endpoint
   unsigned char	sha256[32];		// SHA-256 hash of code verifier
   char		code_challenge[64];	// Hashed code verifier string
-  size_t	num_vars = 0;		// Number of form variables
+  int		num_vars = 0;		// Number of form variables
   cups_option_t	*vars = NULL;		// Form variables
   char		*url;			// URL for authorization page
 

@@ -109,7 +109,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
           default :
               usage();
-	      break;
+//	      break;
         }
     }
     else

@@ -19,7 +19,7 @@ typedef struct _form_data_s		// Form test data
 {
   const char	*url,			// URL prefix, if any
 		*encoded;		// URL-encoded data
-  size_t	num_pairs;		// Number of name=value pairs
+  int		num_pairs;		// Number of name=value pairs
   const char	* const * pairs;	// name=value pairs
 } _form_data_t;
 
@@ -140,7 +140,7 @@ main(int  argc,				// I - Number of command-line arguments
     int			i;		// Looping var
     const char		*opt;		// Current option
     const char		*url = NULL;	// URL, if any
-    size_t		num_vars;	// Number of variables
+    int			num_vars;	// Number of variables
     cups_option_t	*vars;		// Variables
     char		*data;		// Form data
 
@@ -184,7 +184,7 @@ main(int  argc,				// I - Number of command-line arguments
 		}
 		else
 		{
-		  size_t	j;	// Looping var
+		  int	j;		// Looping var
 
 		  for (j = 0; j < num_vars; j ++)
 		    printf("%s=%s\n", vars[j].name, vars[j].value);
@@ -263,7 +263,7 @@ main(int  argc,				// I - Number of command-line arguments
 static void
 do_test(_form_data_t *test)		// I - Test data
 {
-  size_t	i,			// Looping var
+  int		i,			// Looping var
 		num_vars;		// Number of variables
   cups_option_t	*vars;			// Variables
   char		*data;			// Form data
@@ -277,7 +277,7 @@ do_test(_form_data_t *test)		// I - Test data
   }
   else
   {
-    size_t	count;			// Max count
+    int		count;			// Max count
     const char	*value;			// Value
 
     for (i = 0, count = 2 * test->num_pairs; i < count; i += 2)

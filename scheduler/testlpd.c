@@ -99,7 +99,7 @@ main(int  argc,				/* I - Number of command-line arguments */
        strcmp(op, "remove-job") && strcmp(op, "status-long") &&
        strcmp(op, "status-short")))
   {
-    printf("op=\"%s\", dest=\"%s\", opargs=%p\n", op, dest, opargs);
+    printf("op=\"%s\", dest=\"%s\", opargs=%p\n", op, dest, (void *)opargs);
     usage();
   }
 

@@ -351,7 +351,7 @@ print_rules(mime_magic_t *rules)	/* I - Rules to print */
 
   while (rules != NULL)
   {
-    printf("%s[%p] ", indent, rules);
+    printf("%s[%p] ", indent, (void *)rules);
 
     if (rules->invert)
       printf("NOT ");
@@ -410,7 +410,7 @@ print_rules(mime_magic_t *rules)	/* I - Rules to print */
       else
 	puts("AND (");
 
-      strcat(indent, "\t");
+      strlcat(indent, "\t", sizeof(indent));
       print_rules(rules->child);
       indent[strlen(indent) - 1] = '\0';
       printf("%s)\n", indent);

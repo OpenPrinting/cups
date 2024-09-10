@@ -1374,7 +1374,7 @@ httpCopyPeerCredentials(http_t *http)	// I - Connection to server
 	BIO	*bio = BIO_new(BIO_s_mem());
 					  // Memory buffer for cert
 
-        DEBUG_printf("1httpCopyPeerCredentials: chain[%d/%d]=%p", i + 1, count, cert);
+        DEBUG_printf("1httpCopyPeerCredentials: chain[%d/%d]=%p", i + 1, count, (void *)cert);
 
 #ifdef DEBUG
 	char subjectName[256], issuerName[256];
@@ -1384,7 +1384,7 @@ httpCopyPeerCredentials(http_t *http)	// I - Connection to server
 
 	STACK_OF(GENERAL_NAME) *names;	// subjectAltName values
 	names = X509_get_ext_d2i(cert, NID_subject_alt_name, /*crit*/NULL, /*idx*/NULL);
-	DEBUG_printf("1httpCopyPeerCredentials: subjectAltNames=%p(%d)", names, names ? sk_GENERAL_NAME_num(names) : 0);
+	DEBUG_printf("1httpCopyPeerCredentials: subjectAltNames=%p(%d)", (void *)names, names ? sk_GENERAL_NAME_num(names) : 0);
         if (names)
           GENERAL_NAMES_free(names);
 #endif // DEBUG

@@ -1646,6 +1646,9 @@ httpLoadCredentials(
     cups_array_t **credentials,		// O - Array of credentials
     const char   *common_name)		// I - Common name
 {
+  (void)path;
+  (void)common_name;
+
   if (credentials)
     *credentials = NULL;
 
@@ -2372,6 +2375,10 @@ httpSaveCredentials(
     cups_array_t *credentials,		// O - Array of credentials
     const char   *common_name)		// I - Common name
 {
+  (void)path;
+  (void)credentials;
+  (void)common_name;
+
   return (-1);
 }
 

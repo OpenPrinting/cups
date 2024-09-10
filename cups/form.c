@@ -67,12 +67,12 @@ cupsFormDecode(const char    *data,	// I - URL-encoded form data
   while (*data)
   {
     // Get the name and value...
-    DEBUG_printf("2cupsFormDecode: LOOP data=%p, *data='%c'", data, data ? *data : '?');
+    DEBUG_printf("2cupsFormDecode: LOOP data=%p, *data='%c'", (void *)data, data ? *data : '?');
     data = decode_string(data, name, sizeof(name));
 
     if (!data || *data != '=')
     {
-      DEBUG_printf("2cupsFormDecode: NAMEERROR data=%p, *data='%c'", data, data ? *data : '?');
+      DEBUG_printf("2cupsFormDecode: NAMEERROR data=%p, *data='%c'", (void *)data, data ? *data : '?');
       goto decode_error;
     }
 
@@ -83,7 +83,7 @@ cupsFormDecode(const char    *data,	// I - URL-encoded form data
 
     if (!data || (*data && *data != '&'))
     {
-      DEBUG_printf("2cupsFormDecode: VALUEERROR data=%p, *data='%c'", data, data ? *data : '?');
+      DEBUG_printf("2cupsFormDecode: VALUEERROR data=%p, *data='%c'", (void *)data, data ? *data : '?');
       goto decode_error;
     }
     else if (*data)
@@ -92,7 +92,7 @@ cupsFormDecode(const char    *data,	// I - URL-encoded form data
 
       if (!*data)
       {
-	DEBUG_printf("2cupsFormDecode: POSTERROR data=%p, *data='%c'", data, data ? *data : '?');
+	DEBUG_printf("2cupsFormDecode: POSTERROR data=%p, *data='%c'", (void *)data, data ? *data : '?');
         goto decode_error;
       }
     }
