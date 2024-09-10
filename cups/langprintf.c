@@ -209,6 +209,7 @@ _cupsLangPuts(FILE       *fp,		/* I - File to write to */
               const char *message)	/* I - Message string to use */
 {
   ssize_t	bytes;			/* Number of bytes formatted */
+  size_t	length;			/* Formatted message length */
   char		output[8192];		/* Message buffer */
   _cups_globals_t *cg;			/* Global data */
 
@@ -229,18 +230,22 @@ _cupsLangPuts(FILE       *fp,		/* I - File to write to */
   * Transcode to the destination charset...
   */
 
-  bytes = cupsUTF8ToCharset(output,
-			    (cups_utf8_t *)_cupsLangString(cg->lang_default,
-							   message),
-			    sizeof(output) - 4, cg->lang_default->encoding);
-  bytes += cupsUTF8ToCharset(output + bytes, (cups_utf8_t *)"\n", (int)(sizeof(output) - (size_t)bytes), cg->lang_default->encoding);
+  if ((bytes = cupsUTF8ToCharset(output, (cups_utf8_t *)_cupsLangString(cg->lang_default, message), sizeof(output) - 4, cg->lang_default->encoding)) < 0)
+    return (-1);
+
+  length = (size_t)bytes;
+
+  if ((bytes = cupsUTF8ToCharset(output + bytes, (cups_utf8_t *)"\n", (int)(sizeof(output) - (size_t)bytes), cg->lang_default->encoding)) < 0)
+    return (-1);
+
+  length += (size_t)bytes;
 
  /*
   * Write the string and return the number of bytes written...
   */
 
   if (bytes > 0)
-    return ((int)fwrite(output, 1, (size_t)bytes, fp));
+    return ((int)fwrite(output, 1, length, fp));
   else
     return ((int)bytes);
 }

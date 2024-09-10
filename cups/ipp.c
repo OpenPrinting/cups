@@ -1636,7 +1636,8 @@ ippDateToTime(const ipp_uchar_t *date)	// I - RFC 2579 date info
   unixdate.tm_min  = date[5];
   unixdate.tm_sec  = date[6];
 
-  t = mktime(&unixdate);
+  if ((t = mktime(&unixdate)) < 0)
+    return (0);
 
   if (date[8] == '-')
     t += date[9] * 3600 + date[10] * 60;

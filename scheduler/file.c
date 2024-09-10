@@ -19,8 +19,7 @@
 #ifdef HAVE_REMOVEFILE
 #  include <removefile.h>
 #else
-static int	overwrite_data(int fd, const char *buffer, int bufsize,
-		               int filesize);
+static int	overwrite_data(int fd, const char *buffer, size_t bufsize, off_t filesize);
 #endif /* HAVE_REMOVEFILE */
 
 
@@ -316,7 +315,7 @@ cupsdRemoveFile(const char *filename)	/* I - File to remove */
   int			fd;		/* File descriptor */
   struct stat		info;		/* File information */
   char			buffer[512];	/* Data buffer */
-  size_t			i;		/* Looping var */
+  size_t		i;		/* Looping var */
 
 
  /*
@@ -363,8 +362,8 @@ cupsdRemoveFile(const char *filename)	/* I - File to remove */
   CUPS_SRAND(time(NULL));
 
   for (i = 0; i < sizeof(buffer); i ++)
-    buffer[i] = CUPS_RAND();
-  if (overwrite_data(fd, buffer, sizeof(buffer), (int)info.st_size))
+    buffer[i] = (char)CUPS_RAND();
+  if (overwrite_data(fd, buffer, sizeof(buffer), info.st_size))
   {
     close(fd);
     return (-1);
@@ -403,10 +402,11 @@ cupsdUnlinkOrRemoveFile(
 static int				/* O - 0 on success, -1 on error */
 overwrite_data(int        fd,		/* I - File descriptor */
                const char *buffer,	/* I - Buffer to write */
-	       int        bufsize,	/* I - Size of buffer */
-               int        filesize)	/* I - Size of file */
+	       size_t     bufsize,	/* I - Size of buffer */
+               off_t      filesize)	/* I - Size of file */
 {
-  int	bytes;				/* Bytes to write/written */
+  size_t	wbytes;			/* Bytes to write */
+  ssize_t	written;		/* Bytes written */
 
 
  /*
@@ -422,15 +422,18 @@ overwrite_data(int        fd,		/* I - File descriptor */
 
   while (filesize > 0)
   {
-    if (filesize > bufsize)
-      bytes = bufsize;
+    if (filesize > (off_t)bufsize)
+      wbytes = bufsize;
     else
-      bytes = filesize;
+      wbytes = (size_t)filesize;
 
-    if ((bytes = write(fd, buffer, (size_t)bytes)) < 0)
+    if ((written = write(fd, buffer, wbytes)) < 0)
       return (-1);
 
-    filesize -= bytes;
+    if ((off_t)written > filesize)
+      filesize = 0;
+    else
+      filesize -= (off_t)written;
   }
 
  /*

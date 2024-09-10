@@ -2,8 +2,8 @@
 // Source class for the CUPS PPD Compiler.
 //
 // Copyright © 2020-2024 by OpenPrinting.
-// Copyright 2007-2018 by Apple Inc.
-// Copyright 2002-2007 by Easy Software Products.
+// Copyright © 2007-2018 by Apple Inc.
+// Copyright © 2002-2007 by Easy Software Products.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -2166,7 +2166,8 @@ ppdcSource::quotef(cups_file_t *fp,	// I - File to write to
 		   ...)			// I - Additional args as needed
 {
   va_list	ap;			// Pointer to additional arguments
-  int		bytes;			// Bytes written
+  int		bytes,			// Bytes written
+		tbytes;			// Temporary bytes written
   char		sign,			// Sign of format width
 		size,			// Size character (h, l, L)
 		type;			// Format type character
@@ -2249,7 +2250,8 @@ ppdcSource::quotef(cups_file_t *fp,	// I - File to write to
 	    memcpy(tformat, bufformat, (size_t)(format - bufformat));
 	    tformat[format - bufformat] = '\0';
 
-	    bytes += cupsFilePrintf(fp, tformat, va_arg(ap, double));
+	    if ((tbytes = cupsFilePrintf(fp, tformat, va_arg(ap, double))) > 0)
+	      bytes += tbytes;
 	    break;
 
         case 'B' : // Integer formats
@@ -2268,13 +2270,16 @@ ppdcSource::quotef(cups_file_t *fp,	// I - File to write to
 
 #  ifdef HAVE_LONG_LONG
             if (size == 'L')
-	      bytes += cupsFilePrintf(fp, tformat, va_arg(ap, long long));
+	      tbytes = cupsFilePrintf(fp, tformat, va_arg(ap, long long));
 	    else
 #  endif /* HAVE_LONG_LONG */
             if (size == 'l')
-	      bytes += cupsFilePrintf(fp, tformat, va_arg(ap, long));
+	      tbytes = cupsFilePrintf(fp, tformat, va_arg(ap, long));
 	    else
-	      bytes += cupsFilePrintf(fp, tformat, va_arg(ap, int));
+	      tbytes = cupsFilePrintf(fp, tformat, va_arg(ap, int));
+
+	    if (tbytes > 0)
+	      bytes += tbytes;
 	    break;
 
 	case 'p' : // Pointer value
@@ -2284,7 +2289,8 @@ ppdcSource::quotef(cups_file_t *fp,	// I - File to write to
 	    memcpy(tformat, bufformat, (size_t)(format - bufformat));
 	    tformat[format - bufformat] = '\0';
 
-	    bytes += cupsFilePrintf(fp, tformat, va_arg(ap, void *));
+	    if ((tbytes = cupsFilePrintf(fp, tformat, va_arg(ap, void *))) > 0)
+	      bytes += tbytes;
 	    break;
 
         case 'c' : // Character or character array
