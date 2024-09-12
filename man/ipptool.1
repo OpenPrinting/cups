@@ -1,13 +1,13 @@
 .\"
 .\" ipptool man page.
 .\"
-.\" Copyright © 2020-2024 by OpenPrinting.
+.\" Copyright © 2021-2024 by OpenPrinting.
 .\" Copyright © 2010-2019 by Apple Inc.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptool 1 "CUPS" "2021-10-20" "OpenPrinting"
+.TH ipptool 1 "CUPS" "2024-09-12" "OpenPrinting"
 .SH NAME
 ipptool \- perform internet printing protocol requests
 .SH SYNOPSIS
@@ -15,8 +15,8 @@ ipptool \- perform internet printing protocol requests
 [
 .B \-\-help
 ] [
-.B \-\-ippserver
-.I filename
+.B \-\-ippfile
+.I FILENAME
 ] [
 .B \-\-stop\-after\-include\-error
 ] [
@@ -26,54 +26,57 @@ ipptool \- perform internet printing protocol requests
 ] [
 .B \-6
 ] [
+.B \-c
+] [
 .B \-C
+] [
+.B \-d
+.I NAME=VALUE
 ] [
 .B \-E
 ] [
-.B \-I
-] [
-.B \-L
-] [
-.B \-P
-.I filename.plist
-] [
-.B \-S
-] [
-.B \-T
-.I seconds
-] [
-.B \-V
-.I version
-] [
-.B \-X
-] [
-.B \-c
-] [
-.B \-d
-.I name=value
-] [
 .B \-f
-.I filename
+.I FILENAME
 ] [
 .B \-h
 ] [
 .B \-i
-.I seconds
+.I SECONDS
+] [
+.B \-I
 ] [
 .B \-j
 ] [
+.B \-L
+] [
 .B \-n
-.I repeat-count
+.I REPEAT-COUNT
+] [
+.B \-P
+.I FILENAME.plist
 ] [
 .B \-q
 ] [
+.B \-R
+] [
+.B \-S
+] [
 .B \-t
 ] [
-.B \-v ]
-.I printer-uri
-.I testfile
+.B \-T
+.I SECONDS
+] [
+.B \-v
+] [
+.B \-V
+.I VERSION
+] [
+.B \-X
+]
+.I PRINTER-URI
+.I TESTFILE
 [ ...
-.I testfile
+.I TESTFILE
 ]
 .SH DESCRIPTION
 .B ipptool
@@ -83,7 +86,7 @@ and tests and/or displays the results.
 Each named
 .I testfile
 defines one or more requests, including the expected response status, attributes, and values.
-Output is either a plain text, formatted text, CSV, or XML report on the standard output, with a non-zero exit status indicating that one or more tests have failed.
+Output is either a plain text, formatted text, CSV, JSON, or XML report on the standard output, with a non-zero exit status indicating that one or more tests have failed.
 The
 .I testfile
 format is described in
@@ -95,10 +98,10 @@ The following options are recognized by
 .B \-\-help
 Shows program help.
 .TP 5
-\fB\-\-ippserver \fIfilename\fR
-Specifies that the test results should be written to the named
-.B ippserver
-attributes file.
+\fB\-\-ippfile \fIFILENAME\fR
+Specifies that the test results should be written to the named IPP file.
+These files can be used with programs like
+.BR ippeveprinter (1).
 .TP 5
 .B \-\-stop-after-include-error
 Tells
@@ -122,56 +125,35 @@ Specifies that
 .B ipptool
 must connect to the printer or server using IPv6.
 .TP 5
+.B \-c
+Specifies that CSV (comma\-separated values) output is desired instead of the plain text output.
+.TP 5
 .B \-C
 Specifies that requests should be sent using the HTTP/1.1 "Transfer\-Encoding: chunked" header, which is required for conformance by all versions of IPP.
 The default is to use "Transfer\-Encoding: chunked" for requests with attached files and "Content\-Length:" for requests without attached files.
 .TP 5
+.BI \-d \ NAME=VALUE
+Defines the named variable.
+.TP 5
 .B \-E
 Forces TLS encryption when connecting to the server using the HTTP "Upgrade" header.
 .TP 5
-.B \-I
-Specifies that
-.B ipptool
-will continue past errors.
-.TP 5
-.B \-L
-Specifies that requests should be sent using the HTTP/1.0 "Content\-Length:" header, which is required for conformance by all versions of IPP.
-The default is to use "Transfer\-Encoding: chunked" for requests with attached files and "Content\-Length:" for requests without attached files.
-.TP 5
-.BI \-P \ filename.plist
-Specifies that the test results should be written to the named XML (Apple plist) file in addition to the regular test report (\fB\-t\fR).
-This option is incompatible with the \fB\-i\fR (interval) and \fB\-n\fR (repeat\-count) options.
-.TP 5
-.B \-S
-Forces (dedicated) TLS encryption when connecting to the server.
-.TP 5
-.BI \-T \ seconds
-Specifies a timeout for IPP requests in seconds.
-.TP 5
-.BI \-V \ version
-Specifies the default IPP version to use: 1.0, 1.1, 2.0, 2.1, or 2.2. If not specified, version 1.1 is used.
-.TP 5
-.B \-X
-Specifies that XML (Apple plist) output is desired instead of the plain text report.
-This option is incompatible with the \fB\-i\fR (interval) and \fB\-n\fR (repeat\-count) options.
-.TP 5
-.B \-c
-Specifies that CSV (comma\-separated values) output is desired instead of the plain text output.
-.TP 5
-.BI \-d \ name=value
-Defines the named variable.
-.TP 5
-.BI \-f \ filename
+.BI \-f \ FILENAME
 Defines the default request filename for tests.
 .TP 5
 .B \-h
 Validate HTTP response headers.
 .TP 5
-.BI \-i \ seconds
+.BI \-i \ SECONDS
 Specifies that the (last)
 .I testfile
 should be repeated at the specified interval.
-This option is incompatible with the \fB\-X\fR (XML plist output) option.
+This option is incompatible with the \fB\-\-ippfile\fR (IPP file output) and \fI\-P\fR or \fB\-X\fR (XML plist output) options.
+.TP 5
+.B \-I
+Specifies that
+.B ipptool
+will continue past errors.
 .TP 5
 .B \-j
 Specifies that
@@ -181,59 +163,108 @@ will produce JSON output.
 .B \-l
 Specifies that plain text output is desired.
 .TP 5
-.BI \-n \ repeat\-count
+.B \-L
+Specifies that requests should be sent using the HTTP/1.0 "Content\-Length:" header, which is required for conformance by all versions of IPP.
+The default is to use "Transfer\-Encoding: chunked" for requests with attached files and "Content\-Length:" for requests without attached files.
+.TP 5
+.BI \-n \ REPEAT\-COUNT
 Specifies that the (last)
 .I testfile
 should be repeated the specified number of times.
-This option is incompatible with the \fI\-X\fR (XML plist output) option.
+This option is incompatible with the \fI\-\-ippfile\fR (IPP file output) and \fI\-P\fR or \fI\-X\fR (XML plist output) options.
+.TP 5
+.BI \-P \ FILENAME.plist
+Specifies that the test results should be written to the named XML (Apple plist) file in addition to the regular test report (\fB\-t\fR).
+This option is incompatible with the \fB\-i\fR (interval) and \fB\-n\fR (repeat-count) options.
 .TP 5
 .B \-q
 Be quiet and produce no output.
 .TP 5
+.B \-S
+Forces (dedicated) TLS encryption when connecting to the server.
+.TP 5
 .B \-t
 Specifies that CUPS test report output is desired instead of the plain text output.
 .TP 5
+.BI \-T \ SECONDS
+Specifies a timeout for IPP requests in SECONDS.
+.TP 5
 .B \-v
 Specifies that all request and response attributes should be output in CUPS test mode (\fB\-t\fR).
-This is the default for XML output.
+This is the default for CSV, JSON, and XML output.
+.TP 5
+.BI \-V \ VERSION
+Specifies the default IPP version to use: 1.0, 1.1, 2.0, 2.1, or 2.2. If not specified, version 1.1 is used.
+.TP 5
+.B \-X
+Specifies that XML (Apple plist) output is desired instead of the plain text report.
+This option is incompatible with the \fB\-i\fR (interval) and \fB\-n\fR (repeat\-count) options.
 .SH EXIT STATUS
 The
 .B ipptool
 program returns 0 if all tests were successful and 1 otherwise.
 .SH FILES
-The following standard files are available:
+The following standard test files are available:
 .nf
 
-    color.jpg
-    create\-printer\-subscription.test
-    document\-a4.pdf
-    document\-a4.ps
-    document\-letter.pdf
-    document\-letter.ps
-    get\-completed\-jobs.test
-    get\-jobs.test
-    get\-notifications.test
-    get\-printer\-attributes.test
-    get\-subscriptions.test
-    gray.jpg
-    ipp\-1.1.test
-    ipp\-2.0.test
-    ipp\-2.1.test
-    ipp\-2.2.test
-    ipp\-everywhere.test
-    onepage\-a4.pdf
-    onepage\-a4.ps
-    onepage\-letter.pdf
-    onepage\-letter.ps
-    print\-job.test
-    print\-job\-deflate.test
-    print\-job\-gzip.test
-    testfile.jpg
-    testfile.pcl
-    testfile.pdf
-    testfile.ps
-    testfile.txt
-    validate\-job.test
+    cancel\-current\-job.test           - Cancel the current job
+    create\-job.test                   - Create a job and send a document
+    create\-job\-sheets.test            - "" with banner
+    create\-job\-timeout.test           - "" with timeout
+    create\-printer\-subscription.test  - Create a printer subscription
+    cups\-create\-local\-printer.test    - Create a local print queue
+    fax\-job.test                      - Fax a file (for fax queues)
+    get\-completed\-jobs.test           - Get a list of completed jobs
+    get\-job\-attributes.test           - Get attributes for a job
+    get\-job\-template\-attributes.test  - Get job ticket attributes for a printer
+    get\-jobs.test                     - Get a list of not-completed jobs
+    get\-notifications.test            - Get notifications for a subscription
+    get\-printer\-attributes.test       - Get attributes for a printer
+    get\-printer\-attributes\-suite.test - Test Get-Printer-Attributes conformance
+    get\-printers.test                 - Get a list of printers
+    get\-subscriptions.test            - Get a list of subscriptions
+    identify\-printer.test             - Identify a printer
+    identify\-printer\-display.test     - Identify a printer via the display
+    ipp\-1.1.test                      - Run IPP/1.1 conformance tests
+    ipp\-2.0.test                      - Run IPP/2.0 conformance tests
+    ipp\-2.1.test                      - Run IPP/2.1 conformance tests
+    ipp\-2.2.test                      - Run IPP/2.2 conformance tests
+    print\-job.test                    - Print a file
+    print\-job\-and\-wait.test           - Print a file and wait for completion
+    print\-job\-deflate.test            - Print a file with deflate compression
+    print\-job\-gzip.test               - Print a file with gzip compression
+    print\-job\-hold.test               - Print a file and hold
+    print\-job\-letter.test             - Print a file on US Letter media
+    print\-job\-manual.test             - Print a file with manual feed
+    print\-job\-media\-col.test          - Print a file using "media-col"
+    print\-job\-media\-needed.test       - Print a file and test for "media-needed"
+    print\-job\-password.test           - Print a file with a password/PIN
+    print\-job\-raster.test             - Print a generated raster file
+    print\-uri.test                    - Print a URI/URL
+    set\-attrs\-hold.test               - Test setting job-hold-until to hold a job
+    validate\-job.test                 - Validate a job ticket
+.fi
+.PP
+The following standard document files are available:
+.nf
+
+    color.jpg                         - A color photo of a flower
+    document\-a4.pdf                   - A 4-page A4 PDF document
+    document\-a4.ps                    - A 4-page A4 PostScript document
+    document\-letter.pdf               - A 4-page US Letter PDF document
+    document\-letter.ps                - A 4-page US Letter PostScript document
+    gray.jpg                          - A grayscale photo of an Alcatraz doorway
+    onepage\-a4\-300\-black\-1.pwg        - A one page A4 PWG Raster document
+    onepage\-a4.pdf                    - A one page A4 PDF document
+    onepage\-a4.ps                     - A one page A4 PostScript document
+    onepage\-letter\-300\-black\-1.pwg    - A one page US Letter PWG Raster document
+    onepage\-letter.pdf                - A one page US Letter PDF document
+    onepage\-letter.ps                 - A one page US Letter PostScript document
+    testfile.jpg                      - A color photo collage
+    testfile.pcl                      - A HP-PCL homage to "The Shining"
+    testfile.pdf                      - A historical CUPS PDF document
+    testfile.ps                       - A historical CUPS PostScript document
+    testfile.txt                      - A plain text homage to "The Shining"
 .fi
 .SH CONFORMING TO
 The
@@ -255,7 +286,7 @@ Send email notifications to "user@example.com" when "myprinter" changes:
 .SH SEE ALSO
 .BR ipptoolfile (5),
 IANA IPP Registry (https://www.iana.org/assignments/ipp\-registrations),
-PWG Internet Printing Protocol Workgroup (https://www.pwg.org/ipp)
-RFC 8011 (https://datatracker.ietf.org/doc/html/rfc8011),
+PWG Internet Printing Protocol Workgroup (https://www.pwg.org/ipp),
+RFC 8011 (https://datatracker.ietf.org/doc/html/rfc8011)
 .SH COPYRIGHT
-Copyright \[co] 2020-2024 by OpenPrinting.
+Copyright \[co] 2021-2024 by OpenPrinting.
