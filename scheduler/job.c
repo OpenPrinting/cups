@@ -1695,27 +1695,25 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
   * Copy attribute data to the job object...
   */
 
-  if (!ippFindAttribute(job->attrs, "time-at-creation", IPP_TAG_INTEGER))
-  {
-    cupsdLogJob(job, CUPSD_LOG_ERROR,
-		"Missing or bad time-at-creation attribute in control file.");
-    goto error;
-  }
-
   if ((job->state = ippFindAttribute(job->attrs, "job-state",
                                      IPP_TAG_ENUM)) == NULL)
   {
     cupsdLogJob(job, CUPSD_LOG_ERROR,
-		"Missing or bad job-state attribute in control file.");
+                "Missing or bad job-state attribute in control file.");
     goto error;
   }
 
+  if ((attr = ippFindAttribute(job->attrs, "time-at-creation", IPP_TAG_INTEGER)) == NULL)
+  {
+    cupsdLogJob(job, CUPSD_LOG_ERROR,
+                "Missing or bad time-at-creation attribute in control file.");
+    goto error;
+  }
+
+  job->creation_time = attr->values[0].integer;
   job->state_value  = (ipp_jstate_t)job->state->values[0].integer;
   job->file_time    = 0;
   job->history_time = 0;
-
-  if ((attr = ippFindAttribute(job->attrs, "time-at-creation", IPP_TAG_INTEGER)) != NULL)
-    job->creation_time = attr->values[0].integer;
 
   if (job->state_value >= IPP_JSTATE_CANCELED && (attr = ippFindAttribute(job->attrs, "time-at-completed", IPP_TAG_INTEGER)) != NULL)
   {
