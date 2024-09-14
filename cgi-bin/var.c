@@ -296,7 +296,8 @@ cgiGetTextfield(const char *name)	/* I - Name of form field */
  * 'cgiGetVariable()' - Get a CGI variable from the database.
  *
  * Returns NULL if the variable doesn't exist.  If the variable is an
- * array of values, returns the last element.
+ * array of values, returns the last element. This value is duplicated,
+ * so be sure to free it.
  */
 
 char *					/* O - Value of variable */
@@ -308,6 +309,24 @@ cgiGetVariable(const char *name)	/* I - Name of variable */
   var = cgi_find_variable(name);
 
   return ((var == NULL) ? NULL : strdup(var->values[var->nvalues - 1]));
+}
+
+/*
+ * 'cgiGetVariablePtr()' - Get a CGI variable from the database.
+ *
+ * Obtains a pointer to the C-string buffer containing the variable.
+ * Useful for checking a variable exists.
+ */
+
+char *					/* O - Value of variable */
+cgiGetVariablePtr(const char *name)	/* I - Name of variable */
+{
+  const _cgi_var_t	*var;		/* Returned variable */
+
+
+  var = cgi_find_variable(name);
+
+  return ((var == NULL) ? NULL : var->values[var->nvalues - 1]);
 }
 
 

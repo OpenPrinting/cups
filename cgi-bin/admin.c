@@ -90,7 +90,7 @@ main(void)
   * See if we have form data...
   */
 
-  if (!cgiInitialize() || !cgiGetVariable("OP"))
+  if (!cgiInitialize() || !cgiGetVariablePtr("OP"))
   {
    /*
     * Nope, send the administration menu...
@@ -728,10 +728,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       else
         cupsCopyString(make, "Generic", sizeof(make));
 
-      if (!cgiGetVariable("CURRENT_MAKE"))
+      if (!cgiGetVariablePtr("CURRENT_MAKE"))
         cgiSetVariable("CURRENT_MAKE", make);
 
-      if (!cgiGetVariable("CURRENT_MAKE_AND_MODEL"))
+      if (!cgiGetVariablePtr("CURRENT_MAKE_AND_MODEL"))
         cgiSetVariable("CURRENT_MAKE_AND_MODEL", uriptr);
 
       if (!modify)
@@ -848,7 +848,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     cgiCopyTemplateLang("choose-uri.tmpl");
     cgiEndHTML();
   }
-  else if (!strncmp(var, "serial:", 7) && !cgiGetVariable("BAUDRATE"))
+  else if (!strncmp(var, "serial:", 7) && !cgiGetVariablePtr("BAUDRATE"))
   {
    /*
     * Need baud rate, parity, etc.
@@ -925,11 +925,11 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     return;
   }
   else if (!file &&
-           (!cgiGetVariable("PPD_NAME") || cgiGetVariable("SELECT_MAKE")))
+           (!cgiGetVariablePtr("PPD_NAME") || cgiGetVariable("SELECT_MAKE")))
   {
     int ipp_everywhere = !strncmp(var, "ipp://", 6) || !strncmp(var, "ipps://", 7) || (!strncmp(var, "dnssd://", 8) && (strstr(var, "_ipp._tcp") || strstr(var, "_ipps._tcp")));
 
-    if (modify && !cgiGetVariable("SELECT_MAKE"))
+    if (modify && !cgiGetVariablePtr("SELECT_MAKE"))
     {
      /*
       * Get the PPD file...
@@ -1010,7 +1010,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     if ((var = cgiGetVariable("PPD_MAKE")) == NULL)
       var = cgiGetVariable("CURRENT_MAKE");
-    if (var && !cgiGetVariable("SELECT_MAKE"))
+    if (var && !cgiGetVariablePtr("SELECT_MAKE"))
     {
       const char *make_model;		/* Make and model */
 
@@ -1059,7 +1059,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	cgiCopyTemplateLang("choose-make.tmpl");
         cgiEndHTML();
       }
-      else if (!var || cgiGetVariable("SELECT_MAKE"))
+      else if (!var || cgiGetVariablePtr("SELECT_MAKE"))
       {
         cgiStartHTML(title);
 	cgiCopyTemplateLang("choose-make.tmpl");
@@ -1072,7 +1072,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	*/
 
         cgiStartHTML(title);
-	if (!cgiGetVariable("PPD_MAKE"))
+	if (!cgiGetVariablePtr("PPD_MAKE"))
 	  cgiSetVariable("PPD_MAKE", cgiGetVariable("CURRENT_MAKE"));
         if (ipp_everywhere)
 	  cgiSetVariable("SHOW_IPP_EVERYWHERE", "1");
@@ -1245,7 +1245,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 static void
 do_config_server(http_t *http)		/* I - HTTP connection */
 {
-  if (cgiGetVariable("CHANGESETTINGS"))
+  if (cgiGetVariablePtr("CHANGESETTINGS"))
   {
    /*
     * Save basic setting changes...
@@ -1519,7 +1519,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 
     cgiEndHTML();
   }
-  else if (cgiGetVariable("SAVECHANGES") && cgiGetVariable("CUPSDCONF"))
+  else if (cgiGetVariablePtr("SAVECHANGES") && cgiGetVariablePtr("CUPSDCONF"))
   {
    /*
     * Save hand-edited config file...
@@ -1782,7 +1782,7 @@ do_delete_class(http_t *http)		/* I - HTTP connection */
   * Get form variables...
   */
 
-  if (cgiGetVariable("CONFIRM") == NULL)
+  if (cgiGetVariablePtr("CONFIRM") == NULL)
   {
     cgiStartHTML(cgiText(_("Delete Class")));
     cgiCopyTemplateLang("class-confirm.tmpl");
@@ -1867,7 +1867,7 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
   * Get form variables...
   */
 
-  if (cgiGetVariable("CONFIRM") == NULL)
+  if (cgiGetVariablePtr("CONFIRM") == NULL)
   {
     cgiStartHTML(cgiText(_("Delete Printer")));
     cgiCopyTemplateLang("printer-confirm.tmpl");
@@ -2678,7 +2678,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
   * command file to the printer...
   */
 
-  if (cgiGetVariable("AUTOCONFIGURE"))
+  if (cgiGetVariablePtr("AUTOCONFIGURE"))
   {
     cgiPrintCommand(http, printer, "AutoConfigure", "Set Default Options");
     return;
@@ -2713,7 +2713,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     ppd = NULL;
   }
 
-  if (cgiGetVariable("job_sheets_start") != NULL ||
+  if (cgiGetVariablePtr("job_sheets_start") != NULL ||
       cgiGetVariable("job_sheets_end") != NULL)
     have_options = 1;
   else

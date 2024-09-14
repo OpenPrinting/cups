@@ -1413,7 +1413,7 @@ cgiShowJobs(http_t     *http,		/* I - Connection to server */
     */
 
     if ((query = cgiGetVariable("QUERY")) != NULL &&
-        !cgiGetVariable("CLEAR"))
+        !cgiGetVariablePtr("CLEAR"))
       search = cgiCompileSearch(query);
     else
     {

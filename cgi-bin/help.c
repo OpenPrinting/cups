@@ -170,7 +170,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Do a search as needed...
   */
 
-  if (cgiGetVariable("CLEAR"))
+  if (cgiGetVariablePtr("CLEAR"))
     cgiSetVariable("QUERY", "");
   else if ((query = cgiGetTextfield("QUERY")) != NULL)
     query = strdup(query);

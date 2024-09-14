@@ -78,6 +78,7 @@ extern int		cgiGetSize(const char *name);
 extern char		*cgiGetTemplateDir(void);
 extern const char	*cgiGetTextfield(const char *name);
 extern char		*cgiGetVariable(const char *name);
+extern char		*cgiGetVariablePtr(const char *name);
 extern int		cgiInitialize(void);
 extern int		cgiIsPOST(void);
 extern void		cgiMoveJobs(http_t *http, const char *dest, int job_id);

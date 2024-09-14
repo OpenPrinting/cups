@@ -353,7 +353,7 @@ show_all_printers(http_t     *http,	/* I - Connection to server */
     */
 
     if ((var = cgiGetTextfield("QUERY")) != NULL &&
-        !cgiGetVariable("CLEAR"))
+        !cgiGetVariablePtr("CLEAR"))
       search = cgiCompileSearch(var);
     else
       search = NULL;

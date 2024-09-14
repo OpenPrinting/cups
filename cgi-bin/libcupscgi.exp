@@ -16,6 +16,7 @@ _cgiGetIPPObjects
 _cgiGetSize
 _cgiGetTemplateDir
 _cgiGetVariable
+_cgiGetVariablePtr
 _cgiInitialize
 _cgiIsPOST
 _cgiMoveJobs
