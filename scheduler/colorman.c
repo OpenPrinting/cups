@@ -512,9 +512,7 @@ apple_register_profiles(
 	{
 	  cupsdLogMessage(CUPSD_LOG_ERROR,
 	                  "Unable to allocate memory for color profile.");
-	  CFRelease(profiles);
-	  ppdClose(ppd);
-	  return;
+	  goto end;
 	}
 
 	apple_init_profile(ppd, languages, profile, profile_id, attr->spec,
@@ -624,9 +622,7 @@ apple_register_profiles(
       {
 	cupsdLogMessage(CUPSD_LOG_ERROR,
 			"Unable to allocate memory for color profile.");
-	CFRelease(profiles);
-	ppdClose(ppd);
-	return;
+	goto end;
       }
 
       apple_init_profile(ppd, NULL, profile, profile_id, cm_choice->choice,
@@ -668,9 +664,7 @@ apple_register_profiles(
     {
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Unable to allocate memory for color profile.");
-      CFRelease(profiles);
-      ppdClose(ppd);
-      return;
+      goto end;
     }
 
     profile_id = _ppdHashName("Gray..");
@@ -698,9 +692,7 @@ apple_register_profiles(
     {
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Unable to allocate memory for color profile.");
-      CFRelease(profiles);
-      ppdClose(ppd);
-      return;
+      goto end;
     }
 
     switch (ppd->colorspace)
@@ -844,7 +836,7 @@ apple_register_profiles(
  /*
   * Free any memory we used...
   */
-
+end:
   CFRelease(profiles);
 
   ppdClose(ppd);
