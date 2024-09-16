@@ -215,6 +215,9 @@ install-libs:	libs
 		echo Installing libraries in $$dir... ;\
 		(cd $$dir; $(MAKE) $(MFLAGS) install-libs) || exit 1;\
 	done
+	if test -x /usr/sbin/ldconfig; then \
+		/usr/sbin/ldconfig; \
+	fi
 
 
 #
