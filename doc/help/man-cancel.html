@@ -42,8 +42,7 @@ If no <em>destination</em> or <em>id</em> is specified, the currently printing j
 <p>The following options are recognized by <strong>cancel</strong>:
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a</strong><br>
-Cancel all jobs on the named destination, or all jobs on all
-destinations if none is provided.
+Cancel all jobs on the named destination, or all jobs on all destinations if none is provided.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
 Forces encryption when connecting to the server.
@@ -83,9 +82,16 @@ Deletes job data files in addition to canceling.
     cancel -a
 </pre>
     <h2 id="cancel-1.notes">Notes</h2>
-<p>Administrators wishing to prevent unauthorized cancellation of jobs via the <em>-u</em> option should require authentication for Cancel-Jobs operations in
-<strong>cupsd.conf</strong>(5).
+<p>The
+<strong>-a</strong>
+and
+<strong>-u</strong><em> username</em>
 
+options require administrative access.
+These restrictions are part of the operation policies defined in the
+<strong>cupsd.conf</strong>(5)
+
+file for the &quot;Cancel-Jobs&quot; and &quot;Cancel-My-Jobs&quot; operations, respectively.
 </p>
     <h2 id="cancel-1.see-also">See Also</h2>
 <p><strong>cupsd.conf</strong>(5),

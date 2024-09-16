@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cancel 1 "CUPS" "2022-05-02" "OpenPrinting"
+.TH cancel 1 "CUPS" "2024-09-16" "OpenPrinting"
 .SH NAME
 cancel \- cancel jobs
 .SH SYNOPSIS
@@ -42,8 +42,7 @@ If no \fIdestination\fR or \fIid\fR is specified, the currently printing job on 
 The following options are recognized by \fBcancel\fR:
 .TP 5
 .B \-a
-Cancel all jobs on the named destination, or all jobs on all
-destinations if none is provided.
+Cancel all jobs on the named destination, or all jobs on all destinations if none is provided.
 .TP 5
 .B \-E
 Forces encryption when connecting to the server.
@@ -81,8 +80,14 @@ Cancel all jobs:
     cancel \-a
 .fi
 .SH NOTES
-Administrators wishing to prevent unauthorized cancellation of jobs via the \fI\-u\fR option should require authentication for Cancel-Jobs operations in
-.BR cupsd.conf (5).
+The
+.B \-a
+and
+.BI \-u " username"
+options require administrative access.
+These restrictions are part of the operation policies defined in the
+.BR cupsd.conf (5)
+file for the "Cancel-Jobs" and "Cancel-My-Jobs" operations, respectively.
 .SH SEE ALSO
 .BR cupsd.conf (5),
 .BR lp (1),
