@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   cups:
     build:
@@ -26,7 +24,7 @@ services:
         # build CUPS
         ./configure
         make
-        make install
+        #make install
 
         # Start the CUPS daemon for remote access
         /usr/sbin/cupsd \

@@ -34,16 +34,19 @@ however you'll miss out on many of the features provided by CUPS.
 On a stock Ubuntu install, the following command will install the required
 prerequisites:
 
-    sudo apt-get install autoconf build-essential libavahi-client-dev \
-         libgnutls28-dev libkrb5-dev libnss-mdns libpam-dev \
+    sudo apt-get install autoconf build-essential \
+         avahi-daemon libavahi-client-dev \
+         libssl-dev libkrb5-dev libnss-mdns libpam-dev \
          libsystemd-dev libusb-1.0-0-dev zlib1g-dev
 
 
 For Fedora you can install these packages:
 
-    sudo dnf install autoconf make automake gcc gcc-c++ krb5-devel avahi-devel \
-         gnutls-devel krb5-libs nss-mdns pam-devel \
+    sudo dnf install autoconf make automake gcc gcc-c++ \
+         avahi avahi-devel \
+         openssl-devel krb5-devel krb5-libs nss-mdns pam-devel \
          systemd-devel libusb1-devel zlib-devel
+
 
 Configuration
 -------------
