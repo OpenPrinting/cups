@@ -21,11 +21,6 @@ services:
         # Grant sudo privileges to the user 'admin'
         echo 'admin ALL=(ALL:ALL) ALL' >> /etc/sudoers
 
-        # build CUPS
-        ./configure
-        make
-        #make install
-
         # Start the CUPS daemon for remote access
         /usr/sbin/cupsd \
         && while [ ! -f /var/run/cups/cupsd.pid ]; do sleep 1; done \
