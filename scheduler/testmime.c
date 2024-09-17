@@ -410,7 +410,7 @@ print_rules(mime_magic_t *rules)	/* I - Rules to print */
       else
 	puts("AND (");
 
-      strlcat(indent, "\t", sizeof(indent));
+      cupsConcatString(indent, "\t", sizeof(indent));
       print_rules(rules->child);
       indent[strlen(indent) - 1] = '\0';
       printf("%s)\n", indent);
