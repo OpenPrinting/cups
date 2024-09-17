@@ -1894,6 +1894,8 @@ static CFStringRef copy_value_for_key(CFStringRef deviceID,
     return NULL;
 
   kvPairs = CFStringCreateArrayBySeparatingStrings(kCFAllocatorDefault, deviceID, CFSTR(";"));
+  if (!kvPairs)
+    return NULL;
   max = CFArrayGetCount(kvPairs);
 
   for (CFIndex idx = 0; idx < max; idx++)
