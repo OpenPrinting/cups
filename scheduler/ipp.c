@@ -5319,7 +5319,7 @@ create_local_bg_thread(
   * try to get it separately
   */
 
-  if (ippFindAttribute(response, "media-col-database", IPP_TAG_ZERO) ==
+  if (ippFindAttribute(response, "media-col-database", IPP_TAG_BEGIN_COLLECTION) ==
       NULL)
   {
     ipp_t *response2;
@@ -5354,6 +5354,21 @@ create_local_bg_thread(
       }
       ippDelete(response2);
     }
+  }
+
+  if (ippFindAttribute(response, "media-col-database", IPP_TAG_BEGIN_COLLECTION) == NULL
+      && ippFindAttribute(response, "media-supported", IPP_TAG_ZERO) == NULL
+      && ippFindAttribute(response, "media-size-supported", IPP_TAG_BEGIN_COLLECTION) == NULL)
+  {
+    cupsdLogMessage(CUPSD_LOG_ERROR, "The printer %s doesn't provide attributes \"media-col-database\", \"media-size-supported\" or \"media-supported\" required for generating printer capabilities.", printer->name);
+
+    /* Force printer to timeout and be deleted */
+    cupsRWLockWrite(&printer->lock);
+    printer->state_time = 0;
+    cupsRWUnlock(&printer->lock);
+
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("The printer %s does not provide attributes required for IPP Everywhere."), printer->name);
+    goto finish_response;
   }
 
   // Validate response from printer...
