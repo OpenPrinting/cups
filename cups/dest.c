@@ -1961,6 +1961,30 @@ cupsSetDests2(http_t      *http,	// I - Connection to server or @code CUPS_HTTP_
     return (-1);
 
   //
+  // See if the default destination has a printer URI associated with it...
+  //
+
+  if ((dest = cupsGetDest(/*name*/NULL, /*instance*/NULL, num_dests, dests)) != NULL && !cupsGetOption("printer-uri-supported", dest->num_options, dest->options))
+  {
+    // No, try adding it...
+    const char	*uri;			// Device/printer URI
+
+    if ((uri = cupsGetOption("device-uri", dest->num_options, dest->options)) != NULL)
+    {
+      char	tempresource[1024];	// Temporary resource path
+
+      if (strstr(uri, "._tcp"))
+        uri = cups_dest_resolve(dest, uri, /*msec*/30000, /*cancel*/NULL, /*cb*/NULL, /*user_data*/NULL);
+
+      if (uri)
+	uri = _cupsCreateDest(dest->name, cupsGetOption("printer-info", dest->num_options, dest->options), NULL, uri, tempresource, sizeof(tempresource));
+
+      if (uri)
+	dest->num_options = cupsAddOption("printer-uri-supported", uri, dest->num_options, &dest->options);
+    }
+  }
+
+  //
   // Get the server destinations...
   //
 
