@@ -523,13 +523,14 @@ main(int  argc,				/* I - Number of command-line args */
   * to the number of TCP port number values (64k-1)...
   */
 
+  limit.rlim_max = 0;
   getrlimit(RLIMIT_NOFILE, &limit);
 
 #if !defined(HAVE_POLL) && !defined(HAVE_EPOLL) && !defined(HAVE_KQUEUE)
-  if ((MaxFDs = limit.rlim_max) > FD_SETSIZE)
+  if ((MaxFDs = limit.rlim_max) > FD_SETSIZE || MaxFDs <= 0)
     MaxFDs = FD_SETSIZE;
 #else
-  if ((MaxFDs = limit.rlim_max) > 65535)
+  if ((MaxFDs = limit.rlim_max) > 65535 || MaxFDs <= 0)
     MaxFDs = 65535;
 #endif /* RLIM_INFINITY */
 

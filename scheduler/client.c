@@ -80,7 +80,7 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   * Make sure we don't have a full set of clients already...
   */
 
-  if (cupsArrayCount(Clients) == MaxClients)
+  if (MaxClients > 0 && cupsArrayCount(Clients) >= MaxClients)
     return;
 
   cupsdSetBusyState(1);
