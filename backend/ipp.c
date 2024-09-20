@@ -3352,7 +3352,7 @@ run_as_user(char       *argv[],		/* I - Command-line arguments */
   * Try starting the backend...
   */
 
-  request = xpc_dictionary_create(NULL, NULL, 0);
+  request = xpc_dictionary_create_empty();
   xpc_dictionary_set_int64(request, "command", kPMStartJob);
   xpc_dictionary_set_string(request, "device-uri", device_uri);
   xpc_dictionary_set_string(request, "job-id", argv[1]);
@@ -3405,7 +3405,7 @@ run_as_user(char       *argv[],		/* I - Command-line arguments */
   * Then wait for the backend to finish...
   */
 
-  request = xpc_dictionary_create(NULL, NULL, 0);
+  request = xpc_dictionary_create_empty();
   xpc_dictionary_set_int64(request, "command", kPMWaitForJob);
   xpc_dictionary_set_fd(request, "stderr", 2);
 
