@@ -1,7 +1,7 @@
 /*
  * IPP routines for the CUPS scheduler.
  *
- * Copyright © 2020-2023 by OpenPrinting
+ * Copyright © 2020-2024 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -10,10 +10,6 @@
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cupsd.h"
@@ -5192,14 +5188,11 @@ create_local_bg_thread(
   char		device_uri[1024],	/* Device URI */
 		fromppd[1024],		/* Source PPD */
 		toppd[1024],		/* Destination PPD */
-		scheme[32],		/* URI scheme */
-		userpass[256],		/* User:pass */
 		host[256],		/* Hostname */
 		resource[1024],		/* Resource path */
 		uri[1024],		/* Resolved URI, if needed */
 		line[1024];		/* Line from PPD */
   int		port;			/* Port number */
-  http_encryption_t encryption;		/* Type of encryption to use */
   http_t	*http;			/* Connection to printer */
   ipp_t		*request,		/* Request to printer */
 		*response = NULL;	/* Response from printer */
@@ -5246,27 +5239,9 @@ create_local_bg_thread(
     cupsCopyString(device_uri, uri, sizeof(device_uri));
   }
 
-  if (httpSeparateURI(HTTP_URI_CODING_ALL, device_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+  if ((http = httpConnectURI(device_uri, host, sizeof(host), &port, resource, sizeof(resource), /*blocking*/true, /*msec*/30000, /*cancel*/NULL, /*require_ca*/false)) == NULL)
   {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Bad device URI \"%s\".", printer->name, device_uri);
-
-    /* Force printer to timeout and be deleted */
-    cupsRWLockWrite(&printer->lock);
-    printer->state_time = 0;
-    cupsRWUnlock(&printer->lock);
-
-    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Bad device URI \"%s\"."), device_uri);
-    goto finish_response;
-  }
-
-  if (!strcmp(scheme, "ipps") || port == 443)
-    encryption = HTTP_ENCRYPTION_ALWAYS;
-  else
-    encryption = HTTP_ENCRYPTION_IF_REQUESTED;
-
-  if ((http = httpConnect2(host, port, NULL, AF_UNSPEC, encryption, 1, 30000, NULL)) == NULL)
-  {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to connect to %s:%d: %s", printer->name, host, port, cupsGetErrorString());
+    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: Unable to connect to '%s': %s", printer->name, device_uri, cupsGetErrorString());
 
     /* Force printer to timeout and be deleted */
     cupsRWLockWrite(&printer->lock);
@@ -5281,7 +5256,7 @@ create_local_bg_thread(
   * Query the printer for its capabilities...
   */
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Connected to %s:%d, sending Get-Printer-Attributes request...", printer->name, host, port);
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Connected to '%s', sending Get-Printer-Attributes request...", printer->name, device_uri);
 
   request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
   ippSetVersion(request, 2, 0);
@@ -5319,55 +5294,45 @@ create_local_bg_thread(
   * try to get it separately
   */
 
-  if (ippFindAttribute(response, "media-col-database", IPP_TAG_BEGIN_COLLECTION) ==
-      NULL)
+  if (ippFindAttribute(response, "media-col-database", IPP_TAG_BEGIN_COLLECTION) == NULL)
   {
-    ipp_t *response2;
+    ipp_t *response2;			/* Second response */
 
-    cupsdLogMessage(CUPSD_LOG_DEBUG,
-		    "Polling \"media-col-database\" attribute separately.");
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Querying \"media-col-database\" attribute separately.", printer->name);
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
     ippSetVersion(request, 2, 0);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-		 "printer-uri", NULL, device_uri);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-		 "requested-attributes", NULL, "media-col-database");
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, device_uri);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", NULL, "media-col-database");
     response2 = cupsDoRequest(http, request, resource);
     //ipp_status = cupsGetError();
     if (response2)
     {
-      if ((attr = ippFindAttribute(response2, "media-col-database",
-				   IPP_TAG_ZERO)) != NULL)
+      if ((attr = ippFindAttribute(response2, "media-col-database", IPP_TAG_BEGIN_COLLECTION)) != NULL)
       {
-	cupsdLogMessage(CUPSD_LOG_WARN, "The printer %s does not support requests"
-			" with attribute set \"all,media-col-database\", which breaks IPP"
-			" conformance (RFC 8011, 4.2.5.1 \"requested-attributes\")"
-			" - report the issue to your printer manufacturer", printer->name);
        /*
 	* Copy "media-col-database" attribute into the original
 	* IPP response
 	*/
 
-	cupsdLogMessage(CUPSD_LOG_DEBUG,
-			"\"media-col-database\" attribute found.");
+	cupsdLogMessage(CUPSD_LOG_WARN, "%s: The printer does not support requests with attribute set \"all,media-col-database\", which breaks IPP conformance (RFC 8011, 4.2.5.1 \"requested-attributes\") - report the issue to your printer manufacturer", printer->name);
+
+	cupsdLogMessage(CUPSD_LOG_DEBUG, "\"media-col-database\" attribute found.");
 	ippCopyAttribute(response, attr, 0);
       }
       ippDelete(response2);
     }
   }
 
-  if (ippFindAttribute(response, "media-col-database", IPP_TAG_BEGIN_COLLECTION) == NULL
-      && ippFindAttribute(response, "media-supported", IPP_TAG_ZERO) == NULL
-      && ippFindAttribute(response, "media-size-supported", IPP_TAG_BEGIN_COLLECTION) == NULL)
+  if (ippFindAttribute(response, "media-col-database", IPP_TAG_BEGIN_COLLECTION) == NULL && ippFindAttribute(response, "media-supported", IPP_TAG_ZERO) == NULL && ippFindAttribute(response, "media-size-supported", IPP_TAG_BEGIN_COLLECTION) == NULL)
   {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "The printer %s doesn't provide attributes \"media-col-database\", \"media-size-supported\" or \"media-supported\" required for generating printer capabilities.", printer->name);
+    cupsdLogMessage(CUPSD_LOG_ERROR, "%s: The printer doesn't provide attributes \"media-col-database\", \"media-size-supported\", or \"media-supported\" required for generating the PPD file.", printer->name);
 
     /* Force printer to timeout and be deleted */
     cupsRWLockWrite(&printer->lock);
     printer->state_time = 0;
     cupsRWUnlock(&printer->lock);
 
-    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("The printer %s does not provide attributes required for IPP Everywhere."), printer->name);
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("The printer does not provide attributes required for IPP Everywhere."));
     goto finish_response;
   }
 

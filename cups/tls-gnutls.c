@@ -818,7 +818,7 @@ cupsGetCredentialsTrust(
   // Load the credentials...
   if (!gnutls_import_certs(credentials, &num_certs, certs))
   {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to import credentials."), 1);
+    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Unable to import credentials."), 1);
     return (HTTP_TRUST_UNKNOWN);
   }
 
@@ -844,21 +844,21 @@ cupsGetCredentialsTrust(
       if (!cg->trust_first || require_ca)
       {
         // Do not trust certificates on first use...
-        _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
+        _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Trust on first use is disabled."), 1);
 
         trust = HTTP_TRUST_INVALID;
       }
       else if (cupsGetCredentialsExpiration(credentials) <= cupsGetCredentialsExpiration(tcreds))
       {
         // The new credentials are not newly issued...
-        _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("New credentials are older than stored credentials."), 1);
+        _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("New credentials are older than stored credentials."), 1);
 
         trust = HTTP_TRUST_INVALID;
       }
       else if (!cupsAreCredentialsValidForName(common_name, credentials))
       {
         // The common name does not match the issued certificate...
-        _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("New credentials are not valid for name."), 1);
+        _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("New credentials are not valid for name."), 1);
 
         trust = HTTP_TRUST_INVALID;
       }
@@ -875,7 +875,7 @@ cupsGetCredentialsTrust(
   }
   else if ((cg->validate_certs || require_ca) && !cupsAreCredentialsValidForName(common_name, credentials))
   {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("No stored credentials, not valid for name."), 1);
+    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("No stored credentials, not valid for name."), 1);
     trust = HTTP_TRUST_INVALID;
   }
   else if (num_certs > 1)
@@ -899,7 +899,7 @@ cupsGetCredentialsTrust(
 	}
 
 	if (trust != HTTP_TRUST_OK)
-	  _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials do not validate against site CA certificate."), 1);
+	  _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials do not validate against site CA certificate."), 1);
 
 	free(tcreds);
       }
@@ -907,17 +907,17 @@ cupsGetCredentialsTrust(
   }
   else if (require_ca)
   {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials are not CA-signed."), 1);
+    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials are not CA-signed."), 1);
     trust = HTTP_TRUST_INVALID;
   }
   else if (!cg->trust_first)
   {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Trust on first use is disabled."), 1);
+    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Trust on first use is disabled."), 1);
     trust = HTTP_TRUST_INVALID;
   }
   else if (!cg->any_root || require_ca)
   {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Self-signed credentials are blocked."), 1);
+    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Self-signed credentials are blocked."), 1);
     trust = HTTP_TRUST_INVALID;
   }
 
@@ -928,7 +928,7 @@ cupsGetCredentialsTrust(
     time(&curtime);
     if (curtime < gnutls_x509_crt_get_activation_time(certs[0]) || curtime > gnutls_x509_crt_get_expiration_time(certs[0]))
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Credentials have expired."), 1);
+      _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials have expired."), 1);
       trust = HTTP_TRUST_EXPIRED;
     }
   }

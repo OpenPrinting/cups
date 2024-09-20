@@ -593,6 +593,7 @@ httpConnectURI(const char *uri,		// I - Service to connect to
 		lresource[256];		// URI resource (local copy)
   int		lport;			// URI port (local copy)
   http_encryption_t encryption;		// Type of encryption to use
+  http_uri_status_t uri_status;		// URI separation status
 
 
   DEBUG_printf("httpConnectURI(uri=\"%s\", host=%p, hsize=%u, port=%p, resource=%p, rsize=%u, blocking=%d, msec=%d, cancel=%p, require_ca=%s)", uri, (void *)host, (unsigned)hsize, (void *)port, (void *)resource, (unsigned)rsize, blocking, msec, (void *)cancel, require_ca ? "true" : "false");
@@ -628,8 +629,11 @@ httpConnectURI(const char *uri,		// I - Service to connect to
   }
 
   // Get the URI components...
-  if (httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, hsize, port, resource, rsize) < HTTP_URI_STATUS_OK)
+  if ((uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, hsize, port, resource, rsize)) < HTTP_URI_STATUS_OK)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, httpURIStatusString(uri_status), 0);
     return (NULL);
+  }
 
   DEBUG_printf("1httpConnectURI: scheme=\"%s\", host=\"%s\", port=%d, resource=\"%s\"", scheme, host, *port, resource);
 
@@ -640,7 +644,7 @@ httpConnectURI(const char *uri,		// I - Service to connect to
 
   http = httpConnect2(host, *port, /*addrlist*/NULL, AF_UNSPEC, encryption, blocking, msec, cancel);
 
-  if (httpIsEncrypted(http) && require_ca)
+  if (httpIsEncrypted(http))
   {
     // Validate trust with service...
     char	*creds;			// Peer credentials...
@@ -649,13 +653,19 @@ httpConnectURI(const char *uri,		// I - Service to connect to
     creds = httpCopyPeerCredentials(http);
     trust = cupsGetCredentialsTrust(/*path*/NULL, host, creds, require_ca);
 
-    free(creds);
-
-    if (trust != HTTP_TRUST_OK)
+    if (trust == HTTP_TRUST_OK)
     {
+      // Pin the trusted credentials (for TOFU)...
+      cupsSaveCredentials(/*path*/NULL, host, creds, /*key*/NULL);
+    }
+    else if (trust != HTTP_TRUST_RENEWED)
+    {
+      // Don't allow the connection...
       httpClose(http);
       http = NULL;
     }
+
+    free(creds);
   }
 
   return (http);

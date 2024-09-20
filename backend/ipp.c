@@ -835,15 +835,11 @@ main(int  argc,				/* I - Number of command-line args */
         return (CUPS_BACKEND_STOP);
       }
 
-      if (!lcreds)
-      {
-       /*
-        * Could not load the credentials, let's save the ones we have so we
-        * can detect changes...
-        */
+     /*
+      * Save the credentials we have so we can detect changes...
+      */
 
-        cupsSaveCredentials(NULL, hostname, creds, /*key*/NULL);
-      }
+      cupsSaveCredentials(NULL, hostname, creds, /*key*/NULL);
 
       free(lcreds);
       free(creds);
