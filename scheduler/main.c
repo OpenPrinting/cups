@@ -507,10 +507,16 @@ main(int  argc,				/* I - Number of command-line args */
   * to the number of TCP port number values (64k-1)...
   */
 
-  getrlimit(RLIMIT_NOFILE, &limit);
-
-  if ((MaxFDs = limit.rlim_max) > 65535)
+  if (getrlimit(RLIMIT_NOFILE, &limit))
+  {
+    // This should never happen but if it does choose a safe upper limit...
+    perror("getrlimit");
+    MaxFDs = 256;
+  }
+  else if ((MaxFDs = limit.rlim_max) > 65535 || MaxFDs <= 0)
+  {
     MaxFDs = 65535;
+  }
 
   limit.rlim_cur = (rlim_t)MaxFDs;
 
