@@ -6,6 +6,7 @@ Changes in CUPS v2.4.11 (YYYY-MM-DD)
 ------------------------------------
 
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
+- Fixed `lpoptions -d` with a discovered but not added printer (Issue #833)
 - Fixed incorrect error message for HTTP/IPP errors (Issue #893)
 - Fixed JobPrivateAccess and SubscriptionPrivateAccess support for "all"
   (Issue #990)
