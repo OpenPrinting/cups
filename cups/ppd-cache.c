@@ -3222,8 +3222,7 @@ _ppdCreateFromIPP2(
   int			have_qdraft = 0,/* Have draft quality? */
 			have_qhigh = 0;	/* Have high quality? */
   char			msgid[256];	/* Message identifier (attr.value) */
-  const char		*keyword,	/* Keyword value */
-			*msgstr;	/* Localized string */
+  const char		*keyword;	/* Keyword value */
   cups_array_t		*strings = NULL;/* Printer strings file */
   struct lconv		*loc = localeconv();
 					/* Locale data */
@@ -5009,9 +5008,8 @@ _ppdCreateFromIPP2(
     {
       ipp_t	*preset = ippGetCollection(attr, i);
 					/* Preset collection */
-      const char *preset_name = ippGetString(ippFindAttribute(preset, "preset-name", IPP_TAG_ZERO), 0, NULL),
+      const char *preset_name = ippGetString(ippFindAttribute(preset, "preset-name", IPP_TAG_ZERO), 0, NULL);
 					/* Preset name */
-		*localized_name;	/* Localized preset name */
       ipp_attribute_t *member;		/* Member attribute in preset */
       const char *member_name;		/* Member attribute name */
       char      	member_value[256];	/* Member attribute value */
