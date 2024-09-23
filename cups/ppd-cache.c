@@ -5611,7 +5611,21 @@ ppd_put_strings(cups_file_t *fp,	/* I - PPD file */
   for (lang = langs; lang; lang = lang->next)
   {
     if (strcmp(lang->language, "en") && (text = _cupsLangString(lang, pwg_msgid)) != pwg_msgid)
-      cupsFilePrintf(fp, "*%s.%s %s/%s: \"\"\n", lang->language, ppd_option, ppd_choice, text);
+    {
+      // Add the first line of localized text...
+      cupsFilePrintf(fp, "*%s.%s %s/", lang->language, ppd_option, ppd_choice);
+      while (*text && *text != '\n')
+      {
+        // Escape ":" and "<"...
+        if (*text == ':' || *text == '<')
+          cupsFilePrintf(fp, "<%02X>", *text);
+        else
+          cupsFilePutChar(fp, *text);
+
+        text ++;
+      }
+      cupsFilePuts(fp, ": \"\"\n");
+    }
   }
 }
 
