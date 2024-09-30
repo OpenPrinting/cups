@@ -2,7 +2,7 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
-Changes in CUPS v2.4.11 (YYYY-MM-DD)
+Changes in CUPS v2.4.11 (2024-09-30)
 ------------------------------------
 
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
