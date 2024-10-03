@@ -586,6 +586,7 @@ cupsSetUserAgent(const char *user_agent)/* I - User-Agent string or @code NULL@ 
 	  strlcpy(cg->user_agent, CUPS_MINIMAL " IPP/2.1", sizeof(cg->user_agent));
 	  break;
     }
+    return;
   }
 
 #ifdef _WIN32
