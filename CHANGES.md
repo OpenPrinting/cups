@@ -6,6 +6,7 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
 ------------------------------------
 
 - Fixed the default User-Agent string.
+- Fixed a recursion issue in `ippReadIO`.
 
 
 Changes in CUPS v2.4.11 (2024-09-30)
