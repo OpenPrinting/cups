@@ -1694,7 +1694,11 @@ cupsGetNamedDest(http_t     *http,	// I - Connection to server or @code CUPS_HTT
       else
         instance = NULL;
     }
+#ifdef _WIN32
     else if (cg->userconfig)
+#else
+    else if (cg->userconfig && getuid() != 0)
+#endif // _WIN32
     {
      /*
       * No default in the environment, try the user's lpoptions files...
@@ -1805,7 +1809,11 @@ cupsGetNamedDest(http_t     *http,	// I - Connection to server or @code CUPS_HTT
   snprintf(filename, sizeof(filename), "%s/lpoptions", cg->sysconfig);
   cups_get_dests(filename, dest_name, instance, 0, 1, 1, &dest);
 
+#ifdef _WIN32
   if (cg->userconfig)
+#else
+  if (cg->userconfig && getuid() != 0)
+#endif // _WIN32
   {
     snprintf(filename, sizeof(filename), "%s/lpoptions", cg->userconfig);
 
