@@ -27,7 +27,7 @@ static char		*ipp_lang_code(const char *locale, char *buffer, size_t bufsize) _C
 static size_t		ipp_length(ipp_t *ipp, int collection);
 static ssize_t		ipp_read_file(int *fd, ipp_uchar_t *buffer, size_t length);
 static ssize_t		ipp_read_http(http_t *http, ipp_uchar_t *buffer, size_t length);
-static ipp_state_t	ipp_read_io(void *src, ipp_io_cb_t cb, int blocking, ipp_t *parent, ipp_t *ipp, int depth);
+static ipp_state_t	ipp_read_io(void *src, ipp_io_cb_t cb, bool blocking, ipp_t *parent, ipp_t *ipp, int depth);
 static void		ipp_set_error(ipp_status_t status, const char *format, ...);
 static _ipp_value_t	*ipp_set_value(ipp_t *ipp, ipp_attribute_t **attr, int element);
 static ssize_t		ipp_write_file(int *fd, ipp_uchar_t *buffer, size_t length);
@@ -2613,7 +2613,7 @@ ippReadFile(int   fd,			// I - HTTP data
   if (!ipp)
     return (IPP_STATE_ERROR);
 
-  return (ipp_read_io(&fd, (ipp_io_cb_t)ipp_read_file, /*blocking*/1, /*parent*/NULL, ipp, /*depth*/0));
+  return (ipp_read_io(&fd, (ipp_io_cb_t)ipp_read_file, /*blocking*/true, /*parent*/NULL, ipp, /*depth*/0));
 }
 
 
@@ -5339,7 +5339,7 @@ ipp_read_http(http_t      *http,	// I - Client connection
 static ipp_state_t			// O - Current state
 ipp_read_io(void        *src,		// I - Data source
             ipp_io_cb_t cb,		// I - Read callback function
-	    int         blocking,	// I - Use blocking IO?
+	    bool        blocking,	// I - Use blocking IO?
 	    ipp_t       *parent,	// I - Parent request, if any
             ipp_t       *ipp,		// I - IPP data
             int         depth)		// I - Depth of collection
