@@ -57,6 +57,8 @@ Changes in CUPS v2.5b1 (TBA)
   or writing if the number of bytes passed is 0 (Issue #914)
 - Updated and documented the MIME typing buffering limit (Issue #925)
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
+- Updated `httpConnectAgain` to re-validate the server's X.509 certificate
+  (Issue #1061)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
