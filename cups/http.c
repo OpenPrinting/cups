@@ -442,6 +442,7 @@ httpConnectAgain(http_t *http,		// I - HTTP connection
 	         int    *cancel)	// I - Pointer to "cancel" variable
 {
   http_addrlist_t	*addr;		// Connected address
+  char			*orig_creds;	// Original peer credentials
 #ifdef DEBUG
   http_addrlist_t	*current;	// Current address
   char			temp[256];	// Temporary address string
@@ -455,6 +456,8 @@ httpConnectAgain(http_t *http,		// I - HTTP connection
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), 0);
     return (false);
   }
+
+  orig_creds = httpCopyPeerCredentials(http);
 
   if (http->tls)
   {
@@ -502,6 +505,8 @@ httpConnectAgain(http_t *http,		// I - HTTP connection
 
     DEBUG_printf("1httpConnectAgain: httpAddrConnect failed: %s", strerror(http->error));
 
+    free(orig_creds);
+
     return (false);
   }
 
@@ -521,13 +526,41 @@ httpConnectAgain(http_t *http,		// I - HTTP connection
       httpAddrClose(NULL, http->fd);
       http->fd = -1;
 
+      free(orig_creds);
+
       return (false);
     }
   }
   else if (http->encryption == HTTP_ENCRYPTION_REQUIRED && !http->tls_upgrade)
-    return (http_tls_upgrade(http));
+  {
+    if (!http_tls_upgrade(http))
+    {
+      free(orig_creds);
+
+      return (false);
+    }
+  }
 
   DEBUG_printf("1httpConnectAgain: Connected to %s:%d...", httpAddrGetString(http->hostaddr, temp, sizeof(temp)), httpAddrGetPort(http->hostaddr));
+
+  if (orig_creds)
+  {
+    char *new_creds = httpCopyPeerCredentials(http);
+					// New peer credentials
+
+    if (!new_creds || (strcmp(orig_creds, new_creds) && cupsGetCredentialsTrust(/*path*/NULL, http->hostname, new_creds, /*require_ca*/true) != HTTP_TRUST_OK))
+    {
+      // New and old credentials don't match and the new cert doesn't validate...
+      _httpDisconnect(http);
+
+      free(orig_creds);
+      free(new_creds);
+
+      return (false);
+    }
+  }
+
+  free(orig_creds);
 
   return (true);
 }
