@@ -2486,6 +2486,10 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 
 	if (fp->stream.avail_in > 0)
 	{
+	 /*
+	  * Get the first N trailer bytes from the inflate stream...
+	  */
+
 	  if (fp->stream.avail_in > sizeof(trailer))
 	    tbytes = (ssize_t)sizeof(trailer);
 	  else
@@ -2495,6 +2499,18 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 	  fp->stream.next_in  += tbytes;
 	  fp->stream.avail_in -= (size_t)tbytes;
 	}
+
+       /*
+	* Reset the compressed flag so that we re-read the file header...
+	*/
+
+        inflateEnd(&fp->stream);
+
+	fp->compressed = 0;
+
+       /*
+        * Get any remaining trailer bytes...
+        */
 
         if (tbytes < (ssize_t)sizeof(trailer))
 	{
@@ -2513,6 +2529,10 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 	  }
 	}
 
+       /*
+        * Calculate and compare the CRC...
+        */
+
 	tcrc = ((uLong)trailer[3] << 24) | ((uLong)trailer[2] << 16) | ((uLong)trailer[1] << 8) | ((uLong)trailer[0]);
 
 	if (tcrc != fp->crc)
@@ -2528,15 +2548,6 @@ cups_fill(cups_file_t *fp)		/* I - CUPS file */
 
 	  return (-1);
 	}
-
-       /*
-	* Otherwise, reset the compressed flag so that we re-read the
-	* file header...
-	*/
-
-        inflateEnd(&fp->stream);
-
-	fp->compressed = 0;
       }
       else if (status < Z_OK)
       {

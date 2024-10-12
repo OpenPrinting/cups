@@ -5,6 +5,7 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.12 (YYYY-MM-DD)
 ------------------------------------
 
+- Fixed a compressed file error handling bug (Issue #1070)
 - Fixed the default User-Agent string.
 - Fixed a recursion issue in `ippReadIO`.
 
