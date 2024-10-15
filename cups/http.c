@@ -558,6 +558,8 @@ httpConnectAgain(http_t *http,		// I - HTTP connection
 
       return (false);
     }
+
+    free(new_creds);
   }
 
   free(orig_creds);

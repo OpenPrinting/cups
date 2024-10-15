@@ -5863,13 +5863,7 @@ ipp_read_io(void        *src,		// I - Data source
             case IPP_TAG_MEMBERNAME :
 	        // The value the name of the member in the collection, which
 		// we need to carry over...
-                if (!attr)
-                {
-		  _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP memberName with no attribute."), 1);
-	          DEBUG_puts("1ipp_read_io: Member name without attribute.");
-		  goto rollback;
-                }
-		else if (n == 0)
+                if (n == 0)
 		{
 		  _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP memberName value is empty."), 1);
 	          DEBUG_puts("1ipp_read_io: Empty member name value.");
