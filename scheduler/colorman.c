@@ -249,8 +249,8 @@ apple_init_profile(
     return;
   }
 
-  cftext = CFStringCreateWithCString(kCFAllocatorDefault, text,
-				     kCFStringEncodingUTF8);
+  cftext = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, text,
+				     kCFStringEncodingUTF8, NULL);
 
   if (cftext)
   {
@@ -281,10 +281,10 @@ apple_init_profile(
 
       if (attr && attr->text[0])
       {
-	cflang = CFStringCreateWithCString(kCFAllocatorDefault, language,
-					   kCFStringEncodingUTF8);
-	cftext = CFStringCreateWithCString(kCFAllocatorDefault, attr->text,
-					   kCFStringEncodingUTF8);
+	cflang = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, language,
+					   kCFStringEncodingUTF8, NULL);
+	cftext = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, attr->text,
+					   kCFStringEncodingUTF8, NULL);
 
         if (cflang && cftext)
 	  CFDictionarySetValue(dict, cflang, cftext);
@@ -766,8 +766,8 @@ apple_register_profiles(
     device_name  = CFDictionaryCreateMutable(kCFAllocatorDefault, 0,
 					     &kCFTypeDictionaryKeyCallBacks,
 					     &kCFTypeDictionaryValueCallBacks);
-    printer_name = CFStringCreateWithCString(kCFAllocatorDefault,
-                                             p->name, kCFStringEncodingUTF8);
+    printer_name = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault,
+                                             p->name, kCFStringEncodingUTF8, NULL);
 
     if (device_name && printer_name)
     {

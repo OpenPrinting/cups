@@ -2149,7 +2149,7 @@ cupsSetDests2(http_t      *http,	// I - Connection to server or @code CUPS_HTTP_
 
   if ((dest = cupsGetDest(NULL, NULL, num_dests, dests)) != NULL)
   {
-    CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, dest->name, kCFStringEncodingUTF8);
+    CFStringRef name = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, dest->name, kCFStringEncodingUTF8, NULL);
 					// Default printer name
 
     if (name)

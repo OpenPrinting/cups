@@ -1950,7 +1950,7 @@ CFStringRef cfstr_create_trim(const char *cstr)
   CFStringRef		cfstr;
   CFMutableStringRef	cfmutablestr = NULL;
 
-  if ((cfstr = CFStringCreateWithCString(kCFAllocatorDefault, cstr, kCFStringEncodingUTF8)) != NULL)
+  if ((cfstr = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, cstr, kCFStringEncodingUTF8, NULL)) != NULL)
   {
     if ((cfmutablestr = CFStringCreateMutableCopy(kCFAllocatorDefault, 1024, cfstr)) != NULL)
       CFStringTrimWhitespace(cfmutablestr);
@@ -2071,7 +2071,7 @@ static void setup_cfLanguage(void)
     return;
   }
 
-  lang[0] = CFStringCreateWithCString(kCFAllocatorDefault, requestedLang, kCFStringEncodingUTF8);
+  lang[0] = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, requestedLang, kCFStringEncodingUTF8, NULL);
   langArray = CFArrayCreate(kCFAllocatorDefault, (const void **)lang, sizeof(lang) / sizeof(lang[0]), &kCFTypeArrayCallBacks);
 
   CFPreferencesSetValue(CFSTR("AppleLanguages"), langArray, kCFPreferencesCurrentApplication, kCFPreferencesAnyUser, kCFPreferencesAnyHost);
