@@ -777,6 +777,8 @@ cupsGetCredentialsTrust(
   _cups_globals_t *cg = _cupsGlobals();	// Per-thread globals
 
 
+  DEBUG_printf("cupsGetCredentialsTrust(path=\"%s\", common_name=\"%s\", credentials=\"%lu bytes\", require_ca=%s)", path, common_name, (unsigned long)(credentials ? strlen(credentials) : 0), require_ca ? "true" : "false");
+
   // Range check input...
   if (!path)
     path = http_default_path(defpath, sizeof(defpath));
@@ -796,6 +798,8 @@ cupsGetCredentialsTrust(
 
   cert = sk_X509_value(certs, 0);
 
+  DEBUG_printf("1cupsGetCredentialsGetTrust: certs=%p, sk_X509_num(certs)=%d", (void *)certs, sk_X509_num(certs));
+
   if (cg->any_root < 0)
   {
     _cupsSetDefaults();
@@ -803,7 +807,7 @@ cupsGetCredentialsTrust(
   }
 
   // Look this common name up in the default keychains...
-  if ((tcreds = cupsCopyCredentials(path, common_name)) != NULL)
+  if (sk_X509_num(certs) == 1 && (tcreds = cupsCopyCredentials(path, common_name)) != NULL)
   {
     char	credentials_str[1024],	// String for incoming credentials
 		tcreds_str[1024];	// String for saved credentials

@@ -140,7 +140,7 @@ cupsSaveCredentials(
   if (credentials)
   {
     // Make sure it looks like a PEM-encoded cert...
-    if (strncmp(credentials, "-----BEGIN CERTIFICATE-----", 27) || strstr(key, "-----END CERTIFICATE-----") == NULL)
+    if (strncmp(credentials, "-----BEGIN CERTIFICATE-----", 27) || strstr(credentials, "-----END CERTIFICATE-----") == NULL)
       return (false);
   }
 
@@ -266,6 +266,8 @@ http_check_roots(const char *creds)	// I - Credentials
   bool		ret = false;		// Return value
 
 
+  DEBUG_printf("3http_check_roots(creds=\"%s\")", creds);
+
 #ifdef __APPLE__
   // Apple hides all of the keychain stuff (all deprecated) so the best we can
   // do is use the SecTrust API to evaluate the certificate...
@@ -327,11 +329,19 @@ http_check_roots(const char *creds)	// I - Credentials
   // Test the certificate list against the macOS/iOS trust store...
   if ((policy = SecPolicyCreateBasicX509()) != NULL)
   {
+    DEBUG_puts("4http_check_roots: SecPolicyCreateBasicX509 succeeded.");
+
     if (SecTrustCreateWithCertificates(certs, policy, &trust) == noErr)
     {
       ret = SecTrustEvaluateWithError(trust, NULL);
       CFRelease(trust);
+
+      DEBUG_printf("4http_check_roots: SecTrustEvaluateWithError returned %d.", ret);
     }
+#ifdef DEBUG
+    else
+      DEBUG_printf("4http_check_roots: SecTrustCreateWithCertificates returned %d.", SecTrustCreateWithCertificates(certs, policy, &trust));
+#endif // DEBUG
 
     CFRelease(policy);
   }
