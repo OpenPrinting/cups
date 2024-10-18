@@ -130,15 +130,62 @@ cupsSaveCredentials(
     const char *credentials,		// I - PEM-encoded certificate chain or `NULL` to remove
     const char *key)			// I - PEM-encoded private key or `NULL` for none
 {
-  if (http_save_file(path, common_name, "crt", credentials))
+  bool	ret = false;			// Return value
+  char	crtfile[1024],			// Certificate filename
+	keyfile[1024],			// Key filename
+	ktmfile[1024];			// Temporary key filename
+
+
+  // Validate input...
+  if (credentials)
   {
-    if (key)
-      return (http_save_file(path, common_name, "key", key));
-    else
-      return (true);
+    // Make sure it looks like a PEM-encoded cert...
+    if (strncmp(credentials, "-----BEGIN CERTIFICATE-----", 27) || strstr(key, "-----END CERTIFICATE-----") == NULL)
+      return (false);
   }
 
-  return (false);
+  if (key)
+  {
+    // Make sure it looks like a PEM-encoded private key...
+    if (strncmp(key, "-----BEGIN PRIVATE KEY-----", 27) || strstr(key, "-----END PRIVATE KEY-----") == NULL)
+      return (false);
+  }
+
+  // Save or delete credentials...
+  http_make_path(crtfile, sizeof(crtfile), path, common_name, "crt");
+  http_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
+  http_make_path(ktmfile, sizeof(ktmfile), path, common_name, "ktm");
+
+  if (!credentials && !key)
+  {
+    // Delete credentials...
+    if (!unlink(crtfile) && !unlink(keyfile))
+      ret = true;
+    else
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
+  }
+  else if (!credentials && key)
+  {
+    // Bad arguments...
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), false);
+  }
+  else if (!key && access(keyfile, 0) && access(ktmfile, 0))
+  {
+    // Missing key file...
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
+  }
+  else if (http_save_file(path, common_name, "crt", credentials))
+  {
+    // Certificate saved, save or rename key file as needed...
+    if (key)
+      ret = http_save_file(path, common_name, "key", key);
+    else if (!access(ktmfile, 0))
+      ret = !rename(ktmfile, keyfile);
+    else
+      ret = true;
+  }
+
+  return (ret);
 }
 
 

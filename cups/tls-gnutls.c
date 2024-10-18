@@ -525,7 +525,7 @@ cupsCreateCredentialsRequest(
   }
 
   http_make_path(csrfile, sizeof(csrfile), path, common_name, "csr");
-  http_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
+  http_make_path(keyfile, sizeof(keyfile), path, common_name, "ktm");
 
   // Create the encryption key...
   DEBUG_puts("1cupsCreateCredentialsRequest: Creating key pair.");
