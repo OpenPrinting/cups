@@ -5949,7 +5949,7 @@ register_printer(
   if ((printer->services = cupsDNSSDServiceNew(printer->dnssd, if_index, printer->dnssd_name, (cups_dnssd_service_cb_t)dnssd_callback, printer)) == NULL)
     goto error;
 
-  if (!cupsDNSSDServiceAdd(printer->services, "_printer._tcp", /*domain*/NULL, printer->hostname, /*port*/0, /*num_txt*/0, /*txt*/NULL))
+  if (!cupsDNSSDServiceAdd(printer->services, "_printer._tcp", /*domain*/NULL, /*hostname*/NULL, /*port*/0, /*num_txt*/0, /*txt*/NULL))
     goto error;
 
   // Then register the _ipp._tcp (IPP) service type with the real port number to
@@ -5959,7 +5959,7 @@ register_printer(
   else
     cupsCopyString(regtype, "_ipp._tcp", sizeof(regtype));
 
-  if (!cupsDNSSDServiceAdd(printer->services, regtype, /*domain*/NULL, printer->hostname, (uint16_t)printer->port, num_txt, txt))
+  if (!cupsDNSSDServiceAdd(printer->services, regtype, /*domain*/NULL, /*hostname*/NULL, (uint16_t)printer->port, num_txt, txt))
     goto error;
 
   // Then register the _ipps._tcp (IPP) service type with the real port number
@@ -5969,12 +5969,12 @@ register_printer(
   else
     cupsCopyString(regtype, "_ipps._tcp", sizeof(regtype));
 
-  if (!cupsDNSSDServiceAdd(printer->services, regtype, /*domain*/NULL, printer->hostname, (uint16_t)printer->port, num_txt, txt))
+  if (!cupsDNSSDServiceAdd(printer->services, regtype, /*domain*/NULL, /*hostname*/NULL, (uint16_t)printer->port, num_txt, txt))
     goto error;
 
   // Similarly, register the _http._tcp,_printer (HTTP) service type with the
   // real port number to advertise our IPP printer's web interface...
-  if (!cupsDNSSDServiceAdd(printer->services, "_http._tcp,_printer", /*domain*/NULL, printer->hostname, (uint16_t)printer->port, num_txt, txt))
+  if (!cupsDNSSDServiceAdd(printer->services, "_http._tcp,_printer", /*domain*/NULL, /*hostname*/NULL, (uint16_t)printer->port, num_txt, txt))
     goto error;
 
   cupsFreeOptions(num_txt, txt);
