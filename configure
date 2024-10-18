@@ -680,8 +680,6 @@ CUPS_LOG_FILE_PERM
 CUPS_CUPSD_FILE_PERM
 CUPS_CONFIG_FILE_PERM
 CUPS_EXE_FILE_PERM
-CUPS_RESOURCEDIR
-CUPS_BUNDLEDIR
 LANGUAGES
 XINETD
 RCSTOP
@@ -914,8 +912,6 @@ with_rcstart
 with_rcstop
 with_xinetd
 with_languages
-with_bundledir
-with_bundlelang
 with_exe_file_perm
 with_config_file_perm
 with_cupsd_file_perm
@@ -1648,9 +1644,6 @@ Optional Packages:
   --with-rcstop           set stop number for rc scripts
   --with-xinetd           set path for xinetd config files
   --with-languages        set installed languages, default=all
-  --with-bundledir        set localization bundle directory
-  --with-bundlelang       set localization bundle base language (English or
-                          en)
   --with-exe-file-perm    set default executable permissions value,
                           default=0755
   --with-config-file-perm set default ConfigFilePerm value, default=0640
@@ -11077,75 +11070,6 @@ esac
 
 fi
 
-
-
-
-# Check whether --with-bundledir was given.
-if test ${with_bundledir+y}
-then :
-  withval=$with_bundledir;
-    CUPS_BUNDLEDIR="$withval"
-
-else $as_nop
-
-    if test "x$host_os_name" = xdarwin -a $host_os_version -ge 100
-then :
-
-        CUPS_BUNDLEDIR="/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A"
-	LANGUAGES=""
-
-else $as_nop
-
-	CUPS_BUNDLEDIR=""
-
-fi
-
-fi
-
-
-
-if test "x$CUPS_BUNDLEDIR" != x
-then :
-
-
-printf "%s\n" "#define CUPS_BUNDLEDIR \"$CUPS_BUNDLEDIR\"" >>confdefs.h
-
-
-fi
-
-
-# Check whether --with-bundlelang was given.
-if test ${with_bundlelang+y}
-then :
-  withval=$with_bundlelang;
-    cups_bundlelang="$withval"
-
-else $as_nop
-
-    if test $host_os_version -ge 190
-then :
-
-	cups_bundlelang="en"
-
-else $as_nop
-
-	cups_bundlelang="English"
-
-fi
-
-fi
-
-
-if test "x$cups_bundlelang" != x -a "x$CUPS_BUNDLEDIR" != x
-then :
-
-    CUPS_RESOURCEDIR="$CUPS_BUNDLEDIR/Resources/$cups_bundlelang.lproj"
-
-else $as_nop
-
-    CUPS_RESOURCEDIR=""
-
-fi
 
 
 
