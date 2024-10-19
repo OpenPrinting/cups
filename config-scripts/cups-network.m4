@@ -19,6 +19,8 @@ AC_CHECK_HEADER([resolv.h], [
     #include <netinet/in_systm.h>
     #include <netinet/ip.h>
 ])
+SAVELIBS="$LIBS"
+LIBS=""
 AC_SEARCH_LIBS([socket], [socket])
 AC_SEARCH_LIBS([gethostbyaddr], [nsl])
 AC_SEARCH_LIBS([getifaddrs], [nsl], [
@@ -38,6 +40,8 @@ AC_SEARCH_LIBS([__res_init], [resolv bind], [
 	])
     ])
 ])
+PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $LIBS"
+LIBS="$SAVELIBS $LIBS"
 
 AC_CHECK_MEMBER([struct sockaddr.sa_len],,, [#include <sys/socket.h>])
 AC_CHECK_HEADER([sys/sockio.h], [

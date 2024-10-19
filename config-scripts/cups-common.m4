@@ -361,6 +361,7 @@ AS_CASE([$host_os_name], [darwin*], [
     LIBS="-framework SystemConfiguration $LIBS"
     AC_CHECK_FUNCS([SCDynamicStoreCopyComputerName], [
 	AC_DEFINE([HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME], [1], [Have SCDynamicStoreCopyComputerName function?])
+	PKGCONFIG_LIBS_STATIC="-framework SystemConfiguration $PKGCONFIG_LIBS_STATIC"
     ],[
 	LIBS="$SAVELIBS"
     ])

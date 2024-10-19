@@ -6794,6 +6794,7 @@ then :
 
 printf "%s\n" "#define HAVE_SCDYNAMICSTORECOPYCOMPUTERNAME 1" >>confdefs.h
 
+	PKGCONFIG_LIBS_STATIC="-framework SystemConfiguration $PKGCONFIG_LIBS_STATIC"
 
 else $as_nop
 
@@ -8278,6 +8279,8 @@ printf "%s\n" "#define HAVE_RESOLV_H 1" >>confdefs.h
 
 fi
 
+SAVELIBS="$LIBS"
+LIBS=""
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing socket" >&5
 printf %s "checking for library containing socket... " >&6; }
 if test ${ac_cv_search_socket+y}
@@ -8717,6 +8720,8 @@ fi
 
 fi
 
+PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $LIBS"
+LIBS="$SAVELIBS $LIBS"
 
 ac_fn_c_check_member "$LINENO" "struct sockaddr" "sa_len" "ac_cv_member_struct_sockaddr_sa_len" "#include <sys/socket.h>
 "
