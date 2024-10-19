@@ -485,6 +485,7 @@ extern char		*cupsNotifySubject(cups_lang_t *lang, ipp_t *event) _CUPS_DEPRECATE
 extern char		*cupsNotifyText(cups_lang_t *lang, ipp_t *event) _CUPS_DEPRECATED_MSG("Use cupsLocalizeNotifyText instead.");
 
 extern int		cupsParseOptions(const char *arg, int num_options, cups_option_t **options) _CUPS_PUBLIC;
+extern int		cupsParseOptions2(const char *arg, const char **end, int num_options, cups_option_t **options) _CUPS_PUBLIC;
 extern int		cupsPrintFile(const char *name, const char *filename, const char *title, int num_options, cups_option_t *options) _CUPS_PUBLIC;
 extern int		cupsPrintFile2(http_t *http, const char *name, const char *filename, const char *title, int num_options, cups_option_t *options) _CUPS_PUBLIC;
 extern int		cupsPrintFiles(const char *name, int num_files, const char **files, const char *title, int num_options, cups_option_t *options) _CUPS_PUBLIC;

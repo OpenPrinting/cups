@@ -259,131 +259,115 @@ cupsParseOptions(
     int           num_options,		/* I - Number of options */
     cups_option_t **options)		/* O - Options found */
 {
-  char	*copyarg,			/* Copy of input string */
-	*ptr,				/* Pointer into string */
-	*name,				/* Pointer to name */
-	*value,				/* Pointer to value */
-	sep,				/* Separator character */
-	quote;				/* Quote character */
+  return (cupsParseOptions2(arg, /*end*/NULL, num_options, options));
+}
 
 
-  DEBUG_printf("cupsParseOptions(arg=\"%s\", num_options=%d, options=%p)", arg, num_options, (void *)options);
+//
+// 'cupsParseOptions2()' - Parse options from a command-line argument.
+//
+// This function converts space-delimited name/value pairs according
+// to the PAPI text option ABNF specification. Collection values
+// ("name={a=... b=... c=...}") are stored with the curley brackets
+// intact - use @code cupsParseOptions@ on the value to extract the
+// collection attributes.
+//
+// The "end" argument, if not `NULL`, receives a pointer to the end of the
+// options.
+//
+// @since CUPS 2.5@
+//
 
- /*
-  * Range check input...
-  */
+int					// O - Number of options found
+cupsParseOptions2(
+    const char    *arg,			// I - Argument to parse
+    const char    **end,		// O - Pointer to end of options or `NULL` for "don't care"
+    int           num_options,		// I - Number of options
+    cups_option_t **options)		// O - Options found
+{
+  char	*copyarg,			// Copy of input string
+	*ptr,				// Pointer into string
+	*name,				// Pointer to name
+	*value,				// Pointer to value
+	sep,				// Separator character
+	quote;				// Quote character
+
+
+  // Range check input...
+  if (end)
+    *end = NULL;
 
   if (!arg)
-  {
-    DEBUG_printf("1cupsParseOptions: Returning %d", num_options);
     return (num_options);
-  }
 
-  if (!options || num_options < 0)
-  {
-    DEBUG_puts("1cupsParseOptions: Returning 0");
+  if (!options)
     return (0);
-  }
 
- /*
-  * Make a copy of the argument string and then divide it up...
-  */
-
+  // Make a copy of the argument string and then divide it up...
   if ((copyarg = strdup(arg)) == NULL)
   {
-    DEBUG_puts("1cupsParseOptions: Unable to copy arg string");
-    DEBUG_printf("1cupsParseOptions: Returning %d", num_options);
+    DEBUG_puts("1cupsParseOptions2: Unable to copy arg string");
     return (num_options);
   }
 
   if (*copyarg == '{')
-  {
-   /*
-    * Remove surrounding {} so we can parse "{name=value ... name=value}"...
-    */
-
-    if ((ptr = copyarg + strlen(copyarg) - 1) > copyarg && *ptr == '}')
-    {
-      *ptr = '\0';
-      ptr  = copyarg + 1;
-    }
-    else
-      ptr = copyarg;
-  }
+    ptr  = copyarg + 1;
   else
     ptr = copyarg;
 
- /*
-  * Skip leading spaces...
-  */
-
+  // Skip leading spaces...
   while (_cups_isspace(*ptr))
     ptr ++;
 
- /*
-  * Loop through the string...
-  */
-
+  // Loop through the string...
   while (*ptr != '\0')
   {
-   /*
-    * Get the name up to a SPACE, =, or end-of-string...
-    */
-
+    // Get the name up to a SPACE, =, or end-of-string...
     name = ptr;
     while (!strchr("\f\n\r\t\v =", *ptr) && *ptr)
       ptr ++;
 
-   /*
-    * Avoid an empty name...
-    */
-
+    // Avoid an empty name...
     if (ptr == name)
       break;
 
-   /*
-    * Skip trailing spaces...
-    */
+    // End after the closing brace...
+    if (*ptr == '}' && *copyarg == '{')
+    {
+      ptr ++;
+      break;
+    }
 
+    // Skip trailing spaces...
     while (_cups_isspace(*ptr))
       *ptr++ = '\0';
 
     if ((sep = *ptr) == '=')
       *ptr++ = '\0';
 
-    DEBUG_printf("2cupsParseOptions: name=\"%s\"", name);
-
     if (sep != '=')
     {
-     /*
-      * Boolean option...
-      */
-
+      // Boolean option...
       if (!_cups_strncasecmp(name, "no", 2))
-        num_options = cupsAddOption(name + 2, "false", num_options,
-	                            options);
+        num_options = cupsAddOption(name + 2, "false", num_options, options);
       else
         num_options = cupsAddOption(name, "true", num_options, options);
 
       continue;
     }
 
-   /*
-    * Remove = and parse the value...
-    */
-
+    // Remove = and parse the value...
     value = ptr;
 
     while (*ptr && !_cups_isspace(*ptr))
     {
       if (*ptr == ',')
+      {
         ptr ++;
+      }
       else if (*ptr == '\'' || *ptr == '\"')
       {
-       /*
-	* Quoted string constant...
-	*/
-
+        // Quoted string constant...
 	quote = *ptr;
 	_cups_strcpy(ptr, ptr + 1);
 
@@ -400,16 +384,15 @@ cupsParseOptions(
       }
       else if (*ptr == '{')
       {
-       /*
-	* Collection value...
-	*/
-
-	int depth;
+        // Collection value...
+	int depth;			// Nesting depth for braces
 
 	for (depth = 0; *ptr; ptr ++)
 	{
 	  if (*ptr == '{')
+	  {
 	    depth ++;
+	  }
 	  else if (*ptr == '}')
 	  {
 	    depth --;
@@ -420,15 +403,14 @@ cupsParseOptions(
 	    }
 	  }
 	  else if (*ptr == '\\' && ptr[1])
+	  {
 	    _cups_strcpy(ptr, ptr + 1);
+	  }
 	}
       }
       else
       {
-       /*
-	* Normal space-delimited string...
-	*/
-
+        // Normal space-delimited string...
 	while (*ptr && !_cups_isspace(*ptr))
 	{
 	  if (*ptr == '\\' && ptr[1])
@@ -442,30 +424,20 @@ cupsParseOptions(
     if (*ptr != '\0')
       *ptr++ = '\0';
 
-    DEBUG_printf("2cupsParseOptions: value=\"%s\"", value);
-
-   /*
-    * Skip trailing whitespace...
-    */
-
+    // Skip trailing whitespace...
     while (_cups_isspace(*ptr))
       ptr ++;
 
-   /*
-    * Add the string value...
-    */
-
+    // Add the string value...
     num_options = cupsAddOption(name, value, num_options, options);
   }
 
- /*
-  * Free the copy of the argument we made and return the number of options
-  * found.
-  */
+  // Save the progress in the input string...
+  if (end)
+    *end = arg + (ptr - copyarg);
 
+  // Free the copy of the argument we made and return the number of options found.
   free(copyarg);
-
-  DEBUG_printf("1cupsParseOptions: Returning %d", num_options);
 
   return (num_options);
 }

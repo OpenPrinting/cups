@@ -11,6 +11,7 @@ _cupsCharmapFlush
 _cupsConnect
 _cupsConvertOptions
 _cupsCreateDest
+_cupsDirCreate
 _cupsEncodeOption
 _cupsEncodingName
 _cupsFilePeekAhead
@@ -359,6 +360,7 @@ cupsLangGet
 cupsLastError
 cupsLastErrorString
 cupsLocalizeDestMedia
+cupsLocalizeDestMedia2
 cupsLocalizeDestOption
 cupsLocalizeDestValue
 cupsMarkOptions
@@ -368,7 +370,21 @@ cupsMutexLock
 cupsMutexUnlock
 cupsNotifySubject
 cupsNotifyText
+cupsOAuthClearTokens
+cupsOAuthCopyAccessToken
+cupsOAuthCopyClientId
+cupsOAuthCopyRefreshToken
+cupsOAuthCopyUserId
+cupsOAuthGetAuthorizationCode
+cupsOAuthGetClientId
+cupsOAuthGetMetadata
+cupsOAuthGetTokens
+cupsOAuthMakeAuthorizationURL
+cupsOAuthMakeBase64Random
+cupsOAuthSaveClientData
+cupsOAuthSaveTokens
 cupsParseOptions
+cupsParseOptions2
 cupsPrintFile
 cupsPrintFile2
 cupsPrintFiles
@@ -481,6 +497,7 @@ httpConnect
 httpConnect2
 httpConnectAgain
 httpConnectEncrypt
+httpConnectURI
 httpCopyPeerCredentials
 httpDecode64
 httpDecode64_2
