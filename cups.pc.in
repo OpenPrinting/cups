@@ -24,6 +24,5 @@ Version: @CUPS_VERSION@
 URL: https://openprinting.github.io/cups/
 Cflags: @PKGCONFIG_CFLAGS@
 Libs: @PKGCONFIG_LIBS@
-
-Requires.private: @PKGCONFIG_REQUIRES@
 Libs.private: @PKGCONFIG_LIBS_STATIC@
+Requires: @PKGCONFIG_REQUIRES@

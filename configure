@@ -647,7 +647,6 @@ ac_includes_default="\
 #endif"
 
 ac_header_c_list=
-ac_default_prefix=/
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 UNINSTALL_LANGUAGES
@@ -6177,6 +6176,7 @@ printf "%s\n" "#define HAVE_ICONV_H 1" >>confdefs.h
 
 fi
 
+    PKGCONFIG_LIBS_STATIC="$PKGCONFIG_LIBS_STATIC $LIBS"
     LIBS="$SAVELIBS"
 
 fi
@@ -7018,12 +7018,10 @@ esac
 
 
 
-
-
 if test "$prefix" = "NONE"
 then :
 
-    prefix="/"
+    prefix="/usr/local"
 
 fi
 
@@ -11850,6 +11848,14 @@ fi
 
 
 
+
+if test x$enable_shared = xno
+then :
+
+    PKGCONFIG_LIBS="$PKGCONFIG_LIBS $PKGCONFIG_LIBS_STATIC"
+    PKGCONFIG_LIBS_STATIC=""
+
+fi
 
 INSTALL_LANGUAGES=""
 UNINSTALL_LANGUAGES=""

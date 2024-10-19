@@ -39,6 +39,12 @@ sinclude(config-scripts/cups-container.m4)
 sinclude(config-scripts/cups-startup.m4)
 sinclude(config-scripts/cups-defaults.m4)
 
+dnl Add static libraries when not building shared libraries...
+AS_IF([test x$enable_shared = xno], [
+    PKGCONFIG_LIBS="$PKGCONFIG_LIBS $PKGCONFIG_LIBS_STATIC"
+    PKGCONFIG_LIBS_STATIC=""
+])
+
 dnl See what languages are available and make sure we generate the localization
 dnl files as needed...
 INSTALL_LANGUAGES=""

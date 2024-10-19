@@ -8,11 +8,9 @@ dnl
 dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
 dnl
 
-AC_PREFIX_DEFAULT(/)
-
 dnl Fix "prefix" variable if it hasn't been specified...
 AS_IF([test "$prefix" = "NONE"], [
-    prefix="/"
+    prefix="/usr/local"
 ])
 
 dnl Fix "exec_prefix" variable if it hasn't been specified...
