@@ -425,7 +425,7 @@ cups_globals_free(_cups_globals_t *cg)	/* I - Pointer to global data */
 
   httpClose(cg->http);
 
-  _httpFreeCredentials(cg->tls_credentials);
+  _httpFreeCredentials(cg->credentials);
 
   cupsFileClose(cg->stdio_files[0]);
   cupsFileClose(cg->stdio_files[1]);

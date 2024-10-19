@@ -166,8 +166,7 @@ typedef struct _cups_globals_s		// CUPS global state data
   void			*oauth_data;	// OAuth user data
   cups_password_cb2_t	password_cb;	// Password callback
   void			*password_data;	// Password user data
-  _http_tls_credentials_t *tls_credentials;
-					// Default client credentials, if any
+  _http_tls_credentials_t *credentials;	// Default client credentials, if any
   cups_client_cert_cb_t	client_cert_cb;	// Client certificate callback @deprecated@
   void			*client_cert_data;
 					// Client certificate user data @deprecated@

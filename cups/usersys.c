@@ -330,6 +330,34 @@ cupsSetClientCertCB(
 }
 
 
+//
+// 'cupsSetClientCredentials()' - Set the default credentials to be used for TLS connections.
+//
+// Note: The default credentials are tracked separately for each thread in a
+// program. Multi-threaded programs that override the setting need to do so in
+// each thread for the same setting to be used.
+//
+// @since CUPS 2.5@
+//
+
+bool					// O - `true` on success, `false` on failure
+cupsSetClientCredentials(
+    const char *credentials,		// I - PEM-encoded X.509 credentials string
+    const char *key)			// I - PEM-encoded private key
+{
+  _cups_globals_t *cg = _cupsGlobals();	// Pointer to library globals
+
+
+  if (!credentials || !*credentials || !key || !*key)
+    return (false);
+
+  _httpFreeCredentials(cg->credentials);
+  cg->credentials = _httpCreateCredentials(credentials, key);
+
+  return (cg->credentials != NULL);
+}
+
+
 /*
  * 'cupsSetCredentials()' - Set the default credentials to be used for SSL/TLS
  *			    connections.
