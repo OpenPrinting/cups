@@ -311,7 +311,7 @@ cupsParseOptions2(
   }
 
   if (*copyarg == '{')
-    ptr  = copyarg + 1;
+    ptr = copyarg + 1;
   else
     ptr = copyarg;
 
@@ -334,7 +334,7 @@ cupsParseOptions2(
     // End after the closing brace...
     if (*ptr == '}' && *copyarg == '{')
     {
-      ptr ++;
+      *ptr++ = '\0';
       break;
     }
 
@@ -413,6 +413,12 @@ cupsParseOptions2(
         // Normal space-delimited string...
 	while (*ptr && !_cups_isspace(*ptr))
 	{
+	  if (*ptr == '}' && *copyarg == '{')
+	  {
+	    *ptr++ = '\0';
+	    break;
+	  }
+
 	  if (*ptr == '\\' && ptr[1])
 	    _cups_strcpy(ptr, ptr + 1);
 
