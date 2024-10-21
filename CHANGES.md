@@ -1,6 +1,7 @@
 CHANGES - OpenPrinting CUPS
 ===========================
 
+test text
 
 Changes in CUPS v2.4.12 (YYYY-MM-DD)
 ------------------------------------
