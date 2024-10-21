@@ -16,6 +16,7 @@
 #include "cups-private.h"
 #include "debug-internal.h"
 #include <sys/stat.h>
+#include <time.h>
 
 #ifdef HAVE_NOTIFY_H
 #  include <notify.h>
