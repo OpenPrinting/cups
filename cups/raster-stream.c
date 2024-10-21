@@ -1017,7 +1017,7 @@ _cupsRasterReadHeader(
   DEBUG_printf("4_cupsRasterReadHeader: cupsHeight=%u", r->header.cupsHeight);
   DEBUG_printf("4_cupsRasterReadHeader: r->bpp=%d", r->bpp);
 
-  return (0);
+  return (1);
 }
 
 
@@ -1561,13 +1561,12 @@ cups_raster_io(cups_raster_t *r,	// I - Raster stream
 
     DEBUG_printf("6cups_raster_io: count=%d, total=%d", (int)count, (int)total);
     if (count == 0)
+    {
       break;
-//    {
-//      DEBUG_puts("6cups_raster_io: Returning 0.");
-//      return (0);
-//    }
+    }
     else if (count < 0)
     {
+      _cupsRasterAddError("I/O error");
       DEBUG_puts("6cups_raster_io: Returning -1 on error.");
       return (-1);
     }
