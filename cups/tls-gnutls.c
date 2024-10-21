@@ -1592,7 +1592,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     }
 
     status = gnutls_server_name_set(http->tls, GNUTLS_NAME_DNS, hostname, strlen(hostname));
-    if (!status && (credentials = _httpUseCredentials(cg->tls_credentials)) == NULL)
+    if (!status && (credentials = _httpUseCredentials(cg->credentials)) == NULL)
     {
       if ((credentials = _httpCreateCredentials(NULL, NULL)) == NULL)
         status = -1;
