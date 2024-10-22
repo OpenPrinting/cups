@@ -21,6 +21,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <io.h>
+#include <fcntl.h>
 #include <direct.h>
 
 
