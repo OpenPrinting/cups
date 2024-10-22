@@ -6465,6 +6465,7 @@ then :
 fi
 
 
+
 # Check whether --enable-libusb was given.
 if test ${enable_libusb+y}
 then :
@@ -7076,6 +7077,43 @@ printf "%s\n" "#define CUPS_DEFAULT_SYSTEM_AUTHKEY \"$CUPS_DEFAULT_SYSTEM_AUTHKE
 
 
 
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for monotonic clock" >&5
+printf %s "checking for monotonic clock... " >&6; }
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+    #include <stdlib.h>
+    #include <time.h>
+
+int
+main (void)
+{
+
+    struct timespec t;
+    clock_gettime(CLOCK_MONOTONIC, &t);
+
+  ;
+  return 0;
+}
+
+_ACEOF
+if ac_fn_c_try_link "$LINENO"
+then :
+
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+  printf "%s\n" "#define HAVE_CLOCK_MONOTONIC 1" >>confdefs.h
+
+
+else $as_nop
+
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
 
 COMPONENTS="all"
 

@@ -16,6 +16,7 @@
 #include "cups-private.h"
 #include "debug-internal.h"
 #include <sys/stat.h>
+#include <time.h>
 
 #ifdef HAVE_NOTIFY_H
 #  include <notify.h>
@@ -137,6 +138,18 @@ typedef struct _cups_namedata_s
   cups_dest_t *dest;                    /* Destination */
 } _cups_namedata_t;
 
+typedef struct _cups_time_s
+{
+#if _WIN32
+  DWORD t;
+#elif HAVE_CLOCK_MONOTONIC
+  struct timespec t;
+#elif __sun
+  hrtime_t t;
+#else
+  struct timeval t;
+#endif
+} _cups_time_t;
 
 /*
  * Local functions...
@@ -222,7 +235,8 @@ static const char	*cups_dnssd_resolve(cups_dest_t *dest, const char *uri,
 static int		cups_dnssd_resolve_cb(void *context);
 static void		cups_dnssd_unquote(char *dst, const char *src,
 			                   size_t dstsize);
-static int		cups_elapsed(struct timeval *t);
+static void             cups_gettimeofday(_cups_time_t *t);
+static int		cups_elapsed(_cups_time_t *t);
 #endif /* HAVE_DNSSD */
 static int              cups_enum_dests(http_t *http, unsigned flags, int msec, int *cancel, cups_ptype_t type, cups_ptype_t mask, cups_dest_cb_t cb, void *user_data);
 static int		cups_find_dest(const char *name, const char *instance,
@@ -3400,21 +3414,62 @@ cups_dnssd_unquote(char       *dst,	/* I - Destination buffer */
 
 
 /*
+ * 'cups_gettimeofday()' - Get the sharpest time possible
+ */
+
+static void
+cups_gettimeofday(_cups_time_t *t)
+{
+#if _WIN32
+  t->t = GetTickCount();
+#elif HAVE_CLOCK_MONOTONIC
+  clock_gettime(CLOCK_MONOTONIC, &t->t);
+#elif __sun
+  t->t = gethrtime();
+#else
+  gettimeofday(&t->t, NULL);
+#endif
+}
+
+/*
  * 'cups_elapsed()' - Return the elapsed time in milliseconds.
  */
 
 static int				/* O  - Elapsed time in milliseconds */
-cups_elapsed(struct timeval *t)		/* IO - Previous time */
+cups_elapsed(_cups_time_t *t)		// IO - Previous time
 {
   int			msecs;		/* Milliseconds */
-  struct timeval	nt;		/* New time */
 
+#if _WIN32
+  DWORD cur = GetTickCount();
+
+  msecs = (int)(cur - t->t);
+
+  t->t = cur;
+
+#elif HAVE_CLOCK_MONOTONIC
+  struct timespec	nt;		// New time
+
+  clock_gettime(CLOCK_MONOTONIC, &nt);
+
+  msecs = (int)(1000 * (nt.tv_sec - t->t.tv_sec) + (nt.tv_nsec - t->t.tv_nsec) / 1000000);
+
+  *t->t = nt;
+#elif __sun
+  hrtime_t cur = gethrtime();
+
+  msecs = (int)(cur - t->t);
+
+  t->t = cur;
+#else
+  struct timeval nt;
 
   gettimeofday(&nt, NULL);
 
-  msecs = (int)(1000 * (nt.tv_sec - t->tv_sec) + (nt.tv_usec - t->tv_usec) / 1000);
+  msecs = (int)(1000 * (nt.tv_sec - t->t.tv_sec) + (nt.tv_usec - t->t.tv_usec) / 1000);
 
-  *t = nt;
+  *t->t = nt;
+#endif
 
   return (msecs);
 }
@@ -3446,7 +3501,7 @@ cups_enum_dests(
   int           count,                  /* Number of queries started */
                 completed,              /* Number of completed queries */
                 remaining;              /* Remainder of timeout */
-  struct timeval curtime;               /* Current time */
+  _cups_time_t  curtime;               // Current time
   _cups_dnssd_data_t data;		/* Data for callback */
   _cups_dnssd_device_t *device;         /* Current device */
 #  ifdef HAVE_MDNSRESPONDER
@@ -3672,7 +3727,7 @@ cups_enum_dests(
   * Get Bonjour-shared printers...
   */
 
-  gettimeofday(&curtime, NULL);
+  cups_gettimeofday(&curtime);
 
 #  ifdef HAVE_MDNSRESPONDER
   if (DNSServiceCreateConnection(&data.main_ref) != kDNSServiceErr_NoError)
