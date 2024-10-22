@@ -32,6 +32,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added a systemd slice to the systemd services included with the scheduler
 - Added localizations for deprecated IPP attributes/options (Issue #1020)
 - Added support for specifying permissions with the `cupsFileOpen` API.
+- Added new `cupsGetClock` API.
 - Added new `cupsParseOptions2` API with "end" argument.
 - Updated documentation (Issue #984)
 - Updated the configure script to default to installing to /usr/local.

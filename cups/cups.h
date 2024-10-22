@@ -428,6 +428,7 @@ extern void		cupsFreeJobs(int num_jobs, cups_job_t *jobs) _CUPS_PUBLIC;
 extern void		cupsFreeOptions(int num_options, cups_option_t *options) _CUPS_PUBLIC;
 
 extern int		cupsGetClasses(char ***classes) _CUPS_DEPRECATED_MSG("Use cupsEnumDests instead.");
+extern double		cupsGetClock(void) _CUPS_PUBLIC;
 extern time_t		cupsGetCredentialsExpiration(const char *credentials) _CUPS_PUBLIC;
 extern char		*cupsGetCredentialsInfo(const char *credentials, char *buffer, size_t bufsize) _CUPS_PUBLIC;
 extern http_trust_t	cupsGetCredentialsTrust(const char *path, const char *common_name, const char *credentials, bool require_ca) _CUPS_PUBLIC;

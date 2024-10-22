@@ -87,6 +87,12 @@ blockquote {
   padding: 10px;
   page-break-inside: avoid;
 }
+blockquote :first-child {
+  margin-top: 0;
+}
+blockquote :first-child {
+  margin-bottom: 0;
+}
 p code, li code, p.code, pre, ul.code li {
   font-family: monospace;
   hyphens: manual;
@@ -187,13 +193,13 @@ span.comment {
   color: darkgreen;
 }
 span.directive {
-  color: purple;
+  color: red;
 }
 span.number {
   color: brown;
 }
 span.reserved {
-  color: darkcyan;
+  color: blue;
 }
 span.string {
   color: magenta;
@@ -302,6 +308,7 @@ span.string {
 <!--
   Administrative API documentation for CUPS.
 
+  Copyright © 2020-2024 by OpenPrinting.
   Copyright © 2016 by Apple Inc.
 
   Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -396,7 +403,7 @@ show_devices(void)
 <h3 class="function"><span class="info">&#160;DEPRECATED&#160;</span><a id="cupsAdminCreateWindowsPPD">cupsAdminCreateWindowsPPD</a></h3>
 <p class="description">Create the Windows PPD file for a printer.</p>
 <p class="code">
-char *cupsAdminCreateWindowsPPD(http_t *http, const char *dest, char *buffer, int bufsize);</p>
+<span class="reserved">char</span> *cupsAdminCreateWindowsPPD(http_t *http, <span class="reserved">const</span> <span class="reserved">char</span> *dest, <span class="reserved">char</span> *buffer, <span class="reserved">int</span> bufsize);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>http</th>
@@ -413,7 +420,7 @@ char *cupsAdminCreateWindowsPPD(http_t *http, const char *dest, char *buffer, in
 <h3 class="function"><span class="info">&#160;DEPRECATED&#160;</span><a id="cupsAdminExportSamba">cupsAdminExportSamba</a></h3>
 <p class="description">Export a printer to Samba.</p>
 <p class="code">
-int cupsAdminExportSamba(const char *dest, const char *ppd, const char *samba_server, const char *samba_user, const char *samba_password, FILE *logfile);</p>
+<span class="reserved">int</span> cupsAdminExportSamba(<span class="reserved">const</span> <span class="reserved">char</span> *dest, <span class="reserved">const</span> <span class="reserved">char</span> *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *samba_server, <span class="reserved">const</span> <span class="reserved">char</span> *samba_user, <span class="reserved">const</span> <span class="reserved">char</span> *samba_password, FILE *logfile);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>dest</th>
@@ -434,7 +441,7 @@ int cupsAdminExportSamba(const char *dest, const char *ppd, const char *samba_se
 <h3 class="function"><span class="info">&#160;CUPS 1.3/macOS 10.5&#160;</span><a id="cupsAdminGetServerSettings">cupsAdminGetServerSettings</a></h3>
 <p class="description">Get settings from the server.</p>
 <p class="code">
-int cupsAdminGetServerSettings(http_t *http, int *num_settings, cups_option_t **settings);</p>
+<span class="reserved">int</span> cupsAdminGetServerSettings(http_t *http, <span class="reserved">int</span> *num_settings, cups_option_t **settings);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>http</th>
@@ -454,7 +461,7 @@ you are done with them.
 <h3 class="function"><span class="info">&#160;CUPS 1.3/macOS 10.5&#160;</span><a id="cupsAdminSetServerSettings">cupsAdminSetServerSettings</a></h3>
 <p class="description">Set settings on the server.</p>
 <p class="code">
-int cupsAdminSetServerSettings(http_t *http, int num_settings, cups_option_t *settings);</p>
+<span class="reserved">int</span> cupsAdminSetServerSettings(http_t *http, <span class="reserved">int</span> num_settings, cups_option_t *settings);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>http</th>
@@ -469,7 +476,7 @@ int cupsAdminSetServerSettings(http_t *http, int num_settings, cups_option_t *se
 <h3 class="function"><span class="info">&#160;DEPRECATED&#160;</span><a id="cupsGetDevices">cupsGetDevices</a></h3>
 <p class="description">Get available printer devices.</p>
 <p class="code">
-ipp_status_t cupsGetDevices(http_t *http, int timeout, const char *include_schemes, const char *exclude_schemes, <a href="#cups_device_cb_t">cups_device_cb_t</a> callback, void *user_data);</p>
+ipp_status_t cupsGetDevices(http_t *http, <span class="reserved">int</span> timeout, <span class="reserved">const</span> <span class="reserved">char</span> *include_schemes, <span class="reserved">const</span> <span class="reserved">char</span> *exclude_schemes, <a href="#cups_device_cb_t">cups_device_cb_t</a> callback, <span class="reserved">void</span> *user_data);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>http</th>

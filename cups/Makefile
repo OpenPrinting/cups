@@ -19,6 +19,7 @@ include ../Makedefs
 COREOBJS	=	\
 		array.o \
 		auth.o \
+		clock.o \
 		debug.o \
 		dest.o \
 		dest-job.o \
@@ -98,6 +99,7 @@ TESTOBJS	= \
 		testarray.o \
 		testcache.o \
 		testclient.o \
+		testclock.o \
 		testconflicts.o \
 		testcreds.o \
 		testcups.o \
@@ -196,6 +198,7 @@ UNITTARGETS =	\
 		testarray \
 		testcache \
 		testclient \
+		testclock \
 		testconflicts \
 		testcreds \
 		testcups \
@@ -246,6 +249,8 @@ test:		unittests
 	echo "Tests started at $$(date)..." >test.log
 	echo Running array API tests...
 	./testarray >>test.log
+	echo Running clock API tests...
+	./testclock >>test.log
 	echo Running file API tests...
 	./testfile >>test.log
 	echo Running form API tests...
@@ -308,7 +313,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' | grep -e '^  \\$$' -v >Dependencies
 
 
 #
@@ -601,6 +606,16 @@ testcache:	testcache.o $(LIBCUPSSTATIC)
 testclient:	testclient.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o $@ testclient.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testclock (dependency on static libraries is intentional)
+#
+
+testclock:	testclock.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testclock.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 

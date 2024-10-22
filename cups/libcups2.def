@@ -262,6 +262,7 @@ cupsFreeDests
 cupsFreeJobs
 cupsFreeOptions
 cupsGetClasses
+cupsGetClock
 cupsGetConflicts
 cupsGetCredentialsExpiration
 cupsGetCredentialsInfo
@@ -430,6 +431,7 @@ cupsSaveCredentials
 cupsSendRequest
 cupsServer
 cupsSetClientCertCB
+cupsSetClientCredentials
 cupsSetCredentials
 cupsSetDefaultDest
 cupsSetDests

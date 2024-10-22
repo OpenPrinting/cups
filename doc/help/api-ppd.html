@@ -87,6 +87,12 @@ blockquote {
   padding: 10px;
   page-break-inside: avoid;
 }
+blockquote :first-child {
+  margin-top: 0;
+}
+blockquote :first-child {
+  margin-bottom: 0;
+}
 p code, li code, p.code, pre, ul.code li {
   font-family: monospace;
   hyphens: manual;
@@ -187,13 +193,13 @@ span.comment {
   color: darkgreen;
 }
 span.directive {
-  color: purple;
+  color: red;
 }
 span.number {
   color: brown;
 }
 span.reserved {
-  color: darkcyan;
+  color: blue;
 }
 span.string {
   color: magenta;
@@ -366,6 +372,7 @@ span.string {
 <!--
   PPD API introduction for CUPS.
 
+  Copyright © 2020-2024 by OpenPrinting.
   Copyright © 2007-2019 by Apple Inc.
   Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 
@@ -588,7 +595,7 @@ for (attr = <a href="#ppdFindAttr">ppdFindAttr</a>(ppd, "Product", NULL);
 <h3 class="function"><span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span><a id="cupsGetConflicts">cupsGetConflicts</a></h3>
 <p class="description">Get a list of conflicting options in a marked PPD.</p>
 <p class="code">
-int cupsGetConflicts(ppd_file_t *ppd, const char *option, const char *choice, cups_option_t **options);</p>
+<span class="reserved">int</span> cupsGetConflicts(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *option, <span class="reserved">const</span> <span class="reserved">char</span> *choice, cups_option_t **options);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -616,7 +623,7 @@ the conflicting options.  The returned option array must be freed using
 <h3 class="function"><a id="cupsGetPPD">cupsGetPPD</a></h3>
 <p class="description">Get the PPD file for a printer on the default server.</p>
 <p class="code">
-const char *cupsGetPPD(const char *name);</p>
+<span class="reserved">const</span> <span class="reserved">char</span> *cupsGetPPD(<span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>name</th>
@@ -634,7 +641,7 @@ file that is created and must <code>unlink</code> the returned filename.</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.1.21/macOS 10.4&#160;</span><a id="cupsGetPPD2">cupsGetPPD2</a></h3>
 <p class="description">Get the PPD file for a printer from the specified server.</p>
 <p class="code">
-const char *cupsGetPPD2(http_t *http, const char *name);</p>
+<span class="reserved">const</span> <span class="reserved">char</span> *cupsGetPPD2(http_t *http, <span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>http</th>
@@ -657,7 +664,7 @@ file that is created and must <code>unlink</code> the returned filename.
 <p class="description">Get the PPD file for a printer on the specified
                   server if it has changed.</p>
 <p class="code">
-http_status_t cupsGetPPD3(http_t *http, const char *name, time_t *modtime, char *buffer, size_t bufsize);</p>
+http_status_t cupsGetPPD3(http_t *http, <span class="reserved">const</span> <span class="reserved">char</span> *name, time_t *modtime, <span class="reserved">char</span> *buffer, size_t bufsize);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>http</th>
@@ -694,7 +701,7 @@ in the class.
 <h3 class="function"><span class="info">&#160;CUPS 1.3/macOS 10.5&#160;</span><a id="cupsGetServerPPD">cupsGetServerPPD</a></h3>
 <p class="description">Get an available PPD file from the server.</p>
 <p class="code">
-char *cupsGetServerPPD(http_t *http, const char *name);</p>
+<span class="reserved">char</span> *cupsGetServerPPD(http_t *http, <span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>http</th>
@@ -718,7 +725,7 @@ or <a href="#cupsGetServerPPD"><code>cupsGetServerPPD</code></a>.
 <h3 class="function"><a id="cupsMarkOptions">cupsMarkOptions</a></h3>
 <p class="description">Mark command-line options in a PPD file.</p>
 <p class="code">
-int cupsMarkOptions(ppd_file_t *ppd, int num_options, cups_option_t *options);</p>
+<span class="reserved">int</span> cupsMarkOptions(ppd_file_t *ppd, <span class="reserved">int</span> num_options, cups_option_t *options);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -738,7 +745,7 @@ corresponding PPD options and choices.</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="cupsRasterInterpretPPD">cupsRasterInterpretPPD</a></h3>
 <p class="description">Interpret PPD commands to create a page header.</p>
 <p class="code">
-int cupsRasterInterpretPPD(cups_page_header2_t *h, ppd_file_t *ppd, int num_options, cups_option_t *options, <a href="#cups_interpret_cb_t">cups_interpret_cb_t</a> func);</p>
+<span class="reserved">int</span> cupsRasterInterpretPPD(cups_page_header2_t *h, ppd_file_t *ppd, <span class="reserved">int</span> num_options, cups_option_t *options, <a href="#cups_interpret_cb_t">cups_interpret_cb_t</a> func);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>h</th>
@@ -783,7 +790,7 @@ are supported.
 <h3 class="function"><span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span><a id="cupsResolveConflicts">cupsResolveConflicts</a></h3>
 <p class="description">Resolve conflicts in a marked PPD.</p>
 <p class="code">
-int cupsResolveConflicts(ppd_file_t *ppd, const char *option, const char *choice, int *num_options, cups_option_t **options);</p>
+<span class="reserved">int</span> cupsResolveConflicts(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *option, <span class="reserved">const</span> <span class="reserved">char</span> *choice, <span class="reserved">int</span> *num_options, cups_option_t **options);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -836,7 +843,7 @@ until a non-conflicting option choice is found.
 <p class="description">Collect all marked options that reside in the specified
                  section.</p>
 <p class="code">
-int ppdCollect(ppd_file_t *ppd, <a href="#ppd_section_t">ppd_section_t</a> section, <a href="#ppd_choice_t">ppd_choice_t</a> ***choices);</p>
+<span class="reserved">int</span> ppdCollect(ppd_file_t *ppd, <a href="#ppd_section_t">ppd_section_t</a> section, <a href="#ppd_choice_t">ppd_choice_t</a> ***choices);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -855,7 +862,7 @@ finished with it.</p>
 <p class="description">Collect all marked options that reside in the
                   specified section and minimum order.</p>
 <p class="code">
-int ppdCollect2(ppd_file_t *ppd, <a href="#ppd_section_t">ppd_section_t</a> section, float min_order, <a href="#ppd_choice_t">ppd_choice_t</a> ***choices);</p>
+<span class="reserved">int</span> ppdCollect2(ppd_file_t *ppd, <a href="#ppd_section_t">ppd_section_t</a> section, <span class="reserved">float</span> min_order, <a href="#ppd_choice_t">ppd_choice_t</a> ***choices);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -878,7 +885,7 @@ finished with it.
 <p class="description">Check to see if there are any conflicts among the
                    marked option choices.</p>
 <p class="code">
-int ppdConflicts(ppd_file_t *ppd);</p>
+<span class="reserved">int</span> ppdConflicts(ppd_file_t *ppd);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -891,7 +898,7 @@ int ppdConflicts(ppd_file_t *ppd);</p>
 <h3 class="function"><a id="ppdEmit">ppdEmit</a></h3>
 <p class="description">Emit code for marked options to a file.</p>
 <p class="code">
-int ppdEmit(ppd_file_t *ppd, FILE *fp, <a href="#ppd_section_t">ppd_section_t</a> section);</p>
+<span class="reserved">int</span> ppdEmit(ppd_file_t *ppd, FILE *fp, <a href="#ppd_section_t">ppd_section_t</a> section);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -906,7 +913,7 @@ int ppdEmit(ppd_file_t *ppd, FILE *fp, <a href="#ppd_section_t">ppd_section_t</a
 <h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="ppdEmitAfterOrder">ppdEmitAfterOrder</a></h3>
 <p class="description">Emit a subset of the code for marked options to a file.</p>
 <p class="code">
-int ppdEmitAfterOrder(ppd_file_t *ppd, FILE *fp, <a href="#ppd_section_t">ppd_section_t</a> section, int limit, float min_order);</p>
+<span class="reserved">int</span> ppdEmitAfterOrder(ppd_file_t *ppd, FILE *fp, <a href="#ppd_section_t">ppd_section_t</a> section, <span class="reserved">int</span> limit, <span class="reserved">float</span> min_order);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -932,7 +939,7 @@ When &quot;limit&quot; is zero, this function is identical to ppdEmit().
 <h3 class="function"><a id="ppdEmitFd">ppdEmitFd</a></h3>
 <p class="description">Emit code for marked options to a file.</p>
 <p class="code">
-int ppdEmitFd(ppd_file_t *ppd, int fd, <a href="#ppd_section_t">ppd_section_t</a> section);</p>
+<span class="reserved">int</span> ppdEmitFd(ppd_file_t *ppd, <span class="reserved">int</span> fd, <a href="#ppd_section_t">ppd_section_t</a> section);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -947,7 +954,7 @@ int ppdEmitFd(ppd_file_t *ppd, int fd, <a href="#ppd_section_t">ppd_section_t</a
 <h3 class="function"><a id="ppdEmitJCL">ppdEmitJCL</a></h3>
 <p class="description">Emit code for JCL options to a file.</p>
 <p class="code">
-int ppdEmitJCL(ppd_file_t *ppd, FILE *fp, int job_id, const char *user, const char *title);</p>
+<span class="reserved">int</span> ppdEmitJCL(ppd_file_t *ppd, FILE *fp, <span class="reserved">int</span> job_id, <span class="reserved">const</span> <span class="reserved">char</span> *user, <span class="reserved">const</span> <span class="reserved">char</span> *title);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -966,7 +973,7 @@ int ppdEmitJCL(ppd_file_t *ppd, FILE *fp, int job_id, const char *user, const ch
 <h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="ppdEmitJCLEnd">ppdEmitJCLEnd</a></h3>
 <p class="description">Emit JCLEnd code to a file.</p>
 <p class="code">
-int ppdEmitJCLEnd(ppd_file_t *ppd, FILE *fp);</p>
+<span class="reserved">int</span> ppdEmitJCLEnd(ppd_file_t *ppd, FILE *fp);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -979,7 +986,7 @@ int ppdEmitJCLEnd(ppd_file_t *ppd, FILE *fp);</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="ppdEmitString">ppdEmitString</a></h3>
 <p class="description">Get a string containing the code for marked options.</p>
 <p class="code">
-char *ppdEmitString(ppd_file_t *ppd, <a href="#ppd_section_t">ppd_section_t</a> section, float min_order);</p>
+<span class="reserved">char</span> *ppdEmitString(ppd_file_t *ppd, <a href="#ppd_section_t">ppd_section_t</a> section, <span class="reserved">float</span> min_order);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1004,7 +1011,7 @@ The return string is allocated on the heap and should be freed using
 <h3 class="function"><span class="info">&#160;CUPS 1.1.19/macOS 10.3&#160;</span><a id="ppdFindAttr">ppdFindAttr</a></h3>
 <p class="description">Find the first matching attribute.</p>
 <p class="code">
-<a href="#ppd_attr_t">ppd_attr_t</a> *ppdFindAttr(ppd_file_t *ppd, const char *name, const char *spec);</p>
+<a href="#ppd_attr_t">ppd_attr_t</a> *ppdFindAttr(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *name, <span class="reserved">const</span> <span class="reserved">char</span> *spec);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1019,7 +1026,7 @@ The return string is allocated on the heap and should be freed using
 <h3 class="function"><a id="ppdFindChoice">ppdFindChoice</a></h3>
 <p class="description">Return a pointer to an option choice.</p>
 <p class="code">
-<a href="#ppd_choice_t">ppd_choice_t</a> *ppdFindChoice(<a href="#ppd_option_t">ppd_option_t</a> *o, const char *choice);</p>
+<a href="#ppd_choice_t">ppd_choice_t</a> *ppdFindChoice(<a href="#ppd_option_t">ppd_option_t</a> *o, <span class="reserved">const</span> <span class="reserved">char</span> *choice);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>o</th>
@@ -1032,7 +1039,7 @@ The return string is allocated on the heap and should be freed using
 <h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="ppdFindCustomOption">ppdFindCustomOption</a></h3>
 <p class="description">Find a custom option.</p>
 <p class="code">
-ppd_coption_t *ppdFindCustomOption(ppd_file_t *ppd, const char *keyword);</p>
+ppd_coption_t *ppdFindCustomOption(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *keyword);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1045,7 +1052,7 @@ ppd_coption_t *ppdFindCustomOption(ppd_file_t *ppd, const char *keyword);</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="ppdFindCustomParam">ppdFindCustomParam</a></h3>
 <p class="description">Find a parameter for a custom option.</p>
 <p class="code">
-ppd_cparam_t *ppdFindCustomParam(ppd_coption_t *opt, const char *name);</p>
+ppd_cparam_t *ppdFindCustomParam(ppd_coption_t *opt, <span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>opt</th>
@@ -1058,7 +1065,7 @@ ppd_cparam_t *ppdFindCustomParam(ppd_coption_t *opt, const char *name);</p>
 <h3 class="function"><a id="ppdFindMarkedChoice">ppdFindMarkedChoice</a></h3>
 <p class="description">Return the marked choice for the specified option.</p>
 <p class="code">
-<a href="#ppd_choice_t">ppd_choice_t</a> *ppdFindMarkedChoice(ppd_file_t *ppd, const char *option);</p>
+<a href="#ppd_choice_t">ppd_choice_t</a> *ppdFindMarkedChoice(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *option);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1071,7 +1078,7 @@ ppd_cparam_t *ppdFindCustomParam(ppd_coption_t *opt, const char *name);</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.1.19/macOS 10.3&#160;</span><a id="ppdFindNextAttr">ppdFindNextAttr</a></h3>
 <p class="description">Find the next matching attribute.</p>
 <p class="code">
-<a href="#ppd_attr_t">ppd_attr_t</a> *ppdFindNextAttr(ppd_file_t *ppd, const char *name, const char *spec);</p>
+<a href="#ppd_attr_t">ppd_attr_t</a> *ppdFindNextAttr(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *name, <span class="reserved">const</span> <span class="reserved">char</span> *spec);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1086,7 +1093,7 @@ ppd_cparam_t *ppdFindCustomParam(ppd_coption_t *opt, const char *name);</p>
 <h3 class="function"><a id="ppdFindOption">ppdFindOption</a></h3>
 <p class="description">Return a pointer to the specified option.</p>
 <p class="code">
-<a href="#ppd_option_t">ppd_option_t</a> *ppdFindOption(ppd_file_t *ppd, const char *option);</p>
+<a href="#ppd_option_t">ppd_option_t</a> *ppdFindOption(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *option);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1126,7 +1133,7 @@ ppd_cparam_t *ppdFirstCustomParam(ppd_coption_t *opt);</p>
 <p class="description">Test whether an option choice conflicts with
                              an installable option.</p>
 <p class="code">
-int ppdInstallableConflict(ppd_file_t *ppd, const char *option, const char *choice);</p>
+<span class="reserved">int</span> ppdInstallableConflict(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *option, <span class="reserved">const</span> <span class="reserved">char</span> *choice);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1146,7 +1153,7 @@ on constraints against options in the &quot;InstallableOptions&quot; group.
 <h3 class="function"><a id="ppdIsMarked">ppdIsMarked</a></h3>
 <p class="description">Check to see if an option is marked.</p>
 <p class="code">
-int ppdIsMarked(ppd_file_t *ppd, const char *option, const char *choice);</p>
+<span class="reserved">int</span> ppdIsMarked(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *option, <span class="reserved">const</span> <span class="reserved">char</span> *choice);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1161,7 +1168,7 @@ int ppdIsMarked(ppd_file_t *ppd, const char *option, const char *choice);</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="ppdLocalize">ppdLocalize</a></h3>
 <p class="description">Localize the PPD file to the current locale.</p>
 <p class="code">
-int ppdLocalize(ppd_file_t *ppd);</p>
+<span class="reserved">int</span> ppdLocalize(ppd_file_t *ppd);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1178,7 +1185,7 @@ localized string uses the UTF-8 character encoding.
 <h3 class="function"><a id="ppdLocalizeAttr">ppdLocalizeAttr</a></h3>
 <p class="description">Localize an attribute.</p>
 <p class="code">
-<a href="#ppd_attr_t">ppd_attr_t</a> *ppdLocalizeAttr(ppd_file_t *ppd, const char *keyword, const char *spec);</p>
+<a href="#ppd_attr_t">ppd_attr_t</a> *ppdLocalizeAttr(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *keyword, <span class="reserved">const</span> <span class="reserved">char</span> *spec);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1198,7 +1205,7 @@ attribute exists for the current locale, the unlocalized version is returned.</p
 <p class="description">Get the localized version of a cupsIPPReason
                            attribute.</p>
 <p class="code">
-const char *ppdLocalizeIPPReason(ppd_file_t *ppd, const char *reason, const char *scheme, char *buffer, size_t bufsize);</p>
+<span class="reserved">const</span> <span class="reserved">char</span> *ppdLocalizeIPPReason(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *reason, <span class="reserved">const</span> <span class="reserved">char</span> *scheme, <span class="reserved">char</span> *buffer, size_t bufsize);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1227,7 +1234,7 @@ If no value of the requested scheme can be found, NULL is returned.
 <p class="description">Get the localized version of a marker-names
                             attribute value.</p>
 <p class="code">
-const char *ppdLocalizeMarkerName(ppd_file_t *ppd, const char *name);</p>
+<span class="reserved">const</span> <span class="reserved">char</span> *ppdLocalizeMarkerName(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1246,7 +1253,7 @@ name can be found, <code>NULL</code> is returned.
 <h3 class="function"><a id="ppdMarkDefaults">ppdMarkDefaults</a></h3>
 <p class="description">Mark all default options in the PPD file.</p>
 <p class="code">
-void ppdMarkDefaults(ppd_file_t *ppd);</p>
+<span class="reserved">void</span> ppdMarkDefaults(ppd_file_t *ppd);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1256,7 +1263,7 @@ void ppdMarkDefaults(ppd_file_t *ppd);</p>
 <p class="description">Mark an option in a PPD file and return the number of
                     conflicts.</p>
 <p class="code">
-int ppdMarkOption(ppd_file_t *ppd, const char *option, const char *choice);</p>
+<span class="reserved">int</span> ppdMarkOption(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *option, <span class="reserved">const</span> <span class="reserved">char</span> *choice);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1297,7 +1304,7 @@ ppd_cparam_t *ppdNextCustomParam(ppd_coption_t *opt);</p>
 <h3 class="function"><a id="ppdPageLength">ppdPageLength</a></h3>
 <p class="description">Get the page length for the given size.</p>
 <p class="code">
-float ppdPageLength(ppd_file_t *ppd, const char *name);</p>
+<span class="reserved">float</span> ppdPageLength(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1310,7 +1317,7 @@ float ppdPageLength(ppd_file_t *ppd, const char *name);</p>
 <h3 class="function"><a id="ppdPageSize">ppdPageSize</a></h3>
 <p class="description">Get the page size record for the named size.</p>
 <p class="code">
-ppd_size_t *ppdPageSize(ppd_file_t *ppd, const char *name);</p>
+ppd_size_t *ppdPageSize(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1323,7 +1330,7 @@ ppd_size_t *ppdPageSize(ppd_file_t *ppd, const char *name);</p>
 <h3 class="function"><span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span><a id="ppdPageSizeLimits">ppdPageSizeLimits</a></h3>
 <p class="description">Return the custom page size limits.</p>
 <p class="code">
-int ppdPageSizeLimits(ppd_file_t *ppd, ppd_size_t *minimum, ppd_size_t *maximum);</p>
+<span class="reserved">int</span> ppdPageSizeLimits(ppd_file_t *ppd, ppd_size_t *minimum, ppd_size_t *maximum);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1346,7 +1353,7 @@ If the specified PPD file does not support custom page sizes, both
 <h3 class="function"><a id="ppdPageWidth">ppdPageWidth</a></h3>
 <p class="description">Get the page width for the given size.</p>
 <p class="code">
-float ppdPageWidth(ppd_file_t *ppd, const char *name);</p>
+<span class="reserved">float</span> ppdPageWidth(ppd_file_t *ppd, <span class="reserved">const</span> <span class="reserved">char</span> *name);</p>
 <h4 class="parameters">Parameters</h4>
 <table class="list"><tbody>
 <tr><th>ppd</th>
@@ -1405,11 +1412,11 @@ typedef enum <a href="#ppd_ui_e">ppd_ui_e</a> ppd_ui_t;
 <h2 class="title"><a id="STRUCTURES">Structures</a></h2>
 <h3 class="struct"><span class="info">&#160;DEPRECATED&#160;</span><a id="ppd_attr_s">ppd_attr_s</a></h3>
 <p class="description">PPD Attribute Structure </p>
-<p class="code">struct ppd_attr_s {<br>
-&#160;&#160;&#160;&#160;char name[PPD_MAX_NAME];<br>
-&#160;&#160;&#160;&#160;char spec[PPD_MAX_NAME];<br>
-&#160;&#160;&#160;&#160;char text[PPD_MAX_TEXT];<br>
-&#160;&#160;&#160;&#160;char *value;<br>
+<p class="code"><span class="reserved">struct</span> ppd_attr_s {<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> name[PPD_MAX_NAME];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> spec[PPD_MAX_NAME];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> text[PPD_MAX_TEXT];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> *value;<br>
 };</p>
 <h4 class="members">Members</h4>
 <table class="list"><tbody>
@@ -1424,12 +1431,12 @@ typedef enum <a href="#ppd_ui_e">ppd_ui_e</a> ppd_ui_t;
 </tbody></table>
 <h3 class="struct"><span class="info">&#160;DEPRECATED&#160;</span><a id="ppd_choice_s">ppd_choice_s</a></h3>
 <p class="description">Option choices </p>
-<p class="code">struct ppd_choice_s {<br>
-&#160;&#160;&#160;&#160;char choice[PPD_MAX_NAME];<br>
-&#160;&#160;&#160;&#160;char *code;<br>
-&#160;&#160;&#160;&#160;char marked;<br>
+<p class="code"><span class="reserved">struct</span> ppd_choice_s {<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> choice[PPD_MAX_NAME];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> *code;<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> marked;<br>
 &#160;&#160;&#160;&#160;<a href="#ppd_option_t">ppd_option_t</a> *option;<br>
-&#160;&#160;&#160;&#160;char text[PPD_MAX_TEXT];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> text[PPD_MAX_TEXT];<br>
 };</p>
 <h4 class="members">Members</h4>
 <table class="list"><tbody>
@@ -1446,22 +1453,22 @@ typedef enum <a href="#ppd_ui_e">ppd_ui_e</a> ppd_ui_t;
 </tbody></table>
 <h3 class="struct"><span class="info">&#160;DEPRECATED&#160;</span><a id="ppd_group_s">ppd_group_s</a></h3>
 <p class="description">Groups </p>
-<p class="code">struct ppd_group_s {<br>
+<p class="code"><span class="reserved">struct</span> ppd_group_s {<br>
 };</p>
 <h4 class="members">Members</h4>
 <table class="list"><tbody>
 </tbody></table>
 <h3 class="struct"><span class="info">&#160;DEPRECATED&#160;</span><a id="ppd_option_s">ppd_option_s</a></h3>
 <p class="description">Options </p>
-<p class="code">struct ppd_option_s {<br>
+<p class="code"><span class="reserved">struct</span> ppd_option_s {<br>
 &#160;&#160;&#160;&#160;<a href="#ppd_choice_t">ppd_choice_t</a> *choices;<br>
-&#160;&#160;&#160;&#160;char conflicted;<br>
-&#160;&#160;&#160;&#160;char defchoice[PPD_MAX_NAME];<br>
-&#160;&#160;&#160;&#160;char keyword[PPD_MAX_NAME];<br>
-&#160;&#160;&#160;&#160;int num_choices;<br>
-&#160;&#160;&#160;&#160;float order;<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> conflicted;<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> defchoice[PPD_MAX_NAME];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> keyword[PPD_MAX_NAME];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">int</span> num_choices;<br>
+&#160;&#160;&#160;&#160;<span class="reserved">float</span> order;<br>
 &#160;&#160;&#160;&#160;<a href="#ppd_section_t">ppd_section_t</a> section;<br>
-&#160;&#160;&#160;&#160;char text[PPD_MAX_TEXT];<br>
+&#160;&#160;&#160;&#160;<span class="reserved">char</span> text[PPD_MAX_TEXT];<br>
 &#160;&#160;&#160;&#160;<a href="#ppd_ui_t">ppd_ui_t</a> ui;<br>
 };</p>
 <h4 class="members">Members</h4>
