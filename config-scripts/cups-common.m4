@@ -224,6 +224,8 @@ AC_COMPILE_IFELSE([
 dnl See if we have the removefile(3) function for securely removing files
 AC_CHECK_FUNCS([removefile])
 
+dnl See if 
+
 dnl See if we have libusb...
 AC_ARG_ENABLE([libusb], AS_HELP_STRING([--enable-libusb], [use libusb for USB printing]))
 
@@ -447,6 +449,22 @@ AC_DEFINE_UNQUOTED([CUPS_DEFAULT_PRINTOPERATOR_AUTH], ["$CUPS_DEFAULT_PRINTOPERA
 AC_DEFINE_UNQUOTED([CUPS_DEFAULT_SYSTEM_AUTHKEY], ["$CUPS_DEFAULT_SYSTEM_AUTHKEY"], [Default system authorization key for macOS?])
 AC_SUBST([CUPS_SYSTEM_AUTHKEY])
 AC_SUBST([INSTALLXPC])
+
+dnl Check if monotonic clock is available
+AC_MSG_CHECKING([for monotonic clock])
+AC_LINK_IFELSE([AC_LANG_PROGRAM([
+    #include <stdlib.h>
+    #include <time.h>
+  ],[
+    struct timespec t;
+    clock_gettime(CLOCK_MONOTONIC, &t);
+  ])
+],[
+  AC_MSG_RESULT([yes])
+  AC_DEFINE(HAVE_CLOCK_MONOTONIC)
+],[
+  AC_MSG_RESULT([no])
+])
 
 dnl Check for build components
 COMPONENTS="all"
