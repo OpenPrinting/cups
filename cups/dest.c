@@ -132,7 +132,7 @@ static void		cups_dest_query_cb(cups_dnssd_query_t *query, void *cb_data, cups_d
 static const char	*cups_dest_resolve(cups_dest_t *dest, const char *uri, int msec, int *cancel, cups_dest_cb_t cb, void *user_data);
 static bool		cups_dest_resolve_cb(void *context);
 static void		cups_dnssd_unquote(char *dst, const char *src, size_t dstsize);
-static int		cups_elapsed(struct timeval *t);
+static int		cups_elapsed(struct timespec *t);
 static int              cups_enum_dests(http_t *http, unsigned flags, int msec, int *cancel, cups_ptype_t type, cups_ptype_t mask, cups_dest_cb_t cb, void *user_data);
 static int		cups_find_dest(const char *name, const char *instance,
 				       int num_dests, cups_dest_t *dests, int prev,
@@ -3058,15 +3058,14 @@ cups_dnssd_unquote(char       *dst,	// I - Destination buffer
 //
 
 static int				// O  - Elapsed time in milliseconds
-cups_elapsed(struct timeval *t)		// IO - Previous time
+cups_elapsed(struct timespec *t)		// IO - Previous time
 {
   int			msecs;		// Milliseconds
-  struct timeval	nt;		// New time
+  struct timespec	nt;		// New time
 
+  clock_gettime(CLOCK_MONOTONIC, &nt);
 
-  gettimeofday(&nt, NULL);
-
-  msecs = (int)(1000 * (nt.tv_sec - t->tv_sec) + (nt.tv_usec - t->tv_usec) / 1000);
+  msecs = (int)(1000 * (nt.tv_sec - t->tv_sec) + (nt.tv_nsec - t->tv_nsec) / 1000 / 1000);
 
   *t = nt;
 
@@ -3099,7 +3098,7 @@ cups_enum_dests(
   int           count,                  // Number of queries started
                 completed,              // Number of completed queries
                 remaining;              // Remainder of timeout
-  struct timeval curtime;               // Current time
+  struct timespec curtime;               // Current time
   _cups_dnssd_data_t data;		// Data for callback
   _cups_dnssd_device_t *device;         // Current device
   cups_dnssd_t	*dnssd = NULL;		// DNS-SD context
@@ -3292,7 +3291,7 @@ cups_enum_dests(
   else
     remaining = msec;
 
-  gettimeofday(&curtime, NULL);
+  clock_gettime(CLOCK_MONOTONIC, &curtime);
 
   while (remaining > 0 && (!cancel || !*cancel))
   {
