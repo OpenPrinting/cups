@@ -7,6 +7,12 @@ auth.o: auth.c cups-private.h string-private.h ../config.h \
   pwg.h http-private.h ../cups/language.h ../cups/http.h \
   language-private.h ../cups/transcode.h pwg-private.h thread-private.h \
   debug-internal.h debug-private.h
+clock.o: clock.c cups-private.h string-private.h ../config.h \
+  ../cups/versioning.h debug-internal.h debug-private.h ipp-private.h \
+  ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h http-private.h \
+  language-private.h ../cups/transcode.h pwg-private.h thread-private.h versioning.h \
+  cups.h
 debug.o: debug.c cups-private.h string-private.h ../config.h \
   ../cups/versioning.h array-private.h ../cups/array.h versioning.h \
   ipp-private.h ../cups/cups.h file.h ipp.h http.h array.h language.h \
@@ -337,6 +343,8 @@ testcache.o: testcache.c ppd-private.h ../cups/cups.h file.h versioning.h \
 testclient.o: testclient.c ../config.h ../cups/cups.h file.h versioning.h \
   ipp.h http.h array.h language.h pwg.h ../cups/raster.h cups.h \
   ../cups/string-private.h ../cups/versioning.h ../cups/thread-private.h
+testclock.o: testclock.c cups.h file.h versioning.h ipp.h http.h array.h \
+  language.h pwg.h
 testconflicts.o: testconflicts.c cups.h file.h versioning.h ipp.h http.h \
   array.h language.h pwg.h ppd.h raster.h string-private.h ../config.h \
   ../cups/versioning.h
