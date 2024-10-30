@@ -388,6 +388,7 @@ extern http_t		*cupsConnectDestBlock(cups_dest_t *dest, unsigned flags, int msec
 #  endif // __BLOCKS__
 extern char		*cupsCopyCredentials(const char *path, const char *common_name) _CUPS_PUBLIC;
 extern char		*cupsCopyCredentialsKey(const char *path, const char *common_name) _CUPS_PUBLIC;
+extern char		*cupsCopyCredentialsPublicKey(const char *path, const char *common_name) _CUPS_PUBLIC;
 extern char		*cupsCopyCredentialsRequest(const char *path, const char *common_name) _CUPS_PUBLIC;
 extern int		cupsCopyDest(cups_dest_t *dest, int num_dests, cups_dest_t **dests) _CUPS_PUBLIC;
 extern int		cupsCopyDestConflicts(http_t *http, cups_dest_t *dest, cups_dinfo_t *info, int num_options, cups_option_t *options, const char *new_option, const char *new_value, int *num_conflicts, cups_option_t **conflicts, int *num_resolved, cups_option_t **resolved) _CUPS_PUBLIC;

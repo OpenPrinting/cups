@@ -466,6 +466,16 @@ do_unit_tests(void)
 
       if (data)
       {
+        char	*pubkey;		// Public key
+
+        testBegin("cupsCopyCredentialsPublicKey()");
+        if ((pubkey = cupsCopyCredentialsPublicKey(TEST_CERT_PATH, "altprinter")) != NULL)
+          testEnd(true);
+	else
+	  testEndMessage(false, "%s", cupsGetErrorString());
+
+        free(pubkey);
+
         testBegin("cupsSignCredentialsRequest(altprinter w/alt names)");
         if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", data, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
         {
@@ -500,6 +510,16 @@ do_unit_tests(void)
 
       if (data)
       {
+        char	*pubkey;		// Public key
+
+        testBegin("cupsCopyCredentialsPublicKey()");
+        if ((pubkey = cupsCopyCredentialsPublicKey(TEST_CERT_PATH, "altprinter")) != NULL)
+          testEnd(true);
+	else
+	  testEndMessage(false, "%s", cupsGetErrorString());
+
+        free(pubkey);
+
         testBegin("cupsSignCredentialsRequest(altprinter w/o alt names)");
         if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", data, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
         {

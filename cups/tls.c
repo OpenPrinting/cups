@@ -103,10 +103,23 @@ cupsCopyCredentialsKey(
 
 
 //
+// 'cupsCopyCredentialsPublicKey()' - Copy the public key for a X.509 certificate request.
+//
+
+char *					// O - PEM-encoded public key
+cupsCopyCredentialsPublicKey(
+    const char *path,			// I - Directory path for certificate/key store or `NULL` for default
+    const char *common_name)		// I - Common name
+{
+  return (http_copy_file(path, common_name, "pub"));
+}
+
+
+//
 // 'cupsCopyCredentialsRequest()' - Copy the X.509 certificate signing request to a string.
 //
 
-char *
+char *					// O - PEM-encoded X.509 certificate signing request
 cupsCopyCredentialsRequest(
     const char *path,			// I - Directory path for certificate/key store or `NULL` for default
     const char *common_name)		// I - Common name
