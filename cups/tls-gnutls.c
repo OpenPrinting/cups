@@ -11,6 +11,9 @@
 // information.
 //
 
+#include <gnutls/abstract.h>
+
+
 //
 // Local functions...
 //
@@ -212,26 +215,6 @@ cupsCreateCredentials(
   http_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
   http_make_path(pubfile, sizeof(pubfile), path, common_name, "pub");
 
-  // Key usage flags...
-  if (usage & CUPS_CREDUSAGE_DIGITAL_SIGNATURE)
-    gnutls_usage |= GNUTLS_KEY_DIGITAL_SIGNATURE;
-  if (usage & CUPS_CREDUSAGE_NON_REPUDIATION)
-    gnutls_usage |= GNUTLS_KEY_NON_REPUDIATION;
-  if (usage & CUPS_CREDUSAGE_KEY_ENCIPHERMENT)
-    gnutls_usage |= GNUTLS_KEY_KEY_ENCIPHERMENT;
-  if (usage & CUPS_CREDUSAGE_DATA_ENCIPHERMENT)
-    gnutls_usage |= GNUTLS_KEY_DATA_ENCIPHERMENT;
-  if (usage & CUPS_CREDUSAGE_KEY_AGREEMENT)
-    gnutls_usage |= GNUTLS_KEY_KEY_AGREEMENT;
-  if (usage & CUPS_CREDUSAGE_KEY_CERT_SIGN)
-    gnutls_usage |= GNUTLS_KEY_KEY_CERT_SIGN;
-  if (usage & CUPS_CREDUSAGE_CRL_SIGN)
-    gnutls_usage |= GNUTLS_KEY_CRL_SIGN;
-  if (usage & CUPS_CREDUSAGE_ENCIPHER_ONLY)
-    gnutls_usage |= GNUTLS_KEY_ENCIPHER_ONLY;
-  if (usage & CUPS_CREDUSAGE_DECIPHER_ONLY)
-    gnutls_usage |= GNUTLS_KEY_DECIPHER_ONLY;
-
   // Create the encryption key...
   DEBUG_puts("1cupsCreateCredentials: Creating key pair.");
 
@@ -257,39 +240,6 @@ cupsCreateCredentials(
   else
   {
     DEBUG_printf("1cupsCreateCredentials: Unable to create private key file \"%s\": %s", keyfile, strerror(errno));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
-    goto done;
-  }
-
-  bytes = sizeof(buffer);
-
-  if ((err = gnutls_pubkey_init(&pubkey)) < 0)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to create public key: %s", gnutls_strerror(err));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
-    goto done;
-  }
-  else if ((err = gnutls_pubkey_import_privkey(pubkey, key, gnutls_usage, /*flags*/0)) < 0)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to import public key: %s", gnutls_strerror(err));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
-    goto done;
-  }
-  else if ((err = gnutls_pubkey_export(pubkey, GNUTLS_X509_FMT_PEM, buffer, &bytes)) < 0)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to export public key: %s", gnutls_strerror(err));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
-    goto done;
-  }
-  else if ((fp = cupsFileOpen(pubfile, "w")) != NULL)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Writing public key to \"%s\".", keyfile);
-    cupsFileWrite(fp, (char *)buffer, bytes);
-    cupsFileClose(fp);
-  }
-  else
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to create public key file \"%s\": %s", keyfile, strerror(errno));
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
   }
@@ -365,6 +315,25 @@ cupsCreateCredentials(
     gnutls_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_EMAIL_PROTECTION, 0);
   if (purpose & CUPS_CREDPURPOSE_OCSP_SIGNING)
     gnutls_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_OCSP_SIGNING, 0);
+
+  if (usage & CUPS_CREDUSAGE_DIGITAL_SIGNATURE)
+    gnutls_usage |= GNUTLS_KEY_DIGITAL_SIGNATURE;
+  if (usage & CUPS_CREDUSAGE_NON_REPUDIATION)
+    gnutls_usage |= GNUTLS_KEY_NON_REPUDIATION;
+  if (usage & CUPS_CREDUSAGE_KEY_ENCIPHERMENT)
+    gnutls_usage |= GNUTLS_KEY_KEY_ENCIPHERMENT;
+  if (usage & CUPS_CREDUSAGE_DATA_ENCIPHERMENT)
+    gnutls_usage |= GNUTLS_KEY_DATA_ENCIPHERMENT;
+  if (usage & CUPS_CREDUSAGE_KEY_AGREEMENT)
+    gnutls_usage |= GNUTLS_KEY_KEY_AGREEMENT;
+  if (usage & CUPS_CREDUSAGE_KEY_CERT_SIGN)
+    gnutls_usage |= GNUTLS_KEY_KEY_CERT_SIGN;
+  if (usage & CUPS_CREDUSAGE_CRL_SIGN)
+    gnutls_usage |= GNUTLS_KEY_CRL_SIGN;
+  if (usage & CUPS_CREDUSAGE_ENCIPHER_ONLY)
+    gnutls_usage |= GNUTLS_KEY_ENCIPHER_ONLY;
+  if (usage & CUPS_CREDUSAGE_DECIPHER_ONLY)
+    gnutls_usage |= GNUTLS_KEY_DECIPHER_ONLY;
 
   gnutls_x509_crt_set_key_usage(crt, gnutls_usage);
   gnutls_x509_crt_set_version(crt, 3);
@@ -450,6 +419,39 @@ cupsCreateCredentials(
   }
 
   DEBUG_puts("1cupsCreateCredentials: Successfully created credentials.");
+
+  bytes = sizeof(buffer);
+
+  if ((err = gnutls_pubkey_init(&pubkey)) < 0)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to create public key: %s", gnutls_strerror(err));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
+    goto done;
+  }
+  else if ((err = gnutls_pubkey_import_x509(pubkey, crt, /*flags*/0)) < 0)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to import public key: %s", gnutls_strerror(err));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
+    goto done;
+  }
+  else if ((err = gnutls_pubkey_export(pubkey, GNUTLS_X509_FMT_PEM, buffer, &bytes)) < 0)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to export public key: %s", gnutls_strerror(err));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
+    goto done;
+  }
+  else if ((fp = cupsFileOpen(pubfile, "w")) != NULL)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Writing public key to \"%s\".", keyfile);
+    cupsFileWrite(fp, (char *)buffer, bytes);
+    cupsFileClose(fp);
+  }
+  else
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to create public key file \"%s\": %s", keyfile, strerror(errno));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
+    goto done;
+  }
 
   ret = true;
 
@@ -569,26 +571,6 @@ cupsCreateCredentialsRequest(
   http_make_path(keyfile, sizeof(keyfile), path, common_name, "ktm");
   http_make_path(pubfile, sizeof(pubfile), path, common_name, "pub");
 
-  // Key usage flags...
-  if (usage & CUPS_CREDUSAGE_DIGITAL_SIGNATURE)
-    gnutls_usage |= GNUTLS_KEY_DIGITAL_SIGNATURE;
-  if (usage & CUPS_CREDUSAGE_NON_REPUDIATION)
-    gnutls_usage |= GNUTLS_KEY_NON_REPUDIATION;
-  if (usage & CUPS_CREDUSAGE_KEY_ENCIPHERMENT)
-    gnutls_usage |= GNUTLS_KEY_KEY_ENCIPHERMENT;
-  if (usage & CUPS_CREDUSAGE_DATA_ENCIPHERMENT)
-    gnutls_usage |= GNUTLS_KEY_DATA_ENCIPHERMENT;
-  if (usage & CUPS_CREDUSAGE_KEY_AGREEMENT)
-    gnutls_usage |= GNUTLS_KEY_KEY_AGREEMENT;
-  if (usage & CUPS_CREDUSAGE_KEY_CERT_SIGN)
-    gnutls_usage |= GNUTLS_KEY_KEY_CERT_SIGN;
-  if (usage & CUPS_CREDUSAGE_CRL_SIGN)
-    gnutls_usage |= GNUTLS_KEY_CRL_SIGN;
-  if (usage & CUPS_CREDUSAGE_ENCIPHER_ONLY)
-    gnutls_usage |= GNUTLS_KEY_ENCIPHER_ONLY;
-  if (usage & CUPS_CREDUSAGE_DECIPHER_ONLY)
-    gnutls_usage |= GNUTLS_KEY_DECIPHER_ONLY;
-
   // Create the encryption key...
   DEBUG_puts("1cupsCreateCredentialsRequest: Creating key pair.");
 
@@ -613,39 +595,6 @@ cupsCreateCredentialsRequest(
   else
   {
     DEBUG_printf("1cupsCreateCredentialsRequest: Unable to create private key file \"%s\": %s", keyfile, strerror(errno));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
-    goto done;
-  }
-
-  bytes = sizeof(buffer);
-
-  if ((err = gnutls_pubkey_init(&pubkey)) < 0)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to create public key: %s", gnutls_strerror(err));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
-    goto done;
-  }
-  else if ((err = gnutls_pubkey_import_privkey(pubkey, key, gnutls_usage, /*flags*/0)) < 0)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to import public key: %s", gnutls_strerror(err));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
-    goto done;
-  }
-  else if ((err = gnutls_pubkey_export(pubkey, GNUTLS_X509_FMT_PEM, buffer, &bytes)) < 0)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to export public key: %s", gnutls_strerror(err));
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
-    goto done;
-  }
-  else if ((fp = cupsFileOpen(pubfile, "w")) != NULL)
-  {
-    DEBUG_printf("1cupsCreateCredentials: Writing public key to \"%s\".", keyfile);
-    cupsFileWrite(fp, (char *)buffer, bytes);
-    cupsFileClose(fp);
-  }
-  else
-  {
-    DEBUG_printf("1cupsCreateCredentials: Unable to create public key file \"%s\": %s", keyfile, strerror(errno));
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
   }
@@ -708,6 +657,25 @@ cupsCreateCredentialsRequest(
   if (purpose & CUPS_CREDPURPOSE_OCSP_SIGNING)
     gnutls_x509_crq_set_key_purpose_oid(crq, GNUTLS_KP_OCSP_SIGNING, 0);
 
+  if (usage & CUPS_CREDUSAGE_DIGITAL_SIGNATURE)
+    gnutls_usage |= GNUTLS_KEY_DIGITAL_SIGNATURE;
+  if (usage & CUPS_CREDUSAGE_NON_REPUDIATION)
+    gnutls_usage |= GNUTLS_KEY_NON_REPUDIATION;
+  if (usage & CUPS_CREDUSAGE_KEY_ENCIPHERMENT)
+    gnutls_usage |= GNUTLS_KEY_KEY_ENCIPHERMENT;
+  if (usage & CUPS_CREDUSAGE_DATA_ENCIPHERMENT)
+    gnutls_usage |= GNUTLS_KEY_DATA_ENCIPHERMENT;
+  if (usage & CUPS_CREDUSAGE_KEY_AGREEMENT)
+    gnutls_usage |= GNUTLS_KEY_KEY_AGREEMENT;
+  if (usage & CUPS_CREDUSAGE_KEY_CERT_SIGN)
+    gnutls_usage |= GNUTLS_KEY_KEY_CERT_SIGN;
+  if (usage & CUPS_CREDUSAGE_CRL_SIGN)
+    gnutls_usage |= GNUTLS_KEY_CRL_SIGN;
+  if (usage & CUPS_CREDUSAGE_ENCIPHER_ONLY)
+    gnutls_usage |= GNUTLS_KEY_ENCIPHER_ONLY;
+  if (usage & CUPS_CREDUSAGE_DECIPHER_ONLY)
+    gnutls_usage |= GNUTLS_KEY_DECIPHER_ONLY;
+
   gnutls_x509_crq_set_key_usage(crq, gnutls_usage);
   gnutls_x509_crq_set_version(crq, 3);
 
@@ -735,6 +703,39 @@ cupsCreateCredentialsRequest(
   }
 
   DEBUG_puts("1cupsCreateCredentialsRequest: Successfully created credentials request.");
+
+  bytes = sizeof(buffer);
+
+  if ((err = gnutls_pubkey_init(&pubkey)) < 0)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to create public key: %s", gnutls_strerror(err));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
+    goto done;
+  }
+  else if ((err = gnutls_pubkey_import_x509_crq(pubkey, crq, /*flags*/0)) < 0)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to import public key: %s", gnutls_strerror(err));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
+    goto done;
+  }
+  else if ((err = gnutls_pubkey_export(pubkey, GNUTLS_X509_FMT_PEM, buffer, &bytes)) < 0)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to export public key: %s", gnutls_strerror(err));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
+    goto done;
+  }
+  else if ((fp = cupsFileOpen(pubfile, "w")) != NULL)
+  {
+    DEBUG_printf("1cupsCreateCredentials: Writing public key to \"%s\".", keyfile);
+    cupsFileWrite(fp, (char *)buffer, bytes);
+    cupsFileClose(fp);
+  }
+  else
+  {
+    DEBUG_printf("1cupsCreateCredentials: Unable to create public key file \"%s\": %s", keyfile, strerror(errno));
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
+    goto done;
+  }
 
   ret = true;
 
