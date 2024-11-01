@@ -4550,7 +4550,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
       value   = ippGetInteger(attr, i);
       keyword = ippEnumString("finishings", value);
 
-      if (!strncmp(keyword, "staple-", 7) || !strncmp(keyword, "bind-", 5) || !strncmp(keyword, "edge-stitch-", 12) || !strcmp(keyword, "saddle-stitch"))
+      if (!strncmp(keyword, "staple-", 7) || !strncmp(keyword, "bind-", 5) || !strncmp(keyword, "edge-stitch-", 12) || !strcmp(keyword, "saddle-stitch") || !strcmp(keyword, "staple") || !strcmp(keyword, "bind"))
         break;
     }
 
@@ -4597,7 +4597,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
         value   = ippGetInteger(attr, i);
         keyword = ippEnumString("finishings", value);
 
-        if (strncmp(keyword, "staple-", 7) && strncmp(keyword, "bind-", 5) && strncmp(keyword, "edge-stitch-", 12) && strcmp(keyword, "saddle-stitch"))
+        if (strncmp(keyword, "staple-", 7) && strncmp(keyword, "bind-", 5) && strncmp(keyword, "edge-stitch-", 12) && strcmp(keyword, "saddle-stitch") && strcmp(keyword, "staple") && strcmp(keyword, "bind"))
           continue;
 
         if (cupsArrayFind(names, (char *)keyword))
@@ -4988,7 +4988,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 	      option = "FoldType";
 	    else if (!strncmp(keyword, "punch-", 6))
 	      option = "PunchMedia";
-	    else if (!strncmp(keyword, "bind-", 5) || !strncmp(keyword, "edge-stitch-", 12) || !strcmp(keyword, "saddle-stitch") || !strncmp(keyword, "staple-", 7))
+	    else if (!strncmp(keyword, "bind-", 5) || !strncmp(keyword, "edge-stitch-", 12) || !strcmp(keyword, "saddle-stitch") || !strncmp(keyword, "staple-", 7) || !strcmp(keyword, "staple") || !strcmp(keyword, "bind"))
 	      option = "StapleLocation";
 
 	    if (option && keyword)
