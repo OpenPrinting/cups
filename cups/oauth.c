@@ -795,6 +795,8 @@ cupsOAuthGetMetadata(
   struct stat	fileinfo;		// Local metadata file info
   char		filedate[256],		// Local metadata modification date
 		host[256],		// Hostname
+		resbase[256],		// Base resource path
+		*resptr,		// Pointer to end of base
 		resource[256];		// Resource path
   int		port;			// Port to use
   http_t	*http;			// Connection to server
@@ -803,8 +805,8 @@ cupsOAuthGetMetadata(
   size_t	i;			// Looping var
   static const char * const paths[] =	// Metadata paths
   {
-    "/.well-known/oauth-authorization-server",
-    "/.well-known/openid-configuration"
+    ".well-known/oauth-authorization-server",
+    ".well-known/openid-configuration"
   };
 
 
@@ -831,12 +833,20 @@ cupsOAuthGetMetadata(
     goto load_metadata;
 
   // Try getting the metadata...
-  if ((http = httpConnectURI(auth_uri, host, sizeof(host), &port, resource, sizeof(resource), /*blocking*/true, /*msec*/30000, /*cancel*/NULL, /*require_ca*/true)) == NULL)
+  if ((http = httpConnectURI(auth_uri, host, sizeof(host), &port, resbase, sizeof(resbase), /*blocking*/true, /*msec*/30000, /*cancel*/NULL, /*require_ca*/true)) == NULL)
     return (NULL);
+
+  if (resbase[0])
+    resptr = resbase + strlen(resbase) - 1;
+  else
+    resptr = resbase;
 
   for (i = 0; i < (sizeof(paths) / sizeof(paths[0])); i ++)
   {
-    cupsCopyString(resource, paths[i], sizeof(resource));
+    if (*resptr != '/')
+      snprintf(resource, sizeof(resource), "%s/%s", resbase, paths[i]);
+    else
+      snprintf(resource, sizeof(resource), "%s%s", resbase, paths[i]);
 
     do
     {
