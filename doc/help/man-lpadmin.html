@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.1">
+    <meta name="creator" content="mantohtml v2.0.2">
     <title>lpadmin(8)</title>
   </head>
   <body>
@@ -59,13 +59,13 @@ It can also be used to set the server default printer or class.
 </p>
     <p>The first form of the command (<em>-d</em>) sets the scheduler's default printer or class to <em>destination</em>.
 Subsequent print jobs submitted via the
-<strong>lp</strong>(1)
+<a href="lp.html"><strong>lp</strong>(1)</a>
 
 or
-<strong>lpr</strong>(1)
+<a href="lpr.html"><strong>lpr</strong>(1)</a>
 
 commands will use this destination unless the user specifies otherwise with the
-<strong>lpoptions</strong>(1)
+<a href="lpoptions.html"><strong>lpoptions</strong>(1)</a>
 
 command.
 </p>
@@ -84,7 +84,7 @@ If <em>class</em> does not exist it is created automatically.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m </strong><em>model</em><br>
 Sets a standard PPD file for the printer from the <em>model</em> directory or using one of the driver interfaces.
 Use the <em>-m</em> option with the
-<strong>lpinfo</strong>(8)
+<a href="lpinfo.html"><strong>lpinfo</strong>(8)</a>
 
 command to get a list of supported models.
 The model &quot;raw&quot; clears any existing PPD file and the model &quot;everywhere&quot; queries the printer referred to by the specified IPP <em>device-uri</em>.
@@ -120,7 +120,7 @@ Sets the default banner page(s) to use for print jobs.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>name</em><strong>=</strong><em>value</em><br>
 Sets a PPD option for the printer.
 PPD options can be listed using the <em>-l</em> option with the
-<strong>lpoptions</strong>(1)
+<a href="lpoptions.html"><strong>lpoptions</strong>(1)</a>
 
 command.
 </p>
@@ -173,7 +173,7 @@ Note: The user 'root' is not granted special access - using &quot;-u allow:foo,b
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v &quot;</strong><em>device-uri</em><strong>&quot;</strong><br>
 Sets the <em>device-uri</em> attribute of the printer queue.
 Use the <em>-v</em> option with the
-<strong>lpinfo</strong>(8)
+<a href="lpinfo.html"><strong>lpinfo</strong>(8)</a>
 
 command to get a list of supported device URIs and schemes.
 </p>
@@ -183,10 +183,10 @@ Provides a textual description of the destination.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
 When specified before the <strong>-d</strong>, <strong>-p</strong>, or <strong>-x</strong> options, forces the use of TLS encryption on the connection to the scheduler.
 Otherwise, enables the destination and accepts jobs; this is the same as running the
-<strong>cupsaccept</strong>(8)
+<a href="cupsaccept.html"><strong>cupsaccept</strong>(8)</a>
 
 and
-<strong>cupsenable</strong>(8)
+<a href="cupsenable.html"><strong>cupsenable</strong>(8)</a>
 
 programs on the destination.
 </p>
@@ -215,7 +215,7 @@ This differs from the System V version which requires the root user to execute t
     <h2 id="lpadmin-8.notes">Notes</h2>
 <p>CUPS printer drivers and backends are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<strong>ippeveprinter</strong>(1).
+<a href="ippeveprinter.html"><strong>ippeveprinter</strong>(1).</a>
 
 </p>
     <p>The CUPS version of <strong>lpadmin</strong> does not support all of the System V or Solaris printing system configuration options.
@@ -236,13 +236,13 @@ These files should not be edited directly and are an implementation detail of CU
 
 </pre>
     <h2 id="lpadmin-8.see-also">See Also</h2>
-<p><strong>cupsaccept</strong>(8),
+<a href="cupsaccept.html"><p><strong>cupsaccept</strong>(8),</a>
 
-<strong>cupsenable</strong>(8),
+<a href="cupsenable.html"><strong>cupsenable</strong>(8),</a>
 
-<strong>lpinfo</strong>(8),
+<a href="lpinfo.html"><strong>lpinfo</strong>(8),</a>
 
-<strong>lpoptions</strong>(1),
+<a href="lpoptions.html"><strong>lpoptions</strong>(1),</a>
 
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>

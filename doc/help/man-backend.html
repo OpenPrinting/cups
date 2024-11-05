@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="creator" content="mantohtml v2.0.1">
+    <meta name="creator" content="mantohtml v2.0.2">
     <title>backend(7)</title>
   </head>
   <body>
@@ -47,7 +47,7 @@
 </pre>
     <h2 id="backend-7.description">Description</h2>
 <p>Backends are a special type of
-<strong>filter</strong>(7)
+<a href="filter.html"><strong>filter</strong>(7)</a>
 
 which is used to send print data to and discover different devices on the system.
 </p>
@@ -179,10 +179,10 @@ The scheduler will retry the job immediately without allowing intervening jobs.
 </p>
     <h2 id="backend-7.environment">Environment</h2>
 <p>In addition to the environment variables listed in
-<strong>cups</strong>(1)
+<a href="cups.html"><strong>cups</strong>(1)</a>
 
 and
-<strong>filter</strong>(7),
+<a href="filter.html"><strong>filter</strong>(7),</a>
 
 CUPS backends can expect the following environment variable:
 </p>
@@ -203,24 +203,24 @@ Backends can also be installed with restricted permissions (0500 or 0700) that t
 </p>
     <p>Unless you are a developer and know what you are doing, please do not run backends directly.
 Instead, use the
-<strong>lp</strong>(1)
+<a href="lp.html"><strong>lp</strong>(1)</a>
 
 or
-<strong>lpr</strong>(1)
+<a href="lpr.html"><strong>lpr</strong>(1)</a>
 
 programs to send print jobs or
-<strong>lpinfo</strong>(8)
+<a href="lpinfo.html"><strong>lpinfo</strong>(8)</a>
 
 to query for available printers using the backend.
 The one exception is the SNMP backend - see
-<strong>cups-snmp</strong>(8)
+<a href="cups-snmp.html"><strong>cups-snmp</strong>(8)</a>
 
 for more information.
 </p>
     <h2 id="backend-7.notes">Notes</h2>
 <p>CUPS printer drivers and backends are deprecated and will no longer be supported in a future feature release of CUPS.
 Printers that do not support IPP can be supported using applications such as
-<strong>ippeveprinter</strong>(1).
+<a href="ippeveprinter.html"><strong>ippeveprinter</strong>(1).</a>
 
 </p>
     <h2 id="backend-7.see-also">See Also</h2>

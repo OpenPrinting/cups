@@ -34,7 +34,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Added support for specifying permissions with the `cupsFileOpen` API.
 - Added new `cupsGetClock` API.
 - Added new `cupsParseOptions2` API with "end" argument.
-- Updated documentation (Issue #984)
+- Updated documentation (Issue #984, Issue #1086)
 - Updated the configure script to default to installing to /usr/local.
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.
