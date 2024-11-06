@@ -89,6 +89,8 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed memory leak when creating color profiles (Issue #814)
 - Fixed punch finisher support for IPP Everywhere printers (Issue #821)
+- Fixed staple and bind finisher support for IPP Everywhere printers
+  (Issue #1073)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
 - Fixed setting job state reasons for successful jobs (Issue #832)
 - Fixed infinite loop in IPP backend if hostname is IP address with Kerberos
