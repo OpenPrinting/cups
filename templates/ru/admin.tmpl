@@ -37,23 +37,23 @@
 
     <P><A HREF="/admin/">Дополнительные параметры<SMALL>&#x25bc;</SMALL></A><BR>
     <INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server">
-    <INPUT TYPE="HIDDEN" NAME="ADVANCEDSETTINGS" VALUE="CHECKED">
-    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" VALUE="CHECKED" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> Разрешить совместный доступ к принтерам, подключенным к этой системе</LABEL><BR>
+    <INPUT TYPE="HIDDEN" NAME="ADVANCEDSETTINGS" VALUE="YES">
+    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> Разрешить совместный доступ к принтерам, подключенным к этой системе</LABEL><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Максимум клиентов\:
     <INPUT TYPE="TEXT" NAME="MAX_CLIENTS" VALUE="{?max_clients}" SIZE="6"><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" VALUE="CHECKED" {?remote_any}><LABEL FOR="REMOTE_ANY"> Разрешить печать из Интернета</LABEL><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="BROWSE_WEB_IF" ID="BROWSE_WEB_IF" VALUE="CHECKED" {?browse_web_if}><LABEL FOR="BROWSE_WEB_IF"> Разрешить доступ через веб-интерфейс</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" VALUE="CHECKED" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> Разрешить удаленное администрирование</LABEL><BR>
-    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" VALUE="CHECKED" {?kerberos}><LABEL FOR="KERBEROS"> Разрешить аутентификацию Kerberos (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
-    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" VALUE="CHECKED" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> Разрешать пользователям отменять любые задания (не только их собственные)</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="PRESERVE_JOBS" ID="PRESERVE_JOBS" VALUE="CHECKED" {?preserve_jobs}><LABEL FOR="PRESERVE_JOBS"> Вести журнал заданий</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" {?remote_any}><LABEL FOR="REMOTE_ANY"> Разрешить печать из Интернета</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="BROWSE_WEB_IF" ID="BROWSE_WEB_IF" {?browse_web_if}><LABEL FOR="BROWSE_WEB_IF"> Разрешить доступ через веб-интерфейс</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> Разрешить удаленное администрирование</LABEL><BR>
+    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" {?kerberos}><LABEL FOR="KERBEROS"> Разрешить аутентификацию Kerberos (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
+    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> Разрешать пользователям отменять любые задания (не только их собственные)</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="PRESERVE_JOBS" ID="PRESERVE_JOBS" {?preserve_jobs}><LABEL FOR="PRESERVE_JOBS"> Вести журнал заданий</LABEL><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Количество заданий (0 - без ограничений)\:
     <INPUT TYPE="TEXT" NAME="MAX_JOBS" VALUE="{?max_jobs}" SIZE="6"><BR>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сохранять метаданные\:
     <INPUT TYPE="TEXT" NAME="PRESERVE_JOB_HISTORY" VALUE="{?preserve_job_history}" SIZE="6"><BR>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сохранять документы\:
     <INPUT TYPE="TEXT" NAME="PRESERVE_JOB_FILES" VALUE="{?preserve_job_files}" SIZE="6"><BR>
-    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" VALUE="CHECKED" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> Сохранять отладочную информацию в журнале</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> Сохранять отладочную информацию в журнале</LABEL><BR>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Максимальный размер журнала\:
     <INPUT TYPE="TEXT" NAME="MAX_LOG_SIZE" VALUE="{?max_log_size}" SIZE="6"></P>
 
@@ -61,13 +61,13 @@
 
     <P><A HREF="/admin/?ADVANCEDSETTINGS=YES">Дополнительные параметры <SMALL>&#x25b6;</SMALL></A><BR>
     <INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server">
-    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" VALUE="CHECKED" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> Разрешить совместный доступ к принтерам, подключенным к этой системе</LABEL><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" VALUE="CHECKED" {?remote_any}><LABEL FOR="REMOTE_ANY"> Разрешить печать из
+    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> Разрешить совместный доступ к принтерам, подключенным к этой системе</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" {?remote_any}><LABEL FOR="REMOTE_ANY"> Разрешить печать из
     Интернета</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" VALUE="CHECKED" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> Разрешить удаленное администрирование</LABEL><BR>
-    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" VALUE="CHECKED" {?kerberos}><LABEL FOR="KERBEROS"> Разрешить аутентификацию Kerberos (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
-    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" VALUE="CHECKED" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> Разрешить пользователям отменять любые задания (не только их собственные)</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" VALUE="CHECKED" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> Сохранять отладочную информацию в журнале</LABEL></P>
+    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> Разрешить удаленное администрирование</LABEL><BR>
+    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" {?kerberos}><LABEL FOR="KERBEROS"> Разрешить аутентификацию Kerberos (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
+    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> Разрешить пользователям отменять любые задания (не только их собственные)</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> Сохранять отладочную информацию в журнале</LABEL></P>
 
     }
     <P><INPUT TYPE="SUBMIT" NAME="CHANGESETTINGS" VALUE="Сохранить"></P>
