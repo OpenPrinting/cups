@@ -3286,6 +3286,8 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
       mptr --;
       if (*mptr == ' ')
 	*mptr = '\0';
+      else
+        break;
     }
 
     if (!make[0])
