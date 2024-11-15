@@ -3293,6 +3293,8 @@ _ppdCreateFromIPP2(
       mptr --;
       if (*mptr == ' ')
 	*mptr = '\0';
+      else
+        break;
     }
 
     if (!make[0])
