@@ -1,8 +1,8 @@
 CHANGES - OpenPrinting CUPS 2.5b1 - (TBA)
 ==============================================
 
-Changes in CUPS v2.5b1 (TBA)
-----------------------------
+Changes in CUPS v2.5b1 (YYYY-MM-DD)
+-----------------------------------
 
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
@@ -114,6 +114,7 @@ Changes in CUPS v2.5b1 (TBA)
 - Fixed sending response headers to client (Issue #927)
 - Fixed `Host` header regression (Issue #967)
 - Fixed DNS-SD lookups of local services with Avahi (Issue #970)
+- Fixed debug printfs PID substitution support (Issue #1066)
 - Fixed CGI program initialization and validation of form checkbox and text
   fields.
 - Fixed finishing support in ippeveps.
