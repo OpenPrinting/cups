@@ -9,8 +9,11 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more informa
 dnl
 
 dnl Fix "prefix" variable if it hasn't been specified...
-AS_IF([test "$prefix" = "NONE"], [
-    prefix="/usr/local"
+AS_IF([test "$prefix" = NONE], [
+    # Default prefix isn't bound until AC_OUTPUT...
+    realprefix="/usr/local"
+], [
+    realprefix="$prefix"
 ])
 
 dnl Fix "exec_prefix" variable if it hasn't been specified...
@@ -18,7 +21,7 @@ AS_IF([test "$exec_prefix" = "NONE"], [
     AS_IF([test "$prefix" = "/"], [
 	exec_prefix="/usr"
     ], [
-	exec_prefix="$prefix"
+	exec_prefix="$realprefix"
     ])
 ])
 
@@ -41,7 +44,7 @@ AS_IF([test "$datarootdir" = "\${prefix}/share"], [
     AS_IF([test "$prefix" = "/"], [
 	datarootdir="/usr/share"
     ], [
-	datarootdir="$prefix/share"
+	datarootdir="$realprefix/share"
     ])
 ])
 
@@ -50,15 +53,19 @@ AS_IF([test "$datadir" = "\${prefix}/share"], [
     AS_IF([test "$prefix" = "/"], [
 	datadir="/usr/share"
     ], [
-	datadir="$prefix/share"
+	datadir="$realprefix/share"
     ])
 ], [test "$datadir" = "\${datarootdir}"], [
     datadir="$datarootdir"
 ])
 
 dnl Fix "includedir" variable if it hasn't been specified...
-AS_IF([test "$includedir" = "\${prefix}/include" -a "$prefix" = "/"], [
-    includedir="/usr/include"
+AS_IF([test "$includedir" = "\${prefix}/include"], [
+    AS_IF([test "$prefix" = "/"], [
+	includedir="/usr/include/libcups2"
+    ], [
+	includedir="$realprefix/include/libcups2"
+    ])
 ])
 AS_IF([test "$includedir" != "/usr/include"], [
     PKGCONFIG_CFLAGS="$PKGCONFIG_CFLAGS -I$includedir"
@@ -73,7 +80,7 @@ AS_IF([test "$localstatedir" = "\${prefix}/var"], [
 	    localstatedir="/var"
 	])
     ], [
-	localstatedir="$prefix/var"
+	localstatedir="$realprefix/var"
     ])
 ])
 
@@ -86,7 +93,7 @@ AS_IF([test "$sysconfdir" = "\${prefix}/etc"], [
 	    sysconfdir="/etc"
 	])
     ], [
-	sysconfdir="$prefix/etc"
+	sysconfdir="$realprefix/etc"
     ])
 ])
 

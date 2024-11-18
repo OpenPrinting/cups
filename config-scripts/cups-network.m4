@@ -61,7 +61,7 @@ AS_IF([test x$enable_domainsocket != xno -a x$default_domainsocket != xno], [
     AS_IF([test "x$default_domainsocket" = x], [
         AS_CASE(["$host_os_name"], [darwin*], [
 	    # Darwin and macOS do their own thing...
-	    CUPS_DEFAULT_DOMAINSOCKET="$localstatedir/run/cupsd"
+	    CUPS_DEFAULT_DOMAINSOCKET="/private/var/run/cupsd"
 	], [*], [
 	    # All others use FHS standard...
 	    CUPS_DEFAULT_DOMAINSOCKET="$CUPS_STATEDIR/cups.sock"

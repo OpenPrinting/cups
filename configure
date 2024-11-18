@@ -7019,10 +7019,15 @@ esac
 
 
 
-if test "$prefix" = "NONE"
+if test "$prefix" = NONE
 then :
 
-    prefix="/usr/local"
+    # Default prefix isn't bound until AC_OUTPUT...
+    realprefix="/usr/local"
+
+else $as_nop
+
+    realprefix="$prefix"
 
 fi
 
@@ -7036,7 +7041,7 @@ then :
 
 else $as_nop
 
-	exec_prefix="$prefix"
+	exec_prefix="$realprefix"
 
 fi
 
@@ -7074,7 +7079,7 @@ then :
 
 else $as_nop
 
-	datarootdir="$prefix/share"
+	datarootdir="$realprefix/share"
 
 fi
 
@@ -7090,7 +7095,7 @@ then :
 
 else $as_nop
 
-	datadir="$prefix/share"
+	datadir="$realprefix/share"
 
 fi
 
@@ -7101,10 +7106,19 @@ then :
 
 fi
 
-if test "$includedir" = "\${prefix}/include" -a "$prefix" = "/"
+if test "$includedir" = "\${prefix}/include"
 then :
 
-    includedir="/usr/include"
+    if test "$prefix" = "/"
+then :
+
+	includedir="/usr/include/libcups2"
+
+else $as_nop
+
+	includedir="$realprefix/include/libcups2"
+
+fi
 
 fi
 if test "$includedir" != "/usr/include"
@@ -7133,7 +7147,7 @@ fi
 
 else $as_nop
 
-	localstatedir="$prefix/var"
+	localstatedir="$realprefix/var"
 
 fi
 
@@ -7158,7 +7172,7 @@ fi
 
 else $as_nop
 
-	sysconfdir="$prefix/etc"
+	sysconfdir="$realprefix/etc"
 
 fi
 
@@ -8767,7 +8781,7 @@ then :
   darwin*) :
 
 	    # Darwin and macOS do their own thing...
-	    CUPS_DEFAULT_DOMAINSOCKET="$localstatedir/run/cupsd"
+	    CUPS_DEFAULT_DOMAINSOCKET="/private/var/run/cupsd"
 	 ;; #(
   *) :
 
