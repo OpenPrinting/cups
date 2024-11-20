@@ -7,13 +7,19 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptool 1 "CUPS" "2024-09-12" "OpenPrinting"
+.TH ipptool 1 "CUPS" "2024-11-20" "OpenPrinting"
 .SH NAME
 ipptool \- perform internet printing protocol requests
 .SH SYNOPSIS
 .B ipptool
 [
 .B \-\-help
+] [
+.B \-\-bearer\-token
+.I BEARER-TOKEN
+] [
+.B \-\-client\-name
+.I CLIENT-NAME
 ] [
 .B \-\-ippfile
 .I FILENAME
@@ -94,6 +100,13 @@ format is described in
 .SH OPTIONS
 The following options are recognized by
 .B ipptool:
+.TP 5
+\fB\-\-bearer\-token \fIBEARER-TOKEN\fR
+Specifies the OAuth 2.0 token to use for HTTP Bearer authentication (RFC 6750).
+.TP 5
+\fB\-\-client\-namne \fICLIENT-NAME\fR
+Specifies the client name to use for the TLS client certificate.
+If not specified, no client certificate is used during negotiation.
 .TP 5
 .B \-\-help
 Shows program help.

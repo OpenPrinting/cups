@@ -152,6 +152,9 @@ typedef struct ipptool_test_s		// Test Data
   bool		validate_headers;	// Validate HTTP headers in response?
   int		verbosity;		// Show all attributes?
 
+  char		*bearer_token,		// HTTP Bearer token
+		*client_name;		// TLS client certificate name
+
   // Test Defaults
   bool		def_ignore_errors;	// Default IGNORE-ERRORS value
   ipptool_transfer_t def_transfer;	// Default TRANSFER value
@@ -253,6 +256,7 @@ static ipp_attribute_t *print_line(ipptool_test_t *data, ipp_t *ipp, ipp_attribu
 static void	print_xml_header(ipptool_test_t *data);
 static void	print_xml_string(cups_file_t *outfile, const char *element, const char *s);
 static void	print_xml_trailer(ipptool_test_t *data, int success, const char *message);
+static void	set_client_certificate(ipptool_test_t *data);
 #ifndef _WIN32
 static void	sigterm_handler(int sig);
 #endif // _WIN32
@@ -313,7 +317,33 @@ main(int  argc,				// I - Number of command-line args
 
   for (i = 1; i < argc; i ++)
   {
-    if (!strcmp(argv[i], "--help"))
+    if (!strcmp(argv[i], "--bearer-token"))
+    {
+      i ++;
+
+      if (i >= argc)
+      {
+	cupsLangPrintf(stderr, _("%s: Missing token after '--bearer-token'."), "ipptool");
+	free_data(data);
+	usage();
+      }
+
+      data->bearer_token = argv[i];
+    }
+    else if (!strcmp(argv[i], "--client-name"))
+    {
+      i ++;
+
+      if (i >= argc)
+      {
+	cupsLangPrintf(stderr, _("%s: Missing client name after '--client-name'."), "ipptool");
+	free_data(data);
+	usage();
+      }
+
+      data->client_name = argv[i];
+    }
+    else if (!strcmp(argv[i], "--help"))
     {
       free_data(data);
       usage();
@@ -958,6 +988,9 @@ connect_printer(ipptool_test_t *data)	// I - Test data
     return (NULL);
   }
 
+  if (data->client_name)
+    set_client_certificate(data);
+
   if (!_cups_strcasecmp(scheme, "https") || !_cups_strcasecmp(scheme, "ipps") || atoi(port) == 443)
     encryption = HTTP_ENCRYPTION_ALWAYS;
   else
@@ -968,6 +1001,9 @@ connect_printer(ipptool_test_t *data)	// I - Test data
     print_fatal_error(data, "Unable to connect to '%s' on port %s: %s", hostname, port, cupsGetErrorString());
     return (NULL);
   }
+
+  if (data->bearer_token)
+    httpSetAuthString(data->http, "Bearer", data->bearer_token);
 
   httpSetDefaultField(data->http, HTTP_FIELD_ACCEPT_ENCODING, "deflate, gzip, identity");
 
@@ -5013,6 +5049,29 @@ print_xml_trailer(
 }
 
 
+//
+// 'set_client_certificate()' - Set the client certificate and private key.
+//
+
+static void
+set_client_certificate(
+    ipptool_test_t *data)		// I - Test data
+{
+  char	*creds,				// Public key/certificate
+	*key;				// Private key
+
+
+  // Copy and set the client credentials for the given name...
+  creds = cupsCopyCredentials(/*path*/NULL, data->client_name);
+  key   = cupsCopyCredentials(/*path*/NULL, data->client_name);
+
+  cupsSetClientCredentials(creds, key);
+
+  free(creds);
+  free(key);
+}
+
+
 #ifndef _WIN32
 //
 // 'sigterm_handler()' - Handle SIGINT and SIGTERM.
@@ -6446,6 +6505,11 @@ usage(void)
 {
   _cupsLangPuts(stderr, _("Usage: ipptool [options] URI filename [ ... filenameN ]"));
   _cupsLangPuts(stderr, _("Options:"));
+  _cupsLangPuts(stderr, _("--bearer-token BEARER-TOKEN\n"
+                          "                        Set the OAuth Bearer token for authentication"));
+  _cupsLangPuts(stderr, _("--client-name CLIENT-NAME\n"
+                          "                        Set the TLS client certificate name"));
+  _cupsLangPuts(stderr, _("--help                  Show this help"));
   _cupsLangPuts(stderr, _("--ippserver filename    Produce ippserver attribute file"));
   _cupsLangPuts(stderr, _("--stop-after-include-error\n"
                           "                        Stop tests after a failed INCLUDE"));

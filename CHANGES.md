@@ -64,6 +64,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   (Issue #1061)
 - Updated the raster functions to report more issues via
   `cupsRasterGetErrorString`.
+- Updated the `ipptool` utility to support the `--bearer-token` and
+  `--client-name` options.
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
