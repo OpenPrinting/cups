@@ -10,10 +10,6 @@
 // information.
 //
 
-//
-// Include necessary headers...
-//
-
 #include <cups/cups-private.h>
 #include <cups/raster-testpage.h>
 #include <regex.h>
@@ -323,7 +319,7 @@ main(int  argc,				// I - Number of command-line args
 
       if (i >= argc)
       {
-	cupsLangPrintf(stderr, _("%s: Missing token after '--bearer-token'."), "ipptool");
+	_cupsLangPrintf(stderr, _("%s: Missing token after '--bearer-token'."), "ipptool");
 	free_data(data);
 	usage();
       }
@@ -336,7 +332,7 @@ main(int  argc,				// I - Number of command-line args
 
       if (i >= argc)
       {
-	cupsLangPrintf(stderr, _("%s: Missing client name after '--client-name'."), "ipptool");
+	_cupsLangPrintf(stderr, _("%s: Missing client name after '--client-name'."), "ipptool");
 	free_data(data);
 	usage();
       }
