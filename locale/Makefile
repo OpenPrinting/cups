@@ -111,7 +111,7 @@ uninstall:
 #       xgettext to update the cups.strings file due to known xgettext bugs.
 #
 
-pot:	checkpo po2strings
+pot:	checkpo
 	echo Updating cups.pot...
 	mv cups.pot cups.pot.bck
 	touch cups.pot

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2024-08-07 10:25-0400\n"
+"POT-Creation-Date: 2024-11-21 13:32-0500\n"
 "PO-Revision-Date: 2015-01-28 12:00-0800\n"
 "Last-Translator: Aleksandr Proklov\n"
 "Language-Team: Russian - PuppyRus Linux Team\n"
@@ -1394,12 +1394,20 @@ msgid "%s: Invalid filter string \"%s\"."
 msgstr "%s: Неверная строка фильтра \"%s\"."
 
 #, c-format
+msgid "%s: Missing client name after '--client-name'."
+msgstr ""
+
+#, c-format
 msgid "%s: Missing filename for \"-P\"."
 msgstr "%s: Пропущено имя файла для \"-P\"."
 
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
 msgstr "%s: Пропущен таймаут для \"-T\"."
+
+#, c-format
+msgid "%s: Missing token after '--bearer-token'."
+msgstr ""
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1527,6 +1535,16 @@ msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
 
 msgid ""
+"--bearer-token BEARER-TOKEN\n"
+"                        Set the OAuth Bearer token for authentication"
+msgstr ""
+
+msgid ""
+"--client-name CLIENT-NAME\n"
+"                        Set the TLS client certificate name"
+msgstr ""
+
+msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
 msgstr ""
 
@@ -1547,6 +1565,9 @@ msgid "--false                 Always false"
 msgstr ""
 
 msgid "--help                  Show program help"
+msgstr ""
+
+msgid "--help                  Show this help"
 msgstr ""
 
 msgid "--hold                  Hold new jobs"
@@ -1644,122 +1665,14 @@ msgstr ""
 msgid "--version               Show version"
 msgstr ""
 
-msgid "-1"
-msgstr "-1"
-
-msgid "-10"
-msgstr "-10"
-
-msgid "-100"
-msgstr "-100"
-
-msgid "-105"
-msgstr "-105"
-
-msgid "-11"
-msgstr "-11"
-
-msgid "-110"
-msgstr "-110"
-
-msgid "-115"
-msgstr "-115"
-
-msgid "-12"
-msgstr "-12"
-
-msgid "-120"
-msgstr "-120"
-
-msgid "-13"
-msgstr "-13"
-
-msgid "-14"
-msgstr "-14"
-
-msgid "-15"
-msgstr "-15"
-
-msgid "-2"
-msgstr "-2"
-
 msgid "-2                      Set 2-sided printing support (default=1-sided)"
 msgstr ""
-
-msgid "-20"
-msgstr "-20"
-
-msgid "-25"
-msgstr "-25"
-
-msgid "-3"
-msgstr "-3"
-
-msgid "-30"
-msgstr "-30"
-
-msgid "-35"
-msgstr "-35"
-
-msgid "-4"
-msgstr "-4"
 
 msgid "-4                      Connect using IPv4"
 msgstr ""
 
-msgid "-40"
-msgstr "-40"
-
-msgid "-45"
-msgstr "-45"
-
-msgid "-5"
-msgstr "-5"
-
-msgid "-50"
-msgstr "-50"
-
-msgid "-55"
-msgstr "-55"
-
-msgid "-6"
-msgstr "-6"
-
 msgid "-6                      Connect using IPv6"
 msgstr ""
-
-msgid "-60"
-msgstr "-60"
-
-msgid "-65"
-msgstr "-65"
-
-msgid "-7"
-msgstr "-7"
-
-msgid "-70"
-msgstr "-70"
-
-msgid "-75"
-msgstr "-75"
-
-msgid "-8"
-msgstr "-8"
-
-msgid "-80"
-msgstr "-80"
-
-msgid "-85"
-msgstr "-85"
-
-msgid "-9"
-msgstr "-9"
-
-msgid "-90"
-msgstr "-90"
-
-msgid "-95"
-msgstr "-95"
 
 msgid "-A                      Enable authentication"
 msgstr ""
@@ -2256,513 +2169,6 @@ msgstr ""
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
-msgid "0"
-msgstr "0"
-
-msgid "1"
-msgstr "1"
-
-msgid "1 inch/sec."
-msgstr "1 дюйм/с"
-
-msgid "1.25x0.25\""
-msgstr "1,25x0,25\""
-
-msgid "1.25x2.25\""
-msgstr "1,25x2,25\""
-
-msgid "1.5 inch/sec."
-msgstr "1,5 дюйма/с"
-
-msgid "1.50x0.25\""
-msgstr "1,50x0,25\""
-
-msgid "1.50x0.50\""
-msgstr "1,50x0,50\""
-
-msgid "1.50x1.00\""
-msgstr "1,50x1,00\""
-
-msgid "1.50x2.00\""
-msgstr "1,50x2,00\""
-
-msgid "10"
-msgstr "10"
-
-msgid "10 inches/sec."
-msgstr "10 дюймов/с"
-
-msgid "10 x 11"
-msgstr ""
-
-msgid "10 x 13"
-msgstr ""
-
-msgid "10 x 14"
-msgstr ""
-
-msgid "100"
-msgstr "100"
-
-msgid "100 mm/sec."
-msgstr "100 мм/с"
-
-msgid "105"
-msgstr "105"
-
-msgid "11"
-msgstr "11"
-
-msgid "11 inches/sec."
-msgstr "11 дюймов/с"
-
-msgid "110"
-msgstr "110"
-
-msgid "115"
-msgstr "115"
-
-msgid "12"
-msgstr "12"
-
-msgid "12 inches/sec."
-msgstr "12 дюймов/с"
-
-msgid "12 x 11"
-msgstr ""
-
-msgid "120"
-msgstr "120"
-
-msgid "120 mm/sec."
-msgstr "120 мм/с"
-
-msgid "120x60dpi"
-msgstr "120x60dpi"
-
-msgid "120x72dpi"
-msgstr "120x72dpi"
-
-msgid "13"
-msgstr "13"
-
-msgid "136dpi"
-msgstr "136dpi"
-
-msgid "14"
-msgstr "14"
-
-msgid "15"
-msgstr "15"
-
-msgid "15 mm/sec."
-msgstr "15 мм/с"
-
-msgid "15 x 11"
-msgstr ""
-
-msgid "150 mm/sec."
-msgstr "150 мм/с"
-
-msgid "150dpi"
-msgstr "150dpi"
-
-msgid "16"
-msgstr "16"
-
-msgid "17"
-msgstr "17"
-
-msgid "18"
-msgstr "18"
-
-msgid "180dpi"
-msgstr "180dpi"
-
-msgid "19"
-msgstr "19"
-
-msgid "2"
-msgstr "2"
-
-msgid "2 inches/sec."
-msgstr "2 дюйма/с"
-
-msgid "2-Sided Printing"
-msgstr "двусторонняя печать"
-
-msgid "2.00x0.37\""
-msgstr "2,00x0,37\""
-
-msgid "2.00x0.50\""
-msgstr "2,00x0,50\""
-
-msgid "2.00x1.00\""
-msgstr "2,00x1,00\""
-
-msgid "2.00x1.25\""
-msgstr "2,00x1,25\""
-
-msgid "2.00x2.00\""
-msgstr "2,00x2,00\""
-
-msgid "2.00x3.00\""
-msgstr "2,00x3,00\""
-
-msgid "2.00x4.00\""
-msgstr "2,00x4,00\""
-
-msgid "2.00x5.50\""
-msgstr "2,00x5,50\""
-
-msgid "2.25x0.50\""
-msgstr "2,25x0,50\""
-
-msgid "2.25x1.25\""
-msgstr "2,25x1,25\""
-
-msgid "2.25x4.00\""
-msgstr "2,25x4,00\""
-
-msgid "2.25x5.50\""
-msgstr "2,25x5,50\""
-
-msgid "2.38x5.50\""
-msgstr "2,38x5,50\""
-
-msgid "2.5 inches/sec."
-msgstr "2,5 дюйма/с"
-
-msgid "2.50x1.00\""
-msgstr "2,50x1,00\""
-
-msgid "2.50x2.00\""
-msgstr "2,50x2,00\""
-
-msgid "2.75x1.25\""
-msgstr "2,75x1,25\""
-
-msgid "2.9 x 1\""
-msgstr "2,9 x 1\""
-
-msgid "20"
-msgstr "20"
-
-msgid "20 mm/sec."
-msgstr "20 мм/с"
-
-msgid "200 mm/sec."
-msgstr "200 мм/с"
-
-msgid "203dpi"
-msgstr "203dpi"
-
-msgid "21"
-msgstr "21"
-
-msgid "22"
-msgstr "22"
-
-msgid "23"
-msgstr "23"
-
-msgid "24"
-msgstr "24"
-
-msgid "24-Pin Series"
-msgstr "Тип 24-Pin"
-
-msgid "240x72dpi"
-msgstr "240x72dpi"
-
-msgid "25"
-msgstr "25"
-
-msgid "250 mm/sec."
-msgstr "250 мм/с"
-
-msgid "26"
-msgstr "26"
-
-msgid "27"
-msgstr "27"
-
-msgid "28"
-msgstr "28"
-
-msgid "29"
-msgstr "29"
-
-msgid "3"
-msgstr "3"
-
-msgid "3 inches/sec."
-msgstr "3 дюйма/с"
-
-msgid "3 x 5"
-msgstr ""
-
-msgid "3.00x1.00\""
-msgstr "3,00x1,00\""
-
-msgid "3.00x1.25\""
-msgstr "3,00x1,25\""
-
-msgid "3.00x2.00\""
-msgstr "3,00x2,00\""
-
-msgid "3.00x3.00\""
-msgstr "3,00x3,00\""
-
-msgid "3.00x4.00\""
-msgstr ""
-
-msgid "3.00x5.00\""
-msgstr "3,00x5,00\""
-
-msgid "3.00x6.00\""
-msgstr ""
-
-msgid "3.00x8.00\""
-msgstr ""
-
-msgid "3.25x2.00\""
-msgstr "3,25x2,00\""
-
-msgid "3.25x5.00\""
-msgstr "3,25x5,00\""
-
-msgid "3.25x5.50\""
-msgstr "3,25x5,50\""
-
-msgid "3.25x5.83\""
-msgstr "3,25x5,83\""
-
-msgid "3.25x7.83\""
-msgstr "3,25x7,83\""
-
-msgid "3.5 x 5"
-msgstr ""
-
-msgid "3.5\" Disk"
-msgstr "Диск 3.5\""
-
-msgid "3.50x1.00\""
-msgstr "3,50x1,00\""
-
-msgid "30"
-msgstr "30"
-
-msgid "30 mm/sec."
-msgstr "30 мм/с"
-
-msgid "300 mm/sec."
-msgstr "300 мм/с"
-
-msgid "300dpi"
-msgstr "300dpi"
-
-msgid "30859 Paint Can Label"
-msgstr ""
-
-msgid "35"
-msgstr "35"
-
-msgid "360dpi"
-msgstr "360dpi"
-
-msgid "360x180dpi"
-msgstr "360x180dpi"
-
-msgid "4"
-msgstr "4"
-
-msgid "4 inches/sec."
-msgstr "4 дюйма/с"
-
-msgid "4.00x1.00\""
-msgstr "4,00x1,00\""
-
-msgid "4.00x13.00\""
-msgstr "4,00x13,00\""
-
-msgid "4.00x2.00\""
-msgstr "4,00x2,00\""
-
-msgid "4.00x2.50\""
-msgstr "4,00x2,50\""
-
-msgid "4.00x3.00\""
-msgstr "4,00x3,00\""
-
-msgid "4.00x4.00\""
-msgstr "4,00x4,00\""
-
-msgid "4.00x5.00\""
-msgstr "4,00x5,00\""
-
-msgid "4.00x6.00\""
-msgstr "4,00x6,00\""
-
-msgid "4.00x6.50\""
-msgstr "4,00x6,50\""
-
-msgid "4.00x8.00\""
-msgstr ""
-
-msgid "40"
-msgstr "40"
-
-msgid "40 mm/sec."
-msgstr "40 мм/с"
-
-msgid "45"
-msgstr "45"
-
-msgid "5"
-msgstr "5"
-
-msgid "5 inches/sec."
-msgstr "5 дюймов/с"
-
-msgid "5 x 7"
-msgstr ""
-
-msgid "50"
-msgstr "50"
-
-msgid "55"
-msgstr "55"
-
-msgid "6"
-msgstr "6"
-
-msgid "6 inches/sec."
-msgstr "6 дюймов/с"
-
-msgid "6.00x1.00\""
-msgstr "6,00x1,00\""
-
-msgid "6.00x2.00\""
-msgstr "6,00x2,00\""
-
-msgid "6.00x3.00\""
-msgstr "6,00x3,00\""
-
-msgid "6.00x4.00\""
-msgstr "6,00x4,00\""
-
-msgid "6.00x5.00\""
-msgstr "6,00x5,00\""
-
-msgid "6.00x6.00\""
-msgstr "6,00x6,00\""
-
-msgid "6.00x6.50\""
-msgstr "6,00x6,50\""
-
-msgid "6.00x8.00\""
-msgstr ""
-
-msgid "60"
-msgstr "60"
-
-msgid "60 mm/sec."
-msgstr "60 мм/с"
-
-msgid "600dpi"
-msgstr "600dpi"
-
-msgid "60dpi"
-msgstr "60dpi"
-
-msgid "60x72dpi"
-msgstr ""
-
-msgid "65"
-msgstr "65"
-
-msgid "7"
-msgstr "7"
-
-msgid "7 inches/sec."
-msgstr "7 дюймов/с"
-
-msgid "7 x 9"
-msgstr ""
-
-msgid "70"
-msgstr "70"
-
-msgid "75"
-msgstr "75"
-
-msgid "8"
-msgstr "8"
-
-msgid "8 inches/sec."
-msgstr "8 дюймов/с"
-
-msgid "8 x 10"
-msgstr ""
-
-msgid "8.00x1.00\""
-msgstr "8,00x1,00\""
-
-msgid "8.00x2.00\""
-msgstr "8,00x2,00\""
-
-msgid "8.00x3.00\""
-msgstr "8,00x3,00\""
-
-msgid "8.00x4.00\""
-msgstr "8,00x4,00\""
-
-msgid "8.00x5.00\""
-msgstr "8,00x5,00\""
-
-msgid "8.00x6.00\""
-msgstr "8,00x6,00\""
-
-msgid "8.00x6.50\""
-msgstr "8,00x6,50\""
-
-msgid "8.26x1.00\""
-msgstr ""
-
-msgid "80"
-msgstr "80"
-
-msgid "80 mm/sec."
-msgstr "80 мм/с"
-
-msgid "80x50mm"
-msgstr ""
-
-msgid "85"
-msgstr "85"
-
-msgid "9"
-msgstr "9"
-
-msgid "9 inches/sec."
-msgstr "9 дюймов/с"
-
-msgid "9 x 11"
-msgstr ""
-
-msgid "9 x 12"
-msgstr ""
-
-msgid "9-Pin Series"
-msgstr "Тип 9-Pin"
-
-msgid "90"
-msgstr "90"
-
-msgid "95"
-msgstr "95"
-
 msgid "?Invalid help command unknown."
 msgstr ""
 
@@ -2773,108 +2179,6 @@ msgstr "Группа с именем \"%s\" уже существует."
 #, c-format
 msgid "A printer named \"%s\" already exists."
 msgstr "Принтер с именем \"%s\" уже существует."
-
-msgid "A0"
-msgstr "A0"
-
-msgid "A0 Long Edge"
-msgstr ""
-
-msgid "A1"
-msgstr "A1"
-
-msgid "A1 Long Edge"
-msgstr ""
-
-msgid "A10"
-msgstr "A10"
-
-msgid "A2"
-msgstr "A2"
-
-msgid "A2 Long Edge"
-msgstr ""
-
-msgid "A3"
-msgstr "A3"
-
-msgid "A3 Long Edge"
-msgstr ""
-
-msgid "A3 Oversize"
-msgstr ""
-
-msgid "A3 Oversize Long Edge"
-msgstr ""
-
-msgid "A4"
-msgstr "A4"
-
-msgid "A4 Long Edge"
-msgstr ""
-
-msgid "A4 Oversize"
-msgstr ""
-
-msgid "A4 Small"
-msgstr ""
-
-msgid "A5"
-msgstr "A5"
-
-msgid "A5 Long Edge"
-msgstr ""
-
-msgid "A5 Oversize"
-msgstr ""
-
-msgid "A6"
-msgstr "A6"
-
-msgid "A6 Long Edge"
-msgstr ""
-
-msgid "A7"
-msgstr "A7"
-
-msgid "A8"
-msgstr "A8"
-
-msgid "A9"
-msgstr "A9"
-
-msgid "ANSI A"
-msgstr "ANSI A"
-
-msgid "ANSI B"
-msgstr "ANSI B"
-
-msgid "ANSI C"
-msgstr "ANSI C"
-
-msgid "ANSI D"
-msgstr "ANSI D"
-
-msgid "ANSI E"
-msgstr "ANSI E"
-
-msgid "ARCH C"
-msgstr "ARCH C"
-
-msgid "ARCH C Long Edge"
-msgstr ""
-
-msgid "ARCH D"
-msgstr "ARCH D"
-
-msgid "ARCH D Long Edge"
-msgstr ""
-
-msgid "ARCH E"
-msgstr "ARCH E"
-
-msgid "ARCH E Long Edge"
-msgstr ""
 
 msgid "Accept Jobs"
 msgstr "Принять задания"
@@ -2888,20 +2192,11 @@ msgstr "Добавить группу"
 msgid "Add Printer"
 msgstr "Добавить принтер"
 
-msgid "Address"
-msgstr "Адрес"
-
 msgid "Administration"
 msgstr "Администрирование"
 
-msgid "Always"
-msgstr "Всегда"
-
 msgid "AppSocket/HP JetDirect"
 msgstr "AppSocket/HP JetDirect"
-
-msgid "Applicator"
-msgstr "Исполнительное устройство"
 
 #, c-format
 msgid "Attempt to set %s printer-state to bad value %d."
@@ -2922,42 +2217,6 @@ msgstr ""
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
 msgstr "Атрибут группы не в диапазоне (%x < %x)"
-
-msgid "B0"
-msgstr "B0"
-
-msgid "B1"
-msgstr "B1"
-
-msgid "B10"
-msgstr "B10"
-
-msgid "B2"
-msgstr "B2"
-
-msgid "B3"
-msgstr "B3"
-
-msgid "B4"
-msgstr "B4"
-
-msgid "B5"
-msgstr "B5"
-
-msgid "B5 Oversize"
-msgstr ""
-
-msgid "B6"
-msgstr "B6"
-
-msgid "B7"
-msgstr "B7"
-
-msgid "B8"
-msgstr "B8"
-
-msgid "B9"
-msgstr "B9"
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
@@ -3013,10 +2272,6 @@ msgstr "Неверное значение количества копий %d."
 
 msgid "Bad custom parameter"
 msgstr "Неверный индивидуальный параметр"
-
-#, c-format
-msgid "Bad device URI \"%s\"."
-msgstr ""
 
 #, c-format
 msgid "Bad device-uri \"%s\"."
@@ -3133,21 +2388,12 @@ msgstr "Неверный или пустой URI"
 msgid "Banners"
 msgstr "Баннеры"
 
-msgid "Bond Paper"
-msgstr "Документная бумага"
-
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr "Параметр waiteof \"%s\" должен иметь двоичное значение"
 
 msgid "Buffer overflow detected, aborting."
 msgstr "Обнаружено переполнение буфера, прерывание."
-
-msgid "CMYK"
-msgstr "CMYK"
-
-msgid "CPCL Label Printer"
-msgstr "Принтер для печати этикеток CPCL"
 
 msgid "Cancel Jobs"
 msgstr "Отменить задания"
@@ -3160,9 +2406,6 @@ msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr ""
-
-msgid "Cassette"
-msgstr "Лоток"
 
 msgid "Change Settings"
 msgstr "Изменить настройки"
@@ -3182,9 +2425,6 @@ msgstr "Close-Job не подерживает атрибут job-uri"
 
 msgid "Color"
 msgstr "Цвет"
-
-msgid "Color Mode"
-msgstr "Цветной режим"
 
 msgid ""
 "Commands may be abbreviated.  Commands are:\n"
@@ -3206,9 +2446,6 @@ msgstr "Подключение к принтеру"
 
 msgid "Continue"
 msgstr "Продолжить"
-
-msgid "Continuous"
-msgstr "Непрерывно"
 
 msgid "Control file sent successfully."
 msgstr "Контрольный файл успешно отправлен."
@@ -3235,27 +2472,6 @@ msgstr ""
 msgid "Custom"
 msgstr "Индивидуальный"
 
-msgid "CustominCutInterval"
-msgstr "CustominCutInterval"
-
-msgid "CustominTearInterval"
-msgstr "CustominTearInterval"
-
-msgid "Cut"
-msgstr "Обрезать"
-
-msgid "Cutter"
-msgstr "Резак"
-
-msgid "DYMO"
-msgstr ""
-
-msgid "Dark"
-msgstr "Темный"
-
-msgid "Darkness"
-msgstr "Затемненность"
-
 msgid "Data file sent successfully."
 msgstr "Файл данных успешно отправлен."
 
@@ -3270,9 +2486,6 @@ msgstr "Удалить группу"
 
 msgid "Delete Printer"
 msgstr "Удалить принтер"
-
-msgid "DeskJet Series"
-msgstr "Серия DeskJet"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
@@ -3297,9 +2510,6 @@ msgid ""
 "        location = %s"
 msgstr ""
 
-msgid "Direct Thermal Media"
-msgstr "Носитель для термопечати"
-
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
 msgstr "Каталог \"%s\" содержит относительный путь."
@@ -3320,21 +2530,9 @@ msgstr "Каталог \"%s\" недоступен: %s"
 msgid "Directory \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "Каталог \"%s\" доступ OK (0%o/uid=%d/gid=%d)."
 
-msgid "Disabled"
-msgstr "Отключено"
-
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr "Документ #%d не существует в задании #%d."
-
-msgid "Duplexer"
-msgstr "Дуплексер"
-
-msgid "EPL1 Label Printer"
-msgstr "Принтер для печати этикеток EPL1"
-
-msgid "EPL2 Label Printer"
-msgstr "Принтер для печати этикеток EPL2"
 
 msgid "Edit Configuration File"
 msgstr "Редактировать файл конфигурации"
@@ -3346,9 +2544,6 @@ msgstr "Шифрование не поддерживается."
 msgid "Ending Banner"
 msgstr "Конечный баннер"
 
-msgid "English"
-msgstr "Russian"
-
 msgid ""
 "Enter your username and password or the root username and password to access "
 "this page. If you are using Kerberos authentication, make sure you have a "
@@ -3358,170 +2553,8 @@ msgstr ""
 "получить доступ к этой странице. Если используется проверка подлинности "
 "Kerberos, необходимо также иметь действительный билет Kerberos."
 
-msgid "Envelope #10"
-msgstr ""
-
-msgid "Envelope #11"
-msgstr ""
-
-msgid "Envelope #12"
-msgstr ""
-
-msgid "Envelope #14"
-msgstr ""
-
-msgid "Envelope #9"
-msgstr ""
-
-msgid "Envelope B4"
-msgstr ""
-
-msgid "Envelope B5"
-msgstr ""
-
-msgid "Envelope B6"
-msgstr ""
-
-msgid "Envelope C0"
-msgstr ""
-
-msgid "Envelope C1"
-msgstr ""
-
-msgid "Envelope C2"
-msgstr ""
-
-msgid "Envelope C3"
-msgstr ""
-
-msgid "Envelope C4"
-msgstr ""
-
-msgid "Envelope C5"
-msgstr ""
-
-msgid "Envelope C6"
-msgstr ""
-
-msgid "Envelope C65"
-msgstr ""
-
-msgid "Envelope C7"
-msgstr ""
-
-msgid "Envelope Choukei 3"
-msgstr ""
-
-msgid "Envelope Choukei 3 Long Edge"
-msgstr ""
-
-msgid "Envelope Choukei 4"
-msgstr ""
-
-msgid "Envelope Choukei 4 Long Edge"
-msgstr ""
-
-msgid "Envelope DL"
-msgstr ""
-
-msgid "Envelope Feed"
-msgstr "Подача конвертов"
-
-msgid "Envelope Invite"
-msgstr ""
-
-msgid "Envelope Italian"
-msgstr ""
-
-msgid "Envelope Kaku2"
-msgstr ""
-
-msgid "Envelope Kaku2 Long Edge"
-msgstr ""
-
-msgid "Envelope Kaku3"
-msgstr ""
-
-msgid "Envelope Kaku3 Long Edge"
-msgstr ""
-
-msgid "Envelope Monarch"
-msgstr ""
-
-msgid "Envelope PRC1"
-msgstr ""
-
-msgid "Envelope PRC1 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC10"
-msgstr ""
-
-msgid "Envelope PRC10 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC2"
-msgstr ""
-
-msgid "Envelope PRC2 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC3"
-msgstr ""
-
-msgid "Envelope PRC3 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC4"
-msgstr ""
-
-msgid "Envelope PRC4 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC5 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC5PRC5"
-msgstr ""
-
-msgid "Envelope PRC6"
-msgstr ""
-
-msgid "Envelope PRC6 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC7"
-msgstr ""
-
-msgid "Envelope PRC7 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC8"
-msgstr ""
-
-msgid "Envelope PRC8 Long Edge"
-msgstr ""
-
-msgid "Envelope PRC9"
-msgstr ""
-
-msgid "Envelope PRC9 Long Edge"
-msgstr ""
-
-msgid "Envelope Personal"
-msgstr ""
-
-msgid "Envelope You4"
-msgstr ""
-
-msgid "Envelope You4 Long Edge"
-msgstr ""
-
 msgid "Environment Variables:"
 msgstr ""
-
-msgid "Epson"
-msgstr "Epson"
 
 msgid "Error Policy"
 msgstr "Политика ошибок"
@@ -3534,45 +2567,6 @@ msgstr "Ошибка отправки данных растра."
 
 msgid "Error: need hostname after \"-h\" option."
 msgstr "ERROR: Требуется имя хоста после параметра \"-h\""
-
-msgid "European Fanfold"
-msgstr ""
-
-msgid "European Fanfold Legal"
-msgstr ""
-
-msgid "Every 10 Labels"
-msgstr "Каждые 10 этикеток"
-
-msgid "Every 2 Labels"
-msgstr "Каждые 2 этикетки"
-
-msgid "Every 3 Labels"
-msgstr "Каждые 3 этикетки"
-
-msgid "Every 4 Labels"
-msgstr "Каждые 4 этикетки"
-
-msgid "Every 5 Labels"
-msgstr "Каждые 5 этикеток"
-
-msgid "Every 6 Labels"
-msgstr "Каждые 6 этикеток"
-
-msgid "Every 7 Labels"
-msgstr "Каждые 7 этикеток"
-
-msgid "Every 8 Labels"
-msgstr "Каждые 8 этикеток"
-
-msgid "Every 9 Labels"
-msgstr "Каждые 9 этикеток"
-
-msgid "Every Label"
-msgstr "Каждая этикетка"
-
-msgid "Executive"
-msgstr "Executive"
 
 msgid "Expectation Failed"
 msgstr "Сбой ожидания"
@@ -3603,9 +2597,6 @@ msgstr "Файл \"%s\" недоступен: %s"
 msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "Файл \"%s\" права доступа OK (0%o/uid=%d/gid=%d)."
 
-msgid "File Folder"
-msgstr ""
-
 #, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
@@ -3617,9 +2608,6 @@ msgstr ""
 #, c-format
 msgid "Finished page %d."
 msgstr "Последняя страница %d."
-
-msgid "Folio"
-msgstr "Фолио"
 
 msgid "Forbidden"
 msgstr "Запрещено"
@@ -3633,14 +2621,8 @@ msgstr ""
 msgid "General"
 msgstr "Основные"
 
-msgid "Generic"
-msgstr "Общее"
-
 msgid "Get-Response-PDU uses indefinite length"
 msgstr "Для Get-Response-PDU длина не установлена"
-
-msgid "Glossy Paper"
-msgstr "Глянцевая бумага"
 
 msgid "Got a printer-uri attribute but no job-id."
 msgstr "Получен атрибут printer-uri, но не job-id"
@@ -3650,12 +2632,6 @@ msgstr ""
 
 msgid "Grayscale"
 msgstr "Оттенки серого"
-
-msgid "HP"
-msgstr "HP"
-
-msgid "Hanging Folder"
-msgstr "Папка подвесного хранения"
 
 msgid "Hash buffer too small."
 msgstr ""
@@ -3711,8 +2687,8 @@ msgstr "IPP member name не пустое."
 msgid "IPP memberName value is empty."
 msgstr "IPP memberName пустое значение."
 
-msgid "IPP memberName with no attribute."
-msgstr "IPP memberName без атрибута."
+msgid "IPP message nested too deeply."
+msgstr ""
 
 msgid "IPP name larger than 32767 bytes."
 msgstr "IPP имя больше чем 32767 байт."
@@ -3764,9 +2740,6 @@ msgstr ""
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr ""
 
-msgid "ISOLatin1"
-msgstr "UTF-8"
-
 msgid "Illegal control character"
 msgstr "Недействительный контрольный символ"
 
@@ -3782,29 +2755,11 @@ msgstr "Недействительный перевод"
 msgid "Illegal whitespace character"
 msgstr "Недействительный символ пробела"
 
-msgid "Installable Options"
-msgstr "Параметры, разрешенные к установке"
-
-msgid "Installed"
-msgstr "Установлено"
-
-msgid "IntelliBar Label Printer"
-msgstr "Принтер для печати этикеток IntelliBar"
-
-msgid "Intellitech"
-msgstr "Intellitech"
-
 msgid "Internal Server Error"
 msgstr "Внутренняя Ошибка сервера"
 
 msgid "Internal error"
 msgstr "Внутренняя ошибка"
-
-msgid "Internet Postage 2-Part"
-msgstr "Наклейки Internet Postage 2-Part"
-
-msgid "Internet Postage 3-Part"
-msgstr "Наклейки Internet Postage 3-Part"
 
 msgid "Internet Printing Protocol"
 msgstr "Протокол интернет-печати"
@@ -3839,48 +2794,6 @@ msgstr "Неверная команда принтера \"%s\"."
 
 msgid "JCL"
 msgstr "JCL"
-
-msgid "JIS B0"
-msgstr ""
-
-msgid "JIS B1"
-msgstr ""
-
-msgid "JIS B10"
-msgstr ""
-
-msgid "JIS B2"
-msgstr ""
-
-msgid "JIS B3"
-msgstr ""
-
-msgid "JIS B4"
-msgstr ""
-
-msgid "JIS B4 Long Edge"
-msgstr ""
-
-msgid "JIS B5"
-msgstr ""
-
-msgid "JIS B5 Long Edge"
-msgstr ""
-
-msgid "JIS B6"
-msgstr ""
-
-msgid "JIS B6 Long Edge"
-msgstr ""
-
-msgid "JIS B7"
-msgstr ""
-
-msgid "JIS B8"
-msgstr ""
-
-msgid "JIS B9"
-msgstr ""
 
 msgid "JSON file too large."
 msgstr ""
@@ -3955,30 +2868,9 @@ msgid ""
 "LPDEST environment variable names default destination that does not exist."
 msgstr ""
 
-msgid "Label Printer"
-msgstr "Принтер для печати этикеток"
-
-msgid "Label Top"
-msgstr "Верхний край этикетки"
-
 #, c-format
 msgid "Language \"%s\" not supported."
 msgstr "Язык \"%s\" не поддерживается."
-
-msgid "Large Address"
-msgstr "Полный адрес"
-
-msgid "LaserJet Series PCL 4/5"
-msgstr "Серия LaserJet, PCL 4/5"
-
-msgid "Letter Oversize"
-msgstr ""
-
-msgid "Letter Oversize Long Edge"
-msgstr ""
-
-msgid "Light"
-msgstr "Светлый"
 
 msgid "Line longer than the maximum allowed (255 characters)"
 msgstr "Строка длиннее разрешенного предела (255 символов)"
@@ -3993,29 +2885,14 @@ msgstr ""
 msgid "Local printer created."
 msgstr ""
 
-msgid "Long-Edge (Portrait)"
-msgstr "По длинной стороне (книжная)"
-
-msgid "Main Roll"
-msgstr ""
-
-msgid "Manual Feed"
-msgstr "Ручная подача"
-
 msgid "Media Size"
 msgstr "Размер бумаги"
 
 msgid "Media Source"
 msgstr "Источник бумаги"
 
-msgid "Media Tracking"
-msgstr "Контроль подачи бумаги"
-
 msgid "Media Type"
 msgstr "Тип бумаги"
-
-msgid "Medium"
-msgstr "Средний"
 
 msgid "Memory allocation error"
 msgstr "Ошибка выделения памяти"
@@ -4116,9 +2993,6 @@ msgstr "Для имени OID длина не установлена"
 
 msgid "Nested classes are not allowed."
 msgstr "Вложенные группы не допускаются."
-
-msgid "Never"
-msgstr "Никогда"
 
 msgid "New credentials are not valid for name."
 msgstr ""
@@ -4233,23 +3107,11 @@ msgstr "Нет последовательности variable-bindings"
 msgid "No version number"
 msgstr "Нет номера версии"
 
-msgid "Non-continuous (Mark sensing)"
-msgstr "С прерыванием (Mark sensing)"
-
-msgid "Non-continuous (Web sensing)"
-msgstr "С прерыванием (Web sensing)"
-
-msgid "Normal"
-msgstr "Нормальный"
-
 msgid "Not Found"
 msgstr "Не найден"
 
 msgid "Not Implemented"
 msgstr "Не реализовано"
-
-msgid "Not Installed"
-msgstr "Не установлено"
 
 msgid "Not Modified"
 msgstr "Не изменено"
@@ -4260,17 +3122,8 @@ msgstr "Не поддерживается"
 msgid "Not allowed to print."
 msgstr "Не разрешено печатать."
 
-msgid "Note"
-msgstr "Примечание"
-
 msgid "OK"
 msgstr "ОК"
-
-msgid "Off (1-Sided)"
-msgstr "Выкл. (1-сторонняя печать)"
-
-msgid "Oki"
-msgstr "Oki"
 
 msgid "Online Help"
 msgstr "Интернет справка"
@@ -4319,27 +3172,6 @@ msgstr "Недостаточно памяти."
 msgid "Output Mode"
 msgstr "Режим вывода"
 
-msgid "PCL Laser Printer"
-msgstr "Лазерный принтер PCL"
-
-msgid "PRC16K"
-msgstr "PRC16K"
-
-msgid "PRC16K Long Edge"
-msgstr ""
-
-msgid "PRC32K"
-msgstr "PRC32K"
-
-msgid "PRC32K Long Edge"
-msgstr ""
-
-msgid "PRC32K Oversize"
-msgstr ""
-
-msgid "PRC32K Oversize Long Edge"
-msgstr ""
-
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
 msgstr ""
@@ -4349,12 +3181,6 @@ msgstr "В пакете нет Get-Response-PDU"
 
 msgid "Packet does not start with SEQUENCE"
 msgstr "Нет индикатора SEQUENCE в начале пакета"
-
-msgid "ParamCustominCutInterval"
-msgstr "ParamCustominCutInterval"
-
-msgid "ParamCustominTearInterval"
-msgstr "ParamCustominTearInterval"
 
 #, c-format
 msgid "Password for %s on %s? "
@@ -4366,68 +3192,23 @@ msgstr "Приостановить группу"
 msgid "Pause Printer"
 msgstr "Приостановить принтер"
 
-msgid "Peel-Off"
-msgstr "Съемный слой"
-
-msgid "Photo"
-msgstr "Фото"
-
-msgid "Photo Labels"
-msgstr "Фотоэтикетки"
-
-msgid "Plain Paper"
-msgstr "Обычная бумага"
-
 msgid "Policies"
 msgstr "Политики"
 
 msgid "Port Monitor"
 msgstr "Мониторинг порта"
 
-msgid "PostScript Printer"
-msgstr "Принтер PostScript"
-
-msgid "Postcard"
-msgstr "Открытка"
-
-msgid "Postcard Double"
-msgstr ""
-
-msgid "Postcard Double Long Edge"
-msgstr "Открытка двойная Long Edge"
-
-msgid "Postcard Long Edge"
-msgstr "Открытка Long Edge"
-
 msgid "Preparing to print."
 msgstr "Подготовка к печати."
-
-msgid "Print Density"
-msgstr "Плотность печати"
 
 msgid "Print Job:"
 msgstr "Задание печати:"
 
-msgid "Print Mode"
-msgstr "Режим печати"
-
-msgid "Print Rate"
-msgstr "Скорость печати"
-
 msgid "Print Self-Test Page"
 msgstr "Напечатать пробную страницу"
 
-msgid "Print Speed"
-msgstr "Скорость печати"
-
 msgid "Print Test Page"
 msgstr "Напечатать пробную страницу"
-
-msgid "Print and Cut"
-msgstr "Напечатать и обрезать"
-
-msgid "Print and Tear"
-msgstr "Напечатать и оборвать"
 
 msgid "Print file sent."
 msgstr "Файл печати отправлен."
@@ -4448,9 +3229,6 @@ msgstr ""
 msgid "Printer Added"
 msgstr "Принтер добавлен"
 
-msgid "Printer Default"
-msgstr "Принтер выбран по умолчанию"
-
 msgid "Printer Deleted"
 msgstr "Принтер удален"
 
@@ -4460,9 +3238,6 @@ msgstr "Принтер изменен"
 msgid "Printer Paused"
 msgstr "Принтер приостановлен"
 
-msgid "Printer Settings"
-msgstr "Параметры принтера"
-
 msgid "Printer cannot print supplied content."
 msgstr "Принтер не может распечатать содержимое."
 
@@ -4470,6 +3245,10 @@ msgid "Printer cannot print with supplied options."
 msgstr "Принтер не может печатать с данными параметрами."
 
 msgid "Printer does not support required IPP attributes or document formats."
+msgstr ""
+
+#, c-format
+msgid "Printer returned invalid data: %s"
 msgstr ""
 
 msgid "Printer:"
@@ -4481,9 +3260,6 @@ msgstr "Принтеры"
 #, c-format
 msgid "Printing page %d, %u%% complete."
 msgstr "Печать страницы %d, %u%% завершена."
-
-msgid "Quarto"
-msgstr "Кватро"
 
 msgid "Quota limit reached."
 msgstr "Предел квоты достигнут."
@@ -4503,9 +3279,6 @@ msgstr "Удаленный хост не принял контрольный ф�
 msgid "Remote host did not accept data file (%d)."
 msgstr "Удаленный хост не принял файл данных (%d)."
 
-msgid "Reprint After Error"
-msgstr "Повторить печать после ошибки"
-
 msgid "Request Entity Too Large"
 msgstr "Слишком большое содержимое запроса"
 
@@ -4518,20 +3291,11 @@ msgstr "Возобновить работу группы"
 msgid "Resume Printer"
 msgstr "Возобновить работу принтера"
 
-msgid "Return Address"
-msgstr "Обратный адрес"
-
-msgid "Rewind"
-msgstr "Вернуться в начало"
-
 msgid "SEQUENCE uses indefinite length"
 msgstr "Для SEQUENCE длина не установлена"
 
 msgid "SSL/TLS Negotiation Error"
 msgstr "SSL/TLS Negotiation Error"
-
-msgid "Second Roll (DUO/Twin Only)"
-msgstr ""
 
 msgid "See Other"
 msgstr "Посмотреть другие"
@@ -4575,21 +3339,9 @@ msgstr "Настроить параметры группы"
 msgid "Set Printer Options"
 msgstr "Настроить параметры принтера"
 
-msgid "Shipping Address"
-msgstr "Адрес доставки"
-
-msgid "Short-Edge (Landscape)"
-msgstr "По короткой стороне (альбомная)"
-
-msgid "Special Paper"
-msgstr "Особая бумага"
-
 #, c-format
 msgid "Spooling job, %.0f%% complete."
 msgstr "Постановка в очередь, %.0f%% завершено."
-
-msgid "Standard"
-msgstr "Стандартный"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -4599,9 +3351,6 @@ msgstr "Стартовый баннер"
 msgid "Starting page %d."
 msgstr "Главная страница %d."
 
-msgid "Statement"
-msgstr "Оператор"
-
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "Подписка #%d не существует."
@@ -4609,35 +3358,8 @@ msgstr "Подписка #%d не существует."
 msgid "Substitutions:"
 msgstr "Замещения:"
 
-msgid "Super A"
-msgstr "Super A"
-
-msgid "Super B"
-msgstr "Super B"
-
-msgid "Super B/A3"
-msgstr "Super B/A3"
-
 msgid "Switching Protocols"
 msgstr "Протоколы переключения"
-
-msgid "Tabloid"
-msgstr "Tabloid"
-
-msgid "Tabloid Oversize"
-msgstr ""
-
-msgid "Tabloid Oversize Long Edge"
-msgstr ""
-
-msgid "Tear"
-msgstr "Оборвать"
-
-msgid "Tear-Off"
-msgstr "Место отрыва"
-
-msgid "Tear-Off Adjust Position"
-msgstr "Откорректировать положение места отрыва"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
@@ -4690,6 +3412,9 @@ msgstr "Неправильная конфигурация принтера, ил
 
 msgid "The printer did not respond."
 msgstr "Принтер не отвечает."
+
+msgid "The printer does not provide attributes required for IPP Everywhere."
+msgstr ""
 
 msgid "The printer is in use."
 msgstr "Принтер используется."
@@ -4759,9 +3484,6 @@ msgstr "Слишком много подписок."
 msgid "There was an unrecoverable USB error."
 msgstr "Обнаружена ошибка USB."
 
-msgid "Thermal Transfer Media"
-msgstr "Носитель для печати методом термопереноса"
-
 msgid "Too many active jobs."
 msgstr "Слишком много активных заданий."
 
@@ -4773,24 +3495,6 @@ msgstr "Слишком много значений job-sheets (%d>2)"
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "Слишком много значений printer-state-reasons (%d > %d)"
 
-msgid "Transparency"
-msgstr "Прозрачность"
-
-msgid "Tray"
-msgstr "Лоток"
-
-msgid "Tray 1"
-msgstr "Лоток 1"
-
-msgid "Tray 2"
-msgstr "Лоток 2"
-
-msgid "Tray 3"
-msgstr "Лоток 3"
-
-msgid "Tray 4"
-msgstr "Лоток 4"
-
 msgid "Trust on first use is disabled."
 msgstr ""
 
@@ -4799,33 +3503,6 @@ msgstr "Слишком длинный адрес URI"
 
 msgid "URI too large"
 msgstr "Слишком большой адрес URI"
-
-msgid "US Fanfold"
-msgstr ""
-
-msgid "US Ledger"
-msgstr "US Ledger"
-
-msgid "US Legal"
-msgstr "US Legal"
-
-msgid "US Legal Oversize"
-msgstr ""
-
-msgid "US Letter"
-msgstr "US Letter"
-
-msgid "US Letter Long Edge"
-msgstr ""
-
-msgid "US Letter Oversize"
-msgstr ""
-
-msgid "US Letter Oversize Long Edge"
-msgstr ""
-
-msgid "US Letter Small"
-msgstr ""
 
 msgid "Unable to access cupsd.conf file"
 msgstr "Не удается получить доступ к файлу \"cupsd.conf\""
@@ -4848,9 +3525,6 @@ msgstr "Не удается добавить задание для назнач�
 
 msgid "Unable to add printer"
 msgstr "Не удается добавить принтер"
-
-msgid "Unable to allocate IPP attribute."
-msgstr ""
 
 msgid "Unable to allocate memory for file types."
 msgstr "Не удается выделить память для типов файлов."
@@ -5119,6 +3793,9 @@ msgstr "Не удается записать данные печати"
 msgid "Unable to write private key."
 msgstr ""
 
+msgid "Unable to write public key."
+msgstr ""
+
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
 msgstr "Не удается записать несжатые данные печати: %s"
@@ -5203,9 +3880,6 @@ msgstr ""
 
 msgid "Unsupported 'job-name' value."
 msgstr "Неподдерживаемое значение 'job-name'."
-
-msgid "Unsupported URI scheme."
-msgstr ""
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
@@ -5412,12 +4086,6 @@ msgstr ""
 
 msgid "Your account does not have the necessary privileges."
 msgstr ""
-
-msgid "ZPL Label Printer"
-msgstr "Принтер для печати этикеток ZPL"
-
-msgid "Zebra"
-msgstr "Zebra"
 
 msgid "aborted"
 msgstr "прервано"
@@ -15458,26 +14126,1004 @@ msgstr ""
 #~ msgid "%s: Sorry, no encryption support."
 #~ msgstr "%s:  Нет поддержки шифрования."
 
+#~ msgid "-1"
+#~ msgstr "-1"
+
+#~ msgid "-10"
+#~ msgstr "-10"
+
+#~ msgid "-100"
+#~ msgstr "-100"
+
+#~ msgid "-105"
+#~ msgstr "-105"
+
+#~ msgid "-11"
+#~ msgstr "-11"
+
+#~ msgid "-110"
+#~ msgstr "-110"
+
+#~ msgid "-115"
+#~ msgstr "-115"
+
+#~ msgid "-12"
+#~ msgstr "-12"
+
+#~ msgid "-120"
+#~ msgstr "-120"
+
+#~ msgid "-13"
+#~ msgstr "-13"
+
+#~ msgid "-14"
+#~ msgstr "-14"
+
+#~ msgid "-15"
+#~ msgstr "-15"
+
+#~ msgid "-2"
+#~ msgstr "-2"
+
+#~ msgid "-20"
+#~ msgstr "-20"
+
+#~ msgid "-25"
+#~ msgstr "-25"
+
+#~ msgid "-3"
+#~ msgstr "-3"
+
+#~ msgid "-30"
+#~ msgstr "-30"
+
+#~ msgid "-35"
+#~ msgstr "-35"
+
+#~ msgid "-4"
+#~ msgstr "-4"
+
+#~ msgid "-40"
+#~ msgstr "-40"
+
+#~ msgid "-45"
+#~ msgstr "-45"
+
+#~ msgid "-5"
+#~ msgstr "-5"
+
+#~ msgid "-50"
+#~ msgstr "-50"
+
+#~ msgid "-55"
+#~ msgstr "-55"
+
+#~ msgid "-6"
+#~ msgstr "-6"
+
+#~ msgid "-60"
+#~ msgstr "-60"
+
+#~ msgid "-65"
+#~ msgstr "-65"
+
+#~ msgid "-7"
+#~ msgstr "-7"
+
+#~ msgid "-70"
+#~ msgstr "-70"
+
+#~ msgid "-75"
+#~ msgstr "-75"
+
+#~ msgid "-8"
+#~ msgstr "-8"
+
+#~ msgid "-80"
+#~ msgstr "-80"
+
+#~ msgid "-85"
+#~ msgstr "-85"
+
+#~ msgid "-9"
+#~ msgstr "-9"
+
+#~ msgid "-90"
+#~ msgstr "-90"
+
+#~ msgid "-95"
+#~ msgstr "-95"
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "1 inch/sec."
+#~ msgstr "1 дюйм/с"
+
+#~ msgid "1.25x0.25\""
+#~ msgstr "1,25x0,25\""
+
+#~ msgid "1.25x2.25\""
+#~ msgstr "1,25x2,25\""
+
+#~ msgid "1.5 inch/sec."
+#~ msgstr "1,5 дюйма/с"
+
+#~ msgid "1.50x0.25\""
+#~ msgstr "1,50x0,25\""
+
+#~ msgid "1.50x0.50\""
+#~ msgstr "1,50x0,50\""
+
+#~ msgid "1.50x1.00\""
+#~ msgstr "1,50x1,00\""
+
+#~ msgid "1.50x2.00\""
+#~ msgstr "1,50x2,00\""
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "10 inches/sec."
+#~ msgstr "10 дюймов/с"
+
+#~ msgid "100"
+#~ msgstr "100"
+
+#~ msgid "100 mm/sec."
+#~ msgstr "100 мм/с"
+
+#~ msgid "105"
+#~ msgstr "105"
+
+#~ msgid "11"
+#~ msgstr "11"
+
+#~ msgid "11 inches/sec."
+#~ msgstr "11 дюймов/с"
+
+#~ msgid "110"
+#~ msgstr "110"
+
+#~ msgid "115"
+#~ msgstr "115"
+
+#~ msgid "12"
+#~ msgstr "12"
+
+#~ msgid "12 inches/sec."
+#~ msgstr "12 дюймов/с"
+
+#~ msgid "120"
+#~ msgstr "120"
+
+#~ msgid "120 mm/sec."
+#~ msgstr "120 мм/с"
+
+#~ msgid "120x60dpi"
+#~ msgstr "120x60dpi"
+
+#~ msgid "120x72dpi"
+#~ msgstr "120x72dpi"
+
+#~ msgid "13"
+#~ msgstr "13"
+
+#~ msgid "136dpi"
+#~ msgstr "136dpi"
+
+#~ msgid "14"
+#~ msgstr "14"
+
+#~ msgid "15"
+#~ msgstr "15"
+
+#~ msgid "15 mm/sec."
+#~ msgstr "15 мм/с"
+
+#~ msgid "150 mm/sec."
+#~ msgstr "150 мм/с"
+
+#~ msgid "150dpi"
+#~ msgstr "150dpi"
+
+#~ msgid "16"
+#~ msgstr "16"
+
+#~ msgid "17"
+#~ msgstr "17"
+
+#~ msgid "18"
+#~ msgstr "18"
+
+#~ msgid "180dpi"
+#~ msgstr "180dpi"
+
+#~ msgid "19"
+#~ msgstr "19"
+
+#~ msgid "2"
+#~ msgstr "2"
+
+#~ msgid "2 inches/sec."
+#~ msgstr "2 дюйма/с"
+
+#~ msgid "2-Sided Printing"
+#~ msgstr "двусторонняя печать"
+
+#~ msgid "2.00x0.37\""
+#~ msgstr "2,00x0,37\""
+
+#~ msgid "2.00x0.50\""
+#~ msgstr "2,00x0,50\""
+
+#~ msgid "2.00x1.00\""
+#~ msgstr "2,00x1,00\""
+
+#~ msgid "2.00x1.25\""
+#~ msgstr "2,00x1,25\""
+
+#~ msgid "2.00x2.00\""
+#~ msgstr "2,00x2,00\""
+
+#~ msgid "2.00x3.00\""
+#~ msgstr "2,00x3,00\""
+
+#~ msgid "2.00x4.00\""
+#~ msgstr "2,00x4,00\""
+
+#~ msgid "2.00x5.50\""
+#~ msgstr "2,00x5,50\""
+
+#~ msgid "2.25x0.50\""
+#~ msgstr "2,25x0,50\""
+
+#~ msgid "2.25x1.25\""
+#~ msgstr "2,25x1,25\""
+
+#~ msgid "2.25x4.00\""
+#~ msgstr "2,25x4,00\""
+
+#~ msgid "2.25x5.50\""
+#~ msgstr "2,25x5,50\""
+
+#~ msgid "2.38x5.50\""
+#~ msgstr "2,38x5,50\""
+
+#~ msgid "2.5 inches/sec."
+#~ msgstr "2,5 дюйма/с"
+
+#~ msgid "2.50x1.00\""
+#~ msgstr "2,50x1,00\""
+
+#~ msgid "2.50x2.00\""
+#~ msgstr "2,50x2,00\""
+
+#~ msgid "2.75x1.25\""
+#~ msgstr "2,75x1,25\""
+
+#~ msgid "2.9 x 1\""
+#~ msgstr "2,9 x 1\""
+
+#~ msgid "20"
+#~ msgstr "20"
+
+#~ msgid "20 mm/sec."
+#~ msgstr "20 мм/с"
+
+#~ msgid "200 mm/sec."
+#~ msgstr "200 мм/с"
+
+#~ msgid "203dpi"
+#~ msgstr "203dpi"
+
+#~ msgid "21"
+#~ msgstr "21"
+
+#~ msgid "22"
+#~ msgstr "22"
+
+#~ msgid "23"
+#~ msgstr "23"
+
+#~ msgid "24"
+#~ msgstr "24"
+
+#~ msgid "24-Pin Series"
+#~ msgstr "Тип 24-Pin"
+
+#~ msgid "240x72dpi"
+#~ msgstr "240x72dpi"
+
+#~ msgid "25"
+#~ msgstr "25"
+
+#~ msgid "250 mm/sec."
+#~ msgstr "250 мм/с"
+
+#~ msgid "26"
+#~ msgstr "26"
+
+#~ msgid "27"
+#~ msgstr "27"
+
+#~ msgid "28"
+#~ msgstr "28"
+
+#~ msgid "29"
+#~ msgstr "29"
+
+#~ msgid "3"
+#~ msgstr "3"
+
+#~ msgid "3 inches/sec."
+#~ msgstr "3 дюйма/с"
+
+#~ msgid "3.00x1.00\""
+#~ msgstr "3,00x1,00\""
+
+#~ msgid "3.00x1.25\""
+#~ msgstr "3,00x1,25\""
+
+#~ msgid "3.00x2.00\""
+#~ msgstr "3,00x2,00\""
+
+#~ msgid "3.00x3.00\""
+#~ msgstr "3,00x3,00\""
+
+#~ msgid "3.00x5.00\""
+#~ msgstr "3,00x5,00\""
+
+#~ msgid "3.25x2.00\""
+#~ msgstr "3,25x2,00\""
+
+#~ msgid "3.25x5.00\""
+#~ msgstr "3,25x5,00\""
+
+#~ msgid "3.25x5.50\""
+#~ msgstr "3,25x5,50\""
+
+#~ msgid "3.25x5.83\""
+#~ msgstr "3,25x5,83\""
+
+#~ msgid "3.25x7.83\""
+#~ msgstr "3,25x7,83\""
+
+#~ msgid "3.5\" Disk"
+#~ msgstr "Диск 3.5\""
+
+#~ msgid "3.50x1.00\""
+#~ msgstr "3,50x1,00\""
+
+#~ msgid "30"
+#~ msgstr "30"
+
+#~ msgid "30 mm/sec."
+#~ msgstr "30 мм/с"
+
+#~ msgid "300 mm/sec."
+#~ msgstr "300 мм/с"
+
+#~ msgid "300dpi"
+#~ msgstr "300dpi"
+
+#~ msgid "35"
+#~ msgstr "35"
+
+#~ msgid "360dpi"
+#~ msgstr "360dpi"
+
+#~ msgid "360x180dpi"
+#~ msgstr "360x180dpi"
+
+#~ msgid "4"
+#~ msgstr "4"
+
+#~ msgid "4 inches/sec."
+#~ msgstr "4 дюйма/с"
+
+#~ msgid "4.00x1.00\""
+#~ msgstr "4,00x1,00\""
+
+#~ msgid "4.00x13.00\""
+#~ msgstr "4,00x13,00\""
+
+#~ msgid "4.00x2.00\""
+#~ msgstr "4,00x2,00\""
+
+#~ msgid "4.00x2.50\""
+#~ msgstr "4,00x2,50\""
+
+#~ msgid "4.00x3.00\""
+#~ msgstr "4,00x3,00\""
+
+#~ msgid "4.00x4.00\""
+#~ msgstr "4,00x4,00\""
+
+#~ msgid "4.00x5.00\""
+#~ msgstr "4,00x5,00\""
+
+#~ msgid "4.00x6.00\""
+#~ msgstr "4,00x6,00\""
+
+#~ msgid "4.00x6.50\""
+#~ msgstr "4,00x6,50\""
+
+#~ msgid "40"
+#~ msgstr "40"
+
+#~ msgid "40 mm/sec."
+#~ msgstr "40 мм/с"
+
+#~ msgid "45"
+#~ msgstr "45"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "5 inches/sec."
+#~ msgstr "5 дюймов/с"
+
+#~ msgid "50"
+#~ msgstr "50"
+
+#~ msgid "55"
+#~ msgstr "55"
+
+#~ msgid "6"
+#~ msgstr "6"
+
+#~ msgid "6 inches/sec."
+#~ msgstr "6 дюймов/с"
+
+#~ msgid "6.00x1.00\""
+#~ msgstr "6,00x1,00\""
+
+#~ msgid "6.00x2.00\""
+#~ msgstr "6,00x2,00\""
+
+#~ msgid "6.00x3.00\""
+#~ msgstr "6,00x3,00\""
+
+#~ msgid "6.00x4.00\""
+#~ msgstr "6,00x4,00\""
+
+#~ msgid "6.00x5.00\""
+#~ msgstr "6,00x5,00\""
+
+#~ msgid "6.00x6.00\""
+#~ msgstr "6,00x6,00\""
+
+#~ msgid "6.00x6.50\""
+#~ msgstr "6,00x6,50\""
+
+#~ msgid "60"
+#~ msgstr "60"
+
+#~ msgid "60 mm/sec."
+#~ msgstr "60 мм/с"
+
+#~ msgid "600dpi"
+#~ msgstr "600dpi"
+
+#~ msgid "60dpi"
+#~ msgstr "60dpi"
+
+#~ msgid "65"
+#~ msgstr "65"
+
+#~ msgid "7"
+#~ msgstr "7"
+
+#~ msgid "7 inches/sec."
+#~ msgstr "7 дюймов/с"
+
+#~ msgid "70"
+#~ msgstr "70"
+
+#~ msgid "75"
+#~ msgstr "75"
+
+#~ msgid "8"
+#~ msgstr "8"
+
+#~ msgid "8 inches/sec."
+#~ msgstr "8 дюймов/с"
+
+#~ msgid "8.00x1.00\""
+#~ msgstr "8,00x1,00\""
+
+#~ msgid "8.00x2.00\""
+#~ msgstr "8,00x2,00\""
+
+#~ msgid "8.00x3.00\""
+#~ msgstr "8,00x3,00\""
+
+#~ msgid "8.00x4.00\""
+#~ msgstr "8,00x4,00\""
+
+#~ msgid "8.00x5.00\""
+#~ msgstr "8,00x5,00\""
+
+#~ msgid "8.00x6.00\""
+#~ msgstr "8,00x6,00\""
+
+#~ msgid "8.00x6.50\""
+#~ msgstr "8,00x6,50\""
+
+#~ msgid "80"
+#~ msgstr "80"
+
+#~ msgid "80 mm/sec."
+#~ msgstr "80 мм/с"
+
+#~ msgid "85"
+#~ msgstr "85"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "9 inches/sec."
+#~ msgstr "9 дюймов/с"
+
+#~ msgid "9-Pin Series"
+#~ msgstr "Тип 9-Pin"
+
+#~ msgid "90"
+#~ msgstr "90"
+
+#~ msgid "95"
+#~ msgstr "95"
+
 #~ msgid "A Samba password is required to export printer drivers"
 #~ msgstr "Для экспорта драйверов принтера требуется пароль Samba"
 
 #~ msgid "A Samba username is required to export printer drivers"
 #~ msgstr "Для экспорта драйверов принтера требуется имя пользователя Samba"
 
+#~ msgid "A0"
+#~ msgstr "A0"
+
+#~ msgid "A1"
+#~ msgstr "A1"
+
+#~ msgid "A10"
+#~ msgstr "A10"
+
+#~ msgid "A2"
+#~ msgstr "A2"
+
+#~ msgid "A3"
+#~ msgstr "A3"
+
+#~ msgid "A4"
+#~ msgstr "A4"
+
+#~ msgid "A5"
+#~ msgstr "A5"
+
+#~ msgid "A6"
+#~ msgstr "A6"
+
+#~ msgid "A7"
+#~ msgstr "A7"
+
+#~ msgid "A8"
+#~ msgstr "A8"
+
+#~ msgid "A9"
+#~ msgstr "A9"
+
+#~ msgid "ANSI A"
+#~ msgstr "ANSI A"
+
+#~ msgid "ANSI B"
+#~ msgstr "ANSI B"
+
+#~ msgid "ANSI C"
+#~ msgstr "ANSI C"
+
+#~ msgid "ANSI D"
+#~ msgstr "ANSI D"
+
+#~ msgid "ANSI E"
+#~ msgstr "ANSI E"
+
+#~ msgid "ARCH C"
+#~ msgstr "ARCH C"
+
+#~ msgid "ARCH D"
+#~ msgstr "ARCH D"
+
+#~ msgid "ARCH E"
+#~ msgstr "ARCH E"
+
+#~ msgid "Address"
+#~ msgstr "Адрес"
+
+#~ msgid "Always"
+#~ msgstr "Всегда"
+
+#~ msgid "Applicator"
+#~ msgstr "Исполнительное устройство"
+
+#~ msgid "B0"
+#~ msgstr "B0"
+
+#~ msgid "B1"
+#~ msgstr "B1"
+
+#~ msgid "B10"
+#~ msgstr "B10"
+
+#~ msgid "B2"
+#~ msgstr "B2"
+
+#~ msgid "B3"
+#~ msgstr "B3"
+
+#~ msgid "B4"
+#~ msgstr "B4"
+
+#~ msgid "B5"
+#~ msgstr "B5"
+
+#~ msgid "B6"
+#~ msgstr "B6"
+
+#~ msgid "B7"
+#~ msgstr "B7"
+
+#~ msgid "B8"
+#~ msgstr "B8"
+
+#~ msgid "B9"
+#~ msgstr "B9"
+
+#~ msgid "Bond Paper"
+#~ msgstr "Документная бумага"
+
+#~ msgid "CMYK"
+#~ msgstr "CMYK"
+
+#~ msgid "CPCL Label Printer"
+#~ msgstr "Принтер для печати этикеток CPCL"
+
+#~ msgid "Cassette"
+#~ msgstr "Лоток"
+
+#~ msgid "Color Mode"
+#~ msgstr "Цветной режим"
+
+#~ msgid "Continuous"
+#~ msgstr "Непрерывно"
+
+#~ msgid "CustominCutInterval"
+#~ msgstr "CustominCutInterval"
+
+#~ msgid "CustominTearInterval"
+#~ msgstr "CustominTearInterval"
+
+#~ msgid "Cut"
+#~ msgstr "Обрезать"
+
+#~ msgid "Cutter"
+#~ msgstr "Резак"
+
+#~ msgid "Dark"
+#~ msgstr "Темный"
+
+#~ msgid "Darkness"
+#~ msgstr "Затемненность"
+
+#~ msgid "DeskJet Series"
+#~ msgstr "Серия DeskJet"
+
+#~ msgid "Direct Thermal Media"
+#~ msgstr "Носитель для термопечати"
+
+#~ msgid "Disabled"
+#~ msgstr "Отключено"
+
+#~ msgid "Duplexer"
+#~ msgstr "Дуплексер"
+
 #~ msgid "Dymo"
 #~ msgstr "Dymo"
+
+#~ msgid "EPL1 Label Printer"
+#~ msgstr "Принтер для печати этикеток EPL1"
+
+#~ msgid "EPL2 Label Printer"
+#~ msgstr "Принтер для печати этикеток EPL2"
+
+#~ msgid "English"
+#~ msgstr "Russian"
+
+#~ msgid "Envelope Feed"
+#~ msgstr "Подача конвертов"
+
+#~ msgid "Epson"
+#~ msgstr "Epson"
+
+#~ msgid "Every 10 Labels"
+#~ msgstr "Каждые 10 этикеток"
+
+#~ msgid "Every 2 Labels"
+#~ msgstr "Каждые 2 этикетки"
+
+#~ msgid "Every 3 Labels"
+#~ msgstr "Каждые 3 этикетки"
+
+#~ msgid "Every 4 Labels"
+#~ msgstr "Каждые 4 этикетки"
+
+#~ msgid "Every 5 Labels"
+#~ msgstr "Каждые 5 этикеток"
+
+#~ msgid "Every 6 Labels"
+#~ msgstr "Каждые 6 этикеток"
+
+#~ msgid "Every 7 Labels"
+#~ msgstr "Каждые 7 этикеток"
+
+#~ msgid "Every 8 Labels"
+#~ msgstr "Каждые 8 этикеток"
+
+#~ msgid "Every 9 Labels"
+#~ msgstr "Каждые 9 этикеток"
+
+#~ msgid "Every Label"
+#~ msgstr "Каждая этикетка"
+
+#~ msgid "Executive"
+#~ msgstr "Executive"
 
 #~ msgid "Export Printers to Samba"
 #~ msgstr "Экспортировать принтеры в Samba"
 
+#~ msgid "Folio"
+#~ msgstr "Фолио"
+
+#~ msgid "Generic"
+#~ msgstr "Общее"
+
+#~ msgid "Glossy Paper"
+#~ msgstr "Глянцевая бумага"
+
+#~ msgid "HP"
+#~ msgstr "HP"
+
+#~ msgid "Hanging Folder"
+#~ msgstr "Папка подвесного хранения"
+
 #~ msgid "IPP extension tag larger than 0x7FFFFFFF."
 #~ msgstr "IPP extension tag больше чем 0x7FFFFFFF."
+
+#~ msgid "IPP memberName with no attribute."
+#~ msgstr "IPP memberName без атрибута."
+
+#~ msgid "ISOLatin1"
+#~ msgstr "UTF-8"
+
+#~ msgid "Installable Options"
+#~ msgstr "Параметры, разрешенные к установке"
+
+#~ msgid "Installed"
+#~ msgstr "Установлено"
+
+#~ msgid "IntelliBar Label Printer"
+#~ msgstr "Принтер для печати этикеток IntelliBar"
+
+#~ msgid "Intellitech"
+#~ msgstr "Intellitech"
+
+#~ msgid "Internet Postage 2-Part"
+#~ msgstr "Наклейки Internet Postage 2-Part"
+
+#~ msgid "Internet Postage 3-Part"
+#~ msgstr "Наклейки Internet Postage 3-Part"
+
+#~ msgid "Label Printer"
+#~ msgstr "Принтер для печати этикеток"
+
+#~ msgid "Label Top"
+#~ msgstr "Верхний край этикетки"
+
+#~ msgid "Large Address"
+#~ msgstr "Полный адрес"
+
+#~ msgid "LaserJet Series PCL 4/5"
+#~ msgstr "Серия LaserJet, PCL 4/5"
+
+#~ msgid "Light"
+#~ msgstr "Светлый"
+
+#~ msgid "Long-Edge (Portrait)"
+#~ msgstr "По длинной стороне (книжная)"
 
 #~ msgid "Looking for printer."
 #~ msgstr "Поиск принтера."
 
+#~ msgid "Manual Feed"
+#~ msgstr "Ручная подача"
+
+#~ msgid "Media Tracking"
+#~ msgstr "Контроль подачи бумаги"
+
+#~ msgid "Medium"
+#~ msgstr "Средний"
+
+#~ msgid "Never"
+#~ msgstr "Никогда"
+
+#~ msgid "Non-continuous (Mark sensing)"
+#~ msgstr "С прерыванием (Mark sensing)"
+
+#~ msgid "Non-continuous (Web sensing)"
+#~ msgstr "С прерыванием (Web sensing)"
+
+#~ msgid "Normal"
+#~ msgstr "Нормальный"
+
+#~ msgid "Not Installed"
+#~ msgstr "Не установлено"
+
+#~ msgid "Note"
+#~ msgstr "Примечание"
+
+#~ msgid "Off (1-Sided)"
+#~ msgstr "Выкл. (1-сторонняя печать)"
+
+#~ msgid "Oki"
+#~ msgstr "Oki"
+
+#~ msgid "PCL Laser Printer"
+#~ msgstr "Лазерный принтер PCL"
+
+#~ msgid "PRC16K"
+#~ msgstr "PRC16K"
+
+#~ msgid "PRC32K"
+#~ msgstr "PRC32K"
+
+#~ msgid "ParamCustominCutInterval"
+#~ msgstr "ParamCustominCutInterval"
+
+#~ msgid "ParamCustominTearInterval"
+#~ msgstr "ParamCustominTearInterval"
+
+#~ msgid "Peel-Off"
+#~ msgstr "Съемный слой"
+
+#~ msgid "Photo"
+#~ msgstr "Фото"
+
+#~ msgid "Photo Labels"
+#~ msgstr "Фотоэтикетки"
+
+#~ msgid "Plain Paper"
+#~ msgstr "Обычная бумага"
+
+#~ msgid "PostScript Printer"
+#~ msgstr "Принтер PostScript"
+
+#~ msgid "Postcard"
+#~ msgstr "Открытка"
+
+#~ msgid "Postcard Double Long Edge"
+#~ msgstr "Открытка двойная Long Edge"
+
+#~ msgid "Postcard Long Edge"
+#~ msgstr "Открытка Long Edge"
+
+#~ msgid "Print Density"
+#~ msgstr "Плотность печати"
+
+#~ msgid "Print Mode"
+#~ msgstr "Режим печати"
+
+#~ msgid "Print Rate"
+#~ msgstr "Скорость печати"
+
+#~ msgid "Print Speed"
+#~ msgstr "Скорость печати"
+
+#~ msgid "Print and Cut"
+#~ msgstr "Напечатать и обрезать"
+
+#~ msgid "Print and Tear"
+#~ msgstr "Напечатать и оборвать"
+
+#~ msgid "Printer Default"
+#~ msgstr "Принтер выбран по умолчанию"
+
+#~ msgid "Printer Settings"
+#~ msgstr "Параметры принтера"
+
+#~ msgid "Quarto"
+#~ msgstr "Кватро"
+
+#~ msgid "Reprint After Error"
+#~ msgstr "Повторить печать после ошибки"
+
+#~ msgid "Return Address"
+#~ msgstr "Обратный адрес"
+
+#~ msgid "Rewind"
+#~ msgstr "Вернуться в начало"
+
 #~ msgid "Set Publishing"
 #~ msgstr "Настроить публикацию"
+
+#~ msgid "Shipping Address"
+#~ msgstr "Адрес доставки"
+
+#~ msgid "Short-Edge (Landscape)"
+#~ msgstr "По короткой стороне (альбомная)"
+
+#~ msgid "Special Paper"
+#~ msgstr "Особая бумага"
+
+#~ msgid "Standard"
+#~ msgstr "Стандартный"
+
+#~ msgid "Statement"
+#~ msgstr "Оператор"
+
+#~ msgid "Super A"
+#~ msgstr "Super A"
+
+#~ msgid "Super B"
+#~ msgstr "Super B"
+
+#~ msgid "Super B/A3"
+#~ msgstr "Super B/A3"
+
+#~ msgid "Tabloid"
+#~ msgstr "Tabloid"
+
+#~ msgid "Tear"
+#~ msgstr "Оборвать"
+
+#~ msgid "Tear-Off"
+#~ msgstr "Место отрыва"
+
+#~ msgid "Tear-Off Adjust Position"
+#~ msgstr "Откорректировать положение места отрыва"
+
+#~ msgid "Thermal Transfer Media"
+#~ msgstr "Носитель для печати методом термопереноса"
+
+#~ msgid "Transparency"
+#~ msgstr "Прозрачность"
+
+#~ msgid "Tray"
+#~ msgstr "Лоток"
+
+#~ msgid "Tray 1"
+#~ msgstr "Лоток 1"
+
+#~ msgid "Tray 2"
+#~ msgstr "Лоток 2"
+
+#~ msgid "Tray 3"
+#~ msgstr "Лоток 3"
+
+#~ msgid "Tray 4"
+#~ msgstr "Лоток 4"
+
+#~ msgid "US Ledger"
+#~ msgstr "US Ledger"
+
+#~ msgid "US Legal"
+#~ msgstr "US Legal"
+
+#~ msgid "US Letter"
+#~ msgstr "US Letter"
 
 #~ msgid "Unable to change printer-is-shared attribute"
 #~ msgstr "Не удается изменить атрибут printer-is-shared"
@@ -15532,6 +15178,12 @@ msgstr ""
 
 #~ msgid "Unable to find server credentials."
 #~ msgstr "Не удается найти учетные данные сервера."
+
+#~ msgid "ZPL Label Printer"
+#~ msgstr "Принтер для печати этикеток ZPL"
+
+#~ msgid "Zebra"
+#~ msgstr "Zebra"
 
 #~ msgid "cupsctl: Cannot set Listen or Port directly."
 #~ msgstr "cupsctl: Не удается задать Listen или Port."
