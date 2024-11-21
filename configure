@@ -8255,6 +8255,8 @@ esac
 fi
 
 # Add general compiler options per platform...
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for OS-specific compiler options" >&5
+printf %s "checking for OS-specific compiler options... " >&6; }
 case $host_os_name in #(
   linux*) :
 
@@ -8270,6 +8272,48 @@ then :
 	RELROFLAGS="-Wl,-z,relro,-z,now"
 
 fi
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: -D_GNU_SOURCE -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64 $RELROFLAGS" >&5
+printf "%s\n" "-D_GNU_SOURCE -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64 $RELROFLAGS" >&6; }
+ ;; #(
+  darwin*) :
+
+    # When not building for debug, target macOS 11 or later, "universal"
+    # binaries when possible...
+    if echo "$CPPFLAGS $CFLAGS $LDFLAGS $OPTIM" | grep -q "\\-arch "
+then :
+
+	# Don't add architecture/min-version flags if they are already present
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: none" >&5
+printf "%s\n" "none" >&6; }
+
+elif echo "$CPPFLAGS $CFLAGS $LDFLAGS $OPTIM" | grep -q "\\-mmacosx-version-"
+then :
+
+	# Don't add architecture/min-version flags if they are already present
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: none" >&5
+printf "%s\n" "none" >&6; }
+
+elif test "$host_os_version" -ge 200 -a x$enable_debug != xyes
+then :
+
+	# macOS 11.0 and higher support the Apple Silicon (arm64) CPUs
+	OPTIM="$OPTIM -mmacosx-version-min=11.0 -arch x86_64 -arch arm64"
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: -mmacosx-version-min=11.0 -arch x86_64 -arch arm64" >&5
+printf "%s\n" "-mmacosx-version-min=11.0 -arch x86_64 -arch arm64" >&6; }
+
+else $as_nop
+
+	# Don't add architecture/min-version flags if debug enabled
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: none" >&5
+printf "%s\n" "none" >&6; }
+
+fi
+ ;; #(
+  *) :
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: none" >&5
+printf "%s\n" "none" >&6; }
  ;; #(
   *) :
      ;;

@@ -225,6 +225,7 @@ AS_IF([test -n "$GCC"], [
 ])
 
 # Add general compiler options per platform...
+AC_MSG_CHECKING([for OS-specific compiler options])
 AS_CASE([$host_os_name], [linux*], [
     # glibc 2.8 and higher breaks peer credentials unless you
     # define _GNU_SOURCE...  32-bit Linux needs 64-bit time/file offsets...
@@ -235,4 +236,25 @@ AS_CASE([$host_os_name], [linux*], [
     AS_IF([test x$enable_relro = xyes], [
 	RELROFLAGS="-Wl,-z,relro,-z,now"
     ])
+
+    AC_MSG_RESULT([-D_GNU_SOURCE -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64 $RELROFLAGS])
+], [darwin*], [
+    # When not building for debug, target macOS 11 or later, "universal"
+    # binaries when possible...
+    AS_IF([echo "$CPPFLAGS $CFLAGS $LDFLAGS $OPTIM" | grep -q "\\-arch "], [
+	# Don't add architecture/min-version flags if they are already present
+	AC_MSG_RESULT([none])
+    ], [echo "$CPPFLAGS $CFLAGS $LDFLAGS $OPTIM" | grep -q "\\-mmacosx-version-"], [
+	# Don't add architecture/min-version flags if they are already present
+	AC_MSG_RESULT([none])
+    ], [test "$host_os_version" -ge 200 -a x$enable_debug != xyes], [
+	# macOS 11.0 and higher support the Apple Silicon (arm64) CPUs
+	OPTIM="$OPTIM -mmacosx-version-min=11.0 -arch x86_64 -arch arm64"
+	AC_MSG_RESULT([-mmacosx-version-min=11.0 -arch x86_64 -arch arm64])
+    ], [
+	# Don't add architecture/min-version flags if debug enabled
+	AC_MSG_RESULT([none])
+    ])
+], [*], [
+    AC_MSG_RESULT([none])
 ])
