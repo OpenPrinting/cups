@@ -76,6 +76,7 @@ extern cups_json_t	*cupsJWTGetHeaderValue(cups_jwt_t *jwt, const char *claim) _C
 extern cups_json_t	*cupsJWTGetHeaders(cups_jwt_t *jwt) _CUPS_PUBLIC;
 extern bool		cupsJWTHasValidSignature(cups_jwt_t *jwt, cups_json_t *keys) _CUPS_PUBLIC;
 extern cups_jwt_t	*cupsJWTImportString(const char *s, cups_jws_format_t format) _CUPS_PUBLIC;
+extern cups_json_t	*cupsJWTLoadCredentials(const char *path, const char *common_name) _CUPS_PUBLIC;
 extern cups_json_t	*cupsJWTMakePrivateKey(cups_jwa_t alg) _CUPS_PUBLIC;
 extern cups_json_t	*cupsJWTMakePublicKey(cups_json_t *jwk) _CUPS_PUBLIC;
 extern cups_jwt_t	*cupsJWTNew(const char *type) _CUPS_PUBLIC;

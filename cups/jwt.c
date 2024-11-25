@@ -81,6 +81,7 @@ static const char * const cups_jwa_algorithms[CUPS_JWA_MAX] =
 // Local functions...
 //
 
+static cups_json_t *copy_x5c(cups_json_t *x5c);
 static cups_json_t *find_key(cups_json_t *jwk, cups_jwa_t sigalg, const char *kid);
 #ifdef HAVE_OPENSSL
 static BIGNUM	*make_bignum(cups_json_t *jwk, const char *key);
@@ -93,7 +94,7 @@ static void	make_datstring(gnutls_datum_t *d, char *buffer, size_t bufsize);
 static gnutls_privkey_t make_private_key(cups_json_t *jwk);
 static gnutls_pubkey_t make_public_key(cups_json_t *jwk);
 #endif // HAVE_OPENSSL
-static bool	make_signature(cups_jwt_t *jwt, cups_jwa_t alg, cups_json_t *jwk, unsigned char *signature, size_t *sigsize, const char **sigkid);
+static bool	make_signature(cups_jwt_t *jwt, cups_jwa_t alg, cups_json_t *jwk, unsigned char *signature, size_t *sigsize, const char **sigkid, cups_json_t **sigx5c);
 static char	*make_string(cups_jwt_t *jwt, bool with_signature);
 
 
@@ -430,7 +431,7 @@ cupsJWTHasValidSignature(
     case CUPS_JWA_HS512 :
 	// Calculate signature with keys...
 	sigkid = jwt->sigkid;
-	if (!make_signature(jwt, jwt->sigalg, jwk, signature, &sigsize, &sigkid))
+	if (!make_signature(jwt, jwt->sigalg, jwk, signature, &sigsize, &sigkid, NULL))
 	  break;
 
 	DEBUG_printf("1cupsJWTHasValidSignature: calc sig(%u) = %02X%02X%02X%02X...%02X%02X%02X%02X", (unsigned)sigsize, signature[0], signature[1], signature[2], signature[3], signature[sigsize - 4], signature[sigsize - 3], signature[sigsize - 2], signature[sigsize - 1]);
@@ -537,6 +538,8 @@ cupsJWTHasValidSignature(
         DEBUG_printf("1cupsJWTHasValidSignature: Algorithm %d not supported.", jwt->sigalg);
 	break;
   }
+
+  DEBUG_printf("1cupsJWTHasValidSignature: Returning %s.", ret ? "true" : "false");
 
   return (ret);
 }
@@ -746,6 +749,257 @@ cupsJWTImportString(
 
 
 //
+// 'cupsJWTLoadCredentials()' - Load X.509 credentials and private key into a JSON Web Key for signing.
+//
+
+cups_json_t *				// O - JSON Web Key of `NULL` on error
+cupsJWTLoadCredentials(
+    const char *path,			// I - Directory path for certificate/key store or `NULL` for default
+    const char *common_name)		// I - Common name
+{
+  cups_json_t	*jwk = NULL,		// JSON Web Key
+		*x5c = NULL;		// JSON array of certificates
+  char		*key,			// PEM-encoded private key
+		*creds,			// PEM-encoded certificate chain
+		*current,		// Current line
+		*next,			// Next line
+		*b64 = NULL,		// Base64 certificate value
+		*b64ptr;		// Pointer into Base64 value
+  size_t	len;			// Length of credentials string
+  bool		isrsa;			// Is it an RSA key?
+  char		n[1024],		// Public key modulus
+		e[1024],		// Public key exponent
+		d[1024],		// Private key exponent
+		p[1024],		// Private key first prime factor
+		q[1024],		// Private key second prime factor
+		dp[1024],		// First factor exponent
+		dq[1024],		// Second factor exponent
+		qi[1024],		// First CRT coefficient
+		x[1024],		// X coordinate
+		y[1024];		// Y coordinate
+  const char	*crv;			// Curve value
+
+
+
+  // Load certificates and private key
+  creds = cupsCopyCredentials(path, common_name);
+  key   = cupsCopyCredentialsKey(path, common_name);
+
+  if (!creds || !key)
+    goto done;
+
+  // Convert certificate chain to an array of Base64-encoded certificates
+  len = strlen(creds);
+
+  if ((b64 = malloc(len + 1)) == NULL)
+    goto done;
+
+  x5c = cupsJSONNew(/*parent*/NULL, /*after*/NULL, CUPS_JTYPE_ARRAY);
+
+  for (current = strstr(creds, "-----BEGIN CERTIFICATE-----\n"); current; current = strstr(current, "-----BEGIN CERTIFICATE-----\n"))
+  {
+    // Extract this certificate...
+    current += 28;
+    b64ptr  = b64;
+
+    while (*current && strncmp(current, "-----", 5))
+    {
+      if ((next = strchr(current, '\n')) == NULL)
+        break;
+
+      len  = (size_t)(next - current);
+      memcpy(b64ptr, current, len);
+      b64ptr += len;
+      current = next + 1;
+    }
+
+    // Add the certificate to the array...
+    *b64ptr = '\0';
+    cupsJSONNewString(x5c, /*after*/NULL, b64);
+  }
+
+#ifdef HAVE_OPENSSL
+  EVP_PKEY	*pkey = NULL;		// Private key
+  BIO		*bio = BIO_new_mem_buf(key, -1);
+					// String buffer
+  const RSA	*rsa;			// RSA key
+  const EC_KEY	*ec;				// EC key
+
+  if (!bio)
+    goto done;
+
+  PEM_read_bio_PrivateKey(bio, &pkey, /*cb*/NULL, /*u*/NULL);
+  BIO_free(bio);
+
+  if (!pkey)
+    goto done;
+
+  rsa   = EVP_PKEY_get0_RSA(pkey);
+  ec    = EVP_PKEY_get0_EC_KEY(pkey);
+  isrsa = rsa != NULL;
+
+  if (isrsa)
+  {
+    // Copy RSA key
+    make_bnstring(RSA_get0_n(rsa), n, sizeof(n));
+    make_bnstring(RSA_get0_e(rsa), e, sizeof(e));
+    make_bnstring(RSA_get0_d(rsa), d, sizeof(d));
+    make_bnstring(RSA_get0_p(rsa), p, sizeof(p));
+    make_bnstring(RSA_get0_q(rsa), q, sizeof(q));
+    make_bnstring(RSA_get0_dmp1(rsa), dp, sizeof(dp));
+    make_bnstring(RSA_get0_dmq1(rsa), dq, sizeof(dq));
+    make_bnstring(RSA_get0_iqmp(rsa), qi, sizeof(qi));
+  }
+  else if (ec)
+  {
+    // Copy EC key
+    const EC_GROUP	*group;		// Group
+    const EC_POINT	*pubkey;	// Public key portion
+    BIGNUM		*bx, *by;	// Public key coordinates
+
+    make_bnstring(EC_KEY_get0_private_key(ec), d, sizeof(d));
+
+    group  = EC_KEY_get0_group(ec);
+    pubkey = EC_KEY_get0_public_key(ec);
+
+    bx = BN_new();
+    by = BN_new();
+    EC_POINT_get_affine_coordinates(group, pubkey, bx, by, NULL);
+    make_bnstring(bx, x, sizeof(x));
+    make_bnstring(by, y, sizeof(y));
+    BN_free(bx);
+    BN_free(by);
+
+    DEBUG_printf("1cupsJWTLoadCredentials: EC_GROUP_get_curve_name(group)=%d", EC_GROUP_get_curve_name(group));
+
+    switch (EC_GROUP_get_curve_name(group))
+    {
+      case NID_secp256k1 :
+          crv = "P-256";
+          break;
+      case NID_secp384r1 :
+          crv = "P-384";
+          break;
+      case NID_secp521r1 :
+          crv = "P-521";
+          break;
+      default :
+          crv = "UNK";
+          break;
+    }
+  }
+  else
+  {
+    EVP_PKEY_free(pkey);
+    goto done;
+  }
+
+  EVP_PKEY_free(pkey);
+
+#else // HAVE_GNUTLS
+  gnutls_datum_t	dat_key;	// Private key data
+  gnutls_privkey_t	pkey;		// Private key
+  unsigned		bits;		// Private key size in bits
+
+
+  if (gnutls_privkey_init(&pkey))
+    goto done;
+
+  dat_key.data = (unsigned char *)key;
+  dat_key.size = strlen(key);
+
+  if (gnutls_privkey_import_x509_raw(pkey, &dat_key, GNUTLS_X509_FMT_PEM, /*password*/NULL, /*flags*/0))
+    goto done;
+
+  isrsa = gnutls_privkey_get_pk_algorithm(pkey, &bits) == GNUTLS_PK_RSA;
+
+  if (isrsa)
+  {
+    // Copy RSA key
+    gnutls_datum_t	dat_n, dat_e, dat_d, dat_p, dat_q, dat_dp, dat_dq, dat_qi;
+					// RSA parameters
+
+    gnutls_privkey_export_rsa_raw(pkey, &dat_n, &dat_e, &dat_d, &dat_p, &dat_q, &dat_qi, &dat_dp, &dat_dq);
+    make_datstring(&dat_n, n, sizeof(n));
+    make_datstring(&dat_e, e, sizeof(e));
+    make_datstring(&dat_d, d, sizeof(d));
+    make_datstring(&dat_p, p, sizeof(p));
+    make_datstring(&dat_q, q, sizeof(q));
+    make_datstring(&dat_qi, qi, sizeof(qi));
+    make_datstring(&dat_dp, dp, sizeof(dp));
+    make_datstring(&dat_dq, dq, sizeof(dq));
+  }
+  else
+  {
+    // Copy ECC key
+    gnutls_ecc_curve_t	curve;		// Curve
+    gnutls_datum_t	dat_x, dat_y, dat_d;
+					// ECDSA parameters
+
+    gnutls_privkey_export_ecc_raw(pkey, &curve, &dat_x, &dat_y, &dat_d);
+    make_datstring(&dat_x, x, sizeof(x));
+    make_datstring(&dat_y, y, sizeof(y));
+    make_datstring(&dat_d, d, sizeof(d));
+
+    switch (curve)
+    {
+      case GNUTLS_ECC_CURVE_SECP256R1 :
+          crv = "P-256";
+          break;
+      case GNUTLS_ECC_CURVE_SECP384R1 :
+          crv = "P-384";
+          break;
+      case GNUTLS_ECC_CURVE_SECP521R1 :
+          crv = "P-521";
+          break;
+      default :
+          crv = "UNK";
+          break;
+    }
+  }
+
+  gnutls_privkey_deinit(pkey);
+#endif // HAVE_OPENSSL
+
+  // Create JWK
+  jwk = cupsJSONNew(/*parent*/NULL, /*after*/NULL, CUPS_JTYPE_OBJECT);
+
+  cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "kty"), isrsa ? "RSA" : "EC");
+  cupsJSONAdd(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "x5c"), x5c);
+
+  if (isrsa)
+  {
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "n"), n);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "e"), e);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "d"), d);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "p"), p);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "q"), q);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "dp"), dp);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "dq"), dq);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "qi"), qi);
+  }
+  else
+  {
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "crv"), crv);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "x"), x);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "y"), y);
+    cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "d"), d);
+  }
+
+  done:
+
+  free(creds);
+  free(key);
+  free(b64);
+
+  if (!jwk)
+    cupsJSONDelete(x5c);
+
+  return (jwk);
+}
+
+
+//
 // 'cupsJWTMakePrivateKey()' - Make a JSON Web Key for encryption and signing.
 //
 // This function makes a JSON Web Key (JWK) for the specified JWS/JWE algorithm
@@ -875,7 +1129,7 @@ cupsJWTMakePrivateKey(cups_jwa_t alg)	// I - Signing/encryption algorithm
     BIGNUM	*bx, *by;		// Public key coordinates
 
     if (alg == CUPS_JWA_ES256)
-      ec = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+      ec = EC_KEY_new_by_curve_name(NID_secp256k1);
     else if (alg == CUPS_JWA_ES384)
       ec = EC_KEY_new_by_curve_name(NID_secp384r1);
     else
@@ -1210,6 +1464,7 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
   size_t	sigsize = _CUPS_JWT_MAX_SIGNATURE;
 					// Size of signature
   const char	*sigkid = NULL;		// Key ID, if any
+  cups_json_t	*sigx5c = NULL;		// X.509 certificate chain, if any
 
 
   // Range check input...
@@ -1220,10 +1475,14 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
   }
 
   // Remove existing JOSE string, if any...
-  free(jwt->jose_string);
-  _cupsJSONDelete(jwt->jose, "alg");
-  cupsJSONNewString(jwt->jose, cupsJSONNewKey(jwt->jose, NULL, "alg"), cups_jwa_strings[alg]);
+  DEBUG_printf("1cupsJWTSign: jose=%p, jose_string=\"%s\"", jwt->jose, jwt->jose_string);
 
+  _cupsJSONDelete(jwt->jose, "alg");
+  _cupsJSONDelete(jwt->jose, "x5c");
+
+  cupsJSONNewString(jwt->jose, cupsJSONNewKey(jwt->jose, /*after*/NULL, "alg"), cups_jwa_strings[alg]);
+
+  free(jwt->jose_string);
   jwt->jose_string = cupsJSONExportString(jwt->jose);
 
   // Clear existing signature...
@@ -1235,12 +1494,25 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
   jwt->sigalg    = CUPS_JWA_NONE;
 
   // Create new signature...
-  if (!make_signature(jwt, alg, jwk, signature, &sigsize, &sigkid))
+  if (!make_signature(jwt, alg, jwk, signature, &sigsize, &sigkid, &sigx5c))
   {
     DEBUG_puts("2cupsJWTSign: Unable to create signature.");
     return (false);
   }
 
+  // Update the JOSE header...
+  if (sigx5c)
+  {
+    cupsJSONAdd(jwt->jose, cupsJSONNewKey(jwt->jose, /*after*/NULL, "x5c"), copy_x5c(sigx5c));
+
+    free(jwt->jose_string);
+    jwt->jose_string = cupsJSONExportString(jwt->jose);
+    make_signature(jwt, alg, jwk, signature, &sigsize, &sigkid, NULL);
+  }
+
+  DEBUG_printf("1cupsJWTSign: jose_string=\"%s\"", jwt->jose_string);
+
+  // Save the key ID and signature values...
   if (sigkid)
     jwt->sigkid = strdup(sigkid);
 
@@ -1255,6 +1527,28 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
   jwt->sigsize = sigsize;
 
   return (true);
+}
+
+
+//
+// 'copy_x5c()' - Copy the "x5c" (X.509 certificate chain) array.
+//
+
+static cups_json_t *			// O - JSON array
+copy_x5c(cups_json_t *x5c)		// I - X.509 certificate chain
+{
+  size_t	i,			// Looping var
+		count;			// Count
+  cups_json_t	*new_x5c;		// New JSON array
+
+
+  if ((new_x5c = cupsJSONNew(/*parent*/NULL, /*after*/NULL, CUPS_JTYPE_ARRAY)) != NULL)
+  {
+    for (i = 0, count = cupsJSONGetCount(x5c); i < count; i ++)
+      cupsJSONNewString(new_x5c, /*after*/NULL, cupsJSONGetString(cupsJSONGetChild(x5c, i)));
+  }
+
+  return (new_x5c);
 }
 
 
@@ -1394,11 +1688,13 @@ make_ec_key(cups_json_t *jwk,		// I - JSON web key
   y   = make_bignum(jwk, "y");
   d   = verify ? NULL : make_bignum(jwk, "d");
 
+  DEBUG_printf("4make_ec_key: crv=\"%s\", x=%p, y=%p, d=%p", crv, x, y, d);
+
   if (!crv || ((!x || !y) && !d))
     goto ec_done;
 
   if (!strcmp(crv, "P-256"))
-    ec = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+    ec = EC_KEY_new_by_curve_name(NID_secp256k1);
   else if (!strcmp(crv, "P-384"))
     ec = EC_KEY_new_by_curve_name(NID_secp384r1);
   else if (!strcmp(crv, "P-521"))
@@ -1477,6 +1773,8 @@ make_rsa(cups_json_t *jwk)		// I - JSON web key
     RSA_set0_crt_params(rsa, dp, dq, qi);
 
   rsa_done:
+
+  DEBUG_printf("4make_rsa: n=%p, e=%p, d=%p, p=%p, q=%p, dp=%p, dq=%p, qi=%p, rsa=%p", n, e, d, p, q, dp, dq, qi, rsa);
 
   if (!rsa)
   {
@@ -1746,7 +2044,8 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
                cups_json_t   *jwk,	// I  - JSON Web Key Set
                unsigned char *signature,// I  - Signature buffer
                size_t        *sigsize,	// IO - Signature size
-               const char    **sigkid)	// IO - Key ID string, if any
+               const char    **sigkid,	// IO - Key ID string, if any
+               cups_json_t   **sigx5c)	// O  - X.509 certificate chain, if any
 {
   bool			ret = false;	// Return value
   char			*text;		// JWS Signing Input
@@ -1763,7 +2062,7 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
 #endif // HAVE_OPENSSL
 
 
-  DEBUG_printf("3make_signature(jwt=%p, alg=%d, jwk=%p, signature=%p, sigsize=%p(%u), sigkid=%p(%s))", (void *)jwt, alg, (void *)jwk, (void *)signature, (void *)sigsize, (unsigned)*sigsize, (void *)sigkid, *sigkid);
+  DEBUG_printf("3make_signature(jwt=%p, alg=%d, jwk=%p, signature=%p, sigsize=%p(%u), sigkid=%p(%s), sigx5c=%p)", (void *)jwt, alg, (void *)jwk, (void *)signature, (void *)sigsize, (unsigned)*sigsize, (void *)sigkid, *sigkid, (void *)sigx5c);
 
   // Get text to sign...
   text     = make_string(jwt, false);
@@ -1923,9 +2222,15 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
   free(text);
 
   if (ret)
+  {
     *sigkid = cupsJSONGetString(cupsJSONFind(jwk, "kid"));
+    if (sigx5c)
+      *sigx5c = cupsJSONFind(jwk, "x5c");
+  }
   else
+  {
     *sigsize = 0;
+  }
 
   return (ret);
 }
@@ -1950,6 +2255,8 @@ make_string(cups_jwt_t *jwt,		// I - JWT object
   // Get the JOSE header and claims object strings...
   if (!jwt->claims_string)
     jwt->claims_string = cupsJSONExportString(jwt->claims);
+
+  DEBUG_printf("4make_string: jose_string=\"%s\", claims_string=\"%s\"", jwt->jose_string, jwt->claims_string);
 
   if (!jwt->jose_string || !jwt->claims_string)
     return (NULL);

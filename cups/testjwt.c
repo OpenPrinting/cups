@@ -23,6 +23,7 @@ main(int  argc,				// I - Number of command-line arguments
   int		i;			// Looping var
   cups_jwt_t	*jwt;			// JSON Web Token object
   cups_json_t	*jwk;			// JSON Web Key Set
+  char		*s;			// Temporary string
 
 
   if (argc == 1)
@@ -82,7 +83,8 @@ main(int  argc,				// I - Number of command-line arguments
             "W0ITrJReOgo1cq9SbsxYawBgfp_gh6A5603k2-ZQwVK0JKSHuLFkuQ3U\""
             "}"
       },
-      {
+      // P-256 example uses wrong curve...
+      /*{
         "eyJhbGciOiJFUzI1NiJ9."
             "eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFt"
             "cGxlLmNvbS9pc19yb290Ijp0cnVlfQ."
@@ -94,7 +96,7 @@ main(int  argc,				// I - Number of command-line arguments
             "\"y\":\"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0\","
             "\"d\":\"jpsQnnGQmL-YBIffH1136cspYG6-0iY7X1fCE9-E9LI\""
             "}"
-      }
+      }*/
     };
 
     testBegin("cupsJWTNew(NULL)");
@@ -285,6 +287,94 @@ main(int  argc,				// I - Number of command-line arguments
 
       cupsJSONDelete(jwk);
       cupsJWTDelete(jwt);
+    }
+
+    testBegin("cupsCreateCredentials(xxx-rsa-2048)");
+    if (cupsCreateCredentials(/*path*/NULL, /*ca_cert*/false, CUPS_CREDPURPOSE_CLIENT_AUTH | CUPS_CREDPURPOSE_SERVER_AUTH, CUPS_CREDTYPE_RSA_2048_SHA256, CUPS_CREDUSAGE_DEFAULT_TLS, /*organization*/NULL, /*org_unit*/NULL, /*locality*/NULL, /*state_province*/NULL, /*country*/NULL, "xxx-rsa-2048", /*email*/NULL, /*num_alt_names*/0, /*alt_names*/NULL, /*root_name*/NULL, /*expiration_date*/time(NULL) + 86400))
+    {
+      testEnd(true);
+
+      testBegin("cupsJWTLoadCredentials(xxx-rsa-2048)");
+      if ((jwk = cupsJWTLoadCredentials(/*path*/NULL, "xxx-rsa-2048")) != NULL)
+      {
+	testEnd(true);
+	s = cupsJSONExportString(jwk);
+	testMessage("jwk=\"%s\"", s);
+	free(s);
+
+	testBegin("cupsJWTNew(NULL)");
+	jwt = cupsJWTNew(NULL);
+	testEnd(jwt != NULL);
+
+	testBegin("cupsJWTSetClaimNumber(CUPS_JWT_IAT)");
+	cupsJWTSetClaimNumber(jwt, CUPS_JWT_IAT, (double)time(NULL) + 86400.0);
+	testEnd(cupsJWTGetClaimNumber(jwt, CUPS_JWT_IAT) > 0.0);
+
+	testBegin("cupsJWTSetClaimString(CUPS_JWT_SUB)");
+	cupsJWTSetClaimString(jwt, CUPS_JWT_SUB, "joe.user");
+	testEnd(cupsJWTGetClaimString(jwt, CUPS_JWT_SUB) != NULL);
+
+	testBegin("cupsJWTSign(RS256)");
+	testEnd(cupsJWTSign(jwt, CUPS_JWA_RS256, jwk));
+
+	testBegin("cupsJWTHasValidSignature(RS256)");
+	testEnd(cupsJWTHasValidSignature(jwt, jwk));
+
+        cupsJWTDelete(jwt);
+        cupsJSONDelete(jwk);
+      }
+      else
+      {
+        testEndMessage(false, "%s", cupsGetErrorString());
+      }
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
+    }
+
+    testBegin("cupsCreateCredentials(xxx-ecdsa-p256)");
+    if (cupsCreateCredentials(/*path*/NULL, /*ca_cert*/false, CUPS_CREDPURPOSE_CLIENT_AUTH | CUPS_CREDPURPOSE_SERVER_AUTH, CUPS_CREDTYPE_ECDSA_P256_SHA256, CUPS_CREDUSAGE_DEFAULT_TLS, /*organization*/NULL, /*org_unit*/NULL, /*locality*/NULL, /*state_province*/NULL, /*country*/NULL, "xxx-ecdsa-p256", /*email*/NULL, /*num_alt_names*/0, /*alt_names*/NULL, /*root_name*/NULL, /*expiration_date*/time(NULL) + 86400))
+    {
+      testEnd(true);
+
+      testBegin("cupsJWTLoadCredentials(xxx-ecdsa-p256)");
+      if ((jwk = cupsJWTLoadCredentials(/*path*/NULL, "xxx-ecdsa-p256")) != NULL)
+      {
+	testEnd(true);
+	s = cupsJSONExportString(jwk);
+	testMessage("jwk=\"%s\"", s);
+	free(s);
+
+	testBegin("cupsJWTNew(NULL)");
+	jwt = cupsJWTNew(NULL);
+	testEnd(jwt != NULL);
+
+	testBegin("cupsJWTSetClaimNumber(CUPS_JWT_IAT)");
+	cupsJWTSetClaimNumber(jwt, CUPS_JWT_IAT, (double)time(NULL) + 86400.0);
+	testEnd(cupsJWTGetClaimNumber(jwt, CUPS_JWT_IAT) > 0.0);
+
+	testBegin("cupsJWTSetClaimString(CUPS_JWT_SUB)");
+	cupsJWTSetClaimString(jwt, CUPS_JWT_SUB, "joe.user");
+	testEnd(cupsJWTGetClaimString(jwt, CUPS_JWT_SUB) != NULL);
+
+	testBegin("cupsJWTSign(ES256)");
+	testEnd(cupsJWTSign(jwt, CUPS_JWA_ES256, jwk));
+
+	testBegin("cupsJWTHasValidSignature(ES256)");
+	testEnd(cupsJWTHasValidSignature(jwt, jwk));
+
+        cupsJWTDelete(jwt);
+        cupsJSONDelete(jwk);
+      }
+      else
+      {
+        testEndMessage(false, "%s", cupsGetErrorString());
+      }
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
     }
 
     if (!testsPassed)
