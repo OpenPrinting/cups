@@ -5294,6 +5294,7 @@ create_local_bg_thread(
       /* Force printer to timeout and be deleted */
       _cupsRWLockWrite(&printer->lock);
       printer->state_time = 0;
+      printer->temporary = 1;
       _cupsRWUnlock(&printer->lock);
 
       send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Couldn't resolve mDNS URI \"%s\"."), printer->device_uri);
@@ -5314,6 +5315,7 @@ create_local_bg_thread(
     /* Force printer to timeout and be deleted */
     _cupsRWLockWrite(&printer->lock);
     printer->state_time = 0;
+    printer->temporary = 1;
     _cupsRWUnlock(&printer->lock);
 
     send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Bad device URI \"%s\"."), device_uri);
@@ -5332,6 +5334,7 @@ create_local_bg_thread(
     /* Force printer to timeout and be deleted */
     _cupsRWLockWrite(&printer->lock);
     printer->state_time = 0;
+    printer->temporary = 1;
     _cupsRWUnlock(&printer->lock);
 
     send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to connect to %s:%d: %s"), host, port, cupsLastErrorString());
@@ -5420,6 +5423,12 @@ create_local_bg_thread(
   // Validate response from printer...
   if (!ippValidateAttributes(response))
   {
+    /* Force printer to timeout and be deleted */
+    _cupsRWLockWrite(&printer->lock);
+    printer->state_time = 0;
+    printer->temporary = 1;
+    _cupsRWUnlock(&printer->lock);
+
     send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Printer returned invalid data: %s"), cupsLastErrorString());
     goto finish_response;
   }
@@ -5453,6 +5462,7 @@ create_local_bg_thread(
       /* Force printer to timeout and be deleted */
       _cupsRWLockWrite(&printer->lock);
       printer->state_time = 0;
+      printer->temporary = 1;
       _cupsRWUnlock(&printer->lock);
 
       send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to read generated PPD: %s"), strerror(errno));
@@ -5468,6 +5478,7 @@ create_local_bg_thread(
       /* Force printer to timeout and be deleted */
       _cupsRWLockWrite(&printer->lock);
       printer->state_time = 0;
+      printer->temporary = 1;
       _cupsRWUnlock(&printer->lock);
 
       send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to create PPD for printer: %s"), strerror(errno));
@@ -5501,6 +5512,7 @@ create_local_bg_thread(
     /* Force printer to timeout and be deleted */
     _cupsRWLockWrite(&printer->lock);
     printer->state_time = 0;
+    printer->temporary = 1;
     _cupsRWUnlock(&printer->lock);
 
     send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to create PPD: %s"), cupsLastErrorString());
