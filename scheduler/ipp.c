@@ -5381,6 +5381,7 @@ create_local_bg_thread(
       /* Force printer to timeout and be deleted */
       cupsRWLockWrite(&printer->lock);
       printer->state_time = 0;
+      printer->temporary = 1;
       cupsRWUnlock(&printer->lock);
 
       send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to read generated PPD: %s"), strerror(errno));
