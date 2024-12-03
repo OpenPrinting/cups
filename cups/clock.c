@@ -20,9 +20,9 @@ static _cups_mutex_t cups_clock_mutex = _CUPS_MUTEX_INITIALIZER;
 #ifdef _WIN32
 static ULONGLONG cups_first_tick;	// First tick count
 #else
-#  ifdef CLOCK_MONOTONIC
+#  ifdef CLOCK_MONOTONIC_RAW
 static struct timespec cups_first_clock;// First clock value
-#  endif // CLOCK_MONOTONIC
+#  endif // CLOCK_MONOTONIC_RAW
 static struct timeval cups_first_time;	// First time value
 #endif // _WIN32
 
@@ -46,9 +46,9 @@ _cupsGetClock(void)
 #ifdef _WIN32
   ULONGLONG	curtick;		// Current tick count
 #else
-#  ifdef CLOCK_MONOTONIC
+#  ifdef CLOCK_MONOTONIC_RAW
   struct timespec curclock;		// Current clock value
-#  endif // CLOCK_MONOTONIC
+#  endif // CLOCK_MONOTONIC_RAW
   struct timeval curtime;		// Current time value
 #endif // _WIN32
 
@@ -73,9 +73,9 @@ _cupsGetClock(void)
     secs = 0.001 * (curtick - cups_first_tick);
 
 #else
-#  ifdef CLOCK_MONOTONIC
+#  ifdef CLOCK_MONOTONIC_RAW
   // Get the current tick count in milliseconds...
-  if (!clock_gettime(CLOCK_MONOTONIC, &curclock))
+  if (!clock_gettime(CLOCK_MONOTONIC_RAW, &curclock))
   {
     if (!cups_clock_init)
     {
@@ -89,7 +89,7 @@ _cupsGetClock(void)
       secs = 0.0;
   }
   else
-#  endif // CLOCK_MONOTONIC
+#  endif // CLOCK_MONOTONIC_RAW
   {
     gettimeofday(&curtime, /*tzp*/NULL);
 
