@@ -1813,7 +1813,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     return (false);
   }
 
-  cupsCopyString(priority_string, "NORMAL", sizeof(priority_string));
+  cupsCopyString(priority_string, "@SYSTEM,NORMAL", sizeof(priority_string));
 
   if (tls_max_version < _HTTP_TLS_MAX)
   {
