@@ -1504,7 +1504,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
     return (-1);
   }
 
-  strlcpy(priority_string, "NORMAL", sizeof(priority_string));
+  strlcpy(priority_string, "@SYSTEM,NORMAL", sizeof(priority_string));
 
   if (tls_max_version < _HTTP_TLS_MAX)
   {
