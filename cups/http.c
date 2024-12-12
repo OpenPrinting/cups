@@ -3650,6 +3650,9 @@ http_add_field(http_t       *http,	/* I - HTTP connection */
   {
     if (field < HTTP_FIELD_ACCEPT_ENCODING)
       http->_fields[field][0] = '\0';
+    else if (field == HTTP_FIELD_SERVER)
+      http->fields[HTTP_FIELD_SERVER] = (char*)calloc(1, sizeof(char));
+
     return;
   }
 
