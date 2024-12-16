@@ -253,6 +253,7 @@ hash_data(const char    *algorithm,	// I - Algorithm
     if (b && blen)
       EVP_DigestUpdate(ctx, b, blen);
     EVP_DigestFinal(ctx, hashtemp, &hashlen);
+    EVP_MD_CTX_free(ctx);
 
     if (hashlen > hashsize)
       goto too_small;
