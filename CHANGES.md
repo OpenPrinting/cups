@@ -117,6 +117,7 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Fixed `Host` header regression (Issue #967)
 - Fixed DNS-SD lookups of local services with Avahi (Issue #970)
 - Fixed debug printfs PID substitution support (Issue #1066)
+- Fixed `ServerToken None` in scheduler (Issue #1111)
 - Fixed CGI program initialization and validation of form checkbox and text
   fields.
 - Fixed finishing support in ippeveps.

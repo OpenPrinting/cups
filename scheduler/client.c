@@ -319,6 +319,13 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   }
 
  /*
+  * Apply ServerHeader if any...
+  */
+
+  if (ServerHeader)
+    httpSetDefaultField(con->http, HTTP_FIELD_SERVER, ServerHeader);
+
+ /*
   * Add the connection to the array of active clients...
   */
 
@@ -2110,9 +2117,6 @@ cupsdSendHeader(
 
     code = HTTP_STATUS_OK;
   }
-
-  if (ServerHeader)
-    httpSetField(con->http, HTTP_FIELD_SERVER, ServerHeader);
 
   if (code == HTTP_STATUS_METHOD_NOT_ALLOWED)
     httpSetField(con->http, HTTP_FIELD_ALLOW, "GET, HEAD, OPTIONS, POST, PUT");
