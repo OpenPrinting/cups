@@ -197,6 +197,8 @@ cups_globals_alloc(void)
   */
 
   cg->thread_id = ++ cups_global_index;
+
+  fprintf(stderr, "T%d cups_globals_alloc\n", cg->thread_id);
 #endif /* DEBUG */
 
  /*
@@ -409,6 +411,10 @@ cups_globals_free(_cups_globals_t *cg)	/* I - Pointer to global data */
   _cups_buffer_t	*buffer,	/* Current read/write buffer */
 			*next;		/* Next buffer */
 
+
+#ifdef DEBUG
+  fprintf(stderr, "T%d cups_globals_free\n", cg->thread_id);
+#endif // DEBUG
 
   if (cg->last_status_message)
     _cupsStrFree(cg->last_status_message);

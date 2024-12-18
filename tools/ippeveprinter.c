@@ -6112,7 +6112,8 @@ respond_ipp(ippeve_client_t *client,	// I - Client
   const char	*formatted = NULL;	// Formatted message
 
 
-  ippSetStatusCode(client->response, status);
+  if (ippGetStatusCode(client->response) == IPP_STATUS_OK)
+    ippSetStatusCode(client->response, status);
 
   if (message)
   {
@@ -7063,6 +7064,7 @@ valid_job_attributes(
   bool			fidelity,	// "ipp-attribute-fidelity" value
 			valid = true;	// Valid attributes?
   ipp_attribute_t	*attr,		// Current attribute
+			*attr_col,	// xxx-col attribute
 			*supported;	// xxx-supported attribute
 
 
@@ -7095,6 +7097,97 @@ valid_job_attributes(
       {
         respond_ignored(client, attr);
         ippDeleteAttribute(client->request, attr);
+      }
+    }
+  }
+
+  attr_col = ippFindAttribute(client->request, "finishings-col", IPP_TAG_ZERO);
+
+  if ((attr = ippFindAttribute(client->request, "finishings", IPP_TAG_ZERO)) != NULL)
+  {
+    if (attr_col)
+    {
+      // Cannot specify both finishings and finishings-col...
+      respond_unsupported(client, attr);
+      respond_unsupported(client, attr_col);
+      ippSetStatusCode(client->response, IPP_STATUS_ERROR_BAD_REQUEST);
+      valid = false;
+    }
+    else if (ippGetValueTag(attr) != IPP_TAG_ENUM)
+    {
+      if (fidelity)
+      {
+        respond_unsupported(client, attr);
+        valid = false;
+      }
+      else
+      {
+        respond_ignored(client, attr);
+        ippDeleteAttribute(client->request, attr);
+      }
+    }
+    else
+    {
+      supported = ippFindAttribute(client->printer->attrs, "finishings-supported", IPP_TAG_ENUM);
+
+      for (i = 0, count = ippGetCount(attr); i < count; i ++)
+      {
+        if (!ippContainsInteger(supported, ippGetInteger(attr, i)))
+          break;
+      }
+
+      if (i < count)
+      {
+	if (fidelity)
+	{
+	  respond_unsupported(client, attr);
+	  valid = false;
+	}
+	else
+	{
+	  respond_ignored(client, attr);
+	  ippDeleteAttribute(client->request, attr);
+	}
+      }
+    }
+  }
+  else if (attr_col)
+  {
+    if (ippGetValueTag(attr_col) != IPP_TAG_BEGIN_COLLECTION)
+    {
+      if (fidelity)
+      {
+        respond_unsupported(client, attr_col);
+        valid = false;
+      }
+      else
+      {
+        respond_ignored(client, attr_col);
+        ippDeleteAttribute(client->request, attr_col);
+      }
+    }
+    else
+    {
+      supported = ippFindAttribute(client->printer->attrs, "finishing-template-supported", IPP_TAG_ZERO);
+
+      for (i = 0, count = ippGetCount(attr_col); i < count; i ++)
+      {
+        if (!ippContainsString(supported, ippGetString(ippFindAttribute(ippGetCollection(attr_col, i), "finishing-template", IPP_TAG_ZERO), 0, NULL)))
+          break;
+      }
+
+      if (i < count)
+      {
+	if (fidelity)
+	{
+	  respond_unsupported(client, attr_col);
+	  valid = false;
+	}
+	else
+	{
+	  respond_ignored(client, attr_col);
+	  ippDeleteAttribute(client->request, attr_col);
+	}
       }
     }
   }
@@ -7161,12 +7254,20 @@ valid_job_attributes(
     }
   }
 
+  attr_col = ippFindAttribute(client->request, "media-col", IPP_TAG_ZERO);
+
   if ((attr = ippFindAttribute(client->request, "media", IPP_TAG_ZERO)) != NULL)
   {
-    if (ippGetCount(attr) != 1 ||
-        (ippGetValueTag(attr) != IPP_TAG_NAME &&
-	 ippGetValueTag(attr) != IPP_TAG_NAMELANG &&
-	 ippGetValueTag(attr) != IPP_TAG_KEYWORD))
+    if (attr_col)
+    {
+      // Cannot send both media and media-col in the same request, this is a
+      // bad request...
+      respond_unsupported(client, attr);
+      respond_unsupported(client, attr_col);
+      ippSetStatusCode(client->response, IPP_STATUS_ERROR_BAD_REQUEST);
+      valid = false;
+    }
+    else if (ippGetCount(attr) != 1 || (ippGetValueTag(attr) != IPP_TAG_NAME && ippGetValueTag(attr) != IPP_TAG_NAMELANG && ippGetValueTag(attr) != IPP_TAG_KEYWORD))
     {
       respond_unsupported(client, attr);
       valid = false;
@@ -7190,60 +7291,64 @@ valid_job_attributes(
       }
     }
   }
-
-  if ((attr = ippFindAttribute(client->request, "media-col", IPP_TAG_ZERO)) != NULL)
+  else if (attr_col)
   {
     ipp_t		*col,		// media-col collection
 			*size;		// media-size collection
     ipp_attribute_t	*member,	// Member attribute
+			*size_name,	// "media-size-name" member attribute
 			*x_dim,		// x-dimension
 			*y_dim;		// y-dimension
     int			x_value,	// y-dimension value
 			y_value;	// x-dimension value
 
-    if (ippGetCount(attr) != 1 ||
-        ippGetValueTag(attr) != IPP_TAG_BEGIN_COLLECTION)
+    if (ippGetCount(attr_col) != 1 || ippGetValueTag(attr_col) != IPP_TAG_BEGIN_COLLECTION)
     {
-      respond_unsupported(client, attr);
+      respond_unsupported(client, attr_col);
       valid = false;
     }
 
-    col = ippGetCollection(attr, 0);
+    col = ippGetCollection(attr_col, 0);
 
-    if ((member = ippFindAttribute(col, "media-size-name", IPP_TAG_ZERO)) != NULL)
+    member = ippFindAttribute(col, "media-size", IPP_TAG_BEGIN_COLLECTION);
+    if ((size_name = ippFindAttribute(col, "media-size-name", IPP_TAG_ZERO)) != NULL)
     {
-      if (ippGetCount(member) != 1 ||
-	  (ippGetValueTag(member) != IPP_TAG_NAME &&
-	   ippGetValueTag(member) != IPP_TAG_NAMELANG &&
-	   ippGetValueTag(member) != IPP_TAG_KEYWORD))
+      if (member)
       {
-	respond_unsupported(client, attr);
+        // Cannot specify both media-size and media-size-name...
+	respond_unsupported(client, attr_col);
+	ippSetStatusCode(client->response, IPP_STATUS_ERROR_BAD_REQUEST);
+	valid = false;
+      }
+      else if (ippGetCount(size_name) != 1 || (ippGetValueTag(size_name) != IPP_TAG_NAME && ippGetValueTag(size_name) != IPP_TAG_NAMELANG && ippGetValueTag(size_name) != IPP_TAG_KEYWORD))
+      {
+	respond_unsupported(client, attr_col);
 	valid = false;
       }
       else
       {
 	supported = ippFindAttribute(client->printer->attrs, "media-supported", IPP_TAG_KEYWORD);
 
-	if (!ippContainsString(supported, ippGetString(member, 0, NULL)))
+	if (!ippContainsString(supported, ippGetString(size_name, 0, NULL)))
 	{
 	  if (fidelity)
 	  {
-	    respond_unsupported(client, attr);
+	    respond_unsupported(client, attr_col);
 	    valid = false;
 	  }
 	  else
 	  {
-	    respond_ignored(client, attr);
-	    ippDeleteAttribute(client->request, attr);
+	    respond_ignored(client, attr_col);
+	    ippDeleteAttribute(client->request, attr_col);
 	  }
 	}
       }
     }
-    else if ((member = ippFindAttribute(col, "media-size", IPP_TAG_BEGIN_COLLECTION)) != NULL)
+    else if (member)
     {
       if (ippGetCount(member) != 1)
       {
-	respond_unsupported(client, attr);
+	respond_unsupported(client, attr_col);
 	valid = false;
       }
       else
@@ -7253,7 +7358,7 @@ valid_job_attributes(
 	if ((x_dim = ippFindAttribute(size, "x-dimension", IPP_TAG_INTEGER)) == NULL || ippGetCount(x_dim) != 1 ||
 	    (y_dim = ippFindAttribute(size, "y-dimension", IPP_TAG_INTEGER)) == NULL || ippGetCount(y_dim) != 1)
 	{
-	  respond_unsupported(client, attr);
+	  respond_unsupported(client, attr_col);
 	  valid = false;
 	}
 	else
@@ -7300,13 +7405,13 @@ valid_job_attributes(
 	  {
 	    if (fidelity)
 	    {
-	      respond_unsupported(client, attr);
+	      respond_unsupported(client, attr_col);
 	      valid = false;
 	    }
 	    else
 	    {
-	      respond_ignored(client, attr);
-	      ippDeleteAttribute(client->request, attr);
+	      respond_ignored(client, attr_col);
+	      ippDeleteAttribute(client->request, attr_col);
 	    }
 	  }
 	}
