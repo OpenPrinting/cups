@@ -1,5 +1,5 @@
 [Desktop Entry]
-Categories=System;Printing;HardwareSettings;X-Red-Hat-Base;
+Categories=System;Settings;Printing;HardwareSettings;X-Red-Hat-Base;
 Exec=@CUPS_HTMLVIEW@ http://localhost:631/
 Icon=cups
 StartupNotify=false
@@ -35,6 +35,8 @@ Name[fr]=Gestionnaire d'impression
 Comment[fr]=Interface Web de CUPS
 Name[he]=נהל הדפסות
 Comment[he]=ממשק דפדפן של CUPS
+Name[hu]=Nyomtatókezelés
+Comment[hu]=CUPS webes felület
 Name[id]=Manajemen Pencetakan
 Comment[id]=Antarmuka Web CUPS
 Name[it]=Gestione stampa
