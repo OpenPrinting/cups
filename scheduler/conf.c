@@ -3128,6 +3128,8 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	    min_version = _HTTP_TLS_1_3;
 	  else if (!_cups_strcasecmp(start, "None"))
 	    options = _HTTP_TLS_NONE;
+	  else if (!_cups_strcasecmp(start, "NoSystem"))
+	    options |= _HTTP_TLS_NO_SYSTEM;
 	  else if (_cups_strcasecmp(start, "NoEmptyFragments"))
 	    cupsdLogMessage(CUPSD_LOG_WARN, "Unknown SSL option %s at line %d.", start, linenum);
         }

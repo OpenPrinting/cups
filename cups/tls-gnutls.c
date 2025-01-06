@@ -1616,6 +1616,8 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
   DEBUG_printf("3_httpTLSStart(http=%p)", http);
 
+  priority_string[0] = '\0';
+
   if (tls_options < 0)
   {
     DEBUG_puts("4_httpTLSStart: Setting defaults.");
@@ -1813,7 +1815,10 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     return (false);
   }
 
-  cupsCopyString(priority_string, "@SYSTEM,NORMAL", sizeof(priority_string));
+  if (!(tls_options & _HTTP_TLS_NO_SYSTEM))
+    cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
+
+  cupsConcatString(priority_string, "NORMAL", sizeof(priority_string));
 
   if (tls_max_version < _HTTP_TLS_MAX)
   {
