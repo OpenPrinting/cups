@@ -1,7 +1,7 @@
 //
 // Shared string class for the CUPS PPD Compiler.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright 2007-2012 by Apple Inc.
 // Copyright 2002-2005 by Easy Software Products.
 //

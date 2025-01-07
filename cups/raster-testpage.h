@@ -1,7 +1,7 @@
 //
 // Raster test page generator for CUPS.
 //
-// Copyright © 2020-2023 by OpenPrinting
+// Copyright © 2020-2025 by OpenPrinting
 // Copyright © 2017-2019 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more

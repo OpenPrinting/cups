@@ -1,7 +1,7 @@
 dnl
 dnl PAM stuff for CUPS.
 dnl
-dnl Copyright © 2020-2024 by OpenPrinting.
+dnl Copyright © 2020-2025 by OpenPrinting.
 dnl Copyright © 2007-2017 by Apple Inc.
 dnl Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 dnl

@@ -3,7 +3,7 @@
  * This would typically be used in a driver to save configuration/state
  * information that could be used by an application.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright 2012 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
