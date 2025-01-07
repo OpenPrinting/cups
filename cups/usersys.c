@@ -1672,6 +1672,8 @@ cups_set_ssl_options(
       min_version = _HTTP_TLS_1_3;
     else if (!_cups_strcasecmp(start, "None"))
       options = _HTTP_TLS_NONE;
+    else if (!_cups_strcasecmp(start, "NoSystem"))
+      options |= _HTTP_TLS_NO_SYSTEM;
   }
 
   cc->ssl_options     = options;
