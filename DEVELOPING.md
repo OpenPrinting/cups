@@ -120,6 +120,13 @@ Manual, which is generated using the [codedoc](https://www.msweet.org/codedoc)
 software.
 
 
+### Copyright notice
+
+If there are changes for a file, which contains copyright notice already
+and the notice is not updated for the current year, update the year of copyright
+notice to include the current year.
+
+
 ### Source Files
 
 All source files names must consist of lowercase ASCII letters, numbers, dash
