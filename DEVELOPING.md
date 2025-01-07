@@ -126,6 +126,9 @@ If there are changes for a file, which contains copyright notice already
 and the notice is not updated for the current year, update the year of copyright
 notice to include the current year.
 
+Only the following files must have copyright notice updated every year: README.md,
+NOTICE, index.html.in, and header.html.in.
+
 
 ### Source Files
 
