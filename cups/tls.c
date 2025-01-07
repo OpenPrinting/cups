@@ -144,30 +144,46 @@ cupsSaveCredentials(
     const char *key)			// I - PEM-encoded private key or `NULL` for none
 {
   bool	ret = false;			// Return value
-  char	crtfile[1024],			// Certificate filename
+  char	defpath[1024],			// Default path
+	crtfile[1024],			// Certificate filename
 	keyfile[1024],			// Key filename
 	ktmfile[1024];			// Temporary key filename
 
 
   // Validate input...
+  DEBUG_printf("cupsSaveCredentials(path=\"%s\", common_name=\"%s\", credentials=%p(%u), key=%p(%u))", path, common_name, credentials, credentials ? (unsigned)strlen(credentials) : 0, key, key ? (unsigned)strlen(key) : 0);
+
+  if (!path)
+    path = http_default_path(defpath, sizeof(defpath));
+
   if (credentials)
   {
     // Make sure it looks like a PEM-encoded cert...
     if (strncmp(credentials, "-----BEGIN CERTIFICATE-----", 27) || strstr(credentials, "-----END CERTIFICATE-----") == NULL)
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad certificate."), true);
       return (false);
+    }
   }
 
   if (key)
   {
     // Make sure it looks like a PEM-encoded private key...
     if (strncmp(key, "-----BEGIN PRIVATE KEY-----", 27) || strstr(key, "-----END PRIVATE KEY-----") == NULL)
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad private key."), true);
       return (false);
+    }
   }
 
   // Save or delete credentials...
   http_make_path(crtfile, sizeof(crtfile), path, common_name, "crt");
   http_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
   http_make_path(ktmfile, sizeof(ktmfile), path, common_name, "ktm");
+
+  DEBUG_printf("1cupsSaveCredentials: crtfile=\"%s\"", crtfile);
+  DEBUG_printf("1cupsSaveCredentials: keyfile=\"%s\"", keyfile);
+  DEBUG_printf("1cupsSaveCredentials: ktmfile=\"%s\"", ktmfile);
 
   if (!credentials && !key)
   {
@@ -186,16 +202,27 @@ cupsSaveCredentials(
   {
     // Missing key file...
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
+
+    DEBUG_printf("1cupsSaveCredentials: access(\"%s\", 0)=%d", keyfile, access(keyfile, 0));
+    DEBUG_printf("1cupsSaveCredentials: access(\"%s\", 0)=%d", ktmfile, access(ktmfile, 0));
   }
   else if (http_save_file(path, common_name, "crt", credentials))
   {
     // Certificate saved, save or rename key file as needed...
     if (key)
+    {
       ret = http_save_file(path, common_name, "key", key);
-    else if (!access(ktmfile, 0))
-      ret = !rename(ktmfile, keyfile);
+    }
+    else if (!access(ktmfile, 0) && rename(ktmfile, keyfile))
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
+
+      DEBUG_printf("1cupsSaveCredentials: rename(\"%s\", \"%s\") failed.", ktmfile, keyfile);
+    }
     else
+    {
       ret = true;
+    }
   }
 
   return (ret);
