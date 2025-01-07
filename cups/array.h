@@ -1,7 +1,7 @@
 /*
  * Sorted array definitions for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2010 by Apple Inc.
  * Copyright 1997-2007 by Easy Software Products.
  *

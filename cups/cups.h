@@ -1,7 +1,7 @@
 /*
  * API definitions for CUPS.
  *
- * Copyright © 2021-2025 by OpenPrinting.
+ * Copyright © 2021-2024 by OpenPrinting.
  * Copyright © 2007-2020 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *

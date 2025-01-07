@@ -1,7 +1,7 @@
 /*
  * IPP Everywhere printer application for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group.
  * Copyright © 2010-2021 by Apple Inc.
  *

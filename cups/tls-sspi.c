@@ -2,7 +2,7 @@
  * TLS support for CUPS on Windows using the Security Support Provider
  * Interface (SSPI).
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2023 by OpenPrinting.
  * Copyright © 2010-2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more

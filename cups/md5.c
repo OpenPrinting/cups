@@ -1,7 +1,7 @@
 /*
  * Private MD5 implementation for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 2005 by Easy Software Products
  * Copyright © 1999 Aladdin Enterprises.  All rights reserved.
