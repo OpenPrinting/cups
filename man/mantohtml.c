@@ -588,7 +588,7 @@ main(int  argc,				/* I - Number of command-line args */
 	float amount = 3.0f;		/* Indentation */
 
         if (line[3])
-          amount = (float)atof(line + 4, NULL);
+          amount = (float)atof(line + 4);
 
 	fputs(end_fonts[font], outfile);
 	font = 0;
