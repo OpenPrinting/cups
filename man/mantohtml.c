@@ -1,6 +1,7 @@
 /*
  * Man page to HTML conversion program.
  *
+ * Copyright 2025 by OpenPrinting.
  * Copyright 2007-2017 by Apple Inc.
  * Copyright 2004-2006 by Easy Software Products.
  *
