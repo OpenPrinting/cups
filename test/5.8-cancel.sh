@@ -2,7 +2,7 @@
 #
 # Test the cancel command.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2025 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 #

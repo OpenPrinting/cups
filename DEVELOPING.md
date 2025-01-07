@@ -137,7 +137,7 @@ the source file and the copyright and licensing notice:
     /*
      * Description of file contents.
      *
-     * Copyright © 2021-2023 by OpenPrinting
+     * Copyright © 2021-2025 by OpenPrinting
      *
      * Licensed under Apache License v2.0.  See the file "LICENSE" for more
      * information.
@@ -379,7 +379,7 @@ of the file, and CUPS copyright and license notice:
     #
     # Makefile for ...
     #
-    # Copyright © 2021-2023 by OpenPrinting
+    # Copyright © 2021-2025 by OpenPrinting
     #
     # Licensed under Apache License v2.0.  See the file "LICENSE" for more
     # information.

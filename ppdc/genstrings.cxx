@@ -5,7 +5,7 @@
 // the standard media and sample driver strings.  The results are picked up
 // by GNU gettext and placed in the CUPS message catalog.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright 2008-2014 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more information.

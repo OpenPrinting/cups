@@ -1,7 +1,7 @@
 /*
  * Notification routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright 2007-2013 by Apple Inc.
  * Copyright 2005-2006 by Easy Software Products.
  *

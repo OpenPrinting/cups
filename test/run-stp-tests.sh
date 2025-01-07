@@ -3,7 +3,7 @@
 # Perform the complete set of IPP compliance tests specified in the
 # CUPS Software Test Plan.
 #
-# Copyright © 2020-2023 by OpenPrinting
+# Copyright © 2020-2025 by OpenPrinting
 # Copyright © 2007-2021 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #

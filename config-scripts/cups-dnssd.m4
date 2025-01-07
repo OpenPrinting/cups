@@ -1,7 +1,7 @@
 dnl
 dnl DNS Service Discovery (aka Bonjour) stuff for CUPS.
 dnl
-dnl Copyright © 2020-2024 by OpenPrinting.
+dnl Copyright © 2020-2025 by OpenPrinting.
 dnl Copyright © 2007-2019 by Apple Inc.
 dnl
 dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more

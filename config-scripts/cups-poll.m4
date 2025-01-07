@@ -1,7 +1,7 @@
 dnl
 dnl Select/poll stuff for CUPS.
 dnl
-dnl Copyright © 2021-2023 by OpenPrinting.
+dnl Copyright © 2021-2025 by OpenPrinting.
 dnl Copyright © 2007-2011 by Apple Inc.
 dnl Copyright © 2006 by Easy Software Products, all rights reserved.
 dnl
