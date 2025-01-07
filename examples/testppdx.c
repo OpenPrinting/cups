@@ -5,7 +5,7 @@
  *
  *     gcc -o testppdx -D_PPD_DEPRECATED="" -g testppdx.c ppdx.c -lcups -lz
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2012 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.

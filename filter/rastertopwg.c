@@ -1,7 +1,7 @@
 /*
  * CUPS raster to PWG raster format filter for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2011, 2014-2017 Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more

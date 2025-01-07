@@ -1,7 +1,7 @@
 /*
  * Status buffer definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright 2007-2010 by Apple Inc.
  * Copyright 1997-2005 by Easy Software Products, all rights reserved.
  *

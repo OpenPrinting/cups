@@ -1,7 +1,7 @@
 //
 // OAuth API implementation for CUPS.
 //
-// Copyright © 2025 by OpenPrinting.
+// Copyright © 2024 by OpenPrinting.
 // Copyright © 2017-2024 by Michael R Sweet
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more

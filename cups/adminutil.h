@@ -1,7 +1,7 @@
 //
 // Administration utility API definitions for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2024 by OpenPrinting.
 // Copyright © 2007-2016 by Apple Inc.
 // Copyright © 2001-2007 by Easy Software Products.
 //

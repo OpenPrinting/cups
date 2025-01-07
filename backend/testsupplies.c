@@ -1,7 +1,7 @@
 /*
  * SNMP supplies test program for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2024 by OpenPrinting.
  * Copyright © 2008-2011 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more

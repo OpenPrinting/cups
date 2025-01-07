@@ -172,7 +172,7 @@ end up as pull requests on Github.
 Legal Stuff
 -----------
 
-Copyright © 2020-2025 by OpenPrinting
+Copyright © 2020-2023 by OpenPrinting
 
 Copyright © 2007-2020 by Apple Inc.
 
