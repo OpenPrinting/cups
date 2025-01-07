@@ -1,7 +1,7 @@
 /*
  * Search routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -169,26 +169,27 @@ cgiCompileSearch(const char *query)	/* I - Query string */
       if (wlen > slen)
       {
        /*
-        * Expand the RE string buffer...
+	* Expand the RE string buffer...
 	*/
 
-        char *temp;			/* Temporary string pointer */
+	char *temp;			/* Temporary string pointer */
+	const ptrdiff_t pos = sptr - s;	/* Current pointer position (GCC workaround for use-after-free warning after realloc) */
 
 
 	slen = wlen + 128;
-        temp = (char *)realloc(s, slen);
+	temp = (char *)realloc(s, slen);
 	if (!temp)
 	{
 	  free(s);
 	  free(re);
 
 	  if (lword)
-            free(lword);
+	    free(lword);
 
 	  return (NULL);
 	}
 
-        sptr = temp + (sptr - s);
+	sptr = temp + pos;
 	s    = temp;
       }
 
