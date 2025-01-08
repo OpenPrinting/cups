@@ -1,7 +1,7 @@
 //
 // HTTP routines for CUPS.
 //
-// Copyright © 2022-2024 by OpenPrinting.
+// Copyright © 2022-2025 by OpenPrinting.
 // Copyright © 2007-2021 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -2447,6 +2447,8 @@ httpSetAuthString(http_t     *http,	// I - HTTP connection
 		  const char *data)	// I - Auth data (NULL for none)
 {
   // Range check input...
+  DEBUG_printf("httpSetAuthString(http=%p, scheme=\"%s\", data=\"%s\")", (void *)http, scheme, data);
+
   if (!http)
     return;
 
@@ -2479,6 +2481,8 @@ httpSetAuthString(http_t     *http,	// I - HTTP connection
     // Clear the current authorization string...
     http->_authstring[0] = '\0';
   }
+
+  DEBUG_printf("1httpSetAuthString: authstring=\"%s\"", http->authstring);
 }
 
 
@@ -4186,6 +4190,10 @@ http_send(http_t       *http,		// I - HTTP connection
   // Set the Accept-Encoding field if it isn't already...
   if (!http->fields[HTTP_FIELD_ACCEPT_ENCODING] && http->default_fields[HTTP_FIELD_ACCEPT_ENCODING])
     httpSetField(http, HTTP_FIELD_ACCEPT_ENCODING, http->default_fields[HTTP_FIELD_ACCEPT_ENCODING]);
+
+  // Set the Authorization field if it isn't already...
+  if (!http->fields[HTTP_FIELD_AUTHORIZATION] && http->authstring)
+    httpSetField(http, HTTP_FIELD_AUTHORIZATION, http->authstring);
 
   // Encode the URI as needed...
   _httpEncodeURI(buf, uri, sizeof(buf));

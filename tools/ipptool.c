@@ -1,7 +1,7 @@
 //
 // ipptool command for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2020 by The Printer Working Group.
 // Copyright © 2007-2021 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
@@ -999,9 +999,9 @@ connect_printer(ipptool_test_t *data)	// I - Test data
   }
 
   if (data->bearer_token)
-    httpSetAuthString(data->http, "Bearer", data->bearer_token);
+    httpSetAuthString(http, "Bearer", data->bearer_token);
 
-  httpSetDefaultField(data->http, HTTP_FIELD_ACCEPT_ENCODING, "deflate, gzip, identity");
+  httpSetDefaultField(http, HTTP_FIELD_ACCEPT_ENCODING, "deflate, gzip, identity");
 
   if (data->timeout > 0.0)
     httpSetTimeout(http, data->timeout, timeout_cb, NULL);
