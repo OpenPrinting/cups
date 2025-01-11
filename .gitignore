@@ -166,3 +166,10 @@
 /xcode/CUPS.xcodeproj/xcuserdata/
 .DS_store
 container-config
+packages/parts
+packages/stage
+packages/prime
+*.snap
+*.tar*
+packages/snap/.snapcraft
+*.rock

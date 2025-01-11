@@ -1,0 +1,12 @@
+#! /bin/sh
+
+set -e -x
+
+# Send HUP signal to CUPS
+echo "==> Sending HUP to CUPS"
+PID=$(cat "${SNAP_COMMON}/pid/cupsd.pid" || true)
+if [ -n "${PID}" ] && kill -0 "${PID}" 2>/dev/null; then
+    kill -HUP "${PID}"
+else
+    echo "==> No CUPS process found"
+fi

@@ -1,0 +1,64 @@
+#! /bin/sh
+
+set -e -x
+
+# Exit if we are already shutting down cupsd
+if [ -f "${SNAP_DATA}/var/run/stop-cupsd.lock" ]; then
+    echo "==> We are already shutting down cupsd"
+    exit 0
+fi
+touch "${SNAP_DATA}/var/run/stop-cupsd.lock"
+
+# Shut down cups-browsed first, so that it can remove its temporary queues
+# before CUPS shuts down
+echo "==> Shutting down cups-browsed first"
+$SNAP/stop-cups-browsed
+
+if [ -e $SNAP_DATA/var/run/proxy-mode ]; then
+    # Shut down cups-proxyd
+    echo "==> Shutting down cups-proxyd"
+    PID=$(cat "${SNAP_DATA}/var/run/cups-proxyd.pid" || true)
+    if [ -n "${PID}" ] && kill -0 "${PID}" 2>/dev/null; then
+	kill -TERM "${PID}"
+
+	DEAD=0
+	for i in $(seq 30); do
+            if ! kill -0 "${PID}" 2>/dev/null; then
+		DEAD=1
+		break
+            fi
+            sleep 1
+	done
+
+	if [ "${DEAD}" = "0" ]; then
+            echo "==> Forcefully killing cups-proxyd after 30 seconds wait"
+            kill -9 "${PID}"
+	fi
+    fi
+    rm -f $SNAP_DATA/var/run/cups-proxyd.pid
+fi
+
+# Shut down CUPS
+echo "==> Shutting down CUPS"
+PID=$(cat "${SNAP_DATA}/var/run/cupsd.pid" || true)
+if [ -n "${PID}" ] && kill -0 "${PID}" 2>/dev/null; then
+    kill -TERM "${PID}"
+
+    DEAD=0
+    for i in $(seq 30); do
+        if ! kill -0 "${PID}" 2>/dev/null; then
+            DEAD=1
+            break
+        fi
+        sleep 1
+    done
+
+    if [ "${DEAD}" = "0" ]; then
+        echo "==> Forcefully killing CUPS after 30 seconds wait"
+        kill -9 "${PID}"
+    fi
+fi
+
+# Removing PID file
+rm -f "${SNAP_DATA}/var/run/cupsd.pid"
+rm -f "${SNAP_DATA}/var/run/stop-cupsd.lock"

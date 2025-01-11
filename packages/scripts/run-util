@@ -1,0 +1,13 @@
+#! /bin/sh
+
+#set -e -x
+
+export CUPS_SERVERROOT=$SNAP_COMMON/etc/cups
+export CUPS_DATADIR=$SNAP/share/cups
+export CUPS_SERVERBIN=$SNAP/lib/cups
+export CUPS_FONTPATH=$SNAP/share/cups/fonts
+export FONTCONFIG_FILE=$SNAP_COMMON/etc/fonts/fonts.conf
+export FONTCONFIG_PATH=$SNAP_COMMON/etc/fonts/conf.d
+export FONTCONFIG_SYSROOT=$SNAP_COMMON/etc/fonts
+
+exec $SNAP/$*
