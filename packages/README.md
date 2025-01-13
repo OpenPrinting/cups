@@ -477,4 +477,5 @@ To check the print status:
 **Note to use cups administrative task pass -U flag with lpadmin command**
 
 <!-- Begin Included Components -->
+
 <!-- End Included Components -->

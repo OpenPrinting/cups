@@ -84,8 +84,8 @@ jobs:
           USERNAME: ${{ secrets.DOCKER_USERNAME }}
           ORG: ${{ github.repository_owner }}
         run: |
-          IMAGE="$(yq '.name' rockcraft.yaml)"
-          VERSION="$(yq '.version' rockcraft.yaml)"
+          IMAGE="$(yq '.name' packages/rockcraft.yaml)"
+          VERSION="$(yq '.version' packages/rockcraft.yaml)"
           ROCK="$(ls *.rock | tail -n 1)"
           ORG_NAME=$(echo "${ORG}" | tr '[:upper:]' '[:lower:]')
           sudo rockcraft.skopeo --insecure-policy copy oci-archive:"${ROCK}" docker-daemon:"${ORG_NAME}/${IMAGE}:${VERSION}-edge"
@@ -107,8 +107,8 @@ jobs:
           USERNAME: ${{ secrets.DOCKER_USERNAME }}
           ORG: ${{ github.repository_owner }}
         run: |
-            IMAGE="$(yq '.name' rockcraft.yaml)"
-            VERSION="$(yq '.version' rockcraft.yaml)"
+            IMAGE="$(yq '.name' packages/rockcraft.yaml)"
+            VERSION="$(yq '.version' packages/rockcraft.yaml)"
             ROCK="$(ls *.rock | tail -n 1)"
             ORG_NAME=$(echo "${ORG}" | tr '[:upper:]' '[:lower:]')
             sudo rockcraft.skopeo --insecure-policy copy oci-archive:"${ROCK}" docker-daemon:"${ORG_NAME}/${IMAGE}:${VERSION}-stable"
