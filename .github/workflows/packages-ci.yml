@@ -22,7 +22,7 @@ jobs:
         uses: canonical/craft-actions/rockcraft-pack@main
         id: rockcraft
         with:
-          path: packages
+          path: packaging
 
       - name: Upload Rock Artifact
         uses: actions/upload-artifact@v4
@@ -40,7 +40,7 @@ jobs:
         uses: snapcore/action-build@v1
         id: snapcraft
         with:
-          path: packages
+          path: packaging
 
   test:
     needs: build-rock

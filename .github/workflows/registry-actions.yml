@@ -1,4 +1,4 @@
-name: Pack and Publish OCI Image to Docker Registry and GitHub Packages
+name: Pack and Publish OCI Image to Docker Registry and GitHub packaging
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
         uses: canonical/craft-actions/rockcraft-pack@main
         id: rockcraft
         with:
-          path: packages
+          path: packaging
 
       - name: Upload Rock Artifact
         uses: actions/upload-artifact@v4
@@ -84,8 +84,8 @@ jobs:
           USERNAME: ${{ secrets.DOCKER_USERNAME }}
           ORG: ${{ github.repository_owner }}
         run: |
-          IMAGE="$(yq '.name' packages/rockcraft.yaml)"
-          VERSION="$(yq '.version' packages/rockcraft.yaml)"
+          IMAGE="$(yq '.name' packaging/rockcraft.yaml)"
+          VERSION="$(yq '.version' packaging/rockcraft.yaml)"
           ROCK="$(ls *.rock | tail -n 1)"
           ORG_NAME=$(echo "${ORG}" | tr '[:upper:]' '[:lower:]')
           sudo rockcraft.skopeo --insecure-policy copy oci-archive:"${ROCK}" docker-daemon:"${ORG_NAME}/${IMAGE}:${VERSION}-edge"
@@ -107,8 +107,8 @@ jobs:
           USERNAME: ${{ secrets.DOCKER_USERNAME }}
           ORG: ${{ github.repository_owner }}
         run: |
-            IMAGE="$(yq '.name' packages/rockcraft.yaml)"
-            VERSION="$(yq '.version' packages/rockcraft.yaml)"
+            IMAGE="$(yq '.name' packaging/rockcraft.yaml)"
+            VERSION="$(yq '.version' packaging/rockcraft.yaml)"
             ROCK="$(ls *.rock | tail -n 1)"
             ORG_NAME=$(echo "${ORG}" | tr '[:upper:]' '[:lower:]')
             sudo rockcraft.skopeo --insecure-policy copy oci-archive:"${ROCK}" docker-daemon:"${ORG_NAME}/${IMAGE}:${VERSION}-stable"

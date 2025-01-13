@@ -29,7 +29,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
           version-schema: 'v(\d+\.\d+\.\d+)'
-          yaml-path: 'packages/snapcraft.yaml'
+          yaml-path: 'packaging/snapcraft.yaml'
 
       - name: Run desktop-snaps action (Rockcraft)
         if: ${{ github.event_name == 'schedule' || github.event.inputs.workflow_choice == 'rockcraft' || github.event.inputs.workflow_choice == 'both' }}
@@ -38,5 +38,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
           rock-version-schema: 'v(\d+\.\d+\.\d+)'
-          yaml-path: 'packages/rockcraft.yaml'
-          readme-path: packages/README.md
+          yaml-path: 'packaging/rockcraft.yaml'
+          readme-path: packaging/README.md
