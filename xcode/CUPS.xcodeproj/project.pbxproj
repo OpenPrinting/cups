@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				275CEA452CC8411A008FBB27 /* PBXTargetDependency */,
 				729181C12011560E005E7560 /* PBXTargetDependency */,
 				729181C32011560E005E7560 /* PBXTargetDependency */,
 				270D02281D707E5100EA9403 /* PBXTargetDependency */,
@@ -422,6 +423,10 @@
 		274FF6B81333B1C400317ECB /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F09133305BB00FCA411 /* util.c */; };
 		274FF6C61333B1C400317ECB /* dir.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220ED4133305BB00FCA411 /* dir.h */; settings = {ATTRIBUTES = (); }; };
 		276683671337A9E0000D33D0 /* libcups.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups.dylib */; };
+		275CEA292CC840B1008FBB27 /* clock.c in Sources */ = {isa = PBXBuildFile; fileRef = 275CEA282CC840B1008FBB27 /* clock.c */; };
+		275CEA2A2CC840B1008FBB27 /* clock.c in Sources */ = {isa = PBXBuildFile; fileRef = 275CEA282CC840B1008FBB27 /* clock.c */; };
+		275CEA2B2CC840B1008FBB27 /* clock.c in Sources */ = {isa = PBXBuildFile; fileRef = 275CEA282CC840B1008FBB27 /* clock.c */; };
+		275CEA432CC8410C008FBB27 /* testclock.c in Sources */ = {isa = PBXBuildFile; fileRef = 275CEA2C2CC840DF008FBB27 /* testclock.c */; };
 		276683691337AA00000D33D0 /* cupsctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 276683681337AA00000D33D0 /* cupsctl.c */; };
 		276683B11337AD06000D33D0 /* libcups.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups.dylib */; };
 		276683B21337AD06000D33D0 /* libcupsppdc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 274FF5EE133330C800317ECB /* libcupsppdc.dylib */; };
@@ -1792,6 +1797,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 274FF67713333B2F00317ECB;
 			remoteInfo = cupsfilter;
+		};
+		275CEA442CC8411A008FBB27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 275CEA2D2CC840EE008FBB27;
+			remoteInfo = testclock;
 		};
 		276683651337A9D6000D33D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3275,6 +3287,9 @@
 		274FF67813333B2F00317ECB /* cupsfilter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsfilter; sourceTree = BUILT_PRODUCTS_DIR; };
 		274FF68713333B6E00317ECB /* cupsfilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cupsfilter.c; path = ../scheduler/cupsfilter.c; sourceTree = "<group>"; };
 		276683561337A8C5000D33D0 /* cups.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cups.strings; path = ../locale/cups.strings; sourceTree = "<group>"; };
+		275CEA282CC840B1008FBB27 /* clock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = clock.c; path = ../cups/clock.c; sourceTree = SOURCE_ROOT; };
+		275CEA2C2CC840DF008FBB27 /* testclock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = testclock.c; path = ../cups/testclock.c; sourceTree = SOURCE_ROOT; };
+		275CEA422CC840EE008FBB27 /* testclock */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testclock; sourceTree = BUILT_PRODUCTS_DIR; };
 		2766835C1337A9B6000D33D0 /* cupsctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cupsctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		276683681337AA00000D33D0 /* cupsctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cupsctl.c; path = ../systemv/cupsctl.c; sourceTree = "<group>"; };
 		276683701337AC79000D33D0 /* ppdc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ppdc; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4715,6 +4730,7 @@
 				724FA6EC1CC03A1D0092477B /* testcatalog.cxx */,
 				727EF03D192E3498001EF690 /* testcgi.c */,
 				729181AB20115597005E7560 /* testclient.c */,
+				275CEA2C2CC840DF008FBB27 /* testclock.c */,
 				727EF044192E3544001EF690 /* testconflicts.c */,
 				270D02251D707E3700EA9403 /* testcreds.c */,
 				273BF6C61333B5370022CAAB /* testcups.c */,
@@ -4928,6 +4944,7 @@
 				273B1EAA226B3E4800428143 /* ippevepcl */,
 				273B1EBB226B3E5200428143 /* ippeveps */,
 				274770E02345342B0089BC31 /* testthreads */,
+				275CEA422CC840EE008FBB27 /* testclock */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4940,6 +4957,7 @@
 				72220EBB1333056300FCA411 /* auth.c */,
 				72220EBC1333056300FCA411 /* backchannel.c */,
 				72220EBD1333056300FCA411 /* backend.c */,
+				275CEA282CC840B1008FBB27 /* clock.c */,
 				276683561337A8C5000D33D0 /* cups.strings */,
 				722A24EE2178D00C000CAB20 /* debug-internal.h */,
 				72220ED1133305BB00FCA411 /* debug.c */,
@@ -6301,6 +6319,24 @@
 			productReference = 72A4332F155844CF002E172D /* libcups_static.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
+		275CEA2D2CC840EE008FBB27 /* testclock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 275CEA3F2CC840EE008FBB27 /* Build configuration list for PBXNativeTarget "testclock" */;
+			buildPhases = (
+				275CEA302CC840EE008FBB27 /* Sources */,
+				275CEA322CC840EE008FBB27 /* Frameworks */,
+				275CEA3E2CC840EE008FBB27 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				275CEA2E2CC840EE008FBB27 /* PBXTargetDependency */,
+			);
+			name = testclock;
+			productName = testmime;
+			productReference = 275CEA422CC840EE008FBB27 /* testclock */;
+			productType = "com.apple.product-type.tool";
+		};
 		2766835B1337A9B6000D33D0 /* cupsctl */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 276683621337A9B6000D33D0 /* Build configuration list for PBXNativeTarget "cupsctl" */;
@@ -7386,6 +7422,7 @@
 				724FA6ED1CC03A210092477B /* testcatalog */,
 				724FA6991CC039200092477B /* testcgi */,
 				729181AC201155C1005E7560 /* testclient */,
+				275CEA2D2CC840EE008FBB27 /* testclock */,
 				724FA55D1CC037670092477B /* testconflicts */,
 				270D02131D707E0200EA9403 /* testcreds */,
 				273BF6BC1333B5000022CAAB /* testcups */,
@@ -7436,6 +7473,7 @@
 				270696141CADF3E200FFE5FB /* http.c in Sources */,
 				7253C458216E981200494ADD /* raster-stream.c in Sources */,
 				270696161CADF3E200FFE5FB /* dest-options.c in Sources */,
+				275CEA2A2CC840B1008FBB27 /* clock.c in Sources */,
 				270696171CADF3E200FFE5FB /* ipp-support.c in Sources */,
 				270696181CADF3E200FFE5FB /* ipp.c in Sources */,
 				270696191CADF3E200FFE5FB /* langprintf.c in Sources */,
@@ -7870,6 +7908,7 @@
 				274FF6A31333B1C400317ECB /* langprintf.c in Sources */,
 				274FF6A41333B1C400317ECB /* language.c in Sources */,
 				274FF6A51333B1C400317ECB /* ppd-localize.c in Sources */,
+				275CEA292CC840B1008FBB27 /* clock.c in Sources */,
 				274FF6A61333B1C400317ECB /* ppd-mark.c in Sources */,
 				274FF6A71333B1C400317ECB /* md5.c in Sources */,
 				274FF6A81333B1C400317ECB /* md5passwd.c in Sources */,
@@ -7896,6 +7935,14 @@
 				274FF6B61333B1C400317ECB /* transcode.c in Sources */,
 				274FF6B71333B1C400317ECB /* usersys.c in Sources */,
 				274FF6B81333B1C400317ECB /* util.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		275CEA302CC840EE008FBB27 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				275CEA432CC8410C008FBB27 /* testclock.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8026,6 +8073,7 @@
 				72220F22133305BB00FCA411 /* langprintf.c in Sources */,
 				72220F24133305BB00FCA411 /* language.c in Sources */,
 				72220F26133305BB00FCA411 /* ppd-localize.c in Sources */,
+				275CEA2B2CC840B1008FBB27 /* clock.c in Sources */,
 				72220F27133305BB00FCA411 /* ppd-mark.c in Sources */,
 				72220F29133305BB00FCA411 /* md5.c in Sources */,
 				7284F9F01BFCCDB10026F886 /* hash.c in Sources */,
@@ -9093,6 +9141,11 @@
 			isa = PBXTargetDependency;
 			target = 274FF67713333B2F00317ECB /* cupsfilter */;
 			targetProxy = 274FF6E11333B33F00317ECB /* PBXContainerItemProxy */;
+		};
+		275CEA452CC8411A008FBB27 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 275CEA2D2CC840EE008FBB27 /* testclock */;
+			targetProxy = 275CEA442CC8411A008FBB27 /* PBXContainerItemProxy */;
 		};
 		276683661337A9D6000D33D0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -10567,6 +10620,28 @@
 				PRODUCT_NAME = libcups_static;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/include/cups;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+			};
+			name = Release;
+		};
+		275CEA402CC840EE008FBB27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		275CEA412CC840EE008FBB27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -12363,6 +12438,15 @@
 			buildConfigurations = (
 				274FF6DE1333B1C400317ECB /* Debug */,
 				274FF6DF1333B1C400317ECB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		275CEA3F2CC840EE008FBB27 /* Build configuration list for PBXNativeTarget "testclock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				275CEA402CC840EE008FBB27 /* Debug */,
+				275CEA412CC840EE008FBB27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -112,6 +112,7 @@
     <ClCompile Include="..\cups\adminutil.c" />
     <ClCompile Include="..\cups\array.c" />
     <ClCompile Include="..\cups\auth.c" />
+    <ClCompile Include="..\cups\clock.c" />
     <ClCompile Include="..\cups\debug.c" />
     <ClCompile Include="..\cups\dest-job.c" />
     <ClCompile Include="..\cups\dest-localization.c" />

@@ -19,6 +19,7 @@ include ../Makedefs
 COREOBJS	=	\
 		array.o \
 		auth.o \
+		clock.o \
 		debug.o \
 		dest.o \
 		dest-job.o \
@@ -92,6 +93,7 @@ TESTOBJS	= \
 		testadmin.o \
 		testarray.o \
 		testcache.o \
+		testclock.o \
 		testclient.o \
 		testconflicts.o \
 		testcreds.o \
@@ -179,6 +181,7 @@ UNITTARGETS =	\
 		testarray \
 		testcache \
 		testclient \
+		testclock \
 		testconflicts \
 		testcreds \
 		testcups \
@@ -526,6 +529,18 @@ testclient:	testclient.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o $@ testclient.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testclock (dependency on static libraries is intentional)
+#
+
+testclock:	testclock.o $(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ testclock.o $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+	echo Running clock API tests...
+	./testclock
 
 
 #
