@@ -3544,7 +3544,7 @@ _ppdCreateFromIPP2(
     is_apple = ippContainsString(attr, "image/urf") && (ippFindAttribute(supported, "urf-supported", IPP_TAG_KEYWORD) != NULL);
     is_pdf   = ippContainsString(attr, "application/pdf");
     is_pwg   = ippContainsString(attr, "image/pwg-raster") && !is_apple &&
-	       (ippFindAttribute(supported, "pwg-raster-document-resolution-supported", IPP_TAG_KEYWORD) != NULL) &&
+	       (ippFindAttribute(supported, "pwg-raster-document-resolution-supported", IPP_TAG_RESOLUTION) != NULL) &&
 	       (ippFindAttribute(supported, "pwg-raster-document-type-supported", IPP_TAG_KEYWORD) != NULL);
 
     if (ippContainsString(attr, "image/jpeg"))
