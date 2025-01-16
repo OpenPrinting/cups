@@ -185,7 +185,7 @@ cupsdAddEvent(
 	* Add job attributes...
 	*/
 
-	ippAddInteger(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_INTEGER, "notify-job-id", job->id);
+	ippAddInteger(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_INTEGER, sub->job ? "notify-job-id" : "job-id", job->id);
 	ippAddInteger(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_ENUM, "job-state", (int)job->state_value);
 
 	if ((attr = ippFindAttribute(job->attrs, "job-name", IPP_TAG_NAME)) != NULL)
