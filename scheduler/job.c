@@ -1,16 +1,12 @@
 /*
  * Job management routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cupsd.h"
@@ -869,6 +865,9 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 
     goto abort_job;
   }
+
+  if (banner_page || (!strcmp(job->filetypes[job->current_file]->super, "image") && (!strcmp(job->filetypes[job->current_file]->type, "pwg-raster") || !strcmp(job->filetypes[job->current_file]->type, "urf"))))
+    strlcpy(copies, "1", sizeof(copies));
 
  /*
   * Build the command-line arguments for the filters.  Each filter
