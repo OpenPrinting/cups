@@ -193,9 +193,6 @@ parts:
       set -eux
       # Do the actual pull task
       craftctl default
-      # Settings:
-      # Patch to use snapctl with the slot name "cups-server" for Snap mediation
-      #patch -p1 < $CRAFT_PROJECT_DIR/patches/use-snapctl-with-slot-cups-server.patch
       # Longer timeout for Avahi resolving for cupsGetDests() API function, used
       # by "lpstat -l -e" (https://github.com/OpenPrinting/cups/issues/751)
       perl -p -i -e 's/(#\s*define\s+_CUPS_DNSSD_GET_DESTS\s+)250(\s+)/\1 1000\2/' cups/dest.c
