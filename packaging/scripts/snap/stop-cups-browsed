@@ -1,5 +1,12 @@
 #! /bin/sh
-
+#
+# This script is responsible for safely shutting down the cups-browsed service.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
 set -e -x
 
 # Exit if we are already shutting down cups-browsed

@@ -1,5 +1,15 @@
 #!/bin/sh
-
+#
+# Script to initialize system services (users, D-Bus, Avahi) for the CUPS OCI 
+# container environment.
+#
+# Copyright © 2024-2025 by OpenPrinting.
+# Copyright © 2024-2025 by Till Kamppeter.
+# Copyright © 2024-2025 by Rudra Pratap Singh.
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
 set -eux
 
 echo "Creating system users"

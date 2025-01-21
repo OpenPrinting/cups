@@ -1,3 +1,12 @@
+#
+# Snap Configuration File for CUPS Snap
+#
+# Copyright © 2024-2025 by OpenPrinting.
+# Copyright © 2015-2021 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
 name: cups
 base: core22 # The base Snap is the execution environment for this Snap
 version: '2.4.11-3'

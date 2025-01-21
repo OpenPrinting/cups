@@ -1,4 +1,14 @@
 #! /bin/sh
+#
+# This script sets environment variables required for configuring and
+# running the CUPS service in a Snap environment, including the locations
+# for server root, data, fonts, and configuration files.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
 
 #set -e -x
 

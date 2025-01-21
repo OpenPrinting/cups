@@ -1,5 +1,12 @@
 #! /bin/sh
-
+#
+# Script to initialize and manage the cups-browsed service in a Snap environment.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
 set -e -x
 
 mkdir -p $SNAP_DATA/var/log

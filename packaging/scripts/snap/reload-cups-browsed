@@ -1,5 +1,12 @@
 #! /bin/sh
-
+#
+# Script stop cups-browsed service.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0.  See the file "LICENSE" for more
+# information.
+#
 set -e -x
 
 # Stop cups-browsed to get it automatically restarted

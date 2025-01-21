@@ -1,5 +1,14 @@
 #!/bin/sh
-
+#
+# CUPS Server Initialization Script for OCI Image
+#
+# Copyright © 2024-2025 by OpenPrinting.
+# Copyright © 2024-2025 by Till Kamppeter
+# Copyright © 2024-2025 by Rudra Pratap Singh
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
 set -eux
 
 # Ensure the lpadmin group exists

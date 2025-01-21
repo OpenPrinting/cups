@@ -1,5 +1,12 @@
 #! /bin/sh
-
+#
+# Script to reload the CUPS daemon (cupsd).
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0.  See the file "LICENSE" for more
+# information.
+#
 set -e -x
 
 # Send HUP signal to CUPS

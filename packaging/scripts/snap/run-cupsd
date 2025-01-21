@@ -1,4 +1,15 @@
 #! /bin/sh
+#
+# This script initializes and manages CUPS services in a Snap environment,
+# including setting up required directories, configuring CUPS settings,
+# handling proxy mode, and running the CUPS server.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
+
 
 set -e -x
 
