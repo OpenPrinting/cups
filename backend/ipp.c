@@ -1,16 +1,12 @@
 /*
  * IPP backend for CUPS.
  *
- * Copyright © 2021-2024 by OpenPrinting
+ * Copyright © 2021-2025 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers.
  */
 
 #include "backend-private.h"
@@ -2986,6 +2982,10 @@ new_request(
 
       fputs("DEBUG: Adding all operation/job attributes.\n", stderr);
       adjust_options(num_options, options);
+
+      if (!strcmp(format, "image/pwg-raster") || !strcmp(format, "image/urf"))
+        num_options = cupsRemoveOption("copies", num_options, &options);
+
       cupsEncodeOptions2(request, num_options, options, IPP_TAG_OPERATION);
       cupsEncodeOptions2(request, num_options, options, IPP_TAG_JOB);
     }
