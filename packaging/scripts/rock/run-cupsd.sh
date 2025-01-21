@@ -1,4 +1,5 @@
 #!/bin/sh
+
 set -eux
 
 # Ensure the lpadmin group exists

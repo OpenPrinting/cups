@@ -1,4 +1,5 @@
 #!/bin/sh
+
 set -eux
 
 echo "Creating system users"

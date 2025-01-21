@@ -165,11 +165,11 @@
 /xcode/CUPS.xcodeproj/project.xcworkspace/
 /xcode/CUPS.xcodeproj/xcuserdata/
 .DS_store
-container-config
-packages/parts
-packages/stage
-packages/prime
+/container-config
+/packaging/parts
+/packaging/stage
+/packaging/prime
 *.snap
 *.tar*
-packages/snap/.snapcraft
+/packaging/snap/.snapcraft
 *.rock
