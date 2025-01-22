@@ -1,7 +1,7 @@
 //
 // OAuth API implementation for CUPS.
 //
-// Copyright © 2024 by OpenPrinting.
+// Copyright © 2024-2025 by OpenPrinting.
 // Copyright © 2017-2024 by Michael R Sweet
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -355,6 +355,8 @@ cupsOAuthGetAuthorizationCode(
   if ((client_id = cupsOAuthCopyClientId(auth_uri, redirect_uri ? redirect_uri : CUPS_OAUTH_REDIRECT_URI)) == NULL)
     client_id = cupsOAuthGetClientId(auth_uri, metadata, redirect_uri ? redirect_uri : CUPS_OAUTH_REDIRECT_URI, /*logo_uri*/NULL, /*tos_uri*/NULL);
 
+  DEBUG_printf("1cupsOAuthGetAuthorizationCode: client_id=\"%s\"", client_id);
+
   if (!client_id)
     return (NULL);
 
@@ -408,6 +410,7 @@ cupsOAuthGetAuthorizationCode(
     redirect_uri = final_uri;
   }
 
+  DEBUG_printf("1cupsOAuthGetAuthorizationCode: redirect_uri=\"%s\", resource=\"%s\"", redirect_uri, resource);
   DEBUG_printf("1cupsOAuthGetAuthorizationCode: Listen socket for port %d is %d (%s)", port, fd, strerror(errno));
 
   if (fd < 0)
@@ -424,12 +427,18 @@ cupsOAuthGetAuthorizationCode(
   else
     code_verifier = NULL;
 
+  DEBUG_printf("1cupsOAuthGetAuthorizationCode: code_verifier=\"%s\"", code_verifier);
+
   if (oauth_metadata_contains(metadata, "scopes_supported", "openid"))
     nonce = cupsOAuthMakeBase64Random(16);
   else
     nonce = NULL;
 
+  DEBUG_printf("1cupsOAuthGetAuthorizationCode: nonce=\"%s\"", nonce);
+
   state = cupsOAuthMakeBase64Random(16);
+
+  DEBUG_printf("1cupsOAuthGetAuthorizationCode: state=\"%s\"", state);
 
   if (!state)
     goto done;
@@ -479,9 +488,13 @@ cupsOAuthGetAuthorizationCode(
     }
   }
 
+  DEBUG_printf("1cupsOAuthGetAuthorizationCode: scopes=\"%s\"", scopes);
+
   // Get the authorization URL...
   if ((url = cupsOAuthMakeAuthorizationURL(auth_uri, metadata, resource_uri, scopes, client_id, code_verifier, nonce, redirect_uri, state)) == NULL)
     goto done;
+
+  DEBUG_printf("1cupsOAuthGetAuthorizationCode: url=\"%s\"", url);
 
   // Open a web browser with the authorization page...
 #ifdef __APPLE__
@@ -533,6 +546,8 @@ cupsOAuthGetAuthorizationCode(
     if (select(fd + 1, &input, /*writefds*/NULL, /*errorfds*/NULL, &timeout) > 0 && FD_ISSET(fd, &input))
     {
       // Try accepting a connection...
+      DEBUG_printf("1cupsOAuthGetAuthorizationCode: Accepting connection.");
+
       if ((http = httpAcceptConnection(fd, true)) != NULL)
       {
         // Respond to HTTP requests...
@@ -563,6 +578,8 @@ cupsOAuthGetAuthorizationCode(
             break;
 
           // Process the request...
+          DEBUG_printf("1cupsOAuthGetAuthorizationCode: %s %s HTTP/1.1", httpStateString(hstate), reqres);
+
           switch (hstate)
           {
             default :
@@ -648,17 +665,28 @@ cupsOAuthGetAuthorizationCode(
           }
 
 	  // Send response...
+          DEBUG_printf("1cupsOAuthGetAuthorizationCode: %d %s", hstatus, httpStatusString(hstatus));
+
 	  httpClearFields(http);
 	  if (hstatus >= HTTP_STATUS_BAD_REQUEST)
 	    httpSetField(http, HTTP_FIELD_CONNECTION, "close");
 	  if (htype)
+	  {
 	    httpSetField(http, HTTP_FIELD_CONTENT_TYPE, htype);
+            DEBUG_printf("1cupsOAuthGetAuthorizationCode: Content-Type: %s", htype);
+          }
 	  if (hbody)
+	  {
 	    httpSetLength(http, strlen(hbody));
+            DEBUG_printf("1cupsOAuthGetAuthorizationCode: Content-Length: %u", (unsigned)strlen(hbody));
+          }
 	  httpWriteResponse(http, hstatus);
 
 	  if (hbody)
+	  {
 	    httpWrite(http, hbody, strlen(hbody));
+            DEBUG_printf("1cupsOAuthGetAuthorizationCode: %s", hbody);
+          }
 
           // Stop on error...
           if (hstatus != HTTP_STATUS_OK)
@@ -683,6 +711,8 @@ cupsOAuthGetAuthorizationCode(
   free(scopes_supported);
   free(state);
   free(url);
+
+  DEBUG_printf("1cupsOAuthGetAuthCode: Returning \"%s\".", auth_code);
 
   return (auth_code);
 }
@@ -1318,6 +1348,8 @@ cupsOAuthSaveTokens(
 {
   char		temp[16384];		// Temporary string
 
+
+  DEBUG_printf("cupsOAuthSaveTokens(auth_uri=\"%s\", resource_uri=\"%s\", access_token=\"%s\", access_expires=%ld, user_id=\"%s\", refresh_token=\"%s\")", auth_uri, resource_uri, access_token, (long)access_expires, user_id, refresh_token);
 
   // Access token...
   if (access_token)
