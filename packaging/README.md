@@ -1,9 +1,10 @@
-# OpenPrinting CUPS: Snap and OCI Image
+# OpenPrinting CUPS: Snap, OCI Image, EPM, and RPM Packages
 
 ## Overview
-This repository provides a complete CUPS printing stack in two formats:
+This repository provides a complete CUPS printing stack in multiple formats:
 - **Snap Package:** For snap-based or classic Linux systems.
 - **OCI Image (Docker/Rock):** For immutable Linux distributions and Docker-based environments.
+- **EPM and RPM Packages**: For binary distributions suitable for various Linux distributions.
 
 ## Links
 - [CUPS in the Snap Store](https://snapcraft.io/cups)
@@ -12,7 +13,7 @@ This repository provides a complete CUPS printing stack in two formats:
 
 ---
 
-## Snap Package Documentation
+## CUPS Snap Package
 
 ### Introduction
 
@@ -329,7 +330,7 @@ Links on other platforms:
 
 ---
 
-## OCI Image Documentation
+## CUPS OCI Image
 
 ### Install from Docker Hub
 #### Prerequisites
@@ -479,3 +480,37 @@ To check the print status:
 <!-- Begin Included Components -->
 
 <!-- End Included Components -->
+---
+## Creating Binary Distributions with EPM and RPM
+
+### Overview
+
+Binary packages can be built using:
+- **RPM Spec File**: Located at `packaging/cups.spec.in`.
+- **EPM List File**: Located at `packaging/cups.list.in`.
+
+### Building RPM Packages
+- Install RPM tools: [RPM Official Site](<http://www.rpm.org/>).
+- Build RPMs using the provided spec file.
+
+### Creating Binary Distributions with EPM
+1. Install EPM tools: [EPM Official Site](<https://jimjag.github.io/epm/>).
+
+2. The top level makefile supports generation of many types of binary distributions
+using EPM.  To build a binary distribution type:
+  ```sh
+    make FORMAT
+  ```
+  or
+  ```sh
+    gmake FORMAT
+  ```
+  for FreeBSD, NetBSD, and OpenBSD.  The "FORMAT" target is one of the following:
+
+Supported formats:
+- "epm": Builds a script + tarfile package
+- "bsd": Builds a *BSD package
+- "deb": Builds a Debian package
+- "pkg": Builds a Solaris package
+- "rpm": Builds a RPM package
+- "slackware": Build a Slackware package
