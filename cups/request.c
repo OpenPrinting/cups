@@ -378,7 +378,7 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
   * Check for an unfinished chunked request...
   */
 
-  if (http->data_encoding == HTTP_ENCODING_CHUNKED)
+  if (http->state == HTTP_STATE_POST_RECV && http->data_encoding == HTTP_ENCODING_CHUNKED)
   {
    /*
     * Send a 0-length chunk to finish off the request...
