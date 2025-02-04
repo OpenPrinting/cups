@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1
 
+### Build stage
 # Use the latest Ubuntu base image
-FROM ubuntu:latest
+FROM ubuntu:latest AS builder
 
 # Set the working directory inside the container
 WORKDIR /workspaces/cups
@@ -21,5 +22,9 @@ COPY . /root/cups
 WORKDIR /root/cups
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var && make clean && make && make install
 
+### Runtime stage
+FROM ubuntu:latest
+COPY --from=builder /root/cups /root/cups
+WORKDIR /root/cups
 # Expose port 631 for CUPS web interface
 EXPOSE 631
