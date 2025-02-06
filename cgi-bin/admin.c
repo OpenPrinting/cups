@@ -326,8 +326,8 @@ do_am_class(http_t *http,		/* I - HTTP connection */
   ipp_attribute_t *attr;		/* member-uris attribute */
   char		uri[HTTP_MAX_URI];	/* Device or printer URI */
   const char	*name,			/* Pointer to class name */
-		*op,			/* Operation name */
 		*ptr;			/* Pointer to CGI variable */
+  char *op;		/* Operation name */
   const char	*title;			/* Title of page */
   static const char * const pattrs[] =	/* Requested printer attributes */
 		{
@@ -496,9 +496,13 @@ do_am_class(http_t *http,		/* I - HTTP connection */
     }
 
     cgiEndHTML();
-
+    if (op)
+      free(op);
     return;
   }
+
+  if (op)
+    free(op);
 
   if (!name)
   {
