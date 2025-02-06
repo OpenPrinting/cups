@@ -633,8 +633,9 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		evefile[1024] = "";	/* IPP Everywhere PPD file */
   int		maxrate;		/* Maximum baud rate */
   char		baudrate[255];		/* Baud rate string */
-  const char	*name;			/* Pointer to class name */
-	char	*ptr;			/* Pointer to CGI variable */
+  const char	*name,			/* Pointer to class name */
+		*ptr;			/* Pointer to CGI variable */
+  char *tmp;
   const char	*title;			/* Title of page */
   static int	baudrates[] =		/* Baud rates */
 		{
@@ -651,10 +652,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		};
 
 
-  ptr = cgiGetVariable("DEVICE_URI");
+  tmp = cgiGetVariable("DEVICE_URI");
   fprintf(stderr, "DEBUG: do_am_printer: DEVICE_URI=\"%s\"\n",
-          ptr ? ptr : "(null)");
-  free(ptr);
+          tmp ? tmp : "(null)");
+  free(tmp);
 
   title = cgiText(modify ? _("Modify Printer") : _("Add Printer"));
 
@@ -3390,8 +3391,8 @@ get_option_value(
   ppd_coption_t *coption;		/* Custom option */
   ppd_cparam_t	*cparam;		/* Current custom parameter */
   char		keyword[256];		/* Parameter name */
-  const char	*val,			/* Parameter value */
-		*uval;			/* Units value */
+  char	*val = NULL,			/* Parameter value */
+		*uval = NULL;			/* Units value */
   long		integer;		/* Integer value */
   double	number,			/* Number value */
 		number_points;		/* Number in points */
@@ -3417,8 +3418,10 @@ get_option_value(
     */
 
     cupsCopyString(buffer, val, bufsize);
+    free(val);
     return (buffer);
   }
+  free(val);
 
  /*
   * OK, we have a custom option choice, format it...
@@ -3428,7 +3431,7 @@ get_option_value(
 
   if (!strcmp(coption->keyword, "PageSize"))
   {
-    const char	*lval;			/* Length string value */
+    char	*lval;			/* Length string value */
     double	width,			/* Width value */
 		width_points,		/* Width in points */
 		length,			/* Length value */
@@ -3443,19 +3446,38 @@ get_option_value(
         (width = atof(val)) == 0.0 ||
         (length = atof(lval)) == 0.0 ||
         (strcmp(uval, "pt") && strcmp(uval, "in") && strcmp(uval, "ft") &&
-	 strcmp(uval, "cm") && strcmp(uval, "mm") && strcmp(uval, "m")))
+	 strcmp(uval, "cm") && strcmp(uval, "mm") && strcmp(uval, "m"))) {
+      if (val)
+        free(val);
+      if (uval)
+        free(uval);
+      if (lval)
+        free(lval);
       return (NULL);
-
+   }
     width_points  = get_points(width, uval);
     length_points = get_points(length, uval);
 
     if (width_points < ppd->custom_min[0] ||
         width_points > ppd->custom_max[0] ||
         length_points < ppd->custom_min[1] ||
-	length_points > ppd->custom_max[1])
+	length_points > ppd->custom_max[1]) {
+      if (val)
+        free(val);
+      if (uval)
+        free(uval);
+      if (lval)
+        free(lval);
       return (NULL);
+  }
 
     snprintf(buffer, bufsize, "Custom.%gx%g%s", width, length, uval);
+    if (val)
+      free(val);
+    if (uval)
+      free(uval);
+    if (lval)
+      free(lval);
   }
   else if (cupsArrayCount(coption->params) == 1)
   {
@@ -3497,15 +3519,21 @@ get_option_value(
 	  if ((number = atof(val)) == 0.0 ||
 	      (uval = cgiGetVariable(keyword)) == NULL ||
 	      (strcmp(uval, "pt") && strcmp(uval, "in") && strcmp(uval, "ft") &&
-	       strcmp(uval, "cm") && strcmp(uval, "mm") && strcmp(uval, "m")))
-	    return (NULL);
+	       strcmp(uval, "cm") && strcmp(uval, "mm") && strcmp(uval, "m"))) {
+	    if (uval)
+        free(uval);
+      return (NULL);
+    }
 
 	  number_points = get_points(number, uval);
 	  if (number_points < cparam->minimum.custom_points ||
-	      number_points > cparam->maximum.custom_points)
+	      number_points > cparam->maximum.custom_points) {
+      free(uval);
 	    return (NULL);
+    }
 
 	  snprintf(buffer, bufsize, "Custom.%g%s", number, uval);
+    free(uval);
           break;
 
       case PPD_CUSTOM_PASSCODE :
@@ -3523,6 +3551,7 @@ get_option_value(
           snprintf(buffer, bufsize, "Custom.%s", val);
 	  break;
     }
+    free(val);
   }
   else
   {
@@ -3579,16 +3608,19 @@ get_option_value(
 		(uval = cgiGetVariable(keyword)) == NULL ||
 		(strcmp(uval, "pt") && strcmp(uval, "in") &&
 		 strcmp(uval, "ft") && strcmp(uval, "cm") &&
-		 strcmp(uval, "mm") && strcmp(uval, "m")))
+		 strcmp(uval, "mm") && strcmp(uval, "m"))) {
+        if (uval)
+          free(uval);
 	      return (NULL);
-
+     }
 	    number_points = get_points(number, uval);
 	    if (number_points < cparam->minimum.custom_points ||
 		number_points > cparam->maximum.custom_points)
 	      return (NULL);
 
 	    snprintf(bufptr, (size_t)(bufend - bufptr), "%g%s", number, uval);
-	    break;
+	    free(uval);
+      break;
 
 	case PPD_CUSTOM_PASSCODE :
 	    for (uval = val; *uval; uval ++)
@@ -3629,7 +3661,7 @@ get_option_value(
 	    bufend ++;
 	    break;
       }
-
+      free(val);
       bufptr += strlen(bufptr);
     }
 
