@@ -327,7 +327,7 @@ do_am_class(http_t *http,		/* I - HTTP connection */
   char		uri[HTTP_MAX_URI];	/* Device or printer URI */
   const char	*name,			/* Pointer to class name */
 		*ptr;			/* Pointer to CGI variable */
-  char *op;		/* Operation name */
+  char *op;		  /* Operation name */
   const char	*title;			/* Title of page */
   static const char * const pattrs[] =	/* Requested printer attributes */
 		{
@@ -1552,7 +1552,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     cups_file_t	*temp;			/* Temporary file */
     char	*start,			/* Start of line */
 		*end,			/* End of line */
-    *tmp_start;
+		*tmp_start;
 
    /*
     * Create a temporary file for the new cupsd.conf file...
@@ -2309,7 +2309,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
   const char	*printer,		/* Printer name */
 		*users;			/* List of users or groups */
-	char	*is_class,		/* Is a class? */
+  char	*is_class,		/* Is a class? */
 		*type;			/* Allow/deny type */
   int		num_users;		/* Number of users */
   char		*ptr,			/* Pointer into users string */
@@ -2579,7 +2579,7 @@ do_set_default(http_t *http)		/* I - HTTP connection */
   ipp_t		*request;		/* IPP request */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
   const char	*printer;		/* Printer name */
-	char	*is_class;		/* Is a class? */
+  char	*is_class;			/* Is a class? */
 
 
   is_class = cgiGetVariable("IS_CLASS");
@@ -2669,7 +2669,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 		*response;		/* IPP response */
   ipp_attribute_t *attr;		/* IPP attribute */
   char		uri[HTTP_MAX_URI];	/* Job URI */
-  char	*var;			/* Variable value */
+  char	*var;				/* Variable value */
   const char	*printer;		/* Printer printer name */
   const char	*filename;		/* PPD filename */
   char		tempfile[1024];		/* Temporary filename */
@@ -3425,7 +3425,7 @@ get_option_value(
   ppd_cparam_t	*cparam;		/* Current custom parameter */
   char		keyword[256];		/* Parameter name */
   char	*val = NULL,			/* Parameter value */
-		*uval = NULL;			/* Units value */
+	*uval = NULL;			/* Units value */
   long		integer;		/* Integer value */
   double	number,			/* Number value */
 		number_points;		/* Number in points */
@@ -3553,20 +3553,20 @@ get_option_value(
 	      (uval = cgiGetVariable(keyword)) == NULL ||
 	      (strcmp(uval, "pt") && strcmp(uval, "in") && strcmp(uval, "ft") &&
 	       strcmp(uval, "cm") && strcmp(uval, "mm") && strcmp(uval, "m"))) {
-	    if (uval)
-        free(uval);
-      return (NULL);
-    }
+	      if (uval)
+	        free(uval);
+	      return (NULL);
+	  }
 
 	  number_points = get_points(number, uval);
 	  if (number_points < cparam->minimum.custom_points ||
 	      number_points > cparam->maximum.custom_points) {
-      free(uval);
-	    return (NULL);
-    }
+	      free(uval);
+	      return (NULL);
+	  }
 
 	  snprintf(buffer, bufsize, "Custom.%g%s", number, uval);
-    free(uval);
+	  free(uval);
           break;
 
       case PPD_CUSTOM_PASSCODE :
@@ -3642,10 +3642,10 @@ get_option_value(
 		(strcmp(uval, "pt") && strcmp(uval, "in") &&
 		 strcmp(uval, "ft") && strcmp(uval, "cm") &&
 		 strcmp(uval, "mm") && strcmp(uval, "m"))) {
-        if (uval)
-          free(uval);
+	      if (uval)
+	        free(uval);
 	      return (NULL);
-     }
+	    }
 	    number_points = get_points(number, uval);
 	    if (number_points < cparam->minimum.custom_points ||
 		number_points > cparam->maximum.custom_points)
@@ -3653,7 +3653,7 @@ get_option_value(
 
 	    snprintf(bufptr, (size_t)(bufend - bufptr), "%g%s", number, uval);
 	    free(uval);
-      break;
+	    break;
 
 	case PPD_CUSTOM_PASSCODE :
 	    for (uval = val; *uval; uval ++)
