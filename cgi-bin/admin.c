@@ -3342,19 +3342,19 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     if ((var = cgiGetVariable("printer_error_policy")) != NULL) {
       ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
 		   "printer-error-policy", NULL, var);
-       free(var);
+      free(var);
     }
 
     if ((var = cgiGetVariable("printer_op_policy")) != NULL) {
       ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
 		   "printer-op-policy", NULL, var);
-       free(var);
+      free(var);
     }
 
     if ((var = cgiGetVariable("port_monitor")) != NULL) {
       ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
 		   "port-monitor", NULL, var);
-       free(var);
+      free(var);
     }
 
    /*
