@@ -626,7 +626,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		*response,		/* IPP response */
 		*oldinfo;		/* Old printer information */
   const cgi_file_t *file;		/* Uploaded file, if any */
-  const char	*var;			/* CGI variable */
+  char	*var;				/* CGI variable */
   char	*ppd_name = NULL;	/* Pointer to PPD name */
   char		uri[HTTP_MAX_URI],	/* Device or printer URI */
 		*uriptr,		/* Pointer into URI */
@@ -745,11 +745,15 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       else
         cupsCopyString(make, "Generic", sizeof(make));
 
-      if (!cgiGetVariable("CURRENT_MAKE"))
+      if (!(tmp = cgiGetVariable("CURRENT_MAKE")))
         cgiSetVariable("CURRENT_MAKE", make);
+      else 
+        free(tmp);
 
-      if (!cgiGetVariable("CURRENT_MAKE_AND_MODEL"))
+      if (!(tmp = cgiGetVariable("CURRENT_MAKE_AND_MODEL")))
         cgiSetVariable("CURRENT_MAKE_AND_MODEL", uriptr);
+      else 
+        free(tmp);
 
       if (!modify)
       {
@@ -870,13 +874,12 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
    /*
     * Need baud rate, parity, etc.
     */
-
-    if ((var = strchr(var, '?')) != NULL &&
-        strncmp(var, "?baud=", 6) == 0)
-      maxrate = atoi(var + 6);
+    char * tmp_var = strchr(var, '?');
+    if (tmp_var != NULL &&
+        strncmp(tmp_var, "?baud=", 6) == 0)
+      maxrate = atoi(tmp_var + 6);
     else
       maxrate = 19200;
-
     for (i = 0; i < (int)(sizeof(baudrates)/sizeof(baudrates[0])); i ++)
       if (baudrates[i] > maxrate)
         break;
@@ -1024,20 +1027,23 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                  NULL, "ipp://localhost/printers/");
-
+    
+    free(var);
     if ((var = cgiGetVariable("PPD_MAKE")) == NULL)
       var = cgiGetVariable("CURRENT_MAKE");
     if (var && !cgiGetVariable("SELECT_MAKE"))
     {
-      const char *make_model;		/* Make and model */
+      char *make_model;		/* Make and model */
 
 
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
                    "ppd-make", NULL, var);
 
-      if ((make_model = cgiGetVariable("CURRENT_MAKE_AND_MODEL")) != NULL)
+      if ((make_model = cgiGetVariable("CURRENT_MAKE_AND_MODEL")) != NULL) {
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
 		     "ppd-make-and-model", NULL, make_model);
+	free(make_model);
+      }
     }
     else
       ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
@@ -1089,8 +1095,11 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	*/
 
         cgiStartHTML(title);
-	if (!cgiGetVariable("PPD_MAKE"))
-	  cgiSetVariable("PPD_MAKE", cgiGetVariable("CURRENT_MAKE"));
+	if (!(tmp = cgiGetVariable("PPD_MAKE"))) {
+	  cgiSetVariable("PPD_MAKE", (tmp = cgiGetVariable("CURRENT_MAKE")));
+	  free(tmp);
+	} else 
+	  free(tmp);
         if (ipp_everywhere)
 	  cgiSetVariable("SHOW_IPP_EVERYWHERE", "1");
 	cgiCopyTemplateLang("choose-model.tmpl");
@@ -1147,7 +1156,8 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
                  NULL, cgiGetTextfield("PRINTER_INFO"));
 
-    cupsCopyString(uri, cgiGetVariable("DEVICE_URI"), sizeof(uri));
+    cupsCopyString(uri, (tmp = cgiGetVariable("DEVICE_URI")), sizeof(uri));
+    free(tmp);
 
    /*
     * Strip make and model from URI...
@@ -1249,6 +1259,12 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     cgiEndHTML();
   }
+
+  if (var)
+    free(var);
+
+  if (ppd_name)
+    free(ppd_name);
 
   if (oldinfo)
     ippDelete(oldinfo);
