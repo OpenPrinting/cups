@@ -2560,8 +2560,8 @@ do_set_default(http_t *http)		/* I - HTTP connection */
   const char	*title;			/* Page title */
   ipp_t		*request;		/* IPP request */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
-  const char	*printer,		/* Printer name */
-		*is_class;		/* Is a class? */
+  const char	*printer;		/* Printer name */
+	char	*is_class;		/* Is a class? */
 
 
   is_class = cgiGetVariable("IS_CLASS");
@@ -2574,6 +2574,8 @@ do_set_default(http_t *http)		/* I - HTTP connection */
     cgiStartHTML(title);
     cgiCopyTemplateLang("error.tmpl");
     cgiEndHTML();
+    if (is_class)
+      free(is_class);
     return;
   }
 
@@ -2630,6 +2632,8 @@ do_set_default(http_t *http)		/* I - HTTP connection */
   }
 
   cgiEndHTML();
+  if (is_class)
+    free(is_class);
 }
 
 
