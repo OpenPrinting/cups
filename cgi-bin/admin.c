@@ -56,7 +56,8 @@ int					/* O - Exit status */
 main(void)
 {
   http_t	*http;			/* Connection to the server */
-  const char	*op;			/* Operation name */
+  char	*op;			/* Operation name */
+  char	*tmp = NULL;
 
 
  /*
@@ -90,7 +91,7 @@ main(void)
   * See if we have form data...
   */
 
-  if (!cgiInitialize() || !cgiGetVariable("OP"))
+  if (!cgiInitialize() || !(tmp = cgiGetVariable("OP")))
   {
    /*
     * Nope, send the administration menu...
@@ -118,12 +119,14 @@ main(void)
       					/* Port number */
       char	uri[1024];		/* URL */
 
-      if (printer)
+      if (printer) {
+        free(tmp);
         httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri),
 	                 getenv("HTTPS") ? "https" : "http", NULL,
 			 getenv("SERVER_NAME"), port, "/%s/%s",
-			 cgiGetVariable("IS_CLASS") ? "classes" : "printers",
+			 (tmp = cgiGetVariable("IS_CLASS")) ? "classes" : "printers",
 			 printer);
+      }
       else
         httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri),
 	                getenv("HTTPS") ? "https" : "http", NULL,
@@ -166,10 +169,12 @@ main(void)
       cgiCopyTemplateLang("error-op.tmpl");
       cgiEndHTML();
     }
+    free(op);
   }
   else if (op && !strcmp(op, "redirect"))
   {
-    const char	*url;			/* Redirection URL... */
+    free(op);
+    char	*url;			/* Redirection URL... */
     char	prefix[1024];		/* URL prefix */
 
 
@@ -229,6 +234,8 @@ main(void)
     }
     else
       printf("Location: %s/admin\n\n", prefix);
+    if (url)
+      free(url);
   }
   else
   {
@@ -239,6 +246,8 @@ main(void)
     cgiStartHTML(cgiText(_("Administration")));
     cgiCopyTemplateLang("error-op.tmpl");
     cgiEndHTML();
+    if (op)
+      free(op);
   }
 
  /*
@@ -250,6 +259,8 @@ main(void)
  /*
   * Return with no errors...
   */
+  if (tmp)
+    free(tmp);
 
   return (0);
 }
