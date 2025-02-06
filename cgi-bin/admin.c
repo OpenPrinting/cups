@@ -635,7 +635,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
   char		baudrate[255];		/* Baud rate string */
   const char	*name,			/* Pointer to class name */
 		*ptr;			/* Pointer to CGI variable */
-  char *tmp;
+  char *tmp = NULL,
+		*tmp2 = NULL,
+		*tmp3 = NULL,
+		*tmp4 = NULL;
   const char	*title;			/* Title of page */
   static int	baudrates[] =		/* Baud rates */
 		{
@@ -869,7 +872,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     cgiCopyTemplateLang("choose-uri.tmpl");
     cgiEndHTML();
   }
-  else if (!strncmp(var, "serial:", 7) && !cgiGetVariable("BAUDRATE"))
+  else if (!strncmp(var, "serial:", 7) && !(tmp2 = cgiGetVariable("BAUDRATE")))
   {
    /*
     * Need baud rate, parity, etc.
@@ -945,11 +948,13 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     return;
   }
   else if (!file &&
-           (!cgiGetVariable("PPD_NAME") || cgiGetVariable("SELECT_MAKE")))
+           (!(tmp3 = cgiGetVariable("PPD_NAME")) || (tmp4 = cgiGetVariable("SELECT_MAKE"))))
   {
     int ipp_everywhere = !strncmp(var, "ipp://", 6) || !strncmp(var, "ipps://", 7) || (!strncmp(var, "dnssd://", 8) && (strstr(var, "_ipp._tcp") || strstr(var, "_ipps._tcp")));
-
-    if (modify && !cgiGetVariable("SELECT_MAKE"))
+    if (tmp2)
+      free(tmp2);
+    tmp2 = NULL;
+    if (modify && !(tmp2 = cgiGetVariable("SELECT_MAKE")))
     {
      /*
       * Get the PPD file...
@@ -1082,8 +1087,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	cgiCopyTemplateLang("choose-make.tmpl");
         cgiEndHTML();
       }
-      else if (!var || cgiGetVariable("SELECT_MAKE"))
+      else if (!var || (tmp = cgiGetVariable("SELECT_MAKE")))
       {
+        if (!var && tmp)
+          free(tmp);
         cgiStartHTML(title);
 	cgiCopyTemplateLang("choose-make.tmpl");
         cgiEndHTML();
@@ -1174,11 +1181,18 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
       if ((uriptr = strchr(uri, '?')) == NULL)
         uriptr = uri + strlen(uri);
-
+      if (tmp2)
+        free(tmp2);
+      if (tmp3)
+        free(tmp3);
+      if (tmp4)
+        free(tmp4);
       snprintf(uriptr, sizeof(uri) - (size_t)(uriptr - uri),
                "?baud=%s+bits=%s+parity=%s+flow=%s",
-               cgiGetVariable("BAUDRATE"), cgiGetVariable("BITS"),
-	       cgiGetVariable("PARITY"), cgiGetVariable("FLOW"));
+               (tmp = cgiGetVariable("BAUDRATE")), (tmp2 = cgiGetVariable("BITS")),
+	       (tmp3 = cgiGetVariable("PARITY")), (tmp4 = cgiGetVariable("FLOW")));
+      if (tmp)
+        free(tmp);
     }
 
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_URI, "device-uri",
@@ -1259,6 +1273,13 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
     cgiEndHTML();
   }
+
+  if (tmp2)
+    free(tmp2);
+  if (tmp3)
+    free(tmp3);
+  if (tmp4)
+    free(tmp4);
 
   if (var)
     free(var);
