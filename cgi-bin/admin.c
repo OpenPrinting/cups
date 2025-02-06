@@ -1878,19 +1878,21 @@ do_delete_printer(http_t *http)		/* I - HTTP connection */
   ipp_t		*request;		/* IPP request */
   char		uri[HTTP_MAX_URI];	/* Job URI */
   const char	*printer;		/* Printer printer name */
+  char *tmp;
 
 
  /*
   * Get form variables...
   */
 
-  if (cgiGetVariable("CONFIRM") == NULL)
+  if ((tmp = cgiGetVariable("CONFIRM")) == NULL)
   {
     cgiStartHTML(cgiText(_("Delete Printer")));
     cgiCopyTemplateLang("printer-confirm.tmpl");
     cgiEndHTML();
     return;
   }
+  free(tmp);
 
   if ((printer = cgiGetTextfield("PRINTER_NAME")) != NULL)
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
