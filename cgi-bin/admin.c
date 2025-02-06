@@ -1262,8 +1262,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 static void
 do_config_server(http_t *http)		/* I - HTTP connection */
 {
-  if (cgiGetVariable("CHANGESETTINGS"))
+  char *tmp, *tmp2 = NULL, *tmp3;
+  if ((tmp = cgiGetVariable("CHANGESETTINGS")))
   {
+    free(tmp);
    /*
     * Save basic setting changes...
     */
@@ -1536,8 +1538,10 @@ do_config_server(http_t *http)		/* I - HTTP connection */
 
     cgiEndHTML();
   }
-  else if (cgiGetVariable("SAVECHANGES") && cgiGetVariable("CUPSDCONF"))
+  else if ((tmp2 = cgiGetVariable("SAVECHANGES")) && (tmp3 = cgiGetVariable("CUPSDCONF")))
   {
+    free(tmp2);
+    free(tmp3);
    /*
     * Save hand-edited config file...
     */
@@ -1546,9 +1550,9 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     char	tempfile[1024];		/* Temporary new cupsd.conf */
     int		tempfd;			/* Temporary file descriptor */
     cups_file_t	*temp;			/* Temporary file */
-    const char	*start,			/* Start of line */
-		*end;			/* End of line */
-
+    char	*start,			/* Start of line */
+		*end,			/* End of line */
+    *tmp_start;
 
    /*
     * Create a temporary file for the new cupsd.conf file...
@@ -1585,6 +1589,7 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     */
 
     start = cgiGetVariable("CUPSDCONF");
+    tmp_start = start;
     while (start)
     {
       if ((end = strstr(start, "\r\n")) == NULL)
@@ -1598,8 +1603,10 @@ do_config_server(http_t *http)		/* I - HTTP connection */
         start = end + 2;
       else if (*end == '\n')
         start = end + 1;
-      else
+      else {
+        free(tmp_start);
         start = NULL;
+      }
     }
 
     cupsFileClose(temp);
@@ -1648,6 +1655,8 @@ do_config_server(http_t *http)		/* I - HTTP connection */
     char	filename[1024];		/* Filename */
     const char	*server_root;		/* Location of config files */
 
+    if (tmp2)
+      free(tmp2);
 
    /*
     * Locate the cupsd.conf file...
