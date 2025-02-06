@@ -2647,7 +2647,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 		*response;		/* IPP response */
   ipp_attribute_t *attr;		/* IPP attribute */
   char		uri[HTTP_MAX_URI];	/* Job URI */
-  const char	*var;			/* Variable value */
+  char	*var;			/* Variable value */
   const char	*printer;		/* Printer printer name */
   const char	*filename;		/* PPD filename */
   char		tempfile[1024];		/* Temporary filename */
@@ -2695,8 +2695,9 @@ do_set_options(http_t *http,		/* I - HTTP connection */
   * command file to the printer...
   */
 
-  if (cgiGetVariable("AUTOCONFIGURE"))
+  if ((var = cgiGetVariable("AUTOCONFIGURE")))
   {
+    free(var);
     cgiPrintCommand(http, printer, "AutoConfigure", "Set Default Options");
     return;
   }
@@ -2730,10 +2731,11 @@ do_set_options(http_t *http,		/* I - HTTP connection */
     ppd = NULL;
   }
 
-  if (cgiGetVariable("job_sheets_start") != NULL ||
-      cgiGetVariable("job_sheets_end") != NULL)
+  if ((var = cgiGetVariable("job_sheets_start")) != NULL ||
+      (var = cgiGetVariable("job_sheets_end")) != NULL) {
+    free(var);
     have_options = 1;
-  else
+  } else
     have_options = 0;
 
   if (ppd)
@@ -2749,6 +2751,7 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 	have_options = 1;
 	ppdMarkOption(ppd, option->keyword, var);
 	fprintf(stderr, "DEBUG: Set %s to %s...\n", option->keyword, var);
+	free(var);
       }
       else
         fprintf(stderr, "DEBUG: Didn't find %s...\n", option->keyword);
@@ -3309,20 +3312,28 @@ do_set_options(http_t *http,		/* I - HTTP connection */
 
     attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
                          "job-sheets-default", 2, NULL, NULL);
-    ippSetString(request, &attr, 0, cgiGetVariable("job_sheets_start"));
-    ippSetString(request, &attr, 1, cgiGetVariable("job_sheets_end"));
+    ippSetString(request, &attr, 0, (var = cgiGetVariable("job_sheets_start")));
+    free(var);
+    ippSetString(request, &attr, 1, (var = cgiGetVariable("job_sheets_end")));
+    free(var);
 
-    if ((var = cgiGetVariable("printer_error_policy")) != NULL)
+    if ((var = cgiGetVariable("printer_error_policy")) != NULL) {
       ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
 		   "printer-error-policy", NULL, var);
+       free(var);
+    }
 
-    if ((var = cgiGetVariable("printer_op_policy")) != NULL)
+    if ((var = cgiGetVariable("printer_op_policy")) != NULL) {
       ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
 		   "printer-op-policy", NULL, var);
+       free(var);
+    }
 
-    if ((var = cgiGetVariable("port_monitor")) != NULL)
+    if ((var = cgiGetVariable("port_monitor")) != NULL) {
       ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
 		   "port-monitor", NULL, var);
+       free(var);
+    }
 
    /*
     * Do the request and get back a response...
