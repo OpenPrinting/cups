@@ -2296,8 +2296,8 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 		*response;		/* IPP response */
   char		uri[HTTP_MAX_URI];	/* Printer URI */
   const char	*printer,		/* Printer name */
-		*is_class,		/* Is a class? */
-		*users,			/* List of users or groups */
+		*users;			/* List of users or groups */
+	char	*is_class,		/* Is a class? */
 		*type;			/* Allow/deny type */
   int		num_users;		/* Number of users */
   char		*ptr,			/* Pointer into users string */
@@ -2320,6 +2320,8 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
     cgiStartHTML(cgiText(_("Set Allowed Users")));
     cgiCopyTemplateLang("error.tmpl");
     cgiEndHTML();
+    if (is_class)
+      free(is_class);
     return;
   }
 
@@ -2547,6 +2549,10 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 
     cgiEndHTML();
   }
+  if (is_class)
+    free(is_class);
+  if (type)
+    free(type);
 }
 
 
