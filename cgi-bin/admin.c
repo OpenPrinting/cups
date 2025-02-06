@@ -633,8 +633,8 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		evefile[1024] = "";	/* IPP Everywhere PPD file */
   int		maxrate;		/* Maximum baud rate */
   char		baudrate[255];		/* Baud rate string */
-  const char	*name,			/* Pointer to class name */
-		*ptr;			/* Pointer to CGI variable */
+  const char	*name;			/* Pointer to class name */
+	char	*ptr;			/* Pointer to CGI variable */
   const char	*title;			/* Title of page */
   static int	baudrates[] =		/* Baud rates */
 		{
@@ -654,6 +654,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
   ptr = cgiGetVariable("DEVICE_URI");
   fprintf(stderr, "DEBUG: do_am_printer: DEVICE_URI=\"%s\"\n",
           ptr ? ptr : "(null)");
+  free(ptr);
 
   title = cgiText(modify ? _("Modify Printer") : _("Add Printer"));
 
