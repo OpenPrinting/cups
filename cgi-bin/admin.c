@@ -945,6 +945,8 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     if (oldinfo)
       ippDelete(oldinfo);
 
+    if(tmp2)
+      free(tmp2);
     return;
   }
   else if (!file &&
@@ -3567,8 +3569,10 @@ get_option_value(
       case PPD_CUSTOM_REAL :
 	  if ((number = atof(val)) == 0.0 ||
 	      number < cparam->minimum.custom_real ||
-	      number > cparam->maximum.custom_real)
+	      number > cparam->maximum.custom_real) {
+	    free(val);
 	    return (NULL);
+	  }
 
           snprintf(buffer, bufsize, "Custom.%g", number);
           break;
@@ -3577,8 +3581,10 @@ get_option_value(
           if (!*val || (integer = strtol(val, NULL, 10)) == LONG_MIN ||
 	      integer == LONG_MAX ||
 	      integer < cparam->minimum.custom_int ||
-	      integer > cparam->maximum.custom_int)
+	      integer > cparam->maximum.custom_int) {
+            free(val);
             return (NULL);
+          }
 
           snprintf(buffer, bufsize, "Custom.%ld", integer);
           break;
@@ -3592,6 +3598,7 @@ get_option_value(
 	       strcmp(uval, "cm") && strcmp(uval, "mm") && strcmp(uval, "m"))) {
 	      if (uval)
 	        free(uval);
+	      free(val);
 	      return (NULL);
 	  }
 
@@ -3599,6 +3606,7 @@ get_option_value(
 	  if (number_points < cparam->minimum.custom_points ||
 	      number_points > cparam->maximum.custom_points) {
 	      free(uval);
+	      free(val);
 	      return (NULL);
 	  }
 
@@ -3608,15 +3616,19 @@ get_option_value(
 
       case PPD_CUSTOM_PASSCODE :
           for (uval = val; *uval; uval ++)
-	    if (!isdigit(*uval & 255))
+	    if (!isdigit(*uval & 255)) {
+	      free(val);
 	      return (NULL);
+	    }
 
       case PPD_CUSTOM_PASSWORD :
       case PPD_CUSTOM_STRING :
           integer = (long)strlen(val);
 	  if (integer < cparam->minimum.custom_string ||
-	      integer > cparam->maximum.custom_string)
+	      integer > cparam->maximum.custom_string) {
+	    free(val);
 	    return (NULL);
+	  }
 
           snprintf(buffer, bufsize, "Custom.%s", val);
 	  break;
@@ -3655,9 +3667,10 @@ get_option_value(
 	case PPD_CUSTOM_REAL :
 	    if ((number = atof(val)) == 0.0 ||
 		number < cparam->minimum.custom_real ||
-		number > cparam->maximum.custom_real)
+		number > cparam->maximum.custom_real) {
+	      free(val);
 	      return (NULL);
-
+	    }
 	    snprintf(bufptr, (size_t)(bufend - bufptr), "%g", number);
 	    break;
 
@@ -3665,9 +3678,10 @@ get_option_value(
 	    if (!*val || (integer = strtol(val, NULL, 10)) == LONG_MIN ||
 		integer == LONG_MAX ||
 		integer < cparam->minimum.custom_int ||
-		integer > cparam->maximum.custom_int)
+		integer > cparam->maximum.custom_int) {
+	      free(val);
 	      return (NULL);
-
+	    }
 	    snprintf(bufptr, (size_t)(bufend - bufptr), "%ld", integer);
 	    break;
 
@@ -3681,31 +3695,43 @@ get_option_value(
 		 strcmp(uval, "mm") && strcmp(uval, "m"))) {
 	      if (uval)
 	        free(uval);
+	      free(val);
 	      return (NULL);
 	    }
 	    number_points = get_points(number, uval);
 	    if (number_points < cparam->minimum.custom_points ||
-		number_points > cparam->maximum.custom_points)
+		number_points > cparam->maximum.custom_points) {
+	      free(val);
 	      return (NULL);
+	    }
 
 	    snprintf(bufptr, (size_t)(bufend - bufptr), "%g%s", number, uval);
-	    free(uval);
+	    if (uval) {
+	      free(uval);
+	      uval = NULL;
+	    }
 	    break;
 
 	case PPD_CUSTOM_PASSCODE :
 	    for (uval = val; *uval; uval ++)
-	      if (!isdigit(*uval & 255))
+	      if (!isdigit(*uval & 255)){
+		free(val);
 		return (NULL);
+        }
 
 	case PPD_CUSTOM_PASSWORD :
 	case PPD_CUSTOM_STRING :
 	    integer = (long)strlen(val);
 	    if (integer < cparam->minimum.custom_string ||
-		integer > cparam->maximum.custom_string)
+		integer > cparam->maximum.custom_string) {
+	      free(val);
 	      return (NULL);
+	    }
 
-	    if ((bufptr + 2) > bufend)
+	    if ((bufptr + 2) > bufend) {
+	      free(val);
 	      return (NULL);
+	    }
 
 	    bufend --;
 	    *bufptr++ = '\"';
@@ -3714,8 +3740,10 @@ get_option_value(
 	    {
 	      if (*val == '\\' || *val == '\"')
 	      {
-		if ((bufptr + 1) >= bufend)
+		if ((bufptr + 1) >= bufend) {
+		  free(val);
 		  return (NULL);
+		}
 
 		*bufptr++ = '\\';
 	      }
@@ -3723,8 +3751,10 @@ get_option_value(
 	      *bufptr++ = *val++;
 	    }
 
-	    if (bufptr >= bufend)
+	    if (bufptr >= bufend) {
+	      free(val);
 	      return (NULL);
+	    }
 
 	    *bufptr++ = '\"';
 	    *bufptr   = '\0';
