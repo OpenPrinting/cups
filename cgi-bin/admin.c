@@ -3702,6 +3702,8 @@ get_option_value(
 	    if (number_points < cparam->minimum.custom_points ||
 		number_points > cparam->maximum.custom_points) {
 	      free(val);
+	      if (uval)
+	        free(uval);
 	      return (NULL);
 	    }
 
