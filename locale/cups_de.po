@@ -15111,7 +15111,7 @@ msgstr ""
 #~ msgstr "DeskJet Serie"
 
 #~ msgid "Direct Thermal Media"
-#~ msgstr "Direct Thermotransfermedia"
+#~ msgstr "Thermodirektdruckmedium"
 
 #~ msgid "Disabled"
 #~ msgstr "Deaktiviert"
@@ -15651,7 +15651,7 @@ msgstr ""
 #~ msgstr "Abriss-Justierposition"
 
 #~ msgid "Thermal Transfer Media"
-#~ msgstr "Thermotransferpapier"
+#~ msgstr "Thermotransferdruckmedium"
 
 #~ msgid "Transparency"
 #~ msgstr "Transparenz"
