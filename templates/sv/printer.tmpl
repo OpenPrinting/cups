@@ -1,7 +1,7 @@
 <H2 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
 ({printer_state=3?Overksam:{printer_state=4?Behandlar:Pausad}},
 {printer_is_accepting_jobs=0?Nekar jobb:Accepterar jobb},
-{server_is_sharing_printers=0?Inte:{printer_is_shared=0?Not:}} Delad{default_name={printer_name}?, Serverstandard:})</H2>
+{server_is_sharing_printers=0?Inte:{printer_is_shared=0?Inte:}} Delad{default_name={printer_name}?, Serverstandard:})</H2>
 
 <FORM METHOD="POST" ACTION="{printer_uri_supported}" NAME="maintenance">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
@@ -10,12 +10,12 @@
 <OPTION VALUE="print-test-page">Skriv ut testsida</OPTION>
 {printer_commands~.*Clean.*?<OPTION VALUE="clean-print-heads">Rensa skrivarhuvuden</OPTION>:}
 {printer_commands~.*PrintSelfTestPage.*?<OPTION VALUE="print-self-test-page">Skriv ut självtestsida</OPTION>:}
-{printer_state=5?<OPTION VALUE="start-printer">Resume Printer</OPTION>:<OPTION VALUE="stop-printer">Pause Printer</OPTION>}
-{printer_is_accepting_jobs=0?<OPTION VALUE="accept-jobs">Accept Jobs</OPTION>:<OPTION VALUE="reject-jobs">Reject Jobs</OPTION>}
+{printer_state=5?<OPTION VALUE="start-printer">Återuppta skrivare</OPTION>:<OPTION VALUE="stop-printer">Pausa skrivare</OPTION>}
+{printer_is_accepting_jobs=0?<OPTION VALUE="accept-jobs">Acceptera jobb</OPTION>:<OPTION VALUE="reject-jobs">Neka jobb</OPTION>}
 <OPTION VALUE="move-jobs">Flytta alla jobb</OPTION>
 <OPTION VALUE="cancel-jobs">Avbryt alla jobb</OPTION>
 </SELECT>
-<NOSCRIPT><INPUT TYPE="SUBMIT" VALUE="Go"></NOSCRIPT>
+<NOSCRIPT><INPUT TYPE="SUBMIT" VALUE="Kör"></NOSCRIPT>
 </FORM>
 
 <FORM METHOD="POST" ACTION="{admin_uri}" NAME="administration">
