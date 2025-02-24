@@ -354,7 +354,7 @@ main(int  argc,				// I - Number of command-line arguments
 	                  _("ppdc: Warning - overlapping filename \"%s\"."),
 			  filename);
 	else
-	  cupsArrayAdd(filenames, strdup(filename));
+	  cupsArrayAdd(filenames, filename);
 
 	fp = cupsFileOpen(filename, comp ? "w9" : "w");
 	if (!fp)
@@ -409,6 +409,8 @@ main(int  argc,				// I - Number of command-line arguments
   if (catalog)
     catalog->release();
 
+  cupsArrayDelete(filenames);
+  delete locales;
   // Return with no errors.
   return (0);
 }
