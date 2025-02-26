@@ -109,7 +109,7 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
 
   DEBUG_printf("_cupsArrayAddStrings(a=%p, s=\"%s\", delim='%c')", (void *)a, s, delim);
 
-  if (!a || !s || !*s)
+  if (!a || !s || !*s || delim == '\0')
   {
     DEBUG_puts("1_cupsArrayAddStrings: Returning 0");
     return (false);
