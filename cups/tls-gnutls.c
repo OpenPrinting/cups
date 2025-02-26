@@ -1684,47 +1684,53 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     // Server: get certificate and private key...
     char	crtfile[1024],		// Certificate file
 		keyfile[1024];		// Private key file
-    const char	*cn,			// Common name to lookup
+    const char	*cn = NULL,		// Common name to lookup
 		*cnptr;			// Pointer into common name
     bool	have_creds = false;	// Have credentials?
 
-    if (http->fields[HTTP_FIELD_HOST])
+    if (!tls_common_name)
     {
-      // Use hostname for TLS upgrade...
-      cupsCopyString(hostname, http->fields[HTTP_FIELD_HOST], sizeof(hostname));
-    }
-    else
-    {
-      // Resolve hostname from connection address...
-      http_addr_t	addr;		// Connection address
-      socklen_t		addrlen;	// Length of address
-
-      addrlen = sizeof(addr);
-      if (getsockname(http->fd, (struct sockaddr *)&addr, &addrlen))
+      if (http->fields[HTTP_FIELD_HOST])
       {
-	DEBUG_printf("4_httpTLSStart: Unable to get socket address: %s", strerror(errno));
-	hostname[0] = '\0';
-      }
-      else if (httpAddrIsLocalhost(&addr))
-      {
-	hostname[0] = '\0';
+	// Use hostname for TLS upgrade...
+	cupsCopyString(hostname, http->fields[HTTP_FIELD_HOST], sizeof(hostname));
       }
       else
       {
-	httpAddrLookup(&addr, hostname, sizeof(hostname));
-        DEBUG_printf("4_httpTLSStart: Resolved socket address to \"%s\".", hostname);
-      }
-    }
+	// Resolve hostname from connection address...
+	http_addr_t	addr;		// Connection address
+	socklen_t	addrlen;	// Length of address
 
-    if (isdigit(hostname[0] & 255) || hostname[0] == '[')
-      hostname[0] = '\0';		// Don't allow numeric addresses
+	addrlen = sizeof(addr);
+	if (getsockname(http->fd, (struct sockaddr *)&addr, &addrlen))
+	{
+	  DEBUG_printf("4_httpTLSStart: Unable to get socket address: %s", strerror(errno));
+	  hostname[0] = '\0';
+	}
+	else if (httpAddrIsLocalhost(&addr))
+	{
+	  hostname[0] = '\0';
+	}
+	else
+	{
+	  httpAddrLookup(&addr, hostname, sizeof(hostname));
+	  DEBUG_printf("4_httpTLSStart: Resolved socket address to \"%s\".", hostname);
+	}
+      }
+
+      if (isdigit(hostname[0] & 255) || hostname[0] == '[')
+	hostname[0] = '\0';		// Don't allow numeric addresses
+
+      if (hostname[0])
+        cn = hostname;
+    }
 
     cupsMutexLock(&tls_mutex);
 
-    if (hostname[0])
-      cn = hostname;
-    else
+    if (!cn)
       cn = tls_common_name;
+
+    DEBUG_printf("4_httpTLSStart: Using common name \"%s\"...", cn);
 
     if (cn)
     {
