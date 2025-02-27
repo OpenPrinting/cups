@@ -31,7 +31,6 @@ TESTOPTIONS	=
 #
 
 all:
-	chmod +x cups-config
 	echo Using ARCHFLAGS="$(ARCHFLAGS)"
 	echo Using ALL_CFLAGS="$(ALL_CFLAGS)"
 	echo Using ALL_CXXFLAGS="$(ALL_CXXFLAGS)"
@@ -102,7 +101,6 @@ clean:
 distclean:	clean
 	$(RM) Makedefs config.h config.log config.status
 	$(RM) conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf
-	$(RM) cups-config
 	$(RM) cups.pc
 	$(RM) desktop/cups.desktop
 	$(RM) doc/index.html
@@ -226,9 +224,6 @@ uninstall:
 		echo Uninstalling in $$dir... ;\
 		(cd $$dir; $(MAKE) $(MFLAGS) uninstall) || exit 1;\
 	done
-	echo Uninstalling cups-config script...
-	$(RM) $(BINDIR)/cups-config
-	-$(RMDIR) $(BINDIR)
 	echo Uninstalling cups.pc file...
 	$(RM) $(CUPS_PKGCONFPATH)/cups.pc
 	-$(RMDIR) $(CUPS_PKGCONFPATH)
