@@ -1580,10 +1580,8 @@ Optional Features:
   --enable-acl            build with POSIX ACL support
   --disable-dbus          build without DBUS support
   --disable-shared        do not create shared libraries
-
-      --enable-libtool-unsupported=/path/to/libtool
+  --enable-libtool-unsupported=/path/to/libtool
                           build with libtool (UNSUPPORTED)
-
   --enable-debug          build with debugging symbols
   --enable-debug-guards   build with memory allocation guards
   --enable-debug-printfs  build with CUPS_DEBUG_LOG support

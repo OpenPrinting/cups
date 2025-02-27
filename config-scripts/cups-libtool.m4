@@ -1,7 +1,7 @@
 dnl
 dnl GNU libtool stuff for CUPS.
 dnl
-dnl Copyright © 2020-2024 by OpenPrinting.
+dnl Copyright © 2020-2025 by OpenPrinting.
 dnl Copyright © 2007-2018 by Apple Inc.
 dnl Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 dnl
@@ -9,9 +9,7 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
-AC_ARG_ENABLE([libtool_unsupported], [
-    AS_HELP_STRING([--enable-libtool-unsupported=/path/to/libtool], [build with libtool (UNSUPPORTED)])
-], [
+AC_ARG_ENABLE([libtool_unsupported], AS_HELP_STRING([--enable-libtool-unsupported=/path/to/libtool], [build with libtool (UNSUPPORTED)]), [
 ], [
     enable_libtool_unsupported=no
 ])
