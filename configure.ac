@@ -94,6 +94,3 @@ AC_CONFIG_FILES([
     $LANGFILES
 ])
 AC_OUTPUT
-
-dnl Make sure cups-config script is executable
-chmod +x cups-config
