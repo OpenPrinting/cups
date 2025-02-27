@@ -171,9 +171,6 @@ install-data:
 		echo Installing data files in $$dir... ;\
 		(cd $$dir; $(MAKE) $(MFLAGS) install-data) || exit 1;\
 	done
-	echo Installing cups-config script...
-	$(INSTALL_DIR) -m 755 $(BINDIR)
-	$(INSTALL_SCRIPT) cups-config $(BINDIR)/cups-config
 	echo Installing cups.pc file...
 	$(INSTALL_DIR) -m 755 $(CUPS_PKGCONFPATH)
 	$(INSTALL_DATA) cups.pc $(CUPS_PKGCONFPATH)/cups.pc

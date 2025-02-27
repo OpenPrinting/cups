@@ -11955,7 +11955,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups.pc cups-config desktop/cups.desktop doc/index.html scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket templates/header.tmpl packaging/cups.list $LANGFILES"
+ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups.pc desktop/cups.desktop doc/index.html scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket templates/header.tmpl packaging/cups.list $LANGFILES"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -12651,7 +12651,6 @@ do
     "conf/pam.std") CONFIG_FILES="$CONFIG_FILES conf/pam.std" ;;
     "conf/snmp.conf") CONFIG_FILES="$CONFIG_FILES conf/snmp.conf" ;;
     "cups.pc") CONFIG_FILES="$CONFIG_FILES cups.pc" ;;
-    "cups-config") CONFIG_FILES="$CONFIG_FILES cups-config" ;;
     "desktop/cups.desktop") CONFIG_FILES="$CONFIG_FILES desktop/cups.desktop" ;;
     "doc/index.html") CONFIG_FILES="$CONFIG_FILES doc/index.html" ;;
     "scheduler/cups-lpd.xinetd") CONFIG_FILES="$CONFIG_FILES scheduler/cups-lpd.xinetd" ;;

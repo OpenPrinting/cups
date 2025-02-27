@@ -79,7 +79,6 @@ AC_CONFIG_FILES([
     conf/pam.std
     conf/snmp.conf
     cups.pc
-    cups-config
     desktop/cups.desktop
     doc/index.html
     scheduler/cups-lpd.xinetd
