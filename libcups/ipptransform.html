@@ -10,6 +10,15 @@ body {
 .center {
   text-align: center;
 }
+a:link, a:visited {
+  color: #c00;
+  text-decoration: underline;
+}
+
+a:link:hover, a:active {
+  color: #f00;
+  text-decoration: underline;
+}
 code, kbd, pre, tt {
   font-family: monospace;
 }
@@ -26,24 +35,22 @@ p {
   text-align: justify;
 }
 span.info {
-  background: rgba(127,127,127,0.5);
-  border-radius: 5px;
+  background: #ddf;
+  border: solid 1px #77c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   float: right;
   font-size: 80%;
-  padding: 4px 10px;
+  padding: 2px 10px;
 }
 h4 span.info {
-  padding: 2px 8px;
+  padding: 1px 8px;
 }
 table {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   max-width: 90%;
-}
-table caption {
-  font-style: italic;
-  margin-bottom: 1em;
 }
 table thead th {
   border-bottom: solid 2px black;
@@ -52,15 +59,36 @@ table thead th {
   vertical-align: bottom;
 }
 table tbody tr:nth-child(even) {
-  background: rgba(127,127,127,0.125);
+  background: #ddd;
 }
 table tbody td {
   border-bottom: solid 1px black;
   padding: 4px 10px;
   vertical-align: top;
 }
-table.figure tbody td {
-  border-bottom: none;
+blockquote {
+  background: #ddf;
+  border-left: solid 2px #77c;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+}
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  h2, h3, h4, table tbody td, table thead th {
+    border-color: #ccc;
+  }
+  blockquote, span.info {
+    background: #337;
+    border-color: #66f;
+  }
+  table tbody tr:nth-child(even) {
+    background: #444;
+  }
 }
 --></style>
     <meta name="creator" content="mantohtml v2.0.2">
@@ -80,29 +108,31 @@ ippeveps - convert document data to postscript
 [
 <strong>--help</strong>
 ] [
+<strong>--version</strong>
+] [
 <strong>-d</strong>
-<em>device-uri</em>
+<em>DEVICE-URI</em>
 ] [
 <strong>-f</strong>
-<em>output-filename</em>
+<em>OUTPUT-FILENAME</em>
 ] [
 <strong>-i</strong>
-<em>input/format</em>
+<em>INPUT/FORMAT</em>
 ] [
 <strong>-m</strong>
-<em>output/format</em>
+<em>OUTPUT/FORMAT</em>
 ] [
 <strong>-o</strong>
-<em>&quot;name=value [... name=value]&quot;</em>
+<em>&quot;NAME=VALUE [... NAME=VALUE]&quot;</em>
 ] [
 <strong>-r</strong>
-<em>resolution[,...,resolution]</em>
+<em>RESOLUTION[,...]</em>
 ] [
 <strong>-s</strong>
 <em>{flipped|manual-tumble|normal|rotated}</em>
 ] [
 <strong>-t</strong>
-<em>type[,...,type]</em>
+<em>TYPE[,...]</em>
 ] [
 <strong>-v</strong>
 ]
@@ -119,28 +149,31 @@ converts the input file into the output format and optionally sends the output t
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--help</strong><br>
 Shows program help.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d</strong><em> device-uri</em>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
+Shows program version.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d</strong><em> DEVICE-URI</em>
 <br>
 Specifies an output device as a URI.
 Currently only the &quot;ipp&quot;, &quot;ipps&quot;, and &quot;socket&quot; URI schemes are supported, for example &quot;socket://10.0.1.42&quot; to send print data to an AppSocket printer at IP address 10.0.1.42.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i</strong><em> input/format</em>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i</strong><em> INPUT/FORMAT</em>
 <br>
 Specifies the MIME media type of the input file.
 Currently the &quot;application/pdf&quot; (PDF) and &quot;image/jpeg&quot; (JPEG) MIME media types are supported.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m</strong><em> output/format</em>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m</strong><em> OUTPUT/FORMAT</em>
 <br>
 Specifies the MIME media type of the output file.
-Current the &quot;application/vnd.hp-pcl&quot; (HP PCL) and &quot;image/pwg-raster&quot; (PWG Raster) MIME media types are supported.
+Currently the &quot;application/PCLm&quot; (PCLm), &quot;application/pdf&quot; (PDF), &quot;application/postscript&quot; (PostScript), &quot;application/vnd.hp-pcl&quot; (HP PCL), &quot;image/pwg-raster&quot; (PWG Raster), and &quot;image/urf&quot; (Apple Raster) MIME media types are supported.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o</strong><em> &quot;name=value</em><strong>[...</strong><em>name=value]&quot;</em>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o</strong><em> &quot;NAME=VALUE</em><strong>[...</strong><em>NAME=VALUE]&quot;</em>
 <br>
 Specifies one or more named options for the conversion.
-Currently the &quot;copies&quot;, &quot;media&quot;, &quot;media-col&quot;, &quot;page-ranges&quot;, &quot;print-color-mode&quot;, &quot;print-quality&quot;, &quot;printer-resolution&quot;, and &quot;sides&quot; options are supported.
+Currently the &quot;copies&quot;, &quot;force-front-side&quot;, &quot;image-orientation&quot;, &quot;imposition-template&quot;, &quot;job-error-sheet&quot;, &quot;job-pages-per-set&quot;, &quot;job-sheet-message&quot;, &quot;job-sheets&quot;, &quot;job-sheets-col&quot;, &quot;media&quot;, &quot;media-col&quot;, &quot;multiple-document-handling&quot;, &quot;number-up&quot;, &quot;orientation-requested&quot;, &quot;overrides&quot;, &quot;page-delivery&quot;, &quot;page-ranges&quot;, &quot;print-color-mode&quot;, &quot;print-quality&quot;, &quot;print-scaling&quot;, &quot;printer-resolution&quot;, &quot;separator-sheets&quot;, &quot;sides&quot;, &quot;x-image-position&quot;, &quot;x-image-shift&quot;, &quot;x-side1-image-shift&quot;, &quot;x-side2-image-shift&quot;, &quot;y-image-position&quot;, &quot;y-image-shift&quot;, &quot;y-side1-image-shift&quot;, and &quot;y-side2-image-shift&quot; options are supported.
 See the NAMED OPTIONS section for more information.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r</strong><em> resolution[,...,resolution]</em>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r</strong><em> RESOLUTION[,...]</em>
 <br>
 Specifies the supported resolutions.
 Resolutions are of the form &quot;NNNdpi&quot; or &quot;NNNxNNNdpi&quot;, for example &quot;300dpi&quot; or &quot;600x300dpi&quot;.
@@ -150,7 +183,7 @@ HP PCL output only supports resolutions of &quot;300dpi&quot; and &quot;600dpi&q
 <br>
 Specifies the coordinate system for the back side of duplex sheets.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong> type[,...,type]
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong> type[,...]
 <br>
 Specifies the output color spaces and bit depths, separated by commas.
 Types include &quot;adobe-rgb_8&quot; and &quot;adobe-rgb_16&quot; for 8-bit and 16-bit AdobeRGB, &quot;black_1&quot; and &quot;black_8&quot; for 1-bit and 8-bit black, &quot;cmyk_8&quot; for 8-bit CMYK, &quot;sgray_1&quot; and &quot;sgray_8&quot; for 1-bit and 8-bit grayscale with a 2.2 gamma correction, and &quot;srgb_8&quot; for 8-bit sRGB color.
@@ -169,6 +202,32 @@ Increases the verbosity for any diagnostics.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>copies</strong><br>
 Specifies the number of copies to produce.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>force-front-side</strong><br>
+Forces the numbered pages to start on the front side of a sheet.
+Only has effect when &quot;sides&quot; is &quot;two-sided-long-edge&quot; or &quot;two-sided-short-edge&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>image-orientation</strong><br>
+Specifies the rotation of each page image as an &quot;orientation-requested&quot; value.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>imposition-template</strong><br>
+Specifies an imposition template to use for the input pages.
+Currently only the &quot;booklet&quot; template (for printing folded booklets) is supported.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>job-error-sheet</strong><br>
+Specifies when and where to print the job error sheet.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>job-pages-per-set</strong><br>
+Specifies the number of raster input pages per set for finishing operations.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>job-sheet-message</strong><br>
+Specifies a message to show on the banner page.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>job-sheets</strong><br>
+Enables banner pages on the default job media.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>job-sheets-col</strong><br>
+Enables banner pages on specific media.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>media</strong><br>
 Specifies the media size as a PWG standardized media size name.
 For example, US Letter (8.5x11in) is &quot;na_letter_8.5x11in&quot; and ISO A4 is &quot;iso_a4_210x297mm&quot;.
@@ -177,6 +236,22 @@ For example, US Letter (8.5x11in) is &quot;na_letter_8.5x11in&quot; and ISO A4 i
 Specifies the media size as a collection.
 Both the &quot;media-size&quot; and &quot;media-size-name&quot; members can be used to specify the size.
 For example, both &quot;media-col={media-size={x-dimension=21000 y-dimension=29700}}&quot; and &quot;media-col={media-size-name=iso_a4_210x297mm}&quot; specify ISO A4 media.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>multiple-document-handling</strong><br>
+Specifies whether to produce uncollated (&quot;separate-documents-uncollated-copies&quot;) or collated (&quot;separate-documents-collated-copies&quot;, &quot;single-document&quot;, or &quot;single-document-new-sheet&quot;).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>number-up</strong><br>
+Specifies the number of input pages to impose on each output page.
+The values 1, 2, 4, 6, 9, 12, and 16 are supported.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>orientation-requested</strong><br>
+Specifies the orientation of input pages, 3 for portrait, 4 for landscape, 5 for reverse landscape, and 6 for reverse portrait.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>overrides</strong><br>
+Specifies per-page overrides of &quot;media&quot;, &quot;media-col&quot;, and/or &quot;orientation-requested&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>page-delivery</strong><br>
+Specifies normal (&quot;same-order-face-down&quot; or &quot;same-order-face-up&quot;) or reverse (&quot;reverse-order-face-down&quot; or &quot;reverse-order-face-up&quot;) order output.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>page-ranges</strong><br>
 Selects a single range of pages to print.
@@ -197,6 +272,30 @@ Specifies the print resolution using one of the supported print resolutions.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>sides</strong><br>
 Specifies whether to do 1-sided printing (&quot;one-sided&quot;) or 2-sided printing (&quot;two-sided-long-edge&quot; for portrait and &quot;two-sided-short-edge&quot; for landscape).
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>x-image-position</strong><br>
+Specifies the relative horizontal position - &quot;center&quot;, &quot;left&quot;, &quot;none&quot;, or &quot;right&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>x-image-shift</strong><br>
+Specifies the relative horizontal offset in hundredths of millimeters.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>x-side1-image-shift</strong><br>
+Specifies the relative horizontal offset for front sides in hundredths of millimeters.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>x-side2-image-shift</strong><br>
+Specifies the relative horizontal offset for back sides in hundredths of millimeters.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>y-image-position</strong><br>
+Specifies the relative vertical position - &quot;bottom&quot;, &quot;center&quot;, &quot;none&quot;, or &quot;top&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>y-image-shift</strong><br>
+Specifies the relative vertical offset in hundredths of millimeters.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>y-side1-image-shift</strong><br>
+Specifies the relative vertical offset for front sides in hundredths of millimeters.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>y-side2-image-shift</strong><br>
+Specifies the relative vertical offset for back sides in hundredths of millimeters.
 </p>
     <h2 id="ipptransform-1.diagnostics">Diagnostics</h2>
 <p><strong>ipptransform</strong>
@@ -229,16 +328,31 @@ For example, the &quot;media&quot; Job Template attribute is stored as the &quot
 Specifies the default value of the corresponding &quot;xxx-default&quot; Printer Description attribute, where &quot;xxx&quot; is converted to uppercase.
 For example, the &quot;media-default&quot; Printer Description attribute is stored as the &quot;IPP_MEDIA_DEFAULT&quot; environment variable.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PCLM_RASTER_BACK_SIDE</strong><br>
+Specifies the coordinate system of the back side of duplex sheets.
+The default is 'normal'.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PCLM_SOURCE_RESOLUTION_SUPPORTED</strong><br>
+Lists the supported output resolutions.
+The default is 600dpi.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PCLM_STRIP_HEIGHT_PREFERRED</strong><br>
+Specifies the preferred strip height for the printer.
+The default is 16.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_RESOLUTION_SUPPORTED</strong><br>
 Lists the supported output resolutions.
+The default is 300dpi.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_SHEET_BACK</strong><br>
 Specifies the coordinate system of the back side of duplex sheets.
+The default is 'normal'.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_TYPE_SUPPORTED</strong><br>
 Lists the supported output color spaces and bit depths.
+The default is 'sgray_8'.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;">IPPTRANSFORM_MAX_RASTER<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPPTRANSFORM_MAX_RASTER</strong><br>
 Specifies the maximum number of bytes to use when generating raster data.
 The default is 16MB.
 </p>
@@ -272,7 +386,7 @@ Specifies the log level (verbosity) as &quot;error&quot;, &quot;info&quot;, or &
 
 </p>
     <h2 id="ipptransform-1.copyright">Copyright</h2>
-<p>Copyright &copy; 2023 by OpenPrinting.
+<p>Copyright &copy; 2023-2025 by OpenPrinting.
 Copyright &copy; 2016-2019 by the Printer Working Group.
 Copyright &copy; 2016-2019 by Apple Inc.
   </body>

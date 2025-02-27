@@ -10,6 +10,15 @@ body {
 .center {
   text-align: center;
 }
+a:link, a:visited {
+  color: #c00;
+  text-decoration: underline;
+}
+
+a:link:hover, a:active {
+  color: #f00;
+  text-decoration: underline;
+}
 code, kbd, pre, tt {
   font-family: monospace;
 }
@@ -26,24 +35,22 @@ p {
   text-align: justify;
 }
 span.info {
-  background: rgba(127,127,127,0.5);
-  border-radius: 5px;
+  background: #ddf;
+  border: solid 1px #77c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   float: right;
   font-size: 80%;
-  padding: 4px 10px;
+  padding: 2px 10px;
 }
 h4 span.info {
-  padding: 2px 8px;
+  padding: 1px 8px;
 }
 table {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   max-width: 90%;
-}
-table caption {
-  font-style: italic;
-  margin-bottom: 1em;
 }
 table thead th {
   border-bottom: solid 2px black;
@@ -52,15 +59,36 @@ table thead th {
   vertical-align: bottom;
 }
 table tbody tr:nth-child(even) {
-  background: rgba(127,127,127,0.125);
+  background: #ddd;
 }
 table tbody td {
   border-bottom: solid 1px black;
   padding: 4px 10px;
   vertical-align: top;
 }
-table.figure tbody td {
-  border-bottom: none;
+blockquote {
+  background: #ddf;
+  border-left: solid 2px #77c;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+}
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  h2, h3, h4, table tbody td, table thead th {
+    border-color: #ccc;
+  }
+  blockquote, span.info {
+    background: #337;
+    border-color: #66f;
+  }
+  table tbody tr:nth-child(even) {
+    background: #444;
+  }
 }
 --></style>
     <meta name="creator" content="mantohtml v2.0.2">
@@ -74,16 +102,16 @@ table.figure tbody td {
     <h2 id="ippfind-1.synopsis">Synopsis</h2>
 <p><strong>ippfind</strong>
 [
-<em>options</em>
-] <em>regtype</em>[<strong>,</strong><em>subtype</em>][<strong>.</strong><em>domain</em><strong>.</strong>] ... [
-<em>expression</em>
+<em>OPTIONS</em>
+] <em>REGTYPE</em>[<strong>,</strong><em>SUBTYPE</em>][<strong>.</strong><em>DOMAIN</em><strong>.</strong>] ... [
+<em>EXPRESSION</em>
  ... ]
 <br>
 <strong>ippfind</strong>
 [
-<em>options</em>
-] <em>name</em>[<strong>.</strong><em>regtype</em>[<strong>.</strong><em>domain</em><strong>.</strong>]] ... [
-<em>expression</em>
+<em>OPTIONS</em>
+] <em>NAME</em>[<strong>.</strong><em>REGTYPE</em>[<strong>.</strong><em>DOMAIN</em><strong>.</strong>]] ... [
+<em>EXPRESSION</em>
  ... ]
 <br>
 <strong>ippfind</strong>
@@ -100,16 +128,16 @@ Its primary purpose is to find IPP printers and show their URIs, show their curr
 <p><strong>ippfind</strong> supports the following registration types:
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">_http._tcp<br>
-HyperText Transport Protocol (HTTP, RFC 2616)
+HyperText Transport Protocol (HTTP, RFC 9112)
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">_https._tcp<br>
 Secure HyperText Transport Protocol (HTTPS, RFC 2818)
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">_ipp._tcp<br>
-Internet Printing Protocol (IPP, RFC 2911)
+Internet Printing Protocol (IPP, RFCs 3510+8010+8011)
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">_ipps._tcp<br>
-Secure Internet Printing Protocol (IPPS, draft)
+Secure Internet Printing Protocol (IPPS, RFCs 7472+8010+8011)
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;">_printer._tcp<br>
 Line Printer Daemon (LPD, RFC 1179)
@@ -120,23 +148,23 @@ Line Printer Daemon (LPD, RFC 1179)
 
 utility.
 However, unlike
-<strong>find</strong>(1),
+<strong>find</strong>,
 
 <strong>ippfind</strong> uses POSIX regular expressions instead of shell filename matching patterns.
 If <em>--exec</em>, <em>-l</em>, <em>--ls</em>, <em>-p</em>, <em>--print</em>, <em>--print-name</em>, <em>-q</em>, <em>--quiet</em>, <em>-s</em>, or <em>-x</em> is not specified, <strong>ippfind</strong> adds <em>--print</em> to print the service URI of anything it finds.
 The following expressions are supported:
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>REGEX</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--domain </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--domain </strong><em>REGEX</em><br>
 True if the domain matches the given regular expression.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--false</strong><br>
 Always false.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-h </strong><em>REGEX</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--host </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--host </strong><em>REGEX</em><br>
 True is the hostname matches the given regular expression.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l</strong><br>
@@ -148,22 +176,22 @@ The result is true if the URI is accessible, false otherwise.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--local</strong><br>
 True if the service is local to this computer.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-N </strong><em>name</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-N </strong><em>NAME</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--literal-name </strong><em>name</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--literal-name </strong><em>NAME</em><br>
 True if the service instance name matches the given name.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-n </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-n </strong><em>REGEX</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--name </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--name </strong><em>REGEX</em><br>
 True if the service instance name matches the given regular expression.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--path </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--path </strong><em>REGEX</em><br>
 True if the URI resource path matches the given regular expression.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-P </strong><em>number</em>[<strong>-</strong><em>number</em>]<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-P </strong><em>NUMBER</em>[<strong>-</strong><em>NUMBER</em>]<br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--port </strong><em>number</em>[<strong>-</strong><em>number</em>]<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--port </strong><em>NUMBER</em>[<strong>-</strong><em>NUMBER</em>]<br>
 True if the port matches the given number or range.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p</strong><br>
@@ -191,45 +219,45 @@ The result is always true.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--true</strong><br>
 Always true.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t </strong><em>key</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t </strong><em>KEY</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--txt </strong><em>key</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--txt </strong><em>KEY</em><br>
 True if the TXT record contains the named key.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--txt-</strong><em>key regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--txt-</strong><em>KEY REGEX</em><br>
 True if the TXT record contains the named key and matches the given regular expression.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u </strong><em>REGEX</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--uri </strong><em>regex</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--uri </strong><em>REGEX</em><br>
 True if the URI matches the given regular expression.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-x </strong><em>utility </em>[ <em>argument </em>... ] <strong>;</strong><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-x </strong><em>COMMAND </em>[ <em>ARGS </em>] <strong>';'</strong><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--exec </strong><em>utility </em>[ <em>argument </em>... ] <strong>;</strong><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--exec </strong><em>COMMAND </em>[ <em>ARGS </em>] <strong>';'</strong><br>
 Executes the specified program if the current result is true.
 &quot;{foo}&quot; arguments are replaced with the corresponding value - see SUBSTITUTIONS below.
 </p>
     <p>Expressions may also contain modifiers:
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>( </strong><em>expression </em><strong>)</strong><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>( </strong><em>EXPRESSION </em><strong>)</strong><br>
 Group the result of expressions.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>! </strong><em>expression</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>! </strong><em>EXPRESSION</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--not </strong><em>expression</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--not </strong><em>EXPRESSION</em><br>
 Unary NOT of the expression.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><em>expression expression</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><em>EXPRESSION EXPRESSION</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><em>expression </em><strong>--and </strong><em>expression</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><em>EXPRESSION </em><strong>--and </strong><em>EXPRESSION</em><br>
 Logical AND of expressions.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><em>expression </em><strong>--or </strong><em>expression</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><em>EXPRESSION </em><strong>--or </strong><em>EXPRESSION</em><br>
 Logical OR of expressions.
 </p>
     <h3 id="ippfind-1.description.substitutions">Substitutions</h3>
-<p>The substitutions for &quot;{foo}&quot; in <em>-e</em> and <em>--exec</em> are:
+<p>The substitutions for &quot;{FOO}&quot; in <em>-e</em> and <em>--exec</em> are:
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>{service_domain}</strong><br>
 Domain name, e.g., &quot;example.com.&quot;, &quot;local.&quot;, etc.
@@ -272,12 +300,12 @@ Use IPv4 when listing.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-6</strong><br>
 Use IPv6 when listing.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-T </strong><em>seconds</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-T </strong><em>SECONDS</em><br>
 Specify find timeout in seconds.
 If 1 or less, <strong>ippfind</strong> stops as soon as it thinks it has found everything.
 The default timeout is 1 second.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V </strong><em>version</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V </strong><em>VERSION</em><br>
 Specifies the IPP version when listing.
 Supported values are &quot;1.1&quot;, &quot;2.0&quot;, &quot;2.1&quot;, and &quot;2.2&quot;.
 </p>

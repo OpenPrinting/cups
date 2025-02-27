@@ -10,6 +10,15 @@ body {
 .center {
   text-align: center;
 }
+a:link, a:visited {
+  color: #c00;
+  text-decoration: underline;
+}
+
+a:link:hover, a:active {
+  color: #f00;
+  text-decoration: underline;
+}
 code, kbd, pre, tt {
   font-family: monospace;
 }
@@ -26,24 +35,22 @@ p {
   text-align: justify;
 }
 span.info {
-  background: rgba(127,127,127,0.5);
-  border-radius: 5px;
+  background: #ddf;
+  border: solid 1px #77c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   float: right;
   font-size: 80%;
-  padding: 4px 10px;
+  padding: 2px 10px;
 }
 h4 span.info {
-  padding: 2px 8px;
+  padding: 1px 8px;
 }
 table {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   max-width: 90%;
-}
-table caption {
-  font-style: italic;
-  margin-bottom: 1em;
 }
 table thead th {
   border-bottom: solid 2px black;
@@ -52,15 +59,36 @@ table thead th {
   vertical-align: bottom;
 }
 table tbody tr:nth-child(even) {
-  background: rgba(127,127,127,0.125);
+  background: #ddd;
 }
 table tbody td {
   border-bottom: solid 1px black;
   padding: 4px 10px;
   vertical-align: top;
 }
-table.figure tbody td {
-  border-bottom: none;
+blockquote {
+  background: #ddf;
+  border-left: solid 2px #77c;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+}
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  h2, h3, h4, table tbody td, table thead th {
+    border-color: #ccc;
+  }
+  blockquote, span.info {
+    background: #337;
+    border-color: #66f;
+  }
+  table tbody tr:nth-child(even) {
+    background: #444;
+  }
 }
 --></style>
     <meta name="creator" content="mantohtml v2.0.2">
@@ -79,67 +107,70 @@ table.figure tbody td {
 <strong>--no-web-forms</strong>
 ] [
 <strong>--pam-service</strong>
-<em>service</em>
+<em>SERVICE</em>
 ] [
 <strong>--version</strong>
 ] [
 <strong>-2</strong>
 ] [
+<strong>-a</strong>
+<em>FILENAME</em>
+] [
 <strong>-A</strong>
 ] [
-<strong>-D</strong>
-<em>device-uri</em>
-] [
-<strong>-F</strong>
-<em>output-type/subtype</em>
-] [
-<strong>-K</strong>
-<em>keypath</em>
-] [
-<strong>-M</strong>
-<em>manufacturer</em>
-] [
-<strong>-V</strong>
-<em>ipp-version</em>
-] [
-<strong>-a</strong>
-<em>filename.conf</em>
-] [
 <strong>-c</strong>
-<em>command</em>
+<em>COMMAND</em>
 ] [
 <strong>-d</strong>
-<em>spool-directory</em>
+<em>SPOOL-DIRECTORY</em>
+] [
+<strong>-D</strong>
+<em>DEVICE-URI</em>
 ] [
 <strong>-f</strong>
-<em>type/subtype[,...]</em>
+<em>TYPE/SUBTYPE[,...]</em>
+] [
+<strong>-F</strong>
+<em>TYPE/SUBTYPE</em>
 ] [
 <strong>-i</strong>
-<em>iconfile.png</em>
+<em>ICONFILE.png[,...]</em>
 ] [
 <strong>-k</strong>
 ] [
+<strong>-K</strong>
+<em>KEYSTORE</em>
+] [
 <strong>-l</strong>
-<em>location</em>
+<em>LOCATION</em>
 ] [
 <strong>-m</strong>
-<em>model</em>
+<em>MODEL</em>
+] [
+<strong>-M</strong>
+<em>MANUFACTURER</em>
 ] [
 <strong>-n</strong>
-<em>hostname</em>
+<em>HOSTNAME</em>
 ] [
 <strong>-p</strong>
-<em>port</em>
+<em>PORT</em>
 ] [
 <strong>-r</strong>
-<em>subtype[,subtype]</em>
+<em>SUBTYPE[,...]</em>
 ] [
 <strong>-s</strong>
-<em>speed[,color-speed]</em>
+<em>SPEED[,COLOR-SPEED]</em>
+] [
+<strong>-S</strong>
+<em>FILENAME.strings</em>
 ] [
 <strong>-v[vvv]</strong>
+] [
+<strong>-V</strong>
+<em>VERSION</em>
 ]
-<em>service-name</em>
+<em>SERVICE-NAME</em>
 </p>
     <h2 id="ippeveprinter-1.description">Description</h2>
 <p><strong>ippeveprinter</strong>
@@ -165,31 +196,19 @@ Show the CUPS version.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-2</strong><br>
 Report support for two-sided (duplex) printing.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a </strong><em>FILENAME</em><br>
+Specifies an IPP file that defines the attributes for the printer.
+This is normally used to simulate a real printer with the output from
+<a href="ipptool.html"><strong>ipptool</strong>(1)</a>
+
+using the
+<strong>--ippfile</strong>
+option.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-A</strong><br>
 Enable authentication for the created printer.
 <strong>ippeveprinter</strong>
 uses PAM to authenticate HTTP Basic credentials.
-</p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-D </strong><em>device-uri</em><br>
-Set the device URI for print output.
-The URI can be a filename, directory, or a network socket URI of the form &quot;socket://ADDRESS[:PORT]&quot; (where the default port number is 9100).
-When specifying a directory,
-<strong>ippeveprinter</strong>
-will create an output file using the job ID and name.
-</p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-F </strong><em>output-type/subtype[,...]</em><br>
-Specifies the output MIME media type.
-The default is &quot;application/postscript&quot; when the <strong>-P</strong> option is specified.
-</p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-M </strong><em>manufacturer</em><br>
-Set the manufacturer of the printer.
-The default is &quot;Example&quot;.
-</p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V 1.1</strong><br>
-</p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V 2.0</strong><br>
-Specifies the maximum IPP version to report.
-2.0 is the default.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c </strong><em>command</em><br>
 Run the specified command for each document that is printed.
@@ -198,11 +217,22 @@ Run the specified command for each document that is printed.
 Specifies the directory that will hold the print files.
 The default is a directory under the user's current temporary directory.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-f </strong><em>type/subtype[,...]</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-D </strong><em>DEVICE-URI</em><br>
+Set the device URI for print output.
+The URI can be a filename, directory, or a network socket URI of the form &quot;socket://ADDRESS[:PORT]&quot; (where the default port number is 9100).
+When specifying a directory,
+<strong>ippeveprinter</strong>
+will create an output file using the job ID and name.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-f </strong><em>TYPE/SUBTYPE[,...]</em><br>
 Specifies a list of MIME media types that the server will accept.
 The default depends on the type of printer created.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i </strong><em>iconfile.png</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-F </strong><em>output-type/subtype[,...]</em><br>
+Specifies the output MIME media type.
+The default is &quot;application/postscript&quot; when the <strong>-P</strong> option is specified.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i </strong><em>ICONFILE.png[,...]</em><br>
 Specifies the printer icon file for the server.
 The file must be a PNG format image.
 The default is an internally-provided PNG image.
@@ -210,40 +240,53 @@ The default is an internally-provided PNG image.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-k</strong><br>
 Keeps the print documents in the spool directory rather than deleting them.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l </strong><em>location</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l </strong><em>LOCATION</em><br>
 Specifies the human-readable location string that is reported by the server.
 The default is the empty string.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m </strong><em>model</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m </strong><em>MODEL</em><br>
 Specifies the model name of the printer.
 The default is &quot;Printer&quot;.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-n </strong><em>hostname</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-M </strong><em>MANUFACTURER</em><br>
+Set the manufacturer of the printer.
+The default is &quot;Example&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-n </strong><em>HOSTNAME</em><br>
 Specifies the hostname that is reported by the server.
 The default is the name returned by the
 <strong>hostname</strong>(1)
 
 command.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p </strong><em>port</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p </strong><em>PORt</em><br>
 Specifies the port number to listen on.
 The default is a user-specific number from 8000 to 8999.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r off</strong><br>
 Turns off DNS-SD service advertisements entirely.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>subtype[,subtype]</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>SUBTYPE[,...]</em><br>
 Specifies the DNS-SD subtype(s) to advertise.
 Separate multiple subtypes with a comma.
 The default is &quot;_print&quot;.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s </strong><em>speed[,color-speed]</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s </strong><em>SPEED[,COLOR-SPEED]</em><br>
 Specifies the printer speed in pages per minute.
 If two numbers are specified and the second number is greater than zero, the server will report support for color printing.
 The default is &quot;10,0&quot;.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-S </strong><em>FILENAME.strings</em><br>
+Specifies a strings file for localization.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v[vvv]</strong><br>
 Be (very) verbose when logging activity to standard error.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V 1.1</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V 2.0</strong><br>
+Specifies the maximum IPP version to report.
+2.0 is the default.
 </p>
     <h2 id="ippeveprinter-1.exit-status">Exit Status</h2>
 <p>The
@@ -317,14 +360,18 @@ command whenever a job is sent to the server:
     <pre>
     ippeveprinter -c /usr/bin/file &quot;My Cool Printer&quot;
 </pre>
+    <p>Make a copy of a real printer's attributes and simulate it locally:
+</p>
+    <pre>
+    ipptool --ippfile myprinter.conf ipp://printer.local/ipp/print get-printer-attributes.test
+    ippeveprinter -a myprinter.conf &quot;My Simulated Printer&quot;
+</pre>
     <h2 id="ippeveprinter-1.see-also">See Also</h2>
-<p><strong>ippevepcl</strong>(1),
+<a href="ipptransform.html"><p><strong>ipptransform</strong>(1),</a>
 
-<strong>ippeveps</strong>(1),
+<a href="ipptool.html"><strong>ipptool</strong>(1),</a>
 
-<a href="ipptransform.html"><strong>ipptransform</strong>(1),</a>
-
-PWG Internet Printing Protocol Workgroup (<a href="https://www.pwg.org/ipp">https://www.pwg.org/ipp</a>)
+PWG Internet Printing Protocol Workgroup (<a href="http://www.pwg.org/ipp">http://www.pwg.org/ipp</a>)
 </p>
     <h2 id="ippeveprinter-1.copyright">Copyright</h2>
 <p>Copyright &copy; 2021-2023 by OpenPrinting.

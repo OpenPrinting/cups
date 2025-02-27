@@ -10,6 +10,15 @@ body {
 .center {
   text-align: center;
 }
+a:link, a:visited {
+  color: #c00;
+  text-decoration: underline;
+}
+
+a:link:hover, a:active {
+  color: #f00;
+  text-decoration: underline;
+}
 code, kbd, pre, tt {
   font-family: monospace;
 }
@@ -26,24 +35,22 @@ p {
   text-align: justify;
 }
 span.info {
-  background: rgba(127,127,127,0.5);
-  border-radius: 5px;
+  background: #ddf;
+  border: solid 1px #77c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   float: right;
   font-size: 80%;
-  padding: 4px 10px;
+  padding: 2px 10px;
 }
 h4 span.info {
-  padding: 2px 8px;
+  padding: 1px 8px;
 }
 table {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   max-width: 90%;
-}
-table caption {
-  font-style: italic;
-  margin-bottom: 1em;
 }
 table thead th {
   border-bottom: solid 2px black;
@@ -52,15 +59,36 @@ table thead th {
   vertical-align: bottom;
 }
 table tbody tr:nth-child(even) {
-  background: rgba(127,127,127,0.125);
+  background: #ddd;
 }
 table tbody td {
   border-bottom: solid 1px black;
   padding: 4px 10px;
   vertical-align: top;
 }
-table.figure tbody td {
-  border-bottom: none;
+blockquote {
+  background: #ddf;
+  border-left: solid 2px #77c;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+}
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  h2, h3, h4, table tbody td, table thead th {
+    border-color: #ccc;
+  }
+  blockquote, span.info {
+    background: #337;
+    border-color: #66f;
+  }
+  table tbody tr:nth-child(even) {
+    background: #444;
+  }
 }
 --></style>
     <meta name="creator" content="mantohtml v2.0.2">
@@ -234,7 +262,11 @@ Specifies the default IPP version number to use for the tests that follow.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR </strong><em>out-of-band-tag attribute-name</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR </strong><em>tag attribute-name value(s)</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR </strong><em>tag attribute-name value[,...,value]</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR </strong><em>tag attribute-name &quot;value&quot;[,...,&quot;value&quot;]</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ATTR </strong><em>tag attribute-name &lt;hex-value>[,...,&lt;hex-value>]</em><br>
 Adds an attribute to the test request.
 Out-of-band tags (admin-define, delete-attribute, no-value, not-settable, unknown, unsupported) have no value.
 Values for other tags are delimited by the comma (&quot;,&quot;) character - escape commas using the &quot;\&quot; character.
@@ -422,6 +454,9 @@ A &quot;http&quot; or &quot;https&quot; URI must respond to a GET request while 
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-CONTENT valid</strong><br>
 Requires that all &quot;http&quot; and &quot;https&quot; URI values be accessible and provide valid content.
+Currently
+<strong>ipptool</strong>
+is able to validate CSS, HTML, ICC, IPP, JPEG, PDF, PNG, and Apple .strings files.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-CONTENT valid-icon</strong><br>
 </p>
@@ -973,6 +1008,6 @@ The default is &quot;two-sided-long-edge&quot; for portrait output and &quot;two
     <p>RFC 8011 (<a href="https://datatracker.ietf.org/doc/html/rfc8011">https://datatracker.ietf.org/doc/html/rfc8011</a>)
 </p>
     <h2 id="ipptoolfile-5.copyright">Copyright</h2>
-<p>Copyright &copy; 2021-2023 by OpenPrinting.
+<p>Copyright &copy; 2021-2024 by OpenPrinting.
   </body>
 </html>

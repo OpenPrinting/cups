@@ -11,68 +11,14 @@
   information.
   -->
   <head>
-    <style><!--
-body {
-  font-family: sans-serif;
-  font-size: 16pt;
-  margin: 54pt 36pt;
-}
-.center {
-  text-align: center;
-}
-code, kbd, pre, tt {
-  font-family: monospace;
-}
-dl {
-  margin-left: 2em;
-}
-h2, h3 {
-  border-bottom: solid 2px black;
-}
-h4 {
-  border-bottom: solid 1px black;
-}
-p {
-  text-align: justify;
-}
-span.info {
-  background: rgba(127,127,127,0.5);
-  border-radius: 5px;
-  float: right;
-  font-size: 80%;
-  padding: 4px 10px;
-}
-h4 span.info {
-  padding: 2px 8px;
-}
-table {
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 90%;
-}
-table thead th {
-  border-bottom: solid 2px black;
-  padding: 0 10px;
-  text-align: left;
-  vertical-align: bottom;
-}
-table tbody tr:nth-child(even) {
-  background: rgba(127,127,127,0.125);
-}
-table tbody td {
-  border-bottom: solid 1px black;
-  padding: 4px 10px;
-  vertical-align: top;
-}
---></style>
+    <link rel="stylesheet" type="text/css" href="libcups.css">
     <title>CUPS Implementation of IPP</title>
     <meta name='keywords' content='Programming, Internet Printing Protocol'>
   </head>
   <body>
-    <h1 class="center"><img src="cups.png" width="64" height="64" alt="CUPS"><br>
+    <h1 class="center"><img src="cups.svg" width="64" height="64" alt="CUPS"><br>
     CUPS Implementation of IPP</h1>
-    <p class="center">Last Updated October 12, 2023</p>
+    <p class="center">Last Updated November 23, 2023</p>
 
 
     <h2 id='INTRODUCTION'>Introduction</h2>
@@ -86,7 +32,7 @@ table tbody td {
       <li><a href="https://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext21-20230210-5100.7.pdf">PWG 5100.7: IPP Job Extensions v2.1 (JOBEXT)</a></li>
       <li><a href="https://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf">PWG 5100.8-2003: IPP "-actual" Attributes</a></li>
       <li><a href="https://ftp.pwg.org/pub/pwg/candidates/cs-ippstate10-20090731-5100.9.pdf">PWG 5100.9-2009: IPP Printer State Extensions</a></li>
-      <li><a href="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippepx20-20230206.pdf">PWG 5100.11-YYYY: IPP Enterprise Printing Extensions v2.0 (EPX)</a></li>
+      <li><a href="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippepx20-20231017.pdf">PWG 5100.11-YYYY: IPP Enterprise Printing Extensions v2.0 (EPX)</a></li>
       <li><a href="https://ftp.pwg.org/pub/pwg/standards/std-ipp20-20151030-5100.12.pdf">PWG 5100.12-2015: IPP 2.0, 2.1, and 2.2</a></li>
       <li><a href="https://ftp.pwg.org/pub/pwg/candidates/cs-ippnodriver20-20230301-5100.13.pdf">PWG 5100.13-2023: IPP Driver Replacement Extensions v2.0 (NODRIVER)</a></li>
       <li><a href="https://ftp.pwg.org/pub/pwg/candidates/cs-ippeve11-20200515-5100.14.pdf">PWG 5100.14-2020: IPP Everywhere™ v1.1</a></li>
@@ -107,13 +53,13 @@ table tbody td {
       <li><a href="https://www.rfc-editor.org/rfc/rfc8010.html">RFC 8010: IPP/1.1 Encoding and Transport</a></li>
       <li><a href="https://www.rfc-editor.org/rfc/rfc8011.html">RFC 8011: IPP/1.1 Model and Semantics</a></li>
     </ul>
-    <p>CUPS also provides 17 new operations and many new attributes to support multiple IPP printers and printer classes on a single host.</p>
+    <p>CUPS also defines 17 new operations and many new attributes to support multiple IPP printers and printer classes on a single host.</p>
 
     <h3 id='IPP_URIS'>IPP URIs</h3>
     <p>CUPS supports the "ipp" and "ipps" schemes. The following resource names are used:</p>
     <dl>
       <dt><tt>SCHEME://HOSTNAME:PORT/</tt></dt>
-      <dd>Can be used for all "get" operations and for server subscriptions.</dd>
+      <dd>Can be used for all "get" operations and for server subscriptions (deprecated).</dd>
 
       <dt><tt>SCHEME://HOSTNAME:PORT/admin</tt></dt>
       <dd>Used for all administrative operations (deprecated).</dd>
@@ -122,10 +68,10 @@ table tbody td {
       <dd>Specifies a printer class (deprecated).</dd>
 
       <dt><tt>SCHEME://HOSTNAME:PORT/ipp/print/PRINTER-NAME</tt></dt>
-      <dd>Specifies a printer (deprecated).</dd>
+      <dd>Specifies a printer.</dd>
 
       <dt><tt>SCHEME://HOSTNAME:PORT/ipp/print/PRINTER-NAME/JOB-ID</tt></dt>
-      <dd>Specifies a job (deprecated).</dd>
+      <dd>Specifies a job.</dd>
 
       <dt><tt>SCHEME://HOSTNAME:PORT/ipp/system</tt></dt>
       <dd>Used for all system-wide operations.</dd>
@@ -140,196 +86,28 @@ table tbody td {
 
 
     <h3 id='IPP_OPERATIONS'>CUPS IPP Operations</h3>
-    <p>CUPS provides 17 vendor extension operations in addition to most of the standard IPP and registered extension operations:</p>
+    <p>CUPS defines 17 vendor operations in addition to extending some of the standard IPP and registered extension operations:</p>
     <table summary='Supported IPP Operations'>
       <thead>
 	<tr>
 	  <th>Operation Name</th>
-	  <th>CUPS</th>
+	  <th>CUPS Version</th>
 	  <th>Code</th>
 	  <th>Brief Description</th>
 	</tr>
       </thead>
       <tbody>
 	<tr>
-	  <td>Print-Job</td>
-	  <td>1.0</td>
-	  <td>0x0002</td>
-	  <td>Print a file.</td>
-	</tr>
-	<tr>
-	  <td>Validate-Job</td>
-	  <td>1.0</td>
-	  <td>0x0004</td>
-	  <td>Validate job attributes.</td>
-	</tr>
-	<tr>
-	  <td>Create-Job</td>
-	  <td>1.1</td>
-	  <td>0x0005</td>
-	  <td>Create a print job.</td>
-	</tr>
-	<tr>
-	  <td>Send-Document</td>
-	  <td>1.1</td>
-	  <td>0x0006</td>
-	  <td>Send a file for a print job.</td>
-	</tr>
-	<tr>
-	  <td><a href='#CANCEL_JOB'>Cancel-Job</a></td>
+	  <td><a href='#CANCEL_JOB'>Cancel-Job (deprecated extension)</a></td>
 	  <td>1.0</td>
 	  <td>0x0008</td>
 	  <td>Cancel a print job.</td>
 	</tr>
 	<tr>
-	  <td>Get-Job-Attributes</td>
-	  <td>1.0</td>
-	  <td>0x0009</td>
-	  <td>Get job attributes.</td>
-	</tr>
-	<tr>
-	  <td>Get-Jobs</td>
-	  <td>1.0</td>
-	  <td>0x000A</td>
-	  <td>Get all jobs.</td>
-	</tr>
-	<tr>
-	  <td>Get-Printer-Attributes</td>
-	  <td>1.0</td>
-	  <td>0x000B</td>
-	  <td>Get printer attributes.</td>
-	</tr>
-	<tr>
-	  <td>Hold-Job</td>
-	  <td>1.1</td>
-	  <td>0x000C</td>
-	  <td>Hold a job for printing.</td>
-	</tr>
-	<tr>
-	  <td>Release-Job</td>
-	  <td>1.1</td>
-	  <td>0x000D</td>
-	  <td>Release a job for printing.</td>
-	</tr>
-	<tr>
-	  <td>Restart-Job</td>
-	  <td>1.1</td>
-	  <td>0x000E</td>
-	  <td>Restarts a print job.</td>
-	</tr>
-	<tr>
-	  <td>Pause-Printer</td>
-	  <td>1.0</td>
-	  <td>0x0010</td>
-	  <td>Pause printing on a printer.</td>
-	</tr>
-	<tr>
-	  <td>Resume-Printer</td>
-	  <td>1.0</td>
-	  <td>0x0011</td>
-	  <td>Resume printing on a printer.</td>
-	</tr>
-	<tr>
-	  <td><a href='#PURGE_JOBS'>Purge-Jobs</a></td>
-	  <td>1.0</td>
-	  <td>0x0012</td>
-	  <td>Purge all jobs.</td>
-	</tr>
-	<tr>
-	  <td>Set-Printer-Attributes</td>
-	  <td>1.4</td>
-	  <td>0x0013</td>
-	  <td>Set attributes for a printer.</td>
-	</tr>
-	<tr>
-	  <td>Set-Job-Attributes</td>
-	  <td>1.1</td>
-	  <td>0x0014</td>
-	  <td>Set attributes for a pending or held job.</td>
-	</tr>
-	<tr>
-	  <td><a href='#CREATE_PRINTER_SUBSCRIPTIONS'>Create-Printer-Subscriptions</a></td>
+	  <td><a href='#CREATE_PRINTER_SUBSCRIPTION'>Create-Printer-Subscription (deprecated extension)</a></td>
 	  <td>1.2</td>
 	  <td>0x0016</td>
-	  <td>Creates subscription(s) associated with a printer or the server.</td>
-	</tr>
-	<tr>
-	  <td>Create-Job-Subscriptions</td>
-	  <td>1.2</td>
-	  <td>0x0017</td>
-	  <td>Creates subscriptions associated with a job.</td>
-	</tr>
-	<tr>
-	  <td>Get-Subscription-Attributes</td>
-	  <td>1.2</td>
-	  <td>0x0018</td>
-	  <td>Gets the attributes for a subscription.</td>
-	</tr>
-	<tr>
-	  <td>Get-Subscriptions</td>
-	  <td>1.2</td>
-	  <td>0x0019</td>
-	  <td>Gets the attributes for zero or more subscriptions.</td>
-	</tr>
-	<tr>
-	  <td>Renew-Subscription</td>
-	  <td>1.2</td>
-	  <td>0x001A</td>
-	  <td>Renews a subscription.</td>
-	</tr>
-	<tr>
-	  <td>Cancel-Subscription</td>
-	  <td>1.2</td>
-	  <td>0x001B</td>
-	  <td>Cancels a subscription.</td>
-	</tr>
-	<tr>
-	  <td>Get-Notifications</td>
-	  <td>1.2</td>
-	  <td>0x001C</td>
-	  <td>Get notification events for <tt>ippget</tt> subscriptions.</td>
-	</tr>
-	<tr>
-	  <td>Enable-Printer</td>
-	  <td>1.2</td>
-	  <td>0x0022</td>
-	  <td>Accepts jobs on a printer.</td>
-	</tr>
-	<tr>
-	  <td>Disable-Printer</td>
-	  <td>1.2</td>
-	  <td>0x0023</td>
-	  <td>Rejects jobs on a printer.</td>
-	</tr>
-	<tr>
-	  <td>Hold-New-Jobs</td>
-	  <td>1.4</td>
-	  <td>0x0025</td>
-	  <td>Hold new jobs by default.</td>
-	</tr>
-	<tr>
-	  <td>Release-Held-New-Jobs</td>
-	  <td>1.4</td>
-	  <td>0x0026</td>
-	  <td>Releases all jobs that were previously held.</td>
-	</tr>
-	<tr>
-	  <td>Cancel-Jobs</td>
-	  <td>1.5</td>
-	  <td>0x0038</td>
-	  <td>Cancel all jobs (administrator).</td>
-	</tr>
-	<tr>
-	  <td>Cancel-My-Jobs</td>
-	  <td>1.5</td>
-	  <td>0x0039</td>
-	  <td>Cancel all jobs (user).</td>
-	</tr>
-	<tr>
-	  <td>Close-Job</td>
-	  <td>1.5</td>
-	  <td>0x003b</td>
-	  <td>Close a created job.</td>
+	  <td>Creates a subscription associated with a printer or the server.</td>
 	</tr>
 	<tr>
 	  <td><a href='#CUPS_GET_DEFAULT'>CUPS-Get-Default</a></td>
@@ -441,19 +219,12 @@ table tbody td {
     <p>The following sections describe the operations supported by CUPS. In the interest of brevity, operations which use only the standard IPP attributes are not described.
 
 
-    <h3 id='CANCEL_JOB'>Cancel-Job Operation (Extension)</h3>
-    <p>The Cancel-Job operation (0x0008) cancels the specified job. CUPS 1.4 added support for the <tt>purge-job (boolean)</tt> operation attribute that (if 'true') removes all history and document files for the job as well.</p>
+    <h3 id='CANCEL_JOB'>Cancel-Job Operation (extension)</h3>
+    <p>The Cancel-Job operation (0x0008) cancels the specified job. CUPS 1.4 added support for the <tt>purge-job (boolean)</tt> operation attribute that (if 'true') removes all history and document files for the job as well. This attribute is no longer supported since CUPS 3.0.</p>
 
 
-    <h3 id='PURGE_JOBS'><span class='info'>Deprecated</span>Purge-Jobs Operation</h3>
-    <p>The Purge-Jobs operation (0x0012) cancels all of the jobs on a given destination and optionally removes all history and document files for the jobs as well. CUPS 1.2 added support for the <tt>purge-job (boolean)</tt> operation attribute that (if 'false') retains all history and document files for the canceled jobs.</p>
-    <blockquote><b>Note:</b>
-      <p>The Cancel-Jobs and Cancel-My-Jobs operations should be used instead of Purge-Jobs.</p>
-    </blockquote>
-
-
-    <h3 id='CREATE_PRINTER_SUBSCRIPTIONS'>Create-Printer-Subscriptions</h3>
-    <p>The Create-Printer-Subscriptions operation (0x0016) creates one or more subscriptions for printer or server event notifications. CUPS provides several additional events in addition to the standard events in the IPP notifications specification. CUPS adds the following <tt>notify-events (1setOf type2 keyword)</tt> values:<p>
+    <h3 id='CREATE_PRINTER_SUBSCRIPTION'>Create-Printer-Subscription (deprecated extension)</h3>
+    <p>The Create-Printer-Subscription operation (0x0016) creates a subscription for printer event notifications. CUPS 1.2 provided several additional extension events:<p>
     <ul>
       <li><tt>printer-added</tt> - Get notified whenever a printer or class is added</li>
       <li><tt>printer-deleted</tt> - Get notified whenever a printer or class is deleted</li>
@@ -463,6 +234,7 @@ table tbody td {
       <li><tt>server-started</tt> - Get notified when the server is started</li>
       <li><tt>server-stopped</tt> - Get notified when the server is stopped</li>
     </ul>
+    <p>These keywords are no longer supported since CUPS 3.0.</p>
 
 
     <h3 id='CUPS_GET_DEFAULT'><span class='info'>Deprecated</span>CUPS-Get-Default Operation</h3>
@@ -1126,10 +898,10 @@ table tbody td {
     <p>CUPS provides many extension attributes to support multiple devices, PPD files, standard job filters, printers, and printer classes.</p>
 
 
-    <h3 id='DEVICE_ATTRIBUTES'>Device Attributes<span class="info">Deprecated</span></h3>
+    <h3 id='DEVICE_ATTRIBUTES'><span class="info">Deprecated</span>Device Attributes</h3>
     <p>Device attributes are returned by the CUPS-Get-Devices operation and enumerate all of the available hardware devices and network protocols that are supported by the server. Device attributes are reported in the printer-attributes-tag group.</p>
 
-    <h4 id='device-class'>device-class (type2 keyword)<span class="info">Deprecated</span></h4>
+    <h4 id='device-class'><span class="info">Deprecated</span>device-class (type2 keyword)</h4>
     <p>The "device-class" attribute provides the class of device and can be one of the following:
     <ul>
       <li>'file': A disk file.
@@ -1138,7 +910,7 @@ table tbody td {
       <li>'network': A network connection, typically via AppSocket, HTTP, IPP, LPD, or SMB/CIFS protocols.
     </ul>
 
-    <h4 id='device-id'>device-id (text(1023))<span class="info">Deprecated</span></h4>
+    <h4 id='device-id'><span class="info">Deprecated</span>device-id (text(1023))</h4>
     <p>The "device-id" attribute provides the IEEE-1284 device ID string for the device.</p>
 
     <h4 id='device-info'><span class="info">Deprecated</span>device-info (text(127))</h4>
@@ -1150,7 +922,7 @@ table tbody td {
     <h4 id='device-make-and-model'><span class="info">Deprecated</span>device-make-and-model (text(127))</h4>
     <p>The "device-make-and-model" attribute specifies a device identification string provided by the printer connected to the device. If the device or printer does not support identification then this attribute contains the string 'unknown'.
 
-    <h4 id='device-uri'>device-uri (uri)</h4>
+    <h4 id='device-uri'><span class="info">Deprecated</span>device-uri (uri)</h4>
     <p>The "device-uri" attribute specifies a unique identifier for the device. The actual format of the "device-uri" string depends on the value of the "device-class" attribute:
     <ul>
       <li>'file': The "device-uri" will be of the form 'file:///path/to/filename'.
@@ -1161,6 +933,7 @@ table tbody td {
       <p>The URI returned by CUPS-Get-Devices MAY only contain the scheme name ('scheme'). It is up to the client application to add the appropriate host and other information when adding a new printer.
       <p>The URI returned by Get-Printer-Attributes and CUPS-Get-Printers has any username and password information stripped; the information is still stored and used by the server internally to perform any needed authentication.
     </ul>
+    <blockquote><b>Note:</b> This attribute has been replaced by the ["smi55357-device-uri (uri)"](https://github.com/michaelrsweet/pappl/blob/master/doc/IPP-EXTENSIONS.md#513-smi55357-device-uri-uri) attribute.</blockquote>
 
 
     <h3 id='JOB_ATTRIBUTES'>Job Attributes</h3>
@@ -1183,7 +956,7 @@ table tbody td {
     <h4 id='job-printer-state-reasons'>job-printer-state-reasons (1setOf type2 keyword)</h4>
     <p>The "job-printer-state-reasons" status attribute provides the last known value of the "printer-state-reasons" attribute for the printer that processed (or is processing) the job.</p>
 
-    <h4 id='job-sheets'><span class='info'>Extension</span>job-sheets (1setof type3 keyword | name(MAX))</h4>
+    <h4 id='job-sheets'><span class='info'>Extension</span>job-sheets (1setof type2 keyword | name(MAX))</h4>
     <p>The "job-sheets" attribute specifies one or two banner files that are printed before and after a job. The reserved value of "none" disables banner printing. The default value is stored in the "job-sheets-default" attribute.
     <p>If only one value is supplied, the banner file is printed before the job. If two values are supplied, the first value is used as the starting banner file and the second as the ending banner file.
 
