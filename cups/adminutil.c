@@ -1,16 +1,12 @@
 /*
  * Administration utility API definitions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2001-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -91,7 +87,7 @@ cupsAdminExportSamba(
  * The returned settings should be freed with cupsFreeOptions() when
  * you are done with them.
  *
- * @since CUPS 1.3/macOS 10.5@
+ * @since CUPS 1.3@
  */
 
 int					/* O - 1 on success, 0 on failure */
@@ -406,7 +402,7 @@ cupsAdminGetServerSettings(
 /*
  * 'cupsAdminSetServerSettings()' - Set settings on the server.
  *
- * @since CUPS 1.3/macOS 10.5@
+ * @since CUPS 1.3@
  */
 
 int					/* O - 1 on success, 0 on failure */

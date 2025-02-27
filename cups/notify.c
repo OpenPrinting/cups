@@ -1,15 +1,11 @@
 /*
  * Notification routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2013 by Apple Inc.
- * Copyright 2005-2006 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2013 by Apple Inc.
+ * Copyright © 2005-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -21,7 +17,7 @@
  *
  * The returned string must be freed by the caller using @code free@.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 char *					/* O - Subject string or @code NULL@ */
@@ -152,7 +148,7 @@ cupsNotifySubject(cups_lang_t *lang,	/* I - Language data */
  *
  * The returned string must be freed by the caller using @code free@.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 char *					/* O - Message text or @code NULL@ */

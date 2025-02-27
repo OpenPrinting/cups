@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cups-private.h"
 #include "debug-internal.h"
 #include <stdlib.h>
@@ -188,7 +184,7 @@ cupsGetPassword(const char *prompt)	/* I - Prompt string */
  * the @link cupsSetPasswordCB2@ function need to do so in each thread for the
  * same function to be used.
  *
- * @since CUPS 1.4/macOS 10.6@
+ * @since CUPS 1.4@
  */
 
 const char *				/* O - Password */
@@ -480,7 +476,7 @@ cupsSetPasswordCB(cups_password_cb_t cb)/* I - Callback function */
  * in a program. Multi-threaded programs that override the callback need to do
  * so in each thread for the same callback to be used.
  *
- * @since CUPS 1.4/macOS 10.6@
+ * @since CUPS 1.4@
  */
 
 void
@@ -627,7 +623,7 @@ cupsSetUser(const char *user)		/* I - User name */
  * Setting the string to NULL forces the default value containing the CUPS
  * version, IPP version, and operating system version and architecture.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 void

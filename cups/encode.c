@@ -1,16 +1,12 @@
 /*
  * Option encoding routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -694,7 +690,7 @@ _cupsEncodeOption(
 /*
  * 'cupsEncodeOption()' - Encode a single option into an IPP attribute.
  *
- * @since CUPS 2.3/macOS 10.14@
+ * @since CUPS 2.3@
  */
 
 ipp_attribute_t	*			/* O - New attribute or @code NULL@ on error */
@@ -739,7 +735,7 @@ cupsEncodeOptions(ipp_t         *ipp,		/* I - IPP request/response */
  * function multiple times for each group, or use @link cupsEncodeOptions@
  * to add the standard groups.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 void

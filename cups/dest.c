@@ -1,7 +1,7 @@
 //
 // User-defined destination (and option) support for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -493,7 +493,7 @@ _cupsAppleSetUseLastPrinter(
 // the destination.  Otherwise, the connection is made to the CUPS scheduler
 // associated with the destination.
 //
-// @since CUPS 1.6/macOS 10.8@
+// @since CUPS 1.6@
 //
 
 http_t *				// O - Connection to destination or @code NULL@
@@ -682,7 +682,7 @@ cupsConnectDest(
 // the destination.  Otherwise, the connection is made to the CUPS scheduler
 // associated with the destination.
 //
-// @since CUPS 1.6/macOS 10.8@ @exclude all@
+// @since CUPS 1.6@ @exclude all@
 //
 
 http_t *				// O - Connection to destination or @code NULL@
@@ -708,7 +708,7 @@ cupsConnectDestBlock(
 // copy) - for use with the cupsEnumDests* functions. The caller is responsible
 // for calling cupsFreeDests() on the returned object(s).
 //
-// @since CUPS 1.6/macOS 10.8@
+// @since CUPS 1.6@
 //
 
 int                                     // O  - New number of destinations
@@ -876,7 +876,7 @@ _cupsCreateDest(const char *name,	// I - Printer name
 // Note: The callback function will likely receive multiple updates for the same
 // destinations - it is up to the caller to suppress any duplicate destinations.
 //
-// @since CUPS 1.6/macOS 10.8@
+// @since CUPS 1.6@
 //
 
 int					// O - 1 on success, 0 on failure
@@ -913,7 +913,7 @@ cupsEnumDests(
 // Note: The block will likely receive multiple updates for the same
 // destinations - it is up to the caller to suppress any duplicate destinations.
 //
-// @since CUPS 1.6/macOS 10.8@ @exclude all@
+// @since CUPS 1.6@ @exclude all@
 //
 
 int					// O - 1 on success, 0 on failure
@@ -1126,7 +1126,7 @@ _cupsGetDestResource(
 //
 // "uri" is the "ipp" or "ipps" URI for the printer.
 //
-// @since CUPS 2.0/macOS 10.10@
+// @since CUPS 2.0@
 //
 
 cups_dest_t *				// O - Destination or @code NULL@
@@ -1555,7 +1555,7 @@ cupsGetDests(cups_dest_t **dests)	// O - Destinations
 // Use the @link cupsFreeDests@ function to free the destination list and
 // the @link cupsGetDest@ function to find a particular destination.
 //
-// @since CUPS 1.1.21/macOS 10.4@
+// @since CUPS 1.1.21@
 //
 
 int					// O - Number of destinations
@@ -1651,7 +1651,7 @@ cupsGetDests2(http_t      *http,	// I - Connection to server or @code CUPS_HTTP_
 // The returned destination must be freed using @link cupsFreeDests@ with a
 // "num_dests" value of 1.
 //
-// @since CUPS 1.4/macOS 10.6@
+// @since CUPS 1.4@
 //
 
 cups_dest_t *				// O - Destination or @code NULL@
@@ -1836,7 +1836,7 @@ cupsGetNamedDest(http_t     *http,	// I - Connection to server or @code CUPS_HTT
 // @link cupsSetDests@ or @link cupsSetDests2@ functions to save the new
 // options for the user.
 //
-// @since CUPS 1.3/macOS 10.5@
+// @since CUPS 1.3@
 //
 
 int					// O  - New number of destinations
@@ -1882,7 +1882,7 @@ cupsRemoveDest(const char  *name,	// I  - Destination name
 //
 // 'cupsSetDefaultDest()' - Set the default destination.
 //
-// @since CUPS 1.3/macOS 10.5@
+// @since CUPS 1.3@
 //
 
 void
@@ -1939,7 +1939,7 @@ cupsSetDests(int         num_dests,	// I - Number of destinations
 // This function saves the destinations to /etc/cups/lpoptions when run
 // as root and ~/.cups/lpoptions when run as a normal user.
 //
-// @since CUPS 1.1.21/macOS 10.4@
+// @since CUPS 1.1.21@
 //
 
 int					// O - 0 on success, -1 on error

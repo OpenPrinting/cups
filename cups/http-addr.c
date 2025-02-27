@@ -1,7 +1,7 @@
 //
 // HTTP address routines for CUPS.
 //
-// Copyright © 2023-2024 by OpenPrinting.
+// Copyright © 2023-2025 by OpenPrinting.
 // Copyright © 2007-2021 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 //
@@ -185,7 +185,7 @@ httpAddrGetLength(
 // 'httpAddrListen()' - Create a listening socket bound to the specified
 //                      address and port.
 //
-// @since CUPS 1.7/macOS 10.9@
+// @since CUPS 1.7@
 //
 
 int					// O - Socket or -1 on error
@@ -339,7 +339,7 @@ httpAddrIsLocalhost(
 //
 // 'httpAddrLookup()' - Lookup the hostname associated with the address.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 char *					// O - Host name
@@ -713,7 +713,7 @@ httpGetHostByName(const char *name)	// I - Hostname or IP address
 // Otherwise, return the FQDN for the local system using both gethostname()
 // and gethostbyname() to get the local hostname with domain.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 const char *				// O - FQDN for connection or system

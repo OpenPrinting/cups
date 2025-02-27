@@ -1,16 +1,12 @@
 /*
  * Global variable access routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -121,6 +117,8 @@ _cupsGlobalUnlock(void)
 #ifdef _WIN32
 /*
  * 'DllMain()' - Main entry for library.
+ *
+ * @private@
  */
 
 BOOL WINAPI				/* O - Success/failure */

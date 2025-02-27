@@ -1,18 +1,14 @@
 /*
  * PPD localization routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2018 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2018 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
  *
  * PostScript is a trademark of Adobe Systems, Inc.
- */
-
-/*
- * Include necessary headers.
  */
 
 #include "cups-private.h"
@@ -34,7 +30,7 @@ static cups_lang_t	*ppd_ll_CC(char *ll_CC, size_t ll_CC_size);
  * descriptions, printer presets, and custom option parameters.  Each
  * localized string uses the UTF-8 character encoding.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 int					/* O - 0 on success, -1 on error */
@@ -219,7 +215,7 @@ ppdLocalizeAttr(ppd_file_t *ppd,	/* I - PPD file */
  *
  * If no value of the requested scheme can be found, NULL is returned.
  *
- * @since CUPS 1.3/macOS 10.5@
+ * @since CUPS 1.3@
  */
 
 const char *				/* O - Value or NULL if not found */
@@ -430,7 +426,7 @@ ppdLocalizeIPPReason(
  * text from the attribute value. If no localized text for the requested
  * name can be found, @code NULL@ is returned.
  *
- * @since CUPS 1.4/macOS 10.6@
+ * @since CUPS 1.4@
  */
 
 const char *				/* O - Value or @code NULL@ if not found */

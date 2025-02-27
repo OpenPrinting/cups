@@ -1,16 +1,12 @@
 /*
  * PPD model-specific attribute routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -21,7 +17,7 @@
 /*
  * 'ppdFindAttr()' - Find the first matching attribute.
  *
- * @since CUPS 1.1.19/macOS 10.3@
+ * @since CUPS 1.1.19@
  */
 
 ppd_attr_t *				/* O - Attribute or @code NULL@ if not found */
@@ -77,7 +73,7 @@ ppdFindAttr(ppd_file_t *ppd,		/* I - PPD file data */
 /*
  * 'ppdFindNextAttr()' - Find the next matching attribute.
  *
- * @since CUPS 1.1.19/macOS 10.3@
+ * @since CUPS 1.1.19@
  */
 
 ppd_attr_t *				/* O - Attribute or @code NULL@ if not found */
