@@ -93,8 +93,11 @@ AC_SUBST([PKGCONFIG_REQUIRES])
 
 dnl Check for libraries...
 AC_SEARCH_LIBS([abs], [m], [AC_DEFINE(HAVE_ABS)])
-AC_SEARCH_LIBS([crypt], [crypt])
 AC_SEARCH_LIBS([fmod], [m])
+
+PKGCONFIG_LIBS_STATIC="$LIBS"
+
+AC_SEARCH_LIBS([crypt], [crypt])
 AC_SEARCH_LIBS([getspent], [sec gen])
 
 LIBMALLOC=""
