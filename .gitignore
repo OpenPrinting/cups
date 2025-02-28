@@ -8,7 +8,6 @@
 /config.status
 /configure~
 /cups.pc
-/cups-config
 /Makedefs
 /backend/dnssd
 /backend/http
