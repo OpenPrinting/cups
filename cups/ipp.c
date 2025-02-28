@@ -2448,7 +2448,7 @@ ippNew(void)
     // Set default version - usually 2.0...
     DEBUG_printf("4debug_alloc: %p IPP message", (void *)temp);
 
-    if (cg->server_version == 0)
+    if (!cg->client_conf_loaded)
       _cupsSetDefaults();
 
     temp->request.any.version[0] = (ipp_uchar_t)(cg->server_version / 10);
@@ -5712,7 +5712,7 @@ ipp_read_io(void        *src,		// I - Data source
 
 		buffer[n] = '\0';
 		value->string.text = _cupsStrAlloc((char *)buffer);
-		DEBUG_printf("2ipp_read_io: value=\"%s\"(%p)", value->string.text, value->string.text);
+		DEBUG_printf("2ipp_read_io: value=\"%s\"(%p)", value->string.text, (void *)value->string.text);
 	        break;
 
 	    case IPP_TAG_DATE :

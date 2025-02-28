@@ -66,6 +66,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   `cupsRasterGetErrorString`.
 - Updated the `ipptool` utility to support the `--bearer-token` and
   `--client-name` options.
+- Updated `cupsEnumDests` and `cupsGetDests` to support printer browsing and
+  filtering options in client.conf (Issue #1180)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error

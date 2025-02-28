@@ -1265,7 +1265,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
   ipp_t		*request,		// IPP Request
 		*response;		// IPP Response
   ipp_attribute_t *attr;		// Current attribute
-  const char	*printer_name;		// printer-name attribute
+  const char	*printer_name,		// printer-name attribute
+		*printer_location;	// printer-location attribute
   char		uri[1024];		// printer-uri value
   int		num_options;		// Number of options
   cups_option_t	*options;		// Options
@@ -1275,6 +1276,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
   char		optname[1024],		// Option name
 		value[2048],		// Option value
 		*ptr;			// Pointer into name/value
+  _cups_globals_t *cg = _cupsGlobals();	// Pointer to library globals
   static const char * const pattrs[] =	// Attributes we're interested in
 		{
 		  "auth-info-required",
@@ -1374,9 +1376,10 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
       * Pull the needed attributes from this printer...
       */
 
-      printer_name = NULL;
-      num_options  = 0;
-      options      = NULL;
+      printer_name     = NULL;
+      printer_location = NULL;
+      num_options      = 0;
+      options          = NULL;
 
       for (; attr && attr->group_tag == IPP_TAG_PRINTER; attr = attr->next)
       {
@@ -1410,20 +1413,20 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 	    !strcmp(attr->name, "printer-mandatory-job-attributes") ||
 	    !strcmp(attr->name, "printer-state") ||
 	    !strcmp(attr->name, "printer-state-change-time") ||
+            !strcmp(attr->name, "printer-state-reasons") ||
 	    !strcmp(attr->name, "printer-type") ||
             !strcmp(attr->name, "printer-is-accepting-jobs") ||
-            !strcmp(attr->name, "printer-location") ||
-            !strcmp(attr->name, "printer-state-reasons") ||
 	    !strcmp(attr->name, "printer-uri-supported"))
         {
-	 /*
-	  * Add a printer description attribute...
-	  */
+	  // Add a printer description attribute...
+          num_options = cupsAddOption(attr->name, cups_make_string(attr, value, sizeof(value)), num_options, &options);
+	}
+	else if (!strcmp(attr->name, "printer-location"))
+        {
+	  // Add a printer description attribute...
+	  printer_location = ippGetString(attr, 0, NULL);
 
-          num_options = cupsAddOption(attr->name,
-	                              cups_make_string(attr, value,
-				                       sizeof(value)),
-				      num_options, &options);
+          num_options = cupsAddOption(attr->name, printer_location, num_options, &options);
 	}
 #ifdef __APPLE__
 	else if (!strcmp(attr->name, "media-supported") && media_default[0])
@@ -1468,11 +1471,21 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 	}
       }
 
-     /*
-      * See if we have everything needed...
-      */
+      // See if we have everything needed...
+      if (printer_location && cg->filter_location_array != NULL)
+      {
+        // Look for a matching printer location...
+        if (!cupsArrayFind(cg->filter_location_array, (void *)printer_location))
+          printer_location = NULL;
+      }
+      else if (printer_location && cg->filter_location_regex != NULL)
+      {
+        // Match the printer location against a regular expression...
+        if (regexec(cg->filter_location_regex, printer_location, 0, NULL, 0))
+          printer_location = NULL;
+      }
 
-      if (!printer_name)
+      if (!printer_name || !printer_location)
       {
         cupsFreeOptions(num_options, options);
 
@@ -3089,19 +3102,20 @@ cups_enum_dests(
   cups_dest_cb_t cb,                    // I - Callback function
   void           *user_data)            // I - User data
 {
-  int           i, j, k,		// Looping vars
-                num_dests,              // Number of destinations
+  int		i, j, k,		// Looping vars
+		num_dests,		// Number of destinations
 		num_devices;		// Number of devices
-  cups_dest_t   *dests = NULL,          // Destinations
-                *dest;			// Current destination
+  const char	*domain;		// Current domain
+  cups_dest_t	*dests = NULL,		// Destinations
+		*dest;			// Current destination
   cups_option_t	*option;		// Current option
   const char	*user_default;		// Default printer from environment
-  int           count,                  // Number of queries started
-                completed,              // Number of completed queries
-                remaining;              // Remainder of timeout
-  struct timeval curtime;               // Current time
+  int		count,			// Number of queries started
+		completed,		// Number of completed queries
+		remaining;		// Remainder of timeout
+  struct timeval curtime;		// Current time
   _cups_dnssd_data_t data;		// Data for callback
-  _cups_dnssd_device_t *device;         // Current device
+  _cups_dnssd_device_t *device;		// Current device
   cups_dnssd_t	*dnssd = NULL;		// DNS-SD context
   char		filename[1024];		// Local lpoptions file
   _cups_globals_t *cg = _cupsGlobals();	// Pointer to library globals
@@ -3117,6 +3131,10 @@ cups_enum_dests(
     DEBUG_puts("1cups_enum_dests: No callback, returning 0.");
     return (0);
   }
+
+  // Load the client.conf files...
+  if (!cg->client_conf_loaded)
+    _cupsSetDefaults();
 
   // Load the /etc/cups/lpoptions and ~/.cups/lpoptions files...
   memset(&data, 0, sizeof(data));
@@ -3159,8 +3177,10 @@ cups_enum_dests(
   DEBUG_printf("1cups_enum_dests: def_name=\"%s\", def_instance=\"%s\"", data.def_name, data.def_instance);
 
   // Get ready to enumerate...
-  data.type      = type;
-  data.mask      = mask;
+  cupsRWInit(&data.rwlock);
+
+  data.type      = type | cg->filter_type;
+  data.mask      = mask | cg->filter_type_mask;
   data.cb        = cb;
   data.user_data = user_data;
   data.devices   = cupsArrayNew3((cups_array_func_t)cups_dnssd_compare_devices, NULL, NULL, 0, NULL, (cups_afree_func_t)cups_dnssd_free_device);
@@ -3168,7 +3188,7 @@ cups_enum_dests(
   if (!(mask & CUPS_PTYPE_DISCOVERED) || !(type & CUPS_PTYPE_DISCOVERED))
   {
     // Get the list of local printers and pass them to the callback function...
-    num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, type, mask);
+    num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, data.type, data.mask);
 
     if (data.def_name[0])
     {
@@ -3254,6 +3274,9 @@ cups_enum_dests(
   if ((mask & CUPS_PTYPE_DISCOVERED) && !(type & CUPS_PTYPE_DISCOVERED))
     goto enum_finished;
 
+  if (cg->browse_domains && cupsArrayGetCount(cg->browse_domains) == 0)
+    goto enum_finished;
+
   // Get DNS-SD printers...
   if ((dnssd = cupsDNSSDNew(dnssd_error_cb, NULL)) == NULL)
   {
@@ -3265,26 +3288,62 @@ cups_enum_dests(
     return (false);
   }
 
-  if (!cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, "_ipp._tcp", /*domain*/NULL, cups_dest_browse_cb, &data))
+  if (cg->browse_domains)
   {
-    DEBUG_puts("1cups_enum_dests: Unable to create IPP browser, returning 0.");
-    cupsDNSSDDelete(dnssd);
+    // Browse listed domains
+    for (domain = (char *)cupsArrayGetFirst(cg->browse_domains); domain; domain = (char *)cupsArrayGetNext(cg->browse_domains))
+    {
+      // Drop leading '.' in domain name...
+      if (*domain == '.')
+        domain ++;
 
-    cupsFreeDests(data.num_dests, data.dests);
-    cupsArrayDelete(data.devices);
+      if (!cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, "_ipp._tcp", domain, cups_dest_browse_cb, &data))
+      {
+	DEBUG_puts("1cups_enum_dests: Unable to create IPP browser, returning 0.");
+	cupsDNSSDDelete(dnssd);
 
-    return (false);
+	cupsFreeDests(data.num_dests, data.dests);
+	cupsArrayDelete(data.devices);
+
+	return (false);
+      }
+
+      if (!cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, "_ipps._tcp", domain, cups_dest_browse_cb, &data))
+      {
+	DEBUG_puts("1cups_enum_dests: Unable to create IPPS browser, returning 0.");
+	cupsDNSSDDelete(dnssd);
+
+	cupsFreeDests(data.num_dests, data.dests);
+	cupsArrayDelete(data.devices);
+
+	return (false);
+      }
+    }
   }
-
-  if (!cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, "_ipps._tcp", /*domain*/NULL, cups_dest_browse_cb, &data))
+  else
   {
-    DEBUG_puts("1cups_enum_dests: Unable to create IPPS browser, returning 0.");
-    cupsDNSSDDelete(dnssd);
+    // Browse all domains...
+    if (!cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, "_ipp._tcp", /*domain*/NULL, cups_dest_browse_cb, &data))
+    {
+      DEBUG_puts("1cups_enum_dests: Unable to create IPP browser, returning 0.");
+      cupsDNSSDDelete(dnssd);
 
-    cupsFreeDests(data.num_dests, data.dests);
-    cupsArrayDelete(data.devices);
+      cupsFreeDests(data.num_dests, data.dests);
+      cupsArrayDelete(data.devices);
 
-    return (false);
+      return (false);
+    }
+
+    if (!cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, "_ipps._tcp", /*domain*/NULL, cups_dest_browse_cb, &data))
+    {
+      DEBUG_puts("1cups_enum_dests: Unable to create IPPS browser, returning 0.");
+      cupsDNSSDDelete(dnssd);
+
+      cupsFreeDests(data.num_dests, data.dests);
+      cupsArrayDelete(data.devices);
+
+      return (false);
+    }
   }
 
   if (msec < 0)
@@ -3328,13 +3387,33 @@ cups_enum_dests(
       }
       else if (device->query && device->state == _CUPS_DNSSD_PENDING)
       {
+        const char *location = cupsGetOption("printer-location", device->dest.num_options, device->dest.options);
+					// Printer location, if any
+
         completed ++;
 
         DEBUG_printf("1cups_enum_dests: Query for \"%s\" is complete.", device->fullname);
 
-        if ((device->type & mask) == type)
+        if (location && cg->filter_location_array)
         {
+          if (!cupsArrayFind(cg->filter_location_array, (void *)location))
+            device->state = _CUPS_DNSSD_INCOMPATIBLE;
+	}
+	else if (location && cg->filter_location_regex)
+	{
+	  if (regexec(cg->filter_location_regex, location, 0, NULL, 0))
+	    device->state = _CUPS_DNSSD_INCOMPATIBLE;
+	}
+
+        if ((device->type & mask) != type)
+          device->state = _CUPS_DNSSD_INCOMPATIBLE;
+
+        if (device->state == _CUPS_DNSSD_PENDING)
+        {
+          // Device is OK...
           cups_dest_t	*user_dest;	// Destination from lpoptions
+
+          DEBUG_printf("2cups_enum_dests: Doing callback for '%s'.", device->fullname);
 
           dest = &device->dest;
 
@@ -3377,9 +3456,14 @@ cups_enum_dests(
 	      break;
 	    }
 	  }
-        }
 
-        device->state = _CUPS_DNSSD_ACTIVE;
+          device->state = _CUPS_DNSSD_ACTIVE;
+        }
+        else
+        {
+          // Filter this one out...
+          DEBUG_printf("2cups_enum_dests: Filtered out '%s'.", device->fullname);
+	}
       }
     }
 

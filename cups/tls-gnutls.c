@@ -901,7 +901,7 @@ cupsGetCredentialsTrust(
     return (HTTP_TRUST_UNKNOWN);
   }
 
-  if (cg->any_root < 0)
+  if (!cg->client_conf_loaded)
   {
     _cupsSetDefaults();
     gnutls_load_crl();
@@ -1616,9 +1616,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
   DEBUG_printf("3_httpTLSStart(http=%p)", http);
 
-  priority_string[0] = '\0';
-
-  if (tls_options < 0)
+  if (!cg->client_conf_loaded)
   {
     DEBUG_puts("4_httpTLSStart: Setting defaults.");
     _cupsSetDefaults();
@@ -1821,7 +1819,9 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     return (false);
   }
 
-  if (!(tls_options & _HTTP_TLS_NO_SYSTEM))
+  if (tls_options & _HTTP_TLS_NO_SYSTEM)
+    priority_string[0] = '\0';
+  else
     cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
 
   cupsConcatString(priority_string, "NORMAL", sizeof(priority_string));

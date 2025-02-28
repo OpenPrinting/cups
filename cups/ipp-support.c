@@ -2327,7 +2327,7 @@ ippGetPort(void)
 
   DEBUG_puts("ippPort()");
 
-  if (!cg->ipp_port)
+  if (!cg->client_conf_loaded)
     _cupsSetDefaults();
 
   DEBUG_printf("1ippPort: Returning %d...", cg->ipp_port);
