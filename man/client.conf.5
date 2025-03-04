@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH client.conf 5 "CUPS" "2025-02-28" "OpenPrinting"
+.TH client.conf 5 "CUPS" "2025-03-04" "OpenPrinting"
 .SH NAME
 client.conf \- client configuration file for cups (deprecated on macos)
 .SH DESCRIPTION
@@ -153,6 +153,29 @@ The default is "Minimal".
 \fBValidateCerts No\fR
 Specifies whether to only allow TLS with certificates whose common name matches the hostname.
 The default is "No".
+.SH X.509 CERTIFICATE STORE
+CUPS uses the system root CA certificate store and per-user certificate stores managed by CUPS.
+The per-user certificate stores are found in "/etc/cups/ssl" for the root user and "$XDG_CONFIG_HOME/cups/ssl" (Linux/*BSD), "$HOME/Library/Application Support/cups/ssl" (macOS), "%USERPROFILE%/AppData/Local/cups" (Windows), and/or "$HOME/.cups/ssl" for other user accounts.
+.PP
+Certificates, certificate signing requests, and private keys are stored as PEM-encoded files with the naming convention "COMMON-NAME.crt" for certificates, "COMMON-NAME.csr" for certificate signing requests, and "COMMON-NAME.key" for private keys. The special common name "_site_" is used for a site-specific root certificate that can be used for trust evaluations.
+.SH X.509 CERTIFICATE VALIDATION
+CUPS supports validation of the certificate's commonName and subjectAltName field values, the certificate expiration date, and the certificate's root certificate(s), if any.
+Self-signed certificates are "pinned" (stored) to the host in order to do validation.
+Validation for certain non-printing servers may add additional restrictions to the policy defined in the
+.B client.conf
+file, for example OAuth authorization requires a CA-signed certificate.
+.PP
+The
+.B AllowAnyRoot
+directive controls whether unpinned self-signed certificates are acceptable.
+The
+.B TrustOnFirstUse
+directive controls whether self-certificates are automatically pinned in the per-user certificate store for subsequent host validations.
+When
+.B AllowAnyRoot
+is disabled,
+.B TrustOnFirstUse
+is also disabled.
 .SH NOTES
 Because of sandboxing, the \fBclient.conf\fR file is not generally accessible to applications on macOS.
 Configuration settings can instead be viewed or changed using the

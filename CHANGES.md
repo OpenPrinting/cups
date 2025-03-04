@@ -35,7 +35,7 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added new `cupsGetClock` API.
 - Added new `cupsParseOptions2` API with "end" argument.
 - Added `cups-oauth` and `cups-x509` utilities (Issue #1184)
-- Updated documentation (Issue #984, Issue #1086)
+- Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated the configure script to default to installing to /usr/local.
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.

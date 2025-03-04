@@ -139,6 +139,31 @@ The default is &quot;Minimal&quot;.
 Specifies whether to only allow TLS with certificates whose common name matches the hostname.
 The default is &quot;No&quot;.
 </p>
+    <h2 id="client.conf-5.x.509-certificate-store">X.509 Certificate Store</h2>
+<p>CUPS uses the system root CA certificate store and per-user certificate stores managed by CUPS.
+The per-user certificate stores are found in &quot;/etc/cups/ssl&quot; for the root user and &quot;$XDG_CONFIG_HOME/cups/ssl&quot; (Linux/*BSD), &quot;$HOME/Library/Application Support/cups/ssl&quot; (macOS), &quot;%USERPROFILE%/AppData/Local/cups&quot; (Windows), and/or &quot;$HOME/.cups/ssl&quot; for other user accounts.
+</p>
+    <p>Certificates, certificate signing requests, and private keys are stored as PEM-encoded files with the naming convention &quot;COMMON-NAME.crt&quot; for certificates, &quot;COMMON-NAME.csr&quot; for certificate signing requests, and &quot;COMMON-NAME.key&quot; for private keys. The special common name &quot;_site_&quot; is used for a site-specific root certificate that can be used for trust evaluations.
+</p>
+    <h2 id="client.conf-5.x.509-certificate-validation">X.509 Certificate Validation</h2>
+<p>CUPS supports validation of the certificate's commonName and subjectAltName field values, the certificate expiration date, and the certificate's root certificate(s), if any.
+Self-signed certificates are &quot;pinned&quot; (stored) to the host in order to do validation.
+Validation for certain non-printing servers may add additional restrictions to the policy defined in the
+<strong>client.conf</strong>
+file, for example OAuth authorization requires a CA-signed certificate.
+</p>
+    <p>The
+<strong>AllowAnyRoot</strong>
+directive controls whether unpinned self-signed certificates are acceptable.
+The
+<strong>TrustOnFirstUse</strong>
+directive controls whether self-certificates are automatically pinned in the per-user certificate store for subsequent host validations.
+When
+<strong>AllowAnyRoot</strong>
+is disabled,
+<strong>TrustOnFirstUse</strong>
+is also disabled.
+</p>
     <h2 id="client.conf-5.notes">Notes</h2>
 <p>Because of sandboxing, the <strong>client.conf</strong> file is not generally accessible to applications on macOS.
 Configuration settings can instead be viewed or changed using the
