@@ -1,9 +1,7 @@
 #
 # IPP tools makefile for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
-# Copyright © 2007-2019 by Apple Inc.
-# Copyright © 1997-2006 by Easy Software Products, all rights reserved.
+# Copyright © 2020-2025 by OpenPrinting.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
 # information.
@@ -13,12 +11,16 @@ include ../Makedefs
 
 
 OBJS		=	\
+			cups-oauth.o \
+			cups-x509.o \
 			ippevepcl.o \
 			ippeveprinter.o \
 			ippeveps.o \
 			ippfind.o \
 			ipptool.o
 IPPTOOLS	=	\
+			cups-oauth \
+			cups-x509 \
 			ippeveprinter \
 			$(IPPFIND_BIN) \
 			ipptool
@@ -140,6 +142,26 @@ uninstall:
 #
 
 local:	ippeveprinter-static ipptool-static
+
+
+#
+# cups-oauth
+#
+
+cups-oauth:	cups-oauth.o ../cups/$(LIBCUPS)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ cups-oauth.o $(DNSSDLIBS) $(LINKCUPS)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# cups-x509
+#
+
+cups-x509:	cups-x509.o ../cups/$(LIBCUPS)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ cups-x509.o $(DNSSDLIBS) $(LINKCUPS)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 
 #

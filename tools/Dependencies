@@ -1,3 +1,54 @@
+cups-oauth.o: cups-oauth.c ../cups/cups-private.h \
+  ../cups/string-private.h ../config.h ../cups/base.h \
+  ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
+  ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
+  ../cups/array.h ../cups/language.h ../cups/pwg.h \
+  ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  ../cups/language-private.h \
+  ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h \
+  ../cups/oauth.h ../cups/jwt.h ../cups/json.h
+cups-x509.o: cups-x509.c ../cups/cups-private.h ../cups/string-private.h \
+  ../config.h ../cups/base.h ../cups/debug-internal.h \
+  ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
+  ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
+  ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  \
+  ../cups/language-private.h \
+  ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h
 ippevepcl.o: ippevepcl.c ippevecommon.h ../cups/cups.h ../cups/file.h \
   ../cups/base.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
   ../cups/language.h ../cups/pwg.h ../cups/raster.h \
@@ -25,12 +76,9 @@ ippeveprinter.o: ippeveprinter.c ../cups/cups-private.h \
   \
   \
   \
-  \
-  \
-  \
-  ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
-  ../cups/thread.h ../cups/dnssd.h printer-png.h printer-lg-png.h \
-  printer-sm-png.h
+  ../cups/language-private.h \
+  ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h \
+  ../cups/dnssd.h printer-png.h printer-lg-png.h printer-sm-png.h
 ippeveps.o: ippeveps.c ippevecommon.h ../cups/cups.h ../cups/file.h \
   ../cups/base.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
   ../cups/language.h ../cups/pwg.h ../cups/raster.h \
@@ -59,11 +107,9 @@ ippfind.o: ippfind.c ../cups/cups-private.h ../cups/string-private.h \
   \
   \
   \
-  \
-  \
-  \
-  ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
-  ../cups/thread.h ../cups/dnssd.h
+  ../cups/language-private.h \
+  ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h \
+  ../cups/dnssd.h
 ipptool.o: ipptool.c ../cups/cups-private.h ../cups/string-private.h \
   ../config.h ../cups/base.h ../cups/debug-internal.h \
   ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
@@ -87,9 +133,6 @@ ipptool.o: ipptool.c ../cups/cups-private.h ../cups/string-private.h \
   \
   \
   \
-  \
-  \
-  \
-  ../cups/language-private.h ../cups/transcode.h ../cups/pwg-private.h \
-  ../cups/thread.h ../cups/raster-testpage.h ../cups/raster-private.h \
-  ../cups/raster.h
+  ../cups/language-private.h \
+  ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h \
+  ../cups/raster-testpage.h ../cups/raster-private.h ../cups/raster.h

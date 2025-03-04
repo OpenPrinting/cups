@@ -305,14 +305,14 @@ cupsOAuthCopyUserId(
 // names to request during authorization.  The list of supported scope names are
 // available from the Authorization Server metadata, for example:
 //
-// The "redirect_uri" parameter specifies a 'http:' URL with a listen address,
-// port, and path to use.  If `NULL`, 127.0.0.1 on a random port is used with a
-// path of "/".
-//
 // ```
 // cups_json_t *metadata = cupsOAuthGetMetadata(auth_uri);
 // cups_json_t *scopes_supported = cupsJSONFind(metadata, "scopes_supported");
 // ```
+//
+// The "redirect_uri" parameter specifies a 'http:' URL with a listen address,
+// port, and path to use.  If `NULL`, 127.0.0.1 on a random port is used with a
+// path of "/".
 //
 // The returned authorization code must be freed using the `free` function.
 //

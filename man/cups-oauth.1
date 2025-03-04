@@ -1,0 +1,144 @@
+.\"
+.\" cups-oauth man page for CUPS.
+.\"
+.\" Copyright © 2025 by OpenPrinting.
+.\"
+.\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
+.\" information.
+.\"
+.TH cups-oauth 1 "CUPS" "2025-03-04" "OpenPrinting"
+.SH NAME
+cups-oauth \- interact with an oauth/openid authorization server
+.SH SYNOPSIS
+.B cups-oauth
+.B \-\-help
+.br
+.B cups-oauth
+.B \-\-version
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+] [
+.B \-s
+.I SCOPE(S)
+]
+.B authorize
+.I [RESOURCE]
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+]
+.B clear
+.I [RESOURCE]
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+]
+.B get-access-token
+.I [RESOURCE]
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+]
+.B get-client-id
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+]
+.B get-metadata
+.I [NAME]
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+]
+.B get-user-id
+.I [RESOURCE]
+.I [NAME]
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+]
+.B set-access-token
+.I [RESOURCE]
+.I TOKEN
+.br
+.B cups-oauth
+[
+.B \-a
+.I OAUTH-URI
+]
+.B set-client-data
+.I CLIENT-ID
+.I CLIENT-SECRET
+.SH DESCRIPTION
+The
+.B cups-oauth
+utility interacts with an OAuth/OpenID authorization server.
+Authorizations are often linked to a resource (a printer URI, web page URL, etc.)
+.SH OPTIONS
+The following options are recognized by
+.B cups-oauth:
+.TP 5
+.B \-\-help
+Show program usage.
+.TP 5
+.B \-\-version
+Show the CUPS version.
+.TP 5
+\fB\-a \fIOAUTH-URI\fR
+Specifies the OAuth/OpenID authorization server URL.
+.TP 5
+\fB\-s \fISCOPE(S)\fR
+Specifies a space-delimited list of scope names to use when authorizing access.
+The default is to request authorization for all supported scopes.
+.SH COMMANDS
+.SS authorize
+Starts an authorization workflow with the default web browser.
+If a resource URI is specified, the authorization is specific to that resource.
+The access token is send to the standard output on success.
+.SS clear
+Clears any authorization for the specified resource or for all resources if no resource URI is supplied.
+.SS get-access-token
+Output the current, unexpired access token, if any, to the standard output.
+.SS get-client-id
+Output the client ID string, if any, to the standard output.
+.SS get-metadata
+Get the OAuth/OpenID authorization server metadata and send it to the standard output.
+If a name is specified, the output is just the value for the specified metadata.
+.SS get-user-id
+Get the OpenID user ID information and send it to the standard output.
+If a name is specified, the output is just the named claim from the user ID.
+.SS set-access-token
+Set the access token (which is sometimes also called an API key) for the specified resource or for all resources.
+.SS set-client-data
+Set the client ID string and secret for an OAuth/OpenID authorization server.
+.SH ENVIRONMENT VARIABLES
+The
+.B CUPS_OAUTH_URI
+environment variable sets the default OAuth/OpenID authorization server URL.
+.PP
+The
+.B CUPS_OAUTH_SCOPES
+environment variable sets the default OAuth/OpenID scopes as a space-delimited list.
+.SH NOTES
+CUPS uses a redirect URI of "http://127.0.0.1/" for all authorization on the local system.
+.SH EXAMPLES
+TBD
+.SH SEE ALSO
+.BR cups (1)
+.SH COPYRIGHT
+Copyright \[co] 2025 by OpenPrinting.

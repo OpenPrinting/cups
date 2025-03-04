@@ -53,7 +53,9 @@ HELPFILES	=	\
 			help/man-cups.html \
 			help/man-cups-files.conf.html \
 			help/man-cups-lpd.html \
+			help/man-cups-oauth.html \
 			help/man-cups-snmp.html \
+			help/man-cups-x509.html \
 			help/man-cupsaccept.html \
 			help/man-cupsd.conf.html \
 			help/man-cupsd.html \
