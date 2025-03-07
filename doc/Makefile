@@ -1,7 +1,7 @@
 #
 # Documentation makefile for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2025 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products.
 #
@@ -51,10 +51,11 @@ HELPFILES	=	\
 			help/man-classes.conf.html \
 			help/man-client.conf.html \
 			help/man-cups.html \
-			help/man-cups-config.html \
 			help/man-cups-files.conf.html \
 			help/man-cups-lpd.html \
+			help/man-cups-oauth.html \
 			help/man-cups-snmp.html \
+			help/man-cups-x509.html \
 			help/man-cupsaccept.html \
 			help/man-cupsd.conf.html \
 			help/man-cupsd.html \

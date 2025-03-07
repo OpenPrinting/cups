@@ -1,14 +1,10 @@
 /*
  * Destination job support for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2012-2017 by Apple Inc.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2012-2017 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -24,7 +20,7 @@
  * @code IPP_STATUS_ERROR_NOT_AUTHORIZED@ or
  * @code IPP_STATUS_ERROR_FORBIDDEN@ on failure.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 ipp_status_t                            /* O - Status of cancel operation */
@@ -62,7 +58,7 @@ cupsCancelDestJob(http_t      *http,	/* I - Connection to destination */
  * "job_id" is the job ID returned by cupsCreateDestJob. Returns @code IPP_STATUS_OK@
  * on success.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 ipp_status_t				/* O - IPP status code */
@@ -152,7 +148,7 @@ cupsCloseDestJob(
  * Returns @code IPP_STATUS_OK@ or @code IPP_STATUS_OK_SUBST@ on success, saving the job ID
  * in the variable pointed to by "job_id".
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 ipp_status_t				/* O - IPP status code */
@@ -247,7 +243,7 @@ cupsCreateDestJob(
  *
  * Returns @code IPP_STATUS_OK@ or @code IPP_STATUS_OK_SUBST@ on success.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 ipp_status_t				/* O - Status of document submission */
@@ -298,7 +294,7 @@ cupsFinishDestDocument(
  * if this is the last document to be submitted in the job.  Returns
  * @code HTTP_CONTINUE@ on success.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 http_status_t				/* O - Status of document creation */

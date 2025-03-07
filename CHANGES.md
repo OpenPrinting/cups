@@ -34,7 +34,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added support for specifying permissions with the `cupsFileOpen` API.
 - Added new `cupsGetClock` API.
 - Added new `cupsParseOptions2` API with "end" argument.
-- Updated documentation (Issue #984, Issue #1086)
+- Added `cups-oauth` and `cups-x509` utilities (Issue #1184)
+- Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated the configure script to default to installing to /usr/local.
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.
@@ -66,7 +67,10 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   `cupsRasterGetErrorString`.
 - Updated the `ipptool` utility to support the `--bearer-token` and
   `--client-name` options.
+- Updated `cupsEnumDests` and `cupsGetDests` to support printer browsing and
+  filtering options in client.conf (Issue #1180)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
+- Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)

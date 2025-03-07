@@ -157,9 +157,9 @@ If &quot;command&quot; is not an absolute path (&quot;/path/to/command&quot;),
 <strong>ippeveprinter</strong>
 looks for the command in the &quot;command&quot; subdirectory of the CUPS binary directory, typically /usr/lib/cups/command or /usr/libexec/cups/command.
 The
-<a href="cups-config.html"><strong>cups-config</strong>(1)</a>
+<strong>pkg-config</strong>(1)
 
-command can be used to discover the correct binary directory (&quot;cups-config --serverbin&quot;).
+command can be used to discover the correct binary directory (&quot;pkg-config --variable=cups_serverbin cups&quot;).
 In addition, the CUPS_SERVERBIN environment variable can be used to override the default location of this directory - see the
 <a href="cups.html"><strong>cups</strong>(1)</a>
 
@@ -296,6 +296,6 @@ command whenever a job is sent to the server:
 PWG Internet Printing Protocol Workgroup (<a href="http://www.pwg.org/ipp">http://www.pwg.org/ipp</a>)
 </p>
     <h2 id="ippeveprinter-1.copyright">Copyright</h2>
-<p>Copyright &copy; 2020-2024 by OpenPrinting.
+<p>Copyright &copy; 2020-2025 by OpenPrinting.
   </body>
 </html>

@@ -1580,10 +1580,8 @@ Optional Features:
   --enable-acl            build with POSIX ACL support
   --disable-dbus          build without DBUS support
   --disable-shared        do not create shared libraries
-
-      --enable-libtool-unsupported=/path/to/libtool
+  --enable-libtool-unsupported=/path/to/libtool
                           build with libtool (UNSUPPORTED)
-
   --enable-debug          build with debugging symbols
   --enable-debug-guards   build with memory allocation guards
   --enable-debug-printfs  build with CUPS_DEBUG_LOG support
@@ -5639,65 +5637,6 @@ then :
 
 fi
 
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing crypt" >&5
-printf %s "checking for library containing crypt... " >&6; }
-if test ${ac_cv_search_crypt+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  ac_func_search_save_LIBS=$LIBS
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-char crypt ();
-int
-main (void)
-{
-return crypt ();
-  ;
-  return 0;
-}
-_ACEOF
-for ac_lib in '' crypt
-do
-  if test -z "$ac_lib"; then
-    ac_res="none required"
-  else
-    ac_res=-l$ac_lib
-    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
-  fi
-  if ac_fn_c_try_link "$LINENO"
-then :
-  ac_cv_search_crypt=$ac_res
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext
-  if test ${ac_cv_search_crypt+y}
-then :
-  break
-fi
-done
-if test ${ac_cv_search_crypt+y}
-then :
-
-else $as_nop
-  ac_cv_search_crypt=no
-fi
-rm conftest.$ac_ext
-LIBS=$ac_func_search_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_crypt" >&5
-printf "%s\n" "$ac_cv_search_crypt" >&6; }
-ac_res=$ac_cv_search_crypt
-if test "$ac_res" != no
-then :
-  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-
-fi
-
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing fmod" >&5
 printf %s "checking for library containing fmod... " >&6; }
 if test ${ac_cv_search_fmod+y}
@@ -5751,6 +5690,68 @@ fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_fmod" >&5
 printf "%s\n" "$ac_cv_search_fmod" >&6; }
 ac_res=$ac_cv_search_fmod
+if test "$ac_res" != no
+then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+
+fi
+
+
+PKGCONFIG_LIBS_STATIC="$LIBS"
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing crypt" >&5
+printf %s "checking for library containing crypt... " >&6; }
+if test ${ac_cv_search_crypt+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_func_search_save_LIBS=$LIBS
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+char crypt ();
+int
+main (void)
+{
+return crypt ();
+  ;
+  return 0;
+}
+_ACEOF
+for ac_lib in '' crypt
+do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_c_try_link "$LINENO"
+then :
+  ac_cv_search_crypt=$ac_res
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext
+  if test ${ac_cv_search_crypt+y}
+then :
+  break
+fi
+done
+if test ${ac_cv_search_crypt+y}
+then :
+
+else $as_nop
+  ac_cv_search_crypt=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_crypt" >&5
+printf "%s\n" "$ac_cv_search_crypt" >&6; }
+ac_res=$ac_cv_search_crypt
 if test "$ac_res" != no
 then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
@@ -11955,7 +11956,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups.pc cups-config desktop/cups.desktop doc/index.html scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket templates/header.tmpl packaging/cups.list $LANGFILES"
+ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups.pc desktop/cups.desktop doc/index.html scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket templates/header.tmpl packaging/cups.list $LANGFILES"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -12651,7 +12652,6 @@ do
     "conf/pam.std") CONFIG_FILES="$CONFIG_FILES conf/pam.std" ;;
     "conf/snmp.conf") CONFIG_FILES="$CONFIG_FILES conf/snmp.conf" ;;
     "cups.pc") CONFIG_FILES="$CONFIG_FILES cups.pc" ;;
-    "cups-config") CONFIG_FILES="$CONFIG_FILES cups-config" ;;
     "desktop/cups.desktop") CONFIG_FILES="$CONFIG_FILES desktop/cups.desktop" ;;
     "doc/index.html") CONFIG_FILES="$CONFIG_FILES doc/index.html" ;;
     "scheduler/cups-lpd.xinetd") CONFIG_FILES="$CONFIG_FILES scheduler/cups-lpd.xinetd" ;;
@@ -13246,6 +13246,4 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
 printf "%s\n" "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
-
-chmod +x cups-config
 

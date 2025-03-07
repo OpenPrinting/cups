@@ -1,7 +1,7 @@
 //
 // API definitions for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2020 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -296,7 +296,7 @@ typedef struct cups_dest_s		// Destination
 } cups_dest_t;
 
 typedef struct _cups_dinfo_s cups_dinfo_t;
-					// Destination capability and status information @since CUPS 1.6/macOS 10.8@
+					// Destination capability and status information @since CUPS 1.6@
 
 typedef struct cups_job_s		// Job information
 {
@@ -345,7 +345,7 @@ typedef bool (*cups_cert_san_cb_t)(const char *common_name, const char *subject_
 					// Certificate signing subjectAltName callback
 
 typedef int (*cups_dest_cb_t)(void *user_data, unsigned flags, cups_dest_t *dest);
-					// Destination enumeration callback @since CUPS 1.6/macOS 10.8@
+					// Destination enumeration callback @since CUPS 1.6@
 
 #  ifdef __BLOCKS__
 typedef int (^cups_dest_block_t)(unsigned flags, cups_dest_t *dest);
@@ -359,7 +359,7 @@ typedef const char *(*cups_password_cb_t)(const char *prompt);
 					// Password callback @deprecated@ @exclude all@
 
 typedef const char *(*cups_password_cb2_t)(const char *prompt, http_t *http, const char *method, const char *resource, void *user_data);
-					// New password callback @since CUPS 1.4/macOS 10.6@
+					// New password callback @since CUPS 1.4@
 
 typedef int (*cups_server_cert_cb_t)(http_t *http, void *tls, cups_array_t *certs, void *user_data);
 					// Server credentials callback @deprecated@

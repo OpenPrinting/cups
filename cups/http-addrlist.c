@@ -1,16 +1,12 @@
 /*
  * HTTP address list routines for CUPS.
  *
- * Copyright © 2022-2024 by OpenPrinting.
+ * Copyright © 2022-2025 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -27,7 +23,7 @@
 /*
  * 'httpAddrConnect()' - Connect to any of the addresses in the list.
  *
- * @since CUPS 1.2/macOS 10.5@ @exclude all@
+ * @since CUPS 1.2@ @exclude all@
  */
 
 http_addrlist_t *			/* O - Connected address or NULL on failure */
@@ -45,7 +41,7 @@ httpAddrConnect(
  * 'httpAddrConnect2()' - Connect to any of the addresses in the list with a
  *                        timeout and optional cancel.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 http_addrlist_t *			/* O - Connected address or NULL on failure */
@@ -397,7 +393,7 @@ httpAddrConnect2(
 /*
  * 'httpAddrCopyList()' - Copy an address list.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 http_addrlist_t	*			/* O - New address list or @code NULL@ on error */
@@ -446,7 +442,7 @@ httpAddrCopyList(
 /*
  * 'httpAddrFreeList()' - Free an address list.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 void
@@ -474,7 +470,7 @@ httpAddrFreeList(
 /*
  * 'httpAddrGetList()' - Get a list of addresses for a hostname.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 http_addrlist_t	*			/* O - List of addresses or NULL */

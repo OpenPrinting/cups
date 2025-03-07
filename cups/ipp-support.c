@@ -1,7 +1,7 @@
 //
 // Internet Printing Protocol support functions for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -647,7 +647,7 @@ static size_t	ipp_col_string(ipp_t *col, char *buffer, size_t bufsize);
 // trailing nul. The buffer pointer can be NULL to get the required length,
 // just like (v)snprintf.
 //
-// @since CUPS 1.6/macOS 10.8@
+// @since CUPS 1.6@
 //
 
 size_t					// O - Number of bytes less nul
@@ -878,7 +878,7 @@ ippAttributeString(
 // "attribute-name")@ will return a non-NULL pointer.  The array must be freed
 // using the @code cupsArrayDelete@ function.
 //
-// @since CUPS 1.7/macOS 10.9@
+// @since CUPS 1.7@
 //
 
 cups_array_t *				// O - CUPS array or @code NULL@ if all
@@ -2274,7 +2274,7 @@ ippErrorString(ipp_status_t error)	// I - Error status
 //
 // 'ippErrorValue()' - Return a status code for the given name.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 ipp_status_t				// O - IPP status code
@@ -2327,7 +2327,7 @@ ippGetPort(void)
 
   DEBUG_puts("ippPort()");
 
-  if (!cg->ipp_port)
+  if (!cg->client_conf_loaded)
     _cupsSetDefaults();
 
   DEBUG_printf("1ippPort: Returning %d...", cg->ipp_port);
@@ -2339,7 +2339,7 @@ ippGetPort(void)
 //
 // 'ippOpString()' - Return a name for the given operation id.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 const char *				// O - Name
@@ -2374,7 +2374,7 @@ ippOpString(ipp_op_t op)		// I - Operation ID
 //
 // 'ippOpValue()' - Return an operation id for the given name.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 ipp_op_t				// O - Operation ID
@@ -2464,7 +2464,7 @@ ippStateString(ipp_state_t state)	// I - State value
 //
 // The returned names are defined in RFC 8011 and the IANA IPP Registry.
 //
-// @since CUPS 1.4/macOS 10.6@
+// @since CUPS 1.4@
 //
 
 const char *				// O - Tag name
@@ -2484,7 +2484,7 @@ ippTagString(ipp_tag_t tag)		// I - Tag value
 //
 // The tag names are defined in RFC 8011 and the IANA IPP Registry.
 //
-// @since CUPS 1.4/macOS 10.6@
+// @since CUPS 1.4@
 //
 
 ipp_tag_t				// O - Tag value
