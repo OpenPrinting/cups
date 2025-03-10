@@ -2018,17 +2018,54 @@ add_job_subscriptions(
 
  /*
   * Remove all of the subscription attributes from the job request...
-  *
-  * TODO: Optimize this since subscription groups have to come at the
-  * end of the request...
+  * Since subscription groups come at the end of the request, we can
+  * find the first subscription attribute and truncate the list there.
+  */
+
+  for (attr = job->attrs->attrs, prev = NULL; attr; prev = attr, attr = attr->next)
+  {
+    if (attr->group_tag == IPP_TAG_SUBSCRIPTION)
+    {
+     /*
+      * Found the first subscription attribute, truncate the list here
+      */
+      
+      if (prev)
+      {
+        prev->next = NULL;
+        job->attrs->last = prev;
+        job->attrs->current = prev;
+      }
+      else
+      {
+        /* Subscription attribute is the first in the list */
+        job->attrs->attrs = NULL;
+        job->attrs->last = NULL;
+        job->attrs->current = NULL;
+      }
+      
+      /* Free all subscription attributes and zero tags */
+      do
+      {
+        next = attr->next;
+        ippDeleteAttribute(NULL, attr);
+        attr = next;
+      } while (attr);
+
+      return;
+    }
+  }
+
+ /*
+  * If we get here, there were no IPP_TAG_SUBSCRIPTION attributes,
+  * but we still need to handle any IPP_TAG_ZERO attributes.
   */
 
   for (attr = job->attrs->attrs, prev = NULL; attr; attr = next)
   {
     next = attr->next;
 
-    if (attr->group_tag == IPP_TAG_SUBSCRIPTION ||
-        attr->group_tag == IPP_TAG_ZERO)
+    if (attr->group_tag == IPP_TAG_ZERO)
     {
      /*
       * Free and remove this attribute...
