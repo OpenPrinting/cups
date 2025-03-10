@@ -1046,7 +1046,8 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 			*cur,		/* Current position */
 			*valptr,	/* Pointer into value string */
 			*valend;	/* End of value string */
-  int			parens;		/* Parenthesis nesting level */
+  int			parens,		/* Parenthesis nesting level */
+			base;		/* Numeric base for strtol() */
 
 
   if (!*ptr)
@@ -1307,7 +1308,16 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 	  * Integer with radix...
 	  */
 
-          obj.value.number = strtol(cur + 1, &cur, atoi(start));
+	  base = atoi(start);
+
+	 /*
+	  * Postscript language reference manual dictates numbers from 2 to 36 as base...
+	  */
+
+	  if (base < 2 || base > 36)
+	    return (NULL);
+
+	  obj.value.number = strtol(cur + 1, &cur, base);
 	  break;
 	}
 	else if (strchr(".Ee()<>[]{}/%", *cur) || isspace(*cur & 255))
