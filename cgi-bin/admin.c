@@ -938,34 +938,22 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       int		fd;		/* PPD file */
       char		filename[1024];	/* PPD filename */
       ppd_file_t	*ppd;		/* PPD information */
-      char		buffer[1024];	/* Buffer */
-      ssize_t		bytes;		/* Number of bytes */
-      http_status_t	get_status;	/* Status of GET */
 
-
-      /* TODO: Use cupsGetFile() API... */
-      snprintf(uri, sizeof(uri), "/printers/%s.ppd", name);
-
-      if (httpGet(http, uri))
-        httpGet(http, uri);
-
-      while ((get_status = httpUpdate(http)) == HTTP_STATUS_CONTINUE);
-
-      if (get_status != HTTP_STATUS_OK)
+      if ((fd = cupsCreateTempFd(NULL, NULL, filename, sizeof(filename))) < 0)
       {
-        httpFlush(http);
-
-        fprintf(stderr, "ERROR: Unable to get PPD file %s: %d - %s\n",
-	        uri, get_status, httpStatus(get_status));
+        fprintf(stderr, "ERROR: Unable to create temporary file: %s\n",
+                strerror(errno));
       }
-      else if ((fd = cupsTempFd(filename, sizeof(filename))) >= 0)
+      else 
       {
-	while ((bytes = httpRead2(http, buffer, sizeof(buffer))) > 0)
-          write(fd, buffer, (size_t)bytes);
-
-	close(fd);
-
-        if ((ppd = ppdOpenFile(filename)) != NULL)
+        close(fd); // Close the temp fd since cupsGetFile will reopen it
+        
+        if (cupsGetFile(http, uri, filename) != HTTP_STATUS_OK)
+        {
+          fprintf(stderr, "ERROR: Unable to get PPD file %s: %s\n",
+                  uri, cupsGetErrorString());
+        }
+        else if ((ppd = ppdOpenFile(filename)) != NULL)
 	{
 	  if (ppd->manufacturer)
 	    cgiSetVariable("CURRENT_MAKE", ppd->manufacturer);
@@ -983,14 +971,6 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 	  fprintf(stderr, "ERROR: Unable to open PPD file %s: %s\n",
 	          filename, ppdErrorString(ppdLastError(&linenum)));
 	}
-      }
-      else
-      {
-        httpFlush(http);
-
-        fprintf(stderr,
-	        "ERROR: Unable to create temporary file for PPD file: %s\n",
-	        strerror(errno));
       }
     }
 
