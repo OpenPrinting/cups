@@ -8,7 +8,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cupsd.conf 5 "CUPS" "2024-11-04" "OpenPrinting"
+.TH cupsd.conf 5 "CUPS" "2025-03-12" "OpenPrinting"
 .SH NAME
 cupsd.conf \- server configuration file for cups
 .SH DESCRIPTION
@@ -192,13 +192,13 @@ The default is "300".
 .TP 5
 \fBJobRetryInterval \fIseconds\fR
 Specifies the interval between retries of jobs in seconds.
-This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job" or "retry-current-job".
+This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job".
 The default is "300".
 .\"#JobRetryLimit
 .TP 5
 \fBJobRetryLimit \fIcount\fR
 Specifies the number of retries that are done for jobs.
-This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job" or "retry-current-job".
+This is typically used for fax queues but can also be used with normal print queues whose error policy is "retry-job".
 The default is "5".
 .\"#KeepAlive
 .TP 5
@@ -919,4 +919,4 @@ Require authentication for accesses from outside the 10. network:
 .BR subscriptions.conf (5),
 CUPS Online Help (http://localhost:631/help)
 .SH COPYRIGHT
-Copyright \[co] 2020-2024 by OpenPrinting.
+Copyright \[co] 2020-2025 by OpenPrinting.
