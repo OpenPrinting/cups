@@ -800,12 +800,12 @@ main(int  argc,				/* I - Number of command-line args */
 					/* Trust keywords */
     static const char	* const trust_msgs[] =
     {
-      "Credentials are OK/trusted",
-      "Credentials are invalid",
-      "Credentials have changed",
-      "Credentials are expired",
-      "Credentials have been renewed",
-      "Credentials are unknown/new"
+      _("Credentials are OK/trusted."),
+      _("Credentials are invalid."),
+      _("Credentials have changed."),
+      _("Credentials are expired."),
+      _("Credentials have been renewed."),
+      _("Credentials are unknown/new.")
     };
 
     fputs("DEBUG: Connection is encrypted.\n", stderr);
@@ -820,19 +820,20 @@ main(int  argc,				/* I - Number of command-line args */
 
       if ((lcreds = cupsCopyCredentials(NULL, hostname)) != NULL)
       {
-        cupsGetCredentialsInfo(lcreds, lcredinfo, sizeof(lcredinfo));
+	cupsGetCredentialsInfo(lcreds, lcredinfo, sizeof(lcredinfo));
 	fprintf(stderr, "DEBUG: Stored credentials: %s\n", lcredinfo);
       }
       else
       {
-        fputs("DEBUG: No stored credentials.\n", stderr);
+	fputs("DEBUG: No stored credentials.\n", stderr);
       }
 
       update_reasons(NULL, "-cups-pki-invalid,cups-pki-changed,cups-pki-expired,cups-pki-unknown");
       if (trusts[trust])
       {
-        update_reasons(NULL, trusts[trust]);
-        return (CUPS_BACKEND_STOP);
+	update_reasons(NULL, trusts[trust]);
+	_cupsLangPrintFilter(stderr, "ALERT", "%s", trust_msgs[trust]);
+	return (CUPS_BACKEND_STOP);
       }
 
      /*
