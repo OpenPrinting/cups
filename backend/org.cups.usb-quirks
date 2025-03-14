@@ -327,6 +327,9 @@
 # Lexmark C540n (Apple #4778)
 0x043d 0x0139 no-reattach
 
+# Kyocera KM-1635
+0x0482 0x033e soft-reset
+
 # Kyocera Ecosys P6026cdn (Apple #4900)
 0x0482 0x063f no-reattach
 
