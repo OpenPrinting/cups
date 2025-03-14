@@ -2984,7 +2984,7 @@ new_request(
       fputs("DEBUG: Adding all operation/job attributes.\n", stderr);
       adjust_options(num_options, options);
 
-      if (!strcmp(format, "image/pwg-raster") || !strcmp(format, "image/urf"))
+      if (format && (!strcmp(format, "image/pwg-raster") || !strcmp(format, "image/urf")))
         num_options = cupsRemoveOption("copies", num_options, &options);
 
       cupsEncodeOptions2(request, num_options, options, IPP_TAG_OPERATION);
