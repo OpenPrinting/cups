@@ -131,6 +131,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Fixed error handling when reading a mixed `1setOf` attribute.
 - Fixed how `ippeveprinter` responds to an unsupported request character set.
 - Fixed a recursion issue in `ippReadIO`.
+- Fixed validation of dateTime values with time zones more than UTC+11
+  (Issue #1201)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)

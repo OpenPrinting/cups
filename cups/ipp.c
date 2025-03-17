@@ -3736,8 +3736,9 @@ ippValidateAttribute(
 	    return (0);
 	  }
 
-          if (date[9] > 11)
+          if (date[9] > 14)
 	  {
+	    // Kiribata has a UTC+14 time zone, RFC 2579 calls for UTC+13 support, errata filed...
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."), attr->name, date[9]);
 	    return (0);
 	  }
