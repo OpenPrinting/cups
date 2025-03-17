@@ -3736,7 +3736,7 @@ ippValidateAttribute(
 	    return (0);
 	  }
 
-          if (date[9] > 11)
+          if (date[9] > 13)
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."), attr->name, date[9]);
 	    return (0);
