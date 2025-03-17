@@ -14,6 +14,8 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
 - Fixed client raster printing from macOS (Issue #1143)
 - Fixed the default User-Agent string.
 - Fixed a recursion issue in `ippReadIO`.
+- Fixed validation of dateTime values with time zones more than UTC+11
+  (Issue #1201)
 
 
 Changes in CUPS v2.4.11 (2024-09-30)
