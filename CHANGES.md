@@ -37,6 +37,7 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added `cups-oauth` and `cups-x509` utilities (Issue #1184)
 - Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated the configure script to default to installing to /usr/local.
+- Updated CUPS to use the Windows mDNS APIs.
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.
 - Updated CUPS to require ZLIB.
