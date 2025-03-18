@@ -401,7 +401,7 @@ cupsDNSSDBrowseNew(
 
 #elif _WIN32
   DNS_STATUS	status;			// DNS request status
-  size_t	i,			// Looping var
+  int		i,			// Looping var
 		count;			// Number of types
   const char	*base,			// Base query name
 		*subtype;		// Subtype

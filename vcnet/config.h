@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS on Windows.
  *
- * Copyright © 2021-2024 by OpenPrinting
+ * Copyright © 2021-2025 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -11,10 +11,6 @@
 
 #ifndef _CUPS_CONFIG_H_
 #define _CUPS_CONFIG_H_
-
-/*
- * Include necessary headers...
- */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -379,7 +375,7 @@ typedef unsigned long useconds_t;
  * Do we have mDNSResponder for DNS-SD?
  */
 
-#define HAVE_MDNSRESPONDER 1
+/* #undef HAVE_MDNSRESPONDER */
 
 
 /*

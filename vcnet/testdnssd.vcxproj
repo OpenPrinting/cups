@@ -102,7 +102,7 @@
     <ClCompile Include="..\cups\testdnssd.c" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="libcups3.vcxproj">
+    <ProjectReference Include="libcups2.vcxproj">
       <Project>{cb4aa6f2-3e84-45be-b505-95cd375e8be3}</Project>
     </ProjectReference>
   </ItemGroup>
