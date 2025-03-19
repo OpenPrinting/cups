@@ -20,7 +20,7 @@
       /* Show an error if cookies are disabled */
       function check_cookies() {
 	if (!navigator.cookieEnabled) {
-	      document.getElementById('body').innerHTML = 'Ta strona używa ciasteczek aby zapobiec atakom typu cross-site. Proszę włączyć obsługę ciasteczek w swojej przeglądarce.';
+	      document.getElementById('body').innerHTML = 'Ta strona używa ciasteczek, aby zapobiec atakom typu cross-site. Proszę włączyć obsługę ciasteczek w swojej przeglądarce.';
 	}
       }
     --></SCRIPT>
