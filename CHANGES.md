@@ -16,6 +16,8 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
 - Fixed a recursion issue in `ippReadIO`.
 - Fixed validation of dateTime values with time zones more than UTC+11
   (Issue #1201)
+- Fixed attributes returned by the Create-Xxx-Subscriptions requests
+  (Issue #1204)
 
 
 Changes in CUPS v2.4.11 (2024-09-30)
