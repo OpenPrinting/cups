@@ -1,7 +1,7 @@
 /*
  * IPP routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting
+ * Copyright © 2020-2025 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -6101,8 +6101,7 @@ create_subscriptions(
     }
 
     ippAddSeparator(con->response);
-    ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
-                  "notify-subscription-id", sub->id);
+    copy_subscription_attrs(con, sub, /*ra*/NULL, /*exclude*/NULL);
 
     con->response->request.status.status_code = IPP_STATUS_OK;
 
