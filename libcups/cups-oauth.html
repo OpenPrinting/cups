@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+a:link, a:visited {
+  color: #c00;
+  text-decoration: underline;
+}
+
+a:link:hover, a:active {
+  color: #f00;
+  text-decoration: underline;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: #ddf;
+  border: solid 1px #77c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 2px 10px;
+}
+h4 span.info {
+  padding: 1px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: #ddd;
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+blockquote {
+  background: #ddf;
+  border-left: solid 2px #77c;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+}
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  h2, h3, h4, table tbody td, table thead th {
+    border-color: #ccc;
+  }
+  blockquote, span.info {
+    background: #337;
+    border-color: #66f;
+  }
+  table tbody tr:nth-child(even) {
+    background: #444;
+  }
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.2">
+    <title>cups-oauth(1)</title>
+  </head>
+  <body>
+    <h1 id="cups-oauth-1">cups-oauth(1)</h1>
+    <h2 id="cups-oauth-1.name">Name</h2>
+<p>cups-oauth - interact with an oauth/openid authorization server
+</p>
+    <h2 id="cups-oauth-1.synopsis">Synopsis</h2>
+<p><strong>cups-oauth</strong>
+<strong>--help</strong>
+<br>
+<strong>cups-oauth</strong>
+<strong>--version</strong>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+] [
+<strong>-s</strong>
+<em>SCOPE(S)</em>
+]
+<strong>authorize</strong>
+<em>[RESOURCE]</em>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+]
+<strong>clear</strong>
+<em>[RESOURCE]</em>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+]
+<strong>get-access-token</strong>
+<em>[RESOURCE]</em>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+]
+<strong>get-client-id</strong>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+]
+<strong>get-metadata</strong>
+<em>[NAME]</em>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+]
+<strong>get-user-id</strong>
+<em>[RESOURCE]</em>
+<em>[NAME]</em>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+]
+<strong>set-access-token</strong>
+<em>[RESOURCE]</em>
+<em>TOKEN</em>
+<br>
+<strong>cups-oauth</strong>
+[
+<strong>-a</strong>
+<em>OAUTH-URI</em>
+]
+<strong>set-client-data</strong>
+<em>CLIENT-ID</em>
+<em>CLIENT-SECRET</em>
+</p>
+    <h2 id="cups-oauth-1.description">Description</h2>
+<p>The
+<strong>cups-oauth</strong>
+utility interacts with an OAuth/OpenID authorization server.
+Authorizations are often linked to a resource (a printer URI, web page URL, etc.)
+</p>
+    <h2 id="cups-oauth-1.options">Options</h2>
+<p>The following options are recognized by
+<strong>cups-oauth:</strong>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--help</strong><br>
+Show program usage.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
+Show the CUPS version.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a </strong><em>OAUTH-URI</em><br>
+Specifies the OAuth/OpenID authorization server URL.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s </strong><em>SCOPE(S)</em><br>
+Specifies a space-delimited list of scope names to use when authorizing access.
+The default is to request authorization for all supported scopes.
+</p>
+    <h2 id="cups-oauth-1.commands">Commands</h2>
+    <h3 id="cups-oauth-1.commands.authorize">Authorize</h3>
+<p>Starts an authorization workflow with the default web browser.
+If a resource URI is specified, the authorization is specific to that resource.
+The access token is send to the standard output on success.
+</p>
+    <h3 id="cups-oauth-1.commands.clear">Clear</h3>
+<p>Clears any authorization for the specified resource or for all resources if no resource URI is supplied.
+</p>
+    <h3 id="cups-oauth-1.commands.get-access-token">Get-Access-Token</h3>
+<p>Output the current, unexpired access token, if any, to the standard output.
+</p>
+    <h3 id="cups-oauth-1.commands.get-client-id">Get-Client-Id</h3>
+<p>Output the client ID string, if any, to the standard output.
+</p>
+    <h3 id="cups-oauth-1.commands.get-metadata">Get-Metadata</h3>
+<p>Get the OAuth/OpenID authorization server metadata and send it to the standard output.
+If a name is specified, the output is just the value for the specified metadata.
+</p>
+    <h3 id="cups-oauth-1.commands.get-user-id">Get-User-Id</h3>
+<p>Get the OpenID user ID information and send it to the standard output.
+If a name is specified, the output is just the named claim from the user ID.
+</p>
+    <h3 id="cups-oauth-1.commands.set-access-token">Set-Access-Token</h3>
+<p>Set the access token (which is sometimes also called an API key) for the specified resource or for all resources.
+</p>
+    <h3 id="cups-oauth-1.commands.set-client-data">Set-Client-Data</h3>
+<p>Set the client ID string and secret for an OAuth/OpenID authorization server.
+</p>
+    <h2 id="cups-oauth-1.environment-variables">Environment Variables</h2>
+<p>The
+<strong>CUPS_OAUTH_URI</strong>
+environment variable sets the default OAuth/OpenID authorization server URL.
+</p>
+    <p>The
+<strong>CUPS_OAUTH_SCOPES</strong>
+environment variable sets the default OAuth/OpenID scopes as a space-delimited list.
+</p>
+    <h2 id="cups-oauth-1.notes">Notes</h2>
+<p>CUPS uses a redirect URI of &quot;<a href="http://127.0.0.1/&quot;">http://127.0.0.1/&quot;</a> for all authorization on the local system.
+</p>
+    <h2 id="cups-oauth-1.examples">Examples</h2>
+<p>TBD
+</p>
+    <h2 id="cups-oauth-1.see-also">See Also</h2>
+<p><strong>cups</strong>(1)
+
+</p>
+    <h2 id="cups-oauth-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2025 by OpenPrinting.
+  </body>
+</html>

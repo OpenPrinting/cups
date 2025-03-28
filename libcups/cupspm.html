@@ -6064,17 +6064,17 @@ file, etc.) that you which to access.<br>
 <br>
 The &quot;scopes&quot; parameter specifies zero or more whitespace-delimited scope
 names to request during authorization.  The list of supported scope names are
-available from the Authorization Server metadata, for example:<br>
-<br>
-The &quot;redirect_uri&quot; parameter specifies a 'http:' URL with a listen address,
-port, and path to use.  If <code>NULL</code>, 127.0.0.1 on a random port is used with a
-path of &quot;/&quot;.
+available from the Authorization Server metadata, for example:
 
 <pre>
 cups_json_t *metadata = cupsOAuthGetMetadata(auth_uri);
 cups_json_t *scopes_supported = cupsJSONFind(metadata, &quot;scopes_supported&quot;);
 </pre>
 
+The &quot;redirect_uri&quot; parameter specifies a 'http:' URL with a listen address,
+port, and path to use.  If <code>NULL</code>, 127.0.0.1 on a random port is used with a
+path of &quot;/&quot;.<br>
+<br>
 The returned authorization code must be freed using the <code>free</code> function.</p>
 <h3 class="function"><a id="cupsOAuthGetClientId">cupsOAuthGetClientId</a></h3>
 <p class="description">Register a client application and get its ID.</p>

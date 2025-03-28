@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style><!--
+body {
+  font-family: sans-serif;
+  font-size: 16pt;
+  margin: 54pt 36pt;
+}
+.center {
+  text-align: center;
+}
+a:link, a:visited {
+  color: #c00;
+  text-decoration: underline;
+}
+
+a:link:hover, a:active {
+  color: #f00;
+  text-decoration: underline;
+}
+code, kbd, pre, tt {
+  font-family: monospace;
+}
+dl {
+  margin-left: 2em;
+}
+h2, h3 {
+  border-bottom: solid 2px black;
+}
+h4 {
+  border-bottom: solid 1px black;
+}
+p {
+  text-align: justify;
+}
+span.info {
+  background: #ddf;
+  border: solid 1px #77c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  float: right;
+  font-size: 80%;
+  padding: 2px 10px;
+}
+h4 span.info {
+  padding: 1px 8px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+table thead th {
+  border-bottom: solid 2px black;
+  padding: 0 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+table tbody tr:nth-child(even) {
+  background: #ddd;
+}
+table tbody td {
+  border-bottom: solid 1px black;
+  padding: 4px 10px;
+  vertical-align: top;
+}
+blockquote {
+  background: #ddf;
+  border-left: solid 2px #77c;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+}
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: #ccc;
+  }
+  h2, h3, h4, table tbody td, table thead th {
+    border-color: #ccc;
+  }
+  blockquote, span.info {
+    background: #337;
+    border-color: #66f;
+  }
+  table tbody tr:nth-child(even) {
+    background: #444;
+  }
+}
+--></style>
+    <meta name="creator" content="mantohtml v2.0.2">
+    <title>cups-x509(1)</title>
+  </head>
+  <body>
+    <h1 id="cups-x509-1">cups-x509(1)</h1>
+    <h2 id="cups-x509-1.name">Name</h2>
+<p>cups-x509 - description
+</p>
+    <h2 id="cups-x509-1.synopsis">Synopsis</h2>
+<p><strong>cups-x509</strong>
+<strong>--help</strong>
+<br>
+<strong>cups-x509</strong>
+<strong>--version</strong>
+<br>
+<strong>cups-x509</strong>
+[
+<strong>--pin</strong>
+] [
+<strong>--require-ca</strong>
+] [
+<strong>-C</strong>
+<em>COUNTRY</em>
+] [
+<strong>-L</strong>
+<em>LOCALITY</em>
+] [
+<strong>-O</strong>
+<em>ORGANIZATION</em>
+] [
+<strong>-R</strong>
+<em>CSR-FILENAME</em>
+] [
+<strong>-S</strong>
+<em>STATE-PROVINCE</em>
+] [
+<strong>-U</strong>
+<em>ORGANIZATIONAL-UNIT</em>
+] [
+<strong>-a</strong>
+<em>SUBJECT-ALT-NAME</em>
+] [
+<strong>-d</strong>
+<em>DAYS</em>
+] [
+<strong>-p</strong>
+<em>PURPOSE</em>
+] [
+<strong>-r</strong>
+<em>ROOT-NAME</em>
+] [
+<strong>-t</strong>
+<em>TYPE</em>
+] [
+<strong>-u</strong>
+<em>USAGE</em>
+]
+<em>COMMAND</em>
+<em>[ARGUMENT(S)]</em>
+</p>
+    <h2 id="cups-x509-1.description">Description</h2>
+<p>The
+<strong>cups-x509</strong>
+utility manages X.509 certificates and certificate requests, and supports client and server tests.
+</p>
+    <h2 id="cups-x509-1.options">Options</h2>
+<p>The following options are recognized by
+<strong>cups-x509:</strong>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--help</strong><br>
+Show program usage.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--pin</strong><br>
+Pin the server's X.509 certificate found by the client command.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--require-ca</strong><br>
+Require the server's X.509 certificate found by the client command to be signed by a known CA.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
+Show the CUPS version.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-C </strong><em>COUNTRY</em><br>
+Specify the country for new X.509 certificates and certificate requests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-L </strong><em>LOCALITY</em><br>
+Specify the locality (city, town, etc.) for new X.509 certificates and certificate requests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-O </strong><em>ORGANIZATION</em><br>
+Specify the organization name for new X.509 certificates and certificate requests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-R </strong><em>CSR-FILENAME</em><br>
+Specify an X.509 certificate signing request in PEM format to be used when signing a certificate with the
+<strong>ca</strong>
+command.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-S </strong><em>STATE-PROVINCE</em><br>
+Specify the state/province name for new X.509 certificates and certificate requests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-U </strong><em>ORGANIZATIONAL-UNIT</em><br>
+Specify the organizational unit name for new X.509 certificates and certificate requests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-a </strong><em>SUBJECT-ALT-NAME</em><br>
+Specify an alternate name for new X.509 certificates and certificate requests.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>DAYS</em><br>
+Specify the number of days before a new X.509 certificate will expire.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p </strong><em>PURPOSE</em><br>
+Specify the purpose of the X.509 certificate or certificate request as a comma-delimited list of purposes.
+The supported purposes are &quot;serverAuth&quot; for TLS server authentication, &quot;clientAuth&quot; for TLS client authentication, &quot;codeSigning&quot; for executable code signing, &quot;emailProtection&quot; for S/MIME encryption and signing, &quot;timeStamping&quot; for secure timestamps, and &quot;OCSPSigning&quot; for Online Certificate Status Protocol services.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>ROOT-NAME</em><br>
+Specify the common name of the X.509 root certificate to use.
+The default root certificate is named &quot;_site_&quot;.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t </strong><em>TYPE</em><br>
+Specify the certificate type - &quot;rsa-2048&quot; for 2048-bit RSA, &quot;rsa-3072&quot; for 3072-bit RSA, &quot;rsa-4096&quot; for 4096-bit RSA, &quot;ecdsa-p256&quot; for 256-bit ECDSA, &quot;ecdsa-p384&quot; for 384-bit ECDSA, or &quot;ecdsa-p521&quot; for 521-bit ECDSA.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u </strong><em>USAGE</em><br>
+Specify the usage for the certificate as a comma-delimited list of uses.
+The supported uses are &quot;digitalSignature&quot;, &quot;nonRepudiation&quot;, &quot;keyEncipherment&quot;, &quot;dataEncipherment&quot;, &quot;keyAgreement&quot;, &quot;keyCertSign&quot;, &quot;cRLSign&quot;, &quot;encipherOnly&quot;, and  &quot;decipherOnly&quot;.
+The preset &quot;default-ca&quot; specifies those uses required for a Certificate Authority, and the preset &quot;default-tls&quot; specifies those uses required for TLS.
+</p>
+    <h2 id="cups-x509-1.commands">Commands</h2>
+    <h3 id="cups-x509-1.commands.ca-common-name">Ca Common-Name</h3>
+<p>Sign a certificate request for the specified common name.
+</p>
+    <h3 id="cups-x509-1.commands.cacert-common-name">Cacert Common-Name</h3>
+<p>Create a CA certificate for the specified common name.
+</p>
+    <h3 id="cups-x509-1.commands.cert-common-name">Cert Common-Name</h3>
+<p>Create a certificate for the specified common name.
+</p>
+    <h3 id="cups-x509-1.commands.client-uri">Client Uri</h3>
+<p>Connect to the specified URI and validate the server's certificate.
+</p>
+    <h3 id="cups-x509-1.commands.csr-common-name">Csr Common-Name</h3>
+<p>Create a certificate signing request for the specified common name.
+</p>
+    <h3 id="cups-x509-1.commands.server-common-nameport">Server Common-Name[:Port]</h3>
+<p>Run a HTTPS test server that echos back the resource path for every GET request.
+If PORT is not specified, uses a port number from 8000 to 8999.
+</p>
+    <h3 id="cups-x509-1.commands.show-common-name">Show Common-Name</h3>
+<p>Shows any stored credentials for the specified common name.
+</p>
+    <h2 id="cups-x509-1.examples">Examples</h2>
+<p>TBD
+</p>
+    <h2 id="cups-x509-1.see-also">See Also</h2>
+<p><strong>cups</strong>(1)
+
+</p>
+    <h2 id="cups-x509-1.copyright">Copyright</h2>
+<p>Copyright &copy; 2025 by OpenPrinting.
+  </body>
+</html>
