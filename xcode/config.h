@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS and Xcode.
  *
- * Copyright © 2021-2024 by OpenPrinting
+ * Copyright © 2021-2025 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -332,6 +332,13 @@
  */
 
 #define HAVE_TM_GMTOFF 1
+
+
+/*
+ * Do we have the timegm function?
+ */
+
+#define HAVE_TIMEGM 1
 
 
 /*

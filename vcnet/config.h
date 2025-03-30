@@ -407,6 +407,13 @@ typedef unsigned long useconds_t;
 
 
 /*
+ * Do we have the timegm function?
+ */
+
+/*#undef HAVE_TIMEGM */
+
+
+/*
  * Do we have getifaddrs()?
  */
 
