@@ -194,6 +194,11 @@ AC_COMPILE_IFELSE([
     AC_MSG_RESULT([no])
 ])
 
+dnl See if we have the timegm function...
+AC_CHECK_FUNC([timegm], [
+    AC_DEFINE([HAVE_TIMEGM], [1], [Do we have the timegm function?])
+])
+
 dnl See if the stat structure has the st_gen member...
 AC_MSG_CHECKING([for st_gen member in stat structure])
 AC_COMPILE_IFELSE([

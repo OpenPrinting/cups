@@ -6338,6 +6338,17 @@ printf "%s\n" "no" >&6; }
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
 
+ac_fn_c_check_func "$LINENO" "timegm" "ac_cv_func_timegm"
+if test "x$ac_cv_func_timegm" = xyes
+then :
+
+
+printf "%s\n" "#define HAVE_TIMEGM 1" >>confdefs.h
+
+
+fi
+
+
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for st_gen member in stat structure" >&5
 printf %s "checking for st_gen member in stat structure... " >&6; }
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext

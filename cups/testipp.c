@@ -1,7 +1,7 @@
 //
 // IPP unit test program for libcups.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2005 by Easy Software Products.
 //
@@ -295,25 +295,27 @@ ssize_t	write_cb(_ippdata_t *data, ipp_uchar_t *buffer, size_t bytes);
 // 'main()' - Main entry.
 //
 
-int				// O - Exit status
-main(int  argc,			// I - Number of command-line arguments
-     char *argv[])		// I - Command-line arguments
+int					// O - Exit status
+main(int  argc,				// I - Number of command-line arguments
+     char *argv[])			// I - Command-line arguments
 {
-  _ippdata_t	data;		// IPP buffer
-  ipp_uchar_t	buffer[8192];	// Write buffer data
-  ipp_t		*cols[2],	// Collections
-		*size;		// media-size collection
-  ipp_t		*request;	// Request
-  ipp_attribute_t *media_col,	// media-col attribute
-		*media_size,	// media-size attribute
-		*attr;		// Other attribute
-  ipp_state_t	state;		// State
-  size_t	length;		// Length of data
-  cups_file_t	*fp;		// File pointer
-  size_t	i;		// Looping var
-  int		status;		// Status of tests (0 = success, 1 = fail)
+  _ippdata_t	data;			// IPP buffer
+  ipp_uchar_t	buffer[8192];		// Write buffer data
+  ipp_t		*cols[2],		// Collections
+		*size;			// media-size collection
+  ipp_t		*request;		// Request
+  ipp_attribute_t *media_col,		// media-col attribute
+		*media_size,		// media-size attribute
+		*attr;			// Other attribute
+  ipp_state_t	state;			// State
+  size_t	length;			// Length of data
+  cups_file_t	*fp;			// File pointer
+  size_t	i;			// Looping var
+  int		status;			// Status of tests (0 = success, 1 = fail)
+  time_t	tv;			// Time value
+  const ipp_uchar_t *dv;		// Date value
 #ifdef DEBUG
-  const char	*name;		// Option name
+  const char	*name;			// Option name
 #endif // DEBUG
 
 
@@ -756,6 +758,42 @@ main(int  argc,			// I - Number of command-line arguments
     else
     {
       testEnd(false);
+      status = 1;
+    }
+
+    // Test ippDateToTime and ippTimeToDate
+    testBegin("ippDateToTime(1970/01/02T00:00:00Z)");
+    buffer[0]  = 1970 >> 8;		// Year MSB
+    buffer[1]  = 1970 & 255;		// Year LSB
+    buffer[2]  = 1;			// Month
+    buffer[3]  = 2;			// Day
+    buffer[4]  = 0;			// Hour
+    buffer[5]  = 0;			// Minute
+    buffer[6]  = 0;			// Second
+    buffer[7]  = 0;			// Deci-second
+    buffer[8]  = '+';			// Timezone +/-
+    buffer[9]  = 0;			// Timezone hours
+    buffer[10] = 0;			// Timezone minutes
+
+    if ((tv = ippDateToTime(buffer)) == 86400)
+    {
+      testEnd(true);
+    }
+    else
+    {
+      testEndMessage(false, "got %ld, expected 86400", (long)tv);
+      status = 1;
+    }
+
+    testBegin("ippTimeToDate(86400)");
+
+    if ((dv = ippTimeToDate(86400)) != NULL && !memcmp(dv, buffer, 11))
+    {
+      testEnd(true);
+    }
+    else
+    {
+      testEndMessage(false, "got %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X, expected %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", dv[0], dv[1], dv[2], dv[3], dv[4], dv[5], dv[6], dv[7], dv[8], dv[9], dv[10], buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6], buffer[7], buffer[8], buffer[9], buffer[10]);
       status = 1;
     }
   }
