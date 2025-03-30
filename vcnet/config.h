@@ -1,7 +1,7 @@
 /*
  * Configuration file for CUPS on Windows.
  *
- * Copyright © 2021-2024 by OpenPrinting
+ * Copyright © 2021-2025 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -470,6 +470,13 @@ typedef unsigned long useconds_t;
  */
 
 /* #undef HAVE_TM_GMTOFF */
+
+
+/*
+ * Do we have the timegm function?
+ */
+
+/* #undef HAVE_TIMEGM */
 
 
 /*

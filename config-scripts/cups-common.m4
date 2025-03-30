@@ -1,7 +1,7 @@
 dnl
 dnl Common configuration stuff for CUPS.
 dnl
-dnl Copyright © 2020-2024 by OpenPrinting.
+dnl Copyright © 2020-2025 by OpenPrinting.
 dnl Copyright © 2007-2019 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -205,6 +205,11 @@ AC_COMPILE_IFELSE([
     AC_DEFINE([HAVE_TM_GMTOFF], [1], [Have tm_gmtoff member in struct tm?])
 ], [
     AC_MSG_RESULT([no])
+])
+
+dnl See if we have the timegm function...
+AC_CHECK_FUNC([timegm], [
+    AC_DEFINE([HAVE_TIMEGM], [1], [Do we have the timegm function?])
 ])
 
 dnl See if the stat structure has the st_gen member...

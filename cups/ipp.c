@@ -1699,7 +1699,7 @@ ippDateToTime(const ipp_uchar_t *date)	/* I - RFC 2579 date info */
   *    6        Seconds (0 to 60, 60 = "leap second")
   *    7        Deciseconds (0 to 9)
   *    8        +/- UTC
-  *    9        UTC hours (0 to 11)
+  *    9        UTC hours (0 to 14)
   *    10       UTC minutes (0 to 59)
   */
 
@@ -1710,7 +1710,23 @@ ippDateToTime(const ipp_uchar_t *date)	/* I - RFC 2579 date info */
   unixdate.tm_min  = date[5];
   unixdate.tm_sec  = date[6];
 
-  t = mktime(&unixdate);
+#if _WIN32
+  if ((t = _mkgmtime(&unixdate)) < 0)
+    return (0);
+#elif defined(HAVE_TIMEGM)
+  if ((t = timegm(&unixdate)) < 0)
+    return (0);
+#else
+  if ((t = mktime(&unixdate)) < 0)
+    return (0);
+
+#  if defined(HAVE_TM_GMTOFF)
+  localtime_r(&t, &unixdate);
+  t -= unixdate.tm_gmtoff;
+#  else
+  t -= timezone;
+#  endif // HAVE_TM_GMTOFF
+#endif // _WIN32
 
   if (date[8] == '-')
     t += date[9] * 3600 + date[10] * 60;

@@ -18,6 +18,7 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
   (Issue #1201)
 - Fixed attributes returned by the Create-Xxx-Subscriptions requests
   (Issue #1204)
+- Fixed `ippDateToTime` when using a non GMT/UTC timezone (Issue #1208)
 
 
 Changes in CUPS v2.4.11 (2024-09-30)
