@@ -12,6 +12,7 @@
   width: 100%;
 }
 .cups-header ul {
+  font-size: 20px;
   list-style: none;
   margin: 0;
   -webkit-margin-before: 0;
@@ -25,7 +26,10 @@
 }
 .cups-header a {
   display: block;
-  padding: 5px 10px !important;
+  padding: 18px 30px !important;
+}
+.cups-header a.img {
+  padding: 12px 24px !important;
 }
 .cups-header a:link, .cups-header a:visited {
   color: white !important;
@@ -44,6 +48,7 @@
 }
 
 .cups-body {
+  margin-top: 40px;
   padding: 40px 20px;
 }
 .row .cups-body {
