@@ -418,9 +418,9 @@ cupsdProcessIPPRequest(
 	  */
 
 	  if (uri)
-	    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s %s", ippOpString(con->request->request.op.operation_id), uri->values[0].string.text);
+	    cupsdLogClient(con, CUPSD_LOG_DEBUG, "%s %s", ippOpString(con->request->request.op.operation_id), uri->values[0].string.text);
 	  else
-	    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s", ippOpString(con->request->request.op.operation_id));
+	    cupsdLogClient(con, CUPSD_LOG_DEBUG, "%s", ippOpString(con->request->request.op.operation_id));
 
 	  switch (con->request->request.op.operation_id)
 	  {
@@ -10323,7 +10323,7 @@ send_response(cupsd_client_t *con)	/* I - Client */
 	length += (size_t)fileinfo.st_size;
     }
 
-    cupsdLogClient(con, CUPSD_LOG_DEBUG, "Content-Length: " CUPS_LLFMT, CUPS_LLCAST length);
+    cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Content-Length: " CUPS_LLFMT, CUPS_LLCAST length);
     httpSetLength(con->http, length);
   }
 

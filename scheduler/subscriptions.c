@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cupsd.h"
 #ifdef HAVE_DBUS
 #  include <dbus/dbus.h>
@@ -159,6 +155,11 @@ cupsdAddEvent(
       ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_TEXT,
 		   "notify-text", NULL, ftext);
 
+      if (job)
+        cupsdLogJob(job, CUPSD_LOG_DEBUG, "%s: %s", cupsdEventName(event), ftext);
+      else
+        cupsdLogPrinter(dest, CUPSD_LOG_DEBUG, "%s: %s", cupsdEventName(event), ftext);
+
       if (dest)
       {
        /*
@@ -262,7 +263,7 @@ cupsdAddSubscription(
   cupsd_subscription_t	*temp;		/* New subscription object */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2,
 		  "cupsdAddSubscription(mask=%x, dest=%p(%s), job=%p(%d), "
 		  "uri=\"%s\")",
 		  mask, (void *)dest, dest ? dest->name : "", (void *)job, job ? job->id : 0,
