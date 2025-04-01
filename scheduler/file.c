@@ -1,16 +1,12 @@
 /*
  * File functions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2014 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cupsd.h"
@@ -36,10 +32,6 @@ cupsdCleanFiles(const char *path,	/* I - Directory to clean */
   char		filename[1024];		/* Filename */
   int		status;			/* Status from unlink/rmdir */
 
-
-  cupsdLogMessage(CUPSD_LOG_DEBUG,
-                  "cupsdCleanFiles(path=\"%s\", pattern=\"%s\")", path,
-		  pattern ? pattern : "(null)");
 
   if ((dir = cupsDirOpen(path)) == NULL)
   {

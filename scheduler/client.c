@@ -265,23 +265,23 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
                     &peersize))
     {
       if (!proc_name((int)peerpid, peername, sizeof(peername)))
-	cupsdLogClient(con, CUPSD_LOG_DEBUG,
+	cupsdLogClient(con, CUPSD_LOG_INFO,
 	               "Accepted from %s (Domain ???[%d])",
                        httpGetHostname(con->http, NULL, 0), (int)peerpid);
       else
-	cupsdLogClient(con, CUPSD_LOG_DEBUG,
+	cupsdLogClient(con, CUPSD_LOG_INFO,
                        "Accepted from %s (Domain %s[%d])",
                        httpGetHostname(con->http, NULL, 0), peername, (int)peerpid);
     }
     else
 #  endif /* __APPLE__ */
 
-    cupsdLogClient(con, CUPSD_LOG_DEBUG, "Accepted from %s (Domain)",
+    cupsdLogClient(con, CUPSD_LOG_INFO, "Accepted from %s (Domain)",
                    httpGetHostname(con->http, NULL, 0));
   }
   else
 #endif /* AF_LOCAL */
-  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Accepted from %s:%d (IPv%d)",
+  cupsdLogClient(con, CUPSD_LOG_INFO, "Accepted from %s:%d (IPv%d)",
                  httpGetHostname(con->http, NULL, 0),
 		 httpAddrGetPort(httpGetAddress(con->http)),
 		 httpAddrGetFamily(httpGetAddress(con->http)) == AF_INET ? 4 : 6);
@@ -395,7 +395,7 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
   int		partial;		/* Do partial close for SSL? */
 
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Closing connection.");
+  cupsdLogClient(con, CUPSD_LOG_INFO, "Closing connection.");
 
  /*
   * Flush pending writes before closing...
@@ -626,14 +626,16 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	    con->operation == HTTP_STATE_UNKNOWN_VERSION)
 	{
 	  if (httpGetError(con->http))
-	    cupsdLogClient(con, CUPSD_LOG_DEBUG,
-			   "HTTP_STATE_WAITING Closing for error %d (%s)",
-			   httpGetError(con->http), strerror(httpGetError(con->http)));
+	  {
+	    if (httpGetError(con->http) != EPIPE)
+	      cupsdLogClient(con, CUPSD_LOG_DEBUG, "HTTP_STATE_WAITING Closing for error %d (%s)", httpGetError(con->http), strerror(httpGetError(con->http)));
+	    else
+	      cupsdLogClient(con, CUPSD_LOG_DEBUG, "HTTP_STATE_WAITING Closing on EOF.");
+	  }
 	  else
-	    cupsdLogClient(con, CUPSD_LOG_DEBUG,
-	                   "HTTP_STATE_WAITING Closing on error: %s",
-			   cupsGetErrorString());
-
+	  {
+	    cupsdLogClient(con, CUPSD_LOG_DEBUG, "HTTP_STATE_WAITING Closing on error: %s", cupsGetErrorString());
+          }
 	  cupsdCloseClient(con);
 	  return;
 	}
@@ -808,7 +810,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
   * Handle new transfers...
   */
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Read: status=%d, state=%d", status, httpGetState(con->http));
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Read: status=%d, state=%d", status, httpGetState(con->http));
 
   if (status == HTTP_STATUS_OK)
   {
