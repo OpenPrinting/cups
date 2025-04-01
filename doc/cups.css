@@ -1,3 +1,6 @@
+/* Base styles */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Source+Code+Pro&display=swap');
+
 /* Layout CSS */
 .cups-header {
   background: rgba(46,46,46,.9);
@@ -48,8 +51,9 @@
 }
 
 .cups-body {
-  margin-top: 40px;
-  padding: 40px 20px;
+  margin-bottom: 20px;
+  margin-top: 65px;
+  padding: 20px;
 }
 .row .cups-body {
   padding: 0;
@@ -101,6 +105,11 @@
 .row .halves:first-child {
   margin-left: 0;
 }
+
+.row .thirds h1, .row .halves h1 {
+  margin-top: 0;
+}
+
 .mobile {
   display: none;
 }
@@ -112,12 +121,13 @@
 body {
   background: white;
   color: black;
-  font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
   margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6, p, td, th {
-  font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1 { font-size: 2em; }
@@ -125,14 +135,17 @@ h2 { font-size: 1.75em; }
 h3 { font-size: 1.5em; }
 h4 { font-size: 1.25em; }
 
+code, kbd, pre, tt, input[type=text], p.command, p.summary, p code, li code, p.code, ul.code li, textarea {
+  font-family: 'Source Code Pro', monospace;
+}
+
 kbd {
   color: #006600;
-  font-family: monaco, courier, monospace;
   font-weight: bold;
 }
 
 pre {
-  font-family: monaco, courier, monospace;
+  white-space: pre-wrap;
 }
 
 blockquote {
@@ -169,12 +182,10 @@ pre.man {
 
 pre.command EM, pre.example EM {
   color: #3f0000;
-  font-family: lucida grande, geneva, helvetica, arial, sans-serif;
 }
 
 p.command {
   color: #7f0000;
-  font-family: monaco, courier, monospace;
   margin-left: 36pt;
 }
 
@@ -196,12 +207,12 @@ a:link:hover img {
 a:link, a:visited {
   font-weight: inherit;
   text-decoration: none;
-  color: #000099;
+  color: #317BFF;
 }
 
 a:link:hover, a:visited:hover, a:active {
   text-decoration: underline;
-  color: #990099;
+  color: #4C80BF;
 }
 
 table.page {
@@ -234,8 +245,47 @@ form {
   display: inline;
 }
 
-input[type="text"], textarea {
-  font-family: monaco, courier, monospace;
+button, input[type=button], input[type=submit], select {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 4px 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+button, input[type=button], input[type=file], input[type=submit] {
+  background: #317BFF;
+  color: #FFF;
+}
+button:hover, input[type=button]:hover, input[type=file]:hover, input[type=submit]:hover {
+  background: #65ABFF;
+  color: #FFF;
+}
+button:active, input[type=button]:active, input[type=file]:active, input[type=submit]:active {
+  background: #317BFF;
+  color: #FFF;
+}
+input[type=search] {
+  -webkit-appearance: textfield;
+}
+input[type=search], input[type=text] {
+  padding: 4px 8px;
+}
+select {
+  background: #ccc url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23000000' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+  color: black;
+  padding: 4px 32px 4px 8px;
+}
+select:hover {
+  background: #ddd url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23000000' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+}
+textarea {
+  width: 100%;
 }
 
 input[type="image"] {
@@ -342,11 +392,7 @@ th.conflict {
   text-align: right;
 }
 
-h1.title {
-  display: none;
-}
-
-h2.title, h3.title, .row .cups-body h2, .row .cups-body h3 {
+h1.title, h2.title, h3.title, .row .cups-body h2, .row .cups-body h3 {
   border-bottom: solid 2pt black;
 }
 
@@ -470,7 +516,6 @@ dl.category dt {
 
 p.summary {
   margin-left: 36pt;
-  font-family: monaco, courier, monospace;
 }
 
 div.summary table {
@@ -578,7 +623,6 @@ p code, li code {
   background: rgba(191,191,191,0.3);
 }
 p code, li code, p.code, pre, ul.code li {
-  font-family: monospace;
   hyphens: manual;
   margin: 18pt 0;
   -webkit-hyphens: manual;
@@ -693,10 +737,10 @@ ul.contents li ul.code, ul.contents li ul.subcontents {
     color: #ccc;
   }
   a:link, a:visited, table.list th a {
-    color: #6666ff;
+    color: #4C80BF;
   }
   a:link:hover, a:visited:hover, a:active, table.list th a {
-    color: #ff66ff;
+    color: #65ABFF;
   }
   hr {
     color: #666;
@@ -712,5 +756,29 @@ ul.contents li ul.code, ul.contents li ul.subcontents {
   }
   table.list th {
     color: #666;
+  }
+  button, input[type=button], input[type=file], input[type=submit] {
+    background: #255CBF;
+    color: #DDD;
+  }
+  button:hover, input[type=button]:hover, input[type=file]:hover, input[type=submit]:hover {
+    background: #4C80BF;
+    color: #EEE;
+  }
+  button:active, input[type=button]:active, input[type=file]:active, input[type=submit]:active {
+    background: #255CBF;
+    color: #DDD;
+  }
+  input[type=search], input[type=text], textarea {
+    background: #333;
+    color: #ccc;
+  }
+  select {
+    background: #333 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23CCCCCC' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+    color: #ccc;
+    padding: 4px 32px 4px 8px;
+  }
+  select:hover {
+    background: #444 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23DDDDDD' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
   }
 }
