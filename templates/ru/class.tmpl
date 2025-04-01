@@ -1,7 +1,7 @@
-<H2 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
+<H1 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
 ({printer_state=3?ожидает:{printer_state=4?печать:приостановлен}},
 {printer_is_accepting_jobs=0?не принимает задания:принимает задания},
-{server_is_sharing_printers=0?нет совместного доступа:{printer_is_shared=0?нет совместного доступа:разрешен совместный доступ}} {default_name={printer_name}?, Сервер по умолчанию:})</H2>
+{server_is_sharing_printers=0?нет совместного доступа:{printer_is_shared=0?нет совместного доступа:разрешен совместный доступ}} {default_name={printer_name}?, Сервер по умолчанию:})</H1>
 
 <FORM METHOD="POST" ACTION="{printer_uri_supported}" NAME="maintenance">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
