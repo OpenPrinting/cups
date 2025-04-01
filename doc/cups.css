@@ -55,7 +55,7 @@
   margin-top: 65px;
   padding: 20px;
 }
-.row .cups-body {
+.cups-body .row {
   padding: 0;
 }
 
@@ -106,7 +106,7 @@
   margin-left: 0;
 }
 
-.row .thirds h1, .row .halves h1 {
+.row .thirds h1, .row .halves h1, .row h1 {
   margin-top: 0;
 }
 
