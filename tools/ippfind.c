@@ -233,6 +233,7 @@ main(int  argc,				/* I - Number of command-line args */
   struct timeval	stimeout;	/* Timeout for select() */
 #endif /* HAVE_MDNSRESPONDER */
   double		endtime;	/* End time */
+  double		mintime;	/* Minimal end time */
   static const char * const ops[] =	/* Node operation names */
   {
     "NONE",
@@ -1308,9 +1309,16 @@ main(int  argc,				/* I - Number of command-line args */
   */
 
   if (bonjour_timeout > 1.0)
+  {
     endtime = get_time() + bonjour_timeout;
+    mintime = endtime; /* Actually ignored in this mode */
+  }
   else
-    endtime = get_time() + 300.0;
+  {
+    double now = get_time();
+    endtime = now + 300.0;
+    mintime = now + 2.5; /* To ensure reliable browsing with -T 0 option */
+  }
 
   while (get_time() < endtime)
   {
@@ -1458,8 +1466,11 @@ main(int  argc,				/* I - Number of command-line args */
       * If we have processed all services we have discovered, then we are done.
       */
 
-      if (processed == cupsArrayCount(services) && bonjour_timeout <= 1.0)
-        break;
+      if (get_time() >= mintime)
+      {
+        if (processed == cupsArrayCount(services) && bonjour_timeout <= 1.0)
+          break;
+      }
     }
   }
 
