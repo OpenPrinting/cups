@@ -3597,9 +3597,7 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
 
   if (job->history)
   {
-    if (job->status &&
-        (job->state_value == IPP_JSTATE_ABORTED ||
-         job->state_value == IPP_JSTATE_STOPPED))
+    if (job->status)
       dump_job_history(job);
     else
       free_job_history(job);
