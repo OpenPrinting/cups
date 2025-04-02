@@ -56,7 +56,6 @@ cupsMarkOptions(
   const char	*val,			/* Pointer into value */
 		*media,			/* media option */
 		*output_bin,		/* output-bin option */
-		*page_size,		/* PageSize option */
 		*ppd_keyword,		/* PPD keyword */
 		*print_color_mode,	/* print-color-mode option */
 		*print_quality,		/* print-quality option */
@@ -82,7 +81,6 @@ cupsMarkOptions(
 
   media         = cupsGetOption("media", num_options, options);
   output_bin    = cupsGetOption("output-bin", num_options, options);
-  page_size     = cupsGetOption("PageSize", num_options, options);
   print_quality = cupsGetOption("print-quality", num_options, options);
   sides         = cupsGetOption("sides", num_options, options);
 
@@ -331,7 +329,7 @@ cupsMarkOptions(
     }
     else if (!_cups_strcasecmp(optptr->name, "mirror"))
       ppd_mark_option(ppd, "MirrorPrint", optptr->value);
-    else
+    else if (!media || (_cups_strcasecmp(optptr->name, (cache && cache->source_option) ? cache->source_option : "InputSlot") && _cups_strcasecmp(optptr->name, "MediaType") && _cups_strcasecmp(optptr->name, "PageRegion") && _cups_strcasecmp(optptr->name, "PageSize")))
       ppd_mark_option(ppd, optptr->name, optptr->value);
   }
 
