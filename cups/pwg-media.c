@@ -1,15 +1,11 @@
 /*
  * PWG media name API implementation for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2009-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -296,7 +292,7 @@ static pwg_media_t const cups_pwg_media[] =
  * units string is @code NULL@, otherwise inches ("in") or millimeters ("mm")
  * are used.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 int					/* O - 1 on success, 0 on failure */
@@ -429,7 +425,7 @@ pwgFormatSizeName(char       *keyword,	/* I - Keyword buffer */
  * member attribute was specified in the "media-col" Job Template attribute,
  * otherwise it is initialized to 0.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 int					/* O - 1 if size was initialized, 0 otherwise */
@@ -600,7 +596,7 @@ pwgInitSize(pwg_size_t *size,		/* I - Size to initialize */
  * The "name" argument specifies the legacy ISO media size name, for example
  * "iso-a4" or "na-letter".
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 pwg_media_t *				/* O - Matching size or NULL */
@@ -658,7 +654,7 @@ pwgMediaForLegacy(const char *legacy)	/* I - Legacy size name */
  * thread.  Custom names can be of the form "Custom.WIDTHxLENGTH[units]" or
  * "WIDTHxLENGTH[units]".
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 pwg_media_t *				/* O - Matching size or NULL */
@@ -834,7 +830,7 @@ pwgMediaForPPD(const char *ppd)		/* I - PPD size name */
  * thread-local storage and is overwritten by each call to the function in the
  * thread.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 pwg_media_t *				/* O - Matching size or NULL */
@@ -945,7 +941,7 @@ pwgMediaForPWG(const char *pwg)		/* I - PWG size name */
  * thread-local storage and is overwritten by each call to the function in the
  * thread.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 pwg_media_t *				/* O - PWG media name */

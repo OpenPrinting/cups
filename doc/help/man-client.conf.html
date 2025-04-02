@@ -13,9 +13,10 @@
 <p>The <strong>client.conf</strong> file configures the CUPS client and is normally located in the <em>/etc/cups</em> and/or <em>~/.cups</em> directories.
 Each line in the file can be a configuration directive, a blank line, or a comment. Comment lines start with the # character.
 </p>
-    <p><strong>Note:</strong> Starting with macOS 10.7, this file is only used by command-line and X11 applications plus the IPP backend.
-The <strong>ServerName</strong> directive is not supported on macOS at all.
-Starting with macOS 10.12, all applications can access these settings in the <em>/Library/Preferences/org.cups.PrintingPrefs.plist</em> file instead.
+    <p><strong>Note:</strong> macOS applications can access many of these settings in the <em>/Library/Preferences/org.cups.PrintingPrefs.plist</em> file instead.
+macOS also does not support the
+<strong>ServerName</strong>
+directive.
 See the NOTES section below for more information.
 </p>
     <h3 id="client.conf-5.description.directives">Directives</h3>
@@ -33,6 +34,15 @@ The default is &quot;Yes&quot;.
 Specifies whether to allow TLS with expired certificates.
 The default is &quot;No&quot;.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>BrowseDomains all</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>BrowseDomains none</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>BrowseDomains </strong><em>DOMAIN[,...,DOMAIN]</em><br>
+Specifies the DNS-SD domains to browse for IPP printers.
+The value &quot;all&quot; browses the &quot;.local&quot; domain (mDNS) and all registered DNS domains on the local system.
+The value &quot;none&quot; disables browsing for network printers.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DigestOptions DenyMD5</strong><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DigestOptions None</strong><br>
@@ -45,6 +55,22 @@ Specifies HTTP Digest authentication options.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Encryption Required</strong><br>
 Specifies the level of encryption that should be used.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterLocation </strong><em>LOCATION[,...,LOCATION]</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterLocation </strong><em>'LOCATION'[,...,'LOCATION']</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterLocation </strong><em>&quot;LOCATION&quot;[,...,&quot;LOCATION&quot;]</em><br>
+Specifies a list of locations to use for destinations.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterLocation </strong><em>/REGULAR-EXPRESSION/</em><br>
+Specifies a regular expression for matching locations to use for destinations.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterType any</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterType </strong><em>TYPE[,...,TYPE]</em><br>
+Specifies the type of destinations to use.
+The TYPE values are &quot;mono&quot; for B&amp;W printers, &quot;color&quot; for color printers, &quot;duplex&quot; for printers with 2-sided printing capabilities, &quot;simplex&quot; for printers with 1-sided printing capabilities, &quot;bind&quot; for printers that can bind output, &quot;cover&quot; for printers that can cover output, &quot;punch&quot; for printers that can punch output, &quot;sort&quot; for printers that can sort output, &quot;staple&quot; for printers with a stapler, &quot;small&quot; for printers that support media up to US Legal/ISO A4, &quot;medium&quot; for printers that support media up to US Tabloid/ISO A3, and &quot;large&quot; for printers that support media larger than US Tabloid/ISO A3.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>GSSServiceName </strong><em>name</em><br>
 Specifies the Kerberos service name that is used for authentication, typically &quot;host&quot;, &quot;http&quot;, or &quot;ipp&quot;.
@@ -113,8 +139,33 @@ The default is &quot;Minimal&quot;.
 Specifies whether to only allow TLS with certificates whose common name matches the hostname.
 The default is &quot;No&quot;.
 </p>
+    <h2 id="client.conf-5.x.509-certificate-store">X.509 Certificate Store</h2>
+<p>CUPS uses the system root CA certificate store and per-user certificate stores managed by CUPS.
+The per-user certificate stores are found in &quot;/etc/cups/ssl&quot; for the root user and &quot;$XDG_CONFIG_HOME/cups/ssl&quot; (Linux/*BSD), &quot;$HOME/Library/Application Support/cups/ssl&quot; (macOS), &quot;%USERPROFILE%/AppData/Local/cups&quot; (Windows), and/or &quot;$HOME/.cups/ssl&quot; for other user accounts.
+</p>
+    <p>Certificates, certificate signing requests, and private keys are stored as PEM-encoded files with the naming convention &quot;COMMON-NAME.crt&quot; for certificates, &quot;COMMON-NAME.csr&quot; for certificate signing requests, and &quot;COMMON-NAME.key&quot; for private keys. The special common name &quot;_site_&quot; is used for a site-specific root certificate that can be used for trust evaluations.
+</p>
+    <h2 id="client.conf-5.x.509-certificate-validation">X.509 Certificate Validation</h2>
+<p>CUPS supports validation of the certificate's commonName and subjectAltName field values, the certificate expiration date, and the certificate's root certificate(s), if any.
+Self-signed certificates are &quot;pinned&quot; (stored) to the host in order to do validation.
+Validation for certain non-printing servers may add additional restrictions to the policy defined in the
+<strong>client.conf</strong>
+file, for example OAuth authorization requires a CA-signed certificate.
+</p>
+    <p>The
+<strong>AllowAnyRoot</strong>
+directive controls whether unpinned self-signed certificates are acceptable.
+The
+<strong>TrustOnFirstUse</strong>
+directive controls whether self-certificates are automatically pinned in the per-user certificate store for subsequent host validations.
+When
+<strong>AllowAnyRoot</strong>
+is disabled,
+<strong>TrustOnFirstUse</strong>
+is also disabled.
+</p>
     <h2 id="client.conf-5.notes">Notes</h2>
-<p>The <strong>client.conf</strong> file is deprecated on macOS and will no longer be supported in a future version of CUPS.
+<p>Because of sandboxing, the <strong>client.conf</strong> file is not generally accessible to applications on macOS.
 Configuration settings can instead be viewed or changed using the
 <strong>defaults</strong>(1)
 
@@ -128,13 +179,10 @@ defaults read /Library/Preferences/org.cups.PrintingPrefs.plist Encryption
 <p>On Linux and other systems using GNU TLS, the <em>/etc/cups/ssl/site.crl</em> file, if present, provides a list of revoked X.509 certificates and is used when validating certificates.
 </p>
     <h2 id="client.conf-5.see-also">See Also</h2>
-<a href="cups.html"><p><strong>cups</strong>(1),</a>
+<a href="cups.html"><p><strong>cups</strong>(1)</a>
 
-<strong>default</strong>(1),
-
-CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>
     <h2 id="client.conf-5.copyright">Copyright</h2>
-<p>Copyright &copy; 2020-2024 by OpenPrinting.
+<p>Copyright &copy; 2021-2025 by OpenPrinting.
   </body>
 </html>

@@ -12,7 +12,7 @@
   <body>
     <div class="cups-header">
       <ul>
-	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
+	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
 	<li><a class="active" href="/">Start</a></li>
 	<li><a href="/admin">Administracja</a></li>
 	<li><a href="/classes/">Klasy</a></li>
@@ -27,13 +27,21 @@
 	<p>Oparty na standardach i otwartych źródłach system wydruku stworzony przez <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> na Linux® i inne systemy typu Unix®. CUPS używa <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> do drukowania na lokalnych i sieciowych drukarkach.</p>
       </div>
       <div class="row">
+        <h2 class="title">Serwer</h2>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Dodaj drukarkę"></form>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Znajdź nowe drukarki"></form>
+	<form action="/jobs/" method="GET"><input type="submit" value="Zarządzanie kolejką"></form>
+	<form action="/printers/" method="GET"><input type="submit" value="Zarządzanie drukarkami"></form>
+	<form action="/admin/" method="GET"><input type="submit" value="Zapisz ustawienia"></form>
+      </div>
+      <div class="row">
 	<div class="thirds">
-	  <h2>CUPS dla użytkowników</h2>
+	  <h2 class="title">CUPS dla użytkowników</h2>
 	  <p><a href="help/overview.html">Przegląd CUPS</a></p>
 	  <p><a href="help/options.html">Drukowanie i ustawienia z linii poleceń</a></p>
 	</div>
 	<div class="thirds">
-	  <h2>CUPS dla administratorów</h2>
+	  <h2 class="title">CUPS dla administratorów</h2>
 	  <p><a href="help/admin.html">Dodawanie drukarek i klas</a></p>
 	  <p><a href="help/policies.html">Zarządzanie politykami operacyjnymi</a></p>
 	  <p><a href="help/network.html">Użytkowanie drukarek sieciowych</a></p>
@@ -41,12 +49,12 @@
 	  <p><a href="help/man-cupsd.conf.html">Skrypt cupsd.conf</a></p>
 	</div>
 	<div class="thirds">
-	  <h2>CUPS dla programistów</h2>
+	  <h2 class="title">CUPS dla programistów</h2>
 	  <p><a href="help/cupspm.html">Podręcznik programowania CUPS</a></p>
 	  <p><a href="help/api-filter.html">Programowanie filtrów i zadań serwera</a></p>
 	</div>
       </div>
     </div>
-    <div class="cups-footer">Prawa autorskie &copy; 2021-2023 OpenPrinting. Wszystkie prawa zastrzeżone.</div>
+    <div class="cups-footer">Prawa autorskie &copy; 2021-2025 OpenPrinting. Wszystkie prawa zastrzeżone.</div>
   </body>
 </html>

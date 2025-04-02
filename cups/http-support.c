@@ -1,7 +1,7 @@
 //
 // HTTP support routines for CUPS.
 //
-// Copyright © 2020-2023 by OpenPrinting
+// Copyright © 2020-2025 by OpenPrinting
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -97,7 +97,7 @@ static void 		http_resolve_cb(cups_dnssd_resolve_t *res, void *cb_data, cups_dns
 // place of traditional string functions whenever you need to create a
 // URI string.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 http_uri_status_t			// O - URI status
@@ -332,7 +332,7 @@ httpAssembleURI(
 // this function in place of traditional string functions whenever
 // you need to create a URI string.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 http_uri_status_t			// O - URI status
@@ -387,7 +387,7 @@ httpAssembleURIf(
 //
 // The buffer needs to be at least 46 bytes in size.
 //
-// @since CUPS 1.7/macOS 10.9@
+// @since CUPS 1.7@
 //
 
 char *					// I - UUID string
@@ -726,7 +726,7 @@ httpGetDateString(time_t t)		// I - Time in seconds
 //
 // 'httpGetDateString2()' - Get a formatted date/time string from a time value.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 const char *				// O - Date/time string
@@ -858,7 +858,7 @@ httpSeparate2(const char *uri,		// I - Universal Resource Identifier
 // 'httpSeparateURI()' - Separate a Universal Resource Identifier into its
 //                       components.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 http_uri_status_t			// O - Result of separation

@@ -1,7 +1,7 @@
 #
 # Top-level Makefile for CUPS.
 #
-# Copyright © 2020-2023 by OpenPrinting
+# Copyright © 2020-2024 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -31,7 +31,6 @@ TESTOPTIONS	=
 #
 
 all:
-	chmod +x cups-config
 	echo Using ARCHFLAGS="$(ARCHFLAGS)"
 	echo Using ALL_CFLAGS="$(ALL_CFLAGS)"
 	echo Using ALL_CXXFLAGS="$(ALL_CXXFLAGS)"
@@ -102,7 +101,6 @@ clean:
 distclean:	clean
 	$(RM) Makedefs config.h config.log config.status
 	$(RM) conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf
-	$(RM) cups-config
 	$(RM) cups.pc
 	$(RM) desktop/cups.desktop
 	$(RM) doc/index.html
@@ -171,9 +169,6 @@ install-data:
 		echo Installing data files in $$dir... ;\
 		(cd $$dir; $(MAKE) $(MFLAGS) install-data) || exit 1;\
 	done
-	echo Installing cups-config script...
-	$(INSTALL_DIR) -m 755 $(BINDIR)
-	$(INSTALL_SCRIPT) cups-config $(BINDIR)/cups-config
 	echo Installing cups.pc file...
 	$(INSTALL_DIR) -m 755 $(CUPS_PKGCONFPATH)
 	$(INSTALL_DATA) cups.pc $(CUPS_PKGCONFPATH)/cups.pc
@@ -215,7 +210,7 @@ install-libs:	libs
 		echo Installing libraries in $$dir... ;\
 		(cd $$dir; $(MAKE) $(MFLAGS) install-libs) || exit 1;\
 	done
-	if test -x /usr/sbin/ldconfig; then \
+	-if test -x /usr/sbin/ldconfig; then \
 		/usr/sbin/ldconfig; \
 	fi
 
@@ -229,9 +224,6 @@ uninstall:
 		echo Uninstalling in $$dir... ;\
 		(cd $$dir; $(MAKE) $(MFLAGS) uninstall) || exit 1;\
 	done
-	echo Uninstalling cups-config script...
-	$(RM) $(BINDIR)/cups-config
-	-$(RMDIR) $(BINDIR)
 	echo Uninstalling cups.pc file...
 	$(RM) $(CUPS_PKGCONFPATH)/cups.pc
 	-$(RMDIR) $(CUPS_PKGCONFPATH)

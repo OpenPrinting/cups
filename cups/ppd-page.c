@@ -1,18 +1,14 @@
 /*
  * Page size functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
  *
  * PostScript is a trademark of Adobe Systems, Inc.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "string-private.h"
@@ -182,7 +178,7 @@ ppdPageSize(ppd_file_t *ppd,		/* I - PPD file record */
  * If the specified PPD file does not support custom page sizes, both
  * "minimum" and "maximum" are filled with zeroes.
  *
- * @since CUPS 1.4/macOS 10.6@
+ * @since CUPS 1.4@
  */
 
 int					/* O - 1 if custom sizes are supported, 0 otherwise */

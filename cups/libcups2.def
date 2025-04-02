@@ -171,6 +171,7 @@ cupsCondWait
 cupsConnectDest
 cupsCopyCredentials
 cupsCopyCredentialsKey
+cupsCopyCredentialsPublicKey
 cupsCopyCredentialsRequest
 cupsCopyDest
 cupsCopyDestConflicts
@@ -343,6 +344,7 @@ cupsJWTGetHeaderValue
 cupsJWTGetHeaders
 cupsJWTHasValidSignature
 cupsJWTImportString
+cupsJWTLoadCredentials
 cupsJWTMakePrivateKey
 cupsJWTMakePublicKey
 cupsJWTNew

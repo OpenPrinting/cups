@@ -1,16 +1,12 @@
 /*
  * Subscription routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.	See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cupsd.h"
@@ -93,6 +89,9 @@ cupsdAddEvent(
   * caches...
   */
 
+  if (job && !dest)
+    dest = cupsdFindPrinter(job->dest);
+
   for (temp = NULL, sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
        sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
@@ -119,11 +118,7 @@ cupsdAddEvent(
       temp->time  = time(NULL);
       temp->attrs = ippNew();
       temp->job	  = job;
-
-      if (dest)
-	temp->dest = dest;
-      else if (job)
-	temp->dest = dest = cupsdFindPrinter(job->dest);
+      temp->dest  = dest;
 
      /*
       * Add common event notification attributes...
@@ -159,6 +154,11 @@ cupsdAddEvent(
       ippAddString(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_TEXT,
 		   "notify-text", NULL, ftext);
 
+      if (job)
+        cupsdLogJob(job, CUPSD_LOG_DEBUG, "%s: %s", cupsdEventName(event), ftext);
+      else
+        cupsdLogPrinter(dest, CUPSD_LOG_DEBUG, "%s: %s", cupsdEventName(event), ftext);
+
       if (dest)
       {
        /*
@@ -185,7 +185,7 @@ cupsdAddEvent(
 	* Add job attributes...
 	*/
 
-	ippAddInteger(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_INTEGER, "notify-job-id", job->id);
+	ippAddInteger(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_INTEGER, sub->job ? "notify-job-id" : "job-id", job->id);
 	ippAddInteger(temp->attrs, IPP_TAG_EVENT_NOTIFICATION, IPP_TAG_ENUM, "job-state", (int)job->state_value);
 
 	if ((attr = ippFindAttribute(job->attrs, "job-name", IPP_TAG_NAME)) != NULL)
@@ -262,7 +262,7 @@ cupsdAddSubscription(
   cupsd_subscription_t	*temp;		/* New subscription object */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2,
 		  "cupsdAddSubscription(mask=%x, dest=%p(%s), job=%p(%d), "
 		  "uri=\"%s\")",
 		  mask, (void *)dest, dest ? dest->name : "", (void *)job, job ? job->id : 0,

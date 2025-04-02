@@ -1,7 +1,7 @@
 /*
  * PPD file routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -9,10 +9,6 @@
  * information.
  *
  * PostScript is a trademark of Adobe Systems, Inc.
- */
-
-/*
- * Include necessary headers.
  */
 
 #include "cups-private.h"
@@ -272,7 +268,7 @@ ppdClose(ppd_file_t *ppd)		/* I - PPD file record */
 /*
  * 'ppdErrorString()' - Returns the text associated with a status.
  *
- * @since CUPS 1.1.19/macOS 10.3@
+ * @since CUPS 1.1.19@
  */
 
 const char *				/* O - Status string */
@@ -384,7 +380,7 @@ _ppdGlobals(void)
 /*
  * 'ppdLastError()' - Return the status from the last ppdOpen*().
  *
- * @since CUPS 1.1.19/macOS 10.3@
+ * @since CUPS 1.1.19@
  */
 
 ppd_status_t				/* O - Status code */
@@ -404,7 +400,7 @@ ppdLastError(int *line)			/* O - Line number */
 /*
  * '_ppdOpen()' - Read a PPD file into memory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_file_t *				/* O - PPD file record or @code NULL@ if the PPD file could not be opened. */
@@ -2187,7 +2183,7 @@ ppdOpen(FILE *fp)			/* I - File to read from */
 /*
  * 'ppdOpen2()' - Read a PPD file into memory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_file_t *				/* O - PPD file record or @code NULL@ if the PPD file could not be opened. */
@@ -2312,7 +2308,7 @@ ppdOpenFile(const char *filename)	/* I - File to read from */
 /*
  * 'ppdSetConformance()' - Set the conformance level for PPD files.
  *
- * @since CUPS 1.1.20/macOS 10.4@
+ * @since CUPS 1.1.20@
  */
 
 void

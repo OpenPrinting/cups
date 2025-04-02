@@ -1,23 +1,24 @@
 .\"
 .\" client.conf man page for CUPS.
 .\"
-.\" Copyright © 2020-2024 by OpenPrinting.
+.\" Copyright © 2021-2025 by OpenPrinting.
 .\" Copyright © 2007-2019 by Apple Inc.
 .\" Copyright © 2006 by Easy Software Products.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH client.conf 5 "CUPS" "2021-02-28" "OpenPrinting"
+.TH client.conf 5 "CUPS" "2025-03-04" "OpenPrinting"
 .SH NAME
 client.conf \- client configuration file for cups (deprecated on macos)
 .SH DESCRIPTION
 The \fBclient.conf\fR file configures the CUPS client and is normally located in the \fI/etc/cups\fR and/or \fI~/.cups\fR directories.
 Each line in the file can be a configuration directive, a blank line, or a comment. Comment lines start with the # character.
 .LP
-\fBNote:\fR Starting with macOS 10.7, this file is only used by command-line and X11 applications plus the IPP backend.
-The \fBServerName\fR directive is not supported on macOS at all.
-Starting with macOS 10.12, all applications can access these settings in the \fI/Library/Preferences/org.cups.PrintingPrefs.plist\fR file instead.
+\fBNote:\fR macOS applications can access many of these settings in the \fI/Library/Preferences/org.cups.PrintingPrefs.plist\fR file instead.
+macOS also does not support the
+.B ServerName
+directive.
 See the NOTES section below for more information.
 .SS DIRECTIVES
 The following directives are understood by the client. Consult the online help for detailed descriptions:
@@ -35,6 +36,16 @@ The default is "Yes".
 \fBAllowExpiredCerts No\fR
 Specifies whether to allow TLS with expired certificates.
 The default is "No".
+.\"#BrowseDomains
+.TP 5
+\fBBrowseDomains all\fR
+.TP 5
+\fBBrowseDomains none\fR
+.TP 5
+\fBBrowseDomains \fIDOMAIN[,...,DOMAIN]\fR
+Specifies the DNS-SD domains to browse for IPP printers.
+The value "all" browses the ".local" domain (mDNS) and all registered DNS domains on the local system.
+The value "none" disables browsing for network printers.
 .\"#DigestOptions
 .TP 5
 \fBDigestOptions DenyMD5\fR
@@ -50,6 +61,24 @@ Specifies HTTP Digest authentication options.
 .TP 5
 \fBEncryption Required\fR
 Specifies the level of encryption that should be used.
+.\"#FilterLocation
+.TP 5
+\fBFilterLocation \fILOCATION[,...,LOCATION]\fR
+.TP 5
+\fBFilterLocation \fI'LOCATION'[,...,'LOCATION']\fR
+.TP 5
+\fBFilterLocation \fI"LOCATION"[,...,"LOCATION"]\fR
+Specifies a list of locations to use for destinations.
+.TP 5
+\fBFilterLocation \fI/REGULAR-EXPRESSION/\fR
+Specifies a regular expression for matching locations to use for destinations.
+.\"#FilterType
+.TP 5
+\fBFilterType any\fR
+.TP 5
+\fBFilterType \fITYPE[,...,TYPE]\fR
+Specifies the type of destinations to use.
+The TYPE values are "mono" for B&W printers, "color" for color printers, "duplex" for printers with 2-sided printing capabilities, "simplex" for printers with 1-sided printing capabilities, "bind" for printers that can bind output, "cover" for printers that can cover output, "punch" for printers that can punch output, "sort" for printers that can sort output, "staple" for printers with a stapler, "small" for printers that support media up to US Legal/ISO A4, "medium" for printers that support media up to US Tabloid/ISO A3, and "large" for printers that support media larger than US Tabloid/ISO A3.
 .\"#GSSServiceName
 .TP 5
 \fBGSSServiceName \fIname\fR
@@ -124,8 +153,31 @@ The default is "Minimal".
 \fBValidateCerts No\fR
 Specifies whether to only allow TLS with certificates whose common name matches the hostname.
 The default is "No".
+.SH X.509 CERTIFICATE STORE
+CUPS uses the system root CA certificate store and per-user certificate stores managed by CUPS.
+The per-user certificate stores are found in "/etc/cups/ssl" for the root user and "$XDG_CONFIG_HOME/cups/ssl" (Linux/*BSD), "$HOME/Library/Application Support/cups/ssl" (macOS), "%USERPROFILE%/AppData/Local/cups" (Windows), and/or "$HOME/.cups/ssl" for other user accounts.
+.PP
+Certificates, certificate signing requests, and private keys are stored as PEM-encoded files with the naming convention "COMMON-NAME.crt" for certificates, "COMMON-NAME.csr" for certificate signing requests, and "COMMON-NAME.key" for private keys. The special common name "_site_" is used for a site-specific root certificate that can be used for trust evaluations.
+.SH X.509 CERTIFICATE VALIDATION
+CUPS supports validation of the certificate's commonName and subjectAltName field values, the certificate expiration date, and the certificate's root certificate(s), if any.
+Self-signed certificates are "pinned" (stored) to the host in order to do validation.
+Validation for certain non-printing servers may add additional restrictions to the policy defined in the
+.B client.conf
+file, for example OAuth authorization requires a CA-signed certificate.
+.PP
+The
+.B AllowAnyRoot
+directive controls whether unpinned self-signed certificates are acceptable.
+The
+.B TrustOnFirstUse
+directive controls whether self-certificates are automatically pinned in the per-user certificate store for subsequent host validations.
+When
+.B AllowAnyRoot
+is disabled,
+.B TrustOnFirstUse
+is also disabled.
 .SH NOTES
-The \fBclient.conf\fR file is deprecated on macOS and will no longer be supported in a future version of CUPS.
+Because of sandboxing, the \fBclient.conf\fR file is not generally accessible to applications on macOS.
 Configuration settings can instead be viewed or changed using the
 .BR defaults (1)
 command:
@@ -137,8 +189,6 @@ defaults read /Library/Preferences/org.cups.PrintingPrefs.plist Encryption
 .fi
 On Linux and other systems using GNU TLS, the \fI/etc/cups/ssl/site.crl\fR file, if present, provides a list of revoked X.509 certificates and is used when validating certificates.
 .SH SEE ALSO
-.BR cups (1),
-.BR default (1),
-CUPS Online Help (http://localhost:631/help)
+.BR cups (1)
 .SH COPYRIGHT
-Copyright \[co] 2020-2024 by OpenPrinting.
+Copyright \[co] 2021-2025 by OpenPrinting.

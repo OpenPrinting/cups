@@ -177,12 +177,12 @@ The default is &quot;300&quot;.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>JobRetryInterval </strong><em>seconds</em><br>
 Specifies the interval between retries of jobs in seconds.
-This is typically used for fax queues but can also be used with normal print queues whose error policy is &quot;retry-job&quot; or &quot;retry-current-job&quot;.
+This is typically used for fax queues but can also be used with normal print queues whose error policy is &quot;retry-job&quot;.
 The default is &quot;300&quot;.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>JobRetryLimit </strong><em>count</em><br>
 Specifies the number of retries that are done for jobs.
-This is typically used for fax queues but can also be used with normal print queues whose error policy is &quot;retry-job&quot; or &quot;retry-current-job&quot;.
+This is typically used for fax queues but can also be used with normal print queues whose error policy is &quot;retry-job&quot;.
 The default is &quot;5&quot;.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>KeepAlive Yes</strong><br>
@@ -396,7 +396,7 @@ The default is &quot;Minimal&quot;.
 Listens on the specified address and port for encrypted connections.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"></p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions </strong>[<em>AllowDH</em>] [<em>AllowRC4</em>] [<em>AllowSSL3</em>] [<em>DenyCBC</em>] [<em>DenyTLS1.0</em>] [<em>MaxTLS1.0</em>] [<em>MaxTLS1.1</em>] [<em>MaxTLS1.2</em>] [<em>MaxTLS1.3</em>] [<em>MinTLS1.0</em>] [<em>MinTLS1.1</em>] [<em>MinTLS1.2</em>] [<em>MinTLS1.3</em>]<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions </strong>[<em>AllowDH</em>] [<em>AllowRC4</em>] [<em>AllowSSL3</em>] [<em>DenyCBC</em>] [<em>DenyTLS1.0</em>] [<em>MaxTLS1.0</em>] [<em>MaxTLS1.1</em>] [<em>MaxTLS1.2</em>] [<em>MaxTLS1.3</em>] [<em>MinTLS1.0</em>] [<em>MinTLS1.1</em>] [<em>MinTLS1.2</em>] [<em>MinTLS1.3</em>] [<em>NoSystem</em>]<br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions None</strong><br>
 Sets encryption options (only in /etc/cups/client.conf).
@@ -410,6 +410,7 @@ The <em>DenyCBC</em> option disables all CBC cipher suites.
 The <em>DenyTLS1.0</em> option disables TLS v1.0 support - this sets the minimum protocol version to TLS v1.1.
 The <em>MinTLS</em> options set the minimum TLS version to support.
 The <em>MaxTLS</em> options set the maximum TLS version to support.
+The <em>NoSystem</em> option disables applying system cryptographic policy.
 Not all operating systems support TLS 1.3 at this time.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLPort </strong><em>port</em><br>
@@ -885,6 +886,6 @@ often belongs to a different set of subnets from its clients.
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>
     <h2 id="cupsd.conf-5.copyright">Copyright</h2>
-<p>Copyright &copy; 2020-2024 by OpenPrinting.
+<p>Copyright &copy; 2020-2025 by OpenPrinting.
   </body>
 </html>

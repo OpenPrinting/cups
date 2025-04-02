@@ -3,9 +3,7 @@
 #
 # The "html" target depends on "mantohtml" from https://www.msweet.org/mantohtml
 #
-# Copyright © 2020-2024 by OpenPrinting.
-# Copyright © 2007-2019 by Apple Inc.
-# Copyright © 1993-2006 by Easy Software Products.
+# Copyright © 2020-2025 by OpenPrinting.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
 # information.
@@ -20,7 +18,8 @@ include ../Makedefs
 
 MAN1	=	cancel.1 \
 		cups.1 \
-		cups-config.1 \
+		cups-oauth.1 \
+		cups-x509.1 \
 		cupstestppd.1 \
 		ippeveprinter.1 \
 		$(IPPFIND_MAN) \

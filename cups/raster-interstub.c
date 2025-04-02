@@ -1,15 +1,11 @@
 /*
  * cupsRasterInterpretPPD stub for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include <cups/ppd-private.h>
@@ -49,7 +45,7 @@
  * @code pop@, @code roll@, @code setpagedevice@, and @code stopped@ operators
  * are supported.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 int					/* O - 0 on success, -1 on failure */

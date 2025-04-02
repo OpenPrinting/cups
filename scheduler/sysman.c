@@ -1,17 +1,12 @@
 /*
  * System management functions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright @ 2007-2018 by Apple Inc.
  * Copyright @ 2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-
-/*
- * Include necessary headers...
  */
 
 #include "cupsd.h"
@@ -86,7 +81,7 @@ cupsdCleanDirty(void)
 void
 cupsdMarkDirty(int what)		/* I - What file(s) are dirty? */
 {
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdMarkDirty(%c%c%c%c%c)",
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdMarkDirty(%c%c%c%c%c)",
 		  (what & CUPSD_DIRTY_PRINTERS) ? 'P' : '-',
 		  (what & CUPSD_DIRTY_CLASSES) ? 'C' : '-',
 		  (what & CUPSD_DIRTY_PRINTCAP) ? 'p' : '-',
@@ -158,7 +153,7 @@ cupsdSetBusyState(int working)          /* I - Doing significant work? */
   if (job)
     newbusy |= 2;
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG,
+  cupsdLogMessage(CUPSD_LOG_DEBUG2,
                   "cupsdSetBusyState: newbusy=\"%s\", busy=\"%s\"",
                   busy_text[newbusy], busy_text[busy]);
 
@@ -180,7 +175,7 @@ cupsdSetBusyState(int working)          /* I - Doing significant work? */
   }
   else if (cupsArrayCount(PrintingJobs) == 0 && keep_awake)
   {
-    cupsdLogMessage(CUPSD_LOG_DEBUG, "Releasing power assertion.");
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "Releasing NetworkClientActive.");
     IOPMAssertionRelease(keep_awake);
     keep_awake = 0;
   }

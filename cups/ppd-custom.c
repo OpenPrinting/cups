@@ -1,18 +1,14 @@
 /*
  * PPD custom option routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
  *
  * PostScript is a trademark of Adobe Systems, Inc.
- */
-
-/*
- * Include necessary headers.
  */
 
 #include "cups-private.h"
@@ -23,7 +19,7 @@
 /*
  * 'ppdFindCustomOption()' - Find a custom option.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_coption_t *				/* O - Custom option or NULL */
@@ -44,7 +40,7 @@ ppdFindCustomOption(ppd_file_t *ppd,	/* I - PPD file */
 /*
  * 'ppdFindCustomParam()' - Find a parameter for a custom option.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_cparam_t *				/* O - Custom parameter or NULL */
@@ -70,7 +66,7 @@ ppdFindCustomParam(ppd_coption_t *opt,	/* I - Custom option */
 /*
  * 'ppdFirstCustomParam()' - Return the first parameter for a custom option.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_cparam_t *				/* O - Custom parameter or NULL */
@@ -86,7 +82,7 @@ ppdFirstCustomParam(ppd_coption_t *opt)	/* I - Custom option */
 /*
  * 'ppdNextCustomParam()' - Return the next parameter for a custom option.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_cparam_t *				/* O - Custom parameter or NULL */

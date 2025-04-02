@@ -1,17 +1,13 @@
-/*
- * Global variable access routines for CUPS.
- *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright © 2007-2019 by Apple Inc.
- * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
- */
-
-/*
- * Include necessary headers...
- */
+//
+// Global variable access routines for CUPS.
+//
+// Copyright © 2021-2025 by OpenPrinting.
+// Copyright © 2007-2019 by Apple Inc.
+// Copyright © 1997-2007 by Easy Software Products, all rights reserved.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
 #include "cups-private.h"
 #include "debug-internal.h"
@@ -121,6 +117,8 @@ _cupsGlobalUnlock(void)
 #ifdef _WIN32
 /*
  * 'DllMain()' - Main entry for library.
+ *
+ * @private@
  */
 
 BOOL WINAPI				/* O - Success/failure */
@@ -335,6 +333,13 @@ cups_globals_alloc(void)
       cg->localedir = CUPS_LOCALEDIR;
   }
 
+  if (!getuid())
+  {
+    // When running as root, make "userconfig" the same as "sysconfig"...
+    cg->userconfig = strdup(cg->sysconfig);
+    return (cg);
+  }
+
 #  ifdef __APPLE__
   if (!home)
 #else
@@ -431,11 +436,18 @@ cups_globals_free(_cups_globals_t *cg)	/* I - Pointer to global data */
   cupsFileClose(cg->stdio_files[1]);
   cupsFileClose(cg->stdio_files[2]);
 
+  cupsArrayDelete(cg->browse_domains);
+  cupsArrayDelete(cg->filter_location_array);
+  if (cg->filter_location_regex)
+  {
+    regfree(cg->filter_location_regex);
+    free(cg->filter_location_regex);
+  }
+
   cupsFreeOptions(cg->cupsd_num_settings, cg->cupsd_settings);
 
   free(cg->userconfig);
   free(cg->raster_error.start);
-
   free(cg);
 }
 #endif /* HAVE_PTHREAD_H || _WIN32 */

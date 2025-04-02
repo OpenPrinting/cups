@@ -12,7 +12,7 @@
   <body>
     <div class="cups-header">
       <ul>
-	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
+	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
 	<li><a class="active" href="/">Hjem</a></li>
 	<li><a href="/admin">Administration</a></li>
 	<li><a href="/classes/">Klasser</a></li>
@@ -27,13 +27,21 @@
 	<p>CUPS er det standardbaseret, open source-udskrivningssystem som er udviklet af <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> til Linux® og andre UNIX<sup>&reg;</sup>-lignende styresystemer. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers</p>
       </div>
       <div class="row">
+        <h2 class="title">Server</h2>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Tilføj printer"></form>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Find nye printere"></form>
+	<form action="/jobs/" method="GET"><input type="submit" value="Håndter jobs"></form>
+	<form action="/printers/" method="GET"><input type="submit" value="Håndter printere"></form>
+	<form action="/admin/" method="GET"><input type="submit" value="Skift indstillinger"></form>
+      </div>
+      <div class="row">
 	<div class="thirds">
-	  <h2>CUPS for brugere</h2>
+	  <h2 class="title">CUPS for brugere</h2>
 	  <p><a href="help/overview.html">Overblik over CUPS</a></p>
 	  <p><a href="help/options.html">Kommandolinjeudskrivning og tilvalg</a></p>
 	</div>
 	<div class="thirds">
-	  <h2>CUPS for administratorer</h2>
+	  <h2 class="title">CUPS for administratorer</h2>
 	  <p><a href="help/admin.html">Tilføjelse af printere og klasser</a></p>
 	  <p><a href="help/policies.html">Håndtering af driftspolitikker</a></p>
 	  <p><a href="help/network.html">Brug af netværksprintere</a></p>
@@ -41,12 +49,12 @@
 	  <p><a href="help/man-cupsd.conf.html">cupsd.conf-reference</a></p>
 	</div>
 	<div class="thirds">
-	  <h2>CUPS for udviklere</h2>
+	  <h2 class="title">CUPS for udviklere</h2>
 	  <p><a href="help/cupspm.html">CUPS-programmeringsmanual</a></p>
 	  <p><a href="help/api-filter.html">Filter- og backendprogrammering</a></p>
 	</div>
       </div>
     </div>
-    <div class="cups-footer">Ophavsret &copy; 2021-2023 OpenPrinting. Alle rettigheder forbeholdt.</div>
+    <div class="cups-footer">Ophavsret &copy; 2021-2025 OpenPrinting. Alle rettigheder forbeholdt.</div>
   </body>
 </html>

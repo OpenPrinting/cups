@@ -105,9 +105,6 @@
     <ClCompile Include="..\cups\request.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cups\snprintf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\cups\string.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -187,6 +184,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\cups\rand.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cups\clock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cups\oauth.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -297,6 +300,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\cups\base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cups\oauth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

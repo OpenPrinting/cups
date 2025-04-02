@@ -3,7 +3,7 @@
 //
 // Note: This file is included from tls.c
 //
-// Copyright © 2020-2024 by OpenPrinting
+// Copyright © 2020-2025 by OpenPrinting
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -832,9 +832,7 @@ cupsGetCredentialsTrust(
 
   cert = sk_X509_value(certs, 0);
 
-  DEBUG_printf("1cupsGetCredentialsGetTrust: certs=%p, sk_X509_num(certs)=%d", (void *)certs, sk_X509_num(certs));
-
-  if (cg->any_root < 0)
+  if (!cg->client_conf_loaded)
   {
     _cupsSetDefaults();
 //    openssl_load_crl();
@@ -1589,6 +1587,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   char		hostname[256],		// Hostname
 		cipherlist[256];	// List of cipher suites
   unsigned long	error;			// Error code, if any
+  _cups_globals_t *cg = _cupsGlobals();	// Per-thread globals
   static const uint16_t versions[] =	// SSL/TLS versions
   {
     TLS1_VERSION,			// No more SSL support in OpenSSL
@@ -1607,7 +1606,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
   DEBUG_printf("3_httpTLSStart(http=%p)", (void *)http);
 
-  if (tls_options < 0)
+  if (!cg->client_conf_loaded)
   {
     DEBUG_puts("4_httpTLSStart: Setting defaults.");
     _cupsSetDefaults();
@@ -1651,53 +1650,59 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     // Negotiate a TLS connection as a server
     char	crtfile[1024],		// Certificate file
 		keyfile[1024];		// Private key file
-    const char	*cn,			// Common name to lookup
+    const char	*cn = NULL,		// Common name to lookup
 		*cnptr;			// Pointer into common name
     bool	have_creds = false;	// Have credentials?
 
     context = SSL_CTX_new(TLS_server_method());
 
     // Find the TLS certificate...
-    if (http->fields[HTTP_FIELD_HOST])
+    if (!tls_common_name)
     {
-      // Use hostname for TLS upgrade...
-      cupsCopyString(hostname, http->fields[HTTP_FIELD_HOST], sizeof(hostname));
-    }
-    else
-    {
-      // Resolve hostname from connection address...
-      http_addr_t	addr;		// Connection address
-      socklen_t		addrlen;	// Length of address
-
-      addrlen = sizeof(addr);
-      if (getsockname(http->fd, (struct sockaddr *)&addr, &addrlen))
+      if (http->fields[HTTP_FIELD_HOST])
       {
-        // Unable to get local socket address so use default...
-	DEBUG_printf("4_httpTLSStart: Unable to get socket address: %s", strerror(errno));
-	hostname[0] = '\0';
-      }
-      else if (httpAddrIsLocalhost(&addr))
-      {
-        // Local access top use default...
-	hostname[0] = '\0';
+	// Use hostname for TLS upgrade...
+	cupsCopyString(hostname, http->fields[HTTP_FIELD_HOST], sizeof(hostname));
       }
       else
       {
-        // Lookup the socket address...
-	httpAddrLookup(&addr, hostname, sizeof(hostname));
-        DEBUG_printf("4_httpTLSStart: Resolved socket address to \"%s\".", hostname);
-      }
-    }
+	// Resolve hostname from connection address...
+	http_addr_t	addr;		// Connection address
+	socklen_t	addrlen;	// Length of address
 
-    if (isdigit(hostname[0] & 255) || hostname[0] == '[')
-      hostname[0] = '\0';		// Don't allow numeric addresses
+	addrlen = sizeof(addr);
+	if (getsockname(http->fd, (struct sockaddr *)&addr, &addrlen))
+	{
+	  // Unable to get local socket address so use default...
+	  DEBUG_printf("4_httpTLSStart: Unable to get socket address: %s", strerror(errno));
+	  hostname[0] = '\0';
+	}
+	else if (httpAddrIsLocalhost(&addr))
+	{
+	  // Local access top use default...
+	  hostname[0] = '\0';
+	}
+	else
+	{
+	  // Lookup the socket address...
+	  httpAddrLookup(&addr, hostname, sizeof(hostname));
+	  DEBUG_printf("4_httpTLSStart: Resolved socket address to \"%s\".", hostname);
+	}
+      }
+
+      if (isdigit(hostname[0] & 255) || hostname[0] == '[')
+	hostname[0] = '\0';		// Don't allow numeric addresses
+
+      if (hostname[0])
+	cn = hostname;
+    }
 
     cupsMutexLock(&tls_mutex);
 
-    if (hostname[0])
-      cn = hostname;
-    else
+    if (!cn)
       cn = tls_common_name;
+
+    DEBUG_printf("4_httpTLSStart: Using common name \"%s\"...", cn);
 
     if (cn)
     {

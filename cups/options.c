@@ -1,15 +1,11 @@
 /*
  * Option routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2017 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -31,7 +27,7 @@ static int	cups_find_option(const char *name, int num_options,
  * New option arrays can be initialized simply by passing 0 for the
  * "num_options" parameter.
  *
- * @since CUPS 2.2.4/macOS 10.13@
+ * @since CUPS 2.2.4@
  */
 
 int					/* O  - Number of options */
@@ -183,7 +179,7 @@ cupsFreeOptions(
  * INT_MIN is returned when the option does not exist, is not an integer, or
  * exceeds the range of values for the "int" type.
  *
- * @since CUPS 2.2.4/macOS 10.13@
+ * @since CUPS 2.2.4@
  */
 
 int					/* O - Option value or @code INT_MIN@ */
@@ -452,7 +448,7 @@ cupsParseOptions2(
 /*
  * 'cupsRemoveOption()' - Remove an option from an option array.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 int					/* O  - New number of options */
