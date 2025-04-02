@@ -7,6 +7,7 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
 
 - GnuTLS follows system crypto policies now (Issue #1105)
 - Added `NoSystem` SSLOptions value (Issue #1130)
+- Fixed a potential "lost PPD" condition in the scheduler (Issue #1109)
 - Fixed a compressed file error handling bug (Issue #1070)
 - Fixed a bug in the make-and-model whitespace trimming code (Issue #1096)
 - Fixed a removal of IPP Everywhere permanent queue if installation failed (Issue #1102)

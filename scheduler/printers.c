@@ -1,7 +1,7 @@
 /*
  * Printer routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting
+ * Copyright © 2020-2025 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -2794,8 +2794,7 @@ cupsdUpdatePrinterPPD(
   int		i;			/* Looping var */
   cups_file_t	*src,			/* Original file */
 		*dst;			/* New file */
-  char		srcfile[1024],		/* Original filename */
-		dstfile[1024],		/* New filename */
+  char		filename[1024],		/* PPD filename */
 		line[1024],		/* Line from file */
 		keystring[41];		/* Keyword from line */
   cups_option_t	*keyword;		/* Current keyword */
@@ -2805,37 +2804,21 @@ cupsdUpdatePrinterPPD(
                   p->name);
 
  /*
-  * Get the old and new PPD filenames...
+  * Get the base PPD filename...
   */
 
-  snprintf(srcfile, sizeof(srcfile), "%s/ppd/%s.ppd.O", ServerRoot, p->name);
-  snprintf(dstfile, sizeof(srcfile), "%s/ppd/%s.ppd", ServerRoot, p->name);
+  snprintf(filename, sizeof(filename), "%s/ppd/%s.ppd", ServerRoot, p->name);
 
  /*
-  * Rename the old file and open the old and new...
+  * Open the old and new PPDs...
   */
 
-  if (rename(dstfile, srcfile))
-  {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to backup PPD file for %s: %s",
-                    p->name, strerror(errno));
+  if ((src = cupsdOpenConfFile(filename)) == NULL)
     return (0);
-  }
 
-  if ((src = cupsFileOpen(srcfile, "r")) == NULL)
+  if ((dst = cupsdCreateConfFile(filename, ConfigFilePerm)) == NULL)
   {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to open PPD file \"%s\": %s",
-                    srcfile, strerror(errno));
-    rename(srcfile, dstfile);
-    return (0);
-  }
-
-  if ((dst = cupsFileOpen(dstfile, "w")) == NULL)
-  {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to create PPD file \"%s\": %s",
-                    dstfile, strerror(errno));
     cupsFileClose(src);
-    rename(srcfile, dstfile);
     return (0);
   }
 
@@ -2845,11 +2828,9 @@ cupsdUpdatePrinterPPD(
 
   if (!cupsFileGets(src, line, sizeof(line)))
   {
-    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to read PPD file \"%s\": %s",
-                    srcfile, strerror(errno));
+    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to read PPD file \"%s\": %s", filename, strerror(errno));
     cupsFileClose(src);
     cupsFileClose(dst);
-    rename(srcfile, dstfile);
     return (0);
   }
 
@@ -2887,7 +2868,7 @@ cupsdUpdatePrinterPPD(
   */
 
   cupsFileClose(src);
-  cupsFileClose(dst);
+  cupsdCloseCreatedConfFile(dst, filename);
 
   return (1);
 }
@@ -3448,7 +3429,7 @@ add_printer_filter(
     }
 
     do
-    {	
+    {
       ptr ++;
     } while (_cups_isspace(*ptr));
 
