@@ -1,7 +1,7 @@
 /*
  * PPD cache implementation for CUPS.
  *
- * Copyright © 2022-2024 by OpenPrinting.
+ * Copyright © 2022-2025 by OpenPrinting.
  * Copyright © 2010-2021 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -5679,11 +5679,6 @@ pwg_unppdize_name(const char *ppd,	/* I - PPD keyword */
 	*ptr++ = '-';
 	nodash = 1;
       }
-    }
-    else
-    {
-      *ptr++ = *ppd;
-      nodash = 0;
     }
 
     if (nodash == 0)

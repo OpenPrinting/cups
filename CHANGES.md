@@ -11,6 +11,7 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
 - Fixed a bug in the make-and-model whitespace trimming code (Issue #1096)
 - Fixed a removal of IPP Everywhere permanent queue if installation failed (Issue #1102)
 - Fixed `ServerToken None` in scheduler (Issue #1111)
+- Fixed invalid IPP keyword values created from PPD option names (Issue #1118)
 - Fixed client raster printing from macOS (Issue #1143)
 - Fixed the default User-Agent string.
 - Fixed a recursion issue in `ippReadIO`.
