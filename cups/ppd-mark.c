@@ -127,21 +127,15 @@ cupsMarkOptions(
       * Mark it...
       */
 
-      if (!page_size || !page_size[0])
-      {
-        if (!_cups_strncasecmp(s, "Custom.", 7) || ppdPageSize(ppd, s))
-          ppd_mark_option(ppd, "PageSize", s);
-        else if ((ppd_keyword = _ppdCacheGetPageSize(cache, NULL, s, NULL)) != NULL)
-	  ppd_mark_option(ppd, "PageSize", ppd_keyword);
-      }
+      if (!_cups_strncasecmp(s, "Custom.", 7) || ppdPageSize(ppd, s))
+	ppd_mark_option(ppd, "PageSize", s);
+      else if ((ppd_keyword = _ppdCacheGetPageSize(cache, NULL, s, NULL)) != NULL)
+	ppd_mark_option(ppd, "PageSize", ppd_keyword);
 
-      if (cache && cache->source_option &&
-          !cupsGetOption(cache->source_option, num_options, options) &&
-	  (ppd_keyword = _ppdCacheGetInputSlot(cache, NULL, s)) != NULL)
+      if (cache && cache->source_option && (ppd_keyword = _ppdCacheGetInputSlot(cache, NULL, s)) != NULL)
 	ppd_mark_option(ppd, cache->source_option, ppd_keyword);
 
-      if (!cupsGetOption("MediaType", num_options, options) &&
-	  (ppd_keyword = _ppdCacheGetMediaType(cache, NULL, s)) != NULL)
+      if ((ppd_keyword = _ppdCacheGetMediaType(cache, NULL, s)) != NULL)
 	ppd_mark_option(ppd, "MediaType", ppd_keyword);
     }
   }
