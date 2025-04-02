@@ -1,7 +1,7 @@
 //
 // Sorted array routines for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2014 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -65,7 +65,7 @@ static int	cups_array_find(cups_array_t *a, void *e, int prev, int *rdiff);
 // appended at the end of the run of identical elements.  For unsorted arrays,
 // the element is appended to the end of the array.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 int					// O - 1 on success, 0 on failure
@@ -109,7 +109,7 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
 
   DEBUG_printf("_cupsArrayAddStrings(a=%p, s=\"%s\", delim='%c')", (void *)a, s, delim);
 
-  if (!a || !s || !*s)
+  if (!a || !s || !*s || delim == '\0')
   {
     DEBUG_puts("1_cupsArrayAddStrings: Returning 0");
     return (false);
@@ -183,7 +183,7 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
 // The caller is responsible for freeing the memory used by the
 // elements themselves.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 void
@@ -248,7 +248,7 @@ cupsArrayCurrent(cups_array_t *a)	// I - Array
 // The caller is responsible for freeing the memory used by the
 // elements themselves.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 void
@@ -283,7 +283,7 @@ cupsArrayDelete(cups_array_t *a)	// I - Array
 //
 // 'cupsArrayDup()' - Duplicate the array.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 cups_array_t *				// O - Duplicate array
@@ -347,7 +347,7 @@ cupsArrayDup(cups_array_t *a)		// I - Array
 //
 // 'cupsArrayFind()' - Find an element in the array.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 void *					// O - Element found or `NULL`
@@ -520,7 +520,7 @@ cupsArrayGetFirst(cups_array_t *a)	// I - Array
 // The current element is undefined until you call @link cupsArrayFind@,
 // @link cupsArrayFirst@, or @link cupsArrayIndex@, or @link cupsArrayLast@.
 //
-// @since CUPS 1.3/macOS 10.5@
+// @since CUPS 1.3@
 //
 
 int					// O - Index of the current element, starting at 0
@@ -536,7 +536,7 @@ cupsArrayGetIndex(cups_array_t *a)	// I - Array
 //
 // 'cupsArrayGetInsert()' - Get the index of the last inserted element.
 //
-// @since CUPS 1.3/macOS 10.5@
+// @since CUPS 1.3@
 //
 
 int					// O - Index of the last inserted element, starting at 0
@@ -666,7 +666,7 @@ cupsArrayIndex(cups_array_t *a,		// I - Array
 // inserted at the beginning of the run of identical elements.  For unsorted
 // arrays, the element is inserted at the beginning of the array.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 int					// O - 0 on failure, 1 on success
@@ -761,7 +761,7 @@ cupsArrayNew2(cups_array_cb_t  f,	// I - Comparison function or `NULL` for an un
 // removed with @link cupsArrayRemove@ or the array is deleted with
 // @link cupsArrayDelete@.
 //
-// @since CUPS 1.5/macOS 10.7@
+// @since CUPS 1.5@
 //
 
 cups_array_t *				// O - Array
@@ -881,7 +881,7 @@ cupsArrayPrev(cups_array_t *a)		// I - Array
 // The caller is responsible for freeing the memory used by the
 // removed element.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 int					// O - 1 on success, 0 on failure
@@ -938,7 +938,7 @@ cupsArrayRemove(cups_array_t *a,	// I - Array
 //
 // 'cupsArrayRestore()' - Reset the current element to the last @link cupsArraySave@.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 void *					// O - New current element
@@ -969,7 +969,7 @@ cupsArrayRestore(cups_array_t *a)	// I - Array
 //
 // The save/restore stack is guaranteed to be at least 32 elements deep.
 //
-// @since CUPS 1.2/macOS 10.5@
+// @since CUPS 1.2@
 //
 
 int					// O - 1 on success, 0 on failure

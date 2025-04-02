@@ -8,7 +8,6 @@
 /config.status
 /configure~
 /cups.pc
-/cups-config
 /Makedefs
 /backend/dnssd
 /backend/http
@@ -36,6 +35,7 @@
 /conf/mime.convs
 /conf/pam.std
 /conf/snmp.conf
+/cups/.testssl
 /cups/cachebench
 /cups/fuzzipp
 /cups/libcups.dylib
@@ -150,6 +150,8 @@
 /templates/*/header.tmpl
 /test/cups-str-*.html
 /test/*_log-*
+/tools/cups-oauth
+/tools/cups-x509
 /tools/ippevepcl
 /tools/ippeveprinter
 /tools/ippeveprinter-static

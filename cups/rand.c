@@ -1,7 +1,7 @@
 //
 // Random number function for CUPS.
 //
-// Copyright © 2019-2022 by Michael R Sweet.
+// Copyright © 2019-2025 by Michael R Sweet.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.

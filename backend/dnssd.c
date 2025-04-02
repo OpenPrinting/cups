@@ -1,7 +1,7 @@
 //
 // DNS-SD discovery backend for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2008-2018 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -666,7 +666,7 @@ query_callback(
   if (device->make_and_model)
     free(device->make_and_model);
 
-  if (make_and_model[0])
+  if (make_and_model[0] && strncmp(make_and_model, model, strlen(make_and_model)))
   {
     cupsConcatString(make_and_model, " ", sizeof(make_and_model));
     cupsConcatString(make_and_model, model, sizeof(make_and_model));

@@ -1,15 +1,11 @@
 /*
  * Backend functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 2006 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -32,7 +28,7 @@ static void	quote_string(const char *s);
  * variable or the device URI passed in argv[0], whichever is found
  * first.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 const char *				/* O - Device URI or @code NULL@ */
@@ -79,7 +75,7 @@ cupsBackendDeviceURI(char **argv)	/* I - Command-line arguments */
  * It handles quoting of special characters in the device-make-and-model,
  * device-info, device-id, and device-location strings.
  *
- * @since CUPS 1.4/macOS 10.6@
+ * @since CUPS 1.4@
  */
 
 void

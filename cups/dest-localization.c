@@ -1,15 +1,11 @@
 /*
  * Destination localization support for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2012-2017 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -33,7 +29,7 @@ static void	cups_create_localizations(http_t *http, cups_dinfo_t *dinfo);
  * The returned string is stored in the destination information and will become
  * invalid if the destination information is deleted.
  *
- * @since CUPS 2.0/macOS 10.10@
+ * @since CUPS 2.0@
  */
 
 const char *				/* O - Localized string */
@@ -305,7 +301,7 @@ cupsLocalizeDestMedia2(
  * The returned string is stored in the destination information and will become
  * invalid if the destination information is deleted.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 const char *				/* O - Localized string */
@@ -345,7 +341,7 @@ cupsLocalizeDestOption(
  * The returned string is stored in the destination information and will become
  * invalid if the destination information is deleted.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 const char *				/* O - Localized string */

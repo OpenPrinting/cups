@@ -1,7 +1,7 @@
 /*
  * Destination option/media support for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2012-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -47,7 +47,7 @@ static void		cups_update_ready(http_t *http, cups_dinfo_t *dinfo);
 /*
  * 'cupsAddDestMediaOptions()' - Add the option corresponding to the specified media size.
  *
- * @since CUPS 2.3/macOS 10.14@
+ * @since CUPS 2.3@
  */
 
 int					/* O  - New number of options */
@@ -246,7 +246,7 @@ cupsAddDestMediaOptions2(
  *
  * Returns 1 if supported, 0 otherwise.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 int					/* O - 1 if supported, 0 otherwise */
@@ -462,7 +462,7 @@ cupsCheckDestSupported(
  * If cupsCopyDestConflicts returns 1 but "num_resolved" and "resolved" are set
  * to 0 and `NULL`, respectively, then the conflict cannot be resolved.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 int					/* O - 1 if there is a conflict, 0 if none, -1 on error */
@@ -958,7 +958,7 @@ cupsCopyDestInfo2(
  * @code ippGetResolution@, @code ippGetString@, and @code ippGetValueTag@
  * functions to inspect the default value(s) as needed.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 ipp_attribute_t	*			/* O - Default attribute or `NULL` for none */
@@ -1006,7 +1006,7 @@ cupsFindDestDefault(
  * @code ippGetResolution@, @code ippGetString@, and @code ippGetValueTag@
  * functions to inspect the default value(s) as needed.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 ipp_attribute_t	*			/* O - Default attribute or `NULL` for none */
@@ -1056,7 +1056,7 @@ cupsFindDestReady(
  * @code ippGetResolution@, @code ippGetString@, and @code ippGetValueTag@
  * functions to inspect the default value(s) as needed.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 ipp_attribute_t	*			/* O - Default attribute or `NULL` for none */
@@ -1099,7 +1099,7 @@ cupsFindDestSupported(
  * 'cupsFreeDestInfo()' - Free destination information obtained using
  *                        @link cupsCopyDestInfo@.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 void
@@ -1144,7 +1144,7 @@ cupsFreeDestInfo(cups_dinfo_t *dinfo)	/* I - Destination information */
  * example, passing @code CUPS_MEDIA_FLAGS_BORDERLESS@ will get the Nth
  * borderless size supported by the printer.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 int					/* O - 1 on success, 0 on failure */
@@ -1337,7 +1337,7 @@ cupsGetDestMediaByIndex2(
  *
  * Returns 1 when there is a match and 0 if there is not a match.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 int					/* O - 1 on match, 0 on failure */
@@ -1411,7 +1411,7 @@ cupsGetDestMediaByName(
  *
  * Returns `true` when there is a match and `false` if there is not a match.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 bool					/* O - `true` on match, `false` on failure */
@@ -1485,7 +1485,7 @@ cupsGetDestMediaByName2(
  *
  * Returns 1 when there is a match and 0 if there is not a match.
  *
- * @since CUPS 1.6/macOS 10.8@
+ * @since CUPS 1.6@
  */
 
 int					/* O - 1 on match, 0 on failure */
@@ -1622,7 +1622,7 @@ cupsGetDestMediaBySize2(
  * counted.  For example, passing @code CUPS_MEDIA_FLAGS_BORDERLESS@ will return
  * the number of borderless sizes.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 int					/* O - Number of sizes */
@@ -1670,7 +1670,7 @@ cupsGetDestMediaCount(
  * example, passing @code CUPS_MEDIA_FLAGS_BORDERLESS@ will return the default
  * borderless size, typically US Letter or A4, but sometimes 4x6 photo media.
  *
- * @since CUPS 1.7/macOS 10.9@
+ * @since CUPS 1.7@
  */
 
 int					/* O - 1 on success, 0 on failure */

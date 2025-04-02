@@ -12,7 +12,7 @@
   <body>
     <div class="cups-header">
       <ul>
-	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
+	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
 	<li><a class="active" href="/">Начало</a></li>
 	<li><a href="/admin">Администрирование</a></li>
 	<li><a href="/classes/">Группы</a></li>
@@ -25,6 +25,14 @@
       <div class="row">
 	<h1>OpenPrinting CUPS @CUPS_VERSION@</h1>
 	<P>CUPS — поддерживающая большинство стандартов, свободная подсистема печати, разрабатываемая компанией <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> для операционной системы Linux® и других UNIX<SUP>&reg;</SUP>-подобных операционных систем. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers</P>
+      </div>
+      <div class="row">
+        <h2 class="title">Сервер</h2>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Добавить принтер"></form>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Найти новый принтер"></form>
+	<form action="/jobs/" method="GET"><input type="submit" value="Управление заданиями"></form>
+	<form action="/printers/" method="GET"><input type="submit" value="Управление принтерами"></form>
+	<form action="/admin/" method="GET"><input type="submit" value="Сохранить"></form>
       </div>
       <div class="row">
 	<div class="thirds">
@@ -47,6 +55,6 @@
 </div>
       </div>
     </div>
-    <div class="cups-footer">Copyright &copy; 2021-2023 OpenPrinting. All Rights Reserved.</div>
+    <div class="cups-footer">Copyright &copy; 2021-2025 OpenPrinting. All Rights Reserved.</div>
   </body>
 </html>

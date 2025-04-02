@@ -1,7 +1,7 @@
 /*
  * Directory services routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -46,7 +46,7 @@ cupsdDeregisterPrinter(
   * Only deregister if browsing is enabled and it's a local printer...
   */
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdDeregisterPrinter(p=%p(%s), removeit=%d)", (void *)p, p->name, removeit);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdDeregisterPrinter(p=%p(%s), removeit=%d)", (void *)p, p->name, removeit);
 
   if (!Browsing || !p->shared || (p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
     return;
@@ -71,10 +71,12 @@ cupsdDeregisterPrinter(
 void
 cupsdRegisterPrinter(cupsd_printer_t *p)/* I - Printer */
 {
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdRegisterPrinter(p=%p(%s))", (void *)p, p->name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdRegisterPrinter(p=%p(%s))", (void *)p, p->name);
 
   if (!Browsing || !BrowseLocalProtocols || (p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
     return;
+
+  cupsdLogPrinter(p, CUPSD_LOG_DEBUG, "DNSSDContext=%p", (void *)DNSSDContext);
 
   if ((BrowseLocalProtocols & BROWSE_DNSSD) && DNSSDContext)
     dnssdRegisterPrinter(p);
@@ -433,7 +435,7 @@ dnssdRegisterCallback(
 
   if ((!p->reg_name || _cups_strcasecmp(reg_name, p->reg_name)))
   {
-    cupsdLogMessage(CUPSD_LOG_INFO, "Using service name \"%s\" for \"%s\".", reg_name, p->name);
+    cupsdLogPrinter(p, CUPSD_LOG_DEBUG, "Registered name changed to \"%s\".", reg_name);
 
     cupsArrayRemove(DNSSDPrinters, p);
     cupsdSetString(&p->reg_name, reg_name);
@@ -544,6 +546,8 @@ dnssdRegisterPrinter(
 
   cupsFreeOptions(num_txt, txt);
 
+  status &= cupsDNSSDServicePublish(p->dnssd);
+
   if (status)
   {
     // Save the registered name and add the printer to the array of DNS-SD
@@ -551,7 +555,7 @@ dnssdRegisterPrinter(
     cupsdSetString(&p->reg_name, name);
     cupsArrayAdd(DNSSDPrinters, p);
 
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "dnssdRegisterPrinter: Registered \"%s\" as \"%s\".", p->name, name);
+    cupsdLogPrinter(p, CUPSD_LOG_DEBUG, "Registered as \"%s\".", name);
   }
   else
   {
@@ -559,7 +563,7 @@ dnssdRegisterPrinter(
     cupsDNSSDServiceDelete(p->dnssd);
     p->dnssd = NULL;
 
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "dnssdRegisterPrinter: Unable to register \"%s\" as \"%s\".", p->name, name);
+    cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to register as \"%s\".", name);
   }
 }
 

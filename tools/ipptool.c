@@ -3276,12 +3276,12 @@ parse_generate_file(
 	}
 	else if ((attr = ippFindAttribute(response, "urf-supported", IPP_TAG_KEYWORD)) != NULL)
 	{
-	  if (ippContainsString(attr, "DM1"))
+	  if (ippContainsString(attr, "DM2"))
 	    cupsCopyString(params->sheet_back, "flip", sizeof(params->sheet_back));
-	  else if (ippContainsString(attr, "DM2"))
-	    cupsCopyString(params->sheet_back, "manual-tumble", sizeof(params->sheet_back));
 	  else if (ippContainsString(attr, "DM3"))
 	    cupsCopyString(params->sheet_back, "rotated", sizeof(params->sheet_back));
+	  else if (ippContainsString(attr, "DM4"))
+	    cupsCopyString(params->sheet_back, "manual-tumble", sizeof(params->sheet_back));
 	  else
 	    cupsCopyString(params->sheet_back, "normal", sizeof(params->sheet_back));
 	}

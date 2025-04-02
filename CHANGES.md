@@ -34,8 +34,10 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added support for specifying permissions with the `cupsFileOpen` API.
 - Added new `cupsGetClock` API.
 - Added new `cupsParseOptions2` API with "end" argument.
-- Updated documentation (Issue #984, Issue #1086)
+- Added `cups-oauth` and `cups-x509` utilities (Issue #1184)
+- Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated the configure script to default to installing to /usr/local.
+- Updated CUPS to use the Windows mDNS APIs.
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
   supported.
 - Updated CUPS to require ZLIB.
@@ -66,7 +68,12 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   `cupsRasterGetErrorString`.
 - Updated the `ipptool` utility to support the `--bearer-token` and
   `--client-name` options.
+- Updated `cupsEnumDests` and `cupsGetDests` to support printer browsing and
+  filtering options in client.conf (Issue #1180)
+- Updated the CUPS web interface to make administrative tasks more discoverable
+  (Issue #1207)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
+- Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)
@@ -127,6 +134,10 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Fixed error handling when reading a mixed `1setOf` attribute.
 - Fixed how `ippeveprinter` responds to an unsupported request character set.
 - Fixed a recursion issue in `ippReadIO`.
+- Fixed verbose listing of `lpstat -l -e` when permanent queue has the same name
+  as network discovered (Issue #1120)
+- Fixed validation of dateTime values with time zones more than UTC+11
+  (Issue #1201)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)

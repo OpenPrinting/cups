@@ -3,16 +3,12 @@
  *
  * This set of APIs abstracts enumeration of directory entries.
  *
- * Copyright © 2022-2024 by OpenPrinting.
+ * Copyright © 2022-2025 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -103,7 +99,7 @@ _cups_dir_time(FILETIME ft)		/* I - File time */
 /*
  * 'cupsDirClose()' - Close a directory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 void
@@ -134,7 +130,7 @@ cupsDirClose(cups_dir_t *dp)		/* I - Directory pointer */
 /*
  * 'cupsDirOpen()' - Open a directory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 cups_dir_t *				/* O - Directory pointer or @code NULL@ if the directory could not be opened. */
@@ -177,7 +173,7 @@ cupsDirOpen(const char *directory)	/* I - Directory name */
 /*
  * 'cupsDirRead()' - Read the next directory entry.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 cups_dentry_t *				/* O - Directory entry or @code NULL@ if there are no more */
@@ -247,7 +243,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
 /*
  * 'cupsDirRewind()' - Rewind to the start of the directory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 void
@@ -297,7 +293,7 @@ struct _cups_dir_s			/**** Directory data structure ****/
 /*
  * 'cupsDirClose()' - Close a directory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 void
@@ -324,7 +320,7 @@ cupsDirClose(cups_dir_t *dp)		/* I - Directory pointer */
 /*
  * 'cupsDirOpen()' - Open a directory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 cups_dir_t *				/* O - Directory pointer or @code NULL@ if the directory could not be opened. */
@@ -378,7 +374,7 @@ cupsDirOpen(const char *directory)	/* I - Directory name */
 /*
  * 'cupsDirRead()' - Read the next directory entry.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 cups_dentry_t *				/* O - Directory entry or @code NULL@ when there are no more */
@@ -448,7 +444,7 @@ cupsDirRead(cups_dir_t *dp)		/* I - Directory pointer */
 /*
  * 'cupsDirRewind()' - Rewind to the start of the directory.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 void

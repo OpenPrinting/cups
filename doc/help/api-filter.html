@@ -5,7 +5,7 @@
 <title>Filter and Backend Programming</title>
 <meta name="keywords" content="Programming">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<meta name="generator" content="codedoc v3.7">
+<meta name="generator" content="codedoc v3.8">
 <meta name="author" content="Unknown">
 <meta name="language" content="en-US">
 <meta name="copyright" content="Unknown">
@@ -1215,7 +1215,7 @@ void *my_data;
 <p>The sandbox profile used in CUPS still allows some actions that are not listed above - these privileges will be removed over time until the profile matches the list above.</p>
 </blockquote>
 <h2 class="title"><a id="FUNCTIONS">Functions</a></h2>
-<h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="cupsBackChannelRead">cupsBackChannelRead</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.2&#160;</span><a id="cupsBackChannelRead">cupsBackChannelRead</a></h3>
 <p class="description">Read data from the backchannel.</p>
 <p class="code">
 ssize_t cupsBackChannelRead(<span class="reserved">char</span> *buffer, size_t bytes, <span class="reserved">double</span> timeout);</p>
@@ -1236,7 +1236,7 @@ parameter controls how many seconds to wait for the data - use 0.0 to
 return immediately if there is no data, -1.0 to wait for data indefinitely.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="cupsBackChannelWrite">cupsBackChannelWrite</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.2&#160;</span><a id="cupsBackChannelWrite">cupsBackChannelWrite</a></h3>
 <p class="description">Write data to the backchannel.</p>
 <p class="code">
 ssize_t cupsBackChannelWrite(<span class="reserved">const</span> <span class="reserved">char</span> *buffer, size_t bytes, <span class="reserved">double</span> timeout);</p>
@@ -1258,7 +1258,7 @@ controls how many seconds to wait for the data to be written - use
 indefinitely.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.2/macOS 10.5&#160;</span><a id="cupsBackendDeviceURI">cupsBackendDeviceURI</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.2&#160;</span><a id="cupsBackendDeviceURI">cupsBackendDeviceURI</a></h3>
 <p class="description">Get the device URI for a backend.</p>
 <p class="code">
 <span class="reserved">const</span> <span class="reserved">char</span> *cupsBackendDeviceURI(<span class="reserved">char</span> **argv);</p>
@@ -1276,7 +1276,7 @@ variable or the device URI passed in argv[0], whichever is found
 first.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span><a id="cupsBackendReport">cupsBackendReport</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.4&#160;</span><a id="cupsBackendReport">cupsBackendReport</a></h3>
 <p class="description">Write a device line from a backend.</p>
 <p class="code">
 <span class="reserved">void</span> cupsBackendReport(<span class="reserved">const</span> <span class="reserved">char</span> *device_scheme, <span class="reserved">const</span> <span class="reserved">char</span> *device_uri, <span class="reserved">const</span> <span class="reserved">char</span> *device_make_and_model, <span class="reserved">const</span> <span class="reserved">char</span> *device_info, <span class="reserved">const</span> <span class="reserved">char</span> *device_id, <span class="reserved">const</span> <span class="reserved">char</span> *device_location);</p>
@@ -1301,7 +1301,7 @@ It handles quoting of special characters in the device-make-and-model,
 device-info, device-id, and device-location strings.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.3/macOS 10.5&#160;</span><a id="cupsSideChannelDoRequest">cupsSideChannelDoRequest</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.3&#160;</span><a id="cupsSideChannelDoRequest">cupsSideChannelDoRequest</a></h3>
 <p class="description">Send a side-channel command to a backend and wait for a response.</p>
 <p class="code">
 <a href="#cups_sc_status_t">cups_sc_status_t</a> cupsSideChannelDoRequest(<a href="#cups_sc_command_t">cups_sc_command_t</a> command, <span class="reserved">char</span> *data, <span class="reserved">int</span> *datalen, <span class="reserved">double</span> timeout);</p>
@@ -1330,7 +1330,7 @@ pointed to by the &quot;data&quot; parameter.  cupsSideChannelDoRequest() will
 update the value to contain the number of data bytes in the buffer.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.3/macOS 10.5&#160;</span><a id="cupsSideChannelRead">cupsSideChannelRead</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.3&#160;</span><a id="cupsSideChannelRead">cupsSideChannelRead</a></h3>
 <p class="description">Read a side-channel message.</p>
 <p class="code">
 <span class="reserved">int</span> cupsSideChannelRead(<a href="#cups_sc_command_t">cups_sc_command_t</a> *command, <a href="#cups_sc_status_t">cups_sc_status_t</a> *status, <span class="reserved">char</span> *data, <span class="reserved">int</span> *datalen, <span class="reserved">double</span> timeout);</p>
@@ -1360,7 +1360,7 @@ pointed to by the &quot;data&quot; parameter.  cupsSideChannelDoRequest() will
 update the value to contain the number of data bytes in the buffer.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span><a id="cupsSideChannelSNMPGet">cupsSideChannelSNMPGet</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.4&#160;</span><a id="cupsSideChannelSNMPGet">cupsSideChannelSNMPGet</a></h3>
 <p class="description">Query a SNMP OID's value.</p>
 <p class="code">
 <a href="#cups_sc_status_t">cups_sc_status_t</a> cupsSideChannelSNMPGet(<span class="reserved">const</span> <span class="reserved">char</span> *oid, <span class="reserved">char</span> *data, <span class="reserved">int</span> *datalen, <span class="reserved">double</span> timeout);</p>
@@ -1396,7 +1396,7 @@ support SNMP queries.  <code>CUPS_SC_STATUS_NO_RESPONSE</code> is returned when
 the printer does not respond to the SNMP query.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span><a id="cupsSideChannelSNMPWalk">cupsSideChannelSNMPWalk</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.4&#160;</span><a id="cupsSideChannelSNMPWalk">cupsSideChannelSNMPWalk</a></h3>
 <p class="description">Query multiple SNMP OID values.</p>
 <p class="code">
 <a href="#cups_sc_status_t">cups_sc_status_t</a> cupsSideChannelSNMPWalk(<span class="reserved">const</span> <span class="reserved">char</span> *oid, <span class="reserved">double</span> timeout, <a href="#cups_sc_walk_func_t">cups_sc_walk_func_t</a> cb, <span class="reserved">void</span> *context);</p>
@@ -1437,7 +1437,7 @@ support SNMP queries.  <code>CUPS_SC_STATUS_NO_RESPONSE</code> is returned when
 the printer does not respond to the first SNMP query.
 
 </p>
-<h3 class="function"><span class="info">&#160;CUPS 1.3/macOS 10.5&#160;</span><a id="cupsSideChannelWrite">cupsSideChannelWrite</a></h3>
+<h3 class="function"><span class="info">&#160;CUPS 1.3&#160;</span><a id="cupsSideChannelWrite">cupsSideChannelWrite</a></h3>
 <p class="description">Write a side-channel message.</p>
 <p class="code">
 <span class="reserved">int</span> cupsSideChannelWrite(<a href="#cups_sc_command_t">cups_sc_command_t</a> command, <a href="#cups_sc_status_t">cups_sc_status_t</a> status, <span class="reserved">const</span> <span class="reserved">char</span> *data, <span class="reserved">int</span> datalen, <span class="reserved">double</span> timeout);</p>
@@ -1524,11 +1524,11 @@ typedef void (*cups_sc_walk_func_t)(const char *oid, const char *data, int datal
 <table class="list"><tbody>
 <tr><th>CUPS_SC_CMD_DRAIN_OUTPUT </th><td class="description">Drain all pending output</td></tr>
 <tr><th>CUPS_SC_CMD_GET_BIDI </th><td class="description">Return bidirectional capabilities</td></tr>
-<tr><th>CUPS_SC_CMD_GET_CONNECTED <span class="info">&#160;CUPS 1.5/macOS 10.7&#160;</span></th><td class="description">Return whether the backend is &quot;connected&quot; to the printer </td></tr>
+<tr><th>CUPS_SC_CMD_GET_CONNECTED <span class="info">&#160;CUPS 1.5&#160;</span></th><td class="description">Return whether the backend is &quot;connected&quot; to the printer </td></tr>
 <tr><th>CUPS_SC_CMD_GET_DEVICE_ID </th><td class="description">Return the IEEE-1284 device ID</td></tr>
 <tr><th>CUPS_SC_CMD_GET_STATE </th><td class="description">Return the device state</td></tr>
-<tr><th>CUPS_SC_CMD_SNMP_GET <span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span></th><td class="description">Query an SNMP OID </td></tr>
-<tr><th>CUPS_SC_CMD_SNMP_GET_NEXT <span class="info">&#160;CUPS 1.4/macOS 10.6&#160;</span></th><td class="description">Query the next SNMP OID </td></tr>
+<tr><th>CUPS_SC_CMD_SNMP_GET <span class="info">&#160;CUPS 1.4&#160;</span></th><td class="description">Query an SNMP OID </td></tr>
+<tr><th>CUPS_SC_CMD_SNMP_GET_NEXT <span class="info">&#160;CUPS 1.4&#160;</span></th><td class="description">Query the next SNMP OID </td></tr>
 <tr><th>CUPS_SC_CMD_SOFT_RESET </th><td class="description">Do a soft reset</td></tr>
 </tbody></table>
 <h3 class="enumeration"><a id="cups_sc_connected_e">cups_sc_connected_e</a></h3>

@@ -1,7 +1,7 @@
 /*
  * Configuration file definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -286,6 +286,7 @@ extern int	cupsdLogJob(cupsd_job_t *job, int level, const char *message,
 		            ...) _CUPS_FORMAT(3, 4);
 extern int	cupsdLogMessage(int level, const char *message, ...) _CUPS_FORMAT(2, 3);
 extern int	cupsdLogPage(cupsd_job_t *job, const char *page);
+extern int	cupsdLogPrinter(cupsd_printer_t *p, int level, const char *message, ...) _CUPS_FORMAT(3, 4);
 extern int	cupsdLogRequest(cupsd_client_t *con, http_status_t code);
 extern int	cupsdReadConfiguration(void);
 extern int	cupsdWriteErrorLog(int level, const char *message);

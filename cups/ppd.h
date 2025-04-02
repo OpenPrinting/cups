@@ -4,7 +4,7 @@
 // THESE APIS ARE DEPRECATED.  THIS HEADER AND THESE FUNCTIONS WILL BE REMOVED
 // IN A FUTURE RELEASE OF CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -167,7 +167,7 @@ typedef struct ppd_group_s		// Groups @deprecated@
    ****/
   char		text[PPD_MAX_TEXT - PPD_MAX_NAME];
   					// Human-readable group name
-  char		name[PPD_MAX_NAME];	// Group name @since CUPS 1.1.18/macOS 10.3@
+  char		name[PPD_MAX_NAME];	// Group name @since CUPS 1.1.18@
   int		num_options;		// Number of options
   ppd_option_t	*options;		// Options
   int		num_subgroups;		// Number of sub-groups
@@ -212,7 +212,7 @@ typedef struct ppd_profile_s		// sRGB Color Profiles @deprecated@
   float		matrix[3][3];		// Transform matrix
 } ppd_profile_t;
 
-// New in CUPS 1.2/macOS 10.5
+// New in CUPS 1.2
 typedef enum ppd_cptype_e		// Custom Parameter Type @deprecated@
 {
   PPD_CUSTOM_UNKNOWN = -1,		// Unknown type (error)
@@ -318,25 +318,25 @@ typedef struct ppd_file_s		// PPD File @deprecated@
   int		flip_duplex;		// 1 = Flip page for back sides @deprecated@
 
   // New in CUPS 1.1.19
-  char		*protocols;		// Protocols (BCP, TBCP) string @since CUPS 1.1.19/macOS 10.3@
-  char		*pcfilename;		// PCFileName string @since CUPS 1.1.19/macOS 10.3@
-  int		num_attrs;		// Number of attributes @since CUPS 1.1.19/macOS 10.3@ @private@
-  int		cur_attr;		// Current attribute @since CUPS 1.1.19/macOS 10.3@ @private@
-  ppd_attr_t	**attrs;		// Attributes @since CUPS 1.1.19/macOS 10.3@ @private@
+  char		*protocols;		// Protocols (BCP, TBCP) string @since CUPS 1.1.19@
+  char		*pcfilename;		// PCFileName string @since CUPS 1.1.19@
+  int		num_attrs;		// Number of attributes @since CUPS 1.1.19@ @private@
+  int		cur_attr;		// Current attribute @since CUPS 1.1.19@ @private@
+  ppd_attr_t	**attrs;		// Attributes @since CUPS 1.1.19@ @private@
 
-  // New in CUPS 1.2/macOS 10.5
-  cups_array_t	*sorted_attrs;		// Attribute lookup array @since CUPS 1.2/macOS 10.5@ @private@
-  cups_array_t	*options;		// Option lookup array @since CUPS 1.2/macOS 10.5@ @private@
-  cups_array_t	*coptions;		// Custom options array @since CUPS 1.2/macOS 10.5@ @private@
+  // New in CUPS 1.2
+  cups_array_t	*sorted_attrs;		// Attribute lookup array @since CUPS 1.2@ @private@
+  cups_array_t	*options;		// Option lookup array @since CUPS 1.2@ @private@
+  cups_array_t	*coptions;		// Custom options array @since CUPS 1.2@ @private@
 
-  // New in CUPS 1.3/macOS 10.5
-  cups_array_t	*marked;		// Marked choices @since CUPS 1.3/macOS 10.5@ @private@
+  // New in CUPS 1.3
+  cups_array_t	*marked;		// Marked choices @since CUPS 1.3@ @private@
 
-  // New in CUPS 1.4/macOS 10.6
-  cups_array_t	*cups_uiconstraints;	// cupsUIConstraints @since CUPS 1.4/macOS 10.6@ @private@
+  // New in CUPS 1.4
+  cups_array_t	*cups_uiconstraints;	// cupsUIConstraints @since CUPS 1.4@ @private@
 
   // New in CUPS 1.5
-  _ppd_cache_t	*cache;			// PPD cache and mapping data @since CUPS 1.5/macOS 10.7@ @private@
+  _ppd_cache_t	*cache;			// PPD cache and mapping data @since CUPS 1.5@ @private@
 } ppd_file_t;
 
 

@@ -1,16 +1,12 @@
 /*
  * PPD command interpreter for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1993-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include <cups/raster-private.h>
@@ -119,7 +115,7 @@ static void		DEBUG_stack(const char *prefix, _cups_ps_stack_t *st);
  * @code pop@, @code roll@, @code setpagedevice@, and @code stopped@ operators
  * are supported.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 int					/* O - 0 on success, -1 on failure */
@@ -1045,7 +1041,8 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 			*cur,		/* Current position */
 			*valptr,	/* Pointer into value string */
 			*valend;	/* End of value string */
-  int			parens;		/* Parenthesis nesting level */
+  int			parens,		/* Parenthesis nesting level */
+			base;		/* Numeric base for strtol() */
 
 
   if (!*ptr)
@@ -1306,7 +1303,16 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 	  * Integer with radix...
 	  */
 
-          obj.value.number = strtol(cur + 1, &cur, atoi(start));
+	  base = atoi(start);
+
+	 /*
+	  * Postscript language reference manual dictates numbers from 2 to 36 as base...
+	  */
+
+	  if (base < 2 || base > 36)
+	    return (NULL);
+
+	  obj.value.number = strtol(cur + 1, &cur, base);
 	  break;
 	}
 	else if (strchr(".Ee()<>[]{}/%", *cur) || isspace(*cur & 255))

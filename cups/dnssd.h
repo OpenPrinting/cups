@@ -10,6 +10,7 @@
 #ifndef _CUPS_DNSSD_H_
 #  define _CUPS_DNSSD_H_
 #  include "cups.h"
+#  include <stdint.h>
 #  ifdef __cplusplus
 extern "C" {
 #  endif // __cplusplus

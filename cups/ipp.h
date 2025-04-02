@@ -1,7 +1,7 @@
 //
 // Internet Printing Protocol definitions for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -203,13 +203,13 @@ typedef enum ipp_op_e			// IPP operations
   IPP_OP_SET_PRINTER_ATTRIBUTES,	// Set-Printer-Attributes: Set printer values
   IPP_OP_SET_JOB_ATTRIBUTES,		// Set-Job-Attributes: Set job values
   IPP_OP_GET_PRINTER_SUPPORTED_VALUES,	// Get-Printer-Supported-Values: Get supported values
-  IPP_OP_CREATE_PRINTER_SUBSCRIPTIONS,	// Create-Printer-Subscriptions: Create one or more printer subscriptions @since CUPS 1.2/macOS 10.5@
-  IPP_OP_CREATE_JOB_SUBSCRIPTIONS,	// Create-Job-Subscriptions: Create one of more job subscriptions @since CUPS 1.2/macOS 10.5@
-  IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES,	// Get-Subscription-Attributes: Get subscription information @since CUPS 1.2/macOS 10.5@
-  IPP_OP_GET_SUBSCRIPTIONS,		// Get-Subscriptions: Get list of subscriptions @since CUPS 1.2/macOS 10.5@
-  IPP_OP_RENEW_SUBSCRIPTION,		// Renew-Subscription: Renew a printer subscription @since CUPS 1.2/macOS 10.5@
-  IPP_OP_CANCEL_SUBSCRIPTION,		// Cancel-Subscription: Cancel a subscription @since CUPS 1.2/macOS 10.5@
-  IPP_OP_GET_NOTIFICATIONS,		// Get-Notifications: Get notification events @since CUPS 1.2/macOS 10.5@
+  IPP_OP_CREATE_PRINTER_SUBSCRIPTIONS,	// Create-Printer-Subscriptions: Create one or more printer subscriptions @since CUPS 1.2@
+  IPP_OP_CREATE_JOB_SUBSCRIPTIONS,	// Create-Job-Subscriptions: Create one of more job subscriptions @since CUPS 1.2@
+  IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES,	// Get-Subscription-Attributes: Get subscription information @since CUPS 1.2@
+  IPP_OP_GET_SUBSCRIPTIONS,		// Get-Subscriptions: Get list of subscriptions @since CUPS 1.2@
+  IPP_OP_RENEW_SUBSCRIPTION,		// Renew-Subscription: Renew a printer subscription @since CUPS 1.2@
+  IPP_OP_CANCEL_SUBSCRIPTION,		// Cancel-Subscription: Cancel a subscription @since CUPS 1.2@
+  IPP_OP_GET_NOTIFICATIONS,		// Get-Notifications: Get notification events @since CUPS 1.2@
   IPP_OP_SEND_NOTIFICATIONS,		// Send-Notifications: Send notification events @private@
   IPP_OP_GET_RESOURCE_ATTRIBUTES,	// Get-Resource-Attributes: Get resource information @private@
   IPP_OP_GET_RESOURCE_DATA,		// Get-Resource-Data: Get resource data @private@ @deprecated@
@@ -299,9 +299,9 @@ typedef enum ipp_op_e			// IPP operations
   IPP_OP_CUPS_GET_DEVICES,		// CUPS-Get-Devices: Get a list of supported devices @deprecated@
   IPP_OP_CUPS_GET_PPDS,			// CUPS-Get-PPDs: Get a list of supported drivers @deprecated@
   IPP_OP_CUPS_MOVE_JOB,			// CUPS-Move-Job: Move a job to a different printer
-  IPP_OP_CUPS_AUTHENTICATE_JOB,		// CUPS-Authenticate-Job: Authenticate a job @since CUPS 1.2/macOS 10.5@
+  IPP_OP_CUPS_AUTHENTICATE_JOB,		// CUPS-Authenticate-Job: Authenticate a job @since CUPS 1.2@
   IPP_OP_CUPS_GET_PPD,			// CUPS-Get-PPD: Get a PPD file @deprecated@
-  IPP_OP_CUPS_GET_DOCUMENT = 0x4027,	// CUPS-Get-Document: Get a document file @since CUPS 1.4/macOS 10.6@
+  IPP_OP_CUPS_GET_DOCUMENT = 0x4027,	// CUPS-Get-Document: Get a document file @since CUPS 1.4@
   IPP_OP_CUPS_CREATE_LOCAL_PRINTER	// CUPS-Create-Local-Printer: Create a local (temporary) printer @since CUPS 2.2@
 } ipp_op_t;
 
@@ -446,10 +446,10 @@ typedef enum ipp_status_e		// IPP status code values
 
   // These are internal and never sent over the wire...
   IPP_STATUS_ERROR_CUPS_AUTHENTICATION_CANCELED = 0x1000,
-					// cups-authentication-canceled - Authentication canceled by user @since CUPS 1.5/macOS 10.7@
-  IPP_STATUS_ERROR_CUPS_PKI,		// cups-pki-error - Error negotiating a secure connection @since CUPS 1.5/macOS 10.7@
+					// cups-authentication-canceled - Authentication canceled by user @since CUPS 1.5@
+  IPP_STATUS_ERROR_CUPS_PKI,		// cups-pki-error - Error negotiating a secure connection @since CUPS 1.5@
   IPP_STATUS_ERROR_CUPS_UPGRADE_REQUIRED,
-					// cups-upgrade-required - TLS upgrade required @since CUPS 1.5/macOS 10.7@
+					// cups-upgrade-required - TLS upgrade required @since CUPS 1.5@
   IPP_STATUS_ERROR_CUPS_OAUTH		// cups-oauth - OAuth error
 } ipp_status_t;
 
@@ -507,7 +507,7 @@ typedef struct _ipp_attribute_s ipp_attribute_t;
 					// IPP attribute
 
 typedef int (*ipp_copy_cb_t)(void *context, ipp_t *dst, ipp_attribute_t *attr);
-                                        // ippCopyAttributes callback function @since CUPS 1.6/macOS 10.8
+                                        // ippCopyAttributes callback function @since CUPS 1.6
 #define ipp_copycb_t ipp_copy_cb_t	// Old name
 
 typedef struct _ipp_file_s ipp_file_t;	// IPP data file
@@ -519,7 +519,7 @@ typedef bool (*ipp_ftoken_cb_t)(ipp_file_t *file, void *cb_data, const char *tok
 					// IPP data file token callback
 
 typedef ssize_t	(*ipp_io_cb_t)(void *context, ipp_uchar_t *buffer, size_t bytes);
-					// ippReadIO/ippWriteIO callback function @since CUPS 1.2/macOS 10.5@
+					// ippReadIO/ippWriteIO callback function @since CUPS 1.2@
 #define ipp_iocb_t ipp_io_cb_t		// Old name
 
 

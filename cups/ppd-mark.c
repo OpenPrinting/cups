@@ -1,7 +1,7 @@
 /*
  * Option marking routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -566,7 +566,7 @@ ppdMarkOption(ppd_file_t *ppd,		/* I - PPD file record */
  *
  * Options are returned from all groups in ascending alphanumeric order.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_option_t *				/* O - First option or @code NULL@ */
@@ -584,7 +584,7 @@ ppdFirstOption(ppd_file_t *ppd)		/* I - PPD file */
  *
  * Options are returned from all groups in ascending alphanumeric order.
  *
- * @since CUPS 1.2/macOS 10.5@
+ * @since CUPS 1.2@
  */
 
 ppd_option_t *				/* O - Next option or @code NULL@ */

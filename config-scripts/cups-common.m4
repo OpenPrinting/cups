@@ -93,8 +93,11 @@ AC_SUBST([PKGCONFIG_REQUIRES])
 
 dnl Check for libraries...
 AC_SEARCH_LIBS([abs], [m], [AC_DEFINE(HAVE_ABS)])
-AC_SEARCH_LIBS([crypt], [crypt])
 AC_SEARCH_LIBS([fmod], [m])
+
+PKGCONFIG_LIBS_STATIC="$LIBS"
+
+AC_SEARCH_LIBS([crypt], [crypt])
 AC_SEARCH_LIBS([getspent], [sec gen])
 
 LIBMALLOC=""
@@ -189,6 +192,11 @@ AC_COMPILE_IFELSE([
     AC_DEFINE([HAVE_TM_GMTOFF], [1], [Have tm_gmtoff member in struct tm?])
 ], [
     AC_MSG_RESULT([no])
+])
+
+dnl See if we have the timegm function...
+AC_CHECK_FUNC([timegm], [
+    AC_DEFINE([HAVE_TIMEGM], [1], [Do we have the timegm function?])
 ])
 
 dnl See if the stat structure has the st_gen member...

@@ -1,7 +1,7 @@
 /*
  * Authentication functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -10,10 +10,6 @@
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -102,7 +98,7 @@ static int	cups_local_auth(http_t *http);
  * This function should be called in response to a @code HTTP_STATUS_UNAUTHORIZED@
  * status, prior to resubmitting your request.
  *
- * @since CUPS 1.1.20/macOS 10.4@
+ * @since CUPS 1.1.20@
  */
 
 int					/* O - 0 on success, -1 on error */
