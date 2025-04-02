@@ -2804,8 +2804,7 @@ cupsdUpdatePrinterPPD(
   int		i;			/* Looping var */
   cups_file_t	*src,			/* Original file */
 		*dst;			/* New file */
-  char		srcfile[1024],		/* Original filename */
-		dstfile[1024],		/* New filename */
+  char		filename[1024],		/* PPD filename */
 		line[1024],		/* Line from file */
 		keystring[41];		/* Keyword from line */
   cups_option_t	*keyword;		/* Current keyword */
@@ -2814,34 +2813,21 @@ cupsdUpdatePrinterPPD(
   cupsdLogPrinter(p, CUPSD_LOG_INFO, "Updating keywords in PPD file.");
 
  /*
-  * Get the old and new PPD filenames...
+  * Get the base PPD filename...
   */
 
-  snprintf(srcfile, sizeof(srcfile), "%s/ppd/%s.ppd.O", ServerRoot, p->name);
-  snprintf(dstfile, sizeof(srcfile), "%s/ppd/%s.ppd", ServerRoot, p->name);
+  snprintf(filename, sizeof(filename), "%s/ppd/%s.ppd", ServerRoot, p->name);
 
  /*
-  * Rename the old file and open the old and new...
+  * Open the old and new PPDs...
   */
 
-  if (rename(dstfile, srcfile))
-  {
-    cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to backup PPD file: %s", strerror(errno));
+  if ((src = cupsdOpenConfFile(filename)) == NULL)
     return (0);
-  }
 
-  if ((src = cupsFileOpen(srcfile, "r")) == NULL)
+  if ((dst = cupsdCreateConfFile(filename, ConfigFilePerm)) == NULL)
   {
-    cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to open PPD file \"%s\": %s", srcfile, strerror(errno));
-    rename(srcfile, dstfile);
-    return (0);
-  }
-
-  if ((dst = cupsFileOpen(dstfile, "w")) == NULL)
-  {
-    cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to create PPD file \"%s\": %s", dstfile, strerror(errno));
     cupsFileClose(src);
-    rename(srcfile, dstfile);
     return (0);
   }
 
@@ -2851,10 +2837,9 @@ cupsdUpdatePrinterPPD(
 
   if (!cupsFileGets(src, line, sizeof(line)))
   {
-    cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to read PPD file \"%s\": %s", srcfile, strerror(errno));
+    cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to read PPD file \"%s\": %s", filename, strerror(errno));
     cupsFileClose(src);
     cupsFileClose(dst);
-    rename(srcfile, dstfile);
     return (0);
   }
 
@@ -2892,7 +2877,7 @@ cupsdUpdatePrinterPPD(
   */
 
   cupsFileClose(src);
-  cupsFileClose(dst);
+  cupsdCloseCreatedConfFile(dst, filename);
 
   return (1);
 }
