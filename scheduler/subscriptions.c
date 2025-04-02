@@ -89,6 +89,9 @@ cupsdAddEvent(
   * caches...
   */
 
+  if (job && !dest)
+    dest = cupsdFindPrinter(job->dest);
+
   for (temp = NULL, sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
        sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
@@ -115,11 +118,7 @@ cupsdAddEvent(
       temp->time  = time(NULL);
       temp->attrs = ippNew();
       temp->job	  = job;
-
-      if (dest)
-	temp->dest = dest;
-      else if (job)
-	temp->dest = dest = cupsdFindPrinter(job->dest);
+      temp->dest  = dest;
 
      /*
       * Add common event notification attributes...
