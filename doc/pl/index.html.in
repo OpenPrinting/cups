@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9">
     <meta name="viewport" content="width=device-width">
-    <title>Home - CUPS @CUPS_VERSION@</title>
+    <title>Start - CUPS @CUPS_VERSION@</title>
   </head>
   <body>
     <div class="cups-header">
@@ -45,7 +45,7 @@
 	  <p><a href="help/admin.html">Dodawanie drukarek i klas</a></p>
 	  <p><a href="help/policies.html">Zarządzanie politykami operacyjnymi</a></p>
 	  <p><a href="help/network.html">Użytkowanie drukarek sieciowych</a></p>
-	  <p><a href="help/firewalls.html">Firewalle</a></p>
+	  <p><a href="help/firewalls.html">Zapory sieciowe</a></p>
 	  <p><a href="help/man-cupsd.conf.html">Skrypt cupsd.conf</a></p>
 	</div>
 	<div class="thirds">

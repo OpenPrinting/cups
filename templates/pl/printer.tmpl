@@ -1,7 +1,7 @@
 <H1 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
-({printer_state=3?Oczekuje:{printer_state=4?Przetwarza:Zatrzymana}},
-{printer_is_accepting_jobs=0?Odmawia zadań:Akceptuje zadania},
-{server_is_sharing_printers=0?Nie:{printer_is_shared=0?Nie:}} Udostępniona{default_name={printer_name}?, Domyślna na serwerze:})</H1>
+({printer_state=3?oczekuje:{printer_state=4?przetwarza:zatrzymana}},
+{printer_is_accepting_jobs=0?odmawia zadań:akceptuje zadania},
+{server_is_sharing_printers=0?nie jest:{printer_is_shared=0?nie jest:}} udostępniona{default_name={printer_name}?, domyślna na serwerze:})</H1>
 
 <FORM METHOD="POST" ACTION="{printer_uri_supported}" NAME="maintenance">
 <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
@@ -35,7 +35,7 @@
 <TABLE SUMMARY="{printer_name}">
 <TR><TH ALIGN="RIGHT" VALIGN="TOP">Opis:</TH><TD>{printer_info}</TD></TR>
 <TR><TH ALIGN="RIGHT" VALIGN="TOP">Lokalizacja:</TH><TD>{printer_location}</TD></TR>
-<TR><TH ALIGN="RIGHT" VALIGN="TOP">Sterownik:</TH><TD>{printer_make_and_model} ({color_supported=1?color:grayscale}{sides_supported=one-sided?:, 2-sided printing})<BR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">Sterownik:</TH><TD>{printer_make_and_model} ({color_supported=1?kolor:skala szarości}{sides_supported=one-sided?:, dwustronne drukowanie})<BR>
 <TR><TH ALIGN="RIGHT" VALIGN="TOP">Połączenie:</TH><TD>{device_uri}</TD></TR>
 <TR><TH ALIGN="RIGHT" VALIGN="TOP">Domyślne:</TH><TD>szablony={job_sheets_default}
 papier={media_default?{media_default}:nieznany}
