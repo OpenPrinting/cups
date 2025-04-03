@@ -9,6 +9,7 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
 - Added `NoSystem` SSLOptions value (Issue #1130)
 - The scheduler now logs a job's debugging history if the backend fails
   (Issue #1205)
+- Fixed a potential timing issue with `cupsEnumDests` (Issue #1084)
 - Fixed a potential "lost PPD" condition in the scheduler (Issue #1109)
 - Fixed a compressed file error handling bug (Issue #1070)
 - Fixed a bug in the make-and-model whitespace trimming code (Issue #1096)

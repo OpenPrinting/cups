@@ -1,16 +1,12 @@
 /*
  * User-defined destination (and option) support for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -119,7 +115,7 @@ typedef struct _cups_dnssd_device_s	/* Enumerated device */
 typedef struct _cups_dnssd_resolve_s	/* Data for resolving URI */
 {
   int			*cancel;	/* Pointer to "cancel" variable */
-  struct timeval	end_time;	/* Ending time */
+  double		end_time;	/* Ending time */
 } _cups_dnssd_resolve_t;
 #endif /* HAVE_DNSSD */
 
@@ -222,7 +218,7 @@ static const char	*cups_dnssd_resolve(cups_dest_t *dest, const char *uri,
 static int		cups_dnssd_resolve_cb(void *context);
 static void		cups_dnssd_unquote(char *dst, const char *src,
 			                   size_t dstsize);
-static int		cups_elapsed(struct timeval *t);
+static int		cups_elapsed(double *t);
 #endif /* HAVE_DNSSD */
 static int              cups_enum_dests(http_t *http, unsigned flags, int msec, int *cancel, cups_ptype_t type, cups_ptype_t mask, cups_dest_cb_t cb, void *user_data);
 static int		cups_find_dest(const char *name, const char *instance,
@@ -3290,21 +3286,12 @@ cups_dnssd_resolve(
   * Resolve the URI...
   */
 
-  resolve.cancel = cancel;
-  gettimeofday(&resolve.end_time, NULL);
+  resolve.cancel   = cancel;
+  resolve.end_time = _cupsGetClock();
   if (msec > 0)
-  {
-    resolve.end_time.tv_sec  += msec / 1000;
-    resolve.end_time.tv_usec += (msec % 1000) * 1000;
-
-    while (resolve.end_time.tv_usec >= 1000000)
-    {
-      resolve.end_time.tv_sec ++;
-      resolve.end_time.tv_usec -= 1000000;
-    }
-  }
+    resolve.end_time += 0.001 * msec;
   else
-    resolve.end_time.tv_sec += 75;
+    resolve.end_time += 75.0;
 
   if (cb)
     (*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_RESOLVING, dest);
@@ -3338,7 +3325,7 @@ cups_dnssd_resolve_cb(void *context)	/* I - Resolve data */
 {
   _cups_dnssd_resolve_t	*resolve = (_cups_dnssd_resolve_t *)context;
 					/* Resolve data */
-  struct timeval	curtime;	/* Current time */
+  double	curtime;		/* Current time */
 
 
  /*
@@ -3355,13 +3342,11 @@ cups_dnssd_resolve_cb(void *context)	/* I - Resolve data */
   * Otherwise check the end time...
   */
 
-  gettimeofday(&curtime, NULL);
+  curtime = _cupsGetClock();
 
-  DEBUG_printf(("4cups_dnssd_resolve_cb: curtime=%d.%06d, end_time=%d.%06d", (int)curtime.tv_sec, (int)curtime.tv_usec, (int)resolve->end_time.tv_sec, (int)resolve->end_time.tv_usec));
+  DEBUG_printf(("4cups_dnssd_resolve_cb: curtime=%.6f, end_time=%.6f", curtime, resolve->end_time));
 
-  return (curtime.tv_sec < resolve->end_time.tv_sec ||
-          (curtime.tv_sec == resolve->end_time.tv_sec &&
-           curtime.tv_usec < resolve->end_time.tv_usec));
+  return (curtime < resolve->end_time);
 }
 
 
@@ -3404,15 +3389,15 @@ cups_dnssd_unquote(char       *dst,	/* I - Destination buffer */
  */
 
 static int				/* O  - Elapsed time in milliseconds */
-cups_elapsed(struct timeval *t)		/* IO - Previous time */
+cups_elapsed(double *t)			/* IO - Previous time */
 {
-  int			msecs;		/* Milliseconds */
-  struct timeval	nt;		/* New time */
+  int		msecs;			/* Milliseconds */
+  double	nt;			/* New time */
 
 
-  gettimeofday(&nt, NULL);
+  nt = _cupsGetClock();
 
-  msecs = (int)(1000 * (nt.tv_sec - t->tv_sec) + (nt.tv_usec - t->tv_usec) / 1000);
+  msecs = (int)(1000.0 * (nt - *t));
 
   *t = nt;
 
@@ -3446,7 +3431,7 @@ cups_enum_dests(
   int           count,                  /* Number of queries started */
                 completed,              /* Number of completed queries */
                 remaining;              /* Remainder of timeout */
-  struct timeval curtime;               /* Current time */
+  double	curtime;		/* Current time */
   _cups_dnssd_data_t data;		/* Data for callback */
   _cups_dnssd_device_t *device;         /* Current device */
 #  ifdef HAVE_MDNSRESPONDER
@@ -3672,7 +3657,7 @@ cups_enum_dests(
   * Get Bonjour-shared printers...
   */
 
-  gettimeofday(&curtime, NULL);
+  curtime = _cupsGetClock();
 
 #  ifdef HAVE_MDNSRESPONDER
   if (DNSServiceCreateConnection(&data.main_ref) != kDNSServiceErr_NoError)
