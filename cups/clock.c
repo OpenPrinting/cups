@@ -44,9 +44,9 @@ _cupsGetClock(void)
 #ifdef _WIN32
   ULONGLONG	curtick;		// Current tick count
 #else
-#  ifdef CLOCK_MONOTONIC
+#  if defined(CLOCK_MONOTONIC) || defined(CLOCK_MONOTONIC_RAW)
   struct timespec curclock;		// Current clock value
-#  endif // CLOCK_MONOTONIC
+#  endif // CLOCK_MONOTONIC || CLOCK_MONOTONIC_RAW
   struct timeval curtime;		// Current time value
 #endif // _WIN32
 
