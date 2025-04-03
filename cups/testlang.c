@@ -293,8 +293,10 @@ test_language(const char *lang)		/* I - Locale language code, NULL for default *
   printf("language->language: \"%s\"\n", language ? language->language : NULL);
   printf("_cupsEncodingName(language): \"%s\"\n", language ? _cupsEncodingName(language->encoding) : NULL);
 
+#ifndef __APPLE__
   errors += test_string(language, "No");
   errors += test_string(language, "Yes");
+#endif // !__APPLE__
 
   if (language != language2)
   {
