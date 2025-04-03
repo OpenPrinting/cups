@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-03 17:24+0000\n"
+"PO-Revision-Date: 2025-04-03 18:01+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
 "Language: pl\n"
@@ -1595,11 +1595,11 @@ msgstr "%s: Nieznana opcja \"-%c\"."
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: Nieznana opcja '%s'."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: Nieznana opcja '-%c'."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1697,7 +1697,7 @@ msgid "--false                 Always false"
 msgstr "--false                 Zawsze nieprawda"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         Pokaż tę pomoc"
 
 msgid "--help                  Show program help"
 msgstr "--help                  Pokaż pomoc programu"
@@ -1763,6 +1763,8 @@ msgstr ""
 
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
+"--pin                          Przypnij certyfikat znaleziony poleceniem "
+"klienta"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr "--port number[-number]  Dopasuj numer portu do liczby lub zakresu"
@@ -1793,6 +1795,8 @@ msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
 msgstr ""
+"--require-ca                   Wymagaj certyfikatu podpisanego przez CA dla "
+"polecenia klienta"
 
 msgid ""
 "--stop-after-include-error\n"
@@ -1824,7 +1828,7 @@ msgstr ""
 "--uri regex             Znajdź URI pasujące do podanego wyrażenia regularnego"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      Pokaż wersję programu"
 
 msgid "--version               Show program version"
 msgstr "--version               Wyświetl wersję programu"
@@ -1960,7 +1964,7 @@ msgstr ""
 "(domyślnie)"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C kraj                     Ustaw kraj."
 
 msgid "-D description          Specify the textual description of the printer"
 msgstr "-D opis          Ustaw tekstowy opis drukarki"
@@ -2083,7 +2087,7 @@ msgstr ""
 "-S                      Testuj z szyfrowaniem przy użyciu protokołu HTTPS"
 
 msgid "-S STATE                       Set state."
-msgstr "S stan                     Ustaw stan."
+msgstr "-S województwo                      Ustaw województwo."
 
 msgid "-S filename.strings     Set strings file"
 msgstr "-S nazwapliku.strings     Ustaw plik ciągu"
@@ -3336,7 +3340,7 @@ msgid "Bad arguments to function"
 msgstr "Nieprawidłowe argumenty funkcji"
 
 msgid "Bad certificate."
-msgstr "Niepoprawny certyfikat."
+msgstr "Nieprawidłowy certyfikat."
 
 #, c-format
 msgid "Bad copies value %d."
@@ -3432,7 +3436,7 @@ msgid "Bad printer-uri."
 msgstr "Nieprawidłowy printer-uri."
 
 msgid "Bad private key."
-msgstr ""
+msgstr "Nieprawidłowy klucz prywatny."
 
 #, c-format
 msgid "Bad request ID %d."
@@ -3492,7 +3496,7 @@ msgid "Cannot share a remote Kerberized printer."
 msgstr "Nie można udostępnić zdalnej drukarki obsługującej protokół Kerberos."
 
 msgid "Cassette"
-msgstr ""
+msgstr "Kaseta"
 
 msgid "Change Settings"
 msgstr "Zmiana ustawień"
@@ -3526,7 +3530,7 @@ msgstr ""
 "exit    help    quit    status  ?"
 
 msgid "Commands:"
-msgstr ""
+msgstr "Polecenia:"
 
 msgid "Community name uses indefinite length"
 msgstr "Nazwa społeczności ma nieokreśloną długość"
@@ -3541,7 +3545,7 @@ msgid "Continue"
 msgstr "Kontynuuj"
 
 msgid "Continuous"
-msgstr ""
+msgstr "Ciągły"
 
 msgid "Control file sent successfully."
 msgstr "Plik kontrolny wysłany poprawnie."
@@ -3557,31 +3561,31 @@ msgid "Created"
 msgstr "Utworzony"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "Dane uwierzytelniające są OK/zaufane."
 
 msgid "Credentials are expired."
-msgstr ""
+msgstr "Dane uwierzytelniające straciły ważność."
 
 msgid "Credentials are invalid."
-msgstr ""
+msgstr "Dane uwierzytelniające są nieprawidłowe."
 
 msgid "Credentials are not CA-signed."
 msgstr "Dane uwierzytelniające nie są podpisane przez urząd certyfikacji."
 
 msgid "Credentials are unknown/new."
-msgstr ""
+msgstr "Dane uwierzytelniające są nieznane/nowe."
 
 msgid "Credentials do not validate against site CA certificate."
-msgstr "Poświadczenia niezgodne z certyfikatem strony CA."
+msgstr "Dane uwierzytelniające niezgodne z certyfikatem strony CA."
 
 msgid "Credentials have been renewed."
-msgstr ""
+msgstr "Dane uwierzytelniające zostały odnowione."
 
 msgid "Credentials have changed."
-msgstr ""
+msgstr "Dane uwierzytelniające uległy zmianie."
 
 msgid "Credentials have expired."
-msgstr "Poświadczenia wygasły."
+msgstr "Dane uwierzytelniające wygasły."
 
 msgid "Custom"
 msgstr "Niestandardowy"
@@ -4481,7 +4485,7 @@ msgid "Nested classes are not allowed."
 msgstr "Zagnieżdżone klasy nie są dozwolone."
 
 msgid "Never"
-msgstr ""
+msgstr "Nigdy"
 
 msgid "New credentials are not valid for name."
 msgstr "Nowe poświadczenia są niepoprawne dla tej nazwy."
@@ -4596,13 +4600,13 @@ msgid "No version number"
 msgstr "Brak numeru wersji"
 
 msgid "Non-continuous (Mark sensing)"
-msgstr ""
+msgstr "Nieciągły (wykrywanie znaczników)"
 
 msgid "Non-continuous (Web sensing)"
-msgstr ""
+msgstr "Nieciągły (wykrywanie sieci)"
 
 msgid "Normal"
-msgstr ""
+msgstr "Normalny"
 
 msgid "Not Found"
 msgstr "Nie znaleziono"
@@ -4611,7 +4615,7 @@ msgid "Not Implemented"
 msgstr "Niezaimplementowany"
 
 msgid "Not Installed"
-msgstr ""
+msgstr "Niezainstalowany"
 
 msgid "Not Modified"
 msgstr "Niezmodyfikowany"
@@ -4623,7 +4627,7 @@ msgid "Not allowed to print."
 msgstr "Nieuprawniony do drukowania."
 
 msgid "Note"
-msgstr ""
+msgstr "Notatka"
 
 msgid "OK"
 msgstr "OK"
@@ -4682,7 +4686,7 @@ msgid "Output Mode"
 msgstr "Tryb wyjściowy"
 
 msgid "PCL Laser Printer"
-msgstr ""
+msgstr "Drukarka laserowa PCL"
 
 msgid "PRC16K"
 msgstr "PRC16K"
@@ -4773,7 +4777,7 @@ msgid "Print Job:"
 msgstr "Zadanie wydruku:"
 
 msgid "Print Mode"
-msgstr ""
+msgstr "Tryb wydruku"
 
 msgid "Print Rate"
 msgstr "Szybkość drukowania"
@@ -4782,7 +4786,7 @@ msgid "Print Self-Test Page"
 msgstr "Drukowanie strony testowej drukarki"
 
 msgid "Print Speed"
-msgstr ""
+msgstr "Szybkość wydruku"
 
 msgid "Print Test Page"
 msgstr "Drukowanie strony testowej"
@@ -4813,7 +4817,7 @@ msgid "Printer Added"
 msgstr "Drukarka dodana"
 
 msgid "Printer Default"
-msgstr ""
+msgstr "Drukarka domyślna"
 
 msgid "Printer Deleted"
 msgstr "Drukarka usunięta"
@@ -4873,7 +4877,7 @@ msgid "Remote host did not accept data file (%d)."
 msgstr "Zdalny komputer odrzucił plik danych (%d)."
 
 msgid "Reprint After Error"
-msgstr ""
+msgstr "Ponów wydruk po błędzie"
 
 msgid "Request Entity Too Large"
 msgstr "Jednostka zapytania za duża"
@@ -4888,10 +4892,10 @@ msgid "Resume Printer"
 msgstr "Włączanie drukarki"
 
 msgid "Return Address"
-msgstr ""
+msgstr "Adres zwrotny"
 
 msgid "Rewind"
-msgstr ""
+msgstr "Przewiń"
 
 msgid "SEQUENCE uses indefinite length"
 msgstr "SEQUENCE ma nieskończoną długość"
@@ -5153,7 +5157,7 @@ msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "Za duża wartość printer-state-reasons (%d > %d)."
 
 msgid "Transparency"
-msgstr ""
+msgstr "Przeźroczystość"
 
 msgid "Tray"
 msgstr "Zasobnik"
@@ -5649,7 +5653,7 @@ msgstr ""
 "       cancel [opcje] [id-pkt-docelowego]"
 
 msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Użycie: cups-oauth [OPCJE] [POLECENIE [ARGUMENT(Y)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
 msgstr ""
@@ -5831,7 +5835,7 @@ msgstr "Jednostki dokładności"
 
 #. TRANSLATORS: Millimeters
 msgid "accuracy-units.mm"
-msgstr ""
+msgstr "Milimetry"
 
 #. TRANSLATORS: Nanometers
 msgid "accuracy-units.nm"
@@ -5842,7 +5846,7 @@ msgid "accuracy-units.um"
 msgstr "Mikrometry"
 
 msgid "authorize [RESOURCE]           Authorize access to a resource"
-msgstr ""
+msgstr "authorize [ZASÓB]           Autoryzuj dostęp do zasobu"
 
 #. TRANSLATORS: Bale Output
 msgid "baling"
@@ -5937,16 +5941,16 @@ msgid "binding-type.velo"
 msgstr ""
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
-msgstr ""
+msgstr "ca NAZWA-POSPOLITA             Podpisz CSR, aby uzyskać certyfikat."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
-msgstr ""
+msgstr "cacert NAZWA-POSPOLITA         Utwórz certyfikat CA."
 
 msgid "canceled"
 msgstr "anulowano"
 
 msgid "cert COMMON-NAME           Create a certificate."
-msgstr ""
+msgstr "cert NAZWA-POSPOLITA           Utwórz certyfikat."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
@@ -5961,10 +5965,10 @@ msgid "charge-info-message"
 msgstr ""
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
-msgstr ""
+msgstr "clear [ZASÓB]               Wyczyść autoryzację dla zasobu"
 
 msgid "client URI                 Connect to URI."
-msgstr ""
+msgstr "client URI                 Połącz się z URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
@@ -6126,7 +6130,7 @@ msgid "covering-name.pre-printed"
 msgstr ""
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr ""
+msgstr "csr nazwa-pospolita            Utwórz żądanie podpisania certyfikatu."
 
 msgid "cups-deviced failed to execute."
 msgstr "uruchomienie cups-deviced nie powidło się."
@@ -6140,174 +6144,175 @@ msgstr ""
 "informacji."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
-msgstr ""
+msgstr "cups-oauth: Brak adresu URI serwera autoryzacji po '-a'."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr ""
+msgstr "cups-oauth: Brak identyfikatora klienta i/lub tajnego klucza klienta."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
-msgstr ""
+msgstr "cups-oauth: Brak identyfikatora URI zasobu i/lub tokena dostępu."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr ""
+msgstr "cups-oauth: Brak zakresu(-ów) po '-s'."
 
 msgid "cups-oauth: No authorization server specified."
-msgstr ""
+msgstr "cups-oauth: Nie określono serwera autoryzacji."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nie można uzyskać tokena dostępu z '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nie można uzyskać autoryzacji od '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nie można pobrać metadanych dla '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nie można uzyskać identyfikatora użytkownika dla '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "cups-oauth: Nieznane polecenie '%s'."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowa wartość DNI '%s' po '-d'."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowa wersja protokołu HTTP."
 
 #, c-format
 msgid "cups-x509: Bad URI '%s'."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowy URI '%s'."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowy typ certyfikatu '%s'."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowe użycie klucza '%s'."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowe zastosowanie '%s'."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowy wiersz żądania (%s)."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "cups-x509: Nieprawidłowa/nieznana operacja."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "cups-x509: Klient zamknął połączenie."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr ""
+msgstr "cups-x509: Brak nazwy pliku CSR po '-R'."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr ""
+msgstr "cups-x509: Brak typu certyfikatu po '-t'."
 
 msgid "cups-x509: Missing command argument."
-msgstr ""
+msgstr "cups-x509: Brak argumentu polecenia."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr ""
+msgstr "cups-x509: Brak kraju po '-C'."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr ""
+msgstr "cups-x509: Brak dni wygaśnięcia po '-d'."
 
 msgid "cups-x509: Missing key usage after '-u'."
-msgstr ""
+msgstr "cups-x509: Brak użycia klucza po '-u'."
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
-msgstr ""
+msgstr "cups-x509: Brak miejscowości/miasta/miasteczka po '-L'."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr ""
+msgstr "cups-x509: Brak organizacji po '-O'."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
-msgstr ""
+msgstr "cups-x509: Brak jednostki organizacyjnej po '-U'."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr ""
+msgstr "cups-x509: Brak zastosowania po '-p'."
 
 msgid "cups-x509: Missing root name after '-r'."
-msgstr ""
+msgstr "cups-x509: Brak nazwy głównej po '-r'."
 
 msgid "cups-x509: Missing state/province after '-S'."
-msgstr ""
+msgstr "cups-x509: Brak województwa/prowincji po '-S'."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
-msgstr ""
+msgstr "cups-x509: Brak parametru subjectAltName po '-a'."
 
 #, c-format
 msgid "cups-x509: No request for '%s'."
-msgstr ""
+msgstr "cups-x509: Brak żądania po '%s'."
 
 msgid "cups-x509: Too many subjectAltName values."
-msgstr ""
+msgstr "cups-x509: Zbyt wiele wartości subjectAltName."
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr ""
+msgstr "cups-x509: Nie można zaakceptować połączenia: %s"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nie można uzyskać dostępu do '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nie można przydzielić pamięci dla '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
-msgstr ""
+msgstr "cups-x509: Nie można połączyć się z '%s' na porcie %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr ""
+msgstr "cups-x509: Nie można utworzyć certyfikatu (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr ""
+msgstr "cups-x509: Nie można utworzyć żądania certyfikatu (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
-msgstr ""
+msgstr "cups-x509: Nie można zaszyfrować połączenia: %s"
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate for '%s'."
-msgstr ""
+msgstr "cups-x509: Nie można uzyskać wygenerowanego certyfikatu dla '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
 msgstr ""
+"cups-x509: Nie można uzyskać wygenerowanego żądania certyfikatu dla '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
-msgstr ""
+msgstr "cups-x509: Nie można uzyskać wygenerowanego klucza prywatnego dla '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
-msgstr ""
+msgstr "cups-x509: Nie można nasłuchiwać na porcie %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
-msgstr ""
+msgstr "cups-x509: Nie można odczytać '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nie można wykonać stat na '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "cups-x509: Nieznane polecenie '%s'."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -15683,20 +15688,28 @@ msgstr ""
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
 msgstr ""
+"server NAZWA-POSPOLITA[:PORT]  Uruchom serwer HTTPS (domyślny port 8NNN.)"
 
 msgid ""
 "set-access-token [RESOURCE] TOKEN\n"
 "                               Set the current access token"
 msgstr ""
+"set-access-token [ZASÓB] TOKEN\n"
+"                               Ustaw aktualny token dostępu"
 
 msgid ""
 "set-client-data CLIENT-ID CLIENT-SECRET\n"
 "                               Set the client ID and secret for the "
 "authorization server."
 msgstr ""
+"set-client-data ID-KLIENTA TAJNY-KLUCZ-KLIENTA\n"
+"                               Ustaw identyfikator klienta i tajny klucz dla "
+"serwera autoryzacji."
 
 msgid "show COMMON-NAME           Show stored credentials for COMMON-NAME."
 msgstr ""
+"show NAZWA-POSPOLITA           Pokaż zapisane dane uwierzytelniające dla "
+"NAZWY-POSPOLITEJ."
 
 #. TRANSLATORS: 2-Sided Printing
 msgid "sides"
