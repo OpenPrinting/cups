@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-03 19:33+0000\n"
+"PO-Revision-Date: 2025-04-03 19:38+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
 "Language: pl\n"
@@ -12084,7 +12084,7 @@ msgstr ""
 
 #. TRANSLATORS: Print Accuracy
 msgid "print-accuracy"
-msgstr ""
+msgstr "Dokładność wydruku"
 
 #. TRANSLATORS: Print Base
 msgid "print-base"
@@ -15972,47 +15972,47 @@ msgstr "variable-bindings ma nieustaloną długość"
 
 #. TRANSLATORS: X Accuracy
 msgid "x-accuracy"
-msgstr ""
+msgstr "x-Dokładność"
 
 #. TRANSLATORS: X Dimension
 msgid "x-dimension"
-msgstr ""
+msgstr "x-Wymiar"
 
 #. TRANSLATORS: X Offset
 msgid "x-offset"
-msgstr ""
+msgstr "x-Przesunięcie"
 
 #. TRANSLATORS: X Origin
 msgid "x-origin"
-msgstr ""
+msgstr "x-Pochodzenie"
 
 #. TRANSLATORS: Y Accuracy
 msgid "y-accuracy"
-msgstr ""
+msgstr "y-Dokładność"
 
 #. TRANSLATORS: Y Dimension
 msgid "y-dimension"
-msgstr ""
+msgstr "y-Wymiar"
 
 #. TRANSLATORS: Y Offset
 msgid "y-offset"
-msgstr ""
+msgstr "y-Przesunięcie"
 
 #. TRANSLATORS: Y Origin
 msgid "y-origin"
-msgstr ""
+msgstr "y-Pochodzenie"
 
 #. TRANSLATORS: Z Accuracy
 msgid "z-accuracy"
-msgstr ""
+msgstr "z-Dokładność"
 
 #. TRANSLATORS: Z Dimension
 msgid "z-dimension"
-msgstr ""
+msgstr "z-Wymiar"
 
 #. TRANSLATORS: Z Offset
 msgid "z-offset"
-msgstr ""
+msgstr "z-Przesunięcie"
 
 msgid "{service_domain}        Domain name"
 msgstr "{service_domain}        Nazwa domeny"
