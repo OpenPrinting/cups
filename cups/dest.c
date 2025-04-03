@@ -87,7 +87,7 @@ typedef struct _cups_dnssd_device_s	// Enumerated device
 typedef struct _cups_dnssd_resdata_s	// Data for resolving URI
 {
   int			*cancel;	// Pointer to "cancel" variable
-  struct timeval	end_time;	// Ending time
+  double		end_time;	// Ending time
 } _cups_dnssd_resdata_t;
 
 typedef struct _cups_getdata_s
@@ -132,7 +132,7 @@ static void		cups_dest_query_cb(cups_dnssd_query_t *query, void *cb_data, cups_d
 static const char	*cups_dest_resolve(cups_dest_t *dest, const char *uri, int msec, int *cancel, cups_dest_cb_t cb, void *user_data);
 static bool		cups_dest_resolve_cb(void *context);
 static void		cups_dnssd_unquote(char *dst, const char *src, size_t dstsize);
-static int		cups_elapsed(struct timeval *t);
+static int		cups_elapsed(double *t);
 static int              cups_enum_dests(http_t *http, unsigned flags, int msec, int *cancel, cups_ptype_t type, cups_ptype_t mask, cups_dest_cb_t cb, void *user_data);
 static int		cups_find_dest(const char *name, const char *instance,
 				       int num_dests, cups_dest_t *dests, int prev,
@@ -2963,23 +2963,13 @@ cups_dest_resolve(
 
 
   // Resolve the URI...
-  resolve.cancel = cancel;
-  gettimeofday(&resolve.end_time, NULL);
-  if (msec > 0)
-  {
-    resolve.end_time.tv_sec  += msec / 1000;
-    resolve.end_time.tv_usec += (msec % 1000) * 1000;
+  resolve.cancel   = cancel;
+  resolve.end_time = cupsGetClock();
 
-    while (resolve.end_time.tv_usec >= 1000000)
-    {
-      resolve.end_time.tv_sec ++;
-      resolve.end_time.tv_usec -= 1000000;
-    }
-  }
+  if (msec > 0)
+    resolve.end_time += 0.001 * msec;
   else
-  {
-    resolve.end_time.tv_sec += 75;
-  }
+    resolve.end_time += 75;
 
   if (cb)
     (*cb)(user_data, CUPS_DEST_FLAGS_UNCONNECTED | CUPS_DEST_FLAGS_RESOLVING, dest);
@@ -3010,7 +3000,7 @@ cups_dest_resolve_cb(void *context)	// I - Resolve data
 {
   _cups_dnssd_resdata_t	*resolve = (_cups_dnssd_resdata_t *)context;
 					// Resolve data
-  struct timeval	curtime;	// Current time
+  double		curtime;	// Current time
 
 
   // If the cancel variable is set, return immediately.
@@ -3021,11 +3011,11 @@ cups_dest_resolve_cb(void *context)	// I - Resolve data
   }
 
   // Otherwise check the end time...
-  gettimeofday(&curtime, NULL);
+  curtime = cupsGetClock();
 
-  DEBUG_printf("4cups_dest_resolve_cb: curtime=%d.%06d, end_time=%d.%06d", (int)curtime.tv_sec, (int)curtime.tv_usec, (int)resolve->end_time.tv_sec, (int)resolve->end_time.tv_usec);
+  DEBUG_printf("4cups_dest_resolve_cb: curtime=%.6f, end_time=%.6f", curtime, resolve->end_time);
 
-  return (curtime.tv_sec < resolve->end_time.tv_sec || (curtime.tv_sec == resolve->end_time.tv_sec && curtime.tv_usec < resolve->end_time.tv_usec));
+  return (curtime < resolve->end_time);
 }
 
 
@@ -3071,17 +3061,15 @@ cups_dnssd_unquote(char       *dst,	// I - Destination buffer
 //
 
 static int				// O  - Elapsed time in milliseconds
-cups_elapsed(struct timeval *t)		// IO - Previous time
+cups_elapsed(double *t)			// IO - Previous time
 {
-  int			msecs;		// Milliseconds
-  struct timeval	nt;		// New time
+  int		msecs;			// Milliseconds
+  double	nt;			// New time
 
 
-  gettimeofday(&nt, NULL);
-
-  msecs = (int)(1000 * (nt.tv_sec - t->tv_sec) + (nt.tv_usec - t->tv_usec) / 1000);
-
-  *t = nt;
+  nt    = cupsGetClock();
+  msecs = (int)(1000.0 * (nt - *t));
+  *t    = nt;
 
   return (msecs);
 }
@@ -3113,7 +3101,7 @@ cups_enum_dests(
   int		count,			// Number of queries started
 		completed,		// Number of completed queries
 		remaining;		// Remainder of timeout
-  struct timeval curtime;		// Current time
+  double	curtime;		// Current time
   _cups_dnssd_data_t data;		// Data for callback
   _cups_dnssd_device_t *device;		// Current device
   cups_dnssd_t	*dnssd = NULL;		// DNS-SD context
@@ -3351,7 +3339,7 @@ cups_enum_dests(
   else
     remaining = msec;
 
-  gettimeofday(&curtime, NULL);
+  curtime = cupsGetClock();
 
   while (remaining > 0 && (!cancel || !*cancel))
   {
