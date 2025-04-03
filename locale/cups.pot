@@ -1,9 +1,7 @@
 #
 # Message catalog template for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
-# Copyright © 2007-2019 by Apple Inc.
-# Copyright © 2005-2007 by Easy Software Products.
+# Copyright © 2020-2025 by OpenPrinting.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
 # information.
@@ -21,12 +19,13 @@
 #
 # where "LL" is your locale.
 #
+#: tools/cups-x509.c:849
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: CUPS 2.5b1\n"
+"Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2024-11-21 13:32-0500\n"
+"POT-Creation-Date: 2025-04-03 11:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1039,191 +1038,191 @@ msgstr ""
 msgid "! expression            Unary NOT of expression"
 msgstr ""
 
-#: cups/ipp.c:3948
+#: cups/ipp.c:3964
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."
 msgstr ""
 
-#: cups/ipp.c:3954
+#: cups/ipp.c:3970
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."
 msgstr ""
 
-#: cups/ipp.c:3650
+#: cups/ipp.c:3665
 #, c-format
 msgid "\"%s\": Bad attribute name - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
 
-#: cups/ipp.c:3644
+#: cups/ipp.c:3659
 #, c-format
 msgid "\"%s\": Bad attribute name - invalid character (RFC 8011 section 5.1.4)."
 msgstr ""
 
-#: cups/ipp.c:3664
+#: cups/ipp.c:3679
 #, c-format
 msgid "\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."
 msgstr ""
 
-#: cups/ipp.c:3997
+#: cups/ipp.c:4013
 #, c-format
 msgid "\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."
 msgstr ""
 
-#: cups/ipp.c:4003
+#: cups/ipp.c:4019
 #, c-format
 msgid "\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."
 msgstr ""
 
-#: cups/ipp.c:3741
+#: cups/ipp.c:3757
 #, c-format
 msgid "\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3747
+#: cups/ipp.c:3763
 #, c-format
 msgid "\"%s\": Bad dateTime UTC minutes %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3735
+#: cups/ipp.c:3750
 #, c-format
 msgid "\"%s\": Bad dateTime UTC sign '%c' (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3705
+#: cups/ipp.c:3720
 #, c-format
 msgid "\"%s\": Bad dateTime day %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3729
+#: cups/ipp.c:3744
 #, c-format
 msgid "\"%s\": Bad dateTime deciseconds %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3711
+#: cups/ipp.c:3726
 #, c-format
 msgid "\"%s\": Bad dateTime hours %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3717
+#: cups/ipp.c:3732
 #, c-format
 msgid "\"%s\": Bad dateTime minutes %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3699
+#: cups/ipp.c:3714
 #, c-format
 msgid "\"%s\": Bad dateTime month %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3723
+#: cups/ipp.c:3738
 #, c-format
 msgid "\"%s\": Bad dateTime seconds %u (RFC 8011 section 5.1.15)."
 msgstr ""
 
-#: cups/ipp.c:3675
+#: cups/ipp.c:3690
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
 msgstr ""
 
-#: cups/ipp.c:3935
+#: cups/ipp.c:3951
 #, c-format
 msgid "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
 
-#: cups/ipp.c:3929
+#: cups/ipp.c:3945
 #, c-format
 msgid "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section 5.1.4)."
 msgstr ""
 
-#: cups/ipp.c:4082
+#: cups/ipp.c:4098
 #, c-format
 msgid "\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section 5.1.10)."
 msgstr ""
 
-#: cups/ipp.c:4089
+#: cups/ipp.c:4105
 #, c-format
 msgid "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section 5.1.10)."
 msgstr ""
 
-#: cups/ipp.c:3905
+#: cups/ipp.c:3921
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
 msgstr ""
 
-#: cups/ipp.c:3900
+#: cups/ipp.c:3916
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section 8.1)."
 msgstr ""
 
-#: cups/ipp.c:3912
+#: cups/ipp.c:3928
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."
 msgstr ""
 
-#: cups/ipp.c:4040
+#: cups/ipp.c:4056
 #, c-format
 msgid "\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."
 msgstr ""
 
-#: cups/ipp.c:4047
+#: cups/ipp.c:4063
 #, c-format
 msgid "\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section 5.1.9)."
 msgstr ""
 
-#: cups/ipp.c:3686
+#: cups/ipp.c:3701
 #, c-format
 msgid "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
 msgstr ""
 
-#: cups/ipp.c:3781
+#: cups/ipp.c:3797
 #, c-format
 msgid "\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 section 5.1.14)."
 msgstr ""
 
-#: cups/ipp.c:3770
+#: cups/ipp.c:3786
 #, c-format
 msgid "\"%s\": Bad resolution value %dx%d%s - bad units value (RFC 8011 section 5.1.16)."
 msgstr ""
 
-#: cups/ipp.c:3758
+#: cups/ipp.c:3774
 #, c-format
 msgid "\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be positive (RFC 8011 section 5.1.16)."
 msgstr ""
 
-#: cups/ipp.c:3764
+#: cups/ipp.c:3780
 #, c-format
 msgid "\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC 8011 section 5.1.16)."
 msgstr ""
 
-#: cups/ipp.c:3846
+#: cups/ipp.c:3862
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
 msgstr ""
 
-#: cups/ipp.c:3841
+#: cups/ipp.c:3857
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section 8.3)."
 msgstr ""
 
-#: cups/ipp.c:3853
+#: cups/ipp.c:3869
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."
 msgstr ""
 
-#: cups/ipp.c:3974
+#: cups/ipp.c:3990
 #, c-format
 msgid "\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
 msgstr ""
 
-#: cups/ipp.c:3980
+#: cups/ipp.c:3996
 #, c-format
 msgid "\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
 msgstr ""
 
-#: scheduler/ipp.c:364
+#: scheduler/ipp.c:386
 msgid "\"requesting-user-name\" attribute in wrong group."
 msgstr ""
 
-#: scheduler/ipp.c:370 scheduler/ipp.c:385
+#: scheduler/ipp.c:392 scheduler/ipp.c:407
 msgid "\"requesting-user-name\" attribute with wrong syntax."
 msgstr ""
 
@@ -1232,37 +1231,37 @@ msgstr ""
 msgid "%-7s %-7.7s %-7d %-31.31s %.0f bytes"
 msgstr ""
 
-#: cups/dest-localization.c:218
+#: cups/dest-localization.c:214
 #, c-format
 msgid "%d x %d mm"
 msgstr ""
 
-#: cups/dest-localization.c:210
+#: cups/dest-localization.c:206
 #, c-format
 msgid "%g x %g \""
 msgstr ""
 
-#: cups/dest-localization.c:270 cups/dest-localization.c:277
+#: cups/dest-localization.c:266 cups/dest-localization.c:273
 #, c-format
 msgid "%s (%s)"
 msgstr ""
 
-#: cups/dest-localization.c:284
+#: cups/dest-localization.c:280
 #, c-format
 msgid "%s (%s, %s)"
 msgstr ""
 
-#: cups/dest-localization.c:261
+#: cups/dest-localization.c:257
 #, c-format
 msgid "%s (Borderless)"
 msgstr ""
 
-#: cups/dest-localization.c:268 cups/dest-localization.c:275
+#: cups/dest-localization.c:264 cups/dest-localization.c:271
 #, c-format
 msgid "%s (Borderless, %s)"
 msgstr ""
 
-#: cups/dest-localization.c:282
+#: cups/dest-localization.c:278
 #, c-format
 msgid "%s (Borderless, %s, %s)"
 msgstr ""
@@ -1272,7 +1271,7 @@ msgstr ""
 msgid "%s accepting requests since %s"
 msgstr ""
 
-#: scheduler/ipp.c:10569
+#: scheduler/ipp.c:10318
 #, c-format
 msgid "%s cannot be changed."
 msgstr ""
@@ -1308,7 +1307,7 @@ msgstr ""
 msgid "%s not accepting requests since %s -"
 msgstr ""
 
-#: scheduler/ipp.c:607
+#: scheduler/ipp.c:624
 #, c-format
 msgid "%s not supported."
 msgstr ""
@@ -1342,7 +1341,7 @@ msgstr ""
 msgid "%s: %s failed: %s"
 msgstr ""
 
-#: tools/ippfind.c:662 tools/ipptool.c:495
+#: tools/ippfind.c:662 tools/ipptool.c:491
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr ""
@@ -1637,27 +1636,27 @@ msgstr ""
 msgid "%s: Invalid filter string \"%s\"."
 msgstr ""
 
-#: tools/ipptool.c:339
+#: tools/ipptool.c:335
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
 msgstr ""
 
-#: tools/ipptool.c:422
+#: tools/ipptool.c:418
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
 msgstr ""
 
-#: tools/ippfind.c:634 tools/ipptool.c:457
+#: tools/ippfind.c:634 tools/ipptool.c:453
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
 msgstr ""
 
-#: tools/ipptool.c:326
+#: tools/ipptool.c:322
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
 msgstr ""
 
-#: tools/ippfind.c:647 tools/ipptool.c:469
+#: tools/ippfind.c:647 tools/ipptool.c:465
 #, c-format
 msgid "%s: Missing version for \"-V\"."
 msgstr ""
@@ -1698,7 +1697,7 @@ msgstr ""
 msgid "%s: Unable to determine MIME type of \"%s\"."
 msgstr ""
 
-#: tools/ipptool.c:367 tools/ipptool.c:431 tools/ipptool.c:734
+#: tools/ipptool.c:363 tools/ipptool.c:427 tools/ipptool.c:730
 #, c-format
 msgid "%s: Unable to open \"%s\": %s"
 msgstr ""
@@ -1744,9 +1743,19 @@ msgid "%s: Unknown option \"%s\"."
 msgstr ""
 
 #: scheduler/cupsfilter.c:1545 tools/ippeveprinter.c:554 tools/ippfind.c:813
-#: tools/ipptool.c:677
+#: tools/ipptool.c:673
 #, c-format
 msgid "%s: Unknown option \"-%c\"."
+msgstr ""
+
+#: tools/cups-oauth.c:87 tools/cups-x509.c:120 tools/cups-x509.c:350
+#, c-format
+msgid "%s: Unknown option '%s'."
+msgstr ""
+
+#: tools/cups-oauth.c:119 tools/cups-x509.c:335
+#, c-format
+msgid "%s: Unknown option '-%c'."
 msgstr ""
 
 #: scheduler/cupsfilter.c:446
@@ -1811,13 +1820,13 @@ msgstr ""
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
 
-#: tools/ipptool.c:6508
+#: tools/ipptool.c:6504
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
 
-#: tools/ipptool.c:6510
+#: tools/ipptool.c:6506
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
@@ -1847,11 +1856,15 @@ msgstr ""
 msgid "--false                 Always false"
 msgstr ""
 
-#: tools/ippeveprinter.c:6890
+#: tools/cups-oauth.c:539 tools/cups-x509.c:850
+msgid "--help                         Show this help"
+msgstr ""
+
+#: tools/ippeveprinter.c:6891
 msgid "--help                  Show program help"
 msgstr ""
 
-#: tools/ipptool.c:6512
+#: tools/ipptool.c:6508
 msgid "--help                  Show this help"
 msgstr ""
 
@@ -1869,7 +1882,7 @@ msgid ""
 "                        Include only the specified URI schemes"
 msgstr ""
 
-#: tools/ipptool.c:6513
+#: tools/ipptool.c:6509
 msgid "--ippserver filename    Produce ippserver attribute file"
 msgstr ""
 
@@ -1897,7 +1910,7 @@ msgstr ""
 msgid "--name regex            Match service name to regular expression"
 msgstr ""
 
-#: tools/ippeveprinter.c:6891
+#: tools/ippeveprinter.c:6892
 msgid "--no-web-forms          Disable web forms for media and supplies"
 msgstr ""
 
@@ -1905,12 +1918,16 @@ msgstr ""
 msgid "--not expression        Unary NOT of expression"
 msgstr ""
 
-#: tools/ippeveprinter.c:6892
+#: tools/ippeveprinter.c:6893
 msgid "--pam-service service   Use the named PAM service"
 msgstr ""
 
 #: tools/ippfind.c:2030
 msgid "--path regex            Match resource path to regular expression"
+msgstr ""
+
+#: tools/cups-x509.c:851
+msgid "--pin                          Pin certificate found by client command"
 msgstr ""
 
 #: tools/ippfind.c:2031
@@ -1941,7 +1958,11 @@ msgstr ""
 msgid "--remote                True if service is remote"
 msgstr ""
 
-#: tools/ipptool.c:6514
+#: tools/cups-x509.c:852
+msgid "--require-ca                   Require CA-signed certificate for client command"
+msgstr ""
+
+#: tools/ipptool.c:6510
 msgid ""
 "--stop-after-include-error\n"
 "                        Stop tests after a failed INCLUDE"
@@ -1967,39 +1988,191 @@ msgstr ""
 msgid "--uri regex             Match URI to regular expression"
 msgstr ""
 
-#: tools/ippeveprinter.c:6893 tools/ippfind.c:2006
+#: tools/cups-oauth.c:540 tools/cups-x509.c:853
+msgid "--version                      Show the program version"
+msgstr ""
+
+#: tools/ippeveprinter.c:6894 tools/ippfind.c:2006
 msgid "--version               Show program version"
 msgstr ""
 
-#: tools/ipptool.c:6516
+#: tools/ipptool.c:6512
 msgid "--version               Show version"
 msgstr ""
 
-#: tools/ippeveprinter.c:6894
-msgid "-2                      Set 2-sided printing support (default=1-sided)"
+#: ppdc/sample.c:315
+msgid "-1"
 msgstr ""
 
-#: tools/ippfind.c:2002 tools/ipptool.c:6517
-msgid "-4                      Connect using IPv4"
+#: ppdc/sample.c:306
+msgid "-10"
 msgstr ""
 
-#: tools/ippfind.c:2003 tools/ipptool.c:6518
-msgid "-6                      Connect using IPv6"
+#: ppdc/sample.c:398
+msgid "-100"
+msgstr ""
+
+#: ppdc/sample.c:397
+msgid "-105"
+msgstr ""
+
+#: ppdc/sample.c:305
+msgid "-11"
+msgstr ""
+
+#: ppdc/sample.c:396
+msgid "-110"
+msgstr ""
+
+#: ppdc/sample.c:395
+msgid "-115"
+msgstr ""
+
+#: ppdc/sample.c:304
+msgid "-12"
+msgstr ""
+
+#: ppdc/sample.c:394
+msgid "-120"
+msgstr ""
+
+#: ppdc/sample.c:303
+msgid "-13"
+msgstr ""
+
+#: ppdc/sample.c:302
+msgid "-14"
+msgstr ""
+
+#: ppdc/sample.c:301
+msgid "-15"
+msgstr ""
+
+#: ppdc/sample.c:314
+msgid "-2"
 msgstr ""
 
 #: tools/ippeveprinter.c:6895
+msgid "-2                      Set 2-sided printing support (default=1-sided)"
+msgstr ""
+
+#: ppdc/sample.c:414
+msgid "-20"
+msgstr ""
+
+#: ppdc/sample.c:413
+msgid "-25"
+msgstr ""
+
+#: ppdc/sample.c:313
+msgid "-3"
+msgstr ""
+
+#: ppdc/sample.c:412
+msgid "-30"
+msgstr ""
+
+#: ppdc/sample.c:411
+msgid "-35"
+msgstr ""
+
+#: ppdc/sample.c:312
+msgid "-4"
+msgstr ""
+
+#: tools/ippfind.c:2002 tools/ipptool.c:6513
+msgid "-4                      Connect using IPv4"
+msgstr ""
+
+#: ppdc/sample.c:410
+msgid "-40"
+msgstr ""
+
+#: ppdc/sample.c:409
+msgid "-45"
+msgstr ""
+
+#: ppdc/sample.c:311
+msgid "-5"
+msgstr ""
+
+#: ppdc/sample.c:408
+msgid "-50"
+msgstr ""
+
+#: ppdc/sample.c:407
+msgid "-55"
+msgstr ""
+
+#: ppdc/sample.c:310
+msgid "-6"
+msgstr ""
+
+#: tools/ippfind.c:2003 tools/ipptool.c:6514
+msgid "-6                      Connect using IPv6"
+msgstr ""
+
+#: ppdc/sample.c:406
+msgid "-60"
+msgstr ""
+
+#: ppdc/sample.c:405
+msgid "-65"
+msgstr ""
+
+#: ppdc/sample.c:309
+msgid "-7"
+msgstr ""
+
+#: ppdc/sample.c:404
+msgid "-70"
+msgstr ""
+
+#: ppdc/sample.c:403
+msgid "-75"
+msgstr ""
+
+#: ppdc/sample.c:308
+msgid "-8"
+msgstr ""
+
+#: ppdc/sample.c:402
+msgid "-80"
+msgstr ""
+
+#: ppdc/sample.c:401
+msgid "-85"
+msgstr ""
+
+#: ppdc/sample.c:307
+msgid "-9"
+msgstr ""
+
+#: ppdc/sample.c:400
+msgid "-90"
+msgstr ""
+
+#: ppdc/sample.c:399
+msgid "-95"
+msgstr ""
+
+#: tools/ippeveprinter.c:6896
 msgid "-A                      Enable authentication"
 msgstr ""
 
-#: tools/ipptool.c:6519
+#: tools/ipptool.c:6515
 msgid "-C                      Send requests using chunking (default)"
+msgstr ""
+
+#: tools/cups-x509.c:854
+msgid "-C COUNTRY                     Set country."
 msgstr ""
 
 #: systemv/lpadmin.c:1519
 msgid "-D description          Specify the textual description of the printer"
 msgstr ""
 
-#: tools/ippeveprinter.c:6896
+#: tools/ippeveprinter.c:6897
 msgid "-D device-uri           Set the device URI for the printer"
 msgstr ""
 
@@ -2014,7 +2187,7 @@ msgstr ""
 msgid "-E                      Encrypt the connection to the server"
 msgstr ""
 
-#: tools/ipptool.c:6520
+#: tools/ipptool.c:6516
 msgid "-E                      Test with encryption using HTTP Upgrade to TLS"
 msgstr ""
 
@@ -2022,7 +2195,7 @@ msgstr ""
 msgid "-F                      Run in the foreground but detach from console."
 msgstr ""
 
-#: tools/ippeveprinter.c:6897
+#: tools/ippeveprinter.c:6898
 msgid "-F output-type/subtype  Set the output format for the printer"
 msgstr ""
 
@@ -2054,7 +2227,7 @@ msgstr ""
 msgid "-H server[:port]        Connect to the named server and port"
 msgstr ""
 
-#: tools/ipptool.c:6521
+#: tools/ipptool.c:6517
 msgid "-I                      Ignore errors"
 msgstr ""
 
@@ -2064,24 +2237,32 @@ msgid ""
 "                          Ignore specific warnings"
 msgstr ""
 
-#: tools/ippeveprinter.c:6898
+#: tools/ippeveprinter.c:6899
 msgid "-K keypath              Set location of server X.509 certificates and keys."
 msgstr ""
 
-#: tools/ipptool.c:6522
+#: tools/ipptool.c:6518
 msgid "-L                      Send requests using content-length"
+msgstr ""
+
+#: tools/cups-x509.c:855
+msgid "-L LOCALITY                    Set locality name."
 msgstr ""
 
 #: systemv/lpadmin.c:1524
 msgid "-L location             Specify the textual location of the printer"
 msgstr ""
 
-#: tools/ippeveprinter.c:6899
+#: tools/ippeveprinter.c:6900
 msgid "-M manufacturer         Set manufacturer name (default=Test)"
 msgstr ""
 
 #: tools/ippfind.c:2013
 msgid "-N name                 Match service name to literal name value"
+msgstr ""
+
+#: tools/cups-x509.c:856
+msgid "-O ORGANIZATION                Set organization name."
 msgstr ""
 
 #: berkeley/lpq.c:644
@@ -2092,7 +2273,7 @@ msgstr ""
 msgid "-P destination          Specify the destination"
 msgstr ""
 
-#: tools/ipptool.c:6523
+#: tools/ipptool.c:6519
 msgid "-P filename.plist       Produce XML plist to a file and test report to standard output"
 msgstr ""
 
@@ -2104,12 +2285,16 @@ msgstr ""
 msgid "-P page-list            Specify a list of pages to print"
 msgstr ""
 
-#: tools/ipptool.c:6524
+#: tools/ipptool.c:6520
 msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
 #: systemv/lpstat.c:2095
 msgid "-R                      Show the ranking of jobs"
+msgstr ""
+
+#: tools/cups-x509.c:857
+msgid "-R CSR-FILENAME                Specify certificate signing request file."
 msgstr ""
 
 #: systemv/lpadmin.c:1544
@@ -2120,11 +2305,15 @@ msgstr ""
 msgid "-R root-directory       Set alternate root"
 msgstr ""
 
-#: tools/ipptool.c:6525
+#: tools/ipptool.c:6521
 msgid "-S                      Test with encryption using HTTPS"
 msgstr ""
 
-#: tools/ippeveprinter.c:6900
+#: tools/cups-x509.c:858
+msgid "-S STATE                       Set state."
+msgstr ""
+
+#: tools/ippeveprinter.c:6901
 msgid "-S filename.strings     Set strings file"
 msgstr ""
 
@@ -2132,12 +2321,16 @@ msgstr ""
 msgid "-T seconds              Set the browse timeout in seconds"
 msgstr ""
 
-#: tools/ipptool.c:6526
+#: tools/ipptool.c:6522
 msgid "-T seconds              Set the receive/send timeout in seconds"
 msgstr ""
 
 #: berkeley/lpr.c:453
 msgid "-T title                Specify the job title"
+msgstr ""
+
+#: tools/cups-x509.c:859
+msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
 msgstr ""
 
 #: berkeley/lpq.c:645 berkeley/lpr.c:454 berkeley/lprm.c:241
@@ -2151,7 +2344,7 @@ msgstr ""
 msgid "-U username             Specify username to use for authentication"
 msgstr ""
 
-#: tools/ippeveprinter.c:6901 tools/ippfind.c:2005 tools/ipptool.c:6527
+#: tools/ippeveprinter.c:6902 tools/ippfind.c:2005 tools/ipptool.c:6523
 msgid "-V version              Set default IPP version"
 msgstr ""
 
@@ -2169,7 +2362,7 @@ msgid ""
 "                          Issue warnings instead of errors"
 msgstr ""
 
-#: tools/ipptool.c:6528
+#: tools/ipptool.c:6524
 msgid "-X                      Produce XML plist instead of plain text"
 msgstr ""
 
@@ -2181,11 +2374,19 @@ msgstr ""
 msgid "-a                      Show jobs on all destinations"
 msgstr ""
 
+#: tools/cups-oauth.c:541
+msgid "-a OAUTH-URI                   Specify the OAuth authorization server URL"
+msgstr ""
+
+#: tools/cups-x509.c:860
+msgid "-a SUBJECT-ALT-NAME            Add a subjectAltName."
+msgstr ""
+
 #: systemv/lpstat.c:2088
 msgid "-a [destination(s)]     Show the accepting state of destinations"
 msgstr ""
 
-#: tools/ippeveprinter.c:6902
+#: tools/ippeveprinter.c:6903
 msgid "-a filename.conf        Load printer attributes from conf file"
 msgstr ""
 
@@ -2193,7 +2394,7 @@ msgstr ""
 msgid "-c                      Make a copy of the print file(s)"
 msgstr ""
 
-#: tools/ipptool.c:6529
+#: tools/ipptool.c:6525
 msgid "-c                      Produce CSV output"
 msgstr ""
 
@@ -2205,7 +2406,7 @@ msgstr ""
 msgid "-c class                Add the named destination to a class"
 msgstr ""
 
-#: tools/ippeveprinter.c:6903
+#: tools/ippeveprinter.c:6904
 msgid "-c command              Set print command"
 msgstr ""
 
@@ -2215,6 +2416,10 @@ msgstr ""
 
 #: systemv/lpstat.c:2090
 msgid "-d                      Show the default destination"
+msgstr ""
+
+#: tools/cups-x509.c:861
+msgid "-d DAYS                        Set expiration date in days."
 msgstr ""
 
 #: systemv/lpoptions.c:540
@@ -2229,7 +2434,7 @@ msgstr ""
 msgid "-d destination          Specify the destination"
 msgstr ""
 
-#: tools/ipptool.c:6530
+#: tools/ipptool.c:6526
 msgid "-d name=value           Set named variable to value"
 msgstr ""
 
@@ -2237,7 +2442,7 @@ msgstr ""
 msgid "-d regex                Match domain to regular expression"
 msgstr ""
 
-#: tools/ippeveprinter.c:6904
+#: tools/ippeveprinter.c:6905
 msgid "-d spool-directory      Set spool directory"
 msgstr ""
 
@@ -2249,11 +2454,11 @@ msgstr ""
 msgid "-f                      Run in the foreground."
 msgstr ""
 
-#: tools/ipptool.c:6531
+#: tools/ipptool.c:6527
 msgid "-f filename             Set default request filename"
 msgstr ""
 
-#: tools/ippeveprinter.c:6905
+#: tools/ippeveprinter.c:6906
 msgid "-f type/subtype[,...]   Set supported file types"
 msgstr ""
 
@@ -2261,7 +2466,7 @@ msgstr ""
 msgid "-h                      Show this usage message."
 msgstr ""
 
-#: tools/ipptool.c:6532
+#: tools/ipptool.c:6528
 msgid "-h                      Validate HTTP response headers"
 msgstr ""
 
@@ -2276,7 +2481,7 @@ msgstr ""
 msgid "-h server[:port]        Connect to the named server and port"
 msgstr ""
 
-#: tools/ippeveprinter.c:6906
+#: tools/ippeveprinter.c:6907
 msgid "-i iconfile.png[,...]   Set icon file(s)"
 msgstr ""
 
@@ -2288,11 +2493,11 @@ msgstr ""
 msgid "-i ppd-file             Specify a PPD file for the printer"
 msgstr ""
 
-#: tools/ipptool.c:6533
+#: tools/ipptool.c:6529
 msgid "-i seconds              Repeat the last file with the given time interval"
 msgstr ""
 
-#: tools/ippeveprinter.c:6907
+#: tools/ippeveprinter.c:6908
 msgid "-k                      Keep job spool files"
 msgstr ""
 
@@ -2300,7 +2505,7 @@ msgstr ""
 msgid "-l                      List attributes"
 msgstr ""
 
-#: tools/ipptool.c:6534
+#: tools/ipptool.c:6530
 msgid "-l                      Produce plain text output"
 msgstr ""
 
@@ -2316,7 +2521,7 @@ msgstr ""
 msgid "-l                      Show verbose (long) output"
 msgstr ""
 
-#: tools/ippeveprinter.c:6908
+#: tools/ippeveprinter.c:6909
 msgid "-l location             Set location of printer"
 msgstr ""
 
@@ -2332,7 +2537,7 @@ msgstr ""
 msgid "-m everywhere           Specify the printer is compatible with IPP Everywhere"
 msgstr ""
 
-#: tools/ippeveprinter.c:6909
+#: tools/ippeveprinter.c:6910
 msgid "-m model                Set model name (default=Printer)"
 msgstr ""
 
@@ -2340,11 +2545,11 @@ msgstr ""
 msgid "-m model                Specify a standard model/PPD file for the printer"
 msgstr ""
 
-#: tools/ipptool.c:6535
+#: tools/ipptool.c:6531
 msgid "-n count                Repeat the last file the given number of times"
 msgstr ""
 
-#: tools/ippeveprinter.c:6910
+#: tools/ippeveprinter.c:6911
 msgid "-n hostname             Set hostname for printer"
 msgstr ""
 
@@ -2460,6 +2665,12 @@ msgstr ""
 msgid "-p                      Print URI if true"
 msgstr ""
 
+#: tools/cups-x509.c:862
+msgid ""
+"-p PURPOSE                     Comma-delimited certificate purpose\n"
+"                               (serverAuth, clientAuth, codeSigning, emailProtection, timeStamping, OCSPSigning)"
+msgstr ""
+
 #: systemv/lpstat.c:2093
 msgid "-p [printer(s)]         Show the processing state of destinations"
 msgstr ""
@@ -2472,7 +2683,7 @@ msgstr ""
 msgid "-p destination          Specify/add the named destination"
 msgstr ""
 
-#: tools/ippeveprinter.c:6911
+#: tools/ippeveprinter.c:6912
 msgid "-p port                 Set port number for printer"
 msgstr ""
 
@@ -2480,7 +2691,7 @@ msgstr ""
 msgid "-q                      Quietly report match via exit code"
 msgstr ""
 
-#: systemv/cupstestppd.c:3863 tools/ipptool.c:6536
+#: systemv/cupstestppd.c:3863 tools/ipptool.c:6532
 msgid "-q                      Run silently"
 msgstr ""
 
@@ -2508,6 +2719,10 @@ msgstr ""
 msgid "-r                      Use 'relaxed' open mode"
 msgstr ""
 
+#: tools/cups-x509.c:864
+msgid "-r ROOT-NAME                   Name of root certificate"
+msgstr ""
+
 #: systemv/lpadmin.c:1543
 msgid "-r class                Remove the named destination from a class"
 msgstr ""
@@ -2516,7 +2731,7 @@ msgstr ""
 msgid "-r reason               Specify a reason message that others can see"
 msgstr ""
 
-#: tools/ippeveprinter.c:6912
+#: tools/ippeveprinter.c:6913
 msgid "-r subtype,[subtype]    Set DNS-SD service subtype"
 msgstr ""
 
@@ -2532,15 +2747,19 @@ msgstr ""
 msgid "-s                      Show a status summary"
 msgstr ""
 
+#: tools/cups-oauth.c:542
+msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
+msgstr ""
+
 #: scheduler/main.c:2100
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
 
-#: tools/ippeveprinter.c:6913
+#: tools/ippeveprinter.c:6914
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
 msgstr ""
 
-#: tools/ipptool.c:6537
+#: tools/ipptool.c:6533
 msgid "-t                      Produce a test report"
 msgstr ""
 
@@ -2552,12 +2771,24 @@ msgstr ""
 msgid "-t                      Test the configuration file."
 msgstr ""
 
+#: tools/cups-x509.c:865
+msgid ""
+"-t TYPE                        Certificate type\n"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, ecdsa-p384, ecdsa-p521)"
+msgstr ""
+
 #: tools/ippfind.c:2018
 msgid "-t key                  True if the TXT record contains the key"
 msgstr ""
 
 #: systemv/lp.c:781
 msgid "-t title                Specify the job title"
+msgstr ""
+
+#: tools/cups-x509.c:867
+msgid ""
+"-u USAGE                       Comma-delimited key usage\n"
+"                               (digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, encipherOnly, decipherOnly, default-ca, default-tls)"
 msgstr ""
 
 #: systemv/lpstat.c:2098
@@ -2584,7 +2815,7 @@ msgstr ""
 msgid "-u regex                Match URI to regular expression"
 msgstr ""
 
-#: systemv/cupstestppd.c:3865 tools/ippeveprinter.c:6914 tools/ipptool.c:6538
+#: systemv/cupstestppd.c:3865 tools/ippeveprinter.c:6915 tools/ipptool.c:6534
 msgid "-v                      Be verbose"
 msgstr ""
 
@@ -2622,22 +2853,834 @@ msgid ""
 "                        Execute program if true"
 msgstr ""
 
-#: cups/dest.c:1783
+#: cups/dest.c:1796
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
+msgstr ""
+
+#: ppdc/sample.c:316
+msgid "0"
+msgstr ""
+
+#: ppdc/sample.c:317
+msgid "1"
+msgstr ""
+
+#: ppdc/sample.c:389
+msgid "1 inch/sec."
+msgstr ""
+
+#: ppdc/sample.c:172
+msgid "1.25x0.25\""
+msgstr ""
+
+#: ppdc/sample.c:173
+msgid "1.25x2.25\""
+msgstr ""
+
+#: ppdc/sample.c:437
+msgid "1.5 inch/sec."
+msgstr ""
+
+#: ppdc/sample.c:174
+msgid "1.50x0.25\""
+msgstr ""
+
+#: ppdc/sample.c:175
+msgid "1.50x0.50\""
+msgstr ""
+
+#: ppdc/sample.c:176
+msgid "1.50x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:177
+msgid "1.50x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:326
+msgid "10"
+msgstr ""
+
+#: ppdc/sample.c:448
+msgid "10 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:6
+msgid "10 x 11"
+msgstr ""
+
+#: ppdc/sample.c:7
+msgid "10 x 13"
+msgstr ""
+
+#: ppdc/sample.c:8
+msgid "10 x 14"
+msgstr ""
+
+#: ppdc/sample.c:428
+msgid "100"
+msgstr ""
+
+#: ppdc/sample.c:339
+msgid "100 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:429
+msgid "105"
+msgstr ""
+
+#: ppdc/sample.c:327
+msgid "11"
+msgstr ""
+
+#: ppdc/sample.c:449
+msgid "11 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:430
+msgid "110"
+msgstr ""
+
+#: ppdc/sample.c:431
+msgid "115"
+msgstr ""
+
+#: ppdc/sample.c:328
+msgid "12"
+msgstr ""
+
+#: ppdc/sample.c:450
+msgid "12 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:9
+msgid "12 x 11"
+msgstr ""
+
+#: ppdc/sample.c:432
+msgid "120"
+msgstr ""
+
+#: ppdc/sample.c:340
+msgid "120 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:254
+msgid "120x60dpi"
+msgstr ""
+
+#: ppdc/sample.c:260
+msgid "120x72dpi"
+msgstr ""
+
+#: ppdc/sample.c:329
+msgid "13"
+msgstr ""
+
+#: ppdc/sample.c:240
+msgid "136dpi"
+msgstr ""
+
+#: ppdc/sample.c:330
+msgid "14"
+msgstr ""
+
+#: ppdc/sample.c:331
+msgid "15"
+msgstr ""
+
+#: ppdc/sample.c:333
+msgid "15 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:10
+msgid "15 x 11"
+msgstr ""
+
+#: ppdc/sample.c:341
+msgid "150 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:288
+msgid "150dpi"
+msgstr ""
+
+#: ppdc/sample.c:373
+msgid "16"
+msgstr ""
+
+#: ppdc/sample.c:374
+msgid "17"
+msgstr ""
+
+#: ppdc/sample.c:375
+msgid "18"
+msgstr ""
+
+#: ppdc/sample.c:255
+msgid "180dpi"
+msgstr ""
+
+#: ppdc/sample.c:376
+msgid "19"
+msgstr ""
+
+#: ppdc/sample.c:318
+msgid "2"
+msgstr ""
+
+#: ppdc/sample.c:390
+msgid "2 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:272
+msgid "2-Sided Printing"
+msgstr ""
+
+#: ppdc/sample.c:179
+msgid "2.00x0.37\""
+msgstr ""
+
+#: ppdc/sample.c:180
+msgid "2.00x0.50\""
+msgstr ""
+
+#: ppdc/sample.c:181
+msgid "2.00x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:182
+msgid "2.00x1.25\""
+msgstr ""
+
+#: ppdc/sample.c:183
+msgid "2.00x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:184
+msgid "2.00x3.00\""
+msgstr ""
+
+#: ppdc/sample.c:185
+msgid "2.00x4.00\""
+msgstr ""
+
+#: ppdc/sample.c:186
+msgid "2.00x5.50\""
+msgstr ""
+
+#: ppdc/sample.c:187
+msgid "2.25x0.50\""
+msgstr ""
+
+#: ppdc/sample.c:188
+msgid "2.25x1.25\""
+msgstr ""
+
+#: ppdc/sample.c:190
+msgid "2.25x4.00\""
+msgstr ""
+
+#: ppdc/sample.c:191
+msgid "2.25x5.50\""
+msgstr ""
+
+#: ppdc/sample.c:192
+msgid "2.38x5.50\""
+msgstr ""
+
+#: ppdc/sample.c:438
+msgid "2.5 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:193
+msgid "2.50x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:194
+msgid "2.50x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:195
+msgid "2.75x1.25\""
+msgstr ""
+
+#: ppdc/sample.c:196
+msgid "2.9 x 1\""
+msgstr ""
+
+#: ppdc/sample.c:377
+msgid "20"
+msgstr ""
+
+#: ppdc/sample.c:334
+msgid "20 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:342
+msgid "200 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:241
+msgid "203dpi"
+msgstr ""
+
+#: ppdc/sample.c:378
+msgid "21"
+msgstr ""
+
+#: ppdc/sample.c:379
+msgid "22"
+msgstr ""
+
+#: ppdc/sample.c:380
+msgid "23"
+msgstr ""
+
+#: ppdc/sample.c:381
+msgid "24"
+msgstr ""
+
+#: ppdc/sample.c:252
+msgid "24-Pin Series"
+msgstr ""
+
+#: ppdc/sample.c:261
+msgid "240x72dpi"
+msgstr ""
+
+#: ppdc/sample.c:382
+msgid "25"
+msgstr ""
+
+#: ppdc/sample.c:343
+msgid "250 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:383
+msgid "26"
+msgstr ""
+
+#: ppdc/sample.c:384
+msgid "27"
+msgstr ""
+
+#: ppdc/sample.c:385
+msgid "28"
+msgstr ""
+
+#: ppdc/sample.c:386
+msgid "29"
+msgstr ""
+
+#: ppdc/sample.c:319
+msgid "3"
+msgstr ""
+
+#: ppdc/sample.c:391
+msgid "3 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:3
+msgid "3 x 5"
+msgstr ""
+
+#: ppdc/sample.c:197
+msgid "3.00x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:198
+msgid "3.00x1.25\""
+msgstr ""
+
+#: ppdc/sample.c:199
+msgid "3.00x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:200
+msgid "3.00x3.00\""
+msgstr ""
+
+#: ppdc/sample.c:201
+msgid "3.00x4.00\""
+msgstr ""
+
+#: ppdc/sample.c:202
+msgid "3.00x5.00\""
+msgstr ""
+
+#: ppdc/sample.c:203
+msgid "3.00x6.00\""
+msgstr ""
+
+#: ppdc/sample.c:204
+msgid "3.00x8.00\""
+msgstr ""
+
+#: ppdc/sample.c:205
+msgid "3.25x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:206
+msgid "3.25x5.00\""
+msgstr ""
+
+#: ppdc/sample.c:207
+msgid "3.25x5.50\""
+msgstr ""
+
+#: ppdc/sample.c:208
+msgid "3.25x5.83\""
+msgstr ""
+
+#: ppdc/sample.c:209
+msgid "3.25x7.83\""
+msgstr ""
+
+#: ppdc/sample.c:4
+msgid "3.5 x 5"
+msgstr ""
+
+#: ppdc/sample.c:171
+msgid "3.5\" Disk"
+msgstr ""
+
+#: ppdc/sample.c:210
+msgid "3.50x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:387
+msgid "30"
+msgstr ""
+
+#: ppdc/sample.c:335
+msgid "30 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:344
+msgid "300 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:242
+msgid "300dpi"
+msgstr ""
+
+#: ppdc/sample.c:189
+msgid "30859 Paint Can Label"
+msgstr ""
+
+#: ppdc/sample.c:415
+msgid "35"
+msgstr ""
+
+#: ppdc/sample.c:257
+msgid "360dpi"
+msgstr ""
+
+#: ppdc/sample.c:256
+msgid "360x180dpi"
+msgstr ""
+
+#: ppdc/sample.c:320
+msgid "4"
+msgstr ""
+
+#: ppdc/sample.c:392
+msgid "4 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:211
+msgid "4.00x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:220
+msgid "4.00x13.00\""
+msgstr ""
+
+#: ppdc/sample.c:212
+msgid "4.00x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:213
+msgid "4.00x2.50\""
+msgstr ""
+
+#: ppdc/sample.c:214
+msgid "4.00x3.00\""
+msgstr ""
+
+#: ppdc/sample.c:215
+msgid "4.00x4.00\""
+msgstr ""
+
+#: ppdc/sample.c:216
+msgid "4.00x5.00\""
+msgstr ""
+
+#: ppdc/sample.c:217
+msgid "4.00x6.00\""
+msgstr ""
+
+#: ppdc/sample.c:218
+msgid "4.00x6.50\""
+msgstr ""
+
+#: ppdc/sample.c:219
+msgid "4.00x8.00\""
+msgstr ""
+
+#: ppdc/sample.c:416
+msgid "40"
+msgstr ""
+
+#: ppdc/sample.c:336
+msgid "40 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:417
+msgid "45"
+msgstr ""
+
+#: ppdc/sample.c:321
+msgid "5"
+msgstr ""
+
+#: ppdc/sample.c:442
+msgid "5 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:5
+msgid "5 x 7"
+msgstr ""
+
+#: ppdc/sample.c:418
+msgid "50"
+msgstr ""
+
+#: ppdc/sample.c:419
+msgid "55"
+msgstr ""
+
+#: ppdc/sample.c:322
+msgid "6"
+msgstr ""
+
+#: ppdc/sample.c:443
+msgid "6 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:221
+msgid "6.00x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:222
+msgid "6.00x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:223
+msgid "6.00x3.00\""
+msgstr ""
+
+#: ppdc/sample.c:224
+msgid "6.00x4.00\""
+msgstr ""
+
+#: ppdc/sample.c:225
+msgid "6.00x5.00\""
+msgstr ""
+
+#: ppdc/sample.c:226
+msgid "6.00x6.00\""
+msgstr ""
+
+#: ppdc/sample.c:227
+msgid "6.00x6.50\""
+msgstr ""
+
+#: ppdc/sample.c:228
+msgid "6.00x8.00\""
+msgstr ""
+
+#: ppdc/sample.c:420
+msgid "60"
+msgstr ""
+
+#: ppdc/sample.c:337
+msgid "60 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:264
+msgid "600dpi"
+msgstr ""
+
+#: ppdc/sample.c:253
+msgid "60dpi"
+msgstr ""
+
+#: ppdc/sample.c:259
+msgid "60x72dpi"
+msgstr ""
+
+#: ppdc/sample.c:421
+msgid "65"
+msgstr ""
+
+#: ppdc/sample.c:323
+msgid "7"
+msgstr ""
+
+#: ppdc/sample.c:445
+msgid "7 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:11
+msgid "7 x 9"
+msgstr ""
+
+#: ppdc/sample.c:422
+msgid "70"
+msgstr ""
+
+#: ppdc/sample.c:423
+msgid "75"
+msgstr ""
+
+#: ppdc/sample.c:324
+msgid "8"
+msgstr ""
+
+#: ppdc/sample.c:446
+msgid "8 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:12
+msgid "8 x 10"
+msgstr ""
+
+#: ppdc/sample.c:229
+msgid "8.00x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:230
+msgid "8.00x2.00\""
+msgstr ""
+
+#: ppdc/sample.c:231
+msgid "8.00x3.00\""
+msgstr ""
+
+#: ppdc/sample.c:232
+msgid "8.00x4.00\""
+msgstr ""
+
+#: ppdc/sample.c:233
+msgid "8.00x5.00\""
+msgstr ""
+
+#: ppdc/sample.c:234
+msgid "8.00x6.00\""
+msgstr ""
+
+#: ppdc/sample.c:235
+msgid "8.00x6.50\""
+msgstr ""
+
+#: ppdc/sample.c:236
+msgid "8.26x1.00\""
+msgstr ""
+
+#: ppdc/sample.c:424
+msgid "80"
+msgstr ""
+
+#: ppdc/sample.c:338
+msgid "80 mm/sec."
+msgstr ""
+
+#: ppdc/sample.c:178
+msgid "80x50mm"
+msgstr ""
+
+#: ppdc/sample.c:425
+msgid "85"
+msgstr ""
+
+#: ppdc/sample.c:325
+msgid "9"
+msgstr ""
+
+#: ppdc/sample.c:447
+msgid "9 inches/sec."
+msgstr ""
+
+#: ppdc/sample.c:13
+msgid "9 x 11"
+msgstr ""
+
+#: ppdc/sample.c:14
+msgid "9 x 12"
+msgstr ""
+
+#: ppdc/sample.c:258
+msgid "9-Pin Series"
+msgstr ""
+
+#: ppdc/sample.c:426
+msgid "90"
+msgstr ""
+
+#: ppdc/sample.c:427
+msgid "95"
 msgstr ""
 
 #: berkeley/lpc.c:201
 msgid "?Invalid help command unknown."
 msgstr ""
 
-#: scheduler/ipp.c:2160
+#: scheduler/ipp.c:2147
 #, c-format
 msgid "A class named \"%s\" already exists."
 msgstr ""
 
-#: scheduler/ipp.c:834
+#: scheduler/ipp.c:842
 #, c-format
 msgid "A printer named \"%s\" already exists."
+msgstr ""
+
+#: ppdc/sample.c:15
+msgid "A0"
+msgstr ""
+
+#: ppdc/sample.c:16
+msgid "A0 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:17
+msgid "A1"
+msgstr ""
+
+#: ppdc/sample.c:18
+msgid "A1 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:37
+msgid "A10"
+msgstr ""
+
+#: ppdc/sample.c:19
+msgid "A2"
+msgstr ""
+
+#: ppdc/sample.c:20
+msgid "A2 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:21
+msgid "A3"
+msgstr ""
+
+#: ppdc/sample.c:22
+msgid "A3 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:23
+msgid "A3 Oversize"
+msgstr ""
+
+#: ppdc/sample.c:24
+msgid "A3 Oversize Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:25
+msgid "A4"
+msgstr ""
+
+#: ppdc/sample.c:27
+msgid "A4 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:26
+msgid "A4 Oversize"
+msgstr ""
+
+#: ppdc/sample.c:28
+msgid "A4 Small"
+msgstr ""
+
+#: ppdc/sample.c:29
+msgid "A5"
+msgstr ""
+
+#: ppdc/sample.c:31
+msgid "A5 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:30
+msgid "A5 Oversize"
+msgstr ""
+
+#: ppdc/sample.c:32
+msgid "A6"
+msgstr ""
+
+#: ppdc/sample.c:33
+msgid "A6 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:34
+msgid "A7"
+msgstr ""
+
+#: ppdc/sample.c:35
+msgid "A8"
+msgstr ""
+
+#: ppdc/sample.c:36
+msgid "A9"
+msgstr ""
+
+#: ppdc/sample.c:38
+msgid "ANSI A"
+msgstr ""
+
+#: ppdc/sample.c:39
+msgid "ANSI B"
+msgstr ""
+
+#: ppdc/sample.c:40
+msgid "ANSI C"
+msgstr ""
+
+#: ppdc/sample.c:41
+msgid "ANSI D"
+msgstr ""
+
+#: ppdc/sample.c:42
+msgid "ANSI E"
+msgstr ""
+
+#: ppdc/sample.c:47
+msgid "ARCH C"
+msgstr ""
+
+#: ppdc/sample.c:48
+msgid "ARCH C Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:49
+msgid "ARCH D"
+msgstr ""
+
+#: ppdc/sample.c:50
+msgid "ARCH D Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:51
+msgid "ARCH E"
+msgstr ""
+
+#: ppdc/sample.c:52
+msgid "ARCH E Long Edge"
 msgstr ""
 
 #: cgi-bin/classes.c:157 cgi-bin/printers.c:160
@@ -2656,71 +3699,131 @@ msgstr ""
 msgid "Add Printer"
 msgstr ""
 
-#: cgi-bin/admin.c:165 cgi-bin/admin.c:239 cgi-bin/admin.c:2262
+#: ppdc/sample.c:163
+msgid "Address"
+msgstr ""
+
+#: cgi-bin/admin.c:165 cgi-bin/admin.c:239 cgi-bin/admin.c:2242
 msgid "Administration"
+msgstr ""
+
+#: ppdc/sample.c:434
+msgid "Always"
 msgstr ""
 
 #: backend/socket.c:106
 msgid "AppSocket/HP JetDirect"
 msgstr ""
 
-#: scheduler/ipp.c:931
+#: ppdc/sample.c:455
+msgid "Applicator"
+msgstr ""
+
+#: scheduler/ipp.c:935
 #, c-format
 msgid "Attempt to set %s printer-state to bad value %d."
 msgstr ""
 
-#: scheduler/ipp.c:5546
+#: scheduler/ipp.c:5445
 #, c-format
 msgid "Attribute \"%s\" has empty value."
 msgstr ""
 
-#: scheduler/ipp.c:5509 scheduler/ipp.c:5535
+#: scheduler/ipp.c:5408 scheduler/ipp.c:5434
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr ""
 
-#: scheduler/ipp.c:5511 scheduler/ipp.c:5537
+#: scheduler/ipp.c:5410 scheduler/ipp.c:5436
 #, c-format
 msgid "Attribute \"%s\" is the wrong value type."
 msgstr ""
 
-#: scheduler/ipp.c:226
+#: scheduler/ipp.c:231
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
 msgstr ""
 
-#: scheduler/ipp.c:7667
+#: ppdc/sample.c:126
+msgid "B0"
+msgstr ""
+
+#: ppdc/sample.c:127
+msgid "B1"
+msgstr ""
+
+#: ppdc/sample.c:137
+msgid "B10"
+msgstr ""
+
+#: ppdc/sample.c:128
+msgid "B2"
+msgstr ""
+
+#: ppdc/sample.c:129
+msgid "B3"
+msgstr ""
+
+#: ppdc/sample.c:130
+msgid "B4"
+msgstr ""
+
+#: ppdc/sample.c:131
+msgid "B5"
+msgstr ""
+
+#: ppdc/sample.c:132
+msgid "B5 Oversize"
+msgstr ""
+
+#: ppdc/sample.c:133
+msgid "B6"
+msgstr ""
+
+#: ppdc/sample.c:134
+msgid "B7"
+msgstr ""
+
+#: ppdc/sample.c:135
+msgid "B8"
+msgstr ""
+
+#: ppdc/sample.c:136
+msgid "B9"
+msgstr ""
+
+#: scheduler/ipp.c:7494
 #, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr ""
 
-#: scheduler/ipp.c:10578
+#: scheduler/ipp.c:10327
 #, c-format
 msgid "Bad '%s' value."
 msgstr ""
 
-#: scheduler/ipp.c:11551
+#: scheduler/ipp.c:11265
 #, c-format
 msgid "Bad 'document-format' value \"%s\"."
 msgstr ""
 
-#: cups/ppd.c:307
+#: cups/ppd.c:303
 msgid "Bad CloseUI/JCLCloseUI"
 msgstr ""
 
-#: cups/dest.c:1576
+#: cups/dest.c:1589
 msgid "Bad NULL dests pointer"
 msgstr ""
 
-#: cups/ppd.c:290
+#: cups/ppd.c:286
 msgid "Bad OpenGroup"
 msgstr ""
 
-#: cups/ppd.c:292
+#: cups/ppd.c:288
 msgid "Bad OpenUI/JCLOpenUI"
 msgstr ""
 
-#: cups/ppd.c:294
+#: cups/ppd.c:290
 msgid "Bad OrderDependency"
 msgstr ""
 
@@ -2737,7 +3840,7 @@ msgstr ""
 msgid "Bad PPD cache file."
 msgstr ""
 
-#: scheduler/ipp.c:2548
+#: scheduler/ipp.c:2522
 msgid "Bad PPD file."
 msgstr ""
 
@@ -2749,7 +3852,7 @@ msgstr ""
 msgid "Bad SNMP version number"
 msgstr ""
 
-#: cups/ppd.c:295
+#: cups/ppd.c:291
 msgid "Bad UIConstraints"
 msgstr ""
 
@@ -2761,40 +3864,44 @@ msgstr ""
 msgid "Bad arguments to function"
 msgstr ""
 
-#: scheduler/ipp.c:1315
+#: cups/tls.c:164
+msgid "Bad certificate."
+msgstr ""
+
+#: scheduler/ipp.c:1310
 #, c-format
 msgid "Bad copies value %d."
 msgstr ""
 
-#: cups/ppd.c:303
+#: cups/ppd.c:299
 msgid "Bad custom parameter"
 msgstr ""
 
-#: scheduler/ipp.c:2254
+#: scheduler/ipp.c:2241
 #, c-format
 msgid "Bad device-uri \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:2299
+#: scheduler/ipp.c:2286
 #, c-format
 msgid "Bad device-uri scheme \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:8644 scheduler/ipp.c:8662 scheduler/ipp.c:9894
+#: scheduler/ipp.c:8447 scheduler/ipp.c:8465 scheduler/ipp.c:9661
 #, c-format
 msgid "Bad document-format \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:9912
+#: scheduler/ipp.c:9679
 #, c-format
 msgid "Bad document-format-default \"%s\"."
 msgstr ""
 
-#: cups/tls-gnutls.c:1293 cups/tls-openssl.c:1200 cups/tls-openssl.c:1228
+#: cups/tls-gnutls.c:1293 cups/tls-openssl.c:1198 cups/tls-openssl.c:1226
 msgid "Bad extKeyUsage extension in X.509 certificate request."
 msgstr ""
 
-#: cups/ppd-util.c:167
+#: cups/ppd-util.c:163
 msgid "Bad filename buffer"
 msgstr ""
 
@@ -2802,66 +3909,66 @@ msgstr ""
 msgid "Bad hostname/address in URI"
 msgstr ""
 
-#: scheduler/ipp.c:1497
+#: scheduler/ipp.c:1492
 #, c-format
 msgid "Bad job-name value: %s"
 msgstr ""
 
-#: scheduler/ipp.c:1483
+#: scheduler/ipp.c:1478
 msgid "Bad job-name value: Wrong type or count."
 msgstr ""
 
-#: scheduler/ipp.c:10616
+#: scheduler/ipp.c:10365
 msgid "Bad job-priority value."
 msgstr ""
 
-#: scheduler/ipp.c:1345
+#: scheduler/ipp.c:1340
 #, c-format
 msgid "Bad job-sheets value \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:1329
+#: scheduler/ipp.c:1324
 msgid "Bad job-sheets value type."
 msgstr ""
 
-#: scheduler/ipp.c:10646
+#: scheduler/ipp.c:10395
 msgid "Bad job-state value."
 msgstr ""
 
-#: scheduler/ipp.c:2934 scheduler/ipp.c:3396 scheduler/ipp.c:6415
-#: scheduler/ipp.c:6562 scheduler/ipp.c:8076 scheduler/ipp.c:8348
-#: scheduler/ipp.c:9219 scheduler/ipp.c:9443 scheduler/ipp.c:9794
-#: scheduler/ipp.c:10477
+#: scheduler/ipp.c:2892 scheduler/ipp.c:3339 scheduler/ipp.c:6274
+#: scheduler/ipp.c:6416 scheduler/ipp.c:7892 scheduler/ipp.c:8154
+#: scheduler/ipp.c:9001 scheduler/ipp.c:9215 scheduler/ipp.c:9561
+#: scheduler/ipp.c:10226
 #, c-format
 msgid "Bad job-uri \"%s\"."
 msgstr ""
 
-#: cups/tls-gnutls.c:1244 cups/tls-openssl.c:1147 cups/tls-openssl.c:1155
-#: cups/tls-openssl.c:1180 cups/tls-openssl.c:1189
+#: cups/tls-gnutls.c:1244 cups/tls-openssl.c:1145 cups/tls-openssl.c:1153
+#: cups/tls-openssl.c:1178 cups/tls-openssl.c:1187
 msgid "Bad keyUsage extension in X.509 certificate request."
 msgstr ""
 
-#: scheduler/ipp.c:1926 scheduler/ipp.c:5935
+#: scheduler/ipp.c:1917 scheduler/ipp.c:5821
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:1891 scheduler/ipp.c:5899
+#: scheduler/ipp.c:1882 scheduler/ipp.c:5785
 #, c-format
 msgid "Bad notify-recipient-uri \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:6010
+#: scheduler/ipp.c:5893
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:1361
+#: scheduler/ipp.c:1356
 #, c-format
 msgid "Bad number-up value %d."
 msgstr ""
 
-#: scheduler/ipp.c:1378
+#: scheduler/ipp.c:1373
 #, c-format
 msgid "Bad page-ranges values %d-%d."
 msgstr ""
@@ -2870,12 +3977,12 @@ msgstr ""
 msgid "Bad port number in URI"
 msgstr ""
 
-#: scheduler/ipp.c:2345
+#: scheduler/ipp.c:2329
 #, c-format
 msgid "Bad port-monitor \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:2426
+#: scheduler/ipp.c:2403
 #, c-format
 msgid "Bad printer-state value %d."
 msgstr ""
@@ -2884,12 +3991,16 @@ msgstr ""
 msgid "Bad printer-uri."
 msgstr ""
 
-#: scheduler/ipp.c:200
+#: cups/tls.c:174
+msgid "Bad private key."
+msgstr ""
+
+#: scheduler/ipp.c:205
 #, c-format
 msgid "Bad request ID %d."
 msgstr ""
 
-#: scheduler/ipp.c:190
+#: scheduler/ipp.c:195
 #, c-format
 msgid "Bad request version number %d.%d."
 msgstr ""
@@ -2902,7 +4013,7 @@ msgstr ""
 msgid "Bad scheme in URI"
 msgstr ""
 
-#: cups/tls-openssl.c:1239
+#: cups/tls-openssl.c:1237
 msgid "Bad subjectAltName extension in X.509 certificate request."
 msgstr ""
 
@@ -2910,7 +4021,7 @@ msgstr ""
 msgid "Bad username in URI"
 msgstr ""
 
-#: cups/ppd.c:305
+#: cups/ppd.c:301
 msgid "Bad value string"
 msgstr ""
 
@@ -2918,8 +4029,12 @@ msgstr ""
 msgid "Bad/empty URI"
 msgstr ""
 
-#: cgi-bin/admin.c:2807 cgi-bin/admin.c:3056
+#: cgi-bin/admin.c:2787 cgi-bin/admin.c:3036
 msgid "Banners"
+msgstr ""
+
+#: ppdc/sample.c:292
+msgid "Bond Paper"
 msgstr ""
 
 #: backend/usb-darwin.c:2035
@@ -2931,28 +4046,40 @@ msgstr ""
 msgid "Buffer overflow detected, aborting."
 msgstr ""
 
+#: ppdc/sample.c:287
+msgid "CMYK"
+msgstr ""
+
+#: ppdc/sample.c:368
+msgid "CPCL Label Printer"
+msgstr ""
+
 #: cgi-bin/classes.c:161 cgi-bin/printers.c:164
 msgid "Cancel Jobs"
 msgstr ""
 
-#: backend/ipp.c:2362
+#: backend/ipp.c:2363
 msgid "Canceling print job."
 msgstr ""
 
-#: scheduler/ipp.c:907 scheduler/ipp.c:2401
+#: scheduler/ipp.c:913 scheduler/ipp.c:2380
 msgid "Cannot change printer-is-shared for remote queues."
 msgstr ""
 
-#: scheduler/ipp.c:2388
+#: scheduler/ipp.c:2367
 msgid "Cannot share a remote Kerberized printer."
 msgstr ""
 
-#: cgi-bin/admin.c:1356 cgi-bin/admin.c:1488 cgi-bin/admin.c:1501
-#: cgi-bin/admin.c:1514
+#: ppdc/sample.c:281
+msgid "Cassette"
+msgstr ""
+
+#: cgi-bin/admin.c:1336 cgi-bin/admin.c:1468 cgi-bin/admin.c:1481
+#: cgi-bin/admin.c:1494
 msgid "Change Settings"
 msgstr ""
 
-#: scheduler/ipp.c:1938 scheduler/ipp.c:5947
+#: scheduler/ipp.c:1929 scheduler/ipp.c:5833
 #, c-format
 msgid "Character set \"%s\" not supported."
 msgstr ""
@@ -2965,12 +4092,16 @@ msgstr ""
 msgid "Clean Print Heads"
 msgstr ""
 
-#: scheduler/ipp.c:3848
+#: scheduler/ipp.c:3759
 msgid "Close-Job doesn't support the job-uri attribute."
 msgstr ""
 
-#: cups/ppd-cache.c:4287
+#: cups/ppd-cache.c:4287 ppdc/sample.c:286
 msgid "Color"
+msgstr ""
+
+#: ppdc/sample.c:284
+msgid "Color Mode"
 msgstr ""
 
 #: berkeley/lpc.c:192
@@ -2980,11 +4111,15 @@ msgid ""
 "exit    help    quit    status  ?"
 msgstr ""
 
+#: tools/cups-oauth.c:524 tools/cups-x509.c:838
+msgid "Commands:"
+msgstr ""
+
 #: cups/snmp.c:938
 msgid "Community name uses indefinite length"
 msgstr ""
 
-#: backend/ipp.c:857 backend/lpd.c:925 backend/socket.c:368
+#: backend/ipp.c:858 backend/lpd.c:925 backend/socket.c:368
 msgid "Connected to printer."
 msgstr ""
 
@@ -2996,15 +4131,19 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
+#: ppdc/sample.c:370
+msgid "Continuous"
+msgstr ""
+
 #: backend/lpd.c:1074 backend/lpd.c:1206
 msgid "Control file sent successfully."
 msgstr ""
 
-#: backend/ipp.c:1394 backend/lpd.c:439
+#: backend/ipp.c:1395 backend/lpd.c:439
 msgid "Copying print data."
 msgstr ""
 
-#: scheduler/ipp.c:5231
+#: scheduler/ipp.c:5119
 #, c-format
 msgid "Couldn't resolve mDNS URI \"%s\"."
 msgstr ""
@@ -3013,20 +4152,72 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: cups/tls-gnutls.c:989 cups/tls-openssl.c:922
+#: backend/ipp.c:803
+msgid "Credentials are OK/trusted."
+msgstr ""
+
+#: backend/ipp.c:806
+msgid "Credentials are expired."
+msgstr ""
+
+#: backend/ipp.c:804
+msgid "Credentials are invalid."
+msgstr ""
+
+#: cups/tls-gnutls.c:989 cups/tls-openssl.c:920
 msgid "Credentials are not CA-signed."
 msgstr ""
 
-#: cups/tls-gnutls.c:981 cups/tls-openssl.c:914
+#: backend/ipp.c:808
+msgid "Credentials are unknown/new."
+msgstr ""
+
+#: cups/tls-gnutls.c:981 cups/tls-openssl.c:912
 msgid "Credentials do not validate against site CA certificate."
 msgstr ""
 
-#: cups/tls-gnutls.c:1010 cups/tls-openssl.c:943
+#: backend/ipp.c:807
+msgid "Credentials have been renewed."
+msgstr ""
+
+#: backend/ipp.c:805
+msgid "Credentials have changed."
+msgstr ""
+
+#: cups/tls-gnutls.c:1010 cups/tls-openssl.c:941
 msgid "Credentials have expired."
 msgstr ""
 
-#: cups/ppd.c:1128 cups/ppd.c:1168 cups/ppd.c:1375 cups/ppd.c:1477
+#: cups/ppd.c:1124 cups/ppd.c:1164 cups/ppd.c:1371 cups/ppd.c:1473
 msgid "Custom"
+msgstr ""
+
+#: ppdc/sample.c:364
+msgid "CustominCutInterval"
+msgstr ""
+
+#: ppdc/sample.c:362
+msgid "CustominTearInterval"
+msgstr ""
+
+#: ppdc/sample.c:348
+msgid "Cut"
+msgstr ""
+
+#: ppdc/sample.c:456
+msgid "Cutter"
+msgstr ""
+
+#: ppdc/sample.c:237
+msgid "DYMO"
+msgstr ""
+
+#: ppdc/sample.c:250
+msgid "Dark"
+msgstr ""
+
+#: ppdc/sample.c:246
+msgid "Darkness"
 msgstr ""
 
 #: backend/lpd.c:1159
@@ -3041,15 +4232,19 @@ msgstr ""
 msgid "Deep Gray"
 msgstr ""
 
-#: cgi-bin/admin.c:1787 cgi-bin/admin.c:1798 cgi-bin/admin.c:1843
+#: cgi-bin/admin.c:1767 cgi-bin/admin.c:1778 cgi-bin/admin.c:1823
 msgid "Delete Class"
 msgstr ""
 
-#: cgi-bin/admin.c:1872 cgi-bin/admin.c:1883 cgi-bin/admin.c:1928
+#: cgi-bin/admin.c:1852 cgi-bin/admin.c:1863 cgi-bin/admin.c:1908
 msgid "Delete Printer"
 msgstr ""
 
-#: scheduler/ipp.c:1244
+#: ppdc/sample.c:283
+msgid "DeskJet Series"
+msgstr ""
+
+#: scheduler/ipp.c:1239
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
 msgstr ""
@@ -3077,6 +4272,10 @@ msgid ""
 "        location = %s"
 msgstr ""
 
+#: ppdc/sample.c:441
+msgid "Direct Thermal Media"
+msgstr ""
+
 #: cups/file.c:236
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
@@ -3102,35 +4301,271 @@ msgstr ""
 msgid "Directory \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr ""
 
-#: scheduler/ipp.c:6464
+#: ppdc/sample.c:350
+msgid "Disabled"
+msgstr ""
+
+#: scheduler/ipp.c:6323
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr ""
 
-#: cgi-bin/admin.c:1542 cgi-bin/admin.c:1554 cgi-bin/admin.c:1608
-#: cgi-bin/admin.c:1615 cgi-bin/admin.c:1650 cgi-bin/admin.c:1663
-#: cgi-bin/admin.c:1687 cgi-bin/admin.c:1760
+#: ppdc/sample.c:277
+msgid "Duplexer"
+msgstr ""
+
+#: ppdc/sample.c:436
+msgid "EPL1 Label Printer"
+msgstr ""
+
+#: ppdc/sample.c:439
+msgid "EPL2 Label Printer"
+msgstr ""
+
+#: cgi-bin/admin.c:1522 cgi-bin/admin.c:1534 cgi-bin/admin.c:1588
+#: cgi-bin/admin.c:1595 cgi-bin/admin.c:1630 cgi-bin/admin.c:1643
+#: cgi-bin/admin.c:1667 cgi-bin/admin.c:1740
 msgid "Edit Configuration File"
 msgstr ""
 
-#: cups/http.c:4453
+#: cups/http.c:4461
 msgid "Encryption is not supported."
 msgstr ""
 
 #. TRANSLATORS: Banner/cover sheet after the print job.
-#: cgi-bin/admin.c:3081
+#: cgi-bin/admin.c:3061
 msgid "Ending Banner"
 msgstr ""
 
-#: scheduler/client.c:2007
+#: ppdc/sample.c:2
+msgid "English"
+msgstr ""
+
+#: scheduler/client.c:2016
 msgid "Enter your username and password or the root username and password to access this page. If you are using Kerberos authentication, make sure you have a valid Kerberos ticket."
+msgstr ""
+
+#: ppdc/sample.c:73
+msgid "Envelope #10"
+msgstr ""
+
+#: ppdc/sample.c:74
+msgid "Envelope #11"
+msgstr ""
+
+#: ppdc/sample.c:75
+msgid "Envelope #12"
+msgstr ""
+
+#: ppdc/sample.c:76
+msgid "Envelope #14"
+msgstr ""
+
+#: ppdc/sample.c:77
+msgid "Envelope #9"
+msgstr ""
+
+#: ppdc/sample.c:89
+msgid "Envelope B4"
+msgstr ""
+
+#: ppdc/sample.c:90
+msgid "Envelope B5"
+msgstr ""
+
+#: ppdc/sample.c:91
+msgid "Envelope B6"
+msgstr ""
+
+#: ppdc/sample.c:78
+msgid "Envelope C0"
+msgstr ""
+
+#: ppdc/sample.c:79
+msgid "Envelope C1"
+msgstr ""
+
+#: ppdc/sample.c:80
+msgid "Envelope C2"
+msgstr ""
+
+#: ppdc/sample.c:81
+msgid "Envelope C3"
+msgstr ""
+
+#: ppdc/sample.c:67
+msgid "Envelope C4"
+msgstr ""
+
+#: ppdc/sample.c:68
+msgid "Envelope C5"
+msgstr ""
+
+#: ppdc/sample.c:69
+msgid "Envelope C6"
+msgstr ""
+
+#: ppdc/sample.c:82
+msgid "Envelope C65"
+msgstr ""
+
+#: ppdc/sample.c:83
+msgid "Envelope C7"
+msgstr ""
+
+#: ppdc/sample.c:84
+msgid "Envelope Choukei 3"
+msgstr ""
+
+#: ppdc/sample.c:85
+msgid "Envelope Choukei 3 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:86
+msgid "Envelope Choukei 4"
+msgstr ""
+
+#: ppdc/sample.c:87
+msgid "Envelope Choukei 4 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:70
+msgid "Envelope DL"
+msgstr ""
+
+#: ppdc/sample.c:271
+msgid "Envelope Feed"
+msgstr ""
+
+#: ppdc/sample.c:88
+msgid "Envelope Invite"
+msgstr ""
+
+#: ppdc/sample.c:92
+msgid "Envelope Italian"
+msgstr ""
+
+#: ppdc/sample.c:93
+msgid "Envelope Kaku2"
+msgstr ""
+
+#: ppdc/sample.c:94
+msgid "Envelope Kaku2 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:95
+msgid "Envelope Kaku3"
+msgstr ""
+
+#: ppdc/sample.c:96
+msgid "Envelope Kaku3 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:97
+msgid "Envelope Monarch"
+msgstr ""
+
+#: ppdc/sample.c:99
+msgid "Envelope PRC1"
+msgstr ""
+
+#: ppdc/sample.c:100
+msgid "Envelope PRC1 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:117
+msgid "Envelope PRC10"
+msgstr ""
+
+#: ppdc/sample.c:118
+msgid "Envelope PRC10 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:101
+msgid "Envelope PRC2"
+msgstr ""
+
+#: ppdc/sample.c:102
+msgid "Envelope PRC2 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:103
+msgid "Envelope PRC3"
+msgstr ""
+
+#: ppdc/sample.c:104
+msgid "Envelope PRC3 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:105
+msgid "Envelope PRC4"
+msgstr ""
+
+#: ppdc/sample.c:106
+msgid "Envelope PRC4 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:108
+msgid "Envelope PRC5 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:107
+msgid "Envelope PRC5PRC5"
+msgstr ""
+
+#: ppdc/sample.c:109
+msgid "Envelope PRC6"
+msgstr ""
+
+#: ppdc/sample.c:110
+msgid "Envelope PRC6 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:111
+msgid "Envelope PRC7"
+msgstr ""
+
+#: ppdc/sample.c:112
+msgid "Envelope PRC7 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:113
+msgid "Envelope PRC8"
+msgstr ""
+
+#: ppdc/sample.c:114
+msgid "Envelope PRC8 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:115
+msgid "Envelope PRC9"
+msgstr ""
+
+#: ppdc/sample.c:116
+msgid "Envelope PRC9 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:98
+msgid "Envelope Personal"
+msgstr ""
+
+#: ppdc/sample.c:119
+msgid "Envelope You4"
+msgstr ""
+
+#: ppdc/sample.c:120
+msgid "Envelope You4 Long Edge"
 msgstr ""
 
 #: tools/ippfind.c:2060
 msgid "Environment Variables:"
 msgstr ""
 
-#: cgi-bin/admin.c:3124
+#: ppdc/sample.c:251
+msgid "Epson"
+msgstr ""
+
+#: cgi-bin/admin.c:3104
 msgid "Error Policy"
 msgstr ""
 
@@ -3145,6 +4580,58 @@ msgstr ""
 
 #: systemv/lpinfo.c:205 systemv/lpmove.c:81
 msgid "Error: need hostname after \"-h\" option."
+msgstr ""
+
+#: ppdc/sample.c:122
+msgid "European Fanfold"
+msgstr ""
+
+#: ppdc/sample.c:123
+msgid "European Fanfold Legal"
+msgstr ""
+
+#: ppdc/sample.c:360
+msgid "Every 10 Labels"
+msgstr ""
+
+#: ppdc/sample.c:352
+msgid "Every 2 Labels"
+msgstr ""
+
+#: ppdc/sample.c:353
+msgid "Every 3 Labels"
+msgstr ""
+
+#: ppdc/sample.c:354
+msgid "Every 4 Labels"
+msgstr ""
+
+#: ppdc/sample.c:355
+msgid "Every 5 Labels"
+msgstr ""
+
+#: ppdc/sample.c:356
+msgid "Every 6 Labels"
+msgstr ""
+
+#: ppdc/sample.c:357
+msgid "Every 7 Labels"
+msgstr ""
+
+#: ppdc/sample.c:358
+msgid "Every 8 Labels"
+msgstr ""
+
+#: ppdc/sample.c:359
+msgid "Every 9 Labels"
+msgstr ""
+
+#: ppdc/sample.c:351
+msgid "Every Label"
+msgstr ""
+
+#: ppdc/sample.c:121
+msgid "Executive"
 msgstr ""
 
 #: cups/http-support.c:1392
@@ -3184,7 +4671,11 @@ msgstr ""
 msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr ""
 
-#: scheduler/ipp.c:2275
+#: ppdc/sample.c:169
+msgid "File Folder"
+msgstr ""
+
+#: scheduler/ipp.c:2262
 #, c-format
 msgid "File device URIs have been disabled. To enable, see the FileDevice directive in \"%s/cups-files.conf\"."
 msgstr ""
@@ -3193,6 +4684,10 @@ msgstr ""
 #: filter/rastertolabel.c:1253
 #, c-format
 msgid "Finished page %d."
+msgstr ""
+
+#: ppdc/sample.c:125
+msgid "Folio"
 msgstr ""
 
 #: cups/http-support.c:1371
@@ -3207,18 +4702,26 @@ msgstr ""
 msgid "Found"
 msgstr ""
 
-#: cups/ppd.c:753 cups/ppd.c:1280
+#: cups/ppd.c:749 cups/ppd.c:1276
 msgid "General"
+msgstr ""
+
+#: ppdc/sample.c:262
+msgid "Generic"
 msgstr ""
 
 #: cups/snmp.c:948
 msgid "Get-Response-PDU uses indefinite length"
 msgstr ""
 
-#: scheduler/ipp.c:2912 scheduler/ipp.c:3322 scheduler/ipp.c:3860
-#: scheduler/ipp.c:6393 scheduler/ipp.c:6540 scheduler/ipp.c:8053
-#: scheduler/ipp.c:9197 scheduler/ipp.c:9421 scheduler/ipp.c:9772
-#: scheduler/ipp.c:10455
+#: ppdc/sample.c:295
+msgid "Glossy Paper"
+msgstr ""
+
+#: scheduler/ipp.c:2870 scheduler/ipp.c:3265 scheduler/ipp.c:3771
+#: scheduler/ipp.c:6252 scheduler/ipp.c:6394 scheduler/ipp.c:7869
+#: scheduler/ipp.c:8979 scheduler/ipp.c:9193 scheduler/ipp.c:9539
+#: scheduler/ipp.c:10204
 msgid "Got a printer-uri attribute but no job-id."
 msgstr ""
 
@@ -3226,11 +4729,19 @@ msgstr ""
 msgid "GrayScale"
 msgstr ""
 
-#: cups/ppd-cache.c:4264 cups/ppd-cache.c:4275
+#: cups/ppd-cache.c:4264 cups/ppd-cache.c:4275 ppdc/sample.c:285
 msgid "Grayscale"
 msgstr ""
 
-#: cups/hash.c:315
+#: ppdc/sample.c:282
+msgid "HP"
+msgstr ""
+
+#: ppdc/sample.c:170
+msgid "Hanging Folder"
+msgstr ""
+
+#: cups/hash.c:316
 msgid "Hash buffer too small."
 msgstr ""
 
@@ -3242,99 +4753,99 @@ msgstr ""
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
 
-#: cups/ipp.c:5512 cups/ipp.c:5529 cups/ipp.c:5543
+#: cups/ipp.c:5528 cups/ipp.c:5545 cups/ipp.c:5559
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr ""
 
-#: scheduler/ipp.c:2588
+#: scheduler/ipp.c:2562
 msgid "IPP Everywhere driver requires an IPP connection."
 msgstr ""
 
-#: cups/ipp.c:5493
+#: cups/ipp.c:5509
 msgid "IPP attribute has no name."
 msgstr ""
 
-#: cups/ipp.c:6050
+#: cups/ipp.c:6066
 msgid "IPP attribute is not a member of the message."
 msgstr ""
 
-#: cups/ipp.c:5838
+#: cups/ipp.c:5854
 msgid "IPP begCollection value not 0 bytes."
 msgstr ""
 
-#: cups/ipp.c:5662
+#: cups/ipp.c:5678
 msgid "IPP boolean value not 1 byte."
 msgstr ""
 
-#: cups/ipp.c:5721
+#: cups/ipp.c:5737
 msgid "IPP date value not 11 bytes."
 msgstr ""
 
-#: cups/ipp.c:5853
+#: cups/ipp.c:5869
 msgid "IPP endCollection value not 0 bytes."
 msgstr ""
 
-#: cups/ipp.c:5640
+#: cups/ipp.c:5656
 msgid "IPP enum value not 4 bytes."
 msgstr ""
 
-#: cups/ipp.c:5638
+#: cups/ipp.c:5654
 msgid "IPP integer value not 4 bytes."
 msgstr ""
 
-#: cups/ipp.c:5802
+#: cups/ipp.c:5818
 msgid "IPP language length overflows value."
 msgstr ""
 
-#: cups/ipp.c:5808
+#: cups/ipp.c:5824
 msgid "IPP language length too large."
 msgstr ""
 
-#: cups/ipp.c:5563
+#: cups/ipp.c:5579
 msgid "IPP member attribute outside of collection."
 msgstr ""
 
-#: cups/ipp.c:5557
+#: cups/ipp.c:5573
 msgid "IPP member name is not empty."
 msgstr ""
 
-#: cups/ipp.c:5868
+#: cups/ipp.c:5884
 msgid "IPP memberName value is empty."
 msgstr ""
 
-#: cups/ipp.c:5364
+#: cups/ipp.c:5380
 msgid "IPP message nested too deeply."
 msgstr ""
 
-#: cups/ipp.c:5475
+#: cups/ipp.c:5491
 msgid "IPP name larger than 32767 bytes."
 msgstr ""
 
-#: cups/ipp.c:5778
+#: cups/ipp.c:5794
 msgid "IPP nameWithLanguage value less than minimum 4 bytes."
 msgstr ""
 
-#: cups/ipp.c:5893
+#: cups/ipp.c:5909
 msgid "IPP octetString length too large."
 msgstr ""
 
-#: cups/ipp.c:5756
+#: cups/ipp.c:5772
 msgid "IPP rangeOfInteger value not 8 bytes."
 msgstr ""
 
-#: cups/ipp.c:5736
+#: cups/ipp.c:5752
 msgid "IPP resolution value not 9 bytes."
 msgstr ""
 
-#: cups/ipp.c:5823
+#: cups/ipp.c:5839
 msgid "IPP string length overflows value."
 msgstr ""
 
-#: cups/ipp.c:5776
+#: cups/ipp.c:5792
 msgid "IPP textWithLanguage value less than minimum 4 bytes."
 msgstr ""
 
-#: cups/ipp.c:5626
+#: cups/ipp.c:5642
 msgid "IPP value larger than 32767 bytes."
 msgstr ""
 
@@ -3372,32 +4883,60 @@ msgstr ""
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr ""
 
-#: cups/ppd.c:298
+#: ppdc/sample.c:1
+msgid "ISOLatin1"
+msgstr ""
+
+#: cups/ppd.c:294
 msgid "Illegal control character"
 msgstr ""
 
-#: cups/ppd.c:299
+#: cups/ppd.c:295
 msgid "Illegal main keyword string"
 msgstr ""
 
-#: cups/ppd.c:300
+#: cups/ppd.c:296
 msgid "Illegal option keyword string"
 msgstr ""
 
-#: cups/ppd.c:301
+#: cups/ppd.c:297
 msgid "Illegal translation string"
 msgstr ""
 
-#: cups/ppd.c:302
+#: cups/ppd.c:298
 msgid "Illegal whitespace character"
+msgstr ""
+
+#: ppdc/sample.c:276
+msgid "Installable Options"
+msgstr ""
+
+#: ppdc/sample.c:279
+msgid "Installed"
+msgstr ""
+
+#: ppdc/sample.c:298
+msgid "IntelliBar Label Printer"
+msgstr ""
+
+#: ppdc/sample.c:297
+msgid "Intellitech"
 msgstr ""
 
 #: cups/http-support.c:1398
 msgid "Internal Server Error"
 msgstr ""
 
-#: cups/ppd.c:289
+#: cups/ppd.c:285
 msgid "Internal error"
+msgstr ""
+
+#: ppdc/sample.c:167
+msgid "Internet Postage 2-Part"
+msgstr ""
+
+#: ppdc/sample.c:168
+msgid "Internet Postage 3-Part"
 msgstr ""
 
 #: backend/ipp.c:303
@@ -3408,7 +4947,7 @@ msgstr ""
 msgid "Invalid JSON data."
 msgstr ""
 
-#: cups/jwt.c:741
+#: cups/jwt.c:744
 msgid "Invalid JSON web token."
 msgstr ""
 
@@ -3416,11 +4955,11 @@ msgstr ""
 msgid "Invalid form data."
 msgstr ""
 
-#: cups/ipp.c:5433 cups/ipp.c:5442
+#: cups/ipp.c:5449 cups/ipp.c:5458
 msgid "Invalid group tag."
 msgstr ""
 
-#: cups/pwg-media.c:329 cups/pwg-media.c:348
+#: cups/pwg-media.c:325 cups/pwg-media.c:344
 msgid "Invalid media name arguments."
 msgstr ""
 
@@ -3428,11 +4967,11 @@ msgstr ""
 msgid "Invalid media size."
 msgstr ""
 
-#: cups/ipp.c:5484
+#: cups/ipp.c:5500
 msgid "Invalid named IPP attribute in collection."
 msgstr ""
 
-#: scheduler/ipp.c:2622 scheduler/ipp.c:7208
+#: scheduler/ipp.c:2596 scheduler/ipp.c:7046
 msgid "Invalid ppd-name value."
 msgstr ""
 
@@ -3441,60 +4980,116 @@ msgstr ""
 msgid "Invalid printer command \"%s\"."
 msgstr ""
 
-#: cups/ppd.c:1397
+#: cups/ppd.c:1393
 msgid "JCL"
+msgstr ""
+
+#: ppdc/sample.c:53
+msgid "JIS B0"
+msgstr ""
+
+#: ppdc/sample.c:55
+msgid "JIS B1"
+msgstr ""
+
+#: ppdc/sample.c:54
+msgid "JIS B10"
+msgstr ""
+
+#: ppdc/sample.c:56
+msgid "JIS B2"
+msgstr ""
+
+#: ppdc/sample.c:57
+msgid "JIS B3"
+msgstr ""
+
+#: ppdc/sample.c:58
+msgid "JIS B4"
+msgstr ""
+
+#: ppdc/sample.c:59
+msgid "JIS B4 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:60
+msgid "JIS B5"
+msgstr ""
+
+#: ppdc/sample.c:61
+msgid "JIS B5 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:62
+msgid "JIS B6"
+msgstr ""
+
+#: ppdc/sample.c:63
+msgid "JIS B6 Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:64
+msgid "JIS B7"
+msgstr ""
+
+#: ppdc/sample.c:65
+msgid "JIS B8"
+msgstr ""
+
+#: ppdc/sample.c:66
+msgid "JIS B9"
 msgstr ""
 
 #: cups/json.c:678
 msgid "JSON file too large."
 msgstr ""
 
-#: scheduler/ipp.c:9493
+#: scheduler/ipp.c:9265
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
 msgstr ""
 
-#: scheduler/ipp.c:2952 scheduler/ipp.c:3186 scheduler/ipp.c:3245
-#: scheduler/ipp.c:3424 scheduler/ipp.c:3870 scheduler/ipp.c:6052
-#: scheduler/ipp.c:6433 scheduler/ipp.c:6580 scheduler/ipp.c:6917
-#: scheduler/ipp.c:7894 scheduler/ipp.c:7916 scheduler/ipp.c:8094
-#: scheduler/ipp.c:8322 scheduler/ipp.c:8365 scheduler/ipp.c:9237
-#: scheduler/ipp.c:9461 scheduler/ipp.c:9812 scheduler/ipp.c:10495
+#: scheduler/ipp.c:2910 scheduler/ipp.c:3141 scheduler/ipp.c:3196
+#: scheduler/ipp.c:3367 scheduler/ipp.c:3781 scheduler/ipp.c:5927
+#: scheduler/ipp.c:6292 scheduler/ipp.c:6434 scheduler/ipp.c:6768
+#: scheduler/ipp.c:7713 scheduler/ipp.c:7735 scheduler/ipp.c:7910
+#: scheduler/ipp.c:8128 scheduler/ipp.c:8171 scheduler/ipp.c:9019
+#: scheduler/ipp.c:9233 scheduler/ipp.c:9579 scheduler/ipp.c:10244
 #, c-format
 msgid "Job #%d does not exist."
 msgstr ""
 
-#: scheduler/ipp.c:3456
+#: scheduler/ipp.c:3399
 #, c-format
 msgid "Job #%d is already aborted - can't cancel."
 msgstr ""
 
-#: scheduler/ipp.c:3450
+#: scheduler/ipp.c:3393
 #, c-format
 msgid "Job #%d is already canceled - can't cancel."
 msgstr ""
 
-#: scheduler/ipp.c:3462
+#: scheduler/ipp.c:3405
 #, c-format
 msgid "Job #%d is already completed - can't cancel."
 msgstr ""
 
-#: scheduler/ipp.c:8120 scheduler/ipp.c:8407 scheduler/ipp.c:10510
+#: scheduler/ipp.c:7936 scheduler/ipp.c:8213 scheduler/ipp.c:10259
 #, c-format
 msgid "Job #%d is finished and cannot be altered."
 msgstr ""
 
-#: scheduler/ipp.c:9475
+#: scheduler/ipp.c:9247
 #, c-format
 msgid "Job #%d is not complete."
 msgstr ""
 
-#: scheduler/ipp.c:2967
+#: scheduler/ipp.c:2925
 #, c-format
 msgid "Job #%d is not held for authentication."
 msgstr ""
 
-#: scheduler/ipp.c:9251
+#: scheduler/ipp.c:9033
 #, c-format
 msgid "Job #%d is not held."
 msgstr ""
@@ -3515,7 +5110,7 @@ msgstr ""
 msgid "Job Stopped"
 msgstr ""
 
-#: scheduler/ipp.c:10624
+#: scheduler/ipp.c:10373
 msgid "Job is completed and cannot be changed."
 msgstr ""
 
@@ -3523,11 +5118,11 @@ msgstr ""
 msgid "Job operation failed"
 msgstr ""
 
-#: scheduler/ipp.c:10660 scheduler/ipp.c:10677 scheduler/ipp.c:10688
+#: scheduler/ipp.c:10409 scheduler/ipp.c:10426 scheduler/ipp.c:10437
 msgid "Job state cannot be changed."
 msgstr ""
 
-#: scheduler/ipp.c:9341
+#: scheduler/ipp.c:9119
 msgid "Job subscriptions cannot be renewed."
 msgstr ""
 
@@ -3539,20 +5134,48 @@ msgstr ""
 msgid "LPD/LPR Host or Printer"
 msgstr ""
 
-#: cups/dest.c:1771
+#: cups/dest.c:1784
 msgid "LPDEST environment variable names default destination that does not exist."
 msgstr ""
 
-#: scheduler/ipp.c:1947 scheduler/ipp.c:5956
+#: ppdc/sample.c:238
+msgid "Label Printer"
+msgstr ""
+
+#: ppdc/sample.c:451
+msgid "Label Top"
+msgstr ""
+
+#: scheduler/ipp.c:1938 scheduler/ipp.c:5842
 #, c-format
 msgid "Language \"%s\" not supported."
 msgstr ""
 
-#: cups/ppd.c:297
+#: ppdc/sample.c:164
+msgid "Large Address"
+msgstr ""
+
+#: ppdc/sample.c:296
+msgid "LaserJet Series PCL 4/5"
+msgstr ""
+
+#: ppdc/sample.c:43
+msgid "Letter Oversize"
+msgstr ""
+
+#: ppdc/sample.c:44
+msgid "Letter Oversize Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:247
+msgid "Light"
+msgstr ""
+
+#: cups/ppd.c:293
 msgid "Line longer than the maximum allowed (255 characters)"
 msgstr ""
 
-#: cgi-bin/admin.c:1951
+#: cgi-bin/admin.c:1931
 msgid "List Available Printers"
 msgstr ""
 
@@ -3561,81 +5184,101 @@ msgstr ""
 msgid "Listening on port %d."
 msgstr ""
 
-#: scheduler/ipp.c:5433
+#: scheduler/ipp.c:5332
 msgid "Local printer created."
 msgstr ""
 
-#: cups/ppd.c:799 cups/ppd.c:1334
+#: ppdc/sample.c:274
+msgid "Long-Edge (Portrait)"
+msgstr ""
+
+#: ppdc/sample.c:244
+msgid "Main Roll"
+msgstr ""
+
+#: ppdc/sample.c:270
+msgid "Manual Feed"
+msgstr ""
+
+#: cups/ppd.c:795 cups/ppd.c:1330
 msgid "Media Size"
 msgstr ""
 
-#: cups/ppd.c:803 cups/ppd.c:1338
+#: cups/ppd.c:799 cups/ppd.c:1334 ppdc/sample.c:243
 msgid "Media Source"
 msgstr ""
 
-#: cups/ppd.c:801 cups/ppd.c:1336
+#: ppdc/sample.c:369
+msgid "Media Tracking"
+msgstr ""
+
+#: cups/ppd.c:797 cups/ppd.c:1332 ppdc/sample.c:290
 msgid "Media Type"
 msgstr ""
 
-#: cups/ppd.c:286
+#: ppdc/sample.c:248
+msgid "Medium"
+msgstr ""
+
+#: cups/ppd.c:282
 msgid "Memory allocation error"
 msgstr ""
 
-#: cups/ppd.c:306
+#: cups/ppd.c:302
 msgid "Missing CloseGroup"
 msgstr ""
 
-#: cups/ppd.c:308
+#: cups/ppd.c:304
 msgid "Missing CloseUI/JCLCloseUI"
 msgstr ""
 
-#: cups/ppd.c:287
+#: cups/ppd.c:283
 msgid "Missing PPD-Adobe-4.x header"
 msgstr ""
 
-#: cups/ppd.c:296
+#: cups/ppd.c:292
 msgid "Missing asterisk in column 1"
 msgstr ""
 
-#: scheduler/ipp.c:6456
+#: scheduler/ipp.c:6315
 msgid "Missing document-number attribute."
 msgstr ""
 
-#: cgi-bin/admin.c:495 cgi-bin/admin.c:1799 cgi-bin/admin.c:1884
-#: cgi-bin/admin.c:2302 cgi-bin/admin.c:2556 cgi-bin/admin.c:2667
+#: cgi-bin/admin.c:495 cgi-bin/admin.c:1779 cgi-bin/admin.c:1864
+#: cgi-bin/admin.c:2282 cgi-bin/admin.c:2536 cgi-bin/admin.c:2647
 msgid "Missing form variable"
 msgstr ""
 
-#: scheduler/ipp.c:9860
+#: scheduler/ipp.c:9627
 msgid "Missing last-document attribute in request."
 msgstr ""
 
-#: cups/pwg-media.c:588
+#: cups/pwg-media.c:584
 msgid "Missing media or media-col."
 msgstr ""
 
-#: cups/pwg-media.c:507
+#: cups/pwg-media.c:503
 msgid "Missing media-size in media-col."
 msgstr ""
 
-#: scheduler/ipp.c:7058
+#: scheduler/ipp.c:6899
 msgid "Missing notify-subscription-ids attribute."
 msgstr ""
 
-#: cups/ppd.c:304
+#: cups/ppd.c:300
 msgid "Missing option keyword"
 msgstr ""
 
-#: scheduler/ipp.c:3093 scheduler/ipp.c:3118
+#: scheduler/ipp.c:3048 scheduler/ipp.c:3073
 msgid "Missing requesting-user-name attribute."
 msgstr ""
 
-#: scheduler/ipp.c:5507 scheduler/ipp.c:5533
+#: scheduler/ipp.c:5406 scheduler/ipp.c:5432
 #, c-format
 msgid "Missing required attribute \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:346
+#: scheduler/ipp.c:365
 msgid "Missing required attributes."
 msgstr ""
 
@@ -3647,15 +5290,15 @@ msgstr ""
 msgid "Missing scheme in URI"
 msgstr ""
 
-#: cups/ppd.c:288
+#: cups/ppd.c:284
 msgid "Missing value string"
 msgstr ""
 
-#: cups/pwg-media.c:495
+#: cups/pwg-media.c:491
 msgid "Missing x-dimension in media-size."
 msgstr ""
 
-#: cups/pwg-media.c:501
+#: cups/pwg-media.c:497
 msgid "Missing y-dimension in media-size."
 msgstr ""
 
@@ -3692,7 +5335,7 @@ msgstr ""
 msgid "Moved Permanently"
 msgstr ""
 
-#: cups/ppd.c:285
+#: cups/ppd.c:281
 msgid "NULL PPD file pointer"
 msgstr ""
 
@@ -3700,19 +5343,23 @@ msgstr ""
 msgid "Name OID uses indefinite length"
 msgstr ""
 
-#: scheduler/ipp.c:1000
+#: scheduler/ipp.c:1003
 msgid "Nested classes are not allowed."
 msgstr ""
 
-#: cups/tls-gnutls.c:940 cups/tls-openssl.c:873
+#: ppdc/sample.c:435
+msgid "Never"
+msgstr ""
+
+#: cups/tls-gnutls.c:940 cups/tls-openssl.c:871
 msgid "New credentials are not valid for name."
 msgstr ""
 
-#: cups/tls-gnutls.c:933 cups/tls-openssl.c:866
+#: cups/tls-gnutls.c:933 cups/tls-openssl.c:864
 msgid "New credentials are older than stored credentials."
 msgstr ""
 
-#: cups/ppd.c:2021
+#: cups/ppd.c:2017
 msgid "No"
 msgstr ""
 
@@ -3724,7 +5371,7 @@ msgstr ""
 msgid "No IPP attributes."
 msgstr ""
 
-#: cups/ppd-util.c:490
+#: cups/ppd-util.c:486
 msgid "No PPD name"
 msgstr ""
 
@@ -3732,24 +5379,24 @@ msgstr ""
 msgid "No VarBind SEQUENCE"
 msgstr ""
 
-#: cups/request.c:583 cups/request.c:950
+#: cups/request.c:579 cups/request.c:946
 msgid "No active connection"
 msgstr ""
 
-#: cups/request.c:364
+#: cups/request.c:360
 msgid "No active connection."
 msgstr ""
 
-#: scheduler/ipp.c:3373
+#: scheduler/ipp.c:3316
 #, c-format
 msgid "No active jobs on %s."
 msgstr ""
 
-#: scheduler/ipp.c:206
+#: scheduler/ipp.c:211
 msgid "No attributes in request."
 msgstr ""
 
-#: scheduler/ipp.c:2994
+#: scheduler/ipp.c:2952
 msgid "No authentication information provided."
 msgstr ""
 
@@ -3757,15 +5404,15 @@ msgstr ""
 msgid "No community name"
 msgstr ""
 
-#: cups/dest.c:1775 cups/dest.c:1787
+#: cups/dest.c:1788 cups/dest.c:1800
 msgid "No default destination."
 msgstr ""
 
-#: scheduler/ipp.c:6256
+#: scheduler/ipp.c:6120
 msgid "No default printer."
 msgstr ""
 
-#: cgi-bin/ipp-var.c:417 scheduler/ipp.c:7639
+#: cgi-bin/ipp-var.c:417 scheduler/ipp.c:7466
 msgid "No destinations added."
 msgstr ""
 
@@ -3781,11 +5428,11 @@ msgstr ""
 msgid "No error-status"
 msgstr ""
 
-#: scheduler/ipp.c:8606 scheduler/ipp.c:9874
+#: scheduler/ipp.c:8409 scheduler/ipp.c:9641
 msgid "No file in print request."
 msgstr ""
 
-#: cups/ppd-util.c:160
+#: cups/ppd-util.c:156
 msgid "No modification time"
 msgstr ""
 
@@ -3798,19 +5445,19 @@ msgstr ""
 msgid "No pages were found."
 msgstr ""
 
-#: cups/ppd-util.c:153
+#: cups/ppd-util.c:149
 msgid "No printer name"
 msgstr ""
 
-#: cups/ppd-util.c:658
+#: cups/ppd-util.c:654
 msgid "No printer-uri found"
 msgstr ""
 
-#: cups/ppd-util.c:642
+#: cups/ppd-util.c:638
 msgid "No printer-uri found for class"
 msgstr ""
 
-#: scheduler/ipp.c:6663
+#: scheduler/ipp.c:6514
 msgid "No printer-uri in request."
 msgstr ""
 
@@ -3826,7 +5473,7 @@ msgstr ""
 msgid "No request protocol version."
 msgstr ""
 
-#: cups/request.c:372
+#: cups/request.c:368
 msgid "No request sent."
 msgstr ""
 
@@ -3834,15 +5481,15 @@ msgstr ""
 msgid "No request-id"
 msgstr ""
 
-#: cups/tls-gnutls.c:957 cups/tls-openssl.c:890
+#: cups/tls-gnutls.c:957 cups/tls-openssl.c:888
 msgid "No stored credentials, not valid for name."
 msgstr ""
 
-#: scheduler/ipp.c:5844
+#: scheduler/ipp.c:5730
 msgid "No subscription attributes in request."
 msgstr ""
 
-#: scheduler/ipp.c:7993
+#: scheduler/ipp.c:7812
 msgid "No subscriptions found."
 msgstr ""
 
@@ -3854,12 +5501,28 @@ msgstr ""
 msgid "No version number"
 msgstr ""
 
+#: ppdc/sample.c:372
+msgid "Non-continuous (Mark sensing)"
+msgstr ""
+
+#: ppdc/sample.c:371
+msgid "Non-continuous (Web sensing)"
+msgstr ""
+
+#: ppdc/sample.c:249
+msgid "Normal"
+msgstr ""
+
 #: cups/http-support.c:1374
 msgid "Not Found"
 msgstr ""
 
 #: cups/http-support.c:1386
 msgid "Not Implemented"
+msgstr ""
+
+#: ppdc/sample.c:278
+msgid "Not Installed"
 msgstr ""
 
 #: cups/http-support.c:1361
@@ -3870,40 +5533,52 @@ msgstr ""
 msgid "Not Supported"
 msgstr ""
 
-#: scheduler/ipp.c:1453 scheduler/ipp.c:11252
+#: scheduler/ipp.c:1448 scheduler/ipp.c:10974
 msgid "Not allowed to print."
 msgstr ""
 
-#: cups/http-support.c:1340 cups/http-support.c:1494 cups/ppd.c:283
+#: ppdc/sample.c:146
+msgid "Note"
+msgstr ""
+
+#: cups/http-support.c:1340 cups/http-support.c:1494 cups/ppd.c:279
 msgid "OK"
+msgstr ""
+
+#: ppdc/sample.c:273
+msgid "Off (1-Sided)"
+msgstr ""
+
+#: ppdc/sample.c:366
+msgid "Oki"
 msgstr ""
 
 #: cgi-bin/help.c:83 cgi-bin/help.c:124 cgi-bin/help.c:134 cgi-bin/help.c:164
 msgid "Online Help"
 msgstr ""
 
-#: cups/dnssd.c:1541
+#: cups/dnssd.c:1868
 msgid "Only WGS-84 coordinates are supported."
 msgstr ""
 
-#: scheduler/ipp.c:5486
+#: scheduler/ipp.c:5385
 msgid "Only local users can create a local printer."
 msgstr ""
 
-#: cups/adminutil.c:203
+#: cups/adminutil.c:199
 #, c-format
 msgid "Open of %s failed: %s"
 msgstr ""
 
-#: cups/ppd.c:291
+#: cups/ppd.c:287
 msgid "OpenGroup without a CloseGroup first"
 msgstr ""
 
-#: cups/ppd.c:293
+#: cups/ppd.c:289
 msgid "OpenUI/JCLOpenUI without a CloseUI/JCLCloseUI first"
 msgstr ""
 
-#: cgi-bin/admin.c:3151
+#: cgi-bin/admin.c:3131
 msgid "Operation Policy"
 msgstr ""
 
@@ -3912,7 +5587,7 @@ msgstr ""
 msgid "Option \"%s\" cannot be included via %%%%IncludeFeature."
 msgstr ""
 
-#: cgi-bin/admin.c:2798 cgi-bin/admin.c:2882
+#: cgi-bin/admin.c:2778 cgi-bin/admin.c:2862
 msgid "Options Installed"
 msgstr ""
 
@@ -3921,17 +5596,18 @@ msgstr ""
 #: systemv/cupsaccept.c:240 systemv/cupsctl.c:229 systemv/cupstestppd.c:3857
 #: systemv/lp.c:753 systemv/lpadmin.c:1516 systemv/lpinfo.c:494
 #: systemv/lpmove.c:212 systemv/lpoptions.c:539 systemv/lpstat.c:2079
-#: tools/ippeveprinter.c:6889 tools/ippfind.c:2001 tools/ipptool.c:6507
-#: ppdc/ppdc.cxx:426 ppdc/ppdhtml.cxx:173 ppdc/ppdi.cxx:119
-#: ppdc/ppdmerge.cxx:356 ppdc/ppdpo.cxx:243
+#: tools/cups-oauth.c:537 tools/cups-x509.c:848 tools/ippeveprinter.c:6890
+#: tools/ippfind.c:2001 tools/ipptool.c:6503 ppdc/ppdc.cxx:426
+#: ppdc/ppdhtml.cxx:173 ppdc/ppdi.cxx:119 ppdc/ppdmerge.cxx:356
+#: ppdc/ppdpo.cxx:243
 msgid "Options:"
 msgstr ""
 
-#: cups/dest-localization.c:244 cups/dest-localization.c:251
+#: cups/dest-localization.c:240 cups/dest-localization.c:247
 msgid "Other Media"
 msgstr ""
 
-#: cups/dest-localization.c:227 cups/dest-localization.c:234
+#: cups/dest-localization.c:223 cups/dest-localization.c:230
 msgid "Other Tray"
 msgstr ""
 
@@ -3943,11 +5619,39 @@ msgstr ""
 msgid "Out of memory."
 msgstr ""
 
-#: cups/ppd.c:805 cups/ppd.c:1340
+#: cups/ppd.c:801 cups/ppd.c:1336
 msgid "Output Mode"
 msgstr ""
 
-#: cups/dest.c:1773
+#: ppdc/sample.c:263
+msgid "PCL Laser Printer"
+msgstr ""
+
+#: ppdc/sample.c:149
+msgid "PRC16K"
+msgstr ""
+
+#: ppdc/sample.c:150
+msgid "PRC16K Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:151
+msgid "PRC32K"
+msgstr ""
+
+#: ppdc/sample.c:154
+msgid "PRC32K Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:152
+msgid "PRC32K Oversize"
+msgstr ""
+
+#: ppdc/sample.c:153
+msgid "PRC32K Oversize Long Edge"
+msgstr ""
+
+#: cups/dest.c:1786
 msgid "PRINTER environment variable names default destination that does not exist."
 msgstr ""
 
@@ -3959,7 +5663,15 @@ msgstr ""
 msgid "Packet does not start with SEQUENCE"
 msgstr ""
 
-#: cups/auth.c:264 cups/auth.c:420
+#: ppdc/sample.c:365
+msgid "ParamCustominCutInterval"
+msgstr ""
+
+#: ppdc/sample.c:363
+msgid "ParamCustominTearInterval"
+msgstr ""
+
+#: cups/auth.c:260 cups/auth.c:416
 #, c-format
 msgid "Password for %s on %s? "
 msgstr ""
@@ -3972,53 +5684,117 @@ msgstr ""
 msgid "Pause Printer"
 msgstr ""
 
-#: cgi-bin/admin.c:2816 cgi-bin/admin.c:3100
+#: ppdc/sample.c:453
+msgid "Peel-Off"
+msgstr ""
+
+#: ppdc/sample.c:160
+msgid "Photo"
+msgstr ""
+
+#: ppdc/sample.c:161
+msgid "Photo Labels"
+msgstr ""
+
+#: ppdc/sample.c:291
+msgid "Plain Paper"
+msgstr ""
+
+#: cgi-bin/admin.c:2796 cgi-bin/admin.c:3080
 msgid "Policies"
 msgstr ""
 
-#: cgi-bin/admin.c:2823 cgi-bin/admin.c:3169 cgi-bin/admin.c:3182
+#: cgi-bin/admin.c:2803 cgi-bin/admin.c:3149 cgi-bin/admin.c:3162
 msgid "Port Monitor"
 msgstr ""
 
-#: backend/ipp.c:964 backend/ipp.c:972
+#: ppdc/sample.c:280
+msgid "PostScript Printer"
+msgstr ""
+
+#: ppdc/sample.c:147
+msgid "Postcard"
+msgstr ""
+
+#: ppdc/sample.c:71
+msgid "Postcard Double"
+msgstr ""
+
+#: ppdc/sample.c:72
+msgid "Postcard Double Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:148
+msgid "Postcard Long Edge"
+msgstr ""
+
+#: backend/ipp.c:965 backend/ipp.c:973
 msgid "Preparing to print."
 msgstr ""
 
-#: cups/notify.c:70
+#: ppdc/sample.c:300
+msgid "Print Density"
+msgstr ""
+
+#: cups/notify.c:66
 msgid "Print Job:"
+msgstr ""
+
+#: ppdc/sample.c:345
+msgid "Print Mode"
+msgstr ""
+
+#: ppdc/sample.c:388
+msgid "Print Rate"
 msgstr ""
 
 #: cgi-bin/printers.c:167
 msgid "Print Self-Test Page"
 msgstr ""
 
+#: ppdc/sample.c:332
+msgid "Print Speed"
+msgstr ""
+
 #: cgi-bin/ipp-var.c:773
 msgid "Print Test Page"
+msgstr ""
+
+#: ppdc/sample.c:361
+msgid "Print and Cut"
+msgstr ""
+
+#: ppdc/sample.c:349
+msgid "Print and Tear"
 msgstr ""
 
 #: backend/socket.c:399 backend/usb-unix.c:178
 msgid "Print file sent."
 msgstr ""
 
-#: backend/ipp.c:2281
+#: backend/ipp.c:2282
 msgid "Print job canceled at printer."
 msgstr ""
 
-#: backend/ipp.c:2273
+#: backend/ipp.c:2274
 msgid "Print job too large."
 msgstr ""
 
-#: backend/ipp.c:1733
+#: backend/ipp.c:1734
 msgid "Print job was not accepted."
 msgstr ""
 
-#: scheduler/ipp.c:5562 scheduler/ipp.c:5571
+#: scheduler/ipp.c:5461 scheduler/ipp.c:5470
 #, c-format
 msgid "Printer \"%s\" already exists."
 msgstr ""
 
 #: cgi-bin/ipp-var.c:1023
 msgid "Printer Added"
+msgstr ""
+
+#: ppdc/sample.c:265
+msgid "Printer Default"
 msgstr ""
 
 #: cgi-bin/ipp-var.c:1027
@@ -4033,11 +5809,15 @@ msgstr ""
 msgid "Printer Paused"
 msgstr ""
 
-#: backend/ipp.c:2276
+#: ppdc/sample.c:299
+msgid "Printer Settings"
+msgstr ""
+
+#: backend/ipp.c:2277
 msgid "Printer cannot print supplied content."
 msgstr ""
 
-#: backend/ipp.c:2279
+#: backend/ipp.c:2280
 msgid "Printer cannot print with supplied options."
 msgstr ""
 
@@ -4045,12 +5825,12 @@ msgstr ""
 msgid "Printer does not support required IPP attributes or document formats."
 msgstr ""
 
-#: scheduler/ipp.c:5342
+#: scheduler/ipp.c:5238
 #, c-format
 msgid "Printer returned invalid data: %s"
 msgstr ""
 
-#: cups/notify.c:114
+#: cups/notify.c:110
 msgid "Printer:"
 msgstr ""
 
@@ -4064,7 +5844,11 @@ msgstr ""
 msgid "Printing page %d, %u%% complete."
 msgstr ""
 
-#: scheduler/ipp.c:1448 scheduler/ipp.c:11247
+#: ppdc/sample.c:155
+msgid "Quarto"
+msgstr ""
+
+#: scheduler/ipp.c:1443 scheduler/ipp.c:10969
 msgid "Quota limit reached."
 msgstr ""
 
@@ -4086,11 +5870,15 @@ msgstr ""
 msgid "Remote host did not accept data file (%d)."
 msgstr ""
 
+#: ppdc/sample.c:433
+msgid "Reprint After Error"
+msgstr ""
+
 #: cups/http-support.c:1377
 msgid "Request Entity Too Large"
 msgstr ""
 
-#: cups/ppd.c:807 cups/ppd.c:1342
+#: cups/ppd.c:803 cups/ppd.c:1338 ppdc/sample.c:239
 msgid "Resolution"
 msgstr ""
 
@@ -4102,6 +5890,14 @@ msgstr ""
 msgid "Resume Printer"
 msgstr ""
 
+#: ppdc/sample.c:165
+msgid "Return Address"
+msgstr ""
+
+#: ppdc/sample.c:454
+msgid "Rewind"
+msgstr ""
+
 #: cups/snmp.c:927
 msgid "SEQUENCE uses indefinite length"
 msgstr ""
@@ -4110,15 +5906,19 @@ msgstr ""
 msgid "SSL/TLS Negotiation Error"
 msgstr ""
 
+#: ppdc/sample.c:245
+msgid "Second Roll (DUO/Twin Only)"
+msgstr ""
+
 #: cups/http-support.c:1358
 msgid "See Other"
 msgstr ""
 
-#: scheduler/ipp.c:7262 scheduler/ipp.c:7281
+#: scheduler/ipp.c:7100 scheduler/ipp.c:7119
 msgid "See remote printer."
 msgstr ""
 
-#: cups/tls-gnutls.c:999 cups/tls-openssl.c:932
+#: cups/tls-gnutls.c:999 cups/tls-openssl.c:930
 msgid "Self-signed credentials are blocked."
 msgstr ""
 
@@ -4142,7 +5942,7 @@ msgstr ""
 msgid "Server Stopped"
 msgstr ""
 
-#: cups/tls-gnutls.c:1635 cups/tls-openssl.c:1626
+#: cups/tls-gnutls.c:1635 cups/tls-openssl.c:1625
 msgid "Server credentials not set."
 msgstr ""
 
@@ -4150,21 +5950,33 @@ msgstr ""
 msgid "Service Unavailable"
 msgstr ""
 
-#: cgi-bin/admin.c:2303 cgi-bin/admin.c:2349 cgi-bin/admin.c:2506
-#: cgi-bin/admin.c:2525
+#: cgi-bin/admin.c:2283 cgi-bin/admin.c:2329 cgi-bin/admin.c:2486
+#: cgi-bin/admin.c:2505
 msgid "Set Allowed Users"
 msgstr ""
 
-#: cgi-bin/admin.c:2552
+#: cgi-bin/admin.c:2532
 msgid "Set As Server Default"
 msgstr ""
 
-#: cgi-bin/admin.c:2652
+#: cgi-bin/admin.c:2632
 msgid "Set Class Options"
 msgstr ""
 
-#: cgi-bin/admin.c:2652 cgi-bin/admin.c:2826 cgi-bin/admin.c:3211
+#: cgi-bin/admin.c:2632 cgi-bin/admin.c:2806 cgi-bin/admin.c:3191
 msgid "Set Printer Options"
+msgstr ""
+
+#: ppdc/sample.c:166
+msgid "Shipping Address"
+msgstr ""
+
+#: ppdc/sample.c:275
+msgid "Short-Edge (Landscape)"
+msgstr ""
+
+#: ppdc/sample.c:293
+msgid "Special Paper"
 msgstr ""
 
 #: backend/lpd.c:1111
@@ -4172,8 +5984,12 @@ msgstr ""
 msgid "Spooling job, %.0f%% complete."
 msgstr ""
 
+#: ppdc/sample.c:346
+msgid "Standard"
+msgstr ""
+
 #. TRANSLATORS: Banner/cover sheet before the print job.
-#: cgi-bin/admin.c:3072
+#: cgi-bin/admin.c:3052
 msgid "Starting Banner"
 msgstr ""
 
@@ -4183,8 +5999,12 @@ msgstr ""
 msgid "Starting page %d."
 msgstr ""
 
-#: scheduler/ipp.c:3519 scheduler/ipp.c:7074 scheduler/ipp.c:7799
-#: scheduler/ipp.c:9329
+#: ppdc/sample.c:156
+msgid "Statement"
+msgstr ""
+
+#: scheduler/ipp.c:3456 scheduler/ipp.c:6915 scheduler/ipp.c:7622
+#: scheduler/ipp.c:9107
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr ""
@@ -4193,37 +6013,73 @@ msgstr ""
 msgid "Substitutions:"
 msgstr ""
 
+#: ppdc/sample.c:157
+msgid "Super A"
+msgstr ""
+
+#: ppdc/sample.c:158
+msgid "Super B"
+msgstr ""
+
+#: ppdc/sample.c:162
+msgid "Super B/A3"
+msgstr ""
+
 #: cups/http-support.c:1337
 msgid "Switching Protocols"
 msgstr ""
 
-#: scheduler/ipp.c:1284
+#: ppdc/sample.c:159
+msgid "Tabloid"
+msgstr ""
+
+#: ppdc/sample.c:45
+msgid "Tabloid Oversize"
+msgstr ""
+
+#: ppdc/sample.c:46
+msgid "Tabloid Oversize Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:347
+msgid "Tear"
+msgstr ""
+
+#: ppdc/sample.c:452
+msgid "Tear-Off"
+msgstr ""
+
+#: ppdc/sample.c:393
+msgid "Tear-Off Adjust Position"
+msgstr ""
+
+#: scheduler/ipp.c:1279
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
 msgstr ""
 
-#: scheduler/ipp.c:6734 scheduler/ipp.c:6814 scheduler/ipp.c:6827
-#: scheduler/ipp.c:6839 scheduler/ipp.c:6854
+#: scheduler/ipp.c:6585 scheduler/ipp.c:6665 scheduler/ipp.c:6678
+#: scheduler/ipp.c:6690 scheduler/ipp.c:6705
 #, c-format
 msgid "The %s attribute cannot be provided with job-ids."
 msgstr ""
 
-#: scheduler/ipp.c:1263
+#: scheduler/ipp.c:1258
 #, c-format
 msgid "The '%s' Job Status attribute cannot be supplied in a job creation request."
 msgstr ""
 
-#: scheduler/ipp.c:5148
+#: scheduler/ipp.c:5037
 #, c-format
 msgid "The '%s' operation attribute cannot be supplied in a Create-Job request."
 msgstr ""
 
-#: scheduler/ipp.c:7304
+#: scheduler/ipp.c:7142
 #, c-format
 msgid "The PPD file \"%s\" could not be found."
 msgstr ""
 
-#: scheduler/ipp.c:7293
+#: scheduler/ipp.c:7131
 #, c-format
 msgid "The PPD file \"%s\" could not be opened: %s"
 msgstr ""
@@ -4237,16 +6093,16 @@ msgstr ""
 msgid "The class name may only contain up to 127 printable characters and may not contain spaces, slashes (/), or the pound sign (#)."
 msgstr ""
 
-#: scheduler/ipp.c:1974
+#: scheduler/ipp.c:1965
 msgid "The notify-lease-duration attribute cannot be used with job subscriptions."
 msgstr ""
 
-#: scheduler/ipp.c:1957 scheduler/ipp.c:5966
+#: scheduler/ipp.c:1948 scheduler/ipp.c:5852
 #, c-format
 msgid "The notify-user-data value is too large (%d > 63 octets)."
 msgstr ""
 
-#: backend/ipp.c:984
+#: backend/ipp.c:985
 msgid "The printer configuration is incorrect or the printer no longer exists."
 msgstr ""
 
@@ -4254,12 +6110,12 @@ msgstr ""
 msgid "The printer did not respond."
 msgstr ""
 
-#: scheduler/ipp.c:5335
+#: scheduler/ipp.c:5225
 msgid "The printer does not provide attributes required for IPP Everywhere."
 msgstr ""
 
-#: backend/ipp.c:762 backend/ipp.c:947 backend/ipp.c:1061 backend/ipp.c:1525
-#: backend/ipp.c:1705 backend/lpd.c:882 backend/socket.c:347
+#: backend/ipp.c:762 backend/ipp.c:948 backend/ipp.c:1062 backend/ipp.c:1526
+#: backend/ipp.c:1706 backend/lpd.c:882 backend/socket.c:347
 #: backend/usb-unix.c:118 backend/usb-unix.c:408 backend/usb-unix.c:491
 msgid "The printer is in use."
 msgstr ""
@@ -4268,7 +6124,7 @@ msgstr ""
 msgid "The printer is not connected."
 msgstr ""
 
-#: backend/ipp.c:740 backend/ipp.c:773 backend/ipp.c:943 backend/lpd.c:861
+#: backend/ipp.c:740 backend/ipp.c:773 backend/ipp.c:944 backend/lpd.c:861
 #: backend/lpd.c:902 backend/socket.c:326 backend/socket.c:359
 msgid "The printer is not responding."
 msgstr ""
@@ -4297,48 +6153,48 @@ msgstr ""
 msgid "The printer name may only contain up to 127 printable characters and may not contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the pound sign (#)."
 msgstr ""
 
-#: cups/dest.c:1766 scheduler/ipp.c:706 scheduler/ipp.c:991
-#: scheduler/ipp.c:3158 scheduler/ipp.c:3339 scheduler/ipp.c:5131
-#: scheduler/ipp.c:5803 scheduler/ipp.c:6134 scheduler/ipp.c:6700
-#: scheduler/ipp.c:7508 scheduler/ipp.c:7564 scheduler/ipp.c:7906
-#: scheduler/ipp.c:8181 scheduler/ipp.c:8270 scheduler/ipp.c:8303
-#: scheduler/ipp.c:8621 scheduler/ipp.c:9039 scheduler/ipp.c:9121
-#: scheduler/ipp.c:10364 scheduler/ipp.c:10826 scheduler/ipp.c:11210
-#: scheduler/ipp.c:11292 scheduler/ipp.c:11622
+#: cups/dest.c:1779 scheduler/ipp.c:720 scheduler/ipp.c:994
+#: scheduler/ipp.c:3113 scheduler/ipp.c:3282 scheduler/ipp.c:5020
+#: scheduler/ipp.c:5689 scheduler/ipp.c:6002 scheduler/ipp.c:6551
+#: scheduler/ipp.c:7341 scheduler/ipp.c:7394 scheduler/ipp.c:7725
+#: scheduler/ipp.c:7994 scheduler/ipp.c:8076 scheduler/ipp.c:8109
+#: scheduler/ipp.c:8424 scheduler/ipp.c:8833 scheduler/ipp.c:8910
+#: scheduler/ipp.c:10118 scheduler/ipp.c:10572 scheduler/ipp.c:10934
+#: scheduler/ipp.c:11011 scheduler/ipp.c:11335
 msgid "The printer or class does not exist."
 msgstr ""
 
-#: scheduler/ipp.c:1204
+#: scheduler/ipp.c:1199
 msgid "The printer or class is not shared."
 msgstr ""
 
-#: scheduler/ipp.c:812 scheduler/ipp.c:2138
+#: scheduler/ipp.c:820 scheduler/ipp.c:2125
 #, c-format
 msgid "The printer-uri \"%s\" contains invalid characters."
 msgstr ""
 
-#: scheduler/ipp.c:3135
+#: scheduler/ipp.c:3090
 msgid "The printer-uri attribute is required."
 msgstr ""
 
-#: scheduler/ipp.c:796
+#: scheduler/ipp.c:804
 msgid "The printer-uri must be of the form \"ipp://HOSTNAME/classes/CLASSNAME\"."
 msgstr ""
 
-#: scheduler/ipp.c:2122
+#: scheduler/ipp.c:2109
 msgid "The printer-uri must be of the form \"ipp://HOSTNAME/printers/PRINTERNAME\"."
 msgstr ""
 
-#: scheduler/client.c:2029
+#: scheduler/client.c:2038
 msgid "The web interface is currently disabled. Run \"cupsctl WebInterface=yes\" to enable it."
 msgstr ""
 
-#: scheduler/ipp.c:6798
+#: scheduler/ipp.c:6649
 #, c-format
 msgid "The which-jobs value \"%s\" is not supported."
 msgstr ""
 
-#: scheduler/ipp.c:6063
+#: scheduler/ipp.c:5938
 msgid "There are too many subscriptions."
 msgstr ""
 
@@ -4347,22 +6203,50 @@ msgstr ""
 msgid "There was an unrecoverable USB error."
 msgstr ""
 
-#: scheduler/ipp.c:1442
+#: ppdc/sample.c:440
+msgid "Thermal Transfer Media"
+msgstr ""
+
+#: scheduler/ipp.c:1437
 msgid "Too many active jobs."
 msgstr ""
 
-#: scheduler/ipp.c:1336
+#: scheduler/ipp.c:1331
 #, c-format
 msgid "Too many job-sheets values (%d > 2)."
 msgstr ""
 
-#: scheduler/ipp.c:2463
+#: scheduler/ipp.c:2439
 #, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr ""
 
-#: cups/tls-gnutls.c:926 cups/tls-gnutls.c:994 cups/tls-openssl.c:859
-#: cups/tls-openssl.c:927
+#: ppdc/sample.c:294
+msgid "Transparency"
+msgstr ""
+
+#: ppdc/sample.c:289
+msgid "Tray"
+msgstr ""
+
+#: ppdc/sample.c:266
+msgid "Tray 1"
+msgstr ""
+
+#: ppdc/sample.c:267
+msgid "Tray 2"
+msgstr ""
+
+#: ppdc/sample.c:268
+msgid "Tray 3"
+msgstr ""
+
+#: ppdc/sample.c:269
+msgid "Tray 4"
+msgstr ""
+
+#: cups/tls-gnutls.c:926 cups/tls-gnutls.c:994 cups/tls-openssl.c:857
+#: cups/tls-openssl.c:925
 msgid "Trust on first use is disabled."
 msgstr ""
 
@@ -4374,7 +6258,43 @@ msgstr ""
 msgid "URI too large"
 msgstr ""
 
-#: cgi-bin/admin.c:1652 cgi-bin/admin.c:1665 cgi-bin/admin.c:1689
+#: ppdc/sample.c:124
+msgid "US Fanfold"
+msgstr ""
+
+#: ppdc/sample.c:138
+msgid "US Ledger"
+msgstr ""
+
+#: ppdc/sample.c:139
+msgid "US Legal"
+msgstr ""
+
+#: ppdc/sample.c:140
+msgid "US Legal Oversize"
+msgstr ""
+
+#: ppdc/sample.c:141
+msgid "US Letter"
+msgstr ""
+
+#: ppdc/sample.c:142
+msgid "US Letter Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:143
+msgid "US Letter Oversize"
+msgstr ""
+
+#: ppdc/sample.c:144
+msgid "US Letter Oversize Long Edge"
+msgstr ""
+
+#: ppdc/sample.c:145
+msgid "US Letter Small"
+msgstr ""
+
+#: cgi-bin/admin.c:1632 cgi-bin/admin.c:1645 cgi-bin/admin.c:1669
 msgid "Unable to access cupsd.conf file"
 msgstr ""
 
@@ -4386,25 +6306,25 @@ msgstr ""
 msgid "Unable to add class"
 msgstr ""
 
-#: backend/ipp.c:1898
+#: backend/ipp.c:1899
 msgid "Unable to add document to print job."
 msgstr ""
 
-#: cups/tls-openssl.c:1274 cups/tls-openssl.c:1283 cups/tls-openssl.c:1292
-#: cups/tls-openssl.c:1301
+#: cups/tls-openssl.c:1272 cups/tls-openssl.c:1281 cups/tls-openssl.c:1290
+#: cups/tls-openssl.c:1299
 msgid "Unable to add extension to X.509 certificate."
 msgstr ""
 
-#: scheduler/ipp.c:1517
+#: scheduler/ipp.c:1512
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
 msgstr ""
 
-#: cgi-bin/admin.c:824 cgi-bin/admin.c:1190
+#: cgi-bin/admin.c:824 cgi-bin/admin.c:1170
 msgid "Unable to add printer"
 msgstr ""
 
-#: scheduler/ipp.c:1121
+#: scheduler/ipp.c:1119
 msgid "Unable to allocate memory for file types."
 msgstr ""
 
@@ -4421,29 +6341,29 @@ msgstr ""
 msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
-#: backend/ipp.c:2184 backend/ipp.c:2771
+#: backend/ipp.c:2185 backend/ipp.c:2772
 msgid "Unable to cancel print job."
 msgstr ""
 
-#: cgi-bin/admin.c:2507
+#: cgi-bin/admin.c:2487
 msgid "Unable to change printer"
 msgstr ""
 
-#: cgi-bin/admin.c:1358 cgi-bin/admin.c:1490
+#: cgi-bin/admin.c:1338 cgi-bin/admin.c:1470
 msgid "Unable to change server settings"
 msgstr ""
 
-#: scheduler/ipp.c:4644
+#: scheduler/ipp.c:4543
 #, c-format
 msgid "Unable to commit PPD file: %s"
 msgstr ""
 
-#: cups/ipp.c:4074
+#: cups/ipp.c:4090
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
 msgstr ""
 
-#: cups/ipp.c:4032
+#: cups/ipp.c:4048
 #, c-format
 msgid "Unable to compile naturalLanguage regular expression: %s."
 msgstr ""
@@ -4452,35 +6372,35 @@ msgstr ""
 msgid "Unable to configure printer options."
 msgstr ""
 
-#: cups/tls-openssl.c:2163 cups/tls-openssl.c:2165
+#: cups/tls-openssl.c:2168 cups/tls-openssl.c:2170
 msgid "Unable to configure private key context."
 msgstr ""
 
-#: scheduler/ipp.c:5251
+#: scheduler/ipp.c:5140
 #, c-format
 msgid "Unable to connect to %s:%d: %s"
 msgstr ""
 
-#: cups/adminutil.c:159 cups/request.c:1087
+#: cups/adminutil.c:155 cups/request.c:1083
 msgid "Unable to connect to host."
 msgstr ""
 
-#: backend/ipp.c:719 backend/ipp.c:1272 backend/lpd.c:842 backend/socket.c:307
+#: backend/ipp.c:719 backend/ipp.c:1273 backend/lpd.c:842 backend/socket.c:307
 #: backend/usb-unix.c:104
 msgid "Unable to contact printer, queuing on next printer in class."
 msgstr ""
 
-#: scheduler/ipp.c:2565
+#: scheduler/ipp.c:2539
 #, c-format
 msgid "Unable to copy PPD file - %s"
 msgstr ""
 
-#: scheduler/ipp.c:5392
+#: scheduler/ipp.c:5290
 #, c-format
 msgid "Unable to create PPD for printer: %s"
 msgstr ""
 
-#: scheduler/ipp.c:5425
+#: scheduler/ipp.c:5324
 #, c-format
 msgid "Unable to create PPD: %s"
 msgstr ""
@@ -4489,27 +6409,27 @@ msgstr ""
 msgid "Unable to create X.509 certificate signing request."
 msgstr ""
 
-#: cups/tls-openssl.c:228 cups/tls-openssl.c:1086
+#: cups/tls-openssl.c:228 cups/tls-openssl.c:1084
 msgid "Unable to create X.509 certificate."
 msgstr ""
 
-#: cups/ppd-util.c:573 cups/util.c:479
+#: cups/ppd-util.c:569 cups/util.c:479
 msgid "Unable to create printer-uri"
 msgstr ""
 
-#: scheduler/ipp.c:5582
+#: scheduler/ipp.c:5481
 msgid "Unable to create printer."
 msgstr ""
 
-#: cups/tls-openssl.c:2159
+#: cups/tls-openssl.c:2164
 msgid "Unable to create private key context."
 msgstr ""
 
-#: cups/tls-openssl.c:2167
+#: cups/tls-openssl.c:2172
 msgid "Unable to create private key."
 msgstr ""
 
-#: cups/tls-gnutls.c:1772 cups/tls-gnutls.c:1788 cups/tls-openssl.c:1747
+#: cups/tls-gnutls.c:1778 cups/tls-gnutls.c:1794 cups/tls-openssl.c:1752
 msgid "Unable to create server credentials."
 msgstr ""
 
@@ -4518,15 +6438,15 @@ msgstr ""
 msgid "Unable to create spool directory \"%s\": %s"
 msgstr ""
 
-#: cgi-bin/admin.c:1543 cgi-bin/admin.c:1555 scheduler/cupsfilter.c:1362
+#: cgi-bin/admin.c:1523 cgi-bin/admin.c:1535 scheduler/cupsfilter.c:1362
 msgid "Unable to create temporary file"
 msgstr ""
 
-#: cgi-bin/admin.c:1846
+#: cgi-bin/admin.c:1826
 msgid "Unable to delete class"
 msgstr ""
 
-#: cgi-bin/admin.c:1931
+#: cgi-bin/admin.c:1911
 msgid "Unable to delete printer"
 msgstr ""
 
@@ -4534,7 +6454,7 @@ msgstr ""
 msgid "Unable to do maintenance command"
 msgstr ""
 
-#: cgi-bin/admin.c:1667
+#: cgi-bin/admin.c:1647
 msgid "Unable to edit cupsd.conf files larger than 1MB"
 msgstr ""
 
@@ -4547,11 +6467,11 @@ msgstr ""
 msgid "Unable to find destination for job"
 msgstr ""
 
-#: cups/request.c:391
+#: cups/request.c:387
 msgid "Unable to finish request."
 msgstr ""
 
-#: backend/ipp.c:3439
+#: backend/ipp.c:3444
 msgid "Unable to get backend exit status."
 msgstr ""
 
@@ -4563,11 +6483,11 @@ msgstr ""
 msgid "Unable to get class status"
 msgstr ""
 
-#: cgi-bin/admin.c:1088
+#: cgi-bin/admin.c:1068
 msgid "Unable to get list of printer drivers"
 msgstr ""
 
-#: cgi-bin/admin.c:2357
+#: cgi-bin/admin.c:2337
 msgid "Unable to get printer attributes"
 msgstr ""
 
@@ -4579,11 +6499,11 @@ msgstr ""
 msgid "Unable to get printer status"
 msgstr ""
 
-#: backend/ipp.c:1008
+#: backend/ipp.c:1009
 msgid "Unable to get printer status."
 msgstr ""
 
-#: cups/tls-openssl.c:1071
+#: cups/tls-openssl.c:1069
 msgid "Unable to import X.509 certificate request."
 msgstr ""
 
@@ -4591,11 +6511,11 @@ msgstr ""
 msgid "Unable to import credentials."
 msgstr ""
 
-#: cups/tls-openssl.c:2161
+#: cups/tls-openssl.c:2166
 msgid "Unable to initialize private key context."
 msgstr ""
 
-#: cups/tls-gnutls.c:1346 cups/tls-openssl.c:282 cups/tls-openssl.c:1334
+#: cups/tls-gnutls.c:1346 cups/tls-openssl.c:282 cups/tls-openssl.c:1332
 msgid "Unable to load X.509 CA certificate and private key."
 msgstr ""
 
@@ -4616,7 +6536,7 @@ msgstr ""
 msgid "Unable to modify class"
 msgstr ""
 
-#: cgi-bin/admin.c:823 cgi-bin/admin.c:1189
+#: cgi-bin/admin.c:823 cgi-bin/admin.c:1169
 msgid "Unable to modify printer"
 msgstr ""
 
@@ -4628,11 +6548,11 @@ msgstr ""
 msgid "Unable to move jobs"
 msgstr ""
 
-#: cgi-bin/admin.c:2703 cups/ppd.c:284
+#: cgi-bin/admin.c:2683 cups/ppd.c:280
 msgid "Unable to open PPD file"
 msgstr ""
 
-#: cgi-bin/admin.c:2162
+#: cgi-bin/admin.c:2142
 msgid "Unable to open cupsd.conf file:"
 msgstr ""
 
@@ -4640,7 +6560,7 @@ msgstr ""
 msgid "Unable to open device file"
 msgstr ""
 
-#: scheduler/ipp.c:6477
+#: scheduler/ipp.c:6334
 #, c-format
 msgid "Unable to open document #%d in job #%d."
 msgstr ""
@@ -4649,7 +6569,7 @@ msgstr ""
 msgid "Unable to open help file."
 msgstr ""
 
-#: backend/ipp.c:361 backend/ipp.c:1632 backend/ipp.c:1845 backend/lpd.c:461
+#: backend/ipp.c:361 backend/ipp.c:1633 backend/ipp.c:1846 backend/lpd.c:461
 #: backend/socket.c:135 backend/usb.c:217 filter/gziptoany.c:72
 #: filter/pstops.c:255
 msgid "Unable to open print file"
@@ -4664,7 +6584,7 @@ msgstr ""
 msgid "Unable to print test page"
 msgstr ""
 
-#: scheduler/ipp.c:5377
+#: scheduler/ipp.c:5274
 #, c-format
 msgid "Unable to read generated PPD: %s"
 msgstr ""
@@ -4674,33 +6594,33 @@ msgstr ""
 msgid "Unable to read print data."
 msgstr ""
 
-#: cups/request.c:428
+#: cups/request.c:424
 msgid "Unable to read response."
 msgstr ""
 
-#: cups/ipp.c:6019
+#: cups/ipp.c:6035
 msgid "Unable to reallocate IPP attribute value."
 msgstr ""
 
-#: scheduler/ipp.c:8784 scheduler/ipp.c:10031
+#: scheduler/ipp.c:8585 scheduler/ipp.c:9797
 msgid "Unable to rename job document file."
 msgstr ""
 
-#: cups/dest.c:2976
+#: cups/dest.c:2979
 msgid "Unable to resolve printer-uri."
 msgstr ""
 
-#: scheduler/ipp.c:4414
+#: scheduler/ipp.c:4313
 #, c-format
 msgid "Unable to run cups-driverd: %s"
 msgstr ""
 
-#: scheduler/ipp.c:4588
+#: scheduler/ipp.c:4487
 #, c-format
 msgid "Unable to save PPD file: %s"
 msgstr ""
 
-#: scheduler/ipp.c:11176
+#: scheduler/ipp.c:10903
 #, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
@@ -4717,19 +6637,19 @@ msgstr ""
 msgid "Unable to send data to printer."
 msgstr ""
 
-#: cgi-bin/admin.c:3327
+#: cgi-bin/admin.c:3307
 msgid "Unable to set options"
 msgstr ""
 
-#: cgi-bin/admin.c:2594
+#: cgi-bin/admin.c:2574
 msgid "Unable to set server default"
 msgstr ""
 
-#: backend/ipp.c:3324 backend/ipp.c:3391 backend/ipp.c:3399
+#: backend/ipp.c:3329 backend/ipp.c:3396 backend/ipp.c:3404
 msgid "Unable to start backend process."
 msgstr ""
 
-#: cgi-bin/admin.c:1605
+#: cgi-bin/admin.c:1585
 msgid "Unable to upload cupsd.conf file"
 msgstr ""
 
@@ -4737,7 +6657,7 @@ msgstr ""
 msgid "Unable to use legacy USB class driver."
 msgstr ""
 
-#: cups/tls-openssl.c:1077
+#: cups/tls-openssl.c:1075
 msgid "Unable to verify X.509 certificate request."
 msgstr ""
 
@@ -4745,7 +6665,7 @@ msgstr ""
 msgid "Unable to write X.509 certificate signing request."
 msgstr ""
 
-#: cups/tls-openssl.c:402 cups/tls-openssl.c:1352
+#: cups/tls-openssl.c:402 cups/tls-openssl.c:1350
 msgid "Unable to write X.509 certificate."
 msgstr ""
 
@@ -4770,11 +6690,11 @@ msgstr ""
 msgid "Unauthorized"
 msgstr ""
 
-#: cgi-bin/admin.c:3023
+#: cgi-bin/admin.c:3003
 msgid "Units"
 msgstr ""
 
-#: cups/http-support.c:1408 cups/http-support.c:1507 cups/ppd.c:313
+#: cups/http-support.c:1408 cups/http-support.c:1507 cups/ppd.c:309
 msgid "Unknown"
 msgstr ""
 
@@ -4798,7 +6718,7 @@ msgstr ""
 msgid "Unknown format character: \"%c\"."
 msgstr ""
 
-#: cups/hash.c:308
+#: cups/hash.c:309
 msgid "Unknown hash algorithm."
 msgstr ""
 
@@ -4821,12 +6741,12 @@ msgstr ""
 msgid "Unknown print mode: \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:11072
+#: scheduler/ipp.c:10809
 #, c-format
 msgid "Unknown printer-error-policy \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:11052
+#: scheduler/ipp.c:10789
 #, c-format
 msgid "Unknown printer-op-policy \"%s\"."
 msgstr ""
@@ -4843,7 +6763,7 @@ msgstr ""
 msgid "Unknown scheme in URI"
 msgstr ""
 
-#: cups/http-addrlist.c:707
+#: cups/http-addrlist.c:703
 msgid "Unknown service name."
 msgstr ""
 
@@ -4852,54 +6772,54 @@ msgstr ""
 msgid "Unknown version option value: \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:11532
+#: scheduler/ipp.c:11246
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:11564
+#: scheduler/ipp.c:11277
 #, c-format
 msgid "Unsupported 'document-format' value \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:8133 scheduler/ipp.c:10590 scheduler/ipp.c:11583
+#: scheduler/ipp.c:7949 scheduler/ipp.c:10339 scheduler/ipp.c:11296
 msgid "Unsupported 'job-hold-until' value."
 msgstr ""
 
-#: scheduler/ipp.c:11599
+#: scheduler/ipp.c:11312
 msgid "Unsupported 'job-name' value."
 msgstr ""
 
-#: scheduler/ipp.c:297
+#: scheduler/ipp.c:301
 #, c-format
 msgid "Unsupported character set \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:8589 scheduler/ipp.c:9841
+#: scheduler/ipp.c:8392 scheduler/ipp.c:9608
 #, c-format
 msgid "Unsupported compression \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:8727 scheduler/ipp.c:9996
+#: scheduler/ipp.c:8529 scheduler/ipp.c:9762
 #, c-format
 msgid "Unsupported document-format \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:9979
+#: scheduler/ipp.c:9746
 #, c-format
 msgid "Unsupported document-format \"%s/%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:1302
+#: scheduler/ipp.c:1297
 #, c-format
 msgid "Unsupported format \"%s\"."
 msgstr ""
 
-#: scheduler/ipp.c:1400
+#: scheduler/ipp.c:1395
 msgid "Unsupported margins."
 msgstr ""
 
-#: cups/pwg-media.c:582
+#: cups/pwg-media.c:578
 msgid "Unsupported media value."
 msgstr ""
 
@@ -4950,6 +6870,14 @@ msgid ""
 "       cancel [options] [destination-id]"
 msgstr ""
 
+#: tools/cups-oauth.c:522
+msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+msgstr ""
+
+#: tools/cups-x509.c:836
+msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+msgstr ""
+
 #: systemv/cupsctl.c:228
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr ""
@@ -4968,7 +6896,7 @@ msgid ""
 "       program | cupstestppd [options] -"
 msgstr ""
 
-#: tools/ippeveprinter.c:6888
+#: tools/ippeveprinter.c:6889
 msgid "Usage: ippeveprinter [options] \"name\""
 msgstr ""
 
@@ -4980,7 +6908,7 @@ msgid ""
 "       ippfind --version"
 msgstr ""
 
-#: tools/ipptool.c:6506
+#: tools/ipptool.c:6502
 msgid "Usage: ipptool [options] URI filename [ ... filenameN ]"
 msgstr ""
 
@@ -5066,7 +6994,7 @@ msgstr ""
 msgid "Using spool directory \"%s\"."
 msgstr ""
 
-#: cups/tls-gnutls.c:1217 cups/tls-openssl.c:1256
+#: cups/tls-gnutls.c:1217 cups/tls-openssl.c:1254
 msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
 
@@ -5082,7 +7010,7 @@ msgstr ""
 msgid "Version uses indefinite length"
 msgstr ""
 
-#: backend/ipp.c:2020
+#: backend/ipp.c:2021
 msgid "Waiting for job to complete."
 msgstr ""
 
@@ -5102,24 +7030,32 @@ msgstr ""
 msgid "Web Interface is Disabled"
 msgstr ""
 
-#: cups/ppd.c:2019
+#: cups/ppd.c:2015
 msgid "Yes"
 msgstr ""
 
-#: scheduler/client.c:2017
+#: scheduler/client.c:2026
 msgid "You cannot access this page."
 msgstr ""
 
-#: scheduler/client.c:2023
+#: scheduler/client.c:2032
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
 msgstr ""
 
-#: scheduler/client.c:2015
+#: scheduler/client.c:2024
 msgid "Your account does not have the necessary privileges."
 msgstr ""
 
-#: cups/notify.c:90
+#: ppdc/sample.c:444
+msgid "ZPL Label Printer"
+msgstr ""
+
+#: ppdc/sample.c:367
+msgid "Zebra"
+msgstr ""
+
+#: cups/notify.c:86
 msgid "aborted"
 msgstr ""
 
@@ -5141,6 +7077,10 @@ msgstr ""
 #. TRANSLATORS: Micrometers
 #: locale/ipp-strings.c:70
 msgid "accuracy-units.um"
+msgstr ""
+
+#: tools/cups-oauth.c:526
+msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr ""
 
 #. TRANSLATORS: Bale Output
@@ -5258,8 +7198,20 @@ msgstr ""
 msgid "binding-type.velo"
 msgstr ""
 
-#: cups/notify.c:87
+#: tools/cups-x509.c:840
+msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
+msgstr ""
+
+#: tools/cups-x509.c:841
+msgid "cacert COMMON-NAME         Create a CA certificate."
+msgstr ""
+
+#: cups/notify.c:83
 msgid "canceled"
+msgstr ""
+
+#: tools/cups-x509.c:842
+msgid "cert COMMON-NAME           Create a certificate."
 msgstr ""
 
 #. TRANSLATORS: Chamber Humidity
@@ -5275,6 +7227,14 @@ msgstr ""
 #. TRANSLATORS: Print Job Cost
 #: locale/ipp-strings.c:122
 msgid "charge-info-message"
+msgstr ""
+
+#: tools/cups-oauth.c:527
+msgid "clear [RESOURCE]               Clear the authorization for a resource"
+msgstr ""
+
+#: tools/cups-x509.c:843
+msgid "client URI                 Connect to URI."
 msgstr ""
 
 #. TRANSLATORS: Coat Sheets
@@ -5357,7 +7317,7 @@ msgstr ""
 msgid "coating-type.translucent"
 msgstr ""
 
-#: cups/notify.c:93
+#: cups/notify.c:89
 msgid "completed"
 msgstr ""
 
@@ -5476,16 +7436,238 @@ msgstr ""
 msgid "covering-name.pre-printed"
 msgstr ""
 
-#: scheduler/ipp.c:6349
+#: tools/cups-x509.c:844
+msgid "csr COMMON-NAME            Create a certificate signing request."
+msgstr ""
+
+#: scheduler/ipp.c:6211
 msgid "cups-deviced failed to execute."
 msgstr ""
 
-#: scheduler/ipp.c:7236 scheduler/ipp.c:7475
+#: scheduler/ipp.c:7074 scheduler/ipp.c:7311
 msgid "cups-driverd failed to execute."
 msgstr ""
 
-#: scheduler/ipp.c:4494
+#: scheduler/ipp.c:4393
 msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
+
+#: tools/cups-oauth.c:100
+msgid "cups-oauth: Missing Authorization Server URI after '-a'."
+msgstr ""
+
+#: tools/cups-oauth.c:193
+msgid "cups-oauth: Missing client_id and/or client_secret."
+msgstr ""
+
+#: tools/cups-oauth.c:181
+msgid "cups-oauth: Missing resource URI and/or access token."
+msgstr ""
+
+#: tools/cups-oauth.c:111
+msgid "cups-oauth: Missing scope(s) after '-s'."
+msgstr ""
+
+#: tools/cups-oauth.c:126
+msgid "cups-oauth: No authorization server specified."
+msgstr ""
+
+#: tools/cups-oauth.c:244
+#, c-format
+msgid "cups-oauth: Unable to get access token from '%s': %s"
+msgstr ""
+
+#: tools/cups-oauth.c:237
+#, c-format
+msgid "cups-oauth: Unable to get authorization from '%s': %s"
+msgstr ""
+
+#: tools/cups-oauth.c:230 tools/cups-oauth.c:339
+#, c-format
+msgid "cups-oauth: Unable to get metadata for '%s': %s"
+msgstr ""
+
+#: tools/cups-oauth.c:418
+#, c-format
+msgid "cups-oauth: Unable to get user ID for '%s': %s"
+msgstr ""
+
+#: tools/cups-oauth.c:201
+#, c-format
+msgid "cups-oauth: Unknown command '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:213
+#, c-format
+msgid "cups-x509: Bad DAYS value '%s' after '-d'."
+msgstr ""
+
+#: tools/cups-x509.c:756
+msgid "cups-x509: Bad HTTP version."
+msgstr ""
+
+#: tools/cups-x509.c:559
+#, c-format
+msgid "cups-x509: Bad URI '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:292
+#, c-format
+msgid "cups-x509: Bad certificate type '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:329
+#, c-format
+msgid "cups-x509: Bad key usage '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:240
+#, c-format
+msgid "cups-x509: Bad purpose '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:748
+#, c-format
+msgid "cups-x509: Bad request line (%s)."
+msgstr ""
+
+#: tools/cups-x509.c:752
+msgid "cups-x509: Bad/unknown operation."
+msgstr ""
+
+#: tools/cups-x509.c:746
+msgid "cups-x509: Client closed connection."
+msgstr ""
+
+#: tools/cups-x509.c:163
+msgid "cups-x509: Missing CSR filename after '-R'."
+msgstr ""
+
+#: tools/cups-x509.c:259
+msgid "cups-x509: Missing certificate type after '-t'."
+msgstr ""
+
+#: tools/cups-x509.c:357
+msgid "cups-x509: Missing command argument."
+msgstr ""
+
+#: tools/cups-x509.c:133
+msgid "cups-x509: Missing country after '-C'."
+msgstr ""
+
+#: tools/cups-x509.c:208
+msgid "cups-x509: Missing expiration days after '-d'."
+msgstr ""
+
+#: tools/cups-x509.c:301
+msgid "cups-x509: Missing key usage after '-u'."
+msgstr ""
+
+#: tools/cups-x509.c:143
+msgid "cups-x509: Missing locality/city/town after '-L'."
+msgstr ""
+
+#: tools/cups-x509.c:153
+msgid "cups-x509: Missing organization after '-O'."
+msgstr ""
+
+#: tools/cups-x509.c:183
+msgid "cups-x509: Missing organizational unit after '-U'."
+msgstr ""
+
+#: tools/cups-x509.c:222
+msgid "cups-x509: Missing purpose after '-p'."
+msgstr ""
+
+#: tools/cups-x509.c:249
+msgid "cups-x509: Missing root name after '-r'."
+msgstr ""
+
+#: tools/cups-x509.c:173
+msgid "cups-x509: Missing state/province after '-S'."
+msgstr ""
+
+#: tools/cups-x509.c:193
+msgid "cups-x509: Missing subjectAltName after '-a'."
+msgstr ""
+
+#: tools/cups-x509.c:450
+#, c-format
+msgid "cups-x509: No request for '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:198
+msgid "cups-x509: Too many subjectAltName values."
+msgstr ""
+
+#: tools/cups-x509.c:724
+#, c-format
+msgid "cups-x509: Unable to accept connection: %s"
+msgstr ""
+
+#: tools/cups-x509.c:420
+#, c-format
+msgid "cups-x509: Unable to access '%s': %s"
+msgstr ""
+
+#: tools/cups-x509.c:433
+#, c-format
+msgid "cups-x509: Unable to allocate memory for '%s': %s"
+msgstr ""
+
+#: tools/cups-x509.c:565
+#, c-format
+msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+msgstr ""
+
+#: tools/cups-x509.c:456 tools/cups-x509.c:505
+#, c-format
+msgid "cups-x509: Unable to create certificate (%s)"
+msgstr ""
+
+#: tools/cups-x509.c:621
+#, c-format
+msgid "cups-x509: Unable to create certificate request (%s)"
+msgstr ""
+
+#: tools/cups-x509.c:734
+#, c-format
+msgid "cups-x509: Unable to encrypt connection: %s"
+msgstr ""
+
+#: tools/cups-x509.c:470 tools/cups-x509.c:516
+#, c-format
+msgid "cups-x509: Unable to get generated certificate for '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:632
+#, c-format
+msgid "cups-x509: Unable to get generated certificate request for '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:527
+#, c-format
+msgid "cups-x509: Unable to get generated private key for '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:691
+#, c-format
+msgid "cups-x509: Unable to listen on port %d: %s"
+msgstr ""
+
+#: tools/cups-x509.c:440
+#, c-format
+msgid "cups-x509: Unable to read '%s'."
+msgstr ""
+
+#: tools/cups-x509.c:426
+#, c-format
+msgid "cups-x509: Unable to stat '%s': %s"
+msgstr ""
+
+#: tools/cups-x509.c:392
+#, c-format
+msgid "cups-x509: Unknown command '%s'."
 msgstr ""
 
 #: systemv/cupsctl.c:167
@@ -7143,7 +9325,23 @@ msgstr ""
 msgid "from-name"
 msgstr ""
 
-#: cups/notify.c:78
+#: tools/cups-oauth.c:528
+msgid "get-access-token [RESOURCE]    Get the current access token"
+msgstr ""
+
+#: tools/cups-oauth.c:529
+msgid "get-client-id                  Get the client ID for the authorization server"
+msgstr ""
+
+#: tools/cups-oauth.c:530
+msgid "get-metadata [NAME]            Get metadata from the authorization server"
+msgstr ""
+
+#: tools/cups-oauth.c:531
+msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
+msgstr ""
+
+#: cups/notify.c:74
 msgid "held"
 msgstr ""
 
@@ -7151,7 +9349,7 @@ msgstr ""
 msgid "help\t\tGet help on commands."
 msgstr ""
 
-#: cups/notify.c:119
+#: cups/notify.c:115
 msgid "idle"
 msgstr ""
 
@@ -7280,52 +9478,52 @@ msgstr ""
 msgid "ippfind: Unknown variable \"{%s}\"."
 msgstr ""
 
-#: tools/ipptool.c:633 tools/ipptool.c:659
+#: tools/ipptool.c:629 tools/ipptool.c:655
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", and \"-X\"."
 msgstr ""
 
-#: tools/ipptool.c:439 tools/ipptool.c:505
+#: tools/ipptool.c:435 tools/ipptool.c:501
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
 msgstr ""
 
-#: tools/ipptool.c:698
+#: tools/ipptool.c:694
 #, c-format
 msgid "ipptool: Bad URI \"%s\"."
 msgstr ""
 
-#: tools/ipptool.c:626
+#: tools/ipptool.c:622
 msgid "ipptool: Invalid seconds for \"-i\"."
 msgstr ""
 
-#: tools/ipptool.c:688
+#: tools/ipptool.c:684
 msgid "ipptool: May only specify a single URI."
 msgstr ""
 
-#: tools/ipptool.c:651
+#: tools/ipptool.c:647
 msgid "ipptool: Missing count for \"-n\"."
 msgstr ""
 
-#: tools/ipptool.c:357
+#: tools/ipptool.c:353
 msgid "ipptool: Missing filename for \"--ippserver\"."
 msgstr ""
 
-#: tools/ipptool.c:537
+#: tools/ipptool.c:533
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr ""
 
-#: tools/ipptool.c:519
+#: tools/ipptool.c:515
 msgid "ipptool: Missing name=value for \"-d\"."
 msgstr ""
 
-#: tools/ipptool.c:618
+#: tools/ipptool.c:614
 msgid "ipptool: Missing seconds for \"-i\"."
 msgstr ""
 
-#: tools/ipptool.c:711
+#: tools/ipptool.c:707
 msgid "ipptool: URI required before test file."
 msgstr ""
 
-#: tools/ipptool.c:824
+#: tools/ipptool.c:820
 #, c-format
 msgid "ipptool: Unable to allocate memory: %s"
 msgstr ""
@@ -7595,7 +9793,7 @@ msgstr ""
 msgid "job-phone-number"
 msgstr ""
 
-#: scheduler/ipp.c:8259
+#: scheduler/ipp.c:8065
 msgid "job-printer-uri attribute missing."
 msgstr ""
 
@@ -11409,7 +13607,7 @@ msgstr ""
 msgid "notify-events"
 msgstr ""
 
-#: scheduler/ipp.c:6034
+#: scheduler/ipp.c:5912
 msgid "notify-events not specified."
 msgstr ""
 
@@ -11548,12 +13746,12 @@ msgstr ""
 msgid "notify-recipient-uri"
 msgstr ""
 
-#: scheduler/ipp.c:1911 scheduler/ipp.c:5920
+#: scheduler/ipp.c:1902 scheduler/ipp.c:5806
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" is already used."
 msgstr ""
 
-#: scheduler/ipp.c:1901 scheduler/ipp.c:5910
+#: scheduler/ipp.c:1892 scheduler/ipp.c:5796
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" uses unknown scheme."
 msgstr ""
@@ -12048,7 +14246,7 @@ msgstr ""
 msgid "pclm-source-resolution"
 msgstr ""
 
-#: cups/notify.c:75
+#: cups/notify.c:71
 msgid "pending"
 msgstr ""
 
@@ -16995,7 +19193,7 @@ msgstr ""
 msgid "printer-up-time"
 msgstr ""
 
-#: cups/notify.c:81 cups/notify.c:122
+#: cups/notify.c:77 cups/notify.c:118
 msgid "processing"
 msgstr ""
 
@@ -17156,6 +19354,26 @@ msgstr ""
 msgid "separator-sheets-type.start-sheet"
 msgstr ""
 
+#: tools/cups-x509.c:845
+msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
+msgstr ""
+
+#: tools/cups-oauth.c:532
+msgid ""
+"set-access-token [RESOURCE] TOKEN\n"
+"                               Set the current access token"
+msgstr ""
+
+#: tools/cups-oauth.c:534
+msgid ""
+"set-client-data CLIENT-ID CLIENT-SECRET\n"
+"                               Set the client ID and secret for the authorization server."
+msgstr ""
+
+#: tools/cups-x509.c:846
+msgid "show COMMON-NAME           Show stored credentials for COMMON-NAME."
+msgstr ""
+
 #. TRANSLATORS: 2-Sided Printing
 #: locale/ipp-strings.c:4382
 msgid "sides"
@@ -17176,7 +19394,7 @@ msgstr ""
 msgid "sides.two-sided-short-edge"
 msgstr ""
 
-#: cups/adminutil.c:1387
+#: cups/adminutil.c:1383
 #, c-format
 msgid "stat of %s failed: %s"
 msgstr ""
@@ -17255,7 +19473,7 @@ msgstr ""
 msgid "stitching-reference-edge.top"
 msgstr ""
 
-#: cups/notify.c:84 cups/notify.c:125
+#: cups/notify.c:80 cups/notify.c:121
 msgid "stopped"
 msgstr ""
 
@@ -17469,11 +19687,11 @@ msgstr ""
 msgid "trimming-when.after-sheets"
 msgstr ""
 
-#: cups/notify.c:96 cups/notify.c:128
+#: cups/notify.c:92 cups/notify.c:124
 msgid "unknown"
 msgstr ""
 
-#: cups/notify.c:105
+#: cups/notify.c:101
 msgid "untitled"
 msgstr ""
 
@@ -17572,6 +19790,6 @@ msgstr ""
 msgid "{}                      URI"
 msgstr ""
 
-#: cups/dest.c:1779
+#: cups/dest.c:1792
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""

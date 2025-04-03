@@ -148,7 +148,7 @@ checkpo:	checkpo.o ../cups/$(LIBCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 checkall:	checkpo
-	./checkpo *.po *.strings
+	./checkpo *.po
 
 
 #

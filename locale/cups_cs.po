@@ -1,18 +1,16 @@
 #
 # Czech message catalog for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
-# Copyright © 2007-2018 by Apple Inc.
-# Copyright © 2005-2007 by Easy Software Products.
+# Copyright © 2020-2025 by OpenPrinting.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
 # information.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: CUPS 2.3\n"
+"Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2024-11-21 13:32-0500\n"
+"POT-Creation-Date: 2025-04-03 11:01-0400\n"
 "PO-Revision-Date: 2012-09-14 10:26+0100\n"
 "Last-Translator: Jan Bartos <jan.bartos@madeta.cz>\n"
 "Language-Team: Czech\n"
@@ -1368,6 +1366,14 @@ msgid "%s: Unknown option \"-%c\"."
 msgstr ""
 
 #, c-format
+msgid "%s: Unknown option '%s'."
+msgstr ""
+
+#, c-format
+msgid "%s: Unknown option '-%c'."
+msgstr ""
+
+#, c-format
 msgid "%s: Unknown source MIME type %s/%s."
 msgstr ""
 
@@ -1447,6 +1453,9 @@ msgstr ""
 msgid "--false                 Always false"
 msgstr ""
 
+msgid "--help                         Show this help"
+msgstr ""
+
 msgid "--help                  Show program help"
 msgstr ""
 
@@ -1498,6 +1507,9 @@ msgstr ""
 msgid "--path regex            Match resource path to regular expression"
 msgstr ""
 
+msgid "--pin                          Pin certificate found by client command"
+msgstr ""
+
 msgid "--port number[-number]  Match port to number or range"
 msgstr ""
 
@@ -1518,6 +1530,11 @@ msgid "--release               Release previously held jobs"
 msgstr ""
 
 msgid "--remote                True if service is remote"
+msgstr ""
+
+msgid ""
+"--require-ca                   Require CA-signed certificate for client "
+"command"
 msgstr ""
 
 msgid ""
@@ -1542,25 +1559,139 @@ msgstr ""
 msgid "--uri regex             Match URI to regular expression"
 msgstr ""
 
+msgid "--version                      Show the program version"
+msgstr ""
+
 msgid "--version               Show program version"
 msgstr ""
 
 msgid "--version               Show version"
 msgstr ""
 
+msgid "-1"
+msgstr "-1"
+
+msgid "-10"
+msgstr "-10"
+
+msgid "-100"
+msgstr "-100"
+
+msgid "-105"
+msgstr "-105"
+
+msgid "-11"
+msgstr "-11"
+
+msgid "-110"
+msgstr "-110"
+
+msgid "-115"
+msgstr "-115"
+
+msgid "-12"
+msgstr "-12"
+
+msgid "-120"
+msgstr "-120"
+
+msgid "-13"
+msgstr "-13"
+
+msgid "-14"
+msgstr "-14"
+
+msgid "-15"
+msgstr "-15"
+
+msgid "-2"
+msgstr "-2"
+
 msgid "-2                      Set 2-sided printing support (default=1-sided)"
 msgstr ""
+
+msgid "-20"
+msgstr "-20"
+
+msgid "-25"
+msgstr "-25"
+
+msgid "-3"
+msgstr "-3"
+
+msgid "-30"
+msgstr "-30"
+
+msgid "-35"
+msgstr "-35"
+
+msgid "-4"
+msgstr "-4"
 
 msgid "-4                      Connect using IPv4"
 msgstr ""
 
+msgid "-40"
+msgstr "-40"
+
+msgid "-45"
+msgstr "-45"
+
+msgid "-5"
+msgstr "-5"
+
+msgid "-50"
+msgstr "-50"
+
+msgid "-55"
+msgstr "-55"
+
+msgid "-6"
+msgstr "-6"
+
 msgid "-6                      Connect using IPv6"
 msgstr ""
+
+msgid "-60"
+msgstr "-60"
+
+msgid "-65"
+msgstr "-65"
+
+msgid "-7"
+msgstr "-7"
+
+msgid "-70"
+msgstr "-70"
+
+msgid "-75"
+msgstr "-75"
+
+msgid "-8"
+msgstr "-8"
+
+msgid "-80"
+msgstr "-80"
+
+msgid "-85"
+msgstr "-85"
+
+msgid "-9"
+msgstr "-9"
+
+msgid "-90"
+msgstr "-90"
+
+msgid "-95"
+msgstr "-95"
 
 msgid "-A                      Enable authentication"
 msgstr ""
 
 msgid "-C                      Send requests using chunking (default)"
+msgstr ""
+
+msgid "-C COUNTRY                     Set country."
 msgstr ""
 
 msgid "-D description          Specify the textual description of the printer"
@@ -1621,6 +1752,9 @@ msgstr ""
 msgid "-L                      Send requests using content-length"
 msgstr ""
 
+msgid "-L LOCALITY                    Set locality name."
+msgstr ""
+
 msgid "-L location             Specify the textual location of the printer"
 msgstr ""
 
@@ -1628,6 +1762,9 @@ msgid "-M manufacturer         Set manufacturer name (default=Test)"
 msgstr ""
 
 msgid "-N name                 Match service name to literal name value"
+msgstr ""
+
+msgid "-O ORGANIZATION                Set organization name."
 msgstr ""
 
 msgid "-P destination          Show status for the specified destination"
@@ -1653,6 +1790,10 @@ msgstr ""
 msgid "-R                      Show the ranking of jobs"
 msgstr ""
 
+msgid ""
+"-R CSR-FILENAME                Specify certificate signing request file."
+msgstr ""
+
 msgid "-R name-default         Remove the default value for the named option"
 msgstr ""
 
@@ -1660,6 +1801,9 @@ msgid "-R root-directory       Set alternate root"
 msgstr ""
 
 msgid "-S                      Test with encryption using HTTPS"
+msgstr ""
+
+msgid "-S STATE                       Set state."
 msgstr ""
 
 msgid "-S filename.strings     Set strings file"
@@ -1672,6 +1816,9 @@ msgid "-T seconds              Set the receive/send timeout in seconds"
 msgstr ""
 
 msgid "-T title                Specify the job title"
+msgstr ""
+
+msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
 msgstr ""
 
 msgid "-U username             Specify the username to use for authentication"
@@ -1704,6 +1851,13 @@ msgstr ""
 msgid "-a                      Show jobs on all destinations"
 msgstr ""
 
+msgid ""
+"-a OAUTH-URI                   Specify the OAuth authorization server URL"
+msgstr ""
+
+msgid "-a SUBJECT-ALT-NAME            Add a subjectAltName."
+msgstr ""
+
 msgid "-a [destination(s)]     Show the accepting state of destinations"
 msgstr ""
 
@@ -1729,6 +1883,9 @@ msgid "-c cupsd.conf           Set cupsd.conf file to use."
 msgstr ""
 
 msgid "-d                      Show the default destination"
+msgstr ""
+
+msgid "-d DAYS                        Set expiration date in days."
 msgstr ""
 
 msgid "-d destination          Set default destination"
@@ -1924,6 +2081,12 @@ msgstr ""
 msgid "-p                      Print URI if true"
 msgstr ""
 
+msgid ""
+"-p PURPOSE                     Comma-delimited certificate purpose\n"
+"                               (serverAuth, clientAuth, codeSigning, "
+"emailProtection, timeStamping, OCSPSigning)"
+msgstr ""
+
 msgid "-p [printer(s)]         Show the processing state of destinations"
 msgstr ""
 
@@ -1960,6 +2123,9 @@ msgstr ""
 msgid "-r                      Use 'relaxed' open mode"
 msgstr ""
 
+msgid "-r ROOT-NAME                   Name of root certificate"
+msgstr ""
+
 msgid "-r class                Remove the named destination from a class"
 msgstr ""
 
@@ -1978,6 +2144,9 @@ msgstr ""
 msgid "-s                      Show a status summary"
 msgstr ""
 
+msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
+msgstr ""
+
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
 
@@ -1993,10 +2162,23 @@ msgstr ""
 msgid "-t                      Test the configuration file."
 msgstr ""
 
+msgid ""
+"-t TYPE                        Certificate type\n"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
+"ecdsa-p384, ecdsa-p521)"
+msgstr ""
+
 msgid "-t key                  True if the TXT record contains the key"
 msgstr ""
 
 msgid "-t title                Specify the job title"
+msgstr ""
+
+msgid ""
+"-u USAGE                       Comma-delimited key usage\n"
+"                               (digitalSignature, nonRepudiation, "
+"keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
+"encipherOnly, decipherOnly, default-ca, default-tls)"
 msgstr ""
 
 msgid ""
@@ -2052,6 +2234,513 @@ msgstr ""
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
 msgstr ""
 
+msgid "0"
+msgstr "0"
+
+msgid "1"
+msgstr "1"
+
+msgid "1 inch/sec."
+msgstr "1 palec/sek."
+
+msgid "1.25x0.25\""
+msgstr "1.25x0.25\""
+
+msgid "1.25x2.25\""
+msgstr "1.25x2.25\""
+
+msgid "1.5 inch/sec."
+msgstr "1.5 palce/sek."
+
+msgid "1.50x0.25\""
+msgstr "1.50x0.25\""
+
+msgid "1.50x0.50\""
+msgstr "1.50x0.50\""
+
+msgid "1.50x1.00\""
+msgstr "1.50x1.00\""
+
+msgid "1.50x2.00\""
+msgstr "1.50x2.00\""
+
+msgid "10"
+msgstr "10"
+
+msgid "10 inches/sec."
+msgstr "10 palců/sek."
+
+msgid "10 x 11"
+msgstr ""
+
+msgid "10 x 13"
+msgstr ""
+
+msgid "10 x 14"
+msgstr ""
+
+msgid "100"
+msgstr "100"
+
+msgid "100 mm/sec."
+msgstr "100 mm/sek."
+
+msgid "105"
+msgstr "105"
+
+msgid "11"
+msgstr "11"
+
+msgid "11 inches/sec."
+msgstr "11 palců/sek."
+
+msgid "110"
+msgstr "110"
+
+msgid "115"
+msgstr "115"
+
+msgid "12"
+msgstr "12"
+
+msgid "12 inches/sec."
+msgstr "12 palců/sek."
+
+msgid "12 x 11"
+msgstr ""
+
+msgid "120"
+msgstr "120"
+
+msgid "120 mm/sec."
+msgstr "120 mm/sek."
+
+msgid "120x60dpi"
+msgstr "120x60 dpi"
+
+msgid "120x72dpi"
+msgstr "120x72 dpi"
+
+msgid "13"
+msgstr "13"
+
+msgid "136dpi"
+msgstr "136 dpi"
+
+msgid "14"
+msgstr "14"
+
+msgid "15"
+msgstr "15"
+
+msgid "15 mm/sec."
+msgstr "15 mm/sek."
+
+msgid "15 x 11"
+msgstr ""
+
+msgid "150 mm/sec."
+msgstr "150 mm/sek."
+
+msgid "150dpi"
+msgstr "150 dpi"
+
+msgid "16"
+msgstr "16"
+
+msgid "17"
+msgstr "17"
+
+msgid "18"
+msgstr "18"
+
+msgid "180dpi"
+msgstr "180 dpi"
+
+msgid "19"
+msgstr "19"
+
+msgid "2"
+msgstr "2"
+
+msgid "2 inches/sec."
+msgstr "2 palce/sek."
+
+msgid "2-Sided Printing"
+msgstr "oboustranný tisk"
+
+msgid "2.00x0.37\""
+msgstr "2.00x0.37\""
+
+msgid "2.00x0.50\""
+msgstr "2.00x0.50\""
+
+msgid "2.00x1.00\""
+msgstr "2.00x1.00\""
+
+msgid "2.00x1.25\""
+msgstr "2.00x1.25\""
+
+msgid "2.00x2.00\""
+msgstr "2.00x2.00\""
+
+msgid "2.00x3.00\""
+msgstr "2.00x3.00\""
+
+msgid "2.00x4.00\""
+msgstr "2.00x4.00\""
+
+msgid "2.00x5.50\""
+msgstr "2.00x5.50\""
+
+msgid "2.25x0.50\""
+msgstr "2.25x0.50\""
+
+msgid "2.25x1.25\""
+msgstr "2.25x1.25\""
+
+msgid "2.25x4.00\""
+msgstr "2.25x4.00\""
+
+msgid "2.25x5.50\""
+msgstr "2.25x5.50\""
+
+msgid "2.38x5.50\""
+msgstr "2.38x5.50\""
+
+msgid "2.5 inches/sec."
+msgstr "2.5 palce/sek."
+
+msgid "2.50x1.00\""
+msgstr "2.50x1.00\""
+
+msgid "2.50x2.00\""
+msgstr "2.50x2.00\""
+
+msgid "2.75x1.25\""
+msgstr "2.75x1.25\""
+
+msgid "2.9 x 1\""
+msgstr "2.9 x 1\""
+
+msgid "20"
+msgstr "20"
+
+msgid "20 mm/sec."
+msgstr "20 mm/sek."
+
+msgid "200 mm/sec."
+msgstr "200 mm/sek."
+
+msgid "203dpi"
+msgstr "203 dpi"
+
+msgid "21"
+msgstr "21"
+
+msgid "22"
+msgstr "22"
+
+msgid "23"
+msgstr "23"
+
+msgid "24"
+msgstr "24"
+
+msgid "24-Pin Series"
+msgstr "24 jehličková"
+
+msgid "240x72dpi"
+msgstr "240x72 dpi"
+
+msgid "25"
+msgstr "25"
+
+msgid "250 mm/sec."
+msgstr "250 mm/sek."
+
+msgid "26"
+msgstr "26"
+
+msgid "27"
+msgstr "27"
+
+msgid "28"
+msgstr "28"
+
+msgid "29"
+msgstr "29"
+
+msgid "3"
+msgstr "3"
+
+msgid "3 inches/sec."
+msgstr "3 palce/sek."
+
+msgid "3 x 5"
+msgstr ""
+
+msgid "3.00x1.00\""
+msgstr "3.00x1.00\""
+
+msgid "3.00x1.25\""
+msgstr "3.00x1.25\""
+
+msgid "3.00x2.00\""
+msgstr "3.00x2.00\""
+
+msgid "3.00x3.00\""
+msgstr "3.00x3.00\""
+
+msgid "3.00x4.00\""
+msgstr ""
+
+msgid "3.00x5.00\""
+msgstr "3.00x5.00\""
+
+msgid "3.00x6.00\""
+msgstr ""
+
+msgid "3.00x8.00\""
+msgstr ""
+
+msgid "3.25x2.00\""
+msgstr "3.25x2.00\""
+
+msgid "3.25x5.00\""
+msgstr "3.25x5.00\""
+
+msgid "3.25x5.50\""
+msgstr "3.25x5.50\""
+
+msgid "3.25x5.83\""
+msgstr "3.25x5.83\""
+
+msgid "3.25x7.83\""
+msgstr "3.25x7.83\""
+
+msgid "3.5 x 5"
+msgstr ""
+
+msgid "3.5\" Disk"
+msgstr "3.5\" Disk"
+
+msgid "3.50x1.00\""
+msgstr "3.50x1.00\""
+
+msgid "30"
+msgstr "30"
+
+msgid "30 mm/sec."
+msgstr "30 mm/sek."
+
+msgid "300 mm/sec."
+msgstr "300 mm/sek."
+
+msgid "300dpi"
+msgstr "300 dpi"
+
+msgid "30859 Paint Can Label"
+msgstr ""
+
+msgid "35"
+msgstr "35"
+
+msgid "360dpi"
+msgstr "360 dpi"
+
+msgid "360x180dpi"
+msgstr "360x180 dpi"
+
+msgid "4"
+msgstr "4"
+
+msgid "4 inches/sec."
+msgstr "4 palce/sek."
+
+msgid "4.00x1.00\""
+msgstr "4.00x1.00\""
+
+msgid "4.00x13.00\""
+msgstr "4.00x13.00\""
+
+msgid "4.00x2.00\""
+msgstr "4.00x2.00\""
+
+msgid "4.00x2.50\""
+msgstr "4.00x2.50\""
+
+msgid "4.00x3.00\""
+msgstr "4.00x3.00\""
+
+msgid "4.00x4.00\""
+msgstr "4.00x4.00\""
+
+msgid "4.00x5.00\""
+msgstr "4.00x5.00\""
+
+msgid "4.00x6.00\""
+msgstr "4.00x6.00\""
+
+msgid "4.00x6.50\""
+msgstr "4.00x6.50\""
+
+msgid "4.00x8.00\""
+msgstr ""
+
+msgid "40"
+msgstr "40"
+
+msgid "40 mm/sec."
+msgstr "40 mm/sek."
+
+msgid "45"
+msgstr "45"
+
+msgid "5"
+msgstr "5"
+
+msgid "5 inches/sec."
+msgstr "5 palců/sek."
+
+msgid "5 x 7"
+msgstr ""
+
+msgid "50"
+msgstr "50"
+
+msgid "55"
+msgstr "55"
+
+msgid "6"
+msgstr "6"
+
+msgid "6 inches/sec."
+msgstr "6 palců/sek."
+
+msgid "6.00x1.00\""
+msgstr "6.00x1.00\""
+
+msgid "6.00x2.00\""
+msgstr "6.00x2.00\""
+
+msgid "6.00x3.00\""
+msgstr "6.00x3.00\""
+
+msgid "6.00x4.00\""
+msgstr "6.00x4.00\""
+
+msgid "6.00x5.00\""
+msgstr "6.00x5.00\""
+
+msgid "6.00x6.00\""
+msgstr "6.00x6.00\""
+
+msgid "6.00x6.50\""
+msgstr "6.00x6.50\""
+
+msgid "6.00x8.00\""
+msgstr ""
+
+msgid "60"
+msgstr "60"
+
+msgid "60 mm/sec."
+msgstr "60 mm/sek."
+
+msgid "600dpi"
+msgstr "600 dpi"
+
+msgid "60dpi"
+msgstr "60 dpi"
+
+msgid "60x72dpi"
+msgstr ""
+
+msgid "65"
+msgstr "65"
+
+msgid "7"
+msgstr "7"
+
+msgid "7 inches/sec."
+msgstr "7 palců/sek."
+
+msgid "7 x 9"
+msgstr ""
+
+msgid "70"
+msgstr "70"
+
+msgid "75"
+msgstr "75"
+
+msgid "8"
+msgstr "8"
+
+msgid "8 inches/sec."
+msgstr "8 palců/sek."
+
+msgid "8 x 10"
+msgstr ""
+
+msgid "8.00x1.00\""
+msgstr "8.00x1.00\""
+
+msgid "8.00x2.00\""
+msgstr "8.00x2.00\""
+
+msgid "8.00x3.00\""
+msgstr "8.00x3.00\""
+
+msgid "8.00x4.00\""
+msgstr "8.00x4.00\""
+
+msgid "8.00x5.00\""
+msgstr "8.00x5.00\""
+
+msgid "8.00x6.00\""
+msgstr "8.00x6.00\""
+
+msgid "8.00x6.50\""
+msgstr "8.00x6.50\""
+
+msgid "8.26x1.00\""
+msgstr ""
+
+msgid "80"
+msgstr "80"
+
+msgid "80 mm/sec."
+msgstr "80 mm/sek."
+
+msgid "80x50mm"
+msgstr ""
+
+msgid "85"
+msgstr "85"
+
+msgid "9"
+msgstr "9"
+
+msgid "9 inches/sec."
+msgstr "9 palců/sek."
+
+msgid "9 x 11"
+msgstr ""
+
+msgid "9 x 12"
+msgstr ""
+
+msgid "9-Pin Series"
+msgstr "9 jehličková"
+
+msgid "90"
+msgstr "90"
+
+msgid "95"
+msgstr "95"
+
 msgid "?Invalid help command unknown."
 msgstr ""
 
@@ -2061,6 +2750,108 @@ msgstr ""
 
 #, c-format
 msgid "A printer named \"%s\" already exists."
+msgstr ""
+
+msgid "A0"
+msgstr "A0"
+
+msgid "A0 Long Edge"
+msgstr ""
+
+msgid "A1"
+msgstr "A1"
+
+msgid "A1 Long Edge"
+msgstr ""
+
+msgid "A10"
+msgstr "A10"
+
+msgid "A2"
+msgstr "A2"
+
+msgid "A2 Long Edge"
+msgstr ""
+
+msgid "A3"
+msgstr "A3"
+
+msgid "A3 Long Edge"
+msgstr ""
+
+msgid "A3 Oversize"
+msgstr ""
+
+msgid "A3 Oversize Long Edge"
+msgstr ""
+
+msgid "A4"
+msgstr "A4"
+
+msgid "A4 Long Edge"
+msgstr ""
+
+msgid "A4 Oversize"
+msgstr ""
+
+msgid "A4 Small"
+msgstr ""
+
+msgid "A5"
+msgstr "A5"
+
+msgid "A5 Long Edge"
+msgstr ""
+
+msgid "A5 Oversize"
+msgstr ""
+
+msgid "A6"
+msgstr "A6"
+
+msgid "A6 Long Edge"
+msgstr ""
+
+msgid "A7"
+msgstr "A7"
+
+msgid "A8"
+msgstr "A8"
+
+msgid "A9"
+msgstr "A9"
+
+msgid "ANSI A"
+msgstr "ANSI A"
+
+msgid "ANSI B"
+msgstr "ANSI B"
+
+msgid "ANSI C"
+msgstr "ANSI C"
+
+msgid "ANSI D"
+msgstr "ANSI D"
+
+msgid "ANSI E"
+msgstr "ANSI E"
+
+msgid "ARCH C"
+msgstr "ARCH C"
+
+msgid "ARCH C Long Edge"
+msgstr ""
+
+msgid "ARCH D"
+msgstr "ARCH D"
+
+msgid "ARCH D Long Edge"
+msgstr ""
+
+msgid "ARCH E"
+msgstr "ARCH E"
+
+msgid "ARCH E Long Edge"
 msgstr ""
 
 msgid "Accept Jobs"
@@ -2075,11 +2866,20 @@ msgstr "Přidat třídu"
 msgid "Add Printer"
 msgstr "Přidat tiskárnu"
 
+msgid "Address"
+msgstr "Adresa"
+
 msgid "Administration"
 msgstr "Administrace"
 
+msgid "Always"
+msgstr "Vždy"
+
 msgid "AppSocket/HP JetDirect"
 msgstr "AppSocket/HP JetDirect"
+
+msgid "Applicator"
+msgstr "Aplikátor"
 
 #, c-format
 msgid "Attempt to set %s printer-state to bad value %d."
@@ -2100,6 +2900,42 @@ msgstr ""
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
 msgstr ""
+
+msgid "B0"
+msgstr "B0"
+
+msgid "B1"
+msgstr "B1"
+
+msgid "B10"
+msgstr "B10"
+
+msgid "B2"
+msgstr "B2"
+
+msgid "B3"
+msgstr "B3"
+
+msgid "B4"
+msgstr "B4"
+
+msgid "B5"
+msgstr "B5"
+
+msgid "B5 Oversize"
+msgstr ""
+
+msgid "B6"
+msgstr "B6"
+
+msgid "B7"
+msgstr "B7"
+
+msgid "B8"
+msgstr "B8"
+
+msgid "B9"
+msgstr "B9"
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
@@ -2147,6 +2983,9 @@ msgid "Bad URI."
 msgstr ""
 
 msgid "Bad arguments to function"
+msgstr ""
+
+msgid "Bad certificate."
 msgstr ""
 
 #, c-format
@@ -2242,6 +3081,9 @@ msgstr ""
 msgid "Bad printer-uri."
 msgstr ""
 
+msgid "Bad private key."
+msgstr ""
+
 #, c-format
 msgid "Bad request ID %d."
 msgstr ""
@@ -2271,12 +3113,21 @@ msgstr ""
 msgid "Banners"
 msgstr "Banery"
 
+msgid "Bond Paper"
+msgstr "Kancelářský papír"
+
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
 msgstr ""
 
 msgid "Buffer overflow detected, aborting."
 msgstr ""
+
+msgid "CMYK"
+msgstr "CMYK"
+
+msgid "CPCL Label Printer"
+msgstr "Tiskárna štítků CPCL"
 
 msgid "Cancel Jobs"
 msgstr ""
@@ -2288,6 +3139,9 @@ msgid "Cannot change printer-is-shared for remote queues."
 msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
+msgstr ""
+
+msgid "Cassette"
 msgstr ""
 
 msgid "Change Settings"
@@ -2309,10 +3163,16 @@ msgstr ""
 msgid "Color"
 msgstr "Barva"
 
+msgid "Color Mode"
+msgstr "Barevný režim"
+
 msgid ""
 "Commands may be abbreviated.  Commands are:\n"
 "\n"
 "exit    help    quit    status  ?"
+msgstr ""
+
+msgid "Commands:"
 msgstr ""
 
 msgid "Community name uses indefinite length"
@@ -2327,6 +3187,9 @@ msgstr ""
 msgid "Continue"
 msgstr "Pokračovat"
 
+msgid "Continuous"
+msgstr "Souvislý"
+
 msgid "Control file sent successfully."
 msgstr ""
 
@@ -2340,10 +3203,28 @@ msgstr ""
 msgid "Created"
 msgstr "Vytvořeno"
 
+msgid "Credentials are OK/trusted."
+msgstr ""
+
+msgid "Credentials are expired."
+msgstr ""
+
+msgid "Credentials are invalid."
+msgstr ""
+
 msgid "Credentials are not CA-signed."
 msgstr ""
 
+msgid "Credentials are unknown/new."
+msgstr ""
+
 msgid "Credentials do not validate against site CA certificate."
+msgstr ""
+
+msgid "Credentials have been renewed."
+msgstr ""
+
+msgid "Credentials have changed."
 msgstr ""
 
 msgid "Credentials have expired."
@@ -2351,6 +3232,27 @@ msgstr ""
 
 msgid "Custom"
 msgstr "Uživatelský"
+
+msgid "CustominCutInterval"
+msgstr "CustominCutInterval"
+
+msgid "CustominTearInterval"
+msgstr "CustominTearInterval"
+
+msgid "Cut"
+msgstr "Snížit"
+
+msgid "Cutter"
+msgstr "Výstřižek"
+
+msgid "DYMO"
+msgstr ""
+
+msgid "Dark"
+msgstr "Tmavý"
+
+msgid "Darkness"
+msgstr "Tma"
 
 msgid "Data file sent successfully."
 msgstr ""
@@ -2366,6 +3268,9 @@ msgstr "Výmaz třídy"
 
 msgid "Delete Printer"
 msgstr "Výmaz tiskárny"
+
+msgid "DeskJet Series"
+msgstr "Řada DeskJet"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
@@ -2390,6 +3295,9 @@ msgid ""
 "        location = %s"
 msgstr ""
 
+msgid "Direct Thermal Media"
+msgstr "Termální médium"
+
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
 msgstr ""
@@ -2410,9 +3318,21 @@ msgstr ""
 msgid "Directory \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr ""
 
+msgid "Disabled"
+msgstr "Zakázaný"
+
 #, c-format
 msgid "Document #%d does not exist in job #%d."
 msgstr ""
+
+msgid "Duplexer"
+msgstr "Duplexní jednotka"
+
+msgid "EPL1 Label Printer"
+msgstr "Tiskárna štítků EPL1"
+
+msgid "EPL2 Label Printer"
+msgstr "Tiskárna štítků EPL2"
 
 msgid "Edit Configuration File"
 msgstr "Úprava konfiguračního souboru"
@@ -2424,6 +3344,9 @@ msgstr ""
 msgid "Ending Banner"
 msgstr "Ukončení baneru"
 
+msgid "English"
+msgstr "Čeština"
+
 msgid ""
 "Enter your username and password or the root username and password to access "
 "this page. If you are using Kerberos authentication, make sure you have a "
@@ -2433,8 +3356,170 @@ msgstr ""
 "administrátora pro přístup na tuto stránku. Pokud používáte ověřování "
 "Kerberos, ujistěte se, že máte platný ticket Kerberosu."
 
+msgid "Envelope #10"
+msgstr ""
+
+msgid "Envelope #11"
+msgstr ""
+
+msgid "Envelope #12"
+msgstr ""
+
+msgid "Envelope #14"
+msgstr ""
+
+msgid "Envelope #9"
+msgstr ""
+
+msgid "Envelope B4"
+msgstr ""
+
+msgid "Envelope B5"
+msgstr ""
+
+msgid "Envelope B6"
+msgstr ""
+
+msgid "Envelope C0"
+msgstr ""
+
+msgid "Envelope C1"
+msgstr ""
+
+msgid "Envelope C2"
+msgstr ""
+
+msgid "Envelope C3"
+msgstr ""
+
+msgid "Envelope C4"
+msgstr ""
+
+msgid "Envelope C5"
+msgstr ""
+
+msgid "Envelope C6"
+msgstr ""
+
+msgid "Envelope C65"
+msgstr ""
+
+msgid "Envelope C7"
+msgstr ""
+
+msgid "Envelope Choukei 3"
+msgstr ""
+
+msgid "Envelope Choukei 3 Long Edge"
+msgstr ""
+
+msgid "Envelope Choukei 4"
+msgstr ""
+
+msgid "Envelope Choukei 4 Long Edge"
+msgstr ""
+
+msgid "Envelope DL"
+msgstr ""
+
+msgid "Envelope Feed"
+msgstr "Podavač obálek"
+
+msgid "Envelope Invite"
+msgstr ""
+
+msgid "Envelope Italian"
+msgstr ""
+
+msgid "Envelope Kaku2"
+msgstr ""
+
+msgid "Envelope Kaku2 Long Edge"
+msgstr ""
+
+msgid "Envelope Kaku3"
+msgstr ""
+
+msgid "Envelope Kaku3 Long Edge"
+msgstr ""
+
+msgid "Envelope Monarch"
+msgstr ""
+
+msgid "Envelope PRC1"
+msgstr ""
+
+msgid "Envelope PRC1 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC10"
+msgstr ""
+
+msgid "Envelope PRC10 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC2"
+msgstr ""
+
+msgid "Envelope PRC2 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC3"
+msgstr ""
+
+msgid "Envelope PRC3 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC4"
+msgstr ""
+
+msgid "Envelope PRC4 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC5 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC5PRC5"
+msgstr ""
+
+msgid "Envelope PRC6"
+msgstr ""
+
+msgid "Envelope PRC6 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC7"
+msgstr ""
+
+msgid "Envelope PRC7 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC8"
+msgstr ""
+
+msgid "Envelope PRC8 Long Edge"
+msgstr ""
+
+msgid "Envelope PRC9"
+msgstr ""
+
+msgid "Envelope PRC9 Long Edge"
+msgstr ""
+
+msgid "Envelope Personal"
+msgstr ""
+
+msgid "Envelope You4"
+msgstr ""
+
+msgid "Envelope You4 Long Edge"
+msgstr ""
+
 msgid "Environment Variables:"
 msgstr ""
+
+msgid "Epson"
+msgstr "Epson"
 
 msgid "Error Policy"
 msgstr "Chování při chybě"
@@ -2446,6 +3531,45 @@ msgid "Error sending raster data."
 msgstr ""
 
 msgid "Error: need hostname after \"-h\" option."
+msgstr ""
+
+msgid "European Fanfold"
+msgstr ""
+
+msgid "European Fanfold Legal"
+msgstr ""
+
+msgid "Every 10 Labels"
+msgstr "Každých 10 štítků"
+
+msgid "Every 2 Labels"
+msgstr "Každé 2 štítky"
+
+msgid "Every 3 Labels"
+msgstr "Každé 3 štítky"
+
+msgid "Every 4 Labels"
+msgstr "Každé 4 štítky"
+
+msgid "Every 5 Labels"
+msgstr "Každých 5 štítků"
+
+msgid "Every 6 Labels"
+msgstr "Každých 6 štítků"
+
+msgid "Every 7 Labels"
+msgstr "Každých 7 štítků"
+
+msgid "Every 8 Labels"
+msgstr "Každých 8 štítků"
+
+msgid "Every 9 Labels"
+msgstr "Každých 9 štítků"
+
+msgid "Every Label"
+msgstr "Každý štítek"
+
+msgid "Executive"
 msgstr ""
 
 msgid "Expectation Failed"
@@ -2477,6 +3601,9 @@ msgstr ""
 msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr ""
 
+msgid "File Folder"
+msgstr ""
+
 #, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
@@ -2486,6 +3613,9 @@ msgstr ""
 #, c-format
 msgid "Finished page %d."
 msgstr ""
+
+msgid "Folio"
+msgstr "Fólie"
 
 msgid "Forbidden"
 msgstr "Zakázaný"
@@ -2499,8 +3629,14 @@ msgstr ""
 msgid "General"
 msgstr "Obecný"
 
+msgid "Generic"
+msgstr "Obecný"
+
 msgid "Get-Response-PDU uses indefinite length"
 msgstr "\"Get-Response-PDU\" má neomezenou délku"
+
+msgid "Glossy Paper"
+msgstr "Lesklý papír"
 
 msgid "Got a printer-uri attribute but no job-id."
 msgstr ""
@@ -2510,6 +3646,12 @@ msgstr ""
 
 msgid "Grayscale"
 msgstr "Stupně šedi"
+
+msgid "HP"
+msgstr "HP"
+
+msgid "Hanging Folder"
+msgstr "Závěsná složka"
 
 msgid "Hash buffer too small."
 msgstr ""
@@ -2618,6 +3760,9 @@ msgstr ""
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr ""
 
+msgid "ISOLatin1"
+msgstr "ISOLatin1"
+
 msgid "Illegal control character"
 msgstr "Neplatný řídící znak"
 
@@ -2633,11 +3778,29 @@ msgstr "Neplatný překlad řetězce"
 msgid "Illegal whitespace character"
 msgstr "Nedovolený prázdný znak"
 
+msgid "Installable Options"
+msgstr "Možnosti instalace"
+
+msgid "Installed"
+msgstr "Instalovaný"
+
+msgid "IntelliBar Label Printer"
+msgstr "Tiskárna štítků \"IntelliBar\""
+
+msgid "Intellitech"
+msgstr "Intellitech"
+
 msgid "Internal Server Error"
 msgstr ""
 
 msgid "Internal error"
 msgstr "Vniřní chyba"
+
+msgid "Internet Postage 2-Part"
+msgstr "Internet Postage 2-Part"
+
+msgid "Internet Postage 3-Part"
+msgstr "Internet Postage 3-Part"
 
 msgid "Internet Printing Protocol"
 msgstr "Internetový tiskový protokol"
@@ -2672,6 +3835,48 @@ msgstr ""
 
 msgid "JCL"
 msgstr "JCL"
+
+msgid "JIS B0"
+msgstr ""
+
+msgid "JIS B1"
+msgstr ""
+
+msgid "JIS B10"
+msgstr ""
+
+msgid "JIS B2"
+msgstr ""
+
+msgid "JIS B3"
+msgstr ""
+
+msgid "JIS B4"
+msgstr ""
+
+msgid "JIS B4 Long Edge"
+msgstr ""
+
+msgid "JIS B5"
+msgstr ""
+
+msgid "JIS B5 Long Edge"
+msgstr ""
+
+msgid "JIS B6"
+msgstr ""
+
+msgid "JIS B6 Long Edge"
+msgstr ""
+
+msgid "JIS B7"
+msgstr ""
+
+msgid "JIS B8"
+msgstr ""
+
+msgid "JIS B9"
+msgstr ""
 
 msgid "JSON file too large."
 msgstr ""
@@ -2746,9 +3951,30 @@ msgid ""
 "LPDEST environment variable names default destination that does not exist."
 msgstr ""
 
+msgid "Label Printer"
+msgstr "Tiskárna štítků"
+
+msgid "Label Top"
+msgstr "Horní štítek"
+
 #, c-format
 msgid "Language \"%s\" not supported."
 msgstr ""
+
+msgid "Large Address"
+msgstr "Plná adresa"
+
+msgid "LaserJet Series PCL 4/5"
+msgstr "LaserJet Serie PCL 4/5"
+
+msgid "Letter Oversize"
+msgstr ""
+
+msgid "Letter Oversize Long Edge"
+msgstr ""
+
+msgid "Light"
+msgstr "Světlý"
 
 msgid "Line longer than the maximum allowed (255 characters)"
 msgstr "Řádek je delší než maximální povolená velikost (255 znaků)"
@@ -2763,14 +3989,29 @@ msgstr ""
 msgid "Local printer created."
 msgstr ""
 
+msgid "Long-Edge (Portrait)"
+msgstr "Delší okraj (na výšku)"
+
+msgid "Main Roll"
+msgstr ""
+
+msgid "Manual Feed"
+msgstr "Ruční podávání"
+
 msgid "Media Size"
 msgstr "Velikost média"
 
 msgid "Media Source"
 msgstr "Zdroj média"
 
+msgid "Media Tracking"
+msgstr "Sledování média"
+
 msgid "Media Type"
 msgstr "Typ média"
+
+msgid "Medium"
+msgstr "Střední"
 
 msgid "Memory allocation error"
 msgstr "Chyba přidělení paměti"
@@ -2867,6 +4108,9 @@ msgstr "Název \"OID\" má neomezenou délku"
 
 msgid "Nested classes are not allowed."
 msgstr ""
+
+msgid "Never"
+msgstr "Nikdy"
 
 msgid "New credentials are not valid for name."
 msgstr ""
@@ -2980,11 +4224,23 @@ msgstr "Žádná \"variable-bindings\" SEQUENCE"
 msgid "No version number"
 msgstr "Není číslo verze"
 
+msgid "Non-continuous (Mark sensing)"
+msgstr "Není souvislý (Mark Sensing)"
+
+msgid "Non-continuous (Web sensing)"
+msgstr "Není souvislý (Web Sensing)"
+
+msgid "Normal"
+msgstr "Normální"
+
 msgid "Not Found"
 msgstr "Nebyl nalezen"
 
 msgid "Not Implemented"
 msgstr "Nerealizováno"
+
+msgid "Not Installed"
+msgstr "Nenainstalováno"
 
 msgid "Not Modified"
 msgstr "Nezměněno"
@@ -2995,8 +4251,17 @@ msgstr "Nepodporováno"
 msgid "Not allowed to print."
 msgstr "Není povoleno tisknout."
 
+msgid "Note"
+msgstr "Poznámka"
+
 msgid "OK"
 msgstr "OK"
+
+msgid "Off (1-Sided)"
+msgstr "Vypnuto (jednostranný)"
+
+msgid "Oki"
+msgstr "Oki"
 
 msgid "Online Help"
 msgstr "Nápověda"
@@ -3045,6 +4310,27 @@ msgstr ""
 msgid "Output Mode"
 msgstr "Výstupní režim"
 
+msgid "PCL Laser Printer"
+msgstr "PCL laserová tiskárna"
+
+msgid "PRC16K"
+msgstr "PRC16K"
+
+msgid "PRC16K Long Edge"
+msgstr ""
+
+msgid "PRC32K"
+msgstr "PRC32K"
+
+msgid "PRC32K Long Edge"
+msgstr ""
+
+msgid "PRC32K Oversize"
+msgstr ""
+
+msgid "PRC32K Oversize Long Edge"
+msgstr ""
+
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
 msgstr ""
@@ -3054,6 +4340,12 @@ msgstr "Packet neobsahuje \"Get-Response-PDU\""
 
 msgid "Packet does not start with SEQUENCE"
 msgstr "Paket nezačíná SEQUENCÍ"
+
+msgid "ParamCustominCutInterval"
+msgstr "ParamCustominCutInterval"
+
+msgid "ParamCustominTearInterval"
+msgstr "ParamCustominTearInterval"
 
 #, c-format
 msgid "Password for %s on %s? "
@@ -3065,23 +4357,68 @@ msgstr "Pozastavení třídy"
 msgid "Pause Printer"
 msgstr "Pozastavení tiskárny"
 
+msgid "Peel-Off"
+msgstr "Peel-Off"
+
+msgid "Photo"
+msgstr "Fotografie"
+
+msgid "Photo Labels"
+msgstr "Foto-samolepky"
+
+msgid "Plain Paper"
+msgstr "Obyčejný papír"
+
 msgid "Policies"
 msgstr "Pravidla"
 
 msgid "Port Monitor"
 msgstr "Monitorování portu"
 
+msgid "PostScript Printer"
+msgstr "PostScriptová tiskárna"
+
+msgid "Postcard"
+msgstr "Pohlednice"
+
+msgid "Postcard Double"
+msgstr ""
+
+msgid "Postcard Double Long Edge"
+msgstr ""
+
+msgid "Postcard Long Edge"
+msgstr ""
+
 msgid "Preparing to print."
 msgstr ""
+
+msgid "Print Density"
+msgstr "Hustota tisku"
 
 msgid "Print Job:"
 msgstr "Tisk úlohy:"
 
+msgid "Print Mode"
+msgstr "Režim tisku"
+
+msgid "Print Rate"
+msgstr "Kvalita tisku"
+
 msgid "Print Self-Test Page"
 msgstr "Tisk \"self-test\" stránky"
 
+msgid "Print Speed"
+msgstr "Rychlost tisku"
+
 msgid "Print Test Page"
 msgstr "Tisk zkušební stránky"
+
+msgid "Print and Cut"
+msgstr "Tisk a vyjmout"
+
+msgid "Print and Tear"
+msgstr "Tisk a odtrhnout"
 
 msgid "Print file sent."
 msgstr ""
@@ -3102,6 +4439,9 @@ msgstr ""
 msgid "Printer Added"
 msgstr "Tiskárna přidána"
 
+msgid "Printer Default"
+msgstr "Výchozí tiskárna"
+
 msgid "Printer Deleted"
 msgstr "Tiskárna vymazána"
 
@@ -3110,6 +4450,9 @@ msgstr "Tiskárna upravena"
 
 msgid "Printer Paused"
 msgstr "Tiskárna zastavena"
+
+msgid "Printer Settings"
+msgstr "Nastavení tiskárny"
 
 msgid "Printer cannot print supplied content."
 msgstr ""
@@ -3134,6 +4477,9 @@ msgstr "Tiskárny"
 msgid "Printing page %d, %u%% complete."
 msgstr ""
 
+msgid "Quarto"
+msgstr "Quarto"
+
 msgid "Quota limit reached."
 msgstr "Kvóta byla překročena."
 
@@ -3151,6 +4497,9 @@ msgstr ""
 msgid "Remote host did not accept data file (%d)."
 msgstr ""
 
+msgid "Reprint After Error"
+msgstr "Opakovat tisk po chybě"
+
 msgid "Request Entity Too Large"
 msgstr "Dotaz Entity je příliš dlouhý"
 
@@ -3163,10 +4512,19 @@ msgstr "Obnovení třídy"
 msgid "Resume Printer"
 msgstr "Obnovení tiskárny"
 
+msgid "Return Address"
+msgstr "Návrat adresy"
+
+msgid "Rewind"
+msgstr "Přetočit"
+
 msgid "SEQUENCE uses indefinite length"
 msgstr "\"SEQUENCE\" má neomezenou délku"
 
 msgid "SSL/TLS Negotiation Error"
+msgstr ""
+
+msgid "Second Roll (DUO/Twin Only)"
 msgstr ""
 
 msgid "See Other"
@@ -3211,9 +4569,21 @@ msgstr "Nastavení parametrů třídy"
 msgid "Set Printer Options"
 msgstr "Nastavení parametrů tiskárny"
 
+msgid "Shipping Address"
+msgstr "Doručovací adresa"
+
+msgid "Short-Edge (Landscape)"
+msgstr "Kratší okraj (na šířku)"
+
+msgid "Special Paper"
+msgstr "Speciální papír"
+
 #, c-format
 msgid "Spooling job, %.0f%% complete."
 msgstr ""
+
+msgid "Standard"
+msgstr "Standardní"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
@@ -3223,6 +4593,9 @@ msgstr "Spuštění baneru"
 msgid "Starting page %d."
 msgstr ""
 
+msgid "Statement"
+msgstr "Prohlášení"
+
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr ""
@@ -3230,8 +4603,35 @@ msgstr ""
 msgid "Substitutions:"
 msgstr ""
 
+msgid "Super A"
+msgstr "Super A"
+
+msgid "Super B"
+msgstr "Super B"
+
+msgid "Super B/A3"
+msgstr "Super B/A3"
+
 msgid "Switching Protocols"
 msgstr "Protokol výměny"
+
+msgid "Tabloid"
+msgstr "Tabloid"
+
+msgid "Tabloid Oversize"
+msgstr ""
+
+msgid "Tabloid Oversize Long Edge"
+msgstr ""
+
+msgid "Tear"
+msgstr "Odtrhnout"
+
+msgid "Tear-Off"
+msgstr "Odtrhnout"
+
+msgid "Tear-Off Adjust Position"
+msgstr "Nastavení pozice odtržení"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
@@ -3353,6 +4753,9 @@ msgstr "Existuje příliš mnoho předplatných."
 msgid "There was an unrecoverable USB error."
 msgstr ""
 
+msgid "Thermal Transfer Media"
+msgstr "Termální tisková média"
+
 msgid "Too many active jobs."
 msgstr "Příliš mnoho aktivních úloh."
 
@@ -3364,6 +4767,24 @@ msgstr ""
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr ""
 
+msgid "Transparency"
+msgstr "Průhlednost"
+
+msgid "Tray"
+msgstr "Podavač"
+
+msgid "Tray 1"
+msgstr "Podavač 1"
+
+msgid "Tray 2"
+msgstr "Podavač 2"
+
+msgid "Tray 3"
+msgstr "Podavač 3"
+
+msgid "Tray 4"
+msgstr "Podavač 4"
+
 msgid "Trust on first use is disabled."
 msgstr ""
 
@@ -3371,6 +4792,33 @@ msgid "URI Too Long"
 msgstr "URI je příliš dlouhá"
 
 msgid "URI too large"
+msgstr ""
+
+msgid "US Fanfold"
+msgstr ""
+
+msgid "US Ledger"
+msgstr "US Ledger"
+
+msgid "US Legal"
+msgstr "US Legal"
+
+msgid "US Legal Oversize"
+msgstr ""
+
+msgid "US Letter"
+msgstr "US Letter"
+
+msgid "US Letter Long Edge"
+msgstr ""
+
+msgid "US Letter Oversize"
+msgstr ""
+
+msgid "US Letter Oversize Long Edge"
+msgstr ""
+
+msgid "US Letter Small"
 msgstr ""
 
 msgid "Unable to access cupsd.conf file"
@@ -3809,6 +5257,12 @@ msgid ""
 "       cancel [options] [destination-id]"
 msgstr ""
 
+msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+msgstr ""
+
+msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+msgstr ""
+
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr ""
 
@@ -3943,6 +5397,12 @@ msgstr "Pro přístup k této stránce, použijte adresu URL https://%s:%d%s."
 msgid "Your account does not have the necessary privileges."
 msgstr ""
 
+msgid "ZPL Label Printer"
+msgstr "Tiskárna štítků ZPL"
+
+msgid "Zebra"
+msgstr "Zebra"
+
 msgid "aborted"
 msgstr "zrušeno"
 
@@ -3960,6 +5420,9 @@ msgstr ""
 
 #. TRANSLATORS: Micrometers
 msgid "accuracy-units.um"
+msgstr ""
+
+msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr ""
 
 #. TRANSLATORS: Bale Output
@@ -4054,8 +5517,17 @@ msgstr ""
 msgid "binding-type.velo"
 msgstr ""
 
+msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
+msgstr ""
+
+msgid "cacert COMMON-NAME         Create a CA certificate."
+msgstr ""
+
 msgid "canceled"
 msgstr "zrušeno"
+
+msgid "cert COMMON-NAME           Create a certificate."
+msgstr ""
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
@@ -4067,6 +5539,12 @@ msgstr ""
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
+msgstr ""
+
+msgid "clear [RESOURCE]               Clear the authorization for a resource"
+msgstr ""
+
+msgid "client URI                 Connect to URI."
 msgstr ""
 
 #. TRANSLATORS: Coat Sheets
@@ -4228,6 +5706,9 @@ msgstr ""
 msgid "covering-name.pre-printed"
 msgstr ""
 
+msgid "csr COMMON-NAME            Create a certificate signing request."
+msgstr ""
+
 msgid "cups-deviced failed to execute."
 msgstr "Nepodařilo se spustit \"cups-deviced\"."
 
@@ -4235,6 +5716,176 @@ msgid "cups-driverd failed to execute."
 msgstr "Nepodařilo se spustit \"cups-driverd\"."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
+msgstr ""
+
+msgid "cups-oauth: Missing Authorization Server URI after '-a'."
+msgstr ""
+
+msgid "cups-oauth: Missing client_id and/or client_secret."
+msgstr ""
+
+msgid "cups-oauth: Missing resource URI and/or access token."
+msgstr ""
+
+msgid "cups-oauth: Missing scope(s) after '-s'."
+msgstr ""
+
+msgid "cups-oauth: No authorization server specified."
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get access token from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get metadata for '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get user ID for '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unknown command '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Bad DAYS value '%s' after '-d'."
+msgstr ""
+
+msgid "cups-x509: Bad HTTP version."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Bad URI '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Bad certificate type '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Bad key usage '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Bad purpose '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Bad request line (%s)."
+msgstr ""
+
+msgid "cups-x509: Bad/unknown operation."
+msgstr ""
+
+msgid "cups-x509: Client closed connection."
+msgstr ""
+
+msgid "cups-x509: Missing CSR filename after '-R'."
+msgstr ""
+
+msgid "cups-x509: Missing certificate type after '-t'."
+msgstr ""
+
+msgid "cups-x509: Missing command argument."
+msgstr ""
+
+msgid "cups-x509: Missing country after '-C'."
+msgstr ""
+
+msgid "cups-x509: Missing expiration days after '-d'."
+msgstr ""
+
+msgid "cups-x509: Missing key usage after '-u'."
+msgstr ""
+
+msgid "cups-x509: Missing locality/city/town after '-L'."
+msgstr ""
+
+msgid "cups-x509: Missing organization after '-O'."
+msgstr ""
+
+msgid "cups-x509: Missing organizational unit after '-U'."
+msgstr ""
+
+msgid "cups-x509: Missing purpose after '-p'."
+msgstr ""
+
+msgid "cups-x509: Missing root name after '-r'."
+msgstr ""
+
+msgid "cups-x509: Missing state/province after '-S'."
+msgstr ""
+
+msgid "cups-x509: Missing subjectAltName after '-a'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: No request for '%s'."
+msgstr ""
+
+msgid "cups-x509: Too many subjectAltName values."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to accept connection: %s"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to access '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to allocate memory for '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to create certificate (%s)"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to create certificate request (%s)"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to encrypt connection: %s"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to get generated certificate for '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to get generated certificate request for '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to get generated private key for '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to listen on port %d: %s"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to read '%s'."
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unable to stat '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-x509: Unknown command '%s'."
 msgstr ""
 
 #, c-format
@@ -5557,6 +7208,20 @@ msgstr ""
 
 #. TRANSLATORS: From Name
 msgid "from-name"
+msgstr ""
+
+msgid "get-access-token [RESOURCE]    Get the current access token"
+msgstr ""
+
+msgid ""
+"get-client-id                  Get the client ID for the authorization server"
+msgstr ""
+
+msgid ""
+"get-metadata [NAME]            Get metadata from the authorization server"
+msgstr ""
+
+msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
 msgstr ""
 
 msgid "held"
@@ -13567,6 +15232,23 @@ msgstr ""
 msgid "separator-sheets-type.start-sheet"
 msgstr ""
 
+msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
+msgstr ""
+
+msgid ""
+"set-access-token [RESOURCE] TOKEN\n"
+"                               Set the current access token"
+msgstr ""
+
+msgid ""
+"set-client-data CLIENT-ID CLIENT-SECRET\n"
+"                               Set the client ID and secret for the "
+"authorization server."
+msgstr ""
+
+msgid "show COMMON-NAME           Show stored credentials for COMMON-NAME."
+msgstr ""
+
 #. TRANSLATORS: 2-Sided Printing
 msgid "sides"
 msgstr ""
@@ -13899,984 +15581,3 @@ msgstr ""
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
-
-#~ msgid "-1"
-#~ msgstr "-1"
-
-#~ msgid "-10"
-#~ msgstr "-10"
-
-#~ msgid "-100"
-#~ msgstr "-100"
-
-#~ msgid "-105"
-#~ msgstr "-105"
-
-#~ msgid "-11"
-#~ msgstr "-11"
-
-#~ msgid "-110"
-#~ msgstr "-110"
-
-#~ msgid "-115"
-#~ msgstr "-115"
-
-#~ msgid "-12"
-#~ msgstr "-12"
-
-#~ msgid "-120"
-#~ msgstr "-120"
-
-#~ msgid "-13"
-#~ msgstr "-13"
-
-#~ msgid "-14"
-#~ msgstr "-14"
-
-#~ msgid "-15"
-#~ msgstr "-15"
-
-#~ msgid "-2"
-#~ msgstr "-2"
-
-#~ msgid "-20"
-#~ msgstr "-20"
-
-#~ msgid "-25"
-#~ msgstr "-25"
-
-#~ msgid "-3"
-#~ msgstr "-3"
-
-#~ msgid "-30"
-#~ msgstr "-30"
-
-#~ msgid "-35"
-#~ msgstr "-35"
-
-#~ msgid "-4"
-#~ msgstr "-4"
-
-#~ msgid "-40"
-#~ msgstr "-40"
-
-#~ msgid "-45"
-#~ msgstr "-45"
-
-#~ msgid "-5"
-#~ msgstr "-5"
-
-#~ msgid "-50"
-#~ msgstr "-50"
-
-#~ msgid "-55"
-#~ msgstr "-55"
-
-#~ msgid "-6"
-#~ msgstr "-6"
-
-#~ msgid "-60"
-#~ msgstr "-60"
-
-#~ msgid "-65"
-#~ msgstr "-65"
-
-#~ msgid "-7"
-#~ msgstr "-7"
-
-#~ msgid "-70"
-#~ msgstr "-70"
-
-#~ msgid "-75"
-#~ msgstr "-75"
-
-#~ msgid "-8"
-#~ msgstr "-8"
-
-#~ msgid "-80"
-#~ msgstr "-80"
-
-#~ msgid "-85"
-#~ msgstr "-85"
-
-#~ msgid "-9"
-#~ msgstr "-9"
-
-#~ msgid "-90"
-#~ msgstr "-90"
-
-#~ msgid "-95"
-#~ msgstr "-95"
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "1 inch/sec."
-#~ msgstr "1 palec/sek."
-
-#~ msgid "1.25x0.25\""
-#~ msgstr "1.25x0.25\""
-
-#~ msgid "1.25x2.25\""
-#~ msgstr "1.25x2.25\""
-
-#~ msgid "1.5 inch/sec."
-#~ msgstr "1.5 palce/sek."
-
-#~ msgid "1.50x0.25\""
-#~ msgstr "1.50x0.25\""
-
-#~ msgid "1.50x0.50\""
-#~ msgstr "1.50x0.50\""
-
-#~ msgid "1.50x1.00\""
-#~ msgstr "1.50x1.00\""
-
-#~ msgid "1.50x2.00\""
-#~ msgstr "1.50x2.00\""
-
-#~ msgid "10"
-#~ msgstr "10"
-
-#~ msgid "10 inches/sec."
-#~ msgstr "10 palců/sek."
-
-#~ msgid "100"
-#~ msgstr "100"
-
-#~ msgid "100 mm/sec."
-#~ msgstr "100 mm/sek."
-
-#~ msgid "105"
-#~ msgstr "105"
-
-#~ msgid "11"
-#~ msgstr "11"
-
-#~ msgid "11 inches/sec."
-#~ msgstr "11 palců/sek."
-
-#~ msgid "110"
-#~ msgstr "110"
-
-#~ msgid "115"
-#~ msgstr "115"
-
-#~ msgid "12"
-#~ msgstr "12"
-
-#~ msgid "12 inches/sec."
-#~ msgstr "12 palců/sek."
-
-#~ msgid "120"
-#~ msgstr "120"
-
-#~ msgid "120 mm/sec."
-#~ msgstr "120 mm/sek."
-
-#~ msgid "120x60dpi"
-#~ msgstr "120x60 dpi"
-
-#~ msgid "120x72dpi"
-#~ msgstr "120x72 dpi"
-
-#~ msgid "13"
-#~ msgstr "13"
-
-#~ msgid "136dpi"
-#~ msgstr "136 dpi"
-
-#~ msgid "14"
-#~ msgstr "14"
-
-#~ msgid "15"
-#~ msgstr "15"
-
-#~ msgid "15 mm/sec."
-#~ msgstr "15 mm/sek."
-
-#~ msgid "150 mm/sec."
-#~ msgstr "150 mm/sek."
-
-#~ msgid "150dpi"
-#~ msgstr "150 dpi"
-
-#~ msgid "16"
-#~ msgstr "16"
-
-#~ msgid "17"
-#~ msgstr "17"
-
-#~ msgid "18"
-#~ msgstr "18"
-
-#~ msgid "180dpi"
-#~ msgstr "180 dpi"
-
-#~ msgid "19"
-#~ msgstr "19"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "2 inches/sec."
-#~ msgstr "2 palce/sek."
-
-#~ msgid "2-Sided Printing"
-#~ msgstr "oboustranný tisk"
-
-#~ msgid "2.00x0.37\""
-#~ msgstr "2.00x0.37\""
-
-#~ msgid "2.00x0.50\""
-#~ msgstr "2.00x0.50\""
-
-#~ msgid "2.00x1.00\""
-#~ msgstr "2.00x1.00\""
-
-#~ msgid "2.00x1.25\""
-#~ msgstr "2.00x1.25\""
-
-#~ msgid "2.00x2.00\""
-#~ msgstr "2.00x2.00\""
-
-#~ msgid "2.00x3.00\""
-#~ msgstr "2.00x3.00\""
-
-#~ msgid "2.00x4.00\""
-#~ msgstr "2.00x4.00\""
-
-#~ msgid "2.00x5.50\""
-#~ msgstr "2.00x5.50\""
-
-#~ msgid "2.25x0.50\""
-#~ msgstr "2.25x0.50\""
-
-#~ msgid "2.25x1.25\""
-#~ msgstr "2.25x1.25\""
-
-#~ msgid "2.25x4.00\""
-#~ msgstr "2.25x4.00\""
-
-#~ msgid "2.25x5.50\""
-#~ msgstr "2.25x5.50\""
-
-#~ msgid "2.38x5.50\""
-#~ msgstr "2.38x5.50\""
-
-#~ msgid "2.5 inches/sec."
-#~ msgstr "2.5 palce/sek."
-
-#~ msgid "2.50x1.00\""
-#~ msgstr "2.50x1.00\""
-
-#~ msgid "2.50x2.00\""
-#~ msgstr "2.50x2.00\""
-
-#~ msgid "2.75x1.25\""
-#~ msgstr "2.75x1.25\""
-
-#~ msgid "2.9 x 1\""
-#~ msgstr "2.9 x 1\""
-
-#~ msgid "20"
-#~ msgstr "20"
-
-#~ msgid "20 mm/sec."
-#~ msgstr "20 mm/sek."
-
-#~ msgid "200 mm/sec."
-#~ msgstr "200 mm/sek."
-
-#~ msgid "203dpi"
-#~ msgstr "203 dpi"
-
-#~ msgid "21"
-#~ msgstr "21"
-
-#~ msgid "22"
-#~ msgstr "22"
-
-#~ msgid "23"
-#~ msgstr "23"
-
-#~ msgid "24"
-#~ msgstr "24"
-
-#~ msgid "24-Pin Series"
-#~ msgstr "24 jehličková"
-
-#~ msgid "240x72dpi"
-#~ msgstr "240x72 dpi"
-
-#~ msgid "25"
-#~ msgstr "25"
-
-#~ msgid "250 mm/sec."
-#~ msgstr "250 mm/sek."
-
-#~ msgid "26"
-#~ msgstr "26"
-
-#~ msgid "27"
-#~ msgstr "27"
-
-#~ msgid "28"
-#~ msgstr "28"
-
-#~ msgid "29"
-#~ msgstr "29"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "3 inches/sec."
-#~ msgstr "3 palce/sek."
-
-#~ msgid "3.00x1.00\""
-#~ msgstr "3.00x1.00\""
-
-#~ msgid "3.00x1.25\""
-#~ msgstr "3.00x1.25\""
-
-#~ msgid "3.00x2.00\""
-#~ msgstr "3.00x2.00\""
-
-#~ msgid "3.00x3.00\""
-#~ msgstr "3.00x3.00\""
-
-#~ msgid "3.00x5.00\""
-#~ msgstr "3.00x5.00\""
-
-#~ msgid "3.25x2.00\""
-#~ msgstr "3.25x2.00\""
-
-#~ msgid "3.25x5.00\""
-#~ msgstr "3.25x5.00\""
-
-#~ msgid "3.25x5.50\""
-#~ msgstr "3.25x5.50\""
-
-#~ msgid "3.25x5.83\""
-#~ msgstr "3.25x5.83\""
-
-#~ msgid "3.25x7.83\""
-#~ msgstr "3.25x7.83\""
-
-#~ msgid "3.5\" Disk"
-#~ msgstr "3.5\" Disk"
-
-#~ msgid "3.50x1.00\""
-#~ msgstr "3.50x1.00\""
-
-#~ msgid "30"
-#~ msgstr "30"
-
-#~ msgid "30 mm/sec."
-#~ msgstr "30 mm/sek."
-
-#~ msgid "300 mm/sec."
-#~ msgstr "300 mm/sek."
-
-#~ msgid "300dpi"
-#~ msgstr "300 dpi"
-
-#~ msgid "35"
-#~ msgstr "35"
-
-#~ msgid "360dpi"
-#~ msgstr "360 dpi"
-
-#~ msgid "360x180dpi"
-#~ msgstr "360x180 dpi"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "4 inches/sec."
-#~ msgstr "4 palce/sek."
-
-#~ msgid "4.00x1.00\""
-#~ msgstr "4.00x1.00\""
-
-#~ msgid "4.00x13.00\""
-#~ msgstr "4.00x13.00\""
-
-#~ msgid "4.00x2.00\""
-#~ msgstr "4.00x2.00\""
-
-#~ msgid "4.00x2.50\""
-#~ msgstr "4.00x2.50\""
-
-#~ msgid "4.00x3.00\""
-#~ msgstr "4.00x3.00\""
-
-#~ msgid "4.00x4.00\""
-#~ msgstr "4.00x4.00\""
-
-#~ msgid "4.00x5.00\""
-#~ msgstr "4.00x5.00\""
-
-#~ msgid "4.00x6.00\""
-#~ msgstr "4.00x6.00\""
-
-#~ msgid "4.00x6.50\""
-#~ msgstr "4.00x6.50\""
-
-#~ msgid "40"
-#~ msgstr "40"
-
-#~ msgid "40 mm/sec."
-#~ msgstr "40 mm/sek."
-
-#~ msgid "45"
-#~ msgstr "45"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "5 inches/sec."
-#~ msgstr "5 palců/sek."
-
-#~ msgid "50"
-#~ msgstr "50"
-
-#~ msgid "55"
-#~ msgstr "55"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "6 inches/sec."
-#~ msgstr "6 palců/sek."
-
-#~ msgid "6.00x1.00\""
-#~ msgstr "6.00x1.00\""
-
-#~ msgid "6.00x2.00\""
-#~ msgstr "6.00x2.00\""
-
-#~ msgid "6.00x3.00\""
-#~ msgstr "6.00x3.00\""
-
-#~ msgid "6.00x4.00\""
-#~ msgstr "6.00x4.00\""
-
-#~ msgid "6.00x5.00\""
-#~ msgstr "6.00x5.00\""
-
-#~ msgid "6.00x6.00\""
-#~ msgstr "6.00x6.00\""
-
-#~ msgid "6.00x6.50\""
-#~ msgstr "6.00x6.50\""
-
-#~ msgid "60"
-#~ msgstr "60"
-
-#~ msgid "60 mm/sec."
-#~ msgstr "60 mm/sek."
-
-#~ msgid "600dpi"
-#~ msgstr "600 dpi"
-
-#~ msgid "60dpi"
-#~ msgstr "60 dpi"
-
-#~ msgid "65"
-#~ msgstr "65"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid "7 inches/sec."
-#~ msgstr "7 palců/sek."
-
-#~ msgid "70"
-#~ msgstr "70"
-
-#~ msgid "75"
-#~ msgstr "75"
-
-#~ msgid "8"
-#~ msgstr "8"
-
-#~ msgid "8 inches/sec."
-#~ msgstr "8 palců/sek."
-
-#~ msgid "8.00x1.00\""
-#~ msgstr "8.00x1.00\""
-
-#~ msgid "8.00x2.00\""
-#~ msgstr "8.00x2.00\""
-
-#~ msgid "8.00x3.00\""
-#~ msgstr "8.00x3.00\""
-
-#~ msgid "8.00x4.00\""
-#~ msgstr "8.00x4.00\""
-
-#~ msgid "8.00x5.00\""
-#~ msgstr "8.00x5.00\""
-
-#~ msgid "8.00x6.00\""
-#~ msgstr "8.00x6.00\""
-
-#~ msgid "8.00x6.50\""
-#~ msgstr "8.00x6.50\""
-
-#~ msgid "80"
-#~ msgstr "80"
-
-#~ msgid "80 mm/sec."
-#~ msgstr "80 mm/sek."
-
-#~ msgid "85"
-#~ msgstr "85"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "9 inches/sec."
-#~ msgstr "9 palců/sek."
-
-#~ msgid "9-Pin Series"
-#~ msgstr "9 jehličková"
-
-#~ msgid "90"
-#~ msgstr "90"
-
-#~ msgid "95"
-#~ msgstr "95"
-
-#~ msgid "A0"
-#~ msgstr "A0"
-
-#~ msgid "A1"
-#~ msgstr "A1"
-
-#~ msgid "A10"
-#~ msgstr "A10"
-
-#~ msgid "A2"
-#~ msgstr "A2"
-
-#~ msgid "A3"
-#~ msgstr "A3"
-
-#~ msgid "A4"
-#~ msgstr "A4"
-
-#~ msgid "A5"
-#~ msgstr "A5"
-
-#~ msgid "A6"
-#~ msgstr "A6"
-
-#~ msgid "A7"
-#~ msgstr "A7"
-
-#~ msgid "A8"
-#~ msgstr "A8"
-
-#~ msgid "A9"
-#~ msgstr "A9"
-
-#~ msgid "ANSI A"
-#~ msgstr "ANSI A"
-
-#~ msgid "ANSI B"
-#~ msgstr "ANSI B"
-
-#~ msgid "ANSI C"
-#~ msgstr "ANSI C"
-
-#~ msgid "ANSI D"
-#~ msgstr "ANSI D"
-
-#~ msgid "ANSI E"
-#~ msgstr "ANSI E"
-
-#~ msgid "ARCH C"
-#~ msgstr "ARCH C"
-
-#~ msgid "ARCH D"
-#~ msgstr "ARCH D"
-
-#~ msgid "ARCH E"
-#~ msgstr "ARCH E"
-
-#~ msgid "Address"
-#~ msgstr "Adresa"
-
-#~ msgid "Always"
-#~ msgstr "Vždy"
-
-#~ msgid "Applicator"
-#~ msgstr "Aplikátor"
-
-#~ msgid "B0"
-#~ msgstr "B0"
-
-#~ msgid "B1"
-#~ msgstr "B1"
-
-#~ msgid "B10"
-#~ msgstr "B10"
-
-#~ msgid "B2"
-#~ msgstr "B2"
-
-#~ msgid "B3"
-#~ msgstr "B3"
-
-#~ msgid "B4"
-#~ msgstr "B4"
-
-#~ msgid "B5"
-#~ msgstr "B5"
-
-#~ msgid "B6"
-#~ msgstr "B6"
-
-#~ msgid "B7"
-#~ msgstr "B7"
-
-#~ msgid "B8"
-#~ msgstr "B8"
-
-#~ msgid "B9"
-#~ msgstr "B9"
-
-#~ msgid "Bond Paper"
-#~ msgstr "Kancelářský papír"
-
-#~ msgid "CMYK"
-#~ msgstr "CMYK"
-
-#~ msgid "CPCL Label Printer"
-#~ msgstr "Tiskárna štítků CPCL"
-
-#~ msgid "Color Mode"
-#~ msgstr "Barevný režim"
-
-#~ msgid "Continuous"
-#~ msgstr "Souvislý"
-
-#~ msgid "CustominCutInterval"
-#~ msgstr "CustominCutInterval"
-
-#~ msgid "CustominTearInterval"
-#~ msgstr "CustominTearInterval"
-
-#~ msgid "Cut"
-#~ msgstr "Snížit"
-
-#~ msgid "Cutter"
-#~ msgstr "Výstřižek"
-
-#~ msgid "Dark"
-#~ msgstr "Tmavý"
-
-#~ msgid "Darkness"
-#~ msgstr "Tma"
-
-#~ msgid "DeskJet Series"
-#~ msgstr "Řada DeskJet"
-
-#~ msgid "Direct Thermal Media"
-#~ msgstr "Termální médium"
-
-#~ msgid "Disabled"
-#~ msgstr "Zakázaný"
-
-#~ msgid "Duplexer"
-#~ msgstr "Duplexní jednotka"
-
-#~ msgid "Dymo"
-#~ msgstr "Dymo"
-
-#~ msgid "EPL1 Label Printer"
-#~ msgstr "Tiskárna štítků EPL1"
-
-#~ msgid "EPL2 Label Printer"
-#~ msgstr "Tiskárna štítků EPL2"
-
-#~ msgid "English"
-#~ msgstr "Čeština"
-
-#~ msgid "Envelope Feed"
-#~ msgstr "Podavač obálek"
-
-#~ msgid "Epson"
-#~ msgstr "Epson"
-
-#~ msgid "Every 10 Labels"
-#~ msgstr "Každých 10 štítků"
-
-#~ msgid "Every 2 Labels"
-#~ msgstr "Každé 2 štítky"
-
-#~ msgid "Every 3 Labels"
-#~ msgstr "Každé 3 štítky"
-
-#~ msgid "Every 4 Labels"
-#~ msgstr "Každé 4 štítky"
-
-#~ msgid "Every 5 Labels"
-#~ msgstr "Každých 5 štítků"
-
-#~ msgid "Every 6 Labels"
-#~ msgstr "Každých 6 štítků"
-
-#~ msgid "Every 7 Labels"
-#~ msgstr "Každých 7 štítků"
-
-#~ msgid "Every 8 Labels"
-#~ msgstr "Každých 8 štítků"
-
-#~ msgid "Every 9 Labels"
-#~ msgstr "Každých 9 štítků"
-
-#~ msgid "Every Label"
-#~ msgstr "Každý štítek"
-
-#~ msgid "Export Printers to Samba"
-#~ msgstr "Export tiskáren do Samby"
-
-#~ msgid "Folio"
-#~ msgstr "Fólie"
-
-#~ msgid "Generic"
-#~ msgstr "Obecný"
-
-#~ msgid "Glossy Paper"
-#~ msgstr "Lesklý papír"
-
-#~ msgid "HP"
-#~ msgstr "HP"
-
-#~ msgid "Hanging Folder"
-#~ msgstr "Závěsná složka"
-
-#~ msgid "ISOLatin1"
-#~ msgstr "ISOLatin1"
-
-#~ msgid "Installable Options"
-#~ msgstr "Možnosti instalace"
-
-#~ msgid "Installed"
-#~ msgstr "Instalovaný"
-
-#~ msgid "IntelliBar Label Printer"
-#~ msgstr "Tiskárna štítků \"IntelliBar\""
-
-#~ msgid "Intellitech"
-#~ msgstr "Intellitech"
-
-#~ msgid "Internet Postage 2-Part"
-#~ msgstr "Internet Postage 2-Part"
-
-#~ msgid "Internet Postage 3-Part"
-#~ msgstr "Internet Postage 3-Part"
-
-#~ msgid "Label Printer"
-#~ msgstr "Tiskárna štítků"
-
-#~ msgid "Label Top"
-#~ msgstr "Horní štítek"
-
-#~ msgid "Large Address"
-#~ msgstr "Plná adresa"
-
-#~ msgid "LaserJet Series PCL 4/5"
-#~ msgstr "LaserJet Serie PCL 4/5"
-
-#~ msgid "Light"
-#~ msgstr "Světlý"
-
-#~ msgid "Long-Edge (Portrait)"
-#~ msgstr "Delší okraj (na výšku)"
-
-#~ msgid "Manual Feed"
-#~ msgstr "Ruční podávání"
-
-#~ msgid "Media Tracking"
-#~ msgstr "Sledování média"
-
-#~ msgid "Medium"
-#~ msgstr "Střední"
-
-#~ msgid "Never"
-#~ msgstr "Nikdy"
-
-#~ msgid "Non-continuous (Mark sensing)"
-#~ msgstr "Není souvislý (Mark Sensing)"
-
-#~ msgid "Non-continuous (Web sensing)"
-#~ msgstr "Není souvislý (Web Sensing)"
-
-#~ msgid "Normal"
-#~ msgstr "Normální"
-
-#~ msgid "Not Installed"
-#~ msgstr "Nenainstalováno"
-
-#~ msgid "Note"
-#~ msgstr "Poznámka"
-
-#~ msgid "Off (1-Sided)"
-#~ msgstr "Vypnuto (jednostranný)"
-
-#~ msgid "Oki"
-#~ msgstr "Oki"
-
-#~ msgid "PCL Laser Printer"
-#~ msgstr "PCL laserová tiskárna"
-
-#~ msgid "PRC16K"
-#~ msgstr "PRC16K"
-
-#~ msgid "PRC32K"
-#~ msgstr "PRC32K"
-
-#~ msgid "ParamCustominCutInterval"
-#~ msgstr "ParamCustominCutInterval"
-
-#~ msgid "ParamCustominTearInterval"
-#~ msgstr "ParamCustominTearInterval"
-
-#~ msgid "Peel-Off"
-#~ msgstr "Peel-Off"
-
-#~ msgid "Photo"
-#~ msgstr "Fotografie"
-
-#~ msgid "Photo Labels"
-#~ msgstr "Foto-samolepky"
-
-#~ msgid "Plain Paper"
-#~ msgstr "Obyčejný papír"
-
-#~ msgid "PostScript Printer"
-#~ msgstr "PostScriptová tiskárna"
-
-#~ msgid "Postcard"
-#~ msgstr "Pohlednice"
-
-#~ msgid "Print Density"
-#~ msgstr "Hustota tisku"
-
-#~ msgid "Print Mode"
-#~ msgstr "Režim tisku"
-
-#~ msgid "Print Rate"
-#~ msgstr "Kvalita tisku"
-
-#~ msgid "Print Speed"
-#~ msgstr "Rychlost tisku"
-
-#~ msgid "Print and Cut"
-#~ msgstr "Tisk a vyjmout"
-
-#~ msgid "Print and Tear"
-#~ msgstr "Tisk a odtrhnout"
-
-#~ msgid "Printer Default"
-#~ msgstr "Výchozí tiskárna"
-
-#~ msgid "Printer Settings"
-#~ msgstr "Nastavení tiskárny"
-
-#~ msgid "Quarto"
-#~ msgstr "Quarto"
-
-#~ msgid "Reprint After Error"
-#~ msgstr "Opakovat tisk po chybě"
-
-#~ msgid "Return Address"
-#~ msgstr "Návrat adresy"
-
-#~ msgid "Rewind"
-#~ msgstr "Přetočit"
-
-#~ msgid "Set Publishing"
-#~ msgstr "Nastavení vydávání"
-
-#~ msgid "Shipping Address"
-#~ msgstr "Doručovací adresa"
-
-#~ msgid "Short-Edge (Landscape)"
-#~ msgstr "Kratší okraj (na šířku)"
-
-#~ msgid "Special Paper"
-#~ msgstr "Speciální papír"
-
-#~ msgid "Standard"
-#~ msgstr "Standardní"
-
-#~ msgid "Statement"
-#~ msgstr "Prohlášení"
-
-#~ msgid "Super A"
-#~ msgstr "Super A"
-
-#~ msgid "Super B"
-#~ msgstr "Super B"
-
-#~ msgid "Super B/A3"
-#~ msgstr "Super B/A3"
-
-#~ msgid "Tabloid"
-#~ msgstr "Tabloid"
-
-#~ msgid "Tear"
-#~ msgstr "Odtrhnout"
-
-#~ msgid "Tear-Off"
-#~ msgstr "Odtrhnout"
-
-#~ msgid "Tear-Off Adjust Position"
-#~ msgstr "Nastavení pozice odtržení"
-
-#~ msgid "Thermal Transfer Media"
-#~ msgstr "Termální tisková média"
-
-#~ msgid "Transparency"
-#~ msgstr "Průhlednost"
-
-#~ msgid "Tray"
-#~ msgstr "Podavač"
-
-#~ msgid "Tray 1"
-#~ msgstr "Podavač 1"
-
-#~ msgid "Tray 2"
-#~ msgstr "Podavač 2"
-
-#~ msgid "Tray 3"
-#~ msgstr "Podavač 3"
-
-#~ msgid "Tray 4"
-#~ msgstr "Podavač 4"
-
-#~ msgid "US Ledger"
-#~ msgstr "US Ledger"
-
-#~ msgid "US Legal"
-#~ msgstr "US Legal"
-
-#~ msgid "US Letter"
-#~ msgstr "US Letter"
-
-#~ msgid "Unable to change printer-is-shared attribute"
-#~ msgstr "Nelze změnit atribut \"sdílení tiskárny\""
-
-#~ msgid "ZPL Label Printer"
-#~ msgstr "Tiskárna štítků ZPL"
-
-#~ msgid "Zebra"
-#~ msgstr "Zebra"
