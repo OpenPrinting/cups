@@ -1,15 +1,12 @@
 /*
  * I18N/language support for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2017 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include "cups-private.h"
@@ -22,9 +19,6 @@
 #else
 #  include <unistd.h>
 #endif /* _WIN32 */
-#ifdef HAVE_COREFOUNDATION_H
-#  include <CoreFoundation/CoreFoundation.h>
-#endif /* HAVE_COREFOUNDATION_H */
 
 
 /*
@@ -111,10 +105,8 @@ static const char * const lang_encodings[] =
  * Local functions...
  */
 
-
 static cups_lang_t	*cups_cache_lookup(const char *name, cups_encoding_t encoding);
-static int		cups_message_compare(_cups_message_t *m1, _cups_message_t *m2,
-                                void *data);
+static int		cups_message_compare(_cups_message_t *m1, _cups_message_t *m2, void *data);
 static _cups_message_t	*cups_message_copy(_cups_message_t *m, void *data);
 static void		cups_message_free(_cups_message_t *m, void *data);
 static void		cups_message_load(cups_lang_t *lang);
@@ -422,9 +414,10 @@ cupsLangGet(const char *language)	/* I - Language or locale */
 
   country[0] = '\0';
 
-  if (language == NULL || !language[0] ||
-      !strcmp(language, "POSIX"))
+  if (language == NULL || !language[0] || !strcmp(language, "POSIX"))
+  {
     cupsCopyString(langname, "C", sizeof(langname));
+  }
   else
   {
    /*
@@ -432,10 +425,12 @@ cupsLangGet(const char *language)	/* I - Language or locale */
     */
 
     for (ptr = langname; *language; language ++)
+    {
       if (*language == '_' || *language == '-' || *language == '.')
 	break;
       else if (ptr < (langname + sizeof(langname) - 1))
         *ptr++ = (char)tolower(*language & 255);
+    }
 
     *ptr = '\0';
 
@@ -446,10 +441,12 @@ cupsLangGet(const char *language)	/* I - Language or locale */
       */
 
       for (language ++, ptr = country; *language; language ++)
+      {
 	if (*language == '.')
 	  break;
 	else if (ptr < (country + sizeof(country) - 1))
           *ptr++ = (char)toupper(*language & 255);
+      }
 
       *ptr = '\0';
 
@@ -470,8 +467,10 @@ cupsLangGet(const char *language)	/* I - Language or locale */
       */
 
       for (language ++, ptr = charset; *language; language ++)
+      {
         if (_cups_isalnum(*language) && ptr < (charset + sizeof(charset) - 1))
           *ptr++ = (char)toupper(*language & 255);
+      }
 
       *ptr = '\0';
     }
@@ -498,14 +497,14 @@ cupsLangGet(const char *language)	/* I - Language or locale */
 
   if (charset[0])
   {
-    for (i = 0;
-         i < (int)(sizeof(locale_encodings) / sizeof(locale_encodings[0]));
-	 i ++)
+    for (i = 0; i < (int)(sizeof(locale_encodings) / sizeof(locale_encodings[0])); i ++)
+    {
       if (!_cups_strcasecmp(charset, locale_encodings[i]))
       {
 	encoding = (cups_encoding_t)i;
 	break;
       }
+    }
 
     if (encoding == CUPS_AUTO_ENCODING)
     {
@@ -553,8 +552,10 @@ cupsLangGet(const char *language)	/* I - Language or locale */
   */
 
   for (lang = lang_cache; lang != NULL; lang = lang->next)
+  {
     if (lang->used == 0)
       break;
+  }
 
   if (lang == NULL)
   {

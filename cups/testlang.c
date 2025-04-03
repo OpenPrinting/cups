@@ -5,7 +5,7 @@
  *
  *   ./testlang [-l locale] [-p ppd] ["String to localize"]
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -293,10 +293,8 @@ test_language(const char *lang)		/* I - Locale language code, NULL for default *
   printf("language->language: \"%s\"\n", language ? language->language : NULL);
   printf("_cupsEncodingName(language): \"%s\"\n", language ? _cupsEncodingName(language->encoding) : NULL);
 
-#ifndef __APPLE__
   errors += test_string(language, "No");
   errors += test_string(language, "Yes");
-#endif // !__APPLE__
 
   if (language != language2)
   {
