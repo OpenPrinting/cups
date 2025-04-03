@@ -14,7 +14,7 @@
 // Local globals...
 //
 
-static bool	cups_clock_init = false;// Clock initialized?
+static int	cups_clock_init = 0;	// Clock initialized?
 static _cups_mutex_t cups_clock_mutex = _CUPS_MUTEX_INITIALIZER;
 					// Mutex to control access
 #ifdef _WIN32
@@ -60,7 +60,7 @@ _cupsGetClock(void)
   if (!cups_clock_init)
   {
     // First time through initialize the initial tick count...
-    cups_clock_init = true;
+    cups_clock_init = 1;
     cups_first_tick = curtick;
   }
 
@@ -82,7 +82,7 @@ _cupsGetClock(void)
     if (!cups_clock_init)
     {
       // First time through initialize the initial clock value...
-      cups_clock_init  = true;
+      cups_clock_init  = 1;
       cups_first_clock = curclock;
     }
 
@@ -98,7 +98,7 @@ _cupsGetClock(void)
     if (!cups_clock_init)
     {
       // First time through initialize the initial clock value...
-      cups_clock_init = true;
+      cups_clock_init = 1;
       cups_first_time = curtime;
     }
 
