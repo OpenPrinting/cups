@@ -16,6 +16,7 @@ _cupsEncodeOption
 _cupsEncodingName
 _cupsFilePeekAhead
 _cupsGet1284Values
+_cupsGetClock
 _cupsGetDestResource
 _cupsGetDests
 _cupsGetPassword
