@@ -491,9 +491,9 @@ cupsDNSSDBrowseNew(
     subtype = (const char *)cupsArrayGetElement(tarray, i);
 
     if (subtype)
-      snprintf(typename, sizeof(typename), "%s._sub.%s.local", subtype, base);
+      snprintf(typename, sizeof(typename), "%s._sub.%s", subtype, base);
     else
-      snprintf(typename, sizeof(typename), "%s.local", base);
+      cupsCopyString(typename, base, sizeof(typename));
 
     if ((browse->browsers[browse->num_browsers] = avahi_service_browser_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, typename, domain, /*flags*/0, (AvahiServiceBrowserCallback)avahi_browse_cb, browse)) != NULL)
     {
@@ -3009,7 +3009,7 @@ avahi_resolve_cb(
 
   DEBUG_printf("3avahi_resolve_cb(resolver=%p, if_index=%d, protocol=%d, event=%s, name=\"%s\", type=\"%s\", domain=\"%s\", host=\"%s\", address=%p, port=%u, txtrec=%p, flags=%u, resolve=%p)", (void *)resolver, if_index, protocol, avahi_events[event], name, type, domain, host, (void *)address, (unsigned)port, (void *)txtrec, (unsigned)flags, (void *)resolve);
 
-  if (!resolver)
+  if (!resolver || event != AVAHI_RESOLVER_FOUND)
     return;
 
   (void)resolver;
