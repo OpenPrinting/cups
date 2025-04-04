@@ -1317,7 +1317,7 @@ main(int  argc,				/* I - Number of command-line args */
     FD_SET(fd, &sinput);
 
     stimeout.tv_sec  = 0;
-    stimeout.tv_usec = 500000;
+    stimeout.tv_usec = 100000;
 
     if (select(fd + 1, &sinput, NULL, NULL, &stimeout) < 0)
       continue;
@@ -2483,7 +2483,7 @@ poll_callback(
   (void)timeout;
   (void)context;
 
-  return (poll(pollfds, num_pollfds, 500));
+  return (poll(pollfds, num_pollfds, 100));
 }
 #endif /* HAVE_AVAHI */
 
