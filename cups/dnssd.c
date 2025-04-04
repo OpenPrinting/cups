@@ -54,7 +54,7 @@
 struct _cups_dnssd_s			// DNS-SD context
 {
   cups_rwlock_t		rwlock;		// R/W lock for context
-  size_t			config_changes;	// Number of hostname/network changes
+  size_t		config_changes;	// Number of hostname/network changes
   cups_dnssd_error_cb_t	cb;		// Error callback function
   void			*cb_data;	// Error callback data
   cups_array_t		*browses,	// Browse requests
@@ -66,7 +66,7 @@ struct _cups_dnssd_s			// DNS-SD context
   DNSServiceRef		ref;		// Master service reference
   char			hostname[256];	// Current mDNS hostname
   DNSServiceRef		hostname_ref;	// Hostname monitoring reference
-  cups_thread_t		monitor;		// Monitoring thread
+  cups_thread_t		monitor;	// Monitoring thread
 
 #elif _WIN32
   char			hostname[256];	// Current mDNS hostname
@@ -74,11 +74,11 @@ struct _cups_dnssd_s			// DNS-SD context
 #else // HAVE_AVAHI
   cups_mutex_t		mutex;		// Avahi poll mutex
   bool			in_callback;	// Doing a callback?
-  AvahiClient		*client;		// Avahi client connection
+  AvahiClient		*client;	// Avahi client connection
   AvahiSimplePoll	*poll;		// Avahi poll class
-  cups_thread_t		monitor;		// Monitoring thread
+  cups_thread_t		monitor;	// Monitoring thread
   AvahiDomainBrowser	*dbrowser;	// Domain browser
-  size_t			num_domains;	// Number of domains
+  size_t		num_domains;	// Number of domains
   char			domains[_CUPS_DNSSD_MAX][256];
 					// Domains
 #endif // HAVE_MDNSRESPONDER
@@ -94,7 +94,7 @@ struct _cups_dnssd_browse_s		// DNS-SD browse request
   DNSServiceRef		ref;		// Browse reference
 
 #elif _WIN32
-  size_t			num_browsers;	// Number of browsers
+  size_t		num_browsers;	// Number of browsers
   struct
   {					// Browsers
     WCHAR		name[256];		// Browse name as a UTF-16 string
@@ -103,7 +103,7 @@ struct _cups_dnssd_browse_s		// DNS-SD browse request
   }			browsers[_CUPS_DNSSD_MAX];
 
 #else // HAVE_AVAHI
-  size_t			num_browsers;	// Number of browsers
+  size_t		num_browsers;	// Number of browsers
   AvahiServiceBrowser	*browsers[_CUPS_DNSSD_MAX];
 					// Browsers
 #endif // HAVE_MDNSRESPONDER
@@ -149,7 +149,7 @@ struct _cups_dnssd_resolve_s		// DNS-SD resolve request
 };
 
 #if _WIN32
-struct _win32_srv_s		      // Service
+struct _win32_srv_s			// Service
 {
   DNS_SERVICE_REGISTER_REQUEST req;	// Registration request
   DNS_SERVICE_CANCEL	cancel;		// Cancellation structure
@@ -177,7 +177,7 @@ struct _cups_dnssd_service_s		// DNS-SD service registration
 					// Service location records
 
 #elif _WIN32
-  size_t			num_srvs;	// Number of services
+  size_t		num_srvs;	// Number of services
   struct _win32_srv_s	srvs[_CUPS_DNSSD_MAX];
 					// Services
 
