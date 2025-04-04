@@ -11,14 +11,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2016-06-26 21:17+0100\n"
-"Last-Translator: Juan Pablo González Riopedre <jpgriopedre@yahoo.es>\n"
-"Language-Team: Spanish\n"
+"PO-Revision-Date: 2025-04-04 13:07+0000\n"
+"Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -3035,7 +3036,7 @@ msgstr ""
 
 #, c-format
 msgid "Attribute \"%s\" has empty value."
-msgstr ""
+msgstr "El atributo «%s» tiene valor vacío."
 
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
@@ -3087,21 +3088,21 @@ msgstr "B9"
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
-msgstr ""
+msgstr "Valor %d incorrecto en \"printer-id\"."
 
 #, c-format
 msgid "Bad '%s' value."
-msgstr ""
+msgstr "Valor '%s' incorrecto."
 
 #, c-format
 msgid "Bad 'document-format' value \"%s\"."
 msgstr "Valor 'document-format' \"%s\" incorrecto."
 
 msgid "Bad CloseUI/JCLCloseUI"
-msgstr ""
+msgstr "CloseUI/JCLCloseUI incorrecto"
 
 msgid "Bad NULL dests pointer"
-msgstr "Puntero destino NULLincorrecto"
+msgstr "Puntero destino NULL incorrecto"
 
 msgid "Bad OpenGroup"
 msgstr "OpenGroup incorrecto"
@@ -3128,13 +3129,13 @@ msgid "Bad UIConstraints"
 msgstr "UIConstraints incorrecto"
 
 msgid "Bad URI."
-msgstr ""
+msgstr "URI incorrecto."
 
 msgid "Bad arguments to function"
 msgstr "Argumentos de la función incorrectos"
 
 msgid "Bad certificate."
-msgstr ""
+msgstr "Certificado incorrecto."
 
 #, c-format
 msgid "Bad copies value %d."
@@ -3160,10 +3161,10 @@ msgid "Bad document-format-default \"%s\"."
 msgstr "document-format-default \"%s\" incorrecto."
 
 msgid "Bad extKeyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "Extensión extKeyUsage incorrecta en solicitud de certificado X.509."
 
 msgid "Bad filename buffer"
-msgstr "Nombre de archivo del búfer incorrecto"
+msgstr "Nombre de archivo del tampón incorrecto"
 
 msgid "Bad hostname/address in URI"
 msgstr "Nombre de equipo/dirección incorrecto en la URI"
@@ -3193,7 +3194,7 @@ msgid "Bad job-uri \"%s\"."
 msgstr "job-uri \"%s\" incorrecto."
 
 msgid "Bad keyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "Extensión keyUsage incorrecta en la solicitud de certificado X.509."
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3205,11 +3206,11 @@ msgstr "notify-recipient-uri \"%s\" incorrecto."
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
-msgstr ""
+msgstr "Incorrección en notify-user-data «%s»."
 
 #, c-format
 msgid "Bad number-up value %d."
-msgstr "Valor number-up (páginas por hoja) %d incorrecto."
+msgstr "Valor number-up %d incorrecto."
 
 #, c-format
 msgid "Bad page-ranges values %d-%d."
@@ -3230,7 +3231,7 @@ msgid "Bad printer-uri."
 msgstr "printer-uri incorrecto."
 
 msgid "Bad private key."
-msgstr ""
+msgstr "Clave privada incorrecta."
 
 #, c-format
 msgid "Bad request ID %d."
@@ -3248,6 +3249,7 @@ msgstr "Esquema incorrecto en URI"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
 msgstr ""
+"Extensión subjectAltName incorrecta en la solicitud de certificado X.509."
 
 msgid "Bad username in URI"
 msgstr "Nombre de usuario incorrecto en URI"
@@ -3284,7 +3286,7 @@ msgid "Canceling print job."
 msgstr "Cancelando trabajo de impresión."
 
 msgid "Cannot change printer-is-shared for remote queues."
-msgstr "No se ha podido cambiar printer-is-shared para colas remotas"
+msgstr "No se ha podido cambiar printer-is-shared para colas remotas."
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "No se puede compartir una impresora remota Kerberizada."
