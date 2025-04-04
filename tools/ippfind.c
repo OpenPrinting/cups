@@ -1433,12 +1433,6 @@ main(int  argc,				/* I - Number of command-line args */
 
     if (processed > 0 && (processed == cupsArrayCount(services) || (_cupsGetClock() - last_update) >= 2.5) && bonjour_timeout <= 1.0)
       break;
-
-   /*
-    * Give the browsers/resolvers some time...
-    */
-
-    usleep(250000);
   }
 
   if (bonjour_error)
