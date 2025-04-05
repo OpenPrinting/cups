@@ -24,15 +24,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2022-02-16 09:22+0100\n"
-"Last-Translator: Joachim Schwender <Joachim@schwender-beyer.de>\n"
-"Language-Team: German <joachim.schwender@web.de>\n"
+"PO-Revision-Date: 2025-04-06 22:02+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(alle)"
@@ -2116,7 +2116,7 @@ msgid "-h server[:port]        Connect to the named server and port"
 msgstr "-h Server[:Port]        Verbinde mit genanntem Server und Port"
 
 msgid "-i iconfile.png[,...]   Set icon file(s)"
-msgstr ""
+msgstr "-i iconfile.png[,...]   Symboldatei(en) festlegen"
 
 msgid "-i id                   Specify an existing job ID to modify"
 msgstr "-i id                   Gib eine zu modifizierende Auftrags-ID an"
@@ -2941,7 +2941,7 @@ msgid "80 mm/sec."
 msgstr "80 mm/s"
 
 msgid "80x50mm"
-msgstr ""
+msgstr "80x50 mm"
 
 msgid "85"
 msgstr "85"
@@ -3113,7 +3113,7 @@ msgstr "Versuch den %s Druckerstatus auf einen ungültigen Wert %d zu setzen."
 
 #, c-format
 msgid "Attribute \"%s\" has empty value."
-msgstr ""
+msgstr "Attribut „%s“ hat leeren Wert."
 
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
@@ -3212,7 +3212,7 @@ msgid "Bad arguments to function"
 msgstr "Ungültige Argumente an Funktion"
 
 msgid "Bad certificate."
-msgstr ""
+msgstr "Falsches Zertifikat."
 
 #, c-format
 msgid "Bad copies value %d."
@@ -3308,7 +3308,7 @@ msgid "Bad printer-uri."
 msgstr "Ungültige Drucker-URI"
 
 msgid "Bad private key."
-msgstr ""
+msgstr "Falscher privater Schlüssel."
 
 #, c-format
 msgid "Bad request ID %d."
@@ -3402,7 +3402,7 @@ msgstr ""
 "exit    help    quit    status  ?"
 
 msgid "Commands:"
-msgstr ""
+msgstr "Befehle:"
 
 msgid "Community name uses indefinite length"
 msgstr "Community-Name hat unbestimmte Länge"
@@ -3427,34 +3427,34 @@ msgstr "Kopiere Druckdaten."
 
 #, c-format
 msgid "Couldn't resolve mDNS URI \"%s\"."
-msgstr ""
+msgstr "mDNS-URI „%s“ konnte nicht aufgelöst werden."
 
 msgid "Created"
 msgstr "Erstellt"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "Anmeldedaten sind OK/vertrauenswürdig."
 
 msgid "Credentials are expired."
-msgstr ""
+msgstr "Anmeldedaten sind abgelaufen."
 
 msgid "Credentials are invalid."
-msgstr ""
+msgstr "Anmeldedaten sind ungültig."
 
 msgid "Credentials are not CA-signed."
-msgstr ""
+msgstr "Anmeldedaten sind nicht CA-signiert."
 
 msgid "Credentials are unknown/new."
-msgstr ""
+msgstr "Anmeldedaten sind unbekannt/neu."
 
 msgid "Credentials do not validate against site CA certificate."
 msgstr "Anmeldedaten validieren nicht gegen das CA-Zertifikat der Seite"
 
 msgid "Credentials have been renewed."
-msgstr ""
+msgstr "Anmeldedaten sind erneuert worden."
 
 msgid "Credentials have changed."
-msgstr ""
+msgstr "Anmeldedaten haben sich geändert."
 
 msgid "Credentials have expired."
 msgstr "Berechtigung ist abgelaufen"
@@ -3859,7 +3859,7 @@ msgid "Forbidden"
 msgstr "Verboten"
 
 msgid "Form data too large."
-msgstr ""
+msgstr "Formulardaten zu groß."
 
 msgid "Found"
 msgstr "Gefunden"
@@ -3904,7 +3904,7 @@ msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "IPP 1setOf Attribut mit inkompatiblen Werte-Markierung."
 
 msgid "IPP Everywhere driver requires an IPP connection."
-msgstr ""
+msgstr "Der IPP Everywhere-Treiber erfordert eine IPP-Verbindung."
 
 msgid "IPP attribute has no name."
 msgstr "IPP-Attribut hat keinen Namen."
@@ -3937,7 +3937,7 @@ msgid "IPP language length too large."
 msgstr "IPP-Sprachlänge zu groß."
 
 msgid "IPP member attribute outside of collection."
-msgstr ""
+msgstr "IPP-Mitgliedsattribut außerhalb der Sammlung."
 
 msgid "IPP member name is not empty."
 msgstr "IPP-Mitgliedsname ist nicht leer."
@@ -3946,7 +3946,7 @@ msgid "IPP memberName value is empty."
 msgstr "IPP-Mitgliedsnamenwert ist leer."
 
 msgid "IPP message nested too deeply."
-msgstr ""
+msgstr "IPP-Meldung zu tief verschachtelt."
 
 msgid "IPP name larger than 32767 bytes."
 msgstr "IPP Name länger als 32767 Byte"
@@ -4046,13 +4046,13 @@ msgid "Internet Printing Protocol"
 msgstr "Internet Printing Protocol"
 
 msgid "Invalid JSON data."
-msgstr ""
+msgstr "Ungültige JSON-Daten."
 
 msgid "Invalid JSON web token."
-msgstr ""
+msgstr "Ungültiges JSON-Web-Token."
 
 msgid "Invalid form data."
-msgstr ""
+msgstr "Ungültige Formulardaten."
 
 msgid "Invalid group tag."
 msgstr "Ungültiges Gruppen-Tag."
@@ -4119,7 +4119,7 @@ msgid "JIS B9"
 msgstr "JIS B9"
 
 msgid "JSON file too large."
-msgstr ""
+msgstr "JSON-Datei zu groß."
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4513,7 +4513,7 @@ msgid "Online Help"
 msgstr "Online-Hilfe"
 
 msgid "Only WGS-84 coordinates are supported."
-msgstr ""
+msgstr "Es werden nur WGS-84-Koordinaten unterstützt."
 
 msgid "Only local users can create a local printer."
 msgstr "Nur lokale Benutzer können lokale Drucker erzeugen."
@@ -4714,7 +4714,7 @@ msgstr ""
 
 #, c-format
 msgid "Printer returned invalid data: %s"
-msgstr ""
+msgstr "Drucker gab ungültige Daten zurück: %s"
 
 msgid "Printer:"
 msgstr "Drucker:"
@@ -4942,6 +4942,8 @@ msgstr "Der Drucker hat nicht geantwortet."
 
 msgid "The printer does not provide attributes required for IPP Everywhere."
 msgstr ""
+"Der Drucker stellt die für IPP Everywhere erforderlichen Attribute nicht zur "
+"Verfügung."
 
 msgid "The printer is in use."
 msgstr "Der Drucker ist beschäftigt."
@@ -5099,7 +5101,7 @@ msgid "Unable to add document to print job."
 msgstr "Dem Druckauftrag kann kein Dokument hinzugefügt werden."
 
 msgid "Unable to add extension to X.509 certificate."
-msgstr ""
+msgstr "Erweiterung kann nicht zum X.509-Zertifikat hinzugefügt werden."
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
@@ -5119,7 +5121,7 @@ msgstr "Speicher für Seitenmatrix kann nicht belegt werden"
 
 #, c-format
 msgid "Unable to allocate memory for printer: %s"
-msgstr ""
+msgstr "Es konnte kein Speicher für den Drucker zugewiesen werden: %s"
 
 msgid "Unable to cancel print job."
 msgstr "Druckauftrag kann nicht abgebrochen werden."
@@ -5132,7 +5134,7 @@ msgstr "Servereinstellungen konnten nicht geändert werden"
 
 #, c-format
 msgid "Unable to commit PPD file: %s"
-msgstr ""
+msgstr "PPD-Datei kann nicht übergeben werden: %s"
 
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
@@ -5148,11 +5150,11 @@ msgid "Unable to configure printer options."
 msgstr "Druckeroptionen können nicht konfiguriert werden."
 
 msgid "Unable to configure private key context."
-msgstr ""
+msgstr "Kontext des privaten Schlüssels kann nicht konfiguriert werden."
 
 #, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr ""
+msgstr "Verbindung zu %s:%d kann nicht hergestellt werden: %s"
 
 msgid "Unable to connect to host."
 msgstr "Verbindungsaufbau zum Host fehlgeschlagen."
@@ -5168,17 +5170,17 @@ msgstr "PPD-Datei kann nicht kopiert werden - %s"
 
 #, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr ""
+msgstr "PPD für Drucker kann nicht erstellt werden: %s"
 
 #, c-format
 msgid "Unable to create PPD: %s"
-msgstr ""
+msgstr "PPD kann nicht erstellt werden: %s"
 
 msgid "Unable to create X.509 certificate signing request."
-msgstr ""
+msgstr "X.509-Zertifikatssignierungsanforderung kann nicht erstellt werden."
 
 msgid "Unable to create X.509 certificate."
-msgstr ""
+msgstr "X.509-Zertifikat kann nicht erstellt werden."
 
 msgid "Unable to create printer-uri"
 msgstr "Drucker-URI kann nicht erzeugt werden"
@@ -5187,10 +5189,10 @@ msgid "Unable to create printer."
 msgstr "Drucker kann nicht erzeugt werden."
 
 msgid "Unable to create private key context."
-msgstr ""
+msgstr "Kontext des privaten Schlüssels kann nicht erstellt werden."
 
 msgid "Unable to create private key."
-msgstr ""
+msgstr "Privater Schlüssel kann nicht erstellt werden."
 
 msgid "Unable to create server credentials."
 msgstr "Die Server-Anmeldedaten können nicht erzeugt werden."
@@ -5222,7 +5224,7 @@ msgid "Unable to find destination for job"
 msgstr "Das Ziel für den Auftrag kann nicht gefunden werden"
 
 msgid "Unable to finish request."
-msgstr ""
+msgstr "Anforderung kann nicht abgeschlossen werden."
 
 msgid "Unable to get backend exit status."
 msgstr "Der Backend-Rückgabewert kann nicht ermittelt werden."
@@ -5249,16 +5251,16 @@ msgid "Unable to get printer status."
 msgstr "Druckerstatus konnte nicht ermittelt werden."
 
 msgid "Unable to import X.509 certificate request."
-msgstr ""
+msgstr "X.509-Zertifikatsanforderung kann nicht importiert werden."
 
 msgid "Unable to import credentials."
-msgstr ""
+msgstr "Anmeldedaten können nicht importiert werden."
 
 msgid "Unable to initialize private key context."
-msgstr ""
+msgstr "Kontext des privaten Schlüssels kann nicht initialisiert werden."
 
 msgid "Unable to load X.509 CA certificate and private key."
-msgstr ""
+msgstr "X.509 CA-Zertifikat und privater Schlüssel können nicht geladen werden."
 
 msgid "Unable to load help index."
 msgstr "Hilfeindex kann nicht geladen werden."
@@ -5309,16 +5311,16 @@ msgstr "Die Testseite kann nicht gedruckt werden"
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr ""
+msgstr "Generierte PPD kann nicht gelesen werden: %s"
 
 msgid "Unable to read print data."
 msgstr "Druckdaten können nicht gelesen werden."
 
 msgid "Unable to read response."
-msgstr ""
+msgstr "Antwort kann nicht gelesen werden."
 
 msgid "Unable to reallocate IPP attribute value."
-msgstr ""
+msgstr "IPP-Attributwert kann nicht neu zugewiesen werden."
 
 msgid "Unable to rename job document file."
 msgstr "Auftragsdatei kann nicht umbenannt werden."
@@ -5328,15 +5330,16 @@ msgstr "Drucker-URI kann nicht aufgelöst werden."
 
 #, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr ""
+msgstr "cups-driverd kann nicht ausgeführt werden: %s"
 
 #, c-format
 msgid "Unable to save PPD file: %s"
-msgstr ""
+msgstr "PPD-Datei kann nicht gespeichert werden: %s"
 
 #, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
+"Wert für „%s“ kann nicht mit einem temporären Drucker gespeichert werden."
 
 msgid "Unable to see in file"
 msgstr "In die Datei kann nicht gesehen werden"
@@ -5363,22 +5366,22 @@ msgid "Unable to use legacy USB class driver."
 msgstr "Der alte USB-Klassentreiber kann nicht verwendet werden."
 
 msgid "Unable to verify X.509 certificate request."
-msgstr ""
+msgstr "X.509-Zertifikatsanforderung kann nicht verifiziert werden."
 
 msgid "Unable to write X.509 certificate signing request."
-msgstr ""
+msgstr "X.509-Zertifikatssignierungsanforderung kann nicht geschrieben werden."
 
 msgid "Unable to write X.509 certificate."
-msgstr ""
+msgstr "X.509-Zertifikat kann nicht geschrieben werden."
 
 msgid "Unable to write print data"
 msgstr "Kann Druckdaten nicht schreiben"
 
 msgid "Unable to write private key."
-msgstr ""
+msgstr "Privater Schlüssel kann nicht geschrieben werden."
 
 msgid "Unable to write public key."
-msgstr ""
+msgstr "Öffentlicher Schlüssel kann nicht geschrieben werden."
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5532,10 +5535,10 @@ msgstr ""
 "            cancel [Optionen] [Ziel-id]"
 
 msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Aufruf: cups-oauth [OPTIONEN] [BEFEHL [ARGUMENT(E)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Aufruf: cups-x509 [OPTIONEN] [BEFEHL] [ARGUMENT]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Verwendung: cupsctl [Optionen] [Parameter=Wert ... ParameterN=WertN]"
@@ -5544,7 +5547,7 @@ msgid "Usage: cupsd [options]"
 msgstr "Verwendung: cupsd [Optionen]"
 
 msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
-msgstr ""
+msgstr "Aufruf: cupsfilter [ OPTIONEN ] [ -- ] DATEINAME"
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
@@ -6020,115 +6023,115 @@ msgid "cups-driverd failed to get PPD file - see error_log for details."
 msgstr ""
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
-msgstr ""
+msgstr "cups-oauth: Fehlende Autorisierungsserver-URI nach ‚-a‘."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr ""
+msgstr "cups-oauth: Fehlende client_id und/oder client_secret."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
-msgstr ""
+msgstr "cups-oauth: Fehlender Ressourcen-URI und/oder Zugriffstoken."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr ""
+msgstr "cups-oauth: Fehlende(r) Bereich(e) nach ‚-s‘."
 
 msgid "cups-oauth: No authorization server specified."
-msgstr ""
+msgstr "cups-oauth: Kein Autorisierungsserver angegeben."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Zugriffstoken kann nicht von ‚%s‘ abgerufen werden: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Autorisierung kann nicht von ‚%s‘ abgerufen werden: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Metadaten für ‚%s‘ können nicht abgerufen werden: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Benutzerkennung für ‚%s‘ kann nicht abgerufen werden: %s"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "cups-oauth: Unbekannter Befehl ‚%s‘."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
-msgstr ""
+msgstr "cups-x509: Falscher DAYS-Wert ‚%s‘ nach ‚-d‘."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "cups-x509: Falsche HTTP-Version."
 
 #, c-format
 msgid "cups-x509: Bad URI '%s'."
-msgstr ""
+msgstr "cups-x509: Falscher URI ‚%s‘."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr ""
+msgstr "cups-x509: Falscher Zertifikatstyp ‚%s‘."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr ""
+msgstr "cups-x509: Falsche Schlüsselverwendung ‚%s‘."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "cups-x509: Falscher Zweck ‚%s‘."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr ""
+msgstr "cups-x509: Falsche Anfragezeile (%s)."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "cups-x509: Falsche/unbekannte Operation."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "cups-x509: Client hat die Verbindung geschlossen."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr ""
+msgstr "cups-x509: Fehlender CSR-Dateiname nach ‚-R‘."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr ""
+msgstr "cups-x509: Fehlender Zertifikatstyp nach ‚-t‘."
 
 msgid "cups-x509: Missing command argument."
-msgstr ""
+msgstr "cups-x509: Fehlendes Befehlsargument."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr ""
+msgstr "cups-x509: Fehlendes Land nach ‚-C‘."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr ""
+msgstr "cups-x509: Fehlende Verfallstage nach ‚-d‘."
 
 msgid "cups-x509: Missing key usage after '-u'."
 msgstr ""
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
-msgstr ""
+msgstr "cups-x509: Fehlende Ortschaft/Stadt nach ‚-L‘."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr ""
+msgstr "cups-x509: Fehlende Organisation nach ‚-O‘."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
-msgstr ""
+msgstr "cups-x509: Fehlende Organisationseinheit nach ‚-U‘."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr ""
+msgstr "cups-x509: Fehlender Zweck nach ‚-p‘."
 
 msgid "cups-x509: Missing root name after '-r'."
 msgstr ""
 
 msgid "cups-x509: Missing state/province after '-S'."
-msgstr ""
+msgstr "cups-x509: Fehlendes Bundesland/Provinz nach ‚-S‘."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr ""
 
 #, c-format
 msgid "cups-x509: No request for '%s'."
-msgstr ""
+msgstr "cups-x509: Keine Anfrage für ‚%s‘."
 
 msgid "cups-x509: Too many subjectAltName values."
 msgstr ""
@@ -6159,11 +6162,12 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
-msgstr ""
+msgstr "cups-x509: Verbindung kann nicht verschlüsselt werden: %s"
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate for '%s'."
 msgstr ""
+"cups-x509: Das generierte Zertifikat für ‚%s‘ kann nicht abgerufen werden."
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
@@ -6172,6 +6176,8 @@ msgstr ""
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
 msgstr ""
+"cups-x509: Der generierte private Schlüssel für ‚%s‘ kann nicht abgerufen "
+"werden."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
@@ -6179,7 +6185,7 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
-msgstr ""
+msgstr "cups-x509: ‚%s‘ kann nicht gelesen werden."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
@@ -6187,11 +6193,11 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "cups-x509: Unbekannter Befehl ‚%s‘."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
-msgstr "cupsctl: kann %s nicht direkt bestimmen"
+msgstr "cupsctl: ‚%s‘ kann nicht direkt festgelegt werden."
 
 #, c-format
 msgid "cupsctl: Unable to connect to server: %s"
@@ -6199,11 +6205,11 @@ msgstr "cupsctl: Kann nicht mit dem Server verbinden: %s"
 
 #, c-format
 msgid "cupsctl: Unknown option \"%s\""
-msgstr "cupsctl: Unbekannte Option »%s«"
+msgstr "cupsctl: Unbekannte Option „%s“"
 
 #, c-format
 msgid "cupsctl: Unknown option \"-%c\""
-msgstr "cupsctl: Unbekannte Option \"-%c\""
+msgstr "cupsctl: Unbekannte Option „-%c“"
 
 msgid "cupsd: Expected config filename after \"-c\" option."
 msgstr "cupsd: Konfigurations-Dateiname nach der »-c« Option erwartet."
@@ -11562,7 +11568,7 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Choice found on line %d of %s with no Option."
-msgstr ""
+msgstr "ppdc: Auswahl mit keiner Option in Zeile %d von %s gefunden."
 
 #, c-format
 msgid "ppdc: Duplicate #po for locale %s on line %d of %s."
@@ -11570,19 +11576,19 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Expected a filter definition on line %d of %s."
-msgstr ""
+msgstr "ppdc: Eine Filterdefinition wurde in Zeile %d von %s erwartet."
 
 #, c-format
 msgid "ppdc: Expected a program name on line %d of %s."
-msgstr ""
+msgstr "ppdc: Ein Programmname wurde in Zeile %d von %s erwartet."
 
 #, c-format
 msgid "ppdc: Expected boolean value on line %d of %s."
-msgstr ""
+msgstr "ppdc: Boolescher Wert wurde in Zeile %d von %s erwartet."
 
 #, c-format
 msgid "ppdc: Expected charset after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Zeichensatz nach Schriftart wurde in Zeile %d von %s erwartet."
 
 #, c-format
 msgid "ppdc: Expected choice code on line %d of %s."
@@ -11766,31 +11772,31 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Invalid option section \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Ungültiger Optionsabschnitt „%s“ in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Invalid option type \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Ungültiger Optionstyp „%s“ in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Loading driver information file \"%s\"."
-msgstr ""
+msgstr "ppdc: Treiberinformationsdatei „%s“ wird geladen."
 
 #, c-format
 msgid "ppdc: Loading messages for locale \"%s\"."
-msgstr ""
+msgstr "ppdc: Meldungen für die Sprachumgebung „%s“ werden geladen."
 
 #, c-format
 msgid "ppdc: Loading messages from \"%s\"."
-msgstr ""
+msgstr "ppdc: Meldungen von „%s“ werden geladen."
 
 #, c-format
 msgid "ppdc: Missing #endif at end of \"%s\"."
-msgstr ""
+msgstr "ppdc: Fehlendes #endif am Ende von „%s“."
 
 #, c-format
 msgid "ppdc: Missing #if on line %d of %s."
-msgstr ""
+msgstr "ppdc: Fehlendes #if in Zeile %d von %s."
 
 #, c-format
 msgid ""
@@ -11800,14 +11806,18 @@ msgstr ""
 #, c-format
 msgid "ppdc: No message catalog provided for locale %s."
 msgstr ""
+"ppdc: Für die Sprachumgebung %s wurde kein Meldungskatalog bereitgestellt."
 
 #, c-format
 msgid "ppdc: Option %s defined in two different groups on line %d of %s."
 msgstr ""
+"ppdc: Option %s ist in zwei verschiedenen Gruppen in Zeile %d von %s "
+"definiert."
 
 #, c-format
 msgid "ppdc: Option %s redefined with a different type on line %d of %s."
 msgstr ""
+"ppdc: Option %s ist mit einem anderen Typ in Zeile %d von %s neu definiert."
 
 #, c-format
 msgid "ppdc: Option constraint must *name on line %d of %s."
@@ -11815,15 +11825,15 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Too many nested #if's on line %d of %s."
-msgstr ""
+msgstr "ppdc: Zu viele verschachtelte #if's in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Unable to create PPD file \"%s\" - %s."
-msgstr ""
+msgstr "ppdc: PPD-Datei „%s“ kann nicht erstellt werden - %s."
 
 #, c-format
 msgid "ppdc: Unable to create output directory %s: %s"
-msgstr ""
+msgstr "ppdc: Ausgabeverzeichnis %s kann nicht erstellt werden: %s"
 
 #, c-format
 msgid "ppdc: Unable to create output pipes: %s"
@@ -11831,68 +11841,70 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Unable to execute cupstestppd: %s"
-msgstr ""
+msgstr "ppdc: cupstestppd kann nicht ausgeführt werden: %s"
 
 #, c-format
 msgid "ppdc: Unable to find #po file %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: #po-Datei %s in Zeile %d von %s kann nicht gefunden werden."
 
 #, c-format
 msgid "ppdc: Unable to find include file \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Include-Datei „%s“ in Zeile %d von %s kann nicht gefunden werden."
 
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
-msgstr ""
+msgstr "ppdc: Lokalisierung für „%s“ kann nicht gefunden werden - %s"
 
 #, c-format
 msgid "ppdc: Unable to load localization file \"%s\" - %s"
-msgstr ""
+msgstr "ppdc: Lokalisierungsdatei „%s“ kann nicht geladen werden - %s"
 
 #, c-format
 msgid "ppdc: Unable to open %s: %s"
-msgstr ""
+msgstr "ppdc: %s kann nicht geöffnet werden: %s"
 
 #, c-format
 msgid "ppdc: Undefined variable (%s) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Undefinierte Variable (%s) in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Unexpected text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Unerwarteter Text in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Unknown driver type %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Unbekannter Treibertyp %s in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Unknown duplex type \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Unbekannter Duplextyp „%s“ in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Unknown media size \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Unbekannte Mediengröße „%s“ in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Unknown message catalog format for \"%s\"."
-msgstr ""
+msgstr "ppdc: Unbekanntes Meldungskatalogformat für „%s“."
 
 #, c-format
 msgid "ppdc: Unknown token \"%s\" seen on line %d of %s."
-msgstr ""
+msgstr "ppdc: Unbekanntes Token „%s“ in Zeile %d von %s gesehen."
 
 #, c-format
 msgid ""
 "ppdc: Unknown trailing characters in real number \"%s\" on line %d of %s."
 msgstr ""
+"ppdc: Unbekannte nachfolgende Zeichen in der realen Zahl „%s“ in Zeile %d "
+"von %s."
 
 #, c-format
 msgid "ppdc: Unterminated string starting with %c on line %d of %s."
-msgstr ""
+msgstr "ppdc: Unterminierte Zeichenkette beginnend mit %c in Zeile %d von %s."
 
 #, c-format
 msgid "ppdc: Warning - overlapping filename \"%s\"."
-msgstr ""
+msgstr "ppdc: Warnung - überlappender Dateiname „%s“."
 
 #, c-format
 msgid "ppdc: Writing %s."
@@ -11912,7 +11924,7 @@ msgstr "ppdmerge: PPD-Datei %s wird ignoriert."
 
 #, c-format
 msgid "ppdmerge: Unable to backup %s to %s - %s"
-msgstr ""
+msgstr "ppdmerge: Sicherung von %s nach %s nicht möglich - %s"
 
 #. TRANSLATORS: Pre-dial String
 msgid "pre-dial-string"
@@ -12056,11 +12068,11 @@ msgstr "Text und Grafik"
 
 #. TRANSLATORS: Text And Graphics
 msgid "print-content-optimize.text-and-graphics"
-msgstr ""
+msgstr "Text und Grafiken"
 
 #. TRANSLATORS: Print Objects
 msgid "print-objects"
-msgstr ""
+msgstr "Druckobjekte"
 
 #. TRANSLATORS: Print Quality
 msgid "print-quality"
@@ -12148,7 +12160,7 @@ msgstr ""
 
 #. TRANSLATORS: Standard
 msgid "print-supports.standard"
-msgstr ""
+msgstr "Standard"
 
 #, c-format
 msgid "printer %s disabled since %s -"
