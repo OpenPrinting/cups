@@ -1295,12 +1295,15 @@ main(int  argc,				/* I - Number of command-line args */
 
  /*
   * Process browse/resolve requests...
+  *
+  * Note, _cupsGetClock() is 0-based, so there is no need to snapshot the start
+  * time here.
   */
 
   if (bonjour_timeout > 1.0)
-    endtime = _cupsGetClock() + bonjour_timeout;
+    endtime = bonjour_timeout;
   else
-    endtime = _cupsGetClock() + 300.0;
+    endtime = 300.0;
 
   while (_cupsGetClock() < endtime)
   {
@@ -1423,10 +1426,14 @@ main(int  argc,				/* I - Number of command-line args */
     }
 
    /*
-    * If we have processed all services we have discovered, then we are done.
+    * If we are running with the minimal timeout (-T 0) and have processed all
+    * services we have discovered, then we are done.
+    *
+    * The minimal discovery time is enforced to be at least 2.5 seconds. Otherwise,
+    * with the cold Avahi cache discovery of the network devices is not stable.
     */
 
-    if (processed > 0 && (processed == cupsArrayCount(services) || (_cupsGetClock() - last_update) >= 2.5) && bonjour_timeout <= 1.0)
+    if (bonjour_timeout <= 1.0 && _cupsGetClock() >= 2.5 && (processed == cupsArrayCount(services) || (_cupsGetClock() - last_update) >= 1.0))
       break;
   }
 
