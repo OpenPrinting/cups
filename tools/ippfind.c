@@ -173,9 +173,6 @@ static ippfind_expr_t	*new_expr(ippfind_op_t op, int invert,
 #ifdef HAVE_MDNSRESPONDER
 static void DNSSD_API	resolve_callback(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullName, const char *hostTarget, uint16_t port, uint16_t txtLen, const unsigned char *txtRecord, void *context) _CUPS_NONNULL(1,5,6,9, 10);
 #elif defined(HAVE_AVAHI)
-static int		poll_callback(struct pollfd *pollfds,
-			              unsigned int num_pollfds, int timeout,
-			              void *context);
 static void		resolve_callback(AvahiServiceResolver *res,
 					 AvahiIfIndex interface,
 					 AvahiProtocol protocol,
@@ -1141,8 +1138,6 @@ main(int  argc,				/* I - Number of command-line args */
     return (IPPFIND_EXIT_BONJOUR);
   }
 
-  avahi_simple_poll_set_func(avahi_poll, poll_callback, NULL);
-
   avahi_client = avahi_client_new(avahi_simple_poll_get(avahi_poll),
 			          0, client_callback, avahi_poll, &err);
   if (!avahi_client)
@@ -1332,7 +1327,7 @@ main(int  argc,				/* I - Number of command-line args */
     }
 
 #elif defined(HAVE_AVAHI)
-    if (avahi_simple_poll_iterate(avahi_poll, 500) > 0)
+    if (avahi_simple_poll_iterate(avahi_poll, 100) > 0)
     {
      /*
       * We've been told to exit the loop.  Perhaps the connection to
@@ -2462,31 +2457,6 @@ new_expr(ippfind_op_t op,		/* I - Operation */
 
   return (temp);
 }
-
-
-#ifdef HAVE_AVAHI
-/*
- * 'poll_callback()' - Wait for input on the specified file descriptors.
- *
- * Note: This function is needed because avahi_simple_poll_iterate is broken
- *       and always uses a timeout of 0 (!) milliseconds.
- *       (Avahi Github issue #127)
- */
-
-static int				/* O - Number of file descriptors matching */
-poll_callback(
-    struct pollfd *pollfds,		/* I - File descriptors */
-    unsigned int  num_pollfds,		/* I - Number of file descriptors */
-    int           timeout,		/* I - Timeout in milliseconds (unused) */
-    void          *context)		/* I - User data (unused) */
-{
-  (void)timeout;
-  (void)context;
-
-  return (poll(pollfds, num_pollfds, 100));
-}
-#endif /* HAVE_AVAHI */
-
 
 /*
  * 'resolve_callback()' - Process resolve data.
