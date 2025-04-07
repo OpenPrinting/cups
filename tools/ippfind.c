@@ -1431,7 +1431,7 @@ main(int  argc,				/* I - Number of command-line args */
     * If we have processed all services we have discovered, then we are done.
     */
 
-    if (processed > 0 && (processed == cupsArrayCount(services) || (_cupsGetClock() - last_update) >= 2.5) && bonjour_timeout <= 1.0)
+    if (bonjour_timeout <= 1.0 && _cupsGetClock() >= 2.5 && (processed == cupsArrayCount(services) || (_cupsGetClock() - last_update) >= 1.0))
       break;
   }
 
