@@ -1,7 +1,7 @@
 //
 // IPP Everywhere printer application for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2020 by the IEEE-ISTO Printer Working Group.
 // Copyright © 2010-2021 by Apple Inc.
 //
@@ -4708,6 +4708,8 @@ process_client(ippeve_client_t *client)	// I - Client
 
       if (recv(httpGetFd(client->http), buf, 1, MSG_PEEK) == 1 && (!buf[0] || !strchr("DGHOPT", buf[0])))
       {
+        char	security[256];		// Security description
+
         fprintf(stderr, "%s Starting HTTPS session.\n", client->hostname);
 
 	if (!httpSetEncryption(client->http, HTTP_ENCRYPTION_ALWAYS))
@@ -4716,7 +4718,7 @@ process_client(ippeve_client_t *client)	// I - Client
 	  break;
         }
 
-        fprintf(stderr, "%s Connection now encrypted.\n", client->hostname);
+	fprintf(stderr, "%s Connection now encrypted (%s).\n", client->hostname, httpGetSecurity(client->http, security, sizeof(security)));
       }
 
       first_time = false;
@@ -4853,6 +4855,8 @@ process_http(ippeve_client_t *client)	// I - Client connection
   {
     if (strstr(httpGetField(client->http, HTTP_FIELD_UPGRADE), "TLS/") != NULL && !httpIsEncrypted(client->http))
     {
+      char	security[256];		// Security description
+
       if (!respond_http(client, HTTP_STATUS_SWITCHING_PROTOCOLS, NULL, NULL, 0))
         return (0);
 
@@ -4864,7 +4868,7 @@ process_http(ippeve_client_t *client)	// I - Client connection
 	return (0);
       }
 
-      fprintf(stderr, "%s Connection now encrypted.\n", client->hostname);
+      fprintf(stderr, "%s Connection now encrypted (%s).\n", client->hostname, httpGetSecurity(client->http, security, sizeof(security)));
     }
     else if (!respond_http(client, HTTP_STATUS_NOT_IMPLEMENTED, NULL, NULL, 0))
       return (0);

@@ -9,6 +9,7 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   APIs.
 - Added new `cupsRasterInitHeader` API.
 - Added `httpConnectURI` API.
+- Added `httpGetSecurity` API.
 - Added `ippAddCredentialsString`, `ippGetFirstAttribute`,
   `ippGetNextAttribute`, `ippRestore`, and `ippSave` APIs.
 - Added new DNS-SD APIs.

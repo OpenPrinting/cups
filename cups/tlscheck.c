@@ -1,7 +1,7 @@
 //
 // TLS check program for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2017 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -31,11 +31,10 @@ main(int  argc,				// I - Number of command-line arguments
   http_t	*http = NULL;		// HTTP connection
   const char	*server = NULL;		// Hostname from command-line
   int		port = 0;		// Port number
-  char		*creds;			// Server credentials
-  char		creds_str[2048];	// Credentials string
-  const char	*cipherName;		// Cipher suite name
-  int		tlsVersion = 0;		// TLS version number
-  char		uri[1024],		// Printer URI
+  char		*creds,			// Server credentials
+		creds_str[2048],	// Credentials string
+		security[256],		// Security string
+		uri[1024],		// Printer URI
 		scheme[32],		// URI scheme
 		host[256],		// Hostname
 		userpass[256],		// Username/password
@@ -184,57 +183,7 @@ main(int  argc,				// I - Number of command-line arguments
     free(creds);
   }
 
-#ifdef HAVE_OPENSSL
-  switch (SSL_version(http->tls))
-  {
-    default :
-        tlsVersion = 0;
-        break;
-
-    case TLS1_VERSION :
-        tlsVersion = 10;
-        break;
-
-    case TLS1_1_VERSION :
-        tlsVersion = 11;
-        break;
-
-    case TLS1_2_VERSION :
-        tlsVersion = 12;
-        break;
-
-#  ifdef TLS1_3_VERSION
-    case TLS1_3_VERSION :
-        tlsVersion = 13;
-        break;
-#  endif // TLS1_3_VERSION
-  }
-
-  cipherName = SSL_get_cipher_name(http->tls);
-
-#else // HAVE_GNUTLS
-  switch (gnutls_protocol_get_version(http->tls))
-  {
-    default :
-        tlsVersion = 0;
-        break;
-    case GNUTLS_TLS1_0 :
-        tlsVersion = 10;
-        break;
-    case GNUTLS_TLS1_1 :
-        tlsVersion = 11;
-        break;
-    case GNUTLS_TLS1_2 :
-        tlsVersion = 12;
-        break;
-    case GNUTLS_TLS1_3 :
-        tlsVersion = 13;
-        break;
-  }
-  cipherName = gnutls_session_get_desc(http->tls);
-#endif // HAVE_OPENSSL
-
-  printf("%s: OK (TLS: %d.%d, %s)\n", server, tlsVersion / 10, tlsVersion % 10, cipherName);
+  printf("%s: OK (%s)\n", server, httpGetSecurity(http, security, sizeof(security)));
   printf("    %s\n", creds_str);
 
   if (verbose)

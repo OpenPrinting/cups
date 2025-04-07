@@ -539,6 +539,7 @@ httpGetLength2
 httpGetPending
 httpGetReady
 httpGetRemaining
+httpGetSecurity
 httpGetState
 httpGetStatus
 httpGetSubField

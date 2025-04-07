@@ -1521,6 +1521,62 @@ _httpFreeCredentials(
 
 
 //
+// 'httpGetSecurity()' - Get the TLS version and cipher suite used by a connection.
+//
+// This function gets the TLS version and cipher suite being used by a
+// connection, if any.  The string is copied to "buffer" and is of the form
+// "TLS/major.minor CipherSuite".  If not encrypted, the buffer is cleared to
+// the empty string.
+//
+// @since CUPS 2.5@
+//
+
+const char *				// O - Security information or `NULL` if not encrypted
+httpGetSecurity(http_t *http,		// I - HTTP connection
+                char   *buffer,		// I - String buffer
+                size_t bufsize)		// I - Size of buffer
+{
+  const char	*cipherName;		// Cipher suite name
+
+
+  // Range check input...
+  if (buffer)
+    *buffer = '\0';
+
+  if (!http || !http->tls || !buffer || bufsize < 16)
+    return (NULL);
+
+  // Record the TLS version and cipher suite...
+  cipherName = gnutls_session_get_desc(http->tls);
+
+  switch (gnutls_protocol_get_version(http->tls))
+  {
+    default :
+        snprintf(buffer, bufsize, "TLS/?.? %s", cipherName);
+        break;
+
+    case GNUTLS_TLS1_0 :
+        snprintf(buffer, bufsize, "TLS/1.0 %s", cipherName);
+        break;
+
+    case GNUTLS_TLS1_1 :
+        snprintf(buffer, bufsize, "TLS/1.1 %s", cipherName);
+        break;
+
+    case GNUTLS_TLS1_2 :
+        snprintf(buffer, bufsize, "TLS/1.2 %s", cipherName);
+        break;
+
+    case GNUTLS_TLS1_3 :
+        snprintf(buffer, bufsize, "TLS/1.3 %s", cipherName);
+        break;
+  }
+
+  return (buffer);
+}
+
+
+//
 // '_httpTLSInitialize()' - Initialize the TLS stack.
 //
 
