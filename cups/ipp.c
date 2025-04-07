@@ -1713,25 +1713,42 @@ ippDateToTime(const ipp_uchar_t *date)	/* I - RFC 2579 date info */
 #if _WIN32
   if ((t = _mkgmtime(&unixdate)) < 0)
     return (0);
+
 #elif defined(HAVE_TIMEGM)
   if ((t = timegm(&unixdate)) < 0)
     return (0);
+
 #else
   if ((t = mktime(&unixdate)) < 0)
     return (0);
 
 #  if defined(HAVE_TM_GMTOFF)
-  localtime_r(&t, &unixdate);
-  t -= unixdate.tm_gmtoff;
+ /*
+  * Adjust the time value using the "tm_gmtoff" and "tm_isdst" members.  As
+  * noted by M-HT on Github, this DST hack will fail in timezones where the
+  * DST offset is not one hour, such as Australia/Lord_Howe.  Fortunately,
+  * this is unusual and most systems support the "timegm" function...
+  */
+
+  t += unixdate.tm_gmtoff - 3600 * unixdate.tm_isdst;
 #  else
-  t -= timezone;
+ /*
+  * Adjust the time value using the even more legacy "timezone" variable,
+  * which also reflects any DST offset...
+  */
+
+  t += timezone;
 #  endif // HAVE_TM_GMTOFF
 #endif // _WIN32
 
+ /*
+  * Subtract the UTC timezone offset to get the actual time_t value...
+  */
+
   if (date[8] == '-')
-    t += date[9] * 3600 + date[10] * 60;
+    t += date[9] * 3600 + date[10] * 60;/* "t - -offset" is "t + offset" */
   else
-    t -= date[9] * 3600 + date[10] * 60;
+    t -= date[9] * 3600 + date[10] * 60;/* "t - offset" */
 
   return (t);
 }
