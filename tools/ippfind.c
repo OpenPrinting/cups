@@ -1122,7 +1122,7 @@ main(int  argc,				// I - Number of command-line args
     if (getenv("IPPFIND_DEBUG"))
       fprintf(stderr, "STATUS processed=%u, resolved=%u, count=%u\n", (unsigned)processed, (unsigned)resolved, (unsigned)count);
 
-    if (processed > 0 && (processed == cupsArrayGetCount(services.services) || (cupsGetClock() - last_update) >= 2.5) && bonjour_timeout <= 1.0)
+    if (bonjour_timeout <= 1.0 && cupsGetClock() >= 2.5 && (processed == cupsArrayGetCount(services.services) || (cupsGetClock() - last_update) >= 1.0))
       break;
 
     // Give the browsers/resolvers some time...
