@@ -2,11 +2,13 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
-Changes in CUPS v2.4.12 (YYYY-MM-DD)
+Changes in CUPS v2.4.12 (2025-04-08)
 ------------------------------------
 
 - GnuTLS follows system crypto policies now (Issue #1105)
 - Added `NoSystem` SSLOptions value (Issue #1130)
+- Now we raise alert for certificate issues (Issue #1194)
+- Added Kyocera USB quirk (Issue #1198)
 - The scheduler now logs a job's debugging history if the backend fails
   (Issue #1205)
 - Fixed a potential timing issue with `cupsEnumDests` (Issue #1084)
@@ -21,11 +23,14 @@ Changes in CUPS v2.4.12 (YYYY-MM-DD)
 - Fixed client raster printing from macOS (Issue #1143)
 - Fixed the default User-Agent string.
 - Fixed a recursion issue in `ippReadIO`.
+- Fixed handling incorrect radix in `scan_ps()` (Issue #1188)
 - Fixed validation of dateTime values with time zones more than UTC+11
   (Issue #1201)
 - Fixed attributes returned by the Create-Xxx-Subscriptions requests
   (Issue #1204)
 - Fixed `ippDateToTime` when using a non GMT/UTC timezone (Issue #1208)
+- Fixed `job-completed` event notifications for jobs that are cancelled before
+  started (Issue #1209)
 - Fixed DNS-SD discovery with `ippfind` (Issue #1211)
 
 
