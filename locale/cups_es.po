@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-08 21:07+0000\n"
+"PO-Revision-Date: 2025-04-09 04:51+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -465,7 +465,7 @@ msgid ""
 "                REF: Page 122, section 5.17"
 msgstr ""
 "      %s  NECESARIO %s no define la preferencia None.\n"
-"                REF: Página 122, sección 5.17."
+"                REF: Página 122, sección 5.17"
 
 #, c-format
 msgid "      %s  Size \"%s\" defined for %s but not for %s."
@@ -503,7 +503,7 @@ msgid ""
 "                REF: Page 72, section 5.5"
 msgstr ""
 "      **FALLO**  %s debería ser 1284DeviceID.\n"
-"                REF: Página 72, sección 5.5."
+"                REF: Página 72, sección 5.5"
 
 #, c-format
 msgid ""
@@ -605,7 +605,7 @@ msgid ""
 "                REF: Page 84, section 5.9"
 msgstr ""
 "      **FALLO**  Opción incorrecta %s preferencia %s\n"
-"                REF: Página 84, sección 5.9."
+"                REF: Página 84, sección 5.9"
 
 #, c-format
 msgid "      **FAIL**  Default option code cannot be interpreted: %s"
@@ -863,6 +863,8 @@ msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
+"  -j TAREA-ID[,N]           Filtrar archivo N desde la tarea especificada ("
+"por defecto es archivo 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
@@ -1419,6 +1421,8 @@ msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
+"%s: Error - necesita \"completed\", \"not-completed\", \"successful\", o "
+"\"all\" tras la opción \"-W\"."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1478,7 +1482,7 @@ msgstr "%s: cadena de filtro “%s” no válida."
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr ""
+msgstr "%s: nombre de cliente ausente tras '--client-name'."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1490,7 +1494,7 @@ msgstr "%s: Falta el tiempo de espera para \"-T\"."
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr ""
+msgstr "%s: testigo ausente tras '--bearer-token'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1570,7 +1574,7 @@ msgstr "%s: opción ‘%s’ desconocida."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: opción '-%c' desconocida."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1630,6 +1634,8 @@ msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
+"--bearer-token BEARER-TOKEN\n"
+"                        Pone el testigo OAuth Bearer para autenticación"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
@@ -1734,7 +1740,7 @@ msgid "--port number[-number]  Match port to number or range"
 msgstr "--port número[-número]  Coincide puerto a número o intervalo"
 
 msgid "--print                 Print URI if true"
-msgstr ""
+msgstr "--print                 Imprime URI si es cierta"
 
 msgid "--print-name            Print service name if true"
 msgstr "--print-name            Imprimir nombre de servicio si es verdadera"
@@ -2078,9 +2084,8 @@ msgstr ""
 msgid "-T title                Specify the job title"
 msgstr "-T título               Especifica el título de la tarea"
 
-#, fuzzy
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
-msgstr "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
+msgstr "-U UNIDAD-ORGANIZACIONAL         Fija nombre de unidad organizacional."
 
 msgid "-U username             Specify the username to use for authentication"
 msgstr ""
@@ -2321,65 +2326,83 @@ msgstr ""
 "segundos"
 
 msgid "-o job-sheets=standard  Print a banner page with the job"
-msgstr ""
+msgstr "-o job-sheets=standard  Imprime una página de pancarta con la tarea"
 
 msgid "-o media=size           Specify the media size to use"
-msgstr ""
+msgstr "-o media=tam           Especifica el (tam)año del medio a utilizar"
 
 msgid "-o name-default=value   Specify the default value for the named option"
 msgstr ""
+"-o name-default=valor   Especifica el valor predet. para la opción nombrada"
 
 msgid "-o name[=value]         Set default option and value"
-msgstr ""
+msgstr "-o name[=valor]         Establece la opción y valor por defecto"
 
 msgid ""
 "-o number-up=N          Specify that input pages should be printed N-up (1, "
 "2, 4, 6, 9, and 16 are supported)"
 msgstr ""
+"-o number-up=N          Especifica que páginas de entrada serían impresas N-"
+"hasta (1, 2, 4, 6, 9, y 16 son admitidas)"
 
 msgid "-o option[=value]       Specify a printer-specific option"
 msgstr ""
+"-o option[=valor]       Especifica una opción específica de la impresora"
 
 msgid ""
 "-o orientation-requested=N\n"
 "                        Specify portrait (3) or landscape (4) orientation"
 msgstr ""
+"-o orientation-requested=N\n"
+"                        Especifica la orientación: retrato (3) o paisaje (4)"
 
 msgid ""
 "-o print-quality=N      Specify the print quality - draft (3), normal (4), "
 "or best (5)"
 msgstr ""
+"-o print-quality=N      Especifica la calidad de la impresora – borrador (3)"
+", normal (4), o mejor (5)"
 
 msgid ""
 "-o printer-error-policy=name\n"
 "                        Specify the printer error policy"
 msgstr ""
+"-o printer-error-policy=nombre\n"
+"                        Especifica la normativa de error de la impresora"
 
 msgid ""
 "-o printer-is-shared=true\n"
 "                        Share the printer"
 msgstr ""
+"-o printer-is-shared=true\n"
+"                        Compartir la impresora"
 
 msgid ""
 "-o printer-op-policy=name\n"
 "                        Specify the printer operation policy"
 msgstr ""
+"-o printer-op-policy=nombre\n"
+"                        Especifica la normativa de operación de la impresora"
 
 msgid "-o sides=one-sided      Specify 1-sided printing"
-msgstr ""
+msgstr "-o sides=one-sided      Especifica la impresión en 1-lado"
 
 msgid ""
 "-o sides=two-sided-long-edge\n"
 "                        Specify 2-sided portrait printing"
 msgstr ""
+"-o sides=two-sided-long-edge\n"
+"                        Especifica la impresión de retrato por dos lados"
 
 msgid ""
 "-o sides=two-sided-short-edge\n"
 "                        Specify 2-sided landscape printing"
 msgstr ""
+"-o sides=two-sided-short-edge\n"
+"                        Especifica la impresión de paisaje con dos lados"
 
 msgid "-p                      Print URI if true"
-msgstr ""
+msgstr "-p                      Imprime el URI si es verdadero"
 
 msgid ""
 "-p PURPOSE                     Comma-delimited certificate purpose\n"
@@ -2388,67 +2411,76 @@ msgid ""
 msgstr ""
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
-msgstr ""
+msgstr "-p [printer(s)]         Muestra el estado de destino del proceso"
 
 msgid "-p destination          Specify a destination"
-msgstr ""
+msgstr "-p destination          Especifica un destino"
 
 msgid "-p destination          Specify/add the named destination"
-msgstr ""
+msgstr "-p destino          Especifique/agregue el destino nombrado"
 
 msgid "-p port                 Set port number for printer"
 msgstr ""
+"-p puerto               Establece el número del puerto para la impresora"
 
 msgid "-q                      Quietly report match via exit code"
 msgstr ""
+"-q                      Silenciosamente informa coincidencias por medio de "
+"código de salida"
 
 msgid "-q                      Run silently"
-msgstr ""
+msgstr "-q                      Ejecutar silenciosamente"
 
 msgid "-q                      Specify the job should be held for printing"
 msgstr ""
+"-q                      Especifica la tarea sería mantenida para imprimir"
 
 msgid "-q priority             Specify the priority from low (1) to high (100)"
 msgstr ""
+"-q prioridad             Especifica la prioridad desde baja (1) hasta alta "
+"(100)"
 
 msgid "-r                      Remove the file(s) after submission"
-msgstr ""
+msgstr "-r                      Retira el/los archivo(s) tras el envío"
 
 msgid "-r                      Show whether the CUPS server is running"
-msgstr ""
+msgstr "-r                      Muestra si el servidor CUPS está ejecutándose"
 
 msgid "-r                      True if service is remote"
-msgstr ""
+msgstr "-r                      Verdadero si el servicio es remoto"
 
 msgid "-r                      Use 'relaxed' open mode"
-msgstr ""
+msgstr "-r                      Utilice modo de apertura «relajado»"
 
 msgid "-r ROOT-NAME                   Name of root certificate"
 msgstr ""
 
 msgid "-r class                Remove the named destination from a class"
-msgstr ""
+msgstr "-r clase                Retira el destino nombrado desde una clase"
 
 msgid "-r reason               Specify a reason message that others can see"
 msgstr ""
+"-r razón               Especifica un mensaje de razón que otros pueden "
+"consultar"
 
 msgid "-r subtype,[subtype]    Set DNS-SD service subtype"
-msgstr ""
+msgstr "-r subtype,[subtype]    Establece subtipo del servicio DNS-SD"
 
 msgid "-s                      Be silent"
-msgstr ""
+msgstr "-s                      Ser silencioso"
 
 msgid "-s                      Print service name if true"
-msgstr ""
+msgstr "-s                      Imprime nombre del servicio si es verdadero"
 
 msgid "-s                      Show a status summary"
-msgstr ""
+msgstr "-s                      Muestra un resumen del estado"
 
 msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
 msgstr ""
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
+"-s archivos-cups.conf      Establece el archivo cups-files.conf a utilizar."
 
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
 msgstr ""
