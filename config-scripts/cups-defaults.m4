@@ -395,15 +395,19 @@ AS_IF([test $CUPS_WEBIF = Yes || test $CUPS_BROWSING = Yes], [
   ])
 AC_SUBST([SYSTEMD_WANTED_BY])
 
-dnl Set default value of IdleExitTimeout
-AC_ARG_WITH([idle_exit_timeout], AS_HELP_STRING([--with-idle-exit-timeout], [set the default value for IdleExitTimeout, default=60]), [
-    AS_IF([test "x$withval" = "xno"], [
-	EXIT_TIMEOUT=0
+dnl Set default value of IdleExitTimeout if we have an ondemand support
+AS_IF([test x$with_ondemand != xno], [
+    AC_ARG_WITH([idle_exit_timeout], AS_HELP_STRING([--with-idle-exit-timeout], [set the default value for IdleExitTimeout, default=60]), [
+	AS_IF([test "x$withval" = "xno"], [
+	    EXIT_TIMEOUT="IdleExitTimeout 0"
+	], [
+	    EXIT_TIMEOUT="IdleExitTimeout $withval"
+	])
     ], [
-	EXIT_TIMEOUT=$withval
+	EXIT_TIMEOUT="IdleExitTimeout 60"
     ])
-], [
-    EXIT_TIMEOUT=60
+] ,[
+    EXIT_TIMEOUT=""
 ])
 
 AC_SUBST([EXIT_TIMEOUT])
