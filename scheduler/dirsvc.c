@@ -203,7 +203,7 @@ cupsdUpdateDNSSDName(void)
   * Get the hostname...
   */
 
-  if (cupsDNSSDCopyHostName(DNSSDContext, name, sizeof(name)))
+  if (!DNSSDHostName && cupsDNSSDCopyHostName(DNSSDContext, name, sizeof(name)))
     cupsdSetString(&DNSSDHostName, name);
 
   if (!DNSSDHostName)
