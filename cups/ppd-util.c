@@ -544,7 +544,6 @@ cups_get_printer_uri(
     char       *resource,		/* I - Resource buffer */
     int        resourcesize)		/* I - Size of resource buffer */
 {
-  int		i;			/* Looping var */
   ipp_t		*request,		/* IPP request */
 		*response;		/* IPP response */
   ipp_attribute_t *attr;		/* Current attribute */
@@ -608,7 +607,7 @@ cups_get_printer_uri(
 
       DEBUG_printf("5cups_get_printer_uri: Got member-uris with %d values.", ippGetCount(attr));
 
-      for (i = 0; i < attr->num_values; i ++)
+      for (int i = 0; i < attr->num_values; i ++)
       {
         DEBUG_printf("5cups_get_printer_uri: member-uris[%d]=\"%s\"", i, ippGetString(attr, i, NULL));
 

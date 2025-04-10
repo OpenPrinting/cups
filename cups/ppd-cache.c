@@ -2170,9 +2170,6 @@ _ppdCacheGetBin(
     _ppd_cache_t *pc,			/* I - PPD cache and mapping data */
     const char   *output_bin)		/* I - PPD OutputBin string */
 {
-  int	i;				/* Looping var */
-
-
  /*
   * Range check input...
   */
@@ -2185,7 +2182,7 @@ _ppdCacheGetBin(
   */
 
 
-  for (i = 0; i < pc->num_bins; i ++)
+  for (int i = 0; i < pc->num_bins; i ++)
     if (!_cups_strcasecmp(output_bin, pc->bins[i].ppd) || !_cups_strcasecmp(output_bin, pc->bins[i].pwg))
       return (pc->bins[i].pwg);
 
@@ -2206,7 +2203,6 @@ _ppdCacheGetFinishingOptions(
     int              num_options,	/* I  - Number of options */
     cups_option_t    **options)		/* IO - Options */
 {
-  int			i;		/* Looping var */
   _pwg_finishings_t	*f,		/* PWG finishings options */
 			key;		/* Search key */
   ipp_attribute_t	*attr;		/* Finishings attribute */
@@ -2229,7 +2225,7 @@ _ppdCacheGetFinishingOptions(
   {
     int	num_values = ippGetCount(attr);	/* Number of values */
 
-    for (i = 0; i < num_values; i ++)
+    for (int i = 0; i < num_values; i ++)
     {
       key.value = (ipp_finishings_t)ippGetInteger(attr, i);
 

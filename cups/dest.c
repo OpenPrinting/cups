@@ -169,11 +169,8 @@ cupsAddDest(const char  *name,		// I  - Destination name
             int         num_dests,	// I  - Number of destinations
             cups_dest_t **dests)	// IO - Destinations
 {
-  int		i;			// Looping var
   cups_dest_t	*dest;			// Destination pointer
   cups_dest_t	*parent = NULL;		// Parent destination
-  cups_option_t	*doption,		// Current destination option
-		*poption;		// Current parent option
 
 
   if (!name || !dests)
@@ -208,11 +205,10 @@ cupsAddDest(const char  *name,		// I  - Destination name
       if (dest->options)
       {
         dest->num_options = parent->num_options;
+        cups_option_t *doption = dest->options;
+        cups_option_t	*poption = parent->options;
 
-	for (i = dest->num_options, doption = dest->options,
-	         poption = parent->options;
-	     i > 0;
-	     i --, doption ++, poption ++)
+        for (int i = dest->num_options; i > 0; i --, doption ++, poption ++)
 	{
 	  doption->name  = _cupsStrRetain(poption->name);
 	  doption->value = _cupsStrRetain(poption->value);
@@ -716,10 +712,7 @@ cupsCopyDest(cups_dest_t *dest,         // I  - Destination to copy
              int         num_dests,     // I  - Number of destinations
              cups_dest_t **dests)       // IO - Destination array
 {
-  int		i;			// Looping var
   cups_dest_t	*new_dest;		// New destination pointer
-  cups_option_t	*new_option,		// Current destination option
-		*option;		// Current parent option
 
 
   //
@@ -763,11 +756,10 @@ cupsCopyDest(cups_dest_t *dest,         // I  - Destination to copy
       return (cupsRemoveDest(dest->name, dest->instance, num_dests, dests));
 
     new_dest->num_options = dest->num_options;
+    cups_option_t *option = dest->options;
+    cups_option_t *new_option = new_dest->options;
 
-    for (i = dest->num_options, option = dest->options,
-	     new_option = new_dest->options;
-	 i > 0;
-	 i --, option ++, new_option ++)
+    for (int i = dest->num_options; i > 0; i --, option ++, new_option ++)
     {
       new_option->name  = _cupsStrRetain(option->name);
       new_option->value = _cupsStrRetain(option->value);

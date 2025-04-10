@@ -68,7 +68,6 @@ cupsCloseDestJob(
     cups_dinfo_t *info, 		/* I - Destination information */
     int          job_id)		/* I - Job ID */
 {
-  int			i;		/* Looping var */
   ipp_t			*request = NULL;/* Close-Job/Send-Document request */
   ipp_attribute_t	*attr;		/* operations-supported attribute */
 
@@ -100,7 +99,7 @@ cupsCloseDestJob(
   if ((attr = ippFindAttribute(info->attrs, "operations-supported",
                                IPP_TAG_ENUM)) != NULL)
   {
-    for (i = 0; i < attr->num_values; i ++)
+    for (int i = 0; i < attr->num_values; i ++)
       if (attr->values[i].integer == IPP_OP_CLOSE_JOB)
       {
         request = ippNewRequest(IPP_OP_CLOSE_JOB);

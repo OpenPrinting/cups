@@ -139,9 +139,7 @@ ippAddBooleans(ipp_t      *ipp,		// I - IPP message
 	       int        num_values,	// I - Number of values
 	       const char *values)	// I - Values
 {
-  int			i;		// Looping var
   ipp_attribute_t	*attr;		// New attribute
-  _ipp_value_t		*value;		// Current value
 
 
   DEBUG_printf("ippAddBooleans(ipp=%p, group=%02x(%s), name=\"%s\", num_values=%d, values=%p)", (void *)ipp, group, ippTagString(group), name, num_values, (void *)values);
@@ -156,7 +154,9 @@ ippAddBooleans(ipp_t      *ipp,		// I - IPP message
 
   if (values)
   {
-    for (i = num_values, value = attr->values; i > 0; i --, value ++)
+    _ipp_value_t *value = attr->values;
+
+    for (int i = num_values; i > 0; i --, value ++)
       value->boolean = *values++;
   }
 
@@ -230,9 +230,7 @@ ippAddCollections(
     int         num_values,		// I - Number of values
     const ipp_t **values)		// I - Values
 {
-  int			i;		// Looping var
   ipp_attribute_t	*attr;		// New attribute
-  _ipp_value_t		*value;		// Current value
 
 
   DEBUG_printf("ippAddCollections(ipp=%p, group=%02x(%s), name=\"%s\", num_values=%d, values=%p)", (void *)ipp, group, ippTagString(group), name, num_values, (void *)values);
@@ -247,7 +245,9 @@ ippAddCollections(
 
   if (values)
   {
-    for (i = num_values, value = attr->values; i > 0; i --, value ++)
+    _ipp_value_t *value = attr->values;
+
+    for (int i = num_values; i > 0; i --, value ++)
     {
       value->collection = (ipp_t *)*values++;
       value->collection->use ++;
@@ -287,8 +287,7 @@ ippAddCredentialsString(
   char			*cvalue,	// Copied value
 			*cstart,	// Start of value
 			*cptr;		// Pointer into copied value
-  size_t		i,		// Looping var
-			num_values;	// Number of values
+  size_t			num_values;	// Number of values
 
 
   // Range check input...
@@ -324,7 +323,9 @@ ippAddCredentialsString(
   // Create the empty attribute and copy the values...
   if ((attr = ippAddStrings(ipp, group, IPP_TAG_TEXT, name, num_values, NULL, NULL)) != NULL)
   {
-    for (i = 0, cptr = cvalue; cptr && i < num_values;)
+    cptr = cvalue;
+
+    for (size_t i = 0; cptr && i < num_values;)
     {
       cstart = cptr;
       if ((cptr = strchr(cptr, '\r')) != NULL)
@@ -466,7 +467,6 @@ ippAddIntegers(ipp_t      *ipp,		// I - IPP message
 {
   int			i;		// Looping var
   ipp_attribute_t	*attr;		// New attribute
-  _ipp_value_t		*value;		// Current value
 
 
   DEBUG_printf("ippAddIntegers(ipp=%p, group=%02x(%s), type=%02x(%s), name=\"%s\", num_values=%d, values=%p)", (void *)ipp, group, ippTagString(group), value_tag, ippTagString(value_tag), name, num_values, (void *)values);
@@ -483,7 +483,9 @@ ippAddIntegers(ipp_t      *ipp,		// I - IPP message
 
   if (values)
   {
-    for (i = num_values, value = attr->values; i > 0; i --, value ++)
+    _ipp_value_t *value = attr->values;
+
+    for (i = num_values; i > 0; i --, value ++)
       value->integer = *values++;
   }
 
@@ -645,9 +647,7 @@ ippAddRanges(ipp_t      *ipp,		// I - IPP message
 	     const int  *lower,		// I - Lower values
 	     const int  *upper)		// I - Upper values
 {
-  int			i;		// Looping var
   ipp_attribute_t	*attr;		// New attribute
-  _ipp_value_t		*value;		// Current value
 
 
   DEBUG_printf("ippAddRanges(ipp=%p, group=%02x(%s), name=\"%s\", num_values=%d, lower=%p, upper=%p)", (void *)ipp, group, ippTagString(group), name, num_values, (void *)lower, (void *)upper);
@@ -662,7 +662,9 @@ ippAddRanges(ipp_t      *ipp,		// I - IPP message
 
   if (lower && upper)
   {
-    for (i = num_values, value = attr->values; i > 0; i --, value ++)
+    _ipp_value_t *value = attr->values;
+
+    for (int i = num_values; i > 0; i --, value ++)
     {
       value->range.lower = *lower++;
       value->range.upper = *upper++;
@@ -737,9 +739,7 @@ ippAddResolutions(ipp_t      *ipp,	// I - IPP message
 		  const int  *xres,	// I - X resolutions
 		  const int  *yres)	// I - Y resolutions
 {
-  int			i;		// Looping var
   ipp_attribute_t	*attr;		// New attribute
-  _ipp_value_t		*value;		// Current value
 
 
   DEBUG_printf("ippAddResolutions(ipp=%p, group=%02x(%s), name=\"%s\", num_value=%d, units=%d, xres=%p, yres=%p)", (void *)ipp, group, ippTagString(group), name, num_values, units, (void *)xres, (void *)yres);
@@ -754,7 +754,9 @@ ippAddResolutions(ipp_t      *ipp,	// I - IPP message
 
   if (xres && yres)
   {
-    for (i = num_values, value = attr->values; i > 0; i --, value ++)
+    _ipp_value_t *value = attr->values;
+
+    for (int i = num_values; i > 0; i --, value ++)
     {
       value->resolution.xres  = *xres++;
       value->resolution.yres  = *yres++;
@@ -1559,14 +1561,14 @@ ippCopyCredentialsString(
 {
   char		*s = NULL,		// Combined string
 		*ptr;			// Pointer into string
-  int		i;			// Looping var
   size_t	slen;			// Length of combined string
 
 
   if (attr && ippGetValueTag(attr) == IPP_TAG_TEXT)
   {
     // Loop through string values and add up the total length...
-    for (i = 0, slen = 0; i < attr->num_values; i ++)
+    slen = 0;
+    for (int i = 0; i < attr->num_values; i ++)
     {
       if (attr->values[i].string.text)
         slen += strlen(attr->values[i].string.text) + 1;
@@ -1577,7 +1579,8 @@ ippCopyCredentialsString(
       // Allocate memory...
       if ((s = malloc(slen + 1)) != NULL)
       {
-	for (i = 0, ptr = s; i < attr->num_values; i ++)
+        ptr = s;
+        for (int i = 0; i < attr->num_values; i ++)
 	{
 	  if (attr->values[i].string.text)
 	  {
@@ -4986,7 +4989,6 @@ ipp_free_values(ipp_attribute_t *attr,	// I - Attribute to free values from
                 int             element,// I - First value to free
                 int             count)	// I - Number of values to free
 {
-  int		i;			// Looping var
   _ipp_value_t	*value;			// Current value
 
 
@@ -5015,7 +5017,8 @@ ipp_free_values(ipp_attribute_t *attr,	// I - Attribute to free values from
       case IPP_TAG_CHARSET :
       case IPP_TAG_LANGUAGE :
       case IPP_TAG_MIMETYPE :
-	  for (i = count, value = attr->values + element; i > 0; i --, value ++)
+        value = attr->values + element;
+        for (int i = count; i > 0; i --, value ++)
 	  {
 	    _cupsStrFree(value->string.text);
 	    value->string.text = NULL;
@@ -5038,7 +5041,8 @@ ipp_free_values(ipp_attribute_t *attr,	// I - Attribute to free values from
 	  break;
 
       case IPP_TAG_BEGIN_COLLECTION :
-	  for (i = count, value = attr->values + element; i > 0; i --, value ++)
+        value = attr->values + element;
+        for (int i = count; i > 0; i --, value ++)
 	  {
 	    ippDelete(value->collection);
 	    value->collection = NULL;
@@ -5047,7 +5051,8 @@ ipp_free_values(ipp_attribute_t *attr,	// I - Attribute to free values from
 
       case IPP_TAG_STRING :
       default :
-	  for (i = count, value = attr->values + element; i > 0; i --, value ++)
+        value = attr->values + element;
+        for (int i = count; i > 0; i --, value ++)
 	  {
 	    if (value->unknown.data)
 	    {

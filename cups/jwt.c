@@ -1,7 +1,7 @@
 //
 // JSON Web Token API implementation for CUPS.
 //
-// Copyright © 2023-2024 by OpenPrinting.
+// Copyright © 2023-2025 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -1537,14 +1537,14 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
 static cups_json_t *			// O - JSON array
 copy_x5c(cups_json_t *x5c)		// I - X.509 certificate chain
 {
-  size_t	i,			// Looping var
-		count;			// Count
   cups_json_t	*new_x5c;		// New JSON array
 
 
   if ((new_x5c = cupsJSONNew(/*parent*/NULL, /*after*/NULL, CUPS_JTYPE_ARRAY)) != NULL)
   {
-    for (i = 0, count = cupsJSONGetCount(x5c); i < count; i ++)
+    const size_t count = cupsJSONGetCount(x5c);
+
+    for (size_t i = 0; i < count; i ++)
       cupsJSONNewString(new_x5c, /*after*/NULL, cupsJSONGetString(cupsJSONGetChild(x5c, i)));
   }
 
@@ -1567,8 +1567,7 @@ find_key(cups_json_t *jwk,		// I - Key set
   if ((keys = cupsJSONFind(jwk, "keys")) != NULL)
   {
     // Full key set, find the key we need to use...
-    size_t	i,			// Looping var
-		count;			// Number of keys
+    size_t	count;			// Number of keys
     cups_json_t	*current;		// Current key
     const char	*curkid,		// Current key ID
 		*curkty;		// Current key type
@@ -1578,7 +1577,7 @@ find_key(cups_json_t *jwk,		// I - Key set
     if (kid)
     {
       // Find the matching key ID
-      for (i = 0; i < count; i ++)
+      for (size_t i = 0; i < count; i ++)
       {
         current = cupsJSONGetChild(keys, i);
         curkid  = cupsJSONGetString(cupsJSONFind(current, "kid"));
@@ -1594,7 +1593,7 @@ find_key(cups_json_t *jwk,		// I - Key set
     else
     {
       // Find a key that can be used for the specified algorithm
-      for (i = 0; i < count; i ++)
+      for (size_t i = 0; i < count; i ++)
       {
         current = cupsJSONGetChild(keys, i);
         curkty  = cupsJSONGetString(cupsJSONFind(current, "kty"));

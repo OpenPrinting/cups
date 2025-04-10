@@ -53,7 +53,7 @@ httpAddrConnect2(
 {
   int			val;		/* Socket option value */
 #ifndef _WIN32
-  int			i, j,		/* Looping vars */
+  int			i,		/* Looping var */
 			flags,		/* Socket flags */
 			result;		/* Result from select() or poll() */
 #endif /* !_WIN32 */
@@ -281,7 +281,7 @@ httpAddrConnect2(
     {
       http_addrlist_t *connaddr = NULL;	/* Connected address, if any */
 
-      for (i = 0; i < nfds; i ++)
+      for (int i = 0; i < nfds; i ++)
       {
 	DEBUG_printf("pfds[%d].revents=%x\n", i, pfds[i].revents);
 
@@ -354,10 +354,10 @@ httpAddrConnect2(
         * far and return...
         */
 
-        for (j = 0; j < i; j ++)
+        for (int j = 0; j < i; j ++)
           httpAddrClose(NULL, fds[j]);
 
-        for (j ++; j < nfds; j ++)
+        for (int j = i + 1; j < nfds; j ++)
           httpAddrClose(NULL, fds[j]);
 
         return (connaddr);

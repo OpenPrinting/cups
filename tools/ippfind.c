@@ -150,8 +150,7 @@ int					// O - Exit status
 main(int  argc,				// I - Number of command-line args
      char *argv[])			// I - Command-line arguments
 {
-  int			i,		// Looping var
-			have_output = 0,// Have output expression
+  int			have_output = 0,// Have output expression
 			status = IPPFIND_EXIT_FALSE;
 					// Exit status
   const char		*opt,		// Option character
@@ -208,11 +207,11 @@ main(int  argc,				// I - Number of command-line args
   // Parse command-line...
   if (getenv("IPPFIND_DEBUG"))
   {
-    for (i = 1; i < argc; i ++)
+    for (int i = 1; i < argc; i ++)
       fprintf(stderr, "argv[%d]=\"%s\"\n", i, argv[i]);
   }
 
-  for (i = 1; i < argc; i ++)
+  for (int i = 1; i < argc; i ++)
   {
     if (argv[i][0] == '-')
     {
