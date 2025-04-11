@@ -294,6 +294,7 @@ httpClearFields(http_t *http)		// I - HTTP connection
 void
 httpClose(http_t *http)			// I - HTTP connection
 {
+  http_field_t	field;			// Current field
 #ifdef HAVE_GSSAPI
   OM_uint32	minor_status;		// Minor status code
 #endif // HAVE_GSSAPI
@@ -336,7 +337,12 @@ httpClose(http_t *http)			// I - HTTP connection
     AuthorizationFree(http->auth_ref, kAuthorizationFlagDefaults);
 #endif // HAVE_AUTHORIZATION_H
 
-  httpClearFields(http);
+  for (field = HTTP_FIELD_ACCEPT; field < HTTP_FIELD_MAX; field ++)
+  {
+    free(http->default_fields[field]);
+    if (field >= HTTP_FIELD_ACCEPT_ENCODING || http->fields[field] != http->_fields[field])
+      free(http->fields[field]);
+  }
 
   if (http->authstring && http->authstring != http->_authstring)
     free(http->authstring);
