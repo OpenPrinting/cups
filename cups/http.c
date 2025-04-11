@@ -256,22 +256,40 @@ httpClearFields(http_t *http)		// I - HTTP connection
 
     for (field = HTTP_FIELD_ACCEPT_LANGUAGE; field < HTTP_FIELD_ACCEPT_ENCODING; field ++)
     {
-      if (!http->fields[field])
-        continue;
+      if (!http->fields[field] && !http->default_fields[field])
+	continue;
 
-      if (http->fields[field] != http->_fields[field])
-        free(http->fields[field]);
+      if (http->fields[field])
+      {
+	if (http->fields[field] != http->_fields[field])
+	  free(http->fields[field]);
 
-      http->fields[field] = NULL;
+	http->fields[field] = NULL;
+      }
+
+      if (http->default_fields[field])
+      {
+	free(http->default_fields[field]);
+	http->default_fields[field] = NULL;
+      }
     }
 
     for (; field < HTTP_FIELD_MAX; field ++)
     {
-      if (!http->fields[field])
-        continue;
+      if (!http->fields[field] && !http->default_fields[field])
+	continue;
 
-      free(http->fields[field]);
-      http->fields[field] = NULL;
+      if (http->fields[field])
+      {
+	free(http->fields[field]);
+	http->fields[field] = NULL;
+      }
+
+      if (http->default_fields[field])
+      {
+	free(http->default_fields[field]);
+	http->default_fields[field] = NULL;
+      }
     }
 
     if (http->mode == _HTTP_MODE_CLIENT)
