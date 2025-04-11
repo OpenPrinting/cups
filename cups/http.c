@@ -337,7 +337,7 @@ httpClose(http_t *http)			// I - HTTP connection
     AuthorizationFree(http->auth_ref, kAuthorizationFlagDefaults);
 #endif // HAVE_AUTHORIZATION_H
 
-  for (field = HTTP_FIELD_ACCEPT; field < HTTP_FIELD_MAX; field ++)
+  for (field = HTTP_FIELD_ACCEPT_LANGUAGE; field < HTTP_FIELD_MAX; field ++)
   {
     free(http->default_fields[field]);
     if (field >= HTTP_FIELD_ACCEPT_ENCODING || http->fields[field] != http->_fields[field])
