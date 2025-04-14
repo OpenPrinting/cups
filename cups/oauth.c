@@ -110,6 +110,13 @@ typedef enum _cups_otype_e		// OAuth data type
 // Local constants...
 //
 
+#define _CUPS_CONNECTOR_CLIENT_ID	"a92130af-5eac-4a8a-8ba3-e17276b52ca1"
+					// CUPS Universal Print Connector client ID
+#define _CUPS_CONNECTOR_OAUTH_URI	"https://login.microsoftonline.com/"
+					// OAuth URI prefix for MS Entrada ID
+#define _CUPS_CONNECTOR_OAUTH_URILEN	34
+					// Length of OAuth URI prefix
+
 #define _CUPS_OAUTH_REDIRECT_FORMAT	"http://127.0.0.1:%d/"
 					// Redirect URI with port
 #define _CUPS_OAUTH_REDIRECT_PATH	"/?"
@@ -235,7 +242,16 @@ cupsOAuthCopyClientId(
     const char *auth_uri,		// I - Authorization Server URI
     const char *redirect_uri)		// I - Redirection URI
 {
-  return (oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID));
+  char	*client_id;			// Client ID value
+
+
+  if ((client_id = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID)) == NULL && !strncmp(auth_uri, _CUPS_CONNECTOR_OAUTH_URI, _CUPS_CONNECTOR_OAUTH_URILEN))
+  {
+    // Use the default CUPS Universal Print connector client ID with MS Entrada ID...
+    client_id = strdup(_CUPS_CONNECTOR_CLIENT_ID);
+  }
+
+  return (client_id);
 }
 
 
