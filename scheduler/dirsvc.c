@@ -90,9 +90,6 @@ cupsdRegisterPrinter(cupsd_printer_t *p)/* I - Printer */
 void
 cupsdStartBrowsing(void)
 {
-  cupsd_printer_t	*p;		/* Current printer */
-
-
   if (!Browsing || !BrowseLocalProtocols)
     return;
 
@@ -112,16 +109,6 @@ cupsdStartBrowsing(void)
 
     DNSSDPort = 0;
     cupsdUpdateDNSSDName();
-
-   /*
-    * Register the individual printers
-    */
-
-    for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
-    {
-      if (!(p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
-	dnssdRegisterPrinter(p);
-    }
   }
 }
 
@@ -152,7 +139,10 @@ cupsdStopBrowsing(void)
 void
 cupsdUpdateDNSSDName(void)
 {
-  char	name[1024];			/* Computer/host name */
+  char			name[1024];	/* Computer/host name */
+  cupsd_printer_t	*p;		/* Current printer */
+  int			i,		/* Looping var */
+			pcount;		/* Number of printers */
 
 
  /*
@@ -182,42 +172,41 @@ cupsdUpdateDNSSDName(void)
   if (!DNSSDPort)
     return;
 
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "Using port %d for DNS-SD services.", DNSSDPort);
+
  /*
   * Get the computer name...
   */
 
-  if (cupsDNSSDCopyComputerName(DNSSDContext, name, sizeof(name)) && name[0])
-    cupsdSetString(&DNSSDComputerName, name);
-
-  if (!DNSSDComputerName)
+  if (!DNSSDComputerNameConfigured)
   {
-   /*
-    * Use the ServerName instead...
-    */
-
-    cupsdLogMessage(CUPSD_LOG_DEBUG, "Using ServerName \"%s\" as computer name.", ServerName);
-    cupsdSetString(&DNSSDComputerName, ServerName);
+    if (cupsDNSSDCopyComputerName(DNSSDContext, name, sizeof(name)) && name[0])
+      cupsdSetString(&DNSSDComputerName, name);
+    else
+      cupsdSetString(&DNSSDComputerName, ServerName);
   }
+
+  if (DNSSDComputerName)
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "Appending \"@ %s\" to DNS-SD shared printer names.", DNSSDComputerName);
 
  /*
   * Get the hostname...
   */
 
-  if (cupsDNSSDCopyHostName(DNSSDContext, name, sizeof(name)))
-    cupsdSetString(&DNSSDHostName, name);
-
-  if (!DNSSDHostName)
+  if (!DNSSDHostNameConfigured)
   {
-    if (strchr(ServerName, '.'))
+    if (cupsDNSSDCopyHostName(DNSSDContext, name, sizeof(name)))
+      cupsdSetString(&DNSSDHostName, name);
+    else if (strchr(ServerName, '.'))
       cupsdSetString(&DNSSDHostName, ServerName);
     else
       cupsdSetStringf(&DNSSDHostName, "%s.local", ServerName);
 
-    cupsdLogMessage(CUPSD_LOG_INFO, "Defaulting to \"DNSSDHostName %s\".", DNSSDHostName);
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "DNS-SD host name is now \"%s\".", DNSSDHostName);
   }
 
  /*
-  * Then (re)register the web interface if enabled...
+  * Then (re)register the web interface if enabled and any shared printers...
   */
 
   cupsDNSSDServiceDelete(DNSSDWebIF);
@@ -236,6 +225,20 @@ cupsdUpdateDNSSDName(void)
     cupsDNSSDServiceAdd(DNSSDWebIF, "_http._tcp", /*domain*/NULL, DNSSDHostName, (uint16_t)DNSSDPort, /*num_txt*/0, /*txt*/NULL);
     cupsDNSSDServicePublish(DNSSDWebIF);
   }
+
+ /*
+  * (Re)register the individual printers
+  */
+
+  cupsRWLockRead(&PrintersLock);
+  for (i = 0, pcount = cupsArrayGetCount(Printers); i < pcount; i ++)
+  {
+    p = (cupsd_printer_t *)cupsArrayGetElement(Printers, i);
+
+    if (!(p->type & (CUPS_PTYPE_REMOTE | CUPS_PTYPE_SCANNER)))
+      dnssdRegisterPrinter(p);
+  }
+  cupsRWUnlock(&PrintersLock);
 }
 
 
@@ -425,11 +428,11 @@ dnssdRegisterCallback(
   const char	*reg_name;		// Updated service name
 
 
-  if (flags & CUPS_DNSSD_FLAGS_ERROR)
+  if ((flags & CUPS_DNSSD_FLAGS_ERROR) || !p)
     return;
 
-  if (!p)
-    return;
+  if (flags & CUPS_DNSSD_FLAGS_HOST_CHANGE)
+    cupsdUpdateDNSSDName();
 
   reg_name = cupsDNSSDServiceGetName(service);
 

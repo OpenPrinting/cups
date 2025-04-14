@@ -1,7 +1,7 @@
 /*
  * Directory services definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -28,11 +28,15 @@ VAR int			Browsing	VALUE(TRUE),
 			BrowseLocalProtocols
 					VALUE(BROWSE_ALL);
 					/* Protocols to support for local printers */
-VAR char		*DNSSDComputerName VALUE(NULL),
+VAR char		*DNSSDComputerName VALUE(NULL);
 					/* Computer/server name */
-			*DNSSDHostName	VALUE(NULL),
+VAR int			DNSSDComputerNameConfigured VALUE(0);
+					/* Was the DNSSDComputerName value configured in cupsd.conf? */
+VAR char		*DNSSDHostName	VALUE(NULL);
 					/* Hostname */
-			*DNSSDSubTypes VALUE(NULL);
+VAR int			DNSSDHostNameConfigured VALUE(0);
+					/* Was the DNSSDHostName value configured in cupsd.conf? */
+VAR char		*DNSSDSubTypes VALUE(NULL);
 					/* Bonjour registration subtypes */
 VAR cups_array_t	*DNSSDAlias	VALUE(NULL);
 					/* List of dynamic ServerAlias's */

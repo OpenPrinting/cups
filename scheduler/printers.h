@@ -1,11 +1,12 @@
 /*
  * Printer definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright @ 2007-2017 by Apple Inc.
  * Copyright @ 1997-2007 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include <cups/pwg-private.h>
@@ -107,6 +108,8 @@ VAR int			NextPrinterId	VALUE(1);
 					/* Next printer-id value */
 VAR cups_array_t	*Printers	VALUE(NULL);
 					/* Printer list */
+VAR cups_rwlock_t	PrintersLock	VALUE(CUPS_RWLOCK_INITIALIZER);
+					/* Reader/writer lock for printers list */
 VAR cupsd_printer_t	*DefaultPrinter	VALUE(NULL);
 					/* Default printer */
 VAR char		*DefaultPolicy	VALUE(NULL);

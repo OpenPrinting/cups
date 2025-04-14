@@ -7532,6 +7532,8 @@ get_printers(cupsd_client_t *con,	/* I - Client connection */
   * OK, build a list of printers for this printer...
   */
 
+  cupsRWLockWrite(&PrintersLock); // Should be a reader lock, but we can't easily update loop logic right now
+
   if (first_printer_name)
   {
     if ((printer = cupsdFindDest(first_printer_name)) == NULL)
@@ -7580,6 +7582,8 @@ get_printers(cupsd_client_t *con,	/* I - Client connection */
       copy_printer_attrs(con, printer, ra);
     }
   }
+
+  cupsRWUnlock(&PrintersLock);
 
   cupsArrayDelete(ra);
 

@@ -1,11 +1,12 @@
 /*
  * Printer class routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2017 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2017 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -662,7 +663,8 @@ cupsdSaveAllClasses(void)
 			value[2048],	/* Value string */
 			*name;		/* Current user name */
   cupsd_printer_t	*pclass;	/* Current printer class */
-  int			i;		/* Looping var */
+  int			i, j,		/* Looping vars */
+			pcount;		/* Number of printers */
   cups_option_t		*option;	/* Current option */
 
 
@@ -689,13 +691,15 @@ cupsdSaveAllClasses(void)
   * Write each local class known to the system...
   */
 
-  for (pclass = (cupsd_printer_t *)cupsArrayFirst(Printers);
-       pclass;
-       pclass = (cupsd_printer_t *)cupsArrayNext(Printers))
+  cupsRWLockRead(&PrintersLock);
+
+  for (i = 0, pcount = cupsArrayGetCount(Printers); i < pcount; i ++)
   {
    /*
     * Skip remote destinations and regular printers...
     */
+
+    pclass = (cupsd_printer_t *)cupsArrayGetElement(Printers, i);
 
     if ((pclass->type & CUPS_PTYPE_REMOTE) ||
         !(pclass->type & CUPS_PTYPE_CLASS))
@@ -768,8 +772,8 @@ cupsdSaveAllClasses(void)
              pclass->job_sheets[1]);
     cupsFilePutConf(fp, "JobSheets", value);
 
-    for (i = 0; i < pclass->num_printers; i ++)
-      cupsFilePrintf(fp, "Printer %s\n", pclass->printers[i]->name);
+    for (j = 0; j < pclass->num_printers; j ++)
+      cupsFilePrintf(fp, "Printer %s\n", pclass->printers[j]->name);
 
     cupsFilePrintf(fp, "QuotaPeriod %d\n", pclass->quota_period);
     cupsFilePrintf(fp, "PageLimit %d\n", pclass->page_limit);
@@ -785,9 +789,9 @@ cupsdSaveAllClasses(void)
     if (pclass->error_policy)
       cupsFilePutConf(fp, "ErrorPolicy", pclass->error_policy);
 
-    for (i = pclass->num_options, option = pclass->options;
-         i > 0;
-	 i --, option ++)
+    for (j = pclass->num_options, option = pclass->options;
+         j > 0;
+	 j --, option ++)
     {
       snprintf(value, sizeof(value), "%s %s", option->name, option->value);
       cupsFilePutConf(fp, "Option", value);
@@ -798,6 +802,8 @@ cupsdSaveAllClasses(void)
     else
       cupsFilePuts(fp, "</Class>\n");
   }
+
+  cupsRWUnlock(&PrintersLock);
 
   cupsdCloseCreatedConfFile(fp, filename);
 }

@@ -112,12 +112,15 @@ cupsdAddPrinter(const char *name)	/* I - Name of printer */
   * Insert the printer in the printer list alphabetically...
   */
 
+  cupsRWLockWrite(&PrintersLock);
+
   if (!Printers)
     Printers = cupsArrayNew(compare_printers, NULL);
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2,
-                  "cupsdAddPrinter: Adding %s to Printers", p->name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdAddPrinter: Adding %s to Printers", p->name);
   cupsArrayAdd(Printers, p);
+
+  cupsRWUnlock(&PrintersLock);
 
  /*
   * Return the new printer...
@@ -821,11 +824,18 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
 cupsd_printer_t *			/* O - Destination in list */
 cupsdFindDest(const char *name)		/* I - Name of printer or class to find */
 {
-  cupsd_printer_t	key;		/* Search key */
+  cupsd_printer_t	key,		/* Search key */
+			*match;		/* Match */
 
+
+  cupsRWLockRead(&PrintersLock);
 
   key.name = (char *)name;
-  return ((cupsd_printer_t *)cupsArrayFind(Printers, &key));
+  match    = (cupsd_printer_t *)cupsArrayFind(Printers, &key);
+
+  cupsRWUnlock(&PrintersLock);
+
+  return (match);
 }
 
 
@@ -860,8 +870,9 @@ cupsdLoadAllPrinters(void)
 			*value,		/* Pointer to value */
 			*valueptr;	/* Pointer into value */
   cupsd_printer_t	*p;		/* Current printer */
-  int			found_raw = 0;		/* Flag whether raw queue is installed */
-  int			found_driver = 0;		/* Flag whether queue with classic driver is installed */
+  int			found_raw = 0;	/* Flag whether raw queue is installed */
+  int			found_driver = 0;
+  					/* Flag whether queue with classic driver is installed */
 
 
  /*
@@ -1374,8 +1385,9 @@ cupsdRenamePrinter(
   * Remove the printer from the array(s) first...
   */
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2,
-                  "cupsdRenamePrinter: Removing %s from Printers", p->name);
+  cupsRWLockWrite(&PrintersLock);
+
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdRenamePrinter: Removing %s from Printers", p->name);
   cupsArrayRemove(Printers, p);
 
  /*
@@ -1411,9 +1423,10 @@ cupsdRenamePrinter(
   * Add the printer back to the printer array(s)...
   */
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2,
-                  "cupsdRenamePrinter: Adding %s to Printers", p->name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdRenamePrinter: Adding %s to Printers", p->name);
   cupsArrayAdd(Printers, p);
+
+  cupsRWUnlock(&PrintersLock);
 }
 
 
@@ -1425,7 +1438,8 @@ cupsdRenamePrinter(
 void
 cupsdSaveAllPrinters(void)
 {
-  int			i;		/* Looping var */
+  int			i, j,		/* Looping vars */
+			pcount;		/* Number of printers */
   cups_file_t		*fp;		/* printers.conf file */
   char			filename[1024],	/* printers.conf filename */
 			value[2048],	/* Value string */
@@ -1461,13 +1475,15 @@ cupsdSaveAllPrinters(void)
   * Write each local printer known to the system...
   */
 
-  for (printer = (cupsd_printer_t *)cupsArrayFirst(Printers);
-       printer;
-       printer = (cupsd_printer_t *)cupsArrayNext(Printers))
+  cupsRWLockRead(&PrintersLock);
+
+  for (i = 0, pcount = cupsArrayGetCount(Printers); i < pcount; i ++)
   {
    /*
     * Skip printer classes and temporary queues...
     */
+
+    printer = (cupsd_printer_t *)cupsArrayGetElement(Printers, i);
 
     if ((printer->type & CUPS_PTYPE_CLASS) || printer->temporary)
       continue;
@@ -1548,11 +1564,11 @@ cupsdSaveAllPrinters(void)
     cupsFilePrintf(fp, "StateTime %d\n", (int)printer->state_time);
     cupsFilePrintf(fp, "ConfigTime %d\n", (int)printer->config_time);
 
-    for (i = 0; i < printer->num_reasons; i ++)
-      if (strcmp(printer->reasons[i], "connecting-to-device") &&
-          strcmp(printer->reasons[i], "cups-insecure-filter-warning") &&
-          strcmp(printer->reasons[i], "cups-missing-filter-warning"))
-        cupsFilePutConf(fp, "Reason", printer->reasons[i]);
+    for (j = 0; j < printer->num_reasons; j ++)
+      if (strcmp(printer->reasons[j], "connecting-to-device") &&
+          strcmp(printer->reasons[j], "cups-insecure-filter-warning") &&
+          strcmp(printer->reasons[j], "cups-missing-filter-warning"))
+        cupsFilePutConf(fp, "Reason", printer->reasons[j]);
 
     cupsFilePrintf(fp, "Type %d\n", printer->type);
 
@@ -1584,9 +1600,9 @@ cupsdSaveAllPrinters(void)
     if (printer->error_policy)
       cupsFilePutConf(fp, "ErrorPolicy", printer->error_policy);
 
-    for (i = printer->num_options, option = printer->options;
-         i > 0;
-	 i --, option ++)
+    for (j = printer->num_options, option = printer->options;
+         j > 0;
+	 j --, option ++)
     {
       snprintf(value, sizeof(value), "%s %s", option->name, option->value);
       cupsFilePutConf(fp, "Option", value);
@@ -1597,14 +1613,14 @@ cupsdSaveAllPrinters(void)
     {
       snprintf(value, sizeof(value), "%s ", marker->name);
 
-      for (i = 0, ptr = value + strlen(value);
-           i < marker->num_values && ptr < (value + sizeof(value) - 1);
-	   i ++)
+      for (j = 0, ptr = value + strlen(value);
+           j < marker->num_values && ptr < (value + sizeof(value) - 1);
+	   j ++)
       {
-        if (i)
+        if (j)
 	  *ptr++ = ',';
 
-        cupsCopyString(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
+        cupsCopyString(ptr, marker->values[j].string.text, (size_t)(value + sizeof(value) - ptr));
         ptr += strlen(ptr);
       }
 
@@ -1617,8 +1633,8 @@ cupsdSaveAllPrinters(void)
     {
       cupsFilePrintf(fp, "Attribute %s %d", marker->name,
                      marker->values[0].integer);
-      for (i = 1; i < marker->num_values; i ++)
-        cupsFilePrintf(fp, ",%d", marker->values[i].integer);
+      for (j = 1; j < marker->num_values; j ++)
+        cupsFilePrintf(fp, ",%d", marker->values[j].integer);
       cupsFilePuts(fp, "\n");
     }
 
@@ -1627,8 +1643,8 @@ cupsdSaveAllPrinters(void)
     {
       cupsFilePrintf(fp, "Attribute %s %d", marker->name,
                      marker->values[0].integer);
-      for (i = 1; i < marker->num_values; i ++)
-        cupsFilePrintf(fp, ",%d", marker->values[i].integer);
+      for (j = 1; j < marker->num_values; j ++)
+        cupsFilePrintf(fp, ",%d", marker->values[j].integer);
       cupsFilePuts(fp, "\n");
     }
 
@@ -1637,8 +1653,8 @@ cupsdSaveAllPrinters(void)
     {
       cupsFilePrintf(fp, "Attribute %s %d", marker->name,
                      marker->values[0].integer);
-      for (i = 1; i < marker->num_values; i ++)
-        cupsFilePrintf(fp, ",%d", marker->values[i].integer);
+      for (j = 1; j < marker->num_values; j ++)
+        cupsFilePrintf(fp, ",%d", marker->values[j].integer);
       cupsFilePuts(fp, "\n");
     }
 
@@ -1656,14 +1672,14 @@ cupsdSaveAllPrinters(void)
     {
       snprintf(value, sizeof(value), "%s ", marker->name);
 
-      for (i = 0, ptr = value + strlen(value);
-           i < marker->num_values && ptr < (value + sizeof(value) - 1);
-	   i ++)
+      for (j = 0, ptr = value + strlen(value);
+           j < marker->num_values && ptr < (value + sizeof(value) - 1);
+	   j ++)
       {
-        if (i)
+        if (j)
 	  *ptr++ = ',';
 
-        cupsCopyString(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
+        cupsCopyString(ptr, marker->values[j].string.text, (size_t)(value + sizeof(value) - ptr));
         ptr += strlen(ptr);
       }
 
@@ -1676,14 +1692,14 @@ cupsdSaveAllPrinters(void)
     {
       snprintf(value, sizeof(value), "%s ", marker->name);
 
-      for (i = 0, ptr = value + strlen(value);
-           i < marker->num_values && ptr < (value + sizeof(value) - 1);
-	   i ++)
+      for (j = 0, ptr = value + strlen(value);
+           j < marker->num_values && ptr < (value + sizeof(value) - 1);
+	   j ++)
       {
-        if (i)
+        if (j)
 	  *ptr++ = ',';
 
-        cupsCopyString(ptr, marker->values[i].string.text, (size_t)(value + sizeof(value) - ptr));
+        cupsCopyString(ptr, marker->values[j].string.text, (size_t)(value + sizeof(value) - ptr));
         ptr += strlen(ptr);
       }
 
@@ -1700,6 +1716,8 @@ cupsdSaveAllPrinters(void)
     else
       cupsFilePuts(fp, "</Printer>\n");
   }
+
+  cupsRWUnlock(&PrintersLock);
 
   cupsdCloseCreatedConfFile(fp, filename);
 }

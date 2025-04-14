@@ -36,6 +36,9 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added new `cupsGetClock` API.
 - Added new `cupsParseOptions2` API with "end" argument.
 - Added `cups-oauth` and `cups-x509` utilities (Issue #1184)
+- Added `DNSSDComputerName` directive to "cupsd.conf" and updated cupsd to
+  correctly update the mDNS hostname only if the `DNSSDHostName` directive is
+  not specified (Issue #1217)
 - Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated translations (Issue #1146, Issue #1161, Issue #1164)
 - Updated the configure script to default to installing to /usr/local.

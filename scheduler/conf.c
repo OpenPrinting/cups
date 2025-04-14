@@ -79,6 +79,7 @@ static const cupsd_var_t	cupsd_vars[] =
   { "DefaultPolicy",		&DefaultPolicy,		CUPSD_VARTYPE_STRING },
   { "DefaultShared",		&DefaultShared,		CUPSD_VARTYPE_BOOLEAN },
   { "DirtyCleanInterval",	&DirtyCleanInterval,	CUPSD_VARTYPE_TIME },
+  { "DNSSDComputerName",	&DNSSDComputerName,	CUPSD_VARTYPE_STRING },
   { "DNSSDHostName",		&DNSSDHostName,		CUPSD_VARTYPE_STRING },
   { "ErrorPolicy",		&ErrorPolicy,		CUPSD_VARTYPE_STRING },
   { "FilterLimit",		&FilterLimit,		CUPSD_VARTYPE_INTEGER },
@@ -757,8 +758,9 @@ cupsdReadConfiguration(void)
   Browsing                 = CUPS_DEFAULT_BROWSING;
   DefaultShared            = CUPS_DEFAULT_DEFAULT_SHARED;
 
-  cupsdSetString(&DNSSDSubTypes, "_cups,_print,_universal");
+  cupsdClearString(&DNSSDComputerName);
   cupsdClearString(&DNSSDHostName);
+  cupsdSetString(&DNSSDSubTypes, "_cups,_print,_universal");
 
   cupsdSetString(&ErrorPolicy, CUPS_DEFAULT_ERROR_POLICY);
 
@@ -865,6 +867,12 @@ cupsdReadConfiguration(void)
 
     return (0);
   }
+
+  DNSSDComputerNameConfigured = DNSSDComputerName != NULL;
+  DNSSDHostNameConfigured     = DNSSDHostName != NULL;
+
+  if (DNSSDComputerName && (!*DNSSDComputerName || !strcmp(DNSSDComputerName, "none")))
+    cupsdClearString(&DNSSDComputerName);
 
   RunUser = getuid();
 
