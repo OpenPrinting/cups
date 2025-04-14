@@ -431,9 +431,6 @@ dnssdRegisterCallback(
   if ((flags & CUPS_DNSSD_FLAGS_ERROR) || !p)
     return;
 
-  if (flags & CUPS_DNSSD_FLAGS_HOST_CHANGE)
-    cupsdUpdateDNSSDName();
-
   reg_name = cupsDNSSDServiceGetName(service);
 
   if ((!p->reg_name || _cups_strcasecmp(reg_name, p->reg_name)))
@@ -446,6 +443,9 @@ dnssdRegisterCallback(
 
     LastEvent |= CUPSD_EVENT_PRINTER_MODIFIED;
   }
+
+  if (flags & CUPS_DNSSD_FLAGS_HOST_CHANGE)
+    cupsdUpdateDNSSDName();
 }
 
 
