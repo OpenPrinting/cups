@@ -1,7 +1,7 @@
 /*
  * Client definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -34,6 +34,12 @@ struct cupsd_client_s
 					/* Username from Authorization: line */
 			password[HTTP_MAX_VALUE],
 					/* Password from Authorization: line */
+			email[HTTP_MAX_VALUE],
+					/* EMail from OAuth Bearer token */
+			realname[HTTP_MAX_VALUE],
+					/* Real name from OAuth Bearer token */
+		      	autherror[HTTP_MAX_VALUE],
+					/* Authorization error, if any */
 			uri[HTTP_MAX_URI],
 					/* Localized URL/URI for GET/PUT */
 			*filename,	/* Filename of output file */

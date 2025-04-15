@@ -2101,7 +2101,7 @@ cupsdSendHeader(
     char           *type,		/* I - MIME type of document */
     int            auth_type)		/* I - Type of authentication */
 {
-  char		auth_str[1024];		/* Authorization string */
+  char		auth_str[2048];		/* Authorization string */
 
 
   cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdSendHeader: code=%d, type=\"%s\", auth_type=%d", code, type, auth_type);
@@ -2138,6 +2138,26 @@ cupsdSendHeader(
     if (auth_type == CUPSD_AUTH_BASIC)
     {
       cupsCopyString(auth_str, "Basic realm=\"CUPS\"", sizeof(auth_str));
+    }
+    else if (auth_type == CUPSD_AUTH_BEARER)
+    {
+     /*
+      * OAuth/OpenID:
+      *
+      * Bearer realm="OAUTH-URI" [scope="SCOPES"] [error="invalid_token" error_description="ERROR"]
+      */
+
+      char	*auth_ptr;		/* Pointer into auth string */
+
+      snprintf(auth_str, sizeof(auth_str), "Bearer realm=\"%s\"", OAuthServer);
+      auth_ptr = auth_str + strlen(auth_str);
+      if (OAuthScopes)
+      {
+        snprintf(auth_ptr, sizeof(auth_str) - (size_t)(auth_ptr - auth_str), " scope=\"%s\"", OAuthScopes);
+        auth_ptr += strlen(auth_ptr);
+      }
+      if (con->autherror[0])
+        snprintf(auth_ptr, sizeof(auth_str) - (size_t)(auth_ptr - auth_str), " error=\"invalid_token\" error_description=\"%s\"", con->autherror);
     }
     else if (auth_type == CUPSD_AUTH_NEGOTIATE)
     {
