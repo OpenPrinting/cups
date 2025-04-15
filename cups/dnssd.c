@@ -1003,7 +1003,7 @@ cupsDNSSDQueryNew(
   cups_dnssd_query_t	*query;		// Query request
 
 
-  DEBUG_printf("cupsDNSSDQueryNew(dnssd=%p, if_index=%u, fullname=\"%s\", rrtype=%u, query_cb=%p, cb_data=%p)", (void *)dnssd, if_index, fullname, rrtype, query_cb, cb_data);
+  DEBUG_printf("cupsDNSSDQueryNew(dnssd=%p, if_index=%u, fullname=\"%s\", rrtype=%u, query_cb=%p, cb_data=%p)", (void *)dnssd, if_index, fullname, rrtype, (void *)query_cb, cb_data);
 
   // Range check input...
   if (!dnssd || !fullname || !query_cb)

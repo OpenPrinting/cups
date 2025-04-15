@@ -4195,7 +4195,7 @@ ipp_length(ipp_t *ipp)			/* I - IPP request */
   * Loop through all attributes...
   */
 
-  bytes = 0;
+  bytes = 1;
 
   for (attr = ipp->attrs; attr != NULL; attr = attr->next)
   {

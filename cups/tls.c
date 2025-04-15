@@ -151,7 +151,7 @@ cupsSaveCredentials(
 
 
   // Validate input...
-  DEBUG_printf("cupsSaveCredentials(path=\"%s\", common_name=\"%s\", credentials=%p(%u), key=%p(%u))", path, common_name, credentials, credentials ? (unsigned)strlen(credentials) : 0, key, key ? (unsigned)strlen(key) : 0);
+  DEBUG_printf("cupsSaveCredentials(path=\"%s\", common_name=\"%s\", credentials=%p(%u), key=%p(%u))", path, common_name, (void *)credentials, credentials ? (unsigned)strlen(credentials) : 0, (void *)key, key ? (unsigned)strlen(key) : 0);
 
   if (!path)
     path = http_default_path(defpath, sizeof(defpath));

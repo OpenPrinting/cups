@@ -1475,7 +1475,7 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
   }
 
   // Remove existing JOSE string, if any...
-  DEBUG_printf("1cupsJWTSign: jose=%p, jose_string=\"%s\"", jwt->jose, jwt->jose_string);
+  DEBUG_printf("1cupsJWTSign: jose=%p, jose_string=\"%s\"", (void *)jwt->jose, jwt->jose_string);
 
   _cupsJSONDelete(jwt->jose, "alg");
   _cupsJSONDelete(jwt->jose, "x5c");
@@ -1688,7 +1688,7 @@ make_ec_key(cups_json_t *jwk,		// I - JSON web key
   y   = make_bignum(jwk, "y");
   d   = verify ? NULL : make_bignum(jwk, "d");
 
-  DEBUG_printf("4make_ec_key: crv=\"%s\", x=%p, y=%p, d=%p", crv, x, y, d);
+  DEBUG_printf("4make_ec_key: crv=\"%s\", x=%p, y=%p, d=%p", crv, (void *)x, (void *)y, (void *)d);
 
   if (!crv || ((!x || !y) && !d))
     goto ec_done;
@@ -1774,7 +1774,7 @@ make_rsa(cups_json_t *jwk)		// I - JSON web key
 
   rsa_done:
 
-  DEBUG_printf("4make_rsa: n=%p, e=%p, d=%p, p=%p, q=%p, dp=%p, dq=%p, qi=%p, rsa=%p", n, e, d, p, q, dp, dq, qi, rsa);
+  DEBUG_printf("4make_rsa: n=%p, e=%p, d=%p, p=%p, q=%p, dp=%p, dq=%p, qi=%p, rsa=%p", (void *)n, (void *)e, (void *)d, (void *)p, (void *)q, (void *)dp, (void *)dq, (void *)qi, (void *)rsa);
 
   if (!rsa)
   {

@@ -972,7 +972,7 @@ cupsdLoadAllPrinters(void)
 	  }
 	}
 
-        if (strncmp(p->device_uri, "file:", 5) && p->state != IPP_PSTATE_STOPPED)
+        if (p->device_uri && strncmp(p->device_uri, "file:", 5) && p->state != IPP_PSTATE_STOPPED)
 	{
 	 /*
           * See if the backend exists...
