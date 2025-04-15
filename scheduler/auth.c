@@ -1,7 +1,7 @@
 /*
  * Authorization routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -10,10 +10,6 @@
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cupsd.h"
@@ -63,11 +59,12 @@ static int		check_admin_access(cupsd_client_t *con);
 #ifdef HAVE_AUTHORIZATION_H
 static int		check_authref(cupsd_client_t *con, const char *right);
 #endif /* HAVE_AUTHORIZATION_H */
-static int		compare_locations(cupsd_location_t *a,
-																cupsd_location_t *b,
-																void *data);
+static int		compare_locations(cupsd_location_t *a, cupsd_location_t *b, void *data);
+static int		compare_ogroups(cupsd_ogroup_t *a, cupsd_ogroup_t *b, void *data);
 static cupsd_authmask_t	*copy_authmask(cupsd_authmask_t *am, void *data);
 static void		free_authmask(cupsd_authmask_t *am, void *data);
+static void		free_ogroup(cupsd_ogroup_t *og, void *data);
+static int		load_ogroup(cupsd_ogroup_t *og, struct stat *fileinfo);
 #if HAVE_LIBPAM
 static int		pam_func(int, const struct pam_message **,
 			         struct pam_response **, void *);
@@ -241,6 +238,72 @@ cupsdAddNameMask(cups_array_t **masks,	/* IO - Masks array (created as needed) *
 			   (cups_afree_func_t)free_authmask);
 
   return (cupsArrayAdd(*masks, &temp));
+}
+
+
+/*
+ * 'cupsdAddOAuthGroup()' - Add an OAuth group file.
+ */
+
+int					/* O - 1 on success, 0 on error */
+cupsdAddOAuthGroup(const char *name,	/* I - Group name */
+                   const char *filename)/* I - Group filename */
+{
+  cupsd_ogroup_t	*og;		/* Group */
+  struct stat		fileinfo;	/* File information */
+
+
+ /*
+  * Check OAuth group file...
+  */
+
+  if (stat(filename, &fileinfo))
+  {
+    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to access OAuthGroup %s file \"%s\": %s", name, filename, strerror(errno));
+    return (0);
+  }
+
+ /*
+  * Create the new group...
+  */
+
+  if (!OAuthGroups)
+  {
+   /*
+    * Create groups array...
+    */
+
+    if ((OAuthGroups = cupsArrayNew3((cups_array_cb_t)compare_ogroups, /*d*/NULL, /*h*/NULL, /*hsize*/0, /*cf*/NULL, (cups_afree_cb_t)free_ogroup)) == NULL)
+    {
+      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to allocate memory for OAuthGroup array: %s", strerror(errno));
+      return (0);
+    }
+  }
+
+  if ((og = (cupsd_ogroup_t *)calloc(1, sizeof(cupsd_ogroup_t))) == NULL)
+  {
+    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to allocate memory for OAuthGroup %s: %s", name, strerror(errno));
+    return (0);
+  }
+
+  if ((og->name = strdup(name)) == NULL || (og->filename = strdup(filename)) == NULL)
+  {
+    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to allocate memory for OAuthGroup %s: %s", name, strerror(errno));
+    free_ogroup(og, NULL);
+    return (0);
+  }
+
+ /*
+  * Add the group to the array...
+  */
+
+  cupsArrayAdd(OAuthGroups, og);
+
+ /*
+  * Load the group and return...
+  */
+
+  return (load_ogroup(og, &fileinfo));
 }
 
 
@@ -1424,6 +1487,33 @@ cupsdFindLocation(const char *location)	/* I - Connection */
 
 
 /*
+ * 'cupsdFindOAuthGroup()' - Find an OAuth group.
+ */
+
+cupsd_ogroup_t *			/* O - Group or `NULL` */
+cupsdFindOAuthGroup(const char *name)	/* I - Group name */
+{
+  cupsd_ogroup_t	key,		/* Search key */
+			*og;		/* Matching group */
+  struct stat		fileinfo;	/* Group file information */
+
+
+  key.name = (char *)name;
+  if ((og = (cupsd_ogroup_t *)cupsArrayFind(OAuthGroups, &key)) != NULL)
+  {
+   /*
+    * See if we need to reload the group file...
+    */
+
+    if (!stat(og->filename, &fileinfo) && (fileinfo.st_size != og->fileinfo.st_size || fileinfo.st_mtime > og->fileinfo.st_mtime))
+      load_ogroup(og, &fileinfo);
+  }
+
+  return (og);
+}
+
+
+/*
  * 'cupsdFreeLocation()' - Free all memory used by a location.
  */
 
@@ -2118,13 +2208,29 @@ check_authref(cupsd_client_t *con,	/* I - Connection */
  * 'compare_locations()' - Compare two locations.
  */
 
-static int                             /* O - Result of comparison */
-compare_locations(cupsd_location_t *a, /* I - First location */
-                  cupsd_location_t *b, /* I - Second location */
-                  void *data)          /* Unused */
+static int				/* O - Result of comparison */
+compare_locations(cupsd_location_t *a,	/* I - First location */
+                  cupsd_location_t *b,	/* I - Second location */
+                  void *data)		/* I - Callback data (unused) */
 {
   (void)data;
+
   return (strcmp(b->location, a->location));
+}
+
+
+/*
+ * 'compare_ogroups()' - Compare two OAuth groups.
+ */
+
+static int				/* O - Result of comparison */
+compare_ogroups(cupsd_ogroup_t *a,	/* I - First group */
+                cupsd_ogroup_t *b,	/* I - Second group */
+                void           *data)	/* I - Callback data (unused) */
+{
+  (void)data;
+
+  return (_cups_strcasecmp(a->name, b->name));
 }
 
 
@@ -2173,7 +2279,7 @@ copy_authmask(cupsd_authmask_t *mask,	/* I - Existing auth mask */
 
 static void
 free_authmask(cupsd_authmask_t *mask,	/* I - Auth mask to free */
-              void             *data)	/* I - User data (unused) */
+              void             *data)	/* I - Callback data (unused) */
 {
   (void)data;
 
@@ -2181,6 +2287,67 @@ free_authmask(cupsd_authmask_t *mask,	/* I - Auth mask to free */
     _cupsStrFree(mask->mask.name.name);
 
   free(mask);
+}
+
+
+/*
+ * 'free_ogroup()' - Free an OAuth group.
+ */
+
+static void
+free_ogroup(cupsd_ogroup_t *og,		/* I - OAuth group */
+            void           *data)	/* I - Callback data (unused) */
+{
+  (void)data;
+
+  free(og->name);
+  free(og->filename);
+  cupsArrayDelete(og->members);
+  free(og);
+}
+
+
+/*
+ * 'load_ogroup()' - Load an OAuth group file.
+ */
+
+static int				/* O - 1 on success, 0 on failure */
+load_ogroup(cupsd_ogroup_t *og,		/* I - OAuth group */
+            struct stat    *fileinfo)	/* I - File information */
+{
+  cups_file_t	*fp;			/* File pointer */
+  char		line[1024];		/* Line from file */
+
+
+ /*
+  * Make sure we have a fresh members array...
+  */
+
+  cupsArrayDelete(og->members);
+  if ((og->members = cupsArrayNewStrings(/*s*/NULL, /*delim*/'\0')) == NULL)
+  {
+    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to allocate members array for OAuth group %s: %s", og->name, strerror(errno));
+    return (0);
+  }
+
+ /*
+  * Load the members file...
+  */
+
+  if ((fp = cupsFileOpen(og->filename, "r")) == NULL)
+  {
+    cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to open OAuth group %s filename \"%s\": %s", og->name, og->filename, strerror(errno));
+    return (0);
+  }
+
+  while (cupsFileGets(fp, line, sizeof(line)))
+    cupsArrayAdd(og->members, line);
+
+  cupsFileClose(fp);
+
+  og->fileinfo = *fileinfo;
+
+  return (1);
 }
 
 

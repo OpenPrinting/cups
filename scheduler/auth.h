@@ -1,19 +1,16 @@
 /*
  * Authorization definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2014 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include <pwd.h>
+#include <cups/jwt.h>
 
 
 /*
@@ -23,8 +20,9 @@
 #define CUPSD_AUTH_DEFAULT	-1	/* Use DefaultAuthType */
 #define CUPSD_AUTH_NONE		0	/* No authentication */
 #define CUPSD_AUTH_BASIC	1	/* Basic authentication */
-#define CUPSD_AUTH_NEGOTIATE	2	/* Kerberos authentication */
-#define CUPSD_AUTH_AUTO		3	/* Kerberos or Basic, depending on configuration of server */
+#define CUPSD_AUTH_BEARER	2	/* OAuth/OpenID authentication */
+#define CUPSD_AUTH_NEGOTIATE	3	/* Kerberos authentication */
+#define CUPSD_AUTH_AUTO		4	/* Kerberos, OAuth, or Basic, depending on configuration of server */
 
 #define CUPSD_AUTH_ANON		0	/* Anonymous access */
 #define CUPSD_AUTH_USER		1	/* Must have a valid username/password */
@@ -82,7 +80,7 @@ typedef struct
   }		mask;			/* Mask data */
 } cupsd_authmask_t;
 
-typedef struct
+typedef struct cupsd_location_s		/* Location Policy */
 {
   char			*location;	/* Location of resource */
   size_t		length;		/* Length of location string */
@@ -98,37 +96,55 @@ typedef struct
   http_encryption_t	encryption;	/* To encrypt or not to encrypt... */
 } cupsd_location_t;
 
+typedef struct cupsd_ogroup_s		/* OAuth Group */
+{
+  char			*name,		/* Group name */
+			*filename;	/* Group filename */
+  struct stat		fileinfo;	/* Group filename info */
+  cups_array_t		*members;	/* Group members */
+} cupsd_ogroup_t;
+
 
 /*
  * Globals...
  */
 
-VAR cups_array_t	*Locations	VALUE(NULL);
-					/* Authorization locations */
 VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPTION_REQUIRED);
 					/* Default encryption for authentication */
+
+VAR cups_array_t	*Locations	VALUE(NULL);
+					/* Authorization locations */
+
+VAR cups_array_t	*OAuthGroups	VALUE(NULL);
+					/* OAuthGroup entries */
+VAR http_t		*OAuthHTTP	VALUE(NULL);
+					/* Connection to server */
+VAR cups_json_t		*OAuthMetadata	VALUE(NULL);
+					/* Metadata from the server */
+VAR char		*OAuthScopes	VALUE(NULL),
+					/* OAuthScopes value */
+			*OAuthServer	VALUE(NULL);
+					/* OAuthServer URL */
 
 
 /*
  * Prototypes...
  */
 
-extern int		cupsdAddIPMask(cups_array_t **masks,
-				       const unsigned address[4],
-				       const unsigned netmask[4]);
+extern int		cupsdAddIPMask(cups_array_t **masks, const unsigned address[4], const unsigned netmask[4]);
 extern void		cupsdAddLocation(cupsd_location_t *loc);
 extern void		cupsdAddName(cupsd_location_t *loc, char *name);
 extern int		cupsdAddNameMask(cups_array_t **masks, char *name);
+extern int		cupsdAddOAuthGroup(const char *name, const char *filename);
 extern void		cupsdAuthorize(cupsd_client_t *con);
 extern int		cupsdCheckAccess(unsigned ip[4], const char *name, size_t namelen, cupsd_location_t *loc);
 extern int		cupsdCheckAuth(unsigned ip[4], const char *name, size_t namelen, cups_array_t *masks);
-extern int		cupsdCheckGroup(const char *username,
-			                struct passwd *user,
-			                const char *groupname);
+extern int		cupsdCheckGroup(const char *username, struct passwd *user, const char *groupname);
 extern cupsd_location_t	*cupsdCopyLocation(cupsd_location_t *loc);
 extern void		cupsdDeleteAllLocations(void);
 extern cupsd_location_t	*cupsdFindBest(const char *path, http_state_t state);
 extern cupsd_location_t	*cupsdFindLocation(const char *location);
+extern cupsd_ogroup_t	*cupsdFindOAuthGroup(const char *name);
 extern void		cupsdFreeLocation(cupsd_location_t *loc, void *data);
 extern http_status_t	cupsdIsAuthorized(cupsd_client_t *con, const char *owner);
 extern cupsd_location_t	*cupsdNewLocation(const char *location);

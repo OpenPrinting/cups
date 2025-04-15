@@ -139,6 +139,8 @@ static const cupsd_var_t	cupsfiles_vars[] =
   { "ErrorLog",			&ErrorLog,		CUPSD_VARTYPE_STRING },
   { "FileDevice",		&FileDevice,		CUPSD_VARTYPE_BOOLEAN },
   { "LogFilePerm",		&LogFilePerm,		CUPSD_VARTYPE_PERM },
+  { "OAuthScopes",		&OAuthScopes,		CUPSD_VARTYPE_STRING },
+  { "OAuthServer",		&OAuthServer,		CUPSD_VARTYPE_STRING },
   { "PageLog",			&PageLog,		CUPSD_VARTYPE_STRING },
   { "Printcap",			&Printcap,		CUPSD_VARTYPE_STRING },
   { "RemoteRoot",		&RemoteRoot,		CUPSD_VARTYPE_STRING },
@@ -384,10 +386,10 @@ cupsdCheckPermissions(
 /*
  * 'cupsdDefaultAuthType()' - Get the default AuthType.
  *
- * When the default_auth_type is "auto", this function tries to get the GSS
- * credentials for the server.  If that succeeds we use Kerberos authentication,
- * otherwise we do a fallback to Basic authentication against the local user
- * accounts.
+ * When the default_auth_type is "auto", this function uses OAuth if the
+ * OAuthServer directive has been specified or Kerberos if we can get GSS
+ * credentials for the server.  Otherwise we fallback to Basic authentication
+ * against the local user accounts.
  */
 
 int					/* O - Default AuthType value */
@@ -409,6 +411,13 @@ cupsdDefaultAuthType(void)
 
   if (default_auth_type != CUPSD_AUTH_AUTO)
     return (default_auth_type);
+
+ /*
+  * If the OAuthServer is set, use that...
+  */
+
+  if (OAuthServer)
+    return (default_auth_type = CUPSD_AUTH_BEARER);
 
 #ifdef HAVE_GSSAPI
 #  ifdef __APPLE__
@@ -593,6 +602,18 @@ cupsdReadConfiguration(void)
   cupsdSetStringf(&ServerHeader, "CUPS/%d.%d IPP/2.1", CUPS_VERSION_MAJOR,
                   CUPS_VERSION_MINOR);
   cupsdSetString(&StateDir, CUPS_STATEDIR);
+
+  cupsdClearString(&OAuthScopes);
+  cupsdClearString(&OAuthServer);
+
+  cupsArrayDelete(OAuthGroups);
+  OAuthGroups = NULL;
+
+  httpClose(OAuthHTTP);
+  OAuthHTTP = NULL;
+
+  cupsJSONDelete(OAuthMetadata);
+  OAuthMetadata = NULL;
 
   if (!strcmp(CUPS_DEFAULT_PRINTCAP, "/etc/printers.conf"))
     PrintcapFormat = PRINTCAP_SOLARIS;
@@ -2336,6 +2357,13 @@ parse_aaa(cupsd_location_t *loc,	/* I - Location */
       if (loc->level == CUPSD_AUTH_ANON)
 	loc->level = CUPSD_AUTH_USER;
     }
+    else if (!_cups_strcasecmp(value, "bearer"))
+    {
+      loc->type = CUPSD_AUTH_BEARER;
+
+      if (loc->level == CUPSD_AUTH_ANON)
+	loc->level = CUPSD_AUTH_USER;
+    }
     else if (!_cups_strcasecmp(value, "default"))
     {
       loc->type = CUPSD_AUTH_DEFAULT;
@@ -3293,6 +3321,8 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	default_auth_type = CUPSD_AUTH_NONE;
       else if (!_cups_strcasecmp(value, "basic"))
 	default_auth_type = CUPSD_AUTH_BASIC;
+      else if (!_cups_strcasecmp(value, "bearer"))
+	default_auth_type = CUPSD_AUTH_BEARER;
       else if (!_cups_strcasecmp(value, "negotiate"))
         default_auth_type = CUPSD_AUTH_NEGOTIATE;
       else if (!_cups_strcasecmp(value, "auto"))
@@ -3647,6 +3677,35 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 	  if (FatalErrors & CUPSD_FATAL_CONFIG)
 	    return (0);
 	}
+      }
+    }
+    else if (!_cups_strcasecmp(line, "OAuthGroup") && value)
+    {
+     /*
+      * OAuthGroup NAME FILENAME
+      */
+
+      char *filename;			/* Filename on line */
+
+      for (filename = value; *filename; filename ++)
+      {
+        if (isspace(*filename & 255))
+          break;
+      }
+
+      while (*filename && isspace(*filename & 255))
+        *filename++ = '\0';
+
+      if (*filename && !access(filename, R_OK))
+      {
+        if (!cupsdAddOAuthGroup(value, filename) && (FatalErrors & CUPSD_FATAL_CONFIG))
+          return (0);
+      }
+      else
+      {
+        cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to read OAuthGroup file \"%s\" on line %d of %s: %s", filename, linenum, CupsFilesFile, strerror(errno));
+        if (FatalErrors & CUPSD_FATAL_CONFIG)
+	  return (0);
       }
     }
     else if (!_cups_strcasecmp(line, "PassEnv") && value)
