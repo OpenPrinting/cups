@@ -4722,7 +4722,13 @@ load_request_root(void)
 	  unload_job(job);
       }
       else
-        free(job);
+      {
+       /*
+        * Unable to load job, delete it...
+        */
+
+        cupsdDeleteJob(job, CUPSD_JOB_FORCE);
+      }
     }
 
   cupsDirClose(dir);
