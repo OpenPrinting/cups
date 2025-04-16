@@ -1524,7 +1524,14 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   add_job_uuid(job);
   apply_printer_defaults(printer, job);
 
-  if (con->username[0])
+  if (con->realname[0])
+  {
+    cupsdSetString(&job->username, con->realname);
+
+    if (attr)
+      ippSetString(job->attrs, &attr, 0, con->realname);
+  }
+  else if (con->username[0])
   {
     cupsdSetString(&job->username, con->username);
 
@@ -1541,13 +1548,19 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     cupsdSetString(&job->username, "anonymous");
 
   if (!attr)
-    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME,
-                 "job-originating-user-name", NULL, job->username);
+  {
+    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-originating-user-name", NULL, job->username);
+  }
   else
   {
     ippSetGroupTag(job->attrs, &attr, IPP_TAG_JOB);
     ippSetName(job->attrs, &attr, "job-originating-user-name");
   }
+
+  if (con->email[0])
+    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "mailto:", con->email);
+  else
+    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "urn:sub:", con->username);
 
   if (con->username[0] || auth_info)
   {
@@ -7827,7 +7840,9 @@ get_username(cupsd_client_t *con)	/* I - Connection */
   ipp_attribute_t	*attr;		/* Attribute */
 
 
-  if (con->username[0])
+  if (con->realname[0])
+    return (con->realname);
+  else if (con->username[0])
     return (con->username);
   else if ((attr = ippFindAttribute(con->request, "requesting-user-name",
                                     IPP_TAG_NAME)) != NULL)
