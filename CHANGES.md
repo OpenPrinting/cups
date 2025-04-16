@@ -6,6 +6,7 @@ Changes in CUPS v2.4.13 (YYYY-MM-DD)
 ------------------------------------
 
 - Fixed a memory leak in `httpClose` (Issue #1223)
+- Fixed missing commas in `ippCreateRequestedArray` (Issue #1234)
 
 
 Changes in CUPS v2.4.12 (2025-04-08)

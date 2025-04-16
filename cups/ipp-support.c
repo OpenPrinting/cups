@@ -1,7 +1,7 @@
 /*
  * Internet Printing Protocol support functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1383,9 +1383,9 @@ ippCreateRequestedArray(ipp_t *request)	/* I - IPP request */
     "job-account-id",
     "job-account-id-default",
     "job-account-id-supported",
-    "job-accounting-sheets"
-    "job-accounting-sheets-default"
-    "job-accounting-sheets-supported"
+    "job-accounting-sheets",
+    "job-accounting-sheets-default",
+    "job-accounting-sheets-supported",
     "job-accounting-user-id",
     "job-accounting-user-id-default",
     "job-accounting-user-id-supported",
