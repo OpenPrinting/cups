@@ -3234,10 +3234,14 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
   int		envc;			/* Number of environment variables */
   char		argbuf[10240],		/* Argument buffer */
 		*argv[100],		/* Argument strings */
-		*envp[MAX_ENV + 20];	/* Environment variables */
+		*envp[MAX_ENV + 30];	/* Environment variables */
   char		auth_type[256],		/* AUTH_TYPE environment variable */
 		content_length[1024],	/* CONTENT_LENGTH environment variable */
 		content_type[1024],	/* CONTENT_TYPE environment variable */
+		cups_oauth_scopes[1024],/* CUPS_OAUTH_SCOPES environment variable */
+		cups_oauth_server[1024],/* CUPS_OAUTH_SERVER environment variable */
+		http_authorization[16384],
+					/* HTTP_AUTHORIZATION environemnt variable */
 		http_cookie[32768],	/* HTTP_COOKIE environment variable */
 		http_referer[1024],	/* HTTP_REFERER environment variable */
 		http_user_agent[1024],	/* HTTP_USER_AGENT environment variable */
@@ -3440,6 +3444,18 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
   envp[envc ++] = script_name;
   envp[envc ++] = script_filename;
 
+  if (OAuthScopes)
+  {
+    snprintf(cups_oauth_scopes, sizeof(cups_oauth_scopes), "CUPS_OAUTH_SCOPES=%s", OAuthScopes);
+    envp[envc ++] = cups_oauth_scopes;
+  }
+
+  if (OAuthServer)
+  {
+    snprintf(cups_oauth_server, sizeof(cups_oauth_server), "CUPS_OAUTH_SERVER=%s", OAuthServer);
+    envp[envc ++] = cups_oauth_server;
+  }
+
   if (path_info[0])
     envp[envc ++] = path_info;
 
@@ -3456,6 +3472,12 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
     envp[envc ++] = "SERVER_PROTOCOL=HTTP/1.0";
   else
     envp[envc ++] = "SERVER_PROTOCOL=HTTP/0.9";
+
+  if (httpGetAuthString(con->http))
+  {
+    snprintf(http_authorization, sizeof(http_authorization), "HTTP_AUTHORIZATION=%s", httpGetAuthString(con->http));
+    envp[envc ++] = http_authorization;
+  }
 
   if (httpGetCookie(con->http))
   {
