@@ -1620,6 +1620,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 		{
 		  "None",
 		  "Basic",
+		  "Bearer",
 		  "Negotiate"
 		};
 
@@ -1786,169 +1787,253 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   * Strip any @domain or @KDC from the username and owner...
   */
 
-  if (StripUserDomain && (ptr = strchr(username, '@')) != NULL)
+  if (type != CUPSD_AUTH_BEARER && StripUserDomain && (ptr = strchr(username, '@')) != NULL)
     *ptr = '\0';
 
   if (owner)
   {
     cupsCopyString(ownername, owner, sizeof(ownername));
 
-    if (StripUserDomain && (ptr = strchr(ownername, '@')) != NULL)
+    if (type != CUPSD_AUTH_BEARER && StripUserDomain && (ptr = strchr(ownername, '@')) != NULL)
       *ptr = '\0';
   }
   else
     ownername[0] = '\0';
 
- /*
-  * Get the user info...
-  */
-
-  if (username[0])
+  if (type == CUPSD_AUTH_BEARER)
   {
-    pw = getpwnam(username);
-    endpwent();
+   /*
+    * Lookup access via OAuth groups...
+    */
+
+    cupsd_ogroup_t	*og;		// Current OAuth group
+
+    if (best->level == CUPSD_AUTH_USER)
+    {
+     /*
+      * If there are no names associated with this location, then any valid user
+      * is OK...
+      */
+
+      if (cupsArrayCount(best->names) == 0)
+	return (HTTP_STATUS_OK);
+
+     /*
+      * Otherwise check the user list and return OK if this user is allowed...
+      */
+
+      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking user membership...");
+
+      for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
+      {
+	if (!_cups_strcasecmp(name, "@OWNER") && owner && !_cups_strcasecmp(username, ownername))
+	{
+	  // User is owner...
+	  return (HTTP_STATUS_OK);
+	}
+	else if (name[0] == '@')
+	{
+	  // Check OAuth group membership...
+	  if ((og = cupsdFindOAuthGroup(name + 1)) == NULL)
+	  {
+	    // Group not defined...
+	    cupsdLogMessage(CUPSD_LOG_ERROR, "Authorization policy requires undefined OAuth group \"%s\", ignoring.", name + 1);
+	  }
+	  else if (cupsArrayFind(og->members, username) || (con->email[0] && cupsArrayFind(og->members, con->email)))
+	  {
+	    // User is in group...
+	    return (HTTP_STATUS_OK);
+	  }
+	}
+	else if (!_cups_strcasecmp(username, name) || (con->email[0] && !_cups_strcasecmp(con->email, name)))
+	{
+	  return (HTTP_STATUS_OK);
+	}
+      }
+    }
+    else
+    {
+     /*
+      * Check to see if this user is in any of the named groups...
+      */
+
+      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group membership...");
+
+     /*
+      * Check to see if this user is in any of the named groups...
+      */
+
+      for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
+      {
+	cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership.", name);
+
+	if ((og = cupsdFindOAuthGroup(name)) == NULL)
+	{
+	  // Group not defined...
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Authorization policy requires undefined OAuth group \"%s\", ignoring.", name + 1);
+	}
+	else if (cupsArrayFind(og->members, username) || (con->email[0] && cupsArrayFind(og->members, con->email)))
+	{
+	  // User is in group...
+	  return (HTTP_STATUS_OK);
+	}
+      }
+    }
   }
   else
-    pw = NULL;
-
- /*
-  * For matching user and group memberships below we will first go
-  * through all names except @SYSTEM to authorize the task as
-  * non-administrative, like printing or deleting one's own job, if this
-  * fails we will check whether we can authorize via the special name
-  * @SYSTEM, as an administrative task, like creating a print queue or
-  * deleting someone else's job.
-  * Note that tasks are considered as administrative by the policies
-  * in cupsd.conf, when they require the user or group @SYSTEM.
-  * We do this separation because if the client is a Snap connecting via
-  * domain socket, we need to additionally check whether it plugs to us
-  * through the "cups-control" interface which allows administration and
-  * not through the "cups" interface which allows only printing.
-  */
-
-  if (best->level == CUPSD_AUTH_USER)
   {
    /*
-    * If there are no names associated with this location, then
-    * any valid user is OK...
+    * Get the (local) user info...
     */
 
-    if (cupsArrayCount(best->names) == 0)
-      return (HTTP_STATUS_OK);
+    if (username[0])
+    {
+      pw = getpwnam(username);
+      endpwent();
+    }
+    else
+      pw = NULL;
 
    /*
-    * Otherwise check the user list and return OK if this user is
-    * allowed...
+    * For matching user and group memberships below we will first go
+    * through all names except @SYSTEM to authorize the task as
+    * non-administrative, like printing or deleting one's own job, if this
+    * fails we will check whether we can authorize via the special name
+    * @SYSTEM, as an administrative task, like creating a print queue or
+    * deleting someone else's job.
+    *
+    * Note that tasks are considered as administrative by the policies
+    * in cupsd.conf, when they require the user or group @SYSTEM.
+    * We do this separation because if the client is a Snap connecting via
+    * domain socket, we need to additionally check whether it plugs to us
+    * through the "cups-control" interface which allows administration and
+    * not through the "cups" interface which allows only printing.
     */
 
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking user membership...");
+    if (best->level == CUPSD_AUTH_USER)
+    {
+     /*
+      * If there are no names associated with this location, then
+      * any valid user is OK...
+      */
+
+      if (cupsArrayCount(best->names) == 0)
+	return (HTTP_STATUS_OK);
+
+     /*
+      * Otherwise check the user list and return OK if this user is
+      * allowed...
+      */
+
+      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking user membership...");
 
 #ifdef HAVE_AUTHORIZATION_H
-   /*
-    * If an authorization reference was supplied it must match a right name...
-    */
+     /*
+      * If an authorization reference was supplied it must match a right name...
+      */
 
-    if (con->authref)
-    {
-      for (name = (char *)cupsArrayFirst(best->names);
-           name;
-	   name = (char *)cupsArrayNext(best->names))
+      if (con->authref)
       {
-	if (!_cups_strncasecmp(name, "@AUTHKEY(", 9) && check_authref(con, name + 9))
-	  return (HTTP_STATUS_OK);
-      }
+	for (name = (char *)cupsArrayFirst(best->names);
+	     name;
+	     name = (char *)cupsArrayNext(best->names))
+	{
+	  if (!_cups_strncasecmp(name, "@AUTHKEY(", 9) && check_authref(con, name + 9))
+	    return (HTTP_STATUS_OK);
+	}
 
-      for (name = (char *)cupsArrayFirst(best->names);
-           name;
-	   name = (char *)cupsArrayNext(best->names))
-      {
-	if (!_cups_strcasecmp(name, "@SYSTEM") && SystemGroupAuthKey &&
-	    check_authref(con, SystemGroupAuthKey))
-	  return (HTTP_STATUS_OK);
-      }
+	for (name = (char *)cupsArrayFirst(best->names);
+	     name;
+	     name = (char *)cupsArrayNext(best->names))
+	{
+	  if (!_cups_strcasecmp(name, "@SYSTEM") && SystemGroupAuthKey &&
+	      check_authref(con, SystemGroupAuthKey))
+	    return (HTTP_STATUS_OK);
+	}
 
-      return (HTTP_STATUS_FORBIDDEN);
-    }
+	return (HTTP_STATUS_FORBIDDEN);
+      }
 #endif /* HAVE_AUTHORIZATION_H */
 
-    for (name = (char *)cupsArrayFirst(best->names);
-	 name;
-	 name = (char *)cupsArrayNext(best->names))
-    {
-      if (!_cups_strcasecmp(name, "@OWNER") && owner &&
-          !_cups_strcasecmp(username, ownername))
-	return (HTTP_STATUS_OK);
-      else if (!_cups_strcasecmp(name, "@SYSTEM"))
+      for (name = (char *)cupsArrayFirst(best->names);
+	   name;
+	   name = (char *)cupsArrayNext(best->names))
       {
-	/* Do @SYSTEM later, when every other entry fails */
-	continue;
-      }
-      else if (name[0] == '@')
-      {
-        if (cupsdCheckGroup(username, pw, name + 1))
-          return (HTTP_STATUS_OK);
-      }
-      else if (!_cups_strcasecmp(username, name))
-        return (HTTP_STATUS_OK);
-    }
-
-    for (name = (char *)cupsArrayFirst(best->names);
-	 name;
-	 name = (char *)cupsArrayNext(best->names))
-    {
-      if (!_cups_strcasecmp(name, "@SYSTEM"))
-      {
-        for (i = 0; i < NumSystemGroups; i ++)
-	  if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
-	    return (HTTP_STATUS_OK);
-      }
-    }
-
-    return (con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED);
-  }
-
- /*
-  * Check to see if this user is in any of the named groups...
-  */
-
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group membership...");
-
- /*
-  * Check to see if this user is in any of the named groups...
-  */
-
-  for (name = (char *)cupsArrayFirst(best->names);
-       name;
-       name = (char *)cupsArrayNext(best->names))
-  {
-    if (!_cups_strcasecmp(name, "@SYSTEM"))
-    {
-      /* Do @SYSTEM later, when every other entry fails */
-      continue;
-    }
-
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership...", name);
-
-    if (cupsdCheckGroup(username, pw, name))
-      return (HTTP_STATUS_OK);
-  }
-
-  for (name = (char *)cupsArrayFirst(best->names);
-       name;
-       name = (char *)cupsArrayNext(best->names))
-  {
-    if (!_cups_strcasecmp(name, "@SYSTEM"))
-    {
-      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership...", name);
-
-      for (i = 0; i < NumSystemGroups; i ++)
-	if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
+	if (!_cups_strcasecmp(name, "@OWNER") && owner &&
+	    !_cups_strcasecmp(username, ownername))
 	  return (HTTP_STATUS_OK);
+	else if (!_cups_strcasecmp(name, "@SYSTEM"))
+	{
+	  /* Do @SYSTEM later, when every other entry fails */
+	  continue;
+	}
+	else if (name[0] == '@')
+	{
+	  if (cupsdCheckGroup(username, pw, name + 1))
+	    return (HTTP_STATUS_OK);
+	}
+	else if (!_cups_strcasecmp(username, name))
+	  return (HTTP_STATUS_OK);
+      }
+
+      for (name = (char *)cupsArrayFirst(best->names);
+	   name;
+	   name = (char *)cupsArrayNext(best->names))
+      {
+	if (!_cups_strcasecmp(name, "@SYSTEM"))
+	{
+	  for (i = 0; i < NumSystemGroups; i ++)
+	    if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
+	      return (HTTP_STATUS_OK);
+	}
+      }
+    }
+    else
+    {
+     /*
+      * Check to see if this user is in any of the named groups...
+      */
+
+      cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group membership...");
+
+     /*
+      * Check to see if this user is in any of the named groups...
+      */
+
+      for (name = (char *)cupsArrayFirst(best->names);
+	   name;
+	   name = (char *)cupsArrayNext(best->names))
+      {
+	if (!_cups_strcasecmp(name, "@SYSTEM"))
+	{
+	  /* Do @SYSTEM later, when every other entry fails */
+	  continue;
+	}
+
+	cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership...", name);
+
+	if (cupsdCheckGroup(username, pw, name))
+	  return (HTTP_STATUS_OK);
+      }
+
+      for (name = (char *)cupsArrayFirst(best->names);
+	   name;
+	   name = (char *)cupsArrayNext(best->names))
+      {
+	if (!_cups_strcasecmp(name, "@SYSTEM"))
+	{
+	  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership...", name);
+
+	  for (i = 0; i < NumSystemGroups; i ++)
+	    if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
+	      return (HTTP_STATUS_OK);
+	}
+      }
     }
   }
 
  /*
-  * The user isn't part of the specified group, so deny access...
+  * The user isn't part of the specified users or groups, so deny access...
   */
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdIsAuthorized: User not in group(s).");
