@@ -4674,6 +4674,7 @@ load_request_root(void)
   */
 
   while ((dent = cupsDirRead(dir)) != NULL)
+  {
     if (strlen(dent->filename) >= 6 && dent->filename[0] == 'c')
     {
      /*
@@ -4730,6 +4731,7 @@ load_request_root(void)
         cupsdDeleteJob(job, CUPSD_JOB_FORCE);
       }
     }
+  }
 
   cupsDirClose(dir);
 }

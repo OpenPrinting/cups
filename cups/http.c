@@ -1886,6 +1886,7 @@ httpPeek(http_t *http,			// I - HTTP connection
     {
       DEBUG_puts("2httpPeek: Unable to copy decompressor stream.");
       http->error = ENOMEM;
+      inflateEnd(&stream);
       return (-1);
     }
 

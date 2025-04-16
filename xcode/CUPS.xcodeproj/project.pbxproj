@@ -71,6 +71,8 @@
 			buildPhases = (
 			);
 			dependencies = (
+				27C3E96E2DB04B5800A6ABBF /* PBXTargetDependency */,
+				27C3E9702DB04B5800A6ABBF /* PBXTargetDependency */,
 				273B1EC2226B3F2600428143 /* PBXTargetDependency */,
 				273B1EC4226B3F2600428143 /* PBXTargetDependency */,
 				271287061CC13F8F00E517C7 /* PBXTargetDependency */,
@@ -826,6 +828,10 @@
 		27B493ED2C8FC36E004C7A73 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2758FE1C2C8FBD2B0078480C /* libiconv.tbd */; };
 		27B493EE2C8FC37B004C7A73 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2758FE182C8F9F5E0078480C /* CoreServices.framework */; };
 		27B493EF2C8FC389004C7A73 /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27865F092C8FC0A5003D5606 /* GSS.framework */; };
+		27C3E9562DB04AC500A6ABBF /* libcups2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups2.dylib */; };
+		27C3E9622DB04ACE00A6ABBF /* libcups2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups2.dylib */; };
+		27C3E96B2DB04B2900A6ABBF /* cups-oauth.c in Sources */ = {isa = PBXBuildFile; fileRef = 27C3E9682DB04AFB00A6ABBF /* cups-oauth.c */; };
+		27C3E96C2DB04B3600A6ABBF /* cups-x509.c in Sources */ = {isa = PBXBuildFile; fileRef = 27C3E9692DB04AFB00A6ABBF /* cups-x509.c */; };
 		27F515462AAFBECF0045EE21 /* raster-testpage.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515432AAFBECF0045EE21 /* raster-testpage.h */; };
 		27F515472AAFBECF0045EE21 /* raster-testpage.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515432AAFBECF0045EE21 /* raster-testpage.h */; };
 		27F515482AAFBECF0045EE21 /* raster-testpage.h in Headers */ = {isa = PBXBuildFile; fileRef = 27F515432AAFBECF0045EE21 /* raster-testpage.h */; };
@@ -2206,6 +2212,34 @@
 			remoteGlobalIDString = 27A0347A1A8BDB1200650675;
 			remoteInfo = lpadmin;
 		};
+		27C3E9522DB04AC500A6ABBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 72220EAD1333047D00FCA411;
+			remoteInfo = libcups;
+		};
+		27C3E95E2DB04ACE00A6ABBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 72220EAD1333047D00FCA411;
+			remoteInfo = libcups;
+		};
+		27C3E96D2DB04B5800A6ABBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27C3E95C2DB04ACE00A6ABBF;
+			remoteInfo = "cups-oauth";
+		};
+		27C3E96F2DB04B5800A6ABBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27C3E9502DB04AC500A6ABBF;
+			remoteInfo = "cups-x509";
+		};
 		720DD6CE1358FD790064AA82 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
@@ -3081,6 +3115,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		27C3E9572DB04AC500A6ABBF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		27C3E9632DB04ACE00A6ABBF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		720DD6C01358FD5F0064AA82 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3568,6 +3620,10 @@
 		278C58E8136B64B000836530 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		279AE6F42395B80F004DD600 /* libpam.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpam.tbd; path = usr/lib/libpam.tbd; sourceTree = SDKROOT; };
 		27A0347B1A8BDB1300650675 /* lpadmin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lpadmin; sourceTree = BUILT_PRODUCTS_DIR; };
+		27C3E95B2DB04AC500A6ABBF /* cups-x509 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cups-x509"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27C3E9672DB04ACE00A6ABBF /* cups-oauth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cups-oauth"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27C3E9682DB04AFB00A6ABBF /* cups-oauth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "cups-oauth.c"; sourceTree = "<group>"; };
+		27C3E9692DB04AFB00A6ABBF /* cups-x509.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "cups-x509.c"; sourceTree = "<group>"; };
 		27C89C902613E7C300A58F43 /* cups-tls.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-tls.m4"; path = "../config-scripts/cups-tls.m4"; sourceTree = "<group>"; };
 		27D3037D134148CB00F022B1 /* libcups2.def */ = {isa = PBXFileReference; lastKnownFileType = text; name = libcups2.def; path = ../cups/libcups2.def; sourceTree = "<group>"; };
 		27F515432AAFBECF0045EE21 /* raster-testpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "raster-testpage.h"; path = "../cups/raster-testpage.h"; sourceTree = "<group>"; };
@@ -4579,6 +4635,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		27C3E9552DB04AC500A6ABBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27C3E9562DB04AC500A6ABBF /* libcups2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27C3E9612DB04ACE00A6ABBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27C3E9622DB04ACE00A6ABBF /* libcups2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		720DD6BF1358FD5F0064AA82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -5293,6 +5365,8 @@
 				276683681337AA00000D33D0 /* cupsctl.c */,
 				274FF68713333B6E00317ECB /* cupsfilter.c */,
 				72F75A5B1336F988004BB496 /* cupstestppd.c */,
+				27C3E9682DB04AFB00A6ABBF /* cups-oauth.c */,
+				27C3E9692DB04AFB00A6ABBF /* cups-x509.c */,
 				273B1EBD226B3EE300428143 /* ippevecommon.h */,
 				273B1EBE226B3EE300428143 /* ippevepcl.c */,
 				726AD701135E8A90002C930D /* ippeveprinter.c */,
@@ -5430,6 +5504,8 @@
 				2758FDF62C8F9C240078480C /* testoauth */,
 				2758FE072C8F9C5B0078480C /* testform */,
 				275CEA422CC840EE008FBB27 /* testclock */,
+				27C3E95B2DB04AC500A6ABBF /* cups-x509 */,
+				27C3E9672DB04ACE00A6ABBF /* cups-oauth */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7063,6 +7139,42 @@
 			productReference = 27A0347B1A8BDB1300650675 /* lpadmin */;
 			productType = "com.apple.product-type.tool";
 		};
+		27C3E9502DB04AC500A6ABBF /* cups-x509 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27C3E9582DB04AC500A6ABBF /* Build configuration list for PBXNativeTarget "cups-x509" */;
+			buildPhases = (
+				27C3E9532DB04AC500A6ABBF /* Sources */,
+				27C3E9552DB04AC500A6ABBF /* Frameworks */,
+				27C3E9572DB04AC500A6ABBF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				27C3E9512DB04AC500A6ABBF /* PBXTargetDependency */,
+			);
+			name = "cups-x509";
+			productName = cupsaddsmb;
+			productReference = 27C3E95B2DB04AC500A6ABBF /* cups-x509 */;
+			productType = "com.apple.product-type.tool";
+		};
+		27C3E95C2DB04ACE00A6ABBF /* cups-oauth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27C3E9642DB04ACE00A6ABBF /* Build configuration list for PBXNativeTarget "cups-oauth" */;
+			buildPhases = (
+				27C3E95F2DB04ACE00A6ABBF /* Sources */,
+				27C3E9612DB04ACE00A6ABBF /* Frameworks */,
+				27C3E9632DB04ACE00A6ABBF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				27C3E95D2DB04ACE00A6ABBF /* PBXTargetDependency */,
+			);
+			name = "cups-oauth";
+			productName = cupsaddsmb;
+			productReference = 27C3E9672DB04ACE00A6ABBF /* cups-oauth */;
+			productType = "com.apple.product-type.tool";
+		};
 		720DD6C11358FD5F0064AA82 /* snmp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 720DD6CB1358FD600064AA82 /* Build configuration list for PBXNativeTarget "snmp" */;
@@ -7873,6 +7985,8 @@
 				274FF6281333333600317ECB /* cups-deviced */,
 				274FF63D1333358B00317ECB /* cups-exec */,
 				274FF64E133339C400317ECB /* cups-lpd */,
+				27C3E95C2DB04ACE00A6ABBF /* cups-oauth */,
+				27C3E9502DB04AC500A6ABBF /* cups-x509 */,
 				274FF67713333B2F00317ECB /* cupsfilter */,
 				72F75A511336F950004BB496 /* cupstestppd */,
 				724379461333FEA9009631B9 /* dnssd */,
@@ -8544,6 +8658,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				27A034821A8BDC3A00650675 /* lpadmin.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27C3E9532DB04AC500A6ABBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27C3E96C2DB04B3600A6ABBF /* cups-x509.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27C3E95F2DB04ACE00A6ABBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27C3E96B2DB04B2900A6ABBF /* cups-oauth.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9777,6 +9907,26 @@
 			isa = PBXTargetDependency;
 			target = 27A0347A1A8BDB1200650675 /* lpadmin */;
 			targetProxy = 27A034861A8BDC6900650675 /* PBXContainerItemProxy */;
+		};
+		27C3E9512DB04AC500A6ABBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 72220EAD1333047D00FCA411 /* libcups2 */;
+			targetProxy = 27C3E9522DB04AC500A6ABBF /* PBXContainerItemProxy */;
+		};
+		27C3E95D2DB04ACE00A6ABBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 72220EAD1333047D00FCA411 /* libcups2 */;
+			targetProxy = 27C3E95E2DB04ACE00A6ABBF /* PBXContainerItemProxy */;
+		};
+		27C3E96E2DB04B5800A6ABBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27C3E95C2DB04ACE00A6ABBF /* cups-oauth */;
+			targetProxy = 27C3E96D2DB04B5800A6ABBF /* PBXContainerItemProxy */;
+		};
+		27C3E9702DB04B5800A6ABBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27C3E9502DB04AC500A6ABBF /* cups-x509 */;
+			targetProxy = 27C3E96F2DB04B5800A6ABBF /* PBXContainerItemProxy */;
 		};
 		720DD6CF1358FD790064AA82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -11567,6 +11717,54 @@
 			};
 			name = Release;
 		};
+		27C3E9592DB04AC500A6ABBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INSTALL_PATH = /usr/bin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		27C3E95A2DB04AC500A6ABBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INSTALL_PATH = /usr/bin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		27C3E9652DB04ACE00A6ABBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INSTALL_PATH = /usr/bin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		27C3E9662DB04ACE00A6ABBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INSTALL_PATH = /usr/bin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		720DD6C91358FD5F0064AA82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -13266,6 +13464,24 @@
 			buildConfigurations = (
 				27A0347F1A8BDB1300650675 /* Debug */,
 				27A034801A8BDB1300650675 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27C3E9582DB04AC500A6ABBF /* Build configuration list for PBXNativeTarget "cups-x509" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27C3E9592DB04AC500A6ABBF /* Debug */,
+				27C3E95A2DB04AC500A6ABBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27C3E9642DB04ACE00A6ABBF /* Build configuration list for PBXNativeTarget "cups-oauth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27C3E9652DB04ACE00A6ABBF /* Debug */,
+				27C3E9662DB04ACE00A6ABBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

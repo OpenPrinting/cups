@@ -138,10 +138,13 @@ cupsdProcessIPPRequest(
   ipp_attribute_t	*username;	/* requesting-user-name attr */
   int			sub_id;		/* Subscription ID */
   int			valid = 1;	/* Valid request? */
-  int			minor;		/* Minor version */
+  int			major,		/* IPP major version */
+			minor;		/* IPP minor version */
 
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG, "%s IPP/%d.%d request_id=%d", ippOpString(ippGetOperation(con->request)), ippGetVersion(con->request, &minor), minor, ippGetRequestId(con->request));
+  major = ippGetVersion(con->request, &minor);
+
+  cupsdLogClient(con, CUPSD_LOG_DEBUG, "%s IPP/%d.%d request_id=%d", ippOpString(ippGetOperation(con->request)), major, minor, ippGetRequestId(con->request));
 
   if (LogLevel >= CUPSD_LOG_DEBUG2)
   {

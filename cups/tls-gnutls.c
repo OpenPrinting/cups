@@ -1742,8 +1742,12 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 		*cnptr;			// Pointer into common name
     bool	have_creds = false;	// Have credentials?
 
+    cupsMutexLock(&tls_mutex);
+
     if (!tls_common_name)
     {
+      cupsMutexUnlock(&tls_mutex);
+
       if (http->fields[HTTP_FIELD_HOST])
       {
 	// Use hostname for TLS upgrade...
@@ -1777,9 +1781,9 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
       if (hostname[0])
         cn = hostname;
-    }
 
-    cupsMutexLock(&tls_mutex);
+      cupsMutexLock(&tls_mutex);
+    }
 
     if (!cn)
       cn = tls_common_name;

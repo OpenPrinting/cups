@@ -1,7 +1,7 @@
 /*
  * Generic HP PCL printer command for ippeveprinter/CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -508,7 +508,11 @@ raster_to_pcl(const char *filename)	/* I - File to print (NULL for stdin) */
       break;
     }
 
-    line = malloc(header.cupsBytesPerLine);
+    if ((line = malloc(header.cupsBytesPerLine)) == NULL)
+    {
+      fprintf(stderr, "ERROR: Unable to allocate %u bytes for line, aborting.\n", header.cupsBytesPerLine);
+      break;
+    }
 
     pcl_start_page(&header, page);
     for (y = 0; y < header.cupsHeight; y ++)
