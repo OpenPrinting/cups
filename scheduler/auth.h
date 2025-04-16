@@ -117,9 +117,9 @@ VAR cups_array_t	*Locations	VALUE(NULL);
 
 VAR cups_array_t	*OAuthGroups	VALUE(NULL);
 					/* OAuthGroup entries */
-VAR http_t		*OAuthHTTP	VALUE(NULL);
-					/* Connection to server */
-VAR cups_json_t		*OAuthMetadata	VALUE(NULL);
+VAR cups_json_t		*OAuthJWKS	VALUE(NULL),
+					/* Public keys for JWT validation */
+			*OAuthMetadata	VALUE(NULL);
 					/* Metadata from the server */
 VAR char		*OAuthScopes	VALUE(NULL),
 					/* OAuthScopes value */

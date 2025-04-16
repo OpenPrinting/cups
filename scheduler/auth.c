@@ -562,14 +562,13 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as %s using Local.", username);
   }
-  else if (!strncmp(authorization, "Basic", 5))
+  else if (!strncmp(authorization, "Basic ", 6))
   {
    /*
     * Get the Basic authentication data...
     */
 
     int	userlen;			/* Username:password length */
-
 
     authorization += 5;
     while (isspace(*authorization & 255))
@@ -695,8 +694,66 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" using Basic.", username);
     con->type = type;
   }
+  else if (!strncmp(authorization, "Bearer ", 7))
+  {
+    // OAuth/OpenID authorization using JWT bearer tokens...
+    cups_jwt_t	*jwt;			// JWT decoded from bearer token...
+    const char	*sub,			// Subject/user ID
+		*name,			// Real name
+		*email;			// Email address
+
+    // Skip whitespace after "Bearer"...
+    authorization += 7;
+    while (isspace(*authorization & 255))
+      authorization ++;
+
+    // Decode and validate the JWT...
+    if ((jwt = cupsJWTImportString(authorization, CUPS_JWS_FORMAT_COMPACT)) == NULL)
+    {
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to import JWT Bearer token: %s", cupsGetErrorString());
+      cupsCopyString(con->autherror, cupsGetErrorString(), sizeof(con->autherror));
+      return;
+    }
+    else if (!cupsJWTHasValidSignature(jwt, OAuthJWKS))
+    {
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "JWT Bearer token signature is bad.");
+      cupsCopyString(con->autherror, "Invalid JWT signature.", sizeof(con->autherror));
+      cupsJWTDelete(jwt);
+      return;
+    }
+    else if (cupsJWTGetClaimNumber(jwt, CUPS_JWT_EXP) < time(NULL))
+    {
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "JWT Bearer token is expired.");
+      cupsCopyString(con->autherror, "Expired JWT.", sizeof(con->autherror));
+      cupsJWTDelete(jwt);
+      return;
+    }
+    else if ((sub = cupsJWTGetClaimString(jwt, CUPS_JWT_SUB)) == NULL)
+    {
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing subject name in JWT Bearer token.");
+      cupsCopyString(con->autherror, "Missing subject name.", sizeof(con->autherror));
+      cupsJWTDelete(jwt);
+      return;
+    }
+
+    // Good JWT, grab information from it and return...
+    con->autherror[0] = '\0';
+    con->password[0]  = '\0';
+
+    httpSetAuthString(con->http, "Bearer", authorization);
+    cupsCopyString(con->username, sub, sizeof(con->username));
+    if ((name = cupsJWTGetClaimString(jwt, CUPS_JWT_NAME)) != NULL)
+      cupsCopyString(con->realname, name, sizeof(con->realname));
+    if ((email = cupsJWTGetClaimString(jwt, "email")) != NULL)
+      cupsCopyString(con->email, email, sizeof(con->email));
+
+    cupsJWTDelete(jwt);
+
+    cupsdLogClient(con, CUPSD_LOG_DEBUG, "Authorized as \"%s\" (%s <%s>) using OAuth/OpenID.", con->username, con->realname, con->email);
+    return;
+  }
 #ifdef HAVE_GSSAPI
-  else if (!strncmp(authorization, "Negotiate", 9))
+  else if (!strncmp(authorization, "Negotiate ", 10))
   {
     int			len;		/* Length of authorization string */
     gss_ctx_id_t	context;	/* Authorization context */

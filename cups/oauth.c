@@ -159,7 +159,6 @@ static const char *github_metadata =	// Github.com OAuth metadata
 
 static char	*oauth_copy_response(http_t *http);
 static cups_json_t *oauth_do_post(const char *ep, const char *content_type, const char *data);
-static cups_json_t *oauth_get_jwks(const char *auth_uri, cups_json_t *metadata);
 static char	*oauth_load_value(const char *auth_uri, const char *secondary_uri, _cups_otype_t otype);
 static char	*oauth_make_path(char *buffer, size_t bufsize, const char *auth_uri, const char *secondary_uri, _cups_otype_t otype);
 static char	*oauth_make_software_id(char *buffer, size_t bufsize);
@@ -173,6 +172,9 @@ static bool	oauth_set_error(cups_json_t *json, size_t num_form, cups_option_t *f
 //
 // This function clears cached authorization information for the given
 // Authorization Server "auth_uri" and Resource "resource_uri" combination.
+//
+// @since CUPS 2.5@
+//
 
 void
 cupsOAuthClearTokens(
@@ -196,6 +198,8 @@ cupsOAuthClearTokens(
 // using the `free` function.
 //
 // `NULL` is returned if no token is cached.
+//
+// @since CUPS 2.5@
 //
 
 char *					// O - Access token
@@ -236,6 +240,8 @@ cupsOAuthCopyAccessToken(
 //
 // `NULL` is returned if no `client_id` is cached.
 //
+// @since CUPS 2.5@
+//
 
 char *					// O - `client_id` value
 cupsOAuthCopyClientId(
@@ -265,6 +271,8 @@ cupsOAuthCopyClientId(
 //
 // `NULL` is returned if no refresh token is cached.
 //
+// @since CUPS 2.5@
+//
 
 char *					// O - Refresh token
 cupsOAuthCopyRefreshToken(
@@ -284,6 +292,8 @@ cupsOAuthCopyRefreshToken(
 // @link cupsJWTDelete@ function.
 //
 // `NULL` is returned if no identification information is cached.
+//
+// @since CUPS 2.5@
 //
 
 cups_jwt_t *				// O - Identification information
@@ -331,6 +341,8 @@ cupsOAuthCopyUserId(
 // path of "/".
 //
 // The returned authorization code must be freed using the `free` function.
+//
+// @since CUPS 2.5@
 //
 
 char *					// O - Authorization code or `NULL` on error
@@ -758,6 +770,8 @@ cupsOAuthGetAuthorizationCode(
 // @link cupsOAuthGetAuthorizationCode@ function handles registration of
 // local/"native" applications for you.
 //
+// @since CUPS 2.5@
+//
 
 char *					// O - `client_id` string or `NULL` on error
 cupsOAuthGetClientId(
@@ -825,12 +839,75 @@ cupsOAuthGetClientId(
 
 
 //
+// 'cupsOAuthGetJWKS()' - Get the JWT key set for an Authorization Server.
+//
+// This function gets the JWT key set for the specified Authorization Server
+// "auth_uri".  The "metadata" value is obtained using the
+// @link cupsOAuthGetMetadata@ function.  The returned key set is cached
+// per-user for better performance and must be freed using the
+// @link cupsJSONDelete@ function.
+//
+// The key set is typically used to validate JWT bearer tokens using the
+// @link cupsJWTHasValidSignature@ function.
+//
+// @since CUPS 2.5@
+//
+
+cups_json_t *				// O - JWKS or `NULL` on error
+cupsOAuthGetJWKS(const char  *auth_uri,	// I - Authorization server URI
+                 cups_json_t *metadata)	// I - Server metadata
+{
+  const char	*jwks_uri;		// URI of key set
+  cups_json_t	*jwks;			// JWT key set
+  char		filename[1024];		// Local metadata filename
+  struct stat	fileinfo;		// Local metadata file info
+
+
+  DEBUG_printf("cupsOAuthGetJWKS(auth_uri=\"%s\", metadata=%p)", auth_uri, (void *)metadata);
+
+  // Get existing key set...
+  if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS))
+    return (NULL);
+
+  if (stat(filename, &fileinfo))
+    memset(&fileinfo, 0, sizeof(fileinfo));
+
+  // Don't bother connecting if the key set was updated recently...
+  if ((time(NULL) - fileinfo.st_mtime) <= 60)
+    return (cupsJSONImportFile(filename));
+
+  // Try getting the key set...
+  if ((jwks_uri = cupsJSONGetString(cupsJSONFind(metadata, "jwks_uri"))) == NULL)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("No JWKS URI in authorization server metadata."), true);
+    return (NULL);
+  }
+
+  if ((jwks = cupsJSONImportURL(jwks_uri, &fileinfo.st_mtime)) != NULL)
+  {
+    // Save the key set...
+    char *s = cupsJSONExportString(jwks);
+					// JSON string
+
+    oauth_save_value(auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS, s);
+    free(s);
+  }
+
+  // Return what we got...
+  return (jwks);
+}
+
+
+//
 // 'cupsOAuthGetMetadata()' - Get the metadata for an Authorization Server.
 //
-// This function gets the metadata for the specified Authorization Server URI
-// "auth_uri". Metadata is cached per-user for better performance.
+// This function gets the RFC 8414 or Open ID Connect metadata for the specified
+// OAuth Authorization Server URI "auth_uri".
 //
-// The returned metadata must be freed using the @link cupsJSONDelete@ function.
+// The returned metadata is cached per-user for better performance and must be
+// freed using the @link cupsJSONDelete@ function.
+//
+// @since CUPS 2.5@
 //
 
 cups_json_t *				// O - JSON metadata or `NULL` on error
@@ -859,7 +936,7 @@ cupsOAuthGetMetadata(
   DEBUG_printf("cupsOAuthGetMetadata(auth_uri=\"%s\")", auth_uri);
 
   // Special-cases...
-  if (!strcmp(auth_uri, "https://github.com"))
+  if (!strncmp(auth_uri, "https://github.com", 18) && (!auth_uri[18] || auth_uri[18] == '/'))
     return (cupsJSONImportString(github_metadata));
 
   // Get existing metadata...
@@ -968,13 +1045,14 @@ cupsOAuthGetMetadata(
     }
   }
 
+  httpClose(http);
+
   if (status != HTTP_STATUS_OK && status != HTTP_STATUS_NOT_MODIFIED)
   {
-    // Remove old cached data...
+    // Remove old cached data and return NULL...
     unlink(filename);
+    return (NULL);
   }
-
-  httpClose(http);
 
   // Return the cached metadata, if any...
   load_metadata:
@@ -1014,6 +1092,8 @@ cupsOAuthGetMetadata(
 // and any user ID information can be obtained using the
 // @link cupsOAuthCopyRefreshToken@ and @link cupsOAuthCopyUserId@ functions
 // respectively.
+//
+// @since CUPS 2.5@
 //
 
 char *					// O - Access token or `NULL` on error
@@ -1124,7 +1204,7 @@ cupsOAuthGetTokens(
       goto done;
 
     // Validate id_token against the Authorization Server's JWKS
-    if ((jwks = oauth_get_jwks(auth_uri, metadata)) == NULL)
+    if ((jwks = cupsOAuthGetJWKS(auth_uri, metadata)) == NULL)
       goto done;
 
     valid = cupsJWTHasValidSignature(jwt, jwks);
@@ -1220,6 +1300,8 @@ cupsOAuthGetTokens(
 // The "state" parameter is a unique (random) identifier for the authorization
 // request.  It is provided to the redirection URI as a form parameter.
 //
+// @since CUPS 2.5@
+//
 
 char *					// O - Authorization URL
 cupsOAuthMakeAuthorizationURL(
@@ -1295,6 +1377,8 @@ cupsOAuthMakeAuthorizationURL(
 // encoded. "len" specifies the number of random bytes to include in the string.
 // The returned string must be freed using the `free` function.
 //
+// @since CUPS 2.5@
+//
 
 char *					// O - Random string
 cupsOAuthMakeBase64Random(size_t len)	// I - Number of bytes
@@ -1331,6 +1415,8 @@ cupsOAuthMakeBase64Random(size_t len)	// I - Number of bytes
 // "client_id" is `NULL` then any saved values are deleted from the per-user
 // store.
 //
+// @since CUPS 2.5@
+//
 
 void
 cupsOAuthSaveClientData(
@@ -1351,6 +1437,8 @@ cupsOAuthSaveClientData(
 // refresh token "refresh_token" values for the given Authorization Server
 // "auth_uri" and resource "resource_uri". Specifying `NULL` for any of the
 // values will delete the corresponding saved values from the per-user store.
+//
+// @since CUPS 2.5@
 //
 
 void
@@ -1500,52 +1588,6 @@ oauth_do_post(const char *ep,		// I - Endpoint URI
   httpClose(http);
 
   return (resp_json);
-}
-
-
-//
-// 'oauth_get_jwks()' - Get the JWT key set for an Authorization Server.
-//
-
-static cups_json_t *			// O - JWKS or `NULL` on error
-oauth_get_jwks(const char  *auth_uri,	// I - Authorization server URI
-               cups_json_t *metadata)	// I - Server metadata
-{
-  const char	*jwks_uri;		// URI of key set
-  cups_json_t	*jwks;			// JWT key set
-  char		filename[1024];		// Local metadata filename
-  struct stat	fileinfo;		// Local metadata file info
-
-
-  DEBUG_printf("oauth_get_jwks(auth_uri=\"%s\", metadata=%p)", auth_uri, (void *)metadata);
-
-  // Get existing key set...
-  if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS))
-    return (NULL);
-
-  if (stat(filename, &fileinfo))
-    memset(&fileinfo, 0, sizeof(fileinfo));
-
-  // Don't bother connecting if the key set was updated recently...
-  if ((time(NULL) - fileinfo.st_mtime) <= 60)
-    return (cupsJSONImportFile(filename));
-
-  // Try getting the key set...
-  if ((jwks_uri = cupsJSONGetString(cupsJSONFind(metadata, "jwks_uri"))) == NULL)
-    return (NULL);
-
-  if ((jwks = cupsJSONImportURL(jwks_uri, &fileinfo.st_mtime)) != NULL)
-  {
-    // Save the key set...
-    char *s = cupsJSONExportString(jwks);
-					// JSON string
-
-    oauth_save_value(auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS, s);
-    free(s);
-  }
-
-  // Return what we got...
-  return (jwks);
 }
 
 

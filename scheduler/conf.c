@@ -9,11 +9,8 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cupsd.h"
+#include <cups/oauth.h>
 #include <stdarg.h>
 #include <grp.h>
 #include <sys/utsname.h>
@@ -609,8 +606,8 @@ cupsdReadConfiguration(void)
   cupsArrayDelete(OAuthGroups);
   OAuthGroups = NULL;
 
-  httpClose(OAuthHTTP);
-  OAuthHTTP = NULL;
+  cupsJSONDelete(OAuthJWKS);
+  OAuthJWKS = NULL;
 
   cupsJSONDelete(OAuthMetadata);
   OAuthMetadata = NULL;
@@ -874,6 +871,22 @@ cupsdReadConfiguration(void)
   status = read_cupsd_conf(fp);
 
   cupsFileClose(fp);
+
+  if (OAuthServer)
+  {
+    if ((OAuthMetadata = cupsOAuthGetMetadata(OAuthServer)) == NULL)
+    {
+      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to get metadata from OAUth server \"%s\": %s", OAuthServer, cupsGetErrorString());
+      if (FatalErrors & CUPSD_FATAL_CONFIG)
+        status = 0;
+    }
+    else if ((OAuthJWKS = cupsOAuthGetJWKS(OAuthServer, OAuthMetadata)) == NULL)
+    {
+      cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to load OAuth JWKS for validation: %s", cupsGetErrorString());
+      if (FatalErrors & CUPSD_FATAL_CONFIG)
+        status = 0;
+    }
+  }
 
   if (!status)
   {

@@ -1,7 +1,7 @@
 //
 // OAuth API definitions for CUPS.
 //
-// Copyright © 2024 by OpenPrinting.
+// Copyright © 2024-2025 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -47,6 +47,7 @@ extern cups_jwt_t	*cupsOAuthCopyUserId(const char *auth_uri, const char *resourc
 
 extern char		*cupsOAuthGetAuthorizationCode(const char *auth_uri, cups_json_t *metadata, const char *resource_uri, const char *scopes, const char *redirect_uri) _CUPS_PUBLIC;
 extern char		*cupsOAuthGetClientId(const char *auth_uri, cups_json_t *metadata, const char *redirect_uri, const char *logo_uri, const char *tos_uri) _CUPS_PUBLIC;
+extern cups_json_t	*cupsOAuthGetJWKS(const char *auth_uri, cups_json_t *metadata) _CUPS_PUBLIC;
 extern cups_json_t	*cupsOAuthGetMetadata(const char *auth_uri) _CUPS_PUBLIC;
 extern char		*cupsOAuthGetTokens(const char *auth_uri, cups_json_t *metadata, const char *resource_uri, const char *grant_code, cups_ogrant_t grant_type, const char *redirect_uri, time_t *access_expires) _CUPS_PUBLIC;
 
