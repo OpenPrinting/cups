@@ -1379,9 +1379,9 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "job-account-id",
     "job-account-id-default",
     "job-account-id-supported",
-    "job-accounting-sheets"
-    "job-accounting-sheets-default"
-    "job-accounting-sheets-supported"
+    "job-accounting-sheets",
+    "job-accounting-sheets-default",
+    "job-accounting-sheets-supported",
     "job-accounting-user-id",
     "job-accounting-user-id-default",
     "job-accounting-user-id-supported",
