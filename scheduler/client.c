@@ -651,12 +651,15 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
         * Clear other state variables...
 	*/
 
-	con->bytes       = 0;
-	con->file        = -1;
-	con->file_ready  = 0;
-	con->pipe_pid    = 0;
-	con->username[0] = '\0';
-	con->password[0] = '\0';
+	con->bytes        = 0;
+	con->file         = -1;
+	con->file_ready   = 0;
+	con->pipe_pid     = 0;
+	con->username[0]  = '\0';
+	con->password[0]  = '\0';
+	con->realname[0]  = '\0';
+	con->email[0]     = '\0';
+	con->autherror[0] = '\0';
 
 	cupsdClearString(&con->command);
 	cupsdClearString(&con->options);
