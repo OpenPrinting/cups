@@ -8,6 +8,32 @@
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
 //
+// Usage:
+//
+//   ./testhttp
+//       Run unit tests.
+//
+//   ./testhttp SCHEME://SERVICE._TYPE._tcp.DOMAIN/
+//       Resolve DNS-SD service URI.
+//
+//   ./testhttp -a HOSTNAME
+//       Resolve hostname and output all IPv4 and IPv6 addresses.
+//
+//   ./testhttp -d BASE64TEXT
+//       Decode Base64-encoded string and output plain text.
+//
+//   ./testhttp -e PLAINTEXT
+//       Encode plain text as Base64 and output.
+//
+//   ./testhttp -E PLAINTEXT
+//       Encode plain text as Base64URL and output.
+//
+//   ./testhttp -u URI
+//       Test URI separation and output components.
+//
+//   ./testhttp URL
+//       Get the specified URL and output.
+//
 
 #include "cups-private.h"
 #include "test-internal.h"
@@ -354,8 +380,8 @@ main(int  argc,				// I - Number of command-line arguments
       {
         char	numeric[1024];		// Numeric IP address
 
-
 	httpAddrGetString(&(addr->addr), numeric, sizeof(numeric));
+	testMessage("Address %d: %s", i + 1, numeric);
 	if (!strcmp(numeric, "UNKNOWN"))
 	  break;
       }
@@ -473,8 +499,41 @@ main(int  argc,				// I - Number of command-line arguments
 
     return (failures);
   }
+  else if (!strcmp(argv[1], "--help"))
+  {
+    // Show usage...
+    puts("Usage: ./testhttp [OPTIONS]");
+    puts("Options:");
+    puts("./testhttp");
+    puts("    Run unit tests.");
+    puts("");
+    puts("./testhttp SCHEME://SERVICE._TYPE._tcp.DOMAIN/");
+    puts("    Resolve DNS-SD service URI.");
+    puts("");
+    puts("./testhttp -a HOSTNAME");
+    puts("    Resolve hostname and output all IPv4 and IPv6 addresses.");
+    puts("");
+    puts("./testhttp -d BASE64TEXT");
+    puts("    Decode Base64-encoded string and output plain text.");
+    puts("");
+    puts("./testhttp -e PLAINTEXT");
+    puts("    Encode plain text as Base64 and output.");
+    puts("");
+    puts("./testhttp -E PLAINTEXT");
+    puts("    Encode plain text as Base64URL and output.");
+    puts("");
+    puts("./testhttp -u URI");
+    puts("    Test URI separation and output components.");
+    puts("");
+    puts("./testhttp URL");
+    puts("    Get the specified URL and output.");
+
+    return (0);
+  }
   else if (strstr(argv[1], "._tcp"))
   {
+    // SCHEME://SERVICE._TYPE._tcp.DOMAIN/
+    //
     // Test resolving an mDNS name.
     char	resolved[1024];		// Resolved URI
 
@@ -505,6 +564,20 @@ main(int  argc,				// I - Number of command-line arguments
       testEndMessage(true, "%s", resolved);
       return (0);
     }
+  }
+  else if (!strcmp(argv[1], "-a") && argc == 3)
+  {
+    // Test httpAddrGetList
+    addrlist = httpAddrGetList(argv[2], AF_UNSPEC, NULL);
+    for (addr = addrlist; addr; addr = addr->next)
+    {
+      char	numeric[1024];		// Numeric IP address
+
+      httpAddrGetString(&(addr->addr), numeric, sizeof(numeric));
+      puts(numeric);
+    }
+
+    return (addrlist != NULL ? 0 : 1);
   }
   else if (!strcmp(argv[1], "-d") && argc == 3)
   {
