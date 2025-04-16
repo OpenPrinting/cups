@@ -1,7 +1,7 @@
 /*
  * Administration CGI for CUPS.
  *
- * Copyright © 2021-2024 by OpenPrinting
+ * Copyright © 2021-2025 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -65,16 +65,20 @@ main(void)
 
   fputs("DEBUG: admin.cgi started...\n", stderr);
 
-  http = httpConnectEncrypt(cupsServer(), ippPort(), cupsEncryption());
-
-  if (!http)
+  if ((http = httpConnect2(cupsGetServer(), ippGetPort(), /*addrlist*/NULL, AF_UNSPEC,  cupsGetEncryption(), /*blocking*/1, /*msec*/30000, /*cancel*/NULL)) == NULL)
   {
-    perror("ERROR: Unable to connect to cupsd");
-    fprintf(stderr, "DEBUG: cupsServer()=\"%s\"\n",
-            cupsServer() ? cupsServer() : "(null)");
-    fprintf(stderr, "DEBUG: ippPort()=%d\n", ippPort());
-    fprintf(stderr, "DEBUG: cupsEncryption()=%d\n", cupsEncryption());
+    fprintf(stderr, "ERROR: Unable to connect to cupsd: %s\n", cupsGetErrorString());
+    fprintf(stderr, "DEBUG: cupsGetServer()=\"%s\"\n", cupsGetServer() ? cupsGetServer() : "(null)");
+    fprintf(stderr, "DEBUG: ippGetPort()=%d\n", ippGetPort());
+    fprintf(stderr, "DEBUG: cupsGetEncryption()=%d\n", cupsGetEncryption());
     exit(1);
+  }
+  else
+  {
+    const char	*authorization;		/* HTTP_AUTHORIZATION value */
+
+    if ((authorization = getenv("HTTP_AUTHORIZATION")) != NULL && !strncmp(authorization, "Bearer ", 7))
+      httpSetAuthString(http, "Bearer", authorization + 7);
   }
 
   fprintf(stderr, "DEBUG: http=%p\n", (void *)http);

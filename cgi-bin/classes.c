@@ -1,16 +1,12 @@
 /*
  * Class status CGI for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2016 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cgi-private.h"
@@ -87,7 +83,23 @@ main(void)
   * Connect to the HTTP server...
   */
 
-  http = httpConnectEncrypt(cupsServer(), ippPort(), cupsEncryption());
+  if ((http = httpConnect2(cupsGetServer(), ippGetPort(), /*addrlist*/NULL, AF_UNSPEC,  cupsGetEncryption(), /*blocking*/1, /*msec*/30000, /*cancel*/NULL)) == NULL)
+  {
+    fprintf(stderr, "ERROR: Unable to connect to cupsd: %s\n", cupsGetErrorString());
+    fprintf(stderr, "DEBUG: cupsGetServer()=\"%s\"\n", cupsGetServer() ? cupsGetServer() : "(null)");
+    fprintf(stderr, "DEBUG: ippGetPort()=%d\n", ippGetPort());
+    fprintf(stderr, "DEBUG: cupsGetEncryption()=%d\n", cupsGetEncryption());
+    exit(1);
+  }
+  else
+  {
+    const char	*authorization;		/* HTTP_AUTHORIZATION value */
+
+    if ((authorization = getenv("HTTP_AUTHORIZATION")) != NULL && !strncmp(authorization, "Bearer ", 7))
+      httpSetAuthString(http, "Bearer", authorization + 7);
+  }
+
+  fprintf(stderr, "DEBUG: http=%p\n", (void *)http);
 
  /*
   * Get the default printer...
