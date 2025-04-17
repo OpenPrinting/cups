@@ -685,7 +685,7 @@ cupsdFindSubscription(int id)		/* I - Subscription ID */
 
   _cupsRWLockRead(&SubscriptionsLock);
 
-  sub = (cupsd_subscription_t *)cupsArrayFind(Subscriptions, &sub);
+  sub = (cupsd_subscription_t *)cupsArrayFind(Subscriptions, &key);
 
   _cupsRWUnlock(&SubscriptionsLock);
 
