@@ -7,7 +7,7 @@ Changes in CUPS v2.4.13 (YYYY-MM-DD)
 
 - Fixed a memory leak in `httpClose` (Issue #1223)
 - Fixed missing commas in `ippCreateRequestedArray` (Issue #1234)
-- Fixed subscription threading issues in the scheduler (Issue #1235)
+- Fixed subscription issues in the scheduler and D-Bus notifier (Issue #1235)
 
 
 Changes in CUPS v2.4.12 (2025-04-08)

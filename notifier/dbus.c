@@ -1,13 +1,14 @@
 /*
  * D-Bus notifier for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2008-2014 by Apple Inc.
- * Copyright (C) 2011, 2013 Red Hat, Inc.
- * Copyright (C) 2007 Tim Waugh <twaugh@redhat.com>
- * Copyright 1997-2005 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2008-2014 by Apple Inc.
+ * Copyright © 2011, 2013 Red Hat, Inc.
+ * Copyright © 2007 Tim Waugh <twaugh@redhat.com>
+ * Copyright © 1997-2005 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -321,7 +322,7 @@ main(int  argc,				/* I - Number of command-line args */
 	signame = "PrinterAdded";
       else if (!strcmp(word2, "deleted"))
 	signame = "PrinterDeleted";
-      else if (!strcmp(word2, "modified"))
+      else if (!strcmp(word2, "config-changed") || !strcmp(word2, "modified"))
 	signame = "PrinterModified";
       else
 	continue;
