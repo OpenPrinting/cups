@@ -5063,9 +5063,9 @@ copy_subscription_attrs(
   const char		*name;		/* Current event name */
 
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2,
-                  "copy_subscription_attrs(con=%p, sub=%p, ra=%p, exclude=%p)",
-		  (void *)con, (void *)sub, (void *)ra, (void *)exclude);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "copy_subscription_attrs(con=%p, sub=%p, ra=%p, exclude=%p)", (void *)con, (void *)sub, (void *)ra, (void *)exclude);
+
+  _cupsRWLockRead(&sub->lock);
 
  /*
   * Copy the subscription attributes to the response using the
@@ -5156,6 +5156,8 @@ copy_subscription_attrs(
   if (!ra || cupsArrayFind(ra, "notify-subscription-id"))
     ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
                   "notify-subscription-id", sub->id);
+
+  _cupsRWUnlock(&sub->lock);
 }
 
 
@@ -5433,7 +5435,6 @@ create_local_bg_thread(
     goto finish_response;
   }
 
-  // TODO: Grab printer icon file...
   httpClose(http);
 
  /*
@@ -7940,7 +7941,9 @@ get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
                   ipp_attribute_t *uri)	/* I - Printer/job URI */
 {
   http_status_t		status;		/* Policy status */
-  int			count;		/* Number of subscriptions */
+  int			i,		/* Looping var */
+			scount;		/* Total number of subscriptions */
+  int			count;		/* Number of subscriptions returned */
   int			limit;		/* Limit */
   cupsd_subscription_t	*sub;		/* Subscription */
   cups_array_t		*ra;		/* Requested attributes array */
@@ -8064,9 +8067,12 @@ get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
   else
     username[0] = '\0';
 
-  for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions), count = 0;
-       sub;
-       sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
+  _cupsRWLockRead(&SubscriptionsLock);
+
+  for (i = 0, count = 0, scount = cupsArrayCount(Subscriptions); i < scount; i ++)
+  {
+    sub = (cupsd_subscription_t *)cupsArrayIndex(Subscriptions, i);
+
     if ((!printer || sub->dest == printer) && (!job || sub->job == job) &&
         (!username[0] || !_cups_strcasecmp(username, sub->owner)))
     {
@@ -8082,6 +8088,9 @@ get_subscriptions(cupsd_client_t  *con,	/* I - Client connection */
       if (limit && count >= limit)
         break;
     }
+  }
+
+  _cupsRWUnlock(&SubscriptionsLock);
 
   cupsArrayDelete(ra);
 
@@ -9455,6 +9464,8 @@ renew_subscription(
   * Renew the subscription...
   */
 
+  _cupsRWLockWrite(&sub->lock);
+
   lease = ippFindAttribute(con->request, "notify-lease-duration",
                            IPP_TAG_INTEGER);
 
@@ -9471,9 +9482,11 @@ renew_subscription(
 
   sub->expire = sub->lease ? time(NULL) + sub->lease : 0;
 
+  _cupsRWUnlock(&sub->lock);
+
   cupsdMarkDirty(CUPSD_DIRTY_SUBSCRIPTIONS);
 
-  con->response->request.status.status_code = IPP_OK;
+  con->response->request.status.status_code = IPP_STATUS_OK;
 
   ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
                 "notify-lease-duration", sub->lease);

@@ -36,6 +36,7 @@ _cupsMutexInit
 _cupsMutexLock
 _cupsMutexUnlock
 _cupsNextDelay
+_cupsRWDestroy
 _cupsRWInit
 _cupsRWLockRead
 _cupsRWLockWrite

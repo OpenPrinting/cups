@@ -1,9 +1,11 @@
 /*
  * Private threading definitions for CUPS.
  *
- * Copyright 2009-2017 by Apple Inc.
+ * Copyright © 2025 by OpenPrinting.
+ * Copyright © 2009-2017 by Apple Inc.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #ifndef _CUPS_THREAD_PRIVATE_H_
@@ -88,6 +90,7 @@ extern void	_cupsCondWait(_cups_cond_t *cond, _cups_mutex_t *mutex, double timeo
 extern void	_cupsMutexInit(_cups_mutex_t *mutex) _CUPS_PRIVATE;
 extern void	_cupsMutexLock(_cups_mutex_t *mutex) _CUPS_PRIVATE;
 extern void	_cupsMutexUnlock(_cups_mutex_t *mutex) _CUPS_PRIVATE;
+extern void	_cupsRWDestroy(_cups_rwlock_t *rwlock) _CUPS_PRIVATE;
 extern void	_cupsRWInit(_cups_rwlock_t *rwlock) _CUPS_PRIVATE;
 extern void	_cupsRWLockRead(_cups_rwlock_t *rwlock) _CUPS_PRIVATE;
 extern void	_cupsRWLockWrite(_cups_rwlock_t *rwlock) _CUPS_PRIVATE;

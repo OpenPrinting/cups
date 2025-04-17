@@ -1,11 +1,12 @@
 /*
  * Subscription definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2010 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2010 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -79,6 +80,7 @@ typedef struct cupsd_event_s		/**** Event structure ****/
 
 typedef struct cupsd_subscription_s	/**** Subscription structure ****/
 {
+  _cups_rwlock_t	lock;		/* Reader/writer lock */
   int			id;		/* subscription-id */
   unsigned		mask;		/* Event mask */
   char			*owner;		/* notify-subscriber-user-name */
@@ -104,27 +106,30 @@ typedef struct cupsd_subscription_s	/**** Subscription structure ****/
  * Globals...
  */
 
-VAR int		MaxSubscriptions VALUE(100),
+VAR int		MaxSubscriptions	VALUE(100),
 					/* Overall subscription limit */
-		MaxSubscriptionsPerJob VALUE(0),
+		MaxSubscriptionsPerJob	VALUE(0),
 					/* Per-job subscription limit */
 		MaxSubscriptionsPerPrinter VALUE(0),
 					/* Per-printer subscription limit */
-		MaxSubscriptionsPerUser VALUE(0),
+		MaxSubscriptionsPerUser	VALUE(0),
 					/* Per-user subscription limit */
-		NextSubscriptionId VALUE(1),
+		NextSubscriptionId	VALUE(1),
 					/* Next subscription ID */
-		DefaultLeaseDuration VALUE(86400),
+		DefaultLeaseDuration	VALUE(86400),
 					/* Default notify-lease-duration */
-		MaxLeaseDuration VALUE(0);
+		MaxLeaseDuration	VALUE(0);
 					/* Maximum notify-lease-duration */
-VAR cups_array_t *Subscriptions VALUE(NULL);
+VAR cups_array_t *Subscriptions		VALUE(NULL);
 					/* Active subscriptions */
+VAR _cups_rwlock_t SubscriptionsLock	VALUE(_CUPS_RWLOCK_INITIALIZER);
+					/* Reader/writer lock for subscriptions */
+VAR int		MaxEvents		VALUE(100);
+					/* Maximum number of events */
 
-VAR int		MaxEvents VALUE(100);	/* Maximum number of events */
-
-VAR unsigned	LastEvent VALUE(0);	/* Last event(s) processed */
-VAR int		NotifierPipes[2] VALUE2(-1, -1);
+VAR unsigned	LastEvent		VALUE(0);
+					/* Last event(s) processed */
+VAR int		NotifierPipes[2]	VALUE2(-1, -1);
 					/* Pipes for notifier error/debug output */
 VAR cupsd_statbuf_t *NotifierStatusBuffer VALUE(NULL);
 					/* Status buffer for pipes */
