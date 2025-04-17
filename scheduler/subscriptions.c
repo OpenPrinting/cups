@@ -27,7 +27,7 @@
 static int	cupsd_compare_subscriptions(cupsd_subscription_t *first,
 					    cupsd_subscription_t *second,
 					    void *unused);
-static void cupsd_delete_event(cupsd_event_t *event, void *data);
+static void	cupsd_delete_event(cupsd_event_t *event, void *data);
 #ifdef HAVE_DBUS
 static void	cupsd_send_dbus(cupsd_eventmask_t event, cupsd_printer_t *dest,
 				cupsd_job_t *job);
@@ -50,10 +50,12 @@ cupsdAddEvent(
     const char	      *text,		/* I - Notification text */
     ...)				/* I - Additional arguments as needed */
 {
+  int			i,		/* Looping var */
+			scount;		/* Number of subscriptions */
   va_list		ap;		/* Pointer to additional arguments */
   char			ftext[1024];	/* Formatted text buffer */
   ipp_attribute_t	*attr;		/* Printer/job attribute */
-  cupsd_event_t		*temp;		/* New event pointer */
+  cupsd_event_t		*temp = NULL;	/* New event pointer */
   cupsd_subscription_t	*sub;		/* Current subscription */
 
 
@@ -92,13 +94,15 @@ cupsdAddEvent(
   if (job && !dest)
     dest = cupsdFindPrinter(job->dest);
 
-  for (temp = NULL, sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
-       sub;
-       sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
+  cupsRWLockRead(&SubscriptionsLock);
+
+  for (i = 0, scount = cupsArrayGetCount(Subscriptions); i < scount; i ++)
   {
    /*
     * Check if this subscription requires this event...
     */
+
+    sub = (cupsd_subscription_t *)cupsArrayGetElement(Subscriptions, i);
 
     if ((sub->mask & event) != 0 && (sub->dest == dest || !sub->dest || sub->job == job))
     {
@@ -111,6 +115,7 @@ cupsdAddEvent(
 	cupsdLogMessage(CUPSD_LOG_CRIT,
 			"Unable to allocate memory for event - %s",
 			strerror(errno));
+        cupsRWUnlock(&SubscriptionsLock);
 	return;
       }
 
@@ -240,6 +245,8 @@ cupsdAddEvent(
     }
   }
 
+  cupsRWUnlock(&SubscriptionsLock);
+
   if (temp)
     cupsdMarkDirty(CUPSD_DIRTY_SUBSCRIPTIONS);
   else
@@ -268,6 +275,8 @@ cupsdAddSubscription(
 		  mask, (void *)dest, dest ? dest->name : "", (void *)job, job ? job->id : 0,
 		  uri ? uri : "(null)");
 
+  cupsRWLockWrite(&SubscriptionsLock);
+
   if (!Subscriptions)
     Subscriptions = cupsArrayNew((cups_array_func_t)cupsd_compare_subscriptions,
 				 NULL);
@@ -277,6 +286,7 @@ cupsdAddSubscription(
     cupsdLogMessage(CUPSD_LOG_CRIT,
 		    "Unable to allocate memory for subscriptions - %s",
 		    strerror(errno));
+    cupsRWUnlock(&SubscriptionsLock);
     return (NULL);
   }
 
@@ -290,6 +300,7 @@ cupsdAddSubscription(
 		    "cupsdAddSubscription: Reached MaxSubscriptions %d "
 		    "(count=%d)", MaxSubscriptions,
 		    cupsArrayCount(Subscriptions));
+    cupsRWUnlock(&SubscriptionsLock);
     return (NULL);
   }
 
@@ -310,6 +321,7 @@ cupsdAddSubscription(
 		      "cupsdAddSubscription: Reached MaxSubscriptionsPerJob %d "
 		      "for job #%d (count=%d)", MaxSubscriptionsPerJob,
 		      job->id, count);
+      cupsRWUnlock(&SubscriptionsLock);
       return (NULL);
     }
   }
@@ -331,6 +343,7 @@ cupsdAddSubscription(
 		      "cupsdAddSubscription: Reached "
 		      "MaxSubscriptionsPerPrinter %d for %s (count=%d)",
 		      MaxSubscriptionsPerPrinter, dest->name, count);
+      cupsRWUnlock(&SubscriptionsLock);
       return (NULL);
     }
   }
@@ -344,8 +357,11 @@ cupsdAddSubscription(
     cupsdLogMessage(CUPSD_LOG_CRIT,
 		    "Unable to allocate memory for subscription object - %s",
 		    strerror(errno));
+    cupsRWUnlock(&SubscriptionsLock);
     return (NULL);
   }
+
+  cupsRWInit(&temp->lock);
 
  /*
   * Fill in common data...
@@ -380,6 +396,8 @@ cupsdAddSubscription(
 
   cupsArrayAdd(Subscriptions, temp);
 
+  cupsRWUnlock(&SubscriptionsLock);
+
  /*
   * For RSS subscriptions, run the notifier immediately...
   */
@@ -404,6 +422,8 @@ cupsdDeleteAllSubscriptions(void)
   if (!Subscriptions)
     return;
 
+  cupsRWLockWrite(&SubscriptionsLock);
+
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
        sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
@@ -411,6 +431,8 @@ cupsdDeleteAllSubscriptions(void)
 
   cupsArrayDelete(Subscriptions);
   Subscriptions = NULL;
+
+  cupsRWUnlock(&SubscriptionsLock);
 }
 
 
@@ -434,11 +456,17 @@ cupsdDeleteSubscription(
   * Remove subscription from array...
   */
 
+  cupsRWLockWrite(&SubscriptionsLock);
+
   cupsArrayRemove(Subscriptions, sub);
+
+  cupsRWUnlock(&SubscriptionsLock);
 
  /*
   * Free memory...
   */
+
+  cupsRWDestroy(&sub->lock);
 
   cupsdClearString(&(sub->owner));
   cupsdClearString(&(sub->recipient));
@@ -651,12 +679,18 @@ cupsdExpireSubscriptions(
 cupsd_subscription_t *			/* O - Subscription object */
 cupsdFindSubscription(int id)		/* I - Subscription ID */
 {
-  cupsd_subscription_t	sub;		/* Subscription template */
+  cupsd_subscription_t	key,		/* Subscription key */
+			*sub;		/* Matching subscription */
 
+  key.id = id;
 
-  sub.id = id;
+  cupsRWLockRead(&SubscriptionsLock);
 
-  return ((cupsd_subscription_t *)cupsArrayFind(Subscriptions, &sub));
+  sub = (cupsd_subscription_t *)cupsArrayFind(Subscriptions, &sub);
+
+  cupsRWUnlock(&SubscriptionsLock);
+
+  return (sub);
 }
 
 
@@ -1020,7 +1054,8 @@ cupsdLoadAllSubscriptions(void)
 void
 cupsdSaveAllSubscriptions(void)
 {
-  int			i;		/* Looping var */
+  int			i, j,		/* Looping vars */
+			scount;		/* Number of subscriptions */
   cups_file_t		*fp;		/* subscriptions.conf file */
   char			filename[1024]; /* subscriptions.conf filename */
   cupsd_subscription_t	*sub;		/* Current subscription */
@@ -1053,10 +1088,12 @@ cupsdSaveAllSubscriptions(void)
   * Write every subscription known to the system...
   */
 
-  for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
-       sub;
-       sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
+  cupsRWLockRead(&SubscriptionsLock);
+
+  for (i = 0, scount = cupsArrayGetCount(Subscriptions); i < scount; i ++)
   {
+    sub = (cupsd_subscription_t *)cupsArrayGetElement(Subscriptions, i);
+
     cupsFilePrintf(fp, "<Subscription %d>\n", sub->id);
 
     if ((name = cupsdEventName((cupsd_eventmask_t)sub->mask)) != NULL)
@@ -1095,29 +1132,29 @@ cupsdSaveAllSubscriptions(void)
     {
       cupsFilePuts(fp, "UserData ");
 
-      for (i = 0, hex = 0; i < sub->user_data_len; i ++)
+      for (j = 0, hex = 0; j < sub->user_data_len; j ++)
       {
-	if (sub->user_data[i] < ' ' ||
-	    sub->user_data[i] > 0x7f ||
-	    sub->user_data[i] == '<')
+	if (sub->user_data[j] < ' ' ||
+	    sub->user_data[j] > 0x7f ||
+	    sub->user_data[j] == '<')
 	{
 	  if (!hex)
 	  {
-	    cupsFilePrintf(fp, "<%02X", sub->user_data[i]);
+	    cupsFilePrintf(fp, "<%02X", sub->user_data[j]);
 	    hex = 1;
 	  }
 	  else
-	    cupsFilePrintf(fp, "%02X", sub->user_data[i]);
+	    cupsFilePrintf(fp, "%02X", sub->user_data[j]);
 	}
 	else
 	{
 	  if (hex)
 	  {
-	    cupsFilePrintf(fp, ">%c", sub->user_data[i]);
+	    cupsFilePrintf(fp, ">%c", sub->user_data[j]);
 	    hex = 0;
 	  }
 	  else
-	    cupsFilePutChar(fp, sub->user_data[i]);
+	    cupsFilePutChar(fp, sub->user_data[j]);
 	}
       }
 
@@ -1134,6 +1171,8 @@ cupsdSaveAllSubscriptions(void)
 
     cupsFilePuts(fp, "</Subscription>\n");
   }
+
+  cupsRWUnlock(&SubscriptionsLock);
 
   cupsdCloseCreatedConfFile(fp, filename);
 }
@@ -1326,6 +1365,8 @@ cupsd_send_notification(
   * Allocate the events array as needed...
   */
 
+  cupsRWLockWrite(&sub->lock);
+
   if (!sub->events)
   {
     sub->events = cupsArrayNew3((cups_array_func_t)NULL, NULL,
@@ -1425,6 +1466,8 @@ cupsd_send_notification(
   */
 
   sub->next_event_id ++;
+
+  cupsRWUnlock(&sub->lock);
 }
 
 
