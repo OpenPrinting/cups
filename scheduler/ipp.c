@@ -5319,8 +5319,12 @@ create_local_bg_thread(
       cupsRWLockWrite(&printer->lock);
 
       printer->config_time = time(NULL);
-      printer->state       = IPP_PSTATE_IDLE;
-      printer->accepting   = 1;
+
+      if (printer->temporary)
+      {
+	printer->state     = IPP_PSTATE_IDLE;
+	printer->accepting = 1;
+      }
 
       cupsRWUnlock(&printer->lock);
 
