@@ -3622,8 +3622,8 @@
 		27A0347B1A8BDB1300650675 /* lpadmin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lpadmin; sourceTree = BUILT_PRODUCTS_DIR; };
 		27C3E95B2DB04AC500A6ABBF /* cups-x509 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cups-x509"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27C3E9672DB04ACE00A6ABBF /* cups-oauth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cups-oauth"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27C3E9682DB04AFB00A6ABBF /* cups-oauth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "cups-oauth.c"; sourceTree = "<group>"; };
-		27C3E9692DB04AFB00A6ABBF /* cups-x509.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "cups-x509.c"; sourceTree = "<group>"; };
+		27C3E9682DB04AFB00A6ABBF /* cups-oauth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "cups-oauth.c"; path = "../tools/cups-oauth.c"; sourceTree = SOURCE_ROOT; };
+		27C3E9692DB04AFB00A6ABBF /* cups-x509.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "cups-x509.c"; path = "../tools/cups-x509.c"; sourceTree = SOURCE_ROOT; };
 		27C89C902613E7C300A58F43 /* cups-tls.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; name = "cups-tls.m4"; path = "../config-scripts/cups-tls.m4"; sourceTree = "<group>"; };
 		27D3037D134148CB00F022B1 /* libcups2.def */ = {isa = PBXFileReference; lastKnownFileType = text; name = libcups2.def; path = ../cups/libcups2.def; sourceTree = "<group>"; };
 		27F515432AAFBECF0045EE21 /* raster-testpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "raster-testpage.h"; path = "../cups/raster-testpage.h"; sourceTree = "<group>"; };

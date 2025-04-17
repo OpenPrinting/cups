@@ -410,6 +410,7 @@ do_get_user_id(
   cups_json_t	*claims;		// Claims
   char		*json,			// JSON string
 		date[256];		// Date
+  int		ret = 0;		// Exit status
 
 
   // Get the user_id...
@@ -462,12 +463,10 @@ do_get_user_id(
             }
             break;
       }
-
-      return (0);
     }
     else
     {
-      return (1);
+      ret = 1;
     }
   }
   else if ((json = cupsJSONExportString(claims)) != NULL)
@@ -476,7 +475,9 @@ do_get_user_id(
     free(json);
   }
 
-  return (0);
+  cupsJWTDelete(user_id);
+
+  return (ret);
 }
 
 

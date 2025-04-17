@@ -439,6 +439,7 @@ do_ca(const char *common_name,		// I - Common name
     {
       _cupsLangPrintf(stderr, _("cups-x509: Unable to read '%s'."), csrfile);
       close(csrfd);
+      free(request);
       return (1);
     }
 
