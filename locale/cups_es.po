@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-09 04:51+0000\n"
+"PO-Revision-Date: 2025-04-22 22:48+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -43,7 +43,7 @@ msgid "\tAlerts: %s"
 msgstr "\tAlertas: %s"
 
 msgid "\tBanner required"
-msgstr "\tSe necesita un rótulo"
+msgstr "\tSe requiere un rótulo"
 
 msgid "\tCharset sets:"
 msgstr "\tJuegos de caracteres:"
@@ -228,7 +228,7 @@ msgstr "        PASA    ShortNickName"
 
 #, c-format
 msgid "        WARN    %s has no corresponding options."
-msgstr "        ADVERTENCIA    %s tiene opciones que no corresponden."
+msgstr "        ADVERTENCIA    %s no tiene opciones que correspondan."
 
 #, c-format
 msgid ""
@@ -246,7 +246,7 @@ msgid ""
 msgstr ""
 "        ADVERTENCIA    La clave de opción Duplex %s puede que no funcione "
 "como se espera y debería llamarse Duplex.\n"
-"                REF: Página 122, sección 5.17."
+"                REF: Página 122, sección 5.17"
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
@@ -257,7 +257,7 @@ msgid ""
 "        WARN    LanguageEncoding required by PPD 4.3 spec.\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
-"        ADVERTENCIA    Se necesita LanguageEncoding por especificación de "
+"        ADVERTENCIA    Se requiere LanguageEncoding por especificación de "
 "PPD 4.3.\n"
 "                REF: Páginas 56-57, sección 5.3."
 
@@ -349,7 +349,7 @@ msgid ""
 "                REF: Page 122, section 5.17"
 msgstr ""
 "      %s  Incorrecto %s preferencia %s.\n"
-"                REF: Página 122, sección 5.17."
+"                REF: Página 122, sección 5.17"
 
 #, c-format
 msgid "      %s  Bad UTF-8 \"%s\" translation string for option %s, choice %s."
@@ -1641,6 +1641,8 @@ msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name NOMBRE-CLIENTE\n"
+"                        Establece el nombre del certificado cliente TLS"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
@@ -1669,13 +1671,13 @@ msgid "--false                 Always false"
 msgstr "--false                 Siempre falso"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         Muestra esta ayuda"
 
 msgid "--help                  Show program help"
 msgstr "--help                  Muestra la ayuda del programa"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  Nuestra esta ayuda"
 
 msgid "--hold                  Hold new jobs"
 msgstr "--hold                  Mantener tareas nuevas"
@@ -1735,6 +1737,7 @@ msgstr "--path exreg            Coincide ruta de recurso para expresión regular
 
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
+"--pin                          Certificado pin encontrado por comando cliente"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr "--port número[-número]  Coincide puerto a número o intervalo"
@@ -1766,6 +1769,8 @@ msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
 msgstr ""
+"--require-ca                   Requiere certificado AC-firmado para comando "
+"de cliente"
 
 msgid ""
 "--stop-after-include-error\n"
@@ -1795,7 +1800,7 @@ msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri exreg             Coincide URI para expresión regular"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      Muestra la versión del programa"
 
 msgid "--version               Show program version"
 msgstr "--version               Muestra la versión del programa"
@@ -1931,7 +1936,7 @@ msgstr ""
 "defecto)"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C PAÍS                     Establece el país."
 
 msgid "-D description          Specify the textual description of the printer"
 msgstr "-D descripción         Especifica la descripción de la impresora"
@@ -2009,7 +2014,7 @@ msgstr ""
 "(content-length)"
 
 msgid "-L LOCALITY                    Set locality name."
-msgstr ""
+msgstr "-L LUGAR                        Establece el nombre del lugar."
 
 msgid "-L location             Specify the textual location of the printer"
 msgstr "-L location             Especifica el lugar textual de la impresora"
@@ -2023,7 +2028,7 @@ msgstr ""
 "literal"
 
 msgid "-O ORGANIZATION                Set organization name."
-msgstr ""
+msgstr "-O ORGANIZACIÓN                Establece el nombre de la organización."
 
 msgid "-P destination          Show status for the specified destination"
 msgstr "-P destino          Muestra estado para el destino especificado"
@@ -2054,6 +2059,8 @@ msgstr "-R                      Muestra la puntuación de tareas"
 msgid ""
 "-R CSR-FILENAME                Specify certificate signing request file."
 msgstr ""
+"-R CSR-NOMBRE-ARCHIVO                Especifique firma de certificado "
+"solicitado del archivo."
 
 msgid "-R name-default         Remove the default value for the named option"
 msgstr ""
@@ -2066,7 +2073,7 @@ msgid "-S                      Test with encryption using HTTPS"
 msgstr "-S                      Prueba con cifrado utilizando HTTPS"
 
 msgid "-S STATE                       Set state."
-msgstr ""
+msgstr "-S ESTADO                       Establecer estado."
 
 msgid "-S filename.strings     Set strings file"
 msgstr "-S nombre-archivo.cadenas     Establece archivo de cadenas"
@@ -2600,22 +2607,22 @@ msgid "10"
 msgstr "10"
 
 msgid "10 inches/sec."
-msgstr "10 pulg./seg"
+msgstr "10 pulg./seg."
 
 msgid "10 x 11"
-msgstr "10 x 11"
+msgstr "10 × 11"
 
 msgid "10 x 13"
-msgstr "10 x 13"
+msgstr "10 × 13"
 
 msgid "10 x 14"
-msgstr "10 x 14"
+msgstr "10 × 14"
 
 msgid "100"
 msgstr "100"
 
 msgid "100 mm/sec."
-msgstr "100 mm/seg"
+msgstr "100 mm/seg."
 
 msgid "105"
 msgstr "105"
@@ -2624,7 +2631,7 @@ msgid "11"
 msgstr "11"
 
 msgid "11 inches/sec."
-msgstr "11 pulg./seg"
+msgstr "11 pulg./seg."
 
 msgid "110"
 msgstr "110"
@@ -2636,22 +2643,22 @@ msgid "12"
 msgstr "12"
 
 msgid "12 inches/sec."
-msgstr "12 pulg./seg"
+msgstr "12 pulg./seg."
 
 msgid "12 x 11"
-msgstr "12 x 11"
+msgstr "12 × 11"
 
 msgid "120"
 msgstr "120"
 
 msgid "120 mm/sec."
-msgstr "120 mm/seg"
+msgstr "120 mm/seg."
 
 msgid "120x60dpi"
-msgstr "120x60ppp"
+msgstr "120×60ppp"
 
 msgid "120x72dpi"
-msgstr "120x72ppp"
+msgstr "120×72ppp"
 
 msgid "13"
 msgstr "13"
@@ -2666,13 +2673,13 @@ msgid "15"
 msgstr "15"
 
 msgid "15 mm/sec."
-msgstr "15 mm/seg"
+msgstr "15 mm/seg."
 
 msgid "15 x 11"
-msgstr "15 x 11"
+msgstr "15 × 11"
 
 msgid "150 mm/sec."
-msgstr "150 mm/seg"
+msgstr "150 mm/seg."
 
 msgid "150dpi"
 msgstr "150ppp"
@@ -2696,73 +2703,73 @@ msgid "2"
 msgstr "2"
 
 msgid "2 inches/sec."
-msgstr "2 pulg./seg"
+msgstr "2 pulg./seg."
 
 msgid "2-Sided Printing"
 msgstr "Dúplex"
 
 msgid "2.00x0.37\""
-msgstr "2.00x0.37 pulg."
+msgstr "2'00×0'37\""
 
 msgid "2.00x0.50\""
-msgstr "2.00x0.50 pulg."
+msgstr "2'00×0'50\""
 
 msgid "2.00x1.00\""
-msgstr "2.00x1.00 pulg."
+msgstr "2'00×1'00\""
 
 msgid "2.00x1.25\""
-msgstr "2.00x1.25 pulg."
+msgstr "2'00×1'25\""
 
 msgid "2.00x2.00\""
-msgstr "2.00x2.00 pulg."
+msgstr "2'00×2'00\""
 
 msgid "2.00x3.00\""
-msgstr "2.00x3.00 pulg."
+msgstr "2'00×3'00\""
 
 msgid "2.00x4.00\""
-msgstr "2.00x4.00 pulg."
+msgstr "2'00×4'00\""
 
 msgid "2.00x5.50\""
-msgstr "2.00x5.50 pulg."
+msgstr "2'00×5'50\""
 
 msgid "2.25x0.50\""
-msgstr "2.25x0.50 pulg."
+msgstr "2'25×0'50\""
 
 msgid "2.25x1.25\""
-msgstr "2.25x1.25 pulg."
+msgstr "2'25×1'25\""
 
 msgid "2.25x4.00\""
-msgstr "2.25x4.00 pulg."
+msgstr "2'25×4'00\""
 
 msgid "2.25x5.50\""
-msgstr "2.25x5.50 pulg."
+msgstr "2'25×5'50\""
 
 msgid "2.38x5.50\""
-msgstr "2.38x5.50 pulg."
+msgstr "2'38×5'50\""
 
 msgid "2.5 inches/sec."
-msgstr "2.5 pulg./seg"
+msgstr "2'5\"/seg."
 
 msgid "2.50x1.00\""
-msgstr "2.50x1.00 pulg."
+msgstr "2'50×1'00\""
 
 msgid "2.50x2.00\""
-msgstr "2.50x2.00 pulg."
+msgstr "2'50×2'00\""
 
 msgid "2.75x1.25\""
-msgstr "2.75x1.25 pulg."
+msgstr "2'75×1'25\""
 
 msgid "2.9 x 1\""
-msgstr "2.9 x 1 pulg."
+msgstr "2'9 × 1\""
 
 msgid "20"
 msgstr "20"
 
 msgid "20 mm/sec."
-msgstr "20 mm/seg"
+msgstr "20 mm/seg."
 
 msgid "200 mm/sec."
-msgstr "200 mm/seg"
+msgstr "200 mm/seg."
 
 msgid "203dpi"
 msgstr "203ppp"
@@ -2783,13 +2790,13 @@ msgid "24-Pin Series"
 msgstr "24-Pin Series"
 
 msgid "240x72dpi"
-msgstr "240x72ppp"
+msgstr "240×72ppp"
 
 msgid "25"
 msgstr "25"
 
 msgid "250 mm/sec."
-msgstr "250 mm/seg"
+msgstr "250 mm/seg."
 
 msgid "26"
 msgstr "26"
@@ -2807,73 +2814,73 @@ msgid "3"
 msgstr "3"
 
 msgid "3 inches/sec."
-msgstr "3 pulg./seg"
+msgstr "3\"/seg."
 
 msgid "3 x 5"
-msgstr "3 x 5"
+msgstr "3 × 5"
 
 msgid "3.00x1.00\""
-msgstr "3.00x1.00 pulg."
+msgstr "3'00×1'00\""
 
 msgid "3.00x1.25\""
-msgstr "3.00x1.25 pulg."
+msgstr "3'00×1'25\""
 
 msgid "3.00x2.00\""
-msgstr "3.00x2.00 pulg."
+msgstr "3'00×2'00\""
 
 msgid "3.00x3.00\""
-msgstr "3.00x3.00 pulg."
+msgstr "3'00×3'00\""
 
 msgid "3.00x4.00\""
-msgstr ""
+msgstr "3'00×4'00\""
 
 msgid "3.00x5.00\""
-msgstr "3.00x5.00 pulg."
+msgstr "3'00×5'00\""
 
 msgid "3.00x6.00\""
-msgstr ""
+msgstr "3'00×6'00\""
 
 msgid "3.00x8.00\""
-msgstr ""
+msgstr "3'00×8'00\""
 
 msgid "3.25x2.00\""
-msgstr "3.25x2.00 pulg."
+msgstr "3'25×2'00\""
 
 msgid "3.25x5.00\""
-msgstr "3.25x5.00 pulg."
+msgstr "3'25×5'00\""
 
 msgid "3.25x5.50\""
-msgstr "3.25x5.50 pulg."
+msgstr "3'25×5'50\""
 
 msgid "3.25x5.83\""
-msgstr "3.25x5.83 pulg."
+msgstr "3'25×5'83\""
 
 msgid "3.25x7.83\""
-msgstr "3.25x7.83 pulg."
+msgstr "3'25×7'83\""
 
 msgid "3.5 x 5"
-msgstr "3.5 x 5"
+msgstr "3'5 × 5"
 
 msgid "3.5\" Disk"
-msgstr "Disco de 3.5 pulg."
+msgstr "Disco de 3'5\""
 
 msgid "3.50x1.00\""
-msgstr "3.50x1.00 pulg."
+msgstr "3'50×1'00\""
 
 msgid "30"
 msgstr "30"
 
 msgid "30 mm/sec."
-msgstr "30 mm/seg"
+msgstr "30 mm/seg."
 
 msgid "300 mm/sec."
-msgstr "300 mm/seg"
+msgstr "300 mm/seg."
 
 msgid "300dpi"
 msgstr "300ppp"
 
 msgid "30859 Paint Can Label"
-msgstr ""
+msgstr "Etiqueta de lata de pintura 30859"
 
 msgid "35"
 msgstr "35"
@@ -2882,19 +2889,19 @@ msgid "360dpi"
 msgstr "360ppp"
 
 msgid "360x180dpi"
-msgstr "360x180ppp"
+msgstr "360×180ppp"
 
 msgid "4"
 msgstr "4"
 
 msgid "4 inches/sec."
-msgstr "4 pulg./seg"
+msgstr "4 pulg./seg."
 
 msgid "4.00x1.00\""
-msgstr "4.00x1.00 pulg."
+msgstr "4'00×1'00\""
 
 msgid "4.00x13.00\""
-msgstr "4.00x13.00 pulg."
+msgstr "4'00x13'00 pulg."
 
 msgid "4.00x2.00\""
 msgstr "4.00x2.00 pulg."
