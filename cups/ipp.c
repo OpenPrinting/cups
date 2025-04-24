@@ -5370,7 +5370,7 @@ ipp_read_io(void        *src,		// I - Data source
 {
   int			n;		// Length of data
   unsigned char		*buffer,	// Data buffer
-			string[IPP_MAX_TEXT],
+			string[IPP_MAX_TEXT] = { 0 },
 					// Small string buffer
 			*bufptr,	// Pointer into buffer
 			*bufend;	// End of buffer
