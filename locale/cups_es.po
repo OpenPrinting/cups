@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-24 09:01+0000\n"
+"PO-Revision-Date: 2025-04-25 14:51+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -5998,165 +5998,165 @@ msgstr ""
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
-msgstr ""
+msgstr "cubierta"
 
 #. TRANSLATORS: Add Coating To
 msgid "coating-sides"
-msgstr ""
+msgstr "Añadir cubierta a"
 
 #. TRANSLATORS: Back
 msgid "coating-sides.back"
-msgstr ""
+msgstr "Trasera"
 
 #. TRANSLATORS: Front and Back
 msgid "coating-sides.both"
-msgstr ""
+msgstr "Frontal y Trasera"
 
 #. TRANSLATORS: Front
 msgid "coating-sides.front"
-msgstr ""
+msgstr "Frontal"
 
 #. TRANSLATORS: Type of Coating
 msgid "coating-type"
-msgstr ""
+msgstr "Tipo de Cubierta"
 
 #. TRANSLATORS: Archival
 msgid "coating-type.archival"
-msgstr ""
+msgstr "Archivador"
 
 #. TRANSLATORS: Archival Glossy
 msgid "coating-type.archival-glossy"
-msgstr ""
+msgstr "Archivador Brillante"
 
 #. TRANSLATORS: Archival Matte
 msgid "coating-type.archival-matte"
-msgstr ""
+msgstr "Archivador Mate"
 
 #. TRANSLATORS: Archival Semi Gloss
 msgid "coating-type.archival-semi-gloss"
-msgstr ""
+msgstr "Archivador Semi Brillante"
 
 #. TRANSLATORS: Glossy
 msgid "coating-type.glossy"
-msgstr ""
+msgstr "Brillante"
 
 #. TRANSLATORS: High Gloss
 msgid "coating-type.high-gloss"
-msgstr ""
+msgstr "Brillo Alto"
 
 #. TRANSLATORS: Matte
 msgid "coating-type.matte"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Semi-gloss
 msgid "coating-type.semi-gloss"
-msgstr ""
+msgstr "Semibrillante"
 
 #. TRANSLATORS: Silicone
 msgid "coating-type.silicone"
-msgstr ""
+msgstr "Silicona"
 
 #. TRANSLATORS: Translucent
 msgid "coating-type.translucent"
-msgstr ""
+msgstr "Translúcido"
 
 msgid "completed"
 msgstr "completado"
 
 #. TRANSLATORS: Print Confirmation Sheet
 msgid "confirmation-sheet-print"
-msgstr ""
+msgstr "Imprimir hoja de confirmación"
 
 #. TRANSLATORS: Copies
 msgid "copies"
-msgstr ""
+msgstr "Copias"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
-msgstr ""
+msgstr "Contraportada"
 
 #. TRANSLATORS: Front Cover
 msgid "cover-front"
-msgstr ""
+msgstr "Portada"
 
 #. TRANSLATORS: Cover Sheet Info
 msgid "cover-sheet-info"
-msgstr ""
+msgstr "Información de portada"
 
 #. TRANSLATORS: Date Time
 msgid "cover-sheet-info-supported.date-time"
-msgstr ""
+msgstr "Fecha Hora"
 
 #. TRANSLATORS: From Name
 msgid "cover-sheet-info-supported.from-name"
-msgstr ""
+msgstr "Nombre Origen"
 
 #. TRANSLATORS: Logo
 msgid "cover-sheet-info-supported.logo"
-msgstr ""
+msgstr "Logotipo"
 
 #. TRANSLATORS: Message
 msgid "cover-sheet-info-supported.message"
-msgstr ""
+msgstr "Mensaje"
 
 #. TRANSLATORS: Organization
 msgid "cover-sheet-info-supported.organization"
-msgstr ""
+msgstr "Organización"
 
 #. TRANSLATORS: Subject
 msgid "cover-sheet-info-supported.subject"
-msgstr ""
+msgstr "Asunto"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
-msgstr ""
+msgstr "Nombre Destino"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
-msgstr ""
+msgstr "Portada impresa"
 
 #. TRANSLATORS: No Cover
 msgid "cover-type.no-cover"
-msgstr ""
+msgstr "Sin tapa"
 
 #. TRANSLATORS: Back Only
 msgid "cover-type.print-back"
-msgstr ""
+msgstr "Sólo atrás"
 
 #. TRANSLATORS: Front and Back
 msgid "cover-type.print-both"
-msgstr ""
+msgstr "Anverso y reverso"
 
 #. TRANSLATORS: Front Only
 msgid "cover-type.print-front"
-msgstr ""
+msgstr "Sólo frontal"
 
 #. TRANSLATORS: None
 msgid "cover-type.print-none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Cover Output
 msgid "covering"
-msgstr ""
+msgstr "Tapa Salida"
 
 #. TRANSLATORS: Add Cover
 msgid "covering-name"
-msgstr ""
+msgstr "Añadir cubierta"
 
 #. TRANSLATORS: Plain
 msgid "covering-name.plain"
-msgstr ""
+msgstr "Llano"
 
 #. TRANSLATORS: Pre-cut
 msgid "covering-name.pre-cut"
-msgstr ""
+msgstr "Precortado"
 
 #. TRANSLATORS: Pre-printed
 msgid "covering-name.pre-printed"
-msgstr ""
+msgstr "Preimpreso"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr ""
+msgstr "csr NOMBRE-COMÚN            Crea un certificado de firma solicitado."
 
 msgid "cups-deviced failed to execute."
 msgstr "Ha fallado al ejecutarse cups-deviced."
