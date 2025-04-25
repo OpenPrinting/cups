@@ -1561,9 +1561,9 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   }
 
   if (con->email[0])
-    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "mailto:", con->email);
+    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "mailto:%s", con->email);
   else
-    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "urn:sub:", con->username);
+    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "urn:sub:%s", con->username);
 
   if (con->username[0] || auth_info)
   {
