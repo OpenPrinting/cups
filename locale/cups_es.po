@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-25 19:59+0000\n"
+"PO-Revision-Date: 2025-04-26 21:06+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -7235,47 +7235,47 @@ msgstr "Punzón superior derecho"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
-msgstr ""
+msgstr "Perforadora de 3 agujeros"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishing-template.punch-triple-left"
-msgstr ""
+msgstr "Perforadora de 3 agujeros izquierda"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishing-template.punch-triple-right"
-msgstr ""
+msgstr "Perforadora de 3 agujeros derecha"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishing-template.punch-triple-top"
-msgstr ""
+msgstr "Perforadora de 3 agujeros superior"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishing-template.saddle-stitch"
-msgstr ""
+msgstr "Puntada a caballete"
 
 #. TRANSLATORS: Staple
 msgid "finishing-template.staple"
-msgstr ""
+msgstr "Grapa"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
-msgstr ""
+msgstr "Grapa inferior izquierda"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishing-template.staple-bottom-right"
-msgstr ""
+msgstr "Grapa inferior derecha"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishing-template.staple-dual-bottom"
-msgstr ""
+msgstr "2 grapas en la parte inferior"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishing-template.staple-dual-left"
-msgstr ""
+msgstr "2 grapas a la izquierda"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishing-template.staple-dual-right"
-msgstr ""
+msgstr "2 grapas a la derecha"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishing-template.staple-dual-top"
@@ -7323,15 +7323,15 @@ msgstr "Recorte tras trabajo"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-pages"
-msgstr ""
+msgstr "Recortar después de cada página"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-sets"
-msgstr ""
+msgstr "Recorte después de cada serie"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-sheets"
-msgstr ""
+msgstr "Recortar tras cada página"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
@@ -7371,325 +7371,329 @@ msgstr "Desplazamiento Jog"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
-msgstr ""
+msgstr "Cobertura"
 
 #. TRANSLATORS: Laminate
 msgid "finishings.16"
-msgstr ""
+msgstr "Laminado"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
-msgstr ""
+msgstr "Grapa superior izquierda"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishings.21"
-msgstr ""
+msgstr "Grapa inferior izquierda"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishings.22"
-msgstr ""
+msgstr "Grapa superior derecha"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr ""
+msgstr "Grapa inferior derecha"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr ""
+msgstr "Puntada en el borde izquierdo"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
-msgstr ""
+msgstr "Cima de puntada en el borde"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishings.26"
-msgstr ""
+msgstr "Puntada de borde derecha"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishings.27"
-msgstr ""
+msgstr "Costura en el borde inferior"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishings.28"
-msgstr ""
+msgstr "2 grapas a la izquierda"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishings.29"
-msgstr ""
+msgstr "2 grapas en la parte superior"
 
 #. TRANSLATORS: None
 msgid "finishings.3"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishings.30"
-msgstr ""
+msgstr "2 grapas a la derecha"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishings.31"
-msgstr ""
+msgstr "2 grapas en la parte inferior"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishings.32"
-msgstr ""
+msgstr "3 grapas a la izquierda"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishings.33"
-msgstr ""
+msgstr "3 grapas en la parte superior"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishings.34"
-msgstr ""
+msgstr "3 grapas a la derecha"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishings.35"
-msgstr ""
+msgstr "3 grapas en la parte inferior"
 
 #. TRANSLATORS: Staple
 msgid "finishings.4"
-msgstr ""
+msgstr "Grapa"
 
 #. TRANSLATORS: Punch
 msgid "finishings.5"
-msgstr ""
+msgstr "Perforar"
 
 #. TRANSLATORS: Bind Left
 msgid "finishings.50"
-msgstr ""
+msgstr "Encuadernar a la izquierda"
 
 #. TRANSLATORS: Bind Top
 msgid "finishings.51"
-msgstr ""
+msgstr "Encuadernar parte superior"
 
 #. TRANSLATORS: Bind Right
 msgid "finishings.52"
-msgstr ""
+msgstr "Encuadernar a la derecha"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishings.53"
-msgstr ""
+msgstr "Encuadernar parte inferior"
 
 #. TRANSLATORS: Cover
 msgid "finishings.6"
-msgstr ""
+msgstr "Portada"
 
 #. TRANSLATORS: Trim Pages
 msgid "finishings.60"
-msgstr ""
+msgstr "Páginas de recorte"
 
 #. TRANSLATORS: Trim Documents
 msgid "finishings.61"
-msgstr ""
+msgstr "Documentos de recorte"
 
 #. TRANSLATORS: Trim Copies
 msgid "finishings.62"
-msgstr ""
+msgstr "Copias de recortes"
 
 #. TRANSLATORS: Trim Job
 msgid "finishings.63"
-msgstr ""
+msgstr "Tarea de recorte"
 
 #. TRANSLATORS: Bind
 msgid "finishings.7"
-msgstr ""
+msgstr "Encuadernar"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishings.70"
-msgstr ""
+msgstr "Perforación superior izquierda"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishings.71"
-msgstr ""
+msgstr "Perforación inferior izquierda"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishings.72"
-msgstr ""
+msgstr "Perforación superior a la derecha"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishings.73"
-msgstr ""
+msgstr "Perforación inferior derecha"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishings.74"
-msgstr ""
+msgstr "Perforación de 2 agujeros a la izquierda"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishings.75"
-msgstr ""
+msgstr "Perforación de 2 agujeros superiores"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishings.76"
-msgstr ""
+msgstr "Perforación de 2 agujeros a la derecha"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishings.77"
-msgstr ""
+msgstr "Perforación de 2 agujeros inferiores"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishings.78"
-msgstr ""
+msgstr "Perforadora de 3 agujeros izquierda"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishings.79"
-msgstr ""
+msgstr "Perforadora de 3 agujeros superiores"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishings.8"
-msgstr ""
+msgstr "Puntada a caballete"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishings.80"
-msgstr ""
+msgstr "Perforadora de 3 agujeros derecha"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishings.81"
-msgstr ""
+msgstr "Perforadora de 3 agujeros"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishings.82"
-msgstr ""
+msgstr "Perforadora de 4 agujeros izquierda"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishings.83"
-msgstr ""
+msgstr "Perforadora de 4 agujeros superior"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishings.84"
-msgstr ""
+msgstr "Perforadora de 4 agujeros derecha"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishings.85"
-msgstr ""
+msgstr "Perforadora de 4 agujeros inferiores"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishings.86"
-msgstr ""
+msgstr "Perforación múltiple izquierda"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishings.87"
-msgstr ""
+msgstr "Tapa perforada con varios agujeros"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishings.88"
-msgstr ""
+msgstr "Perforadora de multiagujeros derecha"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishings.89"
-msgstr ""
+msgstr "Perforadora multiagujero inferior"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishings.9"
-msgstr ""
+msgstr "Puntada en el canto"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishings.90"
-msgstr ""
+msgstr "Pliegue en acordeón"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishings.91"
-msgstr ""
+msgstr "Plegado de doble puerta"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishings.92"
-msgstr ""
+msgstr "Plegado de la puerta"
 
 #. TRANSLATORS: Half Fold
 msgid "finishings.93"
-msgstr ""
+msgstr "Medio pliegue"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishings.94"
-msgstr ""
+msgstr "Pliegue en media Z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishings.95"
-msgstr ""
+msgstr "Plegado de la puerta izquierda"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishings.96"
-msgstr ""
+msgstr "Pliegue de carta"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishings.97"
-msgstr ""
+msgstr "Pliegue paralelo"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishings.98"
-msgstr ""
+msgstr "Póster plegado"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishings.99"
-msgstr ""
+msgstr "Plegado de la puerta derecha"
 
 #. TRANSLATORS: Fold
 msgid "folding"
-msgstr ""
+msgstr "Pliegue"
 
 #. TRANSLATORS: Fold Direction
 msgid "folding-direction"
-msgstr ""
+msgstr "Dirección del pliegue"
 
 #. TRANSLATORS: Inward
 msgid "folding-direction.inward"
-msgstr ""
+msgstr "Hacia el interior"
 
 #. TRANSLATORS: Outward
 msgid "folding-direction.outward"
-msgstr ""
+msgstr "Hacia el exterior"
 
 #. TRANSLATORS: Fold Position
 msgid "folding-offset"
-msgstr ""
+msgstr "Posición de plegado"
 
 #. TRANSLATORS: Fold Edge
 msgid "folding-reference-edge"
-msgstr ""
+msgstr "Borde del pliegue"
 
 #. TRANSLATORS: Bottom
 msgid "folding-reference-edge.bottom"
-msgstr ""
+msgstr "Abajo"
 
 #. TRANSLATORS: Left
 msgid "folding-reference-edge.left"
-msgstr ""
+msgstr "Izquierdo"
 
 #. TRANSLATORS: Right
 msgid "folding-reference-edge.right"
-msgstr ""
+msgstr "Derecho"
 
 #. TRANSLATORS: Top
 msgid "folding-reference-edge.top"
-msgstr ""
+msgstr "Cima"
 
 #. TRANSLATORS: Font Name
 msgid "font-name-requested"
-msgstr ""
+msgstr "Nombre de la tipografía"
 
 #. TRANSLATORS: Font Size
 msgid "font-size-requested"
-msgstr ""
+msgstr "Tamaño de la tipografía"
 
 #. TRANSLATORS: Force Front Side
 msgid "force-front-side"
-msgstr ""
+msgstr "Fuerza Lado Frontal"
 
 #. TRANSLATORS: From Name
 msgid "from-name"
-msgstr ""
+msgstr "Nombre origen"
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
-msgstr ""
+msgstr "get-access-token [RECURSO]    Obtiene el vale de acceso actual"
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
 msgstr ""
+"get-client-id                  Obtiene el ID cliente para el servidor de "
+"authorización"
 
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
 msgstr ""
+"get-metadata [NOMBRE]            Obtiene metadatos desde el servidor de "
+"autorización"
 
 msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
-msgstr ""
+msgstr "get-user-id [RECURSO] [NOMBRE]  Obtiene el ID de usuario autorizado"
 
 msgid "held"
 msgstr "retenido"
@@ -7702,27 +7706,27 @@ msgstr "inactiva"
 
 #. TRANSLATORS: Imposition Template
 msgid "imposition-template"
-msgstr ""
+msgstr "Plantilla impositiva"
 
 #. TRANSLATORS: None
 msgid "imposition-template.none"
-msgstr ""
+msgstr "Ninguna"
 
 #. TRANSLATORS: Signature
 msgid "imposition-template.signature"
-msgstr ""
+msgstr "Firma"
 
 #. TRANSLATORS: Insert Page Number
 msgid "insert-after-page-number"
-msgstr ""
+msgstr "Insertar número de página"
 
 #. TRANSLATORS: Insert Count
 msgid "insert-count"
-msgstr ""
+msgstr "Insertar recuento"
 
 #. TRANSLATORS: Insert Sheet
 msgid "insert-sheet"
-msgstr ""
+msgstr "Insertar hoja"
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
@@ -7765,7 +7769,7 @@ msgstr "ippfind: Falta un nombre de clave tras %s."
 
 #, c-format
 msgid "ippfind: Missing name after %s."
-msgstr ""
+msgstr "ippfind: Falta el nombre después de %s."
 
 msgid "ippfind: Missing open parenthesis."
 msgstr "ippfind: Falta el paréntesis de apertura."
@@ -7800,13 +7804,15 @@ msgid ""
 "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", "
 "and \"-X\"."
 msgstr ""
+"ipptool: \"-i\" y \"-n\" son incompatibles con \"--ippserver\", \"-P\" y "
+"\"-X\"."
 
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
 msgstr "ipptool: \"-i\" y \"-n\" no son compatibles con \"-P\" y \"-X\"."
 
 #, c-format
 msgid "ipptool: Bad URI \"%s\"."
-msgstr ""
+msgstr "URI incorrecto \"%s\"."
 
 msgid "ipptool: Invalid seconds for \"-i\"."
 msgstr "ipptool: Número de segundos no válido para \"-i\"."
@@ -7838,550 +7844,550 @@ msgstr ""
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
-msgstr ""
+msgstr "ID de cuenta de trabajo"
 
 #. TRANSLATORS: Job Account Type
 msgid "job-account-type"
-msgstr ""
+msgstr "Tipo de cuenta de trabajo"
 
 #. TRANSLATORS: General
 msgid "job-account-type.general"
-msgstr ""
+msgstr "General"
 
 #. TRANSLATORS: Group
 msgid "job-account-type.group"
-msgstr ""
+msgstr "Grupo"
 
 #. TRANSLATORS: None
 msgid "job-account-type.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Job Accounting Output Bin
 msgid "job-accounting-output-bin"
-msgstr ""
+msgstr "Lugar de salida de la contabilidad de trabajos"
 
 #. TRANSLATORS: Job Accounting Sheets
 msgid "job-accounting-sheets"
-msgstr ""
+msgstr "Hojas de contabilidad laboral"
 
 #. TRANSLATORS: Type of Job Accounting Sheets
 msgid "job-accounting-sheets-type"
-msgstr ""
+msgstr "Tipo de trabajo Hojas contables"
 
 #. TRANSLATORS: None
 msgid "job-accounting-sheets-type.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Standard
 msgid "job-accounting-sheets-type.standard"
-msgstr ""
+msgstr "Estándar"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
-msgstr ""
+msgstr "ID de usuario de contabilidad de trabajos"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
-msgstr ""
+msgstr "Trabajo Cancelar después"
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
-msgstr ""
+msgstr "Copias"
 
 #. TRANSLATORS: Back Cover
 msgid "job-cover-back"
-msgstr ""
+msgstr "Contraportada"
 
 #. TRANSLATORS: Front Cover
 msgid "job-cover-front"
-msgstr ""
+msgstr "Portada"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until"
-msgstr ""
+msgstr "Salida retardada hasta"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until-time"
-msgstr ""
+msgstr "Salida retardada hasta"
 
 #. TRANSLATORS: Daytime
 msgid "job-delay-output-until.day-time"
-msgstr ""
+msgstr "Durante el día"
 
 #. TRANSLATORS: Evening
 msgid "job-delay-output-until.evening"
-msgstr ""
+msgstr "Por la noche"
 
 #. TRANSLATORS: Released
 msgid "job-delay-output-until.indefinite"
-msgstr ""
+msgstr "Publicado en"
 
 #. TRANSLATORS: Night
 msgid "job-delay-output-until.night"
-msgstr ""
+msgstr "Noche"
 
 #. TRANSLATORS: No Delay
 msgid "job-delay-output-until.no-delay-output"
-msgstr ""
+msgstr "Sin retraso"
 
 #. TRANSLATORS: Second Shift
 msgid "job-delay-output-until.second-shift"
-msgstr ""
+msgstr "Segundo turno"
 
 #. TRANSLATORS: Third Shift
 msgid "job-delay-output-until.third-shift"
-msgstr ""
+msgstr "Tercer turno"
 
 #. TRANSLATORS: Weekend
 msgid "job-delay-output-until.weekend"
-msgstr ""
+msgstr "Fin de semana"
 
 #. TRANSLATORS: On Error
 msgid "job-error-action"
-msgstr ""
+msgstr "En caso de error"
 
 #. TRANSLATORS: Abort Job
 msgid "job-error-action.abort-job"
-msgstr ""
+msgstr "Interrumpir tarea"
 
 #. TRANSLATORS: Cancel Job
 msgid "job-error-action.cancel-job"
-msgstr ""
+msgstr "Cancelar tarea"
 
 #. TRANSLATORS: Continue Job
 msgid "job-error-action.continue-job"
-msgstr ""
+msgstr "Reanudar tarea"
 
 #. TRANSLATORS: Suspend Job
 msgid "job-error-action.suspend-job"
-msgstr ""
+msgstr "Suspender tarea"
 
 #. TRANSLATORS: Print Error Sheet
 msgid "job-error-sheet"
-msgstr ""
+msgstr "Imprimir hoja de errores"
 
 #. TRANSLATORS: Type of Error Sheet
 msgid "job-error-sheet-type"
-msgstr ""
+msgstr "Tipo de hoja de error"
 
 #. TRANSLATORS: None
 msgid "job-error-sheet-type.none"
-msgstr ""
+msgstr "Ninguna"
 
 #. TRANSLATORS: Standard
 msgid "job-error-sheet-type.standard"
-msgstr ""
+msgstr "Estándar"
 
 #. TRANSLATORS: Print Error Sheet
 msgid "job-error-sheet-when"
-msgstr ""
+msgstr "Imprimir hoja de errores"
 
 #. TRANSLATORS: Always
 msgid "job-error-sheet-when.always"
-msgstr ""
+msgstr "Siempre"
 
 #. TRANSLATORS: On Error
 msgid "job-error-sheet-when.on-error"
-msgstr ""
+msgstr "En caso de error"
 
 #. TRANSLATORS: Job Finishings
 msgid "job-finishings"
-msgstr ""
+msgstr "Acabados de obra"
 
 #. TRANSLATORS: Hold Until
 msgid "job-hold-until"
-msgstr ""
+msgstr "Mantener hasta"
 
 #. TRANSLATORS: Hold Until
 msgid "job-hold-until-time"
-msgstr ""
+msgstr "Mantener hasta"
 
 #. TRANSLATORS: Daytime
 msgid "job-hold-until.day-time"
-msgstr ""
+msgstr "Durante el día"
 
 #. TRANSLATORS: Evening
 msgid "job-hold-until.evening"
-msgstr ""
+msgstr "Por la noche"
 
 #. TRANSLATORS: Released
 msgid "job-hold-until.indefinite"
-msgstr ""
+msgstr "Publicado en"
 
 #. TRANSLATORS: Night
 msgid "job-hold-until.night"
-msgstr ""
+msgstr "Noche"
 
 #. TRANSLATORS: No Hold
 msgid "job-hold-until.no-hold"
-msgstr ""
+msgstr "Sin retención"
 
 #. TRANSLATORS: Second Shift
 msgid "job-hold-until.second-shift"
-msgstr ""
+msgstr "Segundo Turno"
 
 #. TRANSLATORS: Third Shift
 msgid "job-hold-until.third-shift"
-msgstr ""
+msgstr "Tercer Turno"
 
 #. TRANSLATORS: Weekend
 msgid "job-hold-until.weekend"
-msgstr ""
+msgstr "Fin de semana"
 
 #. TRANSLATORS: Job Mandatory Attributes
 msgid "job-mandatory-attributes"
-msgstr ""
+msgstr "Atributos obligatorios del puesto"
 
 #. TRANSLATORS: Title
 msgid "job-name"
-msgstr ""
+msgstr "Título"
 
 #. TRANSLATORS: Job Pages
 msgid "job-pages"
-msgstr ""
+msgstr "Páginas de empleo"
 
 #. TRANSLATORS: Job Pages
 msgid "job-pages-col"
-msgstr ""
+msgstr "Páginas de empleo"
 
 #. TRANSLATORS: Job Phone Number
 msgid "job-phone-number"
-msgstr ""
+msgstr "Teléfono de trabajo"
 
 msgid "job-printer-uri attribute missing."
 msgstr "Falta el atributo job-printer-uri."
 
 #. TRANSLATORS: Job Priority
 msgid "job-priority"
-msgstr ""
+msgstr "Prioridad laboral"
 
 #. TRANSLATORS: Job Privacy Attributes
 msgid "job-privacy-attributes"
-msgstr ""
+msgstr "Atributos de privacidad del puesto"
 
 #. TRANSLATORS: All
 msgid "job-privacy-attributes.all"
-msgstr ""
+msgstr "Todo"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-attributes.default"
-msgstr ""
+msgstr "Predeterminado"
 
 #. TRANSLATORS: Job Description
 msgid "job-privacy-attributes.job-description"
-msgstr ""
+msgstr "Descripción del puesto"
 
 #. TRANSLATORS: Job Template
 msgid "job-privacy-attributes.job-template"
-msgstr ""
+msgstr "Plantilla del puesto"
 
 #. TRANSLATORS: None
 msgid "job-privacy-attributes.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Job Privacy Scope
 msgid "job-privacy-scope"
-msgstr ""
+msgstr "Ámbito de privacidad del puesto"
 
 #. TRANSLATORS: All
 msgid "job-privacy-scope.all"
-msgstr ""
+msgstr "Todo"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-scope.default"
-msgstr ""
+msgstr "Por defecto"
 
 #. TRANSLATORS: None
 msgid "job-privacy-scope.none"
-msgstr ""
+msgstr "Ninguna"
 
 #. TRANSLATORS: Owner
 msgid "job-privacy-scope.owner"
-msgstr ""
+msgstr "Propietario"
 
 #. TRANSLATORS: Job Recipient Name
 msgid "job-recipient-name"
-msgstr ""
+msgstr "Nombre del destinatario del trabajo"
 
 #. TRANSLATORS: Job Retain Until
 msgid "job-retain-until"
-msgstr ""
+msgstr "Trabajo Retener hasta"
 
 #. TRANSLATORS: Job Retain Until Interval
 msgid "job-retain-until-interval"
-msgstr ""
+msgstr "Retener Trabajo hasta intervalo"
 
 #. TRANSLATORS: Job Retain Until Time
 msgid "job-retain-until-time"
-msgstr ""
+msgstr "Retención de empleo hasta el momento"
 
 #. TRANSLATORS: End Of Day
 msgid "job-retain-until.end-of-day"
-msgstr ""
+msgstr "Fin del día"
 
 #. TRANSLATORS: End Of Month
 msgid "job-retain-until.end-of-month"
-msgstr ""
+msgstr "Fin de mes"
 
 #. TRANSLATORS: End Of Week
 msgid "job-retain-until.end-of-week"
-msgstr ""
+msgstr "Fin de semana"
 
 #. TRANSLATORS: Indefinite
 msgid "job-retain-until.indefinite"
-msgstr ""
+msgstr "Indefinido"
 
 #. TRANSLATORS: None
 msgid "job-retain-until.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Job Save Disposition
 msgid "job-save-disposition"
-msgstr ""
+msgstr "Trabajo Guardar Disposición"
 
 #. TRANSLATORS: Job Sheet Message
 msgid "job-sheet-message"
-msgstr ""
+msgstr "Mensaje de la hoja de trabajo"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets"
-msgstr ""
+msgstr "Página de pancartas"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets-col"
-msgstr ""
+msgstr "Página de pancarta"
 
 #. TRANSLATORS: First Page in Document
 msgid "job-sheets.first-print-stream-page"
-msgstr ""
+msgstr "Primera página del documento"
 
 #. TRANSLATORS: Start and End Sheets
 msgid "job-sheets.job-both-sheet"
-msgstr ""
+msgstr "Hojas de inicio y fin"
 
 #. TRANSLATORS: End Sheet
 msgid "job-sheets.job-end-sheet"
-msgstr ""
+msgstr "Hoja final"
 
 #. TRANSLATORS: Start Sheet
 msgid "job-sheets.job-start-sheet"
-msgstr ""
+msgstr "Hoja inicial"
 
 #. TRANSLATORS: None
 msgid "job-sheets.none"
-msgstr ""
+msgstr "Ninguna"
 
 #. TRANSLATORS: Standard
 msgid "job-sheets.standard"
-msgstr ""
+msgstr "Estándar"
 
 #. TRANSLATORS: Job State
 msgid "job-state"
-msgstr ""
+msgstr "Estado del empleo"
 
 #. TRANSLATORS: Job State Message
 msgid "job-state-message"
-msgstr ""
+msgstr "Mensaje de Estado del Empleo"
 
 #. TRANSLATORS: Detailed Job State
 msgid "job-state-reasons"
-msgstr ""
+msgstr "Estado detallado del puesto"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.aborted-by-system"
-msgstr ""
+msgstr "Detener"
 
 #. TRANSLATORS: Account Authorization Failed
 msgid "job-state-reasons.account-authorization-failed"
-msgstr ""
+msgstr "Autorización de cuenta fallida"
 
 #. TRANSLATORS: Account Closed
 msgid "job-state-reasons.account-closed"
-msgstr ""
+msgstr "Cuenta cerrada"
 
 #. TRANSLATORS: Account Info Needed
 msgid "job-state-reasons.account-info-needed"
-msgstr ""
+msgstr "Información de cuenta necesaria"
 
 #. TRANSLATORS: Account Limit Reached
 msgid "job-state-reasons.account-limit-reached"
-msgstr ""
+msgstr "Límite de la cuenta alcanzado"
 
 #. TRANSLATORS: Decompression error
 msgid "job-state-reasons.compression-error"
-msgstr ""
+msgstr "Error de descompresión"
 
 #. TRANSLATORS: Conflicting Attributes
 msgid "job-state-reasons.conflicting-attributes"
-msgstr ""
+msgstr "Atributos conflictivos"
 
 #. TRANSLATORS: Connected To Destination
 msgid "job-state-reasons.connected-to-destination"
-msgstr ""
+msgstr "Conectado al destino"
 
 #. TRANSLATORS: Connecting To Destination
 msgid "job-state-reasons.connecting-to-destination"
-msgstr ""
+msgstr "Conexión con el destino"
 
 #. TRANSLATORS: Destination Uri Failed
 msgid "job-state-reasons.destination-uri-failed"
-msgstr ""
+msgstr "Destino Uri incorrecto"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "job-state-reasons.digital-signature-did-not-verify"
-msgstr ""
+msgstr "La firma digital no se verificó"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "job-state-reasons.digital-signature-type-not-supported"
-msgstr ""
+msgstr "No se admite el tipo de firma digital"
 
 #. TRANSLATORS: Document Access Error
 msgid "job-state-reasons.document-access-error"
-msgstr ""
+msgstr "Error de acceso al documento"
 
 #. TRANSLATORS: Document Format Error
 msgid "job-state-reasons.document-format-error"
-msgstr ""
+msgstr "Error de formato del documento"
 
 #. TRANSLATORS: Document Password Error
 msgid "job-state-reasons.document-password-error"
-msgstr ""
+msgstr "Error de contraseña del documento"
 
 #. TRANSLATORS: Document Permission Error
 msgid "job-state-reasons.document-permission-error"
-msgstr ""
+msgstr "Error de permiso de documento"
 
 #. TRANSLATORS: Document Security Error
 msgid "job-state-reasons.document-security-error"
-msgstr ""
+msgstr "Error de seguridad del documento"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "job-state-reasons.document-unprintable-error"
-msgstr ""
+msgstr "Error de documento no imprimible"
 
 #. TRANSLATORS: Errors Detected
 msgid "job-state-reasons.errors-detected"
-msgstr ""
+msgstr "Errores detectados"
 
 #. TRANSLATORS: Canceled at printer
 msgid "job-state-reasons.job-canceled-at-device"
-msgstr ""
+msgstr "Cancelado en impresora"
 
 #. TRANSLATORS: Canceled by operator
 msgid "job-state-reasons.job-canceled-by-operator"
-msgstr ""
+msgstr "Cancelado por el operador"
 
 #. TRANSLATORS: Canceled by user
 msgid "job-state-reasons.job-canceled-by-user"
-msgstr ""
+msgstr "Cancelado por el usuario"
 
 #. TRANSLATORS:
 msgid "job-state-reasons.job-completed-successfully"
-msgstr ""
+msgstr "Tarea completada correctamente"
 
 #. TRANSLATORS: Completed with errors
 msgid "job-state-reasons.job-completed-with-errors"
-msgstr ""
+msgstr "Completado con errores"
 
 #. TRANSLATORS: Completed with warnings
 msgid "job-state-reasons.job-completed-with-warnings"
-msgstr ""
+msgstr "Completado con advertencias"
 
 #. TRANSLATORS: Insufficient data
 msgid "job-state-reasons.job-data-insufficient"
-msgstr ""
+msgstr "Datos insuficientes"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
-msgstr ""
+msgstr "Retraso en la salida de trabajos hasta que se especifique"
 
 #. TRANSLATORS: Job Digital Signature Wait
 msgid "job-state-reasons.job-digital-signature-wait"
-msgstr ""
+msgstr "Firma digital del trabajo Espere"
 
 #. TRANSLATORS: Job Fetchable
 msgid "job-state-reasons.job-fetchable"
-msgstr ""
+msgstr "Tarea recuperable"
 
 #. TRANSLATORS: Job Held For Review
 msgid "job-state-reasons.job-held-for-review"
-msgstr ""
+msgstr "Tarea en espera de revisión"
 
 #. TRANSLATORS: Job held
 msgid "job-state-reasons.job-hold-until-specified"
-msgstr ""
+msgstr "Tarea ocupada"
 
 #. TRANSLATORS: Incoming
 msgid "job-state-reasons.job-incoming"
-msgstr ""
+msgstr "Entrante"
 
 #. TRANSLATORS: Interpreting
 msgid "job-state-reasons.job-interpreting"
-msgstr ""
+msgstr "Interpretar"
 
 #. TRANSLATORS: Outgoing
 msgid "job-state-reasons.job-outgoing"
-msgstr ""
+msgstr "Saliente"
 
 #. TRANSLATORS: Job Password Wait
 msgid "job-state-reasons.job-password-wait"
-msgstr ""
+msgstr "Contraseña de trabajo Espere"
 
 #. TRANSLATORS: Job Printed Successfully
 msgid "job-state-reasons.job-printed-successfully"
-msgstr ""
+msgstr "Trabajo impreso correctamente"
 
 #. TRANSLATORS: Job Printed With Errors
 msgid "job-state-reasons.job-printed-with-errors"
-msgstr ""
+msgstr "Trabajo impreso con errores"
 
 #. TRANSLATORS: Job Printed With Warnings
 msgid "job-state-reasons.job-printed-with-warnings"
-msgstr ""
+msgstr "Trabajo impreso con advertencias"
 
 #. TRANSLATORS: Printing
 msgid "job-state-reasons.job-printing"
-msgstr ""
+msgstr "Impresión"
 
 #. TRANSLATORS: Preparing to print
 msgid "job-state-reasons.job-queued"
-msgstr ""
+msgstr "Preparar la impresión"
 
 #. TRANSLATORS: Processing document
 msgid "job-state-reasons.job-queued-for-marker"
-msgstr ""
+msgstr "Tramitación de documentos"
 
 #. TRANSLATORS: Job Release Wait
 msgid "job-state-reasons.job-release-wait"
-msgstr ""
+msgstr "Espera de liberación de tarea"
 
 #. TRANSLATORS: Restartable
 msgid "job-state-reasons.job-restartable"
-msgstr ""
+msgstr "Reiniciable"
 
 #. TRANSLATORS: Job Resuming
 msgid "job-state-reasons.job-resuming"
-msgstr ""
+msgstr "Reanudación del tarea"
 
 #. TRANSLATORS: Job Saved Successfully
 msgid "job-state-reasons.job-saved-successfully"
-msgstr ""
+msgstr "Tarea guardada correctamente"
 
 #. TRANSLATORS: Job Saved With Errors
 msgid "job-state-reasons.job-saved-with-errors"
-msgstr ""
+msgstr "Tarea guardada con errores"
 
 #. TRANSLATORS: Job Saved With Warnings
 msgid "job-state-reasons.job-saved-with-warnings"
-msgstr ""
+msgstr "Tarea guardada con advertencias"
 
 #. TRANSLATORS: Job Saving
 msgid "job-state-reasons.job-saving"
-msgstr ""
+msgstr "Guardando Tarea"
 
 #. TRANSLATORS: Job Spooling
 msgid "job-state-reasons.job-spooling"
-msgstr ""
+msgstr "Repartir Tarea"
 
 #. TRANSLATORS: Job Streaming
 msgid "job-state-reasons.job-streaming"
@@ -8389,167 +8395,167 @@ msgstr ""
 
 #. TRANSLATORS: Suspended
 msgid "job-state-reasons.job-suspended"
-msgstr ""
+msgstr "Suspendido"
 
 #. TRANSLATORS: Job Suspended By Operator
 msgid "job-state-reasons.job-suspended-by-operator"
-msgstr ""
+msgstr "Tarea suspendida por operador"
 
 #. TRANSLATORS: Job Suspended By System
 msgid "job-state-reasons.job-suspended-by-system"
-msgstr ""
+msgstr "Tarea suspendida por el sistema"
 
 #. TRANSLATORS: Job Suspended By User
 msgid "job-state-reasons.job-suspended-by-user"
-msgstr ""
+msgstr "Tarea suspendida por usuario"
 
 #. TRANSLATORS: Job Suspending
 msgid "job-state-reasons.job-suspending"
-msgstr ""
+msgstr "Suspensión del tarea"
 
 #. TRANSLATORS: Job Transferring
 msgid "job-state-reasons.job-transferring"
-msgstr ""
+msgstr "Transferencia de tarea"
 
 #. TRANSLATORS: Transforming
 msgid "job-state-reasons.job-transforming"
-msgstr ""
+msgstr "Transformar"
 
 #. TRANSLATORS: None
 msgid "job-state-reasons.none"
-msgstr ""
+msgstr "Ninguna"
 
 #. TRANSLATORS: Printer offline
 msgid "job-state-reasons.printer-stopped"
-msgstr ""
+msgstr "Impresora desconectada"
 
 #. TRANSLATORS: Printer partially stopped
 msgid "job-state-reasons.printer-stopped-partly"
-msgstr ""
+msgstr "Impresora parcialmente detenida"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.processing-to-stop-point"
-msgstr ""
+msgstr "Detener"
 
 #. TRANSLATORS: Ready
 msgid "job-state-reasons.queued-in-device"
-msgstr ""
+msgstr "Preparado"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "job-state-reasons.resources-are-not-ready"
-msgstr ""
+msgstr "Los recursos no están preparados"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "job-state-reasons.resources-are-not-supported"
-msgstr ""
+msgstr "Los recursos no están mantenidos"
 
 #. TRANSLATORS: Service offline
 msgid "job-state-reasons.service-off-line"
-msgstr ""
+msgstr "Servicio desconectado"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "job-state-reasons.submission-interrupted"
-msgstr ""
+msgstr "Entrega interrumpida"
 
 #. TRANSLATORS: Unsupported Attributes Or Values
 msgid "job-state-reasons.unsupported-attributes-or-values"
-msgstr ""
+msgstr "Atributos o valores no admitidos"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "job-state-reasons.unsupported-compression"
-msgstr ""
+msgstr "Compresión no admitida"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "job-state-reasons.unsupported-document-format"
-msgstr ""
+msgstr "Formato de documento no admitido"
 
 #. TRANSLATORS: Waiting For User Action
 msgid "job-state-reasons.waiting-for-user-action"
-msgstr ""
+msgstr "Esperando la acción del usuario"
 
 #. TRANSLATORS: Warnings Detected
 msgid "job-state-reasons.warnings-detected"
-msgstr ""
+msgstr "Advertencias detectadas"
 
 #. TRANSLATORS: Pending
 msgid "job-state.3"
-msgstr ""
+msgstr "Pendiente"
 
 #. TRANSLATORS: Held
 msgid "job-state.4"
-msgstr ""
+msgstr "Mantenida"
 
 #. TRANSLATORS: Processing
 msgid "job-state.5"
-msgstr ""
+msgstr "Procesando"
 
 #. TRANSLATORS: Stopped
 msgid "job-state.6"
-msgstr ""
+msgstr "Detenido"
 
 #. TRANSLATORS: Canceled
 msgid "job-state.7"
-msgstr ""
+msgstr "Cancelado"
 
 #. TRANSLATORS: Aborted
 msgid "job-state.8"
-msgstr ""
+msgstr "Interrumpido"
 
 #. TRANSLATORS: Completed
 msgid "job-state.9"
-msgstr ""
+msgstr "Completado"
 
 #. TRANSLATORS: Laminate Pages
 msgid "laminating"
-msgstr ""
+msgstr "Páginas laminadas"
 
 #. TRANSLATORS: Laminate
 msgid "laminating-sides"
-msgstr ""
+msgstr "Laminado"
 
 #. TRANSLATORS: Back Only
 msgid "laminating-sides.back"
-msgstr ""
+msgstr "Solo reverso"
 
 #. TRANSLATORS: Front and Back
 msgid "laminating-sides.both"
-msgstr ""
+msgstr "Anverso y reverso"
 
 #. TRANSLATORS: Front Only
 msgid "laminating-sides.front"
-msgstr ""
+msgstr "Solo frontal"
 
 #. TRANSLATORS: Type of Lamination
 msgid "laminating-type"
-msgstr ""
+msgstr "Tipo de laminación"
 
 #. TRANSLATORS: Archival
 msgid "laminating-type.archival"
-msgstr ""
+msgstr "Archivador"
 
 #. TRANSLATORS: Glossy
 msgid "laminating-type.glossy"
-msgstr ""
+msgstr "Brillante"
 
 #. TRANSLATORS: High Gloss
 msgid "laminating-type.high-gloss"
-msgstr ""
+msgstr "Brillo alto"
 
 #. TRANSLATORS: Matte
 msgid "laminating-type.matte"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Semi-gloss
 msgid "laminating-type.semi-gloss"
-msgstr ""
+msgstr "Semibrillante"
 
 #. TRANSLATORS: Translucent
 msgid "laminating-type.translucent"
-msgstr ""
+msgstr "Translúcido"
 
 #. TRANSLATORS: Logo
 msgid "logo"
-msgstr ""
+msgstr "Logotipo"
 
 msgid "lpadmin: Class name can only contain printable characters."
 msgstr ""
@@ -8560,7 +8566,8 @@ msgid "lpadmin: Expected PPD after \"-%c\" option."
 msgstr "lpadmin: Se esperaba un PPD tras la opción \"-%c\"."
 
 msgid "lpadmin: Expected allow/deny:userlist after \"-u\" option."
-msgstr "lpadmin: Se esperaba allow/deny:lista_usuarios tras la opción \"-u\"."
+msgstr ""
+"lpadmin: Se esperaba permitir/denegar:lista_usuarios tras la opción \"-u\"."
 
 msgid "lpadmin: Expected class after \"-r\" option."
 msgstr "lpadmin: Se esperaba una clase tras la opción \"-r\"."
@@ -8616,6 +8623,8 @@ msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
 "version of CUPS."
 msgstr ""
+"lpadmin: Los controladores de impresora están obsoletos y dejarán de "
+"funcionar en una versión futura de CUPS."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr ""
@@ -8626,14 +8635,18 @@ msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
 "of CUPS."
 msgstr ""
+"lpadmin: Las colas sin procesar están obsoletas y dejarán de funcionar en "
+"una versión futura de CUPS."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
-msgstr ""
+msgstr "lpadmin: Las colas sin procesar ya no son compatibles con macOS."
 
 msgid ""
 "lpadmin: System V interface scripts are no longer supported for security "
 "reasons."
 msgstr ""
+"lpadmin: Los scripts de interfaz de System V ya no son compatibles por "
+"motivos de seguridad."
 
 msgid ""
 "lpadmin: Unable to add a printer to the class:\n"
@@ -8658,7 +8671,7 @@ msgstr ""
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s"
-msgstr ""
+msgstr "lpadmin: No se ha podido abrir el PPD \"%s\": %s"
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s on line %d."
@@ -8693,6 +8706,7 @@ msgstr "lpadmin: Opción \"%c\" desconocida."
 
 msgid "lpadmin: Use the 'everywhere' model for shared printers."
 msgstr ""
+"lpadmin: Utiliza el modelo \"everywhere\" para las impresoras compartidas."
 
 msgid "lpadmin: Warning - content type list ignored."
 msgstr "lpadmin: Advertencia - lista de tipo de contenido no tenida en cuenta."
@@ -8758,151 +8772,151 @@ msgstr ""
 
 #. TRANSLATORS: Amount of Material
 msgid "material-amount"
-msgstr ""
+msgstr "Cantidad de material"
 
 #. TRANSLATORS: Amount Units
 msgid "material-amount-units"
-msgstr ""
+msgstr "Cantidad Unidades"
 
 #. TRANSLATORS: Grams
 msgid "material-amount-units.g"
-msgstr ""
+msgstr "Gramos"
 
 #. TRANSLATORS: Kilograms
 msgid "material-amount-units.kg"
-msgstr ""
+msgstr "Kilogramos"
 
 #. TRANSLATORS: Liters
 msgid "material-amount-units.l"
-msgstr ""
+msgstr "Litros"
 
 #. TRANSLATORS: Meters
 msgid "material-amount-units.m"
-msgstr ""
+msgstr "Metros"
 
 #. TRANSLATORS: Milliliters
 msgid "material-amount-units.ml"
-msgstr ""
+msgstr "Mililitros"
 
 #. TRANSLATORS: Millimeters
 msgid "material-amount-units.mm"
-msgstr ""
+msgstr "Milímetros"
 
 #. TRANSLATORS: Material Color
 msgid "material-color"
-msgstr ""
+msgstr "Color de Material"
 
 #. TRANSLATORS: Material Diameter
 msgid "material-diameter"
-msgstr ""
+msgstr "Diámetro de Material"
 
 #. TRANSLATORS: Material Diameter Tolerance
 msgid "material-diameter-tolerance"
-msgstr ""
+msgstr "Tolerancia del diámetro del material"
 
 #. TRANSLATORS: Material Fill Density
 msgid "material-fill-density"
-msgstr ""
+msgstr "Densidad del relleno de material"
 
 #. TRANSLATORS: Material Name
 msgid "material-name"
-msgstr ""
+msgstr "Nombre del material"
 
 #. TRANSLATORS: Material Nozzle Diameter
 msgid "material-nozzle-diameter"
-msgstr ""
+msgstr "Diámetro de la boquilla del material"
 
 #. TRANSLATORS: Use Material For
 msgid "material-purpose"
-msgstr ""
+msgstr "Material de uso para"
 
 #. TRANSLATORS: Everything
 msgid "material-purpose.all"
-msgstr ""
+msgstr "Todo"
 
 #. TRANSLATORS: Base
 msgid "material-purpose.base"
-msgstr ""
+msgstr "Base"
 
 #. TRANSLATORS: In-fill
 msgid "material-purpose.in-fill"
-msgstr ""
+msgstr "Relleno"
 
 #. TRANSLATORS: Shell
 msgid "material-purpose.shell"
-msgstr ""
+msgstr "Concha"
 
 #. TRANSLATORS: Supports
 msgid "material-purpose.support"
-msgstr ""
+msgstr "Soporta"
 
 #. TRANSLATORS: Feed Rate
 msgid "material-rate"
-msgstr ""
+msgstr "Alimentación"
 
 #. TRANSLATORS: Feed Rate Units
 msgid "material-rate-units"
-msgstr ""
+msgstr "Unidades de alimentación"
 
 #. TRANSLATORS: Milligrams per second
 msgid "material-rate-units.mg_second"
-msgstr ""
+msgstr "Miligramos por segundo"
 
 #. TRANSLATORS: Milliliters per second
 msgid "material-rate-units.ml_second"
-msgstr ""
+msgstr "Mililitros por segundo"
 
 #. TRANSLATORS: Millimeters per second
 msgid "material-rate-units.mm_second"
-msgstr ""
+msgstr "Milímetros por segundo"
 
 #. TRANSLATORS: Material Retraction
 msgid "material-retraction"
-msgstr ""
+msgstr "Retracción de material"
 
 #. TRANSLATORS: Material Shell Thickness
 msgid "material-shell-thickness"
-msgstr ""
+msgstr "Espesor del material del casco"
 
 #. TRANSLATORS: Material Temperature
 msgid "material-temperature"
-msgstr ""
+msgstr "Temperatura del material"
 
 #. TRANSLATORS: Material Type
 msgid "material-type"
-msgstr ""
+msgstr "Tipo de material"
 
 #. TRANSLATORS: ABS
 msgid "material-type.abs"
-msgstr ""
+msgstr "ABS"
 
 #. TRANSLATORS: Carbon Fiber ABS
 msgid "material-type.abs-carbon-fiber"
-msgstr ""
+msgstr "Fibra de carbono ABS"
 
 #. TRANSLATORS: Carbon Nanotube ABS
 msgid "material-type.abs-carbon-nanotube"
-msgstr ""
+msgstr "Nanotubos de carbono ABS"
 
 #. TRANSLATORS: Chocolate
 msgid "material-type.chocolate"
-msgstr ""
+msgstr "Chocolate"
 
 #. TRANSLATORS: Gold
 msgid "material-type.gold"
-msgstr ""
+msgstr "Oro"
 
 #. TRANSLATORS: Nylon
 msgid "material-type.nylon"
-msgstr ""
+msgstr "Nylon"
 
 #. TRANSLATORS: Pet
 msgid "material-type.pet"
-msgstr ""
+msgstr "Mascota"
 
 #. TRANSLATORS: Photopolymer
 msgid "material-type.photopolymer"
-msgstr ""
+msgstr "Polímetro"
 
 #. TRANSLATORS: PLA
 msgid "material-type.pla"
