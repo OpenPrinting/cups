@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-25 14:51+0000\n"
+"PO-Revision-Date: 2025-04-25 19:59+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -2997,13 +2997,13 @@ msgid "6.00x4.00\""
 msgstr "6'00×4'00\""
 
 msgid "6.00x5.00\""
-msgstr "6.00x5.00 pulg."
+msgstr "6'00×5'00\""
 
 msgid "6.00x6.00\""
-msgstr "6.00x6.00 pulg."
+msgstr "6'00×6'00\""
 
 msgid "6.00x6.50\""
-msgstr "6.00x6.50 pulg."
+msgstr "6'00×6'50\""
 
 msgid "6.00x8.00\""
 msgstr "6'00×8'00\""
@@ -3012,7 +3012,7 @@ msgid "60"
 msgstr "60"
 
 msgid "60 mm/sec."
-msgstr "60 mm/seg"
+msgstr "60 mm/seg."
 
 msgid "600dpi"
 msgstr "600ppp"
@@ -5206,28 +5206,28 @@ msgid "US Fanfold"
 msgstr "Abanico EUA"
 
 msgid "US Ledger"
-msgstr "Libro Mayor, 17 x 11 pulg."
+msgstr "Libro Mayor"
 
 msgid "US Legal"
-msgstr "Legal EE.UU."
+msgstr "Legal EE. UU."
 
 msgid "US Legal Oversize"
-msgstr "Legal EE.UU. Extragrande"
+msgstr "Legal EE. UU. Extragrande"
 
 msgid "US Letter"
-msgstr "Carta EE.UU."
+msgstr "Carta EE. UU."
 
 msgid "US Letter Long Edge"
-msgstr "Carta EE.UU. lado largo"
+msgstr "Carta EE. UU. lado largo"
 
 msgid "US Letter Oversize"
-msgstr "Carta EE.UU. Extragrande"
+msgstr "Carta EE. UU. Extragrande"
 
 msgid "US Letter Oversize Long Edge"
-msgstr "Carta EE.UU. Extragrande lado largo"
+msgstr "Carta EE. UU. Extragrande lado largo"
 
 msgid "US Letter Small"
-msgstr "Carta EE.UU. Pequeña"
+msgstr "Carta EE. UU. Pequeña"
 
 msgid "Unable to access cupsd.conf file"
 msgstr "No se ha podido acceder al archivo cupsd.conf"
@@ -5255,7 +5255,7 @@ msgid "Unable to allocate memory for file types."
 msgstr "No se ha podido reservar memoria para tipos de archivo."
 
 msgid "Unable to allocate memory for page info"
-msgstr "No se ha podido reservar memoria para la información de página."
+msgstr "No es capaz de asignar memoria para informe de paginado"
 
 msgid "Unable to allocate memory for pages array"
 msgstr "No se ha podido reservar memoria para la secuencia de páginas"
@@ -5502,7 +5502,7 @@ msgstr "No se ha podido enviar el archivo cupsd.conf"
 
 msgid "Unable to use legacy USB class driver."
 msgstr ""
-"No se ha podido usar el controlador de dispositivo de clase USB obsoleto."
+"No es capaz de usar el controlador de dispositivo de clase USB obsoleto."
 
 msgid "Unable to verify X.509 certificate request."
 msgstr "No es capaz de verificar solicitud de certificado X.509."
@@ -5514,7 +5514,7 @@ msgid "Unable to write X.509 certificate."
 msgstr "No es capaz de escribir certificado X.509."
 
 msgid "Unable to write print data"
-msgstr "No se han podido escribir los datos de impresión"
+msgstr "No es capaz de escribir los datos de impresión"
 
 msgid "Unable to write private key."
 msgstr "No es capaz de escribir llave privada."
@@ -5778,26 +5778,32 @@ msgid "Usage: lpstat [options]"
 msgstr "Modo de empleo: lpstat [opciones]"
 
 msgid "Usage: ppdc [options] filename.drv [ ... filenameN.drv ]"
-msgstr "Uso: ppdc [opciones] nombre_archivo.drv [ ... nombre_archivoN.drv ]"
+msgstr ""
+"Modo de empleo:: ppdc [opciones] nombre_archivo.drv "
+"[ ... nombre_archivoN.drv ]"
 
 msgid "Usage: ppdhtml [options] filename.drv >filename.html"
-msgstr "Uso: ppdhtml [opciones] nombre_archivo.drv >nombre_archivo.html"
+msgstr ""
+"Modo de empleo: ppdhtml [opciones] nombre_archivo.drv >nombre_archivo.html"
 
 msgid "Usage: ppdi [options] filename.ppd [ ... filenameN.ppd ]"
-msgstr "Uso: ppdi [opciones] nombre_archivo.ppd [ ... nombre_archivoN.ppd ]"
+msgstr ""
+"Modo de empleo: ppdi [opciones] nombre_archivo.ppd "
+"[ ... nombre_archivoN.ppd ]"
 
 msgid "Usage: ppdmerge [options] filename.ppd [ ... filenameN.ppd ]"
 msgstr ""
-"Uso: ppdmerge [opciones] nombre_archivo.ppd [ ... nombre_archivoN.ppd ]"
+"Modo de empleo: ppdmerge [opciones] nombre_archivo.ppd "
+"[ ... nombre_archivoN.ppd ]"
 
 msgid ""
 "Usage: ppdpo [options] -o filename.po filename.drv [ ... filenameN.drv ]"
 msgstr ""
-"Uso: ppdpo [opciones] -o nombre_archivo.po nombre_archivo.drv [ ... "
-"nombre_archivoN.drv ]"
+"Modo de empleo: ppdpo [opciones] -o nombre_archivo.po nombre_archivo.drv "
+"[ ... nombre_archivoN.drv ]"
 
 msgid "Usage: snmp [host-or-ip-address]"
-msgstr "Uso: snmp [equipo-o-dirección-ip]"
+msgstr "Modo de empleo: snmp [equipo-o-dirección-ip]"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
@@ -5808,13 +5814,13 @@ msgstr ""
 "Validación incorrecta de subjectAltName en solicitación certificado X.509."
 
 msgid "Value uses indefinite length"
-msgstr "Valor usa una longitud indefinida"
+msgstr "Valor utiliza una longitud indefinida"
 
 msgid "VarBind uses indefinite length"
-msgstr "VarBind usa una longitud indefinida"
+msgstr "VarBind utiliza una longitud indefinida"
 
 msgid "Version uses indefinite length"
-msgstr "Versión usa una longitud indefinida"
+msgstr "Versión utiliza una longitud indefinida"
 
 msgid "Waiting for job to complete."
 msgstr "Esperando a que finalice el trabajo."
@@ -5829,10 +5835,10 @@ msgid "Warning: This program will be removed in a future version of CUPS."
 msgstr "Aviso: este programa será retirado en una versión futura de CUPS."
 
 msgid "Web Interface is Disabled"
-msgstr "La interfaz web está desactivada."
+msgstr "La interfaz web está Desactivada"
 
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 msgid "You cannot access this page."
 msgstr "No se puede acceder a esta página."
@@ -5848,10 +5854,10 @@ msgid "ZPL Label Printer"
 msgstr "Impresora de etiquetas ZPL"
 
 msgid "Zebra"
-msgstr "Zebra"
+msgstr "Cebra"
 
 msgid "aborted"
-msgstr "cancelado"
+msgstr "interrumpido"
 
 #. TRANSLATORS: Accuracy Units
 msgid "accuracy-units"
@@ -5882,7 +5888,7 @@ msgstr "tipo-hélice"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
-msgstr "Cinta"
+msgstr "Banda"
 
 #. TRANSLATORS: Shrink Wrap
 msgid "baling-type.shrink-wrap"
@@ -5980,25 +5986,25 @@ msgstr "cert NOMBRE-COMÚN                Crea un certificado."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
-msgstr ""
+msgstr "Humedad de la cámara"
 
 #. TRANSLATORS: Chamber Temperature
 msgid "chamber-temperature"
-msgstr ""
+msgstr "Temperatura de la cámara"
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
-msgstr ""
+msgstr "Coste del trabajo de impresión"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
-msgstr ""
+msgstr "clear [RESOURCE]               Purga la automatización para un recurso"
 
 msgid "client URI                 Connect to URI."
-msgstr ""
+msgstr "URI cliente                Conectar a URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
-msgstr "cubierta"
+msgstr "Cubiertas"
 
 #. TRANSLATORS: Add Coating To
 msgid "coating-sides"
@@ -6166,180 +6172,183 @@ msgstr "Ha fallado al ejecutarse cups-driverd."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
 msgstr ""
+"cups-driverd ha fallado al obtener archivo PPD; consulte error_log para "
+"detalles."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
-msgstr ""
+msgstr "cups-oauth: Autorización Ausente del URL del Servidor tras '-a'."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr ""
+msgstr "cups-oauth: Ausencia client_id y/o client_secret."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
-msgstr ""
+msgstr "cups-oauth: Recurso ausente de URI y/o vale de acceso."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr ""
+msgstr "cups-oauth: Falta ámbito(s) tras '-s'."
 
 msgid "cups-oauth: No authorization server specified."
-msgstr ""
+msgstr "cups-oauth: no se ha especificado ninguna autoridad de servidor."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: No es capaz de obtener vale de acceso desde '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: No es capaz de obtener autorización desde '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: no es capaz de obtener metadatos para '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: no es capaz de obtener ID de usuario para '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "cups-oauth: instrucción '%s' desconocida."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
-msgstr ""
+msgstr "cups-x509: valor DAYS incorrecto '%s' tras '-d'."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "cups-x509: versión HTTP incorrecta."
 
 #, c-format
 msgid "cups-x509: Bad URI '%s'."
-msgstr ""
+msgstr "cups-x509: URI '%s' incorrecta."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr ""
+msgstr "cups-x509: tipo de certificado '%s' incorrecto."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr ""
+msgstr "cups-x509: clave de empleo '%s' incorrecta."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "cups-x509: Propósito '%s' incorrecto."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr ""
+msgstr "cups-x509: línea de solicitud incorrecta (%s)."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "cups-x509: operación incorrecta/desconocida."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "cups-x509: conexión cerrada del cliente."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr ""
+msgstr "cups-x509: nombre de archivo CSR ausente tras '-R'."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr ""
+msgstr "cups-x509: tipo de certificado ausente tras '-t'."
 
 msgid "cups-x509: Missing command argument."
-msgstr ""
+msgstr "cups-x509: argumento de instrucción ausente."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr ""
+msgstr "cups-x509: falta país tras '-C'."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr ""
+msgstr "cups-x509: falta días de caducidad tras '-d'."
 
 msgid "cups-x509: Missing key usage after '-u'."
-msgstr ""
+msgstr "cups-x509: falta uso de clave tras '-u'."
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
-msgstr ""
+msgstr "cups-x509: falta lugar/ciudad/pueblo tras '-L'."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr ""
+msgstr "cups-x509: falta organización tras '-O'."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
-msgstr ""
+msgstr "cups-x509: falta unidad de organización tras '-U'."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr ""
+msgstr "cups-x509: Falta de propósito después de '-p'."
 
 msgid "cups-x509: Missing root name after '-r'."
-msgstr ""
+msgstr "cups-x509: Falta el nombre raíz después de '-r'."
 
 msgid "cups-x509: Missing state/province after '-S'."
-msgstr ""
+msgstr "cups-x509: Estado/provincia que falta después de '-S'."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
-msgstr ""
+msgstr "cups-x509: Falta subjectAltName tras '-a'."
 
 #, c-format
 msgid "cups-x509: No request for '%s'."
-msgstr ""
+msgstr "cups-x509: No se ha solicitado '%s'."
 
 msgid "cups-x509: Too many subjectAltName values."
-msgstr ""
+msgstr "cups-x509: Demasiados valores subjectAltName."
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr ""
+msgstr "cups-x509: No se puede aceptar la conexión: %s"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
-msgstr ""
+msgstr "cups-x509: No se puede acceder a '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "cups-x509: No se puede asignar memoria para '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
-msgstr ""
+msgstr "cups-x509: No es capaz de conectar a '%s' en el puerto %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr ""
+msgstr "cups-x509: No es capaz de crear certificado (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr ""
+msgstr "cups-x509: No es capaz de crear certificado solicitado (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
-msgstr ""
+msgstr "cups-x509: No es capaz de cifrar conexión: %s"
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate for '%s'."
-msgstr ""
+msgstr "cups-x509: NO es capaz de obtener certificado generado para '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
 msgstr ""
+"cups-x509: No es capaz de obtener certificado generado solicitado por '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
-msgstr ""
+msgstr "cups-x509: No es capaz de obtener clave privada generada para '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
-msgstr ""
+msgstr "cups-x509: No es capaz de escuchar en el puerto %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
-msgstr ""
+msgstr "cups-x509: No es capaz de leer '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
-msgstr ""
+msgstr "cups-x509: No es capaz de declarar '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "cups-x509: Instrucción '%s' desconocida."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
-msgstr ""
+msgstr "cupsctl: No se puede establecer directamente %s."
 
 #, c-format
 msgid "cupsctl: Unable to connect to server: %s"
@@ -6400,14 +6409,14 @@ msgid "cupsfilter: Unable to get job file - %s"
 msgstr "cupsfilter: No se ha podido obtener el archivo del trabajo - %s"
 
 msgid "cupstestppd: The -q option is incompatible with the -v option."
-msgstr "cupstestppd: La opción -q es incompatible con la opción -v."
+msgstr "cupstestppd: La opción -q no es compatible con la opción -v."
 
 msgid "cupstestppd: The -v option is incompatible with the -q option."
-msgstr "cupstestppd: La opción -v es incompatible con la opción -q."
+msgstr "cupstestppd: La opción -v no es compatible con la opción -q."
 
 #. TRANSLATORS: Detailed Status Message
 msgid "detailed-status-message"
-msgstr ""
+msgstr "Mensaje de Estado Detallado"
 
 #, c-format
 msgid "device for %s/%s: %s"
@@ -6419,294 +6428,298 @@ msgstr "dispositivo para %s: %s"
 
 #. TRANSLATORS: Copies
 msgid "document-copies"
-msgstr ""
+msgstr "Copias"
 
 #. TRANSLATORS: Document Privacy Attributes
 msgid "document-privacy-attributes"
-msgstr ""
+msgstr "Atributos de Privacidad del Documento"
 
 #. TRANSLATORS: All
 msgid "document-privacy-attributes.all"
-msgstr ""
+msgstr "Todo"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-attributes.default"
-msgstr ""
+msgstr "Predeterminado"
 
 #. TRANSLATORS: Document Description
 msgid "document-privacy-attributes.document-description"
-msgstr ""
+msgstr "Descripción del Documento"
 
 #. TRANSLATORS: Document Template
 msgid "document-privacy-attributes.document-template"
-msgstr ""
+msgstr "Plantilla del Documento"
 
 #. TRANSLATORS: None
 msgid "document-privacy-attributes.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Document Privacy Scope
 msgid "document-privacy-scope"
-msgstr ""
+msgstr "Ámbito de Privacidad de Documento"
 
 #. TRANSLATORS: All
 msgid "document-privacy-scope.all"
-msgstr ""
+msgstr "Todo"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-scope.default"
-msgstr ""
+msgstr "Predeterminado"
 
 #. TRANSLATORS: None
 msgid "document-privacy-scope.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Owner
 msgid "document-privacy-scope.owner"
-msgstr ""
+msgstr "Propietario"
 
 #. TRANSLATORS: Document State
 msgid "document-state"
-msgstr ""
+msgstr "Estado del Documento"
 
 #. TRANSLATORS: Detailed Document State
 msgid "document-state-reasons"
-msgstr ""
+msgstr "Estado Documental Detallado"
 
 #. TRANSLATORS: Aborted By System
 msgid "document-state-reasons.aborted-by-system"
-msgstr ""
+msgstr "Interrumpido por el Sistema"
 
 #. TRANSLATORS: Canceled At Device
 msgid "document-state-reasons.canceled-at-device"
-msgstr ""
+msgstr "Cancelado en Dispositivo"
 
 #. TRANSLATORS: Canceled By Operator
 msgid "document-state-reasons.canceled-by-operator"
-msgstr ""
+msgstr "Cancelado Por Operador"
 
 #. TRANSLATORS: Canceled By User
 msgid "document-state-reasons.canceled-by-user"
-msgstr ""
+msgstr "Cancelado Por Usuario"
 
 #. TRANSLATORS: Completed Successfully
 msgid "document-state-reasons.completed-successfully"
-msgstr ""
+msgstr "Completado Correctamente"
 
 #. TRANSLATORS: Completed With Errors
 msgid "document-state-reasons.completed-with-errors"
-msgstr ""
+msgstr "Completado Con Errores"
 
 #. TRANSLATORS: Completed With Warnings
 msgid "document-state-reasons.completed-with-warnings"
-msgstr ""
+msgstr "Completado Con Avisos"
 
 #. TRANSLATORS: Compression Error
 msgid "document-state-reasons.compression-error"
-msgstr ""
+msgstr "Error de Compresión"
 
 #. TRANSLATORS: Data Insufficient
 msgid "document-state-reasons.data-insufficient"
-msgstr ""
+msgstr "Datos Insuficientes"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "document-state-reasons.digital-signature-did-not-verify"
-msgstr ""
+msgstr "Firma Digital No Verificada"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "document-state-reasons.digital-signature-type-not-supported"
-msgstr ""
+msgstr "Firma Digital No Admitida"
 
 #. TRANSLATORS: Digital Signature Wait
 msgid "document-state-reasons.digital-signature-wait"
-msgstr ""
+msgstr "Firma Digital en Espera"
 
 #. TRANSLATORS: Document Access Error
 msgid "document-state-reasons.document-access-error"
-msgstr ""
+msgstr "Error de Acceso al Documento"
 
 #. TRANSLATORS: Document Fetchable
 msgid "document-state-reasons.document-fetchable"
-msgstr ""
+msgstr "Documento Disponible"
 
 #. TRANSLATORS: Document Format Error
 msgid "document-state-reasons.document-format-error"
-msgstr ""
+msgstr "Error de Formato del Documento"
 
 #. TRANSLATORS: Document Password Error
 msgid "document-state-reasons.document-password-error"
-msgstr ""
+msgstr "Error de Contraseña del Documento"
 
 #. TRANSLATORS: Document Permission Error
 msgid "document-state-reasons.document-permission-error"
-msgstr ""
+msgstr "Error de Permiso del Documento"
 
 #. TRANSLATORS: Document Security Error
 msgid "document-state-reasons.document-security-error"
-msgstr ""
+msgstr "Error de Seguridad del Documento"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "document-state-reasons.document-unprintable-error"
-msgstr ""
+msgstr "Error de Documento No Imprimible"
 
 #. TRANSLATORS: Errors Detected
 msgid "document-state-reasons.errors-detected"
-msgstr ""
+msgstr "Errores Detectados"
 
 #. TRANSLATORS: Incoming
 msgid "document-state-reasons.incoming"
-msgstr ""
+msgstr "Entrante"
 
 #. TRANSLATORS: Interpreting
 msgid "document-state-reasons.interpreting"
-msgstr ""
+msgstr "Interpretar"
 
 #. TRANSLATORS: None
 msgid "document-state-reasons.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Outgoing
 msgid "document-state-reasons.outgoing"
-msgstr ""
+msgstr "Saliente"
 
 #. TRANSLATORS: Printing
 msgid "document-state-reasons.printing"
-msgstr ""
+msgstr "Impresión"
 
 #. TRANSLATORS: Processing To Stop Point
 msgid "document-state-reasons.processing-to-stop-point"
-msgstr ""
+msgstr "Procesando a Punto de Parada"
 
 #. TRANSLATORS: Queued
 msgid "document-state-reasons.queued"
-msgstr ""
+msgstr "Encolado"
 
 #. TRANSLATORS: Queued For Marker
 msgid "document-state-reasons.queued-for-marker"
-msgstr ""
+msgstr "Encolado por marcador"
 
 #. TRANSLATORS: Queued In Device
 msgid "document-state-reasons.queued-in-device"
-msgstr ""
+msgstr "Encolado en dispositivo"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "document-state-reasons.resources-are-not-ready"
-msgstr ""
+msgstr "Recursos no preparados"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "document-state-reasons.resources-are-not-supported"
-msgstr ""
+msgstr "Recursos No Soportados"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "document-state-reasons.submission-interrupted"
-msgstr ""
+msgstr "Envío Interrumpido"
 
 #. TRANSLATORS: Transforming
 msgid "document-state-reasons.transforming"
-msgstr ""
+msgstr "Transformar"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "document-state-reasons.unsupported-compression"
-msgstr ""
+msgstr "Compresión No Admitida"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "document-state-reasons.unsupported-document-format"
-msgstr ""
+msgstr "Formato Documental No Admitido"
 
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
-msgstr ""
+msgstr "Advertencias Detectadas"
 
 #. TRANSLATORS: Pending
 msgid "document-state.3"
-msgstr ""
+msgstr "Pendiente"
 
 #. TRANSLATORS: Processing
 msgid "document-state.5"
-msgstr ""
+msgstr "Procesando"
 
 #. TRANSLATORS: Stopped
 msgid "document-state.6"
-msgstr ""
+msgstr "Detenido"
 
 #. TRANSLATORS: Canceled
 msgid "document-state.7"
-msgstr ""
+msgstr "Cancelado"
 
 #. TRANSLATORS: Aborted
 msgid "document-state.8"
-msgstr ""
+msgstr "Interrumpido"
 
 #. TRANSLATORS: Completed
 msgid "document-state.9"
-msgstr ""
+msgstr "Completado"
 
 msgid "error-index uses indefinite length"
-msgstr "error-index usa una longitud indefinida"
+msgstr "error-índice usa una longitud indefinida"
 
 msgid "error-status uses indefinite length"
-msgstr "error-status usa una longitud indefinida"
+msgstr "error-estado usa una longitud indefinida"
 
 msgid ""
 "expression --and expression\n"
 "                        Logical AND"
 msgstr ""
+"expresión --and expresión\n"
+"                                                   Y lógico"
 
 msgid ""
 "expression --or expression\n"
 "                        Logical OR"
 msgstr ""
+"expresión --or expresión\n"
+"                                           O lógico"
 
 msgid "expression expression   Logical AND"
-msgstr ""
+msgstr "expresión expresión    AND Lógico"
 
 #. TRANSLATORS: Feed Orientation
 msgid "feed-orientation"
-msgstr ""
+msgstr "Orientación de alimentación de papel"
 
 #. TRANSLATORS: Long Edge First
 msgid "feed-orientation.long-edge-first"
-msgstr ""
+msgstr "Primero Borde Largo"
 
 #. TRANSLATORS: Short Edge First
 msgid "feed-orientation.short-edge-first"
-msgstr ""
+msgstr "Primero Ancho Corto"
 
 #. TRANSLATORS: Fetch Status Code
 msgid "fetch-status-code"
-msgstr ""
+msgstr "Obtener Código de Estado"
 
 #. TRANSLATORS: Finishing Template
 msgid "finishing-template"
-msgstr ""
+msgstr "Finalizar Plantilla"
 
 #. TRANSLATORS: Bale
 msgid "finishing-template.bale"
-msgstr ""
+msgstr "Bala"
 
 #. TRANSLATORS: Bind
 msgid "finishing-template.bind"
-msgstr ""
+msgstr "Encuadernar"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishing-template.bind-bottom"
-msgstr ""
+msgstr "Encuadernar Fondo"
 
 #. TRANSLATORS: Bind Left
 msgid "finishing-template.bind-left"
-msgstr ""
+msgstr "Encuadernar a la izquierda"
 
 #. TRANSLATORS: Bind Right
 msgid "finishing-template.bind-right"
-msgstr ""
+msgstr "Encuadernar a la derecha"
 
 #. TRANSLATORS: Bind Top
 msgid "finishing-template.bind-top"
-msgstr ""
+msgstr "Encuadernar cima"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishing-template.booklet-maker"
-msgstr ""
+msgstr "Creador de folletos"
 
 #. TRANSLATORS: Coat
 msgid "finishing-template.coat"
@@ -6714,11 +6727,11 @@ msgstr ""
 
 #. TRANSLATORS: Cover
 msgid "finishing-template.cover"
-msgstr ""
+msgstr "Portada"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishing-template.edge-stitch"
-msgstr ""
+msgstr "Puntada en el borde"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishing-template.edge-stitch-bottom"
@@ -6726,11 +6739,11 @@ msgstr ""
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishing-template.edge-stitch-left"
-msgstr ""
+msgstr "Puntada de borde izquierda"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishing-template.edge-stitch-right"
-msgstr ""
+msgstr "Puntada de borde derecha"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishing-template.edge-stitch-top"
@@ -6738,75 +6751,75 @@ msgstr ""
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
-msgstr ""
+msgstr "Pliegue"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishing-template.fold-accordion"
-msgstr ""
+msgstr "Pliegue en acordeón"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishing-template.fold-double-gate"
-msgstr ""
+msgstr "Plegado de doble acordeón"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
-msgstr ""
+msgstr "Pliegue en Z de ingeniería"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishing-template.fold-gate"
-msgstr ""
+msgstr "Plegado de puerta"
 
 #. TRANSLATORS: Half Fold
 msgid "finishing-template.fold-half"
-msgstr ""
+msgstr "Medio pliegue"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishing-template.fold-half-z"
-msgstr ""
+msgstr "Pliegue en media Z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishing-template.fold-left-gate"
-msgstr ""
+msgstr "Plegado de la puerta izquierda"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishing-template.fold-letter"
-msgstr ""
+msgstr "Pliegue de carta"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishing-template.fold-parallel"
-msgstr ""
+msgstr "Pliegue paralelo"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishing-template.fold-poster"
-msgstr ""
+msgstr "Póster plegado"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishing-template.fold-right-gate"
-msgstr ""
+msgstr "Plegado de la puerta derecha"
 
 #. TRANSLATORS: Z Fold
 msgid "finishing-template.fold-z"
-msgstr ""
+msgstr "Pliegue Z"
 
 #. TRANSLATORS: JDF F10-1
 msgid "finishing-template.jdf-f10-1"
-msgstr ""
+msgstr "JDF F10-1"
 
 #. TRANSLATORS: JDF F10-2
 msgid "finishing-template.jdf-f10-2"
-msgstr ""
+msgstr "jdf-f10-2"
 
 #. TRANSLATORS: JDF F10-3
 msgid "finishing-template.jdf-f10-3"
-msgstr ""
+msgstr "jdf-f10-3"
 
 #. TRANSLATORS: JDF F12-1
 msgid "finishing-template.jdf-f12-1"
-msgstr ""
+msgstr "jdf-f12-1"
 
 #. TRANSLATORS: JDF F12-10
 msgid "finishing-template.jdf-f12-10"
-msgstr ""
+msgstr "jdf-f12-10"
 
 #. TRANSLATORS: JDF F12-11
 msgid "finishing-template.jdf-f12-11"
@@ -6990,7 +7003,7 @@ msgstr ""
 
 #. TRANSLATORS: JDF F24-5
 msgid "finishing-template.jdf-f24-5"
-msgstr ""
+msgstr "JDF F24-5"
 
 #. TRANSLATORS: JDF F24-6
 msgid "finishing-template.jdf-f24-6"
@@ -7054,7 +7067,7 @@ msgstr ""
 
 #. TRANSLATORS: JDF F36-2
 msgid "finishing-template.jdf-f36-2"
-msgstr ""
+msgstr "JDF F36-2"
 
 #. TRANSLATORS: JDF F4-1
 msgid "finishing-template.jdf-f4-1"
@@ -7114,111 +7127,111 @@ msgstr ""
 
 #. TRANSLATORS: JDF F64-2
 msgid "finishing-template.jdf-f64-2"
-msgstr ""
+msgstr "JDF F36-2"
 
 #. TRANSLATORS: JDF F8-1
 msgid "finishing-template.jdf-f8-1"
-msgstr ""
+msgstr "JDF F8-1"
 
 #. TRANSLATORS: JDF F8-2
 msgid "finishing-template.jdf-f8-2"
-msgstr ""
+msgstr "JDF F8-2"
 
 #. TRANSLATORS: JDF F8-3
 msgid "finishing-template.jdf-f8-3"
-msgstr ""
+msgstr "JDF F8-3"
 
 #. TRANSLATORS: JDF F8-4
 msgid "finishing-template.jdf-f8-4"
-msgstr ""
+msgstr "JDF F8-4"
 
 #. TRANSLATORS: JDF F8-5
 msgid "finishing-template.jdf-f8-5"
-msgstr ""
+msgstr "JDF F8-5"
 
 #. TRANSLATORS: JDF F8-6
 msgid "finishing-template.jdf-f8-6"
-msgstr ""
+msgstr "JDF F8-6"
 
 #. TRANSLATORS: JDF F8-7
 msgid "finishing-template.jdf-f8-7"
-msgstr ""
+msgstr "JDF F8-7"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishing-template.jog-offset"
-msgstr ""
+msgstr "Desplazamiento Jog"
 
 #. TRANSLATORS: Laminate
 msgid "finishing-template.laminate"
-msgstr ""
+msgstr "Laminado"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr ""
+msgstr "Punzón"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
-msgstr ""
+msgstr "Punzón abajo a la izquierda"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishing-template.punch-bottom-right"
-msgstr ""
+msgstr "Punzón inferior derecho"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishing-template.punch-dual-bottom"
-msgstr ""
+msgstr "Perforadora de 2 agujeros"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishing-template.punch-dual-left"
-msgstr ""
+msgstr "Perforadora de 2 agujeros izquierda"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishing-template.punch-dual-right"
-msgstr ""
+msgstr "Perforadora de 2 agujeros derecha"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishing-template.punch-dual-top"
-msgstr ""
+msgstr "Perforadora de 2 agujeros"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishing-template.punch-multiple-bottom"
-msgstr ""
+msgstr "Perforadora múltiple inferior"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishing-template.punch-multiple-left"
-msgstr ""
+msgstr "Perforadora multihueco izquierda"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishing-template.punch-multiple-right"
-msgstr ""
+msgstr "Perforadora multihueco derecha"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishing-template.punch-multiple-top"
-msgstr ""
+msgstr "Tapa perforada"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishing-template.punch-quad-bottom"
-msgstr ""
+msgstr "Perforadora de 4 agujeros"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishing-template.punch-quad-left"
-msgstr ""
+msgstr "Perforadora de 4 agujeros izquierda"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishing-template.punch-quad-right"
-msgstr ""
+msgstr "Perforadora de 4 agujeros derecha"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishing-template.punch-quad-top"
-msgstr ""
+msgstr "Perforadora de 4 agujeros cima"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
-msgstr ""
+msgstr "Punzón superior izquierdo Cima"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishing-template.punch-top-right"
-msgstr ""
+msgstr "Punzón superior derecho"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
@@ -7266,47 +7279,47 @@ msgstr ""
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishing-template.staple-dual-top"
-msgstr ""
+msgstr "2 grapas en la parte superior"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishing-template.staple-top-left"
-msgstr ""
+msgstr "Grapa superior izquierda"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishing-template.staple-top-right"
-msgstr ""
+msgstr "Grapa superior derecha"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishing-template.staple-triple-bottom"
-msgstr ""
+msgstr "3 grapas en la parte inferior"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishing-template.staple-triple-left"
-msgstr ""
+msgstr "3 grapas a la izquierda"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishing-template.staple-triple-right"
-msgstr ""
+msgstr "3 grapas a la derecha"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishing-template.staple-triple-top"
-msgstr ""
+msgstr "3 grapas en la parte superior"
 
 #. TRANSLATORS: Trim
 msgid "finishing-template.trim"
-msgstr ""
+msgstr "Recorte"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-copies"
-msgstr ""
+msgstr "Recorte tras cada serie"
 
 #. TRANSLATORS: Trim After Every Document
 msgid "finishing-template.trim-after-documents"
-msgstr ""
+msgstr "Recortar tras cada documento"
 
 #. TRANSLATORS: Trim After Job
 msgid "finishing-template.trim-after-job"
-msgstr ""
+msgstr "Recorte tras trabajo"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-pages"
@@ -7322,39 +7335,39 @@ msgstr ""
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
-msgstr ""
+msgstr "Acabados"
 
 #. TRANSLATORS: Finishings
 msgid "finishings-col"
-msgstr ""
+msgstr "Acabados"
 
 #. TRANSLATORS: Fold
 msgid "finishings.10"
-msgstr ""
+msgstr "Pliegue"
 
 #. TRANSLATORS: Z Fold
 msgid "finishings.100"
-msgstr ""
+msgstr "Pliegue Z"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishings.101"
-msgstr ""
+msgstr "Pliegue en Z de ingeniería"
 
 #. TRANSLATORS: Trim
 msgid "finishings.11"
-msgstr ""
+msgstr "Recorte"
 
 #. TRANSLATORS: Bale
 msgid "finishings.12"
-msgstr ""
+msgstr "Paca"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishings.13"
-msgstr ""
+msgstr "Creador de folletos"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishings.14"
-msgstr ""
+msgstr "Desplazamiento Jog"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
@@ -16048,31 +16061,31 @@ msgid "z-offset"
 msgstr ""
 
 msgid "{service_domain}        Domain name"
-msgstr ""
+msgstr "{service_domain}        Nombre de dominio"
 
 msgid "{service_hostname}      Fully-qualified domain name"
-msgstr ""
+msgstr "{service_hostname}      Nombre de dominio completamente cualificado"
 
 msgid "{service_name}          Service instance name"
-msgstr ""
+msgstr "{service_name}          Nombre de instancia de servicio"
 
 msgid "{service_port}          Port number"
-msgstr ""
+msgstr "{service_port}          Número de puerto"
 
 msgid "{service_regtype}       DNS-SD registration type"
-msgstr ""
+msgstr "{service_regtype}       Tipo de registro DNS-SD"
 
 msgid "{service_scheme}        URI scheme"
-msgstr ""
+msgstr "{service_scheme}        Esquema de URI"
 
 msgid "{service_uri}           URI"
-msgstr ""
+msgstr "{service_uri}           URI"
 
 msgid "{txt_*}                 Value of TXT record key"
-msgstr ""
+msgstr "{txt_*}                 Valor de clave de registro TXT"
 
 msgid "{}                      URI"
-msgstr ""
+msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
-msgstr ""
+msgstr "Archivo ~/.cups/lpoptions nombra destino predet. que no exite."
