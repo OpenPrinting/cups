@@ -1,0 +1,75 @@
+<div class="halves">
+    <H1 CLASS="title">打印机</H1>
+
+    <P>
+    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="add-printer"><INPUT TYPE="SUBMIT" VALUE="添加打印机"></FORM>
+    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="find-new-printers"><INPUT TYPE="SUBMIT" VALUE="查找新打印机"></FORM>
+    <FORM ACTION="/printers/" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="管理打印机"></FORM>
+    </P>
+
+    <H1 CLASS="title">类</H1>
+
+    <P>
+    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="add-class"><INPUT TYPE="SUBMIT" VALUE="添加类"></FORM>
+    <FORM ACTION="/classes/" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="管理类"></FORM>
+    </P>
+
+    <H1>作业</H1>
+
+    <P>
+    <FORM ACTION="/jobs/" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="管理作业"></FORM>
+    </P>
+</div>
+<div class="halves">
+    <H1 CLASS="title">服务器</H1>
+
+    <P>
+    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server"><INPUT TYPE="SUBMIT" VALUE="编辑配置文件"></FORM>
+    </P>
+
+    {SETTINGS_ERROR?<P>{SETTINGS_MESSAGE}</P>
+    <BLOCKQUOTE>{SETTINGS_ERROR}</BLOCKQUOTE>:}
+
+    <FORM METHOD="POST" ACTION="/admin">
+    <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+
+    {ADVANCEDSETTINGS?<P><B>服务器设置：</B></P>
+
+    <P><A HREF="/admin/">高级 <SMALL>&#x25bc;</SMALL></A><BR>
+    <INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server">
+    <INPUT TYPE="HIDDEN" NAME="ADVANCEDSETTINGS" VALUE="CHECKED">
+    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" VALUE="CHECKED" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> 共享连接到此系统的打印机</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最大客户端数：
+    <INPUT TYPE="TEXT" NAME="MAX_CLIENTS" VALUE="{?max_clients}" SIZE="6"><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" VALUE="CHECKED" {?remote_any}><LABEL FOR="REMOTE_ANY"> 允许来自互联网的打印</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="BROWSE_WEB_IF" ID="BROWSE_WEB_IF" VALUE="CHECKED" {?browse_web_if}><LABEL FOR="BROWSE_WEB_IF"> 广播网页接口</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" VALUE="CHECKED" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> 允许远程管理</LABEL><BR>
+    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" VALUE="CHECKED" {?kerberos}><LABEL FOR="KERBEROS"> 使用 Kerberos 认证 (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
+    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" VALUE="CHECKED" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> 允许用户取消任何作业（不仅仅是自己的）</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="PRESERVE_JOBS" ID="PRESERVE_JOBS" VALUE="CHECKED" {?preserve_jobs}><LABEL FOR="PRESERVE_JOBS"> 保留作业历史</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最大作业数（0 表示无限制）：
+    <INPUT TYPE="TEXT" NAME="MAX_JOBS" VALUE="{?max_jobs}" SIZE="6"><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保留元数据：
+    <INPUT TYPE="TEXT" NAME="PRESERVE_JOB_HISTORY" VALUE="{?preserve_job_history}" SIZE="6"><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保留文档：
+    <INPUT TYPE="TEXT" NAME="PRESERVE_JOB_FILES" VALUE="{?preserve_job_files}" SIZE="6"><BR>
+    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" VALUE="CHECKED" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> 保存调试信息以供故障排除</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最大日志文件大小：
+    <INPUT TYPE="TEXT" NAME="MAX_LOG_SIZE" VALUE="{?max_log_size}" SIZE="6"></P>
+
+    :<P><B>服务器设置：</B></P>
+
+    <P><A HREF="/admin/?ADVANCEDSETTINGS=YES">高级 <SMALL>&#x25b6;</SMALL></A><BR>
+    <INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server">
+    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" VALUE="CHECKED" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> 共享连接到此系统的打印机</LABEL><BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" VALUE="CHECKED" {?remote_any}><LABEL FOR="REMOTE_ANY"> 允许来自互联网的打印</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" VALUE="CHECKED" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> 允许远程管理</LABEL><BR>
+    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" VALUE="CHECKED" {?kerberos}><LABEL FOR="KERBEROS"> 使用 Kerberos 认证 (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
+    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" VALUE="CHECKED" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> 允许用户取消任何作业（不仅仅是自己的）</LABEL><BR>
+    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" VALUE="CHECKED" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> 保存调试信息以供故障排除</LABEL></P>
+
+    }
+    <P><INPUT TYPE="SUBMIT" NAME="CHANGESETTINGS" VALUE="更改设置"></P>
+
+    </FORM>}
+</div>

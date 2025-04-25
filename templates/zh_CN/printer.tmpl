@@ -1,0 +1,43 @@
+<H1 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
+({printer_state=3?空闲:{printer_state=4?处理中:已暂停}},
+{printer_is_accepting_jobs=0?拒绝作业:接受作业},
+{server_is_sharing_printers=0?未共享:{printer_is_shared=0?未共享:}} 共享{default_name={printer_name}?, 服务器默认:})</H1>
+
+<FORM METHOD="POST" ACTION="{printer_uri_supported}" NAME="maintenance">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<SELECT NAME="OP" ONCHANGE="document.maintenance.submit();">
+<OPTION VALUE="">维护</OPTION>
+<OPTION VALUE="print-test-page">打印测试页</OPTION>
+{printer_commands~.*Clean.*?<OPTION VALUE="clean-print-heads">清洁打印头</OPTION>:}
+{printer_commands~.*PrintSelfTestPage.*?<OPTION VALUE="print-self-test-page">打印自检页</OPTION>:}
+{printer_state=5?<OPTION VALUE="start-printer">恢复打印机</OPTION>:<OPTION VALUE="stop-printer">暂停打印机</OPTION>}
+{printer_is_accepting_jobs=0?<OPTION VALUE="accept-jobs">接受作业</OPTION>:<OPTION VALUE="reject-jobs">拒绝作业</OPTION>}
+<OPTION VALUE="move-jobs">移动所有作业</OPTION>
+<OPTION VALUE="cancel-jobs">取消所有作业</OPTION>
+</SELECT>
+<NOSCRIPT><INPUT TYPE="SUBMIT" VALUE="执行"></NOSCRIPT>
+</FORM>
+
+<FORM METHOD="POST" ACTION="{admin_uri}" NAME="administration">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">
+<SELECT NAME="OP" ONCHANGE="document.administration.submit();">
+<OPTION VALUE="">管理</OPTION>
+<OPTION VALUE="modify-printer">修改打印机</OPTION>
+<OPTION VALUE="delete-printer">删除打印机</OPTION>
+<OPTION VALUE="set-printer-options">设置默认选项</OPTION>
+<OPTION VALUE="set-as-default">设置为服务器默认</OPTION>
+<OPTION VALUE="set-allowed-users">设置允许的用户</OPTION>
+</SELECT>
+<NOSCRIPT><INPUT TYPE="SUBMIT" VALUE="执行"></NOSCRIPT>
+</FORM>
+
+<TABLE SUMMARY="{printer_name}">
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">描述:</TH><TD>{printer_info}</TD></TR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">位置:</TH><TD>{printer_location}</TD></TR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">驱动程序:</TH><TD>{printer_make_and_model} ({color_supported=1?彩色:灰度}{sides_supported=one-sided?:, 双面打印})<BR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">连接:</TH><TD>{device_uri}</TD></TR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">默认值:</TH><TD>job-sheets={job_sheets_default}
+media={media_default?{media_default}:未知}
+{sides_default?sides={sides_default}:}</TD></TR>
+</TABLE>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="/cups.css" type="text/css">
+    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    {refresh_page?<meta http-equiv="refresh" content="{refresh_page}">:}
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta name="viewport" content="width=device-width">
+    <style>html{display:none;}</style>
+    <script type="text/javascript"><!--
+      /* 仅在不在框架中时显示文档... */
+      if (self == top) {
+        document.documentElement.style.display = 'block';
+      } else {
+        top.location = self.location;
+      }
+
+      /* 如果禁用 cookies，显示错误 */
+      function check_cookies() {
+        if (!navigator.cookieEnabled) {
+          document.getElementById('body').innerHTML = '此页面使用 cookies 来防止常见的跨站攻击。请在您的浏览器中启用 cookies。';
+        }
+      }
+    --></SCRIPT>
+    <title>{title} - CUPS @CUPS_VERSION@</title>
+  </head>
+  <body onload="check_cookies();">
+    <div class="cups-header">
+      <ul>
+        <li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
+        <li><a href="/">首页</a></li>
+        <li><a {SECTION=admin?class="active" :}href="/admin">管理</a></li>
+        <li><a {SECTION=classes?class="active" :}href="/classes/">类别</a></li>
+        <li><a {SECTION=help?class="active" :}href="/help/">帮助</a></li>
+        <li><a {SECTION=jobs?class="active" :}href="/jobs/">作业</a></li>
+        <li><a {SECTION=printers?class="active" :}href="/printers/">打印机</a></li>
+      </ul>
+    </div>
+    <div class="cups-body">
+      <div class="row">

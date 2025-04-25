@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="/cups.css" type="text/css">
+    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta name="viewport" content="width=device-width">
+    <title>首页 - CUPS @CUPS_VERSION@</title>
+  </head>
+  <body>
+    <div class="cups-header">
+      <ul>
+	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
+	<li><a class="active" href="/">首页</a></li>
+	<li><a href="/admin">管理</a></li>
+	<li><a href="/classes/">类</a></li>
+	<li><a href="/help/">帮助</a></li>
+	<li><a href="/jobs/">作业</a></li>
+	<li><a href="/printers/">打印机</a></li>
+      </ul>
+    </div>
+    <div class="cups-body">
+      <div class="row">
+	<h1>OpenPrinting CUPS @CUPS_VERSION@</h1>
+	<p>这是一款符合标准、开源的打印系统，由 <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> 为 Linux® 和其他类 Unix® 操作系统开发。CUPS 使用 <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> 支持本地和网络打印机的打印。</p>
+      </div>
+      <div class="row">
+        <h2 class="title">本系统</h2>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="添加打印机"></form>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="查找新打印机"></form>
+	<form action="/jobs/" method="GET"><input type="submit" value="管理作业"></form>
+	<form action="/printers/" method="GET"><input type="submit" value="管理打印机"></form>
+	<form action="/admin/" method="GET"><input type="submit" value="管理系统设置"></form>
+      </div>
+      <div class="row">
+	<div class="thirds">
+	  <h2 class="title">用户帮助</h2>
+	  <p><a href="help/overview.html">CUPS 概述</a></p>
+	  <p><a href="help/options.html">命令行打印及选项</a></p>
+	</div>
+	<div class="thirds">
+	  <h2 class="title">管理员帮助</h2>
+	  <p><a href="help/admin.html">添加打印机和类</a></p>
+	  <p><a href="help/policies.html">管理操作策略</a></p>
+	  <p><a href="help/network.html">使用网络打印机</a></p>
+	  <p><a href="help/firewalls.html">防火墙</a></p>
+	  <p><a href="help/man-cupsd.conf.html">cupsd.conf 参考</a></p>
+	</div>
+	<div class="thirds">
+	  <h2 class="title">开发者帮助</h2>
+	  <p><a href="help/cupspm.html">CUPS 编程手册</a></p>
+	  <p><a href="help/api-filter.html">过滤器和后端编程</a></p>
+	</div>
+      </div>
+    </div>
+    <div class="cups-footer">版权所有 &copy; 2021-2025 OpenPrinting。保留所有权利。</div>
+  </body>
+</html>
