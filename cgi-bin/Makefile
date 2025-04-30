@@ -1,7 +1,7 @@
 #
 # CGI makefile for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2025 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products.
 #
@@ -23,6 +23,7 @@ OBJS	=	\
 		admin.o \
 		classes.o \
 		help.o \
+		home.o \
 		jobs.o \
 		printers.o \
 		testcgi.o \
@@ -32,6 +33,7 @@ CGIS	=	\
 		admin.cgi \
 		classes.cgi \
 		help.cgi \
+		home.cgi \
 		jobs.cgi \
 		printers.cgi
 LIBTARGETS =	\
@@ -189,6 +191,16 @@ classes.cgi:	classes.o ../Makedefs ../cups/$(LIBCUPS) libcupscgi.a
 help.cgi:	help.o ../Makedefs ../cups/$(LIBCUPS) libcupscgi.a
 	echo Linking $@...
 	$(LD_CC) $(ALL_LDFLAGS) -o $@ help.o libcupscgi.a $(LINKCUPS)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# home.cgi
+#
+
+home.cgi:	home.o ../Makedefs ../cups/$(LIBCUPS) libcupscgi.a
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o $@ home.o libcupscgi.a $(LINKCUPS)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
 
 

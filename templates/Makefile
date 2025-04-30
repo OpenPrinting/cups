@@ -1,11 +1,10 @@
 #
 # Template makefile for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
-# Copyright 2007-2017 by Apple Inc.
-# Copyright 1993-2007 by Easy Software Products.
+# Copyright © 2020-2025 by OpenPrinting.
 #
-# Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+# Licensed under Apache License v2.0.  See the file "LICENSE" for more
+# information.
 #
 
 include ../Makedefs
@@ -39,6 +38,7 @@ FILES	=	\
 		help-header.tmpl \
 		help-trailer.tmpl \
 		help-printable.tmpl \
+		home.tmpl \
 		job-cancel.tmpl \
 		job-hold.tmpl \
 		job-move.tmpl \

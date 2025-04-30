@@ -1,29 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <link rel="stylesheet" href="/cups.css" type="text/css">
-    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=9">
-    <meta name="viewport" content="width=device-width">
-    <title>Startseite - CUPS @CUPS_VERSION@</title>
-  </head>
-  <body>
-    <div class="cups-header">
-      <ul>
-	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
-	<li><a class="active" href="/">Startseite</a></li>
-	<li><a href="/admin">Verwaltung</a></li>
-	<li><a href="/classes/">Klassen</a></li>
-	<li><a href="/help/">Hilfe</a></li>
-	<li><a href="/jobs/">Aufträge</a></li>
-	<li><a href="/printers/">Drucker</a></li>
-      </ul>
-    </div>
-    <div class="cups-body">
-      <div class="row">
-	<h1>OpenPrinting CUPS @CUPS_VERSION@</h1>
+	<h1>{ENV:CUPS_VERSION}</h1>
 	<p>CUPS basiert auf Standards, Open Source Drucksystem entwickelt durch <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> für Linux® und andere UNIX®-artige Betriebssysteme. CUPS benutzt <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> zur Unterstützung lokaler und Netzwerkdrucker.</p>
       </div>
       <div class="row">
@@ -33,6 +8,10 @@
 	<form action="/jobs/" method="GET"><input type="submit" value="Aufträge verwalten"></form>
 	<form action="/printers/" method="GET"><input type="submit" value="Drucker verwalten"></form>
 	<form action="/admin/" method="GET"><input type="submit" value="Einstellungen ändern"></form>
+        {#alert_title=0?:<p>Alerts:</p>
+        <ul>{[alert_title]
+          <li><a href="{alert_href}">{alert_title}</a></li>}
+        </ul>}
       </div>
       <div class="row">
 	<div class="thirds">
@@ -53,8 +32,3 @@
 	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
 	  <p><a href="help/api-filter.html">Filter und Backend Programmierung</a></p>
 	</div>
-      </div>
-    </div>
-    <div class="cups-footer">Copyright &copy; 2021-2025 OpenPrinting. Alle Rechte vorbehalten.</div>
-  </body>
-</html>

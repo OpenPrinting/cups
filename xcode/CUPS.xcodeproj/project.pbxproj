@@ -71,6 +71,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				2707C9652DC29A9F00F0EA95 /* PBXTargetDependency */,
 				27C3E96E2DB04B5800A6ABBF /* PBXTargetDependency */,
 				27C3E9702DB04B5800A6ABBF /* PBXTargetDependency */,
 				273B1EC2226B3F2600428143 /* PBXTargetDependency */,
@@ -191,6 +192,9 @@
 		270696521CADF3E200FFE5FB /* language.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220EEB133305BB00FCA411 /* language.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		270696551CADF3E200FFE5FB /* transcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 72220F07133305BB00FCA411 /* transcode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2706965B1CAE1A9A00FFE5FB /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 72220F09133305BB00FCA411 /* util.c */; };
+		2707C95D2DC29A4A00F0EA95 /* libcupscgi2_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 724FA76B1CC03AF60092477B /* libcupscgi2_static.a */; };
+		2707C95E2DC29A4A00F0EA95 /* libcups2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups2.dylib */; };
+		2707C9672DC29B0F00F0EA95 /* home.c in Sources */ = {isa = PBXBuildFile; fileRef = 2707C9662DC29B0F00F0EA95 /* home.c */; };
 		270CCDBC135E3D3E00007BE2 /* testmime.c in Sources */ = {isa = PBXBuildFile; fileRef = 270CCDBB135E3D3E00007BE2 /* testmime.c */; };
 		270D02191D707E0200EA9403 /* libcups_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4332F155844CF002E172D /* libcups_static.a */; };
 		270D021A1D707E0200EA9403 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278C58E5136B64AF00836530 /* CoreFoundation.framework */; };
@@ -1141,6 +1145,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2707C9592DC29A4A00F0EA95 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 72220EAD1333047D00FCA411;
+			remoteInfo = libcups;
+		};
+		2707C9642DC29A9F00F0EA95 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2707C9572DC29A4A00F0EA95;
+			remoteInfo = home.cgi;
+		};
 		270CCDB1135E3CDE00007BE2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 72BF96371333042100B1EAD7 /* Project object */;
@@ -2593,6 +2611,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2707C95F2DC29A4A00F0EA95 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		270CCDA5135E3C9E00007BE2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3461,6 +3488,8 @@
 
 /* Begin PBXFileReference section */
 		2706965A1CADF3E200FFE5FB /* libcups2_ios.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libcups2_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2707C9632DC29A4A00F0EA95 /* home.cgi */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = home.cgi; sourceTree = BUILT_PRODUCTS_DIR; };
+		2707C9662DC29B0F00F0EA95 /* home.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = home.c; sourceTree = "<group>"; };
 		270B267E17F5C06700C8A3A9 /* tls-gnutls.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tls-gnutls.c"; path = "../cups/tls-gnutls.c"; sourceTree = "<group>"; };
 		270CCDA7135E3C9E00007BE2 /* testmime */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testmime; sourceTree = BUILT_PRODUCTS_DIR; };
 		270CCDBB135E3D3E00007BE2 /* testmime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = testmime.c; path = ../scheduler/testmime.c; sourceTree = "<group>"; };
@@ -3947,6 +3976,15 @@
 				270696391CADF3E200FFE5FB /* libresolv.dylib in Frameworks */,
 				2706963A1CADF3E200FFE5FB /* libz.dylib in Frameworks */,
 				2706963B1CADF3E200FFE5FB /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2707C95C2DC29A4A00F0EA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2707C95D2DC29A4A00F0EA95 /* libcupscgi2_static.a in Frameworks */,
+				2707C95E2DC29A4A00F0EA95 /* libcups2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5506,6 +5544,7 @@
 				275CEA422CC840EE008FBB27 /* testclock */,
 				27C3E95B2DB04AC500A6ABBF /* cups-x509 */,
 				27C3E9672DB04ACE00A6ABBF /* cups-oauth */,
+				2707C9632DC29A4A00F0EA95 /* home.cgi */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5799,6 +5838,7 @@
 				727EF033192E3498001EF690 /* help-index.c */,
 				727EF034192E3498001EF690 /* help-index.h */,
 				727EF035192E3498001EF690 /* help.c */,
+				2707C9662DC29B0F00F0EA95 /* home.c */,
 				727EF036192E3498001EF690 /* html.c */,
 				727EF037192E3498001EF690 /* ipp-var.c */,
 				727EF038192E3498001EF690 /* jobs.c */,
@@ -5808,7 +5848,8 @@
 				727EF040192E3498001EF690 /* var.c */,
 			);
 			name = "cgi-bin";
-			sourceTree = "<group>";
+			path = "../cgi-bin";
+			sourceTree = SOURCE_ROOT;
 		};
 		72BF96351333042100B1EAD7 = {
 			isa = PBXGroup;
@@ -6076,6 +6117,24 @@
 			productName = libcups;
 			productReference = 2706965A1CADF3E200FFE5FB /* libcups2_ios.a */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		2707C9572DC29A4A00F0EA95 /* home.cgi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2707C9602DC29A4A00F0EA95 /* Build configuration list for PBXNativeTarget "home.cgi" */;
+			buildPhases = (
+				2707C95A2DC29A4A00F0EA95 /* Sources */,
+				2707C95C2DC29A4A00F0EA95 /* Frameworks */,
+				2707C95F2DC29A4A00F0EA95 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2707C9582DC29A4A00F0EA95 /* PBXTargetDependency */,
+			);
+			name = home.cgi;
+			productName = cupsaddsmb;
+			productReference = 2707C9632DC29A4A00F0EA95 /* home.cgi */;
+			productType = "com.apple.product-type.tool";
 		};
 		270CCDA6135E3C9E00007BE2 /* testmime */ = {
 			isa = PBXNativeTarget;
@@ -7992,6 +8051,7 @@
 				724379461333FEA9009631B9 /* dnssd */,
 				2712871E1CC140BE00E517C7 /* genstrings */,
 				271285DA1CC12DDF00E517C7 /* gziptoany */,
+				2707C9572DC29A4A00F0EA95 /* home.cgi */,
 				724378FC1333E43E009631B9 /* ipp */,
 				273B1E9A226B3E4800428143 /* ippevepcl */,
 				726AD6F6135E88F0002C930D /* ippeveprinter */,
@@ -8121,6 +8181,14 @@
 				2706962F1CADF3E200FFE5FB /* thread.c in Sources */,
 				270696301CADF3E200FFE5FB /* transcode.c in Sources */,
 				270696311CADF3E200FFE5FB /* usersys.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2707C95A2DC29A4A00F0EA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2707C9672DC29B0F00F0EA95 /* home.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9143,6 +9211,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2707C9582DC29A4A00F0EA95 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 72220EAD1333047D00FCA411 /* libcups2 */;
+			targetProxy = 2707C9592DC29A4A00F0EA95 /* PBXContainerItemProxy */;
+		};
+		2707C9652DC29A9F00F0EA95 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2707C9572DC29A4A00F0EA95 /* home.cgi */;
+			targetProxy = 2707C9642DC29A9F00F0EA95 /* PBXContainerItemProxy */;
+		};
 		270CCDB2135E3CDE00007BE2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 270CCDA6135E3C9E00007BE2 /* testmime */;
@@ -10222,6 +10300,30 @@
 				SKIP_INSTALL = YES;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Release;
+		};
+		2707C9612DC29A4A00F0EA95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2707C9622DC29A4A00F0EA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INSTALL_PATH = "/usr/libexec/cups/cgi-bin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -12915,6 +13017,15 @@
 			buildConfigurations = (
 				270696581CADF3E200FFE5FB /* Debug */,
 				270696591CADF3E200FFE5FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2707C9602DC29A4A00F0EA95 /* Build configuration list for PBXNativeTarget "home.cgi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2707C9612DC29A4A00F0EA95 /* Debug */,
+				2707C9622DC29A4A00F0EA95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

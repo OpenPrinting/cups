@@ -1090,7 +1090,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 		}
 	      }
             }
-            else if (!buf[0] && (!strncmp(con->uri, "/admin", 6) || !strncmp(con->uri, "/classes", 8) || !strncmp(con->uri, "/help", 5) || !strncmp(con->uri, "/jobs", 5) || !strncmp(con->uri, "/printers", 9)))
+            else if (!buf[0] && (!strcmp(con->uri, "/") || !strncmp(con->uri, "/?", 2) || !strncmp(con->uri, "/admin", 6) || !strncmp(con->uri, "/classes", 8) || !strncmp(con->uri, "/help", 5) || !strncmp(con->uri, "/jobs", 5) || !strncmp(con->uri, "/printers", 9)))
 	    {
 	      if (!WebInterface)
 	      {
@@ -1111,7 +1111,12 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      * Send CGI output...
 	      */
 
-              if (!strncmp(con->uri, "/admin", 6))
+              if (!strcmp(con->uri, "/") || !strncmp(con->uri, "/?", 2))
+	      {
+		cupsdSetStringf(&con->command, "%s/cgi-bin/home.cgi", ServerBin);
+		cupsdSetString(&con->options, strchr(con->uri + 1, '?'));
+	      }
+              else if (!strncmp(con->uri, "/admin", 6))
 	      {
 		cupsdSetStringf(&con->command, "%s/cgi-bin/admin.cgi", ServerBin);
 		cupsdSetString(&con->options, strchr(con->uri + 6, '?'));
@@ -1302,13 +1307,18 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 		}
 	      }
             }
-	    else if (!strncmp(con->uri, "/admin", 6) || !strncmp(con->uri, "/printers", 9) ||  !strncmp(con->uri, "/classes", 8) || !strncmp(con->uri, "/help", 5) || !strncmp(con->uri, "/jobs", 5))
+	    else if (!strcmp(con->uri, "/") || !strncmp(con->uri, "/?", 2) || !strncmp(con->uri, "/admin", 6) || !strncmp(con->uri, "/printers", 9) ||  !strncmp(con->uri, "/classes", 8) || !strncmp(con->uri, "/help", 5) || !strncmp(con->uri, "/jobs", 5))
 	    {
 	     /*
 	      * CGI request...
 	      */
 
-              if (!strncmp(con->uri, "/admin", 6))
+              if (!strcmp(con->uri, "/") || !strncmp(con->uri, "/?", 2))
+	      {
+		cupsdSetStringf(&con->command, "%s/cgi-bin/home.cgi", ServerBin);
+		cupsdSetString(&con->options, strchr(con->uri + 1, '?'));
+	      }
+              else if (!strncmp(con->uri, "/admin", 6))
 	      {
 		cupsdSetStringf(&con->command, "%s/cgi-bin/admin.cgi", ServerBin);
 		cupsdSetString(&con->options, strchr(con->uri + 6, '?'));
@@ -1497,7 +1507,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      break;
 	    }
 
-	    if (!buf[0] && (!strncmp(con->uri, "/admin", 6) || !strncmp(con->uri, "/classes", 8) || !strncmp(con->uri, "/help", 5) || !strncmp(con->uri, "/jobs", 5) || !strncmp(con->uri, "/printers", 9)))
+	    if (!buf[0] && (!strcmp(con->uri, "/") || !strncmp(con->uri, "/?", 2) || !strncmp(con->uri, "/admin", 6) || !strncmp(con->uri, "/classes", 8) || !strncmp(con->uri, "/help", 5) || !strncmp(con->uri, "/jobs", 5) || !strncmp(con->uri, "/printers", 9)))
 	    {
 	     /*
 	      * CGI output...
@@ -2745,7 +2755,15 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
   filename[0] = '\0';
   language[0] = '\0';
 
-  if (!strncmp(con->uri, "/help", 5) && (con->uri[5] == '/' || !con->uri[5]))
+  if (!strcmp(con->uri, "/") || !strncmp(con->uri, "/?", 2))
+  {
+   /*
+    * The homepage/dashboard is served by the home.cgi program...
+    */
+
+    return (NULL);
+  }
+  else if (!strncmp(con->uri, "/help", 5) && (con->uri[5] == '/' || !con->uri[5]))
   {
    /*
     * All help files are served by the help.cgi program...
@@ -3435,6 +3453,7 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
     envp[envc ++] = auth_type;
 
   envp[envc ++] = lang;
+  envp[envc ++] = "CUPS_VERSION=" CUPS_SVERSION;
   envp[envc ++] = "REDIRECT_STATUS=1";
   envp[envc ++] = "GATEWAY_INTERFACE=CGI/1.1";
   envp[envc ++] = server_name;

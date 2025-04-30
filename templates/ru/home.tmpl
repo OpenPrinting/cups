@@ -1,29 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <link rel="stylesheet" href="/cups.css" type="text/css">
-    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=9">
-    <meta name="viewport" content="width=device-width">
-	<title>Home - CUPS @CUPS_VERSION@</title>
-  </head>
-  <body>
-    <div class="cups-header">
-      <ul>
-	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
-	<li><a class="active" href="/">Начало</a></li>
-	<li><a href="/admin">Администрирование</a></li>
-	<li><a href="/classes/">Группы</a></li>
-	<li><a href="/help/">Справка</a></li>
-	<li><a href="/jobs/">Задания</a></li>
-	<li><a href="/printers/">Принтеры</a></li>
-      </ul>
-    </div>
-    <div class="cups-body">
-      <div class="row">
-	<h1>OpenPrinting CUPS @CUPS_VERSION@</h1>
+	<h1>{ENV:CUPS_VERSION}</h1>
 	<P>CUPS — поддерживающая большинство стандартов, свободная подсистема печати, разрабатываемая компанией <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> для операционной системы Linux® и других UNIX<SUP>&reg;</SUP>-подобных операционных систем. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers</P>
       </div>
       <div class="row">
@@ -33,6 +8,10 @@
 	<form action="/jobs/" method="GET"><input type="submit" value="Управление заданиями"></form>
 	<form action="/printers/" method="GET"><input type="submit" value="Управление принтерами"></form>
 	<form action="/admin/" method="GET"><input type="submit" value="Сохранить"></form>
+        {#alert_title=0?:<p>Alerts:</p>
+        <ul>{[alert_title]
+          <li><a href="{alert_href}">{alert_title}</a></li>}
+        </ul>}
       </div>
       <div class="row">
 	<div class="thirds">
@@ -52,9 +31,4 @@
 	  <H2>CUPS для разработчиков</H2>
 	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
 	  <P><A HREF="help/api-filter.html">Разработка фильтров и модулей</A></P>
-</div>
-      </div>
-    </div>
-    <div class="cups-footer">Copyright &copy; 2021-2025 OpenPrinting. All Rights Reserved.</div>
-  </body>
-</html>
+	</div>

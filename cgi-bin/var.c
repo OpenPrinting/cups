@@ -1,7 +1,7 @@
 /*
  * CGI form variable and array functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products.
  *
@@ -165,6 +165,9 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
   _cgi_var_t	*var;			/* Pointer to variable */
 
 
+  if (!_cups_strncasecmp(name, "ENV:", 4))
+    return (getenv(name + 4));
+
   if ((var = cgi_find_variable(name)) == NULL)
     return (NULL);
 
@@ -304,6 +307,9 @@ cgiGetVariable(const char *name)	/* I - Name of variable */
 {
   const _cgi_var_t	*var;		/* Returned variable */
 
+
+  if (!_cups_strncasecmp(name, "ENV:", 4))
+    return (getenv(name + 4));
 
   var = cgi_find_variable(name);
 
