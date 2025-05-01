@@ -230,11 +230,8 @@ httpClearCookie(http_t *http)		// I - HTTP connection
   if (!http)
     return;
 
-  if (http->cookie)
-  {
-    free(http->cookie);
-    http->cookie = NULL;
-  }
+  free(http->cookie);
+  http->cookie = NULL;
 }
 
 
@@ -321,8 +318,7 @@ httpClose(http_t *http)			// I - HTTP connection
 
   httpAddrFreeList(http->addrlist);
 
-  if (http->cookie)
-    free(http->cookie);
+  free(http->cookie);
 
 #ifdef HAVE_GSSAPI
   if (http->gssctx != GSS_C_NO_CONTEXT)
@@ -2666,7 +2662,8 @@ httpSetCookie(http_t     *http,		// I - HTTP cnnection
     if ((temp = realloc(http->cookie, ctotal)) == NULL)
       return;
 
-    temp[clen] = '\n';
+    http->cookie = temp;
+    temp[clen]   = '\n';
     cupsCopyString(temp + clen + 1, cookie, ctotal - clen - 1);
   }
   else
@@ -3511,7 +3508,7 @@ httpWriteResponse(http_t        *http,	// I - HTTP connection
 	    return (-1);
 	  }
 	}
-	else if (httpPrintf(http, "Set-Cookie: %s; path=/; httponly;%s\r\n", http->cookie, http->tls ? " secure;" : "") < 1)
+	else if (httpPrintf(http, "Set-Cookie: %s; path=/; httponly;%s\r\n", start, http->tls ? " secure;" : "") < 1)
 	{
 	  http->status = HTTP_STATUS_ERROR;
 	  if (ptr)
