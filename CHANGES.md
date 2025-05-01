@@ -76,6 +76,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   filtering options in client.conf (Issue #1180)
 - Updated the CUPS web interface to make administrative tasks more discoverable
   (Issue #1207)
+- Updated the `httpSetCookie` API to support multiple "Set-Cookie:" header
+  values.
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
