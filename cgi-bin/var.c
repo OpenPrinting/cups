@@ -708,7 +708,7 @@ cgi_initialize_cookies(void)
 {
   const char	*cookie;		/* HTTP_COOKIE environment variable */
   char		name[128],		/* Name string */
-		value[512],		/* Value string */
+		value[2048],		/* Value string */
 		*ptr;			/* Pointer into name/value */
 
 
@@ -733,6 +733,7 @@ cgi_initialize_cookies(void)
     */
 
     for (ptr = name; *cookie && *cookie != '=';)
+    {
       if (ptr < (name + sizeof(name) - 1))
       {
         *ptr++ = *cookie++;
@@ -742,6 +743,7 @@ cgi_initialize_cookies(void)
         skip = 1;
 	cookie ++;
       }
+    }
 
     if (*cookie != '=')
       break;
@@ -756,6 +758,7 @@ cgi_initialize_cookies(void)
     if (*cookie == '\"')
     {
       for (cookie ++, ptr = value; *cookie && *cookie != '\"';)
+      {
         if (ptr < (value + sizeof(value) - 1))
 	{
 	  *ptr++ = *cookie++;
@@ -765,6 +768,7 @@ cgi_initialize_cookies(void)
 	  skip = 1;
 	  cookie ++;
 	}
+      }
 
       if (*cookie == '\"')
         cookie ++;
@@ -774,6 +778,7 @@ cgi_initialize_cookies(void)
     else
     {
       for (ptr = value; *cookie && *cookie != ';';)
+      {
         if (ptr < (value + sizeof(value) - 1))
 	{
 	  *ptr++ = *cookie++;
@@ -783,6 +788,7 @@ cgi_initialize_cookies(void)
 	  skip = 1;
 	  cookie ++;
 	}
+      }
     }
 
     if (*cookie == ';')

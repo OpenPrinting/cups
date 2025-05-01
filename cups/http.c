@@ -1030,7 +1030,11 @@ httpGetContentEncoding(http_t *http)	// I - HTTP connection
 
 
 //
-// 'httpGetCookie()' - Get any cookie data from the response.
+// 'httpGetCookie()' - Get "Cookie:" data from the HTTP connection.
+//
+// This function returns any HTTP "Cookie:" header data for the given HTTP
+// connection as described in RFC 6265.  Use the @link httpGetCookieValue@ to
+// get the value of a named cookie.
 //
 // @since CUPS 1.1.19@
 //
@@ -1039,6 +1043,107 @@ const char *				// O - Cookie data or `NULL`
 httpGetCookie(http_t *http)		// I - HTTP connection
 {
   return (http ? http->cookie : NULL);
+}
+
+
+//
+// 'httpGetCookieValue()' - Get the value of a named cookie from the HTTP connection.
+//
+// This function copies the value of a named cookie in the HTTP "Cookie:" header
+// for the given HTTP connection as described in RFC 6265.  Use the
+// @link httpGetCookie@ function to get the original "Cookie:" string.
+//
+// @since CUPS 2.5@
+//
+
+char *					// O - Cookie value or `NULL` if not present
+httpGetCookieValue(http_t     *http,	// I - HTTP connection
+                   const char *name,	// I - Cookie name
+                   char       *buffer,	// I - Value buffer
+                   size_t     bufsize)	// I - Size of value buffer
+{
+  const char	*cookie;		// Cookie: header value
+  char		current[128],		// Current name string
+		*ptr,			// Pointer into name/buffer
+		*end;			// End of name/buffer
+  bool		match;			// Does the current name match?
+
+
+  // Range check input...
+  if (buffer)
+    *buffer = '\0';
+
+  if (!http || !http->cookie || !name || !buffer || bufsize < 2)
+    return (NULL);
+
+  // Loop through the cookie string...
+  for (cookie = http->cookie; *cookie;)
+  {
+    // Skip leading whitespace...
+    while (isspace(*cookie & 255))
+      cookie ++;
+    if (!*cookie)
+      break;
+
+    // Copy the name...
+    for (ptr = current, end = current + sizeof(current) - 1; *cookie && *cookie != '=';)
+    {
+      if (ptr < end)
+        *ptr++ = *cookie++;
+      else
+	cookie ++;
+    }
+
+    if (*cookie != '=')
+      break;
+
+    *ptr = '\0';
+    match = !strcmp(current, name);
+    cookie ++;
+
+    // Then the value...
+    if (*cookie == '\"')
+    {
+      // Copy quoted value...
+      for (cookie ++, ptr = buffer, end = buffer + bufsize - 1; *cookie && *cookie != '\"';)
+      {
+        if (match && ptr < end)
+	  *ptr++ = *cookie++;
+	else
+	  cookie ++;
+      }
+
+      if (*cookie == '\"')
+        cookie ++;
+      else
+        match = false;
+    }
+    else
+    {
+      // Copy unquoted value...
+      for (ptr = buffer, end = buffer + bufsize - 1; *cookie && *cookie != ';';)
+      {
+        if (match && ptr < end)
+	  *ptr++ = *cookie++;
+	else
+	  cookie ++;
+      }
+    }
+
+    if (match)
+    {
+      // Got the value we were looking for, nul-terminate and return...
+      *ptr = '\0';
+      return (buffer);
+    }
+
+    // Skip over separator...
+    if (*cookie == ';')
+      cookie ++;
+  }
+
+  // If we get here then we never found the cookie...
+  return (NULL);
 }
 
 

@@ -7,9 +7,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.
-- Added new `cupsRasterInitHeader` API.
-- Added `httpConnectURI` API.
-- Added `httpGetSecurity` API.
+- Added `cupsRasterInitHeader` API.
+- Added `httpConnectURI`, `httpGetCookieValue`, and `httpGetSecurity` APIs.
 - Added `ippAddCredentialsString`, `ippGetFirstAttribute`,
   `ippGetNextAttribute`, `ippRestore`, and `ippSave` APIs.
 - Added new DNS-SD APIs.
@@ -33,8 +32,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added a systemd slice to the systemd services included with the scheduler
 - Added localizations for deprecated IPP attributes/options (Issue #1020)
 - Added support for specifying permissions with the `cupsFileOpen` API.
-- Added new `cupsGetClock` API.
-- Added new `cupsParseOptions2` API with "end" argument.
+- Added `cupsGetClock` API.
+- Added `cupsParseOptions2` API with "end" argument.
 - Added `cups-oauth` and `cups-x509` utilities (Issue #1184)
 - Added `DNSSDComputerName` directive to "cupsd.conf" and updated cupsd to
   correctly update the mDNS hostname only if the `DNSSDHostName` directive is
