@@ -54,7 +54,15 @@
 }
 .cups-header form {
   display: block;
-  padding: 15px 30px !important;
+  margin: 0px 30px;
+  padding: 15px 0px !important;
+}
+.cups-header span.label {
+  color: #ccc;
+  display: block;
+  font-style: italic;
+  margin: 0px 30px;
+  padding: 15px 0px !important;
 }
 
 .cups-body {

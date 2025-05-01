@@ -81,5 +81,5 @@ do_dashboard(void)
 static void
 do_search(char *query)			/* I - Search string */
 {
-
+  (void)query;
 }

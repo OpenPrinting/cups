@@ -3266,7 +3266,9 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
 		lang[1024],		/* LANG environment variable */
 		path_info[1024],	/* PATH_INFO environment variable */
 		remote_addr[1024],	/* REMOTE_ADDR environment variable */
+		remote_email[1024],	/* REMOTE_EMAIL environment variable */
 		remote_host[1024],	/* REMOTE_HOST environment variable */
+		remote_name[1024],	/* REMOTE_NAME ("real name") environment variable */
 		remote_user[1024],	/* REMOTE_USER environment variable */
 		script_filename[1024],	/* SCRIPT_FILENAME environment variable */
 		script_name[1024],	/* SCRIPT_NAME environment variable */
@@ -3478,10 +3480,21 @@ pipe_command(cupsd_client_t *con,	/* I - Client connection */
   if (path_info[0])
     envp[envc ++] = path_info;
 
+  if (con->email[0])
+  {
+    snprintf(remote_email, sizeof(remote_email), "REMOTE_EMAIL=%s", con->email);
+    envp[envc ++] = remote_email;
+  }
+
+  if (con->realname[0])
+  {
+    snprintf(remote_name, sizeof(remote_name), "REMOTE_NAME=%s", con->realname);
+    envp[envc ++] = remote_name;
+  }
+
   if (con->username[0])
   {
     snprintf(remote_user, sizeof(remote_user), "REMOTE_USER=%s", con->username);
-
     envp[envc ++] = remote_user;
   }
 

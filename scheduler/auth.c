@@ -317,6 +317,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   int		type;			/* Authentication type */
   const char	*authorization;		/* Pointer into Authorization string */
   char		*ptr,			/* Pointer into string */
+		bearer[2048],		/* CUPS_BEARER cookie string */
 		username[HTTP_MAX_VALUE],
 					/* Username string */
 		password[HTTP_MAX_VALUE];
@@ -349,6 +350,9 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   */
 
   authorization = httpGetField(con->http, HTTP_FIELD_AUTHORIZATION);
+
+  if (!*authorization && type == CUPSD_AUTH_BEARER && httpGetCookieValue(con->http, "CUPS_BEARER", bearer, sizeof(bearer)))
+    authorization = "Bearer COOKIE";
 
   username[0] = '\0';
   password[0] = '\0';
@@ -627,7 +631,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       int		pamerr;		/* PAM error code */
       struct pam_conv	pamdata;	/* PAM conversation data */
       cupsd_authdata_t	data;		/* Authentication data */
-
+      struct passwd	*userinfo;	/* User information */
 
       cupsCopyString(data.username, username, sizeof(data.username));
       cupsCopyString(data.password, password, sizeof(data.password));
@@ -685,6 +689,13 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       }
 
       pam_end(pamh, PAM_SUCCESS);
+
+     /*
+      * Copy GECOS information, if available, to get the user's real name...
+      */
+
+      if ((userinfo = getpwnam(username)) != NULL && userinfo->pw_gecos)
+        cupsCopyString(con->realname, userinfo->pw_gecos, sizeof(con->realname));
 #else
       cupsdLogClient(con, CUPSD_LOG_ERROR, "No authentication support is available.");
       return;
@@ -706,6 +717,9 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     authorization += 7;
     while (isspace(*authorization & 255))
       authorization ++;
+
+    if (!strcmp(authorization, "COOKIE"))
+      authorization = bearer;		// Use the cookie value for authorization
 
     // Decode and validate the JWT...
     if ((jwt = cupsJWTImportString(authorization, CUPS_JWS_FORMAT_COMPACT)) == NULL)
@@ -765,7 +779,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 					/* Output token for username */
     gss_name_t		client_name;	/* Client name */
 
-#  ifdef __APPLE__
+#  ifdef __APPLE__DISABLED // Remove DISABLED if ever this code is used for macOS installer
    /*
     * If the weak-linked GSSAPI/Kerberos library is not present, don't try
     * to use it...
@@ -776,7 +790,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       cupsdLogClient(con, CUPSD_LOG_WARN, "GSSAPI/Kerberos authentication failed because the Kerberos framework is not present.");
       return;
     }
-#  endif /* __APPLE__ */
+#  endif /* __APPLE__DISABLED */
 
    /*
     * Find the start of the Kerberos input token...
@@ -915,6 +929,10 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   */
 
   cupsCopyString(con->username, username, sizeof(con->username));
+
+  if (!con->realname[0])
+    cupsCopyString(con->realname, username, sizeof(con->realname));
+
   cupsCopyString(con->password, password, sizeof(con->password));
 }
 

@@ -36,7 +36,9 @@
 	<li><a {SECTION=help?class="active" :}href="/help/">Help</a></li>
 	<li><a {SECTION=jobs?class="active" :}href="/jobs/">Jobs</a></li>
 	<li><a {SECTION=printers?class="active" :}href="/printers/">Printers</a></li>
-	{?ENV:CUPS_OAUTH_SERVER=?{?ENV:REMOTE_USER}:{?ENV:CUPS_OAUTH_USERNAME} <li class="right"><form action="/loginout/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="submit" value="{?ENV:CUPS_OAUTH_USERNAME=?Login:Logout}"></form></li>}
+	<li class="right">{?ENV:REMOTE_USER=?<i>Guest</i>:{ENV:REMOTE_USER}}
+	{?ENV:CUPS_OAUTH_SERVER=?:<form action="/loginout/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="submit" value="{?ENV:CUPS_OAUTH_USERNAME=?Login:Logout}"></form>}
+	</li>
 	<li class="right"><form action="/help/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="search" name="QUERY" value="{?QUERY}" size="10" placeholder="" autosave="org.cups.help" results="20"><input type="submit" value="Search"></form></li>
       </ul>
     </div>
