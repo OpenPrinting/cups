@@ -522,6 +522,8 @@ cgiSetCookie(const char *name,		/* I - Name */
     puts(" httponly; secure;");
   else
     puts(" httponly;");
+
+  fflush(stdout);
 }
 
 
@@ -1242,6 +1244,8 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
    /*
     * Add the string to the variable "database"...
     */
+
+    fprintf(stderr, "DEBUG2: cgi_initialize_string: name=\"%s\", value=\"%s\"\n", name, value);
 
     if ((s = strrchr(name, '-')) != NULL && isdigit(s[1] & 255))
     {

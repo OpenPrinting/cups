@@ -40,8 +40,7 @@ struct cupsd_client_s
 					/* Real name from OAuth Bearer token */
 		      	autherror[HTTP_MAX_VALUE],
 					/* Authorization error, if any */
-			uri[HTTP_MAX_URI],
-					/* Localized URL/URI for GET/PUT */
+			uri[2048],	/* Localized URL/URI for GET/PUT */
 			*filename,	/* Filename of output file */
 			*command,	/* Command to run */
 			*options,	/* Options for command */

@@ -36,10 +36,9 @@
 	<li><a {SECTION=help?class="active" :}href="/help/">Hjælp</a></li>
 	<li><a {SECTION=jobs?class="active" :}href="/jobs/">Jobs</a></li>
 	<li><a {SECTION=printers?class="active" :}href="/printers/">Printere</a></li>
-	<li class="right"><span class="label">{?ENV:REMOTE_NAME=?Guest:{ENV:REMOTE_NAME}}</span>
-	{?ENV:CUPS_OAUTH_SERVER=?:<form action="/loginout/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="submit" value="{?ENV:CUPS_OAUTH_USERNAME=?Login:Logout}"></form>}
-	</li>
-	<li class="right"><form action="/help/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="search" name="QUERY" value="{?QUERY}" size="10" placeholder="" autosave="org.cups.help" results="20"><input type="submit" value="Search"></form></li>
+	<li class="right"><form action="/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="search" name="QUERY" value="{?QUERY}" size="10" placeholder="" autosave="org.cups.site" results="20"><input type="submit" name="SEARCH" value="Search"></form></li>
+	{?ENV:CUPS_OAUTH_SERVER=?:<li class="right"><form action="/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="submit" name="{?ENV:REMOTE_USER=?LOGIN:LOGOUT}" value="{?ENV:REMOTE_USER=?Login:Logout}"></form></li>}
+	<li class="right"><span class="label">{?ENV:REMOTE_NAME=?Guest:{ENV:REMOTE_NAME}}</span></li>
       </ul>
     </div>
     <div class="cups-body">

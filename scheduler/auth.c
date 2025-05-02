@@ -351,7 +351,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
   authorization = httpGetField(con->http, HTTP_FIELD_AUTHORIZATION);
 
-  if (!*authorization && type == CUPSD_AUTH_BEARER && httpGetCookieValue(con->http, "CUPS_BEARER", bearer, sizeof(bearer)))
+  if (!*authorization && type == CUPSD_AUTH_BEARER && httpGetCookieValue(con->http, "CUPS_BEARER", bearer, sizeof(bearer)) && bearer[0])
     authorization = "Bearer COOKIE";
 
   username[0] = '\0';

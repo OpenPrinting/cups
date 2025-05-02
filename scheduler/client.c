@@ -916,6 +916,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
       if (con->best && con->best->type != CUPSD_AUTH_NONE)
       {
         httpClearFields(con->http);
+        httpClearCookie(con->http);
 
 	if (!cupsdSendHeader(con, HTTP_STATUS_UNAUTHORIZED, NULL, CUPSD_AUTH_NONE))
 	{
@@ -931,6 +932,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	*/
 
         httpClearFields(con->http);
+        httpClearCookie(con->http);
 
 	if (!cupsdSendHeader(con, HTTP_STATUS_SWITCHING_PROTOCOLS, NULL, CUPSD_AUTH_NONE))
 	{
@@ -946,6 +948,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
       }
 
       httpClearFields(con->http);
+      httpClearCookie(con->http);
       httpSetField(con->http, HTTP_FIELD_CONTENT_LENGTH, "0");
 
       if (!cupsdSendHeader(con, HTTP_STATUS_OK, NULL, CUPSD_AUTH_NONE))
@@ -979,6 +982,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	*/
 
         httpClearFields(con->http);
+        httpClearCookie(con->http);
 
 	if (!cupsdSendHeader(con, HTTP_STATUS_SWITCHING_PROTOCOLS, NULL,
 	                     CUPSD_AUTH_NONE))
@@ -1023,6 +1027,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  */
 
           httpClearFields(con->http);
+	  httpClearCookie(con->http);
 	  httpSetField(con->http, HTTP_FIELD_CONTENT_LENGTH, "0");
 
 	  cupsdSendError(con, HTTP_STATUS_EXPECTATION_FAILED, CUPSD_AUTH_NONE);
@@ -1480,6 +1485,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 		  snprintf(line, sizeof(line), "%s/%s", type->super, type->type);
 
 		httpClearFields(con->http);
+		httpClearCookie(con->http);
 
 		httpSetField(con->http, HTTP_FIELD_LAST_MODIFIED, httpGetDateString(filestats.st_mtime));
 		httpSetLength(con->http, (size_t)filestats.st_size);
@@ -1496,6 +1502,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	    else if (!WebInterface)
 	    {
               httpClearFields(con->http);
+	      httpClearCookie(con->http);
 
               if (!cupsdSendHeader(con, HTTP_STATUS_OK, NULL, CUPSD_AUTH_NONE))
 	      {
@@ -1514,6 +1521,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      */
 
               httpClearFields(con->http);
+	      httpClearCookie(con->http);
 
               if (!cupsdSendHeader(con, HTTP_STATUS_OK, "text/html", CUPSD_AUTH_NONE))
 	      {
@@ -1526,6 +1534,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	    else
 	    {
               httpClearFields(con->http);
+	      httpClearCookie(con->http);
 
 	      if (!cupsdSendHeader(con, HTTP_STATUS_NOT_FOUND, "text/html", CUPSD_AUTH_NONE))
 	      {
@@ -1929,6 +1938,7 @@ cupsdSendCommand(
   con->pipe_status = HTTP_STATUS_OK;
 
   httpClearFields(con->http);
+  httpClearCookie(con->http);
 
   if (fd >= 0)
     close(fd);
@@ -1963,7 +1973,7 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
                http_status_t  code,	/* I - Error code */
 	       int            auth_type)/* I - Authentication type */
 {
-  char	location[HTTP_MAX_VALUE];	/* Location field */
+  char	location[2048];			/* Location field */
 
 
   cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cupsdSendError code=%d, auth_type=%d", code, auth_type);
@@ -1998,7 +2008,6 @@ cupsdSendError(cupsd_client_t *con,	/* I - Connection */
   cupsCopyString(location, httpGetField(con->http, HTTP_FIELD_LOCATION), sizeof(location));
 
   httpClearFields(con->http);
-  httpClearCookie(con->http);
 
   httpSetField(con->http, HTTP_FIELD_LOCATION, location);
 
@@ -2418,6 +2427,7 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
   else if ((bytes = read(con->file, con->header + con->header_used, (size_t)bytes)) > 0)
   {
     con->header_used += bytes;
+    cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Script header: BEFORE header_used=%lu", (unsigned long)con->header_used);
 
     if (con->pipe_pid && !con->got_fields)
     {
@@ -2460,6 +2470,7 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 	    }
 
 	    field = httpFieldValue(con->header);
+            cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Script header: field=%d, value=\"%s\"", field, value);
 
 	    if (field != HTTP_FIELD_UNKNOWN && value)
 	    {
@@ -2479,11 +2490,13 @@ cupsdWriteClient(cupsd_client_t *con)	/* I - Client connection */
 	  */
 
 	  con->header_used -= bufptr - con->header;
+	  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Script header: AFTER header_used=%lu", (unsigned long)con->header_used);
 
 	  if (con->header_used > 0)
 	    memmove(con->header, bufptr, (size_t)con->header_used);
 
 	  bufptr = con->header - 1;
+	  bufend = con->header + con->header_used;
 
          /*
 	  * See if the line was empty...
@@ -3812,6 +3825,7 @@ write_file(cupsd_client_t *con,		/* I - Client connection */
   con->sent_header = 1;
 
   httpClearFields(con->http);
+  httpClearCookie(con->http);
 
   httpSetLength(con->http, (size_t)filestats->st_size);
 
