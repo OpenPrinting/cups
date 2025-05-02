@@ -158,6 +158,7 @@ static const char *github_metadata =	// Github.com OAuth metadata
 //
 
 static char	*oauth_copy_response(http_t *http);
+static char	*oauth_copy_scopes(cups_json_t *metadata);
 static cups_json_t *oauth_do_post(const char *ep, const char *content_type, const char *data);
 static char	*oauth_load_value(const char *auth_uri, const char *secondary_uri, _cups_otype_t otype);
 static char	*oauth_make_path(char *buffer, size_t bufsize, const char *auth_uri, const char *secondary_uri, _cups_otype_t otype);
@@ -473,47 +474,8 @@ cupsOAuthGetAuthorizationCode(
 
   if (!scopes)
   {
-    cups_json_t	*values;		// Parameter values
-
-    if ((values = cupsJSONFind(metadata, "scopes_supported")) != NULL)
-    {
-      // Convert scopes_supported to a string...
-      size_t		i,		// Looping var
-			count,		// Number of values
-	 	     	length = 0;	// Length of string
-      cups_json_t	*current;	// Current value
-
-      for (i = 0, count = cupsJSONGetCount(values); i < count; i ++)
-      {
-	current = cupsJSONGetChild(values, i);
-
-	if (cupsJSONGetType(current) == CUPS_JTYPE_STRING)
-	  length += strlen(cupsJSONGetString(current)) + 1;
-      }
-
-      if (length > 0 && (scopes_supported = malloc(length)) != NULL)
-      {
-        // Copy the scopes to a string with spaces between them...
-        char	*ptr;			// Pointer into value
-
-	for (i = 0, ptr = scopes_supported; i < count; i ++)
-	{
-	  current = cupsJSONGetChild(values, i);
-
-	  if (cupsJSONGetType(current) == CUPS_JTYPE_STRING)
-	  {
-	    if (i)
-	      *ptr++ = ' ';
-
-	    cupsCopyString(ptr, cupsJSONGetString(current), length - (size_t)(ptr - scopes_supported));
-	    ptr += strlen(ptr);
-	  }
-	}
-
-        // Use the supported scopes in the request...
-	scopes = scopes_supported;
-      }
-    }
+    scopes_supported = oauth_copy_scopes(metadata);
+    scopes           = scopes_supported;
   }
 
   DEBUG_printf("1cupsOAuthGetAuthorizationCode: scopes=\"%s\"", scopes);
@@ -1320,7 +1282,8 @@ cupsOAuthMakeAuthorizationURL(
   char		code_challenge[64];	// Hashed code verifier string
   int		num_vars = 0;		// Number of form variables
   cups_option_t	*vars = NULL;		// Form variables
-  char		*url;			// URL for authorization page
+  char		*url,			// URL for authorization page
+		*scopes_supported;	// Supported scopes
 
 
   // Range check input...
@@ -1357,7 +1320,14 @@ cupsOAuthMakeAuthorizationURL(
     num_vars = cupsAddOption("resource", resource_uri, num_vars, &vars);
 
   if (scopes)
+  {
     num_vars = cupsAddOption("scope", scopes, num_vars, &vars);
+  }
+  else if ((scopes_supported = oauth_copy_scopes(metadata)) != NULL)
+  {
+    num_vars = cupsAddOption("scope", scopes_supported, num_vars, &vars);
+    free(scopes_supported);
+  }
 
   if (state)
     num_vars = cupsAddOption("state", state, num_vars, &vars);
@@ -1510,6 +1480,76 @@ oauth_copy_response(http_t *http)	// I - HTTP connection
     httpFlush(http);
 
   return (body);
+}
+
+
+//
+// 'oauth_copy_scopes()' - Copy all supported scopes from the metadata.
+//
+// Caller must free returned string...
+//
+
+static char *				// O - Scopes
+oauth_copy_scopes(
+    cups_json_t *metadata)		// I - Metadata
+{
+  char		*scopes = NULL;		// Supported scopes
+  cups_json_t	*values;		// Parameter values
+
+
+  if ((values = cupsJSONFind(metadata, "scopes_supported")) != NULL)
+  {
+    // Convert scopes_supported to a string...
+    size_t	i,			// Looping var
+		count,			// Number of values
+		length = 0;		// Length of string
+    cups_json_t	*current;		// Current value
+    const char	*scope;			// Scope string
+
+    // Figure out the total length...
+    for (i = 0, count = cupsJSONGetCount(values); i < count; i ++)
+    {
+      current = cupsJSONGetChild(values, i);
+
+      if (cupsJSONGetType(current) == CUPS_JTYPE_STRING)
+      {
+        // Only copy common scopes...
+        scope = cupsJSONGetString(current);
+
+        if (!strcmp(scope, "email") || !strcmp(scope, "profile") || !strcmp(scope, "openid"))
+          length += strlen(scope) + 1;
+      }
+    }
+
+    if (length > 0 && (scopes = malloc(length)) != NULL)
+    {
+      // Copy the scopes to a string with spaces between them...
+      char	*ptr;			// Pointer into value
+
+      for (i = 0, ptr = scopes; i < count; i ++)
+      {
+        // Append each scope...
+	current = cupsJSONGetChild(values, i);
+
+	if (cupsJSONGetType(current) == CUPS_JTYPE_STRING)
+	{
+	  // Only copy common scopes...
+          scope = cupsJSONGetString(current);
+
+          if (!strcmp(scope, "email") || !strcmp(scope, "profile") || !strcmp(scope, "openid"))
+          {
+	    if (ptr > scopes)
+	      *ptr++ = ' ';
+
+	    cupsCopyString(ptr, scope, length - (size_t)(ptr - scopes));
+	    ptr += strlen(ptr);
+	  }
+	}
+      }
+    }
+  }
+
+  return (scopes);
 }
 
 

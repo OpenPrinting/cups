@@ -3696,9 +3696,11 @@ http_add_field(http_t       *http,	// I - HTTP connection
     http->fields[field] = strdup(value);
   }
 
+  DEBUG_printf("1http_add_field: New value of %s is \"%s\"", http_fields[field], http->fields[field]);
+
   if (field == HTTP_FIELD_CONTENT_ENCODING && http->data_encoding != HTTP_ENCODING_FIELDS)
   {
-    DEBUG_puts("1httpSetField: Calling http_content_coding_start.");
+    DEBUG_puts("1http_add_field: Calling http_content_coding_start.");
     http_content_coding_start(http, value);
   }
 }
