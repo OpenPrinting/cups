@@ -1115,7 +1115,7 @@ cupsOAuthGetTokens(
     num_form = cupsAddOption("redirect_uri", redirect_uri, num_form, &form);
   }
 
-  if ((value = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID)) != NULL)
+  if ((value = cupsOAuthCopyClientId(auth_uri, redirect_uri)) != NULL)
   {
     DEBUG_printf("1cupsOAuthGetTokens: client_id=\"%s\"", value);
     num_form = cupsAddOption("client_id", value, num_form, &form);
