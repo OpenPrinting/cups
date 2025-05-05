@@ -1464,8 +1464,12 @@ oauth_copy_response(http_t *http)	// I - HTTP connection
   // Allocate memory for string...
   initial_state = httpGetState(http);
 
-  if ((bodylen = (size_t)httpGetLength(http)) == 0 || bodylen > 65536)
+  if ((bytes = httpGetLength(http)) < 0)
+    return (NULL);
+  else if (bytes == 0 || bytes > 65536)
     bodylen = 65536;			// Accept up to 64k for GETs/POSTs
+  else
+    bodylen = (size_t)bytes;
 
   if ((body = calloc(1, bodylen + 1)) != NULL)
   {
@@ -1799,9 +1803,9 @@ oauth_make_path(
 //
 // (Has the advantage of being easily identified, too...)
 //
-// For CUPS 3.0.x:
+// For CUPS 2.5.x:
 //
-//   43555053-0300-8010-8011-4F4175746820
+//   43555053-0205-8010-8011-4F4175746820
 //
 
 static char *				// O - UUID string
