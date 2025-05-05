@@ -19,13 +19,6 @@
 
 
 /*
- * Session ID name
- */
-
-#define CUPS_SID	"org.cups.sid"
-
-
-/*
  * Data structure to hold all the CGI form variables and arrays...
  */
 
@@ -394,8 +387,10 @@ cgiInitialize(void)
     else if (!cgi_initialize_post())
       return (0);
 
-    if ((cups_sid_form = cgiGetVariable(CUPS_SID)) == NULL ||
-	strcmp(cups_sid_cookie, cups_sid_form))
+    if ((cups_sid_form = cgiGetVariable(CUPS_SID)) == NULL)
+      cups_sid_form = cgiGetVariable("state");
+
+    if (!cups_sid_form || strcmp(cups_sid_cookie, cups_sid_form))
     {
       if (cups_sid_form)
 	fprintf(stderr, "DEBUG: " CUPS_SID " form variable is \"%s\"\n",
@@ -505,6 +500,8 @@ cgiSetCookie(const char *name,		/* I - Name */
 	     time_t     expires,	/* I - Expiration date (0 for session) */
 	     int        secure)		/* I - Require SSL */
 {
+  fprintf(stderr, "DEBUG2: cgiSetCookie(name=\"%s\", value=\"%s\", path=\"%s\", domain=\"%s\", expires=%ld, secure=%d)\n", name, value, path, domain, (long)expires, secure);
+
   num_cookies = cupsAddOption(name, value, num_cookies, &cookies);
 
   printf("Set-Cookie: %s=%s;", name, value);

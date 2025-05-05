@@ -54,7 +54,7 @@ struct cupsd_client_s
   int			sent_header,	/* Non-zero if sent HTTP header */
 			got_fields,	/* Non-zero if all fields seen */
 			header_used;	/* Number of header bytes used */
-  char			header[2048];	/* Header from CGI program */
+  char			header[4096];	/* Header from CGI program */
   cups_lang_t		*language;	/* Language to use */
   int			auto_ssl;	/* Automatic test for SSL/TLS */
   http_addr_t		clientaddr;	/* Client's server address */

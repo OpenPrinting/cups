@@ -98,13 +98,13 @@ do_login(void)
 					// OAuth authorization server URL
 		*server_name = getenv("SERVER_NAME"),
 					// SERVER_NAME value
-		*server_port = getenv("SERVER_PORT");
+		*server_port = getenv("SERVER_PORT"),
 					// SERVER_PORT value
+		*state = NULL;		// State string
   char		*client_id = NULL,	// Client ID value
 		*code_verifier = NULL,	// Code verifier string
 		*nonce = NULL,		// Nonce string
 		redirect_uri[1024],	// redirect_uri value
-		*state = NULL,		// State string
 		*url = NULL;		// Authorization URL
   cups_json_t	*metadata = NULL;	// OAuth metadata
 
@@ -144,7 +144,7 @@ do_login(void)
   // Make state and code verification strings...
   code_verifier = cupsOAuthMakeBase64Random(128);
   nonce         = cupsOAuthMakeBase64Random(16);
-  state         = cupsOAuthMakeBase64Random(16);
+  state         = cgiGetCookie(CUPS_SID);
 
   // Get the authorization URL
   if ((url = cupsOAuthMakeAuthorizationURL(oauth_uri, metadata, /*resource_uri*/NULL, getenv("CUPS_OAUTH_SCOPES"), client_id, code_verifier, nonce, redirect_uri, state)) == NULL)
@@ -166,7 +166,6 @@ do_login(void)
   free(code_verifier);
   cupsJSONDelete(metadata);
   free(nonce);
-  free(state);
   free(url);
 }
 
@@ -196,12 +195,23 @@ do_redirect(const char *url)		// URL or NULL for home page
   fprintf(stderr, "DEBUG2: do_redirect(url=\"%s\")\n", url);
 
   if (url && (!strncmp(url, "http://", 7) || !strncmp(url, "https://", 8)))
-    printf("Location: %s\n\n", url);
+    printf("Location: %s\n", url);
   else
-    printf("Location: %s://%s:%s%s\n\n", getenv("HTTPS") ? "https" : "http", getenv("SERVER_NAME"), getenv("SERVER_PORT"), url ? url : "/");
+    printf("Location: %s://%s:%s%s\n", getenv("HTTPS") ? "https" : "http", getenv("SERVER_NAME"), getenv("SERVER_PORT"), url ? url : "/");
 
   puts("Content-Type: text/plain\n");
   puts("Redirecting...");
+  fflush(stdout);
+
+
+  if (url && (!strncmp(url, "http://", 7) || !strncmp(url, "https://", 8)))
+    fprintf(stderr, "DEBUG2: do_redirect: Location: %s\n", url);
+  else
+    fprintf(stderr, "DEBUG2: do_redirect: Location: %s://%s:%s%s\n", getenv("HTTPS") ? "https" : "http", getenv("SERVER_NAME"), getenv("SERVER_PORT"), url ? url : "/");
+
+  fputs("DEBUG2: do_redirect: Content-Type: text/plain\n", stderr);
+  fputs("DEBUG2: do_redirect:\n", stderr);
+  fputs("DEBUG2: do_redirect: Redirecting...", stderr);
 }
 
 
@@ -233,9 +243,7 @@ finish_login(void)
 		*client_id = NULL,	// Client ID value
 		*error,			// Error string
 		redirect_uri[1024];	// redirect_uri value
-  const char	*code,			// Authorization code
-		*state_cookie,		// State cookie
-		*state_var;		// State variable
+  const char	*code;			// Authorization code
   cups_json_t	*metadata = NULL;	// OAuth metadata
   time_t	access_expires;		// When the bearer token expires
 
@@ -276,16 +284,8 @@ finish_login(void)
 
   fprintf(stderr, "DEBUG2: finish_login: client_id=\"%s\"\n", client_id);
 
-  // Get the state and code strings...
-  code         = cgiGetVariable("code");
-  state_cookie = cgiGetCookie("CUPS_OAUTH_STATE");
-  state_var    = cgiGetVariable("state");
-
-  if (!state_cookie || !state_var || strcmp(state_cookie, state_var))
-  {
-    show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to authorize access")), cgiText(_("Bad client state value in response.")));
-    goto done;
-  }
+  // Get the code string...
+  code = cgiGetVariable("code");
 
   // Get the access token...
   if ((bearer = cupsOAuthGetTokens(oauth_uri, metadata, /*resource_uri*/NULL, code, CUPS_OGRANT_AUTHORIZATION_CODE, redirect_uri, &access_expires)) == NULL)
@@ -294,11 +294,15 @@ finish_login(void)
     goto done;
   }
 
+  fprintf(stderr, "DEBUG2: finish_login: access_token=\"%s\", access_expires=%ld\n", bearer, (long)access_expires);
+
   // Save it as a cookie...
   cgiSetCookie("CUPS_BEARER", bearer, /*path*/NULL, /*domain*/NULL, access_expires, /*secure*/0);
 
   // Redirect...
   do_redirect(cgiGetCookie("CUPS_REFERRER"));
+
+  fputs("DEBUG2: finish_login: After redirect.\n", stderr);
 
   done:
 

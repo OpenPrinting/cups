@@ -317,7 +317,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   int		type;			/* Authentication type */
   const char	*authorization;		/* Pointer into Authorization string */
   char		*ptr,			/* Pointer into string */
-		bearer[2048],		/* CUPS_BEARER cookie string */
+		bearer[4096],		/* CUPS_BEARER cookie string */
 		username[HTTP_MAX_VALUE],
 					/* Username string */
 		password[HTTP_MAX_VALUE];
@@ -351,7 +351,9 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
   authorization = httpGetField(con->http, HTTP_FIELD_AUTHORIZATION);
 
-  if (!*authorization && type == CUPSD_AUTH_BEARER && httpGetCookieValue(con->http, "CUPS_BEARER", bearer, sizeof(bearer)) && bearer[0])
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cookie=\"%s\"", httpGetCookie(con->http));
+
+  if (!*authorization && httpGetCookieValue(con->http, "CUPS_BEARER", bearer, sizeof(bearer)) && bearer[0])
     authorization = "Bearer COOKIE";
 
   username[0] = '\0';
