@@ -6,7 +6,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-x509 1 "CUPS" "2025-03-04" "OpenPrinting"
+.TH cups-x509 1 "CUPS" "2025-05-05" "OpenPrinting"
 .SH NAME
 cups-x509 \- description
 .SH SYNOPSIS
@@ -58,7 +58,7 @@ cups-x509 \- description
 .B \-u
 .I USAGE
 ]
-.I COMMAND
+.I SUB-COMMAND
 .I [ARGUMENT(S)]
 .SH DESCRIPTION
 The
@@ -121,7 +121,7 @@ Specify the certificate type - "rsa-2048" for 2048-bit RSA, "rsa-3072" for 3072-
 Specify the usage for the certificate as a comma-delimited list of uses.
 The supported uses are "digitalSignature", "nonRepudiation", "keyEncipherment", "dataEncipherment", "keyAgreement", "keyCertSign", "cRLSign", "encipherOnly", and  "decipherOnly".
 The preset "default-ca" specifies those uses required for a Certificate Authority, and the preset "default-tls" specifies those uses required for TLS.
-.SH COMMANDS
+.SH SUB-COMMANDS
 .SS ca COMMON-NAME
 Sign a certificate request for the specified common name.
 .SS cacert COMMON-NAME
@@ -138,7 +138,22 @@ If PORT is not specified, uses a port number from 8000 to 8999.
 .SS show COMMON-NAME
 Shows any stored credentials for the specified common name.
 .SH EXAMPLES
-TBD
+Create a certificate signing request for a 384-bit ECDSA certificate for "server.example.com":
+.nf
+     cups-x509 csr -t ecdsa-p384 server.example.com
+.fi
+Install the certificate you get back from the CA for "server.example.com":
+.nf
+     cups-x509 install server.example.com server.example.com.crt
+.fi
+Run a test server for "server.exmaple.com" on port 8080:
+.nf
+     cups-x509 server SERVER-NAME:8080
+.fi
+Test a HTTPS client connection to "www.example.com" with validation:
+.nf
+     cups-x509 client --require-ca https://www.example.com/
+.fi
 .SH SEE ALSO
 .BR cups (1)
 .SH COPYRIGHT

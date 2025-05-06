@@ -6,7 +6,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-oauth 1 "CUPS" "2025-03-04" "OpenPrinting"
+.TH cups-oauth 1 "CUPS" "2025-05-05" "OpenPrinting"
 .SH NAME
 cups-oauth \- interact with an oauth/openid authorization server
 .SH SYNOPSIS
@@ -104,8 +104,8 @@ Specifies the OAuth/OpenID authorization server URL.
 .TP 5
 \fB\-s \fISCOPE(S)\fR
 Specifies a space-delimited list of scope names to use when authorizing access.
-The default is to request authorization for all supported scopes.
-.SH COMMANDS
+The default is to request authorization for all supported OpenID scopes.
+.SH SUB-COMMANDS
 .SS authorize
 Starts an authorization workflow with the default web browser.
 If a resource URI is specified, the authorization is specific to that resource.
@@ -137,7 +137,18 @@ environment variable sets the default OAuth/OpenID scopes as a space-delimited l
 .SH NOTES
 CUPS uses a redirect URI of "http://127.0.0.1/" for all authorization on the local system.
 .SH EXAMPLES
-TBD
+Register a client ID and secret for the OAuth server at "https://oauth.example.com/":
+.nf
+     cups-oauth -a https://oauth.example.com/ set-client-data CLIENT-ID CLIENT-SECRET
+.fi
+Save an access token (sometimes called an application or API key) for the OAuth server at "https://oauth.example.com/":
+.nf
+     cups-oauth -a https://oauth.example.com/ set-access-token TOKEN
+.fi
+Authorize against the OAuth server at "https://oauth.example.com/" using your web browser:
+.nf
+     cups-oauth -a https://oauth.example.com/ authorize
+.fi
 .SH SEE ALSO
 .BR cups (1)
 .SH COPYRIGHT
