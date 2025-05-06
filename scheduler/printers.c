@@ -4009,15 +4009,14 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
    /*
     * Add make/model and other various attributes...
     */
-
+	ppdMarkDefaults(ppd);
     p->pc = _ppdCacheCreateWithPPD(Languages, ppd);
 
     if (!p->pc)
       cupsdLogPrinter(p, CUPSD_LOG_WARN, "Unable to create cache of \"%s\": %s", ppd_name, cupsGetErrorString());
 
     cupsdMarkDirty(CUPSD_DIRTY_STRINGS);
-
-    ppdMarkDefaults(ppd);
+    
 
     if (ppd->color_device)
       p->type |= CUPS_PTYPE_COLOR;

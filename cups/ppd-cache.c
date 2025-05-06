@@ -1110,8 +1110,8 @@ _ppdCacheCreateWithPPD(
       * Don't copy over custom size...
       */
 
-      if (!_cups_strcasecmp(ppd_size->name, "Custom"))
-	continue;
+//      if (!_cups_strcasecmp(ppd_size->name, "Custom"))
+//	continue;
 
      /*
       * Convert the PPD size name to the corresponding PWG keyword name.
