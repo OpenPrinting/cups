@@ -1,7 +1,7 @@
 #
 # Locale file makefile for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2025 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1993-2007 by Easy Software Products.
 #
@@ -64,9 +64,7 @@ install:	all install-data install-headers install-libs install-exec
 # Install data files...
 #
 
-install-data: $(INSTALL_LANGUAGES)
-
-install-languages:
+install-data:
 	$(INSTALL_DIR) -m 755 $(LOCALEDIR)
 	for loc in en $(LANGUAGES) ; do \
 		if test -f cups_$$loc.po; then \
@@ -74,11 +72,6 @@ install-languages:
 			$(INSTALL_DATA) cups_$$loc.po $(LOCALEDIR)/$$loc/cups_$$loc.po ; \
 		fi ; \
 	done
-
-install-langbundle:
-	$(INSTALL_DIR) -m 755 "$(BUILDROOT)$(RESOURCEDIR)"
-	$(INSTALL_DATA) cups.strings "$(BUILDROOT)$(RESOURCEDIR)"
-
 
 #
 # Install programs...
@@ -105,15 +98,10 @@ install-libs:
 # Uninstall files...
 #
 
-uninstall: $(UNINSTALL_LANGUAGES)
-
-uninstall-languages:
+uninstall:
 	-for loc in en $(LANGUAGES) ; do \
 		$(RM) $(LOCALEDIR)/$$loc/cups_$$loc.po ; \
 	done
-
-uninstall-langbundle:
-	$(RM) "$(BUILDROOT)$(RESOURCEDIR)/cups.strings"
 
 
 #

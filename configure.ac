@@ -13,7 +13,7 @@ dnl We need at least autoconf 2.71...
 AC_PREREQ([2.71])
 
 dnl Package name and version...
-AC_INIT([CUPS],[2.4.12],[https://github.com/openprinting/cups/issues],[cups],[https://openprinting.github.io/cups])
+AC_INIT([CUPS],[2.4.13],[https://github.com/openprinting/cups/issues],[cups],[https://openprinting.github.io/cups])
 
 dnl This line is provided to ensure that you don't run the autoheader program
 dnl against this project.  Doing so is completely unsupported and WILL cause
@@ -42,12 +42,8 @@ sinclude(config-scripts/cups-defaults.m4)
 
 dnl See what languages are available and make sure we generate the localization
 dnl files as needed...
-INSTALL_LANGUAGES=""
-UNINSTALL_LANGUAGES=""
 LANGFILES=""
 AS_IF([test "x$LANGUAGES" != x], [
-    INSTALL_LANGUAGES="install-languages"
-    UNINSTALL_LANGUAGES="uninstall-languages"
     for lang in $LANGUAGES; do
 	AS_IF([test -f doc/$lang/index.html.in], [
 	    LANGFILES="$LANGFILES doc/$lang/index.html"
@@ -57,13 +53,7 @@ AS_IF([test "x$LANGUAGES" != x], [
 	    LANGFILES="$LANGFILES templates/$lang/header.tmpl"
 	])
     done
-], [test "x$CUPS_BUNDLEDIR" != x], [
-    INSTALL_LANGUAGES="install-langbundle"
-    UNINSTALL_LANGUAGES="uninstall-langbundle"
 ])
-
-AC_SUBST([INSTALL_LANGUAGES])
-AC_SUBST([UNINSTALL_LANGUAGES])
 
 dnl Provide autoconf with a list of files to generate and output them...
 AC_CONFIG_FILES([

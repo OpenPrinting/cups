@@ -1,7 +1,7 @@
 #
 # Common makefile definitions for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2025 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -77,8 +77,6 @@ CUPS_LOG_FILE_PERM = @CUPS_LOG_FILE_PERM@
 #
 
 LANGUAGES	=	@LANGUAGES@
-INSTALL_LANGUAGES =	@INSTALL_LANGUAGES@
-UNINSTALL_LANGUAGES =	@UNINSTALL_LANGUAGES@
 
 #
 # Cross-compilation support: "local" target is used for any tools that are
@@ -223,7 +221,6 @@ top_srcdir	=	@top_srcdir@
 BUILDROOT	=	$(DSTROOT)$(DESTDIR)
 
 BINDIR		=	$(BUILDROOT)@bindir@
-BUNDLEDIR	=	@CUPS_BUNDLEDIR@
 CACHEDIR	=	$(BUILDROOT)@CUPS_CACHEDIR@
 DATADIR		=	$(BUILDROOT)@CUPS_DATADIR@
 DOCDIR		=	$(BUILDROOT)@CUPS_DOCROOT@
@@ -239,7 +236,6 @@ RCLEVELS	=	@RCLEVELS@
 RCSTART		=	@RCSTART@
 RCSTOP		=	@RCSTOP@
 REQUESTS	= 	$(BUILDROOT)@CUPS_REQUESTS@
-RESOURCEDIR	=	@CUPS_RESOURCEDIR@
 SBINDIR		=	$(BUILDROOT)@sbindir@
 SERVERBIN	= 	$(BUILDROOT)@CUPS_SERVERBIN@
 SERVERROOT	= 	$(BUILDROOT)@CUPS_SERVERROOT@

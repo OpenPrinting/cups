@@ -660,13 +660,6 @@
 
 
 /*
- * Location of macOS localization bundle, if any.
- */
-
-#undef CUPS_BUNDLEDIR
-
-
-/*
  * Do we have XPC?
  */
 

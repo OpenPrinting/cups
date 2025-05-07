@@ -100,8 +100,8 @@ typedef unsigned long useconds_t;
  * Version of software...
  */
 
-#define CUPS_SVERSION "CUPS v2.4.12"
-#define CUPS_MINIMAL "CUPS/2.4.12"
+#define CUPS_SVERSION "CUPS v2.4.13"
+#define CUPS_MINIMAL "CUPS/2.4.13"
 
 
 /*
@@ -749,13 +749,6 @@ typedef unsigned long useconds_t;
 /* #undef HAVE_SYS_STATFS_H */
 /* #undef HAVE_SYS_STATVFS_H */
 /* #undef HAVE_SYS_VFS_H */
-
-
-/*
- * Location of macOS localization bundle, if any.
- */
-
-/* #undef CUPS_BUNDLEDIR */
 
 
 /*

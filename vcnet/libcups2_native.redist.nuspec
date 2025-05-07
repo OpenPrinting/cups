@@ -3,7 +3,7 @@
     <metadata>
         <id>libcups2_native.redist</id>
         <title>OpenPrinting CUPS Library for VS2019+ Redist</title>
-        <version>2.4.12.0</version>
+        <version>2.4.13.0</version>
         <authors>Michael R Sweet, OpenPrinting</authors>
         <owners>michaelrsweet</owners>
         <projectUrl>https://github.com/OpenPrinting/cups</projectUrl>
@@ -13,10 +13,10 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>OpenPrinting CUPS is a standards-based, open source printing system for Linux®
 and other Unix®-like operating systems. This package provides the redistributable content for the CUPS library. CUPS is licensed under the Apache License Version 2.0 with an exception to allow linking against GNU GPL2-only software.</description>
-        <copyright>Copyright © 2020-2025 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
+        <copyright>Copyright © 2020-2025 by OpenPrinting</copyright>
         <tags>http ipp native</tags>
 	<dependencies>
-	    <dependency id="libressl_native.redist" version="3.7.3.0" />
+	    <dependency id="libressl_native.redist" version="4.0.0" />
 	    <dependency id="zlib_native.redist" version="1.2.11" />
 	</dependencies>
     </metadata>
