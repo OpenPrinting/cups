@@ -605,8 +605,8 @@ main(int  argc,				/* I - Number of command-line arguments */
     else
       puts("PASS");
 
-    fputs("cupsMarkOptions(media=oe_letter-fullbleed_8.5x11in): ", stdout);
-    num_options = cupsAddOption("media", "oe_letter-fullbleed_8.5x11in", 0,
+    fputs("cupsMarkOptions(media=oe_letter.fullbleed_8.5x11in): ", stdout);
+    num_options = cupsAddOption("media", "oe_letter.fullbleed_8.5x11in", 0,
                                 &options);
     cupsMarkOptions(ppd, num_options, options);
     cupsFreeOptions(num_options, options);
