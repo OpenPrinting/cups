@@ -129,7 +129,7 @@ cupsMarkOptions(
       * Mark it...
       */
 
-      if (!_cups_strncasecmp(s, "Custom.", 7) || ppdPageSize(ppd, s))
+      if (!_cups_strncasecmp(s, "Custom.", 7) && ppdPageSize(ppd, s))
 	ppd_mark_option(ppd, "PageSize", s);
       else if ((ppd_keyword = _ppdCacheGetPageSize(cache, NULL, s, NULL)) != NULL)
 	ppd_mark_option(ppd, "PageSize", ppd_keyword);
