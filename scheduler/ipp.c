@@ -10178,10 +10178,10 @@ set_default(cupsd_client_t  *con,	/* I - Client connection */
   DefaultPrinter = printer;
 
   if (oldprinter)
-    cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, oldprinter, NULL,
+    cupsdAddEvent(CUPSD_EVENT_PRINTER_MODIFIED, oldprinter, NULL,
                   "%s is no longer the default printer.", oldprinter->name);
 
-  cupsdAddEvent(CUPSD_EVENT_PRINTER_STATE, printer, NULL,
+  cupsdAddEvent(CUPSD_EVENT_PRINTER_MODIFIED, printer, NULL,
 		"%s is now the default printer.", printer->name);
 
   cupsdMarkDirty(CUPSD_DIRTY_PRINTERS | CUPSD_DIRTY_CLASSES |
