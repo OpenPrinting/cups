@@ -5832,7 +5832,7 @@ pwg_unppdize_name(const char *ppd,	/* I - PPD keyword */
 
   for (ptr = name, end = name + namesize - 1; *ppd && ptr < end; ppd ++)
   {
-    if (_cups_isalnum(*ppd))
+    if (_cups_isalnum(*ppd) || *ppd == '.' || *ppd == '_')
     {
       *ptr++ = (char)tolower(*ppd & 255);
       nodash = 0;
