@@ -1,7 +1,7 @@
 /*
  * CGI support library definitions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -36,6 +36,14 @@
 #  ifdef __cplusplus
 extern "C" {
 #  endif /* __cplusplus */
+
+
+/*
+ * Constants...
+ */
+
+#  define CUPS_SID	"org.cups.sid"	/* Session ID cookie/variable */
+
 
 /*
  * Types...

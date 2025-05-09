@@ -6,7 +6,7 @@
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
 //
-// Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]
+// Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]
 //
 // Commands:
 //
@@ -520,9 +520,9 @@ do_set_client_data(
 static int				// O - Exit status
 usage(FILE *out)			// I - Output file
 {
-  _cupsLangPuts(out, _("Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"));
+  _cupsLangPuts(out, _("Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"));
   _cupsLangPuts(out, "");
-  _cupsLangPuts(out, _("Commands:"));
+  _cupsLangPuts(out, _("Sub-Commands:"));
   _cupsLangPuts(out, "");
   _cupsLangPuts(out, _("authorize [RESOURCE]           Authorize access to a resource"));
   _cupsLangPuts(out, _("clear [RESOURCE]               Clear the authorization for a resource"));

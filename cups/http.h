@@ -438,6 +438,7 @@ extern char		*httpGetAuthString(http_t *http) _CUPS_PUBLIC;
 extern int		httpGetBlocking(http_t *http) _CUPS_PUBLIC;
 extern const char	*httpGetContentEncoding(http_t *http) _CUPS_PUBLIC;
 extern const char	*httpGetCookie(http_t *http) _CUPS_PUBLIC;
+extern char		*httpGetCookieValue(http_t *http, const char *name, char *buffer, size_t bufsize) _CUPS_PUBLIC;
 extern const char	*httpGetDateString(time_t t) _CUPS_PUBLIC;
 extern const char	*httpGetDateString2(time_t t, char *s, int slen) _CUPS_PUBLIC;
 extern time_t		httpGetDateTime(const char *s) _CUPS_PUBLIC;

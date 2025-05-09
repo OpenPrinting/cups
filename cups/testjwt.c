@@ -1,7 +1,7 @@
 //
 // JWT API unit tests for CUPS.
 //
-// Copyright © 2023-2024 by OpenPrinting.
+// Copyright © 2023-2025 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -387,7 +387,15 @@ main(int  argc,				// I - Number of command-line arguments
 
     for (i = 1; i < argc; i ++)
     {
-      if (!access(argv[i], R_OK))
+      if (!strncmp(argv[i], "https://", 8))
+      {
+        if ((jwks = cupsJSONImportURL(argv[i], NULL)) == NULL)
+        {
+	  fprintf(stderr, "%s: %s\n", argv[i], cupsGetErrorString());
+	  return (1);
+        }
+      }
+      else if (!access(argv[i], R_OK))
       {
         if ((jwks = cupsJSONImportFile(argv[i])) == NULL)
         {

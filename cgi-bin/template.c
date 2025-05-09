@@ -1,7 +1,7 @@
 /*
  * CGI template function.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2015 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -234,8 +234,11 @@ cgi_copy(FILE *out,			/* I - Output file */
   */
 
   while ((ch = getc(in)) != EOF)
+  {
     if (ch == term)
+    {
       break;
+    }
     else if (ch == '{')
     {
      /*
@@ -245,6 +248,7 @@ cgi_copy(FILE *out,			/* I - Output file */
       uriencode = 0;
 
       for (s = name; (ch = getc(in)) != EOF;)
+      {
         if (strchr("}]<>=!~ \t\n", ch))
           break;
 	else if (s == name && ch == '%')
@@ -253,6 +257,7 @@ cgi_copy(FILE *out,			/* I - Output file */
 	  break;
 	else if (s < (name + sizeof(name) - 1))
           *s++ = (char)ch;
+      }
 
       *s = '\0';
 
@@ -288,7 +293,9 @@ cgi_copy(FILE *out,			/* I - Output file */
 	  *nameptr++ = '\0';
 
 	  if ((value = cgiGetArray(name + 1, atoi(nameptr) - 1)) != NULL)
+	  {
 	    outptr = value;
+	  }
 	  else
 	  {
 	    outval[0] = '\0';
@@ -296,7 +303,9 @@ cgi_copy(FILE *out,			/* I - Output file */
 	  }
 	}
         else if ((value = cgiGetArray(name + 1, element)) != NULL)
+        {
 	  outptr = value;
+	}
 	else
 	{
 	  outval[0] = '\0';
@@ -614,7 +623,10 @@ cgi_copy(FILE *out,			/* I - Output file */
         getc(in);
     }
     else if (out)
+    {
       putc(ch, out);
+    }
+  }
 
   if (ch == EOF)
     fprintf(stderr, "DEBUG2: %*sReturning at file position %ld on EOF...\n",

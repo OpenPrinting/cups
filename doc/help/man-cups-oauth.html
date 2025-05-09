@@ -106,35 +106,35 @@ Specifies the OAuth/OpenID authorization server URL.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s </strong><em>SCOPE(S)</em><br>
 Specifies a space-delimited list of scope names to use when authorizing access.
-The default is to request authorization for all supported scopes.
+The default is to request authorization for all supported OpenID scopes.
 </p>
-    <h2 id="cups-oauth-1.commands">Commands</h2>
-    <h3 id="cups-oauth-1.commands.authorize">Authorize</h3>
+    <h2 id="cups-oauth-1.sub-commands">Sub-Commands</h2>
+    <h3 id="cups-oauth-1.sub-commands.authorize">Authorize</h3>
 <p>Starts an authorization workflow with the default web browser.
 If a resource URI is specified, the authorization is specific to that resource.
 The access token is send to the standard output on success.
 </p>
-    <h3 id="cups-oauth-1.commands.clear">Clear</h3>
+    <h3 id="cups-oauth-1.sub-commands.clear">Clear</h3>
 <p>Clears any authorization for the specified resource or for all resources if no resource URI is supplied.
 </p>
-    <h3 id="cups-oauth-1.commands.get-access-token">Get-Access-Token</h3>
+    <h3 id="cups-oauth-1.sub-commands.get-access-token">Get-Access-Token</h3>
 <p>Output the current, unexpired access token, if any, to the standard output.
 </p>
-    <h3 id="cups-oauth-1.commands.get-client-id">Get-Client-Id</h3>
+    <h3 id="cups-oauth-1.sub-commands.get-client-id">Get-Client-Id</h3>
 <p>Output the client ID string, if any, to the standard output.
 </p>
-    <h3 id="cups-oauth-1.commands.get-metadata">Get-Metadata</h3>
+    <h3 id="cups-oauth-1.sub-commands.get-metadata">Get-Metadata</h3>
 <p>Get the OAuth/OpenID authorization server metadata and send it to the standard output.
 If a name is specified, the output is just the value for the specified metadata.
 </p>
-    <h3 id="cups-oauth-1.commands.get-user-id">Get-User-Id</h3>
+    <h3 id="cups-oauth-1.sub-commands.get-user-id">Get-User-Id</h3>
 <p>Get the OpenID user ID information and send it to the standard output.
 If a name is specified, the output is just the named claim from the user ID.
 </p>
-    <h3 id="cups-oauth-1.commands.set-access-token">Set-Access-Token</h3>
+    <h3 id="cups-oauth-1.sub-commands.set-access-token">Set-Access-Token</h3>
 <p>Set the access token (which is sometimes also called an API key) for the specified resource or for all resources.
 </p>
-    <h3 id="cups-oauth-1.commands.set-client-data">Set-Client-Data</h3>
+    <h3 id="cups-oauth-1.sub-commands.set-client-data">Set-Client-Data</h3>
 <p>Set the client ID string and secret for an OAuth/OpenID authorization server.
 </p>
     <h2 id="cups-oauth-1.environment-variables">Environment Variables</h2>
@@ -150,8 +150,18 @@ environment variable sets the default OAuth/OpenID scopes as a space-delimited l
 <p>CUPS uses a redirect URI of &quot;<a href="http://127.0.0.1/&quot;">http://127.0.0.1/&quot;</a> for all authorization on the local system.
 </p>
     <h2 id="cups-oauth-1.examples">Examples</h2>
-<p>TBD
+<p>Register a client ID and secret for the OAuth server at &quot;<a href="https://oauth.example.com/&quot;:">https://oauth.example.com/&quot;:</a>
 </p>
+    <pre>     cups-oauth -a <a href="https://oauth.example.com/">https://oauth.example.com/</a> set-client-data CLIENT-ID CLIENT-SECRET
+</pre>
+<p>Save an access token (sometimes called an application or API key) for the OAuth server at &quot;<a href="https://oauth.example.com/&quot;:">https://oauth.example.com/&quot;:</a>
+</p>
+    <pre>     cups-oauth -a <a href="https://oauth.example.com/">https://oauth.example.com/</a> set-access-token TOKEN
+</pre>
+<p>Authorize against the OAuth server at &quot;<a href="https://oauth.example.com/&quot;">https://oauth.example.com/&quot;</a> using your web browser:
+</p>
+    <pre>     cups-oauth -a <a href="https://oauth.example.com/">https://oauth.example.com/</a> authorize
+</pre>
     <h2 id="cups-oauth-1.see-also">See Also</h2>
 <a href="cups.html"><p><strong>cups</strong>(1)</a>
 

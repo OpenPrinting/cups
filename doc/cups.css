@@ -27,12 +27,15 @@
 .cups-header ul li {
   float: left;
 }
+.cups-header ul li.right {
+  float: right;
+}
 .cups-header a {
   display: block;
   padding: 18px 30px !important;
 }
 .cups-header a.img {
-  padding: 12px 24px !important;
+  padding: 16px 24px 8px !important;
 }
 .cups-header a:link, .cups-header a:visited {
   color: white !important;
@@ -48,6 +51,16 @@
   box-shadow: rgba(0,0,0,0.1) 0 0 10px 0 inset;
   color: black !important;
   text-decoration: none !important;
+}
+.cups-header form {
+  display: block;
+  padding: 15px 15px !important;
+}
+.cups-header span.label {
+  color: #ccc;
+  display: block;
+  font-style: italic;
+  padding: 15px 0 !important;
 }
 
 .cups-body {

@@ -1,11 +1,12 @@
 /*
  * Status buffer definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2010 by Apple Inc.
- * Copyright 1997-2005 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2010 by Apple Inc.
+ * Copyright © 1997-2005 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 
@@ -13,7 +14,7 @@
  * Constants...
  */
 
-#define CUPSD_SB_BUFFER_SIZE	2048	/* Bytes for job status buffer */
+#define CUPSD_SB_BUFFER_SIZE	4096	/* Bytes for job status buffer */
 
 
 /*

@@ -16,7 +16,7 @@ and other Unix®-like operating systems. This package provides the redistributab
         <copyright>Copyright © 2020-2024 by OpenPrinting, Copyright © 2007-2019 by Apple Inc., Copyright © 1997-2007 by Easy Software Products.</copyright>
         <tags>http ipp native</tags>
 	<dependencies>
-	    <dependency id="libressl_native.redist" version="3.5.3.2" />
+	    <dependency id="libressl_native.redist" version="4.0.0" />
 	    <dependency id="zlib_native.redist" version="1.2.11" />
 	</dependencies>
     </metadata>

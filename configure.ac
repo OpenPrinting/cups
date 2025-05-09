@@ -54,10 +54,6 @@ AS_IF([test "x$LANGUAGES" != x], [
     INSTALL_LANGUAGES="install-languages"
     UNINSTALL_LANGUAGES="uninstall-languages"
     for lang in $LANGUAGES; do
-	AS_IF([test -f doc/$lang/index.html.in], [
-	    LANGFILES="$LANGFILES doc/$lang/index.html"
-	])
-
 	AS_IF([test -f templates/$lang/header.tmpl.in], [
 	    LANGFILES="$LANGFILES templates/$lang/header.tmpl"
 	])
@@ -80,7 +76,6 @@ AC_CONFIG_FILES([
     conf/snmp.conf
     cups.pc
     desktop/cups.desktop
-    doc/index.html
     scheduler/cups-lpd.xinetd
     scheduler/cups.sh
     scheduler/cups.xml

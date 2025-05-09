@@ -230,11 +230,8 @@ httpClearCookie(http_t *http)		// I - HTTP connection
   if (!http)
     return;
 
-  if (http->cookie)
-  {
-    free(http->cookie);
-    http->cookie = NULL;
-  }
+  free(http->cookie);
+  http->cookie = NULL;
 }
 
 
@@ -321,8 +318,7 @@ httpClose(http_t *http)			// I - HTTP connection
 
   httpAddrFreeList(http->addrlist);
 
-  if (http->cookie)
-    free(http->cookie);
+  free(http->cookie);
 
 #ifdef HAVE_GSSAPI
   if (http->gssctx != GSS_C_NO_CONTEXT)
@@ -1030,7 +1026,11 @@ httpGetContentEncoding(http_t *http)	// I - HTTP connection
 
 
 //
-// 'httpGetCookie()' - Get any cookie data from the response.
+// 'httpGetCookie()' - Get cookie data from the HTTP connection.
+//
+// This function returns any HTTP "Set-Cookie:" or "Cookie:" header data for the
+// given HTTP connection as described in RFC 6265.  Use the
+// @link httpGetCookieValue@ to get the value of a named "Cookie:" value.
 //
 // @since CUPS 1.1.19@
 //
@@ -1039,6 +1039,107 @@ const char *				// O - Cookie data or `NULL`
 httpGetCookie(http_t *http)		// I - HTTP connection
 {
   return (http ? http->cookie : NULL);
+}
+
+
+//
+// 'httpGetCookieValue()' - Get the value of a named cookie from the HTTP connection.
+//
+// This function copies the value of a named cookie in the HTTP "Cookie:" header
+// for the given HTTP connection as described in RFC 6265.  Use the
+// @link httpGetCookie@ function to get the original "Cookie:" string.
+//
+// @since CUPS 2.5@
+//
+
+char *					// O - Cookie value or `NULL` if not present
+httpGetCookieValue(http_t     *http,	// I - HTTP connection
+                   const char *name,	// I - Cookie name
+                   char       *buffer,	// I - Value buffer
+                   size_t     bufsize)	// I - Size of value buffer
+{
+  const char	*cookie;		// Cookie: header value
+  char		current[128],		// Current name string
+		*ptr,			// Pointer into name/buffer
+		*end;			// End of name/buffer
+  bool		match;			// Does the current name match?
+
+
+  // Range check input...
+  if (buffer)
+    *buffer = '\0';
+
+  if (!http || !http->cookie || !name || !buffer || bufsize < 2)
+    return (NULL);
+
+  // Loop through the cookie string...
+  for (cookie = http->cookie; *cookie;)
+  {
+    // Skip leading whitespace...
+    while (isspace(*cookie & 255))
+      cookie ++;
+    if (!*cookie)
+      break;
+
+    // Copy the name...
+    for (ptr = current, end = current + sizeof(current) - 1; *cookie && *cookie != '=';)
+    {
+      if (ptr < end)
+        *ptr++ = *cookie++;
+      else
+	cookie ++;
+    }
+
+    if (*cookie != '=')
+      break;
+
+    *ptr = '\0';
+    match = !strcmp(current, name);
+    cookie ++;
+
+    // Then the value...
+    if (*cookie == '\"')
+    {
+      // Copy quoted value...
+      for (cookie ++, ptr = buffer, end = buffer + bufsize - 1; *cookie && *cookie != '\"';)
+      {
+        if (match && ptr < end)
+	  *ptr++ = *cookie++;
+	else
+	  cookie ++;
+      }
+
+      if (*cookie == '\"')
+        cookie ++;
+      else
+        match = false;
+    }
+    else
+    {
+      // Copy unquoted value...
+      for (ptr = buffer, end = buffer + bufsize - 1; *cookie && *cookie != ';';)
+      {
+        if (match && ptr < end)
+	  *ptr++ = *cookie++;
+	else
+	  cookie ++;
+      }
+    }
+
+    if (match)
+    {
+      // Got the value we were looking for, nul-terminate and return...
+      *ptr = '\0';
+      return (buffer);
+    }
+
+    // Skip over separator...
+    if (*cookie == ';')
+      cookie ++;
+  }
+
+  // If we get here then we never found the cookie...
+  return (NULL);
 }
 
 
@@ -2527,25 +2628,49 @@ httpSetCredentials(http_t	*http,		// I - HTTP connection
 
 
 //
-// 'httpSetCookie()' - Set the cookie value(s).
+// 'httpSetCookie()' - Add Set-Cookie value(s).
+//
+// This function adds one or more Set-Cookie header values that will be sent to
+// the client with the @link httpWriteResponse@ function.  Each value conforms
+// to the format defined in RFC 6265.  Multiple values can be passed in the
+// "cookie" string separated by a newline character.
+//
+// Call the @link httpClearCookies@ function to clear all Set-Cookie values.
 //
 // @since CUPS 1.1.19@
 //
 
 void
-httpSetCookie(http_t     *http,		// I - Connection
+httpSetCookie(http_t     *http,		// I - HTTP cnnection
               const char *cookie)	// I - Cookie string
 {
-  if (!http)
+  // Range check input...
+  if (!http || !cookie)
     return;
 
+  // Set or append the Set-Cookie value....
   if (http->cookie)
-    free(http->cookie);
+  {
+    // Append with a newline between values...
+    size_t	clen,			// Length of cookie string
+		ctotal;			// Total length of cookies
+    char	*temp;			// Temporary value
 
-  if (cookie)
-    http->cookie = strdup(cookie);
+    clen   = strlen(http->cookie);
+    ctotal = clen + strlen(cookie) + 2;
+
+    if ((temp = realloc(http->cookie, ctotal)) == NULL)
+      return;
+
+    http->cookie = temp;
+    temp[clen]   = '\n';
+    cupsCopyString(temp + clen + 1, cookie, ctotal - clen - 1);
+  }
   else
-    http->cookie = NULL;
+  {
+    // Just copy/set this cookie...
+    http->cookie = strdup(cookie);
+  }
 }
 
 
@@ -3365,18 +3490,34 @@ httpWriteResponse(http_t        *http,	// I - HTTP connection
 
     if (http->cookie)
     {
-      if (strchr(http->cookie, ';'))
+      char	*start,			// Start of cookie
+		*ptr;			// Pointer into cookie
+
+      for (start = http->cookie; start; start = ptr)
       {
-        if (httpPrintf(http, "Set-Cookie: %s\r\n", http->cookie) < 1)
+        if ((ptr = strchr(start, '\n')) != NULL)
+          *ptr = '\0';
+
+	if (strchr(start, ';'))
+	{
+	  if (httpPrintf(http, "Set-Cookie: %s\r\n", start) < 1)
+	  {
+	    http->status = HTTP_STATUS_ERROR;
+	    if (ptr)
+	      *ptr = '\n';
+	    return (-1);
+	  }
+	}
+	else if (httpPrintf(http, "Set-Cookie: %s; path=/; httponly;%s\r\n", start, http->tls ? " secure;" : "") < 1)
 	{
 	  http->status = HTTP_STATUS_ERROR;
+	  if (ptr)
+	    *ptr = '\n';
 	  return (-1);
 	}
-      }
-      else if (httpPrintf(http, "Set-Cookie: %s; path=/; httponly;%s\r\n", http->cookie, http->tls ? " secure;" : "") < 1)
-      {
-	http->status = HTTP_STATUS_ERROR;
-	return (-1);
+
+	if (ptr)
+	  *ptr++ = '\n';
       }
     }
 
@@ -3555,9 +3696,11 @@ http_add_field(http_t       *http,	// I - HTTP connection
     http->fields[field] = strdup(value);
   }
 
+  DEBUG_printf("1http_add_field: New value of %s is \"%s\"", http_fields[field], http->fields[field]);
+
   if (field == HTTP_FIELD_CONTENT_ENCODING && http->data_encoding != HTTP_ENCODING_FIELDS)
   {
-    DEBUG_puts("1httpSetField: Calling http_content_coding_start.");
+    DEBUG_puts("1http_add_field: Calling http_content_coding_start.");
     http_content_coding_start(http, value);
   }
 }

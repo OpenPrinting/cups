@@ -1,7 +1,7 @@
 /*
  * CGI form variable and array functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products.
  *
@@ -16,13 +16,6 @@
 /*#define DEBUG*/
 #include "cgi-private.h"
 #include <cups/http.h>
-
-
-/*
- * Session ID name
- */
-
-#define CUPS_SID	"org.cups.sid"
 
 
 /*
@@ -165,6 +158,9 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
   _cgi_var_t	*var;			/* Pointer to variable */
 
 
+  if (!_cups_strncasecmp(name, "ENV:", 4))
+    return (getenv(name + 4));
+
   if ((var = cgi_find_variable(name)) == NULL)
     return (NULL);
 
@@ -305,6 +301,9 @@ cgiGetVariable(const char *name)	/* I - Name of variable */
   const _cgi_var_t	*var;		/* Returned variable */
 
 
+  if (!_cups_strncasecmp(name, "ENV:", 4))
+    return (getenv(name + 4));
+
   var = cgi_find_variable(name);
 
   return ((var == NULL) ? NULL : strdup(var->values[var->nvalues - 1]));
@@ -388,8 +387,10 @@ cgiInitialize(void)
     else if (!cgi_initialize_post())
       return (0);
 
-    if ((cups_sid_form = cgiGetVariable(CUPS_SID)) == NULL ||
-	strcmp(cups_sid_cookie, cups_sid_form))
+    if ((cups_sid_form = cgiGetVariable(CUPS_SID)) == NULL)
+      cups_sid_form = cgiGetVariable("state");
+
+    if (!cups_sid_form || strcmp(cups_sid_cookie, cups_sid_form))
     {
       if (cups_sid_form)
 	fprintf(stderr, "DEBUG: " CUPS_SID " form variable is \"%s\"\n",
@@ -499,6 +500,8 @@ cgiSetCookie(const char *name,		/* I - Name */
 	     time_t     expires,	/* I - Expiration date (0 for session) */
 	     int        secure)		/* I - Require SSL */
 {
+  fprintf(stderr, "DEBUG2: cgiSetCookie(name=\"%s\", value=\"%s\", path=\"%s\", domain=\"%s\", expires=%ld, secure=%d)\n", name, value, path, domain, (long)expires, secure);
+
   num_cookies = cupsAddOption(name, value, num_cookies, &cookies);
 
   printf("Set-Cookie: %s=%s;", name, value);
@@ -516,6 +519,8 @@ cgiSetCookie(const char *name,		/* I - Name */
     puts(" httponly; secure;");
   else
     puts(" httponly;");
+
+  fflush(stdout);
 }
 
 
@@ -702,7 +707,7 @@ cgi_initialize_cookies(void)
 {
   const char	*cookie;		/* HTTP_COOKIE environment variable */
   char		name[128],		/* Name string */
-		value[512],		/* Value string */
+		value[2048],		/* Value string */
 		*ptr;			/* Pointer into name/value */
 
 
@@ -727,6 +732,7 @@ cgi_initialize_cookies(void)
     */
 
     for (ptr = name; *cookie && *cookie != '=';)
+    {
       if (ptr < (name + sizeof(name) - 1))
       {
         *ptr++ = *cookie++;
@@ -736,6 +742,7 @@ cgi_initialize_cookies(void)
         skip = 1;
 	cookie ++;
       }
+    }
 
     if (*cookie != '=')
       break;
@@ -750,6 +757,7 @@ cgi_initialize_cookies(void)
     if (*cookie == '\"')
     {
       for (cookie ++, ptr = value; *cookie && *cookie != '\"';)
+      {
         if (ptr < (value + sizeof(value) - 1))
 	{
 	  *ptr++ = *cookie++;
@@ -759,6 +767,7 @@ cgi_initialize_cookies(void)
 	  skip = 1;
 	  cookie ++;
 	}
+      }
 
       if (*cookie == '\"')
         cookie ++;
@@ -768,6 +777,7 @@ cgi_initialize_cookies(void)
     else
     {
       for (ptr = value; *cookie && *cookie != ';';)
+      {
         if (ptr < (value + sizeof(value) - 1))
 	{
 	  *ptr++ = *cookie++;
@@ -777,6 +787,7 @@ cgi_initialize_cookies(void)
 	  skip = 1;
 	  cookie ++;
 	}
+      }
     }
 
     if (*cookie == ';')
@@ -1230,6 +1241,8 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
    /*
     * Add the string to the variable "database"...
     */
+
+    fprintf(stderr, "DEBUG2: cgi_initialize_string: name=\"%s\", value=\"%s\"\n", name, value);
 
     if ((s = strrchr(name, '-')) != NULL && isdigit(s[1] & 255))
     {

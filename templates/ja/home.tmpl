@@ -1,29 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <link rel="stylesheet" href="/cups.css" type="text/css">
-    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=9">
-    <meta name="viewport" content="width=device-width">
-    <title>ホーム - CUPS @CUPS_VERSION@</title>
-  </head>
-  <body>
-    <div class="cups-header">
-      <ul>
-	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
-	<li><a class="active" href="/">ホーム</a></li>
-	<li><a href="/admin">管理</a></li>
-	<li><a href="/classes/">クラス</a></li>
-	<li><a href="/help/">ヘルプ</a></li>
-	<li><a href="/jobs/">ジョブ</a></li>
-	<li><a href="/printers/">プリンター</a></li>
-      </ul>
-    </div>
-    <div class="cups-body">
-      <div class="row">
-	<h1>CUPS @CUPS_VERSION@</h1>
+	<h1>{ENV:CUPS_VERSION}</h1>
 	<p>CUPS は、macOS<sup>&reg;</sup> およびその他の UNIX <SUP>&reg;</sup> 系 OS のために、<a href="http://www.apple.com/">Apple Inc.</a> によって開発された標準ベースのオープンソース印刷システムです。</p>
       </div>
       <div class="row">
@@ -33,6 +8,10 @@
 	<form action="/jobs/" method="GET"><input type="submit" value="ジョブの管理"></form>
 	<form action="/printers/" method="GET"><input type="submit" value="プリンターの管理"></form>
 	<form action="/admin/" method="GET"><input type="submit" value="設定の変更"></form>
+        {#alert_title=0?:<p>Alerts:</p>
+        <ul>{[alert_title]
+          <li><a href="{alert_href}">{alert_title}</a></li>}
+        </ul>}
       </div>
       <div class="row">
 	<div class="thirds">
@@ -53,8 +32,3 @@
 	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
 	  <p><a href="help/api-filter.html">フィルタとバックエンドのプログラミング</a></p>
 	</div>
-      </div>
-    </div>
-    <div class="cups-footer">Copyright &copy; 2021-2025 OpenPrinting. All rights reserved.</div>
-  </body>
-</html>

@@ -3,6 +3,8 @@ paths-ignore:
 
 query-filters:
   - exclude:
+      id: cpp/guarded-free
+  - exclude:
       id: cpp/cleartext-transmission
   - exclude:
       id: cpp/system-data-exposure

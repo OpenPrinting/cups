@@ -24,18 +24,21 @@
 	}
       }
     --></SCRIPT>
-    <title>{title} - CUPS @CUPS_VERSION@</title>
+    <title>{title} - {ENV:CUPS_VERSION}</title>
   </head>
   <body onload="check_cookies();">
     <div class="cups-header">
       <ul>
 	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
-	<li><a href="/">Home</a></li>
+	<li><a {SECTION=home?class="active" :}href="/">Home</a></li>
 	<li><a {SECTION=admin?class="active" :}href="/admin">Administration</a></li>
 	<li><a {SECTION=classes?class="active" :}href="/classes/">Classes</a></li>
 	<li><a {SECTION=help?class="active" :}href="/help/">Help</a></li>
 	<li><a {SECTION=jobs?class="active" :}href="/jobs/">Jobs</a></li>
 	<li><a {SECTION=printers?class="active" :}href="/printers/">Printers</a></li>
+	<li class="right"><form action="/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="search" name="QUERY" value="{?QUERY}" size="10" placeholder="" autosave="org.cups.site" results="20"><input type="submit" name="SEARCH" value="Search"></form></li>
+	{?ENV:CUPS_OAUTH_SERVER=?:<li class="right"><form action="/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="submit" name="{?ENV:REMOTE_USER=?LOGIN:LOGOUT}" value="{?ENV:REMOTE_USER=?Login:Logout}"></form></li>}
+	<li class="right"><span class="label">{?ENV:REMOTE_NAME=?Guest:{ENV:REMOTE_NAME}}</span></li>
       </ul>
     </div>
     <div class="cups-body">

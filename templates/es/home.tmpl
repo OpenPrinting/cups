@@ -1,29 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <link rel="stylesheet" href="/cups.css" type="text/css">
-    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=9">
-    <meta name="viewport" content="width=device-width">
-    <title>Inicio - CUPS @CUPS_VERSION@</title>
-  </head>
-  <body>
-    <div class="cups-header">
-      <ul>
-	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
-	<li><a class="active" href="/">Inicio</a></li>
-	<li><a href="/admin">Administraci&oacute;n</a></li>
-	<li><a href="/classes/">Clases</a></li>
-	<li><a href="/help/">Ayuda</a></li>
-	<li><a href="/jobs/">Trabajos</a></li>
-	<li><a href="/printers/">Impresoras</a></li>
-      </ul>
-    </div>
-    <div class="cups-body">
-      <div class="row">
-	<h1>CUPS @CUPS_VERSION@</h1>
+	<h1>{ENV:CUPS_VERSION}</h1>
 	<p>CUPS es el sistema de impresi&oacute;n de c&oacute;digo abierto basado en est&aacute;ndares desarrollado por <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> para macOS<sup>&reg;</sup> y otros sistemas operativos tipo UNIX<sup>&reg;</sup>. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
       </div>
       <div class="row">
@@ -33,6 +8,10 @@
 	<form action="/jobs/" method="GET"><input type="submit" value="Administrar trabajos"></form>
 	<form action="/printers/" method="GET"><input type="submit" value="Administrar impresoras"></form>
 	<form action="/admin/" method="GET"><input type="submit" value="Cambiar configuraci&oacute;n"></form>
+        {#alert_title=0?:<p>Alerts:</p>
+        <ul>{[alert_title]
+          <li><a href="{alert_href}">{alert_title}</a></li>}
+        </ul>}
       </div>
       <div class="row">
 	<div class="thirds">
@@ -53,8 +32,3 @@
 	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
 	  <p><a href="help/api-filter.html">Programaci&oacute;n de filtros y programas de conexi&oacute;n</a></p>
 	</div>
-      </div>
-    </div>
-    <div class="cups-footer">Derechos de autor &copy; 2021-2025 OpenPrinting. Todos los derechos reservados.</div>
-  </body>
-</html>

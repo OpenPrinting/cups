@@ -360,12 +360,14 @@ apple_register_profiles(
   CFStringRef		dict_key;	/* Key in factory profile dictionary */
 
 
+#  ifdef __APPLE__DISABLED // Remove DISABLED if ever this code is used for macOS installer
  /*
   * Make sure ColorSync is available...
   */
 
   if (&ColorSyncRegisterDevice == NULL)
     return;
+#  endif // __APPLE__DISABLED
 
  /*
   * Try opening the PPD file for this printer...

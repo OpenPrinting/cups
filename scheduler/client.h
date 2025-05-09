@@ -40,8 +40,7 @@ struct cupsd_client_s
 					/* Real name from OAuth Bearer token */
 		      	autherror[HTTP_MAX_VALUE],
 					/* Authorization error, if any */
-			uri[HTTP_MAX_URI],
-					/* Localized URL/URI for GET/PUT */
+			uri[2048],	/* Localized URL/URI for GET/PUT */
 			*filename,	/* Filename of output file */
 			*command,	/* Command to run */
 			*options,	/* Options for command */
@@ -55,7 +54,7 @@ struct cupsd_client_s
   int			sent_header,	/* Non-zero if sent HTTP header */
 			got_fields,	/* Non-zero if all fields seen */
 			header_used;	/* Number of header bytes used */
-  char			header[2048];	/* Header from CGI program */
+  char			header[4096];	/* Header from CGI program */
   cups_lang_t		*language;	/* Language to use */
   int			auto_ssl;	/* Automatic test for SSL/TLS */
   http_addr_t		clientaddr;	/* Client's server address */
