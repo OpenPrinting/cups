@@ -2,11 +2,9 @@
 # Documentation makefile for CUPS.
 #
 # Copyright © 2020-2025 by OpenPrinting.
-# Copyright © 2007-2019 by Apple Inc.
-# Copyright © 1997-2007 by Easy Software Products.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
-#s information.
+# information.
 #
 
 include ../Makedefs
@@ -19,7 +17,6 @@ WEBPAGES	=	\
 			apple-touch-icon.png \
 			cups.css \
 			cups-printable.css \
-			index.html \
 			robots.txt
 WEBIMAGES	=	\
 			images/cups.png \
@@ -154,7 +151,7 @@ install:	all install-data install-headers install-libs install-exec
 # Install data files...
 #
 
-install-data: $(INSTALL_LANGUAGES)
+install-data:
 	$(INSTALL_DIR) -m 755 $(DOCDIR)
 	for file in $(WEBPAGES); do \
 		$(INSTALL_MAN) $$file $(DOCDIR); \
@@ -170,17 +167,6 @@ install-data: $(INSTALL_LANGUAGES)
 	for file in $(WEBIMAGES) $(HELPIMAGES); do \
 		$(INSTALL_MAN) $$file $(DOCDIR)/images; \
 	done
-
-install-languages:
-	for lang in $(LANGUAGES); do \
-		if test -d $$lang; then \
-			$(INSTALL_DIR) -m 755 $(DOCDIR)/$$lang; \
-			$(INSTALL_DATA) $$lang/index.html $(DOCDIR)/$$lang; \
-			$(INSTALL_DATA) $$lang/cups.css $(DOCDIR)/$$lang >/dev/null 2>&1 || true; \
-		fi; \
-	done
-
-install-langbundle:
 
 
 #
@@ -208,7 +194,7 @@ install-libs:
 # Uninstall all documentation files...
 #
 
-uninstall: $(UNINSTALL_LANGUAGES)
+uninstall:
 	for file in $(WEBPAGES); do \
 		$(RM) $(DOCDIR)/$$file; \
 	done
@@ -224,12 +210,3 @@ uninstall: $(UNINSTALL_LANGUAGES)
 	-$(RMDIR) $(DOCDIR)/images
 	-$(RMDIR) $(DOCDIR)/help
 	-$(RMDIR) $(DOCDIR)
-
-uninstall-languages:
-	-for lang in $(LANGUAGES); do \
-		$(RM) $(DOCDIR)/$$lang/index.html; \
-		$(RM) $(DOCDIR)/$$lang/cups.css; \
-		$(RMDIR) $(DOCDIR)/$$lang; \
-	done
-
-install-langbundle:

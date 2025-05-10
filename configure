@@ -649,8 +649,6 @@ ac_includes_default="\
 ac_header_c_list=
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
-UNINSTALL_LANGUAGES
-INSTALL_LANGUAGES
 TIMEOUTSTARTSEC
 EXIT_TIMEOUT
 SYSTEMD_WANTED_BY
@@ -11941,35 +11939,7 @@ then :
 
 fi
 
-INSTALL_LANGUAGES=""
-UNINSTALL_LANGUAGES=""
-LANGFILES=""
-if test "x$LANGUAGES" != x
-then :
-
-    INSTALL_LANGUAGES="install-languages"
-    UNINSTALL_LANGUAGES="uninstall-languages"
-    for lang in $LANGUAGES; do
-	if test -f templates/$lang/header.tmpl.in
-then :
-
-	    LANGFILES="$LANGFILES templates/$lang/header.tmpl"
-
-fi
-    done
-
-elif test "x$CUPS_BUNDLEDIR" != x
-then :
-
-    INSTALL_LANGUAGES="install-langbundle"
-    UNINSTALL_LANGUAGES="uninstall-langbundle"
-
-fi
-
-
-
-
-ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups.pc desktop/cups.desktop scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket templates/header.tmpl packaging/cups.list $LANGFILES"
+ac_config_files="$ac_config_files Makedefs conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf cups.pc desktop/cups.desktop scheduler/cups-lpd.xinetd scheduler/cups.sh scheduler/cups.xml scheduler/org.cups.cups-lpd.plist scheduler/cups-lpdAT.service scheduler/cups.path scheduler/cups.service scheduler/cups.socket packaging/cups.list"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -12674,9 +12644,7 @@ do
     "scheduler/cups.path") CONFIG_FILES="$CONFIG_FILES scheduler/cups.path" ;;
     "scheduler/cups.service") CONFIG_FILES="$CONFIG_FILES scheduler/cups.service" ;;
     "scheduler/cups.socket") CONFIG_FILES="$CONFIG_FILES scheduler/cups.socket" ;;
-    "templates/header.tmpl") CONFIG_FILES="$CONFIG_FILES templates/header.tmpl" ;;
     "packaging/cups.list") CONFIG_FILES="$CONFIG_FILES packaging/cups.list" ;;
-    "$LANGFILES") CONFIG_FILES="$CONFIG_FILES $LANGFILES" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

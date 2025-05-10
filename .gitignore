@@ -80,8 +80,6 @@
 /cups/testthreads
 /cups/tlscheck
 /desktop/cups.desktop
-/doc/index.html
-/doc/*/index.html
 /filter/commandtops
 /filter/gziptoany
 /filter/pstops
@@ -147,8 +145,6 @@
 /systemv/lpmove
 /systemv/lpoptions
 /systemv/lpstat
-/templates/header.tmpl
-/templates/*/header.tmpl
 /test/cups-str-*.html
 /test/*_log-*
 /tools/cups-oauth
