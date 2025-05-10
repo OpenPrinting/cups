@@ -476,6 +476,17 @@ _cupsMutexUnlock(_cups_mutex_t *mutex)	/* I - Mutex */
 
 
 /*
+ * '_cupsRWDestroy()' - Destroy a reader/writer lock.
+ */
+
+void
+_cupsRWDestroy(_cups_rwlock_t *rwlock)	/* I - Reader/writer lock */
+{
+  (void)rwlock;
+}
+
+
+/*
  * '_cupsRWInit()' - Initialize a reader/writer lock.
  */
 
