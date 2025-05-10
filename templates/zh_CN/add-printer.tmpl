@@ -1,0 +1,44 @@
+<H1 CLASS="title">添加打印机</H1>
+
+<FORM METHOD="POST" ACTION="/admin">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
+<INPUT TYPE="HIDDEN" NAME="BAUDRATE" VALUE="{?baudrate}">
+<INPUT TYPE="HIDDEN" NAME="BITS" VALUE="{?bits}">
+<INPUT TYPE="HIDDEN" NAME="PARITY" VALUE="{?parity}">
+<INPUT TYPE="HIDDEN" NAME="FLOW" VALUE="{?flow}">
+{?current_make!?<INPUT TYPE="HIDDEN" NAME="CURRENT_MAKE" VALUE="{current_make}">:}
+{?current_make_and_model!?<INPUT TYPE="HIDDEN" NAME="CURRENT_MAKE_AND_MODEL" VALUE="{current_make_and_model}">:}
+
+<TABLE>
+<TR>
+<TH CLASS="label">名称：</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_NAME" SIZE="40" MAXLENGTH="127" VALUE="{?template_name}"><BR>
+<SMALL>（可包含除 “/”、 “#” 和空格之外的任意可打印字符）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">描述：</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_INFO" SIZE="40" MAXLENGTH="127" VALUE="{?PRINTER_INFO}"><BR>
+<SMALL>（人类可读的描述，例如 “支持双面打印的 HP LaserJet”）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">位置：</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_LOCATION" SIZE="40" MAXLENGTH="127" VALUE="{?PRINTER_LOCATION}"><BR>
+<SMALL>（人类可读的位置描述，例如 “实验室 1”）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">连接方式：</TH>
+<TD><INPUT TYPE="HIDDEN" NAME="DEVICE_URI" VALUE="{device_uri}">{device_uri}</TD>
+</TR>
+<TR>
+<TH CLASS="label">共享设置：</TH>
+<TD><INPUT TYPE="CHECKBOX" NAME="PRINTER_IS_SHARED" ID="PRINTER_IS_SHARED" VALUE="CHECKED" {PRINTER_IS_SHARED=1?CHECKED:}>
+<LABEL FOR="PRINTER_IS_SHARED">共享此打印机</LABEL></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="继续"></TD>
+</TR>
+</TABLE>
+
+</FORM>

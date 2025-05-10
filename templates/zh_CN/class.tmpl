@@ -1,0 +1,41 @@
+<H1 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
+({printer_state=3?空闲:{printer_state=4?处理中:暂停}},
+{printer_is_accepting_jobs=0?拒绝作业:接受作业},
+{server_is_sharing_printers=0?未共享:{printer_is_shared=0?未共享:}} 共享{default_name={printer_name}?, 服务器默认:})</H1>
+
+<FORM METHOD="POST" ACTION="{printer_uri_supported}" NAME="maintenance">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<SELECT NAME="OP" ONCHANGE="document.maintenance.submit();">
+<OPTION VALUE="">维护</OPTION>
+<OPTION VALUE="print-test-page">打印测试页</OPTION>
+{printer_state=5?<OPTION VALUE="start-class">恢复类别</OPTION>:<OPTION VALUE="stop-class">暂停类别</OPTION>}
+{printer_is_accepting_jobs=0?<OPTION VALUE="accept-jobs">接受作业</OPTION>:<OPTION VALUE="reject-jobs">拒绝作业</OPTION>}
+<OPTION VALUE="move-jobs">移动所有作业</OPTION>
+<OPTION VALUE="cancel-jobs">取消所有作业</OPTION>
+</SELECT>
+<INPUT TYPE="SUBMIT" VALUE="执行" STYLE="display: none;">
+</FORM>
+
+<FORM METHOD="POST" ACTION="{admin_uri}" NAME="administration">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">
+<INPUT TYPE="HIDDEN" NAME="IS_CLASS" VALUE="1">
+<SELECT NAME="OP" ONCHANGE="document.administration.submit();">
+<OPTION VALUE="">管理</OPTION>
+<OPTION VALUE="modify-class">修改类别</OPTION>
+<OPTION VALUE="delete-class">删除类别</OPTION>
+<OPTION VALUE="set-class-options">设置默认选项</OPTION>
+<OPTION VALUE="set-as-default">设为服务器默认</OPTION>
+<OPTION VALUE="set-allowed-users">设置允许的用户</OPTION>
+</SELECT>
+<INPUT TYPE="SUBMIT" VALUE="执行" STYLE="display: none;">
+</FORM>
+
+<TABLE SUMMARY="{printer_name}">
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">描述：</TH><TD>{printer_info}</TD></TR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">位置：</TH><TD>{printer_location}</TD></TR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">成员：</TH><TD>{?member_uris=?无:{member_uris}}</TD></TR>
+<TR><TH ALIGN="RIGHT" VALIGN="TOP">默认值：</TH><TD>job-sheets={job_sheets_default}
+media={media_default?{media_default}:未知}
+{sides_default?sides={sides_default}:}</TD></TR>
+</TABLE>

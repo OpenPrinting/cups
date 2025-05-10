@@ -1,0 +1,37 @@
+<H1 CLASS="title">添加打印机类</H1>
+
+<FORM METHOD="POST" ACTION="/admin">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
+
+<TABLE>
+<TR>
+<TH CLASS="label">名称：</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_NAME" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>（可包含除“/”、“#”和空格外的任意可打印字符）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">描述：</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_INFO" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>（例如：“支持双面打印的 HP LaserJet”）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">位置：</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_LOCATION" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>（例如：“实验室 1”）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">成员：</TH>
+<TD>
+<SELECT NAME="MEMBER_URIS" SIZE="10" MULTIPLE>
+{[member_uris]<OPTION VALUE="{member_uris}" {?member_selected}>{member_names}}
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="添加打印机类"></TD>
+</TR>
+</TABLE>
+
+</FORM>

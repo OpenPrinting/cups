@@ -1,0 +1,36 @@
+{#job_id=0?:
+<TABLE CLASS="list" SUMMARY="作业列表">
+<THEAD>
+<TR><TH>ID</TH><TH>名称</TH><TH>用户</TH><TH>大小</TH><TH>页面</TH><TH>状态</TH><TH>控制</TH></TR>
+</THEAD>
+<TBODY>
+{[job_id]
+<TR VALIGN="TOP">
+<TD><A HREF="{job_printer_uri}">{job_printer_name}</A>-{job_id}{?phone? ({phone}):}&nbsp;</TD>
+<TD>{?job_name=?未知:{job_name}}&nbsp;</TD>
+<TD>{?job_originating_user_name=?保留:{job_originating_user_name}}&nbsp;</TD>
+<TD>{job_k_octets}k&nbsp;</TD>
+<TD>{job_impressions_completed=0?未知:{?job_impressions_completed}}&nbsp;</TD>
+<TD>{job_state=3?等待中自<BR>{?time_at_creation=?未知:{time_at_creation}}:{job_state=4?暂停自<BR>{?time_at_creation=?未知:{time_at_creation}}:
+{job_state=5?处理中自<BR>{?time_at_processing=?未知:{time_at_processing}}:{job_state=6?已停止:
+{job_state=7?已取消于<BR>{?time_at_completed=?未知:{time_at_completed}}:{job_state=8?已中止:已完成于<BR>{?time_at_completed=?未知:{time_at_completed}}}}}}}}&nbsp;{job_printer_state_message?<BR>
+<EM>"{job_printer_state_message}"</EM>:}</TD>
+<TD>
+{job_preserved>0?{job_state>5?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="restart-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}"><INPUT TYPE="SUBMIT" VALUE="重新打印作业"></FORM>:}:}
+{job_state=4?{job_hold_until=auth-info-required?需认证暂停.:
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="release-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="释放作业"></FORM>:}:}
+{job_state=3?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="hold-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="暂停作业"></FORM>:}
+{job_state<7?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="cancel-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="取消作业"></FORM>
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="move-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="SUBMIT" VALUE="移动作业"></FORM>:}
+&nbsp;</TD>
+</TR>
+}
+</TBODY>
+</TABLE>
+}

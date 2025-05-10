@@ -1,0 +1,11 @@
+{#printer_name=0?:
+<TABLE CLASS="list" SUMMARY="类别列表">
+<THEAD>
+<TR><TH>队列名称</TH><TH>描述</TH><TH>位置</TH><TH>成员</TH><TH>状态</TH></TR>
+</THEAD>
+<TBODY>
+{[printer_name]
+<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{?member_uris=?None:{member_uris}}</TD><TD>{printer_state=3?空闲:{printer_state=4?处理中:暂停}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+}
+</TBODY>
+</TABLE></DIV>}
