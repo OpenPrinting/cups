@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-04-26 21:06+0000\n"
+"PO-Revision-Date: 2025-05-10 22:43+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -6723,7 +6723,7 @@ msgstr "Creador de folletos"
 
 #. TRANSLATORS: Coat
 msgid "finishing-template.coat"
-msgstr ""
+msgstr "Cubierta"
 
 #. TRANSLATORS: Cover
 msgid "finishing-template.cover"
@@ -6735,7 +6735,7 @@ msgstr "Puntada en el borde"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishing-template.edge-stitch-bottom"
-msgstr ""
+msgstr "Costura en el borde inferior"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishing-template.edge-stitch-left"
@@ -6747,7 +6747,7 @@ msgstr "Puntada de borde derecha"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishing-template.edge-stitch-top"
-msgstr ""
+msgstr "Cima de puntadas en los bordes"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
@@ -6823,183 +6823,183 @@ msgstr "jdf-f12-10"
 
 #. TRANSLATORS: JDF F12-11
 msgid "finishing-template.jdf-f12-11"
-msgstr ""
+msgstr "JDF F12-11"
 
 #. TRANSLATORS: JDF F12-12
 msgid "finishing-template.jdf-f12-12"
-msgstr ""
+msgstr "JDF F12-12"
 
 #. TRANSLATORS: JDF F12-13
 msgid "finishing-template.jdf-f12-13"
-msgstr ""
+msgstr "JDF F12-13"
 
 #. TRANSLATORS: JDF F12-14
 msgid "finishing-template.jdf-f12-14"
-msgstr ""
+msgstr "JDF F12-14"
 
 #. TRANSLATORS: JDF F12-2
 msgid "finishing-template.jdf-f12-2"
-msgstr ""
+msgstr "JDF F12-2"
 
 #. TRANSLATORS: JDF F12-3
 msgid "finishing-template.jdf-f12-3"
-msgstr ""
+msgstr "JDF F12-3"
 
 #. TRANSLATORS: JDF F12-4
 msgid "finishing-template.jdf-f12-4"
-msgstr ""
+msgstr "JDF F12-4"
 
 #. TRANSLATORS: JDF F12-5
 msgid "finishing-template.jdf-f12-5"
-msgstr ""
+msgstr "JDF F12-5"
 
 #. TRANSLATORS: JDF F12-6
 msgid "finishing-template.jdf-f12-6"
-msgstr ""
+msgstr "JDF F12-6"
 
 #. TRANSLATORS: JDF F12-7
 msgid "finishing-template.jdf-f12-7"
-msgstr ""
+msgstr "JDF F12-7"
 
 #. TRANSLATORS: JDF F12-8
 msgid "finishing-template.jdf-f12-8"
-msgstr ""
+msgstr "JDF F12-8"
 
 #. TRANSLATORS: JDF F12-9
 msgid "finishing-template.jdf-f12-9"
-msgstr ""
+msgstr "JDF F12-9"
 
 #. TRANSLATORS: JDF F14-1
 msgid "finishing-template.jdf-f14-1"
-msgstr ""
+msgstr "JDF F14-1"
 
 #. TRANSLATORS: JDF F16-1
 msgid "finishing-template.jdf-f16-1"
-msgstr ""
+msgstr "JDF F16-1"
 
 #. TRANSLATORS: JDF F16-10
 msgid "finishing-template.jdf-f16-10"
-msgstr ""
+msgstr "JDF F16-10"
 
 #. TRANSLATORS: JDF F16-11
 msgid "finishing-template.jdf-f16-11"
-msgstr ""
+msgstr "JDF F16-11"
 
 #. TRANSLATORS: JDF F16-12
 msgid "finishing-template.jdf-f16-12"
-msgstr ""
+msgstr "JDF F16-12"
 
 #. TRANSLATORS: JDF F16-13
 msgid "finishing-template.jdf-f16-13"
-msgstr ""
+msgstr "JDF F16-13"
 
 #. TRANSLATORS: JDF F16-14
 msgid "finishing-template.jdf-f16-14"
-msgstr ""
+msgstr "JDF F16-14"
 
 #. TRANSLATORS: JDF F16-2
 msgid "finishing-template.jdf-f16-2"
-msgstr ""
+msgstr "JDF F16-2"
 
 #. TRANSLATORS: JDF F16-3
 msgid "finishing-template.jdf-f16-3"
-msgstr ""
+msgstr "JDF F16-3"
 
 #. TRANSLATORS: JDF F16-4
 msgid "finishing-template.jdf-f16-4"
-msgstr ""
+msgstr "JDF F16-4"
 
 #. TRANSLATORS: JDF F16-5
 msgid "finishing-template.jdf-f16-5"
-msgstr ""
+msgstr "JDF F16-5"
 
 #. TRANSLATORS: JDF F16-6
 msgid "finishing-template.jdf-f16-6"
-msgstr ""
+msgstr "JDF F16-6"
 
 #. TRANSLATORS: JDF F16-7
 msgid "finishing-template.jdf-f16-7"
-msgstr ""
+msgstr "JDF F16-7"
 
 #. TRANSLATORS: JDF F16-8
 msgid "finishing-template.jdf-f16-8"
-msgstr ""
+msgstr "JDF F16-8"
 
 #. TRANSLATORS: JDF F16-9
 msgid "finishing-template.jdf-f16-9"
-msgstr ""
+msgstr "JDF F16-9"
 
 #. TRANSLATORS: JDF F18-1
 msgid "finishing-template.jdf-f18-1"
-msgstr ""
+msgstr "JDF F18-1"
 
 #. TRANSLATORS: JDF F18-2
 msgid "finishing-template.jdf-f18-2"
-msgstr ""
+msgstr "JDF F18-2"
 
 #. TRANSLATORS: JDF F18-3
 msgid "finishing-template.jdf-f18-3"
-msgstr ""
+msgstr "JDF F18-3"
 
 #. TRANSLATORS: JDF F18-4
 msgid "finishing-template.jdf-f18-4"
-msgstr ""
+msgstr "JDF F18-4"
 
 #. TRANSLATORS: JDF F18-5
 msgid "finishing-template.jdf-f18-5"
-msgstr ""
+msgstr "JDF F18-5"
 
 #. TRANSLATORS: JDF F18-6
 msgid "finishing-template.jdf-f18-6"
-msgstr ""
+msgstr "JDF F18-6"
 
 #. TRANSLATORS: JDF F18-7
 msgid "finishing-template.jdf-f18-7"
-msgstr ""
+msgstr "JDF F18-7"
 
 #. TRANSLATORS: JDF F18-8
 msgid "finishing-template.jdf-f18-8"
-msgstr ""
+msgstr "JDF F18-8"
 
 #. TRANSLATORS: JDF F18-9
 msgid "finishing-template.jdf-f18-9"
-msgstr ""
+msgstr "JDF F18-9"
 
 #. TRANSLATORS: JDF F2-1
 msgid "finishing-template.jdf-f2-1"
-msgstr ""
+msgstr "JDF F2-1"
 
 #. TRANSLATORS: JDF F20-1
 msgid "finishing-template.jdf-f20-1"
-msgstr ""
+msgstr "JDF F20-1"
 
 #. TRANSLATORS: JDF F20-2
 msgid "finishing-template.jdf-f20-2"
-msgstr ""
+msgstr "JDF F20-2"
 
 #. TRANSLATORS: JDF F24-1
 msgid "finishing-template.jdf-f24-1"
-msgstr ""
+msgstr "JDF F24-1"
 
 #. TRANSLATORS: JDF F24-10
 msgid "finishing-template.jdf-f24-10"
-msgstr ""
+msgstr "JDF F24-10"
 
 #. TRANSLATORS: JDF F24-11
 msgid "finishing-template.jdf-f24-11"
-msgstr ""
+msgstr "JDF F24-11"
 
 #. TRANSLATORS: JDF F24-2
 msgid "finishing-template.jdf-f24-2"
-msgstr ""
+msgstr "JDF F24-2"
 
 #. TRANSLATORS: JDF F24-3
 msgid "finishing-template.jdf-f24-3"
-msgstr ""
+msgstr "JDF F24-3"
 
 #. TRANSLATORS: JDF F24-4
 msgid "finishing-template.jdf-f24-4"
-msgstr ""
+msgstr "JDF F24-4"
 
 #. TRANSLATORS: JDF F24-5
 msgid "finishing-template.jdf-f24-5"
@@ -7007,63 +7007,63 @@ msgstr "JDF F24-5"
 
 #. TRANSLATORS: JDF F24-6
 msgid "finishing-template.jdf-f24-6"
-msgstr ""
+msgstr "JDF F24-6"
 
 #. TRANSLATORS: JDF F24-7
 msgid "finishing-template.jdf-f24-7"
-msgstr ""
+msgstr "JDF F24-7"
 
 #. TRANSLATORS: JDF F24-8
 msgid "finishing-template.jdf-f24-8"
-msgstr ""
+msgstr "JDF F24-8"
 
 #. TRANSLATORS: JDF F24-9
 msgid "finishing-template.jdf-f24-9"
-msgstr ""
+msgstr "JDF F24-9"
 
 #. TRANSLATORS: JDF F28-1
 msgid "finishing-template.jdf-f28-1"
-msgstr ""
+msgstr "JDF F28-1"
 
 #. TRANSLATORS: JDF F32-1
 msgid "finishing-template.jdf-f32-1"
-msgstr ""
+msgstr "JDF F32-1"
 
 #. TRANSLATORS: JDF F32-2
 msgid "finishing-template.jdf-f32-2"
-msgstr ""
+msgstr "JDF F32-2"
 
 #. TRANSLATORS: JDF F32-3
 msgid "finishing-template.jdf-f32-3"
-msgstr ""
+msgstr "JDF F32-3"
 
 #. TRANSLATORS: JDF F32-4
 msgid "finishing-template.jdf-f32-4"
-msgstr ""
+msgstr "JDF F32-4"
 
 #. TRANSLATORS: JDF F32-5
 msgid "finishing-template.jdf-f32-5"
-msgstr ""
+msgstr "JDF F32-5"
 
 #. TRANSLATORS: JDF F32-6
 msgid "finishing-template.jdf-f32-6"
-msgstr ""
+msgstr "JDF F32-6"
 
 #. TRANSLATORS: JDF F32-7
 msgid "finishing-template.jdf-f32-7"
-msgstr ""
+msgstr "JDF F32-7"
 
 #. TRANSLATORS: JDF F32-8
 msgid "finishing-template.jdf-f32-8"
-msgstr ""
+msgstr "JDF F32-8"
 
 #. TRANSLATORS: JDF F32-9
 msgid "finishing-template.jdf-f32-9"
-msgstr ""
+msgstr "JDF F32-9"
 
 #. TRANSLATORS: JDF F36-1
 msgid "finishing-template.jdf-f36-1"
-msgstr ""
+msgstr "JDF F36-1"
 
 #. TRANSLATORS: JDF F36-2
 msgid "finishing-template.jdf-f36-2"
@@ -7071,59 +7071,59 @@ msgstr "JDF F36-2"
 
 #. TRANSLATORS: JDF F4-1
 msgid "finishing-template.jdf-f4-1"
-msgstr ""
+msgstr "JDF F4-1"
 
 #. TRANSLATORS: JDF F4-2
 msgid "finishing-template.jdf-f4-2"
-msgstr ""
+msgstr "JDF F4-2"
 
 #. TRANSLATORS: JDF F40-1
 msgid "finishing-template.jdf-f40-1"
-msgstr ""
+msgstr "JDF F40-1"
 
 #. TRANSLATORS: JDF F48-1
 msgid "finishing-template.jdf-f48-1"
-msgstr ""
+msgstr "JDF F48-1"
 
 #. TRANSLATORS: JDF F48-2
 msgid "finishing-template.jdf-f48-2"
-msgstr ""
+msgstr "JDF F48-2"
 
 #. TRANSLATORS: JDF F6-1
 msgid "finishing-template.jdf-f6-1"
-msgstr ""
+msgstr "JDF F6-1"
 
 #. TRANSLATORS: JDF F6-2
 msgid "finishing-template.jdf-f6-2"
-msgstr ""
+msgstr "JDF F6-2"
 
 #. TRANSLATORS: JDF F6-3
 msgid "finishing-template.jdf-f6-3"
-msgstr ""
+msgstr "JDF F6-3"
 
 #. TRANSLATORS: JDF F6-4
 msgid "finishing-template.jdf-f6-4"
-msgstr ""
+msgstr "JDF F6-4"
 
 #. TRANSLATORS: JDF F6-5
 msgid "finishing-template.jdf-f6-5"
-msgstr ""
+msgstr "JDF F6-5"
 
 #. TRANSLATORS: JDF F6-6
 msgid "finishing-template.jdf-f6-6"
-msgstr ""
+msgstr "JDF F6-6"
 
 #. TRANSLATORS: JDF F6-7
 msgid "finishing-template.jdf-f6-7"
-msgstr ""
+msgstr "JDF F6-7"
 
 #. TRANSLATORS: JDF F6-8
 msgid "finishing-template.jdf-f6-8"
-msgstr ""
+msgstr "JDF F6-8"
 
 #. TRANSLATORS: JDF F64-1
 msgid "finishing-template.jdf-f64-1"
-msgstr ""
+msgstr "JDF F64-1"
 
 #. TRANSLATORS: JDF F64-2
 msgid "finishing-template.jdf-f64-2"
@@ -7824,7 +7824,7 @@ msgid "ipptool: Missing count for \"-n\"."
 msgstr "ipptool: Falta el contador para \"-n\"."
 
 msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr ""
+msgstr "ipptool: Falta el nombre de archivo para \"--ippserver\"."
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: Falta el nombre del archivo para \"-f\"."
@@ -7840,7 +7840,7 @@ msgstr "ipptool: Se requiere un URI antes del archivo de prueba."
 
 #, c-format
 msgid "ipptool: Unable to allocate memory: %s"
-msgstr ""
+msgstr "ipptool: No es capaz de asignar memoria: %s"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -7884,11 +7884,11 @@ msgstr "Estándar"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
-msgstr "ID de usuario de contabilidad de trabajos"
+msgstr "ID de usuario de contabilidad de tareas"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
-msgstr "Trabajo Cancelar después"
+msgstr "Tarea cancela tras"
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
@@ -7912,7 +7912,7 @@ msgstr "Salida retardada hasta"
 
 #. TRANSLATORS: Daytime
 msgid "job-delay-output-until.day-time"
-msgstr "Durante el día"
+msgstr "Por el día"
 
 #. TRANSLATORS: Evening
 msgid "job-delay-output-until.evening"
@@ -8391,7 +8391,7 @@ msgstr "Repartir Tarea"
 
 #. TRANSLATORS: Job Streaming
 msgid "job-state-reasons.job-streaming"
-msgstr ""
+msgstr "Flujo de tarea"
 
 #. TRANSLATORS: Suspended
 msgid "job-state-reasons.job-suspended"
@@ -8920,115 +8920,115 @@ msgstr "Polímetro"
 
 #. TRANSLATORS: PLA
 msgid "material-type.pla"
-msgstr ""
+msgstr "PLA"
 
 #. TRANSLATORS: Conductive PLA
 msgid "material-type.pla-conductive"
-msgstr ""
+msgstr "PLA Conductivo"
 
 #. TRANSLATORS: Pla Dissolvable
 msgid "material-type.pla-dissolvable"
-msgstr ""
+msgstr "PLA disoluble"
 
 #. TRANSLATORS: Flexible PLA
 msgid "material-type.pla-flexible"
-msgstr ""
+msgstr "PLA flexible"
 
 #. TRANSLATORS: Magnetic PLA
 msgid "material-type.pla-magnetic"
-msgstr ""
+msgstr "PLA magnético"
 
 #. TRANSLATORS: Steel PLA
 msgid "material-type.pla-steel"
-msgstr ""
+msgstr "PLA Acero"
 
 #. TRANSLATORS: Stone PLA
 msgid "material-type.pla-stone"
-msgstr ""
+msgstr "PLA Piedra"
 
 #. TRANSLATORS: Wood PLA
 msgid "material-type.pla-wood"
-msgstr ""
+msgstr "PLA Madera"
 
 #. TRANSLATORS: Polycarbonate
 msgid "material-type.polycarbonate"
-msgstr ""
+msgstr "Policarbonato"
 
 #. TRANSLATORS: Dissolvable PVA
 msgid "material-type.pva-dissolvable"
-msgstr ""
+msgstr "PVA disoluble"
 
 #. TRANSLATORS: Silver
 msgid "material-type.silver"
-msgstr ""
+msgstr "Plata"
 
 #. TRANSLATORS: Titanium
 msgid "material-type.titanium"
-msgstr ""
+msgstr "Titanio"
 
 #. TRANSLATORS: Wax
 msgid "material-type.wax"
-msgstr ""
+msgstr "Cera"
 
 #. TRANSLATORS: Materials
 msgid "materials-col"
-msgstr ""
+msgstr "Materiales"
 
 #. TRANSLATORS: Media
 msgid "media"
-msgstr ""
+msgstr "Medio"
 
 #. TRANSLATORS: Back Coating of Media
 msgid "media-back-coating"
-msgstr ""
+msgstr "Recubrimiento posterior de medios"
 
 #. TRANSLATORS: Glossy
 msgid "media-back-coating.glossy"
-msgstr ""
+msgstr "Brillante"
 
 #. TRANSLATORS: High Gloss
 msgid "media-back-coating.high-gloss"
-msgstr ""
+msgstr "Brillante alto"
 
 #. TRANSLATORS: Matte
 msgid "media-back-coating.matte"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: None
 msgid "media-back-coating.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Satin
 msgid "media-back-coating.satin"
-msgstr ""
+msgstr "Satinado"
 
 #. TRANSLATORS: Semi-gloss
 msgid "media-back-coating.semi-gloss"
-msgstr ""
+msgstr "Semibrillante"
 
 #. TRANSLATORS: Media Bottom Margin
 msgid "media-bottom-margin"
-msgstr ""
+msgstr "Margen inferior de los medios"
 
 #. TRANSLATORS: Media
 msgid "media-col"
-msgstr ""
+msgstr "Medios"
 
 #. TRANSLATORS: Media Color
 msgid "media-color"
-msgstr ""
+msgstr "Color de Medios"
 
 #. TRANSLATORS: Black
 msgid "media-color.black"
-msgstr ""
+msgstr "Negro"
 
 #. TRANSLATORS: Blue
 msgid "media-color.blue"
-msgstr ""
+msgstr "Azul"
 
 #. TRANSLATORS: Brown
 msgid "media-color.brown"
-msgstr ""
+msgstr "Marrón"
 
 #. TRANSLATORS: Buff
 msgid "media-color.buff"
@@ -9036,15 +9036,15 @@ msgstr ""
 
 #. TRANSLATORS: Clear Black
 msgid "media-color.clear-black"
-msgstr ""
+msgstr "Negro claro"
 
 #. TRANSLATORS: Clear Blue
 msgid "media-color.clear-blue"
-msgstr ""
+msgstr "Azul claro"
 
 #. TRANSLATORS: Clear Brown
 msgid "media-color.clear-brown"
-msgstr ""
+msgstr "Marrón claro"
 
 #. TRANSLATORS: Clear Buff
 msgid "media-color.clear-buff"
@@ -9052,83 +9052,83 @@ msgstr ""
 
 #. TRANSLATORS: Clear Cyan
 msgid "media-color.clear-cyan"
-msgstr ""
+msgstr "Cían claro"
 
 #. TRANSLATORS: Clear Gold
 msgid "media-color.clear-gold"
-msgstr ""
+msgstr "Dorado claro"
 
 #. TRANSLATORS: Clear Goldenrod
 msgid "media-color.clear-goldenrod"
-msgstr ""
+msgstr "Vara de oro clara"
 
 #. TRANSLATORS: Clear Gray
 msgid "media-color.clear-gray"
-msgstr ""
+msgstr "Gris claro"
 
 #. TRANSLATORS: Clear Green
 msgid "media-color.clear-green"
-msgstr ""
+msgstr "Verde claro"
 
 #. TRANSLATORS: Clear Ivory
 msgid "media-color.clear-ivory"
-msgstr ""
+msgstr "Marfil claro"
 
 #. TRANSLATORS: Clear Magenta
 msgid "media-color.clear-magenta"
-msgstr ""
+msgstr "Magenta claro"
 
 #. TRANSLATORS: Clear Multi Color
 msgid "media-color.clear-multi-color"
-msgstr ""
+msgstr "Multicolor claro"
 
 #. TRANSLATORS: Clear Mustard
 msgid "media-color.clear-mustard"
-msgstr ""
+msgstr "Mostaza claro"
 
 #. TRANSLATORS: Clear Orange
 msgid "media-color.clear-orange"
-msgstr ""
+msgstr "Naranja claro"
 
 #. TRANSLATORS: Clear Pink
 msgid "media-color.clear-pink"
-msgstr ""
+msgstr "Rosa claro"
 
 #. TRANSLATORS: Clear Red
 msgid "media-color.clear-red"
-msgstr ""
+msgstr "Rojo claro"
 
 #. TRANSLATORS: Clear Silver
 msgid "media-color.clear-silver"
-msgstr ""
+msgstr "Plata clara"
 
 #. TRANSLATORS: Clear Turquoise
 msgid "media-color.clear-turquoise"
-msgstr ""
+msgstr "Turquesa claro"
 
 #. TRANSLATORS: Clear Violet
 msgid "media-color.clear-violet"
-msgstr ""
+msgstr "Violeta claro"
 
 #. TRANSLATORS: Clear White
 msgid "media-color.clear-white"
-msgstr ""
+msgstr "Blanco claro"
 
 #. TRANSLATORS: Clear Yellow
 msgid "media-color.clear-yellow"
-msgstr ""
+msgstr "Amarillo claro"
 
 #. TRANSLATORS: Cyan
 msgid "media-color.cyan"
-msgstr ""
+msgstr "Cían"
 
 #. TRANSLATORS: Dark Blue
 msgid "media-color.dark-blue"
-msgstr ""
+msgstr "Azul oscuro"
 
 #. TRANSLATORS: Dark Brown
 msgid "media-color.dark-brown"
-msgstr ""
+msgstr "Marrón oscuro"
 
 #. TRANSLATORS: Dark Buff
 msgid "media-color.dark-buff"
@@ -9136,67 +9136,67 @@ msgstr ""
 
 #. TRANSLATORS: Dark Cyan
 msgid "media-color.dark-cyan"
-msgstr ""
+msgstr "Cían oscuro"
 
 #. TRANSLATORS: Dark Gold
 msgid "media-color.dark-gold"
-msgstr ""
+msgstr "Dorado oscuro"
 
 #. TRANSLATORS: Dark Goldenrod
 msgid "media-color.dark-goldenrod"
-msgstr ""
+msgstr "Vara de oro oscura"
 
 #. TRANSLATORS: Dark Gray
 msgid "media-color.dark-gray"
-msgstr ""
+msgstr "Gris oscuro"
 
 #. TRANSLATORS: Dark Green
 msgid "media-color.dark-green"
-msgstr ""
+msgstr "Verde oscuro"
 
 #. TRANSLATORS: Dark Ivory
 msgid "media-color.dark-ivory"
-msgstr ""
+msgstr "Marfil oscuro"
 
 #. TRANSLATORS: Dark Magenta
 msgid "media-color.dark-magenta"
-msgstr ""
+msgstr "Magenta oscuro"
 
 #. TRANSLATORS: Dark Mustard
 msgid "media-color.dark-mustard"
-msgstr ""
+msgstr "Mostaza oscuro"
 
 #. TRANSLATORS: Dark Orange
 msgid "media-color.dark-orange"
-msgstr ""
+msgstr "Naranja oscuro"
 
 #. TRANSLATORS: Dark Pink
 msgid "media-color.dark-pink"
-msgstr ""
+msgstr "Rosa oscuro"
 
 #. TRANSLATORS: Dark Red
 msgid "media-color.dark-red"
-msgstr ""
+msgstr "Rojo oscuro"
 
 #. TRANSLATORS: Dark Silver
 msgid "media-color.dark-silver"
-msgstr ""
+msgstr "Plata oscuro"
 
 #. TRANSLATORS: Dark Turquoise
 msgid "media-color.dark-turquoise"
-msgstr ""
+msgstr "Turquesa oscuro"
 
 #. TRANSLATORS: Dark Violet
 msgid "media-color.dark-violet"
-msgstr ""
+msgstr "Violeta oscuro"
 
 #. TRANSLATORS: Dark Yellow
 msgid "media-color.dark-yellow"
-msgstr ""
+msgstr "Amarillo oscuro"
 
 #. TRANSLATORS: Gold
 msgid "media-color.gold"
-msgstr ""
+msgstr "Dorado"
 
 #. TRANSLATORS: Goldenrod
 msgid "media-color.goldenrod"
@@ -9204,27 +9204,27 @@ msgstr ""
 
 #. TRANSLATORS: Gray
 msgid "media-color.gray"
-msgstr ""
+msgstr "Gris"
 
 #. TRANSLATORS: Green
 msgid "media-color.green"
-msgstr ""
+msgstr "Verde"
 
 #. TRANSLATORS: Ivory
 msgid "media-color.ivory"
-msgstr ""
+msgstr "Marfil"
 
 #. TRANSLATORS: Light Black
 msgid "media-color.light-black"
-msgstr ""
+msgstr "Negro claro"
 
 #. TRANSLATORS: Light Blue
 msgid "media-color.light-blue"
-msgstr ""
+msgstr "Azul claro"
 
 #. TRANSLATORS: Light Brown
 msgid "media-color.light-brown"
-msgstr ""
+msgstr "Marrón claro"
 
 #. TRANSLATORS: Light Buff
 msgid "media-color.light-buff"
@@ -9232,23 +9232,23 @@ msgstr ""
 
 #. TRANSLATORS: Light Cyan
 msgid "media-color.light-cyan"
-msgstr ""
+msgstr "Cian claro"
 
 #. TRANSLATORS: Light Gold
 msgid "media-color.light-gold"
-msgstr ""
+msgstr "Dorado claro"
 
 #. TRANSLATORS: Light Goldenrod
 msgid "media-color.light-goldenrod"
-msgstr ""
+msgstr "Vara de oro clara"
 
 #. TRANSLATORS: Light Gray
 msgid "media-color.light-gray"
-msgstr ""
+msgstr "Gris claro"
 
 #. TRANSLATORS: Light Green
 msgid "media-color.light-green"
-msgstr ""
+msgstr "Verde claro"
 
 #. TRANSLATORS: Light Ivory
 msgid "media-color.light-ivory"
@@ -9312,647 +9312,647 @@ msgstr ""
 
 #. TRANSLATORS: Pink
 msgid "media-color.pink"
-msgstr ""
+msgstr "Rosa"
 
 #. TRANSLATORS: Red
 msgid "media-color.red"
-msgstr ""
+msgstr "Rojo"
 
 #. TRANSLATORS: Silver
 msgid "media-color.silver"
-msgstr ""
+msgstr "Plateado"
 
 #. TRANSLATORS: Turquoise
 msgid "media-color.turquoise"
-msgstr ""
+msgstr "Turquesa"
 
 #. TRANSLATORS: Violet
 msgid "media-color.violet"
-msgstr ""
+msgstr "Violeta"
 
 #. TRANSLATORS: White
 msgid "media-color.white"
-msgstr ""
+msgstr "Blanco"
 
 #. TRANSLATORS: Yellow
 msgid "media-color.yellow"
-msgstr ""
+msgstr "Amarillo"
 
 #. TRANSLATORS: Front Coating of Media
 msgid "media-front-coating"
-msgstr ""
+msgstr "Revestimiento frontal de soportes"
 
 #. TRANSLATORS: Media Grain
 msgid "media-grain"
-msgstr ""
+msgstr "Grano medio"
 
 #. TRANSLATORS: Cross-Feed Direction
 msgid "media-grain.x-direction"
-msgstr ""
+msgstr "Dirección de alimentación cruzada"
 
 #. TRANSLATORS: Feed Direction
 msgid "media-grain.y-direction"
-msgstr ""
+msgstr "Dirección de alimentación"
 
 #. TRANSLATORS: Media Hole Count
 msgid "media-hole-count"
-msgstr ""
+msgstr "Recuento medio de orificios"
 
 #. TRANSLATORS: Media Info
 msgid "media-info"
-msgstr ""
+msgstr "Información de medio"
 
 #. TRANSLATORS: Force Media
 msgid "media-input-tray-check"
-msgstr ""
+msgstr "Forzar medio"
 
 #. TRANSLATORS: Media Left Margin
 msgid "media-left-margin"
-msgstr ""
+msgstr "Margen medio izquierdo"
 
 #. TRANSLATORS: Pre-printed Media
 msgid "media-pre-printed"
-msgstr ""
+msgstr "Soportes preimpresos"
 
 #. TRANSLATORS: Blank
 msgid "media-pre-printed.blank"
-msgstr ""
+msgstr "En blanco"
 
 #. TRANSLATORS: Letterhead
 msgid "media-pre-printed.letter-head"
-msgstr ""
+msgstr "Membrete"
 
 #. TRANSLATORS: Pre-printed
 msgid "media-pre-printed.pre-printed"
-msgstr ""
+msgstr "Preimpreso"
 
 #. TRANSLATORS: Recycled Media
 msgid "media-recycled"
-msgstr ""
+msgstr "Medios reciclados"
 
 #. TRANSLATORS: None
 msgid "media-recycled.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Standard
 msgid "media-recycled.standard"
-msgstr ""
+msgstr "Común"
 
 #. TRANSLATORS: Media Right Margin
 msgid "media-right-margin"
-msgstr ""
+msgstr "Margen medio derecho"
 
 #. TRANSLATORS: Media Dimensions
 msgid "media-size"
-msgstr ""
+msgstr "Dimensiones de los soportes"
 
 #. TRANSLATORS: Media Name
 msgid "media-size-name"
-msgstr ""
+msgstr "Nombre del medio"
 
 #. TRANSLATORS: Media Source
 msgid "media-source"
-msgstr ""
+msgstr "Origen del medio"
 
 #. TRANSLATORS: Alternate
 msgid "media-source.alternate"
-msgstr ""
+msgstr "Alternativa"
 
 #. TRANSLATORS: Alternate Roll
 msgid "media-source.alternate-roll"
-msgstr ""
+msgstr "Rollo alternativo"
 
 #. TRANSLATORS: Automatic
 msgid "media-source.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Bottom
 msgid "media-source.bottom"
-msgstr ""
+msgstr "Fondo"
 
 #. TRANSLATORS: By-pass Tray
 msgid "media-source.by-pass-tray"
-msgstr ""
+msgstr "Bandeja by-pass"
 
 #. TRANSLATORS: Center
 msgid "media-source.center"
-msgstr ""
+msgstr "Centro"
 
 #. TRANSLATORS: Disc
 msgid "media-source.disc"
-msgstr ""
+msgstr "Disco"
 
 #. TRANSLATORS: Envelope
 msgid "media-source.envelope"
-msgstr ""
+msgstr "Sobre"
 
 #. TRANSLATORS: Hagaki
 msgid "media-source.hagaki"
-msgstr ""
+msgstr "Hagaki"
 
 #. TRANSLATORS: Large Capacity
 msgid "media-source.large-capacity"
-msgstr ""
+msgstr "Gran capacidad"
 
 #. TRANSLATORS: Left
 msgid "media-source.left"
-msgstr ""
+msgstr "Izquierdo"
 
 #. TRANSLATORS: Main
 msgid "media-source.main"
-msgstr ""
+msgstr "Principal"
 
 #. TRANSLATORS: Main Roll
 msgid "media-source.main-roll"
-msgstr ""
+msgstr "Rollo principal"
 
 #. TRANSLATORS: Manual
 msgid "media-source.manual"
-msgstr ""
+msgstr "Manual"
 
 #. TRANSLATORS: Middle
 msgid "media-source.middle"
-msgstr ""
+msgstr "Medio"
 
 #. TRANSLATORS: Photo
 msgid "media-source.photo"
-msgstr ""
+msgstr "Foto"
 
 #. TRANSLATORS: Rear
 msgid "media-source.rear"
-msgstr ""
+msgstr "Trasero"
 
 #. TRANSLATORS: Right
 msgid "media-source.right"
-msgstr ""
+msgstr "Derecho"
 
 #. TRANSLATORS: Roll 1
 msgid "media-source.roll-1"
-msgstr ""
+msgstr "Rollo 1"
 
 #. TRANSLATORS: Roll 10
 msgid "media-source.roll-10"
-msgstr ""
+msgstr "Rollo 10"
 
 #. TRANSLATORS: Roll 2
 msgid "media-source.roll-2"
-msgstr ""
+msgstr "Rollo 2"
 
 #. TRANSLATORS: Roll 3
 msgid "media-source.roll-3"
-msgstr ""
+msgstr "Rollo 3"
 
 #. TRANSLATORS: Roll 4
 msgid "media-source.roll-4"
-msgstr ""
+msgstr "Rollo 4"
 
 #. TRANSLATORS: Roll 5
 msgid "media-source.roll-5"
-msgstr ""
+msgstr "Rollo 5"
 
 #. TRANSLATORS: Roll 6
 msgid "media-source.roll-6"
-msgstr ""
+msgstr "Rollo 6"
 
 #. TRANSLATORS: Roll 7
 msgid "media-source.roll-7"
-msgstr ""
+msgstr "Rollo 7"
 
 #. TRANSLATORS: Roll 8
 msgid "media-source.roll-8"
-msgstr ""
+msgstr "Rollo 8"
 
 #. TRANSLATORS: Roll 9
 msgid "media-source.roll-9"
-msgstr ""
+msgstr "Rollo 9"
 
 #. TRANSLATORS: Side
 msgid "media-source.side"
-msgstr ""
+msgstr "Lado"
 
 #. TRANSLATORS: Top
 msgid "media-source.top"
-msgstr ""
+msgstr "Cima"
 
 #. TRANSLATORS: Tray 1
 msgid "media-source.tray-1"
-msgstr ""
+msgstr "Bandeja 1"
 
 #. TRANSLATORS: Tray 10
 msgid "media-source.tray-10"
-msgstr ""
+msgstr "Bandeja 10"
 
 #. TRANSLATORS: Tray 11
 msgid "media-source.tray-11"
-msgstr ""
+msgstr "Bandeja 11"
 
 #. TRANSLATORS: Tray 12
 msgid "media-source.tray-12"
-msgstr ""
+msgstr "Bandeja 12"
 
 #. TRANSLATORS: Tray 13
 msgid "media-source.tray-13"
-msgstr ""
+msgstr "Bandeja 13"
 
 #. TRANSLATORS: Tray 14
 msgid "media-source.tray-14"
-msgstr ""
+msgstr "Bandeja 14"
 
 #. TRANSLATORS: Tray 15
 msgid "media-source.tray-15"
-msgstr ""
+msgstr "Bandeja 15"
 
 #. TRANSLATORS: Tray 16
 msgid "media-source.tray-16"
-msgstr ""
+msgstr "Bandeja 16"
 
 #. TRANSLATORS: Tray 17
 msgid "media-source.tray-17"
-msgstr ""
+msgstr "Bandeja 17"
 
 #. TRANSLATORS: Tray 18
 msgid "media-source.tray-18"
-msgstr ""
+msgstr "Bandeja 18"
 
 #. TRANSLATORS: Tray 19
 msgid "media-source.tray-19"
-msgstr ""
+msgstr "Bandeja 19"
 
 #. TRANSLATORS: Tray 2
 msgid "media-source.tray-2"
-msgstr ""
+msgstr "Bandeja 2"
 
 #. TRANSLATORS: Tray 20
 msgid "media-source.tray-20"
-msgstr ""
+msgstr "Bandeja 20"
 
 #. TRANSLATORS: Tray 3
 msgid "media-source.tray-3"
-msgstr ""
+msgstr "Bandeja 3"
 
 #. TRANSLATORS: Tray 4
 msgid "media-source.tray-4"
-msgstr ""
+msgstr "Bandeja 4"
 
 #. TRANSLATORS: Tray 5
 msgid "media-source.tray-5"
-msgstr ""
+msgstr "Bandeja 5"
 
 #. TRANSLATORS: Tray 6
 msgid "media-source.tray-6"
-msgstr ""
+msgstr "Bandeja 6"
 
 #. TRANSLATORS: Tray 7
 msgid "media-source.tray-7"
-msgstr ""
+msgstr "Bandeja 7"
 
 #. TRANSLATORS: Tray 8
 msgid "media-source.tray-8"
-msgstr ""
+msgstr "Bandeja 8"
 
 #. TRANSLATORS: Tray 9
 msgid "media-source.tray-9"
-msgstr ""
+msgstr "Bandeja 9"
 
 #. TRANSLATORS: Media Thickness
 msgid "media-thickness"
-msgstr ""
+msgstr "Grosor del soporte"
 
 #. TRANSLATORS: Media Tooth (Texture)
 msgid "media-tooth"
-msgstr ""
+msgstr "Medio dentado (Textura)"
 
 #. TRANSLATORS: Antique
 msgid "media-tooth.antique"
-msgstr ""
+msgstr "Antiguo"
 
 #. TRANSLATORS: Extra Smooth
 msgid "media-tooth.calendared"
-msgstr ""
+msgstr "Extra Suave"
 
 #. TRANSLATORS: Coarse
 msgid "media-tooth.coarse"
-msgstr ""
+msgstr "Grueso"
 
 #. TRANSLATORS: Fine
 msgid "media-tooth.fine"
-msgstr ""
+msgstr "Fino"
 
 #. TRANSLATORS: Linen
 msgid "media-tooth.linen"
-msgstr ""
+msgstr "Lino"
 
 #. TRANSLATORS: Medium
 msgid "media-tooth.medium"
-msgstr ""
+msgstr "Medio"
 
 #. TRANSLATORS: Smooth
 msgid "media-tooth.smooth"
-msgstr ""
+msgstr "Suave"
 
 #. TRANSLATORS: Stipple
 msgid "media-tooth.stipple"
-msgstr ""
+msgstr "Punteado"
 
 #. TRANSLATORS: Rough
 msgid "media-tooth.uncalendared"
-msgstr ""
+msgstr "Áspero"
 
 #. TRANSLATORS: Vellum
 msgid "media-tooth.vellum"
-msgstr ""
+msgstr "Pergamino"
 
 #. TRANSLATORS: Media Top Margin
 msgid "media-top-margin"
-msgstr ""
+msgstr "Margen superior medio"
 
 #. TRANSLATORS: Media Type
 msgid "media-type"
-msgstr ""
+msgstr "Tipo de medio"
 
 #. TRANSLATORS: Aluminum
 msgid "media-type.aluminum"
-msgstr ""
+msgstr "Aluminio"
 
 #. TRANSLATORS: Automatic
 msgid "media-type.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Back Print Film
 msgid "media-type.back-print-film"
-msgstr ""
+msgstr "Película de contraimpresión"
 
 #. TRANSLATORS: Cardboard
 msgid "media-type.cardboard"
-msgstr ""
+msgstr "Cartulina"
 
 #. TRANSLATORS: Cardstock
 msgid "media-type.cardstock"
-msgstr ""
+msgstr "Cartón"
 
 #. TRANSLATORS: CD
 msgid "media-type.cd"
-msgstr ""
+msgstr "CD"
 
 #. TRANSLATORS: Photo Advanced Paper
 msgid "media-type.com.hp.advanced-photo"
-msgstr ""
+msgstr "Papel fotográfico avanzado"
 
 #. TRANSLATORS: Brochure Glossy Paper
 msgid "media-type.com.hp.brochure-glossy"
-msgstr ""
+msgstr "Folleto de papel brillante"
 
 #. TRANSLATORS: Brochure Matte Paper
 msgid "media-type.com.hp.brochure-matte"
-msgstr ""
+msgstr "Folleto de papel mate"
 
 #. TRANSLATORS: Matte Coverstock
 msgid "media-type.com.hp.cover-matte"
-msgstr ""
+msgstr "Cubiertas mate"
 
 #. TRANSLATORS: EcoSMART Lite Paper
 msgid "media-type.com.hp.ecosmart-lite"
-msgstr ""
+msgstr "Papel ligero EcoSMART"
 
 #. TRANSLATORS: Everyday Glossy Paper
 msgid "media-type.com.hp.everyday-glossy"
-msgstr ""
+msgstr "Papel brillante usual"
 
 #. TRANSLATORS: Everyday Matte Paper
 msgid "media-type.com.hp.everyday-matte"
-msgstr ""
+msgstr "Papel mate usual"
 
 #. TRANSLATORS: Extra Heavyweight Paper
 msgid "media-type.com.hp.extra-heavy"
-msgstr ""
+msgstr "Papel extra grueso"
 
 #. TRANSLATORS: Intermediate Paper
 msgid "media-type.com.hp.intermediate"
-msgstr ""
+msgstr "Papel intermedio"
 
 #. TRANSLATORS: Mid-Weight Paper
 msgid "media-type.com.hp.mid-weight"
-msgstr ""
+msgstr "Papel semipesado"
 
 #. TRANSLATORS: Inkjet Premium Paper
 msgid "media-type.com.hp.premium-inkjet"
-msgstr ""
+msgstr "Papel Inkjet Premium"
 
 #. TRANSLATORS: Photo Premium Paper
 msgid "media-type.com.hp.premium-photo"
-msgstr ""
+msgstr "Papel fotográfico Premium"
 
 #. TRANSLATORS: Premium Matte Presentation Paper
 msgid "media-type.com.hp.premium-presentation-matte"
-msgstr ""
+msgstr "Papel de presentación mate de alta calidad"
 
 #. TRANSLATORS: Continuous
 msgid "media-type.continuous"
-msgstr ""
+msgstr "Continuo"
 
 #. TRANSLATORS: Continuous Long
 msgid "media-type.continuous-long"
-msgstr ""
+msgstr "Continuo largo"
 
 #. TRANSLATORS: Continuous Short
 msgid "media-type.continuous-short"
-msgstr ""
+msgstr "Continuo corto"
 
 #. TRANSLATORS: Corrugated Board
 msgid "media-type.corrugated-board"
-msgstr ""
+msgstr "Cartón ondulado"
 
 #. TRANSLATORS: Optical Disc
 msgid "media-type.disc"
-msgstr ""
+msgstr "Disco óptico"
 
 #. TRANSLATORS: Glossy Optical Disc
 msgid "media-type.disc-glossy"
-msgstr ""
+msgstr "Disco óptico brillante"
 
 #. TRANSLATORS: High Gloss Optical Disc
 msgid "media-type.disc-high-gloss"
-msgstr ""
+msgstr "Disco óptico de alto brillo"
 
 #. TRANSLATORS: Matte Optical Disc
 msgid "media-type.disc-matte"
-msgstr ""
+msgstr "Disco óptico mate"
 
 #. TRANSLATORS: Satin Optical Disc
 msgid "media-type.disc-satin"
-msgstr ""
+msgstr "Disco óptico satinado"
 
 #. TRANSLATORS: Semi-Gloss Optical Disc
 msgid "media-type.disc-semi-gloss"
-msgstr ""
+msgstr "Disco óptico semibrillante"
 
 #. TRANSLATORS: Double Wall
 msgid "media-type.double-wall"
-msgstr ""
+msgstr "Doble pared"
 
 #. TRANSLATORS: Dry Film
 msgid "media-type.dry-film"
-msgstr ""
+msgstr "Película seca"
 
 #. TRANSLATORS: DVD
 msgid "media-type.dvd"
-msgstr ""
+msgstr "DVD"
 
 #. TRANSLATORS: Embossing Foil
 msgid "media-type.embossing-foil"
-msgstr ""
+msgstr "Lámina en relieve"
 
 #. TRANSLATORS: End Board
 msgid "media-type.end-board"
-msgstr ""
+msgstr "Tablón de anuncios"
 
 #. TRANSLATORS: Envelope
 msgid "media-type.envelope"
-msgstr ""
+msgstr "Sobre"
 
 #. TRANSLATORS: Archival Envelope
 msgid "media-type.envelope-archival"
-msgstr ""
+msgstr "Sobre de archivo"
 
 #. TRANSLATORS: Bond Envelope
 msgid "media-type.envelope-bond"
-msgstr ""
+msgstr "Sobre adhesivo"
 
 #. TRANSLATORS: Coated Envelope
 msgid "media-type.envelope-coated"
-msgstr ""
+msgstr "Sobre revestido"
 
 #. TRANSLATORS: Cotton Envelope
 msgid "media-type.envelope-cotton"
-msgstr ""
+msgstr "Sobre de algodón"
 
 #. TRANSLATORS: Fine Envelope
 msgid "media-type.envelope-fine"
-msgstr ""
+msgstr "Sobre fino"
 
 #. TRANSLATORS: Heavyweight Envelope
 msgid "media-type.envelope-heavyweight"
-msgstr ""
+msgstr "Sobre grueso"
 
 #. TRANSLATORS: Inkjet Envelope
 msgid "media-type.envelope-inkjet"
-msgstr ""
+msgstr "Sobre de inyección de tinta"
 
 #. TRANSLATORS: Lightweight Envelope
 msgid "media-type.envelope-lightweight"
-msgstr ""
+msgstr "Sobre ligero"
 
 #. TRANSLATORS: Plain Envelope
 msgid "media-type.envelope-plain"
-msgstr ""
+msgstr "Sobre simple"
 
 #. TRANSLATORS: Preprinted Envelope
 msgid "media-type.envelope-preprinted"
-msgstr ""
+msgstr "Sobre preimpreso"
 
 #. TRANSLATORS: Windowed Envelope
 msgid "media-type.envelope-window"
-msgstr ""
+msgstr "Envolvente con ventana"
 
 #. TRANSLATORS: Fabric
 msgid "media-type.fabric"
-msgstr ""
+msgstr "Tejido"
 
 #. TRANSLATORS: Archival Fabric
 msgid "media-type.fabric-archival"
-msgstr ""
+msgstr "Tejido de archivo"
 
 #. TRANSLATORS: Glossy Fabric
 msgid "media-type.fabric-glossy"
-msgstr ""
+msgstr "Tejido brillante"
 
 #. TRANSLATORS: High Gloss Fabric
 msgid "media-type.fabric-high-gloss"
-msgstr ""
+msgstr "Tejido de alto brillo"
 
 #. TRANSLATORS: Matte Fabric
 msgid "media-type.fabric-matte"
-msgstr ""
+msgstr "Tejido mate"
 
 #. TRANSLATORS: Semi-Gloss Fabric
 msgid "media-type.fabric-semi-gloss"
-msgstr ""
+msgstr "Tejido semibrillante"
 
 #. TRANSLATORS: Waterproof Fabric
 msgid "media-type.fabric-waterproof"
-msgstr ""
+msgstr "Tejido impermeable"
 
 #. TRANSLATORS: Film
 msgid "media-type.film"
-msgstr ""
+msgstr "Película"
 
 #. TRANSLATORS: Flexo Base
 msgid "media-type.flexo-base"
-msgstr ""
+msgstr "Base flexográfica"
 
 #. TRANSLATORS: Flexo Photo Polymer
 msgid "media-type.flexo-photo-polymer"
-msgstr ""
+msgstr "Polímero fotográfico flexográfico"
 
 #. TRANSLATORS: Flute
 msgid "media-type.flute"
-msgstr ""
+msgstr "Flauta"
 
 #. TRANSLATORS: Foil
 msgid "media-type.foil"
-msgstr ""
+msgstr "Folio"
 
 #. TRANSLATORS: Full Cut Tabs
 msgid "media-type.full-cut-tabs"
-msgstr ""
+msgstr "Lengüetas de corte completo"
 
 #. TRANSLATORS: Glass
 msgid "media-type.glass"
-msgstr ""
+msgstr "Vidrio"
 
 #. TRANSLATORS: Glass Colored
 msgid "media-type.glass-colored"
-msgstr ""
+msgstr "Vidrio coloreado"
 
 #. TRANSLATORS: Glass Opaque
 msgid "media-type.glass-opaque"
-msgstr ""
+msgstr "Vidrio opaco"
 
 #. TRANSLATORS: Glass Surfaced
 msgid "media-type.glass-surfaced"
-msgstr ""
+msgstr "Superficie de vidrio"
 
 #. TRANSLATORS: Glass Textured
 msgid "media-type.glass-textured"
-msgstr ""
+msgstr "Vidrio texturizado"
 
 #. TRANSLATORS: Gravure Cylinder
 msgid "media-type.gravure-cylinder"
-msgstr ""
+msgstr "Cilindro de huecograbado"
 
 #. TRANSLATORS: Image Setter Paper
 msgid "media-type.image-setter-paper"
-msgstr ""
+msgstr "Papel fijador de imágenes"
 
 #. TRANSLATORS: Imaging Cylinder
 msgid "media-type.imaging-cylinder"
-msgstr ""
+msgstr "Cilindro de imagen"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon-photo-paper-plus-glossy-ii"
-msgstr ""
+msgstr "Papel fotográfico Plus Brillante II"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon-photo-paper-pro-platinum"
-msgstr ""
+msgstr "Papel fotográfico Pro Platinum"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon_photo-paper-plus-glossy-ii"
-msgstr ""
+msgstr "Papel fotográfico Plus Brillante II"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon_photo-paper-pro-platinum"
-msgstr ""
+msgstr "Papel fotográfico Pro Platinum"
 
 #. TRANSLATORS: Labels
 msgid "media-type.labels"
