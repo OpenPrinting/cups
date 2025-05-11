@@ -5105,6 +5105,7 @@ create_local_bg_thread(
 		*response = NULL;	/* Response from printer */
   ipp_attribute_t *attr;		/* Attribute in response */
   ipp_status_t	status;			/* Status code */
+  cupsd_eventmask_t event;		/* Event (CUPSD_EVENT_PRINTER_ADDED or CUPSD_EVENT_PRINTER_MODIFIED) */
   static const char * const pattrs[] =	/* Printer attributes we need */
   {
     "all",
@@ -5280,6 +5281,10 @@ create_local_bg_thread(
 
     cupsRWUnlock(&printer->lock);
 
+   /*
+    * Try opening the created PPD file...
+    */
+
     if ((from = cupsFileOpen(fromppd, "r")) == NULL)
     {
       cupsdLogPrinter(printer, CUPSD_LOG_ERROR, "Unable to read generated PPD: %s", strerror(errno));
@@ -5294,7 +5299,17 @@ create_local_bg_thread(
       goto finish_response;
     }
 
+   /*
+    * Then the destination PPD for the queue...
+    */
+
     snprintf(toppd, sizeof(toppd), "%s/ppd/%s.ppd", ServerRoot, printer->name);
+
+    if (access(toppd, 0))		/* Determine whether to log an "added" or "modified" event */
+      event = CUPSD_EVENT_PRINTER_ADDED;
+    else
+      event = CUPSD_EVENT_PRINTER_MODIFIED;
+
     if ((to = cupsdCreateConfFile(toppd, ConfigFilePerm)) == NULL)
     {
       cupsdLogPrinter(printer, CUPSD_LOG_ERROR, "Unable to create PPD for printer: %s", strerror(errno));
@@ -5309,6 +5324,10 @@ create_local_bg_thread(
       send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to create PPD for printer: %s"), strerror(errno));
       goto finish_response;
     }
+
+   /*
+    * Copy the PPD file over...
+    */
 
     while (cupsFileGets(from, line, sizeof(line)))
       cupsFilePrintf(to, "%s\n", line);
@@ -5330,6 +5349,7 @@ create_local_bg_thread(
 
       cupsdSetPrinterAttrs(printer);
 
+      cupsdAddEvent(event, printer, NULL, "Printer \"%s\" was %s.", printer->name, event == CUPSD_EVENT_PRINTER_ADDED ? "added" : "modified");
       cupsdAddEvent(CUPSD_EVENT_PRINTER_CONFIG, printer, NULL, "Printer \"%s\" is now available.", printer->name);
       cupsdLogClient(con, CUPSD_LOG_INFO, "Printer \"%s\" is now available.", printer->name);
     }
