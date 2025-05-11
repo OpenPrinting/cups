@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.13 (YYYY-MM-DD)
 ------------------------------------
 
+- Updated the scheduler to send the "printer-added" or "printer-modified" events
+  whenever an IPP Everywhere PPD is installed (Issue #1244)
 - Updated the scheduler to send the "printer-modified" event whenever the system
   default printer is changed (Issue #1246)
 - Fixed a memory leak in `httpClose` (Issue #1223)
