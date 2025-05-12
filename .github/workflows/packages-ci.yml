@@ -1,0 +1,146 @@
+name: CI Pipeline for Containerized CUPS
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-rock:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Pack with Rockcraft
+        uses: canonical/craft-actions/rockcraft-pack@main
+        id: rockcraft
+        with:
+          path: packaging
+
+      - name: Upload Rock Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cups-rock
+          path: ${{ steps.rockcraft.outputs.rock }}
+
+  build-snap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Snap Package
+        uses: snapcore/action-build@v1
+        id: snapcraft
+        with:
+          path: packaging
+
+  test:
+    needs: build-rock
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Rock Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: cups-rock
+
+      - name: Install Dependencies for Testing
+        run: |
+          sudo snap install rockcraft --classic
+          sudo snap install docker
+          sudo apt-get update
+          sudo apt-get install -y avahi-utils
+          sudo apt-get install -y curl cups-ipp-utils cups-client screen
+
+      - name: Ensure Docker Daemon is Running
+        run: |
+          # Start and enable Docker daemon if not already active
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          sudo systemctl is-active --quiet docker || sudo systemctl start docker
+
+      - name: Build Docker Image
+        run: |
+          # Build Docker image from the latest .rock artifact
+          ROCK="$(ls *.rock | tail -n 1)"
+          sudo rockcraft.skopeo --insecure-policy copy oci-archive:"${ROCK}" docker-daemon:cups:latest
+
+      - name: Run CUPS container
+        env:
+          CUPS_ADMIN: "print"
+          CUPS_PASSWORD: "print"
+        run: |
+          # Run CUPS container with environment variables for admin credentials
+          sudo docker run --rm -d --name cups -p 8080:631 \
+            -e CUPS_ADMIN="${CUPS_ADMIN}" -e CUPS_PASSWORD="${CUPS_PASSWORD}" \
+            cups:latest
+
+      - name: Wait for CUPS to be ready
+        run: |
+          # Wait until CUPS server is ready to accept connections
+          until curl -s http://localhost:8080 | grep -q 'CUPS'; do
+            echo "Waiting for CUPS..."
+            sleep 5
+          done
+
+      - name: Start ippeveprinter
+        run: |
+          # Start the ippeveprinter service for printing
+          screen -S ippeveprinter-session -d -m /usr/sbin/ippeveprinter -f application/pdf myprinter
+          sleep 10
+
+      - name: Add CUPS printer
+        env:
+          CUPS_ADMIN: "print"
+        run: |
+          # Add a test printer to the CUPS server
+          sudo docker exec -u "${CUPS_ADMIN}" cups lpadmin -p testprinter \
+            -v ipps://myprinter._ipps._tcp.local/ -E -m everywhere
+
+      - name: Test printing files
+        env:
+          CUPS_ADMIN: "print"
+        run: |
+          # Test printing a file from the host to the CUPS server
+          echo "Test Print Job" | sudo tee host-testfile.txt > /dev/null
+          CUPS_SERVER=localhost:8080 lp -d testprinter host-testfile.txt
+
+          # Wait for the final print job to complete
+          until CUPS_SERVER=localhost:8080 lpstat -W completed | grep -q 'testprinter-1'; do
+            echo "Waiting for print job 1 to complete..."
+            sleep 5
+          done
+          CUPS_SERVER=localhost:8080 lpstat -W completed | grep 'testprinter-1'
+
+          # Test printing multiple file types from inside container and wait for completion
+          testfiles=(
+            "/share/cups/ipptool/testfile.txt"
+            "/share/cups/ipptool/testfile.pdf"
+            "/share/cups/ipptool/testfile.jpg"
+            "/share/cups/ipptool/testfile.ps"
+            "/share/cups/ipptool/testfile.pcl"
+          )
+
+          for i in "${!testfiles[@]}"; do
+            sudo docker exec -u "${CUPS_ADMIN}" cups lp -d testprinter "${testfiles[i]}"
+            until sudo docker exec -u "${CUPS_ADMIN}" cups lpstat -W completed | grep -q "testprinter-$((i+2))"; do
+              echo "Waiting for print job $((i+2)) to complete..."
+              sleep 5
+            done
+            sudo docker exec -u "${CUPS_ADMIN}" cups lpstat -W completed | grep "testprinter-$((i+2))"
+          done
+
+      - name: Stop CUPS container
+        run: |
+          sudo docker stop cups
