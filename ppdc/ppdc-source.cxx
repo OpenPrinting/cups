@@ -62,6 +62,7 @@ ppdcSource::ppdcSource(const char  *f,	// I - File to read
   cond_state    = PPDC_COND_NORMAL;
   cond_current  = cond_stack;
   cond_stack[0] = PPDC_COND_NORMAL;
+  locdata       = localeconv();
 
   // Add standard #define variables...
 #define MAKE_STRING(x) #x
@@ -959,7 +960,7 @@ ppdcSource::get_float(ppdcFile *fp)	// I - File to read
     return (-1.0f);
   }
 
-  val = (float)strtod(temp, &ptr);
+  val = (float)_cupsStrScand(temp, &ptr, locdata);
 
   if (*ptr)
   {
@@ -1479,7 +1480,7 @@ ppdcSource::get_measurement(ppdcFile *fp)
     return (-1.0f);
 
   // Get the floating point value of "s" and skip all digits and decimal points.
-  val = (float)strtod(buffer, &ptr);
+  val = (float)_cupsStrScand(buffer, &ptr, locdata);
 
   // Check for a trailing unit specifier...
   if (!_cups_strcasecmp(ptr, "mm"))
