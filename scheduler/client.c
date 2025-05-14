@@ -448,7 +448,7 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
     if (httpIsEncrypted(con->http))
       partial = 1;
 
-    if (partial)
+    if (partial && !httpGetError(con->http))
     {
      /*
       * Only do a partial close so that the encrypted client gets everything.
