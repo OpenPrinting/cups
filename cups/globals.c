@@ -13,6 +13,9 @@
 #include "debug-internal.h"
 #ifndef _WIN32
 #  include <pwd.h>
+#  ifdef HAVE_SYS_AUXV_H
+#    include <sys/auxv.h> // for getauxval()
+#  endif
 #endif /* !_WIN32 */
 
 
@@ -294,7 +297,9 @@ cups_globals_alloc(void)
 		*xdg_config_home = getenv("XDG_CONFIG_HOME");
 					// Environment variables
 #  endif // !__APPLE__
-#  ifdef HAVE_GETEUID
+#  if defined(HAVE_SYS_AUXV_H) && defined(AT_SECURE)
+  if (getauxval(AT_SECURE))
+#  elif defined(HAVE_GETEUID)
   if ((geteuid() != getuid() && getuid()) || getegid() != getgid())
 #  else
   if (!getuid())
