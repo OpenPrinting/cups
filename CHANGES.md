@@ -14,6 +14,7 @@ Changes in CUPS v2.4.13 (YYYY-MM-DD)
 - Fixed subscription issues in the scheduler and D-Bus notifier (Issue #1235)
 - Fixed support for IPP/PPD options with periods or underscores (Issue #1249)
 - Fixed parsing of real numbers in PPD compiler source files (Issue #1263)
+- Fixed scheduler freezing with zombie clients (Issue #1264)
 
 
 Changes in CUPS v2.4.12 (2025-04-08)

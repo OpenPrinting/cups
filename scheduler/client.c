@@ -463,7 +463,7 @@ cupsdCloseClient(cupsd_client_t *con)	/* I - Client to close */
       partial = 1;
 #endif /* HAVE_TLS */
 
-    if (partial)
+    if (partial && !httpError(con->http))
     {
      /*
       * Only do a partial close so that the encrypted client gets everything.
