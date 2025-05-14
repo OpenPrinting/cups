@@ -1552,6 +1552,8 @@ main(int  argc,				/* I - Number of command-line args */
       char	*argptr = argv[2],	/* Pointer into local username */
 		*userptr = username;	/* Pointer into requesting-user-name value */
 
+      fputs("DEBUG: Trying sanitized requesting-user-name value.\n", stderr);
+
       while (*argptr && userptr < (username + sizeof(username) - 1))
       {
         if (isalnum(*argptr & 255))
