@@ -78,6 +78,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   (Issue #1207)
 - Updated the `httpSetCookie` API to support multiple "Set-Cookie:" header
   values.
+- Updated the setuid/gid checks in libcups to use `getauxval` on Linux to avoid
+  potential security issues (Issue #1258)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error

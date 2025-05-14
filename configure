@@ -6016,6 +6016,14 @@ printf "%s\n" "#define HAVE_STDINT_H 1" >>confdefs.h
 
 fi
 
+ac_fn_c_check_header_compile "$LINENO" "sys/auxv.h" "ac_cv_header_sys_auxv_h" "$ac_includes_default"
+if test "x$ac_cv_header_sys_auxv_h" = xyes
+then :
+
+printf "%s\n" "#define HAVE_SYS_AUXV_H 1" >>confdefs.h
+
+fi
+
 ac_fn_c_check_header_compile "$LINENO" "sys/ioctl.h" "ac_cv_header_sys_ioctl_h" "$ac_includes_default"
 if test "x$ac_cv_header_sys_ioctl_h" = xyes
 then :
