@@ -195,6 +195,7 @@ main(int  argc,				/* I - Number of command-line args */
 		hostname[1024],		/* Hostname */
 		resource[1024],		/* Resource info (printer name) */
 		addrname[256],		/* Address name */
+		username[IPP_MAX_NAME],	/* Requesting user name */
 		*optptr,		/* Pointer to URI options */
 		*name,			/* Name of option */
 		*value,			/* Value of option */
@@ -310,6 +311,8 @@ main(int  argc,				/* I - Number of command-line args */
 		    argv[0]);
     return (CUPS_BACKEND_STOP);
   }
+
+  cupsCopyString(username, argv[2], sizeof(username));
 
  /*
   * Get the device URI...
@@ -1437,7 +1440,7 @@ main(int  argc,				/* I - Number of command-line args */
 
   monitor.uri           = uri;
   monitor.hostname      = hostname;
-  monitor.user          = argv[2];
+  monitor.user          = username;
   monitor.resource      = resource;
   monitor.port          = port;
   monitor.version       = version;
@@ -1474,7 +1477,7 @@ main(int  argc,				/* I - Number of command-line args */
 
   while (!job_canceled && validate_job)
   {
-    request = new_request(IPP_OP_VALIDATE_JOB, version, uri, argv[2],
+    request = new_request(IPP_OP_VALIDATE_JOB, version, uri, username,
                           monitor.job_name, num_options, options, compression,
 			  copies_sup ? copies : 1, document_format, pc, ppd,
 			  media_col_sup, doc_handling_sup, print_color_mode_sup, print_scaling_sup);
@@ -1513,6 +1516,26 @@ main(int  argc,				/* I - Number of command-line args */
           num_options = cupsAddOption("sides", "one-sided", num_options, &options);
         }
       }
+    }
+    else if ((ipp_status == IPP_STATUS_ERROR_BAD_REQUEST || ipp_status == IPP_STATUS_ERROR_INTERNAL) && !strcmp(username, argv[2]))
+    {
+     /*
+      * Issue #1145: Some printers have trouble with valid character in the
+      * requesting-user-name attribute.  Sanitize the username and try again
+      * if so...
+      */
+
+      char	*argptr = argv[2],	/* Pointer into local username */
+		*userptr = username;	/* Pointer into requesting-user-name value */
+
+      while (*argptr && userptr < (username + sizeof(username) - 1))
+      {
+        if (isalnum(*argptr & 255))
+          *userptr++ = *argptr;
+        argptr ++;
+      }
+
+      *userptr = '\0';
     }
 
     ippDelete(response);
@@ -1597,7 +1620,7 @@ main(int  argc,				/* I - Number of command-line args */
 
     request = new_request((num_files > 1 || create_job) ? IPP_OP_CREATE_JOB :
                                                           IPP_OP_PRINT_JOB,
-			  version, uri, argv[2], monitor.job_name, num_options,
+			  version, uri, username, monitor.job_name, num_options,
 			  options, compression, copies_sup ? copies : 1,
 			  document_format, pc, ppd, media_col_sup,
 			  doc_handling_sup, print_color_mode_sup, print_scaling_sup);
@@ -1809,9 +1832,9 @@ main(int  argc,				/* I - Number of command-line args */
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id",
 	              job_id);
 
-	if (argv[2][0])
+	if (username[0])
 	  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                       "requesting-user-name", NULL, argv[2]);
+                       "requesting-user-name", NULL, username);
 
 	ippAddBoolean(request, IPP_TAG_OPERATION, "last-document",
         	      (i + 1) >= num_files);
@@ -1929,7 +1952,7 @@ main(int  argc,				/* I - Number of command-line args */
 
       fputs("JOBSTATE: cups-retry-as-raster\n", stderr);
       if (job_id > 0)
-	cancel_job(http, uri, job_id, resource, argv[2], version);
+	cancel_job(http, uri, job_id, resource, username, version);
 
       goto cleanup;
     }
@@ -1945,7 +1968,7 @@ main(int  argc,				/* I - Number of command-line args */
         */
 
 	if (job_id > 0)
-	  cancel_job(http, uri, job_id, resource, argv[2], version);
+	  cancel_job(http, uri, job_id, resource, username, version);
 
         goto cleanup;
       }
@@ -1984,7 +2007,7 @@ main(int  argc,				/* I - Number of command-line args */
       ipp_status = IPP_STATUS_ERROR_INTERNAL;
 
       if (job_id > 0)
-	cancel_job(http, uri, job_id, resource, argv[2], version);
+	cancel_job(http, uri, job_id, resource, username, version);
 
       goto cleanup;
     }
@@ -2032,7 +2055,7 @@ main(int  argc,				/* I - Number of command-line args */
       * Check printer state...
       */
 
-      check_printer_state(http, uri, resource, argv[2], version);
+      check_printer_state(http, uri, resource, username, version);
 
       if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
         password_tries = 0;
@@ -2050,9 +2073,9 @@ main(int  argc,				/* I - Number of command-line args */
       ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id",
         	    job_id);
 
-      if (argv[2][0])
+      if (username[0])
 	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-	             "requesting-user-name", NULL, argv[2]);
+	             "requesting-user-name", NULL, username);
 
       ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
                     "requested-attributes", sizeof(jattrs) / sizeof(jattrs[0]),
@@ -2179,7 +2202,7 @@ main(int  argc,				/* I - Number of command-line args */
 
   if (job_canceled > 0 && job_id > 0)
   {
-    cancel_job(http, uri, job_id, resource, argv[2], version);
+    cancel_job(http, uri, job_id, resource, username, version);
 
     if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
       _cupsLangPrintFilter(stderr, "ERROR", _("Unable to cancel print job."));
@@ -2189,7 +2212,7 @@ main(int  argc,				/* I - Number of command-line args */
   * Check the printer state and report it if necessary...
   */
 
-  check_printer_state(http, uri, resource, argv[2], version);
+  check_printer_state(http, uri, resource, username, version);
 
   if (cupsGetError() <= IPP_STATUS_OK_CONFLICTING)
     password_tries = 0;
