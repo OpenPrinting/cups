@@ -50,6 +50,7 @@ extern char		*cupsOAuthGetClientId(const char *auth_uri, cups_json_t *metadata, 
 extern cups_json_t	*cupsOAuthGetJWKS(const char *auth_uri, cups_json_t *metadata) _CUPS_PUBLIC;
 extern cups_json_t	*cupsOAuthGetMetadata(const char *auth_uri) _CUPS_PUBLIC;
 extern char		*cupsOAuthGetTokens(const char *auth_uri, cups_json_t *metadata, const char *resource_uri, const char *grant_code, cups_ogrant_t grant_type, const char *redirect_uri, time_t *access_expires) _CUPS_PUBLIC;
+extern cups_jwt_t	*cupsOAuthGetUserId(const char *auth_uri, cups_json_t *metadata, const char *access_token) _CUPS_PUBLIC;
 
 extern char		*cupsOAuthMakeAuthorizationURL(const char *auth_uri, cups_json_t *metadata, const char *resource_uri, const char *scopes, const char *client_id, const char *code_verifier, const char *nonce, const char *redirect_uri, const char *state) _CUPS_PUBLIC;
 extern char		*cupsOAuthMakeBase64Random(size_t len) _CUPS_PUBLIC;

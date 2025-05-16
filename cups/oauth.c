@@ -102,7 +102,8 @@ typedef enum _cups_otype_e		// OAuth data type
   _CUPS_OTYPE_METADATA,			// Server metadata
   _CUPS_OTYPE_NONCE,			// Client nonce
   _CUPS_OTYPE_REDIRECT_URI,		// Redirect URI used
-  _CUPS_OTYPE_REFRESH			// Refresh token
+  _CUPS_OTYPE_REFRESH,			// Refresh token
+  _CUPS_OTYPE_MAX			// Maximum number of types
 } _cups_otype_t;
 
 
@@ -125,7 +126,7 @@ typedef enum _cups_otype_e		// OAuth data type
 					// Redirect URI request path length
 
 #ifdef DEBUG
-static const char * const cups_otypes[] =
+static const char * const cups_otypes[_CUPS_OTYPE_MAX] =
 {					// OAuth data types...
   "_CUPS_OTYPE_ACCESS",			// Access token
   "_CUPS_OTYPE_CLIENT_ID",		// Client ID
@@ -160,8 +161,9 @@ static const char *github_metadata =	// Github.com OAuth metadata
 static char	*oauth_copy_response(http_t *http);
 static char	*oauth_copy_scopes(cups_json_t *metadata);
 static cups_json_t *oauth_do_post(const char *ep, const char *content_type, const char *data);
-static char	*oauth_load_value(const char *auth_uri, const char *secondary_uri, _cups_otype_t otype);
-static char	*oauth_make_path(char *buffer, size_t bufsize, const char *auth_uri, const char *secondary_uri, _cups_otype_t otype);
+static char	*oauth_load_value(const char *auth_uri, const char *secondary_uri, _cups_otype_t otype, bool try_sysconfig);
+static char	*oauth_make_access_uri(const char *access_token);
+static char	*oauth_make_path(char *buffer, size_t bufsize, const char *auth_uri, const char *secondary_uri, _cups_otype_t otype, bool use_sysconfig);
 static char	*oauth_make_software_id(char *buffer, size_t bufsize);
 static bool	oauth_metadata_contains(cups_json_t *metadata, const char *parameter, const char *value);
 static void	oauth_save_value(const char *auth_uri, const char *secondary_uri, _cups_otype_t otype, const char *value);
@@ -217,7 +219,7 @@ cupsOAuthCopyAccessToken(
   if (access_expires)
     *access_expires = 0;
 
-  if ((token = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS)) != NULL)
+  if ((token = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, /*try_sysconfig*/false)) != NULL)
   {
     if ((tokptr = strchr(token, '\n')) != NULL)
     {
@@ -252,7 +254,7 @@ cupsOAuthCopyClientId(
   char	*client_id;			// Client ID value
 
 
-  if ((client_id = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID)) == NULL && !strncmp(auth_uri, _CUPS_CONNECTOR_OAUTH_URI, _CUPS_CONNECTOR_OAUTH_URILEN))
+  if ((client_id = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID, /*try_sysconfig*/true)) == NULL && !strncmp(auth_uri, _CUPS_CONNECTOR_OAUTH_URI, _CUPS_CONNECTOR_OAUTH_URILEN))
   {
     // Use the default CUPS Universal Print connector client ID with MS Entrada ID...
     client_id = strdup(_CUPS_CONNECTOR_CLIENT_ID);
@@ -280,7 +282,7 @@ cupsOAuthCopyRefreshToken(
     const char *auth_uri,		// I - Authorization Server URI
     const char *resource_uri)		// I - Resource URI
 {
-  return (oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_REFRESH));
+  return (oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_REFRESH, /*try_sysconfig*/false));
 }
 
 
@@ -306,7 +308,7 @@ cupsOAuthCopyUserId(
   cups_jwt_t	*jwt;			// JWT value
 
 
-  value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_USER_ID);
+  value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_USER_ID, /*try_sysconfig*/false);
   jwt   = cupsJWTImportString(value, CUPS_JWS_FORMAT_COMPACT);
 
   free(value);
@@ -611,19 +613,15 @@ cupsOAuthGetAuthorizationCode(
                     // Got a code and the correct state value, copy the code and
                     // save out code_verifier and nonce values...
                     auth_code = strdup(code_value);
-
-                    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, code_verifier);
-                    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, nonce);
-
-		    hbody = "<!DOCTYPE html>\n"
-			    "<html>\n"
-			    "  <head><title>Authorization Complete</title></head>\n"
-			    "  <body>\n"
-			    "    <h1>Authorization Complete</h1>\n"
-			    "    <p>You may now close this window/tab.</p>\n"
-			    "    <script>setTimeout(\"window.close()\", 5000)</script>\n"
-			    "  </body>\n"
-			    "</html>\n";
+		    hbody     = "<!DOCTYPE html>\n"
+				"<html>\n"
+				"  <head><title>Authorization Complete</title></head>\n"
+				"  <body>\n"
+				"    <h1>Authorization Complete</h1>\n"
+				"    <p>You may now close this window/tab.</p>\n"
+				"    <script>setTimeout(\"window.close()\", 5000)</script>\n"
+				"  </body>\n"
+				"</html>\n";
                   }
                   else
                   {
@@ -828,11 +826,17 @@ cupsOAuthGetJWKS(const char  *auth_uri,	// I - Authorization server URI
   DEBUG_printf("cupsOAuthGetJWKS(auth_uri=\"%s\", metadata=%p)", auth_uri, (void *)metadata);
 
   // Get existing key set...
-  if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS))
+  if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS, /*use_sysconfig*/true))
     return (NULL);
 
   if (stat(filename, &fileinfo))
-    memset(&fileinfo, 0, sizeof(fileinfo));
+  {
+    if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS, /*use_sysconfig*/false))
+      return (NULL);
+
+    if (stat(filename, &fileinfo))
+      memset(&fileinfo, 0, sizeof(fileinfo));
+  }
 
   // Don't bother connecting if the key set was updated recently...
   if ((time(NULL) - fileinfo.st_mtime) <= 60)
@@ -902,11 +906,17 @@ cupsOAuthGetMetadata(
     return (cupsJSONImportString(github_metadata));
 
   // Get existing metadata...
-  if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_METADATA))
+  if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_METADATA, /*use_sysconfig*/true))
     return (NULL);
 
   if (stat(filename, &fileinfo))
-    memset(&fileinfo, 0, sizeof(fileinfo));
+  {
+    if (!oauth_make_path(filename, sizeof(filename), auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_METADATA, /*use_sysconfig*/false))
+      return (NULL);
+
+    if (stat(filename, &fileinfo))
+      memset(&fileinfo, 0, sizeof(fileinfo));
+  }
 
   if (fileinfo.st_mtime)
     httpGetDateString2(fileinfo.st_mtime, filedate, sizeof(filedate));
@@ -1104,7 +1114,7 @@ cupsOAuthGetTokens(
   num_form = cupsAddOption("grant_type", grant_types[grant_type], num_form, &form);
   num_form = cupsAddOption("code", grant_code, num_form, &form);
 
-  if (!strcmp(redirect_uri, CUPS_OAUTH_REDIRECT_URI) && (value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_REDIRECT_URI)) != NULL)
+  if (!strcmp(redirect_uri, CUPS_OAUTH_REDIRECT_URI) && (value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_REDIRECT_URI, /*try_sysconfig*/false)) != NULL)
   {
     DEBUG_printf("1cupsOAuthGetTokens: redirect_uri=\"%s\"", value);
     num_form = cupsAddOption("redirect_uri", value, num_form, &form);
@@ -1122,14 +1132,14 @@ cupsOAuthGetTokens(
     free(value);
   }
 
-  if ((value = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_SECRET)) != NULL)
+  if ((value = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_SECRET, /*try_sysconfig*/true)) != NULL)
   {
     DEBUG_printf("1cupsOAuthGetTokens: client_secret=\"%s\"", value);
     num_form = cupsAddOption("client_secret", value, num_form, &form);
     free(value);
   }
 
-  if ((value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER)) != NULL)
+  if ((value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, /*try_sysconfig*/false)) != NULL)
   {
     DEBUG_printf("1cupsOAuthGetTokens: code_verifier=\"%s\"", value);
     num_form = cupsAddOption("code_verifier", value, num_form, &form);
@@ -1159,7 +1169,7 @@ cupsOAuthGetTokens(
 
     jwt    = cupsJWTImportString(id_value, CUPS_JWS_FORMAT_COMPACT);
     jnonce = cupsJWTGetClaimString(jwt, "nonce");
-    nonce  = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE);
+    nonce  = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*try_sysconfig*/false);
 
     // Check nonce
     if (!jwt || (jnonce && nonce && strcmp(jnonce, nonce)))
@@ -1209,12 +1219,126 @@ cupsOAuthGetTokens(
   // Return whatever we got...
   done:
 
+  // Clear code_verifier and nonce values...
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, /*value*/NULL);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*value*/NULL);
+
   cupsJSONDelete(response);
   cupsJWTDelete(jwt);
   free(nonce);
   free(request);
 
   return (access_token);
+}
+
+
+//
+// 'cupsOAuthGetUserId()' - Get the user ID token associated with the given access token.
+//
+// This function retrieves the user ID token associated with a given access
+// token.  The user ID information is cached until the token expires to minimize
+// the overhead of communicating with the Authorization Server.
+//
+// @since CUPS 2.5@
+//
+
+cups_jwt_t *				// O - Identification information or `NULL` if none
+cupsOAuthGetUserId(
+    const char  *auth_uri,		// I - Authorization Server URL
+    cups_json_t *metadata,		// I - Authorization Server metadata
+    const char  *access_token)		// I - Access (Bearer) token
+{
+  char		*access_uri,		// Access token URI
+		*user_id_value;		// String value of user ID
+  cups_jwt_t	*user_id = NULL;	// User ID JWT
+  const char	*userinfo_ep;		// userinfo_endpoint value
+
+
+  // Range check input...
+  if (!auth_uri || !metadata || !access_token || !*access_token)
+    return (NULL);
+
+  // Convert the access token to a URI...
+  if ((access_uri = oauth_make_access_uri(access_token)) == NULL)
+    return (NULL);
+
+  // See if we have this token cached already...
+  if ((user_id_value = oauth_load_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, /*try_sysconfig*/false)) == NULL && (userinfo_ep = cupsJSONGetString(cupsJSONFind(metadata, "userinfo_endpoint"))) != NULL)
+  {
+    // No, try to get the information from the Authorization Server...
+    http_t	*http;			// Connection to endpoint
+    char	host[256],		// Endpoint hostname
+		resource[1024];		// Endpoint resource
+    int		port;			// Endpoint port
+    http_status_t status;		// GET status
+    cups_json_t	*user_id_claims;	// Claims from userinfo response
+
+    DEBUG_printf("1cupsOAuthGetUserId: Getting user ID from \"%s\".", userinfo_ep);
+
+    // Connect to the endpoint...
+    if ((http = httpConnectURI(userinfo_ep, host, sizeof(host), &port, resource, sizeof(resource), /*blocking*/true, /*msec*/30000, /*cancel*/NULL, /*require_ca*/true)) == NULL)
+      return (NULL);
+
+    // Send a GET request with the access token...
+    httpSetAuthString(http, "Bearer", access_token);
+    httpClearFields(http);
+    httpSetField(http, HTTP_FIELD_ACCEPT, "application/json,text/json");
+
+    if (!httpWriteRequest(http, "GET", resource))
+    {
+      if (!httpConnectAgain(http, 30000, NULL))
+	goto done;
+
+      if (!httpWriteRequest(http, "GET", resource))
+	goto done;
+    }
+
+    // Get the response...
+    while ((status = httpUpdate(http)) == HTTP_STATUS_CONTINUE);
+
+    user_id_value  = oauth_copy_response(http);
+    user_id_claims = cupsJSONImportString(user_id_value);
+
+    // Verify that the access token hasn't expired...
+    if (cupsJSONFind(user_id_claims, "error"))
+    {
+      // Expired or bad access token, get rid of this one...
+      const char *error_desc = cupsJSONGetString(cupsJSONFind(user_id_claims, "error_description"));
+					// Description of error
+
+      DEBUG_printf("1cupsOAuthGetUserId: Error from userinfo - %s, %s.", cupsJSONGetString(cupsJSONFind(user_id_claims, "error")), error_desc);
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, error_desc, false);
+
+      cupsJSONDelete(user_id_claims);
+      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, /*value*/NULL);
+    }
+    else if ((user_id = cupsJWTNew(/*type*/NULL, user_id_claims)) != NULL)
+    {
+      // Created a new JWT with the JSON user information, save it for future use...
+      free(user_id_value);
+
+      user_id_value = cupsJWTExportString(user_id, CUPS_JWS_FORMAT_COMPACT);
+      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, user_id_value);
+    }
+    else
+    {
+      // Free the JSON information since we couldn't create the JWT...
+      cupsJSONDelete(user_id_claims);
+    }
+  }
+  else if (user_id_value)
+  {
+    // Convert the string to a JWT...
+    user_id = cupsJWTImportString(user_id_value, CUPS_JWS_FORMAT_COMPACT);
+  }
+
+  done:
+
+  // Free strings and return...
+  free(access_uri);
+  free(user_id_value);
+
+  return (user_id);
 }
 
 
@@ -1301,19 +1425,19 @@ cupsOAuthMakeAuthorizationURL(
 
   if (code_verifier && oauth_metadata_contains(metadata, "code_challenge_methods_supported", "S256"))
   {
-    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, /*value*/NULL);
-
     cupsHashData("sha2-256", code_verifier, strlen(code_verifier), sha256, sizeof(sha256));
     httpEncode64_3(code_challenge, sizeof(code_challenge), (char *)sha256, sizeof(sha256), true);
     num_vars = cupsAddOption("code_challenge", code_challenge, num_vars, &vars);
     num_vars = cupsAddOption("code_challenge_method", "S256", num_vars, &vars);
+
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, code_verifier);
   }
 
   if (nonce && oauth_metadata_contains(metadata, "scopes_supported", "openid"))
   {
-    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*value*/NULL);
-
     num_vars = cupsAddOption("nonce", nonce, num_vars, &vars);
+
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, nonce);
   }
 
   if (resource_uri)
@@ -1429,8 +1553,16 @@ cupsOAuthSaveTokens(
   if (access_token)
   {
     // Save access token...
+    char	*access_uri;		// Access token URI
+
     snprintf(temp, sizeof(temp), "%s\n%ld\n", access_token, (long)access_expires);
     oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, temp);
+
+    if ((access_uri = oauth_make_access_uri(access_token)) != NULL)
+    {
+      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, user_id);
+      free(access_uri);
+    }
   }
   else
   {
@@ -1643,7 +1775,8 @@ static char *
 oauth_load_value(
     const char    *auth_uri,		// I - Authorization Server URI
     const char    *secondary_uri,	// I - Resource or redirect URI
-    _cups_otype_t otype)		// I - Type (_CUPS_OTYPE_xxx)
+    _cups_otype_t otype,		// I - Type (_CUPS_OTYPE_xxx)
+    bool          try_sysconfig)	// I - Try system configuration if no user config?
 {
   char		filename[1024];		// Filename
   struct stat	fileinfo;		// File information
@@ -1651,14 +1784,24 @@ oauth_load_value(
   char		*value = NULL;		// Value
 
 
-  DEBUG_printf("3oauth_load_value(auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s)", auth_uri, secondary_uri, cups_otypes[otype]);
+  DEBUG_printf("3oauth_load_value(auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s, try_sysconfig=%s)", auth_uri, secondary_uri, cups_otypes[otype], try_sysconfig ? "true" : "false");
 
   // Try to make the corresponding file path...
-  if (!oauth_make_path(filename, sizeof(filename), auth_uri, secondary_uri, otype))
+  if (!oauth_make_path(filename, sizeof(filename), auth_uri, secondary_uri, otype, /*use_sysconfig*/false))
     return (NULL);
 
   // Open the file...
-  if ((fd = open(filename, O_RDONLY)) >= 0)
+  if ((fd = open(filename, O_RDONLY)) < 0 && try_sysconfig)
+  {
+    // Try the sysconfig version...
+
+    if (!oauth_make_path(filename, sizeof(filename), auth_uri, secondary_uri, otype, /*use_sysconfig*/true))
+      return (NULL);
+
+    fd = open(filename, O_RDONLY);
+  }
+
+  if (fd >= 0)
   {
     // Opened, read up to 64k of data...
     if (!fstat(fd, &fileinfo) && fileinfo.st_size <= 65536 && (value = calloc(1, (size_t)fileinfo.st_size + 1)) != NULL)
@@ -1681,6 +1824,28 @@ oauth_load_value(
 
 
 //
+// 'oauth_make_access_uri()' - Make an access token URI.
+//
+// Note: You must free the returned pointer.
+//
+
+static char *				// O - Access token URI
+oauth_make_access_uri(
+    const char *access_token)		// I - Access token
+{
+  char		*access_uri;		// Access token URI
+  size_t	access_uri_size;	// Size of access token URI (including nul)
+
+
+  access_uri_size = strlen(access_token) + 11;
+  if ((access_uri = malloc(access_uri_size)) != NULL)
+    snprintf(access_uri, access_uri_size, "urn:token:%s", access_token);
+
+  return (access_uri);
+}
+
+
+//
 // 'oauth_make_path()' - Make an OAuth store filename.
 //
 
@@ -1690,16 +1855,18 @@ oauth_make_path(
     size_t        bufsize,		// I - Size of filename buffer
     const char    *auth_uri,		// I - Authorization server URI
     const char    *secondary_uri,	// I - Resource/redirect URI
-    _cups_otype_t otype)		// I - Type (_CUPS_OTYPE_xxx)
+    _cups_otype_t otype,		// I - Type (_CUPS_OTYPE_xxx)
+    bool          use_sysconfig)	// I - Use system configuration directory
 {
+  int		port;			// Port number from URI
   char		auth_temp[1024],	// Temporary copy of auth_uri
 		secondary_temp[1024],	// Temporary copy of secondary_uri
 		*ptr;			// Pointer into temporary strings
   unsigned char	auth_hash[32],		// SHA-256 hash of base auth_uri
 		secondary_hash[32];	// SHA-256 hash of base secondary_uri
   _cups_globals_t *cg = _cupsGlobals();	// Global data
-  static const char * const otypes[] =	// Filename extensions for each type
-  {
+  static const char * const otypes[_CUPS_OTYPE_MAX] =
+  {					// Filename extensions for each type
     "accs",				// Access token
     "clid",				// Client ID
     "csec",				// Client secret
@@ -1713,23 +1880,46 @@ oauth_make_path(
   };
 
 
-  DEBUG_printf("3oauth_make_path(buffer=%p, bufsize=%lu, auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s)", (void *)buffer, (unsigned long)bufsize, auth_uri, secondary_uri, cups_otypes[otype]);
+  DEBUG_printf("3oauth_make_path(buffer=%p, bufsize=%lu, auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s, use_sysconfig=%s)", (void *)buffer, (unsigned long)bufsize, auth_uri, secondary_uri, cups_otypes[otype], use_sysconfig ? "true" : "false");
 
   // Range check input...
-  if (!auth_uri || strncmp(auth_uri, "https://", 8) || auth_uri[8] == '[' || isdigit(auth_uri[8] & 255) || (secondary_uri && strncmp(secondary_uri, "http://", 7) && strncmp(secondary_uri, "https://", 8) && strncmp(secondary_uri, "ipps://", 7)))
+  if (!auth_uri || strncmp(auth_uri, "https://", 8) || auth_uri[8] == '[' || isdigit(auth_uri[8] & 255) || (secondary_uri && strncmp(secondary_uri, "http://", 7) && strncmp(secondary_uri, "https://", 8) && strncmp(secondary_uri, "urn:token:", 10)))
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), false);
     *buffer = '\0';
     return (NULL);
   }
 
+  // If the secondary URI is "http://127.0.0.1:port/" then map it to
+  // CUPS_OAUTH_REDIRECT_URI to ensure we have a consistent hash...
+  if (secondary_uri && sscanf(secondary_uri, "http://127.0.0.1:%d/", &port) == 1)
+    secondary_uri = CUPS_OAUTH_REDIRECT_URI;
+
   // First make sure the "oauth" directory exists...
-  snprintf(buffer, bufsize, "%s/oauth", cg->userconfig);
-  if (!_cupsDirCreate(buffer, 0700))
+  if (use_sysconfig)
   {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
-    *buffer = '\0';
-    return (NULL);
+    // Check and create in sysconfig directory, allowing for other users to read
+    // common files as needed...
+    snprintf(buffer, bufsize, "%s/oauth", cg->sysconfig);
+
+    if (!_cupsDirCreate(buffer, 0711))
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
+      *buffer = '\0';
+      return (NULL);
+    }
+  }
+  else
+  {
+    // Check and create in (private) userconfig directory...
+    snprintf(buffer, bufsize, "%s/oauth", cg->userconfig);
+
+    if (!_cupsDirCreate(buffer, 0700))
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
+      *buffer = '\0';
+      return (NULL);
+    }
   }
 
   // Build the hashed versions of the auth and resource URIs...
@@ -1782,10 +1972,21 @@ oauth_make_path(
   }
 
   // Build the filename for the corresponding data...
-  if (secondary_temp[0])
+  if (use_sysconfig)
+  {
+    if (secondary_temp[0])
+      snprintf(buffer, bufsize, "%s/oauth/%s+%s.%s", cg->sysconfig, auth_temp, secondary_temp, otypes[otype]);
+    else
+      snprintf(buffer, bufsize, "%s/oauth/%s.%s", cg->sysconfig, auth_temp, otypes[otype]);
+  }
+  else if (secondary_temp[0])
+  {
     snprintf(buffer, bufsize, "%s/oauth/%s+%s.%s", cg->userconfig, auth_temp, secondary_temp, otypes[otype]);
+  }
   else
+  {
     snprintf(buffer, bufsize, "%s/oauth/%s.%s", cg->userconfig, auth_temp, otypes[otype]);
+  }
 
   DEBUG_printf("4oauth_make_path: Returning \"%s\".", buffer);
 
@@ -1887,12 +2088,25 @@ oauth_save_value(
 {
   char	filename[1024];			// Filename
   int	fd;				// File descriptor
+  static const int modes[_CUPS_OTYPE_MAX] =
+  {					// File permissions for the various types
+    0600,				// Access token
+    0644,				// Client ID
+    0644,				// Client secret
+    0600,				// Client code_verifier
+    0600,				// (User) ID token
+    0644,				// Server key store
+    0644,				// Server metadata
+    0600,				// Client nonce
+    0600,				// Redirect URI used
+    0600				// Refresh token
+  };
 
 
   DEBUG_printf("3oauth_save_value(auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s, value=\"%s\")", auth_uri, secondary_uri, cups_otypes[otype], value);
 
   // Try making the filename...
-  if (!oauth_make_path(filename, sizeof(filename), auth_uri, secondary_uri, otype))
+  if (!oauth_make_path(filename, sizeof(filename), auth_uri, secondary_uri, otype, /*use_sysconfig*/false))
     return;
 
   if (value)
