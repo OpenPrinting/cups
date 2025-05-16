@@ -10,7 +10,7 @@
  */
 
 #include <pwd.h>
-#include <cups/jwt.h>
+#include <cups/oauth.h>
 
 
 /*

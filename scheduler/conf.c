@@ -3698,7 +3698,8 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
       * OAuthGroup NAME FILENAME
       */
 
-      char *filename;			/* Filename on line */
+      char	temp[1024],			/* Temporary filename */
+		*filename;			/* Filename on line */
 
       for (filename = value; *filename; filename ++)
       {
@@ -3708,6 +3709,13 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 
       while (*filename && isspace(*filename & 255))
         *filename++ = '\0';
+
+      if (*filename != '/')
+      {
+        // Convert relative filename to CUPS_SERVERROOT/filename
+        snprintf(temp, sizeof(temp), "%s/%s", ServerRoot, filename);
+        filename = temp;
+      }
 
       if (*filename && !access(filename, R_OK))
       {

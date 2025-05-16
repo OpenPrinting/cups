@@ -710,7 +710,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   else if (!strncmp(authorization, "Bearer ", 7))
   {
     // OAuth/OpenID authorization using JWT bearer tokens...
-    cups_jwt_t	*jwt;			// JWT decoded from bearer token...
+    cups_jwt_t	*jwt;			// JWT user information
     const char	*sub,			// Subject/user ID
 		*name,			// Real name
 		*email;			// Email address
@@ -724,35 +724,22 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       authorization = bearer;		// Use the cookie value for authorization
 
     // Decode and validate the JWT...
-    if ((jwt = cupsJWTImportString(authorization, CUPS_JWS_FORMAT_COMPACT)) == NULL)
+    if ((jwt = cupsOAuthGetUserId(OAuthServer, OAuthMetadata, authorization)) == NULL)
     {
-      cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to import JWT Bearer token: %s", cupsGetErrorString());
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to get user information from bearer token: %s", cupsGetErrorString());
       cupsCopyString(con->autherror, cupsGetErrorString(), sizeof(con->autherror));
-      return;
-    }
-    else if (!cupsJWTHasValidSignature(jwt, OAuthJWKS))
-    {
-      cupsdLogClient(con, CUPSD_LOG_ERROR, "JWT Bearer token signature is bad.");
-      cupsCopyString(con->autherror, "Invalid JWT signature.", sizeof(con->autherror));
-      cupsJWTDelete(jwt);
-      return;
-    }
-    else if (cupsJWTGetClaimNumber(jwt, CUPS_JWT_EXP) < time(NULL))
-    {
-      cupsdLogClient(con, CUPSD_LOG_ERROR, "JWT Bearer token is expired.");
-      cupsCopyString(con->autherror, "Expired JWT.", sizeof(con->autherror));
-      cupsJWTDelete(jwt);
       return;
     }
     else if ((sub = cupsJWTGetClaimString(jwt, CUPS_JWT_SUB)) == NULL)
     {
-      cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing subject name in JWT Bearer token.");
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing subject name in user information.");
       cupsCopyString(con->autherror, "Missing subject name.", sizeof(con->autherror));
       cupsJWTDelete(jwt);
       return;
     }
 
     // Good JWT, grab information from it and return...
+    con->type         = CUPSD_AUTH_BEARER;
     con->autherror[0] = '\0';
     con->password[0]  = '\0';
 
