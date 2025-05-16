@@ -2112,7 +2112,7 @@ oauth_save_value(
   if (value)
   {
     // Create the file...
-    if ((fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC | O_NOFOLLOW, 0600)) >= 0)
+    if ((fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC | O_NOFOLLOW, modes[otype])) >= 0)
     {
       // Write the value and close...
       write(fd, value, strlen(value));
