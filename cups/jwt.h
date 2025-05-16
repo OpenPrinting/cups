@@ -1,7 +1,7 @@
 //
 // JSON Web Token API definitions for CUPS.
 //
-// Copyright © 2023-2024 by OpenPrinting.
+// Copyright © 2023-2025 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -79,7 +79,7 @@ extern cups_jwt_t	*cupsJWTImportString(const char *s, cups_jws_format_t format) 
 extern cups_json_t	*cupsJWTLoadCredentials(const char *path, const char *common_name) _CUPS_PUBLIC;
 extern cups_json_t	*cupsJWTMakePrivateKey(cups_jwa_t alg) _CUPS_PUBLIC;
 extern cups_json_t	*cupsJWTMakePublicKey(cups_json_t *jwk) _CUPS_PUBLIC;
-extern cups_jwt_t	*cupsJWTNew(const char *type) _CUPS_PUBLIC;
+extern cups_jwt_t	*cupsJWTNew(const char *type, cups_json_t *claims) _CUPS_PUBLIC;
 extern void		cupsJWTSetClaimNumber(cups_jwt_t *jwt, const char *claim, double value) _CUPS_PUBLIC;
 extern void		cupsJWTSetClaimString(cups_jwt_t *jwt, const char *claim, const char *value) _CUPS_PUBLIC;
 extern void		cupsJWTSetClaimValue(cups_jwt_t *jwt, const char *claim, cups_json_t *value) _CUPS_PUBLIC;

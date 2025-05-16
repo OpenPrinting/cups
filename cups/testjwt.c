@@ -99,8 +99,8 @@ main(int  argc,				// I - Number of command-line arguments
       }*/
     };
 
-    testBegin("cupsJWTNew(NULL)");
-    jwt = cupsJWTNew(NULL);
+    testBegin("cupsJWTNew(NULL, NULL)");
+    jwt = cupsJWTNew(NULL, NULL);
     testEnd(jwt != NULL);
 
     testBegin("cupsJWTSetClaimNumber(CUPS_JWT_IAT)");
@@ -302,8 +302,8 @@ main(int  argc,				// I - Number of command-line arguments
 	testMessage("jwk=\"%s\"", s);
 	free(s);
 
-	testBegin("cupsJWTNew(NULL)");
-	jwt = cupsJWTNew(NULL);
+	testBegin("cupsJWTNew(NULL, NULL)");
+	jwt = cupsJWTNew(NULL, NULL);
 	testEnd(jwt != NULL);
 
 	testBegin("cupsJWTSetClaimNumber(CUPS_JWT_IAT)");
@@ -346,8 +346,8 @@ main(int  argc,				// I - Number of command-line arguments
 	testMessage("jwk=\"%s\"", s);
 	free(s);
 
-	testBegin("cupsJWTNew(NULL)");
-	jwt = cupsJWTNew(NULL);
+	testBegin("cupsJWTNew(NULL, NULL)");
+	jwt = cupsJWTNew(NULL, NULL);
 	testEnd(jwt != NULL);
 
 	testBegin("cupsJWTSetClaimNumber(CUPS_JWT_IAT)");

@@ -1264,7 +1264,8 @@ cupsJWTMakePublicKey(cups_json_t *jwk)	// I - Private JSON Web Key
 //
 
 cups_jwt_t *				// O - JWT object
-cupsJWTNew(const char *type)		// I - JWT type or `NULL` for default ("JWT")
+cupsJWTNew(const char  *type,		// I - JWT type or `NULL` for default ("JWT")
+           cups_json_t *claims)		// I - JSON claims or `NULL` for empty
 {
   cups_jwt_t	*jwt;			// JWT object
 
@@ -1275,7 +1276,12 @@ cupsJWTNew(const char *type)		// I - JWT type or `NULL` for default ("JWT")
     {
       cupsJSONNewString(jwt->jose, cupsJSONNewKey(jwt->jose, NULL, "typ"), type ? type : "JWT");
 
-      if ((jwt->claims = cupsJSONNew(NULL, NULL, CUPS_JTYPE_OBJECT)) != NULL)
+      if (claims)
+        jwt->claims = claims;
+      else
+        jwt->claims = cupsJSONNew(NULL, NULL, CUPS_JTYPE_OBJECT);
+
+      if (jwt->claims)
         return (jwt);
     }
   }
