@@ -119,6 +119,8 @@ do_login(void)
     goto done;
   }
 
+  fprintf(stderr, "DEBUG2: do_login: oauth_uri=\"%s\"\n", oauth_uri);
+
   // Get the redirect URL...
   if (!strcmp(server_name, "localhost"))
     snprintf(redirect_uri, sizeof(redirect_uri), "http://127.0.0.1:%s/", server_port);
@@ -181,7 +183,7 @@ do_logout(void)
   cgiSetCookie("CUPS_BEARER", "", /*path*/NULL, /*domain*/NULL, time(NULL) - 1, /*secure*/0);
 
   // Redirect back to the referrer...
-  do_redirect(getenv("HTTP_REFERER"));
+  do_redirect("/");
 }
 
 
