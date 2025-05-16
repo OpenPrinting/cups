@@ -173,6 +173,8 @@ DllMain(HINSTANCE hinst,		/* I - DLL module handle */
 static _cups_globals_t *		/* O - Pointer to global data */
 cups_globals_alloc(void)
 {
+  const char	*cups_userconfig = getenv("CUPS_USERCONFIG");
+					/* Location of user config files */
   _cups_globals_t *cg = calloc(1, sizeof(_cups_globals_t));
 					/* Pointer to global data */
 
@@ -267,26 +269,31 @@ cups_globals_alloc(void)
   if ((cg->localedir = getenv("LOCALEDIR")) == NULL)
     cg->localedir = localedir;
 
-  if (!userconfig[0])
+  if (cups_userconfig)
   {
-    const char	*userprofile = getenv("USERPROFILE");
-				// User profile (home) directory
-    char	*userptr;	// Pointer into userconfig
-
-    DEBUG_printf("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile);
-
-    snprintf(userconfig, sizeof(userconfig), "%s/AppData/Local/cups", userprofile);
-    for (userptr = userconfig; *userptr; userptr ++)
+    // Use CUPS_USERCONFIG environment variable...
+    cg->userconfig = cups_userconfig;
+  }
+  else
+  {
+    // Use the USERPROFILE environment variable to find the user configuration directory...
+    if (!userconfig[0])
     {
-      // Convert back slashes to forward slashes
-      if (*userptr == '\\')
-        *userptr = '/';
+      const char	*userprofile = getenv("USERPROFILE");
+				// User profile (home) directory
+      char	*userptr;	// Pointer into userconfig
+
+      snprintf(userconfig, sizeof(userconfig), "%s/AppData/Local/cups", userprofile);
+      for (userptr = userconfig; *userptr; userptr ++)
+      {
+	// Convert back slashes to forward slashes
+	if (*userptr == '\\')
+	  *userptr = '/';
+      }
     }
 
-    DEBUG_printf("cups_globals_alloc: userconfig=\"%s\"", userconfig);
+    cg->userconfig = userconfig;
   }
-
-  cg->userconfig = userconfig;
 
 #else
   const char	*home = getenv("HOME");	// HOME environment variable
@@ -315,6 +322,8 @@ cups_globals_alloc(void)
     cg->sysconfig       = CUPS_SERVERROOT;
     cg->cups_statedir   = CUPS_STATEDIR;
     cg->localedir       = CUPS_LOCALEDIR;
+
+    cups_userconfig = NULL;
   }
   else
   {
@@ -328,8 +337,11 @@ cups_globals_alloc(void)
     if ((cg->cups_serverbin = getenv("CUPS_SERVERBIN")) == NULL)
       cg->cups_serverbin = CUPS_SERVERBIN;
 
-    if ((cg->sysconfig = getenv("CUPS_SERVERROOT")) == NULL)
-      cg->sysconfig = CUPS_SERVERROOT;
+    if ((cg->sysconfig = getenv("CUPS_SYSCONFIG")) == NULL)
+    {
+      if ((cg->sysconfig = getenv("CUPS_SERVERROOT")) == NULL)
+	cg->sysconfig = CUPS_SERVERROOT;
+    }
 
     if ((cg->cups_statedir = getenv("CUPS_STATEDIR")) == NULL)
       cg->cups_statedir = CUPS_STATEDIR;
@@ -344,13 +356,19 @@ cups_globals_alloc(void)
     cg->userconfig = strdup(cg->sysconfig);
     return (cg);
   }
+  else if (cups_userconfig)
+  {
+    // Use the value of the CUPS_USERCONFIG environment variable...
+    cg->userconfig = strdup(cups_userconfig);
+    return (cg);
+  }
 
+  // Find the user configuration directory relative to the home directory...
 #  ifdef __APPLE__
   if (!home)
 #else
   if (!home && !xdg_config_home)
 #  endif // __APPLE__
-  if (!home)
   {
     struct passwd	pw;		/* User info */
     struct passwd	*result;	/* Auxiliary pointer */
