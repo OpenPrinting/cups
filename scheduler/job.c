@@ -3939,7 +3939,9 @@ get_options(cupsd_job_t *job,		/* I - Job */
 
   if (newlength > optlength || !options)
   {
-    if (!options)
+    if (newlength == 0)
+      optptr = NULL;
+    else if (!options)
       optptr = malloc(newlength);
     else
       optptr = realloc(options, newlength);
