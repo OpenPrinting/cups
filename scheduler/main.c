@@ -432,7 +432,7 @@ main(int  argc,				/* I - Number of command-line args */
       * might be sent by the init script to restart the scheduler...
       */
 
-      for (; parent_signal == 0;)
+      while (parent_signal == 0)
         sleep(1);
 
       if (parent_signal == SIGUSR1)
