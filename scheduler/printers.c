@@ -4296,8 +4296,15 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       * media-default
       */
 
-      if ((size = ppdPageSize(ppd, NULL)) != NULL)
-        pwgsize = _ppdCacheGetSize(p->pc, size->name);
+      if ((size = ppdPageSize(ppd, NULL)) != NULL) {
+        if ((pwgsize = _ppdCacheGetSize(p->pc, size->name)) == NULL) {
+         pwg_media_t *pwg_media;
+          if ((pwg_media = pwgMediaForSize(PWG_FROM_POINTS(size->width), PWG_FROM_POINTS(size->length))) != NULL) {
+            pwgsize = malloc(sizeof(pwg_size_t));
+            pwgsize->map.pwg =  pwg_media->pwg;
+          }
+        }
+      }
       else
         pwgsize = NULL;
 
