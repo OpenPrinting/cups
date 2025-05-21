@@ -1,7 +1,7 @@
 /*
  * HTTP routines for CUPS.
  *
- * Copyright © 2022-2024 by OpenPrinting.
+ * Copyright © 2022-2025 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -4808,8 +4808,7 @@ http_write(http_t     *http,		/* I - HTTP connection */
 
         http->error = WSAGetLastError();
       }
-      else if (WSAGetLastError() != http->error &&
-               WSAGetLastError() != WSAECONNRESET)
+      else if (WSAGetLastError() != http->error)
       {
         http->error = WSAGetLastError();
 	continue;
@@ -4827,7 +4826,7 @@ http_write(http_t     *http,		/* I - HTTP connection */
 
         http->error = errno;
       }
-      else if (errno != http->error && errno != ECONNRESET)
+      else if (errno != http->error)
       {
         http->error = errno;
 	continue;
