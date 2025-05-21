@@ -4702,7 +4702,7 @@ http_write(http_t     *http,		// I - HTTP connection
 
         http->error = WSAGetLastError();
       }
-      else if (WSAGetLastError() != http->error && WSAGetLastError() != WSAECONNRESET)
+      else if (WSAGetLastError() != http->error)
       {
         http->error = WSAGetLastError();
 	continue;
@@ -4722,7 +4722,7 @@ http_write(http_t     *http,		// I - HTTP connection
 
         http->error = errno;
       }
-      else if (errno != http->error && errno != ECONNRESET)
+      else if (errno != http->error)
       {
         http->error = errno;
 	continue;
