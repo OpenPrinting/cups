@@ -24,286 +24,292 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-05-24 10:03+0000\n"
+"Last-Translator: peter cerny <posli.to.semka@gmail.com>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/cups/cups/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: systemv/lpstat.c:1902 systemv/lpstat.c:2021
 msgid "\t\t(all)"
-msgstr ""
+msgstr "\t\t(všetko)"
 
 #: systemv/lpstat.c:1905 systemv/lpstat.c:1908 systemv/lpstat.c:2024
 #: systemv/lpstat.c:2027
 msgid "\t\t(none)"
-msgstr ""
+msgstr "\t\t(žiadne)"
 
 #: berkeley/lpc.c:442
 #, c-format
 msgid "\t%d entries"
-msgstr ""
+msgstr "\t%d záznamov"
 
 #: systemv/lpstat.c:816 systemv/lpstat.c:832
 #, c-format
 msgid "\t%s"
-msgstr ""
+msgstr "\t%s"
 
 #: systemv/lpstat.c:1883 systemv/lpstat.c:2002
 msgid "\tAfter fault: continue"
-msgstr ""
+msgstr "\tPo chybe: pokračovať"
 
 #: systemv/lpstat.c:1516 systemv/lpstat.c:1856 systemv/lpstat.c:1976
 #, c-format
 msgid "\tAlerts: %s"
-msgstr ""
+msgstr "\tUpozornenia: %s"
 
 #: systemv/lpstat.c:1906 systemv/lpstat.c:2025
 msgid "\tBanner required"
-msgstr ""
+msgstr "\tBanner povinný"
 
 #: systemv/lpstat.c:1907 systemv/lpstat.c:2026
 msgid "\tCharset sets:"
-msgstr ""
+msgstr "\tSady znakov:"
 
 #: systemv/lpstat.c:1875 systemv/lpstat.c:1994
 msgid "\tConnection: direct"
-msgstr ""
+msgstr "\tPripojenie: priame"
 
 #: systemv/lpstat.c:1866 systemv/lpstat.c:1986
 msgid "\tConnection: remote"
-msgstr ""
+msgstr "\tPripojenie: vzdialené"
 
 #: systemv/lpstat.c:1832 systemv/lpstat.c:1952
+#, fuzzy
 msgid "\tContent types: any"
-msgstr ""
+msgstr "\tTypy obsahu: všetky"
 
 #: systemv/lpstat.c:1910 systemv/lpstat.c:2029
+#, fuzzy
 msgid "\tDefault page size:"
-msgstr ""
+msgstr "\tPredvolená veľkosť stránky:"
 
 #: systemv/lpstat.c:1909 systemv/lpstat.c:2028
 msgid "\tDefault pitch:"
-msgstr ""
+msgstr "\tPredvolená úroveň:"
 
 #: systemv/lpstat.c:1911 systemv/lpstat.c:2030
 msgid "\tDefault port settings:"
-msgstr ""
+msgstr "\tPredvolené nastavenia portu:"
 
 #: systemv/lpstat.c:1838 systemv/lpstat.c:1958
-#, c-format
+#, c-format, fuzzy
 msgid "\tDescription: %s"
-msgstr ""
+msgstr "\tPopis: %s"
 
 #: systemv/lpstat.c:1831 systemv/lpstat.c:1951
 msgid "\tForm mounted:"
-msgstr ""
+msgstr "\tPripojený formulár:"
 
 #: systemv/lpstat.c:1904 systemv/lpstat.c:2023
 msgid "\tForms allowed:"
-msgstr ""
+msgstr "\tPovolené fomuláre:"
 
 #: systemv/lpstat.c:1870 systemv/lpstat.c:1990
 #, c-format
 msgid "\tInterface: %s.ppd"
-msgstr ""
+msgstr "\tRozhranie: %s.ppd"
 
 #: systemv/lpstat.c:1879 systemv/lpstat.c:1998
-#, c-format
+#, c-format, fuzzy
 msgid "\tInterface: %s/ppd/%s.ppd"
-msgstr ""
+msgstr "\tRozhranie: %s/ppd/%s.ppd"
 
 #: systemv/lpstat.c:1861 systemv/lpstat.c:1981
 #, c-format
 msgid "\tLocation: %s"
-msgstr ""
+msgstr "\tPoloha: %s"
 
 #: systemv/lpstat.c:1882 systemv/lpstat.c:2001
 msgid "\tOn fault: no alert"
-msgstr ""
+msgstr "\tPri chybe: žiadne upozornenie"
 
 #: systemv/lpstat.c:1833 systemv/lpstat.c:1953
 msgid "\tPrinter types: unknown"
-msgstr ""
+msgstr "\tTypy tlačiarne: neznáme"
 
 #: systemv/lpstat.c:1499
 #, c-format
 msgid "\tStatus: %s"
-msgstr ""
+msgstr "\tStav: %s"
 
 #: systemv/lpstat.c:1887 systemv/lpstat.c:1901 systemv/lpstat.c:2006
 #: systemv/lpstat.c:2020
 msgid "\tUsers allowed:"
-msgstr ""
+msgstr "\tPovolení používatelia:"
 
 #: systemv/lpstat.c:1894 systemv/lpstat.c:2013
 msgid "\tUsers denied:"
-msgstr ""
+msgstr "\tOdmietnutí používatelia:"
 
 #: berkeley/lpc.c:444
 msgid "\tdaemon present"
-msgstr ""
+msgstr "\tdémon prítomný"
 
 #: berkeley/lpc.c:440
 msgid "\tno entries"
-msgstr ""
+msgstr "\tžiadne záznamy"
 
 #: berkeley/lpc.c:412 berkeley/lpc.c:424
 #, c-format
 msgid "\tprinter is on device '%s' speed -1"
-msgstr ""
+msgstr "\ttlačiareň je na zariadení '%s' rýchlosť -1"
 
 #: berkeley/lpc.c:437
 msgid "\tprinting is disabled"
-msgstr ""
+msgstr "\ttlač je zakázaná"
 
 #: berkeley/lpc.c:435
 msgid "\tprinting is enabled"
-msgstr ""
+msgstr "\ttlač je povolená"
 
 #: systemv/lpstat.c:1519
 #, c-format
 msgid "\tqueued for %s"
-msgstr ""
+msgstr "\tv zozname pre %s"
 
 #: berkeley/lpc.c:432
 msgid "\tqueuing is disabled"
-msgstr ""
+msgstr "\tradenie do zoznamu je zakázané"
 
 #: berkeley/lpc.c:430
 msgid "\tqueuing is enabled"
-msgstr ""
+msgstr "\tradenie do zoznamu je povolené"
 
 #: systemv/lpstat.c:1826 systemv/lpstat.c:1946
 msgid "\treason unknown"
-msgstr ""
+msgstr "\tdôvod neznámy"
 
 #: systemv/cupstestppd.c:431
 msgid ""
 "\n"
 "    DETAILED CONFORMANCE TEST RESULTS"
 msgstr ""
+"\n"
+"    PODROBNÉ VÝSLEDKY TESTU ZHODY"
 
 #: systemv/cupstestppd.c:387 systemv/cupstestppd.c:392
 msgid "                REF: Page 15, section 3.1."
-msgstr ""
+msgstr "                Odkaz: Strana 15, sekcia 3.1."
 
 #: systemv/cupstestppd.c:382
 msgid "                REF: Page 15, section 3.2."
-msgstr ""
+msgstr "                Odkaz: Strana 15, sekcia 3.2."
 
 #: systemv/cupstestppd.c:402
 msgid "                REF: Page 19, section 3.3."
-msgstr ""
+msgstr "                Odkaz: Strana 19, sekcia 3.3."
 
 #: systemv/cupstestppd.c:355
 msgid "                REF: Page 20, section 3.4."
-msgstr ""
+msgstr "                Odkaz: Strana 20, sekcia 3.4."
 
 #: systemv/cupstestppd.c:407
 msgid "                REF: Page 27, section 3.5."
-msgstr ""
+msgstr "                Odkaz: Strana 27, sekcia 3.5."
 
 #: systemv/cupstestppd.c:350
 msgid "                REF: Page 42, section 5.2."
-msgstr ""
+msgstr "                Odkaz: Strana 42, sekcia 5.2."
 
 #: systemv/cupstestppd.c:397
 msgid "                REF: Pages 16-17, section 3.2."
-msgstr ""
+msgstr "                Odkaz: Strany 16-17, sekcia 3.2."
 
 #: systemv/cupstestppd.c:367
 msgid "                REF: Pages 42-45, section 5.2."
-msgstr ""
+msgstr "                Odkaz: Strany 42-45, sekcia 5.2."
 
 #: systemv/cupstestppd.c:361
 msgid "                REF: Pages 45-46, section 5.2."
-msgstr ""
+msgstr "                Odkaz: Strany 45-46, sekcia 5.2."
 
 #: systemv/cupstestppd.c:372
 msgid "                REF: Pages 48-49, section 5.2."
-msgstr ""
+msgstr "                Odkaz: Strany 48-49, sekcia 5.2."
 
 #: systemv/cupstestppd.c:377
 msgid "                REF: Pages 52-54, section 5.2."
-msgstr ""
+msgstr "                Odkaz: Strany 52-54, sekcia 5.2."
 
 #: berkeley/lpq.c:530
 #, c-format
 msgid "        %-39.39s %.0f bytes"
-msgstr ""
+msgstr "        %-39.39s %.0f bajtov"
 
 #: systemv/cupstestppd.c:566
 #, c-format
 msgid "        PASS    Default%s"
-msgstr ""
+msgstr "        POVOLIŤ Predvolené%s"
 
 #: systemv/cupstestppd.c:501
 msgid "        PASS    DefaultImageableArea"
-msgstr ""
+msgstr "        POVOLIŤ Predvolená zobrazovateľná oblasť"
 
 #: systemv/cupstestppd.c:535
 msgid "        PASS    DefaultPaperDimension"
-msgstr ""
+msgstr "        POVOLIŤ Predvolený rozmer papiera"
 
 #: systemv/cupstestppd.c:608
 msgid "        PASS    FileVersion"
-msgstr ""
+msgstr "        POVOLIŤ Verzia súboru"
 
 #: systemv/cupstestppd.c:652
 msgid "        PASS    FormatVersion"
-msgstr ""
+msgstr "        POVOLIŤ Verzia formátu"
 
 #: systemv/cupstestppd.c:672
 msgid "        PASS    LanguageEncoding"
-msgstr ""
+msgstr "        POVOLIŤ Kódovanie jazyka"
 
 #: systemv/cupstestppd.c:692
 msgid "        PASS    LanguageVersion"
-msgstr ""
+msgstr "        POVOLIŤ Verzia jazyka"
 
 #: systemv/cupstestppd.c:746
 msgid "        PASS    Manufacturer"
-msgstr ""
+msgstr "        POVOLIŤ Výrobca"
 
 #: systemv/cupstestppd.c:786
 msgid "        PASS    ModelName"
-msgstr ""
+msgstr "        POVOLIŤ Názov modelu"
 
 #: systemv/cupstestppd.c:806
 msgid "        PASS    NickName"
-msgstr ""
+msgstr "        POVOLIŤ Prezývka"
 
 #: systemv/cupstestppd.c:866
 msgid "        PASS    PCFileName"
-msgstr ""
+msgstr "        POVOLIŤ Názov súboru PC"
 
 #: systemv/cupstestppd.c:941
 msgid "        PASS    PSVersion"
-msgstr ""
+msgstr "        POVOLIŤ Verzia PS"
 
 #: systemv/cupstestppd.c:846
 msgid "        PASS    PageRegion"
-msgstr ""
+msgstr "        POVOLIŤ Oblasť strany"
 
 #: systemv/cupstestppd.c:826
 msgid "        PASS    PageSize"
-msgstr ""
+msgstr "        POVOLIŤ Veľkosť strany"
 
 #: systemv/cupstestppd.c:901
 msgid "        PASS    Product"
-msgstr ""
+msgstr "        POVOLIŤ Produkt"
 
 #: systemv/cupstestppd.c:976
 msgid "        PASS    ShortNickName"
-msgstr ""
+msgstr "        POVOLIŤ Skrátená prezývka"
 
 #: systemv/cupstestppd.c:1351
 #, c-format
 msgid "        WARN    %s has no corresponding options."
-msgstr ""
+msgstr "        VAROVANIE %s nemá žiadne zodpovedajúce možnosti."
 
 #: systemv/cupstestppd.c:1463
 #, c-format
@@ -311,6 +317,8 @@ msgid ""
 "        WARN    %s shares a common prefix with %s\n"
 "                REF: Page 15, section 3.2."
 msgstr ""
+"        VAROVANIE %s zdieľa spoločnú predponu s %s\n"
+"ODKAZ: Strana 15, sekcia 3.2."
 
 #: systemv/cupstestppd.c:1322
 #, c-format
@@ -318,16 +326,22 @@ msgid ""
 "        WARN    Duplex option keyword %s may not work as expected and should be named Duplex.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
+"        VAROVANIE Voliteľné Duplex kľúčové slovo %s nemusí fungovať podľa "
+"očakávania a malo by byť pomenované Duplex.\n"
+"ODKAZ: Strana 122, sekcia 5.17"
 
 #: systemv/cupstestppd.c:1721
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
+"        VAROVANIE Súbor obsahuje zmes CR, LF a CR LF značiek koncov riadka."
 
 #: systemv/cupstestppd.c:1367
 msgid ""
 "        WARN    LanguageEncoding required by PPD 4.3 spec.\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
+"        VAROVANIE Kódovanie jazyka požadované PPD 4.3 špecifikáciou.\n"
+"ODKAZ: Strany 56-57, sekcia 5.3."
 
 #: systemv/cupstestppd.c:1703
 #, c-format
