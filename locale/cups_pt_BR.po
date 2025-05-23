@@ -23,15 +23,16 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2023-07-03 22:30-0400\n"
-"Last-Translator: Guilherme Gonzaga <guilhermgonzaga@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <traducao-cups-pt-br@googlegroups.com>\n"
+"PO-Revision-Date: 2025-05-24 10:03+0000\n"
+"Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
+"cups/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -48,35 +49,35 @@ msgid "\t%s"
 msgstr "\t%s"
 
 msgid "\tAfter fault: continue"
-msgstr "\tApós a falha: continuar"
+msgstr "\tApós identificar uma falha: continuar"
 
 #, c-format
 msgid "\tAlerts: %s"
 msgstr "\tAlertas: %s"
 
 msgid "\tBanner required"
-msgstr "\tBanner é necessário"
+msgstr "\tO ‘banner’ é necessário"
 
 msgid "\tCharset sets:"
-msgstr "\tDefinições de conjunto de caracteres:"
+msgstr "\tDefinições do conjunto de caracteres:"
 
 msgid "\tConnection: direct"
-msgstr "\tConexão: direta"
+msgstr "\tTipo da conexão: direta"
 
 msgid "\tConnection: remote"
-msgstr "\tConexão: remota"
+msgstr "\tTipo da conexão: remota"
 
 msgid "\tContent types: any"
-msgstr "\tTipos de conteúdos: qualquer"
+msgstr "\tTipo do conteúdo: qualquer um"
 
 msgid "\tDefault page size:"
-msgstr "\tTamanho de página padrão:"
+msgstr "\tTamanho da página padrão:"
 
 msgid "\tDefault pitch:"
-msgstr "\tPitch padrão:"
+msgstr "\tPasso padrão:"
 
 msgid "\tDefault port settings:"
-msgstr "\tConfiguração de porta padrão:"
+msgstr "\tConfigurações da porta padrão:"
 
 #, c-format
 msgid "\tDescription: %s"
@@ -101,7 +102,7 @@ msgid "\tLocation: %s"
 msgstr "\tLocalização: %s"
 
 msgid "\tOn fault: no alert"
-msgstr "\tCaso de falha: nenhum alerta"
+msgstr "\tEm caso de falha: não exibir os alertas"
 
 msgid "\tPrinter types: unknown"
 msgstr "\tTipos de impressoras: desconhecido"
@@ -117,33 +118,33 @@ msgid "\tUsers denied:"
 msgstr "\tUsuários proibidos:"
 
 msgid "\tdaemon present"
-msgstr "\tdaemon presente"
+msgstr "\tO ‘daemon’ (serviço) presente"
 
 msgid "\tno entries"
 msgstr "\tnenhum registro"
 
 #, c-format
 msgid "\tprinter is on device '%s' speed -1"
-msgstr "\timpressora está na velocidade -1 do dispositivo \"%s\""
+msgstr "\ta impressora está na velocidade -1 do dispositivo ‘%s’"
 
 msgid "\tprinting is disabled"
-msgstr "\timpressão está desabilitada"
+msgstr "\ta impressão está desativada"
 
 msgid "\tprinting is enabled"
-msgstr "\timpressão está habilitada"
+msgstr "\ta impressão está ativada"
 
 #, c-format
 msgid "\tqueued for %s"
 msgstr "\tna fila de %s"
 
 msgid "\tqueuing is disabled"
-msgstr "\tenfileiramento está desabilitado"
+msgstr "\to enfileiramento está desativado"
 
 msgid "\tqueuing is enabled"
-msgstr "\tenfileiramento está habilitado"
+msgstr "\to enfileiramento está ativado"
 
 msgid "\treason unknown"
-msgstr "\tmotivo desconhecido"
+msgstr "\tpor um motivo desconhecido"
 
 msgid ""
 "\n"
@@ -191,7 +192,7 @@ msgstr "        %-39.39s %.0f bytes"
 
 #, c-format
 msgid "        PASS    Default%s"
-msgstr "        PASSOU  Default%s"
+msgstr "        PASSOU  Default %s"
 
 msgid "        PASS    DefaultImageableArea"
 msgstr "        PASSOU  DefaultImageableArea"
@@ -240,7 +241,7 @@ msgstr "        PASSOU  ShortNickName"
 
 #, c-format
 msgid "        WARN    %s has no corresponding options."
-msgstr "        AVISO   %s não possui opções correspondentes."
+msgstr "        AVISO   %s não possui as opções correspondentes."
 
 #, c-format
 msgid ""
@@ -256,53 +257,55 @@ msgid ""
 "be named Duplex.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
-"        AVISO   A opção Duplex de palavra-chave %s pode não funcionar como "
-"esperado e deve ser renomeada para Duplex.\n"
+"        AVISO   A opção da palavra-chave ‘Duplex %s’ pode não funcionar como "
+"esperado e deve ser renomeada para ‘Duplex’.\n"
 "                REF: Página 122, seção 5.17"
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
-"        AVISO   Arquivo contém fim das linhas com uma mistura de CR, LF e CR "
-"LF."
+"        AVISO   O arquivo contém no fim das linhas uma mistura dos formatos "
+"CR, LF e CR LF."
 
 msgid ""
 "        WARN    LanguageEncoding required by PPD 4.3 spec.\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
-"        AVISO   LanguageEncoding é necessário pela especificação PPD 4.3.\n"
+"        AVISO   A codificação do idioma (LanguageEncoding) é necessária pela "
+"especificação do PPD 4.3.\n"
 "                REF: Páginas 56-57, seção 5.3."
 
 #, c-format
 msgid "        WARN    Line %d only contains whitespace."
-msgstr "        AVISO   Linha %d contém somente espaço em branco."
+msgstr "        AVISO   A linha %d contém somente espaços em branco."
 
 msgid ""
 "        WARN    Manufacturer required by PPD 4.3 spec.\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
-"        AVISO   Fabricante é necessário pela especificação PPD 4.3.\n"
+"        AVISO   O fabricante é necessário pela especificação do PPD 4.3.\n"
 "                REF: Páginas 58-59, seção 5.3."
 
 msgid ""
 "        WARN    Non-Windows PPD files should use lines ending with only LF, "
 "not CR LF."
 msgstr ""
-"        AVISO   Arquivos PPD de sistemas não-Windows deveriam usar fim de "
-"linhas somente com LR, e não CR LF."
+"        AVISO   Os arquivos PPD dos sistemas operacionais que não são da "
+"família Windows deveriam utilizar o fim da linha somente com formato LR e "
+"não o CR LF."
 
 #, c-format
 msgid ""
 "        WARN    Obsolete PPD version %.1f.\n"
 "                REF: Page 42, section 5.2."
 msgstr ""
-"        AVISO   PPD versão %.1f está obsoleto.\n"
+"        AVISO   O arquivo PPD da versão %.1f está obsoleto.\n"
 "                REF: Página 42, seção 5.2."
 
 msgid ""
 "        WARN    PCFileName longer than 8.3 in violation of PPD spec.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
-"        AVISO   PCFileName maior que 8.3 em violação com especificação PPD.\n"
+"        AVISO   O PCFileName maior que 8.3 viola a especificação do PPD.\n"
 "                REF: Páginas 61-62, seção 5.3."
 
 msgid ""
