@@ -1,16 +1,12 @@
 /*
  * PPD test program for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #undef _CUPS_NO_DEPRECATED
@@ -1208,6 +1204,7 @@ main(int  argc,				/* I - Number of command-line arguments */
       ppd_option_t	*option;	/* Option */
       ppd_coption_t	*coption;	/* Custom option */
       ppd_cparam_t	*cparam;	/* Custom parameter */
+      ppd_size_t	*size;		/* Default paper size */
       ppd_const_t	*c;		/* UIConstraints */
       char		lang[255],	/* LANG environment variable */
 			lc_all[255],	/* LC_ALL environment variable */
@@ -1359,11 +1356,22 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       puts("\nPPD Cache:");
       if ((pc = _ppdCacheCreateWithPPD(ppd)) == NULL)
+      {
         printf("    Unable to create: %s\n", cupsLastErrorString());
+      }
       else
       {
         _ppdCacheWriteFile(pc, "t.cache", NULL);
         puts("    Wrote t.cache.");
+      }
+
+      if ((size = ppdPageSize(ppd, NULL)) != NULL)
+      {
+        pwg_size_t	*pwg;		/* PWG media size */
+
+	pwg = _ppdCacheGetSize(pc, size->name, size);
+
+        printf("    media-default: %s\n", pwg ? pwg->map.pwg : "unknown");
       }
     }
 

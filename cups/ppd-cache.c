@@ -210,7 +210,7 @@ _cupsConvertOptions(
 
   media_source = _ppdCacheGetSource(pc, cupsGetOption("InputSlot", num_options, options));
   media_type   = _ppdCacheGetType(pc, cupsGetOption("MediaType", num_options, options));
-  size         = _ppdCacheGetSize(pc, keyword);
+  size         = _ppdCacheGetSize(pc, keyword, /*ppd_size*/NULL);
 
   if (media_col_sup && (size || media_source || media_type))
   {
@@ -2767,7 +2767,8 @@ _ppdCacheGetPageSize(
 pwg_size_t *				/* O - PWG size or NULL */
 _ppdCacheGetSize(
     _ppd_cache_t *pc,			/* I - PPD cache and mapping data */
-    const char   *page_size)		/* I - PPD PageSize */
+    const char   *page_size,		/* I - PPD PageSize */
+    ppd_size_t   *ppd_size)		/* I - PPD page size information */
 {
   int		i;			/* Looping var */
   pwg_media_t	*media;			/* Media */
@@ -2781,7 +2782,7 @@ _ppdCacheGetSize(
   if (!pc || !page_size)
     return (NULL);
 
-  if (!_cups_strncasecmp(page_size, "Custom.", 7))
+  if (!_cups_strcasecmp(page_size, "Custom") || !_cups_strncasecmp(page_size, "Custom.", 7))
   {
    /*
     * Custom size; size name can be one of the following:
@@ -2798,48 +2799,65 @@ _ppdCacheGetSize(
     char		*ptr;		/* Pointer into PageSize */
     struct lconv	*loc;		/* Locale data */
 
-    loc = localeconv();
-    w   = (float)_cupsStrScand(page_size + 7, &ptr, loc);
-    if (!ptr || *ptr != 'x')
-      return (NULL);
+    if (page_size[6])
+    {
+      loc = localeconv();
+      w   = (float)_cupsStrScand(page_size + 7, &ptr, loc);
+      if (!ptr || *ptr != 'x')
+	return (NULL);
 
-    l = (float)_cupsStrScand(ptr + 1, &ptr, loc);
-    if (!ptr)
-      return (NULL);
+      l = (float)_cupsStrScand(ptr + 1, &ptr, loc);
+      if (!ptr)
+	return (NULL);
 
-    if (!_cups_strcasecmp(ptr, "in"))
-    {
-      w *= 2540.0;
-      l *= 2540.0;
+      if (!_cups_strcasecmp(ptr, "in"))
+      {
+	w *= 2540.0;
+	l *= 2540.0;
+      }
+      else if (!_cups_strcasecmp(ptr, "ft"))
+      {
+	w *= 12.0 * 2540.0;
+	l *= 12.0 * 2540.0;
+      }
+      else if (!_cups_strcasecmp(ptr, "mm"))
+      {
+	w *= 100.0;
+	l *= 100.0;
+      }
+      else if (!_cups_strcasecmp(ptr, "cm"))
+      {
+	w *= 1000.0;
+	l *= 1000.0;
+      }
+      else if (!_cups_strcasecmp(ptr, "m"))
+      {
+	w *= 100000.0;
+	l *= 100000.0;
+      }
+      else
+      {
+	w *= 2540.0 / 72.0;
+	l *= 2540.0 / 72.0;
+      }
     }
-    else if (!_cups_strcasecmp(ptr, "ft"))
+    else if (ppd_size)
     {
-      w *= 12.0 * 2540.0;
-      l *= 12.0 * 2540.0;
-    }
-    else if (!_cups_strcasecmp(ptr, "mm"))
-    {
-      w *= 100.0;
-      l *= 100.0;
-    }
-    else if (!_cups_strcasecmp(ptr, "cm"))
-    {
-      w *= 1000.0;
-      l *= 1000.0;
-    }
-    else if (!_cups_strcasecmp(ptr, "m"))
-    {
-      w *= 100000.0;
-      l *= 100000.0;
+      w = ppd_size->width * 2540.0 / 72.0;
+      l = ppd_size->length * 2540.0 / 72.0;
     }
     else
     {
-      w *= 2540.0 / 72.0;
-      l *= 2540.0 / 72.0;
+      // No custom size information...
+      return (NULL);
     }
 
-    pc->custom_size.width  = (int)w;
-    pc->custom_size.length = (int)l;
+    pc->custom_size.map.ppd = (char *)page_size;
+    pc->custom_size.width   = (int)w;
+    pc->custom_size.length  = (int)l;
+
+    if ((media = pwgMediaForSize((int)w, (int)l)) != NULL)
+      pc->custom_size.map.pwg = (char *)media->pwg;
 
     return (&(pc->custom_size));
   }
@@ -2849,22 +2867,28 @@ _ppdCacheGetSize(
   */
 
   for (i = pc->num_sizes, size = pc->sizes; i > 0; i --, size ++)
+  {
     if (!_cups_strcasecmp(page_size, size->map.ppd) ||
         !_cups_strcasecmp(page_size, size->map.pwg))
       return (size);
+  }
 
  /*
   * Look up standard sizes...
   */
 
   if ((media = pwgMediaForPPD(page_size)) == NULL)
+  {
     if ((media = pwgMediaForLegacy(page_size)) == NULL)
       media = pwgMediaForPWG(page_size);
+  }
 
   if (media)
   {
-    pc->custom_size.width  = media->width;
-    pc->custom_size.length = media->length;
+    pc->custom_size.map.ppd = (char *)page_size;
+    pc->custom_size.map.pwg = (char *)media->pwg;
+    pc->custom_size.width   = media->width;
+    pc->custom_size.length  = media->length;
 
     return (&(pc->custom_size));
   }
