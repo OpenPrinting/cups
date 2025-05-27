@@ -158,7 +158,7 @@ extern const char	*_ppdCacheGetInputSlot(_ppd_cache_t *pc, ipp_t *job, const cha
 extern const char	*_ppdCacheGetMediaType(_ppd_cache_t *pc, ipp_t *job, const char *keyword) _CUPS_PRIVATE;
 extern const char	*_ppdCacheGetOutputBin(_ppd_cache_t *pc, const char *keyword) _CUPS_PRIVATE;
 extern const char	*_ppdCacheGetPageSize(_ppd_cache_t *pc, ipp_t *job, const char *keyword, int *exact) _CUPS_PRIVATE;
-extern pwg_size_t	*_ppdCacheGetSize(_ppd_cache_t *pc, const char *page_size) _CUPS_PRIVATE;
+extern pwg_size_t	*_ppdCacheGetSize(_ppd_cache_t *pc, const char *page_size, ppd_size_t *ppd_size) _CUPS_PRIVATE;
 extern const char	*_ppdCacheGetSource(_ppd_cache_t *pc, const char *input_slot) _CUPS_PRIVATE;
 extern const char	*_ppdCacheGetType(_ppd_cache_t *pc, const char *media_type) _CUPS_PRIVATE;
 extern int		_ppdCacheWriteFile(_ppd_cache_t *pc, const char *filename, ipp_t *attrs) _CUPS_PRIVATE;

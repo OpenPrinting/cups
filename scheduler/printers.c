@@ -4297,7 +4297,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       */
 
       if ((size = ppdPageSize(ppd, NULL)) != NULL)
-        pwgsize = _ppdCacheGetSize(p->pc, size->name);
+	pwgsize = _ppdCacheGetSize(p->pc, size->name, size);
       else
         pwgsize = NULL;
 
