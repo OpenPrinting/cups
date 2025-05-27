@@ -165,9 +165,10 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
 	{
 	 /*
 	  * Insert the server name...
+	  * If it is NULL use "localhost" to avoid core dump.
 	  */
 
-	  cupsCopyString(ptr, ServerName, sizeof(filename) - (size_t)(ptr - filename));
+	  cupsCopyString(ptr, ServerName == 0 ? "localhost" : ServerName, sizeof(filename) - (size_t)(ptr - filename));
 	  ptr += strlen(ptr);
 	}
         else

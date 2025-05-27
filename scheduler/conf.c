@@ -984,6 +984,19 @@ cupsdReadConfiguration(void)
     }
   }
 
+  /*
+   * ServerName was updated.
+   * It is used to substitute '%s' in ErrorLog - see cups-files.conf(5)
+   * It is possible that ErrorFile points to e.g.
+   * /var/log/cups/localhost-error_log instead of /var/log/cups/<ServerName>-error_log
+   * We need to close and later re-open ErrorFile.
+   */
+  if (ErrorFile != NULL) {
+    if (ErrorFile != LogStderr)
+      cupsFileClose(ErrorFile);
+    ErrorFile = NULL;
+  }
+
   for (slash = ServerName; isdigit(*slash & 255) || *slash == '.'; slash ++);
 
   ServerNameIsIP = !*slash;
