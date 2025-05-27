@@ -153,11 +153,12 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
       strlcat(filename, "/", sizeof(filename));
     }
     else
+    {
       filename[0] = '\0';
+    }
 
-    for (logptr = logname, ptr = filename + strlen(filename);
-         *logptr && ptr < (filename + sizeof(filename) - 1);
-	 logptr ++)
+    for (logptr = logname, ptr = filename + strlen(filename); *logptr && ptr < (filename + sizeof(filename) - 1); logptr ++)
+    {
       if (*logptr == '%')
       {
        /*
@@ -171,7 +172,7 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
 	  * Insert the server name...
 	  */
 
-	  strlcpy(ptr, ServerName, sizeof(filename) - (size_t)(ptr - filename));
+	  strlcpy(ptr, ServerName ? ServerName : "localhost", sizeof(filename) - (size_t)(ptr - filename));
 	  ptr += strlen(ptr);
 	}
         else
@@ -184,7 +185,10 @@ cupsdCheckLogFile(cups_file_t **lf,	/* IO - Log file */
 	}
       }
       else
+      {
 	*ptr++ = *logptr;
+      }
+    }
 
     *ptr = '\0';
   }

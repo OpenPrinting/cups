@@ -947,6 +947,17 @@ cupsdReadConfiguration(void)
   ServerNameIsIP = !*slash;
 
  /*
+  * If the ErrorLog value contains "%s", close the current log file (if any)
+  * so that the proper ServerName value is used when logging.
+  */
+
+  if (ErrorLog && strstr(ErrorLog, "%s") && ErrorFile && ErrorFile != LogStderr)
+  {
+    cupsFileClose(ErrorFile);
+    ErrorFile = NULL;
+  }
+
+ /*
   * Make sure ServerAdmin is initialized...
   */
 
