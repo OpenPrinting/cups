@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-05-28 16:38+0000\n"
+"PO-Revision-Date: 2025-05-29 11:39+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -932,35 +932,43 @@ msgid "  -n COPIES               Set number of copies."
 msgstr "  -n CÓPIAS               Permite definir a quantidade de cópias."
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr "  -o NAME=VALUE           Definir opção(ões)."
+msgstr "  -o NAME=VALUE           Permite definir as opções."
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
 msgstr ""
-"  -o arquivo.drv          Define o arquivo de informações do "
-"driver                          (caso contrário, ppdi.drv)."
+"  -o arquivo.drv          Permite definir o arquivo de informações do "
+"controlador                           (driver), caso contrário, será "
+"utilizado o ppdi.drv."
 
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr ""
-"  -o arquivo.ppd[.gz]     Define arquivo de saída (caso contrário, stdout)."
+"  -o arquivo.ppd[.gz]     Permite definir o arquivo da saída, caso "
+"contrário, será o utilizado o stdout."
 
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr "  -p FILENAME.ppd         Definir arquivo PPD."
+msgstr "  -p FILENAME.ppd         Permite definir o arquivo do formato PPD."
 
 msgid "  -t                      Test PPDs instead of generating them."
-msgstr "  -t                      Testa PPDs ao invés de criá-los."
+msgstr ""
+"  -t                      Permite testar os arquivos PPDs ao invés de "
+"criá-los."
 
 msgid "  -t TITLE                Set title."
-msgstr "  -t TITLE                Defina o título ."
+msgstr "  -t TITLE                Permite definir o título ."
 
 msgid "  -u                      Remove the PPD file when finished."
-msgstr "  -u                      Remove o arquivo PPD ao final."
+msgstr ""
+"  -u                      Permite remover o arquivo do formato PPD quando "
+"terminar."
 
 msgid "  -v                      Be verbose."
-msgstr "  -v                      Modo detalhado."
+msgstr "  -v                      Permite ativar o modo detalhado."
 
 msgid "  -z                      Compress PPD files using GNU zip."
-msgstr "  -z                      Compacta arquivos PPD usando GNU zip."
+msgstr ""
+"  -z                      Permite compactar os arquivos PPD utilizando o "
+"pacote zip do GNU."
 
 msgid " FAIL"
 msgstr " FALHA"
@@ -973,116 +981,137 @@ msgstr "! expressão             NÃO unário da expressão"
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."
-msgstr "\"%s\": Valor URI inválido \"%s\" - %s (RFC 8011 seção 5.1.6)."
+msgstr ""
+"\"%s\": O valor do URI \"%s\" não é válido para o %s (RFC 8011 da seção "
+"5.1.6)."
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."
 msgstr ""
-"\"%s\": Valor URI inválido \"%s\" - comprimento inválido %d (RFC 8011 seção "
-"5.1.6)."
+"\"%s\": O valor do URI \"%s\" não é válido, o comprimento %d não é válido ("
+"RFC 8011 da seção 5.1.6)."
 
 #, c-format
 msgid "\"%s\": Bad attribute name - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
-"\"%s\": Nome de atributo inválido - comprimento inválido %d (RFC 8011 seção "
-"5.1.4)."
+"\"%s\": O nome do atributo não é válido, o comprimento %d não é válido (RFC "
+"8011 da seção 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad attribute name - invalid character (RFC 8011 section 5.1.4)."
 msgstr ""
-"\"%s\": Nome de atributo inválido - caractere inválido (RFC 8011 seção "
-"5.1.4)."
+"\"%s\": O nome do atributo não é válido devido a um caractere não ser válido "
+"(RFC 8011 da seção 5.1.4)."
 
 #, c-format
 msgid "\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."
-msgstr "\"%s\": Valor boolean inválido %d (RFC 8011 seção 5.1.21)."
+msgstr "\"%s\": O Valor booleano %d não é válido (RFC 8011 da seção 5.1.21)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."
 msgstr ""
-"\"%s\": Valor charset inválido \"%s\" - caracteres inválidos (RFC 8011 seção "
-"5.1.8)."
+"\"%s\": O valor do conjunto de caracteres \"%s\" não é válido, devido alguns "
+"caracteres não serem válidos (RFC 8011 da seção 5.1.8)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."
 msgstr ""
-"\"%s\": Valor charset inválido \"%s\" - comprimento inválido %d (RFC 8011 "
-"seção 5.1.8)."
+"\"%s\": O valor do conjunto de caracteres \"%s\" não é válido, devido o "
+"comprimento %d não ser válido (RFC 8011 da seção 5.1.8)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido horas UTC %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) %u não é válido para o formato do UTC (RFC "
+"8011 da seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC minutes %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido minutos UTC %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) de %u em minutos não é válido do UTC (RFC "
+"8011 da seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC sign '%c' (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido sinal UTC '%c' (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) com o sinal '%c' não é válido para o UTC ("
+"RFC 8011 da seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime day %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido dia %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) de %u dia(s) não é válido (RFC 8011 da "
+"seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime deciseconds %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido decissegundos %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) de %u em decisegundos não é válido (RFC "
+"8011 seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime hours %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido horas %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) de %u em horas não é válido (RFC 8011 seção "
+"5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime minutes %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido minutos %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) de %u em minutos não é válido (RFC 8011 da "
+"seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime month %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido mês %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) de %u em meses não é válido (RFC 8011 da "
+"seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime seconds %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": dateTime inválido segundos %u (RFC 8011 seção 5.1.15)."
+msgstr ""
+"\"%s\": O dateTime (data e hora) de %u em segundos não é válido (RFC 8011 da "
+"seção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
 msgstr ""
-"\"%s\": Valor enum inválido %d - fora do intervalo (RFC 8011 seção 5.1.5)."
+"\"%s\": O valor %d da enumeração não é válido porque está fora do intervalo ("
+"RFC 8011 da seção 5.1.5)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
-"\"%s\": Valor keyword inválido \"%s\" - comprimento inválido %d (RFC 8011 "
-"seção 5.1.4)."
+"\"%s\": O valor da palavra-chave \"%s\" não é válido devido o seu "
+"comprimento de %d (RFC 8011 da seção 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section "
 "5.1.4)."
 msgstr ""
-"\"%s\": Valor keyword inválido \"%s\" - caractere inválido (RFC 8011 seção "
-"5.1.4)."
+"\"%s\": O valor da palavra-chave \"%s\" não é válido devido o tipo do "
+"caractere não ser válido (RFC 8011 da seção 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"\"%s\": Valor mimeMediaType inválido \"%s\" - caracteres inválidos (RFC 8011 "
-"seção 5.1.10)."
+"\"%s\": O valor do mimeMediaType \"%s\" não é válido devido os caracteres "
+"não serem válidos (RFC 8011 da seção 5.1.10)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"\"%s\": Valor mimeMediaType inválido \"%s\" - comprimento inválido %d (RFC "
-"8011 seção 5.1.10)."
+"\"%s\": O valor do mimeMediaType \"%s\" não é válido devido o comprimento %d "
+"não ser válido (RFC 8011 da seção 5.1.10)."
 
 #, c-format
 msgid ""
