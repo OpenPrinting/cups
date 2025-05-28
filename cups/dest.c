@@ -159,7 +159,7 @@ static void		dnssd_error_cb(void *cb_data, const char *message);
 // returned unchanged.  Adding a new instance of a destination creates
 // a copy of that destination's options.
 //
-// Use the @link cupsSaveDests@ function to save the updated list of
+// Use the @link cupsSetDests@ function to save the updated list of
 // destinations to the user's lpoptions file.
 //
 
