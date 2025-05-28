@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-05-28 12:05+0000\n"
-"Last-Translator: Luiz Carlos Lucasv <csversut@gmail.com>\n"
+"PO-Revision-Date: 2025-05-28 16:32+0000\n"
+"Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -312,29 +312,30 @@ msgid ""
 "        WARN    PCFileName should contain a unique filename.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
-"        AVISO   PCFileName deveria conter um nome de arquivo único.\n"
+"        AVISO   O PCFileName deveria conter um nome de arquivo único.\n"
 "                REF: Páginas 61-62, seção 5.3."
 
 msgid ""
 "        WARN    Protocols contains PJL but JCL attributes are not set.\n"
 "                REF: Pages 78-79, section 5.7."
 msgstr ""
-"        AVISO   Protocolos contêm PJL, mas atributos de JCL não estão "
-"definidos.\n"
+"        AVISO   Os protocolos contêm o PJL, mas os atributos do JCL não "
+"estão definidos.\n"
 "                REF: Páginas 78-79, seção 5.7."
 
 msgid ""
 "        WARN    Protocols contains both PJL and BCP; expected TBCP.\n"
 "                REF: Pages 78-79, section 5.7."
 msgstr ""
-"        AVISO   Protocolos contêm ambos PJL e BCP; esperava-se TBCP.\n"
+"        AVISO   Os protocolos contêm ambos, o PJL e o BCP, mas era esperado "
+"o TBCP.\n"
 "                REF: Páginas 78-79, seção 5.7."
 
 msgid ""
 "        WARN    ShortNickName required by PPD 4.3 spec.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
-"        AVISO   ShortNickName é necessário pela especificação PPD 4.3.\n"
+"        AVISO   O ShortNickName é necessário pela especificação do PPD 4.3.\n"
 "                REF: Páginas 64-65, seção 5.3."
 
 #, c-format
@@ -343,7 +344,7 @@ msgid ""
 "                (constraint=\"%s %s %s %s\")."
 msgstr ""
 "      %s  \"%s %s\" conflita com \"%s %s\"\n"
-"                (restrição=\"%s %s %s %s\")."
+"                (possui a restrição=\"%s %s %s %s\")."
 
 #, c-format
 msgid "      %s  %s %s does not exist."
@@ -351,90 +352,94 @@ msgstr "      %s  %s %s não existe."
 
 #, c-format
 msgid "      %s  %s file \"%s\" has the wrong capitalization."
-msgstr "      %s  Arquivo de %s \"%s\" possui letra maiúscula incorreta."
+msgstr "      %s  arquivo de %s \"%s\" possui letra maiúscula incorreta."
 
 #, c-format
 msgid ""
 "      %s  Bad %s choice %s.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
-"      %s  Escolha %s inválida para %s.\n"
+"      %s  Não é válido %s , escolha %s.\n"
 "                REF: Página 122, seção 5.17"
 
 #, c-format
 msgid "      %s  Bad UTF-8 \"%s\" translation string for option %s, choice %s."
 msgstr ""
-"      %s  Má string de tradução de \"%s\" em UTF-8 para a opção %s, escolha "
-"%s."
+"      %s  O texto da tradução \"%s\" no formato UTF-8 não é válida para a "
+"opção %s, escolha %s."
 
 #, c-format
 msgid "      %s  Bad UTF-8 \"%s\" translation string for option %s."
-msgstr "      %s  Má string de tradução de \"%s\" em UTF-8 para a opção %s."
+msgstr ""
+"      %s  O texto da tradução de \"%s\" no formato UTF-8 não é válido para a "
+"opção %s."
 
 #, c-format
 msgid "      %s  Bad cupsFilter value \"%s\"."
-msgstr "      %s  Valor \"%s\" inválido para cupsFilter."
+msgstr "      %s  O valor \"%s\" não é válido para o cupsFilter."
 
 #, c-format
 msgid "      %s  Bad cupsFilter2 value \"%s\"."
-msgstr "      %s  Valor \"%s\" inválido para cupsFilter2."
+msgstr "      %s  O valor \"%s\" não é válido para o cupsFilter2."
 
 #, c-format
 msgid "      %s  Bad cupsICCProfile %s."
-msgstr "      %s  cupsICCProfile %s inválido."
+msgstr "      %s  Não é válido %s para o cupsICCProfile."
 
 #, c-format
 msgid "      %s  Bad cupsPreFilter value \"%s\"."
-msgstr "      %s  Valor \"%s\" inválido para cupsPreFilter."
+msgstr "      %s  O valor \"%s\" não é válido para o cupsPreFilter."
 
 #, c-format
 msgid "      %s  Bad cupsUIConstraints %s: \"%s\""
-msgstr "      %s  cupsUIConstraints %s inválido: \"%s\""
+msgstr "      %s  Não é válido %s para o cupsUIConstraints: \"%s\""
 
 #, c-format
 msgid "      %s  Bad language \"%s\"."
-msgstr "      %s  Idioma \"%s\" inválido."
+msgstr "      %s  O idioma \"%s\" não é válido."
 
 #, c-format
 msgid "      %s  Bad permissions on %s file \"%s\"."
-msgstr "      %s  Permissões inválidas no arquivo %s \"%s\"."
+msgstr "      %s  As permissões %s do arquivo não são válidas para \"%s\"."
 
 #, c-format
 msgid "      %s  Bad spelling of %s - should be %s."
-msgstr "      %s  Pronúncia incorreta de %s - deveria ser %s."
+msgstr "      %s  Ocorreu um erro ortográfico em %s, deveria ser %s."
 
 #, c-format
 msgid "      %s  Cannot provide both APScanAppPath and APScanAppBundleID."
 msgstr ""
-"      %s  Não é possível fornecer ambos APScanAppPath e APScanAppBundleID."
+"      %s  Não é possível fornecer ambos, o APScanAppPath e o "
+"APScanAppBundleID."
 
 #, c-format
 msgid "      %s  Default choices conflicting."
-msgstr "      %s  Escolhas padrão conflitando."
+msgstr "      %s  As escolhas padrão estão em conflito."
 
 #, c-format
 msgid "      %s  Empty cupsUIConstraints %s"
-msgstr "      %s  cupsUIConstraints %s vazia"
+msgstr "      %s  O cupsUIConstraints %s está vazio"
 
 #, c-format
 msgid "      %s  Missing \"%s\" translation string for option %s, choice %s."
 msgstr ""
-"      %s  Faltando string de tradução de \"%s\" para a opção %s, escolha %s."
+"      %s  Está faltando o texto da tradução de \"%s\" para a opção %s, "
+"escolha %s."
 
 #, c-format
 msgid "      %s  Missing \"%s\" translation string for option %s."
-msgstr "      %s  Faltando string de tradução de \"%s\" para a opção %s."
+msgstr "      %s  Está faltando o texto da tradução de \"%s\" para a opção %s."
 
 #, c-format
 msgid "      %s  Missing %s file \"%s\"."
-msgstr "      %s  Faltando %s arquivo \"%s\"."
+msgstr "      %s  Está faltando %s arquivo \"%s\"."
 
 #, c-format
 msgid ""
 "      %s  Missing REQUIRED PageRegion option.\n"
 "                REF: Page 100, section 5.14."
 msgstr ""
-"      %s  Faltando opção NECESSÁRIA PageRegion.\n"
+"      %s  Está faltando a opção PageRegion que é NECESSÁRIA.\n"
 "                REF: Página 100, seção 5.14."
 
 #, c-format
@@ -442,29 +447,31 @@ msgid ""
 "      %s  Missing REQUIRED PageSize option.\n"
 "                REF: Page 99, section 5.14."
 msgstr ""
-"      %s  Faltando opção NECESSÁRIA PageSize.\n"
+"      %s  Está faltando a opção PageSize que é NECESSÁRIA.\n"
 "                REF: Página 99, seção 5.14."
 
 #, c-format
 msgid "      %s  Missing choice *%s %s in UIConstraints \"*%s %s *%s %s\"."
 msgstr ""
-"      %s  Faltando escolha de *%s %s em UIConstraints \"*%s %s *%s %s\"."
+"      %s  Está faltando a escolha de *%s %s no UIConstraints "
+"\"*%s %s *%s %s\"."
 
 #, c-format
 msgid "      %s  Missing choice *%s %s in cupsUIConstraints %s: \"%s\""
-msgstr "      %s  Faltando escolha *%s %s em cupsUIConstraints %s: \"%s\""
+msgstr ""
+"      %s  Está faltando a escolha *%s %s no cupsUIConstraints %s: \"%s\""
 
 #, c-format
 msgid "      %s  Missing cupsUIResolver %s"
-msgstr "      %s  Faltando cupsUIResolver %s"
+msgstr "      %s  Está faltando %s do cupsUIResolver"
 
 #, c-format
 msgid "      %s  Missing option %s in UIConstraints \"*%s %s *%s %s\"."
-msgstr "      %s  Faltando a opção %s em UIConstraints \"*%s %s *%s %s\"."
+msgstr "      %s  Está faltando a opção %s no UIConstraints \"*%s %s *%s %s\"."
 
 #, c-format
 msgid "      %s  Missing option %s in cupsUIConstraints %s: \"%s\""
-msgstr "      %s  Faltando a opção %s em cupsUIConstraints %s: \"%s\""
+msgstr "      %s  Está faltando a opção %s no cupsUIConstraints %s: \"%s\""
 
 #, c-format
 msgid "      %s  No base translation \"%s\" is included in file."
@@ -475,46 +482,47 @@ msgid ""
 "      %s  REQUIRED %s does not define choice None.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
-"      %s  %s NECESSÁRIO não define a escolha None.\n"
+"      %s  O %s é NECESSÁRIO porque não define a escolha None (Nenhuma).\n"
 "                REF: Página 122, seção 5.17"
 
 #, c-format
 msgid "      %s  Size \"%s\" defined for %s but not for %s."
-msgstr "      %s  Tamanho \"%s\" definido para %s, mas não para %s."
+msgstr "      %s  O tamanho \"%s\" foi definido para %s, mas não foi para %s."
 
 #, c-format
 msgid "      %s  Size \"%s\" has unexpected dimensions (%gx%g)."
-msgstr "      %s  Tamanho \"%s\" tem dimensões inesperadas (%gx%g)."
+msgstr "      %s  O tamanho \"%s\" tem dimensões inesperadas (%gx%g)."
 
 #, c-format
 msgid "      %s  Size \"%s\" should be \"%s\"."
-msgstr "      %s  Tamanho \"%s\" deveria ser \"%s\"."
+msgstr "      %s  O tamanho \"%s\" deveria ser \"%s\"."
 
 #, c-format
 msgid "      %s  Size \"%s\" should be the Adobe standard name \"%s\"."
 msgstr ""
-"      %s  Tamanho \"%s\" deveria ser no padrão do Adobo chamado \"%s\"."
+"      %s  O tamanho \"%s\" deveria ser o mesmo do padrão do Adobe chamado de "
+"\"%s\"."
 
 #, c-format
 msgid "      %s  cupsICCProfile %s hash value collides with %s."
-msgstr "      %s  Valor de hash de cupsICCProfile %s colide com %s."
+msgstr "      %s  O valor do hash %s do cupsICCProfile colide com %s."
 
 #, c-format
 msgid "      %s  cupsUIResolver %s causes a loop."
-msgstr "      %s  cupsUIResolver %s causa um loop."
+msgstr "      %s  O cupsUIResolver %s causa um ciclo."
 
 #, c-format
 msgid ""
 "      %s  cupsUIResolver %s does not list at least two different options."
 msgstr ""
-"      %s  cupsUIResolver %s não lista pelo menos duas opções diferentes."
+"      %s  O cupsUIResolver %s não lista pelo menos duas opções diferentes."
 
 #, c-format
 msgid ""
 "      **FAIL**  %s must be 1284DeviceID\n"
 "                REF: Page 72, section 5.5"
 msgstr ""
-"      **FALHA** %s deve ser 1284DeviceID\n"
+"      **Ocorreu uma FALHA** %s deve ser 1284DeviceID\n"
 "                REF: Página 72, seção 5.5"
 
 #, c-format
@@ -522,7 +530,7 @@ msgid ""
 "      **FAIL**  Bad Default%s %s\n"
 "                REF: Page 40, section 4.5."
 msgstr ""
-"      **FALHA** Default%s inválido %s\n"
+"      **Ocorreu uma FALHA** O padrão %s não é válido para %s\n"
 "                REF: Página 40, seção 4.5."
 
 #, c-format
@@ -530,7 +538,7 @@ msgid ""
 "      **FAIL**  Bad DefaultImageableArea %s\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
-"      **FALHA** DefaultImageableArea inválido %s\n"
+"      **Ocorreu uma FALHA** O DefaultImageableArea %s não é válido\n"
 "                REF: Página 102, seção 5.15."
 
 #, c-format
@@ -538,7 +546,7 @@ msgid ""
 "      **FAIL**  Bad DefaultPaperDimension %s\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
-"      **FALHA** DefaultPaperDimension inválido %s\n"
+"      **Ocorreu uma FALHA**  O DefaultPaperDimension %s não é válido\n"
 "                REF: Página 103, seção 5.15."
 
 #, c-format
@@ -546,7 +554,7 @@ msgid ""
 "      **FAIL**  Bad FileVersion \"%s\"\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"      **FALHA** FileVersion inválido \"%s\"\n"
+"      **FAIL**  O FileVersion \"%s\" não é válido\n"
 "                REF: Página 56, seção 5.3."
 
 #, c-format
@@ -554,30 +562,34 @@ msgid ""
 "      **FAIL**  Bad FormatVersion \"%s\"\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"      **FALHA** FormatVersion inválido \"%s\"\n"
+"      **Ocorreu uma FALHA**  O FormatVersion \"%s\"não é válido\n"
 "                REF: Página 56, seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad JobPatchFile attribute in file\n"
 "                REF: Page 24, section 3.4."
 msgstr ""
-"      **FALHA** Atributo inválido de JobPatchFile no arquivo\n"
+"      **Ocorreu uma FALHA**  O atributo do JobPatchFile não é válido para o "
+"arquivo\n"
 "                REF: Página 24, seção 3.4."
 
 #, c-format
 msgid "      **FAIL**  Bad LanguageEncoding %s - must be ISOLatin1."
-msgstr "      **FALHA** LanguageEncoding inválido %s - tem que ser ISOLatin1."
+msgstr ""
+"      **Ocorreu uma FALHA**  O LanguageEncoding %s não é válido e tem que "
+"ser o ISOLatin1."
 
 #, c-format
 msgid "      **FAIL**  Bad LanguageVersion %s - must be English."
-msgstr "      **FALHA** LanguageVersion inválido %s - deve ser Inglês."
+msgstr "      **Ocorreu uma FALHA**  O LanguageVersion %s tem que ser o inglês."
 
 #, c-format
 msgid ""
 "      **FAIL**  Bad Manufacturer (should be \"%s\")\n"
 "                REF: Page 211, table D.1."
 msgstr ""
-"      **FALHA** Manufacturer inválido (deveria ser \"%s\")\n"
+"      **Ocorreu uma FALHA**  O Manufacturer não é válido e deveria ser \"%s\""
+"\n"
 "                REF: Página 211, tabela D.1."
 
 #, c-format
@@ -585,28 +597,32 @@ msgid ""
 "      **FAIL**  Bad ModelName - \"%c\" not allowed in string.\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
-"      **FALHA** ModelName inválido - \"%c\" não permitido na string.\n"
+"      **Ocorreu uma FALHA**  O ModelName não é válido, o texto \"%c\" não é "
+"permitido.\n"
 "                REF: Páginas 59-60, seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad PSVersion - not \"(string) int\".\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
-"      **FALHA** PSVersion inválida - não \"(string) int\".\n"
+"      **Ocorreu uma FALHA**  O PSVersion não é válido e não pode ser do tipo "
+"\"(string) int\".\n"
 "                REF: Páginas 62-64, seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad Product - not \"(string)\".\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
-"      **FALHA** Product inválido - não \"(string)\".\n"
+"      **Ocorreu uma FALHA**  O Product não é válido e não pode ser do tipo "
+"\"(string)\".\n"
 "                REF: Página 62, seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad ShortNickName - longer than 31 chars.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
-"      **FALHA** ShortNickName inválido - maior do que 31 caracteres.\n"
+"      **Ocorreu uma FALHA**  O ShortNickName não é válido e tem que ter mais "
+"do que 31 caracteres.\n"
 "                REF: Páginas 64-65, seção 5.3."
 
 #, c-format
@@ -614,85 +630,89 @@ msgid ""
 "      **FAIL**  Bad option %s choice %s\n"
 "                REF: Page 84, section 5.9"
 msgstr ""
-"      **FALHA** Opção inválido %s escolha %s\n"
+"      **Ocorreu uma FALHA**  A opção %s não é válida, escolha %s\n"
 "                REF: Página 84, seção 5.9"
 
 #, c-format
 msgid "      **FAIL**  Default option code cannot be interpreted: %s"
-msgstr "      **FALHA** Código de opção padrão não pode ser interpretado: %s"
+msgstr ""
+"      **Ocorreu uma FALHA**   O código da opção padrão %s não pode ser "
+"interpretado"
 
 #, c-format
 msgid ""
 "      **FAIL**  Default translation string for option %s choice %s contains "
 "8-bit characters."
 msgstr ""
-"      **FALHA** String de tradução padrão para opção %s escolha %s contém "
-"caracteres de 8-bit."
+"      **Ocorreu uma FALHA**   O texto da tradução padrão para opção %s, "
+"escolha %s que contém os caracteres de 8 bits."
 
 #, c-format
 msgid ""
 "      **FAIL**  Default translation string for option %s contains 8-bit "
 "characters."
 msgstr ""
-"      **FALHA** String de tradução padrão para opção %s contém caracteres de "
-"8-bit."
+"      **Ocorreu uma FALHA**   O texto da tradução padrão para opção %s "
+"contém os caracteres de 8 bits."
 
 #, c-format
 msgid "      **FAIL**  Group names %s and %s differ only by case."
 msgstr ""
-"      **FALHA** Nomes dos grupos %s e %s se diferem somente por maiúsculo/"
-"minúsculo."
+"      **Ocorreu uma FALHA*  Os nomes dos grupos %s e %s diferem somente por "
+"serem maiúsculo e minúsculo."
 
 #, c-format
 msgid "      **FAIL**  Multiple occurrences of option %s choice name %s."
-msgstr "      **FALHA** Múltiplas ocorrências da opção %s escolha de nome %s."
+msgstr ""
+"      **Ocorreu uma FALHA**  Várias ocorrências da opção %s, escolha o nome "
+"%s."
 
 #, c-format
 msgid "      **FAIL**  Option %s choice names %s and %s differ only by case."
 msgstr ""
-"      **FALHA** Opção %s escolha de nomes %s e %s se diferem somente por "
-"maiúsculo/minúsculo."
+"      **Ocorreu uma FALHA**  Na opção %s, você escolheu os nomes %s e %s que "
+"diferem-se somente por serem maiúsculo e minúsculo."
 
 #, c-format
 msgid "      **FAIL**  Option names %s and %s differ only by case."
 msgstr ""
-"      **FALHA** Os nomes de opção %s e %s se diferem somente por maiúsculo/"
-"minúsculo."
+"      **Ocorreu uma FALHA**  Os nomes da opção %s e %s diferem-se somente "
+"por serem maiúsculo e minúsculo."
 
 #, c-format
 msgid ""
 "      **FAIL**  REQUIRED Default%s\n"
 "                REF: Page 40, section 4.5."
 msgstr ""
-"      **FALHA** NECESSÁRIO Default%s\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO que Default seja %s\n"
 "                REF: Página 40, seção 4.5."
 
 msgid ""
 "      **FAIL**  REQUIRED DefaultImageableArea\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
-"      **FALHA** NECESSÁRIO DefaultImageableArea\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o DefaultImageableArea\n"
 "                REF: Página 102, seção 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED DefaultPaperDimension\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
-"      **FALHA** NECESSÁRIO DefaultPaperDimension\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o DefaultPaperDimension\n"
 "                REF: Página 103, seção 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED FileVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO FileVersion\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o FileVersion\n"
 "                REF: Página 56, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED FormatVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO FormatVersion\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o FormatVersion\n"
 "                REF: Página 56, seção 5.3."
 
 #, c-format
@@ -701,7 +721,8 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
-"      **FALHA** NECESSÁRIO ImageableArea para PageSize %s\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o ImageableArea para o PageSize %"
+"s\n"
 "                REF: Página 41, seção 5.\n"
 "                REF: Página 102, seção 5.15."
 
@@ -709,56 +730,56 @@ msgid ""
 "      **FAIL**  REQUIRED LanguageEncoding\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO LanguageEncoding\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o LanguageEncoding\n"
 "                REF: Páginas 56-57, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED LanguageVersion\n"
 "                REF: Pages 57-58, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO LanguageVersion\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o LanguageVersion\n"
 "                REF: Páginas 57-58, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED Manufacturer\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO Manufacturer\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o Manufacturer\n"
 "                REF: Páginas 58-59, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED ModelName\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO ModelName\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o ModelName\n"
 "                REF: Páginas 59-60, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED NickName\n"
 "                REF: Page 60, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO NickName\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o NickName\n"
 "                REF: Página 60, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PCFileName\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO PCFileName\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o PCFileName\n"
 "                REF: Páginas 61-62, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PSVersion\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO PSVersion\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o PSVersion\n"
 "                REF: Páginas 62-64, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PageRegion\n"
 "                REF: Page 100, section 5.14."
 msgstr ""
-"      **FALHA** NECESSÁRIO PageRegion\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o PageRegion\n"
 "                REF: Página 100, seção 5.14."
 
 msgid ""
@@ -766,7 +787,7 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 99, section 5.14."
 msgstr ""
-"      **FALHA** NECESSÁRIO PageSize\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o PageSize\n"
 "                REF: Página 41, seção 5.\n"
 "                REF: Página 99, seção 5.14."
 
@@ -774,7 +795,7 @@ msgid ""
 "      **FAIL**  REQUIRED PageSize\n"
 "                REF: Pages 99-100, section 5.14."
 msgstr ""
-"      **FALHA** NECESSÁRIO PageSize\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o PageSize\n"
 "                REF: Páginas 99-100, seção 5.14."
 
 #, c-format
@@ -783,7 +804,8 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
-"      **FALHA** NECESSÁRIO PaperDimension para PageSize %s\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o PaperDimension para o PageSize %"
+"s\n"
 "                REF: Página 41, seção 5.\n"
 "                REF: Página 103, seção 5.15."
 
@@ -791,96 +813,104 @@ msgid ""
 "      **FAIL**  REQUIRED Product\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO Product\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o Product\n"
 "                REF: Página 62, seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED ShortNickName\n"
 "                REF: Page 64-65, section 5.3."
 msgstr ""
-"      **FALHA** NECESSÁRIO ShortNickName\n"
+"      **Ocorreu uma FALHA**  É NECESSÁRIO o ShortNickName\n"
 "                REF: Página 64-65, seção 5.3."
 
 #, c-format
 msgid "      **FAIL**  Unable to open PPD file - %s on line %d."
-msgstr "      **FALHA** Não foi possível abrir o arquivo PPD - %s na linha %d."
+msgstr ""
+"      **Ocorreu uma FALHA**  Não foi possível abrir o arquivo do formato "
+"PPD, %s na linha %d."
 
 #, c-format
 msgid "    %d ERRORS FOUND"
-msgstr "    %d ERROS ENCONTRADOS"
+msgstr "    %d ERROS FORAM ENCONTRADOS"
 
 msgid "    NO ERRORS FOUND"
-msgstr "    NENHUM ERRO ENCONTRADO"
+msgstr "    NENHUM ERRO FOI ENCONTRADO"
 
 msgid "  --cr                    End lines with CR (Mac OS 9)."
-msgstr "  --cr                    Fim de linhas com CR (Mac OS 9)."
+msgstr "  --cr                    Fim de linhas com o CR (Mac OS 9)."
 
 msgid "  --crlf                  End lines with CR + LF (Windows)."
-msgstr "  --crlf                  Fim de linhas com CR + LF (Windows)."
+msgstr "  --crlf                  Fim de linhas com o CR + LF (Windows)."
 
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
-msgstr "  --lf                    Fim de linhas com LF (UNIX/Linux/macOS)."
+msgstr ""
+"  --lf                    Fim de linhas com o LF (UNIX, GNU/Linux e macOS)."
 
 msgid "  --list-all              List all filters with the MIME media types."
 msgstr ""
-"  --listar-todos              Liste todos os filtros com os tipos de mídia "
+"  --listar-todos              Listar todos os filtros com os tipos de mídia "
 "MIME."
 
 msgid "  --list-filters          List filters that will be used."
-msgstr "  --list-filters          Lista filtros que serão usados."
+msgstr "  --list-filters          Listar os filtros que serão utilizados."
 
 msgid "  -D                      Remove the input file when finished."
-msgstr "  -D                      Remove o arquivo de entrada ao finalizar."
+msgstr "  -D                      Remover o arquivo da entrada ao finalizar."
 
 msgid "  -D name=value           Set named variable to value."
-msgstr "  -D nome=valor           Define a variável \"nome\" com \"valor\"."
+msgstr "  -D nome=valor           Definir a variável \"nome\" com \"valor\"."
 
 msgid "  -I include-dir          Add include directory to search path."
 msgstr ""
-"  -I dir-include          Adiciona diretório de include ao caminho de "
+"  -I include-dir          Adicionar o diretório de inclusão no caminho da "
 "pesquisa."
 
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr "  -P FILENAME.ppd         Defina o arquivo PPD."
+msgstr "  -P FILENAME.ppd         Definir o arquivo com o formato PPD."
 
 msgid "  -U USERNAME             Specify username."
-msgstr "  -U USERNAME             Especifique o nome de usuário."
+msgstr "  -U USERNAME             Especificar o nome do usuário."
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr ""
-"  -c catálogo.po          Carrega o catálogo de mensagens especificado."
+"  -c catálogo.po          Carregar o catálogo das mensagens que foi "
+"especificado."
 
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
-"  -c cups-files.conf      Define o arquivo cups-files.conf para ser usado."
+"  -c cups-files.conf      Definir o arquivo cups-files.conf para ser "
+"utilizado."
 
 msgid "  -d PRINTER              Use the named printer."
-msgstr "  -d PRINTER              Use a impressora indicada."
+msgstr "  -d PRINTER              Utilizar a impressora indicada."
 
 msgid "  -d output-dir           Specify the output directory."
-msgstr "  -d dir-saída            Especifica o diretório de saída."
+msgstr "  -d dir-saída            Especificar o diretório de saída."
 
 msgid "  -e                      Use every filter from the PPD file."
-msgstr "  -e                      Usa todos os filtros do arquivo PPD."
+msgstr ""
+"  -e                      Utilizar todos os filtros do arquivo no formato "
+"PPD."
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
-"  -i MIME/TYPE            Define o tipo de MIME de entrada (caso contrário, "
-"é digitado automaticamente)."
+"  -i MIME/TYPE            Definir o tipo do MIME da entrada, caso contrário, "
+"será preenchido automaticamente."
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j JOB-ID[,N]           Filtra o arquivo N do trabalho especificado (o "
-"padrão é o arquivo 1)."
+"  -j JOB-ID[,N]           Filtrar o arquivo N do trabalho especificado, o "
+"padrão é o arquivo 1."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
-msgstr "  -l idioma[,idioma,...]  Especifica o(s) idioma(s) de saída (locale)."
+msgstr "  -l idioma[,idioma,...]  Especificar o(s) idioma(s) de saída (locale)."
 
 msgid "  -m                      Use the ModelName value as the filename."
 msgstr ""
-"  -m                      Usa o valor de ModelName como o nome de arquivo."
+"  -m                      Utilizar o valor de ModelName como o nome do "
+"arquivo."
 
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
