@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-05-24 10:03+0000\n"
-"Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
+"PO-Revision-Date: 2025-05-28 12:05+0000\n"
+"Last-Translator: Luiz Carlos Lucasv <csversut@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -823,6 +823,8 @@ msgstr "  --lf                    Fim de linhas com LF (UNIX/Linux/macOS)."
 
 msgid "  --list-all              List all filters with the MIME media types."
 msgstr ""
+"  --listar-todos              Liste todos os filtros com os tipos de mídia "
+"MIME."
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          Lista filtros que serão usados."
@@ -839,10 +841,10 @@ msgstr ""
 "pesquisa."
 
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -P FILENAME.ppd         Defina o arquivo PPD."
 
 msgid "  -U USERNAME             Specify username."
-msgstr ""
+msgstr "  -U USERNAME             Especifique o nome de usuário."
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr ""
@@ -853,7 +855,7 @@ msgstr ""
 "  -c cups-files.conf      Define o arquivo cups-files.conf para ser usado."
 
 msgid "  -d PRINTER              Use the named printer."
-msgstr ""
+msgstr "  -d PRINTER              Use a impressora indicada."
 
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d dir-saída            Especifica o diretório de saída."
@@ -863,11 +865,15 @@ msgstr "  -e                      Usa todos os filtros do arquivo PPD."
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
+"  -i MIME/TYPE            Define o tipo de MIME de entrada (caso contrário, "
+"é digitado automaticamente)."
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
+"  -j JOB-ID[,N]           Filtra o arquivo N do trabalho especificado (o "
+"padrão é o arquivo 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l idioma[,idioma,...]  Especifica o(s) idioma(s) de saída (locale)."
@@ -879,12 +885,14 @@ msgstr ""
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
+"  -m MIME/TYPE            Definir o tipo MIME de saída (caso contrário, "
+"aplicativo/pdf)."
 
 msgid "  -n COPIES               Set number of copies."
-msgstr ""
+msgstr "  -n CÓPIAS               Defina o número de cópias."
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr ""
+msgstr "  -o NAME=VALUE           Definir opção(ões)."
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -897,13 +905,13 @@ msgstr ""
 "  -o arquivo.ppd[.gz]     Define arquivo de saída (caso contrário, stdout)."
 
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -p FILENAME.ppd         Definir arquivo PPD."
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Testa PPDs ao invés de criá-los."
 
 msgid "  -t TITLE                Set title."
-msgstr ""
+msgstr "  -t TITLE                Defina o título ."
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Remove o arquivo PPD ao final."
@@ -1421,6 +1429,8 @@ msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
+"%s: Erro - necessita \"completar\", \"não-completar\", \"bem sucedido\", ou "
+"\"tudo\" depois de \"-W\" opção."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1480,7 +1490,7 @@ msgstr "%s: String de filtro inválida \"%s\"."
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr ""
+msgstr "%s: Nome do cliente ausente após '--Nome-cliente'."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1492,7 +1502,7 @@ msgstr "%s: Faltando tempo de espera para \"-T\"."
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr ""
+msgstr "%s: Token ausente após '--token-de-portador'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1512,7 +1522,7 @@ msgstr "%s: Operação falhou: %s"
 
 #, c-format
 msgid "%s: Scheduler is not running."
-msgstr ""
+msgstr "%s: O agendador não está em execução."
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1568,11 +1578,11 @@ msgstr "%s: Opção desconhecida \"-%c\"."
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: Opção desconhecida '%s'."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: Opção desconhecida '-%c'."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1633,11 +1643,16 @@ msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
+"--bearer-token BEARER-TOKEN\n"
+"                        Definir o token do portador do OAuth para "
+"autenticação"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name CLIENT-NAME\n"
+"                        Definir o nome do certificado do cliente TLS"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
@@ -1664,13 +1679,13 @@ msgid "--false                 Always false"
 msgstr "--false                 Sempre falso"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         Mostrar essa ajuda"
 
 msgid "--help                  Show program help"
 msgstr "--help                  Mostrar ajuda do programa"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  Mostrar essa ajuda"
 
 msgid "--hold                  Hold new jobs"
 msgstr "--hold                  Reter novos trabalhos"
@@ -1725,6 +1740,8 @@ msgstr ""
 
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
+"--pin                          Certificado de pino encontrado pelo comando "
+"do cliente"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr "--port número[-número]  Corresponder porta a número ou intervalo"
@@ -1756,6 +1773,8 @@ msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
 msgstr ""
+"--require-ca                   Exigir certificado assinado pela CA para o "
+"comando do cliente"
 
 msgid ""
 "--stop-after-include-error\n"
@@ -1786,7 +1805,7 @@ msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri regex             Corresponder URI a expressão regular"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      Mostrar a versão do programa"
 
 msgid "--version               Show program version"
 msgstr "--version               Mostrar versão do programa"
@@ -1920,7 +1939,7 @@ msgid "-C                      Send requests using chunking (default)"
 msgstr "-C                      Enviar requisições usando chunking (padrão)"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C COUNTRY                     Definir país."
 
 msgid "-D description          Specify the textual description of the printer"
 msgstr "-D descrição            Especificar a descrição textual da impressora"
@@ -1941,7 +1960,7 @@ msgstr "-E                      Testar com criptografia usando HTTP com TLS"
 
 msgid "-F                      Run in the foreground but detach from console."
 msgstr ""
-"-F                      Executar em primeiro plano mas desacoplar do console"
+"-F                      Executar em primeiro plano mas desacoplar do console."
 
 msgid "-F output-type/subtype  Set the output format for the printer"
 msgstr "-F tipo-saída/subtipo   Definir o formato de saída para a impressora"
@@ -1988,7 +2007,7 @@ msgid "-L                      Send requests using content-length"
 msgstr "-L                      Enviar reqisições usando content-length"
 
 msgid "-L LOCALITY                    Set locality name."
-msgstr ""
+msgstr "-L LOCALITY                    Defina o nome da localidade."
 
 msgid "-L location             Specify the textual location of the printer"
 msgstr "-L local                Especificar o local da impressora"
@@ -2123,7 +2142,7 @@ msgid "-c command              Set print command"
 msgstr "-c command              Definir comando de impressão"
 
 msgid "-c cupsd.conf           Set cupsd.conf file to use."
-msgstr "-c cupsd.conf           Definir o arquivo cupsd.conf a usar"
+msgstr "-c cupsd.conf           Definir o arquivo cupsd.conf a usar."
 
 msgid "-d                      Show the default destination"
 msgstr "-d                      Mostrar o destino padrão"
@@ -2432,12 +2451,11 @@ msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
 msgstr ""
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
-msgstr "-s cups-files.conf      Definir arquivo cups-files.conf a usar"
+msgstr "-s cups-files.conf      Definir arquivo cups-files.conf a usar."
 
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
 msgstr ""
-"-s velocidade[,velocidade-cor]\n"
-"                        Definir velocidade em páginas por minuto"
+"-s velocidade[,cor-velocidade]  Definir a velocidade das páginas por minuto"
 
 msgid "-t                      Produce a test report"
 msgstr "-t                      Produzir um relatório do teste"
@@ -2536,7 +2554,7 @@ msgid "1"
 msgstr "1"
 
 msgid "1 inch/sec."
-msgstr "1 pol/s"
+msgstr "1 pol/s."
 
 msgid "1.25x0.25\""
 msgstr "1.25x0.25\""
@@ -2545,7 +2563,7 @@ msgid "1.25x2.25\""
 msgstr "1.25x2.25\""
 
 msgid "1.5 inch/sec."
-msgstr "1.5 pol/s"
+msgstr "1.5 pol/s."
 
 msgid "1.50x0.25\""
 msgstr "1.50x0.25\""
@@ -2563,7 +2581,7 @@ msgid "10"
 msgstr "10"
 
 msgid "10 inches/sec."
-msgstr "10 pol/s"
+msgstr "10 pol/s."
 
 msgid "10 x 11"
 msgstr "10 x 11"
@@ -2578,7 +2596,7 @@ msgid "100"
 msgstr "100"
 
 msgid "100 mm/sec."
-msgstr "100 mm/s"
+msgstr "100 mm/s."
 
 msgid "105"
 msgstr "105"
@@ -2587,7 +2605,7 @@ msgid "11"
 msgstr "11"
 
 msgid "11 inches/sec."
-msgstr "11 pol/s"
+msgstr "11 pol/s."
 
 msgid "110"
 msgstr "110"
@@ -2599,7 +2617,7 @@ msgid "12"
 msgstr "12"
 
 msgid "12 inches/sec."
-msgstr "12 pol/s"
+msgstr "12 pol/s."
 
 msgid "12 x 11"
 msgstr "12 x 11"
@@ -2608,7 +2626,7 @@ msgid "120"
 msgstr "120"
 
 msgid "120 mm/sec."
-msgstr "120 mm/s"
+msgstr "120 mm/s."
 
 msgid "120x60dpi"
 msgstr "120x60dpi"
@@ -2629,13 +2647,13 @@ msgid "15"
 msgstr "15"
 
 msgid "15 mm/sec."
-msgstr "15 mm/s"
+msgstr "15 mm/s."
 
 msgid "15 x 11"
 msgstr "15 x 11"
 
 msgid "150 mm/sec."
-msgstr "150 mm/s"
+msgstr "150 mm/s."
 
 msgid "150dpi"
 msgstr "150dpi"
@@ -2659,7 +2677,7 @@ msgid "2"
 msgstr "2"
 
 msgid "2 inches/sec."
-msgstr "2 pol/s"
+msgstr "2 pol/s."
 
 msgid "2-Sided Printing"
 msgstr "Frente e Verso"
@@ -2704,7 +2722,7 @@ msgid "2.38x5.50\""
 msgstr "2.38x5.50\""
 
 msgid "2.5 inches/sec."
-msgstr "2.5 pol/s"
+msgstr "2.5 pol/s."
 
 msgid "2.50x1.00\""
 msgstr "2.50x1.00\""
@@ -2722,10 +2740,10 @@ msgid "20"
 msgstr "20"
 
 msgid "20 mm/sec."
-msgstr "20 mm/s"
+msgstr "20 mm/s."
 
 msgid "200 mm/sec."
-msgstr "200 mm/s"
+msgstr "200 mm/s."
 
 msgid "203dpi"
 msgstr "203dpi"
@@ -2752,7 +2770,7 @@ msgid "25"
 msgstr "25"
 
 msgid "250 mm/sec."
-msgstr "250 mm/s"
+msgstr "250 mm/s."
 
 msgid "26"
 msgstr "26"
@@ -2770,7 +2788,7 @@ msgid "3"
 msgstr "3"
 
 msgid "3 inches/sec."
-msgstr "3 pol/s"
+msgstr "3 pol/s."
 
 msgid "3 x 5"
 msgstr "3 x 5"
@@ -2827,10 +2845,10 @@ msgid "30"
 msgstr "30"
 
 msgid "30 mm/sec."
-msgstr "30 mm/s"
+msgstr "30 mm/s."
 
 msgid "300 mm/sec."
-msgstr "300 mm/s"
+msgstr "300 mm/s."
 
 msgid "300dpi"
 msgstr "300dpi"
@@ -2851,7 +2869,7 @@ msgid "4"
 msgstr "4"
 
 msgid "4 inches/sec."
-msgstr "4 pol/s"
+msgstr "4 pol/s."
 
 msgid "4.00x1.00\""
 msgstr "4.00x1.00\""
@@ -2887,7 +2905,7 @@ msgid "40"
 msgstr "40"
 
 msgid "40 mm/sec."
-msgstr "40 mm/s"
+msgstr "40 mm/s."
 
 msgid "45"
 msgstr "45"
@@ -2896,7 +2914,7 @@ msgid "5"
 msgstr "5"
 
 msgid "5 inches/sec."
-msgstr "5 pol/s"
+msgstr "5 pol/s."
 
 msgid "5 x 7"
 msgstr "5 x 7"
@@ -2911,7 +2929,7 @@ msgid "6"
 msgstr "6"
 
 msgid "6 inches/sec."
-msgstr "6 pol/s"
+msgstr "6 pol/s."
 
 msgid "6.00x1.00\""
 msgstr "6.00x1.00\""
@@ -2941,7 +2959,7 @@ msgid "60"
 msgstr "60"
 
 msgid "60 mm/sec."
-msgstr "60 mm/s"
+msgstr "60 mm/s."
 
 msgid "600dpi"
 msgstr "600dpi"
@@ -2959,7 +2977,7 @@ msgid "7"
 msgstr "7"
 
 msgid "7 inches/sec."
-msgstr "7 pol/s"
+msgstr "7 pol/s."
 
 msgid "7 x 9"
 msgstr "7 x 9"
@@ -2974,7 +2992,7 @@ msgid "8"
 msgstr "8"
 
 msgid "8 inches/sec."
-msgstr "8 pol/s"
+msgstr "8 pol/s."
 
 msgid "8 x 10"
 msgstr "8 x 10"
@@ -3007,7 +3025,7 @@ msgid "80"
 msgstr "80"
 
 msgid "80 mm/sec."
-msgstr "80 mm/s"
+msgstr "80 mm/s."
 
 msgid "80x50mm"
 msgstr "80x50mm"
@@ -3019,7 +3037,7 @@ msgid "9"
 msgstr "9"
 
 msgid "9 inches/sec."
-msgstr "9 pol/s"
+msgstr "9 pol/s."
 
 msgid "9 x 11"
 msgstr "9 x 11"
@@ -4454,7 +4472,7 @@ msgstr "Nenhuma conexão ativa."
 
 #, c-format
 msgid "No active jobs on %s."
-msgstr "Nenhum trabalho ativo em %s"
+msgstr "Nenhum trabalho ativo em %s."
 
 msgid "No attributes in request."
 msgstr "Nenhum atributo na requisição."
@@ -8277,7 +8295,7 @@ msgstr "Trabalho Salvo com Erros"
 
 #. TRANSLATORS: Job Saved With Warnings
 msgid "job-state-reasons.job-saved-with-warnings"
-msgstr "Trabalho  Salvo com Avisos"
+msgstr "motivos-estado-trabalho.trabalho‐salvo‐com‐avisos"
 
 #. TRANSLATORS: Job Saving
 msgid "job-state-reasons.job-saving"
