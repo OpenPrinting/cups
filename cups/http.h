@@ -498,8 +498,7 @@ extern http_uri_status_t httpSeparateURI(http_uri_coding_t decoding, const char 
 extern void		httpSetAuthString(http_t *http, const char *scheme, const char *data) _CUPS_PUBLIC;
 extern void		httpSetBlocking(http_t *http, bool b) _CUPS_PUBLIC;
 extern void		httpSetCookie(http_t *http, const char *cookie) _CUPS_PUBLIC;
-extern int		httpSetCredentials(http_t *http, cups_array_t *certs) _CUPS_DEPRECATED_MSG("Use httpSetCredentialsAndKey instead.");
-extern bool		httpSetCredentialsAndKey(http_t *http, const char *credentials, const char *key) _CUPS_PUBLIC;
+extern int		httpSetCredentials(http_t *http, cups_array_t *certs) _CUPS_DEPRECATED_MSG("Use cupsSetClientCredentials instead.");
 extern void		httpSetDefaultField(http_t *http, http_field_t field, const char *value) _CUPS_PUBLIC;
 extern bool		httpSetEncryption(http_t *http, http_encryption_t e) _CUPS_PUBLIC;
 extern void		httpSetExpect(http_t *http, http_status_t expect) _CUPS_PUBLIC;
