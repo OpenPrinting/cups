@@ -23,15 +23,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-02-14 13:12+0000\n"
-"Last-Translator: EkaterinePapava <papava.e@gtu.ge>\n"
+"PO-Revision-Date: 2025-05-09 12:31+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/cups/cups/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(ყველა)"
@@ -12626,147 +12626,147 @@ msgstr "printer-state-reasons.developer-low"
 
 #. TRANSLATORS: Die Cutter Added
 msgid "printer-state-reasons.die-cutter-added"
-msgstr "printer-state-reasons.die-cutter-added"
+msgstr "ჭრის ხელსაწყო დაემატა"
 
 #. TRANSLATORS: Die Cutter Almost Empty
 msgid "printer-state-reasons.die-cutter-almost-empty"
-msgstr "printer-state-reasons.die-cutter-almost-empty"
+msgstr "ჭრის ხელსაწყო თითქმის ცარიელია"
 
 #. TRANSLATORS: Die Cutter Almost Full
 msgid "printer-state-reasons.die-cutter-almost-full"
-msgstr "printer-state-reasons.die-cutter-almost-full"
+msgstr "ჭრის ხელსაწყო თითქმის სავსეა"
 
 #. TRANSLATORS: Die Cutter At Limit
 msgid "printer-state-reasons.die-cutter-at-limit"
-msgstr "printer-state-reasons.die-cutter-at-limit"
+msgstr "ჭრის ხელსაწყო ზღვარზეა"
 
 #. TRANSLATORS: Die Cutter Closed
 msgid "printer-state-reasons.die-cutter-closed"
-msgstr "printer-state-reasons.die-cutter-closed"
+msgstr "ჭრის ხელსაწყო დახურულია"
 
 #. TRANSLATORS: Die Cutter Configuration Change
 msgid "printer-state-reasons.die-cutter-configuration-change"
-msgstr "printer-state-reasons.die-cutter-configuration-change"
+msgstr "ჭრის ხელსაწყოს კონფიგურაცია შეიცვალა"
 
 #. TRANSLATORS: Die Cutter Cover Closed
 msgid "printer-state-reasons.die-cutter-cover-closed"
-msgstr "printer-state-reasons.die-cutter-cover-closed"
+msgstr "ჭრის ხელსაწყოს თავსახური დახურულია"
 
 #. TRANSLATORS: Die Cutter Cover Open
 msgid "printer-state-reasons.die-cutter-cover-open"
-msgstr "printer-state-reasons.die-cutter-cover-open"
+msgstr "ჭრის ხელსაწყოს თავსახური ღიაა"
 
 #. TRANSLATORS: Die Cutter Empty
 msgid "printer-state-reasons.die-cutter-empty"
-msgstr "printer-state-reasons.die-cutter-empty"
+msgstr "ჭრის ხელსაწყო ცარიელია"
 
 #. TRANSLATORS: Die Cutter Full
 msgid "printer-state-reasons.die-cutter-full"
-msgstr "printer-state-reasons.die-cutter-full"
+msgstr "ჭრის ხელსაწყო სავსეა"
 
 #. TRANSLATORS: Die Cutter Interlock Closed
 msgid "printer-state-reasons.die-cutter-interlock-closed"
-msgstr "printer-state-reasons.die-cutter-interlock-closed"
+msgstr "ჭრის ხელსაწყოს კვანძი დახურულია"
 
 #. TRANSLATORS: Die Cutter Interlock Open
 msgid "printer-state-reasons.die-cutter-interlock-open"
-msgstr "printer-state-reasons.die-cutter-interlock-open"
+msgstr "ჭრის ხელსაწყოს კვანძი ღიაა"
 
 #. TRANSLATORS: Die Cutter Jam
 msgid "printer-state-reasons.die-cutter-jam"
-msgstr "printer-state-reasons.die-cutter-jam"
+msgstr "ჭრის ხელსაწყო გაჭედილია"
 
 #. TRANSLATORS: Die Cutter Life Almost Over
 msgid "printer-state-reasons.die-cutter-life-almost-over"
-msgstr "printer-state-reasons.die-cutter-life-almost-over"
+msgstr "ჭრის ხელსაწყოს სიცოცხლე თითქმის ამოიწურა"
 
 #. TRANSLATORS: Die Cutter Life Over
 msgid "printer-state-reasons.die-cutter-life-over"
-msgstr "printer-state-reasons.die-cutter-life-over"
+msgstr "ჭრის ხელსაწყოს სიცოცხლის ვადა ამოიწურა"
 
 #. TRANSLATORS: Die Cutter Memory Exhausted
 msgid "printer-state-reasons.die-cutter-memory-exhausted"
-msgstr "printer-state-reasons.die-cutter-memory-exhausted"
+msgstr "ჭრის ხელსაწყოს მეხსიერება გადავსებულია"
 
 #. TRANSLATORS: Die Cutter Missing
 msgid "printer-state-reasons.die-cutter-missing"
-msgstr "printer-state-reasons.die-cutter-missing"
+msgstr "ჭრის ხელსაწყო აღმოჩენილი არაა"
 
 #. TRANSLATORS: Die Cutter Motor Failure
 msgid "printer-state-reasons.die-cutter-motor-failure"
-msgstr "printer-state-reasons.die-cutter-motor-failure"
+msgstr "ჭრის ხელსაწყოს ძრავის ჩავარდნა"
 
 #. TRANSLATORS: Die Cutter Near Limit
 msgid "printer-state-reasons.die-cutter-near-limit"
-msgstr "printer-state-reasons.die-cutter-near-limit"
+msgstr "ჭრის ხელსაწყო ზღვართანაა"
 
 #. TRANSLATORS: Die Cutter Offline
 msgid "printer-state-reasons.die-cutter-offline"
-msgstr "printer-state-reasons.die-cutter-offline"
+msgstr "ჭრის ხელსაწყო გათიშულია"
 
 #. TRANSLATORS: Die Cutter Opened
 msgid "printer-state-reasons.die-cutter-opened"
-msgstr "printer-state-reasons.die-cutter-opened"
+msgstr "ჭრის ხელსაწყო გაიხსნა"
 
 #. TRANSLATORS: Die Cutter Over Temperature
 msgid "printer-state-reasons.die-cutter-over-temperature"
-msgstr "printer-state-reasons.die-cutter-over-temperature"
+msgstr "ჭრის ხელსაწყოს ტემპერატურა დასაშვებზე მაღლაა"
 
 #. TRANSLATORS: Die Cutter Power Saver
 msgid "printer-state-reasons.die-cutter-power-saver"
-msgstr "printer-state-reasons.die-cutter-power-saver"
+msgstr "ჭრის ხელსაწყოს ენერგიის შემნახველი"
 
 #. TRANSLATORS: Die Cutter Recoverable Failure
 msgid "printer-state-reasons.die-cutter-recoverable-failure"
-msgstr "printer-state-reasons.die-cutter-recoverable-failure"
+msgstr "ჭრის ხელსაწყოს აღდგენადი ჩავარდნა"
 
 #. TRANSLATORS: Die Cutter Recoverable Storage
 msgid "printer-state-reasons.die-cutter-recoverable-storage"
-msgstr "printer-state-reasons.die-cutter-recoverable-storage"
+msgstr "ჭრის ხელსაწყოს აღდგენადი საცავი"
 
 #. TRANSLATORS: Die Cutter Removed
 msgid "printer-state-reasons.die-cutter-removed"
-msgstr "printer-state-reasons.die-cutter-removed"
+msgstr "ჭრის ხელსაწყო მოხსნილია"
 
 #. TRANSLATORS: Die Cutter Resource Added
 msgid "printer-state-reasons.die-cutter-resource-added"
-msgstr "printer-state-reasons.die-cutter-resource-added"
+msgstr "ჭრის ხელსაწყოს რესურსი დაემატა"
 
 #. TRANSLATORS: Die Cutter Resource Removed
 msgid "printer-state-reasons.die-cutter-resource-removed"
-msgstr "printer-state-reasons.die-cutter-resource-removed"
+msgstr "ჭრის ხელსაწყოს რესურსი წაიშალა"
 
 #. TRANSLATORS: Die Cutter Thermistor Failure
 msgid "printer-state-reasons.die-cutter-thermistor-failure"
-msgstr "printer-state-reasons.die-cutter-thermistor-failure"
+msgstr "ჭრის ხელსაწყოს თერმისტორის ჩავარდნა"
 
 #. TRANSLATORS: Die Cutter Timing Failure
 msgid "printer-state-reasons.die-cutter-timing-failure"
-msgstr "printer-state-reasons.die-cutter-timing-failure"
+msgstr "ჭრის ხელსაწყოს წაკვეთის ჩავარდნა"
 
 #. TRANSLATORS: Die Cutter Turned Off
 msgid "printer-state-reasons.die-cutter-turned-off"
-msgstr "printer-state-reasons.die-cutter-turned-off"
+msgstr "ჭრის ხელსაწყო გამორთულია"
 
 #. TRANSLATORS: Die Cutter Turned On
 msgid "printer-state-reasons.die-cutter-turned-on"
-msgstr "printer-state-reasons.die-cutter-turned-on"
+msgstr "ჭრის ხელსაწყო ჩართულია"
 
 #. TRANSLATORS: Die Cutter Under Temperature
 msgid "printer-state-reasons.die-cutter-under-temperature"
-msgstr "printer-state-reasons.die-cutter-under-temperature"
+msgstr "ჭრის ხელსაწყოს ტემპერატურა დასაშვებზე დაბალია"
 
 #. TRANSLATORS: Die Cutter Unrecoverable Failure
 msgid "printer-state-reasons.die-cutter-unrecoverable-failure"
-msgstr "printer-state-reasons.die-cutter-unrecoverable-failure"
+msgstr "ჭრის ხელსაწყოს აღუდგენადი ჩავარდნა"
 
 #. TRANSLATORS: Die Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.die-cutter-unrecoverable-storage-error"
-msgstr "printer-state-reasons.die-cutter-unrecoverable-storage-error"
+msgstr "ჭრის ხელსაწყო აღუდგენადი საცავის შეცდომა"
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
-msgstr "printer-state-reasons.die-cutter-warming-up"
+msgstr "ჭრის ხელსაწყო თბება"
 
 #. TRANSLATORS: Door Open
 msgid "printer-state-reasons.door-open"

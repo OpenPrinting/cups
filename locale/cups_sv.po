@@ -11,15 +11,16 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-01-25 20:56+0100\n"
-"Last-Translator: Daniel Nylander <github@danielnylander.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: mo_TO\n"
+"PO-Revision-Date: 2025-04-18 04:21+0000\n"
+"Last-Translator: Kristoffer Grundström <lovaren@gmail.com>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/cups/cups/sv/>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 "X-Launchpad-Export-Date: 2024-08-17 11:58+0000\n"
-"X-Generator: Poedit 3.5\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(alla)"
@@ -798,9 +799,8 @@ msgstr "  --crlf                  Radbryt med CR + LF (Windows)."
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr "  --lf                    Radbryt med LF (UNIX/Linux/macOS)."
 
-#, fuzzy
 msgid "  --list-all              List all filters with the MIME media types."
-msgstr "  --list-filters          Lista filter som kommer att användas."
+msgstr "  --list-all          Lista alla filter med MIME mediatyp.."
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          Lista filter som kommer att användas."
@@ -840,9 +840,9 @@ msgstr "  -d output-dir           Ange mapp för utdata."
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Använd alla filter från PPD-filen."
 
-#, fuzzy
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
-msgstr "  -i mime/type            Ange indatans MIME-typ (auto-typas annars)."
+msgstr ""
+"  -i mime/type            Ange MIME-typ på indata (annars gissas typen)."
 
 #, fuzzy
 msgid ""
@@ -863,9 +863,8 @@ msgid ""
 msgstr ""
 "  -m mime/type            Ange utdatans MIME-typ (annars application/pdf)."
 
-#, fuzzy
 msgid "  -n COPIES               Set number of copies."
-msgstr "  -n exemplar             Ange antal exemplar."
+msgstr "  -n koior             Ange antal kopior."
 
 #, fuzzy
 msgid "  -o NAME=VALUE           Set option(s)."
@@ -1392,13 +1391,13 @@ msgstr "%s: Fel - användarnamn förväntades efter alternativet \"-u\"."
 msgid "%s: Error - expected value after \"-%c\" option."
 msgstr "%s: Fel - värde förväntades efter alternativet \"-%c\"."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
-"%s: Fel - \"completed\", \"not-completed\", eller \"all\" behövs efter "
-"alternativet \"-W\"."
+"%s: Fel - ange \"completed\", \"not-completed\" eller \"all\" som argument "
+"till växeln \"-W\"."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1456,9 +1455,9 @@ msgstr "%s: Ogiltig destinationsnamn i listan \"%s\"."
 msgid "%s: Invalid filter string \"%s\"."
 msgstr "%s: Ogiltig filtersträng \"%s\"."
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr "%s: Filnamn saknas för \"-P\"."
+msgstr "%s: Filnamn saknas efter växeln \"-P\"."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1470,7 +1469,7 @@ msgstr "%s: Tidsgräns saknas för \"-T\"."
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr ""
+msgstr "%s: Saknar ord efter växeln \"--bearer-token\"."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1546,11 +1545,11 @@ msgstr "%s: Okänt alternativ \"-%c\"."
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: Okänd växel \"'%s\"."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: Okänd växel \"-%c\"."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1604,17 +1603,19 @@ msgstr "--[no-]share-printers   Växla skrivardelning på/av"
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr "--[no-]user-cancel-any  Tillåt/förbjud användare att avbryta jobb"
 
-#, fuzzy
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
-"-U username             Ange användarnamn att använda för autentisering"
+"--bearer-token BEARER-TOKEN\n"
+"                        Sätt OAuth Bearer token för autentisering"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name KLIENT-NAMN\n"
+"                        Sätt TLS-klientens  sertifikatsnamn"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
@@ -1643,7 +1644,7 @@ msgid "--false                 Always false"
 msgstr "--false                 Alltid falskt"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         Visa den här hjälptexten"
 
 msgid "--help                  Show program help"
 msgstr "--help                  Visa hjälp om programmet"
@@ -1706,6 +1707,7 @@ msgstr "--path regex            Matcha resursens sökväg mot regeluttryck"
 
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
+"--pin                          Fäst sertifikatet som klientprogrammet hittat"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr "--port number[-number]  Matcha port mot nummer eller intervall"
@@ -1734,6 +1736,8 @@ msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
 msgstr ""
+"--require-ca                   Kräver CA-signerat sertifikat till "
+"klientprogrammet"
 
 msgid ""
 "--stop-after-include-error\n"
@@ -1762,7 +1766,7 @@ msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri regex             Matcha URI mot regeluttryck"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      Visa programmet version"
 
 msgid "--version               Show program version"
 msgstr "--version               Visa programversion"
@@ -1895,7 +1899,7 @@ msgid "-C                      Send requests using chunking (default)"
 msgstr "-C                      Skicka begäran med chunking (förval)"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C LAND                     Sätt land."
 
 msgid "-D description          Specify the textual description of the printer"
 msgstr "-D beskrivning         Ange beskrivningstext för skrivaren"
@@ -1962,7 +1966,7 @@ msgid "-L                      Send requests using content-length"
 msgstr "-L                      Skicka begäran med content-length"
 
 msgid "-L LOCALITY                    Set locality name."
-msgstr ""
+msgstr "-L LOKALITY                    Sätt språkanpassning."
 
 msgid "-L location             Specify the textual location of the printer"
 msgstr "-L location             Ange skrivarens platstext"
@@ -1975,7 +1979,7 @@ msgstr ""
 "-N namn                 Matcha tjänstens namn mot bokstavligt namnvärde"
 
 msgid "-O ORGANIZATION                Set organization name."
-msgstr ""
+msgstr "-O ORGANIZATION                Sätt organisationens namn."
 
 msgid "-P destination          Show status for the specified destination"
 msgstr "-P destination          Visa status för angiven destination"
@@ -1996,9 +2000,8 @@ msgstr "-P number[-number]      Matcha port mot nummer eller intervall"
 msgid "-P page-list            Specify a list of pages to print"
 msgstr "-P page-list            Ange en lista över sidor att skriva ut"
 
-#, fuzzy
 msgid "-R                      Repeat tests on server-error-busy"
-msgstr "-t                      Sammanställ en testrapport"
+msgstr "-R                      Repetera test på server-error-busy"
 
 msgid "-R                      Show the ranking of jobs"
 msgstr "-R                      Visa jobbens rangordning"
@@ -2006,6 +2009,7 @@ msgstr "-R                      Visa jobbens rangordning"
 msgid ""
 "-R CSR-FILENAME                Specify certificate signing request file."
 msgstr ""
+"-R CSR-FILNAMN                Specifiera fil för  sertifikatsigningsbegäran."
 
 msgid "-R name-default         Remove the default value for the named option"
 msgstr "-R name-default         Ta bort förvalt värde för namngivet alternativ"
@@ -2017,7 +2021,7 @@ msgid "-S                      Test with encryption using HTTPS"
 msgstr "-S                      Testa med kryptering genom HTTPS"
 
 msgid "-S STATE                       Set state."
-msgstr ""
+msgstr "-S STAT                       Sätt stat."
 
 msgid "-S filename.strings     Set strings file"
 msgstr "-S filnamn.strings      Ange strings-fil"
@@ -2032,7 +2036,7 @@ msgid "-T title                Specify the job title"
 msgstr "-T title                Ange jobbtitel"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
-msgstr ""
+msgstr "-U ORGANISATIONSENHET         Sätt organisationsenhets namn."
 
 msgid "-U username             Specify the username to use for authentication"
 msgstr ""
@@ -4659,7 +4663,7 @@ msgid "Plain Paper"
 msgstr "Vanligt papper"
 
 msgid "Policies"
-msgstr "Policier"
+msgstr "Policyer"
 
 msgid "Port Monitor"
 msgstr "Portbevakare"
@@ -5428,7 +5432,7 @@ msgid "Unable to write uncompressed print data: %s"
 msgstr "Kan inte skriva okomprimerad utskriftsdata: %s"
 
 msgid "Unauthorized"
-msgstr "Ej auktoriserad"
+msgstr "Obehörig"
 
 msgid "Units"
 msgstr "Enheter"
