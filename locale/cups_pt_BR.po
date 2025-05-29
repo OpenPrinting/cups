@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-05-29 11:39+0000\n"
+"PO-Revision-Date: 2025-05-30 12:01+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -1079,156 +1079,158 @@ msgstr ""
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
 msgstr ""
-"\"%s\": O valor %d da enumeração não é válido porque está fora do intervalo ("
-"RFC 8011 da seção 5.1.5)."
+"\"%s\": O valor %d não é válido porque está fora do intervalo (RFC 8011 da "
+"seção 5.1.5)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
-"\"%s\": O valor da palavra-chave \"%s\" não é válido devido o seu "
-"comprimento de %d (RFC 8011 da seção 5.1.4)."
+"\"%s\": O valor da palavra-chave \"%s\" não é válido porque o seu "
+"comprimento %d não é válido (RFC 8011 da seção 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section "
 "5.1.4)."
 msgstr ""
-"\"%s\": O valor da palavra-chave \"%s\" não é válido devido o tipo do "
-"caractere não ser válido (RFC 8011 da seção 5.1.4)."
+"\"%s\": O valor da palavra-chave \"%s\" não é válido porque o tipo do "
+"caractere não é válido (RFC 8011 da seção 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"\"%s\": O valor do mimeMediaType \"%s\" não é válido devido os caracteres "
-"não serem válidos (RFC 8011 da seção 5.1.10)."
+"\"%s\": O valor do mimeMediaType \"%s\" não é válido porque os caracteres "
+"não são válidos (RFC 8011 da seção 5.1.10)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"\"%s\": O valor do mimeMediaType \"%s\" não é válido devido o comprimento %d "
-"não ser válido (RFC 8011 da seção 5.1.10)."
+"\"%s\": O valor do mimeMediaType \"%s\" não é válido porque o comprimento %d "
+"não é válido (RFC 8011 da seção 5.1.10)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
 msgstr ""
-"\"%s\": Valor name inválido \"%s\" - sequência UTF-8 inválida (RFC 8011 "
-"seção 5.1.3)."
+"\"%s\": O name (nome) \"%s\" não é válido porque não é no padrão UTF-8 (RFC "
+"8011 da seção 5.1.3)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section "
 "8.1)."
 msgstr ""
-"\"%s\": Nome inválido \"%s\" - caractere de controle inválido (PWG 5100.14 "
-"seção 8.1)."
+"\"%s\": O name (nome) \"%s\" não é válido porque o caractere de controle não "
+"é válido (PWG 5100.14 da seção 8.1)."
 
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."
 msgstr ""
-"\"%s\": Valor name inválido \"%s\" - comprimento inválido %d (RFC 8011 seção "
-"5.1.3)."
+"\"%s\": O name (nome) \"%s\" não é válido porque o comprimento %d não é "
+"válido (RFC 8011 da seção 5.1.3)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section "
 "5.1.9)."
 msgstr ""
-"\"%s\": Valor naturalLanguage inválido \"%s\" - caracteres inválidos (RFC "
-"8011 seção 5.1.9)."
+"\"%s\": O valor do naturalLanguage \"%s\" não é válido porque os caracteres "
+"não são válidos (RFC 8011 da seção 5.1.9)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.9)."
 msgstr ""
-"\"%s\": Valor naturalLanguage inválido \"%s\" - comprimento inválido %d (RFC "
-"8011 seção 5.1.9)."
+"\"%s\": O valor do naturalLanguage \"%s\" não é válido porque o comprimento "
+"%d não é válido (RFC 8011 da seção 5.1.9)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
 msgstr ""
-"\"%s\": Valor octetString inválido - comprimento inválido %d (RFC 8011 seção "
-"5.1.20)."
+"\"%s\": O valor do octetString não é válido porque o comprimento %d não é "
+"válido (RFC 8011 da seção 5.1.20)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 "
 "section 5.1.14)."
 msgstr ""
-"\"%s\": Valor rangeOfInteger inválido %d-%d - inferior maior que superior "
-"(RFC 8011 seção 5.1.14)."
+"\"%s\": O valor do rangeOfInteger %d de %d não é válido porque o valor "
+"inferior é maior que o valor superior (RFC 8011 da seção 5.1.14)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - bad units value (RFC 8011 section "
 "5.1.16)."
 msgstr ""
-"\"%s\": Valor resolution inválido %dx%d%s - unidade inválida (RFC 8011 seção "
-"5.1.16)."
+"\"%s\": O valor do resolution (resolução) %dx%d%s não é válido porque a "
+"unidade não é válida (RFC 8011 da seção 5.1.16)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be "
 "positive (RFC 8011 section 5.1.16)."
 msgstr ""
-"\"%s\": Valor resolution inválido %dx%d%s - resolução cross feed deve ser "
-"positiva (RFC 8011 seção 5.1.16)."
+"\"%s\": O valor do resolution (resolução) %dx%d%s não é válido porque a "
+"resolução da alimentação cruzada deve ter um valor positivo (RFC 8011 da "
+"seção 5.1.16)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC "
 "8011 section 5.1.16)."
 msgstr ""
-"\"%s\": Valor resolution inválido %dx%d%s - resolução feed deve ser positiva "
-"(RFC 8011 seção 5.1.16)."
+"\"%s\": O valor do resolution (resolução) %dx%d%s não é válido porque o "
+"valor da resolução da alimentação tem que ser positivo (RFC 8011 da seção "
+"5.1.16)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
 msgstr ""
-"\"%s\": Valor text inválido \"%s\" - sequência UTF-8 inválida (RFC 8011 "
-"seção 5.1.2)."
+"\"%s\": O text (texto) \"%s\" não é válido porque não é no padrão UTF-8 (RFC "
+"8011 da seção 5.1.2)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section "
 "8.3)."
 msgstr ""
-"\"%s\": Valor text inválido \"%s\" - caractere de controle inválido (PWG "
-"5100.14 seção 8.3)."
+"\"%s\": O text (texto) \"%s\" não é válido porque o caractere de controle "
+"não é válido (PWG 5100.14 da seção 8.3)."
 
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."
 msgstr ""
-"\"%s\": Valor text inválido \"%s\" - comprimento inválido %d (RFC 8011 seção "
-"5.1.2)."
+"\"%s\": O text (texto) \"%s\" não é válido porque o comprimento %d não é "
+"válido (RFC 8011 da seção 5.1.2)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
 msgstr ""
-"\"%s\": Valor uriScheme inválido \"%s\" - caracteres inválidos (RFC 8011 "
-"seção 5.1.7)."
+"\"%s\": O valor do uriScheme \"%s\" não é válido porque os caracteres não "
+"são válidos (RFC 8011 da seção 5.1.7)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
 msgstr ""
-"\"%s\": Valor uriScheme inválido \"%s\" - comprimento inválido %d (RFC 8011 "
-"seção 5.1.7)."
+"\"%s\": O valor do uriScheme \"%s\" não é válido porque o comprimento %d não "
+"é válido (RFC 8011 da seção 5.1.7)."
 
 msgid "\"requesting-user-name\" attribute in wrong group."
-msgstr "Atributo \"requesting-user-name\" no grupo errado."
+msgstr "O atributo \"requesting-user-name\" está no grupo errado."
 
 msgid "\"requesting-user-name\" attribute with wrong syntax."
-msgstr "Atributo \"requesting-user-name\" com sintaxe errada."
+msgstr "O atributo \"requesting-user-name\" está com a sintaxe errada."
 
 #, c-format
 msgid "%-7s %-7.7s %-7d %-31.31s %.0f bytes"
@@ -1264,35 +1266,37 @@ msgstr "%s (Sem borda, %s, %s)"
 
 #, c-format
 msgid "%s accepting requests since %s"
-msgstr "%s está aceitando requisições desde %s"
+msgstr "O %s está aceitando as requisições desde %s"
 
 #, c-format
 msgid "%s cannot be changed."
-msgstr "%s não pode ser alterada."
+msgstr "O %s não pode ser alterado."
 
 #, c-format
 msgid "%s is not implemented by the CUPS version of lpc."
-msgstr "%s não está implementada pela versão CUPS do lpc."
+msgstr "O %s não está implementado na versão do CUPS do lpc."
 
 #, c-format
 msgid "%s is not ready"
-msgstr "%s não está pronta"
+msgstr "A %s não está pronta"
 
 #, c-format
 msgid "%s is ready"
-msgstr "%s está pronta"
+msgstr "A %s está pronta"
 
 #, c-format
 msgid "%s is ready and printing"
-msgstr "%s está pronta e imprimindo"
+msgstr "A %s está pronta e imprimindo"
 
 #, c-format
 msgid "%s job-id user title copies options [file]"
-msgstr "%s job-id usuário título cópia opções [arquivo]"
+msgstr ""
+"O ID (identificador) de trabalho %s do usuário, título, cópias e opções "
+"[arquivo]"
 
 #, c-format
 msgid "%s not accepting requests since %s -"
-msgstr "%s não está aceitando requisições desde %s -"
+msgstr "O %s não está aceitando as requisições desde %s -"
 
 #, c-format
 msgid "%s not supported."
@@ -1300,15 +1304,15 @@ msgstr "não há suporte a %s."
 
 #, c-format
 msgid "%s/%s accepting requests since %s"
-msgstr "%s/%s está aceitando requisições desde %s"
+msgstr "O %s/%s está aceitando as requisições desde %s"
 
 #, c-format
 msgid "%s/%s not accepting requests since %s -"
-msgstr "%s/%s não está aceitando requisições desde %s -"
+msgstr "O %s/%s não está aceitando as requisições desde %s -"
 
 #, c-format
 msgid "%s: %-33.33s [job %d localhost]"
-msgstr "%s: %-33.33s [trabalho %d localhost]"
+msgstr "O %s: %-33.33s [trabalho %d hospedeiro local]"
 
 #. TRANSLATORS: Message is "subject: error"
 #, c-format
@@ -1321,265 +1325,299 @@ msgstr "%s: %s falhou: %s"
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
-msgstr "%s: Versão inválida %s para \"-V\"."
+msgstr "%s: A versão %s não é válida para o parâmetro \"-V\"."
 
 #, c-format
 msgid "%s: Don't know what to do."
-msgstr "%s: Não sei o que fazer."
+msgstr "%s: Não sei o que posso fazer."
 
 #, c-format
 msgid "%s: Error - %s"
-msgstr "%s: Erro - %s"
+msgstr "%s: Ocorreu o erro - %s"
 
 #, c-format
 msgid ""
 "%s: Error - %s environment variable names non-existent destination \"%s\"."
 msgstr ""
-"%s: Erro - A variável de ambiente %s contém destino inexistente \"%s\"."
+"%s: Ocorreu o erro. A variável de ambiente %s contém o destino \"%s\" que "
+"não existente."
 
 #, c-format
 msgid "%s: Error - The printer or class does not exist."
-msgstr "%s: Erro - A impressora ou classe não existe."
+msgstr "%s: Ocorreu um erro. A impressora ou a classe não existe."
 
 #, c-format
 msgid "%s: Error - add '/version=1.1' to server name."
-msgstr "%s: Erro - adicione '/version=1.1' ao nome do servidor."
+msgstr ""
+"%s: Ocorreu um erro. Adicione o parâmetro '/version=1.1' ao nome do servidor."
 
 #, c-format
 msgid "%s: Error - bad job ID."
-msgstr "%s: Erro - ID de trabalho inválido."
+msgstr "%s: Ocorreu um erro. O ID (identificador) de trabalho não é válido."
 
 #, c-format
 msgid "%s: Error - cannot print files and alter jobs simultaneously."
 msgstr ""
-"%s: Erro - não é possível imprimir arquivos e alterar trabalhos "
-"simultaneamente."
+"%s: Ocorreu um erro. Não foi possível imprimir os arquivos e alterar os "
+"trabalhos simultaneamente."
 
 #, c-format
 msgid "%s: Error - cannot print from stdin if files or a job ID are provided."
 msgstr ""
-"%s: Erro - não é possível imprimir de stdin se os arquivos ou um ID de "
-"trabalho forem fornecidos."
+"%s: Ocorreu um erro. Não é possível imprimir a partir do stdin se os "
+"arquivos ou um ID (identificador) de trabalho não forem fornecidos."
 
 #, c-format
 msgid "%s: Error - copies must be 1 or more."
-msgstr "%s: Erro - número de cópias deve ser 1 ou mais."
+msgstr "%s: Ocorreu um erro. A quantidade de cópias deve ser 1 ou mais."
 
 #, c-format
 msgid "%s: Error - expected \"username\" after \"-U\" option."
-msgstr "%s: Erro - esperava \"usuário\" após a opção \"-U\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o \"nome do usuário\" após a opção \"-U\"."
 
 #, c-format
 msgid "%s: Error - expected PPD file after \"-%c\" option."
-msgstr "%s: Erro - esperava arquivo PPD após a opção \"-%c\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado um arquivo no formato PPD após a opção "
+"\"-%c\"."
 
 #, c-format
 msgid "%s: Error - expected character set after \"-S\" option."
-msgstr "%s: Erro - esperava uma codificação de caracteres após a opção \"-S\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado um conjunto de caracteres após a opção "
+"\"-S\"."
 
 #, c-format
 msgid "%s: Error - expected content type after \"-T\" option."
-msgstr "%s: Erro - esperava um tipo de conteúdo após a opção \"-T\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado um tipo de conteúdo após a opção \"-T\"."
 
 #, c-format
 msgid "%s: Error - expected copies after \"-#\" option."
-msgstr "%s: Erro - esperava cópias após a opção \"-#\"."
+msgstr "%s: Ocorreu um erro. Era esperado as cópias após a opção \"-#\"."
 
 #, c-format
 msgid "%s: Error - expected copies after \"-n\" option."
-msgstr "%s: Erro - esperava número de cópias após a opção \"-n\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado a quantidade de cópias após a opção \"-n\"."
 
 #, c-format
 msgid "%s: Error - expected destination MIME type after \"-m\" option."
-msgstr "%s: Erro - esperava tipo MIME de destino após a opção \"-m\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o tipo do MIME de destino após a opção "
+"\"-m\"."
 
 #, c-format
 msgid "%s: Error - expected destination after \"-P\" option."
-msgstr "%s: Erro - esperava um destino após a opção \"-P\"."
+msgstr "%s: Ocorreu um erro. Era esperado um destino após a opção \"-P\"."
 
 #, c-format
 msgid "%s: Error - expected destination after \"-d\" option."
-msgstr "%s: Erro - esperava um destino após a opção \"-d\"."
+msgstr "%s: Ocorreu um erro. Era esperado um destino após a opção \"-d\"."
 
 #, c-format
 msgid "%s: Error - expected filename after \"-c\" option."
-msgstr "%s: Erro - esperava nome do arquivo após a opção \"-c\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o nome do arquivo após a opção \"-c\"."
 
 #, c-format
 msgid "%s: Error - expected form after \"-f\" option."
-msgstr "%s: Erro - esperava um formulário após a opção \"-f\"."
+msgstr "%s: Ocorreu um erro. Era esperado um formulário após a opção \"-f\"."
 
 #, c-format
 msgid "%s: Error - expected hold name after \"-H\" option."
-msgstr "%s: Erro - esperava um nome para segurar após a opção \"-H\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado um nome para reter após a opção \"-H\"."
 
 #, c-format
 msgid "%s: Error - expected hostname after \"-H\" option."
-msgstr "%s: Erro - esperava o nome da máquina após a opção \"-H\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o nome da máquina após a opção \"-H\"."
 
 #, c-format
 msgid "%s: Error - expected hostname after \"-h\" option."
-msgstr "%s: Erro - esperava o nome da máquina após a opção \"-h\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o nome da máquina após a opção \"-h\"."
 
 #, c-format
 msgid "%s: Error - expected input file after \"-f\" option."
-msgstr "%s: Erro - esperava o arquivo de entrada após a opção \"-f\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o arquivo de entrada após a opção \"-f\"."
 
 #, c-format
 msgid "%s: Error - expected job-id after \"-j\" option."
-msgstr "%s: Erro - esperava id de trabalho após a opção \"-j\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o ID (identificador) de trabalho após a "
+"opção \"-j\"."
 
 #, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
-msgstr "%s: Erro - esperava uma lista de modos após a opção \"-y\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado uma lista dos modos após a opção \"-y\"."
 
 #, c-format
 msgid "%s: Error - expected name after \"-%c\" option."
-msgstr "%s: Erro - esperava um nome após a opção \"-%c\"."
+msgstr "%s: Ocorreu um erro. Era esperado um nome após a opção \"-%c\"."
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-a\" option."
-msgstr "%s: Erro - esperava nome=valor após a opção \"-a\"."
+msgstr "%s: Ocorreu um erro. Era esperado o \"nome=valor\" após a opção \"-a\"."
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-o\" option."
-msgstr "%s: Erro - esperava nome=valor após a opção \"-o\"."
+msgstr "%s: Ocorreu um erro. Era esperado \"nome=valor\" após a opção \"-o\"."
 
 #, c-format
 msgid "%s: Error - expected number of copies after \"-n\" option."
-msgstr "%s: Erro - esperava número de cópias após a opção \"-n\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado a quantidade de cópias após a opção \"-n\"."
 
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
-msgstr "%s: Erro - esperava opção=valor após a opção \"-o\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado a \"opção=valor\" após a opção \"-o\"."
 
 #, c-format
 msgid "%s: Error - expected page list after \"-P\" option."
-msgstr "%s: Erro - esperava uma lista de página após a opção \"-P\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado uma lista das página após a opção \"-P\"."
 
 #, c-format
 msgid "%s: Error - expected printer name after \"-d\" option."
-msgstr "%s: Erro - esperava nome da impressora após a opção \"-d\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado o nome da impressora após a opção \"-d\"."
 
 #, c-format
 msgid "%s: Error - expected priority after \"-%c\" option."
-msgstr "%s: Erro - esperava uma prioridade após a opção \"-%c\"."
+msgstr "%s: Ocorreu um erro. Era esperado uma prioridade após a opção \"-%c\"."
 
 #, c-format
 msgid "%s: Error - expected reason text after \"-r\" option."
-msgstr "%s: Erro - esperava um texto com motivo após a opção \"-r\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado um texto com o motivo após a opção \"-r\"."
 
 #, c-format
 msgid "%s: Error - expected source MIME type after \"-i\" option."
-msgstr "%s: Erro - esperava tipo MIME de origem após a opção \"-i\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado a origem do tipo do MIME após a opção "
+"\"-i\"."
 
 #, c-format
 msgid "%s: Error - expected title after \"-%c\" option."
-msgstr "%s: Erro - esperava título após a opção \"-%c\"."
+msgstr "%s: Ocorreu um erro. Era esperado um título após a opção \"-%c\"."
 
 #, c-format
 msgid "%s: Error - expected title after \"-t\" option."
-msgstr "%s: Erro - esperava um título após a opção \"-t\"."
+msgstr "%s: Ocorreu um erro. Era esperado um título após a opção \"-t\"."
 
 #, c-format
 msgid "%s: Error - expected username after \"-U\" option."
-msgstr "%s: Erro - esperava um nome de usuário após a opção \"-U\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado um nome de usuário após a opção \"-U\"."
 
 #, c-format
 msgid "%s: Error - expected username after \"-u\" option."
-msgstr "%s: Erro - esperava um nome de usuário após a opção \"-u\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado um nome de usuário após a opção \"-u\"."
 
 #, c-format
 msgid "%s: Error - expected value after \"-%c\" option."
-msgstr "%s: Erro - esperava um valor após a opção \"-%c\"."
+msgstr "%s: Ocorreu um erro. Era esperado um valor após a opção \"-%c\"."
 
 #, c-format
 msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
-"%s: Erro - necessita \"completar\", \"não-completar\", \"bem sucedido\", ou "
-"\"tudo\" depois de \"-W\" opção."
+"%s: Ocorreu um erro. É necessário incluir as opções \"completed\" (completar)"
+", \"not-completed\" (não completar), \"successful\" (bem-sucedido), ou "
+"\"all\" (todos) depois do \"-W\"."
 
 #, c-format
 msgid "%s: Error - no default destination available."
-msgstr "%s: Erro - nenhum destino padrão disponível."
+msgstr "%s: Ocorreu um erro. Nenhum destino padrão está disponível."
 
 #, c-format
 msgid "%s: Error - priority must be between 1 and 100."
-msgstr "%s: Erro - prioridade deve estar entre 1 e 100."
+msgstr "%s: Ocorreu um erro. A prioridade deve estar entre 1 e 100."
 
 #, c-format
 msgid "%s: Error - scheduler not responding."
-msgstr "%s: Erro - agendador não está respondendo."
+msgstr "%s: Ocorreu um erro. O agendador não está respondendo."
 
 #, c-format
 msgid "%s: Error - too many files - \"%s\"."
-msgstr "%s: Erro - arquivos demais - \"%s\"."
+msgstr "%s: Ocorreu um erro. Porque \"%s\" são muitos arquivos."
 
 #, c-format
 msgid "%s: Error - unable to access \"%s\" - %s"
-msgstr "%s: Erro - não foi possível acessar \"%s\" - %s"
+msgstr "%s: Ocorreu um erro. Não foi possível acessar \"%s\" - %s"
 
 #, c-format
 msgid "%s: Error - unable to queue from stdin - %s."
-msgstr "%s: Erro - não foi possível enfilerar de stdin - %s."
+msgstr ""
+"%s: Ocorreu um erro. Não foi possível enfileirar a partir do stdin - %s."
 
 #, c-format
 msgid "%s: Error - unknown destination \"%s\"."
-msgstr "%s: Erro - destino desconhecido \"%s\"."
+msgstr "%s: Ocorreu um erro. O destino \"%s\" não é conhecido."
 
 #, c-format
 msgid "%s: Error - unknown destination \"%s/%s\"."
-msgstr "%s: Erro - destino desconhecido \"%s/%s\"."
+msgstr "%s: Ocorreu um erro. O destino \"%s/%s\" não é conhecido."
 
 #, c-format
 msgid "%s: Error - unknown option \"%c\"."
-msgstr "%s: Erro - opção desconhecida \"%c\"."
+msgstr "%s: Ocorreu um erro. A opção \"%c\" não é conhecida."
 
 #, c-format
 msgid "%s: Error - unknown option \"%s\"."
-msgstr "%s: Erro - opção desconhecida \"%s\"."
+msgstr "%s: Ocorreu um erro. A opção \"%s\" não é conhecida."
 
 #, c-format
 msgid "%s: Error - unknown option \"-%c\"."
-msgstr "%s: Erro - opção desconhecida \"-%c\"."
+msgstr "%s: Ocorreu um erro. A opção \"-%c\" não é conhecida."
 
 #, c-format
 msgid "%s: Expected job ID after \"-i\" option."
-msgstr "%s: Esperava ID do trabalho após a \"-i\"."
+msgstr "%s: Era esperado o ID (identificador) de trabalho após a opção \"-i\"."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
-msgstr "%s: Nome de destino inválido na lista \"%s\"."
+msgstr "%s: O nome do destino não é válido na lista \"%s\"."
 
 #, c-format
 msgid "%s: Invalid filter string \"%s\"."
-msgstr "%s: String de filtro inválida \"%s\"."
+msgstr "%s: O texto \"%s\" do filtro não é válido."
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr "%s: Nome do cliente ausente após '--Nome-cliente'."
+msgstr "%s: Está faltando o nome do cliente após a opção '--client-name'."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
-msgstr "%s: Faltando nome de arquivo para \"-P\"."
+msgstr "%s: Está faltando o nome do arquivo para \"-P\"."
 
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
-msgstr "%s: Faltando tempo de espera para \"-T\"."
+msgstr "%s: Está faltando o tempo de espera para \"-T\"."
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr "%s: Token ausente após '--token-de-portador'."
+msgstr ""
+"%s: Está faltando a chave do portador para a autenticação após a opção "
+"'--bearer-token'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
-msgstr "%s: Faltando versão para \"-V\"."
+msgstr "%s: Está faltando a versão para \"-V\"."
 
 #, c-format
 msgid "%s: Need job ID (\"-i jobid\") before \"-H restart\"."
-msgstr "%s: Precisa de ID de trabalho (\"-i jobid\") antes de \"-H restart\"."
+msgstr ""
+"%s: É necessário o ID (identificador) de trabalho \"-i jobid\" antes do "
+"\"-H restart\"."
 
 #, c-format
 msgid "%s: No filter to convert from %s/%s to %s/%s."
@@ -1587,7 +1625,7 @@ msgstr "%s: Nenhum filtro para converter de %s/%s para %s/%s."
 
 #, c-format
 msgid "%s: Operation failed: %s"
-msgstr "%s: Operação falhou: %s"
+msgstr "%s: A operação falhou: %s"
 
 #, c-format
 msgid "%s: Scheduler is not running."
@@ -1599,11 +1637,11 @@ msgstr "%s: Não foi possível conectar ao servidor."
 
 #, c-format
 msgid "%s: Unable to contact server."
-msgstr "%s: Não foi possível contactar o servidor."
+msgstr "%s: Não foi possível contatar o servidor."
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
-msgstr "%s: Não foi possível determinar o tipo MIME de \"%s\"."
+msgstr "%s: Não foi possível determinar o tipo do MIME de \"%s\"."
 
 #, c-format
 msgid "%s: Unable to open \"%s\": %s"
@@ -1615,97 +1653,102 @@ msgstr "%s: Não foi possível abrir %s: %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
-msgstr "%s: Não foi possível abrir o arquivo PPD: %s na linha %d."
+msgstr "%s: Não foi possível abrir o arquivo no formato PPD: %s na linha %d."
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
-msgstr "%s: Não foi possível ler o banco de dados MIME de \"%s\" ou \"%s\"."
+msgstr "%s: Não foi possível ler o banco de dados do MIME de \"%s\" ou \"%s\"."
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
-msgstr "%s: Parâmetro desconhecido \"%s\"."
+msgstr "%s: O parâmetro \"%s\" não é conhecido."
 
 #, c-format
 msgid "%s: Unknown destination \"%s\"."
-msgstr "%s: Destino desconhecido \"%s\"."
+msgstr "%s: O destino \"%s\" não é conhecido."
 
 #, c-format
 msgid "%s: Unknown destination MIME type %s/%s."
-msgstr "%s: Tipo de MIME de destino desconhecido %s/%s."
+msgstr "%s: O tipo do MIME de destino não é conhecido %s/%s."
 
 #, c-format
 msgid "%s: Unknown option \"%c\"."
-msgstr "%s: Opção desconhecida \"%c\"."
+msgstr "%s: A opção \"%c\" não é conhecida."
 
 #, c-format
 msgid "%s: Unknown option \"%s\"."
-msgstr "%s: Opção desconhecida \"%s\"."
+msgstr "%s: A opção \"%s\" não é conhecida."
 
 #, c-format
 msgid "%s: Unknown option \"-%c\"."
-msgstr "%s: Opção desconhecida \"-%c\"."
+msgstr "%s: A opção \"-%c\" não é conhecida."
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr "%s: Opção desconhecida '%s'."
+msgstr "%s: A opção '%s' não é conhecida."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr "%s: Opção desconhecida '-%c'."
+msgstr "%s: A opção'-%c' não é conhecida."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
-msgstr "%s: Tipo MIME de origem desconhecida %s/%s."
+msgstr "%s: O tipo do MIME de origem não é conhecido %s/%s."
 
 #, c-format
 msgid ""
 "%s: Warning - \"%c\" format modifier not supported - output may not be "
 "correct."
 msgstr ""
-"%s: Aviso - não há suporte ao modificador de formato \"%c\" - a saída pode "
-"não ficar correta."
+"%s: Aviso. O formato \"%c\" do modificador não é compatível. A saída pode "
+"não estar correta."
 
 #, c-format
 msgid "%s: Warning - character set option ignored."
-msgstr "%s: Aviso - opção de conjunto de caracteres ignorada."
+msgstr "%s: Aviso. A opção do conjunto de caracteres foi ignorada."
 
 #, c-format
 msgid "%s: Warning - content type option ignored."
-msgstr "%s: Aviso - opção de tipo de conteúdo ignorada."
+msgstr "%s: Aviso. A opção do tipo do conteúdo foi ignorada."
 
 #, c-format
 msgid "%s: Warning - form option ignored."
-msgstr "%s: Aviso - opção de formulário ignorada."
+msgstr "%s: Aviso. A opção do formulário foi ignorada."
 
 #, c-format
 msgid "%s: Warning - mode option ignored."
-msgstr "%s: Aviso - opção modo ignorada."
+msgstr "%s: Aviso. A opção do modo foi ignorada."
 
 msgid "( expressions )         Group expressions"
 msgstr "( expressões )          Expressões de grupo"
 
 msgid "-                       Cancel all jobs"
-msgstr "-                       Cancelar todos os trabalhos"
+msgstr "-                       Permite cancelar todos os trabalhos"
 
 msgid "-# num-copies           Specify the number of copies to print"
-msgstr "-# núm. de cópias      Especificar o número de cópias a imprimir"
+msgstr ""
+"-# num-copies      Permite especificar a quantidade de cópias a serem "
+"impressas"
 
 msgid "--[no-]debug-logging    Turn debug logging on/off"
-msgstr "--[no-]debug-logging    Ativar/desativar logging de depuração"
+msgstr ""
+"--[no-]debug-logging    Permite ativar ou desativar o registro de depuração"
 
 msgid "--[no-]remote-admin     Turn remote administration on/off"
-msgstr "--[no-]remote-admin     Ativar/desativar administração remota"
+msgstr ""
+"--[no-]remote-admin     Permite ativar ou desativar a administração remota"
 
 msgid "--[no-]remote-any       Allow/prevent access from the Internet"
-msgstr "--[no-]remote-any       Permitir/negar acesso via Internet"
+msgstr "--[no-]remote-any       Permitir ou negar acesso via internet"
 
 msgid "--[no-]share-printers   Turn printer sharing on/off"
 msgstr ""
-"--[no-]share-printers   Ativar/desativar compartilhamento de impressora"
+"--[no-]share-printers   Permite ativar ou desativar o compartilhamento da "
+"impressora"
 
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
-"--[no-]user-cancel-any  Permitir/negar que usuários cancelem qualquer "
+"--[no-]user-cancel-any  Permitir ou negar que os usuários cancelem qualquer "
 "trabalho"
 
 msgid ""
@@ -1713,86 +1756,103 @@ msgid ""
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
 "--bearer-token BEARER-TOKEN\n"
-"                        Definir o token do portador do OAuth para "
-"autenticação"
+"                        Permite definir a chave do portador do OAuth para "
+"realizar a autenticação"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
 "--client-name CLIENT-NAME\n"
-"                        Definir o nome do certificado do cliente TLS"
+"                        Permite definir o nome do certificado do cliente TLS"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
-msgstr "--device-id device-id   Mostra modelos correspondentes ao ID IEEE 1284"
+msgstr ""
+"--device-id device-id   Permite exibir os modelos correspondentes ao ID "
+"(identificador) do dispositivo do padrão de comunicação IEEE 1284"
 
 msgid "--domain regex          Match domain to regular expression"
-msgstr "--domain regex          Corresponder domínio a expressão regular"
+msgstr ""
+"--domain regex          Permite corresponder o domínio a expressão regular"
 
 msgid ""
 "--exclude-schemes scheme-list\n"
 "                        Exclude the specified URI schemes"
 msgstr ""
 "--exclude-schemes lista de esquemas\n"
-"                        Excluir os esquemas de URI especificados"
+"                        Permite excluir os esquemas do URI que foram "
+"especificados"
 
 msgid ""
 "--exec utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
-"--exec utility [argument ...] ;\n"
-"                        Executar programa se for verdadeiro"
+"--exec utility [argumento...] ;\n"
+"                        Permite executar o programa se a opção estiver "
+"ativada"
 
 msgid "--false                 Always false"
-msgstr "--false                 Sempre falso"
+msgstr "--false                 Permite definir a opção com \"sempre falso\""
 
 msgid "--help                         Show this help"
-msgstr "--help                         Mostrar essa ajuda"
+msgstr "--help                         Permite exibir este texto de ajuda"
 
 msgid "--help                  Show program help"
-msgstr "--help                  Mostrar ajuda do programa"
+msgstr "--help                  Permite exibir a ajuda do programa"
 
 msgid "--help                  Show this help"
-msgstr "--help                  Mostrar essa ajuda"
+msgstr "--help                  Permite exibir este texto de ajuda"
 
 msgid "--hold                  Hold new jobs"
-msgstr "--hold                  Reter novos trabalhos"
+msgstr "--hold                  Permite reter os novos trabalhos"
 
 msgid "--host regex            Match hostname to regular expression"
-msgstr "--host regex            Corresponder host a expressão regular"
+msgstr ""
+"--host regex            Permite corresponder o nome do hospedeiro a uma "
+"expressão regular"
 
 msgid ""
 "--include-schemes scheme-list\n"
 "                        Include only the specified URI schemes"
 msgstr ""
 "--include-schemes lista de esquemas\n"
-"                        Incluir apenas os esquemas de URI especificados"
+"                        Permite incluir apenas os esquemas especificados do "
+"URI"
 
 msgid "--ippserver filename    Produce ippserver attribute file"
-msgstr "--ippserver arquivo     Produzir arquivo de atributos ippserver"
+msgstr ""
+"--ippserver nome do arquivo     Permite produzir o arquivo dos atributos do "
+"ippserver"
 
 msgid "--language locale       Show models matching the given locale"
-msgstr "--language locale       Mostrar modelos correspondentes ao locale dado"
+msgstr ""
+"--language locale       Permite exibir os modelos correspondentes ao idioma "
+"local"
 
 msgid "--literal-name name     Match service name to literal name value"
-msgstr "--literal-name nome     Corresponder nome de serviço a nome literal"
+msgstr ""
+"--literal-name nome     Permite corresponder o nome do serviço ao nome "
+"literal"
 
 msgid "--local                 True if service is local"
-msgstr "--local                 Verdadeiro se o serviço for local"
+msgstr ""
+"--local                  Permite utilizar o serviço local se a opção estiver "
+"ativada"
 
 msgid "--ls                    List attributes"
-msgstr "--ls                    Listar atributos"
+msgstr "--ls                    Permite listar os atributos"
 
 msgid ""
 "--make-and-model name   Show models matching the given make and model name"
 msgstr ""
-"--make-and-model nome   Mostrar modelos correspondentes ao fabricante e "
-"modelo dados"
+"--make-and-model nome   Permite exibir as informações referentes ao modelo e "
+"a marca do fabricante"
 
 msgid "--name regex            Match service name to regular expression"
 msgstr ""
-"--name regex            Corresponder nome de serviço a expressão regular"
+"--name regex            Permite corresponder o nome do serviço à expressão "
+"regular"
 
 msgid "--no-web-forms          Disable web forms for media and supplies"
 msgstr "--no-web-forms          Desabilitar web forms para mídia e recursos"
@@ -1816,10 +1876,13 @@ msgid "--port number[-number]  Match port to number or range"
 msgstr "--port número[-número]  Corresponder porta a número ou intervalo"
 
 msgid "--print                 Print URI if true"
-msgstr "--print                 Imprimir URI se for verdadeiro"
+msgstr ""
+"--print                 Permite imprimir o URI se a opção estiver ativada"
 
 msgid "--print-name            Print service name if true"
-msgstr "--print-name            Imprimir nome de serviço se for verdadeiro"
+msgstr ""
+"--print-name            Permite imprimir o nome do serviço se a opção "
+"estiver ativada"
 
 msgid ""
 "--product name          Show models matching the given PostScript product"
@@ -1836,7 +1899,9 @@ msgid "--release               Release previously held jobs"
 msgstr "--release               Liberar trabalhos previamente retidos"
 
 msgid "--remote                True if service is remote"
-msgstr "--remote                Verdadeiro se o serviço for remoto"
+msgstr ""
+"--remote                Permite utilizar o serviço remoto se a opção estiver "
+"ativada"
 
 msgid ""
 "--require-ca                   Require CA-signed certificate for client "
@@ -1863,7 +1928,9 @@ msgid "--true                  Always true"
 msgstr "--true                  Sempre verdadeiro"
 
 msgid "--txt key               True if the TXT record contains the key"
-msgstr "--txt chave             Verdadeiro se o registro TXT contém a chave"
+msgstr ""
+"--txt chave             Permite utilizar o registro TXT que contém a chave "
+"se a opção estiver ativada"
 
 msgid "--txt-* regex           Match TXT record key to regular expression"
 msgstr ""
@@ -2039,10 +2106,12 @@ msgstr "-H                      Mostrar o servidor e porta padrão"
 
 msgid "-H HH:MM                Hold the job until the specified UTC time"
 msgstr ""
-"-H HH:MM                Reter o trabalho até o horário UTC especificado"
+"-H HH:MM                Permite reter o trabalho até o horário especificado "
+"no formato UTC"
 
 msgid "-H hold                 Hold the job until released/resumed"
-msgstr "-H hold                 Reter o trabalho até ser liberado/retomado"
+msgstr ""
+"-H hold                  Permite reter o trabalho até ser liberado/retomado"
 
 msgid "-H immediate            Print the job as soon as possible"
 msgstr "-H immediate            Imprimir o trabalho o mais breve possível"
@@ -2447,7 +2516,8 @@ msgstr ""
 "                        Especificar impressão em paisagem frente e verso"
 
 msgid "-p                      Print URI if true"
-msgstr "-p                      Imprimir URI se verdadeiro"
+msgstr ""
+"-p                      Permite imprimir o URI se a opção estiver ativada"
 
 msgid ""
 "-p PURPOSE                     Comma-delimited certificate purpose\n"
@@ -2490,7 +2560,9 @@ msgid "-r                      Show whether the CUPS server is running"
 msgstr "-r                      Mostrar se servidor CUPS está rodando ou não"
 
 msgid "-r                      True if service is remote"
-msgstr "-r                      Verdadeiro se o serviço for remoto"
+msgstr ""
+"-r                      Permite utilizar o serviço remoto se a opção estiver "
+"ativada"
 
 msgid "-r                      Use 'relaxed' open mode"
 msgstr "-r                      Usar modo de abertura 'relaxado'"
@@ -2511,7 +2583,9 @@ msgid "-s                      Be silent"
 msgstr "-s                      Fazer silêncio"
 
 msgid "-s                      Print service name if true"
-msgstr "-s                      Imprimir nome do serviço se verdadeiro"
+msgstr ""
+"-s                      Permite imprimir o nome do serviço se a opção "
+"estiver ativada"
 
 msgid "-s                      Show a status summary"
 msgstr "-s                      Mostrar um resumo do estado atual"
@@ -2542,7 +2616,9 @@ msgid ""
 msgstr ""
 
 msgid "-t key                  True if the TXT record contains the key"
-msgstr "-t key                  Verdadeiro se o registro TXT contém a chave"
+msgstr ""
+"-t key                  Permite utilizar o registro TXT que contém a chave "
+"se a opção estiver ativada"
 
 msgid "-t title                Specify the job title"
 msgstr "-t title                Especificar o título do trabalho"
@@ -2610,8 +2686,9 @@ msgid ""
 "-x utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
-"-x utilitário [argumento ...] ;\n"
-"                        Executar programa se verdadeiro"
+"-x utilitário [argumento...] ;\n"
+"                        Permite executar o programa se a opção estiver "
+"ativada"
 
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
 msgstr "O arquivo /etc/cups/lpoptions define um destino padrão inexistente."
@@ -5612,7 +5689,7 @@ msgid "Unsupported 'document-format' value \"%s\"."
 msgstr "Não há suporte a \"document-format\" com valor \"%s\"."
 
 msgid "Unsupported 'job-hold-until' value."
-msgstr "Valor de 'job-hold-until' não suportado."
+msgstr "O valor do 'job-hold-until' não suportado."
 
 msgid "Unsupported 'job-name' value."
 msgstr "Não há suporte ao valor de \"job-name\"."
@@ -11079,7 +11156,7 @@ msgstr "Abortar Trabalho"
 
 #. TRANSLATORS: Hold Job
 msgid "multiple-operation-time-out-action.hold-job"
-msgstr "Reter Trabalho"
+msgstr "Reter o Trabalho"
 
 #. TRANSLATORS: Process Job
 msgid "multiple-operation-time-out-action.process-job"
@@ -12319,7 +12396,7 @@ msgstr "impressora %s desabilitada desde %s -"
 
 #, c-format
 msgid "printer %s is holding new jobs.  enabled since %s"
-msgstr ""
+msgstr "A impressora %s está retendo os novos trabalhos.  Está ativada desde %s"
 
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
