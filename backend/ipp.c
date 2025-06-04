@@ -82,9 +82,9 @@ static int		job_canceled = 0,
 					/* Job cancelled? */
 			uri_credentials = 0;
 					/* Credentials supplied in URI? */
-static char		username[256] = "",
+static char		device_username[256] = "",
 					/* Username for device URI */
-			*password = NULL;
+			*device_password = NULL;
 					/* Password for device URI */
 static const char * const pattrs[] =	/* Printer attributes we want */
 {
@@ -397,7 +397,7 @@ main(int  argc,				/* I - Number of command-line args */
   */
 
   httpSeparateURI(HTTP_URI_CODING_ALL, device_uri, scheme, sizeof(scheme),
-                  username, sizeof(username), hostname, sizeof(hostname), &port,
+                  device_username, sizeof(device_username), hostname, sizeof(hostname), &port,
 		  resource, sizeof(resource));
 
   if (!port)
@@ -620,16 +620,16 @@ main(int  argc,				/* I - Number of command-line args */
 
   cupsSetPasswordCB2((cups_password_cb2_t)password_cb, &password_tries);
 
-  if (username[0])
+  if (device_username[0])
   {
    /*
     * Use authentication information in the device URI...
     */
 
-    if ((password = strchr(username, ':')) != NULL)
-      *password++ = '\0';
+    if ((device_password = strchr(device_username, ':')) != NULL)
+      *device_password++ = '\0';
 
-    cupsSetUser(username);
+    cupsSetUser(device_username);
     uri_credentials = 1;
   }
   else
@@ -642,11 +642,11 @@ main(int  argc,				/* I - Number of command-line args */
 
     if (ptr)
     {
-      cupsCopyString(username, ptr, sizeof(username));
+      cupsCopyString(device_username, ptr, sizeof(device_username));
       cupsSetUser(ptr);
     }
 
-    password = getenv("AUTH_PASSWORD");
+    device_password = getenv("AUTH_PASSWORD");
   }
 
  /*
@@ -2542,8 +2542,8 @@ monitor_printer(
   http = httpConnect2(monitor->hostname, monitor->port, NULL, AF_UNSPEC,
                       monitor->encryption, 1, 0, NULL);
   httpSetTimeout(http, 30.0, timeout_cb, NULL);
-  if (username[0])
-    cupsSetUser(username);
+  if (device_username[0])
+    cupsSetUser(device_username);
 
   cupsSetPasswordCB2((cups_password_cb2_t)password_cb, &password_tries);
 
@@ -3018,9 +3018,9 @@ password_cb(const char *prompt,		/* I - Prompt (not used) */
 
 
   fprintf(stderr, "DEBUG: password_cb(prompt=\"%s\", http=%p, method=\"%s\", "
-                  "resource=\"%s\", password_tries=%p(%d)), password=%p\n",
+                  "resource=\"%s\", password_tries=%p(%d)), device_password=%p\n",
           prompt, (void *)http, method, resource, (void *)password_tries, *password_tries,
-          (void *)password);
+          (void *)device_password);
 
   (void)prompt;
   (void)method;
@@ -3043,13 +3043,13 @@ password_cb(const char *prompt,		/* I - Prompt (not used) */
     }
   }
 
-  if (password && *password && *password_tries < 3)
+  if (device_password && *device_password && *password_tries < 3)
   {
     (*password_tries) ++;
 
-    cupsSetUser(username);
+    cupsSetUser(device_username);
 
-    return (password);
+    return (device_password);
   }
   else
   {
