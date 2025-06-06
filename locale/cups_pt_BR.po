@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-05 16:01+0000\n"
+"PO-Revision-Date: 2025-06-06 17:01+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -56,7 +56,7 @@ msgid "\tAlerts: %s"
 msgstr "\tAlertas: %s"
 
 msgid "\tBanner required"
-msgstr "\tO ‘banner’ é necessário"
+msgstr "\tA faixa é necessária"
 
 msgid "\tCharset sets:"
 msgstr "\tDefinições do conjunto de caracteres:"
@@ -2533,7 +2533,8 @@ msgstr ""
 
 msgid "-o job-sheets=standard  Print a banner page with the job"
 msgstr ""
-"-o job-sheets=standard  Permite imprimir o banner de uma página do trabalho"
+"-o job-sheets=standard  Permite imprimir a faixa (banner) de uma página do "
+"trabalho"
 
 msgid "-o media=size           Specify the media size to use"
 msgstr ""
@@ -3466,10 +3467,10 @@ msgid "Accepted"
 msgstr "Aceitou"
 
 msgid "Add Class"
-msgstr "Adicionar uma classe"
+msgstr "Adicionar uma Classe"
 
 msgid "Add Printer"
-msgstr "Adicionar uma impressora"
+msgstr "Adicionar uma Impressora"
 
 msgid "Address"
 msgstr "Endereço"
@@ -3654,123 +3655,132 @@ msgstr "O valor do job-state (estado do trabalho) não é válido."
 
 #, c-format
 msgid "Bad job-uri \"%s\"."
-msgstr "job-uri inválido \"%s\"."
+msgstr "O job-uri (URI do trabalho) \"%s\" não é válido."
 
 msgid "Bad keyUsage extension in X.509 certificate request."
 msgstr ""
+"A extensão do keyUsage não é válida para a requisição do certificado X.509."
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
-msgstr "notify-pull-method inválido \"%s\"."
+msgstr "O notify-pull-method (método de notificação pull) \"%s\" não é válido."
 
 #, c-format
 msgid "Bad notify-recipient-uri \"%s\"."
-msgstr "notify-recipient-uri inválido \"%s\"."
+msgstr ""
+"O notify-recipient-uri (notificador de destinatário do URI) \"%s\" não é "
+"válido."
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
-msgstr "Valor de notify-user-data inválido \"%s\"."
+msgstr ""
+"O notify-user-data (notificador de dados do usuário) \"%s\" não é válido."
 
 #, c-format
 msgid "Bad number-up value %d."
-msgstr "Valor de number-up inválido %d."
+msgstr "O number-up (número acima) %d não é válido."
 
 #, c-format
 msgid "Bad page-ranges values %d-%d."
-msgstr "Valor de page-ranges inválido %d-%d."
+msgstr "O page-ranges (intervalo das páginas) %d de %d não é válido."
 
 msgid "Bad port number in URI"
-msgstr "Porta inválida no URI"
+msgstr "O número da porta do URI não é válido"
 
 #, c-format
 msgid "Bad port-monitor \"%s\"."
-msgstr "port-monitor inválido \"%s\"."
+msgstr "O port-monitor (monitor das portas) \"%s\" não é válido."
 
 #, c-format
 msgid "Bad printer-state value %d."
-msgstr "Valor de printer-state inválido %d."
+msgstr "O printer-state (estado da impressora) %d não é válido."
 
 msgid "Bad printer-uri."
-msgstr "Valor de printer-uri inválido."
+msgstr "O printer-uri (URI da impressora) não é válido."
 
 msgid "Bad private key."
-msgstr ""
+msgstr "A chave privada não é válida."
 
 #, c-format
 msgid "Bad request ID %d."
-msgstr "ID da requisição inválido %d."
+msgstr "O ID (identificador) da requisição %d não é válido."
 
 #, c-format
 msgid "Bad request version number %d.%d."
-msgstr "Número da versão de requisição inválido %d.%d."
+msgstr "O número da versão da requisição %d.%d não é válido."
 
 msgid "Bad resource in URI"
-msgstr "Recurso inválido no URI"
+msgstr "O recurso do URI não é válido"
 
 msgid "Bad scheme in URI"
-msgstr "Esquema inválido no URI"
+msgstr "O esquema do URI não é válido"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
 msgstr ""
+"A extensão do subjectAltName não é válida para a solicitação de certificado "
+"X.509."
 
 msgid "Bad username in URI"
 msgstr "O nome do usuário no URI não é válido"
 
 msgid "Bad value string"
-msgstr "String de valor inválido"
+msgstr "A cadeia de caracteres não é válida"
 
 msgid "Bad/empty URI"
-msgstr "URI vazio/inválido"
+msgstr "O URI está vazio ou não é válido"
 
 msgid "Banners"
-msgstr "Banners"
+msgstr "Faixas"
 
 msgid "Bond Paper"
-msgstr "Papel autocolante"
+msgstr "Papel de impressão de alta qualidade"
 
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
-msgstr "Esperava booleano para opção waiteof \"%s\"."
+msgstr "Era esperado um booleano para opção waiteof \"%s\"."
 
 msgid "Buffer overflow detected, aborting."
-msgstr "Estouro de pilha do buffer detectado, abortando."
+msgstr "Foi detectado um estouro da pilha do buffer e a ação será abortada."
 
 msgid "CMYK"
 msgstr "CMYK"
 
 msgid "CPCL Label Printer"
-msgstr "Impressora de etiqueta CPCL"
+msgstr "Impressora de Etiquetas CPCL"
 
 msgid "Cancel Jobs"
-msgstr "Cancelar trabalhos"
+msgstr "Cancelar os Trabalhos"
 
 msgid "Canceling print job."
-msgstr "Cancelando trabalho de impressão."
+msgstr "Cancelando o trabalho de impressão."
 
 msgid "Cannot change printer-is-shared for remote queues."
-msgstr "Não é possível mudar printer-is-shared para filas remotas."
+msgstr ""
+"Não foi possível mudar o printer-is-shared (a impressora compartilhada) para "
+"as filas remotas."
 
 msgid "Cannot share a remote Kerberized printer."
-msgstr "Não é possível compartilhar uma impressora remota via Kerberos."
+msgstr ""
+"Não foi possível compartilhar uma impressora remota por meio do Kerberos."
 
 msgid "Cassette"
-msgstr "Cassette"
+msgstr "Cassete"
 
 msgid "Change Settings"
-msgstr "Alterar Configurações"
+msgstr "Alterar as configurações"
 
 #, c-format
 msgid "Character set \"%s\" not supported."
-msgstr "Não há suporte ao conjunto de caracteres \"%s\"."
+msgstr "O conjunto de caracteres \"%s\" não é compatível."
 
 msgid "Classes"
 msgstr "Classes"
 
 msgid "Clean Print Heads"
-msgstr "Limpar Cabeças de Impressão"
+msgstr "Limpar as Cabeças de Impressão"
 
 msgid "Close-Job doesn't support the job-uri attribute."
-msgstr "Close-Job não suporta o atributo job-uri."
+msgstr "O Close-Job não suporta o atributo job-uri."
 
 msgid "Color"
 msgstr "Cor"
@@ -3783,15 +3793,15 @@ msgid ""
 "\n"
 "exit    help    quit    status  ?"
 msgstr ""
-"Comandos podem ser abreviados. Os comandos são:\n"
+"Os comandos podem ser abreviados.  Os comandos são:\n"
 "\n"
-"exit    help    quit    status  ?"
+"exit (sair)    help (ajuda)    quit (fechar)    status (estado)  ?"
 
 msgid "Commands:"
-msgstr ""
+msgstr "Comandos:"
 
 msgid "Community name uses indefinite length"
-msgstr "Nome da comunidade usa comprimento indefinido"
+msgstr "O nome da comunidade utiliza um comprimento indefinido"
 
 msgid "Connected to printer."
 msgstr "Conectado à impressora."
@@ -3806,41 +3816,42 @@ msgid "Continuous"
 msgstr "Contínuo"
 
 msgid "Control file sent successfully."
-msgstr "Arquivo de controle enviado com sucesso."
+msgstr "O arquivo de controle foi enviado com sucesso."
 
 msgid "Copying print data."
-msgstr "Copiando dados de impressão."
+msgstr "Copiando os dados da impressão."
 
 #, c-format
 msgid "Couldn't resolve mDNS URI \"%s\"."
-msgstr ""
+msgstr "Não foi possível resolver o URI \"%s\" do mDNS."
 
 msgid "Created"
 msgstr "Criada"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "As credenciais estão boas ou são confiáveis."
 
 msgid "Credentials are expired."
-msgstr ""
+msgstr "As credenciais estão expiradas."
 
 msgid "Credentials are invalid."
-msgstr ""
+msgstr "As credenciais não são válidas."
 
 msgid "Credentials are not CA-signed."
-msgstr ""
+msgstr "As credenciais não são assinadas pelo CA."
 
 msgid "Credentials are unknown/new."
-msgstr ""
+msgstr "As credenciais não são conhecidas ou são novas."
 
 msgid "Credentials do not validate against site CA certificate."
-msgstr "As credenciais não são válidas para o certificado CA do site."
+msgstr ""
+"As credenciais não são válidas para o certificado CA da página eletrônica."
 
 msgid "Credentials have been renewed."
-msgstr ""
+msgstr "As credenciais foram renovadas."
 
 msgid "Credentials have changed."
-msgstr ""
+msgstr "As credenciais foram alteradas."
 
 msgid "Credentials have expired."
 msgstr "As credenciais expiraram."
@@ -3870,7 +3881,7 @@ msgid "Darkness"
 msgstr "Escuridão"
 
 msgid "Data file sent successfully."
-msgstr "Arquivo de dados enviado com sucesso."
+msgstr "O arquivo de dados foi enviado com sucesso."
 
 msgid "Deep Color"
 msgstr "Cor Profunda"
@@ -3879,23 +3890,23 @@ msgid "Deep Gray"
 msgstr "Cinza Escuro"
 
 msgid "Delete Class"
-msgstr "Excluir classe"
+msgstr "Excluir uma Classe"
 
 msgid "Delete Printer"
-msgstr "Excluir impressora"
+msgstr "Excluir uma Impressora"
 
 msgid "DeskJet Series"
 msgstr "Série DeskJet"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
-msgstr "Destino \"%s\" não está aceitando trabalhos."
+msgstr "O destino \"%s\" não está aceitando os trabalhos."
 
 msgid "Device CMYK"
 msgstr "Dispositivo CMYK"
 
 msgid "Device Gray"
-msgstr "Dispositivo escala de cinza"
+msgstr "Dispositivo de escala de cinza"
 
 msgid "Device RGB"
 msgstr "Dispositivo RGB"
@@ -3911,7 +3922,7 @@ msgid ""
 msgstr ""
 "Dispositivo: uri = %s\n"
 "             classe = %s\n"
-"             info = %s\n"
+"             informação = %s\n"
 "             marca-e-modelo = %s\n"
 "             dispo-id = %s\n"
 "             localização = %s"
@@ -3921,49 +3932,50 @@ msgstr "Mídia Térmica Direta"
 
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
-msgstr "Diretório \"%s\" contém um caminho relativo."
+msgstr "O diretório \"%s\" contém um caminho relativo."
 
 #, c-format
 msgid "Directory \"%s\" has insecure permissions (0%o/uid=%d/gid=%d)."
-msgstr "Diretório \"%s\" contém permissões inseguras (0%o/uid=%d/gid=%d)."
+msgstr ""
+"O diretório \"%s\" contém permissões que não são seguras (0%o/uid=%d/gid=%d)."
 
 #, c-format
 msgid "Directory \"%s\" is a file."
-msgstr "Diretório \"%s\" é um arquivo."
+msgstr "O diretório \"%s\" é um arquivo."
 
 #, c-format
 msgid "Directory \"%s\" not available: %s"
-msgstr "Diretório \"%s\" não está disponível: %s"
+msgstr "O diretório \"%s\" não está disponível para %s"
 
 #, c-format
 msgid "Directory \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
-msgstr "Permissões do diretório \"%s\" estão OK (0%o/uid=%d/gid=%d)."
+msgstr "As permissões do diretório \"%s\" estão perfeitas (0%o/uid=%d/gid=%d)."
 
 msgid "Disabled"
-msgstr "Desabilitado"
+msgstr "Desativado"
 
 #, c-format
 msgid "Document #%d does not exist in job #%d."
-msgstr "Documento #%d não existe no trabalho #%d."
+msgstr "O documento #%d não existe no trabalho #%d."
 
 msgid "Duplexer"
 msgstr "Duplexador"
 
 msgid "EPL1 Label Printer"
-msgstr "Impressora de etiqueta EPL1"
+msgstr "Impressora de Etiquetas EPL1"
 
 msgid "EPL2 Label Printer"
-msgstr "Impressora de etiqueta EPL2"
+msgstr "Impressora de Etiquetas EPL2"
 
 msgid "Edit Configuration File"
-msgstr "Editar arquivo de configuração"
+msgstr "Editar o Arquivo de Configurações"
 
 msgid "Encryption is not supported."
 msgstr "Não há suporte a criptografia."
 
 #. TRANSLATORS: Banner/cover sheet after the print job.
 msgid "Ending Banner"
-msgstr "Banner no fim"
+msgstr "Faixa no fim"
 
 msgid "English"
 msgstr "Inglês"
@@ -3973,10 +3985,10 @@ msgid ""
 "this page. If you are using Kerberos authentication, make sure you have a "
 "valid Kerberos ticket."
 msgstr ""
-"Insira o seu nome de usuário e a senha ou o nome de usuário e a senha do "
-"root (administrador) para acessar esta página. Se você estiver utilizando a "
-"autenticação por meio do protocolo de autenticação de rede Kerberos, "
-"certifique-se de que você tem um tíquete válido do Kerberos."
+"Insira o seu nome de usuário e a senha ou insira o nome de usuário e a senha "
+"do root (administrador) para acessar esta página. Se você estiver utilizando "
+"a autenticação por meio do protocolo de autenticação de rede Kerberos, "
+"certifique-se de que tem um tíquete válido do Kerberos."
 
 msgid "Envelope #10"
 msgstr "Envelope #10"
@@ -4033,13 +4045,13 @@ msgid "Envelope Choukei 3"
 msgstr "Envelope Choukei 3"
 
 msgid "Envelope Choukei 3 Long Edge"
-msgstr "Envelope Choukei 3 borda maior"
+msgstr "Envelope Choukei 3 com a Borda Maior"
 
 msgid "Envelope Choukei 4"
 msgstr "Envelope Choukei 4"
 
 msgid "Envelope Choukei 4 Long Edge"
-msgstr "Envelope Choukei 4 borda maior"
+msgstr "Envelope Choukei 4 com a Borda Maior"
 
 msgid "Envelope DL"
 msgstr "Envelope DL"
@@ -4048,7 +4060,7 @@ msgid "Envelope Feed"
 msgstr "Alimentação de Envelope"
 
 msgid "Envelope Invite"
-msgstr "Envelope Convite"
+msgstr "Envelope de Convite"
 
 msgid "Envelope Italian"
 msgstr "Envelope Italiano"
@@ -4057,13 +4069,13 @@ msgid "Envelope Kaku2"
 msgstr "Envelope Kaku2"
 
 msgid "Envelope Kaku2 Long Edge"
-msgstr "Envelope Kaku2 borda maior"
+msgstr "Envelope Kaku2 com a Borda Maior"
 
 msgid "Envelope Kaku3"
 msgstr "Envelope Kaku3"
 
 msgid "Envelope Kaku3 Long Edge"
-msgstr "Envelope Kaku3 borda maior"
+msgstr "Envelope Kaku3 com a Borda Maior"
 
 msgid "Envelope Monarch"
 msgstr "Envelope Monarch"
@@ -4072,34 +4084,34 @@ msgid "Envelope PRC1"
 msgstr "Envelope PRC1"
 
 msgid "Envelope PRC1 Long Edge"
-msgstr "Envelope PRC1 borda maior"
+msgstr "Envelope PRC1 com a Borda Maior"
 
 msgid "Envelope PRC10"
 msgstr "Envelope PRC10"
 
 msgid "Envelope PRC10 Long Edge"
-msgstr "Envelope PRC10 borda maior"
+msgstr "Envelope PRC10 com a Borda Maior"
 
 msgid "Envelope PRC2"
 msgstr "Envelope PRC2"
 
 msgid "Envelope PRC2 Long Edge"
-msgstr "Envelope PRC2 borda maior"
+msgstr "Envelope PRC2 com a Borda Maior"
 
 msgid "Envelope PRC3"
 msgstr "Envelope PRC3"
 
 msgid "Envelope PRC3 Long Edge"
-msgstr "Envelope PRC3 borda maior"
+msgstr "Envelope PRC3 com a Borda Maior"
 
 msgid "Envelope PRC4"
 msgstr "Envelope PRC4"
 
 msgid "Envelope PRC4 Long Edge"
-msgstr "Envelope PRC4 borda maior"
+msgstr "Envelope PRC4 com a Borda Maior"
 
 msgid "Envelope PRC5 Long Edge"
-msgstr "Envelope PRC5 borda maior"
+msgstr "Envelope PRC5 com a Borda Maior"
 
 msgid "Envelope PRC5PRC5"
 msgstr "Envelope PRC5"
@@ -4108,25 +4120,25 @@ msgid "Envelope PRC6"
 msgstr "Envelope PRC6"
 
 msgid "Envelope PRC6 Long Edge"
-msgstr "Envelope PRC6 borda maior"
+msgstr "Envelope PRC6 com a Borda Maior"
 
 msgid "Envelope PRC7"
 msgstr "Envelope PRC7"
 
 msgid "Envelope PRC7 Long Edge"
-msgstr "Envelope PRC7 borda maior"
+msgstr "Envelope PRC7 com a Borda Maior"
 
 msgid "Envelope PRC8"
 msgstr "Envelope PRC8"
 
 msgid "Envelope PRC8 Long Edge"
-msgstr "Envelope PRC8 borda maior"
+msgstr "Envelope PRC8 com a Borda Maior"
 
 msgid "Envelope PRC9"
 msgstr "Envelope PRC9"
 
 msgid "Envelope PRC9 Long Edge"
-msgstr "Envelope PRC9 borda maior"
+msgstr "Envelope PRC9 com a Borda Maior"
 
 msgid "Envelope Personal"
 msgstr "Envelope Pessoal"
@@ -4135,31 +4147,31 @@ msgid "Envelope You4"
 msgstr "Envelope You4"
 
 msgid "Envelope You4 Long Edge"
-msgstr "Envelope You4 borda maior"
+msgstr "Envelope You4 com a Borda Maior"
 
 msgid "Environment Variables:"
-msgstr "Variáveis de ambiente:"
+msgstr "Variáveis de Ambiente:"
 
 msgid "Epson"
 msgstr "Epson"
 
 msgid "Error Policy"
-msgstr "Política de erro"
+msgstr "Política de Erros"
 
 msgid "Error reading raster data."
-msgstr "Erro ao ler dados de rasterização."
+msgstr "Ocorreu um erro ao ler os dados da rasterização."
 
 msgid "Error sending raster data."
-msgstr "Erro ao enviar dados de rasterização."
+msgstr "Ocorreu um erro ao enviar os dados da rasterização."
 
 msgid "Error: need hostname after \"-h\" option."
-msgstr "Erro: necesário o nome da máquina após a opção \"-h\"."
+msgstr "Ocorreu um erro. É necessário o nome da máquina após a opção \"-h\"."
 
 msgid "European Fanfold"
-msgstr "Papel contínuo europeu"
+msgstr "Papel Contínuo Ondulado Europeu"
 
 msgid "European Fanfold Legal"
-msgstr "Papel contínuo ofício europeu"
+msgstr "Papel Contínuo Ondulado de Ofício Europeu"
 
 msgid "Every 10 Labels"
 msgstr "A cada 10 etiquetas"
@@ -4195,7 +4207,7 @@ msgid "Executive"
 msgstr "Executivo"
 
 msgid "Expectation Failed"
-msgstr "Falhou a expectativa"
+msgstr "Ocorreu uma Falha de Expectativa"
 
 msgid "Expressions:"
 msgstr "Expressões:"
@@ -4205,38 +4217,40 @@ msgstr "Escala de cinza rápida"
 
 #, c-format
 msgid "File \"%s\" contains a relative path."
-msgstr "Arquivo \"%s\" contém um caminho relativo."
+msgstr "O arquivo \"%s\" contém um caminho relativo."
 
 #, c-format
 msgid "File \"%s\" has insecure permissions (0%o/uid=%d/gid=%d)."
-msgstr "Arquivo \"%s\" tem permissões inseguras (0%o/uid=%d/gid=%d)."
+msgstr ""
+"O arquivo \"%s\" tem permissões que não são seguras (0%o/uid=%d/gid=%d)."
 
 #, c-format
 msgid "File \"%s\" is a directory."
-msgstr "Arquivo \"%s\" é um diretório."
+msgstr "O arquivo \"%s\" é um diretório."
 
 #, c-format
 msgid "File \"%s\" not available: %s"
-msgstr "Arquivo \"%s\" não está disponível: %s"
+msgstr "O arquivo \"%s\" não está disponível para %s"
 
 #, c-format
 msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
-msgstr "Permissões do arquivo \"%s\" estão OK (0%o/uid=%d/gid=%d)."
+msgstr "As permissões do arquivo \"%s\" estão perfeitas (0%o/uid=%d/gid=%d)."
 
 msgid "File Folder"
-msgstr "Diretório do arquivo"
+msgstr "Pasta do Arquivo"
 
 #, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
 msgstr ""
-"URIs de arquivos de dispositivo foram desabilitados. Para habilitá-los, veja "
-"a diretriz FileDevice em \"%s/cups-files.conf\"."
+"Os URIs dos arquivos do dispositivo foram desativados. Para ativá-los, "
+"consulte a diretiva FileDevice no arquivo de configurações "
+"\"%s/cups-files.conf\"."
 
 #, c-format
 msgid "Finished page %d."
-msgstr "Terminou página %d."
+msgstr "A página %d foi concluída."
 
 msgid "Folio"
 msgstr "Fólio"
@@ -4245,7 +4259,7 @@ msgid "Forbidden"
 msgstr "Proibido"
 
 msgid "Form data too large."
-msgstr ""
+msgstr "Os dados do formulário são muito grandes."
 
 msgid "Found"
 msgstr "Encontrado"
@@ -4257,13 +4271,15 @@ msgid "Generic"
 msgstr "Genérico"
 
 msgid "Get-Response-PDU uses indefinite length"
-msgstr "Get-Response-PDU usa comprimento indefinido"
+msgstr "O Get-Response-PDU utiliza um comprimento que não é definido"
 
 msgid "Glossy Paper"
-msgstr "Papel brilhante"
+msgstr "Papel Brilhante"
 
 msgid "Got a printer-uri attribute but no job-id."
-msgstr "Atributo printer-ui obtido, mas nenhum job-id."
+msgstr ""
+"Tem o atributo do printer-ui (interface do usuário da impressora), mas não "
+"tem o job-id (identificador do trabalho)."
 
 msgid "GrayScale"
 msgstr "Escala de Cinza"
@@ -4275,7 +4291,7 @@ msgid "HP"
 msgstr "HP"
 
 msgid "Hanging Folder"
-msgstr "Pasta suspensa"
+msgstr "Pasta Suspensa"
 
 msgid "Hash buffer too small."
 msgstr "Buffer de hash muito pequeno."
@@ -5222,7 +5238,7 @@ msgstr "Padrão"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
-msgstr "Banner no início"
+msgstr "Faixa no início"
 
 #, c-format
 msgid "Starting page %d."
@@ -8366,11 +8382,11 @@ msgstr "Mensagem da folha do trabalho"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets"
-msgstr "Página Banner"
+msgstr "Página da faixa"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets-col"
-msgstr "Página Banner"
+msgstr "Coluna na página da faixa"
 
 #. TRANSLATORS: First Page in Document
 msgid "job-sheets.first-print-stream-page"
