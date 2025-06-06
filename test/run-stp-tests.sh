@@ -666,11 +666,33 @@ export LC_MESSAGES
 # Start the server; run as foreground daemon in the background...
 #
 
+if test "x$VALGRIND" != x; then
+	# Wrap cupsd with Valgrind
+	WRAPPER="$VALGRIND"
+elif test "x$testtype" = x0; then
+	# Don't limit run time...
+	WRAPPER=""
+elif test -x /usr/bin/timeout; then
+	# Limit run time to 5 minutes
+	echo "Limiting run time to 5 minutes..."
+	echo ""
+
+	WRAPPER="/usr/bin/timeout --foreground 5m"
+else
+	# No timeout command, just try limiting CPU time...
+	echo "Limiting CPU time to 5 minutes (300 seconds):"
+	echo "    limit -t 300"
+	echo ""
+
+	limit -t 300
+	WRAPPER=""
+fi
+
 echo "Starting scheduler:"
-echo "    $runcups $VALGRIND ../scheduler/cupsd -c $BASE/cupsd.conf -f >$BASE/log/debug_log 2>&1 &"
+echo "    $runcups $WRAPPER ../scheduler/cupsd -c $BASE/cupsd.conf -f >$BASE/log/debug_log 2>&1 &"
 echo ""
 
-$runcups $VALGRIND ../scheduler/cupsd -c $BASE/cupsd.conf -f >$BASE/log/debug_log 2>&1 &
+$runcups $WRAPPER ../scheduler/cupsd -c $BASE/cupsd.conf -f >$BASE/log/debug_log 2>&1 &
 
 cupsd=$!
 
