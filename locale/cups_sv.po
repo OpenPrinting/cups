@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-05-30 12:01+0000\n"
-"Last-Translator: \"P.O\" <rasmusson.mikael@protonmail.com>\n"
+"PO-Revision-Date: 2025-06-07 18:04+0000\n"
+"Last-Translator: Daniel Nylander <daniel@danielnylander.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/cups/cups/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -800,7 +800,7 @@ msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr "  --lf                    Radbryt med LF (UNIX/Linux/macOS)."
 
 msgid "  --list-all              List all filters with the MIME media types."
-msgstr "  --list-all          Lista alla filter med MIME mediatyp.."
+msgstr "  --list-all              Lista alla filter med MIME-mediatyperna."
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          Lista filter som kommer att användas."
@@ -815,13 +815,11 @@ msgstr "  -D namn=värde           Sätt angiven variabel till värde."
 msgid "  -I include-dir          Add include directory to search path."
 msgstr "  -I include-dir          Lägg till mapp att inkludera i sökningen."
 
-#, fuzzy
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr "  -P filnamn.ppd          Ange PPD-fil."
+msgstr "  -P FILNAMN.ppd         Ställ in PPD-fil."
 
-#, fuzzy
 msgid "  -U USERNAME             Specify username."
-msgstr "  -U användarnamn         Ange användarnamn."
+msgstr "  -U ANVÄNDARNAMN         Ange användarnamn."
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c katalog.po           Läs in angiven meddelandekatalog."
@@ -830,9 +828,8 @@ msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
 "  -c cups-files.conf      Ange vilken cups-files.conf som ska användas."
 
-#, fuzzy
 msgid "  -d PRINTER              Use the named printer."
-msgstr "  -d skrivare              Använd namngiven skrivare."
+msgstr "  -d SKRIVARE              Använd namngiven skrivare."
 
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           Ange mapp för utdata."
@@ -840,9 +837,9 @@ msgstr "  -d output-dir           Ange mapp för utdata."
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Använd alla filter från PPD-filen."
 
+#, fuzzy
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
-msgstr ""
-"  -i mime/type            Ange MIME-typ på indata (annars gissas typen)."
+msgstr "  -i mime/type            Ange indatans MIME-typ (auto-typas annars)."
 
 #, fuzzy
 msgid ""
@@ -863,8 +860,9 @@ msgid ""
 msgstr ""
 "  -m mime/type            Ange utdatans MIME-typ (annars application/pdf)."
 
+#, fuzzy
 msgid "  -n COPIES               Set number of copies."
-msgstr "  -n koior             Ange antal kopior."
+msgstr "  -n exemplar             Ange antal exemplar."
 
 #, fuzzy
 msgid "  -o NAME=VALUE           Set option(s)."
@@ -878,16 +876,14 @@ msgstr ""
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr "  -o filnamn.ppd[.gz]     Ange utdatafil (annars stdout)."
 
-#, fuzzy
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr "  -p filnamn.ppd          Ange PPD-fil."
+msgstr "  -p FILNAMN.ppd          Ange PPD-fil."
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Testa PPD:er istället för att generera dem."
 
-#, fuzzy
 msgid "  -t TITLE                Set title."
-msgstr "  -t titel                Ange titel."
+msgstr "  -t TITEL                Ange titel."
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Ta bort PPD-fil när uppgiften har slutförts."
@@ -1391,13 +1387,13 @@ msgstr "%s: Fel - användarnamn förväntades efter alternativet \"-u\"."
 msgid "%s: Error - expected value after \"-%c\" option."
 msgstr "%s: Fel - värde förväntades efter alternativet \"-%c\"."
 
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
-"%s: Fel - ange \"completed\", \"not-completed\" eller \"all\" som argument "
-"till växeln \"-W\"."
+"%s: Fel - \"completed\", \"not-completed\", eller \"all\" behövs efter "
+"alternativet \"-W\"."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1455,9 +1451,9 @@ msgstr "%s: Ogiltig destinationsnamn i listan \"%s\"."
 msgid "%s: Invalid filter string \"%s\"."
 msgstr "%s: Ogiltig filtersträng \"%s\"."
 
-#, c-format
+#, c-format, fuzzy
 msgid "%s: Missing client name after '--client-name'."
-msgstr "%s: Filnamn saknas efter växeln \"-P\"."
+msgstr "%s: Filnamn saknas för \"-P\"."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1489,7 +1485,7 @@ msgstr "%s: Åtgärd misslyckades: %s"
 
 #, fuzzy, c-format
 msgid "%s: Scheduler is not running."
-msgstr "%s: schemaläggare körs inte"
+msgstr "schemaläggare körs inte"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1603,12 +1599,11 @@ msgstr "--[no-]share-printers   Växla skrivardelning på/av"
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr "--[no-]user-cancel-any  Tillåt/förbjud användare att avbryta jobb"
 
+#, fuzzy
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
-msgstr ""
-"--bearer-token BEARER-TOKEN\n"
-"                        Sätt OAuth Bearer token för autentisering"
+msgstr "-U username             Ange användarnamn att använda för autentisering"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
@@ -2000,8 +1995,9 @@ msgstr "-P number[-number]      Matcha port mot nummer eller intervall"
 msgid "-P page-list            Specify a list of pages to print"
 msgstr "-P page-list            Ange en lista över sidor att skriva ut"
 
+#, fuzzy
 msgid "-R                      Repeat tests on server-error-busy"
-msgstr "-R                      Repetera test på server-error-busy"
+msgstr "-t                      Sammanställ en testrapport"
 
 msgid "-R                      Show the ranking of jobs"
 msgstr "-R                      Visa jobbens rangordning"
@@ -2108,7 +2104,7 @@ msgid "-d                      Show the default destination"
 msgstr "-d                      Visa förvald destination"
 
 msgid "-d DAYS                        Set expiration date in days."
-msgstr ""
+msgstr "-d DAGAR                        Ställ in utgångsdatum i dagar."
 
 msgid "-d destination          Set default destination"
 msgstr "-d destination          Ange förvald destination"
@@ -4663,7 +4659,7 @@ msgid "Plain Paper"
 msgstr "Vanligt papper"
 
 msgid "Policies"
-msgstr "Policyer"
+msgstr "Policier"
 
 msgid "Port Monitor"
 msgstr "Portbevakare"
@@ -5155,7 +5151,7 @@ msgstr "Kan inte allokera minne för sidinfo"
 msgid "Unable to allocate memory for pages array"
 msgstr "Kan inte allokera minne för sid-array"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to allocate memory for printer: %s"
 msgstr "Kan inte allokera minne för skrivare: %s"
 
@@ -5189,7 +5185,7 @@ msgstr "Kam inte konfigurera skrivaralternativ."
 
 #, fuzzy, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr "Kan inte ansluta till \"%s:%d\": %s"
+msgstr "%s: Kan inte ansluta till \"%s:%d\": %s"
 
 msgid "Unable to connect to host."
 msgstr "Kan inte ansluta till värd."
@@ -5203,11 +5199,11 @@ msgstr "Kan inte kopiera PPD-fil - %s"
 
 #, fuzzy, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "%s: Kan inte skapa PPD-fil: %s"
 
 #, fuzzy, c-format
 msgid "Unable to create PPD: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "%s: Kan inte skapa PPD-fil: %s"
 
 #, fuzzy
 msgid "Unable to create X.509 certificate signing request."
@@ -5351,14 +5347,13 @@ msgstr "Kan inte skriva ut testsidan"
 
 #, fuzzy, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "%s: Kan inte skapa PPD-fil: %s"
 
 msgid "Unable to read print data."
 msgstr "Kan inte läsa utskriftsdata."
 
-#, fuzzy
 msgid "Unable to read response."
-msgstr "Kan inte skapa skrivare."
+msgstr "Kan inte läsa svaret."
 
 #, fuzzy
 msgid "Unable to reallocate IPP attribute value."
@@ -5372,15 +5367,15 @@ msgstr "Kan inte slå upp skrivar-uri."
 
 #, fuzzy, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr "Kan inte kommunicera med skrivare: %s"
+msgstr "%s: Kan inte kommunicera med skrivare: %s"
 
 #, fuzzy, c-format
 msgid "Unable to save PPD file: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "%s: Kan inte skapa PPD-fil: %s"
 
 #, fuzzy, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
-msgstr "Kan inte skicka data \"%s\" till skrivare."
+msgstr "Kan inte skicka data till skrivare."
 
 msgid "Unable to see in file"
 msgstr "Kan inte se i fil"
@@ -5432,7 +5427,7 @@ msgid "Unable to write uncompressed print data: %s"
 msgstr "Kan inte skriva okomprimerad utskriftsdata: %s"
 
 msgid "Unauthorized"
-msgstr "Obehörig"
+msgstr "Ej auktoriserad"
 
 msgid "Units"
 msgstr "Enheter"
@@ -6239,7 +6234,7 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "cups-x509: Okänt kommando '%s'."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -7731,7 +7726,7 @@ msgstr "ipptool: URI krävs innan testfil."
 
 #, fuzzy, c-format
 msgid "ipptool: Unable to allocate memory: %s"
-msgstr "ipptool: Kan inte allokera minne för skrivare: %s"
+msgstr "Kan inte allokera minne för skrivare"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"

@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-06 17:01+0000\n"
+"PO-Revision-Date: 2025-06-07 18:04+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -4294,95 +4294,102 @@ msgid "Hanging Folder"
 msgstr "Pasta Suspensa"
 
 msgid "Hash buffer too small."
-msgstr "Buffer de hash muito pequeno."
+msgstr "O buffer do hash é muito pequeno."
 
 msgid "Help file not in index."
-msgstr "Arquivo de ajuda não está no índice."
+msgstr "O arquivo da ajuda não está no índice."
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
+"O endereço do IP não é permitido como nome do hospedeiro ao utilizar o "
+"Negotiate, ao invés disso utilize o FQDN."
 
 msgid "IPP 1setOf attribute with incompatible value tags."
-msgstr "Atributo 1setOf de IPP com tags de valor incompatível."
+msgstr ""
+"O atributo do 1setOf do IPP tem uma etiqueta com valor que não é compatível."
 
 msgid "IPP Everywhere driver requires an IPP connection."
-msgstr ""
+msgstr "O controlador do Everywhere do IPP requer uma conexão com o IPP."
 
 msgid "IPP attribute has no name."
-msgstr "Atributo de IPP não tem nome."
+msgstr "O atributo do IPP não tem um nome."
 
 msgid "IPP attribute is not a member of the message."
-msgstr "Atributo de IPP não é um membro da mensagem."
+msgstr "O atributo do IPP não é um membro da mensagem."
 
 msgid "IPP begCollection value not 0 bytes."
-msgstr "Valor begCollection de IPP não contém 0 bytes."
+msgstr "O valor do begCollection do IPP não contém 0 bytes."
 
 msgid "IPP boolean value not 1 byte."
-msgstr "Valor booleano de IPP não contém 1 byte."
+msgstr "O valor booleano do IPP não contém 1 byte."
 
 msgid "IPP date value not 11 bytes."
-msgstr "Valor de data de IPP não contém 11 bytes."
+msgstr "O valor da data do IPP não contém 11 bytes."
 
 msgid "IPP endCollection value not 0 bytes."
-msgstr "Valor endCollection IPP não contém 0 bytes."
+msgstr "O valor do endCollection do IPP não contém 0 bytes."
 
 msgid "IPP enum value not 4 bytes."
-msgstr "Valor enum de IPP não contém 4 bytes."
+msgstr "O valor do enum (numeração) do IPP não contém 4 bytes."
 
 msgid "IPP integer value not 4 bytes."
-msgstr "Valor inteiro de IPP não contém 4 bytes."
+msgstr "O valor inteiro do IPP não contém 4 bytes."
 
 msgid "IPP language length overflows value."
-msgstr "Comprimento do idioma de IPP excede o valor."
+msgstr "O comprimento do idioma do IPP excede o valor."
 
 msgid "IPP language length too large."
-msgstr "Comprimento do idioma de IPP muito grande."
+msgstr "O comprimento do idioma do IPP é muito grande."
 
 msgid "IPP member attribute outside of collection."
-msgstr ""
+msgstr "O atributo do membro do IPP está fora da coleção."
 
 msgid "IPP member name is not empty."
-msgstr "Nome de membro de IPP não está vazio."
+msgstr "O nome do membro do IPP não está vazio."
 
 msgid "IPP memberName value is empty."
-msgstr "Valor de memberName de IPP está vazio."
+msgstr "O valor do memberName (nome do membro) do IPP está vazio."
 
 msgid "IPP message nested too deeply."
-msgstr ""
+msgstr "A mensagem do IPP está aninhada muito profundamente."
 
 msgid "IPP name larger than 32767 bytes."
-msgstr "Nome de IPP maior do que 32767 bytes."
+msgstr "O nome do IPP é maior do que 32767 bytes."
 
 msgid "IPP nameWithLanguage value less than minimum 4 bytes."
-msgstr "Valor de nameWithLanguage de IPP menor do que o mínimo de 4 bytes."
+msgstr ""
+"O valor do nameWithLanguage (nome com idioma) do IPP é menor do que o mínimo "
+"de 4 bytes."
 
 msgid "IPP octetString length too large."
-msgstr "Comprimento de octetString de IPP muito grande."
+msgstr "O comprimento do octetString do IPP é muito grande."
 
 msgid "IPP rangeOfInteger value not 8 bytes."
-msgstr "Valor de rangeOfInteger de IPP não contém 8 bytes."
+msgstr "O valor do rangeOfInteger do IPP não contém 8 bytes."
 
 msgid "IPP resolution value not 9 bytes."
-msgstr "Valor de resolução de IPP não contém 9 bytes."
+msgstr "O valor da resolução do IPP não contém 9 bytes."
 
 msgid "IPP string length overflows value."
-msgstr "Comprimento da string de IPP excede o valor."
+msgstr "O comprimento do conjunto de caracteres do IPP excede o valor."
 
 msgid "IPP textWithLanguage value less than minimum 4 bytes."
-msgstr "Valor de textWithLanguage de IPP menor do que o mínimo de 4 bytes."
+msgstr ""
+"O valor do textWithLanguage (texto com idioma) do IPP é menor do que o "
+"mínimo de 4 bytes."
 
 msgid "IPP value larger than 32767 bytes."
-msgstr "Valor de IPP maior do que 32767 bytes."
+msgstr "O valor do IPP é maior do que 32767 bytes."
 
 msgid "IPPFIND_SERVICE_DOMAIN  Domain name"
-msgstr "IPPFIND_SERVICE_DOMAIN  Nome de domínio"
+msgstr "IPPFIND_SERVICE_DOMAIN  Nome do domínio"
 
 msgid ""
 "IPPFIND_SERVICE_HOSTNAME\n"
 "                        Fully-qualified domain name"
 msgstr ""
 "IPPFIND_SERVICE_HOSTNAME\n"
-"                        Nome de domínio absoluto"
+"                        O nome do domínio é absoluto"
 
 msgid "IPPFIND_SERVICE_NAME    Service instance name"
 msgstr "IPPFIND_SERVICE_NAME    Nome da instância do serviço"
@@ -4391,89 +4398,89 @@ msgid "IPPFIND_SERVICE_PORT    Port number"
 msgstr "IPPFIND_SERVICE_PORT    Número da porta"
 
 msgid "IPPFIND_SERVICE_REGTYPE DNS-SD registration type"
-msgstr "IPPFIND_SERVICE_REGTYPE Tipo de registro DNS-SD"
+msgstr "IPPFIND_SERVICE_REGTYPE Tipo de registro do DNS-SD"
 
 msgid "IPPFIND_SERVICE_SCHEME  URI scheme"
-msgstr "IPPFIND_SERVICE_SCHEME  Esquema de URI"
+msgstr "IPPFIND_SERVICE_SCHEME  Esquema do URI"
 
 msgid "IPPFIND_SERVICE_URI     URI"
 msgstr "IPPFIND_SERVICE_URI     URI"
 
 msgid "IPPFIND_TXT_*           Value of TXT record key"
-msgstr "IPPFIND_TXT_*           Valor de chave do registro TXT"
+msgstr "IPPFIND_TXT_*           Valor da chave do registro do TXT"
 
 msgid "ISOLatin1"
 msgstr "ISOLatin1"
 
 msgid "Illegal control character"
-msgstr "Caractere de controle ilegal"
+msgstr "O caractere de controle não é legal"
 
 msgid "Illegal main keyword string"
-msgstr "String ilegal de palavra-chave principal"
+msgstr "A sequência das palavras-chave principal não é legal"
 
 msgid "Illegal option keyword string"
-msgstr "String ilegal de palavra-chave de opção"
+msgstr "A sequência das palavras-chave da opção não é legal"
 
 msgid "Illegal translation string"
-msgstr "String ilegal de tradução"
+msgstr "A cadeia de caracteres da tradução não é legal"
 
 msgid "Illegal whitespace character"
-msgstr "Caractere ilegal de espaço em branco"
+msgstr "O caractere de espaço em branco não é legal"
 
 msgid "Installable Options"
-msgstr "Opções instaláveis"
+msgstr "Opções Instaláveis"
 
 msgid "Installed"
 msgstr "Instalada"
 
 msgid "IntelliBar Label Printer"
-msgstr "Impressora de etiqueta IntelliBar"
+msgstr "Impressora de Etiquetas IntelliBar"
 
 msgid "Intellitech"
 msgstr "Intellitech"
 
 msgid "Internal Server Error"
-msgstr "Erro interno de servidor"
+msgstr "Ocorreu um erro interno no servidor"
 
 msgid "Internal error"
-msgstr "Erro interno"
+msgstr "Ocorreu um erro interno"
 
 msgid "Internet Postage 2-Part"
-msgstr "Internet Postage Parte-2"
+msgstr "Parte 2 da Postagem na Internet"
 
 msgid "Internet Postage 3-Part"
-msgstr "Internet Postage Parte-3"
+msgstr "Parte 3 da Postagem na Internet"
 
 msgid "Internet Printing Protocol"
 msgstr "Protocolo de Impressão na Internet (IPP)"
 
 msgid "Invalid JSON data."
-msgstr ""
+msgstr "Os dados do JSON não são válidos."
 
 msgid "Invalid JSON web token."
-msgstr ""
+msgstr "A chave do portador do JSON para internet não é válida."
 
 msgid "Invalid form data."
-msgstr ""
+msgstr "Os dados do formulário não são válidos."
 
 msgid "Invalid group tag."
-msgstr "Tag de grupo inválida."
+msgstr "A etiqueta do grupo não é válida."
 
 msgid "Invalid media name arguments."
-msgstr "Argumentos de nome de mídia inválidos."
+msgstr "Os argumentos do nome da mídia não são válidos."
 
 msgid "Invalid media size."
-msgstr "Tamanho de mídia inválido."
+msgstr "O tamanho da mídia não é válido."
 
 msgid "Invalid named IPP attribute in collection."
-msgstr "Atributo IPP inválido incluso no conjunto."
+msgstr "O atributo do nome do IPP incluso na coleção não é válido."
 
 msgid "Invalid ppd-name value."
-msgstr "Valor ppd-name inválido."
+msgstr "O valor do ppd-name não é válido."
 
 #, c-format
 msgid "Invalid printer command \"%s\"."
-msgstr "Comando de impressora \"%s\" inválido."
+msgstr "O comando \"%s\" da impressora não é válido."
 
 msgid "JCL"
 msgstr "JCL"
@@ -4497,19 +4504,19 @@ msgid "JIS B4"
 msgstr "JIS B4"
 
 msgid "JIS B4 Long Edge"
-msgstr "JIS B4 borda maior"
+msgstr "JIS B4 com a Borda Maior"
 
 msgid "JIS B5"
 msgstr "JIS B5"
 
 msgid "JIS B5 Long Edge"
-msgstr "JIS B5 borda maior"
+msgstr "JIS B5 com a Borda Maior"
 
 msgid "JIS B6"
 msgstr "JIS B6"
 
 msgid "JIS B6 Long Edge"
-msgstr "JIS B6 borda maior"
+msgstr "JIS B6 com a Borda Maior"
 
 msgid "JIS B7"
 msgstr "JIS B7"
@@ -4521,35 +4528,36 @@ msgid "JIS B9"
 msgstr "JIS B9"
 
 msgid "JSON file too large."
-msgstr ""
+msgstr "O arquivo do JSON é muito grande."
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
-msgstr "O trabalho #%d não pode ser reiniciado - nenhum arquivo."
+msgstr ""
+"O trabalho #%d não pode ser reiniciado, porque o arquivo não foi encontrado."
 
 #, c-format
 msgid "Job #%d does not exist."
-msgstr "Trabalho #%d não existe."
+msgstr "O trabalho #%d não existe."
 
 #, c-format
 msgid "Job #%d is already aborted - can't cancel."
-msgstr "Trabalho #%d já foi abortado - não é possível cancelar."
+msgstr "O trabalho #%d já foi abortado e não é possível cancelar."
 
 #, c-format
 msgid "Job #%d is already canceled - can't cancel."
-msgstr "Trabalho #%d já foi cancelado - não é possível cancelar."
+msgstr "O trabalho #%d já foi cancelado e não é possível cancelar."
 
 #, c-format
 msgid "Job #%d is already completed - can't cancel."
-msgstr "Trabalho #%d já concluiu - não é possível cancelar."
+msgstr "O trabalho #%d já foi concluído e não é possível cancelar."
 
 #, c-format
 msgid "Job #%d is finished and cannot be altered."
-msgstr "Trabalho #%d já finalizou e não pode ser alterado."
+msgstr "O trabalho #%d já foi finalizado e não pode ser alterado."
 
 #, c-format
 msgid "Job #%d is not complete."
-msgstr "Trabalho #%d não concluiu."
+msgstr "O trabalho #%d não foi concluído."
 
 #, c-format
 msgid "Job #%d is not held for authentication."
@@ -6420,6 +6428,7 @@ msgstr ""
 
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr ""
+"O recurso do URI e/ou a chave do portador estão faltando para o cups-oauth."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr ""
@@ -6430,6 +6439,8 @@ msgstr ""
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
 msgstr ""
+"Não foi possível obter a chave do portador de acesso de '%s': %s para o cups-"
+"oauth"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
@@ -7914,6 +7925,7 @@ msgstr "Com Base em Nome"
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
 msgstr ""
+"get-access-token [RECURSO]    Obtenha a chave do portador de acesso atual"
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
@@ -8052,7 +8064,7 @@ msgid "ipptool: May only specify a single URI."
 msgstr "ipptool: Só é possível especificar um único URI."
 
 msgid "ipptool: Missing count for \"-n\"."
-msgstr "ipptool: Contagem faltando para \"-n\"."
+msgstr "A contagem está faltando para \"-n\" do ipptool."
 
 msgid "ipptool: Missing filename for \"--ippserver\"."
 msgstr "ipptool: Faltando nome de arquivo para \"--ippserver\"."
@@ -12287,7 +12299,9 @@ msgstr "ppdc: Formato de catálogo de mensagens desconhecido para \"%s\"."
 
 #, c-format
 msgid "ppdc: Unknown token \"%s\" seen on line %d of %s."
-msgstr "ppdc: Token desconhecido \"%s\" visto na linha %d de %s."
+msgstr ""
+"A chave do portador de acesso \"%s\" não é conhecida na linha %d de %s do "
+"ppdc."
 
 #, c-format
 msgid ""
@@ -15974,6 +15988,9 @@ msgid ""
 "set-access-token [RESOURCE] TOKEN\n"
 "                               Set the current access token"
 msgstr ""
+"set-access-token [RECURSO] TOKEN\n"
+"                               Permite definir a chave do portador de acesso "
+"atual"
 
 msgid ""
 "set-client-data CLIENT-ID CLIENT-SECRET\n"
