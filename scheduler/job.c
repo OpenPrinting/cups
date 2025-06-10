@@ -579,7 +579,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 
     cupsRWLockWrite(&MimeDatabase->lock);
 
-    if (job->retry_as_raster)
+    if (job->print_as_raster)
     {
      /*
       * Need to figure out whether the printer supports image/pwg-raster or
@@ -596,9 +596,9 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
       }
 
       if (dst)
-        cupsdLogJob(job, CUPSD_LOG_DEBUG, "Retrying job as \"%s\".", strchr(dst->type, '/') + 1);
+	cupsdLogJob(job, CUPSD_LOG_DEBUG, "%s job as \"%s\".", job->print_as_raster > 0 ? "Printing" : "Retrying", strchr(dst->type, '/') + 1);
       else
-        cupsdLogJob(job, CUPSD_LOG_ERROR, "Unable to retry job using a supported raster format.");
+	cupsdLogJob(job, CUPSD_LOG_ERROR, "Unable to print job using a supported raster format.");
     }
 
     filters = mimeFilter2(MimeDatabase, job->filetypes[job->current_file], (size_t)fileinfo.st_size, dst, &(job->cost));
@@ -5247,7 +5247,7 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
       cupsdLogJob(job, CUPSD_LOG_DEBUG, "JOBSTATE: %s", message);
 
       if (!strcmp(message, "cups-retry-as-raster"))
-        job->retry_as_raster = 1;
+        job->print_as_raster = -1;
       else
         ippSetString(job->attrs, &job->reasons, 0, message);
     }
