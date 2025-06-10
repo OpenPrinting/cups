@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-07 18:04+0000\n"
+"PO-Revision-Date: 2025-06-11 15:01+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -3724,7 +3724,7 @@ msgid "Bad username in URI"
 msgstr "O nome do usuário no URI não é válido"
 
 msgid "Bad value string"
-msgstr "A cadeia de caracteres não é válida"
+msgstr "O conjunto de caracteres não é válido"
 
 msgid "Bad/empty URI"
 msgstr "O URI está vazio ou não é válido"
@@ -4422,7 +4422,7 @@ msgid "Illegal option keyword string"
 msgstr "A sequência das palavras-chave da opção não é legal"
 
 msgid "Illegal translation string"
-msgstr "A cadeia de caracteres da tradução não é legal"
+msgstr "O conjunto de caracteres da tradução não é legal"
 
 msgid "Illegal whitespace character"
 msgstr "O caractere de espaço em branco não é legal"
@@ -4561,35 +4561,35 @@ msgstr "O trabalho #%d não foi concluído."
 
 #, c-format
 msgid "Job #%d is not held for authentication."
-msgstr "Trabalho #%d não está agarrado para autenticação."
+msgstr "O trabalho #%d não foi mantido para a autenticação."
 
 #, c-format
 msgid "Job #%d is not held."
-msgstr "Trabalho #%d não está agarrado."
+msgstr "O trabalho #%d não foi mantido."
 
 msgid "Job Completed"
-msgstr "Trabalho concluiu"
+msgstr "O trabalho foi concluído"
 
 msgid "Job Created"
-msgstr "Trabalho criado"
+msgstr "O trabalho foi criado"
 
 msgid "Job Options Changed"
-msgstr "Opções do trabalho alteradas"
+msgstr "As opções do trabalho foram alteradas"
 
 msgid "Job Stopped"
-msgstr "Trabalho parou"
+msgstr "O trabalho parou"
 
 msgid "Job is completed and cannot be changed."
-msgstr "Trabalho está concluído e não pode ser alterado."
+msgstr "O trabalho foi concluído e não pode ser alterado."
 
 msgid "Job operation failed"
-msgstr "Operação do trabalho falhou"
+msgstr "A operação do trabalho falhou"
 
 msgid "Job state cannot be changed."
-msgstr "Estado do trabalho não pode ser alterado."
+msgstr "O estado do trabalho não pode ser alterado."
 
 msgid "Job subscriptions cannot be renewed."
-msgstr "Inscrições de trabalho não podem ser renovadas."
+msgstr "As assinaturas do trabalho não podem ser renovadas."
 
 msgid "Jobs"
 msgstr "Trabalhos"
@@ -4599,17 +4599,18 @@ msgstr "Impressora ou máquina LPD/LPR"
 
 msgid ""
 "LPDEST environment variable names default destination that does not exist."
-msgstr "Variável de ambiente LPDEST nomeia destino padrão inexistente."
+msgstr ""
+"Os nomes das variáveis de ambiente LPDEST do destino padrão que não existe."
 
 msgid "Label Printer"
-msgstr "Impressora de etiqueta"
+msgstr "Impressora de Etiquetas"
 
 msgid "Label Top"
 msgstr "Parte superior da etiqueta"
 
 #, c-format
 msgid "Language \"%s\" not supported."
-msgstr "Não há suporte ao idioma \"%s\"."
+msgstr "O idioma \"%s\" não é compatível."
 
 msgid "Large Address"
 msgstr "Endereço grande"
@@ -4621,108 +4622,108 @@ msgid "Letter Oversize"
 msgstr "Carta grande"
 
 msgid "Letter Oversize Long Edge"
-msgstr "Carta borda muito maior"
+msgstr "Carta com a borda muito maior"
 
 msgid "Light"
 msgstr "Leve"
 
 msgid "Line longer than the maximum allowed (255 characters)"
-msgstr "Linha maior do que o máximo permitido (255 caracteres)"
+msgstr "Linha maior do que o máximo permitido de 255 caracteres"
 
 msgid "List Available Printers"
-msgstr "Lista de impressoras disponíveis"
+msgstr "Lista de Impressoras Disponíveis"
 
 #, c-format
 msgid "Listening on port %d."
 msgstr "Escutando na porta %d."
 
 msgid "Local printer created."
-msgstr "Impressora local criada."
+msgstr "A impressora local foi criada."
 
 msgid "Long-Edge (Portrait)"
-msgstr "Borda maior (retrato)"
+msgstr "Borda maior (Retrato)"
 
 msgid "Main Roll"
-msgstr "Rolete principal"
+msgstr "Rolagem Principal"
 
 msgid "Manual Feed"
-msgstr "Alimentação manual"
+msgstr "Alimentação Manual"
 
 msgid "Media Size"
-msgstr "Tamanho de mídia"
+msgstr "Tamanho da Mídia"
 
 msgid "Media Source"
-msgstr "Fonte de mídia"
+msgstr "Fonte da Mídia"
 
 msgid "Media Tracking"
-msgstr "Rastreamento de mídia"
+msgstr "Rastreamento da Mídia"
 
 msgid "Media Type"
-msgstr "Tipo de mídia"
+msgstr "Tipo de Mídia"
 
 msgid "Medium"
 msgstr "Médio"
 
 msgid "Memory allocation error"
-msgstr "Erro de alocação de memória"
+msgstr "Ocorreu um erro de alocação da memória"
 
 msgid "Missing CloseGroup"
-msgstr "Faltando CloseGroup"
+msgstr "Está faltando o CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
-msgstr "Faltando CloseUI/JCLCloseUI"
+msgstr "Está faltando o CloseUI/JCLCloseUI"
 
 msgid "Missing PPD-Adobe-4.x header"
-msgstr "Faltando cabeçalho PPD-Adobe-4.x"
+msgstr "Está faltando o cabeçalho do PPD-Adobe-4.x"
 
 msgid "Missing asterisk in column 1"
-msgstr "Faltando asterisco na coluna 1"
+msgstr "Está faltando o asterisco na coluna 1"
 
 msgid "Missing document-number attribute."
-msgstr "Faltando atributo document-number."
+msgstr "Está faltando o atributo do document-number."
 
 msgid "Missing form variable"
-msgstr "Faltando variável de formulário"
+msgstr "Está faltando a variável do formulário"
 
 msgid "Missing last-document attribute in request."
-msgstr "Faltando atributo last-document na requisição."
+msgstr "Está faltando o atributo do last-document na requisição."
 
 msgid "Missing media or media-col."
-msgstr "Faltando media ou media-col."
+msgstr "Está faltando o media ou o media-col."
 
 msgid "Missing media-size in media-col."
-msgstr "Faltando media-size em media-col."
+msgstr "Está faltando o media-size no media-col."
 
 msgid "Missing notify-subscription-ids attribute."
-msgstr "Faltando atributo notify-subscription-ids."
+msgstr "Está faltando o atributo notify-subscription-ids."
 
 msgid "Missing option keyword"
-msgstr "Faltando palavra-chave de opção"
+msgstr "Está faltando a palavra-chave na opção"
 
 msgid "Missing requesting-user-name attribute."
-msgstr "Faltando atributo requesting-user-name."
+msgstr "Está faltando o atributo requesting-user-name."
 
 #, c-format
 msgid "Missing required attribute \"%s\"."
-msgstr "Faltando atributo necessário \"%s\"."
+msgstr "Está faltando o atributo \"%s\" que é necessário."
 
 msgid "Missing required attributes."
-msgstr "Faltando atributos necessários."
+msgstr "Estão faltando os atributos necessários."
 
 msgid "Missing resource in URI"
-msgstr "Faltando rescurso no URI"
+msgstr "Está faltando o recurso no URI"
 
 msgid "Missing scheme in URI"
-msgstr "Faltando esquema no URI"
+msgstr "Está faltando o esquema no URI"
 
 msgid "Missing value string"
-msgstr "Faltando string de valor"
+msgstr "Está faltando um conjunto de caracteres"
 
 msgid "Missing x-dimension in media-size."
-msgstr "Faltando dimensão-x em media-size."
+msgstr "Está faltando o x-dimension no media-size."
 
 msgid "Missing y-dimension in media-size."
-msgstr "Faltando dimensão-y em media-size."
+msgstr "Está faltando o y-dimension no media-size."
 
 #, c-format
 msgid ""
@@ -4732,45 +4733,47 @@ msgid ""
 "        device-id = %s"
 msgstr ""
 "Modelo:  nome = %s\n"
-"         idioma_natural = %s\n"
+"         idioma_nativo = %s\n"
 "         marca-e-modelo = %s\n"
-"         id-dispositivo = %s"
+"         id-do-dispositivo = %s"
 
 msgid "Modifiers:"
 msgstr "Modificadores:"
 
 msgid "Modify Class"
-msgstr "Modificar classe"
+msgstr "Modificar a Classe"
 
 msgid "Modify Printer"
-msgstr "Modificar impressora"
+msgstr "Modificar a Impressora"
 
 msgid "Move All Jobs"
-msgstr "Mover todos os trabalhos"
+msgstr "Mover Todos os Trabalhos"
 
 msgid "Move Job"
-msgstr "Mover trabalho"
+msgstr "Mover o Trabalho"
 
 msgid "Moved Permanently"
-msgstr "Mover permanentemente"
+msgstr "Mover Permanentemente"
 
 msgid "NULL PPD file pointer"
-msgstr "Ponteiro NULO para arquivo PPD"
+msgstr "O ponteiro do arquivo PPD é NULO"
 
 msgid "Name OID uses indefinite length"
-msgstr "OID de nome usa comprimento indefinido"
+msgstr "O nome do OID utiliza um comprimento que não é definido"
 
 msgid "Nested classes are not allowed."
-msgstr "Classes aninhadas não são permitidas."
+msgstr "Não é permitido aninhar as classes."
 
 msgid "Never"
 msgstr "Nunca"
 
 msgid "New credentials are not valid for name."
-msgstr "As novas credenciais são inválidas para o nome."
+msgstr "As novas credenciais não são válidas para o nome."
 
 msgid "New credentials are older than stored credentials."
-msgstr "As novas credenciais são mais antigas que as armazenadas."
+msgstr ""
+"As novas credenciais são mais antigas do que as credenciais que estão "
+"armazenadas."
 
 msgid "No"
 msgstr "Não"
@@ -4779,136 +4782,136 @@ msgid "No Content"
 msgstr "Nenhum conteúdo"
 
 msgid "No IPP attributes."
-msgstr "Nenhum atributo IPP."
+msgstr "O IPP não tem atributos."
 
 msgid "No PPD name"
-msgstr "Nenhum nome PPD"
+msgstr "O PPD não tem um nome"
 
 msgid "No VarBind SEQUENCE"
-msgstr "Nenhuma SEQUENCE de VarBind"
+msgstr "Não tem a SEQUENCE para o VarBind"
 
 msgid "No active connection"
-msgstr "Nenhuma conexão ativa"
+msgstr "Não tem uma conexão ativa"
 
 msgid "No active connection."
-msgstr "Nenhuma conexão ativa."
+msgstr "Não tem uma conexão ativa."
 
 #, c-format
 msgid "No active jobs on %s."
-msgstr "Nenhum trabalho ativo em %s."
+msgstr "Não tem um trabalho ativo em %s."
 
 msgid "No attributes in request."
-msgstr "Nenhum atributo na requisição."
+msgstr "Não têm os atributos na requisição."
 
 msgid "No authentication information provided."
-msgstr "Nenhuma informação de autenticação foi fornecida."
+msgstr "As informações de autenticação não foram fornecidas."
 
 msgid "No community name"
-msgstr "Nenhum nome de comunidade"
+msgstr "Não tem o nome da comunidade"
 
 msgid "No default destination."
-msgstr "Não há destino padrão."
+msgstr "Não tem o destino padrão."
 
 msgid "No default printer."
-msgstr "Não há impressora padrão."
+msgstr "Não tem uma impressora padrão."
 
 msgid "No destinations added."
-msgstr "Nenhum destino adicionado."
+msgstr "Não foi adicionado um destino."
 
 msgid "No device URI found in argv[0] or in DEVICE_URI environment variable."
 msgstr ""
-"Nenhum URI de dispositivo encontrado em argv[0] ou na variável de ambiente "
-"DEVICE_URI."
+"Não foi encontrado o URI do dispositivo no argumento argv[0] ou na variável "
+"de ambiente DEVICE_URI."
 
 msgid "No error-index"
-msgstr "Nenhum error-index"
+msgstr "Não ocorreu o error-index"
 
 msgid "No error-status"
-msgstr "Nenhum error-status"
+msgstr "Não ocorreu o error-status"
 
 msgid "No file in print request."
-msgstr "Nenhum arquivo na requisição de impressão."
+msgstr "Não tem um arquivo na requisição da impressão."
 
 msgid "No modification time"
-msgstr "Nenhum horário de modificação"
+msgstr "Não tem um horário da modificação"
 
 msgid "No name OID"
-msgstr "Nenhum OID de nome"
+msgstr "Não tem o nome do OID"
 
 msgid "No pages were found."
 msgstr "Nenhuma página foi encontrada."
 
 msgid "No printer name"
-msgstr "Nenhum nome de impressora"
+msgstr "Não tem um nome da impressora"
 
 msgid "No printer-uri found"
-msgstr "Nenhum printer-uri foi encontrado"
+msgstr "Não foi encontrado um printer-uri"
 
 msgid "No printer-uri found for class"
-msgstr "Nenhum printer-uri foi encontrado para classe"
+msgstr "Não foi encontrado um printer-uri para a classe"
 
 msgid "No printer-uri in request."
-msgstr "Nenhum printer-uri na requisição."
+msgstr "Não foi encontrado um printer-uri na requisição."
 
 msgid "No printer-uri-supported attribute."
-msgstr ""
+msgstr "Não foi encontrado os atributos do printer-uri-supported"
 
 msgid "No request URI."
-msgstr "Nenhum URI de requisição."
+msgstr "Não foi tem um URI na requisição."
 
 msgid "No request protocol version."
-msgstr "Nenhuma versão de protocolo de requisição."
+msgstr "Não foi tem uma versão do protocolo da requisição."
 
 msgid "No request sent."
-msgstr "Nenhuma requisição enviada."
+msgstr "Nenhuma requisição foi enviada."
 
 msgid "No request-id"
-msgstr "Nenhum request-id"
+msgstr "Não tem um request-id"
 
 msgid "No stored credentials, not valid for name."
-msgstr "Nenhuma credencial armazenada, inválido para o nome."
+msgstr "Nenhuma das credenciais armazenadas são válidas para o nome."
 
 msgid "No subscription attributes in request."
-msgstr "Nenhum atributo de inscrição na requisição."
+msgstr "Não tem o atributo da assinatura na requisição."
 
 msgid "No subscriptions found."
-msgstr "Nenhuma inscrição encontrada."
+msgstr "Nenhuma assinatura foi encontrada."
 
 msgid "No variable-bindings SEQUENCE"
-msgstr "Nenhum SEQUENCE em variable-bindings"
+msgstr "Não tem a SEQUENCE no variable-bindings"
 
 msgid "No version number"
-msgstr "Nenhum número de versão"
+msgstr "Não tem o número de versão"
 
 msgid "Non-continuous (Mark sensing)"
-msgstr "Não-contíguo (Mark sensing)"
+msgstr "Não contínua (detecção da marca)"
 
 msgid "Non-continuous (Web sensing)"
-msgstr "Não-contíguo (Web sensing)"
+msgstr "Não contínua (detecção da internet)"
 
 msgid "Normal"
 msgstr "Normal"
 
 msgid "Not Found"
-msgstr "Não encontrado"
+msgstr "Não foi encontrado"
 
 msgid "Not Implemented"
-msgstr "Não implementado"
+msgstr "Não foi implementado"
 
 msgid "Not Installed"
-msgstr "Não instalado"
+msgstr "Não foi instalado"
 
 msgid "Not Modified"
-msgstr "Não modificado"
+msgstr "Não foi modificado"
 
 msgid "Not Supported"
-msgstr "Não há suporte"
+msgstr "Não tem suporte"
 
 msgid "Not allowed to print."
-msgstr "Sem permissão para imprimir."
+msgstr "Não é permitido imprimir."
 
 msgid "Note"
-msgstr "Nota"
+msgstr "Observação"
 
 msgid "OK"
 msgstr "OK"
@@ -4920,33 +4923,33 @@ msgid "Oki"
 msgstr "Oki"
 
 msgid "Online Help"
-msgstr "Ajuda online"
+msgstr "Ajuda na internet"
 
 msgid "Only WGS-84 coordinates are supported."
-msgstr ""
+msgstr "Somente as coordenadas do WGS-84 são compatíveis."
 
 msgid "Only local users can create a local printer."
-msgstr "Apenas usuários locais podem criar uma impressora local."
+msgstr "Somente os usuários locais podem criar uma impressora local."
 
 #, c-format
 msgid "Open of %s failed: %s"
-msgstr "Abertura de %s falhou: %s"
+msgstr "A abertura de %s falhou: %s"
 
 msgid "OpenGroup without a CloseGroup first"
-msgstr "OpenGroup sem um CloseGroup primeiro"
+msgstr "O OpenGroup está sem um CloseGroup"
 
 msgid "OpenUI/JCLOpenUI without a CloseUI/JCLCloseUI first"
-msgstr "OpenUI/JCLOpenUI sem um CloseUI/JCLCloseUI primeiro"
+msgstr "O OpenUI/JCLOpenUI está sem um CloseUI/JCLCloseUI"
 
 msgid "Operation Policy"
 msgstr "Política de operação"
 
 #, c-format
 msgid "Option \"%s\" cannot be included via %%%%IncludeFeature."
-msgstr "Opção \"%s\" não pode ser incluída via %%%%IncludeFeature."
+msgstr "A opção \"%s\" não pode ser incluída via %%%%IncludeFeature."
 
 msgid "Options Installed"
-msgstr "Opções instaladas"
+msgstr "Opções que estão instaladas"
 
 msgid "Options:"
 msgstr "Opções:"
@@ -4958,13 +4961,13 @@ msgid "Other Tray"
 msgstr "Outra bandeja"
 
 msgid "Out of date PPD cache file."
-msgstr "Cache de arquivo PPD está desatualizado."
+msgstr "O arquivo de cache do PPD não está atualizado."
 
 msgid "Out of memory."
-msgstr "Memória insuficiente."
+msgstr "A quantidade de memória não é suficiente."
 
 msgid "Output Mode"
-msgstr "Mode de saída"
+msgstr "Modo de saída"
 
 msgid "PCL Laser Printer"
 msgstr "Impressora Laser PCL"
@@ -4973,29 +4976,29 @@ msgid "PRC16K"
 msgstr "PRC16K"
 
 msgid "PRC16K Long Edge"
-msgstr "PRC16K borda maior"
+msgstr "PRC16K com a borda maior"
 
 msgid "PRC32K"
 msgstr "PRC32K"
 
 msgid "PRC32K Long Edge"
-msgstr "PRC32K borda maior"
+msgstr "PRC32K com a borda maior"
 
 msgid "PRC32K Oversize"
 msgstr "PRC32K grande"
 
 msgid "PRC32K Oversize Long Edge"
-msgstr "PRC32K borda muito maior"
+msgstr "PRC32K com a borda muito maior"
 
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
-msgstr "Variável de ambiente PRINTER nomeia destino padrão inexistente."
+msgstr "A variável de ambiente PRINTER nomeia o destino padrão que não existe."
 
 msgid "Packet does not contain a Get-Response-PDU"
-msgstr "Pacote não contém um Get-Response-PDU"
+msgstr "O pacote não contém um Get-Response-PDU"
 
 msgid "Packet does not start with SEQUENCE"
-msgstr "Pacote não inicia com SEQUENCE"
+msgstr "O pacote não inicia com o SEQUENCE"
 
 msgid "ParamCustominCutInterval"
 msgstr "ParamCustominCutInterval"
@@ -5178,7 +5181,7 @@ msgid "Rewind"
 msgstr "Rebobinar"
 
 msgid "SEQUENCE uses indefinite length"
-msgstr "SEQUENCE usa comprimento indefinido"
+msgstr "A SEQUENCE utiliza um comprimento que não é definido"
 
 msgid "SSL/TLS Negotiation Error"
 msgstr "Erro de negociação SSL/TLS"
@@ -5257,7 +5260,7 @@ msgstr "Declaração"
 
 #, c-format
 msgid "Subscription #%d does not exist."
-msgstr "Inscrição #%d não existe."
+msgstr "A assinatura #%d não existe."
 
 msgid "Substitutions:"
 msgstr "Substituições:"
@@ -5335,8 +5338,8 @@ msgstr ""
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
 msgstr ""
-"O atributo notify-lease-duration não pode ser usado para inscrições de "
-"trabalhos."
+"O atributo notify-lease-duration não pode ser utilizado para a assinatura "
+"dos trabalhos."
 
 #, c-format
 msgid "The notify-user-data value is too large (%d > 63 octets)."
@@ -5421,7 +5424,7 @@ msgid "The which-jobs value \"%s\" is not supported."
 msgstr "Não há suporte ao valor de which-jobs \"%s\"."
 
 msgid "There are too many subscriptions."
-msgstr "Há inscrições demais."
+msgstr "Existe uma quantidade muito grande de assinaturas."
 
 msgid "There was an unrecoverable USB error."
 msgstr "Ocorreu um erro de USB irrecuperável."
@@ -8954,7 +8957,8 @@ msgstr "lpc> "
 
 msgid "lpinfo: Expected 1284 device ID string after \"--device-id\"."
 msgstr ""
-"lpinfo: Esperava string de ID de dispositivo 1284 após \"--device-id\"."
+"Era esperado um conjunto de caracteres do ID (identificador) do dispositivo "
+"1284 no lpinfo após o \"--device-id\"."
 
 msgid "lpinfo: Expected language after \"--language\"."
 msgstr "lpinfo: Esperava idioma após \"--language\"."
@@ -8963,7 +8967,9 @@ msgid "lpinfo: Expected make and model after \"--make-and-model\"."
 msgstr "lpinfo: Esperava marca e modelo após \"--make-and-model\"."
 
 msgid "lpinfo: Expected product string after \"--product\"."
-msgstr "lpinfo: Esperava string de produto após \"--product\"."
+msgstr ""
+"Era esperado o conjunto de caracteres do produto no lpinfo após o "
+"\"--product\"."
 
 msgid "lpinfo: Expected scheme list after \"--exclude-schemes\"."
 msgstr "lpinfo: Esperava lista de esquemas após \"--exclude-schemes\"."
@@ -11486,11 +11492,11 @@ msgstr "URI de notify-recipient-uri \"%s\" usa um esquema desconhecido."
 
 #. TRANSLATORS: Notify Sequence Numbers
 msgid "notify-sequence-numbers"
-msgstr ""
+msgstr "Notificar os números da sequência do notify-sequence-numbers"
 
 #. TRANSLATORS: Notify Subscription Ids
 msgid "notify-subscription-ids"
-msgstr ""
+msgstr "Notificação dos IDs da assinatura do notify-subscription-ids"
 
 #. TRANSLATORS: Notify Time Interval
 msgid "notify-time-interval"
@@ -11937,7 +11943,7 @@ msgstr ""
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
-msgstr ""
+msgstr "Conjunto de caracteres do post-dial-string"
 
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
@@ -12014,7 +12020,8 @@ msgstr "ppdc: Esperava compressão para ColorModel na linha %d de %s."
 #, c-format
 msgid "ppdc: Expected constraints string for UIConstraints on line %d of %s."
 msgstr ""
-"ppdc: Esperava string de restrições para UIConstraints na linha %d de %s."
+"Era esperado um conjunto de caracteres de restrições para o UIConstraints no "
+"ppdc na linha %d de %s."
 
 #, c-format
 msgid ""
@@ -12115,7 +12122,8 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Expected quoted string on line %d of %s."
-msgstr "ppdc: Esperava string em aspas na linha %d de %s."
+msgstr ""
+"Era esperado um conjunto de caracteres entre aspas no ppdc na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected real number on line %d of %s."
@@ -12146,11 +12154,15 @@ msgstr "ppdc: Esperava estado após Font na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected string after Copyright on line %d of %s."
-msgstr "ppdc: Esperava string após Copyright na linha %d de %s."
+msgstr ""
+"Era esperado um conjunto de caracteres após o Copyright (direitos autorais) "
+"do ppdc na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected string after Version on line %d of %s."
-msgstr "ppdc: Esperava string após Version na linha %d de %s."
+msgstr ""
+"Era esperado um conjunto de caracteres após o Version do ppdc na linha %d de "
+"%s."
 
 #, c-format
 msgid "ppdc: Expected two option names on line %d of %s."
@@ -12212,8 +12224,8 @@ msgstr "ppdc: Faltando #if na linha %d de %s."
 msgid ""
 "ppdc: Need a msgid line before any translation strings on line %d of %s."
 msgstr ""
-"ppdc: Precisa de uma linha de msgid antes de qualquer string de tradução na "
-"linha %d de %s."
+"O ppdc necessita de uma linha do msgid antes de qualquer texto de tradução "
+"na linha %d de %s."
 
 #, c-format
 msgid "ppdc: No message catalog provided for locale %s."
@@ -12311,7 +12323,8 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Unterminated string starting with %c on line %d of %s."
-msgstr "ppdc: Início de string não terminada com %c na linha %d de %s."
+msgstr ""
+"O texto %c que foi iniciado do ppdc não foi finalizado na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Warning - overlapping filename \"%s\"."
@@ -12339,7 +12352,7 @@ msgstr "ppdmerge: Não é possível fazer backup de %s para %s - %s"
 
 #. TRANSLATORS: Pre-dial String
 msgid "pre-dial-string"
-msgstr ""
+msgstr "Conjunto de caracteres pre-dial-string"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "presentation-direction-number-up"
@@ -16090,46 +16103,50 @@ msgstr ""
 #. TRANSLATORS: Subscription Privacy Attributes
 msgid "subscription-privacy-attributes"
 msgstr ""
+"Atributos de privacidade da assinatura do subscription-privacy-attributes"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-attributes.all"
-msgstr ""
+msgstr "Todos os subscription-privacy-attributes.all"
 
 #. TRANSLATORS: Default
 msgid "subscription-privacy-attributes.default"
-msgstr ""
+msgstr "O padrão do subscription-privacy-attributes.default"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-attributes.none"
-msgstr ""
+msgstr "Não tem um subscription-privacy-attributes.none"
 
 #. TRANSLATORS: Subscription Description
 msgid "subscription-privacy-attributes.subscription-description"
 msgstr ""
+"Descrição da assinatura do subscription-privacy-attributes.subscription-"
+"description"
 
 #. TRANSLATORS: Subscription Template
 msgid "subscription-privacy-attributes.subscription-template"
 msgstr ""
+"Modelo da assinatura do subscription-privacy-attributes.subscription-template"
 
 #. TRANSLATORS: Subscription Privacy Scope
 msgid "subscription-privacy-scope"
-msgstr ""
+msgstr "Âmbito de privacidade da assinatura do subscription-privacy-scope"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-scope.all"
-msgstr ""
+msgstr "Todos os subscription-privacy-scope.all"
 
 #. TRANSLATORS: Default
 msgid "subscription-privacy-scope.default"
-msgstr ""
+msgstr "Padrão do subscription-privacy-scope.default"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-scope.none"
-msgstr ""
+msgstr "Não tem um subscription-privacy-scope.none"
 
 #. TRANSLATORS: Owner
 msgid "subscription-privacy-scope.owner"
-msgstr ""
+msgstr "Proprietário do subscription-privacy-scope.owner"
 
 #, c-format
 msgid "system default destination: %s"
