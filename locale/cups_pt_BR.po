@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-11 15:01+0000\n"
+"PO-Revision-Date: 2025-06-12 16:01+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -4995,7 +4995,7 @@ msgid ""
 msgstr "A variável de ambiente PRINTER nomeia o destino padrão que não existe."
 
 msgid "Packet does not contain a Get-Response-PDU"
-msgstr "O pacote não contém um Get-Response-PDU"
+msgstr "O pacote não contém o Get-Response-PDU"
 
 msgid "Packet does not start with SEQUENCE"
 msgstr "O pacote não inicia com o SEQUENCE"
@@ -5008,126 +5008,126 @@ msgstr "ParamCustominTearInterval"
 
 #, c-format
 msgid "Password for %s on %s? "
-msgstr "Senha para %s em %s? "
+msgstr "A senha para %s em %s? "
 
 msgid "Pause Class"
-msgstr "Pausar classe"
+msgstr "Pausar a Classe"
 
 msgid "Pause Printer"
-msgstr "Pausar impressora"
+msgstr "Pausar a Impressora"
 
 # peel-off seria descolar etiqueta do papel?
 msgid "Peel-Off"
-msgstr "Descolar"
+msgstr "Destacador de Etiquetas"
 
 msgid "Photo"
 msgstr "Foto"
 
 msgid "Photo Labels"
-msgstr "Foto pequena"
+msgstr "Foto Pequena"
 
 msgid "Plain Paper"
-msgstr "Papel normal"
+msgstr "Papel Normal"
 
 msgid "Policies"
 msgstr "Políticas"
 
 msgid "Port Monitor"
-msgstr "Monitor de porta"
+msgstr "Monitor da Porta"
 
 msgid "PostScript Printer"
-msgstr "Impressora PostScript"
+msgstr "Impressora do PostScript"
 
 msgid "Postcard"
-msgstr "Postal"
+msgstr "Cartão Postal"
 
 msgid "Postcard Double"
-msgstr "Postal duplo"
+msgstr "Cartão Postal Duplo"
 
 msgid "Postcard Double Long Edge"
-msgstr "Postal duplo borda maior"
+msgstr "Cartão Postal Duplo com a Borda Maior"
 
 msgid "Postcard Long Edge"
-msgstr "Postal borda maior"
+msgstr "Cartão Postal com a Borda Maior"
 
 msgid "Preparing to print."
 msgstr "Preparando para imprimir."
 
 msgid "Print Density"
-msgstr "Densidade de impressão"
+msgstr "Densidade da Impressão"
 
 msgid "Print Job:"
-msgstr "Trabalho de impressão:"
+msgstr "Trabalho de Impressão:"
 
 msgid "Print Mode"
-msgstr "Modo de impressão"
+msgstr "Modo de Impressão"
 
 msgid "Print Rate"
-msgstr "Taxa de impressão"
+msgstr "Taxa de Impressão"
 
 msgid "Print Self-Test Page"
-msgstr "Imprimir página de auto-teste"
+msgstr "Imprimir uma página de autoteste"
 
 msgid "Print Speed"
-msgstr "Velocidade de impressão"
+msgstr "Velocidade da Impressão"
 
 msgid "Print Test Page"
-msgstr "Imprimir página de teste"
+msgstr "Imprimir uma Página de Teste"
 
 msgid "Print and Cut"
-msgstr "Imprimir e cortar"
+msgstr "Imprimir e Cortar"
 
 msgid "Print and Tear"
-msgstr "Imprimir e rasgar"
+msgstr "Imprimir e Rasgar"
 
 msgid "Print file sent."
-msgstr "Arquivo de impressão enviado."
+msgstr "O arquivo foi enviado para impressão."
 
 msgid "Print job canceled at printer."
-msgstr "Trabalho de impressão cancelado na impressora."
+msgstr "O trabalho de impressão foi cancelado na impressora."
 
 msgid "Print job too large."
-msgstr "Trabalho de impressão muito grande."
+msgstr "O trabalho de impressão é muito grande."
 
 msgid "Print job was not accepted."
-msgstr "Trabalho de impressão não foi aceito."
+msgstr "O trabalho de impressão não foi aceito."
 
 #, c-format
 msgid "Printer \"%s\" already exists."
-msgstr "Impressora \"%s\" já existe."
+msgstr "A impressora \"%s\" já existe."
 
 msgid "Printer Added"
-msgstr "Impressora adicionada"
+msgstr "A impressora foi adicionada"
 
 msgid "Printer Default"
-msgstr "Impressora padrão"
+msgstr "Impressora Padrão"
 
 msgid "Printer Deleted"
-msgstr "Impressora excluída"
+msgstr "A impressora foi excluída"
 
 msgid "Printer Modified"
-msgstr "Impressora modificada"
+msgstr "A impressora foi modificada"
 
 msgid "Printer Paused"
-msgstr "Impressora pausada"
+msgstr "A impressora está pausada"
 
 msgid "Printer Settings"
-msgstr "Configurações de impressora"
+msgstr "Configurações da Impressora"
 
 msgid "Printer cannot print supplied content."
-msgstr "Impressora não consegue imprimir o conteúdo fornecido."
+msgstr "A impressora não consegue imprimir o conteúdo que foi fornecido."
 
 msgid "Printer cannot print with supplied options."
-msgstr "Impressora não consegue imprimir os opções fornecidas."
+msgstr "A impressora não consegue imprimir com as opções que foram fornecidas."
 
 msgid "Printer does not support required IPP attributes or document formats."
 msgstr ""
-"A impressora não suporta os atributos IPP ou formatos de documento "
-"necessários."
+"A impressora não é compatível com os atributos do IPP ou com as formatações "
+"do documento."
 
 #, c-format
 msgid "Printer returned invalid data: %s"
-msgstr ""
+msgstr "A impressora retornou com dados %s que não são válidos"
 
 msgid "Printer:"
 msgstr "Impressora:"
@@ -5137,45 +5137,47 @@ msgstr "Impressoras"
 
 #, c-format
 msgid "Printing page %d, %u%% complete."
-msgstr "Imprimindo página %d, %u%% concluído."
+msgstr "Imprimindo a página %d, %u%% concluída(s)."
 
 msgid "Quarto"
 msgstr "Quarto"
 
 msgid "Quota limit reached."
-msgstr "Limite da cota alcançado."
+msgstr "O limite da cota foi alcançado."
 
 msgid "Rank    Owner   Job     File(s)                         Total Size"
-msgstr "Ordem   Dono    Trab    Arquivo(s)                      Tamanho total"
+msgstr ""
+"Ordem    Proprietário   Trabalho     Arquivo(s)                         "
+"Tamanho Total"
 
 msgid "Reject Jobs"
-msgstr "Rejeitar trabalhos"
+msgstr "Rejeitar os Trabalhos"
 
 #, c-format
 msgid "Remote host did not accept control file (%d)."
-msgstr "Máquina remota não aceitou arquivo de controle (%d)."
+msgstr "A máquina remota não aceitou o arquivo de controle (%d)."
 
 #, c-format
 msgid "Remote host did not accept data file (%d)."
-msgstr "Máquina remota não aceitou arquivo de dados (%d)."
+msgstr "A máquina remota não aceitou arquivo de dados (%d)."
 
 msgid "Reprint After Error"
-msgstr "Erro após reimpressão"
+msgstr "Ocorreu um erro após a reimpressão"
 
 msgid "Request Entity Too Large"
-msgstr "Entidade de requisição muito grande"
+msgstr "A entidade de requisição é muito grande"
 
 msgid "Resolution"
 msgstr "Resolução"
 
 msgid "Resume Class"
-msgstr "Retomar classe"
+msgstr "Retomar a Classe"
 
 msgid "Resume Printer"
-msgstr "Retomar impressora"
+msgstr "Retomar a Impressão"
 
 msgid "Return Address"
-msgstr "Retornar endereço"
+msgstr "Retornar o Endereço"
 
 msgid "Rewind"
 msgstr "Rebobinar"
@@ -5184,37 +5186,37 @@ msgid "SEQUENCE uses indefinite length"
 msgstr "A SEQUENCE utiliza um comprimento que não é definido"
 
 msgid "SSL/TLS Negotiation Error"
-msgstr "Erro de negociação SSL/TLS"
+msgstr "Ocorreu um erro de negociação do SSL/TLS"
 
 msgid "Second Roll (DUO/Twin Only)"
-msgstr "Rolete secundário (apenas DUO/duplo)"
+msgstr "Rolete secundário (somente para o DUO/duplo)"
 
 msgid "See Other"
-msgstr "Veja outro"
+msgstr "Exibir o outro"
 
 msgid "See remote printer."
-msgstr "Ver impressora remota."
+msgstr "Exibir a impressora remota."
 
 msgid "Self-signed credentials are blocked."
-msgstr "Credenciais autoassinadas estão proibidas."
+msgstr "As credenciais autoassinadas estão bloqueadas."
 
 msgid "Sending data to printer."
-msgstr "Enviando dados à impressora."
+msgstr "Enviando os dados para a impressora."
 
 msgid "Server Restarted"
-msgstr "Servidor reiniciado"
+msgstr "O servidor foi reiniciado"
 
 msgid "Server Security Auditing"
-msgstr "Auditoria de segurança de servidor"
+msgstr "Auditoria de Segurança do Servidor"
 
 msgid "Server Started"
-msgstr "Servidor iniciou"
+msgstr "O servidor foi iniciado"
 
 msgid "Server Stopped"
-msgstr "Servidor parou"
+msgstr "O servidor está parado"
 
 msgid "Server credentials not set."
-msgstr "Credenciais no servidor não definidas."
+msgstr "As credenciais no servidor não estão definidas."
 
 msgid "Service Unavailable"
 msgstr "Serviço indisponível"
@@ -6721,7 +6723,7 @@ msgstr ""
 
 #. TRANSLATORS: Owner
 msgid "document-privacy-scope.owner"
-msgstr "Dono"
+msgstr "Proprietário do document-privacy-scope.owner"
 
 #. TRANSLATORS: Document State
 msgid "document-state"
@@ -8349,7 +8351,7 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Owner
 msgid "job-privacy-scope.owner"
-msgstr "Dono"
+msgstr "Proprietário do job-privacy-scope.owner"
 
 #. TRANSLATORS: Job Recipient Name
 msgid "job-recipient-name"
