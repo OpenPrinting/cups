@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-13 17:04+0000\n"
+"PO-Revision-Date: 2025-06-13 17:51+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -5838,39 +5838,39 @@ msgstr "O tamanho do nome da mídia não é conhecido."
 
 #, c-format
 msgid "Unknown option \"%s\" with value \"%s\"."
-msgstr "Opção \"%s\" desconhecida com valor \"%s\"."
+msgstr "A opção \"%s\" com o valor \"%s\" não é conhecida."
 
 #, c-format
 msgid "Unknown option \"%s\"."
-msgstr "Opção \"%s\" desconhecida."
+msgstr "A opção \"%s\" não é conhecida."
 
 #, c-format
 msgid "Unknown print mode: \"%s\"."
-msgstr "Modo de impressão desconhecido: \"%s\"."
+msgstr "O modo de impressão \"%s\" não é conhecido."
 
 #, c-format
 msgid "Unknown printer-error-policy \"%s\"."
-msgstr "printer-error-policy \"%s\" desconhecido."
+msgstr "O printer-error-policy \"%s\" não é conhecido."
 
 #, c-format
 msgid "Unknown printer-op-policy \"%s\"."
-msgstr "printer-op-policy \"%s\" desconhecido."
+msgstr "O printer-op-policy \"%s\" não é conhecido."
 
 msgid "Unknown request method."
-msgstr "Método de requisição desconhecido."
+msgstr "O método de requisição não é conhecido."
 
 msgid "Unknown request version."
-msgstr "Versão de requisição desconhecida."
+msgstr "A versão da requisição não é conhecida."
 
 msgid "Unknown scheme in URI"
-msgstr "Esquema desconhecido no URI"
+msgstr "O esquema do URI não é conhecido"
 
 msgid "Unknown service name."
-msgstr "Nome de serviço desconhecido."
+msgstr "O nome do serviço não é conhecido."
 
 #, c-format
 msgid "Unknown version option value: \"%s\"."
-msgstr "Valor de opção de versão desconhecido: \"%s\"."
+msgstr "O valor da opção \"%s\" da versão não é conhecido."
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
@@ -5888,23 +5888,23 @@ msgstr "O valor do 'job-name' não é compatível."
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
-msgstr "Não há suporte ao conjunto de caracteres \"%s\"."
+msgstr "O conjunto de caracteres \"%s\" não é compatível."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
-msgstr "Não há suporte à compressão \"%s\"."
+msgstr "A compactação \"%s\" não é compatível."
 
 #, c-format
 msgid "Unsupported document-format \"%s\"."
-msgstr "Não há suporte ao \"%s\" do document-format."
+msgstr "O \"%s\" do document-format não é compatível."
 
 #, c-format
 msgid "Unsupported document-format \"%s/%s\"."
-msgstr "Não há suporte ao \"%s/%s\" do document-format."
+msgstr "O \"%s/%s\" do document-format não é compatível."
 
 #, c-format
 msgid "Unsupported format \"%s\"."
-msgstr "O formato \"%s\" não é suportado."
+msgstr "O formato \"%s\" não é compatível."
 
 msgid "Unsupported margins."
 msgstr "As margens não são compatíveis."
@@ -5935,49 +5935,50 @@ msgid "Unsupported value type"
 msgstr "O tipo do valor não é compatível"
 
 msgid "Upgrade Required"
-msgstr "Atualização Necessária"
+msgstr "A atualização é necessária"
 
 #, c-format
 msgid "Usage: %s [options] destination(s)"
-msgstr "Uso: %s [opções] destino(s)"
+msgstr "Utilização: %s [opções] destino(s)"
 
 #, c-format
 msgid "Usage: %s job-id user title copies options [file]"
-msgstr "Uso: %s job-id usuário título cópias opções [arquivo]"
+msgstr "Utilização: %s job-id usuário título cópias opções [arquivo]"
 
 msgid ""
 "Usage: cancel [options] [id]\n"
 "       cancel [options] [destination]\n"
 "       cancel [options] [destination-id]"
 msgstr ""
-"Uso: cancel [opções] [id]\n"
+"Utilização: cancel [opções] [id]\n"
 "     cancel [opções] [destino]\n"
 "     cancel [opções] [destino-id]"
 
 msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Utilização: cups-oauth [OPÇÕES] [COMANDO [ARGUMENTO(S)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Utilização: cups-x509 [OPÇÕES] [COMANDO] [ARGUMENTO]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
-msgstr "Uso: cupsctl [opções] [param=valor ... paramN=valorN]"
+msgstr "Utilização: cupsctl [opções] [parâmetro=valor ... parâmetroN=valorN]"
 
 msgid "Usage: cupsd [options]"
-msgstr "Uso: cupsd [opções]"
+msgstr "Utilização: cupsd [opções]"
 
 msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
-msgstr ""
+msgstr "Utilização: cupsfilter [ OPÇÕES ] [ -- ] NOME-DO-ARQUIVO"
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
 "       program | cupstestppd [options] -"
 msgstr ""
-"Uso: cupstestppd [opções] arquivo1.ppd[.gz] [... arquivoN.ppd[.gz]]\n"
+"Utilização: cupstestppd [opções] nome-do-arquivo1.ppd[.gz] "
+"[... nome-do-arquivoN.ppd[.gz]]\n"
 "     program | cupstestppd [opções] -"
 
 msgid "Usage: ippeveprinter [options] \"name\""
-msgstr "Uso: ippeveprinter [opções] \"nome\""
+msgstr "Utilização: ippeveprinter [opções] \"nome\""
 
 msgid ""
 "Usage: ippfind [options] regtype[,subtype][.domain.] ... [expression]\n"
@@ -5985,19 +5986,21 @@ msgid ""
 "       ippfind --help\n"
 "       ippfind --version"
 msgstr ""
-"Uso: ippfind [opções] tiporeg[,tiposub][.domínio.] ... [expressões]\n"
-"     ippfind [opções] nome[.tiporeg[.domínio.]] ... [expressões]\n"
+"Utilização: ippfind [opções] tipo-do-registro[,subtipo][.domínio.] ... "
+"[expressões]\n"
+"     ippfind [opções] nome[.tipo-do-registro[.domínio.]] ... [expressões]\n"
 "     ippfind --help\n"
 "     ippfind --version"
 
 msgid "Usage: ipptool [options] URI filename [ ... filenameN ]"
-msgstr "Uso: ipptool [opções] URI arquivo [ ... arquivoN ]"
+msgstr ""
+"Utilização: ipptool [opções] URI nome-do-arquivo [ ... nome-do-arquivoN ]"
 
 msgid ""
 "Usage: lp [options] [--] [file(s)]\n"
 "       lp [options] -i id"
 msgstr ""
-"Uso: lp [opções] [--] [arquivo(s)]\n"
+"Utilização: lp [opções] [--] [arquivo(s)]\n"
 "     lp [opções] -i id"
 
 msgid ""
@@ -6007,7 +6010,7 @@ msgid ""
 "       lpadmin [options] -p destination -r class\n"
 "       lpadmin [options] -x destination"
 msgstr ""
-"Uso: lpadmin [opções] -d destino\n"
+"Utilização: lpadmin [opções] -d destino\n"
 "     lpadmin [opções] -p destino\n"
 "     lpadmin [opções] -p destino -c classe\n"
 "     lpadmin [opções] -p destino -r classe\n"
@@ -6017,15 +6020,15 @@ msgid ""
 "Usage: lpinfo [options] -m\n"
 "       lpinfo [options] -v"
 msgstr ""
-"Uso: lpinfo [opções] -m\n"
+"Utilização: lpinfo [opções] -m\n"
 "     lpinfo [opções] -v"
 
 msgid ""
 "Usage: lpmove [options] job destination\n"
 "       lpmove [options] source-destination destination"
 msgstr ""
-"Uso: lpmove [opções] trabalho destino\n"
-"     lpmove [opções] destino-fonte destino"
+"Utilização: lpmove [opções] trabalho destino\n"
+"     lpmove [opções] destino-dafonte destino"
 
 msgid ""
 "Usage: lpoptions [options] -d destination\n"
@@ -6033,76 +6036,84 @@ msgid ""
 "       lpoptions [options] [-p destination] -o option[=value]\n"
 "       lpoptions [options] -x destination"
 msgstr ""
-"Uso: lpoptions [opções] -d destino\n"
+"Utilização: lpoptions [opções] -d destino\n"
 "     lpoptions [opções] [-p destino] [-l]\n"
 "     lpoptions [opções] [-p destino] -o opção[=valor]\n"
 "     lpoptions [opções] -x destino"
 
 msgid "Usage: lpq [options] [+interval]"
-msgstr "Uso: lpq [opções] [+intervalo]"
+msgstr "Utilização: lpq [opções] [+intervalo]"
 
 msgid "Usage: lpr [options] [file(s)]"
-msgstr "Uso: lpr [opções] [arquivo(s)]"
+msgstr "Utilização: lpr [opções] [arquivo(s)]"
 
 msgid ""
 "Usage: lprm [options] [id]\n"
 "       lprm [options] -"
 msgstr ""
-"Uso: lprm [opções] [id]\n"
+"Utilização: lprm [opções] [id]\n"
 "     lprm [opções] -"
 
 msgid "Usage: lpstat [options]"
-msgstr "Uso: lpstat [opções]"
+msgstr "Utilização: lpstat [opções]"
 
 msgid "Usage: ppdc [options] filename.drv [ ... filenameN.drv ]"
-msgstr "Uso: ppdc [opções] arquivo.drv [ ... arquivoN.drv ]"
+msgstr ""
+"Utilização: ppdc [opções] nome-do-arquivo.drv [ ... nome-do-arquivoN.drv ]"
 
 msgid "Usage: ppdhtml [options] filename.drv >filename.html"
-msgstr "Uso: ppdhtml [opções] arquivo.drv >arquivo.html"
+msgstr "Utilização: ppdhtml [opções] nome-do-arquivo.drv >nome-do-arquivo.html"
 
 msgid "Usage: ppdi [options] filename.ppd [ ... filenameN.ppd ]"
-msgstr "Uso: ppdi [opções] arquivo.ppd [ ... arquivoN.ppd ]"
+msgstr ""
+"Utilização: ppdi [opções] nome-do-arquivo.ppd [ ... nome-do-arquivoN.ppd ]"
 
 msgid "Usage: ppdmerge [options] filename.ppd [ ... filenameN.ppd ]"
-msgstr "Uso: ppdmerge [opções] arquivo.ppd [ ... arquivoN.ppd ]"
+msgstr ""
+"Utilização: ppdmerge [opções] nome-do-arquivo.ppd "
+"[ ... nome-do-arquivoN.ppd ]"
 
 msgid ""
 "Usage: ppdpo [options] -o filename.po filename.drv [ ... filenameN.drv ]"
-msgstr "Uso: ppdpo [opções] -o arquivo.po arquivo.drv [ ... arquivoN.drv ]"
+msgstr ""
+"Utilização: ppdpo [opções] -o nome-do-arquivo.po nome-do-arquivo.drv "
+"[ ... nome-do-arquivoN.drv ]"
 
 msgid "Usage: snmp [host-or-ip-address]"
-msgstr "Uso: snmp [máquina-ou-endereço-ip]"
+msgstr "Utilização: snmp [máquina-ou-endereço-do-ip]"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
-msgstr "Usando diretório de spool \"%s\"."
+msgstr "Utilizando o diretório \"%s\" do spool."
 
 msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
+"Ocorreu uma falha na validação do subjectAltName na requisição do "
+"certificado X.509."
 
 msgid "Value uses indefinite length"
-msgstr "Valor usa comprimento indefinido"
+msgstr "O valor do comprimento utilizado não é definido"
 
 msgid "VarBind uses indefinite length"
-msgstr "VarBind usa comprimento indefinido"
+msgstr "O comprimento utilizado no VarBind não é definido"
 
 msgid "Version uses indefinite length"
-msgstr "Version usa comprimento indefinido"
+msgstr "O comprimento da versão utilizada não é definido"
 
 msgid "Waiting for job to complete."
 msgstr "Aguardando a conclusão do trabalho."
 
 msgid "Waiting for printer to become available."
-msgstr "Esperando a impressora ficar disponível."
+msgstr "Aguardando a impressora ficar disponível."
 
 msgid "Waiting for printer to finish."
-msgstr "Esperando a impressora finalizar."
+msgstr "Aguardando a impressora finalizar o trabalho."
 
 msgid "Warning: This program will be removed in a future version of CUPS."
 msgstr "Aviso: Este programa será removido em uma versão futura do CUPS."
 
 msgid "Web Interface is Disabled"
-msgstr "A interface web está desabilitada"
+msgstr "A interface da internet está desativada"
 
 msgid "Yes"
 msgstr "Sim"
@@ -6112,13 +6123,15 @@ msgstr "Você não pode acessar esta página."
 
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
-msgstr "Você tem que acessar esta página usando a URL https://%s:%d%s."
+msgstr ""
+"Você tem que acessar esta página utilizando o endereço do URL "
+"https://%s:%d%s."
 
 msgid "Your account does not have the necessary privileges."
-msgstr "Seu cadastro não possui os privilégios necessários."
+msgstr "A sua conta não possui os privilégios necessários."
 
 msgid "ZPL Label Printer"
-msgstr "Impressora de etiqueta ZPL"
+msgstr "Impressora de etiquetas ZPL"
 
 msgid "Zebra"
 msgstr "Zebra"
@@ -6128,30 +6141,32 @@ msgstr "abortado"
 
 #. TRANSLATORS: Accuracy Units
 msgid "accuracy-units"
-msgstr "Unidade de Precisão"
+msgstr "Unidade de precisão do accuracy-units"
 
 #. TRANSLATORS: Millimeters
 msgid "accuracy-units.mm"
-msgstr "Milímetros"
+msgstr "Milímetros do accuracy-units.mm"
 
 #. TRANSLATORS: Nanometers
 msgid "accuracy-units.nm"
-msgstr "Nanômetros"
+msgstr "Nanômetros do accuracy-units.nm"
 
 #. TRANSLATORS: Micrometers
 msgid "accuracy-units.um"
-msgstr "Micrômetros"
+msgstr "Micrômetros do accuracy-units.um"
 
 msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr ""
+"authorize [RECURSO]           Autorizar o acesso a um recurso ou "
+"funcionalidade"
 
 #. TRANSLATORS: Bale Output
 msgid "baling"
-msgstr ""
+msgstr "Saída dos fardos do baling"
 
 #. TRANSLATORS: Bale Using
 msgid "baling-type"
-msgstr ""
+msgstr "Utilização dos fardos do baling-type"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
