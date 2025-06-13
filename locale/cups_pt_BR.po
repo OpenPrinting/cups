@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-12 16:01+0000\n"
+"PO-Revision-Date: 2025-06-13 17:04+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -1300,7 +1300,7 @@ msgstr "O %s não está aceitando as requisições desde %s -"
 
 #, c-format
 msgid "%s not supported."
-msgstr "não há suporte a %s."
+msgstr "O %s não é compatível."
 
 #, c-format
 msgid "%s/%s accepting requests since %s"
@@ -2271,7 +2271,8 @@ msgid "-V version              Set default IPP version"
 msgstr "-V version              Permite a definir a versão padrão do IPP"
 
 msgid "-W completed            Show completed jobs"
-msgstr "-W completed            Permite exibir os trabalhos que estão completos"
+msgstr ""
+"-W completed            Permite exibir os trabalhos que estão concluídos"
 
 msgid "-W not-completed        Show pending jobs"
 msgstr "-W not-completed        Permite exibir os trabalhos que estão pendentes"
@@ -5078,7 +5079,7 @@ msgid "Print and Cut"
 msgstr "Imprimir e Cortar"
 
 msgid "Print and Tear"
-msgstr "Imprimir e Rasgar"
+msgstr "Imprimir e destacar"
 
 msgid "Print file sent."
 msgstr "O arquivo foi enviado para impressão."
@@ -5219,43 +5220,43 @@ msgid "Server credentials not set."
 msgstr "As credenciais no servidor não estão definidas."
 
 msgid "Service Unavailable"
-msgstr "Serviço indisponível"
+msgstr "O serviço não está disponível"
 
 msgid "Set Allowed Users"
-msgstr "Definir usuários permitidos"
+msgstr "Definir os usuários que são permitidos"
 
 msgid "Set As Server Default"
 msgstr "Definir como padrão do servidor"
 
 msgid "Set Class Options"
-msgstr "Definir opções de classe"
+msgstr "Definir as opções da classe"
 
 msgid "Set Printer Options"
-msgstr "Definir opções de impressora"
+msgstr "Definir as opções da impressora"
 
 msgid "Shipping Address"
 msgstr "Endereço de entrega"
 
 msgid "Short-Edge (Landscape)"
-msgstr "Borda menor (paisagem)"
+msgstr "Borda menor (Paisagem)"
 
 msgid "Special Paper"
 msgstr "Papel especial"
 
 #, c-format
 msgid "Spooling job, %.0f%% complete."
-msgstr "Trabalho de impressão, %.0f%% completo."
+msgstr "O trabalho de impressão %.0f%% está concluído."
 
 msgid "Standard"
 msgstr "Padrão"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
-msgstr "Faixa no início"
+msgstr "Faixa no início antes do trabalho de impressão"
 
 #, c-format
 msgid "Starting page %d."
-msgstr "Iniciando página %d."
+msgstr "Iniciando a página %d."
 
 msgid "Statement"
 msgstr "Declaração"
@@ -5277,7 +5278,7 @@ msgid "Super B/A3"
 msgstr "Super B/A3"
 
 msgid "Switching Protocols"
-msgstr "Alternando protocolos"
+msgstr "Alternando os protocolos"
 
 msgid "Tabloid"
 msgstr "Tabloide"
@@ -5286,7 +5287,7 @@ msgid "Tabloid Oversize"
 msgstr "Tabloide grande"
 
 msgid "Tabloid Oversize Long Edge"
-msgstr "Tabloide borda muito maior"
+msgstr "Tabloide com a borda muito maior"
 
 msgid "Tear"
 msgstr "Destacar"
@@ -5295,7 +5296,7 @@ msgid "Tear-Off"
 msgstr "Destacar"
 
 msgid "Tear-Off Adjust Position"
-msgstr "Ajuste da posição de destaque"
+msgstr "Ajustar a posição do destaque"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
@@ -5303,21 +5304,21 @@ msgstr "O atributo \"%s\" é necessário para imprimir os trabalhos."
 
 #, c-format
 msgid "The %s attribute cannot be provided with job-ids."
-msgstr "O atributo %s não pode ser fornecido com job-ids."
+msgstr "O atributo %s não pode ser fornecido com o job-ids."
 
 #, c-format
 msgid ""
 "The '%s' Job Status attribute cannot be supplied in a job creation request."
 msgstr ""
-"O atributo de estado de trabalho '%s' não pode ser fornecido em uma "
-"requisição de criação de trabalho."
+"O atributo de estado do trabalho '%s' não pode ser fornecido em uma "
+"requisição de criação do trabalho."
 
 #, c-format
 msgid ""
 "The '%s' operation attribute cannot be supplied in a Create-Job request."
 msgstr ""
-"O atributo de operação '%s' não pode ser fornecido em uma requisição de "
-"criação de trabalho."
+"O atributo da operação '%s' não pode ser fornecido em uma requisição de "
+"criação do trabalho do Create-Job."
 
 #, c-format
 msgid "The PPD file \"%s\" could not be found."
@@ -5325,7 +5326,7 @@ msgstr "O arquivo PPD \"%s\" não pôde ser encontrado."
 
 #, c-format
 msgid "The PPD file \"%s\" could not be opened: %s"
-msgstr "O arquivo PPD \"%s\" não pôde ser aberto: %s"
+msgstr "O arquivo PPD \"%s\" não pôde ser aberto por %s"
 
 msgid "The PPD file could not be opened."
 msgstr "O arquivo PPD não pôde ser aberto."
@@ -5334,8 +5335,8 @@ msgid ""
 "The class name may only contain up to 127 printable characters and may not "
 "contain spaces, slashes (/), or the pound sign (#)."
 msgstr ""
-"O nome da classe pode conter somente até 127 caracteres imprimíveis e não "
-"pode conter espaços, barras (/), ou sinal de tralha (#)."
+"O nome da classe pode conter até 127 caracteres imprimíveis e não pode "
+"conter espaços, barras (/), o sinal do octótropo ou da cerquilha (#)."
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5349,16 +5350,18 @@ msgstr "O valor de notify-user-data está muito grande (%d > 63 octetos)."
 
 msgid "The printer configuration is incorrect or the printer no longer exists."
 msgstr ""
-"A configuração da impressora está incorreta ou a impressora não existe mais."
+"A configuração da impressora não está correta ou a impressora não existe "
+"mais."
 
 msgid "The printer did not respond."
 msgstr "A impressora não respondeu."
 
 msgid "The printer does not provide attributes required for IPP Everywhere."
 msgstr ""
+"A impressora não fornece os atributos necessários para o IPP Everywhere."
 
 msgid "The printer is in use."
-msgstr "A impressora está em uso."
+msgstr "A impressora está sendo utilizada."
 
 msgid "The printer is not connected."
 msgstr "A impressora não está conectada."
@@ -5367,16 +5370,16 @@ msgid "The printer is not responding."
 msgstr "A impressora não está respondendo."
 
 msgid "The printer is now connected."
-msgstr "A impressora está agora conectada."
+msgstr "A impressora agora está conectada."
 
 msgid "The printer is now online."
-msgstr "A impressora está agora online."
+msgstr "A impressora agora está on-line."
 
 msgid "The printer is offline."
-msgstr "A impressora está offline."
+msgstr "A impressora está off-line."
 
 msgid "The printer is unreachable at this time."
-msgstr "A impressora está inacessível neste momento."
+msgstr "A impressora não está acessível neste momento."
 
 msgid "The printer may not exist or is unavailable at this time."
 msgstr "A impressora pode não existir ou está indisponível neste momento."
@@ -5386,64 +5389,65 @@ msgid ""
 "contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the "
 "pound sign (#)."
 msgstr ""
-"O nome da impressora deve conter até 127 caracteres imprimíveis e não deve "
-"conter espaços, barras (/ \\), aspas (' \"), pontos de interrogação (?) nem "
-"a cerquilha (#)."
+"O nome da impressora deve conter até 127 caracteres imprimíveis e não pode "
+"conter espaços, barras (/ ou \\), aspas (' ou \"), pontos de interrogação (?)"
+" e nem o octótropo ou cerquilha (#)."
 
 msgid "The printer or class does not exist."
-msgstr "A impressora ou classe não existe."
+msgstr "A impressora ou a classe não existe."
 
 msgid "The printer or class is not shared."
-msgstr "A impressora ou classe não está compartilhada."
+msgstr "A impressora ou a classe não está compartilhada."
 
 #, c-format
 msgid "The printer-uri \"%s\" contains invalid characters."
-msgstr "O printer-uri \"%s\" contém caracteres inválidos."
+msgstr "O printer-uri \"%s\" contém caracteres que não são válidos."
 
 msgid "The printer-uri attribute is required."
-msgstr "O atributo printer-uri é necessário."
+msgstr "O atributo do printer-uri é necessário."
 
 msgid ""
 "The printer-uri must be of the form \"ipp://HOSTNAME/classes/CLASSNAME\"."
 msgstr ""
-"O printer-uri deve estar no formato \"ipp://MAQUINA/classes/NOMECLASSE\"."
+"O printer-uri deve estar no formato "
+"\"ipp://NOMEDAMÁQUINA/classes/NOMEDACLASSE\"."
 
 msgid ""
 "The printer-uri must be of the form \"ipp://HOSTNAME/printers/PRINTERNAME\"."
 msgstr ""
-"O printer-uri deve estar no formato \"ipp://MAQUINA/printers/NOMEIMPRESSORA"
-"\"."
+"O printer-uri deve estar no formato "
+"\"ipp://NOMEDAMÁQUINA/printers/NOMEDAIMPRESSORA\"."
 
 msgid ""
 "The web interface is currently disabled. Run \"cupsctl WebInterface=yes\" to "
 "enable it."
 msgstr ""
-"A interface web está desabilitada no momento. Execute \"cupsctl "
-"WebInterface=yes\" para habilitá-la."
+"A interface da internet está desativada neste exato momento. Execute o "
+"comando \"cupsctl WebInterface=yes\" para ativá-la."
 
 #, c-format
 msgid "The which-jobs value \"%s\" is not supported."
-msgstr "Não há suporte ao valor de which-jobs \"%s\"."
+msgstr "O valor \"%s\" do which-jobs não é compatível."
 
 msgid "There are too many subscriptions."
 msgstr "Existe uma quantidade muito grande de assinaturas."
 
 msgid "There was an unrecoverable USB error."
-msgstr "Ocorreu um erro de USB irrecuperável."
+msgstr "Ocorreu um erro no USB que não é recuperável."
 
 msgid "Thermal Transfer Media"
 msgstr "Mídia de transferência térmica"
 
 msgid "Too many active jobs."
-msgstr "Há trabalhos demais ativos."
+msgstr "Existem muitos trabalhos ativos."
 
 #, c-format
 msgid "Too many job-sheets values (%d > 2)."
-msgstr "Há valores de job-sheets demais (%d > 2)."
+msgstr "Existem muitos valores no job-sheets (%d > 2)."
 
 #, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
-msgstr "Há valores de printer-state-reasons demais (%d >%d)."
+msgstr "Existem muitos valores no printer-state-reasons (%d > %d)."
 
 msgid "Transparency"
 msgstr "Transparência"
@@ -5464,78 +5468,78 @@ msgid "Tray 4"
 msgstr "Bandeja 4"
 
 msgid "Trust on first use is disabled."
-msgstr "Confiar no primeiro uso está desabilitado."
+msgstr "A confiança na primeira utilização está desativada."
 
 msgid "URI Too Long"
-msgstr "URI muito longo"
+msgstr "O URI é muito longo"
 
 msgid "URI too large"
-msgstr "URI muito grande"
+msgstr "O URI é muito grande"
 
 msgid "US Fanfold"
-msgstr "Papel contínuo EUA"
+msgstr "Papel contínuo dos EUA"
 
 msgid "US Ledger"
-msgstr "Ledger EUA"
+msgstr "Ledger dos EUA"
 
 msgid "US Legal"
-msgstr "Ofício EUA"
+msgstr "Ofício dos EUA"
 
 msgid "US Legal Oversize"
-msgstr "Ofício Grande EUA"
+msgstr "Ofício grande dos EUA"
 
 msgid "US Letter"
-msgstr "Carta EUA"
+msgstr "Carta dos EUA"
 
 msgid "US Letter Long Edge"
-msgstr "Carta EUA Borda Maior"
+msgstr "Carta com a borda maior dos EUA"
 
 msgid "US Letter Oversize"
-msgstr "Carta EUA Grande"
+msgstr "Carta grande dos EUA"
 
 msgid "US Letter Oversize Long Edge"
-msgstr "Carta EUA Grande Borda maior"
+msgstr "Carta grande com a borda maior dos EUA"
 
 msgid "US Letter Small"
-msgstr "Carta EUA Pequena"
+msgstr "Carta pequena dos EUA"
 
 msgid "Unable to access cupsd.conf file"
 msgstr "Não foi possível acessar o arquivo cupsd.conf"
 
 msgid "Unable to access help file."
-msgstr "Não foi possível acessar o arquivo de ajuda."
+msgstr "Não foi possível acessar o arquivo da ajuda."
 
 msgid "Unable to add class"
-msgstr "Não foi possível adicionar classe"
+msgstr "Não foi possível adicionar a classe"
 
 msgid "Unable to add document to print job."
 msgstr "Não foi possível adicionar o documento ao trabalho de impressão."
 
 msgid "Unable to add extension to X.509 certificate."
-msgstr ""
+msgstr "Não foi possível adicionar a extensão ao certificado X.509."
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
-msgstr "Não foi possível adicionar trabalho para destino \"%s\"."
+msgstr "Não foi possível adicionar o trabalho para destino \"%s\"."
 
 msgid "Unable to add printer"
-msgstr "Não foi possível adicionar impressora"
+msgstr "Não foi possível adicionar a impressora"
 
 msgid "Unable to allocate memory for file types."
 msgstr "Não foi possível alocar memória para os tipos de arquivos."
 
 msgid "Unable to allocate memory for page info"
-msgstr "Não foi possível alocar memória para informação de página"
+msgstr "Não foi possível alocar memória para as informações da página"
 
 msgid "Unable to allocate memory for pages array"
-msgstr "Não foi possível alocar memória para vetor de páginas"
+msgstr "Não foi possível alocar memória para a matriz das páginas"
 
 #, c-format
 msgid "Unable to allocate memory for printer: %s"
-msgstr ""
+msgstr "Não foi possível alocar memória para a impressora %s"
 
 msgid "Unable to cancel print job."
-msgstr "Não foi possível cancelar trabalho de impressão."
+msgstr "Não foi possível cancelar o trabalho de impressão."
 
 msgid "Unable to change printer"
 msgstr "Não foi possível alterar a impressora"
@@ -5545,134 +5549,137 @@ msgstr "Não foi possível alterar as configurações do servidor"
 
 #, c-format
 msgid "Unable to commit PPD file: %s"
-msgstr ""
+msgstr "Não foi possível confirmar o arquivo %s no formato PPD"
 
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
-msgstr "Não foi possível compilar a expressão regular de mimeMediaType: %s."
+msgstr "Não foi possível compilar a expressão regular %s do mimeMediaTy."
 
 #, c-format
 msgid "Unable to compile naturalLanguage regular expression: %s."
-msgstr "Não foi possível compilar a expressão regular de naturalLanguage: %s."
+msgstr "Não foi possível compilar a expressão regular %s do naturalLanguage."
 
 msgid "Unable to configure printer options."
-msgstr "Não foi possível configurar opções de impressora."
+msgstr "Não foi possível configurar as opções da impressora."
 
 msgid "Unable to configure private key context."
-msgstr ""
+msgstr "Não foi possível configurar o contexto da chave privada."
 
 #, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr ""
+msgstr "Não foi possível conectar à %s:%d: %s"
 
 msgid "Unable to connect to host."
 msgstr "Não foi possível conectar à máquina."
 
 msgid "Unable to contact printer, queuing on next printer in class."
 msgstr ""
-"Não foi possível contactar a impressora, enfileirando na próxima impressora "
-"na classe."
+"Não foi possível contatar a impressora. O documento será enfileirado para a "
+"próxima impressora da classe."
 
 #, c-format
 msgid "Unable to copy PPD file - %s"
-msgstr "Não foi possível copiar arquivo PPD - %s"
+msgstr "Não foi possível copiar arquivo PPD %s"
 
 #, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr ""
+msgstr "Não foi possível criar arquivo PPD para a impressora %s"
 
 #, c-format
 msgid "Unable to create PPD: %s"
-msgstr ""
+msgstr "Não foi possível criar o arquivo PPD %s"
 
 msgid "Unable to create X.509 certificate signing request."
 msgstr ""
+"Não foi possível criar uma requisição da assinatura do certificado X.509."
 
 msgid "Unable to create X.509 certificate."
-msgstr ""
+msgstr "Não foi possível criar o certificado X.509."
 
 msgid "Unable to create printer-uri"
-msgstr "Não foi possível criar printer-uri"
+msgstr "Não foi possível criar o printer-uri"
 
 msgid "Unable to create printer."
 msgstr "Não foi possível criar a impressora."
 
 msgid "Unable to create private key context."
-msgstr ""
+msgstr "Não foi possível criar o contexto da chave privada."
 
 msgid "Unable to create private key."
-msgstr ""
+msgstr "Não foi possível criar a chave privada."
 
 msgid "Unable to create server credentials."
-msgstr "Não foi possível criar credenciais no servidor."
+msgstr "Não foi possível criar as credenciais no servidor."
 
 #, c-format
 msgid "Unable to create spool directory \"%s\": %s"
-msgstr "Não foi possível criar o diretório spool \"%s\": %s"
+msgstr "Não foi possível criar o diretório \"%s\" do spool %s"
 
 msgid "Unable to create temporary file"
-msgstr "Não foi possível criar arquivo temporário"
+msgstr "Não foi possível criar o arquivo temporário"
 
 msgid "Unable to delete class"
-msgstr "Não foi possível excluir classe"
+msgstr "Não foi possível excluir a classe"
 
 msgid "Unable to delete printer"
-msgstr "Não foi possível excluir impressora"
+msgstr "Não foi possível excluir a impressora"
 
 msgid "Unable to do maintenance command"
-msgstr "Não foi possível executar comando de manutenção"
+msgstr "Não foi possível executar comando para realizar a manutenção"
 
 msgid "Unable to edit cupsd.conf files larger than 1MB"
-msgstr "Não foi possível editar arquivos de cupsd.conf maiores que 1MB"
+msgstr ""
+"Não foi possível editar o arquivo de configurações cupsd.conf porque é maior "
+"do que 1MB"
 
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
-msgstr "Não foi possível executar o comando \"%s\": %s"
+msgstr "Não foi possível executar o comando \"%s\" de %s"
 
 msgid "Unable to find destination for job"
 msgstr "Não foi possível encontrar o destino do trabalho"
 
 msgid "Unable to finish request."
-msgstr ""
+msgstr "Não foi possível finalizar a requisição."
 
 msgid "Unable to get backend exit status."
-msgstr "Não foi possível obter o estado de saída do backend."
+msgstr "Não foi possível obter o estado de saída da interface de texto."
 
 msgid "Unable to get class list"
-msgstr "Não foi possível obter lista de classes"
+msgstr "Não foi possível obter a lista das classes"
 
 msgid "Unable to get class status"
 msgstr "Não foi possível obter o estado da classe"
 
 msgid "Unable to get list of printer drivers"
-msgstr "Não foi possível obter lista de drivers de impressoras"
+msgstr "Não foi possível obter a lista dos controladores de impressoras"
 
 msgid "Unable to get printer attributes"
-msgstr "Não foi possível obter atributos da impressora"
+msgstr "Não foi possível obter os atributos da impressora"
 
 msgid "Unable to get printer list"
-msgstr "Não foi possível obter lista de impressoras"
+msgstr "Não foi possível obter a lista de impressoras"
 
 msgid "Unable to get printer status"
-msgstr "Não foi possível obter estado da impressora"
+msgstr "Não foi possível obter o estado da impressora"
 
 msgid "Unable to get printer status."
 msgstr "Não foi possível obter o estado da impressora."
 
 msgid "Unable to import X.509 certificate request."
-msgstr ""
+msgstr "Não foi possível importar a requisição do certificado X.509."
 
 msgid "Unable to import credentials."
-msgstr ""
+msgstr "Não foi possível importar as credenciais."
 
 msgid "Unable to initialize private key context."
-msgstr ""
+msgstr "Não foi possível inicializar o contexto da chave privada."
 
 msgid "Unable to load X.509 CA certificate and private key."
-msgstr ""
+msgstr "Não foi possível carregar o certificado X.509 CA e a chave privada."
 
 msgid "Unable to load help index."
-msgstr "Não foi possível carregar índice de ajuda."
+msgstr "Não foi possível carregar o índice da ajuda."
 
 #, c-format
 msgid "Unable to locate printer \"%s\"."
@@ -5682,118 +5689,121 @@ msgid "Unable to locate printer."
 msgstr "Não foi possível localizar a impressora."
 
 msgid "Unable to modify class"
-msgstr "Não foi possível modificar classe"
+msgstr "Não foi possível modificar a classe"
 
 msgid "Unable to modify printer"
-msgstr "Não foi possível modificar impressora"
+msgstr "Não foi possível modificar a impressora"
 
 msgid "Unable to move job"
-msgstr "Não foi possível mover trabalho"
+msgstr "Não foi possível mover o trabalho"
 
 msgid "Unable to move jobs"
-msgstr "Não foi possível mover trabalhos"
+msgstr "Não foi possível mover os trabalhos"
 
 msgid "Unable to open PPD file"
-msgstr "Não foi possível abrir arquivo PPD"
+msgstr "Não foi possível abrir o arquivo PPD"
 
 msgid "Unable to open cupsd.conf file:"
-msgstr "Não foi possível abrir arquivo cupsd.conf:"
+msgstr "Não foi possível abrir o arquivo de configurações cupsd.conf:"
 
 msgid "Unable to open device file"
-msgstr "Não foi possível abrir arquivo dispositivo"
+msgstr "Não foi possível abrir o arquivo do dispositivo"
 
 #, c-format
 msgid "Unable to open document #%d in job #%d."
-msgstr "Não foi possível abrir documento #%d no trabalho #%d."
+msgstr "Não foi possível abrir o documento #%d no trabalho #%d."
 
 msgid "Unable to open help file."
-msgstr "Não foi possível abrir arquivo de ajuda."
+msgstr "Não foi possível abrir o arquivo da ajuda."
 
 msgid "Unable to open print file"
-msgstr "Não foi possível abrir arquivo de impressão"
+msgstr "Não foi possível abrir o arquivo de impressão"
 
 msgid "Unable to open raster file"
-msgstr "Não foi possível arquivo de rasterização"
+msgstr "Não foi possível abrir o arquivo de rasterização"
 
 msgid "Unable to print test page"
-msgstr "Não foi possível imprimir página teste"
+msgstr "Não foi possível imprimir a página de teste"
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr ""
+msgstr "Não foi possível ler o arquivo %s no formato PPD que foi gerado"
 
 msgid "Unable to read print data."
-msgstr "Não foi possível ler dados de impressão."
+msgstr "Não foi possível ler os dados da impressão."
 
 msgid "Unable to read response."
-msgstr ""
+msgstr "Não foi possível ler a resposta."
 
 msgid "Unable to reallocate IPP attribute value."
-msgstr ""
+msgstr "Não foi possível realocar o valor do atributo do IPP."
 
 msgid "Unable to rename job document file."
-msgstr "Não foi possível renomear o arquivo de documento do trabalho."
+msgstr "Não foi possível renomear o arquivo do documento do trabalho."
 
 msgid "Unable to resolve printer-uri."
-msgstr "Não foi possível resolver printer-ui."
+msgstr "Não foi possível resolver o printer-ui."
 
 #, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr ""
+msgstr "Não foi possível executar o %s do cups-driverd"
 
 #, c-format
 msgid "Unable to save PPD file: %s"
-msgstr ""
+msgstr "Não foi possível salvar o arquivo %s no formato PPD"
 
 #, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr ""
+"Não foi possível salvar o valor para \"%s\" com uma impressora temporária."
 
 msgid "Unable to see in file"
 msgstr "Não foi possível ler o arquivo"
 
 msgid "Unable to send command to printer driver"
-msgstr "Não foi possível enviar comando ao driver da impressora"
+msgstr "Não foi possível enviar o comando para o controlador da impressora"
 
 msgid "Unable to send data to printer."
-msgstr "Não foi possível enviar dados à impressora."
+msgstr "Não foi possível enviar os dados para a impressora."
 
 msgid "Unable to set options"
-msgstr "Não foi possível definir opções"
+msgstr "Não foi possível definir as opções"
 
 msgid "Unable to set server default"
 msgstr "Não foi possível definir servidor padrão"
 
 msgid "Unable to start backend process."
-msgstr "Não foi possível iniciar processo de backend."
+msgstr "Não foi possível iniciar o processo da interface de texto."
 
 msgid "Unable to upload cupsd.conf file"
-msgstr "Não foi possível atualizar o arquivo cupsd.conf"
+msgstr "Não foi possível atualizar o arquivo de configurações cupsd.conf"
 
 msgid "Unable to use legacy USB class driver."
-msgstr "Não foi possível usar driver de classe USB legado."
+msgstr ""
+"Não foi possível utilizar o controlador da classe do USB legado (antigo)."
 
 msgid "Unable to verify X.509 certificate request."
-msgstr ""
+msgstr "Não foi possível verificar a requisição do certificado X.509."
 
 msgid "Unable to write X.509 certificate signing request."
 msgstr ""
+"Não foi possível gravar a requisição da assinatura do certificado X.509."
 
 msgid "Unable to write X.509 certificate."
-msgstr ""
+msgstr "Não foi possível escrever no certificado X.509."
 
 msgid "Unable to write print data"
-msgstr "Não foi possível escrever dados de impressão"
+msgstr "Não foi possível escrever os dados da impressão"
 
 msgid "Unable to write private key."
-msgstr ""
+msgstr "Não foi possível escrever na chave privada."
 
 msgid "Unable to write public key."
-msgstr ""
+msgstr "Não é possível escrever na chave pública."
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
-msgstr "Não foi possível escrever dados descompactados de impressão: %s"
+msgstr "Não foi possível escrever os dados descompactados da impressão %s"
 
 msgid "Unauthorized"
 msgstr "Não autorizado"
@@ -5806,25 +5816,25 @@ msgstr "Desconhecido"
 
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
-msgstr "Escolha desconhecida \"%s\" para opção \"%s\"."
+msgstr "A escolha \"%s\" não é conhecida para a opção \"%s\"."
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
-msgstr "Valor da opção de criptografia desconhecido: \"%s\"."
+msgstr "O valor da opção \"%s\" da criptografia não é conhecido."
 
 #, c-format
 msgid "Unknown file order: \"%s\"."
-msgstr "Ordem de arquivo desconhecida: \"%s\"."
+msgstr "A ordem do arquivo \"%s\" não é conhecida."
 
 #, c-format
 msgid "Unknown format character: \"%c\"."
-msgstr "Caractere de formato desconhecido: \"%c\"."
+msgstr "O caractere \"%c\" tem um formato que não é conhecido."
 
 msgid "Unknown hash algorithm."
-msgstr "Algoritmo de hash desconhecido."
+msgstr "O algoritmo do hash não é conhecido."
 
 msgid "Unknown media size name."
-msgstr "Nome de tamanho de mídia desconhecido."
+msgstr "O tamanho do nome da mídia não é conhecido."
 
 #, c-format
 msgid "Unknown option \"%s\" with value \"%s\"."
@@ -5864,17 +5874,17 @@ msgstr "Valor de opção de versão desconhecido: \"%s\"."
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
-msgstr "Não suporte a \"compression\" com valor \"%s\"."
+msgstr "O valor \"%s\" do 'compression' não é compatível."
 
 #, c-format
 msgid "Unsupported 'document-format' value \"%s\"."
-msgstr "Não há suporte a \"document-format\" com valor \"%s\"."
+msgstr "O valor \"%s\" do 'document-format' não é compatível."
 
 msgid "Unsupported 'job-hold-until' value."
-msgstr "O valor do 'job-hold-until' não suportado."
+msgstr "O valor do 'job-hold-until' não é compatível."
 
 msgid "Unsupported 'job-name' value."
-msgstr "Não há suporte ao valor de \"job-name\"."
+msgstr "O valor do 'job-name' não é compatível."
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
@@ -5886,40 +5896,43 @@ msgstr "Não há suporte à compressão \"%s\"."
 
 #, c-format
 msgid "Unsupported document-format \"%s\"."
-msgstr "Não há suporte ao document-format \"%s\"."
+msgstr "Não há suporte ao \"%s\" do document-format."
 
 #, c-format
 msgid "Unsupported document-format \"%s/%s\"."
-msgstr "Não há suporte ao document-format \"%s/%s\"."
+msgstr "Não há suporte ao \"%s/%s\" do document-format."
 
 #, c-format
 msgid "Unsupported format \"%s\"."
-msgstr "Não há suporte ao formato \"%s\"."
+msgstr "O formato \"%s\" não é suportado."
 
 msgid "Unsupported margins."
-msgstr "Não há suporte a margens."
+msgstr "As margens não são compatíveis."
 
 msgid "Unsupported media value."
-msgstr "Não há suporte ao valor de mídia."
+msgstr "O valor da mídia não é compatível."
 
 #, c-format
 msgid "Unsupported number-up value %d, using number-up=1."
-msgstr "Não há suporte ao valor de number-up %d; usando number-up=1."
+msgstr "O valor %d do number-up não é compatível. Será utilizado o number-up=1."
 
 #, c-format
 msgid "Unsupported number-up-layout value %s, using number-up-layout=lrtb."
 msgstr ""
-"Não há suporte ao valor de number-up-layout %s; usando number-up-layout=lrtb."
+"O valor %s do number-up-layout não é compatível. Será utilizado o number-up-"
+"ayout=lrtb."
 
 #, c-format
 msgid "Unsupported page-border value %s, using page-border=none."
-msgstr "Não há suporte ao valor de page-border %s; usando page-border=none."
+msgstr ""
+"O valor %s do page-border não é compatível. Será utilizado o page-"
+"border=none."
 
 msgid "Unsupported raster data."
-msgstr "Não há suporte a dados de rasterização."
+msgstr "Os dados de rasterização não são compatíveis."
 
 msgid "Unsupported value type"
-msgstr "Não há suporte ao tipo de valor"
+msgstr "O tipo do valor não é compatível"
 
 msgid "Upgrade Required"
 msgstr "Atualização Necessária"
@@ -6077,7 +6090,7 @@ msgid "Version uses indefinite length"
 msgstr "Version usa comprimento indefinido"
 
 msgid "Waiting for job to complete."
-msgstr "Esperando o trabalho completar."
+msgstr "Aguardando a conclusão do trabalho."
 
 msgid "Waiting for printer to become available."
 msgstr "Esperando a impressora ficar disponível."
@@ -6343,31 +6356,31 @@ msgstr ""
 
 #. TRANSLATORS: Date Time
 msgid "cover-sheet-info-supported.date-time"
-msgstr ""
+msgstr "A data e a hora do cover-sheet-info-supported.date-time"
 
 #. TRANSLATORS: From Name
 msgid "cover-sheet-info-supported.from-name"
-msgstr ""
+msgstr "O nome do cover-sheet-info-supported.from-name"
 
 #. TRANSLATORS: Logo
 msgid "cover-sheet-info-supported.logo"
-msgstr ""
+msgstr "O logotipo do cover-sheet-info-supported.logo"
 
 #. TRANSLATORS: Message
 msgid "cover-sheet-info-supported.message"
-msgstr ""
+msgstr "A mensagem do cover-sheet-info-supported.message"
 
 #. TRANSLATORS: Organization
 msgid "cover-sheet-info-supported.organization"
-msgstr ""
+msgstr "A organização do cover-sheet-info-supported.organization"
 
 #. TRANSLATORS: Subject
 msgid "cover-sheet-info-supported.subject"
-msgstr ""
+msgstr "O assunto do cover-sheet-info-supported.subject"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
-msgstr ""
+msgstr "Para nomear o cover-sheet-info-supported.to-name"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
@@ -6646,11 +6659,11 @@ msgstr "cupsd: Opção desconhecida \"%c\" - abortando."
 
 #, c-format
 msgid "cupsfilter: Invalid document number %d."
-msgstr "cupsfilter: Número de documento inválido %d."
+msgstr "O número do documento %d do cupsfilter não é válido."
 
 #, c-format
 msgid "cupsfilter: Invalid job ID %d."
-msgstr "cupsfilter: ID de trabalho inválido %d."
+msgstr "O ID (identificador) do trabalho %d do cupsfilter não é válido."
 
 msgid "cupsfilter: Only one filename can be specified."
 msgstr "cupsfilter: Somente um nome de arquivo pode ser especificado."
@@ -6751,15 +6764,16 @@ msgstr "Cancelado por Usuário"
 
 #. TRANSLATORS: Completed Successfully
 msgid "document-state-reasons.completed-successfully"
-msgstr "Completado com Sucesso"
+msgstr ""
+"Foi concluído com sucesso o document-state-reasons.completed-successfully"
 
 #. TRANSLATORS: Completed With Errors
 msgid "document-state-reasons.completed-with-errors"
-msgstr "Completado com Erros"
+msgstr "Foi concluído com erros document-state-reasons.completed-with-errors"
 
 #. TRANSLATORS: Completed With Warnings
 msgid "document-state-reasons.completed-with-warnings"
-msgstr "Completado com Avisos"
+msgstr "Foi concluído com avisos document-state-reasons.completed-with-warnings"
 
 #. TRANSLATORS: Compression Error
 msgid "document-state-reasons.compression-error"
@@ -6775,7 +6789,9 @@ msgstr "Assinatura Digital Não Correspondeu"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "document-state-reasons.digital-signature-type-not-supported"
-msgstr "Tipo de Assinatura Digital Não Suportado"
+msgstr ""
+"O tipo da assinatura digital não é compatível para o document-state-reasons"
+".digital-signature-type-not-supported"
 
 #. TRANSLATORS: Digital Signature Wait
 msgid "document-state-reasons.digital-signature-wait"
@@ -6855,7 +6871,9 @@ msgstr "Recursos Não Estão Prontos"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "document-state-reasons.resources-are-not-supported"
-msgstr "Recursos Não Suportados"
+msgstr ""
+"Os recursos do document-state-reasons.resources-are-not-supported não são "
+"compatíveis"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "document-state-reasons.submission-interrupted"
@@ -6867,11 +6885,15 @@ msgstr "Transformando"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "document-state-reasons.unsupported-compression"
-msgstr "Compressão Não Suportada"
+msgstr ""
+"A compactação não é compatível para o document-state-reasons.unsupported-"
+"compression"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "document-state-reasons.unsupported-document-format"
-msgstr "Formato de Documento Não Suportado"
+msgstr ""
+"O formato do documento não é compatível para o document-state-reasons"
+".unsupported-document-format"
 
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
@@ -8063,7 +8085,7 @@ msgid "ipptool: Bad URI \"%s\"."
 msgstr "ipptool: URI inválido \"%s\"."
 
 msgid "ipptool: Invalid seconds for \"-i\"."
-msgstr "ipptool: Segundos inválidos para \"-i\"."
+msgstr "Os segundos para o \"-i\" do ipptool não é válido."
 
 msgid "ipptool: May only specify a single URI."
 msgstr "ipptool: Só é possível especificar um único URI."
@@ -8487,7 +8509,9 @@ msgstr "Assinatura Digital Não Comprovada"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "job-state-reasons.digital-signature-type-not-supported"
-msgstr "Tipo de Assinatura Digital Não Suportado"
+msgstr ""
+"O tipo da assinatura digital não é compatível para o job-state-reasons"
+".digital-signature-type-not-supported"
 
 #. TRANSLATORS: Document Access Error
 msgid "job-state-reasons.document-access-error"
@@ -8531,15 +8555,21 @@ msgstr "Trabalho Cancelado por Usuário"
 
 #. TRANSLATORS:
 msgid "job-state-reasons.job-completed-successfully"
-msgstr "Trabalho Completado com Sucesso"
+msgstr ""
+"O trabalho foi concluído com sucesso do job-state-reasons.job-completed-"
+"successfully"
 
 #. TRANSLATORS: Completed with errors
 msgid "job-state-reasons.job-completed-with-errors"
-msgstr "Trabalho Completado com Erros"
+msgstr ""
+"O trabalho foi concluído com erros do job-state-reasons.job-completed-with-"
+"errors"
 
 #. TRANSLATORS: Completed with warnings
 msgid "job-state-reasons.job-completed-with-warnings"
-msgstr "Trabalho Completado com Avisos"
+msgstr ""
+"O trabalho foi concluído com avisos do job-state-reasons.job-completed-with-"
+"warnings"
 
 #. TRANSLATORS: Insufficient data
 msgid "job-state-reasons.job-data-insufficient"
@@ -8695,7 +8725,9 @@ msgstr "Recursos Não Estão Prontos"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "job-state-reasons.resources-are-not-supported"
-msgstr "Recursos Não Suportados"
+msgstr ""
+"Os recursos não são compatíveis para o job-state-reasons.resources-are-not-"
+"supported"
 
 #. TRANSLATORS: Service offline
 msgid "job-state-reasons.service-off-line"
@@ -8707,15 +8739,21 @@ msgstr "Submissão Interrompida"
 
 #. TRANSLATORS: Unsupported Attributes Or Values
 msgid "job-state-reasons.unsupported-attributes-or-values"
-msgstr "Atributos ou Valores Não Suportados"
+msgstr ""
+"Os atributos ou valores não são compatíveis para o job-state-reasons"
+".unsupported-attributes-or-values"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "job-state-reasons.unsupported-compression"
-msgstr "Compressão Não Suportada"
+msgstr ""
+"A compactação não é compatível para o job-state-reasons.unsupported-"
+"compression"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "job-state-reasons.unsupported-document-format"
-msgstr "Formato de Documento Não Suportado"
+msgstr ""
+"O formato do documento não é compatível para o job-state-reasons.unsupported-"
+"document-format"
 
 #. TRANSLATORS: Waiting For User Action
 msgid "job-state-reasons.waiting-for-user-action"
@@ -8884,14 +8922,16 @@ msgstr ""
 "uma versão futura do CUPS."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
-msgstr "lpadmin: Filas não processadas não são mais suportadas no macOS."
+msgstr ""
+"As filas de espera do lpadmin não foram processadas porque não são "
+"compatíveis no MacOS."
 
 msgid ""
 "lpadmin: System V interface scripts are no longer supported for security "
 "reasons."
 msgstr ""
-"lpadmin: Scripts de interface System V não são mais suportados por motivos "
-"de segurança."
+"Os programas da interface do SystemV do lpadmin não são mais compatíveis por "
+"motivos de segurança."
 
 msgid ""
 "lpadmin: Unable to add a printer to the class:\n"
@@ -11378,7 +11418,7 @@ msgstr "notify-events não especificado."
 
 #. TRANSLATORS: Document Completed
 msgid "notify-events.document-completed"
-msgstr "Documento Completado"
+msgstr "O documento foi concluído do notify-events.document-completed"
 
 #. TRANSLATORS: Document Config Changed
 msgid "notify-events.document-config-changed"
@@ -11402,7 +11442,7 @@ msgstr "Documento Parado"
 
 #. TRANSLATORS: Job Completed
 msgid "notify-events.job-completed"
-msgstr "Trabalho Completado"
+msgstr "O trabalho foi concluído do notify-events.job-completed"
 
 #. TRANSLATORS: Job Config Changed
 msgid "notify-events.job-config-changed"
@@ -12180,27 +12220,30 @@ msgstr "ppdc: Esperava versão após Font na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Invalid #include/#po filename \"%s\"."
-msgstr "ppdc: Nome de arquivo \"%s\" de #include/#po inválido."
+msgstr "O nome do arquivo \"%s\" do #include/#po para o ppdc não é válido."
 
 #, c-format
 msgid "ppdc: Invalid cost for filter on line %d of %s."
-msgstr "ppdc: Custo inválido para filtro na linha %d de %s."
+msgstr "O cost (custo) para o filtro na linha %d de %s do ppdc não é válido."
 
 #, c-format
 msgid "ppdc: Invalid empty MIME type for filter on line %d of %s."
-msgstr "ppdc: Tipo MIME vazio inválido para filtro na linha %d de %s."
+msgstr ""
+"O tipo do MIME vazio ou em branco para o filtro na linha %d de %s do ppdc "
+"não é válido."
 
 #, c-format
 msgid "ppdc: Invalid empty program name for filter on line %d of %s."
-msgstr "ppdc: Nome de programa vazio inválido na linha %d de %s."
+msgstr ""
+"O nome do programa vazio ou em branco na linha %d de %s do ppdc não é válido."
 
 #, c-format
 msgid "ppdc: Invalid option section \"%s\" on line %d of %s."
-msgstr "ppdc: Seção \"%s\" inválida de opção na linha %d de %s."
+msgstr "A opção da seção \"%s\" do ppdc na linha %d de %s não é válida."
 
 #, c-format
 msgid "ppdc: Invalid option type \"%s\" on line %d of %s."
-msgstr "ppdc: Tipo \"%s\" inválido de opção na linha %d de %s."
+msgstr "A opção do tipo \"%s\" do ppdc na linha %d de %s não é válida."
 
 #, c-format
 msgid "ppdc: Loading driver information file \"%s\"."
