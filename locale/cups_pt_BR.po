@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-13 17:51+0000\n"
+"PO-Revision-Date: 2025-06-18 15:01+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.12.1\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -6170,117 +6170,123 @@ msgstr "Utilização dos fardos do baling-type"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
-msgstr ""
+msgstr "Banda do baling-type.band"
 
 #. TRANSLATORS: Shrink Wrap
 msgid "baling-type.shrink-wrap"
-msgstr ""
+msgstr "O envoltório retrátil do baling-type.shrink-wrap"
 
 #. TRANSLATORS: Wrap
 msgid "baling-type.wrap"
-msgstr ""
+msgstr "Envoltório do baling-type.wrap"
 
 #. TRANSLATORS: Bale After
 msgid "baling-when"
-msgstr ""
+msgstr "Depois do bale do baling-when"
 
 #. TRANSLATORS: Job
 msgid "baling-when.after-job"
-msgstr ""
+msgstr "Trabalho do baling-when.after-job"
 
 #. TRANSLATORS: Sets
 msgid "baling-when.after-sets"
-msgstr ""
+msgstr "Definições do baling-when.after-sets"
 
 #. TRANSLATORS: Bind Output
 msgid "binding"
-msgstr ""
+msgstr "Saída da ligação do binding"
 
 #. TRANSLATORS: Bind Edge
 msgid "binding-reference-edge"
-msgstr ""
+msgstr "Borda de ligação do binding-reference-edge"
 
 #. TRANSLATORS: Bottom
 msgid "binding-reference-edge.bottom"
-msgstr ""
+msgstr "Botão do binding-reference-edge.bottom"
 
 #. TRANSLATORS: Left
 msgid "binding-reference-edge.left"
-msgstr ""
+msgstr "Esquerdo do binding-reference-edge.left"
 
 #. TRANSLATORS: Right
 msgid "binding-reference-edge.right"
-msgstr ""
+msgstr "Direito do binding-reference-edge.right"
 
 #. TRANSLATORS: Top
 msgid "binding-reference-edge.top"
-msgstr ""
+msgstr "Em cima do binding-reference-edge.top"
 
 #. TRANSLATORS: Binder Type
 msgid "binding-type"
-msgstr ""
+msgstr "Tipo da ligação do binding-type"
 
 #. TRANSLATORS: Adhesive
 msgid "binding-type.adhesive"
-msgstr ""
+msgstr "Adesivo do binding-type.adhesive"
 
 #. TRANSLATORS: Comb
 msgid "binding-type.comb"
-msgstr ""
+msgstr "Penteadeira do binding-type.comb"
 
 #. TRANSLATORS: Flat
 msgid "binding-type.flat"
-msgstr ""
+msgstr "Plano do binding-type.flat"
 
 #. TRANSLATORS: Padding
 msgid "binding-type.padding"
-msgstr ""
+msgstr "Preenchimento do binding-type.padding"
 
 #. TRANSLATORS: Perfect
 msgid "binding-type.perfect"
-msgstr ""
+msgstr "Perfeição do binding-type.perfect"
 
 #. TRANSLATORS: Spiral
 msgid "binding-type.spiral"
-msgstr ""
+msgstr "Espiral do binding-type.spiral"
 
 #. TRANSLATORS: Tape
 msgid "binding-type.tape"
-msgstr ""
+msgstr "Fita do binding-type.tape"
 
 #. TRANSLATORS: Velo
 msgid "binding-type.velo"
-msgstr ""
+msgstr "Velocímetro do binding-type.velo"
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
 msgstr ""
+"ca COMMON-NAME             Permite assinar um CSR (Certificate Signing "
+"Request ou (Requisição de Assinatura do Certificado) para produzir um "
+"certificado."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
 msgstr ""
+"cacert COMMON-NAME         Permite criar um certificado CA (Certification "
+"Authority ou Autoridade Certificadora)."
 
 msgid "canceled"
 msgstr "cancelado"
 
 msgid "cert COMMON-NAME           Create a certificate."
-msgstr ""
+msgstr "cert COMMON-NAME           Permite criar um certificado."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
-msgstr ""
+msgstr "Umidade da câmara do chamber-humidity"
 
 #. TRANSLATORS: Chamber Temperature
 msgid "chamber-temperature"
-msgstr ""
+msgstr "Temperatura da câmara do chamber-temperature"
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
-msgstr ""
+msgstr "Custo do trabalho da impressão do charge-info-message"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
 msgstr ""
+"clear [RESOURCE]               Permite limpar a autorização de um recurso"
 
 msgid "client URI                 Connect to URI."
-msgstr ""
+msgstr "client URI                 Permite conecte-se ao URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
@@ -8945,8 +8951,8 @@ msgid ""
 "lpadmin: System V interface scripts are no longer supported for security "
 "reasons."
 msgstr ""
-"Os programas da interface do SystemV do lpadmin não são mais compatíveis por "
-"motivos de segurança."
+"Os programas da interface do System V do lpadmin não são mais compatíveis "
+"por motivos de segurança."
 
 msgid ""
 "lpadmin: Unable to add a printer to the class:\n"
