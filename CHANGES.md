@@ -5,6 +5,7 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.13 (YYYY-MM-DD)
 ------------------------------------
 
+- Updated documentation (Issue #1086)
 - Updated IPP backend to try a sanitized user name if the printer/server does
   not like the value (Issue #1145)
 - Updated the scheduler to send the "printer-added" or "printer-modified" events
