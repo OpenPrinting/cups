@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-18 15:01+0000\n"
+"PO-Revision-Date: 2025-06-24 16:04+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12.1\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -49,7 +49,7 @@ msgid "\t%s"
 msgstr "\t%s"
 
 msgid "\tAfter fault: continue"
-msgstr "\tApós identificar uma falha: continuar"
+msgstr "\tContinuar após identificar uma falha"
 
 #, c-format
 msgid "\tAlerts: %s"
@@ -1395,7 +1395,8 @@ msgstr ""
 
 #, c-format
 msgid "%s: Error - expected copies after \"-#\" option."
-msgstr "%s: Ocorreu um erro. Era esperado as cópias após a opção \"-#\"."
+msgstr ""
+"%s: Ocorreu um erro. Era esperado a quantidade de cópias após a opção \"-#\"."
 
 #, c-format
 msgid "%s: Error - expected copies after \"-n\" option."
@@ -2100,7 +2101,7 @@ msgid ""
 "-E                      Enable and accept jobs on the printer (after -p)"
 msgstr ""
 "-E                      Permite ativar e aceitar os trabalhos na impressora ("
-"após o -p)"
+"após a opção -p)"
 
 msgid "-E                      Encrypt the connection to the server"
 msgstr "-E                      Permite criptografar a conexão com o servidor"
@@ -2566,7 +2567,7 @@ msgid ""
 "                        Specify portrait (3) or landscape (4) orientation"
 msgstr ""
 "-o orientation-requested=N\n"
-"                        Permite especificar orientação da página, podendo "
+"                        Permite especificar a orientação da página, podendo "
 "ser retrato (3) ou paisagem (4)"
 
 msgid ""
@@ -3718,7 +3719,7 @@ msgstr "O esquema do URI não é válido"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
 msgstr ""
-"A extensão do subjectAltName não é válida para a solicitação de certificado "
+"A extensão do subjectAltName não é válida para a solicitação do certificado "
 "X.509."
 
 msgid "Bad username in URI"
@@ -4861,7 +4862,7 @@ msgid "No request URI."
 msgstr "Não foi tem um URI na requisição."
 
 msgid "No request protocol version."
-msgstr "Não foi tem uma versão do protocolo da requisição."
+msgstr "Não tem uma versão do protocolo da requisição."
 
 msgid "No request sent."
 msgstr "Nenhuma requisição foi enviada."
@@ -6255,7 +6256,7 @@ msgstr "Velocímetro do binding-type.velo"
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
 msgstr ""
 "ca COMMON-NAME             Permite assinar um CSR (Certificate Signing "
-"Request ou (Requisição de Assinatura do Certificado) para produzir um "
+"Request ou Requisição de Assinatura do Certificado) para produzir um "
 "certificado."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
@@ -6290,90 +6291,90 @@ msgstr "client URI                 Permite conecte-se ao URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
-msgstr ""
+msgstr "Folhas de revestimento do coating"
 
 #. TRANSLATORS: Add Coating To
 msgid "coating-sides"
-msgstr ""
+msgstr "Adicionar o revestimento ao coating-sides"
 
 #. TRANSLATORS: Back
 msgid "coating-sides.back"
-msgstr "Verso"
+msgstr "Verso do coating-sides.back"
 
 #. TRANSLATORS: Front and Back
 msgid "coating-sides.both"
-msgstr "Frente e Verso"
+msgstr "Frente e Verso do coating-sides.both"
 
 #. TRANSLATORS: Front
 msgid "coating-sides.front"
-msgstr "Frente"
+msgstr "Frente do coating-sides.front"
 
 #. TRANSLATORS: Type of Coating
 msgid "coating-type"
-msgstr ""
+msgstr "Tipo do revestimento do coating-type"
 
 #. TRANSLATORS: Archival
 msgid "coating-type.archival"
-msgstr ""
+msgstr "Papel do coating-type.archival"
 
 #. TRANSLATORS: Archival Glossy
 msgid "coating-type.archival-glossy"
-msgstr ""
+msgstr "Papel brilhante do coating-type.archival-glossy"
 
 #. TRANSLATORS: Archival Matte
 msgid "coating-type.archival-matte"
-msgstr ""
+msgstr "Papel fosco do coating-type.archival-matte"
 
 #. TRANSLATORS: Archival Semi Gloss
 msgid "coating-type.archival-semi-gloss"
-msgstr ""
+msgstr "Papel semibrilhante do coating-type.archival-semi-gloss"
 
 #. TRANSLATORS: Glossy
 msgid "coating-type.glossy"
-msgstr "Brilhoso"
+msgstr "Brilhante do coating-type.glossy"
 
 #. TRANSLATORS: High Gloss
 msgid "coating-type.high-gloss"
-msgstr "Alto brilho"
+msgstr "Muito brilhante do coating-type.high-gloss"
 
 #. TRANSLATORS: Matte
 msgid "coating-type.matte"
-msgstr "Fosco"
+msgstr "Fosco do coating-type.matte"
 
 #. TRANSLATORS: Semi-gloss
 msgid "coating-type.semi-gloss"
-msgstr ""
+msgstr "Semibrilhante do coating-type.semi-gloss"
 
 #. TRANSLATORS: Silicone
 msgid "coating-type.silicone"
-msgstr ""
+msgstr "Silicone do coating-type.silicone"
 
 #. TRANSLATORS: Translucent
 msgid "coating-type.translucent"
-msgstr ""
+msgstr "Translúcido do coating-type.translucent"
 
 msgid "completed"
 msgstr "completou"
 
 #. TRANSLATORS: Print Confirmation Sheet
 msgid "confirmation-sheet-print"
-msgstr ""
+msgstr "Relatório de confirmação da Impressão do confirmation-sheet-print"
 
 #. TRANSLATORS: Copies
 msgid "copies"
-msgstr "Cópias"
+msgstr "Cópias do copies"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
-msgstr ""
+msgstr "Contracapa do cover-back"
 
 #. TRANSLATORS: Front Cover
 msgid "cover-front"
-msgstr ""
+msgstr "Capa frontal do cover-front"
 
 #. TRANSLATORS: Cover Sheet Info
 msgid "cover-sheet-info"
-msgstr ""
+msgstr "Informações da folha de rosto do cover-sheet-info"
 
 #. TRANSLATORS: Date Time
 msgid "cover-sheet-info-supported.date-time"
@@ -6405,173 +6406,187 @@ msgstr "Para nomear o cover-sheet-info-supported.to-name"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
-msgstr ""
+msgstr "Capa impressa do cover-type"
 
 #. TRANSLATORS: No Cover
 msgid "cover-type.no-cover"
-msgstr ""
+msgstr "Sem a capa do cover-type.no-cover"
 
 #. TRANSLATORS: Back Only
 msgid "cover-type.print-back"
-msgstr ""
+msgstr "Somente o verso do cover-type.print-back"
 
 #. TRANSLATORS: Front and Back
 msgid "cover-type.print-both"
-msgstr ""
+msgstr "Frente e verso do cover-type.print-both"
 
 #. TRANSLATORS: Front Only
 msgid "cover-type.print-front"
-msgstr ""
+msgstr "Somente frente do cover-type.print-front"
 
 #. TRANSLATORS: None
 msgid "cover-type.print-none"
-msgstr ""
+msgstr "Nenhum do cover-type.print-none"
 
 #. TRANSLATORS: Cover Output
 msgid "covering"
-msgstr ""
+msgstr "Relatório de testes do covering"
 
 #. TRANSLATORS: Add Cover
 msgid "covering-name"
-msgstr ""
+msgstr "Adicionar um capa do covering-name"
 
 #. TRANSLATORS: Plain
 msgid "covering-name.plain"
-msgstr ""
+msgstr "Simples do covering-name.plain"
 
 #. TRANSLATORS: Pre-cut
 msgid "covering-name.pre-cut"
-msgstr ""
+msgstr "Pré-cortado do covering-name.pre-cut"
 
 #. TRANSLATORS: Pre-printed
 msgid "covering-name.pre-printed"
-msgstr ""
+msgstr "Pré-impresso do covering-name.pre-printed"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
 msgstr ""
+"csr COMMON-NAME            Permite criar uma requisição de assinatura do "
+"certificado."
 
 msgid "cups-deviced failed to execute."
-msgstr "cups-deviced falhou na execução."
+msgstr "Ocorreu uma falha na execução do cups-deviced."
 
 msgid "cups-driverd failed to execute."
-msgstr "cups-driverd falhou na execução."
+msgstr "Ocorreu uma falha na execução do cups-driverd."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
 msgstr ""
+"Ocorreu uma falha no cups-driverd ao obter o arquivo PPD. Por favor, "
+"obtenhas mais informações com o error_log."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
 msgstr ""
+"O URI do servidor de autorização está faltando após a opção '-a' do cups-"
+"oauth."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr ""
+msgstr "Ocorreu uma falha no client_id e/ou no client_secret do cups-oauth."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr ""
 "O recurso do URI e/ou a chave do portador estão faltando para o cups-oauth."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr ""
+msgstr "Está faltando a opção '-s' para o cups-oauth."
 
 msgid "cups-oauth: No authorization server specified."
-msgstr ""
+msgstr "Não foi especificado o servidor de autorização para o cups-oauth."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
 msgstr ""
-"Não foi possível obter a chave do portador de acesso de '%s': %s para o cups-"
-"oauth"
+"Não foi possível obter a chave do portador de acesso de '%s' de %s para o "
+"cups-oauth"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr ""
+msgstr "Não foi possível obter a autorização '%s' de %s do cups-oauth"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr ""
+msgstr "Não foi possível obter os metadados '%s' de %s para o cups-oauth"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
 msgstr ""
+"Não foi possível obter o ID (identificador) do usuário '%s' de %s para o "
+"cups-oauth"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "O comando '%s' não é conhecido cups-oauth."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
 msgstr ""
+"O valor do DAYS (dias) '%s' não é válido após a opção '-d' para o cups-x509."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "A versão do HTTP não é válida para o cups-x509."
 
 #, c-format
 msgid "cups-x509: Bad URI '%s'."
-msgstr ""
+msgstr "O URI '%s' não é válido para o cups-x509."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr ""
+msgstr "O tipo do certificado '%s' não é válido para o cups-x509."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr ""
+msgstr "Ocorreu um uso não correto da tecla '%s' para o cups-x509."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "Ocorreu um propósito não correto da tecla '%s' para o cups-x509."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr ""
+msgstr "A linha %s da requisição para o cups-x509 não válida."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "A operação não é correta ou não é conhecida para o cups-x509."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "O cliente fechou a conexão com o cups-x509."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr ""
+msgstr "O nome do arquivo CSR está faltando após a opção '-R' para o cups-x509."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr ""
+msgstr "O tipo do certificado é necessário após a opção '-t' para o cups-x509."
 
 msgid "cups-x509: Missing command argument."
 msgstr ""
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr ""
+msgstr "O nome do país está faltando após a opção '-C' do cups-x509."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr ""
+msgstr "Está faltando a quantidade de dias após a opção '-d' para o cups-x509."
 
 msgid "cups-x509: Missing key usage after '-u'."
-msgstr ""
+msgstr "Está faltando a utilização da tecla após a opção '-u' para o cups-x509."
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
 msgstr ""
+"Está faltando a localidade/cidade/bairro após a opção '-L' para o cups-x509."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr ""
+msgstr "Está faltando a organização após a opção '-O' para o cups-x509."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
 msgstr ""
+"Está faltando a unidade organizacional após a opção '-U' para o cups-x509."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr ""
+msgstr "Está faltando o propósito após a opção '-p' para o cups-x509."
 
 msgid "cups-x509: Missing root name after '-r'."
 msgstr ""
+"Está faltando o nome do root (administrador) após a opção '-r' para o "
+"cups-x509."
 
 msgid "cups-x509: Missing state/province after '-S'."
 msgstr ""
+"Está faltando o nome do estado/cidade após a opção '-S' para o cups-x509."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
-msgstr ""
+msgstr "Está faltando o subjectAltName após a opção '-a' para o cups-x509."
 
 #, c-format
 msgid "cups-x509: No request for '%s'."
-msgstr ""
+msgstr "Nenhuma requisição para o '%s' do cups-x509."
 
 msgid "cups-x509: Too many subjectAltName values."
 msgstr ""
@@ -6598,7 +6613,7 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr ""
+msgstr "Não foi possível criar a requisição %s do certificado do cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
@@ -6611,6 +6626,8 @@ msgstr ""
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
 msgstr ""
+"Não foi possível obter a requisição '%s' para a geração do certificado do "
+"cups-x509."
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
@@ -6649,11 +6666,13 @@ msgid "cupsctl: Unknown option \"-%c\""
 msgstr "cupsctl: Opção desconhecida \"-%c\""
 
 msgid "cupsd: Expected config filename after \"-c\" option."
-msgstr "cupsd: Esperava nome de arquivo de configuração após a opção \"-c\"."
+msgstr ""
+"Era esperado o nome do arquivo de configurações após a opção \"-c\" do cupsd."
 
 msgid "cupsd: Expected cups-files.conf filename after \"-s\" option."
 msgstr ""
-"cupsd: Esperava nome de arquivo de cups-files.conf após a opção \"-s\"."
+"Era esperado o nome do arquivo do cups-files.conf após a opção \"-s\" para o "
+"cupsd."
 
 msgid "cupsd: On-demand support not compiled in, running in normal mode."
 msgstr ""
@@ -6741,19 +6760,19 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Document Privacy Scope
 msgid "document-privacy-scope"
-msgstr ""
+msgstr "Escopo de privacidade do documento do document-privacy-scope"
 
 #. TRANSLATORS: All
 msgid "document-privacy-scope.all"
-msgstr ""
+msgstr "Todos os document-privacy-scope.all"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-scope.default"
-msgstr "Padrão"
+msgstr "Padrão do document-privacy-scope.default"
 
 #. TRANSLATORS: None
 msgid "document-privacy-scope.none"
-msgstr ""
+msgstr "Não tem um document-privacy-scope.none"
 
 #. TRANSLATORS: Owner
 msgid "document-privacy-scope.owner"
@@ -7605,27 +7624,27 @@ msgstr ""
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-copies"
-msgstr ""
+msgstr "Aparar após cada conjunto do finishing-template.trim-after-copies"
 
 #. TRANSLATORS: Trim After Every Document
 msgid "finishing-template.trim-after-documents"
-msgstr ""
+msgstr "Aparar após cada documento do finishing-template.trim-after-documents"
 
 #. TRANSLATORS: Trim After Job
 msgid "finishing-template.trim-after-job"
-msgstr ""
+msgstr "Aparar após o trabalho do finishing-template.trim-after-job"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-pages"
-msgstr ""
+msgstr "Aparar após cada página do finishing-template.trim-after-pages"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-sets"
-msgstr ""
+msgstr "Aparar após cada conjunto do finishing-template.trim-after-sets"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-sheets"
-msgstr ""
+msgstr "Aparar após cada página do finishing-template.trim-after-sheets"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
@@ -7957,11 +7976,11 @@ msgstr ""
 
 #. TRANSLATORS: Font Name
 msgid "font-name-requested"
-msgstr ""
+msgstr "Nome da fonte do font-name-requested"
 
 #. TRANSLATORS: Font Size
 msgid "font-size-requested"
-msgstr ""
+msgstr "Tamanho da fonte do font-size-requested"
 
 #. TRANSLATORS: Force Front Side
 msgid "force-front-side"
@@ -8009,7 +8028,7 @@ msgstr ""
 
 #. TRANSLATORS: Insert Page Number
 msgid "insert-after-page-number"
-msgstr "Inserir Número de Página"
+msgstr "Inserir o número da página do insert-after-page-number"
 
 #. TRANSLATORS: Insert Count
 msgid "insert-count"
@@ -8024,23 +8043,23 @@ msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind: Expressão regular inválida: %s"
 
 msgid "ippfind: Cannot use --and after --or."
-msgstr "ippfind: Não é possível usar --and após --or."
+msgstr "Não foi possível utilizar o '--and' após a opção '--or' para o ippfind."
 
 #, c-format
 msgid "ippfind: Expected key name after %s."
-msgstr "ippfind: Esperava nome da chave após %s."
+msgstr "Era esperado o nome da tecla após %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Expected port range after %s."
-msgstr "ippfind: Esperava faixa de portas após %s."
+msgstr "Era esperado o intervalo das portas após %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Expected program after %s."
-msgstr "ippfind: Esperava o programa após %s."
+msgstr "Era esperado o programa após %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Expected semi-colon after %s."
-msgstr "ippfind: Esperava ponto-e-vírgula após %s."
+msgstr "Era esperado um ponto e vírgula após %s para o ippfind."
 
 msgid "ippfind: Missing close brace in substitution."
 msgstr "ippfind: Faltando chave de fechamento na substituição."
@@ -8056,7 +8075,7 @@ msgstr "ippfind: Faltando expressão antes de \"--or\"."
 
 #, c-format
 msgid "ippfind: Missing key name after %s."
-msgstr "ippfind: Faltando nome da chave após %s."
+msgstr "Está faltando o nome da tecla após %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Missing name after %s."
@@ -8085,7 +8104,7 @@ msgstr "ippfind: Número excessivo de parênteses."
 
 #, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
-msgstr "ippfind: Não foi possível executar \"%s\": %s"
+msgstr "Não foi possível executar \"%s\" de %s do ippfind"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
@@ -8378,19 +8397,19 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Job Privacy Scope
 msgid "job-privacy-scope"
-msgstr "Escopo de Privacidade do Trabalho"
+msgstr "Escopo de privacidade do trabalho do job-privacy-scope"
 
 #. TRANSLATORS: All
 msgid "job-privacy-scope.all"
-msgstr "Todos"
+msgstr "Todos os job-privacy-scope"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-scope.default"
-msgstr "Padrão"
+msgstr "Padrão do job-privacy-scope.default"
 
 #. TRANSLATORS: None
 msgid "job-privacy-scope.none"
-msgstr "Nenhum"
+msgstr "Não tem um job-privacy-scope.none"
 
 #. TRANSLATORS: Owner
 msgid "job-privacy-scope.owner"
@@ -8838,7 +8857,7 @@ msgstr "Tipo de Laminação"
 
 #. TRANSLATORS: Archival
 msgid "laminating-type.archival"
-msgstr "Arquivamento"
+msgstr "Papel do laminating-type.archival"
 
 #. TRANSLATORS: Glossy
 msgid "laminating-type.glossy"
@@ -8850,7 +8869,7 @@ msgstr "Alto Brilho"
 
 #. TRANSLATORS: Matte
 msgid "laminating-type.matte"
-msgstr "Fosco"
+msgstr "Fosco do laminating-type.matte"
 
 #. TRANSLATORS: Semi-gloss
 msgid "laminating-type.semi-gloss"
@@ -9298,7 +9317,7 @@ msgstr "Alto Brilho"
 
 #. TRANSLATORS: Matte
 msgid "media-back-coating.matte"
-msgstr "Fosco"
+msgstr "Fosco do media-back-coating.matte"
 
 #. TRANSLATORS: None
 msgid "media-back-coating.none"
@@ -10010,11 +10029,11 @@ msgstr "Papel de Brochura Brilhoso"
 
 #. TRANSLATORS: Brochure Matte Paper
 msgid "media-type.com.hp.brochure-matte"
-msgstr "Papel de Brochura Fosco"
+msgstr "Papel de brochura fosco do media-type.com.hp.brochure-matte"
 
 #. TRANSLATORS: Matte Coverstock
 msgid "media-type.com.hp.cover-matte"
-msgstr ""
+msgstr "Capa fosca do media-type.com.hp.cover-matte"
 
 #. TRANSLATORS: EcoSMART Lite Paper
 msgid "media-type.com.hp.ecosmart-lite"
@@ -10026,7 +10045,8 @@ msgstr "Papel Everyday Brilhoso"
 
 #. TRANSLATORS: Everyday Matte Paper
 msgid "media-type.com.hp.everyday-matte"
-msgstr "Papel Everyday Fosco"
+msgstr ""
+"Papel fosco para impressão jato de tinta do media-type.com.hp.everyday-matte"
 
 #. TRANSLATORS: Extra Heavyweight Paper
 msgid "media-type.com.hp.extra-heavy"
@@ -10050,7 +10070,9 @@ msgstr "Papel Photo Premium"
 
 #. TRANSLATORS: Premium Matte Presentation Paper
 msgid "media-type.com.hp.premium-presentation-matte"
-msgstr "Papel de Apresentação Premium Fosco"
+msgstr ""
+"Papel fosco, pesado de apresentação do media-type.com.hp.premium-"
+"presentation-matte"
 
 #. TRANSLATORS: Continuous
 msgid "media-type.continuous"
@@ -10082,7 +10104,7 @@ msgstr "Disco Ótico de Alto Brilho"
 
 #. TRANSLATORS: Matte Optical Disc
 msgid "media-type.disc-matte"
-msgstr "Disco Ótico Fosco"
+msgstr "Disco ótico fosco do media-type.disc-matte"
 
 #. TRANSLATORS: Satin Optical Disc
 msgid "media-type.disc-satin"
@@ -10118,7 +10140,7 @@ msgstr "Envelope"
 
 #. TRANSLATORS: Archival Envelope
 msgid "media-type.envelope-archival"
-msgstr "Envelope de Arquivamento"
+msgstr "Envelope de arquivamento do media-type.envelope-archival"
 
 #. TRANSLATORS: Bond Envelope
 msgid "media-type.envelope-bond"
@@ -10166,7 +10188,7 @@ msgstr "Tecido"
 
 #. TRANSLATORS: Archival Fabric
 msgid "media-type.fabric-archival"
-msgstr "Tecido de Arquivamento"
+msgstr "Papel de tecido do media-type.fabric-archival"
 
 #. TRANSLATORS: Glossy Fabric
 msgid "media-type.fabric-glossy"
@@ -10178,7 +10200,7 @@ msgstr "Tecido de Alto Brilho"
 
 #. TRANSLATORS: Matte Fabric
 msgid "media-type.fabric-matte"
-msgstr "Tecido Fosco"
+msgstr "Tecido fosco do media-type.fabric-matte"
 
 #. TRANSLATORS: Semi-Gloss Fabric
 msgid "media-type.fabric-semi-gloss"
@@ -10282,7 +10304,7 @@ msgstr "Etiquetas Inkjet"
 
 #. TRANSLATORS: Matte Labels
 msgid "media-type.labels-matte"
-msgstr "Etiquetas Foscas"
+msgstr "Etiquetas foscas do media-type.labels-matte"
 
 #. TRANSLATORS: Permanent Labels
 msgid "media-type.labels-permanent"
@@ -10322,7 +10344,7 @@ msgstr "Metal de Alto Brilho"
 
 #. TRANSLATORS: Metal Matte
 msgid "media-type.metal-matte"
-msgstr "Metal Fosco"
+msgstr "Metal fosco do media-type.metal-matte"
 
 #. TRANSLATORS: Metal Satin
 msgid "media-type.metal-satin"
@@ -10358,7 +10380,7 @@ msgstr "Papel Fotográfico"
 
 #. TRANSLATORS: Photographic Archival
 msgid "media-type.photographic-archival"
-msgstr ""
+msgstr "Papel para fotografia do media-type.photographic-archival"
 
 #. TRANSLATORS: Photo Film
 msgid "media-type.photographic-film"
@@ -10374,7 +10396,7 @@ msgstr "Papel Fotográfico de Alto Brilho"
 
 #. TRANSLATORS: Matte Photo Paper
 msgid "media-type.photographic-matte"
-msgstr "Papel Fotográfico Fosco"
+msgstr "Papel fosco para fotografia do media-type.photographic-matte"
 
 #. TRANSLATORS: Satin Photo Paper
 msgid "media-type.photographic-satin"
@@ -10390,7 +10412,7 @@ msgstr "Plástico"
 
 #. TRANSLATORS: Plastic Archival
 msgid "media-type.plastic-archival"
-msgstr "Plástico"
+msgstr "Papel plástico do media-type.plastic-archival"
 
 #. TRANSLATORS: Plastic Colored
 msgid "media-type.plastic-colored"
@@ -10406,7 +10428,7 @@ msgstr "Plástico de Alto Brilho"
 
 #. TRANSLATORS: Plastic Matte
 msgid "media-type.plastic-matte"
-msgstr "Plástico Fosco"
+msgstr "Plástico fosco do media-type.plastic-matte"
 
 #. TRANSLATORS: Plastic Satin
 msgid "media-type.plastic-satin"
@@ -10470,7 +10492,7 @@ msgstr ""
 
 #. TRANSLATORS: Stationery Archival
 msgid "media-type.stationery-archival"
-msgstr ""
+msgstr "Papel de papelaria do media-type.stationery-archival"
 
 #. TRANSLATORS: Coated Paper
 msgid "media-type.stationery-coated"
@@ -11631,27 +11653,27 @@ msgstr ""
 
 #. TRANSLATORS: Orientation
 msgid "orientation-requested"
-msgstr ""
+msgstr "Orientação do orientation-requested"
 
 #. TRANSLATORS: Portrait
 msgid "orientation-requested.3"
-msgstr ""
+msgstr "Retrato do orientation-requested.3"
 
 #. TRANSLATORS: Landscape
 msgid "orientation-requested.4"
-msgstr ""
+msgstr "Paisagem do orientation-requested.4"
 
 #. TRANSLATORS: Reverse Landscape
 msgid "orientation-requested.5"
-msgstr ""
+msgstr "Paisagem invertida do orientation-requested.5"
 
 #. TRANSLATORS: Reverse Portrait
 msgid "orientation-requested.6"
-msgstr ""
+msgstr "Retrato reverso do orientation-requested.6"
 
 #. TRANSLATORS: None
 msgid "orientation-requested.7"
-msgstr ""
+msgstr "Nenhum do orientation-requested.7"
 
 #. TRANSLATORS: Scanned Image Options
 msgid "output-attributes"
@@ -12327,7 +12349,7 @@ msgstr "ppdc: Não foi possível criar redirecionamento de saída: %s"
 
 #, c-format
 msgid "ppdc: Unable to execute cupstestppd: %s"
-msgstr "ppdc: Não foi possível executar cupstestppd: %s"
+msgstr "Não foi possível executar o %s do cupstestppd para o ppdc"
 
 #, c-format
 msgid "ppdc: Unable to find #po file %s on line %d of %s."
@@ -13439,6 +13461,8 @@ msgstr ""
 #. TRANSLATORS: Identify Printer
 msgid "printer-state-reasons.identify-printer-requested"
 msgstr ""
+"Identificação da impressora do printer-state-reasons.identify-printer-"
+"requested"
 
 #. TRANSLATORS: Imprinter Added
 msgid "printer-state-reasons.imprinter-added"
@@ -13591,6 +13615,8 @@ msgstr ""
 #. TRANSLATORS: Input Manual Input Request
 msgid "printer-state-reasons.input-manual-input-request"
 msgstr ""
+"Requisição da entrada manual do printer-state-reasons.input-manual-input-"
+"request"
 
 #. TRANSLATORS: Input Media Color Change
 msgid "printer-state-reasons.input-media-color-change"
@@ -14179,6 +14205,8 @@ msgstr ""
 #. TRANSLATORS: Media Path Input Request
 msgid "printer-state-reasons.media-path-input-request"
 msgstr ""
+"Requisição da entrada do caminho da mídia do printer-state-reasons.media-"
+"path-input-request"
 
 #. TRANSLATORS: Media Path Jam
 msgid "printer-state-reasons.media-path-jam"
@@ -15977,14 +16005,14 @@ msgstr ""
 
 #, c-format
 msgid "request id is %s-%d (%d file(s))"
-msgstr "id de requisição é %s-%d (%d arquivo(s))"
+msgstr "O ID (identificador) da requisição é %s de %d (%d arquivo(s))"
 
 msgid "request-id uses indefinite length"
-msgstr "request-id usa comprimento indefinido"
+msgstr "O request-id utiliza um comprimento que não é definido"
 
 #. TRANSLATORS: Requested Attributes
 msgid "requested-attributes"
-msgstr ""
+msgstr "Os atributos solicitados do requested-attributes"
 
 #. TRANSLATORS: Retry Interval
 msgid "retry-interval"
