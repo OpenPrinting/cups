@@ -24,287 +24,291 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-06-25 16:06+0000\n"
+"Last-Translator: therealmate <hellogaming91@gmail.com>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/cups/cups/hu/>"
+"\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: systemv/lpstat.c:1902 systemv/lpstat.c:2021
 msgid "\t\t(all)"
-msgstr ""
+msgstr "\t\t(mind)"
 
 #: systemv/lpstat.c:1905 systemv/lpstat.c:1908 systemv/lpstat.c:2024
 #: systemv/lpstat.c:2027
 msgid "\t\t(none)"
-msgstr ""
+msgstr "\t\t(nincs)"
 
 #: berkeley/lpc.c:442
 #, c-format
 msgid "\t%d entries"
-msgstr ""
+msgstr "\t%d bejegyzés"
 
 #: systemv/lpstat.c:816 systemv/lpstat.c:832
 #, c-format
 msgid "\t%s"
-msgstr ""
+msgstr "\t%s"
 
 #: systemv/lpstat.c:1883 systemv/lpstat.c:2002
 msgid "\tAfter fault: continue"
-msgstr ""
+msgstr "\tHiba után: folytatás"
 
 #: systemv/lpstat.c:1516 systemv/lpstat.c:1856 systemv/lpstat.c:1976
 #, c-format
 msgid "\tAlerts: %s"
-msgstr ""
+msgstr "\tFigyelmeztetések: %s"
 
 #: systemv/lpstat.c:1906 systemv/lpstat.c:2025
 msgid "\tBanner required"
-msgstr ""
+msgstr "\tFejléc szükséges"
 
 #: systemv/lpstat.c:1907 systemv/lpstat.c:2026
 msgid "\tCharset sets:"
-msgstr ""
+msgstr "\tKarakterkészletek:"
 
 #: systemv/lpstat.c:1875 systemv/lpstat.c:1994
 msgid "\tConnection: direct"
-msgstr ""
+msgstr "\tKapcsolat: közvetlen"
 
 #: systemv/lpstat.c:1866 systemv/lpstat.c:1986
 msgid "\tConnection: remote"
-msgstr ""
+msgstr "\tKapcsolat: távoli"
 
 #: systemv/lpstat.c:1832 systemv/lpstat.c:1952
 msgid "\tContent types: any"
-msgstr ""
+msgstr "\tTartalomtípusok: bármely"
 
 #: systemv/lpstat.c:1910 systemv/lpstat.c:2029
 msgid "\tDefault page size:"
-msgstr ""
+msgstr "\tAlapértelmezett lapméret:"
 
 #: systemv/lpstat.c:1909 systemv/lpstat.c:2028
 msgid "\tDefault pitch:"
-msgstr ""
+msgstr "\tAlapértelmezett karaktertávolság:"
 
 #: systemv/lpstat.c:1911 systemv/lpstat.c:2030
 msgid "\tDefault port settings:"
-msgstr ""
+msgstr "\tAlapértelmezett portbeállítások:"
 
 #: systemv/lpstat.c:1838 systemv/lpstat.c:1958
 #, c-format
 msgid "\tDescription: %s"
-msgstr ""
+msgstr "\tLeírás: %s"
 
 #: systemv/lpstat.c:1831 systemv/lpstat.c:1951
 msgid "\tForm mounted:"
-msgstr ""
+msgstr "\tŰrlap betöltve:"
 
 #: systemv/lpstat.c:1904 systemv/lpstat.c:2023
 msgid "\tForms allowed:"
-msgstr ""
+msgstr "\tEngedélyezett űrlapok:"
 
 #: systemv/lpstat.c:1870 systemv/lpstat.c:1990
 #, c-format
 msgid "\tInterface: %s.ppd"
-msgstr ""
+msgstr "\tIllesztő: %s.ppd"
 
 #: systemv/lpstat.c:1879 systemv/lpstat.c:1998
 #, c-format
 msgid "\tInterface: %s/ppd/%s.ppd"
-msgstr ""
+msgstr "\tIllesztő: %s/ppd/%s.ppd"
 
 #: systemv/lpstat.c:1861 systemv/lpstat.c:1981
 #, c-format
 msgid "\tLocation: %s"
-msgstr ""
+msgstr "\tHely: %s"
 
 #: systemv/lpstat.c:1882 systemv/lpstat.c:2001
 msgid "\tOn fault: no alert"
-msgstr ""
+msgstr "\tHiba esetén: nincs figyelmeztetés"
 
 #: systemv/lpstat.c:1833 systemv/lpstat.c:1953
 msgid "\tPrinter types: unknown"
-msgstr ""
+msgstr "\tNyomtatótípusok: ismeretlen"
 
 #: systemv/lpstat.c:1499
 #, c-format
 msgid "\tStatus: %s"
-msgstr ""
+msgstr "\tÁllapot: %s"
 
 #: systemv/lpstat.c:1887 systemv/lpstat.c:1901 systemv/lpstat.c:2006
 #: systemv/lpstat.c:2020
 msgid "\tUsers allowed:"
-msgstr ""
+msgstr "\tEngedélyezett felhasználók:"
 
 #: systemv/lpstat.c:1894 systemv/lpstat.c:2013
 msgid "\tUsers denied:"
-msgstr ""
+msgstr "\tTiltott felhasználók:"
 
 #: berkeley/lpc.c:444
 msgid "\tdaemon present"
-msgstr ""
+msgstr "\tszolgáltatás fut"
 
 #: berkeley/lpc.c:440
 msgid "\tno entries"
-msgstr ""
+msgstr "\tNincs bejegyzés"
 
 #: berkeley/lpc.c:412 berkeley/lpc.c:424
 #, c-format
 msgid "\tprinter is on device '%s' speed -1"
-msgstr ""
+msgstr "\tA nyomtató a(z) „%s” eszközön van, sebesség: -1"
 
 #: berkeley/lpc.c:437
 msgid "\tprinting is disabled"
-msgstr ""
+msgstr "\tA nyomtatás le van tiltva"
 
 #: berkeley/lpc.c:435
 msgid "\tprinting is enabled"
-msgstr ""
+msgstr "\tA nyomtatás engedélyezve van"
 
 #: systemv/lpstat.c:1519
 #, c-format
 msgid "\tqueued for %s"
-msgstr ""
+msgstr "\tVárólistára került: %s"
 
 #: berkeley/lpc.c:432
 msgid "\tqueuing is disabled"
-msgstr ""
+msgstr "\tA várólista le van tiltva"
 
 #: berkeley/lpc.c:430
 msgid "\tqueuing is enabled"
-msgstr ""
+msgstr "\tA várólista engedélyezve van"
 
 #: systemv/lpstat.c:1826 systemv/lpstat.c:1946
 msgid "\treason unknown"
-msgstr ""
+msgstr "\tok ismeretlen"
 
 #: systemv/cupstestppd.c:431
 msgid ""
 "\n"
 "    DETAILED CONFORMANCE TEST RESULTS"
 msgstr ""
+"\n"
+"    RÉSZLETES MEGFELELŐSÉGI TESZTEREDMÉNYEK"
 
 #: systemv/cupstestppd.c:387 systemv/cupstestppd.c:392
 msgid "                REF: Page 15, section 3.1."
-msgstr ""
+msgstr "                HIV: 15. oldal, 3.1. szakasz."
 
 #: systemv/cupstestppd.c:382
 msgid "                REF: Page 15, section 3.2."
-msgstr ""
+msgstr "                HIV: 15. oldal, 3.2. szakasz."
 
 #: systemv/cupstestppd.c:402
 msgid "                REF: Page 19, section 3.3."
-msgstr ""
+msgstr "                HIV: 19. oldal, 3.3. szakasz."
 
 #: systemv/cupstestppd.c:355
 msgid "                REF: Page 20, section 3.4."
-msgstr ""
+msgstr "                HIV: 20. oldal, 3.4. szakasz."
 
 #: systemv/cupstestppd.c:407
 msgid "                REF: Page 27, section 3.5."
-msgstr ""
+msgstr "                HIV: 27. oldal, 3.5. szakasz."
 
 #: systemv/cupstestppd.c:350
 msgid "                REF: Page 42, section 5.2."
-msgstr ""
+msgstr "                HIV: 42. oldal, 5.2. szakasz."
 
 #: systemv/cupstestppd.c:397
 msgid "                REF: Pages 16-17, section 3.2."
-msgstr ""
+msgstr "                HIV: 16-17. oldal, 3.2. szakasz."
 
 #: systemv/cupstestppd.c:367
 msgid "                REF: Pages 42-45, section 5.2."
-msgstr ""
+msgstr "                HIV: 42-45. oldal, 5.2. szakasz."
 
 #: systemv/cupstestppd.c:361
 msgid "                REF: Pages 45-46, section 5.2."
-msgstr ""
+msgstr "                HIV: 45-46. oldal, 5.2. szakasz."
 
 #: systemv/cupstestppd.c:372
 msgid "                REF: Pages 48-49, section 5.2."
-msgstr ""
+msgstr "                HIV: 48-49. oldal, 5.2. szakasz."
 
 #: systemv/cupstestppd.c:377
 msgid "                REF: Pages 52-54, section 5.2."
-msgstr ""
+msgstr "                HIV: 52-54. oldal, 5.2. szakasz."
 
 #: berkeley/lpq.c:530
 #, c-format
 msgid "        %-39.39s %.0f bytes"
-msgstr ""
+msgstr "        %-39.39s%.0f bájt"
 
 #: systemv/cupstestppd.c:566
 #, c-format
 msgid "        PASS    Default%s"
-msgstr ""
+msgstr "        SIKERES    Default%s"
 
 #: systemv/cupstestppd.c:501
 msgid "        PASS    DefaultImageableArea"
-msgstr ""
+msgstr "        SIKERES    DefaultImageableArea"
 
 #: systemv/cupstestppd.c:535
 msgid "        PASS    DefaultPaperDimension"
-msgstr ""
+msgstr "        SIKERES    DefaultPaperDimension"
 
 #: systemv/cupstestppd.c:608
 msgid "        PASS    FileVersion"
-msgstr ""
+msgstr "        SIKERES    FileVersion"
 
 #: systemv/cupstestppd.c:652
 msgid "        PASS    FormatVersion"
-msgstr ""
+msgstr "        SIKERES    FormatVersion"
 
 #: systemv/cupstestppd.c:672
 msgid "        PASS    LanguageEncoding"
-msgstr ""
+msgstr "        SIKERES    LanguageEncoding"
 
 #: systemv/cupstestppd.c:692
 msgid "        PASS    LanguageVersion"
-msgstr ""
+msgstr "        SIKERES    LanguageVersion"
 
 #: systemv/cupstestppd.c:746
 msgid "        PASS    Manufacturer"
-msgstr ""
+msgstr "        SIKERES    Manufacturer"
 
 #: systemv/cupstestppd.c:786
 msgid "        PASS    ModelName"
-msgstr ""
+msgstr "        SIKERES    ModelName"
 
 #: systemv/cupstestppd.c:806
 msgid "        PASS    NickName"
-msgstr ""
+msgstr "        SIKERES    NickName"
 
 #: systemv/cupstestppd.c:866
 msgid "        PASS    PCFileName"
-msgstr ""
+msgstr "        SIKERES    PCFileName"
 
 #: systemv/cupstestppd.c:941
 msgid "        PASS    PSVersion"
-msgstr ""
+msgstr "        SIKERES    PSVersion"
 
 #: systemv/cupstestppd.c:846
 msgid "        PASS    PageRegion"
-msgstr ""
+msgstr "        SIKERES    PageRegion"
 
 #: systemv/cupstestppd.c:826
 msgid "        PASS    PageSize"
-msgstr ""
+msgstr "        SIKERES    PageSize"
 
 #: systemv/cupstestppd.c:901
 msgid "        PASS    Product"
-msgstr ""
+msgstr "        SIKERES    Product"
 
 #: systemv/cupstestppd.c:976
 msgid "        PASS    ShortNickName"
-msgstr ""
+msgstr "        SIKERES    ShortNickName"
 
 #: systemv/cupstestppd.c:1351
 #, c-format
 msgid "        WARN    %s has no corresponding options."
-msgstr ""
+msgstr "        FIGYELMEZTETÉS    A(z) %s beállításnak nincs megfelelő opciója."
 
 #: systemv/cupstestppd.c:1463
 #, c-format
@@ -312,6 +316,8 @@ msgid ""
 "        WARN    %s shares a common prefix with %s\n"
 "                REF: Page 15, section 3.2."
 msgstr ""
+"        FIGYELMEZTETÉS    A(z) %s és %s azonos előtaggal rendelkeznek.\n"
+"                HIV: 15. oldal, 3.2. szakasz."
 
 #: systemv/cupstestppd.c:1322
 #, c-format
@@ -319,31 +325,44 @@ msgid ""
 "        WARN    Duplex option keyword %s may not work as expected and should be named Duplex.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
+"        FIGYELMEZTETÉS    A(z) %s kétoldalas nyomtatási opció kulcsszó nem "
+"működhet megfelelően; ajánlott a „Duplex” név használata.\n"
+"                HIV: 122. oldal, 5.17. szakasz"
 
 #: systemv/cupstestppd.c:1721
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
+"        FIGYELMEZTETÉS    A fájl kevert sortöréseket tartalmaz (CR, LF és CR "
+"LF)."
 
 #: systemv/cupstestppd.c:1367
 msgid ""
 "        WARN    LanguageEncoding required by PPD 4.3 spec.\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
+"        FIGYELMEZTETÉS    A LanguageEncoding kötelező a PPD 4.3 specifikáció "
+"szerint.\n"
+"                HIV: 56–57. oldal, 5.3. szakasz."
 
 #: systemv/cupstestppd.c:1703
 #, c-format
 msgid "        WARN    Line %d only contains whitespace."
-msgstr ""
+msgstr "        FIGYELMEZTETÉS    A(z) %d. sor csak szóközöket tartalmaz."
 
 #: systemv/cupstestppd.c:1375
 msgid ""
 "        WARN    Manufacturer required by PPD 4.3 spec.\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
+"        FIGYELMEZTETÉS    A Gyártó mező kötelező a PPD 4.3 specifikáció "
+"szerint.\n"
+"                HIV: 58–59. oldal, 5.3. szakasz."
 
 #: systemv/cupstestppd.c:1726
 msgid "        WARN    Non-Windows PPD files should use lines ending with only LF, not CR LF."
 msgstr ""
+"        FIGYELMEZTETÉS    A nem Windows rendszerű PPD fájlok esetén csak LF "
+"sortörés használata javasolt (nem CR LF)."
 
 #: systemv/cupstestppd.c:1359
 #, c-format
@@ -351,36 +370,53 @@ msgid ""
 "        WARN    Obsolete PPD version %.1f.\n"
 "                REF: Page 42, section 5.2."
 msgstr ""
+"        FIGYELMEZTETÉS    Elavult PPD-verzió (%.1f).\n"
+"                HIV: 42. oldal, 5.2. szakasz."
 
 #: systemv/cupstestppd.c:1390
 msgid ""
 "        WARN    PCFileName longer than 8.3 in violation of PPD spec.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
+"        FIGYELMEZTETÉS    A PCFileName meghaladja a 8.3-as formátumot, ami "
+"sérti a PPD specifikációt.\n"
+"                HIV: 61–62. oldal, 5.3. szakasz."
 
 #: systemv/cupstestppd.c:1398
 msgid ""
 "        WARN    PCFileName should contain a unique filename.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
+"        FIGYELMEZTETÉS    A PCFileName-nek egyedi fájlnevet kell "
+"tartalmaznia.\n"
+"                HIV: 61–62. oldal, 5.3. szakasz."
 
 #: systemv/cupstestppd.c:1433
 msgid ""
 "        WARN    Protocols contains PJL but JCL attributes are not set.\n"
 "                REF: Pages 78-79, section 5.7."
 msgstr ""
+"        FIGYELMEZTETÉS    A protokollok PJL-t tartalmaznak, de a JCL "
+"attribútumok nincsenek beállítva.\n"
+"                HIV: 78–79. oldal, 5.7. szakasz."
 
 #: systemv/cupstestppd.c:1424
 msgid ""
 "        WARN    Protocols contains both PJL and BCP; expected TBCP.\n"
 "                REF: Pages 78-79, section 5.7."
 msgstr ""
+"        FIGYELMEZTETÉS    A protocollok mező PJL-t és BCP-t is tartalmaz; "
+"elvárt érték: TBCP.\n"
+"                HIV: 78–79. oldal, 5.7. szakasz."
 
 #: systemv/cupstestppd.c:1407
 msgid ""
 "        WARN    ShortNickName required by PPD 4.3 spec.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
+"        FIGYELMEZTETÉS    A ShortNickName kötelező a PPD 4.3 specifikáció "
+"szerint.\n"
+"                HIV: 64-65. oldal, 5.3. szakasz."
 
 #: systemv/cupstestppd.c:3788
 #, c-format
@@ -388,16 +424,19 @@ msgid ""
 "      %s  \"%s %s\" conflicts with \"%s %s\"\n"
 "                (constraint=\"%s %s %s %s\")."
 msgstr ""
+"      %s  „%s %s” ütközik ezzel: „%s %s” \n"
+"                (kötés: „%s %s %s %s”)."
 
 #: systemv/cupstestppd.c:2225
 #, c-format
 msgid "      %s  %s %s does not exist."
-msgstr ""
+msgstr "      %s  A(z) %s %s nem létezik."
 
 #: systemv/cupstestppd.c:3941
 #, c-format
 msgid "      %s  %s file \"%s\" has the wrong capitalization."
 msgstr ""
+"      %s  A(z) „%s” fájl kis- és nagybetűi eltérnek a megadott %s értéktől."
 
 #: systemv/cupstestppd.c:2295
 #, c-format
@@ -405,6 +444,8 @@ msgid ""
 "      %s  Bad %s choice %s.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
+"      %s  Érvénytelen %s választás: %s. \n"
+"                HIV: 122. oldal, 5.17. szakasz"
 
 #: systemv/cupstestppd.c:3548 systemv/cupstestppd.c:3597
 #: systemv/cupstestppd.c:3636
@@ -19376,22 +19417,22 @@ msgstr ""
 #. TRANSLATORS: 2-Sided Printing
 #: locale/ipp-strings.c:4382
 msgid "sides"
-msgstr ""
+msgstr "2 oldalas nyomtatás"
 
 #. TRANSLATORS: Off
 #: locale/ipp-strings.c:4384
 msgid "sides.one-sided"
-msgstr ""
+msgstr "Kikapcsolva"
 
 #. TRANSLATORS: On (Portrait)
 #: locale/ipp-strings.c:4386
 msgid "sides.two-sided-long-edge"
-msgstr ""
+msgstr "Bekapcsolva (Portré)"
 
 #. TRANSLATORS: On (Landscape)
 #: locale/ipp-strings.c:4388
 msgid "sides.two-sided-short-edge"
-msgstr ""
+msgstr "Bekapcsolva (Tájkép)"
 
 #: cups/adminutil.c:1383
 #, c-format
@@ -19455,26 +19496,26 @@ msgstr ""
 #. TRANSLATORS: Bottom
 #: locale/ipp-strings.c:4410
 msgid "stitching-reference-edge.bottom"
-msgstr ""
+msgstr "Alsó"
 
 #. TRANSLATORS: Left
 #: locale/ipp-strings.c:4412
 msgid "stitching-reference-edge.left"
-msgstr ""
+msgstr "Bal"
 
 #. TRANSLATORS: Right
 #: locale/ipp-strings.c:4414
 msgid "stitching-reference-edge.right"
-msgstr ""
+msgstr "Jobb"
 
 #. TRANSLATORS: Top
 #: locale/ipp-strings.c:4416
 msgid "stitching-reference-edge.top"
-msgstr ""
+msgstr "Felső"
 
 #: cups/notify.c:80 cups/notify.c:121
 msgid "stopped"
-msgstr ""
+msgstr "megállítva"
 
 #. TRANSLATORS: Subject
 #: locale/ipp-strings.c:4418
@@ -19524,12 +19565,12 @@ msgstr ""
 #. TRANSLATORS: Default
 #: locale/ipp-strings.c:4436
 msgid "subscription-privacy-scope.default"
-msgstr ""
+msgstr "Alapértelmezett"
 
 #. TRANSLATORS: None
 #: locale/ipp-strings.c:4438
 msgid "subscription-privacy-scope.none"
-msgstr ""
+msgstr "Nincs"
 
 #. TRANSLATORS: Owner
 #: locale/ipp-strings.c:4440
@@ -19549,22 +19590,22 @@ msgstr ""
 #. TRANSLATORS: T33 Subaddress
 #: locale/ipp-strings.c:4442
 msgid "t33-subaddress"
-msgstr ""
+msgstr "T33 mellékcím"
 
 #. TRANSLATORS: To Name
 #: locale/ipp-strings.c:4444
 msgid "to-name"
-msgstr ""
+msgstr "Címzett neve"
 
 #. TRANSLATORS: Transmission Status
 #: locale/ipp-strings.c:4446
 msgid "transmission-status"
-msgstr ""
+msgstr "Átviteli állapot"
 
 #. TRANSLATORS: Pending
 #: locale/ipp-strings.c:4448
 msgid "transmission-status.3"
-msgstr ""
+msgstr "Függőben"
 
 #. TRANSLATORS: Pending Retry
 #: locale/ipp-strings.c:4450
@@ -19594,12 +19635,12 @@ msgstr ""
 #. TRANSLATORS: Cut
 #: locale/ipp-strings.c:4460
 msgid "trimming"
-msgstr ""
+msgstr "Vágás"
 
 #. TRANSLATORS: Cut Position
 #: locale/ipp-strings.c:4462
 msgid "trimming-offset"
-msgstr ""
+msgstr "Vágás eltolása"
 
 #. TRANSLATORS: Cut Edge
 #: locale/ipp-strings.c:4464
@@ -19609,47 +19650,47 @@ msgstr ""
 #. TRANSLATORS: Bottom
 #: locale/ipp-strings.c:4466
 msgid "trimming-reference-edge.bottom"
-msgstr ""
+msgstr "Alsó"
 
 #. TRANSLATORS: Left
 #: locale/ipp-strings.c:4468
 msgid "trimming-reference-edge.left"
-msgstr ""
+msgstr "Bal"
 
 #. TRANSLATORS: Right
 #: locale/ipp-strings.c:4470
 msgid "trimming-reference-edge.right"
-msgstr ""
+msgstr "Jobb"
 
 #. TRANSLATORS: Top
 #: locale/ipp-strings.c:4472
 msgid "trimming-reference-edge.top"
-msgstr ""
+msgstr "Felső"
 
 #. TRANSLATORS: Type of Cut
 #: locale/ipp-strings.c:4474
 msgid "trimming-type"
-msgstr ""
+msgstr "Vágástípus"
 
 #. TRANSLATORS: Draw Line
 #: locale/ipp-strings.c:4476
 msgid "trimming-type.draw-line"
-msgstr ""
+msgstr "Vonal húzása"
 
 #. TRANSLATORS: Full
 #: locale/ipp-strings.c:4478
 msgid "trimming-type.full"
-msgstr ""
+msgstr "Teljes"
 
 #. TRANSLATORS: Partial
 #: locale/ipp-strings.c:4480
 msgid "trimming-type.partial"
-msgstr ""
+msgstr "Részleges"
 
 #. TRANSLATORS: Perforate
 #: locale/ipp-strings.c:4482
 msgid "trimming-type.perforate"
-msgstr ""
+msgstr "Perforálás"
 
 #. TRANSLATORS: Score
 #: locale/ipp-strings.c:4484
@@ -19659,17 +19700,17 @@ msgstr ""
 #. TRANSLATORS: Tab
 #: locale/ipp-strings.c:4486
 msgid "trimming-type.tab"
-msgstr ""
+msgstr "Fül"
 
 #. TRANSLATORS: Cut After
 #: locale/ipp-strings.c:4488
 msgid "trimming-when"
-msgstr ""
+msgstr "Vágás utána"
 
 #. TRANSLATORS: Every Document
 #: locale/ipp-strings.c:4490
 msgid "trimming-when.after-documents"
-msgstr ""
+msgstr "Minden dokumentum"
 
 #. TRANSLATORS: Job
 #: locale/ipp-strings.c:4492
@@ -19688,11 +19729,11 @@ msgstr ""
 
 #: cups/notify.c:92 cups/notify.c:124
 msgid "unknown"
-msgstr ""
+msgstr "ismeretlen"
 
 #: cups/notify.c:101
 msgid "untitled"
-msgstr ""
+msgstr "névtelen"
 
 #: cups/snmp.c:977
 msgid "variable-bindings uses indefinite length"
