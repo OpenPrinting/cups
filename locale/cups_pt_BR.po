@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-24 16:04+0000\n"
+"PO-Revision-Date: 2025-06-25 16:06+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -258,7 +258,7 @@ msgid ""
 "                REF: Page 122, section 5.17"
 msgstr ""
 "        AVISO   A opção da palavra-chave ‘Duplex %s’ pode não funcionar como "
-"esperado e deve ser renomeada para ‘Duplex’.\n"
+"esperado e deve ser renomeada para ‘Duplex’ (frente e verso).\n"
 "                REF: Página 122, seção 5.17"
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
@@ -6544,13 +6544,13 @@ msgid "cups-x509: Missing CSR filename after '-R'."
 msgstr "O nome do arquivo CSR está faltando após a opção '-R' para o cups-x509."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr "O tipo do certificado é necessário após a opção '-t' para o cups-x509."
+msgstr "Está faltando o tipo do certificado após a opção '-t' para o cups-x509."
 
 msgid "cups-x509: Missing command argument."
-msgstr ""
+msgstr "Está faltando o argumento do comando para o cups-x509."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr "O nome do país está faltando após a opção '-C' do cups-x509."
+msgstr "Está faltando o nome do país após a opção '-C' do cups-x509."
 
 msgid "cups-x509: Missing expiration days after '-d'."
 msgstr "Está faltando a quantidade de dias após a opção '-d' para o cups-x509."
@@ -8047,19 +8047,19 @@ msgstr "Não foi possível utilizar o '--and' após a opção '--or' para o ippf
 
 #, c-format
 msgid "ippfind: Expected key name after %s."
-msgstr "Era esperado o nome da tecla após %s para o ippfind."
+msgstr "Era esperado o nome da tecla após o %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Expected port range after %s."
-msgstr "Era esperado o intervalo das portas após %s para o ippfind."
+msgstr "Era esperado o intervalo das portas após o %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Expected program after %s."
-msgstr "Era esperado o programa após %s para o ippfind."
+msgstr "Era esperado o programa após o %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Expected semi-colon after %s."
-msgstr "Era esperado um ponto e vírgula após %s para o ippfind."
+msgstr "Era esperado um ponto e vírgula após o %s para o ippfind."
 
 msgid "ippfind: Missing close brace in substitution."
 msgstr "ippfind: Faltando chave de fechamento na substituição."
@@ -8075,26 +8075,26 @@ msgstr "ippfind: Faltando expressão antes de \"--or\"."
 
 #, c-format
 msgid "ippfind: Missing key name after %s."
-msgstr "Está faltando o nome da tecla após %s para o ippfind."
+msgstr "Está faltando o nome da tecla após o %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Missing name after %s."
-msgstr "ippfind: Faltando nome após %s."
+msgstr "Está faltando um nome após o %s para o ippfind."
 
 msgid "ippfind: Missing open parenthesis."
 msgstr "ippfind: Faltando parênteses de abertura."
 
 #, c-format
 msgid "ippfind: Missing program after %s."
-msgstr "ippfind: Faltando programa após %s."
+msgstr "Está faltando o programa após o %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Missing regular expression after %s."
-msgstr "ippfind: Faltando expressão regular após %s."
+msgstr "Está faltando a expressão regular após o %s para o ippfind."
 
 #, c-format
 msgid "ippfind: Missing semi-colon after %s."
-msgstr "ippfind: Faltando dois-pontos após %s."
+msgstr "Está faltando o ponto e vírgula após o %s para o ippfind."
 
 msgid "ippfind: Out of memory."
 msgstr "ippfind: Memória insuficiente."
@@ -8198,7 +8198,7 @@ msgstr ""
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
-msgstr "Cancelar trabalho após"
+msgstr "Cancelar o trabalho após o job-cancel-after"
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
@@ -8888,50 +8888,53 @@ msgstr "lpadmin: Nome da classe só pode conter caracteres imprimíveis."
 
 #, c-format
 msgid "lpadmin: Expected PPD after \"-%c\" option."
-msgstr "lpadmin: Esperava PPD após a opção \"-%c\"."
+msgstr "Era esperado o PPD após a opção \"-%c\" para o lpadmin."
 
 msgid "lpadmin: Expected allow/deny:userlist after \"-u\" option."
 msgstr ""
-"lpadmin: Esperava lista de usuários permitidos/impedidos após a opção \"-u\"."
+"Era esperado a lista dos nomes de usuários que são permitidos ou impedidos "
+"após a opção \"-u\" para o lpadmin."
 
 msgid "lpadmin: Expected class after \"-r\" option."
-msgstr "lpadmin: Esperava a classe após a opção \"-r\"."
+msgstr "Era esperado a classe após a opção \"-r\" para o lpadmin."
 
 msgid "lpadmin: Expected class name after \"-c\" option."
-msgstr "lpadmin: Esperava nome de classe após a opção \"-c\"."
+msgstr "Era esperado o nome da classe após a opção \"-c\" para o lpadmin."
 
 msgid "lpadmin: Expected description after \"-D\" option."
-msgstr "lpadmin: Esperava descrição após a opção \"-D\"."
+msgstr "Era esperado a descrição após a opção \"-D\" para o lpadmin."
 
 msgid "lpadmin: Expected device URI after \"-v\" option."
-msgstr "lpadmin: Esperava URI de dispositivo após a opção \"-v\"."
+msgstr "Era esperado o URI do dispositivo após a opção \"-v\" para o lpadmin."
 
 msgid "lpadmin: Expected file type(s) after \"-I\" option."
-msgstr "lpadmin: Esperava tipo(s) de arquivo(s) após a opção \"-I\"."
+msgstr ""
+"Era esperado o tipo do(s) arquivo(s) após a opção \"-I\" para o lpadmin."
 
 msgid "lpadmin: Expected hostname after \"-h\" option."
-msgstr "lpadmin: Esperava nome do máquina após a opção \"-h\"."
+msgstr "Era esperado o nome da máquina após a opção \"-h\" para o lpadmin."
 
 msgid "lpadmin: Expected location after \"-L\" option."
-msgstr "lpadmin: Esperava localização após a opção \"-L\"."
+msgstr "Era esperado a localização após a opção \"-L\" para o lpadmin."
 
 msgid "lpadmin: Expected model after \"-m\" option."
-msgstr "lpadmin: Esperava modelo após a opção \"-m\"."
+msgstr "Era esperado o modelo após a opção \"-m\" para o lpadmin."
 
 msgid "lpadmin: Expected name after \"-R\" option."
-msgstr "lpadmin: Esperava nome após a opção \"-R\"."
+msgstr "Era esperado o nome após a opção \"-R\" para o lpadmin."
 
 msgid "lpadmin: Expected name=value after \"-o\" option."
-msgstr "lpadmin: Esperava nome=valor após a opção \"-o\"."
+msgstr "Era esperado o \"nome=valor\" após a opção \"-o\" para o lpadmin."
 
 msgid "lpadmin: Expected printer after \"-p\" option."
-msgstr "lpadmin: Esperava impressora após a opção \"-p\"."
+msgstr "Era esperado a impressora após a opção \"-p\" para o lpadmin."
 
 msgid "lpadmin: Expected printer name after \"-d\" option."
-msgstr "lpadmin: Esperava nome da impressora após a opção \"-d\"."
+msgstr "Era esperado o nome da impressora após a opção \"-d\" para o lpadmin."
 
 msgid "lpadmin: Expected printer or class after \"-x\" option."
-msgstr "lpadmin: Esperava impressora ou classe após a opção \"-x\"."
+msgstr ""
+"Era esperado a impressora ou a classe após a opção \"-x\" para o lpadmin."
 
 msgid "lpadmin: No member names were seen."
 msgstr "lpadmin: Nenhum nome de membros foi encontrado."
@@ -9040,27 +9043,30 @@ msgstr "lpc> "
 msgid "lpinfo: Expected 1284 device ID string after \"--device-id\"."
 msgstr ""
 "Era esperado um conjunto de caracteres do ID (identificador) do dispositivo "
-"1284 no lpinfo após o \"--device-id\"."
+"1284 após o \"--device-id\" para o lpinfo."
 
 msgid "lpinfo: Expected language after \"--language\"."
-msgstr "lpinfo: Esperava idioma após \"--language\"."
+msgstr "Era esperado o idioma após o \"--language\" para o lpinfo."
 
 msgid "lpinfo: Expected make and model after \"--make-and-model\"."
-msgstr "lpinfo: Esperava marca e modelo após \"--make-and-model\"."
+msgstr ""
+"Era esperado a marca e o modelo após o \"--make-and-model\" para o lpinfo."
 
 msgid "lpinfo: Expected product string after \"--product\"."
 msgstr ""
-"Era esperado o conjunto de caracteres do produto no lpinfo após o "
-"\"--product\"."
+"Era esperado o conjunto de caracteres do produto após o \"--product\" para o "
+"lpinfo."
 
 msgid "lpinfo: Expected scheme list after \"--exclude-schemes\"."
-msgstr "lpinfo: Esperava lista de esquemas após \"--exclude-schemes\"."
+msgstr ""
+"Era esperado a lista de esquemas após o \"--exclude-schemes\" para o lpinfo."
 
 msgid "lpinfo: Expected scheme list after \"--include-schemes\"."
-msgstr "lpinfo: Esperava lista de esquemas após \"--include-schemes\"."
+msgstr ""
+"Era esperado a lista de esquemas após o \"--include-schemes\" para o lpinfo."
 
 msgid "lpinfo: Expected timeout after \"--timeout\"."
-msgstr "lpinfo: Esperava tempo de espera após \"--timeout\"."
+msgstr "Era esperado o tempo de espera após o \"--timeout\" para o lpinfo."
 
 #, c-format
 msgid "lpmove: Unable to connect to server: %s"
@@ -12032,281 +12038,308 @@ msgstr "Conjunto de caracteres do post-dial-string"
 
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
-msgstr "ppdc: Adicionando diretório de inclusão \"%s\"."
+msgstr "Adicionando o diretório de inclusão \"%s\" para o ppdc."
 
 #, c-format
 msgid "ppdc: Adding/updating UI text from %s."
-msgstr "ppdc: Adicionando/atualizando texto de UI de %s."
+msgstr ""
+"Adicionando ou atualizando o texto da interface do usuário de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr "ppdc: Valor booleano inválido (%s) na linha %d de %s."
+msgstr "O valor booleano (%s) não é válido na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
-msgstr "ppdc: Atributo de fonte inválido: %s"
+msgstr "O atributo %s da fonte não é válido para o ppdc"
 
 #, c-format
 msgid "ppdc: Bad resolution name \"%s\" on line %d of %s."
-msgstr "ppdc: Nome de resolução inválido \"%s\" na linha %d de %s."
+msgstr "O nome da resolução \"%s\" não é válido na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Bad status keyword %s on line %d of %s."
-msgstr "ppdc: palavra-chave de estado inválida %s na linha %d de %s."
+msgstr ""
+"A palavra-chave do estado %s não é válida na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Bad variable substitution ($%c) on line %d of %s."
-msgstr "ppdc: Substituição de variável inválida ($%c) na linha %d de %s."
+msgstr ""
+"A substituição da variável ($%c) não é válida na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Choice found on line %d of %s with no Option."
-msgstr "ppdc: Escolha encontrada na linha %d de %s com nenhuma opção."
+msgstr ""
+"A escolha foi encontrada na linha %d de %s com nenhuma opção para o ppdc."
 
 #, c-format
 msgid "ppdc: Duplicate #po for locale %s on line %d of %s."
-msgstr "ppdc: Duplicata de #po para o local %s na linha %d de %s."
+msgstr "Duplicar o #po para a localidade %s na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected a filter definition on line %d of %s."
-msgstr "ppdc: Esperava a definição de um filtro na linha %d de %s."
+msgstr "Era esperado a definição de um filtro na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected a program name on line %d of %s."
-msgstr "ppdc: Esperava o nome de um programa na linha %d de %s."
+msgstr "Era esperado o nome de um programa na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected boolean value on line %d of %s."
-msgstr "ppdc: Esperava um valor booleano na linha %d de %s."
+msgstr "Era esperado um valor booleano na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected charset after Font on line %d of %s."
-msgstr "ppdc: Esperava conjunto de caracteres após Font na linha %d de %s."
+msgstr ""
+"Era esperado o conjunto de caracteres após o \"Font\" na linha %d de %s para "
+"o ppdc."
 
 #, c-format
 msgid "ppdc: Expected choice code on line %d of %s."
-msgstr "ppdc: Esperava código de escolha na linha %d de %s."
+msgstr "Era esperado o código da escolha na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected choice name/text on line %d of %s."
-msgstr "ppdc: Esperava texto/nome de escolha na linha %d de %s."
+msgstr ""
+"Era esperado o nome ou o texto da escolha na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected color order for ColorModel on line %d of %s."
-msgstr "ppdc: Esperava ordem de cores para ColorModel na linha %d de %s."
+msgstr ""
+"Era esperado a ordem de cores para o ColorModel na linha %d de %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Expected colorspace for ColorModel on line %d of %s."
-msgstr "ppdc: Esperava espaço de cores para ColorModel na linha %d de %s."
+msgstr ""
+"Era esperado o espaço da cores para o ColorModel na linha %d de %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Expected compression for ColorModel on line %d of %s."
-msgstr "ppdc: Esperava compressão para ColorModel na linha %d de %s."
+msgstr ""
+"Era esperado a compactação para o ColorModel na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected constraints string for UIConstraints on line %d of %s."
 msgstr ""
-"Era esperado um conjunto de caracteres de restrições para o UIConstraints no "
-"ppdc na linha %d de %s."
+"Era esperado um conjunto de caracteres das restrições para o UIConstraints "
+"na linha %d de %s para o ppdc."
 
 #, c-format
 msgid ""
 "ppdc: Expected driver type keyword following DriverType on line %d of %s."
 msgstr ""
-"ppdc: Esperava palavra-chave de tipo de driver seguindo DriverType na linha "
-"%d de %s."
+"Era esperado a palavra-chave do tipo do controlador após o DriverType na "
+"linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected duplex type after Duplex on line %d of %s."
-msgstr "ppdc: Esperava tipo Duplex após Duplex na linha %d de %s."
+msgstr ""
+"Era esperado o tipo do duplex (frente e verso) após o \"Duplex\" na linha %d "
+"de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected encoding after Font on line %d of %s."
-msgstr "ppdc: Esperava codificação após Font na linha %d de %s."
+msgstr ""
+"Era esperado a codificação após o \"Font\" na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected filename after #po %s on line %d of %s."
-msgstr "ppdc: Esperava nome de arquivo após #po %s na linha %d de %s."
+msgstr ""
+"Era esperado o nome do arquivo após o #po %s na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected group name/text on line %d of %s."
-msgstr "ppdc: Esperava text/nome de grupo na linha %d de %s."
+msgstr "Era esperado o texto ou o nome do grupo na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected include filename on line %d of %s."
-msgstr "ppdc: Esperava nome do arquivo a incluir na linha %d de %s."
+msgstr ""
+"Era esperado o nome do arquivo a ser incluso na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected integer on line %d of %s."
-msgstr "ppdc: Esperava número inteiro na linha %d de %s."
+msgstr "Era esperado um número inteiro na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected locale after #po on line %d of %s."
-msgstr "ppdc: Esperava local após #po na linha %d de %s."
+msgstr "Era esperado o \"locale\" após o #po na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name after %s on line %d of %s."
-msgstr "ppdc: Esperava nome após %s na linha %d de %s."
+msgstr "Era esperado o nome após o %s na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name after FileName on line %d of %s."
-msgstr "ppdc: Esperava nome após FileName na linha %d de %s."
+msgstr "Era esperado o nome após o FileName na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name after Font on line %d of %s."
-msgstr "ppdc: Esperava nome após Font na linha %d de %s."
+msgstr "Era esperado o nome após o Font na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name after Manufacturer on line %d of %s."
-msgstr "ppdc: Esperava nome após Manufacturer na linha %d de %s."
+msgstr "Era esperado o nome após o Manufacturer na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name after MediaSize on line %d of %s."
-msgstr "ppdc: Esperava nome após MediaSize na linha %d de %s."
+msgstr "Era esperado o nome após o MediaSize na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name after ModelName on line %d of %s."
-msgstr "ppdc: Esperava nome após ModelName na linha %d de %s."
+msgstr "Era esperado o nome após o ModelName na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name after PCFileName on line %d of %s."
-msgstr "ppdc: Esperava nome após PCFileName na linha %d de %s."
+msgstr "Era esperado o nome após o PCFileName na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name/text after %s on line %d of %s."
-msgstr "ppdc: Esperava nome/texto após %s na linha %d de %s."
+msgstr "Era esperado o nome ou o texto após o %s na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected name/text after Installable on line %d of %s."
-msgstr "ppdc: Esperava nome/texto após Installable na linha %d de %s."
+msgstr ""
+"Era esperado o nome ou o texto após o Installable na linha %d de %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Expected name/text after Resolution on line %d of %s."
-msgstr "ppdc: Esperava nome/texto após Resolution na linha %d de %s."
+msgstr ""
+"Era esperado o nome ou o texto após o Resolution na linha %d de %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Expected name/text combination for ColorModel on line %d of %s."
 msgstr ""
-"ppdc: Esperava combinação de nome/texto para ColorModel na linha %d de %s."
+"Era esperado a combinação do texto ou do nome para o ColorModel na linha %d "
+"de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected option name/text on line %d of %s."
-msgstr "ppdc: Esperava opção de nome/texto na linha %d de %s."
+msgstr "Era esperado o texto ou o nome da opção na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected option section on line %d of %s."
-msgstr "ppdc: Esperava opção de seção na linha %d de %s."
+msgstr "Era esperada a opção da seção na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected option type on line %d of %s."
-msgstr "ppdc: Esperava tipo da opção na linha %d de %s."
+msgstr "Era esperado o tipo da opção na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected override field after Resolution on line %d of %s."
 msgstr ""
-"ppdc: Esperava um campo de substituição após Resolution na linha %d de %s."
+"Era esperado o campo de substituição após o Resolution na linha %d de %s "
+"para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected quoted string on line %d of %s."
 msgstr ""
-"Era esperado um conjunto de caracteres entre aspas no ppdc na linha %d de %s."
+"Era esperado um conjunto de caracteres entre aspas na linha %d de %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Expected real number on line %d of %s."
-msgstr "ppdc: Esperava número real na linha %d de %s."
+msgstr "Era esperado um número real na linha %d de %s para o ppdc."
 
 #, c-format
 msgid ""
 "ppdc: Expected resolution/mediatype following ColorProfile on line %d of %s."
 msgstr ""
-"ppdc: Esperava resolução/tipo de mídia seguindo ColorProfile na linha %d de "
-"%s."
+"Era esperada a resolução ou o tipo da mídia após o ColorProfile na linha %d "
+"de %s para o ppdc."
 
 #, c-format
 msgid ""
 "ppdc: Expected resolution/mediatype following SimpleColorProfile on line %d "
 "of %s."
 msgstr ""
-"ppdc: Esperava resolução/tipo de mídia seguindo SimpleColorProfile na linha "
-"%d de %s."
+"Era esperada a resolução ou o tipo da mídia após SimpleColorProfile na linha "
+"%d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected selector after %s on line %d of %s."
-msgstr "ppdc: Esperava seletor após %s na linha %d de %s."
+msgstr "Era esperado o seletor após o %s na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected status after Font on line %d of %s."
-msgstr "ppdc: Esperava estado após Font na linha %d de %s."
+msgstr "Era esperado o estado após o Font na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected string after Copyright on line %d of %s."
 msgstr ""
 "Era esperado um conjunto de caracteres após o Copyright (direitos autorais) "
-"do ppdc na linha %d de %s."
+"na linha %d de %s do ppdc."
 
 #, c-format
 msgid "ppdc: Expected string after Version on line %d of %s."
 msgstr ""
-"Era esperado um conjunto de caracteres após o Version do ppdc na linha %d de "
-"%s."
+"Era esperado um conjunto de caracteres após o Version na linha %d de %s do "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Expected two option names on line %d of %s."
-msgstr "ppdc: Esperava nomes de duas opções na linha %d de %s."
+msgstr "Era esperado os nomes de duas opções na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected value after %s on line %d of %s."
-msgstr "ppdc: Esperava valor após %s na linha %d de %s."
+msgstr "Era esperado um valor após %s na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Expected version after Font on line %d of %s."
-msgstr "ppdc: Esperava versão após Font na linha %d de %s."
+msgstr "Era esperado a versão após o Font na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Invalid #include/#po filename \"%s\"."
-msgstr "O nome do arquivo \"%s\" do #include/#po para o ppdc não é válido."
+msgstr "O nome do arquivo \"%s\" do #include/#po não é válido para o ppdc."
 
 #, c-format
 msgid "ppdc: Invalid cost for filter on line %d of %s."
-msgstr "O cost (custo) para o filtro na linha %d de %s do ppdc não é válido."
+msgstr ""
+"O cost (custo) para o filtro na linha %d de %s não é válido para o ppdc."
 
 #, c-format
 msgid "ppdc: Invalid empty MIME type for filter on line %d of %s."
 msgstr ""
-"O tipo do MIME vazio ou em branco para o filtro na linha %d de %s do ppdc "
-"não é válido."
+"O tipo do MIME vazio ou em branco para o filtro na linha %d de %s não é "
+"válido para o ppdc."
 
 #, c-format
 msgid "ppdc: Invalid empty program name for filter on line %d of %s."
 msgstr ""
-"O nome do programa vazio ou em branco na linha %d de %s do ppdc não é válido."
+"O nome do programa vazio ou em branco na linha %d de %s não é válido para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Invalid option section \"%s\" on line %d of %s."
-msgstr "A opção da seção \"%s\" do ppdc na linha %d de %s não é válida."
+msgstr "A opção da seção \"%s\" na linha %d de %s não é válida para o ppdc."
 
 #, c-format
 msgid "ppdc: Invalid option type \"%s\" on line %d of %s."
-msgstr "A opção do tipo \"%s\" do ppdc na linha %d de %s não é válida."
+msgstr "A opção do tipo \"%s\" na linha %d de %s não é válida para o ppdc."
 
 #, c-format
 msgid "ppdc: Loading driver information file \"%s\"."
-msgstr "ppdc: Carregando arquivo \"%s\" de informações de driver."
+msgstr ""
+"Carregando o arquivo \"%s\" contendo as informações do controlador do ppdc."
 
 #, c-format
 msgid "ppdc: Loading messages for locale \"%s\"."
-msgstr "ppdc: Carregando mensagens para locale \"%s\"."
+msgstr "Carregando as mensagens para o locale (local) \"%s\" do ppdc."
 
 #, c-format
 msgid "ppdc: Loading messages from \"%s\"."
-msgstr "ppdc: Carregando mensagens de \"%s\"."
+msgstr "Carregando as mensagens de \"%s\" do ppdc."
 
 #, c-format
 msgid "ppdc: Missing #endif at end of \"%s\"."
-msgstr "ppdc: Faltando #endif ao final de \"%s\"."
+msgstr "Está faltando o #endif no final de \"%s\" para o ppdc."
 
 #, c-format
 msgid "ppdc: Missing #if on line %d of %s."
-msgstr "ppdc: Faltando #if na linha %d de %s."
+msgstr "Está faltando o #if na linha %d de %s para o ppdc."
 
 #, c-format
 msgid ""
@@ -12317,35 +12350,42 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: No message catalog provided for locale %s."
-msgstr "ppdc: Nenhum catálogo de mensagens fornecido para o locale %s."
+msgstr ""
+"Nenhum catálogo de mensagens foi fornecido para o locale (local) %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Option %s defined in two different groups on line %d of %s."
-msgstr "ppdc: Opção %s definida em dois grupos diferentes na linha %d de %s."
+msgstr ""
+"A opção %s foi definida em dois grupos diferentes na linha %d de %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Option %s redefined with a different type on line %d of %s."
-msgstr "ppdc: Opção %s redefinida com um tipo diferente na linha %d de %s."
+msgstr ""
+"A opção %s foi redefinida com um tipo diferente na linha %d de %s para o "
+"ppdc."
 
 #, c-format
 msgid "ppdc: Option constraint must *name on line %d of %s."
-msgstr "ppdc: Restrição da opção deve *name na linha %d de %s."
+msgstr ""
+"A restrição da opção tem que conter *name na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Too many nested #if's on line %d of %s."
-msgstr "ppdc: Muitos #if aninhados demais na linha %d de %s."
+msgstr "Existem muitos #if aninhados na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Unable to create PPD file \"%s\" - %s."
-msgstr "ppdc: Não foi possível criar o arquivo PPD \"%s\" - %s."
+msgstr "Não foi possível criar o arquivo PPD \"%s\" de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Unable to create output directory %s: %s"
-msgstr "ppdc: Não foi possível criar diretório de saída %s: %s"
+msgstr "Não foi possível criar o diretório de saída %s de %s para o ppdc"
 
 #, c-format
 msgid "ppdc: Unable to create output pipes: %s"
-msgstr "ppdc: Não foi possível criar redirecionamento de saída: %s"
+msgstr "Não foi possível criar o redirecionamento da saída %s para o ppdc"
 
 #, c-format
 msgid "ppdc: Unable to execute cupstestppd: %s"
@@ -12353,49 +12393,54 @@ msgstr "Não foi possível executar o %s do cupstestppd para o ppdc"
 
 #, c-format
 msgid "ppdc: Unable to find #po file %s on line %d of %s."
-msgstr "ppdc: Não foi possível encontrar arquivo #po %s na linha %d de %s."
+msgstr ""
+"Não foi possível encontrar o arquivo #po %s na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Unable to find include file \"%s\" on line %d of %s."
 msgstr ""
-"ppdc: Não foi possível encontrar o arquivo a incluir \"%s\" na linha %d de "
-"%s."
+"Não foi possível encontrar o arquivo \"%s\" a ser incluído na linha %d de %s "
+"para o ppdc."
 
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
-msgstr "ppdc: Não foi possível encontrar localização para \"%s\" - %s"
+msgstr "Não foi possível encontrar a localização \"%s\" de %s para o ppdc"
 
 #, c-format
 msgid "ppdc: Unable to load localization file \"%s\" - %s"
-msgstr "ppdc: Não foi possível carregar arquivo de localização \"%s\" - %s"
+msgstr ""
+"Não foi possível carregar o arquivo da localização \"%s\" de %s para o ppdc"
 
 #, c-format
 msgid "ppdc: Unable to open %s: %s"
-msgstr "ppdc: Não foi possível abrir %s: %s"
+msgstr "Não foi possível abrir o %s de %s para o ppdc"
 
 #, c-format
 msgid "ppdc: Undefined variable (%s) on line %d of %s."
-msgstr "ppdc: Variável indefinida (%s) na linha %d de %s."
+msgstr "A variável (%s) não foi definida na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Unexpected text on line %d of %s."
-msgstr "ppdc: Texto inesperado na linha %d de %s."
+msgstr "O texto não era esperado na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Unknown driver type %s on line %d of %s."
-msgstr "ppdc: Tipo de driver %s desconhecido na linha %d de %s."
+msgstr "O tipo do controlador %s não é conhecido na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Unknown duplex type \"%s\" on line %d of %s."
-msgstr "ppdc: Tipo de duplex desconhecido \"%s\" na linha %d de %s."
+msgstr ""
+"O tipo do duplex (frente e verso) \"%s\" não é conhecido na linha %d de %s "
+"para o ppdc."
 
 #, c-format
 msgid "ppdc: Unknown media size \"%s\" on line %d of %s."
-msgstr "ppdc: Tamanho de mídia desconhecido \"%s\" na linha %d de %s."
+msgstr ""
+"O tamanho da mídia \"%s\" não é conhecido na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Unknown message catalog format for \"%s\"."
-msgstr "ppdc: Formato de catálogo de mensagens desconhecido para \"%s\"."
+msgstr "O formato do catálogo das mensagens \"%s\" não é conhecido para o ppdc."
 
 #, c-format
 msgid "ppdc: Unknown token \"%s\" seen on line %d of %s."
@@ -12407,24 +12452,25 @@ msgstr ""
 msgid ""
 "ppdc: Unknown trailing characters in real number \"%s\" on line %d of %s."
 msgstr ""
-"ppdc: Caractere final desconhecido em número real \"%s\" na linha %d de %s."
+"O caractere final no número real \"%s\" não é conhecido na linha %d de %s "
+"para o ppdc."
 
 #, c-format
 msgid "ppdc: Unterminated string starting with %c on line %d of %s."
 msgstr ""
-"O texto %c que foi iniciado do ppdc não foi finalizado na linha %d de %s."
+"O texto %c que foi iniciado não foi finalizado na linha %d de %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Warning - overlapping filename \"%s\"."
-msgstr "ppdc: Aviso - nome de arquivo em sobreposição \"%s\"."
+msgstr "Aviso. O nome do arquivo está sobreposto a \"%s\" para o ppdc."
 
 #, c-format
 msgid "ppdc: Writing %s."
-msgstr "ppdc: Gravando %s."
+msgstr "Gravando %s para o ppdc."
 
 #, c-format
 msgid "ppdc: Writing PPD files to directory \"%s\"."
-msgstr "ppdc: Gravando arquivos PPD para a pasta \"%s\"."
+msgstr "Gravando os arquivos PPD no diretório \"%s\" para o ppdc."
 
 #, c-format
 msgid "ppdmerge: Bad LanguageVersion \"%s\" in %s."
@@ -14185,6 +14231,8 @@ msgstr ""
 #. TRANSLATORS: Media Path Cannot Do 2-Sided Printing
 msgid "printer-state-reasons.media-path-cannot-duplex-media-selected"
 msgstr ""
+"O caminho da mídia não pode fazer a impressão frente e verso do printer-"
+"state-reasons.media-path-cannot-duplex-media-selected"
 
 #. TRANSLATORS: Media Path Failure
 msgid "printer-state-reasons.media-path-failure"
@@ -16348,19 +16396,19 @@ msgstr ""
 
 #. TRANSLATORS: Every Document
 msgid "trimming-when.after-documents"
-msgstr ""
+msgstr "Cada documento do trimming-when.after-documents"
 
 #. TRANSLATORS: Job
 msgid "trimming-when.after-job"
-msgstr ""
+msgstr "Trabalho do trimming-when.after-job"
 
 #. TRANSLATORS: Every Set
 msgid "trimming-when.after-sets"
-msgstr ""
+msgstr "Todas as páginas do trimming-when.after-sets"
 
 #. TRANSLATORS: Every Page
 msgid "trimming-when.after-sheets"
-msgstr ""
+msgstr "Cada página do trimming-when.after-sheets"
 
 msgid "unknown"
 msgstr "desconhecido"
