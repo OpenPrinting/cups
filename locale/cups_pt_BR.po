@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-25 16:06+0000\n"
+"PO-Revision-Date: 2025-06-26 18:02+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -5434,7 +5434,7 @@ msgid "There are too many subscriptions."
 msgstr "Existe uma quantidade muito grande de assinaturas."
 
 msgid "There was an unrecoverable USB error."
-msgstr "Ocorreu um erro no USB que não é recuperável."
+msgstr "Ocorreu um erro no USB que não pode ser restaurado."
 
 msgid "Thermal Transfer Media"
 msgstr "Mídia de transferência térmica"
@@ -6422,11 +6422,11 @@ msgstr "Frente e verso do cover-type.print-both"
 
 #. TRANSLATORS: Front Only
 msgid "cover-type.print-front"
-msgstr "Somente frente do cover-type.print-front"
+msgstr "Somente a frente do cover-type.print-front"
 
 #. TRANSLATORS: None
 msgid "cover-type.print-none"
-msgstr "Nenhum do cover-type.print-none"
+msgstr "Não tem o cover-type.print-none"
 
 #. TRANSLATORS: Cover Output
 msgid "covering"
@@ -6589,81 +6589,82 @@ msgid "cups-x509: No request for '%s'."
 msgstr "Nenhuma requisição para o '%s' do cups-x509."
 
 msgid "cups-x509: Too many subjectAltName values."
-msgstr ""
+msgstr "Existem muitos valores para o subjectAltName do cups-x509."
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr ""
+msgstr "Não foi possível aceitar a conexão %s para o cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
-msgstr ""
+msgstr "Não foi possível acessar '%s' de %s para o cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "Não foi possível alocar a memória para '%s' de %s do cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
-msgstr ""
+msgstr "Não foi possível conectar '%s' na porta %d de %s para o cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr ""
+msgstr "Não foi possível criar o certificado %s para o cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr "Não foi possível criar a requisição %s do certificado do cups-x509"
+msgstr "Não foi possível criar a requisição %s do certificado para o cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
-msgstr ""
+msgstr "Não foi possível criptografar a conexão %s para o cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate for '%s'."
 msgstr ""
+"Não foi possível obter o certificado que foi gerado para o '%s' do cups-x509."
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
 msgstr ""
-"Não foi possível obter a requisição '%s' para a geração do certificado do "
-"cups-x509."
+"Não foi possível obter a requisição para a geração do certificado para o "
+"'%s' do cups-x509."
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
-msgstr ""
+msgstr "Não foi possível obter a chave privada gerada para '%s' do cups-x509."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
-msgstr ""
+msgstr "Não foi possível escutar a porta %d de %s do cups-x509"
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
-msgstr ""
+msgstr "Não foi possível ler '%s' do cups-x509."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
-msgstr ""
+msgstr "Não foi possível iniciar '%s' de %s do cups-x509"
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "O comando '%s' não é conhecido para o cups-x509."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
-msgstr "cupsctl: Não é possível definir %s diretamente."
+msgstr "Não foi possível definir diretamente %s para o cupsctl."
 
 #, c-format
 msgid "cupsctl: Unable to connect to server: %s"
-msgstr "cupsctl: Não foi possível conectar o servidor: %s"
+msgstr "Não foi possível conectar ao servidor %s para o cupsctl"
 
 #, c-format
 msgid "cupsctl: Unknown option \"%s\""
-msgstr "cupsctl: Opção desconhecida \"%s\""
+msgstr "A opção \"%s\" não é conhecida para o cupsctl"
 
 #, c-format
 msgid "cupsctl: Unknown option \"-%c\""
-msgstr "cupsctl: Opção desconhecida \"-%c\""
+msgstr "A opção \"-%c\" não é conhecida para o cupsctl"
 
 msgid "cupsd: Expected config filename after \"-c\" option."
 msgstr ""
@@ -6676,51 +6677,52 @@ msgstr ""
 
 msgid "cupsd: On-demand support not compiled in, running in normal mode."
 msgstr ""
-"cupsd: Suporte à funcionalidade sob demanda não compilado, executando em "
-"modo normal."
+"A funcionalidade sob demanda não é compatível nesta compilação, por tanto, "
+"será executado o modo normal para o cupsd."
 
 msgid "cupsd: Relative cups-files.conf filename not allowed."
-msgstr "cupsd: Nome de arquivo relativo para cups-files.conf não é permitido."
+msgstr ""
+"O nome do arquivo relativo ao cups-files.conf não é permitido para o cupsd."
 
 msgid "cupsd: Unable to get current directory."
-msgstr "cupsd: Não é possível obter diretório atual."
+msgstr "Não foi possível obter o diretório atual para o cupsd."
 
 msgid "cupsd: Unable to get path to cups-files.conf file."
 msgstr ""
-"cupsd: Não foi possível obter o caminho para o arquivo cups-files.conf."
+"Não foi possível obter o caminho para o arquivo cups-files.conf para o cupsd."
 
 #, c-format
 msgid "cupsd: Unknown argument \"%s\" - aborting."
-msgstr "cupsd: Argumento desconhecido \"%s\" - abortando."
+msgstr "O argumento \"%s\" não é conhecido para o cupsd e a ação será abortada."
 
 #, c-format
 msgid "cupsd: Unknown option \"%c\" - aborting."
-msgstr "cupsd: Opção desconhecida \"%c\" - abortando."
+msgstr "A opção \"%c\" não é conhecida para o cupsd e a ação será abortada."
 
 #, c-format
 msgid "cupsfilter: Invalid document number %d."
-msgstr "O número do documento %d do cupsfilter não é válido."
+msgstr "O número do documento %d não é válido para o cupsfilter."
 
 #, c-format
 msgid "cupsfilter: Invalid job ID %d."
-msgstr "O ID (identificador) do trabalho %d do cupsfilter não é válido."
+msgstr "O ID (identificador) do trabalho %d não é válido para o cupsfilter."
 
 msgid "cupsfilter: Only one filename can be specified."
-msgstr "cupsfilter: Somente um nome de arquivo pode ser especificado."
+msgstr "Somente um nome do arquivo pode ser especificado para o cupsfilter."
 
 #, c-format
 msgid "cupsfilter: Unable to get job file - %s"
-msgstr "cupsfilter: Não é possível obter o arquivo do trabalho - %s"
+msgstr "Não foi possível obter o arquivo do trabalho %s para o cupsfilter"
 
 msgid "cupstestppd: The -q option is incompatible with the -v option."
-msgstr "cupstestppd: A opção -q é incompatível com a opção -v."
+msgstr "A opção -q é não é compatível com a opção -v para o cupstestppd."
 
 msgid "cupstestppd: The -v option is incompatible with the -q option."
-msgstr "cupstestppd: A opção -v é incompatível com a opção -q."
+msgstr "A opção -v é não é compatível com a opção -q para o cupstestppd."
 
 #. TRANSLATORS: Detailed Status Message
 msgid "detailed-status-message"
-msgstr "Mensagem de status detalhada"
+msgstr "Mensagem detalhada do estado para o detailed-status-message"
 
 #, c-format
 msgid "device for %s/%s: %s"
@@ -6732,31 +6734,32 @@ msgstr "dispositivo de %s: %s"
 
 #. TRANSLATORS: Copies
 msgid "document-copies"
-msgstr "Cópias"
+msgstr "Cópias do document-copies"
 
 #. TRANSLATORS: Document Privacy Attributes
 msgid "document-privacy-attributes"
-msgstr ""
+msgstr "Atributos de privacidade do documento do document-privacy-attributes"
 
 #. TRANSLATORS: All
 msgid "document-privacy-attributes.all"
-msgstr "Todos"
+msgstr "Todos do document-privacy-attributes.all"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-attributes.default"
-msgstr "Padrão"
+msgstr "Padrão do document-privacy-attributes.default"
 
 #. TRANSLATORS: Document Description
 msgid "document-privacy-attributes.document-description"
-msgstr "Descrição do Documento"
+msgstr ""
+"Descrição do documento do document-privacy-attributes.document-description"
 
 #. TRANSLATORS: Document Template
 msgid "document-privacy-attributes.document-template"
-msgstr ""
+msgstr "Modelo do documento do document-privacy-attributes.document-template"
 
 #. TRANSLATORS: None
 msgid "document-privacy-attributes.none"
-msgstr "Nenhum"
+msgstr "Nenhum do document-privacy-attributes.none"
 
 #. TRANSLATORS: Document Privacy Scope
 msgid "document-privacy-scope"
@@ -6780,134 +6783,163 @@ msgstr "Proprietário do document-privacy-scope.owner"
 
 #. TRANSLATORS: Document State
 msgid "document-state"
-msgstr ""
+msgstr "Estado do documento do document-state"
 
 #. TRANSLATORS: Detailed Document State
 msgid "document-state-reasons"
-msgstr "Estado Detalhado do Documento"
+msgstr "Estado detalhado do documento do document-state-reasons"
 
 #. TRANSLATORS: Aborted By System
 msgid "document-state-reasons.aborted-by-system"
-msgstr ""
+msgstr "O document-state-reasons.aborted-by-system foi abortado pelo sistema"
 
 #. TRANSLATORS: Canceled At Device
 msgid "document-state-reasons.canceled-at-device"
-msgstr "Cancelado no Dispositivo"
+msgstr ""
+"O document-state-reasons.canceled-at-device foi cancelado no dispositivo"
 
 #. TRANSLATORS: Canceled By Operator
 msgid "document-state-reasons.canceled-by-operator"
-msgstr "Cancelado por Operador"
+msgstr ""
+"O document-state-reasons.canceled-by-operator foi cancelado pelo operador"
 
 #. TRANSLATORS: Canceled By User
 msgid "document-state-reasons.canceled-by-user"
-msgstr "Cancelado por Usuário"
+msgstr "O document-state-reasons.canceled-by-user foi cancelado pelo usuário"
 
 #. TRANSLATORS: Completed Successfully
 msgid "document-state-reasons.completed-successfully"
 msgstr ""
-"Foi concluído com sucesso o document-state-reasons.completed-successfully"
+"O document-state-reasons.completed-successfully foi concluído com sucesso"
 
 #. TRANSLATORS: Completed With Errors
 msgid "document-state-reasons.completed-with-errors"
-msgstr "Foi concluído com erros document-state-reasons.completed-with-errors"
+msgstr "O document-state-reasons.completed-with-errors foi concluído com erros"
 
 #. TRANSLATORS: Completed With Warnings
 msgid "document-state-reasons.completed-with-warnings"
-msgstr "Foi concluído com avisos document-state-reasons.completed-with-warnings"
+msgstr ""
+"O document-state-reasons.completed-with-warnings foi concluído com avisos"
 
 #. TRANSLATORS: Compression Error
 msgid "document-state-reasons.compression-error"
-msgstr "Erro de Compressão"
+msgstr ""
+"Ocorreu um erro de compactação no document-state-reasons.compression-error"
 
 #. TRANSLATORS: Data Insufficient
 msgid "document-state-reasons.data-insufficient"
-msgstr "Dados Insuficientes"
+msgstr ""
+"O dados não são suficientes para o document-state-reasons.data-insufficient"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "document-state-reasons.digital-signature-did-not-verify"
-msgstr "Assinatura Digital Não Correspondeu"
+msgstr ""
+"A assinatura digital não correspondeu com o document-state-reasons.digital-"
+"signature-did-not-verify"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "document-state-reasons.digital-signature-type-not-supported"
 msgstr ""
-"O tipo da assinatura digital não é compatível para o document-state-reasons"
+"O tipo da assinatura digital não é compatível com o document-state-reasons"
 ".digital-signature-type-not-supported"
 
 #. TRANSLATORS: Digital Signature Wait
 msgid "document-state-reasons.digital-signature-wait"
 msgstr ""
+"O document-state-reasons.digital-signature-wait está aguardando a assinatura "
+"digital"
 
 #. TRANSLATORS: Document Access Error
 msgid "document-state-reasons.document-access-error"
-msgstr "Erro de Acesso a Documento"
+msgstr ""
+"Ocorreu um erro de acesso ao documento document-state-reasons.document-"
+"access-error"
 
 #. TRANSLATORS: Document Fetchable
 msgid "document-state-reasons.document-fetchable"
-msgstr "Documento Buscável"
+msgstr ""
+"O documento que pode ser obtido pelo document-state-reasons.document-"
+"fetchable"
 
 #. TRANSLATORS: Document Format Error
 msgid "document-state-reasons.document-format-error"
-msgstr "Erro de Formato de Documento"
+msgstr ""
+"Ocorreu um erro no formato do documento para o document-state-reasons"
+".document-format-error"
 
 #. TRANSLATORS: Document Password Error
 msgid "document-state-reasons.document-password-error"
-msgstr "Erro de Senha de Documento"
+msgstr ""
+"Ocorreu um erro na senha do documento document-state-reasons.document-"
+"password-error"
 
 #. TRANSLATORS: Document Permission Error
 msgid "document-state-reasons.document-permission-error"
-msgstr "Erro de Permissão de Documento"
+msgstr ""
+"Ocorreu um erro na permissão do documento document-state-reasons.document-"
+"permission-error"
 
 #. TRANSLATORS: Document Security Error
 msgid "document-state-reasons.document-security-error"
-msgstr "Erro de Segurança de Documento"
+msgstr ""
+"Ocorreu um erro de segurança no documento document-state-reasons.document-"
+"security-error"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "document-state-reasons.document-unprintable-error"
-msgstr "Erro de Documento Não Imprimível"
+msgstr ""
+"Ocorreu um erro no documentodo cument-state-reasons.document-unprintable-"
+"error e não pode ser impresso"
 
 #. TRANSLATORS: Errors Detected
 msgid "document-state-reasons.errors-detected"
-msgstr "Erros Detectados"
+msgstr "Foram detectados erros no document-state-reasons.errors-detected"
 
 #. TRANSLATORS: Incoming
 msgid "document-state-reasons.incoming"
-msgstr ""
+msgstr "O document-state-reasons.incoming está entrando"
 
 #. TRANSLATORS: Interpreting
 msgid "document-state-reasons.interpreting"
-msgstr ""
+msgstr "O document-state-reasons.interpreting está sendo interpretado"
 
 #. TRANSLATORS: None
 msgid "document-state-reasons.none"
-msgstr "Nenhum"
+msgstr "Não tem o document-state-reasons.none"
 
 #. TRANSLATORS: Outgoing
 msgid "document-state-reasons.outgoing"
-msgstr "Saindo"
+msgstr "O document-state-reasons.outgoing está saindo"
 
 #. TRANSLATORS: Printing
 msgid "document-state-reasons.printing"
-msgstr "Imprimindo"
+msgstr "Imprimindo o document-state-reasons.printing"
 
 #. TRANSLATORS: Processing To Stop Point
 msgid "document-state-reasons.processing-to-stop-point"
-msgstr "Processando até Parada"
+msgstr ""
+"Processando o document-state-reasons.processing-to-stop-point até o ponto de "
+"parada"
 
 #. TRANSLATORS: Queued
 msgid "document-state-reasons.queued"
-msgstr "Enfileirado"
+msgstr "Enfileirando document-state-reasons.queued"
 
 #. TRANSLATORS: Queued For Marker
 msgid "document-state-reasons.queued-for-marker"
 msgstr ""
+"Enfileirando o documento preferido document-state-reasons.queued-for-marker"
 
 #. TRANSLATORS: Queued In Device
 msgid "document-state-reasons.queued-in-device"
-msgstr "Enfileirado no Dispositivo"
+msgstr ""
+"O document-state-reasons.queued-in-device está enfileirado no dispositivo"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "document-state-reasons.resources-are-not-ready"
-msgstr "Recursos Não Estão Prontos"
+msgstr ""
+"Os recursos não estão prontos para o document-state-reasons.resources-are-"
+"not-ready"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "document-state-reasons.resources-are-not-supported"
@@ -6917,11 +6949,12 @@ msgstr ""
 
 #. TRANSLATORS: Submission Interrupted
 msgid "document-state-reasons.submission-interrupted"
-msgstr "Submissão Interrompida"
+msgstr ""
+"O envio do document-state-reasons.submission-interrupted foi interrompido"
 
 #. TRANSLATORS: Transforming
 msgid "document-state-reasons.transforming"
-msgstr "Transformando"
+msgstr "Transformando o document-state-reasons.transforming"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "document-state-reasons.unsupported-compression"
@@ -6937,37 +6970,39 @@ msgstr ""
 
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
-msgstr "Avisos Detectados"
+msgstr ""
+"Foram detectados alguns avisos para o document-state-reasons.warnings-"
+"detected"
 
 #. TRANSLATORS: Pending
 msgid "document-state.3"
-msgstr "Pendente"
+msgstr "O document-state.3 está pendente"
 
 #. TRANSLATORS: Processing
 msgid "document-state.5"
-msgstr "Processando"
+msgstr "O document-state.5 está sendo processando"
 
 #. TRANSLATORS: Stopped
 msgid "document-state.6"
-msgstr "Parado"
+msgstr "O document-state.6 está parado"
 
 #. TRANSLATORS: Canceled
 msgid "document-state.7"
-msgstr "Cancelado"
+msgstr "O document-state.7 foi cancelado"
 
 #. TRANSLATORS: Aborted
 msgid "document-state.8"
-msgstr "Abortado"
+msgstr "O document-state.8 foi abortado"
 
 #. TRANSLATORS: Completed
 msgid "document-state.9"
-msgstr "Completado"
+msgstr "O document-state.9 foi completado com sucesso"
 
 msgid "error-index uses indefinite length"
-msgstr "error-index usa comprimento indefinido"
+msgstr "O error-index utiliza um comprimento que não é definido"
 
 msgid "error-status uses indefinite length"
-msgstr "error-status usa comprimento indefinido"
+msgstr "O error-status utiliza um comprimento que não é definido"
 
 msgid ""
 "expression --and expression\n"
@@ -6988,59 +7023,59 @@ msgstr "expressão expressão     E lógico"
 
 #. TRANSLATORS: Feed Orientation
 msgid "feed-orientation"
-msgstr "Orientação de alimentação"
+msgstr "Orientação da alimentação do feed-orientation"
 
 #. TRANSLATORS: Long Edge First
 msgid "feed-orientation.long-edge-first"
-msgstr "Borda Longa Primeiro"
+msgstr "Borda longa para o primeiro do feed-orientation.long-edge-first"
 
 #. TRANSLATORS: Short Edge First
 msgid "feed-orientation.short-edge-first"
-msgstr "Borda Curta Primeiro"
+msgstr "Borda curta para o primeiro do feed-orientation.short-edge-first"
 
 #. TRANSLATORS: Fetch Status Code
 msgid "fetch-status-code"
-msgstr "Obter Código de Status"
+msgstr "Obter o código do estado para o fetch-status-code"
 
 #. TRANSLATORS: Finishing Template
 msgid "finishing-template"
-msgstr ""
+msgstr "Modelo do acabamento do finishing-template"
 
 #. TRANSLATORS: Bale
 msgid "finishing-template.bale"
-msgstr ""
+msgstr "Fardo do finishing-template.bale"
 
 #. TRANSLATORS: Bind
 msgid "finishing-template.bind"
-msgstr ""
+msgstr "Ligar o finishing-template.bind"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishing-template.bind-bottom"
-msgstr ""
+msgstr "Botão para ligar o finishing-template.bind-bottom"
 
 #. TRANSLATORS: Bind Left
 msgid "finishing-template.bind-left"
-msgstr ""
+msgstr "Ligar à esquerda o finishing-template.bind-left"
 
 #. TRANSLATORS: Bind Right
 msgid "finishing-template.bind-right"
-msgstr ""
+msgstr "Ligar à direita o finishing-template.bind-right"
 
 #. TRANSLATORS: Bind Top
 msgid "finishing-template.bind-top"
-msgstr ""
+msgstr "Ligar à cima o finishing-template.bind-top"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishing-template.booklet-maker"
-msgstr ""
+msgstr "Criar livretos com o finishing-template.booklet-maker"
 
 #. TRANSLATORS: Coat
 msgid "finishing-template.coat"
-msgstr ""
+msgstr "Revestimento do finishing-template.coat"
 
 #. TRANSLATORS: Cover
 msgid "finishing-template.cover"
-msgstr ""
+msgstr "Capa do finishing-template.cover"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishing-template.edge-stitch"
@@ -8206,11 +8241,11 @@ msgstr "Cópias"
 
 #. TRANSLATORS: Back Cover
 msgid "job-cover-back"
-msgstr ""
+msgstr "Contracapa do job-cover-back"
 
 #. TRANSLATORS: Front Cover
 msgid "job-cover-front"
-msgstr ""
+msgstr "Capa do job-cover-front"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until"
@@ -12835,10 +12870,11 @@ msgstr ""
 #. TRANSLATORS: Bander Cover Closed
 msgid "printer-state-reasons.bander-cover-closed"
 msgstr ""
+"A tampa da bandeja printer-state-reasons.bander-cover-closed está fechada"
 
 #. TRANSLATORS: Bander Cover Open
 msgid "printer-state-reasons.bander-cover-open"
-msgstr ""
+msgstr "A tampa da bandeja printer-state-reasons.bander-cover-open está aberta"
 
 #. TRANSLATORS: Bander Empty
 msgid "printer-state-reasons.bander-empty"
@@ -12903,10 +12939,14 @@ msgstr ""
 #. TRANSLATORS: Bander Recoverable Failure
 msgid "printer-state-reasons.bander-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha na bandeja do printer-state-reasons.bander-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Bander Recoverable Storage
 msgid "printer-state-reasons.bander-recoverable-storage"
 msgstr ""
+"O armazenamento da bandeja printer-state-reasons.bander-recoverable-storage "
+"pode ser restaurado"
 
 #. TRANSLATORS: Bander Removed
 msgid "printer-state-reasons.bander-removed"
@@ -12943,10 +12983,14 @@ msgstr ""
 #. TRANSLATORS: Bander Unrecoverable Failure
 msgid "printer-state-reasons.bander-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha na bandeja do printer-state-reasons.bander-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Bander Unrecoverable Storage Error
 msgid "printer-state-reasons.bander-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro no armazenamento da bandeja printer-state-reasons.bander-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Bander Warming Up
 msgid "printer-state-reasons.bander-warming-up"
@@ -12978,11 +13022,11 @@ msgstr ""
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr ""
+msgstr "A bandeja do printer-state-reasons.binder-cover-closed está fechada"
 
 #. TRANSLATORS: Binder Cover Open
 msgid "printer-state-reasons.binder-cover-open"
-msgstr ""
+msgstr "A bandeja do printer-state-reasons.binder-cover-open está aberta"
 
 #. TRANSLATORS: Binder Empty
 msgid "printer-state-reasons.binder-empty"
@@ -13047,10 +13091,14 @@ msgstr ""
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha de aglutinação no printer-state-reasons.binder-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
 msgstr ""
+"O armazenamento da bandeja do printer-state-reasons.binder-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Binder Removed
 msgid "printer-state-reasons.binder-removed"
@@ -13087,10 +13135,14 @@ msgstr ""
 #. TRANSLATORS: Binder Unrecoverable Failure
 msgid "printer-state-reasons.binder-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha na bandeja do printer-state-reasons.binder-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Unrecoverable Storage Error
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro no armazenamento da bandeja printer-state-reasons.binder-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
@@ -13138,7 +13190,7 @@ msgstr ""
 
 #. TRANSLATORS: Cover Open
 msgid "printer-state-reasons.cover-open"
-msgstr ""
+msgstr "A tampa do printer-state-reasons.cover-open está aberta"
 
 #. TRANSLATORS: Deactivated
 msgid "printer-state-reasons.deactivated"
@@ -13179,10 +13231,13 @@ msgstr ""
 #. TRANSLATORS: Die Cutter Cover Closed
 msgid "printer-state-reasons.die-cutter-cover-closed"
 msgstr ""
+"A tampa do cortador printer-state-reasons.die-cutter-cover-closed está "
+"fechada"
 
 #. TRANSLATORS: Die Cutter Cover Open
 msgid "printer-state-reasons.die-cutter-cover-open"
 msgstr ""
+"A tampa do cortador printer-state-reasons.die-cutter-cover-open está aberta"
 
 #. TRANSLATORS: Die Cutter Empty
 msgid "printer-state-reasons.die-cutter-empty"
@@ -13247,10 +13302,14 @@ msgstr ""
 #. TRANSLATORS: Die Cutter Recoverable Failure
 msgid "printer-state-reasons.die-cutter-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no cortador do printer-state-reasons.die-cutter-"
+"recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Die Cutter Recoverable Storage
 msgid "printer-state-reasons.die-cutter-recoverable-storage"
 msgstr ""
+"O armazenamento do cortador printer-state-reasons.die-cutter-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Die Cutter Removed
 msgid "printer-state-reasons.die-cutter-removed"
@@ -13287,10 +13346,14 @@ msgstr ""
 #. TRANSLATORS: Die Cutter Unrecoverable Failure
 msgid "printer-state-reasons.die-cutter-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no cortador do printer-state-reasons.die-cutter-"
+"unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Die Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.die-cutter-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro no armazenamento do cortador printer-state-reasons.die-"
+"cutter-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
@@ -13374,11 +13437,11 @@ msgstr ""
 
 #. TRANSLATORS: Folder Cover Closed
 msgid "printer-state-reasons.folder-cover-closed"
-msgstr ""
+msgstr "A capa da pasta printer-state-reasons.folder-cover-closed está fechada"
 
 #. TRANSLATORS: Folder Cover Open
 msgid "printer-state-reasons.folder-cover-open"
-msgstr ""
+msgstr "A capa da pasta pprinter-state-reasons.folder-cover-open está aberta"
 
 #. TRANSLATORS: Folder Empty
 msgid "printer-state-reasons.folder-empty"
@@ -13443,10 +13506,14 @@ msgstr ""
 #. TRANSLATORS: Folder Recoverable Failure
 msgid "printer-state-reasons.folder-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha na pasta printer-state-reasons.folder-recoverable-failure "
+"que pode ser restaurado"
 
 #. TRANSLATORS: Folder Recoverable Storage
 msgid "printer-state-reasons.folder-recoverable-storage"
 msgstr ""
+"A pasta de armazenamento printer-state-reasons.folder-recoverable-storage "
+"pode ser restaurado"
 
 #. TRANSLATORS: Folder Removed
 msgid "printer-state-reasons.folder-removed"
@@ -13483,10 +13550,14 @@ msgstr ""
 #. TRANSLATORS: Folder Unrecoverable Failure
 msgid "printer-state-reasons.folder-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha na pasta printer-state-reasons.folder-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Folder Unrecoverable Storage Error
 msgid "printer-state-reasons.folder-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro na pasta de armazenamento printer-state-reasons.folder-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Folder Warming Up
 msgid "printer-state-reasons.folder-warming-up"
@@ -13537,10 +13608,13 @@ msgstr ""
 #. TRANSLATORS: Imprinter Cover Closed
 msgid "printer-state-reasons.imprinter-cover-closed"
 msgstr ""
+"A tampa da impressora printer-state-reasons.imprinter-cover-closed está "
+"fechada"
 
 #. TRANSLATORS: Imprinter Cover Open
 msgid "printer-state-reasons.imprinter-cover-open"
 msgstr ""
+"A tampa da impressora printer-state-reasons.imprinter-cover-open está aberta"
 
 #. TRANSLATORS: Imprinter Empty
 msgid "printer-state-reasons.imprinter-empty"
@@ -13605,10 +13679,14 @@ msgstr ""
 #. TRANSLATORS: Imprinter Recoverable Failure
 msgid "printer-state-reasons.imprinter-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha na impressora printer-state-reasons.imprinter-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Imprinter Recoverable Storage
 msgid "printer-state-reasons.imprinter-recoverable-storage"
 msgstr ""
+"Ocorreu uma falha no armazenamento da impressora printer-state-reasons"
+".imprinter-recoverable-storage que não pode ser restaurado"
 
 #. TRANSLATORS: Imprinter Removed
 msgid "printer-state-reasons.imprinter-removed"
@@ -13645,10 +13723,14 @@ msgstr ""
 #. TRANSLATORS: Imprinter Unrecoverable Failure
 msgid "printer-state-reasons.imprinter-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha na impressora printer-state-reasons.imprinter-recoverable-"
+"storage que não pode ser restaurado"
 
 #. TRANSLATORS: Imprinter Unrecoverable Storage Error
 msgid "printer-state-reasons.imprinter-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento na impressora printer-state-reasons"
+".imprinter-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Imprinter Warming Up
 msgid "printer-state-reasons.imprinter-warming-up"
@@ -13751,10 +13833,14 @@ msgstr ""
 #. TRANSLATORS: Inserter Cover Closed
 msgid "printer-state-reasons.inserter-cover-closed"
 msgstr ""
+"A tampa de alimentação das folhas printer-state-reasons.inserter-cover-"
+"closed está fechada"
 
 #. TRANSLATORS: Inserter Cover Open
 msgid "printer-state-reasons.inserter-cover-open"
 msgstr ""
+"A tampa de alimentação das folhas printer-state-reasons.inserter-cover-open "
+"está aberta"
 
 #. TRANSLATORS: Inserter Empty
 msgid "printer-state-reasons.inserter-empty"
@@ -13819,10 +13905,14 @@ msgstr ""
 #. TRANSLATORS: Inserter Recoverable Failure
 msgid "printer-state-reasons.inserter-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha na alimentação das folhas em printer-state-reasons"
+".inserter-recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Inserter Recoverable Storage
 msgid "printer-state-reasons.inserter-recoverable-storage"
 msgstr ""
+"O armazenamento da alimentação das folhas do printer-state-reasons.inserter-"
+"recoverable-storage pode ser restaurado"
 
 #. TRANSLATORS: Inserter Removed
 msgid "printer-state-reasons.inserter-removed"
@@ -13859,10 +13949,14 @@ msgstr ""
 #. TRANSLATORS: Inserter Unrecoverable Failure
 msgid "printer-state-reasons.inserter-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha na alimentação das folhas em printer-state-reasons"
+".inserter-unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Inserter Unrecoverable Storage Error
 msgid "printer-state-reasons.inserter-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro na alimentação das folhas em printer-state-reasons.inserter-"
+"unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Inserter Warming Up
 msgid "printer-state-reasons.inserter-warming-up"
@@ -13959,10 +14053,14 @@ msgstr ""
 #. TRANSLATORS: Envelope Maker Cover Closed
 msgid "printer-state-reasons.make-envelope-cover-closed"
 msgstr ""
+"A tampa da máquina de envelopamento printer-state-reasons.make-envelope-"
+"cover-closed está fechada"
 
 #. TRANSLATORS: Envelope Maker Cover Open
 msgid "printer-state-reasons.make-envelope-cover-open"
 msgstr ""
+"A tampa da máquina de envelopamento printer-state-reasons.make-envelope-"
+"cover-open está aberta"
 
 #. TRANSLATORS: Envelope Maker Empty
 msgid "printer-state-reasons.make-envelope-empty"
@@ -14027,10 +14125,14 @@ msgstr ""
 #. TRANSLATORS: Envelope Maker Recoverable Failure
 msgid "printer-state-reasons.make-envelope-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha na tampa da máquina de envelopamento printer-state-reasons"
+".make-envelope-recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Envelope Maker Recoverable Storage
 msgid "printer-state-reasons.make-envelope-recoverable-storage"
 msgstr ""
+"O armazenamento da máquina de envelopamento printer-state-reasons.make-"
+"envelope-recoverable-storage que pode ser restaurado"
 
 #. TRANSLATORS: Envelope Maker Removed
 msgid "printer-state-reasons.make-envelope-removed"
@@ -14067,10 +14169,14 @@ msgstr ""
 #. TRANSLATORS: Envelope Maker Unrecoverable Failure
 msgid "printer-state-reasons.make-envelope-unrecoverable-failure"
 msgstr ""
+"O armazenamento da máquina de envelopamento printer-state-reasons.make-"
+"envelope-unrecoverable-failure não pode ser restaurado"
 
 #. TRANSLATORS: Envelope Maker Unrecoverable Storage Error
 msgid "printer-state-reasons.make-envelope-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro no armazenamento da máquina de envelopamento printer-state-"
+"reasons.make-envelope-unrecoverable-failure não pode ser restaurado"
 
 #. TRANSLATORS: Envelope Maker Warming Up
 msgid "printer-state-reasons.make-envelope-warming-up"
@@ -14383,10 +14489,13 @@ msgstr ""
 #. TRANSLATORS: Perforater Cover Closed
 msgid "printer-state-reasons.perforater-cover-closed"
 msgstr ""
+"A tampa do perfurador printer-state-reasons.perforater-cover-closed está "
+"fechada"
 
 #. TRANSLATORS: Perforater Cover Open
 msgid "printer-state-reasons.perforater-cover-open"
 msgstr ""
+"A tampa do perfurador printer-state-reasons.perforater-cover-open está aberta"
 
 #. TRANSLATORS: Perforater Empty
 msgid "printer-state-reasons.perforater-empty"
@@ -14451,10 +14560,14 @@ msgstr ""
 #. TRANSLATORS: Perforater Recoverable Failure
 msgid "printer-state-reasons.perforater-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha na tampa do perfurador printer-state-reasons.perforater-"
+"recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Perforater Recoverable Storage
 msgid "printer-state-reasons.perforater-recoverable-storage"
 msgstr ""
+"O armazenamento do perfurador printer-state-reasons.perforater-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Perforater Removed
 msgid "printer-state-reasons.perforater-removed"
@@ -14491,10 +14604,14 @@ msgstr ""
 #. TRANSLATORS: Perforater Unrecoverable Failure
 msgid "printer-state-reasons.perforater-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no perfurador printer-state-reasons.perforater-"
+"unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Perforater Unrecoverable Storage Error
 msgid "printer-state-reasons.perforater-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento no perfurador printer-state-reasons"
+".perforater-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Perforater Warming Up
 msgid "printer-state-reasons.perforater-warming-up"
@@ -14567,10 +14684,12 @@ msgstr ""
 #. TRANSLATORS: Puncher Cover Closed
 msgid "printer-state-reasons.puncher-cover-closed"
 msgstr ""
+"A tampa do furador fechadaprinter-state-reasons.puncher-cover-closed está "
+"fechada"
 
 #. TRANSLATORS: Puncher Cover Open
 msgid "printer-state-reasons.puncher-cover-open"
-msgstr ""
+msgstr "A tampa do furador printer-state-reasons.puncher-cover-open está aberta"
 
 #. TRANSLATORS: Puncher Empty
 msgid "printer-state-reasons.puncher-empty"
@@ -14635,10 +14754,14 @@ msgstr ""
 #. TRANSLATORS: Puncher Recoverable Failure
 msgid "printer-state-reasons.puncher-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no furador printer-state-reasons.puncher-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Puncher Recoverable Storage
 msgid "printer-state-reasons.puncher-recoverable-storage"
 msgstr ""
+"O armazenamento do furador printer-state-reasons.puncher-recoverable-storage "
+"pode ser restaurado"
 
 #. TRANSLATORS: Puncher Removed
 msgid "printer-state-reasons.puncher-removed"
@@ -14675,10 +14798,14 @@ msgstr ""
 #. TRANSLATORS: Puncher Unrecoverable Failure
 msgid "printer-state-reasons.puncher-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no furador printer-state-reasons.puncher-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Puncher Unrecoverable Storage Error
 msgid "printer-state-reasons.puncher-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro no furador printer-state-reasons.puncher-unrecoverable-"
+"storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Puncher Warming Up
 msgid "printer-state-reasons.puncher-warming-up"
@@ -14711,10 +14838,14 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Cover Closed
 msgid "printer-state-reasons.separation-cutter-cover-closed"
 msgstr ""
+"A tampa do cortador de separação printer-state-reasons.separation-cutter-"
+"cover-closed está fechada"
 
 #. TRANSLATORS: Separation Cutter Cover Open
 msgid "printer-state-reasons.separation-cutter-cover-open"
 msgstr ""
+"A tampa do cortador de separação printer-state-reasons.separation-cutter-"
+"cover-open está aberta"
 
 #. TRANSLATORS: Separation Cutter Empty
 msgid "printer-state-reasons.separation-cutter-empty"
@@ -14779,10 +14910,14 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Recoverable Failure
 msgid "printer-state-reasons.separation-cutter-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha na tampa do cortador de separação printer-state-reasons"
+".separation-cutter-recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Separation Cutter Recoverable Storage
 msgid "printer-state-reasons.separation-cutter-recoverable-storage"
 msgstr ""
+"O armazenamento da tampa de separação do cortador printer-state-reasons"
+".separation-cutter-recoverable-storage pode ser restaurado"
 
 #. TRANSLATORS: Separation Cutter Removed
 msgid "printer-state-reasons.separation-cutter-removed"
@@ -14819,10 +14954,15 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Unrecoverable Failure
 msgid "printer-state-reasons.separation-cutter-unrecoverable-failure"
 msgstr ""
+"O armazenamento da tampa de separação do cortador printer-state-reasons"
+".separation-cutter-unrecoverable-failure não pode ser restaurado"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.separation-cutter-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro no armazenamento da tampa de separação do cortador printer-"
+"state-reasons.separation-cutter-unrecoverable-storage-error que não pode ser "
+"restaurado"
 
 #. TRANSLATORS: Separation Cutter Warming Up
 msgid "printer-state-reasons.separation-cutter-warming-up"
@@ -14831,146 +14971,210 @@ msgstr ""
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-added foi adicionado"
 
 #. TRANSLATORS: Sheet Rotator Almost Empty
 msgid "printer-state-reasons.sheet-rotator-almost-empty"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-almost-empty está "
+"quase vazio"
 
 #. TRANSLATORS: Sheet Rotator Almost Full
 msgid "printer-state-reasons.sheet-rotator-almost-full"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-almost-full está "
+"quase cheio"
 
 #. TRANSLATORS: Sheet Rotator At Limit
 msgid "printer-state-reasons.sheet-rotator-at-limit"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-almost-full está no "
+"limite"
 
 #. TRANSLATORS: Sheet Rotator Closed
 msgid "printer-state-reasons.sheet-rotator-closed"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-closed está fechado"
 
 #. TRANSLATORS: Sheet Rotator Configuration Change
 msgid "printer-state-reasons.sheet-rotator-configuration-change"
 msgstr ""
+"Alterar as configurações do rotador de folhas printer-state-reasons.sheet-"
+"rotator-configuration-change"
 
 #. TRANSLATORS: Sheet Rotator Cover Closed
 msgid "printer-state-reasons.sheet-rotator-cover-closed"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-cover-closed está "
+"fechado"
 
 #. TRANSLATORS: Sheet Rotator Cover Open
 msgid "printer-state-reasons.sheet-rotator-cover-open"
 msgstr ""
+"A tampa do rotador de folhas printer-state-reasons.sheet-rotator-cover-open "
+"está aberta"
 
 #. TRANSLATORS: Sheet Rotator Empty
 msgid "printer-state-reasons.sheet-rotator-empty"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-empty está vazio"
 
 #. TRANSLATORS: Sheet Rotator Full
 msgid "printer-state-reasons.sheet-rotator-full"
-msgstr ""
+msgstr "O rotador de folhas printer-state-reasons.sheet-rotator-full está cheio"
 
 #. TRANSLATORS: Sheet Rotator Interlock Closed
 msgid "printer-state-reasons.sheet-rotator-interlock-closed"
 msgstr ""
+"O intertravamento do rotador de folhas printer-state-reasons.sheet-rotator-"
+"interlock-closed está fechado"
 
 #. TRANSLATORS: Sheet Rotator Interlock Open
 msgid "printer-state-reasons.sheet-rotator-interlock-open"
 msgstr ""
+"O intertravamento do rotador de folhas printer-state-reasons.sheet-rotator-"
+"interlock-open está aberto"
 
 #. TRANSLATORS: Sheet Rotator Jam
 msgid "printer-state-reasons.sheet-rotator-jam"
 msgstr ""
+"Ocorreu o atolamento no rotador de folhas printer-state-reasons.sheet-"
+"rotator-jam"
 
 #. TRANSLATORS: Sheet Rotator Life Almost Over
 msgid "printer-state-reasons.sheet-rotator-life-almost-over"
 msgstr ""
+"A vida útil do rotador de folhas printer-state-reasons.sheet-rotator-life-"
+"almost-over está quase no fim"
 
 #. TRANSLATORS: Sheet Rotator Life Over
 msgid "printer-state-reasons.sheet-rotator-life-over"
 msgstr ""
+"A vida útil do rotador de folhas printer-state-reasons.sheet-rotator-life-"
+"over chegou no fim"
 
 #. TRANSLATORS: Sheet Rotator Memory Exhausted
 msgid "printer-state-reasons.sheet-rotator-memory-exhausted"
 msgstr ""
+"A memória do rotator de folhas printer-state-reasons.sheet-rotator-memory-"
+"exhausted foi esgotada"
 
 #. TRANSLATORS: Sheet Rotator Missing
 msgid "printer-state-reasons.sheet-rotator-missing"
 msgstr ""
+"O rotator de folhas printer-state-reasons.sheet-rotator-missing não foi "
+"encontrado"
 
 #. TRANSLATORS: Sheet Rotator Motor Failure
 msgid "printer-state-reasons.sheet-rotator-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor do rotador de folhas printer-state-reasons.sheet-"
+"rotator-motor-failure"
 
 #. TRANSLATORS: Sheet Rotator Near Limit
 msgid "printer-state-reasons.sheet-rotator-near-limit"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-near-limit está "
+"próximo do seu limite"
 
 #. TRANSLATORS: Sheet Rotator Offline
 msgid "printer-state-reasons.sheet-rotator-offline"
 msgstr ""
+"O rotator de folhas printer-state-reasons.sheet-rotator-offline está "
+"desconectado"
 
 #. TRANSLATORS: Sheet Rotator Opened
 msgid "printer-state-reasons.sheet-rotator-opened"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-opened está aberto"
 
 #. TRANSLATORS: Sheet Rotator Over Temperature
 msgid "printer-state-reasons.sheet-rotator-over-temperature"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-over-temperature "
+"atingiu uma temperatura excessiva"
 
 #. TRANSLATORS: Sheet Rotator Power Saver
 msgid "printer-state-reasons.sheet-rotator-power-saver"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-power-saver entrou "
+"no modo de economia de energia"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Failure
 msgid "printer-state-reasons.sheet-rotator-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no rotador de folhas printer-state-reasons.sheet-rotator-"
+"recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Storage
 msgid "printer-state-reasons.sheet-rotator-recoverable-storage"
 msgstr ""
+"O armazenamento do rotador de folhas printer-state-reasons.sheet-rotator-"
+"recoverable-storage pode ser restaurado"
 
 #. TRANSLATORS: Sheet Rotator Removed
 msgid "printer-state-reasons.sheet-rotator-removed"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-removed foi removido"
 
 #. TRANSLATORS: Sheet Rotator Resource Added
 msgid "printer-state-reasons.sheet-rotator-resource-added"
 msgstr ""
+"A funcionalidade do rotador de folhas printer-state-reasons.sheet-rotator-"
+"resource-added foi adicionado"
 
 #. TRANSLATORS: Sheet Rotator Resource Removed
 msgid "printer-state-reasons.sheet-rotator-resource-removed"
 msgstr ""
+"A funcionalidade do rotador de folhas printer-state-reasons.sheet-rotator-"
+"resource-removed foi removida"
 
 #. TRANSLATORS: Sheet Rotator Thermistor Failure
 msgid "printer-state-reasons.sheet-rotator-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha do termistor do rotador de folhas printer-state-reasons"
+".sheet-rotator-thermistor-failure"
 
 #. TRANSLATORS: Sheet Rotator Timing Failure
 msgid "printer-state-reasons.sheet-rotator-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador do rotador de folhas printer-state-reasons"
+".sheet-rotator-timing-failure"
 
 #. TRANSLATORS: Sheet Rotator Turned Off
 msgid "printer-state-reasons.sheet-rotator-turned-off"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-turned-off foi "
+"desligado"
 
 #. TRANSLATORS: Sheet Rotator Turned On
 msgid "printer-state-reasons.sheet-rotator-turned-on"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-turned-on foi ligado"
 
 #. TRANSLATORS: Sheet Rotator Under Temperature
 msgid "printer-state-reasons.sheet-rotator-under-temperature"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-under-temperature "
+"está com temperatura abaixo do ideal"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Failure
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no rotador de folhas printer-state-reasons.sheet-rotator-"
+"unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Storage Error
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento do rotator de folhas printer-state-reasons"
+".sheet-rotator-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Sheet Rotator Warming Up
 msgid "printer-state-reasons.sheet-rotator-warming-up"
 msgstr ""
+"O rotador de folhas printer-state-reasons.sheet-rotator-warming-up está em "
+"aquecimento"
 
 #. TRANSLATORS: Printer offline
 msgid "printer-state-reasons.shutdown"
@@ -15003,10 +15207,12 @@ msgstr ""
 #. TRANSLATORS: Slitter Cover Closed
 msgid "printer-state-reasons.slitter-cover-closed"
 msgstr ""
+"A tampa do cortador printer-state-reasons.slitter-cover-closed está fechada"
 
 #. TRANSLATORS: Slitter Cover Open
 msgid "printer-state-reasons.slitter-cover-open"
 msgstr ""
+"A tampa do cortador printer-state-reasons.slitter-cover-closed está aberta"
 
 #. TRANSLATORS: Slitter Empty
 msgid "printer-state-reasons.slitter-empty"
@@ -15071,10 +15277,14 @@ msgstr ""
 #. TRANSLATORS: Slitter Recoverable Failure
 msgid "printer-state-reasons.slitter-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no cortador printer-state-reasons.slitter-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Slitter Recoverable Storage
 msgid "printer-state-reasons.slitter-recoverable-storage"
 msgstr ""
+"O armazenamento do cortador printer-state-reasons.slitter-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Slitter Removed
 msgid "printer-state-reasons.slitter-removed"
@@ -15111,10 +15321,14 @@ msgstr ""
 #. TRANSLATORS: Slitter Unrecoverable Failure
 msgid "printer-state-reasons.slitter-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no cortador printer-state-reasons.slitter-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Slitter Unrecoverable Storage Error
 msgid "printer-state-reasons.slitter-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento no cortador printer-state-reasons.slitter-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Slitter Warming Up
 msgid "printer-state-reasons.slitter-warming-up"
@@ -15151,10 +15365,12 @@ msgstr ""
 #. TRANSLATORS: Stacker Cover Closed
 msgid "printer-state-reasons.stacker-cover-closed"
 msgstr ""
+"A tampa do empilhador printer-state-reasons.stacker-cover-closed está fechada"
 
 #. TRANSLATORS: Stacker Cover Open
 msgid "printer-state-reasons.stacker-cover-open"
 msgstr ""
+"A tampa do empilhador printer-state-reasons.stacker-cover-open está aberta"
 
 #. TRANSLATORS: Stacker Empty
 msgid "printer-state-reasons.stacker-empty"
@@ -15219,10 +15435,14 @@ msgstr ""
 #. TRANSLATORS: Stacker Recoverable Failure
 msgid "printer-state-reasons.stacker-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no empilhador printer-state-reasons.stacker-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Stacker Recoverable Storage
 msgid "printer-state-reasons.stacker-recoverable-storage"
 msgstr ""
+"O armazenamento do empilhador printer-state-reasons.stacker-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Stacker Removed
 msgid "printer-state-reasons.stacker-removed"
@@ -15259,10 +15479,14 @@ msgstr ""
 #. TRANSLATORS: Stacker Unrecoverable Failure
 msgid "printer-state-reasons.stacker-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no empilhador printer-state-reasons.stacker-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Stacker Unrecoverable Storage Error
 msgid "printer-state-reasons.stacker-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento no empilhador printer-state-reasons.stacker-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Stacker Warming Up
 msgid "printer-state-reasons.stacker-warming-up"
@@ -15295,10 +15519,12 @@ msgstr ""
 #. TRANSLATORS: Stapler Cover Closed
 msgid "printer-state-reasons.stapler-cover-closed"
 msgstr ""
+"A tampa do grampeador printer-state-reasons.stapler-cover-closed está fechada"
 
 #. TRANSLATORS: Stapler Cover Open
 msgid "printer-state-reasons.stapler-cover-open"
 msgstr ""
+"A tampa do grampeador printer-state-reasons.stapler-cover-open está aberta"
 
 #. TRANSLATORS: Stapler Empty
 msgid "printer-state-reasons.stapler-empty"
@@ -15363,10 +15589,14 @@ msgstr ""
 #. TRANSLATORS: Stapler Recoverable Failure
 msgid "printer-state-reasons.stapler-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no grampeador printer-state-reasons.stapler-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Stapler Recoverable Storage
 msgid "printer-state-reasons.stapler-recoverable-storage"
 msgstr ""
+"O armazenamento do grampeador printer-state-reasons.stapler-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Stapler Removed
 msgid "printer-state-reasons.stapler-removed"
@@ -15403,10 +15633,14 @@ msgstr ""
 #. TRANSLATORS: Stapler Unrecoverable Failure
 msgid "printer-state-reasons.stapler-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no grampeador printer-state-reasons.stapler-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Stapler Unrecoverable Storage Error
 msgid "printer-state-reasons.stapler-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento do grampeador printer-state-reasons.stapler-"
+"recoverable-storage que não pode ser restaurado"
 
 #. TRANSLATORS: Stapler Warming Up
 msgid "printer-state-reasons.stapler-warming-up"
@@ -15439,10 +15673,13 @@ msgstr ""
 #. TRANSLATORS: Stitcher Cover Closed
 msgid "printer-state-reasons.stitcher-cover-closed"
 msgstr ""
+"A tampa do costurador printer-state-reasons.stitcher-cover-closed está "
+"fechada"
 
 #. TRANSLATORS: Stitcher Cover Open
 msgid "printer-state-reasons.stitcher-cover-open"
 msgstr ""
+"A tampa do costurador printer-state-reasons.stitcher-cover-closed está aberta"
 
 #. TRANSLATORS: Stitcher Empty
 msgid "printer-state-reasons.stitcher-empty"
@@ -15507,10 +15744,14 @@ msgstr ""
 #. TRANSLATORS: Stitcher Recoverable Failure
 msgid "printer-state-reasons.stitcher-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no costurador printer-state-reasons.stitcher-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Stitcher Recoverable Storage
 msgid "printer-state-reasons.stitcher-recoverable-storage"
 msgstr ""
+"O armazenamento do costurador printer-state-reasons.stitcher-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Stitcher Removed
 msgid "printer-state-reasons.stitcher-removed"
@@ -15547,10 +15788,14 @@ msgstr ""
 #. TRANSLATORS: Stitcher Unrecoverable Failure
 msgid "printer-state-reasons.stitcher-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no costurador printer-state-reasons.stitcher-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Stitcher Unrecoverable Storage Error
 msgid "printer-state-reasons.stitcher-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro no costurador printer-state-reasons.stitcher-unrecoverable-"
+"storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Stitcher Warming Up
 msgid "printer-state-reasons.stitcher-warming-up"
