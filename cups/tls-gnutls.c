@@ -1992,7 +1992,7 @@ _httpTLSStop(http_t *http)		// I - Connection to server
   int	error;				// Error code
 
 
-  error = gnutls_bye(http->tls, http->mode == _HTTP_MODE_CLIENT ? GNUTLS_SHUT_RDWR : GNUTLS_SHUT_WR);
+  error = gnutls_bye(http->tls, GNUTLS_SHUT_WR);
   if (error != GNUTLS_E_SUCCESS)
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(errno), 0);
 
