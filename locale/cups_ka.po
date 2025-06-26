@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-05-09 12:31+0000\n"
+"PO-Revision-Date: 2025-06-25 16:06+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/cups/cups/ka/>\n"
 "Language: ka\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(ყველა)"
@@ -843,7 +843,7 @@ msgid "  -P FILENAME.ppd         Set PPD file."
 msgstr ""
 
 msgid "  -U USERNAME             Specify username."
-msgstr ""
+msgstr "  -U USERNAME             მიუთითეთ მომხმარებლის სახელი."
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr ""
@@ -883,7 +883,7 @@ msgid "  -n COPIES               Set number of copies."
 msgstr ""
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr ""
+msgstr "  -o NAME=VALUE           დააყენეთ პარამეტრები."
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -903,7 +903,7 @@ msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      PPD-ების დატესტვა მათი გენერაციის მაგიერ."
 
 msgid "  -t TITLE                Set title."
-msgstr ""
+msgstr "  -t TITLE                დააყენეთ სათაური."
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      დასრულებისას PPD ფაილის წაშლა."
@@ -1565,11 +1565,11 @@ msgstr "%s: უცნობი პარამეტრი \"-%c\"."
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: უცნობი პარამეტრი '%s'."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: უცნობი პარამეტრი '-%c'."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1662,13 +1662,13 @@ msgid "--false                 Always false"
 msgstr "--false                 ყოველთვის ცრუ"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         ამ დახმარების ჩვენება"
 
 msgid "--help                  Show program help"
 msgstr "--help                  პროგრამის დახმარების ჩვენება"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  ამ დახმარების ჩვენება"
 
 msgid "--hold                  Hold new jobs"
 msgstr "--hold                  ახალი დავალებების შეჩერება"
@@ -1920,7 +1920,7 @@ msgid "-C                      Send requests using chunking (default)"
 msgstr "-C                      მოთხოვნების ნაგლეჯებად გაგზავნა(ნაგულისხმევი)"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C COUNTRY                     ქვეყნის დაყენება."
 
 msgid "-D description          Specify the textual description of the printer"
 msgstr "-D აღწერა          მიუთითეთ პრინტერის ტექსტური აღწერა"
@@ -2041,10 +2041,10 @@ msgid "-S                      Test with encryption using HTTPS"
 msgstr "-S                      გატესტვა დაშიფვრით, HTTPS-ის გამოყენებით"
 
 msgid "-S STATE                       Set state."
-msgstr ""
+msgstr "-S STATE                       შტატის დაყენება."
 
 msgid "-S filename.strings     Set strings file"
-msgstr ""
+msgstr "-S filename.strings     სტრიქონების ფაილის დაყენება"
 
 msgid "-T seconds              Set the browse timeout in seconds"
 msgstr "-T წამები              დააყენეთ ძებნის მოლოდინის ვადა წამებში"
@@ -3267,7 +3267,7 @@ msgid "Bad arguments to function"
 msgstr "ფუნქციისთვის მითითებული არგუმენტები არასწორია"
 
 msgid "Bad certificate."
-msgstr ""
+msgstr "ცუდი სერტიფიკატი."
 
 #, c-format
 msgid "Bad copies value %d."
@@ -3363,7 +3363,7 @@ msgid "Bad printer-uri."
 msgstr "არასწორი printer-uri."
 
 msgid "Bad private key."
-msgstr ""
+msgstr "არასწორი პირადი გასაღები."
 
 #, c-format
 msgid "Bad request ID %d."
@@ -3454,7 +3454,7 @@ msgid ""
 msgstr ""
 
 msgid "Commands:"
-msgstr ""
+msgstr "ბრძანებები:"
 
 msgid "Community name uses indefinite length"
 msgstr "საზოგადოების სახელი აღწერილი არაა"
@@ -3485,28 +3485,28 @@ msgid "Created"
 msgstr "შექმნილია"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "ავტორიზაციის დეტალები სწორია/სანდოა."
 
 msgid "Credentials are expired."
-msgstr ""
+msgstr "ავტორიზაციის დეტალების ვადა ამოწურულია."
 
 msgid "Credentials are invalid."
-msgstr ""
+msgstr "ავტორიზაციის დეტალები არასწორია."
 
 msgid "Credentials are not CA-signed."
 msgstr ""
 
 msgid "Credentials are unknown/new."
-msgstr ""
+msgstr "ავტორიზაციის დეტალები უცნობია/ახალია."
 
 msgid "Credentials do not validate against site CA certificate."
 msgstr ""
 
 msgid "Credentials have been renewed."
-msgstr ""
+msgstr "ავტორიზაციის დეტალები განახლდა."
 
 msgid "Credentials have changed."
-msgstr ""
+msgstr "ავტორიზაციის დეტალები შეიცვალა."
 
 msgid "Credentials have expired."
 msgstr "ავტორიზაციის დეტალები ვადაამოწურულია."
@@ -3821,7 +3821,7 @@ msgid "Error: need hostname after \"-h\" option."
 msgstr "შეცდომა: \"-h\" პარამეტრის შემდეგ ჰოსტის სახელის მითითება აუცილებელია."
 
 msgid "European Fanfold"
-msgstr ""
+msgstr "ევროპული მარაოსებრი დაკეცვა"
 
 msgid "European Fanfold Legal"
 msgstr "ევროპული ოფიციალური Fanfold"
@@ -3908,7 +3908,7 @@ msgid "Forbidden"
 msgstr "აკრძალული"
 
 msgid "Form data too large."
-msgstr ""
+msgstr "ფორმის მონაცემები მეტისმეტად დიდია."
 
 msgid "Found"
 msgstr "ნაპოვნი"
@@ -4095,13 +4095,13 @@ msgid "Internet Printing Protocol"
 msgstr "ინტერნეტით ბეჭდვის პროტოკოლი"
 
 msgid "Invalid JSON data."
-msgstr ""
+msgstr "არასწორი JSON მონაცემები."
 
 msgid "Invalid JSON web token."
-msgstr ""
+msgstr "არასწორი JSON ვებტოკენი."
 
 msgid "Invalid form data."
-msgstr ""
+msgstr "არასწორი ფორმის მონაცემები."
 
 msgid "Invalid group tag."
 msgstr "არასწორი ჯგუფის ჭდე."
@@ -4168,7 +4168,7 @@ msgid "JIS B9"
 msgstr "JIS B9"
 
 msgid "JSON file too large."
-msgstr ""
+msgstr "JSON ფაილი მეტისმეტად დიდია."
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4204,7 +4204,7 @@ msgstr ""
 
 #, c-format
 msgid "Job #%d is not held."
-msgstr ""
+msgstr "დავალება #%d შეკავებული არაა."
 
 msgid "Job Completed"
 msgstr "დავალება დასრულდა"
@@ -4519,10 +4519,10 @@ msgid "No version number"
 msgstr "ვერსიის ნომრის გარეშე"
 
 msgid "Non-continuous (Mark sensing)"
-msgstr ""
+msgstr "წყვეტადი (Mark sensing)"
 
 msgid "Non-continuous (Web sensing)"
-msgstr ""
+msgstr "წყვეტადი (Web Sensing)"
 
 msgid "Normal"
 msgstr "ნორმალური"
@@ -4817,7 +4817,7 @@ msgid "Rewind"
 msgstr "გადახვევა"
 
 msgid "SEQUENCE uses indefinite length"
-msgstr ""
+msgstr "SEQUENCE უცნობ სიგრძეს იყენებს"
 
 msgid "SSL/TLS Negotiation Error"
 msgstr "SSL/TLS მოლაპარაკების შეცდომა"
@@ -5053,7 +5053,7 @@ msgid "There was an unrecoverable USB error."
 msgstr "აღმოჩენილია აღუდგენელი USB შეცდომა."
 
 msgid "Thermal Transfer Media"
-msgstr ""
+msgstr "თერმოგადატანის მედია"
 
 msgid "Too many active jobs."
 msgstr "მეტისმეტად ბევრი აქტიური დავალება."
@@ -5253,7 +5253,7 @@ msgid "Unable to find destination for job"
 msgstr "ვერ ვიპოვე სამიზნე დავალებისთვის"
 
 msgid "Unable to finish request."
-msgstr ""
+msgstr "მოთხოვნის დასრულება შეუძლებელია."
 
 msgid "Unable to get backend exit status."
 msgstr "უკანაბოლოს გასვლის სტატუსის მიღება შეუძლებელია."
@@ -5283,7 +5283,7 @@ msgid "Unable to import X.509 certificate request."
 msgstr ""
 
 msgid "Unable to import credentials."
-msgstr ""
+msgstr "ავტორიზაციის დეტალების შემოტანა შეუძლებელია."
 
 msgid "Unable to initialize private key context."
 msgstr ""
@@ -5346,7 +5346,7 @@ msgid "Unable to read print data."
 msgstr "დასაბეჭდი მონაცემების წაკითხვა შეუძლებელია."
 
 msgid "Unable to read response."
-msgstr ""
+msgstr "პასუხის წაკითხვა შეუძლებელია."
 
 msgid "Unable to reallocate IPP attribute value."
 msgstr ""
@@ -6087,18 +6087,18 @@ msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "cups-oauth: უცნობი ბრძანება '%s'."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
 msgstr ""
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "cups-x509: არასწორი HTTP ვერსია."
 
 #, c-format
 msgid "cups-x509: Bad URI '%s'."
-msgstr ""
+msgstr "cups-x509: არასწორი URI '%s'."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
@@ -6110,17 +6110,17 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "cups-x509: არასწორი დანიშნულება '%s'."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
 msgstr ""
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "cups-x509: არასწორი/უცნობი ოპერაცია."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "cups-x509: კლიენტმა კავშირი დახურა."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
 msgstr ""
@@ -6129,7 +6129,7 @@ msgid "cups-x509: Missing certificate type after '-t'."
 msgstr ""
 
 msgid "cups-x509: Missing command argument."
-msgstr ""
+msgstr "cups-x509: ბრძანებას არგუმენტი აკლია."
 
 msgid "cups-x509: Missing country after '-C'."
 msgstr ""
@@ -6222,7 +6222,7 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "cups-x509: უცნობი ბრძანება '%s'."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
@@ -11149,7 +11149,7 @@ msgstr "number-up"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "number-up-layout"
-msgstr ""
+msgstr "ზრდადობით განლაგება"
 
 #. TRANSLATORS: Bottom-Top, Left-Right
 msgid "number-up-layout.btlr"
@@ -11405,27 +11405,27 @@ msgstr "დასკანერებული გამოსახულე�
 
 #. TRANSLATORS: Page Border
 msgid "page-border"
-msgstr ""
+msgstr "გვერდის საზღვარი"
 
 #. TRANSLATORS: Thin Double Border
 msgid "page-border.double"
-msgstr ""
+msgstr "თხელი ორმაგი საზღვარი"
 
 #. TRANSLATORS: Thick Double Border
 msgid "page-border.double-thick"
-msgstr ""
+msgstr "სქელი ორმაგი საზღვარი"
 
 #. TRANSLATORS: No Border
 msgid "page-border.none"
-msgstr ""
+msgstr "საზღვრის გარეშე"
 
 #. TRANSLATORS: Thin Single Border
 msgid "page-border.single"
-msgstr ""
+msgstr "თხელი ერთმაგი საზღვარი"
 
 #. TRANSLATORS: Thick Single Border
 msgid "page-border.single-thick"
-msgstr ""
+msgstr "სქელი ერთმაგი საზღვარი"
 
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
@@ -11469,19 +11469,19 @@ msgstr "გვერდის შუალედები"
 
 #. TRANSLATORS: Page Set
 msgid "page-set"
-msgstr ""
+msgstr "გვერდი დაყენებულია"
 
 #. TRANSLATORS: All Pages
 msgid "page-set.all"
-msgstr ""
+msgstr "ყველა გვერდი"
 
 #. TRANSLATORS: Even Pages
 msgid "page-set.even"
-msgstr ""
+msgstr "ლუწი გვერდები"
 
 #. TRANSLATORS: Odd Pages
 msgid "page-set.odd"
-msgstr ""
+msgstr "კენტი გვერდები"
 
 #. TRANSLATORS: Pages
 msgid "pages"
@@ -11532,43 +11532,43 @@ msgstr "პლატფორმის ტერმპერატურა"
 
 #. TRANSLATORS: Image Position
 msgid "position"
-msgstr ""
+msgstr "გამოსახულების პოზიცია"
 
 #. TRANSLATORS: Bottom-Center
 msgid "position.bottom"
-msgstr ""
+msgstr "ქვედა ცენტრი"
 
 #. TRANSLATORS: Bottom-Left
 msgid "position.bottom-left"
-msgstr ""
+msgstr "ქვედა მარცხენა"
 
 #. TRANSLATORS: Bottom-Right
 msgid "position.bottom-right"
-msgstr ""
+msgstr "ქვედა მარჯვენა"
 
 #. TRANSLATORS: Center
 msgid "position.center"
-msgstr ""
+msgstr "ცენტრი"
 
 #. TRANSLATORS: Left-Center
 msgid "position.left"
-msgstr ""
+msgstr "მარცხენა ცენტრი"
 
 #. TRANSLATORS: Right-Center
 msgid "position.right"
-msgstr ""
+msgstr "მარჯვენა ცენტრი"
 
 #. TRANSLATORS: Top-Center
 msgid "position.top"
-msgstr ""
+msgstr "ზედა ცენტრი"
 
 #. TRANSLATORS: Top-Left
 msgid "position.top-left"
-msgstr ""
+msgstr "ზედა მარცხენა"
 
 #. TRANSLATORS: Top-Right
 msgid "position.top-right"
-msgstr ""
+msgstr "ზედა მარჯვენა"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
@@ -15865,7 +15865,7 @@ msgstr "ყველა სეტი"
 
 #. TRANSLATORS: Every Page
 msgid "trimming-when.after-sheets"
-msgstr "ყველა გვერდი"
+msgstr "ყოველ გვერდზე"
 
 msgid "unknown"
 msgstr "უცნობი"
