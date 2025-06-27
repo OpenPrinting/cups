@@ -16126,7 +16126,7 @@ msgstr ""
 msgid "printer-state-reasons.trimmer-thermistor-failure"
 msgstr ""
 "Ocorreu uma falha no termistor do aparador printer-state-reasons.trimmer-"
-"resource-removed"
+"thermistor-failure"
 
 #. TRANSLATORS: Trimmer Timing Failure
 msgid "printer-state-reasons.trimmer-timing-failure"
@@ -16136,15 +16136,17 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Turned Off
 msgid "printer-state-reasons.trimmer-turned-off"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-turned-off está desligado"
 
 #. TRANSLATORS: Trimmer Turned On
 msgid "printer-state-reasons.trimmer-turned-on"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-turned-off está ligado"
 
 #. TRANSLATORS: Trimmer Under Temperature
 msgid "printer-state-reasons.trimmer-under-temperature"
 msgstr ""
+"O aparador printer-state-reasons.trimmer-under-temperature está com "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Trimmer Unrecoverable Failure
 msgid "printer-state-reasons.trimmer-unrecoverable-failure"
