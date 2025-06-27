@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-26 18:02+0000\n"
+"PO-Revision-Date: 2025-06-28 13:05+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -12887,6 +12887,8 @@ msgstr ""
 #. TRANSLATORS: Bander Interlock Closed
 msgid "printer-state-reasons.bander-interlock-closed"
 msgstr ""
+"O intertravamento da bandeja printer-state-reasons.bander-interlock-closed "
+"está fechado"
 
 #. TRANSLATORS: Bander Interlock Open
 msgid "printer-state-reasons.bander-interlock-open"
@@ -13039,6 +13041,8 @@ msgstr ""
 #. TRANSLATORS: Binder Interlock Closed
 msgid "printer-state-reasons.binder-interlock-closed"
 msgstr ""
+"O intertravamento da bandeja printer-state-reasons.binder-interlock-closed "
+"está fechado"
 
 #. TRANSLATORS: Binder Interlock Open
 msgid "printer-state-reasons.binder-interlock-open"
@@ -13250,6 +13254,8 @@ msgstr ""
 #. TRANSLATORS: Die Cutter Interlock Closed
 msgid "printer-state-reasons.die-cutter-interlock-closed"
 msgstr ""
+"O intertravamento do cortador printer-state-reasons.die-cutter-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Die Cutter Interlock Open
 msgid "printer-state-reasons.die-cutter-interlock-open"
@@ -13454,6 +13460,8 @@ msgstr ""
 #. TRANSLATORS: Folder Interlock Closed
 msgid "printer-state-reasons.folder-interlock-closed"
 msgstr ""
+"O intertravamento da pasta printer-state-reasons.folder-interlock-closed "
+"está fechado"
 
 #. TRANSLATORS: Folder Interlock Open
 msgid "printer-state-reasons.folder-interlock-open"
@@ -13627,6 +13635,8 @@ msgstr ""
 #. TRANSLATORS: Imprinter Interlock Closed
 msgid "printer-state-reasons.imprinter-interlock-closed"
 msgstr ""
+"O intertravamento da impressora printer-state-reasons.imprinter-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Imprinter Interlock Open
 msgid "printer-state-reasons.imprinter-interlock-open"
@@ -13853,6 +13863,8 @@ msgstr ""
 #. TRANSLATORS: Inserter Interlock Closed
 msgid "printer-state-reasons.inserter-interlock-closed"
 msgstr ""
+"O intertravamento da tampa de alimentação printer-state-reasons.inserter-"
+"interlock-closed está fechada"
 
 #. TRANSLATORS: Inserter Interlock Open
 msgid "printer-state-reasons.inserter-interlock-open"
@@ -13965,6 +13977,7 @@ msgstr ""
 #. TRANSLATORS: Interlock Closed
 msgid "printer-state-reasons.interlock-closed"
 msgstr ""
+"O intertravamento do printer-state-reasons.interlock-closed está fechado"
 
 #. TRANSLATORS: Interlock Open
 msgid "printer-state-reasons.interlock-open"
@@ -14073,6 +14086,8 @@ msgstr ""
 #. TRANSLATORS: Envelope Maker Interlock Closed
 msgid "printer-state-reasons.make-envelope-interlock-closed"
 msgstr ""
+"O intertravamento da máquina de envelopamento printer-state-reasons.make-"
+"envelope-interlock-closed está fechado"
 
 #. TRANSLATORS: Envelope Maker Interlock Open
 msgid "printer-state-reasons.make-envelope-interlock-open"
@@ -14508,6 +14523,8 @@ msgstr ""
 #. TRANSLATORS: Perforater Interlock Closed
 msgid "printer-state-reasons.perforater-interlock-closed"
 msgstr ""
+"O intertravamento do perfurador printer-state-reasons.perforater-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Perforater Interlock Open
 msgid "printer-state-reasons.perforater-interlock-open"
@@ -14702,6 +14719,8 @@ msgstr ""
 #. TRANSLATORS: Puncher Interlock Closed
 msgid "printer-state-reasons.puncher-interlock-closed"
 msgstr ""
+"O intertravamento do furador printer-state-reasons.puncher-interlock-closed "
+"está fechado"
 
 #. TRANSLATORS: Puncher Interlock Open
 msgid "printer-state-reasons.puncher-interlock-open"
@@ -14858,6 +14877,8 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Interlock Closed
 msgid "printer-state-reasons.separation-cutter-interlock-closed"
 msgstr ""
+"O intertravamento do cortador de separação printer-state-reasons.separation-"
+"cutter-interlock-closed está fechado"
 
 #. TRANSLATORS: Separation Cutter Interlock Open
 msgid "printer-state-reasons.separation-cutter-interlock-open"
@@ -15225,6 +15246,8 @@ msgstr ""
 #. TRANSLATORS: Slitter Interlock Closed
 msgid "printer-state-reasons.slitter-interlock-closed"
 msgstr ""
+"O intertravamento do cortador printer-state-reasons.slitter-interlock-closed "
+"está fechado"
 
 #. TRANSLATORS: Slitter Interlock Open
 msgid "printer-state-reasons.slitter-interlock-open"
@@ -15383,6 +15406,8 @@ msgstr ""
 #. TRANSLATORS: Stacker Interlock Closed
 msgid "printer-state-reasons.stacker-interlock-closed"
 msgstr ""
+"O intertravamento do empilhador printer-state-reasons.stacker-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Stacker Interlock Open
 msgid "printer-state-reasons.stacker-interlock-open"
@@ -15537,6 +15562,8 @@ msgstr ""
 #. TRANSLATORS: Stapler Interlock Closed
 msgid "printer-state-reasons.stapler-interlock-closed"
 msgstr ""
+"O intertravamento do grampeador printer-state-reasons.stapler-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Stapler Interlock Open
 msgid "printer-state-reasons.stapler-interlock-open"
@@ -15692,6 +15719,8 @@ msgstr ""
 #. TRANSLATORS: Stitcher Interlock Closed
 msgid "printer-state-reasons.stitcher-interlock-closed"
 msgstr ""
+"O intertravamento do costurador printer-state-reasons.stitcher-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Stitcher Interlock Open
 msgid "printer-state-reasons.stitcher-interlock-open"
@@ -15884,10 +15913,14 @@ msgstr ""
 #. TRANSLATORS: Subunit Recoverable Failure
 msgid "printer-state-reasons.subunit-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha de subunidade do printer-state-reasons.subunit-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Subunit Recoverable Storage
 msgid "printer-state-reasons.subunit-recoverable-storage"
 msgstr ""
+"O armazenamento de subunidade do printer-state-reasons.subunit-unrecoverable-"
+"failure pode ser restaurado"
 
 #. TRANSLATORS: Subunit Removed
 msgid "printer-state-reasons.subunit-removed"
@@ -15924,10 +15957,14 @@ msgstr ""
 #. TRANSLATORS: Subunit Unrecoverable Failure
 msgid "printer-state-reasons.subunit-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha de subunidade do printer-state-reasons.subunit-"
+"unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Subunit Unrecoverable Storage
 msgid "printer-state-reasons.subunit-unrecoverable-storage"
 msgstr ""
+"O armazenamento de subunidade do printer-state-reasons.subunit-unrecoverable-"
+"storage não pode ser restaurado"
 
 #. TRANSLATORS: Subunit Warming Up
 msgid "printer-state-reasons.subunit-warming-up"
@@ -15947,7 +15984,7 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Added
 msgid "printer-state-reasons.trimmer-added"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-added foi adicionado"
 
 #. TRANSLATORS: Trimmer Almost Empty
 msgid "printer-state-reasons.trimmer-almost-empty"
@@ -15955,115 +15992,147 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Almost Full
 msgid "printer-state-reasons.trimmer-almost-full"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-almost-full está quase cheio"
 
 #. TRANSLATORS: Trimmer At Limit
 msgid "printer-state-reasons.trimmer-at-limit"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-at-limit está no limite"
 
 #. TRANSLATORS: Trimmer Closed
 msgid "printer-state-reasons.trimmer-closed"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-closed está fechado"
 
 #. TRANSLATORS: Trimmer Configuration Change
 msgid "printer-state-reasons.trimmer-configuration-change"
 msgstr ""
+"Alterações das configurações do aparador printer-state-reasons.trimmer-"
+"configuration-change"
 
 #. TRANSLATORS: Trimmer Cover Closed
 msgid "printer-state-reasons.trimmer-cover-closed"
 msgstr ""
+"A tampa do aparador printer-state-reasons.trimmer-cover-closed está fechada"
 
 #. TRANSLATORS: Trimmer Cover Open
 msgid "printer-state-reasons.trimmer-cover-open"
 msgstr ""
+"A tampa do aparador printer-state-reasons.trimmer-cover-open está aberta"
 
 #. TRANSLATORS: Trimmer Empty
 msgid "printer-state-reasons.trimmer-empty"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-empty está vazio"
 
 #. TRANSLATORS: Trimmer Full
 msgid "printer-state-reasons.trimmer-full"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-full está cheio"
 
 #. TRANSLATORS: Trimmer Interlock Closed
 msgid "printer-state-reasons.trimmer-interlock-closed"
 msgstr ""
+"O intertravamento do aparador dprinter-state-reasons.trimmer-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Trimmer Interlock Open
 msgid "printer-state-reasons.trimmer-interlock-open"
 msgstr ""
+"O intertravamento do aparador printer-state-reasons.trimmer-interlock-open "
+"está aberto"
 
 #. TRANSLATORS: Trimmer Jam
 msgid "printer-state-reasons.trimmer-jam"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-interlock-open está enroscado"
 
 #. TRANSLATORS: Trimmer Life Almost Over
 msgid "printer-state-reasons.trimmer-life-almost-over"
 msgstr ""
+"O aparador printer-state-reasons.trimmer-interlock-open está quase no fim da "
+"sua vida útil"
 
 #. TRANSLATORS: Trimmer Life Over
 msgid "printer-state-reasons.trimmer-life-over"
 msgstr ""
+"O aparador printer-state-reasons.trimmer-life-over está no fim da sua vida "
+"útil"
 
 #. TRANSLATORS: Trimmer Memory Exhausted
 msgid "printer-state-reasons.trimmer-memory-exhausted"
 msgstr ""
+"A memória do aparador printer-state-reasons.sheet-rotator-memory-exhausted "
+"foi esgotada"
 
 #. TRANSLATORS: Trimmer Missing
 msgid "printer-state-reasons.trimmer-missing"
-msgstr ""
+msgstr "Ocorreu uma falha no aparador printer-state-reasons.trimmer-missing"
 
 #. TRANSLATORS: Trimmer Motor Failure
 msgid "printer-state-reasons.trimmer-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor do aparador printer-state-reasons.trimmer-motor-"
+"failure"
 
 #. TRANSLATORS: Trimmer Near Limit
 msgid "printer-state-reasons.trimmer-near-limit"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-near-limit está no limite"
 
 #. TRANSLATORS: Trimmer Offline
 msgid "printer-state-reasons.trimmer-offline"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-offline desconectado"
 
 #. TRANSLATORS: Trimmer Opened
 msgid "printer-state-reasons.trimmer-opened"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-opened aberto"
 
 #. TRANSLATORS: Trimmer Over Temperature
 msgid "printer-state-reasons.trimmer-over-temperature"
 msgstr ""
+"O aparador printer-state-reasons.trimmer-opened atingiu uma temperatura "
+"excessiva"
 
 #. TRANSLATORS: Trimmer Power Saver
 msgid "printer-state-reasons.trimmer-power-saver"
 msgstr ""
+"O aparador printer-state-reasons.trimmer-opened entrou no modo de economia "
+"de energia"
 
 #. TRANSLATORS: Trimmer Recoverable Failure
 msgid "printer-state-reasons.trimmer-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no aparador printer-state-reasons.trimmer-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Trimmer Recoverable Storage
 msgid "printer-state-reasons.trimmer-recoverable-storage"
 msgstr ""
+"O armazenamento do aparador printer-state-reasons.trimmer-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Trimmer Removed
 msgid "printer-state-reasons.trimmer-removed"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-removed foi removido"
 
 #. TRANSLATORS: Trimmer Resource Added
 msgid "printer-state-reasons.trimmer-resource-added"
 msgstr ""
+"A funcionalidade do aparador printer-state-reasons.trimmer-resource-added "
+"foi adicionada"
 
 #. TRANSLATORS: Trimmer Resource Removed
 msgid "printer-state-reasons.trimmer-resource-removed"
 msgstr ""
+"A funcionalidade do aparador printer-state-reasons.trimmer-resource-removed "
+"foi removida"
 
 #. TRANSLATORS: Trimmer Thermistor Failure
 msgid "printer-state-reasons.trimmer-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor do aparador printer-state-reasons.trimmer-"
+"resource-removed"
 
 #. TRANSLATORS: Trimmer Timing Failure
 msgid "printer-state-reasons.trimmer-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador do aparador printer-state-reasons.trimmer-"
+"timing-failure"
 
 #. TRANSLATORS: Trimmer Turned Off
 msgid "printer-state-reasons.trimmer-turned-off"
@@ -16080,10 +16149,14 @@ msgstr ""
 #. TRANSLATORS: Trimmer Unrecoverable Failure
 msgid "printer-state-reasons.trimmer-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no aparador printer-state-reasons.trimmer-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Trimmer Unrecoverable Storage Error
 msgid "printer-state-reasons.trimmer-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento do aparador printer-state-reasons.trimmer-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Trimmer Warming Up
 msgid "printer-state-reasons.trimmer-warming-up"
@@ -16136,6 +16209,8 @@ msgstr ""
 #. TRANSLATORS: Wrapper Interlock Closed
 msgid "printer-state-reasons.wrapper-interlock-closed"
 msgstr ""
+"O intertravamento do envoltório printer-state-reasons.stitcher-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Wrapper Interlock Open
 msgid "printer-state-reasons.wrapper-interlock-open"
