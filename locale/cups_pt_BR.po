@@ -16140,12 +16140,12 @@ msgstr "O aparador printer-state-reasons.trimmer-turned-off está desligado"
 
 #. TRANSLATORS: Trimmer Turned On
 msgid "printer-state-reasons.trimmer-turned-on"
-msgstr "O aparador printer-state-reasons.trimmer-turned-off está ligado"
+msgstr "O aparador printer-state-reasons.trimmer-turned-on está ligado"
 
 #. TRANSLATORS: Trimmer Under Temperature
 msgid "printer-state-reasons.trimmer-under-temperature"
 msgstr ""
-"O aparador printer-state-reasons.trimmer-under-temperature está com "
+"O aparador printer-state-reasons.trimmer-under-temperature está com a "
 "temperatura abaixo do normal"
 
 #. TRANSLATORS: Trimmer Unrecoverable Failure
@@ -16162,7 +16162,7 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Warming Up
 msgid "printer-state-reasons.trimmer-warming-up"
-msgstr ""
+msgstr "O aparador printer-state-reasons.trimmer-warming-up está aquecendo"
 
 #. TRANSLATORS: Unknown
 msgid "printer-state-reasons.unknown"
