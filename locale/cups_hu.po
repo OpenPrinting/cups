@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-26 18:02+0000\n"
+"PO-Revision-Date: 2025-06-28 13:05+0000\n"
 "Last-Translator: therealmate <hellogaming91@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/cups/cups/hu/>"
 "\n"
@@ -452,43 +452,43 @@ msgstr ""
 #, c-format
 msgid "      %s  Bad UTF-8 \"%s\" translation string for option %s, choice %s."
 msgstr ""
-"      %s:  Hibás UTF-8 fordítási karakterlánc („%s”) a(z) %s opcióhoz, %s "
+"      %s  Hibás UTF-8 fordítási karakterlánc („%s”) a(z) %s opcióhoz, %s "
 "választáshoz."
 
 #: systemv/cupstestppd.c:3502
 #, c-format
 msgid "      %s  Bad UTF-8 \"%s\" translation string for option %s."
-msgstr "      %s:  Hibás UTF-8 fordítási karakterlánc („%s”) a(z) %s opcióhoz."
+msgstr "      %s  Hibás UTF-8 fordítási karakterlánc („%s”) a(z) %s opcióhoz."
 
 #: systemv/cupstestppd.c:2366 systemv/cupstestppd.c:2388
 #, c-format
 msgid "      %s  Bad cupsFilter value \"%s\"."
-msgstr "      %s:  Hibás cupsFilter érték: „%s”."
+msgstr "      %s  Hibás cupsFilter érték: „%s”."
 
 #: systemv/cupstestppd.c:2484 systemv/cupstestppd.c:2506
 #, c-format
 msgid "      %s  Bad cupsFilter2 value \"%s\"."
-msgstr "      %s:  Hibás cupsFilter2 érték: „%s”."
+msgstr "      %s  Hibás cupsFilter2 érték: „%s”."
 
 #: systemv/cupstestppd.c:3005
 #, c-format
 msgid "      %s  Bad cupsICCProfile %s."
-msgstr "      %s:  Hibás cupsICCProfile érték: %s."
+msgstr "      %s  Hibás cupsICCProfile érték: %s."
 
 #: systemv/cupstestppd.c:2612
 #, c-format
 msgid "      %s  Bad cupsPreFilter value \"%s\"."
-msgstr "      %s:  Hibás cupsPreFilter érték: „%s”."
+msgstr "      %s  Hibás cupsPreFilter érték: „%s”."
 
 #: systemv/cupstestppd.c:1799
 #, c-format
 msgid "      %s  Bad cupsUIConstraints %s: \"%s\""
-msgstr "      %s:  Hibás cupsUIConstraints érték (%s): „%s”"
+msgstr "      %s  Hibás cupsUIConstraints érték (%s): „%s”"
 
 #: systemv/cupstestppd.c:3452
 #, c-format
 msgid "      %s  Bad language \"%s\"."
-msgstr "      %s:  Hibás nyelv: „%s”."
+msgstr "      %s  Hibás nyelv: „%s”."
 
 #: systemv/cupstestppd.c:2442 systemv/cupstestppd.c:2570
 #: systemv/cupstestppd.c:2656 systemv/cupstestppd.c:2714
@@ -497,7 +497,7 @@ msgstr "      %s:  Hibás nyelv: „%s”."
 #: systemv/cupstestppd.c:3054
 #, c-format
 msgid "      %s  Bad permissions on %s file \"%s\"."
-msgstr "      %s:  Hibás jogosultságok a(z) %s fájlon: „%s”."
+msgstr "      %s  Hibás jogosultságok a(z) %s fájlon: „%s”."
 
 #: systemv/cupstestppd.c:2350 systemv/cupstestppd.c:2468
 #: systemv/cupstestppd.c:2596 systemv/cupstestppd.c:2683
@@ -505,35 +505,35 @@ msgstr "      %s:  Hibás jogosultságok a(z) %s fájlon: „%s”."
 #: systemv/cupstestppd.c:2848 systemv/cupstestppd.c:2903
 #, c-format
 msgid "      %s  Bad spelling of %s - should be %s."
-msgstr "      %s:  Hibásan van írva: %s – helyesen: %s."
+msgstr "      %s  Hibásan van írva: %s – helyesen: %s."
 
 #: systemv/cupstestppd.c:2948
 #, c-format
 msgid "      %s  Cannot provide both APScanAppPath and APScanAppBundleID."
 msgstr ""
-"      %s:  Az APScanAppPath és az APScanAppBundleID nem adható meg egyszerre."
+"      %s  Az APScanAppPath és az APScanAppBundleID nem adható meg egyszerre."
 
 #: systemv/cupstestppd.c:2182
 #, c-format
 msgid "      %s  Default choices conflicting."
-msgstr "      %s:  Az alapértelmezett választások ütköznek."
+msgstr "      %s  Az alapértelmezett választások ütköznek."
 
 #: systemv/cupstestppd.c:1780
 #, c-format
 msgid "      %s  Empty cupsUIConstraints %s"
-msgstr "      %s:  Üres cupsUIConstraints érték: %s"
+msgstr "      %s  Üres cupsUIConstraints érték: %s"
 
 #: systemv/cupstestppd.c:3580 systemv/cupstestppd.c:3620
 #, c-format
 msgid "      %s  Missing \"%s\" translation string for option %s, choice %s."
 msgstr ""
-"      %s:  Hiányzik a(z) „%s” fordítási karakterlánc a(z) %s opcióhoz, %s "
+"      %s  Hiányzik a(z) „%s” fordítási karakterlánc a(z) %s opcióhoz, %s "
 "választáshoz."
 
 #: systemv/cupstestppd.c:3488
 #, c-format
 msgid "      %s  Missing \"%s\" translation string for option %s."
-msgstr "      %s:  Hiányzik a(z) „%s” fordítási karakterlánc a(z) %s opcióhoz."
+msgstr "      %s  Hiányzik a(z) „%s” fordítási karakterlánc a(z) %s opcióhoz."
 
 #: systemv/cupstestppd.c:2427 systemv/cupstestppd.c:2555
 #: systemv/cupstestppd.c:2641 systemv/cupstestppd.c:2699
@@ -542,7 +542,7 @@ msgstr "      %s:  Hiányzik a(z) „%s” fordítási karakterlánc a(z) %s opc
 #: systemv/cupstestppd.c:3039
 #, c-format
 msgid "      %s  Missing %s file \"%s\"."
-msgstr "      %s:  Hiányzik a(z) %s fájl: „%s”."
+msgstr "      %s  Hiányzik a(z) %s fájl: „%s”."
 
 #: systemv/cupstestppd.c:3162
 #, c-format
@@ -550,6 +550,8 @@ msgid ""
 "      %s  Missing REQUIRED PageRegion option.\n"
 "                REF: Page 100, section 5.14."
 msgstr ""
+"      %s  Hiányzik a KÖTELEZŐ PageRegion opció.  \n"
+"                HIV: 100. oldal, 5.14. szakasz."
 
 #: systemv/cupstestppd.c:3147
 #, c-format
@@ -557,36 +559,42 @@ msgid ""
 "      %s  Missing REQUIRED PageSize option.\n"
 "                REF: Page 99, section 5.14."
 msgstr ""
+"      %s  Hiányzik a KÖTELEZŐ PageSize opció.  \n"
+"                HIV: 99. oldal, 5.14. szakasz."
 
 #: systemv/cupstestppd.c:1990 systemv/cupstestppd.c:2031
 #, c-format
 msgid "      %s  Missing choice *%s %s in UIConstraints \"*%s %s *%s %s\"."
 msgstr ""
+"      %s  Hiányzik a választás: *%s %s a UIConstraints mezőből: "
+"\"*%s %s *%s %s\"."
 
 #: systemv/cupstestppd.c:1885
 #, c-format
 msgid "      %s  Missing choice *%s %s in cupsUIConstraints %s: \"%s\""
 msgstr ""
+"      %s  Hiányzik a választás: *%s %s a cupsUIConstraints mezőből (%s): „%s”"
 
 #: systemv/cupstestppd.c:1817
 #, c-format
 msgid "      %s  Missing cupsUIResolver %s"
-msgstr ""
+msgstr "      %s  Hiányzik a cupsUIResolver: %s"
 
 #: systemv/cupstestppd.c:1976 systemv/cupstestppd.c:2017
 #, c-format
 msgid "      %s  Missing option %s in UIConstraints \"*%s %s *%s %s\"."
 msgstr ""
+"      %s  Hiányzik az opció: %s a UIConstraints mezőből: \"*%s %s *%s %s\"."
 
 #: systemv/cupstestppd.c:1869
 #, c-format
 msgid "      %s  Missing option %s in cupsUIConstraints %s: \"%s\""
-msgstr ""
+msgstr "      %s  Hiányzik az opció: %s a cupsUIConstraints mezőből (%s): „%s”"
 
 #: systemv/cupstestppd.c:3674
 #, c-format
 msgid "      %s  No base translation \"%s\" is included in file."
-msgstr ""
+msgstr "      %s  A(z) „%s” alapfordítás nincs jelen a fájlban."
 
 #: systemv/cupstestppd.c:2271
 #, c-format
@@ -594,21 +602,25 @@ msgid ""
 "      %s  REQUIRED %s does not define choice None.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
+"      %s  A KÖTELEZŐ %s nem tartalmaz „Nincsen” választási lehetőséget.  \n"
+"                HIV: 122. oldal, 5.17. szakasz"
 
 #: systemv/cupstestppd.c:3221 systemv/cupstestppd.c:3235
 #, c-format
 msgid "      %s  Size \"%s\" defined for %s but not for %s."
 msgstr ""
+"      %s  A(z) „%s” méret meg van adva a(z) %s számára, de nincs definiálva "
+"a(z) %s számára."
 
 #: systemv/cupstestppd.c:3201
 #, c-format
 msgid "      %s  Size \"%s\" has unexpected dimensions (%gx%g)."
-msgstr ""
+msgstr "      %s  A(z) „%s” méret váratlan méretekkel rendelkezik (%gx%g)."
 
 #: systemv/cupstestppd.c:3392
 #, c-format
 msgid "      %s  Size \"%s\" should be \"%s\"."
-msgstr ""
+msgstr "      %s  A(z) „%s” méret helyesen: „%s”."
 
 #: systemv/cupstestppd.c:3341
 #, c-format
