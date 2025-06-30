@@ -12901,6 +12901,8 @@ msgstr ""
 #. TRANSLATORS: Bander Life Almost Over
 msgid "printer-state-reasons.bander-life-almost-over"
 msgstr ""
+"A bandeja printer-state-reasons.bander-life-almost-over está quase no fim da "
+"sua vida útil"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
@@ -13055,6 +13057,8 @@ msgstr ""
 #. TRANSLATORS: Binder Life Almost Over
 msgid "printer-state-reasons.binder-life-almost-over"
 msgstr ""
+"A bandeja printer-state-reasons.cleaner-life-almost-over está quase no fim "
+"da sua vida útil"
 
 #. TRANSLATORS: Binder Life Over
 msgid "printer-state-reasons.binder-life-over"
@@ -13179,6 +13183,8 @@ msgstr ""
 #. TRANSLATORS: Cleaner Life Almost Over
 msgid "printer-state-reasons.cleaner-life-almost-over"
 msgstr ""
+"O limpador printer-state-reasons.cleaner-life-almost-over está quase no fim "
+"da sua vida útil"
 
 #. TRANSLATORS: Cleaner Life Over
 msgid "printer-state-reasons.cleaner-life-over"
@@ -13268,6 +13274,8 @@ msgstr ""
 #. TRANSLATORS: Die Cutter Life Almost Over
 msgid "printer-state-reasons.die-cutter-life-almost-over"
 msgstr ""
+"O cortador matricial printer-state-reasons.die-cutter-life-almost-over está "
+"quase no fim da sua vida útil"
 
 #. TRANSLATORS: Die Cutter Life Over
 msgid "printer-state-reasons.die-cutter-life-over"
@@ -13400,6 +13408,8 @@ msgstr ""
 #. TRANSLATORS: Fax Modem Life Almost Over
 msgid "printer-state-reasons.fax-modem-life-almost-over"
 msgstr ""
+"A placa do Fax Modem printer-state-reasons.imprinter-life-almost-over está "
+"quase no fim da sua vida útil"
 
 #. TRANSLATORS: Fax Modem Life Over
 msgid "printer-state-reasons.fax-modem-life-over"
@@ -13651,8 +13661,8 @@ msgstr ""
 #. TRANSLATORS: Imprinter Life Almost Over
 msgid "printer-state-reasons.imprinter-life-almost-over"
 msgstr ""
-"A impressora printer-state-reasons.make-envelope-life-almost-over está quase "
-"no fim da sua vida útil"
+"A impressora printer-state-reasons.imprinter-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Imprinter Life Over
 msgid "printer-state-reasons.imprinter-life-over"
@@ -16264,6 +16274,8 @@ msgstr ""
 #. TRANSLATORS: Wrapper Life Over
 msgid "printer-state-reasons.wrapper-life-over"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-life-over está no fim da sua "
+"vida útil"
 
 #. TRANSLATORS: Wrapper Memory Exhausted
 msgid "printer-state-reasons.wrapper-memory-exhausted"
