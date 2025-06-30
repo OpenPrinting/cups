@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-28 13:05+0000\n"
+"PO-Revision-Date: 2025-07-01 14:49+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -16170,23 +16170,25 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper Added
 msgid "printer-state-reasons.wrapper-added"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-added foi adicionado"
 
 #. TRANSLATORS: Wrapper Almost Empty
 msgid "printer-state-reasons.wrapper-almost-empty"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-almost-empty está quase vazio"
 
 #. TRANSLATORS: Wrapper Almost Full
 msgid "printer-state-reasons.wrapper-almost-full"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-almost-full está quase cheio"
 
 #. TRANSLATORS: Wrapper At Limit
 msgid "printer-state-reasons.wrapper-at-limit"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-at-limit está no limite"
 
 #. TRANSLATORS: Wrapper Closed
 msgid "printer-state-reasons.wrapper-closed"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-closed está fechado"
 
 #. TRANSLATORS: Wrapper Configuration Change
 msgid "printer-state-reasons.wrapper-configuration-change"
@@ -16195,10 +16197,13 @@ msgstr ""
 #. TRANSLATORS: Wrapper Cover Closed
 msgid "printer-state-reasons.wrapper-cover-closed"
 msgstr ""
+"O intertravamento do envoltório printer-state-reasons.wrapper-cover-closed "
+"está aberto"
 
 #. TRANSLATORS: Wrapper Cover Open
 msgid "printer-state-reasons.wrapper-cover-open"
 msgstr ""
+"A tampa do envoltório printer-state-reasons.wrapper-cover-open está aberta"
 
 #. TRANSLATORS: Wrapper Empty
 msgid "printer-state-reasons.wrapper-empty"
@@ -16265,10 +16270,14 @@ msgstr ""
 #. TRANSLATORS: Wrapper Recoverable Failure
 msgid "printer-state-reasons.wrapper-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-cover-open que "
+"pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Recoverable Storage
 msgid "printer-state-reasons.wrapper-recoverable-storage"
 msgstr ""
+"O armazenamento do invólucro printer-state-reasons.wrapper-recoverable-"
+"storage que pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Removed
 msgid "printer-state-reasons.wrapper-removed"
@@ -16305,10 +16314,14 @@ msgstr ""
 #. TRANSLATORS: Wrapper Unrecoverable Failure
 msgid "printer-state-reasons.wrapper-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-unrecoverable-"
+"storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Unrecoverable Storage Error
 msgid "printer-state-reasons.wrapper-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento do invólucro printer-state-reasons.wrapper-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Warming Up
 msgid "printer-state-reasons.wrapper-warming-up"
