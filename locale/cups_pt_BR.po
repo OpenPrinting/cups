@@ -13474,6 +13474,8 @@ msgstr ""
 #. TRANSLATORS: Folder Life Almost Over
 msgid "printer-state-reasons.folder-life-almost-over"
 msgstr ""
+"A pasta printer-state-reasons.folder-life-almost-over está quase no fim da "
+"sua vida útil"
 
 #. TRANSLATORS: Folder Life Over
 msgid "printer-state-reasons.folder-life-over"
@@ -13649,6 +13651,8 @@ msgstr ""
 #. TRANSLATORS: Imprinter Life Almost Over
 msgid "printer-state-reasons.imprinter-life-almost-over"
 msgstr ""
+"A impressora printer-state-reasons.make-envelope-life-almost-over está quase "
+"no fim da sua vida útil"
 
 #. TRANSLATORS: Imprinter Life Over
 msgid "printer-state-reasons.imprinter-life-over"
@@ -13963,7 +13967,7 @@ msgstr ""
 #. TRANSLATORS: Inserter Unrecoverable Failure
 msgid "printer-state-reasons.inserter-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha no alimentador de folhas em printer-state-reasons.inserter-"
+"Ocorreu uma falha no alimentador de folhas printer-state-reasons.inserter-"
 "unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Inserter Unrecoverable Storage Error
