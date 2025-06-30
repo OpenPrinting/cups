@@ -15066,7 +15066,7 @@ msgstr ""
 msgid "printer-state-reasons.sheet-rotator-life-almost-over"
 msgstr ""
 "A vida útil do rotador de folhas printer-state-reasons.sheet-rotator-life-"
-"almost-over está quase no fim"
+"almost-over está quase no fim da sua vida útil"
 
 #. TRANSLATORS: Sheet Rotator Life Over
 msgid "printer-state-reasons.sheet-rotator-life-over"
@@ -16193,43 +16193,49 @@ msgstr "O empacotador printer-state-reasons.wrapper-closed está fechado"
 #. TRANSLATORS: Wrapper Configuration Change
 msgid "printer-state-reasons.wrapper-configuration-change"
 msgstr ""
+"Alterar as configurações do empacotador printer-state-reasons.wrapper-"
+"configuration-change"
 
 #. TRANSLATORS: Wrapper Cover Closed
 msgid "printer-state-reasons.wrapper-cover-closed"
 msgstr ""
-"O intertravamento do envoltório printer-state-reasons.wrapper-cover-closed "
+"O intertravamento do empacotador printer-state-reasons.wrapper-cover-closed "
 "está aberto"
 
 #. TRANSLATORS: Wrapper Cover Open
 msgid "printer-state-reasons.wrapper-cover-open"
 msgstr ""
-"A tampa do envoltório printer-state-reasons.wrapper-cover-open está aberta"
+"A tampa do empacotador printer-state-reasons.wrapper-cover-open está aberta"
 
 #. TRANSLATORS: Wrapper Empty
 msgid "printer-state-reasons.wrapper-empty"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-empty está vazio"
 
 #. TRANSLATORS: Wrapper Full
 msgid "printer-state-reasons.wrapper-full"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-full está cheio"
 
 #. TRANSLATORS: Wrapper Interlock Closed
 msgid "printer-state-reasons.wrapper-interlock-closed"
 msgstr ""
-"O intertravamento do envoltório printer-state-reasons.stitcher-interlock-"
+"O intertravamento do empacotador printer-state-reasons.stitcher-interlock-"
 "closed está fechado"
 
 #. TRANSLATORS: Wrapper Interlock Open
 msgid "printer-state-reasons.wrapper-interlock-open"
 msgstr ""
+"O intertravamento do empacotador printer-state-reasons.wrapper-interlock-"
+"open está aberto"
 
 #. TRANSLATORS: Wrapper Jam
 msgid "printer-state-reasons.wrapper-jam"
-msgstr ""
+msgstr "Ocorreu o atolamento no empacotador printer-state-reasons.wrapper-jam"
 
 #. TRANSLATORS: Wrapper Life Almost Over
 msgid "printer-state-reasons.wrapper-life-almost-over"
 msgstr ""
+"Ocorreu um atolamento no empacotador printer-state-reasons.wrapper-life-"
+"almost-over está quase no fim da sua vida útil"
 
 #. TRANSLATORS: Wrapper Life Over
 msgid "printer-state-reasons.wrapper-life-over"
