@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-28 13:05+0000\n"
+"PO-Revision-Date: 2025-07-01 14:49+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -12901,6 +12901,8 @@ msgstr ""
 #. TRANSLATORS: Bander Life Almost Over
 msgid "printer-state-reasons.bander-life-almost-over"
 msgstr ""
+"A bandeja printer-state-reasons.bander-life-almost-over está quase no fim da "
+"sua vida útil"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
@@ -13055,6 +13057,8 @@ msgstr ""
 #. TRANSLATORS: Binder Life Almost Over
 msgid "printer-state-reasons.binder-life-almost-over"
 msgstr ""
+"A bandeja printer-state-reasons.cleaner-life-almost-over está quase no fim "
+"da sua vida útil"
 
 #. TRANSLATORS: Binder Life Over
 msgid "printer-state-reasons.binder-life-over"
@@ -13179,6 +13183,8 @@ msgstr ""
 #. TRANSLATORS: Cleaner Life Almost Over
 msgid "printer-state-reasons.cleaner-life-almost-over"
 msgstr ""
+"O limpador printer-state-reasons.cleaner-life-almost-over está quase no fim "
+"da sua vida útil"
 
 #. TRANSLATORS: Cleaner Life Over
 msgid "printer-state-reasons.cleaner-life-over"
@@ -13268,6 +13274,8 @@ msgstr ""
 #. TRANSLATORS: Die Cutter Life Almost Over
 msgid "printer-state-reasons.die-cutter-life-almost-over"
 msgstr ""
+"O cortador matricial printer-state-reasons.die-cutter-life-almost-over está "
+"quase no fim da sua vida útil"
 
 #. TRANSLATORS: Die Cutter Life Over
 msgid "printer-state-reasons.die-cutter-life-over"
@@ -13400,6 +13408,8 @@ msgstr ""
 #. TRANSLATORS: Fax Modem Life Almost Over
 msgid "printer-state-reasons.fax-modem-life-almost-over"
 msgstr ""
+"A placa do Fax Modem printer-state-reasons.imprinter-life-almost-over está "
+"quase no fim da sua vida útil"
 
 #. TRANSLATORS: Fax Modem Life Over
 msgid "printer-state-reasons.fax-modem-life-over"
@@ -13474,6 +13484,8 @@ msgstr ""
 #. TRANSLATORS: Folder Life Almost Over
 msgid "printer-state-reasons.folder-life-almost-over"
 msgstr ""
+"A pasta printer-state-reasons.folder-life-almost-over está quase no fim da "
+"sua vida útil"
 
 #. TRANSLATORS: Folder Life Over
 msgid "printer-state-reasons.folder-life-over"
@@ -13649,6 +13661,8 @@ msgstr ""
 #. TRANSLATORS: Imprinter Life Almost Over
 msgid "printer-state-reasons.imprinter-life-almost-over"
 msgstr ""
+"A impressora printer-state-reasons.imprinter-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Imprinter Life Over
 msgid "printer-state-reasons.imprinter-life-over"
@@ -13877,6 +13891,8 @@ msgstr ""
 #. TRANSLATORS: Inserter Life Almost Over
 msgid "printer-state-reasons.inserter-life-almost-over"
 msgstr ""
+"O alimentador de folhas printer-state-reasons.make-envelope-life-almost-over "
+"está quase no fim da sua vida útil"
 
 #. TRANSLATORS: Inserter Life Over
 msgid "printer-state-reasons.inserter-life-over"
@@ -13961,13 +13977,13 @@ msgstr ""
 #. TRANSLATORS: Inserter Unrecoverable Failure
 msgid "printer-state-reasons.inserter-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha na alimentação das folhas em printer-state-reasons"
-".inserter-unrecoverable-failure que não pode ser restaurado"
+"Ocorreu uma falha no alimentador de folhas printer-state-reasons.inserter-"
+"unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Inserter Unrecoverable Storage Error
 msgid "printer-state-reasons.inserter-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro na alimentação das folhas em printer-state-reasons.inserter-"
+"Ocorreu um erro no alimentador de folhas printer-state-reasons.inserter-"
 "unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Inserter Warming Up
@@ -14100,6 +14116,8 @@ msgstr ""
 #. TRANSLATORS: Envelope Maker Life Almost Over
 msgid "printer-state-reasons.make-envelope-life-almost-over"
 msgstr ""
+"A máquina de envelopamento printer-state-reasons.make-envelope-life-almost-"
+"over está quase no fim da sua vida útil"
 
 #. TRANSLATORS: Envelope Maker Life Over
 msgid "printer-state-reasons.make-envelope-life-over"
@@ -14537,6 +14555,8 @@ msgstr ""
 #. TRANSLATORS: Perforater Life Almost Over
 msgid "printer-state-reasons.perforater-life-almost-over"
 msgstr ""
+"O perfurador printer-state-reasons.perforater-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Perforater Life Over
 msgid "printer-state-reasons.perforater-life-over"
@@ -14733,6 +14753,8 @@ msgstr ""
 #. TRANSLATORS: Puncher Life Almost Over
 msgid "printer-state-reasons.puncher-life-almost-over"
 msgstr ""
+"O furador printer-state-reasons.puncher-life-almost-over está quase no fim "
+"da sua vida útil"
 
 #. TRANSLATORS: Puncher Life Over
 msgid "printer-state-reasons.puncher-life-over"
@@ -14891,6 +14913,8 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Life Almost Over
 msgid "printer-state-reasons.separation-cutter-life-almost-over"
 msgstr ""
+"O separador printer-state-reasons.separation-cutter-life-almost-over está "
+"quase no fim da sua vida útil"
 
 #. TRANSLATORS: Separation Cutter Life Over
 msgid "printer-state-reasons.separation-cutter-life-over"
@@ -15065,8 +15089,8 @@ msgstr ""
 #. TRANSLATORS: Sheet Rotator Life Almost Over
 msgid "printer-state-reasons.sheet-rotator-life-almost-over"
 msgstr ""
-"A vida útil do rotador de folhas printer-state-reasons.sheet-rotator-life-"
-"almost-over está quase no fim"
+"O rotador de folhas printer-state-reasons.sheet-rotator-life-almost-over "
+"está quase no fim da sua vida útil"
 
 #. TRANSLATORS: Sheet Rotator Life Over
 msgid "printer-state-reasons.sheet-rotator-life-over"
@@ -15260,6 +15284,8 @@ msgstr ""
 #. TRANSLATORS: Slitter Life Almost Over
 msgid "printer-state-reasons.slitter-life-almost-over"
 msgstr ""
+"O cortador printer-state-reasons.slitter-life-almost-over está quase no fim "
+"da sua vida útil"
 
 #. TRANSLATORS: Slitter Life Over
 msgid "printer-state-reasons.slitter-life-over"
@@ -15420,6 +15446,8 @@ msgstr ""
 #. TRANSLATORS: Stacker Life Almost Over
 msgid "printer-state-reasons.stacker-life-almost-over"
 msgstr ""
+"O empilhador printer-state-reasons.stacker-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Stacker Life Over
 msgid "printer-state-reasons.stacker-life-over"
@@ -15576,6 +15604,8 @@ msgstr ""
 #. TRANSLATORS: Stapler Life Almost Over
 msgid "printer-state-reasons.stapler-life-almost-over"
 msgstr ""
+"O grampeador printer-state-reasons.stapler-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Stapler Life Over
 msgid "printer-state-reasons.stapler-life-over"
@@ -15733,6 +15763,8 @@ msgstr ""
 #. TRANSLATORS: Stitcher Life Almost Over
 msgid "printer-state-reasons.stitcher-life-almost-over"
 msgstr ""
+"O costurador printer-state-reasons.stitcher-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Stitcher Life Over
 msgid "printer-state-reasons.stitcher-life-over"
@@ -15873,6 +15905,8 @@ msgstr ""
 #. TRANSLATORS: Subunit Life Almost Over
 msgid "printer-state-reasons.subunit-life-almost-over"
 msgstr ""
+"A subunidade printer-state-reasons.sheet-rotator-life-almost-over está quase "
+"no fim da sua vida útil"
 
 #. TRANSLATORS: Subunit Life Over
 msgid "printer-state-reasons.subunit-life-over"
@@ -16170,65 +16204,78 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper Added
 msgid "printer-state-reasons.wrapper-added"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-added foi adicionado"
 
 #. TRANSLATORS: Wrapper Almost Empty
 msgid "printer-state-reasons.wrapper-almost-empty"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-almost-empty está quase vazio"
 
 #. TRANSLATORS: Wrapper Almost Full
 msgid "printer-state-reasons.wrapper-almost-full"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-almost-full está quase cheio"
 
 #. TRANSLATORS: Wrapper At Limit
 msgid "printer-state-reasons.wrapper-at-limit"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-at-limit está no limite"
 
 #. TRANSLATORS: Wrapper Closed
 msgid "printer-state-reasons.wrapper-closed"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-closed está fechado"
 
 #. TRANSLATORS: Wrapper Configuration Change
 msgid "printer-state-reasons.wrapper-configuration-change"
 msgstr ""
+"Alterar as configurações do empacotador printer-state-reasons.wrapper-"
+"configuration-change"
 
 #. TRANSLATORS: Wrapper Cover Closed
 msgid "printer-state-reasons.wrapper-cover-closed"
 msgstr ""
+"O intertravamento do empacotador printer-state-reasons.wrapper-cover-closed "
+"está aberto"
 
 #. TRANSLATORS: Wrapper Cover Open
 msgid "printer-state-reasons.wrapper-cover-open"
 msgstr ""
+"A tampa do empacotador printer-state-reasons.wrapper-cover-open está aberta"
 
 #. TRANSLATORS: Wrapper Empty
 msgid "printer-state-reasons.wrapper-empty"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-empty está vazio"
 
 #. TRANSLATORS: Wrapper Full
 msgid "printer-state-reasons.wrapper-full"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-full está cheio"
 
 #. TRANSLATORS: Wrapper Interlock Closed
 msgid "printer-state-reasons.wrapper-interlock-closed"
 msgstr ""
-"O intertravamento do envoltório printer-state-reasons.stitcher-interlock-"
+"O intertravamento do empacotador printer-state-reasons.stitcher-interlock-"
 "closed está fechado"
 
 #. TRANSLATORS: Wrapper Interlock Open
 msgid "printer-state-reasons.wrapper-interlock-open"
 msgstr ""
+"O intertravamento do empacotador printer-state-reasons.wrapper-interlock-"
+"open está aberto"
 
 #. TRANSLATORS: Wrapper Jam
 msgid "printer-state-reasons.wrapper-jam"
-msgstr ""
+msgstr "Ocorreu o atolamento no empacotador printer-state-reasons.wrapper-jam"
 
 #. TRANSLATORS: Wrapper Life Almost Over
 msgid "printer-state-reasons.wrapper-life-almost-over"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Wrapper Life Over
 msgid "printer-state-reasons.wrapper-life-over"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-life-over está no fim da sua "
+"vida útil"
 
 #. TRANSLATORS: Wrapper Memory Exhausted
 msgid "printer-state-reasons.wrapper-memory-exhausted"
@@ -16265,10 +16312,14 @@ msgstr ""
 #. TRANSLATORS: Wrapper Recoverable Failure
 msgid "printer-state-reasons.wrapper-recoverable-failure"
 msgstr ""
+"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-cover-open que "
+"pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Recoverable Storage
 msgid "printer-state-reasons.wrapper-recoverable-storage"
 msgstr ""
+"O armazenamento do invólucro printer-state-reasons.wrapper-recoverable-"
+"storage que pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Removed
 msgid "printer-state-reasons.wrapper-removed"
@@ -16305,10 +16356,14 @@ msgstr ""
 #. TRANSLATORS: Wrapper Unrecoverable Failure
 msgid "printer-state-reasons.wrapper-unrecoverable-failure"
 msgstr ""
+"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-unrecoverable-"
+"storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Unrecoverable Storage Error
 msgid "printer-state-reasons.wrapper-unrecoverable-storage-error"
 msgstr ""
+"Ocorreu um erro de armazenamento do invólucro printer-state-reasons.wrapper-"
+"unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Warming Up
 msgid "printer-state-reasons.wrapper-warming-up"
