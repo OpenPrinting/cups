@@ -16322,8 +16322,8 @@ msgstr ""
 #. TRANSLATORS: Wrapper Recoverable Failure
 msgid "printer-state-reasons.wrapper-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-cover-open "
-"que pode ser restaurado"
+"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-recoverable-"
+"failure pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Recoverable Storage
 msgid "printer-state-reasons.wrapper-recoverable-storage"
