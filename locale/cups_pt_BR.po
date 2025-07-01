@@ -7195,11 +7195,12 @@ msgstr ""
 #. TRANSLATORS: JDF F12-2
 msgid "finishing-template.jdf-f12-2"
 msgstr ""
-"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-12"
+"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-2"
 
 #. TRANSLATORS: JDF F12-3
 msgid "finishing-template.jdf-f12-3"
 msgstr ""
+"Formato de definição do trabalho JDF F12-13 finishing-template.jdf-f12-3"
 
 #. TRANSLATORS: JDF F12-4
 msgid "finishing-template.jdf-f12-4"
