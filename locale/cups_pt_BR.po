@@ -7107,87 +7107,95 @@ msgstr "Papel sanfonado finishing-template.fold"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishing-template.fold-double-gate"
-msgstr "Dobrar duas vezes o papel finishing-template.fold-double-gate"
+msgstr "Dobrar o papel duas vezes finishing-template.fold-double-gate"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
-msgstr ""
+msgstr "Dobrar o papel em forma de \"Z\" finishing-template.fold-engineering-z"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishing-template.fold-gate"
-msgstr ""
+msgstr "Dobrar a duas abas laterais para dentro finishing-template.fold-gate"
 
 #. TRANSLATORS: Half Fold
 msgid "finishing-template.fold-half"
-msgstr ""
+msgstr "Dobrar o papel ao meio finishing-template.fold-half"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishing-template.fold-half-z"
-msgstr ""
+msgstr "Dobrar o papel ao meio em forma de \"Z\" finishing-template.fold-half-z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishing-template.fold-left-gate"
-msgstr ""
+msgstr "Dobrar as duas abas do lado esquerdo finishing-template.fold-left-gate"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishing-template.fold-letter"
-msgstr ""
+msgstr "Dobrar o papel em seis partes iguais finishing-template.fold-letter"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishing-template.fold-parallel"
 msgstr ""
+"Dobrar o papel ao meio e dobrar ao meio novamente finishing-template.fold-"
+"parallel"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishing-template.fold-poster"
-msgstr ""
+msgstr "Imprimir no formato de cartaz finishing-template.fold-poster"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishing-template.fold-right-gate"
-msgstr ""
+msgstr "Dobrar as duas abas do lado direito finishing-template.fold-left-gate"
 
 #. TRANSLATORS: Z Fold
 msgid "finishing-template.fold-z"
-msgstr ""
+msgstr "Dobrar o papel em forma de \"Z\" finishing-template.fold-z"
 
 #. TRANSLATORS: JDF F10-1
 msgid "finishing-template.jdf-f10-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F10-1 finishing-template.jdf-f10-1"
 
 #. TRANSLATORS: JDF F10-2
 msgid "finishing-template.jdf-f10-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F10-2 finishing-template.jdf-f10-2"
 
 #. TRANSLATORS: JDF F10-3
 msgid "finishing-template.jdf-f10-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F10-3 finishing-template.jdf-f10-3"
 
 #. TRANSLATORS: JDF F12-1
 msgid "finishing-template.jdf-f12-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-1 finishing-template.jdf-f12-1"
 
 #. TRANSLATORS: JDF F12-10
 msgid "finishing-template.jdf-f12-10"
 msgstr ""
+"Formato de definição do trabalho JDF F12-10 finishing-template.jdf-f12-10"
 
 #. TRANSLATORS: JDF F12-11
 msgid "finishing-template.jdf-f12-11"
 msgstr ""
+"Formato de definição do trabalho JDF F12-11 finishing-template.jdf-f12-11"
 
 #. TRANSLATORS: JDF F12-12
 msgid "finishing-template.jdf-f12-12"
 msgstr ""
+"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-12"
 
 #. TRANSLATORS: JDF F12-13
 msgid "finishing-template.jdf-f12-13"
 msgstr ""
+"Formato de definição do trabalho JDF F12-13 finishing-template.jdf-f12-13"
 
 #. TRANSLATORS: JDF F12-14
 msgid "finishing-template.jdf-f12-14"
 msgstr ""
+"Formato de definição do trabalho JDF F12-14 finishing-template.jdf-f12-14"
 
 #. TRANSLATORS: JDF F12-2
 msgid "finishing-template.jdf-f12-2"
 msgstr ""
+"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-12"
 
 #. TRANSLATORS: JDF F12-3
 msgid "finishing-template.jdf-f12-3"
