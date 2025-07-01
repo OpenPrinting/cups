@@ -7099,15 +7099,15 @@ msgstr "Superior da costura da borda finishing-template.edge-stitch-top"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
-msgstr ""
+msgstr "Dobrar o papel finishing-template.fold"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishing-template.fold-accordion"
-msgstr ""
+msgstr "Papel sanfonado finishing-template.fold"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishing-template.fold-double-gate"
-msgstr ""
+msgstr "Dobrar duas vezes o papel finishing-template.fold-double-gate"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
@@ -16622,15 +16622,15 @@ msgstr "Botão do stitching-reference-edge.bottom"
 
 #. TRANSLATORS: Left
 msgid "stitching-reference-edge.left"
-msgstr "Esquerdo do stitching-reference-edge.left"
+msgstr "Esquerda do stitching-reference-edge.left"
 
 #. TRANSLATORS: Right
 msgid "stitching-reference-edge.right"
-msgstr ""
+msgstr "Direita do stitching-reference-edge.right"
 
 #. TRANSLATORS: Top
 msgid "stitching-reference-edge.top"
-msgstr ""
+msgstr "Superior do stitching-reference-edge.top"
 
 msgid "stopped"
 msgstr "parou"
