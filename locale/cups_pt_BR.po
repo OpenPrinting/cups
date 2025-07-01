@@ -7079,23 +7079,23 @@ msgstr "Capa do finishing-template.cover"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishing-template.edge-stitch"
-msgstr ""
+msgstr "Costura da borda finishing-template.edge-stitch"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishing-template.edge-stitch-bottom"
-msgstr ""
+msgstr "Botão da costura da borda finishing-template.edge-stitch-bottom"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishing-template.edge-stitch-left"
-msgstr ""
+msgstr "Esquerda da costura da borda finishing-template.edge-stitch-left"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishing-template.edge-stitch-right"
-msgstr ""
+msgstr "Direita da costura da borda finishing-template.edge-stitch-right"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishing-template.edge-stitch-top"
-msgstr ""
+msgstr "Superior da costura da borda finishing-template.edge-stitch-top"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
@@ -16338,47 +16338,56 @@ msgstr "O empacotador printer-state-reasons.wrapper-removed foi removido"
 #. TRANSLATORS: Wrapper Resource Added
 msgid "printer-state-reasons.wrapper-resource-added"
 msgstr ""
-"O empacotador printer-state-reasons.wrapper-resource-added foi adicionado"
+"A funcionalidade do empacotador printer-state-reasons.wrapper-resource-added "
+"foi adicionado"
 
 #. TRANSLATORS: Wrapper Resource Removed
 msgid "printer-state-reasons.wrapper-resource-removed"
 msgstr ""
+"A funcionalidade do empacotador printer-state-reasons.wrapper-resource-"
+"removed foi removida"
 
 #. TRANSLATORS: Wrapper Thermistor Failure
 msgid "printer-state-reasons.wrapper-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor do empacotador printer-state-reasons.wrapper-"
+"thermistor-failure"
 
 #. TRANSLATORS: Wrapper Timing Failure
 msgid "printer-state-reasons.wrapper-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador do empacotador printer-state-reasons"
+".wrapper-timing-failure"
 
 #. TRANSLATORS: Wrapper Turned Off
 msgid "printer-state-reasons.wrapper-turned-off"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-turned-off está desligado"
 
 #. TRANSLATORS: Wrapper Turned On
 msgid "printer-state-reasons.wrapper-turned-on"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-turned-on está ligado"
 
 #. TRANSLATORS: Wrapper Under Temperature
 msgid "printer-state-reasons.wrapper-under-temperature"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-under-temperature está com a "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Wrapper Unrecoverable Failure
 msgid "printer-state-reasons.wrapper-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-unrecoverable-"
-"storage-error que não pode ser restaurado"
+"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Unrecoverable Storage Error
 msgid "printer-state-reasons.wrapper-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro de armazenamento do invólucro printer-state-reasons.wrapper-"
-"unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um erro de armazenamento do empacotador printer-state-reasons"
+".wrapper-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Warming Up
 msgid "printer-state-reasons.wrapper-warming-up"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-warming-up está aquecendo"
 
 #. TRANSLATORS: Idle
 msgid "printer-state.3"
@@ -16605,15 +16614,15 @@ msgstr ""
 
 #. TRANSLATORS: Staple Edge
 msgid "stitching-reference-edge"
-msgstr ""
+msgstr "Borda do Grampeamento stitching-reference-edge"
 
 #. TRANSLATORS: Bottom
 msgid "stitching-reference-edge.bottom"
-msgstr ""
+msgstr "Botão do stitching-reference-edge.bottom"
 
 #. TRANSLATORS: Left
 msgid "stitching-reference-edge.left"
-msgstr ""
+msgstr "Esquerdo do stitching-reference-edge.left"
 
 #. TRANSLATORS: Right
 msgid "stitching-reference-edge.right"
