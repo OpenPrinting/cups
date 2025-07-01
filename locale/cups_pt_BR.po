@@ -16301,7 +16301,7 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper Offline
 msgid "printer-state-reasons.wrapper-offline"
-msgstr "O empacotador printer-state-reasons.wrapper-offline desativado"
+msgstr "O empacotador printer-state-reasons.wrapper-offline está desativado"
 
 #. TRANSLATORS: Wrapper Opened
 msgid "printer-state-reasons.wrapper-opened"
@@ -16310,22 +16310,26 @@ msgstr "O empacotador printer-state-reasons.wrapper-opened está aberto"
 #. TRANSLATORS: Wrapper Over Temperature
 msgid "printer-state-reasons.wrapper-over-temperature"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Wrapper Power Saver
 msgid "printer-state-reasons.wrapper-power-saver"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-power-saver entrou no modo de "
+"economia de energia"
 
 #. TRANSLATORS: Wrapper Recoverable Failure
 msgid "printer-state-reasons.wrapper-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-cover-open que "
-"pode ser restaurado"
+"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-cover-open "
+"que pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Recoverable Storage
 msgid "printer-state-reasons.wrapper-recoverable-storage"
 msgstr ""
-"O armazenamento do invólucro printer-state-reasons.wrapper-recoverable-"
-"storage que pode ser restaurado"
+"O armazenamento do empacotador printer-state-reasons.wrapper-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Removed
 msgid "printer-state-reasons.wrapper-removed"
