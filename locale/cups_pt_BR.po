@@ -7550,8 +7550,7 @@ msgstr "Botão para dois furos finishing-template.punch-dual-bottom"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishing-template.punch-dual-left"
-msgstr ""
-"Botão para dois furos no lado esquerdo finishing-template.punch-dual-left"
+msgstr "Dois furos no lado esquerdo finishing-template.punch-dual-left"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishing-template.punch-dual-right"
