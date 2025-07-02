@@ -7534,11 +7534,15 @@ msgstr "Furo finishing-template.punch"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
-msgstr "Furo no canto inferior esquerdo finishing-template.punch-bottom-left"
+msgstr ""
+"Botão para furar no canto inferior esquerdo finishing-template.punch-bottom-"
+"left"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishing-template.punch-bottom-right"
-msgstr "Furo no canto inferior direito finishing-template.punch-bottom-right"
+msgstr ""
+"Botão para furar no canto inferior direito finishing-template.punch-bottom-"
+"right"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishing-template.punch-dual-bottom"
@@ -7547,6 +7551,7 @@ msgstr "Botão para dois furos finishing-template.punch-dual-bottom"
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishing-template.punch-dual-left"
 msgstr ""
+"Botão para dois furos no lado direito finishing-template.punch-dual-left"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishing-template.punch-dual-right"
