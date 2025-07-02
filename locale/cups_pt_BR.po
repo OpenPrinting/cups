@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-01 14:49+0000\n"
+"PO-Revision-Date: 2025-07-02 16:10+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -7079,311 +7079,326 @@ msgstr "Capa do finishing-template.cover"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishing-template.edge-stitch"
-msgstr ""
+msgstr "Costura da borda finishing-template.edge-stitch"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishing-template.edge-stitch-bottom"
-msgstr ""
+msgstr "Botão da costura da borda finishing-template.edge-stitch-bottom"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishing-template.edge-stitch-left"
-msgstr ""
+msgstr "Esquerda da costura da borda finishing-template.edge-stitch-left"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishing-template.edge-stitch-right"
-msgstr ""
+msgstr "Direita da costura da borda finishing-template.edge-stitch-right"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishing-template.edge-stitch-top"
-msgstr ""
+msgstr "Superior da costura da borda finishing-template.edge-stitch-top"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
-msgstr ""
+msgstr "Dobrar o papel finishing-template.fold"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishing-template.fold-accordion"
-msgstr ""
+msgstr "Papel sanfonado finishing-template.fold"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishing-template.fold-double-gate"
-msgstr ""
+msgstr "Dobrar o papel duas vezes finishing-template.fold-double-gate"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
-msgstr ""
+msgstr "Dobrar o papel em forma de \"Z\" finishing-template.fold-engineering-z"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishing-template.fold-gate"
-msgstr ""
+msgstr "Dobrar a duas abas laterais para dentro finishing-template.fold-gate"
 
 #. TRANSLATORS: Half Fold
 msgid "finishing-template.fold-half"
-msgstr ""
+msgstr "Dobrar o papel ao meio finishing-template.fold-half"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishing-template.fold-half-z"
-msgstr ""
+msgstr "Dobrar o papel ao meio em forma de \"Z\" finishing-template.fold-half-z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishing-template.fold-left-gate"
-msgstr ""
+msgstr "Dobrar as duas abas do lado esquerdo finishing-template.fold-left-gate"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishing-template.fold-letter"
-msgstr ""
+msgstr "Dobrar o papel em seis partes iguais finishing-template.fold-letter"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishing-template.fold-parallel"
 msgstr ""
+"Dobrar o papel ao meio e dobrar ao meio novamente finishing-template.fold-"
+"parallel"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishing-template.fold-poster"
-msgstr ""
+msgstr "Imprimir no formato de cartaz finishing-template.fold-poster"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishing-template.fold-right-gate"
-msgstr ""
+msgstr "Dobrar as duas abas do lado direito finishing-template.fold-left-gate"
 
 #. TRANSLATORS: Z Fold
 msgid "finishing-template.fold-z"
-msgstr ""
+msgstr "Dobrar o papel em forma de \"Z\" finishing-template.fold-z"
 
 #. TRANSLATORS: JDF F10-1
 msgid "finishing-template.jdf-f10-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F10-1 finishing-template.jdf-f10-1"
 
 #. TRANSLATORS: JDF F10-2
 msgid "finishing-template.jdf-f10-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F10-2 finishing-template.jdf-f10-2"
 
 #. TRANSLATORS: JDF F10-3
 msgid "finishing-template.jdf-f10-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F10-3 finishing-template.jdf-f10-3"
 
 #. TRANSLATORS: JDF F12-1
 msgid "finishing-template.jdf-f12-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-1 finishing-template.jdf-f12-1"
 
 #. TRANSLATORS: JDF F12-10
 msgid "finishing-template.jdf-f12-10"
 msgstr ""
+"Formato de definição do trabalho JDF F12-10 finishing-template.jdf-f12-10"
 
 #. TRANSLATORS: JDF F12-11
 msgid "finishing-template.jdf-f12-11"
 msgstr ""
+"Formato de definição do trabalho JDF F12-11 finishing-template.jdf-f12-11"
 
 #. TRANSLATORS: JDF F12-12
 msgid "finishing-template.jdf-f12-12"
 msgstr ""
+"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-12"
 
 #. TRANSLATORS: JDF F12-13
 msgid "finishing-template.jdf-f12-13"
 msgstr ""
+"Formato de definição do trabalho JDF F12-13 finishing-template.jdf-f12-13"
 
 #. TRANSLATORS: JDF F12-14
 msgid "finishing-template.jdf-f12-14"
 msgstr ""
+"Formato de definição do trabalho JDF F12-14 finishing-template.jdf-f12-14"
 
 #. TRANSLATORS: JDF F12-2
 msgid "finishing-template.jdf-f12-2"
 msgstr ""
+"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-2"
 
 #. TRANSLATORS: JDF F12-3
 msgid "finishing-template.jdf-f12-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-3 finishing-template.jdf-f12-3"
 
 #. TRANSLATORS: JDF F12-4
 msgid "finishing-template.jdf-f12-4"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-4 finishing-template.jdf-f12-4"
 
 #. TRANSLATORS: JDF F12-5
 msgid "finishing-template.jdf-f12-5"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-5 finishing-template.jdf-f12-5"
 
 #. TRANSLATORS: JDF F12-6
 msgid "finishing-template.jdf-f12-6"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-6 finishing-template.jdf-f12-6"
 
 #. TRANSLATORS: JDF F12-7
 msgid "finishing-template.jdf-f12-7"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-7 finishing-template.jdf-f12-7"
 
 #. TRANSLATORS: JDF F12-8
 msgid "finishing-template.jdf-f12-8"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-8 finishing-template.jdf-f12-8"
 
 #. TRANSLATORS: JDF F12-9
 msgid "finishing-template.jdf-f12-9"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F12-9 finishing-template.jdf-f12-9"
 
 #. TRANSLATORS: JDF F14-1
 msgid "finishing-template.jdf-f14-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F14-1 finishing-template.jdf-f14-1"
 
 #. TRANSLATORS: JDF F16-1
 msgid "finishing-template.jdf-f16-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-1 finishing-template.jdf-f16-1"
 
 #. TRANSLATORS: JDF F16-10
 msgid "finishing-template.jdf-f16-10"
 msgstr ""
+"Formato de definição do trabalho JDF F16-10 finishing-template.jdf-f16-10"
 
 #. TRANSLATORS: JDF F16-11
 msgid "finishing-template.jdf-f16-11"
 msgstr ""
+"Formato de definição do trabalho JDF F16-11 finishing-template.jdf-f16-11"
 
 #. TRANSLATORS: JDF F16-12
 msgid "finishing-template.jdf-f16-12"
 msgstr ""
+"Formato de definição do trabalho JDF F16-12 finishing-template.jdf-f16-12"
 
 #. TRANSLATORS: JDF F16-13
 msgid "finishing-template.jdf-f16-13"
 msgstr ""
+"Formato de definição do trabalho JDF F16-13 finishing-template.jdf-f16-13"
 
 #. TRANSLATORS: JDF F16-14
 msgid "finishing-template.jdf-f16-14"
 msgstr ""
+"Formato de definição do trabalho JDF F16-14 finishing-template.jdf-f16-14"
 
 #. TRANSLATORS: JDF F16-2
 msgid "finishing-template.jdf-f16-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-2 finishing-template.jdf-f16-2"
 
 #. TRANSLATORS: JDF F16-3
 msgid "finishing-template.jdf-f16-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-3 finishing-template.jdf-f16-3"
 
 #. TRANSLATORS: JDF F16-4
 msgid "finishing-template.jdf-f16-4"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-4 finishing-template.jdf-f16-4"
 
 #. TRANSLATORS: JDF F16-5
 msgid "finishing-template.jdf-f16-5"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-5 finishing-template.jdf-f16-5"
 
 #. TRANSLATORS: JDF F16-6
 msgid "finishing-template.jdf-f16-6"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-6 finishing-template.jdf-f16-6"
 
 #. TRANSLATORS: JDF F16-7
 msgid "finishing-template.jdf-f16-7"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-7 finishing-template.jdf-f16-7"
 
 #. TRANSLATORS: JDF F16-8
 msgid "finishing-template.jdf-f16-8"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-8 finishing-template.jdf-f16-8"
 
 #. TRANSLATORS: JDF F16-9
 msgid "finishing-template.jdf-f16-9"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F16-9 finishing-template.jdf-f16-9"
 
 #. TRANSLATORS: JDF F18-1
 msgid "finishing-template.jdf-f18-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-1 finishing-template.jdf-f18-1"
 
 #. TRANSLATORS: JDF F18-2
 msgid "finishing-template.jdf-f18-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-2 finishing-template.jdf-f18-2"
 
 #. TRANSLATORS: JDF F18-3
 msgid "finishing-template.jdf-f18-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-3 finishing-template.jdf-f18-3"
 
 #. TRANSLATORS: JDF F18-4
 msgid "finishing-template.jdf-f18-4"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-4 finishing-template.jdf-f18-4"
 
 #. TRANSLATORS: JDF F18-5
 msgid "finishing-template.jdf-f18-5"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-5 finishing-template.jdf-f18-5"
 
 #. TRANSLATORS: JDF F18-6
 msgid "finishing-template.jdf-f18-6"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-6 finishing-template.jdf-f18-6"
 
 #. TRANSLATORS: JDF F18-7
 msgid "finishing-template.jdf-f18-7"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-7 finishing-template.jdf-f18-7"
 
 #. TRANSLATORS: JDF F18-8
 msgid "finishing-template.jdf-f18-8"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-8 finishing-template.jdf-f18-8"
 
 #. TRANSLATORS: JDF F18-9
 msgid "finishing-template.jdf-f18-9"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F18-9 finishing-template.jdf-f18-9"
 
 #. TRANSLATORS: JDF F2-1
 msgid "finishing-template.jdf-f2-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F2-1 finishing-template.jdf-f2-1"
 
 #. TRANSLATORS: JDF F20-1
 msgid "finishing-template.jdf-f20-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F20-1 finishing-template.jdf-f20-1"
 
 #. TRANSLATORS: JDF F20-2
 msgid "finishing-template.jdf-f20-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F20-2 finishing-template.jdf-f20-2"
 
 #. TRANSLATORS: JDF F24-1
 msgid "finishing-template.jdf-f24-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-1 finishing-template.jdf-f24-1"
 
 #. TRANSLATORS: JDF F24-10
 msgid "finishing-template.jdf-f24-10"
 msgstr ""
+"Formato de definição do trabalho JDF F24-10 finishing-template.jdf-f24-10"
 
 #. TRANSLATORS: JDF F24-11
 msgid "finishing-template.jdf-f24-11"
 msgstr ""
+"Formato de definição do trabalho JDF F24-11 finishing-template.jdf-f24-11"
 
 #. TRANSLATORS: JDF F24-2
 msgid "finishing-template.jdf-f24-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-2 finishing-template.jdf-f24-2"
 
 #. TRANSLATORS: JDF F24-3
 msgid "finishing-template.jdf-f24-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-3 finishing-template.jdf-f24-3"
 
 #. TRANSLATORS: JDF F24-4
 msgid "finishing-template.jdf-f24-4"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-4 finishing-template.jdf-f24-4"
 
 #. TRANSLATORS: JDF F24-5
 msgid "finishing-template.jdf-f24-5"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-5 finishing-template.jdf-f24-5"
 
 #. TRANSLATORS: JDF F24-6
 msgid "finishing-template.jdf-f24-6"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-6 finishing-template.jdf-f24-6"
 
 #. TRANSLATORS: JDF F24-7
 msgid "finishing-template.jdf-f24-7"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-7 finishing-template.jdf-f24-7"
 
 #. TRANSLATORS: JDF F24-8
 msgid "finishing-template.jdf-f24-8"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-8 finishing-template.jdf-f24-8"
 
 #. TRANSLATORS: JDF F24-9
 msgid "finishing-template.jdf-f24-9"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F24-9 finishing-template.jdf-f24-9"
 
 #. TRANSLATORS: JDF F28-1
 msgid "finishing-template.jdf-f28-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F28-1 finishing-template.jdf-f28-1"
 
 #. TRANSLATORS: JDF F32-1
 msgid "finishing-template.jdf-f32-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F32-1 finishing-template.jdf-f32-1"
 
 #. TRANSLATORS: JDF F32-2
 msgid "finishing-template.jdf-f32-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F32-2 finishing-template.jdf-f32-2"
 
 #. TRANSLATORS: JDF F32-3
 msgid "finishing-template.jdf-f32-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F32-3 finishing-template.jdf-f32-3"
 
 #. TRANSLATORS: JDF F32-4
 msgid "finishing-template.jdf-f32-4"
@@ -16280,94 +16295,114 @@ msgstr ""
 #. TRANSLATORS: Wrapper Memory Exhausted
 msgid "printer-state-reasons.wrapper-memory-exhausted"
 msgstr ""
+"A memória do empacotador printer-state-reasons.wrapper-memory-exhausted foi "
+"esgotada"
 
 #. TRANSLATORS: Wrapper Missing
 msgid "printer-state-reasons.wrapper-missing"
-msgstr ""
+msgstr "Ocorreu uma falha no empacotador printer-state-reasons.wrapper-missing"
 
 #. TRANSLATORS: Wrapper Motor Failure
 msgid "printer-state-reasons.wrapper-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor do empacotador printer-state-reasons.wrapper-"
+"motor-failure"
 
 #. TRANSLATORS: Wrapper Near Limit
 msgid "printer-state-reasons.wrapper-near-limit"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Wrapper Offline
 msgid "printer-state-reasons.wrapper-offline"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-offline está desativado"
 
 #. TRANSLATORS: Wrapper Opened
 msgid "printer-state-reasons.wrapper-opened"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-opened está aberto"
 
 #. TRANSLATORS: Wrapper Over Temperature
 msgid "printer-state-reasons.wrapper-over-temperature"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Wrapper Power Saver
 msgid "printer-state-reasons.wrapper-power-saver"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-power-saver entrou no modo de "
+"economia de energia"
 
 #. TRANSLATORS: Wrapper Recoverable Failure
 msgid "printer-state-reasons.wrapper-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-cover-open que "
-"pode ser restaurado"
+"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Recoverable Storage
 msgid "printer-state-reasons.wrapper-recoverable-storage"
 msgstr ""
-"O armazenamento do invólucro printer-state-reasons.wrapper-recoverable-"
-"storage que pode ser restaurado"
+"O armazenamento do empacotador printer-state-reasons.wrapper-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Removed
 msgid "printer-state-reasons.wrapper-removed"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-removed foi removido"
 
 #. TRANSLATORS: Wrapper Resource Added
 msgid "printer-state-reasons.wrapper-resource-added"
 msgstr ""
+"A funcionalidade do empacotador printer-state-reasons.wrapper-resource-added "
+"foi adicionado"
 
 #. TRANSLATORS: Wrapper Resource Removed
 msgid "printer-state-reasons.wrapper-resource-removed"
 msgstr ""
+"A funcionalidade do empacotador printer-state-reasons.wrapper-resource-"
+"removed foi removida"
 
 #. TRANSLATORS: Wrapper Thermistor Failure
 msgid "printer-state-reasons.wrapper-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor do empacotador printer-state-reasons.wrapper-"
+"thermistor-failure"
 
 #. TRANSLATORS: Wrapper Timing Failure
 msgid "printer-state-reasons.wrapper-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador do empacotador printer-state-reasons"
+".wrapper-timing-failure"
 
 #. TRANSLATORS: Wrapper Turned Off
 msgid "printer-state-reasons.wrapper-turned-off"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-turned-off está desligado"
 
 #. TRANSLATORS: Wrapper Turned On
 msgid "printer-state-reasons.wrapper-turned-on"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-turned-on está ligado"
 
 #. TRANSLATORS: Wrapper Under Temperature
 msgid "printer-state-reasons.wrapper-under-temperature"
 msgstr ""
+"O empacotador printer-state-reasons.wrapper-under-temperature está com a "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Wrapper Unrecoverable Failure
 msgid "printer-state-reasons.wrapper-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha no invólucro printer-state-reasons.wrapper-unrecoverable-"
-"storage-error que não pode ser restaurado"
+"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Unrecoverable Storage Error
 msgid "printer-state-reasons.wrapper-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro de armazenamento do invólucro printer-state-reasons.wrapper-"
-"unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um erro de armazenamento do empacotador printer-state-reasons"
+".wrapper-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Wrapper Warming Up
 msgid "printer-state-reasons.wrapper-warming-up"
-msgstr ""
+msgstr "O empacotador printer-state-reasons.wrapper-warming-up está aquecendo"
 
 #. TRANSLATORS: Idle
 msgid "printer-state.3"
@@ -16594,23 +16629,23 @@ msgstr ""
 
 #. TRANSLATORS: Staple Edge
 msgid "stitching-reference-edge"
-msgstr ""
+msgstr "Borda do Grampeamento stitching-reference-edge"
 
 #. TRANSLATORS: Bottom
 msgid "stitching-reference-edge.bottom"
-msgstr ""
+msgstr "Botão do stitching-reference-edge.bottom"
 
 #. TRANSLATORS: Left
 msgid "stitching-reference-edge.left"
-msgstr ""
+msgstr "Esquerda do stitching-reference-edge.left"
 
 #. TRANSLATORS: Right
 msgid "stitching-reference-edge.right"
-msgstr ""
+msgstr "Direita do stitching-reference-edge.right"
 
 #. TRANSLATORS: Top
 msgid "stitching-reference-edge.top"
-msgstr ""
+msgstr "Superior do stitching-reference-edge.top"
 
 msgid "stopped"
 msgstr "parou"
