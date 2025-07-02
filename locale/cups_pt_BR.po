@@ -7530,7 +7530,7 @@ msgstr "Laminação finishing-template.laminate"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr "Perfuração finishing-template.punch"
+msgstr "Furo finishing-template.punch"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
@@ -7538,11 +7538,11 @@ msgstr "Furo no canto inferior esquerdo finishing-template.punch-bottom-left"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishing-template.punch-bottom-right"
-msgstr ""
+msgstr "Furo no canto inferior direito finishing-template.punch-bottom-right"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishing-template.punch-dual-bottom"
-msgstr ""
+msgstr "Botão para dois furos finishing-template.punch-dual-bottom"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishing-template.punch-dual-left"
