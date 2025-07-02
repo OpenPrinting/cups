@@ -7402,7 +7402,7 @@ msgstr "Formato de definição do trabalho JDF F32-3 finishing-template.jdf-f32-
 
 #. TRANSLATORS: JDF F32-4
 msgid "finishing-template.jdf-f32-4"
-msgstr "Formato de definição do trabalho finishing-template.jdf-f32-4"
+msgstr "Formato de definição do trabalho JDF F32-4 finishing-template.jdf-f32-4"
 
 #. TRANSLATORS: JDF F32-5
 msgid "finishing-template.jdf-f32-5"
@@ -7410,131 +7410,131 @@ msgstr "Formato de definição do trabalho JDF F32-5 finishing-template.jdf-f32-
 
 #. TRANSLATORS: JDF F32-6
 msgid "finishing-template.jdf-f32-6"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F32-6 finishing-template.jdf-f32-6"
 
 #. TRANSLATORS: JDF F32-7
 msgid "finishing-template.jdf-f32-7"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F32-7 finishing-template.jdf-f32-7"
 
 #. TRANSLATORS: JDF F32-8
 msgid "finishing-template.jdf-f32-8"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F32-8 finishing-template.jdf-f32-8"
 
 #. TRANSLATORS: JDF F32-9
 msgid "finishing-template.jdf-f32-9"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F32-9 finishing-template.jdf-f32-9"
 
 #. TRANSLATORS: JDF F36-1
 msgid "finishing-template.jdf-f36-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F36-1 finishing-template.jdf-f36-1"
 
 #. TRANSLATORS: JDF F36-2
 msgid "finishing-template.jdf-f36-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F36-2 finishing-template.jdf-f36-2"
 
 #. TRANSLATORS: JDF F4-1
 msgid "finishing-template.jdf-f4-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F4-1 finishing-template.jdf-f4-1"
 
 #. TRANSLATORS: JDF F4-2
 msgid "finishing-template.jdf-f4-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F4-2 finishing-template.jdf-f4-2"
 
 #. TRANSLATORS: JDF F40-1
 msgid "finishing-template.jdf-f40-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F40-1 finishing-template.jdf-f40-1"
 
 #. TRANSLATORS: JDF F48-1
 msgid "finishing-template.jdf-f48-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F48-1 finishing-template.jdf-f48-1"
 
 #. TRANSLATORS: JDF F48-2
 msgid "finishing-template.jdf-f48-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F48-2 finishing-template.jdf-f48-2"
 
 #. TRANSLATORS: JDF F6-1
 msgid "finishing-template.jdf-f6-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-1 finishing-template.jdf-f6-1"
 
 #. TRANSLATORS: JDF F6-2
 msgid "finishing-template.jdf-f6-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-2 finishing-template.jdf-f6-2"
 
 #. TRANSLATORS: JDF F6-3
 msgid "finishing-template.jdf-f6-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-3 finishing-template.jdf-f6-3"
 
 #. TRANSLATORS: JDF F6-4
 msgid "finishing-template.jdf-f6-4"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-4 finishing-template.jdf-f6-4"
 
 #. TRANSLATORS: JDF F6-5
 msgid "finishing-template.jdf-f6-5"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-5 finishing-template.jdf-f6-5"
 
 #. TRANSLATORS: JDF F6-6
 msgid "finishing-template.jdf-f6-6"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-6 finishing-template.jdf-f6-6"
 
 #. TRANSLATORS: JDF F6-7
 msgid "finishing-template.jdf-f6-7"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-7 finishing-template.jdf-f6-7"
 
 #. TRANSLATORS: JDF F6-8
 msgid "finishing-template.jdf-f6-8"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F6-8 finishing-template.jdf-f6-8"
 
 #. TRANSLATORS: JDF F64-1
 msgid "finishing-template.jdf-f64-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F64-1 finishing-template.jdf-f64-1"
 
 #. TRANSLATORS: JDF F64-2
 msgid "finishing-template.jdf-f64-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F64-2 finishing-template.jdf-f64-2"
 
 #. TRANSLATORS: JDF F8-1
 msgid "finishing-template.jdf-f8-1"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F8-1 finishing-template.jdf-f8-1"
 
 #. TRANSLATORS: JDF F8-2
 msgid "finishing-template.jdf-f8-2"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F8-2 finishing-template.jdf-f8-2"
 
 #. TRANSLATORS: JDF F8-3
 msgid "finishing-template.jdf-f8-3"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F8-3 finishing-template.jdf-f8-3"
 
 #. TRANSLATORS: JDF F8-4
 msgid "finishing-template.jdf-f8-4"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F8-4 finishing-template.jdf-f8-4"
 
 #. TRANSLATORS: JDF F8-5
 msgid "finishing-template.jdf-f8-5"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F8-5 finishing-template.jdf-f8-5"
 
 #. TRANSLATORS: JDF F8-6
 msgid "finishing-template.jdf-f8-6"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F8-6 finishing-template.jdf-f8-6"
 
 #. TRANSLATORS: JDF F8-7
 msgid "finishing-template.jdf-f8-7"
-msgstr ""
+msgstr "Formato de definição do trabalho JDF F8-7 finishing-template.jdf-f8-7"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishing-template.jog-offset"
-msgstr ""
+msgstr "Ajuste fino da posição do papel finishing-template.jog-offset"
 
 #. TRANSLATORS: Laminate
 msgid "finishing-template.laminate"
-msgstr ""
+msgstr "Laminação finishing-template.laminate"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr ""
+msgstr "Perfuração finishing-template.punch"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
-msgstr ""
+msgstr "Furo no canto inferior esquerdo finishing-template.punch-bottom-left"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishing-template.punch-bottom-right"
