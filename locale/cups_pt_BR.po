@@ -7099,7 +7099,7 @@ msgstr "Superior da costura da borda finishing-template.edge-stitch-top"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
-msgstr "Dobrar o papel finishing-template.fold"
+msgstr "Dobrar o finishing-template.fold"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishing-template.fold-accordion"
@@ -7107,11 +7107,12 @@ msgstr "Papel sanfonado finishing-template.fold"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishing-template.fold-double-gate"
-msgstr "Dobrar o papel duas vezes finishing-template.fold-double-gate"
+msgstr "Dobrar duas vezes finishing-template.fold-double-gate"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
-msgstr "Dobrar o papel em forma de \"Z\" finishing-template.fold-engineering-z"
+msgstr ""
+"Dobrar o papel em forma de \"Z\" o finishing-template.fold-engineering-z"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishing-template.fold-gate"
@@ -7123,7 +7124,7 @@ msgstr "Dobrar o papel ao meio finishing-template.fold-half"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishing-template.fold-half-z"
-msgstr "Dobrar o papel ao meio em forma de \"Z\" finishing-template.fold-half-z"
+msgstr "Dobrar ao meio em forma de \"Z\" o finishing-template.fold-half-z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishing-template.fold-left-gate"
@@ -7149,7 +7150,7 @@ msgstr "Dobrar as duas abas do lado direito finishing-template.fold-left-gate"
 
 #. TRANSLATORS: Z Fold
 msgid "finishing-template.fold-z"
-msgstr "Dobrar o papel em forma de \"Z\" finishing-template.fold-z"
+msgstr "Dobrar em forma de \"Z\" o finishing-template.fold-z"
 
 #. TRANSLATORS: JDF F10-1
 msgid "finishing-template.jdf-f10-1"
@@ -7629,12 +7630,12 @@ msgstr "Grampear finishing-template.staple"
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
 msgstr ""
-"Botão para grampear no canto esquerdo finishing-template.staple-bottom-left"
+"Grampear no canto inferior esquerdo finishing-template.staple-bottom-left"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishing-template.staple-bottom-right"
 msgstr ""
-"Botão para grampear no canto direito finishing-template.staple-bottom-right"
+"Grampear no canto inferior direito finishing-template.staple-bottom-right"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishing-template.staple-dual-bottom"
@@ -7660,27 +7661,31 @@ msgstr "Parar de grampear no canto esquerdo finishing-template.staple-top-left"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishing-template.staple-top-right"
-msgstr ""
+msgstr "Parar de grampear no canto direito finishing-template.staple-top-right"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishing-template.staple-triple-bottom"
 msgstr ""
+"Fazer três grampos no canto inferior finishing-template.staple-triple-bottom"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishing-template.staple-triple-left"
 msgstr ""
+"Fazer três grampos no canto esquerdo finishing-template.staple-triple-left"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishing-template.staple-triple-right"
 msgstr ""
+"Fazer três grampos no canto direito finishing-template.staple-triple-right"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishing-template.staple-triple-top"
 msgstr ""
+"Fazer três grampos no canto superior finishing-template.staple-triple-top"
 
 #. TRANSLATORS: Trim
 msgid "finishing-template.trim"
-msgstr ""
+msgstr "Aparar"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-copies"
@@ -7708,23 +7713,23 @@ msgstr "Aparar após cada página do finishing-template.trim-after-sheets"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
-msgstr ""
+msgstr "Acabamentos finishings"
 
 #. TRANSLATORS: Finishings
 msgid "finishings-col"
-msgstr ""
+msgstr "Acabamentos finishings-col"
 
 #. TRANSLATORS: Fold
 msgid "finishings.10"
-msgstr ""
+msgstr "Dobrar o finishings-col"
 
 #. TRANSLATORS: Z Fold
 msgid "finishings.100"
-msgstr ""
+msgstr "Dobrar em forma de \"Z\" o finishings.100"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishings.101"
-msgstr ""
+msgstr "Dobrar o papel em forma de \"Z\" finishings.101"
 
 #. TRANSLATORS: Trim
 msgid "finishings.11"
@@ -14522,23 +14527,27 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Added
 msgid "printer-state-reasons.perforater-added"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-added foi adicionado"
 
 #. TRANSLATORS: Perforater Almost Empty
 msgid "printer-state-reasons.perforater-almost-empty"
 msgstr ""
+"O perfurador printer-state-reasons.perforater-almost-empty está quase vazio"
 
 #. TRANSLATORS: Perforater Almost Full
 msgid "printer-state-reasons.perforater-almost-full"
 msgstr ""
+"O perfurador printer-state-reasons.perforater-almost-full está quase cheio"
 
 #. TRANSLATORS: Perforater At Limit
 msgid "printer-state-reasons.perforater-at-limit"
 msgstr ""
+"O perfurador printer-state-reasons.perforater-at-limit está quase no seu "
+"limite"
 
 #. TRANSLATORS: Perforater Closed
 msgid "printer-state-reasons.perforater-closed"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-closed está fechado"
 
 #. TRANSLATORS: Perforater Configuration Change
 msgid "printer-state-reasons.perforater-configuration-change"
@@ -14557,11 +14566,11 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Empty
 msgid "printer-state-reasons.perforater-empty"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-empty está vazio"
 
 #. TRANSLATORS: Perforater Full
 msgid "printer-state-reasons.perforater-full"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-full está cheio"
 
 #. TRANSLATORS: Perforater Interlock Closed
 msgid "printer-state-reasons.perforater-interlock-closed"
@@ -14572,6 +14581,8 @@ msgstr ""
 #. TRANSLATORS: Perforater Interlock Open
 msgid "printer-state-reasons.perforater-interlock-open"
 msgstr ""
+"O intertravamento do perfurador printer-state-reasons.perforater-interlock-"
+"open está fechado"
 
 #. TRANSLATORS: Perforater Jam
 msgid "printer-state-reasons.perforater-jam"
@@ -14586,6 +14597,8 @@ msgstr ""
 #. TRANSLATORS: Perforater Life Over
 msgid "printer-state-reasons.perforater-life-over"
 msgstr ""
+"O perfurador printer-state-reasons.perforater-life-over está no fim da sua "
+"vida útil"
 
 #. TRANSLATORS: Perforater Memory Exhausted
 msgid "printer-state-reasons.perforater-memory-exhausted"
@@ -14594,26 +14607,33 @@ msgstr ""
 #. TRANSLATORS: Perforater Missing
 msgid "printer-state-reasons.perforater-missing"
 msgstr ""
+"Ocorreu uma falha no perfurador printer-state-reasons.perforater-missing"
 
 #. TRANSLATORS: Perforater Motor Failure
 msgid "printer-state-reasons.perforater-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor do perfurador printer-state-reasons.perforater-"
+"motor-failure"
 
 #. TRANSLATORS: Perforater Near Limit
 msgid "printer-state-reasons.perforater-near-limit"
 msgstr ""
+"O perfurador printer-state-reasons.puncher-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Perforater Offline
 msgid "printer-state-reasons.perforater-offline"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-offline está desativado"
 
 #. TRANSLATORS: Perforater Opened
 msgid "printer-state-reasons.perforater-opened"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-opened está fechado"
 
 #. TRANSLATORS: Perforater Over Temperature
 msgid "printer-state-reasons.perforater-over-temperature"
 msgstr ""
+"O perfurador printer-state-reasons.perforater-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Perforater Power Saver
 msgid "printer-state-reasons.perforater-power-saver"
@@ -14808,22 +14828,27 @@ msgstr ""
 #. TRANSLATORS: Puncher Near Limit
 msgid "printer-state-reasons.puncher-near-limit"
 msgstr ""
+"O furador printer-state-reasons.puncher-near-limit está próximo do seu limite"
 
 #. TRANSLATORS: Puncher Offline
 msgid "printer-state-reasons.puncher-offline"
-msgstr "O furador printer-state-reasons.puncher-offline desativado"
+msgstr "O furador printer-state-reasons.puncher-offline está desativado"
 
 #. TRANSLATORS: Puncher Opened
 msgid "printer-state-reasons.puncher-opened"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-opened está aberto"
 
 #. TRANSLATORS: Puncher Over Temperature
 msgid "printer-state-reasons.puncher-over-temperature"
 msgstr ""
+"O furador printer-state-reasons.puncher-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Puncher Power Saver
 msgid "printer-state-reasons.puncher-power-saver"
 msgstr ""
+"O furador printer-state-reasons.puncher-power-saver entrou no modo de "
+"economia de energia"
 
 #. TRANSLATORS: Puncher Recoverable Failure
 msgid "printer-state-reasons.puncher-recoverable-failure"
@@ -14839,35 +14864,45 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Removed
 msgid "printer-state-reasons.puncher-removed"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-removed foi removido"
 
 #. TRANSLATORS: Puncher Resource Added
 msgid "printer-state-reasons.puncher-resource-added"
 msgstr ""
+"A funcionalidade do furador printer-state-reasons.puncher-resource-added foi "
+"adicionada"
 
 #. TRANSLATORS: Puncher Resource Removed
 msgid "printer-state-reasons.puncher-resource-removed"
 msgstr ""
+"A funcionalidade do furador printer-state-reasons.puncher-resource-removed "
+"foi removida"
 
 #. TRANSLATORS: Puncher Thermistor Failure
 msgid "printer-state-reasons.puncher-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor do furador printer-state-reasons.puncher-"
+"thermistor-failure"
 
 #. TRANSLATORS: Puncher Timing Failure
 msgid "printer-state-reasons.puncher-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador do furador printer-state-reasons.puncher-"
+"timing-failure"
 
 #. TRANSLATORS: Puncher Turned Off
 msgid "printer-state-reasons.puncher-turned-off"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-turned-off foi desligado"
 
 #. TRANSLATORS: Puncher Turned On
 msgid "printer-state-reasons.puncher-turned-on"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-turned-on foi ligado"
 
 #. TRANSLATORS: Puncher Under Temperature
 msgid "printer-state-reasons.puncher-under-temperature"
 msgstr ""
+"O furador printer-state-reasons.puncher-under-temperature está com a "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Puncher Unrecoverable Failure
 msgid "printer-state-reasons.puncher-unrecoverable-failure"
@@ -14883,7 +14918,7 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Warming Up
 msgid "printer-state-reasons.puncher-warming-up"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-warming-up está em aquecimento"
 
 #. TRANSLATORS: Separation Cutter Added
 msgid "printer-state-reasons.separation-cutter-added"
@@ -15659,6 +15694,8 @@ msgstr ""
 #. TRANSLATORS: Stapler Near Limit
 msgid "printer-state-reasons.stapler-near-limit"
 msgstr ""
+"o grampeador printer-state-reasons.stapler-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Stapler Offline
 msgid "printer-state-reasons.stapler-offline"
@@ -16139,7 +16176,9 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Near Limit
 msgid "printer-state-reasons.trimmer-near-limit"
-msgstr "O aparador printer-state-reasons.trimmer-near-limit está no limite"
+msgstr ""
+"O aparador printer-state-reasons.trimmer-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Trimmer Offline
 msgid "printer-state-reasons.trimmer-offline"
@@ -16451,11 +16490,11 @@ msgstr ""
 
 #. TRANSLATORS: Punching
 msgid "punching"
-msgstr ""
+msgstr "Furador punching"
 
 #. TRANSLATORS: Punching Locations
 msgid "punching-locations"
-msgstr ""
+msgstr "Local do furador punching-locations"
 
 #. TRANSLATORS: Punching Offset
 msgid "punching-offset"
