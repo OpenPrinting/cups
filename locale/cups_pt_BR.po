@@ -7685,7 +7685,7 @@ msgstr ""
 
 #. TRANSLATORS: Trim
 msgid "finishing-template.trim"
-msgstr "Aparar"
+msgstr "Aparar o finishing-template.trim"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-copies"
@@ -7713,11 +7713,11 @@ msgstr "Aparar após cada página do finishing-template.trim-after-sheets"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
-msgstr "Acabamentos finishings"
+msgstr "Acabamentos do finishings"
 
 #. TRANSLATORS: Finishings
 msgid "finishings-col"
-msgstr "Acabamentos finishings-col"
+msgstr "Acabamentos no finishings-col"
 
 #. TRANSLATORS: Fold
 msgid "finishings.10"
@@ -8021,23 +8021,23 @@ msgstr "Posição da dobra do folding-offset"
 
 #. TRANSLATORS: Fold Edge
 msgid "folding-reference-edge"
-msgstr "Dobrar a borda do folding-reference-edge"
+msgstr "Dobrar na borda do folding-reference-edge"
 
 #. TRANSLATORS: Bottom
 msgid "folding-reference-edge.bottom"
-msgstr ""
+msgstr "Canto inferior do folding-reference-edge.bottom"
 
 #. TRANSLATORS: Left
 msgid "folding-reference-edge.left"
-msgstr ""
+msgstr "Canto esquerdo do folding-reference-edge.left"
 
 #. TRANSLATORS: Right
 msgid "folding-reference-edge.right"
-msgstr ""
+msgstr "Canto direto do folding-reference-edge.right"
 
 #. TRANSLATORS: Top
 msgid "folding-reference-edge.top"
-msgstr ""
+msgstr "Canto superior do folding-reference-edge.top"
 
 #. TRANSLATORS: Font Name
 msgid "font-name-requested"
