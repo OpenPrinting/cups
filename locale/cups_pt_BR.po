@@ -7534,59 +7534,52 @@ msgstr "Furar finishing-template.punch"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
-msgstr ""
-"Botão para furar no canto inferior esquerdo finishing-template.punch-bottom-"
-"left"
+msgstr "Furar no canto inferior esquerdo finishing-template.punch-bottom-left"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishing-template.punch-bottom-right"
-msgstr ""
-"Botão para furar no canto inferior direito finishing-template.punch-bottom-"
-"right"
+msgstr "Furar no canto inferior direito finishing-template.punch-bottom-right"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishing-template.punch-dual-bottom"
-msgstr "Botão para fazer dois furos finishing-template.punch-dual-bottom"
+msgstr "Fazer dois furos no canto inferior finishing-template.punch-dual-bottom"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishing-template.punch-dual-left"
-msgstr "Dois furos no canto esquerdo finishing-template.punch-dual-left"
+msgstr "Fazer dois furos no canto esquerdo finishing-template.punch-dual-left"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishing-template.punch-dual-right"
-msgstr "Dois furos no canto direito finishing-template.punch-dual-right"
+msgstr "Fazer dois furos no canto direito finishing-template.punch-dual-right"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishing-template.punch-dual-top"
-msgstr "Dois furos no canto superior finishing-template.punch-dual-top"
+msgstr "Fazer dois furos no canto superior finishing-template.punch-dual-top"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishing-template.punch-multiple-bottom"
-msgstr "Botão para fazer vários furos finishing-template.punch-multiple-bottom"
+msgstr ""
+"Fazer vários furos no canto inferior finishing-template.punch-multiple-bottom"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishing-template.punch-multiple-left"
 msgstr ""
-"Botão para fazer vários furos no canto esquerdo finishing-template.punch-"
-"multiple-left"
+"Fazer vários furos no canto esquerdo finishing-template.punch-multiple-left"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishing-template.punch-multiple-right"
 msgstr ""
-"Botão para fazer vários furos no canto direito finishing-template.punch-"
-"multiple-right"
+"Fazer vários furos no canto direito finishing-template.punch-multiple-right"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishing-template.punch-multiple-top"
 msgstr ""
-"Botão para fazer vários furos no canto superior finishing-template.punch-"
-"multiple-top"
+"Fazer vários furos no canto superior finishing-template.punch-multiple-top"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishing-template.punch-quad-bottom"
 msgstr ""
-"Botão para fazer quatro furos no canto inferior finishing-template.punch-"
-"quad-bottom"
+"Fazer quatro furos no canto inferior finishing-template.punch-quad-bottom"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishing-template.punch-quad-left"
@@ -7602,15 +7595,18 @@ msgstr "Fazer quatro furos no canto superior finishing-template.punch-quad-top"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
-msgstr "Furar no canto superior esquerdo finishing-template.punch-top-left"
+msgstr ""
+"Fazer um furo no canto superior esquerdo finishing-template.punch-top-left"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishing-template.punch-top-right"
-msgstr "Furar no canto superior direito finishing-template.punch-top-right"
+msgstr ""
+"Fazer um furo no canto superior direito finishing-template.punch-top-right"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
-msgstr "Botão para fazer três furos finishing-template.punch-triple-bottom"
+msgstr ""
+"Fazer três furos no canto inferior finishing-template.punch-triple-bottom"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishing-template.punch-triple-left"
@@ -7645,26 +7641,20 @@ msgstr ""
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishing-template.staple-dual-bottom"
 msgstr ""
-"Botão para fazer dois grampos no canto inferior finishing-template.staple-"
-"dual-bottom"
+"Fazer dois grampos no canto inferior finishing-template.staple-dual-bottom"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishing-template.staple-dual-left"
 msgstr ""
-"Botão para fazer dois grampos no canto esquerdo finishing-template.staple-"
-"dual-left"
+"Fazer dois grampos no canto esquerdo finishing-template.staple-dual-left"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishing-template.staple-dual-right"
-msgstr ""
-"Botão para fazer dois grampos no canto direto finishing-template.staple-dual-"
-"right"
+msgstr "Fazer dois grampos no canto direto finishing-template.staple-dual-right"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishing-template.staple-dual-top"
-msgstr ""
-"Botão para fazer dois grampos no canto superior finishing-template.staple-"
-"dual-top"
+msgstr "Fazer dois grampos no canto superior finishing-template.staple-dual-top"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishing-template.staple-top-left"
