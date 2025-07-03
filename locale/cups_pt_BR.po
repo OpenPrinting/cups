@@ -7626,7 +7626,7 @@ msgstr "Fazer três furos no canto superior finishing-template.punch-triple-top"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishing-template.saddle-stitch"
-msgstr "Ponto selado finishing-template.saddle-stitch"
+msgstr "Costurar com ponto selado finishing-template.saddle-stitch"
 
 #. TRANSLATORS: Staple
 msgid "finishing-template.staple"
@@ -7635,30 +7635,40 @@ msgstr "Grampear finishing-template.staple"
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
 msgstr ""
+"Botão para grampear no canto esquerdo finishing-template.staple-bottom-left"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishing-template.staple-bottom-right"
 msgstr ""
+"Botão para grampear no canto direito finishing-template.staple-bottom-right"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishing-template.staple-dual-bottom"
 msgstr ""
+"Botão para fazer dois grampos no canto inferior finishing-template.staple-"
+"dual-bottom"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishing-template.staple-dual-left"
 msgstr ""
+"Botão para fazer dois grampos no canto esquerdo finishing-template.staple-"
+"dual-left"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishing-template.staple-dual-right"
 msgstr ""
+"Botão para fazer dois grampos no canto direto finishing-template.staple-dual-"
+"right"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishing-template.staple-dual-top"
 msgstr ""
+"Botão para fazer dois grampos no canto superior finishing-template.staple-"
+"dual-top"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishing-template.staple-top-left"
-msgstr ""
+msgstr "Parar de grampear no canto esquerdo finishing-template.staple-top-left"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishing-template.staple-top-right"
