@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-03 18:01+0000\n"
+"PO-Revision-Date: 2025-07-03 18:02+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -7111,16 +7111,15 @@ msgstr "Dobrar duas vezes finishing-template.fold-double-gate"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
-msgstr ""
-"Dobrar o papel em forma de \"Z\" o finishing-template.fold-engineering-z"
+msgstr "Dobrar em forma de \"Z\" o finishing-template.fold-engineering-z"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishing-template.fold-gate"
-msgstr "Dobrar a duas abas laterais para dentro finishing-template.fold-gate"
+msgstr "Dobrar a duas abas laterais para dentro do finishing-template.fold-gate"
 
 #. TRANSLATORS: Half Fold
 msgid "finishing-template.fold-half"
-msgstr "Dobrar o papel ao meio finishing-template.fold-half"
+msgstr "Dobrar ao meio o finishing-template.fold-half"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishing-template.fold-half-z"
@@ -7128,25 +7127,26 @@ msgstr "Dobrar ao meio em forma de \"Z\" o finishing-template.fold-half-z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishing-template.fold-left-gate"
-msgstr "Dobrar as duas abas do lado esquerdo finishing-template.fold-left-gate"
+msgstr ""
+"Dobrar as duas abas do lado esquerdo o finishing-template.fold-left-gate"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishing-template.fold-letter"
-msgstr "Dobrar o papel em seis partes iguais finishing-template.fold-letter"
+msgstr "Dobrar em seis partes iguais o finishing-template.fold-letter"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishing-template.fold-parallel"
 msgstr ""
-"Dobrar o papel ao meio e dobrar ao meio novamente finishing-template.fold-"
-"parallel"
+"Dobrar ao meio e dobrar ao meio novamente o finishing-template.fold-parallel"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishing-template.fold-poster"
-msgstr "Imprimir no formato de cartaz finishing-template.fold-poster"
+msgstr "Imprimir no formato de cartaz o finishing-template.fold-poster"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishing-template.fold-right-gate"
-msgstr "Dobrar as duas abas do lado direito finishing-template.fold-left-gate"
+msgstr ""
+"Dobrar as duas abas do lado direito do finishing-template.fold-left-gate"
 
 #. TRANSLATORS: Z Fold
 msgid "finishing-template.fold-z"
@@ -8001,27 +8001,27 @@ msgstr ""
 
 #. TRANSLATORS: Fold
 msgid "folding"
-msgstr ""
+msgstr "Dobrar o folding"
 
 #. TRANSLATORS: Fold Direction
 msgid "folding-direction"
-msgstr ""
+msgstr "Dobrar na direção do folding-direction"
 
 #. TRANSLATORS: Inward
 msgid "folding-direction.inward"
-msgstr ""
+msgstr "Para dentro do folding-direction.inward"
 
 #. TRANSLATORS: Outward
 msgid "folding-direction.outward"
-msgstr ""
+msgstr "Para fora do folding-direction.outward"
 
 #. TRANSLATORS: Fold Position
 msgid "folding-offset"
-msgstr ""
+msgstr "Posição da dobra do folding-offset"
 
 #. TRANSLATORS: Fold Edge
 msgid "folding-reference-edge"
-msgstr ""
+msgstr "Dobrar a borda do folding-reference-edge"
 
 #. TRANSLATORS: Bottom
 msgid "folding-reference-edge.bottom"
