@@ -7595,13 +7595,11 @@ msgstr "Fazer quatro furos no canto superior finishing-template.punch-quad-top"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
-msgstr ""
-"Fazer um furo no canto superior esquerdo finishing-template.punch-top-left"
+msgstr "Furar no canto superior esquerdo finishing-template.punch-top-left"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishing-template.punch-top-right"
-msgstr ""
-"Fazer um furo no canto superior direito finishing-template.punch-top-right"
+msgstr "Furar no canto superior direito finishing-template.punch-top-right"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
@@ -10600,7 +10598,7 @@ msgstr ""
 
 #. TRANSLATORS: Punched Paper
 msgid "media-type.stationery-prepunched"
-msgstr ""
+msgstr "Papel perfurado media-type.stationery-prepunched"
 
 #. TRANSLATORS: Tab Stock
 msgid "media-type.tab-stock"
@@ -14723,27 +14721,29 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Added
 msgid "printer-state-reasons.puncher-added"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-added foi adicionado"
 
 #. TRANSLATORS: Puncher Almost Empty
 msgid "printer-state-reasons.puncher-almost-empty"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-almost-empty está quase vazio"
 
 #. TRANSLATORS: Puncher Almost Full
 msgid "printer-state-reasons.puncher-almost-full"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-almost-full está quase cheio"
 
 #. TRANSLATORS: Puncher At Limit
 msgid "printer-state-reasons.puncher-at-limit"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-at-limit está no limite"
 
 #. TRANSLATORS: Puncher Closed
 msgid "printer-state-reasons.puncher-closed"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-closed está fechado"
 
 #. TRANSLATORS: Puncher Configuration Change
 msgid "printer-state-reasons.puncher-configuration-change"
 msgstr ""
+"Alterar as configurações do furador printer-state-reasons.puncher-"
+"configuration-change"
 
 #. TRANSLATORS: Puncher Cover Closed
 msgid "printer-state-reasons.puncher-cover-closed"
@@ -14757,11 +14757,11 @@ msgstr "A tampa do furador printer-state-reasons.puncher-cover-open está aberta
 
 #. TRANSLATORS: Puncher Empty
 msgid "printer-state-reasons.puncher-empty"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-empty está vazio"
 
 #. TRANSLATORS: Puncher Full
 msgid "printer-state-reasons.puncher-full"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-full está cheio"
 
 #. TRANSLATORS: Puncher Interlock Closed
 msgid "printer-state-reasons.puncher-interlock-closed"
@@ -14772,6 +14772,8 @@ msgstr ""
 #. TRANSLATORS: Puncher Interlock Open
 msgid "printer-state-reasons.puncher-interlock-open"
 msgstr ""
+"O intertravamento do furador printer-state-reasons.puncher-interlock-open "
+"está aberto"
 
 #. TRANSLATORS: Puncher Jam
 msgid "printer-state-reasons.puncher-jam"
@@ -14786,6 +14788,8 @@ msgstr ""
 #. TRANSLATORS: Puncher Life Over
 msgid "printer-state-reasons.puncher-life-over"
 msgstr ""
+"O furador printer-state-reasons.puncher-life-over está no fim da sua vida "
+"útil"
 
 #. TRANSLATORS: Puncher Memory Exhausted
 msgid "printer-state-reasons.puncher-memory-exhausted"
@@ -14793,11 +14797,13 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Missing
 msgid "printer-state-reasons.puncher-missing"
-msgstr ""
+msgstr "Ocorreu uma falha no furador printer-state-reasons.puncher-missing"
 
 #. TRANSLATORS: Puncher Motor Failure
 msgid "printer-state-reasons.puncher-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor do furador printer-state-reasons.puncher-motor-"
+"failure"
 
 #. TRANSLATORS: Puncher Near Limit
 msgid "printer-state-reasons.puncher-near-limit"
@@ -14805,7 +14811,7 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Offline
 msgid "printer-state-reasons.puncher-offline"
-msgstr ""
+msgstr "O furador printer-state-reasons.puncher-offline desativado"
 
 #. TRANSLATORS: Puncher Opened
 msgid "printer-state-reasons.puncher-opened"
