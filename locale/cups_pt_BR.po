@@ -7531,7 +7531,7 @@ msgstr "Laminação finishing-template.laminate"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr "Furar finishing-template.punch"
+msgstr "Furar o finishing-template.punch"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
@@ -7625,7 +7625,7 @@ msgstr "Costurar com ponto selado finishing-template.saddle-stitch"
 
 #. TRANSLATORS: Staple
 msgid "finishing-template.staple"
-msgstr "Grampear finishing-template.staple"
+msgstr "Grampear o finishing-template.staple"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
@@ -7713,7 +7713,7 @@ msgstr "Aparar após cada página do finishing-template.trim-after-sheets"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
-msgstr "Acabamentos do finishings"
+msgstr "Acabamentos no finishings"
 
 #. TRANSLATORS: Finishings
 msgid "finishings-col"
@@ -7733,7 +7733,7 @@ msgstr "Dobrar o papel em forma de \"Z\" finishings.101"
 
 #. TRANSLATORS: Trim
 msgid "finishings.11"
-msgstr ""
+msgstr "Aparar o finishings.11"
 
 #. TRANSLATORS: Bale
 msgid "finishings.12"
