@@ -7584,13 +7584,13 @@ msgstr ""
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishing-template.punch-quad-bottom"
-msgstr "Botão para fazer quatro furos finishing-template.punch-quad-bottom"
+msgstr ""
+"Botão para fazer quatro furos no canto inferior finishing-template.punch-"
+"quad-bottom"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishing-template.punch-quad-left"
-msgstr ""
-"Botão para fazer quatro furos no canto esquerdo finishing-template.punch-"
-"quad-left"
+msgstr "Fazer quatro furos no canto esquerdo finishing-template.punch-quad-left"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishing-template.punch-quad-right"
@@ -7598,39 +7598,39 @@ msgstr "Fazer quatro furos no canto direito finishing-template.punch-quad-right"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishing-template.punch-quad-top"
-msgstr ""
+msgstr "Fazer quatro furos no canto superior finishing-template.punch-quad-top"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
-msgstr ""
+msgstr "Furar no canto superior esquerdo finishing-template.punch-top-left"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishing-template.punch-top-right"
-msgstr ""
+msgstr "Furar no canto superior direito finishing-template.punch-top-right"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
-msgstr ""
+msgstr "Botão para fazer três furos finishing-template.punch-triple-bottom"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishing-template.punch-triple-left"
-msgstr ""
+msgstr "Fazer três furos no canto esquerdo finishing-template.punch-triple-left"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishing-template.punch-triple-right"
-msgstr ""
+msgstr "Fazer três furos no canto direito finishing-template.punch-triple-right"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishing-template.punch-triple-top"
-msgstr ""
+msgstr "Fazer três furos no canto superior finishing-template.punch-triple-top"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishing-template.saddle-stitch"
-msgstr ""
+msgstr "Ponto selado finishing-template.saddle-stitch"
 
 #. TRANSLATORS: Staple
 msgid "finishing-template.staple"
-msgstr ""
+msgstr "Grampear finishing-template.staple"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
