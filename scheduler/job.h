@@ -76,7 +76,8 @@ struct cupsd_job_s			/**** Job request ****/
   int			status;		/* Status code from filters */
   int			tries;		/* Number of tries for this job */
   int			completed;	/* cups-waiting-for-job-completed seen */
-  int			retry_as_raster;/* Need to retry the job as raster */
+  int			print_as_raster;
+					/* Need to print the job as raster */
   char			*auth_env[3],	/* AUTH_xxx environment variables,
                                          * if any */
 			*auth_uid;	/* AUTH_UID environment variable */
