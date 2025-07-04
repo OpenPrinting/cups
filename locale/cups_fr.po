@@ -11,13 +11,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2012-12-12 11:12+0100\n"
-"Last-Translator: Stéphane Blondon <stephane.blondon@gmail.com>\n"
-"Language-Team: French <LL@li.org>\n"
+"PO-Revision-Date: 2025-07-04 19:01+0000\n"
+"Last-Translator: William Oprandi <william.oprandi@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/cups/cups/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(tous)"
@@ -27,70 +29,70 @@ msgstr "\t\t(aucun)"
 
 #, c-format
 msgid "\t%d entries"
-msgstr ""
+msgstr "\t%d entrées"
 
-#, c-format
+#, c-format, fuzzy
 msgid "\t%s"
-msgstr ""
+msgstr "\t%s"
 
 msgid "\tAfter fault: continue"
-msgstr ""
+msgstr "\tLors d'une erreur : continuer"
 
 #, c-format
 msgid "\tAlerts: %s"
-msgstr ""
+msgstr "\tAlertes : %s"
 
 msgid "\tBanner required"
-msgstr ""
+msgstr "\tBannière requise"
 
 msgid "\tCharset sets:"
-msgstr ""
+msgstr "\tJeux de caractères :"
 
 msgid "\tConnection: direct"
-msgstr ""
+msgstr "\tConnexion : directe"
 
 msgid "\tConnection: remote"
-msgstr ""
+msgstr "\tConnexion : distante"
 
 msgid "\tContent types: any"
-msgstr ""
+msgstr "\tTypes de contenu : tous"
 
 msgid "\tDefault page size:"
-msgstr ""
+msgstr "\tTaille de page par défaut :"
 
 msgid "\tDefault pitch:"
 msgstr ""
 
 msgid "\tDefault port settings:"
-msgstr ""
+msgstr "\tParamètres du port par défaut :"
 
 #, c-format
 msgid "\tDescription: %s"
-msgstr ""
+msgstr "\tDescription : %s"
 
 msgid "\tForm mounted:"
-msgstr ""
+msgstr "\tFormulaire monté :"
 
 msgid "\tForms allowed:"
-msgstr ""
+msgstr "\tFormulaires permis :"
 
 #, c-format
 msgid "\tInterface: %s.ppd"
-msgstr ""
+msgstr "\tInterface : %s.ppd"
 
 #, c-format
 msgid "\tInterface: %s/ppd/%s.ppd"
-msgstr ""
+msgstr "\tInterface : %s/ppd/%s.ppd"
 
 #, c-format
 msgid "\tLocation: %s"
-msgstr ""
+msgstr "\tEmplacement : %s"
 
 msgid "\tOn fault: no alert"
-msgstr ""
+msgstr "\tEn cas de défaillance : aucune alerte"
 
 msgid "\tPrinter types: unknown"
-msgstr ""
+msgstr "\tTypes d'imprimantes : inconnu"
 
 #, c-format
 msgid "\tStatus: %s"
