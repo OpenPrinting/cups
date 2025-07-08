@@ -1524,6 +1524,9 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     return (NULL);
   }
 
+  if (ippGetBoolean(ippFindAttribute(con->request, "print-as-raster", IPP_TAG_BOOLEAN), 0))
+    job->print_as_raster = 1;
+
   job->dtype   = printer->type & (CUPS_PRINTER_CLASS | CUPS_PRINTER_REMOTE);
   job->attrs   = con->request;
   job->dirty   = 1;

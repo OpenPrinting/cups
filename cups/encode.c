@@ -300,6 +300,8 @@ static const _ipp_option_t ipp_options[] =
   { 0, "ppi-default",		IPP_TAG_INTEGER,	IPP_TAG_PRINTER },
   { 0, "prettyprint",		IPP_TAG_BOOLEAN,	IPP_TAG_JOB },
   { 0, "prettyprint-default",	IPP_TAG_BOOLEAN,	IPP_TAG_PRINTER },
+  { 0, "print-as-raster",	IPP_TAG_BOOLEAN,	IPP_TAG_JOB },
+  { 0, "print-as-raster-default", IPP_TAG_BOOLEAN,	IPP_TAG_PRINTER },
   { 0, "print-color-mode",	IPP_TAG_KEYWORD,	IPP_TAG_JOB,
 							IPP_TAG_DOCUMENT },
   { 0, "print-color-mode-default", IPP_TAG_KEYWORD,	IPP_TAG_PRINTER },
