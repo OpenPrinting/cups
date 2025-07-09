@@ -12875,142 +12875,166 @@ msgstr ""
 
 #. TRANSLATORS: Bander Added
 msgid "printer-state-reasons.bander-added"
-msgstr "O enfaixador printer-state-reasons.bander-added foi adicionado"
+msgstr "A enfaixadora printer-state-reasons.bander-added foi adicionada"
 
 #. TRANSLATORS: Bander Almost Empty
 msgid "printer-state-reasons.bander-almost-empty"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-almost-empty está quase vazia"
 
 #. TRANSLATORS: Bander Almost Full
 msgid "printer-state-reasons.bander-almost-full"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-almost-full está quase cheia"
 
 #. TRANSLATORS: Bander At Limit
 msgid "printer-state-reasons.bander-at-limit"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-at-limit está no limite"
 
 #. TRANSLATORS: Bander Closed
 msgid "printer-state-reasons.bander-closed"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-closed está fechada"
 
 #. TRANSLATORS: Bander Configuration Change
 msgid "printer-state-reasons.bander-configuration-change"
 msgstr ""
-"Alterar as configurações da bandeja printer-state-reasons.bander-"
+"Alterar as configurações da enfaixadora printer-state-reasons.bander-"
 "configuration-change"
 
 #. TRANSLATORS: Bander Cover Closed
 msgid "printer-state-reasons.bander-cover-closed"
 msgstr ""
-"A tampa da bandeja printer-state-reasons.bander-cover-closed está fechada"
+"A tampa da enfaixadora printer-state-reasons.bander-cover-closed está fechada"
 
 #. TRANSLATORS: Bander Cover Open
 msgid "printer-state-reasons.bander-cover-open"
-msgstr "A tampa da bandeja printer-state-reasons.bander-cover-open está aberta"
+msgstr ""
+"A tampa da enfaixadora printer-state-reasons.bander-cover-open está aberta"
 
 #. TRANSLATORS: Bander Empty
 msgid "printer-state-reasons.bander-empty"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-empty está vazia"
 
 #. TRANSLATORS: Bander Full
 msgid "printer-state-reasons.bander-full"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-full está cheia"
 
 #. TRANSLATORS: Bander Interlock Closed
 msgid "printer-state-reasons.bander-interlock-closed"
 msgstr ""
-"O intertravamento da bandeja printer-state-reasons.bander-interlock-closed "
-"está fechado"
+"O intertravamento da enfaixadora printer-state-reasons.bander-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Bander Interlock Open
 msgid "printer-state-reasons.bander-interlock-open"
 msgstr ""
+"O intertravamento da enfaixadora printer-state-reasons.bander-interlock-open "
+"está aberto"
 
 #. TRANSLATORS: Bander Jam
 msgid "printer-state-reasons.bander-jam"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-jam"
 
 #. TRANSLATORS: Bander Life Almost Over
 msgid "printer-state-reasons.bander-life-almost-over"
 msgstr ""
-"A bandeja printer-state-reasons.bander-life-almost-over está quase no fim da "
-"sua vida útil"
+"A enfaixadora printer-state-reasons.bander-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-life-over está no fim da sua vida "
+"útil"
 
 #. TRANSLATORS: Bander Memory Exhausted
 msgid "printer-state-reasons.bander-memory-exhausted"
 msgstr ""
+"A memória da enfaixadora printer-state-reasons.bander-memory-exhausted foi "
+"esgotada"
 
 #. TRANSLATORS: Bander Missing
 msgid "printer-state-reasons.bander-missing"
-msgstr ""
+msgstr "Ocorreu uma falha na enfaixadora printer-state-reasons.bander-missing"
 
 #. TRANSLATORS: Bander Motor Failure
 msgid "printer-state-reasons.bander-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor da enfaixadora printer-state-reasons.bander-motor-"
+"failure"
 
 #. TRANSLATORS: Bander Near Limit
 msgid "printer-state-reasons.bander-near-limit"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Bander Offline
 msgid "printer-state-reasons.bander-offline"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-offline está desativada"
 
 #. TRANSLATORS: Bander Opened
 msgid "printer-state-reasons.bander-opened"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-opened está aberta"
 
 #. TRANSLATORS: Bander Over Temperature
 msgid "printer-state-reasons.bander-over-temperature"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Bander Power Saver
 msgid "printer-state-reasons.bander-power-saver"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-power-saver entrou no modo de "
+"economia de energia"
 
 #. TRANSLATORS: Bander Recoverable Failure
 msgid "printer-state-reasons.bander-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha na bandeja do printer-state-reasons.bander-recoverable-"
+"Ocorreu uma falha na enfaixadora printer-state-reasons.bander-recoverable-"
 "failure que pode ser restaurado"
 
 #. TRANSLATORS: Bander Recoverable Storage
 msgid "printer-state-reasons.bander-recoverable-storage"
 msgstr ""
-"O armazenamento da bandeja printer-state-reasons.bander-recoverable-storage "
-"pode ser restaurado"
+"O armazenamento da enfaixadora printer-state-reasons.bander-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Bander Removed
 msgid "printer-state-reasons.bander-removed"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-removed foi removida"
 
 #. TRANSLATORS: Bander Resource Added
 msgid "printer-state-reasons.bander-resource-added"
 msgstr ""
+"A funcionalidade da enfaixadora printer-state-reasons.bander-resource-added "
+"foi adicionada"
 
 #. TRANSLATORS: Bander Resource Removed
 msgid "printer-state-reasons.bander-resource-removed"
 msgstr ""
+"A funcionalidade da enfaixadora printer-state-reasons.bander-resource-"
+"removed foi removida"
 
 #. TRANSLATORS: Bander Thermistor Failure
 msgid "printer-state-reasons.bander-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor da enfaixadora printer-state-reasons.bander-"
+"thermistor-failure"
 
 #. TRANSLATORS: Bander Timing Failure
 msgid "printer-state-reasons.bander-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador da enfaixadora printer-state-reasons"
+".bander-timing-failure"
 
 #. TRANSLATORS: Bander Turned Off
 msgid "printer-state-reasons.bander-turned-off"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-turned-off está desligado"
 
 #. TRANSLATORS: Bander Turned On
 msgid "printer-state-reasons.bander-turned-on"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-turned-on está ligada"
 
 #. TRANSLATORS: Bander Under Temperature
 msgid "printer-state-reasons.bander-under-temperature"
