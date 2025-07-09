@@ -7769,15 +7769,15 @@ msgstr "Grampo no canto superior direito finishings.22"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr "Grampo inferior no canto direito finishings.23"
+msgstr "Grampo no canto inferior direito finishings.23"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr "Costura da borda no canto esquerda finishings.24"
+msgstr "Costura da borda à esquerda finishings.24"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
-msgstr ""
+msgstr "Costura na borda no canto superior"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishings.26"
