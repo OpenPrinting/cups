@@ -13034,35 +13034,35 @@ msgstr ""
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
-msgstr "O encadernador printer-state-reasons.binder-added foi adicionada"
+msgstr "O encadernador printer-state-reasons.binder-added foi adicionado"
 
 #. TRANSLATORS: Binder Almost Empty
 msgid "printer-state-reasons.binder-almost-empty"
 msgstr ""
-"A impressora 3D printer-state-reasons.binder-almost-empty está quase vazia"
+"O encadernador printer-state-reasons.binder-almost-empty está quase vazio"
 
 #. TRANSLATORS: Binder Almost Full
 msgid "printer-state-reasons.binder-almost-full"
 msgstr ""
-"A impressora 3D printer-state-reasons.binder-almost-full está quase cheia"
+"O encadernador printer-state-reasons.binder-almost-full está quase cheio"
 
 #. TRANSLATORS: Binder At Limit
 msgid "printer-state-reasons.binder-at-limit"
-msgstr "A impressora 3D printer-state-reasons.binder-at-limit está no limite"
+msgstr "O encadernador printer-state-reasons.binder-at-limit está no limite"
 
 #. TRANSLATORS: Binder Closed
 msgid "printer-state-reasons.binder-closed"
-msgstr "A impressora 3D printer-state-reasons.binder-closed está fechada"
+msgstr "O encadernador printer-state-reasons.binder-closed está fechado"
 
 #. TRANSLATORS: Binder Configuration Change
 msgid "printer-state-reasons.binder-configuration-change"
 msgstr ""
-"Alterar as configurações da impressora 3D printer-state-reasons.binder-"
+"Alterar as configurações do encadernador printer-state-reasons.binder-"
 "configuration-change"
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr "A impressora 3D printer-state-reasons.binder-cover-closed está fechada"
+msgstr "O encadernador printer-state-reasons.binder-cover-closed está fechada"
 
 #. TRANSLATORS: Binder Cover Open
 msgid "printer-state-reasons.binder-cover-open"
