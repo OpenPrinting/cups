@@ -13149,46 +13149,56 @@ msgstr ""
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha na impressora 3D do printer-state-reasons.binder-"
-"recoverable-failure que pode ser restaurado"
+"Ocorreu uma falha na impressora 3D printer-state-reasons.binder-recoverable-"
+"failure que pode ser restaurado"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
 msgstr ""
-"O armazenamento da impressora 3D do printer-state-reasons.binder-recoverable-"
+"O armazenamento da impressora 3D printer-state-reasons.binder-recoverable-"
 "storage pode ser restaurado"
 
 #. TRANSLATORS: Binder Removed
 msgid "printer-state-reasons.binder-removed"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-removed foi removida"
 
 #. TRANSLATORS: Binder Resource Added
 msgid "printer-state-reasons.binder-resource-added"
 msgstr ""
+"A funcionalidade da impressora 3D printer-state-reasons.binder-resource-"
+"added foi adicionada"
 
 #. TRANSLATORS: Binder Resource Removed
 msgid "printer-state-reasons.binder-resource-removed"
 msgstr ""
+"A funcionalidade da impressora 3D printer-state-reasons.binder-resource-"
+"removed foi removida"
 
 #. TRANSLATORS: Binder Thermistor Failure
 msgid "printer-state-reasons.binder-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor da impressora 3D printer-state-reasons.binder-"
+"thermistor-failure"
 
 #. TRANSLATORS: Binder Timing Failure
 msgid "printer-state-reasons.binder-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador da impressora 3D printer-state-reasons"
+".binder-timing-failure"
 
 #. TRANSLATORS: Binder Turned Off
 msgid "printer-state-reasons.binder-turned-off"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-turned-off está desligada"
 
 #. TRANSLATORS: Binder Turned On
 msgid "printer-state-reasons.binder-turned-on"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-turned-on está ligada"
 
 #. TRANSLATORS: Binder Under Temperature
 msgid "printer-state-reasons.binder-under-temperature"
 msgstr ""
+"A impressora 3D printer-state-reasons.binder-under-temperature está com a "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Binder Unrecoverable Failure
 msgid "printer-state-reasons.binder-unrecoverable-failure"
@@ -13204,7 +13214,7 @@ msgstr ""
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-warming-up está aquecendo"
 
 #. TRANSLATORS: Camera Failure
 msgid "printer-state-reasons.camera-failure"
