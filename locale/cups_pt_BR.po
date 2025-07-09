@@ -14021,13 +14021,13 @@ msgstr ""
 #. TRANSLATORS: Inserter Recoverable Failure
 msgid "printer-state-reasons.inserter-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha na alimentador das folhas em printer-state-reasons"
+"Ocorreu uma falha no alimentador das folhas em printer-state-reasons"
 ".inserter-recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Inserter Recoverable Storage
 msgid "printer-state-reasons.inserter-recoverable-storage"
 msgstr ""
-"O armazenamento da alimentador das folhas do printer-state-reasons.inserter-"
+"O armazenamento do alimentador das folhas do printer-state-reasons.inserter-"
 "recoverable-storage pode ser restaurado"
 
 #. TRANSLATORS: Inserter Removed
@@ -14076,7 +14076,9 @@ msgstr ""
 
 #. TRANSLATORS: Inserter Warming Up
 msgid "printer-state-reasons.inserter-warming-up"
-msgstr "O alimentador printer-state-reasons.inserter-warming-up está aquecendo"
+msgstr ""
+"O alimentador das folhas printer-state-reasons.inserter-warming-up está "
+"aquecendo"
 
 #. TRANSLATORS: Interlock Closed
 msgid "printer-state-reasons.interlock-closed"
@@ -14302,6 +14304,8 @@ msgstr ""
 #. TRANSLATORS: Envelope Maker Warming Up
 msgid "printer-state-reasons.make-envelope-warming-up"
 msgstr ""
+"A máquina de envelopamento printer-state-reasons.make-envelope-warming-up "
+"está aquecendo"
 
 #. TRANSLATORS: Marker Adjusting Print Quality
 msgid "printer-state-reasons.marker-adjusting-print-quality"
@@ -14755,7 +14759,7 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Warming Up
 msgid "printer-state-reasons.perforater-warming-up"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-warming-up está aquecendo"
 
 #. TRANSLATORS: Platform Cooling
 msgid "printer-state-reasons.platform-cooling"
@@ -15127,8 +15131,8 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Unrecoverable Failure
 msgid "printer-state-reasons.separation-cutter-unrecoverable-failure"
 msgstr ""
-"O armazenamento da tampa de separação do cortador printer-state-reasons"
-".separation-cutter-unrecoverable-failure não pode ser restaurado"
+"O armazenamento do separador e cortador printer-state-reasons.separation-"
+"cutter-unrecoverable-failure não pode ser restaurado"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.separation-cutter-unrecoverable-storage-error"
@@ -15140,6 +15144,8 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Warming Up
 msgid "printer-state-reasons.separation-cutter-warming-up"
 msgstr ""
+"O separador e cortador printer-state-reasons.separation-cutter-warming-up "
+"está em aquecimento"
 
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
