@@ -12875,7 +12875,7 @@ msgstr ""
 
 #. TRANSLATORS: Bander Added
 msgid "printer-state-reasons.bander-added"
-msgstr ""
+msgstr "O enfaixador printer-state-reasons.bander-added foi adicionado"
 
 #. TRANSLATORS: Bander Almost Empty
 msgid "printer-state-reasons.bander-almost-empty"
@@ -13062,154 +13062,154 @@ msgstr ""
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr "O encadernador printer-state-reasons.binder-cover-closed está fechada"
+msgstr "O encadernador printer-state-reasons.binder-cover-closed está fechado"
 
 #. TRANSLATORS: Binder Cover Open
 msgid "printer-state-reasons.binder-cover-open"
-msgstr "A impressora 3D printer-state-reasons.binder-cover-open está aberta"
+msgstr "O encadernador printer-state-reasons.binder-cover-open está aberto"
 
 #. TRANSLATORS: Binder Empty
 msgid "printer-state-reasons.binder-empty"
-msgstr "A impressora 3D printer-state-reasons.binder-empty está vazia"
+msgstr "O encadernador printer-state-reasons.binder-empty está vazio"
 
 #. TRANSLATORS: Binder Full
 msgid "printer-state-reasons.binder-full"
-msgstr "A impressora 3D printer-state-reasons.binder-full está cheia"
+msgstr "O encadernador printer-state-reasons.binder-full está cheio"
 
 #. TRANSLATORS: Binder Interlock Closed
 msgid "printer-state-reasons.binder-interlock-closed"
 msgstr ""
-"O intertravamento da impressora 3D printer-state-reasons.binder-interlock-"
+"O intertravamento do encadernador printer-state-reasons.binder-interlock-"
 "closed está fechado"
 
 #. TRANSLATORS: Binder Interlock Open
 msgid "printer-state-reasons.binder-interlock-open"
 msgstr ""
-"O intertravamento da impressora 3D printer-state-reasons.binder-interlock-"
+"O intertravamento do encadernador printer-state-reasons.binder-interlock-"
 "open está aberto"
 
 #. TRANSLATORS: Binder Jam
 msgid "printer-state-reasons.binder-jam"
-msgstr "Impressora 3D printer-state-reasons.binder-jam"
+msgstr "O encadernador printer-state-reasons.binder-jam"
 
 #. TRANSLATORS: Binder Life Almost Over
 msgid "printer-state-reasons.binder-life-almost-over"
 msgstr ""
-"A impressora 3D printer-state-reasons.cleaner-life-almost-over está quase no "
+"O encadernador printer-state-reasons.cleaner-life-almost-over está quase no "
 "fim da sua vida útil"
 
 #. TRANSLATORS: Binder Life Over
 msgid "printer-state-reasons.binder-life-over"
 msgstr ""
-"A impressora 3D printer-state-reasons.binder-life-over está no fim da sua "
+"O encadernador printer-state-reasons.binder-life-over está no fim da sua "
 "vida útil"
 
 #. TRANSLATORS: Binder Memory Exhausted
 msgid "printer-state-reasons.binder-memory-exhausted"
 msgstr ""
-"A memória da impressora 3D printer-state-reasons.binder-memory-exhausted foi "
+"A memória do encadernador printer-state-reasons.binder-memory-exhausted foi "
 "esgotada"
 
 #. TRANSLATORS: Binder Missing
 msgid "printer-state-reasons.binder-missing"
-msgstr "Ocorreu uma falha na impressora 3D printer-state-reasons.binder-missing"
+msgstr "Ocorreu uma falha no encadernador printer-state-reasons.binder-missing"
 
 #. TRANSLATORS: Binder Motor Failure
 msgid "printer-state-reasons.binder-motor-failure"
 msgstr ""
-"Ocorreu uma falha no motor da impressora 3D printer-state-reasons.binder-"
+"Ocorreu uma falha no motor do encadernador printer-state-reasons.binder-"
 "motor-failure"
 
 #. TRANSLATORS: Binder Near Limit
 msgid "printer-state-reasons.binder-near-limit"
 msgstr ""
-"A impressora 3D printer-state-reasons.binder-near-limit está próximo do seu "
+"O encadernador printer-state-reasons.binder-near-limit está próximo do seu "
 "limite"
 
 #. TRANSLATORS: Binder Offline
 msgid "printer-state-reasons.binder-offline"
-msgstr "A impressora 3D printer-state-reasons.binder-offline está desativada"
+msgstr "O encadernador printer-state-reasons.binder-offline está desativado"
 
 #. TRANSLATORS: Binder Opened
 msgid "printer-state-reasons.binder-opened"
-msgstr "A impressora 3D printer-state-reasons.binder-opened está aberta"
+msgstr "O encadernador printer-state-reasons.binder-opened está aberto"
 
 #. TRANSLATORS: Binder Over Temperature
 msgid "printer-state-reasons.binder-over-temperature"
 msgstr ""
-"A impressora 3D printer-state-reasons.binder-over-temperature atingiu uma "
+"O encadernador printer-state-reasons.binder-over-temperature atingiu uma "
 "temperatura excessiva"
 
 #. TRANSLATORS: Binder Power Saver
 msgid "printer-state-reasons.binder-power-saver"
 msgstr ""
-"A impressora 3D printer-state-reasons.binder-power-saver entrou no modo de "
+"O encadernador printer-state-reasons.binder-power-saver entrou no modo de "
 "economia de energia"
 
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha na impressora 3D printer-state-reasons.binder-recoverable-"
+"Ocorreu uma falha no encadernador printer-state-reasons.binder-recoverable-"
 "failure que pode ser restaurado"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
 msgstr ""
-"O armazenamento da impressora 3D printer-state-reasons.binder-recoverable-"
+"O armazenamento do encadernador printer-state-reasons.binder-recoverable-"
 "storage pode ser restaurado"
 
 #. TRANSLATORS: Binder Removed
 msgid "printer-state-reasons.binder-removed"
-msgstr "A impressora 3D printer-state-reasons.binder-removed foi removida"
+msgstr "O encadernador printer-state-reasons.binder-removed foi removido"
 
 #. TRANSLATORS: Binder Resource Added
 msgid "printer-state-reasons.binder-resource-added"
 msgstr ""
-"A funcionalidade da impressora 3D printer-state-reasons.binder-resource-"
-"added foi adicionada"
+"A funcionalidade do encadernador printer-state-reasons.binder-resource-added "
+"foi adicionado"
 
 #. TRANSLATORS: Binder Resource Removed
 msgid "printer-state-reasons.binder-resource-removed"
 msgstr ""
-"A funcionalidade da impressora 3D printer-state-reasons.binder-resource-"
-"removed foi removida"
+"A funcionalidade do encadernador printer-state-reasons.binder-resource-"
+"removed foi removido"
 
 #. TRANSLATORS: Binder Thermistor Failure
 msgid "printer-state-reasons.binder-thermistor-failure"
 msgstr ""
-"Ocorreu uma falha no termistor da impressora 3D printer-state-reasons.binder-"
+"Ocorreu uma falha no termistor do encadernador printer-state-reasons.binder-"
 "thermistor-failure"
 
 #. TRANSLATORS: Binder Timing Failure
 msgid "printer-state-reasons.binder-timing-failure"
 msgstr ""
-"Ocorreu uma falha no temporizador da impressora 3D printer-state-reasons"
+"Ocorreu uma falha no temporizador do encadernador 3D printer-state-reasons"
 ".binder-timing-failure"
 
 #. TRANSLATORS: Binder Turned Off
 msgid "printer-state-reasons.binder-turned-off"
-msgstr "A impressora 3D printer-state-reasons.binder-turned-off está desligada"
+msgstr "O encadernador printer-state-reasons.binder-turned-off está desligado"
 
 #. TRANSLATORS: Binder Turned On
 msgid "printer-state-reasons.binder-turned-on"
-msgstr "A impressora 3D printer-state-reasons.binder-turned-on está ligada"
+msgstr "O encadernador printer-state-reasons.binder-turned-on está ligado"
 
 #. TRANSLATORS: Binder Under Temperature
 msgid "printer-state-reasons.binder-under-temperature"
 msgstr ""
-"A impressora 3D printer-state-reasons.binder-under-temperature está com a "
+"O encadernador printer-state-reasons.binder-under-temperature está com a "
 "temperatura abaixo do normal"
 
 #. TRANSLATORS: Binder Unrecoverable Failure
 msgid "printer-state-reasons.binder-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha na impressora 3D do printer-state-reasons.binder-"
-"unrecoverable-failure que não pode ser restaurado"
+"Ocorreu uma falha no encadernador printer-state-reasons.binder-unrecoverable-"
+"failure que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Unrecoverable Storage Error
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro no armazenamento da impressora 3D printer-state-reasons"
+"Ocorreu um erro no armazenamento do encadernador printer-state-reasons"
 ".binder-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Warming Up
