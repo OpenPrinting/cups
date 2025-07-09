@@ -7757,19 +7757,19 @@ msgstr "Laminado finishings.16"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
-msgstr "Grampo superior esquerdo finishings.20"
+msgstr "Grampo no canto superior esquerdo finishings.20"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishings.21"
-msgstr "Grampo inferior esquerdo finishings.21"
+msgstr "Grampo no canto inferior esquerdo finishings.21"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishings.22"
-msgstr "Grampo superior direito finishings.22"
+msgstr "Grampo no canto superior direito finishings.22"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr "Grampo inferior direito finishings.23"
+msgstr "Grampo inferior no canto direito finishings.23"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
