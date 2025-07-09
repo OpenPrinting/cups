@@ -7773,19 +7773,19 @@ msgstr "Grampo no canto inferior direito finishings.23"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr "Costura da borda à esquerda finishings.24"
+msgstr "Costura na borda no canto finishings.24"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
-msgstr "Costura na borda no canto superior"
+msgstr "Costura na borda no canto superior finishings.25"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishings.26"
-msgstr ""
+msgstr "Costura na borda no canto direito finishings.26"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishings.27"
-msgstr ""
+msgstr "Costura na borda no canto inferior finishings.27"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishings.28"
