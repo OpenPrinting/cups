@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-04 19:01+0000\n"
+"PO-Revision-Date: 2025-07-10 07:06+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -12896,6 +12896,8 @@ msgstr ""
 #. TRANSLATORS: Bander Configuration Change
 msgid "printer-state-reasons.bander-configuration-change"
 msgstr ""
+"Alterar as configurações da bandeja printer-state-reasons.bander-"
+"configuration-change"
 
 #. TRANSLATORS: Bander Cover Closed
 msgid "printer-state-reasons.bander-cover-closed"
@@ -13053,6 +13055,8 @@ msgstr ""
 #. TRANSLATORS: Binder Configuration Change
 msgid "printer-state-reasons.binder-configuration-change"
 msgstr ""
+"Alterar as configurações do encadernador printer-state-reasons.binder-"
+"configuration-change"
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
@@ -13173,14 +13177,14 @@ msgstr ""
 #. TRANSLATORS: Binder Unrecoverable Failure
 msgid "printer-state-reasons.binder-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha na bandeja do printer-state-reasons.binder-unrecoverable-"
-"failure que não pode ser restaurado"
+"Ocorreu uma falha na impressora 3D do printer-state-reasons.binder-"
+"unrecoverable-failure que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Unrecoverable Storage Error
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro no armazenamento da bandeja printer-state-reasons.binder-"
-"unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um erro no armazenamento da impressão 3D printer-state-reasons"
+".binder-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
@@ -13480,6 +13484,8 @@ msgstr ""
 #. TRANSLATORS: Folder Configuration Change
 msgid "printer-state-reasons.folder-configuration-change"
 msgstr ""
+"Alterar as configurações da pasta printer-state-reasons.folder-configuration-"
+"change"
 
 #. TRANSLATORS: Folder Cover Closed
 msgid "printer-state-reasons.folder-cover-closed"
@@ -14943,6 +14949,8 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Configuration Change
 msgid "printer-state-reasons.separation-cutter-configuration-change"
 msgstr ""
+"Alterar as configurações do separador do cortador printer-state-reasons"
+".separation-cutter-configuration-change"
 
 #. TRANSLATORS: Separation Cutter Cover Closed
 msgid "printer-state-reasons.separation-cutter-cover-closed"
@@ -15073,8 +15081,8 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.separation-cutter-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro no armazenamento da tampa de separação do cortador printer-"
-"state-reasons.separation-cutter-unrecoverable-storage-error que não pode ser "
+"Ocorreu um erro no armazenamento no separador do cortador printer-state-"
+"reasons.separation-cutter-unrecoverable-storage-error que não pode ser "
 "restaurado"
 
 #. TRANSLATORS: Separation Cutter Warming Up
