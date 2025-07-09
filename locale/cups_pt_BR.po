@@ -13030,7 +13030,7 @@ msgstr ""
 
 #. TRANSLATORS: Bander Turned Off
 msgid "printer-state-reasons.bander-turned-off"
-msgstr "A enfaixadora printer-state-reasons.bander-turned-off está desligado"
+msgstr "A enfaixadora printer-state-reasons.bander-turned-off está desligada"
 
 #. TRANSLATORS: Bander Turned On
 msgid "printer-state-reasons.bander-turned-on"
@@ -13039,12 +13039,14 @@ msgstr "A enfaixadora printer-state-reasons.bander-turned-on está ligada"
 #. TRANSLATORS: Bander Under Temperature
 msgid "printer-state-reasons.bander-under-temperature"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-under-temperature está com a "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Bander Unrecoverable Failure
 msgid "printer-state-reasons.bander-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha na bandeja do printer-state-reasons.bander-unrecoverable-"
-"failure que não pode ser restaurado"
+"Ocorreu uma falha na enfaixadora printer-state-reasons.bander-unrecoverable-"
+"failure que não pode ser restaurada"
 
 #. TRANSLATORS: Bander Unrecoverable Storage Error
 msgid "printer-state-reasons.bander-unrecoverable-storage-error"
@@ -13054,7 +13056,7 @@ msgstr ""
 
 #. TRANSLATORS: Bander Warming Up
 msgid "printer-state-reasons.bander-warming-up"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-warming-up está aquecendo"
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
@@ -13455,7 +13457,7 @@ msgstr ""
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
-msgstr ""
+msgstr "O cortador printer-state-reasons.die-cutter-warming-up está aquecendo"
 
 #. TRANSLATORS: Door Open
 msgid "printer-state-reasons.door-open"
@@ -13667,7 +13669,7 @@ msgstr ""
 
 #. TRANSLATORS: Folder Warming Up
 msgid "printer-state-reasons.folder-warming-up"
-msgstr ""
+msgstr "A pasta printer-state-reasons.folder-warming-up está aquecendo"
 
 #. TRANSLATORS: Fuser temperature high
 msgid "printer-state-reasons.fuser-over-temp"
@@ -13844,7 +13846,7 @@ msgstr ""
 
 #. TRANSLATORS: Imprinter Warming Up
 msgid "printer-state-reasons.imprinter-warming-up"
-msgstr ""
+msgstr "A impressora printer-state-reasons.imprinter-warming-up está aquecendo"
 
 #. TRANSLATORS: Input Cannot Feed Size Selected
 msgid "printer-state-reasons.input-cannot-feed-size-selected"
@@ -14019,13 +14021,13 @@ msgstr ""
 #. TRANSLATORS: Inserter Recoverable Failure
 msgid "printer-state-reasons.inserter-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha na alimentação das folhas em printer-state-reasons"
+"Ocorreu uma falha na alimentador das folhas em printer-state-reasons"
 ".inserter-recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Inserter Recoverable Storage
 msgid "printer-state-reasons.inserter-recoverable-storage"
 msgstr ""
-"O armazenamento da alimentação das folhas do printer-state-reasons.inserter-"
+"O armazenamento da alimentador das folhas do printer-state-reasons.inserter-"
 "recoverable-storage pode ser restaurado"
 
 #. TRANSLATORS: Inserter Removed
@@ -14074,7 +14076,7 @@ msgstr ""
 
 #. TRANSLATORS: Inserter Warming Up
 msgid "printer-state-reasons.inserter-warming-up"
-msgstr ""
+msgstr "O alimentador printer-state-reasons.inserter-warming-up está aquecendo"
 
 #. TRANSLATORS: Interlock Closed
 msgid "printer-state-reasons.interlock-closed"
