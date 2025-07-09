@@ -7741,39 +7741,39 @@ msgstr "Fardo do finishings.12"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishings.13"
-msgstr ""
+msgstr "Criador de livretos finishings.13"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishings.14"
-msgstr ""
+msgstr "Deslocamento finishings.14"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
-msgstr ""
+msgstr "Revestimento finishings.15"
 
 #. TRANSLATORS: Laminate
 msgid "finishings.16"
-msgstr ""
+msgstr "Laminado finishings.16"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
-msgstr ""
+msgstr "Grampo superior esquerdo finishings.20"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishings.21"
-msgstr ""
+msgstr "Grampo inferior esquerdo finishings.21"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishings.22"
-msgstr ""
+msgstr "Grampo superior direito finishings.22"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr ""
+msgstr "Grampo inferior direito finishings.23"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr ""
+msgstr "Costura da borda no canto esquerda finishings.24"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
@@ -14980,7 +14980,7 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Warming Up
 msgid "printer-state-reasons.puncher-warming-up"
-msgstr "O furador printer-state-reasons.puncher-warming-up está em aquecimento"
+msgstr "O furador printer-state-reasons.puncher-warming-up está aquecendo"
 
 #. TRANSLATORS: Separation Cutter Added
 msgid "printer-state-reasons.separation-cutter-added"
@@ -15145,7 +15145,7 @@ msgstr ""
 msgid "printer-state-reasons.separation-cutter-warming-up"
 msgstr ""
 "O separador e cortador printer-state-reasons.separation-cutter-warming-up "
-"está em aquecimento"
+"está aquecendo"
 
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
@@ -15352,8 +15352,8 @@ msgstr ""
 #. TRANSLATORS: Sheet Rotator Warming Up
 msgid "printer-state-reasons.sheet-rotator-warming-up"
 msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-warming-up está em "
-"aquecimento"
+"O rotador de folhas printer-state-reasons.sheet-rotator-warming-up está "
+"aquecendo"
 
 #. TRANSLATORS: Printer offline
 msgid "printer-state-reasons.shutdown"
@@ -15515,7 +15515,7 @@ msgstr ""
 
 #. TRANSLATORS: Slitter Warming Up
 msgid "printer-state-reasons.slitter-warming-up"
-msgstr ""
+msgstr "O cortador printer-state-reasons.slitter-warming-up está aquecendo"
 
 #. TRANSLATORS: Spool Area Full
 msgid "printer-state-reasons.spool-area-full"
@@ -15677,7 +15677,7 @@ msgstr ""
 
 #. TRANSLATORS: Stacker Warming Up
 msgid "printer-state-reasons.stacker-warming-up"
-msgstr ""
+msgstr "O empilhador printer-state-reasons.stacker-warming-up está aquecendo"
 
 #. TRANSLATORS: Stapler Added
 msgid "printer-state-reasons.stapler-added"
@@ -15837,7 +15837,7 @@ msgstr ""
 
 #. TRANSLATORS: Stapler Warming Up
 msgid "printer-state-reasons.stapler-warming-up"
-msgstr ""
+msgstr "O grampeador printer-state-reasons.stacker-warming-up está aquecendo"
 
 #. TRANSLATORS: Stitcher Added
 msgid "printer-state-reasons.stitcher-added"
@@ -15996,7 +15996,7 @@ msgstr ""
 
 #. TRANSLATORS: Stitcher Warming Up
 msgid "printer-state-reasons.stitcher-warming-up"
-msgstr ""
+msgstr "O costurador printer-state-reasons.stitcher-warming-up está aquecendo"
 
 #. TRANSLATORS: Partially stopped
 msgid "printer-state-reasons.stopped-partly"
@@ -16133,12 +16133,12 @@ msgstr ""
 #. TRANSLATORS: Subunit Unrecoverable Storage
 msgid "printer-state-reasons.subunit-unrecoverable-storage"
 msgstr ""
-"O armazenamento de subunidade do printer-state-reasons.subunit-unrecoverable-"
+"O armazenamento de subunidade printer-state-reasons.subunit-unrecoverable-"
 "storage não pode ser restaurado"
 
 #. TRANSLATORS: Subunit Warming Up
 msgid "printer-state-reasons.subunit-warming-up"
-msgstr ""
+msgstr "A subunidade printer-state-reasons.subunit-warming-up está aquecendo"
 
 #. TRANSLATORS: Printer stopped responding
 msgid "printer-state-reasons.timed-out"
