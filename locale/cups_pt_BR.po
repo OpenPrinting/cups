@@ -13034,112 +13034,128 @@ msgstr ""
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-added foi adicionada"
 
 #. TRANSLATORS: Binder Almost Empty
 msgid "printer-state-reasons.binder-almost-empty"
 msgstr ""
+"A impressora 3D printer-state-reasons.binder-almost-empty está quase vazia"
 
 #. TRANSLATORS: Binder Almost Full
 msgid "printer-state-reasons.binder-almost-full"
 msgstr ""
+"A impressora 3D printer-state-reasons.binder-almost-full está quase cheia"
 
 #. TRANSLATORS: Binder At Limit
 msgid "printer-state-reasons.binder-at-limit"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-at-limit está no limite"
 
 #. TRANSLATORS: Binder Closed
 msgid "printer-state-reasons.binder-closed"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-closed está fechada"
 
 #. TRANSLATORS: Binder Configuration Change
 msgid "printer-state-reasons.binder-configuration-change"
 msgstr ""
-"Alterar as configurações do encadernador printer-state-reasons.binder-"
+"Alterar as configurações da impressora 3D printer-state-reasons.binder-"
 "configuration-change"
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr "A bandeja do printer-state-reasons.binder-cover-closed está fechada"
+msgstr "A impressora 3D printer-state-reasons.binder-cover-closed está fechada"
 
 #. TRANSLATORS: Binder Cover Open
 msgid "printer-state-reasons.binder-cover-open"
-msgstr "A bandeja do printer-state-reasons.binder-cover-open está aberta"
+msgstr "A impressora 3D printer-state-reasons.binder-cover-open está aberta"
 
 #. TRANSLATORS: Binder Empty
 msgid "printer-state-reasons.binder-empty"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-empty está vazia"
 
 #. TRANSLATORS: Binder Full
 msgid "printer-state-reasons.binder-full"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-full está cheia"
 
 #. TRANSLATORS: Binder Interlock Closed
 msgid "printer-state-reasons.binder-interlock-closed"
 msgstr ""
-"O intertravamento da bandeja printer-state-reasons.binder-interlock-closed "
-"está fechado"
+"O intertravamento da impressora 3D printer-state-reasons.binder-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Binder Interlock Open
 msgid "printer-state-reasons.binder-interlock-open"
 msgstr ""
+"O intertravamento da impressora 3D printer-state-reasons.binder-interlock-"
+"open está aberto"
 
 #. TRANSLATORS: Binder Jam
 msgid "printer-state-reasons.binder-jam"
-msgstr ""
+msgstr "Impressora 3D printer-state-reasons.binder-jam"
 
 #. TRANSLATORS: Binder Life Almost Over
 msgid "printer-state-reasons.binder-life-almost-over"
 msgstr ""
-"A bandeja printer-state-reasons.cleaner-life-almost-over está quase no fim "
-"da sua vida útil"
+"A impressora 3D printer-state-reasons.cleaner-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Binder Life Over
 msgid "printer-state-reasons.binder-life-over"
 msgstr ""
+"A impressora 3D printer-state-reasons.binder-life-over está no fim da sua "
+"vida útil"
 
 #. TRANSLATORS: Binder Memory Exhausted
 msgid "printer-state-reasons.binder-memory-exhausted"
 msgstr ""
+"A memória da impressora 3D printer-state-reasons.binder-memory-exhausted foi "
+"esgotada"
 
 #. TRANSLATORS: Binder Missing
 msgid "printer-state-reasons.binder-missing"
-msgstr ""
+msgstr "Ocorreu uma falha na impressora 3D printer-state-reasons.binder-missing"
 
 #. TRANSLATORS: Binder Motor Failure
 msgid "printer-state-reasons.binder-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor da impressora 3D printer-state-reasons.binder-"
+"motor-failure"
 
 #. TRANSLATORS: Binder Near Limit
 msgid "printer-state-reasons.binder-near-limit"
 msgstr ""
+"A impressora 3D printer-state-reasons.binder-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Binder Offline
 msgid "printer-state-reasons.binder-offline"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-offline está desativada"
 
 #. TRANSLATORS: Binder Opened
 msgid "printer-state-reasons.binder-opened"
-msgstr ""
+msgstr "A impressora 3D printer-state-reasons.binder-opened está aberta"
 
 #. TRANSLATORS: Binder Over Temperature
 msgid "printer-state-reasons.binder-over-temperature"
 msgstr ""
+"A impressora 3D printer-state-reasons.binder-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Binder Power Saver
 msgid "printer-state-reasons.binder-power-saver"
 msgstr ""
+"A impressora 3D printer-state-reasons.binder-power-saver entrou no modo de "
+"economia de energia"
 
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha de aglutinação no printer-state-reasons.binder-recoverable-"
-"failure que pode ser restaurado"
+"Ocorreu uma falha na impressora 3D do printer-state-reasons.binder-"
+"recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
 msgstr ""
-"O armazenamento da bandeja do printer-state-reasons.binder-recoverable-"
+"O armazenamento da impressora 3D do printer-state-reasons.binder-recoverable-"
 "storage pode ser restaurado"
 
 #. TRANSLATORS: Binder Removed
@@ -13183,7 +13199,7 @@ msgstr ""
 #. TRANSLATORS: Binder Unrecoverable Storage Error
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro no armazenamento da impressão 3D printer-state-reasons"
+"Ocorreu um erro no armazenamento da impressora 3D printer-state-reasons"
 ".binder-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Warming Up
