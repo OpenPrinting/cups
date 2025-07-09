@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
 "PO-Revision-Date: 2025-07-10 07:06+0000\n"
-"Last-Translator: SEMLOG SG <0000-4521@ge2o.ch>\n"
+"Last-Translator: William Oprandi <william.oprandi@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/cups/cups/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgid "\tDefault page size:"
 msgstr "\tTaille de page par défaut :"
 
 msgid "\tDefault pitch:"
-msgstr ""
+msgstr "\tTon par défaut :"
 
 msgid "\tDefault port settings:"
 msgstr "\tParamètres du port par défaut :"
@@ -96,19 +96,19 @@ msgstr "\tTypes d'imprimantes : inconnu"
 
 #, c-format
 msgid "\tStatus: %s"
-msgstr ""
+msgstr "\tStatut : %s"
 
 msgid "\tUsers allowed:"
-msgstr ""
+msgstr "\tUtilisateurs autorisés :"
 
 msgid "\tUsers denied:"
-msgstr ""
+msgstr "\tUtilisateurs refusés :"
 
 msgid "\tdaemon present"
-msgstr ""
+msgstr "\tdémon présent"
 
 msgid "\tno entries"
-msgstr ""
+msgstr "\taucune entrée"
 
 #, c-format
 msgid "\tprinter is on device '%s' speed -1"
@@ -137,6 +137,8 @@ msgid ""
 "\n"
 "    DETAILED CONFORMANCE TEST RESULTS"
 msgstr ""
+"\n"
+"    • • • • RÉSULTATS DÉTAILLÉ DE TEST DE CONFORMITÉ"
 
 msgid "                REF: Page 15, section 3.1."
 msgstr "                REF: Page 15, section 3.1."
@@ -177,10 +179,12 @@ msgstr "        %-39.39s %.0f octets"
 
 #, c-format
 msgid "        PASS    Default%s"
-msgstr ""
+msgstr "        • • • • • • • • • RÉUSSI • • • • Par défaut %s"
 
 msgid "        PASS    DefaultImageableArea"
 msgstr ""
+"        • • • • • • • • • RÉUSSI • • • • \n"
+"DefaultImageableArea"
 
 msgid "        PASS    DefaultPaperDimension"
 msgstr ""
@@ -320,15 +324,15 @@ msgstr ""
 
 #, c-format
 msgid "      %s  Bad UTF-8 \"%s\" translation string for option %s."
-msgstr ""
+msgstr "      %s  Mauvaise chaîne de traduction UTF-8 \"%s\"  pour l'option %s."
 
 #, c-format
 msgid "      %s  Bad cupsFilter value \"%s\"."
-msgstr ""
+msgstr "      %s  Mauvaise valeur cupsFilter \"%s\"."
 
 #, c-format
 msgid "      %s  Bad cupsFilter2 value \"%s\"."
-msgstr ""
+msgstr "      %s  Mauvaise valeur cupsFilter2 \"%s\"."
 
 #, c-format
 msgid "      %s  Bad cupsICCProfile %s."
