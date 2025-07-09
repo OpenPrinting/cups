@@ -13034,7 +13034,7 @@ msgstr ""
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
-msgstr "A impressora 3D printer-state-reasons.binder-added foi adicionada"
+msgstr "O encadernador printer-state-reasons.binder-added foi adicionada"
 
 #. TRANSLATORS: Binder Almost Empty
 msgid "printer-state-reasons.binder-almost-empty"
@@ -13214,7 +13214,7 @@ msgstr ""
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
-msgstr "A impressora 3D printer-state-reasons.binder-warming-up está aquecendo"
+msgstr "O encadernador printer-state-reasons.binder-warming-up está aquecendo"
 
 #. TRANSLATORS: Camera Failure
 msgid "printer-state-reasons.camera-failure"
