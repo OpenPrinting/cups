@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-04 19:01+0000\n"
+"PO-Revision-Date: 2025-07-10 07:06+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -7741,51 +7741,51 @@ msgstr "Fardo do finishings.12"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishings.13"
-msgstr ""
+msgstr "Criador de livretos finishings.13"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishings.14"
-msgstr ""
+msgstr "Deslocamento finishings.14"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
-msgstr ""
+msgstr "Revestimento finishings.15"
 
 #. TRANSLATORS: Laminate
 msgid "finishings.16"
-msgstr ""
+msgstr "Laminado finishings.16"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
-msgstr ""
+msgstr "Grampo no canto superior esquerdo finishings.20"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishings.21"
-msgstr ""
+msgstr "Grampo no canto inferior esquerdo finishings.21"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishings.22"
-msgstr ""
+msgstr "Grampo no canto superior direito finishings.22"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr ""
+msgstr "Grampo no canto inferior direito finishings.23"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr ""
+msgstr "Costura na borda no canto finishings.24"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
-msgstr ""
+msgstr "Costura na borda no canto superior finishings.25"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishings.26"
-msgstr ""
+msgstr "Costura na borda no canto direito finishings.26"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishings.27"
-msgstr ""
+msgstr "Costura na borda no canto inferior finishings.27"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishings.28"
@@ -12875,150 +12875,178 @@ msgstr ""
 
 #. TRANSLATORS: Bander Added
 msgid "printer-state-reasons.bander-added"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-added foi adicionada"
 
 #. TRANSLATORS: Bander Almost Empty
 msgid "printer-state-reasons.bander-almost-empty"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-almost-empty está quase vazia"
 
 #. TRANSLATORS: Bander Almost Full
 msgid "printer-state-reasons.bander-almost-full"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-almost-full está quase cheia"
 
 #. TRANSLATORS: Bander At Limit
 msgid "printer-state-reasons.bander-at-limit"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-at-limit está no limite"
 
 #. TRANSLATORS: Bander Closed
 msgid "printer-state-reasons.bander-closed"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-closed está fechada"
 
 #. TRANSLATORS: Bander Configuration Change
 msgid "printer-state-reasons.bander-configuration-change"
 msgstr ""
+"Alterar as configurações da enfaixadora printer-state-reasons.bander-"
+"configuration-change"
 
 #. TRANSLATORS: Bander Cover Closed
 msgid "printer-state-reasons.bander-cover-closed"
 msgstr ""
-"A tampa da bandeja printer-state-reasons.bander-cover-closed está fechada"
+"A tampa da enfaixadora printer-state-reasons.bander-cover-closed está fechada"
 
 #. TRANSLATORS: Bander Cover Open
 msgid "printer-state-reasons.bander-cover-open"
-msgstr "A tampa da bandeja printer-state-reasons.bander-cover-open está aberta"
+msgstr ""
+"A tampa da enfaixadora printer-state-reasons.bander-cover-open está aberta"
 
 #. TRANSLATORS: Bander Empty
 msgid "printer-state-reasons.bander-empty"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-empty está vazia"
 
 #. TRANSLATORS: Bander Full
 msgid "printer-state-reasons.bander-full"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-full está cheia"
 
 #. TRANSLATORS: Bander Interlock Closed
 msgid "printer-state-reasons.bander-interlock-closed"
 msgstr ""
-"O intertravamento da bandeja printer-state-reasons.bander-interlock-closed "
-"está fechado"
+"O intertravamento da enfaixadora printer-state-reasons.bander-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Bander Interlock Open
 msgid "printer-state-reasons.bander-interlock-open"
 msgstr ""
+"O intertravamento da enfaixadora printer-state-reasons.bander-interlock-open "
+"está aberto"
 
 #. TRANSLATORS: Bander Jam
 msgid "printer-state-reasons.bander-jam"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-jam"
 
 #. TRANSLATORS: Bander Life Almost Over
 msgid "printer-state-reasons.bander-life-almost-over"
 msgstr ""
-"A bandeja printer-state-reasons.bander-life-almost-over está quase no fim da "
-"sua vida útil"
+"A enfaixadora printer-state-reasons.bander-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-life-over está no fim da sua vida "
+"útil"
 
 #. TRANSLATORS: Bander Memory Exhausted
 msgid "printer-state-reasons.bander-memory-exhausted"
 msgstr ""
+"A memória da enfaixadora printer-state-reasons.bander-memory-exhausted foi "
+"esgotada"
 
 #. TRANSLATORS: Bander Missing
 msgid "printer-state-reasons.bander-missing"
-msgstr ""
+msgstr "Ocorreu uma falha na enfaixadora printer-state-reasons.bander-missing"
 
 #. TRANSLATORS: Bander Motor Failure
 msgid "printer-state-reasons.bander-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor da enfaixadora printer-state-reasons.bander-motor-"
+"failure"
 
 #. TRANSLATORS: Bander Near Limit
 msgid "printer-state-reasons.bander-near-limit"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Bander Offline
 msgid "printer-state-reasons.bander-offline"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-offline está desativada"
 
 #. TRANSLATORS: Bander Opened
 msgid "printer-state-reasons.bander-opened"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-opened está aberta"
 
 #. TRANSLATORS: Bander Over Temperature
 msgid "printer-state-reasons.bander-over-temperature"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Bander Power Saver
 msgid "printer-state-reasons.bander-power-saver"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-power-saver entrou no modo de "
+"economia de energia"
 
 #. TRANSLATORS: Bander Recoverable Failure
 msgid "printer-state-reasons.bander-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha na bandeja do printer-state-reasons.bander-recoverable-"
+"Ocorreu uma falha na enfaixadora printer-state-reasons.bander-recoverable-"
 "failure que pode ser restaurado"
 
 #. TRANSLATORS: Bander Recoverable Storage
 msgid "printer-state-reasons.bander-recoverable-storage"
 msgstr ""
-"O armazenamento da bandeja printer-state-reasons.bander-recoverable-storage "
-"pode ser restaurado"
+"O armazenamento da enfaixadora printer-state-reasons.bander-recoverable-"
+"storage pode ser restaurado"
 
 #. TRANSLATORS: Bander Removed
 msgid "printer-state-reasons.bander-removed"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-removed foi removida"
 
 #. TRANSLATORS: Bander Resource Added
 msgid "printer-state-reasons.bander-resource-added"
 msgstr ""
+"A funcionalidade da enfaixadora printer-state-reasons.bander-resource-added "
+"foi adicionada"
 
 #. TRANSLATORS: Bander Resource Removed
 msgid "printer-state-reasons.bander-resource-removed"
 msgstr ""
+"A funcionalidade da enfaixadora printer-state-reasons.bander-resource-"
+"removed foi removida"
 
 #. TRANSLATORS: Bander Thermistor Failure
 msgid "printer-state-reasons.bander-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor da enfaixadora printer-state-reasons.bander-"
+"thermistor-failure"
 
 #. TRANSLATORS: Bander Timing Failure
 msgid "printer-state-reasons.bander-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador da enfaixadora printer-state-reasons"
+".bander-timing-failure"
 
 #. TRANSLATORS: Bander Turned Off
 msgid "printer-state-reasons.bander-turned-off"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-turned-off está desligada"
 
 #. TRANSLATORS: Bander Turned On
 msgid "printer-state-reasons.bander-turned-on"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-turned-on está ligada"
 
 #. TRANSLATORS: Bander Under Temperature
 msgid "printer-state-reasons.bander-under-temperature"
 msgstr ""
+"A enfaixadora printer-state-reasons.bander-under-temperature está com a "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Bander Unrecoverable Failure
 msgid "printer-state-reasons.bander-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha na bandeja do printer-state-reasons.bander-unrecoverable-"
-"failure que não pode ser restaurado"
+"Ocorreu uma falha na enfaixadora printer-state-reasons.bander-unrecoverable-"
+"failure que não pode ser restaurada"
 
 #. TRANSLATORS: Bander Unrecoverable Storage Error
 msgid "printer-state-reasons.bander-unrecoverable-storage-error"
@@ -13028,163 +13056,191 @@ msgstr ""
 
 #. TRANSLATORS: Bander Warming Up
 msgid "printer-state-reasons.bander-warming-up"
-msgstr ""
+msgstr "A enfaixadora printer-state-reasons.bander-warming-up está aquecendo"
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-added foi adicionado"
 
 #. TRANSLATORS: Binder Almost Empty
 msgid "printer-state-reasons.binder-almost-empty"
 msgstr ""
+"O encadernador printer-state-reasons.binder-almost-empty está quase vazio"
 
 #. TRANSLATORS: Binder Almost Full
 msgid "printer-state-reasons.binder-almost-full"
 msgstr ""
+"O encadernador printer-state-reasons.binder-almost-full está quase cheio"
 
 #. TRANSLATORS: Binder At Limit
 msgid "printer-state-reasons.binder-at-limit"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-at-limit está no limite"
 
 #. TRANSLATORS: Binder Closed
 msgid "printer-state-reasons.binder-closed"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-closed está fechado"
 
 #. TRANSLATORS: Binder Configuration Change
 msgid "printer-state-reasons.binder-configuration-change"
 msgstr ""
+"Alterar as configurações do encadernador printer-state-reasons.binder-"
+"configuration-change"
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr "A bandeja do printer-state-reasons.binder-cover-closed está fechada"
+msgstr "O encadernador printer-state-reasons.binder-cover-closed está fechado"
 
 #. TRANSLATORS: Binder Cover Open
 msgid "printer-state-reasons.binder-cover-open"
-msgstr "A bandeja do printer-state-reasons.binder-cover-open está aberta"
+msgstr "O encadernador printer-state-reasons.binder-cover-open está aberto"
 
 #. TRANSLATORS: Binder Empty
 msgid "printer-state-reasons.binder-empty"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-empty está vazio"
 
 #. TRANSLATORS: Binder Full
 msgid "printer-state-reasons.binder-full"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-full está cheio"
 
 #. TRANSLATORS: Binder Interlock Closed
 msgid "printer-state-reasons.binder-interlock-closed"
 msgstr ""
-"O intertravamento da bandeja printer-state-reasons.binder-interlock-closed "
-"está fechado"
+"O intertravamento do encadernador printer-state-reasons.binder-interlock-"
+"closed está fechado"
 
 #. TRANSLATORS: Binder Interlock Open
 msgid "printer-state-reasons.binder-interlock-open"
 msgstr ""
+"O intertravamento do encadernador printer-state-reasons.binder-interlock-"
+"open está aberto"
 
 #. TRANSLATORS: Binder Jam
 msgid "printer-state-reasons.binder-jam"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-jam"
 
 #. TRANSLATORS: Binder Life Almost Over
 msgid "printer-state-reasons.binder-life-almost-over"
 msgstr ""
-"A bandeja printer-state-reasons.cleaner-life-almost-over está quase no fim "
-"da sua vida útil"
+"O encadernador printer-state-reasons.cleaner-life-almost-over está quase no "
+"fim da sua vida útil"
 
 #. TRANSLATORS: Binder Life Over
 msgid "printer-state-reasons.binder-life-over"
 msgstr ""
+"O encadernador printer-state-reasons.binder-life-over está no fim da sua "
+"vida útil"
 
 #. TRANSLATORS: Binder Memory Exhausted
 msgid "printer-state-reasons.binder-memory-exhausted"
 msgstr ""
+"A memória do encadernador printer-state-reasons.binder-memory-exhausted foi "
+"esgotada"
 
 #. TRANSLATORS: Binder Missing
 msgid "printer-state-reasons.binder-missing"
-msgstr ""
+msgstr "Ocorreu uma falha no encadernador printer-state-reasons.binder-missing"
 
 #. TRANSLATORS: Binder Motor Failure
 msgid "printer-state-reasons.binder-motor-failure"
 msgstr ""
+"Ocorreu uma falha no motor do encadernador printer-state-reasons.binder-"
+"motor-failure"
 
 #. TRANSLATORS: Binder Near Limit
 msgid "printer-state-reasons.binder-near-limit"
 msgstr ""
+"O encadernador printer-state-reasons.binder-near-limit está próximo do seu "
+"limite"
 
 #. TRANSLATORS: Binder Offline
 msgid "printer-state-reasons.binder-offline"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-offline está desativado"
 
 #. TRANSLATORS: Binder Opened
 msgid "printer-state-reasons.binder-opened"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-opened está aberto"
 
 #. TRANSLATORS: Binder Over Temperature
 msgid "printer-state-reasons.binder-over-temperature"
 msgstr ""
+"O encadernador printer-state-reasons.binder-over-temperature atingiu uma "
+"temperatura excessiva"
 
 #. TRANSLATORS: Binder Power Saver
 msgid "printer-state-reasons.binder-power-saver"
 msgstr ""
+"O encadernador printer-state-reasons.binder-power-saver entrou no modo de "
+"economia de energia"
 
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha de aglutinação no printer-state-reasons.binder-recoverable-"
+"Ocorreu uma falha no encadernador printer-state-reasons.binder-recoverable-"
 "failure que pode ser restaurado"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
 msgstr ""
-"O armazenamento da bandeja do printer-state-reasons.binder-recoverable-"
+"O armazenamento do encadernador printer-state-reasons.binder-recoverable-"
 "storage pode ser restaurado"
 
 #. TRANSLATORS: Binder Removed
 msgid "printer-state-reasons.binder-removed"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-removed foi removido"
 
 #. TRANSLATORS: Binder Resource Added
 msgid "printer-state-reasons.binder-resource-added"
 msgstr ""
+"A funcionalidade do encadernador printer-state-reasons.binder-resource-added "
+"foi adicionado"
 
 #. TRANSLATORS: Binder Resource Removed
 msgid "printer-state-reasons.binder-resource-removed"
 msgstr ""
+"A funcionalidade do encadernador printer-state-reasons.binder-resource-"
+"removed foi removido"
 
 #. TRANSLATORS: Binder Thermistor Failure
 msgid "printer-state-reasons.binder-thermistor-failure"
 msgstr ""
+"Ocorreu uma falha no termistor do encadernador printer-state-reasons.binder-"
+"thermistor-failure"
 
 #. TRANSLATORS: Binder Timing Failure
 msgid "printer-state-reasons.binder-timing-failure"
 msgstr ""
+"Ocorreu uma falha no temporizador do encadernador 3D printer-state-reasons"
+".binder-timing-failure"
 
 #. TRANSLATORS: Binder Turned Off
 msgid "printer-state-reasons.binder-turned-off"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-turned-off está desligado"
 
 #. TRANSLATORS: Binder Turned On
 msgid "printer-state-reasons.binder-turned-on"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-turned-on está ligado"
 
 #. TRANSLATORS: Binder Under Temperature
 msgid "printer-state-reasons.binder-under-temperature"
 msgstr ""
+"O encadernador printer-state-reasons.binder-under-temperature está com a "
+"temperatura abaixo do normal"
 
 #. TRANSLATORS: Binder Unrecoverable Failure
 msgid "printer-state-reasons.binder-unrecoverable-failure"
 msgstr ""
-"Ocorreu uma falha na bandeja do printer-state-reasons.binder-unrecoverable-"
+"Ocorreu uma falha no encadernador printer-state-reasons.binder-unrecoverable-"
 "failure que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Unrecoverable Storage Error
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro no armazenamento da bandeja printer-state-reasons.binder-"
-"unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um erro no armazenamento do encadernador printer-state-reasons"
+".binder-unrecoverable-storage-error que não pode ser restaurado"
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
-msgstr ""
+msgstr "O encadernador printer-state-reasons.binder-warming-up está aquecendo"
 
 #. TRANSLATORS: Camera Failure
 msgid "printer-state-reasons.camera-failure"
@@ -13401,7 +13457,7 @@ msgstr ""
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
-msgstr ""
+msgstr "O cortador printer-state-reasons.die-cutter-warming-up está aquecendo"
 
 #. TRANSLATORS: Door Open
 msgid "printer-state-reasons.door-open"
@@ -13480,6 +13536,8 @@ msgstr ""
 #. TRANSLATORS: Folder Configuration Change
 msgid "printer-state-reasons.folder-configuration-change"
 msgstr ""
+"Alterar as configurações da pasta printer-state-reasons.folder-configuration-"
+"change"
 
 #. TRANSLATORS: Folder Cover Closed
 msgid "printer-state-reasons.folder-cover-closed"
@@ -13611,7 +13669,7 @@ msgstr ""
 
 #. TRANSLATORS: Folder Warming Up
 msgid "printer-state-reasons.folder-warming-up"
-msgstr ""
+msgstr "A pasta printer-state-reasons.folder-warming-up está aquecendo"
 
 #. TRANSLATORS: Fuser temperature high
 msgid "printer-state-reasons.fuser-over-temp"
@@ -13788,7 +13846,7 @@ msgstr ""
 
 #. TRANSLATORS: Imprinter Warming Up
 msgid "printer-state-reasons.imprinter-warming-up"
-msgstr ""
+msgstr "A impressora printer-state-reasons.imprinter-warming-up está aquecendo"
 
 #. TRANSLATORS: Input Cannot Feed Size Selected
 msgid "printer-state-reasons.input-cannot-feed-size-selected"
@@ -13963,13 +14021,13 @@ msgstr ""
 #. TRANSLATORS: Inserter Recoverable Failure
 msgid "printer-state-reasons.inserter-recoverable-failure"
 msgstr ""
-"Ocorreu uma falha na alimentação das folhas em printer-state-reasons"
+"Ocorreu uma falha no alimentador das folhas em printer-state-reasons"
 ".inserter-recoverable-failure que pode ser restaurado"
 
 #. TRANSLATORS: Inserter Recoverable Storage
 msgid "printer-state-reasons.inserter-recoverable-storage"
 msgstr ""
-"O armazenamento da alimentação das folhas do printer-state-reasons.inserter-"
+"O armazenamento do alimentador das folhas do printer-state-reasons.inserter-"
 "recoverable-storage pode ser restaurado"
 
 #. TRANSLATORS: Inserter Removed
@@ -14019,6 +14077,8 @@ msgstr ""
 #. TRANSLATORS: Inserter Warming Up
 msgid "printer-state-reasons.inserter-warming-up"
 msgstr ""
+"O alimentador das folhas printer-state-reasons.inserter-warming-up está "
+"aquecendo"
 
 #. TRANSLATORS: Interlock Closed
 msgid "printer-state-reasons.interlock-closed"
@@ -14244,6 +14304,8 @@ msgstr ""
 #. TRANSLATORS: Envelope Maker Warming Up
 msgid "printer-state-reasons.make-envelope-warming-up"
 msgstr ""
+"A máquina de envelopamento printer-state-reasons.make-envelope-warming-up "
+"está aquecendo"
 
 #. TRANSLATORS: Marker Adjusting Print Quality
 msgid "printer-state-reasons.marker-adjusting-print-quality"
@@ -14697,7 +14759,7 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Warming Up
 msgid "printer-state-reasons.perforater-warming-up"
-msgstr ""
+msgstr "O perfurador printer-state-reasons.perforater-warming-up está aquecendo"
 
 #. TRANSLATORS: Platform Cooling
 msgid "printer-state-reasons.platform-cooling"
@@ -14918,7 +14980,7 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Warming Up
 msgid "printer-state-reasons.puncher-warming-up"
-msgstr "O furador printer-state-reasons.puncher-warming-up está em aquecimento"
+msgstr "O furador printer-state-reasons.puncher-warming-up está aquecendo"
 
 #. TRANSLATORS: Separation Cutter Added
 msgid "printer-state-reasons.separation-cutter-added"
@@ -14943,6 +15005,8 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Configuration Change
 msgid "printer-state-reasons.separation-cutter-configuration-change"
 msgstr ""
+"Alterar as configurações do separador do cortador printer-state-reasons"
+".separation-cutter-configuration-change"
 
 #. TRANSLATORS: Separation Cutter Cover Closed
 msgid "printer-state-reasons.separation-cutter-cover-closed"
@@ -15067,19 +15131,21 @@ msgstr ""
 #. TRANSLATORS: Separation Cutter Unrecoverable Failure
 msgid "printer-state-reasons.separation-cutter-unrecoverable-failure"
 msgstr ""
-"O armazenamento da tampa de separação do cortador printer-state-reasons"
-".separation-cutter-unrecoverable-failure não pode ser restaurado"
+"O armazenamento do separador e cortador printer-state-reasons.separation-"
+"cutter-unrecoverable-failure não pode ser restaurado"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.separation-cutter-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro no armazenamento da tampa de separação do cortador printer-"
-"state-reasons.separation-cutter-unrecoverable-storage-error que não pode ser "
+"Ocorreu um erro no armazenamento no separador do cortador printer-state-"
+"reasons.separation-cutter-unrecoverable-storage-error que não pode ser "
 "restaurado"
 
 #. TRANSLATORS: Separation Cutter Warming Up
 msgid "printer-state-reasons.separation-cutter-warming-up"
 msgstr ""
+"O separador e cortador printer-state-reasons.separation-cutter-warming-up "
+"está aquecendo"
 
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
@@ -15286,8 +15352,8 @@ msgstr ""
 #. TRANSLATORS: Sheet Rotator Warming Up
 msgid "printer-state-reasons.sheet-rotator-warming-up"
 msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-warming-up está em "
-"aquecimento"
+"O rotador de folhas printer-state-reasons.sheet-rotator-warming-up está "
+"aquecendo"
 
 #. TRANSLATORS: Printer offline
 msgid "printer-state-reasons.shutdown"
@@ -15449,7 +15515,7 @@ msgstr ""
 
 #. TRANSLATORS: Slitter Warming Up
 msgid "printer-state-reasons.slitter-warming-up"
-msgstr ""
+msgstr "O cortador printer-state-reasons.slitter-warming-up está aquecendo"
 
 #. TRANSLATORS: Spool Area Full
 msgid "printer-state-reasons.spool-area-full"
@@ -15611,7 +15677,7 @@ msgstr ""
 
 #. TRANSLATORS: Stacker Warming Up
 msgid "printer-state-reasons.stacker-warming-up"
-msgstr ""
+msgstr "O empilhador printer-state-reasons.stacker-warming-up está aquecendo"
 
 #. TRANSLATORS: Stapler Added
 msgid "printer-state-reasons.stapler-added"
@@ -15771,7 +15837,7 @@ msgstr ""
 
 #. TRANSLATORS: Stapler Warming Up
 msgid "printer-state-reasons.stapler-warming-up"
-msgstr ""
+msgstr "O grampeador printer-state-reasons.stacker-warming-up está aquecendo"
 
 #. TRANSLATORS: Stitcher Added
 msgid "printer-state-reasons.stitcher-added"
@@ -15930,7 +15996,7 @@ msgstr ""
 
 #. TRANSLATORS: Stitcher Warming Up
 msgid "printer-state-reasons.stitcher-warming-up"
-msgstr ""
+msgstr "O costurador printer-state-reasons.stitcher-warming-up está aquecendo"
 
 #. TRANSLATORS: Partially stopped
 msgid "printer-state-reasons.stopped-partly"
@@ -16067,12 +16133,12 @@ msgstr ""
 #. TRANSLATORS: Subunit Unrecoverable Storage
 msgid "printer-state-reasons.subunit-unrecoverable-storage"
 msgstr ""
-"O armazenamento de subunidade do printer-state-reasons.subunit-unrecoverable-"
+"O armazenamento de subunidade printer-state-reasons.subunit-unrecoverable-"
 "storage não pode ser restaurado"
 
 #. TRANSLATORS: Subunit Warming Up
 msgid "printer-state-reasons.subunit-warming-up"
-msgstr ""
+msgstr "A subunidade printer-state-reasons.subunit-warming-up está aquecendo"
 
 #. TRANSLATORS: Printer stopped responding
 msgid "printer-state-reasons.timed-out"
