@@ -1427,7 +1427,7 @@ msgstr "%s: 無効なフィルター文字列です \"%s\""
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr "%s:  '--client-name' に続いてクライアント名が必要です。"
+msgstr "%s: '--client-name' に続いてクライアント名が必要です。"
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1439,7 +1439,7 @@ msgstr "%s: \"-T\" オプションにタイムアウトが設定されていま�
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr ""
+msgstr "%s: '--bearer-token' の後にはトークンが必要です。"
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1459,7 +1459,7 @@ msgstr "%s: 操作に失敗しました: %s"
 
 #, c-format
 msgid "%s: Scheduler is not running."
-msgstr ""
+msgstr "%s: スケジューラが起動していません。"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1516,11 +1516,11 @@ msgstr "%s: \"-%c\" は未知のオプションです。"
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: オプション '%s' は存在しません。"
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: オプション '-%c' は存在しません。"
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1578,11 +1578,15 @@ msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
+"--bearer-token BEARER-TOKEN\n"
+"                        認証用のOAuth Bearerトークンを指定"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name CLIENT-NAME\n"
+"                        TLSクライアント認証名を指定"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
@@ -1610,13 +1614,13 @@ msgid "--false                 Always false"
 msgstr "--false                 常にfalse"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         ヘルプを表示"
 
 msgid "--help                  Show program help"
 msgstr "--help                  プログラムのヘルプを表示する"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  このヘルプを表示"
 
 msgid "--hold                  Hold new jobs"
 msgstr "--hold                  新しいジョブを保留する"
@@ -1667,7 +1671,7 @@ msgid "--path regex            Match resource path to regular expression"
 msgstr "--path regex            リソースパスを正規表現にマッチする"
 
 msgid "--pin                          Pin certificate found by client command"
-msgstr ""
+msgstr "--pin                          クライアントコマンドにより見つけられるPin認証"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr "--port number[-number]  ポート番号または範囲とマッチする"
@@ -1695,7 +1699,8 @@ msgstr "--remote                サービスがリモートの場合 true"
 msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
-msgstr ""
+msgstr "--require-ca                   "
+"クライアントコマンドにはCA署名された証明書が必要"
 
 msgid ""
 "--stop-after-include-error\n"
@@ -1722,7 +1727,7 @@ msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri regex             URI を正規表現にマッチする"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      プログラムのバージョンを表示"
 
 msgid "--version               Show program version"
 msgstr "--version               プログラムバージョンを表示する"
@@ -1854,7 +1859,7 @@ msgid "-C                      Send requests using chunking (default)"
 msgstr "-C                      チャンクを利用してリクエストを送る（デフォルト）"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C COUNTRY                     国を指定。"
 
 msgid "-D description          Specify the textual description of the printer"
 msgstr "-D description          プリンターの説明を文字列で指定する"
@@ -1918,7 +1923,7 @@ msgid "-L                      Send requests using content-length"
 msgstr "-L                      content-length を用いてリクエストを送る"
 
 msgid "-L LOCALITY                    Set locality name."
-msgstr ""
+msgstr "-L LOCALITY                    市町村名を指定。"
 
 msgid "-L location             Specify the textual location of the printer"
 msgstr "-L location             プリンターの場所を文字列で指定する"
@@ -1930,7 +1935,7 @@ msgid "-N name                 Match service name to literal name value"
 msgstr "-N name                 サービス名をリテラルなname値とマッチする"
 
 msgid "-O ORGANIZATION                Set organization name."
-msgstr ""
+msgstr "-O ORGANIZATION                組織名を設定。"
 
 msgid "-P destination          Show status for the specified destination"
 msgstr "-P destination          指定されたdestinationのステータスを表示する"
