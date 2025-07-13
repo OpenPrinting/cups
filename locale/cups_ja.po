@@ -2301,28 +2301,28 @@ msgid "-q                      Run silently"
 msgstr "-q                      メッセージを出さずに実行する"
 
 msgid "-q                      Specify the job should be held for printing"
-msgstr "-q                      印刷のためにジョブを保留にするよう指定"
+msgstr "-q                      印刷のためにジョブを保留にするよう指定する"
 
 msgid "-q priority             Specify the priority from low (1) to high (100)"
-msgstr "-q priority             優先順位を最低(1) から最高 (100) までで指定"
+msgstr "-q priority             優先順位を最低(1) から最高 (100) までで指定する"
 
 msgid "-r                      Remove the file(s) after submission"
-msgstr ""
+msgstr "-r                      送信後にファイルを削除する"
 
 msgid "-r                      Show whether the CUPS server is running"
-msgstr ""
+msgstr "-r                      CUPSサーバーが実行しているか否かを表示する"
 
 msgid "-r                      True if service is remote"
-msgstr ""
+msgstr "-r                      サービスがリモートである場合真"
 
 msgid "-r                      Use 'relaxed' open mode"
-msgstr ""
+msgstr "-r                      「緩和」オープンモードを利用"
 
 msgid "-r ROOT-NAME                   Name of root certificate"
-msgstr ""
+msgstr "-r ROOT-NAME                   ルート証明書の名前"
 
 msgid "-r class                Remove the named destination from a class"
-msgstr ""
+msgstr "-r class                指定された出力先をクラスから除去する"
 
 msgid "-r reason               Specify a reason message that others can see"
 msgstr ""
