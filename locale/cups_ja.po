@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
 "PO-Revision-Date: 2025-07-14 06:01+0000\n"
-"Last-Translator: Naruhiko Ogasawara <naruoga@gmail.com>\n"
+"Last-Translator: oota toshiya <ribbon@ribbon.or.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/cups/cups/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -244,9 +244,10 @@ msgid ""
 "be named Duplex.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
-"        警告    Duplex オプションキーワード %s は期待通りに動作しないかもしれ"
-"ません。また、Duplex という名前であるべきです。                参照: 122 ペー"
-"ジ、セクション 5.17"
+"        警告    Duplex オプションキーワード %s "
+"は期待通りに動作しないかもしれません。また、Duplex という名前であるべきです。"
+"\n"
+"                参照: 122 ページ、セクション 5.17"
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
@@ -789,9 +790,7 @@ msgstr ""
 
 #, c-format
 msgid "      **FAIL**  Unable to open PPD file - %s on line %d."
-msgstr ""
-" 失敗\n"
-"      **失敗**  PPD ファイルを開けません - %s (%d 行)。"
+msgstr "      **失敗**  PPD ファイルを開けません - %s (%d 行)。"
 
 #, c-format
 msgid "    %d ERRORS FOUND"
@@ -1174,7 +1173,7 @@ msgstr "%s/%s は %s からリクエストを受け付けています"
 
 #, c-format
 msgid "%s/%s not accepting requests since %s -"
-msgstr "%s/%s は %s からリクエストを受け付けていません - "
+msgstr "%s/%s は %s からリクエストを受け付けていません -"
 
 #, c-format
 msgid "%s: %-33.33s [job %d localhost]"
@@ -1225,9 +1224,8 @@ msgstr ""
 
 #, c-format
 msgid "%s: Error - cannot print from stdin if files or a job ID are provided."
-msgstr ""
-"%s: エラー - ファイルまたはジョブ ID が提供されている場合、標準入力から印刷で"
-"きません。 "
+msgstr "%s: エラー - ファイルまたはジョブ ID "
+"が提供されている場合、標準入力から印刷できません。"
 
 #, c-format
 msgid "%s: Error - copies must be 1 or more."
@@ -1287,7 +1285,7 @@ msgstr "%s: エラー - \"-H\" オプションのあとにはホスト名が必�
 
 #, c-format
 msgid "%s: Error - expected hostname after \"-h\" option."
-msgstr "%s: エラー -  \"-h\" オプションのあとにはホスト名が必要です。"
+msgstr "%s: エラー - \"-h\" オプションのあとにはホスト名が必要です。"
 
 #, c-format
 msgid "%s: Error - expected input file after \"-f\" option."
@@ -1359,7 +1357,7 @@ msgstr "%s: エラー - \"-u\" オプションのあとにはユーザー名が�
 
 #, c-format
 msgid "%s: Error - expected value after \"-%c\" option."
-msgstr "%s: エラー -  \"-%c\" オプションのあとには値が必要です。"
+msgstr "%s: エラー - \"-%c\" オプションのあとには値が必要です。"
 
 #, c-format
 msgid ""
@@ -4405,7 +4403,7 @@ msgid "No name OID"
 msgstr "OID 名がありません"
 
 msgid "No pages were found."
-msgstr " ページが見つかりません。"
+msgstr "ページが見つかりません。"
 
 msgid "No printer name"
 msgstr "プリンター名がありません"
@@ -4521,10 +4519,10 @@ msgid "Options:"
 msgstr "オプション:"
 
 msgid "Other Media"
-msgstr ""
+msgstr "他のメディア"
 
 msgid "Other Tray"
-msgstr ""
+msgstr "他のトレー"
 
 msgid "Out of date PPD cache file."
 msgstr "PPD キャッシュファイルが古すぎます。"
@@ -4659,7 +4657,7 @@ msgstr "印刷ジョブが受け付けられませんでした。"
 
 #, c-format
 msgid "Printer \"%s\" already exists."
-msgstr ""
+msgstr "プリンタ  \"%s\" はすでに存在しています。"
 
 msgid "Printer Added"
 msgstr "追加されたプリンター"
@@ -11482,7 +11480,7 @@ msgstr "ppdc: %s から UI テキストを追加または更新しています�
 
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr "ppdc:  不正な boolean 値 (%s) があります。%d 行目、ファイル名 %s。"
+msgstr "ppdc: 不正な boolean 値 (%s) があります。%d 行目、ファイル名 %s。"
 
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
@@ -11833,11 +11831,11 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
-msgstr "ppdc:  \"%s\" に対する地域化情報が見つかりません - %s"
+msgstr "ppdc: \"%s\" に対する地域化情報が見つかりません - %s"
 
 #, c-format
 msgid "ppdc: Unable to load localization file \"%s\" - %s"
-msgstr "ppdc:  \"%s\" に対するローカライズファイルを読み込めません - %s"
+msgstr "ppdc: \"%s\" に対するローカライズファイルを読み込めません - %s"
 
 #, c-format
 msgid "ppdc: Unable to open %s: %s"
