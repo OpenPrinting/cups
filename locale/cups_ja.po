@@ -2316,7 +2316,7 @@ msgid "-r                      True if service is remote"
 msgstr "-r                      サービスがリモートである場合真"
 
 msgid "-r                      Use 'relaxed' open mode"
-msgstr "-r                      「緩和」オープンモードを利用"
+msgstr "-r                      「緩和」オープンモードを利用する"
 
 msgid "-r ROOT-NAME                   Name of root certificate"
 msgstr "-r ROOT-NAME                   ルート証明書の名前"
@@ -2325,7 +2325,7 @@ msgid "-r class                Remove the named destination from a class"
 msgstr "-r class                指定された出力先をクラスから除去する"
 
 msgid "-r reason               Specify a reason message that others can see"
-msgstr ""
+msgstr "-r reason               他人が確認できる理由メッセージを指定"
 
 msgid "-r subtype,[subtype]    Set DNS-SD service subtype"
 msgstr ""
