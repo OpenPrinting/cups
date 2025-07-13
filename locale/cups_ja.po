@@ -1956,14 +1956,14 @@ msgid "-P page-list            Specify a list of pages to print"
 msgstr "-P page-list            印刷するページのリストを指定する"
 
 msgid "-R                      Repeat tests on server-error-busy"
-msgstr "-R                      server-error-busyのテストを繰り返す。"
+msgstr "-R                      server-error-busyのテストを繰り返す"
 
 msgid "-R                      Show the ranking of jobs"
 msgstr "-R                      ジョブのランキングを表示する"
 
 msgid ""
 "-R CSR-FILENAME                Specify certificate signing request file."
-msgstr ""
+msgstr "-R CSR-FILENAME                証明書署名リクエストファイルを指定。"
 
 msgid "-R name-default         Remove the default value for the named option"
 msgstr "-R name-default         指定されたオプションのデフォルト値を削除する"
@@ -1975,7 +1975,7 @@ msgid "-S                      Test with encryption using HTTPS"
 msgstr "-S                      HTTPSを用いて暗号化をテストする"
 
 msgid "-S STATE                       Set state."
-msgstr ""
+msgstr "-S STATE                       状態を設定。"
 
 msgid "-S filename.strings     Set strings file"
 msgstr "-S filename.strings     文字列ファイルを指定する"
@@ -1990,7 +1990,7 @@ msgid "-T title                Specify the job title"
 msgstr "-T title                ジョブタイトルを指定する"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
-msgstr ""
+msgstr "-U ORGANIZATIONAL-UNIT         組織単位の名称を指定。"
 
 msgid "-U username             Specify the username to use for authentication"
 msgstr "-U username             認証に使用されるユーザー名を指定する"
@@ -2027,10 +2027,10 @@ msgstr "-a                      すべてのdestinationのジョブを表示す�
 
 msgid ""
 "-a OAUTH-URI                   Specify the OAuth authorization server URL"
-msgstr ""
+msgstr "-a OAUTH-URI                   OAuth認証サーバーURLを指定"
 
 msgid "-a SUBJECT-ALT-NAME            Add a subjectAltName."
-msgstr ""
+msgstr "-a SUBJECT-ALT-NAME            subjectAltNameを追加。"
 
 msgid "-a [destination(s)]     Show the accepting state of destinations"
 msgstr "-a [destination(s)]     destinationの受付状態を表示する"
@@ -2060,7 +2060,7 @@ msgid "-d                      Show the default destination"
 msgstr "-d                      デフォルトのdestinationを表示する"
 
 msgid "-d DAYS                        Set expiration date in days."
-msgstr ""
+msgstr "-d DAYS                        有効期限を日数で指定。"
 
 msgid "-d destination          Set default destination"
 msgstr "-d destination          デフォルトのdestinationを設定する"
@@ -2236,62 +2236,75 @@ msgid ""
 "-o printer-error-policy=name\n"
 "                        Specify the printer error policy"
 msgstr ""
+"-o printer-error-policy=name\n"
+"                        プリンターエラーポリシーを指定"
 
 msgid ""
 "-o printer-is-shared=true\n"
 "                        Share the printer"
 msgstr ""
+"-o printer-is-shared=true\n"
+"                        プリンターを共有する"
 
 msgid ""
 "-o printer-op-policy=name\n"
 "                        Specify the printer operation policy"
 msgstr ""
+"-o printer-op-policy=name\n"
+"                        プリンター操作ポリシーを指定"
 
 msgid "-o sides=one-sided      Specify 1-sided printing"
-msgstr ""
+msgstr "-o sides=one-sided      片面印刷を指定"
 
 msgid ""
 "-o sides=two-sided-long-edge\n"
 "                        Specify 2-sided portrait printing"
 msgstr ""
+"-o sides=two-sided-long-edge\n"
+"                        短編綴じ両面印刷を指定"
 
 msgid ""
 "-o sides=two-sided-short-edge\n"
 "                        Specify 2-sided landscape printing"
 msgstr ""
+"-o sides=two-sided-short-edge\n"
+"                        長編綴じ両面印刷を指定"
 
 msgid "-p                      Print URI if true"
-msgstr ""
+msgstr "-p                      trueのときにURIを出力する"
 
 msgid ""
 "-p PURPOSE                     Comma-delimited certificate purpose\n"
 "                               (serverAuth, clientAuth, codeSigning, "
 "emailProtection, timeStamping, OCSPSigning)"
 msgstr ""
+"-p PURPOSE                     カンマで区切った証明書の使用目的\n"
+"                               (serverAuth, clientAuth, codeSigning, "
+"emailProtection, timeStamping, OCSPSigning)"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
-msgstr ""
+msgstr "-p [printer(s)]         出力先の処理状態を表示"
 
 msgid "-p destination          Specify a destination"
-msgstr ""
+msgstr "-p destination          出力先を指定"
 
 msgid "-p destination          Specify/add the named destination"
-msgstr ""
+msgstr "-p destination          出力先を指定または追加"
 
 msgid "-p port                 Set port number for printer"
-msgstr ""
+msgstr "-p port                 プリンターのポート番号を指定"
 
 msgid "-q                      Quietly report match via exit code"
-msgstr ""
+msgstr "-q                      マッチ状態を出力せずに終了コードでレポートする"
 
 msgid "-q                      Run silently"
-msgstr ""
+msgstr "-q                      メッセージを出さずに実行する"
 
 msgid "-q                      Specify the job should be held for printing"
-msgstr ""
+msgstr "-q                      印刷のためにジョブを保留にするよう指定"
 
 msgid "-q priority             Specify the priority from low (1) to high (100)"
-msgstr ""
+msgstr "-q priority             優先順位を最低(1) から最高 (100) までで指定"
 
 msgid "-r                      Remove the file(s) after submission"
 msgstr ""
