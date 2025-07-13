@@ -2325,49 +2325,52 @@ msgid "-r class                Remove the named destination from a class"
 msgstr "-r class                指定された出力先をクラスから除去する"
 
 msgid "-r reason               Specify a reason message that others can see"
-msgstr "-r reason               他人が確認できる理由メッセージを指定"
+msgstr "-r reason               他人が確認できる理由メッセージを指定する"
 
 msgid "-r subtype,[subtype]    Set DNS-SD service subtype"
-msgstr ""
+msgstr "-r subtype,[subtype]    DNS-SD サービスサブタイプを指定"
 
 msgid "-s                      Be silent"
-msgstr ""
+msgstr "-s                      メッセージを出さない"
 
 msgid "-s                      Print service name if true"
-msgstr ""
+msgstr "-s                      trueの場合サービス名を出力"
 
 msgid "-s                      Show a status summary"
-msgstr ""
+msgstr "-s                      ステータスサマリーを表示"
 
 msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
-msgstr ""
+msgstr "-s SCOPE(S)                    認証の範囲を指定"
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
-msgstr ""
+msgstr "-s cups-files.conf      使用するcups-files.confファイルを指定する。"
 
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
-msgstr ""
+msgstr "-s speed[,color-speed]  毎分何ページで速度を指定する"
 
 msgid "-t                      Produce a test report"
-msgstr ""
+msgstr "-t                      テストレポートを出力する"
 
 msgid "-t                      Show all status information"
-msgstr ""
+msgstr "-t                      すべてのステータス情報を出力する"
 
 msgid "-t                      Test the configuration file."
-msgstr ""
+msgstr "-t                      設定ファイルをテストする。"
 
 msgid ""
 "-t TYPE                        Certificate type\n"
 "                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
 "ecdsa-p384, ecdsa-p521)"
 msgstr ""
+"-t TYPE                        証明書タイプ\n"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
+"ecdsa-p384, ecdsa-p521)"
 
 msgid "-t key                  True if the TXT record contains the key"
-msgstr ""
+msgstr "-t key                  TXTレコードにkeyが含まれている場合真"
 
 msgid "-t title                Specify the job title"
-msgstr ""
+msgstr "-t title                ジョブタイトルを指定する"
 
 msgid ""
 "-u USAGE                       Comma-delimited key usage\n"
@@ -2375,59 +2378,66 @@ msgid ""
 "keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
 "encipherOnly, decipherOnly, default-ca, default-tls)"
 msgstr ""
+"-u USAGE                       カンマ区切りの鍵用途\n"
+"                               (digitalSignature, nonRepudiation, "
+"keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
+"encipherOnly, decipherOnly, default-ca, default-tls)"
 
 msgid ""
 "-u [user(s)]            Show jobs queued by the current or specified users"
-msgstr ""
+msgstr "-u [user(s)]            "
+"現在の、または指定されたユーザーによりキューに入れられたジョブを表示する"
 
 msgid "-u allow:all            Allow all users to print"
-msgstr ""
+msgstr "-u allow:all            すべてのユーザーに印刷を許可する"
 
 msgid ""
 "-u allow:list           Allow the list of users or groups (@name) to print"
-msgstr ""
+msgstr "-u allow:list           ユーザーまたはグループのリストに印刷を許可する"
 
 msgid ""
 "-u deny:list            Prevent the list of users or groups (@name) to print"
-msgstr ""
+msgstr "-u deny:list            リストされたユーザーまたはグループに印刷を許可しない"
 
 msgid "-u owner                Specify the owner to use for jobs"
-msgstr ""
+msgstr "-u owner                ジョブの所有者を指定する"
 
 msgid "-u regex                Match URI to regular expression"
-msgstr ""
+msgstr "-u regex                URIを正規表現とマッチする"
 
 msgid "-v                      Be verbose"
-msgstr ""
+msgstr "-v                      饒舌モードで実行"
 
 msgid "-v                      Show devices"
-msgstr ""
+msgstr "-v                      デバイスを表示"
 
 msgid "-v [printer(s)]         Show the devices for each destination"
-msgstr ""
+msgstr "-v [printer(s)]         それぞれの出力先のデバイスを表示"
 
 msgid "-v device-uri           Specify the device URI for the printer"
-msgstr ""
+msgstr "-v device-uri           プリンターのデバイスURIを指定する"
 
 msgid "-vv                     Be very verbose"
-msgstr ""
+msgstr "-vv                     非常に饒舌モードにする"
 
 msgid "-x                      Purge jobs rather than just canceling"
-msgstr ""
+msgstr "-x                      単にジョブをキャンセルするのでなくパージする"
 
 msgid "-x destination          Remove default options for destination"
-msgstr ""
+msgstr "-x destination          出力先のデフォルトオプションを削除する"
 
 msgid "-x destination          Remove the named destination"
-msgstr ""
+msgstr "-x destination          指定された出力先を削除する"
 
 msgid ""
 "-x utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
+"-x utility [argument ...] ;\n"
+"                        trueの時プログラムを実行する"
 
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
-msgstr ""
+msgstr "/etc/cups/lpoptions デフォルト出力先のファイル名が存在しません。"
 
 msgid "0"
 msgstr "0"
@@ -2688,16 +2698,16 @@ msgid "3.00x3.00\""
 msgstr "3.00x3.00インチ"
 
 msgid "3.00x4.00\""
-msgstr ""
+msgstr "3.00x4.00インチ"
 
 msgid "3.00x5.00\""
 msgstr "3.00x5.00 インチ"
 
 msgid "3.00x6.00\""
-msgstr ""
+msgstr "3.00x6.00インチ"
 
 msgid "3.00x8.00\""
-msgstr ""
+msgstr "3.00x8.00インチ"
 
 msgid "3.25x2.00\""
 msgstr "3.25x2.00 インチ"
@@ -2736,7 +2746,7 @@ msgid "300dpi"
 msgstr "300dpi"
 
 msgid "30859 Paint Can Label"
-msgstr ""
+msgstr "30859 ペンキ缶ラベル"
 
 msgid "35"
 msgstr "35"
@@ -2781,7 +2791,7 @@ msgid "4.00x6.50\""
 msgstr "4.00x6.50 インチ"
 
 msgid "4.00x8.00\""
-msgstr ""
+msgstr "4.00x8.00いンチ"
 
 msgid "40"
 msgstr "40"
@@ -2835,7 +2845,7 @@ msgid "6.00x6.50\""
 msgstr "6.00x6.50 インチ"
 
 msgid "6.00x8.00\""
-msgstr ""
+msgstr "6.00x8.00インチ"
 
 msgid "60"
 msgstr "60"
@@ -2901,7 +2911,7 @@ msgid "8.00x6.50\""
 msgstr "8.00x6.50 インチ"
 
 msgid "8.26x1.00\""
-msgstr ""
+msgstr "8.26x1.00インチ"
 
 msgid "80"
 msgstr "80"
@@ -2910,7 +2920,7 @@ msgid "80 mm/sec."
 msgstr "80 ミリメートル/秒"
 
 msgid "80x50mm"
-msgstr ""
+msgstr "80x50mm"
 
 msgid "85"
 msgstr "85"
@@ -3082,15 +3092,15 @@ msgstr "%s printer-state に 不正な値 %d を設定しようとしていま�
 
 #, c-format
 msgid "Attribute \"%s\" has empty value."
-msgstr ""
+msgstr "属性 \"%s\" は空の値を持っています。"
 
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
-msgstr ""
+msgstr "属性\"%s\" は誤ったグループに存在しています。."
 
 #, c-format
 msgid "Attribute \"%s\" is the wrong value type."
-msgstr ""
+msgstr "属性 \"%s\" は誤った値の型です。"
 
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
@@ -3134,7 +3144,7 @@ msgstr "B9"
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
-msgstr ""
+msgstr "誤った \"printer-id\" の値 %d"
 
 #, c-format
 msgid "Bad '%s' value."
