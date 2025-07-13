@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
 "PO-Revision-Date: 2025-07-14 06:02+0000\n"
-"Last-Translator: Naruhiko Ogasawara <naruoga@gmail.com>\n"
+"Last-Translator: oota toshiya <ribbon@ribbon.or.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/cups/cups/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -4657,7 +4657,7 @@ msgstr "印刷ジョブが受け付けられませんでした。"
 
 #, c-format
 msgid "Printer \"%s\" already exists."
-msgstr "プリンタ  \"%s\" はすでに存在しています。"
+msgstr "プリンタ \"%s\" はすでに存在しています。"
 
 msgid "Printer Added"
 msgstr "追加されたプリンター"
