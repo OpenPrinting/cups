@@ -811,7 +811,7 @@ msgstr "  --lf                    行末を LF とする (UNIX/Linux/macOS)。"
 
 msgid "  --list-all              List all filters with the MIME media types."
 msgstr "  --list-all              "
-"すべてのフィルターをMIMEメディアタイプとともにリストする"
+"すべてのフィルターをMIMEメディアタイプとともにリストする。"
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          使用されるフィルターのリストを表示する。"
@@ -828,10 +828,10 @@ msgstr ""
 "  -I include-dir          インクルードディレクトリーを検索パスに含める。"
 
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -P FILENAME.ppd         PPDファイルの指定。"
 
 msgid "  -U USERNAME             Specify username."
-msgstr ""
+msgstr "  -U USERNAME             ユーザー名の指定。"
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catalog.po           指定したメッセージカタログをロードする。"
@@ -840,7 +840,7 @@ msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr "  -c cups-files.conf      cups-files.conf を利用するよう設定する。"
 
 msgid "  -d PRINTER              Use the named printer."
-msgstr ""
+msgstr "  -d PRINTER              指定されたプリンターを利用する。"
 
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           出力先ディレクトリーを指定する。"
@@ -850,12 +850,13 @@ msgstr ""
 "  -e                      PPD ファイルからすべてのフィルターを使用する。"
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
-msgstr ""
+msgstr "  -i MIME/TYPE            入力MIMEタイプを指定（未指定の場合は自動）。"
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
-msgstr ""
+msgstr "  -j JOB-ID[,N]           "
+"指定されたジョブからファイルNをフィルターする（デフォルトはファイル1）。"
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      出力言語を指定する。(複数可能)"
@@ -865,13 +866,14 @@ msgstr "  -m                      ModelName の値をファイル名として使
 
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
-msgstr ""
+msgstr "  -m MIME/TYPE            出力MIMEタイプを指定（無指定の場合はapplcation/"
+"pdf）。"
 
 msgid "  -n COPIES               Set number of copies."
-msgstr ""
+msgstr "  -n COPIES               印刷部数を指定。"
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr ""
+msgstr "  -o NAME=VALUE           オプションを指定。"
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -884,13 +886,13 @@ msgstr ""
 "  -o filename.ppd[.gz]    出力ファイルを指定する (指定がなければ標準出力)。"
 
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -p FILENAME.ppd         PPDファイルを指定。"
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      PPD を出力しないでテストする。"
 
 msgid "  -t TITLE                Set title."
-msgstr ""
+msgstr "  -t TITLE                タイトルを指定。"
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      終了したときに PPD ファイルを削除する。"
@@ -1364,6 +1366,8 @@ msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
+"%s: エラー - -W オプションの後には \"completed\", \"not-completed\", "
+"\"successful\", \"all\" いずれかの指定が必要です。"
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1423,7 +1427,7 @@ msgstr "%s: 無効なフィルター文字列です \"%s\""
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr ""
+msgstr "%s:  '--client-name' に続いてクライアント名が必要です。"
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
