@@ -1935,7 +1935,7 @@ msgid "-N name                 Match service name to literal name value"
 msgstr "-N name                 サービス名をリテラルなname値とマッチする"
 
 msgid "-O ORGANIZATION                Set organization name."
-msgstr "-O ORGANIZATION                組織名を設定。"
+msgstr "-O ORGANIZATION                組織名を指定。"
 
 msgid "-P destination          Show status for the specified destination"
 msgstr "-P destination          指定されたdestinationのステータスを表示する"
@@ -1956,7 +1956,7 @@ msgid "-P page-list            Specify a list of pages to print"
 msgstr "-P page-list            印刷するページのリストを指定する"
 
 msgid "-R                      Repeat tests on server-error-busy"
-msgstr ""
+msgstr "-R                      server-error-busyのテストを繰り返す。"
 
 msgid "-R                      Show the ranking of jobs"
 msgstr "-R                      ジョブのランキングを表示する"
