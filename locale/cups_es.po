@@ -10784,163 +10784,163 @@ msgstr "6 × 8″"
 
 #. TRANSLATORS: 4 x 6″
 msgid "media.na_index-4x6_4x6in"
-msgstr "4 × 67″"
+msgstr "4 × 6″"
 
 #. TRANSLATORS: 5 x 8″
 msgid "media.na_index-5x8_5x8in"
-msgstr ""
+msgstr "5 × 8″"
 
 #. TRANSLATORS: Statement
 msgid "media.na_invoice_5.5x8.5in"
-msgstr ""
+msgstr "Declaración"
 
 #. TRANSLATORS: 11 x 17″
 msgid "media.na_ledger_11x17in"
-msgstr ""
+msgstr "11 × 17″"
 
 #. TRANSLATORS: US Legal (Extra)
 msgid "media.na_legal-extra_9.5x15in"
-msgstr ""
+msgstr "EUA Legal (Extra)"
 
 #. TRANSLATORS: US Legal
 msgid "media.na_legal_8.5x14in"
-msgstr ""
+msgstr "EUA Legal"
 
 #. TRANSLATORS: US Letter (Extra)
 msgid "media.na_letter-extra_9.5x12in"
-msgstr ""
+msgstr "Carta EUA (Extra)"
 
 #. TRANSLATORS: US Letter (Plus)
 msgid "media.na_letter-plus_8.5x12.69in"
-msgstr ""
+msgstr "Carta EUA (Plus)"
 
 #. TRANSLATORS: US Letter
 msgid "media.na_letter_8.5x11in"
-msgstr ""
+msgstr "Carta EUA"
 
 #. TRANSLATORS: Envelope Monarch
 msgid "media.na_monarch_3.875x7.5in"
-msgstr ""
+msgstr "Sobre Monarch"
 
 #. TRANSLATORS: Envelope #10
 msgid "media.na_number-10_4.125x9.5in"
-msgstr ""
+msgstr "Sobre #10"
 
 #. TRANSLATORS: Envelope #11
 msgid "media.na_number-11_4.5x10.375in"
-msgstr ""
+msgstr "Sobre #11"
 
 #. TRANSLATORS: Envelope #12
 msgid "media.na_number-12_4.75x11in"
-msgstr ""
+msgstr "Sobre #12"
 
 #. TRANSLATORS: Envelope #14
 msgid "media.na_number-14_5x11.5in"
-msgstr ""
+msgstr "Sobre #14"
 
 #. TRANSLATORS: Envelope #9
 msgid "media.na_number-9_3.875x8.875in"
-msgstr ""
+msgstr "Sobre #9"
 
 #. TRANSLATORS: 8.5 x 13.4″
 msgid "media.na_oficio_8.5x13.4in"
-msgstr ""
+msgstr "8'5 × 13'4″"
 
 #. TRANSLATORS: Envelope Personal
 msgid "media.na_personal_3.625x6.5in"
-msgstr ""
+msgstr "Sobre Personal"
 
 #. TRANSLATORS: Quarto
 msgid "media.na_quarto_8.5x10.83in"
-msgstr ""
+msgstr "Quarto"
 
 #. TRANSLATORS: 8.94 x 14″
 msgid "media.na_super-a_8.94x14in"
-msgstr ""
+msgstr "8'94 × 14″"
 
 #. TRANSLATORS: 13 x 19″
 msgid "media.na_super-b_13x19in"
-msgstr ""
+msgstr "13 × 19″"
 
 #. TRANSLATORS: 30 x 42″
 msgid "media.na_wide-format_30x42in"
-msgstr ""
+msgstr "30 × 42″"
 
 #. TRANSLATORS: 12 x 16″
 msgid "media.oe_12x16_12x16in"
-msgstr ""
+msgstr "12 × 16″"
 
 #. TRANSLATORS: 14 x 17″
 msgid "media.oe_14x17_14x17in"
-msgstr ""
+msgstr "12 × 17″"
 
 #. TRANSLATORS: 18 x 22″
 msgid "media.oe_18x22_18x22in"
-msgstr ""
+msgstr "18 × 22″"
 
 #. TRANSLATORS: 17 x 24″
 msgid "media.oe_a2plus_17x24in"
-msgstr ""
+msgstr "17 × 24″"
 
 #. TRANSLATORS: 2 x 3.5″
 msgid "media.oe_business-card_2x3.5in"
-msgstr ""
+msgstr "2 × 3'5″"
 
 #. TRANSLATORS: 10 x 12″
 msgid "media.oe_photo-10r_10x12in"
-msgstr ""
+msgstr "10 × 12″"
 
 #. TRANSLATORS: 20 x 24″
 msgid "media.oe_photo-20r_20x24in"
-msgstr ""
+msgstr "20 × 24″"
 
 #. TRANSLATORS: 3.5 x 5″
 msgid "media.oe_photo-l_3.5x5in"
-msgstr ""
+msgstr "3'5 × 5″"
 
 #. TRANSLATORS: 10 x 15″
 msgid "media.oe_photo-s10r_10x15in"
-msgstr ""
+msgstr "10 × 15″"
 
 #. TRANSLATORS: 4 x 4″
 msgid "media.oe_square-photo_4x4in"
-msgstr ""
+msgstr "4 × 4″"
 
 #. TRANSLATORS: 5 x 5″
 msgid "media.oe_square-photo_5x5in"
-msgstr ""
+msgstr "5 × 5″"
 
 #. TRANSLATORS: 184 x 260mm
 msgid "media.om_16k_184x260mm"
-msgstr ""
+msgstr "184 × 260mm"
 
 #. TRANSLATORS: 195 x 270mm
 msgid "media.om_16k_195x270mm"
-msgstr ""
+msgstr "195 × 270mm"
 
 #. TRANSLATORS: 55 x 85mm
 msgid "media.om_business-card_55x85mm"
-msgstr ""
+msgstr "55 × 85mm"
 
 #. TRANSLATORS: 55 x 91mm
 msgid "media.om_business-card_55x91mm"
-msgstr ""
+msgstr "55 × 91mm"
 
 #. TRANSLATORS: 54 x 86mm
 msgid "media.om_card_54x86mm"
-msgstr ""
+msgstr "54 × 86mm"
 
 #. TRANSLATORS: 275 x 395mm
 msgid "media.om_dai-pa-kai_275x395mm"
-msgstr ""
+msgstr "275 × 395mm"
 
 #. TRANSLATORS: 89 x 119mm
 msgid "media.om_dsc-photo_89x119mm"
-msgstr ""
+msgstr "89 × 119mm"
 
 #. TRANSLATORS: Folio
 msgid "media.om_folio-sp_215x315mm"
-msgstr ""
+msgstr "Folio"
 
 #. TRANSLATORS: Folio (Special)
 msgid "media.om_folio_210x330mm"
@@ -10956,87 +10956,87 @@ msgstr "Sobre italiano"
 
 #. TRANSLATORS: 198 x 275mm
 msgid "media.om_juuro-ku-kai_198x275mm"
-msgstr ""
+msgstr "198 × 275mm"
 
 #. TRANSLATORS: 200 x 300
 msgid "media.om_large-photo_200x300"
-msgstr ""
+msgstr "200 × 300"
 
 #. TRANSLATORS: 130 x 180mm
 msgid "media.om_medium-photo_130x180mm"
-msgstr ""
+msgstr "130 × 180mm"
 
 #. TRANSLATORS: 267 x 389mm
 msgid "media.om_pa-kai_267x389mm"
-msgstr ""
+msgstr "267 × 389mm"
 
 #. TRANSLATORS: Envelope Postfix
 msgid "media.om_postfix_114x229mm"
-msgstr ""
+msgstr "Sobre Postfix"
 
 #. TRANSLATORS: 100 x 150mm
 msgid "media.om_small-photo_100x150mm"
-msgstr ""
+msgstr "100 × 150mm"
 
 #. TRANSLATORS: 89 x 89mm
 msgid "media.om_square-photo_89x89mm"
-msgstr ""
+msgstr "89 × 89mm"
 
 #. TRANSLATORS: 100 x 200mm
 msgid "media.om_wide-photo_100x200mm"
-msgstr ""
+msgstr "100 × 200mm"
 
 #. TRANSLATORS: Envelope Chinese #10
 msgid "media.prc_10_324x458mm"
-msgstr ""
+msgstr "Sobre chino #10"
 
 #. TRANSLATORS: Chinese 16k
 msgid "media.prc_16k_146x215mm"
-msgstr ""
+msgstr "Chino 16k"
 
 #. TRANSLATORS: Envelope Chinese #1
 msgid "media.prc_1_102x165mm"
-msgstr ""
+msgstr "Sobre Chino #1"
 
 #. TRANSLATORS: Envelope Chinese #2
 msgid "media.prc_2_102x176mm"
-msgstr ""
+msgstr "Sobre Chino #2"
 
 #. TRANSLATORS: Chinese 32k
 msgid "media.prc_32k_97x151mm"
-msgstr ""
+msgstr "Chino 32k"
 
 #. TRANSLATORS: Envelope Chinese #3
 msgid "media.prc_3_125x176mm"
-msgstr ""
+msgstr "Sobre Chino #3"
 
 #. TRANSLATORS: Envelope Chinese #4
 msgid "media.prc_4_110x208mm"
-msgstr ""
+msgstr "Sobre Chino #4"
 
 #. TRANSLATORS: Envelope Chinese #5
 msgid "media.prc_5_110x220mm"
-msgstr ""
+msgstr "Sobre Chino #5"
 
 #. TRANSLATORS: Envelope Chinese #6
 msgid "media.prc_6_120x320mm"
-msgstr ""
+msgstr "Sobre Chino #6"
 
 #. TRANSLATORS: Envelope Chinese #7
 msgid "media.prc_7_160x230mm"
-msgstr ""
+msgstr "Sobre Chino #7"
 
 #. TRANSLATORS: Envelope Chinese #8
 msgid "media.prc_8_120x309mm"
-msgstr ""
+msgstr "Sobre Chino #8"
 
 #. TRANSLATORS: ROC 16k
 msgid "media.roc_16k_7.75x10.75in"
-msgstr ""
+msgstr "ROC 16k"
 
 #. TRANSLATORS: ROC 8k
 msgid "media.roc_8k_10.75x15.5in"
-msgstr ""
+msgstr "ROC 8k"
 
 #, c-format
 msgid "members of class %s:"
@@ -11044,7 +11044,7 @@ msgstr "miembros de la clase %s:"
 
 #. TRANSLATORS: Multiple Document Handling
 msgid "multiple-document-handling"
-msgstr ""
+msgstr "Manipular Documentos Múltimples"
 
 #. TRANSLATORS: Separate Documents Collated Copies
 msgid "multiple-document-handling.separate-documents-collated-copies"
