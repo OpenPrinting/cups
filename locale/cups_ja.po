@@ -11,13 +11,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2014-11-15 19:27+0900\n"
-"Last-Translator: OPFC TRANSCUPS <opfc-transcups@sourceforge.jp>\n"
-"Language-Team: Japanese - OPFC TRANSCUPS <opfc-transcups@sourceforge.jp>\n"
+"PO-Revision-Date: 2025-07-14 06:02+0000\n"
+"Last-Translator: oota toshiya <ribbon@ribbon.or.jp>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/cups/cups/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(すべて)"
@@ -242,9 +244,10 @@ msgid ""
 "be named Duplex.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
-"        警告    Duplex オプションキーワード %s は期待通りに動作しないかもしれ"
-"ません。また、Duplex という名前であるべきです。                参照: 122 ペー"
-"ジ、セクション 5.17"
+"        警告    Duplex オプションキーワード %s "
+"は期待通りに動作しないかもしれません。また、Duplex という名前であるべきです。"
+"\n"
+"                参照: 122 ページ、セクション 5.17"
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
@@ -787,9 +790,7 @@ msgstr ""
 
 #, c-format
 msgid "      **FAIL**  Unable to open PPD file - %s on line %d."
-msgstr ""
-" 失敗\n"
-"      **失敗**  PPD ファイルを開けません - %s (%d 行)。"
+msgstr "      **失敗**  PPD ファイルを開けません - %s (%d 行)。"
 
 #, c-format
 msgid "    %d ERRORS FOUND"
@@ -805,10 +806,11 @@ msgid "  --crlf                  End lines with CR + LF (Windows)."
 msgstr "  --crlf                  行末を CR + LF とする (Windows)。"
 
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
-msgstr ""
+msgstr "  --lf                    行末を LF とする (UNIX/Linux/macOS)。"
 
 msgid "  --list-all              List all filters with the MIME media types."
-msgstr ""
+msgstr "  --list-all              "
+"すべてのフィルターをMIMEメディアタイプとともにリストする。"
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          使用されるフィルターのリストを表示する。"
@@ -825,10 +827,10 @@ msgstr ""
 "  -I include-dir          インクルードディレクトリーを検索パスに含める。"
 
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -P FILENAME.ppd         PPDファイルの指定。"
 
 msgid "  -U USERNAME             Specify username."
-msgstr ""
+msgstr "  -U USERNAME             ユーザー名の指定。"
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr "  -c catalog.po           指定したメッセージカタログをロードする。"
@@ -837,7 +839,7 @@ msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr "  -c cups-files.conf      cups-files.conf を利用するよう設定する。"
 
 msgid "  -d PRINTER              Use the named printer."
-msgstr ""
+msgstr "  -d PRINTER              指定されたプリンターを利用する。"
 
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           出力先ディレクトリーを指定する。"
@@ -847,12 +849,13 @@ msgstr ""
 "  -e                      PPD ファイルからすべてのフィルターを使用する。"
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
-msgstr ""
+msgstr "  -i MIME/TYPE            入力MIMEタイプを指定（未指定の場合は自動）。"
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
-msgstr ""
+msgstr "  -j JOB-ID[,N]           "
+"指定されたジョブからファイルNをフィルターする（デフォルトはファイル1）。"
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      出力言語を指定する。(複数可能)"
@@ -862,13 +865,14 @@ msgstr "  -m                      ModelName の値をファイル名として使
 
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
-msgstr ""
+msgstr "  -m MIME/TYPE            出力MIMEタイプを指定（無指定の場合はapplcation/"
+"pdf）。"
 
 msgid "  -n COPIES               Set number of copies."
-msgstr ""
+msgstr "  -n COPIES               印刷部数を指定。"
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr ""
+msgstr "  -o NAME=VALUE           オプションを指定。"
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -881,13 +885,13 @@ msgstr ""
 "  -o filename.ppd[.gz]    出力ファイルを指定する (指定がなければ標準出力)。"
 
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -p FILENAME.ppd         PPDファイルを指定。"
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      PPD を出力しないでテストする。"
 
 msgid "  -t TITLE                Set title."
-msgstr ""
+msgstr "  -t TITLE                タイトルを指定。"
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      終了したときに PPD ファイルを削除する。"
@@ -905,188 +909,195 @@ msgid " PASS"
 msgstr " 合格"
 
 msgid "! expression            Unary NOT of expression"
-msgstr ""
+msgstr "! expression            expression に対する単項 NOT"
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."
-msgstr ""
+msgstr "\"%s\": 不正な URI 値 \"%s\" - %s (RFC 8011 5.1.6節)。"
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."
-msgstr ""
+msgstr "\"%s\": 不正な URI 値 \"%s\" - 不正な長さ %d (RFC 8011 5.1.6節)。"
 
 #, c-format
 msgid "\"%s\": Bad attribute name - bad length %d (RFC 8011 section 5.1.4)."
-msgstr ""
+msgstr "\"%s\": 不正な属性名 - 不正な長さ %d (RFC 8011 5.1.4節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad attribute name - invalid character (RFC 8011 section 5.1.4)."
-msgstr ""
+msgstr "\"%s\": 不正な属性名 - 無効な文字 (RFC 8011 5.1.4節)。"
 
 #, c-format
 msgid "\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."
-msgstr ""
+msgstr "\"%s\": 不正なブーリアン値 %d (RFC 8011 5.1.21節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."
-msgstr ""
+msgstr "\"%s\": 不正な charset 値 \"%s\" - 不正な文字 (RFC 8011 5.1.8節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."
-msgstr ""
+msgstr "\"%s\": 不正な charset 値 \"%s\" - 不正な長さ %d (RFC 8011 5.1.8節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime UTC 時 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC minutes %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime UTC 分 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC sign '%c' (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime UTC 符号 '%c' (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime day %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime 日 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime deciseconds %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime デシ秒 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime hours %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime 時 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime minutes %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime 分 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime month %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime 月 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad dateTime seconds %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "\"%s\": 不正な dateTime 秒 %u (RFC 8011 5.1.15節)。"
 
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
-msgstr ""
+msgstr "\"%s\": 不正な列挙値 %d - 範囲外 (RFC 8011 5.1.5節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
-msgstr ""
+msgstr "\"%s\": 不正な keyword 値 \"%s\" - 不正な長さ %d (RFC 8011 5.1.4値)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section "
 "5.1.4)."
-msgstr ""
+msgstr "\"%s\": 不正な keyword 値 \"%s\" - 無効な文字 (RFC 8011 5.1.4節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section "
 "5.1.10)."
-msgstr ""
+msgstr "\"%s\": 不正な mimeMediaType 値 \"%s\" - 不正な文字 (RFC 8011 5.1.10節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.10)."
-msgstr ""
+msgstr "\"%s\": 不正な mimeMediaType 値 \"%s\" - 不正な長さ %d (RFC 8011 5.1.10節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
-msgstr ""
+msgstr "\"%s\": 不正な name 値\"%s\" - 不正な UTF-8 列 (RFC 8011 5.1.3節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section "
 "8.1)."
-msgstr ""
+msgstr "\"%s\": 不正な name 値 \"%s\" - 不正な制御文字 (PWG 5100.14 8.1節)。"
 
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."
-msgstr ""
+msgstr "\"%s\": 不正な name 値 \"%s\" - 不正な長さ %d (RFC 80115.1.3節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section "
 "5.1.9)."
 msgstr ""
+"\"%s\": 不正な naturalLanguage 値 \"%s\" - bad characters (RFC 8011 "
+"5.1.9節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.9)."
-msgstr ""
+msgstr "\"%s\": 不正な naturalLanguage 値 \"%s\" - 不正な長さ %d (RFC 8011 5.1.9節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
-msgstr ""
+msgstr "\"%s\": 不正な octetString 値 - 不正な長さ %d (RFC 8011 5.1.20節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 "
 "section 5.1.14)."
-msgstr ""
+msgstr "\"%s\": 不正な rangeOfInteger 値 %d-%d - 下限値が上限値より大きい (RFC 8011 "
+"5.1.14節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - bad units value (RFC 8011 section "
 "5.1.16)."
-msgstr ""
+msgstr "\"%s\": 不正な resolution 値 %dx%d%s - 不正な単位値 (RFC 8011 5.1.16節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be "
 "positive (RFC 8011 section 5.1.16)."
 msgstr ""
+"\"%s\": 不正な resolution 値 %dx%d%s - 横方向の解像度は正でなければならない ("
+"RFC 8011 5.1.16節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC "
 "8011 section 5.1.16)."
 msgstr ""
+"\"%s\": 不正な resolution 値 %dx%d%s - 縦方向の解像度は正でなければならない ("
+"RFC 8011 5.1.16節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
-msgstr ""
+msgstr "\"%s\": 不正な text 値 \"%s\" - 不正な UTF-8 列 (RFC 8011 5.1.2節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section "
 "8.3)."
-msgstr ""
+msgstr "\"%s\": 不正な text 値 \"%s\" - 不正な制御文字 (PWG 5100.14 8.3節)。"
 
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."
-msgstr ""
+msgstr "\"%s\": 不正な text 値 \"%s\" - 不正な長さ %d (RFC 8011 5.1.2節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
-msgstr ""
+msgstr "\"%s\": 不正な uriScheme 値 \"%s\" - 不正な文字 (RFC 8011 5.1.7節)。"
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
-msgstr ""
+msgstr "\"%s\": 不正な uriScheme 値 \"%s\" - 不正な長さ %d (RFC 8011 5.1.7節)。"
 
 msgid "\"requesting-user-name\" attribute in wrong group."
-msgstr ""
+msgstr "\"requesting-user-name\" 属性が誤ったグループに属しています。"
 
 msgid "\"requesting-user-name\" attribute with wrong syntax."
-msgstr ""
+msgstr "\"requesting-user-name\" 属性は文法的に誤っています。"
 
 #, c-format
 msgid "%-7s %-7.7s %-7d %-31.31s %.0f bytes"
@@ -1098,7 +1109,7 @@ msgstr "%d x %d mm"
 
 #, c-format
 msgid "%g x %g \""
-msgstr ""
+msgstr "%g x %g インチ"
 
 #, c-format
 msgid "%s (%s)"
@@ -1162,7 +1173,7 @@ msgstr "%s/%s は %s からリクエストを受け付けています"
 
 #, c-format
 msgid "%s/%s not accepting requests since %s -"
-msgstr "%s/%s は %s からリクエストを受け付けていません - "
+msgstr "%s/%s は %s からリクエストを受け付けていません -"
 
 #, c-format
 msgid "%s: %-33.33s [job %d localhost]"
@@ -1187,7 +1198,7 @@ msgstr "%s: 何が起きているか不明です。"
 
 #, c-format
 msgid "%s: Error - %s"
-msgstr ""
+msgstr "%s: エラー - %s"
 
 #, c-format
 msgid ""
@@ -1196,7 +1207,7 @@ msgstr "%s: エラー - 環境変数 %s が存在しない宛先 \"%s\" を指�
 
 #, c-format
 msgid "%s: Error - The printer or class does not exist."
-msgstr ""
+msgstr "%s: エラー - プリンターまたはクラスが存在しません。"
 
 #, c-format
 msgid "%s: Error - add '/version=1.1' to server name."
@@ -1213,21 +1224,20 @@ msgstr ""
 
 #, c-format
 msgid "%s: Error - cannot print from stdin if files or a job ID are provided."
-msgstr ""
-"%s: エラー - ファイルまたはジョブ ID が提供されている場合、標準入力から印刷で"
-"きません。 "
+msgstr "%s: エラー - ファイルまたはジョブ ID "
+"が提供されている場合、標準入力から印刷できません。"
 
 #, c-format
 msgid "%s: Error - copies must be 1 or more."
-msgstr ""
+msgstr "%s: エラー - copies は1以上でなければなりません。"
 
 #, c-format
 msgid "%s: Error - expected \"username\" after \"-U\" option."
-msgstr ""
+msgstr "%s: エラー - \"-U\" オプションのあとには \"username\" が必要です。"
 
 #, c-format
 msgid "%s: Error - expected PPD file after \"-%c\" option."
-msgstr ""
+msgstr "%s: エラー - \"-%c\" オプションのあとにはPPDファイルが必要です。"
 
 #, c-format
 msgid "%s: Error - expected character set after \"-S\" option."
@@ -1247,7 +1257,7 @@ msgstr "%s: エラー - \"-n\" オプションのあとにはコピー数が必�
 
 #, c-format
 msgid "%s: Error - expected destination MIME type after \"-m\" option."
-msgstr ""
+msgstr "%s: エラー - \"-m\" オプションのあとには宛先 MIME タイプが必要です。"
 
 #, c-format
 msgid "%s: Error - expected destination after \"-P\" option."
@@ -1259,7 +1269,7 @@ msgstr "%s: エラー - \"-d\" オプションのあとにはプリンター名�
 
 #, c-format
 msgid "%s: Error - expected filename after \"-c\" option."
-msgstr ""
+msgstr "%s: エラー - \"-c\" オプションのあとにはファイル名が必要です。"
 
 #, c-format
 msgid "%s: Error - expected form after \"-f\" option."
@@ -1275,15 +1285,15 @@ msgstr "%s: エラー - \"-H\" オプションのあとにはホスト名が必�
 
 #, c-format
 msgid "%s: Error - expected hostname after \"-h\" option."
-msgstr "%s: エラー -  \"-h\" オプションのあとにはホスト名が必要です。"
+msgstr "%s: エラー - \"-h\" オプションのあとにはホスト名が必要です。"
 
 #, c-format
 msgid "%s: Error - expected input file after \"-f\" option."
-msgstr ""
+msgstr "%s: エラー - \"-f\" オプションのあとには入力ファイルが必要です。"
 
 #, c-format
 msgid "%s: Error - expected job-id after \"-j\" option."
-msgstr ""
+msgstr "%s: エラー - \"-j\" オプションのあとにはジョブIDが必要です。"
 
 #, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
@@ -1295,15 +1305,15 @@ msgstr "%s: エラー - \"-%c\" オプションのあとには名前が必要で
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-a\" option."
-msgstr ""
+msgstr "%s: エラー - \"-a\" オプションのあとには name=value が必要です。"
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-o\" option."
-msgstr ""
+msgstr "%s: エラー - \"-o\" オプションのあとには name=value が必要です。"
 
 #, c-format
 msgid "%s: Error - expected number of copies after \"-n\" option."
-msgstr ""
+msgstr "%s: エラー - \"-n\" オプションのあとには印刷部数が必要です。"
 
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
@@ -1315,7 +1325,7 @@ msgstr "%s: エラー - \"-P\" オプションのあとにはページリスト�
 
 #, c-format
 msgid "%s: Error - expected printer name after \"-d\" option."
-msgstr ""
+msgstr "%s: エラー - \"-d\" オプションのあとにはプリンター名が必要です。"
 
 #, c-format
 msgid "%s: Error - expected priority after \"-%c\" option."
@@ -1327,11 +1337,11 @@ msgstr "%s: エラー - \"-r\" のあとには理由のテキストが必要で�
 
 #, c-format
 msgid "%s: Error - expected source MIME type after \"-i\" option."
-msgstr ""
+msgstr "%s: エラー - \"-i\" オプションのあとにはソース MIME タイプが必要です。"
 
 #, c-format
 msgid "%s: Error - expected title after \"-%c\" option."
-msgstr ""
+msgstr "%s: エラー - \"-%c\" オプションのあとにはタイトルが必要です。"
 
 #, c-format
 msgid "%s: Error - expected title after \"-t\" option."
@@ -1347,13 +1357,15 @@ msgstr "%s: エラー - \"-u\" オプションのあとにはユーザー名が�
 
 #, c-format
 msgid "%s: Error - expected value after \"-%c\" option."
-msgstr "%s: エラー -  \"-%c\" オプションのあとには値が必要です。"
+msgstr "%s: エラー - \"-%c\" オプションのあとには値が必要です。"
 
 #, c-format
 msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
+"%s: エラー - -W オプションの後には \"completed\", \"not-completed\", "
+"\"successful\", \"all\" いずれかの指定が必要です。"
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1397,7 +1409,7 @@ msgstr "%s: エラー - '%s' は未知のオプションです。"
 
 #, c-format
 msgid "%s: Error - unknown option \"-%c\"."
-msgstr ""
+msgstr "%s: エラー - 不明なオプション \"-%c\"。"
 
 #, c-format
 msgid "%s: Expected job ID after \"-i\" option."
@@ -1413,7 +1425,7 @@ msgstr "%s: 無効なフィルター文字列です \"%s\""
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr ""
+msgstr "%s: '--client-name' に続いてクライアント名が必要です。"
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1425,7 +1437,7 @@ msgstr "%s: \"-T\" オプションにタイムアウトが設定されていま�
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr ""
+msgstr "%s: '--bearer-token' の後にはトークンが必要です。"
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1445,7 +1457,7 @@ msgstr "%s: 操作に失敗しました: %s"
 
 #, c-format
 msgid "%s: Scheduler is not running."
-msgstr ""
+msgstr "%s: スケジューラが起動していません。"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1478,7 +1490,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
-msgstr ""
+msgstr "%s: 不正な引数です\"%s\"。"
 
 #, c-format
 msgid "%s: Unknown destination \"%s\"."
@@ -1502,11 +1514,11 @@ msgstr "%s: \"-%c\" は未知のオプションです。"
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: オプション '%s' は存在しません。"
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: オプション '-%c' は存在しません。"
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1537,173 +1549,189 @@ msgid "%s: Warning - mode option ignored."
 msgstr "%s: 警告 - モードオプションは無視されます。"
 
 msgid "( expressions )         Group expressions"
-msgstr ""
+msgstr "( 式 )         グループ式"
 
 msgid "-                       Cancel all jobs"
-msgstr ""
+msgstr "-                       すべてのジョブをキャンセル"
 
 msgid "-# num-copies           Specify the number of copies to print"
-msgstr ""
+msgstr "-# num-copies           印刷部数の設定"
 
 msgid "--[no-]debug-logging    Turn debug logging on/off"
-msgstr ""
+msgstr "--[no-]debug-logging    デバッグログをON/OFFする"
 
 msgid "--[no-]remote-admin     Turn remote administration on/off"
-msgstr ""
+msgstr "--[no-]remote-admin     リモート管理をON/OFFする"
 
 msgid "--[no-]remote-any       Allow/prevent access from the Internet"
-msgstr ""
+msgstr "--[no-]remote-any       インターネットからのアクセスを許可/禁止する"
 
 msgid "--[no-]share-printers   Turn printer sharing on/off"
-msgstr ""
+msgstr "--[no-]share-printers   プリンター共有をON/OFFする"
 
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
-msgstr ""
+msgstr "--[no-]user-cancel-any  ユーザーにあらゆるジョブのキャンセルを許可/禁止する"
 
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
+"--bearer-token BEARER-TOKEN\n"
+"                        認証用のOAuth Bearerトークンを指定"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name CLIENT-NAME\n"
+"                        TLSクライアント認証名を指定"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
-msgstr ""
+msgstr "--device-id device-id   与えられたIEEE "
+"1284デバイス文字列に一致するモデルを表示する"
 
 msgid "--domain regex          Match domain to regular expression"
-msgstr ""
+msgstr "--domain regex          ドメインを正規表現にマッチする"
 
 msgid ""
 "--exclude-schemes scheme-list\n"
 "                        Exclude the specified URI schemes"
 msgstr ""
+"--exclude-schemes scheme-list\n"
+"                        指定されたURIスキームを除外する"
 
 msgid ""
 "--exec utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
+"--exec utility [argument ...] ;\n"
+"                        trueのときプログラムを実行する"
 
 msgid "--false                 Always false"
-msgstr ""
+msgstr "--false                 常にfalse"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         ヘルプを表示"
 
 msgid "--help                  Show program help"
-msgstr ""
+msgstr "--help                  プログラムのヘルプを表示する"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  このヘルプを表示"
 
 msgid "--hold                  Hold new jobs"
-msgstr ""
+msgstr "--hold                  新しいジョブを保留する"
 
 msgid "--host regex            Match hostname to regular expression"
-msgstr ""
+msgstr "--host regex            ホスト名を正規表現にマッチする"
 
 msgid ""
 "--include-schemes scheme-list\n"
 "                        Include only the specified URI schemes"
 msgstr ""
+"--include-schemes scheme-list\n"
+"                        指定されたURIスキームのみを含む"
 
 msgid "--ippserver filename    Produce ippserver attribute file"
-msgstr ""
+msgstr "--ippserver filename    ippserver 属性ファイルを与える"
 
 msgid "--language locale       Show models matching the given locale"
-msgstr ""
+msgstr "--language locale       与えられたロケールにマッチするモデルを表示する"
 
 msgid "--literal-name name     Match service name to literal name value"
-msgstr ""
+msgstr "--literal-name name     サービスネームを即値の名前とマッチする"
 
 msgid "--local                 True if service is local"
-msgstr ""
+msgstr "--local                 サービスがローカルならtrue"
 
 msgid "--ls                    List attributes"
-msgstr ""
+msgstr "--ls                    属性の一覧を表示する"
 
 msgid ""
 "--make-and-model name   Show models matching the given make and model name"
-msgstr ""
+msgstr "--make-and-model name   "
+"与えられたメーカー名およびモデル名にマッチするモデルを表示する"
 
 msgid "--name regex            Match service name to regular expression"
-msgstr ""
+msgstr "--name regex            サービス名を正規表現にマッチする"
 
 msgid "--no-web-forms          Disable web forms for media and supplies"
-msgstr ""
+msgstr "--no-web-forms          メディアと消耗品のWebフォームを無効化する"
 
 msgid "--not expression        Unary NOT of expression"
-msgstr ""
+msgstr "--not expression        expression に対する単項 NOT"
 
 msgid "--pam-service service   Use the named PAM service"
-msgstr ""
+msgstr "--pam-service service   与えられた PAM サービスを利用"
 
 msgid "--path regex            Match resource path to regular expression"
-msgstr ""
+msgstr "--path regex            リソースパスを正規表現にマッチする"
 
 msgid "--pin                          Pin certificate found by client command"
-msgstr ""
+msgstr "--pin                          クライアントコマンドにより見つけられるPin認証"
 
 msgid "--port number[-number]  Match port to number or range"
-msgstr ""
+msgstr "--port number[-number]  ポート番号または範囲とマッチする"
 
 msgid "--print                 Print URI if true"
-msgstr ""
+msgstr "--print                 true の場合 URI を表示する"
 
 msgid "--print-name            Print service name if true"
-msgstr ""
+msgstr "--print-name            true の場合サービス名を表示する"
 
 msgid ""
 "--product name          Show models matching the given PostScript product"
-msgstr ""
+msgstr "--product name          与えられた PostScript "
+"製品にマッチするモデルを表示する"
 
 msgid "--quiet                 Quietly report match via exit code"
-msgstr ""
+msgstr "--quiet                 終了コードのみでマッチ結果を示す"
 
 msgid "--release               Release previously held jobs"
-msgstr ""
+msgstr "--release               事前に保留されたジョブを開放する"
 
 msgid "--remote                True if service is remote"
-msgstr ""
+msgstr "--remote                サービスがリモートの場合 true"
 
 msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
-msgstr ""
+msgstr "--require-ca                   "
+"クライアントコマンドにはCA署名された証明書が必要"
 
 msgid ""
 "--stop-after-include-error\n"
 "                        Stop tests after a failed INCLUDE"
 msgstr ""
+"--stop-after-include-error\n"
+"                        INCLUDE に失敗した場合テストを停止する"
 
 msgid ""
 "--timeout seconds       Specify the maximum number of seconds to discover "
 "devices"
-msgstr ""
+msgstr "--timeout seconds       デバイスの検知に必要な最大の秒数を指定する"
 
 msgid "--true                  Always true"
-msgstr ""
+msgstr "--true                  常に true"
 
 msgid "--txt key               True if the TXT record contains the key"
-msgstr ""
+msgstr "--txt key               TXT レコードが key を含む場合 true"
 
 msgid "--txt-* regex           Match TXT record key to regular expression"
-msgstr ""
+msgstr "--txt-* regex           TXT レコードキーを正規表現にマッチする"
 
 msgid "--uri regex             Match URI to regular expression"
-msgstr ""
+msgstr "--uri regex             URI を正規表現にマッチする"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      プログラムのバージョンを表示"
 
 msgid "--version               Show program version"
-msgstr ""
+msgstr "--version               プログラムバージョンを表示する"
 
 msgid "--version               Show version"
-msgstr ""
+msgstr "--version               バージョンを表示する"
 
 msgid "-1"
 msgstr "-1"
@@ -1745,7 +1773,7 @@ msgid "-2"
 msgstr "-2"
 
 msgid "-2                      Set 2-sided printing support (default=1-sided)"
-msgstr ""
+msgstr "-2                      両面印刷サポートを指定する (デフォルトは片面印刷)"
 
 msgid "-20"
 msgstr "-20"
@@ -1766,7 +1794,7 @@ msgid "-4"
 msgstr "-4"
 
 msgid "-4                      Connect using IPv4"
-msgstr ""
+msgstr "-4                     IPv4で接続する"
 
 msgid "-40"
 msgstr "-40"
@@ -1787,7 +1815,7 @@ msgid "-6"
 msgstr "-6"
 
 msgid "-6                      Connect using IPv6"
-msgstr ""
+msgstr "-6                      IPv6で接続する"
 
 msgid "-60"
 msgstr "-60"
@@ -1823,493 +1851,524 @@ msgid "-95"
 msgstr "-95"
 
 msgid "-A                      Enable authentication"
-msgstr ""
+msgstr "-A                      認証を有効にする"
 
 msgid "-C                      Send requests using chunking (default)"
-msgstr ""
+msgstr "-C                      チャンクを利用してリクエストを送る（デフォルト）"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C COUNTRY                     国を指定。"
 
 msgid "-D description          Specify the textual description of the printer"
-msgstr ""
+msgstr "-D description          プリンターの説明を文字列で指定する"
 
 msgid "-D device-uri           Set the device URI for the printer"
-msgstr ""
+msgstr "-D device-uri           プリンターのデバイス URI を指定"
 
 msgid ""
 "-E                      Enable and accept jobs on the printer (after -p)"
-msgstr ""
+msgstr "-E                      プリンターを有効化しジョブを受け付ける (-p の後で)"
 
 msgid "-E                      Encrypt the connection to the server"
-msgstr ""
+msgstr "-E                      サーバーへの接続を暗号化する"
 
 msgid "-E                      Test with encryption using HTTP Upgrade to TLS"
-msgstr ""
+msgstr "-E                      TLSのHTTPアップグレードを用いた暗号化をテストする"
 
 msgid "-F                      Run in the foreground but detach from console."
-msgstr ""
+msgstr "-F                      "
+"フォアグラウンドで実行するがコンソールからはデタッチする"
 
 msgid "-F output-type/subtype  Set the output format for the printer"
-msgstr ""
+msgstr "-F output-type/subtype  プリンターへの出力フォーマットを指定する"
 
 msgid "-H                      Show the default server and port"
-msgstr ""
+msgstr "-H                      デフォルトサーバーおよびポートを表示する"
 
 msgid "-H HH:MM                Hold the job until the specified UTC time"
-msgstr ""
+msgstr "-H HH:MM                指定した UTC 時刻までジョブを保留する"
 
 msgid "-H hold                 Hold the job until released/resumed"
-msgstr ""
+msgstr "-H hold                 リリース/レジュームされるまでジョブを保留する"
 
 msgid "-H immediate            Print the job as soon as possible"
-msgstr ""
+msgstr "-H immediate            ジョブを可能な限り早く印刷する"
 
 msgid "-H restart              Reprint the job"
-msgstr ""
+msgstr "-H restart              ジョブを再印刷する"
 
 msgid "-H resume               Resume a held job"
-msgstr ""
+msgstr "-H resume               保留したジョブをレジュームする"
 
 msgid "-H server[:port]        Connect to the named server and port"
-msgstr ""
+msgstr "-H server[:port]        指定されたサーバーおよびポートに接続する"
 
 msgid "-I                      Ignore errors"
-msgstr ""
+msgstr "-I                      エラーを無視する"
 
 msgid ""
 "-I {filename,filters,none,profiles}\n"
 "                          Ignore specific warnings"
 msgstr ""
+"-I {filename,filters,none,profiles}\n"
+"                          指定された警告を無視する"
 
 msgid ""
 "-K keypath              Set location of server X.509 certificates and keys."
-msgstr ""
+msgstr "-K keypath              サーバー X.509 認証およびキーの場所を指定する。"
 
 msgid "-L                      Send requests using content-length"
-msgstr ""
+msgstr "-L                      content-length を用いてリクエストを送る"
 
 msgid "-L LOCALITY                    Set locality name."
-msgstr ""
+msgstr "-L LOCALITY                    市町村名を指定。"
 
 msgid "-L location             Specify the textual location of the printer"
-msgstr ""
+msgstr "-L location             プリンターの場所を文字列で指定する"
 
 msgid "-M manufacturer         Set manufacturer name (default=Test)"
-msgstr ""
+msgstr "-M manufacturer         製造元名を設定する（デフォルト=Test）"
 
 msgid "-N name                 Match service name to literal name value"
-msgstr ""
+msgstr "-N name                 サービス名をリテラルなname値とマッチする"
 
 msgid "-O ORGANIZATION                Set organization name."
-msgstr ""
+msgstr "-O ORGANIZATION                組織名を指定。"
 
 msgid "-P destination          Show status for the specified destination"
-msgstr ""
+msgstr "-P destination          指定されたdestinationのステータスを表示する"
 
 msgid "-P destination          Specify the destination"
-msgstr ""
+msgstr "-P destination          destinationを指定する"
 
 msgid ""
 "-P filename.plist       Produce XML plist to a file and test report to "
 "standard output"
-msgstr ""
+msgstr "-P filename.plist       XML "
+"plistをファイルに出力しテストレポートを標準出力に出力する"
 
 msgid "-P number[-number]      Match port to number or range"
-msgstr ""
+msgstr "-P number[-number]      ポートを番号または範囲とマッチする"
 
 msgid "-P page-list            Specify a list of pages to print"
-msgstr ""
+msgstr "-P page-list            印刷するページのリストを指定する"
 
 msgid "-R                      Repeat tests on server-error-busy"
-msgstr ""
+msgstr "-R                      server-error-busyのテストを繰り返す"
 
 msgid "-R                      Show the ranking of jobs"
-msgstr ""
+msgstr "-R                      ジョブのランキングを表示する"
 
 msgid ""
 "-R CSR-FILENAME                Specify certificate signing request file."
-msgstr ""
+msgstr "-R CSR-FILENAME                証明書署名リクエストファイルを指定。"
 
 msgid "-R name-default         Remove the default value for the named option"
-msgstr ""
+msgstr "-R name-default         指定されたオプションのデフォルト値を削除する"
 
 msgid "-R root-directory       Set alternate root"
-msgstr ""
+msgstr "-R root-directory       代替のrootを指定する"
 
 msgid "-S                      Test with encryption using HTTPS"
-msgstr ""
+msgstr "-S                      HTTPSを用いて暗号化をテストする"
 
 msgid "-S STATE                       Set state."
-msgstr ""
+msgstr "-S STATE                       状態を設定。"
 
 msgid "-S filename.strings     Set strings file"
-msgstr ""
+msgstr "-S filename.strings     文字列ファイルを指定する"
 
 msgid "-T seconds              Set the browse timeout in seconds"
-msgstr ""
+msgstr "-T seconds              ブラウズタイムアウトを秒で指定する"
 
 msgid "-T seconds              Set the receive/send timeout in seconds"
-msgstr ""
+msgstr "-T seconds              受送信のタイムアウトを秒で設定する"
 
 msgid "-T title                Specify the job title"
-msgstr ""
+msgstr "-T title                ジョブタイトルを指定する"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
-msgstr ""
+msgstr "-U ORGANIZATIONAL-UNIT         組織単位の名称を指定。"
 
 msgid "-U username             Specify the username to use for authentication"
-msgstr ""
+msgstr "-U username             認証に使用されるユーザー名を指定する"
 
 msgid "-U username             Specify username to use for authentication"
-msgstr ""
+msgstr "-U username             認証に使用されるユーザー名を指定する"
 
 msgid "-V version              Set default IPP version"
-msgstr ""
+msgstr "-V version              デフォルトのIPPバージョンを設定する"
 
 msgid "-W completed            Show completed jobs"
-msgstr ""
+msgstr "-W completed            終了したジョブを表示する"
 
 msgid "-W not-completed        Show pending jobs"
-msgstr ""
+msgstr "-W not-completed        ペンディングなジョブを表示する"
 
 msgid ""
 "-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
 "translations}\n"
 "                          Issue warnings instead of errors"
 msgstr ""
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,translations}"
+"\n"
+"                          エラーの代わりにワーニングを起こす"
 
 msgid "-X                      Produce XML plist instead of plain text"
-msgstr ""
+msgstr "-X                      プレーンテキストの代わりにXML plistを出力する"
 
 msgid "-a                      Cancel all jobs"
-msgstr ""
+msgstr "-a                      すべてのジョブをキャンセルする"
 
 msgid "-a                      Show jobs on all destinations"
-msgstr ""
+msgstr "-a                      すべてのdestinationのジョブを表示する"
 
 msgid ""
 "-a OAUTH-URI                   Specify the OAuth authorization server URL"
-msgstr ""
+msgstr "-a OAUTH-URI                   OAuth認証サーバーURLを指定"
 
 msgid "-a SUBJECT-ALT-NAME            Add a subjectAltName."
-msgstr ""
+msgstr "-a SUBJECT-ALT-NAME            subjectAltNameを追加。"
 
 msgid "-a [destination(s)]     Show the accepting state of destinations"
-msgstr ""
+msgstr "-a [destination(s)]     destinationの受付状態を表示する"
 
 msgid "-a filename.conf        Load printer attributes from conf file"
-msgstr ""
+msgstr "-a filename.conf        プリンター属性をconfファイルから読み込む"
 
 msgid "-c                      Make a copy of the print file(s)"
-msgstr ""
+msgstr "-c                      印刷ファイルのコピーを作成する"
 
 msgid "-c                      Produce CSV output"
-msgstr ""
+msgstr "-c                      CSV出力を行う"
 
 msgid "-c [class(es)]          Show classes and their member printers"
-msgstr ""
+msgstr "-c [class(es)]          クラスとそのメンバーのプリンターを表示する"
 
 msgid "-c class                Add the named destination to a class"
-msgstr ""
+msgstr "-c class                指定されたdestinationをクラスに追加する"
 
 msgid "-c command              Set print command"
-msgstr ""
+msgstr "-c command              印刷コマンドを設定する"
 
 msgid "-c cupsd.conf           Set cupsd.conf file to use."
-msgstr ""
+msgstr "-c cupsd.conf           使用するcupsd.confファイルを設定する"
 
 msgid "-d                      Show the default destination"
-msgstr ""
+msgstr "-d                      デフォルトのdestinationを表示する"
 
 msgid "-d DAYS                        Set expiration date in days."
-msgstr ""
+msgstr "-d DAYS                        有効期限を日数で指定。"
 
 msgid "-d destination          Set default destination"
-msgstr ""
+msgstr "-d destination          デフォルトのdestinationを設定する"
 
 msgid "-d destination          Set the named destination as the server default"
-msgstr ""
+msgstr "-d destination          指定されたdesitnationをサーバーのデフォルトにする"
 
 msgid "-d destination          Specify the destination"
-msgstr ""
+msgstr "-d destination          destinationを指定する"
 
 msgid "-d name=value           Set named variable to value"
-msgstr ""
+msgstr "-d name=value           指定された変数に値を設定する"
 
 msgid "-d regex                Match domain to regular expression"
-msgstr ""
+msgstr "-d regex                ドメインを正規表現とマッチする"
 
 msgid "-d spool-directory      Set spool directory"
-msgstr ""
+msgstr "-d spool-directory      スプールディレクトリを指定する"
 
 msgid "-e                      Show available destinations on the network"
-msgstr ""
+msgstr "-e                      ネットワーク上の利用可能なdestinationを表示する"
 
 msgid "-f                      Run in the foreground."
-msgstr ""
+msgstr "-f                      フォアグラウンドで実行する"
 
 msgid "-f filename             Set default request filename"
-msgstr ""
+msgstr "-f filename             デフォルトのリクエストファイル名を指定する"
 
 msgid "-f type/subtype[,...]   Set supported file types"
-msgstr ""
+msgstr "-f type/subtype[,...]   サポートされるファイル形式を指定する"
 
 msgid "-h                      Show this usage message."
-msgstr ""
+msgstr "-h                      利用方法のメッセージを表示する"
 
 msgid "-h                      Validate HTTP response headers"
-msgstr ""
+msgstr "-h                      HTTPレスポンスヘッダーを検証する"
 
 msgid "-h regex                Match hostname to regular expression"
-msgstr ""
+msgstr "-h regex                ホスト名を正規表現にマッチする"
 
 msgid "-h server[:port]        Connect to the named server and port"
-msgstr ""
+msgstr "-h server[:port]        指定されたサーバーとポートに接続する"
 
 msgid "-i iconfile.png[,...]   Set icon file(s)"
-msgstr ""
+msgstr "-i iconfile.png[,...]   アイコンファイルを設定する"
 
 msgid "-i id                   Specify an existing job ID to modify"
-msgstr ""
+msgstr "-i id                   変更したい既存ジョブのIDを指定する"
 
 msgid "-i ppd-file             Specify a PPD file for the printer"
-msgstr ""
+msgstr "-i ppd-file             プリンターのPPDファイルを指定する"
 
 msgid ""
 "-i seconds              Repeat the last file with the given time interval"
-msgstr ""
+msgstr "-i seconds              最後のファイルを与えられた時間間隔で繰り返す"
 
 msgid "-k                      Keep job spool files"
-msgstr ""
+msgstr "-k                      ジョブのスプールファイルを保持する"
 
 msgid "-l                      List attributes"
-msgstr ""
+msgstr "-l                      属性をリストする"
 
 msgid "-l                      Produce plain text output"
-msgstr ""
+msgstr "-l                      プレーンテキスト出力を行う"
 
 msgid "-l                      Run cupsd on demand."
-msgstr ""
+msgstr "-l                      cupsdをオンデマンドで起動する。"
 
 msgid "-l                      Show supported options and values"
-msgstr ""
+msgstr "-l                      サポートされているオプションと値を表示する"
 
 msgid "-l                      Show verbose (long) output"
-msgstr ""
+msgstr "-l                      冗長な（長い）出力をする"
 
 msgid "-l location             Set location of printer"
-msgstr ""
+msgstr "-l location             プリンターの場所を設定する"
 
 msgid ""
 "-m                      Send an email notification when the job completes"
-msgstr ""
+msgstr "-m                      ジョブが完了した場合E-mail通知を送る"
 
 msgid "-m                      Show models"
-msgstr ""
+msgstr "-m                      モデルを表示する"
 
 msgid ""
 "-m everywhere           Specify the printer is compatible with IPP Everywhere"
-msgstr ""
+msgstr "-m everywhere           プリンターがIPP Everywhere互換であることを指定する"
 
 msgid "-m model                Set model name (default=Printer)"
-msgstr ""
+msgstr "-m model                モデル名を設定する（デフォルト＝Printer）"
 
 msgid ""
 "-m model                Specify a standard model/PPD file for the printer"
-msgstr ""
+msgstr "-m model                プリンターの標準モデル/PPDファイルを指定する"
 
 msgid "-n count                Repeat the last file the given number of times"
-msgstr ""
+msgstr "-n count                最後のファイルを指定された回数だけ繰り返す"
 
 msgid "-n hostname             Set hostname for printer"
-msgstr ""
+msgstr "-n hostname             プリンターのホスト名を設定する"
 
 msgid "-n num-copies           Specify the number of copies to print"
-msgstr ""
+msgstr "-n num-copies           印刷部数を設定する"
 
 msgid "-n regex                Match service name to regular expression"
-msgstr ""
+msgstr "-n regex                サービス名を正規表現とマッチする"
 
 msgid ""
 "-o Name=Value           Specify the default value for the named PPD option "
-msgstr ""
+msgstr "-o Name=Value           指定されたPPDオプションのデフォルト値を指定する "
 
 msgid "-o [destination(s)]     Show jobs"
-msgstr ""
+msgstr "-o [destination(s)]     ジョブを表示する"
 
 msgid ""
 "-o cupsIPPSupplies=false\n"
 "                        Disable supply level reporting via IPP"
 msgstr ""
+"-o cupsIPPSupplies=false\n"
+"                        IPP経由のサプライレベルレポートを無効化する"
 
 msgid ""
 "-o cupsSNMPSupplies=false\n"
 "                        Disable supply level reporting via SNMP"
 msgstr ""
+"-o cupsSNMPSupplies=false\n"
+"                        SNMP経由のサプライレベルレポートを無効化する"
 
 msgid "-o job-k-limit=N        Specify the kilobyte limit for per-user quotas"
-msgstr ""
+msgstr "-o job-k-limit=N        ユーザーごとのクォータをキロバイト制限で指定する"
 
 msgid "-o job-page-limit=N     Specify the page limit for per-user quotas"
-msgstr ""
+msgstr "-o job-page-limit=N     ユーザーごとのクォータをページ制限で指定する"
 
 msgid "-o job-quota-period=N   Specify the per-user quota period in seconds"
-msgstr ""
+msgstr "-o job-quota-period=N   ユーザーごとのクォータ期間を秒で指定する"
 
 msgid "-o job-sheets=standard  Print a banner page with the job"
-msgstr ""
+msgstr "-o job-sheets=standard  ジョブとともにバナーページを印刷する"
 
 msgid "-o media=size           Specify the media size to use"
-msgstr ""
+msgstr "-o media=size           利用するメディアサイズを指定する"
 
 msgid "-o name-default=value   Specify the default value for the named option"
-msgstr ""
+msgstr "-o name-default=value   指定されたオプションのデフォルト値を指定する"
 
 msgid "-o name[=value]         Set default option and value"
-msgstr ""
+msgstr "-o name[=value]         デフォルトオプションと値を設定する"
 
 msgid ""
 "-o number-up=N          Specify that input pages should be printed N-up (1, "
 "2, 4, 6, 9, and 16 are supported)"
-msgstr ""
+msgstr "-o number-up=N          入力ページの面付け（N-up）を指定（1, 2, 4, 6, 9, "
+"16がサポート）"
 
 msgid "-o option[=value]       Specify a printer-specific option"
-msgstr ""
+msgstr "-o option[=value]       プリンター特有のオプションを指定する"
 
 msgid ""
 "-o orientation-requested=N\n"
 "                        Specify portrait (3) or landscape (4) orientation"
 msgstr ""
+"-o orientation-requested=N\n"
+"                        "
+"印刷方向をポートレート(3)またはランドスケープ(4)で指定する"
 
 msgid ""
 "-o print-quality=N      Specify the print quality - draft (3), normal (4), "
 "or best (5)"
-msgstr ""
+msgstr "-o print-quality=N      印刷品質を指定する - ドラフト (3), 標準 (4), 最良 (5)"
 
 msgid ""
 "-o printer-error-policy=name\n"
 "                        Specify the printer error policy"
 msgstr ""
+"-o printer-error-policy=name\n"
+"                        プリンターエラーポリシーを指定"
 
 msgid ""
 "-o printer-is-shared=true\n"
 "                        Share the printer"
 msgstr ""
+"-o printer-is-shared=true\n"
+"                        プリンターを共有する"
 
 msgid ""
 "-o printer-op-policy=name\n"
 "                        Specify the printer operation policy"
 msgstr ""
+"-o printer-op-policy=name\n"
+"                        プリンター操作ポリシーを指定"
 
 msgid "-o sides=one-sided      Specify 1-sided printing"
-msgstr ""
+msgstr "-o sides=one-sided      片面印刷を指定"
 
 msgid ""
 "-o sides=two-sided-long-edge\n"
 "                        Specify 2-sided portrait printing"
 msgstr ""
+"-o sides=two-sided-long-edge\n"
+"                        短編綴じ両面印刷を指定"
 
 msgid ""
 "-o sides=two-sided-short-edge\n"
 "                        Specify 2-sided landscape printing"
 msgstr ""
+"-o sides=two-sided-short-edge\n"
+"                        長編綴じ両面印刷を指定"
 
 msgid "-p                      Print URI if true"
-msgstr ""
+msgstr "-p                      trueのときにURIを出力する"
 
 msgid ""
 "-p PURPOSE                     Comma-delimited certificate purpose\n"
 "                               (serverAuth, clientAuth, codeSigning, "
 "emailProtection, timeStamping, OCSPSigning)"
 msgstr ""
+"-p PURPOSE                     カンマで区切った証明書の使用目的\n"
+"                               (serverAuth, clientAuth, codeSigning, "
+"emailProtection, timeStamping, OCSPSigning)"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
-msgstr ""
+msgstr "-p [printer(s)]         出力先の処理状態を表示"
 
 msgid "-p destination          Specify a destination"
-msgstr ""
+msgstr "-p destination          出力先を指定"
 
 msgid "-p destination          Specify/add the named destination"
-msgstr ""
+msgstr "-p destination          出力先を指定または追加"
 
 msgid "-p port                 Set port number for printer"
-msgstr ""
+msgstr "-p port                 プリンターのポート番号を指定"
 
 msgid "-q                      Quietly report match via exit code"
-msgstr ""
+msgstr "-q                      マッチ状態を出力せずに終了コードでレポートする"
 
 msgid "-q                      Run silently"
-msgstr ""
+msgstr "-q                      メッセージを出さずに実行する"
 
 msgid "-q                      Specify the job should be held for printing"
-msgstr ""
+msgstr "-q                      印刷のためにジョブを保留にするよう指定する"
 
 msgid "-q priority             Specify the priority from low (1) to high (100)"
-msgstr ""
+msgstr "-q priority             優先順位を最低(1) から最高 (100) までで指定する"
 
 msgid "-r                      Remove the file(s) after submission"
-msgstr ""
+msgstr "-r                      送信後にファイルを削除する"
 
 msgid "-r                      Show whether the CUPS server is running"
-msgstr ""
+msgstr "-r                      CUPSサーバーが実行しているか否かを表示する"
 
 msgid "-r                      True if service is remote"
-msgstr ""
+msgstr "-r                      サービスがリモートである場合真"
 
 msgid "-r                      Use 'relaxed' open mode"
-msgstr ""
+msgstr "-r                      「緩和」オープンモードを利用する"
 
 msgid "-r ROOT-NAME                   Name of root certificate"
-msgstr ""
+msgstr "-r ROOT-NAME                   ルート証明書の名前"
 
 msgid "-r class                Remove the named destination from a class"
-msgstr ""
+msgstr "-r class                指定された出力先をクラスから除去する"
 
 msgid "-r reason               Specify a reason message that others can see"
-msgstr ""
+msgstr "-r reason               他人が確認できる理由メッセージを指定する"
 
 msgid "-r subtype,[subtype]    Set DNS-SD service subtype"
-msgstr ""
+msgstr "-r subtype,[subtype]    DNS-SD サービスサブタイプを指定"
 
 msgid "-s                      Be silent"
-msgstr ""
+msgstr "-s                      メッセージを出さない"
 
 msgid "-s                      Print service name if true"
-msgstr ""
+msgstr "-s                      trueの場合サービス名を出力"
 
 msgid "-s                      Show a status summary"
-msgstr ""
+msgstr "-s                      ステータスサマリーを表示"
 
 msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
-msgstr ""
+msgstr "-s SCOPE(S)                    認証の範囲を指定"
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
-msgstr ""
+msgstr "-s cups-files.conf      使用するcups-files.confファイルを指定する。"
 
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
-msgstr ""
+msgstr "-s speed[,color-speed]  毎分何ページで速度を指定する"
 
 msgid "-t                      Produce a test report"
-msgstr ""
+msgstr "-t                      テストレポートを出力する"
 
 msgid "-t                      Show all status information"
-msgstr ""
+msgstr "-t                      すべてのステータス情報を出力する"
 
 msgid "-t                      Test the configuration file."
-msgstr ""
+msgstr "-t                      設定ファイルをテストする。"
 
 msgid ""
 "-t TYPE                        Certificate type\n"
 "                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
 "ecdsa-p384, ecdsa-p521)"
 msgstr ""
+"-t TYPE                        証明書タイプ\n"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
+"ecdsa-p384, ecdsa-p521)"
 
 msgid "-t key                  True if the TXT record contains the key"
-msgstr ""
+msgstr "-t key                  TXTレコードにkeyが含まれている場合真"
 
 msgid "-t title                Specify the job title"
-msgstr ""
+msgstr "-t title                ジョブタイトルを指定する"
 
 msgid ""
 "-u USAGE                       Comma-delimited key usage\n"
@@ -2317,59 +2376,66 @@ msgid ""
 "keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
 "encipherOnly, decipherOnly, default-ca, default-tls)"
 msgstr ""
+"-u USAGE                       カンマ区切りの鍵用途\n"
+"                               (digitalSignature, nonRepudiation, "
+"keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
+"encipherOnly, decipherOnly, default-ca, default-tls)"
 
 msgid ""
 "-u [user(s)]            Show jobs queued by the current or specified users"
-msgstr ""
+msgstr "-u [user(s)]            "
+"現在の、または指定されたユーザーによりキューに入れられたジョブを表示する"
 
 msgid "-u allow:all            Allow all users to print"
-msgstr ""
+msgstr "-u allow:all            すべてのユーザーに印刷を許可する"
 
 msgid ""
 "-u allow:list           Allow the list of users or groups (@name) to print"
-msgstr ""
+msgstr "-u allow:list           ユーザーまたはグループのリストに印刷を許可する"
 
 msgid ""
 "-u deny:list            Prevent the list of users or groups (@name) to print"
-msgstr ""
+msgstr "-u deny:list            リストされたユーザーまたはグループに印刷を許可しない"
 
 msgid "-u owner                Specify the owner to use for jobs"
-msgstr ""
+msgstr "-u owner                ジョブの所有者を指定する"
 
 msgid "-u regex                Match URI to regular expression"
-msgstr ""
+msgstr "-u regex                URIを正規表現とマッチする"
 
 msgid "-v                      Be verbose"
-msgstr ""
+msgstr "-v                      饒舌モードで実行"
 
 msgid "-v                      Show devices"
-msgstr ""
+msgstr "-v                      デバイスを表示"
 
 msgid "-v [printer(s)]         Show the devices for each destination"
-msgstr ""
+msgstr "-v [printer(s)]         それぞれの出力先のデバイスを表示"
 
 msgid "-v device-uri           Specify the device URI for the printer"
-msgstr ""
+msgstr "-v device-uri           プリンターのデバイスURIを指定する"
 
 msgid "-vv                     Be very verbose"
-msgstr ""
+msgstr "-vv                     非常に饒舌モードにする"
 
 msgid "-x                      Purge jobs rather than just canceling"
-msgstr ""
+msgstr "-x                      単にジョブをキャンセルするのでなくパージする"
 
 msgid "-x destination          Remove default options for destination"
-msgstr ""
+msgstr "-x destination          出力先のデフォルトオプションを削除する"
 
 msgid "-x destination          Remove the named destination"
-msgstr ""
+msgstr "-x destination          指定された出力先を削除する"
 
 msgid ""
 "-x utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
+"-x utility [argument ...] ;\n"
+"                        trueの時プログラムを実行する"
 
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
-msgstr ""
+msgstr "/etc/cups/lpoptions デフォルト出力先のファイル名が存在しません。"
 
 msgid "0"
 msgstr "0"
@@ -2630,16 +2696,16 @@ msgid "3.00x3.00\""
 msgstr "3.00x3.00インチ"
 
 msgid "3.00x4.00\""
-msgstr ""
+msgstr "3.00x4.00インチ"
 
 msgid "3.00x5.00\""
 msgstr "3.00x5.00 インチ"
 
 msgid "3.00x6.00\""
-msgstr ""
+msgstr "3.00x6.00インチ"
 
 msgid "3.00x8.00\""
-msgstr ""
+msgstr "3.00x8.00インチ"
 
 msgid "3.25x2.00\""
 msgstr "3.25x2.00 インチ"
@@ -2678,7 +2744,7 @@ msgid "300dpi"
 msgstr "300dpi"
 
 msgid "30859 Paint Can Label"
-msgstr ""
+msgstr "30859 ペンキ缶ラベル"
 
 msgid "35"
 msgstr "35"
@@ -2723,7 +2789,7 @@ msgid "4.00x6.50\""
 msgstr "4.00x6.50 インチ"
 
 msgid "4.00x8.00\""
-msgstr ""
+msgstr "4.00x8.00いンチ"
 
 msgid "40"
 msgstr "40"
@@ -2777,7 +2843,7 @@ msgid "6.00x6.50\""
 msgstr "6.00x6.50 インチ"
 
 msgid "6.00x8.00\""
-msgstr ""
+msgstr "6.00x8.00インチ"
 
 msgid "60"
 msgstr "60"
@@ -2843,7 +2909,7 @@ msgid "8.00x6.50\""
 msgstr "8.00x6.50 インチ"
 
 msgid "8.26x1.00\""
-msgstr ""
+msgstr "8.26x1.00インチ"
 
 msgid "80"
 msgstr "80"
@@ -2852,7 +2918,7 @@ msgid "80 mm/sec."
 msgstr "80 ミリメートル/秒"
 
 msgid "80x50mm"
-msgstr ""
+msgstr "80x50mm"
 
 msgid "85"
 msgstr "85"
@@ -3024,15 +3090,15 @@ msgstr "%s printer-state に 不正な値 %d を設定しようとしていま�
 
 #, c-format
 msgid "Attribute \"%s\" has empty value."
-msgstr ""
+msgstr "属性 \"%s\" は空の値を持っています。"
 
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
-msgstr ""
+msgstr "属性\"%s\" は誤ったグループに存在しています。."
 
 #, c-format
 msgid "Attribute \"%s\" is the wrong value type."
-msgstr ""
+msgstr "属性 \"%s\" は誤った値の型です。"
 
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
@@ -3076,18 +3142,18 @@ msgstr "B9"
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
-msgstr ""
+msgstr "誤った \"printer-id\" の値 %d。"
 
 #, c-format
 msgid "Bad '%s' value."
-msgstr ""
+msgstr "誤った '%s' の値。"
 
 #, c-format
 msgid "Bad 'document-format' value \"%s\"."
 msgstr "誤った 'document-format' の値です \"%s\"。"
 
 msgid "Bad CloseUI/JCLCloseUI"
-msgstr ""
+msgstr "不正な CloseUI/JCLCloseUI"
 
 msgid "Bad NULL dests pointer"
 msgstr "不正な NULL 送信先ポインター"
@@ -3105,7 +3171,7 @@ msgid "Bad PPD cache file."
 msgstr "不正な PPD キャッシュファイルです。"
 
 msgid "Bad PPD file."
-msgstr ""
+msgstr "不正な PPD ファイル。"
 
 msgid "Bad Request"
 msgstr "不正なリクエスト"
@@ -3117,13 +3183,13 @@ msgid "Bad UIConstraints"
 msgstr "不正な UIConstraints"
 
 msgid "Bad URI."
-msgstr ""
+msgstr "不正な URI。"
 
 msgid "Bad arguments to function"
 msgstr "関数の引数が不正"
 
 msgid "Bad certificate."
-msgstr ""
+msgstr "不正な証明書。"
 
 #, c-format
 msgid "Bad copies value %d."
@@ -3149,7 +3215,7 @@ msgid "Bad document-format-default \"%s\"."
 msgstr "\"%s\" は不正な document-format-default です。"
 
 msgid "Bad extKeyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "X.509証明書リクエストにおける不正な extKeyUsage 拡張。"
 
 msgid "Bad filename buffer"
 msgstr "不正なファイル名バッファーです。"
@@ -3182,7 +3248,7 @@ msgid "Bad job-uri \"%s\"."
 msgstr "\"%s\" は無効な job-uri 属性です。"
 
 msgid "Bad keyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "X.509 証明書リクエストにおける不正な keyUsage 拡張。"
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -4337,7 +4403,7 @@ msgid "No name OID"
 msgstr "OID 名がありません"
 
 msgid "No pages were found."
-msgstr " ページが見つかりません。"
+msgstr "ページが見つかりません。"
 
 msgid "No printer name"
 msgstr "プリンター名がありません"
@@ -4453,10 +4519,10 @@ msgid "Options:"
 msgstr "オプション:"
 
 msgid "Other Media"
-msgstr ""
+msgstr "他のメディア"
 
 msgid "Other Tray"
-msgstr ""
+msgstr "他のトレー"
 
 msgid "Out of date PPD cache file."
 msgstr "PPD キャッシュファイルが古すぎます。"
@@ -4591,7 +4657,7 @@ msgstr "印刷ジョブが受け付けられませんでした。"
 
 #, c-format
 msgid "Printer \"%s\" already exists."
-msgstr ""
+msgstr "プリンタ \"%s\" はすでに存在しています。"
 
 msgid "Printer Added"
 msgstr "追加されたプリンター"
@@ -11414,7 +11480,7 @@ msgstr "ppdc: %s から UI テキストを追加または更新しています�
 
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr "ppdc:  不正な boolean 値 (%s) があります。%d 行目、ファイル名 %s。"
+msgstr "ppdc: 不正な boolean 値 (%s) があります。%d 行目、ファイル名 %s。"
 
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
@@ -11765,11 +11831,11 @@ msgstr ""
 
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
-msgstr "ppdc:  \"%s\" に対する地域化情報が見つかりません - %s"
+msgstr "ppdc: \"%s\" に対する地域化情報が見つかりません - %s"
 
 #, c-format
 msgid "ppdc: Unable to load localization file \"%s\" - %s"
-msgstr "ppdc:  \"%s\" に対するローカライズファイルを読み込めません - %s"
+msgstr "ppdc: \"%s\" に対するローカライズファイルを読み込めません - %s"
 
 #, c-format
 msgid "ppdc: Unable to open %s: %s"
