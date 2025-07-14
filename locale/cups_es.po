@@ -11044,43 +11044,43 @@ msgstr "miembros de la clase %s:"
 
 #. TRANSLATORS: Multiple Document Handling
 msgid "multiple-document-handling"
-msgstr "Manipular Documentos Múltimples"
+msgstr "Manipular Documentos Múltiples"
 
 #. TRANSLATORS: Separate Documents Collated Copies
 msgid "multiple-document-handling.separate-documents-collated-copies"
-msgstr ""
+msgstr "Copias Cotejadas de Documentos Separados"
 
 #. TRANSLATORS: Separate Documents Uncollated Copies
 msgid "multiple-document-handling.separate-documents-uncollated-copies"
-msgstr ""
+msgstr "Copias No Cotejadas de Documentos Separados"
 
 #. TRANSLATORS: Single Document
 msgid "multiple-document-handling.single-document"
-msgstr ""
+msgstr "Documento Único"
 
 #. TRANSLATORS: Single Document New Sheet
 msgid "multiple-document-handling.single-document-new-sheet"
-msgstr ""
+msgstr "Hoja Nueva de Documento Único"
 
 #. TRANSLATORS: Multiple Object Handling
 msgid "multiple-object-handling"
-msgstr ""
+msgstr "Manipulación de Objeto Múltiple"
 
 #. TRANSLATORS: Multiple Object Handling Actual
 msgid "multiple-object-handling-actual"
-msgstr ""
+msgstr "Actual Manipulación de Objeto Múltiple"
 
 #. TRANSLATORS: Automatic
 msgid "multiple-object-handling.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Best Fit
 msgid "multiple-object-handling.best-fit"
-msgstr ""
+msgstr "Mejor ajuste"
 
 #. TRANSLATORS: Best Quality
 msgid "multiple-object-handling.best-quality"
-msgstr ""
+msgstr "Mejor calidad"
 
 #. TRANSLATORS: Best Speed
 msgid "multiple-object-handling.best-speed"
@@ -11088,23 +11088,23 @@ msgstr "Mejor velocidad"
 
 #. TRANSLATORS: One At A Time
 msgid "multiple-object-handling.one-at-a-time"
-msgstr ""
+msgstr "Uno cada vez"
 
 #. TRANSLATORS: On Timeout
 msgid "multiple-operation-time-out-action"
-msgstr ""
+msgstr "En tiempo de espera"
 
 #. TRANSLATORS: Abort Job
 msgid "multiple-operation-time-out-action.abort-job"
-msgstr ""
+msgstr "Interrumpir Tarea"
 
 #. TRANSLATORS: Hold Job
 msgid "multiple-operation-time-out-action.hold-job"
-msgstr ""
+msgstr "Conservar Tarea"
 
 #. TRANSLATORS: Process Job
 msgid "multiple-operation-time-out-action.process-job"
-msgstr ""
+msgstr "Procesar Tarea"
 
 msgid "no entries"
 msgstr "no hay entradas"
@@ -11189,43 +11189,43 @@ msgstr "Ninguno"
 
 #. TRANSLATORS: Printer Config Changed
 msgid "notify-events.printer-config-changed"
-msgstr ""
+msgstr "Configuración de Impresora Cambiada"
 
 #. TRANSLATORS: Printer Finishings Changed
 msgid "notify-events.printer-finishings-changed"
-msgstr ""
+msgstr "Finalización de Impresora Cambiada"
 
 #. TRANSLATORS: Printer Media Changed
 msgid "notify-events.printer-media-changed"
-msgstr ""
+msgstr "Medio de Impresora Cambiado"
 
 #. TRANSLATORS: Printer Queue Order Changed
 msgid "notify-events.printer-queue-order-changed"
-msgstr ""
+msgstr "Ordenación de Cola de Impresora Cambiada"
 
 #. TRANSLATORS: Printer Restarted
 msgid "notify-events.printer-restarted"
-msgstr ""
+msgstr "Impresora Reiniciada"
 
 #. TRANSLATORS: Printer Shutdown
 msgid "notify-events.printer-shutdown"
-msgstr ""
+msgstr "Impresora Apagada"
 
 #. TRANSLATORS: Printer State Changed
 msgid "notify-events.printer-state-changed"
-msgstr ""
+msgstr "Estado de Impresora Cambiado"
 
 #. TRANSLATORS: Printer Stopped
 msgid "notify-events.printer-stopped"
-msgstr ""
+msgstr "Impresora Detenida"
 
 #. TRANSLATORS: Notify Get Interval
 msgid "notify-get-interval"
-msgstr ""
+msgstr "Notifica Obtención de Intervalo"
 
 #. TRANSLATORS: Notify Lease Duration
 msgid "notify-lease-duration"
-msgstr ""
+msgstr "Notificación de Contrato de Arrandamiento"
 
 #. TRANSLATORS: Notify Natural Language
 msgid "notify-natural-language"
