@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-05-11 14:31+0000\n"
+"PO-Revision-Date: 2025-07-15 10:01+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -9032,7 +9032,7 @@ msgstr "Marrón"
 
 #. TRANSLATORS: Buff
 msgid "media-color.buff"
-msgstr ""
+msgstr "Tampón"
 
 #. TRANSLATORS: Clear Black
 msgid "media-color.clear-black"
@@ -9048,7 +9048,7 @@ msgstr "Marrón claro"
 
 #. TRANSLATORS: Clear Buff
 msgid "media-color.clear-buff"
-msgstr ""
+msgstr "Vaciar tampón"
 
 #. TRANSLATORS: Clear Cyan
 msgid "media-color.clear-cyan"
@@ -9132,7 +9132,7 @@ msgstr "Marrón oscuro"
 
 #. TRANSLATORS: Dark Buff
 msgid "media-color.dark-buff"
-msgstr ""
+msgstr "Tampón oscuro"
 
 #. TRANSLATORS: Dark Cyan
 msgid "media-color.dark-cyan"
@@ -9228,7 +9228,7 @@ msgstr "Marrón claro"
 
 #. TRANSLATORS: Light Buff
 msgid "media-color.light-buff"
-msgstr ""
+msgstr "Tampón claro"
 
 #. TRANSLATORS: Light Cyan
 msgid "media-color.light-cyan"
@@ -9256,59 +9256,59 @@ msgstr ""
 
 #. TRANSLATORS: Light Magenta
 msgid "media-color.light-magenta"
-msgstr ""
+msgstr "Magenta claro"
 
 #. TRANSLATORS: Light Mustard
 msgid "media-color.light-mustard"
-msgstr ""
+msgstr "Mostaza clara"
 
 #. TRANSLATORS: Light Orange
 msgid "media-color.light-orange"
-msgstr ""
+msgstr "Naranja claro"
 
 #. TRANSLATORS: Light Pink
 msgid "media-color.light-pink"
-msgstr ""
+msgstr "Rosa claro"
 
 #. TRANSLATORS: Light Red
 msgid "media-color.light-red"
-msgstr ""
+msgstr "Rojo claro"
 
 #. TRANSLATORS: Light Silver
 msgid "media-color.light-silver"
-msgstr ""
+msgstr "Plateado claro"
 
 #. TRANSLATORS: Light Turquoise
 msgid "media-color.light-turquoise"
-msgstr ""
+msgstr "Turquesa claro"
 
 #. TRANSLATORS: Light Violet
 msgid "media-color.light-violet"
-msgstr ""
+msgstr "Violeta claro"
 
 #. TRANSLATORS: Light Yellow
 msgid "media-color.light-yellow"
-msgstr ""
+msgstr "Amarillo claro"
 
 #. TRANSLATORS: Magenta
 msgid "media-color.magenta"
-msgstr ""
+msgstr "Magenta"
 
 #. TRANSLATORS: Multi-color
 msgid "media-color.multi-color"
-msgstr ""
+msgstr "Multicolor"
 
 #. TRANSLATORS: Mustard
 msgid "media-color.mustard"
-msgstr ""
+msgstr "Mostaza"
 
 #. TRANSLATORS: No Color
 msgid "media-color.no-color"
-msgstr ""
+msgstr "Sin color"
 
 #. TRANSLATORS: Orange
 msgid "media-color.orange"
-msgstr ""
+msgstr "Naranja"
 
 #. TRANSLATORS: Pink
 msgid "media-color.pink"
@@ -10636,7 +10636,7 @@ msgstr "119 × 197mm"
 
 #. TRANSLATORS: Oufuku Reply Postcard
 msgid "media.jpn_oufuku_148x200mm"
-msgstr ""
+msgstr "Postal Respuesta Oufuku"
 
 #. TRANSLATORS: Envelope You 4
 msgid "media.jpn_you4_105x235mm"
@@ -10772,19 +10772,19 @@ msgstr "8 × 13″"
 
 #. TRANSLATORS: 8 x 10″
 msgid "media.na_govt-letter_8x10in"
-msgstr ""
+msgstr "8 × 10″"
 
 #. TRANSLATORS: 3 x 5″
 msgid "media.na_index-3x5_3x5in"
-msgstr ""
+msgstr "5 × 5″"
 
 #. TRANSLATORS: 6 x 8″
 msgid "media.na_index-4x6-ext_6x8in"
-msgstr ""
+msgstr "6 × 8″"
 
 #. TRANSLATORS: 4 x 6″
 msgid "media.na_index-4x6_4x6in"
-msgstr ""
+msgstr "4 × 67″"
 
 #. TRANSLATORS: 5 x 8″
 msgid "media.na_index-5x8_5x8in"
