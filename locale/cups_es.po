@@ -11225,7 +11225,7 @@ msgstr "Notifica Obtención de Intervalo"
 
 #. TRANSLATORS: Notify Lease Duration
 msgid "notify-lease-duration"
-msgstr "Notificación de Contrato de Arrandamiento"
+msgstr "Notificación de Contrato de Arrendamiento"
 
 #. TRANSLATORS: Notify Natural Language
 msgid "notify-natural-language"
@@ -11257,39 +11257,39 @@ msgstr "Notificar ID de Suscripción"
 
 #. TRANSLATORS: Notify Time Interval
 msgid "notify-time-interval"
-msgstr ""
+msgstr "Notificar Tiempo de Intervalo"
 
 #. TRANSLATORS: Notify User Data
 msgid "notify-user-data"
-msgstr ""
+msgstr "Notificar Datos de Usuario"
 
 #. TRANSLATORS: Notify Wait
 msgid "notify-wait"
-msgstr ""
+msgstr "Notificar Espera"
 
 #. TRANSLATORS: Number Of Retries
 msgid "number-of-retries"
-msgstr ""
+msgstr "Número de Reintentos"
 
 #. TRANSLATORS: Number-Up
 msgid "number-up"
-msgstr ""
+msgstr "Incrementar"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "number-up-layout"
-msgstr ""
+msgstr "Incrementar Disposición"
 
 #. TRANSLATORS: Bottom-Top, Left-Right
 msgid "number-up-layout.btlr"
-msgstr ""
+msgstr "Suelo-Cima, Izquierda-Derecha"
 
 #. TRANSLATORS: Bottom-Top, Right-Left
 msgid "number-up-layout.btrl"
-msgstr ""
+msgstr "Suelo-Cima, Derecha-Izquierda"
 
 #. TRANSLATORS: Left-Right, Bottom-Top
 msgid "number-up-layout.lrbt"
-msgstr ""
+msgstr "Izquierda-Derecha, Suelo-Cima"
 
 #. TRANSLATORS: Left-Right, Top-Bottom
 msgid "number-up-layout.lrtb"
