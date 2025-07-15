@@ -22,6 +22,7 @@ Changes in CUPS v2.4.13 (YYYY-MM-DD)
 - Fixed parsing of real numbers in PPD compiler source files (Issue #1263)
 - Fixed scheduler freezing with zombie clients (Issue #1264)
 - Fixed support for the server name in the ErrorLog filename (Issue #1277)
+- Fixed job cleanup after daemon restart (Issue #1315)
 
 
 Changes in CUPS v2.4.12 (2025-04-08)

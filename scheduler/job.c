@@ -4409,7 +4409,8 @@ load_job_cache(const char *filename)	/* I - job.cache filename */
 	cupsArrayAdd(ActiveJobs, job);
       else if (job->state_value > IPP_JOB_STOPPED)
       {
-        if (!job->completed_time || !job->creation_time || !job->name || !job->koctets)
+	if (!job->completed_time || !job->creation_time || !job->name || !job->koctets ||
+	    JobHistory < INT_MAX || (JobFiles < INT_MAX && job->num_files))
 	{
 	  cupsdLoadJob(job);
 	  unload_job(job);
