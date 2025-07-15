@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.13 (YYYY-MM-DD)
 ------------------------------------
 
+- Added `print-as-raster` printer and job attributes for forcing rasterization
+  (Issue #1282)
 - Updated documentation (Issue #1086)
 - Updated IPP backend to try a sanitized user name if the printer/server does
   not like the value (Issue #1145)
