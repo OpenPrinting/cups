@@ -38,6 +38,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Added `DNSSDComputerName` directive to "cupsd.conf" and updated cupsd to
   correctly update the mDNS hostname only if the `DNSSDHostName` directive is
   not specified (Issue #1217)
+- Added `print-as-raster` printer and job attributes for forcing rasterization
+  (Issue #1282)
 - Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated translations (Issue #1146, Issue #1161, Issue #1164)
 - Updated the configure script to default to installing to /usr/local.
@@ -146,6 +148,7 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   as network discovered (Issue #1120)
 - Fixed validation of dateTime values with time zones more than UTC+11
   (Issue #1201)
+- Fixed job cleanup after daemon restart (Issue #1315)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
