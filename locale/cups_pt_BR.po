@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-22 14:04+0000\n"
+"PO-Revision-Date: 2025-07-23 15:05+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -2772,8 +2772,8 @@ msgstr ""
 msgid ""
 "-u [user(s)]            Show jobs queued by the current or specified users"
 msgstr ""
-"-u [usuário(s)]         Permite exibir os trabalhos enfileirados pelos "
-"usuários especificados ou pelo usuário atual"
+"-u [usuário(s)]         Permite exibir os trabalhos que foram enviados para "
+"a fila da impressão pelos usuários especificados ou pelo usuário atual"
 
 msgid "-u allow:all            Allow all users to print"
 msgstr ""
@@ -4646,7 +4646,7 @@ msgid "Long-Edge (Portrait)"
 msgstr "Borda maior (Retrato)"
 
 msgid "Main Roll"
-msgstr "Rolagem Principal"
+msgstr "Rolete principal"
 
 msgid "Manual Feed"
 msgstr "Alimentação Manual"
@@ -5246,7 +5246,8 @@ msgstr "Papel especial"
 
 #, c-format
 msgid "Spooling job, %.0f%% complete."
-msgstr "O trabalho de impressão %.0f%% está concluído."
+msgstr ""
+"O trabalho %.0f%% que estava na área da memória temporária foi concluído."
 
 msgid "Standard"
 msgstr "Padrão"
@@ -5374,7 +5375,7 @@ msgid "The printer is now connected."
 msgstr "A impressora agora está conectada."
 
 msgid "The printer is now online."
-msgstr "A impressora agora está on-line."
+msgstr "A impressora agora está conectada."
 
 msgid "The printer is offline."
 msgstr "A impressora está off-line."
@@ -6893,7 +6894,7 @@ msgstr ""
 
 #. TRANSLATORS: Errors Detected
 msgid "document-state-reasons.errors-detected"
-msgstr "Foram detectados erros no document-state-reasons.errors-detected"
+msgstr "Alguns erros foram detectados no document-state-reasons.errors-detected"
 
 #. TRANSLATORS: Incoming
 msgid "document-state-reasons.incoming"
@@ -6923,17 +6924,17 @@ msgstr ""
 
 #. TRANSLATORS: Queued
 msgid "document-state-reasons.queued"
-msgstr "Enfileirando document-state-reasons.queued"
+msgstr "Na fila da impressão do document-state-reasons.queued"
 
 #. TRANSLATORS: Queued For Marker
 msgid "document-state-reasons.queued-for-marker"
 msgstr ""
-"Enfileirando o documento preferido document-state-reasons.queued-for-marker"
+"O documento preferido document-state-reasons.queued-for-marker está na fila "
+"da impressão"
 
 #. TRANSLATORS: Queued In Device
 msgid "document-state-reasons.queued-in-device"
-msgstr ""
-"O document-state-reasons.queued-in-device está enfileirado no dispositivo"
+msgstr "O document-state-reasons.queued-in-device está na fila da impressão"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "document-state-reasons.resources-are-not-ready"
@@ -6971,8 +6972,7 @@ msgstr ""
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
 msgstr ""
-"Foram detectados alguns avisos para o document-state-reasons.warnings-"
-"detected"
+"Alguns avisos foram detectados no document-state-reasons.warnings-detected"
 
 #. TRANSLATORS: Pending
 msgid "document-state.3"
@@ -8311,7 +8311,7 @@ msgstr "Período do fim da tarde do job-delay-output-until.evening"
 
 #. TRANSLATORS: Released
 msgid "job-delay-output-until.indefinite"
-msgstr "Lançamento do job-delay-output-until.indefinite"
+msgstr "Liberação do job-delay-output-until.indefinite"
 
 #. TRANSLATORS: Night
 msgid "job-delay-output-until.night"
@@ -8403,7 +8403,7 @@ msgstr "Período do fim da tarde do job-hold-until.evening"
 
 #. TRANSLATORS: Released
 msgid "job-hold-until.indefinite"
-msgstr "Lançamento do job-hold-until.indefinite"
+msgstr "Liberação do job-hold-until.indefinite"
 
 #. TRANSLATORS: Night
 msgid "job-hold-until.night"
@@ -8726,131 +8726,152 @@ msgstr ""
 
 #. TRANSLATORS: Insufficient data
 msgid "job-state-reasons.job-data-insufficient"
-msgstr "Dados do Trabalho Insuficientes"
+msgstr "Os dados do job-state-reasons.job-data-insufficient não são suficientes"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
 msgstr ""
+"Atrasar a saída do trabalho do job-state-reasons.job-delay-output-until-"
+"specified até ser especificado"
 
 #. TRANSLATORS: Job Digital Signature Wait
 msgid "job-state-reasons.job-digital-signature-wait"
-msgstr "Aguardando Assinatura Digital"
+msgstr ""
+"Aguardando a assinatura digital do job-state-reasons.job-digital-signature-"
+"wait"
 
 #. TRANSLATORS: Job Fetchable
 msgid "job-state-reasons.job-fetchable"
-msgstr "Trabalho Buscável"
+msgstr "O trabalho do job-state-reasons.job-fetchable pode ser localizado"
 
 #. TRANSLATORS: Job Held For Review
 msgid "job-state-reasons.job-held-for-review"
-msgstr "Trabalho Retido para Revisão"
+msgstr ""
+"Reter o trabalho do job-state-reasons.job-held-for-review para ser revisado"
 
 #. TRANSLATORS: Job held
 msgid "job-state-reasons.job-hold-until-specified"
-msgstr "Trabalho Retido"
+msgstr "Reter o trabalho do job-state-reasons.job-hold-until-specified"
 
 #. TRANSLATORS: Incoming
 msgid "job-state-reasons.job-incoming"
-msgstr ""
+msgstr "O job-state-reasons.job-incoming está entrando"
 
 #. TRANSLATORS: Interpreting
 msgid "job-state-reasons.job-interpreting"
-msgstr ""
+msgstr "O job-state-reasons.job-interpreting está sendo interpretado"
 
 #. TRANSLATORS: Outgoing
 msgid "job-state-reasons.job-outgoing"
-msgstr "Saindo"
+msgstr "O job-state-reasons.job-outgoing está saindo"
 
 #. TRANSLATORS: Job Password Wait
 msgid "job-state-reasons.job-password-wait"
-msgstr "Aguardando Senha do Trabalho"
+msgstr "Aguardando a senha do trabalho do job-state-reasons.job-password-wait"
 
 #. TRANSLATORS: Job Printed Successfully
 msgid "job-state-reasons.job-printed-successfully"
-msgstr "Trabalho Impresso com Sucesso"
+msgstr ""
+"O trabalho do job-state-reasons.job-printed-successfully foi impresso com "
+"sucesso"
 
 #. TRANSLATORS: Job Printed With Errors
 msgid "job-state-reasons.job-printed-with-errors"
-msgstr "Trabalho Impresso com Erros"
+msgstr ""
+"Ocorreu alguns erros no trabalho impresso do job-state-reasons.job-printed-"
+"with-errors"
 
 #. TRANSLATORS: Job Printed With Warnings
 msgid "job-state-reasons.job-printed-with-warnings"
-msgstr "Trabalho Impresso com Avisos"
+msgstr ""
+"Ocorreu alguns avisos no trabalho impresso do job-state-reasons.job-printed-"
+"with-warnings"
 
 #. TRANSLATORS: Printing
 msgid "job-state-reasons.job-printing"
-msgstr "Trabalho Sendo Impresso"
+msgstr "O trabalho do job-state-reasons.job-printing está sendo impresso"
 
 #. TRANSLATORS: Preparing to print
 msgid "job-state-reasons.job-queued"
-msgstr "Trabalho Enfileirado"
+msgstr "O trabalho job-state-reasons.job-queued está na fila da impressão"
 
 #. TRANSLATORS: Processing document
 msgid "job-state-reasons.job-queued-for-marker"
-msgstr "Processando documento"
+msgstr "Processando o documento do job-state-reasons.job-queued-for-marker"
 
 #. TRANSLATORS: Job Release Wait
 msgid "job-state-reasons.job-release-wait"
-msgstr "Aguardando Liberação do Trabalho"
+msgstr ""
+"Aguardando a liberação do trabalho do job-state-reasons.job-release-wait"
 
 #. TRANSLATORS: Restartable
 msgid "job-state-reasons.job-restartable"
-msgstr "Trabalho Reiniciável"
+msgstr "O trabalho job-state-reasons.job-restartable pode ser reiniciado"
 
 #. TRANSLATORS: Job Resuming
 msgid "job-state-reasons.job-resuming"
-msgstr "Trabalho Sendo Retomado"
+msgstr "O trabalho job-state-reasons.job-resuming está sendo retomado"
 
 #. TRANSLATORS: Job Saved Successfully
 msgid "job-state-reasons.job-saved-successfully"
-msgstr "Trabalho Salvo com Sucesso"
+msgstr ""
+"O trabalho job-state-reasons.job-saved-successfully foi salvo com sucesso"
 
 #. TRANSLATORS: Job Saved With Errors
 msgid "job-state-reasons.job-saved-with-errors"
-msgstr "Trabalho Salvo com Erros"
+msgstr "O trabalho job-state-reasons.job-saved-with-errors foi salvo com erros"
 
 #. TRANSLATORS: Job Saved With Warnings
 msgid "job-state-reasons.job-saved-with-warnings"
-msgstr "motivos-estado-trabalho.trabalho‐salvo‐com‐avisos"
+msgstr ""
+"O trabalho job-state-reasons.job-saved-with-warnings foi salvo com avisos"
 
 #. TRANSLATORS: Job Saving
 msgid "job-state-reasons.job-saving"
-msgstr "Trabalho Sendo Salvo"
+msgstr "O trabalho job-state-reasons.job-saving está sendo salvo"
 
 #. TRANSLATORS: Job Spooling
 msgid "job-state-reasons.job-spooling"
 msgstr ""
+"O trabalho job-state-reasons.job-spooling foi enviado para a área da memória "
+"temporária"
 
 #. TRANSLATORS: Job Streaming
 msgid "job-state-reasons.job-streaming"
-msgstr "Trabalho Sendo Transmitido"
+msgstr "O trabalho job-state-reasons.job-streaming está sendo transmitido"
 
 #. TRANSLATORS: Suspended
 msgid "job-state-reasons.job-suspended"
-msgstr "Trabalho Suspenso"
+msgstr "O trabalho job-state-reasons.job-suspended foi suspenso"
 
 #. TRANSLATORS: Job Suspended By Operator
 msgid "job-state-reasons.job-suspended-by-operator"
-msgstr "Trabalho Suspenso por Operador"
+msgstr ""
+"O trabalho job-state-reasons.job-suspended-by-operator foi suspenso pelo "
+"operador"
 
 #. TRANSLATORS: Job Suspended By System
 msgid "job-state-reasons.job-suspended-by-system"
-msgstr "Trabalho Suspenso pelo Sistema"
+msgstr ""
+"O trabalho job-state-reasons.job-suspended-by-system foi suspenso pelo "
+"sistema operacional"
 
 #. TRANSLATORS: Job Suspended By User
 msgid "job-state-reasons.job-suspended-by-user"
-msgstr "Trabalho Suspenso por Usuário"
+msgstr ""
+"O trabalho job-state-reasons.job-suspended-by-user foi suspenso pelo usuário"
 
 #. TRANSLATORS: Job Suspending
 msgid "job-state-reasons.job-suspending"
-msgstr "Trabalho Sendo Suspenso"
+msgstr "O trabalho job-state-reasons.job-suspending está sendo suspenso"
 
 #. TRANSLATORS: Job Transferring
 msgid "job-state-reasons.job-transferring"
-msgstr "Trabalho Sendo Transferido"
+msgstr "O trabalho job-state-reasons.job-transferring está sendo transferido"
 
 #. TRANSLATORS: Transforming
 msgid "job-state-reasons.job-transforming"
-msgstr ""
+msgstr "O trabalho job-state-reasons.job-transforming está sendo transformando"
 
 #. TRANSLATORS: None
 msgid "job-state-reasons.none"
@@ -8858,42 +8879,45 @@ msgstr "Não tem o job-state-reasons.none"
 
 #. TRANSLATORS: Printer offline
 msgid "job-state-reasons.printer-stopped"
-msgstr "Impressora Parada"
+msgstr "A impressora job-state-reasons.printer-stopped está parada"
 
 #. TRANSLATORS: Printer partially stopped
 msgid "job-state-reasons.printer-stopped-partly"
-msgstr "Impressora Parada Parcialmente"
+msgstr ""
+"A impressora job-state-reasons.printer-stopped-partly está parcialmente "
+"parada"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.processing-to-stop-point"
-msgstr "Parando"
+msgstr "O trabalho job-state-reasons.processing-to-stop-point está parando"
 
 #. TRANSLATORS: Ready
 msgid "job-state-reasons.queued-in-device"
-msgstr "Pronto"
+msgstr "O trabalho job-state-reasons.queued-in-device está pronto"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "job-state-reasons.resources-are-not-ready"
-msgstr "Recursos Não Estão Prontos"
+msgstr ""
+"O recursos do job-state-reasons.resources-are-not-ready não estão prontos"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "job-state-reasons.resources-are-not-supported"
 msgstr ""
-"Os recursos não são compatíveis para o job-state-reasons.resources-are-not-"
-"supported"
+"Os recursos do job-state-reasons.resources-are-not-supported não são "
+"compatíveis"
 
 #. TRANSLATORS: Service offline
 msgid "job-state-reasons.service-off-line"
-msgstr "Serviço Fora do Ar"
+msgstr "O serviço job-state-reasons.service-off-line está desconectado"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "job-state-reasons.submission-interrupted"
-msgstr "Submissão Interrompida"
+msgstr "O envio do job-state-reasons.submission-interrupted foi interrompido"
 
 #. TRANSLATORS: Unsupported Attributes Or Values
 msgid "job-state-reasons.unsupported-attributes-or-values"
 msgstr ""
-"Os atributos ou valores não são compatíveis para o job-state-reasons"
+"Os atributos ou os valores não são compatíveis para o job-state-reasons"
 ".unsupported-attributes-or-values"
 
 #. TRANSLATORS: Unsupported Compression
@@ -8910,63 +8934,64 @@ msgstr ""
 
 #. TRANSLATORS: Waiting For User Action
 msgid "job-state-reasons.waiting-for-user-action"
-msgstr "Esperando Ação de Usuário"
+msgstr ""
+"O job-state-reasons.waiting-for-user-action está aguardando ação do usuário"
 
 #. TRANSLATORS: Warnings Detected
 msgid "job-state-reasons.warnings-detected"
-msgstr "Avisos Detectados"
+msgstr "Alguns avisos foram detectados no job-state-reasons.warnings-detected"
 
 #. TRANSLATORS: Pending
 msgid "job-state.3"
-msgstr "Pendente"
+msgstr "O job-state.3 está pendente"
 
 #. TRANSLATORS: Held
 msgid "job-state.4"
-msgstr "Retido"
+msgstr "O job-state.4 está retido"
 
 #. TRANSLATORS: Processing
 msgid "job-state.5"
-msgstr "Processando"
+msgstr "O job-state.5 está sendo processando"
 
 #. TRANSLATORS: Stopped
 msgid "job-state.6"
-msgstr "Parado"
+msgstr "O job-state.6 está sendo parado"
 
 #. TRANSLATORS: Canceled
 msgid "job-state.7"
-msgstr "Cancelado"
+msgstr "O job-state.7 está cancelado"
 
 #. TRANSLATORS: Aborted
 msgid "job-state.8"
-msgstr "Abortado"
+msgstr "O job-state.8 foi abortado"
 
 #. TRANSLATORS: Completed
 msgid "job-state.9"
-msgstr "Completado"
+msgstr "O job-state.9 foi completado"
 
 #. TRANSLATORS: Laminate Pages
 msgid "laminating"
-msgstr "Laminar Páginas"
+msgstr "Laminar as páginas laminating"
 
 #. TRANSLATORS: Laminate
 msgid "laminating-sides"
-msgstr "Laminar"
+msgstr "Laminar o laminating-sides"
 
 #. TRANSLATORS: Back Only
 msgid "laminating-sides.back"
-msgstr "Verso Apenas"
+msgstr "Somente o verso do laminating-sides.back"
 
 #. TRANSLATORS: Front and Back
 msgid "laminating-sides.both"
-msgstr "Frente e Verso"
+msgstr "Frente e verso do laminating-sides.both"
 
 #. TRANSLATORS: Front Only
 msgid "laminating-sides.front"
-msgstr "Frente Apenas"
+msgstr "Somente a frente do laminating-sides.front"
 
 #. TRANSLATORS: Type of Lamination
 msgid "laminating-type"
-msgstr "Tipo de Laminação"
+msgstr "Tipo de laminação do laminating-type"
 
 #. TRANSLATORS: Archival
 msgid "laminating-type.archival"
@@ -8974,11 +8999,11 @@ msgstr "Papel do laminating-type.archival"
 
 #. TRANSLATORS: Glossy
 msgid "laminating-type.glossy"
-msgstr "Brilhoso"
+msgstr "Brilhoso do laminating-type.glossy"
 
 #. TRANSLATORS: High Gloss
 msgid "laminating-type.high-gloss"
-msgstr "Alto Brilho"
+msgstr "Alto brilho do laminating-type.high-gloss"
 
 #. TRANSLATORS: Matte
 msgid "laminating-type.matte"
@@ -8986,18 +9011,20 @@ msgstr "Fosco do laminating-type.matte"
 
 #. TRANSLATORS: Semi-gloss
 msgid "laminating-type.semi-gloss"
-msgstr "Semi-brilho"
+msgstr "Semibrilho do laminating-type.semi-gloss"
 
 #. TRANSLATORS: Translucent
 msgid "laminating-type.translucent"
-msgstr "Translúcido"
+msgstr "Translúcido do laminating-type.translucent"
 
 #. TRANSLATORS: Logo
 msgid "logo"
-msgstr "Logo"
+msgstr "Logotipo do logo"
 
 msgid "lpadmin: Class name can only contain printable characters."
-msgstr "lpadmin: Nome da classe só pode conter caracteres imprimíveis."
+msgstr ""
+"O nome da classe pode conter somente os caracteres imprimíveis para o "
+"lpadmin."
 
 #, c-format
 msgid "lpadmin: Expected PPD after \"-%c\" option."
@@ -9050,32 +9077,34 @@ msgstr ""
 "Era esperado a impressora ou a classe após a opção \"-x\" para o lpadmin."
 
 msgid "lpadmin: No member names were seen."
-msgstr "lpadmin: Nenhum nome de membros foi encontrado."
+msgstr "Não foi encontrado o nome do membro para o lpadmin."
 
 #, c-format
 msgid "lpadmin: Printer %s is already a member of class %s."
-msgstr "lpadmin: Impressora %s já é um membro da classe %s."
+msgstr "A impressora %s já é um membro da classe %s para o lpadmin."
 
 #, c-format
 msgid "lpadmin: Printer %s is not a member of class %s."
-msgstr "lpadmin: Impressora %s não é membro da classe %s."
+msgstr "A impressora %s não é um membro da classe %s para o lpadmin."
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
 "version of CUPS."
 msgstr ""
-"lpadmin: Os drivers da impressora estão obsoletos e deixarão de funcionar em "
-"uma versão futura do CUPS."
+"Os controladores da impressora estão obsoletos e deixarão de funcionar em "
+"uma versão futura do CUPS para o lpadmin."
 
 msgid "lpadmin: Printer name can only contain printable characters."
-msgstr "lpadmin: Nome da impressora só pode conter caracteres imprimíveis."
+msgstr ""
+"O nome da impressora pode conter somente os caracteres imprimíveis para o "
+"lpadmin."
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
 "of CUPS."
 msgstr ""
-"lpadmin: Filas não processadas estão obsoletas e deixarão de funcionar em "
-"uma versão futura do CUPS."
+"As filas de espera não processadas estão obsoletas e deixarão de funcionar "
+"em uma versão futura do CUPS para o lpadmin."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr ""
@@ -9093,62 +9122,64 @@ msgid ""
 "lpadmin: Unable to add a printer to the class:\n"
 "         You must specify a printer name first."
 msgstr ""
-"lpadmin: Não é possível adicionar impressora à classe\n"
-"         Você deve primeiro especificar o nome da impressora."
+"Não foi possível adicionar uma impressora à classe para o lpadmin.\n"
+"         Você tem que especificar primeiro o nome da impressora."
 
 #, c-format
 msgid "lpadmin: Unable to connect to server: %s"
-msgstr "lpadmin: Não foi possível conectar ao servidor: %s"
+msgstr "Não foi possível conectar ao servidor %s para o lpadmin"
 
 msgid "lpadmin: Unable to create temporary file"
-msgstr "lpadmin: Não foi possível criar arquivo temporário"
+msgstr "Não foi possível criar um arquivo temporário para o lpadmin"
 
 msgid ""
 "lpadmin: Unable to delete option:\n"
 "         You must specify a printer name first."
 msgstr ""
-"lpadmin: Não foi possível excluir opção:\n"
-"         Você deve primeiro especificar o nome da impressora."
+"Não foi possível excluir a opção para o lpadmin.\n"
+"         Você tem que primeiro especificar o nome da impressora."
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s"
-msgstr "lpadmin: Não foi possível abrir o PPD \"%s\": %s"
+msgstr "Não foi possível abrir o arquivo PPD \"%s\" de %s para o lpadmin"
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s on line %d."
-msgstr "lpadmin: Não foi possível abrir o PPD \"%s\": %s na linha %d."
+msgstr "Não foi possível abrir o PPD \"%s\" de %s na linha %d para o lpadmin."
 
 msgid ""
 "lpadmin: Unable to remove a printer from the class:\n"
 "         You must specify a printer name first."
 msgstr ""
-"lpadmin: Não foi possível excluir impressora da classe:\n"
-"         Você deve primeiro especificar o nome da impressora."
+"Não foi possível remover a impressora da classe para o lpadmin.\n"
+"         Você tem que primeiro especificar o nome da impressora."
 
 msgid ""
 "lpadmin: Unable to set the printer options:\n"
 "         You must specify a printer name first."
 msgstr ""
-"lpadmin: Não foi possível definir as opções da impressora:\n"
-"         Você deve primeiro especificar o nome da impressora."
+"Não foi possível definir as opções da impressora para o lpadmin.\n"
+"         Você tem que primeiro especificar o nome da impressora."
 
 #, c-format
 msgid "lpadmin: Unknown allow/deny option \"%s\"."
-msgstr "lpadmin: Opção de permitir/negar desconhecida \"%s\"."
+msgstr "A opção de permitir ou negar o \"%s\" não é conhecida para o lpadmin."
 
 #, c-format
 msgid "lpadmin: Unknown argument \"%s\"."
-msgstr "lpadmin: Argumento desconhecido \"%s\"."
+msgstr "O argumento \"%s\" não é conhecido para o lpadmin."
 
 #, c-format
 msgid "lpadmin: Unknown option \"%c\"."
-msgstr "lpadmin: Opção desconhecida \"%c\"."
+msgstr "A opção \"%c\" não é conhecida para o lpadmin."
 
 msgid "lpadmin: Use the 'everywhere' model for shared printers."
-msgstr "lpadmin: Use o modelo 'everywhere' para impressoras compartilhadas."
+msgstr ""
+"Utilize o modelo 'everywhere' (em todos os lugares) para as impressoras "
+"compartilhadas no lpadmin."
 
 msgid "lpadmin: Warning - content type list ignored."
-msgstr "lpadmin: Aviso - lista de tipos de conteúdos ignorada."
+msgstr "Aviso: A lista dos tipos de conteúdos foi ignorada para o lpadmin."
 
 msgid "lpc> "
 msgstr "lpc> "
@@ -9176,263 +9207,265 @@ msgstr ""
 
 msgid "lpinfo: Expected scheme list after \"--include-schemes\"."
 msgstr ""
-"Era esperado a lista de esquemas após o \"--include-schemes\" para o lpinfo."
+"Era esperado a lista dos esquemas após o \"--include-schemes\" para o lpinfo."
 
 msgid "lpinfo: Expected timeout after \"--timeout\"."
 msgstr "Era esperado o tempo de espera após o \"--timeout\" para o lpinfo."
 
 #, c-format
 msgid "lpmove: Unable to connect to server: %s"
-msgstr "lpmove: Não foi possível conectar ao servidor: %s"
+msgstr "Não foi possível conectar ao servidor %s para o lpmove"
 
 #, c-format
 msgid "lpmove: Unknown argument \"%s\"."
-msgstr "lpmove: Argumento desconhecido \"%s\"."
+msgstr "O argumento \"%s\" não é conhecido para o lpmove."
 
 msgid "lpoptions: No printers."
-msgstr "lpoptions: Nenhuma impressora."
+msgstr "Não tem uma impressora no lpoptions."
 
 #, c-format
 msgid "lpoptions: Unable to add printer or instance: %s"
-msgstr "lpoptions: Não foi possível adicionar impressora ou instância: %s"
+msgstr "Não foi possível adicionar a impressora ou a instância %s no lpoptions"
 
 #, c-format
 msgid "lpoptions: Unable to get PPD file for %s: %s"
-msgstr "lpoptions: Não foi possível obter o arquivo PPD para %s: %s"
+msgstr "Não foi possível obter o arquivo PPD para o %s de %s do lpoptions"
 
 #, c-format
 msgid "lpoptions: Unable to open PPD file for %s."
-msgstr "lpoptions: Não foi possível abrir o arquivo PPD para %s."
+msgstr "Não foi possível abrir o arquivo PPD para %s do lpoptions."
 
 msgid "lpoptions: Unknown printer or class."
-msgstr "lpoptions: Impressora ou classe desconhecida."
+msgstr "A impressora ou a classe não é conhecida para o lpoptions."
 
 #, c-format
 msgid ""
 "lpstat: error - %s environment variable names non-existent destination \"%s"
 "\"."
 msgstr ""
-"lpstat: Erro - variável de ambiente %s contém destino inexistente \"%s\"."
+"Ocorreu um erro no nome da variável de ambiente %s que contém o destino "
+"\"%s\" que não existe para o lpstat."
 
 #. TRANSLATORS: Amount of Material
 msgid "material-amount"
-msgstr "Quantidade de Material"
+msgstr "Quantidade de material do material-amount"
 
 #. TRANSLATORS: Amount Units
 msgid "material-amount-units"
-msgstr "Unidades da Quantidade"
+msgstr "Quantidade do material-amount-units em unidades"
 
 #. TRANSLATORS: Grams
 msgid "material-amount-units.g"
-msgstr "Gramas"
+msgstr "Quantidade do material-amount-units.g em gramas"
 
 #. TRANSLATORS: Kilograms
 msgid "material-amount-units.kg"
-msgstr "Quilogramas"
+msgstr "Quantidade do material-amount-units.kg em quilogramas"
 
 #. TRANSLATORS: Liters
 msgid "material-amount-units.l"
-msgstr "Litros"
+msgstr "Quantidade do material-amount-units.l em litros"
 
 #. TRANSLATORS: Meters
 msgid "material-amount-units.m"
-msgstr "Metros"
+msgstr "Quantidade do material-amount-units.m em metros"
 
 #. TRANSLATORS: Milliliters
 msgid "material-amount-units.ml"
-msgstr "Mililitros"
+msgstr "Quantidade do material-amount-units.ml em mililitros"
 
 #. TRANSLATORS: Millimeters
 msgid "material-amount-units.mm"
-msgstr "Milímetros"
+msgstr "Quantidade do material-amount-units.mm em milímetros"
 
 #. TRANSLATORS: Material Color
 msgid "material-color"
-msgstr "Cor do Material"
+msgstr "Cor do material material-color"
 
 #. TRANSLATORS: Material Diameter
 msgid "material-diameter"
-msgstr "Diâmetro do Material"
+msgstr "Diâmetro do material do material-diameter"
 
 #. TRANSLATORS: Material Diameter Tolerance
 msgid "material-diameter-tolerance"
-msgstr "Tolarância de Diâmetro do Material"
+msgstr "Tolerância do diâmetro do material do material-diameter-tolerance"
 
 #. TRANSLATORS: Material Fill Density
 msgid "material-fill-density"
-msgstr "Densidade do Material"
+msgstr "Densidade do preenchimento do material do material-fill-density"
 
 #. TRANSLATORS: Material Name
 msgid "material-name"
-msgstr "Nome do Material"
+msgstr "Nome do material do material-name"
 
 #. TRANSLATORS: Material Nozzle Diameter
 msgid "material-nozzle-diameter"
-msgstr "Diâmetro do Bico Para o Material"
+msgstr "Diâmetro do bico do material do material-nozzle-diameter"
 
 #. TRANSLATORS: Use Material For
 msgid "material-purpose"
-msgstr "Usar Material Para"
+msgstr "Utilizar o material para material-purpose"
 
 #. TRANSLATORS: Everything
 msgid "material-purpose.all"
-msgstr "Tudo"
+msgstr "Tudo do material-purpose.all"
 
 #. TRANSLATORS: Base
 msgid "material-purpose.base"
-msgstr "Base"
+msgstr "Base do material-purpose.base"
 
 #. TRANSLATORS: In-fill
 msgid "material-purpose.in-fill"
-msgstr "Preenchimento"
+msgstr "Preenchimento do material-purpose.in-fill"
 
 #. TRANSLATORS: Shell
 msgid "material-purpose.shell"
-msgstr "Superfície"
+msgstr "Superfície do material-purpose.shell"
 
 #. TRANSLATORS: Supports
 msgid "material-purpose.support"
-msgstr "Suportes"
+msgstr "Suportes do material-purpose.support"
 
 #. TRANSLATORS: Feed Rate
 msgid "material-rate"
-msgstr "Taxa de Alimentação"
+msgstr "Taxa de alimentação do material-rate"
 
 #. TRANSLATORS: Feed Rate Units
 msgid "material-rate-units"
-msgstr "Unidades de Taxa de Alimentação"
+msgstr "Unidades da taxa de alimentação do material-rate-units"
 
 #. TRANSLATORS: Milligrams per second
 msgid "material-rate-units.mg_second"
-msgstr "Miligramas por segundo"
+msgstr "Miligramas por segundo do material-rate-units.mg_second"
 
 #. TRANSLATORS: Milliliters per second
 msgid "material-rate-units.ml_second"
-msgstr "Mililitros por segundo"
+msgstr "Mililitros por segundo do material-rate-units.ml_second"
 
 #. TRANSLATORS: Millimeters per second
 msgid "material-rate-units.mm_second"
-msgstr "Milímetros por segundo"
+msgstr "Milímetros por segundo do material-rate-units.mm_second"
 
 #. TRANSLATORS: Material Retraction
 msgid "material-retraction"
-msgstr "Retração do Material"
+msgstr "Retração do material do material-retraction"
 
 #. TRANSLATORS: Material Shell Thickness
 msgid "material-shell-thickness"
-msgstr "Espessura da Superfície do Material"
+msgstr "Espessura da superfície do material do material-shell-thickness"
 
 #. TRANSLATORS: Material Temperature
 msgid "material-temperature"
-msgstr "Temperatura do Material"
+msgstr "Temperatura do material do material-temperature"
 
 #. TRANSLATORS: Material Type
 msgid "material-type"
-msgstr "Tipo do Material"
+msgstr "Tipo do material do material-type"
 
 #. TRANSLATORS: ABS
 msgid "material-type.abs"
-msgstr "ABS"
+msgstr "ABS do material-type.abs"
 
 #. TRANSLATORS: Carbon Fiber ABS
 msgid "material-type.abs-carbon-fiber"
-msgstr "ABS com Fibra de Carbono"
+msgstr "ABS com fibra de carbono do material-type.abs-carbon-fiber"
 
 #. TRANSLATORS: Carbon Nanotube ABS
 msgid "material-type.abs-carbon-nanotube"
-msgstr "ABS com Nanotubos de Carbono"
+msgstr "ABS com nanotubos de carbono do material-type.abs-carbon-nanotube"
 
 #. TRANSLATORS: Chocolate
 msgid "material-type.chocolate"
-msgstr "Chocolate"
+msgstr "Chocolate do material-type.abs-carbon-nanotube"
 
 #. TRANSLATORS: Gold
 msgid "material-type.gold"
-msgstr "Ouro"
+msgstr "Ouro do material-type.gold"
 
 #. TRANSLATORS: Nylon
 msgid "material-type.nylon"
-msgstr "Nylon"
+msgstr "Nylon do material-type.nylon"
 
 #. TRANSLATORS: Pet
 msgid "material-type.pet"
-msgstr "PET"
+msgstr "PET do material-type.pet"
 
 #. TRANSLATORS: Photopolymer
 msgid "material-type.photopolymer"
-msgstr "Fotopolímero"
+msgstr "Fotopolímero do material-type.photopolymer"
 
 #. TRANSLATORS: PLA
 msgid "material-type.pla"
-msgstr "PLA"
+msgstr "Ácido polilático do material-type.pla"
 
 #. TRANSLATORS: Conductive PLA
 msgid "material-type.pla-conductive"
-msgstr "PLA Condutor"
+msgstr "Ácido polilático condutivo do material-type.pla-conductive"
 
 #. TRANSLATORS: Pla Dissolvable
 msgid "material-type.pla-dissolvable"
-msgstr "PLA Solúvel"
+msgstr "Ácido polilático dissolúvel do material-type.pla-dissolvable"
 
 #. TRANSLATORS: Flexible PLA
 msgid "material-type.pla-flexible"
-msgstr "PLA Flexível"
+msgstr "Ácido polilático flexível do material-type.pla-flexible"
 
 #. TRANSLATORS: Magnetic PLA
 msgid "material-type.pla-magnetic"
-msgstr "PLA Magnético"
+msgstr "Ácido polilático magnético do material-type.pla-magnetic"
 
 #. TRANSLATORS: Steel PLA
 msgid "material-type.pla-steel"
-msgstr "PLA Aço"
+msgstr "Ácido polilático com pó de aço do material-type.pla-steel"
 
 #. TRANSLATORS: Stone PLA
 msgid "material-type.pla-stone"
-msgstr "PLA Stone"
+msgstr ""
+"Ácido polilático que tem a aparência de pedra do material-type.pla-stone"
 
 #. TRANSLATORS: Wood PLA
 msgid "material-type.pla-wood"
-msgstr "PLA com Madeira"
+msgstr "Ácido polilático com fibras de madeira do material-type.pla-wood"
 
 #. TRANSLATORS: Polycarbonate
 msgid "material-type.polycarbonate"
-msgstr "Policarbonato"
+msgstr "Policarbonato do material-type.polycarbonate"
 
 #. TRANSLATORS: Dissolvable PVA
 msgid "material-type.pva-dissolvable"
-msgstr "PVA Solúvel"
+msgstr "Álcool polivinílico dissolúvel do material-type.pva-dissolvable"
 
 #. TRANSLATORS: Silver
 msgid "material-type.silver"
-msgstr "Prata"
+msgstr "Prata do material-type.silver"
 
 #. TRANSLATORS: Titanium
 msgid "material-type.titanium"
-msgstr "Titânio"
+msgstr "Titânio do material-type.titanium"
 
 #. TRANSLATORS: Wax
 msgid "material-type.wax"
-msgstr "Cera"
+msgstr "Cera do material-type.wax"
 
 #. TRANSLATORS: Materials
 msgid "materials-col"
-msgstr "Materiais"
+msgstr "Materiais do materials-col"
 
 #. TRANSLATORS: Media
 msgid "media"
-msgstr "Mídia"
+msgstr "Mídia do media"
 
 #. TRANSLATORS: Back Coating of Media
 msgid "media-back-coating"
-msgstr "Revestimento Traseiro"
+msgstr "Revestimento traseiro da mídia do media-back-coating"
 
 #. TRANSLATORS: Glossy
 msgid "media-back-coating.glossy"
-msgstr "Brilhoso"
+msgstr "Brilhoso do media-back-coating.glossy"
 
 #. TRANSLATORS: High Gloss
 msgid "media-back-coating.high-gloss"
-msgstr "Alto Brilho"
+msgstr "Alto brilho do media-back-coating.high-gloss"
 
 #. TRANSLATORS: Matte
 msgid "media-back-coating.matte"
@@ -9444,395 +9477,395 @@ msgstr "Não tem o media-back-coating.none"
 
 #. TRANSLATORS: Satin
 msgid "media-back-coating.satin"
-msgstr "Acetinado"
+msgstr "Acetinado do media-back-coating.satin"
 
 #. TRANSLATORS: Semi-gloss
 msgid "media-back-coating.semi-gloss"
-msgstr "Semibrilho"
+msgstr "Semibrilho do media-back-coating.semi-gloss"
 
 #. TRANSLATORS: Media Bottom Margin
 msgid "media-bottom-margin"
-msgstr "Margem Inferior"
+msgstr "Margem inferior do media-bottom-margin"
 
 #. TRANSLATORS: Media
 msgid "media-col"
-msgstr "Mídia"
+msgstr "Mídia do media-col"
 
 #. TRANSLATORS: Media Color
 msgid "media-color"
-msgstr "Cor da Mídia"
+msgstr "Cor da mídia do media-color"
 
 #. TRANSLATORS: Black
 msgid "media-color.black"
-msgstr ""
+msgstr "Preto do media-color.black"
 
 #. TRANSLATORS: Blue
 msgid "media-color.blue"
-msgstr ""
+msgstr "Azul do media-color.blue"
 
 #. TRANSLATORS: Brown
 msgid "media-color.brown"
-msgstr ""
+msgstr "Marrom do media-color.brown"
 
 #. TRANSLATORS: Buff
 msgid "media-color.buff"
-msgstr ""
+msgstr "Laranja-claro dourado do media-color.buff"
 
 #. TRANSLATORS: Clear Black
 msgid "media-color.clear-black"
-msgstr ""
+msgstr "Preto transparente do media-color.clear-black"
 
 #. TRANSLATORS: Clear Blue
 msgid "media-color.clear-blue"
-msgstr ""
+msgstr "Azul transparente do media-color.clear-blue"
 
 #. TRANSLATORS: Clear Brown
 msgid "media-color.clear-brown"
-msgstr ""
+msgstr "Marrom transparente do media-color.clear-brown"
 
 #. TRANSLATORS: Clear Buff
 msgid "media-color.clear-buff"
-msgstr ""
+msgstr "Laranja-transparente dourado do media-color.clear-buff"
 
 #. TRANSLATORS: Clear Cyan
 msgid "media-color.clear-cyan"
-msgstr ""
+msgstr "Ciano transparente do media-color.clear-cyan"
 
 #. TRANSLATORS: Clear Gold
 msgid "media-color.clear-gold"
-msgstr ""
+msgstr "Ouro transparente do media-color.clear-gold"
 
 #. TRANSLATORS: Clear Goldenrod
 msgid "media-color.clear-goldenrod"
-msgstr ""
+msgstr "Amarelo-dourado transparente do media-color.clear-goldenrod"
 
 #. TRANSLATORS: Clear Gray
 msgid "media-color.clear-gray"
-msgstr ""
+msgstr "Cinza transparente do media-color.clear-gray"
 
 #. TRANSLATORS: Clear Green
 msgid "media-color.clear-green"
-msgstr ""
+msgstr "Verde transparente do media-color.clear-green"
 
 #. TRANSLATORS: Clear Ivory
 msgid "media-color.clear-ivory"
-msgstr ""
+msgstr "Marfim transparente do media-color.clear-ivory"
 
 #. TRANSLATORS: Clear Magenta
 msgid "media-color.clear-magenta"
-msgstr ""
+msgstr "Magenta transparente do media-color.clear-magenta"
 
 #. TRANSLATORS: Clear Multi Color
 msgid "media-color.clear-multi-color"
-msgstr ""
+msgstr "Várias cores transparentes do media-color.clear-multi-color"
 
 #. TRANSLATORS: Clear Mustard
 msgid "media-color.clear-mustard"
-msgstr ""
+msgstr "Mostarda transparente do media-color.clear-mustard"
 
 #. TRANSLATORS: Clear Orange
 msgid "media-color.clear-orange"
-msgstr ""
+msgstr "Laranja transparente do media-color.clear-orange"
 
 #. TRANSLATORS: Clear Pink
 msgid "media-color.clear-pink"
-msgstr ""
+msgstr "Rosa transparente do media-color.clear-pink"
 
 #. TRANSLATORS: Clear Red
 msgid "media-color.clear-red"
-msgstr ""
+msgstr "Vermelho transparente do media-color.clear-red"
 
 #. TRANSLATORS: Clear Silver
 msgid "media-color.clear-silver"
-msgstr ""
+msgstr "Prata transparente do media-color.clear-silver"
 
 #. TRANSLATORS: Clear Turquoise
 msgid "media-color.clear-turquoise"
-msgstr ""
+msgstr "Turquesa transparente do media-color.clear-turquoise"
 
 #. TRANSLATORS: Clear Violet
 msgid "media-color.clear-violet"
-msgstr ""
+msgstr "Violeta transparente do media-color.clear-violet"
 
 #. TRANSLATORS: Clear White
 msgid "media-color.clear-white"
-msgstr ""
+msgstr "Branco transparente do media-color.clear-white"
 
 #. TRANSLATORS: Clear Yellow
 msgid "media-color.clear-yellow"
-msgstr ""
+msgstr "Amarelo transparente do media-color.clear-yellow"
 
 #. TRANSLATORS: Cyan
 msgid "media-color.cyan"
-msgstr ""
+msgstr "Ciano do media-color.cyan"
 
 #. TRANSLATORS: Dark Blue
 msgid "media-color.dark-blue"
-msgstr ""
+msgstr "Azul escuro do media-color.dark-blue"
 
 #. TRANSLATORS: Dark Brown
 msgid "media-color.dark-brown"
-msgstr ""
+msgstr "Marrom escuro do media-color.dark-brown"
 
 #. TRANSLATORS: Dark Buff
 msgid "media-color.dark-buff"
-msgstr ""
+msgstr "Castanho escuro do media-color.dark-buff"
 
 #. TRANSLATORS: Dark Cyan
 msgid "media-color.dark-cyan"
-msgstr ""
+msgstr "Ciano escuro do media-color.dark-cyan"
 
 #. TRANSLATORS: Dark Gold
 msgid "media-color.dark-gold"
-msgstr ""
+msgstr "Ouro escuro do media-color.dark-gold"
 
 #. TRANSLATORS: Dark Goldenrod
 msgid "media-color.dark-goldenrod"
-msgstr ""
+msgstr "Amarelo-alaranjado escuro do media-color.dark-goldenrod"
 
 #. TRANSLATORS: Dark Gray
 msgid "media-color.dark-gray"
-msgstr ""
+msgstr "Cinza escuro do media-color.dark-gray"
 
 #. TRANSLATORS: Dark Green
 msgid "media-color.dark-green"
-msgstr ""
+msgstr "Verde escuro do media-color.dark-green"
 
 #. TRANSLATORS: Dark Ivory
 msgid "media-color.dark-ivory"
-msgstr ""
+msgstr "Marfim escuro do media-color.dark-ivory"
 
 #. TRANSLATORS: Dark Magenta
 msgid "media-color.dark-magenta"
-msgstr ""
+msgstr "Magenta escuro do media-color.dark-magenta"
 
 #. TRANSLATORS: Dark Mustard
 msgid "media-color.dark-mustard"
-msgstr ""
+msgstr "Mostarda escura do media-color.dark-mustard"
 
 #. TRANSLATORS: Dark Orange
 msgid "media-color.dark-orange"
-msgstr ""
+msgstr "Laranja escuro do media-color.dark-orange"
 
 #. TRANSLATORS: Dark Pink
 msgid "media-color.dark-pink"
-msgstr ""
+msgstr "Rosa escuro do media-color.dark-pink"
 
 #. TRANSLATORS: Dark Red
 msgid "media-color.dark-red"
-msgstr ""
+msgstr "Vermelho escuro do media-color.dark-red"
 
 #. TRANSLATORS: Dark Silver
 msgid "media-color.dark-silver"
-msgstr ""
+msgstr "Prata escuro do media-color.dark-silver"
 
 #. TRANSLATORS: Dark Turquoise
 msgid "media-color.dark-turquoise"
-msgstr ""
+msgstr "Turquesa escuro do media-color.dark-turquoise"
 
 #. TRANSLATORS: Dark Violet
 msgid "media-color.dark-violet"
-msgstr ""
+msgstr "Violeta escuro do media-color.dark-violet"
 
 #. TRANSLATORS: Dark Yellow
 msgid "media-color.dark-yellow"
-msgstr ""
+msgstr "Amarelo escuro do media-color.dark-yellow"
 
 #. TRANSLATORS: Gold
 msgid "media-color.gold"
-msgstr ""
+msgstr "Ouro do media-color.gold"
 
 #. TRANSLATORS: Goldenrod
 msgid "media-color.goldenrod"
-msgstr ""
+msgstr "Amarelo-alaranjado do media-color.goldenrod"
 
 #. TRANSLATORS: Gray
 msgid "media-color.gray"
-msgstr ""
+msgstr "Cinza do media-color.gray"
 
 #. TRANSLATORS: Green
 msgid "media-color.green"
-msgstr ""
+msgstr "Verde do media-color.green"
 
 #. TRANSLATORS: Ivory
 msgid "media-color.ivory"
-msgstr ""
+msgstr "Marfim do media-color.ivory"
 
 #. TRANSLATORS: Light Black
 msgid "media-color.light-black"
-msgstr ""
+msgstr "Preto claro do media-color.light-black"
 
 #. TRANSLATORS: Light Blue
 msgid "media-color.light-blue"
-msgstr ""
+msgstr "Azul claro do media-color.light-blue"
 
 #. TRANSLATORS: Light Brown
 msgid "media-color.light-brown"
-msgstr ""
+msgstr "Marrom claro do media-color.light-brown"
 
 #. TRANSLATORS: Light Buff
 msgid "media-color.light-buff"
-msgstr ""
+msgstr "Laranja-claro dourado do media-color.light-buff"
 
 #. TRANSLATORS: Light Cyan
 msgid "media-color.light-cyan"
-msgstr ""
+msgstr "Ciano claro do media-color.light-cyan"
 
 #. TRANSLATORS: Light Gold
 msgid "media-color.light-gold"
-msgstr ""
+msgstr "Ouro claro do media-color.light-gold"
 
 #. TRANSLATORS: Light Goldenrod
 msgid "media-color.light-goldenrod"
-msgstr ""
+msgstr "Amarelo-dourado claro do media-color.light-goldenrod"
 
 #. TRANSLATORS: Light Gray
 msgid "media-color.light-gray"
-msgstr ""
+msgstr "Cinza claro do media-color.light-gray"
 
 #. TRANSLATORS: Light Green
 msgid "media-color.light-green"
-msgstr ""
+msgstr "Verde claro do media-color.light-green"
 
 #. TRANSLATORS: Light Ivory
 msgid "media-color.light-ivory"
-msgstr ""
+msgstr "Marfim claro do media-color.light-ivory"
 
 #. TRANSLATORS: Light Magenta
 msgid "media-color.light-magenta"
-msgstr ""
+msgstr "Magenta claro do media-color.light-magenta"
 
 #. TRANSLATORS: Light Mustard
 msgid "media-color.light-mustard"
-msgstr ""
+msgstr "Mostarda clara do media-color.light-mustard"
 
 #. TRANSLATORS: Light Orange
 msgid "media-color.light-orange"
-msgstr ""
+msgstr "Laranja claro do media-color.light-orange"
 
 #. TRANSLATORS: Light Pink
 msgid "media-color.light-pink"
-msgstr ""
+msgstr "Rosa claro do media-color.light-pink"
 
 #. TRANSLATORS: Light Red
 msgid "media-color.light-red"
-msgstr ""
+msgstr "Vermelho claro do media-color.light-red"
 
 #. TRANSLATORS: Light Silver
 msgid "media-color.light-silver"
-msgstr ""
+msgstr "Prata claro do media-color.light-silver"
 
 #. TRANSLATORS: Light Turquoise
 msgid "media-color.light-turquoise"
-msgstr ""
+msgstr "Turquesa claro do media-color.light-turquoise"
 
 #. TRANSLATORS: Light Violet
 msgid "media-color.light-violet"
-msgstr ""
+msgstr "Violeta claro do media-color.light-violet"
 
 #. TRANSLATORS: Light Yellow
 msgid "media-color.light-yellow"
-msgstr ""
+msgstr "Amarelo claro do media-color.light-yellow"
 
 #. TRANSLATORS: Magenta
 msgid "media-color.magenta"
-msgstr ""
+msgstr "Magenta do media-color.magenta"
 
 #. TRANSLATORS: Multi-color
 msgid "media-color.multi-color"
-msgstr ""
+msgstr "Várias cores do media-color.multi-color"
 
 #. TRANSLATORS: Mustard
 msgid "media-color.mustard"
-msgstr ""
+msgstr "Mostarda do media-color.mustard"
 
 #. TRANSLATORS: No Color
 msgid "media-color.no-color"
-msgstr ""
+msgstr "Sem cor do media-color.no-color"
 
 #. TRANSLATORS: Orange
 msgid "media-color.orange"
-msgstr ""
+msgstr "Laranja do media-color.orange"
 
 #. TRANSLATORS: Pink
 msgid "media-color.pink"
-msgstr ""
+msgstr "Rosa do media-color.pink"
 
 #. TRANSLATORS: Red
 msgid "media-color.red"
-msgstr ""
+msgstr "Vermelho do media-color.red"
 
 #. TRANSLATORS: Silver
 msgid "media-color.silver"
-msgstr ""
+msgstr "Prata do media-color.silver"
 
 #. TRANSLATORS: Turquoise
 msgid "media-color.turquoise"
-msgstr ""
+msgstr "Turquesa do media-color.turquoise"
 
 #. TRANSLATORS: Violet
 msgid "media-color.violet"
-msgstr ""
+msgstr "Violeta do media-color.violet"
 
 #. TRANSLATORS: White
 msgid "media-color.white"
-msgstr ""
+msgstr "Branco do media-color.white"
 
 #. TRANSLATORS: Yellow
 msgid "media-color.yellow"
-msgstr ""
+msgstr "Amarelo do media-color.yellow"
 
 #. TRANSLATORS: Front Coating of Media
 msgid "media-front-coating"
-msgstr "Acabamento Frontal"
+msgstr "Acabamento frontal do media-front-coating"
 
 #. TRANSLATORS: Media Grain
 msgid "media-grain"
-msgstr ""
+msgstr "Grão do media-grain"
 
 #. TRANSLATORS: Cross-Feed Direction
 msgid "media-grain.x-direction"
-msgstr ""
+msgstr "Direção da alimentação cruzada do media-grain.x-direction"
 
 #. TRANSLATORS: Feed Direction
 msgid "media-grain.y-direction"
-msgstr ""
+msgstr "Direção da alimentação do media-grain.y-direction"
 
 #. TRANSLATORS: Media Hole Count
 msgid "media-hole-count"
-msgstr ""
+msgstr "Contagem dos furos do media-hole-count"
 
 #. TRANSLATORS: Media Info
 msgid "media-info"
-msgstr ""
+msgstr "Informações do media-info"
 
 #. TRANSLATORS: Force Media
 msgid "media-input-tray-check"
-msgstr ""
+msgstr "Forçar o media-input-tray-check"
 
 #. TRANSLATORS: Media Left Margin
 msgid "media-left-margin"
-msgstr "Margem Esquerda"
+msgstr "Margem à esquerda do media-left-margin"
 
 #. TRANSLATORS: Pre-printed Media
 msgid "media-pre-printed"
-msgstr ""
+msgstr "Pré-impressão do media-pre-printed"
 
 #. TRANSLATORS: Blank
 msgid "media-pre-printed.blank"
-msgstr ""
+msgstr "Pré-impressão em branco do media-pre-printed.blank"
 
 #. TRANSLATORS: Letterhead
 msgid "media-pre-printed.letter-head"
-msgstr ""
+msgstr "Papel timbrado do media-pre-printed.letter-head"
 
 #. TRANSLATORS: Pre-printed
 msgid "media-pre-printed.pre-printed"
-msgstr "Pré-impresso"
+msgstr "Pré-impressão do media-pre-printed.pre-printed"
 
 #. TRANSLATORS: Recycled Media
 msgid "media-recycled"
-msgstr ""
+msgstr "Reciclagem do media-recycled"
 
 #. TRANSLATORS: None
 msgid "media-recycled.none"
@@ -9840,267 +9873,267 @@ msgstr "Não tem o media-recycled.none"
 
 #. TRANSLATORS: Standard
 msgid "media-recycled.standard"
-msgstr "Padrão"
+msgstr "Padrão do media-recycled.standard"
 
 #. TRANSLATORS: Media Right Margin
 msgid "media-right-margin"
-msgstr "Margem Direita"
+msgstr "Margem à direita do media-right-margin"
 
 #. TRANSLATORS: Media Dimensions
 msgid "media-size"
-msgstr "Dimensões da Mídia"
+msgstr "Dimensões da mídia do media-size"
 
 #. TRANSLATORS: Media Name
 msgid "media-size-name"
-msgstr "Nome da Mídia"
+msgstr "Nome da mídia do media-size-name"
 
 #. TRANSLATORS: Media Source
 msgid "media-source"
-msgstr ""
+msgstr "Origem da mídia do media-source"
 
 #. TRANSLATORS: Alternate
 msgid "media-source.alternate"
-msgstr ""
+msgstr "Alternar o media-source.alternate"
 
 #. TRANSLATORS: Alternate Roll
 msgid "media-source.alternate-roll"
-msgstr ""
+msgstr "Rolete alternativo do media-source.alternate-roll"
 
 #. TRANSLATORS: Automatic
 msgid "media-source.auto"
-msgstr "Automático"
+msgstr "Automático do media-source.auto"
 
 #. TRANSLATORS: Bottom
 msgid "media-source.bottom"
-msgstr ""
+msgstr "No canto inferior do media-source.bottom"
 
 #. TRANSLATORS: By-pass Tray
 msgid "media-source.by-pass-tray"
-msgstr ""
+msgstr "Desvio da bandeja do media-source.by-pass-tray"
 
 #. TRANSLATORS: Center
 msgid "media-source.center"
-msgstr "Centro"
+msgstr "Centro do media-source.center"
 
 #. TRANSLATORS: Disc
 msgid "media-source.disc"
-msgstr "Disco"
+msgstr "Disco do media-source.disc"
 
 #. TRANSLATORS: Envelope
 msgid "media-source.envelope"
-msgstr "Envelope"
+msgstr "Envelope do media-source.envelope"
 
 #. TRANSLATORS: Hagaki
 msgid "media-source.hagaki"
-msgstr ""
+msgstr "Cartão postal do media-source.hagaki"
 
 #. TRANSLATORS: Large Capacity
 msgid "media-source.large-capacity"
-msgstr ""
+msgstr "Grande capacidade do media-source.large-capacity"
 
 #. TRANSLATORS: Left
 msgid "media-source.left"
-msgstr "Esquerda"
+msgstr "Esquerda do media-source.left"
 
 #. TRANSLATORS: Main
 msgid "media-source.main"
-msgstr "Principal"
+msgstr "Principal do media-source.main"
 
 #. TRANSLATORS: Main Roll
 msgid "media-source.main-roll"
-msgstr "Rolete Principal"
+msgstr "Rolete principal do media-source.main-roll"
 
 #. TRANSLATORS: Manual
 msgid "media-source.manual"
-msgstr "Manual"
+msgstr "Manual do media-source.manual"
 
 #. TRANSLATORS: Middle
 msgid "media-source.middle"
-msgstr ""
+msgstr "Meio do media-source.middle"
 
 #. TRANSLATORS: Photo
 msgid "media-source.photo"
-msgstr "Foto"
+msgstr "Foto do media-source.photo"
 
 #. TRANSLATORS: Rear
 msgid "media-source.rear"
-msgstr ""
+msgstr "Na parte de trás do media-source.rear"
 
 #. TRANSLATORS: Right
 msgid "media-source.right"
-msgstr "Direita"
+msgstr "No canto direito do media-source.right"
 
 #. TRANSLATORS: Roll 1
 msgid "media-source.roll-1"
-msgstr "Rolete 1"
+msgstr "Rolete 1 do media-source.roll-1"
 
 #. TRANSLATORS: Roll 10
 msgid "media-source.roll-10"
-msgstr "Rolete 10"
+msgstr "Rolete 10 do media-source.roll-10"
 
 #. TRANSLATORS: Roll 2
 msgid "media-source.roll-2"
-msgstr "Rolete 2"
+msgstr "Rolete 2 do media-source.roll-2"
 
 #. TRANSLATORS: Roll 3
 msgid "media-source.roll-3"
-msgstr "Rolete 3"
+msgstr "Rolete 3 do media-source.roll-3"
 
 #. TRANSLATORS: Roll 4
 msgid "media-source.roll-4"
-msgstr "Rolete 4"
+msgstr "Rolete 4 do media-source.roll-4"
 
 #. TRANSLATORS: Roll 5
 msgid "media-source.roll-5"
-msgstr "Rolete 5"
+msgstr "Rolete 5 do media-source.roll-5"
 
 #. TRANSLATORS: Roll 6
 msgid "media-source.roll-6"
-msgstr "Rolete 6"
+msgstr "Rolete 6 do media-source.roll-6"
 
 #. TRANSLATORS: Roll 7
 msgid "media-source.roll-7"
-msgstr "Rolete 7"
+msgstr "Rolete 7 do media-source.roll-7"
 
 #. TRANSLATORS: Roll 8
 msgid "media-source.roll-8"
-msgstr "Rolete 8"
+msgstr "Rolete 8 do media-source.roll-8"
 
 #. TRANSLATORS: Roll 9
 msgid "media-source.roll-9"
-msgstr "Rolete 9"
+msgstr "Rolete 9 do media-source.roll-9"
 
 #. TRANSLATORS: Side
 msgid "media-source.side"
-msgstr "Lateral"
+msgstr "No canto lateral do media-source.side"
 
 #. TRANSLATORS: Top
 msgid "media-source.top"
-msgstr "Topo"
+msgstr "No canto superior do media-source.top"
 
 #. TRANSLATORS: Tray 1
 msgid "media-source.tray-1"
-msgstr "Bandeja 1"
+msgstr "Bandeja 1 do media-source.tray-1"
 
 #. TRANSLATORS: Tray 10
 msgid "media-source.tray-10"
-msgstr "Bandeja 10"
+msgstr "Bandeja 10 do media-source.tray-10"
 
 #. TRANSLATORS: Tray 11
 msgid "media-source.tray-11"
-msgstr "Bandeja 11"
+msgstr "Bandeja 11 do media-source.tray-11"
 
 #. TRANSLATORS: Tray 12
 msgid "media-source.tray-12"
-msgstr "Bandeja 12"
+msgstr "Bandeja 12 do media-source.tray-12"
 
 #. TRANSLATORS: Tray 13
 msgid "media-source.tray-13"
-msgstr "Bandeja 13"
+msgstr "Bandeja 13 do media-source.tray-13"
 
 #. TRANSLATORS: Tray 14
 msgid "media-source.tray-14"
-msgstr "Bandeja 14"
+msgstr "Bandeja 14 do media-source.tray-14"
 
 #. TRANSLATORS: Tray 15
 msgid "media-source.tray-15"
-msgstr "Bandeja 15"
+msgstr "Bandeja 15 do media-source.tray-15"
 
 #. TRANSLATORS: Tray 16
 msgid "media-source.tray-16"
-msgstr "Bandeja 16"
+msgstr "Bandeja 16 do media-source.tray-16"
 
 #. TRANSLATORS: Tray 17
 msgid "media-source.tray-17"
-msgstr "Bandeja 17"
+msgstr "Bandeja 17 do media-source.tray-17"
 
 #. TRANSLATORS: Tray 18
 msgid "media-source.tray-18"
-msgstr "Bandeja 18"
+msgstr "Bandeja 18 do media-source.tray-18"
 
 #. TRANSLATORS: Tray 19
 msgid "media-source.tray-19"
-msgstr "Bandeja 19"
+msgstr "Bandeja 19 do media-source.tray-19"
 
 #. TRANSLATORS: Tray 2
 msgid "media-source.tray-2"
-msgstr "Bandeja 2"
+msgstr "Bandeja 2 do media-source.tray-2"
 
 #. TRANSLATORS: Tray 20
 msgid "media-source.tray-20"
-msgstr "Bandeja 20"
+msgstr "Bandeja 20 do media-source.tray-20"
 
 #. TRANSLATORS: Tray 3
 msgid "media-source.tray-3"
-msgstr "Bandeja 3"
+msgstr "Bandeja 3 do media-source.tray-3"
 
 #. TRANSLATORS: Tray 4
 msgid "media-source.tray-4"
-msgstr "Bandeja 4"
+msgstr "Bandeja 4 do media-source.tray-4"
 
 #. TRANSLATORS: Tray 5
 msgid "media-source.tray-5"
-msgstr "Bandeja 5"
+msgstr "Bandeja 5 do media-source.tray-5"
 
 #. TRANSLATORS: Tray 6
 msgid "media-source.tray-6"
-msgstr "Bandeja 6"
+msgstr "Bandeja 6 do media-source.tray-6"
 
 #. TRANSLATORS: Tray 7
 msgid "media-source.tray-7"
-msgstr "Bandeja 7"
+msgstr "Bandeja 7 do media-source.tray-7"
 
 #. TRANSLATORS: Tray 8
 msgid "media-source.tray-8"
-msgstr "Bandeja 8"
+msgstr "Bandeja 8 do media-source.tray-8"
 
 #. TRANSLATORS: Tray 9
 msgid "media-source.tray-9"
-msgstr "Bandeja 9"
+msgstr "Bandeja 9 do media-source.tray-9"
 
 #. TRANSLATORS: Media Thickness
 msgid "media-thickness"
-msgstr "Espessura da Mídia"
+msgstr "Espessura da mídia do media-thickness"
 
 #. TRANSLATORS: Media Tooth (Texture)
 msgid "media-tooth"
-msgstr ""
+msgstr "Dente da mídia (textura) do media-tooth"
 
 #. TRANSLATORS: Antique
 msgid "media-tooth.antique"
-msgstr "Antiguidade"
+msgstr "Antiguidade do media-tooth.antique"
 
 #. TRANSLATORS: Extra Smooth
 msgid "media-tooth.calendared"
-msgstr "Extra Liso"
+msgstr "Extra liso do media-tooth.calendared"
 
 #. TRANSLATORS: Coarse
 msgid "media-tooth.coarse"
-msgstr "Grosso"
+msgstr "Grosso do media-tooth.coarse"
 
 #. TRANSLATORS: Fine
 msgid "media-tooth.fine"
-msgstr "Fino"
+msgstr "Fino do media-tooth.fine"
 
 #. TRANSLATORS: Linen
 msgid "media-tooth.linen"
-msgstr "Linho"
+msgstr "Linho do media-tooth.linen"
 
 #. TRANSLATORS: Medium
 msgid "media-tooth.medium"
-msgstr "Médio"
+msgstr "Médio do media-tooth.medium"
 
 #. TRANSLATORS: Smooth
 msgid "media-tooth.smooth"
-msgstr "Liso"
+msgstr "Liso do media-tooth.smooth"
 
 #. TRANSLATORS: Stipple
 msgid "media-tooth.stipple"
-msgstr ""
+msgstr "Pontilhado do media-tooth.stipple"
 
 #. TRANSLATORS: Rough
 msgid "media-tooth.uncalendared"
-msgstr "Áspero"
+msgstr "Áspero do media-tooth.uncalendared"
 
 #. TRANSLATORS: Vellum
 msgid "media-tooth.vellum"
@@ -10571,7 +10604,7 @@ msgstr ""
 
 #. TRANSLATORS: Roll
 msgid "media-type.roll"
-msgstr ""
+msgstr "Rolete do media-type.roll"
 
 #. TRANSLATORS: Screen
 msgid "media-type.screen"
@@ -10643,7 +10676,7 @@ msgstr ""
 
 #. TRANSLATORS: Lightweight Paper
 msgid "media-type.stationery-lightweight"
-msgstr ""
+msgstr "Papel com baixa gramatura do media-type.stationery-lightweight"
 
 #. TRANSLATORS: Preprinted Paper
 msgid "media-type.stationery-preprinted"
@@ -12691,7 +12724,7 @@ msgstr ""
 
 #. TRANSLATORS: Highlight
 msgid "print-color-mode.highlight"
-msgstr ""
+msgstr "Destaque do print-color-mode.highlight"
 
 #. TRANSLATORS: Monochrome
 msgid "print-color-mode.monochrome"
@@ -12899,7 +12932,7 @@ msgstr ""
 
 #. TRANSLATORS: Roll
 msgid "printer-kind.roll"
-msgstr ""
+msgstr "Rolete do printer-kind.roll"
 
 #. TRANSLATORS: Message From Operator
 msgid "printer-message-from-operator"
@@ -13941,10 +13974,14 @@ msgstr ""
 #. TRANSLATORS: Input Pick Roller Failure
 msgid "printer-state-reasons.input-pick-roller-failure"
 msgstr ""
+"Ocorreu uma falha no rolete da coleta de entrada do printer-state-reasons"
+".input-pick-roller-failure"
 
 #. TRANSLATORS: Input Pick Roller Life Over
 msgid "printer-state-reasons.input-pick-roller-life-over"
 msgstr ""
+"O rolete da coleta de entrada está no fim da sua vida útil do printer-state-"
+"reasons.input-pick-roller-life-over"
 
 #. TRANSLATORS: Input Pick Roller Life Warn
 msgid "printer-state-reasons.input-pick-roller-life-warn"
