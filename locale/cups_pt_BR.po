@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-23 15:05+0000\n"
+"PO-Revision-Date: 2025-07-24 12:47+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -6316,19 +6316,19 @@ msgstr "Tipo do revestimento do coating-type"
 
 #. TRANSLATORS: Archival
 msgid "coating-type.archival"
-msgstr "Papel do coating-type.archival"
+msgstr "Arquivo do coating-type.archival"
 
 #. TRANSLATORS: Archival Glossy
 msgid "coating-type.archival-glossy"
-msgstr "Papel brilhante do coating-type.archival-glossy"
+msgstr "Arquivo brilhante do coating-type.archival-glossy"
 
 #. TRANSLATORS: Archival Matte
 msgid "coating-type.archival-matte"
-msgstr "Papel fosco do coating-type.archival-matte"
+msgstr "Arquivo fosco do coating-type.archival-matte"
 
 #. TRANSLATORS: Archival Semi Gloss
 msgid "coating-type.archival-semi-gloss"
-msgstr "Papel semibrilhante do coating-type.archival-semi-gloss"
+msgstr "Arquivo semibrilhante do coating-type.archival-semi-gloss"
 
 #. TRANSLATORS: Glossy
 msgid "coating-type.glossy"
@@ -8995,15 +8995,15 @@ msgstr "Tipo de laminação do laminating-type"
 
 #. TRANSLATORS: Archival
 msgid "laminating-type.archival"
-msgstr "Papel do laminating-type.archival"
+msgstr "Arquivo do laminating-type.archival"
 
 #. TRANSLATORS: Glossy
 msgid "laminating-type.glossy"
-msgstr "Brilhoso do laminating-type.glossy"
+msgstr "Brilhante do laminating-type.glossy"
 
 #. TRANSLATORS: High Gloss
 msgid "laminating-type.high-gloss"
-msgstr "Alto brilho do laminating-type.high-gloss"
+msgstr "Muito brilhante do laminating-type.high-gloss"
 
 #. TRANSLATORS: Matte
 msgid "laminating-type.matte"
@@ -9011,7 +9011,7 @@ msgstr "Fosco do laminating-type.matte"
 
 #. TRANSLATORS: Semi-gloss
 msgid "laminating-type.semi-gloss"
-msgstr "Semibrilho do laminating-type.semi-gloss"
+msgstr "Semibrilhante do laminating-type.semi-gloss"
 
 #. TRANSLATORS: Translucent
 msgid "laminating-type.translucent"
@@ -9461,11 +9461,11 @@ msgstr "Revestimento traseiro da mídia do media-back-coating"
 
 #. TRANSLATORS: Glossy
 msgid "media-back-coating.glossy"
-msgstr "Brilhoso do media-back-coating.glossy"
+msgstr "Brilhante do media-back-coating.glossy"
 
 #. TRANSLATORS: High Gloss
 msgid "media-back-coating.high-gloss"
-msgstr "Alto brilho do media-back-coating.high-gloss"
+msgstr "Muito brilhante do media-back-coating.high-gloss"
 
 #. TRANSLATORS: Matte
 msgid "media-back-coating.matte"
@@ -9481,7 +9481,7 @@ msgstr "Acetinado do media-back-coating.satin"
 
 #. TRANSLATORS: Semi-gloss
 msgid "media-back-coating.semi-gloss"
-msgstr "Semibrilho do media-back-coating.semi-gloss"
+msgstr "Semibrilhante do media-back-coating.semi-gloss"
 
 #. TRANSLATORS: Media Bottom Margin
 msgid "media-bottom-margin"
@@ -10137,47 +10137,47 @@ msgstr "Áspero do media-tooth.uncalendared"
 
 #. TRANSLATORS: Vellum
 msgid "media-tooth.vellum"
-msgstr "Velino"
+msgstr "Veludo do media-tooth.vellum"
 
 #. TRANSLATORS: Media Top Margin
 msgid "media-top-margin"
-msgstr "Margem Superior"
+msgstr "Margem superior do media-top-margin"
 
 #. TRANSLATORS: Media Type
 msgid "media-type"
-msgstr "Tipo de Mídia"
+msgstr "Tipo de mídia do media-type"
 
 #. TRANSLATORS: Aluminum
 msgid "media-type.aluminum"
-msgstr "Alumínio"
+msgstr "Alumínio do media-type.aluminum"
 
 #. TRANSLATORS: Automatic
 msgid "media-type.auto"
-msgstr "Automático"
+msgstr "Automático do media-type.auto"
 
 #. TRANSLATORS: Back Print Film
 msgid "media-type.back-print-film"
-msgstr ""
+msgstr "Filme de impressão traseiro do media-type.back-print-film"
 
 #. TRANSLATORS: Cardboard
 msgid "media-type.cardboard"
-msgstr "Papelão"
+msgstr "Papelão do media-type.cardboard"
 
 #. TRANSLATORS: Cardstock
 msgid "media-type.cardstock"
-msgstr "Cartolina"
+msgstr "Cartolina do media-type.cardstock"
 
 #. TRANSLATORS: CD
 msgid "media-type.cd"
-msgstr "CD"
+msgstr "CD do media-type.cd"
 
 #. TRANSLATORS: Photo Advanced Paper
 msgid "media-type.com.hp.advanced-photo"
-msgstr "Papel Photo Advanced"
+msgstr "Papel fotográfico avançado do media-type.com.hp.advanced-photo"
 
 #. TRANSLATORS: Brochure Glossy Paper
 msgid "media-type.com.hp.brochure-glossy"
-msgstr "Papel de Brochura Brilhoso"
+msgstr "Papel de brochura brilhante do media-type.com.hp.brochure-glossy"
 
 #. TRANSLATORS: Brochure Matte Paper
 msgid "media-type.com.hp.brochure-matte"
@@ -10189,11 +10189,11 @@ msgstr "Capa fosca do media-type.com.hp.cover-matte"
 
 #. TRANSLATORS: EcoSMART Lite Paper
 msgid "media-type.com.hp.ecosmart-lite"
-msgstr "Papel Leve EcoSMART"
+msgstr "Papel leve EcoSMART do media-type.com.hp.ecosmart-lite"
 
 #. TRANSLATORS: Everyday Glossy Paper
 msgid "media-type.com.hp.everyday-glossy"
-msgstr "Papel Everyday Brilhoso"
+msgstr "Papel brilhante para uso diário do media-type.com.hp.everyday-glossy"
 
 #. TRANSLATORS: Everyday Matte Paper
 msgid "media-type.com.hp.everyday-matte"
@@ -10202,57 +10202,58 @@ msgstr ""
 
 #. TRANSLATORS: Extra Heavyweight Paper
 msgid "media-type.com.hp.extra-heavy"
-msgstr "Papel Extra Pesado"
+msgstr "Papel extra-pesado do media-type.com.hp.extra-heavy"
 
 #. TRANSLATORS: Intermediate Paper
 msgid "media-type.com.hp.intermediate"
-msgstr "Papel Intermediário"
+msgstr "Papel intermediário do media-type.com.hp.intermediate"
 
 #. TRANSLATORS: Mid-Weight Paper
 msgid "media-type.com.hp.mid-weight"
-msgstr "Papel de Peso Médio"
+msgstr "Papel de peso médio do media-type.com.hp.mid-weight"
 
 #. TRANSLATORS: Inkjet Premium Paper
 msgid "media-type.com.hp.premium-inkjet"
-msgstr "Papel Inkjet Premium"
+msgstr ""
+"Papel para impressora a jato de tinta do media-type.com.hp.premium-inkjet"
 
 #. TRANSLATORS: Photo Premium Paper
 msgid "media-type.com.hp.premium-photo"
-msgstr "Papel Photo Premium"
+msgstr "Papel fotográfico premium do media-type.com.hp.premium-photo"
 
 #. TRANSLATORS: Premium Matte Presentation Paper
 msgid "media-type.com.hp.premium-presentation-matte"
 msgstr ""
-"Papel fosco, pesado de apresentação do media-type.com.hp.premium-"
+"Papel fosco e pesado de apresentação do media-type.com.hp.premium-"
 "presentation-matte"
 
 #. TRANSLATORS: Continuous
 msgid "media-type.continuous"
-msgstr "Contínuo"
+msgstr "Contínuo do media-type.continuous"
 
 #. TRANSLATORS: Continuous Long
 msgid "media-type.continuous-long"
-msgstr "Contínuo Longo"
+msgstr "Longo e contínuo do media-type.continuous-long"
 
 #. TRANSLATORS: Continuous Short
 msgid "media-type.continuous-short"
-msgstr "Contínuo Curto"
+msgstr "Curto e contínuo do media-type.continuous-short"
 
 #. TRANSLATORS: Corrugated Board
 msgid "media-type.corrugated-board"
-msgstr "Papelão Ondulado"
+msgstr "Papelão ondulado do media-type.corrugated-board"
 
 #. TRANSLATORS: Optical Disc
 msgid "media-type.disc"
-msgstr "Disco Ótico"
+msgstr "Disco ótico do media-type.disc"
 
 #. TRANSLATORS: Glossy Optical Disc
 msgid "media-type.disc-glossy"
-msgstr "Disco Ótico Brilhoso"
+msgstr "Disco ótico brilhante do media-type.disc-glossy"
 
 #. TRANSLATORS: High Gloss Optical Disc
 msgid "media-type.disc-high-gloss"
-msgstr "Disco Ótico de Alto Brilho"
+msgstr "Disco ótico muito brilhante do media-type.disc-high-gloss"
 
 #. TRANSLATORS: Matte Optical Disc
 msgid "media-type.disc-matte"
@@ -10260,35 +10261,35 @@ msgstr "Disco ótico fosco do media-type.disc-matte"
 
 #. TRANSLATORS: Satin Optical Disc
 msgid "media-type.disc-satin"
-msgstr "Disco Ótico Acetinado"
+msgstr "Disco ótico de acetinado do media-type.disc-satin"
 
 #. TRANSLATORS: Semi-Gloss Optical Disc
 msgid "media-type.disc-semi-gloss"
-msgstr "Disco Ótico Semi-brilho"
+msgstr "Disco ótico semibrilhante do media-type.disc-semi-gloss"
 
 #. TRANSLATORS: Double Wall
 msgid "media-type.double-wall"
-msgstr "Parede Dupla"
+msgstr "Parede dupla do media-type.double-wall"
 
 #. TRANSLATORS: Dry Film
 msgid "media-type.dry-film"
-msgstr "Filme Seco"
+msgstr "Filme seco do media-type.dry-film"
 
 #. TRANSLATORS: DVD
 msgid "media-type.dvd"
-msgstr "DVD"
+msgstr "DVD do media-type.dvd"
 
 #. TRANSLATORS: Embossing Foil
 msgid "media-type.embossing-foil"
-msgstr "Folha de Estampagem"
+msgstr "Folha de estampagem do media-type.embossing-foil"
 
 #. TRANSLATORS: End Board
 msgid "media-type.end-board"
-msgstr ""
+msgstr "Placa final do media-type.end-board"
 
 #. TRANSLATORS: Envelope
 msgid "media-type.envelope"
-msgstr "Envelope"
+msgstr "Envelope do media-type.envelope"
 
 #. TRANSLATORS: Archival Envelope
 msgid "media-type.envelope-archival"
@@ -10296,59 +10297,59 @@ msgstr "Envelope de arquivamento do media-type.envelope-archival"
 
 #. TRANSLATORS: Bond Envelope
 msgid "media-type.envelope-bond"
-msgstr ""
+msgstr "Envelope de títulos do media-type.envelope-bond"
 
 #. TRANSLATORS: Coated Envelope
 msgid "media-type.envelope-coated"
-msgstr "Envelope Revestido"
+msgstr "Envelope revestido do media-type.envelope-coated"
 
 #. TRANSLATORS: Cotton Envelope
 msgid "media-type.envelope-cotton"
-msgstr "Envelope de Algodão"
+msgstr "Envelope de algodão do media-type.envelope-cotton"
 
 #. TRANSLATORS: Fine Envelope
 msgid "media-type.envelope-fine"
-msgstr "Envelope Fino"
+msgstr "Envelope fino do media-type.envelope-fine"
 
 #. TRANSLATORS: Heavyweight Envelope
 msgid "media-type.envelope-heavyweight"
-msgstr "Envelope Pesado"
+msgstr "Envelope grosso do media-type.envelope-heavyweight"
 
 #. TRANSLATORS: Inkjet Envelope
 msgid "media-type.envelope-inkjet"
-msgstr "Envelope Inkjet"
+msgstr "Envelope para impressora a jato de tinta do media-type.envelope-inkjet"
 
 #. TRANSLATORS: Lightweight Envelope
 msgid "media-type.envelope-lightweight"
-msgstr "Envelope Leve"
+msgstr "Envelope fino do media-type.envelope-lightweight"
 
 #. TRANSLATORS: Plain Envelope
 msgid "media-type.envelope-plain"
-msgstr "Envelope em Branco"
+msgstr "Envelope em branco do media-type.envelope-plain"
 
 #. TRANSLATORS: Preprinted Envelope
 msgid "media-type.envelope-preprinted"
-msgstr "Envelope Pré-impresso"
+msgstr "Envelope pré-impresso do media-type.envelope-preprinted"
 
 #. TRANSLATORS: Windowed Envelope
 msgid "media-type.envelope-window"
-msgstr "Envelope com Janela"
+msgstr "Envelope com janela do media-type.envelope-window"
 
 #. TRANSLATORS: Fabric
 msgid "media-type.fabric"
-msgstr "Tecido"
+msgstr "Tecido do media-type.fabric"
 
 #. TRANSLATORS: Archival Fabric
 msgid "media-type.fabric-archival"
-msgstr "Papel de tecido do media-type.fabric-archival"
+msgstr "Arquivo de tecido do media-type.fabric-archival"
 
 #. TRANSLATORS: Glossy Fabric
 msgid "media-type.fabric-glossy"
-msgstr "Tecido Brilhoso"
+msgstr "Tecido brilhante do media-type.fabric-glossy"
 
 #. TRANSLATORS: High Gloss Fabric
 msgid "media-type.fabric-high-gloss"
-msgstr "Tecido de Alto Brilho"
+msgstr "Tecido muito brilhante do media-type.fabric-high-gloss"
 
 #. TRANSLATORS: Matte Fabric
 msgid "media-type.fabric-matte"
@@ -10356,103 +10357,111 @@ msgstr "Tecido fosco do media-type.fabric-matte"
 
 #. TRANSLATORS: Semi-Gloss Fabric
 msgid "media-type.fabric-semi-gloss"
-msgstr "Tecido Semi-brilho"
+msgstr "Tecido semibrilhante do media-type.fabric-semi-gloss"
 
 #. TRANSLATORS: Waterproof Fabric
 msgid "media-type.fabric-waterproof"
-msgstr "Tecido à Prova de Água"
+msgstr "Tecido impermeável do media-type.fabric-waterproof"
 
 #. TRANSLATORS: Film
 msgid "media-type.film"
-msgstr "Filme"
+msgstr "Filme do media-type.film"
 
 #. TRANSLATORS: Flexo Base
 msgid "media-type.flexo-base"
-msgstr "Flexo Base"
+msgstr "Base flexográfica do media-type.flexo-base"
 
 #. TRANSLATORS: Flexo Photo Polymer
 msgid "media-type.flexo-photo-polymer"
-msgstr "Flexo Photo Polymer"
+msgstr "Fotopolímero flexográfico do media-type.flexo-photo-polymer"
 
 #. TRANSLATORS: Flute
 msgid "media-type.flute"
-msgstr ""
+msgstr "Flauta do media-type.flute"
 
 #. TRANSLATORS: Foil
 msgid "media-type.foil"
-msgstr ""
+msgstr "Folha de alumínio do media-type.foil"
 
 #. TRANSLATORS: Full Cut Tabs
 msgid "media-type.full-cut-tabs"
-msgstr ""
+msgstr "Abas de corte completo do media-type.full-cut-tabs"
 
 #. TRANSLATORS: Glass
 msgid "media-type.glass"
-msgstr "Vidro"
+msgstr "Vidro do media-type.glass"
 
 #. TRANSLATORS: Glass Colored
 msgid "media-type.glass-colored"
-msgstr "Vidro Colorido"
+msgstr "Vidro colorido do media-type.glass-colored"
 
 #. TRANSLATORS: Glass Opaque
 msgid "media-type.glass-opaque"
-msgstr "Vidro Opaco"
+msgstr "Vidro opaco do media-type.glass-opaque"
 
 #. TRANSLATORS: Glass Surfaced
 msgid "media-type.glass-surfaced"
-msgstr ""
+msgstr "Superfície de vidro do media-type.glass-surfaced"
 
 #. TRANSLATORS: Glass Textured
 msgid "media-type.glass-textured"
-msgstr "Vidro Texturizado"
+msgstr "Vidro texturizado do media-type.glass-textured"
 
 #. TRANSLATORS: Gravure Cylinder
 msgid "media-type.gravure-cylinder"
-msgstr ""
+msgstr "Cilindro de rotogravura do media-type.gravure-cylinder"
 
 #. TRANSLATORS: Image Setter Paper
 msgid "media-type.image-setter-paper"
-msgstr ""
+msgstr "Papel para composição de imagens do media-type.image-setter-paper"
 
 #. TRANSLATORS: Imaging Cylinder
 msgid "media-type.imaging-cylinder"
-msgstr ""
+msgstr "Cilindro de imagem do media-type.imaging-cylinder"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon-photo-paper-plus-glossy-ii"
 msgstr ""
+"Papel fotográfico muito brilhante II do media-type.jp.co.canon-photo-paper-"
+"plus-glossy-ii"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon-photo-paper-pro-platinum"
 msgstr ""
+"Papel fotográfico Pro Platinum do media-type.jp.co.canon-photo-paper-pro-"
+"platinum"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon_photo-paper-plus-glossy-ii"
 msgstr ""
+"Papel fotográfico muito brilhante II do media-type.jp.co.canon_photo-paper-"
+"plus-glossy-ii"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon_photo-paper-pro-platinum"
 msgstr ""
+"Papel fotográfico Pro Platinum do media-type.jp.co.canon_photo-paper-pro-"
+"platinum"
 
 #. TRANSLATORS: Labels
 msgid "media-type.labels"
-msgstr "Etiquetas"
+msgstr "Etiquetas do media-type.labels"
 
 #. TRANSLATORS: Colored Labels
 msgid "media-type.labels-colored"
-msgstr "Etiquetas Coloridas"
+msgstr "Etiquetas coloridas do media-type.labels-colored"
 
 #. TRANSLATORS: Glossy Labels
 msgid "media-type.labels-glossy"
-msgstr "Etiquetas Brilhosas"
+msgstr "Etiquetas brilhantes do media-type.labels-glossy"
 
 #. TRANSLATORS: High Gloss Labels
 msgid "media-type.labels-high-gloss"
-msgstr "Etiquetas de Alto Brilho"
+msgstr "Etiquetas muito brilhantes do media-type.labels-high-gloss"
 
 #. TRANSLATORS: Inkjet Labels
 msgid "media-type.labels-inkjet"
-msgstr "Etiquetas Inkjet"
+msgstr "Etiquetas para impressora a jato de tinta do media-type.labels-inkjet"
 
 #. TRANSLATORS: Matte Labels
 msgid "media-type.labels-matte"
@@ -10460,39 +10469,39 @@ msgstr "Etiquetas foscas do media-type.labels-matte"
 
 #. TRANSLATORS: Permanent Labels
 msgid "media-type.labels-permanent"
-msgstr "Etiquetas Permanentes"
+msgstr "Etiquetas permanentes do media-type.labels-permanent"
 
 #. TRANSLATORS: Satin Labels
 msgid "media-type.labels-satin"
-msgstr "Etiquetas Acetinadas"
+msgstr "Etiquetas de acetinado do media-type.labels-satin"
 
 #. TRANSLATORS: Security Labels
 msgid "media-type.labels-security"
-msgstr "Etiquetas de Segurança"
+msgstr "Etiquetas de segurança do media-type.labels-security"
 
 #. TRANSLATORS: Semi-Gloss Labels
 msgid "media-type.labels-semi-gloss"
-msgstr "Etiquetas Semi-brilho"
+msgstr "Etiquetas semibrilhantes do media-type.labels-semi-gloss"
 
 #. TRANSLATORS: Laminating Foil
 msgid "media-type.laminating-foil"
-msgstr ""
+msgstr "Folha de laminação do media-type.laminating-foil"
 
 #. TRANSLATORS: Letterhead
 msgid "media-type.letterhead"
-msgstr ""
+msgstr "Papel timbrado do media-type.letterhead"
 
 #. TRANSLATORS: Metal
 msgid "media-type.metal"
-msgstr "Metal"
+msgstr "Metal do media-type.metal"
 
 #. TRANSLATORS: Metal Glossy
 msgid "media-type.metal-glossy"
-msgstr "Metal Brilhoso"
+msgstr "Metal brilhante do media-type.metal-glossy"
 
 #. TRANSLATORS: Metal High Gloss
 msgid "media-type.metal-high-gloss"
-msgstr "Metal de Alto Brilho"
+msgstr "Metal muito brilhante do media-type.metal-high-gloss"
 
 #. TRANSLATORS: Metal Matte
 msgid "media-type.metal-matte"
@@ -10500,83 +10509,83 @@ msgstr "Metal fosco do media-type.metal-matte"
 
 #. TRANSLATORS: Metal Satin
 msgid "media-type.metal-satin"
-msgstr "Metal Acetinado"
+msgstr "Metal de acetinado do media-type.metal-satin"
 
 #. TRANSLATORS: Metal Semi Gloss
 msgid "media-type.metal-semi-gloss"
-msgstr "Metal Semi-brilho"
+msgstr "Metal semibrilhante do media-type.metal-semi-gloss"
 
 #. TRANSLATORS: Mounting Tape
 msgid "media-type.mounting-tape"
-msgstr ""
+msgstr "Fita de montagem do media-type.mounting-tape"
 
 #. TRANSLATORS: Multi Layer
 msgid "media-type.multi-layer"
-msgstr "Multicamada"
+msgstr "Várias camadas do media-type.multi-layer"
 
 #. TRANSLATORS: Multi Part Form
 msgid "media-type.multi-part-form"
-msgstr ""
+msgstr "Formulário de várias partes do media-type.multi-part-form"
 
 #. TRANSLATORS: Other
 msgid "media-type.other"
-msgstr "Outro"
+msgstr "Outro do media-type.other"
 
 #. TRANSLATORS: Paper
 msgid "media-type.paper"
-msgstr "Papel"
+msgstr "Papel do media-type.paper"
 
 #. TRANSLATORS: Photo Paper
 msgid "media-type.photographic"
-msgstr "Papel Fotográfico"
+msgstr "Papel fotográfico do media-type.photographic"
 
 #. TRANSLATORS: Photographic Archival
 msgid "media-type.photographic-archival"
-msgstr "Papel para fotografia do media-type.photographic-archival"
+msgstr "Arquivo fotográfico do media-type.photographic-archival"
 
 #. TRANSLATORS: Photo Film
 msgid "media-type.photographic-film"
-msgstr "Filme Fotográfico"
+msgstr "Filme fotográfico do media-type.photographic-film"
 
 #. TRANSLATORS: Glossy Photo Paper
 msgid "media-type.photographic-glossy"
-msgstr "Papel Fotográfico Brilhoso"
+msgstr "Papel fotográfico brilhante do media-type.photographic-glossy"
 
 #. TRANSLATORS: High Gloss Photo Paper
 msgid "media-type.photographic-high-gloss"
-msgstr "Papel Fotográfico de Alto Brilho"
+msgstr "Papel fotográfico muito brilhante do media-type.photographic-high-gloss"
 
 #. TRANSLATORS: Matte Photo Paper
 msgid "media-type.photographic-matte"
-msgstr "Papel fosco para fotografia do media-type.photographic-matte"
+msgstr "Papel fotográfico fosco do media-type.photographic-matte"
 
 #. TRANSLATORS: Satin Photo Paper
 msgid "media-type.photographic-satin"
-msgstr "Papel Fotográfico Acetinado"
+msgstr "Papel fotográfico de acetinado do media-type.photographic-satin"
 
 #. TRANSLATORS: Semi-Gloss Photo Paper
 msgid "media-type.photographic-semi-gloss"
-msgstr "Papel Fotográfico Semi-brilho"
+msgstr "Papel fotográfico semibrilhante do media-type.photographic-semi-gloss"
 
 #. TRANSLATORS: Plastic
 msgid "media-type.plastic"
-msgstr "Plástico"
+msgstr "Plástico do media-type.plastic"
 
 #. TRANSLATORS: Plastic Archival
 msgid "media-type.plastic-archival"
-msgstr "Papel plástico do media-type.plastic-archival"
+msgstr "Arquivo de plástico do media-type.plastic-archival"
 
 #. TRANSLATORS: Plastic Colored
 msgid "media-type.plastic-colored"
-msgstr "Plástico"
+msgstr "Plástico colorido do media-type.plastic-colored"
 
 #. TRANSLATORS: Plastic Glossy
 msgid "media-type.plastic-glossy"
-msgstr "Plástico Brilhoso"
+msgstr "Plástico brilhante do media-type.plastic-glossy"
 
 #. TRANSLATORS: Plastic High Gloss
 msgid "media-type.plastic-high-gloss"
-msgstr "Plástico de Alto Brilho"
+msgstr "Plástico muito brilhante do media-type.plastic-high-gloss"
 
 #. TRANSLATORS: Plastic Matte
 msgid "media-type.plastic-matte"
@@ -10584,23 +10593,23 @@ msgstr "Plástico fosco do media-type.plastic-matte"
 
 #. TRANSLATORS: Plastic Satin
 msgid "media-type.plastic-satin"
-msgstr "Plástico Acetinado"
+msgstr "Plástico de acetinado do media-type.plastic-satin"
 
 #. TRANSLATORS: Plastic Semi Gloss
 msgid "media-type.plastic-semi-gloss"
-msgstr "Plástico Semi-brilho"
+msgstr "Plástico semibrilhante do media-type.plastic-semi-gloss"
 
 #. TRANSLATORS: Plate
 msgid "media-type.plate"
-msgstr ""
+msgstr "Placa do media-type.plate"
 
 #. TRANSLATORS: Polyester
 msgid "media-type.polyester"
-msgstr "Poliéster"
+msgstr "Poliéster do media-type.polyester"
 
 #. TRANSLATORS: Pre Cut Tabs
 msgid "media-type.pre-cut-tabs"
-msgstr ""
+msgstr "Abas pré-cortadas do media-type.pre-cut-tabs"
 
 #. TRANSLATORS: Roll
 msgid "media-type.roll"
@@ -10608,47 +10617,47 @@ msgstr "Rolete do media-type.roll"
 
 #. TRANSLATORS: Screen
 msgid "media-type.screen"
-msgstr ""
+msgstr "Tela do media-type.screen"
 
 #. TRANSLATORS: Screen Paged
 msgid "media-type.screen-paged"
-msgstr ""
+msgstr "Tela paginada do media-type.screen-paged"
 
 #. TRANSLATORS: Self Adhesive
 msgid "media-type.self-adhesive"
-msgstr ""
+msgstr "Autoadesivo do media-type.self-adhesive"
 
 #. TRANSLATORS: Self Adhesive Film
 msgid "media-type.self-adhesive-film"
-msgstr ""
+msgstr "Película autoadesiva do media-type.self-adhesive-film"
 
 #. TRANSLATORS: Shrink Foil
 msgid "media-type.shrink-foil"
-msgstr ""
+msgstr "Folha retrátil do media-type.shrink-foil"
 
 #. TRANSLATORS: Single Face
 msgid "media-type.single-face"
-msgstr ""
+msgstr "Frente Única do media-type.single-face"
 
 #. TRANSLATORS: Single Wall
 msgid "media-type.single-wall"
-msgstr ""
+msgstr "Camada única do media-type.single-wall"
 
 #. TRANSLATORS: Sleeve
 msgid "media-type.sleeve"
-msgstr ""
+msgstr "Capa do media-type.sleeve"
 
 #. TRANSLATORS: Stationery
 msgid "media-type.stationery"
-msgstr ""
+msgstr "Papel do media-type.stationery"
 
 #. TRANSLATORS: Stationery Archival
 msgid "media-type.stationery-archival"
-msgstr "Papel de papelaria do media-type.stationery-archival"
+msgstr "Arquivo de papel do media-type.stationery-archival"
 
 #. TRANSLATORS: Coated Paper
 msgid "media-type.stationery-coated"
-msgstr ""
+msgstr "Papel Revestido"
 
 #. TRANSLATORS: Stationery Cotton
 msgid "media-type.stationery-cotton"
@@ -10660,15 +10669,16 @@ msgstr ""
 
 #. TRANSLATORS: Heavyweight Paper
 msgid "media-type.stationery-heavyweight"
-msgstr ""
+msgstr "Papel grosso do media-type.stationery-heavyweight"
 
 #. TRANSLATORS: Stationery Heavyweight Coated
 msgid "media-type.stationery-heavyweight-coated"
 msgstr ""
+"Papel com revestimento grosso do media-type.stationery-heavyweight-coated"
 
 #. TRANSLATORS: Stationery Inkjet Paper
 msgid "media-type.stationery-inkjet"
-msgstr ""
+msgstr "Papel para impressora a jato de tinta do media-type.stationery-inkjet"
 
 #. TRANSLATORS: Letterhead
 msgid "media-type.stationery-letterhead"
@@ -10676,7 +10686,7 @@ msgstr ""
 
 #. TRANSLATORS: Lightweight Paper
 msgid "media-type.stationery-lightweight"
-msgstr "Papel com baixa gramatura do media-type.stationery-lightweight"
+msgstr "Papel leve do media-type.stationery-lightweight"
 
 #. TRANSLATORS: Preprinted Paper
 msgid "media-type.stationery-preprinted"
@@ -11368,27 +11378,27 @@ msgstr ""
 
 #. TRANSLATORS: 10 x 12″
 msgid "media.oe_photo-10r_10x12in"
-msgstr ""
+msgstr "10 x 12″ do media.oe_photo-10r_10x12in"
 
 #. TRANSLATORS: 20 x 24″
 msgid "media.oe_photo-20r_20x24in"
-msgstr ""
+msgstr "20 x 24″ do media.oe_photo-20r_20x24in"
 
 #. TRANSLATORS: 3.5 x 5″
 msgid "media.oe_photo-l_3.5x5in"
-msgstr ""
+msgstr "3.5 x 5″ do media.oe_photo-l_3.5x5in"
 
 #. TRANSLATORS: 10 x 15″
 msgid "media.oe_photo-s10r_10x15in"
-msgstr ""
+msgstr "10 x 15″ do media.oe_photo-s10r_10x15in"
 
 #. TRANSLATORS: 4 x 4″
 msgid "media.oe_square-photo_4x4in"
-msgstr ""
+msgstr "4 x 4″ do media.oe_square-photo_4x4in"
 
 #. TRANSLATORS: 5 x 5″
 msgid "media.oe_square-photo_5x5in"
-msgstr ""
+msgstr "5 x 5″ do media.oe_square-photo_5x5in"
 
 #. TRANSLATORS: 184 x 260mm
 msgid "media.om_16k_184x260mm"
@@ -11416,7 +11426,7 @@ msgstr ""
 
 #. TRANSLATORS: 89 x 119mm
 msgid "media.om_dsc-photo_89x119mm"
-msgstr ""
+msgstr "89 x 119mm do media.om_dsc-photo_89x119mm"
 
 #. TRANSLATORS: Folio
 msgid "media.om_folio-sp_215x315mm"
@@ -11440,11 +11450,11 @@ msgstr ""
 
 #. TRANSLATORS: 200 x 300
 msgid "media.om_large-photo_200x300"
-msgstr ""
+msgstr "200 x 300 do media.om_large-photo_200x300"
 
 #. TRANSLATORS: 130 x 180mm
 msgid "media.om_medium-photo_130x180mm"
-msgstr ""
+msgstr "130 x 180mm do media.om_medium-photo_130x180mm"
 
 #. TRANSLATORS: 267 x 389mm
 msgid "media.om_pa-kai_267x389mm"
@@ -11456,15 +11466,15 @@ msgstr ""
 
 #. TRANSLATORS: 100 x 150mm
 msgid "media.om_small-photo_100x150mm"
-msgstr ""
+msgstr "100 x 150mm do media.om_small-photo_100x150mm"
 
 #. TRANSLATORS: 89 x 89mm
 msgid "media.om_square-photo_89x89mm"
-msgstr ""
+msgstr "89 x 89mm do media.om_square-photo_89x89mm"
 
 #. TRANSLATORS: 100 x 200mm
 msgid "media.om_wide-photo_100x200mm"
-msgstr ""
+msgstr "100 x 200mm do media.om_wide-photo_100x200mm"
 
 #. TRANSLATORS: Envelope Chinese #10
 msgid "media.prc_10_324x458mm"
@@ -12760,7 +12770,7 @@ msgstr ""
 
 #. TRANSLATORS: Photo
 msgid "print-content-optimize.photo"
-msgstr ""
+msgstr "Foto do print-content-optimize.photo"
 
 #. TRANSLATORS: Text
 msgid "print-content-optimize.text"
@@ -12920,7 +12930,7 @@ msgstr ""
 
 #. TRANSLATORS: Photo
 msgid "printer-kind.photo"
-msgstr ""
+msgstr "Foto do printer-kind.photo"
 
 #. TRANSLATORS: Postcard
 msgid "printer-kind.postcard"
