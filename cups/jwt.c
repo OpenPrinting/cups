@@ -517,19 +517,27 @@ cupsJWTHasValidSignature(
         {
 	  gnutls_datum_t r, s;		// Signature coordinates
 
-          text_datum.data = (unsigned char *)text;
-          text_datum.size = (unsigned)text_len;
+	  text_datum.data = (unsigned char *)text;
+	  text_datum.size = (unsigned)text_len;
 
-          r.data = jwt->signature;
-          r.size = (unsigned)jwt->sigsize / 2;
+	  r.data = jwt->signature;
+	  r.size = (unsigned)jwt->sigsize / 2;
 	  s.data = jwt->signature + jwt->sigsize / 2;
-          s.size = (unsigned)jwt->sigsize / 2;
+	  s.size = (unsigned)jwt->sigsize / 2;
 
 	  gnutls_encode_rs_value(&sig_datum, &r, &s);
 
-          ret = !gnutls_pubkey_verify_data2(key, algs[jwt->sigalg - CUPS_JWA_RS256], 0, &text_datum, &sig_datum);
+	  ret = !gnutls_pubkey_verify_data2(key, algs[jwt->sigalg - CUPS_JWA_RS256], 0, &text_datum, &sig_datum);
+
+	  gnutls_pubkey_deinit(key);
+
+	  if (!ret)
+	  {
+	    free(text);
+	    break;
+	  }
+
 	  gnutls_free(sig_datum.data);
-          gnutls_pubkey_deinit(key);
         }
 #endif // HAVE_OPENSSL
 
