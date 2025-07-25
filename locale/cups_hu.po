@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-06-28 13:05+0000\n"
+"PO-Revision-Date: 2025-07-24 12:47+0000\n"
 "Last-Translator: therealmate <hellogaming91@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/cups/cups/hu/>"
 "\n"
@@ -354,8 +354,8 @@ msgid ""
 "        WARN    Manufacturer required by PPD 4.3 spec.\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
-"        FIGYELMEZTETÉS    A Gyártó mező kötelező a PPD 4.3 specifikáció "
-"szerint.\n"
+"        FIGYELMEZTETÉS    A Manufacturer mező kötelező a PPD 4.3 "
+"specifikáció szerint.\n"
 "                HIV: 58–59. oldal, 5.3. szakasz."
 
 #: systemv/cupstestppd.c:1726
@@ -626,21 +626,25 @@ msgstr "      %s  A(z) „%s” méret helyesen: „%s”."
 #, c-format
 msgid "      %s  Size \"%s\" should be the Adobe standard name \"%s\"."
 msgstr ""
+"      %s  A(z) \"%s\" méretnek az Adobe szabványos nevének kellene lennie: "
+"\"%s\"."
 
 #: systemv/cupstestppd.c:3082
 #, c-format
 msgid "      %s  cupsICCProfile %s hash value collides with %s."
-msgstr ""
+msgstr "      %s  A(z) %s cupsICCProfile hash értéke ütközik ezzel: %s."
 
 #: systemv/cupstestppd.c:1940
 #, c-format
 msgid "      %s  cupsUIResolver %s causes a loop."
-msgstr ""
+msgstr "      %s  A(z) %s cupsUIResolver ciklust okoz."
 
 #: systemv/cupstestppd.c:1922
 #, c-format
 msgid "      %s  cupsUIResolver %s does not list at least two different options."
 msgstr ""
+"      %s  A(z) %s cupsUIResolver nem sorol fel legalább két különböző "
+"lehetőséget."
 
 #: systemv/cupstestppd.c:1145
 #, c-format
@@ -648,6 +652,8 @@ msgid ""
 "      **FAIL**  %s must be 1284DeviceID\n"
 "                REF: Page 72, section 5.5"
 msgstr ""
+"      **SIKERTELEN**  A(z) %s értékének 1284DeviceID-nek kell lennie\n"
+"                HIV: 72. oldal, 5.5 szakasz"
 
 #: systemv/cupstestppd.c:557
 #, c-format
@@ -655,6 +661,8 @@ msgid ""
 "      **FAIL**  Bad Default%s %s\n"
 "                REF: Page 40, section 4.5."
 msgstr ""
+"      **SIKERTELEN**  Hibás Default%s %s\n"
+"                HIV: 40. oldal, 4.5 szakasz."
 
 #: systemv/cupstestppd.c:491
 #, c-format
@@ -662,6 +670,8 @@ msgid ""
 "      **FAIL**  Bad DefaultImageableArea %s\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
+"      **SIKERTELEN**  Hibás DefaultImageableArea %s\n"
+"                HIV: 102. oldal, 5.15 szakasz."
 
 #: systemv/cupstestppd.c:527
 #, c-format
@@ -669,6 +679,8 @@ msgid ""
 "      **FAIL**  Bad DefaultPaperDimension %s\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
+"      **SIKERTELEN**  Hibás DefaultPaperDimension %s\n"
+"                HIV: 103. oldal, 5.15 szakasz."
 
 #: systemv/cupstestppd.c:600
 #, c-format
@@ -676,6 +688,8 @@ msgid ""
 "      **FAIL**  Bad FileVersion \"%s\"\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  Hibás FileVersion „%s”\n"
+"                HIV: 56. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:644
 #, c-format
@@ -683,22 +697,27 @@ msgid ""
 "      **FAIL**  Bad FormatVersion \"%s\"\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  Hibás FormatVersion „%s”\n"
+"                HIV: 56. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:1002
 msgid ""
 "      **FAIL**  Bad JobPatchFile attribute in file\n"
 "                REF: Page 24, section 3.4."
 msgstr ""
+"      **SIKERTELEN**  Hibás JobPatchFile attribútum a fájlban\n"
+"                HIV: 24. oldal, 3.4 szakasz."
 
 #: systemv/cupstestppd.c:1190
 #, c-format
 msgid "      **FAIL**  Bad LanguageEncoding %s - must be ISOLatin1."
 msgstr ""
+"      **SIKERTELEN**  Hibás LanguageEncoding %s – ISOLatin1-nek kell lennie."
 
 #: systemv/cupstestppd.c:1204
 #, c-format
 msgid "      **FAIL**  Bad LanguageVersion %s - must be English."
-msgstr ""
+msgstr "      **SIKERTELEN**  Hibás LanguageVersion %s – angolnak kell lennie."
 
 #: systemv/cupstestppd.c:720 systemv/cupstestppd.c:737
 #, c-format
@@ -706,6 +725,8 @@ msgid ""
 "      **FAIL**  Bad Manufacturer (should be \"%s\")\n"
 "                REF: Page 211, table D.1."
 msgstr ""
+"      **SIKERTELEN**  Hibás Manufacturer (helyesen: \"%s\")\n"
+"                HIV: 211. oldal, D.1 táblázat."
 
 #: systemv/cupstestppd.c:777
 #, c-format
@@ -713,24 +734,33 @@ msgid ""
 "      **FAIL**  Bad ModelName - \"%c\" not allowed in string.\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  Hibás ModelName – a(z) „%c” nem megengedett a "
+"szövegben.\n"
+"                HIV: 59–60. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:933
 msgid ""
 "      **FAIL**  Bad PSVersion - not \"(string) int\".\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  Hibás PSVersion – nem „(karakterlánc) int”.\n"
+"                HIV: 62–64. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:894
 msgid ""
 "      **FAIL**  Bad Product - not \"(string)\".\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  Hibás Product – nem „(karakterlánc)”.\n"
+"                HIV: 62. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:968
 msgid ""
 "      **FAIL**  Bad ShortNickName - longer than 31 chars.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  Hibás ShortNickName – hosszabb 31 karakternél.\n"
+"                HIV: 64–65. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:1126
 #, c-format
@@ -738,41 +768,53 @@ msgid ""
 "      **FAIL**  Bad option %s choice %s\n"
 "                REF: Page 84, section 5.9"
 msgstr ""
+"      **SIKERTELEN**  Hibás opció %s választás %s\n"
+"                HIV: 84. oldal, 5.9 szakasz"
 
 #: systemv/cupstestppd.c:3815 systemv/cupstestppd.c:3837
 #, c-format
 msgid "      **FAIL**  Default option code cannot be interpreted: %s"
-msgstr ""
+msgstr "      **SIKERTELEN**  Az alapértelmezett opciókód nem értelmezhető: %s"
 
 #: systemv/cupstestppd.c:1263
 #, c-format
 msgid "      **FAIL**  Default translation string for option %s choice %s contains 8-bit characters."
 msgstr ""
+"      **SIKERTELEN**  Az alapértelmezett fordítási karakterlánc a(z) %s "
+"opció %s választásához 8-bites karaktereket tartalmaz."
 
 #: systemv/cupstestppd.c:1236
 #, c-format
 msgid "      **FAIL**  Default translation string for option %s contains 8-bit characters."
 msgstr ""
+"      **SIKERTELEN**  Az alapértelmezett fordítási karakterlánc a(z) %s "
+"opcióhoz 8-bites karaktereket tartalmaz."
 
 #: systemv/cupstestppd.c:2078
 #, c-format
 msgid "      **FAIL**  Group names %s and %s differ only by case."
 msgstr ""
+"      **SIKERTELEN**  A(z) %s és %s csoportnév csak kis- és nagybetűkben tér "
+"el."
 
 #: systemv/cupstestppd.c:2123
 #, c-format
 msgid "      **FAIL**  Multiple occurrences of option %s choice name %s."
-msgstr ""
+msgstr "      **SIKERTELEN**  Az %s opció %s nevű választása többször szerepel."
 
 #: systemv/cupstestppd.c:2140
 #, c-format
 msgid "      **FAIL**  Option %s choice names %s and %s differ only by case."
 msgstr ""
+"      **SIKERTELEN**  Az %s opció választásai (%s és %s) csak kis- és "
+"nagybetűkben térnek el."
 
 #: systemv/cupstestppd.c:2100
 #, c-format
 msgid "      **FAIL**  Option names %s and %s differ only by case."
 msgstr ""
+"      **SIKERTELEN**  Az %s és %s opciónevek csak kis- és nagybetűkben "
+"térnek el."
 
 #: systemv/cupstestppd.c:577
 #, c-format
@@ -780,30 +822,40 @@ msgid ""
 "      **FAIL**  REQUIRED Default%s\n"
 "                REF: Page 40, section 4.5."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ Default%s\n"
+"                HIV: 40. oldal, 4.5 szakasz."
 
 #: systemv/cupstestppd.c:476
 msgid ""
 "      **FAIL**  REQUIRED DefaultImageableArea\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ DefaultImageableArea\n"
+"                HIV: 102. oldal, 5.15 szakasz."
 
 #: systemv/cupstestppd.c:512
 msgid ""
 "      **FAIL**  REQUIRED DefaultPaperDimension\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ DefaultPaperDimension\n"
+"                HIV: 103. oldal, 5.15 szakasz."
 
 #: systemv/cupstestppd.c:618
 msgid ""
 "      **FAIL**  REQUIRED FileVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ FileVersion\n"
+"                HIV: 56. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:662
 msgid ""
 "      **FAIL**  REQUIRED FormatVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ FormatVersion\n"
+"                HIV: 56. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:1053
 #, c-format
@@ -812,54 +864,73 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ ImageableArea a(z) %s mérethez\n"
+"                HIV: 41. oldal, 5. szakasz.\n"
+"                HIV: 102. oldal, 5.15 szakasz."
 
 #: systemv/cupstestppd.c:682
 msgid ""
 "      **FAIL**  REQUIRED LanguageEncoding\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ LanguageEncoding\n"
+"                HIV: 56–57. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:702
 msgid ""
 "      **FAIL**  REQUIRED LanguageVersion\n"
 "                REF: Pages 57-58, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ LanguageVersion\n"
+"                HIV: 57–58. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:756
 msgid ""
 "      **FAIL**  REQUIRED Manufacturer\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ Manufacturer\n"
+"                HIV: 58–59. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:796
 msgid ""
 "      **FAIL**  REQUIRED ModelName\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ ModelName\n"
+"                HIV: 59–60. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:816
 msgid ""
 "      **FAIL**  REQUIRED NickName\n"
 "                REF: Page 60, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ NickName\n"
+"                HIV: 60. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:876
 msgid ""
 "      **FAIL**  REQUIRED PCFileName\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ PCFileName\n"
+"                HIV: 61–62. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:951
 msgid ""
 "      **FAIL**  REQUIRED PSVersion\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ PSVersion\n"
+"                HIV: 62–64. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:856
 msgid ""
 "      **FAIL**  REQUIRED PageRegion\n"
 "                REF: Page 100, section 5.14."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ PageRegion\n"
+"                HIV: 100. oldal, 5.14 szakasz."
 
 #: systemv/cupstestppd.c:1022
 msgid ""
@@ -867,12 +938,17 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 99, section 5.14."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ PageSize\n"
+"                HIV: 41. oldal, 5. szakasz.\n"
+"                HIV: 99. oldal, 5.14 szakasz."
 
 #: systemv/cupstestppd.c:836
 msgid ""
 "      **FAIL**  REQUIRED PageSize\n"
 "                REF: Pages 99-100, section 5.14."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ PageSize\n"
+"                HIV: 99–100. oldal, 5.14 szakasz."
 
 #: systemv/cupstestppd.c:1075
 #, c-format
@@ -881,33 +957,42 @@ msgid ""
 "                REF: Page 41, section 5.\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ PaperDimension a(z) %s mérethez\n"
+"                HIV: 41. oldal, 5. szakasz.\n"
+"                HIV: 103. oldal, 5.15 szakasz."
 
 #: systemv/cupstestppd.c:911
 msgid ""
 "      **FAIL**  REQUIRED Product\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ Product\n"
+"                HIV: 62. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:986
 msgid ""
 "      **FAIL**  REQUIRED ShortNickName\n"
 "                REF: Page 64-65, section 5.3."
 msgstr ""
+"      **SIKERTELEN**  KÖTELEZŐ ShortNickName\n"
+"                HIV: 64–65. oldal, 5.3 szakasz."
 
 #: systemv/cupstestppd.c:311 systemv/cupstestppd.c:330
 #: systemv/cupstestppd.c:342
 #, c-format
 msgid "      **FAIL**  Unable to open PPD file - %s on line %d."
 msgstr ""
+"      **SIKERTELEN**  Nem sikerült megnyitni a PPD fájlt – %s a(z) %d. "
+"sorban."
 
 #: systemv/cupstestppd.c:1475
 #, c-format
 msgid "    %d ERRORS FOUND"
-msgstr ""
+msgstr "    %d HIBA TALÁLHATÓ"
 
 #: systemv/cupstestppd.c:1477
 msgid "    NO ERRORS FOUND"
-msgstr ""
+msgstr "    NEM TALÁLHATÓ HIBA"
 
 #: ppdc/ppdc.cxx:444
 msgid "  --cr                    End lines with CR (Mac OS 9)."
