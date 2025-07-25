@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-24 12:47+0000\n"
+"PO-Revision-Date: 2025-07-25 14:03+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -3364,13 +3364,13 @@ msgid "A0"
 msgstr "A0"
 
 msgid "A0 Long Edge"
-msgstr "A0 com a borda maior"
+msgstr "A0 com a Borda Maior"
 
 msgid "A1"
 msgstr "A1"
 
 msgid "A1 Long Edge"
-msgstr "A1 com a borda maior"
+msgstr "A1 com a Borda Maior"
 
 msgid "A10"
 msgstr "A10"
@@ -3379,25 +3379,25 @@ msgid "A2"
 msgstr "A2"
 
 msgid "A2 Long Edge"
-msgstr "A2 com a borda maior"
+msgstr "A2 com a Borda Maior"
 
 msgid "A3"
 msgstr "A3"
 
 msgid "A3 Long Edge"
-msgstr "A3 com a borda maior"
+msgstr "A3 com a Borda Maior"
 
 msgid "A3 Oversize"
 msgstr "A3 grande"
 
 msgid "A3 Oversize Long Edge"
-msgstr "A3 com a borda muito maior"
+msgstr "A3 com a Borda Muito Maior"
 
 msgid "A4"
 msgstr "A4"
 
 msgid "A4 Long Edge"
-msgstr "A4 com a borda maior"
+msgstr "A4 com a Borda Maior"
 
 msgid "A4 Oversize"
 msgstr "A4 grande"
@@ -3409,7 +3409,7 @@ msgid "A5"
 msgstr "A5"
 
 msgid "A5 Long Edge"
-msgstr "A5 com a borda maior"
+msgstr "A5 com a Borda Maior"
 
 msgid "A5 Oversize"
 msgstr "A5 grande"
@@ -3418,7 +3418,7 @@ msgid "A6"
 msgstr "A6"
 
 msgid "A6 Long Edge"
-msgstr "A6 com a borda maior"
+msgstr "A6 com a Borda Maior"
 
 msgid "A7"
 msgstr "A7"
@@ -3448,19 +3448,19 @@ msgid "ARCH C"
 msgstr "ARCH C"
 
 msgid "ARCH C Long Edge"
-msgstr "ARCH C com a borda maior"
+msgstr "ARCH C com a Borda Maior"
 
 msgid "ARCH D"
 msgstr "ARCH D"
 
 msgid "ARCH D Long Edge"
-msgstr "ARCH D com a borda maior"
+msgstr "ARCH D com a Borda Maior"
 
 msgid "ARCH E"
 msgstr "ARCH E"
 
 msgid "ARCH E Long Edge"
-msgstr "ARCH E com a borda maior"
+msgstr "ARCH E com a Borda Maior"
 
 msgid "Accept Jobs"
 msgstr "Aceitar os trabalhos"
@@ -4621,10 +4621,10 @@ msgid "LaserJet Series PCL 4/5"
 msgstr "LaserJet Series PCL 4/5"
 
 msgid "Letter Oversize"
-msgstr "Carta grande"
+msgstr "Carta Grande"
 
 msgid "Letter Oversize Long Edge"
-msgstr "Carta com a borda muito maior"
+msgstr "Carta com a Borda Muito Maior"
 
 msgid "Light"
 msgstr "Leve"
@@ -4643,7 +4643,7 @@ msgid "Local printer created."
 msgstr "A impressora local foi criada."
 
 msgid "Long-Edge (Portrait)"
-msgstr "Borda maior (Retrato)"
+msgstr "Borda Maior (Retrato)"
 
 msgid "Main Roll"
 msgstr "Rolete principal"
@@ -4978,19 +4978,19 @@ msgid "PRC16K"
 msgstr "PRC16K"
 
 msgid "PRC16K Long Edge"
-msgstr "PRC16K com a borda maior"
+msgstr "PRC16K com a Borda Maior"
 
 msgid "PRC32K"
 msgstr "PRC32K"
 
 msgid "PRC32K Long Edge"
-msgstr "PRC32K com a borda maior"
+msgstr "PRC32K com a Borda Maior"
 
 msgid "PRC32K Oversize"
 msgstr "PRC32K grande"
 
 msgid "PRC32K Oversize Long Edge"
-msgstr "PRC32K com a borda muito maior"
+msgstr "PRC32K com a Borda Muito Maior"
 
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
@@ -5239,10 +5239,10 @@ msgid "Shipping Address"
 msgstr "Endereço de entrega"
 
 msgid "Short-Edge (Landscape)"
-msgstr "Borda menor (Paisagem)"
+msgstr "Borda Menor (Paisagem)"
 
 msgid "Special Paper"
-msgstr "Papel especial"
+msgstr "Papel Especial"
 
 #, c-format
 msgid "Spooling job, %.0f%% complete."
@@ -5286,10 +5286,10 @@ msgid "Tabloid"
 msgstr "Tabloide"
 
 msgid "Tabloid Oversize"
-msgstr "Tabloide grande"
+msgstr "Tabloide Grande"
 
 msgid "Tabloid Oversize Long Edge"
-msgstr "Tabloide com a borda muito maior"
+msgstr "Tabloide com a Borda Muito Maior"
 
 msgid "Tear"
 msgstr "Destacar"
@@ -5494,13 +5494,13 @@ msgid "US Letter"
 msgstr "Carta dos EUA"
 
 msgid "US Letter Long Edge"
-msgstr "Carta com a borda maior dos EUA"
+msgstr "Carta com a Borda Maior dos EUA"
 
 msgid "US Letter Oversize"
 msgstr "Carta grande dos EUA"
 
 msgid "US Letter Oversize Long Edge"
-msgstr "Carta grande com a borda maior dos EUA"
+msgstr "Carta Grande com a Borda Maior dos EUA"
 
 msgid "US Letter Small"
 msgstr "Carta pequena dos EUA"
@@ -6143,19 +6143,19 @@ msgstr "abortado"
 
 #. TRANSLATORS: Accuracy Units
 msgid "accuracy-units"
-msgstr "Unidade de precisão do accuracy-units"
+msgstr "Unidade de Precisão"
 
 #. TRANSLATORS: Millimeters
 msgid "accuracy-units.mm"
-msgstr "Milímetros do accuracy-units.mm"
+msgstr "Milímetros"
 
 #. TRANSLATORS: Nanometers
 msgid "accuracy-units.nm"
-msgstr "Nanômetros do accuracy-units.nm"
+msgstr "Nanômetros"
 
 #. TRANSLATORS: Micrometers
 msgid "accuracy-units.um"
-msgstr "Micrômetros do accuracy-units.um"
+msgstr "Micrômetros"
 
 msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr ""
@@ -6164,95 +6164,95 @@ msgstr ""
 
 #. TRANSLATORS: Bale Output
 msgid "baling"
-msgstr "Saída dos fardos do baling"
+msgstr "Saída dos Fardos"
 
 #. TRANSLATORS: Bale Using
 msgid "baling-type"
-msgstr "Utilização dos fardos do baling-type"
+msgstr "Utilização dos Fardos"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
-msgstr "Banda do baling-type.band"
+msgstr "Banda"
 
 #. TRANSLATORS: Shrink Wrap
 msgid "baling-type.shrink-wrap"
-msgstr "O envoltório retrátil do baling-type.shrink-wrap"
+msgstr "Envoltório Retrátil"
 
 #. TRANSLATORS: Wrap
 msgid "baling-type.wrap"
-msgstr "Envoltório do baling-type.wrap"
+msgstr "Envoltório"
 
 #. TRANSLATORS: Bale After
 msgid "baling-when"
-msgstr "Depois do bale do baling-when"
+msgstr "Depois do Fardo"
 
 #. TRANSLATORS: Job
 msgid "baling-when.after-job"
-msgstr "Trabalho do baling-when.after-job"
+msgstr "Trabalho"
 
 #. TRANSLATORS: Sets
 msgid "baling-when.after-sets"
-msgstr "Definições do baling-when.after-sets"
+msgstr "Definições"
 
 #. TRANSLATORS: Bind Output
 msgid "binding"
-msgstr "Saída da ligação do binding"
+msgstr "Saída da Ligação"
 
 #. TRANSLATORS: Bind Edge
 msgid "binding-reference-edge"
-msgstr "Borda de ligação do binding-reference-edge"
+msgstr "Borda de Ligação"
 
 #. TRANSLATORS: Bottom
 msgid "binding-reference-edge.bottom"
-msgstr "Botão do binding-reference-edge.bottom"
+msgstr "Botão"
 
 #. TRANSLATORS: Left
 msgid "binding-reference-edge.left"
-msgstr "Esquerdo do binding-reference-edge.left"
+msgstr "Esquerda"
 
 #. TRANSLATORS: Right
 msgid "binding-reference-edge.right"
-msgstr "Direito do binding-reference-edge.right"
+msgstr "Direita"
 
 #. TRANSLATORS: Top
 msgid "binding-reference-edge.top"
-msgstr "Em cima do binding-reference-edge.top"
+msgstr "Superior"
 
 #. TRANSLATORS: Binder Type
 msgid "binding-type"
-msgstr "Tipo da ligação do binding-type"
+msgstr "Tipo da Ligação"
 
 #. TRANSLATORS: Adhesive
 msgid "binding-type.adhesive"
-msgstr "Adesivo do binding-type.adhesive"
+msgstr "Adesivo"
 
 #. TRANSLATORS: Comb
 msgid "binding-type.comb"
-msgstr "Penteadeira do binding-type.comb"
+msgstr "Penteadeira"
 
 #. TRANSLATORS: Flat
 msgid "binding-type.flat"
-msgstr "Plano do binding-type.flat"
+msgstr "Plano"
 
 #. TRANSLATORS: Padding
 msgid "binding-type.padding"
-msgstr "Preenchimento do binding-type.padding"
+msgstr "Preenchimento"
 
 #. TRANSLATORS: Perfect
 msgid "binding-type.perfect"
-msgstr "Perfeição do binding-type.perfect"
+msgstr "Perfeito"
 
 #. TRANSLATORS: Spiral
 msgid "binding-type.spiral"
-msgstr "Espiral do binding-type.spiral"
+msgstr "Espiral"
 
 #. TRANSLATORS: Tape
 msgid "binding-type.tape"
-msgstr "Fita do binding-type.tape"
+msgstr "Fita"
 
 #. TRANSLATORS: Velo
 msgid "binding-type.velo"
-msgstr "Velocímetro do binding-type.velo"
+msgstr "Velocímetro"
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
 msgstr ""
@@ -6273,15 +6273,15 @@ msgstr "cert COMMON-NAME           Permite criar um certificado."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
-msgstr "Umidade da câmara do chamber-humidity"
+msgstr "Umidade da Câmara"
 
 #. TRANSLATORS: Chamber Temperature
 msgid "chamber-temperature"
-msgstr "Temperatura da câmara do chamber-temperature"
+msgstr "Temperatura da Câmara"
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
-msgstr "Custo do trabalho da impressão do charge-info-message"
+msgstr "Custo do Trabalho de Impressão"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
 msgstr ""
@@ -6292,162 +6292,162 @@ msgstr "client URI                 Permite conecte-se ao URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
-msgstr "Folhas de revestimento do coating"
+msgstr "Folhas de Revestimento"
 
 #. TRANSLATORS: Add Coating To
 msgid "coating-sides"
-msgstr "Adicionar o revestimento ao coating-sides"
+msgstr "Adicionar o Revestimento em"
 
 #. TRANSLATORS: Back
 msgid "coating-sides.back"
-msgstr "Verso do coating-sides.back"
+msgstr "Verso"
 
 #. TRANSLATORS: Front and Back
 msgid "coating-sides.both"
-msgstr "Frente e Verso do coating-sides.both"
+msgstr "Frente e Verso"
 
 #. TRANSLATORS: Front
 msgid "coating-sides.front"
-msgstr "Frente do coating-sides.front"
+msgstr "Frente"
 
 #. TRANSLATORS: Type of Coating
 msgid "coating-type"
-msgstr "Tipo do revestimento do coating-type"
+msgstr "Tipo do Revestimento"
 
 #. TRANSLATORS: Archival
 msgid "coating-type.archival"
-msgstr "Arquivo do coating-type.archival"
+msgstr "Arquivo"
 
 #. TRANSLATORS: Archival Glossy
 msgid "coating-type.archival-glossy"
-msgstr "Arquivo brilhante do coating-type.archival-glossy"
+msgstr "Arquivo Brilhante"
 
 #. TRANSLATORS: Archival Matte
 msgid "coating-type.archival-matte"
-msgstr "Arquivo fosco do coating-type.archival-matte"
+msgstr "Arquivo Fosco"
 
 #. TRANSLATORS: Archival Semi Gloss
 msgid "coating-type.archival-semi-gloss"
-msgstr "Arquivo semibrilhante do coating-type.archival-semi-gloss"
+msgstr "Arquivo Semibrilhante"
 
 #. TRANSLATORS: Glossy
 msgid "coating-type.glossy"
-msgstr "Brilhante do coating-type.glossy"
+msgstr "Brilhante"
 
 #. TRANSLATORS: High Gloss
 msgid "coating-type.high-gloss"
-msgstr "Muito brilhante do coating-type.high-gloss"
+msgstr "Muito Brilhante"
 
 #. TRANSLATORS: Matte
 msgid "coating-type.matte"
-msgstr "Fosco do coating-type.matte"
+msgstr "Fosco"
 
 #. TRANSLATORS: Semi-gloss
 msgid "coating-type.semi-gloss"
-msgstr "Semibrilhante do coating-type.semi-gloss"
+msgstr "Semibrilhante"
 
 #. TRANSLATORS: Silicone
 msgid "coating-type.silicone"
-msgstr "Silicone do coating-type.silicone"
+msgstr "Silicone"
 
 #. TRANSLATORS: Translucent
 msgid "coating-type.translucent"
-msgstr "Translúcido do coating-type.translucent"
+msgstr "Translúcido"
 
 msgid "completed"
 msgstr "completou"
 
 #. TRANSLATORS: Print Confirmation Sheet
 msgid "confirmation-sheet-print"
-msgstr "Relatório de confirmação da Impressão do confirmation-sheet-print"
+msgstr "Relatório de Confirmação da Impressão"
 
 #. TRANSLATORS: Copies
 msgid "copies"
-msgstr "Cópias do copies"
+msgstr "Cópias"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
-msgstr "Contracapa do cover-back"
+msgstr "Contracapa"
 
 #. TRANSLATORS: Front Cover
 msgid "cover-front"
-msgstr "Capa frontal do cover-front"
+msgstr "Capa Frontal"
 
 #. TRANSLATORS: Cover Sheet Info
 msgid "cover-sheet-info"
-msgstr "Informações da folha de rosto do cover-sheet-info"
+msgstr "Informações da Folha de Rosto"
 
 #. TRANSLATORS: Date Time
 msgid "cover-sheet-info-supported.date-time"
-msgstr "A data e a hora do cover-sheet-info-supported.date-time"
+msgstr "Data e a Hora"
 
 #. TRANSLATORS: From Name
 msgid "cover-sheet-info-supported.from-name"
-msgstr "O nome do cover-sheet-info-supported.from-name"
+msgstr "Nome Para"
 
 #. TRANSLATORS: Logo
 msgid "cover-sheet-info-supported.logo"
-msgstr "O logotipo do cover-sheet-info-supported.logo"
+msgstr "Logotipo"
 
 #. TRANSLATORS: Message
 msgid "cover-sheet-info-supported.message"
-msgstr "A mensagem do cover-sheet-info-supported.message"
+msgstr "Mensagem"
 
 #. TRANSLATORS: Organization
 msgid "cover-sheet-info-supported.organization"
-msgstr "A organização do cover-sheet-info-supported.organization"
+msgstr "Organização"
 
 #. TRANSLATORS: Subject
 msgid "cover-sheet-info-supported.subject"
-msgstr "O assunto do cover-sheet-info-supported.subject"
+msgstr "Assunto"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
-msgstr "Para nomear o cover-sheet-info-supported.to-name"
+msgstr "Para Nomear"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
-msgstr "Capa impressa do cover-type"
+msgstr "Capa Impressa"
 
 #. TRANSLATORS: No Cover
 msgid "cover-type.no-cover"
-msgstr "Sem a capa do cover-type.no-cover"
+msgstr "Sem a Capa"
 
 #. TRANSLATORS: Back Only
 msgid "cover-type.print-back"
-msgstr "Somente o verso do cover-type.print-back"
+msgstr "Somente o Verso"
 
 #. TRANSLATORS: Front and Back
 msgid "cover-type.print-both"
-msgstr "Frente e verso do cover-type.print-both"
+msgstr "Frente e Verso"
 
 #. TRANSLATORS: Front Only
 msgid "cover-type.print-front"
-msgstr "Somente a frente do cover-type.print-front"
+msgstr "Somente a Frente"
 
 #. TRANSLATORS: None
 msgid "cover-type.print-none"
-msgstr "Não tem o cover-type.print-none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Cover Output
 msgid "covering"
-msgstr "Relatório de testes do covering"
+msgstr "Saída da Capa"
 
 #. TRANSLATORS: Add Cover
 msgid "covering-name"
-msgstr "Adicionar um capa do covering-name"
+msgstr "Adicionar uma Capa"
 
 #. TRANSLATORS: Plain
 msgid "covering-name.plain"
-msgstr "Simples do covering-name.plain"
+msgstr "Simples"
 
 #. TRANSLATORS: Pre-cut
 msgid "covering-name.pre-cut"
-msgstr "Pré-cortado do covering-name.pre-cut"
+msgstr "Pré-cortado"
 
 #. TRANSLATORS: Pre-printed
 msgid "covering-name.pre-printed"
-msgstr "Pré-impresso do covering-name.pre-printed"
+msgstr "Pré-impresso"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
 msgstr ""
@@ -6723,7 +6723,7 @@ msgstr "A opção -v é não é compatível com a opção -q para o cupstestppd.
 
 #. TRANSLATORS: Detailed Status Message
 msgid "detailed-status-message"
-msgstr "Mensagem detalhada do estado para o detailed-status-message"
+msgstr "Mensagem Detalhada do Estado"
 
 #, c-format
 msgid "device for %s/%s: %s"
@@ -6735,268 +6735,227 @@ msgstr "dispositivo de %s: %s"
 
 #. TRANSLATORS: Copies
 msgid "document-copies"
-msgstr "Cópias do document-copies"
+msgstr "Cópias"
 
 #. TRANSLATORS: Document Privacy Attributes
 msgid "document-privacy-attributes"
-msgstr "Atributos de privacidade do documento do document-privacy-attributes"
+msgstr "Atributos de Privacidade do Documento"
 
 #. TRANSLATORS: All
 msgid "document-privacy-attributes.all"
-msgstr "Todos do document-privacy-attributes.all"
+msgstr "Todos"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-attributes.default"
-msgstr "Padrão do document-privacy-attributes.default"
+msgstr "Padrão"
 
 #. TRANSLATORS: Document Description
 msgid "document-privacy-attributes.document-description"
-msgstr ""
-"Descrição do documento do document-privacy-attributes.document-description"
+msgstr "Descrição do Documento"
 
 #. TRANSLATORS: Document Template
 msgid "document-privacy-attributes.document-template"
-msgstr "Modelo do documento do document-privacy-attributes.document-template"
+msgstr "Modelo do Documento"
 
 #. TRANSLATORS: None
 msgid "document-privacy-attributes.none"
-msgstr "Não tem o document-privacy-attributes.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Document Privacy Scope
 msgid "document-privacy-scope"
-msgstr "Escopo de privacidade do documento do document-privacy-scope"
+msgstr "Escopo de Privacidade do Documento"
 
 #. TRANSLATORS: All
 msgid "document-privacy-scope.all"
-msgstr "Todos os document-privacy-scope.all"
+msgstr "Todos"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-scope.default"
-msgstr "Padrão do document-privacy-scope.default"
+msgstr "Padrão"
 
 #. TRANSLATORS: None
 msgid "document-privacy-scope.none"
-msgstr "Não tem o document-privacy-scope.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Owner
 msgid "document-privacy-scope.owner"
-msgstr "Proprietário do document-privacy-scope.owner"
+msgstr "Proprietário"
 
 #. TRANSLATORS: Document State
 msgid "document-state"
-msgstr "Estado do documento do document-state"
+msgstr "Estado do Documento"
 
 #. TRANSLATORS: Detailed Document State
 msgid "document-state-reasons"
-msgstr "Estado detalhado do documento do document-state-reasons"
+msgstr "Estado Detalhado do Documento"
 
 #. TRANSLATORS: Aborted By System
 msgid "document-state-reasons.aborted-by-system"
-msgstr "O document-state-reasons.aborted-by-system foi abortado pelo sistema"
+msgstr "Foi abortado pelo sistema"
 
 #. TRANSLATORS: Canceled At Device
 msgid "document-state-reasons.canceled-at-device"
-msgstr ""
-"O document-state-reasons.canceled-at-device foi cancelado no dispositivo"
+msgstr "Foi cancelado no dispositivo"
 
 #. TRANSLATORS: Canceled By Operator
 msgid "document-state-reasons.canceled-by-operator"
-msgstr ""
-"O document-state-reasons.canceled-by-operator foi cancelado pelo operador"
+msgstr "Foi cancelado pelo operador"
 
 #. TRANSLATORS: Canceled By User
 msgid "document-state-reasons.canceled-by-user"
-msgstr "O document-state-reasons.canceled-by-user foi cancelado pelo usuário"
+msgstr "Foi cancelado pelo usuário"
 
 #. TRANSLATORS: Completed Successfully
 msgid "document-state-reasons.completed-successfully"
-msgstr ""
-"O document-state-reasons.completed-successfully foi concluído com sucesso"
+msgstr "Foi concluído com sucesso"
 
 #. TRANSLATORS: Completed With Errors
 msgid "document-state-reasons.completed-with-errors"
-msgstr "O document-state-reasons.completed-with-errors foi concluído com erros"
+msgstr "Foi concluído com erros"
 
 #. TRANSLATORS: Completed With Warnings
 msgid "document-state-reasons.completed-with-warnings"
-msgstr ""
-"O document-state-reasons.completed-with-warnings foi concluído com avisos"
+msgstr "Foi concluído com avisos"
 
 #. TRANSLATORS: Compression Error
 msgid "document-state-reasons.compression-error"
-msgstr ""
-"Ocorreu um erro de compactação no document-state-reasons.compression-error"
+msgstr "Ocorreu um erro de compactação"
 
 #. TRANSLATORS: Data Insufficient
 msgid "document-state-reasons.data-insufficient"
-msgstr ""
-"O dados não são suficientes para o document-state-reasons.data-insufficient"
+msgstr "O dados não são suficientes"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "document-state-reasons.digital-signature-did-not-verify"
-msgstr ""
-"A assinatura digital não correspondeu com o document-state-reasons.digital-"
-"signature-did-not-verify"
+msgstr "A assinatura digital não corresponde"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "document-state-reasons.digital-signature-type-not-supported"
-msgstr ""
-"O tipo da assinatura digital não é compatível com o document-state-reasons"
-".digital-signature-type-not-supported"
+msgstr "O tipo da assinatura digital não é compatível"
 
 #. TRANSLATORS: Digital Signature Wait
 msgid "document-state-reasons.digital-signature-wait"
-msgstr ""
-"O document-state-reasons.digital-signature-wait está aguardando a assinatura "
-"digital"
+msgstr "Está aguardando a assinatura digital"
 
 #. TRANSLATORS: Document Access Error
 msgid "document-state-reasons.document-access-error"
-msgstr ""
-"Ocorreu um erro de acesso ao documento document-state-reasons.document-"
-"access-error"
+msgstr "Ocorreu um erro de acesso ao documento"
 
 #. TRANSLATORS: Document Fetchable
 msgid "document-state-reasons.document-fetchable"
-msgstr ""
-"O documento que pode ser obtido pelo document-state-reasons.document-"
-"fetchable"
+msgstr "O documento que pode ser localizado"
 
 #. TRANSLATORS: Document Format Error
 msgid "document-state-reasons.document-format-error"
-msgstr ""
-"Ocorreu um erro no formato do documento para o document-state-reasons"
-".document-format-error"
+msgstr "Ocorreu um erro no formato do documento"
 
 #. TRANSLATORS: Document Password Error
 msgid "document-state-reasons.document-password-error"
-msgstr ""
-"Ocorreu um erro na senha do documento document-state-reasons.document-"
-"password-error"
+msgstr "Ocorreu um erro na senha do documento"
 
 #. TRANSLATORS: Document Permission Error
 msgid "document-state-reasons.document-permission-error"
-msgstr ""
-"Ocorreu um erro na permissão do documento document-state-reasons.document-"
-"permission-error"
+msgstr "Ocorreu um erro na permissão do documento"
 
 #. TRANSLATORS: Document Security Error
 msgid "document-state-reasons.document-security-error"
-msgstr ""
-"Ocorreu um erro de segurança no documento document-state-reasons.document-"
-"security-error"
+msgstr "Ocorreu um erro de segurança no documento"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "document-state-reasons.document-unprintable-error"
-msgstr ""
-"Ocorreu um erro no documentodo cument-state-reasons.document-unprintable-"
-"error e não pode ser impresso"
+msgstr "Ocorreu um erro no documentodo"
 
 #. TRANSLATORS: Errors Detected
 msgid "document-state-reasons.errors-detected"
-msgstr "Alguns erros foram detectados no document-state-reasons.errors-detected"
+msgstr "Alguns erros foram detectados"
 
 #. TRANSLATORS: Incoming
 msgid "document-state-reasons.incoming"
-msgstr "O document-state-reasons.incoming está entrando"
+msgstr "Está Entrando"
 
 #. TRANSLATORS: Interpreting
 msgid "document-state-reasons.interpreting"
-msgstr "O document-state-reasons.interpreting está sendo interpretado"
+msgstr "Interpretando"
 
 #. TRANSLATORS: None
 msgid "document-state-reasons.none"
-msgstr "Não tem o document-state-reasons.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Outgoing
 msgid "document-state-reasons.outgoing"
-msgstr "O document-state-reasons.outgoing está saindo"
+msgstr "Saindo"
 
 #. TRANSLATORS: Printing
 msgid "document-state-reasons.printing"
-msgstr "Imprimindo o document-state-reasons.printing"
+msgstr "Imprimindo"
 
 #. TRANSLATORS: Processing To Stop Point
 msgid "document-state-reasons.processing-to-stop-point"
-msgstr ""
-"Processando o document-state-reasons.processing-to-stop-point até o ponto de "
-"parada"
+msgstr "Processando até o ponto de parada"
 
 #. TRANSLATORS: Queued
 msgid "document-state-reasons.queued"
-msgstr "Na fila da impressão do document-state-reasons.queued"
+msgstr "Na fila"
 
 #. TRANSLATORS: Queued For Marker
 msgid "document-state-reasons.queued-for-marker"
-msgstr ""
-"O documento preferido document-state-reasons.queued-for-marker está na fila "
-"da impressão"
+msgstr "O documento selecionado está na fila"
 
 #. TRANSLATORS: Queued In Device
 msgid "document-state-reasons.queued-in-device"
-msgstr "O document-state-reasons.queued-in-device está na fila da impressão"
+msgstr "Está na fila de impressão"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "document-state-reasons.resources-are-not-ready"
-msgstr ""
-"Os recursos não estão prontos para o document-state-reasons.resources-are-"
-"not-ready"
+msgstr "Os recursos não estão prontos"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "document-state-reasons.resources-are-not-supported"
-msgstr ""
-"Os recursos do document-state-reasons.resources-are-not-supported não são "
-"compatíveis"
+msgstr "Os recursos não são compatíveis"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "document-state-reasons.submission-interrupted"
-msgstr ""
-"O envio do document-state-reasons.submission-interrupted foi interrompido"
+msgstr "O envio foi interrompido"
 
 #. TRANSLATORS: Transforming
 msgid "document-state-reasons.transforming"
-msgstr "Transformando o document-state-reasons.transforming"
+msgstr "Transformando"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "document-state-reasons.unsupported-compression"
-msgstr ""
-"A compactação não é compatível para o document-state-reasons.unsupported-"
-"compression"
+msgstr "A compactação não é compatívelcompression"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "document-state-reasons.unsupported-document-format"
-msgstr ""
-"O formato do documento não é compatível para o document-state-reasons"
-".unsupported-document-format"
+msgstr "O formato do documento não é compatível"
 
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
-msgstr ""
-"Alguns avisos foram detectados no document-state-reasons.warnings-detected"
+msgstr "Alguns avisos foram detectados"
 
 #. TRANSLATORS: Pending
 msgid "document-state.3"
-msgstr "O document-state.3 está pendente"
+msgstr "Está pendente"
 
 #. TRANSLATORS: Processing
 msgid "document-state.5"
-msgstr "O document-state.5 está sendo processando"
+msgstr "Está sendo processando"
 
 #. TRANSLATORS: Stopped
 msgid "document-state.6"
-msgstr "O document-state.6 está parado"
+msgstr "Está parado"
 
 #. TRANSLATORS: Canceled
 msgid "document-state.7"
-msgstr "O document-state.7 foi cancelado"
+msgstr "Foi cancelado"
 
 #. TRANSLATORS: Aborted
 msgid "document-state.8"
-msgstr "O document-state.8 foi abortado"
+msgstr "Foi abortado"
 
 #. TRANSLATORS: Completed
 msgid "document-state.9"
-msgstr "O document-state.9 foi completado com sucesso"
+msgstr "Foi completado com sucesso"
 
 msgid "error-index uses indefinite length"
 msgstr "O error-index utiliza um comprimento que não é definido"
@@ -7023,1039 +6982,1007 @@ msgstr "expressão expressão     E lógico"
 
 #. TRANSLATORS: Feed Orientation
 msgid "feed-orientation"
-msgstr "Orientação da alimentação do feed-orientation"
+msgstr "Orientação da Alimentação"
 
 #. TRANSLATORS: Long Edge First
 msgid "feed-orientation.long-edge-first"
-msgstr "Borda longa para o primeiro do feed-orientation.long-edge-first"
+msgstr "Borda longa no primeiro"
 
 #. TRANSLATORS: Short Edge First
 msgid "feed-orientation.short-edge-first"
-msgstr "Borda curta para o primeiro do feed-orientation.short-edge-first"
+msgstr "Borda menor no primeiro"
 
 #. TRANSLATORS: Fetch Status Code
 msgid "fetch-status-code"
-msgstr "Obter o código do estado para o fetch-status-code"
+msgstr "Obter o código do estado"
 
 #. TRANSLATORS: Finishing Template
 msgid "finishing-template"
-msgstr "Modelo do acabamento do finishing-template"
+msgstr "Modelo do Acabamento"
 
 #. TRANSLATORS: Bale
 msgid "finishing-template.bale"
-msgstr "Fardo do finishing-template.bale"
+msgstr "Fardo"
 
 #. TRANSLATORS: Bind
 msgid "finishing-template.bind"
-msgstr "Ligar o finishing-template.bind"
+msgstr "Ligar"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishing-template.bind-bottom"
-msgstr "Botão para ligar o finishing-template.bind-bottom"
+msgstr "Botão para Ligar"
 
 #. TRANSLATORS: Bind Left
 msgid "finishing-template.bind-left"
-msgstr "Ligar à esquerda o finishing-template.bind-left"
+msgstr "Ligar à Esquerda"
 
 #. TRANSLATORS: Bind Right
 msgid "finishing-template.bind-right"
-msgstr "Ligar à direita o finishing-template.bind-right"
+msgstr "Ligar à Direita"
 
 #. TRANSLATORS: Bind Top
 msgid "finishing-template.bind-top"
-msgstr "Ligar à cima o finishing-template.bind-top"
+msgstr "Ligar à Cima"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishing-template.booklet-maker"
-msgstr "Criar livretos com o finishing-template.booklet-maker"
+msgstr "Criar Livretos"
 
 #. TRANSLATORS: Coat
 msgid "finishing-template.coat"
-msgstr "Revestimento do finishing-template.coat"
+msgstr "Revestimento"
 
 #. TRANSLATORS: Cover
 msgid "finishing-template.cover"
-msgstr "Capa do finishing-template.cover"
+msgstr "Capa"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishing-template.edge-stitch"
-msgstr "Costurar na borda do finishing-template.edge-stitch"
+msgstr "Costurar na Borda"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishing-template.edge-stitch-bottom"
-msgstr "Botão para costurar na borda finishing-template.edge-stitch-bottom"
+msgstr "Botão para costurar na borda"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishing-template.edge-stitch-left"
-msgstr ""
-"Costurar na borda do canto esquerdo do finishing-template.edge-stitch-left"
+msgstr "Costurar na borda do canto esquerdo"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishing-template.edge-stitch-right"
-msgstr ""
-"Costurar na borda do canto direito do finishing-template.edge-stitch-right"
+msgstr "Costurar na borda do canto direito"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishing-template.edge-stitch-top"
-msgstr "Costurar na borda do canto superior finishing-template.edge-stitch-top"
+msgstr "Costurar na borda do canto superior"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
-msgstr "Dobrar o finishing-template.fold"
+msgstr "Dobrar"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishing-template.fold-accordion"
-msgstr "Papel sanfonado finishing-template.fold"
+msgstr "Papel Sanfonado"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishing-template.fold-double-gate"
-msgstr "Dobrar duas vezes finishing-template.fold-double-gate"
+msgstr "Dobrar Duas Vezes"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
-msgstr "Dobrar no formato de \"Z\" o finishing-template.fold-engineering-z"
+msgstr "Dobrar o Papel no Formato de \"Z\""
 
 #. TRANSLATORS: Gate Fold
 msgid "finishing-template.fold-gate"
-msgstr "Dobrar a duas abas laterais para dentro do finishing-template.fold-gate"
+msgstr "Dobrar as Duas Abas Laterais para Dentro"
 
 #. TRANSLATORS: Half Fold
 msgid "finishing-template.fold-half"
-msgstr "Dobrar ao meio o finishing-template.fold-half"
+msgstr "Dobrar ao Meio"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishing-template.fold-half-z"
-msgstr "Dobrar ao meio no formato de \"Z\" o finishing-template.fold-half-z"
+msgstr "Dobrar ao Meio no Formato de \"Z\""
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishing-template.fold-left-gate"
-msgstr ""
-"Dobrar as duas abas do lado esquerdo o finishing-template.fold-left-gate"
+msgstr "Dobrar as Duas Abas no Canto Esquerdo"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishing-template.fold-letter"
-msgstr "Dobrar em seis partes iguais o finishing-template.fold-letter"
+msgstr "Dobrar em Seis Partes Iguais"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishing-template.fold-parallel"
-msgstr ""
-"Dobrar ao meio e dobrar ao meio novamente o finishing-template.fold-parallel"
+msgstr "Dobrar ao Meio e Dobrar ao Meio Novamente"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishing-template.fold-poster"
-msgstr "Imprimir no formato de cartaz o finishing-template.fold-poster"
+msgstr "Imprimir no Formato de Cartaz"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishing-template.fold-right-gate"
-msgstr ""
-"Dobrar as duas abas do lado direito do finishing-template.fold-left-gate"
+msgstr "Dobrar as Duas Abas no Canto Direito"
 
 #. TRANSLATORS: Z Fold
 msgid "finishing-template.fold-z"
-msgstr "Dobrar no formato de \"Z\" o finishing-template.fold-z"
+msgstr "Dobrar no Formato de \"Z\""
 
 #. TRANSLATORS: JDF F10-1
 msgid "finishing-template.jdf-f10-1"
-msgstr "Formato de definição do trabalho JDF F10-1 finishing-template.jdf-f10-1"
+msgstr "Formato de definição do trabalho JDF F10-1"
 
 #. TRANSLATORS: JDF F10-2
 msgid "finishing-template.jdf-f10-2"
-msgstr "Formato de definição do trabalho JDF F10-2 finishing-template.jdf-f10-2"
+msgstr "Formato de definição do trabalho JDF F10-2"
 
 #. TRANSLATORS: JDF F10-3
 msgid "finishing-template.jdf-f10-3"
-msgstr "Formato de definição do trabalho JDF F10-3 finishing-template.jdf-f10-3"
+msgstr "Formato de definição do trabalho JDF F10-3"
 
 #. TRANSLATORS: JDF F12-1
 msgid "finishing-template.jdf-f12-1"
-msgstr "Formato de definição do trabalho JDF F12-1 finishing-template.jdf-f12-1"
+msgstr "Formato de definição do trabalho JDF F12-1"
 
 #. TRANSLATORS: JDF F12-10
 msgid "finishing-template.jdf-f12-10"
-msgstr ""
-"Formato de definição do trabalho JDF F12-10 finishing-template.jdf-f12-10"
+msgstr "Formato de definição do trabalho JDF F12-10"
 
 #. TRANSLATORS: JDF F12-11
 msgid "finishing-template.jdf-f12-11"
-msgstr ""
-"Formato de definição do trabalho JDF F12-11 finishing-template.jdf-f12-11"
+msgstr "Formato de definição do trabalho JDF F12-11"
 
 #. TRANSLATORS: JDF F12-12
 msgid "finishing-template.jdf-f12-12"
-msgstr ""
-"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-12"
+msgstr "Formato de definição do trabalho JDF F12-12"
 
 #. TRANSLATORS: JDF F12-13
 msgid "finishing-template.jdf-f12-13"
-msgstr ""
-"Formato de definição do trabalho JDF F12-13 finishing-template.jdf-f12-13"
+msgstr "Formato de definição do trabalho JDF F12-13"
 
 #. TRANSLATORS: JDF F12-14
 msgid "finishing-template.jdf-f12-14"
-msgstr ""
-"Formato de definição do trabalho JDF F12-14 finishing-template.jdf-f12-14"
+msgstr "Formato de definição do trabalho JDF F12-14"
 
 #. TRANSLATORS: JDF F12-2
 msgid "finishing-template.jdf-f12-2"
-msgstr ""
-"Formato de definição do trabalho JDF F12-12 finishing-template.jdf-f12-2"
+msgstr "Formato de definição do trabalho JDF F12-12"
 
 #. TRANSLATORS: JDF F12-3
 msgid "finishing-template.jdf-f12-3"
-msgstr "Formato de definição do trabalho JDF F12-3 finishing-template.jdf-f12-3"
+msgstr "Formato de definição do trabalho JDF F12-3"
 
 #. TRANSLATORS: JDF F12-4
 msgid "finishing-template.jdf-f12-4"
-msgstr "Formato de definição do trabalho JDF F12-4 finishing-template.jdf-f12-4"
+msgstr "Formato de definição do trabalho JDF F12-4"
 
 #. TRANSLATORS: JDF F12-5
 msgid "finishing-template.jdf-f12-5"
-msgstr "Formato de definição do trabalho JDF F12-5 finishing-template.jdf-f12-5"
+msgstr "Formato de definição do trabalho JDF F12-5"
 
 #. TRANSLATORS: JDF F12-6
 msgid "finishing-template.jdf-f12-6"
-msgstr "Formato de definição do trabalho JDF F12-6 finishing-template.jdf-f12-6"
+msgstr "Formato de definição do trabalho JDF F12-6"
 
 #. TRANSLATORS: JDF F12-7
 msgid "finishing-template.jdf-f12-7"
-msgstr "Formato de definição do trabalho JDF F12-7 finishing-template.jdf-f12-7"
+msgstr "Formato de definição do trabalho JDF F12-7"
 
 #. TRANSLATORS: JDF F12-8
 msgid "finishing-template.jdf-f12-8"
-msgstr "Formato de definição do trabalho JDF F12-8 finishing-template.jdf-f12-8"
+msgstr "Formato de definição do trabalho JDF F12-8"
 
 #. TRANSLATORS: JDF F12-9
 msgid "finishing-template.jdf-f12-9"
-msgstr "Formato de definição do trabalho JDF F12-9 finishing-template.jdf-f12-9"
+msgstr "Formato de definição do trabalho JDF F12-9"
 
 #. TRANSLATORS: JDF F14-1
 msgid "finishing-template.jdf-f14-1"
-msgstr "Formato de definição do trabalho JDF F14-1 finishing-template.jdf-f14-1"
+msgstr "Formato de definição do trabalho JDF F14-1"
 
 #. TRANSLATORS: JDF F16-1
 msgid "finishing-template.jdf-f16-1"
-msgstr "Formato de definição do trabalho JDF F16-1 finishing-template.jdf-f16-1"
+msgstr "Formato de definição do trabalho JDF F16-1"
 
 #. TRANSLATORS: JDF F16-10
 msgid "finishing-template.jdf-f16-10"
-msgstr ""
-"Formato de definição do trabalho JDF F16-10 finishing-template.jdf-f16-10"
+msgstr "Formato de definição do trabalho JDF F16-10"
 
 #. TRANSLATORS: JDF F16-11
 msgid "finishing-template.jdf-f16-11"
-msgstr ""
-"Formato de definição do trabalho JDF F16-11 finishing-template.jdf-f16-11"
+msgstr "Formato de definição do trabalho JDF F16-11"
 
 #. TRANSLATORS: JDF F16-12
 msgid "finishing-template.jdf-f16-12"
-msgstr ""
-"Formato de definição do trabalho JDF F16-12 finishing-template.jdf-f16-12"
+msgstr "Formato de definição do trabalho JDF F16-12"
 
 #. TRANSLATORS: JDF F16-13
 msgid "finishing-template.jdf-f16-13"
-msgstr ""
-"Formato de definição do trabalho JDF F16-13 finishing-template.jdf-f16-13"
+msgstr "Formato de definição do trabalho JDF F16-13"
 
 #. TRANSLATORS: JDF F16-14
 msgid "finishing-template.jdf-f16-14"
-msgstr ""
-"Formato de definição do trabalho JDF F16-14 finishing-template.jdf-f16-14"
+msgstr "Formato de definição do trabalho JDF F16-14"
 
 #. TRANSLATORS: JDF F16-2
 msgid "finishing-template.jdf-f16-2"
-msgstr "Formato de definição do trabalho JDF F16-2 finishing-template.jdf-f16-2"
+msgstr "Formato de definição do trabalho JDF F16-2"
 
 #. TRANSLATORS: JDF F16-3
 msgid "finishing-template.jdf-f16-3"
-msgstr "Formato de definição do trabalho JDF F16-3 finishing-template.jdf-f16-3"
+msgstr "Formato de definição do trabalho JDF F16-3"
 
 #. TRANSLATORS: JDF F16-4
 msgid "finishing-template.jdf-f16-4"
-msgstr "Formato de definição do trabalho JDF F16-4 finishing-template.jdf-f16-4"
+msgstr "Formato de definição do trabalho JDF F16-4"
 
 #. TRANSLATORS: JDF F16-5
 msgid "finishing-template.jdf-f16-5"
-msgstr "Formato de definição do trabalho JDF F16-5 finishing-template.jdf-f16-5"
+msgstr "Formato de definição do trabalho JDF F16-5"
 
 #. TRANSLATORS: JDF F16-6
 msgid "finishing-template.jdf-f16-6"
-msgstr "Formato de definição do trabalho JDF F16-6 finishing-template.jdf-f16-6"
+msgstr "Formato de definição do trabalho JDF F16-6"
 
 #. TRANSLATORS: JDF F16-7
 msgid "finishing-template.jdf-f16-7"
-msgstr "Formato de definição do trabalho JDF F16-7 finishing-template.jdf-f16-7"
+msgstr "Formato de definição do trabalho JDF F16-7"
 
 #. TRANSLATORS: JDF F16-8
 msgid "finishing-template.jdf-f16-8"
-msgstr "Formato de definição do trabalho JDF F16-8 finishing-template.jdf-f16-8"
+msgstr "Formato de definição do trabalho JDF F16-8"
 
 #. TRANSLATORS: JDF F16-9
 msgid "finishing-template.jdf-f16-9"
-msgstr "Formato de definição do trabalho JDF F16-9 finishing-template.jdf-f16-9"
+msgstr "Formato de definição do trabalho JDF F16-9"
 
 #. TRANSLATORS: JDF F18-1
 msgid "finishing-template.jdf-f18-1"
-msgstr "Formato de definição do trabalho JDF F18-1 finishing-template.jdf-f18-1"
+msgstr "Formato de definição do trabalho JDF F18-1"
 
 #. TRANSLATORS: JDF F18-2
 msgid "finishing-template.jdf-f18-2"
-msgstr "Formato de definição do trabalho JDF F18-2 finishing-template.jdf-f18-2"
+msgstr "Formato de definição do trabalho JDF F18-2"
 
 #. TRANSLATORS: JDF F18-3
 msgid "finishing-template.jdf-f18-3"
-msgstr "Formato de definição do trabalho JDF F18-3 finishing-template.jdf-f18-3"
+msgstr "Formato de definição do trabalho JDF F18-3"
 
 #. TRANSLATORS: JDF F18-4
 msgid "finishing-template.jdf-f18-4"
-msgstr "Formato de definição do trabalho JDF F18-4 finishing-template.jdf-f18-4"
+msgstr "Formato de definição do trabalho JDF F18-4"
 
 #. TRANSLATORS: JDF F18-5
 msgid "finishing-template.jdf-f18-5"
-msgstr "Formato de definição do trabalho JDF F18-5 finishing-template.jdf-f18-5"
+msgstr "Formato de definição do trabalho JDF F18-5"
 
 #. TRANSLATORS: JDF F18-6
 msgid "finishing-template.jdf-f18-6"
-msgstr "Formato de definição do trabalho JDF F18-6 finishing-template.jdf-f18-6"
+msgstr "Formato de definição do trabalho JDF F18-6"
 
 #. TRANSLATORS: JDF F18-7
 msgid "finishing-template.jdf-f18-7"
-msgstr "Formato de definição do trabalho JDF F18-7 finishing-template.jdf-f18-7"
+msgstr "Formato de definição do trabalho JDF F18-7"
 
 #. TRANSLATORS: JDF F18-8
 msgid "finishing-template.jdf-f18-8"
-msgstr "Formato de definição do trabalho JDF F18-8 finishing-template.jdf-f18-8"
+msgstr "Formato de definição do trabalho JDF F18-8"
 
 #. TRANSLATORS: JDF F18-9
 msgid "finishing-template.jdf-f18-9"
-msgstr "Formato de definição do trabalho JDF F18-9 finishing-template.jdf-f18-9"
+msgstr "Formato de definição do trabalho JDF F18-9"
 
 #. TRANSLATORS: JDF F2-1
 msgid "finishing-template.jdf-f2-1"
-msgstr "Formato de definição do trabalho JDF F2-1 finishing-template.jdf-f2-1"
+msgstr "Formato de definição do trabalho JDF F2-1"
 
 #. TRANSLATORS: JDF F20-1
 msgid "finishing-template.jdf-f20-1"
-msgstr "Formato de definição do trabalho JDF F20-1 finishing-template.jdf-f20-1"
+msgstr "Formato de definição do trabalho JDF F20-1"
 
 #. TRANSLATORS: JDF F20-2
 msgid "finishing-template.jdf-f20-2"
-msgstr "Formato de definição do trabalho JDF F20-2 finishing-template.jdf-f20-2"
+msgstr "Formato de definição do trabalho JDF F20-2"
 
 #. TRANSLATORS: JDF F24-1
 msgid "finishing-template.jdf-f24-1"
-msgstr "Formato de definição do trabalho JDF F24-1 finishing-template.jdf-f24-1"
+msgstr "Formato de definição do trabalho JDF F24-1"
 
 #. TRANSLATORS: JDF F24-10
 msgid "finishing-template.jdf-f24-10"
-msgstr ""
-"Formato de definição do trabalho JDF F24-10 finishing-template.jdf-f24-10"
+msgstr "Formato de definição do trabalho JDF F24-10"
 
 #. TRANSLATORS: JDF F24-11
 msgid "finishing-template.jdf-f24-11"
-msgstr ""
-"Formato de definição do trabalho JDF F24-11 finishing-template.jdf-f24-11"
+msgstr "Formato de definição do trabalho JDF F24-11"
 
 #. TRANSLATORS: JDF F24-2
 msgid "finishing-template.jdf-f24-2"
-msgstr "Formato de definição do trabalho JDF F24-2 finishing-template.jdf-f24-2"
+msgstr "Formato de definição do trabalho JDF F24-2"
 
 #. TRANSLATORS: JDF F24-3
 msgid "finishing-template.jdf-f24-3"
-msgstr "Formato de definição do trabalho JDF F24-3 finishing-template.jdf-f24-3"
+msgstr "Formato de definição do trabalho JDF F24-3"
 
 #. TRANSLATORS: JDF F24-4
 msgid "finishing-template.jdf-f24-4"
-msgstr "Formato de definição do trabalho JDF F24-4 finishing-template.jdf-f24-4"
+msgstr "Formato de definição do trabalho JDF F24-4"
 
 #. TRANSLATORS: JDF F24-5
 msgid "finishing-template.jdf-f24-5"
-msgstr "Formato de definição do trabalho JDF F24-5 finishing-template.jdf-f24-5"
+msgstr "Formato de definição do trabalho JDF F24-5"
 
 #. TRANSLATORS: JDF F24-6
 msgid "finishing-template.jdf-f24-6"
-msgstr "Formato de definição do trabalho JDF F24-6 finishing-template.jdf-f24-6"
+msgstr "Formato de definição do trabalho JDF F24-6"
 
 #. TRANSLATORS: JDF F24-7
 msgid "finishing-template.jdf-f24-7"
-msgstr "Formato de definição do trabalho JDF F24-7 finishing-template.jdf-f24-7"
+msgstr "Formato de definição do trabalho JDF F24-7"
 
 #. TRANSLATORS: JDF F24-8
 msgid "finishing-template.jdf-f24-8"
-msgstr "Formato de definição do trabalho JDF F24-8 finishing-template.jdf-f24-8"
+msgstr "Formato de definição do trabalho JDF F24-8"
 
 #. TRANSLATORS: JDF F24-9
 msgid "finishing-template.jdf-f24-9"
-msgstr "Formato de definição do trabalho JDF F24-9 finishing-template.jdf-f24-9"
+msgstr "Formato de definição do trabalho JDF F24-9"
 
 #. TRANSLATORS: JDF F28-1
 msgid "finishing-template.jdf-f28-1"
-msgstr "Formato de definição do trabalho JDF F28-1 finishing-template.jdf-f28-1"
+msgstr "Formato de definição do trabalho JDF F28-1"
 
 #. TRANSLATORS: JDF F32-1
 msgid "finishing-template.jdf-f32-1"
-msgstr "Formato de definição do trabalho JDF F32-1 finishing-template.jdf-f32-1"
+msgstr "Formato de definição do trabalho JDF F32-1"
 
 #. TRANSLATORS: JDF F32-2
 msgid "finishing-template.jdf-f32-2"
-msgstr "Formato de definição do trabalho JDF F32-2 finishing-template.jdf-f32-2"
+msgstr "Formato de definição do trabalho JDF F32-2"
 
 #. TRANSLATORS: JDF F32-3
 msgid "finishing-template.jdf-f32-3"
-msgstr "Formato de definição do trabalho JDF F32-3 finishing-template.jdf-f32-3"
+msgstr "Formato de definição do trabalho JDF F32-3"
 
 #. TRANSLATORS: JDF F32-4
 msgid "finishing-template.jdf-f32-4"
-msgstr "Formato de definição do trabalho JDF F32-4 finishing-template.jdf-f32-4"
+msgstr "Formato de definição do trabalho JDF F32-4"
 
 #. TRANSLATORS: JDF F32-5
 msgid "finishing-template.jdf-f32-5"
-msgstr "Formato de definição do trabalho JDF F32-5 finishing-template.jdf-f32-5"
+msgstr "Formato de definição do trabalho JDF F32-5"
 
 #. TRANSLATORS: JDF F32-6
 msgid "finishing-template.jdf-f32-6"
-msgstr "Formato de definição do trabalho JDF F32-6 finishing-template.jdf-f32-6"
+msgstr "Formato de definição do trabalho JDF F32-6"
 
 #. TRANSLATORS: JDF F32-7
 msgid "finishing-template.jdf-f32-7"
-msgstr "Formato de definição do trabalho JDF F32-7 finishing-template.jdf-f32-7"
+msgstr "Formato de definição do trabalho JDF F32-7"
 
 #. TRANSLATORS: JDF F32-8
 msgid "finishing-template.jdf-f32-8"
-msgstr "Formato de definição do trabalho JDF F32-8 finishing-template.jdf-f32-8"
+msgstr "Formato de definição do trabalho JDF F32-8"
 
 #. TRANSLATORS: JDF F32-9
 msgid "finishing-template.jdf-f32-9"
-msgstr "Formato de definição do trabalho JDF F32-9 finishing-template.jdf-f32-9"
+msgstr "Formato de definição do trabalho JDF F32-9"
 
 #. TRANSLATORS: JDF F36-1
 msgid "finishing-template.jdf-f36-1"
-msgstr "Formato de definição do trabalho JDF F36-1 finishing-template.jdf-f36-1"
+msgstr "Formato de definição do trabalho JDF F36-1"
 
 #. TRANSLATORS: JDF F36-2
 msgid "finishing-template.jdf-f36-2"
-msgstr "Formato de definição do trabalho JDF F36-2 finishing-template.jdf-f36-2"
+msgstr "Formato de definição do trabalho JDF F36-2"
 
 #. TRANSLATORS: JDF F4-1
 msgid "finishing-template.jdf-f4-1"
-msgstr "Formato de definição do trabalho JDF F4-1 finishing-template.jdf-f4-1"
+msgstr "Formato de definição do trabalho JDF F4-1"
 
 #. TRANSLATORS: JDF F4-2
 msgid "finishing-template.jdf-f4-2"
-msgstr "Formato de definição do trabalho JDF F4-2 finishing-template.jdf-f4-2"
+msgstr "Formato de definição do trabalho JDF F4-2"
 
 #. TRANSLATORS: JDF F40-1
 msgid "finishing-template.jdf-f40-1"
-msgstr "Formato de definição do trabalho JDF F40-1 finishing-template.jdf-f40-1"
+msgstr "Formato de definição do trabalho JDF F40-1"
 
 #. TRANSLATORS: JDF F48-1
 msgid "finishing-template.jdf-f48-1"
-msgstr "Formato de definição do trabalho JDF F48-1 finishing-template.jdf-f48-1"
+msgstr "Formato de definição do trabalho JDF F48-1"
 
 #. TRANSLATORS: JDF F48-2
 msgid "finishing-template.jdf-f48-2"
-msgstr "Formato de definição do trabalho JDF F48-2 finishing-template.jdf-f48-2"
+msgstr "Formato de definição do trabalho JDF F48-2"
 
 #. TRANSLATORS: JDF F6-1
 msgid "finishing-template.jdf-f6-1"
-msgstr "Formato de definição do trabalho JDF F6-1 finishing-template.jdf-f6-1"
+msgstr "Formato de definição do trabalho JDF F6-1"
 
 #. TRANSLATORS: JDF F6-2
 msgid "finishing-template.jdf-f6-2"
-msgstr "Formato de definição do trabalho JDF F6-2 finishing-template.jdf-f6-2"
+msgstr "Formato de definição do trabalho JDF F6-2"
 
 #. TRANSLATORS: JDF F6-3
 msgid "finishing-template.jdf-f6-3"
-msgstr "Formato de definição do trabalho JDF F6-3 finishing-template.jdf-f6-3"
+msgstr "Formato de definição do trabalho JDF F6-3"
 
 #. TRANSLATORS: JDF F6-4
 msgid "finishing-template.jdf-f6-4"
-msgstr "Formato de definição do trabalho JDF F6-4 finishing-template.jdf-f6-4"
+msgstr "Formato de definição do trabalho JDF F6-4"
 
 #. TRANSLATORS: JDF F6-5
 msgid "finishing-template.jdf-f6-5"
-msgstr "Formato de definição do trabalho JDF F6-5 finishing-template.jdf-f6-5"
+msgstr "Formato de definição do trabalho JDF F6-5"
 
 #. TRANSLATORS: JDF F6-6
 msgid "finishing-template.jdf-f6-6"
-msgstr "Formato de definição do trabalho JDF F6-6 finishing-template.jdf-f6-6"
+msgstr "Formato de definição do trabalho JDF F6-6"
 
 #. TRANSLATORS: JDF F6-7
 msgid "finishing-template.jdf-f6-7"
-msgstr "Formato de definição do trabalho JDF F6-7 finishing-template.jdf-f6-7"
+msgstr "Formato de definição do trabalho JDF F6-7"
 
 #. TRANSLATORS: JDF F6-8
 msgid "finishing-template.jdf-f6-8"
-msgstr "Formato de definição do trabalho JDF F6-8 finishing-template.jdf-f6-8"
+msgstr "Formato de definição do trabalho JDF F6-8"
 
 #. TRANSLATORS: JDF F64-1
 msgid "finishing-template.jdf-f64-1"
-msgstr "Formato de definição do trabalho JDF F64-1 finishing-template.jdf-f64-1"
+msgstr "Formato de definição do trabalho JDF F64-1"
 
 #. TRANSLATORS: JDF F64-2
 msgid "finishing-template.jdf-f64-2"
-msgstr "Formato de definição do trabalho JDF F64-2 finishing-template.jdf-f64-2"
+msgstr "Formato de definição do trabalho JDF F64-2"
 
 #. TRANSLATORS: JDF F8-1
 msgid "finishing-template.jdf-f8-1"
-msgstr "Formato de definição do trabalho JDF F8-1 finishing-template.jdf-f8-1"
+msgstr "Formato de definição do trabalho JDF F8-1"
 
 #. TRANSLATORS: JDF F8-2
 msgid "finishing-template.jdf-f8-2"
-msgstr "Formato de definição do trabalho JDF F8-2 finishing-template.jdf-f8-2"
+msgstr "Formato de definição do trabalho JDF F8-2"
 
 #. TRANSLATORS: JDF F8-3
 msgid "finishing-template.jdf-f8-3"
-msgstr "Formato de definição do trabalho JDF F8-3 finishing-template.jdf-f8-3"
+msgstr "Formato de definição do trabalho JDF F8-3"
 
 #. TRANSLATORS: JDF F8-4
 msgid "finishing-template.jdf-f8-4"
-msgstr "Formato de definição do trabalho JDF F8-4 finishing-template.jdf-f8-4"
+msgstr "Formato de definição do trabalho JDF F8-4"
 
 #. TRANSLATORS: JDF F8-5
 msgid "finishing-template.jdf-f8-5"
-msgstr "Formato de definição do trabalho JDF F8-5 finishing-template.jdf-f8-5"
+msgstr "Formato de definição do trabalho JDF F8-5"
 
 #. TRANSLATORS: JDF F8-6
 msgid "finishing-template.jdf-f8-6"
-msgstr "Formato de definição do trabalho JDF F8-6 finishing-template.jdf-f8-6"
+msgstr "Formato de definição do trabalho JDF F8-6"
 
 #. TRANSLATORS: JDF F8-7
 msgid "finishing-template.jdf-f8-7"
-msgstr "Formato de definição do trabalho JDF F8-7 finishing-template.jdf-f8-7"
+msgstr "Formato de definição do trabalho JDF F8-7"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishing-template.jog-offset"
-msgstr "Ajuste fino da posição do papel finishing-template.jog-offset"
+msgstr "Ajuste Fino da Posição do Papel"
 
 #. TRANSLATORS: Laminate
 msgid "finishing-template.laminate"
-msgstr "Laminar o finishing-template.laminate"
+msgstr "Laminar"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr "Furar o finishing-template.punch"
+msgstr "Furar"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
-msgstr "Furar no canto inferior esquerdo finishing-template.punch-bottom-left"
+msgstr "Furar no Canto Inferior Esquerdo"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishing-template.punch-bottom-right"
-msgstr "Furar no canto inferior direito finishing-template.punch-bottom-right"
+msgstr "Furar no Canto Inferior Direito"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishing-template.punch-dual-bottom"
-msgstr "Fazer dois furos no canto inferior finishing-template.punch-dual-bottom"
+msgstr "Fazer Dois Furos no Canto Inferior"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishing-template.punch-dual-left"
-msgstr "Fazer dois furos no canto esquerdo finishing-template.punch-dual-left"
+msgstr "Fazer Dois Furos no Canto Esquerdo"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishing-template.punch-dual-right"
-msgstr "Fazer dois furos no canto direito finishing-template.punch-dual-right"
+msgstr "Fazer Dois Furos no Canto Direito"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishing-template.punch-dual-top"
-msgstr "Fazer dois furos no canto superior finishing-template.punch-dual-top"
+msgstr "Fazer Dois Furos no Canto Superior"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishing-template.punch-multiple-bottom"
-msgstr ""
-"Fazer vários furos no canto inferior finishing-template.punch-multiple-bottom"
+msgstr "Fazer Vários Furos no Canto Inferior"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishing-template.punch-multiple-left"
-msgstr ""
-"Fazer vários furos no canto esquerdo finishing-template.punch-multiple-left"
+msgstr "Fazer Vários Furos no Canto Esquerdo"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishing-template.punch-multiple-right"
-msgstr ""
-"Fazer vários furos no canto direito finishing-template.punch-multiple-right"
+msgstr "Fazer Vários Furos no Canto Direito"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishing-template.punch-multiple-top"
-msgstr ""
-"Fazer vários furos no canto superior finishing-template.punch-multiple-top"
+msgstr "Fazer Vários Furos no Canto Superior"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishing-template.punch-quad-bottom"
-msgstr ""
-"Fazer quatro furos no canto inferior finishing-template.punch-quad-bottom"
+msgstr "Fazer Quatro Furos no Canto Inferior"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishing-template.punch-quad-left"
-msgstr "Fazer quatro furos no canto esquerdo finishing-template.punch-quad-left"
+msgstr "Fazer Quatro Furos no Canto Esquerdo"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishing-template.punch-quad-right"
-msgstr "Fazer quatro furos no canto direito finishing-template.punch-quad-right"
+msgstr "Fazer Quatro Furos no Canto Direito"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishing-template.punch-quad-top"
-msgstr "Fazer quatro furos no canto superior finishing-template.punch-quad-top"
+msgstr "Fazer Quatro Furos no Canto Superior"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
-msgstr "Furar no canto superior esquerdo finishing-template.punch-top-left"
+msgstr "Furar no Canto Superior Esquerdo"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishing-template.punch-top-right"
-msgstr "Furar no canto superior direito finishing-template.punch-top-right"
+msgstr "Furar no Canto Superior Direito"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
-msgstr ""
-"Fazer três furos no canto inferior finishing-template.punch-triple-bottom"
+msgstr "Fazer Três Furos no Canto Inferior"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishing-template.punch-triple-left"
-msgstr "Fazer três furos no canto esquerdo finishing-template.punch-triple-left"
+msgstr "Fazer Três Furos no Canto Esquerdo"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishing-template.punch-triple-right"
-msgstr "Fazer três furos no canto direito finishing-template.punch-triple-right"
+msgstr "Fazer Três Furos no Canto Direito"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishing-template.punch-triple-top"
-msgstr "Fazer três furos no canto superior finishing-template.punch-triple-top"
+msgstr "Fazer Três Furos no Canto Superior"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishing-template.saddle-stitch"
-msgstr "Costurar com ponto selado finishing-template.saddle-stitch"
+msgstr "Costurar com Ponto Selado"
 
 #. TRANSLATORS: Staple
 msgid "finishing-template.staple"
-msgstr "Grampear o finishing-template.staple"
+msgstr "Grampear"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
-msgstr ""
-"Grampear no canto inferior esquerdo finishing-template.staple-bottom-left"
+msgstr "Grampear no Canto Inferior Esquerdo"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishing-template.staple-bottom-right"
-msgstr ""
-"Grampear no canto inferior direito finishing-template.staple-bottom-right"
+msgstr "Grampear no Canto Inferior Direito"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishing-template.staple-dual-bottom"
-msgstr ""
-"Fazer dois grampos no canto inferior finishing-template.staple-dual-bottom"
+msgstr "Fazer Dois Grampos no Canto Inferior"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishing-template.staple-dual-left"
-msgstr ""
-"Fazer dois grampos no canto esquerdo finishing-template.staple-dual-left"
+msgstr "Fazer Dois Grampos no Canto Esquerdo"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishing-template.staple-dual-right"
-msgstr "Fazer dois grampos no canto direto finishing-template.staple-dual-right"
+msgstr "Fazer Dois Grampos no Canto Direto"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishing-template.staple-dual-top"
-msgstr "Fazer dois grampos no canto superior finishing-template.staple-dual-top"
+msgstr "Fazer Dois Grampos no Canto Superior"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishing-template.staple-top-left"
-msgstr "Parar de grampear no canto esquerdo finishing-template.staple-top-left"
+msgstr "Grampear no Canto Superior Esquerdo"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishing-template.staple-top-right"
-msgstr "Parar de grampear no canto direito finishing-template.staple-top-right"
+msgstr "Grampear no Canto Superior Direito"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishing-template.staple-triple-bottom"
-msgstr ""
-"Fazer três grampos no canto inferior finishing-template.staple-triple-bottom"
+msgstr "Fazer Três Grampos no Canto Inferior"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishing-template.staple-triple-left"
-msgstr ""
-"Fazer três grampos no canto esquerdo finishing-template.staple-triple-left"
+msgstr "Fazer Três Grampos no Canto Esquerdo"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishing-template.staple-triple-right"
-msgstr ""
-"Fazer três grampos no canto direito finishing-template.staple-triple-right"
+msgstr "Fazer Três Grampos no Canto Direito"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishing-template.staple-triple-top"
-msgstr ""
-"Fazer três grampos no canto superior finishing-template.staple-triple-top"
+msgstr "Fazer Três Grampos no Canto Superior"
 
 #. TRANSLATORS: Trim
 msgid "finishing-template.trim"
-msgstr "Aparar o finishing-template.trim"
+msgstr "Aparar"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-copies"
-msgstr "Aparar após cada conjunto do finishing-template.trim-after-copies"
+msgstr "Aparar Após Cada Conjunto"
 
 #. TRANSLATORS: Trim After Every Document
 msgid "finishing-template.trim-after-documents"
-msgstr "Aparar após cada documento do finishing-template.trim-after-documents"
+msgstr "Aparar Após Cada Documento"
 
 #. TRANSLATORS: Trim After Job
 msgid "finishing-template.trim-after-job"
-msgstr "Aparar após o trabalho do finishing-template.trim-after-job"
+msgstr "Aparar Após o Trabalho"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-pages"
-msgstr "Aparar após cada página do finishing-template.trim-after-pages"
+msgstr "Aparar Após Cada Página"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-sets"
-msgstr "Aparar após cada conjunto do finishing-template.trim-after-sets"
+msgstr "Aparar Após Cada Conjunto"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-sheets"
-msgstr "Aparar após cada página do finishing-template.trim-after-sheets"
+msgstr "Aparar Após Cada Página"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
-msgstr "Acabamentos no finishings"
+msgstr "Acabamentos"
 
 #. TRANSLATORS: Finishings
 msgid "finishings-col"
-msgstr "Acabamentos no finishings-col"
+msgstr "Acabamentos"
 
 #. TRANSLATORS: Fold
 msgid "finishings.10"
-msgstr "Dobrar o finishings-col"
+msgstr "Dobrar"
 
 #. TRANSLATORS: Z Fold
 msgid "finishings.100"
-msgstr "Dobrar em forma de \"Z\" o finishings.100"
+msgstr "Dobrar no Formato de \"Z\""
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishings.101"
-msgstr "Dobrar o papel em forma de \"Z\" finishings.101"
+msgstr "Dobrar o Papel no Formato de \"Z\""
 
 #. TRANSLATORS: Trim
 msgid "finishings.11"
-msgstr "Aparar o finishings.11"
+msgstr "Aparar"
 
 #. TRANSLATORS: Bale
 msgid "finishings.12"
-msgstr "Fardo do finishings.12"
+msgstr "Fardo"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishings.13"
-msgstr "Criador de livretos finishings.13"
+msgstr "Criador de Livretos"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishings.14"
-msgstr "Deslocamento finishings.14"
+msgstr "Ajuste Fino da Posição do Papel"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
-msgstr "Revestir finishings.15"
+msgstr "Revestir"
 
 #. TRANSLATORS: Laminate
 msgid "finishings.16"
-msgstr "Laminar finishings.16"
+msgstr "Laminar"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
-msgstr "Grampear no canto superior esquerdo finishings.20"
+msgstr "Grampear no Canto Superior Esquerdo"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishings.21"
-msgstr "Grampear no canto inferior esquerdo finishings.21"
+msgstr "Grampear no Canto Inferior Esquerdo"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishings.22"
-msgstr "Grampear no canto superior direito finishings.22"
+msgstr "Grampear no Canto Superior Direito"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr "Grampear no canto inferior direito finishings.23"
+msgstr "Grampear no Canto Inferior Direito"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr "Costurar na borda do canto esquerdo finishings.24"
+msgstr "Costurar na Borda do Canto Esquerdo"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
-msgstr "Costurar na borda do canto superior finishings.25"
+msgstr "Costurar na Borda do Canto Superior"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishings.26"
-msgstr "Costurar na borda do canto direito finishings.26"
+msgstr "Costurar na Borda do Canto Direito"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishings.27"
-msgstr "Costurar na borda do canto inferior finishings.27"
+msgstr "Costurar na Borda do Canto Inferior"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishings.28"
-msgstr "Fazer dois grampos no canto esquerdo finishings.28"
+msgstr "Fazer Dois Grampos no Canto Esquerdo"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishings.29"
-msgstr "Fazer dois grampos no canto superior finishings.29"
+msgstr "Fazer Dois Grampos no Canto Superior"
 
 #. TRANSLATORS: None
 msgid "finishings.3"
-msgstr "Nenhum finishings.3"
+msgstr "Nenhum"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishings.30"
-msgstr "Fazer dois grampos no canto direito finishings.30"
+msgstr "Fazer Dois Grampos no Canto Direito"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishings.31"
-msgstr "Fazer dois grampos no canto inferior finishings.31"
+msgstr "Fazer Dois Grampos no Canto Inferior"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishings.32"
-msgstr "Fazer três grampos no canto esquerdo finishings.32"
+msgstr "Fazer Três Grampos no Canto Esquerdo"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishings.33"
-msgstr "Fazer três grampos no canto superior finishings.33"
+msgstr "Fazer Três Grampos no Canto Superior"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishings.34"
-msgstr "Fazer três grampos no canto direito finishings.34"
+msgstr "Fazer Três Grampos no Canto Direito"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishings.35"
-msgstr "Fazer três grampos no canto inferior finishings.35"
+msgstr "Fazer Três Grampos no Canto Inferior"
 
 #. TRANSLATORS: Staple
 msgid "finishings.4"
-msgstr "Grampear finishings.4"
+msgstr "Grampear"
 
 #. TRANSLATORS: Punch
 msgid "finishings.5"
-msgstr "Furar o finishings.5"
+msgstr "Furar"
 
 #. TRANSLATORS: Bind Left
 msgid "finishings.50"
-msgstr "Encadernar no canto esquerdo do finishings.50"
+msgstr "Encadernar no Canto Esquerdo"
 
 #. TRANSLATORS: Bind Top
 msgid "finishings.51"
-msgstr "Encadernar no canto superior do finishings.51"
+msgstr "Encadernar no Canto Superior"
 
 #. TRANSLATORS: Bind Right
 msgid "finishings.52"
-msgstr "Encadernar no canto direito do finishings.52"
+msgstr "Encadernar no Canto Direito"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishings.53"
-msgstr "Encadernar no canto inferior do finishings.53"
+msgstr "Encadernar no Canto Inferior"
 
 #. TRANSLATORS: Cover
 msgid "finishings.6"
-msgstr "Tampa do finishings.6"
+msgstr "Capa"
 
 #. TRANSLATORS: Trim Pages
 msgid "finishings.60"
-msgstr "Aparar as páginas do finishings.60"
+msgstr "Aparar as Páginas"
 
 #. TRANSLATORS: Trim Documents
 msgid "finishings.61"
-msgstr "Aparar os documentos do finishings.61"
+msgstr "Aparar os Documentos"
 
 #. TRANSLATORS: Trim Copies
 msgid "finishings.62"
-msgstr "Aparar as cópias do finishings.62"
+msgstr "Aparar as Cópias"
 
 #. TRANSLATORS: Trim Job
 msgid "finishings.63"
-msgstr "Aparar o finishings.63"
+msgstr "Aparar o Trabalho"
 
 #. TRANSLATORS: Bind
 msgid "finishings.7"
-msgstr "Encadernar finishings.7"
+msgstr "Encadernar"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishings.70"
-msgstr "Furar no canto superior esquerdo do finishings.70"
+msgstr "Furar no Canto Superior Esquerdo"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishings.71"
-msgstr "Furar no canto inferior esquerdo do finishings.71"
+msgstr "Furar no Canto Inferior Esquerdo"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishings.72"
-msgstr "Furar no canto superior direito do finishings.72"
+msgstr "Furar no Canto Superior Direito"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishings.73"
-msgstr "Furar no canto inferior direito do finishings.73"
+msgstr "Furar no Canto Inferior Direito"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishings.74"
-msgstr "Fazer dois furos no canto esquerdo do finishings.74"
+msgstr "Fazer Dois Furos no Canto Esquerdo"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishings.75"
-msgstr "Fazer dois furos no canto superior do finishings.75"
+msgstr "Fazer Dois Furos no Canto Superior"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishings.76"
-msgstr "Fazer dois furos no canto direito do finishings.76"
+msgstr "Fazer Dois Furos no Canto Direito"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishings.77"
-msgstr "Fazer dois furos no canto inferior do finishings.77"
+msgstr "Fazer Dois Furos no Canto Inferior"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishings.78"
-msgstr "Fazer três furos no canto esquerdo do finishings.78"
+msgstr "Fazer Três Furos no Canto Esquerdo"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishings.79"
-msgstr "Fazer três furos no canto superior do finishings.79"
+msgstr "Fazer Três Furos no Canto Superior"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishings.8"
-msgstr "Costurar com ponto selado o finishings.8"
+msgstr "Costurar com Ponto Selado"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishings.80"
-msgstr "Fazer três furos no canto direito do finishings.80"
+msgstr "Fazer Três Furos no Canto Direito"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishings.81"
-msgstr "Fazer três furos no canto inferior do finishings.81"
+msgstr "Fazer Três Furos no Canto Inferior"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishings.82"
-msgstr "Fazer quatro furos no canto esquerdo do finishings.82"
+msgstr "Fazer Quatro Furos no Canto Esquerdo"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishings.83"
-msgstr "Fazer quatro furos no canto superior do finishings.83"
+msgstr "Fazer Quatro Furos no Canto Superior"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishings.84"
-msgstr "Fazer quatro furos no canto direito do finishings.84"
+msgstr "Fazer Quatro Furos no Canto Direito"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishings.85"
-msgstr "Fazer quatro furos no canto inferior do finishings.85"
+msgstr "Fazer Quatro Furos no Canto Inferior"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishings.86"
-msgstr "Fazer vários furos no canto esquerdo do finishings.86"
+msgstr "Fazer Vários Furos no Canto Esquerdo"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishings.87"
-msgstr "Fazer vários furos no canto superior do finishings.87"
+msgstr "Fazer Vários Furos no Canto Superior"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishings.88"
-msgstr "Fazer vários furos no canto direito do finishings.88"
+msgstr "Fazer Vários Furos no Canto Direito"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishings.89"
-msgstr "Fazer vários furos no canto inferior do finishings.89"
+msgstr "Fazer Vários Furos no Canto Inferior"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishings.9"
-msgstr "Costurar na borda do finishings.9"
+msgstr "Costurar na Borda"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishings.90"
-msgstr "Dobrar sanfonado o finishings.90"
+msgstr "Dobrar Sanfonado"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishings.91"
-msgstr "Dobrar duas vezes no formato de um portão o finishings.91"
+msgstr "Dobrar Duas Vezes no Formato de um Portão"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishings.92"
-msgstr "Dobrar no formato de um portão o finishings.92"
+msgstr "Dobrar no Formato de um Portão"
 
 #. TRANSLATORS: Half Fold
 msgid "finishings.93"
-msgstr "Dobrar na metade o finishings.93"
+msgstr "Dobrar ao Meio"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishings.94"
-msgstr "Dobrar na metade no formato de \"Z\" o finishings.94"
+msgstr "Dobrar ao Meio no Formato de \"Z\""
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishings.95"
-msgstr "Dobrar o canto esquerdo no formato de um portão o finishings.95"
+msgstr "Dobrar no Canto Esquerdo no Formato de um Portão"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishings.96"
-msgstr "Dobrar no formato de uma carta o finishings.96"
+msgstr "Dobrar no Formato de uma Carta"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishings.97"
-msgstr "Dobrar paralelamente o finishings.97"
+msgstr "Dobrar Paralelamente"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishings.98"
-msgstr "Dobrar no formato de um pôster o finishings.98"
+msgstr "Dobrar no Formato de um Pôster"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishings.99"
-msgstr "Dobrar o canto direito no formato de um portão o finishings.99"
+msgstr "Dobrar no Canto Direito no Formato de um Portão"
 
 #. TRANSLATORS: Fold
 msgid "folding"
-msgstr "Dobrar o folding"
+msgstr "Dobrar"
 
 #. TRANSLATORS: Fold Direction
 msgid "folding-direction"
-msgstr "Dobrar na direção do folding-direction"
+msgstr "Dobrar na Direção"
 
 #. TRANSLATORS: Inward
 msgid "folding-direction.inward"
-msgstr "Para dentro do folding-direction.inward"
+msgstr "Para Dentro"
 
 #. TRANSLATORS: Outward
 msgid "folding-direction.outward"
-msgstr "Para fora do folding-direction.outward"
+msgstr "Para Fora"
 
 #. TRANSLATORS: Fold Position
 msgid "folding-offset"
-msgstr "Posição da dobra do folding-offset"
+msgstr "Posição da Dobra"
 
 #. TRANSLATORS: Fold Edge
 msgid "folding-reference-edge"
-msgstr "Dobrar na borda do folding-reference-edge"
+msgstr "Dobrar na Borda"
 
 #. TRANSLATORS: Bottom
 msgid "folding-reference-edge.bottom"
-msgstr "Canto inferior do folding-reference-edge.bottom"
+msgstr "Inferior"
 
 #. TRANSLATORS: Left
 msgid "folding-reference-edge.left"
-msgstr "Canto esquerdo do folding-reference-edge.left"
+msgstr "Esquerdo"
 
 #. TRANSLATORS: Right
 msgid "folding-reference-edge.right"
-msgstr "Canto direto do folding-reference-edge.right"
+msgstr "Direto"
 
 #. TRANSLATORS: Top
 msgid "folding-reference-edge.top"
-msgstr "Canto superior do folding-reference-edge.top"
+msgstr "Superior"
 
 #. TRANSLATORS: Font Name
 msgid "font-name-requested"
-msgstr "Nome da fonte do font-name-requested"
+msgstr "Nome da Fonte"
 
 #. TRANSLATORS: Font Size
 msgid "font-size-requested"
-msgstr "Tamanho da fonte do font-size-requested"
+msgstr "Tamanho da Fonte"
 
 #. TRANSLATORS: Force Front Side
 msgid "force-front-side"
-msgstr "Aplicar uma força frontal e lateral no force-front-side"
+msgstr "Aplicar uma Força Frontal e Lateral"
 
 #. TRANSLATORS: From Name
 msgid "from-name"
-msgstr "Com base no nome do from-name"
+msgstr "Nome Para"
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
 msgstr ""
@@ -8090,27 +8017,27 @@ msgstr "inativo"
 
 #. TRANSLATORS: Imposition Template
 msgid "imposition-template"
-msgstr "Modelo da disposição das páginas do imposition-template"
+msgstr "Disposição das Páginas"
 
 #. TRANSLATORS: None
 msgid "imposition-template.none"
-msgstr "Não tem o imposition-template.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Signature
 msgid "imposition-template.signature"
-msgstr "Assinatura do imposition-template.signature"
+msgstr "Assinatura"
 
 #. TRANSLATORS: Insert Page Number
 msgid "insert-after-page-number"
-msgstr "Inserir o número da página do insert-after-page-number"
+msgstr "Inserir o Número da Página"
 
 #. TRANSLATORS: Insert Count
 msgid "insert-count"
-msgstr "Inserir a quantidade do insert-count"
+msgstr "Inserir o Contador"
 
 #. TRANSLATORS: Insert Sheet
 msgid "insert-sheet"
-msgstr "Inserir a folha do insert-sheet"
+msgstr "Inserir a Folha"
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
@@ -8230,796 +8157,718 @@ msgstr "Não foi possível alocar a quantidade %s de memória para o ipptool"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
-msgstr "O ID (identificador) da conta de trabalho do job-account-id"
+msgstr "ID (identificador) da Conta de Trabalho"
 
 #. TRANSLATORS: Job Account Type
 msgid "job-account-type"
-msgstr "O tipo da conta de trabalho do job-account-type"
+msgstr "Tipo da Conta de Trabalho"
 
 #. TRANSLATORS: General
 msgid "job-account-type.general"
-msgstr "Geral do job-account-type.general"
+msgstr "Geral"
 
 #. TRANSLATORS: Group
 msgid "job-account-type.group"
-msgstr "Grupo do job-account-type.group"
+msgstr "Grupo"
 
 #. TRANSLATORS: None
 msgid "job-account-type.none"
-msgstr "Não tem o job-account-type.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Job Accounting Output Bin
 msgid "job-accounting-output-bin"
-msgstr ""
-"Compartimento de saída da contabilidade do trabalho do job-accounting-output-"
-"bin"
+msgstr "Compartimento de Saída da Contabilidade do Trabalho"
 
 #. TRANSLATORS: Job Accounting Sheets
 msgid "job-accounting-sheets"
-msgstr "Planilhas de contabilidade dos trabalhos do job-accounting-sheets"
+msgstr "Planilhas da Contabilidade dos Trabalhos"
 
 #. TRANSLATORS: Type of Job Accounting Sheets
 msgid "job-accounting-sheets-type"
-msgstr ""
-"Tipo das planilhas de contabilidade do trabalho do job-accounting-sheets-type"
+msgstr "Tipo das Planilhas de Contabilidade do Trabalho"
 
 #. TRANSLATORS: None
 msgid "job-accounting-sheets-type.none"
-msgstr "Não tem o job-accounting-sheets-type.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "job-accounting-sheets-type.standard"
-msgstr "Padrão do job-accounting-sheets-type.standard"
+msgstr "Padrão"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
-msgstr ""
-"O ID (identificador) do usuário da contabilidade dos trabalhos do job-"
-"accounting-user-id"
+msgstr "ID (identificador) do Usuário da Contabilidade dos Trabalhos"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
-msgstr "Cancelar o trabalho após o job-cancel-after"
+msgstr "Cancelar o Trabalho Após"
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
-msgstr "Cópias do job-copies"
+msgstr "Cópias"
 
 #. TRANSLATORS: Back Cover
 msgid "job-cover-back"
-msgstr "Contracapa do job-cover-back"
+msgstr "Contracapa"
 
 #. TRANSLATORS: Front Cover
 msgid "job-cover-front"
-msgstr "Capa do job-cover-front"
+msgstr "Capa Frontal"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until"
-msgstr "Adiar a saída até o job-delay-output-until"
+msgstr "Adiar a Saída Até"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until-time"
-msgstr "Adiar a saída até o job-delay-output-until-time"
+msgstr "Adiar a Saída Até"
 
 #. TRANSLATORS: Daytime
 msgid "job-delay-output-until.day-time"
-msgstr "Período do dia do job-delay-output-until.day-time"
+msgstr "Período do Dia"
 
 #. TRANSLATORS: Evening
 msgid "job-delay-output-until.evening"
-msgstr "Período do fim da tarde do job-delay-output-until.evening"
+msgstr "Período do Fim da Tarde"
 
 #. TRANSLATORS: Released
 msgid "job-delay-output-until.indefinite"
-msgstr "Liberação do job-delay-output-until.indefinite"
+msgstr "Liberado"
 
 #. TRANSLATORS: Night
 msgid "job-delay-output-until.night"
-msgstr "Período da noite do job-delay-output-until.night"
+msgstr "Período da Noite"
 
 #. TRANSLATORS: No Delay
 msgid "job-delay-output-until.no-delay-output"
-msgstr "Não adiar o job-delay-output-until.no-delay-output"
+msgstr "Não Adiar"
 
 #. TRANSLATORS: Second Shift
 msgid "job-delay-output-until.second-shift"
-msgstr "Segundo turno do job-delay-output-until.second-shift"
+msgstr "Segundo Turno"
 
 #. TRANSLATORS: Third Shift
 msgid "job-delay-output-until.third-shift"
-msgstr "Terceiro turno do job-delay-output-until.third-shift"
+msgstr "Terceiro Turno"
 
 #. TRANSLATORS: Weekend
 msgid "job-delay-output-until.weekend"
-msgstr "Fim de semana do job-delay-output-until.weekend"
+msgstr "Fim de Semana"
 
 #. TRANSLATORS: On Error
 msgid "job-error-action"
-msgstr "Se ocorrer um erro do job-error-action"
+msgstr "Se Ocorrer Um Erro"
 
 #. TRANSLATORS: Abort Job
 msgid "job-error-action.abort-job"
-msgstr "Abortar o trabalho do job-error-action.abort-job"
+msgstr "Abortar o Trabalho"
 
 #. TRANSLATORS: Cancel Job
 msgid "job-error-action.cancel-job"
-msgstr "Cancelar o trabalho do job-error-action.cancel-job"
+msgstr "Cancelar o Trabalho"
 
 #. TRANSLATORS: Continue Job
 msgid "job-error-action.continue-job"
-msgstr "Continuar o trabalho do job-error-action.continue-job"
+msgstr "Continuar o Trabalho"
 
 #. TRANSLATORS: Suspend Job
 msgid "job-error-action.suspend-job"
-msgstr "Suspender o trabalho job-error-action.suspend-job"
+msgstr "Suspender o Trabalho"
 
 #. TRANSLATORS: Print Error Sheet
 msgid "job-error-sheet"
-msgstr "Folha de erros da impressão do job-error-sheet"
+msgstr "Imprimir a Folha de Erros"
 
 #. TRANSLATORS: Type of Error Sheet
 msgid "job-error-sheet-type"
-msgstr "Tipo da folha de erros do job-error-sheet-type"
+msgstr "Tipo da Folha de Erros"
 
 #. TRANSLATORS: None
 msgid "job-error-sheet-type.none"
-msgstr "Não tem o job-error-sheet-type.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "job-error-sheet-type.standard"
-msgstr "Padrão do job-error-sheet-type.standard"
+msgstr "Padrão"
 
 #. TRANSLATORS: Print Error Sheet
 msgid "job-error-sheet-when"
-msgstr "Folha de erros da impressão do job-error-sheet-when"
+msgstr "Imprimir a Folha de Erros"
 
 #. TRANSLATORS: Always
 msgid "job-error-sheet-when.always"
-msgstr "Constantemente do job-error-sheet-when.always"
+msgstr "Constantemente"
 
 #. TRANSLATORS: On Error
 msgid "job-error-sheet-when.on-error"
-msgstr "Se ocorrer um erro do job-error-sheet-when.on-error"
+msgstr "Se Ocorrer Um Erro"
 
 #. TRANSLATORS: Job Finishings
 msgid "job-finishings"
-msgstr "Acabamentos do trabalho do job-finishings"
+msgstr "Acabamentos do Trabalho"
 
 #. TRANSLATORS: Hold Until
 msgid "job-hold-until"
-msgstr "Reter até o job-hold-until"
+msgstr "Reter Até"
 
 #. TRANSLATORS: Hold Until
 msgid "job-hold-until-time"
-msgstr "Reter até o job-hold-until-time"
+msgstr "Reter Até"
 
 #. TRANSLATORS: Daytime
 msgid "job-hold-until.day-time"
-msgstr "Período do dia do job-hold-until.day-time"
+msgstr "Período do Dia"
 
 #. TRANSLATORS: Evening
 msgid "job-hold-until.evening"
-msgstr "Período do fim da tarde do job-hold-until.evening"
+msgstr "Período do Fim da Tarde"
 
 #. TRANSLATORS: Released
 msgid "job-hold-until.indefinite"
-msgstr "Liberação do job-hold-until.indefinite"
+msgstr "Liberado"
 
 #. TRANSLATORS: Night
 msgid "job-hold-until.night"
-msgstr "Período da noite do job-hold-until.night"
+msgstr "Período da Noite"
 
 #. TRANSLATORS: No Hold
 msgid "job-hold-until.no-hold"
-msgstr "Não reter o job-hold-until.no-hold"
+msgstr "Não Reter"
 
 #. TRANSLATORS: Second Shift
 msgid "job-hold-until.second-shift"
-msgstr "Segundo turno do job-hold-until.second-shift"
+msgstr "Segundo Turno"
 
 #. TRANSLATORS: Third Shift
 msgid "job-hold-until.third-shift"
-msgstr "Terceiro turno do job-hold-until.third-shift"
+msgstr "Terceiro Turno"
 
 #. TRANSLATORS: Weekend
 msgid "job-hold-until.weekend"
-msgstr "Fim de semana do job-hold-until.weekend"
+msgstr "Fim de Semana"
 
 #. TRANSLATORS: Job Mandatory Attributes
 msgid "job-mandatory-attributes"
-msgstr "Atributos obrigatórios do trabalho do job-mandatory-attributes"
+msgstr "Atributos Obrigatórios do Trabalho"
 
 #. TRANSLATORS: Title
 msgid "job-name"
-msgstr "Título do job-name"
+msgstr "Título"
 
 #. TRANSLATORS: Job Pages
 msgid "job-pages"
-msgstr "Páginas do trabalho do job-pages"
+msgstr "Páginas do Trabalho"
 
 #. TRANSLATORS: Job Pages
 msgid "job-pages-col"
-msgstr "Páginas do trabalho do job-pages-col"
+msgstr "Páginas do Trabalho"
 
 #. TRANSLATORS: Job Phone Number
 msgid "job-phone-number"
-msgstr "Número do telefone do job-phone-number"
+msgstr "Número do Telefone do Trabalho"
 
 msgid "job-printer-uri attribute missing."
 msgstr "Está faltando o atributo do job-printer-uri."
 
 #. TRANSLATORS: Job Priority
 msgid "job-priority"
-msgstr "Prioridade do trabalho do job-priority"
+msgstr "Prioridade do Trabalho"
 
 #. TRANSLATORS: Job Privacy Attributes
 msgid "job-privacy-attributes"
-msgstr "Atributos de privacidade do trabalho do job-privacy-attributes"
+msgstr "Atributos de Privacidade do Trabalho"
 
 #. TRANSLATORS: All
 msgid "job-privacy-attributes.all"
-msgstr "Todos do job-privacy-attributes.all"
+msgstr "Todos"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-attributes.default"
-msgstr "Padrão do job-privacy-attributes.default"
+msgstr "Padrão"
 
 #. TRANSLATORS: Job Description
 msgid "job-privacy-attributes.job-description"
-msgstr "Descrição do trabalho do job-privacy-attributes.job-description"
+msgstr "Descrição do Trabalho"
 
 #. TRANSLATORS: Job Template
 msgid "job-privacy-attributes.job-template"
-msgstr "Modelo do trabalho do job-privacy-attributes.job-template"
+msgstr "Modelo do Trabalho"
 
 #. TRANSLATORS: None
 msgid "job-privacy-attributes.none"
-msgstr "Não tem o job-privacy-attributes.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Job Privacy Scope
 msgid "job-privacy-scope"
-msgstr "Escopo de privacidade do trabalho do job-privacy-scope"
+msgstr "Escopo de Privacidade do Trabalho"
 
 #. TRANSLATORS: All
 msgid "job-privacy-scope.all"
-msgstr "Todos do job-privacy-scope"
+msgstr "Todos"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-scope.default"
-msgstr "Padrão do job-privacy-scope.default"
+msgstr "Padrão"
 
 #. TRANSLATORS: None
 msgid "job-privacy-scope.none"
-msgstr "Não tem o job-privacy-scope.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Owner
 msgid "job-privacy-scope.owner"
-msgstr "Proprietário do job-privacy-scope.owner"
+msgstr "Proprietário"
 
 #. TRANSLATORS: Job Recipient Name
 msgid "job-recipient-name"
-msgstr "Nome de destinatário do trabalho do job-recipient-name"
+msgstr "Nome do Destinatário do Trabalho"
 
 #. TRANSLATORS: Job Retain Until
 msgid "job-retain-until"
-msgstr "Reter o trabalho até o job-retain-until"
+msgstr "Reter o Trabalho Até"
 
 #. TRANSLATORS: Job Retain Until Interval
 msgid "job-retain-until-interval"
-msgstr "Reter o trabalho até o intervalo do job-retain-until-interval"
+msgstr "Reter o Trabalho Até o Intervalo"
 
 #. TRANSLATORS: Job Retain Until Time
 msgid "job-retain-until-time"
-msgstr "Reter o trabalho até o momento do job-retain-until-time"
+msgstr "Reter o Trabalho Até o Momento"
 
 #. TRANSLATORS: End Of Day
 msgid "job-retain-until.end-of-day"
-msgstr "Fim do dia do job-retain-until.end-of-day"
+msgstr "Fim do Dia"
 
 #. TRANSLATORS: End Of Month
 msgid "job-retain-until.end-of-month"
-msgstr "Fim do mês do job-retain-until.end-of-month"
+msgstr "Fim do Mês"
 
 #. TRANSLATORS: End Of Week
 msgid "job-retain-until.end-of-week"
-msgstr "Fim da semana do job-retain-until.end-of-week"
+msgstr "Fim da Semana"
 
 #. TRANSLATORS: Indefinite
 msgid "job-retain-until.indefinite"
-msgstr "Não foi determinado o job-retain-until.indefinite"
+msgstr "Não Foi Determinado"
 
 #. TRANSLATORS: None
 msgid "job-retain-until.none"
-msgstr "Não tem o job-retain-until.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Job Save Disposition
 msgid "job-save-disposition"
-msgstr "Salvar a disposição do trabalho do job-save-disposition"
+msgstr "Salvar a Disposição do Trabalho"
 
 #. TRANSLATORS: Job Sheet Message
 msgid "job-sheet-message"
-msgstr "Mensagem da folha do trabalho do job-sheet-message"
+msgstr "Mensagem da Folha do Trabalho"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets"
-msgstr "Página da faixa do job-sheets"
+msgstr "Página da Faixa"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets-col"
-msgstr "Coluna na página da faixa do job-sheets-col"
+msgstr "Página da Faixa"
 
 #. TRANSLATORS: First Page in Document
 msgid "job-sheets.first-print-stream-page"
-msgstr "Primeira página do documento do job-sheets.first-print-stream-page"
+msgstr "Primeira Página do Documento"
 
 #. TRANSLATORS: Start and End Sheets
 msgid "job-sheets.job-both-sheet"
-msgstr "Folhas do início e do fim do job-sheets.job-both-sheet"
+msgstr "Folhas do Início e do Fim"
 
 #. TRANSLATORS: End Sheet
 msgid "job-sheets.job-end-sheet"
-msgstr "Folha final do job-sheets.job-end-sheet"
+msgstr "Última Folha"
 
 #. TRANSLATORS: Start Sheet
 msgid "job-sheets.job-start-sheet"
-msgstr "Folha inicial do job-sheets.job-start-sheet"
+msgstr "Primeira Folha"
 
 #. TRANSLATORS: None
 msgid "job-sheets.none"
-msgstr "Não tem o job-sheets.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "job-sheets.standard"
-msgstr "Padrão do job-sheets.standard"
+msgstr "Padrão"
 
 #. TRANSLATORS: Job State
 msgid "job-state"
-msgstr "Estado do trabalho do job-state"
+msgstr "Estado do Trabalho"
 
 #. TRANSLATORS: Job State Message
 msgid "job-state-message"
-msgstr "Mensagem de estado do trabalho do job-state-message"
+msgstr "Mensagem do Estado do Trabalho"
 
 #. TRANSLATORS: Detailed Job State
 msgid "job-state-reasons"
-msgstr "Estado detalhado do trabalho do job-state-reasons"
+msgstr "Estado Detalhado do Trabalho"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.aborted-by-system"
-msgstr "Parando o job-state-reasons.aborted-by-system"
+msgstr "Está Parando"
 
 #. TRANSLATORS: Account Authorization Failed
 msgid "job-state-reasons.account-authorization-failed"
-msgstr ""
-"Ocorreu uma falha na autorização da conta do job-state-reasons.account-"
-"authorization-failed"
+msgstr "Ocorreu uma Falha na Autorização da Conta"
 
 #. TRANSLATORS: Account Closed
 msgid "job-state-reasons.account-closed"
-msgstr "Foi encerrada a conta do job-state-reasons.account-closed"
+msgstr "A Conta Foi Encerrada"
 
 #. TRANSLATORS: Account Info Needed
 msgid "job-state-reasons.account-info-needed"
-msgstr ""
-"As informações da conta são necessárias para o job-state-reasons.account-"
-"info-needed"
+msgstr "As Informações da Conta são Necessárias"
 
 #. TRANSLATORS: Account Limit Reached
 msgid "job-state-reasons.account-limit-reached"
-msgstr ""
-"O limite da conta foi alcançado para o job-state-reasons.account-limit-"
-"reached"
+msgstr "O Limite da Conta Foi Alcançado"
 
 #. TRANSLATORS: Decompression error
 msgid "job-state-reasons.compression-error"
-msgstr ""
-"Ocorreu um erro na descompactação do job-state-reasons.compression-error"
+msgstr "Ocorreu um Erro na Descompactação"
 
 #. TRANSLATORS: Conflicting Attributes
 msgid "job-state-reasons.conflicting-attributes"
-msgstr ""
-"Existem atributos conflitantes para o job-state-reasons.conflicting-"
-"attributes"
+msgstr "Existem Atributos Conflitantes"
 
 #. TRANSLATORS: Connected To Destination
 msgid "job-state-reasons.connected-to-destination"
-msgstr "Está conectado ao destino do job-state-reasons.connected-to-destination"
+msgstr "Está Conectado ao Destino"
 
 #. TRANSLATORS: Connecting To Destination
 msgid "job-state-reasons.connecting-to-destination"
-msgstr ""
-"Está conectando ao destino do job-state-reasons.connecting-to-destination"
+msgstr "Está Conectando ao Destino"
 
 #. TRANSLATORS: Destination Uri Failed
 msgid "job-state-reasons.destination-uri-failed"
-msgstr ""
-"Ocorreu uma falha no destino do URI do job-state-reasons.destination-uri-"
-"failed"
+msgstr "Ocorreu uma Falha no Destino do URI"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "job-state-reasons.digital-signature-did-not-verify"
-msgstr ""
-"A assinatura digital não foi verificada para o job-state-reasons.digital-"
-"signature-did-not-verify"
+msgstr "A Assinatura Digital Não Foi Verificada"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "job-state-reasons.digital-signature-type-not-supported"
-msgstr ""
-"O tipo da assinatura digital não é compatível para o job-state-reasons"
-".digital-signature-type-not-supported"
+msgstr "O Tipo da Assinatura Digital Não é Compatível"
 
 #. TRANSLATORS: Document Access Error
 msgid "job-state-reasons.document-access-error"
-msgstr ""
-"Ocorreu um erro de acesso ao documento do job-state-reasons.document-access-"
-"error"
+msgstr "Ocorreu um Erro de Acesso ao Documento"
 
 #. TRANSLATORS: Document Format Error
 msgid "job-state-reasons.document-format-error"
-msgstr ""
-"Ocorreu um erro no formato do documento do job-state-reasons.document-format-"
-"error"
+msgstr "Ocorreu um Erro no Formato do Documento"
 
 #. TRANSLATORS: Document Password Error
 msgid "job-state-reasons.document-password-error"
-msgstr ""
-"Ocorreu um erro na senha do documento do job-state-reasons.document-password-"
-"error"
+msgstr "Ocorreu um Erro na Senha do Documento"
 
 #. TRANSLATORS: Document Permission Error
 msgid "job-state-reasons.document-permission-error"
-msgstr ""
-"Ocorreu um erro de permissão no documento do job-state-reasons.document-"
-"permission-error"
+msgstr "Ocorreu um Erro de Permissão no Documento"
 
 #. TRANSLATORS: Document Security Error
 msgid "job-state-reasons.document-security-error"
-msgstr ""
-"Ocorreu um erro de segurança no documento do job-state-reasons.document-"
-"security-error"
+msgstr "Ocorreu um Erro de Segurança no Documento"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "job-state-reasons.document-unprintable-error"
-msgstr ""
-"Ocorreu um erro no documento que não pode ser impresso no job-state-reasons"
-".document-unprintable-error"
+msgstr "Ocorreu um Erro no Documento que Não Pode ser Impresso"
 
 #. TRANSLATORS: Errors Detected
 msgid "job-state-reasons.errors-detected"
-msgstr "Alguns erros foram detectados no job-state-reasons.errors-detected"
+msgstr "Alguns Erros Foram Detectados"
 
 #. TRANSLATORS: Canceled at printer
 msgid "job-state-reasons.job-canceled-at-device"
-msgstr ""
-"O trabalho do job-state-reasons.job-canceled-at-device foi cancelado na "
-"impressora"
+msgstr "O Trabalho Foi Cancelado na Impressora"
 
 #. TRANSLATORS: Canceled by operator
 msgid "job-state-reasons.job-canceled-by-operator"
-msgstr ""
-"O trabalho do job-state-reasons.job-canceled-by-operator foi cancelado pelo "
-"operador"
+msgstr "O Trabalho Foi Cancelado pelo Operador"
 
 #. TRANSLATORS: Canceled by user
 msgid "job-state-reasons.job-canceled-by-user"
-msgstr ""
-"O trabalho do job-state-reasons.job-canceled-by-user foi cancelado pelo "
-"usuário"
+msgstr "O Trabalho Foi Cancelado pelo Usuário"
 
 #. TRANSLATORS:
 msgid "job-state-reasons.job-completed-successfully"
-msgstr ""
-"O trabalho do job-state-reasons.job-completed-successfully foi concluído com "
-"sucesso"
+msgstr "O Trabalho Foi Concluído com Sucesso"
 
 #. TRANSLATORS: Completed with errors
 msgid "job-state-reasons.job-completed-with-errors"
-msgstr ""
-"O trabalho do job-state-reasons.job-completed-with-errors foi concluído com "
-"erros"
+msgstr "O Trabalho Foi Concluído com Erros"
 
 #. TRANSLATORS: Completed with warnings
 msgid "job-state-reasons.job-completed-with-warnings"
-msgstr ""
-"O trabalho do job-state-reasons.job-completed-with-warnings foi concluído "
-"com avisos"
+msgstr "O Trabalho Foi Concluído com Avisos"
 
 #. TRANSLATORS: Insufficient data
 msgid "job-state-reasons.job-data-insufficient"
-msgstr "Os dados do job-state-reasons.job-data-insufficient não são suficientes"
+msgstr "Os Dados Não São Suficientes"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
-msgstr ""
-"Atrasar a saída do trabalho do job-state-reasons.job-delay-output-until-"
-"specified até ser especificado"
+msgstr "Adiar a Saída do Trabalho Até Ser Especificado"
 
 #. TRANSLATORS: Job Digital Signature Wait
 msgid "job-state-reasons.job-digital-signature-wait"
-msgstr ""
-"Aguardando a assinatura digital do job-state-reasons.job-digital-signature-"
-"wait"
+msgstr "Aguardando a Assinatura Digital do Trabalho"
 
 #. TRANSLATORS: Job Fetchable
 msgid "job-state-reasons.job-fetchable"
-msgstr "O trabalho do job-state-reasons.job-fetchable pode ser localizado"
+msgstr "O Trabalho Pode Ser Localizado"
 
 #. TRANSLATORS: Job Held For Review
 msgid "job-state-reasons.job-held-for-review"
-msgstr ""
-"Reter o trabalho do job-state-reasons.job-held-for-review para ser revisado"
+msgstr "Reter o Trabalho para Ser Revisado"
 
 #. TRANSLATORS: Job held
 msgid "job-state-reasons.job-hold-until-specified"
-msgstr "Reter o trabalho do job-state-reasons.job-hold-until-specified"
+msgstr "Reter o Trabalho"
 
 #. TRANSLATORS: Incoming
 msgid "job-state-reasons.job-incoming"
-msgstr "O job-state-reasons.job-incoming está entrando"
+msgstr "Está Entrando"
 
 #. TRANSLATORS: Interpreting
 msgid "job-state-reasons.job-interpreting"
-msgstr "O job-state-reasons.job-interpreting está sendo interpretado"
+msgstr "Está Interpretando"
 
 #. TRANSLATORS: Outgoing
 msgid "job-state-reasons.job-outgoing"
-msgstr "O job-state-reasons.job-outgoing está saindo"
+msgstr "Está Saindo"
 
 #. TRANSLATORS: Job Password Wait
 msgid "job-state-reasons.job-password-wait"
-msgstr "Aguardando a senha do trabalho do job-state-reasons.job-password-wait"
+msgstr "Aguardando a Senha do Trabalho"
 
 #. TRANSLATORS: Job Printed Successfully
 msgid "job-state-reasons.job-printed-successfully"
-msgstr ""
-"O trabalho do job-state-reasons.job-printed-successfully foi impresso com "
-"sucesso"
+msgstr "O Trabalho Foi Impresso com Sucesso"
 
 #. TRANSLATORS: Job Printed With Errors
 msgid "job-state-reasons.job-printed-with-errors"
-msgstr ""
-"Ocorreu alguns erros no trabalho impresso do job-state-reasons.job-printed-"
-"with-errors"
+msgstr "Ocorreu Alguns Erros no Trabalho que Foi Impresso"
 
 #. TRANSLATORS: Job Printed With Warnings
 msgid "job-state-reasons.job-printed-with-warnings"
-msgstr ""
-"Ocorreu alguns avisos no trabalho impresso do job-state-reasons.job-printed-"
-"with-warnings"
+msgstr "Ocorreu Alguns Avisos no Trabalho que Foi Impresso"
 
 #. TRANSLATORS: Printing
 msgid "job-state-reasons.job-printing"
-msgstr "O trabalho do job-state-reasons.job-printing está sendo impresso"
+msgstr "Está Imprimindo"
 
 #. TRANSLATORS: Preparing to print
 msgid "job-state-reasons.job-queued"
-msgstr "O trabalho job-state-reasons.job-queued está na fila da impressão"
+msgstr "Preparando para Imprimir"
 
 #. TRANSLATORS: Processing document
 msgid "job-state-reasons.job-queued-for-marker"
-msgstr "Processando o documento do job-state-reasons.job-queued-for-marker"
+msgstr "Processando o Documento"
 
 #. TRANSLATORS: Job Release Wait
 msgid "job-state-reasons.job-release-wait"
-msgstr ""
-"Aguardando a liberação do trabalho do job-state-reasons.job-release-wait"
+msgstr "Aguardando a Liberação do Trabalho"
 
 #. TRANSLATORS: Restartable
 msgid "job-state-reasons.job-restartable"
-msgstr "O trabalho job-state-reasons.job-restartable pode ser reiniciado"
+msgstr "Pode Ser Reiniciado"
 
 #. TRANSLATORS: Job Resuming
 msgid "job-state-reasons.job-resuming"
-msgstr "O trabalho job-state-reasons.job-resuming está sendo retomado"
+msgstr "O Trabalho Está Sendo Retomado"
 
 #. TRANSLATORS: Job Saved Successfully
 msgid "job-state-reasons.job-saved-successfully"
-msgstr ""
-"O trabalho job-state-reasons.job-saved-successfully foi salvo com sucesso"
+msgstr "O Trabalho Foi Salvo com Sucesso"
 
 #. TRANSLATORS: Job Saved With Errors
 msgid "job-state-reasons.job-saved-with-errors"
-msgstr "O trabalho job-state-reasons.job-saved-with-errors foi salvo com erros"
+msgstr "O Trabalho Foi Salvo com Erros"
 
 #. TRANSLATORS: Job Saved With Warnings
 msgid "job-state-reasons.job-saved-with-warnings"
-msgstr ""
-"O trabalho job-state-reasons.job-saved-with-warnings foi salvo com avisos"
+msgstr "O Trabalho Foi Salvo com Avisos"
 
 #. TRANSLATORS: Job Saving
 msgid "job-state-reasons.job-saving"
-msgstr "O trabalho job-state-reasons.job-saving está sendo salvo"
+msgstr "O Trabalho Está Sendo Salvo"
 
 #. TRANSLATORS: Job Spooling
 msgid "job-state-reasons.job-spooling"
-msgstr ""
-"O trabalho job-state-reasons.job-spooling foi enviado para a área da memória "
-"temporária"
+msgstr "O Trabalho Foi Enviado para a Área da Memória Temporária"
 
 #. TRANSLATORS: Job Streaming
 msgid "job-state-reasons.job-streaming"
-msgstr "O trabalho job-state-reasons.job-streaming está sendo transmitido"
+msgstr "O Trabalho Está Sendo Transmitido"
 
 #. TRANSLATORS: Suspended
 msgid "job-state-reasons.job-suspended"
-msgstr "O trabalho job-state-reasons.job-suspended foi suspenso"
+msgstr "O Trabalho Foi Suspenso"
 
 #. TRANSLATORS: Job Suspended By Operator
 msgid "job-state-reasons.job-suspended-by-operator"
-msgstr ""
-"O trabalho job-state-reasons.job-suspended-by-operator foi suspenso pelo "
-"operador"
+msgstr "O Trabalho Foi Suspenso pelo Operador"
 
 #. TRANSLATORS: Job Suspended By System
 msgid "job-state-reasons.job-suspended-by-system"
-msgstr ""
-"O trabalho job-state-reasons.job-suspended-by-system foi suspenso pelo "
-"sistema operacional"
+msgstr "O Trabalho Foi Suspenso pelo Sistema Operacional"
 
 #. TRANSLATORS: Job Suspended By User
 msgid "job-state-reasons.job-suspended-by-user"
-msgstr ""
-"O trabalho job-state-reasons.job-suspended-by-user foi suspenso pelo usuário"
+msgstr "O Trabalho Foi Suspenso pelo Usuário"
 
 #. TRANSLATORS: Job Suspending
 msgid "job-state-reasons.job-suspending"
-msgstr "O trabalho job-state-reasons.job-suspending está sendo suspenso"
+msgstr "O Trabalho Está Sendo Suspenso"
 
 #. TRANSLATORS: Job Transferring
 msgid "job-state-reasons.job-transferring"
-msgstr "O trabalho job-state-reasons.job-transferring está sendo transferido"
+msgstr "O Trabalho Está Sendo Transferido"
 
 #. TRANSLATORS: Transforming
 msgid "job-state-reasons.job-transforming"
-msgstr "O trabalho job-state-reasons.job-transforming está sendo transformando"
+msgstr "O Trabalho Está Sendo Transformando"
 
 #. TRANSLATORS: None
 msgid "job-state-reasons.none"
-msgstr "Não tem o job-state-reasons.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Printer offline
 msgid "job-state-reasons.printer-stopped"
-msgstr "A impressora job-state-reasons.printer-stopped está parada"
+msgstr "A Impressora Está Desativada"
 
 #. TRANSLATORS: Printer partially stopped
 msgid "job-state-reasons.printer-stopped-partly"
-msgstr ""
-"A impressora job-state-reasons.printer-stopped-partly está parcialmente "
-"parada"
+msgstr "A Impressora Está Parcialmente Parada"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.processing-to-stop-point"
-msgstr "O trabalho job-state-reasons.processing-to-stop-point está parando"
+msgstr "O Trabalho Está Parando"
 
 #. TRANSLATORS: Ready
 msgid "job-state-reasons.queued-in-device"
-msgstr "O trabalho job-state-reasons.queued-in-device está pronto"
+msgstr "O Trabalho Está Pronto"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "job-state-reasons.resources-are-not-ready"
-msgstr ""
-"O recursos do job-state-reasons.resources-are-not-ready não estão prontos"
+msgstr "Os Recursos Não Estão Prontos"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "job-state-reasons.resources-are-not-supported"
-msgstr ""
-"Os recursos do job-state-reasons.resources-are-not-supported não são "
-"compatíveis"
+msgstr "Os Recursos Não São Compatíveis"
 
 #. TRANSLATORS: Service offline
 msgid "job-state-reasons.service-off-line"
-msgstr "O serviço job-state-reasons.service-off-line está desconectado"
+msgstr "O Serviço Está Desconectado"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "job-state-reasons.submission-interrupted"
-msgstr "O envio do job-state-reasons.submission-interrupted foi interrompido"
+msgstr "O Envio Foi Interrompido"
 
 #. TRANSLATORS: Unsupported Attributes Or Values
 msgid "job-state-reasons.unsupported-attributes-or-values"
-msgstr ""
-"Os atributos ou os valores não são compatíveis para o job-state-reasons"
-".unsupported-attributes-or-values"
+msgstr "Os Atributos ou os Valores Não São Compatíveis"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "job-state-reasons.unsupported-compression"
-msgstr ""
-"A compactação não é compatível para o job-state-reasons.unsupported-"
-"compression"
+msgstr "A Compactação Não é Compatível"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "job-state-reasons.unsupported-document-format"
-msgstr ""
-"O formato do documento não é compatível para o job-state-reasons.unsupported-"
-"document-format"
+msgstr "O Formato do Documento Não é Compatível"
 
 #. TRANSLATORS: Waiting For User Action
 msgid "job-state-reasons.waiting-for-user-action"
-msgstr ""
-"O job-state-reasons.waiting-for-user-action está aguardando ação do usuário"
+msgstr "Aguardando a Ação do Usuário"
 
 #. TRANSLATORS: Warnings Detected
 msgid "job-state-reasons.warnings-detected"
-msgstr "Alguns avisos foram detectados no job-state-reasons.warnings-detected"
+msgstr "Alguns Avisos Foram Detectados"
 
 #. TRANSLATORS: Pending
 msgid "job-state.3"
-msgstr "O job-state.3 está pendente"
+msgstr "Está pendente"
 
 #. TRANSLATORS: Held
 msgid "job-state.4"
-msgstr "O job-state.4 está retido"
+msgstr "Está Retido"
 
 #. TRANSLATORS: Processing
 msgid "job-state.5"
-msgstr "O job-state.5 está sendo processando"
+msgstr "Está Sendo Processando"
 
 #. TRANSLATORS: Stopped
 msgid "job-state.6"
-msgstr "O job-state.6 está sendo parado"
+msgstr "Está Parando"
 
 #. TRANSLATORS: Canceled
 msgid "job-state.7"
-msgstr "O job-state.7 está cancelado"
+msgstr "Foi Cancelado"
 
 #. TRANSLATORS: Aborted
 msgid "job-state.8"
-msgstr "O job-state.8 foi abortado"
+msgstr "Foi Abortado"
 
 #. TRANSLATORS: Completed
 msgid "job-state.9"
-msgstr "O job-state.9 foi completado"
+msgstr "Foi Completado"
 
 #. TRANSLATORS: Laminate Pages
 msgid "laminating"
-msgstr "Laminar as páginas laminating"
+msgstr "Laminar as Páginas"
 
 #. TRANSLATORS: Laminate
 msgid "laminating-sides"
-msgstr "Laminar o laminating-sides"
+msgstr "Laminar"
 
 #. TRANSLATORS: Back Only
 msgid "laminating-sides.back"
-msgstr "Somente o verso do laminating-sides.back"
+msgstr "Somente o Verso"
 
 #. TRANSLATORS: Front and Back
 msgid "laminating-sides.both"
-msgstr "Frente e verso do laminating-sides.both"
+msgstr "Frente e Verso"
 
 #. TRANSLATORS: Front Only
 msgid "laminating-sides.front"
-msgstr "Somente a frente do laminating-sides.front"
+msgstr "Somente a Frente"
 
 #. TRANSLATORS: Type of Lamination
 msgid "laminating-type"
-msgstr "Tipo de laminação do laminating-type"
+msgstr "Tipo da Laminação"
 
 #. TRANSLATORS: Archival
 msgid "laminating-type.archival"
-msgstr "Arquivo do laminating-type.archival"
+msgstr "Arquivo"
 
 #. TRANSLATORS: Glossy
 msgid "laminating-type.glossy"
-msgstr "Brilhante do laminating-type.glossy"
+msgstr "Brilhante"
 
 #. TRANSLATORS: High Gloss
 msgid "laminating-type.high-gloss"
-msgstr "Muito brilhante do laminating-type.high-gloss"
+msgstr "Muito Brilhante"
 
 #. TRANSLATORS: Matte
 msgid "laminating-type.matte"
-msgstr "Fosco do laminating-type.matte"
+msgstr "Fosco"
 
 #. TRANSLATORS: Semi-gloss
 msgid "laminating-type.semi-gloss"
-msgstr "Semibrilhante do laminating-type.semi-gloss"
+msgstr "Semibrilhante"
 
 #. TRANSLATORS: Translucent
 msgid "laminating-type.translucent"
-msgstr "Translúcido do laminating-type.translucent"
+msgstr "Translúcido"
 
 #. TRANSLATORS: Logo
 msgid "logo"
-msgstr "Logotipo do logo"
+msgstr "Logotipo"
 
 msgid "lpadmin: Class name can only contain printable characters."
 msgstr ""
@@ -9248,1016 +9097,1011 @@ msgstr ""
 
 #. TRANSLATORS: Amount of Material
 msgid "material-amount"
-msgstr "Quantidade de material do material-amount"
+msgstr "Quantidade de Material"
 
 #. TRANSLATORS: Amount Units
 msgid "material-amount-units"
-msgstr "Quantidade do material-amount-units em unidades"
+msgstr "Quantidade em Unidades"
 
 #. TRANSLATORS: Grams
 msgid "material-amount-units.g"
-msgstr "Quantidade do material-amount-units.g em gramas"
+msgstr "Gramas"
 
 #. TRANSLATORS: Kilograms
 msgid "material-amount-units.kg"
-msgstr "Quantidade do material-amount-units.kg em quilogramas"
+msgstr "Quilogramas"
 
 #. TRANSLATORS: Liters
 msgid "material-amount-units.l"
-msgstr "Quantidade do material-amount-units.l em litros"
+msgstr "Litros"
 
 #. TRANSLATORS: Meters
 msgid "material-amount-units.m"
-msgstr "Quantidade do material-amount-units.m em metros"
+msgstr "Metros"
 
 #. TRANSLATORS: Milliliters
 msgid "material-amount-units.ml"
-msgstr "Quantidade do material-amount-units.ml em mililitros"
+msgstr "Mililitros"
 
 #. TRANSLATORS: Millimeters
 msgid "material-amount-units.mm"
-msgstr "Quantidade do material-amount-units.mm em milímetros"
+msgstr "Milímetros"
 
 #. TRANSLATORS: Material Color
 msgid "material-color"
-msgstr "Cor do material material-color"
+msgstr "Cor do Material"
 
 #. TRANSLATORS: Material Diameter
 msgid "material-diameter"
-msgstr "Diâmetro do material do material-diameter"
+msgstr "Diâmetro do Material"
 
 #. TRANSLATORS: Material Diameter Tolerance
 msgid "material-diameter-tolerance"
-msgstr "Tolerância do diâmetro do material do material-diameter-tolerance"
+msgstr "Tolerância no Diâmetro do Material"
 
 #. TRANSLATORS: Material Fill Density
 msgid "material-fill-density"
-msgstr "Densidade do preenchimento do material do material-fill-density"
+msgstr "Densidade do Preenchimento do Material"
 
 #. TRANSLATORS: Material Name
 msgid "material-name"
-msgstr "Nome do material do material-name"
+msgstr "Nome do Material"
 
 #. TRANSLATORS: Material Nozzle Diameter
 msgid "material-nozzle-diameter"
-msgstr "Diâmetro do bico do material do material-nozzle-diameter"
+msgstr "Diâmetro do Bico do Material"
 
 #. TRANSLATORS: Use Material For
 msgid "material-purpose"
-msgstr "Utilizar o material para material-purpose"
+msgstr "Utilizar o Material Para"
 
 #. TRANSLATORS: Everything
 msgid "material-purpose.all"
-msgstr "Tudo do material-purpose.all"
+msgstr "Tudo"
 
 #. TRANSLATORS: Base
 msgid "material-purpose.base"
-msgstr "Base do material-purpose.base"
+msgstr "Base"
 
 #. TRANSLATORS: In-fill
 msgid "material-purpose.in-fill"
-msgstr "Preenchimento do material-purpose.in-fill"
+msgstr "Preenchimento"
 
 #. TRANSLATORS: Shell
 msgid "material-purpose.shell"
-msgstr "Superfície do material-purpose.shell"
+msgstr "Superfície"
 
 #. TRANSLATORS: Supports
 msgid "material-purpose.support"
-msgstr "Suportes do material-purpose.support"
+msgstr "Suportes"
 
 #. TRANSLATORS: Feed Rate
 msgid "material-rate"
-msgstr "Taxa de alimentação do material-rate"
+msgstr "Taxa de Alimentação"
 
 #. TRANSLATORS: Feed Rate Units
 msgid "material-rate-units"
-msgstr "Unidades da taxa de alimentação do material-rate-units"
+msgstr "Unidades da Taxa de Alimentação"
 
 #. TRANSLATORS: Milligrams per second
 msgid "material-rate-units.mg_second"
-msgstr "Miligramas por segundo do material-rate-units.mg_second"
+msgstr "Miligramas por Segundo"
 
 #. TRANSLATORS: Milliliters per second
 msgid "material-rate-units.ml_second"
-msgstr "Mililitros por segundo do material-rate-units.ml_second"
+msgstr "Mililitros por Segundo"
 
 #. TRANSLATORS: Millimeters per second
 msgid "material-rate-units.mm_second"
-msgstr "Milímetros por segundo do material-rate-units.mm_second"
+msgstr "Milímetros por Segundo"
 
 #. TRANSLATORS: Material Retraction
 msgid "material-retraction"
-msgstr "Retração do material do material-retraction"
+msgstr "Retração do Material"
 
 #. TRANSLATORS: Material Shell Thickness
 msgid "material-shell-thickness"
-msgstr "Espessura da superfície do material do material-shell-thickness"
+msgstr "Espessura da Superfície do Material"
 
 #. TRANSLATORS: Material Temperature
 msgid "material-temperature"
-msgstr "Temperatura do material do material-temperature"
+msgstr "Temperatura do Material"
 
 #. TRANSLATORS: Material Type
 msgid "material-type"
-msgstr "Tipo do material do material-type"
+msgstr "Tipo do Material"
 
 #. TRANSLATORS: ABS
 msgid "material-type.abs"
-msgstr "ABS do material-type.abs"
+msgstr "ABS"
 
 #. TRANSLATORS: Carbon Fiber ABS
 msgid "material-type.abs-carbon-fiber"
-msgstr "ABS com fibra de carbono do material-type.abs-carbon-fiber"
+msgstr "ABS com Fibra de Carbono"
 
 #. TRANSLATORS: Carbon Nanotube ABS
 msgid "material-type.abs-carbon-nanotube"
-msgstr "ABS com nanotubos de carbono do material-type.abs-carbon-nanotube"
+msgstr "ABS com Nanotubos de Carbono"
 
 #. TRANSLATORS: Chocolate
 msgid "material-type.chocolate"
-msgstr "Chocolate do material-type.abs-carbon-nanotube"
+msgstr "Chocolate"
 
 #. TRANSLATORS: Gold
 msgid "material-type.gold"
-msgstr "Ouro do material-type.gold"
+msgstr "Ouro"
 
 #. TRANSLATORS: Nylon
 msgid "material-type.nylon"
-msgstr "Nylon do material-type.nylon"
+msgstr "Nylon"
 
 #. TRANSLATORS: Pet
 msgid "material-type.pet"
-msgstr "PET do material-type.pet"
+msgstr "Animal de Estimação"
 
 #. TRANSLATORS: Photopolymer
 msgid "material-type.photopolymer"
-msgstr "Fotopolímero do material-type.photopolymer"
+msgstr "Fotopolímero"
 
 #. TRANSLATORS: PLA
 msgid "material-type.pla"
-msgstr "Ácido polilático do material-type.pla"
+msgstr "Ácido Polilático"
 
 #. TRANSLATORS: Conductive PLA
 msgid "material-type.pla-conductive"
-msgstr "Ácido polilático condutivo do material-type.pla-conductive"
+msgstr "Ácido Polilático"
 
 #. TRANSLATORS: Pla Dissolvable
 msgid "material-type.pla-dissolvable"
-msgstr "Ácido polilático dissolúvel do material-type.pla-dissolvable"
+msgstr "Ácido Polilático Dissolúvel"
 
 #. TRANSLATORS: Flexible PLA
 msgid "material-type.pla-flexible"
-msgstr "Ácido polilático flexível do material-type.pla-flexible"
+msgstr "Ácido Polilático Flexível"
 
 #. TRANSLATORS: Magnetic PLA
 msgid "material-type.pla-magnetic"
-msgstr "Ácido polilático magnético do material-type.pla-magnetic"
+msgstr "Ácido Polilático Magnético"
 
 #. TRANSLATORS: Steel PLA
 msgid "material-type.pla-steel"
-msgstr "Ácido polilático com pó de aço do material-type.pla-steel"
+msgstr "Ácido Polilático com Pó de Aço"
 
 #. TRANSLATORS: Stone PLA
 msgid "material-type.pla-stone"
-msgstr ""
-"Ácido polilático que tem a aparência de pedra do material-type.pla-stone"
+msgstr "Ácido Polilático com a Aparência de Pedra"
 
 #. TRANSLATORS: Wood PLA
 msgid "material-type.pla-wood"
-msgstr "Ácido polilático com fibras de madeira do material-type.pla-wood"
+msgstr "Ácido Polilático com Fibras de Madeira"
 
 #. TRANSLATORS: Polycarbonate
 msgid "material-type.polycarbonate"
-msgstr "Policarbonato do material-type.polycarbonate"
+msgstr "Policarbonato"
 
 #. TRANSLATORS: Dissolvable PVA
 msgid "material-type.pva-dissolvable"
-msgstr "Álcool polivinílico dissolúvel do material-type.pva-dissolvable"
+msgstr "Álcool Polivinílico Dissolúvel"
 
 #. TRANSLATORS: Silver
 msgid "material-type.silver"
-msgstr "Prata do material-type.silver"
+msgstr "Prata"
 
 #. TRANSLATORS: Titanium
 msgid "material-type.titanium"
-msgstr "Titânio do material-type.titanium"
+msgstr "Titânio"
 
 #. TRANSLATORS: Wax
 msgid "material-type.wax"
-msgstr "Cera do material-type.wax"
+msgstr "Cera"
 
 #. TRANSLATORS: Materials
 msgid "materials-col"
-msgstr "Materiais do materials-col"
+msgstr "Materiais"
 
 #. TRANSLATORS: Media
 msgid "media"
-msgstr "Mídia do media"
+msgstr "Mídia"
 
 #. TRANSLATORS: Back Coating of Media
 msgid "media-back-coating"
-msgstr "Revestimento traseiro da mídia do media-back-coating"
+msgstr "Revestimento Traseiro da Mídia"
 
 #. TRANSLATORS: Glossy
 msgid "media-back-coating.glossy"
-msgstr "Brilhante do media-back-coating.glossy"
+msgstr "Brilhante"
 
 #. TRANSLATORS: High Gloss
 msgid "media-back-coating.high-gloss"
-msgstr "Muito brilhante do media-back-coating.high-gloss"
+msgstr "Muito Brilhante"
 
 #. TRANSLATORS: Matte
 msgid "media-back-coating.matte"
-msgstr "Fosco do media-back-coating.matte"
+msgstr "Fosco"
 
 #. TRANSLATORS: None
 msgid "media-back-coating.none"
-msgstr "Não tem o media-back-coating.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Satin
 msgid "media-back-coating.satin"
-msgstr "Acetinado do media-back-coating.satin"
+msgstr "Acetinado"
 
 #. TRANSLATORS: Semi-gloss
 msgid "media-back-coating.semi-gloss"
-msgstr "Semibrilhante do media-back-coating.semi-gloss"
+msgstr "Semibrilhante"
 
 #. TRANSLATORS: Media Bottom Margin
 msgid "media-bottom-margin"
-msgstr "Margem inferior do media-bottom-margin"
+msgstr "Margem Inferior da Mídia"
 
 #. TRANSLATORS: Media
 msgid "media-col"
-msgstr "Mídia do media-col"
+msgstr "Mídia"
 
 #. TRANSLATORS: Media Color
 msgid "media-color"
-msgstr "Cor da mídia do media-color"
+msgstr "Cor da Mídia"
 
 #. TRANSLATORS: Black
 msgid "media-color.black"
-msgstr "Preto do media-color.black"
+msgstr "Preto"
 
 #. TRANSLATORS: Blue
 msgid "media-color.blue"
-msgstr "Azul do media-color.blue"
+msgstr "Azul"
 
 #. TRANSLATORS: Brown
 msgid "media-color.brown"
-msgstr "Marrom do media-color.brown"
+msgstr "Marrom"
 
 #. TRANSLATORS: Buff
 msgid "media-color.buff"
-msgstr "Laranja-claro dourado do media-color.buff"
+msgstr "Laranja-Claro Dourado"
 
 #. TRANSLATORS: Clear Black
 msgid "media-color.clear-black"
-msgstr "Preto transparente do media-color.clear-black"
+msgstr "Preto Transparente"
 
 #. TRANSLATORS: Clear Blue
 msgid "media-color.clear-blue"
-msgstr "Azul transparente do media-color.clear-blue"
+msgstr "Azul Transparente"
 
 #. TRANSLATORS: Clear Brown
 msgid "media-color.clear-brown"
-msgstr "Marrom transparente do media-color.clear-brown"
+msgstr "Marrom Transparente"
 
 #. TRANSLATORS: Clear Buff
 msgid "media-color.clear-buff"
-msgstr "Laranja-transparente dourado do media-color.clear-buff"
+msgstr "Laranja-Transparente Dourado"
 
 #. TRANSLATORS: Clear Cyan
 msgid "media-color.clear-cyan"
-msgstr "Ciano transparente do media-color.clear-cyan"
+msgstr "Ciano Transparente"
 
 #. TRANSLATORS: Clear Gold
 msgid "media-color.clear-gold"
-msgstr "Ouro transparente do media-color.clear-gold"
+msgstr "Ouro Transparente"
 
 #. TRANSLATORS: Clear Goldenrod
 msgid "media-color.clear-goldenrod"
-msgstr "Amarelo-dourado transparente do media-color.clear-goldenrod"
+msgstr "Amarelo-Dourado Transparente"
 
 #. TRANSLATORS: Clear Gray
 msgid "media-color.clear-gray"
-msgstr "Cinza transparente do media-color.clear-gray"
+msgstr "Cinza Transparente"
 
 #. TRANSLATORS: Clear Green
 msgid "media-color.clear-green"
-msgstr "Verde transparente do media-color.clear-green"
+msgstr "Verde Transparente"
 
 #. TRANSLATORS: Clear Ivory
 msgid "media-color.clear-ivory"
-msgstr "Marfim transparente do media-color.clear-ivory"
+msgstr "Marfim Transparente"
 
 #. TRANSLATORS: Clear Magenta
 msgid "media-color.clear-magenta"
-msgstr "Magenta transparente do media-color.clear-magenta"
+msgstr "Magenta Transparente"
 
 #. TRANSLATORS: Clear Multi Color
 msgid "media-color.clear-multi-color"
-msgstr "Várias cores transparentes do media-color.clear-multi-color"
+msgstr "Várias Cores Transparentes"
 
 #. TRANSLATORS: Clear Mustard
 msgid "media-color.clear-mustard"
-msgstr "Mostarda transparente do media-color.clear-mustard"
+msgstr "Mostarda Transparente"
 
 #. TRANSLATORS: Clear Orange
 msgid "media-color.clear-orange"
-msgstr "Laranja transparente do media-color.clear-orange"
+msgstr "Laranja Transparente"
 
 #. TRANSLATORS: Clear Pink
 msgid "media-color.clear-pink"
-msgstr "Rosa transparente do media-color.clear-pink"
+msgstr "Rosa Transparente"
 
 #. TRANSLATORS: Clear Red
 msgid "media-color.clear-red"
-msgstr "Vermelho transparente do media-color.clear-red"
+msgstr "Vermelho Transparente"
 
 #. TRANSLATORS: Clear Silver
 msgid "media-color.clear-silver"
-msgstr "Prata transparente do media-color.clear-silver"
+msgstr "Prata Transparente"
 
 #. TRANSLATORS: Clear Turquoise
 msgid "media-color.clear-turquoise"
-msgstr "Turquesa transparente do media-color.clear-turquoise"
+msgstr "Turquesa Transparente"
 
 #. TRANSLATORS: Clear Violet
 msgid "media-color.clear-violet"
-msgstr "Violeta transparente do media-color.clear-violet"
+msgstr "Violeta Transparente"
 
 #. TRANSLATORS: Clear White
 msgid "media-color.clear-white"
-msgstr "Branco transparente do media-color.clear-white"
+msgstr "Branco Transparente"
 
 #. TRANSLATORS: Clear Yellow
 msgid "media-color.clear-yellow"
-msgstr "Amarelo transparente do media-color.clear-yellow"
+msgstr "Amarelo Transparente"
 
 #. TRANSLATORS: Cyan
 msgid "media-color.cyan"
-msgstr "Ciano do media-color.cyan"
+msgstr "Ciano"
 
 #. TRANSLATORS: Dark Blue
 msgid "media-color.dark-blue"
-msgstr "Azul escuro do media-color.dark-blue"
+msgstr "Azul Escuro"
 
 #. TRANSLATORS: Dark Brown
 msgid "media-color.dark-brown"
-msgstr "Marrom escuro do media-color.dark-brown"
+msgstr "Marrom Escuro"
 
 #. TRANSLATORS: Dark Buff
 msgid "media-color.dark-buff"
-msgstr "Castanho escuro do media-color.dark-buff"
+msgstr "Castanho Escuro"
 
 #. TRANSLATORS: Dark Cyan
 msgid "media-color.dark-cyan"
-msgstr "Ciano escuro do media-color.dark-cyan"
+msgstr "Ciano Escuro"
 
 #. TRANSLATORS: Dark Gold
 msgid "media-color.dark-gold"
-msgstr "Ouro escuro do media-color.dark-gold"
+msgstr "Ouro Escuro"
 
 #. TRANSLATORS: Dark Goldenrod
 msgid "media-color.dark-goldenrod"
-msgstr "Amarelo-alaranjado escuro do media-color.dark-goldenrod"
+msgstr "Amarelo-Alaranjado Escuro"
 
 #. TRANSLATORS: Dark Gray
 msgid "media-color.dark-gray"
-msgstr "Cinza escuro do media-color.dark-gray"
+msgstr "Cinza Escuro"
 
 #. TRANSLATORS: Dark Green
 msgid "media-color.dark-green"
-msgstr "Verde escuro do media-color.dark-green"
+msgstr "Verde Escuro"
 
 #. TRANSLATORS: Dark Ivory
 msgid "media-color.dark-ivory"
-msgstr "Marfim escuro do media-color.dark-ivory"
+msgstr "Marfim Escuro"
 
 #. TRANSLATORS: Dark Magenta
 msgid "media-color.dark-magenta"
-msgstr "Magenta escuro do media-color.dark-magenta"
+msgstr "Magenta Escuro"
 
 #. TRANSLATORS: Dark Mustard
 msgid "media-color.dark-mustard"
-msgstr "Mostarda escura do media-color.dark-mustard"
+msgstr "Mostarda Escura"
 
 #. TRANSLATORS: Dark Orange
 msgid "media-color.dark-orange"
-msgstr "Laranja escuro do media-color.dark-orange"
+msgstr "Laranja Escuro"
 
 #. TRANSLATORS: Dark Pink
 msgid "media-color.dark-pink"
-msgstr "Rosa escuro do media-color.dark-pink"
+msgstr "Rosa Escuro"
 
 #. TRANSLATORS: Dark Red
 msgid "media-color.dark-red"
-msgstr "Vermelho escuro do media-color.dark-red"
+msgstr "Vermelho Escuro"
 
 #. TRANSLATORS: Dark Silver
 msgid "media-color.dark-silver"
-msgstr "Prata escuro do media-color.dark-silver"
+msgstr "Prata Escuro"
 
 #. TRANSLATORS: Dark Turquoise
 msgid "media-color.dark-turquoise"
-msgstr "Turquesa escuro do media-color.dark-turquoise"
+msgstr "Turquesa Escuro"
 
 #. TRANSLATORS: Dark Violet
 msgid "media-color.dark-violet"
-msgstr "Violeta escuro do media-color.dark-violet"
+msgstr "Violeta Escuro"
 
 #. TRANSLATORS: Dark Yellow
 msgid "media-color.dark-yellow"
-msgstr "Amarelo escuro do media-color.dark-yellow"
+msgstr "Amarelo Escuro"
 
 #. TRANSLATORS: Gold
 msgid "media-color.gold"
-msgstr "Ouro do media-color.gold"
+msgstr "Ouro"
 
 #. TRANSLATORS: Goldenrod
 msgid "media-color.goldenrod"
-msgstr "Amarelo-alaranjado do media-color.goldenrod"
+msgstr "Amarelo-Alaranjado"
 
 #. TRANSLATORS: Gray
 msgid "media-color.gray"
-msgstr "Cinza do media-color.gray"
+msgstr "Cinza"
 
 #. TRANSLATORS: Green
 msgid "media-color.green"
-msgstr "Verde do media-color.green"
+msgstr "Verde"
 
 #. TRANSLATORS: Ivory
 msgid "media-color.ivory"
-msgstr "Marfim do media-color.ivory"
+msgstr "Marfim"
 
 #. TRANSLATORS: Light Black
 msgid "media-color.light-black"
-msgstr "Preto claro do media-color.light-black"
+msgstr "Preto Claro"
 
 #. TRANSLATORS: Light Blue
 msgid "media-color.light-blue"
-msgstr "Azul claro do media-color.light-blue"
+msgstr "Azul Claro"
 
 #. TRANSLATORS: Light Brown
 msgid "media-color.light-brown"
-msgstr "Marrom claro do media-color.light-brown"
+msgstr "Marrom Claro"
 
 #. TRANSLATORS: Light Buff
 msgid "media-color.light-buff"
-msgstr "Laranja-claro dourado do media-color.light-buff"
+msgstr "Laranja-Claro Dourado"
 
 #. TRANSLATORS: Light Cyan
 msgid "media-color.light-cyan"
-msgstr "Ciano claro do media-color.light-cyan"
+msgstr "Ciano Claro"
 
 #. TRANSLATORS: Light Gold
 msgid "media-color.light-gold"
-msgstr "Ouro claro do media-color.light-gold"
+msgstr "Ouro Claro"
 
 #. TRANSLATORS: Light Goldenrod
 msgid "media-color.light-goldenrod"
-msgstr "Amarelo-dourado claro do media-color.light-goldenrod"
+msgstr "Amarelo-Dourado Claro"
 
 #. TRANSLATORS: Light Gray
 msgid "media-color.light-gray"
-msgstr "Cinza claro do media-color.light-gray"
+msgstr "Cinza Claro"
 
 #. TRANSLATORS: Light Green
 msgid "media-color.light-green"
-msgstr "Verde claro do media-color.light-green"
+msgstr "Verde Claro"
 
 #. TRANSLATORS: Light Ivory
 msgid "media-color.light-ivory"
-msgstr "Marfim claro do media-color.light-ivory"
+msgstr "Marfim Claro"
 
 #. TRANSLATORS: Light Magenta
 msgid "media-color.light-magenta"
-msgstr "Magenta claro do media-color.light-magenta"
+msgstr "Magenta Claro"
 
 #. TRANSLATORS: Light Mustard
 msgid "media-color.light-mustard"
-msgstr "Mostarda clara do media-color.light-mustard"
+msgstr "Mostarda Clara"
 
 #. TRANSLATORS: Light Orange
 msgid "media-color.light-orange"
-msgstr "Laranja claro do media-color.light-orange"
+msgstr "Laranja Claro"
 
 #. TRANSLATORS: Light Pink
 msgid "media-color.light-pink"
-msgstr "Rosa claro do media-color.light-pink"
+msgstr "Rosa Claro"
 
 #. TRANSLATORS: Light Red
 msgid "media-color.light-red"
-msgstr "Vermelho claro do media-color.light-red"
+msgstr "Vermelho Claro"
 
 #. TRANSLATORS: Light Silver
 msgid "media-color.light-silver"
-msgstr "Prata claro do media-color.light-silver"
+msgstr "Prata Claro"
 
 #. TRANSLATORS: Light Turquoise
 msgid "media-color.light-turquoise"
-msgstr "Turquesa claro do media-color.light-turquoise"
+msgstr "Turquesa Claro"
 
 #. TRANSLATORS: Light Violet
 msgid "media-color.light-violet"
-msgstr "Violeta claro do media-color.light-violet"
+msgstr "Violeta Claro"
 
 #. TRANSLATORS: Light Yellow
 msgid "media-color.light-yellow"
-msgstr "Amarelo claro do media-color.light-yellow"
+msgstr "Amarelo Claro"
 
 #. TRANSLATORS: Magenta
 msgid "media-color.magenta"
-msgstr "Magenta do media-color.magenta"
+msgstr "Magenta"
 
 #. TRANSLATORS: Multi-color
 msgid "media-color.multi-color"
-msgstr "Várias cores do media-color.multi-color"
+msgstr "Várias Cores"
 
 #. TRANSLATORS: Mustard
 msgid "media-color.mustard"
-msgstr "Mostarda do media-color.mustard"
+msgstr "Mostarda"
 
 #. TRANSLATORS: No Color
 msgid "media-color.no-color"
-msgstr "Sem cor do media-color.no-color"
+msgstr "Sem Cor"
 
 #. TRANSLATORS: Orange
 msgid "media-color.orange"
-msgstr "Laranja do media-color.orange"
+msgstr "Laranja"
 
 #. TRANSLATORS: Pink
 msgid "media-color.pink"
-msgstr "Rosa do media-color.pink"
+msgstr "Rosa"
 
 #. TRANSLATORS: Red
 msgid "media-color.red"
-msgstr "Vermelho do media-color.red"
+msgstr "Vermelho"
 
 #. TRANSLATORS: Silver
 msgid "media-color.silver"
-msgstr "Prata do media-color.silver"
+msgstr "Prata"
 
 #. TRANSLATORS: Turquoise
 msgid "media-color.turquoise"
-msgstr "Turquesa do media-color.turquoise"
+msgstr "Turquesa"
 
 #. TRANSLATORS: Violet
 msgid "media-color.violet"
-msgstr "Violeta do media-color.violet"
+msgstr "Violeta"
 
 #. TRANSLATORS: White
 msgid "media-color.white"
-msgstr "Branco do media-color.white"
+msgstr "Branco"
 
 #. TRANSLATORS: Yellow
 msgid "media-color.yellow"
-msgstr "Amarelo do media-color.yellow"
+msgstr "Amarelo"
 
 #. TRANSLATORS: Front Coating of Media
 msgid "media-front-coating"
-msgstr "Acabamento frontal do media-front-coating"
+msgstr "Acabamento Frontal da Mídia"
 
 #. TRANSLATORS: Media Grain
 msgid "media-grain"
-msgstr "Grão do media-grain"
+msgstr "Grão da Mídia"
 
 #. TRANSLATORS: Cross-Feed Direction
 msgid "media-grain.x-direction"
-msgstr "Direção da alimentação cruzada do media-grain.x-direction"
+msgstr "Direção da Alimentação Cruzada"
 
 #. TRANSLATORS: Feed Direction
 msgid "media-grain.y-direction"
-msgstr "Direção da alimentação do media-grain.y-direction"
+msgstr "Direção da Alimentação"
 
 #. TRANSLATORS: Media Hole Count
 msgid "media-hole-count"
-msgstr "Contagem dos furos do media-hole-count"
+msgstr "Contagem dos Furos da Mídia"
 
 #. TRANSLATORS: Media Info
 msgid "media-info"
-msgstr "Informações do media-info"
+msgstr "Informações da Mídia"
 
 #. TRANSLATORS: Force Media
 msgid "media-input-tray-check"
-msgstr "Forçar o media-input-tray-check"
+msgstr "Forçar a Mídia"
 
 #. TRANSLATORS: Media Left Margin
 msgid "media-left-margin"
-msgstr "Margem à esquerda do media-left-margin"
+msgstr "Margem à Esquerda da Mídia"
 
 #. TRANSLATORS: Pre-printed Media
 msgid "media-pre-printed"
-msgstr "Pré-impressão do media-pre-printed"
+msgstr "Pré-Impressão da Mídia"
 
 #. TRANSLATORS: Blank
 msgid "media-pre-printed.blank"
-msgstr "Pré-impressão em branco do media-pre-printed.blank"
+msgstr "Branco"
 
 #. TRANSLATORS: Letterhead
 msgid "media-pre-printed.letter-head"
-msgstr "Papel timbrado do media-pre-printed.letter-head"
+msgstr "Papel Timbrado"
 
 #. TRANSLATORS: Pre-printed
 msgid "media-pre-printed.pre-printed"
-msgstr "Pré-impressão do media-pre-printed.pre-printed"
+msgstr "Pré-Impressão"
 
 #. TRANSLATORS: Recycled Media
 msgid "media-recycled"
-msgstr "Reciclagem do media-recycled"
+msgstr "Reciclagem da Mídia"
 
 #. TRANSLATORS: None
 msgid "media-recycled.none"
-msgstr "Não tem o media-recycled.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "media-recycled.standard"
-msgstr "Padrão do media-recycled.standard"
+msgstr "Padrão"
 
 #. TRANSLATORS: Media Right Margin
 msgid "media-right-margin"
-msgstr "Margem à direita do media-right-margin"
+msgstr "Margem à Direita da Mídia"
 
 #. TRANSLATORS: Media Dimensions
 msgid "media-size"
-msgstr "Dimensões da mídia do media-size"
+msgstr "Dimensões da Mídia"
 
 #. TRANSLATORS: Media Name
 msgid "media-size-name"
-msgstr "Nome da mídia do media-size-name"
+msgstr "Nome da Mídia"
 
 #. TRANSLATORS: Media Source
 msgid "media-source"
-msgstr "Origem da mídia do media-source"
+msgstr "Origem da Mídia"
 
 #. TRANSLATORS: Alternate
 msgid "media-source.alternate"
-msgstr "Alternar o media-source.alternate"
+msgstr "Alternar"
 
 #. TRANSLATORS: Alternate Roll
 msgid "media-source.alternate-roll"
-msgstr "Rolete alternativo do media-source.alternate-roll"
+msgstr "Rolete Alternativo"
 
 #. TRANSLATORS: Automatic
 msgid "media-source.auto"
-msgstr "Automático do media-source.auto"
+msgstr "Automático"
 
 #. TRANSLATORS: Bottom
 msgid "media-source.bottom"
-msgstr "No canto inferior do media-source.bottom"
+msgstr "Inferior"
 
 #. TRANSLATORS: By-pass Tray
 msgid "media-source.by-pass-tray"
-msgstr "Desvio da bandeja do media-source.by-pass-tray"
+msgstr "Desvio da Bandeja"
 
 #. TRANSLATORS: Center
 msgid "media-source.center"
-msgstr "Centro do media-source.center"
+msgstr "Centro"
 
 #. TRANSLATORS: Disc
 msgid "media-source.disc"
-msgstr "Disco do media-source.disc"
+msgstr "Disco"
 
 #. TRANSLATORS: Envelope
 msgid "media-source.envelope"
-msgstr "Envelope do media-source.envelope"
+msgstr "Envelope"
 
 #. TRANSLATORS: Hagaki
 msgid "media-source.hagaki"
-msgstr "Cartão postal do media-source.hagaki"
+msgstr "Cartão Postal"
 
 #. TRANSLATORS: Large Capacity
 msgid "media-source.large-capacity"
-msgstr "Grande capacidade do media-source.large-capacity"
+msgstr "Grande Capacidade"
 
 #. TRANSLATORS: Left
 msgid "media-source.left"
-msgstr "Esquerda do media-source.left"
+msgstr "Esquerda"
 
 #. TRANSLATORS: Main
 msgid "media-source.main"
-msgstr "Principal do media-source.main"
+msgstr "Principal"
 
 #. TRANSLATORS: Main Roll
 msgid "media-source.main-roll"
-msgstr "Rolete principal do media-source.main-roll"
+msgstr "Rolete Principal"
 
 #. TRANSLATORS: Manual
 msgid "media-source.manual"
-msgstr "Manual do media-source.manual"
+msgstr "Manual"
 
 #. TRANSLATORS: Middle
 msgid "media-source.middle"
-msgstr "Meio do media-source.middle"
+msgstr "Meio"
 
 #. TRANSLATORS: Photo
 msgid "media-source.photo"
-msgstr "Foto do media-source.photo"
+msgstr "Foto"
 
 #. TRANSLATORS: Rear
 msgid "media-source.rear"
-msgstr "Na parte de trás do media-source.rear"
+msgstr "Atrás"
 
 #. TRANSLATORS: Right
 msgid "media-source.right"
-msgstr "No canto direito do media-source.right"
+msgstr "Direita"
 
 #. TRANSLATORS: Roll 1
 msgid "media-source.roll-1"
-msgstr "Rolete 1 do media-source.roll-1"
+msgstr "Rolete 1"
 
 #. TRANSLATORS: Roll 10
 msgid "media-source.roll-10"
-msgstr "Rolete 10 do media-source.roll-10"
+msgstr "Rolete 10"
 
 #. TRANSLATORS: Roll 2
 msgid "media-source.roll-2"
-msgstr "Rolete 2 do media-source.roll-2"
+msgstr "Rolete 2"
 
 #. TRANSLATORS: Roll 3
 msgid "media-source.roll-3"
-msgstr "Rolete 3 do media-source.roll-3"
+msgstr "Rolete 3"
 
 #. TRANSLATORS: Roll 4
 msgid "media-source.roll-4"
-msgstr "Rolete 4 do media-source.roll-4"
+msgstr "Rolete 4"
 
 #. TRANSLATORS: Roll 5
 msgid "media-source.roll-5"
-msgstr "Rolete 5 do media-source.roll-5"
+msgstr "Rolete 5"
 
 #. TRANSLATORS: Roll 6
 msgid "media-source.roll-6"
-msgstr "Rolete 6 do media-source.roll-6"
+msgstr "Rolete 6"
 
 #. TRANSLATORS: Roll 7
 msgid "media-source.roll-7"
-msgstr "Rolete 7 do media-source.roll-7"
+msgstr "Rolete 7"
 
 #. TRANSLATORS: Roll 8
 msgid "media-source.roll-8"
-msgstr "Rolete 8 do media-source.roll-8"
+msgstr "Rolete 8"
 
 #. TRANSLATORS: Roll 9
 msgid "media-source.roll-9"
-msgstr "Rolete 9 do media-source.roll-9"
+msgstr "Rolete 9"
 
 #. TRANSLATORS: Side
 msgid "media-source.side"
-msgstr "No canto lateral do media-source.side"
+msgstr "Lado"
 
 #. TRANSLATORS: Top
 msgid "media-source.top"
-msgstr "No canto superior do media-source.top"
+msgstr "Superior"
 
 #. TRANSLATORS: Tray 1
 msgid "media-source.tray-1"
-msgstr "Bandeja 1 do media-source.tray-1"
+msgstr "Bandeja 1"
 
 #. TRANSLATORS: Tray 10
 msgid "media-source.tray-10"
-msgstr "Bandeja 10 do media-source.tray-10"
+msgstr "Bandeja 10"
 
 #. TRANSLATORS: Tray 11
 msgid "media-source.tray-11"
-msgstr "Bandeja 11 do media-source.tray-11"
+msgstr "Bandeja 11"
 
 #. TRANSLATORS: Tray 12
 msgid "media-source.tray-12"
-msgstr "Bandeja 12 do media-source.tray-12"
+msgstr "Bandeja 12"
 
 #. TRANSLATORS: Tray 13
 msgid "media-source.tray-13"
-msgstr "Bandeja 13 do media-source.tray-13"
+msgstr "Bandeja 13"
 
 #. TRANSLATORS: Tray 14
 msgid "media-source.tray-14"
-msgstr "Bandeja 14 do media-source.tray-14"
+msgstr "Bandeja 14"
 
 #. TRANSLATORS: Tray 15
 msgid "media-source.tray-15"
-msgstr "Bandeja 15 do media-source.tray-15"
+msgstr "Bandeja 15"
 
 #. TRANSLATORS: Tray 16
 msgid "media-source.tray-16"
-msgstr "Bandeja 16 do media-source.tray-16"
+msgstr "Bandeja 16"
 
 #. TRANSLATORS: Tray 17
 msgid "media-source.tray-17"
-msgstr "Bandeja 17 do media-source.tray-17"
+msgstr "Bandeja 17"
 
 #. TRANSLATORS: Tray 18
 msgid "media-source.tray-18"
-msgstr "Bandeja 18 do media-source.tray-18"
+msgstr "Bandeja 18"
 
 #. TRANSLATORS: Tray 19
 msgid "media-source.tray-19"
-msgstr "Bandeja 19 do media-source.tray-19"
+msgstr "Bandeja 19"
 
 #. TRANSLATORS: Tray 2
 msgid "media-source.tray-2"
-msgstr "Bandeja 2 do media-source.tray-2"
+msgstr "Bandeja 2"
 
 #. TRANSLATORS: Tray 20
 msgid "media-source.tray-20"
-msgstr "Bandeja 20 do media-source.tray-20"
+msgstr "Bandeja 20"
 
 #. TRANSLATORS: Tray 3
 msgid "media-source.tray-3"
-msgstr "Bandeja 3 do media-source.tray-3"
+msgstr "Bandeja 3"
 
 #. TRANSLATORS: Tray 4
 msgid "media-source.tray-4"
-msgstr "Bandeja 4 do media-source.tray-4"
+msgstr "Bandeja 4"
 
 #. TRANSLATORS: Tray 5
 msgid "media-source.tray-5"
-msgstr "Bandeja 5 do media-source.tray-5"
+msgstr "Bandeja 5"
 
 #. TRANSLATORS: Tray 6
 msgid "media-source.tray-6"
-msgstr "Bandeja 6 do media-source.tray-6"
+msgstr "Bandeja 6"
 
 #. TRANSLATORS: Tray 7
 msgid "media-source.tray-7"
-msgstr "Bandeja 7 do media-source.tray-7"
+msgstr "Bandeja 7"
 
 #. TRANSLATORS: Tray 8
 msgid "media-source.tray-8"
-msgstr "Bandeja 8 do media-source.tray-8"
+msgstr "Bandeja 8"
 
 #. TRANSLATORS: Tray 9
 msgid "media-source.tray-9"
-msgstr "Bandeja 9 do media-source.tray-9"
+msgstr "Bandeja 9"
 
 #. TRANSLATORS: Media Thickness
 msgid "media-thickness"
-msgstr "Espessura da mídia do media-thickness"
+msgstr "Espessura da Mídia"
 
 #. TRANSLATORS: Media Tooth (Texture)
 msgid "media-tooth"
-msgstr "Dente da mídia (textura) do media-tooth"
+msgstr "Textura dos Dentes da Mídia"
 
 #. TRANSLATORS: Antique
 msgid "media-tooth.antique"
-msgstr "Antiguidade do media-tooth.antique"
+msgstr "Antigo"
 
 #. TRANSLATORS: Extra Smooth
 msgid "media-tooth.calendared"
-msgstr "Extra liso do media-tooth.calendared"
+msgstr "Extra Liso"
 
 #. TRANSLATORS: Coarse
 msgid "media-tooth.coarse"
-msgstr "Grosso do media-tooth.coarse"
+msgstr "Grosso"
 
 #. TRANSLATORS: Fine
 msgid "media-tooth.fine"
-msgstr "Fino do media-tooth.fine"
+msgstr "Fino"
 
 #. TRANSLATORS: Linen
 msgid "media-tooth.linen"
-msgstr "Linho do media-tooth.linen"
+msgstr "Linho"
 
 #. TRANSLATORS: Medium
 msgid "media-tooth.medium"
-msgstr "Médio do media-tooth.medium"
+msgstr "Médio"
 
 #. TRANSLATORS: Smooth
 msgid "media-tooth.smooth"
-msgstr "Liso do media-tooth.smooth"
+msgstr "Liso"
 
 #. TRANSLATORS: Stipple
 msgid "media-tooth.stipple"
-msgstr "Pontilhado do media-tooth.stipple"
+msgstr "Pontilhado"
 
 #. TRANSLATORS: Rough
 msgid "media-tooth.uncalendared"
-msgstr "Áspero do media-tooth.uncalendared"
+msgstr "Áspero"
 
 #. TRANSLATORS: Vellum
 msgid "media-tooth.vellum"
-msgstr "Veludo do media-tooth.vellum"
+msgstr "Veludo"
 
 #. TRANSLATORS: Media Top Margin
 msgid "media-top-margin"
-msgstr "Margem superior do media-top-margin"
+msgstr "Margem Superior da Mídia"
 
 #. TRANSLATORS: Media Type
 msgid "media-type"
-msgstr "Tipo de mídia do media-type"
+msgstr "Tipo da Mídia"
 
 #. TRANSLATORS: Aluminum
 msgid "media-type.aluminum"
-msgstr "Alumínio do media-type.aluminum"
+msgstr "Alumínio"
 
 #. TRANSLATORS: Automatic
 msgid "media-type.auto"
-msgstr "Automático do media-type.auto"
+msgstr "Automático"
 
 #. TRANSLATORS: Back Print Film
 msgid "media-type.back-print-film"
-msgstr "Filme de impressão traseiro do media-type.back-print-film"
+msgstr "Filme de Impressão Traseiro"
 
 #. TRANSLATORS: Cardboard
 msgid "media-type.cardboard"
-msgstr "Papelão do media-type.cardboard"
+msgstr "Papelão"
 
 #. TRANSLATORS: Cardstock
 msgid "media-type.cardstock"
-msgstr "Cartolina do media-type.cardstock"
+msgstr "Cartolina"
 
 #. TRANSLATORS: CD
 msgid "media-type.cd"
-msgstr "CD do media-type.cd"
+msgstr "CD"
 
 #. TRANSLATORS: Photo Advanced Paper
 msgid "media-type.com.hp.advanced-photo"
-msgstr "Papel fotográfico avançado do media-type.com.hp.advanced-photo"
+msgstr "Papel Fotográfico Avançado"
 
 #. TRANSLATORS: Brochure Glossy Paper
 msgid "media-type.com.hp.brochure-glossy"
-msgstr "Papel de brochura brilhante do media-type.com.hp.brochure-glossy"
+msgstr "Papel de Brochura Brilhante"
 
 #. TRANSLATORS: Brochure Matte Paper
 msgid "media-type.com.hp.brochure-matte"
-msgstr "Papel de brochura fosco do media-type.com.hp.brochure-matte"
+msgstr "Papel de Brochura Fosco"
 
 #. TRANSLATORS: Matte Coverstock
 msgid "media-type.com.hp.cover-matte"
-msgstr "Capa fosca do media-type.com.hp.cover-matte"
+msgstr "Capa Fosca"
 
 #. TRANSLATORS: EcoSMART Lite Paper
 msgid "media-type.com.hp.ecosmart-lite"
-msgstr "Papel leve EcoSMART do media-type.com.hp.ecosmart-lite"
+msgstr "Papel Leve do EcoSMART"
 
 #. TRANSLATORS: Everyday Glossy Paper
 msgid "media-type.com.hp.everyday-glossy"
-msgstr "Papel brilhante para uso diário do media-type.com.hp.everyday-glossy"
+msgstr "Papel Brilhante para Uso Diário"
 
 #. TRANSLATORS: Everyday Matte Paper
 msgid "media-type.com.hp.everyday-matte"
-msgstr ""
-"Papel fosco para impressão jato de tinta do media-type.com.hp.everyday-matte"
+msgstr "Papel Fosco para Uso Diário"
 
 #. TRANSLATORS: Extra Heavyweight Paper
 msgid "media-type.com.hp.extra-heavy"
-msgstr "Papel extra-pesado do media-type.com.hp.extra-heavy"
+msgstr "Papel Extrapesado"
 
 #. TRANSLATORS: Intermediate Paper
 msgid "media-type.com.hp.intermediate"
-msgstr "Papel intermediário do media-type.com.hp.intermediate"
+msgstr "Papel Intermediário"
 
 #. TRANSLATORS: Mid-Weight Paper
 msgid "media-type.com.hp.mid-weight"
-msgstr "Papel de peso médio do media-type.com.hp.mid-weight"
+msgstr "Papel de Peso Médio"
 
 #. TRANSLATORS: Inkjet Premium Paper
 msgid "media-type.com.hp.premium-inkjet"
-msgstr ""
-"Papel para impressora a jato de tinta do media-type.com.hp.premium-inkjet"
+msgstr "Papel para Impressora a Jato de Tinta"
 
 #. TRANSLATORS: Photo Premium Paper
 msgid "media-type.com.hp.premium-photo"
-msgstr "Papel fotográfico premium do media-type.com.hp.premium-photo"
+msgstr "Papel Fotográfico Premium"
 
 #. TRANSLATORS: Premium Matte Presentation Paper
 msgid "media-type.com.hp.premium-presentation-matte"
-msgstr ""
-"Papel fosco e pesado de apresentação do media-type.com.hp.premium-"
-"presentation-matte"
+msgstr "Papel Fosco e Pesado de Apresentação"
 
 #. TRANSLATORS: Continuous
 msgid "media-type.continuous"
-msgstr "Contínuo do media-type.continuous"
+msgstr "Contínuo"
 
 #. TRANSLATORS: Continuous Long
 msgid "media-type.continuous-long"
-msgstr "Longo e contínuo do media-type.continuous-long"
+msgstr "Longo e Contínuo"
 
 #. TRANSLATORS: Continuous Short
 msgid "media-type.continuous-short"
-msgstr "Curto e contínuo do media-type.continuous-short"
+msgstr "Curto e Contínuo"
 
 #. TRANSLATORS: Corrugated Board
 msgid "media-type.corrugated-board"
-msgstr "Papelão ondulado do media-type.corrugated-board"
+msgstr "Papelão Ondulado"
 
 #. TRANSLATORS: Optical Disc
 msgid "media-type.disc"
-msgstr "Disco ótico do media-type.disc"
+msgstr "Disco Ótico"
 
 #. TRANSLATORS: Glossy Optical Disc
 msgid "media-type.disc-glossy"
-msgstr "Disco ótico brilhante do media-type.disc-glossy"
+msgstr "Disco Ótico Brilhante"
 
 #. TRANSLATORS: High Gloss Optical Disc
 msgid "media-type.disc-high-gloss"
-msgstr "Disco ótico muito brilhante do media-type.disc-high-gloss"
+msgstr "Disco Ótico Muito Brilhante"
 
 #. TRANSLATORS: Matte Optical Disc
 msgid "media-type.disc-matte"
-msgstr "Disco ótico fosco do media-type.disc-matte"
+msgstr "Disco Ótico Fosco"
 
 #. TRANSLATORS: Satin Optical Disc
 msgid "media-type.disc-satin"
@@ -10313,7 +10157,7 @@ msgstr "Envelope fino do media-type.envelope-fine"
 
 #. TRANSLATORS: Heavyweight Envelope
 msgid "media-type.envelope-heavyweight"
-msgstr "Envelope grosso do media-type.envelope-heavyweight"
+msgstr "Envelope Grosso"
 
 #. TRANSLATORS: Inkjet Envelope
 msgid "media-type.envelope-inkjet"
@@ -10669,12 +10513,11 @@ msgstr ""
 
 #. TRANSLATORS: Heavyweight Paper
 msgid "media-type.stationery-heavyweight"
-msgstr "Papel grosso do media-type.stationery-heavyweight"
+msgstr "Papel Grosso"
 
 #. TRANSLATORS: Stationery Heavyweight Coated
 msgid "media-type.stationery-heavyweight-coated"
-msgstr ""
-"Papel com revestimento grosso do media-type.stationery-heavyweight-coated"
+msgstr "Papel com Revestimento Grosso"
 
 #. TRANSLATORS: Stationery Inkjet Paper
 msgid "media-type.stationery-inkjet"
@@ -11578,7 +11421,7 @@ msgstr "Melhor Rapidez"
 
 #. TRANSLATORS: One At A Time
 msgid "multiple-object-handling.one-at-a-time"
-msgstr "Um por Vez"
+msgstr "Um de Cada Vez"
 
 #. TRANSLATORS: On Timeout
 msgid "multiple-operation-time-out-action"
@@ -11586,7 +11429,7 @@ msgstr "Caso Tempo Esgotado"
 
 #. TRANSLATORS: Abort Job
 msgid "multiple-operation-time-out-action.abort-job"
-msgstr "Abortar Trabalho"
+msgstr "Abortar o Trabalho"
 
 #. TRANSLATORS: Hold Job
 msgid "multiple-operation-time-out-action.hold-job"
@@ -11594,7 +11437,7 @@ msgstr "Reter o Trabalho"
 
 #. TRANSLATORS: Process Job
 msgid "multiple-operation-time-out-action.process-job"
-msgstr "Processar Trabalho"
+msgstr "Processar o Trabalho"
 
 msgid "no entries"
 msgstr "nenhum registro"
@@ -11659,7 +11502,7 @@ msgstr "Trabalho Criado"
 
 #. TRANSLATORS: Job Fetchable
 msgid "notify-events.job-fetchable"
-msgstr "Trabalho Buscável"
+msgstr "O Trabalho Pode Ser Localizado"
 
 #. TRANSLATORS: Job Progress
 msgid "notify-events.job-progress"
@@ -11667,7 +11510,7 @@ msgstr "Progresso de Trabalho"
 
 #. TRANSLATORS: Job State Changed
 msgid "notify-events.job-state-changed"
-msgstr "Estado de Trabalho Alterado"
+msgstr "O Estado do Trabalho Foi Alterado"
 
 #. TRANSLATORS: Job Stopped
 msgid "notify-events.job-stopped"
@@ -11675,7 +11518,7 @@ msgstr "Trabalho Parado"
 
 #. TRANSLATORS: None
 msgid "notify-events.none"
-msgstr "Não tem o notify-events.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Printer Config Changed
 msgid "notify-events.printer-config-changed"
@@ -12035,7 +11878,7 @@ msgstr ""
 
 #. TRANSLATORS: No Border
 msgid "page-border.none"
-msgstr ""
+msgstr "Sem Borda"
 
 #. TRANSLATORS: Thin Single Border
 msgid "page-border.single"
@@ -12698,7 +12541,7 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "print-base.none"
-msgstr "Não tem o print-base.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Raft
 msgid "print-base.raft"
@@ -12854,7 +12697,7 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "print-scaling.none"
-msgstr "Não tem o print-scaling.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Print Supports
 msgid "print-supports"
@@ -12870,7 +12713,7 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "print-supports.none"
-msgstr "Não tem o print-supports.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "print-supports.standard"
@@ -13772,7 +13615,7 @@ msgstr ""
 
 #. TRANSLATORS: Hold New Jobs
 msgid "printer-state-reasons.hold-new-jobs"
-msgstr ""
+msgstr "Reter os Novos Trabalhos"
 
 #. TRANSLATORS: Identify Printer
 msgid "printer-state-reasons.identify-printer-requested"
@@ -14636,7 +14479,7 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "printer-state-reasons.none"
-msgstr "Não tem o printer-state-reasons.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Optical Photoconductor Life Over
 msgid "printer-state-reasons.opc-life-over"
@@ -16706,7 +16549,7 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "save-disposition.none"
-msgstr "Não tem o save-disposition.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Print and Save
 msgid "save-disposition.print-save"
@@ -16752,11 +16595,11 @@ msgstr ""
 
 #. TRANSLATORS: End Sheet
 msgid "separator-sheets-type.end-sheet"
-msgstr ""
+msgstr "Última Folha"
 
 #. TRANSLATORS: None
 msgid "separator-sheets-type.none"
-msgstr "Não tem o separator-sheets-type.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Slip Sheets
 msgid "separator-sheets-type.slip-sheets"
@@ -16764,7 +16607,7 @@ msgstr ""
 
 #. TRANSLATORS: Start Sheet
 msgid "separator-sheets-type.start-sheet"
-msgstr ""
+msgstr "Primeira Folha"
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
 msgstr ""
@@ -16796,11 +16639,11 @@ msgstr ""
 
 #. TRANSLATORS: On (Portrait)
 msgid "sides.two-sided-long-edge"
-msgstr ""
+msgstr "Em (Retrato)"
 
 #. TRANSLATORS: On (Landscape)
 msgid "sides.two-sided-short-edge"
-msgstr ""
+msgstr "Em (Paisagem)"
 
 #, c-format
 msgid "stat of %s failed: %s"
@@ -16887,7 +16730,7 @@ msgstr "O padrão do subscription-privacy-attributes.default"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-attributes.none"
-msgstr "Não tem o subscription-privacy-attributes.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Subscription Description
 msgid "subscription-privacy-attributes.subscription-description"
@@ -16914,7 +16757,7 @@ msgstr "Padrão do subscription-privacy-scope.default"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-scope.none"
-msgstr "Não tem o subscription-privacy-scope.none"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Owner
 msgid "subscription-privacy-scope.owner"
