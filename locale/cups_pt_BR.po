@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-26 14:06+0000\n"
+"PO-Revision-Date: 2025-07-29 17:06+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -5298,7 +5298,7 @@ msgid "Tear-Off"
 msgstr "Destacar"
 
 msgid "Tear-Off Adjust Position"
-msgstr "Ajustar a posição do destaque"
+msgstr "Ajustar a Posição do Destaque"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
@@ -10613,7 +10613,7 @@ msgstr "A2x5"
 
 #. TRANSLATORS: A3 (Extra)
 msgid "media.iso_a3-extra_322x445mm"
-msgstr "A3 (Extra)"
+msgstr "A3 (Alta Qualidade)"
 
 #. TRANSLATORS: A3
 msgid "media.iso_a3_297x420mm"
@@ -11117,251 +11117,251 @@ msgstr "5 x 8″"
 
 #. TRANSLATORS: Statement
 msgid "media.na_invoice_5.5x8.5in"
-msgstr ""
+msgstr "Declaração"
 
 #. TRANSLATORS: 11 x 17″
 msgid "media.na_ledger_11x17in"
-msgstr ""
+msgstr "11 x 17″"
 
 #. TRANSLATORS: US Legal (Extra)
 msgid "media.na_legal-extra_9.5x15in"
-msgstr ""
+msgstr "Ofício dos EUA (Alta Qualidade)"
 
 #. TRANSLATORS: US Legal
 msgid "media.na_legal_8.5x14in"
-msgstr ""
+msgstr "Ofício dos EUA"
 
 #. TRANSLATORS: US Letter (Extra)
 msgid "media.na_letter-extra_9.5x12in"
-msgstr ""
+msgstr "Carta dos EUA (Alta Qualidade)"
 
 #. TRANSLATORS: US Letter (Plus)
 msgid "media.na_letter-plus_8.5x12.69in"
-msgstr ""
+msgstr "Carta dos EUA (Maior que o Padrão)"
 
 #. TRANSLATORS: US Letter
 msgid "media.na_letter_8.5x11in"
-msgstr ""
+msgstr "Carta dos EUA"
 
 #. TRANSLATORS: Envelope Monarch
 msgid "media.na_monarch_3.875x7.5in"
-msgstr ""
+msgstr "Envelope Monarca"
 
 #. TRANSLATORS: Envelope #10
 msgid "media.na_number-10_4.125x9.5in"
-msgstr ""
+msgstr "Envelope #10"
 
 #. TRANSLATORS: Envelope #11
 msgid "media.na_number-11_4.5x10.375in"
-msgstr ""
+msgstr "Envelope #11"
 
 #. TRANSLATORS: Envelope #12
 msgid "media.na_number-12_4.75x11in"
-msgstr ""
+msgstr "Envelope #12"
 
 #. TRANSLATORS: Envelope #14
 msgid "media.na_number-14_5x11.5in"
-msgstr ""
+msgstr "Envelope #14"
 
 #. TRANSLATORS: Envelope #9
 msgid "media.na_number-9_3.875x8.875in"
-msgstr ""
+msgstr "Envelope #9"
 
 #. TRANSLATORS: 8.5 x 13.4″
 msgid "media.na_oficio_8.5x13.4in"
-msgstr ""
+msgstr "8.5 x 13.4″"
 
 #. TRANSLATORS: Envelope Personal
 msgid "media.na_personal_3.625x6.5in"
-msgstr ""
+msgstr "Envelope Pessoal"
 
 #. TRANSLATORS: Quarto
 msgid "media.na_quarto_8.5x10.83in"
-msgstr ""
+msgstr "Quarto"
 
 #. TRANSLATORS: 8.94 x 14″
 msgid "media.na_super-a_8.94x14in"
-msgstr ""
+msgstr "8.94 x 14″"
 
 #. TRANSLATORS: 13 x 19″
 msgid "media.na_super-b_13x19in"
-msgstr ""
+msgstr "13 x 19″"
 
 #. TRANSLATORS: 30 x 42″
 msgid "media.na_wide-format_30x42in"
-msgstr ""
+msgstr "30 x 42″"
 
 #. TRANSLATORS: 12 x 16″
 msgid "media.oe_12x16_12x16in"
-msgstr ""
+msgstr "12 x 16″"
 
 #. TRANSLATORS: 14 x 17″
 msgid "media.oe_14x17_14x17in"
-msgstr ""
+msgstr "14 x 17″"
 
 #. TRANSLATORS: 18 x 22″
 msgid "media.oe_18x22_18x22in"
-msgstr ""
+msgstr "18 x 22″"
 
 #. TRANSLATORS: 17 x 24″
 msgid "media.oe_a2plus_17x24in"
-msgstr ""
+msgstr "17 x 24″"
 
 #. TRANSLATORS: 2 x 3.5″
 msgid "media.oe_business-card_2x3.5in"
-msgstr ""
+msgstr "2 x 3.5″"
 
 #. TRANSLATORS: 10 x 12″
 msgid "media.oe_photo-10r_10x12in"
-msgstr "10 x 12″ do media.oe_photo-10r_10x12in"
+msgstr "10 x 12″"
 
 #. TRANSLATORS: 20 x 24″
 msgid "media.oe_photo-20r_20x24in"
-msgstr "20 x 24″ do media.oe_photo-20r_20x24in"
+msgstr "20 x 24″"
 
 #. TRANSLATORS: 3.5 x 5″
 msgid "media.oe_photo-l_3.5x5in"
-msgstr "3.5 x 5″ do media.oe_photo-l_3.5x5in"
+msgstr "3.5 x 5″"
 
 #. TRANSLATORS: 10 x 15″
 msgid "media.oe_photo-s10r_10x15in"
-msgstr "10 x 15″ do media.oe_photo-s10r_10x15in"
+msgstr "10 x 15″"
 
 #. TRANSLATORS: 4 x 4″
 msgid "media.oe_square-photo_4x4in"
-msgstr "4 x 4″ do media.oe_square-photo_4x4in"
+msgstr "4 x 4″"
 
 #. TRANSLATORS: 5 x 5″
 msgid "media.oe_square-photo_5x5in"
-msgstr "5 x 5″ do media.oe_square-photo_5x5in"
+msgstr "5 x 5″"
 
 #. TRANSLATORS: 184 x 260mm
 msgid "media.om_16k_184x260mm"
-msgstr ""
+msgstr "184 x 260mm"
 
 #. TRANSLATORS: 195 x 270mm
 msgid "media.om_16k_195x270mm"
-msgstr ""
+msgstr "195 x 270mm"
 
 #. TRANSLATORS: 55 x 85mm
 msgid "media.om_business-card_55x85mm"
-msgstr ""
+msgstr "55 x 85mm"
 
 #. TRANSLATORS: 55 x 91mm
 msgid "media.om_business-card_55x91mm"
-msgstr ""
+msgstr "55 x 91mm"
 
 #. TRANSLATORS: 54 x 86mm
 msgid "media.om_card_54x86mm"
-msgstr ""
+msgstr "54 x 86mm"
 
 #. TRANSLATORS: 275 x 395mm
 msgid "media.om_dai-pa-kai_275x395mm"
-msgstr ""
+msgstr "275 x 395mm"
 
 #. TRANSLATORS: 89 x 119mm
 msgid "media.om_dsc-photo_89x119mm"
-msgstr "89 x 119mm do media.om_dsc-photo_89x119mm"
+msgstr "89 x 119mm"
 
 #. TRANSLATORS: Folio
 msgid "media.om_folio-sp_215x315mm"
-msgstr ""
+msgstr "Envelope de Saco"
 
 #. TRANSLATORS: Folio (Special)
 msgid "media.om_folio_210x330mm"
-msgstr ""
+msgstr "Envelope de Saco (Especial)"
 
 #. TRANSLATORS: Envelope Invitation
 msgid "media.om_invite_220x220mm"
-msgstr ""
+msgstr "Envelope de Convite"
 
 #. TRANSLATORS: Envelope Italian
 msgid "media.om_italian_110x230mm"
-msgstr ""
+msgstr "Envelope Italiano"
 
 #. TRANSLATORS: 198 x 275mm
 msgid "media.om_juuro-ku-kai_198x275mm"
-msgstr ""
+msgstr "198 x 275mm"
 
 #. TRANSLATORS: 200 x 300
 msgid "media.om_large-photo_200x300"
-msgstr "200 x 300 do media.om_large-photo_200x300"
+msgstr "200 x 300"
 
 #. TRANSLATORS: 130 x 180mm
 msgid "media.om_medium-photo_130x180mm"
-msgstr "130 x 180mm do media.om_medium-photo_130x180mm"
+msgstr "130 x 180mm"
 
 #. TRANSLATORS: 267 x 389mm
 msgid "media.om_pa-kai_267x389mm"
-msgstr ""
+msgstr "267 x 389mm"
 
 #. TRANSLATORS: Envelope Postfix
 msgid "media.om_postfix_114x229mm"
-msgstr ""
+msgstr "Envelope Postfix"
 
 #. TRANSLATORS: 100 x 150mm
 msgid "media.om_small-photo_100x150mm"
-msgstr "100 x 150mm do media.om_small-photo_100x150mm"
+msgstr "100 x 150mm"
 
 #. TRANSLATORS: 89 x 89mm
 msgid "media.om_square-photo_89x89mm"
-msgstr "89 x 89mm do media.om_square-photo_89x89mm"
+msgstr "89 x 89mm"
 
 #. TRANSLATORS: 100 x 200mm
 msgid "media.om_wide-photo_100x200mm"
-msgstr "100 x 200mm do media.om_wide-photo_100x200mm"
+msgstr "100 x 200mm"
 
 #. TRANSLATORS: Envelope Chinese #10
 msgid "media.prc_10_324x458mm"
-msgstr ""
+msgstr "Envelope Chinês #10"
 
 #. TRANSLATORS: Chinese 16k
 msgid "media.prc_16k_146x215mm"
-msgstr ""
+msgstr "Chinês 16k"
 
 #. TRANSLATORS: Envelope Chinese #1
 msgid "media.prc_1_102x165mm"
-msgstr ""
+msgstr "Envelope Chinês #1"
 
 #. TRANSLATORS: Envelope Chinese #2
 msgid "media.prc_2_102x176mm"
-msgstr ""
+msgstr "Envelope Chinês #2"
 
 #. TRANSLATORS: Chinese 32k
 msgid "media.prc_32k_97x151mm"
-msgstr ""
+msgstr "Chinês 32k"
 
 #. TRANSLATORS: Envelope Chinese #3
 msgid "media.prc_3_125x176mm"
-msgstr ""
+msgstr "Envelope Chinês #3"
 
 #. TRANSLATORS: Envelope Chinese #4
 msgid "media.prc_4_110x208mm"
-msgstr ""
+msgstr "Envelope Chinês #4"
 
 #. TRANSLATORS: Envelope Chinese #5
 msgid "media.prc_5_110x220mm"
-msgstr ""
+msgstr "Envelope Chinês #5"
 
 #. TRANSLATORS: Envelope Chinese #6
 msgid "media.prc_6_120x320mm"
-msgstr ""
+msgstr "Envelope Chinês #6"
 
 #. TRANSLATORS: Envelope Chinese #7
 msgid "media.prc_7_160x230mm"
-msgstr ""
+msgstr "Envelope Chinês #7"
 
 #. TRANSLATORS: Envelope Chinese #8
 msgid "media.prc_8_120x309mm"
-msgstr ""
+msgstr "Envelope Chinês #8"
 
 #. TRANSLATORS: ROC 16k
 msgid "media.roc_16k_7.75x10.75in"
-msgstr ""
+msgstr "ROC 16k"
 
 #. TRANSLATORS: ROC 8k
 msgid "media.roc_8k_10.75x15.5in"
-msgstr ""
+msgstr "ROC 8k"
 
 #, c-format
 msgid "members of class %s:"
@@ -11369,15 +11369,15 @@ msgstr "membros da classe %s:"
 
 #. TRANSLATORS: Multiple Document Handling
 msgid "multiple-document-handling"
-msgstr "Tratamento de Múltiplos Documentos"
+msgstr "Tratamento de Vários Documentos"
 
 #. TRANSLATORS: Separate Documents Collated Copies
 msgid "multiple-document-handling.separate-documents-collated-copies"
-msgstr ""
+msgstr "Documentos Separados com as Cópias Agrupadas"
 
 #. TRANSLATORS: Separate Documents Uncollated Copies
 msgid "multiple-document-handling.separate-documents-uncollated-copies"
-msgstr ""
+msgstr "Documentos Separados com as Cópias Não Agrupadas"
 
 #. TRANSLATORS: Single Document
 msgid "multiple-document-handling.single-document"
@@ -11385,15 +11385,15 @@ msgstr "Documento Único"
 
 #. TRANSLATORS: Single Document New Sheet
 msgid "multiple-document-handling.single-document-new-sheet"
-msgstr "Documento Único Folha Nova"
+msgstr "Documento Único com uma Nova Folha"
 
 #. TRANSLATORS: Multiple Object Handling
 msgid "multiple-object-handling"
-msgstr "Tratamento de Objetos Múltiplos"
+msgstr "Tratamento de Vários Objetos"
 
 #. TRANSLATORS: Multiple Object Handling Actual
 msgid "multiple-object-handling-actual"
-msgstr ""
+msgstr "Tratamento Atual de Vários Objetos"
 
 #. TRANSLATORS: Automatic
 msgid "multiple-object-handling.auto"
@@ -11417,7 +11417,7 @@ msgstr "Um de Cada Vez"
 
 #. TRANSLATORS: On Timeout
 msgid "multiple-operation-time-out-action"
-msgstr "Caso Tempo Esgotado"
+msgstr "No limite do tempo"
 
 #. TRANSLATORS: Abort Job
 msgid "multiple-operation-time-out-action.abort-job"
@@ -11432,7 +11432,7 @@ msgid "multiple-operation-time-out-action.process-job"
 msgstr "Processar o Trabalho"
 
 msgid "no entries"
-msgstr "nenhum registro"
+msgstr "sem registros"
 
 msgid "no system default destination"
 msgstr "nenhum destino padrão de sistema"
@@ -11443,54 +11443,54 @@ msgstr "Remoção de Ruído"
 
 #. TRANSLATORS: Notify Attributes
 msgid "notify-attributes"
-msgstr "Notificar Atributos"
+msgstr "Notificar os Atributos"
 
 #. TRANSLATORS: Notify Charset
 msgid "notify-charset"
-msgstr "Notificar Conjunto de Caracteres"
+msgstr "Notificar o Conjunto de Caracteres"
 
 #. TRANSLATORS: Notify Events
 msgid "notify-events"
-msgstr "Notificar Eventos"
+msgstr "Notificar os Eventos"
 
 msgid "notify-events not specified."
-msgstr "notify-events não especificado."
+msgstr "O notify-events não foi especificado."
 
 #. TRANSLATORS: Document Completed
 msgid "notify-events.document-completed"
-msgstr "O documento foi concluído do notify-events.document-completed"
+msgstr "O documento foi concluído"
 
 #. TRANSLATORS: Document Config Changed
 msgid "notify-events.document-config-changed"
-msgstr "Config. de Documento Alterada"
+msgstr "As Configurações do Documento Foram Alteradas"
 
 #. TRANSLATORS: Document Created
 msgid "notify-events.document-created"
-msgstr "Documento Criado"
+msgstr "O Documento Foi Criado"
 
 #. TRANSLATORS: Document Fetchable
 msgid "notify-events.document-fetchable"
-msgstr "Documento Buscável"
+msgstr "Documento Localizável"
 
 #. TRANSLATORS: Document State Changed
 msgid "notify-events.document-state-changed"
-msgstr "Estado de Documento Alterado"
+msgstr "O Estado do Documento Foi Alterado"
 
 #. TRANSLATORS: Document Stopped
 msgid "notify-events.document-stopped"
-msgstr "Documento Parado"
+msgstr "O Documento Está Parado"
 
 #. TRANSLATORS: Job Completed
 msgid "notify-events.job-completed"
-msgstr "O trabalho foi concluído do notify-events.job-completed"
+msgstr "O Trabalho Foi Concluído"
 
 #. TRANSLATORS: Job Config Changed
 msgid "notify-events.job-config-changed"
-msgstr "Config. de Trabalho Alterada"
+msgstr "As Configurações do Trabalho Foram Alteradas"
 
 #. TRANSLATORS: Job Created
 msgid "notify-events.job-created"
-msgstr "Trabalho Criado"
+msgstr "O Trabalho Foi Criado"
 
 #. TRANSLATORS: Job Fetchable
 msgid "notify-events.job-fetchable"
@@ -11498,7 +11498,7 @@ msgstr "O Trabalho Pode Ser Localizado"
 
 #. TRANSLATORS: Job Progress
 msgid "notify-events.job-progress"
-msgstr "Progresso de Trabalho"
+msgstr "Progresso do Trabalho"
 
 #. TRANSLATORS: Job State Changed
 msgid "notify-events.job-state-changed"
@@ -11506,7 +11506,7 @@ msgstr "O Estado do Trabalho Foi Alterado"
 
 #. TRANSLATORS: Job Stopped
 msgid "notify-events.job-stopped"
-msgstr "Trabalho Parado"
+msgstr "O Trabalho Está Parado"
 
 #. TRANSLATORS: None
 msgid "notify-events.none"
@@ -11514,359 +11514,360 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Printer Config Changed
 msgid "notify-events.printer-config-changed"
-msgstr "Config. de Impressora Alterada"
+msgstr "As Configurações da Impressora Foram Alteradas"
 
 #. TRANSLATORS: Printer Finishings Changed
 msgid "notify-events.printer-finishings-changed"
-msgstr ""
+msgstr "Os Acabamentos da Impressora Foram Alterados"
 
 #. TRANSLATORS: Printer Media Changed
 msgid "notify-events.printer-media-changed"
-msgstr "Mídia de Impressora Alterada"
+msgstr "A Mídia da Impressora Foi Alterada"
 
 #. TRANSLATORS: Printer Queue Order Changed
 msgid "notify-events.printer-queue-order-changed"
-msgstr "Ordem da Fila de Impressora Alterada"
+msgstr "A Ordem da Fila na Impressora Foi Alterada"
 
 #. TRANSLATORS: Printer Restarted
 msgid "notify-events.printer-restarted"
-msgstr "Impressora Reiniciada"
+msgstr "A Impressora Foi Reiniciada"
 
 #. TRANSLATORS: Printer Shutdown
 msgid "notify-events.printer-shutdown"
-msgstr "Impressora Desligada"
+msgstr "A Impressora Foi Desligada"
 
 #. TRANSLATORS: Printer State Changed
 msgid "notify-events.printer-state-changed"
-msgstr "Estado de Impressora Alterado"
+msgstr "O Estado da Impressora Alterado"
 
 #. TRANSLATORS: Printer Stopped
 msgid "notify-events.printer-stopped"
-msgstr "Impressora Parada"
+msgstr "A Impressora Está Parada"
 
 #. TRANSLATORS: Notify Get Interval
 msgid "notify-get-interval"
-msgstr ""
+msgstr "Intervalo para a Obtenção da Notificações"
 
 #. TRANSLATORS: Notify Lease Duration
 msgid "notify-lease-duration"
-msgstr ""
+msgstr "Notificar a Duração da Locação"
 
 #. TRANSLATORS: Notify Natural Language
 msgid "notify-natural-language"
-msgstr ""
+msgstr "Notificar o Idioma Nativo"
 
 #. TRANSLATORS: Notify Pull Method
 msgid "notify-pull-method"
-msgstr ""
+msgstr "Notificar o Método de Extração"
 
 #. TRANSLATORS: Notify Recipient
 msgid "notify-recipient-uri"
-msgstr ""
+msgstr "Notificar o Destinatário"
 
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" is already used."
-msgstr "URI de notify-recipient-uri \"%s\" já está sendo usado."
+msgstr "O URI \"%s\" do notify-recipient-uri já está sendo utilizado."
 
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" uses unknown scheme."
-msgstr "URI de notify-recipient-uri \"%s\" usa um esquema desconhecido."
+msgstr ""
+"O URI \"%s\" do notify-recipient-uri utiliza um esquema que não é conhecido."
 
 #. TRANSLATORS: Notify Sequence Numbers
 msgid "notify-sequence-numbers"
-msgstr "Notificar os números da sequência do notify-sequence-numbers"
+msgstr "Notificar os Números da Sequência"
 
 #. TRANSLATORS: Notify Subscription Ids
 msgid "notify-subscription-ids"
-msgstr "Notificação dos IDs da assinatura do notify-subscription-ids"
+msgstr "Notificar os IDs da Assinatura"
 
 #. TRANSLATORS: Notify Time Interval
 msgid "notify-time-interval"
-msgstr ""
+msgstr "Intervalo do Tempo de Notificação"
 
 #. TRANSLATORS: Notify User Data
 msgid "notify-user-data"
-msgstr ""
+msgstr "Notificar os Dados do Usuário"
 
 #. TRANSLATORS: Notify Wait
 msgid "notify-wait"
-msgstr ""
+msgstr "Notificar a Espera"
 
 #. TRANSLATORS: Number Of Retries
 msgid "number-of-retries"
-msgstr ""
+msgstr "Número de Tentativas"
 
 #. TRANSLATORS: Number-Up
 msgid "number-up"
-msgstr ""
+msgstr "Aumentar o Número"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "number-up-layout"
-msgstr ""
+msgstr "Aumentar o Número do Leiaute"
 
 #. TRANSLATORS: Bottom-Top, Left-Right
 msgid "number-up-layout.btlr"
-msgstr ""
+msgstr "Inferior ou Superior, Esquerda ou Direita"
 
 #. TRANSLATORS: Bottom-Top, Right-Left
 msgid "number-up-layout.btrl"
-msgstr ""
+msgstr "Inferior ou Superior, Direita ou Esquerda"
 
 #. TRANSLATORS: Left-Right, Bottom-Top
 msgid "number-up-layout.lrbt"
-msgstr ""
+msgstr "Esquerda ou Direita, Inferior ou Superior"
 
 #. TRANSLATORS: Left-Right, Top-Bottom
 msgid "number-up-layout.lrtb"
-msgstr ""
+msgstr "Esquerda ou Direita, Superior ou Inferior"
 
 #. TRANSLATORS: Right-Left, Bottom-Top
 msgid "number-up-layout.rlbt"
-msgstr ""
+msgstr "Direita ou Esquerda, Inferior ou Superior"
 
 #. TRANSLATORS: Right-Left, Top-Bottom
 msgid "number-up-layout.rltb"
-msgstr ""
+msgstr "Direita ou Esquerda, Superior ou Inferior"
 
 #. TRANSLATORS: Top-Bottom, Left-Right
 msgid "number-up-layout.tblr"
-msgstr ""
+msgstr "Superior ou Inferior, Esquerda ou Direita"
 
 #. TRANSLATORS: Top-Bottom, Right-Left
 msgid "number-up-layout.tbrl"
-msgstr ""
+msgstr "Superior ou Inferior, Direita ou Esquerda"
 
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
-msgstr ""
+msgstr "Deslocamento do Objeto"
 
 #. TRANSLATORS: Object Size
 msgid "object-size"
-msgstr ""
+msgstr "Tamanho do Objeto"
 
 #. TRANSLATORS: Organization Name
 msgid "organization-name"
-msgstr ""
+msgstr "Nome da Organização"
 
 #. TRANSLATORS: Orientation
 msgid "orientation-requested"
-msgstr "Orientação do orientation-requested"
+msgstr "Orientação"
 
 #. TRANSLATORS: Portrait
 msgid "orientation-requested.3"
-msgstr "Retrato do orientation-requested.3"
+msgstr "Retrato"
 
 #. TRANSLATORS: Landscape
 msgid "orientation-requested.4"
-msgstr "Paisagem do orientation-requested.4"
+msgstr "Paisagem"
 
 #. TRANSLATORS: Reverse Landscape
 msgid "orientation-requested.5"
-msgstr "Paisagem invertida do orientation-requested.5"
+msgstr "Paisagem Invertida"
 
 #. TRANSLATORS: Reverse Portrait
 msgid "orientation-requested.6"
-msgstr "Retrato reverso do orientation-requested.6"
+msgstr "Retrato Invertido"
 
 #. TRANSLATORS: None
 msgid "orientation-requested.7"
-msgstr "Nenhum do orientation-requested.7"
+msgstr "Nenhum"
 
 #. TRANSLATORS: Scanned Image Options
 msgid "output-attributes"
-msgstr ""
+msgstr "Opções da Imagem Digitalizada"
 
 #. TRANSLATORS: Output Tray
 msgid "output-bin"
-msgstr ""
+msgstr "Bandeja de Saída"
 
 #. TRANSLATORS: Automatic
 msgid "output-bin.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Bottom
 msgid "output-bin.bottom"
-msgstr ""
+msgstr "Inferior"
 
 #. TRANSLATORS: Center
 msgid "output-bin.center"
-msgstr ""
+msgstr "Centro"
 
 #. TRANSLATORS: Face Down
 msgid "output-bin.face-down"
-msgstr ""
+msgstr "Virado para Baixo"
 
 #. TRANSLATORS: Face Up
 msgid "output-bin.face-up"
-msgstr ""
+msgstr "Virado para Cima"
 
 #. TRANSLATORS: Large Capacity
 msgid "output-bin.large-capacity"
-msgstr ""
+msgstr "Grande Capacidade"
 
 #. TRANSLATORS: Left
 msgid "output-bin.left"
-msgstr ""
+msgstr "Esquerda"
 
 #. TRANSLATORS: Mailbox 1
 msgid "output-bin.mailbox-1"
-msgstr ""
+msgstr "Caixa do Correio 1"
 
 #. TRANSLATORS: Mailbox 10
 msgid "output-bin.mailbox-10"
-msgstr ""
+msgstr "Caixa do Correio 10"
 
 #. TRANSLATORS: Mailbox 2
 msgid "output-bin.mailbox-2"
-msgstr ""
+msgstr "Caixa do Correio 2"
 
 #. TRANSLATORS: Mailbox 3
 msgid "output-bin.mailbox-3"
-msgstr ""
+msgstr "Caixa do Correio 3"
 
 #. TRANSLATORS: Mailbox 4
 msgid "output-bin.mailbox-4"
-msgstr ""
+msgstr "Caixa do Correio 4"
 
 #. TRANSLATORS: Mailbox 5
 msgid "output-bin.mailbox-5"
-msgstr ""
+msgstr "Caixa do Correio 5"
 
 #. TRANSLATORS: Mailbox 6
 msgid "output-bin.mailbox-6"
-msgstr ""
+msgstr "Caixa do Correio 6"
 
 #. TRANSLATORS: Mailbox 7
 msgid "output-bin.mailbox-7"
-msgstr ""
+msgstr "Caixa do Correio 7"
 
 #. TRANSLATORS: Mailbox 8
 msgid "output-bin.mailbox-8"
-msgstr ""
+msgstr "Caixa do Correio 8"
 
 #. TRANSLATORS: Mailbox 9
 msgid "output-bin.mailbox-9"
-msgstr ""
+msgstr "Caixa do Correio 9"
 
 #. TRANSLATORS: Middle
 msgid "output-bin.middle"
-msgstr ""
+msgstr "Meio"
 
 #. TRANSLATORS: My Mailbox
 msgid "output-bin.my-mailbox"
-msgstr ""
+msgstr "Minha Caixa do Correio"
 
 #. TRANSLATORS: Rear
 msgid "output-bin.rear"
-msgstr ""
+msgstr "Atrás"
 
 #. TRANSLATORS: Right
 msgid "output-bin.right"
-msgstr ""
+msgstr "Direita"
 
 #. TRANSLATORS: Side
 msgid "output-bin.side"
-msgstr ""
+msgstr "Lado"
 
 #. TRANSLATORS: Stacker 1
 msgid "output-bin.stacker-1"
-msgstr ""
+msgstr "Empilhador 1"
 
 #. TRANSLATORS: Stacker 10
 msgid "output-bin.stacker-10"
-msgstr ""
+msgstr "Empilhador 10"
 
 #. TRANSLATORS: Stacker 2
 msgid "output-bin.stacker-2"
-msgstr ""
+msgstr "Empilhador 2"
 
 #. TRANSLATORS: Stacker 3
 msgid "output-bin.stacker-3"
-msgstr ""
+msgstr "Empilhador 3"
 
 #. TRANSLATORS: Stacker 4
 msgid "output-bin.stacker-4"
-msgstr ""
+msgstr "Empilhador 4"
 
 #. TRANSLATORS: Stacker 5
 msgid "output-bin.stacker-5"
-msgstr ""
+msgstr "Empilhador 5"
 
 #. TRANSLATORS: Stacker 6
 msgid "output-bin.stacker-6"
-msgstr ""
+msgstr "Empilhador 6"
 
 #. TRANSLATORS: Stacker 7
 msgid "output-bin.stacker-7"
-msgstr ""
+msgstr "Empilhador 7"
 
 #. TRANSLATORS: Stacker 8
 msgid "output-bin.stacker-8"
-msgstr ""
+msgstr "Empilhador 8"
 
 #. TRANSLATORS: Stacker 9
 msgid "output-bin.stacker-9"
-msgstr ""
+msgstr "Empilhador 9"
 
 #. TRANSLATORS: Top
 msgid "output-bin.top"
-msgstr ""
+msgstr "Superior"
 
 #. TRANSLATORS: Tray 1
 msgid "output-bin.tray-1"
-msgstr ""
+msgstr "Bandeja 1"
 
 #. TRANSLATORS: Tray 10
 msgid "output-bin.tray-10"
-msgstr ""
+msgstr "Bandeja 10"
 
 #. TRANSLATORS: Tray 2
 msgid "output-bin.tray-2"
-msgstr ""
+msgstr "Bandeja 2"
 
 #. TRANSLATORS: Tray 3
 msgid "output-bin.tray-3"
-msgstr ""
+msgstr "Bandeja 3"
 
 #. TRANSLATORS: Tray 4
 msgid "output-bin.tray-4"
-msgstr ""
+msgstr "Bandeja 4"
 
 #. TRANSLATORS: Tray 5
 msgid "output-bin.tray-5"
-msgstr ""
+msgstr "Bandeja 5"
 
 #. TRANSLATORS: Tray 6
 msgid "output-bin.tray-6"
-msgstr ""
+msgstr "Bandeja 6"
 
 #. TRANSLATORS: Tray 7
 msgid "output-bin.tray-7"
-msgstr ""
+msgstr "Bandeja 7"
 
 #. TRANSLATORS: Tray 8
 msgid "output-bin.tray-8"
-msgstr ""
+msgstr "Bandeja 8"
 
 #. TRANSLATORS: Tray 9
 msgid "output-bin.tray-9"
-msgstr ""
+msgstr "Bandeja 9"
 
 #. TRANSLATORS: Scanned Image Quality
 msgid "output-compression-quality-factor"
-msgstr ""
+msgstr "Qualidade da Imagem Digitalizada"
 
 #. TRANSLATORS: Page Border
 msgid "page-border"
-msgstr "Borda da página do page-border"
+msgstr "Borda da Página"
 
 #. TRANSLATORS: Thin Double Border
 msgid "page-border.double"
-msgstr ""
+msgstr "Borda Dupla Fina"
 
 #. TRANSLATORS: Thick Double Border
 msgid "page-border.double-thick"
-msgstr ""
+msgstr "Borda Dupla Grossa"
 
 #. TRANSLATORS: No Border
 msgid "page-border.none"
@@ -11874,158 +11875,158 @@ msgstr "Sem Borda"
 
 #. TRANSLATORS: Thin Single Border
 msgid "page-border.single"
-msgstr ""
+msgstr "Borda Única Fina"
 
 #. TRANSLATORS: Thick Single Border
 msgid "page-border.single-thick"
-msgstr ""
+msgstr "Borda Única Grossa"
 
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
-msgstr ""
+msgstr "Entrega da Página"
 
 #. TRANSLATORS: Reverse Order Face-down
 msgid "page-delivery.reverse-order-face-down"
-msgstr ""
+msgstr "A Ordem Inversa Virado para Baixo"
 
 #. TRANSLATORS: Reverse Order Face-up
 msgid "page-delivery.reverse-order-face-up"
-msgstr ""
+msgstr "A Ordem Inversa Virado para Cima"
 
 #. TRANSLATORS: Same Order Face-down
 msgid "page-delivery.same-order-face-down"
-msgstr ""
+msgstr "A Mesma Ordem Virado para Baixo"
 
 #. TRANSLATORS: Same Order Face-up
 msgid "page-delivery.same-order-face-up"
-msgstr ""
+msgstr "A Mesma Ordem Virado para Cima"
 
 #. TRANSLATORS: System Specified
 msgid "page-delivery.system-specified"
-msgstr ""
+msgstr "Sistema Especificado"
 
 #. TRANSLATORS: Page Order Received
 msgid "page-order-received"
-msgstr ""
+msgstr "A Ordem da Página Foi Recebida"
 
 #. TRANSLATORS: 1 To N
 msgid "page-order-received.1-to-n-order"
-msgstr ""
+msgstr "1 para N"
 
 #. TRANSLATORS: N To 1
 msgid "page-order-received.n-to-1-order"
-msgstr ""
+msgstr "N para 1"
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
-msgstr ""
+msgstr "Intervalos das Páginas"
 
 #. TRANSLATORS: Page Set
 msgid "page-set"
-msgstr ""
+msgstr "Conjunto de Páginas"
 
 #. TRANSLATORS: All Pages
 msgid "page-set.all"
-msgstr ""
+msgstr "Todas as Páginas"
 
 #. TRANSLATORS: Even Pages
 msgid "page-set.even"
-msgstr ""
+msgstr "Páginas Pares"
 
 #. TRANSLATORS: Odd Pages
 msgid "page-set.odd"
-msgstr ""
+msgstr "Páginas Ímpares"
 
 #. TRANSLATORS: Pages
 msgid "pages"
-msgstr ""
+msgstr "Páginas"
 
 #. TRANSLATORS: Pages Per Subset
 msgid "pages-per-subset"
-msgstr ""
+msgstr "Páginas por Subconjunto"
 
 #. TRANSLATORS: Pclm Raster Back Side
 msgid "pclm-raster-back-side"
-msgstr ""
+msgstr "Parte de Trás do Raster PCLM"
 
 #. TRANSLATORS: Flipped
 msgid "pclm-raster-back-side.flipped"
-msgstr ""
+msgstr "Invertido"
 
 #. TRANSLATORS: Normal
 msgid "pclm-raster-back-side.normal"
-msgstr ""
+msgstr "Normal"
 
 #. TRANSLATORS: Rotated
 msgid "pclm-raster-back-side.rotated"
-msgstr ""
+msgstr "Rotacionado"
 
 #. TRANSLATORS: Pclm Source Resolution
 msgid "pclm-source-resolution"
-msgstr ""
+msgstr "Resolução de Fonte do PCLM"
 
 msgid "pending"
 msgstr "pendente"
 
 #. TRANSLATORS: Platform Shape
 msgid "platform-shape"
-msgstr ""
+msgstr "Formato da Plataforma"
 
 #. TRANSLATORS: Round
 msgid "platform-shape.ellipse"
-msgstr ""
+msgstr "Redondo"
 
 #. TRANSLATORS: Rectangle
 msgid "platform-shape.rectangle"
-msgstr ""
+msgstr "Retângulo"
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
-msgstr ""
+msgstr "Temperatura da Plataforma"
 
 #. TRANSLATORS: Image Position
 msgid "position"
-msgstr ""
+msgstr "Posição da Imagem"
 
 #. TRANSLATORS: Bottom-Center
 msgid "position.bottom"
-msgstr ""
+msgstr "No Canto Inferior e no Centro"
 
 #. TRANSLATORS: Bottom-Left
 msgid "position.bottom-left"
-msgstr ""
+msgstr "No Canto Inferior Esquerdo"
 
 #. TRANSLATORS: Bottom-Right
 msgid "position.bottom-right"
-msgstr ""
+msgstr "No Canto Inferior Direito"
 
 #. TRANSLATORS: Center
 msgid "position.center"
-msgstr ""
+msgstr "Centro"
 
 #. TRANSLATORS: Left-Center
 msgid "position.left"
-msgstr ""
+msgstr "No Canto Esquerdo e no Centro"
 
 #. TRANSLATORS: Right-Center
 msgid "position.right"
-msgstr ""
+msgstr "No Canto Direito e no Centro"
 
 #. TRANSLATORS: Top-Center
 msgid "position.top"
-msgstr ""
+msgstr "No Canto Superior e no Centro"
 
 #. TRANSLATORS: Top-Left
 msgid "position.top-left"
-msgstr ""
+msgstr "No Canto Superior Esquerdo"
 
 #. TRANSLATORS: Top-Right
 msgid "position.top-right"
-msgstr ""
+msgstr "No Canto Superior Direito"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
-msgstr "Conjunto de caracteres do post-dial-string"
+msgstr "Conjunto de Caracteres da Pós-Discagem"
 
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
@@ -12477,59 +12478,59 @@ msgstr "ppdmerge: Não é possível fazer backup de %s para %s - %s"
 
 #. TRANSLATORS: Pre-dial String
 msgid "pre-dial-string"
-msgstr "Conjunto de caracteres pre-dial-string"
+msgstr "Conjunto de Caracteres da Pós-Discagem"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "presentation-direction-number-up"
-msgstr ""
+msgstr "Disposição Crescente da Numeração"
 
 #. TRANSLATORS: Top-bottom, Right-left
 msgid "presentation-direction-number-up.tobottom-toleft"
-msgstr ""
+msgstr "Superior ou Inferior, Direita ou Esquerda"
 
 #. TRANSLATORS: Top-bottom, Left-right
 msgid "presentation-direction-number-up.tobottom-toright"
-msgstr ""
+msgstr "Superior ou Inferior, Esquerda ou Direita"
 
 #. TRANSLATORS: Right-left, Top-bottom
 msgid "presentation-direction-number-up.toleft-tobottom"
-msgstr ""
+msgstr "Direita ou Esquerda, Superior ou Inferior"
 
 #. TRANSLATORS: Right-left, Bottom-top
 msgid "presentation-direction-number-up.toleft-totop"
-msgstr ""
+msgstr "Direita ou Esquerda, Inferior ou Superior"
 
 #. TRANSLATORS: Left-right, Top-bottom
 msgid "presentation-direction-number-up.toright-tobottom"
-msgstr ""
+msgstr "Esquerda ou Direita , Superior ou Inferior"
 
 #. TRANSLATORS: Left-right, Bottom-top
 msgid "presentation-direction-number-up.toright-totop"
-msgstr ""
+msgstr "Esquerda ou Direita , Inferior ou Superior"
 
 #. TRANSLATORS: Bottom-top, Right-left
 msgid "presentation-direction-number-up.totop-toleft"
-msgstr ""
+msgstr "Inferior ou Superior, Direita ou Esquerda"
 
 #. TRANSLATORS: Bottom-top, Left-right
 msgid "presentation-direction-number-up.totop-toright"
-msgstr ""
+msgstr "Inferior ou Direita, Esquerda ou Direita"
 
 #. TRANSLATORS: Print Accuracy
 msgid "print-accuracy"
-msgstr ""
+msgstr "Precisão da Impressão"
 
 #. TRANSLATORS: Print Base
 msgid "print-base"
-msgstr ""
+msgstr "Base da Impressão"
 
 #. TRANSLATORS: Print Base Actual
 msgid "print-base-actual"
-msgstr ""
+msgstr "Base Real da Impressão"
 
 #. TRANSLATORS: Brim
 msgid "print-base.brim"
-msgstr ""
+msgstr "Borda"
 
 #. TRANSLATORS: None
 msgid "print-base.none"
@@ -12537,155 +12538,155 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Raft
 msgid "print-base.raft"
-msgstr ""
+msgstr "Jangada"
 
 #. TRANSLATORS: Skirt
 msgid "print-base.skirt"
-msgstr ""
+msgstr "Saia"
 
 #. TRANSLATORS: Standard
 msgid "print-base.standard"
-msgstr ""
+msgstr "Padrão"
 
 #. TRANSLATORS: Print Color Mode
 msgid "print-color-mode"
-msgstr ""
+msgstr "Modo de Impressão Colorido"
 
 #. TRANSLATORS: Automatic
 msgid "print-color-mode.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Auto Monochrome
 msgid "print-color-mode.auto-monochrome"
-msgstr ""
+msgstr "Monocromático Automático"
 
 #. TRANSLATORS: Text
 msgid "print-color-mode.bi-level"
-msgstr ""
+msgstr "Texto"
 
 #. TRANSLATORS: Color
 msgid "print-color-mode.color"
-msgstr ""
+msgstr "Cor"
 
 #. TRANSLATORS: Highlight
 msgid "print-color-mode.highlight"
-msgstr "Destaque do print-color-mode.highlight"
+msgstr "Destaque"
 
 #. TRANSLATORS: Monochrome
 msgid "print-color-mode.monochrome"
-msgstr ""
+msgstr "Monocromático"
 
 #. TRANSLATORS: Process Text
 msgid "print-color-mode.process-bi-level"
-msgstr ""
+msgstr "Texto do Processo"
 
 #. TRANSLATORS: Process Monochrome
 msgid "print-color-mode.process-monochrome"
-msgstr ""
+msgstr "Processo Monocromático"
 
 #. TRANSLATORS: Print Optimization
 msgid "print-content-optimize"
-msgstr ""
+msgstr "Otimização da Impressão"
 
 #. TRANSLATORS: Print Content Optimize Actual
 msgid "print-content-optimize-actual"
-msgstr ""
+msgstr "Otimizar o Conteúdo Real e Imprimir"
 
 #. TRANSLATORS: Automatic
 msgid "print-content-optimize.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Graphics
 msgid "print-content-optimize.graphic"
-msgstr ""
+msgstr "Gráficos"
 
 #. TRANSLATORS: Graphics
 msgid "print-content-optimize.graphics"
-msgstr ""
+msgstr "Gráficos"
 
 #. TRANSLATORS: Photo
 msgid "print-content-optimize.photo"
-msgstr "Foto do print-content-optimize.photo"
+msgstr "Foto"
 
 #. TRANSLATORS: Text
 msgid "print-content-optimize.text"
-msgstr ""
+msgstr "Texto"
 
 #. TRANSLATORS: Text and Graphics
 msgid "print-content-optimize.text-and-graphic"
-msgstr ""
+msgstr "Textos e Gráficos"
 
 #. TRANSLATORS: Text And Graphics
 msgid "print-content-optimize.text-and-graphics"
-msgstr ""
+msgstr "Textos e Gráficos"
 
 #. TRANSLATORS: Print Objects
 msgid "print-objects"
-msgstr ""
+msgstr "Objetos da Impressão"
 
 #. TRANSLATORS: Print Quality
 msgid "print-quality"
-msgstr ""
+msgstr "Qualidade da Impressão"
 
 #. TRANSLATORS: Draft
 msgid "print-quality.3"
-msgstr ""
+msgstr "Rascunho"
 
 #. TRANSLATORS: Normal
 msgid "print-quality.4"
-msgstr ""
+msgstr "Normal"
 
 #. TRANSLATORS: High
 msgid "print-quality.5"
-msgstr ""
+msgstr "Alta"
 
 #. TRANSLATORS: Print Rendering Intent
 msgid "print-rendering-intent"
-msgstr ""
+msgstr "Intenção de Renderização da impressão"
 
 #. TRANSLATORS: Absolute
 msgid "print-rendering-intent.absolute"
-msgstr ""
+msgstr "Absoluto"
 
 #. TRANSLATORS: Automatic
 msgid "print-rendering-intent.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Perceptual
 msgid "print-rendering-intent.perceptual"
-msgstr ""
+msgstr "Perceptivo"
 
 #. TRANSLATORS: Relative
 msgid "print-rendering-intent.relative"
-msgstr ""
+msgstr "Relativo"
 
 #. TRANSLATORS: Relative w/Black Point Compensation
 msgid "print-rendering-intent.relative-bpc"
-msgstr ""
+msgstr "Relativo com Compensação do Ponto Preto"
 
 #. TRANSLATORS: Saturation
 msgid "print-rendering-intent.saturation"
-msgstr ""
+msgstr "Saturação"
 
 #. TRANSLATORS: Print Scaling
 msgid "print-scaling"
-msgstr ""
+msgstr "Dimensionamento da Impressão"
 
 #. TRANSLATORS: Automatic
 msgid "print-scaling.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Auto-fit
 msgid "print-scaling.auto-fit"
-msgstr ""
+msgstr "Ajuste Automático"
 
 #. TRANSLATORS: Fill
 msgid "print-scaling.fill"
-msgstr ""
+msgstr "Preencher"
 
 #. TRANSLATORS: Fit
 msgid "print-scaling.fit"
-msgstr ""
+msgstr "Ajustar"
 
 #. TRANSLATORS: None
 msgid "print-scaling.none"
@@ -12693,15 +12694,15 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Print Supports
 msgid "print-supports"
-msgstr ""
+msgstr "Suportes de Impressão"
 
 #. TRANSLATORS: Print Supports Actual
 msgid "print-supports-actual"
-msgstr ""
+msgstr "Suporte Real de Impressão"
 
 #. TRANSLATORS: With Specified Material
 msgid "print-supports.material"
-msgstr ""
+msgstr "Com o Material Especificado"
 
 #. TRANSLATORS: None
 msgid "print-supports.none"
@@ -12709,11 +12710,11 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "print-supports.standard"
-msgstr ""
+msgstr "Padrão"
 
 #, c-format
 msgid "printer %s disabled since %s -"
-msgstr "impressora %s desabilitada desde %s -"
+msgstr "A impressora %s está desativada desde %s -"
 
 #, c-format
 msgid "printer %s is holding new jobs.  enabled since %s"
@@ -12721,71 +12722,71 @@ msgstr "A impressora %s está retendo os novos trabalhos.  Está ativada desde %
 
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
-msgstr "impressora %s está inativa; habilitada desde %s"
+msgstr "A impressora %s está inativa.  E está ativada desde %s"
 
 #, c-format
 msgid "printer %s now printing %s-%d.  enabled since %s"
-msgstr "impressora %s está imprimindo %s-%d; habilitada desde %s"
+msgstr "A impressora %s está imprimindo %s de %d. E está ativada desde %s"
 
 #, c-format
 msgid "printer %s/%s disabled since %s -"
-msgstr "impressora %s/%s desabilitada desde %s -"
+msgstr "A impressora %s/%s está desativada desde %s -"
 
 #, c-format
 msgid "printer %s/%s is idle.  enabled since %s"
-msgstr "impressora %s/%s está inativa; habilitada desde %s"
+msgstr "A impressora %s/%s está inativa. E está ativada desde %s"
 
 #, c-format
 msgid "printer %s/%s now printing %s-%d.  enabled since %s"
-msgstr "impressora %s/%s está imprimindo %s-%d; habilitada desde %s"
+msgstr "A impressora %s/%s está imprimindo %s de %d. E está ativada desde %s"
 
 #. TRANSLATORS: Printer Kind
 msgid "printer-kind"
-msgstr ""
+msgstr "Tipo da Impressora"
 
 #. TRANSLATORS: Disc
 msgid "printer-kind.disc"
-msgstr ""
+msgstr "Disco"
 
 #. TRANSLATORS: Document
 msgid "printer-kind.document"
-msgstr ""
+msgstr "Documento"
 
 #. TRANSLATORS: Envelope
 msgid "printer-kind.envelope"
-msgstr ""
+msgstr "Envelope"
 
 #. TRANSLATORS: Label
 msgid "printer-kind.label"
-msgstr ""
+msgstr "Etiqueta"
 
 #. TRANSLATORS: Large Format
 msgid "printer-kind.large-format"
-msgstr ""
+msgstr "Formato Grande"
 
 #. TRANSLATORS: Photo
 msgid "printer-kind.photo"
-msgstr "Foto do printer-kind.photo"
+msgstr "Foto"
 
 #. TRANSLATORS: Postcard
 msgid "printer-kind.postcard"
-msgstr ""
+msgstr "Cartão Postal"
 
 #. TRANSLATORS: Receipt
 msgid "printer-kind.receipt"
-msgstr ""
+msgstr "Recibo"
 
 #. TRANSLATORS: Roll
 msgid "printer-kind.roll"
-msgstr "Rolete do printer-kind.roll"
+msgstr "Rolete"
 
 #. TRANSLATORS: Message From Operator
 msgid "printer-message-from-operator"
-msgstr ""
+msgstr "Mensagem do Operador"
 
 #. TRANSLATORS: Print Resolution
 msgid "printer-resolution"
-msgstr "Resolução de Impressão"
+msgstr "Resolução da Impressão"
 
 #. TRANSLATORS: Printer State
 msgid "printer-state"
@@ -12793,174 +12794,139 @@ msgstr "Estado da Impressora"
 
 #. TRANSLATORS: Detailed Printer State
 msgid "printer-state-reasons"
-msgstr ""
+msgstr "Detalhes do Estado da Impressora"
 
 #. TRANSLATORS: Old Alerts Have Been Removed
 msgid "printer-state-reasons.alert-removal-of-binary-change-entry"
-msgstr ""
+msgstr "Os Alertas Antigos Foram Removidos"
 
 #. TRANSLATORS: Bander Added
 msgid "printer-state-reasons.bander-added"
-msgstr "A enfaixadora printer-state-reasons.bander-added foi adicionada"
+msgstr "A Enfaixadora Foi Adicionada"
 
 #. TRANSLATORS: Bander Almost Empty
 msgid "printer-state-reasons.bander-almost-empty"
-msgstr ""
-"A enfaixadora printer-state-reasons.bander-almost-empty está quase vazia"
+msgstr "A Enfaixadora Está Quase Vazia"
 
 #. TRANSLATORS: Bander Almost Full
 msgid "printer-state-reasons.bander-almost-full"
-msgstr "A enfaixadora printer-state-reasons.bander-almost-full está quase cheia"
+msgstr "A Enfaixadora Está Quase Cheia"
 
 #. TRANSLATORS: Bander At Limit
 msgid "printer-state-reasons.bander-at-limit"
-msgstr "A enfaixadora printer-state-reasons.bander-at-limit está no limite"
+msgstr "A Enfaixadora Está no Limite"
 
 #. TRANSLATORS: Bander Closed
 msgid "printer-state-reasons.bander-closed"
-msgstr "A enfaixadora printer-state-reasons.bander-closed está fechada"
+msgstr "A Enfaixadora Está Fechada"
 
 #. TRANSLATORS: Bander Configuration Change
 msgid "printer-state-reasons.bander-configuration-change"
-msgstr ""
-"Alterar as configurações da enfaixadora printer-state-reasons.bander-"
-"configuration-change"
+msgstr "Alterar as Configurações da Enfaixadora"
 
 #. TRANSLATORS: Bander Cover Closed
 msgid "printer-state-reasons.bander-cover-closed"
-msgstr ""
-"A tampa da enfaixadora printer-state-reasons.bander-cover-closed está fechada"
+msgstr "A Tampa da Enfaixadora Está Fechada"
 
 #. TRANSLATORS: Bander Cover Open
 msgid "printer-state-reasons.bander-cover-open"
-msgstr ""
-"A tampa da enfaixadora printer-state-reasons.bander-cover-open está aberta"
+msgstr "A Tampa da Enfaixadora Está Aberta"
 
 #. TRANSLATORS: Bander Empty
 msgid "printer-state-reasons.bander-empty"
-msgstr "A enfaixadora printer-state-reasons.bander-empty está vazia"
+msgstr "A Enfaixadora Está Vazia"
 
 #. TRANSLATORS: Bander Full
 msgid "printer-state-reasons.bander-full"
-msgstr "A enfaixadora printer-state-reasons.bander-full está cheia"
+msgstr "A Enfaixadora Está Cheia"
 
 #. TRANSLATORS: Bander Interlock Closed
 msgid "printer-state-reasons.bander-interlock-closed"
-msgstr ""
-"O intertravamento da enfaixadora printer-state-reasons.bander-interlock-"
-"closed está fechado"
+msgstr "O Intertravamento da Enfaixadora Está Fechado"
 
 #. TRANSLATORS: Bander Interlock Open
 msgid "printer-state-reasons.bander-interlock-open"
-msgstr ""
-"O intertravamento da enfaixadora printer-state-reasons.bander-interlock-open "
-"está aberto"
+msgstr "O Intertravamento da Enfaixadora Está Aberto"
 
 #. TRANSLATORS: Bander Jam
 msgid "printer-state-reasons.bander-jam"
-msgstr "A enfaixadora printer-state-reasons.bander-jam"
+msgstr "A Enfaixadora Jam"
 
 #. TRANSLATORS: Bander Life Almost Over
 msgid "printer-state-reasons.bander-life-almost-over"
-msgstr ""
-"A enfaixadora printer-state-reasons.bander-life-almost-over está quase no "
-"fim da sua vida útil"
+msgstr "A Enfaixadora Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
-msgstr ""
-"A enfaixadora printer-state-reasons.bander-life-over está no fim da sua vida "
-"útil"
+msgstr "A Enfaixadora Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Bander Memory Exhausted
 msgid "printer-state-reasons.bander-memory-exhausted"
-msgstr ""
-"A memória da enfaixadora printer-state-reasons.bander-memory-exhausted foi "
-"esgotada"
+msgstr "A Memória da Enfaixadora Foi Esgotada"
 
 #. TRANSLATORS: Bander Missing
 msgid "printer-state-reasons.bander-missing"
-msgstr "Ocorreu uma falha na enfaixadora printer-state-reasons.bander-missing"
+msgstr "Ocorreu uma Falha na Enfaixadora"
 
 #. TRANSLATORS: Bander Motor Failure
 msgid "printer-state-reasons.bander-motor-failure"
-msgstr ""
-"Ocorreu uma falha no motor da enfaixadora printer-state-reasons.bander-motor-"
-"failure"
+msgstr "Ocorreu uma Falha no Motor da Enfaixadora"
 
 #. TRANSLATORS: Bander Near Limit
 msgid "printer-state-reasons.bander-near-limit"
-msgstr ""
-"A enfaixadora printer-state-reasons.bander-near-limit está próximo do seu "
-"limite"
+msgstr "A Enfaixadora Está Próximo do Seu Limite"
 
 #. TRANSLATORS: Bander Offline
 msgid "printer-state-reasons.bander-offline"
-msgstr "A enfaixadora printer-state-reasons.bander-offline está desativada"
+msgstr "A Enfaixadora Está Desativada"
 
 #. TRANSLATORS: Bander Opened
 msgid "printer-state-reasons.bander-opened"
-msgstr "A enfaixadora printer-state-reasons.bander-opened está aberta"
+msgstr "A Enfaixadora Está Aberta"
 
 #. TRANSLATORS: Bander Over Temperature
 msgid "printer-state-reasons.bander-over-temperature"
-msgstr ""
-"A enfaixadora printer-state-reasons.bander-over-temperature atingiu uma "
-"temperatura excessiva"
+msgstr "A Enfaixadora Atingiu uma Temperatura Excessiva"
 
 #. TRANSLATORS: Bander Power Saver
 msgid "printer-state-reasons.bander-power-saver"
-msgstr ""
-"A enfaixadora printer-state-reasons.bander-power-saver entrou no modo de "
-"economia de energia"
+msgstr "A Enfaixadora Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Bander Recoverable Failure
 msgid "printer-state-reasons.bander-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha na enfaixadora printer-state-reasons.bander-recoverable-"
-"failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha na Enfaixadora que Pode ser Restaurado"
 
 #. TRANSLATORS: Bander Recoverable Storage
 msgid "printer-state-reasons.bander-recoverable-storage"
-msgstr ""
-"O armazenamento da enfaixadora printer-state-reasons.bander-recoverable-"
-"storage pode ser restaurado"
+msgstr "O Armazenamento da Enfaixadora Pode ser Restaurado"
 
 #. TRANSLATORS: Bander Removed
 msgid "printer-state-reasons.bander-removed"
-msgstr "A enfaixadora printer-state-reasons.bander-removed foi removida"
+msgstr "A Enfaixadora Foi Removida"
 
 #. TRANSLATORS: Bander Resource Added
 msgid "printer-state-reasons.bander-resource-added"
-msgstr ""
-"A funcionalidade da enfaixadora printer-state-reasons.bander-resource-added "
-"foi adicionada"
+msgstr "A Funcionalidade da Enfaixadora Foi Adicionada"
 
 #. TRANSLATORS: Bander Resource Removed
 msgid "printer-state-reasons.bander-resource-removed"
-msgstr ""
-"A funcionalidade da enfaixadora printer-state-reasons.bander-resource-"
-"removed foi removida"
+msgstr "A Funcionalidade da Enfaixadora Foi Removida"
 
 #. TRANSLATORS: Bander Thermistor Failure
 msgid "printer-state-reasons.bander-thermistor-failure"
-msgstr ""
-"Ocorreu uma falha no termistor da enfaixadora printer-state-reasons.bander-"
-"thermistor-failure"
+msgstr "Ocorreu uma Falha no Termistor da Enfaixadora"
 
 #. TRANSLATORS: Bander Timing Failure
 msgid "printer-state-reasons.bander-timing-failure"
-msgstr ""
-"Ocorreu uma falha no temporizador da enfaixadora printer-state-reasons"
-".bander-timing-failure"
+msgstr "Ocorreu uma Falha no Temporizador da Enfaixadora"
 
 #. TRANSLATORS: Bander Turned Off
 msgid "printer-state-reasons.bander-turned-off"
-msgstr "A enfaixadora printer-state-reasons.bander-turned-off está desligada"
+msgstr "A Enfaixadora Está Desligada"
 
 #. TRANSLATORS: Bander Turned On
 msgid "printer-state-reasons.bander-turned-on"
-msgstr "A enfaixadora printer-state-reasons.bander-turned-on está ligada"
+msgstr "A Enfaixadora Está Ligada"
 
 #. TRANSLATORS: Bander Under Temperature
 msgid "printer-state-reasons.bander-under-temperature"
@@ -12986,7 +12952,7 @@ msgstr "A enfaixadora printer-state-reasons.bander-warming-up está aquecendo"
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
-msgstr "O encadernador printer-state-reasons.binder-added foi adicionado"
+msgstr "O Encadernador Foi Adicionado"
 
 #. TRANSLATORS: Binder Almost Empty
 msgid "printer-state-reasons.binder-almost-empty"
@@ -13112,39 +13078,31 @@ msgstr ""
 
 #. TRANSLATORS: Binder Removed
 msgid "printer-state-reasons.binder-removed"
-msgstr "O encadernador printer-state-reasons.binder-removed foi removido"
+msgstr "O Encadernador Foi Removido"
 
 #. TRANSLATORS: Binder Resource Added
 msgid "printer-state-reasons.binder-resource-added"
-msgstr ""
-"A funcionalidade do encadernador printer-state-reasons.binder-resource-added "
-"foi adicionado"
+msgstr "A Funcionalidade do Encadernador Foi Adicionada"
 
 #. TRANSLATORS: Binder Resource Removed
 msgid "printer-state-reasons.binder-resource-removed"
-msgstr ""
-"A funcionalidade do encadernador printer-state-reasons.binder-resource-"
-"removed foi removido"
+msgstr "A Funcionalidade do Encadernador Foi Removida"
 
 #. TRANSLATORS: Binder Thermistor Failure
 msgid "printer-state-reasons.binder-thermistor-failure"
-msgstr ""
-"Ocorreu uma falha no termistor do encadernador printer-state-reasons.binder-"
-"thermistor-failure"
+msgstr "Ocorreu uma Falha no Termistor do Encadernador"
 
 #. TRANSLATORS: Binder Timing Failure
 msgid "printer-state-reasons.binder-timing-failure"
-msgstr ""
-"Ocorreu uma falha no temporizador do encadernador 3D printer-state-reasons"
-".binder-timing-failure"
+msgstr "Ocorreu uma Falha no Temporizador do Encadernador 3D"
 
 #. TRANSLATORS: Binder Turned Off
 msgid "printer-state-reasons.binder-turned-off"
-msgstr "O encadernador printer-state-reasons.binder-turned-off está desligado"
+msgstr "O Encadernador Está Desligado"
 
 #. TRANSLATORS: Binder Turned On
 msgid "printer-state-reasons.binder-turned-on"
-msgstr "O encadernador printer-state-reasons.binder-turned-on está ligado"
+msgstr "O Encadernador Está Ligado"
 
 #. TRANSLATORS: Binder Under Temperature
 msgid "printer-state-reasons.binder-under-temperature"
@@ -13228,7 +13186,7 @@ msgstr ""
 
 #. TRANSLATORS: Die Cutter Added
 msgid "printer-state-reasons.die-cutter-added"
-msgstr ""
+msgstr "O Cortador Matricial Foi Adicionado"
 
 #. TRANSLATORS: Die Cutter Almost Empty
 msgid "printer-state-reasons.die-cutter-almost-empty"
@@ -13339,31 +13297,31 @@ msgstr ""
 
 #. TRANSLATORS: Die Cutter Removed
 msgid "printer-state-reasons.die-cutter-removed"
-msgstr ""
+msgstr "O Cortador Matricial Foi Removido"
 
 #. TRANSLATORS: Die Cutter Resource Added
 msgid "printer-state-reasons.die-cutter-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Cortador Matricial Foi Adicionada"
 
 #. TRANSLATORS: Die Cutter Resource Removed
 msgid "printer-state-reasons.die-cutter-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Cortador Matricial Foi Removida"
 
 #. TRANSLATORS: Die Cutter Thermistor Failure
 msgid "printer-state-reasons.die-cutter-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Timing Failure
 msgid "printer-state-reasons.die-cutter-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Turned Off
 msgid "printer-state-reasons.die-cutter-turned-off"
-msgstr ""
+msgstr "O Cortador Matricial Está Desligado"
 
 #. TRANSLATORS: Die Cutter Turned On
 msgid "printer-state-reasons.die-cutter-turned-on"
-msgstr ""
+msgstr "O Cortador Matricial Está Ligado"
 
 #. TRANSLATORS: Die Cutter Under Temperature
 msgid "printer-state-reasons.die-cutter-under-temperature"
@@ -13378,8 +13336,8 @@ msgstr ""
 #. TRANSLATORS: Die Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.die-cutter-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro no armazenamento do cortador printer-state-reasons.die-"
-"cutter-unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um Erro no Armazenamento do Cortador Matricial que Não Pode ser "
+"Restaurado"
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
@@ -13419,9 +13377,7 @@ msgstr ""
 
 #. TRANSLATORS: Fax Modem Life Almost Over
 msgid "printer-state-reasons.fax-modem-life-almost-over"
-msgstr ""
-"A placa do Fax Modem printer-state-reasons.imprinter-life-almost-over está "
-"quase no fim da sua vida útil"
+msgstr "A Placa do Fax Modem Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Fax Modem Life Over
 msgid "printer-state-reasons.fax-modem-life-over"
@@ -13433,15 +13389,15 @@ msgstr ""
 
 #. TRANSLATORS: Fax Modem Turned Off
 msgid "printer-state-reasons.fax-modem-turned-off"
-msgstr ""
+msgstr "A Placa do Fax Modem Está Desligada"
 
 #. TRANSLATORS: Fax Modem Turned On
 msgid "printer-state-reasons.fax-modem-turned-on"
-msgstr ""
+msgstr "A Placa do Fax Modem Está Ligada"
 
 #. TRANSLATORS: Folder Added
 msgid "printer-state-reasons.folder-added"
-msgstr ""
+msgstr "A Pasta Foi Adicionada"
 
 #. TRANSLATORS: Folder Almost Empty
 msgid "printer-state-reasons.folder-almost-empty"
@@ -13551,31 +13507,31 @@ msgstr ""
 
 #. TRANSLATORS: Folder Removed
 msgid "printer-state-reasons.folder-removed"
-msgstr ""
+msgstr "A Pasta Foi Removida"
 
 #. TRANSLATORS: Folder Resource Added
 msgid "printer-state-reasons.folder-resource-added"
-msgstr ""
+msgstr "A Funcionalidade da Pasta Matricial Foi Adicionada"
 
 #. TRANSLATORS: Folder Resource Removed
 msgid "printer-state-reasons.folder-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade da Pasta Foi Removida"
 
 #. TRANSLATORS: Folder Thermistor Failure
 msgid "printer-state-reasons.folder-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor da Pasta"
 
 #. TRANSLATORS: Folder Timing Failure
 msgid "printer-state-reasons.folder-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador da Pasta"
 
 #. TRANSLATORS: Folder Turned Off
 msgid "printer-state-reasons.folder-turned-off"
-msgstr ""
+msgstr "A Pasta Está Desligada"
 
 #. TRANSLATORS: Folder Turned On
 msgid "printer-state-reasons.folder-turned-on"
-msgstr ""
+msgstr "A Pasta Está Ligada"
 
 #. TRANSLATORS: Folder Under Temperature
 msgid "printer-state-reasons.folder-under-temperature"
@@ -13617,7 +13573,7 @@ msgstr ""
 
 #. TRANSLATORS: Imprinter Added
 msgid "printer-state-reasons.imprinter-added"
-msgstr ""
+msgstr "A Impressora Foi Adicionada"
 
 #. TRANSLATORS: Imprinter Almost Empty
 msgid "printer-state-reasons.imprinter-almost-empty"
@@ -13728,31 +13684,31 @@ msgstr ""
 
 #. TRANSLATORS: Imprinter Removed
 msgid "printer-state-reasons.imprinter-removed"
-msgstr ""
+msgstr "A Impressora Foi Removida"
 
 #. TRANSLATORS: Imprinter Resource Added
 msgid "printer-state-reasons.imprinter-resource-added"
-msgstr ""
+msgstr "A Funcionalidade da Impressora Foi Adicionada"
 
 #. TRANSLATORS: Imprinter Resource Removed
 msgid "printer-state-reasons.imprinter-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade da Impressora Foi Removida"
 
 #. TRANSLATORS: Imprinter Thermistor Failure
 msgid "printer-state-reasons.imprinter-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor da Impressora"
 
 #. TRANSLATORS: Imprinter Timing Failure
 msgid "printer-state-reasons.imprinter-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador da Impressora"
 
 #. TRANSLATORS: Imprinter Turned Off
 msgid "printer-state-reasons.imprinter-turned-off"
-msgstr ""
+msgstr "A Impressora Está Desligada"
 
 #. TRANSLATORS: Imprinter Turned On
 msgid "printer-state-reasons.imprinter-turned-on"
-msgstr ""
+msgstr "A Impressora Está Ligada"
 
 #. TRANSLATORS: Imprinter Under Temperature
 msgid "printer-state-reasons.imprinter-under-temperature"
@@ -13850,165 +13806,147 @@ msgstr ""
 
 #. TRANSLATORS: Inserter Added
 msgid "printer-state-reasons.inserter-added"
-msgstr ""
+msgstr "O Alimentador de Folhas Foi Adicionado"
 
 #. TRANSLATORS: Inserter Almost Empty
 msgid "printer-state-reasons.inserter-almost-empty"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Quase Vazio"
 
 #. TRANSLATORS: Inserter Almost Full
 msgid "printer-state-reasons.inserter-almost-full"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Quase Cheio"
 
 #. TRANSLATORS: Inserter At Limit
 msgid "printer-state-reasons.inserter-at-limit"
-msgstr ""
+msgstr "O Alimentador de Folhas Está no Limite"
 
 #. TRANSLATORS: Inserter Closed
 msgid "printer-state-reasons.inserter-closed"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Fechado"
 
 #. TRANSLATORS: Inserter Configuration Change
 msgid "printer-state-reasons.inserter-configuration-change"
-msgstr ""
+msgstr "Alterar as Configurações do Alimentador de Folhas"
 
 #. TRANSLATORS: Inserter Cover Closed
 msgid "printer-state-reasons.inserter-cover-closed"
-msgstr ""
-"A tampa de alimentação das folhas printer-state-reasons.inserter-cover-"
-"closed está fechada"
+msgstr "A Tampa do Alimentador de Folhas Está Fechada"
 
 #. TRANSLATORS: Inserter Cover Open
 msgid "printer-state-reasons.inserter-cover-open"
-msgstr ""
-"A tampa de alimentação das folhas printer-state-reasons.inserter-cover-open "
-"está aberta"
+msgstr "A Tampa do Alimentador de Folhas Está Aberta"
 
 #. TRANSLATORS: Inserter Empty
 msgid "printer-state-reasons.inserter-empty"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Vazio"
 
 #. TRANSLATORS: Inserter Full
 msgid "printer-state-reasons.inserter-full"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Cheio"
 
 #. TRANSLATORS: Inserter Interlock Closed
 msgid "printer-state-reasons.inserter-interlock-closed"
-msgstr ""
-"O intertravamento da tampa de alimentação printer-state-reasons.inserter-"
-"interlock-closed está fechada"
+msgstr "O Intertravamento do Alimentador de Folhas Está Fechado"
 
 #. TRANSLATORS: Inserter Interlock Open
 msgid "printer-state-reasons.inserter-interlock-open"
-msgstr ""
+msgstr "O Intertravamento do Alimentador de Folhas Está Aberto"
 
 #. TRANSLATORS: Inserter Jam
 msgid "printer-state-reasons.inserter-jam"
-msgstr ""
+msgstr "Alimentador de Folhas Jam"
 
 #. TRANSLATORS: Inserter Life Almost Over
 msgid "printer-state-reasons.inserter-life-almost-over"
-msgstr ""
-"O alimentador de folhas printer-state-reasons.make-envelope-life-almost-over "
-"está quase no fim da sua vida útil"
+msgstr "O Alimentador de Folhas Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Inserter Life Over
 msgid "printer-state-reasons.inserter-life-over"
-msgstr ""
+msgstr "O Alimentador de Folhas Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Inserter Memory Exhausted
 msgid "printer-state-reasons.inserter-memory-exhausted"
-msgstr ""
+msgstr "A Memória do Alimentador de Folhas Foi Esgotada"
 
 #. TRANSLATORS: Inserter Missing
 msgid "printer-state-reasons.inserter-missing"
-msgstr ""
+msgstr "Ocorreu uma Falha no Alimentador de Folhas"
 
 #. TRANSLATORS: Inserter Motor Failure
 msgid "printer-state-reasons.inserter-motor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Motor do Alimentador de Folhas"
 
 #. TRANSLATORS: Inserter Near Limit
 msgid "printer-state-reasons.inserter-near-limit"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Próximo do Seu Limite"
 
 #. TRANSLATORS: Inserter Offline
 msgid "printer-state-reasons.inserter-offline"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Desativado"
 
 #. TRANSLATORS: Inserter Opened
 msgid "printer-state-reasons.inserter-opened"
-msgstr ""
+msgstr "O Alimentador de Folhas Está Aberto"
 
 #. TRANSLATORS: Inserter Over Temperature
 msgid "printer-state-reasons.inserter-over-temperature"
-msgstr ""
+msgstr "O Alimentador de Folhas Atingiu uma Temperatura Excessiva"
 
 #. TRANSLATORS: Inserter Power Saver
 msgid "printer-state-reasons.inserter-power-saver"
-msgstr ""
+msgstr "O Alimentador de Folhas Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Inserter Recoverable Failure
 msgid "printer-state-reasons.inserter-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha no alimentador das folhas em printer-state-reasons"
-".inserter-recoverable-failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha no Alimentador de Folhas que Pode Ser Restaurado"
 
 #. TRANSLATORS: Inserter Recoverable Storage
 msgid "printer-state-reasons.inserter-recoverable-storage"
-msgstr ""
-"O armazenamento do alimentador das folhas do printer-state-reasons.inserter-"
-"recoverable-storage pode ser restaurado"
+msgstr "O Armazenamento do Alimentador de Folhas Pode Ser Restaurado"
 
 #. TRANSLATORS: Inserter Removed
 msgid "printer-state-reasons.inserter-removed"
-msgstr ""
+msgstr "O Alimentador de Folhas Foi Removido"
 
 #. TRANSLATORS: Inserter Resource Added
 msgid "printer-state-reasons.inserter-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Alimentador de Folhas Foi Adicionada"
 
 #. TRANSLATORS: Inserter Resource Removed
 msgid "printer-state-reasons.inserter-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Alimentador de Folhas Foi Removida"
 
 #. TRANSLATORS: Inserter Thermistor Failure
 msgid "printer-state-reasons.inserter-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Alimentador de Folhas"
 
 #. TRANSLATORS: Inserter Timing Failure
 msgid "printer-state-reasons.inserter-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Alimentador de Folhas"
 
 #. TRANSLATORS: Inserter Turned Off
 msgid "printer-state-reasons.inserter-turned-off"
-msgstr ""
+msgstr "O Alimentador de Folha Está Desligado"
 
 #. TRANSLATORS: Inserter Turned On
 msgid "printer-state-reasons.inserter-turned-on"
-msgstr ""
+msgstr "O Alimentador de Folha Está Ligado"
 
 #. TRANSLATORS: Inserter Under Temperature
 msgid "printer-state-reasons.inserter-under-temperature"
-msgstr ""
+msgstr "O Alimentador de Folha Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Inserter Unrecoverable Failure
 msgid "printer-state-reasons.inserter-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha no alimentador de folhas printer-state-reasons.inserter-"
-"unrecoverable-failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha no Alimentador de Folhas que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Inserter Unrecoverable Storage Error
 msgid "printer-state-reasons.inserter-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um erro no alimentador de folhas printer-state-reasons.inserter-"
-"unrecoverable-failure que não pode ser restaurado"
+msgstr "Ocorreu um Erro no Alimentador de Folhas que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Inserter Warming Up
 msgid "printer-state-reasons.inserter-warming-up"
-msgstr ""
-"O alimentador das folhas printer-state-reasons.inserter-warming-up está "
-"aquecendo"
+msgstr "O Alimentador de Folhas Está Aquecendo"
 
 #. TRANSLATORS: Interlock Closed
 msgid "printer-state-reasons.interlock-closed"
@@ -14021,11 +13959,11 @@ msgstr ""
 
 #. TRANSLATORS: Interpreter Cartridge Added
 msgid "printer-state-reasons.interpreter-cartridge-added"
-msgstr ""
+msgstr "O Interpretador do Cartucho Foi Adicionado"
 
 #. TRANSLATORS: Interpreter Cartridge Removed
 msgid "printer-state-reasons.interpreter-cartridge-deleted"
-msgstr ""
+msgstr "O Interpretador do Cartucho Foi Removido"
 
 #. TRANSLATORS: Interpreter Complex Page Encountered
 msgid "printer-state-reasons.interpreter-complex-page-encountered"
@@ -14041,7 +13979,7 @@ msgstr ""
 
 #. TRANSLATORS: Interpreter Resource Added
 msgid "printer-state-reasons.interpreter-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Interpretador Foi Adicionado"
 
 #. TRANSLATORS: Interpreter Resource Deleted
 msgid "printer-state-reasons.interpreter-resource-deleted"
@@ -14077,7 +14015,7 @@ msgstr ""
 
 #. TRANSLATORS: Envelope Maker Added
 msgid "printer-state-reasons.make-envelope-added"
-msgstr ""
+msgstr "O Criador de Envelope Foi Adicionado"
 
 #. TRANSLATORS: Envelope Maker Almost Empty
 msgid "printer-state-reasons.make-envelope-almost-empty"
@@ -14183,37 +14121,35 @@ msgstr ""
 
 #. TRANSLATORS: Envelope Maker Recoverable Storage
 msgid "printer-state-reasons.make-envelope-recoverable-storage"
-msgstr ""
-"O armazenamento da máquina de envelopamento printer-state-reasons.make-"
-"envelope-recoverable-storage que pode ser restaurado"
+msgstr "O Armazenamento do Criador de Envelope Pode Ser Restaurado"
 
 #. TRANSLATORS: Envelope Maker Removed
 msgid "printer-state-reasons.make-envelope-removed"
-msgstr ""
+msgstr "O Criador de Envelope Foi Removido"
 
 #. TRANSLATORS: Envelope Maker Resource Added
 msgid "printer-state-reasons.make-envelope-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Criador de Envelope Foi Adicionada"
 
 #. TRANSLATORS: Envelope Maker Resource Removed
 msgid "printer-state-reasons.make-envelope-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Criador de Envelopes Foi Removida"
 
 #. TRANSLATORS: Envelope Maker Thermistor Failure
 msgid "printer-state-reasons.make-envelope-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Criador de Envelope"
 
 #. TRANSLATORS: Envelope Maker Timing Failure
 msgid "printer-state-reasons.make-envelope-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Criador de Envelopes"
 
 #. TRANSLATORS: Envelope Maker Turned Off
 msgid "printer-state-reasons.make-envelope-turned-off"
-msgstr ""
+msgstr "O Criador de Envelope Está Desligado"
 
 #. TRANSLATORS: Envelope Maker Turned On
 msgid "printer-state-reasons.make-envelope-turned-on"
-msgstr ""
+msgstr "O Criador de Envelope Está Ligado"
 
 #. TRANSLATORS: Envelope Maker Under Temperature
 msgid "printer-state-reasons.make-envelope-under-temperature"
@@ -14233,9 +14169,7 @@ msgstr ""
 
 #. TRANSLATORS: Envelope Maker Warming Up
 msgid "printer-state-reasons.make-envelope-warming-up"
-msgstr ""
-"A máquina de envelopamento printer-state-reasons.make-envelope-warming-up "
-"está aquecendo"
+msgstr "O Criador de Envelope Está Aquecendo"
 
 #. TRANSLATORS: Marker Adjusting Print Quality
 msgid "printer-state-reasons.marker-adjusting-print-quality"
@@ -14263,11 +14197,11 @@ msgstr ""
 
 #. TRANSLATORS: Marker Fuser Thermistor Failure
 msgid "printer-state-reasons.marker-fuser-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor da Unidade de Fusão"
 
 #. TRANSLATORS: Marker Fuser Timing Failure
 msgid "printer-state-reasons.marker-fuser-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Criador de Envelope"
 
 #. TRANSLATORS: Marker Ink Almost Empty
 msgid "printer-state-reasons.marker-ink-almost-empty"
@@ -14519,7 +14453,7 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Added
 msgid "printer-state-reasons.perforater-added"
-msgstr "O perfurador printer-state-reasons.perforater-added foi adicionado"
+msgstr "O Perfurador Foi Adicionado"
 
 #. TRANSLATORS: Perforater Almost Empty
 msgid "printer-state-reasons.perforater-almost-empty"
@@ -14645,31 +14579,31 @@ msgstr ""
 
 #. TRANSLATORS: Perforater Removed
 msgid "printer-state-reasons.perforater-removed"
-msgstr ""
+msgstr "O Perfurador Foi Removido"
 
 #. TRANSLATORS: Perforater Resource Added
 msgid "printer-state-reasons.perforater-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Perfurador Foi Adicionada"
 
 #. TRANSLATORS: Perforater Resource Removed
 msgid "printer-state-reasons.perforater-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Perfurador Foi Removida"
 
 #. TRANSLATORS: Perforater Thermistor Failure
 msgid "printer-state-reasons.perforater-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Perfurador"
 
 #. TRANSLATORS: Perforater Timing Failure
 msgid "printer-state-reasons.perforater-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Perfurador"
 
 #. TRANSLATORS: Perforater Turned Off
 msgid "printer-state-reasons.perforater-turned-off"
-msgstr ""
+msgstr "O Perfurador Está Desligado"
 
 #. TRANSLATORS: Perforater Turned On
 msgid "printer-state-reasons.perforater-turned-on"
-msgstr ""
+msgstr "O Perfurador Está Ligado"
 
 #. TRANSLATORS: Perforater Under Temperature
 msgid "printer-state-reasons.perforater-under-temperature"
@@ -14733,7 +14667,7 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Added
 msgid "printer-state-reasons.puncher-added"
-msgstr "O furador printer-state-reasons.puncher-added foi adicionado"
+msgstr "O Furador Foi Adicionado"
 
 #. TRANSLATORS: Puncher Almost Empty
 msgid "printer-state-reasons.puncher-almost-empty"
@@ -14856,39 +14790,31 @@ msgstr ""
 
 #. TRANSLATORS: Puncher Removed
 msgid "printer-state-reasons.puncher-removed"
-msgstr "O furador printer-state-reasons.puncher-removed foi removido"
+msgstr "O Furador Foi Removido"
 
 #. TRANSLATORS: Puncher Resource Added
 msgid "printer-state-reasons.puncher-resource-added"
-msgstr ""
-"A funcionalidade do furador printer-state-reasons.puncher-resource-added foi "
-"adicionada"
+msgstr "A Funcionalidade do Furador Foi Adicionada"
 
 #. TRANSLATORS: Puncher Resource Removed
 msgid "printer-state-reasons.puncher-resource-removed"
-msgstr ""
-"A funcionalidade do furador printer-state-reasons.puncher-resource-removed "
-"foi removida"
+msgstr "A Funcionalidade do Furador Foi Removida"
 
 #. TRANSLATORS: Puncher Thermistor Failure
 msgid "printer-state-reasons.puncher-thermistor-failure"
-msgstr ""
-"Ocorreu uma falha no termistor do furador printer-state-reasons.puncher-"
-"thermistor-failure"
+msgstr "Ocorreu uma Falha no Termistor do Furador"
 
 #. TRANSLATORS: Puncher Timing Failure
 msgid "printer-state-reasons.puncher-timing-failure"
-msgstr ""
-"Ocorreu uma falha no temporizador do furador printer-state-reasons.puncher-"
-"timing-failure"
+msgstr "Ocorreu uma Falha no Temporizador do Furador"
 
 #. TRANSLATORS: Puncher Turned Off
 msgid "printer-state-reasons.puncher-turned-off"
-msgstr "O furador printer-state-reasons.puncher-turned-off foi desligado"
+msgstr "O Furador Está Desligado"
 
 #. TRANSLATORS: Puncher Turned On
 msgid "printer-state-reasons.puncher-turned-on"
-msgstr "O furador printer-state-reasons.puncher-turned-on foi ligado"
+msgstr "O Furador Está Ligado"
 
 #. TRANSLATORS: Puncher Under Temperature
 msgid "printer-state-reasons.puncher-under-temperature"
@@ -14914,7 +14840,7 @@ msgstr "O furador printer-state-reasons.puncher-warming-up está aquecendo"
 
 #. TRANSLATORS: Separation Cutter Added
 msgid "printer-state-reasons.separation-cutter-added"
-msgstr ""
+msgstr "O Separador e Cortador Foi Adicionado"
 
 #. TRANSLATORS: Separation Cutter Almost Empty
 msgid "printer-state-reasons.separation-cutter-almost-empty"
@@ -15028,31 +14954,31 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Removed
 msgid "printer-state-reasons.separation-cutter-removed"
-msgstr ""
+msgstr "O Separador do Cortador Foi Removido"
 
 #. TRANSLATORS: Separation Cutter Resource Added
 msgid "printer-state-reasons.separation-cutter-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Separador e Cortador Foi Adicionada"
 
 #. TRANSLATORS: Separation Cutter Resource Removed
 msgid "printer-state-reasons.separation-cutter-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Separador do Cortador Foi Removida"
 
 #. TRANSLATORS: Separation Cutter Thermistor Failure
 msgid "printer-state-reasons.separation-cutter-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Separador e Cortador"
 
 #. TRANSLATORS: Separation Cutter Timing Failure
 msgid "printer-state-reasons.separation-cutter-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Separador e Cortador"
 
 #. TRANSLATORS: Separation Cutter Turned Off
 msgid "printer-state-reasons.separation-cutter-turned-off"
-msgstr ""
+msgstr "O Separador e Cortador Está Desligado"
 
 #. TRANSLATORS: Separation Cutter Turned On
 msgid "printer-state-reasons.separation-cutter-turned-on"
-msgstr ""
+msgstr "O Separador e Cortador Está Ligado"
 
 #. TRANSLATORS: Separation Cutter Under Temperature
 msgid "printer-state-reasons.separation-cutter-under-temperature"
@@ -15073,14 +14999,11 @@ msgstr ""
 
 #. TRANSLATORS: Separation Cutter Warming Up
 msgid "printer-state-reasons.separation-cutter-warming-up"
-msgstr ""
-"O separador e cortador printer-state-reasons.separation-cutter-warming-up "
-"está aquecendo"
+msgstr "O Separador e Cortador Está Aquecendo"
 
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-added foi adicionado"
+msgstr "O Rotador de Folhas Foi Adicionado"
 
 #. TRANSLATORS: Sheet Rotator Almost Empty
 msgid "printer-state-reasons.sheet-rotator-almost-empty"
@@ -15223,43 +15146,31 @@ msgstr ""
 
 #. TRANSLATORS: Sheet Rotator Removed
 msgid "printer-state-reasons.sheet-rotator-removed"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-removed foi removido"
+msgstr "O Rotador de Folhas Foi Removido"
 
 #. TRANSLATORS: Sheet Rotator Resource Added
 msgid "printer-state-reasons.sheet-rotator-resource-added"
-msgstr ""
-"A funcionalidade do rotador de folhas printer-state-reasons.sheet-rotator-"
-"resource-added foi adicionado"
+msgstr "A Funcionalidade do Rotador de Folhas Foi Adicionada"
 
 #. TRANSLATORS: Sheet Rotator Resource Removed
 msgid "printer-state-reasons.sheet-rotator-resource-removed"
-msgstr ""
-"A funcionalidade do rotador de folhas printer-state-reasons.sheet-rotator-"
-"resource-removed foi removida"
+msgstr "A Funcionalidade do Rotador de Folhas Foi Removida"
 
 #. TRANSLATORS: Sheet Rotator Thermistor Failure
 msgid "printer-state-reasons.sheet-rotator-thermistor-failure"
-msgstr ""
-"Ocorreu uma falha do termistor do rotador de folhas printer-state-reasons"
-".sheet-rotator-thermistor-failure"
+msgstr "Ocorreu uma Falha no Termistor do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Timing Failure
 msgid "printer-state-reasons.sheet-rotator-timing-failure"
-msgstr ""
-"Ocorreu uma falha no temporizador do rotador de folhas printer-state-reasons"
-".sheet-rotator-timing-failure"
+msgstr "Ocorreu uma Falha no Temporizador do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Turned Off
 msgid "printer-state-reasons.sheet-rotator-turned-off"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-turned-off foi "
-"desligado"
+msgstr "O Rotador de Folhas Está Desligado"
 
 #. TRANSLATORS: Sheet Rotator Turned On
 msgid "printer-state-reasons.sheet-rotator-turned-on"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-turned-on foi ligado"
+msgstr "O Rotador de Folhas Está Ligado"
 
 #. TRANSLATORS: Sheet Rotator Under Temperature
 msgid "printer-state-reasons.sheet-rotator-under-temperature"
@@ -15291,7 +15202,7 @@ msgstr ""
 
 #. TRANSLATORS: Slitter Added
 msgid "printer-state-reasons.slitter-added"
-msgstr ""
+msgstr "O Cortador Foi Adicionado"
 
 #. TRANSLATORS: Slitter Almost Empty
 msgid "printer-state-reasons.slitter-almost-empty"
@@ -15401,31 +15312,31 @@ msgstr ""
 
 #. TRANSLATORS: Slitter Removed
 msgid "printer-state-reasons.slitter-removed"
-msgstr ""
+msgstr "O Cortador Foi Removido"
 
 #. TRANSLATORS: Slitter Resource Added
 msgid "printer-state-reasons.slitter-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Cortador Foi Adicionada"
 
 #. TRANSLATORS: Slitter Resource Removed
 msgid "printer-state-reasons.slitter-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Cortador Foi Removida"
 
 #. TRANSLATORS: Slitter Thermistor Failure
 msgid "printer-state-reasons.slitter-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Cortador"
 
 #. TRANSLATORS: Slitter Timing Failure
 msgid "printer-state-reasons.slitter-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Cortador"
 
 #. TRANSLATORS: Slitter Turned Off
 msgid "printer-state-reasons.slitter-turned-off"
-msgstr ""
+msgstr "O Cortador Está Desligado"
 
 #. TRANSLATORS: Slitter Turned On
 msgid "printer-state-reasons.slitter-turned-on"
-msgstr ""
+msgstr "O Cortador Está Ligado"
 
 #. TRANSLATORS: Slitter Under Temperature
 msgid "printer-state-reasons.slitter-under-temperature"
@@ -15445,7 +15356,7 @@ msgstr ""
 
 #. TRANSLATORS: Slitter Warming Up
 msgid "printer-state-reasons.slitter-warming-up"
-msgstr "O cortador printer-state-reasons.slitter-warming-up está aquecendo"
+msgstr "O Cortador Está Aquecendo"
 
 #. TRANSLATORS: Spool Area Full
 msgid "printer-state-reasons.spool-area-full"
@@ -15453,7 +15364,7 @@ msgstr ""
 
 #. TRANSLATORS: Stacker Added
 msgid "printer-state-reasons.stacker-added"
-msgstr ""
+msgstr "O Empilhador Foi Adicionado"
 
 #. TRANSLATORS: Stacker Almost Empty
 msgid "printer-state-reasons.stacker-almost-empty"
@@ -15563,31 +15474,31 @@ msgstr ""
 
 #. TRANSLATORS: Stacker Removed
 msgid "printer-state-reasons.stacker-removed"
-msgstr ""
+msgstr "O Empilhador Foi Removido"
 
 #. TRANSLATORS: Stacker Resource Added
 msgid "printer-state-reasons.stacker-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Empilhador Foi Adicionada"
 
 #. TRANSLATORS: Stacker Resource Removed
 msgid "printer-state-reasons.stacker-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Empilhador Foi Removida"
 
 #. TRANSLATORS: Stacker Thermistor Failure
 msgid "printer-state-reasons.stacker-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Empilhador"
 
 #. TRANSLATORS: Stacker Timing Failure
 msgid "printer-state-reasons.stacker-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Empilhador"
 
 #. TRANSLATORS: Stacker Turned Off
 msgid "printer-state-reasons.stacker-turned-off"
-msgstr ""
+msgstr "O Empilhador Está Desligado"
 
 #. TRANSLATORS: Stacker Turned On
 msgid "printer-state-reasons.stacker-turned-on"
-msgstr ""
+msgstr "O Empilhador Está Ligado"
 
 #. TRANSLATORS: Stacker Under Temperature
 msgid "printer-state-reasons.stacker-under-temperature"
@@ -15611,7 +15522,7 @@ msgstr "O empilhador printer-state-reasons.stacker-warming-up está aquecendo"
 
 #. TRANSLATORS: Stapler Added
 msgid "printer-state-reasons.stapler-added"
-msgstr ""
+msgstr "O Grampeador Foi Adicionado"
 
 #. TRANSLATORS: Stapler Almost Empty
 msgid "printer-state-reasons.stapler-almost-empty"
@@ -15723,31 +15634,31 @@ msgstr ""
 
 #. TRANSLATORS: Stapler Removed
 msgid "printer-state-reasons.stapler-removed"
-msgstr ""
+msgstr "O Grampeador Foi Removido"
 
 #. TRANSLATORS: Stapler Resource Added
 msgid "printer-state-reasons.stapler-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Grampeador Foi Adicionada"
 
 #. TRANSLATORS: Stapler Resource Removed
 msgid "printer-state-reasons.stapler-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Grampeador Foi Removida"
 
 #. TRANSLATORS: Stapler Thermistor Failure
 msgid "printer-state-reasons.stapler-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Grampeador"
 
 #. TRANSLATORS: Stapler Timing Failure
 msgid "printer-state-reasons.stapler-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Grampeador"
 
 #. TRANSLATORS: Stapler Turned Off
 msgid "printer-state-reasons.stapler-turned-off"
-msgstr ""
+msgstr "O Grampeador Está Desligado"
 
 #. TRANSLATORS: Stapler Turned On
 msgid "printer-state-reasons.stapler-turned-on"
-msgstr ""
+msgstr "O Grampeador Está Ligado"
 
 #. TRANSLATORS: Stapler Under Temperature
 msgid "printer-state-reasons.stapler-under-temperature"
@@ -15767,11 +15678,11 @@ msgstr ""
 
 #. TRANSLATORS: Stapler Warming Up
 msgid "printer-state-reasons.stapler-warming-up"
-msgstr "O grampeador printer-state-reasons.stacker-warming-up está aquecendo"
+msgstr "O Grampeador Está Aquecendo"
 
 #. TRANSLATORS: Stitcher Added
 msgid "printer-state-reasons.stitcher-added"
-msgstr ""
+msgstr "O Costurador Foi Adicionado"
 
 #. TRANSLATORS: Stitcher Almost Empty
 msgid "printer-state-reasons.stitcher-almost-empty"
@@ -15882,31 +15793,31 @@ msgstr ""
 
 #. TRANSLATORS: Stitcher Removed
 msgid "printer-state-reasons.stitcher-removed"
-msgstr ""
+msgstr "O Costurador Foi Removido"
 
 #. TRANSLATORS: Stitcher Resource Added
 msgid "printer-state-reasons.stitcher-resource-added"
-msgstr ""
+msgstr "A Funcionalidade do Costurador Foi Adicionada"
 
 #. TRANSLATORS: Stitcher Resource Removed
 msgid "printer-state-reasons.stitcher-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade do Costurador Foi Removida"
 
 #. TRANSLATORS: Stitcher Thermistor Failure
 msgid "printer-state-reasons.stitcher-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor do Costurador"
 
 #. TRANSLATORS: Stitcher Timing Failure
 msgid "printer-state-reasons.stitcher-timing-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador do Costurador"
 
 #. TRANSLATORS: Stitcher Turned Off
 msgid "printer-state-reasons.stitcher-turned-off"
-msgstr ""
+msgstr "O Costurador Está Desligado"
 
 #. TRANSLATORS: Stitcher Turned On
 msgid "printer-state-reasons.stitcher-turned-on"
-msgstr ""
+msgstr "O Costurador Está Ligado"
 
 #. TRANSLATORS: Stitcher Under Temperature
 msgid "printer-state-reasons.stitcher-under-temperature"
@@ -15926,7 +15837,7 @@ msgstr ""
 
 #. TRANSLATORS: Stitcher Warming Up
 msgid "printer-state-reasons.stitcher-warming-up"
-msgstr "O costurador printer-state-reasons.stitcher-warming-up está aquecendo"
+msgstr "O Costurador Está Aquecendo"
 
 #. TRANSLATORS: Partially stopped
 msgid "printer-state-reasons.stopped-partly"
@@ -15938,7 +15849,7 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Added
 msgid "printer-state-reasons.subunit-added"
-msgstr ""
+msgstr "A Subunidade Foi Adicionada"
 
 #. TRANSLATORS: Subunit Almost Empty
 msgid "printer-state-reasons.subunit-almost-empty"
@@ -16024,31 +15935,31 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Removed
 msgid "printer-state-reasons.subunit-removed"
-msgstr ""
+msgstr "A Subunidade Foi Removida"
 
 #. TRANSLATORS: Subunit Resource Added
 msgid "printer-state-reasons.subunit-resource-added"
-msgstr ""
+msgstr "A Funcionalidade da Subunidade Foi Adicionada"
 
 #. TRANSLATORS: Subunit Resource Removed
 msgid "printer-state-reasons.subunit-resource-removed"
-msgstr ""
+msgstr "A Funcionalidade de Subunidade Foi Removida"
 
 #. TRANSLATORS: Subunit Thermistor Failure
 msgid "printer-state-reasons.subunit-thermistor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Termistor da Subunidade"
 
 #. TRANSLATORS: Subunit Timing Failure
 msgid "printer-state-reasons.subunit-timing-Failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Temporizador da Subunidade"
 
 #. TRANSLATORS: Subunit Turned Off
 msgid "printer-state-reasons.subunit-turned-off"
-msgstr ""
+msgstr "A Subunidade Está Desligado"
 
 #. TRANSLATORS: Subunit Turned On
 msgid "printer-state-reasons.subunit-turned-on"
-msgstr ""
+msgstr "A Subunidade Está Ligada"
 
 #. TRANSLATORS: Subunit Under Temperature
 msgid "printer-state-reasons.subunit-under-temperature"
@@ -16068,7 +15979,7 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Warming Up
 msgid "printer-state-reasons.subunit-warming-up"
-msgstr "A subunidade printer-state-reasons.subunit-warming-up está aquecendo"
+msgstr "A Subunidade Está Aquecendo"
 
 #. TRANSLATORS: Printer stopped responding
 msgid "printer-state-reasons.timed-out"
@@ -16084,7 +15995,7 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Added
 msgid "printer-state-reasons.trimmer-added"
-msgstr "O aparador printer-state-reasons.trimmer-added foi adicionado"
+msgstr "O Aparador Foi Adicionado"
 
 #. TRANSLATORS: Trimmer Almost Empty
 msgid "printer-state-reasons.trimmer-almost-empty"
@@ -16210,39 +16121,31 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Removed
 msgid "printer-state-reasons.trimmer-removed"
-msgstr "O aparador printer-state-reasons.trimmer-removed foi removido"
+msgstr "O Aparador Foi Removido"
 
 #. TRANSLATORS: Trimmer Resource Added
 msgid "printer-state-reasons.trimmer-resource-added"
-msgstr ""
-"A funcionalidade do aparador printer-state-reasons.trimmer-resource-added "
-"foi adicionada"
+msgstr "A Funcionalidade do Aparador Foi Adicionada"
 
 #. TRANSLATORS: Trimmer Resource Removed
 msgid "printer-state-reasons.trimmer-resource-removed"
-msgstr ""
-"A funcionalidade do aparador printer-state-reasons.trimmer-resource-removed "
-"foi removida"
+msgstr "A Funcionalidade do Aparador Foi Removida"
 
 #. TRANSLATORS: Trimmer Thermistor Failure
 msgid "printer-state-reasons.trimmer-thermistor-failure"
-msgstr ""
-"Ocorreu uma falha no termistor do aparador printer-state-reasons.trimmer-"
-"thermistor-failure"
+msgstr "Ocorreu uma Falha no Termistor do Aparador"
 
 #. TRANSLATORS: Trimmer Timing Failure
 msgid "printer-state-reasons.trimmer-timing-failure"
-msgstr ""
-"Ocorreu uma falha no temporizador do aparador printer-state-reasons.trimmer-"
-"timing-failure"
+msgstr "Ocorreu uma Falha no Temporizador da Aparador"
 
 #. TRANSLATORS: Trimmer Turned Off
 msgid "printer-state-reasons.trimmer-turned-off"
-msgstr "O aparador printer-state-reasons.trimmer-turned-off está desligado"
+msgstr "O Aparador Está Desligado"
 
 #. TRANSLATORS: Trimmer Turned On
 msgid "printer-state-reasons.trimmer-turned-on"
-msgstr "O aparador printer-state-reasons.trimmer-turned-on está ligado"
+msgstr "O Aparador Está Ligado"
 
 #. TRANSLATORS: Trimmer Under Temperature
 msgid "printer-state-reasons.trimmer-under-temperature"
@@ -16272,7 +16175,7 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper Added
 msgid "printer-state-reasons.wrapper-added"
-msgstr "O empacotador printer-state-reasons.wrapper-added foi adicionado"
+msgstr "O Empacotador Foi Adicionado"
 
 #. TRANSLATORS: Wrapper Almost Empty
 msgid "printer-state-reasons.wrapper-almost-empty"
@@ -16286,7 +16189,7 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper At Limit
 msgid "printer-state-reasons.wrapper-at-limit"
-msgstr "O empacotador printer-state-reasons.wrapper-at-limit está no limite"
+msgstr "O Empacotador Está no Limite"
 
 #. TRANSLATORS: Wrapper Closed
 msgid "printer-state-reasons.wrapper-closed"
@@ -16401,39 +16304,31 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper Removed
 msgid "printer-state-reasons.wrapper-removed"
-msgstr "O empacotador printer-state-reasons.wrapper-removed foi removido"
+msgstr "O Empacotador Foi Removido"
 
 #. TRANSLATORS: Wrapper Resource Added
 msgid "printer-state-reasons.wrapper-resource-added"
-msgstr ""
-"A funcionalidade do empacotador printer-state-reasons.wrapper-resource-added "
-"foi adicionado"
+msgstr "A Funcionalidade do Empacotador Foi Adicionada"
 
 #. TRANSLATORS: Wrapper Resource Removed
 msgid "printer-state-reasons.wrapper-resource-removed"
-msgstr ""
-"A funcionalidade do empacotador printer-state-reasons.wrapper-resource-"
-"removed foi removida"
+msgstr "A Funcionalidade do Empacotador Foi Removida"
 
 #. TRANSLATORS: Wrapper Thermistor Failure
 msgid "printer-state-reasons.wrapper-thermistor-failure"
-msgstr ""
-"Ocorreu uma falha no termistor do empacotador printer-state-reasons.wrapper-"
-"thermistor-failure"
+msgstr "Ocorreu uma Falha no Termistor do Empacotador"
 
 #. TRANSLATORS: Wrapper Timing Failure
 msgid "printer-state-reasons.wrapper-timing-failure"
-msgstr ""
-"Ocorreu uma falha no temporizador do empacotador printer-state-reasons"
-".wrapper-timing-failure"
+msgstr "Ocorreu uma Falha no Temporizador da Empacotador"
 
 #. TRANSLATORS: Wrapper Turned Off
 msgid "printer-state-reasons.wrapper-turned-off"
-msgstr "O empacotador printer-state-reasons.wrapper-turned-off está desligado"
+msgstr "O Empacotador Está Desligado"
 
 #. TRANSLATORS: Wrapper Turned On
 msgid "printer-state-reasons.wrapper-turned-on"
-msgstr "O empacotador printer-state-reasons.wrapper-turned-on está ligado"
+msgstr "O Empacotador Está Ligado"
 
 #. TRANSLATORS: Wrapper Under Temperature
 msgid "printer-state-reasons.wrapper-under-temperature"
