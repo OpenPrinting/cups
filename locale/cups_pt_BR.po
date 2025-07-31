@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-30 18:07+0000\n"
+"PO-Revision-Date: 2025-07-31 19:02+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -15026,15 +15026,13 @@ msgstr "O Rotador de Folhas Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Failure
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha no rotador de folhas printer-state-reasons.sheet-rotator-"
-"unrecoverable-failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha no Rotador de Folhas que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Storage Error
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro de armazenamento do rotator de folhas printer-state-reasons"
-".sheet-rotator-unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um Erro no Armazenamento do Rotador de Folhas que Não Pode Ser "
+"Restaurado"
 
 #. TRANSLATORS: Sheet Rotator Warming Up
 msgid "printer-state-reasons.sheet-rotator-warming-up"
@@ -15222,13 +15220,11 @@ msgstr ""
 
 #. TRANSLATORS: Stacker Cover Closed
 msgid "printer-state-reasons.stacker-cover-closed"
-msgstr ""
-"A tampa do empilhador printer-state-reasons.stacker-cover-closed está fechada"
+msgstr "A Tampa do Empilhador Está Fechada"
 
 #. TRANSLATORS: Stacker Cover Open
 msgid "printer-state-reasons.stacker-cover-open"
-msgstr ""
-"A tampa do empilhador printer-state-reasons.stacker-cover-open está aberta"
+msgstr "A Tampa do Empilhador Está Aberta"
 
 #. TRANSLATORS: Stacker Empty
 msgid "printer-state-reasons.stacker-empty"
@@ -15254,13 +15250,11 @@ msgstr "Ocorreu um Atolamento no Empilhador"
 
 #. TRANSLATORS: Stacker Life Almost Over
 msgid "printer-state-reasons.stacker-life-almost-over"
-msgstr ""
-"O empilhador printer-state-reasons.stacker-life-almost-over está quase no "
-"fim da sua vida útil"
+msgstr "O Empilhador Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Stacker Life Over
 msgid "printer-state-reasons.stacker-life-over"
-msgstr ""
+msgstr "O Empilhador Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Stacker Memory Exhausted
 msgid "printer-state-reasons.stacker-memory-exhausted"
@@ -15296,15 +15290,11 @@ msgstr ""
 
 #. TRANSLATORS: Stacker Recoverable Failure
 msgid "printer-state-reasons.stacker-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha no empilhador printer-state-reasons.stacker-recoverable-"
-"failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha no Empilhador que Pode Ser Restaurada"
 
 #. TRANSLATORS: Stacker Recoverable Storage
 msgid "printer-state-reasons.stacker-recoverable-storage"
-msgstr ""
-"O armazenamento do empilhador printer-state-reasons.stacker-recoverable-"
-"storage pode ser restaurado"
+msgstr "O Armazenamento do Empilhador Pode Ser Restaurado"
 
 #. TRANSLATORS: Stacker Removed
 msgid "printer-state-reasons.stacker-removed"
@@ -15340,15 +15330,12 @@ msgstr "O Empilhador Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Stacker Unrecoverable Failure
 msgid "printer-state-reasons.stacker-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha no empilhador printer-state-reasons.stacker-unrecoverable-"
-"failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha no Empilhador que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Stacker Unrecoverable Storage Error
 msgid "printer-state-reasons.stacker-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro de armazenamento no empilhador printer-state-reasons.stacker-"
-"unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um Erro no Armazenamento do Empilhador que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Stacker Warming Up
 msgid "printer-state-reasons.stacker-warming-up"
@@ -15380,13 +15367,11 @@ msgstr ""
 
 #. TRANSLATORS: Stapler Cover Closed
 msgid "printer-state-reasons.stapler-cover-closed"
-msgstr ""
-"A tampa do grampeador printer-state-reasons.stapler-cover-closed está fechada"
+msgstr "A Tampa do Grampeador Está Fechada"
 
 #. TRANSLATORS: Stapler Cover Open
 msgid "printer-state-reasons.stapler-cover-open"
-msgstr ""
-"A tampa do grampeador printer-state-reasons.stapler-cover-open está aberta"
+msgstr "A Tampa do Grampeador Está Aberta"
 
 #. TRANSLATORS: Stapler Empty
 msgid "printer-state-reasons.stapler-empty"
@@ -15412,13 +15397,11 @@ msgstr "Ocorreu um Atolamento no Grampeador"
 
 #. TRANSLATORS: Stapler Life Almost Over
 msgid "printer-state-reasons.stapler-life-almost-over"
-msgstr ""
-"O grampeador printer-state-reasons.stapler-life-almost-over está quase no "
-"fim da sua vida útil"
+msgstr "O Grampeador Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Stapler Life Over
 msgid "printer-state-reasons.stapler-life-over"
-msgstr ""
+msgstr "O Grampeador Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Stapler Memory Exhausted
 msgid "printer-state-reasons.stapler-memory-exhausted"
@@ -15454,15 +15437,11 @@ msgstr ""
 
 #. TRANSLATORS: Stapler Recoverable Failure
 msgid "printer-state-reasons.stapler-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha no grampeador printer-state-reasons.stapler-recoverable-"
-"failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha no Grampeador que Pode Ser Restaurada"
 
 #. TRANSLATORS: Stapler Recoverable Storage
 msgid "printer-state-reasons.stapler-recoverable-storage"
-msgstr ""
-"O armazenamento do grampeador printer-state-reasons.stapler-recoverable-"
-"storage pode ser restaurado"
+msgstr "O Armazenamento do Grampeador Pode Ser Restaurado"
 
 #. TRANSLATORS: Stapler Removed
 msgid "printer-state-reasons.stapler-removed"
@@ -15498,15 +15477,12 @@ msgstr "O Grampeador Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Stapler Unrecoverable Failure
 msgid "printer-state-reasons.stapler-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha no grampeador printer-state-reasons.stapler-unrecoverable-"
-"failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha no Grampeador que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Stapler Unrecoverable Storage Error
 msgid "printer-state-reasons.stapler-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro de armazenamento do grampeador printer-state-reasons.stapler-"
-"recoverable-storage que não pode ser restaurado"
+"Ocorreu um Erro no Armazenamento do Grampeador que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Stapler Warming Up
 msgid "printer-state-reasons.stapler-warming-up"
@@ -15538,14 +15514,11 @@ msgstr ""
 
 #. TRANSLATORS: Stitcher Cover Closed
 msgid "printer-state-reasons.stitcher-cover-closed"
-msgstr ""
-"A tampa do costurador printer-state-reasons.stitcher-cover-closed está "
-"fechada"
+msgstr "A Tampa do Costurador Está Fechada"
 
 #. TRANSLATORS: Stitcher Cover Open
 msgid "printer-state-reasons.stitcher-cover-open"
-msgstr ""
-"A tampa do costurador printer-state-reasons.stitcher-cover-closed está aberta"
+msgstr "A Tampa do Costurador Está Aberta"
 
 #. TRANSLATORS: Stitcher Empty
 msgid "printer-state-reasons.stitcher-empty"
@@ -15571,13 +15544,11 @@ msgstr "Ocorreu um Atolamento no Costurador"
 
 #. TRANSLATORS: Stitcher Life Almost Over
 msgid "printer-state-reasons.stitcher-life-almost-over"
-msgstr ""
-"O costurador printer-state-reasons.stitcher-life-almost-over está quase no "
-"fim da sua vida útil"
+msgstr "O Costurador Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Stitcher Life Over
 msgid "printer-state-reasons.stitcher-life-over"
-msgstr ""
+msgstr "O Costurador Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Stitcher Memory Exhausted
 msgid "printer-state-reasons.stitcher-memory-exhausted"
@@ -15613,15 +15584,11 @@ msgstr ""
 
 #. TRANSLATORS: Stitcher Recoverable Failure
 msgid "printer-state-reasons.stitcher-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha no costurador printer-state-reasons.stitcher-recoverable-"
-"failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha no Costurador que Pode Ser Restaurada"
 
 #. TRANSLATORS: Stitcher Recoverable Storage
 msgid "printer-state-reasons.stitcher-recoverable-storage"
-msgstr ""
-"O armazenamento do costurador printer-state-reasons.stitcher-recoverable-"
-"storage pode ser restaurado"
+msgstr "O Armazenamento do Costurador Pode Ser Restaurado"
 
 #. TRANSLATORS: Stitcher Removed
 msgid "printer-state-reasons.stitcher-removed"
@@ -15657,15 +15624,11 @@ msgstr "O Costurador Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Stitcher Unrecoverable Failure
 msgid "printer-state-reasons.stitcher-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha no costurador printer-state-reasons.stitcher-unrecoverable-"
-"failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha no Costurador que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Stitcher Unrecoverable Storage Error
 msgid "printer-state-reasons.stitcher-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um erro no costurador printer-state-reasons.stitcher-unrecoverable-"
-"storage-error que não pode ser restaurado"
+msgstr "Ocorreu um Erro no Costurador que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Stitcher Warming Up
 msgid "printer-state-reasons.stitcher-warming-up"
@@ -15713,13 +15676,11 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Life Almost Over
 msgid "printer-state-reasons.subunit-life-almost-over"
-msgstr ""
-"A subunidade printer-state-reasons.sheet-rotator-life-almost-over está quase "
-"no fim da sua vida útil"
+msgstr "A Subunidade Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Subunit Life Over
 msgid "printer-state-reasons.subunit-life-over"
-msgstr ""
+msgstr "A Subunidade Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Subunit Memory Exhausted
 msgid "printer-state-reasons.subunit-memory-exhausted"
@@ -15755,15 +15716,11 @@ msgstr ""
 
 #. TRANSLATORS: Subunit Recoverable Failure
 msgid "printer-state-reasons.subunit-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha de subunidade do printer-state-reasons.subunit-recoverable-"
-"failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha na Subunidade que Pode Ser Restaurada"
 
 #. TRANSLATORS: Subunit Recoverable Storage
 msgid "printer-state-reasons.subunit-recoverable-storage"
-msgstr ""
-"O armazenamento de subunidade do printer-state-reasons.subunit-unrecoverable-"
-"failure pode ser restaurado"
+msgstr "O Armazenamento da Subunidade Pode Ser Restaurado"
 
 #. TRANSLATORS: Subunit Removed
 msgid "printer-state-reasons.subunit-removed"
@@ -15799,15 +15756,11 @@ msgstr "A Subunidade Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Subunit Unrecoverable Failure
 msgid "printer-state-reasons.subunit-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha de subunidade do printer-state-reasons.subunit-"
-"unrecoverable-failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha na Subunidade que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Subunit Unrecoverable Storage
 msgid "printer-state-reasons.subunit-unrecoverable-storage"
-msgstr ""
-"O armazenamento de subunidade printer-state-reasons.subunit-unrecoverable-"
-"storage não pode ser restaurado"
+msgstr "O Armazenamento da Subunidade Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Subunit Warming Up
 msgid "printer-state-reasons.subunit-warming-up"
@@ -15853,13 +15806,11 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Cover Closed
 msgid "printer-state-reasons.trimmer-cover-closed"
-msgstr ""
-"A tampa do aparador printer-state-reasons.trimmer-cover-closed está fechada"
+msgstr "A Tampa do Aparador Está Fechada"
 
 #. TRANSLATORS: Trimmer Cover Open
 msgid "printer-state-reasons.trimmer-cover-open"
-msgstr ""
-"A tampa do aparador printer-state-reasons.trimmer-cover-open está aberta"
+msgstr "A Tampa do Aparador Está Aberta"
 
 #. TRANSLATORS: Trimmer Empty
 msgid "printer-state-reasons.trimmer-empty"
@@ -15887,15 +15838,11 @@ msgstr "Ocorreu um Atolamento no Aparador"
 
 #. TRANSLATORS: Trimmer Life Almost Over
 msgid "printer-state-reasons.trimmer-life-almost-over"
-msgstr ""
-"O aparador printer-state-reasons.trimmer-interlock-open está quase no fim da "
-"sua vida útil"
+msgstr "O Aparador Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Trimmer Life Over
 msgid "printer-state-reasons.trimmer-life-over"
-msgstr ""
-"O aparador printer-state-reasons.trimmer-life-over está no fim da sua vida "
-"útil"
+msgstr "O Aparador Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Trimmer Memory Exhausted
 msgid "printer-state-reasons.trimmer-memory-exhausted"
@@ -15937,15 +15884,11 @@ msgstr ""
 
 #. TRANSLATORS: Trimmer Recoverable Failure
 msgid "printer-state-reasons.trimmer-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha no aparador printer-state-reasons.trimmer-recoverable-"
-"failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha no Aparador que Pode Ser Restaurada"
 
 #. TRANSLATORS: Trimmer Recoverable Storage
 msgid "printer-state-reasons.trimmer-recoverable-storage"
-msgstr ""
-"O armazenamento do aparador printer-state-reasons.trimmer-recoverable-"
-"storage pode ser restaurado"
+msgstr "O Armazenamento do Aparador Pode Ser Restaurado"
 
 #. TRANSLATORS: Trimmer Removed
 msgid "printer-state-reasons.trimmer-removed"
@@ -15981,15 +15924,12 @@ msgstr "O Aparador Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Trimmer Unrecoverable Failure
 msgid "printer-state-reasons.trimmer-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha no aparador printer-state-reasons.trimmer-unrecoverable-"
-"failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha no Aparador que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Trimmer Unrecoverable Storage Error
 msgid "printer-state-reasons.trimmer-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro de armazenamento do aparador printer-state-reasons.trimmer-"
-"unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um Erro no Armazenamento do Aparador que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Trimmer Warming Up
 msgid "printer-state-reasons.trimmer-warming-up"
@@ -16029,14 +15969,11 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper Cover Closed
 msgid "printer-state-reasons.wrapper-cover-closed"
-msgstr ""
-"O intertravamento do empacotador printer-state-reasons.wrapper-cover-closed "
-"está aberto"
+msgstr "O Tampa do Empacotador Está Fechada"
 
 #. TRANSLATORS: Wrapper Cover Open
 msgid "printer-state-reasons.wrapper-cover-open"
-msgstr ""
-"A tampa do empacotador printer-state-reasons.wrapper-cover-open está aberta"
+msgstr "O Tampa do Empacotador Está Aberta"
 
 #. TRANSLATORS: Wrapper Empty
 msgid "printer-state-reasons.wrapper-empty"
@@ -16064,15 +16001,11 @@ msgstr "Ocorreu um Atolamento no Empacotador"
 
 #. TRANSLATORS: Wrapper Life Almost Over
 msgid "printer-state-reasons.wrapper-life-almost-over"
-msgstr ""
-"O empacotador printer-state-reasons.wrapper-life-almost-over está quase no "
-"fim da sua vida útil"
+msgstr "O Empacotador Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Wrapper Life Over
 msgid "printer-state-reasons.wrapper-life-over"
-msgstr ""
-"O empacotador printer-state-reasons.wrapper-life-over está no fim da sua "
-"vida útil"
+msgstr "O Empacotador Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Wrapper Memory Exhausted
 msgid "printer-state-reasons.wrapper-memory-exhausted"
@@ -16114,15 +16047,11 @@ msgstr ""
 
 #. TRANSLATORS: Wrapper Recoverable Failure
 msgid "printer-state-reasons.wrapper-recoverable-failure"
-msgstr ""
-"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-recoverable-"
-"failure que pode ser restaurado"
+msgstr "Ocorreu uma Falha no Empacotador que Pode Ser Restaurada"
 
 #. TRANSLATORS: Wrapper Recoverable Storage
 msgid "printer-state-reasons.wrapper-recoverable-storage"
-msgstr ""
-"O armazenamento do empacotador printer-state-reasons.wrapper-recoverable-"
-"storage pode ser restaurado"
+msgstr "O Armazenamento do Empacotador Pode ser Restaurado"
 
 #. TRANSLATORS: Wrapper Removed
 msgid "printer-state-reasons.wrapper-removed"
@@ -16158,15 +16087,12 @@ msgstr "O Empacotador Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Wrapper Unrecoverable Failure
 msgid "printer-state-reasons.wrapper-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma falha no empacotador printer-state-reasons.wrapper-unrecoverable-"
-"failure que não pode ser restaurado"
+msgstr "Ocorreu uma Falha no Empacotador que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Wrapper Unrecoverable Storage Error
 msgid "printer-state-reasons.wrapper-unrecoverable-storage-error"
 msgstr ""
-"Ocorreu um erro de armazenamento do empacotador printer-state-reasons"
-".wrapper-unrecoverable-storage-error que não pode ser restaurado"
+"Ocorreu um Erro no Armazenamento do Empacotador que Não Pode Ser Restaurado"
 
 #. TRANSLATORS: Wrapper Warming Up
 msgid "printer-state-reasons.wrapper-warming-up"
