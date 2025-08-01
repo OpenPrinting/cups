@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-31 19:02+0000\n"
+"PO-Revision-Date: 2025-08-02 11:02+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -6815,7 +6815,7 @@ msgstr "Foi concluído com erros"
 
 #. TRANSLATORS: Completed With Warnings
 msgid "document-state-reasons.completed-with-warnings"
-msgstr "Foi concluído com avisos"
+msgstr "Foi Concluído com Alguns Avisos"
 
 #. TRANSLATORS: Compression Error
 msgid "document-state-reasons.compression-error"
@@ -6899,7 +6899,7 @@ msgstr "Na fila"
 
 #. TRANSLATORS: Queued For Marker
 msgid "document-state-reasons.queued-for-marker"
-msgstr "O documento selecionado está na fila"
+msgstr "O Documento Selecionado Está na Fila"
 
 #. TRANSLATORS: Queued In Device
 msgid "document-state-reasons.queued-in-device"
@@ -6931,7 +6931,7 @@ msgstr "O formato do documento não é compatível"
 
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
-msgstr "Alguns avisos foram detectados"
+msgstr "Alguns Avisos Foram Detectados"
 
 #. TRANSLATORS: Pending
 msgid "document-state.3"
@@ -12963,41 +12963,35 @@ msgstr "O Encadernador Está no Limite"
 
 #. TRANSLATORS: Binder Closed
 msgid "printer-state-reasons.binder-closed"
-msgstr "O encadernador printer-state-reasons.binder-closed está fechado"
+msgstr "O Encadernador Está Fechado"
 
 #. TRANSLATORS: Binder Configuration Change
 msgid "printer-state-reasons.binder-configuration-change"
-msgstr ""
-"Alterar as configurações do encadernador printer-state-reasons.binder-"
-"configuration-change"
+msgstr "Alterar as Configurações do Encadernador"
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr "O Encadernador Está Fechado"
+msgstr "A Tampa do Encadernador Está Fechada"
 
 #. TRANSLATORS: Binder Cover Open
 msgid "printer-state-reasons.binder-cover-open"
-msgstr "O Encadernador Está Aberto"
+msgstr "A Tampa do Encadernador Está Aberta"
 
 #. TRANSLATORS: Binder Empty
 msgid "printer-state-reasons.binder-empty"
-msgstr "O encadernador printer-state-reasons.binder-empty está vazio"
+msgstr "O Encadernador Está Vazio"
 
 #. TRANSLATORS: Binder Full
 msgid "printer-state-reasons.binder-full"
-msgstr "O encadernador printer-state-reasons.binder-full está cheio"
+msgstr "O Encadernador Está Cheio"
 
 #. TRANSLATORS: Binder Interlock Closed
 msgid "printer-state-reasons.binder-interlock-closed"
-msgstr ""
-"O intertravamento do encadernador printer-state-reasons.binder-interlock-"
-"closed está fechado"
+msgstr "O Intertravamento do Encadernador Está Fechado"
 
 #. TRANSLATORS: Binder Interlock Open
 msgid "printer-state-reasons.binder-interlock-open"
-msgstr ""
-"O intertravamento do encadernador printer-state-reasons.binder-interlock-"
-"open está aberto"
+msgstr "O Intertravamento do Encadernador Está Aberto"
 
 #. TRANSLATORS: Binder Jam
 msgid "printer-state-reasons.binder-jam"
@@ -13013,19 +13007,15 @@ msgstr "O Encadernador Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Binder Memory Exhausted
 msgid "printer-state-reasons.binder-memory-exhausted"
-msgstr ""
-"A memória do encadernador printer-state-reasons.binder-memory-exhausted foi "
-"esgotada"
+msgstr "A Memória do Encadernador Foi Esgotada"
 
 #. TRANSLATORS: Binder Missing
 msgid "printer-state-reasons.binder-missing"
-msgstr "Ocorreu uma falha no encadernador printer-state-reasons.binder-missing"
+msgstr "Ocorreu uma Falha no Encadernador"
 
 #. TRANSLATORS: Binder Motor Failure
 msgid "printer-state-reasons.binder-motor-failure"
-msgstr ""
-"Ocorreu uma falha no motor do encadernador printer-state-reasons.binder-"
-"motor-failure"
+msgstr "Ocorreu uma Falha no Motor do Encadernador"
 
 #. TRANSLATORS: Binder Near Limit
 msgid "printer-state-reasons.binder-near-limit"
@@ -13037,7 +13027,7 @@ msgstr "O Encadernador Não Está Conectado"
 
 #. TRANSLATORS: Binder Opened
 msgid "printer-state-reasons.binder-opened"
-msgstr "O encadernador printer-state-reasons.binder-opened está aberto"
+msgstr "O Encadernador Está Aberto"
 
 #. TRANSLATORS: Binder Over Temperature
 msgid "printer-state-reasons.binder-over-temperature"
@@ -13045,9 +13035,7 @@ msgstr "O Encadernador Atingiu uma Temperatura Excessiva"
 
 #. TRANSLATORS: Binder Power Saver
 msgid "printer-state-reasons.binder-power-saver"
-msgstr ""
-"O encadernador printer-state-reasons.binder-power-saver entrou no modo de "
-"economia de energia"
+msgstr "O Encadernador Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
@@ -13075,7 +13063,7 @@ msgstr "Ocorreu uma Falha no Termistor do Encadernador"
 
 #. TRANSLATORS: Binder Timing Failure
 msgid "printer-state-reasons.binder-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Encadernador 3D"
+msgstr "Ocorreu uma Falha no Temporizador do Encadernador"
 
 #. TRANSLATORS: Binder Turned Off
 msgid "printer-state-reasons.binder-turned-off"
@@ -13100,11 +13088,11 @@ msgstr ""
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
-msgstr "O encadernador printer-state-reasons.binder-warming-up está aquecendo"
+msgstr "O Encadernador Está Aquecendo"
 
 #. TRANSLATORS: Camera Failure
 msgid "printer-state-reasons.camera-failure"
-msgstr ""
+msgstr "Ocorreu um Erro na Câmera"
 
 #. TRANSLATORS: Chamber Cooling
 msgid "printer-state-reasons.chamber-cooling"
@@ -13136,11 +13124,11 @@ msgstr "O Limpador Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Configuration Change
 msgid "printer-state-reasons.configuration-change"
-msgstr ""
+msgstr "Alterar as Configurações"
 
 #. TRANSLATORS: Connecting To Device
 msgid "printer-state-reasons.connecting-to-device"
-msgstr ""
+msgstr "Está Conectando ao Dispositivo"
 
 #. TRANSLATORS: Cover Open
 msgid "printer-state-reasons.cover-open"
@@ -13148,15 +13136,15 @@ msgstr "A Tampa Está Aberta"
 
 #. TRANSLATORS: Deactivated
 msgid "printer-state-reasons.deactivated"
-msgstr ""
+msgstr "Desativado"
 
 #. TRANSLATORS: Developer Empty
 msgid "printer-state-reasons.developer-empty"
-msgstr ""
+msgstr "O Programador Está Vazio"
 
 #. TRANSLATORS: Developer Low
 msgid "printer-state-reasons.developer-low"
-msgstr ""
+msgstr "O Programador Está Baixo"
 
 #. TRANSLATORS: Die Cutter Added
 msgid "printer-state-reasons.die-cutter-added"
@@ -13164,11 +13152,11 @@ msgstr "O Cortador Matricial Foi Adicionado"
 
 #. TRANSLATORS: Die Cutter Almost Empty
 msgid "printer-state-reasons.die-cutter-almost-empty"
-msgstr ""
+msgstr "O Cortador Matricial Está Quase Vazio"
 
 #. TRANSLATORS: Die Cutter Almost Full
 msgid "printer-state-reasons.die-cutter-almost-full"
-msgstr ""
+msgstr "O Cortador Matricial Está Quase Cheio"
 
 #. TRANSLATORS: Die Cutter At Limit
 msgid "printer-state-reasons.die-cutter-at-limit"
@@ -13176,11 +13164,11 @@ msgstr "O Cortador Matricial Está no Limite"
 
 #. TRANSLATORS: Die Cutter Closed
 msgid "printer-state-reasons.die-cutter-closed"
-msgstr ""
+msgstr "O Cortador Matricial Está Fechado"
 
 #. TRANSLATORS: Die Cutter Configuration Change
 msgid "printer-state-reasons.die-cutter-configuration-change"
-msgstr ""
+msgstr "Alterar as Configurações do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Cover Closed
 msgid "printer-state-reasons.die-cutter-cover-closed"
@@ -13192,21 +13180,19 @@ msgstr "A Tampa do Cortador Matricial Está Aberta"
 
 #. TRANSLATORS: Die Cutter Empty
 msgid "printer-state-reasons.die-cutter-empty"
-msgstr ""
+msgstr "O Cortador Matricial Está Vazio"
 
 #. TRANSLATORS: Die Cutter Full
 msgid "printer-state-reasons.die-cutter-full"
-msgstr ""
+msgstr "O Cortador Matricial Está Cheio"
 
 #. TRANSLATORS: Die Cutter Interlock Closed
 msgid "printer-state-reasons.die-cutter-interlock-closed"
-msgstr ""
-"O intertravamento do cortador printer-state-reasons.die-cutter-interlock-"
-"closed está fechado"
+msgstr "O Intertravamento do Cortador Matricial Está Fechado"
 
 #. TRANSLATORS: Die Cutter Interlock Open
 msgid "printer-state-reasons.die-cutter-interlock-open"
-msgstr ""
+msgstr "O Intertravamento do Cortador Matricial Está Aberto"
 
 #. TRANSLATORS: Die Cutter Jam
 msgid "printer-state-reasons.die-cutter-jam"
@@ -13222,15 +13208,15 @@ msgstr "O Cortador Matricial Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Die Cutter Memory Exhausted
 msgid "printer-state-reasons.die-cutter-memory-exhausted"
-msgstr ""
+msgstr "A Memória do Cortador Matricial Foi Esgotada"
 
 #. TRANSLATORS: Die Cutter Missing
 msgid "printer-state-reasons.die-cutter-missing"
-msgstr ""
+msgstr "Ocorreu uma Falha no Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Motor Failure
 msgid "printer-state-reasons.die-cutter-motor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Motor do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Near Limit
 msgid "printer-state-reasons.die-cutter-near-limit"
@@ -13242,7 +13228,7 @@ msgstr "O Cortador Matricial Não Está Conectado"
 
 #. TRANSLATORS: Die Cutter Opened
 msgid "printer-state-reasons.die-cutter-opened"
-msgstr ""
+msgstr "O Cortador Matricial Está Aberto"
 
 #. TRANSLATORS: Die Cutter Over Temperature
 msgid "printer-state-reasons.die-cutter-over-temperature"
@@ -13250,11 +13236,11 @@ msgstr "O Cortador Matricial Atingiu uma Temperatura Excessiva"
 
 #. TRANSLATORS: Die Cutter Power Saver
 msgid "printer-state-reasons.die-cutter-power-saver"
-msgstr ""
+msgstr "O Cortador Matricial Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Die Cutter Recoverable Failure
 msgid "printer-state-reasons.die-cutter-recoverable-failure"
-msgstr "Ocorreu uma Falha no Cortador Matricial que Pode Ser Restaurado"
+msgstr "Ocorreu uma Falha no Cortador Matricial que Pode Ser Restaurada"
 
 #. TRANSLATORS: Die Cutter Recoverable Storage
 msgid "printer-state-reasons.die-cutter-recoverable-storage"
@@ -13304,23 +13290,23 @@ msgstr ""
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
-msgstr "O cortador printer-state-reasons.die-cutter-warming-up está aquecendo"
+msgstr "O Cortador Matricial Está Aquecendo"
 
 #. TRANSLATORS: Door Open
 msgid "printer-state-reasons.door-open"
-msgstr ""
+msgstr "A Porta Está Aberta"
 
 #. TRANSLATORS: Extruder Cooling
 msgid "printer-state-reasons.extruder-cooling"
-msgstr ""
+msgstr "Resfriamento da Extrusora"
 
 #. TRANSLATORS: Extruder Failure
 msgid "printer-state-reasons.extruder-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha na Extrusora"
 
 #. TRANSLATORS: Extruder Heating
 msgid "printer-state-reasons.extruder-heating"
-msgstr ""
+msgstr "Aquecimento da Extrusora"
 
 #. TRANSLATORS: Extruder Jam
 msgid "printer-state-reasons.extruder-jam"
@@ -13336,7 +13322,7 @@ msgstr "A Extrusora Está com a Temperatura Baixa"
 
 #. TRANSLATORS: Fan Failure
 msgid "printer-state-reasons.fan-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha do Ventilador"
 
 #. TRANSLATORS: Fax Modem Life Almost Over
 msgid "printer-state-reasons.fax-modem-life-almost-over"
@@ -13348,7 +13334,7 @@ msgstr "A Placa do Fax Modem Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Fax Modem Missing
 msgid "printer-state-reasons.fax-modem-missing"
-msgstr ""
+msgstr "Ocorreu uma Falha na Placa do Fax Modem"
 
 #. TRANSLATORS: Fax Modem Turned Off
 msgid "printer-state-reasons.fax-modem-turned-off"
@@ -13384,11 +13370,11 @@ msgstr "Alterar as Configurações da Dobradeira de Papel"
 
 #. TRANSLATORS: Folder Cover Closed
 msgid "printer-state-reasons.folder-cover-closed"
-msgstr "A Capa da Dobradeira de Papel Está Fechada"
+msgstr "A Tampa da Dobradeira de Papel Está Fechada"
 
 #. TRANSLATORS: Folder Cover Open
 msgid "printer-state-reasons.folder-cover-open"
-msgstr "A Capa da Dobradeira de Papel Está Aberta"
+msgstr "A Tampa da Dobradeira de Papel Está Aberta"
 
 #. TRANSLATORS: Folder Empty
 msgid "printer-state-reasons.folder-empty"
@@ -13518,9 +13504,7 @@ msgstr "Reter os Novos Trabalhos"
 
 #. TRANSLATORS: Identify Printer
 msgid "printer-state-reasons.identify-printer-requested"
-msgstr ""
-"Identificação da impressora do printer-state-reasons.identify-printer-"
-"requested"
+msgstr "Identificação da Impressora"
 
 #. TRANSLATORS: Imprinter Added
 msgid "printer-state-reasons.imprinter-added"
@@ -13528,11 +13512,11 @@ msgstr "A Impressora Foi Adicionada"
 
 #. TRANSLATORS: Imprinter Almost Empty
 msgid "printer-state-reasons.imprinter-almost-empty"
-msgstr ""
+msgstr "A Impressora Está Quase Vazia"
 
 #. TRANSLATORS: Imprinter Almost Full
 msgid "printer-state-reasons.imprinter-almost-full"
-msgstr ""
+msgstr "A Impressora Está Quase Cheia"
 
 #. TRANSLATORS: Imprinter At Limit
 msgid "printer-state-reasons.imprinter-at-limit"
@@ -13540,11 +13524,11 @@ msgstr "A Impressora Está no Limite"
 
 #. TRANSLATORS: Imprinter Closed
 msgid "printer-state-reasons.imprinter-closed"
-msgstr ""
+msgstr "A Impressora Está Fechada"
 
 #. TRANSLATORS: Imprinter Configuration Change
 msgid "printer-state-reasons.imprinter-configuration-change"
-msgstr ""
+msgstr "Alterar as Configurações da Impressora"
 
 #. TRANSLATORS: Imprinter Cover Closed
 msgid "printer-state-reasons.imprinter-cover-closed"
@@ -13556,21 +13540,19 @@ msgstr "A Tampa da Impressora Está Aberta"
 
 #. TRANSLATORS: Imprinter Empty
 msgid "printer-state-reasons.imprinter-empty"
-msgstr ""
+msgstr "A Impressora Está Vazia"
 
 #. TRANSLATORS: Imprinter Full
 msgid "printer-state-reasons.imprinter-full"
-msgstr ""
+msgstr "A Impressora Está Cheia"
 
 #. TRANSLATORS: Imprinter Interlock Closed
 msgid "printer-state-reasons.imprinter-interlock-closed"
-msgstr ""
-"O intertravamento da impressora printer-state-reasons.imprinter-interlock-"
-"closed está fechado"
+msgstr "O Intertravamento da Impressora Está Fechado"
 
 #. TRANSLATORS: Imprinter Interlock Open
 msgid "printer-state-reasons.imprinter-interlock-open"
-msgstr ""
+msgstr "O Intertravamento da Impressora Está Aberto"
 
 #. TRANSLATORS: Imprinter Jam
 msgid "printer-state-reasons.imprinter-jam"
@@ -13586,15 +13568,15 @@ msgstr "A Impressora Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Imprinter Memory Exhausted
 msgid "printer-state-reasons.imprinter-memory-exhausted"
-msgstr ""
+msgstr "A Memória da Impressora Foi Esgotada"
 
 #. TRANSLATORS: Imprinter Missing
 msgid "printer-state-reasons.imprinter-missing"
-msgstr ""
+msgstr "Ocorreu uma Falha na Impressora"
 
 #. TRANSLATORS: Imprinter Motor Failure
 msgid "printer-state-reasons.imprinter-motor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Motor da Impressora"
 
 #. TRANSLATORS: Imprinter Near Limit
 msgid "printer-state-reasons.imprinter-near-limit"
@@ -13606,7 +13588,7 @@ msgstr "A Impressora Não Está Conectada"
 
 #. TRANSLATORS: Imprinter Opened
 msgid "printer-state-reasons.imprinter-opened"
-msgstr ""
+msgstr "A Impressora Está Aberta"
 
 #. TRANSLATORS: Imprinter Over Temperature
 msgid "printer-state-reasons.imprinter-over-temperature"
@@ -13614,7 +13596,7 @@ msgstr "A Impressora Atingiu uma Temperatura Excessiva"
 
 #. TRANSLATORS: Imprinter Power Saver
 msgid "printer-state-reasons.imprinter-power-saver"
-msgstr ""
+msgstr "A Impressora Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Imprinter Recoverable Failure
 msgid "printer-state-reasons.imprinter-recoverable-failure"
@@ -13623,7 +13605,7 @@ msgstr "Ocorreu uma Falha na Impressora que Pode Ser Restaurada"
 #. TRANSLATORS: Imprinter Recoverable Storage
 msgid "printer-state-reasons.imprinter-recoverable-storage"
 msgstr ""
-"Ocorreu uma Falha no Armazenamento da Impressora que Não Pode Ser Restaurado"
+"Ocorreu uma Falha no Armazenamento da Impressora que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Imprinter Removed
 msgid "printer-state-reasons.imprinter-removed"
@@ -13668,37 +13650,35 @@ msgstr ""
 
 #. TRANSLATORS: Imprinter Warming Up
 msgid "printer-state-reasons.imprinter-warming-up"
-msgstr "A impressora printer-state-reasons.imprinter-warming-up está aquecendo"
+msgstr "A Impressora Está Aquecendo"
 
 #. TRANSLATORS: Input Cannot Feed Size Selected
 msgid "printer-state-reasons.input-cannot-feed-size-selected"
-msgstr ""
+msgstr "Não é Possível Alimentar com Entrada do Tamanho que Foi Selecionado"
 
 #. TRANSLATORS: Input Manual Input Request
 msgid "printer-state-reasons.input-manual-input-request"
-msgstr ""
-"Requisição da entrada manual do printer-state-reasons.input-manual-input-"
-"request"
+msgstr "Requisição da Entrada do Manual"
 
 #. TRANSLATORS: Input Media Color Change
 msgid "printer-state-reasons.input-media-color-change"
-msgstr ""
+msgstr "Alterar a Cor da Mídia de Entrada"
 
 #. TRANSLATORS: Input Media Form Parts Change
 msgid "printer-state-reasons.input-media-form-parts-change"
-msgstr ""
+msgstr "Alterar Partes do Formulário da Mídia de Entrada"
 
 #. TRANSLATORS: Input Media Size Change
 msgid "printer-state-reasons.input-media-size-change"
-msgstr ""
+msgstr "Alterar o Tamanho da Mídia de Entrada"
 
 #. TRANSLATORS: Input Media Tray Failure
 msgid "printer-state-reasons.input-media-tray-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha na Bandeja da Mídia de Entrada"
 
 #. TRANSLATORS: Input Media Tray Feed Error
 msgid "printer-state-reasons.input-media-tray-feed-error"
-msgstr ""
+msgstr "Ocorreu um Erro no Alimentador da Bandeja da Mídia de Entrada"
 
 #. TRANSLATORS: Input Media Tray Jam
 msgid "printer-state-reasons.input-media-tray-jam"
@@ -13706,11 +13686,11 @@ msgstr "Ocorreu um Atolamento na Entrada da Bandeja da Mídia"
 
 #. TRANSLATORS: Input Media Type Change
 msgid "printer-state-reasons.input-media-type-change"
-msgstr ""
+msgstr "Alterar o Tipo da Mídia de Entrada"
 
 #. TRANSLATORS: Input Media Weight Change
 msgid "printer-state-reasons.input-media-weight-change"
-msgstr ""
+msgstr "Alterar o Peso da Mídia de Entrada"
 
 #. TRANSLATORS: Input Pick Roller Failure
 msgid "printer-state-reasons.input-pick-roller-failure"
@@ -13722,23 +13702,23 @@ msgstr "O Rolete da Coleta de Entrada Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Input Pick Roller Life Warn
 msgid "printer-state-reasons.input-pick-roller-life-warn"
-msgstr ""
+msgstr "Aviso Sobre a Vida Útil do Rolete da Coleta de Entrada"
 
 #. TRANSLATORS: Input Pick Roller Missing
 msgid "printer-state-reasons.input-pick-roller-missing"
-msgstr ""
+msgstr "Está Faltando o Rolete da Seleção de Entrada"
 
 #. TRANSLATORS: Input Tray Elevation Failure
 msgid "printer-state-reasons.input-tray-elevation-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Elevador da Bandeja de Entrada"
 
 #. TRANSLATORS: Paper tray is missing
 msgid "printer-state-reasons.input-tray-missing"
-msgstr ""
+msgstr "Está Faltando a Bandeja de Papel"
 
 #. TRANSLATORS: Input Tray Position Failure
 msgid "printer-state-reasons.input-tray-position-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha na Posição da Bandeja de Entrada"
 
 #. TRANSLATORS: Inserter Added
 msgid "printer-state-reasons.inserter-added"
@@ -13834,7 +13814,7 @@ msgstr "O Alimentador de Folhas Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Inserter Recoverable Failure
 msgid "printer-state-reasons.inserter-recoverable-failure"
-msgstr "Ocorreu uma Falha no Alimentador de Folhas que Pode Ser Restaurado"
+msgstr "Ocorreu uma Falha no Alimentador de Folhas que Pode Ser Restaurada"
 
 #. TRANSLATORS: Inserter Recoverable Storage
 msgid "printer-state-reasons.inserter-recoverable-storage"
@@ -13874,7 +13854,7 @@ msgstr "O Alimentador de Folhas Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Inserter Unrecoverable Failure
 msgid "printer-state-reasons.inserter-unrecoverable-failure"
-msgstr "Ocorreu uma Falha no Alimentador de Folhas que Não Pode Ser Restaurado"
+msgstr "Ocorreu uma Falha no Alimentador de Folhas que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Inserter Unrecoverable Storage Error
 msgid "printer-state-reasons.inserter-unrecoverable-storage-error"
@@ -13886,12 +13866,11 @@ msgstr "O Alimentador de Folhas Está Aquecendo"
 
 #. TRANSLATORS: Interlock Closed
 msgid "printer-state-reasons.interlock-closed"
-msgstr ""
-"O intertravamento do printer-state-reasons.interlock-closed está fechado"
+msgstr "O Intertravamento Está Fechado"
 
 #. TRANSLATORS: Interlock Open
 msgid "printer-state-reasons.interlock-open"
-msgstr ""
+msgstr "O Intertravamento Está Aberto"
 
 #. TRANSLATORS: Interpreter Cartridge Added
 msgid "printer-state-reasons.interpreter-cartridge-added"
@@ -13903,15 +13882,15 @@ msgstr "O Interpretador do Cartucho Foi Removido"
 
 #. TRANSLATORS: Interpreter Complex Page Encountered
 msgid "printer-state-reasons.interpreter-complex-page-encountered"
-msgstr ""
+msgstr "Foi Encontrada uma Página Complexa no Interpretador"
 
 #. TRANSLATORS: Interpreter Memory Decrease
 msgid "printer-state-reasons.interpreter-memory-decrease"
-msgstr ""
+msgstr "Ocorreu a Diminuição da Memória do Interpretador"
 
 #. TRANSLATORS: Interpreter Memory Increase
 msgid "printer-state-reasons.interpreter-memory-increase"
-msgstr ""
+msgstr "Ocorreu o Aumento da Memória do Interpretador"
 
 #. TRANSLATORS: Interpreter Resource Added
 msgid "printer-state-reasons.interpreter-resource-added"
@@ -13919,35 +13898,35 @@ msgstr "A Funcionalidade do Interpretador Foi Adicionado"
 
 #. TRANSLATORS: Interpreter Resource Deleted
 msgid "printer-state-reasons.interpreter-resource-deleted"
-msgstr ""
+msgstr "A Funcionalidade do Interpretador Foi Excluída"
 
 #. TRANSLATORS: Printer resource unavailable
 msgid "printer-state-reasons.interpreter-resource-unavailable"
-msgstr ""
+msgstr "A Funcionalidade da Impressora Não Está Disponível"
 
 #. TRANSLATORS: Lamp At End of Life
 msgid "printer-state-reasons.lamp-at-eol"
-msgstr ""
+msgstr "A Lâmpada Atingiu o Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Lamp Failure
 msgid "printer-state-reasons.lamp-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha na Lâmpada"
 
 #. TRANSLATORS: Lamp Near End of Life
 msgid "printer-state-reasons.lamp-near-eol"
-msgstr ""
+msgstr "A Lâmpada Está Próxima do Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Laser At End of Life
 msgid "printer-state-reasons.laser-at-eol"
-msgstr ""
+msgstr "O Emissor do Feixe de Luz Atingiu o Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Laser Failure
 msgid "printer-state-reasons.laser-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Emissor do Feixe de Luz"
 
 #. TRANSLATORS: Laser Near End of Life
 msgid "printer-state-reasons.laser-near-eol"
-msgstr ""
+msgstr "O Emissor do Feixe de Luz Está Próximo do Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Envelope Maker Added
 msgid "printer-state-reasons.make-envelope-added"
@@ -14097,173 +14076,171 @@ msgstr "O Criador de Envelope Está Aquecendo"
 
 #. TRANSLATORS: Marker Adjusting Print Quality
 msgid "printer-state-reasons.marker-adjusting-print-quality"
-msgstr ""
+msgstr "Ajustar a Qualidade da Impressão do Marcador"
 
 #. TRANSLATORS: Marker Cleaner Missing
 msgid "printer-state-reasons.marker-cleaner-missing"
-msgstr ""
+msgstr "Está Faltando o Limpador do Marcador"
 
 #. TRANSLATORS: Marker Developer Almost Empty
 msgid "printer-state-reasons.marker-developer-almost-empty"
-msgstr ""
+msgstr "O Desenvolvedor do Marcador Está Quase Vazio"
 
 #. TRANSLATORS: Marker Developer Empty
 msgid "printer-state-reasons.marker-developer-empty"
-msgstr ""
+msgstr "O Programador do Marcador Está Vazio"
 
 #. TRANSLATORS: Marker Developer Missing
 msgid "printer-state-reasons.marker-developer-missing"
-msgstr ""
+msgstr "Está Faltando o Programador do Marcador"
 
 #. TRANSLATORS: Marker Fuser Missing
 msgid "printer-state-reasons.marker-fuser-missing"
-msgstr ""
+msgstr "Está Faltando a Unidade de Fusão do Marcador"
 
 #. TRANSLATORS: Marker Fuser Thermistor Failure
 msgid "printer-state-reasons.marker-fuser-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor da Unidade de Fusão"
+msgstr "Ocorreu uma Falha no Termistor da Unidade de Fusão do Marcador"
 
 #. TRANSLATORS: Marker Fuser Timing Failure
 msgid "printer-state-reasons.marker-fuser-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Criador de Envelope"
+msgstr "Ocorreu uma Falha no Temporizador da Unidade de Fusão do Marcador"
 
 #. TRANSLATORS: Marker Ink Almost Empty
 msgid "printer-state-reasons.marker-ink-almost-empty"
-msgstr ""
+msgstr "A Tinta do Marcador Está Quase Vazia"
 
 #. TRANSLATORS: Marker Ink Empty
 msgid "printer-state-reasons.marker-ink-empty"
-msgstr ""
+msgstr "A Tinta do Marcador Está Vazia"
 
 #. TRANSLATORS: Marker Ink Missing
 msgid "printer-state-reasons.marker-ink-missing"
-msgstr ""
+msgstr "Está Faltando a Tinta do Marcador"
 
 #. TRANSLATORS: Marker Opc Missing
 msgid "printer-state-reasons.marker-opc-missing"
-msgstr ""
+msgstr "Está Faltando o Marcador do Fotocondutor Óptico"
 
 #. TRANSLATORS: Marker Print Ribbon Almost Empty
 msgid "printer-state-reasons.marker-print-ribbon-almost-empty"
-msgstr ""
+msgstr "A Fita de Impressão do Marcador Está Quase no Fim"
 
 #. TRANSLATORS: Marker Print Ribbon Empty
 msgid "printer-state-reasons.marker-print-ribbon-empty"
-msgstr ""
+msgstr "A Fita de Impressão do Marcador Atingiu o Seu Fim"
 
 #. TRANSLATORS: Marker Print Ribbon Missing
 msgid "printer-state-reasons.marker-print-ribbon-missing"
-msgstr ""
+msgstr "Está Faltando a Fita de Impressão do Marcador"
 
 #. TRANSLATORS: Marker Supply Almost Empty
 msgid "printer-state-reasons.marker-supply-almost-empty"
-msgstr ""
+msgstr "A Reservatório do Marcador Está Quase Vazio"
 
 #. TRANSLATORS: Ink/toner empty
 msgid "printer-state-reasons.marker-supply-empty"
-msgstr ""
+msgstr "A Tinta ou o Cartucho Está Vazio"
 
 #. TRANSLATORS: Ink/toner low
 msgid "printer-state-reasons.marker-supply-low"
-msgstr ""
+msgstr "O Nível da Tinta do Cartucho Está Baixo"
 
 #. TRANSLATORS: Marker Supply Missing
 msgid "printer-state-reasons.marker-supply-missing"
-msgstr ""
+msgstr "Está Faltando o Reservatório do Marcador"
 
 #. TRANSLATORS: Marker Toner Cartridge Missing
 msgid "printer-state-reasons.marker-toner-cartridge-missing"
-msgstr ""
+msgstr "Está Faltando o Cartucho ou o Toner do Marcador"
 
 #. TRANSLATORS: Marker Toner Missing
 msgid "printer-state-reasons.marker-toner-missing"
-msgstr ""
+msgstr "Está Faltando o Toner do Marcador"
 
 #. TRANSLATORS: Ink/toner waste bin almost full
 msgid "printer-state-reasons.marker-waste-almost-full"
-msgstr ""
+msgstr "O Reservatório de Tinta do Cartucho Está Quase Cheio"
 
 #. TRANSLATORS: Ink/toner waste bin full
 msgid "printer-state-reasons.marker-waste-full"
-msgstr ""
+msgstr "O Reservatório de Tinta do Cartucho Está Cheio"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Almost Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-almost-full"
-msgstr ""
+msgstr "O Reservatório de Tinta do Marcador Está Quase Cheio"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-full"
-msgstr ""
+msgstr "O Reservatório de Tinta do Marcador Está Cheio"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Missing
 msgid "printer-state-reasons.marker-waste-ink-receptacle-missing"
-msgstr ""
+msgstr "Está Faltando o Reservatório de Tinta do Marcador"
 
 #. TRANSLATORS: Marker Waste Missing
 msgid "printer-state-reasons.marker-waste-missing"
-msgstr ""
+msgstr "Está Faltando o Reservatório do Marcador"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Almost Full
 msgid "printer-state-reasons.marker-waste-toner-receptacle-almost-full"
-msgstr ""
+msgstr "O Reservatório do Toner do Marcador Está Quase Cheio"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Full
 msgid "printer-state-reasons.marker-waste-toner-receptacle-full"
-msgstr ""
+msgstr "O Reservatório do Toner do Marcador Está Cheio"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Missing
 msgid "printer-state-reasons.marker-waste-toner-receptacle-missing"
-msgstr ""
+msgstr "Está Faltando o Reservatório do Toner do Marcador"
 
 #. TRANSLATORS: Material Empty
 msgid "printer-state-reasons.material-empty"
-msgstr ""
+msgstr "Está Sem Material"
 
 #. TRANSLATORS: Material Low
 msgid "printer-state-reasons.material-low"
-msgstr ""
+msgstr "A Quantidade de Material Está Baixa"
 
 #. TRANSLATORS: Material Needed
 msgid "printer-state-reasons.material-needed"
-msgstr ""
+msgstr "É Necessário Mais Material"
 
 #. TRANSLATORS: Media Drying
 msgid "printer-state-reasons.media-drying"
-msgstr ""
+msgstr "Secagem da Mídia"
 
 #. TRANSLATORS: Paper tray is empty
 msgid "printer-state-reasons.media-empty"
-msgstr ""
+msgstr "A bandeja de papel está vazia"
 
 #. TRANSLATORS: Paper jam
 msgid "printer-state-reasons.media-jam"
-msgstr "Ocorreu um Atolamento no Papel"
+msgstr "Ocorreu um atolamento no papel"
 
 #. TRANSLATORS: Paper tray is almost empty
 msgid "printer-state-reasons.media-low"
-msgstr ""
+msgstr "A bandeja de papel está quase vazia"
 
 #. TRANSLATORS: Load paper
 msgid "printer-state-reasons.media-needed"
-msgstr ""
+msgstr "Adicionar papel"
 
 #. TRANSLATORS: Media Path Cannot Do 2-Sided Printing
 msgid "printer-state-reasons.media-path-cannot-duplex-media-selected"
-msgstr ""
-"O caminho da mídia não pode fazer a impressão frente e verso do printer-"
-"state-reasons.media-path-cannot-duplex-media-selected"
+msgstr "O Caminho da Mídia Não Consegue Fazer a Impressão Frente e Verso"
 
 #. TRANSLATORS: Media Path Failure
 msgid "printer-state-reasons.media-path-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Input Empty
 msgid "printer-state-reasons.media-path-input-empty"
-msgstr ""
+msgstr "A Entrada do Caminho da Mídia Está Vazia"
 
 #. TRANSLATORS: Media Path Input Feed Error
 msgid "printer-state-reasons.media-path-input-feed-error"
-msgstr ""
+msgstr "Ocorreu um Erro na Alimentação da Entrada do Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Input Jam
 msgid "printer-state-reasons.media-path-input-jam"
@@ -14271,9 +14248,7 @@ msgstr "Ocorreu um Atolamento na Entrada do Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Input Request
 msgid "printer-state-reasons.media-path-input-request"
-msgstr ""
-"Requisição da entrada do caminho da mídia do printer-state-reasons.media-"
-"path-input-request"
+msgstr "Requisição da Entrada do Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Jam
 msgid "printer-state-reasons.media-path-jam"
@@ -14281,23 +14256,23 @@ msgstr "Ocorreu um Atolamento no Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Media Tray Almost Full
 msgid "printer-state-reasons.media-path-media-tray-almost-full"
-msgstr ""
+msgstr "O Caminho da Mídia da Bandeja Está Quase Cheia"
 
 #. TRANSLATORS: Media Path Media Tray Full
 msgid "printer-state-reasons.media-path-media-tray-full"
-msgstr ""
+msgstr "O Caminho da Mídia na Bandeja Está Quase Cheio"
 
 #. TRANSLATORS: Media Path Media Tray Missing
 msgid "printer-state-reasons.media-path-media-tray-missing"
-msgstr ""
+msgstr "Está Faltando o Caminho da Mídia na Bandeja"
 
 #. TRANSLATORS: Media Path Output Feed Error
 msgid "printer-state-reasons.media-path-output-feed-error"
-msgstr ""
+msgstr "Ocorreu um Erro na Saída do Caminho da Mídia de Alimentação"
 
 #. TRANSLATORS: Media Path Output Full
 msgid "printer-state-reasons.media-path-output-full"
-msgstr ""
+msgstr "A Saída do Caminho da Mídia Está Cheia"
 
 #. TRANSLATORS: Media Path Output Jam
 msgid "printer-state-reasons.media-path-output-jam"
@@ -14305,27 +14280,27 @@ msgstr "Ocorreu um Atolamento na Saída do Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Pick Roller Failure
 msgid "printer-state-reasons.media-path-pick-roller-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Rolete de Coleta no Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Pick Roller Life Over
 msgid "printer-state-reasons.media-path-pick-roller-life-over"
-msgstr "Aviso Sobre a Vida Útil do Rolete da Coleta de Entrada"
+msgstr "O Rolete de Coleta Atingiu o Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Media Path Pick Roller Life Warn
 msgid "printer-state-reasons.media-path-pick-roller-life-warn"
-msgstr ""
+msgstr "Aviso Sobre o Fim da Vida Útil do Rolete de Coleta do Caminho da Mídia"
 
 #. TRANSLATORS: Media Path Pick Roller Missing
 msgid "printer-state-reasons.media-path-pick-roller-missing"
-msgstr ""
+msgstr "Está Faltando o Rolete de Coleta do Caminho da Mídia"
 
 #. TRANSLATORS: Motor Failure
 msgid "printer-state-reasons.motor-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha no Motor"
 
 #. TRANSLATORS: Printer going offline
 msgid "printer-state-reasons.moving-to-paused"
-msgstr ""
+msgstr "A impressora não está conectada"
 
 #. TRANSLATORS: None
 msgid "printer-state-reasons.none"
@@ -14337,27 +14312,27 @@ msgstr "O Fotocondutor Óptico Está no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: OPC almost at end-of-life
 msgid "printer-state-reasons.opc-near-eol"
-msgstr ""
+msgstr "O Fotocondutor Óptico Está Quase no Fim da Sua Vida Útil"
 
 #. TRANSLATORS: Check the printer for errors
 msgid "printer-state-reasons.other"
-msgstr ""
+msgstr "Verifique se há erros na impressora"
 
 #. TRANSLATORS: Output bin is almost full
 msgid "printer-state-reasons.output-area-almost-full"
-msgstr ""
+msgstr "A lixeira da saída está quase cheia"
 
 #. TRANSLATORS: Output bin is full
 msgid "printer-state-reasons.output-area-full"
-msgstr ""
+msgstr "A lixeira da saída está cheia"
 
 #. TRANSLATORS: Output Mailbox Select Failure
 msgid "printer-state-reasons.output-mailbox-select-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha na Seleção da Saída da Caixa de Correio"
 
 #. TRANSLATORS: Output Media Tray Failure
 msgid "printer-state-reasons.output-media-tray-failure"
-msgstr ""
+msgstr "Ocorreu uma Falha na Bandeja de Saída da Mídia"
 
 #. TRANSLATORS: Output Media Tray Feed Error
 msgid "printer-state-reasons.output-media-tray-feed-error"
