@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-08-05 13:08+0000\n"
+"PO-Revision-Date: 2025-08-05 14:35+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -154,37 +154,37 @@ msgstr ""
 "    RESULTADOS DETALHADOS DE TESTE DE CONFORMIDADE"
 
 msgid "                REF: Page 15, section 3.1."
-msgstr "                REF: Página 15, seção 3.1."
+msgstr "                REF: Página 15 da seção 3.1."
 
 msgid "                REF: Page 15, section 3.2."
-msgstr "                REF: Página 15, seção 3.2."
+msgstr "                REF: Página 15 da seção 3.2."
 
 msgid "                REF: Page 19, section 3.3."
-msgstr "                REF: Página 19, seção 3.3."
+msgstr "                REF: Página 19 da seção 3.3."
 
 msgid "                REF: Page 20, section 3.4."
-msgstr "                REF: Página 20, seção 3.4."
+msgstr "                REF: Página 20 da seção 3.4."
 
 msgid "                REF: Page 27, section 3.5."
-msgstr "                REF: Página 27, seção 3.5."
+msgstr "                REF: Página 27 da seção 3.5."
 
 msgid "                REF: Page 42, section 5.2."
-msgstr "                REF: Página 42, seção 5.2."
+msgstr "                REF: Página 42 da seção 5.2."
 
 msgid "                REF: Pages 16-17, section 3.2."
-msgstr "                REF: Página 16-17, seção 3.2."
+msgstr "                REF: Página 16 e 17 da seção 3.2."
 
 msgid "                REF: Pages 42-45, section 5.2."
-msgstr "                REF: Página 42-45, seção 5.2."
+msgstr "                REF: Página 42 a 45 da, seção 5.2."
 
 msgid "                REF: Pages 45-46, section 5.2."
-msgstr "                REF: Página 45-46, seção 5.2."
+msgstr "                REF: Página 45 e 46 da seção 5.2."
 
 msgid "                REF: Pages 48-49, section 5.2."
-msgstr "                REF: Página 48-49, seção 5.2."
+msgstr "                REF: Página 48 e 49 da seção 5.2."
 
 msgid "                REF: Pages 52-54, section 5.2."
-msgstr "                REF: Página 52-54, seção 5.2."
+msgstr "                REF: Página 52 a 54 da seção 5.2."
 
 #, c-format
 msgid "        %-39.39s %.0f bytes"
@@ -249,7 +249,7 @@ msgid ""
 "                REF: Page 15, section 3.2."
 msgstr ""
 "        AVISO   %s compartilha um prefixo comum com %s\n"
-"                REF: Página 15, seção 3.2."
+"                REF: Página 15 da seção 3.2."
 
 #, c-format
 msgid ""
@@ -259,7 +259,7 @@ msgid ""
 msgstr ""
 "        AVISO   A opção da palavra-chave ‘Duplex %s’ pode não funcionar como "
 "esperado e deve ser renomeada para ‘Duplex’ (frente e verso).\n"
-"                REF: Página 122, seção 5.17"
+"                REF: Página 122 da seção 5.17"
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
@@ -272,7 +272,7 @@ msgid ""
 msgstr ""
 "        AVISO   A codificação do idioma (LanguageEncoding) é necessária pela "
 "especificação do PPD 4.3.\n"
-"                REF: Páginas 56-57, seção 5.3."
+"                REF: Páginas 56 e 57 da seção 5.3."
 
 #, c-format
 msgid "        WARN    Line %d only contains whitespace."
@@ -283,7 +283,7 @@ msgid ""
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
 "        AVISO   O fabricante é necessário pela especificação do PPD 4.3.\n"
-"                REF: Páginas 58-59, seção 5.3."
+"                REF: Páginas 58 e 59 da seção 5.3."
 
 msgid ""
 "        WARN    Non-Windows PPD files should use lines ending with only LF, "
@@ -299,21 +299,21 @@ msgid ""
 "                REF: Page 42, section 5.2."
 msgstr ""
 "        AVISO   O arquivo PPD da versão %.1f está obsoleto.\n"
-"                REF: Página 42, seção 5.2."
+"                REF: Página 42 da seção 5.2."
 
 msgid ""
 "        WARN    PCFileName longer than 8.3 in violation of PPD spec.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
 "        AVISO   O PCFileName maior que 8.3 viola a especificação do PPD.\n"
-"                REF: Páginas 61-62, seção 5.3."
+"                REF: Páginas 61 e 62 da seção 5.3."
 
 msgid ""
 "        WARN    PCFileName should contain a unique filename.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
 "        AVISO   O PCFileName deveria conter um nome de arquivo único.\n"
-"                REF: Páginas 61-62, seção 5.3."
+"                REF: Páginas 61 e 62 da seção 5.3."
 
 msgid ""
 "        WARN    Protocols contains PJL but JCL attributes are not set.\n"
@@ -321,7 +321,7 @@ msgid ""
 msgstr ""
 "        AVISO   Os protocolos contêm o PJL, mas os atributos do JCL não "
 "estão definidos.\n"
-"                REF: Páginas 78-79, seção 5.7."
+"                REF: Páginas 78 e 79 da seção 5.7."
 
 msgid ""
 "        WARN    Protocols contains both PJL and BCP; expected TBCP.\n"
@@ -329,14 +329,14 @@ msgid ""
 msgstr ""
 "        AVISO   Os protocolos contêm ambos, o PJL e o BCP, mas era esperado "
 "o TBCP.\n"
-"                REF: Páginas 78-79, seção 5.7."
+"                REF: Páginas 78 e 79 da seção 5.7."
 
 msgid ""
 "        WARN    ShortNickName required by PPD 4.3 spec.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
 "        AVISO   O ShortNickName é necessário pela especificação do PPD 4.3.\n"
-"                REF: Páginas 64-65, seção 5.3."
+"                REF: Páginas 64 e 65 da seção 5.3."
 
 #, c-format
 msgid ""
@@ -360,7 +360,7 @@ msgid ""
 "                REF: Page 122, section 5.17"
 msgstr ""
 "      %s  Não é válido %s , escolha %s.\n"
-"                REF: Página 122, seção 5.17"
+"                REF: Página 122 da seção 5.17"
 
 #, c-format
 msgid "      %s  Bad UTF-8 \"%s\" translation string for option %s, choice %s."
@@ -440,7 +440,7 @@ msgid ""
 "                REF: Page 100, section 5.14."
 msgstr ""
 "      %s  Está faltando a opção PageRegion que é NECESSÁRIA.\n"
-"                REF: Página 100, seção 5.14."
+"                REF: Página 100 da seção 5.14."
 
 #, c-format
 msgid ""
@@ -448,7 +448,7 @@ msgid ""
 "                REF: Page 99, section 5.14."
 msgstr ""
 "      %s  Está faltando a opção PageSize que é NECESSÁRIA.\n"
-"                REF: Página 99, seção 5.14."
+"                REF: Página 99 da seção 5.14."
 
 #, c-format
 msgid "      %s  Missing choice *%s %s in UIConstraints \"*%s %s *%s %s\"."
@@ -483,7 +483,7 @@ msgid ""
 "                REF: Page 122, section 5.17"
 msgstr ""
 "      %s  O %s é NECESSÁRIO porque não define a escolha None (Nenhuma).\n"
-"                REF: Página 122, seção 5.17"
+"                REF: Página 122 da seção 5.17"
 
 #, c-format
 msgid "      %s  Size \"%s\" defined for %s but not for %s."
@@ -523,7 +523,7 @@ msgid ""
 "                REF: Page 72, section 5.5"
 msgstr ""
 "      **Ocorreu uma FALHA** %s deve ser 1284DeviceID\n"
-"                REF: Página 72, seção 5.5"
+"                REF: Página 72 da seção 5.5"
 
 #, c-format
 msgid ""
@@ -531,7 +531,7 @@ msgid ""
 "                REF: Page 40, section 4.5."
 msgstr ""
 "      **Ocorreu uma FALHA** O padrão %s não é válido para %s\n"
-"                REF: Página 40, seção 4.5."
+"                REF: Página 40 da seção 4.5."
 
 #, c-format
 msgid ""
@@ -539,7 +539,7 @@ msgid ""
 "                REF: Page 102, section 5.15."
 msgstr ""
 "      **Ocorreu uma FALHA** O DefaultImageableArea %s não é válido\n"
-"                REF: Página 102, seção 5.15."
+"                REF: Página 102 da seção 5.15."
 
 #, c-format
 msgid ""
@@ -547,7 +547,7 @@ msgid ""
 "                REF: Page 103, section 5.15."
 msgstr ""
 "      **Ocorreu uma FALHA**  O DefaultPaperDimension %s não é válido\n"
-"                REF: Página 103, seção 5.15."
+"                REF: Página 103 da seção 5.15."
 
 #, c-format
 msgid ""
@@ -555,7 +555,7 @@ msgid ""
 "                REF: Page 56, section 5.3."
 msgstr ""
 "      **FAIL**  O FileVersion \"%s\" não é válido\n"
-"                REF: Página 56, seção 5.3."
+"                REF: Página 56 da seção 5.3."
 
 #, c-format
 msgid ""
@@ -563,7 +563,7 @@ msgid ""
 "                REF: Page 56, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  O FormatVersion \"%s\"não é válido\n"
-"                REF: Página 56, seção 5.3."
+"                REF: Página 56 da seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad JobPatchFile attribute in file\n"
@@ -571,7 +571,7 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  O atributo do JobPatchFile não é válido para o "
 "arquivo\n"
-"                REF: Página 24, seção 3.4."
+"                REF: Página 24 da seção 3.4."
 
 #, c-format
 msgid "      **FAIL**  Bad LanguageEncoding %s - must be ISOLatin1."
@@ -590,7 +590,7 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  O Manufacturer não é válido e deveria ser \"%s\""
 "\n"
-"                REF: Página 211, tabela D.1."
+"                REF: Página 211 da tabela D.1."
 
 #, c-format
 msgid ""
@@ -599,7 +599,7 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  O ModelName não é válido, o texto \"%c\" não é "
 "permitido.\n"
-"                REF: Páginas 59-60, seção 5.3."
+"                REF: Páginas 59 e 60 da seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad PSVersion - not \"(string) int\".\n"
@@ -607,7 +607,7 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  O PSVersion não é válido e não pode ser do tipo "
 "\"(string) int\".\n"
-"                REF: Páginas 62-64, seção 5.3."
+"                REF: Páginas 62 a 64 da seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad Product - not \"(string)\".\n"
@@ -615,7 +615,7 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  O Product não é válido e não pode ser do tipo "
 "\"(string)\".\n"
-"                REF: Página 62, seção 5.3."
+"                REF: Página 62 da seção 5.3."
 
 msgid ""
 "      **FAIL**  Bad ShortNickName - longer than 31 chars.\n"
@@ -623,7 +623,7 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  O ShortNickName não é válido e tem que ter mais "
 "do que 31 caracteres.\n"
-"                REF: Páginas 64-65, seção 5.3."
+"                REF: Páginas 64 e 65 da seção 5.3."
 
 #, c-format
 msgid ""
@@ -631,7 +631,7 @@ msgid ""
 "                REF: Page 84, section 5.9"
 msgstr ""
 "      **Ocorreu uma FALHA**  A opção %s não é válida, escolha %s\n"
-"                REF: Página 84, seção 5.9"
+"                REF: Página 84 da seção 5.9"
 
 #, c-format
 msgid "      **FAIL**  Default option code cannot be interpreted: %s"
@@ -685,35 +685,35 @@ msgid ""
 "                REF: Page 40, section 4.5."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO que Default seja %s\n"
-"                REF: Página 40, seção 4.5."
+"                REF: Página 40 da seção 4.5."
 
 msgid ""
 "      **FAIL**  REQUIRED DefaultImageableArea\n"
 "                REF: Page 102, section 5.15."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o DefaultImageableArea\n"
-"                REF: Página 102, seção 5.15."
+"                REF: Página 102 da seção 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED DefaultPaperDimension\n"
 "                REF: Page 103, section 5.15."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o DefaultPaperDimension\n"
-"                REF: Página 103, seção 5.15."
+"                REF: Página 103 da seção 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED FileVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o FileVersion\n"
-"                REF: Página 56, seção 5.3."
+"                REF: Página 56 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED FormatVersion\n"
 "                REF: Page 56, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o FormatVersion\n"
-"                REF: Página 56, seção 5.3."
+"                REF: Página 56 da seção 5.3."
 
 #, c-format
 msgid ""
@@ -723,64 +723,64 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o ImageableArea para o PageSize %"
 "s\n"
-"                REF: Página 41, seção 5.\n"
-"                REF: Página 102, seção 5.15."
+"                REF: Página 41 da seção 5.\n"
+"                REF: Página 102 da seção 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED LanguageEncoding\n"
 "                REF: Pages 56-57, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o LanguageEncoding\n"
-"                REF: Páginas 56-57, seção 5.3."
+"                REF: Páginas 56 e 57 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED LanguageVersion\n"
 "                REF: Pages 57-58, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o LanguageVersion\n"
-"                REF: Páginas 57-58, seção 5.3."
+"                REF: Páginas 57 e 58 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED Manufacturer\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o Manufacturer\n"
-"                REF: Páginas 58-59, seção 5.3."
+"                REF: Páginas 58 e 59 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED ModelName\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o ModelName\n"
-"                REF: Páginas 59-60, seção 5.3."
+"                REF: Páginas 59 e 60 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED NickName\n"
 "                REF: Page 60, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o NickName\n"
-"                REF: Página 60, seção 5.3."
+"                REF: Página 60 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PCFileName\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o PCFileName\n"
-"                REF: Páginas 61-62, seção 5.3."
+"                REF: Páginas 61 e 62 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PSVersion\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o PSVersion\n"
-"                REF: Páginas 62-64, seção 5.3."
+"                REF: Páginas 62 a 64 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED PageRegion\n"
 "                REF: Page 100, section 5.14."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o PageRegion\n"
-"                REF: Página 100, seção 5.14."
+"                REF: Página 100 da seção 5.14."
 
 msgid ""
 "      **FAIL**  REQUIRED PageSize\n"
@@ -788,15 +788,15 @@ msgid ""
 "                REF: Page 99, section 5.14."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o PageSize\n"
-"                REF: Página 41, seção 5.\n"
-"                REF: Página 99, seção 5.14."
+"                REF: Página 41 da seção 5.\n"
+"                REF: Página 99 da seção 5.14."
 
 msgid ""
 "      **FAIL**  REQUIRED PageSize\n"
 "                REF: Pages 99-100, section 5.14."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o PageSize\n"
-"                REF: Páginas 99-100, seção 5.14."
+"                REF: Páginas 99 e 100 da seção 5.14."
 
 #, c-format
 msgid ""
@@ -806,22 +806,22 @@ msgid ""
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o PaperDimension para o PageSize %"
 "s\n"
-"                REF: Página 41, seção 5.\n"
-"                REF: Página 103, seção 5.15."
+"                REF: Página 41 da seção 5.\n"
+"                REF: Página 103 da seção 5.15."
 
 msgid ""
 "      **FAIL**  REQUIRED Product\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o Product\n"
-"                REF: Página 62, seção 5.3."
+"                REF: Página 62 da seção 5.3."
 
 msgid ""
 "      **FAIL**  REQUIRED ShortNickName\n"
 "                REF: Page 64-65, section 5.3."
 msgstr ""
 "      **Ocorreu uma FALHA**  É NECESSÁRIO o ShortNickName\n"
-"                REF: Página 64-65, seção 5.3."
+"                REF: Página 64 a 65 da seção 5.3."
 
 #, c-format
 msgid "      **FAIL**  Unable to open PPD file - %s on line %d."
@@ -1329,7 +1329,7 @@ msgstr "%s: A versão %s não é válida para o parâmetro \"-V\"."
 
 #, c-format
 msgid "%s: Don't know what to do."
-msgstr "%s: Não sei o que posso fazer."
+msgstr "%s: Não sabe o que pode fazer."
 
 #, c-format
 msgid "%s: Error - %s"
@@ -2631,8 +2631,8 @@ msgid ""
 msgstr ""
 "-p PURPOSE                     Permite definir a finalidade do certificado "
 "delimitado por vírgulas\n"
-"                                               (serverAuth, clientAuth, "
-"codeSigning, emailProtection, timeStamping, OCSPSigning)"
+"                               (serverAuth, clientAuth, codeSigning, "
+"emailProtection, timeStamping, OCSPSigning)"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
 msgstr ""
@@ -4440,10 +4440,10 @@ msgid "Intellitech"
 msgstr "Intellitech"
 
 msgid "Internal Server Error"
-msgstr "Ocorreu um erro interno no servidor"
+msgstr "Ocorreu um Erro Interno no Servidor"
 
 msgid "Internal error"
-msgstr "Ocorreu um erro interno"
+msgstr "Ocorreu um Erro Interno"
 
 msgid "Internet Postage 2-Part"
 msgstr "Parte 2 da Postagem na Internet"
@@ -4568,13 +4568,13 @@ msgid "Job #%d is not held."
 msgstr "O trabalho #%d não foi mantido."
 
 msgid "Job Completed"
-msgstr "O trabalho foi concluído"
+msgstr "O Trabalho Foi Concluído"
 
 msgid "Job Created"
-msgstr "O trabalho foi criado"
+msgstr "O Trabalho Foi Criado"
 
 msgid "Job Options Changed"
-msgstr "As opções do trabalho foram alteradas"
+msgstr "As Opções do Trabalho Foram Alteradas"
 
 msgid "Job Stopped"
 msgstr "O Trabalho Está Parado"
@@ -4613,7 +4613,7 @@ msgid "Language \"%s\" not supported."
 msgstr "O idioma \"%s\" não é compatível."
 
 msgid "Large Address"
-msgstr "Endereço grande"
+msgstr "Endereço Grande"
 
 msgid "LaserJet Series PCL 4/5"
 msgstr "LaserJet Series PCL 4/5"
@@ -4644,7 +4644,7 @@ msgid "Long-Edge (Portrait)"
 msgstr "Borda Maior (Retrato)"
 
 msgid "Main Roll"
-msgstr "Rolete principal"
+msgstr "Rolete Principal"
 
 msgid "Manual Feed"
 msgstr "Alimentação Manual"
@@ -5204,13 +5204,13 @@ msgid "Sending data to printer."
 msgstr "Enviando os dados para a impressora."
 
 msgid "Server Restarted"
-msgstr "O servidor foi reiniciado"
+msgstr "O Servidor Foi Reiniciado"
 
 msgid "Server Security Auditing"
 msgstr "Auditoria de Segurança do Servidor"
 
 msgid "Server Started"
-msgstr "O servidor foi iniciado"
+msgstr "O Servidor Foi Iniciado"
 
 msgid "Server Stopped"
 msgstr "O Servidor Está Parado"
@@ -5219,22 +5219,22 @@ msgid "Server credentials not set."
 msgstr "As credenciais no servidor não estão definidas."
 
 msgid "Service Unavailable"
-msgstr "O serviço não está disponível"
+msgstr "O serviço Não Está Disponível"
 
 msgid "Set Allowed Users"
-msgstr "Definir os usuários que são permitidos"
+msgstr "Definir os Usuários que São Permitidos"
 
 msgid "Set As Server Default"
-msgstr "Definir como padrão do servidor"
+msgstr "Definir como Padrão do Servidor"
 
 msgid "Set Class Options"
-msgstr "Definir as opções da classe"
+msgstr "Definir as Opções da Classe"
 
 msgid "Set Printer Options"
-msgstr "Definir as opções da impressora"
+msgstr "Definir as Opções da Impressora"
 
 msgid "Shipping Address"
-msgstr "Endereço de entrega"
+msgstr "Endereço de Entrega"
 
 msgid "Short-Edge (Landscape)"
 msgstr "Borda Menor (Paisagem)"
@@ -6401,7 +6401,7 @@ msgstr "Assunto"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
-msgstr "Para Nomear"
+msgstr "Nomear"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
@@ -11606,35 +11606,35 @@ msgstr "Aumentar o Número do Leiaute"
 
 #. TRANSLATORS: Bottom-Top, Left-Right
 msgid "number-up-layout.btlr"
-msgstr "Inferior ou Superior, Esquerda ou Direita"
+msgstr "No Canto Inferior ou Superior, Esquerdo ou Direito"
 
 #. TRANSLATORS: Bottom-Top, Right-Left
 msgid "number-up-layout.btrl"
-msgstr "Inferior ou Superior, Direita ou Esquerda"
+msgstr "No Canto Inferior ou Superior, Direito ou Esquerdo"
 
 #. TRANSLATORS: Left-Right, Bottom-Top
 msgid "number-up-layout.lrbt"
-msgstr "Esquerda ou Direita, Inferior ou Superior"
+msgstr "No Canto Esquerdo ou Direito, Inferior ou Superior"
 
 #. TRANSLATORS: Left-Right, Top-Bottom
 msgid "number-up-layout.lrtb"
-msgstr "Esquerda ou Direita, Superior ou Inferior"
+msgstr "No Canto Esquerdo ou Direito, Superior ou Inferior"
 
 #. TRANSLATORS: Right-Left, Bottom-Top
 msgid "number-up-layout.rlbt"
-msgstr "Direita ou Esquerda, Inferior ou Superior"
+msgstr "No Canto Direito ou Esquerdo, Inferior ou Superior"
 
 #. TRANSLATORS: Right-Left, Top-Bottom
 msgid "number-up-layout.rltb"
-msgstr "Direita ou Esquerda, Superior ou Inferior"
+msgstr "No Canto Direito ou Esquerdo, Superior ou Inferior"
 
 #. TRANSLATORS: Top-Bottom, Left-Right
 msgid "number-up-layout.tblr"
-msgstr "Superior ou Inferior, Esquerda ou Direita"
+msgstr "No Canto Superior ou Inferior, Esquerdo ou Direito"
 
 #. TRANSLATORS: Top-Bottom, Right-Left
 msgid "number-up-layout.tbrl"
-msgstr "Superior ou Inferior, Direita ou Esquerda"
+msgstr "No Canto Superior ou Inferior, Direito ou Esquerdo"
 
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
@@ -12893,7 +12893,7 @@ msgstr "A Enfaixadora Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Bander Recoverable Failure
 msgid "printer-state-reasons.bander-recoverable-failure"
-msgstr "Ocorreu uma Falha na Enfaixadora que Pode ser Restaurado"
+msgstr "Ocorreu uma Falha na Enfaixadora que Pode ser Restaurada"
 
 #. TRANSLATORS: Bander Recoverable Storage
 msgid "printer-state-reasons.bander-recoverable-storage"
@@ -13038,7 +13038,7 @@ msgstr "O Encadernador Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
-msgstr "Ocorreu uma Falha no Encadernador que Pode Ser Restaurado"
+msgstr "Ocorreu uma Falha no Encadernador que Pode Ser Restaurada"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
@@ -14021,7 +14021,7 @@ msgstr "O Criador de Envelope Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Envelope Maker Recoverable Failure
 msgid "printer-state-reasons.make-envelope-recoverable-failure"
-msgstr "Ocorreu uma Falha no Criador de Envelope que Pode Ser Restaurado"
+msgstr "Ocorreu uma Falha no Criador de Envelope que Pode Ser Restaurada"
 
 #. TRANSLATORS: Envelope Maker Recoverable Storage
 msgid "printer-state-reasons.make-envelope-recoverable-storage"
@@ -14616,7 +14616,7 @@ msgstr "O Furador Não Está Conectado"
 
 #. TRANSLATORS: Puncher Opened
 msgid "printer-state-reasons.puncher-opened"
-msgstr "O Furador Está aberto"
+msgstr "O Furador Está Aberto"
 
 #. TRANSLATORS: Puncher Over Temperature
 msgid "printer-state-reasons.puncher-over-temperature"
@@ -15070,7 +15070,7 @@ msgstr "O Cortador de Bobinas Entrou no Modo de Economia de Energia"
 
 #. TRANSLATORS: Slitter Recoverable Failure
 msgid "printer-state-reasons.slitter-recoverable-failure"
-msgstr "Ocorreu uma Falha no Cortador de Bobinas que Pode Ser Restaurado"
+msgstr "Ocorreu uma Falha no Cortador de Bobinas que Pode Ser Restaurada"
 
 #. TRANSLATORS: Slitter Recoverable Storage
 msgid "printer-state-reasons.slitter-recoverable-storage"
@@ -15110,7 +15110,7 @@ msgstr "O Cortador de Bobinas Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Slitter Unrecoverable Failure
 msgid "printer-state-reasons.slitter-unrecoverable-failure"
-msgstr "Ocorreu uma Falha no Cortador de Bobinas que Não Pode Ser Restaurado"
+msgstr "Ocorreu uma Falha no Cortador de Bobinas que Não Pode Ser Restaurada"
 
 #. TRANSLATORS: Slitter Unrecoverable Storage Error
 msgid "printer-state-reasons.slitter-unrecoverable-storage-error"
@@ -16191,7 +16191,8 @@ msgstr "ocorreu uma falha no estado %s de %s"
 
 msgid "status\t\tShow status of daemon and queue."
 msgstr ""
-"status\t\tPermite exibir o estado do daemon (serviço) e da fila de impressão."
+"status\t\tPermite exibir o estado do ‘daemon’ (serviço) e da fila de "
+"impressão."
 
 #. TRANSLATORS: Status Message
 msgid "status-message"
@@ -16314,7 +16315,7 @@ msgstr "Subendereço do T33"
 
 #. TRANSLATORS: To Name
 msgid "to-name"
-msgstr "Para o Nome"
+msgstr "Nomear"
 
 #. TRANSLATORS: Transmission Status
 msgid "transmission-status"
