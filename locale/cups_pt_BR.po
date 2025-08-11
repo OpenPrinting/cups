@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-08-06 18:01+0000\n"
+"PO-Revision-Date: 2025-08-07 16:15+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
 "cups/pt_BR/>\n"
@@ -3464,7 +3464,7 @@ msgid "Accept Jobs"
 msgstr "Aceitar os Trabalhos"
 
 msgid "Accepted"
-msgstr "Aceitou"
+msgstr "Foi Aceito"
 
 msgid "Add Class"
 msgstr "Adicionar uma Classe"
@@ -3826,7 +3826,7 @@ msgid "Couldn't resolve mDNS URI \"%s\"."
 msgstr "Não foi possível resolver o URI \"%s\" do mDNS."
 
 msgid "Created"
-msgstr "Criada"
+msgstr "Foi Criada"
 
 msgid "Credentials are OK/trusted."
 msgstr "As credenciais estão boas ou são confiáveis."
@@ -4893,19 +4893,19 @@ msgid "Normal"
 msgstr "Normal"
 
 msgid "Not Found"
-msgstr "Não foi encontrado"
+msgstr "Não Foi Encontrado"
 
 msgid "Not Implemented"
-msgstr "Não foi implementado"
+msgstr "Não Foi Implementado"
 
 msgid "Not Installed"
-msgstr "Não foi instalado"
+msgstr "Não Foi Instalado"
 
 msgid "Not Modified"
-msgstr "Não foi modificado"
+msgstr "Não Foi Modificado"
 
 msgid "Not Supported"
-msgstr "Não tem suporte"
+msgstr "Não Tem Suporte"
 
 msgid "Not allowed to print."
 msgstr "Não é permitido imprimir."
@@ -5097,19 +5097,19 @@ msgid "Printer \"%s\" already exists."
 msgstr "A impressora \"%s\" já existe."
 
 msgid "Printer Added"
-msgstr "A impressora foi adicionada"
+msgstr "A impressora Foi Adicionada"
 
 msgid "Printer Default"
 msgstr "Impressora Padrão"
 
 msgid "Printer Deleted"
-msgstr "A impressora foi excluída"
+msgstr "A impressora Foi Excluída"
 
 msgid "Printer Modified"
-msgstr "A impressora foi modificada"
+msgstr "A Impressora Foi Modificada"
 
 msgid "Printer Paused"
-msgstr "A impressora está pausada"
+msgstr "A Impressora Está Pausada"
 
 msgid "Printer Settings"
 msgstr "Configurações da Impressora"
@@ -6137,7 +6137,7 @@ msgid "Zebra"
 msgstr "Zebra"
 
 msgid "aborted"
-msgstr "abortado"
+msgstr "foi abortado"
 
 #. TRANSLATORS: Accuracy Units
 msgid "accuracy-units"
@@ -6353,7 +6353,7 @@ msgid "coating-type.translucent"
 msgstr "Translúcido"
 
 msgid "completed"
-msgstr "completou"
+msgstr "foi concluído"
 
 #. TRANSLATORS: Print Confirmation Sheet
 msgid "confirmation-sheet-print"
@@ -6790,27 +6790,27 @@ msgstr "Estado Detalhado do Documento"
 
 #. TRANSLATORS: Aborted By System
 msgid "document-state-reasons.aborted-by-system"
-msgstr "Foi abortado pelo sistema"
+msgstr "Foi Abortado pelo Sistema"
 
 #. TRANSLATORS: Canceled At Device
 msgid "document-state-reasons.canceled-at-device"
-msgstr "Foi cancelado no dispositivo"
+msgstr "Foi Cancelado no Dispositivo"
 
 #. TRANSLATORS: Canceled By Operator
 msgid "document-state-reasons.canceled-by-operator"
-msgstr "Foi cancelado pelo operador"
+msgstr "Foi Cancelado pelo Operador"
 
 #. TRANSLATORS: Canceled By User
 msgid "document-state-reasons.canceled-by-user"
-msgstr "Foi cancelado pelo usuário"
+msgstr "Foi Cancelado pelo Usuário"
 
 #. TRANSLATORS: Completed Successfully
 msgid "document-state-reasons.completed-successfully"
-msgstr "Foi concluído com sucesso"
+msgstr "Foi Concluído com Sucesso"
 
 #. TRANSLATORS: Completed With Errors
 msgid "document-state-reasons.completed-with-errors"
-msgstr "Foi concluído com erros"
+msgstr "Foi Concluído com Erros"
 
 #. TRANSLATORS: Completed With Warnings
 msgid "document-state-reasons.completed-with-warnings"
@@ -6818,55 +6818,55 @@ msgstr "Foi Concluído com Alguns Avisos"
 
 #. TRANSLATORS: Compression Error
 msgid "document-state-reasons.compression-error"
-msgstr "Ocorreu um erro de compactação"
+msgstr "Ocorreu um Erro de Compactação"
 
 #. TRANSLATORS: Data Insufficient
 msgid "document-state-reasons.data-insufficient"
-msgstr "O dados não são suficientes"
+msgstr "O Dados Não São Suficientes"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "document-state-reasons.digital-signature-did-not-verify"
-msgstr "A assinatura digital não corresponde"
+msgstr "A Assinatura Digital Não Corresponde"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "document-state-reasons.digital-signature-type-not-supported"
-msgstr "O tipo da assinatura digital não é compatível"
+msgstr "O tipo da Assinatura Digital Não é Compatível"
 
 #. TRANSLATORS: Digital Signature Wait
 msgid "document-state-reasons.digital-signature-wait"
-msgstr "Está aguardando a assinatura digital"
+msgstr "Está Aguardando a Assinatura Digital"
 
 #. TRANSLATORS: Document Access Error
 msgid "document-state-reasons.document-access-error"
-msgstr "Ocorreu um erro de acesso ao documento"
+msgstr "Ocorreu um Erro de Acesso ao Documento"
 
 #. TRANSLATORS: Document Fetchable
 msgid "document-state-reasons.document-fetchable"
-msgstr "O documento que pode ser localizado"
+msgstr "O Documento Pode Ser Localizado"
 
 #. TRANSLATORS: Document Format Error
 msgid "document-state-reasons.document-format-error"
-msgstr "Ocorreu um erro no formato do documento"
+msgstr "Ocorreu um Erro no Formato do Documento"
 
 #. TRANSLATORS: Document Password Error
 msgid "document-state-reasons.document-password-error"
-msgstr "Ocorreu um erro na senha do documento"
+msgstr "Ocorreu um Erro na Senha do Documento"
 
 #. TRANSLATORS: Document Permission Error
 msgid "document-state-reasons.document-permission-error"
-msgstr "Ocorreu um erro na permissão do documento"
+msgstr "Ocorreu um Erro na Permissão do Documento"
 
 #. TRANSLATORS: Document Security Error
 msgid "document-state-reasons.document-security-error"
-msgstr "Ocorreu um erro de segurança no documento"
+msgstr "Ocorreu um Erro de Segurança no Documento"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "document-state-reasons.document-unprintable-error"
-msgstr "Ocorreu um erro no documentodo"
+msgstr "Ocorreu um Erro no Documento"
 
 #. TRANSLATORS: Errors Detected
 msgid "document-state-reasons.errors-detected"
-msgstr "Alguns erros foram detectados"
+msgstr "Alguns Erros Foram Detectados"
 
 #. TRANSLATORS: Incoming
 msgid "document-state-reasons.incoming"
@@ -6874,7 +6874,7 @@ msgstr "Está Entrando"
 
 #. TRANSLATORS: Interpreting
 msgid "document-state-reasons.interpreting"
-msgstr "Interpretando"
+msgstr "Está Interpretando"
 
 #. TRANSLATORS: None
 msgid "document-state-reasons.none"
@@ -6882,11 +6882,11 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Outgoing
 msgid "document-state-reasons.outgoing"
-msgstr "Saindo"
+msgstr "Está Saindo"
 
 #. TRANSLATORS: Printing
 msgid "document-state-reasons.printing"
-msgstr "Imprimindo"
+msgstr "Está Imprimindo"
 
 #. TRANSLATORS: Processing To Stop Point
 msgid "document-state-reasons.processing-to-stop-point"
@@ -6902,31 +6902,31 @@ msgstr "O Documento Selecionado Está na Fila"
 
 #. TRANSLATORS: Queued In Device
 msgid "document-state-reasons.queued-in-device"
-msgstr "Está na fila de impressão"
+msgstr "Está na Fila de Impressão"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "document-state-reasons.resources-are-not-ready"
-msgstr "Os recursos não estão prontos"
+msgstr "Os Recursos Não Estão Prontos"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "document-state-reasons.resources-are-not-supported"
-msgstr "Os recursos não são compatíveis"
+msgstr "Os Recursos Não São Compatíveis"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "document-state-reasons.submission-interrupted"
-msgstr "O envio foi interrompido"
+msgstr "O Envio Foi Interrompido"
 
 #. TRANSLATORS: Transforming
 msgid "document-state-reasons.transforming"
-msgstr "Transformando"
+msgstr "Está Transformando"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "document-state-reasons.unsupported-compression"
-msgstr "A compactação não é compatívelcompression"
+msgstr "A Compactação Não é Compatível"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "document-state-reasons.unsupported-document-format"
-msgstr "O formato do documento não é compatível"
+msgstr "O Formato do Documento Não é Compatível"
 
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
