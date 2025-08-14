@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-08-12 15:01+0000\n"
+"PO-Revision-Date: 2025-08-15 17:02+0000\n"
 "Last-Translator: Thorsten Alteholz <s202508-wl@alteholz.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
 "Language: de\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(alle)"
@@ -2720,16 +2720,16 @@ msgid "3.00x3.00\""
 msgstr "3,00×3,00 inch"
 
 msgid "3.00x4.00\""
-msgstr ""
+msgstr "3.00x4.00\""
 
 msgid "3.00x5.00\""
 msgstr "3,00×5,00 inch"
 
 msgid "3.00x6.00\""
-msgstr ""
+msgstr "3.00x6.00\""
 
 msgid "3.00x8.00\""
-msgstr ""
+msgstr "3.00x8.00\""
 
 msgid "3.25x2.00\""
 msgstr "3,25×2,00 inch"
@@ -2813,7 +2813,7 @@ msgid "4.00x6.50\""
 msgstr "4,00×6,50 inch"
 
 msgid "4.00x8.00\""
-msgstr ""
+msgstr "4.00x8.00\""
 
 msgid "40"
 msgstr "40"
@@ -2867,7 +2867,7 @@ msgid "6.00x6.50\""
 msgstr "6,00×6,50 inch"
 
 msgid "6.00x8.00\""
-msgstr ""
+msgstr "6.00x8.00\""
 
 msgid "60"
 msgstr "60"
@@ -2933,7 +2933,7 @@ msgid "8.00x6.50\""
 msgstr "8,00×6,50 inch"
 
 msgid "8.26x1.00\""
-msgstr ""
+msgstr "8.26x1.00\""
 
 msgid "80"
 msgstr "80"
@@ -3239,7 +3239,7 @@ msgid "Bad document-format-default \"%s\"."
 msgstr "Ungültiges voreingestelltes Dokumentenformat \"%s\"."
 
 msgid "Bad extKeyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "Falsche  extKeyUsage Erweiterung in der X.509 Zertifikatsanforderung."
 
 msgid "Bad filename buffer"
 msgstr "Ungültiger Dateinamenpuffer"
@@ -3272,7 +3272,7 @@ msgid "Bad job-uri \"%s\"."
 msgstr "Ungültige Auftrags-URI\"%s\"."
 
 msgid "Bad keyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "Falsche keyUsage Erweiterung der der X.509 Zertifikatsanforderung."
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3326,7 +3326,7 @@ msgid "Bad scheme in URI"
 msgstr "Ungültiges Schema in URI"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
-msgstr ""
+msgstr "Falsche subjectAltName Erweiterung in der X.509 Zertifikatsanforderung."
 
 msgid "Bad username in URI"
 msgstr "Ungültiger Benutzername in URI"
@@ -3900,6 +3900,8 @@ msgstr "Hilfedatei nicht im Index."
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
+"Eine IP-Adresse ist nicht als Name des Rechners erlaubt, wenn etwas "
+"ausgehandelt wird - besser den FQDN nutzen."
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "IPP 1setOf Attribut mit inkompatiblen Werte-Markierung."
@@ -3990,7 +3992,7 @@ msgid "IPPFIND_SERVICE_PORT    Port number"
 msgstr "IPPFIND_SERVICE_PORT    Portnummer"
 
 msgid "IPPFIND_SERVICE_REGTYPE DNS-SD registration type"
-msgstr ""
+msgstr "IPPFIND_SERVICE_REGTYPE Registrierung vom Typ DNS-SD"
 
 msgid "IPPFIND_SERVICE_SCHEME  URI scheme"
 msgstr "IPPFIND_SERVICE_SCHEME  URI Schema"
