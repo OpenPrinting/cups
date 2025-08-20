@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-08-15 17:02+0000\n"
+"PO-Revision-Date: 2025-08-21 12:01+0000\n"
 "Last-Translator: Thorsten Alteholz <s202508-wl@alteholz.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
 "Language: de\n"
@@ -5995,7 +5995,7 @@ msgstr "Kein"
 
 #. TRANSLATORS: Cover Output
 msgid "covering"
-msgstr ""
+msgstr "bedeckend"
 
 #. TRANSLATORS: Add Cover
 msgid "covering-name"
@@ -6024,6 +6024,8 @@ msgstr "„cups-driverd“ konnte nicht ausgeführt werden."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
 msgstr ""
+"cups-driverd konnte PPD file nicht öffnen - weitere Information befinden "
+"sich im error_log."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
 msgstr "cups-oauth: Fehlende Autorisierungsserver-URI nach ‚-a‘."
@@ -6141,27 +6143,28 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr ""
+msgstr "cups-x509: Verbindung kann nicht angenommen werden: %s"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
-msgstr ""
+msgstr "cups-x509: Kein Zugriff auf '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to allocate memory for '%s': %s"
 msgstr ""
+"cups-x509: Es kann nicht genügend Speicher für '%s': %s zugewiesen werden"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
-msgstr ""
+msgstr "cups-x509: keine Verbindung zu '%s' auf Port %d möglich: %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr ""
+msgstr "cups-x509: Zertificat (%s) kann nicht erzeugt werden"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr ""
+msgstr "cups-x509: Zertifikatsanforderung (%s) kann nicht erzeugt werden"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
