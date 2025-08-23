@@ -2152,6 +2152,11 @@ _ppdCacheDestroy(_ppd_cache_t *pc)	/* I - PPD cache and mapping data */
   free(pc->charge_info_uri);
   free(pc->password);
 
+  free(pc->sides_option);
+  free(pc->sides_1sided);
+  free(pc->sides_2sided_long);
+  free(pc->sides_2sided_short);
+
   cupsArrayDelete(pc->mandatory);
 
   cupsArrayDelete(pc->support_files);
