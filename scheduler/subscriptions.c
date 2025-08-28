@@ -427,7 +427,7 @@ cupsdDeleteAllSubscriptions(void)
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
        sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
-    cupsdDeleteSubscription(sub, 0);
+    cupsdDeleteSubscription(sub, -1);
 
   cupsArrayDelete(Subscriptions);
   Subscriptions = NULL;
@@ -443,7 +443,7 @@ cupsdDeleteAllSubscriptions(void)
 void
 cupsdDeleteSubscription(
     cupsd_subscription_t *sub,		/* I - Subscription object */
-    int			 update)	/* I - 1 = update subscriptions.conf */
+    int			 update)	/* I - 1 = update subscriptions.conf, 0 = don't update, -1 = don't update and don't lock */
 {
  /*
   * Close the pipe to the notifier as needed...
@@ -456,11 +456,13 @@ cupsdDeleteSubscription(
   * Remove subscription from array...
   */
 
-  cupsRWLockWrite(&SubscriptionsLock);
+  if (update >= 0)
+    cupsRWLockWrite(&SubscriptionsLock);
 
   cupsArrayRemove(Subscriptions, sub);
 
-  cupsRWUnlock(&SubscriptionsLock);
+  if (update >= 0)
+    cupsRWUnlock(&SubscriptionsLock);
 
  /*
   * Free memory...
@@ -479,7 +481,7 @@ cupsdDeleteSubscription(
   * Update the subscriptions as needed...
   */
 
-  if (update)
+  if (update > 0)
     cupsdMarkDirty(CUPSD_DIRTY_SUBSCRIPTIONS);
 }
 
@@ -652,9 +654,12 @@ cupsdExpireSubscriptions(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "Expiring subscriptions...");
 
+  cupsRWLockWrite(&SubscriptionsLock);
+
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
        sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
+  {
     if ((!sub->job && !dest && sub->expire && sub->expire <= curtime) ||
 	(dest && sub->dest == dest) ||
 	(job && sub->job == job))
@@ -662,10 +667,13 @@ cupsdExpireSubscriptions(
       cupsdLogMessage(CUPSD_LOG_INFO, "Subscription %d has expired...",
 		      sub->id);
 
-      cupsdDeleteSubscription(sub, 0);
+      cupsdDeleteSubscription(sub, -1);
 
       update = 1;
     }
+  }
+
+  cupsRWUnlock(&SubscriptionsLock);
 
   if (update)
     cupsdMarkDirty(CUPSD_DIRTY_SUBSCRIPTIONS);
