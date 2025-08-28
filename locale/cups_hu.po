@@ -7174,7 +7174,7 @@ msgstr ""
 
 #: cups/ppd.c:2015
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: scheduler/client.c:2026
 msgid "You cannot access this page."
