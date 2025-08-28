@@ -13,13 +13,10 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cups-private.h"
 #include "ppd-private.h"
 #include <cups/dir.h>
+#include "test-internal.h"
 
 
 /*
@@ -140,9 +137,6 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       cupsDirClose(dir);
     }
-
-    if (!errors)
-      puts("ALL TESTS PASSED");
   }
 
   return (errors > 0);
@@ -227,79 +221,83 @@ test_language(const char *lang)		/* I - Locale language code, NULL for default *
   if (lang)
   {
     // Test the specified locale code...
+    testMessage("Testing language/locale \"%s\"...", lang);
+
     setenv("LANG", lang, 1);
     setenv("SOFTWARE", "CUPS/" CUPS_SVERSION, 1);
 
-    printf("cupsLangGet(\"%s\"): ", lang);
+    testBegin("cupsLangGet(\"%s\")", lang);
     if ((language = cupsLangGet(lang)) == NULL)
     {
-      puts("FAIL");
+      testEnd(false);
       errors ++;
     }
     else if (strcasecmp(language->language, lang))
     {
-      printf("FAIL (got \"%s\")\n", language->language);
+      testEndMessage(false, "got \"%s\"", language->language);
       errors ++;
     }
     else
-      puts("PASS");
+      testEnd(true);
 
     printf("cupsLangGet(\"%s\") again: ", lang);
     if ((language2 = cupsLangGet(lang)) == NULL)
     {
-      puts("FAIL");
+      testEnd(false);
       errors ++;
     }
     else if (strcasecmp(language2->language, lang))
     {
-      printf("FAIL (got \"%s\")\n", language2->language);
+      testEndMessage(false, "got \"%s\"", language2->language);
       errors ++;
     }
     else if (language2 != language)
     {
-      puts("FAIL (cache failure)");
+      testEndMessage(false, "cache failure");
       errors ++;
     }
     else
-      puts("PASS");
+      testEnd(true);
   }
   else
   {
     // Test the default locale...
-    fputs("cupsLangDefault: ", stdout);
+    testMessage("Testing default language/locale...");
+
+    testBegin("cupsLangDefault");
     if ((language = cupsLangDefault()) == NULL)
     {
-      puts("FAIL");
+      testEnd(false);
       errors ++;
     }
     else
-      puts("PASS");
+      testEnd(true);
 
-    fputs("cupsLangDefault again: ", stdout);
+    testBegin("cupsLangDefault again");
     if ((language2 = cupsLangDefault()) == NULL)
     {
-      puts("FAIL");
+      testEnd(false);
       errors ++;
     }
     else if (language2 != language)
     {
-      puts("FAIL (cache failure)");
+      testEndMessage(false, "cache failure");
       errors ++;
     }
     else
-      puts("PASS");
+      testEnd(true);
   }
 
-  printf("language->language: \"%s\"\n", language ? language->language : NULL);
-  printf("_cupsEncodingName(language): \"%s\"\n", language ? _cupsEncodingName(language->encoding) : NULL);
+  testMessage("language->language: \"%s\"", language ? language->language : NULL);
+  testMessage("_cupsEncodingName(language): \"%s\"", language ? _cupsEncodingName(language->encoding) : NULL);
 
   errors += test_string(language, "No");
   errors += test_string(language, "Yes");
 
   if (language != language2)
   {
-    printf("language2->language: \"%s\"\n", language2 ? language2->language : NULL);
-    printf("_cupsEncodingName(language2): \"%s\"\n", language2 ? _cupsEncodingName(language2->encoding) : NULL);
+    testMessage("language2->language: \"%s\"", language2 ? language2->language : NULL);
+    testMessage("_cupsEncodingName(language2): \"%s\"", language2 ? _cupsEncodingName(language2->encoding) : NULL);
   }
 
   loc = localeconv();
@@ -308,19 +306,19 @@ test_language(const char *lang)		/* I - Locale language code, NULL for default *
   {
     number = _cupsStrScand(tests[i], NULL, loc);
 
-    printf("_cupsStrScand(\"%s\"): %f\n", tests[i], number);
+    testMessage("_cupsStrScand(\"%s\"): %f", tests[i], number);
 
     _cupsStrFormatd(buffer, buffer + sizeof(buffer), number, loc);
 
-    printf("_cupsStrFormatd(%f): ", number);
+    testBegin("_cupsStrFormatd(%f)", number);
 
     if (strcmp(buffer, tests[i]))
     {
       errors ++;
-      printf("FAIL (got \"%s\")\n", buffer);
+      testEndMessage(false, "got \"%s\"", buffer);
     }
     else
-      puts("PASS");
+      testEnd(true);
   }
 
   return (errors);
@@ -348,20 +346,20 @@ test_string(cups_lang_t *language,	/* I - Language */
   if (!language)
     return (1);
 
-  printf("_cupsLangString(\"%s\"): ", msgid);
+  testBegin("_cupsLangString(\"%s\")", msgid);
   msgstr = _cupsLangString(language, msgid);
   if (strcmp(language->language, "C") && msgid == msgstr)
   {
-    puts("FAIL (no message catalog loaded)");
+    testEndMessage(false, "no message catalog loaded");
     return (1);
   }
   else if (!strcmp(language->language, "C") && msgid != msgstr)
   {
-    puts("FAIL (POSIX locale is localized)");
+    testEndMessage(false, "POSIX locale is localized");
     return (1);
   }
 
-  printf("PASS (\"%s\")\n", msgstr);
+  testEndMessage(true, "\"%s\"", msgstr);
 
   return (0);
 }

@@ -248,23 +248,23 @@ libs:		$(LIBTARGETS)
 test:		unittests
 	echo "Tests started at $$(date)..." >test.log
 	echo Running array API tests...
-	./testarray >>test.log
+	./testarray 2>>test.log
 	echo Running clock API tests...
-	./testclock >>test.log
+	./testclock 2>>test.log
 	echo Running file API tests...
-	./testfile >>test.log
+	./testfile 2>>test.log
 	echo Running form API tests...
-	./testform >>test.log
+	./testform 2>>test.log
 	echo Running HTTP API tests...
-	./testhttp >>test.log
+	./testhttp 2>>test.log
 	echo Running IPP API tests...
-	./testipp >>test.log
+	./testipp 2>>test.log
 	echo Running internationalization API tests...
-	./testi18n >>test.log
+	./testi18n 2>>test.log
 	echo Running JSON API tests...
-	./testjson >>test.log
+	./testjson 2>>test.log
 	echo Running JWT API tests...
-	./testjwt >>test.log
+	./testjwt 2>>test.log
 	echo Creating locale directory structure...
 	$(RM) -r locale
 	for po in ../locale/cups_*.po; do \
@@ -273,21 +273,22 @@ test:		unittests
 		$(LN) ../../$$po locale/$$lang; \
 	done
 	echo Running language API tests...
+	echo Running language API tests... >>test.log
 	echo ls -al locale >>test.log
 	ls -al locale >>test.log
-	LOCALEDIR=locale ./testlang >>test.log
+	LOCALEDIR=locale ./testlang 2>>test.log
 	echo Running option API tests...
-	./testoptions >>test.log
+	./testoptions 2>>test.log
 	echo Running PPD API tests...
-	./testppd >>test.log
+	./testppd 2>>test.log
 	echo Running PWG API tests...
-	./testpwg test.ppd >>test.log
+	./testpwg test.ppd 2>>test.log
 	echo Running raster API tests...
-	./testraster >>test.log
+	./testraster 2>>test.log
 #	echo Running raster testpage API tests...
-#	./testtestpage >>test.log
+#	./testtestpage 2>>test.log
 #	echo Fuzzing IPP API...
-#	./fuzzipp >>test.log
+#	./fuzzipp 2>>test.log
 	echo "Tests finished at $$(date)..." >>test.log
 
 
@@ -313,7 +314,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' | grep -e '^  \\$$' -v >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' -e '1,$$s/..\/cups\///g' | grep -e '^  \\$$' -v >Dependencies
 
 
 #
