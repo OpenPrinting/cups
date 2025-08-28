@@ -5503,7 +5503,7 @@ msgstr ""
 
 #: cups/ppd.c:2017
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: cups/http-support.c:1349
 msgid "No Content"
