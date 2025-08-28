@@ -32,7 +32,7 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || cat test/error_log*
+      run: make test || (cat cups/test.log; test -f test/error_log && cat test/error_log*)
 
   build-linux-i386:
 
@@ -57,7 +57,7 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || cat test/error_log*
+      run: make test || (cat cups/test.log; test -f test/error_log && cat test/error_log*)
 
   build-macos:
 
@@ -75,7 +75,7 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || cat test/error_log*
+      run: make test || (cat cups/test.log; test -f test/error_log && cat test/error_log*)
 
   build-windows:
 
