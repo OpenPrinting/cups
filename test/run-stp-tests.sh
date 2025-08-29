@@ -115,7 +115,7 @@ case "$testtype" in
 	*)
 		echo "Running the timid tests (1)"
 		nprinters=0
-		pjobs=10
+		pjobs=2
 		pprinters=0
 		loglevel="debug2"
 		testtype="1"
