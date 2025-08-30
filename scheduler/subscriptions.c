@@ -419,18 +419,22 @@ cupsdDeleteAllSubscriptions(void)
   cupsd_subscription_t	*sub;		/* Subscription */
 
 
-  if (!Subscriptions)
-    return;
-
   cupsRWLockWrite(&SubscriptionsLock);
+
+  if (!Subscriptions)
+    goto done;
 
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
        sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
+  {
     cupsdDeleteSubscription(sub, -1);
+  }
 
   cupsArrayDelete(Subscriptions);
   Subscriptions = NULL;
+
+  done:
 
   cupsRWUnlock(&SubscriptionsLock);
 }
@@ -642,19 +646,18 @@ cupsdExpireSubscriptions(
     cupsd_job_t	    *job)		/* I - Job, if any */
 {
   cupsd_subscription_t	*sub;		/* Current subscription */
-  int			update;		/* Update subscriptions.conf? */
+  int			update = 0;	/* Update subscriptions.conf? */
   time_t		curtime;	/* Current time */
 
 
+  cupsRWLockWrite(&SubscriptionsLock);
+
   if (cupsArrayCount(Subscriptions) == 0)
-    return;
+    goto done;
 
   curtime = time(NULL);
-  update  = 0;
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "Expiring subscriptions...");
-
-  cupsRWLockWrite(&SubscriptionsLock);
 
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
@@ -672,6 +675,8 @@ cupsdExpireSubscriptions(
       update = 1;
     }
   }
+
+  done:
 
   cupsRWUnlock(&SubscriptionsLock);
 
@@ -1207,9 +1212,12 @@ cupsdStopAllNotifiers(void)
   * Yes, kill any processes that are left...
   */
 
+  cupsRWLockWrite(&SubscriptionsLock);
+
   for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
        sub;
        sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
+  {
     if (sub->pid)
     {
       cupsdEndProcess(sub->pid, 0);
@@ -1217,6 +1225,9 @@ cupsdStopAllNotifiers(void)
       close(sub->pipe);
       sub->pipe = -1;
     }
+  }
+
+  cupsRWUnlock(&SubscriptionsLock);
 
  /*
   * Close the status pipes...
@@ -1387,7 +1398,7 @@ cupsd_send_notification(
       cupsdLogMessage(CUPSD_LOG_CRIT,
 		      "Unable to allocate memory for subscription #%d!",
 		      sub->id);
-      return;
+      goto done;
     }
   }
 
@@ -1474,6 +1485,8 @@ cupsd_send_notification(
   */
 
   sub->next_event_id ++;
+
+  done:
 
   cupsRWUnlock(&sub->lock);
 }

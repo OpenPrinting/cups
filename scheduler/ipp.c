@@ -3506,12 +3506,17 @@ static int				/* O - 1 if OK, 0 if not */
 check_rss_recipient(
     const char *recipient)		/* I - Recipient URI */
 {
+  int			i,		/* Looping var */
+			scount;		/* Number of subscriptions */
   cupsd_subscription_t	*sub;		/* Current subscription */
 
 
-  for (sub = (cupsd_subscription_t *)cupsArrayFirst(Subscriptions);
-       sub;
-       sub = (cupsd_subscription_t *)cupsArrayNext(Subscriptions))
+  cupsRWLockRead(&SubscriptionsLock);
+
+  for (i = 0, scount = cupsArrayGetCount(Subscriptions); i < scount; i ++)
+  {
+    sub = (cupsd_subscription_t *)cupsArrayGetElement(Subscriptions, i);
+
     if (sub->recipient)
     {
      /*
@@ -3527,6 +3532,9 @@ check_rss_recipient(
       if (*r1 == *r2)
         return (0);
     }
+  }
+
+  cupsRWUnlock(&SubscriptionsLock);
 
   return (1);
 }
@@ -9211,14 +9219,14 @@ renew_subscription(
 
   sub->expire = sub->lease ? time(NULL) + sub->lease : 0;
 
-  cupsRWUnlock(&sub->lock);
-
   cupsdMarkDirty(CUPSD_DIRTY_SUBSCRIPTIONS);
 
   con->response->request.status.status_code = IPP_STATUS_OK;
 
   ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
                 "notify-lease-duration", sub->lease);
+
+  cupsRWUnlock(&sub->lock);
 }
 
 
