@@ -1,15 +1,11 @@
 /*
  * LIBUSB interface code for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include <libusb.h>
@@ -133,6 +129,7 @@ static usb_printer_t	*find_device(usb_cb_t cb, const void *data);
 static unsigned		find_quirks(int vendor_id, int product_id);
 static int		get_device_id(usb_printer_t *printer, char *buffer,
 			              size_t bufsize);
+static void		get_serial_number(usb_printer_t *printer, uint8_t desc_index, char *buffer, size_t bufsize);
 static int		list_cb(usb_printer_t *printer, const char *device_uri,
 			        const char *device_id, const void *data);
 static void		load_quirks(void);
@@ -1106,6 +1103,116 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
 
 
 /*
+ * 'get_serial_number()' - Get the USB device serial number.
+ *
+ * This function is necessary because some vendors (DYMO, others) don't know
+ * how to implement USB correctly and having a unique serial number is necessary
+ * to support connecting more than one USB printer of the same make and model.
+ *
+ * The first bit of this code duplicates the strategy employed by
+ * `libusb_get_string_descriptor_ascii()` - get the list of supported language
+ * IDs and use the first (and usually only) language ID (almost always US
+ * English or 0x0409) to get the specified iSerialNumber string descriptor as
+ * a series of 16-bit UCS-2 Little Endian characters - this word order is
+ * mandated in section 8.1 of the USB 2.0 specification.  The libusb function
+ * then copies the string, replacing any characters greater than 127 with '?'
+ * and happily embedding any non-printable ASCII characters such as NULs.
+ *
+ * In the case of DYMO printers, the iSerialNumber string consists of the
+ * U+3030 ("Wavy Dash") character followed by the ASCII serial number digits
+ * as 16-bit *Big Endian* characters.  Acknowledging that USB implementors have
+ * proven capable of making lots of mistakes like this, this function takes a
+ * more pragmatic approach and converts serial number descriptors to hexadecimal
+ * if they don't contain purely printable US ASCII characters.  This preserves
+ * backwards compatibility with conforming printers while allowing non-
+ * conforming printers to work reliably for the first time.
+ *
+ * If we are not able to get a serial number at all (`desc_index` is 0 or the
+ * other calls fail), then we fall back on using the configuration and interface
+ * indices from libusb, as before.
+ *
+ * (This code adapted with permission from PAPPL project)
+ */
+
+static void
+get_serial_number(
+    usb_printer_t *printer,		/* I - Printer */
+    uint8_t       desc_index,		/* I - Serial number descriptor index */
+    char          *buffer,		/* I - String buffer */
+    size_t        bufsize)		/* I - Number of bytes in buffer */
+{
+  uint8_t	langbuf[4];		// Language code buffer
+  uint16_t	langid;			// Language code/ID
+  uint8_t	snbuf[256];		// Raw serial number buffer
+  int		snlen;			// Length of response
+  uint16_t	snchar;			// Character from raw serial number buffer
+  int		i;			// Looping var
+  char		*bufptr,		// Pointer into string buffer
+		*bufend;		// End of string buffer
+
+
+  // If there is no serial number string, fallback...
+  if (!desc_index)
+    goto fallback;
+
+  // Get the first supported language code...
+  if (libusb_get_string_descriptor(printer->handle, 0, 0, langbuf, sizeof(langbuf)) < 4)
+    goto fallback;			// Didn't get 4 bytes
+  else if (langbuf[0] < 4 || (langbuf[0] & 1))
+    goto fallback;			// Bad length
+  else if (langbuf[1] != LIBUSB_DT_STRING)
+    goto fallback;			// Not a string
+
+  langid = langbuf[2] | (langbuf[3] << 8);
+
+  // Then try to get the serial number string...
+  if ((snlen = libusb_get_string_descriptor(printer->handle, desc_index, langid, snbuf, sizeof(snbuf))) < 10)
+    goto fallback;			// Didn't get at least 10 bytes
+  else if (snbuf[0] != snlen || (snbuf[0] & 1))
+    goto fallback;			// Bad length
+  else if (snbuf[1] != LIBUSB_DT_STRING)
+    goto fallback;			// Not a string
+
+  // Loop through the string to determine whether it is valid...
+  for (i = 2, bufptr = buffer, bufend = buffer + bufsize - 1; i < snlen && bufptr < bufend; i += 2)
+  {
+    // Get the current UCS-2 character...
+    snchar = snbuf[i] | (snbuf[i + 1] << 8);
+
+    // Abort if not printable ASCII...
+    if (snchar < 0x20 || snchar >= 0x7f)
+      break;
+
+    // Otherwise copy...
+    *bufptr++ = (char)snchar;
+  }
+
+  if (i >= snlen)
+  {
+    // Got a good string, return it...
+    *bufptr = '\0';
+    return;
+  }
+
+  // Convert string to HEX...
+  for (i = 2, bufptr = buffer, bufend = buffer + bufsize - 1; i < snlen && bufptr < bufend; i ++, bufptr += 2)
+  {
+    snprintf(bufptr, (size_t)(bufend - bufptr + 1), "%02X", snbuf[i]);
+  }
+
+  if (i >= snlen)
+    return;				// Converted all bytes to HEX...
+
+
+  // If we get here then we were not able to get a serial number string at all
+  // and have to hope that the bus and interface indices will be enough...
+  fallback:
+
+  snprintf(buffer, bufsize, "%d.%d", printer->conf, printer->iface);
+}
+
+
+/*
  * 'list_cb()' - List USB printers for discovery.
  */
 
@@ -1254,17 +1361,15 @@ make_device_uri(
 {
   struct libusb_device_descriptor devdesc;
                                         /* Current device descriptor */
-  char		options[1024];		/* Device URI options */
   int		num_values;		/* Number of 1284 parameters */
   cups_option_t	*values;		/* 1284 parameters */
   const char	*mfg,			/* Manufacturer */
 		*mdl,			/* Model */
-		*des = NULL,		/* Description */
-		*sern = NULL;		/* Serial number */
+		*des = NULL;		/* Description */
   size_t	mfglen;			/* Length of manufacturer string */
   char		tempmdl[256],		/* Temporary model string */
 		tempmfg[256],		/* Temporary manufacturer string */
-		tempsern[256],		/* Temporary serial number string */
+		sern[256],		/* Serial number string */
 		*tempptr;		/* Pointer into temp string */
 
 
@@ -1276,33 +1381,8 @@ make_device_uri(
 
   memset(&devdesc, 0, sizeof(devdesc));
 
-  if (libusb_get_device_descriptor(printer->device, &devdesc) >= 0 && devdesc.iSerialNumber)
-  {
-    // Try getting the serial number from the device itself...
-    int length = libusb_get_string_descriptor_ascii(printer->handle, devdesc.iSerialNumber, (unsigned char *)tempsern, sizeof(tempsern) - 1);
-    if (length > 0)
-    {
-      tempsern[length] = '\0';
-      sern             = tempsern;
-
-      fprintf(stderr, "DEBUG2: iSerialNumber=\"%s\"\n", tempsern);
-    }
-    else
-      fputs("DEBUG2: iSerialNumber could not be read.\n", stderr);
-  }
-  else
-    fputs("DEBUG2: iSerialNumber is not present.\n", stderr);
-
-#if 0
-  if (!sern)
-  {
-    // Fall back on serial number from IEEE-1284 device ID, which on some
-    // printers (Issue #170) is a bogus hardcoded number.
-    if ((sern = cupsGetOption("SERIALNUMBER", num_values, values)) == NULL)
-      if ((sern = cupsGetOption("SERN", num_values, values)) == NULL)
-	sern = cupsGetOption("SN", num_values, values);
-  }
-#endif // 0
+  libusb_get_device_descriptor(printer->device, &devdesc);
+  get_serial_number(printer, devdesc.iSerialNumber, sern, sizeof(sern));
 
   if ((mfg = cupsGetOption("MANUFACTURER", num_values, values)) == NULL)
   {
@@ -1390,21 +1470,12 @@ make_device_uri(
   * and interface number...
   */
 
-  if (sern)
-  {
-    if (printer->iface > 0)
-      snprintf(options, sizeof(options), "?serial=%s&interface=%d", sern,
-               printer->iface);
-    else
-      snprintf(options, sizeof(options), "?serial=%s", sern);
-  }
-  else if (printer->iface > 0)
-    snprintf(options, sizeof(options), "?interface=%d", printer->iface);
+  if (printer->iface > 0)
+    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, uri_size, "usb", NULL, mfg, 0,
+		   "/%s?serial=%s&interface=%d", mdl, sern, printer->iface);
   else
-    options[0] = '\0';
-
-  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, uri_size, "usb", NULL, mfg, 0,
-		   "/%s%s", mdl, options);
+    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, uri_size, "usb", NULL, mfg, 0,
+		   "/%s?serial=%s", mdl, sern);
 
   cupsFreeOptions(num_values, values);
 

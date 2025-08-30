@@ -23,6 +23,7 @@ Changes in CUPS v2.4.13 (YYYY-MM-DD)
 - Fixed scheduler freezing with zombie clients (Issue #1264)
 - Fixed support for the server name in the ErrorLog filename (Issue #1277)
 - Fixed job cleanup after daemon restart (Issue #1315)
+- Fixed handling of buggy DYMO USB printer serial numbers (Issue #1338)
 
 
 Changes in CUPS v2.4.12 (2025-04-08)
