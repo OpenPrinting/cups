@@ -378,11 +378,11 @@ do_get_metadata(const char *oauth_uri,	// I - Authorization Server URI
             }
             break;
       }
-
-      return (0);
     }
     else
     {
+      free(metadata);
+
       return (1);
     }
   }
@@ -391,6 +391,8 @@ do_get_metadata(const char *oauth_uri,	// I - Authorization Server URI
     puts(json);
     free(json);
   }
+
+  free(metadata);
 
   return (0);
 }
