@@ -1159,7 +1159,7 @@ get_serial_number(
     goto fallback;
 
   // Get the first supported language code...
-  if (libusb_get_string_descriptor(printer->device, 0, 0, langbuf, sizeof(langbuf)) < 4)
+  if (libusb_get_string_descriptor(printer->handle, 0, 0, langbuf, sizeof(langbuf)) < 4)
     goto fallback;			// Didn't get 4 bytes
   else if (langbuf[0] < 4 || (langbuf[0] & 1))
     goto fallback;			// Bad length
@@ -1169,7 +1169,7 @@ get_serial_number(
   langid = langbuf[2] | (langbuf[3] << 8);
 
   // Then try to get the serial number string...
-  if ((snlen = libusb_get_string_descriptor(printer->device, desc_index, langid, snbuf, sizeof(snbuf))) < 10)
+  if ((snlen = libusb_get_string_descriptor(printer->handle, desc_index, langid, snbuf, sizeof(snbuf))) < 10)
     goto fallback;			// Didn't get at least 10 bytes
   else if (snbuf[0] != snlen || (snbuf[0] & 1))
     goto fallback;			// Bad length
