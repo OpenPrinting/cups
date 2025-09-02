@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-04-03 11:01-0400\n"
-"PO-Revision-Date: 2025-07-15 10:01+0000\n"
+"PO-Revision-Date: 2025-09-03 11:01+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13.1-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -9200,7 +9200,7 @@ msgstr "Dorado"
 
 #. TRANSLATORS: Goldenrod
 msgid "media-color.goldenrod"
-msgstr ""
+msgstr "Vara dorada"
 
 #. TRANSLATORS: Gray
 msgid "media-color.gray"
@@ -9252,7 +9252,7 @@ msgstr "Verde claro"
 
 #. TRANSLATORS: Light Ivory
 msgid "media-color.light-ivory"
-msgstr ""
+msgstr "Marfil claro"
 
 #. TRANSLATORS: Light Magenta
 msgid "media-color.light-magenta"
@@ -10208,7 +10208,7 @@ msgstr "Papel perforado"
 
 #. TRANSLATORS: Tab Stock
 msgid "media-type.tab-stock"
-msgstr ""
+msgstr "Stock de pestañas"
 
 #. TRANSLATORS: Tractor
 msgid "media-type.tractor"
@@ -10764,7 +10764,7 @@ msgstr "Plegado en acordeón EUA"
 
 #. TRANSLATORS: Foolscap
 msgid "media.na_foolscap_8.5x13in"
-msgstr ""
+msgstr "Papel folio"
 
 #. TRANSLATORS: 8 x 13″
 msgid "media.na_govt-legal_8x13in"
@@ -11293,27 +11293,27 @@ msgstr "Izquierda-Derecha, Suelo-Cima"
 
 #. TRANSLATORS: Left-Right, Top-Bottom
 msgid "number-up-layout.lrtb"
-msgstr ""
+msgstr "Izquierda-Derecha, Arriba-Abajo"
 
 #. TRANSLATORS: Right-Left, Bottom-Top
 msgid "number-up-layout.rlbt"
-msgstr ""
+msgstr "Derecha-Izquierda, Abajo-Arriba"
 
 #. TRANSLATORS: Right-Left, Top-Bottom
 msgid "number-up-layout.rltb"
-msgstr ""
+msgstr "Derecha-Izquierda, Arriba-Abajo"
 
 #. TRANSLATORS: Top-Bottom, Left-Right
 msgid "number-up-layout.tblr"
-msgstr ""
+msgstr "Arriba-Abajo, Izquierda-Derecha"
 
 #. TRANSLATORS: Top-Bottom, Right-Left
 msgid "number-up-layout.tbrl"
-msgstr ""
+msgstr "Arriba-Abajo, Derecha-Izquierda"
 
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
-msgstr ""
+msgstr "Desplazamiento del objeto"
 
 #. TRANSLATORS: Object Size
 msgid "object-size"
@@ -11337,51 +11337,51 @@ msgstr "Paisaje"
 
 #. TRANSLATORS: Reverse Landscape
 msgid "orientation-requested.5"
-msgstr ""
+msgstr "Paisaje inverso"
 
 #. TRANSLATORS: Reverse Portrait
 msgid "orientation-requested.6"
-msgstr ""
+msgstr "Retrato inverso"
 
 #. TRANSLATORS: None
 msgid "orientation-requested.7"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Scanned Image Options
 msgid "output-attributes"
-msgstr ""
+msgstr "Opciones de imagen analizadas"
 
 #. TRANSLATORS: Output Tray
 msgid "output-bin"
-msgstr ""
+msgstr "Bandeja de salida"
 
 #. TRANSLATORS: Automatic
 msgid "output-bin.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Bottom
 msgid "output-bin.bottom"
-msgstr ""
+msgstr "Fondo"
 
 #. TRANSLATORS: Center
 msgid "output-bin.center"
-msgstr ""
+msgstr "Centro"
 
 #. TRANSLATORS: Face Down
 msgid "output-bin.face-down"
-msgstr ""
+msgstr "Boca abajo"
 
 #. TRANSLATORS: Face Up
 msgid "output-bin.face-up"
-msgstr ""
+msgstr "Boca arriba"
 
 #. TRANSLATORS: Large Capacity
 msgid "output-bin.large-capacity"
-msgstr ""
+msgstr "Capacidad Grande"
 
 #. TRANSLATORS: Left
 msgid "output-bin.left"
-msgstr ""
+msgstr "Izquierda"
 
 #. TRANSLATORS: Mailbox 1
 msgid "output-bin.mailbox-1"
@@ -11425,7 +11425,7 @@ msgstr "Buzón 9"
 
 #. TRANSLATORS: Middle
 msgid "output-bin.middle"
-msgstr ""
+msgstr "Mitad"
 
 #. TRANSLATORS: My Mailbox
 msgid "output-bin.my-mailbox"
@@ -11433,103 +11433,103 @@ msgstr "Mi Buzón"
 
 #. TRANSLATORS: Rear
 msgid "output-bin.rear"
-msgstr ""
+msgstr "Trasera"
 
 #. TRANSLATORS: Right
 msgid "output-bin.right"
-msgstr ""
+msgstr "Derecha"
 
 #. TRANSLATORS: Side
 msgid "output-bin.side"
-msgstr ""
+msgstr "Lateral"
 
 #. TRANSLATORS: Stacker 1
 msgid "output-bin.stacker-1"
-msgstr ""
+msgstr "Apilador 1"
 
 #. TRANSLATORS: Stacker 10
 msgid "output-bin.stacker-10"
-msgstr ""
+msgstr "Apilador 10"
 
 #. TRANSLATORS: Stacker 2
 msgid "output-bin.stacker-2"
-msgstr ""
+msgstr "Apilador 2"
 
 #. TRANSLATORS: Stacker 3
 msgid "output-bin.stacker-3"
-msgstr ""
+msgstr "Apilador 3"
 
 #. TRANSLATORS: Stacker 4
 msgid "output-bin.stacker-4"
-msgstr ""
+msgstr "Apilador 4"
 
 #. TRANSLATORS: Stacker 5
 msgid "output-bin.stacker-5"
-msgstr ""
+msgstr "Apilador 5"
 
 #. TRANSLATORS: Stacker 6
 msgid "output-bin.stacker-6"
-msgstr ""
+msgstr "Apilador 6"
 
 #. TRANSLATORS: Stacker 7
 msgid "output-bin.stacker-7"
-msgstr ""
+msgstr "Apilador 7"
 
 #. TRANSLATORS: Stacker 8
 msgid "output-bin.stacker-8"
-msgstr ""
+msgstr "Apilador 8"
 
 #. TRANSLATORS: Stacker 9
 msgid "output-bin.stacker-9"
-msgstr ""
+msgstr "Apilador 9"
 
 #. TRANSLATORS: Top
 msgid "output-bin.top"
-msgstr ""
+msgstr "Cima"
 
 #. TRANSLATORS: Tray 1
 msgid "output-bin.tray-1"
-msgstr ""
+msgstr "Bandeja 1"
 
 #. TRANSLATORS: Tray 10
 msgid "output-bin.tray-10"
-msgstr ""
+msgstr "Bandeja 10"
 
 #. TRANSLATORS: Tray 2
 msgid "output-bin.tray-2"
-msgstr ""
+msgstr "Bandeja 2"
 
 #. TRANSLATORS: Tray 3
 msgid "output-bin.tray-3"
-msgstr ""
+msgstr "Bandeja 3"
 
 #. TRANSLATORS: Tray 4
 msgid "output-bin.tray-4"
-msgstr ""
+msgstr "Bandeja 4"
 
 #. TRANSLATORS: Tray 5
 msgid "output-bin.tray-5"
-msgstr ""
+msgstr "Bandeja 5"
 
 #. TRANSLATORS: Tray 6
 msgid "output-bin.tray-6"
-msgstr ""
+msgstr "Bandeja 6"
 
 #. TRANSLATORS: Tray 7
 msgid "output-bin.tray-7"
-msgstr ""
+msgstr "Bandeja 7"
 
 #. TRANSLATORS: Tray 8
 msgid "output-bin.tray-8"
-msgstr ""
+msgstr "Bandeja 8"
 
 #. TRANSLATORS: Tray 9
 msgid "output-bin.tray-9"
-msgstr ""
+msgstr "Bandeja 9"
 
 #. TRANSLATORS: Scanned Image Quality
 msgid "output-compression-quality-factor"
-msgstr ""
+msgstr "Calidad de Imagen Analizada"
 
 #. TRANSLATORS: Page Border
 msgid "page-border"
@@ -11537,79 +11537,79 @@ msgstr "Borde de página"
 
 #. TRANSLATORS: Thin Double Border
 msgid "page-border.double"
-msgstr ""
+msgstr "Borde Doble Fino"
 
 #. TRANSLATORS: Thick Double Border
 msgid "page-border.double-thick"
-msgstr ""
+msgstr "Doble borde grueso"
 
 #. TRANSLATORS: No Border
 msgid "page-border.none"
-msgstr ""
+msgstr "Sin Borde"
 
 #. TRANSLATORS: Thin Single Border
 msgid "page-border.single"
-msgstr ""
+msgstr "Borde único delgado"
 
 #. TRANSLATORS: Thick Single Border
 msgid "page-border.single-thick"
-msgstr ""
+msgstr "Borde único grueso"
 
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
-msgstr ""
+msgstr "Entrega de página"
 
 #. TRANSLATORS: Reverse Order Face-down
 msgid "page-delivery.reverse-order-face-down"
-msgstr ""
+msgstr "Orden reverso de Cara-abajo"
 
 #. TRANSLATORS: Reverse Order Face-up
 msgid "page-delivery.reverse-order-face-up"
-msgstr ""
+msgstr "Orden inverso boca arriba"
 
 #. TRANSLATORS: Same Order Face-down
 msgid "page-delivery.same-order-face-down"
-msgstr ""
+msgstr "Mismo orden boca abajo"
 
 #. TRANSLATORS: Same Order Face-up
 msgid "page-delivery.same-order-face-up"
-msgstr ""
+msgstr "Mismo orden boca arriba"
 
 #. TRANSLATORS: System Specified
 msgid "page-delivery.system-specified"
-msgstr ""
+msgstr "Sistema Específico"
 
 #. TRANSLATORS: Page Order Received
 msgid "page-order-received"
-msgstr ""
+msgstr "Pedido de página recibido"
 
 #. TRANSLATORS: 1 To N
 msgid "page-order-received.1-to-n-order"
-msgstr ""
+msgstr "1 a N"
 
 #. TRANSLATORS: N To 1
 msgid "page-order-received.n-to-1-order"
-msgstr ""
+msgstr "N hasta 1"
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
-msgstr ""
+msgstr "Intervalos de página"
 
 #. TRANSLATORS: Page Set
 msgid "page-set"
-msgstr ""
+msgstr "Conjunto de páginas"
 
 #. TRANSLATORS: All Pages
 msgid "page-set.all"
-msgstr ""
+msgstr "Todas las páginas"
 
 #. TRANSLATORS: Even Pages
 msgid "page-set.even"
-msgstr ""
+msgstr "Páginas pares"
 
 #. TRANSLATORS: Odd Pages
 msgid "page-set.odd"
-msgstr ""
+msgstr "Páginas impares"
 
 #. TRANSLATORS: Pages
 msgid "pages"
@@ -11617,46 +11617,46 @@ msgstr "Páginas"
 
 #. TRANSLATORS: Pages Per Subset
 msgid "pages-per-subset"
-msgstr ""
+msgstr "Páginas Por Subconjunto"
 
 #. TRANSLATORS: Pclm Raster Back Side
 msgid "pclm-raster-back-side"
-msgstr ""
+msgstr "Parte posterior de la trama Pclm"
 
 #. TRANSLATORS: Flipped
 msgid "pclm-raster-back-side.flipped"
-msgstr ""
+msgstr "Volteado"
 
 #. TRANSLATORS: Normal
 msgid "pclm-raster-back-side.normal"
-msgstr ""
+msgstr "Usual"
 
 #. TRANSLATORS: Rotated
 msgid "pclm-raster-back-side.rotated"
-msgstr ""
+msgstr "Rotado"
 
 #. TRANSLATORS: Pclm Source Resolution
 msgid "pclm-source-resolution"
-msgstr ""
+msgstr "Resolución origen de PCLM"
 
 msgid "pending"
 msgstr "pendiente"
 
 #. TRANSLATORS: Platform Shape
 msgid "platform-shape"
-msgstr ""
+msgstr "Forma de plataforma"
 
 #. TRANSLATORS: Round
 msgid "platform-shape.ellipse"
-msgstr ""
+msgstr "Redondear"
 
 #. TRANSLATORS: Rectangle
 msgid "platform-shape.rectangle"
-msgstr ""
+msgstr "Rectángulo"
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
-msgstr ""
+msgstr "Temperatura de plataforma"
 
 #. TRANSLATORS: Image Position
 msgid "position"
@@ -11664,23 +11664,24 @@ msgstr "Posición de imagen"
 
 #. TRANSLATORS: Bottom-Center
 msgid "position.bottom"
-msgstr ""
+msgstr "Suelo en el centro"
 
 #. TRANSLATORS: Bottom-Left
 msgid "position.bottom-left"
-msgstr ""
+msgstr "Suelo izquierdo"
 
 #. TRANSLATORS: Bottom-Right
 msgid "position.bottom-right"
-msgstr ""
+msgstr "Suelo derecho"
 
 #. TRANSLATORS: Center
+#, fuzzy
 msgid "position.center"
-msgstr ""
+msgstr "Centro"
 
 #. TRANSLATORS: Left-Center
 msgid "position.left"
-msgstr ""
+msgstr "Izquierdo-Central"
 
 #. TRANSLATORS: Right-Center
 msgid "position.right"
@@ -11700,7 +11701,7 @@ msgstr "Cima Derecha"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
-msgstr ""
+msgstr "Cadena posterior al marcado"
 
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
@@ -12112,95 +12113,95 @@ msgstr "ppdmerge: No se ha podido hacer copia de respaldo de %s a %s - %s"
 
 #. TRANSLATORS: Pre-dial String
 msgid "pre-dial-string"
-msgstr ""
+msgstr "Cadena pre-marcado"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "presentation-direction-number-up"
-msgstr ""
+msgstr "Disposición de número ascendente"
 
 #. TRANSLATORS: Top-bottom, Right-left
 msgid "presentation-direction-number-up.tobottom-toleft"
-msgstr ""
+msgstr "Arriba-Abajo, Derecha-Izquierda"
 
 #. TRANSLATORS: Top-bottom, Left-right
 msgid "presentation-direction-number-up.tobottom-toright"
-msgstr ""
+msgstr "Cima-Pie, Izquierda-Derecha"
 
 #. TRANSLATORS: Right-left, Top-bottom
 msgid "presentation-direction-number-up.toleft-tobottom"
-msgstr ""
+msgstr "Derecha-izquierda, Cima-pie"
 
 #. TRANSLATORS: Right-left, Bottom-top
 msgid "presentation-direction-number-up.toleft-totop"
-msgstr ""
+msgstr "Derecha-izquierda, Pie-cima"
 
 #. TRANSLATORS: Left-right, Top-bottom
 msgid "presentation-direction-number-up.toright-tobottom"
-msgstr ""
+msgstr "Izquierda-derecha, cima-pie"
 
 #. TRANSLATORS: Left-right, Bottom-top
 msgid "presentation-direction-number-up.toright-totop"
-msgstr ""
+msgstr "izquierda-derecha, pie-cima"
 
 #. TRANSLATORS: Bottom-top, Right-left
 msgid "presentation-direction-number-up.totop-toleft"
-msgstr ""
+msgstr "Suelo-cima, Derecha-izquierda"
 
 #. TRANSLATORS: Bottom-top, Left-right
 msgid "presentation-direction-number-up.totop-toright"
-msgstr ""
+msgstr "Pie-cima, Izquierda-derecha"
 
 #. TRANSLATORS: Print Accuracy
 msgid "print-accuracy"
-msgstr ""
+msgstr "Precisión de impresión"
 
 #. TRANSLATORS: Print Base
 msgid "print-base"
-msgstr ""
+msgstr "Impresión base"
 
 #. TRANSLATORS: Print Base Actual
 msgid "print-base-actual"
-msgstr ""
+msgstr "Impresión base actual"
 
 #. TRANSLATORS: Brim
 msgid "print-base.brim"
-msgstr ""
+msgstr "Borde"
 
 #. TRANSLATORS: None
 msgid "print-base.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Raft
 msgid "print-base.raft"
-msgstr ""
+msgstr "Balsa"
 
 #. TRANSLATORS: Skirt
 msgid "print-base.skirt"
-msgstr ""
+msgstr "Falda"
 
 #. TRANSLATORS: Standard
 msgid "print-base.standard"
-msgstr ""
+msgstr "Estándar"
 
 #. TRANSLATORS: Print Color Mode
 msgid "print-color-mode"
-msgstr ""
+msgstr "Modo de color de impresión"
 
 #. TRANSLATORS: Automatic
 msgid "print-color-mode.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Auto Monochrome
 msgid "print-color-mode.auto-monochrome"
-msgstr ""
+msgstr "Auto Monocromo"
 
 #. TRANSLATORS: Text
 msgid "print-color-mode.bi-level"
-msgstr ""
+msgstr "Texto"
 
 #. TRANSLATORS: Color
 msgid "print-color-mode.color"
-msgstr ""
+msgstr "Color"
 
 #. TRANSLATORS: Highlight
 msgid "print-color-mode.highlight"
@@ -12224,43 +12225,43 @@ msgstr "Optimización de impresión"
 
 #. TRANSLATORS: Print Content Optimize Actual
 msgid "print-content-optimize-actual"
-msgstr ""
+msgstr "Imprimir contenido actual a optimizar"
 
 #. TRANSLATORS: Automatic
 msgid "print-content-optimize.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Graphics
 msgid "print-content-optimize.graphic"
-msgstr ""
+msgstr "Gráficos"
 
 #. TRANSLATORS: Graphics
 msgid "print-content-optimize.graphics"
-msgstr ""
+msgstr "Gráficos"
 
 #. TRANSLATORS: Photo
 msgid "print-content-optimize.photo"
-msgstr ""
+msgstr "Fotografía"
 
 #. TRANSLATORS: Text
 msgid "print-content-optimize.text"
-msgstr ""
+msgstr "Texto"
 
 #. TRANSLATORS: Text and Graphics
 msgid "print-content-optimize.text-and-graphic"
-msgstr ""
+msgstr "Texto y Gráficos"
 
 #. TRANSLATORS: Text And Graphics
 msgid "print-content-optimize.text-and-graphics"
-msgstr ""
+msgstr "Texto y Gráficos"
 
 #. TRANSLATORS: Print Objects
 msgid "print-objects"
-msgstr ""
+msgstr "Imprimir Objetos"
 
 #. TRANSLATORS: Print Quality
 msgid "print-quality"
-msgstr ""
+msgstr "Calidad de impresión"
 
 #. TRANSLATORS: Draft
 msgid "print-quality.3"
@@ -12276,55 +12277,55 @@ msgstr "Alta"
 
 #. TRANSLATORS: Print Rendering Intent
 msgid "print-rendering-intent"
-msgstr ""
+msgstr "Intención de Representación de Impresión"
 
 #. TRANSLATORS: Absolute
 msgid "print-rendering-intent.absolute"
-msgstr ""
+msgstr "Absoluto"
 
 #. TRANSLATORS: Automatic
 msgid "print-rendering-intent.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Perceptual
 msgid "print-rendering-intent.perceptual"
-msgstr ""
+msgstr "Perceptual"
 
 #. TRANSLATORS: Relative
 msgid "print-rendering-intent.relative"
-msgstr ""
+msgstr "Relativo"
 
 #. TRANSLATORS: Relative w/Black Point Compensation
 msgid "print-rendering-intent.relative-bpc"
-msgstr ""
+msgstr "Compensación relativa en punto blanco/negro"
 
 #. TRANSLATORS: Saturation
 msgid "print-rendering-intent.saturation"
-msgstr ""
+msgstr "Saturación"
 
 #. TRANSLATORS: Print Scaling
 msgid "print-scaling"
-msgstr ""
+msgstr "Escalado de impresión"
 
 #. TRANSLATORS: Automatic
 msgid "print-scaling.auto"
-msgstr ""
+msgstr "Automático"
 
 #. TRANSLATORS: Auto-fit
 msgid "print-scaling.auto-fit"
-msgstr ""
+msgstr "Ajuste automático"
 
 #. TRANSLATORS: Fill
 msgid "print-scaling.fill"
-msgstr ""
+msgstr "Rellenar"
 
 #. TRANSLATORS: Fit
 msgid "print-scaling.fit"
-msgstr ""
+msgstr "Ajustar"
 
 #. TRANSLATORS: None
 msgid "print-scaling.none"
-msgstr ""
+msgstr "Ninguno"
 
 #. TRANSLATORS: Print Supports
 msgid "print-supports"
@@ -12332,19 +12333,19 @@ msgstr "Asistencia de Impresora"
 
 #. TRANSLATORS: Print Supports Actual
 msgid "print-supports-actual"
-msgstr ""
+msgstr "Asistencia de Impresión Actual"
 
 #. TRANSLATORS: With Specified Material
 msgid "print-supports.material"
-msgstr ""
+msgstr "Con material especificado"
 
 #. TRANSLATORS: None
 msgid "print-supports.none"
-msgstr ""
+msgstr "Ninguna"
 
 #. TRANSLATORS: Standard
 msgid "print-supports.standard"
-msgstr ""
+msgstr "Estándar"
 
 #, c-format
 msgid "printer %s disabled since %s -"
@@ -12352,7 +12353,7 @@ msgstr "la impresora %s está deshabilitada desde %s -"
 
 #, c-format
 msgid "printer %s is holding new jobs.  enabled since %s"
-msgstr ""
+msgstr "impresora %s está manteniendo tareas nuevas.  Habilitado desde %s"
 
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
@@ -12376,63 +12377,63 @@ msgstr "la impresora %s/%s está ahora imprimiendo %s-%d.  activada desde %s"
 
 #. TRANSLATORS: Printer Kind
 msgid "printer-kind"
-msgstr ""
+msgstr "Familia de impresora"
 
 #. TRANSLATORS: Disc
 msgid "printer-kind.disc"
-msgstr ""
+msgstr "Disco"
 
 #. TRANSLATORS: Document
 msgid "printer-kind.document"
-msgstr ""
+msgstr "Documento"
 
 #. TRANSLATORS: Envelope
 msgid "printer-kind.envelope"
-msgstr ""
+msgstr "Sobre"
 
 #. TRANSLATORS: Label
 msgid "printer-kind.label"
-msgstr ""
+msgstr "Etiqueta"
 
 #. TRANSLATORS: Large Format
 msgid "printer-kind.large-format"
-msgstr ""
+msgstr "Formato Grande"
 
 #. TRANSLATORS: Photo
 msgid "printer-kind.photo"
-msgstr ""
+msgstr "Fotografía"
 
 #. TRANSLATORS: Postcard
 msgid "printer-kind.postcard"
-msgstr ""
+msgstr "Postal"
 
 #. TRANSLATORS: Receipt
 msgid "printer-kind.receipt"
-msgstr ""
+msgstr "Recibo"
 
 #. TRANSLATORS: Roll
 msgid "printer-kind.roll"
-msgstr ""
+msgstr "Rollo"
 
 #. TRANSLATORS: Message From Operator
 msgid "printer-message-from-operator"
-msgstr ""
+msgstr "Mensaje desde operador"
 
 #. TRANSLATORS: Print Resolution
 msgid "printer-resolution"
-msgstr ""
+msgstr "Resolución de Impresión"
 
 #. TRANSLATORS: Printer State
 msgid "printer-state"
-msgstr ""
+msgstr "Estado de Impresora"
 
 #. TRANSLATORS: Detailed Printer State
 msgid "printer-state-reasons"
-msgstr ""
+msgstr "Estado detallado de impresora"
 
 #. TRANSLATORS: Old Alerts Have Been Removed
 msgid "printer-state-reasons.alert-removal-of-binary-change-entry"
-msgstr ""
+msgstr "Alertas Antiguas Han Sido Eliminadas"
 
 #. TRANSLATORS: Bander Added
 msgid "printer-state-reasons.bander-added"
@@ -12512,11 +12513,11 @@ msgstr ""
 
 #. TRANSLATORS: Bander Offline
 msgid "printer-state-reasons.bander-offline"
-msgstr ""
+msgstr "Anillador desconectado"
 
 #. TRANSLATORS: Bander Opened
 msgid "printer-state-reasons.bander-opened"
-msgstr ""
+msgstr "Anillador abierto"
 
 #. TRANSLATORS: Bander Over Temperature
 msgid "printer-state-reasons.bander-over-temperature"
@@ -12580,11 +12581,11 @@ msgstr ""
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
-msgstr ""
+msgstr "Aglutinante añadido"
 
 #. TRANSLATORS: Binder Almost Empty
 msgid "printer-state-reasons.binder-almost-empty"
-msgstr ""
+msgstr "Aglutinante casi vacío"
 
 #. TRANSLATORS: Binder Almost Full
 msgid "printer-state-reasons.binder-almost-full"
