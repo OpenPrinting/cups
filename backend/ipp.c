@@ -2140,14 +2140,7 @@ main(int  argc,				/* I - Number of command-line args */
 	password_tries = 0;
       else
       {
-	if (ipp_status != IPP_STATUS_ERROR_SERVICE_UNAVAILABLE &&
-	    ipp_status != IPP_STATUS_ERROR_BUSY)
-	{
-	  ippDelete(response);
-          ipp_status = IPP_STATUS_OK;
-          break;
-	}
-	else if (ipp_status == IPP_STATUS_ERROR_INTERNAL)
+	if (ipp_status == IPP_STATUS_ERROR_INTERNAL)
 	{
 	  waitjob_tries ++;
 
@@ -2157,6 +2150,13 @@ main(int  argc,				/* I - Number of command-line args */
 	    ipp_status = IPP_STATUS_OK;
 	    break;
 	  }
+	}
+	else if (ipp_status != IPP_STATUS_ERROR_SERVICE_UNAVAILABLE &&
+	    ipp_status != IPP_STATUS_ERROR_BUSY)
+	{
+	  ippDelete(response);
+	  ipp_status = IPP_STATUS_OK;
+	  break;
 	}
       }
 
