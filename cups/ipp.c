@@ -5609,6 +5609,7 @@ ipp_read_io(void        *src,		// I - Data source
 	    // New attribute; read the name and add it...
 	    if ((*cb)(src, buffer, (size_t)n) < n)
 	    {
+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to read IPP attribute name."), 1);
 	      DEBUG_puts("1ipp_read_io: unable to read name.");
 	      goto rollback;
 	    }
@@ -5964,6 +5965,8 @@ ipp_read_io(void        *src,		// I - Data source
   // If we get here, there was an error that required us to roll back the last
   // attribute read in order to keep the IPP message valid...
   rollback:
+
+  DEBUG_puts("1ipp_read_io: <<rollback>>");
 
   _cupsBufferRelease((char *)buffer);
 

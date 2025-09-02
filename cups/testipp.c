@@ -866,7 +866,7 @@ main(int  argc,				// I - Number of command-line arguments
 
       if (request)
       {
-	printf("\n%s:\n", argv[i]);
+	printf("\n%s: %s\n", argv[i], ippValidateAttributes(request) ? "OK" : cupsGetErrorString());
 	print_attributes(request, 4);
 	ippDelete(request);
       }
