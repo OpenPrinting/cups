@@ -24,6 +24,8 @@ Changes in CUPS v2.4.13 (YYYY-MM-DD)
 - Fixed support for the server name in the ErrorLog filename (Issue #1277)
 - Fixed job cleanup after daemon restart (Issue #1315)
 - Fixed handling of buggy DYMO USB printer serial numbers (Issue #1338)
+- Fixed unreachable block in IPP backend (Issue #1351)
+- Fixed memory leak in _cupsConvertOptions (Issue #1354)
 
 
 Changes in CUPS v2.4.12 (2025-04-08)

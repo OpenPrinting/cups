@@ -229,6 +229,7 @@ _cupsConvertOptions(
                     "y-dimension", size->length);
 
       ippAddCollection(media_col, IPP_TAG_ZERO, "media-size", media_size);
+      ippDelete(media_size);
     }
 
     for (i = 0; i < media_col_sup->num_values; i ++)
@@ -248,6 +249,7 @@ _cupsConvertOptions(
     }
 
     ippAddCollection(request, IPP_TAG_JOB, "media-col", media_col);
+    ippDelete(media_col);
   }
 
   if ((keyword = cupsGetOption("output-bin", num_options, options)) == NULL)
