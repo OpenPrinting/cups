@@ -2,6 +2,12 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
+Changes in CUPS v2.4.14 (2025-09-11)
+------------------------------------
+
+- Fixed installation of localized index.html and templates (Issue #1362)
+
+
 Changes in CUPS v2.4.13 (2025-09-11)
 ------------------------------------
 
