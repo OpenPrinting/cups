@@ -1080,12 +1080,15 @@ cupsFileOpenFd(int        fd,		// I - File descriptor
 	  header[8] = 0;
 	  header[9] = 0x03;
 
-	  cups_write(fp, (char *)header, 10);
+	  if (cups_write(fp, (char *)header, 10) < 10)
+	  {
+            free(fp);
+	    return (NULL);
+	  }
 
           // Initialize the compressor...
           if (deflateInit2(&(fp->stream), mode[1] - '0', Z_DEFLATED, -15, 8, Z_DEFAULT_STRATEGY) < Z_OK)
           {
-            close(fd);
             free(fp);
 	    return (NULL);
           }
