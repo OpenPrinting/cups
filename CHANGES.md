@@ -2,9 +2,11 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
-Changes in CUPS v2.4.13 (YYYY-MM-DD)
+Changes in CUPS v2.4.13 (2025-09-11)
 ------------------------------------
 
+- Blocked authentication using alternate methods in cupsd (CVE-2025-58060)
+- Fixed extension tag handling in `ipp_read_io()` in libcups (CVE-2025-58364)
 - Added `print-as-raster` printer and job attributes for forcing rasterization
   (Issue #1282)
 - Updated documentation (Issue #1086)
