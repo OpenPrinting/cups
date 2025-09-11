@@ -513,6 +513,16 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     int	userlen;			/* Username:password length */
 
 
+   /*
+    * Only allow Basic if enabled...
+    */
+
+    if (type != CUPSD_AUTH_BASIC)
+    {
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "Basic authentication is not enabled.");
+      return;
+    }
+
     authorization += 5;
     while (isspace(*authorization & 255))
       authorization ++;
@@ -558,7 +568,6 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     * Validate the username and password...
     */
 
-    if (type == CUPSD_AUTH_BASIC)
     {
 #if HAVE_LIBPAM
      /*
@@ -726,6 +735,16 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 			output_token = GSS_C_EMPTY_BUFFER;
 					/* Output token for username */
     gss_name_t		client_name;	/* Client name */
+
+   /*
+    * Only allow Kerberos if enabled...
+    */
+
+    if (type != CUPSD_AUTH_NEGOTIATE)
+    {
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "Kerberos authentication is not enabled.");
+      return;
+    }
 
 #  ifdef __APPLE__
    /*
