@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-04-03 11:01-0400\n"
+"POT-Creation-Date: 2025-09-13 16:39-0400\n"
 "PO-Revision-Date: 2025-09-03 11:01+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
@@ -877,8 +877,8 @@ msgstr ""
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m MIME/TIPO            Pone el tipo MIME de salida (en otro caso aplicació"
-"n/pdf)."
+"  -m MIME/TIPO            Pone el tipo MIME de salida (en otro caso "
+"aplicación/pdf)."
 
 msgid "  -n COPIES               Set number of copies."
 msgstr "  -n COPIAS               Establece el número de copias."
@@ -970,7 +970,8 @@ msgstr "«%s»: %u horas UTC de dateTime inconclusas: (RFC 8011 sección 5.1.15)
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC minutes %u (RFC 8011 section 5.1.15)."
-msgstr "«%s»: %u minutos UTC de dateTime inconclusos (RFC 8011 sección 5.1.15)."
+msgstr ""
+"«%s»: %u minutos UTC de dateTime inconclusos (RFC 8011 sección 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC sign '%c' (RFC 8011 section 5.1.15)."
@@ -982,7 +983,8 @@ msgstr "«%s»: día %u dateTime inconcluso (RFC 8011 sección 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime deciseconds %u (RFC 8011 section 5.1.15)."
-msgstr "«%s»: %u decisegundos de dateTime inconcluso (RFC 8011 sección 5.1.15)."
+msgstr ""
+"«%s»: %u decisegundos de dateTime inconcluso (RFC 8011 sección 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime hours %u (RFC 8011 section 5.1.15)."
@@ -1086,8 +1088,8 @@ msgid ""
 "\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 "
 "section 5.1.14)."
 msgstr ""
-"«%s»: valor rangeOfInteger inconcluso %d–%d – más bajo mayor que más alto ("
-"RFC 8011 sección 5.1.14)."
+"«%s»: valor rangeOfInteger inconcluso %d–%d – más bajo mayor que más alto "
+"(RFC 8011 sección 5.1.14)."
 
 #, c-format
 msgid ""
@@ -1733,7 +1735,8 @@ msgid "--pam-service service   Use the named PAM service"
 msgstr "--pam-service servicio   Utiliza el servicio PAM nombrado"
 
 msgid "--path regex            Match resource path to regular expression"
-msgstr "--path exreg            Coincide ruta de recurso para expresión regular"
+msgstr ""
+"--path exreg            Coincide ruta de recurso para expresión regular"
 
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
@@ -1849,8 +1852,8 @@ msgstr "-2"
 
 msgid "-2                      Set 2-sided printing support (default=1-sided)"
 msgstr ""
-"-2                      Establece soporte de impresión en 2-lados "
-"(predet.=1-lado)"
+"-2                      Establece soporte de impresión en 2-lados (predet.=1-"
+"lado)"
 
 msgid "-20"
 msgstr "-20"
@@ -1998,8 +2001,8 @@ msgid ""
 "-I {filename,filters,none,profiles}\n"
 "                          Ignore specific warnings"
 msgstr ""
-"-I {nombre-fichero(filename), filtros(filters), "
-"nada(none),perfiles(profiles)}\n"
+"-I {nombre-fichero(filename), filtros(filters), nada(none),"
+"perfiles(profiles)}\n"
 "                          Se hace caso omiso a avisos específicos"
 
 msgid ""
@@ -2118,8 +2121,8 @@ msgid ""
 "translations}\n"
 "                          Issue warnings instead of errors"
 msgstr ""
-"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,translations}"
-"\n"
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
+"translations}\n"
 "                          Emite avisos en vez de errores"
 
 msgid "-X                      Produce XML plist instead of plain text"
@@ -2369,8 +2372,8 @@ msgid ""
 "-o print-quality=N      Specify the print quality - draft (3), normal (4), "
 "or best (5)"
 msgstr ""
-"-o print-quality=N      Especifica la calidad de la impresora – borrador (3)"
-", normal (4), o mejor (5)"
+"-o print-quality=N      Especifica la calidad de la impresora – borrador "
+"(3), normal (4), o mejor (5)"
 
 msgid ""
 "-o printer-error-policy=name\n"
@@ -2542,7 +2545,8 @@ msgstr ""
 "usuarios especificados"
 
 msgid "-u allow:all            Allow all users to print"
-msgstr "-u allow:all                    Permite a todos los usuarios a imprimir"
+msgstr ""
+"-u allow:all                    Permite a todos los usuarios a imprimir"
 
 msgid ""
 "-u allow:list           Allow the list of users or groups (@name) to print"
@@ -3544,9 +3548,6 @@ msgstr ""
 "\n"
 "exit    help    quit    status  ?"
 
-msgid "Commands:"
-msgstr "Comandos:"
-
 msgid "Community name uses indefinite length"
 msgstr "Nombre de comunidad usa una longitud indefinida"
 
@@ -3651,11 +3652,18 @@ msgstr "El destino «%s» no acepta trabajos."
 msgid "Device CMYK"
 msgstr "Dispositivo CMYK"
 
+#, c-format
+msgid "Device Code: %s"
+msgstr ""
+
 msgid "Device Gray"
 msgstr "Dispositivo gris"
 
 msgid "Device RGB"
 msgstr "Dispositivo RGB"
+
+msgid "Device authorization grant is not supported by this server."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -4038,6 +4046,9 @@ msgstr "Memoria temporal hash demasiado pequeña."
 
 msgid "Help file not in index."
 msgstr "El archivo de ayuda no está en el índice."
+
+msgid "Home"
+msgstr ""
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
@@ -4517,6 +4528,9 @@ msgstr "No hay contenido"
 msgid "No IPP attributes."
 msgstr "No hay atributos IPP."
 
+msgid "No JWKS URI in authorization server metadata."
+msgstr ""
+
 msgid "No PPD name"
 msgstr "No hay nombre de PPD"
 
@@ -4538,6 +4552,9 @@ msgstr "No hay atributos en la solicitud."
 
 msgid "No authentication information provided."
 msgstr "No se ha proporcionado información de autentificación."
+
+msgid "No client ID configured for this server."
+msgstr ""
 
 msgid "No community name"
 msgstr "No hay nombre de comunidad"
@@ -4645,6 +4662,9 @@ msgstr "No se permite imprimir."
 
 msgid "Note"
 msgstr "Nota"
+
+msgid "OAuth Login"
+msgstr ""
 
 msgid "OK"
 msgstr "Aceptar"
@@ -4989,6 +5009,9 @@ msgstr "Iniciando página %d."
 msgid "Statement"
 msgstr "Declaración"
 
+msgid "Sub-Commands:"
+msgstr ""
+
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "Subscripción #%d no existe."
@@ -5065,6 +5088,9 @@ msgid ""
 msgstr ""
 "El nombre de la clase sólo puede contener hasta 127 caracteres imprimibles y "
 "no puede contener espacios, barras (/), o la almohadilla (#)."
+
+msgid "The client ID is not configured for this server."
+msgstr ""
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5264,6 +5290,9 @@ msgstr "No se ha podido reservar memoria para la secuencia de páginas"
 msgid "Unable to allocate memory for printer: %s"
 msgstr "No es capaz de asignar memoria para impresora: %s"
 
+msgid "Unable to authorize access"
+msgstr ""
+
 msgid "Unable to cancel print job."
 msgstr "No se ha podido cancelar el trabajo de impresión."
 
@@ -5365,6 +5394,12 @@ msgstr "No se ha podido encontrar destino para el trabajo"
 msgid "Unable to finish request."
 msgstr "No es capaz de finalizar solicitud."
 
+msgid "Unable to get authorization URL"
+msgstr ""
+
+msgid "Unable to get authorization server information"
+msgstr ""
+
 msgid "Unable to get backend exit status."
 msgstr "No se ha podido obtener el estado de salida del programa backend."
 
@@ -5447,6 +5482,9 @@ msgstr "No se ha podido abrir el archivo de trama de datos (raster)"
 
 msgid "Unable to print test page"
 msgstr "No se ha podido imprimir la página de prueba"
+
+msgid "Unable to read IPP attribute name."
+msgstr ""
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5676,11 +5714,11 @@ msgstr ""
 "       cancel [opciones] [destino]\n"
 "       cancel [opciones] [destino-id]"
 
-msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
-msgstr "Modo de empleo: cups-oauth [OPCIONES] [COMANDO [ARGUMENTO(S)]]"
+msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
+msgstr ""
 
-msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
-msgstr "Modo de empleo: cups-x509 [OPCIONES] [COMANDO] [ARGUMENTO]"
+msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
+msgstr ""
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Uso: cupsctl [opciones] [param=valor ... paramN=valorN]"
@@ -5695,8 +5733,8 @@ msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
 "       program | cupstestppd [options] -"
 msgstr ""
-"Modo de empleo: cupstestppd [opciones] nombre-archivo1.ppd[.gz] "
-"[... nombrearchivoN.pppd[.gz]]\n"
+"Modo de empleo: cupstestppd [opciones] nombre-archivo1.ppd[.gz] [... "
+"nombrearchivoN.pppd[.gz]]\n"
 "       programa | cupstestppd [opciones] -"
 
 msgid "Usage: ippeveprinter [options] \"name\""
@@ -5779,8 +5817,8 @@ msgstr "Modo de empleo: lpstat [opciones]"
 
 msgid "Usage: ppdc [options] filename.drv [ ... filenameN.drv ]"
 msgstr ""
-"Modo de empleo:: ppdc [opciones] nombre_archivo.drv "
-"[ ... nombre_archivoN.drv ]"
+"Modo de empleo:: ppdc [opciones] nombre_archivo.drv [ ... nombre_archivoN."
+"drv ]"
 
 msgid "Usage: ppdhtml [options] filename.drv >filename.html"
 msgstr ""
@@ -5788,13 +5826,13 @@ msgstr ""
 
 msgid "Usage: ppdi [options] filename.ppd [ ... filenameN.ppd ]"
 msgstr ""
-"Modo de empleo: ppdi [opciones] nombre_archivo.ppd "
-"[ ... nombre_archivoN.ppd ]"
+"Modo de empleo: ppdi [opciones] nombre_archivo.ppd [ ... nombre_archivoN."
+"ppd ]"
 
 msgid "Usage: ppdmerge [options] filename.ppd [ ... filenameN.ppd ]"
 msgstr ""
-"Modo de empleo: ppdmerge [opciones] nombre_archivo.ppd "
-"[ ... nombre_archivoN.ppd ]"
+"Modo de empleo: ppdmerge [opciones] nombre_archivo.ppd [ ... nombre_archivoN."
+"ppd ]"
 
 msgid ""
 "Usage: ppdpo [options] -o filename.po filename.drv [ ... filenameN.drv ]"
@@ -5804,6 +5842,10 @@ msgstr ""
 
 msgid "Usage: snmp [host-or-ip-address]"
 msgstr "Modo de empleo: snmp [equipo-o-dirección-ip]"
+
+#, c-format
+msgid "User Code: %s"
+msgstr ""
 
 #, c-format
 msgid "Using spool directory \"%s\"."
@@ -5836,6 +5878,10 @@ msgstr "Aviso: este programa será retirado en una versión futura de CUPS."
 
 msgid "Web Interface is Disabled"
 msgstr "La interfaz web está Desactivada"
+
+#, c-format
+msgid "Web Page: %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "Sí"
@@ -6184,6 +6230,9 @@ msgstr "cups-oauth: Ausencia client_id y/o client_secret."
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr "cups-oauth: Recurso ausente de URI y/o vale de acceso."
 
+msgid "cups-oauth: Missing resource URI and/or device token."
+msgstr ""
+
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr "cups-oauth: Falta ámbito(s) tras '-s'."
 
@@ -6197,6 +6246,14 @@ msgstr "cups-oauth: No es capaz de obtener vale de acceso desde '%s': %s"
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
 msgstr "cups-oauth: No es capaz de obtener autorización desde '%s': %s"
+
+#, c-format
+msgid "cups-oauth: Unable to get device authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device token from '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
@@ -6216,10 +6273,6 @@ msgstr "cups-x509: valor DAYS incorrecto '%s' tras '-d'."
 
 msgid "cups-x509: Bad HTTP version."
 msgstr "cups-x509: versión HTTP incorrecta."
-
-#, c-format
-msgid "cups-x509: Bad URI '%s'."
-msgstr "cups-x509: URI '%s' incorrecta."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
@@ -6302,8 +6355,8 @@ msgid "cups-x509: Unable to allocate memory for '%s': %s"
 msgstr "cups-x509: No se puede asignar memoria para '%s': %s"
 
 #, c-format
-msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
-msgstr "cups-x509: No es capaz de conectar a '%s' en el puerto %d: %s"
+msgid "cups-x509: Unable to connect to '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
@@ -7686,6 +7739,14 @@ msgstr ""
 "get-client-id                  Obtiene el ID cliente para el servidor de "
 "authorización"
 
+msgid "get-device-grant [RESOURCE]    Authorize access through a device"
+msgstr ""
+
+msgid ""
+"get-device-token [RESOURCE] DEVICE-CODE\n"
+"                               Wait for the device access token"
+msgstr ""
+
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
 msgstr ""
@@ -7804,8 +7865,8 @@ msgid ""
 "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", "
 "and \"-X\"."
 msgstr ""
-"ipptool: \"-i\" y \"-n\" son incompatibles con \"--ippserver\", \"-P\" y "
-"\"-X\"."
+"ipptool: \"-i\" y \"-n\" son incompatibles con \"--ippserver\", \"-P\" y \"-X"
+"\"."
 
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
 msgstr "ipptool: \"-i\" y \"-n\" no son compatibles con \"-P\" y \"-X\"."
@@ -16104,3 +16165,20 @@ msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "Archivo ~/.cups/lpoptions nombra destino predet. que no exite."
+
+#~ msgid "Commands:"
+#~ msgstr "Comandos:"
+
+#~ msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+#~ msgstr "Modo de empleo: cups-oauth [OPCIONES] [COMANDO [ARGUMENTO(S)]]"
+
+#~ msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+#~ msgstr "Modo de empleo: cups-x509 [OPCIONES] [COMANDO] [ARGUMENTO]"
+
+#, c-format
+#~ msgid "cups-x509: Bad URI '%s'."
+#~ msgstr "cups-x509: URI '%s' incorrecta."
+
+#, c-format
+#~ msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+#~ msgstr "cups-x509: No es capaz de conectar a '%s' en el puerto %d: %s"

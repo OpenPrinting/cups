@@ -14,6 +14,8 @@
 //   clear [RESOURCE]
 //   get-access-token [RESOURCE]
 //   get-client-id
+//   get-device-grant [RESOURCE]
+//   get-device-token [RESOURCE] DEVICE-CODE
 //   get-metadata [NAME]
 //   get-refresh-token [RESOURCE]
 //   get-user-id [RESOURCE] [NAME]
@@ -47,6 +49,8 @@ static int	do_authorize(const char *oauth_uri, const char *scopes, const char *r
 static int	do_clear(const char *oauth_uri, const char *resource_uri);
 static int	do_get_access_token(const char *oauth_uri, const char *resource_uri);
 static int	do_get_client_id(const char *oauth_uri);
+static int	do_get_device_grant(const char *oauth_uri, const char *scopes, const char *resource_uri);
+static int	do_get_device_token(const char *oauth_uri, const char *resource_uri, const char *device_code);
 static int	do_get_metadata(const char *oauth_uri, const char *name);
 static int	do_get_user_id(const char *oauth_uri, const char *resource_uri, const char *name);
 static int	do_set_access_token(const char *oauth_uri, const char *resource_uri, const char *token);
@@ -150,6 +154,27 @@ main(int  argc,				// I - Number of command-line arguments
       i ++;
       return (do_get_client_id(oauth_uri));
     }
+    else if (!strcmp(argv[i], "get-device-grant"))
+    {
+      // get-device-grant [RESOURCE]
+      i ++;
+      return (do_get_device_grant(oauth_uri, scopes, argv[i]));
+    }
+    else if (!strcmp(argv[i], "get-device-token"))
+    {
+      // get-access-token [RESOURCE] DEVICE-CODE
+      i ++;
+      if (i >= argc)
+      {
+	_cupsLangPuts(stderr, _("cups-oauth: Missing resource URI and/or device token."));
+	return (usage(stderr));
+      }
+
+      if (argv[i + 1])
+        return (do_get_device_token(oauth_uri, argv[i], argv[i + 1]));
+      else
+        return (do_get_device_token(oauth_uri, /*resource_uri*/NULL, argv[i]));
+    }
     else if (!strcmp(argv[i], "get-metadata"))
     {
       // get-metadata [NAME]
@@ -182,7 +207,10 @@ main(int  argc,				// I - Number of command-line arguments
 	return (usage(stderr));
       }
 
-      return (do_set_access_token(oauth_uri, argv[i], argv[i + 1]));
+      if (argv[i + 1])
+        return (do_set_access_token(oauth_uri, argv[i], argv[i + 1]));
+      else
+        return (do_set_access_token(oauth_uri, /*resource_uri*/NULL, argv[i]));
     }
     else if (!strcmp(argv[i], "set-client-data"))
     {
@@ -322,6 +350,113 @@ do_get_client_id(
 
 
 //
+// 'do_get_device_grant()' - Start a device authorization workflow.
+//
+
+static int
+do_get_device_grant(
+    const char *oauth_uri,		// I - Authorization Server URI
+    const char *scopes,			// I - Scope(s)
+    const char *resource_uri)		// I - Resource URI
+{
+  int		status = 1;		// Exit status
+  cups_json_t	*metadata,		// Server metadata
+		*grant = NULL;		// Device authorization grant
+  const char	*device_code,		// Device code
+		*user_code,		// User code
+		*verification_url;	// Verification URL
+
+
+  // Get the server metadata...
+  if ((metadata = cupsOAuthGetMetadata(oauth_uri)) == NULL)
+  {
+    _cupsLangPrintf(stderr, _("cups-oauth: Unable to get metadata for '%s': %s"), oauth_uri, cupsGetErrorString());
+    return (1);
+  }
+
+  // Authorize...
+  if ((grant = cupsOAuthGetDeviceGrant(oauth_uri, metadata, resource_uri, scopes)) == NULL)
+  {
+    _cupsLangPrintf(stderr, _("cups-oauth: Unable to get device authorization from '%s': %s"), oauth_uri, cupsGetErrorString());
+    goto done;
+  }
+
+  // Show grant...
+  if ((device_code = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_DEVICE_CODE))) != NULL)
+    _cupsLangPrintf(stdout, _("Device Code: %s"), device_code);
+
+  if ((user_code = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_USER_CODE))) != NULL)
+    _cupsLangPrintf(stdout, _("User Code: %s"), user_code);
+
+  if ((verification_url = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_VERIFICATION_URI))) != NULL)
+    _cupsLangPrintf(stdout, _("Web Page: %s"), verification_url);
+
+  status = 0;
+
+  // Clean up and return...
+  done:
+
+  cupsJSONDelete(metadata);
+  cupsJSONDelete(grant);
+
+  return (status);
+}
+
+
+//
+// 'do_get_device_token()' - Wait to get a device access token.
+//
+
+static int				// O - Exit status
+do_get_device_token(
+    const char *oauth_uri,		// I - Authorization Server URI
+    const char *resource_uri,		// I - Resource URI
+    const char *device_code)		// I - Device code
+{
+  int		status = 1;		// Exit status
+  cups_json_t	*metadata;		// Server metadata
+  char		*access_token;		// Device access token
+  time_t	access_expires;		// Expiration date
+  int		interval;		// Seconds to sleep
+
+  // Get the server metadata...
+  if ((metadata = cupsOAuthGetMetadata(oauth_uri)) == NULL)
+  {
+    _cupsLangPrintf(stderr, _("cups-oauth: Unable to get metadata for '%s': %s"), oauth_uri, cupsGetErrorString());
+    return (1);
+  }
+
+  // Loop until we have an access token or a hard error...
+  while ((access_token = cupsOAuthGetTokens(oauth_uri, metadata, resource_uri, device_code, CUPS_OGRANT_DEVICE_CODE, CUPS_OAUTH_REDIRECT_URI, &access_expires)) == NULL)
+  {
+    if (!access_expires)
+    {
+      _cupsLangPrintf(stderr, _("cups-oauth: Unable to get device token from '%s': %s"), oauth_uri, cupsGetErrorString());
+      goto done;
+    }
+
+    if ((interval = access_expires - time(NULL)) < 5)
+      interval = 5;
+
+    sleep((unsigned)interval);
+  }
+
+  // Show access token
+  puts(access_token);
+
+  status = 0;
+
+  // Clean up and return...
+  done:
+
+  cupsJSONDelete(metadata);
+  free(access_token);
+
+  return (status);
+}
+
+
+//
 // 'do_get_metadata()' - Get authorization server metadata.
 //
 
@@ -378,11 +513,11 @@ do_get_metadata(const char *oauth_uri,	// I - Authorization Server URI
             }
             break;
       }
+
+      return (0);
     }
     else
     {
-      free(metadata);
-
       return (1);
     }
   }
@@ -391,8 +526,6 @@ do_get_metadata(const char *oauth_uri,	// I - Authorization Server URI
     puts(json);
     free(json);
   }
-
-  free(metadata);
 
   return (0);
 }
@@ -530,6 +663,9 @@ usage(FILE *out)			// I - Output file
   _cupsLangPuts(out, _("clear [RESOURCE]               Clear the authorization for a resource"));
   _cupsLangPuts(out, _("get-access-token [RESOURCE]    Get the current access token"));
   _cupsLangPuts(out, _("get-client-id                  Get the client ID for the authorization server"));
+  _cupsLangPuts(out, _("get-device-grant [RESOURCE]    Authorize access through a device"));
+  _cupsLangPuts(out, _("get-device-token [RESOURCE] DEVICE-CODE\n"
+                       "                               Wait for the device access token"));
   _cupsLangPuts(out, _("get-metadata [NAME]            Get metadata from the authorization server"));
   _cupsLangPuts(out, _("get-user-id [RESOURCE] [NAME]  Get the authorized user ID"));
   _cupsLangPuts(out, _("set-access-token [RESOURCE] TOKEN\n"

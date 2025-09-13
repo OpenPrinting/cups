@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-04-03 11:01-0400\n"
+"POT-Creation-Date: 2025-09-13 16:39-0400\n"
 "PO-Revision-Date: 2025-06-25 16:06+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/cups/cups/ka/>\n"
@@ -3453,9 +3453,6 @@ msgid ""
 "exit    help    quit    status  ?"
 msgstr ""
 
-msgid "Commands:"
-msgstr "ბრძანებები:"
-
 msgid "Community name uses indefinite length"
 msgstr "საზოგადოების სახელი აღწერილი არაა"
 
@@ -3560,11 +3557,18 @@ msgstr "სამიზნე \"%s\" დავალებებს არ ი�
 msgid "Device CMYK"
 msgstr "CMYK მოწყობილობა"
 
+#, c-format
+msgid "Device Code: %s"
+msgstr ""
+
 msgid "Device Gray"
 msgstr "მოწყობილობის ნაცრისფერი"
 
 msgid "Device RGB"
 msgstr "მოწყობილობის RGB"
+
+msgid "Device authorization grant is not supported by this server."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3945,6 +3949,9 @@ msgstr "ჰეშის ბუფერი ძალიან პატარა
 
 msgid "Help file not in index."
 msgstr "დახმარების ფაილი ინდექსში არაა."
+
+msgid "Home"
+msgstr ""
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
@@ -4421,6 +4428,9 @@ msgstr "შიგთავსის გარეშე"
 msgid "No IPP attributes."
 msgstr "IPP ატრიბუტების გარეშე."
 
+msgid "No JWKS URI in authorization server metadata."
+msgstr ""
+
 msgid "No PPD name"
 msgstr "PPD სახელის გარეშე"
 
@@ -4442,6 +4452,9 @@ msgstr "მოთხოვნაში ატრიბუტები არა�
 
 msgid "No authentication information provided."
 msgstr "ავთენტიკაციის ინფორმაცია მოწოდებული არაა."
+
+msgid "No client ID configured for this server."
+msgstr ""
 
 msgid "No community name"
 msgstr "საზოგადოების სახელის გარეშე"
@@ -4547,6 +4560,9 @@ msgstr "დაბეჭდვა აკრძალულია."
 
 msgid "Note"
 msgstr "შენიშვნა"
+
+msgid "OAuth Login"
+msgstr ""
 
 msgid "OK"
 msgstr "დიახ"
@@ -4894,6 +4910,9 @@ msgstr "საწყისი გვერდი %d."
 msgid "Statement"
 msgstr "ინსტრუქცია"
 
+msgid "Sub-Commands:"
+msgstr ""
+
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "გამოწერა #%d არ არსებობს."
@@ -4966,6 +4985,9 @@ msgid ""
 msgstr ""
 "კლასის სახელი შეიძლება, მხოლოდ, 127-მდე დაბეჭდვად სიმბოლოს შეიცავდეს და არ "
 "შეიძლება შეიცავდეს გამოტოვებებს, დახრილ ხაზებს (/) და ბადის ნიშანს (#)."
+
+msgid "The client ID is not configured for this server."
+msgstr ""
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5155,6 +5177,9 @@ msgstr "გვერდების მასივისთვის მეხ�
 msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
+msgid "Unable to authorize access"
+msgstr ""
+
 msgid "Unable to cancel print job."
 msgstr "ბეჭდვის დავალების გაუქმება შეუძლებელია."
 
@@ -5255,6 +5280,12 @@ msgstr "ვერ ვიპოვე სამიზნე დავალებ
 msgid "Unable to finish request."
 msgstr "მოთხოვნის დასრულება შეუძლებელია."
 
+msgid "Unable to get authorization URL"
+msgstr ""
+
+msgid "Unable to get authorization server information"
+msgstr ""
+
 msgid "Unable to get backend exit status."
 msgstr "უკანაბოლოს გასვლის სტატუსის მიღება შეუძლებელია."
 
@@ -5337,6 +5368,9 @@ msgstr "რასტრული ფაილის გახსნა შეუ
 
 msgid "Unable to print test page"
 msgstr "სატესტო გვერდის დაბეჭდვა ეუძლებელია"
+
+msgid "Unable to read IPP attribute name."
+msgstr ""
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5563,10 +5597,10 @@ msgstr ""
 "       cancel [პარამეტრები] [სამიზნე]\n"
 "       cancel [პარამეტრები] [სამიზნის-id]"
 
-msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
 msgstr ""
 
-msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
 msgstr ""
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
@@ -5690,6 +5724,10 @@ msgid "Usage: snmp [host-or-ip-address]"
 msgstr "გამოყენება: snmp [ჰოსტი-ან-ip-მისამართი]"
 
 #, c-format
+msgid "User Code: %s"
+msgstr ""
+
+#, c-format
 msgid "Using spool directory \"%s\"."
 msgstr "ვიყენებ დროებით საქაღალდეს \"%s\"."
 
@@ -5719,6 +5757,10 @@ msgstr "გაფრთხილება: ეს პროგრამა წ�
 
 msgid "Web Interface is Disabled"
 msgstr "ვებ ინტერფეისი გათიშულია"
+
+#, c-format
+msgid "Web Page: %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "დიახ"
@@ -6063,6 +6105,9 @@ msgstr ""
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr ""
 
+msgid "cups-oauth: Missing resource URI and/or device token."
+msgstr ""
+
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr ""
 
@@ -6075,6 +6120,14 @@ msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device token from '%s': %s"
 msgstr ""
 
 #, c-format
@@ -6095,10 +6148,6 @@ msgstr ""
 
 msgid "cups-x509: Bad HTTP version."
 msgstr "cups-x509: არასწორი HTTP ვერსია."
-
-#, c-format
-msgid "cups-x509: Bad URI '%s'."
-msgstr "cups-x509: არასწორი URI '%s'."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
@@ -6181,7 +6230,7 @@ msgid "cups-x509: Unable to allocate memory for '%s': %s"
 msgstr ""
 
 #, c-format
-msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+msgid "cups-x509: Unable to connect to '%s': %s"
 msgstr ""
 
 #, c-format
@@ -7558,6 +7607,14 @@ msgstr ""
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
+msgstr ""
+
+msgid "get-device-grant [RESOURCE]    Authorize access through a device"
+msgstr ""
+
+msgid ""
+"get-device-token [RESOURCE] DEVICE-CODE\n"
+"                               Wait for the device access token"
 msgstr ""
 
 msgid ""
@@ -15950,3 +16007,10 @@ msgstr "{}                      URI"
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 "~/.cups/lpoptions ფაილი ასახელებს ნაგულისხმევ სამიზნეს, რომელიც არ არსებობს."
+
+#~ msgid "Commands:"
+#~ msgstr "ბრძანებები:"
+
+#, c-format
+#~ msgid "cups-x509: Bad URI '%s'."
+#~ msgstr "cups-x509: არასწორი URI '%s'."

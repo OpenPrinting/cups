@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-04-03 11:01-0400\n"
+"POT-Creation-Date: 2025-09-13 16:39-0400\n"
 "PO-Revision-Date: 2022-07-14 12:43+0800\n"
 "Last-Translator: Tyson Tan <tysontan@tysontan.com>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -3284,9 +3284,6 @@ msgstr ""
 "\n"
 "exit    help    quit    status  ?"
 
-msgid "Commands:"
-msgstr ""
-
 msgid "Community name uses indefinite length"
 msgstr "社群名称不限长度"
 
@@ -3391,11 +3388,18 @@ msgstr "目标“%s”不接受任务。"
 msgid "Device CMYK"
 msgstr "设备 CMYK"
 
+#, c-format
+msgid "Device Code: %s"
+msgstr ""
+
 msgid "Device Gray"
 msgstr "设备灰度"
 
 msgid "Device RGB"
 msgstr "设备 RGB"
+
+msgid "Device authorization grant is not supported by this server."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3777,6 +3781,9 @@ msgstr "哈希值缓冲区太小。"
 
 msgid "Help file not in index."
 msgstr "帮助文件不在索引中。"
+
+msgid "Home"
+msgstr ""
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
@@ -4250,6 +4257,9 @@ msgstr "无内容"
 msgid "No IPP attributes."
 msgstr "无 IPP 属性。"
 
+msgid "No JWKS URI in authorization server metadata."
+msgstr ""
+
 msgid "No PPD name"
 msgstr "无 PPD 名称"
 
@@ -4271,6 +4281,9 @@ msgstr "请求中无属性。"
 
 msgid "No authentication information provided."
 msgstr "未提供认证信息。"
+
+msgid "No client ID configured for this server."
+msgstr ""
 
 msgid "No community name"
 msgstr "无社群名称"
@@ -4376,6 +4389,9 @@ msgstr "不允许打印。"
 
 msgid "Note"
 msgstr "美国笔记 (Note)"
+
+msgid "OAuth Login"
+msgstr ""
 
 msgid "OK"
 msgstr "确定"
@@ -4722,6 +4738,9 @@ msgstr "正在开始第 %d 页。"
 msgid "Statement"
 msgstr "美国声明 (Statement)"
 
+msgid "Sub-Commands:"
+msgstr ""
+
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "订阅 #%d 不存在。"
@@ -4792,6 +4811,9 @@ msgid ""
 "The class name may only contain up to 127 printable characters and may not "
 "contain spaces, slashes (/), or the pound sign (#)."
 msgstr "类名最多可包含 127 可打印字符，不能包含空格、斜杠 (/) 或井号 (#)。"
+
+msgid "The client ID is not configured for this server."
+msgstr ""
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -4981,6 +5003,9 @@ msgstr "无法为页面组分配内存"
 msgid "Unable to allocate memory for printer: %s"
 msgstr ""
 
+msgid "Unable to authorize access"
+msgstr ""
+
 msgid "Unable to cancel print job."
 msgstr "无法取消打印任务。"
 
@@ -5080,6 +5105,12 @@ msgstr "找不到任务目的地"
 msgid "Unable to finish request."
 msgstr ""
 
+msgid "Unable to get authorization URL"
+msgstr ""
+
+msgid "Unable to get authorization server information"
+msgstr ""
+
 msgid "Unable to get backend exit status."
 msgstr "无法获取后端退出状态。"
 
@@ -5162,6 +5193,9 @@ msgstr "无法打开栅格文件"
 
 msgid "Unable to print test page"
 msgstr "无法打印测试页"
+
+msgid "Unable to read IPP attribute name."
+msgstr ""
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5383,10 +5417,10 @@ msgid ""
 "       cancel [options] [destination-id]"
 msgstr ""
 
-msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
 msgstr ""
 
-msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
 msgstr ""
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
@@ -5485,6 +5519,10 @@ msgid "Usage: snmp [host-or-ip-address]"
 msgstr "用法：snmp [host-or-ip-address]"
 
 #, c-format
+msgid "User Code: %s"
+msgstr ""
+
+#, c-format
 msgid "Using spool directory \"%s\"."
 msgstr ""
 
@@ -5514,6 +5552,10 @@ msgstr ""
 
 msgid "Web Interface is Disabled"
 msgstr "网页界面被禁用"
+
+#, c-format
+msgid "Web Page: %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "是"
@@ -5858,6 +5900,9 @@ msgstr ""
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr ""
 
+msgid "cups-oauth: Missing resource URI and/or device token."
+msgstr ""
+
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr ""
 
@@ -5870,6 +5915,14 @@ msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device token from '%s': %s"
 msgstr ""
 
 #, c-format
@@ -5889,10 +5942,6 @@ msgid "cups-x509: Bad DAYS value '%s' after '-d'."
 msgstr ""
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
-
-#, c-format
-msgid "cups-x509: Bad URI '%s'."
 msgstr ""
 
 #, c-format
@@ -5976,7 +6025,7 @@ msgid "cups-x509: Unable to allocate memory for '%s': %s"
 msgstr ""
 
 #, c-format
-msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+msgid "cups-x509: Unable to connect to '%s': %s"
 msgstr ""
 
 #, c-format
@@ -7346,6 +7395,14 @@ msgstr ""
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
+msgstr ""
+
+msgid "get-device-grant [RESOURCE]    Authorize access through a device"
+msgstr ""
+
+msgid ""
+"get-device-token [RESOURCE] DEVICE-CODE\n"
+"                               Wait for the device access token"
 msgstr ""
 
 msgid ""

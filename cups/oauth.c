@@ -799,6 +799,161 @@ cupsOAuthGetClientId(
 
 
 //
+// 'cupsOAuthGetDeviceGrant()' - Get a device authorization grant for the specified resource and scope(s).
+//
+// This function requests a device authorization grant for the specified
+// resource and scope(s).  Device authorization grants allow a user to open a
+// web page on any device to authorize access to the resource.
+//
+// The "auth_uri" parameter specifies the URI for the OAuth Authorization
+// Server.  The "metadata" parameter specifies the Authorization Server metadata
+// as obtained using @link cupsOAuthCopyMetadata@ and/or
+// @link cupsOAuthGetMetadata@.
+//
+// The "resource_uri" parameter specifies the URI for a resource (printer, web
+// file, etc.) that you which to access.
+//
+// The "scopes" parameter specifies zero or more whitespace-delimited scope
+// names to request during authorization.  The list of supported scope names are
+// available from the Authorization Server metadata, for example:
+//
+// ```
+// cups_json_t *metadata = cupsOAuthGetMetadata(auth_uri);
+// cups_json_t *scopes_supported = cupsJSONFind(metadata, "scopes_supported");
+// ```
+//
+// The returned JSON object must be freed using the @link cupsJSONDelete@
+// function and contains the following information:
+//
+// - `CUPS_ODEVGRANT_DEVICE_CODE`: The device code string to be used in
+//   subsequent @link cupsOAuthGetTokens@ calls.
+// - `CUPS_ODEVGRANT_EXPIRES_IN`: The expiration date/time as a number of
+//   seconds since the Unix epoch.
+// - `CUPS_ODEVGRANT_INTERVAL`: The number of seconds to wait between calls to
+//   @link cupsOAuthGetTokens@.
+// - `CUPS_ODEVGRANT_USER_CODE`: The user code to enter on the verification
+//   web page.
+// - `CUPS_ODEVGRANT_VERIFICATION_URL`: The URL for the verification web page.
+// - `CUPS_ODEVGRANT_VERIFICATION_URL_COMPLETE`: The URL for the verification
+//   web page with the user code filled in.
+//
+// The values can be obtained using the @link cupsJSONFind@,
+// @cupsJSONGetNumber@, and @cupsJSONGetString@ functions, for example:
+//
+// ```
+// cups_json_t *grant = cupsOAuthGetDeviceGrant(...);
+//
+// const char *verification_url = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_VERIFICATION_URL));
+// double interval = cupsJSONGetNumber(cupsJSONFind(grant, CUPS_ODEVGRANT_INTERVAL));
+// ```
+//
+// @since CUPS 2.5@
+//
+
+cups_json_t *				// O - Grant data or `NULL` on error
+cupsOAuthGetDeviceGrant(
+    const char  *auth_uri,		// I - Authorization Server URI
+    cups_json_t *metadata,		// I - Authorization Server metadata
+    const char  *resource_uri,		// I - Resource URI
+    const char  *scopes)		// I - Space-delimited scopes
+{
+  const char	*device_ep;		// Device authorization endpoint
+  char		*client_id = NULL,	// `client_id` value
+		*scopes_supported = NULL;
+					// Supported scopes
+  size_t	num_form = 0;		// Number of form variables
+  cups_option_t	*form = NULL;		// Form variables
+  char		*request = NULL;	// Form request data
+  cups_json_t	*grant = NULL;		// Device grant
+
+
+  // Range check input...
+  DEBUG_printf("cupsOAuthGetDeviceGrant(auth_uri=\"%s\", metadata=%p, resource_uri=\"%s\", scopes=\"%s\")", auth_uri, (void *)metadata, resource_uri, scopes);
+
+  if (!auth_uri || !metadata || (device_ep = cupsJSONGetString(cupsJSONFind(metadata, "device_authorization_endpoint"))) == NULL)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Device authorization grant is not supported by this server."), true);
+    return (NULL);
+  }
+
+  // Get the client_id value...
+  if ((client_id = cupsOAuthCopyClientId(auth_uri, NULL)) == NULL)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("The client ID is not configured for this server."), true);
+    return (NULL);
+  }
+
+  DEBUG_printf("1cupsOAuthGetDeviceGrant: client_id=\"%s\"", client_id);
+
+  // Get the scopes value(s)...
+  if (!scopes)
+  {
+    scopes_supported = oauth_copy_scopes(metadata);
+    scopes           = scopes_supported;
+  }
+
+  DEBUG_printf("1cupsOAuthGetDeviceGrant: scopes=\"%s\"", scopes);
+
+  // Build the request...
+  num_form = cupsAddOption("client_id", client_id, num_form, &form);
+  if (scopes)
+    num_form = cupsAddOption("scope", scopes, num_form, &form);
+  if (resource_uri)
+    num_form = cupsAddOption("resource", resource_uri, num_form, &form);
+
+  if ((request = cupsFormEncode(/*url*/NULL, num_form, form)) != NULL)
+  {
+    // Send the device authorization grant request...
+    if ((grant = oauth_do_post(device_ep, "application/x-www-form-urlencoded", request)) != NULL)
+    {
+      // Make sure we have any optional values in the returned JSON...
+      const char *user_code = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_USER_CODE));
+      const char *verification_url = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_VERIFICATION_URI));
+
+      if (!cupsJSONFind(grant, CUPS_ODEVGRANT_DEVICE_CODE) || !cupsJSONFind(grant, CUPS_ODEVGRANT_EXPIRES_IN) || !user_code || !verification_url)
+      {
+        // Missing required bits, treat this as an error...
+        _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), false);
+        cupsJSONDelete(grant);
+        grant = NULL;
+      }
+      else
+      {
+        // Add default 5 second interval...
+        if (!cupsJSONFind(grant, CUPS_ODEVGRANT_INTERVAL))
+          cupsJSONNewNumber(grant, cupsJSONNewKey(grant, /*after*/NULL, CUPS_ODEVGRANT_INTERVAL), 5.0);
+
+        // Add complete verification URL based on base URL
+        if (!cupsJSONFind(grant, CUPS_ODEVGRANT_VERIFICATION_URI_COMPLETE))
+        {
+          char *complete_url;		// Complete verification URL
+
+          cupsFreeOptions(num_form, form);
+          form     = NULL;
+          num_form = cupsAddOption("user_code", user_code, 0, &form);
+
+          if ((complete_url = cupsFormEncode(verification_url, num_form, form)) != NULL)
+          {
+            cupsJSONNewString(grant, cupsJSONNewKey(grant, /*after*/NULL, CUPS_ODEVGRANT_VERIFICATION_URI_COMPLETE), complete_url);
+            free(complete_url);
+          }
+        }
+      }
+    }
+  }
+
+  // Free allocated stuff and return the device authorization grant, if any...
+  cupsFreeOptions(num_form, form);
+
+  free(client_id);
+  free(request);
+  free(scopes_supported);
+
+  return (grant);
+}
+
+
+//
 // 'cupsOAuthGetJWKS()' - Get the JWT key set for an Authorization Server.
 //
 // This function gets the JWT key set for the specified Authorization Server
@@ -1065,6 +1220,11 @@ cupsOAuthGetMetadata(
 // @link cupsOAuthCopyRefreshToken@ and @link cupsOAuthCopyUserId@ functions
 // respectively.
 //
+// When authorizing using a device code (`CUPS_OGRANT_DEVICE_CODE`) and a device
+// access token is not yet ready, a `NULL` access token is returned with the
+// expiration time set to the next recommended query time.  If the
+// "access_expires" value is set to `0` then the device authorization failed.
+//
 // @since CUPS 2.5@
 //
 
@@ -1073,9 +1233,9 @@ cupsOAuthGetTokens(
     const char    *auth_uri,		// I - Authorization Server URI
     cups_json_t   *metadata,		// I - Authorization Server metadata
     const char    *resource_uri,	// I - Resource URI
-    const char    *grant_code,		// I - Authorization code or refresh token
+    const char    *grant_code,		// I - Authorization code, device code, or refresh token
     cups_ogrant_t grant_type,		// I - Grant code type
-    const char    *redirect_uri,	// I - Redirect URI
+    const char    *redirect_uri,	// I - Redirect URI or `NULL` for device grants
     time_t        *access_expires)	// O - Expiration time for access token
 {
   const char	*token_ep;		// Token endpoint
@@ -1086,6 +1246,7 @@ cupsOAuthGetTokens(
   char		*request = NULL;	// Form request data
   cups_json_t	*response = NULL;	// JSON response variables
   const char	*access_value = NULL,	// access_token
+		*error,			// Error code, if any
 		*id_value = NULL,	// id_token
 		*refresh_value = NULL;	// refresh_token
   double	expires_in;		// expires_in value
@@ -1107,22 +1268,29 @@ cupsOAuthGetTokens(
   if (access_expires)
     *access_expires = 0;
 
-  if (!auth_uri || !metadata || (token_ep = cupsJSONGetString(cupsJSONFind(metadata, "token_endpoint"))) == NULL || !grant_code || !redirect_uri)
+  if (!auth_uri || !metadata || (token_ep = cupsJSONGetString(cupsJSONFind(metadata, "token_endpoint"))) == NULL || !grant_code || (!redirect_uri && grant_type != CUPS_OGRANT_DEVICE_CODE))
     return (NULL);
 
   // Prepare form data to get an access token...
   num_form = cupsAddOption("grant_type", grant_types[grant_type], num_form, &form);
-  num_form = cupsAddOption("code", grant_code, num_form, &form);
-
-  if (!strcmp(redirect_uri, CUPS_OAUTH_REDIRECT_URI) && (value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_REDIRECT_URI, /*try_sysconfig*/false)) != NULL)
+  if (grant_type == CUPS_OGRANT_DEVICE_CODE)
   {
-    DEBUG_printf("1cupsOAuthGetTokens: redirect_uri=\"%s\"", value);
-    num_form = cupsAddOption("redirect_uri", value, num_form, &form);
-    free(value);
+    num_form = cupsAddOption("device_code", grant_code, num_form, &form);
   }
   else
   {
-    num_form = cupsAddOption("redirect_uri", redirect_uri, num_form, &form);
+    num_form = cupsAddOption("code", grant_code, num_form, &form);
+
+    if (!strcmp(redirect_uri, CUPS_OAUTH_REDIRECT_URI) && (value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_REDIRECT_URI, /*try_sysconfig*/false)) != NULL)
+    {
+      DEBUG_printf("1cupsOAuthGetTokens: redirect_uri=\"%s\"", value);
+      num_form = cupsAddOption("redirect_uri", value, num_form, &form);
+      free(value);
+    }
+    else
+    {
+      num_form = cupsAddOption("redirect_uri", redirect_uri, num_form, &form);
+    }
   }
 
   if ((value = cupsOAuthCopyClientId(auth_uri, redirect_uri)) != NULL)
@@ -1139,7 +1307,7 @@ cupsOAuthGetTokens(
     free(value);
   }
 
-  if ((value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, /*try_sysconfig*/false)) != NULL)
+  if (grant_type != CUPS_OGRANT_DEVICE_CODE && (value = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, /*try_sysconfig*/false)) != NULL)
   {
     DEBUG_printf("1cupsOAuthGetTokens: code_verifier=\"%s\"", value);
     num_form = cupsAddOption("code_verifier", value, num_form, &form);
@@ -1155,10 +1323,27 @@ cupsOAuthGetTokens(
   if ((response = oauth_do_post(token_ep, "application/x-www-form-urlencoded", request)) == NULL)
     goto done;
 
+  error         = cupsJSONGetString(cupsJSONFind(response, "error"));
   access_value  = cupsJSONGetString(cupsJSONFind(response, "access_token"));
   expires_in    = cupsJSONGetNumber(cupsJSONFind(response, "expires_in"));
   id_value      = cupsJSONGetString(cupsJSONFind(response, "id_token"));
   refresh_value = cupsJSONGetString(cupsJSONFind(response, "refresh_token"));
+
+  if (error)
+  {
+    // Handle "soft" device access token errors by setting access_expires to
+    // the next call time...
+    if (!strcmp(error, "slow_down"))
+      *access_expires = time(NULL) + 10;
+    else
+      *access_expires = time(NULL) + 5;
+
+    // Free memory and return...
+    cupsJSONDelete(response);
+    free(request);
+
+    return (NULL);
+  }
 
   if (id_value)
   {
@@ -1294,7 +1479,10 @@ cupsOAuthGetUserId(
     }
 
     // Get the response...
-    while ((status = httpUpdate(http)) == HTTP_STATUS_CONTINUE);
+    do
+    {
+      status = httpUpdate(http);
+    } while (status == HTTP_STATUS_CONTINUE);
 
     user_id_value  = oauth_copy_response(http);
     user_id_claims = cupsJSONImportString(user_id_value);
@@ -1746,7 +1934,7 @@ oauth_do_post(const char *ep,		// I - Endpoint URI
 
   // Check for errors...
   resp_error = oauth_set_error(resp_json, /*num_form*/0, /*form*/NULL);
-  if (!resp_error && status != HTTP_STATUS_OK)
+  if (!resp_error && !cupsJSONFind(resp_json, "error") && status != HTTP_STATUS_OK)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, httpStatusString(status), false);
     resp_error = true;
@@ -2151,7 +2339,7 @@ oauth_set_error(cups_json_t   *json,	// I - JSON response
     error_desc = cupsGetOption("error_description", num_form, form);
   }
 
-  if (error)
+  if (error && strcmp(error, "authorization_pending") && strcmp(error, "slow_down"))
   {
     if (error_desc)
     {

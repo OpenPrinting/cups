@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-04-03 11:01-0400\n"
+"POT-Creation-Date: 2025-09-13 16:39-0400\n"
 "PO-Revision-Date: 2025-08-21 12:01+0000\n"
 "Last-Translator: Thorsten Alteholz <s202508-wl@alteholz.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
@@ -3326,7 +3326,8 @@ msgid "Bad scheme in URI"
 msgstr "Ungültiges Schema in URI"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
-msgstr "Falsche subjectAltName Erweiterung in der X.509 Zertifikatsanforderung."
+msgstr ""
+"Falsche subjectAltName Erweiterung in der X.509 Zertifikatsanforderung."
 
 msgid "Bad username in URI"
 msgstr "Ungültiger Benutzername in URI"
@@ -3401,9 +3402,6 @@ msgstr ""
 "Befehle können abgekürzt werden. Befehle sind:\n"
 "\n"
 "exit    help    quit    status  ?"
-
-msgid "Commands:"
-msgstr "Befehle:"
 
 msgid "Community name uses indefinite length"
 msgstr "Community-Name hat unbestimmte Länge"
@@ -3509,11 +3507,18 @@ msgstr "Ziel „%s“ akzeptiert keine Druckaufträge."
 msgid "Device CMYK"
 msgstr "Geräte-CMYK"
 
+#, c-format
+msgid "Device Code: %s"
+msgstr ""
+
 msgid "Device Gray"
 msgstr "Geräte-Grau"
 
 msgid "Device RGB"
 msgstr "Geräte-RGB"
+
+msgid "Device authorization grant is not supported by this server."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3897,6 +3902,9 @@ msgstr "Hash Puffer zu klein."
 
 msgid "Help file not in index."
 msgstr "Hilfedatei nicht im Index."
+
+msgid "Home"
+msgstr ""
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
@@ -4375,6 +4383,9 @@ msgstr "Kein Inhalt"
 msgid "No IPP attributes."
 msgstr "Keine IPP-Attribute."
 
+msgid "No JWKS URI in authorization server metadata."
+msgstr ""
+
 msgid "No PPD name"
 msgstr "Kein PPD-Name"
 
@@ -4396,6 +4407,9 @@ msgstr "Keine Attribute in der Anfrage."
 
 msgid "No authentication information provided."
 msgstr "Keine Authentifizierungsinformation bereitgestellt."
+
+msgid "No client ID configured for this server."
+msgstr ""
 
 msgid "No community name"
 msgstr "Kein Community-Name"
@@ -4502,6 +4516,9 @@ msgstr "Drucken nicht erlaubt."
 
 msgid "Note"
 msgstr "Hinweis"
+
+msgid "OAuth Login"
+msgstr ""
 
 msgid "OK"
 msgstr "OK"
@@ -4848,6 +4865,9 @@ msgstr "Beginne Seite %d."
 msgid "Statement"
 msgstr "US Statement"
 
+msgid "Sub-Commands:"
+msgstr ""
+
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "Abonnement #%d existiert nicht."
@@ -4924,6 +4944,9 @@ msgid ""
 msgstr ""
 "Der Klassenname darf maximal 127 druckbare Zeichen haben und darf keine "
 "Leerzeichen, Schrägstriche (/) oder Rautezeichen (#) enthalten."
+
+msgid "The client ID is not configured for this server."
+msgstr ""
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5126,6 +5149,9 @@ msgstr "Speicher für Seitenmatrix kann nicht belegt werden"
 msgid "Unable to allocate memory for printer: %s"
 msgstr "Es konnte kein Speicher für den Drucker zugewiesen werden: %s"
 
+msgid "Unable to authorize access"
+msgstr ""
+
 msgid "Unable to cancel print job."
 msgstr "Druckauftrag kann nicht abgebrochen werden."
 
@@ -5229,6 +5255,12 @@ msgstr "Das Ziel für den Auftrag kann nicht gefunden werden"
 msgid "Unable to finish request."
 msgstr "Anforderung kann nicht abgeschlossen werden."
 
+msgid "Unable to get authorization URL"
+msgstr ""
+
+msgid "Unable to get authorization server information"
+msgstr ""
+
 msgid "Unable to get backend exit status."
 msgstr "Der Backend-Rückgabewert kann nicht ermittelt werden."
 
@@ -5263,7 +5295,8 @@ msgid "Unable to initialize private key context."
 msgstr "Kontext des privaten Schlüssels kann nicht initialisiert werden."
 
 msgid "Unable to load X.509 CA certificate and private key."
-msgstr "X.509 CA-Zertifikat und privater Schlüssel können nicht geladen werden."
+msgstr ""
+"X.509 CA-Zertifikat und privater Schlüssel können nicht geladen werden."
 
 msgid "Unable to load help index."
 msgstr "Hilfeindex kann nicht geladen werden."
@@ -5311,6 +5344,9 @@ msgstr "Die Rasterdatei kann nicht geöffnet werden"
 
 msgid "Unable to print test page"
 msgstr "Die Testseite kann nicht gedruckt werden"
+
+msgid "Unable to read IPP attribute name."
+msgstr ""
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5537,11 +5573,11 @@ msgstr ""
 "            cancel [Optionen] [Ziel]\n"
 "            cancel [Optionen] [Ziel-id]"
 
-msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
-msgstr "Aufruf: cups-oauth [OPTIONEN] [BEFEHL [ARGUMENT(E)]]"
+msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
+msgstr ""
 
-msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
-msgstr "Aufruf: cups-x509 [OPTIONEN] [BEFEHL] [ARGUMENT]"
+msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
+msgstr ""
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Verwendung: cupsctl [Optionen] [Parameter=Wert ... ParameterN=WertN]"
@@ -5659,6 +5695,10 @@ msgid "Usage: snmp [host-or-ip-address]"
 msgstr "Verwendung: snmp [Host-oder-IP-Adresse]"
 
 #, c-format
+msgid "User Code: %s"
+msgstr ""
+
+#, c-format
 msgid "Using spool directory \"%s\"."
 msgstr "Verwende Spoolverzeichnis \"%s\"."
 
@@ -5690,6 +5730,10 @@ msgstr ""
 
 msgid "Web Interface is Disabled"
 msgstr "Web-Schnittstelle ist deaktiviert"
+
+#, c-format
+msgid "Web Page: %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "Ja"
@@ -6036,6 +6080,9 @@ msgstr "cups-oauth: Fehlende client_id und/oder client_secret."
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr "cups-oauth: Fehlender Ressourcen-URI und/oder Zugriffstoken."
 
+msgid "cups-oauth: Missing resource URI and/or device token."
+msgstr ""
+
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr "cups-oauth: Fehlende(r) Bereich(e) nach ‚-s‘."
 
@@ -6049,6 +6096,14 @@ msgstr "cups-oauth: Zugriffstoken kann nicht von ‚%s‘ abgerufen werden: %s"
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
 msgstr "cups-oauth: Autorisierung kann nicht von ‚%s‘ abgerufen werden: %s"
+
+#, c-format
+msgid "cups-oauth: Unable to get device authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device token from '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
@@ -6068,10 +6123,6 @@ msgstr "cups-x509: Falscher DAYS-Wert ‚%s‘ nach ‚-d‘."
 
 msgid "cups-x509: Bad HTTP version."
 msgstr "cups-x509: Falsche HTTP-Version."
-
-#, c-format
-msgid "cups-x509: Bad URI '%s'."
-msgstr "cups-x509: Falscher URI ‚%s‘."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
@@ -6155,8 +6206,8 @@ msgstr ""
 "cups-x509: Es kann nicht genügend Speicher für '%s': %s zugewiesen werden"
 
 #, c-format
-msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
-msgstr "cups-x509: keine Verbindung zu '%s' auf Port %d möglich: %s"
+msgid "cups-x509: Unable to connect to '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
@@ -7533,6 +7584,14 @@ msgstr ""
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
+msgstr ""
+
+msgid "get-device-grant [RESOURCE]    Authorize access through a device"
+msgstr ""
+
+msgid ""
+"get-device-token [RESOURCE] DEVICE-CODE\n"
+"                               Wait for the device access token"
 msgstr ""
 
 msgid ""
@@ -11855,7 +11914,8 @@ msgstr "ppdc: #po-Datei %s in Zeile %d von %s kann nicht gefunden werden."
 
 #, c-format
 msgid "ppdc: Unable to find include file \"%s\" on line %d of %s."
-msgstr "ppdc: Include-Datei „%s“ in Zeile %d von %s kann nicht gefunden werden."
+msgstr ""
+"ppdc: Include-Datei „%s“ in Zeile %d von %s kann nicht gefunden werden."
 
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
@@ -15935,3 +15995,20 @@ msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 "~/.cups/lpoptions Die Datei nennt ein voreingestelltes Ziel das nicht "
 "existiert."
+
+#~ msgid "Commands:"
+#~ msgstr "Befehle:"
+
+#~ msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+#~ msgstr "Aufruf: cups-oauth [OPTIONEN] [BEFEHL [ARGUMENT(E)]]"
+
+#~ msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+#~ msgstr "Aufruf: cups-x509 [OPTIONEN] [BEFEHL] [ARGUMENT]"
+
+#, c-format
+#~ msgid "cups-x509: Bad URI '%s'."
+#~ msgstr "cups-x509: Falscher URI ‚%s‘."
+
+#, c-format
+#~ msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+#~ msgstr "cups-x509: keine Verbindung zu '%s' auf Port %d möglich: %s"

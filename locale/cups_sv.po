@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-04-03 11:01-0400\n"
+"POT-Creation-Date: 2025-09-13 16:39-0400\n"
 "PO-Revision-Date: 2025-06-07 18:04+0000\n"
 "Last-Translator: Daniel Nylander <daniel@danielnylander.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/cups/cups/sv/>\n"
@@ -1387,7 +1387,7 @@ msgstr "%s: Fel - användarnamn förväntades efter alternativet \"-u\"."
 msgid "%s: Error - expected value after \"-%c\" option."
 msgstr "%s: Fel - värde förväntades efter alternativet \"-%c\"."
 
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
@@ -1451,7 +1451,7 @@ msgstr "%s: Ogiltig destinationsnamn i listan \"%s\"."
 msgid "%s: Invalid filter string \"%s\"."
 msgstr "%s: Ogiltig filtersträng \"%s\"."
 
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "%s: Missing client name after '--client-name'."
 msgstr "%s: Filnamn saknas för \"-P\"."
 
@@ -1603,7 +1603,8 @@ msgstr "--[no-]user-cancel-any  Tillåt/förbjud användare att avbryta jobb"
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
-msgstr "-U username             Ange användarnamn att använda för autentisering"
+msgstr ""
+"-U username             Ange användarnamn att använda för autentisering"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
@@ -3438,9 +3439,6 @@ msgstr ""
 "\n"
 "exit    help    quit    status  ?"
 
-msgid "Commands:"
-msgstr ""
-
 msgid "Community name uses indefinite length"
 msgstr "Gemenskapsnamn använder obestämd längd"
 
@@ -3546,11 +3544,18 @@ msgstr "Målet ”%s” accepterar inte utskrifter."
 msgid "Device CMYK"
 msgstr "Enhetens CMYK"
 
+#, c-format
+msgid "Device Code: %s"
+msgstr ""
+
 msgid "Device Gray"
 msgstr "Enhetens Grå"
 
 msgid "Device RGB"
 msgstr "Enhetens RGB"
+
+msgid "Device authorization grant is not supported by this server."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3934,6 +3939,9 @@ msgstr "Hash-buffer för liten."
 
 msgid "Help file not in index."
 msgstr "Hjälpfil inte i index."
+
+msgid "Home"
+msgstr ""
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
@@ -4414,6 +4422,9 @@ msgstr "Inget innehåll"
 msgid "No IPP attributes."
 msgstr "Inga IPP-attribut."
 
+msgid "No JWKS URI in authorization server metadata."
+msgstr ""
+
 msgid "No PPD name"
 msgstr "Inget PPD-namn"
 
@@ -4435,6 +4446,9 @@ msgstr "Inga attribut i begäran."
 
 msgid "No authentication information provided."
 msgstr "Ingen autentiseringsinformation angavs."
+
+msgid "No client ID configured for this server."
+msgstr ""
 
 msgid "No community name"
 msgstr "Inget gemenskapsnamn"
@@ -4542,6 +4556,9 @@ msgstr "Ingen förvald skrivare"
 
 msgid "Note"
 msgstr "Anteckning"
+
+msgid "OAuth Login"
+msgstr ""
 
 msgid "OK"
 msgstr "OK"
@@ -4885,6 +4902,9 @@ msgstr "Startar sida %d."
 msgid "Statement"
 msgstr "Kontroutdrag"
 
+msgid "Sub-Commands:"
+msgstr ""
+
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "Prenumeration #%d finns inte."
@@ -4958,6 +4978,9 @@ msgid ""
 msgstr ""
 "Klassnamnet får endast innehålla upp till 127 skrivbara tecken och får inte "
 "innehålla blanksteg, snedstreck (/) eller fyrkantstecknet (#)."
+
+msgid "The client ID is not configured for this server."
+msgstr ""
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5155,6 +5178,9 @@ msgstr "Kan inte allokera minne för sid-array"
 msgid "Unable to allocate memory for printer: %s"
 msgstr "Kan inte allokera minne för skrivare: %s"
 
+msgid "Unable to authorize access"
+msgstr ""
+
 msgid "Unable to cancel print job."
 msgstr "Kan inte avbryta utskriftsjobb."
 
@@ -5260,6 +5286,12 @@ msgstr "Kan inte hitta destination för jobb"
 msgid "Unable to finish request."
 msgstr "Kan inte hitta skrivare."
 
+msgid "Unable to get authorization URL"
+msgstr ""
+
+msgid "Unable to get authorization server information"
+msgstr ""
+
 msgid "Unable to get backend exit status."
 msgstr "Kan inte hämta bakändens avslutsstatus."
 
@@ -5344,6 +5376,9 @@ msgstr "Kan inte öppna rasterfilen"
 
 msgid "Unable to print test page"
 msgstr "Kan inte skriva ut testsidan"
+
+msgid "Unable to read IPP attribute name."
+msgstr ""
 
 #, fuzzy, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5571,10 +5606,10 @@ msgstr ""
 "       cancel [alternativ] [destination]\n"
 "       cancel [alternativ] [destinations-id]"
 
-msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
 msgstr ""
 
-msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
 msgstr ""
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
@@ -5694,6 +5729,10 @@ msgid "Usage: snmp [host-or-ip-address]"
 msgstr "Användning: snmp [värd-eller-IP-adress]"
 
 #, c-format
+msgid "User Code: %s"
+msgstr ""
+
+#, c-format
 msgid "Using spool directory \"%s\"."
 msgstr "Använder spool-katalog \"%s\"."
 
@@ -5725,6 +5764,10 @@ msgstr ""
 
 msgid "Web Interface is Disabled"
 msgstr "Webbgränssnitt är avaktiverat"
+
+#, c-format
+msgid "Web Page: %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "Ja"
@@ -6075,6 +6118,9 @@ msgstr ""
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr ""
 
+msgid "cups-oauth: Missing resource URI and/or device token."
+msgstr ""
+
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr ""
 
@@ -6087,6 +6133,14 @@ msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device token from '%s': %s"
 msgstr ""
 
 #, c-format
@@ -6106,10 +6160,6 @@ msgid "cups-x509: Bad DAYS value '%s' after '-d'."
 msgstr ""
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
-
-#, c-format
-msgid "cups-x509: Bad URI '%s'."
 msgstr ""
 
 #, c-format
@@ -6193,7 +6243,7 @@ msgid "cups-x509: Unable to allocate memory for '%s': %s"
 msgstr ""
 
 #, c-format
-msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+msgid "cups-x509: Unable to connect to '%s': %s"
 msgstr ""
 
 #, c-format
@@ -7572,6 +7622,14 @@ msgstr ""
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
+msgstr ""
+
+msgid "get-device-grant [RESOURCE]    Authorize access through a device"
+msgstr ""
+
+msgid ""
+"get-device-token [RESOURCE] DEVICE-CODE\n"
+"                               Wait for the device access token"
 msgstr ""
 
 msgid ""

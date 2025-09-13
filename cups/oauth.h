@@ -22,6 +22,19 @@ extern "C" {
 #  define CUPS_OAUTH_REDIRECT_URI	"http://127.0.0.1/"
 					// Redirect URI for local authorization
 
+#  define CUPS_ODEVGRANT_DEVICE_CODE	"device_code"
+					// The device code string
+#  define CUPS_ODEVGRANT_EXPIRES_IN	"expires_in"
+					// The expiration date/time of the device code
+#  define CUPS_ODEVGRANT_INTERVAL	"interval"
+					// The requested number of seconds between token calls
+#  define CUPS_ODEVGRANT_USER_CODE	"user_code"
+					// The user code string for authorization
+#  define CUPS_ODEVGRANT_VERIFICATION_URI "verification_uri"
+					// The URL for the verification web page
+#  define CUPS_ODEVGRANT_VERIFICATION_URI_COMPLETE "verification_uri_complete"
+					// The URL for the verifiction web page with the user code filled in
+
 
 //
 // Types...
@@ -47,6 +60,7 @@ extern cups_jwt_t	*cupsOAuthCopyUserId(const char *auth_uri, const char *resourc
 
 extern char		*cupsOAuthGetAuthorizationCode(const char *auth_uri, cups_json_t *metadata, const char *resource_uri, const char *scopes, const char *redirect_uri) _CUPS_PUBLIC;
 extern char		*cupsOAuthGetClientId(const char *auth_uri, cups_json_t *metadata, const char *redirect_uri, const char *logo_uri, const char *tos_uri) _CUPS_PUBLIC;
+extern cups_json_t	*cupsOAuthGetDeviceGrant(const char *auth_uri, cups_json_t *metadata, const char *resource_uri, const char *scopes) _CUPS_PUBLIC;
 extern cups_json_t	*cupsOAuthGetJWKS(const char *auth_uri, cups_json_t *metadata) _CUPS_PUBLIC;
 extern cups_json_t	*cupsOAuthGetMetadata(const char *auth_uri) _CUPS_PUBLIC;
 extern char		*cupsOAuthGetTokens(const char *auth_uri, cups_json_t *metadata, const char *resource_uri, const char *grant_code, cups_ogrant_t grant_type, const char *redirect_uri, time_t *access_expires) _CUPS_PUBLIC;

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-04-03 11:01-0400\n"
+"POT-Creation-Date: 2025-09-13 16:39-0400\n"
 "PO-Revision-Date: 2025-04-03 19:50+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
@@ -2103,7 +2103,8 @@ msgid "-T title                Specify the job title"
 msgstr "-T tytuł                Podaj tytuł zadania"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
-msgstr "-U jednostka-organizacyjna        Ustaw nazwę jednostki organizacyjnej."
+msgstr ""
+"-U jednostka-organizacyjna        Ustaw nazwę jednostki organizacyjnej."
 
 msgid "-U username             Specify the username to use for authentication"
 msgstr ""
@@ -3529,9 +3530,6 @@ msgstr ""
 "\n"
 "exit    help    quit    status  ?"
 
-msgid "Commands:"
-msgstr "Polecenia:"
-
 msgid "Community name uses indefinite length"
 msgstr "Nazwa społeczności ma nieokreśloną długość"
 
@@ -3636,11 +3634,18 @@ msgstr "Punkt docelowy \"%s\" nie przyjmuje zadań."
 msgid "Device CMYK"
 msgstr "Urządzenie CMYK"
 
+#, c-format
+msgid "Device Code: %s"
+msgstr ""
+
 msgid "Device Gray"
 msgstr "Urządzenie szare"
 
 msgid "Device RGB"
 msgstr "Urządzenie RGB"
+
+msgid "Device authorization grant is not supported by this server."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -4023,6 +4028,9 @@ msgstr "Bufor skrótu jest za mały."
 
 msgid "Help file not in index."
 msgstr "Plik pomocy nie znajduje się w indeksie."
+
+msgid "Home"
+msgstr ""
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
@@ -4502,6 +4510,9 @@ msgstr "Brak zawartości"
 msgid "No IPP attributes."
 msgstr "Brak atrybutów IPP."
 
+msgid "No JWKS URI in authorization server metadata."
+msgstr ""
+
 msgid "No PPD name"
 msgstr "Brak nazwy PPD"
 
@@ -4523,6 +4534,9 @@ msgstr "Brak atrybutów w zapytaniu."
 
 msgid "No authentication information provided."
 msgstr "Nie podano danych autoryzacji."
+
+msgid "No client ID configured for this server."
+msgstr ""
 
 msgid "No community name"
 msgstr "Brak nazwy wspólnoty"
@@ -4628,6 +4642,9 @@ msgstr "Nieuprawniony do drukowania."
 
 msgid "Note"
 msgstr "Notatka"
+
+msgid "OAuth Login"
+msgstr ""
 
 msgid "OK"
 msgstr "OK"
@@ -4975,6 +4992,9 @@ msgstr "Zaczynam stronę %d."
 msgid "Statement"
 msgstr "Deklaracja"
 
+msgid "Sub-Commands:"
+msgstr ""
+
 #, c-format
 msgid "Subscription #%d does not exist."
 msgstr "Subskrypcja nr %d nie istnieje."
@@ -5048,6 +5068,9 @@ msgid ""
 msgstr ""
 "Nazwa klasy może zawierać do 127 znaków drukowalnych oprócz spacji, "
 "ukośników (/) i znaku kratki (#)."
+
+msgid "The client ID is not configured for this server."
+msgstr ""
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5245,6 +5268,9 @@ msgstr "Nie można zaalokować pamięci dla tablicy stron"
 msgid "Unable to allocate memory for printer: %s"
 msgstr "Nie można przydzielić pamięci dla drukarki: %s"
 
+msgid "Unable to authorize access"
+msgstr ""
+
 msgid "Unable to cancel print job."
 msgstr "Nie można anulować zadania wydruku."
 
@@ -5346,6 +5372,12 @@ msgstr "Nie można odnaleźć punktu docelowego dla zadania"
 msgid "Unable to finish request."
 msgstr "Nie można zakończyć zapytania."
 
+msgid "Unable to get authorization URL"
+msgstr ""
+
+msgid "Unable to get authorization server information"
+msgstr ""
+
 msgid "Unable to get backend exit status."
 msgstr "Nie można pobrać stanu wyjścia backendu."
 
@@ -5428,6 +5460,9 @@ msgstr "Nie można otworzyć pliku rastrowego"
 
 msgid "Unable to print test page"
 msgstr "Nie można wydrukować strony testowej"
+
+msgid "Unable to read IPP attribute name."
+msgstr ""
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5652,11 +5687,11 @@ msgstr ""
 "       cancel [opcje] [pkt-docelowy]\n"
 "       cancel [opcje] [id-pkt-docelowego]"
 
-msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
-msgstr "Użycie: cups-oauth [OPCJE] [POLECENIE [ARGUMENT(Y)]]"
+msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
+msgstr ""
 
-msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
-msgstr "Użycie: cups-x509 [OPCJE] [POLECENIE] [ARGUMENT]"
+msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
+msgstr ""
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Użycie: cupsctl [opcje] [param=wartość... paramN=wartośćN]"
@@ -5775,6 +5810,10 @@ msgid "Usage: snmp [host-or-ip-address]"
 msgstr "Użycie: snmp [adres-hosta-lub-ip]"
 
 #, c-format
+msgid "User Code: %s"
+msgstr ""
+
+#, c-format
 msgid "Using spool directory \"%s\"."
 msgstr "Katalog buforowania w \"%s\"."
 
@@ -5805,6 +5844,10 @@ msgstr "Ostrzeżenie: Ten program zostanie usunięty w przyszłej wersji CUPS."
 
 msgid "Web Interface is Disabled"
 msgstr "Interfejs webowy jest wyłączony"
+
+#, c-format
+msgid "Web Page: %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "Tak"
@@ -6152,6 +6195,9 @@ msgstr "cups-oauth: Brak identyfikatora klienta i/lub tajnego klucza klienta."
 msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr "cups-oauth: Brak identyfikatora URI zasobu i/lub tokena dostępu."
 
+msgid "cups-oauth: Missing resource URI and/or device token."
+msgstr ""
+
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr "cups-oauth: Brak zakresu(-ów) po '-s'."
 
@@ -6165,6 +6211,14 @@ msgstr "cups-oauth: Nie można uzyskać tokena dostępu z '%s': %s"
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
 msgstr "cups-oauth: Nie można uzyskać autoryzacji od '%s': %s"
+
+#, c-format
+msgid "cups-oauth: Unable to get device authorization from '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "cups-oauth: Unable to get device token from '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
@@ -6184,10 +6238,6 @@ msgstr "cups-x509: Nieprawidłowa wartość DNI '%s' po '-d'."
 
 msgid "cups-x509: Bad HTTP version."
 msgstr "cups-x509: Nieprawidłowa wersja protokołu HTTP."
-
-#, c-format
-msgid "cups-x509: Bad URI '%s'."
-msgstr "cups-x509: Nieprawidłowy URI '%s'."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
@@ -6270,8 +6320,8 @@ msgid "cups-x509: Unable to allocate memory for '%s': %s"
 msgstr "cups-x509: Nie można przydzielić pamięci dla '%s': %s"
 
 #, c-format
-msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
-msgstr "cups-x509: Nie można połączyć się z '%s' na porcie %d: %s"
+msgid "cups-x509: Unable to connect to '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
@@ -6296,7 +6346,8 @@ msgstr ""
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
-msgstr "cups-x509: Nie można uzyskać wygenerowanego klucza prywatnego dla '%s'."
+msgstr ""
+"cups-x509: Nie można uzyskać wygenerowanego klucza prywatnego dla '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
@@ -7643,6 +7694,14 @@ msgstr ""
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
+msgstr ""
+
+msgid "get-device-grant [RESOURCE]    Authorize access through a device"
+msgstr ""
+
+msgid ""
+"get-device-token [RESOURCE] DEVICE-CODE\n"
+"                               Wait for the device access token"
 msgstr ""
 
 msgid ""
@@ -16044,3 +16103,20 @@ msgstr "{}                      URI"
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 "Plik ~/.cups/lpoptions określa domyślny punkt docelowy, który nie istnieje."
+
+#~ msgid "Commands:"
+#~ msgstr "Polecenia:"
+
+#~ msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
+#~ msgstr "Użycie: cups-oauth [OPCJE] [POLECENIE [ARGUMENT(Y)]]"
+
+#~ msgid "Usage: cups-x509 [OPTIONS] [COMMAND] [ARGUMENT]"
+#~ msgstr "Użycie: cups-x509 [OPCJE] [POLECENIE] [ARGUMENT]"
+
+#, c-format
+#~ msgid "cups-x509: Bad URI '%s'."
+#~ msgstr "cups-x509: Nieprawidłowy URI '%s'."
+
+#, c-format
+#~ msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
+#~ msgstr "cups-x509: Nie można połączyć się z '%s' na porcie %d: %s"
