@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-13 16:39-0400\n"
-"PO-Revision-Date: 2025-04-03 19:50+0000\n"
+"PO-Revision-Date: 2025-09-15 06:01+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
 "Language: pl\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(wszystkie)"
@@ -3636,7 +3636,7 @@ msgstr "Urządzenie CMYK"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "Kod urządzenia: %s"
 
 msgid "Device Gray"
 msgstr "Urządzenie szare"
@@ -3645,7 +3645,7 @@ msgid "Device RGB"
 msgstr "Urządzenie RGB"
 
 msgid "Device authorization grant is not supported by this server."
-msgstr ""
+msgstr "Ten serwer nie obsługuje autoryzacji urządzeń."
 
 #, c-format
 msgid ""
@@ -4030,12 +4030,12 @@ msgid "Help file not in index."
 msgstr "Plik pomocy nie znajduje się w indeksie."
 
 msgid "Home"
-msgstr ""
+msgstr "Główne"
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
-"Adres IP nie jest dozwolony jako nazwa hosta podczas korzystania z opcji "
-"Negotiate - użyj nazwy FQDN."
+"Adres IP nie jest dozwolony jako nazwa hosta podczas korzystania z opcji "
+"Negotiate – użyj nazwy FQDN."
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "Atrybut IPP 1setOf z niezgodnymi tagami wartości."
@@ -4144,13 +4144,13 @@ msgid "Illegal control character"
 msgstr "Niedozwolony znak kontrolny"
 
 msgid "Illegal main keyword string"
-msgstr "Niedozwolony ciąg głównego słowa kluczowego"
+msgstr "Niedozwolony ciąg głównych słów kluczowych"
 
 msgid "Illegal option keyword string"
-msgstr "Nieprawidłowa opcja słowa kluczowego ciągu"
+msgstr "Niedozwolony ciąg słów kluczowych opcji"
 
 msgid "Illegal translation string"
-msgstr "Nieprawidłowy ciąg tłumaczenia"
+msgstr "Niedozwolony ciąg tłumaczenia"
 
 msgid "Illegal whitespace character"
 msgstr "Niedozwolony znak odstępu"
@@ -4260,7 +4260,7 @@ msgstr "Plik JSON jest za duży."
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
-msgstr "Zadania nr %d nie można uruchomić ponownie – brak plików."
+msgstr "Zadania nr %d nie można uruchomić ponownie — brak plików."
 
 #, c-format
 msgid "Job #%d does not exist."
@@ -4445,7 +4445,7 @@ msgid "Missing scheme in URI"
 msgstr "Brak schematu w URI"
 
 msgid "Missing value string"
-msgstr "Brak danej tekstowej"
+msgstr "Brak ciągu wartości"
 
 msgid "Missing x-dimension in media-size."
 msgstr "Brak x-dimension w media-size."
@@ -4511,7 +4511,7 @@ msgid "No IPP attributes."
 msgstr "Brak atrybutów IPP."
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "Brak identyfikatora URI JWKS w metadanych serwera autoryzacji."
 
 msgid "No PPD name"
 msgstr "Brak nazwy PPD"
@@ -4536,7 +4536,7 @@ msgid "No authentication information provided."
 msgstr "Nie podano danych autoryzacji."
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "Nie skonfigurowano identyfikatora klienta dla tego serwera."
 
 msgid "No community name"
 msgstr "Brak nazwy wspólnoty"
@@ -4644,7 +4644,7 @@ msgid "Note"
 msgstr "Notatka"
 
 msgid "OAuth Login"
-msgstr ""
+msgstr "Logowanie OAuth"
 
 msgid "OK"
 msgstr "OK"
@@ -4993,7 +4993,7 @@ msgid "Statement"
 msgstr "Deklaracja"
 
 msgid "Sub-Commands:"
-msgstr ""
+msgstr "Podpolecenia:"
 
 #, c-format
 msgid "Subscription #%d does not exist."
@@ -5070,7 +5070,7 @@ msgstr ""
 "ukośników (/) i znaku kratki (#)."
 
 msgid "The client ID is not configured for this server."
-msgstr ""
+msgstr "Identyfikator klienta nie jest skonfigurowany dla tego serwera."
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5269,7 +5269,7 @@ msgid "Unable to allocate memory for printer: %s"
 msgstr "Nie można przydzielić pamięci dla drukarki: %s"
 
 msgid "Unable to authorize access"
-msgstr ""
+msgstr "Nie można autoryzować dostępu"
 
 msgid "Unable to cancel print job."
 msgstr "Nie można anulować zadania wydruku."
@@ -5373,10 +5373,10 @@ msgid "Unable to finish request."
 msgstr "Nie można zakończyć zapytania."
 
 msgid "Unable to get authorization URL"
-msgstr ""
+msgstr "Nie można uzyskać adresu URL autoryzacji"
 
 msgid "Unable to get authorization server information"
-msgstr ""
+msgstr "Nie można uzyskać informacji o serwerze autoryzacji"
 
 msgid "Unable to get backend exit status."
 msgstr "Nie można pobrać stanu wyjścia backendu."
@@ -5462,7 +5462,7 @@ msgid "Unable to print test page"
 msgstr "Nie można wydrukować strony testowej"
 
 msgid "Unable to read IPP attribute name."
-msgstr ""
+msgstr "Nie można odczytać nazwy atrybutu IPP."
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5688,10 +5688,10 @@ msgstr ""
 "       cancel [opcje] [id-pkt-docelowego]"
 
 msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Użycie: cups-oauth [OPCJE] [PODPOLECENIE [ARGUMENT(Y)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Użycie: cups-x509 [OPCJE] [PODPOLECENIE] [ARGUMENT]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Użycie: cupsctl [opcje] [param=wartość... paramN=wartośćN]"
@@ -5811,7 +5811,7 @@ msgstr "Użycie: snmp [adres-hosta-lub-ip]"
 
 #, c-format
 msgid "User Code: %s"
-msgstr ""
+msgstr "Kod użytkownika: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
@@ -5847,7 +5847,7 @@ msgstr "Interfejs webowy jest wyłączony"
 
 #, c-format
 msgid "Web Page: %s"
-msgstr ""
+msgstr "Strona internetowa: %s"
 
 msgid "Yes"
 msgstr "Tak"
@@ -6196,7 +6196,7 @@ msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr "cups-oauth: Brak identyfikatora URI zasobu i/lub tokena dostępu."
 
 msgid "cups-oauth: Missing resource URI and/or device token."
-msgstr ""
+msgstr "cups-oauth: Brak identyfikatora URI zasobu i/lub tokena urządzenia."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr "cups-oauth: Brak zakresu(-ów) po '-s'."
@@ -6214,11 +6214,11 @@ msgstr "cups-oauth: Nie można uzyskać autoryzacji od '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nie można uzyskać autoryzacji urządzenia z '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nie można uzyskać tokenu urządzenia z '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
@@ -6321,7 +6321,7 @@ msgstr "cups-x509: Nie można przydzielić pamięci dla '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nie można połączyć się z '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
@@ -7697,12 +7697,14 @@ msgid ""
 msgstr ""
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
-msgstr ""
+msgstr "get-device-grant [ZASÓB]    Autoryzuj dostęp za pomocą urządzenia"
 
 msgid ""
 "get-device-token [RESOURCE] DEVICE-CODE\n"
 "                               Wait for the device access token"
 msgstr ""
+"get-device-token [ZASÓB] KOD-URZĄDZENIA\n"
+"                               Poczekaj na token dostępu do urządzenia"
 
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
