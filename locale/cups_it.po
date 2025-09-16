@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-13 16:39-0400\n"
-"PO-Revision-Date: 2013-07-14 12:00+0200\n"
-"Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
-"Language-Team: Italian - Arch Linux Italian Team <giovanni@archlinux.org>\n"
+"PO-Revision-Date: 2025-09-16 08:01+0000\n"
+"Last-Translator: luca-vercelli <luca.vercelli.to@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(tutti)"
@@ -811,7 +811,7 @@ msgstr ""
 "  --lf                    Carattere di fine linea LF (UNIX/Linux/macOS)."
 
 msgid "  --list-all              List all filters with the MIME media types."
-msgstr ""
+msgstr "  --list-all              Elenca tutti i filtri con i MIME media type."
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          Elenca i filtri che saranno utilizzati."
@@ -829,10 +829,10 @@ msgstr ""
 "ricerca."
 
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -P FILENAME.ppd         Imposta il file PPD."
 
 msgid "  -U USERNAME             Specify username."
-msgstr ""
+msgstr "  -U USERNAME             Specifica il nome utente."
 
 msgid "  -c catalog.po           Load the specified message catalog."
 msgstr ""
@@ -843,7 +843,7 @@ msgstr ""
 "  -c cups-files.conf      Imposta il file cups-files.conf da utilizzare."
 
 msgid "  -d PRINTER              Use the named printer."
-msgstr ""
+msgstr "  -d PRINTER              Utilizza la stampante indicata."
 
 msgid "  -d output-dir           Specify the output directory."
 msgstr "  -d output-dir           Specifica la directory di output."
@@ -853,11 +853,15 @@ msgstr "  -e                      Utilizza tutti i filtri dal file PPD."
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
+"  -i MIME/TYPE            Imposta il tipo MIME dell'input (altrimenti viene "
+"dedotto automaticamente)."
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
+"  -j JOB-ID[,N]           Filtra il file N dal job specificato (il numero di "
+"file predefinito è 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l lang[,lang,...]      Specifica la lingua(e) (locale) di output."
@@ -868,12 +872,14 @@ msgstr "  -m                      Utilizza il valore di ModelName come file."
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
+"  -m MIME/TYPE            Imposta il tipo MIME dell'output (altrimenti "
+"application/pdf)."
 
 msgid "  -n COPIES               Set number of copies."
-msgstr ""
+msgstr "  -n COPIE                Imposta il numero di copie."
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr ""
+msgstr "  -o NOME=VALORE          Imposta una o più opzioni."
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -884,13 +890,13 @@ msgstr ""
 "  -o filename.ppd[.gz]    Imposta il file di output (altrimenti stdout)."
 
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -p FILENAME.ppd         Imposta il file PPD."
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Prova i PPD invece di generarli."
 
 msgid "  -t TITLE                Set title."
-msgstr ""
+msgstr "  -t TITOLO               Imposta il titolo."
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Rimuove il file PPD una volta terminato."
@@ -1415,6 +1421,8 @@ msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
+"%s: Errore - necessario \"completed\", \"not-completed\", \"successful\", o "
+"\"all\" dopo l'opzione \"-W\"."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1474,7 +1482,7 @@ msgstr "%s: la stringa del filtro non è valida \"%s\"."
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr ""
+msgstr "%s: Nome client mancante dopo '--client-name'."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1486,7 +1494,7 @@ msgstr "%s: manca il timeout di \"-T\"."
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr ""
+msgstr "%s: Token mancante dopo '--bearer-token'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1564,11 +1572,11 @@ msgstr "%s: opzione sconosciuta \"-%c\"."
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: Opzione sconosciuta '%s'."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: Opzione sconosciuta '-%c'."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
@@ -1629,11 +1637,15 @@ msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
+"--bearer-token BEARER-TOKEN\n"
+"                        Imposta il Bearer token OAuth per l'autenticazione"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name NOME-CLIENT\n"
+"                        Imposta il nome del certificato client TLS"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
@@ -1663,13 +1675,13 @@ msgid "--false                 Always false"
 msgstr "--false                 Sempre false"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         Mostra questo aiuto"
 
 msgid "--help                  Show program help"
 msgstr "--help                  Mostra l'aiuto del programma"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  Mostra questo aiuto"
 
 msgid "--hold                  Hold new jobs"
 msgstr "--hold                  Trattiene i nuovi job"
@@ -1762,6 +1774,8 @@ msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
 msgstr ""
+"--require-ca                   Richiede un certificato firmato dalla CA per "
+"il comando client"
 
 msgid ""
 "--stop-after-include-error\n"
@@ -1792,7 +1806,7 @@ msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri regex             Confronta l'URI con una espressione regolare"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      Mostra la versione del programma"
 
 msgid "--version               Show program version"
 msgstr "--version               Mostra la versione del programma"
@@ -1928,7 +1942,7 @@ msgstr ""
 "predefinita)"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C COUNTRY                     Imposta la nazione."
 
 msgid "-D description          Specify the textual description of the printer"
 msgstr ""
@@ -2000,7 +2014,7 @@ msgstr ""
 "length"
 
 msgid "-L LOCALITY                    Set locality name."
-msgstr ""
+msgstr "-L LOCALITY                    Imposta il nome della località."
 
 msgid "-L location             Specify the textual location of the printer"
 msgstr ""
@@ -2017,7 +2031,7 @@ msgstr ""
 "-N name                 Confronta il nome del servizio con il valore name"
 
 msgid "-O ORGANIZATION                Set organization name."
-msgstr ""
+msgstr "-O ORGANIZATION                Imposta il nome dell'organizzazione."
 
 msgid "-P destination          Show status for the specified destination"
 msgstr ""
@@ -2042,7 +2056,7 @@ msgid "-P page-list            Specify a list of pages to print"
 msgstr "-P page-list            Specifica un elenco di pagine da stampare"
 
 msgid "-R                      Repeat tests on server-error-busy"
-msgstr ""
+msgstr "-R                      Ripeti test su server-error-busy"
 
 msgid "-R                      Show the ranking of jobs"
 msgstr "-R                      Mostra la priorità dei job"
@@ -2050,6 +2064,8 @@ msgstr "-R                      Mostra la priorità dei job"
 msgid ""
 "-R CSR-FILENAME                Specify certificate signing request file."
 msgstr ""
+"-R CSR-FILENAME                Specifica il file di richiesta di firma del "
+"certificato."
 
 msgid "-R name-default         Remove the default value for the named option"
 msgstr ""
@@ -2063,7 +2079,7 @@ msgid "-S                      Test with encryption using HTTPS"
 msgstr "-S                      Test con cifratura via HTTPS"
 
 msgid "-S STATE                       Set state."
-msgstr ""
+msgstr "-S STATE                       Imposta lo stato."
 
 msgid "-S filename.strings     Set strings file"
 msgstr "-S filename.strings     Imposta il file di stringhe"
@@ -2080,6 +2096,7 @@ msgstr "-T title                Specifica un titolo per il job"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
 msgstr ""
+"-U ORGANIZATIONAL-UNIT         Imposta il nome dell'unità organizzativa."
 
 msgid "-U username             Specify the username to use for authentication"
 msgstr ""
@@ -2122,9 +2139,11 @@ msgstr "-a                      Mostra i job su tutte le destinazioni"
 msgid ""
 "-a OAUTH-URI                   Specify the OAuth authorization server URL"
 msgstr ""
+"-a OAUTH-URI                   Specifica l'URL del server di autorizzazioni "
+"OAuth"
 
 msgid "-a SUBJECT-ALT-NAME            Add a subjectAltName."
-msgstr ""
+msgstr "-a SUBJECT-ALT-NAME            Aggiunge un subjectAltName."
 
 msgid "-a [destination(s)]     Show the accepting state of destinations"
 msgstr ""
@@ -2157,7 +2176,7 @@ msgid "-d                      Show the default destination"
 msgstr "-d                      Mostra la destinazione predefinita"
 
 msgid "-d DAYS                        Set expiration date in days."
-msgstr ""
+msgstr "-d DAYS                        Imposta la data di scadenza in giorni."
 
 msgid "-d destination          Set default destination"
 msgstr "-d destination          Mostra la destinazione predefinita"
@@ -2316,9 +2335,10 @@ msgstr ""
 
 msgid "-o job-quota-period=N   Specify the per-user quota period in seconds"
 msgstr ""
+"-o job-quota-period=N   Specifica il limite di tempo per utente in secondi"
 
 msgid "-o job-sheets=standard  Print a banner page with the job"
-msgstr ""
+msgstr "-o job-sheets=standard  Stampa una pagina di intestazione con il job"
 
 msgid "-o media=size           Specify the media size to use"
 msgstr ""
@@ -2407,6 +2427,9 @@ msgid ""
 "                               (serverAuth, clientAuth, codeSigning, "
 "emailProtection, timeStamping, OCSPSigning)"
 msgstr ""
+"-p PURPOSE                     Scopi del certificato separati da virgole\n"
+"                               (serverAuth, clientAuth, codeSigning, "
+"emailProtection, timeStamping, OCSPSigning)"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
 msgstr ""
@@ -2450,7 +2473,7 @@ msgid "-r                      Use 'relaxed' open mode"
 msgstr "-r                      Usa la modalità di apertura \"rilassata\""
 
 msgid "-r ROOT-NAME                   Name of root certificate"
-msgstr ""
+msgstr "-r ROOT-NAME                   Nome del certificato root"
 
 msgid "-r class                Remove the named destination from a class"
 msgstr ""
@@ -2475,6 +2498,7 @@ msgstr "-s                      Mostra un riepilogo dello stato"
 
 msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
 msgstr ""
+"-s AMBITO                      Specifica l'ambito/gli ambiti da autorizzare"
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
 msgstr "-s cups-files.conf      Imposta il file cups-files.conf da utilizzare."
@@ -2496,6 +2520,9 @@ msgid ""
 "                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
 "ecdsa-p384, ecdsa-p521)"
 msgstr ""
+"-t TIPO                        Tipo di certificato\n"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
+"ecdsa-p384, ecdsa-p521)"
 
 msgid "-t key                  True if the TXT record contains the key"
 msgstr ""
@@ -2510,6 +2537,10 @@ msgid ""
 "keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
 "encipherOnly, decipherOnly, default-ca, default-tls)"
 msgstr ""
+"-u UTILIZZO                    Utilizzi della chiave separati da virgola\n"
+"                               (digitalSignature, nonRepudiation, "
+"keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
+"encipherOnly, decipherOnly, default-ca, default-tls)"
 
 msgid ""
 "-u [user(s)]            Show jobs queued by the current or specified users"
@@ -2835,17 +2866,20 @@ msgstr "3.00x2.00\""
 msgid "3.00x3.00\""
 msgstr "3.00x3.00\""
 
+#, fuzzy
 msgid "3.00x4.00\""
-msgstr ""
+msgstr "3.00x4.00\""
 
 msgid "3.00x5.00\""
 msgstr "3.00x5.00\""
 
+#, fuzzy
 msgid "3.00x6.00\""
-msgstr ""
+msgstr "3.00x6.00\""
 
+#, fuzzy
 msgid "3.00x8.00\""
-msgstr ""
+msgstr "3.00x8.00\""
 
 msgid "3.25x2.00\""
 msgstr "3.25x2.00\""
@@ -2928,8 +2962,9 @@ msgstr "4.00x6.00\""
 msgid "4.00x6.50\""
 msgstr "4.00x6.50\""
 
+#, fuzzy
 msgid "4.00x8.00\""
-msgstr ""
+msgstr "4.00x8.00\""
 
 msgid "40"
 msgstr "40"
@@ -2982,8 +3017,9 @@ msgstr "6.00x6.00\""
 msgid "6.00x6.50\""
 msgstr "6.00x6.50\""
 
+#, fuzzy
 msgid "6.00x8.00\""
-msgstr ""
+msgstr "6.00x8.00\""
 
 msgid "60"
 msgstr "60"
@@ -3048,8 +3084,9 @@ msgstr "8.00x6.00\""
 msgid "8.00x6.50\""
 msgstr "8.00x6.50\""
 
+#, fuzzy
 msgid "8.26x1.00\""
-msgstr ""
+msgstr "8.26x1.00\""
 
 msgid "80"
 msgstr "80"
@@ -3057,8 +3094,9 @@ msgstr "80"
 msgid "80 mm/sec."
 msgstr "80 mm/sec."
 
+#, fuzzy
 msgid "80x50mm"
-msgstr ""
+msgstr "80x50mm"
 
 msgid "85"
 msgstr "85"
@@ -3329,7 +3367,7 @@ msgid "Bad arguments to function"
 msgstr "Argomenti per la funzione non validi"
 
 msgid "Bad certificate."
-msgstr ""
+msgstr "Certificato non valido."
 
 #, c-format
 msgid "Bad copies value %d."
@@ -3427,7 +3465,7 @@ msgid "Bad printer-uri."
 msgstr "Valore printer-uri non valido."
 
 msgid "Bad private key."
-msgstr ""
+msgstr "Chiave privata non valida."
 
 #, c-format
 msgid "Bad request ID %d."
@@ -3545,22 +3583,22 @@ msgstr "Copia dei dati di stampa in corso."
 
 #, c-format
 msgid "Couldn't resolve mDNS URI \"%s\"."
-msgstr ""
+msgstr "Impossibile risolvere l'URI del mDNS \"%s\"."
 
 msgid "Created"
 msgstr "Creato"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "Le credenziali sono OK/confermato."
 
 msgid "Credentials are expired."
-msgstr ""
+msgstr "Le credenziali sono scadute."
 
 msgid "Credentials are invalid."
-msgstr ""
+msgstr "Le credenziali sono non valide."
 
 msgid "Credentials are not CA-signed."
-msgstr ""
+msgstr "Le credenziali non sono firmate dal CA."
 
 msgid "Credentials are unknown/new."
 msgstr ""
@@ -3569,10 +3607,10 @@ msgid "Credentials do not validate against site CA certificate."
 msgstr "Credenziali non validate rispetto al certificato CA del sito."
 
 msgid "Credentials have been renewed."
-msgstr ""
+msgstr "Le credenziali sono state rinnovate."
 
 msgid "Credentials have changed."
-msgstr ""
+msgstr "Le credenziali sono cambiate."
 
 msgid "Credentials have expired."
 msgstr "Credenziali scadute."
@@ -3592,8 +3630,9 @@ msgstr "Taglia"
 msgid "Cutter"
 msgstr "Taglierino"
 
+#, fuzzy
 msgid "DYMO"
-msgstr ""
+msgstr "DYMO"
 
 msgid "Dark"
 msgstr "Scuro"
@@ -3628,7 +3667,7 @@ msgstr "CMYK del dispositivo"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "Codice dispositivo: %s"
 
 msgid "Device Gray"
 msgstr "Grigi del dispositivo"
@@ -3638,6 +3677,8 @@ msgstr "RGB del dispositivo"
 
 msgid "Device authorization grant is not supported by this server."
 msgstr ""
+"La concessione dell'autorizzazione del dispositivo non è supportata da "
+"questo server."
 
 #, c-format
 msgid ""
@@ -3895,10 +3936,10 @@ msgid "Error: need hostname after \"-h\" option."
 msgstr "Errore: è necessario l'hostname dopo l'opzione \"-h\"."
 
 msgid "European Fanfold"
-msgstr ""
+msgstr "Modulo continuo europeo"
 
 msgid "European Fanfold Legal"
-msgstr ""
+msgstr "Modulo continuo europeo legale"
 
 msgid "Every 10 Labels"
 msgstr "Ogni 10 etichette"
@@ -3963,7 +4004,7 @@ msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "File \"%s\" permessi OK (0%o/uid=%d/gid=%d)."
 
 msgid "File Folder"
-msgstr ""
+msgstr "Cartella di file"
 
 #, c-format
 msgid ""
@@ -4023,10 +4064,12 @@ msgid "Help file not in index."
 msgstr "Il file di aiuto non è nell'indice."
 
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
+"Un indirizzo IP non è consentito come nome host quando si utilizza Negotiate "
+"- utilizzare FQDN."
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "L'attributo IPP 1setOf con tag di valore incompatibile."
@@ -4074,7 +4117,7 @@ msgid "IPP memberName value is empty."
 msgstr "Il valore di IPP memberName è vuoto."
 
 msgid "IPP message nested too deeply."
-msgstr ""
+msgstr "Messaggio IPP nidificato troppo in profondità."
 
 msgid "IPP name larger than 32767 bytes."
 msgstr "Il nome dell'IPP è più grande di 32767 byte."
@@ -4122,8 +4165,9 @@ msgstr "IPPFIND_SERVICE_REGTYPE tipo registrazione DNS-SD"
 msgid "IPPFIND_SERVICE_SCHEME  URI scheme"
 msgstr "IPPFIND_SERVICE_SCHEME  Schema URI"
 
+#, fuzzy
 msgid "IPPFIND_SERVICE_URI     URI"
-msgstr ""
+msgstr "IPPFIND_SERVICE_URI     URI"
 
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr "IPPFIND_TXT_*           Valore della chiave del record TXT"
@@ -4180,7 +4224,7 @@ msgid "Invalid JSON web token."
 msgstr "Web token JSON non valido."
 
 msgid "Invalid form data."
-msgstr ""
+msgstr "Dati del form non validi."
 
 msgid "Invalid group tag."
 msgstr "Tag gruppo non valida."
@@ -4363,7 +4407,7 @@ msgid "Long-Edge (Portrait)"
 msgstr "Long-Edge (Portrait)"
 
 msgid "Main Roll"
-msgstr ""
+msgstr "Rullo principale"
 
 msgid "Manual Feed"
 msgstr "Alimentazione manuale"
@@ -4502,7 +4546,7 @@ msgid "No IPP attributes."
 msgstr "Nessun attributo per IPP."
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "Nessun URI JWKS nei metadati del server di autorizzazione."
 
 msgid "No PPD name"
 msgstr "Nessun nome del PPD"
@@ -4527,7 +4571,7 @@ msgid "No authentication information provided."
 msgstr "Nessuna informazione di autenticazione fornita."
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "Nessun ID client configurato per questo server."
 
 msgid "No community name"
 msgstr "Nessun nome della comunità"
@@ -4577,13 +4621,13 @@ msgid "No printer-uri in request."
 msgstr "Nessun printer-uri nella richiesta."
 
 msgid "No printer-uri-supported attribute."
-msgstr ""
+msgstr "Nessun attributo printer-uri-supported."
 
 msgid "No request URI."
-msgstr ""
+msgstr "Nessun URI di richiesta."
 
 msgid "No request protocol version."
-msgstr ""
+msgstr "Nessuna versione del protocollo della richiesta."
 
 msgid "No request sent."
 msgstr "Nessuna richiesta inviata."
@@ -4637,7 +4681,7 @@ msgid "Note"
 msgstr "Nota"
 
 msgid "OAuth Login"
-msgstr ""
+msgstr "Login OAuth"
 
 msgid "OK"
 msgstr "OK"
@@ -4769,7 +4813,7 @@ msgid "Postcard"
 msgstr "Postcard"
 
 msgid "Postcard Double"
-msgstr ""
+msgstr "Cartolina doppia"
 
 msgid "Postcard Double Long Edge"
 msgstr "Postcard Double Long Edge"
@@ -4853,7 +4897,7 @@ msgstr ""
 
 #, c-format
 msgid "Printer returned invalid data: %s"
-msgstr ""
+msgstr "La stampante ha restituito dati non validi: %s"
 
 msgid "Printer:"
 msgstr "Stampante:"
@@ -4913,7 +4957,7 @@ msgid "SSL/TLS Negotiation Error"
 msgstr "Errore di negoziazione SSL/TLS"
 
 msgid "Second Roll (DUO/Twin Only)"
-msgstr ""
+msgstr "Secondo rotolo (solo per DUO/Twin)"
 
 msgid "See Other"
 msgstr "Vedi altro"
@@ -4985,7 +5029,7 @@ msgid "Statement"
 msgstr "Rapporto"
 
 msgid "Sub-Commands:"
-msgstr ""
+msgstr "Sotto-comandi:"
 
 #, c-format
 msgid "Subscription #%d does not exist."
@@ -5065,7 +5109,7 @@ msgstr ""
 "contenere spazi, barre (/) o cancelletto (#)."
 
 msgid "The client ID is not configured for this server."
-msgstr ""
+msgstr "Il client ID non è configurato per questo server."
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5086,7 +5130,7 @@ msgid "The printer did not respond."
 msgstr "La stampante non ha risposto."
 
 msgid "The printer does not provide attributes required for IPP Everywhere."
-msgstr ""
+msgstr "La stampante non fornisce gli attributi necessari per IPP Everywhere."
 
 msgid "The printer is in use."
 msgstr "La stampante è in uso."
@@ -5206,7 +5250,7 @@ msgid "URI too large"
 msgstr "URI troppo grande"
 
 msgid "US Fanfold"
-msgstr ""
+msgstr "Modulo continuo US"
 
 msgid "US Ledger"
 msgstr "US Ledger"
@@ -5268,7 +5312,7 @@ msgid "Unable to allocate memory for printer: %s"
 msgstr "Impossibile allocare memoria per la stampante: %s"
 
 msgid "Unable to authorize access"
-msgstr ""
+msgstr "Impossibile autorizzare l'accesso"
 
 msgid "Unable to cancel print job."
 msgstr "Non è possibile eliminare il processo di stampa."
@@ -5299,7 +5343,7 @@ msgstr "Impossibile configurare il contesto per la chiave privata."
 
 #, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr ""
+msgstr "Impossibile connettere a %s:%d: %s"
 
 msgid "Unable to connect to host."
 msgstr "Non è possibile connettersi all'host."
@@ -5315,14 +5359,14 @@ msgstr "Non è possibile copiare il file PPD - %s"
 
 #, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr ""
+msgstr "Impossibile creare PPD per la stampante: %s"
 
 #, c-format
 msgid "Unable to create PPD: %s"
-msgstr ""
+msgstr "Impossibile creare PPD: %s"
 
 msgid "Unable to create X.509 certificate signing request."
-msgstr ""
+msgstr "Impossibile creare una richiesta di firma del certificato X.509."
 
 msgid "Unable to create X.509 certificate."
 msgstr "Impossibile creare il certificato X.509."
@@ -5372,10 +5416,10 @@ msgid "Unable to finish request."
 msgstr "Impossibile terminare la richiesta."
 
 msgid "Unable to get authorization URL"
-msgstr ""
+msgstr "Impossibile ottenere l'URL di autorizzazione"
 
 msgid "Unable to get authorization server information"
-msgstr ""
+msgstr "Impossibile ottenere le informazioni sul server di autorizzazione"
 
 msgid "Unable to get backend exit status."
 msgstr "Non è possibile ottenere lo stato del backend."
@@ -5402,7 +5446,7 @@ msgid "Unable to get printer status."
 msgstr "Non è possibile ottenere lo stato della stampante"
 
 msgid "Unable to import X.509 certificate request."
-msgstr ""
+msgstr "Impossibile importare la richiesta di certificato X.509."
 
 msgid "Unable to import credentials."
 msgstr "Impossibile importare le credenziali."
@@ -5461,11 +5505,11 @@ msgid "Unable to print test page"
 msgstr "Non è possibile stampare la pagina di prova"
 
 msgid "Unable to read IPP attribute name."
-msgstr ""
+msgstr "Impossibile leggere il nome dell'attributo IPP."
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr ""
+msgstr "Impossibile leggere il PPD generato: %s"
 
 msgid "Unable to read print data."
 msgstr "Non è possibile leggere i dati della stampa."
@@ -5474,7 +5518,7 @@ msgid "Unable to read response."
 msgstr "Impossibile leggere la risposta."
 
 msgid "Unable to reallocate IPP attribute value."
-msgstr ""
+msgstr "Impossibile riallocare il valore dell'attributo IPP."
 
 msgid "Unable to rename job document file."
 msgstr "Impossibile rinominare il documento del job."
@@ -5492,7 +5536,7 @@ msgstr "Impossibile salvare il file PPD: %s"
 
 #, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
-msgstr ""
+msgstr "Impossibile salvare un valore per \"%s\" con una stampante temporanea."
 
 msgid "Unable to see in file"
 msgstr "Non è possibile vedere nel file"
@@ -5519,10 +5563,10 @@ msgid "Unable to use legacy USB class driver."
 msgstr "Non è possibile utilizzare il driver legacy della classe USB. "
 
 msgid "Unable to verify X.509 certificate request."
-msgstr ""
+msgstr "Impossibile verificare la richiesta del certificato X.509."
 
 msgid "Unable to write X.509 certificate signing request."
-msgstr ""
+msgstr "Impossibile scrivere la richiesta di firma del certificato X.509."
 
 msgid "Unable to write X.509 certificate."
 msgstr "Impossibile scrivere il certificato X.509."
@@ -5534,7 +5578,7 @@ msgid "Unable to write private key."
 msgstr "Impossibile scrivere la chiave privata."
 
 msgid "Unable to write public key."
-msgstr ""
+msgstr "Impossibile scrivere la chiave pubblica."
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5688,10 +5732,10 @@ msgstr ""
 "       cancel [opzioni] [id-destinazione]"
 
 msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Utilizzo: cups-oauth [OPZIONI] [SOTTO-COMANDO [ARGOMENTO/I]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Utilizzo: cups-x509 [OPZIONI] [SOTTO-COMANDO [ARGOMENTO/I]]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Uso: cupsctl [opzioni] [param=valore ... paramN=valoreN]"
@@ -5808,7 +5852,7 @@ msgstr "Uso: snmp [host-o-indirizzo-ip]"
 
 #, c-format
 msgid "User Code: %s"
-msgstr ""
+msgstr "Codice utente: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
@@ -5843,7 +5887,7 @@ msgstr "L'interfaccia web è stata disabilitata"
 
 #, c-format
 msgid "Web Page: %s"
-msgstr ""
+msgstr "Pagina web: %s"
 
 msgid "Yes"
 msgstr "Sì"
@@ -5884,7 +5928,7 @@ msgid "accuracy-units.um"
 msgstr "Micrometri"
 
 msgid "authorize [RESOURCE]           Authorize access to a resource"
-msgstr ""
+msgstr "authorize [RISORSA]            Autorizza l'accesso a una risorsa"
 
 #. TRANSLATORS: Bale Output
 msgid "baling"
@@ -5896,15 +5940,15 @@ msgstr ""
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
-msgstr ""
+msgstr "Banda"
 
 #. TRANSLATORS: Shrink Wrap
 msgid "baling-type.shrink-wrap"
-msgstr ""
+msgstr "Termica"
 
 #. TRANSLATORS: Wrap
 msgid "baling-type.wrap"
-msgstr ""
+msgstr "Avvolta"
 
 #. TRANSLATORS: Bale After
 msgid "baling-when"
@@ -5916,15 +5960,15 @@ msgstr "Job"
 
 #. TRANSLATORS: Sets
 msgid "baling-when.after-sets"
-msgstr ""
+msgstr "Insiemi"
 
 #. TRANSLATORS: Bind Output
 msgid "binding"
-msgstr ""
+msgstr "Rilegatura output"
 
 #. TRANSLATORS: Bind Edge
 msgid "binding-reference-edge"
-msgstr ""
+msgstr "Lato rilegatura"
 
 #. TRANSLATORS: Bottom
 msgid "binding-reference-edge.bottom"
@@ -5979,16 +6023,16 @@ msgid "binding-type.velo"
 msgstr ""
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
-msgstr ""
+msgstr "ca NOME-COMUNE             Firma un CSR per produrre un certificato."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
-msgstr ""
+msgstr "cacert NOME-COMUNE         Crea un certificato CA."
 
 msgid "canceled"
 msgstr "eliminato"
 
 msgid "cert COMMON-NAME           Create a certificate."
-msgstr ""
+msgstr "cert NOME-COMUNE           Crea un certificato."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
@@ -6004,9 +6048,10 @@ msgstr ""
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
 msgstr ""
+"clear [RISORSA]                Ripulisce le autorizzazioni per una risorsa"
 
 msgid "client URI                 Connect to URI."
-msgstr ""
+msgstr "client URI                 Connette a URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
@@ -6168,7 +6213,7 @@ msgid "covering-name.pre-printed"
 msgstr "Prima della stampa"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr ""
+msgstr "csr NOME-COMUNE            Crea una richiesta di firma del certificato."
 
 msgid "cups-deviced failed to execute."
 msgstr "cups-deviced ha smesso di funzionare."
@@ -6182,185 +6227,187 @@ msgstr ""
 "dettagli."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
-msgstr ""
+msgstr "cups-oauth: Manca l'URI del server di autorizzazione dopo '-a'."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr ""
+msgstr "cups-oauth: Mancano client_id e/o client_secret."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
-msgstr ""
+msgstr "cups-oauth: Mancano l'URI della risorsa e/o il token di accesso."
 
 msgid "cups-oauth: Missing resource URI and/or device token."
-msgstr ""
+msgstr "cups-oauth: Mancano l'URI della risorsa e/o il token del dispositivo."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr ""
 
 msgid "cups-oauth: No authorization server specified."
-msgstr ""
+msgstr "cups-oauth: Nessun server di autorizzazione specificato."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Impossibile ottenere un token di accesso da '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Impossibile ottenere l'autorizzazione da '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device authorization from '%s': %s"
 msgstr ""
+"cups-oauth: Impossibile ottenere autorizzazione al dispositivo da '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Impossibile ottenere un token di dispositivo da '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Impossibile ottenere metadati da '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Impossibile ottenere ID utente per '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "cups-oauth: Comando sconosciuto '%s'."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
-msgstr ""
+msgstr "cups-x509: Valore DAYS '%s' non valido dopo '-d'."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "cups-x509: Versione HTTP non valida."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr ""
+msgstr "cups-x509: Tipo di certificato non valido '%s'."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr ""
+msgstr "cups-x509: Utilizzo di chiave non valido '%s'."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "cups-x509: Scopo non valido '%s'."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr ""
+msgstr "cups-x509: Riga nella richiesta non valida (%s)."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "cups-x509: Operazione non valida/sconosciuta."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "cups-x509: Il client ha chiuso la connessione."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr ""
+msgstr "cups-x509: Nome del file CSR mancante dopo '-R'."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr ""
+msgstr "cups-x509: Tipo di certificato mancante dopo '-t'."
 
 msgid "cups-x509: Missing command argument."
-msgstr ""
+msgstr "cups-x509: Argomento del comando mancante."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr ""
+msgstr "cups-x509: Nazione mancante dopo '-C'."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr ""
+msgstr "cups-x509: Giorni di scadenza mancanti dopo '-d'."
 
 msgid "cups-x509: Missing key usage after '-u'."
-msgstr ""
+msgstr "cups-x509: Utilizzo chiave mancante dopo '-u'."
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
-msgstr ""
+msgstr "cups-x509: Località/città/paese mancante dopo '-L'."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr ""
+msgstr "cups-x509: Organizzazione mancante dopo '-O'."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
-msgstr ""
+msgstr "cups-x509: Unità organizzativa mancante dopo '-U'."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr ""
+msgstr "cups-x509: Scopo mancante dopo '-p'."
 
 msgid "cups-x509: Missing root name after '-r'."
-msgstr ""
+msgstr "cups-x509: Nome root mancante dopo '-r'."
 
 msgid "cups-x509: Missing state/province after '-S'."
-msgstr ""
+msgstr "cups-x509: Stato/provincia mancante dopo '-S'."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
-msgstr ""
+msgstr "cups-x509: subjectAltName mancante dopo '-a'."
 
 #, c-format
 msgid "cups-x509: No request for '%s'."
-msgstr ""
+msgstr "cups-x509: Nessuna richiesta per '%s'."
 
 msgid "cups-x509: Too many subjectAltName values."
-msgstr ""
+msgstr "cups-x509: Troppi valori subjectAltName."
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr ""
+msgstr "cups-x509: Impossibile accettare la connessione: %s"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
-msgstr ""
+msgstr "cups-x509: Impossibile accedere '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "cups-x509: Impossibile allocare memoria per '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s': %s"
-msgstr ""
+msgstr "cups-x509: Impossibile connettersi a '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr ""
+msgstr "cups-x509: Impossibile cercare il certificato (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr ""
+msgstr "cups-x509: Impossibile creare una richiesta di certificato (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
-msgstr ""
+msgstr "cups-x509: Impossibile criptare la connessione: %s"
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate for '%s'."
-msgstr ""
+msgstr "cups-x509: Impossible ottenere il certificato generato per '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
 msgstr ""
+"cups-x509: Impossible ottenere la richiesta di certificato generato per '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
-msgstr ""
+msgstr "cups-x509: Impossibile ottenere la chiave privata generata per '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
-msgstr ""
+msgstr "cups-x509: Impossibile ascoltare sulla porta %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
-msgstr ""
+msgstr "cups-x509: Impossibile leggere '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
-msgstr ""
+msgstr "cups-x509: Impossibile eseguire stat '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "cups-x509: Comando sconosciuto '%s'."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
-msgstr "cupsctl: Impossibile impostare %s."
+msgstr "cupsctl: Impossibile impostare %s direttamente."
 
 #, c-format
 msgid "cupsctl: Unable to connect to server: %s"
@@ -7702,9 +7749,11 @@ msgstr ""
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
 msgstr ""
+"get-metadata [NOME]            Ottiene metadati dal server delle "
+"autorizzazioni"
 
 msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
-msgstr ""
+msgstr "get-user-id [RISORSA] [NOME]  Ottiene l'ID utente autorizzato"
 
 msgid "held"
 msgstr "svolto"
@@ -7863,15 +7912,15 @@ msgstr ""
 
 #. TRANSLATORS: General
 msgid "job-account-type.general"
-msgstr ""
+msgstr "Generale"
 
 #. TRANSLATORS: Group
 msgid "job-account-type.group"
-msgstr ""
+msgstr "Gruppo"
 
 #. TRANSLATORS: None
 msgid "job-account-type.none"
-msgstr ""
+msgstr "Nessuno"
 
 #. TRANSLATORS: Job Accounting Output Bin
 msgid "job-accounting-output-bin"
@@ -10794,7 +10843,7 @@ msgstr ""
 
 #. TRANSLATORS: 5 x 8″
 msgid "media.na_index-5x8_5x8in"
-msgstr ""
+msgstr "5 x 8″"
 
 #. TRANSLATORS: Statement
 msgid "media.na_invoice_5.5x8.5in"
@@ -10878,71 +10927,71 @@ msgstr ""
 
 #. TRANSLATORS: 14 x 17″
 msgid "media.oe_14x17_14x17in"
-msgstr ""
+msgstr "14 x 17″"
 
 #. TRANSLATORS: 18 x 22″
 msgid "media.oe_18x22_18x22in"
-msgstr ""
+msgstr "18 x 22″"
 
 #. TRANSLATORS: 17 x 24″
 msgid "media.oe_a2plus_17x24in"
-msgstr ""
+msgstr "17 x 24″"
 
 #. TRANSLATORS: 2 x 3.5″
 msgid "media.oe_business-card_2x3.5in"
-msgstr ""
+msgstr "2 x 3.5″"
 
 #. TRANSLATORS: 10 x 12″
 msgid "media.oe_photo-10r_10x12in"
-msgstr ""
+msgstr "10 x 12″"
 
 #. TRANSLATORS: 20 x 24″
 msgid "media.oe_photo-20r_20x24in"
-msgstr ""
+msgstr "20 x 24″"
 
 #. TRANSLATORS: 3.5 x 5″
 msgid "media.oe_photo-l_3.5x5in"
-msgstr ""
+msgstr "3.5 x 5″"
 
 #. TRANSLATORS: 10 x 15″
 msgid "media.oe_photo-s10r_10x15in"
-msgstr ""
+msgstr "10 x 15″"
 
 #. TRANSLATORS: 4 x 4″
 msgid "media.oe_square-photo_4x4in"
-msgstr ""
+msgstr "4 x 4″"
 
 #. TRANSLATORS: 5 x 5″
 msgid "media.oe_square-photo_5x5in"
-msgstr ""
+msgstr "5 x 5″"
 
 #. TRANSLATORS: 184 x 260mm
 msgid "media.om_16k_184x260mm"
-msgstr ""
+msgstr "184 x 260mm"
 
 #. TRANSLATORS: 195 x 270mm
 msgid "media.om_16k_195x270mm"
-msgstr ""
+msgstr "195 x 270mm"
 
 #. TRANSLATORS: 55 x 85mm
 msgid "media.om_business-card_55x85mm"
-msgstr ""
+msgstr "55 x 85mm"
 
 #. TRANSLATORS: 55 x 91mm
 msgid "media.om_business-card_55x91mm"
-msgstr ""
+msgstr "55 x 91mm"
 
 #. TRANSLATORS: 54 x 86mm
 msgid "media.om_card_54x86mm"
-msgstr ""
+msgstr "54 x 86mm"
 
 #. TRANSLATORS: 275 x 395mm
 msgid "media.om_dai-pa-kai_275x395mm"
-msgstr ""
+msgstr "275 x 395mm"
 
 #. TRANSLATORS: 89 x 119mm
 msgid "media.om_dsc-photo_89x119mm"
-msgstr ""
+msgstr "89 x 119mm"
 
 #. TRANSLATORS: Folio
 msgid "media.om_folio-sp_215x315mm"
@@ -10962,19 +11011,19 @@ msgstr ""
 
 #. TRANSLATORS: 198 x 275mm
 msgid "media.om_juuro-ku-kai_198x275mm"
-msgstr ""
+msgstr "198 x 275mm"
 
 #. TRANSLATORS: 200 x 300
 msgid "media.om_large-photo_200x300"
-msgstr ""
+msgstr "200 x 300"
 
 #. TRANSLATORS: 130 x 180mm
 msgid "media.om_medium-photo_130x180mm"
-msgstr ""
+msgstr "130 x 180mm"
 
 #. TRANSLATORS: 267 x 389mm
 msgid "media.om_pa-kai_267x389mm"
-msgstr ""
+msgstr "267 x 389mm"
 
 #. TRANSLATORS: Envelope Postfix
 msgid "media.om_postfix_114x229mm"
@@ -10982,15 +11031,15 @@ msgstr ""
 
 #. TRANSLATORS: 100 x 150mm
 msgid "media.om_small-photo_100x150mm"
-msgstr ""
+msgstr "100 x 150mm"
 
 #. TRANSLATORS: 89 x 89mm
 msgid "media.om_square-photo_89x89mm"
-msgstr ""
+msgstr "89 x 89mm"
 
 #. TRANSLATORS: 100 x 200mm
 msgid "media.om_wide-photo_100x200mm"
-msgstr ""
+msgstr "100 x 200mm"
 
 #. TRANSLATORS: Envelope Chinese #10
 msgid "media.prc_10_324x458mm"
@@ -15644,7 +15693,7 @@ msgstr ""
 
 #. TRANSLATORS: Punching
 msgid "punching"
-msgstr ""
+msgstr "Punzonatura"
 
 #. TRANSLATORS: Punching Locations
 msgid "punching-locations"
@@ -15656,34 +15705,34 @@ msgstr ""
 
 #. TRANSLATORS: Punch Edge
 msgid "punching-reference-edge"
-msgstr ""
+msgstr "Lato punzonatura"
 
 #. TRANSLATORS: Bottom
 msgid "punching-reference-edge.bottom"
-msgstr ""
+msgstr "Basso"
 
 #. TRANSLATORS: Left
 msgid "punching-reference-edge.left"
-msgstr ""
+msgstr "Sinistra"
 
 #. TRANSLATORS: Right
 msgid "punching-reference-edge.right"
-msgstr ""
+msgstr "Destra"
 
 #. TRANSLATORS: Top
 msgid "punching-reference-edge.top"
-msgstr ""
+msgstr "Alto"
 
 #, c-format
 msgid "request id is %s-%d (%d file(s))"
-msgstr "request id è %s-%d (%d file(s))"
+msgstr "request id è %s-%d (%d file)"
 
 msgid "request-id uses indefinite length"
 msgstr "request-id utilizza una lunghezza indefinita"
 
 #. TRANSLATORS: Requested Attributes
 msgid "requested-attributes"
-msgstr ""
+msgstr "Attributi richiesti"
 
 #. TRANSLATORS: Retry Interval
 msgid "retry-interval"
@@ -15711,19 +15760,19 @@ msgstr "Salva solo"
 
 #. TRANSLATORS: Save Document Format
 msgid "save-document-format"
-msgstr ""
+msgstr "Formato documento salvataggio"
 
 #. TRANSLATORS: Save Info
 msgid "save-info"
-msgstr ""
+msgstr "Informazioni salvataggio"
 
 #. TRANSLATORS: Save Location
 msgid "save-location"
-msgstr ""
+msgstr "Posizione salvataggio"
 
 #. TRANSLATORS: Save Name
 msgid "save-name"
-msgstr ""
+msgstr "Nome salvataggio"
 
 msgid "scheduler is not running"
 msgstr "lo scheduler non è in funzione"
@@ -15733,23 +15782,23 @@ msgstr "lo scheduler è in funzione"
 
 #. TRANSLATORS: Separator Sheets
 msgid "separator-sheets"
-msgstr ""
+msgstr "Fogli separatori"
 
 #. TRANSLATORS: Type of Separator Sheets
 msgid "separator-sheets-type"
-msgstr ""
+msgstr "Tipo di fogli separatori"
 
 #. TRANSLATORS: Start and End Sheets
 msgid "separator-sheets-type.both-sheets"
-msgstr ""
+msgstr "Foglio iniziale e finale"
 
 #. TRANSLATORS: End Sheet
 msgid "separator-sheets-type.end-sheet"
-msgstr ""
+msgstr "Foglio finale"
 
 #. TRANSLATORS: None
 msgid "separator-sheets-type.none"
-msgstr ""
+msgstr "Nessuno"
 
 #. TRANSLATORS: Slip Sheets
 msgid "separator-sheets-type.slip-sheets"
@@ -15757,24 +15806,30 @@ msgstr ""
 
 #. TRANSLATORS: Start Sheet
 msgid "separator-sheets-type.start-sheet"
-msgstr ""
+msgstr "Foglio iniziale"
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
-msgstr ""
+msgstr "server NOME-COMUNE[:PORTA] Avvia un server HTTPS (porta default 8NNN.)"
 
 msgid ""
 "set-access-token [RESOURCE] TOKEN\n"
 "                               Set the current access token"
 msgstr ""
+"set-access-token [RISORSA] TOKEN\n"
+"                               Imposta il token di accesso corrente"
 
 msgid ""
 "set-client-data CLIENT-ID CLIENT-SECRET\n"
 "                               Set the client ID and secret for the "
 "authorization server."
 msgstr ""
+"set-client-data CLIENT-ID CLIENT-SECRET\n"
+"                               Imposta ID e secret del client per il server "
+"di autorizzazione."
 
 msgid "show COMMON-NAME           Show stored credentials for COMMON-NAME."
 msgstr ""
+"show NOME-COMUNE           Mostra le credenziali salvate per NOME-COMUNE."
 
 #. TRANSLATORS: 2-Sided Printing
 msgid "sides"
@@ -15805,7 +15860,7 @@ msgstr "Messaggio di stato"
 
 #. TRANSLATORS: Staple
 msgid "stitching"
-msgstr ""
+msgstr "Graffetta"
 
 #. TRANSLATORS: Stitching Angle
 msgid "stitching-angle"
@@ -15860,51 +15915,51 @@ msgstr "fermato"
 
 #. TRANSLATORS: Subject
 msgid "subject"
-msgstr ""
+msgstr "Oggetto"
 
 #. TRANSLATORS: Subscription Privacy Attributes
 msgid "subscription-privacy-attributes"
-msgstr ""
+msgstr "Sottoscrizione attributi privacy"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-attributes.all"
-msgstr ""
+msgstr "Tutti"
 
 #. TRANSLATORS: Default
 msgid "subscription-privacy-attributes.default"
-msgstr ""
+msgstr "Predefinito"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-attributes.none"
-msgstr ""
+msgstr "Nessuno"
 
 #. TRANSLATORS: Subscription Description
 msgid "subscription-privacy-attributes.subscription-description"
-msgstr ""
+msgstr "Descrizione sottoscrizione"
 
 #. TRANSLATORS: Subscription Template
 msgid "subscription-privacy-attributes.subscription-template"
-msgstr ""
+msgstr "Template sottoscrizione"
 
 #. TRANSLATORS: Subscription Privacy Scope
 msgid "subscription-privacy-scope"
-msgstr ""
+msgstr "Ambito sottoscrizione privacy"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-scope.all"
-msgstr ""
+msgstr "Tutti"
 
 #. TRANSLATORS: Default
 msgid "subscription-privacy-scope.default"
-msgstr ""
+msgstr "Predefiniti"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-scope.none"
-msgstr ""
+msgstr "Nessuno"
 
 #. TRANSLATORS: Owner
 msgid "subscription-privacy-scope.owner"
-msgstr ""
+msgstr "Proprietario"
 
 #, c-format
 msgid "system default destination: %s"
@@ -15920,7 +15975,7 @@ msgstr "T33 Subaddress"
 
 #. TRANSLATORS: To Name
 msgid "to-name"
-msgstr ""
+msgstr "A nome"
 
 #. TRANSLATORS: Transmission Status
 msgid "transmission-status"
@@ -15952,35 +16007,35 @@ msgstr "Completata"
 
 #. TRANSLATORS: Cut
 msgid "trimming"
-msgstr ""
+msgstr "Taglio"
 
 #. TRANSLATORS: Cut Position
 msgid "trimming-offset"
-msgstr ""
+msgstr "Posizione taglio"
 
 #. TRANSLATORS: Cut Edge
 msgid "trimming-reference-edge"
-msgstr ""
+msgstr "Lato taglio"
 
 #. TRANSLATORS: Bottom
 msgid "trimming-reference-edge.bottom"
-msgstr ""
+msgstr "Basso"
 
 #. TRANSLATORS: Left
 msgid "trimming-reference-edge.left"
-msgstr ""
+msgstr "Sinistra"
 
 #. TRANSLATORS: Right
 msgid "trimming-reference-edge.right"
-msgstr ""
+msgstr "Destra"
 
 #. TRANSLATORS: Top
 msgid "trimming-reference-edge.top"
-msgstr ""
+msgstr "Alto"
 
 #. TRANSLATORS: Type of Cut
 msgid "trimming-type"
-msgstr ""
+msgstr "Tipo di taglio"
 
 #. TRANSLATORS: Draw Line
 msgid "trimming-type.draw-line"
@@ -16008,23 +16063,23 @@ msgstr ""
 
 #. TRANSLATORS: Cut After
 msgid "trimming-when"
-msgstr ""
+msgstr "Taglia dopo"
 
 #. TRANSLATORS: Every Document
 msgid "trimming-when.after-documents"
-msgstr ""
+msgstr "Ogni documento"
 
 #. TRANSLATORS: Job
 msgid "trimming-when.after-job"
-msgstr ""
+msgstr "Job"
 
 #. TRANSLATORS: Every Set
 msgid "trimming-when.after-sets"
-msgstr ""
+msgstr "Ogni insieme"
 
 #. TRANSLATORS: Every Page
 msgid "trimming-when.after-sheets"
-msgstr ""
+msgstr "Ogni pagina"
 
 msgid "unknown"
 msgstr "sconosciuto"
@@ -16080,31 +16135,31 @@ msgid "z-offset"
 msgstr ""
 
 msgid "{service_domain}        Domain name"
-msgstr ""
+msgstr "{service_domain}        Nome dominio"
 
 msgid "{service_hostname}      Fully-qualified domain name"
-msgstr ""
+msgstr "{service_hostname}      Nome dominio completo"
 
 msgid "{service_name}          Service instance name"
-msgstr ""
+msgstr "{service_name}          Nome istanza servizio"
 
 msgid "{service_port}          Port number"
-msgstr ""
+msgstr "{service_port}          Numero porta"
 
 msgid "{service_regtype}       DNS-SD registration type"
-msgstr ""
+msgstr "{service_regtype}       Tipo registrazione DNS-SD"
 
 msgid "{service_scheme}        URI scheme"
-msgstr ""
+msgstr "{service_scheme}        Schema URI"
 
 msgid "{service_uri}           URI"
-msgstr ""
+msgstr "{service_uri}           URI"
 
 msgid "{txt_*}                 Value of TXT record key"
-msgstr ""
+msgstr "{txt_*}                 Valore della chiave del record TXT"
 
 msgid "{}                      URI"
-msgstr ""
+msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
