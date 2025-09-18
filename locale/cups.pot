@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5b1\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-09-13 16:39-0400\n"
+"POT-Creation-Date: 2025-09-18 11:14-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1341,7 +1341,7 @@ msgstr ""
 msgid "%s: %s failed: %s"
 msgstr ""
 
-#: tools/ippfind.c:662 tools/ipptool.c:491
+#: tools/ippfind.c:662 tools/ipptool.c:505
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr ""
@@ -1636,27 +1636,32 @@ msgstr ""
 msgid "%s: Invalid filter string \"%s\"."
 msgstr ""
 
-#: tools/ipptool.c:335
+#: tools/ipptool.c:336
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
 msgstr ""
 
-#: tools/ipptool.c:418
+#: tools/ipptool.c:432
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
 msgstr ""
 
-#: tools/ippfind.c:634 tools/ipptool.c:453
+#: tools/ippfind.c:634 tools/ipptool.c:467
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
 msgstr ""
 
-#: tools/ipptool.c:322
+#: tools/ipptool.c:323
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
 msgstr ""
 
-#: tools/ippfind.c:647 tools/ipptool.c:465
+#: tools/ipptool.c:381
+#, c-format
+msgid "%s: Missing user agent after '--user-agent'."
+msgstr ""
+
+#: tools/ippfind.c:647 tools/ipptool.c:479
 #, c-format
 msgid "%s: Missing version for \"-V\"."
 msgstr ""
@@ -1697,7 +1702,7 @@ msgstr ""
 msgid "%s: Unable to determine MIME type of \"%s\"."
 msgstr ""
 
-#: tools/ipptool.c:363 tools/ipptool.c:427 tools/ipptool.c:730
+#: tools/ipptool.c:364 tools/ipptool.c:441 tools/ipptool.c:744
 #, c-format
 msgid "%s: Unable to open \"%s\": %s"
 msgstr ""
@@ -1743,7 +1748,7 @@ msgid "%s: Unknown option \"%s\"."
 msgstr ""
 
 #: scheduler/cupsfilter.c:1545 tools/ippeveprinter.c:554 tools/ippfind.c:813
-#: tools/ipptool.c:673
+#: tools/ipptool.c:687
 #, c-format
 msgid "%s: Unknown option \"-%c\"."
 msgstr ""
@@ -1820,13 +1825,13 @@ msgstr ""
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
 
-#: tools/ipptool.c:6504
+#: tools/ipptool.c:6521
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
 
-#: tools/ipptool.c:6506
+#: tools/ipptool.c:6523
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
@@ -1864,7 +1869,7 @@ msgstr ""
 msgid "--help                  Show program help"
 msgstr ""
 
-#: tools/ipptool.c:6508
+#: tools/ipptool.c:6525
 msgid "--help                  Show this help"
 msgstr ""
 
@@ -1882,7 +1887,7 @@ msgid ""
 "                        Include only the specified URI schemes"
 msgstr ""
 
-#: tools/ipptool.c:6509
+#: tools/ipptool.c:6526
 msgid "--ippserver filename    Produce ippserver attribute file"
 msgstr ""
 
@@ -1962,7 +1967,7 @@ msgstr ""
 msgid "--require-ca                   Require CA-signed certificate for client command"
 msgstr ""
 
-#: tools/ipptool.c:6510
+#: tools/ipptool.c:6527
 msgid ""
 "--stop-after-include-error\n"
 "                        Stop tests after a failed INCLUDE"
@@ -1988,6 +1993,10 @@ msgstr ""
 msgid "--uri regex             Match URI to regular expression"
 msgstr ""
 
+#: tools/ipptool.c:6529
+msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
+msgstr ""
+
 #: tools/cups-oauth.c:679 tools/cups-x509.c:860
 msgid "--version                      Show the program version"
 msgstr ""
@@ -1996,7 +2005,7 @@ msgstr ""
 msgid "--version               Show program version"
 msgstr ""
 
-#: tools/ipptool.c:6512
+#: tools/ipptool.c:6530
 msgid "--version               Show version"
 msgstr ""
 
@@ -2080,7 +2089,7 @@ msgstr ""
 msgid "-4"
 msgstr ""
 
-#: tools/ippfind.c:1982 tools/ipptool.c:6513
+#: tools/ippfind.c:1982 tools/ipptool.c:6531
 msgid "-4                      Connect using IPv4"
 msgstr ""
 
@@ -2108,7 +2117,7 @@ msgstr ""
 msgid "-6"
 msgstr ""
 
-#: tools/ippfind.c:1983 tools/ipptool.c:6514
+#: tools/ippfind.c:1983 tools/ipptool.c:6532
 msgid "-6                      Connect using IPv6"
 msgstr ""
 
@@ -2160,7 +2169,7 @@ msgstr ""
 msgid "-A                      Enable authentication"
 msgstr ""
 
-#: tools/ipptool.c:6515
+#: tools/ipptool.c:6533
 msgid "-C                      Send requests using chunking (default)"
 msgstr ""
 
@@ -2187,7 +2196,7 @@ msgstr ""
 msgid "-E                      Encrypt the connection to the server"
 msgstr ""
 
-#: tools/ipptool.c:6516
+#: tools/ipptool.c:6534
 msgid "-E                      Test with encryption using HTTP Upgrade to TLS"
 msgstr ""
 
@@ -2227,7 +2236,7 @@ msgstr ""
 msgid "-H server[:port]        Connect to the named server and port"
 msgstr ""
 
-#: tools/ipptool.c:6517
+#: tools/ipptool.c:6535
 msgid "-I                      Ignore errors"
 msgstr ""
 
@@ -2241,7 +2250,7 @@ msgstr ""
 msgid "-K keypath              Set location of server X.509 certificates and keys."
 msgstr ""
 
-#: tools/ipptool.c:6518
+#: tools/ipptool.c:6536
 msgid "-L                      Send requests using content-length"
 msgstr ""
 
@@ -2273,7 +2282,7 @@ msgstr ""
 msgid "-P destination          Specify the destination"
 msgstr ""
 
-#: tools/ipptool.c:6519
+#: tools/ipptool.c:6537
 msgid "-P filename.plist       Produce XML plist to a file and test report to standard output"
 msgstr ""
 
@@ -2285,7 +2294,7 @@ msgstr ""
 msgid "-P page-list            Specify a list of pages to print"
 msgstr ""
 
-#: tools/ipptool.c:6520
+#: tools/ipptool.c:6538
 msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
 
@@ -2305,7 +2314,7 @@ msgstr ""
 msgid "-R root-directory       Set alternate root"
 msgstr ""
 
-#: tools/ipptool.c:6521
+#: tools/ipptool.c:6539
 msgid "-S                      Test with encryption using HTTPS"
 msgstr ""
 
@@ -2321,7 +2330,7 @@ msgstr ""
 msgid "-T seconds              Set the browse timeout in seconds"
 msgstr ""
 
-#: tools/ipptool.c:6522
+#: tools/ipptool.c:6540
 msgid "-T seconds              Set the receive/send timeout in seconds"
 msgstr ""
 
@@ -2344,7 +2353,7 @@ msgstr ""
 msgid "-U username             Specify username to use for authentication"
 msgstr ""
 
-#: tools/ippeveprinter.c:6906 tools/ippfind.c:1985 tools/ipptool.c:6523
+#: tools/ippeveprinter.c:6906 tools/ippfind.c:1985 tools/ipptool.c:6541
 msgid "-V version              Set default IPP version"
 msgstr ""
 
@@ -2362,7 +2371,7 @@ msgid ""
 "                          Issue warnings instead of errors"
 msgstr ""
 
-#: tools/ipptool.c:6524
+#: tools/ipptool.c:6542
 msgid "-X                      Produce XML plist instead of plain text"
 msgstr ""
 
@@ -2394,7 +2403,7 @@ msgstr ""
 msgid "-c                      Make a copy of the print file(s)"
 msgstr ""
 
-#: tools/ipptool.c:6525
+#: tools/ipptool.c:6543
 msgid "-c                      Produce CSV output"
 msgstr ""
 
@@ -2434,7 +2443,7 @@ msgstr ""
 msgid "-d destination          Specify the destination"
 msgstr ""
 
-#: tools/ipptool.c:6526
+#: tools/ipptool.c:6544
 msgid "-d name=value           Set named variable to value"
 msgstr ""
 
@@ -2454,7 +2463,7 @@ msgstr ""
 msgid "-f                      Run in the foreground."
 msgstr ""
 
-#: tools/ipptool.c:6527
+#: tools/ipptool.c:6545
 msgid "-f filename             Set default request filename"
 msgstr ""
 
@@ -2466,7 +2475,7 @@ msgstr ""
 msgid "-h                      Show this usage message."
 msgstr ""
 
-#: tools/ipptool.c:6528
+#: tools/ipptool.c:6546
 msgid "-h                      Validate HTTP response headers"
 msgstr ""
 
@@ -2493,7 +2502,7 @@ msgstr ""
 msgid "-i ppd-file             Specify a PPD file for the printer"
 msgstr ""
 
-#: tools/ipptool.c:6529
+#: tools/ipptool.c:6547
 msgid "-i seconds              Repeat the last file with the given time interval"
 msgstr ""
 
@@ -2505,7 +2514,7 @@ msgstr ""
 msgid "-l                      List attributes"
 msgstr ""
 
-#: tools/ipptool.c:6530
+#: tools/ipptool.c:6548
 msgid "-l                      Produce plain text output"
 msgstr ""
 
@@ -2545,7 +2554,7 @@ msgstr ""
 msgid "-m model                Specify a standard model/PPD file for the printer"
 msgstr ""
 
-#: tools/ipptool.c:6531
+#: tools/ipptool.c:6549
 msgid "-n count                Repeat the last file the given number of times"
 msgstr ""
 
@@ -2691,7 +2700,7 @@ msgstr ""
 msgid "-q                      Quietly report match via exit code"
 msgstr ""
 
-#: systemv/cupstestppd.c:3863 tools/ipptool.c:6532
+#: systemv/cupstestppd.c:3863 tools/ipptool.c:6550
 msgid "-q                      Run silently"
 msgstr ""
 
@@ -2759,7 +2768,7 @@ msgstr ""
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
 msgstr ""
 
-#: tools/ipptool.c:6533
+#: tools/ipptool.c:6551
 msgid "-t                      Produce a test report"
 msgstr ""
 
@@ -2815,7 +2824,7 @@ msgstr ""
 msgid "-u regex                Match URI to regular expression"
 msgstr ""
 
-#: systemv/cupstestppd.c:3865 tools/ippeveprinter.c:6919 tools/ipptool.c:6534
+#: systemv/cupstestppd.c:3865 tools/ippeveprinter.c:6919 tools/ipptool.c:6552
 msgid "-v                      Be verbose"
 msgstr ""
 
@@ -5619,7 +5628,7 @@ msgstr ""
 #: systemv/lp.c:753 systemv/lpadmin.c:1516 systemv/lpinfo.c:494
 #: systemv/lpmove.c:212 systemv/lpoptions.c:539 systemv/lpstat.c:2079
 #: tools/cups-oauth.c:676 tools/cups-x509.c:855 tools/ippeveprinter.c:6894
-#: tools/ippfind.c:1981 tools/ipptool.c:6503 ppdc/ppdc.cxx:426
+#: tools/ippfind.c:1981 tools/ipptool.c:6520 ppdc/ppdc.cxx:426
 #: ppdc/ppdhtml.cxx:173 ppdc/ppdi.cxx:119 ppdc/ppdmerge.cxx:356
 #: ppdc/ppdpo.cxx:243
 msgid "Options:"
@@ -6954,7 +6963,7 @@ msgid ""
 "       ippfind --version"
 msgstr ""
 
-#: tools/ipptool.c:6502
+#: tools/ipptool.c:6519
 msgid "Usage: ipptool [options] URI filename [ ... filenameN ]"
 msgstr ""
 
@@ -9554,52 +9563,52 @@ msgstr ""
 msgid "ippfind: Unknown variable \"{%s}\"."
 msgstr ""
 
-#: tools/ipptool.c:629 tools/ipptool.c:655
+#: tools/ipptool.c:643 tools/ipptool.c:669
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", and \"-X\"."
 msgstr ""
 
-#: tools/ipptool.c:435 tools/ipptool.c:501
+#: tools/ipptool.c:449 tools/ipptool.c:515
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
 msgstr ""
 
-#: tools/ipptool.c:694
+#: tools/ipptool.c:708
 #, c-format
 msgid "ipptool: Bad URI \"%s\"."
 msgstr ""
 
-#: tools/ipptool.c:622
+#: tools/ipptool.c:636
 msgid "ipptool: Invalid seconds for \"-i\"."
 msgstr ""
 
-#: tools/ipptool.c:684
+#: tools/ipptool.c:698
 msgid "ipptool: May only specify a single URI."
 msgstr ""
 
-#: tools/ipptool.c:647
+#: tools/ipptool.c:661
 msgid "ipptool: Missing count for \"-n\"."
 msgstr ""
 
-#: tools/ipptool.c:353
+#: tools/ipptool.c:354
 msgid "ipptool: Missing filename for \"--ippserver\"."
 msgstr ""
 
-#: tools/ipptool.c:533
+#: tools/ipptool.c:547
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr ""
 
-#: tools/ipptool.c:515
+#: tools/ipptool.c:529
 msgid "ipptool: Missing name=value for \"-d\"."
 msgstr ""
 
-#: tools/ipptool.c:614
+#: tools/ipptool.c:628
 msgid "ipptool: Missing seconds for \"-i\"."
 msgstr ""
 
-#: tools/ipptool.c:707
+#: tools/ipptool.c:721
 msgid "ipptool: URI required before test file."
 msgstr ""
 
-#: tools/ipptool.c:820
+#: tools/ipptool.c:834
 #, c-format
 msgid "ipptool: Unable to allocate memory: %s"
 msgstr ""

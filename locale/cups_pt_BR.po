@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-09-13 16:39-0400\n"
+"POT-Creation-Date: 2025-09-18 11:14-0400\n"
 "PO-Revision-Date: 2025-09-09 14:16+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
@@ -1614,6 +1614,10 @@ msgstr ""
 "bearer-token'."
 
 #, c-format
+msgid "%s: Missing user agent after '--user-agent'."
+msgstr ""
+
+#, c-format
 msgid "%s: Missing version for \"-V\"."
 msgstr "%s: Está faltando a versão para \"-V\"."
 
@@ -1951,6 +1955,9 @@ msgstr ""
 
 msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri regex             Permite corresponder o URI à expressão regular"
+
+msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
+msgstr ""
 
 msgid "--version                      Show the program version"
 msgstr "--version                      Permite exibir a versão do programa"
