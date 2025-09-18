@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-09-15 06:01+0000\n"
+"PO-Revision-Date: 2025-09-19 16:02+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
 "Language: pl\n"
@@ -1518,11 +1518,11 @@ msgstr "%s: Brak limitu czasu dla \"-T\"."
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr "%s: Brakujący token po '--bearer-token'."
+msgstr "%s: Brak tokena po '--bearer-token'."
 
 #, c-format
 msgid "%s: Missing user agent after '--user-agent'."
-msgstr ""
+msgstr "%s: Brak agenta użytkownika po '--user-agent'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1832,7 +1832,7 @@ msgstr ""
 "--uri regex             Znajdź URI pasujące do podanego wyrażenia regularnego"
 
 msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
-msgstr ""
+msgstr "--user-agent AGENT-UŻYTKOWNIKA Ustaw ciąg agenta użytkownika HTTP"
 
 msgid "--version                      Show the program version"
 msgstr "--version                      Pokaż wersję programu"
