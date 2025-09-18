@@ -149,7 +149,8 @@ typedef struct ipptool_test_s		// Test Data
   int		verbosity;		// Show all attributes?
 
   char		*bearer_token,		// HTTP Bearer token
-		*client_name;		// TLS client certificate name
+		*client_name,		// TLS client certificate name
+		*user_agent;		// HTTP User-Agent value, if any
 
   // Test Defaults
   bool		def_ignore_errors;	// Default IGNORE-ERRORS value
@@ -370,6 +371,19 @@ main(int  argc,				// I - Number of command-line args
     else if (!strcmp(argv[i], "--stop-after-include-error"))
     {
       data->stop_after_include_error = 1;
+    }
+    else if (!strcmp(argv[i], "--user-agent"))
+    {
+      i ++;
+
+      if (i >= argc)
+      {
+	_cupsLangPrintf(stderr, _("%s: Missing user agent after '--user-agent'."), "ipptool");
+	free_data(data);
+	usage();
+      }
+
+      data->user_agent = argv[i];
     }
     else if (!strcmp(argv[i], "--version"))
     {
@@ -1002,6 +1016,9 @@ connect_printer(ipptool_test_t *data)	// I - Test data
     httpSetAuthString(http, "Bearer", data->bearer_token);
 
   httpSetDefaultField(http, HTTP_FIELD_ACCEPT_ENCODING, "deflate, gzip, identity");
+
+  if (data->user_agent)
+    httpSetDefaultField(http, HTTP_FIELD_USER_AGENT, data->user_agent);
 
   if (data->timeout > 0.0)
     httpSetTimeout(http, data->timeout, timeout_cb, NULL);
@@ -6509,6 +6526,7 @@ usage(void)
   _cupsLangPuts(stderr, _("--ippserver filename    Produce ippserver attribute file"));
   _cupsLangPuts(stderr, _("--stop-after-include-error\n"
                           "                        Stop tests after a failed INCLUDE"));
+  _cupsLangPuts(stderr, _("--user-agent USER-AGENT Set the HTTP User-Agent string"));
   _cupsLangPuts(stderr, _("--version               Show version"));
   _cupsLangPuts(stderr, _("-4                      Connect using IPv4"));
   _cupsLangPuts(stderr, _("-6                      Connect using IPv6"));

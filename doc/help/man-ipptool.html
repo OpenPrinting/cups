@@ -25,6 +25,9 @@
 ] [
 <strong>--stop-after-include-error</strong>
 ] [
+<strong>--user-agent</strong>
+<em>USER-AGENT</em>
+] [
 <strong>--version</strong>
 ] [
 <strong>-4</strong>
@@ -125,6 +128,15 @@ Tells
 to stop if an error occurs in an included file. Normally
 <strong>ipptool</strong>
 will continue with subsequent tests after the INCLUDE directive.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--user-agent </strong><em>USER-AGENT</em><br>
+Specifies the HTTP User-Agent string to use.
+The default is based on the
+<strong>UserAgentTokens</strong>
+value in the
+<a href="client.conf.html"><strong>client.conf</strong>(5)</a>
+
+file.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
 Shows the version of
@@ -308,13 +320,15 @@ program is unique to CUPS and conforms to the Internet Printing Protocol up to v
         ipp://localhost/printers/myprinter create-printer-subscription.test
 </pre>
     <h2 id="ipptool-1.see-also">See Also</h2>
-<a href="ipptoolfile.html"><p><strong>ipptoolfile</strong>(5),</a>
+<a href="client.conf.html"><p><strong>client.conf</strong>(5),</a>
+
+<a href="ipptoolfile.html"><strong>ipptoolfile</strong>(5),</a>
 
 IANA IPP Registry (<a href="https://www.iana.org/assignments/ipp-registrations">https://www.iana.org/assignments/ipp-registrations</a>),
 PWG Internet Printing Protocol Workgroup (<a href="https://www.pwg.org/ipp">https://www.pwg.org/ipp</a>),
 RFC 8011 (<a href="https://datatracker.ietf.org/doc/html/rfc8011">https://datatracker.ietf.org/doc/html/rfc8011</a>)
 </p>
     <h2 id="ipptool-1.copyright">Copyright</h2>
-<p>Copyright &copy; 2021-2024 by OpenPrinting.
+<p>Copyright &copy; 2021-2025 by OpenPrinting.
   </body>
 </html>

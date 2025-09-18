@@ -7,7 +7,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptool 1 "CUPS" "2025-04-30" "OpenPrinting"
+.TH ipptool 1 "CUPS" "2025-09-18" "OpenPrinting"
 .SH NAME
 ipptool \- perform internet printing protocol requests
 .SH SYNOPSIS
@@ -25,6 +25,9 @@ ipptool \- perform internet printing protocol requests
 .I FILENAME
 ] [
 .B \-\-stop\-after\-include\-error
+] [
+.B \-\-user\-agent
+.I USER-AGENT
 ] [
 .B \-\-version
 ] [
@@ -122,6 +125,14 @@ Tells
 to stop if an error occurs in an included file. Normally
 .B ipptool
 will continue with subsequent tests after the INCLUDE directive.
+.TP 5
+\fB\-\-user\-agent \fIUSER-AGENT\fR
+Specifies the HTTP User-Agent string to use.
+The default is based on the
+.B UserAgentTokens
+value in the
+.BR client.conf (5)
+file.
 .TP 5
 .B \-\-version
 Shows the version of
@@ -297,9 +308,10 @@ Send email notifications to "user@example.com" when "myprinter" changes:
         ipp://localhost/printers/myprinter create\-printer\-subscription.test
 .fi
 .SH SEE ALSO
+.BR client.conf (5),
 .BR ipptoolfile (5),
 IANA IPP Registry (https://www.iana.org/assignments/ipp\-registrations),
 PWG Internet Printing Protocol Workgroup (https://www.pwg.org/ipp),
 RFC 8011 (https://datatracker.ietf.org/doc/html/rfc8011)
 .SH COPYRIGHT
-Copyright \[co] 2021-2024 by OpenPrinting.
+Copyright \[co] 2021-2025 by OpenPrinting.
