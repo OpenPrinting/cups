@@ -3039,7 +3039,7 @@ _httpWait(http_t *http,			/* I - HTTP connection */
   */
 
 #ifdef HAVE_TLS
-  if (http->tls && _httpTLSPending(http))
+  if (usessl && http->tls && _httpTLSPending(http))
   {
     DEBUG_puts("5_httpWait: Return 1 since there is pending TLS data.");
     return (1);
