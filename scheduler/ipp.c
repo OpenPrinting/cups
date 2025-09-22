@@ -1507,8 +1507,6 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_NAME, "job-name", NULL, "Untitled");
   }
 
-  attr = ippFindAttribute(con->request, "requesting-user-name", IPP_TAG_NAME);
-
   if ((job = cupsdAddJob(priority, printer->name)) == NULL)
   {
     send_ipp_status(con, IPP_STATUS_ERROR_INTERNAL,
@@ -1517,8 +1515,19 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     return (NULL);
   }
 
-  if (ippGetBoolean(ippFindAttribute(con->request, "print-as-raster", IPP_TAG_BOOLEAN), 0))
-    job->print_as_raster = 1;
+  if ((attr = ippFindAttribute(con->request, "print-as-raster", IPP_TAG_BOOLEAN)) != NULL)
+  {
+    if (ippGetBoolean(attr, 0))
+      job->print_as_raster = 1;
+  }
+  else
+  {
+    if (cupsGetOption("print-as-raster", printer->num_options,
+		      printer->options) != NULL)
+      job->print_as_raster = 1;
+  }
+
+  attr = ippFindAttribute(con->request, "requesting-user-name", IPP_TAG_NAME);
 
   job->dtype   = printer->type & (CUPS_PTYPE_CLASS | CUPS_PTYPE_REMOTE);
   job->attrs   = con->request;
