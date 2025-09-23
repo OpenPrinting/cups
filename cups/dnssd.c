@@ -1798,7 +1798,7 @@ cupsDNSSDServicePublish(
 #elif defined(HAVE_MDNSRESPONDER)
   (void)service;
 #else // HAVE_AVAHI
-  avahi_lock(service->dnssd, "cupsDNSSDServicePublish);
+  avahi_lock(service->dnssd, "cupsDNSSDServicePublish");
 
   avahi_entry_group_commit(service->group);
 
