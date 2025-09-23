@@ -220,11 +220,13 @@ static void		avahi_browse_cb(AvahiServiceBrowser *browser, AvahiIfIndex if_index
 static void		avahi_client_cb(AvahiClient *c, AvahiClientState state, cups_dnssd_t *dnssd);
 static void		avahi_domain_cb(AvahiDomainBrowser *b, AvahiIfIndex interface, AvahiProtocol protocol, AvahiBrowserEvent event, const char *domain, AvahiLookupResultFlags flags, cups_dnssd_t *dnssd);
 static AvahiIfIndex	avahi_if_index(uint32_t if_index);
+static void		avahi_lock(cups_dnssd_t *dnssd, const char *name);
 static void		*avahi_monitor(cups_dnssd_t *dnssd);
 static int		avahi_poll_cb(struct pollfd *ufds, unsigned int nfds, int timeout, cups_dnssd_t *dnssd);
 static void		avahi_query_cb(AvahiRecordBrowser *browser, AvahiIfIndex if_index, AvahiProtocol protocol, AvahiBrowserEvent event, const char *fullName, uint16_t rrclass, uint16_t rrtype, const void *rdata, size_t rdlen, AvahiLookupResultFlags flags, cups_dnssd_query_t *query);
 static void		avahi_resolve_cb(AvahiServiceResolver *resolver, AvahiIfIndex if_index, AvahiProtocol protocol, AvahiResolverEvent event, const char *name, const char *type, const char *domain, const char *host_name, const AvahiAddress *address, uint16_t port, AvahiStringList *txtrec, AvahiLookupResultFlags flags, cups_dnssd_resolve_t *resolve);
 static void		avahi_service_cb(AvahiEntryGroup *srv, AvahiEntryGroupState state, cups_dnssd_service_t *service);
+static void		avahi_unlock(cups_dnssd_t *dnssd, const char *name);
 #endif // HAVE_MDNSRESPONDER
 
 
@@ -480,11 +482,7 @@ cupsDNSSDBrowseNew(
   if (count == 1)
     count ++;
 
-  if (!dnssd->in_callback)
-  {
-    DEBUG_puts("2cupsDNSSDBrowseNew: Locking mutex.");
-    cupsMutexLock(&dnssd->mutex);
-  }
+  avahi_lock(dnssd, "cupsDNSSDBrowseNew");
 
   for (i = 1; i < count && browse->num_browsers < _CUPS_DNSSD_MAX; i ++)
   {
@@ -512,13 +510,7 @@ cupsDNSSDBrowseNew(
 
       cupsArrayDelete(tarray);
 
-      if (!dnssd->in_callback)
-      {
-	DEBUG_puts("2cupsDNSSDBrowseNew: Unlocking mutex.");
-	cupsMutexUnlock(&dnssd->mutex);
-      }
-
-      goto done;
+      goto avahi_done;
     }
 
     if (!domain && dnssd->num_domains > 0)
@@ -534,13 +526,9 @@ cupsDNSSDBrowseNew(
 
   cupsArrayDelete(tarray);
 
-  if (!dnssd->in_callback)
-  {
-    DEBUG_puts("2cupsDNSSDBrowseNew: Unlocking mutex.");
-    cupsMutexUnlock(&dnssd->mutex);
+  avahi_done:
 
-    avahi_simple_poll_wakeup(dnssd->poll);
-  }
+  avahi_unlock(dnssd, "cupsDNSSDBrowseNew");
 #endif // HAVE_MDNSRESPONDER
 
   DEBUG_printf("2cupsDNSSDBrowseNew: Adding browse=%p", (void *)browse);
@@ -1066,21 +1054,11 @@ cupsDNSSDQueryNew(
   }
 
 #else // HAVE_AVAHI
-  if (!dnssd->in_callback)
-  {
-    DEBUG_puts("4avahi_poll_cb: Locking mutex.");
-    cupsMutexLock(&dnssd->mutex);
-  }
+  avahi_lock(dnssd, "cupsDNSSDQueryNew");
 
   query->browser = avahi_record_browser_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, fullname, AVAHI_DNS_CLASS_IN, rrtype, 0, (AvahiRecordBrowserCallback)avahi_query_cb, query);
 
-  if (!dnssd->in_callback)
-  {
-    DEBUG_puts("4avahi_poll_cb: Unlocking mutex.");
-    cupsMutexUnlock(&dnssd->mutex);
-
-    avahi_simple_poll_wakeup(dnssd->poll);
-  }
+  avahi_unlock(dnssd, "cupsDNSSDQueryNew");
 
   if (!query->browser)
   {
@@ -1232,21 +1210,11 @@ cupsDNSSDResolveNew(
   }
 
 #else // HAVE_AVAHI
-  if (!dnssd->in_callback)
-  {
-    DEBUG_puts("2cupsDNSSDResolveNew: Locking mutex.");
-    cupsMutexLock(&dnssd->mutex);
-  }
+  avahi_lock(dnssd, "cupsDNSSDResolveNew");
 
   resolve->resolver = avahi_service_resolver_new(dnssd->client, avahi_if_index(if_index), AVAHI_PROTO_UNSPEC, name, type, domain, AVAHI_PROTO_UNSPEC, /*flags*/0, (AvahiServiceResolverCallback)avahi_resolve_cb, resolve);
 
-  if (!dnssd->in_callback)
-  {
-    DEBUG_puts("2cupsDNSSDResolveNew: Unlocking mutex.");
-    cupsMutexUnlock(&dnssd->mutex);
-
-    avahi_simple_poll_wakeup(dnssd->poll);
-  }
+  avahi_unlock(dnssd, "cupsDNSSDResolveNew");
 
   if (!resolve->resolver)
   {
@@ -1619,7 +1587,11 @@ cupsDNSSDServiceAdd(
     *subtypes++ = '\0';
 
   // Add the service entry...
-  if ((error = avahi_entry_group_add_service_strlst(service->group, avahi_if_index(service->if_index), AVAHI_PROTO_UNSPEC, /*flags*/0, service->name, regtype, domain, host, port, txtrec)) < 0)
+  avahi_lock(service->dnssd, "cupsDNSSDServiceAdd");
+
+  error = avahi_entry_group_add_service_strlst(service->group, avahi_if_index(service->if_index), AVAHI_PROTO_UNSPEC, /*flags*/0, service->name, regtype, domain, host, port, txtrec);
+
+  if (error < 0)
   {
     report_error(service->dnssd, "Unable to register '%s.%s': %s", service->name, regtype, avahi_strerror(error));
     ret = false;
@@ -1648,6 +1620,8 @@ cupsDNSSDServiceAdd(
       DEBUG_printf("cupsDNSSDServiceAdd: Registered '%s.%s.%s'.", service->name, subtype, domain);
     }
   }
+
+  avahi_unlock(service->dnssd, "cupsDNSSDServiceAdd");
 
   free(regtype);
 
@@ -1756,7 +1730,11 @@ cupsDNSSDServiceNew(
 #ifdef HAVE_MDNSRESPONDER
 #elif _WIN32
 #else // HAVE_AVAHI
+  avahi_lock(dnssd, "cupsDNSSDServiceNew");
+
   service->group = avahi_entry_group_new(dnssd->client, (AvahiEntryGroupCallback)avahi_service_cb, service);
+
+  avahi_unlock(dnssd, "cupsDNSSDServiceNew");
 
   if (!service->group)
   {
@@ -1820,8 +1798,11 @@ cupsDNSSDServicePublish(
 #elif defined(HAVE_MDNSRESPONDER)
   (void)service;
 #else // HAVE_AVAHI
+  avahi_lock(service->dnssd, "cupsDNSSDServicePublish);
+
   avahi_entry_group_commit(service->group);
-  avahi_simple_poll_wakeup(service->dnssd->poll);
+
+  avahi_unlock(service->dnssd, "cupsDNSSDServicePublish");
 #endif // _WIN32
 
   DEBUG_printf("2cupsDNSSDServicePublish: Returning %s.", ret ? "true" : "false");
@@ -1926,7 +1907,13 @@ cupsDNSSDServiceSetLocation(
   // Add LOC record now...
   int error;				// Error code
 
-  if ((error = avahi_entry_group_add_record(service->group, avahi_if_index(service->if_index), AVAHI_PROTO_UNSPEC, /*flags*/0, service->name, AVAHI_DNS_CLASS_IN, AVAHI_DNS_TYPE_LOC, /*ttl*/75 * 60, service->loc, sizeof(service->loc))) < 0)
+  avahi_lock(service->dnssd, "cupsDNSSDServiceSetLocation");
+
+  error = avahi_entry_group_add_record(service->group, avahi_if_index(service->if_index), AVAHI_PROTO_UNSPEC, /*flags*/0, service->name, AVAHI_DNS_CLASS_IN, AVAHI_DNS_TYPE_LOC, /*ttl*/75 * 60, service->loc, sizeof(service->loc));
+
+  avahi_unlock(service->dnssd, "cupsDNSSDServiceSetLocation");
+
+  if (error < 0)
   {
     report_error(service->dnssd, "Unable to register LOC record for '%s': %s", service->name, avahi_strerror(error));
     ret = false;
@@ -1957,8 +1944,12 @@ delete_browse(
 #else // HAVE_AVAHI
   size_t	i;			// Looping var
 
+  avahi_lock(browse->dnssd, "delete_browse");
+
   for (i = 0; i < browse->num_browsers; i ++)
     avahi_service_browser_free(browse->browsers[i]);
+
+  avahi_unlock(browse->dnssd, "delete_browse");
 #endif // HAVE_MDNSRESPONDER
 
   free(browse);
@@ -1980,7 +1971,11 @@ delete_query(
   DnsStopMulticastQuery(&query->handle);
 
 #else // HAVE_AVAHI
+  avahi_lock(query->dnssd, "delete_query");
+
   avahi_record_browser_free(query->browser);
+
+  avahi_unlock(query->dnssd, "delete_query");
 #endif // HAVE_MDNSRESPONDER
 }
 
@@ -2000,7 +1995,11 @@ delete_resolve(
   DnsServiceResolveCancel(&resolve->cancel);
 
 #else // HAVE_AVAHI
+  avahi_lock(resolve->dnssd, "delete_resolve");
+
   avahi_service_resolver_free(resolve->resolver);
+
+  avahi_unlock(resolve->dnssd, "delete_resolve");
 #endif // HAVE_MDNSRESPONDER
 
 }
@@ -2033,7 +2032,11 @@ delete_service(
   }
 
 #else // HAVE_AVAHI
+  avahi_lock(service->dnssd, "delete_service");
+
   avahi_entry_group_free(service->group);
+
+  avahi_unlock(service->dnssd, "delete_service");
 #endif // HAVE_MDNSRESPONDER
 
   free(service);
@@ -2901,6 +2904,24 @@ avahi_if_index(uint32_t if_index)	// I - DNS-SD interface index
 
 
 //
+// 'avahi_lock()' - Lock the access mutex.
+//
+
+static void
+avahi_lock(cups_dnssd_t *dnssd,		// I - DNS-SD context
+           const char   *name)		// I - Who is locking?
+{
+  (void)name;
+
+  if (!dnssd->in_callback)
+  {
+    DEBUG_printf("2avahi_lock: Locking mutex for %s.", name);
+    cupsMutexLock(&dnssd->mutex);
+  }
+}
+
+
+//
 // 'avahi_monitor()' - Background thread for Avahi.
 //
 
@@ -3080,5 +3101,25 @@ avahi_service_cb(
   DEBUG_printf("3avahi_service_cb(srv=%p, state=%s, service=%p)", srv, avahi_states[state], service);
 
   (service->cb)(service, service->cb_data, state == AVAHI_ENTRY_GROUP_COLLISION ? CUPS_DNSSD_FLAGS_COLLISION : CUPS_DNSSD_FLAGS_NONE);
+}
+
+
+//
+// 'avahi_unlock()' - Unlock the access mutex.
+//
+
+static void
+avahi_unlock(cups_dnssd_t *dnssd,	// I - DNS-SD context
+             const char   *name)	// I - Who is unlocking?
+{
+  (void)name;
+
+  if (!dnssd->in_callback)
+  {
+    DEBUG_printf("2avahi_unlock: Unlocking mutex for %s.", name);
+    cupsMutexUnlock(&dnssd->mutex);
+
+    avahi_simple_poll_wakeup(dnssd->poll);
+  }
 }
 #endif // HAVE_MDNSRESPONDER
