@@ -61,7 +61,7 @@ extern cups_json_t	*cupsJSONImportString(const char *s) _CUPS_PUBLIC;
 extern cups_json_t	*cupsJSONImportURL(const char *url, time_t *last_modified) _CUPS_PUBLIC;
 
 extern cups_json_t	*cupsJSONNew(cups_json_t *parent, cups_json_t *after, cups_jtype_t type) _CUPS_PUBLIC;
-extern cups_json_t	*cupsJSONNewKey(cups_json_t *parent, cups_json_t *after, const char *value) _CUPS_PUBLIC;
+extern cups_json_t	*cupsJSONNewKey(cups_json_t *parent, cups_json_t *after, const char *key) _CUPS_PUBLIC;
 extern cups_json_t	*cupsJSONNewNumber(cups_json_t *parent, cups_json_t *after, double number) _CUPS_PUBLIC;
 extern cups_json_t	*cupsJSONNewString(cups_json_t *parent, cups_json_t *after, const char *value) _CUPS_PUBLIC;
 
