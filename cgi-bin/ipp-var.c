@@ -86,8 +86,12 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
   attrs[0]  = NULL;			/* Eliminate compiler warning */
 
   while ((ch = getc(in)) != EOF)
+  {
     if (ch == '\\')
-      getc(in);
+    {
+      if (getc(in) == EOF)
+        break;
+    }
     else if (ch == '{' && num_attrs < (int)(sizeof(attrs) / sizeof(attrs[0])))
     {
      /*
@@ -95,10 +99,15 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
       */
 
       for (nameptr = name; (ch = getc(in)) != EOF;)
+      {
         if (strchr("}]<>=!~ \t\n", ch))
+        {
           break;
+        }
         else if (nameptr > name && ch == '?')
+	{
 	  break;
+	}
 	else if (nameptr < (name + sizeof(name) - 1))
 	{
 	  if (ch == '_')
@@ -106,6 +115,7 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
 	  else
             *nameptr++ = (char)ch;
 	}
+      }
 
       *nameptr = '\0';
 
@@ -117,15 +127,21 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
       */
 
       for (i = 0; i < num_attrs; i ++)
+      {
         if (!strcmp(attrs[i], name))
 	  break;
+      }
 
       if (i >= num_attrs)
       {
 	attrs[num_attrs] = strdup(name);
 	num_attrs ++;
       }
+
+      if (ch == EOF)
+        break;
     }
+  }
 
  /*
   * If we have attributes, add a requested-attributes attribute to the

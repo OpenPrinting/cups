@@ -112,7 +112,6 @@ do_login(void)
   fputs("DEBUG2: do_login()\n", stderr);
 
   // Get the metadata...
-  oauth_uri = getenv("CUPS_OAUTH_SERVER");
   if ((metadata = cupsOAuthGetMetadata(oauth_uri)) == NULL)
   {
     show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to get authorization server information")), cupsGetErrorString());
@@ -261,7 +260,6 @@ finish_login(void)
   }
 
   // Get the metadata...
-  oauth_uri = getenv("CUPS_OAUTH_SERVER");
   if ((metadata = cupsOAuthGetMetadata(oauth_uri)) == NULL)
   {
     show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to get authorization server information")), cupsGetErrorString());

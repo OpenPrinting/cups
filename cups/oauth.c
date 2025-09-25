@@ -861,7 +861,7 @@ cupsOAuthGetDeviceGrant(
   char		*client_id = NULL,	// `client_id` value
 		*scopes_supported = NULL;
 					// Supported scopes
-  size_t	num_form = 0;		// Number of form variables
+  int		num_form = 0;		// Number of form variables
   cups_option_t	*form = NULL;		// Form variables
   char		*request = NULL;	// Form request data
   cups_json_t	*grant = NULL;		// Device grant

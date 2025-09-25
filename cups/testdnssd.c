@@ -1,7 +1,7 @@
 //
 // DNS-SD API test program for CUPS.
 //
-// Copyright © 2022-2024 by OpenPrinting.
+// Copyright © 2022-2025 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -10,6 +10,7 @@
 #include <config.h>
 #include "test-internal.h"
 #include "dnssd.h"
+#include "string-private.h"
 #include "thread.h"
 
 
@@ -60,14 +61,14 @@ main(int  argc,				// I - Number of command-line arguments
 //  cups_dnssd_query_t	*query;		// DNS-SD query request
   cups_dnssd_resolve_t	*resolve;	// DNS-SD resolve request
   cups_dnssd_service_t	*service;	// DNS-SD service registration
-  size_t		num_txt;	// Number of TXT record key/value pairs
+  int			num_txt;	// Number of TXT record key/value pairs
   cups_option_t		*txt;		// TXT record key/value pairs
   testdata_t		testdata;	// Test data
 
 
   // Clear test data...
   memset(&testdata, 0, sizeof(testdata));
-  testdata.messages = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_func_t)strdup, (cups_afree_func_t)free);
+  testdata.messages = cupsArrayNew3(NULL, NULL, NULL, 0, _cupsArrayStrdup, _cupsArrayFree);
 #if _WIN32
   snprintf(testdata.name, sizeof(testdata.name), "Test Service %d", (int)GetCurrentProcessId());
 #else
@@ -318,6 +319,9 @@ browse_print_cb(
   testdata_t	*data = (testdata_t *)cb_data;
 					// Test data
 
+
+  (void)browse;
+  (void)flags;
 
   printf("%5u %s.%s.%s\n", if_index, name, regtype, domain);
 

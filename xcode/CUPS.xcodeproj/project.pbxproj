@@ -774,7 +774,7 @@
 		278C58E3136B647200836530 /* testhttp.c in Sources */ = {isa = PBXBuildFile; fileRef = 278C58E2136B647200836530 /* testhttp.c */; };
 		279AE6F52395B80F004DD600 /* libpam.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 279AE6F42395B80F004DD600 /* libpam.tbd */; };
 		27A034821A8BDC3A00650675 /* lpadmin.c in Sources */ = {isa = PBXBuildFile; fileRef = 2732E08D137A3F5200FAFEF6 /* lpadmin.c */; };
-		27A034851A8BDC5C00650675 /* libcups2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups2.dylib */; };
+		27A9AE9D2E85EEB200D3B3F6 /* libcups2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72220EAE1333047D00FCA411 /* libcups2.dylib */; };
 		27B493C22C8FC125004C7A73 /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2915B49110003F877F /* GSS.framework */; };
 		27B493C32C8FC125004C7A73 /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2915B49110003F877F /* GSS.framework */; };
 		27B493C42C8FC125004C7A73 /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D53A2915B49110003F877F /* GSS.framework */; };
@@ -4612,7 +4612,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27A034851A8BDC5C00650675 /* libcups2.dylib in Frameworks */,
+				27A9AE9D2E85EEB200D3B3F6 /* libcups2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7917,7 +7917,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = "Apple Inc.";
 				TargetAttributes = {
 					270695FD1CADF3E200FFE5FB = {
@@ -12739,6 +12739,7 @@
 					"-D_CUPS_SOURCE",
 					"-Wno-shorten-64-to-32",
 				);
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
@@ -12809,6 +12810,7 @@
 					"-D_CUPS_SOURCE",
 					"-Wno-shorten-64-to-32",
 				);
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};

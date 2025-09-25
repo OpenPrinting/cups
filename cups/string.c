@@ -30,7 +30,7 @@ static cups_array_t	*stringpool = NULL;
  * Local functions...
  */
 
-static int compare_sp_items(_cups_sp_item_t *a, _cups_sp_item_t *b, void *data);
+static int	compare_sp_items(_cups_sp_item_t *a, _cups_sp_item_t *b, void *data);
 static void	validate_end(char *s, char *end);
 
 
@@ -1161,18 +1161,4 @@ validate_end(char *s,			// I - Pointer to start of string
       *ptr = '\0';
     }
   }
-}
-
-
-/*
- * '_cupsArrayStrcasecmp()' - Compare two strings...
- */
-
-int /* O - Result of comparison */
-_cupsArrayStrcasecmp(const char *s, /* I - First string */
-                         const char *t, /* I - Second string */
-                         void *data)    /* I - Unused */
-{
-  (void)data;
-  return (_cups_strcasecmp(s, t));
 }

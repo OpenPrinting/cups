@@ -841,7 +841,7 @@ alloc_data(void)
   data->family       = AF_UNSPEC;
   data->def_transfer = IPPTOOL_TRANSFER_AUTO;
   data->def_version  = 20;
-  data->errors       = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_cb_t)strdup, (cups_afree_cb_t)free);
+  data->errors       = cupsArrayNew3(NULL, NULL, NULL, 0, _cupsArrayStrdup, _cupsArrayFree);
   data->pass         = true;
   data->prev_pass    = true;
   data->request_id   = (cupsGetRand() % 1000) * 137;
@@ -1933,7 +1933,7 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 	      break;
 	}
 
-	exp_errors = cupsArrayNew3(NULL, NULL, NULL, 0, (cups_acopy_cb_t)strdup, (cups_afree_cb_t)free);
+	exp_errors = cupsArrayNew3(NULL, NULL, NULL, 0, _cupsArrayStrdup, _cupsArrayFree);
 	exp_member = strchr(expect->name, '/') != NULL;
 	exp_pass   = false;
 
@@ -6970,7 +6970,7 @@ with_distinct_values(
   }
 
   // Collect values and determine they are all unique...
-  values = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, (cups_acopy_cb_t)strdup, (cups_afree_cb_t)free);
+  values = cupsArrayNew3((cups_array_cb_t)_cupsArrayStrcmp, NULL, NULL, 0, _cupsArrayStrdup, _cupsArrayFree);
 
   for (i = 0; i < count; i ++)
   {

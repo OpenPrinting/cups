@@ -434,6 +434,20 @@ cupsArrayFirst(cups_array_t *a)		// I - Array
 
 
 //
+// '_cupsArrayFree()' - Free a string in an array.
+//
+
+void
+_cupsArrayFree(void *s,			// I - String to free
+               void *data)		// I - Callback data (unused)
+{
+  (void)data;
+
+  free(s);
+}
+
+
+//
 // 'cupsArrayGetCount()' - Get the number of elements in the array.
 //
 // @since CUPS 2.5@
@@ -827,7 +841,7 @@ cupsArrayNewStrings(const char *s,	// I - Delimited strings or `NULL`
   cups_array_t	*a;			// Array
 
 
-  if ((a = cupsArrayNew3((cups_array_cb_t)strcmp, NULL, NULL, 0, (cups_acopy_cb_t)_cupsArrayStrdup, (cups_afree_cb_t)_cupsArrayFree)) != NULL)
+  if ((a = cupsArrayNew3(_cupsArrayStrcmp, NULL, NULL, 0, _cupsArrayStrdup, _cupsArrayFree)) != NULL)
     cupsArrayAddStrings(a, s, delim);
 
   return (a);
@@ -985,6 +999,50 @@ cupsArraySave(cups_array_t *a)		// I - Array
   a->num_saved ++;
 
   return (1);
+}
+
+
+//
+// '_cupsArrayStrcasecmp()' - Compare two strings in an array, ignoring case...
+//
+
+int					// O - Result of comparison
+_cupsArrayStrcasecmp(void *s,		// I - First string
+                     void *t,		// I - Second string
+                     void *data)	// I - Callback data (unused)
+{
+  (void)data;
+
+  return (_cups_strcasecmp((const char *)s, (const char *)t));
+}
+
+
+//
+// '_cupsArrayStrcmp()' - Compare two strings in an array.
+//
+
+int					// O - Result of comparison
+_cupsArrayStrcmp(void *s,		// I - first string to compare
+	         void *t,		// I - second string to compare
+                 void *data)		// I - Callback data (unused)
+{
+  (void)data;
+
+  return (strcmp((const char *)s, (const char *)t));
+}
+
+
+//
+// '_cupsArrayStrdup()' - Copy a string in an array.
+//
+
+void *					// O - Copy of string
+_cupsArrayStrdup(void *s,		// I - String to copy
+                 void *data)		// I - Callback data (unused)
+{
+  (void)data;
+
+  return (strdup((const char *)s));
 }
 
 
@@ -1252,44 +1310,4 @@ cups_array_find(cups_array_t *a,	// I - Array
   *rdiff = diff;
 
   return (current);
-}
-
-
-/*
- * '_cupsArrayStrcmp()' - Meant to be passed as a pointer to CUPS arrays instead
- * of strcmp. Will also work if called directly.
- */
-
-int _cupsArrayStrcmp(const char *s1, /* I - first string to compare */
-                     const char *s2, /* I - second string to compare */
-                     void *data)     /* Unused */
-{
-  (void)data;
-  return (strcmp(s1, s2));
-}
-
-
-/*
- * '_cupsArrayStrdup()' - Meant to be passed as a pointer to CUPS arrays instead
- * of strdup. Will also work if called directly.
- */
-
-char *_cupsArrayStrdup(const char *element, /* I - element to duplicate */
-                       void *data)          /* Unused */
-{
-  (void)data;
-  return (strdup(element));
-}
-
-
-/*
- * '_cupsArrayFree()' - Meant to be passed as a pointer to CUPS arrays instead
- * of free. Will also work if called directly.
- */
-
-void _cupsArrayFree(void *element, /* I - element to free */
-                    void *data)    /* Unused */
-{
-  (void)data;
-  free(element);
 }
