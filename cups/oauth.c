@@ -1331,12 +1331,15 @@ cupsOAuthGetTokens(
 
   if (error)
   {
-    // Handle "soft" device access token errors by setting access_expires to
-    // the next call time...
-    if (!strcmp(error, "slow_down"))
-      *access_expires = time(NULL) + 10;
-    else
-      *access_expires = time(NULL) + 5;
+    if (access_expires)
+    {
+      // Handle "soft" device access token errors by setting access_expires to
+      // the next call time...
+      if (!strcmp(error, "slow_down"))
+	*access_expires = time(NULL) + 10;
+      else
+	*access_expires = time(NULL) + 5;
+    }
 
     // Free memory and return...
     cupsJSONDelete(response);
