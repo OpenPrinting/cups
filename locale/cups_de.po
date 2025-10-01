@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-09-28 10:02+0000\n"
+"PO-Revision-Date: 2025-10-02 22:02+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
 "Language: de\n"
@@ -3516,7 +3516,7 @@ msgstr "Geräte-CMYK"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "Gerätecode: %s"
 
 msgid "Device Gray"
 msgstr "Geräte-Grau"
@@ -3525,7 +3525,7 @@ msgid "Device RGB"
 msgstr "Geräte-RGB"
 
 msgid "Device authorization grant is not supported by this server."
-msgstr ""
+msgstr "Die Geräteautorisierung wird von diesem Server nicht unterstützt."
 
 #, c-format
 msgid ""
@@ -4391,7 +4391,7 @@ msgid "No IPP attributes."
 msgstr "Keine IPP-Attribute."
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "Keine JWKS-URI in den Metadaten des Autorisierungsservers."
 
 msgid "No PPD name"
 msgstr "Kein PPD-Name"
@@ -4416,7 +4416,7 @@ msgid "No authentication information provided."
 msgstr "Keine Authentifizierungsinformation bereitgestellt."
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "Für diesen Server ist keine Client-ID konfiguriert."
 
 msgid "No community name"
 msgstr "Kein Community-Name"
@@ -4525,7 +4525,7 @@ msgid "Note"
 msgstr "Hinweis"
 
 msgid "OAuth Login"
-msgstr ""
+msgstr "OAuth-Anmeldung"
 
 msgid "OK"
 msgstr "OK"
@@ -4873,7 +4873,7 @@ msgid "Statement"
 msgstr "US Statement"
 
 msgid "Sub-Commands:"
-msgstr ""
+msgstr "Unterbefehle:"
 
 #, c-format
 msgid "Subscription #%d does not exist."
@@ -4953,7 +4953,7 @@ msgstr ""
 "Leerzeichen, Schrägstriche (/) oder Rautezeichen (#) enthalten."
 
 msgid "The client ID is not configured for this server."
-msgstr ""
+msgstr "Für diesen Server ist keine Client-ID konfiguriert."
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5157,7 +5157,7 @@ msgid "Unable to allocate memory for printer: %s"
 msgstr "Es konnte kein Speicher für den Drucker zugewiesen werden: %s"
 
 msgid "Unable to authorize access"
-msgstr ""
+msgstr "Zugriff kann nicht autorisiert werden"
 
 msgid "Unable to cancel print job."
 msgstr "Druckauftrag kann nicht abgebrochen werden."
@@ -5263,10 +5263,10 @@ msgid "Unable to finish request."
 msgstr "Anforderung kann nicht abgeschlossen werden."
 
 msgid "Unable to get authorization URL"
-msgstr ""
+msgstr "Autorisierungs-URL kann nicht abgerufen werden"
 
 msgid "Unable to get authorization server information"
-msgstr ""
+msgstr "Autorisierungsserver-Informationen können nicht abgerufen werden"
 
 msgid "Unable to get backend exit status."
 msgstr "Der Backend-Rückgabewert kann nicht ermittelt werden."
@@ -5353,7 +5353,7 @@ msgid "Unable to print test page"
 msgstr "Die Testseite kann nicht gedruckt werden"
 
 msgid "Unable to read IPP attribute name."
-msgstr ""
+msgstr "IPP-Attributname kann nicht gelesen werden."
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5581,10 +5581,10 @@ msgstr ""
 "            cancel [Optionen] [Ziel-id]"
 
 msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Aufruf: cups-oauth [OPTIONEN] [UNTERBEFEHLE [ARGUMENT(E)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Aufruf: cups-x509 [OPTIONEN] [UNTERBEFEHL] [ARGUMENT]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Verwendung: cupsctl [Optionen] [Parameter=Wert ... ParameterN=WertN]"
@@ -5703,7 +5703,7 @@ msgstr "Verwendung: snmp [Host-oder-IP-Adresse]"
 
 #, c-format
 msgid "User Code: %s"
-msgstr ""
+msgstr "Benutzercode: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
@@ -5711,6 +5711,8 @@ msgstr "Verwende Spoolverzeichnis \"%s\"."
 
 msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
+"Validierung von subjectAltName in X.509-Zertifikatsanforderung "
+"fehlgeschlagen."
 
 msgid "Value uses indefinite length"
 msgstr "Wert hat unbestimmte Länge"
@@ -5740,7 +5742,7 @@ msgstr "Web-Schnittstelle ist deaktiviert"
 
 #, c-format
 msgid "Web Page: %s"
-msgstr ""
+msgstr "Webseite: %s"
 
 msgid "Yes"
 msgstr "Ja"
