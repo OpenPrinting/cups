@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-09-03 11:01+0000\n"
+"PO-Revision-Date: 2025-10-05 21:02+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.1-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -1500,7 +1500,7 @@ msgstr "%s: testigo ausente tras '--bearer-token'."
 
 #, c-format
 msgid "%s: Missing user agent after '--user-agent'."
-msgstr ""
+msgstr "%s: Falta agente de usuario tras '--user-agent'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1807,7 +1807,7 @@ msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri exreg             Coincide URI para expresión regular"
 
 msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
-msgstr ""
+msgstr "--user-agent AGENTE-USUARIO Establece la cadena HTTP de Agente-Usuario"
 
 msgid "--version                      Show the program version"
 msgstr "--version                      Muestra la versión del programa"
@@ -3661,7 +3661,7 @@ msgstr "Dispositivo CMYK"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "Código de dispositivo: %s"
 
 msgid "Device Gray"
 msgstr "Dispositivo gris"
@@ -3671,6 +3671,8 @@ msgstr "Dispositivo RGB"
 
 msgid "Device authorization grant is not supported by this server."
 msgstr ""
+"La concesión de autorización de dispositivo no está admitida por este "
+"servidor."
 
 #, c-format
 msgid ""
@@ -4055,7 +4057,7 @@ msgid "Help file not in index."
 msgstr "El archivo de ayuda no está en el índice."
 
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
@@ -4536,7 +4538,7 @@ msgid "No IPP attributes."
 msgstr "No hay atributos IPP."
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "Sin URI JWKS en autorización de metadatos del servidor."
 
 msgid "No PPD name"
 msgstr "No hay nombre de PPD"
@@ -4561,7 +4563,7 @@ msgid "No authentication information provided."
 msgstr "No se ha proporcionado información de autentificación."
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "Ningún ID cliente configurado para este servidor."
 
 msgid "No community name"
 msgstr "No hay nombre de comunidad"
@@ -4671,7 +4673,7 @@ msgid "Note"
 msgstr "Nota"
 
 msgid "OAuth Login"
-msgstr ""
+msgstr "Acceso OAuth"
 
 msgid "OK"
 msgstr "Aceptar"
@@ -5017,7 +5019,7 @@ msgid "Statement"
 msgstr "Declaración"
 
 msgid "Sub-Commands:"
-msgstr ""
+msgstr "Sub-instrucciones:"
 
 #, c-format
 msgid "Subscription #%d does not exist."
@@ -5097,7 +5099,7 @@ msgstr ""
 "no puede contener espacios, barras (/), o la almohadilla (#)."
 
 msgid "The client ID is not configured for this server."
-msgstr ""
+msgstr "El ID cliente no está configurado para este servidor."
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5298,7 +5300,7 @@ msgid "Unable to allocate memory for printer: %s"
 msgstr "No es capaz de asignar memoria para impresora: %s"
 
 msgid "Unable to authorize access"
-msgstr ""
+msgstr "No es capaz de autorizar acceso"
 
 msgid "Unable to cancel print job."
 msgstr "No se ha podido cancelar el trabajo de impresión."
@@ -5402,10 +5404,10 @@ msgid "Unable to finish request."
 msgstr "No es capaz de finalizar solicitud."
 
 msgid "Unable to get authorization URL"
-msgstr ""
+msgstr "No es capaz de obtener URL de autorización"
 
 msgid "Unable to get authorization server information"
-msgstr ""
+msgstr "No es capaz de obtener autorización de información del servidor"
 
 msgid "Unable to get backend exit status."
 msgstr "No se ha podido obtener el estado de salida del programa backend."
@@ -5491,7 +5493,7 @@ msgid "Unable to print test page"
 msgstr "No se ha podido imprimir la página de prueba"
 
 msgid "Unable to read IPP attribute name."
-msgstr ""
+msgstr "No es capaz de leer nombre de atributo de IPP."
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5722,10 +5724,10 @@ msgstr ""
 "       cancel [opciones] [destino-id]"
 
 msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Modo de empleo: cups-oauth [OPCIONES] [SUB-ORDEN [ARGUMENTO(S)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Modo de empleo: cups-x509 [OPCIONES] [SUB-ORDEN] [ARGUMENTO]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Uso: cupsctl [opciones] [param=valor ... paramN=valorN]"
@@ -5852,7 +5854,7 @@ msgstr "Modo de empleo: snmp [equipo-o-dirección-ip]"
 
 #, c-format
 msgid "User Code: %s"
-msgstr ""
+msgstr "Código de usuario: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
@@ -5888,7 +5890,7 @@ msgstr "La interfaz web está Desactivada"
 
 #, c-format
 msgid "Web Page: %s"
-msgstr ""
+msgstr "Página web: %s"
 
 msgid "Yes"
 msgstr "Sí"
@@ -6238,7 +6240,7 @@ msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr "cups-oauth: Recurso ausente de URI y/o vale de acceso."
 
 msgid "cups-oauth: Missing resource URI and/or device token."
-msgstr ""
+msgstr "cups-oauth: falta URI de recurso y/o vale del dispositivo."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr "cups-oauth: Falta ámbito(s) tras '-s'."
@@ -6257,10 +6259,11 @@ msgstr "cups-oauth: No es capaz de obtener autorización desde '%s': %s"
 #, c-format
 msgid "cups-oauth: Unable to get device authorization from '%s': %s"
 msgstr ""
+"cups-oauth: no es capaz de obtener autorización de dispositivo desde '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: no es capaz de obtener vale de dispositivo desde '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
@@ -6363,7 +6366,7 @@ msgstr "cups-x509: No se puede asignar memoria para '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s': %s"
-msgstr ""
+msgstr "cups-x509: no es capaz de conectar a '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
@@ -7747,12 +7750,15 @@ msgstr ""
 "authorización"
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
-msgstr ""
+msgstr "get-device-grant [RECURSO]   autoriza acceso a través de un dispositivo"
 
 msgid ""
 "get-device-token [RESOURCE] DEVICE-CODE\n"
 "                               Wait for the device access token"
 msgstr ""
+"get-device-token [RECURSO] CÓDIGO-DISPOSITIVO\n"
+"                                                                     Espera "
+"el vale de acceso al dispositivo"
 
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
@@ -11743,7 +11749,6 @@ msgid "position.bottom-right"
 msgstr "Suelo derecho"
 
 #. TRANSLATORS: Center
-#, fuzzy
 msgid "position.center"
 msgstr "Centro"
 
@@ -12501,319 +12506,390 @@ msgstr "Estado detallado de impresora"
 
 #. TRANSLATORS: Old Alerts Have Been Removed
 msgid "printer-state-reasons.alert-removal-of-binary-change-entry"
-msgstr "Alertas Antiguas Han Sido Eliminadas"
+msgstr "Alertas Antiguas Han Sido Retiradas"
 
 #. TRANSLATORS: Bander Added
+#, fuzzy
 msgid "printer-state-reasons.bander-added"
-msgstr ""
+msgstr "Tapa Añadida"
 
 #. TRANSLATORS: Bander Almost Empty
+#, fuzzy
 msgid "printer-state-reasons.bander-almost-empty"
-msgstr ""
+msgstr "Tapa Casi Vacía"
 
 #. TRANSLATORS: Bander Almost Full
+#, fuzzy
 msgid "printer-state-reasons.bander-almost-full"
-msgstr ""
+msgstr "Tapa Casi Completa"
 
 #. TRANSLATORS: Bander At Limit
+#, fuzzy
 msgid "printer-state-reasons.bander-at-limit"
-msgstr ""
+msgstr "Tapa En Límite"
 
 #. TRANSLATORS: Bander Closed
+#, fuzzy
 msgid "printer-state-reasons.bander-closed"
-msgstr ""
+msgstr "Tapa Cerrada"
 
 #. TRANSLATORS: Bander Configuration Change
+#, fuzzy
 msgid "printer-state-reasons.bander-configuration-change"
-msgstr ""
+msgstr "Cambio de Configuración de Tapa"
 
 #. TRANSLATORS: Bander Cover Closed
+#, fuzzy
 msgid "printer-state-reasons.bander-cover-closed"
-msgstr ""
+msgstr "Tapa de la Bandeja Cerrada"
 
 #. TRANSLATORS: Bander Cover Open
+#, fuzzy
 msgid "printer-state-reasons.bander-cover-open"
-msgstr ""
+msgstr "Tapa de Bandeja Abierta"
 
 #. TRANSLATORS: Bander Empty
+#, fuzzy
 msgid "printer-state-reasons.bander-empty"
-msgstr ""
+msgstr "Tapa Vacía"
 
 #. TRANSLATORS: Bander Full
+#, fuzzy
 msgid "printer-state-reasons.bander-full"
-msgstr ""
+msgstr "Tapa Completa"
 
 #. TRANSLATORS: Bander Interlock Closed
+#, fuzzy
 msgid "printer-state-reasons.bander-interlock-closed"
-msgstr ""
+msgstr "Tapa Interbloqueo Cerrada"
 
 #. TRANSLATORS: Bander Interlock Open
+#, fuzzy
 msgid "printer-state-reasons.bander-interlock-open"
-msgstr ""
+msgstr "Tapa Interbloqueo Abierta"
 
 #. TRANSLATORS: Bander Jam
+#, fuzzy
 msgid "printer-state-reasons.bander-jam"
-msgstr ""
+msgstr "Tapa Mermelada"
 
 #. TRANSLATORS: Bander Life Almost Over
+#, fuzzy
 msgid "printer-state-reasons.bander-life-almost-over"
-msgstr ""
+msgstr "Tapa Viva Casi Cubierta"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
-msgstr ""
+msgstr "Bandeja Viva Cubierta"
 
 #. TRANSLATORS: Bander Memory Exhausted
+#, fuzzy
 msgid "printer-state-reasons.bander-memory-exhausted"
-msgstr ""
+msgstr "Memoria Bandeja Agotada"
 
 #. TRANSLATORS: Bander Missing
+#, fuzzy
 msgid "printer-state-reasons.bander-missing"
-msgstr ""
+msgstr "Bandeja Ausente"
 
 #. TRANSLATORS: Bander Motor Failure
+#, fuzzy
 msgid "printer-state-reasons.bander-motor-failure"
-msgstr ""
+msgstr "Motor Bandeja Incorrecto"
 
 #. TRANSLATORS: Bander Near Limit
+#, fuzzy
 msgid "printer-state-reasons.bander-near-limit"
-msgstr ""
+msgstr "Bandeja Cercana Al Límite"
 
 #. TRANSLATORS: Bander Offline
+#, fuzzy
 msgid "printer-state-reasons.bander-offline"
-msgstr "Anillador desconectado"
+msgstr "Bandeja desconectada"
 
 #. TRANSLATORS: Bander Opened
+#, fuzzy
 msgid "printer-state-reasons.bander-opened"
-msgstr "Anillador abierto"
+msgstr "Bandeja abierta"
 
 #. TRANSLATORS: Bander Over Temperature
+#, fuzzy
 msgid "printer-state-reasons.bander-over-temperature"
-msgstr ""
+msgstr "Cubierta Sobre Temperatura"
 
 #. TRANSLATORS: Bander Power Saver
+#, fuzzy
 msgid "printer-state-reasons.bander-power-saver"
-msgstr ""
+msgstr "Bandeja de Ahorro Energético"
 
 #. TRANSLATORS: Bander Recoverable Failure
+#, fuzzy
 msgid "printer-state-reasons.bander-recoverable-failure"
-msgstr ""
+msgstr "Bandeja de fallo recuperable"
 
 #. TRANSLATORS: Bander Recoverable Storage
+#, fuzzy
 msgid "printer-state-reasons.bander-recoverable-storage"
-msgstr ""
+msgstr "Bandeja de almacén recuperable"
 
 #. TRANSLATORS: Bander Removed
+#, fuzzy
 msgid "printer-state-reasons.bander-removed"
-msgstr ""
+msgstr "Bandeja Retirada"
 
 #. TRANSLATORS: Bander Resource Added
+#, fuzzy
 msgid "printer-state-reasons.bander-resource-added"
-msgstr ""
+msgstr "Bandeja de Recurso Añadido"
 
 #. TRANSLATORS: Bander Resource Removed
+#, fuzzy
 msgid "printer-state-reasons.bander-resource-removed"
-msgstr ""
+msgstr "Bandeja de Recurso Retirado"
 
 #. TRANSLATORS: Bander Thermistor Failure
+#, fuzzy
 msgid "printer-state-reasons.bander-thermistor-failure"
-msgstr ""
+msgstr "Fallo Bandeja de Termistor"
 
 #. TRANSLATORS: Bander Timing Failure
+#, fuzzy
 msgid "printer-state-reasons.bander-timing-failure"
-msgstr ""
+msgstr "Fallo Bandeja de Temporizador"
 
 #. TRANSLATORS: Bander Turned Off
+#, fuzzy
 msgid "printer-state-reasons.bander-turned-off"
-msgstr ""
+msgstr "Bandeja Apagada"
 
 #. TRANSLATORS: Bander Turned On
+#, fuzzy
 msgid "printer-state-reasons.bander-turned-on"
-msgstr ""
+msgstr "Bandeja Encendida"
 
 #. TRANSLATORS: Bander Under Temperature
+#, fuzzy
 msgid "printer-state-reasons.bander-under-temperature"
-msgstr ""
+msgstr "Bandeja Bajo Temperatura"
 
 #. TRANSLATORS: Bander Unrecoverable Failure
+#, fuzzy
 msgid "printer-state-reasons.bander-unrecoverable-failure"
-msgstr ""
+msgstr "Fallo de Bandeja Irrecuperable"
 
 #. TRANSLATORS: Bander Unrecoverable Storage Error
+#, fuzzy
 msgid "printer-state-reasons.bander-unrecoverable-storage-error"
-msgstr ""
+msgstr "Error de Bandeja de Almacenaje Irrecuperable"
 
 #. TRANSLATORS: Bander Warming Up
+#, fuzzy
 msgid "printer-state-reasons.bander-warming-up"
-msgstr ""
+msgstr "Bandeja de Subida de Calor"
 
 #. TRANSLATORS: Binder Added
+#, fuzzy
 msgid "printer-state-reasons.binder-added"
-msgstr "Aglutinante añadido"
+msgstr "Cubierta añadida"
 
 #. TRANSLATORS: Binder Almost Empty
+#, fuzzy
 msgid "printer-state-reasons.binder-almost-empty"
-msgstr "Aglutinante casi vacío"
+msgstr "Bandeja casi vacía"
 
 #. TRANSLATORS: Binder Almost Full
+#, fuzzy
 msgid "printer-state-reasons.binder-almost-full"
-msgstr ""
+msgstr "Bandeja Casi Completa"
 
 #. TRANSLATORS: Binder At Limit
+#, fuzzy
 msgid "printer-state-reasons.binder-at-limit"
-msgstr ""
+msgstr "Bandeja al Límite"
 
 #. TRANSLATORS: Binder Closed
+#, fuzzy
 msgid "printer-state-reasons.binder-closed"
-msgstr ""
+msgstr "Cubierta Cerrada"
 
 #. TRANSLATORS: Binder Configuration Change
+#, fuzzy
 msgid "printer-state-reasons.binder-configuration-change"
-msgstr ""
+msgstr "Cambio de Configuración de Bandeja"
 
 #. TRANSLATORS: Binder Cover Closed
+#, fuzzy
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr ""
+msgstr "Cubierta de Bandeja Cerrada"
 
 #. TRANSLATORS: Binder Cover Open
+#, fuzzy
 msgid "printer-state-reasons.binder-cover-open"
-msgstr ""
+msgstr "Cubierta de Bandeja Abierta"
 
 #. TRANSLATORS: Binder Empty
+#, fuzzy
 msgid "printer-state-reasons.binder-empty"
-msgstr ""
+msgstr "Cubierta Vacía"
 
 #. TRANSLATORS: Binder Full
+#, fuzzy
 msgid "printer-state-reasons.binder-full"
-msgstr ""
+msgstr "Bandeja Llena"
 
 #. TRANSLATORS: Binder Interlock Closed
+#, fuzzy
 msgid "printer-state-reasons.binder-interlock-closed"
-msgstr ""
+msgstr "Bandeja Interbloqueo Cerrada"
 
 #. TRANSLATORS: Binder Interlock Open
+#, fuzzy
 msgid "printer-state-reasons.binder-interlock-open"
-msgstr ""
+msgstr "Bandeja Interbloqueo Abierta"
 
 #. TRANSLATORS: Binder Jam
+#, fuzzy
 msgid "printer-state-reasons.binder-jam"
-msgstr ""
+msgstr "Mermelada Aglutinante"
 
 #. TRANSLATORS: Binder Life Almost Over
+#, fuzzy
 msgid "printer-state-reasons.binder-life-almost-over"
-msgstr ""
+msgstr "Bandeja Viva Casi Llena"
 
 #. TRANSLATORS: Binder Life Over
+#, fuzzy
 msgid "printer-state-reasons.binder-life-over"
-msgstr ""
+msgstr "Bandeja Viva Cubierta"
 
 #. TRANSLATORS: Binder Memory Exhausted
+#, fuzzy
 msgid "printer-state-reasons.binder-memory-exhausted"
-msgstr ""
+msgstr "Memoria de Bandeja Agotada"
 
 #. TRANSLATORS: Binder Missing
+#, fuzzy
 msgid "printer-state-reasons.binder-missing"
-msgstr ""
+msgstr "Bandeja Ausente"
 
 #. TRANSLATORS: Binder Motor Failure
+#, fuzzy
 msgid "printer-state-reasons.binder-motor-failure"
-msgstr ""
+msgstr "Motor de Bandeja Incorrecta"
 
 #. TRANSLATORS: Binder Near Limit
+#, fuzzy
 msgid "printer-state-reasons.binder-near-limit"
-msgstr ""
+msgstr "Bandeja Cerca de Límite"
 
 #. TRANSLATORS: Binder Offline
+#, fuzzy
 msgid "printer-state-reasons.binder-offline"
-msgstr ""
+msgstr "Cubierta Desconectada"
 
 #. TRANSLATORS: Binder Opened
+#, fuzzy
 msgid "printer-state-reasons.binder-opened"
-msgstr ""
+msgstr "Cubierta Abierta"
 
 #. TRANSLATORS: Binder Over Temperature
+#, fuzzy
 msgid "printer-state-reasons.binder-over-temperature"
-msgstr ""
+msgstr "Cubierta Supera Temperatura"
 
 #. TRANSLATORS: Binder Power Saver
+#, fuzzy
 msgid "printer-state-reasons.binder-power-saver"
-msgstr ""
+msgstr "Cubierta de Ahorro Energético"
 
 #. TRANSLATORS: Binder Recoverable Failure
+#, fuzzy
 msgid "printer-state-reasons.binder-recoverable-failure"
-msgstr ""
+msgstr "Cubierta de Fallo Recuperable"
 
 #. TRANSLATORS: Binder Recoverable Storage
+#, fuzzy
 msgid "printer-state-reasons.binder-recoverable-storage"
-msgstr ""
+msgstr "Cubierta de Almacenaje Recuperable"
 
 #. TRANSLATORS: Binder Removed
+#, fuzzy
 msgid "printer-state-reasons.binder-removed"
-msgstr ""
+msgstr "Cubierta Retirada"
 
 #. TRANSLATORS: Binder Resource Added
+#, fuzzy
 msgid "printer-state-reasons.binder-resource-added"
-msgstr ""
+msgstr "Recurso de Cubierta Añadido"
 
 #. TRANSLATORS: Binder Resource Removed
+#, fuzzy
 msgid "printer-state-reasons.binder-resource-removed"
-msgstr ""
+msgstr "Recurso de Cubierta Retirado"
 
 #. TRANSLATORS: Binder Thermistor Failure
+#, fuzzy
 msgid "printer-state-reasons.binder-thermistor-failure"
-msgstr ""
+msgstr "Cubierta Termistor Incorrecta"
 
 #. TRANSLATORS: Binder Timing Failure
+#, fuzzy
 msgid "printer-state-reasons.binder-timing-failure"
-msgstr ""
+msgstr "Temporizador de Cubierta Incorrecto"
 
 #. TRANSLATORS: Binder Turned Off
+#, fuzzy
 msgid "printer-state-reasons.binder-turned-off"
-msgstr ""
+msgstr "Cubierta Apagada"
 
 #. TRANSLATORS: Binder Turned On
+#, fuzzy
 msgid "printer-state-reasons.binder-turned-on"
-msgstr ""
+msgstr "Cubierta Encendida"
 
 #. TRANSLATORS: Binder Under Temperature
+#, fuzzy
 msgid "printer-state-reasons.binder-under-temperature"
-msgstr ""
+msgstr "Cubierta con Temperatura Baja"
 
 #. TRANSLATORS: Binder Unrecoverable Failure
+#, fuzzy
 msgid "printer-state-reasons.binder-unrecoverable-failure"
-msgstr ""
+msgstr "Fallo de Cubierta Irrecuperable"
 
 #. TRANSLATORS: Binder Unrecoverable Storage Error
+#, fuzzy
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
-msgstr ""
+msgstr "Error de Almacenaje Irrecuperable de Cubierta"
 
 #. TRANSLATORS: Binder Warming Up
+#, fuzzy
 msgid "printer-state-reasons.binder-warming-up"
-msgstr ""
+msgstr "Subida de Calor de Cubierta"
 
 #. TRANSLATORS: Camera Failure
 msgid "printer-state-reasons.camera-failure"
-msgstr ""
+msgstr "Fallo de Cámara"
 
 #. TRANSLATORS: Chamber Cooling
 msgid "printer-state-reasons.chamber-cooling"
-msgstr ""
+msgstr "Enfriamiento de cámara"
 
 #. TRANSLATORS: Chamber Failure
 msgid "printer-state-reasons.chamber-failure"
-msgstr ""
+msgstr "Fallo de cámara"
 
 #. TRANSLATORS: Chamber Heating
 msgid "printer-state-reasons.chamber-heating"
-msgstr ""
+msgstr "Calor de cámara"
 
 #. TRANSLATORS: Chamber Temperature High
 msgid "printer-state-reasons.chamber-temperature-high"
-msgstr ""
+msgstr "Temperatura alta de cámara"
 
 #. TRANSLATORS: Chamber Temperature Low
 msgid "printer-state-reasons.chamber-temperature-low"
-msgstr ""
+msgstr "Temperatura baja de cámara"
 
 #. TRANSLATORS: Cleaner Life Almost Over
 msgid "printer-state-reasons.cleaner-life-almost-over"
@@ -12993,7 +13069,7 @@ msgstr ""
 
 #. TRANSLATORS: Door Open
 msgid "printer-state-reasons.door-open"
-msgstr ""
+msgstr "Puerta Abierta"
 
 #. TRANSLATORS: Extruder Cooling
 msgid "printer-state-reasons.extruder-cooling"
@@ -15842,7 +15918,7 @@ msgstr ""
 
 #. TRANSLATORS: 2-Sided Printing
 msgid "sides"
-msgstr ""
+msgstr "Impresión a 2 Caras"
 
 #. TRANSLATORS: Off
 msgid "sides.one-sided"
@@ -15924,7 +16000,7 @@ msgstr "parada"
 
 #. TRANSLATORS: Subject
 msgid "subject"
-msgstr ""
+msgstr "Asunto"
 
 #. TRANSLATORS: Subscription Privacy Attributes
 msgid "subscription-privacy-attributes"
@@ -16101,47 +16177,47 @@ msgstr "variable-bindings usa una longitud indefinida"
 
 #. TRANSLATORS: X Accuracy
 msgid "x-accuracy"
-msgstr ""
+msgstr "X Exactitud"
 
 #. TRANSLATORS: X Dimension
 msgid "x-dimension"
-msgstr ""
+msgstr "X Dimensión"
 
 #. TRANSLATORS: X Offset
 msgid "x-offset"
-msgstr ""
+msgstr "X Desplazamiento"
 
 #. TRANSLATORS: X Origin
 msgid "x-origin"
-msgstr ""
+msgstr "X Origen"
 
 #. TRANSLATORS: Y Accuracy
 msgid "y-accuracy"
-msgstr ""
+msgstr "Y Exactitud"
 
 #. TRANSLATORS: Y Dimension
 msgid "y-dimension"
-msgstr ""
+msgstr "Y Dimensión"
 
 #. TRANSLATORS: Y Offset
 msgid "y-offset"
-msgstr ""
+msgstr "Y Desplazamiento"
 
 #. TRANSLATORS: Y Origin
 msgid "y-origin"
-msgstr ""
+msgstr "Y Origen"
 
 #. TRANSLATORS: Z Accuracy
 msgid "z-accuracy"
-msgstr ""
+msgstr "Z Exactitud"
 
 #. TRANSLATORS: Z Dimension
 msgid "z-dimension"
-msgstr ""
+msgstr "Z Dimensión"
 
 #. TRANSLATORS: Z Offset
 msgid "z-offset"
-msgstr ""
+msgstr "Z Desplazamiento"
 
 msgid "{service_domain}        Domain name"
 msgstr "{service_domain}        Nombre de dominio"
@@ -16171,7 +16247,7 @@ msgid "{}                      URI"
 msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
-msgstr "Archivo ~/.cups/lpoptions nombra destino predet. que no exite."
+msgstr "Archivo ~/.cups/lpoptions nombra destino predet. que no existe."
 
 #~ msgid "Commands:"
 #~ msgstr "Comandos:"
