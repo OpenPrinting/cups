@@ -34,6 +34,9 @@
  * Local functions...
  */
 
+/* === MOD START: formats cache headers === */
+#include "formats_cache.h"
+/* === MOD END: formats cache headers === */
 static void	add_printer_defaults(cupsd_printer_t *p);
 static void	add_printer_filter(cupsd_printer_t *p, mime_type_t *type,
 				   const char *filter);
@@ -3419,6 +3422,13 @@ add_printer_filter(
              super, type, dsuper, dtype, &cost, program) == 6)
   {
     snprintf(dest, sizeof(dest), "%s/%s/%s", p->name, dsuper, dtype);
+    /* === MOD START: Canonical (PPD-hash based) destination naming === */
+    /* Canonical (PPD-hash based) destination naming when enabled:
+     If CUPS_CANONICAL_DEST is set (1|on|true|yes) and a PPD hash exists,
+     we reuse a shared per-PPD target namespace: printer/_ppd_<hash8>/<dsuper>/<dtype>
+     to avoid per-printer graph bloat. Fallback: legacy per-printer dest. */
+    fmts_cache_canonical_mimetype_hash(p, dest, sizeof(dest), dsuper, dtype);
+    /* === MOD END: Canonical (PPD-hash based) destination naming === */
 
     if ((desttype = mimeType(MimeDatabase, "printer", dest)) == NULL)
     {
@@ -3522,6 +3532,16 @@ add_printer_filter(
 static void
 add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 {
+  /* === MOD START: formats cache fast-path === */
+  /* Mimetype cache support when enabled:
+   * If CUPS_FORMATS_CACHE_OPT is set (1|on|true|yes) try to use the
+   * formats cache to quickly populate document-format-supported.
+   * If it returns 0, we are done.
+   * If it returns negative (disabled or failure), fall back to legacy logic.
+   */
+  if (fmts_cache_add_printer_formats(p) == 0)
+    return;
+  /* === MOD END: formats cache fast-path === */
   int		i;			/* Looping var */
   mime_type_t	*type;			/* Current MIME type */
   cups_array_t	*filters;		/* Filters */

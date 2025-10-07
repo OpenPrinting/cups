@@ -89,6 +89,7 @@ struct cupsd_printer_s
 		*alert_description;	/* PSX printer-alert-description value */
   time_t	marker_time;		/* Last time marker attributes were updated */
   _ppd_cache_t	*pc;			/* PPD cache and mapping data */
+  char		ppd_sha256[65];		/* Hex SHA-256 of PPD file (nul-term) */
 
   char		*reg_name,		/* Name used for service registration */
 		*pdl;			/* pdl value for TXT record */
