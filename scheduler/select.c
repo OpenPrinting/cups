@@ -185,12 +185,12 @@ static struct pollfd	*cupsd_pollfds = NULL;
 //
 
 static int	compare_fds(_cupsd_fd_t *a, _cupsd_fd_t *b, void *data);
-static _cupsd_fd_t	*find_fd(int fd);
-#define			release_fd(f) { \
-			  (f)->use --; \
-			  if (!(f)->use) free((f));\
-			}
-#define			retain_fd(f) (f)->use++
+static _cupsd_fd_t *find_fd(int fd);
+#define		release_fd(f) { \
+		  (f)->use --; \
+		  if (!(f)->use) free((f));\
+		}
+#define		retain_fd(f) (f)->use++
 
 
 //
