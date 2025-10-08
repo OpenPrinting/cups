@@ -55,8 +55,47 @@ Reporting a Vulnerability
 
 Github supports private security advisories and OpenPrinting CUPS enabled
 their usage, report all security issue via them. Reporters can file a security
-advisory by clicking on `New issue` at tab `Issues` and choose `Report a vulnerability`.
-Provide details, impact, reproducer, affected versions, workarounds and patch
-for the vulnerability if there are any and estimate severity when creating the advisory.
-Expect a response within 5 business days. Once OpenPrinting group agree on the patch
-and announce it on `distros@vs.openwall.org`, there is embargo period 7-10 days long.
+advisory by clicking on `New issue` at tab `Issues` and choose
+`Report a vulnerability`.  Provide details, impact, reproducer, affected
+versions, workarounds and patch for the vulnerability if there are any and
+estimate severity when creating the advisory.
+
+Expect a response within 5 business days.
+
+
+How We Respond to Vulnerability Reports
+---------------------------------------
+
+First, we take every report seriously.  There are (conservatively) over a
+billion systems using CUPS, so any security issue can affect a lot of people.
+
+Members of the OpenPrinting security team will try to verify/reproduce the
+reported issues in a timely fashion.  Please keep in mind that many members of
+the security team are volunteers or are only employed part-time to maintain
+CUPS, so your patience is appreciated!
+
+Sometimes a reported issue is actually in another project's code.  For these
+issues we may ask you to re-submit your report to the correct project - an
+enhancement request has been submitted to GitHub to correct this limitation for
+projects hosted on GitHub.
+
+Other times we may verify the issue exists but disagree on the severity or
+scope of the issue.  We assess vulnerabilities based on our supported platforms
+and common configurations because we need to be able to test and verify issues
+and fixes on those supported platforms.
+
+Similar issues (if multiple vulnerabilities are reported) will be combined if
+they share a common root cause.  We don't mean any disrespect by doing this, we
+just want to make sure your issues are truly and efficiently addressed in full.
+
+Once we have verified things, we will work towards providing a fix as quickly
+as possible.  Fixes are typically developed against the "master" branch, then
+backported as needed to cover shipping CUPS releases on our supported platforms.
+
+Once we have the fixes ready, we request a CVE, coordinate an embargo date, and
+announce it on `distros@vs.openwall.org` mailing list.  The embargo period is
+typically 7-10 days long but can be longer.
+
+The embargo starts a flurry of activity - hundred of developers supporting every
+Linux distribution, the various BSD flavors, macOS, and ChromeOS will queue up
+the security updates for their respective OS releases on the embargo date.
