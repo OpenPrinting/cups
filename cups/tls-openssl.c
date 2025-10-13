@@ -215,12 +215,14 @@ cupsMakeServerCredentials(
   // Save them...
   if ((bio = BIO_new_file(keyfile, "wb")) == NULL)
   {
+    DEBUG_printf(("1cupsMakeServerCredentials: Unable to create private key file '%s': %s", keyfile, strerror(errno)));
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
   }
 
   if (!PEM_write_bio_PrivateKey(bio, pkey, NULL, NULL, 0, NULL, NULL))
   {
+    DEBUG_puts("1cupsMakeServerCredentials: PEM_write_bio_PrivateKey failed.");
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to write private key."), 1);
     BIO_free(bio);
     goto done;
@@ -230,12 +232,14 @@ cupsMakeServerCredentials(
 
   if ((bio = BIO_new_file(crtfile, "wb")) == NULL)
   {
+    DEBUG_printf(("1cupsMakeServerCredentials: Unable to create certificate file '%s': %s", crtfile, strerror(errno)));
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
   }
 
   if (!PEM_write_bio_X509(bio, cert))
   {
+    DEBUG_puts("1cupsMakeServerCredentials: PEM_write_bio_X509 failed.");
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to write X.509 certificate."), 1);
     BIO_free(bio);
     goto done;
@@ -1082,10 +1086,10 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
       if (!cupsMakeServerCredentials(tls_keypath, cn, 0, NULL, time(NULL) + 3650 * 86400))
       {
-	DEBUG_puts("4_httpTLSStart: cupsMakeServerCredentials failed.");
+	DEBUG_printf(("4_httpTLSStart: cupsMakeServerCredentials failed: %s", cupsLastErrorString()));
 	http->error  = errno = EINVAL;
 	http->status = HTTP_STATUS_ERROR;
-	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create server credentials."), 1);
+//	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create server credentials."), 1);
 	SSL_CTX_free(context);
         _cupsMutexUnlock(&tls_mutex);
 
@@ -1346,14 +1350,17 @@ http_bio_read(BIO  *h,			// I - BIO data
 
   http = (http_t *)BIO_get_data(h);
 
-  if (!http->blocking)
+  if (!http->blocking || http->timeout_value > 0.0)
   {
    /*
     * Make sure we have data before we read...
     */
 
-    if (!_httpWait(http, 10000, 0))
+    while (!_httpWait(http, http->wait_value, 0))
     {
+      if (http->timeout_cb && (*http->timeout_cb)(http, http->timeout_data))
+	continue;
+
 #ifdef WIN32
       http->error = WSAETIMEDOUT;
 #else
