@@ -4661,6 +4661,21 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
 	ippDelete(col);
       }
+
+      // Add custom media-default into media-ready
+      if (defaultpagesize_is_custom)
+      {
+	if (media_ready)
+	  ippSetString(p->ppd_attrs, &media_ready, ippGetCount(media_ready), default_pwgsize->map.pwg);
+	if (media_col_ready)
+	{
+	  ipp_t	*col;
+	  col = new_media_col(default_pwgsize);
+	  ippSetCollection(p->ppd_attrs, &media_col_ready, ippGetCount(media_col_ready), col);
+	  ippDelete(col);
+	}
+      }
+
     }
 
     ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_TEXT), "mopria-certified", NULL, "1.3");
