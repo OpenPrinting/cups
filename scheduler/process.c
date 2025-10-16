@@ -56,7 +56,7 @@ static cups_array_t	*process_array = NULL;
  * Local functions...
  */
 
-static int compare_procs(cupsd_proc_t *a, cupsd_proc_t *b, void *data);
+static int	compare_procs(cupsd_proc_t *a, cupsd_proc_t *b, void *data);
 #ifdef HAVE_SANDBOX_H
 static char	*cupsd_requote(char *dst, const char *src, size_t dstsize);
 #endif /* HAVE_SANDBOX_H */
