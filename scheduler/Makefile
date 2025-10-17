@@ -36,6 +36,7 @@ CUPSDOBJS =	\
 		server.o \
 		statbuf.o \
 		subscriptions.o \
+		mime-sink-patterns.c \
 		sysman.o
 LIBOBJS =	\
 		filter.o \

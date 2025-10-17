@@ -10,6 +10,9 @@
  */
 
 #include "cupsd.h"
+/* === MOD START: sink pattern reuse headers === */
+#include "mime-sink-patterns.h" /* sink pattern reuse */
+/* === MOD END: sink pattern reuse headers === */
 #include <cups/dir.h>
 #ifdef HAVE_APPLICATIONSERVICES_H
 #  include <ApplicationServices/ApplicationServices.h>
@@ -3548,6 +3551,12 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
     return;
   }
 
+/* === MOD START: sink pattern reuse attempt (before enumeration begin) === */
+  int cache_hit = msink_try_reuse(p);
+  if (!cache_hit)
+  {
+/* === MOD END: sink pattern reuse attempt (before enumeration begin) === */
+
  /*
   * Otherwise, loop through the supported MIME types and see if there
   * are filters for them...
@@ -3580,6 +3589,10 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
       cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %s not supported", mimetype);
   }
 
+/* === MOD START: sink pattern reuse attempt (before enumeration end) === */
+  }
+/* === MOD END: sink pattern reuse attempt (before enumeration end) === */
+
  /*
   * Add the file formats that can be filtered...
   */
@@ -3607,6 +3620,11 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
   }
 
   ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-preferred", NULL, preferred);
+
+/* === MOD START: Store for reuse by future printers (same sink incoming edges) === */
+  if (!cache_hit)
+    msink_try_store(MimeDatabase, p->filetype, p->filetypes);
+/* === MOD END: Store for reuse by future printers (same sink incoming edges) === */
 
  /*
   * We only support raw printing if this is not a Tioga PrintJobMgr based
