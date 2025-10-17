@@ -70,6 +70,9 @@ main(int  argc,				// I - Number of command-line args
         mime = mimeLoad(argv[i], filter_path);
         testEnd(mime != NULL);
 
+	if (!mime)
+	  return (1);
+
 	if (ppd)
 	  add_ppd_filters(mime, ppd);
       }
@@ -88,10 +91,21 @@ main(int  argc,				// I - Number of command-line args
       if (i < argc)
       {
         testBegin("ppdOpenFile(\"%s\")", argv[i]);
-        ppd = ppdOpenFile(argv[i]);
-        testEnd(ppd != NULL);
+        if ((ppd = ppdOpenFile(argv[i])) != NULL)
+        {
+	  testEnd(true);
+	}
+	else
+	{
+	  ppd_status_t	status;	// PPD error
+	  int		linenum;// Line number of error
 
-	if (mime)
+	  status = ppdLastError(&linenum);
+	  testEndMessage(false, "%s on line %d", ppdErrorString(status), linenum);
+	  return (1);
+	}
+
+	if (mime && ppd)
 	  add_ppd_filters(mime, ppd);
       }
     }
@@ -102,6 +116,8 @@ main(int  argc,				// I - Number of command-line args
         testBegin("mimeLoad(\"../conf\", \"%s\")", filter_path);
 	mime = mimeLoad("../conf", filter_path);
 	testEnd(mime != NULL);
+	if (!mime)
+	  return (1);
       }
 
       if (ppd)
@@ -145,6 +161,9 @@ main(int  argc,				// I - Number of command-line args
     testBegin("mimeLoad(\"../conf\", \"%s\")", filter_path);
     mime = mimeLoad("../conf", filter_path);
     testEnd(mime != NULL);
+
+    if (!mime)
+      return (1);
 
     if (ppd)
       add_ppd_filters(mime, ppd);
