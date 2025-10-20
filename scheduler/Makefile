@@ -29,6 +29,7 @@ CUPSDOBJS =	\
 		log.o \
 		network.o \
 		policy.o \
+		mime-sink-patterns.o \
 		printers.o \
 		process.o \
 		quotas.o \
@@ -36,7 +37,6 @@ CUPSDOBJS =	\
 		server.o \
 		statbuf.o \
 		subscriptions.o \
-		mime-sink-patterns.c \
 		sysman.o
 LIBOBJS =	\
 		filter.o \
