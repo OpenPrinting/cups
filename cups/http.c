@@ -30,7 +30,7 @@
 // Local functions...
 //
 
-static void		http_add_field(http_t *http, http_field_t field, const char *value, int append);
+static void		http_add_field(http_t *http, http_field_t field, const char *value, bool append);
 static void		http_content_coding_finish(http_t *http);
 static void		http_content_coding_start(http_t *http, const char *value);
 static http_t		*http_create(const char *host, int port, http_addrlist_t *addrlist, int family, http_encryption_t encryption, int blocking, _http_mode_t mode);
@@ -2775,7 +2775,7 @@ httpSetField(http_t       *http,	// I - HTTP connection
   if (!http || field <= HTTP_FIELD_UNKNOWN || field >= HTTP_FIELD_MAX || !value)
     return;
 
-  http_add_field(http, field, value, 0);
+  http_add_field(http, field, value, false);
 }
 
 
@@ -3026,7 +3026,7 @@ _httpUpdate(http_t        *http,	// I - HTTP connection
     }
     else if ((field = httpFieldValue(line)) != HTTP_FIELD_UNKNOWN)
     {
-      http_add_field(http, field, value, 1);
+      http_add_field(http, field, value, true);
 
       if (field == HTTP_FIELD_AUTHENTICATION_INFO)
         httpGetSubField2(http, HTTP_FIELD_AUTHENTICATION_INFO, "nextnonce", http->nextnonce, (int)sizeof(http->nextnonce));
@@ -3589,7 +3589,7 @@ static void
 http_add_field(http_t       *http,	// I - HTTP connection
                http_field_t field,	// I - HTTP field
                const char   *value,	// I - Value string
-               int          append)	// I - Append value?
+               bool         append)	// I - Append value?
 {
   char		temp[1024],		// Temporary value string
 		combined[HTTP_MAX_VALUE];
