@@ -15,6 +15,8 @@
 //   cert COMMON-NAME           Create a certificate.
 //   client URI                 Connect to URI.
 //   csr COMMON-NAME            Create a certificate signing request.
+//   install COMMON-NAME FILENAME.crt [FILENAME.key]
+//                              Install a certificate and (optional) private key.
 //   server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)
 //   show COMMON-NAME           Show stored credentials for COMMON-NAME.
 //
@@ -68,8 +70,10 @@ static int	do_ca(const char *common_name, const char *csrfile, const char *root_
 static int	do_cert(bool ca_cert, cups_credpurpose_t purpose, cups_credtype_t type, cups_credusage_t keyusage, const char *organization, const char *org_unit, const char *locality, const char *state, const char *country, const char *root_name, const char *common_name, size_t num_alt_names, const char **alt_names, int days);
 static int	do_client(const char *uri, bool pin, bool require_ca);
 static int	do_csr(cups_credpurpose_t purpose, cups_credtype_t type, cups_credusage_t keyusage, const char *organization, const char *org_unit, const char *locality, const char *state, const char *country, const char *common_name, size_t num_alt_names, const char **alt_names);
+static int	do_install(const char *common_name, const char *crtfile, const char *keyfile);
 static int	do_server(const char *host_port);
 static int	do_show(const char *common_name);
+static char	*get_file(const char *filename);
 static int	usage(FILE *fp);
 
 
@@ -84,6 +88,8 @@ main(int  argc,				// I - Number of command-line arguments
   int		i;			// Looping var
   const char	*command = NULL,	// Command
 		*arg = NULL,		// Argument for command
+		*crtfile = NULL,	// Certificate file for install command
+		*keyfile = NULL,	// Private key file for install command
 		*opt,			// Current option character
 		*csrfile = NULL,	// Certificste signing request filename
 		*root_name = NULL,	// Name of root certificate
@@ -355,6 +361,14 @@ main(int  argc,				// I - Number of command-line arguments
     {
       arg = argv[i];
     }
+    else if (!crtfile && !strcmp(command, "install"))
+    {
+      crtfile = argv[i];
+    }
+    else if (!keyfile && !strcmp(command, "install"))
+    {
+      keyfile = argv[i];
+    }
     else
     {
       _cupsLangPrintf(stderr, _("%s: Unknown option '%s'."), "cups-x509", argv[i]);
@@ -362,9 +376,9 @@ main(int  argc,				// I - Number of command-line arguments
     }
   }
 
-  if (!command || !arg)
+  if (!command || !arg || (!strcmp(command, "install") && !crtfile))
   {
-    _cupsLangPuts(stderr, _("cups-x509: Missing command argument."));
+    _cupsLangPuts(stderr, _("cups-x509: Missing sub-command argument."));
     return (usage(stderr));
   }
 
@@ -388,6 +402,10 @@ main(int  argc,				// I - Number of command-line arguments
   else if (!strcmp(command, "csr"))
   {
     return (do_csr(purpose, type, keyusage, organization, org_unit, locality, state, country, arg, num_alt_names, alt_names));
+  }
+  else if (!strcmp(command, "install"))
+  {
+    return (do_install(arg, crtfile, keyfile));
   }
   else if (!strcmp(command, "server"))
   {
@@ -645,6 +663,41 @@ do_csr(
 
 
 //
+// 'do_install()' - Install a certificate.
+//
+
+static int				// O - Exit status
+do_install(const char *common_name,	// I - Common name
+           const char *crtfile,		// I - Certificate filename
+           const char *keyfile)		// I - Private key filename or `NULL` if none
+{
+  int	ret = 1;			// Exit status
+  char	*crt,				// Certificate string
+	*key;				// Private key string
+
+
+  // Load the certificate and key, as needed...
+  crt = get_file(crtfile);
+  key = keyfile ? get_file(keyfile) : NULL;
+
+  if (!crt || (keyfile && !key))
+    goto done;
+
+  // Try saving them...
+  if (cupsSaveCredentials(/*path*/NULL, common_name, crt, key))
+    ret = 0;
+
+  // Free and return...
+  done:
+
+  free(crt);
+  free(key);
+
+  return (ret);
+}
+
+
+//
 // 'do_server()' - Test running a server.
 //
 
@@ -834,6 +887,64 @@ do_show(const char *common_name)	// I - Common name
 
 
 //
+// 'get_file()' - Load a file into a string.
+//
+// Note: The string must be freed by the caller.
+//
+
+static char *				// O - String or `NULL` on error
+get_file(const char *filename)		// I - File to load
+{
+  int		fd;			// File descriptor
+  struct stat	info;			// File information
+  char		*file = NULL;		// File string
+
+
+  if ((fd = open(filename, O_RDONLY)) < 0)
+  {
+    _cupsLangPrintf(stderr, _("%s: Unable to open '%s': %s"), "cups-x509", filename, strerror(errno));
+    return (NULL);
+  }
+
+  if (fstat(fd, &info))
+  {
+    _cupsLangPrintf(stderr, _("%s: Unable to access '%s': %s"), "cups-x509", filename, strerror(errno));
+    goto error;
+  }
+
+  if (info.st_size > 65536)
+  {
+    _cupsLangPrintf(stderr, _("%s: File '%s' is too large to load in memory."), "cups-x509", filename);
+    goto error;
+  }
+
+  if ((file = calloc(1, (size_t)info.st_size + 1)) == NULL)
+  {
+    _cupsLangPrintf(stderr, _("%s: Unable to allocate memory for '%s': %s"), "cups-x509", filename, strerror(errno));
+    goto error;
+  }
+
+  if (read(fd, file, (size_t)info.st_size) < 0)
+  {
+    _cupsLangPrintf(stderr, _("%s: Unable to read '%s': %s"), "cups-x509", filename, strerror(errno));
+    goto error;
+  }
+
+  close(fd);
+
+  return (file);
+
+  // If we get here something bad happened.
+  error:
+
+  free(file);
+  close(fd);
+
+  return (NULL);
+}
+
+
+//
 // 'usage()' - Show program usage...
 //
 
@@ -849,6 +960,8 @@ usage(FILE *out)			// I - Output file (stdout or stderr)
   _cupsLangPuts(out, _("cert COMMON-NAME           Create a certificate."));
   _cupsLangPuts(out, _("client URI                 Connect to URI."));
   _cupsLangPuts(out, _("csr COMMON-NAME            Create a certificate signing request."));
+  _cupsLangPuts(out, _("install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
+                       "                           Install a certificate and (optional) private key."));
   _cupsLangPuts(out, _("server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"));
   _cupsLangPuts(out, _("show COMMON-NAME           Show stored credentials for COMMON-NAME."));
   _cupsLangPuts(out, "");

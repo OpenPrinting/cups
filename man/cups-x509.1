@@ -6,7 +6,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-x509 1 "CUPS" "2025-05-05" "OpenPrinting"
+.TH cups-x509 1 "CUPS" "2025-10-21" "OpenPrinting"
 .SH NAME
 cups-x509 \- description
 .SH SYNOPSIS
@@ -132,6 +132,9 @@ Create a certificate for the specified common name.
 Connect to the specified URI and validate the server's certificate.
 .SS csr COMMON-NAME
 Create a certificate signing request for the specified common name.
+.SS install COMMON-NAME FILENAME.crt [FILENAME.key]
+Installs a certificate and optional private key for the specified common name.
+The certificate and private key are PEM-encoded files.
 .SS server COMMON-NAME[:PORT]
 Run a HTTPS test server that echos back the resource path for every GET request.
 If PORT is not specified, uses a port number from 8000 to 8999.
