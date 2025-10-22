@@ -94,13 +94,16 @@ blockquote :first-child {
   margin-bottom: 0;
 }
 p code, li code, p.code, pre, ul.code li {
+  background: rgba(127,127,127,0.25);
+  border: thin dotted gray;
   font-family: monospace;
   hyphens: manual;
   -webkit-hyphens: manual;
 }
+p code, li code {
+  padding: 0 5px;
+}
 p.code, pre, ul.code li {
-  background: rgba(127,127,127,0.25);
-  border: thin dotted gray;
   padding: 10px;
   page-break-inside: avoid;
 }
@@ -218,6 +221,21 @@ span.string {
   }
   a:link:hover, a:visited:hover, a:active {
     color: #f06;
+  }
+  span.comment {
+    color: #7c7;
+  }
+  span.directive {
+    color: red;
+  }
+  span.number {
+    color: #c64;
+  }
+  span.reserved {
+    color: #77f;
+  }
+  span.string {
+    color: #f7f;
   }
 }
 /* Show contents on left side in web browser */

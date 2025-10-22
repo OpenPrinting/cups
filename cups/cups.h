@@ -352,13 +352,13 @@ typedef int (^cups_dest_block_t)(unsigned flags, cups_dest_t *dest);
 			      		// Destination enumeration block @deprecated@ @exclude all@
 #  endif /* __BLOCKS__ */
 
-typedef const char *(*cups_oauth_cb_t)(http_t *http, const char *realm, const char *scope, const char *resource, void *user_data);
+typedef const char *(*cups_oauth_cb_t)(http_t *http, const char *realm, const char *scope, const char *resource, void *cb_data);
 					// OAuth callback @since CUPS 2.4@
 
 typedef const char *(*cups_password_cb_t)(const char *prompt);
 					// Password callback @deprecated@ @exclude all@
 
-typedef const char *(*cups_password_cb2_t)(const char *prompt, http_t *http, const char *method, const char *resource, void *user_data);
+typedef const char *(*cups_password_cb2_t)(const char *prompt, http_t *http, const char *method, const char *resource, void *cb_data);
 					// New password callback @since CUPS 1.4@
 
 typedef int (*cups_server_cert_cb_t)(http_t *http, void *tls, cups_array_t *certs, void *user_data);
@@ -509,9 +509,9 @@ extern void		cupsSetDefaultDest(const char *name, const char *instance, int num_
 extern void		cupsSetDests(int num_dests, cups_dest_t *dests) _CUPS_PUBLIC;
 extern int		cupsSetDests2(http_t *http, int num_dests, cups_dest_t *dests) _CUPS_PUBLIC;
 extern void		cupsSetEncryption(http_encryption_t e) _CUPS_PUBLIC;
-extern void		cupsSetOAuthCB(cups_oauth_cb_t cb, void *data) _CUPS_PUBLIC;
+extern void		cupsSetOAuthCB(cups_oauth_cb_t cb, void *cb_data) _CUPS_PUBLIC;
 extern void		cupsSetPasswordCB(cups_password_cb_t cb) _CUPS_DEPRECATED_MSG("Use cupsSetPasswordCB2 instead.");
-extern void		cupsSetPasswordCB2(cups_password_cb2_t cb, void *user_data) _CUPS_PUBLIC;
+extern void		cupsSetPasswordCB2(cups_password_cb2_t cb, void *cb_data) _CUPS_PUBLIC;
 extern void		cupsSetServer(const char *server) _CUPS_PUBLIC;
 extern void		cupsSetServerCertCB(cups_server_cert_cb_t cb, void *user_data) _CUPS_DEPRECATED;
 extern int		cupsSetServerCredentials(const char *path, const char *common_name, int auto_create) _CUPS_PUBLIC;
