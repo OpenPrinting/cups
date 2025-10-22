@@ -55,7 +55,7 @@ typedef enum ipptool_output_e		// Output mode
   IPPTOOL_OUTPUT_QUIET,			// No output
   IPPTOOL_OUTPUT_TEST,			// Traditional CUPS test output
   IPPTOOL_OUTPUT_PLIST,			// XML plist test output
-  IPPTOOL_OUTPUT_IPPSERVER,		// ippserver attribute file output
+  IPPTOOL_OUTPUT_IPPFILE,		// ippserver attribute file output
   IPPTOOL_OUTPUT_LIST,			// Tabular list output
   IPPTOOL_OUTPUT_CSV,			// Comma-separated values output
   IPPTOOL_OUTPUT_JSON			// JSON output
@@ -85,10 +85,10 @@ typedef struct ipptool_expect_s		// Expected attribute info
 		expect_all;		// Expect all attributes to match/not match
   char		*name,			// Attribute name
 		*of_type,		// Type name
-		*same_count_as,		// Parallel attribute name
-		*if_defined,		// Only required if variable defined
-		*if_not_defined,	// Only required if variable is not defined
-		*with_value,		// Attribute must include this value
+		*same_count_as;		// Parallel attribute name
+  cups_array_t	*if_defined,		// Only required if variable(s) defined
+		*if_not_defined;	// Only required if variable(s) are not defined
+  char		*with_value,		// Attribute must include this value
 		*with_value_from,	// Attribute must have one of the values in this attribute
 		*define_match,		// Variable to define on match
 		*define_no_match,	// Variable to define on no-match
@@ -123,9 +123,9 @@ typedef struct ipptool_generate_s	//// GENERATE-FILE parameters
 typedef struct ipptool_status_s		// Status info
 {
   ipp_status_t	status;			// Expected status code
-  char		*if_defined,		// Only if variable is defined
-		*if_not_defined,	// Only if variable is not defined
-		*define_match,		// Variable to define on match
+  cups_array_t	*if_defined,		// Only required if variable(s) defined
+		*if_not_defined;	// Only required if variable(s) are not defined
+  char		*define_match,		// Variable to define on match
 		*define_no_match,	// Variable to define on no-match
 		*define_value;		// Variable to define with value
   int		repeat_limit;		// Maximum number of times to repeat
@@ -223,6 +223,7 @@ static bool	Cancel = false;		// Cancel test?
 
 static void	add_stringf(cups_array_t *a, const char *s, ...) _CUPS_FORMAT(2, 3);
 static ipptool_test_t *alloc_data(void);
+static bool	check_vars(ipp_file_t *f, cups_array_t *vars, bool need_all);
 static void	clear_data(ipptool_test_t *data);
 static int	compare_uris(const char *a, const char *b);
 static http_t	*connect_printer(ipptool_test_t *data);
@@ -259,7 +260,7 @@ static void	sigterm_handler(int sig);
 #endif // _WIN32
 static int	timeout_cb(http_t *http, void *user_data);
 static bool	token_cb(ipp_file_t *f, ipptool_test_t *data, const char *token);
-static void	usage(void) _CUPS_NORETURN;
+static int	usage(FILE *out);
 static bool	valid_image(const char *filename, int *width, int *height, int *depth);
 static bool	with_content(cups_array_t *errors, ipp_attribute_t *attr, ipptool_content_t content, cups_array_t *mime_types, const char *filespec);
 static bool	with_distinct_values(cups_array_t *errors, ipp_attribute_t *attr);
@@ -322,7 +323,7 @@ main(int  argc,				// I - Number of command-line args
       {
 	_cupsLangPrintf(stderr, _("%s: Missing token after '--bearer-token'."), "ipptool");
 	free_data(data);
-	usage();
+	return (usage(stderr));
       }
 
       data->bearer_token = argv[i];
@@ -335,7 +336,7 @@ main(int  argc,				// I - Number of command-line args
       {
 	_cupsLangPrintf(stderr, _("%s: Missing client name after '--client-name'."), "ipptool");
 	free_data(data);
-	usage();
+	return (usage(stderr));
       }
 
       data->client_name = argv[i];
@@ -343,21 +344,27 @@ main(int  argc,				// I - Number of command-line args
     else if (!strcmp(argv[i], "--help"))
     {
       free_data(data);
-      usage();
+      return (usage(stdout));
     }
-    else if (!strcmp(argv[i], "--ippserver"))
+    else if (!strcmp(argv[i], "--ippfile") || !strcmp(argv[i], "--ippserver"))
     {
       i ++;
 
       if (i >= argc)
       {
-	_cupsLangPuts(stderr, _("ipptool: Missing filename for \"--ippserver\"."));
+	_cupsLangPrintf(stderr, _("ipptool: Missing filename for \"%s\"."), argv[i - 1]);
 	free_data(data);
-	usage();
+	return (usage(stderr));
       }
 
       if (data->outfile != cupsFileStdout())
-	usage();
+	return (usage(stderr));
+
+      if (interval || repeat)
+      {
+	_cupsLangPrintf(stderr, _("%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."), "ipptool");
+	return (usage(stderr));
+      }
 
       if ((data->outfile = cupsFileOpen(argv[i], "w")) == NULL)
       {
@@ -366,11 +373,11 @@ main(int  argc,				// I - Number of command-line args
 	return (1);
       }
 
-      data->output = IPPTOOL_OUTPUT_IPPSERVER;
+      data->output = IPPTOOL_OUTPUT_IPPFILE;
     }
     else if (!strcmp(argv[i], "--stop-after-include-error"))
     {
-      data->stop_after_include_error = 1;
+      data->stop_after_include_error = true;
     }
     else if (!strcmp(argv[i], "--user-agent"))
     {
@@ -380,7 +387,7 @@ main(int  argc,				// I - Number of command-line args
       {
 	_cupsLangPrintf(stderr, _("%s: Missing user agent after '--user-agent'."), "ipptool");
 	free_data(data);
-	usage();
+	return (usage(stderr));
       }
 
       data->user_agent = argv[i];
@@ -391,6 +398,11 @@ main(int  argc,				// I - Number of command-line args
 
       free_data(data);
       return (0);
+    }
+    else if (!strncmp(argv[i], "--", 2))
+    {
+      _cupsLangPrintf(stderr, _("%s: Unknown option '%s'."), "ipptool", argv[i]);
+      return (usage(stderr));
     }
     else if (argv[i][0] == '-')
     {
@@ -408,117 +420,12 @@ main(int  argc,				// I - Number of command-line args
 	      break;
 #endif // AF_INET6
 
-          case 'C' : // Enable HTTP chunking
-              data->def_transfer = IPPTOOL_TRANSFER_CHUNKED;
-              break;
-
-	  case 'E' : // Encrypt with TLS
-	      data->encryption = HTTP_ENCRYPTION_REQUIRED;
-	      break;
-
-          case 'I' : // Ignore errors
-	      data->def_ignore_errors = 1;
-	      break;
-
-          case 'L' : // Disable HTTP chunking
-              data->def_transfer = IPPTOOL_TRANSFER_LENGTH;
-              break;
-
-          case 'P' : // Output to plist file
-	      i ++;
-
-	      if (i >= argc)
-	      {
-		_cupsLangPrintf(stderr, _("%s: Missing filename for \"-P\"."), "ipptool");
-		usage();
-              }
-
-              if (data->outfile != cupsFileStdout())
-                usage();
-
-              if ((data->outfile = cupsFileOpen(argv[i], "w")) == NULL)
-              {
-                _cupsLangPrintf(stderr, _("%s: Unable to open \"%s\": %s"), "ipptool", argv[i], strerror(errno));
-                exit(1);
-              }
-
-	      data->output = IPPTOOL_OUTPUT_PLIST;
-
-              if (interval || repeat)
-	      {
-	        _cupsLangPuts(stderr, _("ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."));
-		usage();
-	      }
-              break;
-
-          case 'R' : // Repeat on server-error-busy
-              data->repeat_on_busy = 1;
-              break;
-
-	  case 'S' : // Encrypt with SSL
-	      data->encryption = HTTP_ENCRYPTION_ALWAYS;
-	      break;
-
-	  case 'T' : // Set timeout
-	      i ++;
-
-	      if (i >= argc)
-	      {
-		_cupsLangPrintf(stderr, _("%s: Missing timeout for \"-T\"."), "ipptool");
-		usage();
-              }
-
-	      data->timeout = _cupsStrScand(argv[i], NULL, localeconv());
-	      break;
-
-	  case 'V' : // Set IPP version
-	      i ++;
-
-	      if (i >= argc)
-	      {
-		_cupsLangPrintf(stderr, _("%s: Missing version for \"-V\"."), "ipptool");
-		usage();
-              }
-
-	      if (!strcmp(argv[i], "1.0"))
-	      {
-	        data->def_version = 10;
-	      }
-	      else if (!strcmp(argv[i], "1.1"))
-	      {
-	        data->def_version = 11;
-	      }
-	      else if (!strcmp(argv[i], "2.0"))
-	      {
-	        data->def_version = 20;
-	      }
-	      else if (!strcmp(argv[i], "2.1"))
-	      {
-	        data->def_version = 21;
-	      }
-	      else if (!strcmp(argv[i], "2.2"))
-	      {
-	        data->def_version = 22;
-	      }
-	      else
-	      {
-		_cupsLangPrintf(stderr, _("%s: Bad version %s for \"-V\"."), "ipptool", argv[i]);
-		usage();
-	      }
-	      break;
-
-          case 'X' : // Produce XML output
-	      data->output = IPPTOOL_OUTPUT_PLIST;
-
-              if (interval || repeat)
-	      {
-	        _cupsLangPuts(stderr, _("ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."));
-		usage();
-	      }
-	      break;
-
           case 'c' : // CSV output
               data->output = IPPTOOL_OUTPUT_CSV;
+              break;
+
+          case 'C' : // Enable HTTP chunking
+              data->def_transfer = IPPTOOL_TRANSFER_CHUNKED;
               break;
 
           case 'd' : // Define a variable
@@ -527,7 +434,7 @@ main(int  argc,				// I - Number of command-line args
 	      if (i >= argc)
 	      {
 		_cupsLangPuts(stderr, _("ipptool: Missing name=value for \"-d\"."));
-		usage();
+		return (usage(stderr));
               }
 
               cupsCopyString(name, argv[i], sizeof(name));
@@ -539,13 +446,17 @@ main(int  argc,				// I - Number of command-line args
 	      ippFileSetVar(data->parent, name, value);
 	      break;
 
+	  case 'E' : // Encrypt with TLS
+	      data->encryption = HTTP_ENCRYPTION_REQUIRED;
+	      break;
+
           case 'f' : // Set the default test filename
 	      i ++;
 
 	      if (i >= argc)
 	      {
 		_cupsLangPuts(stderr, _("ipptool: Missing filename for \"-f\"."));
-		usage();
+		return (usage(stderr));
               }
 
               if (access(argv[i], 0))
@@ -568,7 +479,9 @@ main(int  argc,				// I - Number of command-line args
 		}
 	      }
               else
+              {
 		cupsCopyString(filename, argv[i], sizeof(filename));
+	      }
 
 	      ippFileSetVar(data->parent, "filename", filename);
 
@@ -617,7 +530,7 @@ main(int  argc,				// I - Number of command-line args
 	      break;
 
           case 'h' : // Validate response headers
-              data->validate_headers = 1;
+              data->validate_headers = true;
               break;
 
           case 'i' : // Test every N seconds
@@ -626,7 +539,7 @@ main(int  argc,				// I - Number of command-line args
 	      if (i >= argc)
 	      {
 		_cupsLangPuts(stderr, _("ipptool: Missing seconds for \"-i\"."));
-		usage();
+		return (usage(stderr));
               }
 	      else
 	      {
@@ -634,15 +547,19 @@ main(int  argc,				// I - Number of command-line args
 		if (interval <= 0)
 		{
 		  _cupsLangPuts(stderr, _("ipptool: Invalid seconds for \"-i\"."));
-		  usage();
+		  return (usage(stderr));
 		}
               }
 
-              if ((data->output == IPPTOOL_OUTPUT_PLIST || data->output == IPPTOOL_OUTPUT_IPPSERVER) && interval)
+              if ((data->output == IPPTOOL_OUTPUT_PLIST || data->output == IPPTOOL_OUTPUT_IPPFILE) && interval)
 	      {
 	        _cupsLangPuts(stderr, _("ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", and \"-X\"."));
-		usage();
+		return (usage(stderr));
 	      }
+	      break;
+
+          case 'I' : // Ignore errors
+	      data->def_ignore_errors = true;
 	      break;
 
           case 'j' : // JSON output
@@ -653,40 +570,139 @@ main(int  argc,				// I - Number of command-line args
               data->output = IPPTOOL_OUTPUT_LIST;
               break;
 
+          case 'L' : // Disable HTTP chunking
+              data->def_transfer = IPPTOOL_TRANSFER_LENGTH;
+              break;
+
           case 'n' : // Repeat count
               i ++;
 
 	      if (i >= argc)
 	      {
 		_cupsLangPuts(stderr, _("ipptool: Missing count for \"-n\"."));
-		usage();
+		return (usage(stderr));
               }
 	      else
+	      {
 		repeat = atoi(argv[i]);
+	      }
 
-              if ((data->output == IPPTOOL_OUTPUT_PLIST || data->output == IPPTOOL_OUTPUT_IPPSERVER) && repeat)
+              if ((data->output == IPPTOOL_OUTPUT_PLIST || data->output == IPPTOOL_OUTPUT_IPPFILE) && repeat)
 	      {
 	        _cupsLangPuts(stderr, _("ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", and \"-X\"."));
-		usage();
+		return (usage(stderr));
 	      }
 	      break;
+
+          case 'P' : // Output to plist file
+	      i ++;
+
+	      if (i >= argc)
+	      {
+		_cupsLangPrintf(stderr, _("%s: Missing filename for \"-P\"."), "ipptool");
+		return (usage(stderr));
+              }
+
+              if (data->outfile != cupsFileStdout())
+		return (usage(stderr));
+
+              if ((data->outfile = cupsFileOpen(argv[i], "w")) == NULL)
+              {
+                _cupsLangPrintf(stderr, _("%s: Unable to open \"%s\": %s"), "ipptool", argv[i], strerror(errno));
+                exit(1);
+              }
+
+	      data->output = IPPTOOL_OUTPUT_PLIST;
+
+              if (interval || repeat)
+	      {
+	        _cupsLangPuts(stderr, _("ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."));
+		return (usage(stderr));
+	      }
+              break;
 
           case 'q' : // Be quiet
               data->output = IPPTOOL_OUTPUT_QUIET;
               break;
 
+          case 'R' : // Repeat on server-error-busy
+              data->repeat_on_busy = true;
+              break;
+
+	  case 'S' : // Encrypt with SSL
+	      data->encryption = HTTP_ENCRYPTION_ALWAYS;
+	      break;
+
           case 't' : // CUPS test output
               data->output = IPPTOOL_OUTPUT_TEST;
               break;
+
+	  case 'T' : // Set timeout
+	      i ++;
+
+	      if (i >= argc)
+	      {
+		_cupsLangPrintf(stderr, _("%s: Missing timeout for \"-T\"."), "ipptool");
+		return (usage(stderr));
+              }
+
+	      data->timeout = _cupsStrScand(argv[i], NULL, localeconv());
+	      break;
 
           case 'v' : // Be verbose
 	      data->verbosity ++;
 	      break;
 
+	  case 'V' : // Set IPP version
+	      i ++;
+
+	      if (i >= argc)
+	      {
+		_cupsLangPrintf(stderr, _("%s: Missing version for \"-V\"."), "ipptool");
+		return (usage(stderr));
+              }
+
+	      if (!strcmp(argv[i], "1.0"))
+	      {
+	        data->def_version = 10;
+	      }
+	      else if (!strcmp(argv[i], "1.1"))
+	      {
+	        data->def_version = 11;
+	      }
+	      else if (!strcmp(argv[i], "2.0"))
+	      {
+	        data->def_version = 20;
+	      }
+	      else if (!strcmp(argv[i], "2.1"))
+	      {
+	        data->def_version = 21;
+	      }
+	      else if (!strcmp(argv[i], "2.2"))
+	      {
+	        data->def_version = 22;
+	      }
+	      else
+	      {
+		_cupsLangPrintf(stderr, _("%s: Bad version %s for \"-V\"."), "ipptool", argv[i]);
+		return (usage(stderr));
+	      }
+	      break;
+
+          case 'X' : // Produce XML output
+	      data->output = IPPTOOL_OUTPUT_PLIST;
+
+              if (interval || repeat)
+	      {
+	        _cupsLangPuts(stderr, _("ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."));
+		return (usage(stderr));
+	      }
+	      break;
+
 	  default :
 	      _cupsLangPrintf(stderr, _("%s: Unknown option \"-%c\"."), "ipptool", *opt);
 	      free_data(data);
-	      usage();
+	      return (usage(stderr));
 	}
       }
     }
@@ -697,7 +713,7 @@ main(int  argc,				// I - Number of command-line args
       {
         _cupsLangPuts(stderr, _("ipptool: May only specify a single URI."));
 	free_data(data);
-        usage();
+	return (usage(stderr));
       }
 
       if (!strncmp(argv[i], "ipps://", 7) || !strncmp(argv[i], "https://", 8))
@@ -721,7 +737,7 @@ main(int  argc,				// I - Number of command-line args
         _cupsLangPuts(stderr, _("ipptool: URI required before test file."));
         _cupsLangPuts(stderr, argv[i]);
 	free_data(data);
-	usage();
+	return (usage(stderr));
       }
 
       if (access(argv[i], 0) && argv[i][0] != '/'
@@ -737,7 +753,9 @@ main(int  argc,				// I - Number of command-line args
           testfile = testname;
       }
       else
+      {
         testfile = argv[i];
+      }
 
       if (access(testfile, 0))
       {
@@ -745,14 +763,16 @@ main(int  argc,				// I - Number of command-line args
         status = 1;
       }
       else if (!do_tests(testfile, data))
+      {
         status = 1;
+      }
     }
   }
 
   if (!ippFileGetVar(data->parent, "uri") || !testfile)
   {
     free_data(data);
-    usage();
+    return (usage(stderr));
   }
 
   // Loop if the interval is set...
@@ -854,6 +874,39 @@ alloc_data(void)
 
 
 //
+// 'check_vars()' - Check for the existence of the listed variables.
+//
+
+static bool				// O - `true` if vars are defined, `false` otherwise
+check_vars(ipp_file_t   *f,		// I - IPP file
+           cups_array_t *vars,		// I - Variables to look for
+           bool         need_all)	// I - Do we need all of them to exist?
+{
+  bool		ret = false;		// Return value
+  const char	*var;			// Current variable
+
+
+  if (!vars)
+    return (true);
+
+  for (var = (const char *)cupsArrayGetFirst(vars); var; var = (const char *)cupsArrayGetNext(vars))
+  {
+    if (ippFileGetVar(f, var))
+    {
+      if (getenv("IPPTOOL_DEBUG"))
+        fprintf(stderr, "ipptool: %s is present\n", var);
+
+      ret = true;
+    }
+    else if (need_all)
+      return (false);
+  }
+
+  return (ret);
+}
+
+
+//
 // 'clear_data()' - Clear per-test data...
 //
 
@@ -875,8 +928,8 @@ clear_data(ipptool_test_t *data)	// I - Test data
     free(expect->name);
     free(expect->of_type);
     free(expect->same_count_as);
-    free(expect->if_defined);
-    free(expect->if_not_defined);
+    cupsArrayDelete(expect->if_defined);
+    cupsArrayDelete(expect->if_not_defined);
     free(expect->with_value);
     free(expect->define_match);
     free(expect->define_no_match);
@@ -889,8 +942,8 @@ clear_data(ipptool_test_t *data)	// I - Test data
 
   for (i = 0; i < data->num_statuses; i ++)
   {
-    free(data->statuses[i].if_defined);
-    free(data->statuses[i].if_not_defined);
+    cupsArrayDelete(data->statuses[i].if_defined);
+    cupsArrayDelete(data->statuses[i].if_not_defined);
     free(data->statuses[i].define_match);
     free(data->statuses[i].define_no_match);
     free(data->statuses[i].define_value);
@@ -905,8 +958,8 @@ clear_data(ipptool_test_t *data)	// I - Test data
     free(expect->name);
     free(expect->of_type);
     free(expect->same_count_as);
-    free(expect->if_defined);
-    free(expect->if_not_defined);
+    cupsArrayDelete(expect->if_defined);
+    cupsArrayDelete(expect->if_not_defined);
     free(expect->with_value);
     free(expect->define_match);
     free(expect->define_no_match);
@@ -1006,7 +1059,7 @@ connect_printer(ipptool_test_t *data)	// I - Test data
   else
     encryption = data->encryption;
 
-  if ((http = httpConnect2(hostname, atoi(port), NULL, data->family, encryption, 1, 30000, NULL)) == NULL)
+  if ((http = httpConnect2(hostname, atoi(port), /*addrlist*/NULL, data->family, encryption, /*blocking*/1, /*msec*/30000, /*cancel*/NULL)) == NULL)
   {
     print_fatal_error(data, "Unable to connect to '%s' on port %s: %s", hostname, port, cupsGetErrorString());
     return (NULL);
@@ -1204,7 +1257,7 @@ do_monitor_printer_state(
   else
     encryption = data->encryption;
 
-  if ((http = httpConnect2(host, port, NULL, data->family, encryption, 1, 30000, NULL)) == NULL)
+  if ((http = httpConnect2(host, port, /*addrlist*/NULL, data->family, encryption, /*blocking*/1, /*msec*/30000, /*cancel*/NULL)) == NULL)
   {
     print_fatal_error(data, "Unable to connect to \"%s\" on port %d - %s", host, port, cupsGetErrorString());
     return (0);
@@ -1261,7 +1314,7 @@ do_monitor_printer_state(
 	httpGetError(data->http) != ETIMEDOUT)
 #endif // _WIN32
     {
-      if (!httpReconnect2(http, 30000, NULL))
+      if (!httpConnectAgain(http, /*msec*/30000, /*cancel*/NULL))
 	break;
     }
     else if (status == HTTP_STATUS_ERROR || status == HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED)
@@ -1280,10 +1333,10 @@ do_monitor_printer_state(
 
     for (i = data->num_monitor_expects, expect = data->monitor_expects; i > 0; i --, expect ++)
     {
-      if (expect->if_defined && !ippFileGetVar(data->parent, expect->if_defined))
+      if (expect->if_defined && !check_vars(data->parent, expect->if_defined, /*need_all*/true))
 	continue;
 
-      if (expect->if_not_defined && ippFileGetVar(data->parent, expect->if_not_defined))
+      if (expect->if_not_defined && check_vars(data->parent, expect->if_not_defined, /*need_all*/false))
 	continue;
 
       found = ippFindAttribute(response, expect->name, IPP_TAG_ZERO);
@@ -1639,7 +1692,7 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 	    httpGetError(data->http) != ETIMEDOUT)
 #endif // _WIN32
 	{
-	  if (!httpReconnect2(data->http, 30000, NULL))
+	  if (!httpConnectAgain(data->http, /*msec*/30000, /*cancel*/NULL))
 	    data->prev_pass = false;
 	}
 	else if (status == HTTP_STATUS_ERROR || status == HTTP_STATUS_CUPS_AUTHORIZATION_CANCELED)
@@ -1666,13 +1719,13 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 	httpGetError(data->http) != ETIMEDOUT)
 #endif // _WIN32
     {
-      if (!httpReconnect2(data->http, 30000, NULL))
+      if (!httpConnectAgain(data->http, /*msec*/30000, /*cancel*/NULL))
 	data->prev_pass = false;
     }
     else if (status == HTTP_STATUS_ERROR)
     {
       if (!Cancel)
-	httpReconnect2(data->http, 30000, NULL);
+	httpConnectAgain(data->http, /*msec*/30000, /*cancel*/NULL);
 
       data->prev_pass = false;
     }
@@ -1865,10 +1918,10 @@ do_test(ipp_file_t     *f,		// I - IPP data file
       {
 	for (i = 0, status_ok = false; i < data->num_statuses; i ++)
 	{
-	  if (data->statuses[i].if_defined && !ippFileGetVar(f, data->statuses[i].if_defined))
+          if (data->statuses[i].if_defined && !check_vars(data->parent, data->statuses[i].if_defined, /*need_all*/true))
 	    continue;
 
-	  if (data->statuses[i].if_not_defined && ippFileGetVar(f, data->statuses[i].if_not_defined))
+          if (data->statuses[i].if_not_defined && check_vars(data->parent, data->statuses[i].if_not_defined, /*need_all*/false))
 	    continue;
 
 	  if (ippGetStatusCode(response) == data->statuses[i].status)
@@ -1899,10 +1952,10 @@ do_test(ipp_file_t     *f,		// I - IPP data file
       {
 	for (i = 0; i < data->num_statuses; i ++)
 	{
-	  if (data->statuses[i].if_defined && !ippFileGetVar(f, data->statuses[i].if_defined))
+          if (data->statuses[i].if_defined && !check_vars(data->parent, data->statuses[i].if_defined, /*need_all*/true))
 	    continue;
 
-	  if (data->statuses[i].if_not_defined && ippFileGetVar(f, data->statuses[i].if_not_defined))
+          if (data->statuses[i].if_not_defined && check_vars(data->parent, data->statuses[i].if_not_defined, /*need_all*/false))
 	    continue;
 
 	  if (!data->statuses[i].repeat_match || repeat_count >= data->statuses[i].repeat_limit)
@@ -1920,10 +1973,10 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 			exp_pass;	// Did this expect pass?
 	ipp_attribute_t	*group_found;	// Found parent attribute for group tests
 
-	if (expect->if_defined && !ippFileGetVar(f, expect->if_defined))
+	if (expect->if_defined && !check_vars(data->parent, expect->if_defined, /*need_all*/true))
 	  continue;
 
-	if (expect->if_not_defined && ippFileGetVar(f, expect->if_not_defined))
+	if (expect->if_not_defined && check_vars(data->parent, expect->if_not_defined, /*need_all*/false))
 	  continue;
 
 	if ((found = ippFindAttribute(response, expect->name, IPP_TAG_ZERO)) != NULL && expect->in_group && expect->in_group != ippGetGroupTag(found))
@@ -2113,6 +2166,9 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 
 	  if (found && expect->define_match)
 	  {
+	    if (getenv("IPPTOOL_DEBUG"))
+	      fprintf(stderr, "ipptool: %s=1\n", expect->define_match);
+
 	    ippFileSetVar(data->parent, expect->define_match, "1");
 	    exp_pass = true;
 	  }
@@ -2172,6 +2228,9 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 		    break;
 	      }
 	    }
+
+	    if (getenv("IPPTOOL_DEBUG"))
+	      fprintf(stderr, "ipptool: %s=%s\n", expect->define_value, data->buffer);
 
 	    ippFileSetVar(data->parent, expect->define_value, data->buffer);
 	  }
@@ -2263,7 +2322,7 @@ do_test(ipp_file_t     *f,		// I - IPP data file
     cupsFilePuts(data->outfile, "</dict>\n");
     cupsFilePuts(data->outfile, "</array>\n");
   }
-  else if (data->output == IPPTOOL_OUTPUT_IPPSERVER && response)
+  else if (data->output == IPPTOOL_OUTPUT_IPPFILE && response)
   {
     for (attrptr = ippGetFirstAttribute(response); attrptr; attrptr = ippGetNextAttribute(response))
     {
@@ -2451,19 +2510,16 @@ do_tests(const char     *testfile,	// I - Test file to use
   if ((file = ippFileNew(data->parent, NULL, (ipp_ferror_cb_t)error_cb, data)) == NULL)
   {
     print_fatal_error(data, "Unable to create test file parser: %s", cupsGetErrorString());
-    data->pass = false;
+    return (false);
   }
-  else if (ippFileOpen(file, testfile, "r"))
+
+  if (!ippFileOpen(file, testfile, "r"))
   {
-    // Successfully opened file, read from it...
-    ippFileRead(file, (ipp_ftoken_cb_t)token_cb, true);
-  }
-  else
-  {
-    // Report the error...
     print_fatal_error(data, "Unable to open '%s': %s", testfile, cupsGetErrorString());
-    data->pass = false;
+    return (false);
   }
+
+  ippFileRead(file, (ipp_ftoken_cb_t)token_cb, true);
 
   ippFileDelete(file);
 
@@ -3878,7 +3934,10 @@ parse_monitor_printer_state(
 
       if (data->last_expect)
       {
-	data->last_expect->if_defined = strdup(temp);
+        if (data->last_expect->if_defined)
+          cupsArrayAddStrings(data->last_expect->if_defined, temp, ',');
+        else
+          data->last_expect->if_defined = cupsArrayNewStrings(temp, ',');
       }
       else
       {
@@ -3896,7 +3955,10 @@ parse_monitor_printer_state(
 
       if (data->last_expect)
       {
-	data->last_expect->if_not_defined = strdup(temp);
+        if (data->last_expect->if_not_defined)
+          cupsArrayAddStrings(data->last_expect->if_not_defined, temp, ',');
+        else
+          data->last_expect->if_not_defined = cupsArrayNewStrings(temp, ',');
       }
       else
       {
@@ -4615,7 +4677,7 @@ print_json_attr(
         {
 	  int upper, lower = ippGetRange(attr, 0, &upper);
 
-	  cupsFilePrintf(data->outfile, ": {\n%*s\"lower\": %d,\n%*s\"upper\":%d\n%*s}", indent + 4, "", lower, indent + 4, "", upper, indent, "");
+	  cupsFilePrintf(data->outfile, ": {\n%*s\"lower\": %d,\n%*s\"upper\": %d\n%*s}", indent + 4, "", lower, indent + 4, "", upper, indent, "");
         }
         else
         {
@@ -4624,7 +4686,7 @@ print_json_attr(
 	  {
 	    int upper, lower = ippGetRange(attr, i, &upper);
 
-	    cupsFilePrintf(data->outfile, "%*s{\n%*s\"lower\": %d,\n%*s\"upper\":%d\n%*s},\n", indent + 4, "", indent + 8, "", lower, indent + 8, "", upper, indent + 4, "");
+	    cupsFilePrintf(data->outfile, "%*s{\n%*s\"lower\": %d,\n%*s\"upper\": %d\n%*s},\n", indent + 4, "", indent + 8, "", lower, indent + 8, "", upper, indent + 4, "");
 	  }
           cupsFilePrintf(data->outfile, "%*s]", indent, "");
 	}
@@ -4636,7 +4698,7 @@ print_json_attr(
 	  ipp_res_t units;
 	  int yres, xres = ippGetResolution(attr, 0, &yres, &units);
 
-	  cupsFilePrintf(data->outfile, ": {\n%*s\"units\": \"%s\",\n%*s\"xres\": %d,\n%*s\"yres\":%d\n%*s}", indent + 4, "", units == IPP_RES_PER_INCH ? "dpi" : "dpcm", indent + 4, "", xres, indent + 4, "", yres, indent, "");
+	  cupsFilePrintf(data->outfile, ": {\n%*s\"units\": \"%s\",\n%*s\"xres\": %d,\n%*s\"yres\": %d\n%*s}", indent + 4, "", units == IPP_RES_PER_INCH ? "dpi" : "dpcm", indent + 4, "", xres, indent + 4, "", yres, indent, "");
         }
         else
         {
@@ -4646,7 +4708,7 @@ print_json_attr(
 	    ipp_res_t units;
 	    int yres, xres = ippGetResolution(attr, i, &yres, &units);
 
-	    cupsFilePrintf(data->outfile, "%*s{\n%*s\"units\": \"%s\",\n%*s\"xres\": %d,\n%*s\"yres\":%d\n%*s},\n", indent + 4, "", indent + 8, "", units == IPP_RES_PER_INCH ? "dpi" : "dpcm", indent + 8, "", xres, indent + 8, "", yres, indent + 4, "");
+	    cupsFilePrintf(data->outfile, "%*s{\n%*s\"units\": \"%s\",\n%*s\"xres\": %d,\n%*s\"yres\": %d\n%*s},\n", indent + 4, "", indent + 8, "", units == IPP_RES_PER_INCH ? "dpi" : "dpcm", indent + 8, "", xres, indent + 8, "", yres, indent + 4, "");
 	  }
           cupsFilePrintf(data->outfile, "%*s]", indent, "");
 	}
@@ -5922,11 +5984,17 @@ token_cb(ipp_file_t     *f,		// I - IPP file data
 
       if (data->last_expect)
       {
-	data->last_expect->if_defined = strdup(temp);
+        if (data->last_expect->if_defined)
+          cupsArrayAddStrings(data->last_expect->if_defined, temp, ',');
+        else
+          data->last_expect->if_defined = cupsArrayNewStrings(temp, ',');
       }
       else if (data->last_status)
       {
-	data->last_status->if_defined = strdup(temp);
+        if (data->last_status->if_defined)
+          cupsArrayAddStrings(data->last_status->if_defined, temp, ',');
+        else
+          data->last_status->if_defined = cupsArrayNewStrings(temp, ',');
       }
       else
       {
@@ -5944,11 +6012,17 @@ token_cb(ipp_file_t     *f,		// I - IPP file data
 
       if (data->last_expect)
       {
-	data->last_expect->if_not_defined = strdup(temp);
+        if (data->last_expect->if_not_defined)
+          cupsArrayAddStrings(data->last_expect->if_not_defined, temp, ',');
+        else
+          data->last_expect->if_not_defined = cupsArrayNewStrings(temp, ',');
       }
       else if (data->last_status)
       {
-	data->last_status->if_not_defined = strdup(temp);
+        if (data->last_status->if_not_defined)
+          cupsArrayAddStrings(data->last_status->if_not_defined, temp, ',');
+        else
+          data->last_status->if_not_defined = cupsArrayNewStrings(temp, ',');
       }
       else
       {
@@ -6513,45 +6587,45 @@ token_cb(ipp_file_t     *f,		// I - IPP file data
 // 'usage()' - Show program usage.
 //
 
-static void
-usage(void)
+static int				// O - Exit status
+usage(FILE *out)			// I - Output file
 {
-  _cupsLangPuts(stderr, _("Usage: ipptool [options] URI filename [ ... filenameN ]"));
-  _cupsLangPuts(stderr, _("Options:"));
-  _cupsLangPuts(stderr, _("--bearer-token BEARER-TOKEN\n"
+  _cupsLangPuts(out, _("Usage: ipptool [options] URI filename [ ... filenameN ]"));
+  _cupsLangPuts(out, _("Options:"));
+  _cupsLangPuts(out, _("--bearer-token BEARER-TOKEN\n"
                           "                        Set the OAuth Bearer token for authentication"));
-  _cupsLangPuts(stderr, _("--client-name CLIENT-NAME\n"
+  _cupsLangPuts(out, _("--client-name CLIENT-NAME\n"
                           "                        Set the TLS client certificate name"));
-  _cupsLangPuts(stderr, _("--help                  Show this help"));
-  _cupsLangPuts(stderr, _("--ippserver filename    Produce ippserver attribute file"));
-  _cupsLangPuts(stderr, _("--stop-after-include-error\n"
+  _cupsLangPuts(out, _("--help                  Show this help"));
+  _cupsLangPuts(out, _("--ippserver filename    Produce ippserver attribute file"));
+  _cupsLangPuts(out, _("--stop-after-include-error\n"
                           "                        Stop tests after a failed INCLUDE"));
-  _cupsLangPuts(stderr, _("--user-agent USER-AGENT Set the HTTP User-Agent string"));
-  _cupsLangPuts(stderr, _("--version               Show version"));
-  _cupsLangPuts(stderr, _("-4                      Connect using IPv4"));
-  _cupsLangPuts(stderr, _("-6                      Connect using IPv6"));
-  _cupsLangPuts(stderr, _("-C                      Send requests using chunking (default)"));
-  _cupsLangPuts(stderr, _("-E                      Test with encryption using HTTP Upgrade to TLS"));
-  _cupsLangPuts(stderr, _("-I                      Ignore errors"));
-  _cupsLangPuts(stderr, _("-L                      Send requests using content-length"));
-  _cupsLangPuts(stderr, _("-P filename.plist       Produce XML plist to a file and test report to standard output"));
-  _cupsLangPuts(stderr, _("-R                      Repeat tests on server-error-busy"));
-  _cupsLangPuts(stderr, _("-S                      Test with encryption using HTTPS"));
-  _cupsLangPuts(stderr, _("-T seconds              Set the receive/send timeout in seconds"));
-  _cupsLangPuts(stderr, _("-V version              Set default IPP version"));
-  _cupsLangPuts(stderr, _("-X                      Produce XML plist instead of plain text"));
-  _cupsLangPuts(stderr, _("-c                      Produce CSV output"));
-  _cupsLangPuts(stderr, _("-d name=value           Set named variable to value"));
-  _cupsLangPuts(stderr, _("-f filename             Set default request filename"));
-  _cupsLangPuts(stderr, _("-h                      Validate HTTP response headers"));
-  _cupsLangPuts(stderr, _("-i seconds              Repeat the last file with the given time interval"));
-  _cupsLangPuts(stderr, _("-l                      Produce plain text output"));
-  _cupsLangPuts(stderr, _("-n count                Repeat the last file the given number of times"));
-  _cupsLangPuts(stderr, _("-q                      Run silently"));
-  _cupsLangPuts(stderr, _("-t                      Produce a test report"));
-  _cupsLangPuts(stderr, _("-v                      Be verbose"));
+  _cupsLangPuts(out, _("--user-agent USER-AGENT Set the HTTP User-Agent string"));
+  _cupsLangPuts(out, _("--version               Show version"));
+  _cupsLangPuts(out, _("-4                      Connect using IPv4"));
+  _cupsLangPuts(out, _("-6                      Connect using IPv6"));
+  _cupsLangPuts(out, _("-C                      Send requests using chunking (default)"));
+  _cupsLangPuts(out, _("-E                      Test with encryption using HTTP Upgrade to TLS"));
+  _cupsLangPuts(out, _("-I                      Ignore errors"));
+  _cupsLangPuts(out, _("-L                      Send requests using content-length"));
+  _cupsLangPuts(out, _("-P filename.plist       Produce XML plist to a file and test report to standard output"));
+  _cupsLangPuts(out, _("-R                      Repeat tests on server-error-busy"));
+  _cupsLangPuts(out, _("-S                      Test with encryption using HTTPS"));
+  _cupsLangPuts(out, _("-T seconds              Set the receive/send timeout in seconds"));
+  _cupsLangPuts(out, _("-V version              Set default IPP version"));
+  _cupsLangPuts(out, _("-X                      Produce XML plist instead of plain text"));
+  _cupsLangPuts(out, _("-c                      Produce CSV output"));
+  _cupsLangPuts(out, _("-d name=value           Set named variable to value"));
+  _cupsLangPuts(out, _("-f filename             Set default request filename"));
+  _cupsLangPuts(out, _("-h                      Validate HTTP response headers"));
+  _cupsLangPuts(out, _("-i seconds              Repeat the last file with the given time interval"));
+  _cupsLangPuts(out, _("-l                      Produce plain text output"));
+  _cupsLangPuts(out, _("-n count                Repeat the last file the given number of times"));
+  _cupsLangPuts(out, _("-q                      Run silently"));
+  _cupsLangPuts(out, _("-t                      Produce a test report"));
+  _cupsLangPuts(out, _("-v                      Be verbose"));
 
-  exit(1);
+  return (out == stdout ? 0 : 1);
 }
 
 
@@ -6743,7 +6817,7 @@ with_content(
 
     encryption = (!strcmp(scheme, "https") || !strcmp(scheme, "ipps") || port == 443) ? HTTP_ENCRYPTION_ALWAYS : HTTP_ENCRYPTION_IF_REQUESTED;
 
-    if ((http = httpConnect2(host, port, NULL, AF_UNSPEC, encryption, 1, 30000, NULL)) == NULL)
+    if ((http = httpConnect2(host, port, /*addrlist*/NULL, AF_UNSPEC, encryption, /*blocking*/1, /*msec*/30000, /*cancel*/NULL)) == NULL)
     {
       add_stringf(errors, "Unable to connect to '%s' on port %d: %s", host, port, cupsGetErrorString());
       ret = false;

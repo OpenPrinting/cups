@@ -1,7 +1,7 @@
 //
 // IPP data file functions.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2025 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -55,6 +55,8 @@ static bool	write_string(ipp_file_t *file, const char *s, size_t len);
 // This function closes the current IPP data file.  The `ipp_file_t` object can
 // be reused for another file as needed.
 //
+// @since CUPS 2.5@
+//
 
 bool					// O - `true` on success, `false` on error
 ippFileClose(ipp_file_t *file)		// I - IPP data file
@@ -84,6 +86,8 @@ ippFileClose(ipp_file_t *file)		// I - IPP data file
 //
 // This function closes an IPP data file, if necessary, and frees all memory
 // associated with it.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on error
@@ -115,6 +119,8 @@ ippFileDelete(ipp_file_t *file)		// I - IPP data file
 // This function expands IPP data file variables of the form "$name" and
 // environment variables of the form "$ENV[name]" in the source string to the
 // destination string.  The
+//
+// @since CUPS 2.5@
 //
 
 size_t					// O - Required size for expanded variables
@@ -229,6 +235,8 @@ ippFileExpandVars(ipp_file_t *file,	// I - IPP data file
 // @link ippFileGetAttributes@, this function does not clear the attribute
 // state.
 //
+// @since CUPS 2.5@
+//
 
 ipp_attribute_t	*			// O - Attribute or `NULL` if none
 ippFileGetAttribute(
@@ -248,6 +256,8 @@ ippFileGetAttribute(
 //
 // This function gets the current set of attributes from an IPP data file.
 //
+// @since CUPS 2.5@
+//
 
 ipp_t *					// O - IPP attributes
 ippFileGetAttributes(ipp_file_t *file)	// I - IPP data file
@@ -260,6 +270,8 @@ ippFileGetAttributes(ipp_file_t *file)	// I - IPP data file
 // 'ippFileGetFilename()' - Get the filename for an IPP data file.
 //
 // This function returns the filename associated with an IPP data file.
+//
+// @since CUPS 2.5@
 //
 
 const char *				// O - Filename
@@ -274,6 +286,8 @@ ippFileGetFilename(ipp_file_t *file)	// I - IPP data file
 //
 // This function returns the current line number in an IPP data file.
 //
+// @since CUPS 2.5@
+//
 
 int					// O - Line number
 ippFileGetLineNumber(ipp_file_t *file)	// I - IPP data file
@@ -287,6 +301,8 @@ ippFileGetLineNumber(ipp_file_t *file)	// I - IPP data file
 //
 // This function returns the value of an IPP data file variable.  `NULL` is
 // returned if the variable is not set.
+//
+// @since CUPS 2.5@
 //
 
 const char *				// O - Variable value or `NULL` if none.
@@ -310,11 +326,15 @@ ippFileGetVar(ipp_file_t *file,		// I - IPP data file
 
 
 //
-// 'ippFileNew()' - Create a new IPP data file object for reading or writing.
+// 'ippFileNew()' - Create a new IPP data file object in preparation for reading or writing.
 //
-// This function opens an IPP data file for reading (mode="r") or writing
-// (mode="w").  If the "parent" argument is not `NULL`, all variables from the
-// parent data file are copied to the new file.
+// This function creates a new IPP data file object.  If the "parent" argument
+// is not `NULL`, all variables from the parent data file are copied to the new
+// object.
+//
+// Call the @link ippFileOpen@ function to open the IPP data file.
+//
+// @since CUPS 2.5@
 //
 
 ipp_file_t *				// O - IPP data file
@@ -343,9 +363,10 @@ ippFileNew(ipp_file_t      *parent,	// I - Parent data file or `NULL` for none
 //
 // 'ippFileOpen()' - Open an IPP data file for reading or writing.
 //
-// This function opens an IPP data file for reading (mode="r") or writing
-// (mode="w").  If the "parent" argument is not `NULL`, all variables from the
-// parent data file are copied to the new file.
+// This function opens the IPP data file specified by the "filename" argument
+// for reading ("mode" is "r") or writing ("mode" is "w").
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on error
@@ -388,6 +409,16 @@ ippFileOpen(ipp_file_t *file,		// I - IPP data file
 
 //
 // 'ippFileRead()' - Read an IPP data file.
+//
+// This function reads tokens from an IPP data file, processes standard
+// directives that define attributes and values, and passes on unknown tokens
+// to the token callback "token_cb" for processing.
+//
+// If the "with_groups" argument is `true` then the "GROUP" directive will be
+// supported for specifying the attribute group(s) associated with any
+// defined attributes.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on error
@@ -634,6 +665,8 @@ ippFileRead(ipp_file_t      *file,	// I - IPP data file
 // values are surrounded by curly braces ("{" and "}") and have "MEMBER"
 // directives to define member attributes in the collection.
 //
+// @since CUPS 2.5@
+//
 
 ipp_t *					// O - Collection value
 ippFileReadCollection(ipp_file_t *file)	// I - IPP data file
@@ -751,6 +784,8 @@ ippFileReadCollection(ipp_file_t *file)	// I - IPP data file
 //
 // This function reads a single token or value from an IPP data file, skipping
 // comments and whitespace as needed.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on error
@@ -939,6 +974,8 @@ ippFileReadToken(ipp_file_t *file,	// I - IPP data file
 // This function restores the previous position in an IPP data file that is open
 // for reading.
 //
+// @since CUPS 2.5@
+//
 
 bool					// O - `true` on success, `false` on failure
 ippFileRestorePosition(ipp_file_t *file)// I - IPP data file
@@ -965,6 +1002,8 @@ ippFileRestorePosition(ipp_file_t *file)// I - IPP data file
 // This function saves the current position in an IPP data file that is open
 // for reading.
 //
+// @since CUPS 2.5@
+//
 
 bool					// O - `true` on success, `false` on failure
 ippFileSavePosition(ipp_file_t *file)	// I - IPP data file
@@ -987,6 +1026,8 @@ ippFileSavePosition(ipp_file_t *file)	// I - IPP data file
 // This function sets the current set of attributes for an IPP data file,
 // typically an empty collection created with @link ippNew@.
 //
+// @since CUPS 2.5@
+//
 
 bool					// O - `true` on success, `false` otherwise
 ippFileSetAttributes(ipp_file_t *file,	// I - IPP data file
@@ -1007,6 +1048,8 @@ ippFileSetAttributes(ipp_file_t *file,	// I - IPP data file
 //
 // This function sets the group tag associated with attributes that are read
 // from an IPP data file.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` otherwise
@@ -1029,6 +1072,8 @@ ippFileSetGroupTag(ipp_file_t *file,	// I - IPP data file
 // This function sets an IPP data file variable to a constant value.  Setting
 // the "uri" variable also initializes the "scheme", "uriuser", "hostname",
 // "port", and "resource" variables.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on failure
@@ -1113,6 +1158,8 @@ ippFileSetVar(ipp_file_t *file,		// I - IPP data file
 // the "uri" variable also initializes the "scheme", "uriuser", "hostname",
 // "port", and "resource" variables.
 //
+// @since CUPS 2.5@
+//
 
 bool					// O - `true` on success, `false` on error
 ippFileSetVarf(ipp_file_t *file,	// I - IPP data file
@@ -1145,6 +1192,8 @@ ippFileSetVarf(ipp_file_t *file,	// I - IPP data file
 // filter specified in the call to @link ippFileOpen@.  If "with_group" is
 // `true`, "GROUP" directives are written as necessary to place the attributes
 // in the correct groups.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on error
@@ -1315,6 +1364,8 @@ ippFileWriteAttributes(
 // This function writes a comment to an IPP data file.  Every line in the string
 // is prefixed with the "#" character and indented as needed.
 //
+// @since CUPS 2.5@
+//
 
 bool					// O - `true` on success, `false` on error
 ippFileWriteComment(ipp_file_t *file,	// I - IPP data file
@@ -1387,6 +1438,8 @@ ippFileWriteComment(ipp_file_t *file,	// I - IPP data file
 //
 // This function writes a token or value string to an IPP data file, quoting
 // and indenting the string as needed.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on error
@@ -1480,6 +1533,8 @@ ippFileWriteToken(ipp_file_t *file,	// I - IPP data file
 //
 // This function writes a formatted token or value string to an IPP data file,
 // quoting and indenting the string as needed.
+//
+// @since CUPS 2.5@
 //
 
 bool					// O - `true` on success, `false` on error
