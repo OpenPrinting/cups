@@ -403,14 +403,16 @@ Requires that all URI values contain a matching scheme.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
 Requires that all values of the <strong>EXPECT</strong> attribute match the literal string. Comparisons are case-sensitive.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &lt;</strong><em>number</em><br>
-</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES =</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES !</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &lt;</strong><em>number</em><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES ></strong><em>number</em><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES </strong><em>number</em>[<em>,...,number</em>]<br>
-Requires that all values of the <strong>EXPECT</strong> attribute match the number(s) or numeric comparison. When comparing rangeOfInteger values, the &quot;&lt;&quot; and &quot;>&quot; operators only check the upper bound of the range.
+Requires that all values of the <strong>EXPECT</strong> attribute match (&quot;=&quot;), do not match (&quot;!&quot;), are less than (&quot;&lt;&quot;), or are greater than (&quot;>&quot;) the number(s). When comparing rangeOfInteger values, the &quot;&lt;&quot; and &quot;>&quot; operators only check the upper bound of the range, &quot;=&quot; checks for inclusion in a range, and &quot;!&quot; checks for exclusion of a range.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-ALL-VALUES &quot;false&quot;</strong><br>
 </p>
@@ -448,14 +450,16 @@ Requires that at least one URI value contains a matching scheme.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &quot;</strong><em>literal string</em><strong>&quot;</strong><br>
 Requires that at least one value of the <strong>EXPECT</strong> attribute matches the literal string. Comparisons are case-sensitive.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &lt;</strong><em>number</em><br>
-</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE =</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE !</strong><em>number</em><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &lt;</strong><em>number</em><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE ></strong><em>number</em><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE </strong><em>number</em>[<em>,...,number</em>]<br>
-Requires that at least one value of the <strong>EXPECT</strong> attribute matches the number(s) or numeric comparison. When comparing rangeOfInteger values, the &quot;&lt;&quot; and &quot;>&quot; operators only check the upper bound of the range.
+Requires that at least one value of the <strong>EXPECT</strong> attribute matches (&quot;=&quot;), does not match (&quot;!&quot;), is less than (&quot;&lt;&quot;), or is greater than (&quot;>&quot;) the number(s). When comparing rangeOfInteger values, the &quot;&lt;&quot; and &quot;>&quot; operators only check the upper bound of the range, &quot;=&quot; checks for inclusion in a range, and &quot;!&quot; checks for exclusion of a range.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>WITH-VALUE &quot;false&quot;</strong><br>
 </p>
