@@ -204,8 +204,8 @@ httpAssembleURI(
 	}
 	else
 	{
-          goto assemble_overflow;
-        }
+	  goto assemble_overflow;
+	}
       }
       else
       {
@@ -406,7 +406,7 @@ httpAssembleUUID(const char *server,	// I - Server name
   //
   // Start with the MD5 sum of the server, port, object name and
   // number, and some random data on the end.
-  snprintf(data, sizeof(data), "%s:%d:%s:%d:%04x:%04x", server, port, name ? name : server, number, (unsigned)CUPS_RAND() & 0xffff, (unsigned)CUPS_RAND() & 0xffff);
+  snprintf(data, sizeof(data), "%s:%d:%s:%d:%04x:%04x", server, port, name ? name : server, number, (unsigned)cupsGetRand() & 0xffff, (unsigned)cupsGetRand() & 0xffff);
 
   cupsHashData("md5", (unsigned char *)data, strlen(data), md5sum, sizeof(md5sum));
 
@@ -625,7 +625,7 @@ httpEncode64_2(char       *out,		// I - String to write to
 // 'httpEncode64_3()' - Base64-encode a string.
 //
 // This function encodes a Base64 string as defined by RFC 4648.  The "url"
-// parameter controls whether the original Base64 ("url" = `false`) or the
+// argument controls whether the original Base64 ("url" = `false`) or the
 // Base64url ("url" = `true`) alphabet is used.
 //
 // @since CUPS 2.5@
@@ -1195,7 +1195,7 @@ _httpSetDigestAuthString(
     DEBUG_puts("3_httpSetDigestAuthString: Follow RFC 2617/7616...");
 
     for (i = 0; i < 64; i ++)
-      cnonce[i] = "0123456789ABCDEF"[CUPS_RAND() & 15];
+      cnonce[i] = "0123456789ABCDEF"[cupsGetRand() & 15];
     cnonce[64] = '\0';
 
     if (!_cups_strcasecmp(http->qop, "auth"))
@@ -1429,8 +1429,8 @@ httpStatus(http_status_t status)	// I - HTTP status code
 //
 // 'httpStatusString()' - Return a short string describing a HTTP status code.
 //
-// The returned string is localized to the current POSIX locale and is based
-// on the status strings defined in RFC 7231.
+// This function returns a short (localized) string describing a HTTP status
+// code.  The strings are taken from the IANA HTTP Status Code registry.
 //
 // @since CUPS 2.5@
 //
@@ -1449,6 +1449,9 @@ httpStatusString(http_status_t status)	// I - HTTP status code
 
 //
 // 'httpURIStatusString()' - Return a string describing a URI status code.
+//
+// This function returns a short (localized) string describing a URI status
+// value.
 //
 // @since CUPS 2.0/OS 10.10@
 //
@@ -1573,13 +1576,13 @@ _httpEncodeURI(char       *dst,		// I - Destination buffer
 //
 // This function resolves a DNS-SD URI of the form
 // "scheme://service-instance-name._protocol._tcp.domain/...".  The "options"
-// parameter specifies a bitfield of resolution options including:
+// argument specifies a bitfield of resolution options including:
 //
 // - `HTTP_RESOLVE_DEFAULT`: Use default options
 // - `HTTP_RESOLVE_FQDN`: Resolve the fully-qualified domain name instead of an IP address
 // - `HTTP_RESOLVE_FAXOUT`: Resolve the FaxOut service instead of Print (IPP/IPPS)
 //
-// The "cb" parameter specifies a callback that allows resolution to be
+// The "cb" argument specifies a callback that allows resolution to be
 // terminated.  The callback is provided the "cb_data" value and returns a
 // `bool` value that is `true` to continue and `false` to stop.  If no callback
 // is specified ("cb" is `NULL`), then this function will block up to 90 seconds

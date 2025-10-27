@@ -80,9 +80,94 @@ cupsAreCredentialsValidForName(
   bool			result = false;	// Result
 
 
+  DEBUG_printf("cupsAreCredentialsValidForName(common_name=\"%s\", credentials=\"%s\")", common_name, credentials);
+
+  // Range check input...
+  if (!common_name || !credentials)
+    return (false);
+
+  // Load the credentials...
   if ((certs = openssl_load_x509(credentials)) != NULL)
   {
-    result = X509_check_host(sk_X509_value(certs, 0), common_name, strlen(common_name), 0, NULL) != 0;
+    // Check the hostname against the primary certificate...
+    X509	*cert = sk_X509_value(certs, 0);
+					// Primary certificate
+    char 	subjectName[256];	// Common name from certificate
+    STACK_OF(GENERAL_NAME) *names = NULL;
+					// subjectAltName values
+
+    DEBUG_printf("1cupsAreCredentialsValidForName: certs=%p(num=%d), cert=%p", certs, sk_X509_num(certs), cert);
+
+    X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName));
+    DEBUG_printf("1cupsAreCredentialsValidForName: subjectName=\"%s\"", subjectName);
+
+    if (!_cups_strcasecmp(common_name, subjectName))
+    {
+      DEBUG_puts("1cupsAreCredentialsValidForName: Match.");
+      result = true;
+    }
+
+#ifdef DEBUG
+    char issuerName[256];
+    X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuerName, sizeof(issuerName));
+    DEBUG_printf("1cupsAreCredentialsValidForName: issuerName=\"%s\"", issuerName);
+#endif // DEBUG
+
+    if (!result)
+    {
+      names = X509_get_ext_d2i(cert, NID_subject_alt_name, /*crit*/NULL, /*idx*/NULL);
+      DEBUG_printf("1cupsAreCredentialsValidForName: names=%p", names);
+    }
+
+    if (names)
+    {
+      // Got subjectAltName values, look at them...
+      int	i,			// Looping var
+		count;			// Number of values
+
+      for (i = 0, count = sk_GENERAL_NAME_num(names); i < count && !result; i ++)
+      {
+	const GENERAL_NAME *name = sk_GENERAL_NAME_value(names, i);
+					// subjectAltName value
+
+        if (!name)
+          continue;
+
+        DEBUG_printf("1cupsAreCredentialsValidForName: subjectAltName[%d/%d].type=%d", i + 1, count, name->type);
+	if (name->type == GEN_DNS)
+	{
+	  // Match a DNS name...
+	  char	*dNSName;		// DNS name value
+
+          if (ASN1_STRING_to_UTF8((unsigned char **)&dNSName, name->d.dNSName) > 0)
+          {
+            DEBUG_printf("1cupsAreCredentialsValidForName: subjectAltName[%d/%d].dNSName=\"%s\"", i + 1, count, dNSName);
+
+            if (!_cups_strcasecmp(common_name, dNSName))
+            {
+              // Direct name match...
+              DEBUG_puts("1cupsAreCredentialsValidForName: Match.");
+              result = true;
+	    }
+	    else if (!strncmp(dNSName, "*.", 2))
+	    {
+	      // Compare wildcard...
+	      const char *domain_name = strchr(common_name, '.');
+					// Domain name of common name
+              if (domain_name && !_cups_strcasecmp(domain_name, dNSName + 1))
+              {
+		DEBUG_puts("1cupsAreCredentialsValidForName: Match.");
+                result = true;
+	      }
+	    }
+
+	    OPENSSL_free(dNSName);
+          }
+        }
+      }
+
+      GENERAL_NAMES_free(names);
+    }
 
     sk_X509_free(certs);
   }
@@ -820,6 +905,7 @@ cupsGetCredentialsTrust(
   if (!path || !credentials || !common_name)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), false);
+    DEBUG_printf("1cupsGetCredentialsTrust: Returning %d.", HTTP_TRUST_UNKNOWN);
     return (HTTP_TRUST_UNKNOWN);
   }
 
@@ -827,6 +913,7 @@ cupsGetCredentialsTrust(
   if ((certs = openssl_load_x509(credentials)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Unable to import credentials."), true);
+    DEBUG_printf("1cupsGetCredentialsTrust: Returning %d.", HTTP_TRUST_UNKNOWN);
     return (HTTP_TRUST_UNKNOWN);
   }
 
@@ -936,7 +1023,10 @@ cupsGetCredentialsTrust(
     time_t	curtime;		// Current date/time
 
     time(&curtime);
-    if (curtime < openssl_get_date(cert, 0) || curtime > openssl_get_date(cert, 1))
+
+    DEBUG_printf("1cupsGetCredentialsTrust: curtime=%ld, notBefore=%ld, notAfter=%ld", (long)curtime, (long)openssl_get_date(cert, 0), (long)openssl_get_date(cert, 1));
+
+    if ((curtime + 86400) < openssl_get_date(cert, 0) || curtime > openssl_get_date(cert, 1))
     {
       _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials have expired."), 1);
       trust = HTTP_TRUST_EXPIRED;
@@ -944,6 +1034,8 @@ cupsGetCredentialsTrust(
   }
 
   sk_X509_free(certs);
+
+  DEBUG_printf("1cupsGetCredentialsTrust: Returning %d.", trust);
 
   return (trust);
 }
@@ -1811,7 +1903,6 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 	DEBUG_puts("4_httpTLSStart: cupsCreateCredentials failed.");
 	http->error  = errno = EINVAL;
 	http->status = HTTP_STATUS_ERROR;
-	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create server credentials."), 1);
 	SSL_CTX_free(context);
         cupsMutexUnlock(&tls_mutex);
 

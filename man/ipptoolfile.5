@@ -7,7 +7,7 @@
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ipptoolfile 5 "CUPS" "2024-09-12" "OpenPrinting"
+.TH ipptoolfile 5 "CUPS" "2024-10-23" "OpenPrinting"
 .SH NAME
 ipptoolfile \- ipptool file format
 .SH DESCRIPTION
@@ -391,14 +391,16 @@ Requires that all URI values contain a matching scheme.
 \fBWITH\-ALL\-VALUES "\fIliteral string\fB"\fR
 Requires that all values of the \fBEXPECT\fR attribute match the literal string. Comparisons are case-sensitive.
 .TP 5
-\fBWITH\-ALL\-VALUES <\fInumber\fR
-.TP 5
 \fBWITH\-ALL\-VALUES =\fInumber\fR
+.TP 5
+\fBWITH\-ALL\-VALUES !\fInumber\fR
+.TP 5
+\fBWITH\-ALL\-VALUES <\fInumber\fR
 .TP 5
 \fBWITH\-ALL\-VALUES >\fInumber\fR
 .TP 5
 \fBWITH\-ALL\-VALUES \fInumber\fR[\fI,...,number\fR]
-Requires that all values of the \fBEXPECT\fR attribute match the number(s) or numeric comparison. When comparing rangeOfInteger values, the "<" and ">" operators only check the upper bound of the range.
+Requires that all values of the \fBEXPECT\fR attribute match ("="), do not match ("!"), are less than ("<"), or are greater than (">") the number(s). When comparing rangeOfInteger values, the "<" and ">" operators only check the upper bound of the range, "=" checks for inclusion in a range, and "!" checks for exclusion of a range.
 .TP 5
 \fBWITH\-ALL\-VALUES "false"\fR
 .TP 5
@@ -436,14 +438,16 @@ Requires that at least one URI value contains a matching scheme.
 \fBWITH\-VALUE "\fIliteral string\fB"\fR
 Requires that at least one value of the \fBEXPECT\fR attribute matches the literal string. Comparisons are case-sensitive.
 .TP 5
-\fBWITH\-VALUE <\fInumber\fR
-.TP 5
 \fBWITH\-VALUE =\fInumber\fR
+.TP 5
+\fBWITH\-VALUE !\fInumber\fR
+.TP 5
+\fBWITH\-VALUE <\fInumber\fR
 .TP 5
 \fBWITH\-VALUE >\fInumber\fR
 .TP 5
 \fBWITH\-VALUE \fInumber\fR[\fI,...,number\fR]
-Requires that at least one value of the \fBEXPECT\fR attribute matches the number(s) or numeric comparison. When comparing rangeOfInteger values, the "<" and ">" operators only check the upper bound of the range.
+Requires that at least one value of the \fBEXPECT\fR attribute matches ("="), does not match ("!"), is less than ("<"), or is greater than (">") the number(s). When comparing rangeOfInteger values, the "<" and ">" operators only check the upper bound of the range, "=" checks for inclusion in a range, and "!" checks for exclusion of a range.
 .TP 5
 \fBWITH\-VALUE "false"\fR
 .TP 5

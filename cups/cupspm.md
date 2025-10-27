@@ -1109,41 +1109,275 @@ ippDelete(response);
 ```
 
 
-## Authentication
+# Authentication and Authorization
 
-CUPS normally handles authentication through the console.  GUI applications
-should set a password callback using the [`cupsSetPasswordCB2`](@@) function:
+CUPS supports authentication and authorization using HTTP Basic, HTTP Digest,
+peer credentials when communicating over domain sockets, and OAuth/OpenID
+Connect.
+
+Peer credential authorization happens automatically when connected over a
+domain socket.  Other types of authentication requires the application to
+handle `HTTP_STATUS_UNAUTHORIZED` responses beyond simply calling
+[`cupsDoAuthentication`](@@).
+
+
+## Authentication Using Passwords
+
+When you call [`cupsDoAuthentication`](@@) and the HTTP server requires the
+"Basic" or "Digest" authentication schemes, CUPS normally requests a password
+from the console.  GUI applications should set a password callback using the
+[`cupsSetPasswordCB2`](@@) function:
 
 ```c
 void
-cupsSetPasswordCB2(cups_password_cb2_t cb, void *user_data);
+cupsSetPasswordCB2(cups_password_cb2_t cb, void *cb_data);
 ```
 
-The password callback will be called when needed and is responsible for setting
-the current user name using [`cupsSetUser`](@@) and returning a string:
+The password callback is called when needed and is responsible for setting
+the current user name using [`cupsSetUser`](@@) and returning a (password)
+string:
 
 ```c
 const char *
-cups_password_cb2(const char *prompt, http_t *http,
-                  const char *method, const char *resource,
-                  void *user_data);
+cups_password_cb(const char *prompt, http_t *http,
+                 const char *method, const char *resource,
+                 void *cb_data);
 ```
 
-The `prompt` argument is a string from CUPS that should be displayed to the
+The "prompt" argument is a string from CUPS that should be displayed to the
 user.
 
-The `http` argument is the connection hosting the request that is being
+The "http" argument is the connection hosting the request that is being
 authenticated.  The password callback can call the [`httpGetField`](@@) and
 [`httpGetSubField`](@@) functions to look for additional details concerning the
 authentication challenge.
 
-The `method` argument specifies the HTTP method used for the request and is
-typically "POST".
+The "method" argument specifies the HTTP method used for the request and is
+typically "GET", "POST", or "PUT".
 
-The `resource` argument specifies the path used for the request.
+The "resource" argument specifies the path or URI used for the request.
 
-The `user_data` argument provides the user data pointer from the
-`cupsSetPasswordCB2` call.
+The "cb_data" argument provides the data pointer from the
+[`cupsSetPasswordCB2`](@@) call.
+
+
+## Authorization using OAuth/OpenID Connect
+
+When you call [`cupsDoAuthentication`](@@) and the HTTP server requires the
+"Bearer" authentication scheme, CUPS will call an OAuth callback that you
+register using the [`cupsSetOAuthCB`](@@) function:
+
+```c
+void
+cupsSetOAuthCB(cups_oauth_cb_t cb, void *cb_data);
+```
+
+The OAuth callback is called when needed and is responsible for performing any
+necessary authorization and returning an access token string:
+
+```c
+const char *
+cups_oauth_cb(http_t *http, const char *realm, const char *scope,
+              const char *resource, void *cb_data);
+```
+
+The "http" argument is the connection hosting the request that is being
+authenticated.  The OAuth callback can call the [`httpGetField`](@@) and
+[`httpGetSubField`](@@) functions to look for additional details concerning the
+authentication challenge.
+
+The "realm" and "scope" arguments provide the "realm" and "scope" parameters, if
+any, from the "WWW-Authenticate" header.
+
+The "resource" argument specifies the path or URI used for the request.
+
+The "cb_data" argument provides the data pointer from the
+[`cupsSetOAuthCB`](@@) call.
+
+
+### OAuth Client Functions
+
+CUPS provides a generic OAuth/OpenID client for authorizing access to printers
+and other network resources.  The following functions are provided:
+
+- [`cupsOAuthClearTokens`](@@): Clear all cached tokens.
+- [`cupsOAuthCopyAccessToken`](@@): Copy the cached access token.
+- [`cupsOAuthCopyClientId`](@@): Copy the cached client ID.
+- [`cupsOAuthCopyRefreshToken`](@@): Copy the cached refresh token.
+- [`cupsOAuthCopyUserId`](@@): Copy the cached user ID.
+- [`cupsOAuthGetAuthorizationCode`](@@): Get an authorization code using a web
+  browser.
+- [`cupsOAuthGetClientId`](@@): Get a client ID using dynamic client
+  registration.
+- [`cupsOAuthGetDeviceGrant`](@@): Get a device authorization grant code.
+- [`cupsOAuthGetJWKS`](@@): Get the key set for an authorization server.
+- [`cupsOAuthGetMetadata`](@@): Get the metadata for an authorization server.
+- [`cupsOAuthGetTokens`](@@): Get access and refresh tokens for an
+  authorization/grant code.
+- [`cupsOAuthGetUserId`](@@): Get the user ID associated with an access token.
+- [`cupsOAuthMakeAuthorizationURL`](@@): Make the URL for web browser
+  authorization.
+- [`cupsOAuthMakeBase64Random`](@@): Make a Base64-encoded string of random
+  bytes.
+- [`cupsOAuthSaveClientData`](@@): Save a client ID and secret for an
+  authorization server.
+- [`cupsOAuthSaveTokens`](@@): Save access and refresh tokens for an
+  authorization server.
+
+Once you have an access token you use the [`httpSetAuthString`](@@) function to
+use it for a HTTP connection:
+
+```c
+http_t *http;
+char   *access_token;
+
+httpSetAuthString(http, "Bearer", access_token);
+```
+
+
+### Authorizing Using a Web Browser
+
+Users can authorize using their preferred web browser via the
+[`cupsOAuthGetAuthorizationCode`](@@) function, which returns an authorization
+grant code string.  The following code gets the authorization server metadata,
+authorizes access through the web browser, and then obtains a HTTP Bearer access
+token:
+
+```c
+http_t      *http;           // HTTP connection
+const char  *auth_uri;       // Base URL for Authorization Server
+cups_json_t *metadata;       // Authorization Server metadata
+const char  *printer_uri;    // Printer URI
+char        *auth_code;      // Authorization grant code
+char        *access_token;   // Access token
+time_t      access_expires;  // Date/time when access token expires
+
+// Get the metadata for the authorization server.
+metadata = cupsOAuthGetMetadata(auth_uri);
+
+if (metadata == NULL)
+{
+  // Handle error getting metadata from authorization server.
+}
+
+// Bring up the web browser to authorize and get an authorization code.
+auth_code = cupsOAuthGetAuthorizationCode(auth_uri, metadata, printer_uri,
+                                          /*scopes*/NULL,
+                                          /*redirect_uri*/NULL);
+
+if (auth_code == NULL)
+{
+  // Unable to authorize.
+}
+
+// Get the access code from the authorization code.
+access_token = cupsOAuthGetTokens(auth_uri, metadata, printer_uri, auth_code,
+                                  CUPS_OGRANT_AUTHORIZATION_CODE,
+                                  /*redirect_uri*/NULL, &access_expires);
+
+if (access_token == NULL)
+{
+  // Unable to get access token.
+}
+
+// Set the Bearer token for authorization.
+httpSetAuthString(http, "Bearer", access_token);
+free(access_token);
+```
+
+
+### Authorizing Using a Mobile Device
+
+Users can authorize using a mobile device via the
+[`cupsOAuthGetDeviceGrant`](@@) function, which returns a JSON object with the
+mobile authorization URLs, user (verification) code string, and device grant
+code.  The following code gets the authorization server metadata, gets the
+mobile device authorization information, and then obtains a HTTP Bearer access
+token:
+
+```c
+http_t      *http;           // HTTP connection
+const char  *auth_uri;       // Base URL for Authorization Server
+cups_json_t *metadata;       // Authorization Server metadata
+const char  *printer_uri;    // Printer URI
+cups_json_t *device_grant;   // Device authorization grant object
+const char  *device_code;    // Device grant code
+const char  *verify_url;     // Mobile device URL
+const char  *verify_urlc;    // Mobile device URL with user code
+const char  *user_code;      // User code
+char        *access_token;   // Access token
+time_t      access_expires;  // Date/time when access token expires
+
+// Get the metadata for the authorization server.
+metadata = cupsOAuthGetMetadata(auth_uri);
+
+if (metadata == NULL)
+{
+  // Handle error getting metadata from authorization server.
+}
+
+// Get a device authorization grant for mobile authorization.
+device_grant = cupsOAuthGetDeviceGrant(auth_uri, metadata, printer_uri,
+                                       /*scopes*/NULL);
+
+device_code = cupsJSONGetString(
+                  cupsJSONFind(device_grant, CUPS_ODEVGRANT_DEVICE_CODE));
+verify_url  = cupsJSONGetString(
+                  cupsJSONFind(device_grant, CUPS_ODEVGRANT_VERIFICATION_URI));
+verify_urlc = cupsJSONGetString(
+                  cupsJSONFind(device_grant, CUPS_ODEVGRANT_VERIFICATION_URI_COMPLETE));
+user_code   = cupsJSONGetString(
+                  cupsJSONFind(device_grant, CUPS_ODEVGRANT_USER_CODE));
+
+if (device_code == NULL || verify_url == NULL || verify_urlc == NULL ||
+    user_code == NULL)
+{
+  // Unable to authorize.
+}
+
+// Show the URLs and user code to the user (links and/or QR codes).
+printf("Open this URL: %s\n", verify_urlc);
+
+// Get the access code from the authorization code.
+do
+{
+  // Delay check for several seconds.
+  sleep(5);
+
+  // Try getting an access token.
+  access_token = cupsOAuthGetTokens(auth_uri, metadata, printer_uri, device_code,
+                                    CUPS_OGRANT_DEVICE_CODE,
+                                    /*redirect_uri*/NULL, &access_expires);
+}
+while (access_token == NULL && access_expires > 0);
+       // Continue checking until we have an access token or
+       // the device code has expired.
+
+if (access_token == NULL)
+{
+  // Unable to get access token.
+}
+
+// Set the Bearer token for authorization.
+httpSetAuthString(http, "Bearer", access_token);
+free(access_token);
+```
+
+
+### Supported OAuth Standards
+
+The following standards are supported:
+
+- [OpenID Connect Core v1.0](https://openid.net/specs/openid-connect-core-1_0.html)
+- [RFC 6749: The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+- [RFC 6750: The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
+- [RFC 7591: OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591)
+- [RFC 7636: Proof Key for Code Exchange by OAuth Public Clients](https://datatracker.ietf.org/doc/html/rfc7636)
+- [RFC 8252: OAuth 2.0 for Native Apps](https://datatracker.ietf.org/doc/html/rfc8252)
+- [RFC 8414: OAuth 2.0 Authorization Server Metadata](https://datatracker.ietf.org/doc/html/rfc8414)
+- [RFC 8628: OAuth 2.0 Device Authorization Grant](https://datatracker.ietf.org/doc/html/rfc8628)
+- [RFC 8693: OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693)
+- [RFC 9068: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens](https://datatracker.ietf.org/doc/html/rfc9068)
 
 
 # IPP Data File API
@@ -1167,7 +1401,8 @@ ipp_file_t *file = ippFileNew(parent, attr_cb, error_cb, data);
 The "parent" IPP data file pointer is typically used to support nested files and
 is normally `NULL` for a new file.  The "data" argument supplies your
 application data to the callbacks.  The "attr_cb" callback function is used to
-filter IPP attributes; return `true` to include the attribute and `false` to ignore it:
+filter IPP attributes; return `true` to include the attribute and `false` to
+ignore it:
 
 ```c
 bool
@@ -1214,7 +1449,8 @@ token_cb(ipp_file_t *file, void *cb_data, const char *token)
 }
 ```
 
-The "token" parameter contains the token to be processed.  The callback can use the [`ippFileReadToken`](@@) function to read additional tokens from the file
+The "token" parameter contains the token to be processed.  The callback can use
+the [`ippFileReadToken`](@@) function to read additional tokens from the file
 and the [`ippFileExpandToken`](@@) function to expand any variables in the token
 string.  Return `false` to stop reading the file and `true` to continue.  The
 default `NULL` callback reports an unknown token error through the error

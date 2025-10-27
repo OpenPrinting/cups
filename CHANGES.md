@@ -40,6 +40,7 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   not specified (Issue #1217)
 - Added `print-as-raster` printer and job attributes for forcing rasterization
   (Issue #1282)
+- Added an "install" sub-command to the `cups-x509` command (Issue #1227)
 - Added a "--user-agent" option to the `ipptool` command.
 - Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated translations (Issue #1146, Issue #1161, Issue #1164)

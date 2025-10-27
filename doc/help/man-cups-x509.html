@@ -7,7 +7,7 @@
   <body>
     <h1 id="cups-x509-1">cups-x509(1)</h1>
     <h2 id="cups-x509-1.name">Name</h2>
-<p>cups-x509 - description
+<p>cups-x509 - manage x.509 certificates and certificate requests
 </p>
     <h2 id="cups-x509-1.synopsis">Synopsis</h2>
 <p><strong>cups-x509</strong>
@@ -139,6 +139,10 @@ The preset &quot;default-ca&quot; specifies those uses required for a Certificat
 </p>
     <h3 id="cups-x509-1.sub-commands.csr-common-name">Csr Common-Name</h3>
 <p>Create a certificate signing request for the specified common name.
+</p>
+    <h3 id="cups-x509-1.sub-commands.install-common-name-filename.crt-filename.key">Install Common-Name Filename.Crt [Filename.Key]</h3>
+<p>Installs a certificate and optional private key for the specified common name.
+The certificate and private key are PEM-encoded files.
 </p>
     <h3 id="cups-x509-1.sub-commands.server-common-nameport">Server Common-Name[:Port]</h3>
 <p>Run a HTTPS test server that echos back the resource path for every GET request.

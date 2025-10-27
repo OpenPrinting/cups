@@ -1005,7 +1005,7 @@ cupsGetCredentialsTrust(
     time_t	curtime;		// Current date/time
 
     time(&curtime);
-    if (curtime < gnutls_x509_crt_get_activation_time(certs[0]) || curtime > gnutls_x509_crt_get_expiration_time(certs[0]))
+    if ((curtime + 86400) < gnutls_x509_crt_get_activation_time(certs[0]) || curtime > gnutls_x509_crt_get_expiration_time(certs[0]))
     {
       _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials have expired."), 1);
       trust = HTTP_TRUST_EXPIRED;
@@ -1835,7 +1835,6 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 	DEBUG_puts("4_httpTLSStart: cupsCreateCredentials failed.");
 	http->error  = errno = EINVAL;
 	http->status = HTTP_STATUS_ERROR;
-	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to create server credentials."), 1);
 	cupsMutexUnlock(&tls_mutex);
 
 	return (false);

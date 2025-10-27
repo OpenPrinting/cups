@@ -81,6 +81,30 @@ httpAddrEqual(const http_addr_t *addr1,	// I - First address
 
 
 //
+// 'httpAddrIsAny()' - Check for the "any" address.
+//
+// @since CUPS 2.5@
+//
+
+bool					// O - `true` if "any" address, `false` otherwise
+httpAddrIsAny(const http_addr_t *addr)	// I - Address to check
+{
+  if (!addr)
+    return (false);
+
+#ifdef AF_INET6
+  if (addr->addr.sa_family == AF_INET6 && IN6_IS_ADDR_UNSPECIFIED(&(addr->ipv6.sin6_addr)))
+    return (true);
+#endif // AF_INET6
+
+  if (addr->addr.sa_family == AF_INET && ntohl(addr->ipv4.sin_addr.s_addr) == 0x00000000)
+    return (true);
+
+  return (false);
+}
+
+
+//
 // 'httpAddrIsEqual()' - Compare two addresses.
 //
 // @since CUPS 2.5@
@@ -111,30 +135,6 @@ httpAddrIsEqual(
 #endif // AF_INET6
 
   return (addr1->ipv4.sin_addr.s_addr == addr2->ipv4.sin_addr.s_addr);
-}
-
-
-//
-// 'httpAddrIsAny()' - Check for the "any" address.
-//
-// @since CUPS 2.5@
-//
-
-bool					// O - `true` if "any" address, `false` otherwise
-httpAddrIsAny(const http_addr_t *addr)	// I - Address to check
-{
-  if (!addr)
-    return (false);
-
-#ifdef AF_INET6
-  if (addr->addr.sa_family == AF_INET6 && IN6_IS_ADDR_UNSPECIFIED(&(addr->ipv6.sin6_addr)))
-    return (true);
-#endif // AF_INET6
-
-  if (addr->addr.sa_family == AF_INET && ntohl(addr->ipv4.sin_addr.s_addr) == 0x00000000)
-    return (true);
-
-  return (false);
 }
 
 
@@ -228,10 +228,10 @@ httpAddrListen(http_addr_t *addr,	// I - Address to bind to
     // Remove any existing domain socket file...
     if ((status = unlink(addr->un.sun_path)) < 0)
     {
-      DEBUG_printf("1httpAddrListen: Unable to unlink \"%s\": %s", addr->un.sun_path, strerror(errno));
-
       if (errno == ENOENT)
 	status = 0;
+      else
+	DEBUG_printf("1httpAddrListen: Unable to unlink \"%s\": %s", addr->un.sun_path, strerror(errno));
     }
 
     if (!status)
@@ -242,9 +242,7 @@ httpAddrListen(http_addr_t *addr,	// I - Address to bind to
 
       // Bind the domain socket...
       if ((status = bind(fd, (struct sockaddr *)addr, (socklen_t)httpAddrLength(addr))) < 0)
-      {
 	DEBUG_printf("1httpAddrListen: Unable to bind domain socket \"%s\": %s", addr->un.sun_path, strerror(errno));
-      }
 
       // Restore the umask...
       umask(mask);
@@ -255,11 +253,13 @@ httpAddrListen(http_addr_t *addr,	// I - Address to bind to
   {
     httpAddrSetPort(addr, port);
 
-    status = bind(fd, (struct sockaddr *)addr, (socklen_t)httpAddrLength(addr));
+    if ((status = bind(fd, (struct sockaddr *)addr, (socklen_t)httpAddrLength(addr))) < 0)
+      DEBUG_printf("1httpAddrListen: Unable to bind network socket: %s", strerror(errno));
   }
 
   if (status)
   {
+    DEBUG_printf("1httpAddrListen: Unable to listen on socket: %s", strerror(errno));
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 
     close(fd);
@@ -818,7 +818,7 @@ httpGetHostname(http_t *http,		// I - HTTP connection or NULL
 
 const char *				// O - Resolved hostname or `NULL`
 httpResolveHostname(http_t *http,	// I - HTTP connection
-                    char   *buffer,	// I - Hostname buffer
+                    char   *buffer,	// I - Hostname buffer or `NULL` to use HTTP buffer
                     size_t bufsize)	// I - Size of buffer
 {
   if (!http)

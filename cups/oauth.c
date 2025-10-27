@@ -322,15 +322,15 @@ cupsOAuthCopyUserId(
 // This function performs a local/"native" OAuth authorization flow to obtain an
 // authorization code for use with the @link cupsOAuthGetTokens@ function.
 //
-// The "auth_uri" parameter specifies the URI for the OAuth Authorization
-// Server.  The "metadata" parameter specifies the Authorization Server metadata
+// The "auth_uri" argument specifies the URI for the OAuth Authorization
+// Server.  The "metadata" argument specifies the Authorization Server metadata
 // as obtained using @link cupsOAuthCopyMetadata@ and/or
 // @link cupsOAuthGetMetadata@.
 //
-// The "resource_uri" parameter specifies the URI for a resource (printer, web
+// The "resource_uri" argument specifies the URI for a resource (printer, web
 // file, etc.) that you which to access.
 //
-// The "scopes" parameter specifies zero or more whitespace-delimited scope
+// The "scopes" argument specifies zero or more whitespace-delimited scope
 // names to request during authorization.  The list of supported scope names are
 // available from the Authorization Server metadata, for example:
 //
@@ -339,7 +339,7 @@ cupsOAuthCopyUserId(
 // cups_json_t *scopes_supported = cupsJSONFind(metadata, "scopes_supported");
 // ```
 //
-// The "redirect_uri" parameter specifies a 'http:' URL with a listen address,
+// The "redirect_uri" argument specifies a 'http:' URL with a listen address,
 // port, and path to use.  If `NULL`, 127.0.0.1 on a random port is used with a
 // path of "/".
 //
@@ -712,8 +712,8 @@ cupsOAuthGetAuthorizationCode(
 // This function registers a client application with the specified OAuth
 // Authorization Server.
 //
-// The "auth_uri" parameter specifies the URI for the OAuth Authorization
-// Server. The "metadata" parameter specifies the Authorization Server metadata
+// The "auth_uri" argument specifies the URI for the OAuth Authorization
+// Server. The "metadata" argument specifies the Authorization Server metadata
 // as obtained using @link cupsOAuthCopyMetadata@ and/or
 // @link cupsOAuthGetMetadata@.
 //
@@ -805,15 +805,15 @@ cupsOAuthGetClientId(
 // resource and scope(s).  Device authorization grants allow a user to open a
 // web page on any device to authorize access to the resource.
 //
-// The "auth_uri" parameter specifies the URI for the OAuth Authorization
-// Server.  The "metadata" parameter specifies the Authorization Server metadata
+// The "auth_uri" argument specifies the URI for the OAuth Authorization
+// Server.  The "metadata" argument specifies the Authorization Server metadata
 // as obtained using @link cupsOAuthCopyMetadata@ and/or
 // @link cupsOAuthGetMetadata@.
 //
-// The "resource_uri" parameter specifies the URI for a resource (printer, web
+// The "resource_uri" argument specifies the URI for a resource (printer, web
 // file, etc.) that you which to access.
 //
-// The "scopes" parameter specifies zero or more whitespace-delimited scope
+// The "scopes" argument specifies zero or more whitespace-delimited scope
 // names to request during authorization.  The list of supported scope names are
 // available from the Authorization Server metadata, for example:
 //
@@ -1195,16 +1195,16 @@ cupsOAuthGetMetadata(
 // Server. OpenID Authorization Servers also provide user identification
 // information.
 //
-// The "auth_uri" parameter specifies the URI for the OAuth Authorization
-// Server.  The "metadata" parameter specifies the Authorization Server metadata
+// The "auth_uri" argument specifies the URI for the OAuth Authorization
+// Server.  The "metadata" argument specifies the Authorization Server metadata
 // as obtained using @link cupsOAuthCopyMetadata@ and/or
 // @link cupsOAuthGetMetadata@.
 //
-// The "resource_uri" parameter specifies the URI for a resource (printer, web
+// The "resource_uri" argument specifies the URI for a resource (printer, web
 // file, etc.) that you which to access.
 //
-// The "grant_code" parameter specifies the code or token to use while the
-// "grant_type" parameter specifies the type of code:
+// The "grant_code" argument specifies the code or token to use while the
+// "grant_type" argument specifies the type of code:
 //
 // - `CUPS_OGRANT_AUTHORIZATION_CODE`: A user authorization grant code.
 // - `CUPS_OGRANT_DEVICE_CODE`: A device authorization grant code.
@@ -1539,15 +1539,15 @@ cupsOAuthGetUserId(
 // This function makes an authorization URL for the specified authorization
 // server and resource.
 //
-// The "auth_uri" parameter specifies the URI for the OAuth Authorization
-// Server.  The "metadata" parameter specifies the Authorization Server metadata
+// The "auth_uri" argument specifies the URI for the OAuth Authorization
+// Server.  The "metadata" argument specifies the Authorization Server metadata
 // as obtained using @link cupsOAuthCopyMetadata@ and/or
 // @link cupsOAuthGetMetadata@.
 //
-// The "resource_uri" parameter specifies the URI for a resource (printer, web
+// The "resource_uri" argument specifies the URI for a resource (printer, web
 // file, etc.) that you which to access.
 //
-// The "scopes" parameter specifies zero or more whitespace-delimited scope
+// The "scopes" argument specifies zero or more whitespace-delimited scope
 // names to request during authorization.  The list of supported scope names are
 // available from the Authorization Server metadata, for example:
 //
@@ -1556,25 +1556,25 @@ cupsOAuthGetUserId(
 // cups_json_t *scopes_supported = cupsJSONFind(metadata, "scopes_supported");
 // ```
 //
-// The "client_id" parameter specifies the client identifier obtained using
+// The "client_id" argument specifies the client identifier obtained using
 // @link cupsOAuthCopyClientId@ and/or @link cupsOAuthGetClientId@.
 //
-// The "client_id" parameter is the string returned by
+// The "client_id" argument is the string returned by
 // @link cupsOAuthCopyClientId@ or @link cupsOAuthGetClientId@.
 //
-// The "code_verifier" parameter specifies a random Base64URL-encoded string
+// The "code_verifier" argument specifies a random Base64URL-encoded string
 // that is used by the Proof Key for Code Exchange [RFC7636] extension to help
 // secure the authorization flow.  The @link cupsOAuthMakeBase64Random@ function
 // can be used to generate this string.
 //
-// The "nonce" parameter specifies a random Base64URL-encoded string that is
+// The "nonce" argument specifies a random Base64URL-encoded string that is
 // used by OpenID to validate the ID token. The @link cupsOAuthMakeBase64Random@
 // function can be used to generate this string.
 //
-// The "redirect_uri" parameter specifies the URI that will receive the
+// The "redirect_uri" argument specifies the URI that will receive the
 // authorization grant code.
 //
-// The "state" parameter is a unique (random) identifier for the authorization
+// The "state" argument is a unique (random) identifier for the authorization
 // request.  It is provided to the redirection URI as a form parameter.
 //
 // @since CUPS 2.5@
