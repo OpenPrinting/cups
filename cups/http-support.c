@@ -756,7 +756,7 @@ httpGetDateTime(const char *s)		// I - Date/time string
   char		mon[16];		// Abbreviated month name
   int		day, year;		// Day of month and year
   int		hour, min, sec;		// Time
-  int		days;			// Number of days since 1970
+  long		days;			// Number of days since 1970
   static const int normal_days[] =	// Days to a month, normal years
 		{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 };
   static const int leap_days[] =	// Days to a month, leap years
@@ -795,14 +795,14 @@ httpGetDateTime(const char *s)		// I - Date/time string
   else
     days = normal_days[i] + day - 1;
 
-  DEBUG_printf("4httpGetDateTime: days=%d", days);
+  DEBUG_printf("4httpGetDateTime: days=%ld", days);
 
   days += (year - 1970) * 365 +		// 365 days per year (normally)
           ((year - 1) / 4 - 492) -	// + leap days
 	  ((year - 1) / 100 - 19) +	// - 100 year days
           ((year - 1) / 400 - 4);	// + 400 year days
 
-  DEBUG_printf("4httpGetDateTime: days=%d\n", days);
+  DEBUG_printf("4httpGetDateTime: days=%ld\n", days);
 
   return (days * 86400 + hour * 3600 + min * 60 + sec);
 }

@@ -205,7 +205,7 @@ cupsCreateCredentials(
   if (!path)
     path = http_default_path(defpath, sizeof(defpath));
 
-  if (!path || !common_name)
+  if (!path || !common_name || !*common_name)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), 0);
     goto done;
@@ -561,7 +561,7 @@ cupsCreateCredentialsRequest(
   if (!path)
     path = http_default_path(defpath, sizeof(defpath));
 
-  if (!path || !common_name)
+  if (!path || !common_name || !*common_name)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), 0);
     goto done;
