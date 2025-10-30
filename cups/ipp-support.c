@@ -1164,6 +1164,7 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
   {					// job-description group
     "chamber-humidity-actual",		// IPP 3D
     "chamber-temperature-actual",	// IPP 3D
+    "client-info",			// IPP JobExt
     "compression-supplied",
     "copies-actual",
     "cover-back-actual",
@@ -1202,33 +1203,34 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "job-hold-until-actual",
     "job-id",
     "job-impressions",
-    "job-impressions-col",
+    "job-impressions-col",		// IPP JobExt
     "job-impressions-completed",
-    "job-impressions-completed-col",
+    "job-impressions-completed-col",	// IPP JobExt
     "job-k-octets",
     "job-k-octets-processed",
     "job-mandatory-attributes",
     "job-media-progress",		// CUPS extension
     "job-media-sheets",
-    "job-media-sheets-col",
+    "job-media-sheets-col",		// IPP JobExt
     "job-media-sheets-completed",
-    "job-media-sheets-completed-col",
+    "job-media-sheets-completed-col",	// IPP JobExt
     "job-message-from-operator",
     "job-more-info",
     "job-name",
     "job-originating-host-name",	// CUPS extension
     "job-originating-user-name",
     "job-originating-user-uri",		// IPP NODRIVER
-    "job-pages",
-    "job-pages-col",
-    "job-pages-completed",
-    "job-pages-completed-col",
+    "job-pages",			// IPP JobExt
+    "job-pages-col",			// IPP JobExt
+    "job-pages-completed",		// IPP JobExt
+    "job-pages-completed-col",		// IPP JobExt
     "job-pages-completed-current-copy",
     "job-printer-state-message",	// CUPS extension
     "job-printer-state-reasons",	// CUPS extension
     "job-printer-up-time",
     "job-printer-uri",
     "job-priority-actual",
+    "job-processing-time",		// IPP JobExt
     "job-resource-ids",			// IPP System
     "job-save-printer-make-and-model",
     "job-sheet-message-actual",
@@ -1366,9 +1368,9 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "job-accounting-user-id",		// IPP JobExt
     "job-accounting-user-id-default",	// IPP JobExt
     "job-accounting-user-id-supported",	// IPP JobExt
-    "job-cancel-after",			// IPP EPX
-    "job-cancel-after-default",		// IPP EPX
-    "job-cancel-after-supported",	// IPP EPX
+    "job-cancel-after",			// IPP JobExt
+    "job-cancel-after-default",		// IPP JobExt
+    "job-cancel-after-supported",	// IPP JobExt
     "job-complete-before",		// IPP PPX
     "job-complete-before-supported",	// IPP PPX
     "job-complete-before-time",		// IPP PPX
@@ -1394,7 +1396,6 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "job-hold-until-default",
     "job-hold-until-supported",
     "job-hold-until-time",		// IPP JobExt
-    "job-hold-until-time-default",	// IPP JobExt
     "job-hold-until-time-supported",	// IPP JobExt
     "job-message-to-operator",		// IPP PPX
     "job-message-to-operator-supported",// IPP PPX
@@ -1415,8 +1416,8 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "job-retain-until-supported",	// IPP JobExt
     "job-retain-until-time",		// IPP JobExt
     "job-retain-until-time-supported",	// IPP JobExt
-    "job-sheet-message",		// IPP PPX
-    "job-sheet-message-supported",	// IPP PPX
+    "job-sheet-message",		// IPP JobExt
+    "job-sheet-message-supported",	// IPP JobExt
     "job-sheets",
     "job-sheets-col",			// IPP JobExt
     "job-sheets-col-default",		// IPP JobExt
@@ -1610,6 +1611,7 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "chamber-temperature-current",	// IPP 3D
     "charset-configured",
     "charset-supported",
+    "client-info-supported",		// IPP JobExt
     "color-supported",
     "compression-supported",
     "device-service-count",
@@ -1641,6 +1643,8 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "job-creation-attributes-supported",// IPP JobExt
     "job-history-attributes-configured",// IPP JobExt
     "job-history-attributes-supported",	// IPP JobExt
+    "job-history-interval-configured",	// IPP JobExt
+    "job-history-interval-supported",	// IPP JobExt
     "job-ids-supported",		// IPP JobExt
     "job-impressions-supported",
     "job-k-limit",			// CUPS extension
@@ -1684,6 +1688,7 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
     "marker-message",			// CUPS extension
     "marker-names",			// CUPS extension
     "marker-types",			// CUPS extension
+    "max-client-info-supported",	// IPP JobExt
     "member-names",			// CUPS extension
     "member-uris",			// CUPS extension
     "mopria-certified",			// Mopria extension
@@ -1763,6 +1768,7 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
 					// IPP TRUSTNOONE
     "printer-pkcs7-repertoire-supported",
 					// IPP TRUSTNOONE
+    "printer-requested-client-type",	// IPP JobExt
     "printer-service-type",		// IPP System
     "printer-settable-attributes-supported",
 					// RFC 3380
