@@ -1476,6 +1476,8 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
   cups_json_t	*sigx5c = NULL;		// X.509 certificate chain, if any
 
 
+  DEBUG_printf("cupsJWTSign(jwt=%p, alg=%d, jwk=%p)", (void *)jwt, alg, (void *)jwk);
+
   // Range check input...
   if (!jwt || alg <= CUPS_JWA_NONE || alg >= CUPS_JWA_MAX || !jwk)
   {
@@ -1516,10 +1518,15 @@ cupsJWTSign(cups_jwt_t  *jwt,		// I - JWT object
 
     free(jwt->jose_string);
     jwt->jose_string = cupsJSONExportString(jwt->jose);
-    make_signature(jwt, alg, jwk, signature, &sigsize, &sigkid, NULL);
+
+    if (!make_signature(jwt, alg, jwk, signature, &sigsize, &sigkid, NULL))
+    {
+      DEBUG_puts("2cupsJWTSign: Unable to create X5C signature.");
+      return (false);
+    }
   }
 
-  DEBUG_printf("1cupsJWTSign: jose_string=\"%s\"", jwt->jose_string);
+  DEBUG_printf("1cupsJWTSign: jose_string=\"%s\", sigkid=\"%s\", sigsize=%u", jwt->jose_string, sigkid, (unsigned)sigsize);
 
   // Save the key ID and signature values...
   if (sigkid)
@@ -2196,7 +2203,7 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
       sig_datum.data  = NULL;
       sig_datum.size  = 0;
 
-      if (!gnutls_privkey_sign_data(key, algs[alg - CUPS_JWA_RS256], 0, &text_datum, &sig_datum) && sig_datum.size <= *sigsize)
+      if (!gnutls_privkey_sign_data(key, algs[alg - CUPS_JWA_ES256], 0, &text_datum, &sig_datum))
       {
         gnutls_datum_t	r, s;		// Signature coordinates
         unsigned sig_len;
@@ -2220,7 +2227,7 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
       }
       else
       {
-	DEBUG_printf("4make_signature: EC signing failed, sig_datum=%d bytes.", (int)sig_datum.size);
+	DEBUG_printf("4make_signature: EC signing failed, sig_datum=%d bytes, sigsize=%d.", (int)sig_datum.size, (int)*sigsize);
       }
       gnutls_free(sig_datum.data);
       gnutls_privkey_deinit(key);
