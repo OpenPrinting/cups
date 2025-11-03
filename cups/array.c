@@ -903,7 +903,8 @@ cupsArrayRemove(cups_array_t *a,	// I - Array
                 void         *e)	// I - Element
 {
   ssize_t	i,			// Looping var
-		current;		// Current element
+		current,		// Current element
+		start;			// Start of equal elements
   int		diff;			// Difference
 
 
@@ -918,6 +919,44 @@ cupsArrayRemove(cups_array_t *a,	// I - Array
   current = cups_array_find(a, e, a->current, &diff);
   if (diff)
     return (0);
+
+  // If the array allows duplicates (!a->unique) and has a compare function,
+  // we need to find the exact pointer match.
+  if (!a->unique && a->compare && a->elements[current] != e)
+  {
+      start = current;
+      while (start > 0 && !(*(a->compare))(e, a->elements[start - 1], a->data))
+          start--;
+
+      // Search for the exact pointer match...
+      for (i = start; i <= current; i++)
+      {
+          if (a->elements[i] == e)
+          {
+              current = i;
+              break;
+          }
+      }
+
+      // If not found before current, search after...
+      if (a->elements[current] != e)
+      {
+          for (i = current + 1; i < a->num_elements; i++)
+          {
+              if ((*(a->compare))(e, a->elements[i], a->data))
+                  break; // No more equal elements
+              if (a->elements[i] == e)
+              {
+                  current = i;
+                  break;
+              }
+          }
+      }
+
+      // If still no exact match found, the element is not in the array...
+      if (a->elements[current] != e)
+          return (0);
+  }
 
   // Yes, now remove it...
   a->num_elements --;
