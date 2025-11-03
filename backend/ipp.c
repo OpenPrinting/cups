@@ -1565,10 +1565,19 @@ main(int  argc,				/* I - Number of command-line args */
       const char *www_auth = httpGetField(http, HTTP_FIELD_WWW_AUTHENTICATE);
 					/* WWW-Authenticate field value */
 
-      if (!strncmp(www_auth, "Negotiate", 9))
-	auth_info_required = "negotiate";
-      else if (www_auth[0])
-	auth_info_required = "username,password";
+      if (www_auth)
+      {
+	if (!strncmp(www_auth, "Negotiate", 9))
+	  auth_info_required = "negotiate";
+	else if (www_auth[0])
+	  auth_info_required = "username,password";
+       /*
+	* If www_auth exists but is empty, server requires authentication
+	* but didn't specify the type - default to username/password...
+	*/
+	else
+	  auth_info_required = "username,password";
+      }
 
       goto cleanup;
     }
