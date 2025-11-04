@@ -813,7 +813,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   */
 
   cupsRasterClose(ras);
-  if (fd != 0)
+  if (fd > 0)
     close(fd);
 
  /*
