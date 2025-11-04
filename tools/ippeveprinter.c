@@ -2094,6 +2094,7 @@ finish_document_data(
   // Close the file descriptor
   if (close(job->fd))
   {
+    job->fd = -1;
     respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to close print file: %s", strerror(errno));
     goto cleanup_and_abort;
   }
