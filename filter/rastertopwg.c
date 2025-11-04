@@ -490,7 +490,7 @@ main(int  argc,				/* I - Number of command-line args */
   }
 
   cupsRasterClose(inras);
-  if (fd)
+  if (fd > 0)
     close(fd);
 
   cupsRasterClose(outras);

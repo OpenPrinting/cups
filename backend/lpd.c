@@ -523,7 +523,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   if (tmpfilename[0])
     unlink(tmpfilename);
 
-  if (fd)
+  if (fd > 0)
     close(fd);
 
   if (snmp_fd >= 0)
@@ -948,7 +948,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
     * Next, open the print file and figure out its size...
     */
 
-    if (print_fd)
+    if (print_fd > 0)
     {
      /*
       * Use the size from the print file...
