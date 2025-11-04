@@ -34,6 +34,7 @@
  * Local functions...
  */
 
+static void	add_ppd_defaults_to_ipp(cupsd_printer_t *p, ppd_file_t *ppd);
 static void	add_printer_defaults(cupsd_printer_t *p);
 static void	add_printer_filter(cupsd_printer_t *p, mime_type_t *type,
 				   const char *filter);
@@ -3377,6 +3378,185 @@ add_printer_defaults(cupsd_printer_t *p)/* I - Printer */
 
 
 /*
+ * 'add_ppd_defaults_to_ipp()' - Map PPD option defaults to IPP "-default" attributes.
+ */
+
+static void
+add_ppd_defaults_to_ipp(cupsd_printer_t *p,	/* I - Printer */
+                        ppd_file_t *ppd)	/* I - PPD file */
+{
+  ppd_option_t	*option;		/* Current PPD option */
+  ppd_group_t	*group;			/* Current PPD group */
+  const char	*ipp_name;		/* IPP attribute name */
+  const char	*ipp_value;		/* IPP attribute value */
+  const char	*mapped_value;		/* Mapped IPP attribute value */
+  char		attr_name[256];		/* Attribute name buffer */
+  int		i;			/* Looping var */
+
+
+ /*
+  * Skip if no PPD or PPD cache...
+  */
+
+  if (!ppd || !p->pc)
+    return;
+
+ /*
+  * Loop through all PPD options and map their defaults to IPP attributes...
+  */
+
+  for (group = ppd->groups; group; group = group->next)
+  {
+    for (option = (ppd_option_t *)cupsArrayFirst(group->options);
+         option;
+	 option = (ppd_option_t *)cupsArrayNext(group->options))
+    {
+     /*
+      * Skip if no default choice...
+      */
+
+      if (!option->defchoice || !option->defchoice[0])
+	continue;
+
+     /*
+      * Skip options that are already explicitly handled...
+      */
+
+      if (!strcmp(option->keyword, "PageSize") ||
+          !strcmp(option->keyword, "PageRegion") ||
+          !strcmp(option->keyword, "ColorModel") ||
+          !strcmp(option->keyword, "HPColorMode") ||
+          !strcmp(option->keyword, "BRMonoColor") ||
+          !strcmp(option->keyword, "CNIJSGrayScale") ||
+          !strcmp(option->keyword, "HPColorAsGray") ||
+          !strcmp(option->keyword, "Resolution") ||
+          !strcmp(option->keyword, "JCLResolution") ||
+          !strcmp(option->keyword, "SetResolution") ||
+          !strcmp(option->keyword, "CNRes_PGP") ||
+          !strcmp(option->keyword, "Duplex") ||
+          !strcmp(option->keyword, "EFDuplex") ||
+          !strcmp(option->keyword, "EFDuplexing") ||
+          !strcmp(option->keyword, "KD03Duplex") ||
+          !strcmp(option->keyword, "JCLDuplex") ||
+          !strcmp(option->keyword, "OutputBin") ||
+          !strcmp(option->keyword, "InputSlot") ||
+          !strcmp(option->keyword, "HPPaperSource") ||
+          !strcmp(option->keyword, "MediaType") ||
+          !strcmp(option->keyword, "DefaultMediaType") ||
+          !strcmp(option->keyword, "DefaultInputSlot"))
+	continue;
+
+     /*
+      * Map PPD option names to IPP attribute names...
+      */
+
+      ipp_name = NULL;
+      ipp_value = option->defchoice;
+      mapped_value = ipp_value;
+
+      if (!strcmp(option->keyword, "OutputOrder"))
+	ipp_name = "output-order";
+      else if (!strcmp(option->keyword, "Collate"))
+      {
+	ipp_name = "multiple-document-handling";
+	/*
+	 * Map Collate values to IPP multiple-document-handling values...
+	 */
+	if (!_cups_strcasecmp(ipp_value, "True") ||
+            !_cups_strcasecmp(ipp_value, "On") ||
+            !_cups_strcasecmp(ipp_value, "Yes"))
+	{
+	  mapped_value = "separate-documents-collated-copies";
+	}
+	else
+	{
+	  mapped_value = "separate-documents-uncollated-copies";
+	}
+      }
+      else if (!strcmp(option->keyword, "cupsPrintQuality") ||
+               !strcmp(option->keyword, "OutputMode"))
+      {
+	ipp_name = "print-quality";
+	/*
+	 * Map quality names to IPP enum values...
+	 */
+	if (!_cups_strcasecmp(ipp_value, "draft") ||
+            !_cups_strcasecmp(ipp_value, "fast"))
+	{
+	  if (!ippFindAttribute(p->attrs, "print-quality-default", IPP_TAG_ZERO))
+	    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_ENUM, "print-quality-default", IPP_QUALITY_DRAFT);
+	}
+	else if (!_cups_strcasecmp(ipp_value, "best") ||
+		 !_cups_strcasecmp(ipp_value, "high"))
+	{
+	  if (!ippFindAttribute(p->attrs, "print-quality-default", IPP_TAG_ZERO))
+	    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_ENUM, "print-quality-default", IPP_QUALITY_HIGH);
+	}
+	else
+	{
+	  if (!ippFindAttribute(p->attrs, "print-quality-default", IPP_TAG_ZERO))
+	    ippAddInteger(p->attrs, IPP_TAG_PRINTER, IPP_TAG_ENUM, "print-quality-default", IPP_QUALITY_NORMAL);
+	}
+	continue;
+      }
+      else
+      {
+       /*
+	* For other options, convert the option name to lowercase with dashes
+	* and append "-default"...
+	*/
+
+	snprintf(attr_name, sizeof(attr_name), "%s-default", option->keyword);
+	for (i = 0; attr_name[i]; i ++)
+	{
+	  if (attr_name[i] >= 'A' && attr_name[i] <= 'Z')
+	    attr_name[i] = (char)(attr_name[i] | 32); /* tolower */
+	  else if (attr_name[i] == '_')
+	    attr_name[i] = '-';
+	}
+
+	ipp_name = attr_name;
+      }
+
+     /*
+      * Skip if we already have this attribute...
+      */
+
+      if (ippFindAttribute(p->attrs, ipp_name, IPP_TAG_ZERO))
+	continue;
+
+     /*
+      * Add the IPP "-default" attribute...
+      */
+
+      if (ipp_name && mapped_value)
+      {
+       /*
+	* For boolean options, convert to boolean...
+	*/
+
+	if (option->ui == PPD_UI_BOOLEAN)
+	{
+	  ippAddBoolean(p->attrs, IPP_TAG_PRINTER, ipp_name,
+			!_cups_strcasecmp(mapped_value, "True") ||
+			!_cups_strcasecmp(mapped_value, "On") ||
+			!_cups_strcasecmp(mapped_value, "Yes"));
+	}
+	else
+	{
+	 /*
+	  * For other options, add as string/keyword...
+	  */
+
+	  ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, ipp_name, NULL, mapped_value);
+	}
+      }
+    }
+  }
+}
+
+
+/*
  * 'add_printer_filter()' - Add a MIME filter for a printer.
  */
 
@@ -5270,6 +5450,12 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
         CFRelease(icnsFileUrl);
     }
 #endif /* HAVE_APPLICATIONSERVICES_H */
+
+   /*
+    * Map PPD defaults to IPP "-default" attributes...
+    */
+
+    add_ppd_defaults_to_ipp(p, ppd);
 
    /*
     * Close the PPD and set the type...
