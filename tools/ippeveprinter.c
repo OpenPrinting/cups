@@ -2070,7 +2070,6 @@ finish_document_data(
   if ((job->fd = create_job_file(job, filename, sizeof(filename), client->printer->directory, NULL)) < 0)
   {
     respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to create print file: %s", strerror(errno));
-
     goto abort_job;
   }
 
@@ -2081,43 +2080,23 @@ finish_document_data(
   {
     if (write(job->fd, buffer, (size_t)bytes) < bytes)
     {
-      int error = errno;		// Write error
-
-      close(job->fd);
-      job->fd = -1;
-
-      unlink(filename);
-
-      respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to write print file: %s", strerror(error));
-
-      goto abort_job;
+      respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to write print file: %s", strerror(errno));
+      goto cleanup_and_abort;
     }
   }
 
   if (bytes < 0)
   {
-    // Got an error while reading the print data, so abort this job.
-    close(job->fd);
-    job->fd = -1;
-
-    unlink(filename);
-
     respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to read print file.");
-
-    goto abort_job;
+    goto cleanup_and_abort;
   }
 
+  // Close the file descriptor
   if (close(job->fd))
   {
-    int error = errno;			// Write error
-
     job->fd = -1;
-
-    unlink(filename);
-
-    respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to write print file: %s", strerror(error));
-
-    goto abort_job;
+    respond_ipp(client, IPP_STATUS_ERROR_INTERNAL, "Unable to close print file: %s", strerror(errno));
+    goto cleanup_and_abort;
   }
 
   job->fd       = -1;
@@ -2150,6 +2129,17 @@ finish_document_data(
   copy_job_attributes(client, job, ra);
   cupsArrayDelete(ra);
   return;
+
+  // Cleanup file on error, then abort job...
+  cleanup_and_abort:
+
+  if (job->fd >= 0)
+  {
+    close(job->fd);
+    job->fd = -1;
+  }
+
+  unlink(filename);
 
   // If we get here we had to abort the job...
   abort_job:
