@@ -378,7 +378,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   tbytes = 0;
 
   if (bytes > 0)
-    tbytes += write(device_fd, buffer, (size_t)bytes);
+    tbytes += send(device_fd, buffer, (size_t)bytes, 0);
 
   while (copies > 0 && tbytes >= 0)
   {
@@ -472,7 +472,7 @@ wait_bc(int device_fd,			/* I - Socket */
     * Grab the data coming back and spit it out to stderr...
     */
 
-    if ((bytes = read(device_fd, buffer, sizeof(buffer))) > 0)
+    if ((bytes = recv(device_fd, buffer, sizeof(buffer), 0)) > 0)
     {
       fprintf(stderr, "DEBUG: Received %d bytes of back-channel data\n",
 	      (int)bytes);

@@ -1057,7 +1057,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       }
       else
       {
-        if (read(fd, &status, 1) < 1)
+        if (recv(fd, &status, 1, 0) < 1)
 	{
 	  _cupsLangPrintFilter(stderr, "WARNING",
 	                       _("The printer did not respond."));
@@ -1189,7 +1189,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
       }
       else
       {
-        if (read(fd, &status, 1) < 1)
+        if (recv(fd, &status, 1, 0) < 1)
 	{
 	  _cupsLangPrintFilter(stderr, "WARNING",
 			       _("The printer did not respond."));
