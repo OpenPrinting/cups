@@ -3007,9 +3007,9 @@ parse_generate_file(
 			*response = NULL;// Get-Printer-Attributes response
   ipp_attribute_t	*attr;		// Current attribute
   const char		*keyword;	// Keyword value
-  char			token[256],	// Token string
-			temp[1024],	// Temporary string
-			value[1024],	// Value string
+  char			token[256] = "",	// Token string
+			temp[1024] = "",	// Temporary string
+			value[1024] = "",	// Value string
 			*ptr;		// Pointer into value
   static const char *autos[][2] =	// Automatic color/monochrome keywords
   {
