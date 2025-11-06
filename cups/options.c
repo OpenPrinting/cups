@@ -103,11 +103,19 @@ cupsAddOption(const char    *name,	/* I  - Name of option */
 
     DEBUG_printf("4cupsAddOption: New option inserted at index %d...", insert);
 
-    if (num_options == 0)
-      temp = (cups_option_t *)malloc(sizeof(cups_option_t));
+	if (num_options == 0)
+    {
+      temp = (cups_option_t *)calloc(1, sizeof(cups_option_t));
+    }
     else
+    {
       temp = (cups_option_t *)realloc(*options, sizeof(cups_option_t) * (size_t)(num_options + 1));
-
+      if (temp)
+      {
+        memset(&temp[num_options], 0, sizeof(cups_option_t));
+      }
+    }
+    
     if (!temp)
     {
       DEBUG_puts("3cupsAddOption: Unable to expand option array, returning 0");
