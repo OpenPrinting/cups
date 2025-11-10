@@ -2,6 +2,12 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
+Changes in CUPS v2.4.15 (YYYY-MM-DD)
+------------------------------------
+
+- Fixed error recovery when scanning for PPDs in `cups-driverd` (Issue #1416)
+
+
 Changes in CUPS v2.4.14 (2025-09-11)
 ------------------------------------
 

@@ -5,7 +5,7 @@
  * created from driver information files, and dynamically generated PPD files
  * using driver helper programs.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -175,7 +175,7 @@ static int		load_drv(const char *filename, const char *name,
 static void		load_ppd(const char *filename, const char *name,
 			         const char *scheme, struct stat *fileinfo,
 			         ppd_info_t *ppd, cups_file_t *fp, off_t end);
-static int		load_ppds(const char *d, const char *p, int descend);
+static void		load_ppds(const char *d, const char *p, int descend);
 static void		load_ppds_dat(char *filename, size_t filesize,
 			              int verbose);
 static int		load_tar(const char *filename, const char *name,
@@ -2359,7 +2359,7 @@ load_ppd(const char  *filename,		/* I - Real filename */
  * 'load_ppds()' - Load PPD files recursively.
  */
 
-static int				/* O - 1 on success, 0 on failure */
+static void
 load_ppds(const char *d,		/* I - Actual directory */
           const char *p,		/* I - Virtual path in name */
 	  int        descend)		/* I - Descend into directories? */
@@ -2387,13 +2387,13 @@ load_ppds(const char *d,		/* I - Actual directory */
       fprintf(stderr, "ERROR: [cups-driverd] Unable to stat \"%s\": %s\n", d,
 	      strerror(errno));
 
-    return (0);
+    return;
   }
   else if (cupsArrayFind(Inodes, &dinfo))
   {
     fprintf(stderr, "ERROR: [cups-driverd] Skipping \"%s\": loop detected!\n",
             d);
-    return (1);
+    return;
   }
 
  /*
@@ -2415,7 +2415,7 @@ load_ppds(const char *d,		/* I - Actual directory */
 
   if (_cupsFileCheck(d, _CUPS_FILE_CHECK_DIRECTORY, !geteuid(),
 		     _cupsFileCheckFilter, NULL))
-    return (0);
+    return;
 
   if ((dir = cupsDirOpen(d)) == NULL)
   {
@@ -2424,7 +2424,7 @@ load_ppds(const char *d,		/* I - Actual directory */
 	      "ERROR: [cups-driverd] Unable to open PPD directory \"%s\": %s\n",
 	      d, strerror(errno));
 
-    return (0);
+    return;
   }
 
   fprintf(stderr, "DEBUG: [cups-driverd] Loading \"%s\"...\n", d);
@@ -2457,11 +2457,7 @@ load_ppds(const char *d,		/* I - Actual directory */
 
       if (descend)
       {
-	if (!load_ppds(filename, name, 1))
-	{
-	  cupsDirClose(dir);
-	  return (1);
-	}
+	load_ppds(filename, name, 1);
       }
       else if ((ptr = filename + strlen(filename) - 14) > filename &&
 	       !strcmp(ptr, ".printerDriver"))
@@ -2572,8 +2568,6 @@ load_ppds(const char *d,		/* I - Actual directory */
   }
 
   cupsDirClose(dir);
-
-  return (1);
 }
 
 
