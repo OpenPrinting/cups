@@ -96,6 +96,8 @@ do_login(void)
 {
   const char	*oauth_uri = getenv("CUPS_OAUTH_SERVER"),
 					// OAuth authorization server URL
+		*referer = getenv("HTTP_REFERER"),
+					// Referer: header
 		*server_name = getenv("SERVER_NAME"),
 					// SERVER_NAME value
 		*server_port = getenv("SERVER_PORT"),
@@ -156,7 +158,9 @@ do_login(void)
 
   // Redirect...
   cgiSetCookie("CUPS_OAUTH_STATE", state, /*path*/NULL, /*domain*/NULL, time(NULL) + 300, /*secure*/0);
-  cgiSetCookie("CUPS_REFERRER", getenv("HTTP_REFERER"), /*path*/NULL, /*domain*/NULL, time(NULL) + 300, /*secure*/0);
+
+  if (referer)
+    cgiSetCookie("CUPS_REFERRER", referer, /*path*/NULL, /*domain*/NULL, time(NULL) + 300, /*secure*/0);
 
   do_redirect(url);
 
@@ -236,6 +240,8 @@ finish_login(void)
 {
   const char	*oauth_uri = getenv("CUPS_OAUTH_SERVER"),
 					// OAuth authorization server URL
+		*referer = getenv("CUPS_REFERER"),
+					// Referring URL
 		*server_name = getenv("SERVER_NAME"),
 					// SERVER_NAME value
 		*server_port = getenv("SERVER_PORT");
@@ -247,6 +253,11 @@ finish_login(void)
   const char	*code;			// Authorization code
   cups_json_t	*metadata = NULL;	// OAuth metadata
   time_t	access_expires;		// When the bearer token expires
+  char		scheme[32],		// Referer scheme
+		userpass[256],		// Referer username:password
+		host[256],		// Referer host
+		resource[1024];		// Referer resource
+  int		port;			// Referer port
 
 
   // Show any error from authorization...
@@ -300,7 +311,15 @@ finish_login(void)
   cgiSetCookie("CUPS_BEARER", bearer, /*path*/NULL, /*domain*/NULL, access_expires, /*secure*/0);
 
   // Redirect...
-  do_redirect(cgiGetCookie("CUPS_REFERRER"));
+  if (referer && server_name && server_port)
+  {
+    // Validate refererring URL value - must be http: or https:, use the server
+    // name or localhost addresses, and use the same port...
+    if (httpSeparateURI(HTTP_URI_CODING_ALL, referer, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK || (strcmp(scheme, "http") && strcmp(scheme, "https")) || (strcasecmp(host, server_name) && strcmp(host, "127.0.0.1") && strcmp(host, "[::1]")) || port != atoi(server_port))
+      referer = NULL;
+  }
+
+  do_redirect(referer ? referer : "/");
 
   fputs("DEBUG2: finish_login: After redirect.\n", stderr);
 
