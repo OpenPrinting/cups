@@ -449,8 +449,8 @@ _cupsSetNegotiateAuthString(
   {
     // Allocate the authorization string since Windows KDCs can have
     // arbitrarily large credentials...
-    int authsize = 10 +			// "Negotiate "
-		   (((int)output_token.length * 4 / 3 + 3) & ~3) + 1;
+    size_t authsize = (size_t)(10 +	// "Negotiate "
+			       ((output_token.length * 4 / 3 + 3) & ~3U) + 1);
 		   			// Base64 + nul
 
     httpSetAuthString(http, NULL, NULL);

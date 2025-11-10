@@ -2019,7 +2019,7 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
   }
 
   // If the attribute contains a single "all" keyword, return NULL...
-  count = ippGetCount(requested);
+  count = (size_t)ippGetCount(requested);
   if (count == 1 && !strcmp(ippGetString(requested, 0, NULL), "all"))
     return (NULL);
 

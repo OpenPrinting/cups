@@ -6042,7 +6042,7 @@ ipp_set_value(ipp_t           *ipp,	// IO - IPP message
   if (temp->num_values <= 1)
     alloc_values = 1;
   else
-    alloc_values = (temp->num_values + IPP_MAX_VALUES - 1) & (size_t)~(IPP_MAX_VALUES - 1);
+    alloc_values = (temp->num_values + IPP_MAX_VALUES - 1) & ~(IPP_MAX_VALUES - 1);
 
   if (element < alloc_values)
   {

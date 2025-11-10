@@ -96,7 +96,7 @@ cupsAreCredentialsValidForName(
     STACK_OF(GENERAL_NAME) *names = NULL;
 					// subjectAltName values
 
-    DEBUG_printf("1cupsAreCredentialsValidForName: certs=%p(num=%d), cert=%p", certs, sk_X509_num(certs), cert);
+    DEBUG_printf("1cupsAreCredentialsValidForName: certs=%p(num=%d), cert=%p", (void *)certs, sk_X509_num(certs), (void *)cert);
 
     X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName));
     DEBUG_printf("1cupsAreCredentialsValidForName: subjectName=\"%s\"", subjectName);
@@ -116,7 +116,7 @@ cupsAreCredentialsValidForName(
     if (!result)
     {
       names = X509_get_ext_d2i(cert, NID_subject_alt_name, /*crit*/NULL, /*idx*/NULL);
-      DEBUG_printf("1cupsAreCredentialsValidForName: names=%p", names);
+      DEBUG_printf("1cupsAreCredentialsValidForName: names=%p", (void *)names);
     }
 
     if (names)
