@@ -1,7 +1,7 @@
 dnl
 dnl Configuration script for CUPS.
 dnl
-dnl Copyright © 2020-2023 by OpenPrinting
+dnl Copyright © 2020-2025 by OpenPrinting
 dnl Copyright © 2007-2020 by Apple Inc.
 dnl Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 dnl
@@ -13,7 +13,7 @@ dnl We need at least autoconf 2.71...
 AC_PREREQ([2.71])
 
 dnl Package name and version...
-AC_INIT([CUPS],[2.4.14],[https://github.com/openprinting/cups/issues],[cups],[https://openprinting.github.io/cups])
+AC_INIT([CUPS],[2.4.15],[https://github.com/openprinting/cups/issues],[cups],[https://openprinting.github.io/cups])
 
 dnl This line is provided to ensure that you don't run the autoheader program
 dnl against this project.  Doing so is completely unsupported and WILL cause
