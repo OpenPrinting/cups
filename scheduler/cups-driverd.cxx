@@ -1100,26 +1100,6 @@ list_ppds(int        request_id,	// I - Request ID
 #endif // __APPLE__
 
  /*
-  * Cull PPD files that are no longer present...
-  */
-
-  for (ppd = (ppd_info_t *)cupsArrayFirst(PPDsByName);
-       ppd;
-       ppd = (ppd_info_t *)cupsArrayNext(PPDsByName))
-    if (!ppd->found)
-    {
-     /*
-      * Remove this PPD file from the list...
-      */
-
-      cupsArrayRemove(PPDsByName, ppd);
-      cupsArrayRemove(PPDsByMakeModel, ppd);
-      free(ppd);
-
-      ChangedPPD = 1;
-    }
-
- /*
   * Write the new ppds.dat file...
   */
 
@@ -1137,10 +1117,11 @@ list_ppds(int        request_id,	// I - Request ID
 
       cupsFileWrite(fp, (char *)&ppdsync, sizeof(ppdsync));
 
-      for (ppd = (ppd_info_t *)cupsArrayFirst(PPDsByName);
-	   ppd;
-	   ppd = (ppd_info_t *)cupsArrayNext(PPDsByName))
-	cupsFileWrite(fp, (char *)&(ppd->record), sizeof(ppd_rec_t));
+      for (ppd = (ppd_info_t *)cupsArrayFirst(PPDsByName); ppd; ppd = (ppd_info_t *)cupsArrayNext(PPDsByName))
+      {
+        if (ppd->found)
+	  cupsFileWrite(fp, (char *)&(ppd->record), sizeof(ppd_rec_t));
+      }
 
       cupsFileClose(fp);
 
@@ -1309,7 +1290,8 @@ list_ppds(int        request_id,	// I - Request ID
       */
 
       if (ppd->record.type < PPD_TYPE_POSTSCRIPT ||
-	  ppd->record.type >= PPD_TYPE_DRV)
+	  ppd->record.type >= PPD_TYPE_DRV ||
+	  !ppd->found)
 	continue;
 
       if (cupsArrayFind(exclude, ppd->record.scheme) ||
@@ -1422,7 +1404,8 @@ list_ppds(int        request_id,	// I - Request ID
       */
 
       if (ppd->record.type < PPD_TYPE_POSTSCRIPT ||
-	  ppd->record.type >= PPD_TYPE_DRV)
+	  ppd->record.type >= PPD_TYPE_DRV ||
+	  !ppd->found)
 	continue;
 
       if (cupsArrayFind(exclude, ppd->record.scheme) ||
@@ -1444,7 +1427,8 @@ list_ppds(int        request_id,	// I - Request ID
     */
 
     if (ppd->record.type < PPD_TYPE_POSTSCRIPT ||
-        ppd->record.type >= PPD_TYPE_DRV)
+        ppd->record.type >= PPD_TYPE_DRV ||
+        !ppd->found)
       continue;
 
    /*
