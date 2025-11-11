@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.15 (YYYY-MM-DD)
 ------------------------------------
 
+- Fixed potential crash in `cups-driverd` when there are duplicate PPDs
+  (Issue #1355)
 - Fixed error recovery when scanning for PPDs in `cups-driverd` (Issue #1416)
 
 
