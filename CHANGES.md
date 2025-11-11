@@ -84,6 +84,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   values.
 - Updated the setuid/gid checks in libcups to use `getauxval` on Linux to avoid
   potential security issues (Issue #1258)
+- Updated the ready media support to report the default paper size/source/type
+  from the PPD file (Issue #1388)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error

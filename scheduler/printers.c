@@ -3767,8 +3767,11 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
   int		xdpi,			/* Horizontal resolution */
 		ydpi;			/* Vertical resolution */
   const char	*resptr;		/* Pointer into resolution keyword */
-  pwg_size_t	*pwgsize;		/* Current PWG size */
-  pwg_map_t	*pwgsource,		/* Current PWG source */
+  pwg_size_t	*defsize = NULL,	/* Default PWG size */
+		*pwgsize;		/* Current PWG size */
+  pwg_map_t	*defsource = NULL,	/* Default PWG source */
+		*deftype = NULL,	/* Default PWG type */
+		*pwgsource,		/* Current PWG source */
 		*pwgtype;		/* Current PWG type */
   ipp_attribute_t *attr;		/* Attribute data */
   _ipp_value_t	*val;			/* Attribute value */
@@ -4300,23 +4303,21 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       */
 
       if ((size = ppdPageSize(ppd, NULL)) != NULL)
-	pwgsize = _ppdCacheGetSize(p->pc, size->name, size);
+	defsize = _ppdCacheGetSize(p->pc, size->name, size);
       else
-        pwgsize = NULL;
+        defsize = NULL;
 
-      ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-		   "media-default", NULL,
-		   pwgsize ? pwgsize->map.pwg : "unknown");
+      ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-default", NULL, defsize ? defsize->map.pwg : "unknown");
 
      /*
       * media-col-default
       */
 
-      if (pwgsize)
+      if (defsize)
       {
         ipp_t	*col;			/* Collection value */
 
-	col = new_media_col(pwgsize);
+	col = new_media_col(defsize);
 
         if ((ppd_attr = ppdFindAttr(ppd, "DefaultMediaType", NULL)) != NULL)
         {
@@ -4326,7 +4327,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
           {
             if (!strcmp(pwgtype->ppd, ppd_attr->value))
             {
-              ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-type", NULL, pwgtype->pwg);
+              deftype = pwgtype;
+              ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-type", NULL, deftype->pwg);
               break;
             }
           }
@@ -4340,7 +4342,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
           {
             if (!strcmp(pwgsource->ppd, ppd_attr->value))
             {
-              ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-source", NULL, pwgsource->pwg);
+              defsource = pwgsource;
+              ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-source", NULL, defsource->pwg);
               break;
             }
           }
@@ -4618,6 +4621,52 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
 	ippDelete(col);
       }
+    }
+
+    if (defsize)
+    {
+      // Add default size to media[-col]-ready as needed...
+      ipp_t *col = new_media_col(defsize);
+					// media-col-ready value
+
+      if (defsource)
+      {
+	ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-source", NULL, defsource->pwg);
+      }
+      else if (media_col_ready)
+      {
+	char	source[128];		// media-source value
+
+	snprintf(source, sizeof(source), "auto.%d", ippGetCount(media_col_ready) + 1);
+	ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-source", NULL, source);
+      }
+      else
+      {
+	ippAddString(col, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_KEYWORD), "media-source", NULL, "auto");
+      }
+
+      if (deftype)
+	ippAddString(col, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-type", NULL, deftype->pwg);
+
+      if (media_ready)
+      {
+        // Only add the default size if it isn't already in the ready list...
+        if (!ippContainsString(media_ready, defsize->map.pwg))
+          ippSetString(p->ppd_attrs, &media_ready, ippGetCount(media_ready), defsize->map.pwg);
+      }
+      else
+      {
+        // Add "media-ready"...
+        media_ready = ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-ready", NULL, defsize->map.pwg);
+      }
+
+      // Add/update media-col-ready...
+      if (media_col_ready)
+        ippSetCollection(p->ppd_attrs, &media_col_ready, ippGetCount(media_col_ready), col);
+      else
+	media_col_ready = ippAddCollection(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-ready", col);
+
+      ippDelete(col);
     }
 
     ippAddString(p->ppd_attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_TEXT), "mopria-certified", NULL, "1.3");
