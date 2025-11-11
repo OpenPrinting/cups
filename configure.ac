@@ -9,8 +9,8 @@ dnl Licensed under Apache License v2.0.  See the file "LICENSE" for more
 dnl information.
 dnl
 
-dnl We need at least autoconf 2.71...
-AC_PREREQ([2.71])
+dnl We need at least autoconf 2.72...
+AC_PREREQ([2.72])
 
 dnl Package name and version...
 AC_INIT([CUPS],[2.5b1],[https://github.com/openprinting/cups/issues],[cups],[https://openprinting.github.io/cups])
