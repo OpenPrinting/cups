@@ -3783,8 +3783,9 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 		margins[16];		/* media-*-margin-supported values */
   const char	*filter,		/* Current filter */
 		*mandatory;		/* Current mandatory attribute */
-  ipp_attribute_t *media_col_ready,	/* media-col-ready attribute */
-		*media_ready;		/* media-ready attribute */
+  ipp_attribute_t *media_col_ready = NULL,
+					/* media-col-ready attribute */
+		*media_ready = NULL;	/* media-ready attribute */
   int		num_urf;		/* Number of urf-supported values */
   const char	*urf[16],		/* urf-supported values */
 		*urf_prefix;		/* Prefix string for value */
@@ -4360,6 +4361,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       num_media = p->pc->num_sizes;
       if (p->pc->custom_min_keyword)
 	num_media += 2;
+      if (defsize && !strncmp(defsize->map.pwg, "custom_", 7))
+        num_media ++;
 
       if ((attr = ippAddStrings(p->ppd_attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
 			        "media-supported", num_media, NULL,
@@ -4371,6 +4374,13 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	     i > 0;
 	     i --, pwgsize ++, val ++)
 	  val->string.text = _cupsStrAlloc(pwgsize->map.pwg);
+
+        if (defsize && !strncmp(defsize->map.pwg, "custom_", 7))
+	{
+	  // Include default custom size in media-supported...
+	  val->string.text = _cupsStrAlloc(defsize->map.pwg);
+	  val ++;
+	}
 
         if (p->pc->custom_min_keyword)
 	{
@@ -4387,6 +4397,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       num_media = p->pc->num_sizes;
       if (p->pc->custom_min_keyword)
 	num_media ++;
+      if (defsize && !strncmp(defsize->map.pwg, "custom_", 7))
+        num_media ++;
 
       if ((attr = ippAddCollections(p->ppd_attrs, IPP_TAG_PRINTER,
 				    "media-size-supported", num_media,
@@ -4403,6 +4415,15 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	                "x-dimension", pwgsize->width);
 	  ippAddInteger(val->collection, IPP_TAG_PRINTER, IPP_TAG_INTEGER,
 	                "y-dimension", pwgsize->length);
+        }
+
+        if (defsize && !strncmp(defsize->map.pwg, "custom_", 7))
+        {
+          // Include default custom size in media-size-supported...
+	  val->collection = ippNew();
+	  ippAddInteger(val->collection, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "x-dimension", defsize->width);
+	  ippAddInteger(val->collection, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "y-dimension", defsize->length);
+	  val ++;
         }
 
         if (p->pc->custom_min_keyword)
@@ -4546,6 +4567,8 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       num_media = p->pc->num_sizes;
       if (p->pc->custom_min_keyword)
 	num_media ++;
+      if (defsize && !strncmp(defsize->map.pwg, "custom_", 7))
+        num_media ++;
 
       if ((attr = ippAddCollections(p->ppd_attrs, IPP_TAG_PRINTER, "media-col-database", num_media, NULL)) != NULL)
       {
@@ -4560,6 +4583,16 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 	  ippSetCollection(p->ppd_attrs, &attr, i, col);
 	  ippDelete(col);
 	}
+
+        if (defsize && !strncmp(defsize->map.pwg, "custom_", 7))
+        {
+          // Include default custom size in media-col-database...
+	  ipp_t *col = new_media_col(defsize);
+
+	  ippSetCollection(p->ppd_attrs, &attr, i, col);
+	  ippDelete(col);
+	  i ++;
+        }
 
        /*
 	* Add a range if the printer supports custom sizes.
@@ -4623,7 +4656,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
       }
     }
 
-    if (defsize)
+    if (defsize && cupsArrayGetCount(ReadyPaperSizes) > 0)
     {
       // Add default size to media[-col]-ready as needed...
       ipp_t *col = new_media_col(defsize);
