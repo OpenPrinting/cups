@@ -2852,12 +2852,12 @@ _ppdCacheGetSize(
       return (NULL);
     }
 
+    pwgFormatSizeName(pc->custom_pwg_size, sizeof(pc->custom_pwg_size), "custom", /*name*/NULL, (int)w, (int)l, /*units*/NULL);
+
     pc->custom_size.map.ppd = (char *)page_size;
+    pc->custom_size.map.pwg = pc->custom_pwg_size;
     pc->custom_size.width   = (int)w;
     pc->custom_size.length  = (int)l;
-
-    if ((media = pwgMediaForSize((int)w, (int)l)) != NULL)
-      pc->custom_size.map.pwg = (char *)media->pwg;
 
     return (&(pc->custom_size));
   }

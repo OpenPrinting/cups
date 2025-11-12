@@ -1021,11 +1021,11 @@ _pwgMediaNearSize(pwg_media_t *pwg,	/* I - Media buffer */
  /*
   * Not a standard size; convert it to a PWG custom name of the form:
   *
-  *     custom_WIDTHxHEIGHTuu_WIDTHxHEIGHTuu
+  *     [oe|om]_WIDTHxHEIGHTuu_WIDTHxHEIGHTuu
   */
 
   if (keyword)
-    pwgFormatSizeName(keyword, keysize, "custom", NULL, width, length, NULL);
+    pwgFormatSizeName(keyword, keysize, /*prefix*/NULL, NULL, width, length, NULL);
 
   if (ppdname)
   {

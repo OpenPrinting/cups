@@ -1,7 +1,7 @@
 /*
  * Private PPD definitions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -109,7 +109,8 @@ struct _ppd_cache_s			/**** PPD cache and PWG conversion data ****/
 		custom_min_length;	/* Minimum custom length in 2540ths */
   char		*custom_max_keyword,	/* Maximum custom size PWG keyword */
 		*custom_min_keyword,	/* Minimum custom size PWG keyword */
-		custom_ppd_size[41];	/* Custom PPD size name */
+		custom_ppd_size[41],	/* Custom PPD size name */
+		custom_pwg_size[128];	/* Custom PWG size name */
   pwg_size_t	custom_size;		/* Custom size record */
   char		*source_option;		/* PPD option for media source */
   int		num_sources;		/* Number of media sources */
