@@ -3524,14 +3524,12 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 {
   int		i;			/* Looping var */
   mime_type_t	*type;			/* Current MIME type */
-  cups_array_t	*filters;		/* Filters */
   ipp_attribute_t *attr;		/* document-format-supported attribute */
   char		mimetype[MIME_MAX_SUPER + MIME_MAX_TYPE + 2];
 					/* MIME type name */
   const char	*preferred = "image/urf";
 					/* document-format-preferred value */
   char		pdl[1024];		/* Buffer to build pdl list */
-  mime_filter_t	*filter;		/* MIME filter looping var */
 
 
  /*
@@ -3549,36 +3547,13 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
   }
 
  /*
-  * Otherwise, loop through the supported MIME types and see if there
-  * are filters for them...
+  * Otherwise, get the list of supported source types...
   */
 
-  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %d types, %d filters", mimeNumTypes(MimeDatabase), mimeNumFilters(MimeDatabase));
+  p->filetypes = mimeGetFilterTypes(MimeDatabase, p->filetype, NULL);
 
-  p->filetypes = cupsArrayNew(NULL, NULL);
-
-  for (type = mimeFirstType(MimeDatabase);
-       type;
-       type = mimeNextType(MimeDatabase))
-  {
-    if (!_cups_strcasecmp(type->super, "printer"))
-      continue;
-
-    snprintf(mimetype, sizeof(mimetype), "%s/%s", type->super, type->type);
-
-    if ((filters = mimeFilter(MimeDatabase, type, p->filetype, NULL)) != NULL)
-    {
-      cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %s needs %d filters", mimetype, cupsArrayCount(filters));
-
-      cupsArrayDelete(filters);
-      cupsArrayAdd(p->filetypes, type);
-
-      if (!strcasecmp(mimetype, "application/pdf"))
-        preferred = "application/pdf";
-    }
-    else
-      cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %s not supported", mimetype);
-  }
+  if ((type = mimeType(MimeDatabase, "application", "pdf")) != NULL && cupsArrayFind(p->filetypes, type))
+    preferred = "application/pdf";
 
  /*
   * Add the file formats that can be filtered...
@@ -3609,21 +3584,10 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
   ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-preferred", NULL, preferred);
 
  /*
-  * We only support raw printing if this is not a Tioga PrintJobMgr based
-  * queue and if application/octet-stream is a known type...
-  */
-
-  for (filter = (mime_filter_t *)cupsArrayFirst(MimeDatabase->filters); filter; filter = (mime_filter_t *)cupsArrayNext(MimeDatabase->filters))
-  {
-    if (filter->dst == p->filetype && strstr(filter->filter, "PrintJobMgr"))
-      break;
-  }
-
-  pdl[0] = '\0';
-
- /*
   * Then list a bunch of formats that are supported by the printer...
   */
+
+  pdl[0] = '\0';
 
   for (type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; type = (mime_type_t *)cupsArrayNext(p->filetypes))
   {

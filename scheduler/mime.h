@@ -85,6 +85,12 @@ typedef struct _mime_type_s		// MIME Type Data
 		type[MIME_MAX_TYPE];	// Type name ("png", "postscript", etc.)
 } mime_type_t;
 
+typedef struct _mime_ftypes_s		// MIME filter types data
+{
+  mime_type_t	*dst;			// Destination type
+  cups_array_t	*srcs;			// Source types
+} mime_ftypes_t;
+
 typedef struct _mime_filter_s		// MIME Conversion Filter Data
 {
   mime_type_t	*src,			// Source type
@@ -101,6 +107,7 @@ typedef struct _mime_s			// MIME Database
   cups_array_t		*types;		// File types
   cups_array_t		*filters;	// Type conversion filters
   cups_array_t		*srcs;		// Filters sorted by source type
+  cups_array_t		*ftypes;	// Filter types
   mime_error_cb_t	error_cb;	// Error message callback
   void			*error_ctx;	// Pointer for callback
   cups_rwlock_t		lock;		// Read/write lock for guarding data for background updates
@@ -125,6 +132,8 @@ extern cups_array_t	*mimeFilter2(mime_t *mime, mime_type_t *src, size_t srcsize,
 extern mime_filter_t	*mimeFilterLookup(mime_t *mime, mime_type_t *src, mime_type_t *dst);
 extern mime_filter_t	*mimeFirstFilter(mime_t *mime);
 extern mime_type_t	*mimeFirstType(mime_t *mime);
+
+extern cups_array_t	*mimeGetFilterTypes(mime_t *mime, mime_type_t *dst, cups_array_t *srcs);
 
 extern mime_t		*mimeLoad(const char *pathname, const char *filterpath);
 extern mime_t		*mimeLoadFilters(mime_t *mime, const char *pathname, const char *filterpath);

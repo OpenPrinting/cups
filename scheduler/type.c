@@ -1,91 +1,86 @@
-/*
- * MIME typing routines for CUPS.
- *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright © 2007-2019 by Apple Inc.
- * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
- */
-
-/*
- * Include necessary headers...
- */
+//
+// MIME typing routines for CUPS.
+//
+// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2007-2019 by Apple Inc.
+// Copyright © 1997-2006 by Easy Software Products, all rights reserved.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
 #include <cups/cups.h>
 #include <cups/string-private.h>
 #include <locale.h>
-#include "mime.h"
+#include "mime-private.h"
 
 
-/*
- * Debug macros that used to be private API...
- */
+//
+// Debug macros that used to be private API...
+//
 
 #define DEBUG_puts(x)
 #define DEBUG_printf(...)
 
 
-/*
- * Local types...
- */
+//
+// Local types...
+//
 
-typedef struct _mime_filebuf_s		/**** File buffer for MIME typing ****/
+typedef struct _mime_filebuf_s		// File buffer for MIME typing
 {
-  cups_file_t	*fp;			/* File pointer */
-  int		offset,			/* Offset in file */
-		length;			/* Length of buffered data */
-  unsigned char	buffer[MIME_MAX_BUFFER];/* Buffered data */
+  cups_file_t	*fp;			// File pointer
+  int		offset,			// Offset in file
+		length;			// Length of buffered data
+  unsigned char	buffer[MIME_MAX_BUFFER];// Buffered data
 } _mime_filebuf_t;
 
 
-/*
- * Local functions...
- */
+//
+// Local functions...
+//
 
-static int	mime_compare_types(mime_type_t *t0, mime_type_t *t1, void *data);
-static int	mime_check_rules(const char *filename, _mime_filebuf_t *fb,
-		                 mime_magic_t *rules);
+static int	mime_check_rules(const char *filename, _mime_filebuf_t *fb, mime_magic_t *rules);
+static void	mime_delete_rules(mime_magic_t *rules);
 static int	mime_patmatch(const char *s, const char *pat);
 
 
-/*
- * Local globals...
- */
+//
+// Local globals...
+//
 
 #ifdef MIME_DEBUG
 static const char * const debug_ops[] =
-		{			/* Test names... */
-		  "NOP",		/* No operation */
-		  "AND",		/* Logical AND of all children */
-		  "OR",			/* Logical OR of all children */
-		  "MATCH",		/* Filename match */
-		  "ASCII",		/* ASCII characters in range */
-		  "PRINTABLE",		/* Printable characters (32-255) */
-		  "STRING",		/* String matches */
-		  "CHAR",		/* Character/byte matches */
-		  "SHORT",		/* Short/16-bit word matches */
-		  "INT",		/* Integer/32-bit word matches */
-		  "LOCALE",		/* Current locale matches string */
-		  "CONTAINS",		/* File contains a string */
-		  "ISTRING",		/* Case-insensitive string matches */
-		  "REGEX"		/* Regular expression matches */
+		{			// Test names...
+		  "NOP",		// No operation
+		  "AND",		// Logical AND of all children
+		  "OR",			// Logical OR of all children
+		  "MATCH",		// Filename match
+		  "ASCII",		// ASCII characters in range
+		  "PRINTABLE",		// Printable characters (32-255)
+		  "STRING",		// String matches
+		  "CHAR",		// Character/byte matches
+		  "SHORT",		// Short/16-bit word matches
+		  "INT",		// Integer/32-bit word matches
+		  "LOCALE",		// Current locale matches string
+		  "CONTAINS",		// File contains a string
+		  "ISTRING",		// Case-insensitive string matches
+		  "REGEX"		// Regular expression matches
 		};
-#endif /* DEBUG */
+#endif // DEBUG
 
 
-/*
- * 'mimeAddType()' - Add a MIME type to a database.
- */
+//
+// 'mimeAddType()' - Add a MIME type to a database.
+//
 
-mime_type_t *				/* O - New (or existing) MIME type */
-mimeAddType(mime_t     *mime,		/* I - MIME database */
-            const char *super,		/* I - Super-type name */
-	    const char *type)		/* I - Type name */
+mime_type_t *				// O - New (or existing) MIME type
+mimeAddType(mime_t     *mime,		// I - MIME database
+            const char *super,		// I - Super-type name
+	    const char *type)		// I - Type name
 {
-  mime_type_t	*temp;			/* New MIME type */
-  size_t	typelen;		/* Length of type name */
+  mime_type_t	*temp;			// New MIME type
+  size_t	typelen;		// Length of type name
 
 
   DEBUG_printf(("mimeAddType(mime=%p, super=\"%s\", type=\"%s\")", mime, super,
@@ -116,7 +111,7 @@ mimeAddType(mime_t     *mime,		/* I - MIME database */
   */
 
   if (!mime->types)
-    mime->types = cupsArrayNew((cups_array_func_t)mime_compare_types, NULL);
+    mime->types = cupsArrayNew3((cups_array_cb_t)_mimeCompareTypes, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, (cups_afree_cb_t)_mimeFreeType);
 
   if (!mime->types)
   {
@@ -143,25 +138,25 @@ mimeAddType(mime_t     *mime,		/* I - MIME database */
 }
 
 
-/*
- * 'mimeAddTypeRule()' - Add a detection rule for a file type.
- */
+//
+// 'mimeAddTypeRule()' - Add a detection rule for a file type.
+//
 
-int					/* O - 0 on success, -1 on failure */
-mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
-                const char  *rule)	/* I - Rule to add */
+int					// O - 0 on success, -1 on failure
+mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
+                const char  *rule)	// I - Rule to add
 {
-  int		num_values,		/* Number of values seen */
-		op,			/* Operation code */
-		logic,			/* Logic for next rule */
-		invert;			/* Invert following rule? */
-  char		name[255],		/* Name in rule string */
-		value[3][255],		/* Value in rule string */
-		*ptr,			/* Position in name or value */
-		quote;			/* Quote character */
-  int		length[3];		/* Length of each parameter */
-  mime_magic_t	*temp,			/* New rule */
-		*current;  		/* Current rule */
+  int		num_values,		// Number of values seen
+		op,			// Operation code
+		logic,			// Logic for next rule
+		invert;			// Invert following rule?
+  char		name[255],		// Name in rule string
+		value[3][255],		// Value in rule string
+		*ptr,			// Position in name or value
+		quote;			// Quote character
+  int		length[3];		// Length of each parameter
+  mime_magic_t	*temp,			// New rule
+		*current;  		// Current rule
 
 
   DEBUG_printf(("mimeAddTypeRule(mt=%p(%s/%s), rule=\"%s\")", mt,
@@ -580,20 +575,41 @@ mimeAddTypeRule(mime_type_t *mt,	/* I - Type to add to */
 }
 
 
-/*
- * 'mimeFileType()' - Determine the type of a file.
- */
+//
+// '_mimeCompareTypes()' - Compare two MIME media types.
+//
 
-mime_type_t *				/* O - Type of file */
-mimeFileType(mime_t     *mime,		/* I - MIME database */
-             const char *pathname,	/* I - Name of file to check on disk */
-	     const char *filename,	/* I - Original filename or NULL */
-	     int        *compression)	/* O - Is the file compressed? */
+int					// O - Result of comparison
+_mimeCompareTypes(mime_type_t *a,	// I - First type
+                  mime_type_t *b,	// I - Second type
+                  void        *data)	// I - Callback data (not used)
 {
-  _mime_filebuf_t	fb;		/* File buffer */
-  const char		*base;		/* Base filename of file */
-  mime_type_t		*type,		/* File type */
-			*best;		/* Best match */
+  int	ret = strcmp(a->super, b->super);
+					// Result of comparison
+
+  (void)data;
+
+  if (ret)
+    return (ret);
+  else
+    return (strcmp(a->type, b->type));
+}
+
+
+//
+// 'mimeFileType()' - Determine the type of a file.
+//
+
+mime_type_t *				// O - Type of file
+mimeFileType(mime_t     *mime,		// I - MIME database
+             const char *pathname,	// I - Name of file to check on disk
+	     const char *filename,	// I - Original filename or NULL
+	     int        *compression)	// O - Is the file compressed?
+{
+  _mime_filebuf_t	fb;		// File buffer
+  const char		*base;		// Base filename of file
+  mime_type_t		*type,		// File type
+			*best;		// Best match
 
 
   DEBUG_printf(("mimeFileType(mime=%p, pathname=\"%s\", filename=\"%s\", "
@@ -686,17 +702,30 @@ mimeFileType(mime_t     *mime,		/* I - MIME database */
 }
 
 
-/*
- * 'mimeType()' - Lookup a file type.
- */
+//
+// '_mimeFreeType()' - Free a file type.
+//
 
-mime_type_t *				/* O - Matching file type definition */
-mimeType(mime_t     *mime,		/* I - MIME database */
-         const char *super,		/* I - Super-type name */
-	 const char *type)		/* I - Type name */
+void
+_mimeFreeType(mime_type_t *t,		// I - File type
+              void        *data)	// I - Callback data (not used)
 {
-  mime_type_t	key,			/* MIME type search key */
-		*mt;			/* Matching type */
+  mime_delete_rules(t->rules);
+  free(t);
+}
+
+
+//
+// 'mimeType()' - Lookup a file type.
+//
+
+mime_type_t *				// O - Matching file type definition
+mimeType(mime_t     *mime,		// I - MIME database
+         const char *super,		// I - Super-type name
+	 const char *type)		// I - Type name
+{
+  mime_type_t	key,			// MIME type search key
+		*mt;			// Matching type
 
 
   DEBUG_printf(("mimeType(mime=%p, super=\"%s\", type=\"%s\")", mime, super,
@@ -725,43 +754,23 @@ mimeType(mime_t     *mime,		/* I - MIME database */
 }
 
 
-/*
- * 'mime_compare_types()' - Compare two MIME super/type names.
- */
+//
+// 'mime_check_rules()' - Check each rule in a list.
+//
 
-static int                          /* O - Result of comparison */
-mime_compare_types(mime_type_t *t0, /* I - First type */
-                   mime_type_t *t1, /* I - Second type */
-                   void *data)      /* Unused */
-{
-  int	i;				/* Result of comparison */
-
-  (void)data;
-
-  if ((i = _cups_strcasecmp(t0->super, t1->super)) == 0)
-    i = _cups_strcasecmp(t0->type, t1->type);
-
-  return (i);
-}
-
-
-/*
- * 'mime_check_rules()' - Check each rule in a list.
- */
-
-static int				/* O - 1 if match, 0 if no match */
+static int				// O - 1 if match, 0 if no match
 mime_check_rules(
-    const char      *filename,		/* I - Filename */
-    _mime_filebuf_t *fb,		/* I - File to check */
-    mime_magic_t    *rules)		/* I - Rules to check */
+    const char      *filename,		// I - Filename
+    _mime_filebuf_t *fb,		// I - File to check
+    mime_magic_t    *rules)		// I - Rules to check
 {
-  int		n;			/* Looping var */
-  int		region;			/* Region to look at */
-  int		logic,			/* Logic to apply */
-		result;			/* Result of test */
-  unsigned	intv;			/* Integer value */
-  short		shortv;			/* Short value */
-  unsigned char	*bufptr;		/* Pointer into buffer */
+  int		n;			// Looping var
+  int		region;			// Region to look at
+  int		logic,			// Logic to apply
+		result;			// Result of test
+  unsigned	intv;			// Integer value
+  short		shortv;			// Short value
+  unsigned char	*bufptr;		// Pointer into buffer
 
 
   DEBUG_printf(("4mime_check_rules(filename=\"%s\", fb=%p, rules=%p)", filename,
@@ -933,7 +942,7 @@ mime_check_rules(
           if (fb->length > 0)
           {
             char temp[MIME_MAX_BUFFER + 1];
-					/* Temporary buffer */
+					// Temporary buffer
 
             memcpy(temp, fb->buffer, (size_t)fb->length);
             temp[fb->length] = '\0';
@@ -1153,7 +1162,7 @@ mime_check_rules(
           result = !strcmp(rules->value.localev, setlocale(LC_ALL, ""));
 #else
           result = !strcmp(rules->value.localev, setlocale(LC_MESSAGES, ""));
-#endif /* __APPLE__ */
+#endif // __APPLE__
 	  break;
 
       case MIME_MAGIC_CONTAINS :
@@ -1243,13 +1252,42 @@ mime_check_rules(
 }
 
 
-/*
- * 'mime_patmatch()' - Pattern matching.
- */
+//
+// 'mime_delete_rules()' - Free all memory for the given rule tree.
+//
 
-static int				/* O - 1 if match, 0 if no match */
-mime_patmatch(const char *s,		/* I - String to match against */
-              const char *pat)		/* I - Pattern to match against */
+static void
+mime_delete_rules(mime_magic_t *rules)	// I - Rules to free
+{
+  mime_magic_t	*next;			// Next rule to free
+
+
+  DEBUG_printf("2mime_delete_rules(rules=%p)", rules);
+
+  // Free the rules list, descending recursively to free any child rules.
+  while (rules != NULL)
+  {
+    next = rules->next;
+
+    if (rules->child != NULL)
+      mime_delete_rules(rules->child);
+
+    if (rules->op == MIME_MAGIC_REGEX)
+      regfree(&(rules->value.rev));
+
+    free(rules);
+    rules = next;
+  }
+}
+
+
+//
+// 'mime_patmatch()' - Pattern matching.
+//
+
+static int				// O - 1 if match, 0 if no match
+mime_patmatch(const char *s,		// I - String to match against
+              const char *pat)		// I - Pattern to match against
 {
  /*
   * Range check the input...
@@ -1273,7 +1311,7 @@ mime_patmatch(const char *s,		/* I - String to match against */
 
       pat ++;
       if (*pat == '\0')
-        return (1);	/* Last pattern char is *, so everything matches... */
+        return (1);	// Last pattern char is *, so everything matches...
 
      /*
       * Test all remaining combinations until we get to the end of the string.

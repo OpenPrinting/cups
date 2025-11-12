@@ -41,7 +41,6 @@ typedef struct _mime_fcache_s		// Filter cache structure
 static const char *mime_add_fcache(cups_array_t *filtercache, const char *name, const char *filterpath);
 static int	mime_compare_fcache(_mime_fcache_t *a, _mime_fcache_t *b, void *data);
 static void	mime_delete_fcache(cups_array_t *filtercache);
-static void	mime_delete_rules(mime_magic_t *rules);
 static void	mime_load_convs(mime_t *mime, const char *filename, const char *filterpath, cups_array_t *filtercache);
 static void	mime_load_types(mime_t *mime, const char *filename);
 
@@ -53,26 +52,15 @@ static void	mime_load_types(mime_t *mime, const char *filename);
 void
 mimeDelete(mime_t *mime)		// I - MIME database
 {
-  mime_type_t	*type;			// Current type
-  mime_filter_t	*filter;		// Current filter
-
-
   DEBUG_printf("mimeDelete(mime=%p)", mime);
 
   if (!mime)
     return;
 
-  // Loop through filters and free them...
-  for (filter = (mime_filter_t *)cupsArrayGetFirst(mime->filters); filter; filter = (mime_filter_t *)cupsArrayGetNext(mime->filters))
-    mimeDeleteFilter(mime, filter);
-
-  // Loop through the file types and delete any rules...
-  for (type = (mime_type_t *)cupsArrayGetFirst(mime->types); type; type = (mime_type_t *)cupsArrayGetNext(mime->types))
-    mimeDeleteType(mime, type);
-
   // Free the types and filters arrays, and then the MIME database structure.
   cupsArrayDelete(mime->types);
   cupsArrayDelete(mime->filters);
+  cupsArrayDelete(mime->ftypes);
   cupsArrayDelete(mime->srcs);
   free(mime);
 }
@@ -97,7 +85,6 @@ mimeDeleteFilter(mime_t        *mime,	// I - MIME database
 #endif // DEBUG
 
   cupsArrayRemove(mime->filters, filter);
-  free(filter);
 
   // Deleting a filter invalidates the source lookup cache used by mimeFilter()...
   if (mime->srcs)
@@ -106,6 +93,8 @@ mimeDeleteFilter(mime_t        *mime,	// I - MIME database
     cupsArrayDelete(mime->srcs);
     mime->srcs = NULL;
   }
+
+  // TODO: Also invalidate the filter types array?
 }
 
 
@@ -128,9 +117,6 @@ mimeDeleteType(mime_t      *mime,	// I - MIME database
 #endif // DEBUG
 
   cupsArrayRemove(mime->types, mt);
-
-  mime_delete_rules(mt->rules);
-  free(mt);
 }
 
 
@@ -514,12 +500,14 @@ mime_add_fcache(
 // 'mime_compare_fcache()' - Compare two filter cache entries.
 //
 
-static int                             // O - Result of comparison
-mime_compare_fcache(_mime_fcache_t *a, // I - First entry
-                    _mime_fcache_t *b, // I - Second entry
-                    void *data)        // Unused
+static int				// O - Result of comparison
+mime_compare_fcache(
+    _mime_fcache_t *a,			// I - First entry
+    _mime_fcache_t *b,			// I - Second entry
+    void           *data)		// I - Callback data (not used)
 {
   (void)data;
+
   return (strcmp(a->name, b->name));
 }
 
@@ -545,35 +533,6 @@ mime_delete_fcache(
   }
 
   cupsArrayDelete(filtercache);
-}
-
-
-//
-// 'mime_delete_rules()' - Free all memory for the given rule tree.
-//
-
-static void
-mime_delete_rules(mime_magic_t *rules)	// I - Rules to free
-{
-  mime_magic_t	*next;			// Next rule to free
-
-
-  DEBUG_printf("2mime_delete_rules(rules=%p)", rules);
-
-  // Free the rules list, descending recursively to free any child rules.
-  while (rules != NULL)
-  {
-    next = rules->next;
-
-    if (rules->child != NULL)
-      mime_delete_rules(rules->child);
-
-    if (rules->op == MIME_MAGIC_REGEX)
-      regfree(&(rules->value.rev));
-
-    free(rules);
-    rules = next;
-  }
 }
 
 

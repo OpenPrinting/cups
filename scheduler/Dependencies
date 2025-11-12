@@ -749,15 +749,16 @@ sysman.o: sysman.c cupsd.h ../cups/cups-private.h \
   network.h subscriptions.h
 filter.o: filter.c ../cups/cups.h ../cups/file.h ../cups/base.h \
   ../cups/ipp.h ../cups/http.h ../cups/array.h ../cups/language.h \
-  ../cups/pwg.h ../cups/string-private.h ../config.h mime.h \
-  ../cups/thread.h
+  ../cups/pwg.h ../cups/string-private.h ../config.h mime-private.h \
+  mime.h ../cups/thread.h
 mime.o: mime.c ../cups/cups.h ../cups/file.h ../cups/base.h ../cups/ipp.h \
   ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
   ../cups/string-private.h ../config.h ../cups/dir.h mime-private.h \
   mime.h ../cups/thread.h
 type.o: type.c ../cups/cups.h ../cups/file.h ../cups/base.h ../cups/ipp.h \
   ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
-  ../cups/string-private.h ../config.h mime.h ../cups/thread.h
+  ../cups/string-private.h ../config.h mime-private.h mime.h \
+  ../cups/thread.h
 cupsfilter.o: cupsfilter.c ../cups/cups-private.h \
   ../cups/string-private.h ../config.h ../cups/base.h \
   ../cups/debug-internal.h ../cups/debug-private.h ../cups/ipp-private.h \
@@ -845,8 +846,8 @@ testmime.o: testmime.c ../cups/test-internal.h ../cups/string-private.h \
   ../config.h ../cups/base.h ../cups/dir.h ../cups/debug-private.h \
   ../cups/ppd-private.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
   ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \
-  ../cups/ppd.h ../cups/raster.h ../cups/pwg-private.h mime.h \
-  ../cups/thread.h
+  ../cups/ppd.h ../cups/raster.h ../cups/pwg-private.h mime-private.h \
+  mime.h ../cups/thread.h
 testspeed.o: testspeed.c ../cups/string-private.h ../config.h \
   ../cups/base.h ../cups/cups.h ../cups/file.h ../cups/ipp.h \
   ../cups/http.h ../cups/array.h ../cups/language.h ../cups/pwg.h \

@@ -14,7 +14,7 @@
 #include <cups/dir.h>
 #include <cups/debug-private.h>
 #include <cups/ppd-private.h>
-#include "mime.h"
+#include "mime-private.h"
 
 
 //
@@ -189,6 +189,9 @@ main(int  argc,				// I - Number of command-line args
 
     type_dir(mime, "../doc");
 
+    if ((dst = mimeType(mime, "application", "pdf")) != NULL)
+      get_file_types(mime, dst);
+
     if ((dst = mimeType(mime, "application", "vnd.cups-postscript")) != NULL)
       get_file_types(mime, dst);
 
@@ -349,16 +352,26 @@ static void
 get_file_types(mime_t      *mime,	// I - MIME database
                mime_type_t *dst)	// I - Destination MIME media type
 {
+  cups_array_t	*ftypes;		// Array of filter types
+  cups_array_t	*filters;               // Filters
+  mime_filter_t	*filter;		// Filter
   cups_array_t	*types;			// Array of supported types
   mime_type_t	*type;			// Current type
-  cups_array_t	*filters;		// Filters
   double	start, end;		// Start and end time
 
 
   // Scan source types...
-  types = cupsArrayNew(NULL, NULL);
+  testBegin("mimeGetFilterTypes(%s/%s)", dst->super, dst->type);
+  start = cupsGetClock();
+  ftypes = mimeGetFilterTypes(mime, dst, /*srcs*/NULL);
+  end = cupsGetClock();
 
-  testBegin("Get Source Types to %s/%s", dst->super, dst->type);
+  testEndMessage(cupsArrayGetCount(ftypes) > 0, "%d types, %.6f seconds", (int)cupsArrayGetCount(ftypes), end - start);
+
+  // Look for supported formats "the old way"...
+  types = cupsArrayNew((cups_array_cb_t)_mimeCompareTypes, /*cb_data*/NULL);
+
+  testBegin("mimeFilter(%s/%s)", dst->super, dst->type);
   start = cupsGetClock();
   for (type = mimeFirstType(mime); type; type = mimeNextType(mime))
   {
@@ -375,10 +388,42 @@ get_file_types(mime_t      *mime,	// I - MIME database
 
   testEndMessage(cupsArrayGetCount(types) > 0, "%d types, %.6f seconds", (int)cupsArrayGetCount(types), end - start);
 
+  // Compare results...
+  testBegin("Compare mimeGetFilterTypes with mimeFilter");
+  if (cupsArrayGetCount(types) == cupsArrayGetCount(ftypes))
+  {
+    testEnd(true);
+  }
+  else
+  {
+    testEndMessage(false, "mimeGetFilterTypes returned %d, mimeFilter returned %d", (int)cupsArrayGetCount(ftypes), (int)cupsArrayGetCount(types));
+  }
+
+  for (type = (mime_type_t *)cupsArrayGetFirst(ftypes); type; type = (mime_type_t *)cupsArrayGetNext(ftypes))
+  {
+    if (!cupsArrayFind(types, type))
+      testMessage("    %s/%s (only mimeGetFilterTypes)", type->super, type->type);
+    else
+      testMessage("    %s/%s", type->super, type->type);
+  }
+
   for (type = (mime_type_t *)cupsArrayGetFirst(types); type; type = (mime_type_t *)cupsArrayGetNext(types))
-    testMessage("\t%s/%s", type->super, type->type);
+  {
+    if (!cupsArrayFind(ftypes, type))
+    {
+      testMessage("    %s/%s (only mimeFilters)", type->super, type->type);
+      if ((filters = mimeFilter(mime, type, dst, NULL)) != NULL)
+      {
+        for (filter = (mime_filter_t *)cupsArrayGetFirst(filters); filter; filter = (mime_filter_t *)cupsArrayGetNext(filters))
+          testMessage("        %s (%s/%s to %s/%s)", filter->filter, filter->src->super, filter->src->type, filter->dst->super, filter->dst->type);
+
+	cupsArrayDelete(filters);
+      }
+    }
+  }
 
   cupsArrayDelete(types);
+  cupsArrayDelete(ftypes);
 }
 
 

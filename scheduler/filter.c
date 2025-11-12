@@ -1,64 +1,65 @@
-/*
- * File type conversion routines for CUPS.
- *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2011 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
- */
+//
+// File type conversion routines for CUPS.
+//
+// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2007-2011 by Apple Inc.
+// Copyright © 1997-2007 by Easy Software Products, all rights reserved.
+//
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
+//
 
 #include <cups/cups.h>
 #include <cups/string-private.h>
-#include "mime.h"
+#include "mime-private.h"
 
 
-/*
- * Debug macros that used to be private API...
- */
+//
+// Debug macros that used to be private API...
+//
 
 #define DEBUG_puts(x)
 #define DEBUG_printf(...)
 
 
-/*
- * Local types...
- */
+//
+// Local types...
+//
 
-typedef struct _mime_typelist_s		/**** List of source types ****/
+typedef struct _mime_typelist_s		// List of source types
 {
-  struct _mime_typelist_s *next;	/* Next source type */
-  mime_type_t		*src;		/* Source type */
+  struct _mime_typelist_s *next;	// Next source type
+  mime_type_t		*src;		// Source type
 } _mime_typelist_t;
 
 
-/*
- * Local functions...
- */
+//
+// Local functions...
+//
 
+static int		mime_compare_ftypess(mime_ftypes_t *a, mime_ftypes_t *b, void *data);
 static int		mime_compare_filters(mime_filter_t *, mime_filter_t *, void *);
 static int		mime_compare_srcs(mime_filter_t *, mime_filter_t *, void *);
-static cups_array_t	*mime_find_filters(mime_t *mime, mime_type_t *src,
-				      size_t srcsize, mime_type_t *dst,
-				      int *cost, _mime_typelist_t *visited);
+static mime_ftypes_t	*mime_find_ftypes(mime_t *mime, mime_type_t *dst);
+static cups_array_t	*mime_find_filters(mime_t *mime, mime_type_t *src, size_t srcsize, mime_type_t *dst, int *cost, _mime_typelist_t *visited);
+static void		mime_free_ftypes(mime_ftypes_t *c, void *data);
+static void		mime_free_filter(mime_filter_t *f, void *data);
+static cups_array_t	*mime_get_filter_types(mime_t *mime, mime_type_t *dst, cups_array_t *srcs, int level);
 
 
-/*
- * 'mimeAddFilter()' - Add a filter to the current MIME database.
- */
+//
+// 'mimeAddFilter()' - Add a filter to the current MIME database.
+//
 
-mime_filter_t *				/* O - New filter */
-mimeAddFilter(mime_t      *mime,	/* I - MIME database */
-              mime_type_t *src,		/* I - Source type */
-	      mime_type_t *dst,		/* I - Destination type */
-              int         cost,		/* I - Relative time/resource cost */
-	      const char  *filter)	/* I - Filter program to run */
+mime_filter_t *				// O - New filter
+mimeAddFilter(mime_t      *mime,	// I - MIME database
+              mime_type_t *src,		// I - Source type
+	      mime_type_t *dst,		// I - Destination type
+              int         cost,		// I - Relative time/resource cost
+	      const char  *filter)	// I - Filter program to run
 {
-  mime_filter_t	*temp;			/* New filter */
+  mime_filter_t	*temp;			// New filter
+  mime_ftypes_t	*c;			// Filter cache
 
 
   DEBUG_printf(("mimeAddFilter(mime=%p, src=%p(%s/%s), dst=%p(%s/%s), cost=%d, "
@@ -75,6 +76,32 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
   {
     DEBUG_puts("1mimeAddFilter: Returning NULL.");
     return (NULL);
+  }
+
+  // See if we have a cache for this destination type...
+  if ((c = mime_find_ftypes(mime, dst)) == NULL)
+  {
+    // No, add a cache for this type...
+    if ((c = (mime_ftypes_t *)calloc(1, sizeof(mime_ftypes_t))) != NULL)
+    {
+      c->dst = dst;
+
+      cupsRWLockWrite(&mime->lock);
+      if (!mime->ftypes)
+        mime->ftypes = cupsArrayNew3((cups_array_cb_t)mime_compare_ftypess, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, (cups_afree_cb_t)mime_free_ftypes);
+      cupsArrayAdd(mime->ftypes, c);
+      cupsRWUnlock(&mime->lock);
+    }
+  }
+
+  if (c && !cupsArrayFind(c->srcs, src))
+  {
+    // Add source type to list of source types that can be converted to the
+    // destination type...
+    if (!c->srcs)
+      c->srcs = cupsArrayNew3((cups_array_cb_t)_mimeCompareTypes, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, /*free_cb*/NULL);
+
+    cupsArrayAdd(c->srcs, src);
   }
 
  /*
@@ -104,7 +131,7 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
     */
 
     if (!mime->filters)
-      mime->filters = cupsArrayNew((cups_array_func_t)mime_compare_filters, NULL);
+      mime->filters = cupsArrayNew3((cups_array_cb_t)mime_compare_filters, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, (cups_afree_cb_t)mime_free_filter);
 
     if (!mime->filters)
       return (NULL);
@@ -136,15 +163,15 @@ mimeAddFilter(mime_t      *mime,	/* I - MIME database */
 }
 
 
-/*
- * 'mimeFilter()' - Find the fastest way to convert from one type to another.
- */
+//
+// 'mimeFilter()' - Find the fastest way to convert from one type to another.
+//
 
-cups_array_t *				/* O - Array of filters to run */
-mimeFilter(mime_t      *mime,		/* I - MIME database */
-           mime_type_t *src,		/* I - Source file type */
-	   mime_type_t *dst,		/* I - Destination file type */
-	   int         *cost)		/* O - Cost of filters */
+cups_array_t *				// O - Array of filters to run
+mimeFilter(mime_t      *mime,		// I - MIME database
+           mime_type_t *src,		// I - Source file type
+	   mime_type_t *dst,		// I - Destination file type
+	   int         *cost)		// O - Cost of filters
 {
   DEBUG_printf(("mimeFilter(mime=%p, src=%p(%s/%s), dst=%p(%s/%s), "
                 "cost=%p(%d))", mime,
@@ -156,19 +183,19 @@ mimeFilter(mime_t      *mime,		/* I - MIME database */
 }
 
 
-/*
- * 'mimeFilter2()' - Find the fastest way to convert from one type to another,
- *                   including file size.
- */
+//
+// 'mimeFilter2()' - Find the fastest way to convert from one type to another,
+//                   including file size.
+//
 
-cups_array_t *				/* O - Array of filters to run */
-mimeFilter2(mime_t      *mime,		/* I - MIME database */
-            mime_type_t *src,		/* I - Source file type */
-	    size_t      srcsize,	/* I - Size of source file */
-	    mime_type_t *dst,		/* I - Destination file type */
-	    int         *cost)		/* O - Cost of filters */
+cups_array_t *				// O - Array of filters to run
+mimeFilter2(mime_t      *mime,		// I - MIME database
+            mime_type_t *src,		// I - Source file type
+	    size_t      srcsize,	// I - Size of source file
+	    mime_type_t *dst,		// I - Destination file type
+	    int         *cost)		// O - Cost of filters
 {
-  cups_array_t	*filters;		/* Array of filters to run */
+  cups_array_t	*filters;		// Array of filters to run
 
 
  /*
@@ -194,9 +221,9 @@ mimeFilter2(mime_t      *mime,		/* I - MIME database */
 
   if (!mime->srcs)
   {
-    mime_filter_t	*current;	/* Current filter */
+    mime_filter_t	*current;	// Current filter
 
-    mime->srcs = cupsArrayNew((cups_array_func_t)mime_compare_srcs, NULL);
+    mime->srcs = cupsArrayNew((cups_array_cb_t)mime_compare_srcs, NULL);
 
     for (current = mimeFirstFilter(mime);
          current;
@@ -214,7 +241,7 @@ mimeFilter2(mime_t      *mime,		/* I - MIME database */
                 cupsArrayCount(filters), cost ? *cost : -1));
 #ifdef DEBUG
   {
-    mime_filter_t	*filter;	/* Current filter */
+    mime_filter_t	*filter;	// Current filter
 
     for (filter = (mime_filter_t *)cupsArrayFirst(filters);
          filter;
@@ -223,23 +250,23 @@ mimeFilter2(mime_t      *mime,		/* I - MIME database */
                     filter->src->type, filter->dst->super, filter->dst->type,
 		    filter->cost, filter->filter));
   }
-#endif /* DEBUG */
+#endif // DEBUG
 
   return (filters);
 }
 
 
-/*
- * 'mimeFilterLookup()' - Lookup a filter.
- */
+//
+// 'mimeFilterLookup()' - Lookup a filter.
+//
 
-mime_filter_t *				/* O - Filter for src->dst */
-mimeFilterLookup(mime_t      *mime,	/* I - MIME database */
-                 mime_type_t *src,	/* I - Source type */
-                 mime_type_t *dst)	/* I - Destination type */
+mime_filter_t *				// O - Filter for src->dst
+mimeFilterLookup(mime_t      *mime,	// I - MIME database
+                 mime_type_t *src,	// I - Source type
+                 mime_type_t *dst)	// I - Destination type
 {
-  mime_filter_t	key,			/* Key record for filter search */
-		*filter;		/* Matching filter */
+  mime_filter_t	key,			// Key record for filter search
+		*filter;		// Matching filter
 
 
   DEBUG_printf("2mimeFilterLookup(mime=%p, src=%p(%s/%s), dst=%p(%s/%s))", mime, src, src ? src->super : "???", src ? src->type : "???", dst, dst ? dst->super : "???", dst ? dst->type : "???");
@@ -253,67 +280,115 @@ mimeFilterLookup(mime_t      *mime,	/* I - MIME database */
 }
 
 
-/*
- * 'mime_compare_filters()' - Compare two filters.
- */
+//
+// 'mimeGetFilterTypes()' - Get a list of source MIME media types that can be filtered to a destination type.
+//
 
-static int                              /* O - Comparison result */
-mime_compare_filters(mime_filter_t *f0, /* I - First filter */
-                     mime_filter_t *f1, /* I - Second filter */
-                     void *data)        /* Unused */
+cups_array_t *				// O - Array of source types or `NULL` for none
+mimeGetFilterTypes(mime_t       *mime,	// I - MIME database
+		   mime_type_t  *dst,	// I - Destination media type
+		   cups_array_t *srcs)	// I - Array of source types or `NULL` for none
 {
-  int	i;				/* Result of comparison */
+  // Range check input...
+  if (!mime || !dst)
+    return (srcs);
 
-  (void)data;
-
-  if ((i = strcmp(f0->src->super, f1->src->super)) == 0)
-    if ((i = strcmp(f0->src->type, f1->src->type)) == 0)
-      if ((i = strcmp(f0->dst->super, f1->dst->super)) == 0)
-        i = strcmp(f0->dst->type, f1->dst->type);
-
-  return (i);
+  // Get source types...
+  return (mime_get_filter_types(mime, dst, srcs, 0));
 }
 
 
-/*
- * 'mime_compare_srcs()' - Compare two filter source types.
- */
+//
+// 'mime_compare_ftypess()' - Compare two filter caches.
+//
 
-static int                           /* O - Comparison result */
-mime_compare_srcs(mime_filter_t *f0, /* I - First filter */
-                  mime_filter_t *f1, /* I - Second filter */
-                  void *data) {
-  int	i;				/* Result of comparison */
-
-  (void)data;
-  if ((i = strcmp(f0->src->super, f1->src->super)) == 0)
-    i = strcmp(f0->src->type, f1->src->type);
-
-  return (i);
+static int				// O - Result of comparison
+mime_compare_ftypess(
+    mime_ftypes_t *a,			// I - First cache
+    mime_ftypes_t *b,			// I - Second cache
+    void          *data)		// I - Callback data (not used)
+{
+  return (_mimeCompareTypes(a->dst, b->dst, data));
 }
 
 
-/*
- * 'mime_find_filters()' - Find the filters to convert from one type to another.
- */
+//
+// 'mime_compare_filters()' - Compare two filters.
+//
 
-static cups_array_t *			/* O - Array of filters to run */
+static int                              // O - Comparison result
+mime_compare_filters(mime_filter_t *f0, // I - First filter
+                     mime_filter_t *f1, // I - Second filter
+                     void *data)        // I - Callback data (not nused)
+{
+  int	ret;				// Result of comparison
+
+
+  if ((ret = _mimeCompareTypes(f0->src, f1->src, data)) != 0)
+    return (ret);
+  else
+    return (_mimeCompareTypes(f0->dst, f1->dst, data));
+}
+
+
+//
+// 'mime_compare_srcs()' - Compare two filter source types.
+//
+
+static int				// O - Comparison result
+mime_compare_srcs(
+    mime_filter_t *f0,			// I - First filter
+    mime_filter_t *f1,			// I - Second filter
+    void          *data)		// I - Callback data (not used)
+{
+  return (_mimeCompareTypes(f0->src, f1->src, data));
+}
+
+
+//
+// 'mime_find_ftypes()' - Find a filter cache.
+//
+
+static mime_ftypes_t *			// O - Matching cache
+mime_find_ftypes(mime_t      *mime,	// I - MIME database
+                 mime_type_t *dst)	// I - Destination type
+{
+  mime_ftypes_t	key,			// Search key
+		*match;			// Matching cache
+
+
+  // Lookup the destination type in the array...
+  key.dst = dst;
+
+  cupsRWLockRead(&mime->lock);
+  match = (mime_ftypes_t *)cupsArrayFind(mime->ftypes, &key);
+  cupsRWUnlock(&mime->lock);
+
+  return (match);
+}
+
+
+//
+// 'mime_find_filters()' - Find the filters to convert from one type to another.
+//
+
+static cups_array_t *			// O - Array of filters to run
 mime_find_filters(
-    mime_t           *mime,		/* I - MIME database */
-    mime_type_t      *src,		/* I - Source file type */
-    size_t           srcsize,		/* I - Size of source file */
-    mime_type_t      *dst,		/* I - Destination file type */
-    int              *cost,		/* O - Cost of filters */
-    _mime_typelist_t *list)		/* I - Source types we've used */
+    mime_t           *mime,		// I - MIME database
+    mime_type_t      *src,		// I - Source file type
+    size_t           srcsize,		// I - Size of source file
+    mime_type_t      *dst,		// I - Destination file type
+    int              *cost,		// O - Cost of filters
+    _mime_typelist_t *list)		// I - Source types we've used
 {
-  int			tempcost,	/* Temporary cost */
-			mincost;	/* Current minimum */
-  cups_array_t		*temp,		/* Temporary filter */
-			*mintemp;	/* Current minimum */
-  mime_filter_t		*current,	/* Current filter */
-			srckey;		/* Source type key */
-  _mime_typelist_t	listnode,	/* New list node */
-			*listptr;	/* Pointer in list */
+  int			tempcost,	// Temporary cost
+			mincost;	// Current minimum
+  cups_array_t		*temp,		// Temporary filter
+			*mintemp;	// Current minimum
+  mime_filter_t		*current,	// Current filter
+			srckey;		// Source type key
+  _mime_typelist_t	listnode,	// New list node
+			*listptr;	// Pointer in list
 
 
   DEBUG_printf("2mime_find_filters(mime=%p, src=%p(%s/%s), srcsize=" CUPS_LLFMT ", dst=%p(%s/%s), cost=%p, list=%p)", mime, src, src->super, src->type, CUPS_LLCAST srcsize, dst, dst->super, dst->type, cost, list);
@@ -383,7 +458,7 @@ mime_find_filters(
     * type (this avoids extra filter looping...)
     */
 
-    mime_type_t *current_dst;		/* Current destination type */
+    mime_type_t *current_dst;		// Current destination type
 
     if (current->maxsize > 0 && srcsize > current->maxsize)
       continue;
@@ -425,7 +500,7 @@ mime_find_filters(
 		      current->src->super, current->src->type,
 		      current->dst->super, current->dst->type,
 		      current->cost, current->filter));
-#endif /* DEBUG */
+#endif // DEBUG
 
       return (temp);
     }
@@ -471,7 +546,7 @@ mime_find_filters(
                     current->src->super, current->src->type,
                     current->dst->super, current->dst->type,
 		    current->cost, current->filter));
-#endif /* DEBUG */
+#endif // DEBUG
 
     if (cost)
       *cost = mincost;
@@ -482,4 +557,82 @@ mime_find_filters(
   DEBUG_puts("3mime_find_filters: Returning NULL (no matches).");
 
   return (NULL);
+}
+
+
+//
+// 'mime_free_ftypes()' - Free a filter cache entry.
+//
+
+static void
+mime_free_ftypes(mime_ftypes_t *c,	// I - Filter cache data
+                 void          *data)	// I - Callback data (not used)
+{
+  (void)data;
+
+  free(c);
+}
+
+
+//
+// 'mime_free_filter()' - Free a filter.
+//
+
+static void
+mime_free_filter(mime_filter_t *f,	// I - Filter
+                 void          *data)	// I - Callback data (not used)
+{
+  (void)data;
+
+  free(f);
+}
+
+
+//
+// 'mime_get_filter_types()' - Get a list of source types for the given destination type.
+//
+
+static cups_array_t *			// O - Source types
+mime_get_filter_types(
+    mime_t       *mime,			// I - MIME database
+    mime_type_t  *dst,			// I - Destination type
+    cups_array_t *srcs,			// I - Source types
+    int          level)			// I - Recursion level
+{
+  mime_ftypes_t	*c;			// Filter cache data
+  int		i,			// Current source type
+		count;			// Number of source types
+  mime_type_t	*src;			// Source type, if any
+
+
+  // Lookup filters that produce the destination format...
+  if ((c = mime_find_ftypes(mime, dst)) != NULL)
+  {
+    // Add all of the source types that can be converted to this destination type...
+    for (i = 0, count = cupsArrayGetCount(c->srcs); i < count; i ++)
+    {
+      src = (mime_type_t *)cupsArrayGetElement(c->srcs, i);
+
+      if (!strcmp(src->super, "printer"))
+        continue;
+
+      if (!cupsArrayFind(srcs, src))
+      {
+	// Make sure we have the source types array...
+	if (!srcs)
+	  srcs = cupsArrayNew3((cups_array_cb_t)_mimeCompareTypes, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, /*free_cb*/NULL);
+
+        // Add the source to the array...
+	cupsArrayAdd(srcs, src);
+
+	if (level < 4)
+	{
+	  // Add filters that can convert to this type...
+	  srcs = mime_get_filter_types(mime, src, srcs, level + 1);
+	}
+      }
+    }
+  }
+
+  return (srcs);
 }
