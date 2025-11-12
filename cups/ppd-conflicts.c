@@ -192,7 +192,7 @@ cupsResolveConflicts(
   * Range check input...
   */
 
-  if (!ppd || !num_options || !options || !*options || (option == NULL) != (choice == NULL))
+  if (!ppd || !num_options || !options || (*num_options > 0 && !*options) || (option == NULL) != (choice == NULL))
     return (0);
 
  /*
