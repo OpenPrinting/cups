@@ -89,7 +89,7 @@ cupsArrayAdd(cups_array_t *a,		// I - Array
 //
 // 'cupsArrayAddStrings()' - Add zero or more delimited strings to an array.
 //
-// Note: The array MUST be created using the @link _cupsArrayNewStrings@
+// Note: The array MUST be created using the @link cupsArrayNewStrings@
 // function. Duplicate strings are NOT added. If the string pointer "s" is NULL
 // or the empty string, no strings are added to the array.
 //
@@ -107,36 +107,36 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
   bool		status = true;		// Status of add
 
 
-  DEBUG_printf("_cupsArrayAddStrings(a=%p, s=\"%s\", delim='%c')", (void *)a, s, delim);
+  DEBUG_printf("cupsArrayAddStrings(a=%p, s=\"%s\", delim='%c')", (void *)a, s, delim);
 
   if (!a || !s || !*s || delim == '\0')
   {
-    DEBUG_puts("1_cupsArrayAddStrings: Returning 0");
+    DEBUG_puts("1cupsArrayAddStrings: Returning 0");
     return (false);
   }
 
   if (delim == ' ')
   {
     // Skip leading whitespace...
-    DEBUG_puts("1_cupsArrayAddStrings: Skipping leading whitespace.");
+    DEBUG_puts("1cupsArrayAddStrings: Skipping leading whitespace.");
 
     while (*s && isspace(*s & 255))
       s ++;
 
-    DEBUG_printf("1_cupsArrayAddStrings: Remaining string \"%s\".", s);
+    DEBUG_printf("1cupsArrayAddStrings: Remaining string \"%s\".", s);
   }
 
   if (!strchr(s, delim) && (delim != ' ' || (!strchr(s, '\t') && !strchr(s, '\n'))))
   {
     // String doesn't contain a delimiter, so add it as a single value...
-    DEBUG_puts("1_cupsArrayAddStrings: No delimiter seen, adding a single value.");
+    DEBUG_puts("1cupsArrayAddStrings: No delimiter seen, adding a single value.");
 
     if (!cupsArrayFind(a, (void *)s))
       status = cupsArrayAdd(a, (void *)s) != 0;
   }
   else if ((buffer = strdup(s)) == NULL)
   {
-    DEBUG_puts("1_cupsArrayAddStrings: Unable to duplicate string.");
+    DEBUG_puts("1cupsArrayAddStrings: Unable to duplicate string.");
     status = false;
   }
   else
@@ -161,7 +161,7 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
         end = start + strlen(start);
       }
 
-      DEBUG_printf("1_cupsArrayAddStrings: Adding \"%s\", end=\"%s\"", start, end);
+      DEBUG_printf("1cupsArrayAddStrings: Adding \"%s\", end=\"%s\"", start, end);
 
       if (!cupsArrayFind(a, start))
         status &= cupsArrayAdd(a, start);
@@ -170,7 +170,7 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
     free(buffer);
   }
 
-  DEBUG_printf("1_cupsArrayAddStrings: Returning %d.", status);
+  DEBUG_printf("1cupsArrayAddStrings: Returning %d.", status);
 
   return (status);
 }
