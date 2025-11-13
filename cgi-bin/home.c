@@ -278,10 +278,10 @@ finish_login(void)
   }
 
   // Get the redirect URL...
-  if (!strcmp(server_name, "localhost"))
-    snprintf(redirect_uri, sizeof(redirect_uri), "http://127.0.0.1:%s/", server_port);
+  if (!server_name || !strcmp(server_name, "localhost"))
+    snprintf(redirect_uri, sizeof(redirect_uri), "http://127.0.0.1%s%s/", server_port ? ":" : "", server_port ? server_port : "");
   else
-    snprintf(redirect_uri, sizeof(redirect_uri), "%s://%s:%s/", getenv("HTTPS") ? "https" : "http", server_name, server_port);
+    snprintf(redirect_uri, sizeof(redirect_uri), "%s://%s%s%s/", getenv("HTTPS") ? "https" : "http", server_name, server_port ? ":" : "", server_port ? server_port : "");
 
   fprintf(stderr, "DEBUG2: finish_login: redirect_uri=\"%s\"\n", redirect_uri);
 
