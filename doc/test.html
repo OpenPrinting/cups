@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <!-- This is a developer test file and is not installed -->
+  <head>
+    <link rel="stylesheet" href="cups.css" type="text/css">
+    <link rel="shortcut icon" href="apple-touch-icon.png" type="image/png">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta name="viewport" content="width=device-width">
+    <style>html{display:none;}</style>
+    <script type="text/javascript"><!--
+      /* Only display document if we are not in a frame... */
+      if (self == top) {
+        document.documentElement.style.display = 'block';
+      } else {
+        top.location = self.location;
+      }
+
+      /* Show an error if cookies are disabled */
+      function check_cookies() {
+	if (!navigator.cookieEnabled) {
+	  document.getElementById('body').innerHTML = 'This page uses cookies to prevent common cross-site attacks. Please enable cookies in your browser.';
+	}
+      }
+    --></SCRIPT>
+    <title>CUPS HTML/CSS Developer Test Page</title>
+  </head>
+  <body onload="check_cookies();">
+    <div class="cups-header">
+      <ul>
+	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
+	<li><a class="active" href="#">Home</a></li>
+	<li><a href="#">Administration</a></li>
+	<li><a href="#">Classes</a></li>
+	<li><a href="#">Help</a></li>
+	<li><a href="#">Jobs</a></li>
+	<li><a href="#">Printers</a></li>
+	<li class="right"><form method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="search" name="QUERY" value="" size="10" placeholder="" autosave="org.cups.site" results="20"><input type="submit" name="SEARCH" value="Search"></form></li>
+	<li class="right"><form method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="submit" name="LOGIN" value="Login"></form></li>
+	<li class="right"><span class="label">Guest</span></li>
+      </ul>
+    </div>
+    <div class="cups-body">
+      <div class="row">
+	<h1>Tables and Text</h1>
+	<p>Now is the time for all good men to come to the aid of their country.</p>
+	<p>Styles: <strong>strong</strong>, <em>emphasized</em>, <code>code</code>.</p>
+	<table class="list" summary="Printer List">
+	  <thead>
+	    <tr>
+	      <th>Queue Name</th>
+	      <th>Description</th>
+	      <th>Location</th>
+	      <th>Make and Model</th>
+	      <th>Status</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>Printer1</td>
+	      <td>First Printer</td>
+	      <td>Neverland</td>
+	      <td>Acme ExplodoJet</td>
+	      <td>Idle</td>
+	    </tr>
+	    <tr>
+	      <td>Printer2</td>
+	      <td>Second Printer</td>
+	      <td>Neverland</td>
+	      <td>Acme ExplodoJet</td>
+	      <td>Processing</td>
+	    </tr>
+	    <tr>
+	      <td>Printer3</td>
+	      <td>Third Printer</td>
+	      <td>Neverland</td>
+	      <td>Acme ExplodoJet</td>
+	      <td>Paused</td>
+	    </tr>
+	    <tr>
+	      <td>Printer4</td>
+	      <td>Fourth Printer</td>
+	      <td>Neverland</td>
+	      <td>Acme ExplodoJet</td>
+	      <td>Paused - "Road Runner Jam"</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+	<h1>Forms</h1>
+
+	<form>
+	  <table>
+	    <tr>
+	      <th class="label">Name:</th>
+	      <td><input type="text" name="printer_name" size="40" maxlength="127" value="" placeholder="Placeholder Text"><br>
+	      <small>(may contain any printable characters except "/", "#", and space)</small></td>
+	    </tr>
+	    <tr>
+	      <th class="label">Media Size:</th>
+	      <td>
+	        <select name="PageSize">
+	          <option value="Letter">US Letter</option>
+	          <option value="Legal">US Legal</option>
+	          <option value="A4" selected>A4</option>
+	        </select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th class="label">Connection:</th>
+	      <td>
+	        <input type="radio" name="device_uri" id="socket://a" value="socket://a"><label for="socket://a">Connection A (Acme ExplodoJet)</label><br>
+	        <input type="radio" name="device_uri" id="socket://b" value="socket://b"><label for="socket://b">Connection B (Acme ExplodoJet)</label><br>
+	        <input type="radio" name="device_uri" id="socket://c" value="socket://c" checked><label for="socket://c">Connection C (Acme ExplodoJet)</label><br>
+	        <input type="radio" name="device_uri" id="socket://d" value="socket://d"><label for="socket://d">Connection D (Acme ExplodoJet)</label><br>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th class="label">Driver:</th>
+	      <td>
+	        <select name="driver" size="10">
+	          <option value="drv://acme/anviljet">Acme AnvilJet</option>
+	          <option value="drv://acme/explodojet" selected>Acme ExplodoJet</option>
+	          <option value="drv://acme/meepmeep">Acme MeepMeep</option>
+	        </select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th class="label">Sharing:</th>
+	      <td><input type="checkbox" name="printer_is_shared" id="printer_is_shared" value="checked">
+	      <label for="printer_is_shared">Share this Printer</label></td>
+	    </tr>
+	    <tr>
+	      <td></td>
+	      <td>
+	        <input type="submit" value="Submit Form">
+	        <input type="button" value="Form Button">
+	      </td>
+	    </tr>
+	  </table>
+	</form>
+      </div>
+    </div>
+    <div class="cups-footer">Copyright &copy; 2021-2025 OpenPrinting. All rights reserved.</div>
+  </body>
+</html>
