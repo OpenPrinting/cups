@@ -1489,7 +1489,7 @@ msgstr "%s: Åtgärd misslyckades: %s"
 
 #, fuzzy, c-format
 msgid "%s: Scheduler is not running."
-msgstr "schemaläggare körs inte"
+msgstr "%s: schemaläggare körs inte"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -5218,7 +5218,7 @@ msgstr "Kam inte konfigurera skrivaralternativ."
 
 #, fuzzy, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr "%s: Kan inte ansluta till \"%s:%d\": %s"
+msgstr "Kan inte ansluta till %s:%d: %s"
 
 msgid "Unable to connect to host."
 msgstr "Kan inte ansluta till värd."
@@ -5232,11 +5232,11 @@ msgstr "Kan inte kopiera PPD-fil - %s"
 
 #, fuzzy, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr "%s: Kan inte skapa PPD-fil: %s"
+msgstr "Kan inte skapa PPD-fil: %s"
 
 #, fuzzy, c-format
 msgid "Unable to create PPD: %s"
-msgstr "%s: Kan inte skapa PPD-fil: %s"
+msgstr "Kan inte skapa PPD-fil: %s"
 
 #, fuzzy
 msgid "Unable to create X.509 certificate signing request."
@@ -5389,7 +5389,7 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr "%s: Kan inte skapa PPD-fil: %s"
+msgstr "Kan inte skapa PPD-fil: %s"
 
 msgid "Unable to read print data."
 msgstr "Kan inte läsa utskriftsdata."
@@ -5409,15 +5409,15 @@ msgstr "Kan inte slå upp skrivar-uri."
 
 #, fuzzy, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr "%s: Kan inte kommunicera med skrivare: %s"
+msgstr "Kan inte kommunicera med skrivare: %s"
 
 #, fuzzy, c-format
 msgid "Unable to save PPD file: %s"
-msgstr "%s: Kan inte skapa PPD-fil: %s"
+msgstr "Kan inte skapa PPD-fil: %s"
 
 #, fuzzy, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
-msgstr "Kan inte skicka data till skrivare."
+msgstr "Kan inte skicka data \"%s\" till skrivare."
 
 msgid "Unable to see in file"
 msgstr "Kan inte se i fil"
@@ -7791,7 +7791,7 @@ msgstr "ipptool: URI krävs innan testfil."
 
 #, fuzzy, c-format
 msgid "ipptool: Unable to allocate memory: %s"
-msgstr "Kan inte allokera minne för skrivare"
+msgstr "ipptool: Kan inte allokera minne för skrivare: %s"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"

@@ -2,11 +2,12 @@
  * Verify that translations in the .po file have the same number and type of
  * printf-style format strings.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2025 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  *
  * Usage:
  *
@@ -270,9 +271,13 @@ main(int  argc,				/* I - Number of command-line args */
 	printf("    Too many untranslated messages (%d of %d or %.1f%% are translated)\n", count - untranslated, count, 100.0 - 100.0 * untranslated / count);
       }
       else if (untranslated > 0)
-        printf("PASS (%d of %d or %.1f%% are translated)\n", count - untranslated, count, 100.0 - 100.0 * untranslated / count);
+      {
+        printf("WARNING (%d of %d or %.1f%% are translated)\n", count - untranslated, count, 100.0 - 100.0 * untranslated / count);
+      }
       else
+      {
         puts("PASS");
+      }
     }
 
     if (!pass)
