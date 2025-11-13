@@ -7041,8 +7041,12 @@ get_notifications(cupsd_client_t *con)	/* I - Client connection */
     * If we don't have any new events, nothing to do here...
     */
 
+    cupsRWLockRead(&sub->lock);
     if (min_seq > (sub->first_event_id + cupsArrayCount(sub->events)))
+    {
+      cupsRWUnlock(&sub->lock);
       continue;
+    }
 
    /*
     * Otherwise copy all of the new events...
@@ -7061,6 +7065,8 @@ get_notifications(cupsd_client_t *con)	/* I - Client connection */
                  ((cupsd_event_t *)cupsArrayIndex(sub->events, j))->attrs, NULL,
         	 IPP_TAG_EVENT_NOTIFICATION, 0, NULL);
     }
+
+    cupsRWUnlock(&sub->lock);
   }
 }
 
