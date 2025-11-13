@@ -464,6 +464,7 @@ static int				// O - Exit status
 do_get_metadata(const char *oauth_uri,	// I - Authorization Server URI
                 const char *name)	// I - Field name
 {
+  int		ret = 0;		// Exit status
   cups_json_t	*metadata;		// Metadata
   char		*json;			// JSON string
 
@@ -513,12 +514,10 @@ do_get_metadata(const char *oauth_uri,	// I - Authorization Server URI
             }
             break;
       }
-
-      return (0);
     }
     else
     {
-      return (1);
+      ret = 1;
     }
   }
   else if ((json = cupsJSONExportString(metadata)) != NULL)
@@ -527,7 +526,9 @@ do_get_metadata(const char *oauth_uri,	// I - Authorization Server URI
     free(json);
   }
 
-  return (0);
+  cupsJSONDelete(metadata);
+
+  return (ret);
 }
 
 
