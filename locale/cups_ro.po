@@ -23,16 +23,16 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-08-23 23:15+0000\n"
+"PO-Revision-Date: 2025-11-13 19:58+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.13\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : "
+"(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(toate)"
@@ -56,7 +56,7 @@ msgid "\tAlerts: %s"
 msgstr "\tAlerte: %s"
 
 msgid "\tBanner required"
-msgstr ""
+msgstr "\tBanderolă cerută"
 
 msgid "\tCharset sets:"
 msgstr "\tSeturi de caractere:"
@@ -665,7 +665,7 @@ msgid ""
 "      **FAIL**  REQUIRED Default%s\n"
 "                REF: Page 40, section 4.5."
 msgstr ""
-"      **EȘEC**  NECESAR Implicit%s\n"
+"      **EȘEC**  NECESAR Default%s\n"
 "                REF: Pagina 40, secțiunea 4.5."
 
 msgid ""
@@ -724,7 +724,7 @@ msgid ""
 "      **FAIL**  REQUIRED Manufacturer\n"
 "                REF: Pages 58-59, section 5.3."
 msgstr ""
-"      **EȘEC**  NECESAR Producător\n"
+"      **EȘEC**  NECESAR Manufacturer\n"
 "                REF: Paginile 58-59, secțiunea 5.3."
 
 msgid ""
@@ -792,7 +792,7 @@ msgid ""
 "      **FAIL**  REQUIRED Product\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
-"      **EȘEC**  NECESAR Produs\n"
+"      **EȘEC**  NECESAR Product\n"
 "                REF: Pagina 62, secțiunea 5.3."
 
 msgid ""
@@ -824,88 +824,107 @@ msgstr "  --lf                    termină liniile cu LF (UNIX/Linux/macOS)"
 
 msgid "  --list-all              List all filters with the MIME media types."
 msgstr ""
+"  --list-all              listează toate filtrele cu tipurile de media MIME"
 
 msgid "  --list-filters          List filters that will be used."
 msgstr "  --list-filters          listează filtrele care vor fi utilizate"
 
 msgid "  -D                      Remove the input file when finished."
-msgstr ""
+msgstr "  -D                      elimină fișierul de intrare după finalizare"
 
 msgid "  -D name=value           Set named variable to value."
 msgstr ""
+"  -D nume=valoare         stabilește variabila numită la valoarea specificată"
 
 msgid "  -I include-dir          Add include directory to search path."
 msgstr ""
+"  -I include-dir          adaugă directorul de inclus la ruta de căutare"
 
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -P NUME_FIȘIER.ppd      definește fișierul PPD"
 
 msgid "  -U USERNAME             Specify username."
-msgstr ""
+msgstr "  -U NUME_UTILIZATOR      specifică numele utilizatorului"
 
 msgid "  -c catalog.po           Load the specified message catalog."
-msgstr ""
+msgstr "  -c catalog.po           încarcă catalogul de mesaje specificat"
 
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
+"  -c cups-files.conf      stabilește fișierul cups-files.conf de utilizat"
 
 msgid "  -d PRINTER              Use the named printer."
-msgstr ""
+msgstr "  -d IMPRIMANTA           utilizează imprimanta numită"
 
 msgid "  -d output-dir           Specify the output directory."
-msgstr ""
+msgstr "  -d director-ieșire      specifică directorul de ieșire"
 
 msgid "  -e                      Use every filter from the PPD file."
-msgstr ""
+msgstr "  -e                      utilizează fiecare filtru din fișierul PPD"
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
+"  -i MIME/TIP             stabilește tipul MIME de intrare "
+"(altfel se introduce automat)"
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
+"  -j ID_LUCRARE[,N]       filtrează fișierul N din lucrarea specificată "
+"(implicit este fișierul 1)"
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
+"  -l limba[,limba,...]    specifică limba (limbile) de ieșire "
+"(prin codul de limbă)"
 
 msgid "  -m                      Use the ModelName value as the filename."
 msgstr ""
+"  -m                      utilizează valoarea ModelName ca nume de fișier"
 
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
+"  -m MIME/TIP             stabilește tipul MIME de ieșire "
+"(altfel aplicație/pdf)"
 
 msgid "  -n COPIES               Set number of copies."
-msgstr ""
+msgstr "  -n COPII                stabilește numărul de copii"
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr ""
+msgstr "  -o NUME=VALOARE         definește opțiune (opțiuni)"
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
 msgstr ""
+"  -o nume-fișier.drv      stabilește fișierul cu informații despre controlor "
+"(altfel ppdi.drv)"
 
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr ""
+"  -o nume-fișier.ppd[.gz] stabilește fișierul de ieșire "
+"(altfel se utilizează ieșirea standard)"
 
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -p nume-fișier.ppd      stabilește fișierul PPD"
 
 msgid "  -t                      Test PPDs instead of generating them."
-msgstr ""
+msgstr "  -t                      testează PPD-urile în loc să le genereze"
 
 msgid "  -t TITLE                Set title."
-msgstr ""
+msgstr "  -t TITLU                stabilește titlul"
 
 msgid "  -u                      Remove the PPD file when finished."
-msgstr ""
+msgstr "  -u                      elimină fișierul PPD când a terminat"
 
 msgid "  -v                      Be verbose."
 msgstr ""
+"  -v                      oferă informații detaliate despre operațiile "
+"realizate"
 
 msgid "  -z                      Compress PPD files using GNU zip."
-msgstr ""
+msgstr "  -z                      comprimă fișierele PPD folosind GNU zip"
 
 msgid " FAIL"
 msgstr " EȘEC"
@@ -914,188 +933,240 @@ msgid " PASS"
 msgstr " A TRECUT"
 
 msgid "! expression            Unary NOT of expression"
-msgstr ""
+msgstr "! expresie              Nu unar al expresiei (negarea expresiei)"
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."
-msgstr ""
+msgstr "„%s”: Valoare URI incorectă „%s” - %s (RFC 8011 secțiunea 5.1.6)."
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."
 msgstr ""
+"„%s”: Valoare URI incorectă „%s” – lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.6)."
 
 #, c-format
 msgid "\"%s\": Bad attribute name - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
+"„%s”: Nume de atribut incorect – lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad attribute name - invalid character (RFC 8011 section 5.1.4)."
 msgstr ""
+"„%s”: Nume de atribut incorect – caracter nevalid (RFC 8011 secțiunea 5.1.4)."
 
 #, c-format
 msgid "\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."
-msgstr ""
+msgstr "„%s”: Valoare booleană incorectă %d (RFC 8011 secțiunea 5.1.21)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."
 msgstr ""
+"„%s”: Valoare incorectă a setului de caractere „%s” – caractere incorecte "
+"(RFC 8011 secțiunea 5.1.8)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."
 msgstr ""
+"„%s”: Valoare incorectă a setului de caractere „%s” - lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.8)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Ore ale DateTime UTC incorecte %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC minutes %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Minute ale DateTime UTC incorecte %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC sign '%c' (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Semn dateTime UTC incorect „%c” (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime day %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Ziua DateTime UTC este incorectă %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime deciseconds %u (RFC 8011 section 5.1.15)."
 msgstr ""
+"„%s”: Zecimi de secundă ale DateTime incorecte %u (RFC 8011 secțiunea 5.1.15)"
+"."
 
 #, c-format
 msgid "\"%s\": Bad dateTime hours %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Ore DateTime incorecte %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime minutes %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Minute ale DateTime incorecte %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime month %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Luna DateTime este incorectă %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime seconds %u (RFC 8011 section 5.1.15)."
-msgstr ""
+msgstr "„%s”: Secunde ale DateTime incorecte %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
 msgstr ""
+"„%s”: Valoare de enumerare incorectă %d – în afara intervalului "
+"(RFC 8011 secțiunea 5.1.5)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
+"„%s”: Valoare incorectă a cuvântului cheie „%s” – lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section "
 "5.1.4)."
 msgstr ""
+"„%s”: Valoare incorectă a cuvântului cheie „%s” – caracter nevalid "
+"(RFC 8011 secțiunea 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section "
 "5.1.10)."
 msgstr ""
+"„%s”: Valoare incorectă mimeMediaType „%s” – caractere incorecte "
+"(RFC 8011 secțiunea 5.1.10)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.10)."
 msgstr ""
+"„%s”: Valoare incorectă mimeMediaType „%s” - lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.10)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
 msgstr ""
+"„%s”: Valoare incorectă a numelui „%s” – secvență UTF-8 incorectă "
+"(RFC 8011 secțiunea 5.1.3)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section "
 "8.1)."
 msgstr ""
+"„%s”: Valoare incorectă a numelui „%s” – caracter de control incorect "
+"(PWG 5100.14 secțiunea 8.1)."
 
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."
 msgstr ""
+"„%s”: Valoare incorectă a numelui „%s” - lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.3)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section "
 "5.1.9)."
 msgstr ""
+"„%s”: Valoare naturalLanguage incorectă „%s” – caractere incorecte "
+"(RFC 8011 secțiunea 5.1.9)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.9)."
 msgstr ""
+"„%s”: Valoare naturalLanguage incorectă „%s” – lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.9)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
 msgstr ""
+"„%s”: Valoare octetString incorectă - lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.20)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 "
 "section 5.1.14)."
 msgstr ""
+"„%s”: Valoare incorectă pentru rangeOfInteger (intervalul de numere întregi) "
+"%d-%d – limita inferioară este mai mare decât limita superioară "
+"(RFC 8011 secțiunea 5.1.14)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - bad units value (RFC 8011 section "
 "5.1.16)."
 msgstr ""
+"„%s”: Valoare de rezoluție incorectă %dx%d%s - valoare de unități incorectă "
+"(RFC 8011 secțiunea 5.1.16)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be "
 "positive (RFC 8011 section 5.1.16)."
 msgstr ""
+"„%s”: Valoare de rezoluție incorectă %dx%d%s – rezoluția alimentării "
+"încrucișate trebuie să fie pozitivă (RFC 8011 secțiunea 5.1.16)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC "
 "8011 section 5.1.16)."
 msgstr ""
+"„%s”: Valoare de rezoluție incorectă %dx%d%s - rezoluția fluxului trebuie să "
+"fie pozitivă (RFC 8011 secțiunea 5.1.16)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
 msgstr ""
+"„%s”: Valoare text incorectă „%s” – secvență UTF-8 incorectă "
+"(RFC 8011 secțiunea 5.1.2)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section "
 "8.3)."
 msgstr ""
+"„%s”: Valoare text incorectă „%s” – caracter de control incorect "
+"(PWG 5100.14 secțiunea 8.3)."
 
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."
 msgstr ""
+"„%s”: Valoare text incorectă „%s” – lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.2)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
 msgstr ""
+"„%s”: Valoare uriScheme incorectă „%s” – caractere incorecte "
+"(RFC 8011 secțiunea 5.1.7)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
 msgstr ""
+"„%s”: Valoare uriScheme incorectă „%s” - lungime incorectă %d "
+"(RFC 8011 secțiunea 5.1.7)."
 
 msgid "\"requesting-user-name\" attribute in wrong group."
-msgstr ""
+msgstr "Atributul „requesting-user-name” se află într-un grup greșit."
 
 msgid "\"requesting-user-name\" attribute with wrong syntax."
-msgstr ""
+msgstr "Atributul „requesting-user-name” are o sintaxă incorectă."
 
 #, c-format
 msgid "%-7s %-7.7s %-7d %-31.31s %.0f bytes"
@@ -1131,15 +1202,15 @@ msgstr "%s (fără margini, %s, %s)"
 
 #, c-format
 msgid "%s accepting requests since %s"
-msgstr ""
+msgstr "%s acceptă cereri de la %s"
 
 #, c-format
 msgid "%s cannot be changed."
-msgstr ""
+msgstr "%s nu poate fi modificat."
 
 #, c-format
 msgid "%s is not implemented by the CUPS version of lpc."
-msgstr ""
+msgstr "%s nu este implementat de versiunea CUPS a lpc."
 
 #, c-format
 msgid "%s is not ready"
@@ -1155,27 +1226,27 @@ msgstr "%s este gata și imprimă"
 
 #, c-format
 msgid "%s job-id user title copies options [file]"
-msgstr ""
+msgstr "%s id-lucrare utilizator titlu copii opțiuni [fișier]"
 
 #, c-format
 msgid "%s not accepting requests since %s -"
-msgstr ""
+msgstr "%s nu acceptă cereri de la %s"
 
 #, c-format
 msgid "%s not supported."
-msgstr ""
+msgstr "%s nu este acceptat."
 
 #, c-format
 msgid "%s/%s accepting requests since %s"
-msgstr ""
+msgstr "%s/%s acceptă cereri de la %s"
 
 #, c-format
 msgid "%s/%s not accepting requests since %s -"
-msgstr ""
+msgstr "%s/%s nu acceptă cereri de la %s -"
 
 #, c-format
 msgid "%s: %-33.33s [job %d localhost]"
-msgstr ""
+msgstr "%s: %-33.33s [lucrare %d localhost]"
 
 #. TRANSLATORS: Message is "subject: error"
 #, c-format
@@ -1188,11 +1259,11 @@ msgstr "%s: %s a eșuat: %s"
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
-msgstr ""
+msgstr "%s: Versiune incorectă %s pentru „-V”."
 
 #, c-format
 msgid "%s: Don't know what to do."
-msgstr ""
+msgstr "%s: Nu se știe ce să se facă."
 
 #, c-format
 msgid "%s: Error - %s"
@@ -1202,6 +1273,7 @@ msgstr "%s: Eroare - %s"
 msgid ""
 "%s: Error - %s environment variable names non-existent destination \"%s\"."
 msgstr ""
+"%s: Eroare - numele variabilelor de mediu %s nu există în destinația „%s”."
 
 #, c-format
 msgid "%s: Error - The printer or class does not exist."
@@ -1209,245 +1281,252 @@ msgstr "%s: Eroare - Imprimanta sau clasa nu există."
 
 #, c-format
 msgid "%s: Error - add '/version=1.1' to server name."
-msgstr ""
+msgstr "%s: Eroare - adăugați '/version=1.1' la numele serverului."
 
 #, c-format
 msgid "%s: Error - bad job ID."
-msgstr ""
+msgstr "%s: Eroare - ID de lucrare incorect."
 
 #, c-format
 msgid "%s: Error - cannot print files and alter jobs simultaneously."
-msgstr ""
+msgstr "%s: Eroare - nu se pot imprima fișiere și modifica lucrări simultan."
 
 #, c-format
 msgid "%s: Error - cannot print from stdin if files or a job ID are provided."
 msgstr ""
+"%s: Eroare - nu se poate imprima de la intrarea standard dacă sunt furnizate "
+"fișiere sau un ID de lucrare."
 
 #, c-format
 msgid "%s: Error - copies must be 1 or more."
-msgstr ""
+msgstr "%s: Eroare - numărul de copii trebuie să fie cel puțin 1."
 
 #, c-format
 msgid "%s: Error - expected \"username\" after \"-U\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta „numele utilizatorului” după opțiunea „-U”."
 
 #, c-format
 msgid "%s: Error - expected PPD file after \"-%c\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta un fișier PPD după opțiunea „-%c”."
 
 #, c-format
 msgid "%s: Error - expected character set after \"-S\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta un set de caractere după opțiunea „-S”."
 
 #, c-format
 msgid "%s: Error - expected content type after \"-T\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta tipul de conținut după opțiunea „-T”."
 
 #, c-format
 msgid "%s: Error - expected copies after \"-#\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numărul de copii după opțiunea „-#”."
 
 #, c-format
 msgid "%s: Error - expected copies after \"-n\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numărul de copii după opțiunea „-n”."
 
 #, c-format
 msgid "%s: Error - expected destination MIME type after \"-m\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta tipul MIME al destinației după opțiunea „-m”."
 
 #, c-format
 msgid "%s: Error - expected destination after \"-P\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta destinația după opțiunea „-P”."
 
 #, c-format
 msgid "%s: Error - expected destination after \"-d\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta destinația după opțiunea „-d”."
 
 #, c-format
 msgid "%s: Error - expected filename after \"-c\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta un nume de fișier după opțiunea „-c”."
 
 #, c-format
 msgid "%s: Error - expected form after \"-f\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta un formular după opțiunea „-f”."
 
 #, c-format
 msgid "%s: Error - expected hold name after \"-H\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numele de reținut după opțiunea „-H”."
 
 #, c-format
 msgid "%s: Error - expected hostname after \"-H\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numele gazdei după opțiunea „-H”."
 
 #, c-format
 msgid "%s: Error - expected hostname after \"-h\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numele gazdei după opțiunea „-h”."
 
 #, c-format
 msgid "%s: Error - expected input file after \"-f\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta un fișier de intrare după opțiunea „-f”."
 
 #, c-format
 msgid "%s: Error - expected job-id after \"-j\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta ID-ul lucrării după opțiunea „-j”."
 
 #, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta lista de moduri după opțiunea „-y”."
 
 #, c-format
 msgid "%s: Error - expected name after \"-%c\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta un nume după opțiunea „-%c”."
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-a\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta o pereche „nume=valoare” după opțiunea „-a”."
 
 #, c-format
 msgid "%s: Error - expected name=value after \"-o\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta o pereche „nume=valoare” după opțiunea „-o”."
 
 #, c-format
 msgid "%s: Error - expected number of copies after \"-n\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numărul de copii după opțiunea „-n”."
 
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta o pereche „opțiune=valoare” după opțiunea „-o”."
 
 #, c-format
 msgid "%s: Error - expected page list after \"-P\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta lista de pagini după opțiunea „-P”."
 
 #, c-format
 msgid "%s: Error - expected printer name after \"-d\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numele imprimantei după opțiunea „-d”."
 
 #, c-format
 msgid "%s: Error - expected priority after \"-%c\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta o prioritate după opțiunea „-%c”."
 
 #, c-format
 msgid "%s: Error - expected reason text after \"-r\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta textul motivului după opțiunea „-r”."
 
 #, c-format
 msgid "%s: Error - expected source MIME type after \"-i\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta tipul MIME al sursei după opțiunea „-i”."
 
 #, c-format
 msgid "%s: Error - expected title after \"-%c\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta titlul după opțiunea „-%c”."
 
 #, c-format
 msgid "%s: Error - expected title after \"-t\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta titlul după opțiunea „-t”."
 
 #, c-format
 msgid "%s: Error - expected username after \"-U\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numele utilizatorului după opțiunea „-U”."
 
 #, c-format
 msgid "%s: Error - expected username after \"-u\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta numele utilizatorului după opțiunea „-u”."
 
 #, c-format
 msgid "%s: Error - expected value after \"-%c\" option."
-msgstr ""
+msgstr "%s: Eroare - se aștepta o valoare după opțiunea „-%c”."
 
 #, c-format
 msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
+"%s: Eroare - este necesar să se adauge „completed”, „not-completed”, "
+"„successful” sau „all” după opțiunea „-W”."
 
 #, c-format
 msgid "%s: Error - no default destination available."
-msgstr ""
+msgstr "%s: Eroare - nu există nicio destinație implicită disponibilă."
 
 #, c-format
 msgid "%s: Error - priority must be between 1 and 100."
-msgstr ""
+msgstr "%s: Eroare - prioritatea trebuie să fie între 1 și 100."
 
 #, c-format
 msgid "%s: Error - scheduler not responding."
-msgstr ""
+msgstr "%s: Eroare - planificatorul nu răspunde."
 
 #, c-format
 msgid "%s: Error - too many files - \"%s\"."
-msgstr ""
+msgstr "%s: Eroare - prea multe fișiere - „%s”."
 
 #, c-format
 msgid "%s: Error - unable to access \"%s\" - %s"
-msgstr ""
+msgstr "%s: Eroare - nu se poate accesa „%s” - %s"
 
 #, c-format
 msgid "%s: Error - unable to queue from stdin - %s."
 msgstr ""
+"%s: Eroare - nu se poate plasa în coada de așteptare de la intrarea standard "
+"- %s."
 
 #, c-format
 msgid "%s: Error - unknown destination \"%s\"."
-msgstr ""
+msgstr "%s: Eroare - destinație necunoscută „%s”."
 
 #, c-format
 msgid "%s: Error - unknown destination \"%s/%s\"."
-msgstr ""
+msgstr "%s: Eroare - destinație necunoscută „%s/%s”."
 
 #, c-format
 msgid "%s: Error - unknown option \"%c\"."
-msgstr ""
+msgstr "%s: Eroare - opțiune necunoscută „%c”."
 
 #, c-format
 msgid "%s: Error - unknown option \"%s\"."
-msgstr ""
+msgstr "%s: Eroare - opțiune necunoscută „%s”."
 
 #, c-format
 msgid "%s: Error - unknown option \"-%c\"."
-msgstr ""
+msgstr "%s: Eroare - opțiune necunoscută „-%c”."
 
 #, c-format
 msgid "%s: Expected job ID after \"-i\" option."
-msgstr ""
+msgstr "%s: Se aștepta ID-ul lucrării după opțiunea „-i”."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
-msgstr ""
+msgstr "%s: Nume de destinație nevalid în lista „%s”."
 
 #, c-format
 msgid "%s: Invalid filter string \"%s\"."
-msgstr ""
+msgstr "%s: Șir de filtru „%s” nevalid."
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr ""
+msgstr "%s: Lipsește numele clientului după „--client-name”."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
-msgstr ""
+msgstr "%s: Lipsește numele fișierului pentru „-P”."
 
 #, c-format
 msgid "%s: Missing timeout for \"-T\"."
-msgstr ""
+msgstr "%s: Lipsește timpul de așteptare pentru „-T”."
 
 #, c-format
 msgid "%s: Missing token after '--bearer-token'."
-msgstr ""
+msgstr "%s: Lipsește jetonul după „--bearer-token”."
 
 #, c-format
 msgid "%s: Missing user agent after '--user-agent'."
-msgstr ""
+msgstr "%s: Lipsește agentul utilizatorului după „--user-agent”."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
-msgstr ""
+msgstr "%s: Lipsește versiunea pentru „-V”."
 
 #, c-format
 msgid "%s: Need job ID (\"-i jobid\") before \"-H restart\"."
 msgstr ""
+"%s: Este necesar ID-ul lucrării („-i id-lucrare”) înainte de „-H restart”."
 
 #, c-format
 msgid "%s: No filter to convert from %s/%s to %s/%s."
-msgstr ""
+msgstr "%s: Nu există filtru pentru conversia din %s/%s în %s/%s."
 
 #, c-format
 msgid "%s: Operation failed: %s"
@@ -1455,15 +1534,15 @@ msgstr "%s: Operația a eșuat: %s"
 
 #, c-format
 msgid "%s: Scheduler is not running."
-msgstr ""
+msgstr "%s: Planificatorul nu rulează."
 
 #, c-format
 msgid "%s: Unable to connect to server."
-msgstr ""
+msgstr "%s: Nu se poate conecta la server."
 
 #, c-format
 msgid "%s: Unable to contact server."
-msgstr ""
+msgstr "%s: Nu se poate contacta serverul."
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
@@ -1479,7 +1558,7 @@ msgstr "%s: Nu s-a putut deschide %s: %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
-msgstr ""
+msgstr "%s: Nu s-a putut deschide fișierul PPD: %s pe linia %d."
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -1495,7 +1574,7 @@ msgstr "%s: destinație necunoscută „%s”."
 
 #, c-format
 msgid "%s: Unknown destination MIME type %s/%s."
-msgstr ""
+msgstr "%s: Tip MIME necunoscut pentru destinație %s/%s."
 
 #, c-format
 msgid "%s: Unknown option \"%c\"."
@@ -1511,209 +1590,251 @@ msgstr "%s: Opțiune necunoscută „-%c”."
 
 #, c-format
 msgid "%s: Unknown option '%s'."
-msgstr ""
+msgstr "%s: Opțiune necunoscută „%s”."
 
 #, c-format
 msgid "%s: Unknown option '-%c'."
-msgstr ""
+msgstr "%s: Opțiune necunoscută „-%c”."
 
 #, c-format
 msgid "%s: Unknown source MIME type %s/%s."
-msgstr ""
+msgstr "%s: Tip MIME sursă necunoscut %s/%s."
 
 #, c-format
 msgid ""
 "%s: Warning - \"%c\" format modifier not supported - output may not be "
 "correct."
 msgstr ""
+"%s: Avertisment - modificatorul de format „%c” nu este acceptat - rezultatul "
+"poate fi incorect."
 
 #, c-format
 msgid "%s: Warning - character set option ignored."
-msgstr ""
+msgstr "%s: Avertisment - opțiunea setului de caractere a fost ignorată."
 
 #, c-format
 msgid "%s: Warning - content type option ignored."
-msgstr ""
+msgstr "%s: Avertisment - opțiunea tipului de conținut a fost ignorată."
 
 #, c-format
 msgid "%s: Warning - form option ignored."
-msgstr ""
+msgstr "%s: Avertisment - opțiunea formularului a fost ignorată."
 
 #, c-format
 msgid "%s: Warning - mode option ignored."
-msgstr ""
+msgstr "%s: Avertisment - opțiunea de mod a fost ignorată."
 
 msgid "( expressions )         Group expressions"
-msgstr ""
+msgstr "( expresii )            Grup de expresii"
 
 msgid "-                       Cancel all jobs"
-msgstr ""
+msgstr "-                       Anulează toate lucrările"
 
 msgid "-# num-copies           Specify the number of copies to print"
 msgstr ""
+"-# număr-copii          specifică numărul de copii care trebuie imprimate"
 
 msgid "--[no-]debug-logging    Turn debug logging on/off"
-msgstr ""
+msgstr "--[no-]debug-logging    activează/dezactivează înregistrarea depanării"
 
 msgid "--[no-]remote-admin     Turn remote administration on/off"
 msgstr ""
+"--[no-]remote-admin     activează/dezactivează administrarea de la distanță"
 
 msgid "--[no-]remote-any       Allow/prevent access from the Internet"
-msgstr ""
+msgstr "--[no-]remote-any       permite/împiedică accesul din Internet"
 
 msgid "--[no-]share-printers   Turn printer sharing on/off"
-msgstr ""
+msgstr "--[no-]share-printers   activează/dezactivează partajarea imprimantei"
 
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
+"--[no-]user-cancel-any  permite/împiedică utilizatorii să anuleze orice "
+"lucrare"
 
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
+"--bearer-token JETON_PURTĂTOR\n"
+"                        definește jetonul purtătorului de OAuth pentru "
+"autentificare"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name NUME_CLIENT\n"
+"                        definește numele certificatului clientului TLS"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
 msgstr ""
+"--device-id id-dispozitiv\n"
+"                        afișează modelele care corespund ID-ului "
+"dispozitivului IEEE 1284 specificat"
 
 msgid "--domain regex          Match domain to regular expression"
-msgstr ""
+msgstr "--domain exp-reg        potrivește domeniul cu expresia regulată"
 
 msgid ""
 "--exclude-schemes scheme-list\n"
 "                        Exclude the specified URI schemes"
 msgstr ""
+"--exclude-schemes listă-scheme\n"
+"                        exclude schemele URI specificate"
 
 msgid ""
 "--exec utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
+"--exec program [argument ...] ;\n"
+"                        execută programul dacă este dată"
 
 msgid "--false                 Always false"
-msgstr ""
+msgstr "--false                 întotdeauna fals"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         afișează acest mesaj de ajutor"
 
 msgid "--help                  Show program help"
-msgstr ""
+msgstr "--help                  afișează mesajul de ajutor al programului"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  afișează acest mesaj de ajutor"
 
 msgid "--hold                  Hold new jobs"
-msgstr ""
+msgstr "--hold                  reține(păstreează) noile lucrări"
 
 msgid "--host regex            Match hostname to regular expression"
-msgstr ""
+msgstr "--host exp-reg          potrivește numele gazdei cu expresia regulată"
 
 msgid ""
 "--include-schemes scheme-list\n"
 "                        Include only the specified URI schemes"
 msgstr ""
+"--include-schemes listă-scheme\n"
+"                        include doar schemele URI specificate"
 
 msgid "--ippserver filename    Produce ippserver attribute file"
-msgstr ""
+msgstr "--ippserver nume-fișier generează fișierul de atribute ippserver"
 
 msgid "--language locale       Show models matching the given locale"
 msgstr ""
+"--language cod-limbă    afișează modelele care corespund limbii specificate"
 
 msgid "--literal-name name     Match service name to literal name value"
 msgstr ""
+"--literal-name nume     potrivește numele serviciului cu valoarea literală a "
+"numelui"
 
 msgid "--local                 True if service is local"
-msgstr ""
+msgstr "--local                 adevărat dacă serviciul este local"
 
 msgid "--ls                    List attributes"
-msgstr ""
+msgstr "--ls                    afișează lista de atribute"
 
 msgid ""
 "--make-and-model name   Show models matching the given make and model name"
 msgstr ""
+"--make-and-model nume   afișează modelele care corespund mărcii și modelului "
+"specificat"
 
 msgid "--name regex            Match service name to regular expression"
 msgstr ""
+"--name exp-reg          potrivește numele serviciului cu expresia regulată"
 
 msgid "--no-web-forms          Disable web forms for media and supplies"
 msgstr ""
+"--no-web-forms          dezactivează formularele web pentru suporturi media "
+"și consumabile"
 
 msgid "--not expression        Unary NOT of expression"
-msgstr ""
+msgstr "--not expression        nu unar al expresiei (negarea expresiei)"
 
 msgid "--pam-service service   Use the named PAM service"
-msgstr ""
+msgstr "--pam-service serviciu  utilizează serviciul PAM numit"
 
 msgid "--path regex            Match resource path to regular expression"
-msgstr ""
+msgstr "--path exp-reg          potrivește ruta resursei cu expresia regulată"
 
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
+"--pin                          fixează certificatul găsit de comanda "
+"clientului"
 
 msgid "--port number[-number]  Match port to number or range"
-msgstr ""
+msgstr "--port număr[-număr]    potrivește portul cu numărul sau intervalul"
 
 msgid "--print                 Print URI if true"
-msgstr ""
+msgstr "--print                 imprimă URI-ul dacă este dată"
 
 msgid "--print-name            Print service name if true"
-msgstr ""
+msgstr "--print-name            imprimă numele serviciului dacă este dată"
 
 msgid ""
 "--product name          Show models matching the given PostScript product"
 msgstr ""
+"--product nume          afișează modelele care corespund produsului "
+"PostScript specificat"
 
 msgid "--quiet                 Quietly report match via exit code"
 msgstr ""
+"--quiet                 raportează în mod silențios potrivirea prin codul de "
+"ieșire"
 
 msgid "--release               Release previously held jobs"
-msgstr ""
+msgstr "--release               eliberează lucrările reținute anterior"
 
 msgid "--remote                True if service is remote"
-msgstr ""
+msgstr "--remote                adevărat dacă serviciul este la distanță"
 
 msgid ""
 "--require-ca                   Require CA-signed certificate for client "
 "command"
 msgstr ""
+"--require-ca                   necesită certificat semnat de CA pentru "
+"comanda clientului"
 
 msgid ""
 "--stop-after-include-error\n"
 "                        Stop tests after a failed INCLUDE"
 msgstr ""
+"--stop-after-include-error\n"
+"                        oprește testele după un INCLUDE eșuat"
 
 msgid ""
 "--timeout seconds       Specify the maximum number of seconds to discover "
 "devices"
 msgstr ""
+"--timeout secunde       specifică numărul maxim de secunde pentru detectarea "
+"dispozitivelor"
 
 msgid "--true                  Always true"
-msgstr ""
+msgstr "--true                  întotdeauna adevărat"
 
 msgid "--txt key               True if the TXT record contains the key"
-msgstr ""
+msgstr "--txt cheie             adevărat dacă înregistrarea TXT conține cheia"
 
 msgid "--txt-* regex           Match TXT record key to regular expression"
 msgstr ""
+"--txt-* exp-reg         potrivește cheia înregistrării TXT cu expresia "
+"regulată"
 
 msgid "--uri regex             Match URI to regular expression"
-msgstr ""
+msgstr "--uri exp-reg           potrivește URI-ul cu expresia regulată"
 
 msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
-msgstr ""
+msgstr "--user-agent USER-AGENT definește șirul HTTP User-Agent"
 
 msgid "--version                      Show the program version"
-msgstr ""
+msgstr "--version                      afișează versiunea programului"
 
 msgid "--version               Show program version"
-msgstr ""
+msgstr "--version               afișează versiunea programului"
 
 msgid "--version               Show version"
-msgstr ""
+msgstr "--version               afișează versiunea"
 
 msgid "-1"
 msgstr "-1"
@@ -1756,6 +1877,8 @@ msgstr "-2"
 
 msgid "-2                      Set 2-sided printing support (default=1-sided)"
 msgstr ""
+"-2                      stabilește suportul pentru imprimare față-verso "
+"(implicit = față)"
 
 msgid "-20"
 msgstr "-20"
@@ -1776,7 +1899,7 @@ msgid "-4"
 msgstr "-4"
 
 msgid "-4                      Connect using IPv4"
-msgstr ""
+msgstr "-4                      conectare utilizând IPv4"
 
 msgid "-40"
 msgstr "-40"
@@ -1797,7 +1920,7 @@ msgid "-6"
 msgstr "-6"
 
 msgid "-6                      Connect using IPv6"
-msgstr ""
+msgstr "-6                      conectare utilizând IPv6"
 
 msgid "-60"
 msgstr "-60"
@@ -1833,493 +1956,600 @@ msgid "-95"
 msgstr "-95"
 
 msgid "-A                      Enable authentication"
-msgstr ""
+msgstr "-A                      activează autentificarea"
 
 msgid "-C                      Send requests using chunking (default)"
 msgstr ""
+"-C                      trimite cereri utilizând fragmentarea (implicit)"
 
 msgid "-C COUNTRY                     Set country."
-msgstr ""
+msgstr "-C ȚARA                        stabilește țara"
 
 msgid "-D description          Specify the textual description of the printer"
-msgstr ""
+msgstr "-D descriere            specifică descrierea textuală a imprimantei"
 
 msgid "-D device-uri           Set the device URI for the printer"
 msgstr ""
+"-D uri-dispozitiv       definește URI-ul dispozitivului pentru imprimantă"
 
 msgid ""
 "-E                      Enable and accept jobs on the printer (after -p)"
 msgstr ""
+"-E                      activează și acceptă lucrări la imprimantă (după -p)"
 
 msgid "-E                      Encrypt the connection to the server"
-msgstr ""
+msgstr "-E                      criptează conexiunea la server"
 
 msgid "-E                      Test with encryption using HTTP Upgrade to TLS"
 msgstr ""
+"-E                      test cu criptare utilizând actualizarea HTTP la TLS"
 
 msgid "-F                      Run in the foreground but detach from console."
 msgstr ""
+"-F                      rulează în prim-plan, dar se detașează de consolă"
 
 msgid "-F output-type/subtype  Set the output format for the printer"
-msgstr ""
+msgstr "-F tip-ieșire/subtip    stabilește formatul de ieșire pentru imprimantă"
 
 msgid "-H                      Show the default server and port"
-msgstr ""
+msgstr "-H                      afișează serverul și portul implicit"
 
 msgid "-H HH:MM                Hold the job until the specified UTC time"
-msgstr ""
+msgstr "-H HH:MM                reține lucrarea până la ora UTC specificată"
 
 msgid "-H hold                 Hold the job until released/resumed"
-msgstr ""
+msgstr "-H hold                 reține lucrarea până la eliberare/reluare"
 
 msgid "-H immediate            Print the job as soon as possible"
-msgstr ""
+msgstr "-H immediate            imprimă lucrarea cât mai curând posibil"
 
 msgid "-H restart              Reprint the job"
-msgstr ""
+msgstr "-H restart              reimprimă lucrarea"
 
 msgid "-H resume               Resume a held job"
-msgstr ""
+msgstr "-H resume               reia o lucrare reținută"
 
 msgid "-H server[:port]        Connect to the named server and port"
-msgstr ""
+msgstr "-H server[:port]        se conectează la serverul și portul numit"
 
 msgid "-I                      Ignore errors"
-msgstr ""
+msgstr "-I                      ignoră erorile"
 
 msgid ""
 "-I {filename,filters,none,profiles}\n"
 "                          Ignore specific warnings"
 msgstr ""
+"-I {filename,filters,none,profiles}\n"
+"                          ignoră avertismentele specifice"
 
 msgid ""
 "-K keypath              Set location of server X.509 certificates and keys."
 msgstr ""
+"-K ruta-la-cheie        definește locația certificatelor și cheilor X.509 "
+"ale serverului"
 
 msgid "-L                      Send requests using content-length"
-msgstr ""
+msgstr "-L                      trimite cereri utilizând lungimea conținutului"
 
 msgid "-L LOCALITY                    Set locality name."
-msgstr ""
+msgstr "-L LOCALITATEA                 definește numele localității."
 
 msgid "-L location             Specify the textual location of the printer"
-msgstr ""
+msgstr "-L locația              specifică textual locația imprimantei"
 
 msgid "-M manufacturer         Set manufacturer name (default=Test)"
 msgstr ""
+"-M fabricant            definește numele fabricantului (implicit = Test)"
 
 msgid "-N name                 Match service name to literal name value"
 msgstr ""
+"-N nume                 potrivește numele serviciului cu valoarea literală a "
+"numelui"
 
 msgid "-O ORGANIZATION                Set organization name."
-msgstr ""
+msgstr "-O ORGANIZAȚIA                 definește numele organizației"
 
 msgid "-P destination          Show status for the specified destination"
-msgstr ""
+msgstr "-P destinația           afișează starea pentru destinația specificată"
 
 msgid "-P destination          Specify the destination"
-msgstr ""
+msgstr "-P destinația           specifică destinația"
 
 msgid ""
 "-P filename.plist       Produce XML plist to a file and test report to "
 "standard output"
 msgstr ""
+"-P nume-fișier.plist    generează un fișier XML plist și un raport de "
+"testare la ieșirea standard"
 
 msgid "-P number[-number]      Match port to number or range"
-msgstr ""
+msgstr "-P număr[-număr]        potrivește portul cu numărul sau intervalul"
 
 msgid "-P page-list            Specify a list of pages to print"
-msgstr ""
+msgstr "-P listă-pagini         specifică o listă de pagini de imprimat"
 
 msgid "-R                      Repeat tests on server-error-busy"
 msgstr ""
+"-R                      repetă testele în caz de eroare „server-error-busy”"
 
 msgid "-R                      Show the ranking of jobs"
-msgstr ""
+msgstr "-R                      afișează ordinea lucrărilor"
 
 msgid ""
 "-R CSR-FILENAME                Specify certificate signing request file."
 msgstr ""
+"-R nume-fișier-csr             specifică fișierul cererii de semnare a "
+"certificatului"
 
 msgid "-R name-default         Remove the default value for the named option"
 msgstr ""
+"-R nume-implicit        elimină valoarea implicită pentru opțiunea numită"
 
 msgid "-R root-directory       Set alternate root"
-msgstr ""
+msgstr "-R director-rădăcină    stabilește directorul rădăcină alternativ"
 
 msgid "-S                      Test with encryption using HTTPS"
-msgstr ""
+msgstr "-S                      testare cu criptare utilizând HTTPS"
 
 msgid "-S STATE                       Set state."
-msgstr ""
+msgstr "-S STARE                       stabilește starea"
 
 msgid "-S filename.strings     Set strings file"
-msgstr ""
+msgstr "-S nume-fișier.strings  stabilește fișierul de șiruri"
 
 msgid "-T seconds              Set the browse timeout in seconds"
 msgstr ""
+"-T secunde              stabilește timpul de așteptare pentru navigare în "
+"secunde"
 
 msgid "-T seconds              Set the receive/send timeout in seconds"
 msgstr ""
+"-T secunde              stabilește timpul de așteptare pentru primire/"
+"trimitere în secunde"
 
 msgid "-T title                Specify the job title"
-msgstr ""
+msgstr "-T titlu                specifică titlul lucrării"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
 msgstr ""
+"-U unitate-organizațională     stabilește numele unității organizaționale"
 
 msgid "-U username             Specify the username to use for authentication"
 msgstr ""
+"-U nume-utilizator      specifică numele utilizatorului care va fi folosit "
+"pentru autentificare"
 
 msgid "-U username             Specify username to use for authentication"
 msgstr ""
+"-U nume-utilizator      specifică numele utilizatorului care va fi folosit "
+"pentru autentificare"
 
 msgid "-V version              Set default IPP version"
-msgstr ""
+msgstr "-V versiune             stabilește versiunea IPP implicită"
 
 msgid "-W completed            Show completed jobs"
-msgstr ""
+msgstr "-W completed            afișează lucrările finalizate"
 
 msgid "-W not-completed        Show pending jobs"
-msgstr ""
+msgstr "-W not-completed        afișează lucrările în curs"
 
 msgid ""
 "-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
 "translations}\n"
 "                          Issue warnings instead of errors"
 msgstr ""
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,translations}"
+"\n"
+"                          emite avertismente în loc de erori"
 
 msgid "-X                      Produce XML plist instead of plain text"
-msgstr ""
+msgstr "-X                      produce XML plist în loc de text simplu"
 
 msgid "-a                      Cancel all jobs"
-msgstr ""
+msgstr "-a                      anulează toate lucrările"
 
 msgid "-a                      Show jobs on all destinations"
-msgstr ""
+msgstr "-a                      afișează lucrările din toate destinațiile"
 
 msgid ""
 "-a OAUTH-URI                   Specify the OAuth authorization server URL"
 msgstr ""
+"-a URL-OAUTH                   specifică adresa URL a serverului de "
+"autorizare OAuth"
 
 msgid "-a SUBJECT-ALT-NAME            Add a subjectAltName."
 msgstr ""
+"-a NUME-ALT-SUBIECT            adaugă un nume alternativ pentru subiect "
+"„subjectAltName”"
 
 msgid "-a [destination(s)]     Show the accepting state of destinations"
-msgstr ""
+msgstr "-a [destinație(i)]      afișează starea de acceptare a destinațiilor"
 
 msgid "-a filename.conf        Load printer attributes from conf file"
 msgstr ""
+"-a nume-fișier.conf     încarcă atributele imprimantei din fișierul de "
+"configurare specificat"
 
 msgid "-c                      Make a copy of the print file(s)"
 msgstr ""
+"-c                      face o copie a fișierului (fișierelor) de imprimare"
 
 msgid "-c                      Produce CSV output"
-msgstr ""
+msgstr "-c                      generează ieșire în *.cvs"
 
 msgid "-c [class(es)]          Show classes and their member printers"
 msgstr ""
+"-c [clasă(e)]           afișează clasele și imprimantele membre ale acestora"
 
 msgid "-c class                Add the named destination to a class"
-msgstr ""
+msgstr "-c clasă                adaugă destinația numită la o clasă"
 
 msgid "-c command              Set print command"
-msgstr ""
+msgstr "-c comanda              stabilește comanda de imprimare"
 
 msgid "-c cupsd.conf           Set cupsd.conf file to use."
-msgstr ""
+msgstr "-c cupsd.conf           stabilește fișierul cupsd.conf de utilizat"
 
 msgid "-d                      Show the default destination"
-msgstr ""
+msgstr "-d                      afișează destinația implicită"
 
 msgid "-d DAYS                        Set expiration date in days."
-msgstr ""
+msgstr "-d ZILE                        stabilește data de expirare în zile"
 
 msgid "-d destination          Set default destination"
-msgstr ""
+msgstr "-d destinația           stabilește destinația implicită"
 
 msgid "-d destination          Set the named destination as the server default"
 msgstr ""
+"-d destinația           stabilește destinația numită ca destinație implicită "
+"a serverului"
 
 msgid "-d destination          Specify the destination"
-msgstr ""
+msgstr "-d destinația           specifică destinația"
 
 msgid "-d name=value           Set named variable to value"
 msgstr ""
+"-d nume=valoare         stabilește variabila numită la valoarea specificată"
 
 msgid "-d regex                Match domain to regular expression"
-msgstr ""
+msgstr "-d exp-reg              potrivește domeniul cu expresia regulată"
 
 msgid "-d spool-directory      Set spool directory"
-msgstr ""
+msgstr "-d director-spool       stabilește directorul spool"
 
 msgid "-e                      Show available destinations on the network"
-msgstr ""
+msgstr "-e                      afișează destinațiile disponibile din rețea"
 
 msgid "-f                      Run in the foreground."
-msgstr ""
+msgstr "-f                      rulează în prim-plan"
 
 msgid "-f filename             Set default request filename"
 msgstr ""
+"-f nume-fișier          stabilește numele implicit al fișierului de "
+"solicitare"
 
 msgid "-f type/subtype[,...]   Set supported file types"
-msgstr ""
+msgstr "-f tip/subtip[,...]     stabilește tipurile de fișiere acceptate"
 
 msgid "-h                      Show this usage message."
-msgstr ""
+msgstr "-h                      afișează acest mesaj de utilizare"
 
 msgid "-h                      Validate HTTP response headers"
-msgstr ""
+msgstr "-h                      validează antetele răspunsului HTTP"
 
 msgid "-h regex                Match hostname to regular expression"
-msgstr ""
+msgstr "-h exp-reg              potrivește numele gazdei cu expresia regulată"
 
 msgid "-h server[:port]        Connect to the named server and port"
-msgstr ""
+msgstr "-h server[:port]        se conectează la serverul și portul numit"
 
 msgid "-i iconfile.png[,...]   Set icon file(s)"
 msgstr ""
+"-i fișier-pictogramă.png[,...]\n"
+"                        stabilește fișierul (fișierele) cu pictogramă"
 
 msgid "-i id                   Specify an existing job ID to modify"
 msgstr ""
+"-i id                   specifică un ID de lucrare existentă pentru a o "
+"modifica"
 
 msgid "-i ppd-file             Specify a PPD file for the printer"
-msgstr ""
+msgstr "-i fișier-ppd           specifică un fișier PPD pentru imprimantă"
 
 msgid ""
 "-i seconds              Repeat the last file with the given time interval"
-msgstr ""
+msgstr "-i secunde              repetă ultimul fișier cu intervalul de timp dat"
 
 msgid "-k                      Keep job spool files"
 msgstr ""
+"-k                      păstrează fișierele din coada de lucrări de imprimare"
 
 msgid "-l                      List attributes"
-msgstr ""
+msgstr "-l                      listează atributele"
 
 msgid "-l                      Produce plain text output"
-msgstr ""
+msgstr "-l                      produce ieșirea sub formă de text simplu"
 
 msgid "-l                      Run cupsd on demand."
-msgstr ""
+msgstr "-l                      rulează cupsd la cerere."
 
 msgid "-l                      Show supported options and values"
-msgstr ""
+msgstr "-l                      afișează opțiunile și valorile acceptate"
 
 msgid "-l                      Show verbose (long) output"
-msgstr ""
+msgstr "-l                      afișează ieșirea detaliată (lungă) a mesajelor"
 
 msgid "-l location             Set location of printer"
-msgstr ""
+msgstr "-l locația              stabilește locația imprimantei"
 
 msgid ""
 "-m                      Send an email notification when the job completes"
 msgstr ""
+"-m                      trimite o notificare prin poșta electronică la "
+"finalizarea lucrării"
 
 msgid "-m                      Show models"
-msgstr ""
+msgstr "-m                      afișează modelele"
 
 msgid ""
 "-m everywhere           Specify the printer is compatible with IPP Everywhere"
 msgstr ""
+"-m everywhere           specifică faptul că imprimanta este compatibilă cu "
+"IPP Everywhere"
 
 msgid "-m model                Set model name (default=Printer)"
 msgstr ""
+"-m model                stabilește numele modelului (implicit = Printer)"
 
 msgid ""
 "-m model                Specify a standard model/PPD file for the printer"
 msgstr ""
+"-m model                specifică un model standard/fișier PPD pentru "
+"imprimantă"
 
 msgid "-n count                Repeat the last file the given number of times"
 msgstr ""
+"-n număr                repetă ultimul fișier de numărul de ori specificat"
 
 msgid "-n hostname             Set hostname for printer"
-msgstr ""
+msgstr "-n nume-gazdă           stabilește numele gazdei pentru imprimantă"
 
 msgid "-n num-copies           Specify the number of copies to print"
 msgstr ""
+"-n număr-copii          specifică numărul de copii care trebuie imprimate"
 
 msgid "-n regex                Match service name to regular expression"
 msgstr ""
+"-n exp-reg              potrivește numele serviciului cu expresia regulată"
 
 msgid ""
 "-o Name=Value           Specify the default value for the named PPD option "
 msgstr ""
+"-o name=valoare         specifică valoarea implicită pentru opțiunea PPD "
+"numită "
 
 msgid "-o [destination(s)]     Show jobs"
-msgstr ""
+msgstr "-o [destinație(i)]      afișează lucrările"
 
 msgid ""
 "-o cupsIPPSupplies=false\n"
 "                        Disable supply level reporting via IPP"
 msgstr ""
+"-o cupsIPPSupplies=false\n"
+"                        dezactivează raportarea nivelului de alimentare "
+"(consumabilelor) prin IPP"
 
 msgid ""
 "-o cupsSNMPSupplies=false\n"
 "                        Disable supply level reporting via SNMP"
 msgstr ""
+"-o cupsSNMPSupplies=false\n"
+"                        dezactivează raportarea nivelului de alimentare "
+"(consumabilelor) prin  SNMP"
 
 msgid "-o job-k-limit=N        Specify the kilobyte limit for per-user quotas"
 msgstr ""
+"-o job-k-limit=N        specifică limita în kiloocteți a cotelor per "
+"utilizator"
 
 msgid "-o job-page-limit=N     Specify the page limit for per-user quotas"
 msgstr ""
+"-o job-page-limit=N     specifică limita de pagini a cotelor per utilizator"
 
 msgid "-o job-quota-period=N   Specify the per-user quota period in seconds"
 msgstr ""
+"-o job-quota-period=N   specifică perioada de cotă per utilizator în secunde"
 
 msgid "-o job-sheets=standard  Print a banner page with the job"
-msgstr ""
+msgstr "-o job-sheets=standard  imprimă o pagină banderolă cu lucrarea"
 
 msgid "-o media=size           Specify the media size to use"
 msgstr ""
+"-o media=dimensiune     specifică dimensiunea suportului media de utilizat"
 
 msgid "-o name-default=value   Specify the default value for the named option"
 msgstr ""
+"-o nume=val-implicită   specifică valoarea implicită pentru opțiunea numită"
 
 msgid "-o name[=value]         Set default option and value"
-msgstr ""
+msgstr "-o nume[=valoare]       stabilește opțiunea și valoarea implicită"
 
 msgid ""
 "-o number-up=N          Specify that input pages should be printed N-up (1, "
 "2, 4, 6, 9, and 16 are supported)"
 msgstr ""
+"-o number-up=N          specifică că paginile de intrare trebuie imprimate "
+"până_la-N (sunt acceptate 1, 2, 4, 6, 9 și 16)"
 
 msgid "-o option[=value]       Specify a printer-specific option"
-msgstr ""
+msgstr "-o opțiune[=valoare]    specifică o opțiune specifică imprimantei"
 
 msgid ""
 "-o orientation-requested=N\n"
 "                        Specify portrait (3) or landscape (4) orientation"
 msgstr ""
+"-o orientation-requested=N\n"
+"                        specifică orientarea: portret (3) sau peisaj (4)"
 
 msgid ""
 "-o print-quality=N      Specify the print quality - draft (3), normal (4), "
 "or best (5)"
 msgstr ""
+"-o print-quality=N      specificați calitatea imprimării - schiță (3), "
+"normală (4) sau optimă (5)"
 
 msgid ""
 "-o printer-error-policy=name\n"
 "                        Specify the printer error policy"
 msgstr ""
+"-o printer-error-policy=nume\n"
+"                        specifică politica privind erorile imprimantei"
 
 msgid ""
 "-o printer-is-shared=true\n"
 "                        Share the printer"
 msgstr ""
+"-o printer-is-shared=true\n"
+"                        activează partajarea imprimantei"
 
 msgid ""
 "-o printer-op-policy=name\n"
 "                        Specify the printer operation policy"
 msgstr ""
+"-o printer-op-policy=nume\n"
+"                        specifică politica de funcționare a imprimantei"
 
 msgid "-o sides=one-sided      Specify 1-sided printing"
-msgstr ""
+msgstr "-o sides=one-sided      specifică imprimarea pe o singură față"
 
 msgid ""
 "-o sides=two-sided-long-edge\n"
 "                        Specify 2-sided portrait printing"
 msgstr ""
+"-o sides=two-sided-long-edge\n"
+"                        specifică imprimarea cu orientarea portret, pe două "
+"fețe"
 
 msgid ""
 "-o sides=two-sided-short-edge\n"
 "                        Specify 2-sided landscape printing"
 msgstr ""
+"-o sides=two-sided-short-edge\n"
+"                        specifică imprimarea cu orientarea peisaj, pe două "
+"fețe"
 
 msgid "-p                      Print URI if true"
-msgstr ""
+msgstr "-p                      imprimă URI-ul dacă este dată"
 
 msgid ""
 "-p PURPOSE                     Comma-delimited certificate purpose\n"
 "                               (serverAuth, clientAuth, codeSigning, "
 "emailProtection, timeStamping, OCSPSigning)"
 msgstr ""
+"-p SCOPUL                      scopul certificatului delimitat prin virgule\n"
+"                               (serverAuth, clientAuth, codeSigning, "
+"emailProtection, timeStamping, OCSPSigning)"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
-msgstr ""
+msgstr "-p [imprimantă(e)]      afișează starea de procesare a destinațiilor"
 
 msgid "-p destination          Specify a destination"
-msgstr ""
+msgstr "-p destinația           specifică destinația"
 
 msgid "-p destination          Specify/add the named destination"
-msgstr ""
+msgstr "-p destinația           specifică/adaugă destinația numită"
 
 msgid "-p port                 Set port number for printer"
-msgstr ""
+msgstr "-p port                 stabilește numărul portului pentru imprimantă"
 
 msgid "-q                      Quietly report match via exit code"
 msgstr ""
+"-q                      raportează în mod discret potrivirea prin codul de "
+"ieșire"
 
 msgid "-q                      Run silently"
-msgstr ""
+msgstr "-q                      rulează în modul silențios"
 
 msgid "-q                      Specify the job should be held for printing"
 msgstr ""
+"-q                      specifică că lucrarea trebuie reținută pentru "
+"imprimare"
 
 msgid "-q priority             Specify the priority from low (1) to high (100)"
 msgstr ""
+"-q prioritatea          specifică prioritatea de la scăzută (1) la ridicată "
+"(100)"
 
 msgid "-r                      Remove the file(s) after submission"
-msgstr ""
+msgstr "-r                      elimină fișierul (fișierele) după trimitere"
 
 msgid "-r                      Show whether the CUPS server is running"
-msgstr ""
+msgstr "-r                      afișează dacă serverul CUPS rulează"
 
 msgid "-r                      True if service is remote"
-msgstr ""
+msgstr "-r                      adevărat dacă serviciul este la distanță"
 
 msgid "-r                      Use 'relaxed' open mode"
-msgstr ""
+msgstr "-r                      utilizează modul de deschidere „relaxat”"
 
 msgid "-r ROOT-NAME                   Name of root certificate"
-msgstr ""
+msgstr "-r nume-rădăcină               numele certificatului rădăcină"
 
 msgid "-r class                Remove the named destination from a class"
-msgstr ""
+msgstr "-r clasa                elimină destinația numită dintr-o clasă"
 
 msgid "-r reason               Specify a reason message that others can see"
 msgstr ""
+"-r motiv                specifică un mesaj cu motivul pe care îl pot vedea "
+"și ceilalți"
 
 msgid "-r subtype,[subtype]    Set DNS-SD service subtype"
-msgstr ""
+msgstr "-r subtip,[subtip]      stabilește subtipul serviciului DNS-SD"
 
 msgid "-s                      Be silent"
-msgstr ""
+msgstr "-s                      operează în modul silențios"
 
 msgid "-s                      Print service name if true"
-msgstr ""
+msgstr "-s                      imprimă numele serviciului dacă este dată"
 
 msgid "-s                      Show a status summary"
-msgstr ""
+msgstr "-s                      afișează un rezumat al stării"
 
 msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
 msgstr ""
+"-s domeniu(i)                  specifică domeniul (domeniile) de autorizare"
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
-msgstr ""
+msgstr "-s cups-files.conf      stabilește fișierul cups-files.conf de utilizat"
 
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
 msgstr ""
+"-s viteză[,culoare-viteză]\n"
+"                        stabilește viteza în pagini pe minut"
 
 msgid "-t                      Produce a test report"
-msgstr ""
+msgstr "-t                      generează un raport de testare"
 
 msgid "-t                      Show all status information"
-msgstr ""
+msgstr "-t                      afișează toate informațiile despre stare"
 
 msgid "-t                      Test the configuration file."
-msgstr ""
+msgstr "-t                      testează fișierul de configurare"
 
 msgid ""
 "-t TYPE                        Certificate type\n"
 "                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
 "ecdsa-p384, ecdsa-p521)"
 msgstr ""
+"-t TIP                         tipul certificatului\n"
+"                               "
+"(rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, ecdsa-p384, ecdsa-p521)"
 
 msgid "-t key                  True if the TXT record contains the key"
-msgstr ""
+msgstr "-t cheie                adevărat dacă înregistrarea TXT conține cheia"
 
 msgid "-t title                Specify the job title"
-msgstr ""
+msgstr "-t titlu                specifică titlul lucrării"
 
 msgid ""
 "-u USAGE                       Comma-delimited key usage\n"
@@ -2327,59 +2557,78 @@ msgid ""
 "keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
 "encipherOnly, decipherOnly, default-ca, default-tls)"
 msgstr ""
+"-u UTILIZARE                   utilizarea cheii delimitată prin virgule\n"
+"                               (digitalSignature, nonRepudiation, "
+"keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
+"encipherOnly, decipherOnly, default-ca, default-tls)"
 
 msgid ""
 "-u [user(s)]            Show jobs queued by the current or specified users"
 msgstr ""
+"-u [utilizator(i)]      afișează lucrările aflate în coada de așteptare ale "
+"utilizatorilor actuali sau specificați"
 
 msgid "-u allow:all            Allow all users to print"
-msgstr ""
+msgstr "-u allow:all            permite tuturor utilizatorilor să imprime"
 
 msgid ""
 "-u allow:list           Allow the list of users or groups (@name) to print"
 msgstr ""
+"-u allow:list           permite imprimarea listei de utilizatori sau grupuri "
+"(@nume)"
 
 msgid ""
 "-u deny:list            Prevent the list of users or groups (@name) to print"
 msgstr ""
+"-u deny:list            împiedică imprimarea listei de utilizatori sau "
+"grupuri (@nume)"
 
 msgid "-u owner                Specify the owner to use for jobs"
 msgstr ""
+"-u proprietar           specifică proprietarul care va fi utilizat pentru "
+"lucrări"
 
 msgid "-u regex                Match URI to regular expression"
-msgstr ""
+msgstr "-u exp-reg              potrivește URI-ul cu expresia regulată"
 
 msgid "-v                      Be verbose"
 msgstr ""
+"-v                      oferă informații detaliate despre operațiile "
+"realizate"
 
 msgid "-v                      Show devices"
-msgstr ""
+msgstr "-v                      afișează dispozitivele"
 
 msgid "-v [printer(s)]         Show the devices for each destination"
 msgstr ""
+"-v [imprimantă(e)]      afișează dispozitivele pentru fiecare destinație"
 
 msgid "-v device-uri           Specify the device URI for the printer"
 msgstr ""
+"-v uri-dispozitiv       definește URI-ul dispozitivului pentru imprimantă"
 
 msgid "-vv                     Be very verbose"
-msgstr ""
+msgstr "-vv                     oferă informații foarte detaliate la ieșire"
 
 msgid "-x                      Purge jobs rather than just canceling"
-msgstr ""
+msgstr "-x                      elimină lucrările în loc să le anuleze doar"
 
 msgid "-x destination          Remove default options for destination"
-msgstr ""
+msgstr "-x destinația           elimină opțiunile implicite pentru destinație"
 
 msgid "-x destination          Remove the named destination"
-msgstr ""
+msgstr "-x destinația           elimină destinația numită"
 
 msgid ""
 "-x utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
+"-x program [argument ...] ;\n"
+"                        execută programul dacă este dată"
 
 msgid "/etc/cups/lpoptions file names default destination that does not exist."
 msgstr ""
+"Fișierul „/etc/cups/lpoptions” indică o destinație implicită care nu există."
 
 msgid "0"
 msgstr "0"
@@ -2391,25 +2640,25 @@ msgid "1 inch/sec."
 msgstr "1 inci/sec."
 
 msgid "1.25x0.25\""
-msgstr ""
+msgstr "1.25x0.25 inci"
 
 msgid "1.25x2.25\""
-msgstr ""
+msgstr "1.25x2.25 inci"
 
 msgid "1.5 inch/sec."
 msgstr "1,5 inci/sec."
 
 msgid "1.50x0.25\""
-msgstr ""
+msgstr "1.50x0.25 inci"
 
 msgid "1.50x0.50\""
-msgstr ""
+msgstr "1.50x0.50 inci"
 
 msgid "1.50x1.00\""
-msgstr ""
+msgstr "1.50x1.00 inci"
 
 msgid "1.50x2.00\""
-msgstr ""
+msgstr "1.50x2.00 inci"
 
 msgid "10"
 msgstr "10"
@@ -2517,58 +2766,58 @@ msgid "2-Sided Printing"
 msgstr "Imprimare pe 2 fețe"
 
 msgid "2.00x0.37\""
-msgstr ""
+msgstr "2.00x0.37 inci"
 
 msgid "2.00x0.50\""
-msgstr ""
+msgstr "2.00x0.50 inci"
 
 msgid "2.00x1.00\""
-msgstr ""
+msgstr "2.00x1.00 inci"
 
 msgid "2.00x1.25\""
-msgstr ""
+msgstr "2.00x1.25 inci"
 
 msgid "2.00x2.00\""
-msgstr ""
+msgstr "2.00x2.00 inci"
 
 msgid "2.00x3.00\""
-msgstr ""
+msgstr "2.00x3.00 inci"
 
 msgid "2.00x4.00\""
-msgstr ""
+msgstr "2.00x4.00 inci"
 
 msgid "2.00x5.50\""
-msgstr ""
+msgstr "2.00x5.50 inci"
 
 msgid "2.25x0.50\""
-msgstr ""
+msgstr "2.25x0.50 inci"
 
 msgid "2.25x1.25\""
-msgstr ""
+msgstr "2.25x1.25 inci"
 
 msgid "2.25x4.00\""
-msgstr ""
+msgstr "2.25x4.00 inci"
 
 msgid "2.25x5.50\""
-msgstr ""
+msgstr "2.25x5.50 inci"
 
 msgid "2.38x5.50\""
-msgstr ""
+msgstr "2.38x5.50 inci"
 
 msgid "2.5 inches/sec."
 msgstr "2,5 inci/sec."
 
 msgid "2.50x1.00\""
-msgstr ""
+msgstr "2.50x1.00 inci"
 
 msgid "2.50x2.00\""
-msgstr ""
+msgstr "2.50x2.00 inci"
 
 msgid "2.75x1.25\""
-msgstr ""
+msgstr "2.75x1.25 inci"
 
 msgid "2.9 x 1\""
-msgstr ""
+msgstr "2.9 x 1 inci"
 
 msgid "20"
 msgstr "20"
@@ -2595,7 +2844,7 @@ msgid "24"
 msgstr "24"
 
 msgid "24-Pin Series"
-msgstr ""
+msgstr "Seria cu 24 de pini"
 
 msgid "240x72dpi"
 msgstr "240x72dpi"
@@ -2628,52 +2877,52 @@ msgid "3 x 5"
 msgstr "3 x 5"
 
 msgid "3.00x1.00\""
-msgstr ""
+msgstr "3.00x1.00 inci"
 
 msgid "3.00x1.25\""
-msgstr ""
+msgstr "3.00x1.25 inci"
 
 msgid "3.00x2.00\""
-msgstr ""
+msgstr "3.00x2.00 inci"
 
 msgid "3.00x3.00\""
-msgstr ""
+msgstr "3.00x3.00 inci"
 
 msgid "3.00x4.00\""
-msgstr ""
+msgstr "3.00x4.00 inci"
 
 msgid "3.00x5.00\""
-msgstr ""
+msgstr "3.00x5.00 inci"
 
 msgid "3.00x6.00\""
-msgstr ""
+msgstr "3.00x6.00 inci"
 
 msgid "3.00x8.00\""
-msgstr ""
+msgstr "3.00x8.00 inci"
 
 msgid "3.25x2.00\""
-msgstr ""
+msgstr "3.25x2.00 inci"
 
 msgid "3.25x5.00\""
-msgstr ""
+msgstr "3.25x5.00 inci"
 
 msgid "3.25x5.50\""
-msgstr ""
+msgstr "3.25x5.50 inci"
 
 msgid "3.25x5.83\""
-msgstr ""
+msgstr "3.25x5.83 inci"
 
 msgid "3.25x7.83\""
-msgstr ""
+msgstr "3.25x7.83 inci"
 
 msgid "3.5 x 5"
 msgstr "3.5 x 5"
 
 msgid "3.5\" Disk"
-msgstr ""
+msgstr "Disc de 3,5\""
 
 msgid "3.50x1.00\""
-msgstr ""
+msgstr "3.50x1.00 inci"
 
 msgid "30"
 msgstr "30"
@@ -2688,7 +2937,7 @@ msgid "300dpi"
 msgstr "300dpi"
 
 msgid "30859 Paint Can Label"
-msgstr ""
+msgstr "30859 - Etichetă pentru cutie de vopsea"
 
 msgid "35"
 msgstr "35"
@@ -2706,34 +2955,34 @@ msgid "4 inches/sec."
 msgstr "4 inci/sec."
 
 msgid "4.00x1.00\""
-msgstr ""
+msgstr "4.00x1.00 inci"
 
 msgid "4.00x13.00\""
-msgstr ""
+msgstr "4.00x13.00 inci"
 
 msgid "4.00x2.00\""
-msgstr ""
+msgstr "4.00x2.00 inci"
 
 msgid "4.00x2.50\""
-msgstr ""
+msgstr "4.00x2.50 inci"
 
 msgid "4.00x3.00\""
-msgstr ""
+msgstr "4.00x3.00 inci"
 
 msgid "4.00x4.00\""
-msgstr ""
+msgstr "4.00x4.00 inci"
 
 msgid "4.00x5.00\""
-msgstr ""
+msgstr "4.00x5.00 inci"
 
 msgid "4.00x6.00\""
-msgstr ""
+msgstr "4.00x6.00 inci"
 
 msgid "4.00x6.50\""
-msgstr ""
+msgstr "4.00x6.50 inci"
 
 msgid "4.00x8.00\""
-msgstr ""
+msgstr "4.00x8.00 inci"
 
 msgid "40"
 msgstr "40"
@@ -2766,28 +3015,28 @@ msgid "6 inches/sec."
 msgstr "6 inci/sec."
 
 msgid "6.00x1.00\""
-msgstr ""
+msgstr "6.00x1.00 inci"
 
 msgid "6.00x2.00\""
-msgstr ""
+msgstr "6.00x2.00 inci"
 
 msgid "6.00x3.00\""
-msgstr ""
+msgstr "6.00x3.00 inci"
 
 msgid "6.00x4.00\""
-msgstr ""
+msgstr "6.00x4.00 inci"
 
 msgid "6.00x5.00\""
-msgstr ""
+msgstr "6.00x5.00 inci"
 
 msgid "6.00x6.00\""
-msgstr ""
+msgstr "6.00x6.00 inci"
 
 msgid "6.00x6.50\""
-msgstr ""
+msgstr "6.00x6.50 inci"
 
 msgid "6.00x8.00\""
-msgstr ""
+msgstr "6.00x8.00 inci"
 
 msgid "60"
 msgstr "60"
@@ -2832,28 +3081,28 @@ msgid "8 x 10"
 msgstr "8 x 10"
 
 msgid "8.00x1.00\""
-msgstr ""
+msgstr "8.00x1.00 inci"
 
 msgid "8.00x2.00\""
-msgstr ""
+msgstr "8.00x2.00 inci"
 
 msgid "8.00x3.00\""
-msgstr ""
+msgstr "8.00x3.00 inci"
 
 msgid "8.00x4.00\""
-msgstr ""
+msgstr "8.00x4.00 inci"
 
 msgid "8.00x5.00\""
-msgstr ""
+msgstr "8.00x5.00 inci"
 
 msgid "8.00x6.00\""
-msgstr ""
+msgstr "8.00x6.00 inci"
 
 msgid "8.00x6.50\""
-msgstr ""
+msgstr "8.00x6.50 inci"
 
 msgid "8.26x1.00\""
-msgstr ""
+msgstr "8.26x1.00 inci"
 
 msgid "80"
 msgstr "80"
@@ -2880,7 +3129,7 @@ msgid "9 x 12"
 msgstr "9 x 12"
 
 msgid "9-Pin Series"
-msgstr ""
+msgstr "Seria cu 9 pini"
 
 msgid "90"
 msgstr "90"
@@ -2889,15 +3138,15 @@ msgid "95"
 msgstr "95"
 
 msgid "?Invalid help command unknown."
-msgstr ""
+msgstr "?Comandă de ajutor nevalidă necunoscută."
 
 #, c-format
 msgid "A class named \"%s\" already exists."
-msgstr ""
+msgstr "O clasă numită „%s” există deja."
 
 #, c-format
 msgid "A printer named \"%s\" already exists."
-msgstr ""
+msgstr "O imprimantă numită „%s” există deja."
 
 msgid "A0"
 msgstr "A0"
@@ -3097,19 +3346,19 @@ msgid "Bad 'document-format' value \"%s\"."
 msgstr "Valoare „document-format” greșită „%s”."
 
 msgid "Bad CloseUI/JCLCloseUI"
-msgstr ""
+msgstr "CloseUI/JCLCloseUI incorect"
 
 msgid "Bad NULL dests pointer"
-msgstr ""
+msgstr "Indicator de destinație NULL incorect"
 
 msgid "Bad OpenGroup"
-msgstr ""
+msgstr "OpenGroup incorect"
 
 msgid "Bad OpenUI/JCLOpenUI"
-msgstr ""
+msgstr "OpenUI/JCLOpenUI incorect"
 
 msgid "Bad OrderDependency"
-msgstr ""
+msgstr "OrderDependency incorect"
 
 msgid "Bad PPD cache file."
 msgstr "Fișier cache PPD incorect."
@@ -3133,7 +3382,7 @@ msgid "Bad arguments to function"
 msgstr "Argumente incorecte pentru funcție"
 
 msgid "Bad certificate."
-msgstr ""
+msgstr "Certificat incorect."
 
 #, c-format
 msgid "Bad copies value %d."
@@ -3175,137 +3424,141 @@ msgid "Bad job-name value: Wrong type or count."
 msgstr "Valoare incorectă a numelui lucrării: Tip sau număr greșit."
 
 msgid "Bad job-priority value."
-msgstr ""
+msgstr "Valoare de prioritate a lucrării „job-priority” incorectă."
 
 #, c-format
 msgid "Bad job-sheets value \"%s\"."
-msgstr ""
+msgstr "Valoare incorectă a foilor lucrării (job-sheets) „%s”."
 
 msgid "Bad job-sheets value type."
-msgstr ""
+msgstr "Tip de valoare incorect pentru foile lucrării „job-sheets”."
 
 msgid "Bad job-state value."
-msgstr ""
+msgstr "Valoare incorectă pentru starea lucrării „job-state”."
 
 #, c-format
 msgid "Bad job-uri \"%s\"."
-msgstr ""
+msgstr "Adresa URI a lucrării (job-ur) este incorectă „%s”."
 
 msgid "Bad keyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "Extensie KeyUsage incorectă în cererea de certificat X.509."
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
-msgstr ""
+msgstr "notify-pull-method incorectă „%s”."
 
 #, c-format
 msgid "Bad notify-recipient-uri \"%s\"."
-msgstr ""
+msgstr "notify-recipient-uri incorectă „%s”."
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
-msgstr ""
+msgstr "notify-user-data incorectă „%s”."
 
 #, c-format
 msgid "Bad number-up value %d."
-msgstr ""
+msgstr "Valoare number-upi incorectă %d."
 
 #, c-format
 msgid "Bad page-ranges values %d-%d."
-msgstr ""
+msgstr "Valori incorecte pentru intervalul de pagini „page-ranges” %d-%d."
 
 msgid "Bad port number in URI"
-msgstr ""
+msgstr "Număr de port greșit în URI"
 
 #, c-format
 msgid "Bad port-monitor \"%s\"."
-msgstr ""
+msgstr "Valoare port-monitor incorectă „%s”."
 
 #, c-format
 msgid "Bad printer-state value %d."
-msgstr ""
+msgstr "Valoare a stării imprimantei „printer-state” greșită %d."
 
 msgid "Bad printer-uri."
-msgstr ""
+msgstr "Valoare printer-uri incorectă."
 
 msgid "Bad private key."
-msgstr ""
+msgstr "Cheie privată incorectă."
 
 #, c-format
 msgid "Bad request ID %d."
-msgstr ""
+msgstr "ID-cerere incorect %d."
 
 #, c-format
 msgid "Bad request version number %d.%d."
-msgstr ""
+msgstr "Numărul de versiune al cererii ete incorect %d.%d."
 
 msgid "Bad resource in URI"
-msgstr ""
+msgstr "Resursă incorectă în URI"
 
 msgid "Bad scheme in URI"
-msgstr ""
+msgstr "Schemă incorectă în URI"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
-msgstr ""
+msgstr "Extensie subjectAltName incorectă în cererea de certificat X.509."
 
 msgid "Bad username in URI"
-msgstr ""
+msgstr "Nume de utilizator incorect în URI"
 
 msgid "Bad value string"
-msgstr ""
+msgstr "Șir de valori greșit"
 
 msgid "Bad/empty URI"
-msgstr ""
+msgstr "URI incorect/gol"
 
 msgid "Banners"
-msgstr ""
+msgstr "Banderole"
 
 msgid "Bond Paper"
-msgstr ""
+msgstr "Hârtie „bond” (groasă)"
 
 #, c-format
 msgid "Boolean expected for waiteof option \"%s\"."
-msgstr ""
+msgstr "Se așteaptă o valoare booleană pentru opțiunea waiteof „%s”."
 
 msgid "Buffer overflow detected, aborting."
-msgstr ""
+msgstr "S-a detectat depășirea memoriei tampon, se abandonează."
 
 msgid "CMYK"
 msgstr "CMYK"
 
 msgid "CPCL Label Printer"
-msgstr ""
+msgstr "Imprimantă de etichete CPCL"
 
 msgid "Cancel Jobs"
 msgstr "Anulare sarcini"
 
 msgid "Canceling print job."
-msgstr ""
+msgstr "Se anulează lucrarea de imprimare."
 
 msgid "Cannot change printer-is-shared for remote queues."
 msgstr ""
+"Nu se poate modifica imprimanta partajată „printer-is-shared” pentru cozile "
+"de imprimare la distanță."
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr ""
+"Nu se poate partaja o imprimantă la distanță la distanță ce utilizează "
+"protocolul Kerberos."
 
 msgid "Cassette"
-msgstr ""
+msgstr "Casetă"
 
 msgid "Change Settings"
-msgstr ""
+msgstr "Modifică parametrii"
 
 #, c-format
 msgid "Character set \"%s\" not supported."
-msgstr ""
+msgstr "Setul de caractere „%s” nu este acceptat."
 
 msgid "Classes"
-msgstr ""
+msgstr "Clase"
 
 msgid "Clean Print Heads"
 msgstr "Curățare capete imprimantă"
 
 msgid "Close-Job doesn't support the job-uri attribute."
-msgstr ""
+msgstr "Close-Job nu acceptă atributul job-uri."
 
 msgid "Color"
 msgstr "Culoare"
@@ -3318,103 +3571,106 @@ msgid ""
 "\n"
 "exit    help    quit    status  ?"
 msgstr ""
+"Comenzile pot fi abreviate. Comenzile sunt:\n"
+"\n"
+"exit    help    quit    status  ?"
 
 msgid "Community name uses indefinite length"
-msgstr ""
+msgstr "Numele comunității folosește o lungime nedefinită"
 
 msgid "Connected to printer."
-msgstr ""
+msgstr "Conectat la imprimantă."
 
 msgid "Connecting to printer."
-msgstr ""
+msgstr "Se conectează la imprimantă."
 
 msgid "Continue"
-msgstr ""
+msgstr "Continuă"
 
 msgid "Continuous"
 msgstr "Continuu"
 
 msgid "Control file sent successfully."
-msgstr ""
+msgstr "Fișierul de control a fost trimis cu succes."
 
 msgid "Copying print data."
-msgstr ""
+msgstr "Se copiază datele de imprimare."
 
 #, c-format
 msgid "Couldn't resolve mDNS URI \"%s\"."
-msgstr ""
+msgstr "Nu s-a putut rezolva URI-ul mDNS „%s”."
 
 msgid "Created"
 msgstr "Creat"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "Acreditările sunt Ok/de încredere."
 
 msgid "Credentials are expired."
-msgstr ""
+msgstr "Acreditările au expirat."
 
 msgid "Credentials are invalid."
-msgstr ""
+msgstr "Acreditările nu sunt valide."
 
 msgid "Credentials are not CA-signed."
-msgstr ""
+msgstr "Acreditările nu sunt semnate de autoritatea de certificare."
 
 msgid "Credentials are unknown/new."
-msgstr ""
+msgstr "Acreditările sunt necunoscute/noi."
 
 msgid "Credentials do not validate against site CA certificate."
-msgstr ""
+msgstr "Acreditările nu sunt validate în raport cu certificatul CA al sitului."
 
 msgid "Credentials have been renewed."
-msgstr ""
+msgstr "Acreditările au fost reînnoite."
 
 msgid "Credentials have changed."
-msgstr ""
+msgstr "Acreditările s-au schimbat."
 
 msgid "Credentials have expired."
-msgstr ""
+msgstr "Acreditările au expirat."
 
 msgid "Custom"
-msgstr ""
+msgstr "Personalizat"
 
 msgid "CustominCutInterval"
-msgstr ""
+msgstr "CustominCutInterval"
 
 msgid "CustominTearInterval"
-msgstr ""
+msgstr "CustominTearInterval"
 
 msgid "Cut"
 msgstr "Taie"
 
 msgid "Cutter"
-msgstr ""
+msgstr "Dispozitiv de tăiat"
 
 msgid "DYMO"
-msgstr ""
+msgstr "DYMO"
 
 msgid "Dark"
-msgstr ""
+msgstr "Întunecată"
 
 msgid "Darkness"
-msgstr "Întunecarea imaginii"
+msgstr "Întunecare"
 
 msgid "Data file sent successfully."
-msgstr ""
+msgstr "Fișierul de datel a fost trimis cu succes."
 
 msgid "Deep Color"
-msgstr ""
+msgstr "Culoare intensă"
 
 msgid "Deep Gray"
-msgstr ""
+msgstr "Gri intens"
 
 msgid "Delete Class"
-msgstr ""
+msgstr "Șterge clasa"
 
 msgid "Delete Printer"
-msgstr ""
+msgstr "Șterge imprimanta"
 
 msgid "DeskJet Series"
-msgstr ""
+msgstr "Seria DeskJet"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
@@ -3425,7 +3681,7 @@ msgstr "Dispozitiv CMYK"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "Cod dispozitiv: %s"
 
 msgid "Device Gray"
 msgstr "Dispozitiv de Gri"
@@ -3435,6 +3691,7 @@ msgstr "Dispozitiv RGB"
 
 msgid "Device authorization grant is not supported by this server."
 msgstr ""
+"Acordarea autorizației pentru dispozitiv nu este acceptată de acest server."
 
 #, c-format
 msgid ""
@@ -3445,9 +3702,15 @@ msgid ""
 "        device-id = %s\n"
 "        location = %s"
 msgstr ""
+"Dispozitiv: uri = %s\n"
+"          clasă = %s\n"
+"          info = %s\n"
+"          marcă-și-model = %s\n"
+"          id-dispozitiv = %s\n"
+"          locație = %s"
 
 msgid "Direct Thermal Media"
-msgstr ""
+msgstr "Suport (hârtie, film, ș.a.) pentru imprimare termică directă"
 
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
@@ -3477,23 +3740,23 @@ msgid "Document #%d does not exist in job #%d."
 msgstr "Documentul #%d nu există în lucrarea nr. %d."
 
 msgid "Duplexer"
-msgstr ""
+msgstr "Unitate de imprimare duplex"
 
 msgid "EPL1 Label Printer"
-msgstr ""
+msgstr "Imprimantă de etichete EPL1"
 
 msgid "EPL2 Label Printer"
-msgstr ""
+msgstr "Imprimantă de etichete EPL2"
 
 msgid "Edit Configuration File"
-msgstr ""
+msgstr "Editează fișierul de configurare"
 
 msgid "Encryption is not supported."
 msgstr "Criptarea nu este acceptată."
 
 #. TRANSLATORS: Banner/cover sheet after the print job.
 msgid "Ending Banner"
-msgstr ""
+msgstr "Banderolă finalizare imprimare"
 
 msgid "English"
 msgstr "Romanian"
@@ -3676,10 +3939,10 @@ msgid "Error Policy"
 msgstr "Politica de eroare"
 
 msgid "Error reading raster data."
-msgstr ""
+msgstr "Eroare la citirea datelor rastrului."
 
 msgid "Error sending raster data."
-msgstr ""
+msgstr "Eroare la trimiteea datelor rastrului."
 
 msgid "Error: need hostname after \"-h\" option."
 msgstr "Eroare: este necesar un nume de gazdă după opțiunea „-h”."
@@ -3786,13 +4049,13 @@ msgid "Generic"
 msgstr "Generic"
 
 msgid "Get-Response-PDU uses indefinite length"
-msgstr ""
+msgstr "Get-Response-PDU utilizează o lungime nedeterminată"
 
 msgid "Glossy Paper"
 msgstr "Hârtie lucioasă"
 
 msgid "Got a printer-uri attribute but no job-id."
-msgstr ""
+msgstr "S-a primit un atribut printer-uri, dar nu și un atribut job-id."
 
 msgid "GrayScale"
 msgstr "Scală de gri"
@@ -3813,181 +4076,187 @@ msgid "Help file not in index."
 msgstr "Fișierul de ajutor nu este în index."
 
 msgid "Home"
-msgstr ""
+msgstr "Pagina principală"
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
+"Adresa IP nu este permisă ca nume de gazdă atunci când se utilizează "
+"Negotiate - utilizați FQDN."
 
 msgid "IPP 1setOf attribute with incompatible value tags."
-msgstr ""
+msgstr "Atributul 1setOf IPP are etichete cu valori incompatibile."
 
 msgid "IPP Everywhere driver requires an IPP connection."
-msgstr ""
+msgstr "Controlorul IPP Everywhere necesită o conexiune IPP."
 
 msgid "IPP attribute has no name."
-msgstr ""
+msgstr "Atributul IPP nu are nume."
 
 msgid "IPP attribute is not a member of the message."
-msgstr ""
+msgstr "Atributul IPP nu este membru al mesajului."
 
 msgid "IPP begCollection value not 0 bytes."
-msgstr ""
+msgstr "Valoarea begCollection a IPP nu este 0 octeți."
 
 msgid "IPP boolean value not 1 byte."
-msgstr ""
+msgstr "Valoarea booleană IPP nu este de 1 octet."
 
 msgid "IPP date value not 11 bytes."
-msgstr ""
+msgstr "Valoarea datelor IPP nu este de 11 octeți."
 
 msgid "IPP endCollection value not 0 bytes."
-msgstr ""
+msgstr "Valoarea endCollection a IPP nu este 0 octeți."
 
 msgid "IPP enum value not 4 bytes."
-msgstr ""
+msgstr "Valoarea enumerării „enum” IPP nu este de 4 octeți."
 
 msgid "IPP integer value not 4 bytes."
-msgstr ""
+msgstr "Valoarea întreagă „integer” IPP nu este de 4 octeți."
 
 msgid "IPP language length overflows value."
-msgstr ""
+msgstr "Lungimea limbajului IPP depășește valoarea."
 
 msgid "IPP language length too large."
-msgstr ""
+msgstr "Lungimea limbajului IPP este prea mare."
 
 msgid "IPP member attribute outside of collection."
-msgstr ""
+msgstr "Atribut membru IPP în afara colecției."
 
 msgid "IPP member name is not empty."
-msgstr ""
+msgstr "Numele membrului IPP nu este gol."
 
 msgid "IPP memberName value is empty."
-msgstr ""
+msgstr "Valoarea MemberName a IPP este goală."
 
 msgid "IPP message nested too deeply."
-msgstr ""
+msgstr "Mesajul IPP este prea adânc imbricat."
 
 msgid "IPP name larger than 32767 bytes."
-msgstr ""
+msgstr "Numele IPP este mai mare de 32767 octeți."
 
 msgid "IPP nameWithLanguage value less than minimum 4 bytes."
 msgstr ""
+"Valoarea nameWithLanguagea a IPP este mai mică decât minimul de 4 octeți."
 
 msgid "IPP octetString length too large."
-msgstr ""
+msgstr "Lungimea octetString IPP este prea mare."
 
 msgid "IPP rangeOfInteger value not 8 bytes."
-msgstr ""
+msgstr "Valoarea rangeOfInteger a IPP nu este de 8 octeți."
 
 msgid "IPP resolution value not 9 bytes."
-msgstr ""
+msgstr "Valoarea rezoluției IPP nu este de 9 octeți."
 
 msgid "IPP string length overflows value."
-msgstr ""
+msgstr "Lungimea șirului IPP depășește valoarea."
 
 msgid "IPP textWithLanguage value less than minimum 4 bytes."
 msgstr ""
+"Valoarea textWithLanguage a IPP este mai mică decât minimul de 4 octeți."
 
 msgid "IPP value larger than 32767 bytes."
-msgstr ""
+msgstr "Valoarea IPP este mai mare de 32767 octeți."
 
 msgid "IPPFIND_SERVICE_DOMAIN  Domain name"
-msgstr ""
+msgstr "IPPFIND_SERVICE_DOMAIN  Nume de domeniu"
 
 msgid ""
 "IPPFIND_SERVICE_HOSTNAME\n"
 "                        Fully-qualified domain name"
 msgstr ""
+"IPPFIND_SERVICE_HOSTNAME\n"
+"                        Nume de domeniu complet calificat"
 
 msgid "IPPFIND_SERVICE_NAME    Service instance name"
-msgstr ""
+msgstr "IPPFIND_SERVICE_NAME    Numele instanței serviciului"
 
 msgid "IPPFIND_SERVICE_PORT    Port number"
-msgstr ""
+msgstr "IPPFIND_SERVICE_PORT    Număr de port"
 
 msgid "IPPFIND_SERVICE_REGTYPE DNS-SD registration type"
-msgstr ""
+msgstr "IPPFIND_SERVICE_REGTYPE Tip de înregistrare DNS-SD"
 
 msgid "IPPFIND_SERVICE_SCHEME  URI scheme"
-msgstr ""
+msgstr "IPPFIND_SERVICE_SCHEME  Schema URI"
 
 msgid "IPPFIND_SERVICE_URI     URI"
-msgstr ""
+msgstr "IPPFIND_SERVICE_URI     URI"
 
 msgid "IPPFIND_TXT_*           Value of TXT record key"
-msgstr ""
+msgstr "IPPFIND_TXT_*           Valoarea cheii de înregistrare TXT"
 
 msgid "ISOLatin1"
-msgstr "utf-8"
+msgstr "ISOLatin1"
 
 msgid "Illegal control character"
-msgstr ""
+msgstr "Caracter de control nevalid"
 
 msgid "Illegal main keyword string"
-msgstr ""
+msgstr "Șir de cuvânt cheie principal nevalid"
 
 msgid "Illegal option keyword string"
-msgstr ""
+msgstr "Șir de cuvânt cheie de opțiune nevalid"
 
 msgid "Illegal translation string"
-msgstr ""
+msgstr "Șir de traducere nevalid"
 
 msgid "Illegal whitespace character"
-msgstr ""
+msgstr "Caracter de spațiu în alb nelegal"
 
 msgid "Installable Options"
 msgstr "Opțiuni instalabile"
 
 msgid "Installed"
-msgstr ""
+msgstr "Instalată"
 
 msgid "IntelliBar Label Printer"
-msgstr ""
+msgstr "Imprimantă de etichete IntelliBar"
 
 msgid "Intellitech"
-msgstr ""
+msgstr "Intellitech"
 
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Eroare internă a serverului"
 
 msgid "Internal error"
 msgstr "Eroare internă"
 
 msgid "Internet Postage 2-Part"
-msgstr ""
+msgstr "Expediere prin internet în 2 părți"
 
 msgid "Internet Postage 3-Part"
-msgstr ""
+msgstr "Expediere prin internet în 3 părți"
 
 msgid "Internet Printing Protocol"
-msgstr ""
+msgstr "Protocol de imprimare prin Internet (ipp)"
 
 msgid "Invalid JSON data."
-msgstr ""
+msgstr "Date JSON nevalide."
 
 msgid "Invalid JSON web token."
-msgstr ""
+msgstr "Jeton web JSON nevalid."
 
 msgid "Invalid form data."
-msgstr ""
+msgstr "Date de formular nevalide."
 
 msgid "Invalid group tag."
-msgstr ""
+msgstr "Etichetă de grup nevalidă."
 
 msgid "Invalid media name arguments."
-msgstr ""
+msgstr "Argumente nevalide pentru numele suportului de imprimare."
 
 msgid "Invalid media size."
-msgstr ""
+msgstr "Dimensiune nevalidă a suportului de imprimare."
 
 msgid "Invalid named IPP attribute in collection."
-msgstr ""
+msgstr "Atribut IPP nevalid numit în colecție."
 
 msgid "Invalid ppd-name value."
-msgstr ""
+msgstr "Valoare ppd-name nevalidă."
 
 #, c-format
 msgid "Invalid printer command \"%s\"."
-msgstr ""
+msgstr "Comandă de imprimantă nevalidă „%s”."
 
 msgid "JCL"
 msgstr "JCL"
@@ -4111,7 +4380,7 @@ msgid "Label Printer"
 msgstr "Imprimantă de etichete"
 
 msgid "Label Top"
-msgstr ""
+msgstr "Etichetă de sus"
 
 #, c-format
 msgid "Language \"%s\" not supported."
@@ -4133,7 +4402,7 @@ msgid "Light"
 msgstr "Ușoară"
 
 msgid "Line longer than the maximum allowed (255 characters)"
-msgstr ""
+msgstr "Linie mai lungă decât lungimea maximă permisă (255 caractere)"
 
 msgid "List Available Printers"
 msgstr "Lista imprimantelor disponibile"
@@ -4161,13 +4430,13 @@ msgid "Media Source"
 msgstr "Sursa hârtiei"
 
 msgid "Media Tracking"
-msgstr ""
+msgstr "Monitorizarea suportului"
 
 msgid "Media Type"
 msgstr "Tipul de suport"
 
 msgid "Medium"
-msgstr ""
+msgstr "Medie"
 
 msgid "Memory allocation error"
 msgstr "Eroare de alocare a memoriei"
@@ -4176,59 +4445,59 @@ msgid "Missing CloseGroup"
 msgstr "Lipsește CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
-msgstr ""
+msgstr "Lipsește CloseUI/JCLCloseUI"
 
 msgid "Missing PPD-Adobe-4.x header"
-msgstr ""
+msgstr "Lipsește antetul PPD-Adobe-4.x"
 
 msgid "Missing asterisk in column 1"
-msgstr ""
+msgstr "Lipsă asterisc în coloana 1"
 
 msgid "Missing document-number attribute."
-msgstr ""
+msgstr "Lipsește atributul document-number."
 
 msgid "Missing form variable"
-msgstr ""
+msgstr "Lipsește variabila formularului"
 
 msgid "Missing last-document attribute in request."
-msgstr ""
+msgstr "Atributul „last-document” lipsește din cerere."
 
 msgid "Missing media or media-col."
-msgstr ""
+msgstr "Lipsește media sau media-col."
 
 msgid "Missing media-size in media-col."
-msgstr ""
+msgstr "Lipsește media-size în media-col."
 
 msgid "Missing notify-subscription-ids attribute."
-msgstr ""
+msgstr "Lipsește atributul notify-subscription-ids."
 
 msgid "Missing option keyword"
-msgstr ""
+msgstr "Lipsește cuvântul cheie din opțiune"
 
 msgid "Missing requesting-user-name attribute."
-msgstr ""
+msgstr "Lipsește atributul „requesting-user-name”."
 
 #, c-format
 msgid "Missing required attribute \"%s\"."
-msgstr ""
+msgstr "Lipsește atributul necesar „%s”."
 
 msgid "Missing required attributes."
-msgstr ""
+msgstr "Lipsesc atributele necesare."
 
 msgid "Missing resource in URI"
-msgstr ""
+msgstr "Lipsește resursa în URI"
 
 msgid "Missing scheme in URI"
-msgstr ""
+msgstr "Lipsește schema în URI"
 
 msgid "Missing value string"
-msgstr ""
+msgstr "Lipsește șirul valorii"
 
 msgid "Missing x-dimension in media-size."
-msgstr ""
+msgstr "Lipsește x-dimension în media-size."
 
 msgid "Missing y-dimension in media-size."
-msgstr ""
+msgstr "Lipsește y-dimension în media-size."
 
 #, c-format
 msgid ""
@@ -4237,42 +4506,46 @@ msgid ""
 "        make-and-model = %s\n"
 "        device-id = %s"
 msgstr ""
+"Model:  nume = %s\n"
+"        limba-nativă = %s\n"
+"        marcă-și-model = %s\n"
+"        id-dispozitiv = %s"
 
 msgid "Modifiers:"
-msgstr ""
+msgstr "Modificatori:"
 
 msgid "Modify Class"
-msgstr ""
+msgstr "Modifică clasa"
 
 msgid "Modify Printer"
-msgstr ""
+msgstr "Modifică imprimanta"
 
 msgid "Move All Jobs"
-msgstr ""
+msgstr "Mută toate lucrările"
 
 msgid "Move Job"
-msgstr ""
+msgstr "Mută lucrarea"
 
 msgid "Moved Permanently"
-msgstr ""
+msgstr "Mutată definitiv"
 
 msgid "NULL PPD file pointer"
-msgstr ""
+msgstr "Indicator fișier PPD nul"
 
 msgid "Name OID uses indefinite length"
-msgstr ""
+msgstr "Numele OID utilizează o lungime nedeterminată"
 
 msgid "Nested classes are not allowed."
-msgstr ""
+msgstr "Clasele imbricate nu sunt permise."
 
 msgid "Never"
 msgstr "Niciodată"
 
 msgid "New credentials are not valid for name."
-msgstr ""
+msgstr "Noile acreditări nu sunt valabile pentru nume."
 
 msgid "New credentials are older than stored credentials."
-msgstr ""
+msgstr "Noile acreditări sunt mai vechi decât acreditările stocate."
 
 msgid "No"
 msgstr "Nu"
@@ -4284,7 +4557,7 @@ msgid "No IPP attributes."
 msgstr "Fără atribute IPP."
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "Nu există URI-ul JWKS în metadatele serverului de autorizare."
 
 msgid "No PPD name"
 msgstr "Fără nume PPD"
