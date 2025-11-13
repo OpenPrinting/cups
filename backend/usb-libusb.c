@@ -1362,6 +1362,7 @@ make_device_uri(
     char          *uri,			/* I - Device URI buffer */
     size_t        uri_size)		/* I - Size of device URI buffer */
 {
+  int		errcode;		/* Error code from libusb */
   struct libusb_device_descriptor devdesc;
                                         /* Current device descriptor */
   int		num_values;		/* Number of 1284 parameters */
@@ -1384,7 +1385,10 @@ make_device_uri(
 
   memset(&devdesc, 0, sizeof(devdesc));
 
-  libusb_get_device_descriptor(printer->device, &devdesc);
+  if ((errcode = libusb_get_device_descriptor(printer->device, &devdesc)) < 0)
+  {
+    fprintf(stderr, "DEBUG: Unable to get device descriptor for device URI: %d\n", errcode);
+  }
   get_serial_number(printer, devdesc.iSerialNumber, sern, sizeof(sern));
 
   if ((mfg = cupsGetOption("MANUFACTURER", num_values, values)) == NULL)
