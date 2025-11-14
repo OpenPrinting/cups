@@ -116,9 +116,13 @@ ippFileDelete(ipp_file_t *file)		// I - IPP data file
 //
 // 'ippFileExpandVars()' - Expand IPP data file and environment variables in a string.
 //
-// This function expands IPP data file variables of the form "$name" and
-// environment variables of the form "$ENV[name]" in the source string to the
-// destination string.  The
+// This function expands IPP data file variables in "src" of the form "$name" or
+// "${name}" and environment variables of the form "$ENV[name]" in the source
+// string to the destination buffer.  The destination buffer "dst" is filled up
+// to "dstsize - 1" bytes to allow for a trailing NUL character.
+//
+// The return value is the actual required size for all expansions regardless of
+// the value of "dstsize".
 //
 // @since CUPS 2.5@
 //
@@ -160,49 +164,50 @@ ippFileExpandVars(ipp_file_t *file,	// I - IPP data file
       }
       else if (!strncmp(src, "$ENV[", 5))
       {
-        // Environment variable
-	cupsCopyString(temp, src + 5, sizeof(temp));
-
-	for (tempptr = temp; *tempptr; tempptr ++)
+        // $ENV[name] - environment variable
+	for (src += 5, tempptr = temp; *src && *src != ']'; src ++)
 	{
-	  if (*tempptr == ']')
-	    break;
+	  // Copy the name to "temp"...
+	  if (tempptr < (temp + sizeof(temp) - 1))
+	    *tempptr++ = *src;
 	}
+	*tempptr = '\0';
 
-        if (*tempptr)
-	  *tempptr++ = '\0';
+	if (*src)			// Skip "]"
+	  src ++;
 
 	value = getenv(temp);
-        src   += tempptr - temp + 5;
       }
       else
       {
-        // $name or ${name}
+        // $name or ${name} - file variable
         if (src[1] == '{')
 	{
-	  src += 2;
-	  cupsCopyString(temp, src, sizeof(temp));
-	  if ((tempptr = strchr(temp, '}')) != NULL)
-	    *tempptr = '\0';
-	  else
-	    tempptr = temp + strlen(temp);
+	  // ${name}
+	  for (src += 2, tempptr = temp; *src && *src != '}'; src ++)
+	  {
+	    // Copy the name to "temp"...
+	    if (tempptr < (temp + sizeof(temp) - 1))
+	      *tempptr++ = *src;
+	  }
+	  *tempptr = '\0';
+
+	  if (*src)			// Skip "}"
+	    src ++;
 	}
 	else
 	{
-	  cupsCopyString(temp, src + 1, sizeof(temp));
-
-	  for (tempptr = temp; *tempptr; tempptr ++)
+	  // $name
+	  for (src ++, tempptr = temp; isalnum(*src & 255) || *src == '-' || *src == '_'; src ++)
 	  {
-	    if (!isalnum(*tempptr & 255) && *tempptr != '-' && *tempptr != '_')
-	      break;
+	    // Copy the name to "temp"...
+	    if (tempptr < (temp + sizeof(temp) - 1))
+	      *tempptr++ = *src;
 	  }
-
-	  if (*tempptr)
-	    *tempptr = '\0';
+	  *tempptr = '\0';
         }
 
         value = ippFileGetVar(file, temp);
-        src   += tempptr - temp + 1;
       }
 
       if (value)
@@ -213,9 +218,13 @@ ippFileExpandVars(ipp_file_t *file,	// I - IPP data file
       }
     }
     else if (dstptr < dstend)
+    {
       *dstptr++ = *src++;
+    }
     else
+    {
       dstptr ++;
+    }
   }
 
   if (dstptr < dstend)
@@ -231,9 +240,7 @@ ippFileExpandVars(ipp_file_t *file,	// I - IPP data file
 // 'ippFileGetAttribute()' - Get a single named attribute from an IPP data file.
 //
 // This function finds the first occurence of a named attribute in the current
-// IPP attributes in the specified data file.  Unlike
-// @link ippFileGetAttributes@, this function does not clear the attribute
-// state.
+// IPP attributes in the specified data file.
 //
 // @since CUPS 2.5@
 //
@@ -964,7 +971,7 @@ ippFileReadToken(ipp_file_t *file,	// I - IPP data file
   *tokptr = '\0';
   DEBUG_printf("1ippFileReadToken: Returning \"%s\" at EOF.", token);
 
-  return (tokptr > token);
+  return (tokptr > token && !quote);
 }
 
 
