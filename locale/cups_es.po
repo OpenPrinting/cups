@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-11-07 13:54+0000\n"
+"PO-Revision-Date: 2025-11-15 22:51+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
@@ -6794,23 +6794,23 @@ msgstr "Portada"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishing-template.edge-stitch"
-msgstr "Grapadora en el borde"
+msgstr "Sutura en el borde"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishing-template.edge-stitch-bottom"
-msgstr "Grapa en el borde inferior"
+msgstr "Sutura en el borde inferior"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishing-template.edge-stitch-left"
-msgstr "Grapadora de borde izquierdo"
+msgstr "Sutura de borde izquierdo"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishing-template.edge-stitch-right"
-msgstr "Grapadora de borde derecho"
+msgstr "Sutura de borde derecho"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishing-template.edge-stitch-top"
-msgstr "Grapadora de parte superior en los bordes"
+msgstr "Sutura de parte superior en los bordes"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
@@ -7314,7 +7314,7 @@ msgstr "Perforadora de 3 agujeros superior"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishing-template.saddle-stitch"
-msgstr "Grapadora a caballete"
+msgstr "Sutura a caballete"
 
 #. TRANSLATORS: Staple
 msgid "finishing-template.staple"
@@ -7398,11 +7398,11 @@ msgstr "Recortar tras cada página"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
-msgstr "Acabados"
+msgstr "acabados"
 
 #. TRANSLATORS: Finishings
 msgid "finishings-col"
-msgstr "Acabados"
+msgstr "acabados-col"
 
 #. TRANSLATORS: Fold
 msgid "finishings.10"
@@ -9110,7 +9110,7 @@ msgstr "Tampón"
 
 #. TRANSLATORS: Clear Black
 msgid "media-color.clear-black"
-msgstr "Negro claro"
+msgstr "Negro vacío"
 
 #. TRANSLATORS: Clear Blue
 msgid "media-color.clear-blue"
@@ -13866,7 +13866,7 @@ msgstr "Contenedor de residuos de tinta/tóner lleno"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Almost Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-almost-full"
-msgstr "El contenedor de tinta residual de marcadores está casi lleno."
+msgstr "El contenedor de tinta residual de marcadores está casi lleno"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-full"
@@ -15658,7 +15658,7 @@ msgstr "Fallo del termistor de envoltorio"
 
 #. TRANSLATORS: Wrapper Timing Failure
 msgid "printer-state-reasons.wrapper-timing-failure"
-msgstr "Fallo de termporización de envoltorio"
+msgstr "Fallo de temporización de envoltorio"
 
 #. TRANSLATORS: Wrapper Turned Off
 msgid "printer-state-reasons.wrapper-turned-off"
@@ -15713,11 +15713,11 @@ msgstr "Copias de prueba de impresión"
 
 #. TRANSLATORS: Punching
 msgid "punching"
-msgstr "Perforadora"
+msgstr "Perforar"
 
 #. TRANSLATORS: Punching Locations
 msgid "punching-locations"
-msgstr "Lugar de perforadora"
+msgstr "Lugares de perforadora"
 
 #. TRANSLATORS: Punching Offset
 msgid "punching-offset"
@@ -15729,7 +15729,7 @@ msgstr "Borde de perforadora"
 
 #. TRANSLATORS: Bottom
 msgid "punching-reference-edge.bottom"
-msgstr "Inferior"
+msgstr "Parte Inferior"
 
 #. TRANSLATORS: Left
 msgid "punching-reference-edge.left"
@@ -15784,7 +15784,7 @@ msgstr "Formato de documento a guardar"
 
 #. TRANSLATORS: Save Info
 msgid "save-info"
-msgstr "Informe a guardar"
+msgstr "Guardar informe"
 
 #. TRANSLATORS: Save Location
 msgid "save-location"
@@ -15826,7 +15826,7 @@ msgstr "Deslizar hojas"
 
 #. TRANSLATORS: Start Sheet
 msgid "separator-sheets-type.start-sheet"
-msgstr "Iniciar hoja"
+msgstr "Inicio de hoja"
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
 msgstr ""
@@ -15887,11 +15887,11 @@ msgstr "Grapa"
 
 #. TRANSLATORS: Stitching Angle
 msgid "stitching-angle"
-msgstr "Ángulo de grapa"
+msgstr "Ángulo de puntada"
 
 #. TRANSLATORS: Stitching Locations
 msgid "stitching-locations"
-msgstr "Lugar de grapa"
+msgstr "Lugares de puntada"
 
 #. TRANSLATORS: Staple Method
 msgid "stitching-method"
@@ -15911,7 +15911,7 @@ msgstr "Cable"
 
 #. TRANSLATORS: Stitching Offset
 msgid "stitching-offset"
-msgstr "Desplazamiento de unión"
+msgstr "Desplazamiento de grapa"
 
 #. TRANSLATORS: Staple Edge
 msgid "stitching-reference-edge"
