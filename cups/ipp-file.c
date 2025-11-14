@@ -199,10 +199,11 @@ ippFileExpandVars(ipp_file_t *file,	// I - IPP data file
 
 	  if (*tempptr)
 	    *tempptr = '\0';
+
+	  src   += tempptr - temp + 1;
         }
 
         value = ippFileGetVar(file, temp);
-        src   += tempptr - temp + 1;
       }
 
       if (value)
