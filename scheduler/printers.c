@@ -3572,16 +3572,21 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
                        cupsArrayCount(p->filetypes) + i, NULL, NULL);
 
   if (i)
+  {
     attr->values[0].string.text = _cupsStrAlloc("application/octet-stream");
+    cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[0]='application/octet-stream'");
+  }
 
   for (type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; i ++, type = (mime_type_t *)cupsArrayNext(p->filetypes))
   {
     snprintf(mimetype, sizeof(mimetype), "%s/%s", type->super, type->type);
 
     attr->values[i].string.text = _cupsStrAlloc(mimetype);
+    cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[%d]='%s'", i, mimetype);
   }
 
   ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-preferred", NULL, preferred);
+  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-preferred='%s'", preferred);
 
  /*
   * Then list a bunch of formats that are supported by the printer...
