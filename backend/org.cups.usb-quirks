@@ -19,6 +19,16 @@
 #   Bus 002 Device 003: ID ab21:34dc Acme Example Printer
 #
 # The "ab21:34dc" is the vendor and product ID, separated by a colon.
+#
+# To test changes on your system, create a new file in this directory called
+# "MODELNAME.usb-quirks" (the actual name doesn't matter, it just needs to be
+# in this directory) and then see what happens when you print or try to add a
+# printer.
+#
+# You can report changes for this file to:
+#
+#   https://github.com/OpenPrinting/cups/issues
+#
 
 # HP DeskJet 895C
 0x03f0 0x0004 unidir
