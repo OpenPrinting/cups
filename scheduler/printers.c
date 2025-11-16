@@ -3550,6 +3550,8 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
   * Otherwise, get the list of supported source types...
   */
 
+  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: filetype=%s/%s", p->filetype ? p->filetype->super : "null", p->filetype ? p->filetype->type : "null");
+
   p->filetypes = mimeGetFilterTypes(MimeDatabase, p->filetype, NULL);
 
   if ((type = mimeType(MimeDatabase, "application", "pdf")) != NULL && cupsArrayFind(p->filetypes, type))

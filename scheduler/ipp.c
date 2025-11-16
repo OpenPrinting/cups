@@ -5376,6 +5376,8 @@ create_local_bg_thread(
   }
   else
   {
+    ipp_tag_t		group;		/* Current group tag */
+
     cupsdLogPrinter(printer, CUPSD_LOG_ERROR, "PPD creation failed: %s", cupsGetErrorString());
 
     /* Force printer to timeout and be deleted */
@@ -5385,6 +5387,31 @@ create_local_bg_thread(
     cupsRWUnlock(&printer->lock);
 
     send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to create PPD: %s"), cupsGetErrorString());
+
+    cupsdLogClient(con, CUPSD_LOG_DEBUG, "Printer attributes:");
+
+    for (group = IPP_TAG_ZERO, attr = ippFirstAttribute(response); attr; attr = ippNextAttribute(response))
+    {
+      const char  *name;                /* Attribute name */
+      char        value[1024];          /* Attribute value */
+
+      if (group != ippGetGroupTag(attr))
+      {
+        group = ippGetGroupTag(attr);
+        if (group != IPP_TAG_ZERO)
+          cupsdLogClient(con, CUPSD_LOG_DEBUG, "%s", ippTagString(group));
+      }
+
+      if ((name = ippGetName(attr)) == NULL)
+        continue;
+
+      ippAttributeString(attr, value, sizeof(value));
+
+      cupsdLogClient(con, CUPSD_LOG_DEBUG, "%s %s%s '%s'", name, ippGetCount(attr) > 1 ? "1setOf " : "", ippTagString(ippGetValueTag(attr)), value);
+    }
+
+    cupsdLogClient(con, CUPSD_LOG_DEBUG, "end-of-attributes-tag");
+
     goto finish_response;
   }
 

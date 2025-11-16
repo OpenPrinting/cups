@@ -614,7 +614,15 @@ mime_get_filter_types(
       src = (mime_type_t *)cupsArrayGetElement(c->srcs, i);
 
       if (!strcmp(src->super, "printer"))
+      {
+	if (level < 4)
+	{
+	  // Add filters that can convert to this type...
+	  srcs = mime_get_filter_types(mime, src, srcs, level + 1);
+	}
+
         continue;
+      }
 
       if (!cupsArrayFind(srcs, src))
       {
