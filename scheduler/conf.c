@@ -1585,11 +1585,6 @@ cupsdReadConfiguration(void)
       !old_serverroot || !ServerRoot || strcmp(old_serverroot, ServerRoot) ||
       !old_requestroot || !RequestRoot || strcmp(old_requestroot, RequestRoot))
   {
-    mime_type_t	*type;			/* Current type */
-    char	mimetype[MIME_MAX_SUPER + MIME_MAX_TYPE];
-					/* MIME type name */
-
-
     cupsdLogMessage(CUPSD_LOG_INFO, "Full reload is required.");
 
    /*
@@ -1605,14 +1600,6 @@ cupsdReadConfiguration(void)
     if (MimeDatabase != NULL)
       mimeDelete(MimeDatabase);
 
-    if (NumMimeTypes)
-    {
-      for (i = 0; i < NumMimeTypes; i ++)
-	_cupsStrFree(MimeTypes[i]);
-
-      free(MimeTypes);
-    }
-
    /*
     * Read the MIME type and conversion database...
     */
@@ -1622,79 +1609,32 @@ cupsdReadConfiguration(void)
 
     MimeDatabase = mimeNew();
     mimeSetErrorCallback(MimeDatabase, mime_error_cb, NULL);
-    cupsRWInit(&MimeDatabase->lock);
 
-    cupsRWLockWrite(&MimeDatabase->lock);
-    MimeDatabase = mimeLoadTypes(MimeDatabase, mimedir);
-    MimeDatabase = mimeLoadTypes(MimeDatabase, ServerRoot);
-    MimeDatabase = mimeLoadFilters(MimeDatabase, mimedir, temp);
-    MimeDatabase = mimeLoadFilters(MimeDatabase, ServerRoot, temp);
-    cupsRWUnlock(&MimeDatabase->lock);
+    mimeAddType(MimeDatabase, "application", "octet-stream");
+    mimeLoadTypes(MimeDatabase, mimedir);
+    mimeLoadTypes(MimeDatabase, ServerRoot);
+    mimeLoadFilters(MimeDatabase, mimedir, temp);
+    mimeLoadFilters(MimeDatabase, ServerRoot, temp);
 
-    if (!MimeDatabase)
+    if (mimeNumTypes(MimeDatabase) == 1 || mimeNumFilters(MimeDatabase) == 0)
     {
-      cupsdLogMessage(CUPSD_LOG_EMERG,
-                      "Unable to load MIME database from \"%s\" or \"%s\".",
-		      mimedir, ServerRoot);
+      cupsdLogMessage(CUPSD_LOG_EMERG, "Unable to load MIME database from \"%s\" or \"%s\".", mimedir, ServerRoot);
       if (FatalErrors & CUPSD_FATAL_CONFIG)
         return (0);
     }
 
-    cupsdLogMessage(CUPSD_LOG_INFO,
-                    "Loaded MIME database from \"%s\" and \"%s\": %d types, "
-		    "%d filters...", mimedir, ServerRoot,
-		    mimeNumTypes(MimeDatabase), mimeNumFilters(MimeDatabase));
-
-   /*
-    * Create a list of MIME types for the document-format-supported
-    * attribute...
-    */
-
-    NumMimeTypes = mimeNumTypes(MimeDatabase);
-    if (!mimeType(MimeDatabase, "application", "octet-stream"))
-      NumMimeTypes ++;
-
-    if ((MimeTypes = calloc((size_t)NumMimeTypes, sizeof(const char *))) == NULL)
-    {
-      cupsdLogMessage(CUPSD_LOG_ERROR,
-                      "Unable to allocate memory for %d MIME types.",
-		      NumMimeTypes);
-      NumMimeTypes = 0;
-    }
-    else
-    {
-      for (i = 0, type = mimeFirstType(MimeDatabase);
-	   type;
-	   i ++, type = mimeNextType(MimeDatabase))
-      {
-	snprintf(mimetype, sizeof(mimetype), "%s/%s", type->super, type->type);
-
-	MimeTypes[i] = _cupsStrAlloc(mimetype);
-      }
-
-      if (i < NumMimeTypes)
-	MimeTypes[i] = _cupsStrAlloc("application/octet-stream");
-    }
+    cupsdLogMessage(CUPSD_LOG_INFO, "Loaded MIME database from \"%s\" and \"%s\": %d types, %d filters.", mimedir, ServerRoot, mimeNumTypes(MimeDatabase), mimeNumFilters(MimeDatabase));
 
     if (LogLevel == CUPSD_LOG_DEBUG2)
     {
+      mime_type_t	*type;		/* Current type */
       mime_filter_t	*filter;	/* Current filter */
 
+      for (type = mimeFirstType(MimeDatabase); type; type = mimeNextType(MimeDatabase))
+	cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdReadConfiguration: type %s/%s", type->super, type->type);
 
-      for (type = mimeFirstType(MimeDatabase);
-           type;
-	   type = mimeNextType(MimeDatabase))
-	cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdReadConfiguration: type %s/%s",
-		        type->super, type->type);
-
-      for (filter = mimeFirstFilter(MimeDatabase);
-           filter;
-	   filter = mimeNextFilter(MimeDatabase))
-	cupsdLogMessage(CUPSD_LOG_DEBUG2,
-	                "cupsdReadConfiguration: filter %s/%s to %s/%s %d %s",
-		        filter->src->super, filter->src->type,
-		        filter->dst->super, filter->dst->type,
-		        filter->cost, filter->filter);
+      for (filter = mimeFirstFilter(MimeDatabase); filter; filter = mimeNextFilter(MimeDatabase))
+	cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdReadConfiguration: filter %s/%s to %s/%s %d %s", filter->src->super, filter->src->type, filter->dst->super, filter->dst->type, filter->cost, filter->filter);
     }
 
    /*

@@ -234,10 +234,8 @@ VAR char		*PageLogFormat		VALUE(NULL);
 					/* Page log format */
 VAR mime_t		*MimeDatabase		VALUE(NULL);
 					/* MIME type database */
-VAR int			NumMimeTypes		VALUE(0);
-					/* Number of MIME types */
-VAR const char		**MimeTypes		VALUE(NULL);
-					/* Array of MIME types */
+VAR cups_rwlock_t	MimeLock		VALUE(CUPS_RWLOCK_INITIALIZER);
+					// Read/write lock for MIME type database
 
 VAR int			CreateSelfSignedCerts	VALUE(TRUE);
 					/* Automatically create self-signed certs? */

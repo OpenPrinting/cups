@@ -8587,7 +8587,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     cupsCopyString(type, "octet-stream", sizeof(type));
   }
 
-  cupsRWLockRead(&MimeDatabase->lock);
+  cupsRWLockRead(&MimeLock);
 
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
@@ -8613,7 +8613,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   else
     filetype = mimeType(MimeDatabase, super, type);
 
-  cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeLock);
 
   if (filetype &&
       (!format ||
@@ -9804,7 +9804,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     cupsCopyString(type, "octet-stream", sizeof(type));
   }
 
-  cupsRWLockRead(&MimeDatabase->lock);
+  cupsRWLockRead(&MimeLock);
 
   if (!strcmp(super, "application") && !strcmp(type, "octet-stream"))
   {
@@ -9835,7 +9835,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
   else
     filetype = mimeType(MimeDatabase, super, type);
 
-  cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeLock);
 
   if (filetype)
   {
@@ -11381,7 +11381,7 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
       return;
     }
 
-    cupsRWLockRead(&MimeDatabase->lock);
+    cupsRWLockRead(&MimeLock);
 
     if ((strcmp(super, "application") || strcmp(type, "octet-stream")) &&
 	!mimeType(MimeDatabase, super, type))
@@ -11393,12 +11393,12 @@ validate_job(cupsd_client_t  *con,	/* I - Client connection */
       ippAddString(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_MIMETYPE,
                    "document-format", NULL, format->values[0].string.text);
 
-      cupsRWUnlock(&MimeDatabase->lock);
+      cupsRWUnlock(&MimeLock);
 
       return;
     }
 
-    cupsRWUnlock(&MimeDatabase->lock);
+    cupsRWUnlock(&MimeLock);
   }
 
  /*

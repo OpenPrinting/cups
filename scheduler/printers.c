@@ -94,11 +94,11 @@ cupsdAddPrinter(const char *name)	/* I - Name of printer */
   p->accepting   = 0;
   p->shared      = DefaultShared;
 
-  cupsRWLockWrite(&MimeDatabase->lock);
+  cupsRWLockWrite(&MimeLock);
 
-  p->filetype    = mimeAddType(MimeDatabase, "printer", name);
+  p->filetype = mimeAddType(MimeDatabase, "printer", name);
 
-  cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeLock);
 
   cupsdSetString(&p->job_sheets[0], "none");
   cupsdSetString(&p->job_sheets[1], "none");
@@ -732,7 +732,7 @@ cupsdDeletePrinter(
   if (p->printers != NULL)
     free(p->printers);
 
-  cupsRWLockWrite(&MimeDatabase->lock);
+  cupsRWLockWrite(&MimeLock);
 
   delete_printer_filters(p);
 
@@ -747,7 +747,7 @@ cupsdDeletePrinter(
   mimeDeleteType(MimeDatabase, p->filetype);
   mimeDeleteType(MimeDatabase, p->prefiltertype);
 
-  cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeLock);
 
   cupsdFreeStrings(&(p->users));
   cupsdFreeQuotas(p);
@@ -1397,7 +1397,7 @@ cupsdRenamePrinter(
   * Rename the printer type...
   */
 
-  cupsRWLockWrite(&MimeDatabase->lock);
+  cupsRWLockWrite(&MimeLock);
 
   mimeDeleteType(MimeDatabase, p->filetype);
   p->filetype = mimeAddType(MimeDatabase, "printer", name);
@@ -1408,7 +1408,7 @@ cupsdRenamePrinter(
     p->prefiltertype = mimeAddType(MimeDatabase, "prefilter", name);
   }
 
-  cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeLock);
 
  /*
   * Rename the printer...
@@ -2227,13 +2227,14 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
     cupsdCreateCommonData();
 
   cupsRWLockWrite(&p->lock);
-  cupsRWLockWrite(&MimeDatabase->lock);
 
  /*
   * Clear out old filters, if any...
   */
 
+  cupsRWLockWrite(&MimeLock);
   delete_printer_filters(p);
+  cupsRWUnlock(&MimeLock);
 
  /*
   * Figure out the authentication that is required for the printer.
@@ -2404,14 +2405,12 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
     * Add filters for printer...
     */
 
-    cupsdSetPrinterReasons(p, "-cups-missing-filter-warning,"
-			      "cups-insecure-filter-warning");
+    cupsRWLockWrite(&MimeLock);
+    cupsdSetPrinterReasons(p, "-cups-missing-filter-warning,cups-insecure-filter-warning");
 
     if (p->pc && p->pc->filters)
     {
-      for (filter = (char *)cupsArrayFirst(p->pc->filters);
-	   filter;
-	   filter = (char *)cupsArrayNext(p->pc->filters))
+      for (filter = (char *)cupsArrayFirst(p->pc->filters); filter; filter = (char *)cupsArrayNext(p->pc->filters))
 	add_printer_filter(p, p->filetype, filter);
     }
     else if (!(p->type & CUPS_PTYPE_REMOTE))
@@ -2427,8 +2426,7 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
       * Add a PostScript filter, since this is still possibly PS printer.
       */
 
-      add_printer_filter(p, p->filetype,
-			 "application/vnd.cups-postscript 0 -");
+      add_printer_filter(p, p->filetype, "application/vnd.cups-postscript 0 -");
     }
 
     if (p->pc && p->pc->prefilters)
@@ -2436,12 +2434,12 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
       if (!p->prefiltertype)
 	p->prefiltertype = mimeAddType(MimeDatabase, "prefilter", p->name);
 
-      for (filter = (char *)cupsArrayFirst(p->pc->prefilters);
-	   filter;
-	   filter = (char *)cupsArrayNext(p->pc->prefilters))
+      for (filter = (char *)cupsArrayFirst(p->pc->prefilters); filter; filter = (char *)cupsArrayNext(p->pc->prefilters))
 	add_printer_filter(p, p->prefiltertype, filter);
     }
   }
+
+  cupsRWUnlock(&MimeLock);
 
  /*
   * Copy marker attributes as needed...
@@ -2546,9 +2544,9 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
   * Populate the document-format-supported attribute...
   */
 
+  cupsRWLockWrite(&MimeLock);
   add_printer_formats(p);
-
-  cupsRWUnlock(&MimeDatabase->lock);
+  cupsRWUnlock(&MimeLock);
 
  /*
   * Add name-default attributes...
@@ -3483,18 +3481,14 @@ add_printer_filter(
   * Add the filter to the MIME database, supporting wildcards as needed...
   */
 
-  for (temptype = mimeFirstType(MimeDatabase);
-       temptype;
-       temptype = mimeNextType(MimeDatabase))
-    if (((super[0] == '*' && _cups_strcasecmp(temptype->super, "printer")) ||
-         !_cups_strcasecmp(temptype->super, super)) &&
-        (type[0] == '*' || !_cups_strcasecmp(temptype->type, type)))
+  for (temptype = mimeFirstType(MimeDatabase); temptype; temptype = mimeNextType(MimeDatabase))
+  {
+    if (((super[0] == '*' && _cups_strcasecmp(temptype->super, "printer")) || !_cups_strcasecmp(temptype->super, super)) && (type[0] == '*' || !_cups_strcasecmp(temptype->type, type)))
     {
       if (desttype != filtertype)
       {
         cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_filter: Adding filter %s/%s %s/%s %d %s", temptype->super, temptype->type, desttype->super, desttype->type, cost, program);
-        filterptr = mimeAddFilter(MimeDatabase, temptype, desttype, cost,
-	                          program);
+        filterptr = mimeAddFilter(MimeDatabase, temptype, desttype, cost, program);
 
         if (!mimeFilterLookup(MimeDatabase, desttype, filtertype))
         {
@@ -3505,13 +3499,13 @@ add_printer_filter(
       else
       {
         cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_filter: Adding filter %s/%s %s/%s %d %s", temptype->super, temptype->type, filtertype->super, filtertype->type, cost, program);
-        filterptr = mimeAddFilter(MimeDatabase, temptype, filtertype, cost,
-	                          program);
+        filterptr = mimeAddFilter(MimeDatabase, temptype, filtertype, cost, program);
       }
 
       if (filterptr)
 	filterptr->maxsize = maxsize;
     }
+  }
 }
 
 
@@ -3542,7 +3536,7 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 
   if (p->raw)
   {
-    ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-supported", NumMimeTypes, NULL, MimeTypes);
+    ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-supported", NULL, "application/octet-stream");
     return;
   }
 
@@ -3561,25 +3555,13 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
   * Add the file formats that can be filtered...
   */
 
-  if ((type = mimeType(MimeDatabase, "application", "octet-stream")) == NULL ||
-      !cupsArrayFind(p->filetypes, type))
-    i = 1;
-  else
-    i = 0;
+  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %d supported types", cupsArrayCount(p->filetypes) + 1);
 
-  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %d supported types", cupsArrayCount(p->filetypes) + i);
+  attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-supported", cupsArrayCount(p->filetypes) + 1, NULL, NULL);
+  attr->values[0].string.text = _cupsStrAlloc("application/octet-stream");
+  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[0]='application/octet-stream'");
 
-  attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE,
-                       "document-format-supported",
-                       cupsArrayCount(p->filetypes) + i, NULL, NULL);
-
-  if (i)
-  {
-    attr->values[0].string.text = _cupsStrAlloc("application/octet-stream");
-    cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[0]='application/octet-stream'");
-  }
-
-  for (type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; i ++, type = (mime_type_t *)cupsArrayNext(p->filetypes))
+  for (i = 1, type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; i ++, type = (mime_type_t *)cupsArrayNext(p->filetypes))
   {
     snprintf(mimetype, sizeof(mimetype), "%s/%s", type->super, type->type);
 
@@ -3667,9 +3649,8 @@ delete_printer_filters(
   * type == printer...
   */
 
-  for (filter = mimeFirstFilter(MimeDatabase);
-       filter;
-       filter = mimeNextFilter(MimeDatabase))
+  for (filter = mimeFirstFilter(MimeDatabase); filter; filter = mimeNextFilter(MimeDatabase))
+  {
     if (filter->dst == p->filetype || filter->dst == p->prefiltertype ||
         cupsArrayFind(p->dest_types, filter->dst))
     {
@@ -3679,17 +3660,15 @@ delete_printer_filters(
 
       mimeDeleteFilter(MimeDatabase, filter);
     }
+  }
 
-  for (type = (mime_type_t *)cupsArrayFirst(p->dest_types);
-       type;
-       type = (mime_type_t *)cupsArrayNext(p->dest_types))
+  for (type = (mime_type_t *)cupsArrayFirst(p->dest_types); type; type = (mime_type_t *)cupsArrayNext(p->dest_types))
     mimeDeleteType(MimeDatabase, type);
 
   cupsArrayDelete(p->dest_types);
   p->dest_types = NULL;
 
-  cupsdSetPrinterReasons(p, "-cups-insecure-filter-warning"
-                            ",cups-missing-filter-warning");
+  cupsdSetPrinterReasons(p, "-cups-insecure-filter-warning,cups-missing-filter-warning");
 }
 
 

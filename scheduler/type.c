@@ -710,6 +710,8 @@ void
 _mimeFreeType(mime_type_t *t,		// I - File type
               void        *data)	// I - Callback data (not used)
 {
+  (void)data;
+
   mime_delete_rules(t->rules);
   free(t);
 }

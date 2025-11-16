@@ -14,7 +14,6 @@
 #  include <cups/array.h>
 #  include <cups/ipp.h>
 #  include <cups/file.h>
-#  include <cups/thread.h>
 #  include <regex.h>
 #  ifdef __cplusplus
 extern "C" {
@@ -110,7 +109,6 @@ typedef struct _mime_s			// MIME Database
   cups_array_t		*ftypes;	// Filter types
   mime_error_cb_t	error_cb;	// Error message callback
   void			*error_ctx;	// Pointer for callback
-  cups_rwlock_t		lock;		// Read/write lock for guarding data for background updates
 } mime_t;
 
 

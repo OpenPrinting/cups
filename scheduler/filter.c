@@ -86,11 +86,9 @@ mimeAddFilter(mime_t      *mime,	// I - MIME database
     {
       c->dst = dst;
 
-      cupsRWLockWrite(&mime->lock);
       if (!mime->ftypes)
         mime->ftypes = cupsArrayNew3((cups_array_cb_t)mime_compare_ftypess, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, (cups_afree_cb_t)mime_free_ftypes);
       cupsArrayAdd(mime->ftypes, c);
-      cupsRWUnlock(&mime->lock);
     }
   }
 
@@ -360,9 +358,7 @@ mime_find_ftypes(mime_t      *mime,	// I - MIME database
   // Lookup the destination type in the array...
   key.dst = dst;
 
-  cupsRWLockRead(&mime->lock);
   match = (mime_ftypes_t *)cupsArrayFind(mime->ftypes, &key);
-  cupsRWUnlock(&mime->lock);
 
   return (match);
 }
