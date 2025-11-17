@@ -908,7 +908,11 @@ cupsDNSSDNew(
 
   DEBUG_printf("2cupsDNSSDNew: dnssd->monitor=%p", (void *)dnssd->monitor);
 
+  avahi_lock(dnssd, "cupsDNSSDNew");
+
   dnssd->dbrowser = avahi_domain_browser_new(dnssd->client, AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, /*domain*/NULL, AVAHI_DOMAIN_BROWSER_BROWSE, /*flags*/0, (AvahiDomainBrowserCallback)avahi_domain_cb, dnssd);
+
+  avahi_unlock(dnssd, "cupsDNSSDNew");
 #endif // HAVE_MDNSRESPONDER
 
   DEBUG_printf("2cupsDNSSDNew: Returning %p.", (void *)dnssd);
