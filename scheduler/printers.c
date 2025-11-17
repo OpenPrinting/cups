@@ -3557,7 +3557,12 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 
   cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %d supported types", cupsArrayCount(p->filetypes) + 1);
 
-  attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-supported", cupsArrayCount(p->filetypes) + 1, NULL, NULL);
+  if ((attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-supported", cupsArrayCount(p->filetypes) + 1, NULL, NULL)) == NULL)
+  {
+    cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to create document-format-supported attribute.");
+    return;
+  }
+
   attr->values[0].string.text = _cupsStrAlloc("application/octet-stream");
   cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[0]='application/octet-stream'");
 
