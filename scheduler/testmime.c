@@ -189,6 +189,14 @@ main(int  argc,				// I - Number of command-line args
 
     type_dir(mime, "../doc");
 
+    // Make sure we have dummy filters for common conversions...
+    mimeAddFilter(mime, mimeType(mime, "application", "pdf"), mimeType(mime, "application", "vnd.cups-pdf"), 100, "pdftopdf");
+    mimeAddFilter(mime, mimeType(mime, "application", "pdf"), mimeType(mime, "application", "postscript"), 100, "pdftops");
+    mimeAddFilter(mime, mimeType(mime, "application", "pdf"), mimeType(mime, "application", "vnd.cups-raster"), 100, "pdftoraster");
+    mimeAddFilter(mime, mimeType(mime, "application", "pdf"), mimeType(mime, "image", "pwg-raster"), 100, "pdftoraster");
+    mimeAddFilter(mime, mimeType(mime, "image", "jpeg"), mimeType(mime, "application", "pdf"), 100, "imagetopdf");
+    mimeAddFilter(mime, mimeType(mime, "text", "plain"), mimeType(mime, "application", "pdf"), 100, "texttopdf");
+
     if ((dst = mimeType(mime, "application", "pdf")) != NULL)
       get_file_types(mime, dst);
 
