@@ -1711,6 +1711,37 @@ cupsdSaveAllPrinters(void)
       cupsFilePutConf(fp, "Attribute", value);
     }
 
+    if ((marker = ippFindAttribute(printer->attrs,
+                                   "oauth-authorization-server-uri",
+                                   IPP_TAG_URI)) != NULL)
+    {
+      snprintf(value, sizeof(value), "%s %s", marker->name,
+               marker->values[0].string.text);
+      cupsFilePutConf(fp, "Attribute", value);
+    }
+
+    if ((marker = ippFindAttribute(printer->attrs,
+                                   "oauth-authorization-scopes",
+                                   IPP_TAG_NAME)) != NULL)
+    {
+      snprintf(value, sizeof(value), "%s ", marker->name);
+
+      for (j = 0, ptr = value + strlen(value);
+           j < marker->num_values && ptr < (value + sizeof(value) - 1);
+	   j ++)
+      {
+        if (j)
+	  *ptr++ = ',';
+
+        cupsCopyString(ptr, marker->values[j].string.text,
+                       (size_t)(value + sizeof(value) - ptr));
+        ptr += strlen(ptr);
+      }
+
+      *ptr = '\0';
+      cupsFilePutConf(fp, "Attribute", value);
+    }
+
     if (printer->marker_time)
       cupsFilePrintf(fp, "Attribute marker-change-time %ld\n",
                      (long)printer->marker_time);
@@ -1793,6 +1824,14 @@ cupsdSetAuthInfoRequired(
         p->auth_info_required[p->num_auth_info_required] = "domain";
 	p->num_auth_info_required ++;
       }
+      else if ((end - values) == 6 && !strncmp(values, "bearer", 6))
+      {
+        if (p->num_auth_info_required != 0 || *end)
+          return (0);
+
+        p->auth_info_required[p->num_auth_info_required] = "bearer";
+        p->num_auth_info_required ++;
+      }
       else if ((end - values) == 8 && !strncmp(values, "password", 8))
       {
         p->auth_info_required[p->num_auth_info_required] = "password";
@@ -1871,6 +1910,16 @@ cupsdSetAuthInfoRequired(
     {
       p->auth_info_required[p->num_auth_info_required] = "domain";
       p->num_auth_info_required ++;
+    }
+    else if (!strcmp(attr->values[i].string.text, "bearer"))
+    {
+      if (p->num_auth_info_required != 0 || attr->num_values != 1)
+        return (0);
+
+      p->auth_info_required[p->num_auth_info_required] = "bearer";
+      p->num_auth_info_required ++;
+
+      return (1);
     }
     else if (!strcmp(attr->values[i].string.text, "password"))
     {
@@ -2070,6 +2119,8 @@ cupsdSetPrinterAttr(
       value_tag = IPP_TAG_KEYWORD;
     else if (!strcmp(name, "marker-message"))
       value_tag = IPP_TAG_TEXT;
+    else if (!strcmp(name, "oauth-authorization-server-uri"))
+      value_tag = IPP_TAG_URI;
     else
       value_tag = IPP_TAG_NAME;
 
@@ -2526,6 +2577,29 @@ cupsdSetPrinterAttrs(cupsd_printer_t *p)/* I - Printer to setup */
       if ((attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
                                 "marker-types", oldattr->num_values, NULL,
 				NULL)) != NULL)
+      {
+	for (i = 0; i < oldattr->num_values; i ++)
+	  attr->values[i].string.text =
+	      _cupsStrAlloc(oldattr->values[i].string.text);
+      }
+    }
+
+    if ((oldattr = ippFindAttribute(oldattrs,
+                                    "oauth-authorization-server-uri",
+                                    IPP_TAG_URI)) != NULL)
+    {
+      ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_TAG_URI,
+                   "oauth-authorization-server-uri", NULL,
+                   oldattr->values[0].string.text);
+    }
+
+    if ((oldattr = ippFindAttribute(oldattrs,
+                                    "oauth-authorization-scopes",
+                                    IPP_TAG_NAME)) != NULL)
+    {
+      if ((attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_NAME,
+                                "oauth-authorization-scopes",
+				oldattr->num_values, NULL, NULL)) != NULL)
       {
 	for (i = 0; i < oldattr->num_values; i ++)
 	  attr->values[i].string.text =

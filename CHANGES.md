@@ -153,6 +153,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
 - Fixed job cleanup after daemon restart (Issue #1315)
 - Fixed unreachable block in IPP backend (Issue #1351)
 - Fixed memory leak in _cupsConvertOptions (Issue #1354)
+- Added OAuth Bearer auth-info support and OAuth metadata for shared queues
+  (Issue #1233)
 - Fixed missing write check in `cupsFileOpen/Fd` (Issue #1360)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
