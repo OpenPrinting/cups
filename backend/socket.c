@@ -313,6 +313,10 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 
 	sleep(5);
 
+	if (snmp_fd >= 0)
+	  _cupsSNMPClose(snmp_fd);
+	if (print_fd != 0)
+	  close(print_fd);
         return (CUPS_BACKEND_FAILED);
       }
 
@@ -324,6 +328,10 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 	{
 	  _cupsLangPrintFilter(stderr, "ERROR",
 	                       _("The printer is not responding."));
+	  if (snmp_fd >= 0)
+	    _cupsSNMPClose(snmp_fd);
+	  if (print_fd != 0)
+	    close(print_fd);
 	  return (CUPS_BACKEND_FAILED);
 	}
 
@@ -428,8 +436,6 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   */
 
   close(device_fd);
-
-  httpAddrFreeList(addrlist);
 
  /*
   * Close the input file and return...
