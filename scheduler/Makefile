@@ -36,6 +36,7 @@ CUPSDOBJS =	\
 		server.o \
 		statbuf.o \
 		subscriptions.o \
+		formats_cache.o \
 		sysman.o
 LIBOBJS =	\
 		filter.o \
