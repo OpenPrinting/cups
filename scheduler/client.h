@@ -57,6 +57,9 @@ struct cupsd_client_s
   char			header[4096];	/* Header from CGI program */
   cups_lang_t		*language;	/* Language to use */
   int			auto_ssl;	/* Automatic test for SSL/TLS */
+  time_t		tls_start;	/* Start time for TLS negotiation */
+  int			tls_upgrade;	/* Doing TLS upgrade via OPTIONS? */
+  http_encryption_t	encryption;	/* Type of TLS negotiation */
   http_addr_t		clientaddr;	/* Client's server address */
   char			clientname[256];/* Client's server name for connection */
   int			clientport;	/* Client's server port for connection */

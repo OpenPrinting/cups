@@ -30,8 +30,8 @@
 
 static int		check_if_modified(cupsd_client_t *con,
 			                  struct stat *filestats);
+static int		check_start_tls(cupsd_client_t *con);
 static int		compare_clients(cupsd_client_t *a, cupsd_client_t *b, void *data);
-static int		cupsd_start_tls(cupsd_client_t *con, http_encryption_t e);
 static char		*get_file(cupsd_client_t *con, struct stat *filestats, char *filename, size_t len);
 static http_status_t	install_cupsd_conf(cupsd_client_t *con);
 static int		is_cgi(cupsd_client_t *con, const char *filename, struct stat *filestats, mime_type_t *type);
@@ -354,14 +354,20 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   if (lis->encryption == HTTP_ENCRYPTION_ALWAYS)
   {
    /*
-    * https connection; go secure...
+    * HTTPS connection, force TLS negotiation...
     */
 
-    if (cupsd_start_tls(con, HTTP_ENCRYPTION_ALWAYS))
-      cupsdCloseClient(con);
+    con->tls_start     = time(NULL);
+    con->encryption = HTTP_ENCRYPTION_ALWAYS;
   }
   else
+  {
+   /*
+    * HTTP connection, but check for HTTPS negotiation on first data...
+    */
+
     con->auto_ssl = 1;
+  }
 }
 
 
@@ -597,17 +603,46 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
     con->auto_ssl = 0;
 
-    if (recv(httpGetFd(con->http), buf, 1, MSG_PEEK) == 1 &&
-        (!buf[0] || !strchr("DGHOPT", buf[0])))
+    if (recv(httpGetFd(con->http), buf, 5, MSG_PEEK) == 5 && buf[0] == 0x16 && buf[1] == 3 && buf[2])
     {
      /*
-      * Encrypt this connection...
+      * Client hello record, encrypt this connection...
       */
 
-      cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Saw first byte %02X, auto-negotiating SSL/TLS session.", buf[0] & 255);
+      cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Saw client hello record, auto-negotiating TLS session.");
+      con->tls_start = time(NULL);
+      con->encryption = HTTP_ENCRYPTION_ALWAYS;
+    }
+  }
 
-      if (cupsd_start_tls(con, HTTP_ENCRYPTION_ALWAYS))
-        cupsdCloseClient(con);
+  if (con->tls_start)
+  {
+   /*
+    * Try negotiating TLS...
+    */
+
+    int tls_status = check_start_tls(con);
+
+    if (tls_status < 0)
+    {
+     /*
+      * TLS negotiation failed, close the connection.
+      */
+
+      cupsdCloseClient(con);
+      return;
+    }
+    else if (tls_status == 0)
+    {
+     /*
+      * Nothing to do yet...
+      */
+
+      if ((time(NULL) - con->tls_start) > 5)
+      {
+	// Timeout, close the connection...
+	cupsdCloseClient(con);
+      }
 
       return;
     }
@@ -775,9 +810,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
         * Parse incoming parameters until the status changes...
 	*/
 
-        while ((status = httpUpdate(con->http)) == HTTP_STATUS_CONTINUE)
-	  if (!httpGetReady(con->http))
-	    break;
+	status = httpUpdate(con->http);
 
 	if (status != HTTP_STATUS_OK && status != HTTP_STATUS_CONTINUE)
 	{
@@ -940,11 +973,10 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  return;
 	}
 
-        if (cupsd_start_tls(con, HTTP_ENCRYPTION_REQUIRED))
-        {
-	  cupsdCloseClient(con);
-	  return;
-	}
+	con->tls_start = time(NULL);
+	con->tls_upgrade = 1;
+	con->encryption = HTTP_ENCRYPTION_REQUIRED;
+	return;
       }
 
       httpClearFields(con->http);
@@ -974,30 +1006,6 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
     }
     else
     {
-      if (!_cups_strcasecmp(httpGetField(con->http, HTTP_FIELD_CONNECTION),
-                            "Upgrade") && !httpIsEncrypted(con->http))
-      {
-       /*
-        * Do encryption stuff...
-	*/
-
-        httpClearFields(con->http);
-        httpClearCookie(con->http);
-
-	if (!cupsdSendHeader(con, HTTP_STATUS_SWITCHING_PROTOCOLS, NULL,
-	                     CUPSD_AUTH_NONE))
-	{
-	  cupsdCloseClient(con);
-	  return;
-	}
-
-        if (cupsd_start_tls(con, HTTP_ENCRYPTION_REQUIRED))
-        {
-	  cupsdCloseClient(con);
-	  return;
-	}
-      }
-
       if ((status = cupsdIsAuthorized(con, NULL)) != HTTP_STATUS_OK)
       {
 	cupsdSendError(con, status, CUPSD_AUTH_NONE);
@@ -2703,6 +2711,67 @@ check_if_modified(
 
 
 /*
+ * 'check_start_tls()' - Start encryption on a connection.
+ */
+
+static int				/* O - 0 to continue, 1 on success, -1 on error */
+check_start_tls(cupsd_client_t *con)	/* I - Client connection */
+{
+  unsigned char	chello[4096];		/* Client hello record */
+  ssize_t	chello_bytes;		/* Bytes read/peeked */
+  int		chello_len;		/* Length of record */
+
+
+ /*
+  * See if we have a good and complete client hello record...
+  */
+
+  if ((chello_bytes = recv(httpGetFd(con->http), (char *)chello, sizeof(chello), MSG_PEEK)) < 5)
+    return (0);				/* Not enough bytes (yet) */
+
+  if (chello[0] != 0x016 || chello[1] != 3 || chello[2] == 0)
+    return (-1);			/* Not a TLS Client Hello record */
+
+  chello_len = (chello[3] << 8) | chello[4];
+
+  if ((chello_len + 5) > chello_bytes)
+    return (0);				/* Not enough bytes yet */
+
+ /*
+  * OK, we do, try negotiating...
+  */
+
+  con->tls_start = 0;
+
+  if (!httpSetEncryption(con->http, con->encryption))
+  {
+    cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to encrypt connection: %s", cupsGetErrorString());
+    return (-1);
+  }
+
+  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Connection now encrypted.");
+
+  if (con->tls_upgrade)
+  {
+    // Respond to the original OPTIONS command...
+    con->tls_upgrade = 0;
+
+    httpClearFields(con->http);
+    httpClearCookie(con->http);
+    httpSetField(con->http, HTTP_FIELD_CONTENT_LENGTH, "0");
+
+    if (!cupsdSendHeader(con, HTTP_STATUS_OK, NULL, CUPSD_AUTH_NONE))
+    {
+      cupsdCloseClient(con);
+      return (-1);
+    }
+  }
+
+  return (1);
+}
+
+
+/*
  * 'compare_clients()' - Compare two client connections.
  */
 
@@ -2719,26 +2788,6 @@ compare_clients(cupsd_client_t *a, /* I - First client */
     return (-1);
   else
     return (1);
-}
-
-
-/*
- * 'cupsd_start_tls()' - Start encryption on a connection.
- */
-
-static int				/* O - 0 on success, -1 on error */
-cupsd_start_tls(cupsd_client_t    *con,	/* I - Client connection */
-                http_encryption_t e)	/* I - Encryption mode */
-{
-  if (!httpSetEncryption(con->http, e))
-  {
-    cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to encrypt connection: %s",
-                   cupsGetErrorString());
-    return (-1);
-  }
-
-  cupsdLogClient(con, CUPSD_LOG_DEBUG, "Connection now encrypted.");
-  return (0);
 }
 
 
