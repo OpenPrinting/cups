@@ -32,7 +32,7 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || (test -f cups/test.log && cat cups/test.log; test -f test/error_log-`date "+%Y-%m-%d"`-$USER && cat test/error_log*)
+      run: make test
     - name: Upload Test Results
       uses: actions/upload-artifact@v4
       with:
@@ -63,7 +63,7 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || (test -f cups/test.log && cat cups/test.log; test -f test/error_log-`date "+%Y-%m-%d"`-$USER && cat test/error_log*)
+      run: make test
     - name: Upload Test Results
       uses: actions/upload-artifact@v4
       with:
@@ -89,7 +89,7 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || (test -f cups/test.log && cat cups/test.log; test -f test/error_log-`date "+%Y-%m-%d"`-$USER && cat test/error_log*)
+      run: make test
     - name: Upload Test Results
       uses: actions/upload-artifact@v4
       with:
