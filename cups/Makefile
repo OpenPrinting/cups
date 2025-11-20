@@ -290,6 +290,7 @@ test:		unittests
 #	echo Fuzzing IPP API...
 #	./fuzzipp 2>>test.log
 	echo "Tests finished at $$(date)..." >>test.log
+	$(MV) test.log test-passed.log
 
 
 #

@@ -32,7 +32,15 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || (cat cups/test.log; test -f test/error_log && cat test/error_log*)
+      run: make test || (test -f cups/test.log && cat cups/test.log; test -f test/error_log-`date "+%Y-%m-%d"`-$USER && cat test/error_log*)
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: ubuntu-openssl-test-results
+        path: |
+          cups/test*.log
+          test/*_log*
+          test/cups-str-*.html
 
   build-linux-gnutls:
 
@@ -55,7 +63,15 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || (cat cups/test.log; test -f test/error_log && cat test/error_log*)
+      run: make test || (test -f cups/test.log && cat cups/test.log; test -f test/error_log-`date "+%Y-%m-%d"`-$USER && cat test/error_log*)
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: ubuntu-gnutls-test-results
+        path: |
+          cups/test*.log
+          test/*_log*
+          test/cups-str-*.html
 
   build-macos:
 
@@ -73,7 +89,15 @@ jobs:
     - name: Build CUPS
       run: make
     - name: Test CUPS
-      run: make test || (cat cups/test.log; test -f test/error_log && cat test/error_log*)
+      run: make test || (test -f cups/test.log && cat cups/test.log; test -f test/error_log-`date "+%Y-%m-%d"`-$USER && cat test/error_log*)
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: macos-test-results
+        path: |
+          cups/test*.log
+          test/*_log*
+          test/cups-str-*.html
 
   build-windows:
 
