@@ -38,8 +38,8 @@ jobs:
       with:
         name: ubuntu-openssl-test-results
         path: |
-          cups/test*.log
-          test/*_log*
+          cups/test.log
+          test/*_log*.txt
           test/cups-str-*.html
 
   build-linux-gnutls:
@@ -69,8 +69,8 @@ jobs:
       with:
         name: ubuntu-gnutls-test-results
         path: |
-          cups/test*.log
-          test/*_log*
+          cups/test.log
+          test/*_log*.txt
           test/cups-str-*.html
 
   build-macos:
@@ -95,8 +95,8 @@ jobs:
       with:
         name: macos-test-results
         path: |
-          cups/test*.log
-          test/*_log*
+          cups/test.log
+          test/*_log*.txt
           test/cups-str-*.html
 
   build-windows:
