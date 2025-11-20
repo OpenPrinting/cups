@@ -3548,30 +3548,38 @@ add_printer_formats(cupsd_printer_t *p)	/* I - Printer */
 
   p->filetypes = mimeGetFilterTypes(MimeDatabase, p->filetype, NULL);
 
-  if ((type = mimeType(MimeDatabase, "application", "pdf")) != NULL && cupsArrayFind(p->filetypes, type))
-    preferred = "application/pdf";
-
  /*
   * Add the file formats that can be filtered...
   */
 
-  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %d supported types", cupsArrayCount(p->filetypes) + 1);
+  if ((type = mimeType(MimeDatabase, "application", "octet-stream")) != NULL && !cupsArrayFind(p->filetypes, type))
+    i = 1;
+  else
+    i = 0;
 
-  if ((attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-supported", cupsArrayCount(p->filetypes) + 1, NULL, NULL)) == NULL)
+  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: %d supported types", cupsArrayCount(p->filetypes) + i);
+
+  if ((attr = ippAddStrings(p->attrs, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE, "document-format-supported", cupsArrayCount(p->filetypes) + i, NULL, NULL)) == NULL)
   {
     cupsdLogPrinter(p, CUPSD_LOG_ERROR, "Unable to create document-format-supported attribute.");
     return;
   }
 
-  attr->values[0].string.text = _cupsStrAlloc("application/octet-stream");
-  cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[0]='application/octet-stream'");
+  if (i)
+  {
+    attr->values[0].string.text = _cupsStrAlloc("application/octet-stream");
+    cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[0]='application/octet-stream'");
+  }
 
-  for (i = 1, type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; i ++, type = (mime_type_t *)cupsArrayNext(p->filetypes))
+  for (type = (mime_type_t *)cupsArrayFirst(p->filetypes); type; i ++, type = (mime_type_t *)cupsArrayNext(p->filetypes))
   {
     snprintf(mimetype, sizeof(mimetype), "%s/%s", type->super, type->type);
 
     attr->values[i].string.text = _cupsStrAlloc(mimetype);
     cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "add_printer_formats: document-format-supported[%d]='%s'", i, mimetype);
+
+    if (!strcmp(mimetype, "application/pdf"))
+      preferred = "application/pdf";
   }
 
   ippAddString(p->attrs, IPP_TAG_PRINTER, IPP_CONST_TAG(IPP_TAG_MIMETYPE), "document-format-preferred", NULL, preferred);

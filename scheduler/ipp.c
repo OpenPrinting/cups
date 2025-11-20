@@ -5376,8 +5376,6 @@ create_local_bg_thread(
   }
   else
   {
-    ipp_tag_t		group;		/* Current group tag */
-
     cupsdLogPrinter(printer, CUPSD_LOG_ERROR, "PPD creation failed: %s", cupsGetErrorString());
 
     /* Force printer to timeout and be deleted */
@@ -5387,6 +5385,27 @@ create_local_bg_thread(
     cupsRWUnlock(&printer->lock);
 
     send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("Unable to create PPD: %s"), cupsGetErrorString());
+    goto finish_response;
+  }
+
+ /*
+  * Respond to the client...
+  */
+
+  send_ipp_status(con, IPP_STATUS_OK, _("Local printer created."));
+
+  ippAddBoolean(con->response, IPP_TAG_PRINTER, "printer-is-accepting-jobs", (char)printer->accepting);
+  ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state", (int)printer->state);
+  add_printer_state_reasons(con, printer);
+
+  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), httpIsEncrypted(con->http) ? "ipps" : "ipp", NULL, con->clientname, con->clientport, "/printers/%s", printer->name);
+  ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-uri-supported", NULL, uri);
+
+  finish_response:
+
+  if (ippGetStatusCode(con->response) >= IPP_STATUS_ERROR_BAD_REQUEST && response)
+  {
+    ipp_tag_t		group;		/* Current group tag */
 
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "Printer attributes:");
 
@@ -5411,24 +5430,7 @@ create_local_bg_thread(
     }
 
     cupsdLogClient(con, CUPSD_LOG_DEBUG, "end-of-attributes-tag");
-
-    goto finish_response;
   }
-
- /*
-  * Respond to the client...
-  */
-
-  send_ipp_status(con, IPP_STATUS_OK, _("Local printer created."));
-
-  ippAddBoolean(con->response, IPP_TAG_PRINTER, "printer-is-accepting-jobs", (char)printer->accepting);
-  ippAddInteger(con->response, IPP_TAG_PRINTER, IPP_TAG_ENUM, "printer-state", (int)printer->state);
-  add_printer_state_reasons(con, printer);
-
-  httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), httpIsEncrypted(con->http) ? "ipps" : "ipp", NULL, con->clientname, con->clientport, "/printers/%s", printer->name);
-  ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-uri-supported", NULL, uri);
-
-  finish_response:
 
   ippDelete(response);
 
