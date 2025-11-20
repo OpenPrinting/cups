@@ -1215,14 +1215,14 @@ cat str-trailer.html >>$strfile
 echo ""
 for file in $BASE/log/*_log; do
         baselog=`basename $file`
-        cp $file $baselog-$date-$user
-        echo "Copied log file \"$baselog-$date-$user\" to test directory."
+        cp $file $baselog-$date-$user.txt
+        echo "Copied log file \"$baselog-$date-$user.txt\" to test directory."
 done
 cp $strfile .
 echo "Copied report file \"cups-str-$date-$user.html\" to test directory."
 
 # Clean out old failure log files after 1 week...
-find . -name \*_log-\*-$user -a -mtime +7 -print -exec rm -f '{}' \; | awk '{print "Removed old log file \"" substr($1,3) "\" from test directory."}'
+find . -name \*_log-\*-$user.txt -a -mtime +7 -print -exec rm -f '{}' \; | awk '{print "Removed old log file \"" substr($1,3) "\" from test directory."}'
 find . -name cups-str-\*-$user.html -a -mtime +7 -print -exec rm -f '{}' \; | awk '{print "Removed old report file \"" $1 "\" from test directory."}'
 
 echo ""
