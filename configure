@@ -669,6 +669,7 @@ CUPS_BROWSING
 CUPS_SYNC_ON_CLOSE
 CUPS_PAGE_LOG_FORMAT
 CUPS_ACCESS_LOG_LEVEL
+CUPS_PEER_CRED
 CUPS_LOG_LEVEL
 CUPS_FATAL_ERRORS
 CUPS_ERROR_POLICY
@@ -917,6 +918,7 @@ with_max_log_size
 with_error_policy
 with_fatal_errors
 with_log_level
+with_peer_cred
 with_access_log_level
 enable_page_logging
 enable_sync_on_close
@@ -1648,6 +1650,8 @@ Optional Packages:
   --with-error-policy     set default ErrorPolicy value, default=stop-printer
   --with-fatal-errors     set default FatalErrors value, default=config
   --with-log-level        set default LogLevel value, default=warn
+  --with-peer-cred        set default PeerCred value (on/off/root-only),
+                          default=on
   --with-access-log-level set default AccessLogLevel value, default=none
   --with-local-protocols  set default BrowseLocalProtocols, default=""
   --with-cups-user        set default user for CUPS
@@ -11287,6 +11291,24 @@ fi
 
 
 printf "%s\n" "#define CUPS_DEFAULT_LOG_LEVEL \"$CUPS_LOG_LEVEL\"" >>confdefs.h
+
+
+
+# Check whether --with-peer_cred was given.
+if test ${with_peer_cred+y}
+then :
+  withval=$with_peer_cred;
+    CUPS_PEER_CRED="$withval"
+
+else $as_nop
+
+    CUPS_PEER_CRED="on"
+
+fi
+
+
+
+printf "%s\n" "#define CUPS_DEFAULT_PEER_CRED \"$CUPS_PEER_CRED\"" >>confdefs.h
 
 
 

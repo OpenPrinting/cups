@@ -462,7 +462,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   }
 #endif /* HAVE_AUTHORIZATION_H */
 #if defined(SO_PEERCRED) && defined(AF_LOCAL)
-  else if (!strncmp(authorization, "PeerCred ", 9) &&
+  else if (PeerCred != CUPSD_PEERCRED_OFF && !strncmp(authorization, "PeerCred ", 9) &&
            con->http->hostaddr->addr.sa_family == AF_LOCAL && con->best)
   {
    /*
@@ -504,6 +504,12 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       return;
     }
 #endif /* HAVE_AUTHORIZATION_H */
+
+    if ((PeerCred == CUPSD_PEERCRED_ROOTONLY || httpGetState(con->http) == HTTP_STATE_PUT_RECV) && strcmp(authorization + 9, "root"))
+    {
+      cupsdLogClient(con, CUPSD_LOG_INFO, "User \"%s\" is not allowed to use peer credentials.", authorization + 9);
+      return;
+    }
 
     if ((pwd = getpwnam(authorization + 9)) == NULL)
     {

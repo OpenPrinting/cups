@@ -1,14 +1,14 @@
 .\"
 .\" cups-files.conf man page for CUPS.
 .\"
-.\" Copyright © 2020-2024 by OpenPrinting.
+.\" Copyright © 2020-2025 by OpenPrinting.
 .\" Copyright © 2007-2019 by Apple Inc.
 .\" Copyright © 1997-2006 by Easy Software Products.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-files.conf 5 "CUPS" "2024-04-16" "OpenPrinting"
+.TH cups-files.conf 5 "CUPS" "2025-10-08" "OpenPrinting"
 .SH NAME
 cups\-files.conf \- file and directory configuration file for cups
 .SH DESCRIPTION
@@ -170,6 +170,17 @@ The default is "/var/log/cups/page_log".
 \fBPassEnv \fIvariable \fR[ ... \fIvariable \fR]
 Passes the specified environment variable(s) to child processes.
 Note: the standard CUPS filter and backend environment variables cannot be overridden using this directive.
+.\"#PeerCred
+.TP 5
+\fBPeerCred off\fR
+.TP 5
+\fBPeerCred on\fR
+.TP 5
+\fBPeerCred root-only\fR
+Specifies whether peer credentials are used for authorization when communicating over the UNIX domain socket.
+When \fBon\fR, the peer credentials of any user are accepted for authorization.
+The value \fBoff\fR disables the use of peer credentials entirely, while the value \fBroot-only\fR allows peer credentials only for the root user.
+Note: for security reasons, the \fBon\fR setting is reduced to \fBroot-only\fR for authorization of PUT requests.
 .\"#RemoteRoot
 .TP 5
 \fBRemoteRoot \fIusername\fR
@@ -293,4 +304,4 @@ command is used instead.
 .BR subscriptions.conf (5),
 CUPS Online Help (http://localhost:631/help)
 .SH COPYRIGHT
-Copyright \[co] 2020-2024 by OpenPrinting.
+Copyright \[co] 2020-2025 by OpenPrinting.

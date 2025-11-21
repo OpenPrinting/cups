@@ -48,6 +48,10 @@
 #define CUPSD_AUTH_LIMIT_ALL	127	/* Limit all requests */
 #define CUPSD_AUTH_LIMIT_IPP	128	/* Limit IPP requests */
 
+#define CUPSD_PEERCRED_OFF	0	/* Don't allow PeerCred authorization */
+#define CUPSD_PEERCRED_ON	1	/* Allow PeerCred authorization for all users */
+#define CUPSD_PEERCRED_ROOTONLY	2	/* Allow PeerCred authorization for root user */
+
 #define IPP_ANY_OPERATION	(ipp_op_t)0
 					/* Any IPP operation */
 #define IPP_BAD_OPERATION	(ipp_op_t)-1
@@ -114,6 +118,9 @@ VAR http_encryption_t	DefaultEncryption VALUE(HTTP_ENCRYPTION_REQUIRED);
 
 VAR cups_array_t	*Locations	VALUE(NULL);
 					/* Authorization locations */
+
+VAR int			PeerCred	VALUE(CUPSD_PEERCRED_ON);
+					/* Allow PeerCred authorization? */
 
 VAR cups_array_t	*OAuthGroups	VALUE(NULL);
 					/* OAuthGroup entries */
