@@ -3671,12 +3671,16 @@ delete_printer_filters(
       * Delete the current filter...
       */
 
+      cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "delete_printer_filters: Removing filter '%s' (%s/%s to %s/%s, cost %d)", filter->filter, filter->src->super, filter->src->type, filter->dst->super, filter->dst->type, filter->cost);
       mimeDeleteFilter(MimeDatabase, filter);
     }
   }
 
   for (type = (mime_type_t *)cupsArrayFirst(p->dest_types); type; type = (mime_type_t *)cupsArrayNext(p->dest_types))
+  {
+    cupsdLogPrinter(p, CUPSD_LOG_DEBUG2, "delete_printer_filters: Removing type %s/%s", type->super, type->type);
     mimeDeleteType(MimeDatabase, type);
+  }
 
   cupsArrayDelete(p->dest_types);
   p->dest_types = NULL;

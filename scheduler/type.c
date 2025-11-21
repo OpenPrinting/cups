@@ -16,14 +16,6 @@
 
 
 //
-// Debug macros that used to be private API...
-//
-
-#define DEBUG_puts(x)
-#define DEBUG_printf(...)
-
-
-//
 // Local types...
 //
 
@@ -83,20 +75,19 @@ mimeAddType(mime_t     *mime,		// I - MIME database
   size_t	typelen;		// Length of type name
 
 
-  DEBUG_printf(("mimeAddType(mime=%p, super=\"%s\", type=\"%s\")", mime, super,
-                type));
+  MIME_DEBUG("mimeAddType(mime=%p, super=\"%s\", type=\"%s\")\n", (void *)mime, super, type);
 
   // Range check input...
   if (!mime || !super || !*super || !type || !*type)
   {
-    DEBUG_puts("1mimeAddType: Returning NULL (bad arguments).");
+    MIME_DEBUG("mimeAddType: Returning NULL (bad arguments).");
     return (NULL);
   }
 
   // See if the type already exists; if so, return the existing type...
   if ((temp = mimeType(mime, super, type)) != NULL)
   {
-    DEBUG_printf("1mimeAddType: Returning %p (existing).", temp);
+    MIME_DEBUG("mimeAddType: Returning %p (existing).\n", (void *)temp);
     return (temp);
   }
 
@@ -106,7 +97,7 @@ mimeAddType(mime_t     *mime,		// I - MIME database
 
   if (!mime->types)
   {
-    DEBUG_puts("1mimeAddType: Returning NULL (no types).");
+    MIME_DEBUG("mimeAddType: Returning NULL (no types).\n");
     return (NULL);
   }
 
@@ -114,7 +105,7 @@ mimeAddType(mime_t     *mime,		// I - MIME database
 
   if ((temp = calloc(1, sizeof(mime_type_t) - MIME_MAX_TYPE + typelen)) == NULL)
   {
-    DEBUG_puts("1mimeAddType: Returning NULL (out of memory).");
+    MIME_DEBUG("mimeAddType: Returning NULL (out of memory).\n");
     return (NULL);
   }
 
@@ -124,7 +115,7 @@ mimeAddType(mime_t     *mime,		// I - MIME database
 
   cupsArrayAdd(mime->types, temp);
 
-  DEBUG_printf("1mimeAddType: Returning %p (new).", temp);
+  MIME_DEBUG("mimeAddType: Returning %p (new).\n", (void *)temp);
   return (temp);
 }
 
@@ -150,8 +141,7 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
 		*current;  		// Current rule
 
 
-  DEBUG_printf(("mimeAddTypeRule(mt=%p(%s/%s), rule=\"%s\")", mt,
-                mt ? mt->super : "???", mt ? mt->type : "???", rule));
+  MIME_DEBUG("mimeAddTypeRule(mt=%p(%s/%s), rule=\"%s\")\n", (void *)mt, mt ? mt->super : "???", mt ? mt->type : "???", rule);
 
   // Range check input...
   if (!mt || !rule)
@@ -159,8 +149,10 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
 
   // Find the last rule in the top-level of the rules tree.
   for (current = mt->rules; current; current = current->next)
+  {
     if (!current->next)
       break;
+  }
 
   // Parse the rules string.  Most rules are either a file extension or a
   // comparison function:
@@ -177,13 +169,13 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
 
     if (*rule == '(')
     {
-      DEBUG_puts("1mimeAddTypeRule: New parenthesis group");
+      MIME_DEBUG("mimeAddTypeRule: New parenthesis group.\n");
       logic = MIME_MAGIC_NOP;
       rule ++;
     }
     else if (*rule == ')')
     {
-      DEBUG_puts("1mimeAddTypeRule: Close paren...");
+      MIME_DEBUG("mimeAddTypeRule: Close paren.\n");
       if (current == NULL || current->parent == NULL)
         return (-1);
 
@@ -215,11 +207,11 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
         current->prev   = NULL;
 	current->parent = temp;
 
-        DEBUG_printf("1mimeAddTypeRule: Creating new AND group %p.", temp);
+        MIME_DEBUG("mimeAddTypeRule: Creating new AND group %p.\n", (void *)temp);
       }
       else if (current->parent)
       {
-        DEBUG_printf("1mimeAddTypeRule: Setting group %p op to AND.", current->parent);
+        MIME_DEBUG("mimeAddTypeRule: Setting group %p op to AND.\n", (void *)current->parent);
         current->parent->op = MIME_MAGIC_AND;
       }
 
@@ -239,7 +231,7 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
 	  if ((temp = calloc(1, sizeof(mime_magic_t))) == NULL)
 	    return (-1);
 
-          DEBUG_printf("1mimeAddTypeRule: Creating new AND group %p inside OR group.", temp);
+          MIME_DEBUG("mimeAddTypeRule: Creating new AND group %p inside OR group.\n", (void *)temp);
 
           while (current->prev != NULL)
 	  {
@@ -256,7 +248,7 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
 	else
 	{
 	  // This isn't the top rule, so go up one level...
-          DEBUG_puts("1mimeAddTypeRule: Going up one level.");
+          MIME_DEBUG("mimeAddTypeRule: Going up one level.\n");
 	  current = current->parent;
 	}
       }
@@ -266,7 +258,7 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
     }
     else if (*rule == '!')
     {
-      DEBUG_puts("1mimeAddTypeRule: NOT");
+      MIME_DEBUG("mimeAddTypeRule: NOT\n");
       invert = 1;
       rule ++;
     }
@@ -420,7 +412,7 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
       if (logic == MIME_MAGIC_NOP)
       {
         // Add parenthetical grouping...
-        DEBUG_printf("1mimeAddTypeRule: Making new OR group %p for parenthesis.", temp);
+        MIME_DEBUG("mimeAddTypeRule: Making new OR group %p for parenthesis.\n", (void *)temp);
 
         temp->op = MIME_MAGIC_OR;
 
@@ -435,7 +427,7 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
         logic = MIME_MAGIC_OR;
       }
 
-      DEBUG_printf("1mimeAddTypeRule: Adding %p: %s, op=MIME_MAGIC_%s(%d), logic=MIME_MAGIC_%s, invert=%d.", temp, name, debug_ops[op], op, debug_ops[logic], invert);
+      MIME_DEBUG("mimeAddTypeRule: Adding %p: %s, op=MIME_MAGIC_%s(%d), logic=MIME_MAGIC_%s, invert=%d.\n", (void *)temp, name, debug_ops[op], op, debug_ops[logic], invert);
 
       // Fill in data for the rule...
       current  = temp;
@@ -479,8 +471,7 @@ mimeAddTypeRule(mime_type_t *mt,	// I - Type to add to
 	    else
 	      temp->value.charv = (unsigned char)strtol(value[1], NULL, 0);
 
-	    DEBUG_printf(("1mimeAddTypeRule: CHAR(%d,0x%02x)", temp->offset,
-	                  temp->value.charv));
+	    MIME_DEBUG("mimeAddTypeRule: CHAR(%d,0x%02x)", temp->offset, temp->value.charv);
 	    break;
 	case MIME_MAGIC_SHORT :
 	    temp->offset       = strtol(value[0], NULL, 0);
@@ -553,22 +544,20 @@ mimeFileType(mime_t     *mime,		// I - MIME database
 			*best;		// Best match
 
 
-  DEBUG_printf(("mimeFileType(mime=%p, pathname=\"%s\", filename=\"%s\", "
-                "compression=%p)", mime, pathname, filename, compression));
+  MIME_DEBUG("mimeFileType(mime=%p, pathname=\"%s\", filename=\"%s\", compression=%p)\n", (void *)mime, pathname, filename, (void *)compression);
 
   // Range check input parameters...
   if (!mime || !pathname)
   {
-    DEBUG_puts("1mimeFileType: Returning NULL.");
+    MIME_DEBUG("mimeFileType: Returning NULL.\n");
     return (NULL);
   }
 
   // Try to open the file...
   if ((fb.fp = cupsFileOpen(pathname, "r")) == NULL)
   {
-    DEBUG_printf(("1mimeFileType: Unable to open \"%s\": %s", pathname,
-                  strerror(errno)));
-    DEBUG_puts("1mimeFileType: Returning NULL.");
+    MIME_DEBUG("mimeFileType: Unable to open \"%s\": %s\n", pathname, strerror(errno));
+    MIME_DEBUG("mimeFileType: Returning NULL.\n");
     return (NULL);
   }
 
@@ -579,8 +568,8 @@ mimeFileType(mime_t     *mime,		// I - MIME database
 
   if (fb.length <= 0)
   {
-    DEBUG_printf("1mimeFileType: Unable to read from \"%s\": %s", pathname, strerror(errno));
-    DEBUG_puts("1mimeFileType: Returning NULL.");
+    MIME_DEBUG("mimeFileType: Unable to read from \"%s\": %s\n", pathname, strerror(errno));
+    MIME_DEBUG("mimeFileType: Returning NULL.\n");
 
     cupsFileClose(fb.fp);
 
@@ -618,13 +607,12 @@ mimeFileType(mime_t     *mime,		// I - MIME database
   if (compression)
   {
     *compression = cupsFileCompression(fb.fp);
-    DEBUG_printf("1mimeFileType: *compression=%d", *compression);
+    MIME_DEBUG("mimeFileType: *compression=%d\n", *compression);
   }
 
   cupsFileClose(fb.fp);
 
-  DEBUG_printf(("1mimeFileType: Returning %p(%s/%s).", best,
-                best ? best->super : "???", best ? best->type : "???"));
+  MIME_DEBUG("mimeFileType: Returning %p(%s/%s).\n", (void *)best, best ? best->super : "???", best ? best->type : "???");
   return (best);
 }
 
@@ -657,13 +645,12 @@ mimeType(mime_t     *mime,		// I - MIME database
 		*mt;			// Matching type
 
 
-  DEBUG_printf(("mimeType(mime=%p, super=\"%s\", type=\"%s\")", mime, super,
-                type));
+  MIME_DEBUG("mimeType(mime=%p, super=\"%s\", type=\"%s\")\n", (void *)mime, super, type);
 
   // Range check input...
   if (!mime || !super || !type)
   {
-    DEBUG_puts("1mimeType: Returning NULL.");
+    MIME_DEBUG("mimeType: Returning NULL.\n");
     return (NULL);
   }
 
@@ -672,7 +659,7 @@ mimeType(mime_t     *mime,		// I - MIME database
   cupsCopyString(key.type, type, sizeof(key.type));
 
   mt = (mime_type_t *)cupsArrayFind(mime->types, &key);
-  DEBUG_printf("1mimeType: Returning %p.", mt);
+  MIME_DEBUG("mimeType: Returning %p.\n", (void *)mt);
   return (mt);
 }
 
@@ -696,7 +683,7 @@ mime_check_rules(
   unsigned char	*bufptr;		// Pointer into buffer
 
 
-  DEBUG_printf("4mime_check_rules(filename=\"%s\", fb=%p, rules=%p)", filename, fb, rules);
+  MIME_DEBUG("mime_check_rules(filename=\"%s\", fb=%p, rules=%p)\n", filename, (void *)fb, (void *)rules);
 
   if (rules == NULL)
     return (0);
@@ -733,7 +720,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_ASCII fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_ASCII fb->length=%d", fb->length);
 	  }
 
           // Test for ASCII printable characters plus standard control chars.
@@ -777,7 +764,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_PRINTABLE fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_PRINTABLE fb->length=%d", fb->length);
 	  }
 
           // Test for 8-bit printable characters plus standard control chars.
@@ -803,7 +790,7 @@ mime_check_rules(
 	  break;
 
       case MIME_MAGIC_REGEX :
-          DEBUG_printf("5mime_check_rules: regex(%d, \"%s\")", rules->offset, rules->value.stringv);
+          MIME_DEBUG("mime_check_rules: regex(%d, \"%s\")", rules->offset, rules->value.stringv);
 
           // Load the buffer if necessary...
           if (fb->offset < 0 || rules->offset < fb->offset || (rules->offset + rules->length) > (fb->offset + fb->length))
@@ -820,9 +807,9 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_REGEX fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_REGEX fb->length=%d", fb->length);
 
-            DEBUG_printf("5mime_check_rules: loaded %d byte fb->buffer at %d, starts with \"%c%c%c%c\".", fb->length, fb->offset, fb->buffer[0], fb->buffer[1], fb->buffer[2], fb->buffer[3]);
+            MIME_DEBUG("mime_check_rules: loaded %d byte fb->buffer at %d, starts with \"%c%c%c%c\".", fb->length, fb->offset, fb->buffer[0], fb->buffer[1], fb->buffer[2], fb->buffer[3]);
 	  }
 
           // Compare the buffer against the string.  If the file is too
@@ -837,11 +824,11 @@ mime_check_rules(
             result = !regexec(&(rules->value.rev), temp, 0, NULL, 0);
           }
 
-          DEBUG_printf("5mime_check_rules: result=%d", result);
+          MIME_DEBUG("mime_check_rules: result=%d", result);
 	  break;
 
       case MIME_MAGIC_STRING :
-          DEBUG_printf("5mime_check_rules: string(%d, \"%s\")", rules->offset, rules->value.stringv);
+          MIME_DEBUG("mime_check_rules: string(%d, \"%s\")", rules->offset, rules->value.stringv);
 
           // Load the buffer if necessary...
           if (fb->offset < 0 || rules->offset < fb->offset || (rules->offset + rules->length) > (fb->offset + fb->length))
@@ -858,9 +845,9 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_STRING fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_STRING fb->length=%d", fb->length);
 
-            DEBUG_printf("5mime_check_rules: loaded %d byte fb->buffer at %d, starts with \"%c%c%c%c\".", fb->length, fb->offset, fb->buffer[0], fb->buffer[1], fb->buffer[2], fb->buffer[3]);
+            MIME_DEBUG("mime_check_rules: loaded %d byte fb->buffer at %d, starts with \"%c%c%c%c\".", fb->length, fb->offset, fb->buffer[0], fb->buffer[1], fb->buffer[2], fb->buffer[3]);
 	  }
 
           // Compare the buffer against the string.  If the file is too
@@ -869,7 +856,7 @@ mime_check_rules(
 	    result = 0;
 	  else
             result = !memcmp(fb->buffer + rules->offset - fb->offset, rules->value.stringv, (size_t)rules->length);
-          DEBUG_printf("5mime_check_rules: result=%d", result);
+          MIME_DEBUG("mime_check_rules: result=%d", result);
 	  break;
 
       case MIME_MAGIC_ISTRING :
@@ -888,7 +875,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_ISTRING fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_ISTRING fb->length=%d", fb->length);
 	  }
 
           // Compare the buffer against the string.  If the file is too
@@ -915,7 +902,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_CHAR fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_CHAR fb->length=%d", fb->length);
 	  }
 
 	  // Compare the character values; if the file is too short, it
@@ -942,7 +929,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_SHORT fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_SHORT fb->length=%d", fb->length);
 	  }
 
 	  // Compare the short values; if the file is too short, it can't match...
@@ -974,7 +961,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_INT fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_INT fb->length=%d", fb->length);
 	  }
 
 	  // Compare the int values; if the file is too short, it can't match...
@@ -1014,7 +1001,7 @@ mime_check_rules(
 	      fb->offset = rules->offset;
 	    }
 
-	    DEBUG_printf("4mime_check_rules: MIME_MAGIC_CONTAINS fb->length=%d", fb->length);
+	    MIME_DEBUG("mime_check_rules: MIME_MAGIC_CONTAINS fb->length=%d", fb->length);
 	  }
 
           // Compare the buffer against the string.  If the file is too
@@ -1053,7 +1040,7 @@ mime_check_rules(
     // OK, now if the current logic is OR and this result is true, this
     // rule set is true.  If the current logic is AND and this result is false,
     // the rule set is false...
-    DEBUG_printf("5mime_check_rules: result of test %p (MIME_MAGIC_%s) is %d", rules, debug_ops[rules->op], result);
+    MIME_DEBUG("mime_check_rules: result of test %p (MIME_MAGIC_%s) is %d.\n", (void *)rules, debug_ops[rules->op], result);
 
     if ((result && logic == MIME_MAGIC_OR) || (!result && logic == MIME_MAGIC_AND))
       return (result);
@@ -1076,7 +1063,7 @@ mime_delete_rules(mime_magic_t *rules)	// I - Rules to free
   mime_magic_t	*next;			// Next rule to free
 
 
-  DEBUG_printf("2mime_delete_rules(rules=%p)", rules);
+  MIME_DEBUG("mime_delete_rules(rules=%p)\n", (void *)rules);
 
   // Free the rules list, descending recursively to free any child rules.
   while (rules != NULL)

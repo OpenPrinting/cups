@@ -16,14 +16,6 @@
 
 
 //
-// Debug macros that used to be private API...
-//
-
-#define DEBUG_puts(x)
-#define DEBUG_printf(...)
-
-
-//
 // Local types...
 //
 
@@ -52,7 +44,7 @@ static void	mime_load_types(mime_t *mime, const char *filename);
 void
 mimeDelete(mime_t *mime)		// I - MIME database
 {
-  DEBUG_printf("mimeDelete(mime=%p)", mime);
+  MIME_DEBUG("mimeDelete(mime=%p)\n", (void *)mime);
 
   if (!mime)
     return;
@@ -74,27 +66,32 @@ void
 mimeDeleteFilter(mime_t        *mime,	// I - MIME database
 		 mime_filter_t *filter)	// I - Filter
 {
-  DEBUG_printf("mimeDeleteFilter(mime=%p, filter=%p(%s/%s->%s/%s, cost=%d, maxsize=" CUPS_LLFMT "))", mime, filter, filter ? filter->src->super : "???", filter ? filter->src->type : "???", filter ? filter->dst->super : "???", filter ? filter->dst->super : "???", filter ? filter->cost : -1, filter ? CUPS_LLCAST filter->maxsize : CUPS_LLCAST -1);
+  MIME_DEBUG("mimeDeleteFilter(mime=%p, filter=%p(%s/%s->%s/%s, cost=%d, maxsize=" CUPS_LLFMT "))\n", (void *)mime, (void *)filter, filter ? filter->src->super : "???", filter ? filter->src->type : "???", filter ? filter->dst->super : "???", filter ? filter->dst->super : "???", filter ? filter->cost : -1, filter ? CUPS_LLCAST filter->maxsize : CUPS_LLCAST -1);
 
   if (!mime || !filter)
     return;
 
 #ifdef DEBUG
   if (!cupsArrayFind(mime->filters, filter))
-    DEBUG_puts("1mimeDeleteFilter: Filter not in MIME database.");
+    MIME_DEBUG("mimeDeleteFilter: Filter not in MIME database.\n");
 #endif // DEBUG
 
   cupsArrayRemove(mime->filters, filter);
 
-  // Deleting a filter invalidates the source lookup cache used by mimeFilter()...
+  // Deleting a filter invalidates the source and destination lookup caches...
   if (mime->srcs)
   {
-    DEBUG_puts("1mimeDeleteFilter: Deleting source lookup cache.");
+    MIME_DEBUG("mimeDeleteFilter: Deleting source lookup cache.\n");
     cupsArrayDelete(mime->srcs);
     mime->srcs = NULL;
   }
 
-  // TODO: Also invalidate the filter types array?
+  if (mime->ftypes)
+  {
+    MIME_DEBUG("mimeDeleteFilter: Deleting destination lookup cache.\n");
+    cupsArrayDelete(mime->ftypes);
+    mime->ftypes = NULL;
+  }
 }
 
 
@@ -106,14 +103,14 @@ void
 mimeDeleteType(mime_t      *mime,	// I - MIME database
 	       mime_type_t *mt)		// I - Type
 {
-  DEBUG_printf("mimeDeleteType(mime=%p, mt=%p(%s/%s))", mime, mt, mt ? mt->super : "???", mt ? mt->type : "???");
+  MIME_DEBUG("mimeDeleteType(mime=%p, mt=%p(%s/%s))\n", (void *)mime, (void *)mt, mt ? mt->super : "???", mt ? mt->type : "???");
 
   if (!mime || !mt)
     return;
 
 #ifdef DEBUG
   if (!cupsArrayFind(mime->types, mt))
-    DEBUG_puts("1mimeDeleteFilter: Type not in MIME database.");
+    MIME_DEBUG("mimeDeleteFilter: Type not in MIME database.\n");
 #endif // DEBUG
 
   cupsArrayRemove(mime->types, mt);
@@ -151,11 +148,11 @@ _mimeError(mime_t     *mime,		// I - MIME database
 mime_filter_t *				// O - Filter or NULL
 mimeFirstFilter(mime_t *mime)		// I - MIME database
 {
-  DEBUG_printf("6mimeFirstFilter(mime=%p)", mime);
+  MIME_DEBUG("mimeFirstFilter(mime=%p)\n", (void *)mime);
 
   if (!mime)
   {
-    DEBUG_puts("7mimeFirstFilter: Returning NULL.");
+    MIME_DEBUG("mimeFirstFilter: Returning NULL.\n");
     return (NULL);
   }
   else
@@ -163,7 +160,7 @@ mimeFirstFilter(mime_t *mime)		// I - MIME database
     mime_filter_t *first = (mime_filter_t *)cupsArrayGetFirst(mime->filters);
 					// First filter
 
-    DEBUG_printf("7mimeFirstFilter: Returning %p.", first);
+    MIME_DEBUG("mimeFirstFilter: Returning %p.\n", (void *)first);
     return (first);
   }
 }
@@ -176,11 +173,11 @@ mimeFirstFilter(mime_t *mime)		// I - MIME database
 mime_type_t *				// O - Type or NULL
 mimeFirstType(mime_t *mime)		// I - MIME database
 {
-  DEBUG_printf("6mimeFirstType(mime=%p)", mime);
+  MIME_DEBUG("mimeFirstType(mime=%p)\n", (void *)mime);
 
   if (!mime)
   {
-    DEBUG_puts("7mimeFirstType: Returning NULL.");
+    MIME_DEBUG("mimeFirstType: Returning NULL.\n");
     return (NULL);
   }
   else
@@ -188,7 +185,7 @@ mimeFirstType(mime_t *mime)		// I - MIME database
     mime_type_t *first = (mime_type_t *)cupsArrayGetFirst(mime->types);
 					// First type
 
-    DEBUG_printf("7mimeFirstType: Returning %p.", first);
+    MIME_DEBUG("mimeFirstType: Returning %p.\n", (void *)first);
     return (first);
   }
 }
@@ -207,10 +204,10 @@ mimeLoad(const char *pathname,		// I - Directory to load
 {
   mime_t *mime;				// New MIME database
 
-  DEBUG_printf("mimeLoad(pathname=\"%s\", filterpath=\"%s\")", pathname, filterpath);
+  MIME_DEBUG("mimeLoad(pathname=\"%s\", filterpath=\"%s\")\n", pathname, filterpath);
 
   mime = mimeLoadFilters(mimeLoadTypes(NULL, pathname), pathname, filterpath);
-  DEBUG_printf("1mimeLoad: Returning %p.", mime);
+  MIME_DEBUG("mimeLoad: Returning %p.\n", (void *)mime);
 
   return (mime);
 }
@@ -234,19 +231,19 @@ mimeLoadFilters(mime_t     *mime,	// I - MIME database
   cups_array_t	*filtercache;		// Filter cache
 
 
-  DEBUG_printf("mimeLoadFilters(mime=%p, pathname=\"%s\", filterpath=\"%s\")", mime, pathname, filterpath);
+  MIME_DEBUG("mimeLoadFilters(mime=%p, pathname=\"%s\", filterpath=\"%s\")\n", (void *)mime, pathname, filterpath);
 
   // Range check input...
   if (!mime || !pathname || !filterpath)
   {
-    DEBUG_puts("1mimeLoadFilters: Bad arguments.");
+    MIME_DEBUG("mimeLoadFilters: Bad arguments.\n");
     return (mime);
   }
 
   // Then open the directory specified by pathname...
   if ((dir = cupsDirOpen(pathname)) == NULL)
   {
-    DEBUG_printf("1mimeLoadFilters: Unable to open \"%s\": %s", pathname, strerror(errno));
+    MIME_DEBUG("mimeLoadFilters: Unable to open \"%s\": %s\n", pathname, strerror(errno));
     _mimeError(mime, "Unable to open \"%s\": %s", pathname, strerror(errno));
     return (mime);
   }
@@ -260,7 +257,7 @@ mimeLoadFilters(mime_t     *mime,	// I - MIME database
     {
       // Load a mime.convs file...
       snprintf(filename, sizeof(filename), "%s/%s", pathname, dent->filename);
-      DEBUG_printf("1mimeLoadFilters: Loading \"%s\".", filename);
+      MIME_DEBUG("mimeLoadFilters: Loading \"%s\".\n", filename);
       mime_load_convs(mime, filename, filterpath, filtercache);
     }
   }
@@ -289,13 +286,13 @@ mimeLoadTypes(mime_t     *mime,		// I - MIME database or @code NULL@ to create a
   char		filename[1024];		// Full filename of .types file
 
 
-  DEBUG_printf("mimeLoadTypes(mime=%p, pathname=\"%s\")", mime, pathname);
+  MIME_DEBUG("mimeLoadTypes(mime=%p, pathname=\"%s\")\n", (void *)mime, pathname);
 
   // First open the directory specified by pathname...
   if ((dir = cupsDirOpen(pathname)) == NULL)
   {
-    DEBUG_printf("1mimeLoadTypes: Unable to open \"%s\": %s", pathname, strerror(errno));
-    DEBUG_printf("1mimeLoadTypes: Returning %p.", mime);
+    MIME_DEBUG("mimeLoadTypes: Unable to open \"%s\": %s\n", pathname, strerror(errno));
+    MIME_DEBUG("mimeLoadTypes: Returning %p.\n", (void *)mime);
     _mimeError(mime, "Unable to open \"%s\": %s", pathname, strerror(errno));
     return (mime);
   }
@@ -307,7 +304,7 @@ mimeLoadTypes(mime_t     *mime,		// I - MIME database or @code NULL@ to create a
   if (!mime)
   {
     cupsDirClose(dir);
-    DEBUG_puts("1mimeLoadTypes: Returning NULL.");
+    MIME_DEBUG("mimeLoadTypes: Returning NULL.\n");
     return (NULL);
   }
 
@@ -318,14 +315,14 @@ mimeLoadTypes(mime_t     *mime,		// I - MIME database or @code NULL@ to create a
     {
       // Load a mime.types file...
       snprintf(filename, sizeof(filename), "%s/%s", pathname, dent->filename);
-      DEBUG_printf("1mimeLoadTypes: Loading \"%s\".", filename);
+      MIME_DEBUG("mimeLoadTypes: Loading \"%s\".\n", filename);
       mime_load_types(mime, filename);
     }
   }
 
   cupsDirClose(dir);
 
-  DEBUG_printf("1mimeLoadTypes: Returning %p.", mime);
+  MIME_DEBUG("mimeLoadTypes: Returning %p.\n", (void *)mime);
 
   return (mime);
 }
@@ -349,11 +346,11 @@ mimeNew(void)
 mime_filter_t *				// O - Filter or NULL
 mimeNextFilter(mime_t *mime)		// I - MIME database
 {
-  DEBUG_printf("6mimeNextFilter(mime=%p)", mime);
+  MIME_DEBUG("mimeNextFilter(mime=%p)\n", (void *)mime);
 
   if (!mime)
   {
-    DEBUG_puts("7mimeNextFilter: Returning NULL.");
+    MIME_DEBUG("mimeNextFilter: Returning NULL.\n");
     return (NULL);
   }
   else
@@ -361,7 +358,7 @@ mimeNextFilter(mime_t *mime)		// I - MIME database
     mime_filter_t *next = (mime_filter_t *)cupsArrayGetNext(mime->filters);
 					// Next filter
 
-    DEBUG_printf("7mimeNextFilter: Returning %p.", next);
+    MIME_DEBUG("mimeNextFilter: Returning %p.\n", (void *)next);
     return (next);
   }
 }
@@ -374,11 +371,11 @@ mimeNextFilter(mime_t *mime)		// I - MIME database
 mime_type_t *				// O - Type or NULL
 mimeNextType(mime_t *mime)		// I - MIME database
 {
-  DEBUG_printf("6mimeNextType(mime=%p)", mime);
+  MIME_DEBUG("mimeNextType(mime=%p)\n", (void *)mime);
 
   if (!mime)
   {
-    DEBUG_puts("7mimeNextType: Returning NULL.");
+    MIME_DEBUG("mimeNextType: Returning NULL.\n");
     return (NULL);
   }
   else
@@ -386,7 +383,7 @@ mimeNextType(mime_t *mime)		// I - MIME database
     mime_type_t *next = (mime_type_t *)cupsArrayGetNext(mime->types);
 					// Next type
 
-    DEBUG_printf("7mimeNextType: Returning %p.", next);
+    MIME_DEBUG("mimeNextType: Returning %p.\n", (void *)next);
     return (next);
   }
 }
@@ -399,16 +396,16 @@ mimeNextType(mime_t *mime)		// I - MIME database
 int
 mimeNumFilters(mime_t *mime)		// I - MIME database
 {
-  DEBUG_printf("mimeNumFilters(mime=%p)", mime);
+  MIME_DEBUG("mimeNumFilters(mime=%p\n)", (void *)mime);
 
   if (!mime)
   {
-    DEBUG_puts("1mimeNumFilters: Returning 0.");
+    MIME_DEBUG("mimeNumFilters: Returning 0.\n");
     return (0);
   }
   else
   {
-    DEBUG_printf("1mimeNumFilters: Returning %d.", (int)cupsArrayGetCount(mime->filters));
+    MIME_DEBUG("mimeNumFilters: Returning %d.\n", (int)cupsArrayGetCount(mime->filters));
     return ((int)cupsArrayGetCount(mime->filters));
   }
 }
@@ -421,16 +418,16 @@ mimeNumFilters(mime_t *mime)		// I - MIME database
 int
 mimeNumTypes(mime_t *mime)		// I - MIME database
 {
-  DEBUG_printf("mimeNumTypes(mime=%p)", mime);
+  MIME_DEBUG("mimeNumTypes(mime=%p\n)", (void *)mime);
 
   if (!mime)
   {
-    DEBUG_puts("1mimeNumTypes: Returning 0.");
+    MIME_DEBUG("mimeNumTypes: Returning 0.\n");
     return (0);
   }
   else
   {
-    DEBUG_printf("1mimeNumTypes: Returning %d.", (int)cupsArrayGetCount(mime->types));
+    MIME_DEBUG("mimeNumTypes: Returning %d.\n", (int)cupsArrayGetCount(mime->types));
     return ((int)cupsArrayGetCount(mime->types));
   }
 }
@@ -469,18 +466,18 @@ mime_add_fcache(
   char			path[1024];	// Full path to filter
 
 
-  DEBUG_printf("2mime_add_fcache(filtercache=%p, name=\"%s\", filterpath=\"%s\")", filtercache, name, filterpath);
+  MIME_DEBUG("mime_add_fcache(filtercache=%p, name=\"%s\", filterpath=\"%s\")", filtercache, name, filterpath);
 
   key.name = (char *)name;
   if ((temp = (_mime_fcache_t *)cupsArrayFind(filtercache, &key)) != NULL)
   {
-    DEBUG_printf("3mime_add_fcache: Returning \"%s\".", temp->path);
+    MIME_DEBUG("mime_add_fcache: Returning \"%s\".\n", temp->path);
     return (temp->path);
   }
 
   if ((temp = calloc(1, sizeof(_mime_fcache_t))) == NULL)
   {
-    DEBUG_puts("3mime_add_fcache: Returning NULL.");
+    MIME_DEBUG("mime_add_fcache: Returning NULL.\n");
     return (NULL);
   }
 
@@ -491,7 +488,7 @@ mime_add_fcache(
 
   cupsArrayAdd(filtercache, temp);
 
-  DEBUG_printf("3mime_add_fcache: Returning \"%s\".", temp->path);
+  MIME_DEBUG("mime_add_fcache: Returning \"%s\".\n", temp->path);
   return (temp->path);
 }
 
@@ -523,7 +520,7 @@ mime_delete_fcache(
   _mime_fcache_t	*current;	// Current cache entry
 
 
-  DEBUG_printf("2mime_delete_fcache(filtercache=%p)", filtercache);
+  MIME_DEBUG("mime_delete_fcache(filtercache=%p)\n", (void *)filtercache);
 
   for (current = (_mime_fcache_t *)cupsArrayGetFirst(filtercache); current; current = (_mime_fcache_t *)cupsArrayGetNext(filtercache))
   {
@@ -559,12 +556,12 @@ mime_load_convs(
   int		cost;			// Cost of filter
 
 
-  DEBUG_printf("2mime_load_convs(mime=%p, filename=\"%s\", filterpath=\"%s\", filtercache=%p)", mime, filename, filterpath, filtercache);
+  MIME_DEBUG("mime_load_convs(mime=%p, filename=\"%s\", filterpath=\"%s\", filtercache=%p)\n", (void *)mime, filename, filterpath, (void *)filtercache);
 
   // First try to open the file...
   if ((fp = cupsFileOpen(filename, "r")) == NULL)
   {
-    DEBUG_printf("3mime_load_convs: Unable to open \"%s\": %s", filename, strerror(errno));
+    MIME_DEBUG("mime_load_convs: Unable to open \"%s\": %s\n", filename, strerror(errno));
     _mimeError(mime, "Unable to open \"%s\": %s", filename, strerror(errno));
     return;
   }
@@ -612,7 +609,7 @@ mime_load_convs(
 
     if ((dsttype = mimeType(mime, super, type)) == NULL)
     {
-      DEBUG_printf("3mime_load_convs: Destination type %s/%s not found.", super, type);
+      MIME_DEBUG("mime_load_convs: Destination type %s/%s not found.\n", super, type);
       continue;
     }
 
@@ -640,7 +637,7 @@ mime_load_convs(
       // Verify that the filter exists and is executable...
       if (!mime_add_fcache(filtercache, filter, filterpath))
       {
-        DEBUG_printf("mime_load_convs: Filter %s not found in %s.", filter, filterpath);
+        MIME_DEBUG("mime_load_convs: Filter %s not found in %s.\n", filter, filterpath);
         _mimeError(mime, "Filter \"%s\" not found.", filter);
         continue;
       }
@@ -704,12 +701,12 @@ mime_load_types(mime_t     *mime,	// I - MIME database
   mime_type_t	*typeptr;		// New MIME type
 
 
-  DEBUG_printf("2mime_load_types(mime=%p, filename=\"%s\")", mime, filename);
+  MIME_DEBUG("mime_load_types(mime=%p, filename=\"%s\")\n", (void *)mime, filename);
 
   // First try to open the file...
   if ((fp = cupsFileOpen(filename, "r")) == NULL)
   {
-    DEBUG_printf("3mime_load_types: Unable to open \"%s\": %s", filename, strerror(errno));
+    MIME_DEBUG("mime_load_types: Unable to open \"%s\": %s\n", filename, strerror(errno));
     _mimeError(mime, "Unable to open \"%s\": %s", filename, strerror(errno));
     return;
   }

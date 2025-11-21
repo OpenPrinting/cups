@@ -24,6 +24,17 @@ extern "C" {
 
 
 //
+// Debug macros (simpler than for libcups)...
+//
+
+#  ifdef DEBUG
+#    define MIME_DEBUG(...)	fprintf(stderr, __VA_ARGS__)
+#  else
+#    define MIME_DEBUG(...)
+#  endif // DEBUG
+
+
+//
 // Prototypes...
 //
 
