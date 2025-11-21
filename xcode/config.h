@@ -89,6 +89,13 @@
 
 
 /*
+ * Default PeerCred value...
+ */
+
+#define CUPS_DEFAULT_PEER_CRED "on"
+
+
+/*
  * Default MaxCopies value...
  */
 

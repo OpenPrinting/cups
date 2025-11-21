@@ -512,7 +512,7 @@ fi
 
 cat >$BASE/cups-files.conf <<EOF
 FileDevice yes
-Printcap
+Printcap $BASE/printcap
 User $user
 ServerRoot $BASE
 StateDir $BASE

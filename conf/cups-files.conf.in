@@ -22,6 +22,9 @@
 SystemGroup @CUPS_SYSTEM_GROUPS@
 @CUPS_SYSTEM_AUTHKEY@
 
+# Are Unix domain socket peer credentials used for authorization?
+PeerCred @CUPS_PEER_CRED@
+
 # User that is substituted for unauthenticated (remote) root accesses...
 #RemoteRoot remroot
 

@@ -47,6 +47,7 @@ typedef enum
 {
   CUPSD_VARTYPE_INTEGER,		/* Integer option */
   CUPSD_VARTYPE_TIME,			/* Time interval option */
+  CUPSD_VARTYPE_NULLSTRING,		/* String option or NULL/empty string */
   CUPSD_VARTYPE_STRING,			/* String option */
   CUPSD_VARTYPE_BOOLEAN,		/* Boolean option */
   CUPSD_VARTYPE_PATHNAME,		/* File/directory name option */
@@ -69,7 +70,7 @@ static const cupsd_var_t	cupsd_vars[] =
 {
   { "AutoPurgeJobs", 		&JobAutoPurge,		CUPSD_VARTYPE_BOOLEAN },
 #ifdef HAVE_DNSSD
-  { "BrowseDNSSDSubTypes",	&DNSSDSubTypes,		CUPSD_VARTYPE_STRING },
+  { "BrowseDNSSDSubTypes",	&DNSSDSubTypes,		CUPSD_VARTYPE_NULLSTRING },
 #endif /* HAVE_DNSSD */
   { "BrowseWebIF",		&BrowseWebIF,		CUPSD_VARTYPE_BOOLEAN },
   { "Browsing",			&Browsing,		CUPSD_VARTYPE_BOOLEAN },
@@ -120,7 +121,7 @@ static const cupsd_var_t	cupsd_vars[] =
   { "MaxSubscriptionsPerPrinter",&MaxSubscriptionsPerPrinter,	CUPSD_VARTYPE_INTEGER },
   { "MaxSubscriptionsPerUser",	&MaxSubscriptionsPerUser,	CUPSD_VARTYPE_INTEGER },
   { "MultipleOperationTimeout",	&MultipleOperationTimeout,	CUPSD_VARTYPE_TIME },
-  { "PageLogFormat",		&PageLogFormat,		CUPSD_VARTYPE_STRING },
+  { "PageLogFormat",		&PageLogFormat,		CUPSD_VARTYPE_NULLSTRING },
   { "PreserveJobFiles",		&JobFiles,		CUPSD_VARTYPE_TIME },
   { "PreserveJobHistory",	&JobHistory,		CUPSD_VARTYPE_TIME },
   { "ReloadTimeout",		&ReloadTimeout,		CUPSD_VARTYPE_TIME },
@@ -790,6 +791,13 @@ cupsdReadConfiguration(void)
 #ifdef HAVE_ONDEMAND
   IdleExitTimeout = 60;
 #endif /* HAVE_ONDEMAND */
+
+  if (!strcmp(CUPS_DEFAULT_PEER_CRED, "off"))
+    PeerCred = CUPSD_PEERCRED_OFF;
+  else if (!strcmp(CUPS_DEFAULT_PEER_CRED, "root-only"))
+    PeerCred = CUPSD_PEERCRED_ROOTONLY;
+  else
+    PeerCred = CUPSD_PEERCRED_ON;
 
  /*
   * Setup environment variables...
@@ -1842,7 +1850,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
 
     family  = AF_INET6;
 
-    for (i = 0, ptr = value + 1; *ptr && i < 8; i ++)
+    for (i = 0, ptr = value + 1; *ptr && i >= 0 && i < 8; i ++)
     {
       if (*ptr == ']')
         break;
@@ -1988,7 +1996,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
 #ifdef AF_INET6
       if (family == AF_INET6)
       {
-        if (i > 128)
+        if (i < 0 || i > 128)
 	  return (0);
 
         i = 128 - i;
@@ -2022,7 +2030,7 @@ get_addr_and_mask(const char *value,	/* I - String from config file */
       else
 #endif /* AF_INET6 */
       {
-        if (i > 32)
+        if (i < 0 || i > 32)
 	  return (0);
 
         mask[0] = 0xffffffff;
@@ -2932,7 +2940,17 @@ parse_variable(
 	cupsdSetString((char **)var->ptr, temp);
 	break;
 
+    case CUPSD_VARTYPE_NULLSTRING :
+	cupsdSetString((char **)var->ptr, value);
+	break;
+
     case CUPSD_VARTYPE_STRING :
+        if (!value)
+        {
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Missing value for %s on line %d of %s.", line, linenum, filename);
+	  return (0);
+        }
+
 	cupsdSetString((char **)var->ptr, value);
 	break;
   }
@@ -3449,9 +3467,10 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 		      line, value ? " " : "", value ? value : "", linenum,
 		      ConfigurationFile, CupsFilesFile);
     }
-    else
-      parse_variable(ConfigurationFile, linenum, line, value,
-                     sizeof(cupsd_vars) / sizeof(cupsd_vars[0]), cupsd_vars);
+    else if (!parse_variable(ConfigurationFile, linenum, line, value,
+			     sizeof(cupsd_vars) / sizeof(cupsd_vars[0]), cupsd_vars) &&
+	     (FatalErrors & CUPSD_FATAL_CONFIG))
+      return (0);
   }
 
   return (1);
@@ -3608,6 +3627,31 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
         for (value += valuelen; *value; value ++)
 	  if (!_cups_isspace(*value) || *value != ',')
 	    break;
+      }
+    }
+    else if (!_cups_strcasecmp(line, "PeerCred") && value)
+    {
+     /*
+      * PeerCred {off,on,root-only}
+      */
+
+      if (!_cups_strcasecmp(value, "off"))
+      {
+        PeerCred = CUPSD_PEERCRED_OFF;
+      }
+      else if (!_cups_strcasecmp(value, "on"))
+      {
+        PeerCred = CUPSD_PEERCRED_ON;
+      }
+      else if (!_cups_strcasecmp(value, "root-only"))
+      {
+        PeerCred = CUPSD_PEERCRED_ROOTONLY;
+      }
+      else
+      {
+	cupsdLogMessage(CUPSD_LOG_ERROR, "Unknown PeerCred \"%s\" on line %d of %s.", value, linenum, CupsFilesFile);
+        if (FatalErrors & CUPSD_FATAL_CONFIG)
+          return (0);
       }
     }
     else if (!_cups_strcasecmp(line, "PrintcapFormat") && value)

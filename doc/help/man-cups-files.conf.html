@@ -119,6 +119,13 @@ The default is "/var/log/cups/page_log".
 <dt><a name="PassEnv"></a><b>PassEnv </b><i>variable </i>[ ... <i>variable </i>]
 <dd style="margin-left: 5.0em">Passes the specified environment variable(s) to child processes.
 Note: the standard CUPS filter and backend environment variables cannot be overridden using this directive.
+<dt><a name="PeerCred"></a><b>PeerCred off</b>
+<dd style="margin-left: 5.0em"><dt><b>PeerCred on</b>
+<dd style="margin-left: 5.0em"><dt><b>PeerCred root-only</b>
+<dd style="margin-left: 5.0em">Specifies whether peer credentials are used for authorization when communicating over the UNIX domain socket.
+When <b>on</b>, the peer credentials of any user are accepted for authorization.
+The value <b>off</b> disables the use of peer credentials entirely, while the value <b>root-only</b> allows peer credentials only for the root user.
+Note: for security reasons, the <b>on</b> setting is reduced to <b>root-only</b> for authorization of PUT requests.
 <dt><a name="RemoteRoot"></a><b>RemoteRoot </b><i>username</i>
 <dd style="margin-left: 5.0em">Specifies the username that is associated with unauthenticated accesses by clients claiming to be the root user.
 The default is "remroot".
@@ -207,7 +214,7 @@ command is used instead.
 <a href="man-subscriptions.conf.html?TOPIC=Man+Pages"><b>subscriptions.conf</b>(5),</a>
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 <h2 class="title"><a name="COPYRIGHT">Copyright</a></h2>
-Copyright &copy; 2020-2024 by OpenPrinting.
+Copyright &copy; 2020-2025 by OpenPrinting.
 
 </body>
 </html>
