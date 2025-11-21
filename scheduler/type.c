@@ -41,7 +41,7 @@ static int	mime_patmatch(const char *s, const char *pat);
 // Local globals...
 //
 
-#ifdef MIME_DEBUG
+#ifdef DEBUG
 static const char * const debug_ops[] =
 		{			// Test names...
 		  "NOP",		// No operation
