@@ -2051,6 +2051,8 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
 	    cupsdSetStringf(job->auth_env + i, "AUTH_PASSWORD=%s", data);
 	  else if (!strcmp(line, "negotiate"))
 	    cupsdSetStringf(job->auth_env + i, "AUTH_NEGOTIATE=%s", value);
+	  else if (!strcmp(line, "bearer"))
+	    cupsdSetStringf(job->auth_env + i, "AUTH_BEARER=%s", data);
 	  else
 	    continue;
 
@@ -5411,6 +5413,22 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
         cupsdSetPrinterAttr(job->printer, "marker-types", (char *)attr);
 	job->printer->marker_time = time(NULL);
 	event |= CUPSD_EVENT_PRINTER_STATE;
+        cupsdMarkDirty(CUPSD_DIRTY_PRINTERS);
+      }
+
+      if ((attr = cupsGetOption("oauth-authorization-server-uri", num_attrs,
+                                attrs)) != NULL)
+      {
+        cupsdSetPrinterAttr(job->printer, "oauth-authorization-server-uri",
+                            (char *)attr);
+        cupsdMarkDirty(CUPSD_DIRTY_PRINTERS);
+      }
+
+      if ((attr = cupsGetOption("oauth-authorization-scopes", num_attrs,
+                                attrs)) != NULL)
+      {
+        cupsdSetPrinterAttr(job->printer, "oauth-authorization-scopes",
+                            (char *)attr);
         cupsdMarkDirty(CUPSD_DIRTY_PRINTERS);
       }
 

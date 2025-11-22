@@ -1293,6 +1293,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 #ifdef __APPLE__
 		  "media-supported",
 #endif // __APPLE__
+		  "oauth-authorization-scopes",
+		  "oauth-authorization-server-uri",
 		  "printer-commands",
 		  "printer-defaults",
 		  "printer-info",
@@ -1395,7 +1397,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 	    attr->value_tag != IPP_TAG_URI)
           continue;
 
-        if (!strcmp(attr->name, "auth-info-required") ||
+	if (!strcmp(attr->name, "auth-info-required") ||
 	    !strcmp(attr->name, "device-uri") ||
 	    !strcmp(attr->name, "marker-change-time") ||
 	    !strcmp(attr->name, "marker-colors") ||
@@ -1405,6 +1407,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 	    !strcmp(attr->name, "marker-message") ||
 	    !strcmp(attr->name, "marker-names") ||
 	    !strcmp(attr->name, "marker-types") ||
+	    !strcmp(attr->name, "oauth-authorization-scopes") ||
+	    !strcmp(attr->name, "oauth-authorization-server-uri") ||
 	    !strcmp(attr->name, "printer-commands") ||
 	    !strcmp(attr->name, "printer-info") ||
             !strcmp(attr->name, "printer-is-shared") ||

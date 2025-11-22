@@ -135,6 +135,25 @@ Historically destinations have been manually maintained by the administrator of
 a system or network, but CUPS also supports dynamic discovery of destinations on
 the current network.
 
+### Authentication Attributes
+
+Destinations that proxy jobs to remote printers sometimes need additional
+authentication information. In addition to the standard options, CUPS can expose
+the following authentication-related attributes in `cups_dest_t.options`:
+
+- `"auth-info-required"`: Lists the authentication fields that are required for
+  the destination. Values include `"none"`, `"username,password"`,
+  `"domain,username,password"`, `"bearer"` (OAuth/OpenID HTTP Bearer token), and
+  `"negotiate"` (Kerberos).
+- `"oauth-authorization-server-uri"`: Provides the OAuth/OpenID authorization
+  server URI that clients should use when obtaining Bearer tokens.
+- `"oauth-authorization-scopes"`: Lists the OAuth/OpenID scopes that should be
+  requested when obtaining Bearer tokens.
+
+Applications that present destination details to users SHOULD display these
+attributes so that clients know when additional credentials or tokens are
+required.
+
 
 ## Finding Available Destinations
 
