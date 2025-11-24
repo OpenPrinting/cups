@@ -87,7 +87,7 @@ jobs:
     - name: Configure CUPS
       env:
         LDFLAGS: -L/opt/homebrew/Cellar/openssl@3/3.3.0/lib
-      run: ./configure --enable-debug --enable-maintainer
+      run: ./configure --enable-debug --enable-maintainer --disable-shared
     - name: Build CUPS
       run: make
     - name: Test CUPS
