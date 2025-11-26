@@ -598,10 +598,25 @@ cupsdCreateCommonData(void)
   /* printer-strings-languages-supported */
   for (lang = Languages, attr = NULL; lang; lang = lang->next)
   {
+    char	templang[256],		// Temporary language tag0
+		*tempptr,		// Pointer into temporary language
+		*langptr;		// Pointer into language tag
+
+    // Convert locale ID to a language tag...
+    for (tempptr = templang, langptr = lang->language; *langptr && tempptr < (templang + sizeof(templang) - 1); langptr ++)
+    {
+      if (*langptr == '_')
+        *tempptr++ = '-';
+      else
+        *tempptr++ = tolower(*langptr & 255);
+    }
+    *tempptr = '\0';
+
+    // Add it to the list of supported languages...
     if (attr)
-      ippSetString(CommonData, &attr, ippGetCount(attr), lang->language);
+      ippSetString(CommonData, &attr, ippGetCount(attr), templang);
     else
-      attr = ippAddString(CommonData, IPP_TAG_PRINTER, IPP_TAG_LANGUAGE, "printer-strings-languages-supported", NULL, lang->language);
+      attr = ippAddString(CommonData, IPP_TAG_PRINTER, IPP_TAG_LANGUAGE, "printer-strings-languages-supported", NULL, templang);
   }
 
   /* server-is-sharing-printers */
@@ -4054,6 +4069,13 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
         {
           finishings[num_finishings ++] = IPP_FINISHINGS_BOOKLET_MAKER;
         }
+        else if (!strcmp(name, "*ColorModel"))
+        {
+          if (!strcmp(value, "Gray"))
+            ippAddString(col, IPP_TAG_ZERO, IPP_CONST_TAG(IPP_TAG_KEYWORD), "print-color-mode", NULL, "monochrome");
+          else
+            ippAddString(col, IPP_TAG_ZERO, IPP_CONST_TAG(IPP_TAG_KEYWORD), "print-color-mode", NULL, "color");
+        }
         else if ((!strcmp(name, "*FoldType") || !strcmp(name, "*PunchMedia") || !strcmp(name, "*StapleLocation")) && num_finishings < (int)(sizeof(finishings) / sizeof(finishings[0])))
         {
           finishings[num_finishings ++] = ippEnumValue("finishings", value);
@@ -4091,7 +4113,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
           else
             ippAddInteger(col, IPP_TAG_ZERO, IPP_TAG_ENUM, "print-quality", IPP_QUALITY_NORMAL);
         }
-        else if (!strcmp(name, "Duplex"))
+        else if (!strcmp(name, "*Duplex"))
         {
           if (!strcmp(value, "None"))
             ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "sides", NULL, "one-sided");
@@ -4103,7 +4125,7 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
         else
         {
           // Something else...
-          ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, name, NULL, value);
+          ippAddString(col, IPP_TAG_ZERO, IPP_TAG_KEYWORD, name + 1, NULL, value);
         }
       }
 
