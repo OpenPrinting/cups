@@ -2208,7 +2208,7 @@ cupsdSendHeader(
       auth_size = sizeof(auth_str) - (size_t)(auth_key - auth_str);
 
 #if defined(SO_PEERCRED) && defined(AF_LOCAL)
-      if (httpAddrFamily(httpGetAddress(con->http)) == AF_LOCAL)
+      if (PeerCred != CUPSD_PEERCRED_OFF && httpAddrFamily(httpGetAddress(con->http)) == AF_LOCAL)
       {
         strlcpy(auth_key, ", PeerCred", auth_size);
         auth_key += 10;

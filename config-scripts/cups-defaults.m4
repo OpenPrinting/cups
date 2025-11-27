@@ -95,6 +95,15 @@ AC_ARG_WITH([log_level], AS_HELP_STRING([--with-log-level], [set default LogLeve
 AC_SUBST([CUPS_LOG_LEVEL])
 AC_DEFINE_UNQUOTED([CUPS_DEFAULT_LOG_LEVEL], ["$CUPS_LOG_LEVEL"], [Default LogLevel value.])
 
+dnl Default PeerCred
+AC_ARG_WITH([peer_cred], AS_HELP_STRING([--with-peer-cred], [set default PeerCred value (on/off/root-only), default=on]), [
+    CUPS_PEER_CRED="$withval"
+], [
+    CUPS_PEER_CRED="on"
+])
+AC_SUBST([CUPS_PEER_CRED])
+AC_DEFINE_UNQUOTED([CUPS_DEFAULT_PEER_CRED], ["$CUPS_PEER_CRED"], [Default PeerCred value.])
+
 dnl Default AccessLogLevel
 AC_ARG_WITH(access_log_level, [  --with-access-log-level set default AccessLogLevel value, default=none],
 	CUPS_ACCESS_LOG_LEVEL="$withval",
