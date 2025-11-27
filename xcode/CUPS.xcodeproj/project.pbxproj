@@ -3747,7 +3747,6 @@
 		72220FB313330BCE00FCA411 /* mime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mime.c; path = ../scheduler/mime.c; sourceTree = "<group>"; };
 		72220FB413330BCE00FCA411 /* mime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mime.h; path = ../scheduler/mime.h; sourceTree = "<group>"; };
 		72220FB513330BCE00FCA411 /* type.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = type.c; path = ../scheduler/type.c; sourceTree = "<group>"; };
-		7226369B18AE6D19004ED309 /* org.cups.cups-lpd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "org.cups.cups-lpd.plist"; path = "../scheduler/org.cups.cups-lpd.plist"; sourceTree = SOURCE_ROOT; };
 		7226369C18AE6D19004ED309 /* org.cups.cupsd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = org.cups.cupsd.plist; path = ../scheduler/org.cups.cupsd.plist; sourceTree = SOURCE_ROOT; };
 		7226369D18AE73BB004ED309 /* config.h.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = config.h.in; path = ../config.h.in; sourceTree = "<group>"; };
 		722A24EE2178D00C000CAB20 /* debug-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "debug-internal.h"; path = "../cups/debug-internal.h"; sourceTree = "<group>"; };
@@ -5620,7 +5619,6 @@
 			isa = PBXGroup;
 			children = (
 				72E65BDC18DC852700097E89 /* Makefile */,
-				7226369B18AE6D19004ED309 /* org.cups.cups-lpd.plist */,
 				72E65BD518DC818400097E89 /* org.cups.cups-lpd.plist.in */,
 				7226369C18AE6D19004ED309 /* org.cups.cupsd.plist */,
 				72220F6913330B0C00FCA411 /* auth.c */,

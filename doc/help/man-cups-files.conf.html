@@ -158,6 +158,16 @@ The server name may be included in filenames using the string &quot;%s&quot;, fo
 Passes the specified environment variable(s) to child processes.
 Note: the standard CUPS filter and backend environment variables cannot be overridden using this directive.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PeerCred off</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PeerCred on</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>PeerCred root-only</strong><br>
+Specifies whether peer credentials are used for authorization when communicating over the UNIX domain socket.
+When <strong>on</strong>, the peer credentials of any user are accepted for authorization.
+The value <strong>off</strong> disables the use of peer credentials entirely, while the value <strong>root-only</strong> allows peer credentials only for the root user.
+Note: for security reasons, the <strong>on</strong> setting is reduced to <strong>root-only</strong> for authorization of PUT requests.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>RemoteRoot </strong><em>username</em><br>
 Specifies the username that is associated with unauthenticated accesses by clients claiming to be the root user.
 The default is &quot;remroot&quot;.
@@ -279,6 +289,6 @@ command is used instead.
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>
     <h2 id="cups-files.conf-5.copyright">Copyright</h2>
-<p>Copyright &copy; 2020-2024 by OpenPrinting.
+<p>Copyright &copy; 2020-2025 by OpenPrinting.
   </body>
 </html>
