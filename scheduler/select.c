@@ -408,6 +408,9 @@ cupsdDoSelect(long timeout)		/* I - Timeout in seconds */
 
   cupsd_in_select = 1;
 
+  // Prevent 100% CPU by releasing control before the kevent call...
+  usleep(1);
+
   if (timeout >= 0 && timeout < 86400)
   {
     ktimeout.tv_sec  = timeout;
@@ -451,6 +454,9 @@ cupsdDoSelect(long timeout)		/* I - Timeout in seconds */
     int			i;		/* Looping var */
     struct epoll_event	*event;		/* Current event */
 
+
+    // Prevent 100% CPU by releasing control before the epoll_wait call...
+    usleep(1);
 
     if (timeout >= 0 && timeout < 86400)
       nfds = epoll_wait(cupsd_epoll_fd, cupsd_epoll_events, MaxFDs,
@@ -544,6 +550,9 @@ cupsdDoSelect(long timeout)		/* I - Timeout in seconds */
     }
   }
 
+  // Prevent 100% CPU by releasing control before the poll call...
+  usleep(1);
+
   if (timeout >= 0 && timeout < 86400)
     nfds = poll(cupsd_pollfds, (nfds_t)count, timeout * 1000);
   else
@@ -596,6 +605,9 @@ cupsdDoSelect(long timeout)		/* I - Timeout in seconds */
 
   cupsd_current_input  = cupsd_global_input;
   cupsd_current_output = cupsd_global_output;
+
+  // Prevent 100% CPU by releasing control before the select call...
+  usleep(1);
 
   if (timeout >= 0 && timeout < 86400)
   {

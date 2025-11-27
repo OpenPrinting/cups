@@ -53,6 +53,9 @@ struct cupsd_client_s
   cups_lang_t		*language;	/* Language to use */
 #ifdef HAVE_TLS
   int			auto_ssl;	/* Automatic test for SSL/TLS */
+  time_t		tls_start;	/* Do TLS negotiation? */
+  int			tls_upgrade;	/* Doing TLS upgrade via OPTIONS? */
+  http_encryption_t	encryption;	/* Type of TLS negotiation */
 #endif /* HAVE_TLS */
   http_addr_t		clientaddr;	/* Client's server address */
   char			clientname[256];/* Client's server name for connection */

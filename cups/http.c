@@ -53,7 +53,7 @@ static http_t		*http_create(const char *host, int port,
 static void		http_debug_hex(const char *prefix, const char *buffer,
 			               int bytes);
 #endif /* DEBUG */
-static ssize_t		http_read(http_t *http, char *buffer, size_t length);
+static ssize_t		http_read(http_t *http, char *buffer, size_t length, int timeout);
 static ssize_t		http_read_buffered(http_t *http, char *buffer, size_t length);
 static ssize_t		http_read_chunk(http_t *http, char *buffer, size_t length);
 static int		http_send(http_t *http, http_state_t request,
@@ -1206,7 +1206,7 @@ httpGets(char   *line,			/* I - Line to read into */
         return (NULL);
       }
 
-      bytes = http_read(http, http->buffer + http->used, (size_t)(HTTP_MAX_BUFFER - http->used));
+      bytes = http_read(http, http->buffer + http->used, (size_t)(_HTTP_MAX_BUFFER - http->used), http->wait_value);
 
       DEBUG_printf(("4httpGets: read " CUPS_LLFMT " bytes.", CUPS_LLCAST bytes));
 
@@ -1726,24 +1726,13 @@ httpPeek(http_t *http,			/* I - HTTP connection */
 
     ssize_t	buflen;			/* Length of read for buffer */
 
-    if (!http->blocking)
-    {
-      while (!httpWait(http, http->wait_value))
-      {
-	if (http->timeout_cb && (*http->timeout_cb)(http, http->timeout_data))
-	  continue;
-
-	return (0);
-      }
-    }
-
     if ((size_t)http->data_remaining > sizeof(http->buffer))
       buflen = sizeof(http->buffer);
     else
       buflen = (ssize_t)http->data_remaining;
 
     DEBUG_printf(("2httpPeek: Reading %d bytes into buffer.", (int)buflen));
-    bytes = http_read(http, http->buffer, (size_t)buflen);
+    bytes = http_read(http, http->buffer, (size_t)buflen, http->wait_value);
 
     DEBUG_printf(("2httpPeek: Read " CUPS_LLFMT " bytes into buffer.",
                   CUPS_LLCAST bytes));
@@ -1764,9 +1753,9 @@ httpPeek(http_t *http,			/* I - HTTP connection */
     int		zerr;			/* Decompressor error */
     z_stream	stream;			/* Copy of decompressor stream */
 
-    if (http->used > 0 && ((z_stream *)http->stream)->avail_in < HTTP_MAX_BUFFER)
+    if (http->used > 0 && ((z_stream *)http->stream)->avail_in < _HTTP_MAX_BUFFER)
     {
-      size_t buflen = HTTP_MAX_BUFFER - ((z_stream *)http->stream)->avail_in;
+      size_t buflen = _HTTP_MAX_BUFFER - ((z_stream *)http->stream)->avail_in;
 					/* Number of bytes to copy */
 
       if (((z_stream *)http->stream)->avail_in > 0 &&
@@ -2024,7 +2013,7 @@ httpRead2(http_t *http,			/* I - HTTP connection */
 
       if (bytes == 0)
       {
-        ssize_t buflen = HTTP_MAX_BUFFER - (ssize_t)((z_stream *)http->stream)->avail_in;
+        ssize_t buflen = _HTTP_MAX_BUFFER - (ssize_t)((z_stream *)http->stream)->avail_in;
 					/* Additional bytes for buffer */
 
         if (buflen > 0)
@@ -2774,7 +2763,7 @@ int					/* O - 1 to continue, 0 to stop */
 _httpUpdate(http_t        *http,	/* I - HTTP connection */
             http_status_t *status)	/* O - Current HTTP status */
 {
-  char		line[32768],		/* Line from connection... */
+  char		line[_HTTP_MAX_BUFFER],	/* Line from connection... */
 		*value;			/* Pointer to value on line */
   http_field_t	field;			/* Field index */
   int		major, minor;		/* HTTP version numbers */
@@ -2782,12 +2771,46 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
 
   DEBUG_printf(("_httpUpdate(http=%p, status=%p), state=%s", (void *)http, (void *)status, httpStateString(http->state)));
 
+  /* When doing non-blocking I/O, make sure we have a whole line... */
+  if (!http->blocking)
+  {
+    ssize_t	bytes;			/* Bytes "peeked" from connection */
+
+    /* See whether our read buffer is full... */
+    DEBUG_printf(("2_httpUpdate: used=%d", http->used));
+
+    if (http->used > 0 && !memchr(http->buffer, '\n', (size_t)http->used) && (size_t)http->used < sizeof(http->buffer))
+    {
+      /* No, try filling in more data... */
+      if ((bytes = http_read(http, http->buffer + http->used, sizeof(http->buffer) - (size_t)http->used, /*timeout*/0)) > 0)
+      {
+	DEBUG_printf(("2_httpUpdate: Read %d bytes.", (int)bytes));
+	http->used += (int)bytes;
+      }
+    }
+
+    /* Peek at the incoming data... */
+    if (!http->used || !memchr(http->buffer, '\n', (size_t)http->used))
+    {
+      /* Don't have a full line, tell the reader to try again when there is more data... */
+      DEBUG_puts("1_htttpUpdate: No newline in buffer yet.");
+      if ((size_t)http->used == sizeof(http->buffer))
+	*status = HTTP_STATUS_ERROR;
+      else
+	*status = HTTP_STATUS_CONTINUE;
+      return (0);
+    }
+
+    DEBUG_puts("2_httpUpdate: Found newline in buffer.");
+  }
+
  /*
   * Grab a single line from the connection...
   */
 
   if (!httpGets(line, sizeof(line), http))
   {
+    DEBUG_puts("1_httpUpdate: Error reading request line.");
     *status = HTTP_STATUS_ERROR;
     return (0);
   }
@@ -4140,7 +4163,8 @@ http_debug_hex(const char *prefix,	/* I - Prefix for line */
 static ssize_t				/* O - Number of bytes read or -1 on error */
 http_read(http_t *http,			/* I - HTTP connection */
           char   *buffer,		/* I - Buffer */
-          size_t length)		/* I - Maximum bytes to read */
+          size_t length,		/* I - Maximum bytes to read */
+          int    timeout)		/* I - Wait timeout */
 {
   ssize_t	bytes;			/* Bytes read */
 
@@ -4149,7 +4173,7 @@ http_read(http_t *http,			/* I - HTTP connection */
 
   if (!http->blocking || http->timeout_value > 0.0)
   {
-    while (!httpWait(http, http->wait_value))
+    while (!_httpWait(http, timeout, 1))
     {
       if (http->timeout_cb && (*http->timeout_cb)(http, http->timeout_data))
 	continue;
@@ -4252,7 +4276,7 @@ http_read_buffered(http_t *http,	/* I - HTTP connection */
     else
       bytes = (ssize_t)length;
 
-    DEBUG_printf(("8http_read: Grabbing %d bytes from input buffer.",
+    DEBUG_printf(("8http_read_buffered: Grabbing %d bytes from input buffer.",
                   (int)bytes));
 
     memcpy(buffer, http->buffer, (size_t)bytes);
@@ -4262,7 +4286,7 @@ http_read_buffered(http_t *http,	/* I - HTTP connection */
       memmove(http->buffer, http->buffer + bytes, (size_t)http->used);
   }
   else
-    bytes = http_read(http, buffer, length);
+    bytes = http_read(http, buffer, length, http->wait_value);
 
   return (bytes);
 }
@@ -4603,15 +4627,15 @@ http_set_timeout(int    fd,		/* I - File descriptor */
 static void
 http_set_wait(http_t *http)		/* I - HTTP connection */
 {
-  if (http->blocking)
-  {
-    http->wait_value = (int)(http->timeout_value * 1000);
+  http->wait_value = (int)(http->timeout_value * 1000);
 
-    if (http->wait_value <= 0)
+  if (http->wait_value <= 0)
+  {
+    if (http->blocking)
       http->wait_value = 60000;
+    else
+      http->wait_value = 1000;
   }
-  else
-    http->wait_value = 10000;
 }
 
 
