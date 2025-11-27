@@ -83,6 +83,7 @@ extern "C" {
 // Constants...
 //
 
+#  define _HTTP_MAX_BUFFER	32768	/* Size of read buffer */
 #  define _HTTP_MAX_SBUFFER	65536	/* Size of (de)compression buffer */
 
 #  define _HTTP_TLS_NONE	0	/* No TLS options */
@@ -157,8 +158,8 @@ struct _http_s				// HTTP connection structure
   http_encoding_t	data_encoding;	/* Chunked or not */
   int			_data_remaining;/* Number of bytes left (deprecated) */
   int			used;		/* Number of bytes used in buffer */
-  char			buffer[HTTP_MAX_BUFFER];
-					/* Buffer for incoming data */
+  char			_buffer[HTTP_MAX_BUFFER];
+					/* Old read buffer (deprecated) */
   int			_auth_type;	/* Authentication in use (deprecated) */
   unsigned char		_md5_state[88];	/* MD5 state (deprecated) */
   char			nonce[HTTP_MAX_VALUE];
@@ -231,6 +232,8 @@ struct _http_s				// HTTP connection structure
   			*default_fields[HTTP_FIELD_MAX];
 					/* Default field values, if any */
   /**** New in CUPS 2.5 ****/
+  char			buffer[_HTTP_MAX_BUFFER];
+					/* Read buffer */
   char  		qop[HTTP_MAX_VALUE];
 					/* Quality of Protection (qop) value from WWW-Authenticate */
 };

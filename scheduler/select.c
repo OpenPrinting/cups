@@ -296,6 +296,9 @@ cupsdDoSelect(long timeout)		// I - Timeout in seconds
     }
   }
 
+  // Prevent 100% CPU by releasing control before the poll call...
+  usleep(1);
+
   if (timeout >= 0 && timeout < 86400)
     nfds = poll(cupsd_pollfds, (nfds_t)count, timeout * 1000);
   else
