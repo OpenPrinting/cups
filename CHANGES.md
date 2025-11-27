@@ -2,9 +2,11 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
-Changes in CUPS v2.4.15 (YYYY-MM-DD)
+Changes in CUPS v2.4.15 (2025-11-27)
 ------------------------------------
 
+- Fix various cupsd issues which cause local DoS (CVE-2025-61915)
+- Fix unresponsive cupsd process caused by slow client (CVE-2025-58436)
 - Fixed potential crash in `cups-driverd` when there are duplicate PPDs
   (Issue #1355)
 - Fixed error recovery when scanning for PPDs in `cups-driverd` (Issue #1416)
