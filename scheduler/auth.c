@@ -1616,15 +1616,19 @@ cupsdFindOAuthGroup(const char *name)	/* I - Group name */
  * 'cupsdFreeLocation()' - Free all memory used by a location.
  */
 
-void cupsdFreeLocation(cupsd_location_t *loc, /* I - Location to free */
-                       void *data)            /* Unused */
+void
+cupsdFreeLocation(
+    cupsd_location_t *loc,		/* I - Location to free */
+    void             *data)		/* Unused */
 {
   (void)data;
+
   cupsArrayDelete(loc->names);
   cupsArrayDelete(loc->allow);
   cupsArrayDelete(loc->deny);
 
   _cupsStrFree(loc->location);
+
   free(loc);
 }
 
