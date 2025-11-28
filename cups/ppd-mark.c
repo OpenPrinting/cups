@@ -55,6 +55,7 @@ cupsMarkOptions(
 		s[255];			/* Temporary string */
   const char	*val,			/* Pointer into value */
 		*media,			/* media option */
+		*page_size,		/* PageSize option */
 		*output_bin,		/* output-bin option */
 		*ppd_keyword,		/* PPD keyword */
 		*print_color_mode,	/* print-color-mode option */
@@ -80,6 +81,7 @@ cupsMarkOptions(
   */
 
   media         = cupsGetOption("media", num_options, options);
+  page_size     = cupsGetOption("PageSize", num_options, options);
   output_bin    = cupsGetOption("output-bin", num_options, options);
   print_quality = cupsGetOption("print-quality", num_options, options);
   sides         = cupsGetOption("sides", num_options, options);
@@ -88,7 +90,7 @@ cupsMarkOptions(
                                         options)) == NULL)
     print_color_mode = cupsGetOption("output-mode", num_options, options);
 
-  if ((media || output_bin || print_color_mode || print_quality || sides) &&
+  if ((media || page_size || output_bin || print_color_mode || print_quality || sides) &&
       !ppd->cache)
   {
    /*
@@ -99,6 +101,19 @@ cupsMarkOptions(
   }
 
   cache = ppd->cache;
+
+  if (page_size && *page_size && !ppdPageSize(ppd, page_size))
+  {
+   /*
+    * If PageSize value is missing from the PPD, assume PPD uses non-Adobe
+    * names and try to load the mapping from cache.
+    *
+    * Media has higher priority and may redefine PageSize later.
+    */
+
+    if ((ppd_keyword = _ppdCacheGetPageSize(cache, NULL, page_size, NULL)) != NULL)
+      ppd_mark_option(ppd, "PageSize", ppd_keyword);
+  }
 
   if (media)
   {
