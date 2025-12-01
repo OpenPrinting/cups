@@ -34,7 +34,7 @@ jobs:
     - name: Test CUPS
       run: make test
     - name: Upload Test Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       if: ${{ !cancelled() }}
       with:
         name: ubuntu-openssl-test-results
@@ -66,7 +66,7 @@ jobs:
     - name: Test CUPS
       run: make test
     - name: Upload Test Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       if: ${{ !cancelled() }}
       with:
         name: ubuntu-gnutls-test-results
@@ -93,7 +93,7 @@ jobs:
     - name: Test CUPS
       run: make test
     - name: Upload Test Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       if: ${{ !cancelled() }}
       with:
         name: macos-test-results
