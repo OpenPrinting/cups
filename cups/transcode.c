@@ -1,15 +1,12 @@
 /*
  * Transcoding support for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2014 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include "cups-private.h"
@@ -246,8 +243,9 @@ cupsUTF8ToCharset(
     {
       ch = *src++;
 
-      if ((ch & 0xe0) == 0xc0)
+      if ((ch & 0xe0) == 0xc0 && (*src & 0xc0) == 0x80)
       {
+        // 2-byte UTF-8
 	ch = ((ch & 0x1f) << 6) | (*src++ & 0x3f);
 
 	if (ch < maxch)
@@ -255,11 +253,16 @@ cupsUTF8ToCharset(
 	else
           *destptr++ = '?';
       }
-      else if ((ch & 0xf0) == 0xe0 ||
-               (ch & 0xf8) == 0xf0)
+      else if ((ch & 0xf0) == 0xe0 || (ch & 0xf8) == 0xf0)
+      {
+        // 3-byte or 4-byte UTF-8
         *destptr++ = '?';
+      }
       else if (!(ch & 0x80))
+      {
+        // ASCII
 	*destptr++ = (char)ch;
+      }
     }
 
     *destptr = '\0';
