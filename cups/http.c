@@ -2909,7 +2909,7 @@ _httpUpdate(http_t        *http,	// I - HTTP connection
     // See whether our read buffer is full...
     DEBUG_printf("2_httpUpdate: used=%d", http->used);
 
-    if (http->used > 0 && !memchr(http->buffer, '\n', (size_t)http->used) && (size_t)http->used < sizeof(http->buffer))
+    if ((size_t)http->used < sizeof(http->buffer))
     {
       // No, try filling in more data...
       if ((bytes = http_read(http, http->buffer + http->used, sizeof(http->buffer) - (size_t)http->used, /*timeout*/0)) > 0)
