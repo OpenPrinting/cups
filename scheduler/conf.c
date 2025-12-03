@@ -3467,6 +3467,17 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 		      line, value ? " " : "", value ? value : "", linenum,
 		      ConfigurationFile, CupsFilesFile);
     }
+    else if (!_cups_strcasecmp(line, "JobPrivateAccess") ||
+             !_cups_strcasecmp(line, "JobPrivateValues") ||
+             !_cups_strcasecmp(line, "SubscriptionPrivateAccess") ||
+             !_cups_strcasecmp(line, "SubscriptionPrivateValues"))
+    {
+      cupsdLogMessage(CUPSD_LOG_INFO,
+		      "Please move \"%s%s%s\" on line %d of %s to a Policy section; "
+		      "this will become an error in a future release.",
+		      line, value ? " " : "", value ? value : "", linenum,
+		      ConfigurationFile);
+    }
     else if (!parse_variable(ConfigurationFile, linenum, line, value,
 			     sizeof(cupsd_vars) / sizeof(cupsd_vars[0]), cupsd_vars) &&
 	     (FatalErrors & CUPSD_FATAL_CONFIG))

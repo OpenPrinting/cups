@@ -8,6 +8,8 @@ Changes in CUPS v2.4.16 (YYYY-MM-DD)
 - `cupsUTF8ToCharset` didn't validate 2-byte UTF-8 sequences, potentially
   reading past the end of the source string (Issue #1438)
 - The web interface did not support domain usernames fully (Issue #1441)
+- Made the presence of the "JobPrivateXxx" and "SubscriptionPrivateXxx"
+  directives outside a Policy an informational warning.
 
 
 Changes in CUPS v2.4.15 (2025-11-27)
