@@ -97,6 +97,9 @@ typedef struct usb_globals_s		/* Global USB printer information */
 #define USB_QUIRK_VENDOR_CLASS	0x0020	/* Descriptor uses vendor-specific
 					   Class or SubClass */
 #define USB_QUIRK_DELAY_CLOSE	0x0040	/* Delay close */
+#define USB_QUIRK_NO_ALT_SET	0x0080	/* Some USB printers do not */
+					   like set_configuration and
+					   set_interface */
 #define USB_QUIRK_WHITELIST	0x0000	/* no quirks */
 
 
@@ -692,7 +695,10 @@ close_device(usb_printer_t *printer)	/* I - Printer */
       * If we have changed the configuration from one valid configuration
       * to another, restore the old one
       */
-      if (printer->origconf > 0 && printer->origconf != number2)
+      if (printer->quirks & USB_QUIRK_NO_ALT_SET)
+        fprintf(stderr, "DEBUG: close_device - Skipping libusb_set_configuration\n");
+
+      if (printer->origconf > 0 && printer->origconf != number2 && !(printer->quirks & USB_QUIRK_NO_ALT_SET))
       {
 	fprintf(stderr, "DEBUG: Restoring USB device configuration: %d -> %d\n",
 		number2, printer->origconf);
@@ -1339,6 +1345,9 @@ load_quirks(void)
       if (strstr(line, " vendor-class"))
         quirk->quirks |= USB_QUIRK_VENDOR_CLASS;
 
+      if (strstr(line, " no-alt-set"))
+        quirk->quirks |= USB_QUIRK_NO_ALT_SET;
+
       cupsArrayAdd(all_quirks, quirk);
     }
 
@@ -1597,7 +1606,10 @@ open_device(usb_printer_t *printer,	/* I - Printer */
   }
   number1 = confptr->bConfigurationValue;
 
-  if (number1 != current)
+  if (printer->quirks & USB_QUIRK_NO_ALT_SET)
+    fprintf(stderr, "DEBUG: open_device - Skipping libusb_set_configuration\n");
+
+  if (number1 != current && !(printer->quirks & USB_QUIRK_NO_ALT_SET))
   {
     fprintf(stderr, "DEBUG: Switching USB device configuration: %d -> %d\n",
 	    current, number1);
@@ -1649,7 +1661,10 @@ open_device(usb_printer_t *printer,	/* I - Printer */
   * printers (e.g., Samsung) don't like usb_set_altinterface.
   */
 
-  if (confptr->interface[printer->iface].num_altsetting > 1)
+  if (printer->quirks & USB_QUIRK_NO_ALT_SET)
+    fprintf(stderr, "DEBUG: open_device - Skipping libusb_set_interface_alt_setting\n");
+
+  if (confptr->interface[printer->iface].num_altsetting > 1 && !(printer->quirks & USB_QUIRK_NO_ALT_SET))
   {
     number1 = confptr->interface[printer->iface].
                  altsetting[printer->altset].bInterfaceNumber;
