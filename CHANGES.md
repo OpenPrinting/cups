@@ -10,6 +10,7 @@ Changes in CUPS v2.4.16 (YYYY-MM-DD)
 - The web interface did not support domain usernames fully (Issue #1441)
 - Made the presence of the "JobPrivateXxx" and "SubscriptionPrivateXxx"
   directives outside a Policy an informational warning.
+- Fixed an infinite loop issue in the GTK+ print dialog (Issue #1439)
 
 
 Changes in CUPS v2.4.15 (2025-11-27)
