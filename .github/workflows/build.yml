@@ -65,6 +65,8 @@ jobs:
     - name: configure
       run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
     - name: make
+      env:
+        LD_SHARED_CACHE_ELIGIBLE: NO
       run: make
     - name: test
       run: make test || cat test/error_log*
