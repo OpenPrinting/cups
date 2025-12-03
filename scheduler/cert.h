@@ -1,11 +1,12 @@
 /*
  * Authentication certificate definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2012 by Apple Inc.
- * Copyright 1997-2005 by Easy Software Products.
+ * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2007-2012 by Apple Inc.
+ * Copyright © 1997-2005 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -17,7 +18,8 @@ typedef struct cupsd_cert_s
   struct cupsd_cert_s *next;		/* Next certificate in list */
   int		pid;			/* Process ID (0 for root certificate) */
   char		certificate[33];	/* 32 hex characters, or 128 bits */
-  char		username[33];		/* Authenticated username */
+  char		username[HTTP_MAX_VALUE];
+					/* Authenticated username */
   int		type;			/* AuthType for username */
 } cupsd_cert_t;
 
