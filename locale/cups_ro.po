@@ -23,15 +23,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-11-13 19:58+0000\n"
+"PO-Revision-Date: 2025-12-03 21:42+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : "
-"(n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
 "X-Generator: Weblate 5.15-dev\n"
 
 msgid "\t\t(all)"
@@ -4579,168 +4579,170 @@ msgid "No attributes in request."
 msgstr "Nu există atribute în cerere."
 
 msgid "No authentication information provided."
-msgstr ""
+msgstr "Nu s-au furnizat informații de autentificare."
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "Nu este configurat niciun ID de client pentru acest server."
 
 msgid "No community name"
-msgstr ""
+msgstr "Fără nume de comunitate"
 
 msgid "No default destination."
-msgstr ""
+msgstr "Fără destinație implicită."
 
 msgid "No default printer."
-msgstr ""
+msgstr "Fără imprimantă implicită."
 
 msgid "No destinations added."
-msgstr ""
+msgstr "Nu au fost adăugate destinații."
 
 msgid "No device URI found in argv[0] or in DEVICE_URI environment variable."
 msgstr ""
+"Nu s-a găsit nicio adresă URI a dispozitivului în argv[0] sau în variabila "
+"de mediu DEVICE_URI."
 
 msgid "No error-index"
-msgstr ""
+msgstr "Fără index de erori"
 
 msgid "No error-status"
-msgstr ""
+msgstr "Fără stare de eroare"
 
 msgid "No file in print request."
-msgstr ""
+msgstr "Nu există niciun fișier în cererea de imprimare."
 
 msgid "No modification time"
-msgstr ""
+msgstr "Fără ora-data de modificare"
 
 msgid "No name OID"
-msgstr ""
+msgstr "Fără nume OID"
 
 msgid "No pages were found."
-msgstr ""
+msgstr "Nu s-au găsit pagini."
 
 msgid "No printer name"
-msgstr ""
+msgstr "Fără nume de imprimantă"
 
 msgid "No printer-uri found"
-msgstr ""
+msgstr "Nu s- a găsit nicio imprimantă-uri"
 
 msgid "No printer-uri found for class"
-msgstr ""
+msgstr "Nu s-au găsit imprimante-uri pentru clasa"
 
 msgid "No printer-uri in request."
-msgstr ""
+msgstr "Nu există nicio imprimantă-uri în cerere."
 
 msgid "No printer-uri-supported attribute."
-msgstr ""
+msgstr "Niciun atribut acceptat de imprimantă-uri."
 
 msgid "No request URI."
-msgstr ""
+msgstr "Nicio adresă URI solicitată."
 
 msgid "No request protocol version."
-msgstr ""
+msgstr "Nicio versiune a protocolului de solicitare."
 
 msgid "No request sent."
-msgstr ""
+msgstr "Nu s-a trimis nicio solicitare."
 
 msgid "No request-id"
-msgstr ""
+msgstr "Niciun ID de solicitare"
 
 msgid "No stored credentials, not valid for name."
-msgstr ""
+msgstr "Nu există date de autentificare stocate, numele nu este valid."
 
 msgid "No subscription attributes in request."
-msgstr ""
+msgstr "Nu există atribute de abonament în cerere."
 
 msgid "No subscriptions found."
-msgstr ""
+msgstr "Nu s-au găsit abonamente."
 
 msgid "No variable-bindings SEQUENCE"
-msgstr ""
+msgstr "Nu există nicio SECVENȚĂ variable-bindings"
 
 msgid "No version number"
-msgstr ""
+msgstr "Fără număr de versiune"
 
 msgid "Non-continuous (Mark sensing)"
-msgstr ""
+msgstr "Ne-continuu (detectare marcaj)"
 
 msgid "Non-continuous (Web sensing)"
-msgstr ""
+msgstr "Ne-continuu (detectare web)"
 
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 msgid "Not Found"
-msgstr ""
+msgstr "Nu s-a găsit"
 
 msgid "Not Implemented"
-msgstr ""
+msgstr "Nu este implementat"
 
 msgid "Not Installed"
 msgstr "Neinstalat"
 
 msgid "Not Modified"
-msgstr ""
+msgstr "Nemodificat"
 
 msgid "Not Supported"
-msgstr ""
+msgstr "Nu este compatibil"
 
 msgid "Not allowed to print."
-msgstr ""
+msgstr "Nu este permisă imprimarea."
 
 msgid "Note"
 msgstr "Notă"
 
 msgid "OAuth Login"
-msgstr ""
+msgstr "Autentificare OAuth"
 
 msgid "OK"
 msgstr "Ok"
 
 msgid "Off (1-Sided)"
-msgstr ""
+msgstr "Dezactivat (1-față)"
 
 msgid "Oki"
-msgstr ""
+msgstr "Oki"
 
 msgid "Online Help"
-msgstr "Ajutor imediat"
+msgstr "Ajutor în Internet"
 
 msgid "Only WGS-84 coordinates are supported."
-msgstr ""
+msgstr "Sunt acceptate numai coordonatele WGS-84."
 
 msgid "Only local users can create a local printer."
-msgstr ""
+msgstr "Numai utilizatorii locali pot crea o imprimantă locală."
 
 #, c-format
 msgid "Open of %s failed: %s"
-msgstr ""
+msgstr "Deschiderea lui %s a eșuat: %s"
 
 msgid "OpenGroup without a CloseGroup first"
-msgstr ""
+msgstr "OpenGroup fără un CloseGroup anterior"
 
 msgid "OpenUI/JCLOpenUI without a CloseUI/JCLCloseUI first"
-msgstr ""
+msgstr "OpenUI/JCLOpenU fără un CloseUI/JCLCloseUI anterior"
 
 msgid "Operation Policy"
-msgstr ""
+msgstr "Politica de operare"
 
 #, c-format
 msgid "Option \"%s\" cannot be included via %%%%IncludeFeature."
-msgstr ""
+msgstr "Opțiunea „%s” nu poate fi inclusă prin %%%%IncludeFeature."
 
 msgid "Options Installed"
-msgstr ""
+msgstr "Opțiuni instalate"
 
 msgid "Options:"
 msgstr "Opțiuni:"
 
 msgid "Other Media"
-msgstr ""
+msgstr "Alt suport"
 
 msgid "Other Tray"
-msgstr ""
+msgstr "Altă tavă"
 
 msgid "Out of date PPD cache file."
-msgstr ""
+msgstr "Fișier cache PPD învechit."
 
 msgid "Out of memory."
 msgstr "Memorie insuficientă."
@@ -4772,37 +4774,39 @@ msgstr "PRC32K supradimensionat cu margine lungă"
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
 msgstr ""
+"Numele variabilei de mediu PRINTER indică o destinație implicită care nu "
+"există."
 
 msgid "Packet does not contain a Get-Response-PDU"
-msgstr ""
+msgstr "Pachetul nu conține un Get-Response-PDU"
 
 msgid "Packet does not start with SEQUENCE"
-msgstr ""
+msgstr "Pachetul nu începe cu SEQUENCE"
 
 msgid "ParamCustominCutInterval"
-msgstr ""
+msgstr "ParamCustominCutInterval"
 
 msgid "ParamCustominTearInterval"
-msgstr ""
+msgstr "ParamCustominTearInterval"
 
 #, c-format
 msgid "Password for %s on %s? "
-msgstr ""
+msgstr "Parola pentru %s în %s? "
 
 msgid "Pause Class"
-msgstr ""
+msgstr "Pune în pauză clasa"
 
 msgid "Pause Printer"
-msgstr ""
+msgstr "Pune în pauză imprimanta"
 
 msgid "Peel-Off"
-msgstr ""
+msgstr "Dezlipire"
 
 msgid "Photo"
 msgstr "Foto"
 
 msgid "Photo Labels"
-msgstr ""
+msgstr "Etichete foto"
 
 msgid "Plain Paper"
 msgstr "Hârtie obișnuită"
@@ -4811,7 +4815,7 @@ msgid "Policies"
 msgstr "Politici"
 
 msgid "Port Monitor"
-msgstr ""
+msgstr "Monitor de port"
 
 msgid "PostScript Printer"
 msgstr "Imprimantă PostScript"
@@ -4820,28 +4824,28 @@ msgid "Postcard"
 msgstr "Carte poștală"
 
 msgid "Postcard Double"
-msgstr ""
+msgstr "Carte poștală dublă"
 
 msgid "Postcard Double Long Edge"
-msgstr ""
+msgstr "Carte poștală dublă cu margine lungă"
 
 msgid "Postcard Long Edge"
-msgstr ""
+msgstr "Carte poștală cu margine lungă"
 
 msgid "Preparing to print."
-msgstr ""
+msgstr "Pregătire pentru imprimare."
 
 msgid "Print Density"
 msgstr "Densitatea imprimării"
 
 msgid "Print Job:"
-msgstr ""
+msgstr "Lucrarea de imprimare:"
 
 msgid "Print Mode"
-msgstr ""
+msgstr "Modul de imprimare"
 
 msgid "Print Rate"
-msgstr ""
+msgstr "Rata de imprimare"
 
 msgid "Print Self-Test Page"
 msgstr "Imprimă pagina de autotestare"
@@ -4853,26 +4857,26 @@ msgid "Print Test Page"
 msgstr "Imprimă pagina de test"
 
 msgid "Print and Cut"
-msgstr ""
+msgstr "Imprimare și tăiere"
 
 msgid "Print and Tear"
-msgstr ""
+msgstr "Imprimare și detașare"
 
 msgid "Print file sent."
-msgstr ""
+msgstr "Fișierul de imprimare a fost trimis."
 
 msgid "Print job canceled at printer."
-msgstr ""
+msgstr "Lucrarea de imprimare a fost anulată la imprimantă."
 
 msgid "Print job too large."
-msgstr ""
+msgstr "Lucrarea de imprimare este prea mare."
 
 msgid "Print job was not accepted."
-msgstr ""
+msgstr "Lucrarea de imprimare nu a fost acceptată."
 
 #, c-format
 msgid "Printer \"%s\" already exists."
-msgstr ""
+msgstr "Imprimanta „%s” există deja."
 
 msgid "Printer Added"
 msgstr "Imprimantă adăugată"
@@ -4893,17 +4897,17 @@ msgid "Printer Settings"
 msgstr "Configurări imprimantă"
 
 msgid "Printer cannot print supplied content."
-msgstr ""
+msgstr "Imprimanta nu poate imprima conținutul furnizat."
 
 msgid "Printer cannot print with supplied options."
-msgstr ""
+msgstr "Imprimanta nu poate imprima cu opțiunile furnizate."
 
 msgid "Printer does not support required IPP attributes or document formats."
-msgstr ""
+msgstr "Imprimanta nu acceptă atributele IPP sau formatele de documente cerute."
 
 #, c-format
 msgid "Printer returned invalid data: %s"
-msgstr ""
+msgstr "Imprimanta a returnat date nevalide: %s"
 
 msgid "Printer:"
 msgstr "Imprimantă:"
@@ -4916,297 +4920,317 @@ msgid "Printing page %d, %u%% complete."
 msgstr "Se imprimă pagina %d, %u%% finalizată."
 
 msgid "Quarto"
-msgstr ""
+msgstr "Cuarto"
 
 msgid "Quota limit reached."
-msgstr ""
+msgstr "S-a atins limita cotei."
 
 msgid "Rank    Owner   Job     File(s)                         Total Size"
 msgstr ""
+"Ordine  Proprietar  Lucrare  Fișier(e)                         Dimensiunea "
+"totală"
 
 msgid "Reject Jobs"
-msgstr ""
+msgstr "Refuză lucrările"
 
 #, c-format
 msgid "Remote host did not accept control file (%d)."
-msgstr ""
+msgstr "Gazda de la distanță nu a acceptat fișierul de control (%d)."
 
 #, c-format
 msgid "Remote host did not accept data file (%d)."
-msgstr ""
+msgstr "Gazda de la distanță nu a acceptat fișierul de date (%d)."
 
 msgid "Reprint After Error"
-msgstr ""
+msgstr "Reimprimare după eroare"
 
 msgid "Request Entity Too Large"
-msgstr ""
+msgstr "Cantitatea cerută este prea mare"
 
 msgid "Resolution"
 msgstr "Rezoluție"
 
 msgid "Resume Class"
-msgstr ""
+msgstr "Reia clasa"
 
 msgid "Resume Printer"
-msgstr ""
+msgstr "Reia imprimanta"
 
 msgid "Return Address"
-msgstr ""
+msgstr "Adresa de returnare"
 
 msgid "Rewind"
-msgstr ""
+msgstr "Rebobinare"
 
 msgid "SEQUENCE uses indefinite length"
-msgstr ""
+msgstr "SEQUENCE utilizează o lungime nedeterminată"
 
 msgid "SSL/TLS Negotiation Error"
-msgstr ""
+msgstr "Eroare de negociere SSL/TLS"
 
 msgid "Second Roll (DUO/Twin Only)"
-msgstr ""
+msgstr "Al doilea rulou (numai DUO/Twin)"
 
 msgid "See Other"
-msgstr ""
+msgstr "Vezi altele"
 
 msgid "See remote printer."
-msgstr ""
+msgstr "Vezi imprimanta de la distanță."
 
 msgid "Self-signed credentials are blocked."
-msgstr ""
+msgstr "Acreditările autosemnate sunt blocate."
 
 msgid "Sending data to printer."
-msgstr ""
+msgstr "Se trimit datele către imprimantă."
 
 msgid "Server Restarted"
-msgstr ""
+msgstr "Serverul a fost repornit"
 
 msgid "Server Security Auditing"
-msgstr ""
+msgstr "Auditarea securității serverului"
 
 msgid "Server Started"
-msgstr ""
+msgstr "Serverul a fost pornit"
 
 msgid "Server Stopped"
-msgstr ""
+msgstr "Serverul a fost oprit"
 
 msgid "Server credentials not set."
-msgstr ""
+msgstr "Acreditările serverului nu sunt definite."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Serviciu indisponibil"
 
 msgid "Set Allowed Users"
-msgstr ""
+msgstr "Definiți utilizatorii autorizați"
 
 msgid "Set As Server Default"
-msgstr ""
+msgstr "Stabiliți ca implicită pentru server"
 
 msgid "Set Class Options"
-msgstr ""
+msgstr "Definiți opțiunile clasei"
 
 msgid "Set Printer Options"
-msgstr ""
+msgstr "Definiți opțiunile imprimantei"
 
 msgid "Shipping Address"
 msgstr "Adresă de livrare"
 
 msgid "Short-Edge (Landscape)"
-msgstr ""
+msgstr "Margine scurtă (peisaj)"
 
 msgid "Special Paper"
-msgstr ""
+msgstr "Hârtie specială"
 
 #, c-format
 msgid "Spooling job, %.0f%% complete."
-msgstr ""
+msgstr "Se stochează lucrarea în coada de imprimare, %.0f%% finalizată."
 
 msgid "Standard"
 msgstr "Standard"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
 msgid "Starting Banner"
-msgstr ""
+msgstr "Banderolă de început"
 
 #, c-format
 msgid "Starting page %d."
-msgstr ""
+msgstr "Pagina de început %d."
 
 msgid "Statement"
-msgstr ""
+msgstr "Declarație"
 
 msgid "Sub-Commands:"
-msgstr ""
+msgstr "Subcomenzi:"
 
 #, c-format
 msgid "Subscription #%d does not exist."
-msgstr ""
+msgstr "Abonamentul nr. %d nu există."
 
 msgid "Substitutions:"
-msgstr ""
+msgstr "Substituiri:"
 
 msgid "Super A"
-msgstr ""
+msgstr "Super A"
 
 msgid "Super B"
-msgstr ""
+msgstr "Super B"
 
 msgid "Super B/A3"
-msgstr ""
+msgstr "Super B/A3"
 
 msgid "Switching Protocols"
-msgstr ""
+msgstr "Protocoale de comutare"
 
 msgid "Tabloid"
 msgstr "Tabloid"
 
 msgid "Tabloid Oversize"
-msgstr ""
+msgstr "Tabloid supradimensionat"
 
 msgid "Tabloid Oversize Long Edge"
-msgstr ""
+msgstr "Tabloid supradimensionat, margine lungă"
 
 msgid "Tear"
-msgstr ""
+msgstr "Desprindere"
 
 msgid "Tear-Off"
-msgstr ""
+msgstr "Detașare"
 
 msgid "Tear-Off Adjust Position"
-msgstr ""
+msgstr "Poziție de ajustare a detașării"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
-msgstr ""
+msgstr "Atributul „%s” este necesar pentru lucrările de imprimare."
 
 #, c-format
 msgid "The %s attribute cannot be provided with job-ids."
-msgstr ""
+msgstr "Atributul %s nu poate fi furnizat cu job-ids."
 
 #, c-format
 msgid ""
 "The '%s' Job Status attribute cannot be supplied in a job creation request."
 msgstr ""
+"Atributul „%s” al stării lucrării nu poate fi furnizat într-o cerere de "
+"creare a unei lucrări."
 
 #, c-format
 msgid ""
 "The '%s' operation attribute cannot be supplied in a Create-Job request."
 msgstr ""
+"Atributul de operație „%s” nu poate fi furnizat într-o solicitare Create-Job."
 
 #, c-format
 msgid "The PPD file \"%s\" could not be found."
-msgstr ""
+msgstr "Fișierul PPD „%s” nu a putut fi găsit."
 
 #, c-format
 msgid "The PPD file \"%s\" could not be opened: %s"
-msgstr ""
+msgstr "Fișierul PPD „%s” nu a putut fi deschis: %s"
 
 msgid "The PPD file could not be opened."
-msgstr ""
+msgstr "Fișierul PPD nu a putut fi deschis."
 
 msgid ""
 "The class name may only contain up to 127 printable characters and may not "
 "contain spaces, slashes (/), or the pound sign (#)."
 msgstr ""
+"Numele clasei poate conține maximum 127 de caractere imprimabile și nu poate "
+"conține spații, bare oblice (/) sau semnul lirei (#)."
 
 msgid "The client ID is not configured for this server."
-msgstr ""
+msgstr "ID-ul clientului nu este configurat pentru acest server."
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
 msgstr ""
+"Atributul notify-lease-duration nu poate fi utilizat cu abonamentele la "
+"lucrări."
 
 #, c-format
 msgid "The notify-user-data value is too large (%d > 63 octets)."
-msgstr ""
+msgstr "Valoarea notify-user-data este prea mare (%d > 63 octeți)."
 
 msgid "The printer configuration is incorrect or the printer no longer exists."
-msgstr ""
+msgstr "Configurația imprimantei este incorectă sau imprimanta nu mai există."
 
 msgid "The printer did not respond."
-msgstr ""
+msgstr "Imprimanta nu a răspuns."
 
 msgid "The printer does not provide attributes required for IPP Everywhere."
-msgstr ""
+msgstr "Imprimanta nu oferă atributele necesare pentru IPP Everywhere."
 
 msgid "The printer is in use."
-msgstr ""
+msgstr "Imprimanta este în uz."
 
 msgid "The printer is not connected."
-msgstr ""
+msgstr "Imprimanta nu este conectată."
 
 msgid "The printer is not responding."
-msgstr ""
+msgstr "Imprimanta nu răspunde."
 
 msgid "The printer is now connected."
-msgstr ""
+msgstr "Imprimanta este acum conectată."
 
 msgid "The printer is now online."
-msgstr ""
+msgstr "Imprimanta este acum conectată la rețea."
 
 msgid "The printer is offline."
-msgstr ""
+msgstr "Imprimanta este fără conexiune la rețea."
 
 msgid "The printer is unreachable at this time."
-msgstr ""
+msgstr "Imprimanta nu este accesibilă în acest moment."
 
 msgid "The printer may not exist or is unavailable at this time."
 msgstr ""
+"Este posibil ca imprimanta să nu existe sau să nu fie disponibilă în acest "
+"moment."
 
 msgid ""
 "The printer name may only contain up to 127 printable characters and may not "
 "contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the "
 "pound sign (#)."
 msgstr ""
+"Numele imprimantei poate conține maximum 127 de caractere imprimabile și nu "
+"poate conține spații, bare oblice (/ \\), ghilimele (' \"), semnul "
+"întrebării (?) sau semnul lirei (#)."
 
 msgid "The printer or class does not exist."
-msgstr ""
+msgstr "Imprimanta sau clasa nu există."
 
 msgid "The printer or class is not shared."
-msgstr ""
+msgstr "Imprimanta sau clasa nu este partajată."
 
 #, c-format
 msgid "The printer-uri \"%s\" contains invalid characters."
-msgstr ""
+msgstr "Parametrul printer-uri „%s” conține caractere nevalide."
 
 msgid "The printer-uri attribute is required."
-msgstr ""
+msgstr "Atributul printer-uri este obligatoriu."
 
 msgid ""
 "The printer-uri must be of the form \"ipp://HOSTNAME/classes/CLASSNAME\"."
 msgstr ""
+"Parametrul printer-uri trebuie să fie de forma „ipp://NUME_MAȘINĂ/classes/"
+"NUME_CLASĂ”."
 
 msgid ""
 "The printer-uri must be of the form \"ipp://HOSTNAME/printers/PRINTERNAME\"."
 msgstr ""
+"Parametrul printer-uri trebuie să fie de forma „ipp:/NUME_MAȘINĂ/printers/"
+"NUME_IMPRIMANTĂ”."
 
 msgid ""
 "The web interface is currently disabled. Run \"cupsctl WebInterface=yes\" to "
 "enable it."
 msgstr ""
+"Interfața web este dezactivată în prezent. Rulați «cupsctl WebInterface=yes» "
+"pentru a o activa."
 
 #, c-format
 msgid "The which-jobs value \"%s\" is not supported."
-msgstr ""
+msgstr "Valoarea „%s” pentru which-jobs nu este acceptată."
 
 msgid "There are too many subscriptions."
-msgstr ""
+msgstr "Există prea multe abonamente."
 
 msgid "There was an unrecoverable USB error."
-msgstr ""
+msgstr "A apărut o eroare USB irecuperabilă."
 
 msgid "Thermal Transfer Media"
-msgstr ""
+msgstr "Suport(hârtie. carton, ș.a.) pentru transfer termic"
 
 msgid "Too many active jobs."
-msgstr ""
+msgstr "Prea multe lucrări active."
 
 #, c-format
 msgid "Too many job-sheets values (%d > 2)."
-msgstr ""
+msgstr "Prea multe valori „job-sheets” (%d > 2)."
 
 #, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
-msgstr ""
+msgstr "Prea multe valori „printer state reasons” (%d > %d)."
 
 msgid "Transparency"
 msgstr "Transparentă"
@@ -5227,511 +5251,521 @@ msgid "Tray 4"
 msgstr "Tava 4"
 
 msgid "Trust on first use is disabled."
-msgstr ""
+msgstr "Încrederea la prima utilizare este dezactivată."
 
 msgid "URI Too Long"
-msgstr ""
+msgstr "URI prea lung"
 
 msgid "URI too large"
-msgstr ""
+msgstr "URI prea mare"
 
 msgid "US Fanfold"
-msgstr ""
+msgstr "Fan-fold SUA (hârtie-continuă SUA)"
 
 msgid "US Ledger"
-msgstr ""
+msgstr "Ledger SUA"
 
 msgid "US Legal"
-msgstr ""
+msgstr "Legal SUA"
 
 msgid "US Legal Oversize"
-msgstr ""
+msgstr "Legal SUA în format mare"
 
 msgid "US Letter"
-msgstr ""
+msgstr "Letter SUA (scrisoare)"
 
 msgid "US Letter Long Edge"
-msgstr ""
+msgstr "Letter Long Edge SUA"
 
 msgid "US Letter Oversize"
-msgstr ""
+msgstr "Letter Oversize SUA"
 
 msgid "US Letter Oversize Long Edge"
-msgstr ""
+msgstr "Letter Oversize Long Edge SUA"
 
 msgid "US Letter Small"
-msgstr ""
+msgstr "Letter Small SUA"
 
 msgid "Unable to access cupsd.conf file"
-msgstr ""
+msgstr "Nu s-a putut accesa fișierul cupsd.conf"
 
 msgid "Unable to access help file."
-msgstr ""
+msgstr "Nu s-a putut accesa fișierul de ajutor."
 
 msgid "Unable to add class"
-msgstr ""
+msgstr "Nu s-a putut adăuga clasa"
 
 msgid "Unable to add document to print job."
-msgstr ""
+msgstr "Nu s-a putut adăuga documentul la lucrarea de imprimare."
 
 msgid "Unable to add extension to X.509 certificate."
-msgstr ""
+msgstr "Nu s-a putut adăuga extensia la certificatul X.509."
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
-msgstr ""
+msgstr "Nu s-a putut adăuga sarcina pentru destinația „%s”."
 
 msgid "Unable to add printer"
-msgstr ""
+msgstr "Nu s-a putut adăuga imprimanta"
 
 msgid "Unable to allocate memory for file types."
-msgstr ""
+msgstr "Nu s-a putut aloca memorie pentru tipurile de fișiere."
 
 msgid "Unable to allocate memory for page info"
-msgstr ""
+msgstr "Nu s-a putut aloca memorie pentru informațiile despre pagină"
 
 msgid "Unable to allocate memory for pages array"
-msgstr ""
+msgstr "Nu s-a putut aloca memorie pentru setul de pagini"
 
 #, c-format
 msgid "Unable to allocate memory for printer: %s"
-msgstr ""
+msgstr "Nu s-a putut aloca memorie pentru imprimantă: %s"
 
 msgid "Unable to authorize access"
-msgstr ""
+msgstr "Nu s-a putut autoriza accesul"
 
 msgid "Unable to cancel print job."
-msgstr ""
+msgstr "Nu s-a putut anula lucrarea de imprimare."
 
 msgid "Unable to change printer"
-msgstr ""
+msgstr "Nu s-a putut schimba imprimanta"
 
 msgid "Unable to change server settings"
-msgstr ""
+msgstr "Nu s-a putut modifica configurarea serverului"
 
 #, c-format
 msgid "Unable to commit PPD file: %s"
-msgstr ""
+msgstr "Nu s-a putut salva fișierul PPD: %s"
 
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
-msgstr ""
+msgstr "Nu s-a putut compila expresia regulată mimeMediaType: %s."
 
 #, c-format
 msgid "Unable to compile naturalLanguage regular expression: %s."
-msgstr ""
+msgstr "Nu s-a putut compila expresia regulată naturalLanguage: %s."
 
 msgid "Unable to configure printer options."
-msgstr ""
+msgstr "Nu s-au putut configura opțiunile imprimantei."
 
 msgid "Unable to configure private key context."
-msgstr ""
+msgstr "Nu s-a putut configura contextul cheii private."
 
 #, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr ""
+msgstr "Nu s-a putut conecta la %s:%d: %s"
 
 msgid "Unable to connect to host."
-msgstr ""
+msgstr "Nu s-a putut conecta la gazdă."
 
 msgid "Unable to contact printer, queuing on next printer in class."
 msgstr ""
+"Nu s-a putut contacta imprimanta, se așteaptă la următoarea imprimantă din "
+"clasă."
 
 #, c-format
 msgid "Unable to copy PPD file - %s"
-msgstr ""
+msgstr "Nu s-a putut copia fișierul PPD - %s"
 
 #, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr ""
+msgstr "Nu s-a putut crea fișierul PPD pentru imprimantă: %s"
 
 #, c-format
 msgid "Unable to create PPD: %s"
-msgstr ""
+msgstr "Nu s-a putut crea fișierul PPD: %s"
 
 msgid "Unable to create X.509 certificate signing request."
-msgstr ""
+msgstr "Nu s-a putut crea cererea de semnare a certificatului X.509."
 
 msgid "Unable to create X.509 certificate."
-msgstr ""
+msgstr "Nu s-a putut crea certificatul X.509."
 
 msgid "Unable to create printer-uri"
-msgstr ""
+msgstr "Nu s-a putut crea printer-uri"
 
 msgid "Unable to create printer."
-msgstr ""
+msgstr "Nu s-a putut crea imprimanta."
 
 msgid "Unable to create private key context."
-msgstr ""
+msgstr "Nu s-a putut crea contextul cheii private."
 
 msgid "Unable to create private key."
-msgstr ""
+msgstr "Nu s-a putut crea cheia privată."
 
 msgid "Unable to create server credentials."
-msgstr ""
+msgstr "Nu s-au putut crea acreditările serverului."
 
 #, c-format
 msgid "Unable to create spool directory \"%s\": %s"
-msgstr ""
+msgstr "Nu s-a putut crea directorul cozii de imprimare (spool) „%s”: %s"
 
 msgid "Unable to create temporary file"
-msgstr ""
+msgstr "Nu s-a putut crea fișierul temporar"
 
 msgid "Unable to delete class"
-msgstr ""
+msgstr "Nu s-a putut șterge clasa"
 
 msgid "Unable to delete printer"
-msgstr ""
+msgstr "Nu s-a putut șterge imprimanta"
 
 msgid "Unable to do maintenance command"
-msgstr ""
+msgstr "Nu s-a putut executa comanda de întreținere"
 
 msgid "Unable to edit cupsd.conf files larger than 1MB"
-msgstr ""
+msgstr "Nu se pot edita fișiere cupsd.conf mai mari de 1 Mo"
 
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
-msgstr ""
+msgstr "Nu s-a putut executa comanda „%s”: %s"
 
 msgid "Unable to find destination for job"
-msgstr ""
+msgstr "Nu s-a putut găsi destinația pentru lucrare"
 
 msgid "Unable to finish request."
-msgstr ""
+msgstr "Nu s-a putut finaliza cererea."
 
 msgid "Unable to get authorization URL"
-msgstr ""
+msgstr "Nu s-a putut obține adresa URL de autorizare"
 
 msgid "Unable to get authorization server information"
-msgstr ""
+msgstr "Nu s-a putut obține informațiile serverului de autorizare"
 
 msgid "Unable to get backend exit status."
-msgstr ""
+msgstr "Nu s-a putut obține starea de ieșire a protocolului de imprimare."
 
 msgid "Unable to get class list"
-msgstr ""
+msgstr "Nu s-a putut obține lista clasei"
 
 msgid "Unable to get class status"
-msgstr ""
+msgstr "Nu s-a putut obține starea clasei"
 
 msgid "Unable to get list of printer drivers"
-msgstr ""
+msgstr "Nu s-a putut obține lista controlorilor de imprimantă"
 
 msgid "Unable to get printer attributes"
-msgstr ""
+msgstr "Nu s-au putut obține atributele imprimantei"
 
 msgid "Unable to get printer list"
-msgstr ""
+msgstr "Nu s-a putut obține lista imprimantelor"
 
 msgid "Unable to get printer status"
-msgstr ""
+msgstr "Nu s-a putut obține starea imprimantei"
 
 msgid "Unable to get printer status."
-msgstr ""
+msgstr "Nu s-a putut obține starea imprimantei."
 
 msgid "Unable to import X.509 certificate request."
-msgstr ""
+msgstr "Nu s-a putut importa cererea de certificat X.509."
 
 msgid "Unable to import credentials."
-msgstr ""
+msgstr "Nu s-au putut importa acreditările."
 
 msgid "Unable to initialize private key context."
-msgstr ""
+msgstr "Nu s-a putut inițializa contextul cheii private."
 
 msgid "Unable to load X.509 CA certificate and private key."
-msgstr ""
+msgstr "Nu s-a putut încărca certificatul CA X.509 și cheia privată."
 
 msgid "Unable to load help index."
-msgstr ""
+msgstr "Nu s-a putut încărca indexul ajutorului."
 
 #, c-format
 msgid "Unable to locate printer \"%s\"."
-msgstr ""
+msgstr "Nu s-a putut localiza imprimanta „%s”."
 
 msgid "Unable to locate printer."
-msgstr ""
+msgstr "Nu s-a putut localiza imprimant."
 
 msgid "Unable to modify class"
-msgstr ""
+msgstr "Nu s-a putut modifica clasa"
 
 msgid "Unable to modify printer"
-msgstr ""
+msgstr "Nu s-a putut modifica imprimanta"
 
 msgid "Unable to move job"
-msgstr ""
+msgstr "Nu s-a putut muta lucrarea"
 
 msgid "Unable to move jobs"
-msgstr ""
+msgstr "Nu s-au putut muta lucrările"
 
 msgid "Unable to open PPD file"
-msgstr ""
+msgstr "Nu s-a putut deschide fișierul PPD"
 
 msgid "Unable to open cupsd.conf file:"
-msgstr ""
+msgstr "Nu s-a putut deschide fișierul cupsd.conf:"
 
 msgid "Unable to open device file"
-msgstr ""
+msgstr "Nu s-a putut deschide fișierul dispozitivului"
 
 #, c-format
 msgid "Unable to open document #%d in job #%d."
-msgstr ""
+msgstr "Nu s-a putut deschide documentul nr. %d din lucrarea nr. %d."
 
 msgid "Unable to open help file."
-msgstr ""
+msgstr "Nu s-a putut deschide fișierul de ajutor."
 
 msgid "Unable to open print file"
-msgstr ""
+msgstr "Nu s-a putut deschide fișierul de imprimare"
 
 msgid "Unable to open raster file"
-msgstr ""
+msgstr "Nu s-a putut deschide fișierul raster"
 
 msgid "Unable to print test page"
-msgstr ""
+msgstr "Nu s-a putut imprima pagina de testare"
 
 msgid "Unable to read IPP attribute name."
-msgstr ""
+msgstr "Nu s-a putut citi numele atributului IPP."
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr ""
+msgstr "Nu s-a putut citi fișierul PPD generat: %s"
 
 msgid "Unable to read print data."
-msgstr ""
+msgstr "Nu s-au putut citi datele de imprimare."
 
 msgid "Unable to read response."
-msgstr ""
+msgstr "Nu s-a putut citi răspunsul."
 
 msgid "Unable to reallocate IPP attribute value."
-msgstr ""
+msgstr "Nu s-a putut realoca valoarea atributului IPP."
 
 msgid "Unable to rename job document file."
-msgstr ""
+msgstr "Nu s-a putut redenumi fișierul documentului de lucrări."
 
 msgid "Unable to resolve printer-uri."
-msgstr ""
+msgstr "Nu s-a putut rezolva printer-uri."
 
 #, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr ""
+msgstr "Nu s-a putut executa cups-driverd: %s"
 
 #, c-format
 msgid "Unable to save PPD file: %s"
-msgstr ""
+msgstr "Nu s-a putut salva fișierul PPD: %s"
 
 #, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
-msgstr ""
+msgstr "Nu s-a putut salva valoarea pentru „%s” cu o imprimantă temporară."
 
 msgid "Unable to see in file"
-msgstr ""
+msgstr "Nu s-a putut vizualiza fișierul"
 
 msgid "Unable to send command to printer driver"
-msgstr ""
+msgstr "Nu s-a putut trimite comanda către controlorul imprimantei"
 
 msgid "Unable to send data to printer."
-msgstr ""
+msgstr "Nu s-au putut trimite date către imprimantă."
 
 msgid "Unable to set options"
-msgstr ""
+msgstr "Nu s-au putut defini opțiunile"
 
 msgid "Unable to set server default"
-msgstr ""
+msgstr "Nu s-a putut defini serverul implicit"
 
 msgid "Unable to start backend process."
-msgstr ""
+msgstr "Nu s-a putut porni procesul protocolului de imprimare."
 
 msgid "Unable to upload cupsd.conf file"
-msgstr ""
+msgstr "Nu s-a putut încărca fișierul cupsd.conf"
 
 msgid "Unable to use legacy USB class driver."
-msgstr ""
+msgstr "Nu s-a putut utiliza controlorul de clasă USB vechi."
 
 msgid "Unable to verify X.509 certificate request."
-msgstr ""
+msgstr "Nu s-a putut verifica cererea de certificat X.509."
 
 msgid "Unable to write X.509 certificate signing request."
-msgstr ""
+msgstr "Nu s-a putut scrie cererea de semnare a certificatului X.509."
 
 msgid "Unable to write X.509 certificate."
-msgstr ""
+msgstr "Nu s-a putut scrie certificatul X.509."
 
 msgid "Unable to write print data"
-msgstr ""
+msgstr "Nu s-au putut scrie datele de imprimare"
 
 msgid "Unable to write private key."
-msgstr ""
+msgstr "Nu s-a putut scrie cheia privată."
 
 msgid "Unable to write public key."
-msgstr ""
+msgstr "Nu s-a putut scrie cheia publică."
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
-msgstr ""
+msgstr "Nu s-au putut scrie datele de imprimare necomprimate: %s"
 
 msgid "Unauthorized"
-msgstr ""
+msgstr "Neautorizat"
 
 msgid "Units"
 msgstr "Unități"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Necunoscut"
 
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
-msgstr ""
+msgstr "Alegere necunoscută „%s” pentru opțiunea „%s”."
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
-msgstr ""
+msgstr "Valoare necunoscută pentru opțiunea de criptare: „%s”."
 
 #, c-format
 msgid "Unknown file order: \"%s\"."
-msgstr ""
+msgstr "Ordine necunoscută a fișierelor: „%s”."
 
 #, c-format
 msgid "Unknown format character: \"%c\"."
-msgstr ""
+msgstr "Caracter de format necunoscut: „%c”."
 
 msgid "Unknown hash algorithm."
-msgstr ""
+msgstr "Algoritm de sumă de control (hash) necunoscut."
 
 msgid "Unknown media size name."
-msgstr ""
+msgstr "Nume necunoscut pentru dimensiunea suportului de imprimat."
 
 #, c-format
 msgid "Unknown option \"%s\" with value \"%s\"."
-msgstr ""
+msgstr "Opțiune necunoscută „%s” cu valoarea „%s”."
 
 #, c-format
 msgid "Unknown option \"%s\"."
-msgstr ""
+msgstr "Opțiune necunoscută „%s”."
 
 #, c-format
 msgid "Unknown print mode: \"%s\"."
-msgstr ""
+msgstr "Mod de imprimare necunoscut: „%s”."
 
 #, c-format
 msgid "Unknown printer-error-policy \"%s\"."
-msgstr ""
+msgstr "Parametru printer-error-policy necunoscut „%s”."
 
 #, c-format
 msgid "Unknown printer-op-policy \"%s\"."
-msgstr ""
+msgstr "Parametru printer-op-policy necunoscut „%s”."
 
 msgid "Unknown request method."
-msgstr ""
+msgstr "Metodă de solicitare necunoscută."
 
 msgid "Unknown request version."
-msgstr ""
+msgstr "Versiune de solicitare necunoscută."
 
 msgid "Unknown scheme in URI"
-msgstr ""
+msgstr "Schemă necunoscută în URI"
 
 msgid "Unknown service name."
-msgstr ""
+msgstr "Nume de serviciu necunoscut."
 
 #, c-format
 msgid "Unknown version option value: \"%s\"."
-msgstr ""
+msgstr "Valoare necunoscută pentru opțiunea versiune: „%s”."
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
-msgstr ""
+msgstr "Valoare „compression” neacceptată „%s”."
 
 #, c-format
 msgid "Unsupported 'document-format' value \"%s\"."
-msgstr ""
+msgstr "Valoare „document-format” neacceptată „%s”."
 
 msgid "Unsupported 'job-hold-until' value."
-msgstr ""
+msgstr "Valoare „job-hold-until” neacceptată „%s”."
 
 msgid "Unsupported 'job-name' value."
-msgstr ""
+msgstr "Valoare „job-name” neacceptată „%s”."
 
 #, c-format
 msgid "Unsupported character set \"%s\"."
-msgstr ""
+msgstr "Set de caractere neacceptat „%s”."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
-msgstr ""
+msgstr "Comprimare neacceptată „%s”."
 
 #, c-format
 msgid "Unsupported document-format \"%s\"."
-msgstr ""
+msgstr "Parametru „document-format” neacceptat „%s”."
 
 #, c-format
 msgid "Unsupported document-format \"%s/%s\"."
-msgstr ""
+msgstr "Parametru „document-format” neacceptat „%s/%s”."
 
 #, c-format
 msgid "Unsupported format \"%s\"."
-msgstr ""
+msgstr "Format neacceptat „%s”."
 
 msgid "Unsupported margins."
-msgstr ""
+msgstr "Margini neacceptate."
 
 msgid "Unsupported media value."
-msgstr ""
+msgstr "Valoare de suport de imprimare neacceptată."
 
 #, c-format
 msgid "Unsupported number-up value %d, using number-up=1."
-msgstr ""
+msgstr "Valoare number-up neacceptată %d, se utilizează number-up=1."
 
 #, c-format
 msgid "Unsupported number-up-layout value %s, using number-up-layout=lrtb."
 msgstr ""
+"Valoare number-up-layout neacceptată %s, se utilizează number-up-layout=lrtb."
 
 #, c-format
 msgid "Unsupported page-border value %s, using page-border=none."
-msgstr ""
+msgstr "Valoare page-border neacceptată %s, se utilizează page-border=none."
 
 msgid "Unsupported raster data."
-msgstr ""
+msgstr "Date raster neacceptate."
 
 msgid "Unsupported value type"
-msgstr ""
+msgstr "Tip de valoare neacceptat"
 
 msgid "Upgrade Required"
-msgstr ""
+msgstr "Este necesară actualizarea"
 
 #, c-format
 msgid "Usage: %s [options] destination(s)"
-msgstr ""
+msgstr "Utilizare: %s [opțiuni] destinație(i)"
 
 #, c-format
 msgid "Usage: %s job-id user title copies options [file]"
-msgstr ""
+msgstr "Utilizare: %s id-lucrare utilizator titlu copii opțiuni [fișier]"
 
 msgid ""
 "Usage: cancel [options] [id]\n"
 "       cancel [options] [destination]\n"
 "       cancel [options] [destination-id]"
 msgstr ""
+"Utilizare: cancel [opțiuni] [id]\n"
+"           cancel [opțiuni] [destinație]\n"
+"           cancel [opțiuni] [id-destinație]"
 
 msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Utilizare: cups-oauth [OPȚINUI] [SUB-COMANDĂ [ARGUMENT(E)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Utilizare: cups-x509 [OPȚIUNI] [SUB-COMANDĂ] [ARGUMENT]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr ""
+"Utilizare: cupsctl [opțiuni] [parametru=valoare ... parametruN=valoareN]"
 
 msgid "Usage: cupsd [options]"
-msgstr ""
+msgstr "Utilizare: cupsd [opțiuni]"
 
 msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
-msgstr ""
+msgstr "Utilizare: cupsfilter [ OPȚIUNI ] [ -- ] NUME_FIȘIER"
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
 "       program | cupstestppd [options] -"
 msgstr ""
+"Utilizare: cupstestppd [opțiuni] nume-fișier1.ppd[.gz] [... nume-"
+"fișierN.ppd[.gz]]\n"
+"           program | cupstestppd [opțiuni] -"
 
 msgid "Usage: ippeveprinter [options] \"name\""
-msgstr ""
+msgstr "Utilizare: ippeveprinter [opțiuni] \"nume\""
 
 msgid ""
 "Usage: ippfind [options] regtype[,subtype][.domain.] ... [expression]\n"
@@ -5739,14 +5773,21 @@ msgid ""
 "       ippfind --help\n"
 "       ippfind --version"
 msgstr ""
+"Utilizare: ippfind [opțiuni] tip-registru[,subtip][.domeniu.] ... "
+"[expresie]\n"
+"           ippfind [opțiuni] nume[.tip-registru[.domeniu.]] ... [expresie]\n"
+"           ippfind --help\n"
+"           ippfind --version"
 
 msgid "Usage: ipptool [options] URI filename [ ... filenameN ]"
-msgstr ""
+msgstr "Utilizaree: ipptool [opțiuni] URI nume-fișier [ ... nume-fișierN ]"
 
 msgid ""
 "Usage: lp [options] [--] [file(s)]\n"
 "       lp [options] -i id"
 msgstr ""
+"Utilizare: lp [opțiuni] [--] [fișier(e)]\n"
+"           lp [opțiuni] -i id"
 
 msgid ""
 "Usage: lpadmin [options] -d destination\n"
@@ -5755,16 +5796,25 @@ msgid ""
 "       lpadmin [options] -p destination -r class\n"
 "       lpadmin [options] -x destination"
 msgstr ""
+"Utilizare: lpadmin [opțiuni] -d destinație\n"
+"           lpadmin [opțiuni] -p destinatție\n"
+"           lpadmin [opțiuni] -p destinație -c clasa\n"
+"           lpadmin [opțiuni] -p destinație -r clasa\n"
+"           lpadmin [opțiuni] -x destinație"
 
 msgid ""
 "Usage: lpinfo [options] -m\n"
 "       lpinfo [options] -v"
 msgstr ""
+"Utilizare: lpinfo [opțiuni] -m\n"
+"           lpinfo [opțiuni] -v"
 
 msgid ""
 "Usage: lpmove [options] job destination\n"
 "       lpmove [options] source-destination destination"
 msgstr ""
+"Utilizare: lpmove [opțiuni] lucrare destinație\n"
+"           lpmove [opțiuni] destinație-sursă destinație"
 
 msgid ""
 "Usage: lpoptions [options] -d destination\n"
@@ -5772,332 +5822,341 @@ msgid ""
 "       lpoptions [options] [-p destination] -o option[=value]\n"
 "       lpoptions [options] -x destination"
 msgstr ""
+"Utilizare: lpoptions [opțiuni] -d destinație\n"
+"           lpoptions [opțiuni] [-p destinație] [-l]\n"
+"           lpoptions [opțiuni] [-p destinație] -o opțiune[=valoare]\n"
+"           lpoptions [opțiuni] -x destinație"
 
 msgid "Usage: lpq [options] [+interval]"
-msgstr ""
+msgstr "Utilizare: lpq [opțiuni] [+interval]"
 
 msgid "Usage: lpr [options] [file(s)]"
-msgstr ""
+msgstr "Utilizare: lpr [opțiuni] [fișier(e)]"
 
 msgid ""
 "Usage: lprm [options] [id]\n"
 "       lprm [options] -"
 msgstr ""
+"Utilizare: lprm [opțiuni] [id]\n"
+"           lprm [opțiuni] -"
 
 msgid "Usage: lpstat [options]"
-msgstr ""
+msgstr "Utilizare: lpstat [opțiuni]"
 
 msgid "Usage: ppdc [options] filename.drv [ ... filenameN.drv ]"
-msgstr ""
+msgstr "Utilizare: ppdc [opțiuni] nume-fișier.drv [ ... nume-fișierN.drv ]"
 
 msgid "Usage: ppdhtml [options] filename.drv >filename.html"
-msgstr ""
+msgstr "Utilizare: ppdhtml [opțiuni] nume-fișier.drv >nume-fișier.html"
 
 msgid "Usage: ppdi [options] filename.ppd [ ... filenameN.ppd ]"
-msgstr ""
+msgstr "Utilizare: ppdi [opțiuni] nume-fișier.ppd [ ... nume-fișierN.ppd ]"
 
 msgid "Usage: ppdmerge [options] filename.ppd [ ... filenameN.ppd ]"
-msgstr ""
+msgstr "Utilizare: ppdmerge [opțiuni] nume-fișier.ppd [ ... nume-fișierN.ppd ]"
 
 msgid ""
 "Usage: ppdpo [options] -o filename.po filename.drv [ ... filenameN.drv ]"
 msgstr ""
+"Utilizare: ppdpo [opțiuni] -o nume-fișier.po fnume-fișier.drv [ ... nume-"
+"fișierN.drv ]"
 
 msgid "Usage: snmp [host-or-ip-address]"
-msgstr ""
+msgstr "Utilizare: snmp [gazda-sau-adresa-ip]"
 
 #, c-format
 msgid "User Code: %s"
-msgstr ""
+msgstr "Cod utilizator: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
-msgstr ""
+msgstr "Se utilizează directorul de coadă de imprimare (spool) „%s”."
 
 msgid "Validation of subjectAltName in X.509 certificate request failed."
-msgstr ""
+msgstr "Validarea subjectAltName în cererea de certificat X.509 a eșuat."
 
 msgid "Value uses indefinite length"
-msgstr ""
+msgstr "Valoarea utilizează o lungime nedeterminată"
 
 msgid "VarBind uses indefinite length"
-msgstr ""
+msgstr "VarBind utilizează o lungime nedeterminată"
 
 msgid "Version uses indefinite length"
-msgstr ""
+msgstr "Versiunea utilizează o lungime nedeterminată"
 
 msgid "Waiting for job to complete."
-msgstr ""
+msgstr "Se așteaptă finalizarea lucrării."
 
 msgid "Waiting for printer to become available."
-msgstr ""
+msgstr "Se așteaptă ca imprimanta să devină disponibilă."
 
 msgid "Waiting for printer to finish."
-msgstr ""
+msgstr "Se așteaptă ca imprimanta să finalizeze lucrarea de imrimare."
 
 msgid "Warning: This program will be removed in a future version of CUPS."
-msgstr ""
+msgstr "Atenție: acest program va fi eliminat într-o versiune viitoare a CUPS."
 
 msgid "Web Interface is Disabled"
-msgstr ""
+msgstr "Interfața web este dezactivată"
 
 #, c-format
 msgid "Web Page: %s"
-msgstr ""
+msgstr "Pagina web: %s"
 
 msgid "Yes"
 msgstr "Da"
 
 msgid "You cannot access this page."
-msgstr ""
+msgstr "Nu puteți accesa această pagină."
 
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
-msgstr ""
+msgstr "Trebuie să accesați această pagină folosind adresa URL https://%s:%d%s."
 
 msgid "Your account does not have the necessary privileges."
-msgstr ""
+msgstr "Contul dvs. nu are privilegiile necesare."
 
 msgid "ZPL Label Printer"
-msgstr ""
+msgstr "Imprimantă de etichete ZPL"
 
 msgid "Zebra"
-msgstr ""
+msgstr "Zebră"
 
 msgid "aborted"
 msgstr "abandonare"
 
 #. TRANSLATORS: Accuracy Units
 msgid "accuracy-units"
-msgstr ""
+msgstr "unități de precizie"
 
 #. TRANSLATORS: Millimeters
 msgid "accuracy-units.mm"
-msgstr ""
+msgstr "unități de precizie: mm"
 
 #. TRANSLATORS: Nanometers
 msgid "accuracy-units.nm"
-msgstr ""
+msgstr "unități de precizie: nm"
 
 #. TRANSLATORS: Micrometers
 msgid "accuracy-units.um"
-msgstr ""
+msgstr "unități de precizie: um"
 
 msgid "authorize [RESOURCE]           Authorize access to a resource"
-msgstr ""
+msgstr "autoriza [RESURSĂ]           Autorizează accesul la o resursă"
 
 #. TRANSLATORS: Bale Output
 msgid "baling"
-msgstr ""
+msgstr "balotare"
 
 #. TRANSLATORS: Bale Using
 msgid "baling-type"
-msgstr ""
+msgstr "tipul de balotare"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
-msgstr ""
+msgstr "tipul de balotare: bandă"
 
 #. TRANSLATORS: Shrink Wrap
 msgid "baling-type.shrink-wrap"
-msgstr ""
+msgstr "tipul de balotare: folie termocontractabilă"
 
 #. TRANSLATORS: Wrap
 msgid "baling-type.wrap"
-msgstr ""
+msgstr "tipul de balotare: folie"
 
 #. TRANSLATORS: Bale After
 msgid "baling-when"
-msgstr ""
+msgstr "Balotare după"
 
 #. TRANSLATORS: Job
 msgid "baling-when.after-job"
-msgstr ""
+msgstr "Lucrare"
 
 #. TRANSLATORS: Sets
 msgid "baling-when.after-sets"
-msgstr ""
+msgstr "Parametri"
 
 #. TRANSLATORS: Bind Output
 msgid "binding"
-msgstr ""
+msgstr "legarea"
 
 #. TRANSLATORS: Bind Edge
 msgid "binding-reference-edge"
-msgstr ""
+msgstr "marginea de legare"
 
 #. TRANSLATORS: Bottom
 msgid "binding-reference-edge.bottom"
-msgstr ""
+msgstr "marginea inferioară"
 
 #. TRANSLATORS: Left
 msgid "binding-reference-edge.left"
-msgstr ""
+msgstr "marginea din stânga"
 
 #. TRANSLATORS: Right
 msgid "binding-reference-edge.right"
-msgstr ""
+msgstr "marginea din dreapta"
 
 #. TRANSLATORS: Top
 msgid "binding-reference-edge.top"
-msgstr ""
+msgstr "marginea superioară"
 
 #. TRANSLATORS: Binder Type
 msgid "binding-type"
-msgstr ""
+msgstr "tipul de legare"
 
 #. TRANSLATORS: Adhesive
 msgid "binding-type.adhesive"
-msgstr ""
+msgstr "adeziv"
 
 #. TRANSLATORS: Comb
 msgid "binding-type.comb"
-msgstr ""
+msgstr "combinat"
 
 #. TRANSLATORS: Flat
 msgid "binding-type.flat"
-msgstr ""
+msgstr "plan"
 
 #. TRANSLATORS: Padding
 msgid "binding-type.padding"
-msgstr ""
+msgstr "capitonare"
 
 #. TRANSLATORS: Perfect
 msgid "binding-type.perfect"
-msgstr ""
+msgstr "perfect"
 
 #. TRANSLATORS: Spiral
 msgid "binding-type.spiral"
-msgstr ""
+msgstr "spirală"
 
 #. TRANSLATORS: Tape
 msgid "binding-type.tape"
-msgstr ""
+msgstr "bandă"
 
 #. TRANSLATORS: Velo
 msgid "binding-type.velo"
-msgstr ""
+msgstr "pieptăne"
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
 msgstr ""
+"ca NUME-COMUN             Semnează un CSR pentru a genera un certificat."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
-msgstr ""
+msgstr "cacert NUME-COMUN         Creează un certificat CA."
 
 msgid "canceled"
 msgstr "anulat"
 
 msgid "cert COMMON-NAME           Create a certificate."
-msgstr ""
+msgstr "cert NUME-COMUN           Creează un certificat."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
-msgstr ""
+msgstr "Umiditatea camerei"
 
 #. TRANSLATORS: Chamber Temperature
 msgid "chamber-temperature"
-msgstr ""
+msgstr "Temperatura camerei"
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
-msgstr ""
+msgstr "Costul lucrării de imprimare"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
-msgstr ""
+msgstr "clear [RESURSĂ]               Șterge autorizația pentru o resursă"
 
 msgid "client URI                 Connect to URI."
-msgstr ""
+msgstr "client URI                 Conectați-vă la URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
-msgstr ""
+msgstr "Foi de copertă"
 
 #. TRANSLATORS: Add Coating To
 msgid "coating-sides"
-msgstr ""
+msgstr "Adaugă copertă la"
 
 #. TRANSLATORS: Back
 msgid "coating-sides.back"
-msgstr ""
+msgstr "Partea din spate"
 
 #. TRANSLATORS: Front and Back
 msgid "coating-sides.both"
-msgstr ""
+msgstr "Partea frontală și partea din spate"
 
 #. TRANSLATORS: Front
 msgid "coating-sides.front"
-msgstr ""
+msgstr "Partea frontală"
 
 #. TRANSLATORS: Type of Coating
 msgid "coating-type"
-msgstr ""
+msgstr "Tipul de copertă"
 
 #. TRANSLATORS: Archival
 msgid "coating-type.archival"
-msgstr ""
+msgstr "Arhivă"
 
 #. TRANSLATORS: Archival Glossy
 msgid "coating-type.archival-glossy"
-msgstr ""
+msgstr "Arhivă lucioasă"
 
 #. TRANSLATORS: Archival Matte
 msgid "coating-type.archival-matte"
-msgstr ""
+msgstr "Arhivă mată"
 
 #. TRANSLATORS: Archival Semi Gloss
 msgid "coating-type.archival-semi-gloss"
-msgstr ""
+msgstr "Arhivă semi-lucioasă"
 
 #. TRANSLATORS: Glossy
 msgid "coating-type.glossy"
-msgstr ""
+msgstr "Lucioasă"
 
 #. TRANSLATORS: High Gloss
 msgid "coating-type.high-gloss"
-msgstr ""
+msgstr "Super-lucioasă"
 
 #. TRANSLATORS: Matte
 msgid "coating-type.matte"
-msgstr ""
+msgstr "Mată"
 
 #. TRANSLATORS: Semi-gloss
 msgid "coating-type.semi-gloss"
-msgstr ""
+msgstr "Semi-lucioasă"
 
 #. TRANSLATORS: Silicone
 msgid "coating-type.silicone"
-msgstr ""
+msgstr "Siliconă"
 
 #. TRANSLATORS: Translucent
 msgid "coating-type.translucent"
-msgstr ""
+msgstr "Translucidă"
 
 msgid "completed"
-msgstr ""
+msgstr "finalizată"
 
 #. TRANSLATORS: Print Confirmation Sheet
 msgid "confirmation-sheet-print"
-msgstr ""
+msgstr "Imprimă foaia de confirmare"
 
 #. TRANSLATORS: Copies
 msgid "copies"
-msgstr ""
+msgstr "copii"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
-msgstr ""
+msgstr "Coperta din spate"
 
 #. TRANSLATORS: Front Cover
 msgid "cover-front"
-msgstr ""
+msgstr "Coperta frontală"
 
 #. TRANSLATORS: Cover Sheet Info
 msgid "cover-sheet-info"
-msgstr ""
+msgstr "Informații privind pagina de copertă"
 
 #. TRANSLATORS: Date Time
 msgid "cover-sheet-info-supported.date-time"
-msgstr ""
+msgstr "Data și ora"
 
 #. TRANSLATORS: From Name
 msgid "cover-sheet-info-supported.from-name"
@@ -6105,19 +6164,19 @@ msgstr ""
 
 #. TRANSLATORS: Logo
 msgid "cover-sheet-info-supported.logo"
-msgstr ""
+msgstr "Logo"
 
 #. TRANSLATORS: Message
 msgid "cover-sheet-info-supported.message"
-msgstr ""
+msgstr "Mesaj"
 
 #. TRANSLATORS: Organization
 msgid "cover-sheet-info-supported.organization"
-msgstr ""
+msgstr "Organizația"
 
 #. TRANSLATORS: Subject
 msgid "cover-sheet-info-supported.subject"
-msgstr ""
+msgstr "Subiect"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
@@ -6125,1014 +6184,1024 @@ msgstr ""
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
-msgstr ""
+msgstr "Coperta imprimată"
 
 #. TRANSLATORS: No Cover
 msgid "cover-type.no-cover"
-msgstr ""
+msgstr "Fără copertă"
 
 #. TRANSLATORS: Back Only
 msgid "cover-type.print-back"
-msgstr ""
+msgstr "Doar coperta din spate"
 
 #. TRANSLATORS: Front and Back
 msgid "cover-type.print-both"
-msgstr ""
+msgstr "Coperta frontală și coperta din spate"
 
 #. TRANSLATORS: Front Only
 msgid "cover-type.print-front"
-msgstr ""
+msgstr "Doar coperta frontală"
 
 #. TRANSLATORS: None
 msgid "cover-type.print-none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Cover Output
 msgid "covering"
-msgstr ""
+msgstr "Creare coperți"
 
 #. TRANSLATORS: Add Cover
 msgid "covering-name"
-msgstr ""
+msgstr "Adaugă copertă"
 
 #. TRANSLATORS: Plain
 msgid "covering-name.plain"
-msgstr ""
+msgstr "Simplă"
 
 #. TRANSLATORS: Pre-cut
 msgid "covering-name.pre-cut"
-msgstr ""
+msgstr "Pre-tăiată"
 
 #. TRANSLATORS: Pre-printed
 msgid "covering-name.pre-printed"
-msgstr ""
+msgstr "Pre-imprimată"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr ""
+msgstr "csr NUME-COMUN            Creează o cerere de semnare a certificatului."
 
 msgid "cups-deviced failed to execute."
-msgstr ""
+msgstr "Execuția comenzii cups-deviced a eșuat."
 
 msgid "cups-driverd failed to execute."
-msgstr ""
+msgstr "Execuția comenzii cups-driverd a eșuat."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
 msgstr ""
+"Obținerea fișierului PPD de către cups-driverd a eșuat - consultați "
+"error_log pentru detalii."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
-msgstr ""
+msgstr "cups-oauth: Lipsește adresa URI a serverului de autorizare după „-a”."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr ""
+msgstr "cups-oauth: Lipsește client_id și/sau client_secret."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
-msgstr ""
+msgstr "cups-oauth: Lipsește URI-ul resursei și/sau jetonul de acces."
 
 msgid "cups-oauth: Missing resource URI and/or device token."
-msgstr ""
+msgstr "cups-oauth: Lipsește URI-ul resursei și/sau jetonul dispozitivului."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr ""
+msgstr "cups-oauth: Lipsește domeniul (domeniile) de aplicare după „-s”."
 
 msgid "cups-oauth: No authorization server specified."
-msgstr ""
+msgstr "cups-oauth: Nu a fost specificat niciun server de autorizare."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nu s-a putut obține jetonul de acces de la „%s”: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nu s-a putut obține autorizarea de la „%s”: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device authorization from '%s': %s"
 msgstr ""
+"cups-oauth: Nu s-a putut obține autorizarea dispozitivului de la „%s”: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nu s-a putut obține jetonul dispozitivului de la „%s”: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nu s-au putut obține metadatele pentru „%s”: %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Nu s-a putut obține ID-ul utilizatorului pentru „%s”: %s"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "cups-oauth: Comandă necunoscută „%s”."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
-msgstr ""
+msgstr "cups-x509: Valoare ZILE incorectă „%s” după „-d”."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "cups-x509: Versiune HTTP incorectă."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr ""
+msgstr "cups-x509: Tip de certificat incorect „%s”."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr ""
+msgstr "cups-x509: Utilizare incorectă a cheii „%s”."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "cups-x509: Scop incorect „%s”."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr ""
+msgstr "cups-x509: Linie de solicitare incorectă (%s)."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "cups-x509: Operație incorectă/necunoscută."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "cups-x509: Clientul a închis conexiunea."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr ""
+msgstr "cups-x509: Lipsește numele fișierului CSR după „-R”."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr ""
+msgstr "cups-x509: Lipsește tipul certificatului după „-t”."
 
 msgid "cups-x509: Missing command argument."
-msgstr ""
+msgstr "cups-x509: Lipsește argumentul comenzii."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr ""
+msgstr "cups-x509: Lipsește țara după „-C”."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr ""
+msgstr "cups-x509: Zile de expirare lipsă după „-d”."
 
 msgid "cups-x509: Missing key usage after '-u'."
-msgstr ""
+msgstr "cups-x509: Lipsește utilizarea cheii după „-u”."
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
-msgstr ""
+msgstr "cups-x509: Lipsește localitatea/orașul după „-L”."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr ""
+msgstr "cups-x509: Lipsește organizația după „-O”."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
-msgstr ""
+msgstr "cups-x509: Lipsește unitatea organizațională după „-U”."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr ""
+msgstr "cups-x509: Lipsește scopul după „-p”."
 
 msgid "cups-x509: Missing root name after '-r'."
-msgstr ""
+msgstr "cups-x509: Lipsește numele rădăcină după „-r”."
 
 msgid "cups-x509: Missing state/province after '-S'."
-msgstr ""
+msgstr "cups-x509: Lipsește statul/provincia după „-S”."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
-msgstr ""
+msgstr "cups-x509: Lipsește subjectAltName după „-a”."
 
 #, c-format
 msgid "cups-x509: No request for '%s'."
-msgstr ""
+msgstr "cups-x509: Nicio solicitare pentru „%s”."
 
 msgid "cups-x509: Too many subjectAltName values."
-msgstr ""
+msgstr "cups-x509: Prea multe valori subjectAltName."
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut accepta conexiunea: %s"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut accesa „%s”: %s"
 
 #, c-format
 msgid "cups-x509: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut aloca memorie pentru „%s”: %s"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut conecta la „%s”: %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut crea certificatul (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut crea cererea de certificat (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut cripta conexiunea: %s"
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate for '%s'."
-msgstr ""
+msgstr "cups-x509: Nu s-a putut obține certificatul generat pentru „%s”."
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
 msgstr ""
+"cups-x509: Nu s-a putut obține cererea de certificat generată pentru „%s”."
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
-msgstr ""
+msgstr "cups-x509: Nu s-a putut obține cheia privată generată pentru „%s”."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut asculta pe portul %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
-msgstr ""
+msgstr "cups-x509: Nu s-a putut citi „%s”."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
-msgstr ""
+msgstr "cups-x509: Nu s-a putut efectua stat() „%s”: %s"
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
-msgstr ""
+msgstr "cups-x509: Comandă necunoscută „%s”."
 
 #, c-format
 msgid "cupsctl: Cannot set %s directly."
-msgstr ""
+msgstr "cupsctl: Nu se poate configura direct %s."
 
 #, c-format
 msgid "cupsctl: Unable to connect to server: %s"
-msgstr ""
+msgstr "cupsctl: Nu s-a putut conecta la server: %s"
 
 #, c-format
 msgid "cupsctl: Unknown option \"%s\""
-msgstr ""
+msgstr "cupsctl: Opțiune necunoscută „%s”"
 
 #, c-format
 msgid "cupsctl: Unknown option \"-%c\""
-msgstr ""
+msgstr "cupsctl: Opțiune necunoscută „-%c”"
 
 msgid "cupsd: Expected config filename after \"-c\" option."
-msgstr ""
+msgstr "cupsd: Se aștepta numele fișierului de configurare după opțiunea „-c”."
 
 msgid "cupsd: Expected cups-files.conf filename after \"-s\" option."
-msgstr ""
+msgstr "cupsd: Se aștepta numele fișierului cups-files.conf după opțiunea „-s”."
 
 msgid "cupsd: On-demand support not compiled in, running in normal mode."
 msgstr ""
+"cupsd: Suportul pentru funcționarea la cerere nu este compilat, se execută "
+"în modul normal."
 
 msgid "cupsd: Relative cups-files.conf filename not allowed."
-msgstr ""
+msgstr "cupsd: Numele fișierului relativ cups-files.conf nu este permis."
 
 msgid "cupsd: Unable to get current directory."
-msgstr ""
+msgstr "cupsd: Nu s-a putut obține directorul curent."
 
 msgid "cupsd: Unable to get path to cups-files.conf file."
-msgstr ""
+msgstr "cupsd: Nu s-a putut obține ruta către fișierul cups-files.conf."
 
 #, c-format
 msgid "cupsd: Unknown argument \"%s\" - aborting."
-msgstr ""
+msgstr "cupsd: Argument necunoscut „%s” – se abandonează."
 
 #, c-format
 msgid "cupsd: Unknown option \"%c\" - aborting."
-msgstr ""
+msgstr "cupsd: Opțiune necunoscută „%c” – se abandonează."
 
 #, c-format
 msgid "cupsfilter: Invalid document number %d."
-msgstr ""
+msgstr "cupsfilter: Număr de document nevalid %d."
 
 #, c-format
 msgid "cupsfilter: Invalid job ID %d."
-msgstr ""
+msgstr "cupsfilter: ID de lucrare nevalid %d."
 
 msgid "cupsfilter: Only one filename can be specified."
-msgstr ""
+msgstr "cupsfilter: Se poate specifica un singur nume de fișier."
 
 #, c-format
 msgid "cupsfilter: Unable to get job file - %s"
-msgstr ""
+msgstr "cupsfilter: Nu s-a putut obține fișierul lucrării - %s"
 
 msgid "cupstestppd: The -q option is incompatible with the -v option."
-msgstr ""
+msgstr "cupstestppd: Opțiunea „-q” este incompatibilă cu opțiunea „-v”."
 
 msgid "cupstestppd: The -v option is incompatible with the -q option."
-msgstr ""
+msgstr "cupstestppd: Opțiunea „-v” este incompatibilă cu opțiunea „-q”."
 
 #. TRANSLATORS: Detailed Status Message
 msgid "detailed-status-message"
-msgstr ""
+msgstr "Mesaj detaliat privind starea"
 
 #, c-format
 msgid "device for %s/%s: %s"
-msgstr ""
+msgstr "dispozitiv pentru %s/%s: %s"
 
 #, c-format
 msgid "device for %s: %s"
-msgstr ""
+msgstr "dispozitiv pentru %s: %s"
 
 #. TRANSLATORS: Copies
 msgid "document-copies"
-msgstr ""
+msgstr "Copii"
 
 #. TRANSLATORS: Document Privacy Attributes
 msgid "document-privacy-attributes"
-msgstr ""
+msgstr "Atribute de confidențialitate a documentelor"
 
 #. TRANSLATORS: All
 msgid "document-privacy-attributes.all"
-msgstr ""
+msgstr "Toate"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-attributes.default"
-msgstr ""
+msgstr "Implicite"
 
 #. TRANSLATORS: Document Description
 msgid "document-privacy-attributes.document-description"
-msgstr ""
+msgstr "Descrierea documentului"
 
 #. TRANSLATORS: Document Template
 msgid "document-privacy-attributes.document-template"
-msgstr ""
+msgstr "Șablon de document"
 
 #. TRANSLATORS: None
 msgid "document-privacy-attributes.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Document Privacy Scope
 msgid "document-privacy-scope"
-msgstr ""
+msgstr "Domeniul de aplicare al confidențialității documentelor"
 
 #. TRANSLATORS: All
 msgid "document-privacy-scope.all"
-msgstr ""
+msgstr "Toate"
 
 #. TRANSLATORS: Default
 msgid "document-privacy-scope.default"
-msgstr ""
+msgstr "Implicite"
 
 #. TRANSLATORS: None
 msgid "document-privacy-scope.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Owner
 msgid "document-privacy-scope.owner"
-msgstr ""
+msgstr "Proprietar"
 
 #. TRANSLATORS: Document State
 msgid "document-state"
-msgstr ""
+msgstr "Starea documentului"
 
 #. TRANSLATORS: Detailed Document State
 msgid "document-state-reasons"
-msgstr ""
+msgstr "Stare detaliată a documentului"
 
 #. TRANSLATORS: Aborted By System
 msgid "document-state-reasons.aborted-by-system"
-msgstr ""
+msgstr "Abandonat de către sistem"
 
 #. TRANSLATORS: Canceled At Device
 msgid "document-state-reasons.canceled-at-device"
-msgstr ""
+msgstr "Anulat la dispozitiv"
 
 #. TRANSLATORS: Canceled By Operator
 msgid "document-state-reasons.canceled-by-operator"
-msgstr ""
+msgstr "Anulat de operator"
 
 #. TRANSLATORS: Canceled By User
 msgid "document-state-reasons.canceled-by-user"
-msgstr ""
+msgstr "Anulat de utilizator"
 
 #. TRANSLATORS: Completed Successfully
 msgid "document-state-reasons.completed-successfully"
-msgstr ""
+msgstr "Finalizat cu succes"
 
 #. TRANSLATORS: Completed With Errors
 msgid "document-state-reasons.completed-with-errors"
-msgstr ""
+msgstr "Finalizat cu erori"
 
 #. TRANSLATORS: Completed With Warnings
 msgid "document-state-reasons.completed-with-warnings"
-msgstr ""
+msgstr "Finalizat cu avertismente"
 
 #. TRANSLATORS: Compression Error
 msgid "document-state-reasons.compression-error"
-msgstr ""
+msgstr "Eroare de comprimare"
 
 #. TRANSLATORS: Data Insufficient
 msgid "document-state-reasons.data-insufficient"
-msgstr ""
+msgstr "Date insuficiente"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "document-state-reasons.digital-signature-did-not-verify"
-msgstr ""
+msgstr "Semnătura digitală nu a fost verificată"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "document-state-reasons.digital-signature-type-not-supported"
-msgstr ""
+msgstr "Tipul semnăturii digitale nu este acceptat"
 
 #. TRANSLATORS: Digital Signature Wait
 msgid "document-state-reasons.digital-signature-wait"
-msgstr ""
+msgstr "Așteptare semnătură digitală"
 
 #. TRANSLATORS: Document Access Error
 msgid "document-state-reasons.document-access-error"
-msgstr ""
+msgstr "Eroare la accesarea documentului"
 
 #. TRANSLATORS: Document Fetchable
 msgid "document-state-reasons.document-fetchable"
-msgstr ""
+msgstr "Documentul poate fi preluat"
 
 #. TRANSLATORS: Document Format Error
 msgid "document-state-reasons.document-format-error"
-msgstr ""
+msgstr "Eroare de format al documentului"
 
 #. TRANSLATORS: Document Password Error
 msgid "document-state-reasons.document-password-error"
-msgstr ""
+msgstr "Eroare parolă document"
 
 #. TRANSLATORS: Document Permission Error
 msgid "document-state-reasons.document-permission-error"
-msgstr ""
+msgstr "Eroare de permisiune a documentului"
 
 #. TRANSLATORS: Document Security Error
 msgid "document-state-reasons.document-security-error"
-msgstr ""
+msgstr "Eroare de securitate a documentului"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "document-state-reasons.document-unprintable-error"
-msgstr ""
+msgstr "Eroare, document neimprimabil"
 
 #. TRANSLATORS: Errors Detected
 msgid "document-state-reasons.errors-detected"
-msgstr ""
+msgstr "Erori detectate"
 
 #. TRANSLATORS: Incoming
 msgid "document-state-reasons.incoming"
-msgstr ""
+msgstr "În curs de primire"
 
 #. TRANSLATORS: Interpreting
 msgid "document-state-reasons.interpreting"
-msgstr ""
+msgstr "Se interpretează"
 
 #. TRANSLATORS: None
 msgid "document-state-reasons.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Outgoing
 msgid "document-state-reasons.outgoing"
-msgstr ""
+msgstr "În curs de ieșire"
 
 #. TRANSLATORS: Printing
 msgid "document-state-reasons.printing"
-msgstr ""
+msgstr "În curs de imprimare"
 
 #. TRANSLATORS: Processing To Stop Point
 msgid "document-state-reasons.processing-to-stop-point"
-msgstr ""
+msgstr "Se procesează până la punctul de oprire"
 
 #. TRANSLATORS: Queued
 msgid "document-state-reasons.queued"
-msgstr ""
+msgstr "Pus la coadă"
 
 #. TRANSLATORS: Queued For Marker
 msgid "document-state-reasons.queued-for-marker"
-msgstr ""
+msgstr "Pus la coadă pentru marcare"
 
 #. TRANSLATORS: Queued In Device
 msgid "document-state-reasons.queued-in-device"
-msgstr ""
+msgstr "În coadă la dispozitiv"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "document-state-reasons.resources-are-not-ready"
-msgstr ""
+msgstr "Resursele nu sunt pregătite"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "document-state-reasons.resources-are-not-supported"
-msgstr ""
+msgstr "Resursele nu sunt acceptate"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "document-state-reasons.submission-interrupted"
-msgstr ""
+msgstr "Trimiterea a fost întreruptă"
 
 #. TRANSLATORS: Transforming
 msgid "document-state-reasons.transforming"
-msgstr ""
+msgstr "Se transformă"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "document-state-reasons.unsupported-compression"
-msgstr ""
+msgstr "Comprimare neacceptată"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "document-state-reasons.unsupported-document-format"
-msgstr ""
+msgstr "Format de document neacceptat"
 
 #. TRANSLATORS: Warnings Detected
 msgid "document-state-reasons.warnings-detected"
-msgstr ""
+msgstr "Avertismente detectate"
 
 #. TRANSLATORS: Pending
 msgid "document-state.3"
-msgstr ""
+msgstr "În așteptare"
 
 #. TRANSLATORS: Processing
 msgid "document-state.5"
-msgstr ""
+msgstr "Se procesează"
 
 #. TRANSLATORS: Stopped
 msgid "document-state.6"
-msgstr ""
+msgstr "Oprit"
 
 #. TRANSLATORS: Canceled
 msgid "document-state.7"
-msgstr ""
+msgstr "Anulat"
 
 #. TRANSLATORS: Aborted
 msgid "document-state.8"
-msgstr ""
+msgstr "Abandonat"
 
 #. TRANSLATORS: Completed
 msgid "document-state.9"
-msgstr ""
+msgstr "Finalizat"
 
 msgid "error-index uses indefinite length"
-msgstr ""
+msgstr "error-index utilizează o lungime nedeterminată"
 
 msgid "error-status uses indefinite length"
-msgstr ""
+msgstr "error-status utilizează o lungime nedeterminată"
 
 msgid ""
 "expression --and expression\n"
 "                        Logical AND"
 msgstr ""
+"expresie --and expresie\n"
+"                        ȘI logic"
 
 msgid ""
 "expression --or expression\n"
 "                        Logical OR"
 msgstr ""
+"expresie --or expresie\n"
+"                        SAU logic"
 
 msgid "expression expression   Logical AND"
-msgstr ""
+msgstr "expresie expresie       ȘI logic"
 
 #. TRANSLATORS: Feed Orientation
 msgid "feed-orientation"
-msgstr ""
+msgstr "Orientarea alimentării cu suportul de imprimat (în general hârtie)"
 
 #. TRANSLATORS: Long Edge First
 msgid "feed-orientation.long-edge-first"
-msgstr ""
+msgstr "Mai întâi marginea lungă"
 
 #. TRANSLATORS: Short Edge First
 msgid "feed-orientation.short-edge-first"
-msgstr ""
+msgstr "Mai întâi marginea scurtă"
 
 #. TRANSLATORS: Fetch Status Code
 msgid "fetch-status-code"
-msgstr ""
+msgstr "Obține codul de stare"
 
 #. TRANSLATORS: Finishing Template
 msgid "finishing-template"
-msgstr ""
+msgstr "Șablon de finisare"
 
 #. TRANSLATORS: Bale
 msgid "finishing-template.bale"
-msgstr ""
+msgstr "Balot"
 
 #. TRANSLATORS: Bind
 msgid "finishing-template.bind"
-msgstr ""
+msgstr "Legare"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishing-template.bind-bottom"
-msgstr ""
+msgstr "Legare pe marginea inferioară"
 
 #. TRANSLATORS: Bind Left
 msgid "finishing-template.bind-left"
-msgstr ""
+msgstr "Legare pe marginea din partea stângă"
 
 #. TRANSLATORS: Bind Right
 msgid "finishing-template.bind-right"
-msgstr ""
+msgstr "Legare pe marginea din partea dreaptă"
 
 #. TRANSLATORS: Bind Top
 msgid "finishing-template.bind-top"
-msgstr ""
+msgstr "Legare pe marginea superioară"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishing-template.booklet-maker"
-msgstr ""
+msgstr "Creator de broșuri"
 
 #. TRANSLATORS: Coat
 msgid "finishing-template.coat"
-msgstr ""
+msgstr "Învelitoare copertă"
 
 #. TRANSLATORS: Cover
 msgid "finishing-template.cover"
-msgstr ""
+msgstr "Copertă"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishing-template.edge-stitch"
-msgstr ""
+msgstr "Cusătură pe margine"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishing-template.edge-stitch-bottom"
-msgstr ""
+msgstr "Cusătură pe marginea inferioară"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishing-template.edge-stitch-left"
-msgstr ""
+msgstr "Cusătură pe marginea stângă"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishing-template.edge-stitch-right"
-msgstr ""
+msgstr "Cusătură pe marginea dreaptă"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishing-template.edge-stitch-top"
-msgstr ""
+msgstr "Cusătură pe marginea superioară"
 
 #. TRANSLATORS: Fold
 msgid "finishing-template.fold"
-msgstr ""
+msgstr "Pliere"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishing-template.fold-accordion"
-msgstr ""
+msgstr "Pliere tip acordeon"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishing-template.fold-double-gate"
-msgstr ""
+msgstr "Pliere dublă în formă de poartă"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishing-template.fold-engineering-z"
-msgstr ""
+msgstr "Pliere în Z, de tehnică"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishing-template.fold-gate"
-msgstr ""
+msgstr "Pliere tip poartă"
 
 #. TRANSLATORS: Half Fold
 msgid "finishing-template.fold-half"
-msgstr ""
+msgstr "Pliere pe jumătate"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishing-template.fold-half-z"
-msgstr ""
+msgstr "Pliere pe jumătate în Z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishing-template.fold-left-gate"
-msgstr ""
+msgstr "Pliere tip poartă în partea stângă"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishing-template.fold-letter"
-msgstr ""
+msgstr "Pliere ca scrisoare"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishing-template.fold-parallel"
-msgstr ""
+msgstr "Pliere paralelă"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishing-template.fold-poster"
-msgstr ""
+msgstr "Pliere poster"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishing-template.fold-right-gate"
-msgstr ""
+msgstr "Pliere tip poartă în partea dreaptă"
 
 #. TRANSLATORS: Z Fold
 msgid "finishing-template.fold-z"
-msgstr ""
+msgstr "Pliere în Z"
 
 #. TRANSLATORS: JDF F10-1
 msgid "finishing-template.jdf-f10-1"
-msgstr ""
+msgstr "JDF F10-1"
 
 #. TRANSLATORS: JDF F10-2
 msgid "finishing-template.jdf-f10-2"
-msgstr ""
+msgstr "JDF F10-2"
 
 #. TRANSLATORS: JDF F10-3
 msgid "finishing-template.jdf-f10-3"
-msgstr ""
+msgstr "JDF F10-3"
 
 #. TRANSLATORS: JDF F12-1
 msgid "finishing-template.jdf-f12-1"
-msgstr ""
+msgstr "JDF F12-1"
 
 #. TRANSLATORS: JDF F12-10
 msgid "finishing-template.jdf-f12-10"
-msgstr ""
+msgstr "JDF F12-10"
 
 #. TRANSLATORS: JDF F12-11
 msgid "finishing-template.jdf-f12-11"
-msgstr ""
+msgstr "JDF F12-11"
 
 #. TRANSLATORS: JDF F12-12
 msgid "finishing-template.jdf-f12-12"
-msgstr ""
+msgstr "JDF F12-12"
 
 #. TRANSLATORS: JDF F12-13
 msgid "finishing-template.jdf-f12-13"
-msgstr ""
+msgstr "JDF F12-13"
 
 #. TRANSLATORS: JDF F12-14
 msgid "finishing-template.jdf-f12-14"
-msgstr ""
+msgstr "JDF F12-14"
 
 #. TRANSLATORS: JDF F12-2
 msgid "finishing-template.jdf-f12-2"
-msgstr ""
+msgstr "JDF F12-2"
 
 #. TRANSLATORS: JDF F12-3
 msgid "finishing-template.jdf-f12-3"
-msgstr ""
+msgstr "JDF F12-3"
 
 #. TRANSLATORS: JDF F12-4
 msgid "finishing-template.jdf-f12-4"
-msgstr ""
+msgstr "JDF F12-4"
 
 #. TRANSLATORS: JDF F12-5
 msgid "finishing-template.jdf-f12-5"
-msgstr ""
+msgstr "JDF F12-5"
 
 #. TRANSLATORS: JDF F12-6
 msgid "finishing-template.jdf-f12-6"
-msgstr ""
+msgstr "JDF F12-6"
 
 #. TRANSLATORS: JDF F12-7
 msgid "finishing-template.jdf-f12-7"
-msgstr ""
+msgstr "JDF F12-7"
 
 #. TRANSLATORS: JDF F12-8
 msgid "finishing-template.jdf-f12-8"
-msgstr ""
+msgstr "JDF F12-8"
 
 #. TRANSLATORS: JDF F12-9
 msgid "finishing-template.jdf-f12-9"
-msgstr ""
+msgstr "JDF F12-9"
 
 #. TRANSLATORS: JDF F14-1
 msgid "finishing-template.jdf-f14-1"
-msgstr ""
+msgstr "JDF F14-1"
 
 #. TRANSLATORS: JDF F16-1
 msgid "finishing-template.jdf-f16-1"
-msgstr ""
+msgstr "JDF F16-1"
 
 #. TRANSLATORS: JDF F16-10
 msgid "finishing-template.jdf-f16-10"
-msgstr ""
+msgstr "JDF F16-10"
 
 #. TRANSLATORS: JDF F16-11
 msgid "finishing-template.jdf-f16-11"
-msgstr ""
+msgstr "JDF F16-11"
 
 #. TRANSLATORS: JDF F16-12
 msgid "finishing-template.jdf-f16-12"
-msgstr ""
+msgstr "JDF F16-12"
 
 #. TRANSLATORS: JDF F16-13
 msgid "finishing-template.jdf-f16-13"
-msgstr ""
+msgstr "JDF F16-13"
 
 #. TRANSLATORS: JDF F16-14
 msgid "finishing-template.jdf-f16-14"
-msgstr ""
+msgstr "JDF F16-14"
 
 #. TRANSLATORS: JDF F16-2
 msgid "finishing-template.jdf-f16-2"
-msgstr ""
+msgstr "JDF F16-2"
 
 #. TRANSLATORS: JDF F16-3
 msgid "finishing-template.jdf-f16-3"
-msgstr ""
+msgstr "JDF F16-3"
 
 #. TRANSLATORS: JDF F16-4
 msgid "finishing-template.jdf-f16-4"
-msgstr ""
+msgstr "JDF F16-4"
 
 #. TRANSLATORS: JDF F16-5
 msgid "finishing-template.jdf-f16-5"
-msgstr ""
+msgstr "JDF F16-5"
 
 #. TRANSLATORS: JDF F16-6
 msgid "finishing-template.jdf-f16-6"
-msgstr ""
+msgstr "JDF F16-6"
 
 #. TRANSLATORS: JDF F16-7
 msgid "finishing-template.jdf-f16-7"
-msgstr ""
+msgstr "JDF F16-7"
 
 #. TRANSLATORS: JDF F16-8
 msgid "finishing-template.jdf-f16-8"
-msgstr ""
+msgstr "JDF F16-8"
 
 #. TRANSLATORS: JDF F16-9
 msgid "finishing-template.jdf-f16-9"
-msgstr ""
+msgstr "JDF F16-9"
 
 #. TRANSLATORS: JDF F18-1
 msgid "finishing-template.jdf-f18-1"
-msgstr ""
+msgstr "JDF F18-1"
 
 #. TRANSLATORS: JDF F18-2
 msgid "finishing-template.jdf-f18-2"
-msgstr ""
+msgstr "JDF F18-2"
 
 #. TRANSLATORS: JDF F18-3
 msgid "finishing-template.jdf-f18-3"
-msgstr ""
+msgstr "JDF F18-3"
 
 #. TRANSLATORS: JDF F18-4
 msgid "finishing-template.jdf-f18-4"
-msgstr ""
+msgstr "JDF F18-4"
 
 #. TRANSLATORS: JDF F18-5
 msgid "finishing-template.jdf-f18-5"
-msgstr ""
+msgstr "JDF F18-5"
 
 #. TRANSLATORS: JDF F18-6
 msgid "finishing-template.jdf-f18-6"
-msgstr ""
+msgstr "JDF F18-6"
 
 #. TRANSLATORS: JDF F18-7
 msgid "finishing-template.jdf-f18-7"
-msgstr ""
+msgstr "JDF F18-7"
 
 #. TRANSLATORS: JDF F18-8
 msgid "finishing-template.jdf-f18-8"
-msgstr ""
+msgstr "JDF F18-8"
 
 #. TRANSLATORS: JDF F18-9
 msgid "finishing-template.jdf-f18-9"
-msgstr ""
+msgstr "JDF F18-9"
 
 #. TRANSLATORS: JDF F2-1
 msgid "finishing-template.jdf-f2-1"
-msgstr ""
+msgstr "JDF F2-1"
 
 #. TRANSLATORS: JDF F20-1
 msgid "finishing-template.jdf-f20-1"
-msgstr ""
+msgstr "JDF F20-1"
 
 #. TRANSLATORS: JDF F20-2
 msgid "finishing-template.jdf-f20-2"
-msgstr ""
+msgstr "JDF F20-2"
 
 #. TRANSLATORS: JDF F24-1
 msgid "finishing-template.jdf-f24-1"
-msgstr ""
+msgstr "JDF F24-1"
 
 #. TRANSLATORS: JDF F24-10
 msgid "finishing-template.jdf-f24-10"
-msgstr ""
+msgstr "JDF F24-10"
 
 #. TRANSLATORS: JDF F24-11
 msgid "finishing-template.jdf-f24-11"
-msgstr ""
+msgstr "JDF F24-11"
 
 #. TRANSLATORS: JDF F24-2
 msgid "finishing-template.jdf-f24-2"
-msgstr ""
+msgstr "JDF F24-2"
 
 #. TRANSLATORS: JDF F24-3
 msgid "finishing-template.jdf-f24-3"
-msgstr ""
+msgstr "JDF F24-3"
 
 #. TRANSLATORS: JDF F24-4
 msgid "finishing-template.jdf-f24-4"
-msgstr ""
+msgstr "JDF F24-4"
 
 #. TRANSLATORS: JDF F24-5
 msgid "finishing-template.jdf-f24-5"
-msgstr ""
+msgstr "JDF F24-5"
 
 #. TRANSLATORS: JDF F24-6
 msgid "finishing-template.jdf-f24-6"
-msgstr ""
+msgstr "JDF F24-6"
 
 #. TRANSLATORS: JDF F24-7
 msgid "finishing-template.jdf-f24-7"
-msgstr ""
+msgstr "JDF F24-7"
 
 #. TRANSLATORS: JDF F24-8
 msgid "finishing-template.jdf-f24-8"
-msgstr ""
+msgstr "JDF F24-8"
 
 #. TRANSLATORS: JDF F24-9
 msgid "finishing-template.jdf-f24-9"
-msgstr ""
+msgstr "JDF F24-9"
 
 #. TRANSLATORS: JDF F28-1
 msgid "finishing-template.jdf-f28-1"
-msgstr ""
+msgstr "JDF F28-1"
 
 #. TRANSLATORS: JDF F32-1
 msgid "finishing-template.jdf-f32-1"
-msgstr ""
+msgstr "JDF F32-1"
 
 #. TRANSLATORS: JDF F32-2
 msgid "finishing-template.jdf-f32-2"
-msgstr ""
+msgstr "JDF F32-2"
 
 #. TRANSLATORS: JDF F32-3
 msgid "finishing-template.jdf-f32-3"
-msgstr ""
+msgstr "JDF F32-3"
 
 #. TRANSLATORS: JDF F32-4
 msgid "finishing-template.jdf-f32-4"
-msgstr ""
+msgstr "JDF F32-4"
 
 #. TRANSLATORS: JDF F32-5
 msgid "finishing-template.jdf-f32-5"
-msgstr ""
+msgstr "JDF F32-5"
 
 #. TRANSLATORS: JDF F32-6
 msgid "finishing-template.jdf-f32-6"
-msgstr ""
+msgstr "JDF F32-6"
 
 #. TRANSLATORS: JDF F32-7
 msgid "finishing-template.jdf-f32-7"
-msgstr ""
+msgstr "JDF F32-7"
 
 #. TRANSLATORS: JDF F32-8
 msgid "finishing-template.jdf-f32-8"
-msgstr ""
+msgstr "JDF F32-8"
 
 #. TRANSLATORS: JDF F32-9
 msgid "finishing-template.jdf-f32-9"
-msgstr ""
+msgstr "JDF F32-9"
 
 #. TRANSLATORS: JDF F36-1
 msgid "finishing-template.jdf-f36-1"
-msgstr ""
+msgstr "JDF F36-1"
 
 #. TRANSLATORS: JDF F36-2
 msgid "finishing-template.jdf-f36-2"
-msgstr ""
+msgstr "JDF F36-2"
 
 #. TRANSLATORS: JDF F4-1
 msgid "finishing-template.jdf-f4-1"
-msgstr ""
+msgstr "JDF F4-1"
 
 #. TRANSLATORS: JDF F4-2
 msgid "finishing-template.jdf-f4-2"
-msgstr ""
+msgstr "JDF F4-2"
 
 #. TRANSLATORS: JDF F40-1
 msgid "finishing-template.jdf-f40-1"
-msgstr ""
+msgstr "JDF F40-1"
 
 #. TRANSLATORS: JDF F48-1
 msgid "finishing-template.jdf-f48-1"
-msgstr ""
+msgstr "JDF F48-1"
 
 #. TRANSLATORS: JDF F48-2
 msgid "finishing-template.jdf-f48-2"
-msgstr ""
+msgstr "JDF F48-2"
 
 #. TRANSLATORS: JDF F6-1
 msgid "finishing-template.jdf-f6-1"
-msgstr ""
+msgstr "JDF F6-1"
 
 #. TRANSLATORS: JDF F6-2
 msgid "finishing-template.jdf-f6-2"
-msgstr ""
+msgstr "JDF F6-2"
 
 #. TRANSLATORS: JDF F6-3
 msgid "finishing-template.jdf-f6-3"
-msgstr ""
+msgstr "JDF F6-3"
 
 #. TRANSLATORS: JDF F6-4
 msgid "finishing-template.jdf-f6-4"
-msgstr ""
+msgstr "JDF F6-4"
 
 #. TRANSLATORS: JDF F6-5
 msgid "finishing-template.jdf-f6-5"
-msgstr ""
+msgstr "JDF F6-5"
 
 #. TRANSLATORS: JDF F6-6
 msgid "finishing-template.jdf-f6-6"
-msgstr ""
+msgstr "JDF F6-5"
 
 #. TRANSLATORS: JDF F6-7
 msgid "finishing-template.jdf-f6-7"
-msgstr ""
+msgstr "JDF F6-7"
 
 #. TRANSLATORS: JDF F6-8
 msgid "finishing-template.jdf-f6-8"
-msgstr ""
+msgstr "JDF F6-8"
 
 #. TRANSLATORS: JDF F64-1
 msgid "finishing-template.jdf-f64-1"
-msgstr ""
+msgstr "JDF F64-1"
 
 #. TRANSLATORS: JDF F64-2
 msgid "finishing-template.jdf-f64-2"
-msgstr ""
+msgstr "JDF F64-1"
 
 #. TRANSLATORS: JDF F8-1
 msgid "finishing-template.jdf-f8-1"
-msgstr ""
+msgstr "JDF F8-1"
 
 #. TRANSLATORS: JDF F8-2
 msgid "finishing-template.jdf-f8-2"
