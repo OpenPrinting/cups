@@ -2772,16 +2772,16 @@ parse_variable(
   {
    /*
     * Unknown directive!  Output an error message and continue...
+    *
+    * Return value 1 is on purpose - we ignore unknown directives to log
+    * error, but do not stop the scheduler in case error in configuration
+    * is set to be fatal.
     */
 
-    if (!value)
-      cupsdLogMessage(CUPSD_LOG_ERROR, "Missing value for %s on line %d of %s.",
-		      line, linenum, filename);
-    else
-      cupsdLogMessage(CUPSD_LOG_ERROR, "Unknown directive %s on line %d of %s.",
-		      line, linenum, filename);
+    cupsdLogMessage(CUPSD_LOG_ERROR, "Unknown directive %s on line %d of %s.",
+		    line, linenum, filename);
 
-    return (0);
+    return (1);
   }
 
   switch (var->type)
