@@ -208,7 +208,7 @@
 0x04e8 0x344f whitelist
 
 # Samsung M337x 387x 407x Series works without quirks
-0x04e8 0x3460 whitelist
+0x04e8 0x3460 whitelist no-alt-set
 
 # Samsung ML-2160 Series (https://bugzilla.redhat.com/show_bug.cgi?id=873123)
 0x04e8 0x330f unidir
