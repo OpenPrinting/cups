@@ -695,8 +695,6 @@ close_device(usb_printer_t *printer)	/* I - Printer */
       * If we have changed the configuration from one valid configuration
       * to another, restore the old one
       */
-      if (printer->quirks & USB_QUIRK_NO_ALT_SET)
-        fprintf(stderr, "DEBUG: close_device - Skipping libusb_set_configuration\n");
 
       if (printer->origconf > 0 && printer->origconf != number2 && !(printer->quirks & USB_QUIRK_NO_ALT_SET))
       {
@@ -1606,9 +1604,6 @@ open_device(usb_printer_t *printer,	/* I - Printer */
   }
   number1 = confptr->bConfigurationValue;
 
-  if (printer->quirks & USB_QUIRK_NO_ALT_SET)
-    fprintf(stderr, "DEBUG: open_device - Skipping libusb_set_configuration\n");
-
   if (number1 != current && !(printer->quirks & USB_QUIRK_NO_ALT_SET))
   {
     fprintf(stderr, "DEBUG: Switching USB device configuration: %d -> %d\n",
@@ -1660,9 +1655,6 @@ open_device(usb_printer_t *printer,	/* I - Printer */
   * Set alternate setting, but only if there is more than one option.  Some
   * printers (e.g., Samsung) don't like usb_set_altinterface.
   */
-
-  if (printer->quirks & USB_QUIRK_NO_ALT_SET)
-    fprintf(stderr, "DEBUG: open_device - Skipping libusb_set_interface_alt_setting\n");
 
   if (confptr->interface[printer->iface].num_altsetting > 1 && !(printer->quirks & USB_QUIRK_NO_ALT_SET))
   {
