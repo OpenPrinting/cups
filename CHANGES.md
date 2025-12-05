@@ -2,6 +2,13 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
+Changes in CUPS v2.4.17 (YYYY-MM-DD)
+------------------------------------
+
+- The scheduler followed symbolic links when cleaning out its temporary
+  directory (Issue #1448)
+
+
 Changes in CUPS v2.4.16 (2025-12-04)
 ------------------------------------
 
