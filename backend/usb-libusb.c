@@ -97,7 +97,7 @@ typedef struct usb_globals_s		/* Global USB printer information */
 #define USB_QUIRK_VENDOR_CLASS	0x0020	/* Descriptor uses vendor-specific
 					   Class or SubClass */
 #define USB_QUIRK_DELAY_CLOSE	0x0040	/* Delay close */
-#define USB_QUIRK_NO_ALT_SET	0x0080	/* Some USB printers do not */
+#define USB_QUIRK_NO_ALT_SET	0x0080	/* Some USB printers do not
 					   like set_configuration and
 					   set_interface */
 #define USB_QUIRK_WHITELIST	0x0000	/* no quirks */
