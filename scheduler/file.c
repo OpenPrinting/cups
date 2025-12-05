@@ -30,6 +30,7 @@ cupsdCleanFiles(const char *path,	/* I - Directory to clean */
   cups_dir_t	*dir;			/* Directory */
   cups_dentry_t	*dent;			/* Directory entry */
   char		filename[1024];		/* Filename */
+  struct stat	fileinfo;		/* File link information */
   int		status;			/* Status from unlink/rmdir */
 
 
@@ -48,15 +49,19 @@ cupsdCleanFiles(const char *path,	/* I - Directory to clean */
       continue;
 
     snprintf(filename, sizeof(filename), "%s/%s", path, dent->filename);
+    if (lstat(filename, &fileinfo))
+      continue;
 
-    if (S_ISDIR(dent->fileinfo.st_mode))
+    if (S_ISDIR(fileinfo.st_mode))
     {
       cupsdCleanFiles(filename, pattern);
 
       status = rmdir(filename);
     }
     else
+    {
       status = cupsdUnlinkOrRemoveFile(filename);
+    }
 
     if (status)
       cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to remove \"%s\" - %s", filename,
