@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-12-03 21:42+0000\n"
+"PO-Revision-Date: 2025-12-11 19:00+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
 "Language: ro\n"
@@ -3607,7 +3607,7 @@ msgid "Credentials are OK/trusted."
 msgstr "Acreditările sunt Ok/de încredere."
 
 msgid "Credentials are expired."
-msgstr "Acreditările au expirat."
+msgstr "Acreditările sunt expirate."
 
 msgid "Credentials are invalid."
 msgstr "Acreditările nu sunt valide."
@@ -6853,7 +6853,7 @@ msgstr "Pliere tip poartă în partea stângă"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishing-template.fold-letter"
-msgstr "Pliere ca scrisoare"
+msgstr "Pliere în formă de scrisoare"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishing-template.fold-parallel"
@@ -7205,734 +7205,742 @@ msgstr "JDF F8-1"
 
 #. TRANSLATORS: JDF F8-2
 msgid "finishing-template.jdf-f8-2"
-msgstr ""
+msgstr "JDF F8-2"
 
 #. TRANSLATORS: JDF F8-3
 msgid "finishing-template.jdf-f8-3"
-msgstr ""
+msgstr "JDF F8-3"
 
 #. TRANSLATORS: JDF F8-4
 msgid "finishing-template.jdf-f8-4"
-msgstr ""
+msgstr "JDF F8-4"
 
 #. TRANSLATORS: JDF F8-5
 msgid "finishing-template.jdf-f8-5"
-msgstr ""
+msgstr "JDF F8-5"
 
 #. TRANSLATORS: JDF F8-6
 msgid "finishing-template.jdf-f8-6"
-msgstr ""
+msgstr "JDF F8-6"
 
 #. TRANSLATORS: JDF F8-7
 msgid "finishing-template.jdf-f8-7"
-msgstr ""
+msgstr "JDF F8-7"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishing-template.jog-offset"
-msgstr ""
+msgstr "Decalaj bandă"
 
 #. TRANSLATORS: Laminate
 msgid "finishing-template.laminate"
-msgstr ""
+msgstr "Laminat"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr ""
+msgstr "Poanson(perforator)"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishing-template.punch-bottom-left"
-msgstr ""
+msgstr "Perforare în partea stângă jos"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishing-template.punch-bottom-right"
-msgstr ""
+msgstr "Perforare în partea dreaptă jos"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishing-template.punch-dual-bottom"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea inferioară"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishing-template.punch-dual-left"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea stângă"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishing-template.punch-dual-right"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea dreaptă"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishing-template.punch-dual-top"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea superioară"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishing-template.punch-multiple-bottom"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea inferioară"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishing-template.punch-multiple-left"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea stângă"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishing-template.punch-multiple-right"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea dreaptă"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishing-template.punch-multiple-top"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea superioară"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishing-template.punch-quad-bottom"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea inferioară"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishing-template.punch-quad-left"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea stângă"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishing-template.punch-quad-right"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea dreaptă"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishing-template.punch-quad-top"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea superioară"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
-msgstr ""
+msgstr "Perforare în partea stângă, sus"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishing-template.punch-top-right"
-msgstr ""
+msgstr "Perforare în partea dreaptă, sus"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea inferioară"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishing-template.punch-triple-left"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea stângă"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishing-template.punch-triple-right"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea dreaptă"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishing-template.punch-triple-top"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea superioară"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishing-template.saddle-stitch"
-msgstr ""
+msgstr "Cusătură cu capsă"
 
 #. TRANSLATORS: Staple
 msgid "finishing-template.staple"
-msgstr ""
+msgstr "Capsă"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
-msgstr ""
+msgstr "Capsă în partea stângă jos"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishing-template.staple-bottom-right"
-msgstr ""
+msgstr "Capsă în partea dreaptă jos"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishing-template.staple-dual-bottom"
-msgstr ""
+msgstr "2 capse în partea inferioară"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishing-template.staple-dual-left"
-msgstr ""
+msgstr "2 capse în partea stângă"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishing-template.staple-dual-right"
-msgstr ""
+msgstr "2 capse în partea dreaptă"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishing-template.staple-dual-top"
-msgstr ""
+msgstr "2 capse în partea superioară"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishing-template.staple-top-left"
-msgstr ""
+msgstr "Capsă în partea stângă sus"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishing-template.staple-top-right"
-msgstr ""
+msgstr "Capsă în partea dreaptă sus"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishing-template.staple-triple-bottom"
-msgstr ""
+msgstr "3 capse în partea inferioară"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishing-template.staple-triple-left"
-msgstr ""
+msgstr "3 capse în partea stângă"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishing-template.staple-triple-right"
-msgstr ""
+msgstr "3 capse în partea dreaptă"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishing-template.staple-triple-top"
-msgstr ""
+msgstr "3 capse în partea superioară"
 
 #. TRANSLATORS: Trim
 msgid "finishing-template.trim"
-msgstr ""
+msgstr "Tundere"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-copies"
-msgstr ""
+msgstr "Tundere după fiecare serie de copii"
 
 #. TRANSLATORS: Trim After Every Document
 msgid "finishing-template.trim-after-documents"
-msgstr ""
+msgstr "Tundere după fiecare document"
 
 #. TRANSLATORS: Trim After Job
 msgid "finishing-template.trim-after-job"
-msgstr ""
+msgstr "Tundere după lucrare"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-pages"
-msgstr ""
+msgstr "Tundere după fiecare pagină"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-sets"
-msgstr ""
+msgstr "Tundere după fiecare set"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-sheets"
-msgstr ""
+msgstr "Tundere după fiecare foaie"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
-msgstr ""
+msgstr "Finisaje"
 
 #. TRANSLATORS: Finishings
 msgid "finishings-col"
-msgstr ""
+msgstr "Finisaje"
 
 #. TRANSLATORS: Fold
 msgid "finishings.10"
-msgstr ""
+msgstr "Pliere"
 
 #. TRANSLATORS: Z Fold
 msgid "finishings.100"
-msgstr ""
+msgstr "Pliere în Z"
 
 #. TRANSLATORS: Engineering Z Fold
 msgid "finishings.101"
-msgstr ""
+msgstr "Pliere în Z, de tehnică"
 
 #. TRANSLATORS: Trim
 msgid "finishings.11"
-msgstr ""
+msgstr "Tundere"
 
 #. TRANSLATORS: Bale
 msgid "finishings.12"
-msgstr ""
+msgstr "Balot"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishings.13"
-msgstr ""
+msgstr "Creator de broșuri"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishings.14"
-msgstr ""
+msgstr "Decalaj bandă"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
-msgstr ""
+msgstr "Învelitoare copertă"
 
 #. TRANSLATORS: Laminate
 msgid "finishings.16"
-msgstr ""
+msgstr "Laminat"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
-msgstr ""
+msgstr "Capsă în partea stângă sus"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishings.21"
-msgstr ""
+msgstr "Capsă în partea stângă jos"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishings.22"
-msgstr ""
+msgstr "Capsă în partea dreaptă sus"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr ""
+msgstr "Capsă în partea dreaptă jos"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr ""
+msgstr "Cusătură pe marginea stângă"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
-msgstr ""
+msgstr "Cusătură pe marginea superioară"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishings.26"
-msgstr ""
+msgstr "Cusătură pe marginea dreaptă"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishings.27"
-msgstr ""
+msgstr "Cusătură pe marginea inferioară"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishings.28"
-msgstr ""
+msgstr "2 capse în partea stângă"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishings.29"
-msgstr ""
+msgstr "2 capse în partea superioară"
 
 #. TRANSLATORS: None
 msgid "finishings.3"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishings.30"
-msgstr ""
+msgstr "2 capse în partea dreaptă"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishings.31"
-msgstr ""
+msgstr "2 capse în partea inferioară"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishings.32"
-msgstr ""
+msgstr "3 capse în partea stângă"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishings.33"
-msgstr ""
+msgstr "3 capse în partea superioară"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishings.34"
-msgstr ""
+msgstr "3 capse în partea dreaptă"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishings.35"
-msgstr ""
+msgstr "3 capse în partea inferioară"
 
 #. TRANSLATORS: Staple
 msgid "finishings.4"
-msgstr ""
+msgstr "Capsă"
 
 #. TRANSLATORS: Punch
 msgid "finishings.5"
-msgstr ""
+msgstr "Poanson(perforator)"
 
 #. TRANSLATORS: Bind Left
 msgid "finishings.50"
-msgstr ""
+msgstr "Legare pe marginea din partea stângă"
 
 #. TRANSLATORS: Bind Top
 msgid "finishings.51"
-msgstr ""
+msgstr "Legare pe marginea superioară"
 
 #. TRANSLATORS: Bind Right
 msgid "finishings.52"
-msgstr ""
+msgstr "Legare pe marginea din partea dreaptă"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishings.53"
-msgstr ""
+msgstr "Legare pe marginea inferioară"
 
 #. TRANSLATORS: Cover
 msgid "finishings.6"
-msgstr ""
+msgstr "Copertă"
 
 #. TRANSLATORS: Trim Pages
 msgid "finishings.60"
-msgstr ""
+msgstr "Tundere pagini"
 
 #. TRANSLATORS: Trim Documents
 msgid "finishings.61"
-msgstr ""
+msgstr "Tundere documente"
 
 #. TRANSLATORS: Trim Copies
 msgid "finishings.62"
-msgstr ""
+msgstr "Tundere copii"
 
 #. TRANSLATORS: Trim Job
 msgid "finishings.63"
-msgstr ""
+msgstr "Tundere lucrare"
 
 #. TRANSLATORS: Bind
 msgid "finishings.7"
-msgstr ""
+msgstr "Legare"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishings.70"
-msgstr ""
+msgstr "Perforare în partea stângă, sus"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishings.71"
-msgstr ""
+msgstr "Perforare în partea stângă jos"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishings.72"
-msgstr ""
+msgstr "Perforare în partea dreaptă, sus"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishings.73"
-msgstr ""
+msgstr "Perforare în partea dreaptă jos"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishings.74"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea stângă"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishings.75"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea superioară"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishings.76"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea dreaptă"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishings.77"
-msgstr ""
+msgstr "Perforare cu 2 găuri în partea inferioară"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishings.78"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea stângă"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishings.79"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea superioară"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishings.8"
-msgstr ""
+msgstr "Cusătură cu capsă"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishings.80"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea dreaptă"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishings.81"
-msgstr ""
+msgstr "Perforare cu 3 găuri în partea inferioară"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishings.82"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea stângă"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishings.83"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea superioară"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishings.84"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea dreaptă"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishings.85"
-msgstr ""
+msgstr "Perforare cu 4 găuri în partea inferioară"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishings.86"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea stângă"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishings.87"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea superioară"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishings.88"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea dreaptă"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishings.89"
-msgstr ""
+msgstr "Perforare cu multiple găuri în partea inferioară"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishings.9"
-msgstr ""
+msgstr "Cusătură pe margine"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishings.90"
-msgstr ""
+msgstr "Pliere tip acordeon"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishings.91"
-msgstr ""
+msgstr "Pliere dublă în formă de poartă"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishings.92"
-msgstr ""
+msgstr "Pliere tip poartă"
 
 #. TRANSLATORS: Half Fold
 msgid "finishings.93"
-msgstr ""
+msgstr "Pliere pe jumătate"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishings.94"
-msgstr ""
+msgstr "Pliere pe jumătate în Z"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishings.95"
-msgstr ""
+msgstr "Pliere tip poartă în partea stângă"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishings.96"
-msgstr ""
+msgstr "Pliere în formă de scrisoare"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishings.97"
-msgstr ""
+msgstr "Pliere paralelă"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishings.98"
-msgstr ""
+msgstr "Pliere poster"
 
 #. TRANSLATORS: Right Gate Fold
 msgid "finishings.99"
-msgstr ""
+msgstr "Pliere tip poartă în partea dreaptă"
 
 #. TRANSLATORS: Fold
 msgid "folding"
-msgstr ""
+msgstr "Pliere"
 
 #. TRANSLATORS: Fold Direction
 msgid "folding-direction"
-msgstr ""
+msgstr "Direcția de pliere"
 
 #. TRANSLATORS: Inward
 msgid "folding-direction.inward"
-msgstr ""
+msgstr "Spre interior"
 
 #. TRANSLATORS: Outward
 msgid "folding-direction.outward"
-msgstr ""
+msgstr "Spre exterior"
 
 #. TRANSLATORS: Fold Position
 msgid "folding-offset"
-msgstr ""
+msgstr "Poziția de pliere"
 
 #. TRANSLATORS: Fold Edge
 msgid "folding-reference-edge"
-msgstr ""
+msgstr "Marginea pliată"
 
 #. TRANSLATORS: Bottom
 msgid "folding-reference-edge.bottom"
-msgstr ""
+msgstr "Marginea inferioară"
 
 #. TRANSLATORS: Left
 msgid "folding-reference-edge.left"
-msgstr ""
+msgstr "Marginea din stânga"
 
 #. TRANSLATORS: Right
 msgid "folding-reference-edge.right"
-msgstr ""
+msgstr "Marginea din dreapta"
 
 #. TRANSLATORS: Top
 msgid "folding-reference-edge.top"
-msgstr ""
+msgstr "Marginea superioară"
 
 #. TRANSLATORS: Font Name
 msgid "font-name-requested"
-msgstr ""
+msgstr "Numele fontului"
 
 #. TRANSLATORS: Font Size
 msgid "font-size-requested"
-msgstr ""
+msgstr "Dimensiune font"
 
 #. TRANSLATORS: Force Front Side
 msgid "force-front-side"
-msgstr ""
+msgstr "Forțează partea frontală"
 
 #. TRANSLATORS: From Name
 msgid "from-name"
 msgstr ""
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
-msgstr ""
+msgstr "get-access-token [RESURSĂ]     obține jetonul de acces curent"
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
 msgstr ""
+"get-client-id                  obține ID-ul clientului pentru serverul de "
+"autorizare"
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
 msgstr ""
+"get-device-grant [RESURSĂ]     autorizează accesul prin intermediul unui "
+"dispozitiv"
 
 msgid ""
 "get-device-token [RESOURCE] DEVICE-CODE\n"
 "                               Wait for the device access token"
 msgstr ""
+"get-device-token [RESURSĂ] COD_DISPOZITIV\n"
+"                               așteaptă jetonul de acces al dispozitivului"
 
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
 msgstr ""
+"get-metadata [NUME]            obține metadate de la serverul de autorizare"
 
 msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
-msgstr ""
+msgstr "get-user-id [RESURSĂ] [NUME]   obține ID-ul utilizatorului autorizat"
 
 msgid "held"
-msgstr ""
+msgstr "reținută"
 
 msgid "help\t\tGet help on commands."
-msgstr ""
+msgstr "help\t\tObține ajutorul cu privire la comenzi."
 
 msgid "idle"
-msgstr ""
+msgstr "inactivă"
 
 #. TRANSLATORS: Imposition Template
 msgid "imposition-template"
-msgstr ""
+msgstr "Șablon de impunere"
 
 #. TRANSLATORS: None
 msgid "imposition-template.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Signature
 msgid "imposition-template.signature"
-msgstr ""
+msgstr "Semnătură"
 
 #. TRANSLATORS: Insert Page Number
 msgid "insert-after-page-number"
-msgstr ""
+msgstr "Inserează numărul paginii"
 
 #. TRANSLATORS: Insert Count
 msgid "insert-count"
-msgstr ""
+msgstr "Inserează bunărul"
 
 #. TRANSLATORS: Insert Sheet
 msgid "insert-sheet"
-msgstr ""
+msgstr "Inserează foaie"
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
-msgstr ""
+msgstr "ippfind: Expresie regulată greșită: %s"
 
 msgid "ippfind: Cannot use --and after --or."
-msgstr ""
+msgstr "ippfind: Nu se poate utiliza „--and” după „--or”."
 
 #, c-format
 msgid "ippfind: Expected key name after %s."
-msgstr ""
+msgstr "ippfind: Se aștepta numele cheii după %s."
 
 #, c-format
 msgid "ippfind: Expected port range after %s."
-msgstr ""
+msgstr "ippfind: Se aștepta intervalul de porturi după %s."
 
 #, c-format
 msgid "ippfind: Expected program after %s."
-msgstr ""
+msgstr "ippfind: Se aștepta programul după %s."
 
 #, c-format
 msgid "ippfind: Expected semi-colon after %s."
-msgstr ""
+msgstr "ippfind: Se aștepta punct ți virgulă (;)l după %s."
 
 msgid "ippfind: Missing close brace in substitution."
-msgstr ""
+msgstr "ippfind: Lipsește acolada de închidere în substituție."
 
 msgid "ippfind: Missing close parenthesis."
-msgstr ""
+msgstr "ippfind: Lipsește paranteza de închidere."
 
 msgid "ippfind: Missing expression before \"--and\"."
-msgstr ""
+msgstr "ippfind: Lipsește expresia de dinaintea de „--and”."
 
 msgid "ippfind: Missing expression before \"--or\"."
-msgstr ""
+msgstr "ippfind: Lipsește expresia de dinaintea de „--or”."
 
 #, c-format
 msgid "ippfind: Missing key name after %s."
-msgstr ""
+msgstr "ippfind: Lipsește numele cheii după %s."
 
 #, c-format
 msgid "ippfind: Missing name after %s."
-msgstr ""
+msgstr "ippfind: Lipsește numele după %s."
 
 msgid "ippfind: Missing open parenthesis."
-msgstr ""
+msgstr "ippfind: Lipsește paranteza de deschidere."
 
 #, c-format
 msgid "ippfind: Missing program after %s."
-msgstr ""
+msgstr "ippfind: Lipsește programul după %s."
 
 #, c-format
 msgid "ippfind: Missing regular expression after %s."
-msgstr ""
+msgstr "ippfind: Lipsește expresia regulată după %s."
 
 #, c-format
 msgid "ippfind: Missing semi-colon after %s."
-msgstr ""
+msgstr "ippfind: Lipsește punctul și virgula (;) după %s."
 
 msgid "ippfind: Out of memory."
-msgstr ""
+msgstr "ippfind: Memorie insuficientă."
 
 msgid "ippfind: Too many parenthesis."
-msgstr ""
+msgstr "ippfind: Prea multe paranteze."
 
 #, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
-msgstr ""
+msgstr "ippfind: Nu s-a putut executa „%s”: %s"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
-msgstr ""
+msgstr "ippfind: Variabilă necunoscută „{%s}”."
 
 msgid ""
 "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", "
 "and \"-X\"."
 msgstr ""
+"ipptool: „-i” și „-n” sunt incompatibile cu „--ippserver”, „-P” și „-X”."
 
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
-msgstr ""
+msgstr "ipptool: „-i” și „-n” sunt incompatibile cu „-P” și „-X”."
 
 #, c-format
 msgid "ipptool: Bad URI \"%s\"."
-msgstr ""
+msgstr "ipptool: URI incorect „%s”."
 
 msgid "ipptool: Invalid seconds for \"-i\"."
-msgstr ""
+msgstr "ipptool: Secunde nevalide pentru „-i”."
 
 msgid "ipptool: May only specify a single URI."
-msgstr ""
+msgstr "ipptool: Se poate specifica doar o singură adresă URI."
 
 msgid "ipptool: Missing count for \"-n\"."
-msgstr ""
+msgstr "ipptool: Lipsește numărul pentru „-n”."
 
 msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr ""
+msgstr "ipptool: Lipsește numele fișierului pentru „--ippserver”."
 
 msgid "ipptool: Missing filename for \"-f\"."
-msgstr ""
+msgstr "ipptool: Lipsește numele fișierului pentru „-f”."
 
 msgid "ipptool: Missing name=value for \"-d\"."
-msgstr ""
+msgstr "ipptool: Lipsește perechea nume=valoare pentru „-d”."
 
 msgid "ipptool: Missing seconds for \"-i\"."
-msgstr ""
+msgstr "ipptool: Lipsește numărul de secunde pentru „-i”."
 
 msgid "ipptool: URI required before test file."
-msgstr ""
+msgstr "ipptool: Se necesită un URI înainte de fișierul de testare."
 
 #, c-format
 msgid "ipptool: Unable to allocate memory: %s"
-msgstr ""
+msgstr "ipptool: Nu s-a putut aloca memorie: %s"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
-msgstr ""
+msgstr "ID-ul contului de lucrare"
 
 #. TRANSLATORS: Job Account Type
 msgid "job-account-type"
-msgstr ""
+msgstr "Tipul contului de lucrare"
 
 #. TRANSLATORS: General
 msgid "job-account-type.general"
-msgstr ""
+msgstr "General"
 
 #. TRANSLATORS: Group
 msgid "job-account-type.group"
-msgstr ""
+msgstr "Grup"
 
 #. TRANSLATORS: None
 msgid "job-account-type.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Job Accounting Output Bin
 msgid "job-accounting-output-bin"
@@ -7948,11 +7956,11 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "job-accounting-sheets-type.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Standard
 msgid "job-accounting-sheets-type.standard"
-msgstr ""
+msgstr "Standard"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
@@ -7964,218 +7972,218 @@ msgstr ""
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
-msgstr ""
+msgstr "Copii"
 
 #. TRANSLATORS: Back Cover
 msgid "job-cover-back"
-msgstr ""
+msgstr "Coperta din spate"
 
 #. TRANSLATORS: Front Cover
 msgid "job-cover-front"
-msgstr ""
+msgstr "Coperta frontală"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until"
-msgstr ""
+msgstr "Ieșire întârziată până la"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until-time"
-msgstr ""
+msgstr "Ieșire întârziată până la"
 
 #. TRANSLATORS: Daytime
 msgid "job-delay-output-until.day-time"
-msgstr ""
+msgstr "Ziua"
 
 #. TRANSLATORS: Evening
 msgid "job-delay-output-until.evening"
-msgstr ""
+msgstr "Seara"
 
 #. TRANSLATORS: Released
 msgid "job-delay-output-until.indefinite"
-msgstr ""
+msgstr "Publicare"
 
 #. TRANSLATORS: Night
 msgid "job-delay-output-until.night"
-msgstr ""
+msgstr "Noaptea"
 
 #. TRANSLATORS: No Delay
 msgid "job-delay-output-until.no-delay-output"
-msgstr ""
+msgstr "Fără întârziere"
 
 #. TRANSLATORS: Second Shift
 msgid "job-delay-output-until.second-shift"
-msgstr ""
+msgstr "Schimbul al doilea"
 
 #. TRANSLATORS: Third Shift
 msgid "job-delay-output-until.third-shift"
-msgstr ""
+msgstr "Schimbul al treilea"
 
 #. TRANSLATORS: Weekend
 msgid "job-delay-output-until.weekend"
-msgstr ""
+msgstr "Weekend"
 
 #. TRANSLATORS: On Error
 msgid "job-error-action"
-msgstr ""
+msgstr "În caz de eroare"
 
 #. TRANSLATORS: Abort Job
 msgid "job-error-action.abort-job"
-msgstr ""
+msgstr "Anulează lucrarea"
 
 #. TRANSLATORS: Cancel Job
 msgid "job-error-action.cancel-job"
-msgstr ""
+msgstr "Abandonează lucrarea"
 
 #. TRANSLATORS: Continue Job
 msgid "job-error-action.continue-job"
-msgstr ""
+msgstr "Continuă lucrarea"
 
 #. TRANSLATORS: Suspend Job
 msgid "job-error-action.suspend-job"
-msgstr ""
+msgstr "Suspendă lucrarea"
 
 #. TRANSLATORS: Print Error Sheet
 msgid "job-error-sheet"
-msgstr ""
+msgstr "Imprimare foaie de erori"
 
 #. TRANSLATORS: Type of Error Sheet
 msgid "job-error-sheet-type"
-msgstr ""
+msgstr "Tipul foii de erori"
 
 #. TRANSLATORS: None
 msgid "job-error-sheet-type.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Standard
 msgid "job-error-sheet-type.standard"
-msgstr ""
+msgstr "Standard"
 
 #. TRANSLATORS: Print Error Sheet
 msgid "job-error-sheet-when"
-msgstr ""
+msgstr "Imprimare foaie de erori"
 
 #. TRANSLATORS: Always
 msgid "job-error-sheet-when.always"
-msgstr ""
+msgstr "Întotdeauna"
 
 #. TRANSLATORS: On Error
 msgid "job-error-sheet-when.on-error"
-msgstr ""
+msgstr "În caz de eroare"
 
 #. TRANSLATORS: Job Finishings
 msgid "job-finishings"
-msgstr ""
+msgstr "Finisaje pentru lucrare"
 
 #. TRANSLATORS: Hold Until
 msgid "job-hold-until"
-msgstr ""
+msgstr "Reține până la"
 
 #. TRANSLATORS: Hold Until
 msgid "job-hold-until-time"
-msgstr ""
+msgstr "Reține până la"
 
 #. TRANSLATORS: Daytime
 msgid "job-hold-until.day-time"
-msgstr ""
+msgstr "Ziua"
 
 #. TRANSLATORS: Evening
 msgid "job-hold-until.evening"
-msgstr ""
+msgstr "Seara"
 
 #. TRANSLATORS: Released
 msgid "job-hold-until.indefinite"
-msgstr ""
+msgstr "Publicare"
 
 #. TRANSLATORS: Night
 msgid "job-hold-until.night"
-msgstr ""
+msgstr "Noaptea"
 
 #. TRANSLATORS: No Hold
 msgid "job-hold-until.no-hold"
-msgstr ""
+msgstr "Fără reținere"
 
 #. TRANSLATORS: Second Shift
 msgid "job-hold-until.second-shift"
-msgstr ""
+msgstr "Schimbul al doilea"
 
 #. TRANSLATORS: Third Shift
 msgid "job-hold-until.third-shift"
-msgstr ""
+msgstr "Schimbul al treilea"
 
 #. TRANSLATORS: Weekend
 msgid "job-hold-until.weekend"
-msgstr ""
+msgstr "Weekend"
 
 #. TRANSLATORS: Job Mandatory Attributes
 msgid "job-mandatory-attributes"
-msgstr ""
+msgstr "Atribute obligatorii ale lucrării"
 
 #. TRANSLATORS: Title
 msgid "job-name"
-msgstr ""
+msgstr "Titlu"
 
 #. TRANSLATORS: Job Pages
 msgid "job-pages"
-msgstr ""
+msgstr "Paginile lucrării"
 
 #. TRANSLATORS: Job Pages
 msgid "job-pages-col"
-msgstr ""
+msgstr "Paginile lucrării"
 
 #. TRANSLATORS: Job Phone Number
 msgid "job-phone-number"
-msgstr ""
+msgstr "Număr de telefon pentru lucrare"
 
 msgid "job-printer-uri attribute missing."
-msgstr ""
+msgstr "Lipsește atributul job-printer-uri."
 
 #. TRANSLATORS: Job Priority
 msgid "job-priority"
-msgstr ""
+msgstr "Prioritatea lucrării"
 
 #. TRANSLATORS: Job Privacy Attributes
 msgid "job-privacy-attributes"
-msgstr ""
+msgstr "Atributele de confidențialitate ale lucrării"
 
 #. TRANSLATORS: All
 msgid "job-privacy-attributes.all"
-msgstr ""
+msgstr "Toate"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-attributes.default"
-msgstr ""
+msgstr "Implicite"
 
 #. TRANSLATORS: Job Description
 msgid "job-privacy-attributes.job-description"
-msgstr ""
+msgstr "Descrierea lucrării"
 
 #. TRANSLATORS: Job Template
 msgid "job-privacy-attributes.job-template"
-msgstr ""
+msgstr "Șablon lucrare"
 
 #. TRANSLATORS: None
 msgid "job-privacy-attributes.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Job Privacy Scope
 msgid "job-privacy-scope"
-msgstr ""
+msgstr "Domeniul de aplicare al confidențialității lucrării"
 
 #. TRANSLATORS: All
 msgid "job-privacy-scope.all"
-msgstr ""
+msgstr "Toate"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-scope.default"
-msgstr ""
+msgstr "Implicit"
 
 #. TRANSLATORS: None
 msgid "job-privacy-scope.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Owner
 msgid "job-privacy-scope.owner"
-msgstr ""
+msgstr "Proprietar"
 
 #. TRANSLATORS: Job Recipient Name
 msgid "job-recipient-name"
@@ -8367,7 +8375,7 @@ msgstr ""
 
 #. TRANSLATORS: Insufficient data
 msgid "job-state-reasons.job-data-insufficient"
-msgstr ""
+msgstr "Date insuficiente"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
@@ -8551,39 +8559,39 @@ msgstr ""
 
 #. TRANSLATORS: Pending
 msgid "job-state.3"
-msgstr ""
+msgstr "În așteptare"
 
 #. TRANSLATORS: Held
 msgid "job-state.4"
-msgstr ""
+msgstr "Reținută"
 
 #. TRANSLATORS: Processing
 msgid "job-state.5"
-msgstr ""
+msgstr "Se procesează"
 
 #. TRANSLATORS: Stopped
 msgid "job-state.6"
-msgstr ""
+msgstr "Oprită"
 
 #. TRANSLATORS: Canceled
 msgid "job-state.7"
-msgstr ""
+msgstr "Anulată"
 
 #. TRANSLATORS: Aborted
 msgid "job-state.8"
-msgstr ""
+msgstr "Abandonată"
 
 #. TRANSLATORS: Completed
 msgid "job-state.9"
-msgstr ""
+msgstr "Finalizată"
 
 #. TRANSLATORS: Laminate Pages
 msgid "laminating"
-msgstr ""
+msgstr "Pagini laminate"
 
 #. TRANSLATORS: Laminate
 msgid "laminating-sides"
-msgstr ""
+msgstr "Laminat"
 
 #. TRANSLATORS: Back Only
 msgid "laminating-sides.back"
@@ -8599,151 +8607,165 @@ msgstr ""
 
 #. TRANSLATORS: Type of Lamination
 msgid "laminating-type"
-msgstr ""
+msgstr "Tipul de laminare"
 
 #. TRANSLATORS: Archival
 msgid "laminating-type.archival"
-msgstr ""
+msgstr "Arhivare"
 
 #. TRANSLATORS: Glossy
 msgid "laminating-type.glossy"
-msgstr ""
+msgstr "Lucioasă"
 
 #. TRANSLATORS: High Gloss
 msgid "laminating-type.high-gloss"
-msgstr ""
+msgstr "Super-lucioasă"
 
 #. TRANSLATORS: Matte
 msgid "laminating-type.matte"
-msgstr ""
+msgstr "Mată"
 
 #. TRANSLATORS: Semi-gloss
 msgid "laminating-type.semi-gloss"
-msgstr ""
+msgstr "Semi-lucioasă"
 
 #. TRANSLATORS: Translucent
 msgid "laminating-type.translucent"
-msgstr ""
+msgstr "Translucidă"
 
 #. TRANSLATORS: Logo
 msgid "logo"
 msgstr "logo"
 
 msgid "lpadmin: Class name can only contain printable characters."
-msgstr ""
+msgstr "lpadmin: Numele clasei poate conține numai caractere imprimabile."
 
 #, c-format
 msgid "lpadmin: Expected PPD after \"-%c\" option."
-msgstr ""
+msgstr "lpadmin: Se așteaptă PPD după opțiunea „-%c”."
 
 msgid "lpadmin: Expected allow/deny:userlist after \"-u\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta allow/deny:userlist după opțiunea „-u”."
 
 msgid "lpadmin: Expected class after \"-r\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta clasa după opțiunea „-r”."
 
 msgid "lpadmin: Expected class name after \"-c\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta numele clasei după opțiunea „-c”."
 
 msgid "lpadmin: Expected description after \"-D\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta descrierea după opțiunea „-D”."
 
 msgid "lpadmin: Expected device URI after \"-v\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta URI-ul dispozitivului după opțiunea „-v”."
 
 msgid "lpadmin: Expected file type(s) after \"-I\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta(u) tipul (tipurile) de fișier după opțiunea „-I”."
 
 msgid "lpadmin: Expected hostname after \"-h\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta numele gazdei după opțiunea „-h”."
 
 msgid "lpadmin: Expected location after \"-L\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta locația după opțiunea „-L”."
 
 msgid "lpadmin: Expected model after \"-m\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta modelul după opțiunea „-m”."
 
 msgid "lpadmin: Expected name after \"-R\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta un nume după opțiunea „-R”."
 
 msgid "lpadmin: Expected name=value after \"-o\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta perechea nume=valoare după opțiunea „-o”."
 
 msgid "lpadmin: Expected printer after \"-p\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta imprimanta după opțiunea „-p”."
 
 msgid "lpadmin: Expected printer name after \"-d\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta numele imprimantei după opțiunea „-d”."
 
 msgid "lpadmin: Expected printer or class after \"-x\" option."
-msgstr ""
+msgstr "lpadmin: Se aștepta imprimanta sau clasa după opțiunea „-x”."
 
 msgid "lpadmin: No member names were seen."
-msgstr ""
+msgstr "lpadmin: Nu s-au găsit nume de membri."
 
 #, c-format
 msgid "lpadmin: Printer %s is already a member of class %s."
-msgstr ""
+msgstr "lpadmin: Imprimanta %s este deja membră a clasei %s."
 
 #, c-format
 msgid "lpadmin: Printer %s is not a member of class %s."
-msgstr ""
+msgstr "lpadmin: Imprimanta %s nu este membră a clasei %s."
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
 "version of CUPS."
 msgstr ""
+"lpadmin: Controlorii de imprimantă sunt învechiți și nu vor mai funcționa "
+"într-o versiune viitoare a CUPS."
 
 msgid "lpadmin: Printer name can only contain printable characters."
-msgstr ""
+msgstr "lpadmin: Numele imprimantei poate conține numai caractere imprimabile."
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
 "of CUPS."
 msgstr ""
+"lpadmin: Cozile brute sunt învechite și nu vor mai funcționa într-o versiune "
+"viitoare a CUPS."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
-msgstr ""
+msgstr "lpadmin: Cozile brute nu mai sunt acceptate pe macOS."
 
 msgid ""
 "lpadmin: System V interface scripts are no longer supported for security "
 "reasons."
 msgstr ""
+"lpadmin: Scripturile de interfață System V nu mai sunt acceptate din motive "
+"de securitate."
 
 msgid ""
 "lpadmin: Unable to add a printer to the class:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Imposibil de adăugat o imprimantă la clasă:\n"
+"         Trebuie să specificați mai întâi numele imprimantei."
 
 #, c-format
 msgid "lpadmin: Unable to connect to server: %s"
-msgstr ""
+msgstr "lpadmin: Nu s-a putut conecta la server: %s"
 
 msgid "lpadmin: Unable to create temporary file"
-msgstr ""
+msgstr "lpadmin: Nu s-a putut crea fișierul temporar"
 
 msgid ""
 "lpadmin: Unable to delete option:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Nu s-a putut șterge opțiunea:\n"
+"         Trebuie să specificați mai întâi numele imprimantei."
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s"
-msgstr ""
+msgstr "lpadmin: Nu s-a putut deschide PPD „%s”: %s"
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s on line %d."
-msgstr ""
+msgstr "lpadmin: Nu s-a putut deschide PPD „%s”: %s pe linia %d."
 
 msgid ""
 "lpadmin: Unable to remove a printer from the class:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Imposibil de eliminat o imprimantă din clasă:\n"
+"         Trebuie să specificați mai întâi numele imprimantei."
 
 msgid ""
 "lpadmin: Unable to set the printer options:\n"
 "         You must specify a printer name first."
 msgstr ""
+"lpadmin: Nu s-au putut configura opțiunile imprimantei:\n"
+"         Trebuie să specificați mai întâi numele imprimantei."
 
 #, c-format
 msgid "lpadmin: Unknown allow/deny option \"%s\"."
@@ -8763,7 +8785,7 @@ msgstr ""
 "partajate."
 
 msgid "lpadmin: Warning - content type list ignored."
-msgstr "lpadmin: Avertisment - lista de tipuri de conținut ignorată."
+msgstr "lpadmin: Avertisment - lista de tipuri de conținut este ignorată."
 
 msgid "lpc> "
 msgstr "lpc> "
@@ -8824,207 +8846,207 @@ msgstr ""
 
 #. TRANSLATORS: Amount of Material
 msgid "material-amount"
-msgstr ""
+msgstr "Cantitatea de material"
 
 #. TRANSLATORS: Amount Units
 msgid "material-amount-units"
-msgstr ""
+msgstr "Unități"
 
 #. TRANSLATORS: Grams
 msgid "material-amount-units.g"
-msgstr ""
+msgstr "Grame"
 
 #. TRANSLATORS: Kilograms
 msgid "material-amount-units.kg"
-msgstr ""
+msgstr "Kilograme"
 
 #. TRANSLATORS: Liters
 msgid "material-amount-units.l"
-msgstr ""
+msgstr "Litri"
 
 #. TRANSLATORS: Meters
 msgid "material-amount-units.m"
-msgstr ""
+msgstr "Metri"
 
 #. TRANSLATORS: Milliliters
 msgid "material-amount-units.ml"
-msgstr ""
+msgstr "Mililitri"
 
 #. TRANSLATORS: Millimeters
 msgid "material-amount-units.mm"
-msgstr ""
+msgstr "Milimetri"
 
 #. TRANSLATORS: Material Color
 msgid "material-color"
-msgstr ""
+msgstr "Culoarea materialului"
 
 #. TRANSLATORS: Material Diameter
 msgid "material-diameter"
-msgstr ""
+msgstr "Diametrul materialului"
 
 #. TRANSLATORS: Material Diameter Tolerance
 msgid "material-diameter-tolerance"
-msgstr ""
+msgstr "Toleranța diametrului materialului"
 
 #. TRANSLATORS: Material Fill Density
 msgid "material-fill-density"
-msgstr ""
+msgstr "Densitatea de umplere a materialului"
 
 #. TRANSLATORS: Material Name
 msgid "material-name"
-msgstr ""
+msgstr "Numele materialului"
 
 #. TRANSLATORS: Material Nozzle Diameter
 msgid "material-nozzle-diameter"
-msgstr ""
+msgstr "Diametrul duzei de material"
 
 #. TRANSLATORS: Use Material For
 msgid "material-purpose"
-msgstr ""
+msgstr "Utilizează materialul pentru"
 
 #. TRANSLATORS: Everything
 msgid "material-purpose.all"
-msgstr ""
+msgstr "Tot"
 
 #. TRANSLATORS: Base
 msgid "material-purpose.base"
-msgstr ""
+msgstr "Bază"
 
 #. TRANSLATORS: In-fill
 msgid "material-purpose.in-fill"
-msgstr ""
+msgstr "Umplutură"
 
 #. TRANSLATORS: Shell
 msgid "material-purpose.shell"
-msgstr ""
+msgstr "Suprafață"
 
 #. TRANSLATORS: Supports
 msgid "material-purpose.support"
-msgstr ""
+msgstr "Suporturi"
 
 #. TRANSLATORS: Feed Rate
 msgid "material-rate"
-msgstr ""
+msgstr "Viteza de alimentare"
 
 #. TRANSLATORS: Feed Rate Units
 msgid "material-rate-units"
-msgstr ""
+msgstr "Unitățile vitezei de alimentare"
 
 #. TRANSLATORS: Milligrams per second
 msgid "material-rate-units.mg_second"
-msgstr ""
+msgstr "Miligrame pe secundă"
 
 #. TRANSLATORS: Milliliters per second
 msgid "material-rate-units.ml_second"
-msgstr ""
+msgstr "Mililitri pe secundă"
 
 #. TRANSLATORS: Millimeters per second
 msgid "material-rate-units.mm_second"
-msgstr ""
+msgstr "Milimetri pe secundă"
 
 #. TRANSLATORS: Material Retraction
 msgid "material-retraction"
-msgstr ""
+msgstr "Retragerea materialului"
 
 #. TRANSLATORS: Material Shell Thickness
 msgid "material-shell-thickness"
-msgstr ""
+msgstr "Grosimea materialului carcasei"
 
 #. TRANSLATORS: Material Temperature
 msgid "material-temperature"
-msgstr ""
+msgstr "Temperatura materialului"
 
 #. TRANSLATORS: Material Type
 msgid "material-type"
-msgstr ""
+msgstr "Tipul de material"
 
 #. TRANSLATORS: ABS
 msgid "material-type.abs"
-msgstr ""
+msgstr "ABS"
 
 #. TRANSLATORS: Carbon Fiber ABS
 msgid "material-type.abs-carbon-fiber"
-msgstr ""
+msgstr "Fibră de carbon ABS"
 
 #. TRANSLATORS: Carbon Nanotube ABS
 msgid "material-type.abs-carbon-nanotube"
-msgstr ""
+msgstr "ABS cu nanotuburi de carbon"
 
 #. TRANSLATORS: Chocolate
 msgid "material-type.chocolate"
-msgstr ""
+msgstr "Ciocolată"
 
 #. TRANSLATORS: Gold
 msgid "material-type.gold"
-msgstr ""
+msgstr "Aur"
 
 #. TRANSLATORS: Nylon
 msgid "material-type.nylon"
-msgstr ""
+msgstr "Nailon"
 
 #. TRANSLATORS: Pet
 msgid "material-type.pet"
-msgstr ""
+msgstr "PET"
 
 #. TRANSLATORS: Photopolymer
 msgid "material-type.photopolymer"
-msgstr ""
+msgstr "Fotopolimer"
 
 #. TRANSLATORS: PLA
 msgid "material-type.pla"
-msgstr ""
+msgstr "PLA"
 
 #. TRANSLATORS: Conductive PLA
 msgid "material-type.pla-conductive"
-msgstr ""
+msgstr "PLA conductiv"
 
 #. TRANSLATORS: Pla Dissolvable
 msgid "material-type.pla-dissolvable"
-msgstr ""
+msgstr "PLA dizolvabil"
 
 #. TRANSLATORS: Flexible PLA
 msgid "material-type.pla-flexible"
-msgstr ""
+msgstr "PLA flexibil"
 
 #. TRANSLATORS: Magnetic PLA
 msgid "material-type.pla-magnetic"
-msgstr ""
+msgstr "PLA magnetic"
 
 #. TRANSLATORS: Steel PLA
 msgid "material-type.pla-steel"
-msgstr ""
+msgstr "PLA aparență de oțel"
 
 #. TRANSLATORS: Stone PLA
 msgid "material-type.pla-stone"
-msgstr ""
+msgstr "PLA aparență de piatră"
 
 #. TRANSLATORS: Wood PLA
 msgid "material-type.pla-wood"
-msgstr ""
+msgstr "PLA aparență de lemn"
 
 #. TRANSLATORS: Polycarbonate
 msgid "material-type.polycarbonate"
-msgstr ""
+msgstr "Policarbonat"
 
 #. TRANSLATORS: Dissolvable PVA
 msgid "material-type.pva-dissolvable"
-msgstr ""
+msgstr "PVA dizolvabil"
 
 #. TRANSLATORS: Silver
 msgid "material-type.silver"
-msgstr ""
+msgstr "Argint"
 
 #. TRANSLATORS: Titanium
 msgid "material-type.titanium"
-msgstr ""
+msgstr "Titan"
 
 #. TRANSLATORS: Wax
 msgid "material-type.wax"
-msgstr ""
+msgstr "Ceară"
 
 #. TRANSLATORS: Materials
 msgid "materials-col"
-msgstr ""
+msgstr "Materiale"
 
 #. TRANSLATORS: Media
 msgid "media"
@@ -9032,1255 +9054,1255 @@ msgstr "media"
 
 #. TRANSLATORS: Back Coating of Media
 msgid "media-back-coating"
-msgstr ""
+msgstr "Acoperirea spatelui suportului"
 
 #. TRANSLATORS: Glossy
 msgid "media-back-coating.glossy"
-msgstr ""
+msgstr "Lucioasă"
 
 #. TRANSLATORS: High Gloss
 msgid "media-back-coating.high-gloss"
-msgstr ""
+msgstr "Super-lucioasă"
 
 #. TRANSLATORS: Matte
 msgid "media-back-coating.matte"
-msgstr ""
+msgstr "Mată"
 
 #. TRANSLATORS: None
 msgid "media-back-coating.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Satin
 msgid "media-back-coating.satin"
-msgstr ""
+msgstr "Satinată"
 
 #. TRANSLATORS: Semi-gloss
 msgid "media-back-coating.semi-gloss"
-msgstr ""
+msgstr "Semi-lucioasă"
 
 #. TRANSLATORS: Media Bottom Margin
 msgid "media-bottom-margin"
-msgstr ""
+msgstr "Marginea inferioară a suportului"
 
 #. TRANSLATORS: Media
 msgid "media-col"
-msgstr ""
+msgstr "Suportul"
 
 #. TRANSLATORS: Media Color
 msgid "media-color"
-msgstr ""
+msgstr "Culoarea suportului"
 
 #. TRANSLATORS: Black
 msgid "media-color.black"
-msgstr ""
+msgstr "negru"
 
 #. TRANSLATORS: Blue
 msgid "media-color.blue"
-msgstr ""
+msgstr "albastru"
 
 #. TRANSLATORS: Brown
 msgid "media-color.brown"
-msgstr ""
+msgstr "maron"
 
 #. TRANSLATORS: Buff
 msgid "media-color.buff"
-msgstr ""
+msgstr "bubalin (ocru deschis)"
 
 #. TRANSLATORS: Clear Black
 msgid "media-color.clear-black"
-msgstr ""
+msgstr "negru transparent"
 
 #. TRANSLATORS: Clear Blue
 msgid "media-color.clear-blue"
-msgstr ""
+msgstr "albastru transparent"
 
 #. TRANSLATORS: Clear Brown
 msgid "media-color.clear-brown"
-msgstr ""
+msgstr "maron transparent"
 
 #. TRANSLATORS: Clear Buff
 msgid "media-color.clear-buff"
-msgstr ""
+msgstr "bubalin transparent"
 
 #. TRANSLATORS: Clear Cyan
 msgid "media-color.clear-cyan"
-msgstr ""
+msgstr "cian transparent"
 
 #. TRANSLATORS: Clear Gold
 msgid "media-color.clear-gold"
-msgstr ""
+msgstr "auriu transparent"
 
 #. TRANSLATORS: Clear Goldenrod
 msgid "media-color.clear-goldenrod"
-msgstr ""
+msgstr "solidago(vargă de aur) transparent"
 
 #. TRANSLATORS: Clear Gray
 msgid "media-color.clear-gray"
-msgstr ""
+msgstr "gri transparent"
 
 #. TRANSLATORS: Clear Green
 msgid "media-color.clear-green"
-msgstr ""
+msgstr "verde transparent"
 
 #. TRANSLATORS: Clear Ivory
 msgid "media-color.clear-ivory"
-msgstr ""
+msgstr "fildeș transparent"
 
 #. TRANSLATORS: Clear Magenta
 msgid "media-color.clear-magenta"
-msgstr ""
+msgstr "magenta transparent"
 
 #. TRANSLATORS: Clear Multi Color
 msgid "media-color.clear-multi-color"
-msgstr ""
+msgstr "multicolor transparent"
 
 #. TRANSLATORS: Clear Mustard
 msgid "media-color.clear-mustard"
-msgstr ""
+msgstr "muștar transparent"
 
 #. TRANSLATORS: Clear Orange
 msgid "media-color.clear-orange"
-msgstr ""
+msgstr "portocaliu transparent"
 
 #. TRANSLATORS: Clear Pink
 msgid "media-color.clear-pink"
-msgstr ""
+msgstr "roz transparent"
 
 #. TRANSLATORS: Clear Red
 msgid "media-color.clear-red"
-msgstr ""
+msgstr "roșu transparent"
 
 #. TRANSLATORS: Clear Silver
 msgid "media-color.clear-silver"
-msgstr ""
+msgstr "argintiu transparent"
 
 #. TRANSLATORS: Clear Turquoise
 msgid "media-color.clear-turquoise"
-msgstr ""
+msgstr "turcoaz transparent"
 
 #. TRANSLATORS: Clear Violet
 msgid "media-color.clear-violet"
-msgstr ""
+msgstr "violet transparent"
 
 #. TRANSLATORS: Clear White
 msgid "media-color.clear-white"
-msgstr ""
+msgstr "alb transparent"
 
 #. TRANSLATORS: Clear Yellow
 msgid "media-color.clear-yellow"
-msgstr ""
+msgstr "galben transparent"
 
 #. TRANSLATORS: Cyan
 msgid "media-color.cyan"
-msgstr ""
+msgstr "cian"
 
 #. TRANSLATORS: Dark Blue
 msgid "media-color.dark-blue"
-msgstr ""
+msgstr "albastru închis"
 
 #. TRANSLATORS: Dark Brown
 msgid "media-color.dark-brown"
-msgstr ""
+msgstr "maron închis"
 
 #. TRANSLATORS: Dark Buff
 msgid "media-color.dark-buff"
-msgstr ""
+msgstr "bubalin închis"
 
 #. TRANSLATORS: Dark Cyan
 msgid "media-color.dark-cyan"
-msgstr ""
+msgstr "cian închis"
 
 #. TRANSLATORS: Dark Gold
 msgid "media-color.dark-gold"
-msgstr ""
+msgstr "auriu închis"
 
 #. TRANSLATORS: Dark Goldenrod
 msgid "media-color.dark-goldenrod"
-msgstr ""
+msgstr "solidago(vargă de aur) închis"
 
 #. TRANSLATORS: Dark Gray
 msgid "media-color.dark-gray"
-msgstr ""
+msgstr "gri închis"
 
 #. TRANSLATORS: Dark Green
 msgid "media-color.dark-green"
-msgstr ""
+msgstr "verde închis"
 
 #. TRANSLATORS: Dark Ivory
 msgid "media-color.dark-ivory"
-msgstr ""
+msgstr "fildeș închis"
 
 #. TRANSLATORS: Dark Magenta
 msgid "media-color.dark-magenta"
-msgstr ""
+msgstr "magenta închis"
 
 #. TRANSLATORS: Dark Mustard
 msgid "media-color.dark-mustard"
-msgstr ""
+msgstr "muștar închis"
 
 #. TRANSLATORS: Dark Orange
 msgid "media-color.dark-orange"
-msgstr ""
+msgstr "portocaliu închis"
 
 #. TRANSLATORS: Dark Pink
 msgid "media-color.dark-pink"
-msgstr ""
+msgstr "roz închis"
 
 #. TRANSLATORS: Dark Red
 msgid "media-color.dark-red"
-msgstr ""
+msgstr "roșu închis"
 
 #. TRANSLATORS: Dark Silver
 msgid "media-color.dark-silver"
-msgstr ""
+msgstr "argintiu închis"
 
 #. TRANSLATORS: Dark Turquoise
 msgid "media-color.dark-turquoise"
-msgstr ""
+msgstr "turcoaz închis"
 
 #. TRANSLATORS: Dark Violet
 msgid "media-color.dark-violet"
-msgstr ""
+msgstr "violet închis"
 
 #. TRANSLATORS: Dark Yellow
 msgid "media-color.dark-yellow"
-msgstr ""
+msgstr "galben închis"
 
 #. TRANSLATORS: Gold
 msgid "media-color.gold"
-msgstr ""
+msgstr "auriu"
 
 #. TRANSLATORS: Goldenrod
 msgid "media-color.goldenrod"
-msgstr ""
+msgstr "solidago(vargă de aur)"
 
 #. TRANSLATORS: Gray
 msgid "media-color.gray"
-msgstr ""
+msgstr "gri"
 
 #. TRANSLATORS: Green
 msgid "media-color.green"
-msgstr ""
+msgstr "verde"
 
 #. TRANSLATORS: Ivory
 msgid "media-color.ivory"
-msgstr ""
+msgstr "fildeș"
 
 #. TRANSLATORS: Light Black
 msgid "media-color.light-black"
-msgstr ""
+msgstr "negru deschis"
 
 #. TRANSLATORS: Light Blue
 msgid "media-color.light-blue"
-msgstr ""
+msgstr "albastru deschis"
 
 #. TRANSLATORS: Light Brown
 msgid "media-color.light-brown"
-msgstr ""
+msgstr "maron deschis"
 
 #. TRANSLATORS: Light Buff
 msgid "media-color.light-buff"
-msgstr ""
+msgstr "bubalin deschis"
 
 #. TRANSLATORS: Light Cyan
 msgid "media-color.light-cyan"
-msgstr ""
+msgstr "cian deschis"
 
 #. TRANSLATORS: Light Gold
 msgid "media-color.light-gold"
-msgstr ""
+msgstr "auriu deschis"
 
 #. TRANSLATORS: Light Goldenrod
 msgid "media-color.light-goldenrod"
-msgstr ""
+msgstr "solidago(vargă de aur) deschis"
 
 #. TRANSLATORS: Light Gray
 msgid "media-color.light-gray"
-msgstr ""
+msgstr "gri deschis"
 
 #. TRANSLATORS: Light Green
 msgid "media-color.light-green"
-msgstr ""
+msgstr "verde deschis"
 
 #. TRANSLATORS: Light Ivory
 msgid "media-color.light-ivory"
-msgstr ""
+msgstr "fildeș deschis"
 
 #. TRANSLATORS: Light Magenta
 msgid "media-color.light-magenta"
-msgstr ""
+msgstr "magenta deschis"
 
 #. TRANSLATORS: Light Mustard
 msgid "media-color.light-mustard"
-msgstr ""
+msgstr "muștar deschis"
 
 #. TRANSLATORS: Light Orange
 msgid "media-color.light-orange"
-msgstr ""
+msgstr "portocaliu deschis"
 
 #. TRANSLATORS: Light Pink
 msgid "media-color.light-pink"
-msgstr ""
+msgstr "roz deschis"
 
 #. TRANSLATORS: Light Red
 msgid "media-color.light-red"
-msgstr ""
+msgstr "roșu deschis"
 
 #. TRANSLATORS: Light Silver
 msgid "media-color.light-silver"
-msgstr ""
+msgstr "argintiu deschis"
 
 #. TRANSLATORS: Light Turquoise
 msgid "media-color.light-turquoise"
-msgstr ""
+msgstr "turcoaz deschis"
 
 #. TRANSLATORS: Light Violet
 msgid "media-color.light-violet"
-msgstr ""
+msgstr "violet deschis"
 
 #. TRANSLATORS: Light Yellow
 msgid "media-color.light-yellow"
-msgstr ""
+msgstr "galben deschis"
 
 #. TRANSLATORS: Magenta
 msgid "media-color.magenta"
-msgstr ""
+msgstr "magenta"
 
 #. TRANSLATORS: Multi-color
 msgid "media-color.multi-color"
-msgstr ""
+msgstr "multicolor"
 
 #. TRANSLATORS: Mustard
 msgid "media-color.mustard"
-msgstr ""
+msgstr "muștar"
 
 #. TRANSLATORS: No Color
 msgid "media-color.no-color"
-msgstr ""
+msgstr "fără culoare"
 
 #. TRANSLATORS: Orange
 msgid "media-color.orange"
-msgstr ""
+msgstr "portocaliu"
 
 #. TRANSLATORS: Pink
 msgid "media-color.pink"
-msgstr ""
+msgstr "roz"
 
 #. TRANSLATORS: Red
 msgid "media-color.red"
-msgstr ""
+msgstr "roșu"
 
 #. TRANSLATORS: Silver
 msgid "media-color.silver"
-msgstr ""
+msgstr "argintiu"
 
 #. TRANSLATORS: Turquoise
 msgid "media-color.turquoise"
-msgstr ""
+msgstr "turcoaz"
 
 #. TRANSLATORS: Violet
 msgid "media-color.violet"
-msgstr ""
+msgstr "violet"
 
 #. TRANSLATORS: White
 msgid "media-color.white"
-msgstr ""
+msgstr "alb"
 
 #. TRANSLATORS: Yellow
 msgid "media-color.yellow"
-msgstr ""
+msgstr "galben"
 
 #. TRANSLATORS: Front Coating of Media
 msgid "media-front-coating"
-msgstr ""
+msgstr "Acoperirea feței suportului"
 
 #. TRANSLATORS: Media Grain
 msgid "media-grain"
-msgstr ""
+msgstr "Granulație suport"
 
 #. TRANSLATORS: Cross-Feed Direction
 msgid "media-grain.x-direction"
-msgstr ""
+msgstr "Direcția de alimentare transversală"
 
 #. TRANSLATORS: Feed Direction
 msgid "media-grain.y-direction"
-msgstr ""
+msgstr "Direcția de alimentare"
 
 #. TRANSLATORS: Media Hole Count
 msgid "media-hole-count"
-msgstr ""
+msgstr "Numărul de găuri ale suportului"
 
 #. TRANSLATORS: Media Info
 msgid "media-info"
-msgstr ""
+msgstr "Informații despre suport"
 
 #. TRANSLATORS: Force Media
 msgid "media-input-tray-check"
-msgstr ""
+msgstr "Forțează suportul"
 
 #. TRANSLATORS: Media Left Margin
 msgid "media-left-margin"
-msgstr ""
+msgstr "Marginea stângă a suportului"
 
 #. TRANSLATORS: Pre-printed Media
 msgid "media-pre-printed"
-msgstr ""
+msgstr "Suporturi preimprimate"
 
 #. TRANSLATORS: Blank
 msgid "media-pre-printed.blank"
-msgstr ""
+msgstr "În alb"
 
 #. TRANSLATORS: Letterhead
 msgid "media-pre-printed.letter-head"
-msgstr ""
+msgstr "Antet-scrisoare"
 
 #. TRANSLATORS: Pre-printed
 msgid "media-pre-printed.pre-printed"
-msgstr ""
+msgstr "Preimprimat"
 
 #. TRANSLATORS: Recycled Media
 msgid "media-recycled"
-msgstr ""
+msgstr "Suport reciclat"
 
 #. TRANSLATORS: None
 msgid "media-recycled.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Standard
 msgid "media-recycled.standard"
-msgstr ""
+msgstr "Standard"
 
 #. TRANSLATORS: Media Right Margin
 msgid "media-right-margin"
-msgstr ""
+msgstr "Marginea dreaptă a suportului"
 
 #. TRANSLATORS: Media Dimensions
 msgid "media-size"
-msgstr ""
+msgstr "Dimensiunile suportului"
 
 #. TRANSLATORS: Media Name
 msgid "media-size-name"
-msgstr ""
+msgstr "Numele suportului"
 
 #. TRANSLATORS: Media Source
 msgid "media-source"
-msgstr ""
+msgstr "Sursa suportului(hârtiei)"
 
 #. TRANSLATORS: Alternate
 msgid "media-source.alternate"
-msgstr ""
+msgstr "Alternativă"
 
 #. TRANSLATORS: Alternate Roll
 msgid "media-source.alternate-roll"
-msgstr ""
+msgstr "Rolă alternativă"
 
 #. TRANSLATORS: Automatic
 msgid "media-source.auto"
-msgstr ""
+msgstr "Automată"
 
 #. TRANSLATORS: Bottom
 msgid "media-source.bottom"
-msgstr ""
+msgstr "Partea inferioară"
 
 #. TRANSLATORS: By-pass Tray
 msgid "media-source.by-pass-tray"
-msgstr ""
+msgstr "Tavă de bypass"
 
 #. TRANSLATORS: Center
 msgid "media-source.center"
-msgstr ""
+msgstr "Centru"
 
 #. TRANSLATORS: Disc
 msgid "media-source.disc"
-msgstr ""
+msgstr "Disc"
 
 #. TRANSLATORS: Envelope
 msgid "media-source.envelope"
-msgstr ""
+msgstr "Plic"
 
 #. TRANSLATORS: Hagaki
 msgid "media-source.hagaki"
-msgstr ""
+msgstr "Hagaki"
 
 #. TRANSLATORS: Large Capacity
 msgid "media-source.large-capacity"
-msgstr ""
+msgstr "Capacitate mare"
 
 #. TRANSLATORS: Left
 msgid "media-source.left"
-msgstr ""
+msgstr "Partea stângă"
 
 #. TRANSLATORS: Main
 msgid "media-source.main"
-msgstr ""
+msgstr "Principal"
 
 #. TRANSLATORS: Main Roll
 msgid "media-source.main-roll"
-msgstr ""
+msgstr "Rola principală"
 
 #. TRANSLATORS: Manual
 msgid "media-source.manual"
-msgstr ""
+msgstr "Manual"
 
 #. TRANSLATORS: Middle
 msgid "media-source.middle"
-msgstr ""
+msgstr "Mijloc"
 
 #. TRANSLATORS: Photo
 msgid "media-source.photo"
-msgstr ""
+msgstr "Foto"
 
 #. TRANSLATORS: Rear
 msgid "media-source.rear"
-msgstr ""
+msgstr "Din spate"
 
 #. TRANSLATORS: Right
 msgid "media-source.right"
-msgstr ""
+msgstr "Partea dreaptă"
 
 #. TRANSLATORS: Roll 1
 msgid "media-source.roll-1"
-msgstr ""
+msgstr "Rola 1"
 
 #. TRANSLATORS: Roll 10
 msgid "media-source.roll-10"
-msgstr ""
+msgstr "Rola 10"
 
 #. TRANSLATORS: Roll 2
 msgid "media-source.roll-2"
-msgstr ""
+msgstr "Rola 2"
 
 #. TRANSLATORS: Roll 3
 msgid "media-source.roll-3"
-msgstr ""
+msgstr "Rola 3"
 
 #. TRANSLATORS: Roll 4
 msgid "media-source.roll-4"
-msgstr ""
+msgstr "Rola 4"
 
 #. TRANSLATORS: Roll 5
 msgid "media-source.roll-5"
-msgstr ""
+msgstr "Rola 5"
 
 #. TRANSLATORS: Roll 6
 msgid "media-source.roll-6"
-msgstr ""
+msgstr "Rola 6"
 
 #. TRANSLATORS: Roll 7
 msgid "media-source.roll-7"
-msgstr ""
+msgstr "Rola 7"
 
 #. TRANSLATORS: Roll 8
 msgid "media-source.roll-8"
-msgstr ""
+msgstr "Rola 8"
 
 #. TRANSLATORS: Roll 9
 msgid "media-source.roll-9"
-msgstr ""
+msgstr "Rola 9"
 
 #. TRANSLATORS: Side
 msgid "media-source.side"
-msgstr ""
+msgstr "Lateral"
 
 #. TRANSLATORS: Top
 msgid "media-source.top"
-msgstr ""
+msgstr "Partea superioară"
 
 #. TRANSLATORS: Tray 1
 msgid "media-source.tray-1"
-msgstr ""
+msgstr "Tava 1"
 
 #. TRANSLATORS: Tray 10
 msgid "media-source.tray-10"
-msgstr ""
+msgstr "Tava 10"
 
 #. TRANSLATORS: Tray 11
 msgid "media-source.tray-11"
-msgstr ""
+msgstr "Tava 11"
 
 #. TRANSLATORS: Tray 12
 msgid "media-source.tray-12"
-msgstr ""
+msgstr "Tava 12"
 
 #. TRANSLATORS: Tray 13
 msgid "media-source.tray-13"
-msgstr ""
+msgstr "Tava 13"
 
 #. TRANSLATORS: Tray 14
 msgid "media-source.tray-14"
-msgstr ""
+msgstr "Tava 14"
 
 #. TRANSLATORS: Tray 15
 msgid "media-source.tray-15"
-msgstr ""
+msgstr "Tava 15"
 
 #. TRANSLATORS: Tray 16
 msgid "media-source.tray-16"
-msgstr ""
+msgstr "Tava 16"
 
 #. TRANSLATORS: Tray 17
 msgid "media-source.tray-17"
-msgstr ""
+msgstr "Tava 17"
 
 #. TRANSLATORS: Tray 18
 msgid "media-source.tray-18"
-msgstr ""
+msgstr "Tava 18"
 
 #. TRANSLATORS: Tray 19
 msgid "media-source.tray-19"
-msgstr ""
+msgstr "Tava 19"
 
 #. TRANSLATORS: Tray 2
 msgid "media-source.tray-2"
-msgstr ""
+msgstr "Tava 2"
 
 #. TRANSLATORS: Tray 20
 msgid "media-source.tray-20"
-msgstr ""
+msgstr "Tava 20"
 
 #. TRANSLATORS: Tray 3
 msgid "media-source.tray-3"
-msgstr ""
+msgstr "Tava 3"
 
 #. TRANSLATORS: Tray 4
 msgid "media-source.tray-4"
-msgstr ""
+msgstr "Tava 4"
 
 #. TRANSLATORS: Tray 5
 msgid "media-source.tray-5"
-msgstr ""
+msgstr "Tava 5"
 
 #. TRANSLATORS: Tray 6
 msgid "media-source.tray-6"
-msgstr ""
+msgstr "Tava 6"
 
 #. TRANSLATORS: Tray 7
 msgid "media-source.tray-7"
-msgstr ""
+msgstr "Tava 7"
 
 #. TRANSLATORS: Tray 8
 msgid "media-source.tray-8"
-msgstr ""
+msgstr "Tava 8"
 
 #. TRANSLATORS: Tray 9
 msgid "media-source.tray-9"
-msgstr ""
+msgstr "Tava 9"
 
 #. TRANSLATORS: Media Thickness
 msgid "media-thickness"
-msgstr ""
+msgstr "Grosimea suportului(hârtiei)"
 
 #. TRANSLATORS: Media Tooth (Texture)
 msgid "media-tooth"
-msgstr ""
+msgstr "Tactul suportului (textura)"
 
 #. TRANSLATORS: Antique
 msgid "media-tooth.antique"
-msgstr ""
+msgstr "Antic"
 
 #. TRANSLATORS: Extra Smooth
 msgid "media-tooth.calendared"
-msgstr ""
+msgstr "Extra neted"
 
 #. TRANSLATORS: Coarse
 msgid "media-tooth.coarse"
-msgstr ""
+msgstr "Grosier"
 
 #. TRANSLATORS: Fine
 msgid "media-tooth.fine"
-msgstr ""
+msgstr "Fin"
 
 #. TRANSLATORS: Linen
 msgid "media-tooth.linen"
-msgstr ""
+msgstr "In"
 
 #. TRANSLATORS: Medium
 msgid "media-tooth.medium"
-msgstr ""
+msgstr "Mediu"
 
 #. TRANSLATORS: Smooth
 msgid "media-tooth.smooth"
-msgstr ""
+msgstr "Neted"
 
 #. TRANSLATORS: Stipple
 msgid "media-tooth.stipple"
-msgstr ""
+msgstr "Punctat"
 
 #. TRANSLATORS: Rough
 msgid "media-tooth.uncalendared"
-msgstr ""
+msgstr "Aspru"
 
 #. TRANSLATORS: Vellum
 msgid "media-tooth.vellum"
-msgstr ""
+msgstr "Pergament"
 
 #. TRANSLATORS: Media Top Margin
 msgid "media-top-margin"
-msgstr ""
+msgstr "Marginea superioară a suportului"
 
 #. TRANSLATORS: Media Type
 msgid "media-type"
-msgstr ""
+msgstr "Tipul de suport"
 
 #. TRANSLATORS: Aluminum
 msgid "media-type.aluminum"
-msgstr ""
+msgstr "Aluminiu"
 
 #. TRANSLATORS: Automatic
 msgid "media-type.auto"
-msgstr ""
+msgstr "Automat"
 
 #. TRANSLATORS: Back Print Film
 msgid "media-type.back-print-film"
-msgstr ""
+msgstr "Film pentru imprimare pe spate"
 
 #. TRANSLATORS: Cardboard
 msgid "media-type.cardboard"
-msgstr ""
+msgstr "Carton"
 
 #. TRANSLATORS: Cardstock
 msgid "media-type.cardstock"
-msgstr ""
+msgstr "Carton gros"
 
 #. TRANSLATORS: CD
 msgid "media-type.cd"
-msgstr ""
+msgstr "CD"
 
 #. TRANSLATORS: Photo Advanced Paper
 msgid "media-type.com.hp.advanced-photo"
-msgstr ""
+msgstr "Hârtie fotografică avansată"
 
 #. TRANSLATORS: Brochure Glossy Paper
 msgid "media-type.com.hp.brochure-glossy"
-msgstr ""
+msgstr "Hârtie lucioasă pentru broșuri"
 
 #. TRANSLATORS: Brochure Matte Paper
 msgid "media-type.com.hp.brochure-matte"
-msgstr ""
+msgstr "Hârtie mată pentru broșuri"
 
 #. TRANSLATORS: Matte Coverstock
 msgid "media-type.com.hp.cover-matte"
-msgstr ""
+msgstr "Copertă mată"
 
 #. TRANSLATORS: EcoSMART Lite Paper
 msgid "media-type.com.hp.ecosmart-lite"
-msgstr ""
+msgstr "Hârtie ușoară EcoSMART"
 
 #. TRANSLATORS: Everyday Glossy Paper
 msgid "media-type.com.hp.everyday-glossy"
-msgstr ""
+msgstr "Hârtie lucioasă pentru uz zilnic"
 
 #. TRANSLATORS: Everyday Matte Paper
 msgid "media-type.com.hp.everyday-matte"
-msgstr ""
+msgstr "Hârtie mată pentru uz zilnic"
 
 #. TRANSLATORS: Extra Heavyweight Paper
 msgid "media-type.com.hp.extra-heavy"
-msgstr ""
+msgstr "Hârtie cu extra gramaj"
 
 #. TRANSLATORS: Intermediate Paper
 msgid "media-type.com.hp.intermediate"
-msgstr ""
+msgstr "Hârtie intermediară"
 
 #. TRANSLATORS: Mid-Weight Paper
 msgid "media-type.com.hp.mid-weight"
-msgstr ""
+msgstr "Hârtie de greutate medie"
 
 #. TRANSLATORS: Inkjet Premium Paper
 msgid "media-type.com.hp.premium-inkjet"
-msgstr ""
+msgstr "Hârtie premium pentru imprimante cu jet de cerneală"
 
 #. TRANSLATORS: Photo Premium Paper
 msgid "media-type.com.hp.premium-photo"
-msgstr ""
+msgstr "Hârtie fotografică premium"
 
 #. TRANSLATORS: Premium Matte Presentation Paper
 msgid "media-type.com.hp.premium-presentation-matte"
-msgstr ""
+msgstr "Hârtie mată premium pentru prezentări"
 
 #. TRANSLATORS: Continuous
 msgid "media-type.continuous"
-msgstr ""
+msgstr "Continuu"
 
 #. TRANSLATORS: Continuous Long
 msgid "media-type.continuous-long"
-msgstr ""
+msgstr "Continuu lung"
 
 #. TRANSLATORS: Continuous Short
 msgid "media-type.continuous-short"
-msgstr ""
+msgstr "Continuu scurt"
 
 #. TRANSLATORS: Corrugated Board
 msgid "media-type.corrugated-board"
-msgstr ""
+msgstr "Carton ondulat"
 
 #. TRANSLATORS: Optical Disc
 msgid "media-type.disc"
-msgstr ""
+msgstr "Disc optic"
 
 #. TRANSLATORS: Glossy Optical Disc
 msgid "media-type.disc-glossy"
-msgstr ""
+msgstr "Disc optic lucios"
 
 #. TRANSLATORS: High Gloss Optical Disc
 msgid "media-type.disc-high-gloss"
-msgstr ""
+msgstr "Disc optic super-lucios"
 
 #. TRANSLATORS: Matte Optical Disc
 msgid "media-type.disc-matte"
-msgstr ""
+msgstr "Disc optic mat"
 
 #. TRANSLATORS: Satin Optical Disc
 msgid "media-type.disc-satin"
-msgstr ""
+msgstr "Disc optic satinat"
 
 #. TRANSLATORS: Semi-Gloss Optical Disc
 msgid "media-type.disc-semi-gloss"
-msgstr ""
+msgstr "Disc optic semi-lucios"
 
 #. TRANSLATORS: Double Wall
 msgid "media-type.double-wall"
-msgstr ""
+msgstr "Perete dublu"
 
 #. TRANSLATORS: Dry Film
 msgid "media-type.dry-film"
-msgstr ""
+msgstr "Film uscat"
 
 #. TRANSLATORS: DVD
 msgid "media-type.dvd"
-msgstr ""
+msgstr "DVD"
 
 #. TRANSLATORS: Embossing Foil
 msgid "media-type.embossing-foil"
-msgstr ""
+msgstr "Folie pentru imprimarea în relief"
 
 #. TRANSLATORS: End Board
 msgid "media-type.end-board"
-msgstr ""
+msgstr "Copertă cartonată"
 
 #. TRANSLATORS: Envelope
 msgid "media-type.envelope"
-msgstr ""
+msgstr "Plic"
 
 #. TRANSLATORS: Archival Envelope
 msgid "media-type.envelope-archival"
-msgstr ""
+msgstr "Plic de arhivă"
 
 #. TRANSLATORS: Bond Envelope
 msgid "media-type.envelope-bond"
-msgstr ""
+msgstr "Plic pentru obligațiuni"
 
 #. TRANSLATORS: Coated Envelope
 msgid "media-type.envelope-coated"
-msgstr ""
+msgstr "Plic acoperit"
 
 #. TRANSLATORS: Cotton Envelope
 msgid "media-type.envelope-cotton"
-msgstr ""
+msgstr "Plic din bumbac"
 
 #. TRANSLATORS: Fine Envelope
 msgid "media-type.envelope-fine"
-msgstr ""
+msgstr "Plic fin"
 
 #. TRANSLATORS: Heavyweight Envelope
 msgid "media-type.envelope-heavyweight"
-msgstr ""
+msgstr "Plic cu gramaj mare"
 
 #. TRANSLATORS: Inkjet Envelope
 msgid "media-type.envelope-inkjet"
-msgstr ""
+msgstr "Plic pentru imprimante cu jet de cerneală"
 
 #. TRANSLATORS: Lightweight Envelope
 msgid "media-type.envelope-lightweight"
-msgstr ""
+msgstr "Plic cu gramaj redus"
 
 #. TRANSLATORS: Plain Envelope
 msgid "media-type.envelope-plain"
-msgstr ""
+msgstr "Plic simplu"
 
 #. TRANSLATORS: Preprinted Envelope
 msgid "media-type.envelope-preprinted"
-msgstr ""
+msgstr "Plic preimprimat"
 
 #. TRANSLATORS: Windowed Envelope
 msgid "media-type.envelope-window"
-msgstr ""
+msgstr "Plic cu fereastră"
 
 #. TRANSLATORS: Fabric
 msgid "media-type.fabric"
-msgstr ""
+msgstr "Țesătură"
 
 #. TRANSLATORS: Archival Fabric
 msgid "media-type.fabric-archival"
-msgstr ""
+msgstr "Țesătură de arhivă"
 
 #. TRANSLATORS: Glossy Fabric
 msgid "media-type.fabric-glossy"
-msgstr ""
+msgstr "Țesătură lucioasă"
 
 #. TRANSLATORS: High Gloss Fabric
 msgid "media-type.fabric-high-gloss"
-msgstr ""
+msgstr "Țesătură super-lucioasă"
 
 #. TRANSLATORS: Matte Fabric
 msgid "media-type.fabric-matte"
-msgstr ""
+msgstr "Țesătură mată"
 
 #. TRANSLATORS: Semi-Gloss Fabric
 msgid "media-type.fabric-semi-gloss"
-msgstr ""
+msgstr "Țesătură semir-lucioasă"
 
 #. TRANSLATORS: Waterproof Fabric
 msgid "media-type.fabric-waterproof"
-msgstr ""
+msgstr "Țesătură impermeabilă"
 
 #. TRANSLATORS: Film
 msgid "media-type.film"
-msgstr ""
+msgstr "Film"
 
 #. TRANSLATORS: Flexo Base
 msgid "media-type.flexo-base"
-msgstr ""
+msgstr "Bază flexografică"
 
 #. TRANSLATORS: Flexo Photo Polymer
 msgid "media-type.flexo-photo-polymer"
-msgstr ""
+msgstr "Polimer foto flexografic"
 
 #. TRANSLATORS: Flute
 msgid "media-type.flute"
-msgstr ""
+msgstr "Ondulat"
 
 #. TRANSLATORS: Foil
 msgid "media-type.foil"
-msgstr ""
+msgstr "Folie"
 
 #. TRANSLATORS: Full Cut Tabs
 msgid "media-type.full-cut-tabs"
-msgstr ""
+msgstr "Lamele tăiate complet"
 
 #. TRANSLATORS: Glass
 msgid "media-type.glass"
-msgstr ""
+msgstr "Sticlă"
 
 #. TRANSLATORS: Glass Colored
 msgid "media-type.glass-colored"
-msgstr ""
+msgstr "Sticlă colorată"
 
 #. TRANSLATORS: Glass Opaque
 msgid "media-type.glass-opaque"
-msgstr ""
+msgstr "Sticlă opacă"
 
 #. TRANSLATORS: Glass Surfaced
 msgid "media-type.glass-surfaced"
-msgstr ""
+msgstr "Suprafață de sticlă"
 
 #. TRANSLATORS: Glass Textured
 msgid "media-type.glass-textured"
-msgstr ""
+msgstr "Sticlă texturată"
 
 #. TRANSLATORS: Gravure Cylinder
 msgid "media-type.gravure-cylinder"
-msgstr ""
+msgstr "Cilindru de gravură"
 
 #. TRANSLATORS: Image Setter Paper
 msgid "media-type.image-setter-paper"
-msgstr ""
+msgstr "Hârtie pentru fixarea imaginilor"
 
 #. TRANSLATORS: Imaging Cylinder
 msgid "media-type.imaging-cylinder"
-msgstr ""
+msgstr "Cilindru de imagine"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon-photo-paper-plus-glossy-ii"
-msgstr ""
+msgstr "Hârtie foto Plus Glossy II"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon-photo-paper-pro-platinum"
-msgstr ""
+msgstr "Hârtie foto Pro Platinum"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon_photo-paper-plus-glossy-ii"
-msgstr ""
+msgstr "Hârtie foto Plus Glossy II"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon_photo-paper-pro-platinum"
-msgstr ""
+msgstr "Hârtie foto Pro Platinum"
 
 #. TRANSLATORS: Labels
 msgid "media-type.labels"
-msgstr ""
+msgstr "Etichete"
 
 #. TRANSLATORS: Colored Labels
 msgid "media-type.labels-colored"
-msgstr ""
+msgstr "Etichete colorate"
 
 #. TRANSLATORS: Glossy Labels
 msgid "media-type.labels-glossy"
-msgstr ""
+msgstr "Etichete lucioase"
 
 #. TRANSLATORS: High Gloss Labels
 msgid "media-type.labels-high-gloss"
-msgstr ""
+msgstr "Etichete super-lucioase"
 
 #. TRANSLATORS: Inkjet Labels
 msgid "media-type.labels-inkjet"
-msgstr ""
+msgstr "Etichete pentru imprimante cu jet de cerneală"
 
 #. TRANSLATORS: Matte Labels
 msgid "media-type.labels-matte"
-msgstr ""
+msgstr "Etichete mate"
 
 #. TRANSLATORS: Permanent Labels
 msgid "media-type.labels-permanent"
-msgstr ""
+msgstr "Etichete permanente"
 
 #. TRANSLATORS: Satin Labels
 msgid "media-type.labels-satin"
-msgstr ""
+msgstr "Etichete satinate"
 
 #. TRANSLATORS: Security Labels
 msgid "media-type.labels-security"
-msgstr ""
+msgstr "Etichete de securitate"
 
 #. TRANSLATORS: Semi-Gloss Labels
 msgid "media-type.labels-semi-gloss"
-msgstr ""
+msgstr "Etichete semi-lucioase"
 
 #. TRANSLATORS: Laminating Foil
 msgid "media-type.laminating-foil"
-msgstr ""
+msgstr "Folie de laminare"
 
 #. TRANSLATORS: Letterhead
 msgid "media-type.letterhead"
-msgstr ""
+msgstr "Antet-scrisoare"
 
 #. TRANSLATORS: Metal
 msgid "media-type.metal"
-msgstr ""
+msgstr "Metal"
 
 #. TRANSLATORS: Metal Glossy
 msgid "media-type.metal-glossy"
-msgstr ""
+msgstr "Metal lucios"
 
 #. TRANSLATORS: Metal High Gloss
 msgid "media-type.metal-high-gloss"
-msgstr ""
+msgstr "Metal super-lucios"
 
 #. TRANSLATORS: Metal Matte
 msgid "media-type.metal-matte"
-msgstr ""
+msgstr "Metal mat"
 
 #. TRANSLATORS: Metal Satin
 msgid "media-type.metal-satin"
-msgstr ""
+msgstr "Metal satinat"
 
 #. TRANSLATORS: Metal Semi Gloss
 msgid "media-type.metal-semi-gloss"
-msgstr ""
+msgstr "Metal semi-lucios"
 
 #. TRANSLATORS: Mounting Tape
 msgid "media-type.mounting-tape"
-msgstr ""
+msgstr "Bandă de montare"
 
 #. TRANSLATORS: Multi Layer
 msgid "media-type.multi-layer"
-msgstr ""
+msgstr "Multistrat"
 
 #. TRANSLATORS: Multi Part Form
 msgid "media-type.multi-part-form"
-msgstr ""
+msgstr "Formular cu multiple părți"
 
 #. TRANSLATORS: Other
 msgid "media-type.other"
-msgstr ""
+msgstr "altul"
 
 #. TRANSLATORS: Paper
 msgid "media-type.paper"
-msgstr ""
+msgstr "hârtie"
 
 #. TRANSLATORS: Photo Paper
 msgid "media-type.photographic"
-msgstr ""
+msgstr "hârtie fotografică"
 
 #. TRANSLATORS: Photographic Archival
 msgid "media-type.photographic-archival"
-msgstr ""
+msgstr "arhivă fotografică"
 
 #. TRANSLATORS: Photo Film
 msgid "media-type.photographic-film"
-msgstr ""
+msgstr "film fotografic"
 
 #. TRANSLATORS: Glossy Photo Paper
 msgid "media-type.photographic-glossy"
-msgstr ""
+msgstr "hârtie fotografică lucioasă"
 
 #. TRANSLATORS: High Gloss Photo Paper
 msgid "media-type.photographic-high-gloss"
-msgstr ""
+msgstr "hârtie fotografică super-lucioasă"
 
 #. TRANSLATORS: Matte Photo Paper
 msgid "media-type.photographic-matte"
-msgstr ""
+msgstr "hârtie fotografică mată"
 
 #. TRANSLATORS: Satin Photo Paper
 msgid "media-type.photographic-satin"
-msgstr ""
+msgstr "hârtie fotografică satinată"
 
 #. TRANSLATORS: Semi-Gloss Photo Paper
 msgid "media-type.photographic-semi-gloss"
-msgstr ""
+msgstr "hârtie fotografică semi-lucioasă"
 
 #. TRANSLATORS: Plastic
 msgid "media-type.plastic"
-msgstr ""
+msgstr "plasic"
 
 #. TRANSLATORS: Plastic Archival
 msgid "media-type.plastic-archival"
-msgstr ""
+msgstr "arhivă de plastic"
 
 #. TRANSLATORS: Plastic Colored
 msgid "media-type.plastic-colored"
-msgstr ""
+msgstr "plastic colorat"
 
 #. TRANSLATORS: Plastic Glossy
 msgid "media-type.plastic-glossy"
-msgstr ""
+msgstr "plastic lucios"
 
 #. TRANSLATORS: Plastic High Gloss
 msgid "media-type.plastic-high-gloss"
-msgstr ""
+msgstr "plastic super-lucios"
 
 #. TRANSLATORS: Plastic Matte
 msgid "media-type.plastic-matte"
-msgstr ""
+msgstr "plastic mat"
 
 #. TRANSLATORS: Plastic Satin
 msgid "media-type.plastic-satin"
-msgstr ""
+msgstr "plastic satinat"
 
 #. TRANSLATORS: Plastic Semi Gloss
 msgid "media-type.plastic-semi-gloss"
-msgstr ""
+msgstr "plastic semi-lucios"
 
 #. TRANSLATORS: Plate
 msgid "media-type.plate"
-msgstr ""
+msgstr "placă"
 
 #. TRANSLATORS: Polyester
 msgid "media-type.polyester"
-msgstr ""
+msgstr "poliester"
 
 #. TRANSLATORS: Pre Cut Tabs
 msgid "media-type.pre-cut-tabs"
-msgstr ""
+msgstr "lamele pre-tăiate"
 
 #. TRANSLATORS: Roll
 msgid "media-type.roll"
-msgstr ""
+msgstr "rolă"
 
 #. TRANSLATORS: Screen
 msgid "media-type.screen"
-msgstr ""
+msgstr "ecran"
 
 #. TRANSLATORS: Screen Paged
 msgid "media-type.screen-paged"
-msgstr ""
+msgstr "ecran paginat"
 
 #. TRANSLATORS: Self Adhesive
 msgid "media-type.self-adhesive"
-msgstr ""
+msgstr "autoadeziv"
 
 #. TRANSLATORS: Self Adhesive Film
 msgid "media-type.self-adhesive-film"
-msgstr ""
+msgstr "film autoadeziv"
 
 #. TRANSLATORS: Shrink Foil
 msgid "media-type.shrink-foil"
-msgstr ""
+msgstr "folie termocontractabilă"
 
 #. TRANSLATORS: Single Face
 msgid "media-type.single-face"
-msgstr ""
+msgstr "o singură față"
 
 #. TRANSLATORS: Single Wall
 msgid "media-type.single-wall"
-msgstr ""
+msgstr "un singur perete"
 
 #. TRANSLATORS: Sleeve
 msgid "media-type.sleeve"
-msgstr ""
+msgstr "manşon"
 
 #. TRANSLATORS: Stationery
 msgid "media-type.stationery"
-msgstr ""
+msgstr "hârtie de scris"
 
 #. TRANSLATORS: Stationery Archival
 msgid "media-type.stationery-archival"
-msgstr ""
+msgstr "arhivă de hârtie de scis"
 
 #. TRANSLATORS: Coated Paper
 msgid "media-type.stationery-coated"
-msgstr ""
+msgstr "hârtie cretată"
 
 #. TRANSLATORS: Stationery Cotton
 msgid "media-type.stationery-cotton"
-msgstr ""
+msgstr "hărtie de scris din bumbac"
 
 #. TRANSLATORS: Vellum Paper
 msgid "media-type.stationery-fine"
-msgstr ""
+msgstr "hârtie velină"
 
 #. TRANSLATORS: Heavyweight Paper
 msgid "media-type.stationery-heavyweight"
-msgstr ""
+msgstr "hârtie cu gramaj mare"
 
 #. TRANSLATORS: Stationery Heavyweight Coated
 msgid "media-type.stationery-heavyweight-coated"
-msgstr ""
+msgstr "hârtie de scris cu gramaj mare, cretată"
 
 #. TRANSLATORS: Stationery Inkjet Paper
 msgid "media-type.stationery-inkjet"
-msgstr ""
+msgstr "hârtie de scris pentru imprimante cu jet de cerneală"
 
 #. TRANSLATORS: Letterhead
 msgid "media-type.stationery-letterhead"
-msgstr ""
+msgstr "Antet-scrisoare"
 
 #. TRANSLATORS: Lightweight Paper
 msgid "media-type.stationery-lightweight"
-msgstr ""
+msgstr "hârtie cu gramaj redus"
 
 #. TRANSLATORS: Preprinted Paper
 msgid "media-type.stationery-preprinted"
-msgstr ""
+msgstr "hârtie preimprimată"
 
 #. TRANSLATORS: Punched Paper
 msgid "media-type.stationery-prepunched"
-msgstr ""
+msgstr "hârtie perforată"
 
 #. TRANSLATORS: Tab Stock
 msgid "media-type.tab-stock"
-msgstr ""
+msgstr "stoc de lamele"
 
 #. TRANSLATORS: Tractor
 msgid "media-type.tractor"
-msgstr ""
+msgstr "tractor"
 
 #. TRANSLATORS: Transfer
 msgid "media-type.transfer"
-msgstr ""
+msgstr "transfer"
 
 #. TRANSLATORS: Transparency
 msgid "media-type.transparency"
-msgstr ""
+msgstr "transparență"
 
 #. TRANSLATORS: Triple Wall
 msgid "media-type.triple-wall"
-msgstr ""
+msgstr "perete triplu"
 
 #. TRANSLATORS: Wet Film
 msgid "media-type.wet-film"
-msgstr ""
+msgstr "film umed"
 
 #. TRANSLATORS: Media Weight (grams per m²)
 msgid "media-weight-metric"
@@ -11162,7 +11184,7 @@ msgid "no entries"
 msgstr "nicio intrare"
 
 msgid "no system default destination"
-msgstr ""
+msgstr "nu există destinație implicită a sistemului"
 
 #. TRANSLATORS: Noise Removal
 msgid "noise-removal"
@@ -11170,498 +11192,498 @@ msgstr "Eliminarea zgomotului"
 
 #. TRANSLATORS: Notify Attributes
 msgid "notify-attributes"
-msgstr ""
+msgstr "Atribute de notificare"
 
 #. TRANSLATORS: Notify Charset
 msgid "notify-charset"
-msgstr ""
+msgstr "Setul de caractere pentru notificări"
 
 #. TRANSLATORS: Notify Events
 msgid "notify-events"
-msgstr ""
+msgstr "Evenimente de notificare"
 
 msgid "notify-events not specified."
-msgstr ""
+msgstr "Evenimente de notificare nespecificate."
 
 #. TRANSLATORS: Document Completed
 msgid "notify-events.document-completed"
-msgstr ""
+msgstr "Document finalizat"
 
 #. TRANSLATORS: Document Config Changed
 msgid "notify-events.document-config-changed"
-msgstr ""
+msgstr "Configurația documentului a fost modificată"
 
 #. TRANSLATORS: Document Created
 msgid "notify-events.document-created"
-msgstr ""
+msgstr "Documentul a fost creat"
 
 #. TRANSLATORS: Document Fetchable
 msgid "notify-events.document-fetchable"
-msgstr ""
+msgstr "Documentul poate fi preluat"
 
 #. TRANSLATORS: Document State Changed
 msgid "notify-events.document-state-changed"
-msgstr ""
+msgstr "Starea documentului s-a modificat"
 
 #. TRANSLATORS: Document Stopped
 msgid "notify-events.document-stopped"
-msgstr ""
+msgstr "Documentul a fost oprit"
 
 #. TRANSLATORS: Job Completed
 msgid "notify-events.job-completed"
-msgstr ""
+msgstr "Lucrare finalizată"
 
 #. TRANSLATORS: Job Config Changed
 msgid "notify-events.job-config-changed"
-msgstr ""
+msgstr "Configurația lucrării a fost modificată"
 
 #. TRANSLATORS: Job Created
 msgid "notify-events.job-created"
-msgstr ""
+msgstr "Lucrarea a fost creată"
 
 #. TRANSLATORS: Job Fetchable
 msgid "notify-events.job-fetchable"
-msgstr ""
+msgstr "Lucrarea poate fi preluată"
 
 #. TRANSLATORS: Job Progress
 msgid "notify-events.job-progress"
-msgstr ""
+msgstr "Progresul lucrării"
 
 #. TRANSLATORS: Job State Changed
 msgid "notify-events.job-state-changed"
-msgstr ""
+msgstr "Starea lucrării s-a modificat"
 
 #. TRANSLATORS: Job Stopped
 msgid "notify-events.job-stopped"
-msgstr ""
+msgstr "Lucrarea a fost oprită"
 
 #. TRANSLATORS: None
 msgid "notify-events.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Printer Config Changed
 msgid "notify-events.printer-config-changed"
-msgstr ""
+msgstr "Configurația imprimantei a fost modificată"
 
 #. TRANSLATORS: Printer Finishings Changed
 msgid "notify-events.printer-finishings-changed"
-msgstr ""
+msgstr "Finisajele imprimantei au fost modificate"
 
 #. TRANSLATORS: Printer Media Changed
 msgid "notify-events.printer-media-changed"
-msgstr ""
+msgstr "Suportul de imprimare a fost schimbat"
 
 #. TRANSLATORS: Printer Queue Order Changed
 msgid "notify-events.printer-queue-order-changed"
-msgstr ""
+msgstr "Ordinea cozii de imprimare a fost modificată"
 
 #. TRANSLATORS: Printer Restarted
 msgid "notify-events.printer-restarted"
-msgstr ""
+msgstr "Imprimanta a fost repornită"
 
 #. TRANSLATORS: Printer Shutdown
 msgid "notify-events.printer-shutdown"
-msgstr ""
+msgstr "Imprimanta a fost oprită(deconectată)"
 
 #. TRANSLATORS: Printer State Changed
 msgid "notify-events.printer-state-changed"
-msgstr ""
+msgstr "Starea imprimanteii s-a modificat"
 
 #. TRANSLATORS: Printer Stopped
 msgid "notify-events.printer-stopped"
-msgstr ""
+msgstr "Imprimanta a fost oprită"
 
 #. TRANSLATORS: Notify Get Interval
 msgid "notify-get-interval"
-msgstr ""
+msgstr "Intervalul de primire a notificărilor"
 
 #. TRANSLATORS: Notify Lease Duration
 msgid "notify-lease-duration"
-msgstr ""
+msgstr "Notificare privind durata închirierii"
 
 #. TRANSLATORS: Notify Natural Language
 msgid "notify-natural-language"
-msgstr ""
+msgstr "Notificare în limba nativă"
 
 #. TRANSLATORS: Notify Pull Method
 msgid "notify-pull-method"
-msgstr ""
+msgstr "Notificare metoda de extragere"
 
 #. TRANSLATORS: Notify Recipient
 msgid "notify-recipient-uri"
-msgstr ""
+msgstr "Notificare destinatar"
 
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" is already used."
-msgstr ""
+msgstr "URI-ul notify-recipient-urii „%s” este deja utilizat."
 
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" uses unknown scheme."
-msgstr ""
+msgstr "URI-ul notify-recipient-urii „%s” utilizează o schemă necunoscută."
 
 #. TRANSLATORS: Notify Sequence Numbers
 msgid "notify-sequence-numbers"
-msgstr ""
+msgstr "Notificare numere de secvență"
 
 #. TRANSLATORS: Notify Subscription Ids
 msgid "notify-subscription-ids"
-msgstr ""
+msgstr "Notificare ID-uri abonament"
 
 #. TRANSLATORS: Notify Time Interval
 msgid "notify-time-interval"
-msgstr ""
+msgstr "Intervalul de timp pentru notificări"
 
 #. TRANSLATORS: Notify User Data
 msgid "notify-user-data"
-msgstr ""
+msgstr "Notificare date utilizator"
 
 #. TRANSLATORS: Notify Wait
 msgid "notify-wait"
-msgstr ""
+msgstr "Notificare așteptare"
 
 #. TRANSLATORS: Number Of Retries
 msgid "number-of-retries"
-msgstr ""
+msgstr "Numărul de reîncercări"
 
 #. TRANSLATORS: Number-Up
 msgid "number-up"
-msgstr ""
+msgstr "Incrementare"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "number-up-layout"
-msgstr ""
+msgstr "Incrementare schemă de dispunere"
 
 #. TRANSLATORS: Bottom-Top, Left-Right
 msgid "number-up-layout.btlr"
-msgstr ""
+msgstr "De jos în sus, de la stânga la dreapta"
 
 #. TRANSLATORS: Bottom-Top, Right-Left
 msgid "number-up-layout.btrl"
-msgstr ""
+msgstr "De jos în sus, de la dreapta la stânga"
 
 #. TRANSLATORS: Left-Right, Bottom-Top
 msgid "number-up-layout.lrbt"
-msgstr ""
+msgstr "De la stânga la dreapta, de jos în sus"
 
 #. TRANSLATORS: Left-Right, Top-Bottom
 msgid "number-up-layout.lrtb"
-msgstr ""
+msgstr "De la stânga la dreapta, de sus în jos"
 
 #. TRANSLATORS: Right-Left, Bottom-Top
 msgid "number-up-layout.rlbt"
-msgstr ""
+msgstr "De la dreapta la stânga, de jos în sus"
 
 #. TRANSLATORS: Right-Left, Top-Bottom
 msgid "number-up-layout.rltb"
-msgstr ""
+msgstr "De la dreapta la stânga, de sus în jos"
 
 #. TRANSLATORS: Top-Bottom, Left-Right
 msgid "number-up-layout.tblr"
-msgstr ""
+msgstr "De sus în jos, de la stânga la dreapta"
 
 #. TRANSLATORS: Top-Bottom, Right-Left
 msgid "number-up-layout.tbrl"
-msgstr ""
+msgstr "De sus în jos, de la dreapta la stânga"
 
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
-msgstr ""
+msgstr "Poziția obiectului"
 
 #. TRANSLATORS: Object Size
 msgid "object-size"
-msgstr ""
+msgstr "dimensiunea obiectului"
 
 #. TRANSLATORS: Organization Name
 msgid "organization-name"
-msgstr ""
+msgstr "Numele organizației"
 
 #. TRANSLATORS: Orientation
 msgid "orientation-requested"
-msgstr ""
+msgstr "Orientare"
 
 #. TRANSLATORS: Portrait
 msgid "orientation-requested.3"
-msgstr ""
+msgstr "Portret"
 
 #. TRANSLATORS: Landscape
 msgid "orientation-requested.4"
-msgstr ""
+msgstr "Peisaj"
 
 #. TRANSLATORS: Reverse Landscape
 msgid "orientation-requested.5"
-msgstr ""
+msgstr "Peisaj inversat"
 
 #. TRANSLATORS: Reverse Portrait
 msgid "orientation-requested.6"
-msgstr ""
+msgstr "Portret inversat"
 
 #. TRANSLATORS: None
 msgid "orientation-requested.7"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Scanned Image Options
 msgid "output-attributes"
-msgstr ""
+msgstr "Opțiuni pentru imaginea scanată"
 
 #. TRANSLATORS: Output Tray
 msgid "output-bin"
-msgstr ""
+msgstr "Tava de ieșire"
 
 #. TRANSLATORS: Automatic
 msgid "output-bin.auto"
-msgstr ""
+msgstr "Automat"
 
 #. TRANSLATORS: Bottom
 msgid "output-bin.bottom"
-msgstr ""
+msgstr "Partea inferioară"
 
 #. TRANSLATORS: Center
 msgid "output-bin.center"
-msgstr ""
+msgstr "Centru"
 
 #. TRANSLATORS: Face Down
 msgid "output-bin.face-down"
-msgstr ""
+msgstr "Cu fața în jos"
 
 #. TRANSLATORS: Face Up
 msgid "output-bin.face-up"
-msgstr ""
+msgstr "Cu fața în sus"
 
 #. TRANSLATORS: Large Capacity
 msgid "output-bin.large-capacity"
-msgstr ""
+msgstr "Capacitate mare"
 
 #. TRANSLATORS: Left
 msgid "output-bin.left"
-msgstr ""
+msgstr "Stânga"
 
 #. TRANSLATORS: Mailbox 1
 msgid "output-bin.mailbox-1"
-msgstr ""
+msgstr "Căsuța poștală 1"
 
 #. TRANSLATORS: Mailbox 10
 msgid "output-bin.mailbox-10"
-msgstr ""
+msgstr "Căsuța poștală 10"
 
 #. TRANSLATORS: Mailbox 2
 msgid "output-bin.mailbox-2"
-msgstr ""
+msgstr "Căsuța poștală 2"
 
 #. TRANSLATORS: Mailbox 3
 msgid "output-bin.mailbox-3"
-msgstr ""
+msgstr "Căsuța poștală 3"
 
 #. TRANSLATORS: Mailbox 4
 msgid "output-bin.mailbox-4"
-msgstr ""
+msgstr "Căsuța poștală 4"
 
 #. TRANSLATORS: Mailbox 5
 msgid "output-bin.mailbox-5"
-msgstr ""
+msgstr "Căsuța poștală 5"
 
 #. TRANSLATORS: Mailbox 6
 msgid "output-bin.mailbox-6"
-msgstr ""
+msgstr "Căsuța poștală 6"
 
 #. TRANSLATORS: Mailbox 7
 msgid "output-bin.mailbox-7"
-msgstr ""
+msgstr "Căsuța poștală 7"
 
 #. TRANSLATORS: Mailbox 8
 msgid "output-bin.mailbox-8"
-msgstr ""
+msgstr "Căsuța poștală 8"
 
 #. TRANSLATORS: Mailbox 9
 msgid "output-bin.mailbox-9"
-msgstr ""
+msgstr "Căsuța poștală 9"
 
 #. TRANSLATORS: Middle
 msgid "output-bin.middle"
-msgstr ""
+msgstr "Mijloc"
 
 #. TRANSLATORS: My Mailbox
 msgid "output-bin.my-mailbox"
-msgstr ""
+msgstr "Căsuța mea poștală"
 
 #. TRANSLATORS: Rear
 msgid "output-bin.rear"
-msgstr ""
+msgstr "În spate"
 
 #. TRANSLATORS: Right
 msgid "output-bin.right"
-msgstr ""
+msgstr "Dreapta"
 
 #. TRANSLATORS: Side
 msgid "output-bin.side"
-msgstr ""
+msgstr "Lateral"
 
 #. TRANSLATORS: Stacker 1
 msgid "output-bin.stacker-1"
-msgstr ""
+msgstr "Stivuitor 1"
 
 #. TRANSLATORS: Stacker 10
 msgid "output-bin.stacker-10"
-msgstr ""
+msgstr "Stivuitor 10"
 
 #. TRANSLATORS: Stacker 2
 msgid "output-bin.stacker-2"
-msgstr ""
+msgstr "Stivuitor 2"
 
 #. TRANSLATORS: Stacker 3
 msgid "output-bin.stacker-3"
-msgstr ""
+msgstr "Stivuitor 3"
 
 #. TRANSLATORS: Stacker 4
 msgid "output-bin.stacker-4"
-msgstr ""
+msgstr "Stivuitor 4"
 
 #. TRANSLATORS: Stacker 5
 msgid "output-bin.stacker-5"
-msgstr ""
+msgstr "Stivuitor 5"
 
 #. TRANSLATORS: Stacker 6
 msgid "output-bin.stacker-6"
-msgstr ""
+msgstr "Stivuitor 6"
 
 #. TRANSLATORS: Stacker 7
 msgid "output-bin.stacker-7"
-msgstr ""
+msgstr "Stivuitor 7"
 
 #. TRANSLATORS: Stacker 8
 msgid "output-bin.stacker-8"
-msgstr ""
+msgstr "Stivuitor 8"
 
 #. TRANSLATORS: Stacker 9
 msgid "output-bin.stacker-9"
-msgstr ""
+msgstr "Stivuitor 9"
 
 #. TRANSLATORS: Top
 msgid "output-bin.top"
-msgstr ""
+msgstr "Partea superioară"
 
 #. TRANSLATORS: Tray 1
 msgid "output-bin.tray-1"
-msgstr ""
+msgstr "Tava 1"
 
 #. TRANSLATORS: Tray 10
 msgid "output-bin.tray-10"
-msgstr ""
+msgstr "Tava 10"
 
 #. TRANSLATORS: Tray 2
 msgid "output-bin.tray-2"
-msgstr ""
+msgstr "Tava 2"
 
 #. TRANSLATORS: Tray 3
 msgid "output-bin.tray-3"
-msgstr ""
+msgstr "Tava 3"
 
 #. TRANSLATORS: Tray 4
 msgid "output-bin.tray-4"
-msgstr ""
+msgstr "Tava 4"
 
 #. TRANSLATORS: Tray 5
 msgid "output-bin.tray-5"
-msgstr ""
+msgstr "Tava 5"
 
 #. TRANSLATORS: Tray 6
 msgid "output-bin.tray-6"
-msgstr ""
+msgstr "Tava 6"
 
 #. TRANSLATORS: Tray 7
 msgid "output-bin.tray-7"
-msgstr ""
+msgstr "Tava 7"
 
 #. TRANSLATORS: Tray 8
 msgid "output-bin.tray-8"
-msgstr ""
+msgstr "Tava 8"
 
 #. TRANSLATORS: Tray 9
 msgid "output-bin.tray-9"
-msgstr ""
+msgstr "Tava 9"
 
 #. TRANSLATORS: Scanned Image Quality
 msgid "output-compression-quality-factor"
-msgstr ""
+msgstr "Calitatea imaginii scanate"
 
 #. TRANSLATORS: Page Border
 msgid "page-border"
-msgstr ""
+msgstr "Marginea paginii"
 
 #. TRANSLATORS: Thin Double Border
 msgid "page-border.double"
-msgstr ""
+msgstr "Chenar dublu subțire"
 
 #. TRANSLATORS: Thick Double Border
 msgid "page-border.double-thick"
-msgstr ""
+msgstr "Chenar dublu gros"
 
 #. TRANSLATORS: No Border
 msgid "page-border.none"
-msgstr ""
+msgstr "Fără"
 
 #. TRANSLATORS: Thin Single Border
 msgid "page-border.single"
-msgstr ""
+msgstr "Chenar unic subțire"
 
 #. TRANSLATORS: Thick Single Border
 msgid "page-border.single-thick"
-msgstr ""
+msgstr "Chenar unic gros"
 
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
-msgstr ""
+msgstr "Livrarea paginii"
 
 #. TRANSLATORS: Reverse Order Face-down
 msgid "page-delivery.reverse-order-face-down"
-msgstr ""
+msgstr "Ordine inversă cu fața în jos"
 
 #. TRANSLATORS: Reverse Order Face-up
 msgid "page-delivery.reverse-order-face-up"
-msgstr ""
+msgstr "Ordine inversă cu fața în sus"
 
 #. TRANSLATORS: Same Order Face-down
 msgid "page-delivery.same-order-face-down"
-msgstr ""
+msgstr "Aceeași ordine cu fața în jos"
 
 #. TRANSLATORS: Same Order Face-up
 msgid "page-delivery.same-order-face-up"
-msgstr ""
+msgstr "Aceeași ordine cu fața în sus"
 
 #. TRANSLATORS: System Specified
 msgid "page-delivery.system-specified"
-msgstr ""
+msgstr "Specificată de sistem"
 
 #. TRANSLATORS: Page Order Received
 msgid "page-order-received"
-msgstr ""
+msgstr "Ordinea paginilor primite"
 
 #. TRANSLATORS: 1 To N
 msgid "page-order-received.1-to-n-order"
-msgstr ""
+msgstr "De la 1 la N"
 
 #. TRANSLATORS: N To 1
 msgid "page-order-received.n-to-1-order"
-msgstr ""
+msgstr "De la N la 1"
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
-msgstr ""
+msgstr "Intervale de pagini"
 
 #. TRANSLATORS: Page Set
 msgid "page-set"
-msgstr ""
+msgstr "Set de pagini"
 
 #. TRANSLATORS: All Pages
 msgid "page-set.all"
-msgstr ""
+msgstr "Toate paginile"
 
 #. TRANSLATORS: Even Pages
 msgid "page-set.even"
-msgstr ""
+msgstr "Pagini pare"
 
 #. TRANSLATORS: Odd Pages
 msgid "page-set.odd"
-msgstr ""
+msgstr "Pagini impare"
 
 #. TRANSLATORS: Pages
 msgid "pages"
@@ -11669,884 +11691,905 @@ msgstr "pagini"
 
 #. TRANSLATORS: Pages Per Subset
 msgid "pages-per-subset"
-msgstr ""
+msgstr "Pagini per subset"
 
 #. TRANSLATORS: Pclm Raster Back Side
 msgid "pclm-raster-back-side"
-msgstr ""
+msgstr "Partea din spate a rasterului PCLM"
 
 #. TRANSLATORS: Flipped
 msgid "pclm-raster-back-side.flipped"
-msgstr ""
+msgstr "Răsucită"
 
 #. TRANSLATORS: Normal
 msgid "pclm-raster-back-side.normal"
-msgstr ""
+msgstr "Normal"
 
 #. TRANSLATORS: Rotated
 msgid "pclm-raster-back-side.rotated"
-msgstr ""
+msgstr "Rotită"
 
 #. TRANSLATORS: Pclm Source Resolution
 msgid "pclm-source-resolution"
-msgstr ""
+msgstr "Rezoluția sursei Pclm"
 
 msgid "pending"
 msgstr "(în așteptare)"
 
 #. TRANSLATORS: Platform Shape
 msgid "platform-shape"
-msgstr ""
+msgstr "Forma platformei"
 
 #. TRANSLATORS: Round
 msgid "platform-shape.ellipse"
-msgstr ""
+msgstr "Rotundă"
 
 #. TRANSLATORS: Rectangle
 msgid "platform-shape.rectangle"
-msgstr ""
+msgstr "Dreptunghiulară"
 
 #. TRANSLATORS: Platform Temperature
 msgid "platform-temperature"
-msgstr ""
+msgstr "Temperatura platformei"
 
 #. TRANSLATORS: Image Position
 msgid "position"
-msgstr ""
+msgstr "Poziția imaginii"
 
 #. TRANSLATORS: Bottom-Center
 msgid "position.bottom"
-msgstr ""
+msgstr "În partea inferioară centrală"
 
 #. TRANSLATORS: Bottom-Left
 msgid "position.bottom-left"
-msgstr ""
+msgstr "În partea inferioară stânga"
 
 #. TRANSLATORS: Bottom-Right
 msgid "position.bottom-right"
-msgstr ""
+msgstr "În partea inferioară dreapta"
 
 #. TRANSLATORS: Center
 msgid "position.center"
-msgstr ""
+msgstr "În centru"
 
 #. TRANSLATORS: Left-Center
 msgid "position.left"
-msgstr ""
+msgstr "În stânga-centru"
 
 #. TRANSLATORS: Right-Center
 msgid "position.right"
-msgstr ""
+msgstr "În dreapta-centru"
 
 #. TRANSLATORS: Top-Center
 msgid "position.top"
-msgstr ""
+msgstr "În partea superioară centrală"
 
 #. TRANSLATORS: Top-Left
 msgid "position.top-left"
-msgstr ""
+msgstr "În partea superioară stânga"
 
 #. TRANSLATORS: Top-Right
 msgid "position.top-right"
-msgstr ""
+msgstr "În partea superioară dreapta"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
-msgstr ""
+msgstr "Șir de caractere după apelare"
 
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
-msgstr ""
+msgstr "ppdc: Se adaugă directorul de includere „%s”."
 
 #, c-format
 msgid "ppdc: Adding/updating UI text from %s."
-msgstr ""
+msgstr "ppdc: Se adaugă/actualizează textul interfeței cu utilizatorul din %s."
 
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Valoare booleană incorectă (%s) la linia %d din %s."
 
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
-msgstr ""
+msgstr "ppdc: Atribut de font incorect: %s"
 
 #, c-format
 msgid "ppdc: Bad resolution name \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nume de rezoluție incorect „%s” la linia %d din %s."
 
 #, c-format
 msgid "ppdc: Bad status keyword %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Cuvânt cheie cu stare incorectă %s pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Bad variable substitution ($%c) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Înlocuire variabilă incorectă ($%c) la linia %d din %s."
 
 #, c-format
 msgid "ppdc: Choice found on line %d of %s with no Option."
-msgstr ""
+msgstr "ppdc: Alegere găsită pe linia %d din %s fără opțiune."
 
 #, c-format
 msgid "ppdc: Duplicate #po for locale %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Duplicat #po pentru limba %s pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected a filter definition on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta o definiție de filtru pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected a program name on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta un nume de program pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected boolean value on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta o valoare booleană pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected charset after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta un set de caractere după fontul din linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected choice code on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta codul alegerii pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected choice name/text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele/textul alegerii pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected color order for ColorModel on line %d of %s."
 msgstr ""
+"ppdc: Se aștepta ordinea culorilor pentru ColorModel pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected colorspace for ColorModel on line %d of %s."
 msgstr ""
+"ppdc: Se aștepta spațiul de culori pentru ColorModel pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected compression for ColorModel on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta compresia pentru ColorModel pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected constraints string for UIConstraints on line %d of %s."
 msgstr ""
+"ppdc: Se aștepta șirul de constrângeri pentru UIConstraints pe linia %d din "
+"%s."
 
 #, c-format
 msgid ""
 "ppdc: Expected driver type keyword following DriverType on line %d of %s."
 msgstr ""
+"ppdc: Se aștepta cuvântul cheie pentru tipul de controlor după DriverType în "
+"linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected duplex type after Duplex on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta tipul duplex după Duplex pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected encoding after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta codificare după fontul din linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected filename after #po %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele fișierului după #po %s pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected group name/text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele/textul grupului pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected include filename on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele fișierului de includere pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected integer on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta un număr întreg pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected locale after #po on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta codul de limbă după #po pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele după %s în linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name after FileName on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele după FileName pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele după Font pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name after Manufacturer on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele după Manufacturer pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name after MediaSize on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele după MediaSize pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name after ModelName on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele după ModelName pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name after PCFileName on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele după PCFileName pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name/text after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele/textul după %s în linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name/text after Installable on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele/textul după Installable pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name/text after Resolution on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele/textul după Rezoluție pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected name/text combination for ColorModel on line %d of %s."
 msgstr ""
+"ppdc: Se aștepta o combinație nume/text pentru ColorModel pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected option name/text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta numele/textul opțiunii pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected option section on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta secțiunea de opțiuni pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected option type on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta tipul de opțiune pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected override field after Resolution on line %d of %s."
 msgstr ""
+"ppdc: Se aștepta câmpul de suprascriere după Resolution pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected quoted string on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta șirul citat pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected real number on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta un număr real pe linia %d din %s."
 
 #, c-format
 msgid ""
 "ppdc: Expected resolution/mediatype following ColorProfile on line %d of %s."
 msgstr ""
+"ppdc: Se aștepta rezoluție/tip de suport după ColorProfile pe linia %d din "
+"%s."
 
 #, c-format
 msgid ""
 "ppdc: Expected resolution/mediatype following SimpleColorProfile on line %d "
 "of %s."
 msgstr ""
+"ppdc: Se aștepta rezoluție/tip de suport după SimpleColorProfile pe linia %d "
+"din %s."
 
 #, c-format
 msgid "ppdc: Expected selector after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta selectorul după %s pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected status after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta starea după Font pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected string after Copyright on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta un șir după Copyright în linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected string after Version on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta un șir după Version în linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected two option names on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se așteptau două nume de opțiuni pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected value after %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta valoarea după %s pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Expected version after Font on line %d of %s."
-msgstr ""
+msgstr "ppdc: Se aștepta versiunea după Font pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Invalid #include/#po filename \"%s\"."
-msgstr ""
+msgstr "ppdc: Nume de fișier #include/#po nevalid „%s”."
 
 #, c-format
 msgid "ppdc: Invalid cost for filter on line %d of %s."
-msgstr ""
+msgstr "ppdc: Cost nevalid pentru filtrul de pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Invalid empty MIME type for filter on line %d of %s."
-msgstr ""
+msgstr "ppdc: Tip MIME gol nevalid pentru filtrul de pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Invalid empty program name for filter on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nume de program nevalid pentru filtrul de pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Invalid option section \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Secțiune de opțiuni nevalidă „%s” pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Invalid option type \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Tip de opțiune nevalid „%s” pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Loading driver information file \"%s\"."
-msgstr ""
+msgstr "ppdc: Se încarcă fișierul cu informații despre controlor „%s”."
 
 #, c-format
 msgid "ppdc: Loading messages for locale \"%s\"."
-msgstr ""
+msgstr "ppdc: Se încarcă mesaje pentru limba „%s”."
 
 #, c-format
 msgid "ppdc: Loading messages from \"%s\"."
-msgstr ""
+msgstr "ppdc: Se încarcă mesajele din „%s”."
 
 #, c-format
 msgid "ppdc: Missing #endif at end of \"%s\"."
-msgstr ""
+msgstr "ppdc: Lipsește #endif la sfârșitul „%s”."
 
 #, c-format
 msgid "ppdc: Missing #if on line %d of %s."
-msgstr ""
+msgstr "ppdc: Lipsește #if în linia %d din %s."
 
 #, c-format
 msgid ""
 "ppdc: Need a msgid line before any translation strings on line %d of %s."
 msgstr ""
+"ppdc: Este necesară o linie msgid înaintea oricăror șiruri de traducere din "
+"linia %d din %s."
 
 #, c-format
 msgid "ppdc: No message catalog provided for locale %s."
-msgstr ""
+msgstr "ppdc: Nu există catalog de mesaje pentru limba %s."
 
 #, c-format
 msgid "ppdc: Option %s defined in two different groups on line %d of %s."
 msgstr ""
+"ppdc: Opțiunea %s este definită în două grupuri diferite pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Option %s redefined with a different type on line %d of %s."
 msgstr ""
+"ppdc: Opțiunea %s a fost redefinită cu un tip diferit în linia %d din %s."
 
 #, c-format
 msgid "ppdc: Option constraint must *name on line %d of %s."
 msgstr ""
+"ppdc: Constrângerea opțiunii trebuie să conțină *name pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Too many nested #if's on line %d of %s."
-msgstr ""
+msgstr "ppdc: Prea multe #if-uri imbricate pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Unable to create PPD file \"%s\" - %s."
-msgstr ""
+msgstr "ppdc: Nu se poate crea fișierul PPD „%s” - %s."
 
 #, c-format
 msgid "ppdc: Unable to create output directory %s: %s"
-msgstr ""
+msgstr "ppdc: Nu s-a putut crea directorul de ieșire %s: %s"
 
 #, c-format
 msgid "ppdc: Unable to create output pipes: %s"
-msgstr ""
+msgstr "ppdc: Nu s-au putut crea conductele de ieșire: %s"
 
 #, c-format
 msgid "ppdc: Unable to execute cupstestppd: %s"
-msgstr ""
+msgstr "ppdc: Nu s-a putut executa cupstestppd: %s"
 
 #, c-format
 msgid "ppdc: Unable to find #po file %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nu s-a găsit fișierul #po %s la linia %d din %s."
 
 #, c-format
 msgid "ppdc: Unable to find include file \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Nu s-a găsit fișierul de includere „%s” la linia %d din %s."
 
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
-msgstr ""
+msgstr "ppdc: Nu s-a putut găsi traducerea pentru „%s” - %s"
 
 #, c-format
 msgid "ppdc: Unable to load localization file \"%s\" - %s"
-msgstr ""
+msgstr "ppdc: Nu s-a putut încărca fișierul de traducere „%s” - %s"
 
 #, c-format
 msgid "ppdc: Unable to open %s: %s"
-msgstr ""
+msgstr "ppdc: Nu s-a putut deschide %s: %s"
 
 #, c-format
 msgid "ppdc: Undefined variable (%s) on line %d of %s."
-msgstr ""
+msgstr "ppdc: Variabilă nedefinită (%s) la linia %d din %s."
 
 #, c-format
 msgid "ppdc: Unexpected text on line %d of %s."
-msgstr ""
+msgstr "ppdc: Text neașteptat pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Unknown driver type %s on line %d of %s."
-msgstr ""
+msgstr "ppdc: Tip de controlor necunoscut %s pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Unknown duplex type \"%s\" on line %d of %s."
-msgstr ""
+msgstr "ppdc: Tip duplex necunoscut „%s” pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Unknown media size \"%s\" on line %d of %s."
 msgstr ""
+"ppdc: Dimensiune necunoscută a suportului de imprimare „%s” pe linia %d din "
+"%s."
 
 #, c-format
 msgid "ppdc: Unknown message catalog format for \"%s\"."
-msgstr ""
+msgstr "ppdc: Format necunoscut al catalogului de mesaje pentru „%s”."
 
 #, c-format
 msgid "ppdc: Unknown token \"%s\" seen on line %d of %s."
-msgstr ""
+msgstr "ppdc: Jeton necunoscut „%s” găsit pe linia %d din %s."
 
 #, c-format
 msgid ""
 "ppdc: Unknown trailing characters in real number \"%s\" on line %d of %s."
 msgstr ""
+"ppdc: Caractere finale necunoscute în numărul real „%s” de pe linia %d din "
+"%s."
 
 #, c-format
 msgid "ppdc: Unterminated string starting with %c on line %d of %s."
-msgstr ""
+msgstr "ppdc: Șir neîncheiat care începe cu %c pe linia %d din %s."
 
 #, c-format
 msgid "ppdc: Warning - overlapping filename \"%s\"."
-msgstr ""
+msgstr "ppdc: Avertisment - nume de fișier suprapus „%s”."
 
 #, c-format
 msgid "ppdc: Writing %s."
-msgstr ""
+msgstr "ppdc: Se scrie %s."
 
 #, c-format
 msgid "ppdc: Writing PPD files to directory \"%s\"."
-msgstr ""
+msgstr "ppdc: Se scriu fisierele PPD in directoriul „%s”."
 
 #, c-format
 msgid "ppdmerge: Bad LanguageVersion \"%s\" in %s."
-msgstr ""
+msgstr "ppdmerge: LanguageVersion incorectă „%s” în %s."
 
 #, c-format
 msgid "ppdmerge: Ignoring PPD file %s."
-msgstr ""
+msgstr "ppdmerge: Se ignoră fișierul PPD %s."
 
 #, c-format
 msgid "ppdmerge: Unable to backup %s to %s - %s"
-msgstr ""
+msgstr "ppdmerge: Nu s-a putut face copierea de rezervă pentru %s în %s - %s"
 
 #. TRANSLATORS: Pre-dial String
 msgid "pre-dial-string"
-msgstr ""
+msgstr "Șir de pre-apelare"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "presentation-direction-number-up"
-msgstr ""
+msgstr "Incrementare schemă de dispunere"
 
 #. TRANSLATORS: Top-bottom, Right-left
 msgid "presentation-direction-number-up.tobottom-toleft"
-msgstr ""
+msgstr "De sus în jos, de la dreapta la stânga"
 
 #. TRANSLATORS: Top-bottom, Left-right
 msgid "presentation-direction-number-up.tobottom-toright"
-msgstr ""
+msgstr "De sus în jos, de la stânga la dreapta"
 
 #. TRANSLATORS: Right-left, Top-bottom
 msgid "presentation-direction-number-up.toleft-tobottom"
-msgstr ""
+msgstr "De la dreapta la stânga, de sus în jos"
 
 #. TRANSLATORS: Right-left, Bottom-top
 msgid "presentation-direction-number-up.toleft-totop"
-msgstr ""
+msgstr "De la dreapta la stânga, de jos în sus"
 
 #. TRANSLATORS: Left-right, Top-bottom
 msgid "presentation-direction-number-up.toright-tobottom"
-msgstr ""
+msgstr "De la stânga la dreapta, de sus în jos"
 
 #. TRANSLATORS: Left-right, Bottom-top
 msgid "presentation-direction-number-up.toright-totop"
-msgstr ""
+msgstr "De la stânga la dreapta, de jos în sus"
 
 #. TRANSLATORS: Bottom-top, Right-left
 msgid "presentation-direction-number-up.totop-toleft"
-msgstr ""
+msgstr "De jos în sus, de la dreapta la stânga"
 
 #. TRANSLATORS: Bottom-top, Left-right
 msgid "presentation-direction-number-up.totop-toright"
-msgstr ""
+msgstr "De jos în sus, de la stânga la dreapta"
 
 #. TRANSLATORS: Print Accuracy
 msgid "print-accuracy"
-msgstr ""
+msgstr "Precizia imprimării"
 
 #. TRANSLATORS: Print Base
 msgid "print-base"
-msgstr ""
+msgstr "Baza de imprimare"
 
 #. TRANSLATORS: Print Base Actual
 msgid "print-base-actual"
-msgstr ""
+msgstr "Baza de imprimare actuală"
 
 #. TRANSLATORS: Brim
 msgid "print-base.brim"
-msgstr ""
+msgstr "Margine"
 
 #. TRANSLATORS: None
 msgid "print-base.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Raft
 msgid "print-base.raft"
-msgstr ""
+msgstr "Plută"
 
 #. TRANSLATORS: Skirt
 msgid "print-base.skirt"
-msgstr ""
+msgstr "Fustă"
 
 #. TRANSLATORS: Standard
 msgid "print-base.standard"
-msgstr ""
+msgstr "Standard"
 
 #. TRANSLATORS: Print Color Mode
 msgid "print-color-mode"
-msgstr ""
+msgstr "Modul de imprimare color"
 
 #. TRANSLATORS: Automatic
 msgid "print-color-mode.auto"
-msgstr ""
+msgstr "Automat"
 
 #. TRANSLATORS: Auto Monochrome
 msgid "print-color-mode.auto-monochrome"
-msgstr ""
+msgstr "Auto monocrom"
 
 #. TRANSLATORS: Text
 msgid "print-color-mode.bi-level"
-msgstr ""
+msgstr "Text"
 
 #. TRANSLATORS: Color
 msgid "print-color-mode.color"
-msgstr ""
+msgstr "Color"
 
 #. TRANSLATORS: Highlight
 msgid "print-color-mode.highlight"
-msgstr ""
+msgstr "Evidențiere"
 
 #. TRANSLATORS: Monochrome
 msgid "print-color-mode.monochrome"
-msgstr ""
+msgstr "Monocrom"
 
 #. TRANSLATORS: Process Text
 msgid "print-color-mode.process-bi-level"
-msgstr ""
+msgstr "Textul procesului"
 
 #. TRANSLATORS: Process Monochrome
 msgid "print-color-mode.process-monochrome"
-msgstr ""
+msgstr "Proces monocrom"
 
 #. TRANSLATORS: Print Optimization
 msgid "print-content-optimize"
-msgstr ""
+msgstr "Optimizarea imprimării"
 
 #. TRANSLATORS: Print Content Optimize Actual
 msgid "print-content-optimize-actual"
-msgstr ""
+msgstr "Optimizarea conținutului de imprimare actual"
 
 #. TRANSLATORS: Automatic
 msgid "print-content-optimize.auto"
-msgstr ""
+msgstr "Automat"
 
 #. TRANSLATORS: Graphics
 msgid "print-content-optimize.graphic"
-msgstr ""
+msgstr "Grafică"
 
 #. TRANSLATORS: Graphics
 msgid "print-content-optimize.graphics"
-msgstr ""
+msgstr "Grafică"
 
 #. TRANSLATORS: Photo
 msgid "print-content-optimize.photo"
-msgstr ""
+msgstr "Fotografie"
 
 #. TRANSLATORS: Text
 msgid "print-content-optimize.text"
-msgstr ""
+msgstr "Text"
 
 #. TRANSLATORS: Text and Graphics
 msgid "print-content-optimize.text-and-graphic"
-msgstr ""
+msgstr "Text și grafică"
 
 #. TRANSLATORS: Text And Graphics
 msgid "print-content-optimize.text-and-graphics"
-msgstr ""
+msgstr "Text și grafică"
 
 #. TRANSLATORS: Print Objects
 msgid "print-objects"
-msgstr ""
+msgstr "Imprimare obiecte"
 
 #. TRANSLATORS: Print Quality
 msgid "print-quality"
-msgstr ""
+msgstr "Calitatea imprimării"
 
 #. TRANSLATORS: Draft
 msgid "print-quality.3"
-msgstr ""
+msgstr "Schiță"
 
 #. TRANSLATORS: Normal
 msgid "print-quality.4"
-msgstr ""
+msgstr "Normală"
 
 #. TRANSLATORS: High
 msgid "print-quality.5"
-msgstr ""
+msgstr "Ridicată"
 
 #. TRANSLATORS: Print Rendering Intent
 msgid "print-rendering-intent"
-msgstr ""
+msgstr "Intenția de redare a imprimării"
 
 #. TRANSLATORS: Absolute
 msgid "print-rendering-intent.absolute"
-msgstr ""
+msgstr "Absolută"
 
 #. TRANSLATORS: Automatic
 msgid "print-rendering-intent.auto"
-msgstr ""
+msgstr "Automat"
 
 #. TRANSLATORS: Perceptual
 msgid "print-rendering-intent.perceptual"
-msgstr ""
+msgstr "Perceptivă"
 
 #. TRANSLATORS: Relative
 msgid "print-rendering-intent.relative"
-msgstr ""
+msgstr "Relativă"
 
 #. TRANSLATORS: Relative w/Black Point Compensation
 msgid "print-rendering-intent.relative-bpc"
-msgstr ""
+msgstr "Relativă cu compensare a punctului alb/negru"
 
 #. TRANSLATORS: Saturation
 msgid "print-rendering-intent.saturation"
-msgstr ""
+msgstr "Saturație"
 
 #. TRANSLATORS: Print Scaling
 msgid "print-scaling"
-msgstr ""
+msgstr "Scalare imprimare"
 
 #. TRANSLATORS: Automatic
 msgid "print-scaling.auto"
-msgstr ""
+msgstr "Automată"
 
 #. TRANSLATORS: Auto-fit
 msgid "print-scaling.auto-fit"
-msgstr ""
+msgstr "Potrivire automată"
 
 #. TRANSLATORS: Fill
 msgid "print-scaling.fill"
-msgstr ""
+msgstr "Umplere"
 
 #. TRANSLATORS: Fit
 msgid "print-scaling.fit"
-msgstr ""
+msgstr "Potrivire"
 
 #. TRANSLATORS: None
 msgid "print-scaling.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Print Supports
 msgid "print-supports"
-msgstr ""
+msgstr "Asistență pentru imprimare"
 
 #. TRANSLATORS: Print Supports Actual
 msgid "print-supports-actual"
-msgstr ""
+msgstr "Asistența pentru imprimare actuală"
 
 #. TRANSLATORS: With Specified Material
 msgid "print-supports.material"
-msgstr ""
+msgstr "Cu material specificat"
 
 #. TRANSLATORS: None
 msgid "print-supports.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Standard
 msgid "print-supports.standard"
-msgstr ""
+msgstr "Standard"
 
 #, c-format
 msgid "printer %s disabled since %s -"
-msgstr ""
+msgstr "imprimanta %s dezactivată din %s -"
 
 #, c-format
 msgid "printer %s is holding new jobs.  enabled since %s"
-msgstr ""
+msgstr "imprimanta %s are reținute lucrări noi.  activată din %s"
 
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
-msgstr ""
+msgstr "imprimanta %s este inactivă.  activată din %s"
 
 #, c-format
 msgid "printer %s now printing %s-%d.  enabled since %s"
-msgstr ""
+msgstr "imprimanta %s imprimă acum %s-%d.  activată din %s"
 
 #, c-format
 msgid "printer %s/%s disabled since %s -"
-msgstr ""
+msgstr "imprimanta %s/%s este dezactivată din %s -"
 
 #, c-format
 msgid "printer %s/%s is idle.  enabled since %s"
-msgstr ""
+msgstr "imprimanta %s/%s este inactivă.  activată din %s"
 
 #, c-format
 msgid "printer %s/%s now printing %s-%d.  enabled since %s"
-msgstr ""
+msgstr "imprimanta %s/%s imprimă acum %s-%d.  activată din %s"
 
 #. TRANSLATORS: Printer Kind
 msgid "printer-kind"
-msgstr ""
+msgstr "Tipul de imprimantă"
 
 #. TRANSLATORS: Disc
 msgid "printer-kind.disc"
-msgstr ""
+msgstr "Disc"
 
 #. TRANSLATORS: Document
 msgid "printer-kind.document"
-msgstr ""
+msgstr "Document"
 
 #. TRANSLATORS: Envelope
 msgid "printer-kind.envelope"
-msgstr ""
+msgstr "Plic"
 
 #. TRANSLATORS: Label
 msgid "printer-kind.label"
-msgstr ""
+msgstr "Etichetă"
 
 #. TRANSLATORS: Large Format
 msgid "printer-kind.large-format"
-msgstr ""
+msgstr "Format mare"
 
 #. TRANSLATORS: Photo
 msgid "printer-kind.photo"
-msgstr ""
+msgstr "Fotografie"
 
 #. TRANSLATORS: Postcard
 msgid "printer-kind.postcard"
-msgstr ""
+msgstr "Carte poştală"
 
 #. TRANSLATORS: Receipt
 msgid "printer-kind.receipt"
-msgstr ""
+msgstr "Chitanță"
 
 #. TRANSLATORS: Roll
 msgid "printer-kind.roll"
-msgstr ""
+msgstr "Rolă"
 
 #. TRANSLATORS: Message From Operator
 msgid "printer-message-from-operator"
-msgstr ""
+msgstr "Mesaj de la operator"
 
 #. TRANSLATORS: Print Resolution
 msgid "printer-resolution"
-msgstr ""
+msgstr "Rezoluția imprimantei"
 
 #. TRANSLATORS: Printer State
 msgid "printer-state"
-msgstr ""
+msgstr "Starea imprimantei"
 
 #. TRANSLATORS: Detailed Printer State
 msgid "printer-state-reasons"
-msgstr ""
+msgstr "Starea detaliată a imprimantei"
 
 #. TRANSLATORS: Old Alerts Have Been Removed
 msgid "printer-state-reasons.alert-removal-of-binary-change-entry"
-msgstr ""
+msgstr "Alertele vechi au fost eliminate"
 
 #. TRANSLATORS: Bander Added
 msgid "printer-state-reasons.bander-added"
-msgstr ""
+msgstr "Bandă de ambalare adăugată"
 
 #. TRANSLATORS: Bander Almost Empty
 msgid "printer-state-reasons.bander-almost-empty"
-msgstr ""
+msgstr "Bandă de ambalare aproape goală"
 
 #. TRANSLATORS: Bander Almost Full
 msgid "printer-state-reasons.bander-almost-full"
-msgstr ""
+msgstr "Bandă de ambalare aproape plină"
 
 #. TRANSLATORS: Bander At Limit
 msgid "printer-state-reasons.bander-at-limit"
-msgstr ""
+msgstr "Bandă de ambalare la limită"
 
 #. TRANSLATORS: Bander Closed
 msgid "printer-state-reasons.bander-closed"
-msgstr ""
+msgstr "Bandă de ambalare închisă"
 
 #. TRANSLATORS: Bander Configuration Change
 msgid "printer-state-reasons.bander-configuration-change"
-msgstr ""
+msgstr "Modificare configurație bandă de ambalare"
 
 #. TRANSLATORS: Bander Cover Closed
 msgid "printer-state-reasons.bander-cover-closed"
-msgstr ""
+msgstr "Capacul benzii de ambalare este închis"
 
 #. TRANSLATORS: Bander Cover Open
 msgid "printer-state-reasons.bander-cover-open"
-msgstr ""
+msgstr "Capacul benzii de ambalare este deschis"
 
 #. TRANSLATORS: Bander Empty
 msgid "printer-state-reasons.bander-empty"
-msgstr ""
+msgstr "Banda de ambalare este goală"
 
 #. TRANSLATORS: Bander Full
 msgid "printer-state-reasons.bander-full"
-msgstr ""
+msgstr "Banda de ambalare este plină"
 
 #. TRANSLATORS: Bander Interlock Closed
 msgid "printer-state-reasons.bander-interlock-closed"
-msgstr ""
+msgstr "Inter-blocarea benzii de ambalare este închisă"
 
 #. TRANSLATORS: Bander Interlock Open
 msgid "printer-state-reasons.bander-interlock-open"
-msgstr ""
+msgstr "Inter-blocarea benzii de ambalare este deschisă"
 
 #. TRANSLATORS: Bander Jam
 msgid "printer-state-reasons.bander-jam"
-msgstr ""
+msgstr "Banda de ambalare este blocată"
 
 #. TRANSLATORS: Bander Life Almost Over
 msgid "printer-state-reasons.bander-life-almost-over"
-msgstr ""
+msgstr "Banda de ambalare este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
-msgstr ""
+msgstr "Durata vieții utile a benzii de ambalare s-a sfârșit"
 
 #. TRANSLATORS: Bander Memory Exhausted
 msgid "printer-state-reasons.bander-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a benzii de ambalare"
 
 #. TRANSLATORS: Bander Missing
 msgid "printer-state-reasons.bander-missing"
-msgstr ""
+msgstr "Banda de ambalare lipsește"
 
 #. TRANSLATORS: Bander Motor Failure
 msgid "printer-state-reasons.bander-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului benzii de ambalare"
 
 #. TRANSLATORS: Bander Near Limit
 msgid "printer-state-reasons.bander-near-limit"
-msgstr ""
+msgstr "Bandă de ambalare aproape la limită"
 
 #. TRANSLATORS: Bander Offline
 msgid "printer-state-reasons.bander-offline"
-msgstr ""
+msgstr "Bandă de ambalare fără conexiune"
 
 #. TRANSLATORS: Bander Opened
 msgid "printer-state-reasons.bander-opened"
-msgstr ""
+msgstr "Bandă de ambalare deschisă"
 
 #. TRANSLATORS: Bander Over Temperature
 msgid "printer-state-reasons.bander-over-temperature"
-msgstr ""
+msgstr "Banda de ambalare este la o temperatură excesivă"
 
 #. TRANSLATORS: Bander Power Saver
 msgid "printer-state-reasons.bander-power-saver"
@@ -15770,7 +15813,7 @@ msgstr ""
 
 #. TRANSLATORS: None
 msgid "separator-sheets-type.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Slip Sheets
 msgid "separator-sheets-type.slip-sheets"
