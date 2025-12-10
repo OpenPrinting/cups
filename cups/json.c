@@ -434,32 +434,39 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
       // Descend
       current = current->value.child;
     }
-    else if (current->sibling)
+    else
     {
-      // Visit silbling
-      current = current->sibling;
-    }
-    else if ((current = current->parent) != NULL)
-    {
-      // Ascend and continue...
+      // Close out current array/object...
       if (current->type == CUPS_JTYPE_ARRAY)
         *ptr++ = ']';
-      else
+      else if (current->type == CUPS_JTYPE_OBJECT)
         *ptr++ = '}';
 
-      while (current)
+      if (current->sibling)
       {
-        if (current->sibling)
+	// Visit silbling
+	current = current->sibling;
+      }
+      else if ((current = current->parent) != NULL)
+      {
+	// Ascend and continue...
+	while (current)
 	{
-	  current = current->sibling;
-	  break;
-	}
-	else if ((current = current->parent) != NULL)
-	{
+	  // Close out current array/object...
 	  if (current->type == CUPS_JTYPE_ARRAY)
 	    *ptr++ = ']';
-	  else
+	  else if (current->type == CUPS_JTYPE_OBJECT)
 	    *ptr++ = '}';
+
+	  if (current->sibling)
+	  {
+	    current = current->sibling;
+	    break;
+	  }
+	  else
+	  {
+	    current = current->parent;
+	  }
 	}
       }
     }

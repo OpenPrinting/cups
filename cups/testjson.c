@@ -1,7 +1,7 @@
 //
 // JSON API unit tests for CUPS.
 //
-// Copyright © 2022-2024 by OpenPrinting.
+// Copyright © 2022-2025 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -10,6 +10,7 @@
 #include "cups.h"
 #include "json.h"
 #include "test-internal.h"
+#include <math.h>
 
 
 //
@@ -33,6 +34,7 @@ main(int  argc,				// I - Number of command-line arguments
     size_t	count;			// Number of children
     char	*s;			// JSON string
     time_t	last_modified = 0;	// Last-Modified value
+    double	number;			// Number value
     static const char * const types[] =	// Node types
     {
       "CUPS_JTYPE_NULL",		// Null value
@@ -177,9 +179,29 @@ main(int  argc,				// I - Number of command-line arguments
     current = cupsJSONNewNumber(parent, current, 2);
     testEnd(current != NULL);
 
+    testBegin("cupsJSONNewKey('emptyArray')");
+    current = cupsJSONNewKey(json, NULL, "emptyArray");
+    testEnd(current != NULL);
+
+    testBegin("cupsJSONNew(array)");
+    parent = cupsJSONNew(json, current, CUPS_JTYPE_ARRAY);
+    testEnd(parent != NULL);
+
+    testBegin("cupsJSONNewKey('emptyObject')");
+    current = cupsJSONNewKey(json, NULL, "emptyObject");
+    testEnd(current != NULL);
+
+    testBegin("cupsJSONNew(object)");
+    parent = cupsJSONNew(json, current, CUPS_JTYPE_OBJECT);
+    testEnd(parent != NULL);
+
     testBegin("cupsJSONGetCount(root)");
     count = cupsJSONGetCount(json);
-    testEndMessage(count == 14, "%u", (unsigned)count);
+    testEndMessage(count == 18, "%u", (unsigned)count);
+
+    testBegin("cupsJSONFind('number')");
+    number = cupsJSONGetNumber(cupsJSONFind(json, "number"));
+    testEndMessage(fabs(number-42.0) < 0.01, "%g", number);
 
     testBegin("cupsJSONExportFile(root, 'test.json')");
     if (cupsJSONExportFile(json, "test.json"))
@@ -206,6 +228,10 @@ main(int  argc,				// I - Number of command-line arguments
       parent = cupsJSONImportString(s);
       testEnd(parent != NULL);
 
+      testBegin("cupsJSONGetCount(imported)");
+      count = cupsJSONGetCount(parent);
+      testEndMessage(count == 18, "%u", (unsigned)count);
+
       cupsJSONDelete(parent);
       free(s);
     }
@@ -224,8 +250,16 @@ main(int  argc,				// I - Number of command-line arguments
     if (json)
     {
       char	last_modified_date[256];// Last-Modified string value
+      const char *jwks_uri;		// jwks_uri value
 
       testEnd(true);
+
+      testBegin("cupsJSONFind('jwks_uri')");
+      if ((jwks_uri = cupsJSONGetString(cupsJSONFind(json, "jwks_uri"))) != NULL)
+        testEndMessage(true, "%s", jwks_uri);
+      else
+        testEnd(false);
+
       cupsJSONDelete(json);
 
       testBegin("cupsJSONImportURL('https://accounts.google.com/.well-known/openid-configuration', since %s)", httpGetDateString2(last_modified, last_modified_date, sizeof(last_modified_date)));
