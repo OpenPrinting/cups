@@ -2761,10 +2761,7 @@ check_start_tls(cupsd_client_t *con)	/* I - Client connection */
     httpSetField(con->http, HTTP_FIELD_CONTENT_LENGTH, "0");
 
     if (!cupsdSendHeader(con, HTTP_STATUS_OK, NULL, CUPSD_AUTH_NONE))
-    {
-      cupsdCloseClient(con);
       return (-1);
-    }
   }
 
   return (1);
