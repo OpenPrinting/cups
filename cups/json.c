@@ -299,7 +299,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
     }
     else if (current->sibling)
     {
-      // Visit silbling
+      // Visit sibling
       current = current->sibling;
     }
     else
@@ -444,7 +444,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 
       if (current->sibling)
       {
-	// Visit silbling
+	// Visit sibling
 	current = current->sibling;
       }
       else if ((current = current->parent) != NULL)
