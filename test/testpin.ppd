@@ -1,6 +1,6 @@
 *PPD-Adobe: "4.3"
 *%
-*% Test HP PPD file for CUPS.
+*% Test PIN PPD file for CUPS.
 *%
 *% Copyright © 2020-2025 by OpenPrinting.
 *% Copyright © 2007-2018 by Apple Inc.
@@ -13,16 +13,16 @@
 *FileVersion:	"2.5"
 *LanguageVersion: English
 *LanguageEncoding: ISOLatin1
-*PCFileName:	"TESTHP.PPD"
+*PCFileName:	"TESTPIN.PPD"
 *Manufacturer:	"OpenPrinting"
 *Product:	"(CUPS v2.5)"
 *cupsVersion:	2.5
 *cupsManualCopies: True
 *cupsFilter:	"application/vnd.cups-raster 50 rastertohp"
 *cupsFilter2:	"application/vnd.cups-raster application/vnd.hp-pcl 50 rastertohp"
-*ModelName:     "Test HP Printer"
-*ShortNickName: "Test HP Printer"
-*NickName:      "Test HP Printer CUPS v2.3"
+*ModelName:     "Test PIN Printer"
+*ShortNickName: "Test PIN Printer"
+*NickName:      "Test PIN Printer CUPS v2.5"
 *PSVersion:	"(3010.000) 550"
 *LanguageLevel:	"3"
 *ColorDevice:	True
@@ -32,6 +32,9 @@
 *LandscapeOrientation: Plus90
 *VariablePaperSize: False
 *TTRasterizer:	Type42
+
+*cupsMandatory: "job-password job-password-encryption"
+*cupsJobPassword: "111111"
 
 *UIConstraints: *PageSize Executive *InputSlot Envelope
 *UIConstraints: *PageSize Letter *InputSlot Envelope

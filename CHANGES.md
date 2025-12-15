@@ -88,6 +88,8 @@ Changes in CUPS v2.5b1 (YYYY-MM-DD)
   from the PPD file (Issue #1388)
 - Updated the scheduler with a more efficient algorithm for determining the
   supported document formats for a printer (Issue #1392)
+- Updated the scheduler to hold password/PIN jobs for 15 seconds before
+  releasing to the printer (Issue #1456)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error

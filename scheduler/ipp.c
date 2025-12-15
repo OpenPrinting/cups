@@ -1700,6 +1700,18 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     job->hold_until               = time(NULL) + MultipleOperationTimeout;
     job->state->values[0].integer = IPP_JSTATE_HELD;
     job->state_value              = IPP_JSTATE_HELD;
+
+    if (ippFindAttribute(job->attrs, "job-password", IPP_TAG_STRING))
+      ippSetString(job->attrs, &job->reasons, 0, "job-password-specified");
+  }
+  else if (ippFindAttribute(job->attrs, "job-password", IPP_TAG_STRING))
+  {
+    // Issue #1456: Hold PIN/passcode print jobs for 15 seconds to allow iOS clients to show generated PIN...
+    job->hold_until               = time(NULL) + 15;
+    job->state->values[0].integer = IPP_JSTATE_HELD;
+    job->state_value              = IPP_JSTATE_HELD;
+
+    ippSetString(job->attrs, &job->reasons, 0, "job-password-specified");
   }
   else
   {
@@ -9951,10 +9963,18 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
 
       if (!attr || !strcmp(attr->values[0].string.text, "no-hold"))
       {
-	job->state->values[0].integer = IPP_JSTATE_PENDING;
-	job->state_value              = IPP_JSTATE_PENDING;
+        if (ippFindAttribute(job->attrs, "job-password", IPP_TAG_STRING))
+        {
+	  // Issue #1456: Hold PIN/passcode print jobs for 15 seconds to allow iOS clients to show generated PIN...
+	  job->hold_until = time(NULL) + 15;
+        }
+        else
+        {
+	  job->state->values[0].integer = IPP_JSTATE_PENDING;
+	  job->state_value              = IPP_JSTATE_PENDING;
 
-	ippSetString(job->attrs, &job->reasons, 0, "none");
+	  ippSetString(job->attrs, &job->reasons, 0, "none");
+	}
       }
       else
 	ippSetString(job->attrs, &job->reasons, 0, "job-hold-until-specified");

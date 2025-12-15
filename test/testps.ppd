@@ -2,7 +2,7 @@
 *%
 *% Test PS PPD file for CUPS.
 *%
-*% Copyright © 2020-2024 by OpenPrinting.
+*% Copyright © 2020-2025 by OpenPrinting.
 *% Copyright © 2007-2018 by Apple Inc.
 *% Copyright © 1997-2005 by Easy Software Products.
 *%
@@ -10,15 +10,15 @@
 *% information.
 *%
 *FormatVersion:	"4.3"
-*FileVersion:	"2.3"
+*FileVersion:	"2.5"
 *LanguageVersion: English
 *LanguageEncoding: ISOLatin1
 *PCFileName:	"TESTPS.PPD"
-*Manufacturer:	"Apple"
-*Product:	"(CUPS v2.3)"
+*Manufacturer:	"OpenPrinting"
+*Product:	"(CUPS v2.5)"
 *ModelName:     "Test PS Printer"
 *ShortNickName: "Test PS Printer"
-*NickName:      "Test PS Printer CUPS v2.3"
+*NickName:      "Test PS Printer CUPS v2.5"
 *PSVersion:	"(3010.000) 550"
 *LanguageLevel:	"3"
 *ColorDevice:	True
