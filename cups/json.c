@@ -413,7 +413,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 	      *ptr++ = '\\';
 	      *ptr++ = 't';
 	    }
-            if ((*value & 255) < ' ')
+            else if ((*value & 255) < ' ')
             {
               snprintf(ptr, length - (size_t)(ptr - s), "\\u%04x", *value);
               ptr += 6;
