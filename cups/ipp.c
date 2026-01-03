@@ -4066,8 +4066,8 @@ ippValidateAttribute(
 			 "x(-[a-z0-9]{1,8})+"			// privateuse
 			 "|"
 			 "[a-z]{1,3}(-[a-z][0-9]{2,8}){1,2}"	// grandfathered
-             "|"
-             "(en-  )" // Special case for "en-  " (hack for Canon printers)
+			 "|"
+			 "([a-z]{2,3}-  )" // Special case for "en-  " (hack for Canon printers)
 			 ")$",
 			 REG_NOSUB | REG_EXTENDED)) != 0)
         {
