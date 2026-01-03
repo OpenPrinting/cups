@@ -1607,6 +1607,8 @@ ippCreateRequestedArray(ipp_t *request)	// I - IPP request
   static const char * const printer_description[] =
   {					// printer-description group
     "auth-info-required",		// CUPS extension
+    "oauth-authorization-scopes",	// CUPS extension
+    "oauth-authorization-server-uri",	// CUPS extension
     "chamber-humidity-current",		// IPP 3D
     "chamber-temperature-current",	// IPP 3D
     "charset-configured",
