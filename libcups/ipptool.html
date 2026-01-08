@@ -115,6 +115,9 @@ blockquote {
 ] [
 <strong>--stop-after-include-error</strong>
 ] [
+<strong>--user-agent</strong>
+<em>USER-AGENT</em>
+] [
 <strong>--version</strong>
 ] [
 <strong>-4</strong>
@@ -177,14 +180,14 @@ blockquote {
     <h2 id="ipptool-1.description">Description</h2>
 <p><strong>ipptool</strong>
 sends IPP requests to the specified
-<em>printer-uri</em>
+<em>PRINTER-URI</em>
 and tests and/or displays the results.
 Each named
-<em>testfile</em>
+<em>TESTFILE</em>
 defines one or more requests, including the expected response status, attributes, and values.
 Output is either a plain text, formatted text, CSV, JSON, or XML report on the standard output, with a non-zero exit status indicating that one or more tests have failed.
 The
-<em>testfile</em>
+<em>TESTFILE</em>
 format is described in
 <a href="ipptoolfile.html"><strong>ipptoolfile</strong>(5).</a>
 
@@ -196,7 +199,7 @@ format is described in
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--bearer-token </strong><em>BEARER-TOKEN</em><br>
 Specifies the OAuth 2.0 token to use for HTTP Bearer authentication (RFC 6750).
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--client-namne </strong><em>CLIENT-NAME</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--client-name </strong><em>CLIENT-NAME</em><br>
 Specifies the client name to use for the TLS client certificate.
 If not specified, no client certificate is used during negotiation.
 </p>
@@ -215,6 +218,15 @@ Tells
 to stop if an error occurs in an included file. Normally
 <strong>ipptool</strong>
 will continue with subsequent tests after the INCLUDE directive.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--user-agent </strong><em>USER-AGENT</em><br>
+Specifies the HTTP User-Agent string to use.
+The default is based on the
+<strong>UserAgentTokens</strong>
+value in the
+<a href="client.conf.html"><strong>client.conf</strong>(5)</a>
+
+file.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
 Shows the version of
@@ -340,10 +352,10 @@ program returns 0 if all tests were successful and 1 otherwise.
     get-subscriptions.test            - Get a list of subscriptions
     identify-printer.test             - Identify a printer
     identify-printer-display.test     - Identify a printer via the display
-    ipp-1.1.test                      - Run IPP/1.1 conformance tests
-    ipp-2.0.test                      - Run IPP/2.0 conformance tests
-    ipp-2.1.test                      - Run IPP/2.1 conformance tests
-    ipp-2.2.test                      - Run IPP/2.2 conformance tests
+    ipp-1.1.test                      - IPP/1.1 tests
+    ipp-2.0.test                      - IPP/2.0 tests
+    ipp-2.1.test                      - IPP/2.1 tests
+    ipp-2.2.test                      - IPP/2.2 tests
     print-job.test                    - Print a file
     print-job-and-wait.test           - Print a file and wait for completion
     print-job-deflate.test            - Print a file with deflate compression
@@ -356,19 +368,22 @@ program returns 0 if all tests were successful and 1 otherwise.
     print-job-password.test           - Print a file with a password/PIN
     print-job-raster.test             - Print a generated raster file
     print-uri.test                    - Print a URI/URL
-    pwg5100.1.test                    - Test PWG 5100.1 (Finishings) conformance
-    pwg5100.2.test                    - Test PWG 5100.2 (output-bin) conformance
-    pwg5100.3.test                    - Test PWG 5100.3 (Production) conformance
-    pwg5100.5.test                    - Test PWG 5100.5 (Document Object) conformance
-    pwg5100.6.test                    - Test PWG 5100.6 (Page Overrides) conformance
-    pwg5100.7.test                    - Test PWG 5100.7 (Job Extensions) conformance
-    pwg5100.8.test                    - Test PWG 5100.8 (-actuals) conformance
-    pwg5100.9.test                    - Test PWG 5100.9 (Alerts) conformance
-    pwg5100.11.test                   - Test PWG 5100.11 (Enterprise) conformance
-    rfc3380.test                      - Test RFC 3380 (Job and Printer Set) conformance
-    rfc3995-3996.test                 - Test RFC 3995/3996 (Notifications) conformance
-    rfc3998.test                      - Test RFC 3998 (Admin) conformance
+    pwg5100.1.test                    - PWG 5100.1 (IPP Finishings) tests
+    pwg5100.2.test                    - PWG 5100.2 (IPP &quot;output-bin&quot; Attribute) tests
+    pwg5100.3.test                    - PWG 5100.3 (IPP Production Printing Extensions) tests
+    pwg5100.5.test                    - PWG 5100.5 (IPP Document Object) tests
+    pwg5100.6.test                    - PWG 5100.6 (IPP Page Overrides) tests
+    pwg5100.7.test                    - PWG 5100.7 (IPP Job Extensions) tests
+    pwg5100.8.test                    - PWG 5100.8 (IPP &quot;-actuals&quot; Attributes) tests
+    pwg5100.9.test                    - PWG 5100.9 (IPP Printer Alerts) tests
+    pwg5100.11.test                   - PWG 5100.11 (IPP Enterprise Printing Extensions) tests
+    pwg5100.13.test                   - PWG 5100.13 (IPP Driver Replacement Extensions) tests
+    pwg5101.1.test                    - PWG 5101.1 (PWG Media Standardized Names) tests
+    rfc3380.test                      - RFC 3380 (IPP Job and Printer Set Operations) tests
+    rfc3995-3996.test                 - RFC 3995/3996 (IPP Event Notifications and Subscriptions) tests
+    rfc3998.test                      - RFC 3998 (IPP Job and Printer Adminstrative Operations) tests
     set-attrs-hold.test               - Test setting job-hold-until to hold a job
+    test-resources.test               - Test and download printer resources
     validate-job.test                 - Validate a job ticket
     validate-resources.test           - Validate printer resource files and web pages
 </pre>
@@ -390,6 +405,7 @@ program returns 0 if all tests were successful and 1 otherwise.
     testfile.jpg                      - A color photo collage
     testfile.pcl                      - A HP-PCL homage to &quot;The Shining&quot;
     testfile.pdf                      - A historical CUPS PDF document
+    testfile-password.pdf             - A historical CUPS PDF document with password &quot;test&quot;
     testfile.ps                       - A historical CUPS PostScript document
     testfile.txt                      - A plain text homage to &quot;The Shining&quot;
 </pre>
@@ -411,13 +427,15 @@ program is unique to CUPS and conforms to the Internet Printing Protocol up to v
         ipp://localhost/printers/myprinter create-printer-subscription.test
 </pre>
     <h2 id="ipptool-1.see-also">See Also</h2>
-<a href="ipptoolfile.html"><p><strong>ipptoolfile</strong>(5),</a>
+<a href="client.conf.html"><p><strong>client.conf</strong>(5),</a>
+
+<a href="ipptoolfile.html"><strong>ipptoolfile</strong>(5),</a>
 
 IANA IPP Registry (<a href="https://www.iana.org/assignments/ipp-registrations">https://www.iana.org/assignments/ipp-registrations</a>),
 PWG Internet Printing Protocol Workgroup (<a href="https://www.pwg.org/ipp">https://www.pwg.org/ipp</a>),
 RFC 8011 (<a href="https://datatracker.ietf.org/doc/html/rfc8011">https://datatracker.ietf.org/doc/html/rfc8011</a>)
 </p>
     <h2 id="ipptool-1.copyright">Copyright</h2>
-<p>Copyright &copy; 2021-2024 by OpenPrinting.
+<p>Copyright &copy; 2021-2025 by OpenPrinting.
   </body>
 </html>

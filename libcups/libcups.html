@@ -99,10 +99,86 @@ blockquote {
     <h2 id="libcups-3.name">Name</h2>
 <p>libcups - cups api library
 </p>
+    <h2 id="libcups-3.library">Library</h2>
+<p><strong>pkg-config</strong>
+<strong>--cflags</strong>
+<strong>cups3</strong>
+<br>
+<strong>pkg-config</strong>
+<strong>--libs</strong>
+<strong>cups3</strong>
+</p>
+    <h2 id="libcups-3.synopsis">Synopsis</h2>
+<p><em>#include</em>
+<em>&lt;cups/cups.h></em>
+</p>
     <h2 id="libcups-3.description">Description</h2>
-    <h2 id="libcups-3.see-also">See Also</h2>
-<p><strong>cups</strong>(1)
+<p>CUPS 3.0 provides the &quot;cups3&quot; library to talk to the different parts of CUPS and with Internet Printing Protocol (IPP) printers. The &quot;cups&quot; library functions are accessed by including the
+<em>&lt;cups/cups.h></em>
+header.
+</p>
+    <p>CUPS is based on the Internet Printing Protocol (&quot;IPP&quot;), which allows clients (applications) to communicate with a server (the scheduler, printers, etc.) to get a list of destinations, send print jobs, and so forth.
+You identify which server you want to communicate with using a pointer to the opaque structure
+<strong>http_t</strong>.
 
+The
+<strong>CUPS_HTTP_DEFAULT</strong>
+constant can be used when you want to talk to the default CUPS spooler.
+</p>
+    <p>Printers are represented as destinations using the
+<strong>cups_dest_t</strong>
+structure which defines the local name as well as status and identification information such as the printer's Univeral Resource Identifier (URI), location, and model.
+The
+<strong>cupsEnumDests</strong>
+and
+<strong>cupsGetDests</strong>
+functions can be used to get a list of available destinations while the
+<strong>cupsGetNamedDest</strong>
+function can be used to get a single named destination.
+</p>
+    <p>Capability and localization information for a destination is separately contained in the
+<strong>cups_dinfo_t</strong>
+structure and is queried using the
+<strong>cupsCopyDestInfo</strong>
+function.
+The
+<strong>cupsCreateDestJob</strong>
+function creates a print job on a destination and the
+<strong>cupsStartDestDocument</strong>,
+
+<strong>cupsWriteRequestData</strong>,
+
+and
+<strong>cupsFinishDestDocument</strong>
+functions add a document to the print job.
+</p>
+    <h2 id="libcups-3.example">Example</h2>
+<p>The following simple program lists the available destinations:
+</p>
+    <pre>#include &lt;stdio.h>
+#include &lt;cups/cups.h>
+
+bool print_dest(void *cb_data, unsigned flags, cups_dest_t *dest)
+{
+  if (dest->instance)
+    printf(&quot;%s/%s\n&quot;, dest->name, dest->instance);
+  else
+    puts(dest->name);
+
+  return (true);
+}
+
+int main(void)
+{
+  cupsEnumDests(CUPS_DEST_FLAGS_NONE, 1000, NULL, 0, 0, print_dest, NULL);
+
+  return (0);
+}
+</pre>
+    <h2 id="libcups-3.see-also">See Also</h2>
+<p><strong>cups</strong>(1),
+
+CUPS 3.0 Programming Manual
 </p>
     <h2 id="libcups-3.copyright">Copyright</h2>
 <p>Copyright &copy; 2025 by OpenPrinting.

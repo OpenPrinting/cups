@@ -152,45 +152,38 @@ Shows program help.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
 Shows program version.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d</strong><em> DEVICE-URI</em>
-<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>DEVICE-URI</em><br>
 Specifies an output device as a URI.
 Currently only the &quot;ipp&quot;, &quot;ipps&quot;, and &quot;socket&quot; URI schemes are supported, for example &quot;socket://10.0.1.42&quot; to send print data to an AppSocket printer at IP address 10.0.1.42.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i</strong><em> INPUT/FORMAT</em>
-<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i </strong><em>INPUT/FORMAT</em><br>
 Specifies the MIME media type of the input file.
-Currently the &quot;application/pdf&quot; (PDF) and &quot;image/jpeg&quot; (JPEG) MIME media types are supported.
+Currently the &quot;application/pdf&quot; (PDF), &quot;image/jpeg&quot; (JPEG), &quot;image/png&quot; (PNG), &quot;image/pwg-raster&quot; (PWG Raster), and &quot;text/plain&quot; MIME media types are supported.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m</strong><em> OUTPUT/FORMAT</em>
-<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m </strong><em>OUTPUT/FORMAT</em><br>
 Specifies the MIME media type of the output file.
 Currently the &quot;application/PCLm&quot; (PCLm), &quot;application/pdf&quot; (PDF), &quot;application/postscript&quot; (PostScript), &quot;application/vnd.hp-pcl&quot; (HP PCL), &quot;image/pwg-raster&quot; (PWG Raster), and &quot;image/urf&quot; (Apple Raster) MIME media types are supported.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o</strong><em> &quot;NAME=VALUE</em><strong>[...</strong><em>NAME=VALUE]&quot;</em>
-<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o &quot;</strong><em>NAME=VALUE </em>[... <em>NAME=VALUE</em>]<strong>&quot;</strong><br>
 Specifies one or more named options for the conversion.
-Currently the &quot;copies&quot;, &quot;force-front-side&quot;, &quot;image-orientation&quot;, &quot;imposition-template&quot;, &quot;job-error-sheet&quot;, &quot;job-pages-per-set&quot;, &quot;job-sheet-message&quot;, &quot;job-sheets&quot;, &quot;job-sheets-col&quot;, &quot;media&quot;, &quot;media-col&quot;, &quot;multiple-document-handling&quot;, &quot;number-up&quot;, &quot;orientation-requested&quot;, &quot;overrides&quot;, &quot;page-delivery&quot;, &quot;page-ranges&quot;, &quot;print-color-mode&quot;, &quot;print-quality&quot;, &quot;print-scaling&quot;, &quot;printer-resolution&quot;, &quot;separator-sheets&quot;, &quot;sides&quot;, &quot;x-image-position&quot;, &quot;x-image-shift&quot;, &quot;x-side1-image-shift&quot;, &quot;x-side2-image-shift&quot;, &quot;y-image-position&quot;, &quot;y-image-shift&quot;, &quot;y-side1-image-shift&quot;, and &quot;y-side2-image-shift&quot; options are supported.
-See the NAMED OPTIONS section for more information.
+See the &quot;NAMED OPTIONS&quot; section for more information.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r</strong><em> RESOLUTION[,...]</em>
-<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>RESOLUTION</em>[,...<em>RESOLUTION</em>]<br>
 Specifies the supported resolutions.
 Resolutions are of the form &quot;NNNdpi&quot; or &quot;NNNxNNNdpi&quot;, for example &quot;300dpi&quot; or &quot;600x300dpi&quot;.
 HP PCL output only supports resolutions of &quot;300dpi&quot; and &quot;600dpi&quot;.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s</strong> {flipped|manual-tumble|normal|rotated}
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s</strong> {<strong>flipped</strong>|<strong>manual-tumble</strong>|<strong>normal</strong>|<strong>rotated</strong>}
 <br>
 Specifies the coordinate system for the back side of duplex sheets.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t</strong> type[,...]
-<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-t </strong><em>TYPE</em>[,...,<em>TYPE</em>]<br>
 Specifies the output color spaces and bit depths, separated by commas.
 Types include &quot;adobe-rgb_8&quot; and &quot;adobe-rgb_16&quot; for 8-bit and 16-bit AdobeRGB, &quot;black_1&quot; and &quot;black_8&quot; for 1-bit and 8-bit black, &quot;cmyk_8&quot; for 8-bit CMYK, &quot;sgray_1&quot; and &quot;sgray_8&quot; for 1-bit and 8-bit grayscale with a 2.2 gamma correction, and &quot;srgb_8&quot; for 8-bit sRGB color.
 Run
 <strong>ipptransform</strong>
 with the
-<em>--help</em>
+<strong>--help</strong>
 option to see the list of supported color spaces and bit depths.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v</strong><br>
@@ -323,17 +316,29 @@ Specifies the title of the input file.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_xxx</strong><br>
 Specifies the value of the &quot;xxx&quot; Job Template attribute, where &quot;xxx&quot; is converted to uppercase.
 For example, the &quot;media&quot; Job Template attribute is stored as the &quot;IPP_MEDIA&quot; environment variable.
+When the source attribute contains multiple values, they are separated by commas in the environment variable string.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_xxx_DEFAULT</strong><br>
 Specifies the default value of the corresponding &quot;xxx-default&quot; Printer Description attribute, where &quot;xxx&quot; is converted to uppercase.
 For example, the &quot;media-default&quot; Printer Description attribute is stored as the &quot;IPP_MEDIA_DEFAULT&quot; environment variable.
+When the source attribute contains multiple values, they are separated by commas in the environment variable string.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_xxx_READY</strong><br>
+Specifies the loaded value(s) of the corresponding &quot;xxx-ready&quot; Printer Status attribute, where &quot;xxx&quot; is converted to uppercase.
+For example, the &quot;media-ready&quot; Printer Status attribute is stored as the &quot;IPP_MEDIA_READY&quot; environment variable.
+When the source attribute contains multiple values, they are separated by commas in the environment variable string.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_xxx_SUPPORTED</strong><br>
+Specifies the supported value(s) of the corresponding &quot;xxx-supported&quot; Printer Description attribute, where &quot;xxx&quot; is converted to uppercase.
+For example, the &quot;media-supported&quot; Printer Description attribute is stored as the &quot;IPP_MEDIA_SUPPORTED&quot; environment variable.
+When the source attribute contains multiple values, they are separated by commas in the environment variable string.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PCLM_RASTER_BACK_SIDE</strong><br>
 Specifies the coordinate system of the back side of duplex sheets.
 The default is 'normal'.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PCLM_SOURCE_RESOLUTION_SUPPORTED</strong><br>
-Lists the supported output resolutions.
+Lists the supported output resolutions, separated by commas.
 The default is 600dpi.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PCLM_STRIP_HEIGHT_PREFERRED</strong><br>
@@ -341,7 +346,7 @@ Specifies the preferred strip height for the printer.
 The default is 16.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_RESOLUTION_SUPPORTED</strong><br>
-Lists the supported output resolutions.
+Lists the supported output resolutions, separated by commas.
 The default is 300dpi.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_SHEET_BACK</strong><br>
@@ -349,11 +354,11 @@ Specifies the coordinate system of the back side of duplex sheets.
 The default is 'normal'.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPP_PWG_RASTER_DOCUMENT_TYPE_SUPPORTED</strong><br>
-Lists the supported output color spaces and bit depths.
+Lists the supported output color spaces and bit depths, separated by commas.
 The default is 'sgray_8'.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>IPPTRANSFORM_MAX_RASTER</strong><br>
-Specifies the maximum number of bytes to use when generating raster data.
+Specifies the maximum number of bytes of memory to use when generating raster data.
 The default is 16MB.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>OUTPUT_TYPE</strong><br>
@@ -386,7 +391,7 @@ Specifies the log level (verbosity) as &quot;error&quot;, &quot;info&quot;, or &
 
 </p>
     <h2 id="ipptransform-1.copyright">Copyright</h2>
-<p>Copyright &copy; 2023-2025 by OpenPrinting.
+<p>Copyright &copy; 2023-2026 by OpenPrinting.
 Copyright &copy; 2016-2019 by the Printer Working Group.
 Copyright &copy; 2016-2019 by Apple Inc.
   </body>

@@ -97,11 +97,28 @@ blockquote {
   <body>
     <h1 id="client.conf-5">client.conf(5)</h1>
     <h2 id="client.conf-5.name">Name</h2>
-<p>client.conf - client configuration file for cups (deprecated on macos)
+<p>client.conf - client configuration file for cups
 </p>
     <h2 id="client.conf-5.description">Description</h2>
-<p>The <strong>client.conf</strong> file configures the CUPS client and is normally located in the <em>/etc/cups</em> and/or <em>~/.cups</em> directories.
-Each line in the file can be a configuration directive, a blank line, or a comment. Comment lines start with the # character.
+<p>The <strong>client.conf</strong> file configures the CUPS client and is normally located in any of the following directories:
+</p>
+    <ul>
+    <li style="margin-left: 2.5em;"><strong>/etc/cups</strong>
+<em>or</em>
+<strong>/usr/local/etc/cups</strong>
+<em>(root account)</em>
+    <li style="margin-left: 2.5em;"><strong>$SNAP_COMMON/cups</strong>
+<em>(snapcraft-based applications)</em>
+    <li style="margin-left: 2.5em;"><strong>$HOME/.cups</strong>
+<em>(historical per-user settings)</em>
+    <li style="margin-left: 2.5em;"><strong>$XDG_CONFIG_HOME/cups</strong>
+<em>or</em>
+<strong>$HOME/.config/cups</strong>
+<em>(current per-user settings)</em>
+    <li style="margin-left: 2.5em;"><strong>%USERPROFILE%/AppData/Local/cups</strong>
+<em>(Windows per-user settings)</em>
+</ul>
+    <p>Each line in the file can be a configuration directive, a blank line, or a comment. Comment lines start with the # character.
 </p>
     <p><strong>Note:</strong> macOS applications can access many of these settings in the <em>/Library/Preferences/org.cups.PrintingPrefs.plist</em> file instead.
 macOS also does not support the
@@ -116,19 +133,27 @@ See the NOTES section below for more information.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AllowAnyRoot No</strong><br>
 Specifies whether to allow TLS with certificates that have not been signed by a trusted Certificate Authority.
-The default is &quot;Yes&quot;.
+The default is
+<strong>Yes</strong>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AllowExpiredCerts Yes</strong><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>AllowExpiredCerts No</strong><br>
 Specifies whether to allow TLS with expired certificates.
-The default is &quot;No&quot;.
+The default is
+<strong>No</strong>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DigestOptions DenyMD5</strong><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>DigestOptions None</strong><br>
 Specifies HTTP Digest authentication options.
-<strong>DenyMD5</strong> disables support for the original MD5 hash algorithm.
+<strong>DenyMD5</strong>
+disables support for the original MD5 hash algorithm.
+The default is
+<strong>None</strong>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Encryption IfRequested</strong><br>
 </p>
@@ -136,6 +161,9 @@ Specifies HTTP Digest authentication options.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Encryption Required</strong><br>
 Specifies the level of encryption that should be used.
+The default is
+<strong>IfRequested</strong>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>BrowseDomains all</strong><br>
 </p>
@@ -143,8 +171,15 @@ Specifies the level of encryption that should be used.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>BrowseDomains </strong><em>DOMAIN[,...,DOMAIN]</em><br>
 Specifies the DNS-SD domains to browse for IPP printers.
-The value &quot;all&quot; browses the &quot;.local&quot; domain (mDNS) and all registered DNS domains on the local system.
-The value &quot;none&quot; disables browsing for network printers.
+The value
+<strong>all</strong>
+browses the &quot;.local&quot; domain (mDNS) and all registered DNS domains on the local system.
+The value
+<strong>none</strong>
+disables browsing for network printers.
+The default is
+<strong>all</strong>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterLocation </strong><em>LOCATION[,...,LOCATION]</em><br>
 </p>
@@ -160,41 +195,68 @@ Specifies a regular expression for matching locations to use for destinations.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FilterType </strong><em>TYPE[,...,TYPE]</em><br>
 Specifies the type of destinations to use.
-The TYPE values are &quot;mono&quot; for B&amp;W printers, &quot;color&quot; for color printers, &quot;duplex&quot; for printers with 2-sided printing capabilities, &quot;simplex&quot; for printers with 1-sided printing capabilities, &quot;bind&quot; for printers that can bind output, &quot;cover&quot; for printers that can cover output, &quot;punch&quot; for printers that can punch output, &quot;sort&quot; for printers that can sort output, &quot;staple&quot; for printers with a stapler, &quot;small&quot; for printers that support media up to US Legal/ISO A4, &quot;medium&quot; for printers that support media up to US Tabloid/ISO A3, and &quot;large&quot; for printers that support media larger than US Tabloid/ISO A3.
+The
+<em>TYPE</em>
+values are &quot;mono&quot; for B&amp;W printers, &quot;color&quot; for color printers, &quot;duplex&quot; for printers with 2-sided printing capabilities, &quot;simplex&quot; for printers with 1-sided printing capabilities, &quot;bind&quot; for printers that can bind output, &quot;cover&quot; for printers that can cover output, &quot;punch&quot; for printers that can punch output, &quot;sort&quot; for printers that can sort output, &quot;staple&quot; for printers with a stapler, &quot;small&quot; for printers that support media up to US Legal/ISO A4, &quot;medium&quot; for printers that support media up to US Tabloid/ISO A3, and &quot;large&quot; for printers that support media larger than US Tabloid/ISO A3.
+The default is no filtering.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>hostname-or-ip-address</em>[<em>:port</em>]<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>HOSTNAME-OR-IP-ADDRESS</em>[<em>:PORT</em>]<br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>/domain/socket</em><br>
-Specifies the address and optionally the port to use when connecting to the server.
-<strong>Note: This directive is not supported on macOS 10.7 or later.</strong>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>/DOMAIN/SOCKET</em><br>
+Specifies the address and optionally the port to use when connecting to the server (not supported on macOS).
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>hostname-or-ip-address</em>[<em>:port</em>]<strong>/version=1.1</strong><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ServerName </strong><em>HOSTNAME-OR-IP-ADDRESS</em>[<em>:PORT</em>]<strong>/version=1.1</strong><br>
 Specifies the address and optionally the port to use when connecting to a server running CUPS 1.3.12 and earlier.
+The default is the local spooler's domain socket.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions </strong>[<em>AllowDH</em>] [<em>AllowRC4</em>] [<em>AllowSSL3</em>] [<em>DenyCBC</em>] [<em>DenyTLS1.0</em>] [<em>MaxTLS1.0</em>] [<em>MaxTLS1.1</em>] [<em>MaxTLS1.2</em>] [<em>MaxTLS1.3</em>] [<em>MinTLS1.0</em>] [<em>MinTLS1.1</em>] [<em>MinTLS1.2</em>] [<em>MinTLS1.3</em>]<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions </strong>[<strong>AllowDH</strong>] [<strong>AllowRC4</strong>] [<strong>AllowSSL3</strong>] [<strong>DenyCBC</strong>] [<strong>DenyTLS1.0</strong>] [<strong>MaxTLS1.0</strong>] [<strong>MaxTLS1.1</strong>] [<strong>MaxTLS1.2</strong>] [<strong>MaxTLS1.3</strong>] [<strong>MinTLS1.0</strong>] [<strong>MinTLS1.1</strong>] [<strong>MinTLS1.2</strong>] [<strong>MinTLS1.3]</strong><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>SSLOptions None</strong><br>
-Sets encryption options (only in /etc/cups/client.conf).
-By default, CUPS only supports encryption using TLS v1.0 or higher using known secure cipher suites.
-Security is reduced when <em>Allow</em> options are used.
-Security is enhanced when <em>Deny</em> options are used.
-The <em>AllowDH</em> option enables cipher suites using plain Diffie-Hellman key negotiation (not supported on systems using GNU TLS).
-The <em>AllowRC4</em> option enables the 128-bit RC4 cipher suites, which are required for some older clients.
-The <em>AllowSSL3</em> option enables SSL v3.0, which is required for some older clients that do not support TLS v1.0.
-The <em>DenyCBC</em> option disables all CBC cipher suites.
-The <em>DenyTLS1.0</em> option disables TLS v1.0 support - this sets the minimum protocol version to TLS v1.1.
-The <em>MinTLS</em> options set the minimum TLS version to support.
-The <em>MaxTLS</em> options set the maximum TLS version to support.
-Not all operating systems support TLS 1.3 at this time.
+Sets encryption options.
+The default is
+<strong>None</strong>
+which only supports encryption using TLS v1.0 or higher using known secure cipher suites.
+Security is reduced when
+<strong>Allow</strong>
+options are used.
+Security is enhanced when
+<strong>Deny</strong>
+options are used.
+The
+<strong>AllowDH</strong>
+option enables cipher suites using plain Diffie-Hellman key negotiation (not supported on systems using GNU TLS).
+The
+<strong>AllowRC4</strong>
+option enables the 128-bit RC4 cipher suites, which are required for some older clients.
+The
+<strong>AllowSSL3</strong>
+option enables SSL v3.0, which is required for some older clients that do not support TLS v1.0.
+The
+<strong>DenyCBC</strong>
+option disables all CBC cipher suites.
+The
+<strong>DenyTLS1.0</strong>
+option disables TLS v1.0 support - this sets the minimum protocol version to TLS v1.1.
+The
+<strong>MinTLS</strong><em>version</em>
+
+options set the minimum TLS version to support.
+The
+<strong>MaxTLS</strong><em>version</em>
+
+options set the maximum TLS version to support.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TrustOnFirstUse Yes</strong><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>TrustOnFirstUse No</strong><br>
-Specifies whether to trust new TLS certificates by default.
-The default is &quot;Yes&quot;.
+Specifies whether to trust new (self-signed) TLS certificates by default.
+The default is
+<strong>Yes</strong>.
+
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>User </strong><em>name</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>User </strong><em>NAME</em><br>
 Specifies the default user name to use for requests.
+The default is the login user name.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens None</strong><br>
 </p>
@@ -210,33 +272,63 @@ Specifies the default user name to use for requests.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>UserAgentTokens Full</strong><br>
 Specifies what information is included in the User-Agent header of HTTP requests.
-&quot;None&quot; disables the User-Agent header.
-&quot;ProductOnly&quot; reports &quot;CUPS&quot;.
-&quot;Major&quot; reports &quot;CUPS/major IPP/2&quot;.
-&quot;Minor&quot; reports &quot;CUPS/major.minor IPP/2.1&quot;.
-&quot;Minimal&quot; reports &quot;CUPS/major.minor.patch IPP/2.1&quot;.
-&quot;OS&quot; reports &quot;CUPS/major.minor.path (osname osversion) IPP/2.1&quot;.
-&quot;Full&quot; reports &quot;CUPS/major.minor.path (osname osversion; architecture) IPP/2.1&quot;.
-The default is &quot;Minimal&quot;.
+<strong>None</strong>
+disables the User-Agent header.
+<strong>ProductOnly</strong>
+reports &quot;CUPS&quot;.
+<strong>Major</strong>
+reports &quot;CUPS/major IPP/2&quot;.
+<strong>Minor</strong>
+reports &quot;CUPS/major.minor IPP/2.1&quot;.
+<strong>Minimal</strong>
+reports &quot;CUPS/major.minor.patch IPP/2.1&quot;.
+<strong>OS</strong>
+reports &quot;CUPS/major.minor.path (osname osversion) IPP/2.1&quot;.
+<strong>Full</strong>
+reports &quot;CUPS/major.minor.path (osname osversion; architecture) IPP/2.1&quot;.
+The default is
+<strong>Minimal</strong>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ValidateCerts Yes</strong><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ValidateCerts No</strong><br>
 Specifies whether to only allow TLS with certificates whose commonName or subjectAltName values match the hostname of the printer or server.
-The default is &quot;No&quot;.
+The default is
+<strong>No</strong>.
+
 </p>
     <h2 id="client.conf-5.x.509-certificate-store">X.509 Certificate Store</h2>
 <p>CUPS uses the system root CA certificate store and per-user certificate stores managed by CUPS.
-The per-user certificate stores are found in &quot;/etc/cups/ssl&quot; for the root user and &quot;$XDG_CONFIG_HOME/cups/ssl&quot; (Linux/*BSD), &quot;$HOME/Library/Application Support/cups/ssl&quot; (macOS), &quot;%USERPROFILE%/AppData/Local/cups&quot; (Windows), and/or &quot;$HOME/.cups/ssl&quot; for other user accounts.
+The per-user certificate stores are found in
+<strong>/etc/cups/ssl</strong>
+or
+<strong>/usr/local/etc/cups/ssl</strong>
+for the root user and
+<strong>$XDG_CONFIG_HOME/cups/ssl</strong>
+or
+<strong>$HOME/.config/cups/ssl</strong>
+<em>(Linux/*BSD),</em>
+<strong>$HOME/Library/Application Support/cups/ssl</strong>
+<em>(macOS),</em>
+<strong>%USERPROFILE%/AppData/Local/cups</strong>
+<em>(Windows),</em>
+
+and/or
+<strong>$HOME/.cups/ssl</strong>
+<em>(historical/other Unix platforms)</em>
+for other user accounts.
 </p>
-    <p>Certificates, certificate signing requests, and private keys are stored as PEM-encoded files with the naming convention &quot;COMMON-NAME.crt&quot; for certificates, &quot;COMMON-NAME.csr&quot; for certificate signing requests, and &quot;COMMON-NAME.key&quot; for private keys. The special common name &quot;_site_&quot; is used for a site-specific root certificate that can be used for trust evaluations.
+    <p>Certificates, certificate signing requests, and private keys are stored as PEM-encoded files with the naming convention &quot;COMMON-NAME.crt&quot; for certificates, &quot;COMMON-NAME.csr&quot; for certificate signing requests, and &quot;COMMON-NAME.key&quot; for private keys.
+The special common name &quot;_site_&quot; is used for a site-specific root certificate that can be used for trust evaluations.
 </p>
     <h2 id="client.conf-5.x.509-certificate-validation">X.509 Certificate Validation</h2>
 <p>CUPS supports validation of the certificate's commonName and subjectAltName field values, the certificate expiration date, and the certificate's root certificate(s), if any.
 Self-signed certificates are &quot;pinned&quot; (stored) to the host in order to do validation.
 Validation for certain non-printing servers may add additional restrictions to the policy defined in the
 <strong>client.conf</strong>
-file, for example OAuth authorization requires a CA-signed certificate.
+file.
+For example, OAuth authorization requires a CA-signed certificate.
 </p>
     <p>The
 <strong>AllowAnyRoot</strong>
@@ -251,7 +343,9 @@ is disabled,
 is also disabled.
 </p>
     <h2 id="client.conf-5.notes">Notes</h2>
-<p>Because of sandboxing, the <strong>client.conf</strong> file is not generally accessible to applications on macOS.
+<p>Because of sandboxing, the
+<strong>client.conf</strong>
+file is not generally accessible to applications on macOS.
 Configuration settings can instead be viewed or changed using the
 <strong>defaults</strong>(1)
 
@@ -262,7 +356,11 @@ defaults write /Library/Preferences/org.cups.PrintingPrefs.plist TrustOnFirstUse
 
 defaults read /Library/Preferences/org.cups.PrintingPrefs.plist Encryption
 </pre>
-<p>On Linux and other systems using GNU TLS, the <em>/etc/cups/ssl/site.crl</em> file, if present, provides a list of revoked X.509 certificates and is used when validating certificates.
+<p>On Linux and other systems using GNU TLS, the
+<strong>/etc/cups/ssl/site.crl</strong>
+or
+<strong>/usr/local/etc/cups/ssl/site.crl</strong>
+file, if present, provides a list of revoked X.509 certificates and is used when validating certificates.
 </p>
     <h2 id="client.conf-5.see-also">See Also</h2>
 <p><strong>cups</strong>(1),

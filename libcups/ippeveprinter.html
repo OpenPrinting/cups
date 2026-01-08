@@ -128,10 +128,10 @@ blockquote {
 <em>DEVICE-URI</em>
 ] [
 <strong>-f</strong>
-<em>TYPE/SUBTYPE[,...]</em>
+<em>INPUT-TYPE/SUBTYPE[,...]</em>
 ] [
 <strong>-F</strong>
-<em>TYPE/SUBTYPE</em>
+<em>OUTPUT-TYPE/SUBTYPE</em>
 ] [
 <strong>-i</strong>
 <em>ICONFILE.png[,...]</em>
@@ -143,6 +143,9 @@ blockquote {
 ] [
 <strong>-l</strong>
 <em>LOCATION</em>
+] [
+<strong>-L</strong>
+<em>LOGFILE</em>
 ] [
 <strong>-m</strong>
 <em>MODEL</em>
@@ -186,9 +189,11 @@ Show program usage.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--no-web-forms</strong><br>
 Disable the web interface forms used to update the media and supply levels.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--pam-service </strong><em>service</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--pam-service </strong><em>SERVICE</em><br>
 Set the PAM service name.
-The default service is &quot;cups&quot;.
+The default service is
+<em>cups</em>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>--version</strong><br>
 Show the CUPS version.
@@ -210,27 +215,31 @@ Enable authentication for the created printer.
 <strong>ippeveprinter</strong>
 uses PAM to authenticate HTTP Basic credentials.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c </strong><em>command</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c </strong><em>COMMAND</em><br>
 Run the specified command for each document that is printed.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>spool-directory</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-d </strong><em>SPOOL-DIRECTORY</em><br>
 Specifies the directory that will hold the print files.
 The default is a directory under the user's current temporary directory.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-D </strong><em>DEVICE-URI</em><br>
 Set the device URI for print output.
-The URI can be a filename, directory, or a network socket URI of the form &quot;socket://ADDRESS[:PORT]&quot; (where the default port number is 9100).
+The URI can be a filename, directory, or a network socket URI of the form <em>socket://ADDRESS</em>[:<em>PORT</em>] where the default port number is 9100.
 When specifying a directory,
 <strong>ippeveprinter</strong>
 will create an output file using the job ID and name.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-f </strong><em>TYPE/SUBTYPE[,...]</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-f </strong><em>INPUT-TYPE/SUBTYPE[,...]</em><br>
 Specifies a list of MIME media types that the server will accept.
 The default depends on the type of printer created.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-F </strong><em>output-type/subtype[,...]</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-F </strong><em>OUTPUT-TYPE/SUBTYPE[,...]</em><br>
 Specifies the output MIME media type.
-The default is &quot;application/postscript&quot; when the <strong>-P</strong> option is specified.
+The default is
+<em>application/postscript</em>
+when the
+<strong>-P</strong>
+option is specified.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i </strong><em>ICONFILE.png[,...]</em><br>
 Specifies the printer icon file for the server.
@@ -240,17 +249,29 @@ The default is an internally-provided PNG image.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-k</strong><br>
 Keeps the print documents in the spool directory rather than deleting them.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-K </strong><em>KEYSTORE</em><br>
+Specifies the location of X.509 certificates.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-l </strong><em>LOCATION</em><br>
 Specifies the human-readable location string that is reported by the server.
 The default is the empty string.
 </p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-L </strong><em>LOGFILE</em><br>
+Specifies the file that is used for log messages.
+If the filename starts with a plus (&quot;+&quot;), log messages are appended to the specified file.
+The default is to send log messages to the standard error.
+</p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m </strong><em>MODEL</em><br>
 Specifies the model name of the printer.
-The default is &quot;Printer&quot;.
+The default is
+<em>Printer</em>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-M </strong><em>MANUFACTURER</em><br>
 Set the manufacturer of the printer.
-The default is &quot;Example&quot;.
+The default is
+<em>Example</em>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-n </strong><em>HOSTNAME</em><br>
 Specifies the hostname that is reported by the server.
@@ -259,7 +280,7 @@ The default is the name returned by the
 
 command.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p </strong><em>PORt</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-p </strong><em>PORT</em><br>
 Specifies the port number to listen on.
 The default is a user-specific number from 8000 to 8999.
 </p>
@@ -269,12 +290,16 @@ Turns off DNS-SD service advertisements entirely.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>SUBTYPE[,...]</em><br>
 Specifies the DNS-SD subtype(s) to advertise.
 Separate multiple subtypes with a comma.
-The default is &quot;_print&quot;.
+The default is
+<em>_print</em>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-s </strong><em>SPEED[,COLOR-SPEED]</em><br>
 Specifies the printer speed in pages per minute.
 If two numbers are specified and the second number is greater than zero, the server will report support for color printing.
-The default is &quot;10,0&quot;.
+The default is
+<em>10,0</em>.
+
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-S </strong><em>FILENAME.strings</em><br>
 Specifies a strings file for localization.
@@ -286,7 +311,8 @@ Be (very) verbose when logging activity to standard error.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-V 2.0</strong><br>
 Specifies the maximum IPP version to report.
-2.0 is the default.
+<strong>2.0</strong>
+is the default.
 </p>
     <h2 id="ippeveprinter-1.exit-status">Exit Status</h2>
 <p>The
@@ -306,7 +332,7 @@ program is unique to CUPS and conforms to the IPP Everywhere (PWG 5100.14) speci
 adds environment variables starting with &quot;IPP_&quot; for all IPP Job attributes in the print request.
 For example, when executing a command for an IPP Job containing the &quot;media&quot; Job Template attribute, the &quot;IPP_MEDIA&quot; environment variable will be set to the value of that attribute.
 </p>
-    <p>In addition, all IPP &quot;xxx-default&quot; and &quot;pwg-xxx&quot; Printer Description attributes are added to the environment.
+    <p>In addition, all IPP &quot;xxx-default&quot;, &quot;xxx-ready&quot;, and &quot;xxx-supported&quot; Printer Description attributes are added to the environment.
 For example, the &quot;IPP_MEDIA_DEFAULT&quot; environment variable will be set to the default value for the &quot;media&quot; Job Template attribute.
 </p>
     <p>Enumerated values are converted to their keyword equivalents.
@@ -374,6 +400,6 @@ command whenever a job is sent to the server:
 PWG Internet Printing Protocol Workgroup (<a href="http://www.pwg.org/ipp">http://www.pwg.org/ipp</a>)
 </p>
     <h2 id="ippeveprinter-1.copyright">Copyright</h2>
-<p>Copyright &copy; 2021-2023 by OpenPrinting.
+<p>Copyright &copy; 2021-2026 by OpenPrinting.
   </body>
 </html>

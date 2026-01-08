@@ -97,7 +97,7 @@ blockquote {
   <body>
     <h1 id="cups-x509-1">cups-x509(1)</h1>
     <h2 id="cups-x509-1.name">Name</h2>
-<p>cups-x509 - description
+<p>cups-x509 - manage x.509 certificates and certificate requests
 </p>
     <h2 id="cups-x509-1.synopsis">Synopsis</h2>
 <p><strong>cups-x509</strong>
@@ -148,7 +148,7 @@ blockquote {
 <strong>-u</strong>
 <em>USAGE</em>
 ]
-<em>COMMAND</em>
+<em>SUB-COMMAND</em>
 <em>[ARGUMENT(S)]</em>
 </p>
     <h2 id="cups-x509-1.description">Description</h2>
@@ -214,32 +214,52 @@ Specify the usage for the certificate as a comma-delimited list of uses.
 The supported uses are &quot;digitalSignature&quot;, &quot;nonRepudiation&quot;, &quot;keyEncipherment&quot;, &quot;dataEncipherment&quot;, &quot;keyAgreement&quot;, &quot;keyCertSign&quot;, &quot;cRLSign&quot;, &quot;encipherOnly&quot;, and  &quot;decipherOnly&quot;.
 The preset &quot;default-ca&quot; specifies those uses required for a Certificate Authority, and the preset &quot;default-tls&quot; specifies those uses required for TLS.
 </p>
-    <h2 id="cups-x509-1.commands">Commands</h2>
-    <h3 id="cups-x509-1.commands.ca-common-name">Ca Common-Name</h3>
-<p>Sign a certificate request for the specified common name.
+    <h2 id="cups-x509-1.sub-commands">Sub-Commands</h2>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>ca </strong><em>COMMON-NAME</em><br>
+Sign a certificate request for the specified common name.
 </p>
-    <h3 id="cups-x509-1.commands.cacert-common-name">Cacert Common-Name</h3>
-<p>Create a CA certificate for the specified common name.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>cacert </strong><em>COMMON-NAME</em><br>
+Create a CA certificate for the specified common name.
 </p>
-    <h3 id="cups-x509-1.commands.cert-common-name">Cert Common-Name</h3>
-<p>Create a certificate for the specified common name.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>cert </strong><em>COMMON-NAME</em><br>
+Create a certificate for the specified common name.
 </p>
-    <h3 id="cups-x509-1.commands.client-uri">Client Uri</h3>
-<p>Connect to the specified URI and validate the server's certificate.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>client </strong><em>URI</em><br>
+Connect to the specified URI and validate the server's certificate.
 </p>
-    <h3 id="cups-x509-1.commands.csr-common-name">Csr Common-Name</h3>
-<p>Create a certificate signing request for the specified common name.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>csr </strong><em>COMMON-NAME</em><br>
+Create a certificate signing request for the specified common name.
 </p>
-    <h3 id="cups-x509-1.commands.server-common-nameport">Server Common-Name[:Port]</h3>
-<p>Run a HTTPS test server that echos back the resource path for every GET request.
-If PORT is not specified, uses a port number from 8000 to 8999.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>install </strong><em>COMMON-NAME FILENAME.crt</em> [<em>FILENAME.key</em>]<br>
+Installs a certificate and optional private key for the specified common name.
+The certificate and private key are PEM-encoded files.
 </p>
-    <h3 id="cups-x509-1.commands.show-common-name">Show Common-Name</h3>
-<p>Shows any stored credentials for the specified common name.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>server </strong><em>COMMON-NAME</em>[<strong>:</strong><em>PORT</em>]<br>
+Run a HTTPS test server that echos back the resource path for every GET request.
+If
+<em>PORT</em>
+is not specified, uses a port number from 8000 to 8999.
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>show </strong><em>COMMON-NAME</em><br>
+Shows any stored credentials for the specified common name.
 </p>
     <h2 id="cups-x509-1.examples">Examples</h2>
-<p>TBD
+<p>Create a certificate signing request for a 384-bit ECDSA certificate for &quot;server.example.com&quot;:
 </p>
+    <pre>     cups-x509 csr -t ecdsa-p384 server.example.com
+</pre>
+<p>Install the certificate you get back from the CA for &quot;server.example.com&quot;:
+</p>
+    <pre>     cups-x509 install server.example.com server.example.com.crt
+</pre>
+<p>Run a test server for &quot;server.example.com&quot; on port 8080:
+</p>
+    <pre>     cups-x509 server server.example.com:8080
+</pre>
+<p>Test a HTTPS client connection to &quot;www.example.com&quot; with validation:
+</p>
+    <pre>     cups-x509 client --require-ca <a href="https://www.example.com/">https://www.example.com/</a>
+</pre>
     <h2 id="cups-x509-1.see-also">See Also</h2>
 <p><strong>cups</strong>(1)
 
