@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-09-23 08:02+0000\n"
-"Last-Translator: luca-vercelli <luca.vercelli.to@gmail.com>\n"
+"PO-Revision-Date: 2026-01-09 12:01+0000\n"
+"Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(tutti)"
@@ -442,7 +442,7 @@ msgstr "      %s  manca la scelta *%s %s in cupsUIConstraints %s: \"%s\""
 
 #, c-format
 msgid "      %s  Missing cupsUIResolver %s"
-msgstr "     %s  manca cupsUIResolver %s"
+msgstr "      %s  manca cupsUIResolver %s"
 
 #, c-format
 msgid "      %s  Missing option %s in UIConstraints \"*%s %s *%s %s\"."
@@ -1098,8 +1098,8 @@ msgid ""
 "\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be "
 "positive (RFC 8011 section 5.1.16)."
 msgstr ""
-"\"%s\": Valore resolution non valido %dx%d%s - cross feed resolution deve "
-"essere positiva (RFC 8011 sezione 5.1.16)."
+"\"%s\": Valore risoluzione non valido %dx%d%s - la risoluzione trasversale "
+"deve essere positiva (RFC 8011 sezione 5.1.16)."
 
 #, c-format
 msgid ""
@@ -1188,7 +1188,7 @@ msgstr "%s sta accettando richieste da %s"
 
 #, c-format
 msgid "%s cannot be changed."
-msgstr "%s non può essere modificato"
+msgstr "%s non può essere modificato."
 
 #, c-format
 msgid "%s is not implemented by the CUPS version of lpc."
@@ -1744,8 +1744,10 @@ msgstr ""
 "--path regex            Confronta il percorso della risorsa con una "
 "espressione regolare"
 
+#, fuzzy
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
+"--pin                          Certificato PIN rilevato dal comando client"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr ""
@@ -3608,7 +3610,7 @@ msgid "Credentials are not CA-signed."
 msgstr "Le credenziali non sono firmate dal CA."
 
 msgid "Credentials are unknown/new."
-msgstr ""
+msgstr "Le credenziali sono sconosciute/nuove."
 
 msgid "Credentials do not validate against site CA certificate."
 msgstr "Credenziali non validate rispetto al certificato CA del sito."
@@ -3644,17 +3646,20 @@ msgstr "DYMO"
 msgid "Dark"
 msgstr "Scuro"
 
+#, fuzzy
 msgid "Darkness"
-msgstr "Oscurità"
+msgstr "Intensità"
 
 msgid "Data file sent successfully."
 msgstr "I dati sono stati inviati con successo."
 
+#, fuzzy
 msgid "Deep Color"
-msgstr ""
+msgstr "Profondità colore"
 
+#, fuzzy
 msgid "Deep Gray"
-msgstr ""
+msgstr "Grigio scuro"
 
 msgid "Delete Class"
 msgstr "Elimina la classe"
@@ -3663,7 +3668,7 @@ msgid "Delete Printer"
 msgstr "Elimina la stampante"
 
 msgid "DeskJet Series"
-msgstr "DeskJet Series"
+msgstr "Serie DeskJet"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
@@ -4025,6 +4030,7 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "Finito pagina %d."
 
+#, fuzzy
 msgid "Folio"
 msgstr "Foglio"
 
@@ -4642,8 +4648,9 @@ msgstr "Nessuna richiesta inviata."
 msgid "No request-id"
 msgstr "Nessun request-id"
 
+#, fuzzy
 msgid "No stored credentials, not valid for name."
-msgstr ""
+msgstr "Nessuna credenziale memorizzata, non valida per il nome."
 
 msgid "No subscription attributes in request."
 msgstr "Nessun attributo della sottoscrizione nella richiesta."
@@ -5450,7 +5457,7 @@ msgid "Unable to get printer status"
 msgstr "Non è possibile ottenere lo stato della stampante"
 
 msgid "Unable to get printer status."
-msgstr "Non è possibile ottenere lo stato della stampante"
+msgstr "Non è possibile ottenere lo stato della stampante."
 
 msgid "Unable to import X.509 certificate request."
 msgstr "Impossibile importare la richiesta di certificato X.509."
@@ -5567,7 +5574,7 @@ msgid "Unable to upload cupsd.conf file"
 msgstr "Non è possibile caricare il file cupsd.conf"
 
 msgid "Unable to use legacy USB class driver."
-msgstr "Non è possibile utilizzare il driver legacy della classe USB. "
+msgstr "Non è possibile utilizzare il driver obsoleto della classe USB."
 
 msgid "Unable to verify X.509 certificate request."
 msgstr "Impossibile verificare la richiesta del certificato X.509."
@@ -5938,12 +5945,14 @@ msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr "authorize [RISORSA]            Autorizza l'accesso a una risorsa"
 
 #. TRANSLATORS: Bale Output
+#, fuzzy
 msgid "baling"
-msgstr ""
+msgstr "rilegatura"
 
 #. TRANSLATORS: Bale Using
+#, fuzzy
 msgid "baling-type"
-msgstr ""
+msgstr "Tipo rilegatura"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
@@ -5958,10 +5967,12 @@ msgid "baling-type.wrap"
 msgstr "Avvolta"
 
 #. TRANSLATORS: Bale After
+#, fuzzy
 msgid "baling-when"
-msgstr ""
+msgstr "frequenza rilegatura"
 
 #. TRANSLATORS: Job
+#, fuzzy
 msgid "baling-when.after-job"
 msgstr "Job"
 
@@ -5970,8 +5981,9 @@ msgid "baling-when.after-sets"
 msgstr "Insiemi"
 
 #. TRANSLATORS: Bind Output
+#, fuzzy
 msgid "binding"
-msgstr "Rilegatura output"
+msgstr "Rilegatura"
 
 #. TRANSLATORS: Bind Edge
 msgid "binding-reference-edge"
@@ -5994,40 +6006,48 @@ msgid "binding-reference-edge.top"
 msgstr "Alto"
 
 #. TRANSLATORS: Binder Type
+#, fuzzy
 msgid "binding-type"
-msgstr ""
+msgstr "tipo di rilegatura"
 
 #. TRANSLATORS: Adhesive
+#, fuzzy
 msgid "binding-type.adhesive"
-msgstr ""
+msgstr "adesivo"
 
 #. TRANSLATORS: Comb
+#, fuzzy
 msgid "binding-type.comb"
-msgstr ""
+msgstr "rilegatura a pettine"
 
 #. TRANSLATORS: Flat
 msgid "binding-type.flat"
-msgstr ""
+msgstr "rilegatura piatta"
 
 #. TRANSLATORS: Padding
+#, fuzzy
 msgid "binding-type.padding"
-msgstr ""
+msgstr "rilegatura a blocco"
 
 #. TRANSLATORS: Perfect
+#, fuzzy
 msgid "binding-type.perfect"
-msgstr ""
+msgstr "rilegatura perfetta"
 
 #. TRANSLATORS: Spiral
+#, fuzzy
 msgid "binding-type.spiral"
-msgstr ""
+msgstr "rilegatura a spirale"
 
 #. TRANSLATORS: Tape
+#, fuzzy
 msgid "binding-type.tape"
-msgstr ""
+msgstr "rilegatura a nastro"
 
 #. TRANSLATORS: Velo
+#, fuzzy
 msgid "binding-type.velo"
-msgstr ""
+msgstr "rilegatura a velo"
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
 msgstr "ca NOME-COMUNE             Firma un CSR per produrre un certificato."
@@ -6042,12 +6062,14 @@ msgid "cert COMMON-NAME           Create a certificate."
 msgstr "cert NOME-COMUNE           Crea un certificato."
 
 #. TRANSLATORS: Chamber Humidity
+#, fuzzy
 msgid "chamber-humidity"
-msgstr ""
+msgstr "umidità camera"
 
 #. TRANSLATORS: Chamber Temperature
+#, fuzzy
 msgid "chamber-temperature"
-msgstr ""
+msgstr "temperatura camera"
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
@@ -6062,27 +6084,31 @@ msgstr "client URI                 Connette a URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
-msgstr ""
+msgstr "rivestimento"
 
 #. TRANSLATORS: Add Coating To
+#, fuzzy
 msgid "coating-sides"
-msgstr ""
+msgstr "lati del rivestimento"
 
 #. TRANSLATORS: Back
+#, fuzzy
 msgid "coating-sides.back"
-msgstr ""
+msgstr "rivestimento piatto posteriore"
 
 #. TRANSLATORS: Front and Back
+#, fuzzy
 msgid "coating-sides.both"
-msgstr ""
+msgstr "rivestimento su entrambi i piatti"
 
 #. TRANSLATORS: Front
+#, fuzzy
 msgid "coating-sides.front"
-msgstr ""
+msgstr "rivestimento piatto anteriore"
 
 #. TRANSLATORS: Type of Coating
 msgid "coating-type"
-msgstr ""
+msgstr "tipo di rivestimento"
 
 #. TRANSLATORS: Archival
 msgid "coating-type.archival"
@@ -6756,12 +6782,14 @@ msgid "finishing-template"
 msgstr "Termine template"
 
 #. TRANSLATORS: Bale
+#, fuzzy
 msgid "finishing-template.bale"
-msgstr "Bale"
+msgstr "balla"
 
 #. TRANSLATORS: Bind
+#, fuzzy
 msgid "finishing-template.bind"
-msgstr "Bind"
+msgstr "modello di finitura"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishing-template.bind-bottom"
@@ -6784,84 +6812,103 @@ msgid "finishing-template.booklet-maker"
 msgstr ""
 
 #. TRANSLATORS: Coat
+#, fuzzy
 msgid "finishing-template.coat"
-msgstr ""
+msgstr "rivestimento"
 
 #. TRANSLATORS: Cover
 msgid "finishing-template.cover"
 msgstr "Copertina"
 
 #. TRANSLATORS: Edge Stitch
+#, fuzzy
 msgid "finishing-template.edge-stitch"
-msgstr ""
+msgstr "cucitura a lato"
 
 #. TRANSLATORS: Edge Stitch Bottom
+#, fuzzy
 msgid "finishing-template.edge-stitch-bottom"
-msgstr ""
+msgstr "cucitura in basso"
 
 #. TRANSLATORS: Edge Stitch Left
+#, fuzzy
 msgid "finishing-template.edge-stitch-left"
-msgstr ""
+msgstr "cucitura a sinistra"
 
 #. TRANSLATORS: Edge Stitch Right
+#, fuzzy
 msgid "finishing-template.edge-stitch-right"
-msgstr ""
+msgstr "cucitura a destra"
 
 #. TRANSLATORS: Edge Stitch Top
+#, fuzzy
 msgid "finishing-template.edge-stitch-top"
-msgstr ""
+msgstr "cucitura in alto"
 
 #. TRANSLATORS: Fold
+#, fuzzy
 msgid "finishing-template.fold"
-msgstr ""
+msgstr "piega"
 
 #. TRANSLATORS: Accordion Fold
+#, fuzzy
 msgid "finishing-template.fold-accordion"
-msgstr ""
+msgstr "piega a concertina"
 
 #. TRANSLATORS: Double Gate Fold
+#, fuzzy
 msgid "finishing-template.fold-double-gate"
-msgstr ""
+msgstr "piega doppio cancello"
 
 #. TRANSLATORS: Engineering Z Fold
+#, fuzzy
 msgid "finishing-template.fold-engineering-z"
-msgstr ""
+msgstr "piega Z a scalare"
 
 #. TRANSLATORS: Gate Fold
+#, fuzzy
 msgid "finishing-template.fold-gate"
-msgstr ""
+msgstr "piega a cancello"
 
 #. TRANSLATORS: Half Fold
+#, fuzzy
 msgid "finishing-template.fold-half"
-msgstr ""
+msgstr "piega a metà"
 
 #. TRANSLATORS: Half Z Fold
+#, fuzzy
 msgid "finishing-template.fold-half-z"
-msgstr ""
+msgstr "mezza Z"
 
 #. TRANSLATORS: Left Gate Fold
+#, fuzzy
 msgid "finishing-template.fold-left-gate"
-msgstr ""
+msgstr "piega cancello a sinistra"
 
 #. TRANSLATORS: Letter Fold
+#, fuzzy
 msgid "finishing-template.fold-letter"
-msgstr ""
+msgstr "piega a lettera"
 
 #. TRANSLATORS: Parallel Fold
+#, fuzzy
 msgid "finishing-template.fold-parallel"
-msgstr ""
+msgstr "piega parallela"
 
 #. TRANSLATORS: Poster Fold
+#, fuzzy
 msgid "finishing-template.fold-poster"
-msgstr ""
+msgstr "piega manifesto"
 
 #. TRANSLATORS: Right Gate Fold
+#, fuzzy
 msgid "finishing-template.fold-right-gate"
-msgstr ""
+msgstr "piega cancello a destra"
 
 #. TRANSLATORS: Z Fold
+#, fuzzy
 msgid "finishing-template.fold-z"
-msgstr ""
+msgstr "piega Z"
 
 #. TRANSLATORS: JDF F10-1
 msgid "finishing-template.jdf-f10-1"
@@ -7220,56 +7267,67 @@ msgid "finishing-template.jdf-f8-7"
 msgstr "JDF F8-7"
 
 #. TRANSLATORS: Jog Offset
+#, fuzzy
 msgid "finishing-template.jog-offset"
-msgstr ""
+msgstr "spostamento laterale"
 
 #. TRANSLATORS: Laminate
 msgid "finishing-template.laminate"
-msgstr ""
+msgstr "laminazione"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr ""
+msgstr "punzonatura"
 
 #. TRANSLATORS: Punch Bottom Left
+#, fuzzy
 msgid "finishing-template.punch-bottom-left"
-msgstr ""
+msgstr "Punzonatura angolo inferiore sinistro"
 
 #. TRANSLATORS: Punch Bottom Right
+#, fuzzy
 msgid "finishing-template.punch-bottom-right"
-msgstr ""
+msgstr "punzonatura angolo inferiore destro"
 
 #. TRANSLATORS: 2-hole Punch Bottom
+#, fuzzy
 msgid "finishing-template.punch-dual-bottom"
-msgstr ""
+msgstr "punzonatura inferiore doppia"
 
 #. TRANSLATORS: 2-hole Punch Left
+#, fuzzy
 msgid "finishing-template.punch-dual-left"
-msgstr ""
+msgstr "punzonatura a sinistra doppia"
 
 #. TRANSLATORS: 2-hole Punch Right
+#, fuzzy
 msgid "finishing-template.punch-dual-right"
-msgstr ""
+msgstr "punzonatura a destra doppia"
 
 #. TRANSLATORS: 2-hole Punch Top
+#, fuzzy
 msgid "finishing-template.punch-dual-top"
-msgstr ""
+msgstr "punzonatura superiore doppia"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
+#, fuzzy
 msgid "finishing-template.punch-multiple-bottom"
-msgstr ""
+msgstr "punzonatura inferiore multipla"
 
 #. TRANSLATORS: Multi-hole Punch Left
+#, fuzzy
 msgid "finishing-template.punch-multiple-left"
-msgstr ""
+msgstr "punzonatura a sinistra multipla"
 
 #. TRANSLATORS: Multi-hole Punch Right
+#, fuzzy
 msgid "finishing-template.punch-multiple-right"
-msgstr ""
+msgstr "punzonatura a destra multipla"
 
 #. TRANSLATORS: Multi-hole Punch Top
+#, fuzzy
 msgid "finishing-template.punch-multiple-top"
-msgstr ""
+msgstr "punzonatura superiore multipla"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishing-template.punch-quad-bottom"
@@ -7817,7 +7875,7 @@ msgstr "ippfind: è previsto un programma dopo %s."
 
 #, c-format
 msgid "ippfind: Expected semi-colon after %s."
-msgstr "ippfind: è previsto un punto e virgola dopo %s. "
+msgstr "ippfind: è previsto un punto e virgola dopo %s."
 
 msgid "ippfind: Missing close brace in substitution."
 msgstr "ippfind: manca parentesi graffa di chiusura in sostituzione."
@@ -8906,6 +8964,7 @@ msgid "material-purpose.in-fill"
 msgstr "Riempimento"
 
 #. TRANSLATORS: Shell
+#, fuzzy
 msgid "material-purpose.shell"
 msgstr "Foglio"
 
@@ -10818,6 +10877,7 @@ msgid "media.na_f_44x68in"
 msgstr "44x68''"
 
 #. TRANSLATORS: European Fanfold
+#, fuzzy
 msgid "media.na_fanfold-eur_8.5x12in"
 msgstr "Modulo continuo europeo"
 
@@ -11825,7 +11885,7 @@ msgstr "ppdc: è previsto un codice di scelta alla riga %d di %s."
 
 #, c-format
 msgid "ppdc: Expected choice name/text on line %d of %s."
-msgstr "ppdc: è previsto un nome/testo di scelta alla riga %d di %s. "
+msgstr "ppdc: è previsto un nome/testo di scelta alla riga %d di %s."
 
 #, c-format
 msgid "ppdc: Expected color order for ColorModel on line %d of %s."
@@ -15593,12 +15653,14 @@ msgid "printer-state-reasons.wrapper-memory-exhausted"
 msgstr ""
 
 #. TRANSLATORS: Wrapper Missing
+#, fuzzy
 msgid "printer-state-reasons.wrapper-missing"
-msgstr ""
+msgstr "avvolgitore mancante"
 
 #. TRANSLATORS: Wrapper Motor Failure
+#, fuzzy
 msgid "printer-state-reasons.wrapper-motor-failure"
-msgstr ""
+msgstr "guasto al motore avvolgitore"
 
 #. TRANSLATORS: Wrapper Near Limit
 msgid "printer-state-reasons.wrapper-near-limit"
@@ -15669,8 +15731,9 @@ msgid "printer-state-reasons.wrapper-unrecoverable-storage-error"
 msgstr ""
 
 #. TRANSLATORS: Wrapper Warming Up
+#, fuzzy
 msgid "printer-state-reasons.wrapper-warming-up"
-msgstr ""
+msgstr "riscaldamento avvolgitore"
 
 #. TRANSLATORS: Idle
 msgid "printer-state.3"
@@ -15685,31 +15748,36 @@ msgid "printer-state.5"
 msgstr "Fermata"
 
 #. TRANSLATORS: Printer Uptime
+#, fuzzy
 msgid "printer-up-time"
-msgstr ""
+msgstr "tempo di attività"
 
 msgid "processing"
 msgstr "elaborazione in corso"
 
 #. TRANSLATORS: Proof Print
+#, fuzzy
 msgid "proof-print"
-msgstr ""
+msgstr "prova di stampa"
 
 #. TRANSLATORS: Proof Print Copies
+#, fuzzy
 msgid "proof-print-copies"
-msgstr ""
+msgstr "copie prova di stampa"
 
 #. TRANSLATORS: Punching
 msgid "punching"
 msgstr "Punzonatura"
 
 #. TRANSLATORS: Punching Locations
+#, fuzzy
 msgid "punching-locations"
-msgstr ""
+msgstr "Posizione punzonatura"
 
 #. TRANSLATORS: Punching Offset
+#, fuzzy
 msgid "punching-offset"
-msgstr ""
+msgstr "Distanza punzonatura"
 
 #. TRANSLATORS: Punch Edge
 msgid "punching-reference-edge"
