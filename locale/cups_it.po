@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2026-01-09 12:01+0000\n"
+"PO-Revision-Date: 2026-01-10 13:01+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
@@ -5974,7 +5974,7 @@ msgstr "frequenza rilegatura"
 #. TRANSLATORS: Job
 #, fuzzy
 msgid "baling-when.after-job"
-msgstr "Job"
+msgstr "Processo di stampa"
 
 #. TRANSLATORS: Sets
 msgid "baling-when.after-sets"
@@ -6812,9 +6812,8 @@ msgid "finishing-template.booklet-maker"
 msgstr ""
 
 #. TRANSLATORS: Coat
-#, fuzzy
 msgid "finishing-template.coat"
-msgstr "rivestimento"
+msgstr "Rivestimento"
 
 #. TRANSLATORS: Cover
 msgid "finishing-template.cover"
@@ -7330,20 +7329,24 @@ msgid "finishing-template.punch-multiple-top"
 msgstr "punzonatura superiore multipla"
 
 #. TRANSLATORS: 4-hole Punch Bottom
+#, fuzzy
 msgid "finishing-template.punch-quad-bottom"
-msgstr ""
+msgstr "punzonatura inferiore quadrupla"
 
 #. TRANSLATORS: 4-hole Punch Left
+#, fuzzy
 msgid "finishing-template.punch-quad-left"
-msgstr ""
+msgstr "punzonatura a sinistra quadrupla"
 
 #. TRANSLATORS: 4-hole Punch Right
+#, fuzzy
 msgid "finishing-template.punch-quad-right"
-msgstr ""
+msgstr "punzonatura a destra quadrupla"
 
 #. TRANSLATORS: 4-hole Punch Top
+#, fuzzy
 msgid "finishing-template.punch-quad-top"
-msgstr ""
+msgstr "punzonatura superiore quadrupla"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
@@ -7374,8 +7377,9 @@ msgid "finishing-template.saddle-stitch"
 msgstr ""
 
 #. TRANSLATORS: Staple
+#, fuzzy
 msgid "finishing-template.staple"
-msgstr ""
+msgstr "graffatura"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
@@ -7458,8 +7462,9 @@ msgid "finishings"
 msgstr "Finiture"
 
 #. TRANSLATORS: Finishings
+#, fuzzy
 msgid "finishings-col"
-msgstr "Finiture"
+msgstr "Finiture a colori"
 
 #. TRANSLATORS: Fold
 msgid "finishings.10"
@@ -7475,15 +7480,16 @@ msgstr "Piega Z ingegneria"
 
 #. TRANSLATORS: Trim
 msgid "finishings.11"
-msgstr "Trim"
+msgstr "Rifilo"
 
 #. TRANSLATORS: Bale
 msgid "finishings.12"
-msgstr ""
+msgstr "Balla"
 
 #. TRANSLATORS: Booklet Maker
+#, fuzzy
 msgid "finishings.13"
-msgstr ""
+msgstr "Macchina per opuscoli"
 
 #. TRANSLATORS: Jog Offset
 msgid "finishings.14"
@@ -7491,11 +7497,12 @@ msgstr ""
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
-msgstr ""
+msgstr "Rivestimento"
 
 #. TRANSLATORS: Laminate
+#, fuzzy
 msgid "finishings.16"
-msgstr ""
+msgstr "Laminazione"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
@@ -7738,8 +7745,9 @@ msgid "finishings.98"
 msgstr ""
 
 #. TRANSLATORS: Right Gate Fold
+#, fuzzy
 msgid "finishings.99"
-msgstr ""
+msgstr "Piega a portone destro"
 
 #. TRANSLATORS: Fold
 msgid "folding"
