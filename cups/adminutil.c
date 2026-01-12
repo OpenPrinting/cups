@@ -270,7 +270,7 @@ cupsAdminGetServerSettings(
       {
 	debug_logging = !_cups_strncasecmp(value, "debug", 5);
       }
-      else if (!_cups_strcasecmp(line, "<Policy") && value && !_cups_strcasecmp(value, "default"))
+      else if (!_cups_strcasecmp(line, "<Policy") && value)
       {
 	in_policy = 1;
       }
