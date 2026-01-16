@@ -2586,6 +2586,10 @@ parse_fatal_errors(const char *s)	/* I - FatalErrors string */
       fatal |= CUPSD_FATAL_PERMISSIONS;
     else if (!_cups_strcasecmp(valstart, "-permissions"))
       fatal &= ~CUPSD_FATAL_PERMISSIONS;
+    else if (!_cups_strcasecmp(valstart, "unknown"))
+      fatal |= CUPSD_FATAL_UNKNOWN;
+    else if (!_cups_strcasecmp(valstart, "-unknown"))
+      fatal &= ~CUPSD_FATAL_UNKNOWN;
     else if (_cups_strcasecmp(valstart, "none"))
       cupsdLogMessage(CUPSD_LOG_ERROR,
                       "Unknown FatalErrors kind \"%s\" ignored.", valstart);
@@ -2780,7 +2784,8 @@ parse_variable(
 
     cupsdLogMessage(CUPSD_LOG_ERROR, "Unknown directive %s on line %d of %s.",
 		    line, linenum, filename);
-
+    if (FatalErrors & CUPSD_FATAL_UNKNOWN)
+      return (0);
     return (1);
   }
 
@@ -3525,7 +3530,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
     }
     else if (!parse_variable(ConfigurationFile, linenum, line, value,
 			     sizeof(cupsd_vars) / sizeof(cupsd_vars[0]), cupsd_vars) &&
-	     (FatalErrors & CUPSD_FATAL_CONFIG))
+	     (FatalErrors & (CUPSD_FATAL_CONFIG | CUPSD_FATAL_UNKNOWN)))
       return (0);
   }
 
@@ -3925,7 +3930,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
     else if (!parse_variable(CupsFilesFile, linenum, line, value,
 			     sizeof(cupsfiles_vars) / sizeof(cupsfiles_vars[0]),
 			     cupsfiles_vars) &&
-	     (FatalErrors & CUPSD_FATAL_CONFIG))
+	     (FatalErrors & (CUPSD_FATAL_CONFIG | CUPSD_FATAL_UNKNOWN)))
       return (0);
   }
 
