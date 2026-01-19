@@ -1,8 +1,8 @@
-CHANGES - OpenPrinting CUPS 2.5b1 - (TBA)
-==============================================
+CHANGES - OpenPrinting CUPS
+===========================
 
-Changes in CUPS v2.5b1 (YYYY-MM-DD)
------------------------------------
+v2.5b1 - YYYY-MM-DD
+-------------------
 
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
