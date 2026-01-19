@@ -8,6 +8,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - The scheduler followed symbolic links when cleaning out its temporary
   directory (Issue #1448)
 - Fixed possible use-after-free in `cupsdReadClient()` (Issue #1454)
+- Fixed a bug when then `ippFindXxx` and `ippSetXxx` functions were mixed.
 
 
 Changes in CUPS v2.4.16 (2025-12-04)
