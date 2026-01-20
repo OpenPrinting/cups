@@ -1,11 +1,12 @@
 /*
  * Status buffer routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2014 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -127,7 +128,10 @@ cupsdStatBufUpdate(
     * No, read more data...
     */
 
-    if ((bytes = read(sb->fd, sb->buffer + sb->bufused, (size_t)(CUPSD_SB_BUFFER_SIZE - sb->bufused - 1))) > 0)
+    if ((bytes = CUPSD_SB_BUFFER_SIZE - 1 - sb->bufused) > 0)
+      bytes = read(sb->fd, sb->buffer + sb->bufused, (size_t)bytes);
+
+    if (bytes > 0)
     {
       sb->bufused += bytes;
       sb->buffer[sb->bufused] = '\0';
@@ -136,8 +140,7 @@ cupsdStatBufUpdate(
       * Guard against a line longer than the max buffer size...
       */
 
-      if ((lineptr = strchr(sb->buffer, '\n')) == NULL &&
-          sb->bufused == (CUPSD_SB_BUFFER_SIZE - 1))
+      if ((lineptr = strchr(sb->buffer, '\n')) == NULL && sb->bufused == (CUPSD_SB_BUFFER_SIZE - 1))
 	lineptr = sb->buffer + sb->bufused;
     }
     else if (bytes < 0 && errno == EINTR)
@@ -157,8 +160,7 @@ cupsdStatBufUpdate(
       * End-of-file, so use the whole buffer...
       */
 
-      lineptr  = sb->buffer + sb->bufused;
-      *lineptr = '\0';
+      lineptr = sb->buffer + sb->bufused;
     }
 
    /*
@@ -185,7 +187,8 @@ cupsdStatBufUpdate(
   * Terminate the line and process it...
   */
 
-  *lineptr++ = '\0';
+  if (*lineptr)
+    *lineptr++ = '\0';
 
  /*
   * Figure out the logging level...
@@ -280,8 +283,7 @@ cupsdStatBufUpdate(
 
   if (sb->prefix[0])
   {
-    if (*loglevel > CUPSD_LOG_NONE &&
-	(*loglevel != CUPSD_LOG_INFO || LogLevel >= CUPSD_LOG_DEBUG))
+    if (*loglevel > CUPSD_LOG_NONE && (*loglevel != CUPSD_LOG_INFO || LogLevel >= CUPSD_LOG_DEBUG))
     {
      /*
       * General status message; send it to the error_log file...
@@ -293,7 +295,9 @@ cupsdStatBufUpdate(
 	cupsdLogMessage(*loglevel, "%s %s", sb->prefix, message);
     }
     else if (*loglevel < CUPSD_LOG_NONE && LogLevel >= CUPSD_LOG_DEBUG)
+    {
       cupsdLogMessage(CUPSD_LOG_DEBUG2, "%s %s", sb->prefix, sb->buffer);
+    }
   }
 
  /*
