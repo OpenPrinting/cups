@@ -1,7 +1,7 @@
 /*
  * Client routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1163,12 +1163,12 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 		  {
 		    unsigned int i = 0;	// Array index
 
-		    for (ptr = con->uri + 9; *ptr && *ptr != '?' && i < sizeof(name);)
+		    for (ptr = con->uri + 9; *ptr && *ptr != '?' && i < (sizeof(name) - 1);)
 		      name[i++] = *ptr++;
 
 		    name[i] = '\0';
 
-		    if (!cupsdFindClass(name))
+		    if ((*ptr && *ptr != '?') || !cupsdFindClass(name))
 		    {
 		      if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
 		      {
@@ -1203,12 +1203,12 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 		  {
 		    unsigned int i = 0;	// Array index
 
-		    for (ptr = con->uri + 10; *ptr && *ptr != '?' && i < sizeof(name);)
+		    for (ptr = con->uri + 10; *ptr && *ptr != '?' && i < (sizeof(name) - 1);)
 		      name[i++] = *ptr++;
 
 		    name[i] = '\0';
 
-		    if (!cupsdFindPrinter(name))
+		    if ((*ptr && *ptr != '?') || !cupsdFindPrinter(name))
 		    {
 		      if (!cupsdSendError(con, HTTP_STATUS_NOT_FOUND, CUPSD_AUTH_NONE))
 		      {
