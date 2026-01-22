@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2026-01-10 13:01+0000\n"
+"PO-Revision-Date: 2026-01-22 15:56+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(tutti)"
@@ -360,7 +360,7 @@ msgstr ""
 
 #, c-format
 msgid "      %s  Bad cupsFilter value \"%s\"."
-msgstr "      %s  valore di cupsFilter non è valido \"%s\"."
+msgstr "      %s  il valore di cupsFilter non è valido \"%s\"."
 
 #, c-format
 msgid "      %s  Bad cupsFilter2 value \"%s\"."
@@ -393,7 +393,7 @@ msgstr "      %s  ortografia errata di %s - dovrebbe essere %s."
 #, c-format
 msgid "      %s  Cannot provide both APScanAppPath and APScanAppBundleID."
 msgstr ""
-"      %s  non è possibile passare entrambi APScanAppPath e APScanAppBundleID."
+"      %s  non è possibile fornire entrambi APScanAppPath e APScanAppBundleID."
 
 #, c-format
 msgid "      %s  Default choices conflicting."
@@ -602,7 +602,7 @@ msgid ""
 "      **FAIL**  Bad option %s choice %s\n"
 "                REF: Page 84, section 5.9"
 msgstr ""
-"      **FAIL**  L'opzione %s non è valida scelta %s\n"
+"      **FAIL**  L'opzione %s non è una scelta valida %s\n"
 "                RIF: pagina 84, sezione 5.9"
 
 #, c-format
@@ -905,14 +905,13 @@ msgid "  -v                      Be verbose."
 msgstr "  -v                      Fornisce maggiori dettagli."
 
 msgid "  -z                      Compress PPD files using GNU zip."
-msgstr ""
-"  -z                      Il file PPD compresso sta utilizzando GNU zip."
+msgstr "  -z                      Comprime i file PPD utilizzando GNU zip."
 
 msgid " FAIL"
-msgstr " OPERAZIONE NON RIUSCITA CORRETTAMENTE"
+msgstr " OPERAZIONE NON RIUSCITA"
 
 msgid " PASS"
-msgstr " OPERAZIONE RIUSCITA CON SUCCESSO"
+msgstr " OPERAZIONE RIUSCITA"
 
 msgid "! expression            Unary NOT of expression"
 msgstr "! espressione            Negazione dell'espressione"
@@ -3273,7 +3272,7 @@ msgstr "Applicatore"
 
 #, c-format
 msgid "Attempt to set %s printer-state to bad value %d."
-msgstr "Tentativo di impostare %s printer-state al valore non valido %d."
+msgstr "Tentativo di impostare lo stato di stampa %s al valore non valido %d."
 
 #, c-format
 msgid "Attribute \"%s\" has empty value."
@@ -3285,7 +3284,7 @@ msgstr "L'attributo \"%s\" è nel gruppo errato."
 
 #, c-format
 msgid "Attribute \"%s\" is the wrong value type."
-msgstr "L'attributo \"%s\" ha tipo errato."
+msgstr "L'attributo \"%s\" ha un valore errato."
 
 #, c-format
 msgid "Attribute groups are out of order (%x < %x)."
@@ -3533,7 +3532,7 @@ msgid "Cannot change printer-is-shared for remote queues."
 msgstr "Impossibile cambiare la proprietà printer-is-shared per code remote."
 
 msgid "Cannot share a remote Kerberized printer."
-msgstr "Non è possibile condividere una stampante remota kerberizzata."
+msgstr "Impossibile condividere, con Kerberos, una stampante remota."
 
 msgid "Cassette"
 msgstr "Caricatore"
@@ -3607,7 +3606,7 @@ msgid "Credentials are invalid."
 msgstr "Le credenziali sono non valide."
 
 msgid "Credentials are not CA-signed."
-msgstr "Le credenziali non sono firmate dal CA."
+msgstr "Le credenziali non sono firmate dalla CA."
 
 msgid "Credentials are unknown/new."
 msgstr "Le credenziali sono sconosciute/nuove."
@@ -3740,7 +3739,7 @@ msgid "Document #%d does not exist in job #%d."
 msgstr "Il documento #%d non esiste nel processo #%d."
 
 msgid "Duplexer"
-msgstr "Duplexer"
+msgstr "Modulo fronte/retro"
 
 msgid "EPL1 Label Printer"
 msgstr "EPL1 Label Printer"
@@ -3766,9 +3765,9 @@ msgid ""
 "this page. If you are using Kerberos authentication, make sure you have a "
 "valid Kerberos ticket."
 msgstr ""
-"Digitare la username e la password oppure l'username di root e la password "
-"per accedere a questa pagina. Se si utilizza l'autenticazione Kerberos, "
-"assicurarsi di disporre di un ticket di Kerberos valido."
+"Per accedere a questa pagina, digitare nome utente e password oppure le "
+"credenziali di root. Se si utilizza l'autenticazione Kerberos, assicurarsi "
+"di disporre di un ticket valido."
 
 msgid "Envelope #10"
 msgstr ""
@@ -4023,8 +4022,8 @@ msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
 msgstr ""
-"I file del dispositivo URI sono stati disabilitati. Per abilitare, vedere la "
-"direttiva FileDevice in \"%s/cups-files.conf\"."
+"Gli URI per i file di stampa sono disabilitati. Per attivarli, modifica la "
+"direttiva FileDevice nel file \"%s/cups-files.conf\"."
 
 #, c-format
 msgid "Finished page %d."
@@ -4121,7 +4120,7 @@ msgid "IPP language length too large."
 msgstr "La lunghezza della lingua di IPP è troppo grande."
 
 msgid "IPP member attribute outside of collection."
-msgstr ""
+msgstr "Attributo membro IPP non valido."
 
 msgid "IPP member name is not empty."
 msgstr "Il nome del membro IPP non è vuoto."
@@ -6163,15 +6162,15 @@ msgstr "Copie"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
-msgstr "Copertina posteriore"
+msgstr "Quarta di copertina"
 
 #. TRANSLATORS: Front Cover
 msgid "cover-front"
-msgstr "Copertina"
+msgstr "Prima di copertina"
 
 #. TRANSLATORS: Cover Sheet Info
 msgid "cover-sheet-info"
-msgstr "Informazioni copertina"
+msgstr "Informazioni di copertina"
 
 #. TRANSLATORS: Date Time
 msgid "cover-sheet-info-supported.date-time"
@@ -6179,7 +6178,7 @@ msgstr "Data e ora"
 
 #. TRANSLATORS: From Name
 msgid "cover-sheet-info-supported.from-name"
-msgstr "Da nome"
+msgstr "Originatore"
 
 #. TRANSLATORS: Logo
 msgid "cover-sheet-info-supported.logo"
@@ -6199,7 +6198,7 @@ msgstr "Argomento"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
-msgstr "A nome"
+msgstr "Destinatario"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
@@ -6227,7 +6226,7 @@ msgstr "Nessuna"
 
 #. TRANSLATORS: Cover Output
 msgid "covering"
-msgstr "Uscita copertina"
+msgstr "output di copertina"
 
 #. TRANSLATORS: Add Cover
 msgid "covering-name"
@@ -6257,7 +6256,7 @@ msgstr "cups-driverd ha smesso di funzionare."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
 msgstr ""
-"cups-driverd non è riuscito a ottenere il file PPD - si veda error_log per "
+"cups-driverd non è riuscito a ottenere il file PPD - consulta error_log per "
 "dettagli."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
@@ -6273,7 +6272,7 @@ msgid "cups-oauth: Missing resource URI and/or device token."
 msgstr "cups-oauth: Mancano l'URI della risorsa e/o il token del dispositivo."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr ""
+msgstr "cups-oauth: Ambito mancante dopo '-s'."
 
 msgid "cups-oauth: No authorization server specified."
 msgstr "cups-oauth: Nessun server di autorizzazione specificato."
@@ -7276,101 +7275,87 @@ msgstr "laminazione"
 
 #. TRANSLATORS: Punch
 msgid "finishing-template.punch"
-msgstr "punzonatura"
+msgstr "Foratura"
 
 #. TRANSLATORS: Punch Bottom Left
-#, fuzzy
 msgid "finishing-template.punch-bottom-left"
-msgstr "Punzonatura angolo inferiore sinistro"
+msgstr "Foratura angolo inferiore sinistro"
 
 #. TRANSLATORS: Punch Bottom Right
-#, fuzzy
 msgid "finishing-template.punch-bottom-right"
-msgstr "punzonatura angolo inferiore destro"
+msgstr "Foratura angolo inferiore destro"
 
 #. TRANSLATORS: 2-hole Punch Bottom
-#, fuzzy
 msgid "finishing-template.punch-dual-bottom"
-msgstr "punzonatura inferiore doppia"
+msgstr "Foratura inferiore doppia"
 
 #. TRANSLATORS: 2-hole Punch Left
-#, fuzzy
 msgid "finishing-template.punch-dual-left"
-msgstr "punzonatura a sinistra doppia"
+msgstr "Foratura a sinistra doppia"
 
 #. TRANSLATORS: 2-hole Punch Right
-#, fuzzy
 msgid "finishing-template.punch-dual-right"
-msgstr "punzonatura a destra doppia"
+msgstr "Foratura a destra doppia"
 
 #. TRANSLATORS: 2-hole Punch Top
-#, fuzzy
 msgid "finishing-template.punch-dual-top"
-msgstr "punzonatura superiore doppia"
+msgstr "Foratura superiore doppia"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
-#, fuzzy
 msgid "finishing-template.punch-multiple-bottom"
-msgstr "punzonatura inferiore multipla"
+msgstr "Foratura inferiore multipla"
 
 #. TRANSLATORS: Multi-hole Punch Left
-#, fuzzy
 msgid "finishing-template.punch-multiple-left"
-msgstr "punzonatura a sinistra multipla"
+msgstr "Foratura a sinistra multipla"
 
 #. TRANSLATORS: Multi-hole Punch Right
-#, fuzzy
 msgid "finishing-template.punch-multiple-right"
-msgstr "punzonatura a destra multipla"
+msgstr "Foratura a destra multipla"
 
 #. TRANSLATORS: Multi-hole Punch Top
-#, fuzzy
 msgid "finishing-template.punch-multiple-top"
-msgstr "punzonatura superiore multipla"
+msgstr "Foratura superiore multipla"
 
 #. TRANSLATORS: 4-hole Punch Bottom
-#, fuzzy
 msgid "finishing-template.punch-quad-bottom"
-msgstr "punzonatura inferiore quadrupla"
+msgstr "Foratura inferiore quadrupla"
 
 #. TRANSLATORS: 4-hole Punch Left
-#, fuzzy
 msgid "finishing-template.punch-quad-left"
-msgstr "punzonatura a sinistra quadrupla"
+msgstr "Foratura a sinistra quadrupla"
 
 #. TRANSLATORS: 4-hole Punch Right
-#, fuzzy
 msgid "finishing-template.punch-quad-right"
-msgstr "punzonatura a destra quadrupla"
+msgstr "Foratura a destra quadrupla"
 
 #. TRANSLATORS: 4-hole Punch Top
-#, fuzzy
 msgid "finishing-template.punch-quad-top"
-msgstr "punzonatura superiore quadrupla"
+msgstr "Foratura superiore quadrupla"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishing-template.punch-top-left"
-msgstr ""
+msgstr "Foratura in alto a sinistra"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishing-template.punch-top-right"
-msgstr ""
+msgstr "Foratura in alto a destra"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishing-template.punch-triple-bottom"
-msgstr ""
+msgstr "Foratura in basso tripla"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishing-template.punch-triple-left"
-msgstr ""
+msgstr "Foratura a sinistra tripla"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishing-template.punch-triple-right"
-msgstr ""
+msgstr "Foratura a destra tripla"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishing-template.punch-triple-top"
-msgstr ""
+msgstr "Foratura in alto tripla"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishing-template.saddle-stitch"
