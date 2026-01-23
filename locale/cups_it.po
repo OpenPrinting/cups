@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2026-01-22 15:56+0000\n"
+"PO-Revision-Date: 2026-01-23 10:59+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
@@ -1092,7 +1092,7 @@ msgstr ""
 "\"%s\": Valore resolution non valido %dx%d%s - valore units scorretto (RFC "
 "8011 sezione 5.1.16)."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be "
 "positive (RFC 8011 section 5.1.16)."
@@ -2874,18 +2874,15 @@ msgstr "3.00x2.00\""
 msgid "3.00x3.00\""
 msgstr "3.00x3.00\""
 
-#, fuzzy
 msgid "3.00x4.00\""
 msgstr "3.00x4.00\""
 
 msgid "3.00x5.00\""
 msgstr "3.00x5.00\""
 
-#, fuzzy
 msgid "3.00x6.00\""
 msgstr "3.00x6.00\""
 
-#, fuzzy
 msgid "3.00x8.00\""
 msgstr "3.00x8.00\""
 
@@ -2926,7 +2923,7 @@ msgid "300dpi"
 msgstr "300dpi"
 
 msgid "30859 Paint Can Label"
-msgstr ""
+msgstr "Etichetta 30859 (per lattina di vernice)"
 
 msgid "35"
 msgstr "35"
@@ -2970,7 +2967,6 @@ msgstr "4.00x6.00\""
 msgid "4.00x6.50\""
 msgstr "4.00x6.50\""
 
-#, fuzzy
 msgid "4.00x8.00\""
 msgstr "4.00x8.00\""
 
@@ -3025,7 +3021,6 @@ msgstr "6.00x6.00\""
 msgid "6.00x6.50\""
 msgstr "6.00x6.50\""
 
-#, fuzzy
 msgid "6.00x8.00\""
 msgstr "6.00x8.00\""
 
@@ -3092,7 +3087,6 @@ msgstr "8.00x6.00\""
 msgid "8.00x6.50\""
 msgstr "8.00x6.50\""
 
-#, fuzzy
 msgid "8.26x1.00\""
 msgstr "8.26x1.00\""
 
@@ -3102,7 +3096,6 @@ msgstr "80"
 msgid "80 mm/sec."
 msgstr "80 mm/sec."
 
-#, fuzzy
 msgid "80x50mm"
 msgstr "80x50mm"
 
@@ -3638,25 +3631,21 @@ msgstr "Taglia"
 msgid "Cutter"
 msgstr "Taglierino"
 
-#, fuzzy
 msgid "DYMO"
 msgstr "DYMO"
 
 msgid "Dark"
 msgstr "Scuro"
 
-#, fuzzy
 msgid "Darkness"
 msgstr "Intensità"
 
 msgid "Data file sent successfully."
 msgstr "I dati sono stati inviati con successo."
 
-#, fuzzy
 msgid "Deep Color"
 msgstr "Profondità colore"
 
-#, fuzzy
 msgid "Deep Gray"
 msgstr "Grigio scuro"
 
@@ -4248,7 +4237,7 @@ msgid "Invalid media size."
 msgstr "La dimensione del supporto non è valida."
 
 msgid "Invalid named IPP attribute in collection."
-msgstr ""
+msgstr "Attributo IPP con nome non valido all'interno del gruppo."
 
 msgid "Invalid ppd-name value."
 msgstr "Valore di ppd-name non valido."
@@ -4647,9 +4636,8 @@ msgstr "Nessuna richiesta inviata."
 msgid "No request-id"
 msgstr "Nessun request-id"
 
-#, fuzzy
 msgid "No stored credentials, not valid for name."
-msgstr "Nessuna credenziale memorizzata, non valida per il nome."
+msgstr "Credenziali non memorizzate o non valide per questo nome."
 
 msgid "No subscription attributes in request."
 msgstr "Nessun attributo della sottoscrizione nella richiesta."
@@ -5944,12 +5932,10 @@ msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr "authorize [RISORSA]            Autorizza l'accesso a una risorsa"
 
 #. TRANSLATORS: Bale Output
-#, fuzzy
 msgid "baling"
 msgstr "rilegatura"
 
 #. TRANSLATORS: Bale Using
-#, fuzzy
 msgid "baling-type"
 msgstr "Tipo rilegatura"
 
@@ -5963,10 +5949,9 @@ msgstr "Termica"
 
 #. TRANSLATORS: Wrap
 msgid "baling-type.wrap"
-msgstr "Avvolta"
+msgstr "Avvolgimento"
 
 #. TRANSLATORS: Bale After
-#, fuzzy
 msgid "baling-when"
 msgstr "frequenza rilegatura"
 
