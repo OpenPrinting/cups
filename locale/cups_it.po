@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2026-01-23 10:59+0000\n"
+"PO-Revision-Date: 2026-01-23 13:24+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
@@ -7353,79 +7353,79 @@ msgstr "graffatura"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
-msgstr ""
+msgstr "Graffatura in basso a sinistra"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishing-template.staple-bottom-right"
-msgstr ""
+msgstr "Graffatura in basso a destra"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishing-template.staple-dual-bottom"
-msgstr ""
+msgstr "Graffatura in basso doppia"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishing-template.staple-dual-left"
-msgstr ""
+msgstr "Graffatura a sinistra doppia"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishing-template.staple-dual-right"
-msgstr ""
+msgstr "Graffatura a destra doppia"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishing-template.staple-dual-top"
-msgstr ""
+msgstr "Graffatura in alto doppia"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishing-template.staple-top-left"
-msgstr ""
+msgstr "Graffatura in alto a sinistra"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishing-template.staple-top-right"
-msgstr ""
+msgstr "Graffatura in alto a destra"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishing-template.staple-triple-bottom"
-msgstr ""
+msgstr "Graffatura in basso tripla"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishing-template.staple-triple-left"
-msgstr ""
+msgstr "Graffatura a sinistra tripla"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishing-template.staple-triple-right"
-msgstr ""
+msgstr "Graffatura a destra tripla"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishing-template.staple-triple-top"
-msgstr ""
+msgstr "Graffatura in alto tripla"
 
 #. TRANSLATORS: Trim
 msgid "finishing-template.trim"
-msgstr ""
+msgstr "Rifilatura"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-copies"
-msgstr ""
+msgstr "Rifilo dopo ogni gruppo"
 
 #. TRANSLATORS: Trim After Every Document
 msgid "finishing-template.trim-after-documents"
-msgstr ""
+msgstr "Rifilo dopo ogni documento"
 
 #. TRANSLATORS: Trim After Job
 msgid "finishing-template.trim-after-job"
-msgstr ""
+msgstr "Rifilo alla fine del lavoro"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-pages"
-msgstr ""
+msgstr "Rifilo dopo ogni pagina"
 
 #. TRANSLATORS: Trim After Every Set
 msgid "finishing-template.trim-after-sets"
-msgstr ""
+msgstr "Rifilo dopo ogni gruppo di copie"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-sheets"
-msgstr ""
+msgstr "Rifilo dopo ogni singola pagina"
 
 #. TRANSLATORS: Finishings
 msgid "finishings"
@@ -7462,8 +7462,9 @@ msgid "finishings.13"
 msgstr "Macchina per opuscoli"
 
 #. TRANSLATORS: Jog Offset
+#, fuzzy
 msgid "finishings.14"
-msgstr ""
+msgstr "Pareggiatore (Jogger)"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
@@ -7476,95 +7477,96 @@ msgstr "Laminazione"
 
 #. TRANSLATORS: Staple Top Left
 msgid "finishings.20"
-msgstr ""
+msgstr "Graffetta in alto a sinistra"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishings.21"
-msgstr ""
+msgstr "Graffetta in basso a sinistra"
 
 #. TRANSLATORS: Staple Top Right
 msgid "finishings.22"
-msgstr ""
+msgstr "Graffetta in alto a destra"
 
 #. TRANSLATORS: Staple Bottom Right
 msgid "finishings.23"
-msgstr ""
+msgstr "Graffetta in basso a destra"
 
 #. TRANSLATORS: Edge Stitch Left
 msgid "finishings.24"
-msgstr ""
+msgstr "Cucitura a filo sul lato sinistro"
 
 #. TRANSLATORS: Edge Stitch Top
 msgid "finishings.25"
-msgstr ""
+msgstr "Cucitura a filo in alto"
 
 #. TRANSLATORS: Edge Stitch Right
 msgid "finishings.26"
-msgstr ""
+msgstr "Cucitura a filo sul lato destro"
 
 #. TRANSLATORS: Edge Stitch Bottom
 msgid "finishings.27"
-msgstr ""
+msgstr "Cucitura a filo in basso"
 
 #. TRANSLATORS: 2 Staples on Left
 msgid "finishings.28"
-msgstr ""
+msgstr "2 graffette sul lato sinistro"
 
 #. TRANSLATORS: 2 Staples on Top
 msgid "finishings.29"
-msgstr ""
+msgstr "2 graffette in alto"
 
 #. TRANSLATORS: None
 msgid "finishings.3"
-msgstr ""
+msgstr "Nessuna"
 
 #. TRANSLATORS: 2 Staples on Right
 msgid "finishings.30"
-msgstr ""
+msgstr "2 graffette sul lato destro"
 
 #. TRANSLATORS: 2 Staples on Bottom
 msgid "finishings.31"
-msgstr ""
+msgstr "2 graffette in basso"
 
 #. TRANSLATORS: 3 Staples on Left
 msgid "finishings.32"
-msgstr ""
+msgstr "3 graffette sul lato sinistro"
 
 #. TRANSLATORS: 3 Staples on Top
 msgid "finishings.33"
-msgstr ""
+msgstr "3 graffette in alto"
 
 #. TRANSLATORS: 3 Staples on Right
 msgid "finishings.34"
-msgstr ""
+msgstr "3 graffette sul lato destro"
 
 #. TRANSLATORS: 3 Staples on Bottom
 msgid "finishings.35"
-msgstr ""
+msgstr "3 graffette in basso"
 
 #. TRANSLATORS: Staple
+#, fuzzy
 msgid "finishings.4"
-msgstr ""
+msgstr "Graffettatura"
 
 #. TRANSLATORS: Punch
 msgid "finishings.5"
-msgstr ""
+msgstr "Foratura"
 
 #. TRANSLATORS: Bind Left
 msgid "finishings.50"
-msgstr ""
+msgstr "Rilegatura a sinistra"
 
 #. TRANSLATORS: Bind Top
 msgid "finishings.51"
-msgstr ""
+msgstr "Rilegatura in alto"
 
 #. TRANSLATORS: Bind Right
 msgid "finishings.52"
-msgstr ""
+msgstr "Rilegatura a destra"
 
 #. TRANSLATORS: Bind Bottom
 msgid "finishings.53"
-msgstr ""
+msgstr "Rilegatura in basso"
 
 #. TRANSLATORS: Cover
 msgid "finishings.6"
@@ -7588,7 +7590,7 @@ msgstr ""
 
 #. TRANSLATORS: Bind
 msgid "finishings.7"
-msgstr ""
+msgstr "Rilegatura"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishings.70"
@@ -7632,7 +7634,7 @@ msgstr ""
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishings.8"
-msgstr ""
+msgstr "Rilegatura a sella"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishings.80"
@@ -7676,7 +7678,7 @@ msgstr ""
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishings.9"
-msgstr ""
+msgstr "Cucitura a bordo"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishings.90"
@@ -7761,11 +7763,11 @@ msgstr "Lato superiore"
 
 #. TRANSLATORS: Font Name
 msgid "font-name-requested"
-msgstr "Nome font"
+msgstr "Nome del font"
 
 #. TRANSLATORS: Font Size
 msgid "font-size-requested"
-msgstr "Dimensione font"
+msgstr "Dimensione del font"
 
 #. TRANSLATORS: Force Front Side
 msgid "force-front-side"
@@ -7859,7 +7861,7 @@ msgid "ippfind: Missing close brace in substitution."
 msgstr "ippfind: manca parentesi graffa di chiusura in sostituzione."
 
 msgid "ippfind: Missing close parenthesis."
-msgstr "ippfind: mancano le parentesi chiuse."
+msgstr "ippfind: manca la chiusa della parentesi."
 
 msgid "ippfind: Missing expression before \"--and\"."
 msgstr "ippfind: manca l'espressione prima di \"--and\"."
@@ -7873,10 +7875,10 @@ msgstr "ippfind: manca il nome della chiave dopo %s."
 
 #, c-format
 msgid "ippfind: Missing name after %s."
-msgstr "ippfind: Nome mancante dopo %s."
+msgstr "ippfind: manca il nome dopo %s."
 
 msgid "ippfind: Missing open parenthesis."
-msgstr "ippfind: mancano le parentesi aperte."
+msgstr "ippfind: manca l'apertura della parentesi."
 
 #, c-format
 msgid "ippfind: Missing program after %s."
