@@ -1243,7 +1243,7 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
 #ifdef HAVE_SYSTEMD_SD_JOURNAL_H
   if (!strcmp(AccessLog, "syslog"))
   {
-    sd_journal_print(LOG_INFO, "REQUEST %s - %s \"%s %s HTTP/%d.%d\" %d " CUPS_LLFMT " %s %s", con->http->hostname, con->username[0] != '\0' ? con->username : "-", states[con->operation], _httpEncodeURI(temp, con->uri, sizeof(temp)), con->http->version / 100, con->http->version % 100, code, CUPS_LLCAST con->bytes, con->request ? ippOpString(con->request->request.op.operation_id) : "-", con->response ? ippErrorString(con->response->request.status.status_code) : "-");
+    sd_journal_print(LOG_INFO, "REQUEST %s - %s \"%s %s HTTP/%d.%d\" %d " CUPS_LLFMT " %s %s", con->http->hostname, con->username[0] != '\0' ? con->username : "-", states[con->operation], _httpEncodeURI(temp, con->uri, sizeof(temp)), con->http->version / 100, con->http->version % 100, code, CUPS_LLCAST con->bytes, con->request ? ippOpString(con->request->request.op_status) : "-", con->response ? ippErrorString(con->response->request.op_status) : "-");
     return (1);
   }
 
