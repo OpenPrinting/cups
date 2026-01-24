@@ -1152,14 +1152,14 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
       return (1);
 
     if (con->request && con->response &&
-        (con->response->request.status.status_code < IPP_STATUS_REDIRECTION_OTHER_SITE ||
-	 con->response->request.status.status_code == IPP_STATUS_ERROR_NOT_FOUND))
+        (con->response->request.op_status < IPP_STATUS_REDIRECTION_OTHER_SITE ||
+	 con->response->request.op_status == IPP_STATUS_ERROR_NOT_FOUND))
     {
      /*
       * Check successful requests...
       */
 
-      ipp_op_t op = con->request->request.op.operation_id;
+      ipp_op_t op = con->request->request.op_status;
       static cupsd_accesslog_t standard_ops[] =
       {
         CUPSD_ACCESSLOG_ALL,	/* reserved */
@@ -1261,9 +1261,9 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
 	   con->http->version / 100, con->http->version % 100,
 	   code, CUPS_LLCAST con->bytes,
 	   con->request ?
-	       ippOpString(con->request->request.op.operation_id) : "-",
+	       ippOpString(con->request->request.op_status) : "-",
 	   con->response ?
-	       ippErrorString(con->response->request.status.status_code) : "-");
+	       ippErrorString(con->response->request.op_status) : "-");
 
     return (1);
   }
@@ -1290,9 +1290,9 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
 		 con->http->version / 100, con->http->version % 100,
 		 code, CUPS_LLCAST con->bytes,
 		 con->request ?
-		     ippOpString(con->request->request.op.operation_id) : "-",
+		     ippOpString(con->request->request.op_status) : "-",
 		 con->response ?
-		     ippErrorString(con->response->request.status.status_code) :
+		     ippErrorString(con->response->request.op_status) :
 		     "-");
 
   cupsFileFlush(AccessFile);

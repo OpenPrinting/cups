@@ -125,7 +125,7 @@ cupsdCheckPolicy(cupsd_policy_t *p,	/* I - Policy */
   * Find a match for the operation...
   */
 
-  if ((po = cupsdFindPolicyOp(p, con->request->request.op.operation_id)) == NULL)
+  if ((po = cupsdFindPolicyOp(p, con->request->request.op_status)) == NULL)
   {
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCheckPolicy: No matching operation, returning 0.");
     return (HTTP_STATUS_OK);
@@ -288,10 +288,10 @@ cupsdGetPrivateAttrs(
 
 #ifdef DEBUG
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdGetPrivateAttrs: %s",
-                  ippOpString(con->request->request.op.operation_id));
+                  ippOpString(con->request->request.op_status));
 #endif /* DEBUG */
 
-  switch (con->request->request.op.operation_id)
+  switch (con->request->request.op_status)
   {
     case IPP_OP_GET_SUBSCRIPTIONS :
     case IPP_OP_GET_SUBSCRIPTION_ATTRIBUTES :

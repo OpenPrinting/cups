@@ -372,7 +372,7 @@ show_models(
     * Loop through the device list and display them...
     */
 
-    if (response->request.status.status_code > IPP_STATUS_OK_CONFLICTING)
+    if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       _cupsLangPrintf(stderr, "lpinfo: %s", cupsGetErrorString());
       ippDelete(response);

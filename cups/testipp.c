@@ -327,10 +327,10 @@ main(int  argc,				// I - Number of command-line arguments
     testBegin("Create Sample Request");
 
     request = ippNew();
-    request->request.op.version[0]   = 0x01;
-    request->request.op.version[1]   = 0x01;
-    request->request.op.operation_id = IPP_OP_PRINT_JOB;
-    request->request.op.request_id   = 1;
+    request->request.version[0] = 0x01;
+    request->request.version[1] = 0x01;
+    request->request.op_status  = IPP_OP_PRINT_JOB;
+    request->request.request_id = 1;
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_CHARSET,
         	 "attributes-charset", NULL, "utf-8");

@@ -246,10 +246,9 @@ cupsGetDevices(
 
   attr = ippFindAttribute(response, "status-message", IPP_TAG_TEXT);
 
-  DEBUG_printf("cupsGetDevices: status-code=%s, status-message=\"%s\"", ippErrorString(response->request.status.status_code), attr ? attr->values[0].string.text : "");
+  DEBUG_printf("cupsGetDevices: status-code=%s, status-message=\"%s\"", ippErrorString(response->request.op_status), attr ? attr->values[0].string.text : "");
 
-  _cupsSetError(response->request.status.status_code,
-                attr ? attr->values[0].string.text : ippErrorString(response->request.status.status_code), 0);
+  _cupsSetError(response->request.op_status, attr ? attr->values[0].string.text : ippErrorString(response->request.op_status), 0);
 
   ippDelete(response);
 

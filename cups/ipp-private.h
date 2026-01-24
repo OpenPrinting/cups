@@ -30,35 +30,11 @@ extern "C" {
 // Structures...
 //
 
-typedef union _ipp_request_u		// Request Header
+typedef struct _ipp_request_s		// Message Header
 {
-  struct				// Any Header
-  {
-    ipp_uchar_t	version[2];		// Protocol version number
-    int		op_status;		// Operation ID or status code
-    int		request_id;		// Request ID
-  }		any;
-
-  struct				// Operation Header
-  {
-    ipp_uchar_t	version[2];		// Protocol version number
-    ipp_op_t	operation_id;		// Operation ID
-    int		request_id;		// Request ID
-  }		op;
-
-  struct				// Status Header
-  {
-    ipp_uchar_t	version[2];		// Protocol version number
-    ipp_status_t status_code;		// Status code
-    int		request_id;		// Request ID
-  }		status;
-
-  struct				// Event Header
-  {
-    ipp_uchar_t	version[2];		// Protocol version number
-    ipp_status_t status_code;		// Status code
-    int		request_id;		// Request ID
-  }		event;
+  ipp_uchar_t	version[2];		// Protocol version number
+  short		op_status;		// Operation ID or status code
+  int		request_id;		// Request ID
 } _ipp_request_t;
 
 typedef union _ipp_value_u		// Attribute Value

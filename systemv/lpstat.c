@@ -928,7 +928,7 @@ show_classes(const char *dests)		/* I - Destinations */
 
   if (response)
   {
-    if (response->request.status.status_code > IPP_STATUS_OK_CONFLICTING)
+    if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       _cupsLangPrintf(stderr, "lpstat: %s", cupsGetErrorString());
       ippDelete(response);

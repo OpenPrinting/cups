@@ -293,7 +293,7 @@ cupsdCheckJobs(void)
 	     con;
 	     con = (cupsd_client_t *)cupsArrayNext(Clients))
 	  if (con->request &&
-	      con->request->request.op.operation_id == IPP_OP_SEND_DOCUMENT)
+	      con->request->request.op_status == IPP_OP_SEND_DOCUMENT)
 	    break;
 
         if (con)

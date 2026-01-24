@@ -2845,9 +2845,9 @@ new_request(
   ippSetVersion(request, version / 10, version % 10);
 
   fprintf(stderr, "DEBUG: %s IPP/%d.%d\n",
-	  ippOpString(request->request.op.operation_id),
-	  request->request.op.version[0],
-	  request->request.op.version[1]);
+	  ippOpString(request->request.op_status),
+	  request->request.version[0],
+	  request->request.version[1]);
 
  /*
   * Add standard attributes...

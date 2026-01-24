@@ -608,7 +608,7 @@ cupsdCreateCommonData(void)
       if (*langptr == '_')
         *tempptr++ = '-';
       else
-        *tempptr++ = tolower(*langptr & 255);
+        *tempptr++ = (char)tolower(*langptr & 255);
     }
     *tempptr = '\0';
 

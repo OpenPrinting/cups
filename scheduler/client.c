@@ -1709,10 +1709,10 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	    else
 	    {
 	      cupsdLogClient(con, CUPSD_LOG_DEBUG, "%d.%d %s %d",
-			      con->request->request.op.version[0],
-			      con->request->request.op.version[1],
-			      ippOpString(con->request->request.op.operation_id),
-			      con->request->request.op.request_id);
+			      con->request->request.version[0],
+			      con->request->request.version[1],
+			      ippOpString(con->request->request.op_status),
+			      con->request->request.request_id);
 	      con->bytes += (off_t)ippGetLength(con->request);
 	    }
 	  }

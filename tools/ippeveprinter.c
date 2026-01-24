@@ -1107,7 +1107,7 @@ create_job(ippeve_client_t *client)	// I - Client
       void	*dataptr;		// octetString pointer
       int	datalen;		// Length of octetString
 
-      if ((dataptr = ippGetOctetString(attr, 0, &datalen)) != NULL && datalen < (sizeof(job->password) - 1))
+      if ((dataptr = ippGetOctetString(attr, 0, &datalen)) != NULL && datalen < (int)(sizeof(job->password) - 1))
         memcpy(job->password, dataptr, datalen);
       else
 	respond_ignored(client, attr);
@@ -1390,7 +1390,7 @@ create_printer(
 			uuid[128],	// printer-uuid
 			*iconsptr;	// Pointer into icons string
   int			k_supported;	// Maximum file size supported
-  size_t		num_formats = 0;// Number of supported document formats
+  int			num_formats = 0;// Number of supported document formats
   const char		*formats[100],	// Supported document formats
 			*format;	// Current format
   bool			has_jpeg = false,
@@ -1750,7 +1750,7 @@ create_printer(
     if (!cupsArrayFind(docformats, (void *)"application/octet-stream"))
       cupsArrayAdd(docformats, (void *)"application/octet-stream");
 
-    for (format = (const char *)cupsArrayGetFirst(docformats); format && num_formats < (sizeof(formats) / sizeof(formats[0])); format = (const char *)cupsArrayGetNext(docformats))
+    for (format = (const char *)cupsArrayGetFirst(docformats); format && num_formats < (int)(sizeof(formats) / sizeof(formats[0])); format = (const char *)cupsArrayGetNext(docformats))
       formats[num_formats ++] = format;
   }
   else if ((attr = ippFindAttribute(attrs, "document-format-supported", IPP_TAG_MIMETYPE)) != NULL)

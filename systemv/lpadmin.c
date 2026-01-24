@@ -928,8 +928,7 @@ delete_printer_from_class(
   * Do the request and get back a response...
   */
 
-  if ((response = cupsDoRequest(http, request, "/classes/")) == NULL ||
-      response->request.status.status_code == IPP_STATUS_ERROR_NOT_FOUND)
+  if ((response = cupsDoRequest(http, request, "/classes/")) == NULL || cupsGetError() == IPP_STATUS_ERROR_NOT_FOUND)
   {
     _cupsLangPrintf(stderr, _("%s: %s"), "lpadmin", cupsGetErrorString());
 
@@ -1283,7 +1282,7 @@ set_printer_options(
       options        = temp;
     }
   }
-  else if (request->request.op.operation_id == IPP_OP_CUPS_ADD_MODIFY_PRINTER)
+  else if (ippGetOperation(request) == IPP_OP_CUPS_ADD_MODIFY_PRINTER)
     ppdfile = cupsGetPPD(printer);
   else
     ppdfile = NULL;

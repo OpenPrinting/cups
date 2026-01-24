@@ -466,7 +466,7 @@ mime_add_fcache(
   char			path[1024];	// Full path to filter
 
 
-  MIME_DEBUG("mime_add_fcache(filtercache=%p, name=\"%s\", filterpath=\"%s\")", filtercache, name, filterpath);
+  MIME_DEBUG("mime_add_fcache(filtercache=%p, name=\"%s\", filterpath=\"%s\")", (void *)filtercache, name, filterpath);
 
   key.name = (char *)name;
   if ((temp = (_mime_fcache_t *)cupsArrayFind(filtercache, &key)) != NULL)

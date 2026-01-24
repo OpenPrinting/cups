@@ -1,7 +1,7 @@
 /*
  * IPP utilities for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -46,7 +46,7 @@ cupsDoFileRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HT
   int		infile;			/* Input file */
 
 
-  DEBUG_printf("cupsDoFileRequest(http=%p, request=%p(%s), resource=\"%s\", filename=\"%s\")", (void *)http, (void *)request, request ? ippOpString(request->request.op.operation_id) : "?", resource, filename);
+  DEBUG_printf("cupsDoFileRequest(http=%p, request=%p(%s), resource=\"%s\", filename=\"%s\")", (void *)http, (void *)request, request ? ippOpString(request->request.op_status) : "?", resource, filename);
 
   if (filename)
   {
@@ -112,7 +112,7 @@ cupsDoIORequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
   char		buffer[32768];		/* Output buffer */
 
 
-  DEBUG_printf("cupsDoIORequest(http=%p, request=%p(%s), resource=\"%s\", infile=%d, outfile=%d)", (void *)http, (void *)request, request ? ippOpString(request->request.op.operation_id) : "?", resource, infile, outfile);
+  DEBUG_printf("cupsDoIORequest(http=%p, request=%p(%s), resource=\"%s\", infile=%d, outfile=%d)", (void *)http, (void *)request, request ? ippOpString(request->request.op_status) : "?", resource, infile, outfile);
 
  /*
   * Range check input...
@@ -291,7 +291,7 @@ cupsDoRequest(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_
               ipp_t      *request,	/* I - IPP request */
               const char *resource)	/* I - HTTP resource for POST */
 {
-  DEBUG_printf("cupsDoRequest(http=%p, request=%p(%s), resource=\"%s\")", (void *)http, (void *)request, request ? ippOpString(request->request.op.operation_id) : "?", resource);
+  DEBUG_printf("cupsDoRequest(http=%p, request=%p(%s), resource=\"%s\")", (void *)http, (void *)request, request ? ippOpString(request->request.op_status) : "?", resource);
 
   return (cupsDoIORequest(http, request, resource, -1, -1));
 }
@@ -480,11 +480,9 @@ cupsGetResponse(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
 
     attr = ippFindAttribute(response, "status-message", IPP_TAG_TEXT);
 
-    DEBUG_printf("1cupsGetResponse: status-code=%s, status-message=\"%s\"", ippErrorString(response->request.status.status_code), attr ? attr->values[0].string.text : "");
+    DEBUG_printf("1cupsGetResponse: status-code=%s, status-message=\"%s\"", ippErrorString(response->request.op_status), attr ? attr->values[0].string.text : "");
 
-    _cupsSetError(response->request.status.status_code,
-                  attr ? attr->values[0].string.text :
-		      ippErrorString(response->request.status.status_code), 0);
+    _cupsSetError(response->request.op_status, attr ? attr->values[0].string.text : ippErrorString(response->request.op_status), 0);
   }
 
   return (response);
@@ -621,7 +619,7 @@ cupsSendRequest(http_t     *http,	/* I - Connection to server or @code CUPS_HTTP
   int			digest;		/* Are we using Digest authentication? */
 
 
-  DEBUG_printf("cupsSendRequest(http=%p, request=%p(%s), resource=\"%s\", length=" CUPS_LLFMT ")", (void *)http, (void *)request, request ? ippOpString(request->request.op.operation_id) : "?", resource, CUPS_LLCAST length);
+  DEBUG_printf("cupsSendRequest(http=%p, request=%p(%s), resource=\"%s\", length=" CUPS_LLFMT ")", (void *)http, (void *)request, request ? ippOpString(request->request.op_status) : "?", resource, CUPS_LLCAST length);
 
  /*
   * Range check input...

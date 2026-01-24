@@ -404,7 +404,7 @@ show_jobs(const char *command,		/* I - Command name */
 
   if ((response = cupsDoRequest(http, request, "/")) != NULL)
   {
-    if (response->request.status.status_code > IPP_STATUS_OK_CONFLICTING)
+    if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
       ippDelete(response);
@@ -595,7 +595,7 @@ show_printer(const char *command,	/* I - Command name */
 
   if ((response = cupsDoRequest(http, request, "/")) != NULL)
   {
-    if (response->request.status.status_code > IPP_STATUS_OK_CONFLICTING)
+    if (cupsGetError() > IPP_STATUS_OK_CONFLICTING)
     {
       _cupsLangPrintf(stderr, "%s: %s", command, cupsGetErrorString());
       ippDelete(response);
