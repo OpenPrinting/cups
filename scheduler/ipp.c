@@ -279,16 +279,6 @@ cupsdProcessIPPRequest(
       else
 	uri = NULL;
 
-      if (charset)
-	ippAddString(con->response, IPP_TAG_OPERATION, IPP_TAG_CHARSET, "attributes-charset", NULL, charset->values[0].string.text);
-      else
-	ippAddString(con->response, IPP_TAG_OPERATION, IPP_TAG_CHARSET, "attributes-charset", NULL, "utf-8");
-
-      if (language)
-	ippAddString(con->response, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", NULL, language->values[0].string.text);
-      else
-	ippAddString(con->response, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE, "attributes-natural-language", NULL, DefaultLanguage);
-
       if (charset && _cups_strcasecmp(charset->values[0].string.text, "us-ascii") && _cups_strcasecmp(charset->values[0].string.text, "utf-8"))
       {
        /*
