@@ -1,7 +1,7 @@
 //
 // HTTP address routines for CUPS.
 //
-// Copyright © 2023-2025 by OpenPrinting.
+// Copyright © 2023-2026 by OpenPrinting.
 // Copyright © 2007-2021 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 //
@@ -373,7 +373,7 @@ httpAddrLookup(
 #endif // AF_LOCAL
 
   // Optimize lookups for localhost/loopback addresses...
-  if (httpAddrLocalhost(addr))
+  if (httpAddrIsLocalhost(addr))
   {
     cupsCopyString(name, "localhost", (size_t)namelen);
     return (name);
@@ -401,12 +401,12 @@ httpAddrLookup(
   //
   // FWIW, I think this is really a bug in the implementation of
   // getnameinfo(), but falling back on httpAddrString() is easy to do...
-  if ((error = getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), name, (socklen_t)namelen, NULL, 0, 0)) != 0)
+  if ((error = getnameinfo(&addr->addr, (socklen_t)httpAddrLength(addr), name, (socklen_t)namelen, NULL, 0, 0)) != 0 || !strcasecmp(name, "localhost"))
   {
     if (error == EAI_FAIL)
       cg->need_res_init = 1;
 
-    return (httpAddrGetString(addr, name, (size_t)namelen));
+    httpAddrGetString(addr, name, (size_t)namelen);
   }
 
   DEBUG_printf("1httpAddrLookup: returning \"%s\"...", name);
