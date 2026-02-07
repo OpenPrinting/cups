@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-13 16:39-0400\n"
-"PO-Revision-Date: 2025-09-23 08:02+0000\n"
-"Last-Translator: Sadaharu Wakisaka <informatiekantoor@gmail.com>\n"
+"PO-Revision-Date: 2026-02-07 07:26+0000\n"
+"Last-Translator: Naruhiko Ogasawara <naruoga@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/cups/cups/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(すべて)"
@@ -3299,7 +3299,7 @@ msgstr "URI \"%s\" は不正な notify-recipient-uri です。"
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
-msgstr ""
+msgstr "notify-user-data \"%s\" が不正です。"
 
 #, c-format
 msgid "Bad number-up value %d."
@@ -3324,7 +3324,7 @@ msgid "Bad printer-uri."
 msgstr "printer-uri が不正です。"
 
 msgid "Bad private key."
-msgstr ""
+msgstr "不正な秘密鍵です。"
 
 #, c-format
 msgid "Bad request ID %d."
@@ -3341,7 +3341,7 @@ msgid "Bad scheme in URI"
 msgstr "URI のスキームが不正"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
-msgstr ""
+msgstr "X.509 証明書要求に含まれる subjectAltName 拡張が不正です。"
 
 msgid "Bad username in URI"
 msgstr "URI のユーザー名が不正"
@@ -3378,7 +3378,7 @@ msgid "Canceling print job."
 msgstr "プリントジョブをキャンセルしています。"
 
 msgid "Cannot change printer-is-shared for remote queues."
-msgstr ""
+msgstr "リモートキューでは printer-is-shared を変更できません。"
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "リモートの Kerberos 認証のプリンターを共有できません。"
@@ -3440,37 +3440,37 @@ msgstr "印刷データをコピーしています。"
 
 #, c-format
 msgid "Couldn't resolve mDNS URI \"%s\"."
-msgstr ""
+msgstr "mDNS URI \"%s\" を解決できませんでした。"
 
 msgid "Created"
 msgstr "ジョブ作成"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "証明書は問題ありません（信頼されています）。"
 
 msgid "Credentials are expired."
-msgstr ""
+msgstr "証明書は有効期限切れです。"
 
 msgid "Credentials are invalid."
-msgstr ""
+msgstr "証明書は無効です。"
 
 msgid "Credentials are not CA-signed."
-msgstr ""
+msgstr "証明書はCAにより署名されていません。"
 
 msgid "Credentials are unknown/new."
-msgstr ""
+msgstr "証明書は未確認（新規）です。"
 
 msgid "Credentials do not validate against site CA certificate."
-msgstr ""
+msgstr "証明書はサイトの CA 証明書による検証に失敗しました。"
 
 msgid "Credentials have been renewed."
-msgstr ""
+msgstr "証明書は更新されました。"
 
 msgid "Credentials have changed."
-msgstr ""
+msgstr "証明書は変更されました。"
 
 msgid "Credentials have expired."
-msgstr ""
+msgstr "証明書は有効期限切れです。"
 
 msgid "Custom"
 msgstr "カスタム"
@@ -3488,7 +3488,7 @@ msgid "Cutter"
 msgstr "カッター"
 
 msgid "DYMO"
-msgstr ""
+msgstr "DYMO"
 
 msgid "Dark"
 msgstr "濃い"
@@ -3500,10 +3500,10 @@ msgid "Data file sent successfully."
 msgstr "データファイルが正常に送信されました。"
 
 msgid "Deep Color"
-msgstr ""
+msgstr "ディープカラー"
 
 msgid "Deep Gray"
-msgstr ""
+msgstr "濃いグレー"
 
 msgid "Delete Class"
 msgstr "クラスの削除"
@@ -3519,20 +3519,20 @@ msgid "Destination \"%s\" is not accepting jobs."
 msgstr "宛先 \"%s\" はジョブを受け付けていません。"
 
 msgid "Device CMYK"
-msgstr ""
+msgstr "デバイスCMYK"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "デバイスコード: %s"
 
 msgid "Device Gray"
-msgstr ""
+msgstr "デバイスグレー"
 
 msgid "Device RGB"
-msgstr ""
+msgstr "デバイスRGB"
 
 msgid "Device authorization grant is not supported by this server."
-msgstr ""
+msgstr "このサーバーはデバイス認可グラントをサポートしていません。"
 
 #, c-format
 msgid ""
@@ -3615,7 +3615,7 @@ msgstr ""
 "場合、有効な Kerberos チケットがあることを確認してください。"
 
 msgid "Envelope #10"
-msgstr ""
+msgstr "封筒 #10"
 
 msgid "Envelope #11"
 msgstr "封筒 #11"
@@ -3705,7 +3705,7 @@ msgid "Envelope Monarch"
 msgstr "封筒 Monarch"
 
 msgid "Envelope PRC1"
-msgstr ""
+msgstr "封筒 PRC1"
 
 msgid "Envelope PRC1 Long Edge"
 msgstr "封筒 PRC1 長辺送り"
@@ -3783,7 +3783,7 @@ msgid "Error Policy"
 msgstr "エラーポリシー"
 
 msgid "Error reading raster data."
-msgstr ""
+msgstr "ラスターデータの読み込み中にエラーが発生しました。"
 
 msgid "Error sending raster data."
 msgstr "ラスターデータの送信でエラーが起きました。"
@@ -3792,10 +3792,10 @@ msgid "Error: need hostname after \"-h\" option."
 msgstr "Error: '-h' オプションのあとにはホスト名が必要です。"
 
 msgid "European Fanfold"
-msgstr ""
+msgstr "European Fanfold"
 
 msgid "European Fanfold Legal"
-msgstr ""
+msgstr "European Fanfold Legal"
 
 msgid "Every 10 Labels"
 msgstr "10 ラベルごと"
@@ -3837,7 +3837,7 @@ msgid "Expressions:"
 msgstr "式:"
 
 msgid "Fast Grayscale"
-msgstr ""
+msgstr "高速グレースケール"
 
 #, c-format
 msgid "File \"%s\" contains a relative path."
@@ -3862,7 +3862,7 @@ msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
 msgstr "ファイル \"%s\" のパーミッションは問題ありません (0%o/uid=%d/gid=%d)。"
 
 msgid "File Folder"
-msgstr ""
+msgstr "ファイルフォルダー"
 
 #, c-format
 msgid ""
@@ -3883,10 +3883,10 @@ msgid "Forbidden"
 msgstr "Forbidden"
 
 msgid "Form data too large."
-msgstr ""
+msgstr "フォームデータが大きすぎます。"
 
 msgid "Found"
-msgstr ""
+msgstr "Found"
 
 msgid "General"
 msgstr "一般"
@@ -3904,7 +3904,7 @@ msgid "Got a printer-uri attribute but no job-id."
 msgstr "printer-uri 属性を取得しましたが、job-id を取得できませんでした。"
 
 msgid "GrayScale"
-msgstr ""
+msgstr "グレースケール"
 
 msgid "Grayscale"
 msgstr "グレースケール"
@@ -3916,22 +3916,24 @@ msgid "Hanging Folder"
 msgstr "Hanging Folder"
 
 msgid "Hash buffer too small."
-msgstr ""
+msgstr "ハッシュバッファが小さすぎます。"
 
 msgid "Help file not in index."
 msgstr "ヘルプファイルが索引に含まれていません。"
 
 msgid "Home"
-msgstr ""
+msgstr "ホーム"
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
+"Negotiate を使用する場合、ホスト名として IP アドレスは使用できません。FQDN を"
+"使用してください。"
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "IPP の 1setOf 属性が value タグと互換性がありません。"
 
 msgid "IPP Everywhere driver requires an IPP connection."
-msgstr ""
+msgstr "IPP EverywhereドライバーはIPP接続が必要です。"
 
 msgid "IPP attribute has no name."
 msgstr "IPP の属性に名前がありません。"
@@ -3964,7 +3966,7 @@ msgid "IPP language length too large."
 msgstr "IPP の language の長さが長すぎます。"
 
 msgid "IPP member attribute outside of collection."
-msgstr ""
+msgstr "IPP のメンバー属性がコレクションの外にあります。"
 
 msgid "IPP member name is not empty."
 msgstr "IPP のメンバー名が空ではありません。"
@@ -3973,7 +3975,7 @@ msgid "IPP memberName value is empty."
 msgstr "IPP の memberName の値が空です。"
 
 msgid "IPP message nested too deeply."
-msgstr ""
+msgstr "IPPメッセージのネストが深すぎます。"
 
 msgid "IPP name larger than 32767 bytes."
 msgstr "IPP 名が 32767 バイトより大きいです。"
@@ -4000,12 +4002,14 @@ msgid "IPP value larger than 32767 bytes."
 msgstr "IPP の値が 32767 バイト以上です。"
 
 msgid "IPPFIND_SERVICE_DOMAIN  Domain name"
-msgstr ""
+msgstr "IPPFIND_SERVICE_DOMAIN  ドメイン名"
 
 msgid ""
 "IPPFIND_SERVICE_HOSTNAME\n"
 "                        Fully-qualified domain name"
 msgstr ""
+"IPPFIND_SERVICE_HOSTNAME\n"
+"                        完全修飾ドメイン名"
 
 msgid "IPPFIND_SERVICE_NAME    Service instance name"
 msgstr ""
