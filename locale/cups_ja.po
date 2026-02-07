@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-13 16:39-0400\n"
-"PO-Revision-Date: 2026-02-07 07:26+0000\n"
+"PO-Revision-Date: 2026-02-08 08:09+0000\n"
 "Last-Translator: Naruhiko Ogasawara <naruoga@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/cups/cups/ja/>\n"
 "Language: ja\n"
@@ -4012,22 +4012,22 @@ msgstr ""
 "                        完全修飾ドメイン名"
 
 msgid "IPPFIND_SERVICE_NAME    Service instance name"
-msgstr ""
+msgstr "IPPFIND_SERVICE_NAME    サービスインスタンス名"
 
 msgid "IPPFIND_SERVICE_PORT    Port number"
-msgstr ""
+msgstr "IPPFIND_SERVICE_PORT    ポート番号"
 
 msgid "IPPFIND_SERVICE_REGTYPE DNS-SD registration type"
-msgstr ""
+msgstr "IPPFIND_SERVICE_REGTYPE DNS-SD登録タイプ"
 
 msgid "IPPFIND_SERVICE_SCHEME  URI scheme"
-msgstr ""
+msgstr "IPPFIND_SERVICE_SCHEME  URI スキーム"
 
 msgid "IPPFIND_SERVICE_URI     URI"
-msgstr ""
+msgstr "IPPFIND_SERVICE_URI     URI"
 
 msgid "IPPFIND_TXT_*           Value of TXT record key"
-msgstr ""
+msgstr "IPPFIND_TXT_*           TXTレコードキーの値"
 
 msgid "ISOLatin1"
 msgstr "ISOLatin1"
@@ -4075,16 +4075,16 @@ msgid "Internet Printing Protocol"
 msgstr "インターネット印刷プロトコル"
 
 msgid "Invalid JSON data."
-msgstr ""
+msgstr "不正なJSONデータです。"
 
 msgid "Invalid JSON web token."
-msgstr ""
+msgstr "不正なJSONウェブトークンです。"
 
 msgid "Invalid form data."
-msgstr ""
+msgstr "不正なフォームデータです。"
 
 msgid "Invalid group tag."
-msgstr ""
+msgstr "不正なグループタグです。"
 
 msgid "Invalid media name arguments."
 msgstr "無効なメディア名引数です。"
@@ -4093,10 +4093,10 @@ msgid "Invalid media size."
 msgstr "無効なメディアサイズです。"
 
 msgid "Invalid named IPP attribute in collection."
-msgstr ""
+msgstr "コレクション内に不正な名前付きIPP属性があります。"
 
 msgid "Invalid ppd-name value."
-msgstr ""
+msgstr "ppd-name値が不正です。"
 
 #, c-format
 msgid "Invalid printer command \"%s\"."
@@ -4148,7 +4148,7 @@ msgid "JIS B9"
 msgstr "JIS B9"
 
 msgid "JSON file too large."
-msgstr ""
+msgstr "JSONファイルが大きすぎます。"
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4218,7 +4218,7 @@ msgstr "LPD/LPR ホストまたはプリンター"
 
 msgid ""
 "LPDEST environment variable names default destination that does not exist."
-msgstr ""
+msgstr "LPDEST 環境変数で指定されたデフォルトの宛先が存在しません。"
 
 msgid "Label Printer"
 msgstr "ラベルプリンター"
@@ -4253,16 +4253,16 @@ msgstr "使用可能なプリンター一覧"
 
 #, c-format
 msgid "Listening on port %d."
-msgstr ""
+msgstr "ポート%dをリスンしています。"
 
 msgid "Local printer created."
-msgstr ""
+msgstr "ローカルプリンターが作成されました。"
 
 msgid "Long-Edge (Portrait)"
 msgstr "長辺給紙 (縦向き)"
 
 msgid "Main Roll"
-msgstr ""
+msgstr "メインロール"
 
 msgid "Manual Feed"
 msgstr "手差し"
@@ -4289,7 +4289,7 @@ msgid "Missing CloseGroup"
 msgstr "CloseGroup がありません"
 
 msgid "Missing CloseUI/JCLCloseUI"
-msgstr ""
+msgstr "CloseUI/JCLCloseUIがありません。"
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "PPD-Adobe-4.x ヘッダーがありません"
@@ -4323,7 +4323,7 @@ msgstr "requesting-user-name 属性が設定されていません。"
 
 #, c-format
 msgid "Missing required attribute \"%s\"."
-msgstr ""
+msgstr "必要な属性 \"%s\" がありません。"
 
 msgid "Missing required attributes."
 msgstr "必須の属性が設定されていません。"
@@ -4386,10 +4386,10 @@ msgid "Never"
 msgstr "Never"
 
 msgid "New credentials are not valid for name."
-msgstr ""
+msgstr "新しい証明書はこの名前に対して有効ではありません。"
 
 msgid "New credentials are older than stored credentials."
-msgstr ""
+msgstr "新しい証明書は保存された証明書より古いです。"
 
 msgid "No"
 msgstr "いいえ"
@@ -4398,10 +4398,10 @@ msgid "No Content"
 msgstr "中身がありません"
 
 msgid "No IPP attributes."
-msgstr ""
+msgstr "IPP属性がありません。"
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "認証サーバメタデータにJWKS URIがありません。"
 
 msgid "No PPD name"
 msgstr "PPD の名前がありません"
@@ -4426,13 +4426,13 @@ msgid "No authentication information provided."
 msgstr "認証情報が提供されていません。"
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "このサーバーに設定されたクライアントIDがありません。"
 
 msgid "No community name"
 msgstr "コミュニティ名がありません"
 
 msgid "No default destination."
-msgstr ""
+msgstr "デフォルトの宛先がありません。"
 
 msgid "No default printer."
 msgstr "デフォルトのプリンターはありません。"
@@ -4474,7 +4474,7 @@ msgid "No printer-uri in request."
 msgstr "プリンター URI のリクエストがありません。"
 
 msgid "No printer-uri-supported attribute."
-msgstr ""
+msgstr "printer-uri-supported属性がありません。"
 
 msgid "No request URI."
 msgstr "リクエスト URI がありません。"
@@ -4489,7 +4489,7 @@ msgid "No request-id"
 msgstr "リクエストID がありません"
 
 msgid "No stored credentials, not valid for name."
-msgstr ""
+msgstr "保存されている証明書がなく、この名前に対して有効ではありません。"
 
 msgid "No subscription attributes in request."
 msgstr "リクエストにサブスクリプション属性がありません。"
@@ -4534,7 +4534,7 @@ msgid "Note"
 msgstr "注意"
 
 msgid "OAuth Login"
-msgstr ""
+msgstr "OAuthログイン"
 
 msgid "OK"
 msgstr "OK"
@@ -4549,10 +4549,10 @@ msgid "Online Help"
 msgstr "オンラインヘルプ"
 
 msgid "Only WGS-84 coordinates are supported."
-msgstr ""
+msgstr "WGS-84座標系だけがサポートされています。"
 
 msgid "Only local users can create a local printer."
-msgstr ""
+msgstr "ローカルユーザーだけがローカルプリンターを作成できます。"
 
 #, c-format
 msgid "Open of %s failed: %s"
@@ -4615,7 +4615,7 @@ msgstr "PRC32K (特大) 長辺送り"
 
 msgid ""
 "PRINTER environment variable names default destination that does not exist."
-msgstr ""
+msgstr "PRINTER 環境変数で指定されたデフォルトの宛先が存在しません。"
 
 msgid "Packet does not contain a Get-Response-PDU"
 msgstr "パケットが Get-Response-PDU を含んでいません"
@@ -4664,7 +4664,7 @@ msgid "Postcard"
 msgstr "ハガキ"
 
 msgid "Postcard Double"
-msgstr ""
+msgstr "往復ハガキ"
 
 msgid "Postcard Double Long Edge"
 msgstr "往復ハガキ 長辺送り"
@@ -4743,11 +4743,11 @@ msgid "Printer cannot print with supplied options."
 msgstr "指定されたオプションではプリンターは印刷できません。"
 
 msgid "Printer does not support required IPP attributes or document formats."
-msgstr ""
+msgstr "プリンターが必要なIPP属性またはドキュメント形式をサポートしていません。"
 
 #, c-format
 msgid "Printer returned invalid data: %s"
-msgstr ""
+msgstr "プリンターが不正なデータを返しました： \"%s\""
 
 msgid "Printer:"
 msgstr "プリンター:"
@@ -4807,7 +4807,7 @@ msgid "SSL/TLS Negotiation Error"
 msgstr "SSL/TLS のネゴシエーションエラー"
 
 msgid "Second Roll (DUO/Twin Only)"
-msgstr ""
+msgstr "セカンドロール（DUO/Twinのみ）"
 
 msgid "See Other"
 msgstr "残りを見てください"
