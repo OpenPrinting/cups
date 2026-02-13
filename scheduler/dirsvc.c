@@ -259,7 +259,8 @@ dnssdBuildTxtRecord(
                 *ptr;                   /* Pointer in string */
   cupsd_listener_t *lis;                /* Current listener */
   const char    *admin_scheme = "http"; /* Admin page URL scheme */
-  ipp_attribute_t *urf_supported;	/* urf-supported attribute */
+  ipp_attribute_t *urf_supported,	/* urf-supported attribute */
+		*attr;			/* Generic attribute */
 
 
  /*
@@ -329,6 +330,32 @@ dnssdBuildTxtRecord(
 
   if (get_auth_info_required(p, value, sizeof(value)))
     num_txt = cupsAddOption("air", value, num_txt, txt);
+
+  if ((attr = ippFindAttribute(p->attrs, "oauth-authorization-server-uri",
+                               IPP_TAG_URI)) != NULL)
+    num_txt = cupsAddOption("oauth-uri", attr->values[0].string.text,
+                            num_txt, txt);
+
+  if ((attr = ippFindAttribute(p->attrs, "oauth-authorization-scopes",
+                               IPP_TAG_NAME)) != NULL)
+  {
+    value[0] = '\0';
+    for (i = 0, ptr = value; i < attr->num_values; i ++)
+    {
+      const char *scope = attr->values[i].string.text;
+
+      if (ptr > value && ptr < (value + sizeof(value) - 1))
+        *ptr++ = ' ';
+
+      cupsCopyString(ptr, scope, sizeof(value) - (size_t)(ptr - value));
+      ptr += strlen(ptr);
+
+      if (ptr >= (value + sizeof(value) - 1))
+        break;
+    }
+
+    num_txt = cupsAddOption("oauth-scope", value, num_txt, txt);
+  }
 
   num_txt = cupsAddOption("UUID", p->uuid + 9, num_txt, txt);
 
