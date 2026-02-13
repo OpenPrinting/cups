@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-13 16:39-0400\n"
-"PO-Revision-Date: 2026-02-08 08:09+0000\n"
-"Last-Translator: Naruhiko Ogasawara <naruoga@gmail.com>\n"
+"PO-Revision-Date: 2026-02-13 03:09+0000\n"
+"Last-Translator: Sadaharu Wakisaka <informatiekantoor@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/cups/cups/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -3792,10 +3792,10 @@ msgid "Error: need hostname after \"-h\" option."
 msgstr "Error: '-h' オプションのあとにはホスト名が必要です。"
 
 msgid "European Fanfold"
-msgstr "European Fanfold"
+msgstr "EU 蛇腹型自動給紙"
 
 msgid "European Fanfold Legal"
-msgstr "European Fanfold Legal"
+msgstr "EU リーガル蛇腹型自動給紙"
 
 msgid "Every 10 Labels"
 msgstr "10 ラベルごと"
@@ -4813,10 +4813,10 @@ msgid "See Other"
 msgstr "残りを見てください"
 
 msgid "See remote printer."
-msgstr ""
+msgstr "リモートプリンターを見てください。"
 
 msgid "Self-signed credentials are blocked."
-msgstr ""
+msgstr "自己署名された証明書がブロックされました。"
 
 msgid "Sending data to printer."
 msgstr "データをプリンターに送信しています。"
@@ -4879,7 +4879,7 @@ msgid "Statement"
 msgstr "記述"
 
 msgid "Sub-Commands:"
-msgstr ""
+msgstr "サブコマンド:"
 
 #, c-format
 msgid "Subscription #%d does not exist."
