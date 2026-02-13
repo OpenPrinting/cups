@@ -1400,12 +1400,18 @@ main(int  argc,				/* I - Number of command-line args */
     if ((compatsize = write(fd, buffer, (size_t)bytes)) < 0)
     {
       perror("DEBUG: Unable to write temporary file");
+      if (tmpfilename[0])
+	unlink(tmpfilename);
       return (CUPS_BACKEND_FAILED);
     }
 
     if ((bytes = backendRunLoop(-1, fd, snmp_fd, &(addrlist->addr), 0, 0,
 		                backendNetworkSideCB)) < 0)
+    {
+      if (tmpfilename[0])
+	unlink(tmpfilename);
       return (CUPS_BACKEND_FAILED);
+    }
 
     compatsize += bytes;
 
