@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2026-02-13 03:10+0000\n"
+"PO-Revision-Date: 2026-02-14 08:09+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
 "Language: ro\n"
@@ -10562,11 +10562,11 @@ msgstr "Plic DL 110x220mm"
 
 #. TRANSLATORS: Id-1
 msgid "media.iso_id-1_53.98x85.6mm"
-msgstr "ID-1 53.98x85.6mm"
+msgstr "Id-1 53.98x85.6mm"
 
 #. TRANSLATORS: Id-3
 msgid "media.iso_id-3_88x125mm"
-msgstr "ID-3 88x125mm"
+msgstr "Id-3 88x125mm"
 
 #. TRANSLATORS: ISO RA0
 msgid "media.iso_ra0_860x1220mm"
