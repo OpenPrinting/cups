@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2025-09-18 11:14-0400\n"
-"PO-Revision-Date: 2025-12-11 19:00+0000\n"
+"PO-Revision-Date: 2026-02-13 03:10+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
 "Language: ro\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(toate)"
@@ -1363,7 +1363,7 @@ msgstr "%s: Eroare - se aștepta un fișier de intrare după opțiunea „-f”.
 
 #, c-format
 msgid "%s: Error - expected job-id after \"-j\" option."
-msgstr "%s: Eroare - se aștepta ID-ul lucrării după opțiunea „-j”."
+msgstr "%s: Eroare - se aștepta id-ul lucrării după opțiunea „-j”."
 
 #, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
@@ -3438,7 +3438,7 @@ msgstr "Valoare incorectă pentru starea lucrării „job-state”."
 
 #, c-format
 msgid "Bad job-uri \"%s\"."
-msgstr "Adresa URI a lucrării (job-ur) este incorectă „%s”."
+msgstr "Adresa URI a lucrării (job-uri) este incorectă „%s”."
 
 msgid "Bad keyUsage extension in X.509 certificate request."
 msgstr "Extensie KeyUsage incorectă în cererea de certificat X.509."
@@ -4644,7 +4644,7 @@ msgid "No request sent."
 msgstr "Nu s-a trimis nicio solicitare."
 
 msgid "No request-id"
-msgstr "Niciun ID de solicitare"
+msgstr "Niciun id de solicitare"
 
 msgid "No stored credentials, not valid for name."
 msgstr "Nu există date de autentificare stocate, numele nu este valid."
@@ -6160,7 +6160,7 @@ msgstr "Data și ora"
 
 #. TRANSLATORS: From Name
 msgid "cover-sheet-info-supported.from-name"
-msgstr ""
+msgstr "Numele expeditorului"
 
 #. TRANSLATORS: Logo
 msgid "cover-sheet-info-supported.logo"
@@ -6180,7 +6180,7 @@ msgstr "Subiect"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
-msgstr ""
+msgstr "Numele destinatarului"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
@@ -7745,7 +7745,7 @@ msgstr "Forțează partea frontală"
 
 #. TRANSLATORS: From Name
 msgid "from-name"
-msgstr ""
+msgstr "Numele expeditorului"
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
 msgstr "get-access-token [RESURSĂ]     obține jetonul de acces curent"
@@ -7944,15 +7944,15 @@ msgstr "Niciunul"
 
 #. TRANSLATORS: Job Accounting Output Bin
 msgid "job-accounting-output-bin"
-msgstr ""
+msgstr "Tava de ieșire pentru contabilizarea lucrărilor"
 
 #. TRANSLATORS: Job Accounting Sheets
 msgid "job-accounting-sheets"
-msgstr ""
+msgstr "Fișe pentru contabilizarea lucrărilor"
 
 #. TRANSLATORS: Type of Job Accounting Sheets
 msgid "job-accounting-sheets-type"
-msgstr ""
+msgstr "Tipul de fișe pentru contabilizarea lucrărilor"
 
 #. TRANSLATORS: None
 msgid "job-accounting-sheets-type.none"
@@ -7964,11 +7964,11 @@ msgstr "Standard"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
-msgstr ""
+msgstr "ID-ul utilizatorului pentru contabilizarea lucrărilor"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
-msgstr ""
+msgstr "Anulare lucrare după"
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
@@ -8187,191 +8187,191 @@ msgstr "Proprietar"
 
 #. TRANSLATORS: Job Recipient Name
 msgid "job-recipient-name"
-msgstr ""
+msgstr "Numele destinatarului lucrării"
 
 #. TRANSLATORS: Job Retain Until
 msgid "job-retain-until"
-msgstr ""
+msgstr "Reținere lucrare până la"
 
 #. TRANSLATORS: Job Retain Until Interval
 msgid "job-retain-until-interval"
-msgstr ""
+msgstr "Reținere lucrare până la interval"
 
 #. TRANSLATORS: Job Retain Until Time
 msgid "job-retain-until-time"
-msgstr ""
+msgstr "Reținere lucrare până la momentul"
 
 #. TRANSLATORS: End Of Day
 msgid "job-retain-until.end-of-day"
-msgstr ""
+msgstr "Sfârșitul zilei"
 
 #. TRANSLATORS: End Of Month
 msgid "job-retain-until.end-of-month"
-msgstr ""
+msgstr "Sfârșitul lunii"
 
 #. TRANSLATORS: End Of Week
 msgid "job-retain-until.end-of-week"
-msgstr ""
+msgstr "Sfârșitul săptămânii"
 
 #. TRANSLATORS: Indefinite
 msgid "job-retain-until.indefinite"
-msgstr ""
+msgstr "Nedefinit"
 
 #. TRANSLATORS: None
 msgid "job-retain-until.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Job Save Disposition
 msgid "job-save-disposition"
-msgstr ""
+msgstr "Salvare dispoziție lucrare"
 
 #. TRANSLATORS: Job Sheet Message
 msgid "job-sheet-message"
-msgstr ""
+msgstr "Mesaj fișă lucrare"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets"
-msgstr ""
+msgstr "Pagina cu banderolă"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets-col"
-msgstr ""
+msgstr "Pagina cu banderolă"
 
 #. TRANSLATORS: First Page in Document
 msgid "job-sheets.first-print-stream-page"
-msgstr ""
+msgstr "Prima pagină din document"
 
 #. TRANSLATORS: Start and End Sheets
 msgid "job-sheets.job-both-sheet"
-msgstr ""
+msgstr "Foi de început și sfârșit"
 
 #. TRANSLATORS: End Sheet
 msgid "job-sheets.job-end-sheet"
-msgstr ""
+msgstr "Foaie de sfârșit"
 
 #. TRANSLATORS: Start Sheet
 msgid "job-sheets.job-start-sheet"
-msgstr ""
+msgstr "Foaie de început"
 
 #. TRANSLATORS: None
 msgid "job-sheets.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Standard
 msgid "job-sheets.standard"
-msgstr ""
+msgstr "Standard"
 
 #. TRANSLATORS: Job State
 msgid "job-state"
-msgstr ""
+msgstr "Stare lucrare"
 
 #. TRANSLATORS: Job State Message
 msgid "job-state-message"
-msgstr ""
+msgstr "Mesaj stare lucrare"
 
 #. TRANSLATORS: Detailed Job State
 msgid "job-state-reasons"
-msgstr ""
+msgstr "Starea detaliată a lucrării"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.aborted-by-system"
-msgstr ""
+msgstr "Se oprește"
 
 #. TRANSLATORS: Account Authorization Failed
 msgid "job-state-reasons.account-authorization-failed"
-msgstr ""
+msgstr "Autorizarea contului a eșuat"
 
 #. TRANSLATORS: Account Closed
 msgid "job-state-reasons.account-closed"
-msgstr ""
+msgstr "Cont închis"
 
 #. TRANSLATORS: Account Info Needed
 msgid "job-state-reasons.account-info-needed"
-msgstr ""
+msgstr "Informații necesare despre cont"
 
 #. TRANSLATORS: Account Limit Reached
 msgid "job-state-reasons.account-limit-reached"
-msgstr ""
+msgstr "Limita contului a fost atinsă"
 
 #. TRANSLATORS: Decompression error
 msgid "job-state-reasons.compression-error"
-msgstr ""
+msgstr "Eroare de decomprimare"
 
 #. TRANSLATORS: Conflicting Attributes
 msgid "job-state-reasons.conflicting-attributes"
-msgstr ""
+msgstr "Atribute conflictuale"
 
 #. TRANSLATORS: Connected To Destination
 msgid "job-state-reasons.connected-to-destination"
-msgstr ""
+msgstr "Conectat la destinație"
 
 #. TRANSLATORS: Connecting To Destination
 msgid "job-state-reasons.connecting-to-destination"
-msgstr ""
+msgstr "Se conectează la destinație"
 
 #. TRANSLATORS: Destination Uri Failed
 msgid "job-state-reasons.destination-uri-failed"
-msgstr ""
+msgstr "URI-ul de destinație a eșuat"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "job-state-reasons.digital-signature-did-not-verify"
-msgstr ""
+msgstr "Semnătura digitală nu a fost verificată"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "job-state-reasons.digital-signature-type-not-supported"
-msgstr ""
+msgstr "Tipul semnăturii digitale nu este acceptat"
 
 #. TRANSLATORS: Document Access Error
 msgid "job-state-reasons.document-access-error"
-msgstr ""
+msgstr "Eroare la accesarea documentului"
 
 #. TRANSLATORS: Document Format Error
 msgid "job-state-reasons.document-format-error"
-msgstr ""
+msgstr "Eroare în formatul documentului"
 
 #. TRANSLATORS: Document Password Error
 msgid "job-state-reasons.document-password-error"
-msgstr ""
+msgstr "Eroare parolă document"
 
 #. TRANSLATORS: Document Permission Error
 msgid "job-state-reasons.document-permission-error"
-msgstr ""
+msgstr "Eroare de permisiune a documentului"
 
 #. TRANSLATORS: Document Security Error
 msgid "job-state-reasons.document-security-error"
-msgstr ""
+msgstr "Eroare de securitate a documentului"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "job-state-reasons.document-unprintable-error"
-msgstr ""
+msgstr "Documentul nu poate fi imprimat"
 
 #. TRANSLATORS: Errors Detected
 msgid "job-state-reasons.errors-detected"
-msgstr ""
+msgstr "Erori detectate"
 
 #. TRANSLATORS: Canceled at printer
 msgid "job-state-reasons.job-canceled-at-device"
-msgstr ""
+msgstr "Anulată la imprimantă"
 
 #. TRANSLATORS: Canceled by operator
 msgid "job-state-reasons.job-canceled-by-operator"
-msgstr ""
+msgstr "Anulată de către operator"
 
 #. TRANSLATORS: Canceled by user
 msgid "job-state-reasons.job-canceled-by-user"
-msgstr ""
+msgstr "Anulată de către utilizator"
 
 #. TRANSLATORS:
 msgid "job-state-reasons.job-completed-successfully"
-msgstr ""
+msgstr "Lucrare finalizată cu succes"
 
 #. TRANSLATORS: Completed with errors
 msgid "job-state-reasons.job-completed-with-errors"
-msgstr ""
+msgstr "Lucrare finalizată cu erori"
 
 #. TRANSLATORS: Completed with warnings
 msgid "job-state-reasons.job-completed-with-warnings"
-msgstr ""
+msgstr "Lucrare finalizată cu avertismente"
 
 #. TRANSLATORS: Insufficient data
 msgid "job-state-reasons.job-data-insufficient"
@@ -8379,183 +8379,183 @@ msgstr "Date insuficiente"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
-msgstr ""
+msgstr "Amânarea executării lucrării până când se specifică"
 
 #. TRANSLATORS: Job Digital Signature Wait
 msgid "job-state-reasons.job-digital-signature-wait"
-msgstr ""
+msgstr "Așteptare semnătură digitală pentru lucrare"
 
 #. TRANSLATORS: Job Fetchable
 msgid "job-state-reasons.job-fetchable"
-msgstr ""
+msgstr "Lucrarea poate fi preluată"
 
 #. TRANSLATORS: Job Held For Review
 msgid "job-state-reasons.job-held-for-review"
-msgstr ""
+msgstr "Lucrare reținută pentru revizuire"
 
 #. TRANSLATORS: Job held
 msgid "job-state-reasons.job-hold-until-specified"
-msgstr ""
+msgstr "Lucrare reținută"
 
 #. TRANSLATORS: Incoming
 msgid "job-state-reasons.job-incoming"
-msgstr ""
+msgstr "În curs de intrare"
 
 #. TRANSLATORS: Interpreting
 msgid "job-state-reasons.job-interpreting"
-msgstr ""
+msgstr "Se interpretează"
 
 #. TRANSLATORS: Outgoing
 msgid "job-state-reasons.job-outgoing"
-msgstr ""
+msgstr "În curs de ieșire"
 
 #. TRANSLATORS: Job Password Wait
 msgid "job-state-reasons.job-password-wait"
-msgstr ""
+msgstr "Așteptare parolă pentru lucrare"
 
 #. TRANSLATORS: Job Printed Successfully
 msgid "job-state-reasons.job-printed-successfully"
-msgstr ""
+msgstr "Lucrare imprimată cu succes"
 
 #. TRANSLATORS: Job Printed With Errors
 msgid "job-state-reasons.job-printed-with-errors"
-msgstr ""
+msgstr "Lucrare imprimată cu erori"
 
 #. TRANSLATORS: Job Printed With Warnings
 msgid "job-state-reasons.job-printed-with-warnings"
-msgstr ""
+msgstr "Lucrare imprimată cu avertismente"
 
 #. TRANSLATORS: Printing
 msgid "job-state-reasons.job-printing"
-msgstr ""
+msgstr "Se imprimă"
 
 #. TRANSLATORS: Preparing to print
 msgid "job-state-reasons.job-queued"
-msgstr ""
+msgstr "Se pregătește pentru imprimare"
 
 #. TRANSLATORS: Processing document
 msgid "job-state-reasons.job-queued-for-marker"
-msgstr ""
+msgstr "Se procesează documentul"
 
 #. TRANSLATORS: Job Release Wait
 msgid "job-state-reasons.job-release-wait"
-msgstr ""
+msgstr "Se așteaptă eliberarea lucrării"
 
 #. TRANSLATORS: Restartable
 msgid "job-state-reasons.job-restartable"
-msgstr ""
+msgstr "Poate fi repornită"
 
 #. TRANSLATORS: Job Resuming
 msgid "job-state-reasons.job-resuming"
-msgstr ""
+msgstr "Se reia lucrarea"
 
 #. TRANSLATORS: Job Saved Successfully
 msgid "job-state-reasons.job-saved-successfully"
-msgstr ""
+msgstr "Lucrare salvată cu succes"
 
 #. TRANSLATORS: Job Saved With Errors
 msgid "job-state-reasons.job-saved-with-errors"
-msgstr ""
+msgstr "Lucrare salvată cu erori"
 
 #. TRANSLATORS: Job Saved With Warnings
 msgid "job-state-reasons.job-saved-with-warnings"
-msgstr ""
+msgstr "Lucrare salvată cu avertismente"
 
 #. TRANSLATORS: Job Saving
 msgid "job-state-reasons.job-saving"
-msgstr ""
+msgstr "Se salvează lucrarea"
 
 #. TRANSLATORS: Job Spooling
 msgid "job-state-reasons.job-spooling"
-msgstr ""
+msgstr "Se pune lucrarea în coada de așteptare"
 
 #. TRANSLATORS: Job Streaming
 msgid "job-state-reasons.job-streaming"
-msgstr ""
+msgstr "Se transmite lucrarea"
 
 #. TRANSLATORS: Suspended
 msgid "job-state-reasons.job-suspended"
-msgstr ""
+msgstr "Suspendată"
 
 #. TRANSLATORS: Job Suspended By Operator
 msgid "job-state-reasons.job-suspended-by-operator"
-msgstr ""
+msgstr "Lucrare suspendată de către operator"
 
 #. TRANSLATORS: Job Suspended By System
 msgid "job-state-reasons.job-suspended-by-system"
-msgstr ""
+msgstr "Lucrare suspendată de către sistem"
 
 #. TRANSLATORS: Job Suspended By User
 msgid "job-state-reasons.job-suspended-by-user"
-msgstr ""
+msgstr "Lucrare suspendată de către utilizator"
 
 #. TRANSLATORS: Job Suspending
 msgid "job-state-reasons.job-suspending"
-msgstr ""
+msgstr "Se suspendte lucrarea"
 
 #. TRANSLATORS: Job Transferring
 msgid "job-state-reasons.job-transferring"
-msgstr ""
+msgstr "Se transferă lucrarea"
 
 #. TRANSLATORS: Transforming
 msgid "job-state-reasons.job-transforming"
-msgstr ""
+msgstr "Se transformă"
 
 #. TRANSLATORS: None
 msgid "job-state-reasons.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Printer offline
 msgid "job-state-reasons.printer-stopped"
-msgstr ""
+msgstr "Imprimantă deconectată"
 
 #. TRANSLATORS: Printer partially stopped
 msgid "job-state-reasons.printer-stopped-partly"
-msgstr ""
+msgstr "Imprimantă parțial oprită"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.processing-to-stop-point"
-msgstr ""
+msgstr "Se oprește"
 
 #. TRANSLATORS: Ready
 msgid "job-state-reasons.queued-in-device"
-msgstr ""
+msgstr "Pregătită"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "job-state-reasons.resources-are-not-ready"
-msgstr ""
+msgstr "Resursele nu sunt pregătite"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "job-state-reasons.resources-are-not-supported"
-msgstr ""
+msgstr "Resursele nu sunt acceptate"
 
 #. TRANSLATORS: Service offline
 msgid "job-state-reasons.service-off-line"
-msgstr ""
+msgstr "Serviciul este deconectat"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "job-state-reasons.submission-interrupted"
-msgstr ""
+msgstr "Trimiterea a fost întreruptă"
 
 #. TRANSLATORS: Unsupported Attributes Or Values
 msgid "job-state-reasons.unsupported-attributes-or-values"
-msgstr ""
+msgstr "Atribute sau valori neacceptate"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "job-state-reasons.unsupported-compression"
-msgstr ""
+msgstr "Comprimare neacceptată"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "job-state-reasons.unsupported-document-format"
-msgstr ""
+msgstr "Format de document neacceptat"
 
 #. TRANSLATORS: Waiting For User Action
 msgid "job-state-reasons.waiting-for-user-action"
-msgstr ""
+msgstr "Se așteaptă acțiunea utilizatorului"
 
 #. TRANSLATORS: Warnings Detected
 msgid "job-state-reasons.warnings-detected"
-msgstr ""
+msgstr "Avertismente detectate"
 
 #. TRANSLATORS: Pending
 msgid "job-state.3"
@@ -8595,15 +8595,15 @@ msgstr "Laminat"
 
 #. TRANSLATORS: Back Only
 msgid "laminating-sides.back"
-msgstr ""
+msgstr "Doar coperta din spate"
 
 #. TRANSLATORS: Front and Back
 msgid "laminating-sides.both"
-msgstr ""
+msgstr "Coperta din față și din spate"
 
 #. TRANSLATORS: Front Only
 msgid "laminating-sides.front"
-msgstr ""
+msgstr "Doar coperta din față"
 
 #. TRANSLATORS: Type of Lamination
 msgid "laminating-type"
@@ -12593,3223 +12593,3229 @@ msgstr "Banda de ambalare este la o temperatură excesivă"
 
 #. TRANSLATORS: Bander Power Saver
 msgid "printer-state-reasons.bander-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru banda de ambalare"
 
 #. TRANSLATORS: Bander Recoverable Failure
 msgid "printer-state-reasons.bander-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al benzii de ambalare"
 
 #. TRANSLATORS: Bander Recoverable Storage
 msgid "printer-state-reasons.bander-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a benzii de ambalare"
 
 #. TRANSLATORS: Bander Removed
 msgid "printer-state-reasons.bander-removed"
-msgstr ""
+msgstr "Bandă de ambalare eliminată"
 
 #. TRANSLATORS: Bander Resource Added
 msgid "printer-state-reasons.bander-resource-added"
-msgstr ""
+msgstr "Resursă pentru banda de ambalare adăugată"
 
 #. TRANSLATORS: Bander Resource Removed
 msgid "printer-state-reasons.bander-resource-removed"
-msgstr ""
+msgstr "Resursă pentru banda de ambalare eliminată"
 
 #. TRANSLATORS: Bander Thermistor Failure
 msgid "printer-state-reasons.bander-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului benzii de ambalare"
 
 #. TRANSLATORS: Bander Timing Failure
 msgid "printer-state-reasons.bander-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare a benzii de ambalare"
 
 #. TRANSLATORS: Bander Turned Off
 msgid "printer-state-reasons.bander-turned-off"
-msgstr ""
+msgstr "Bandă de ambalare dezactivată"
 
 #. TRANSLATORS: Bander Turned On
 msgid "printer-state-reasons.bander-turned-on"
-msgstr ""
+msgstr "Bandă de ambalare activată"
 
 #. TRANSLATORS: Bander Under Temperature
 msgid "printer-state-reasons.bander-under-temperature"
-msgstr ""
+msgstr "Banda de ambalare aflată sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Bander Unrecoverable Failure
 msgid "printer-state-reasons.bander-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec nerecuperabil al benzii de ambalare"
 
 #. TRANSLATORS: Bander Unrecoverable Storage Error
 msgid "printer-state-reasons.bander-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare nerecuperabilă a benzii de ambalare"
 
 #. TRANSLATORS: Bander Warming Up
 msgid "printer-state-reasons.bander-warming-up"
-msgstr ""
+msgstr "Banda de ambalare se supraîncălzește"
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
-msgstr ""
+msgstr "Legător adăugat"
 
 #. TRANSLATORS: Binder Almost Empty
 msgid "printer-state-reasons.binder-almost-empty"
-msgstr ""
+msgstr "Legător aproape gol"
 
 #. TRANSLATORS: Binder Almost Full
 msgid "printer-state-reasons.binder-almost-full"
-msgstr ""
+msgstr "Legător aproape plin"
 
 #. TRANSLATORS: Binder At Limit
 msgid "printer-state-reasons.binder-at-limit"
-msgstr ""
+msgstr "Legător aflat la limită"
 
 #. TRANSLATORS: Binder Closed
 msgid "printer-state-reasons.binder-closed"
-msgstr ""
+msgstr "Legător închis"
 
 #. TRANSLATORS: Binder Configuration Change
 msgid "printer-state-reasons.binder-configuration-change"
-msgstr ""
+msgstr "Modificare configurație legător"
 
 #. TRANSLATORS: Binder Cover Closed
 msgid "printer-state-reasons.binder-cover-closed"
-msgstr ""
+msgstr "Capacul legătorului este închis"
 
 #. TRANSLATORS: Binder Cover Open
 msgid "printer-state-reasons.binder-cover-open"
-msgstr ""
+msgstr "Capacul legătorului este deschis"
 
 #. TRANSLATORS: Binder Empty
 msgid "printer-state-reasons.binder-empty"
-msgstr ""
+msgstr "Legător gol"
 
 #. TRANSLATORS: Binder Full
 msgid "printer-state-reasons.binder-full"
-msgstr ""
+msgstr "Legător plin"
 
 #. TRANSLATORS: Binder Interlock Closed
 msgid "printer-state-reasons.binder-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea legătorului este închisă"
 
 #. TRANSLATORS: Binder Interlock Open
 msgid "printer-state-reasons.binder-interlock-open"
-msgstr ""
+msgstr "Închizătoarea legătorului este deschisă"
 
 #. TRANSLATORS: Binder Jam
 msgid "printer-state-reasons.binder-jam"
-msgstr ""
+msgstr "Blocaj al legătorului"
 
 #. TRANSLATORS: Binder Life Almost Over
 msgid "printer-state-reasons.binder-life-almost-over"
-msgstr ""
+msgstr "Legătorul este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Binder Life Over
 msgid "printer-state-reasons.binder-life-over"
-msgstr ""
+msgstr "Viața utilă a legătorului s-a terminat"
 
 #. TRANSLATORS: Binder Memory Exhausted
 msgid "printer-state-reasons.binder-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a legătorului"
 
 #. TRANSLATORS: Binder Missing
 msgid "printer-state-reasons.binder-missing"
-msgstr ""
+msgstr "Legătorul lipsește"
 
 #. TRANSLATORS: Binder Motor Failure
 msgid "printer-state-reasons.binder-motor-failure"
-msgstr ""
+msgstr "Defecțiune al motorului legătorului"
 
 #. TRANSLATORS: Binder Near Limit
 msgid "printer-state-reasons.binder-near-limit"
-msgstr ""
+msgstr "Legător aproape la limită"
 
 #. TRANSLATORS: Binder Offline
 msgid "printer-state-reasons.binder-offline"
-msgstr ""
+msgstr "Legătorul este deconectat"
 
 #. TRANSLATORS: Binder Opened
 msgid "printer-state-reasons.binder-opened"
-msgstr ""
+msgstr "Legătorul este deschis"
 
 #. TRANSLATORS: Binder Over Temperature
 msgid "printer-state-reasons.binder-over-temperature"
-msgstr ""
+msgstr "Legătorul este la o temperatură excesivă"
 
 #. TRANSLATORS: Binder Power Saver
 msgid "printer-state-reasons.binder-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru legător"
 
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al legătorului"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a legătorului"
 
 #. TRANSLATORS: Binder Removed
 msgid "printer-state-reasons.binder-removed"
-msgstr ""
+msgstr "Legător eliminat"
 
 #. TRANSLATORS: Binder Resource Added
 msgid "printer-state-reasons.binder-resource-added"
-msgstr ""
+msgstr "Resursă pentru legător adăugată"
 
 #. TRANSLATORS: Binder Resource Removed
 msgid "printer-state-reasons.binder-resource-removed"
-msgstr ""
+msgstr "Resursă pentru legător eliminată"
 
 #. TRANSLATORS: Binder Thermistor Failure
 msgid "printer-state-reasons.binder-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului legătorului"
 
 #. TRANSLATORS: Binder Timing Failure
 msgid "printer-state-reasons.binder-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al legătorului"
 
 #. TRANSLATORS: Binder Turned Off
 msgid "printer-state-reasons.binder-turned-off"
-msgstr ""
+msgstr "Legător dezactivat"
 
 #. TRANSLATORS: Binder Turned On
 msgid "printer-state-reasons.binder-turned-on"
-msgstr ""
+msgstr "Legător ctivat"
 
 #. TRANSLATORS: Binder Under Temperature
 msgid "printer-state-reasons.binder-under-temperature"
-msgstr ""
+msgstr "Legător aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Binder Unrecoverable Failure
 msgid "printer-state-reasons.binder-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al legătorului"
 
 #. TRANSLATORS: Binder Unrecoverable Storage Error
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a legătorului"
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
-msgstr ""
+msgstr "Legătorul se supraîncălzește"
 
 #. TRANSLATORS: Camera Failure
 msgid "printer-state-reasons.camera-failure"
-msgstr ""
+msgstr "Eroare a camerei"
 
 #. TRANSLATORS: Chamber Cooling
 msgid "printer-state-reasons.chamber-cooling"
-msgstr ""
+msgstr "Răcirea camerei"
 
 #. TRANSLATORS: Chamber Failure
 msgid "printer-state-reasons.chamber-failure"
-msgstr ""
+msgstr "Eșec al camerei"
 
 #. TRANSLATORS: Chamber Heating
 msgid "printer-state-reasons.chamber-heating"
-msgstr ""
+msgstr "Încălzirea camerei"
 
 #. TRANSLATORS: Chamber Temperature High
 msgid "printer-state-reasons.chamber-temperature-high"
-msgstr ""
+msgstr "Temperatură ridicată a camerei"
 
 #. TRANSLATORS: Chamber Temperature Low
 msgid "printer-state-reasons.chamber-temperature-low"
-msgstr ""
+msgstr "Temperatură scăzută a camerei"
 
 #. TRANSLATORS: Cleaner Life Almost Over
 msgid "printer-state-reasons.cleaner-life-almost-over"
-msgstr ""
+msgstr "Curățitorul este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Cleaner Life Over
 msgid "printer-state-reasons.cleaner-life-over"
-msgstr ""
+msgstr "Durata vieții utile a curățitorului s-a sfârșit"
 
 #. TRANSLATORS: Configuration Change
 msgid "printer-state-reasons.configuration-change"
-msgstr ""
+msgstr "Modificare configurare"
 
 #. TRANSLATORS: Connecting To Device
 msgid "printer-state-reasons.connecting-to-device"
-msgstr ""
+msgstr "Se conectează la dispozitiv"
 
 #. TRANSLATORS: Cover Open
 msgid "printer-state-reasons.cover-open"
-msgstr ""
+msgstr "Capacul este deschis"
 
 #. TRANSLATORS: Deactivated
 msgid "printer-state-reasons.deactivated"
-msgstr ""
+msgstr "Dezactivată"
 
 #. TRANSLATORS: Developer Empty
 msgid "printer-state-reasons.developer-empty"
-msgstr ""
+msgstr "Programator gol"
 
 #. TRANSLATORS: Developer Low
 msgid "printer-state-reasons.developer-low"
-msgstr ""
+msgstr "Programator scăzut"
 
 #. TRANSLATORS: Die Cutter Added
 msgid "printer-state-reasons.die-cutter-added"
-msgstr ""
+msgstr "Dispozitiv de tăiere adăugat"
 
 #. TRANSLATORS: Die Cutter Almost Empty
 msgid "printer-state-reasons.die-cutter-almost-empty"
-msgstr ""
+msgstr "Dispozitiv de tăiere aproape gol"
 
 #. TRANSLATORS: Die Cutter Almost Full
 msgid "printer-state-reasons.die-cutter-almost-full"
-msgstr ""
+msgstr "Dispozitiv de tăiere aproape plin"
 
 #. TRANSLATORS: Die Cutter At Limit
 msgid "printer-state-reasons.die-cutter-at-limit"
-msgstr ""
+msgstr "Dispozitiv de tăiere aflat la limită"
 
 #. TRANSLATORS: Die Cutter Closed
 msgid "printer-state-reasons.die-cutter-closed"
-msgstr ""
+msgstr "Dispozitiv de tăiere închis"
 
 #. TRANSLATORS: Die Cutter Configuration Change
 msgid "printer-state-reasons.die-cutter-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv de tăiere"
 
 #. TRANSLATORS: Die Cutter Cover Closed
 msgid "printer-state-reasons.die-cutter-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului de tăiere este închis"
 
 #. TRANSLATORS: Die Cutter Cover Open
 msgid "printer-state-reasons.die-cutter-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului de tăiere este deschis"
 
 #. TRANSLATORS: Die Cutter Empty
 msgid "printer-state-reasons.die-cutter-empty"
-msgstr ""
+msgstr "Dispozitivul de tăiere este gol"
 
 #. TRANSLATORS: Die Cutter Full
 msgid "printer-state-reasons.die-cutter-full"
-msgstr ""
+msgstr "Dispozitivul de tăiere este plin"
 
 #. TRANSLATORS: Die Cutter Interlock Closed
 msgid "printer-state-reasons.die-cutter-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de tăiere este închisă"
 
 #. TRANSLATORS: Die Cutter Interlock Open
 msgid "printer-state-reasons.die-cutter-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de tăiere este deschisă"
 
 #. TRANSLATORS: Die Cutter Jam
 msgid "printer-state-reasons.die-cutter-jam"
-msgstr ""
+msgstr "Dispozitivul de tăiere este blocat"
 
 #. TRANSLATORS: Die Cutter Life Almost Over
 msgid "printer-state-reasons.die-cutter-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul de tăiere este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Die Cutter Life Over
 msgid "printer-state-reasons.die-cutter-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului de tăiere s-a sfârșit"
 
 #. TRANSLATORS: Die Cutter Memory Exhausted
 msgid "printer-state-reasons.die-cutter-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Missing
 msgid "printer-state-reasons.die-cutter-missing"
-msgstr ""
+msgstr "Dispozitivul de tăiere lipsește"
 
 #. TRANSLATORS: Die Cutter Motor Failure
 msgid "printer-state-reasons.die-cutter-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Near Limit
 msgid "printer-state-reasons.die-cutter-near-limit"
-msgstr ""
+msgstr "Dispozitiv de tăiere aproape de limită"
 
 #. TRANSLATORS: Die Cutter Offline
 msgid "printer-state-reasons.die-cutter-offline"
-msgstr ""
+msgstr "Dispozitivul de tăiere este deconectat"
 
 #. TRANSLATORS: Die Cutter Opened
 msgid "printer-state-reasons.die-cutter-opened"
-msgstr ""
+msgstr "Dispozitivul de tăiere este deschis"
 
 #. TRANSLATORS: Die Cutter Over Temperature
 msgid "printer-state-reasons.die-cutter-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de tăiere este la o temperatură excesivă"
 
 #. TRANSLATORS: Die Cutter Power Saver
 msgid "printer-state-reasons.die-cutter-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul de tăiere"
 
 #. TRANSLATORS: Die Cutter Recoverable Failure
 msgid "printer-state-reasons.die-cutter-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Recoverable Storage
 msgid "printer-state-reasons.die-cutter-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Removed
 msgid "printer-state-reasons.die-cutter-removed"
-msgstr ""
+msgstr "Dispozitiv de tăiere eliminat"
 
 #. TRANSLATORS: Die Cutter Resource Added
 msgid "printer-state-reasons.die-cutter-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de tăiere adăugată"
 
 #. TRANSLATORS: Die Cutter Resource Removed
 msgid "printer-state-reasons.die-cutter-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de tăiere eliminată"
 
 #. TRANSLATORS: Die Cutter Thermistor Failure
 msgid "printer-state-reasons.die-cutter-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Timing Failure
 msgid "printer-state-reasons.die-cutter-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Turned Off
 msgid "printer-state-reasons.die-cutter-turned-off"
-msgstr ""
+msgstr "Dispozitivul de tăiere este dezactivat"
 
 #. TRANSLATORS: Die Cutter Turned On
 msgid "printer-state-reasons.die-cutter-turned-on"
-msgstr ""
+msgstr "Dispozitivul de tăiere este activat"
 
 #. TRANSLATORS: Die Cutter Under Temperature
 msgid "printer-state-reasons.die-cutter-under-temperature"
-msgstr ""
+msgstr "Dispozitiv de tăiere aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Die Cutter Unrecoverable Failure
 msgid "printer-state-reasons.die-cutter-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.die-cutter-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului de tăiere"
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
-msgstr ""
+msgstr "Dispozitivul de tăiere se supraîncălzește"
 
 #. TRANSLATORS: Door Open
 msgid "printer-state-reasons.door-open"
-msgstr ""
+msgstr "Ușă deschisă"
 
 #. TRANSLATORS: Extruder Cooling
 msgid "printer-state-reasons.extruder-cooling"
-msgstr ""
+msgstr "Răcire extruder"
 
 #. TRANSLATORS: Extruder Failure
 msgid "printer-state-reasons.extruder-failure"
-msgstr ""
+msgstr "Eșec extruder"
 
 #. TRANSLATORS: Extruder Heating
 msgid "printer-state-reasons.extruder-heating"
-msgstr ""
+msgstr "Încălzirea extruderului"
 
 #. TRANSLATORS: Extruder Jam
 msgid "printer-state-reasons.extruder-jam"
-msgstr ""
+msgstr "Blocaj al extruderului"
 
 #. TRANSLATORS: Extruder Temperature High
 msgid "printer-state-reasons.extruder-temperature-high"
-msgstr ""
+msgstr "Temperatură ridicată a extruderului"
 
 #. TRANSLATORS: Extruder Temperature Low
 msgid "printer-state-reasons.extruder-temperature-low"
-msgstr ""
+msgstr "Temperatură scăzută a extruderului"
 
 #. TRANSLATORS: Fan Failure
 msgid "printer-state-reasons.fan-failure"
-msgstr ""
+msgstr "Defecțiune ventilator"
 
 #. TRANSLATORS: Fax Modem Life Almost Over
 msgid "printer-state-reasons.fax-modem-life-almost-over"
-msgstr ""
+msgstr "Modemul-fax este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Fax Modem Life Over
 msgid "printer-state-reasons.fax-modem-life-over"
-msgstr ""
+msgstr "Durata vieții utile a modemului-fax s-a sfârșit"
 
 #. TRANSLATORS: Fax Modem Missing
 msgid "printer-state-reasons.fax-modem-missing"
-msgstr ""
+msgstr "Modemul-fax lipsește"
 
 #. TRANSLATORS: Fax Modem Turned Off
 msgid "printer-state-reasons.fax-modem-turned-off"
-msgstr ""
+msgstr "Modemul-fax este dezactivat"
 
 #. TRANSLATORS: Fax Modem Turned On
 msgid "printer-state-reasons.fax-modem-turned-on"
-msgstr ""
+msgstr "Modemul-fax este activat"
 
 #. TRANSLATORS: Folder Added
 msgid "printer-state-reasons.folder-added"
-msgstr ""
+msgstr "Dispozitiv de pliere adăugat"
 
 #. TRANSLATORS: Folder Almost Empty
 msgid "printer-state-reasons.folder-almost-empty"
-msgstr ""
+msgstr "Dispozitiv de pliere aproape gol"
 
 #. TRANSLATORS: Folder Almost Full
 msgid "printer-state-reasons.folder-almost-full"
-msgstr ""
+msgstr "Dispozitiv de pliere aproape plin"
 
 #. TRANSLATORS: Folder At Limit
 msgid "printer-state-reasons.folder-at-limit"
-msgstr ""
+msgstr "Dispozitiv de pliere aflat la limită"
 
 #. TRANSLATORS: Folder Closed
 msgid "printer-state-reasons.folder-closed"
-msgstr ""
+msgstr "Dispozitiv de pliere închis"
 
 #. TRANSLATORS: Folder Configuration Change
 msgid "printer-state-reasons.folder-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv de pliere"
 
 #. TRANSLATORS: Folder Cover Closed
 msgid "printer-state-reasons.folder-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului de pliere este închis"
 
 #. TRANSLATORS: Folder Cover Open
 msgid "printer-state-reasons.folder-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului de pliere este deschis"
 
 #. TRANSLATORS: Folder Empty
 msgid "printer-state-reasons.folder-empty"
-msgstr ""
+msgstr "Dispozitiv de pliere gol"
 
 #. TRANSLATORS: Folder Full
 msgid "printer-state-reasons.folder-full"
-msgstr ""
+msgstr "Dispozitiv de pliere plin"
 
 #. TRANSLATORS: Folder Interlock Closed
 msgid "printer-state-reasons.folder-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de pliere este închisă"
 
 #. TRANSLATORS: Folder Interlock Open
 msgid "printer-state-reasons.folder-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de pliere este deschisă"
 
 #. TRANSLATORS: Folder Jam
 msgid "printer-state-reasons.folder-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Life Almost Over
 msgid "printer-state-reasons.folder-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul de pliere este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Folder Life Over
 msgid "printer-state-reasons.folder-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului de piere s-a sfârșit"
 
 #. TRANSLATORS: Folder Memory Exhausted
 msgid "printer-state-reasons.folder-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Missing
 msgid "printer-state-reasons.folder-missing"
-msgstr ""
+msgstr "Dispozitivul de pliere lipsește"
 
 #. TRANSLATORS: Folder Motor Failure
 msgid "printer-state-reasons.folder-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Near Limit
 msgid "printer-state-reasons.folder-near-limit"
-msgstr ""
+msgstr "Dispozitiv de pliere aproape de limită"
 
 #. TRANSLATORS: Folder Offline
 msgid "printer-state-reasons.folder-offline"
-msgstr ""
+msgstr "Dispozitivul de pliere este deconectat"
 
 #. TRANSLATORS: Folder Opened
 msgid "printer-state-reasons.folder-opened"
-msgstr ""
+msgstr "Dispozitiv de pliere deschis"
 
 #. TRANSLATORS: Folder Over Temperature
 msgid "printer-state-reasons.folder-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de pliere este la o temperatură excesivă"
 
 #. TRANSLATORS: Folder Power Saver
 msgid "printer-state-reasons.folder-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul de pliere"
 
 #. TRANSLATORS: Folder Recoverable Failure
 msgid "printer-state-reasons.folder-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Recoverable Storage
 msgid "printer-state-reasons.folder-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Removed
 msgid "printer-state-reasons.folder-removed"
-msgstr ""
+msgstr "Dispozitiv de pliere eliminat"
 
 #. TRANSLATORS: Folder Resource Added
 msgid "printer-state-reasons.folder-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitiv de pliere adăugată"
 
 #. TRANSLATORS: Folder Resource Removed
 msgid "printer-state-reasons.folder-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitiv de pliere eliminată"
 
 #. TRANSLATORS: Folder Thermistor Failure
 msgid "printer-state-reasons.folder-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Timing Failure
 msgid "printer-state-reasons.folder-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Turned Off
 msgid "printer-state-reasons.folder-turned-off"
-msgstr ""
+msgstr "Dispozitivul de pliere este dezactivat"
 
 #. TRANSLATORS: Folder Turned On
 msgid "printer-state-reasons.folder-turned-on"
-msgstr ""
+msgstr "Dispozitivul de pliere este activat"
 
 #. TRANSLATORS: Folder Under Temperature
 msgid "printer-state-reasons.folder-under-temperature"
-msgstr ""
+msgstr "Dispozitiv de pliere aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Folder Unrecoverable Failure
 msgid "printer-state-reasons.folder-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Unrecoverable Storage Error
 msgid "printer-state-reasons.folder-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului de pliere"
 
 #. TRANSLATORS: Folder Warming Up
 msgid "printer-state-reasons.folder-warming-up"
-msgstr ""
+msgstr "Dispozitivul de pliere se supraîncălzește"
 
 #. TRANSLATORS: Fuser temperature high
 msgid "printer-state-reasons.fuser-over-temp"
-msgstr ""
+msgstr "Temperatură ridicată a rolei de încălzire (cuptorul de fixare)"
 
 #. TRANSLATORS: Fuser temperature low
 msgid "printer-state-reasons.fuser-under-temp"
-msgstr ""
+msgstr "Temperatură scăzută a rolei de încălzire (cuptorul de fixare)"
 
 #. TRANSLATORS: Hold New Jobs
 msgid "printer-state-reasons.hold-new-jobs"
-msgstr ""
+msgstr "Reține lucrările noi"
 
 #. TRANSLATORS: Identify Printer
 msgid "printer-state-reasons.identify-printer-requested"
-msgstr ""
+msgstr "Identificare imprimantă"
 
 #. TRANSLATORS: Imprinter Added
 msgid "printer-state-reasons.imprinter-added"
-msgstr ""
+msgstr "Dispozitiv imprimator adăugat"
 
 #. TRANSLATORS: Imprinter Almost Empty
 msgid "printer-state-reasons.imprinter-almost-empty"
-msgstr ""
+msgstr "Dispozitiv imprimator aproape gol"
 
 #. TRANSLATORS: Imprinter Almost Full
 msgid "printer-state-reasons.imprinter-almost-full"
-msgstr ""
+msgstr "Dispozitiv imprimator aproape plin"
 
 #. TRANSLATORS: Imprinter At Limit
 msgid "printer-state-reasons.imprinter-at-limit"
-msgstr ""
+msgstr "Dispozitiv imprimator la limită"
 
 #. TRANSLATORS: Imprinter Closed
 msgid "printer-state-reasons.imprinter-closed"
-msgstr ""
+msgstr "Dispozitiv imprimator închis"
 
 #. TRANSLATORS: Imprinter Configuration Change
 msgid "printer-state-reasons.imprinter-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv imprimator"
 
 #. TRANSLATORS: Imprinter Cover Closed
 msgid "printer-state-reasons.imprinter-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului imprimator este închis"
 
 #. TRANSLATORS: Imprinter Cover Open
 msgid "printer-state-reasons.imprinter-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului imprimator este deschis"
 
 #. TRANSLATORS: Imprinter Empty
 msgid "printer-state-reasons.imprinter-empty"
-msgstr ""
+msgstr "Dispozitiv imprimator gol"
 
 #. TRANSLATORS: Imprinter Full
 msgid "printer-state-reasons.imprinter-full"
-msgstr ""
+msgstr "Dispozitiv imprimator plin"
 
 #. TRANSLATORS: Imprinter Interlock Closed
 msgid "printer-state-reasons.imprinter-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului imprimator este închisă"
 
 #. TRANSLATORS: Imprinter Interlock Open
 msgid "printer-state-reasons.imprinter-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului imprimator este deschisă"
 
 #. TRANSLATORS: Imprinter Jam
 msgid "printer-state-reasons.imprinter-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Life Almost Over
 msgid "printer-state-reasons.imprinter-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul imprimator este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Imprinter Life Over
 msgid "printer-state-reasons.imprinter-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului imprimator s-a sfârșit"
 
 #. TRANSLATORS: Imprinter Memory Exhausted
 msgid "printer-state-reasons.imprinter-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Missing
 msgid "printer-state-reasons.imprinter-missing"
-msgstr ""
+msgstr "Dispozitivul imprimator lipsește"
 
 #. TRANSLATORS: Imprinter Motor Failure
 msgid "printer-state-reasons.imprinter-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Near Limit
 msgid "printer-state-reasons.imprinter-near-limit"
-msgstr ""
+msgstr "Dispozitiv imprimator aproape de limită"
 
 #. TRANSLATORS: Imprinter Offline
 msgid "printer-state-reasons.imprinter-offline"
-msgstr ""
+msgstr "Dispozitivul imprimator este deconectat"
 
 #. TRANSLATORS: Imprinter Opened
 msgid "printer-state-reasons.imprinter-opened"
-msgstr ""
+msgstr "Dispozitivul imprimator este deschis"
 
 #. TRANSLATORS: Imprinter Over Temperature
 msgid "printer-state-reasons.imprinter-over-temperature"
-msgstr ""
+msgstr "Dispozitivul imprimator este la o temperatură excesivă"
 
 #. TRANSLATORS: Imprinter Power Saver
 msgid "printer-state-reasons.imprinter-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul imprimator"
 
 #. TRANSLATORS: Imprinter Recoverable Failure
 msgid "printer-state-reasons.imprinter-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Recoverable Storage
 msgid "printer-state-reasons.imprinter-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Removed
 msgid "printer-state-reasons.imprinter-removed"
-msgstr ""
+msgstr "Dispozitiv imprimator eliminat"
 
 #. TRANSLATORS: Imprinter Resource Added
 msgid "printer-state-reasons.imprinter-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitiv imprimator adăugată"
 
 #. TRANSLATORS: Imprinter Resource Removed
 msgid "printer-state-reasons.imprinter-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitiv imprimator eliminată"
 
 #. TRANSLATORS: Imprinter Thermistor Failure
 msgid "printer-state-reasons.imprinter-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Timing Failure
 msgid "printer-state-reasons.imprinter-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Turned Off
 msgid "printer-state-reasons.imprinter-turned-off"
-msgstr ""
+msgstr "Dispozitivul imprimator este dezactivat"
 
 #. TRANSLATORS: Imprinter Turned On
 msgid "printer-state-reasons.imprinter-turned-on"
-msgstr ""
+msgstr "Dispozitivul imprimator este activat"
 
 #. TRANSLATORS: Imprinter Under Temperature
 msgid "printer-state-reasons.imprinter-under-temperature"
-msgstr ""
+msgstr "Dispozitiv imprimator aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Imprinter Unrecoverable Failure
 msgid "printer-state-reasons.imprinter-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Unrecoverable Storage Error
 msgid "printer-state-reasons.imprinter-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului imprimator"
 
 #. TRANSLATORS: Imprinter Warming Up
 msgid "printer-state-reasons.imprinter-warming-up"
-msgstr ""
+msgstr "Dispozitivul imprimator se supraîncălzește"
 
 #. TRANSLATORS: Input Cannot Feed Size Selected
 msgid "printer-state-reasons.input-cannot-feed-size-selected"
-msgstr ""
+msgstr "Intrarea nu se poate alimenta cu dimensiunea selectată"
 
 #. TRANSLATORS: Input Manual Input Request
 msgid "printer-state-reasons.input-manual-input-request"
-msgstr ""
+msgstr "Se solicită introducerea manuală"
 
 #. TRANSLATORS: Input Media Color Change
 msgid "printer-state-reasons.input-media-color-change"
-msgstr ""
+msgstr "Schimbarea culorii suportului de intrare"
 
 #. TRANSLATORS: Input Media Form Parts Change
 msgid "printer-state-reasons.input-media-form-parts-change"
-msgstr ""
+msgstr "Modificarea părților formularului suportului de intrare"
 
 #. TRANSLATORS: Input Media Size Change
 msgid "printer-state-reasons.input-media-size-change"
-msgstr ""
+msgstr "Modificarea dimensiunii suportului de intrare"
 
 #. TRANSLATORS: Input Media Tray Failure
 msgid "printer-state-reasons.input-media-tray-failure"
-msgstr ""
+msgstr "Eroare la tava pentru suporturi de intrare"
 
 #. TRANSLATORS: Input Media Tray Feed Error
 msgid "printer-state-reasons.input-media-tray-feed-error"
-msgstr ""
+msgstr "Eroare de alimentare a tăvii pentru suporturi de intrare"
 
 #. TRANSLATORS: Input Media Tray Jam
 msgid "printer-state-reasons.input-media-tray-jam"
-msgstr ""
+msgstr "Blocaj în tava pentru suporturi de intrare"
 
 #. TRANSLATORS: Input Media Type Change
 msgid "printer-state-reasons.input-media-type-change"
-msgstr ""
+msgstr "Modificarea tipului suportului de intrare"
 
 #. TRANSLATORS: Input Media Weight Change
 msgid "printer-state-reasons.input-media-weight-change"
-msgstr ""
+msgstr "Modificarea greutății suportului de intrare"
 
 #. TRANSLATORS: Input Pick Roller Failure
 msgid "printer-state-reasons.input-pick-roller-failure"
-msgstr ""
+msgstr "Defecțiune la rola de selectare a intrării"
 
 #. TRANSLATORS: Input Pick Roller Life Over
 msgid "printer-state-reasons.input-pick-roller-life-over"
-msgstr ""
+msgstr "Durata vieții utile a rolei de selectare a intrării s-a sfârșit"
 
 #. TRANSLATORS: Input Pick Roller Life Warn
 msgid "printer-state-reasons.input-pick-roller-life-warn"
 msgstr ""
+"Avertisment privind durata de viață utilă a rolei de selectare a intrării"
 
 #. TRANSLATORS: Input Pick Roller Missing
 msgid "printer-state-reasons.input-pick-roller-missing"
-msgstr ""
+msgstr "Rola de selectare a intrării lipsește"
 
 #. TRANSLATORS: Input Tray Elevation Failure
 msgid "printer-state-reasons.input-tray-elevation-failure"
-msgstr ""
+msgstr "Eroare la ridicarea tăvii de alimentare"
 
 #. TRANSLATORS: Paper tray is missing
 msgid "printer-state-reasons.input-tray-missing"
-msgstr ""
+msgstr "Tava pentru hârtie lipsește"
 
 #. TRANSLATORS: Input Tray Position Failure
 msgid "printer-state-reasons.input-tray-position-failure"
-msgstr ""
+msgstr "Eroare de poziționare a tăvii de alimentare"
 
 #. TRANSLATORS: Inserter Added
 msgid "printer-state-reasons.inserter-added"
-msgstr ""
+msgstr "Dispozitiv de inserare adăugat"
 
 #. TRANSLATORS: Inserter Almost Empty
 msgid "printer-state-reasons.inserter-almost-empty"
-msgstr ""
+msgstr "Dispozitiv de inserare aproape gol"
 
 #. TRANSLATORS: Inserter Almost Full
 msgid "printer-state-reasons.inserter-almost-full"
-msgstr ""
+msgstr "Dispozitiv de inserare aproape plin"
 
 #. TRANSLATORS: Inserter At Limit
 msgid "printer-state-reasons.inserter-at-limit"
-msgstr ""
+msgstr "Dispozitiv de inserare aflat la limită"
 
 #. TRANSLATORS: Inserter Closed
 msgid "printer-state-reasons.inserter-closed"
-msgstr ""
+msgstr "Dispozitiv de inserare închis"
 
 #. TRANSLATORS: Inserter Configuration Change
 msgid "printer-state-reasons.inserter-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv de inserare"
 
 #. TRANSLATORS: Inserter Cover Closed
 msgid "printer-state-reasons.inserter-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului de inserare este închis"
 
 #. TRANSLATORS: Inserter Cover Open
 msgid "printer-state-reasons.inserter-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului de inserare este deschis"
 
 #. TRANSLATORS: Inserter Empty
 msgid "printer-state-reasons.inserter-empty"
-msgstr ""
+msgstr "Dispozitiv de inserare gol"
 
 #. TRANSLATORS: Inserter Full
 msgid "printer-state-reasons.inserter-full"
-msgstr ""
+msgstr "Dispozitiv de inserare plin"
 
 #. TRANSLATORS: Inserter Interlock Closed
 msgid "printer-state-reasons.inserter-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de inserare este închisă"
 
 #. TRANSLATORS: Inserter Interlock Open
 msgid "printer-state-reasons.inserter-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de inserare este deschisă"
 
 #. TRANSLATORS: Inserter Jam
 msgid "printer-state-reasons.inserter-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Life Almost Over
 msgid "printer-state-reasons.inserter-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul de inserare este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Inserter Life Over
 msgid "printer-state-reasons.inserter-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului de inserare s-a sfârșit"
 
 #. TRANSLATORS: Inserter Memory Exhausted
 msgid "printer-state-reasons.inserter-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Missing
 msgid "printer-state-reasons.inserter-missing"
-msgstr ""
+msgstr "Dispozitivul de inserare lipsește"
 
 #. TRANSLATORS: Inserter Motor Failure
 msgid "printer-state-reasons.inserter-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Near Limit
 msgid "printer-state-reasons.inserter-near-limit"
-msgstr ""
+msgstr "Dispozitiv de inserare aproape de limită"
 
 #. TRANSLATORS: Inserter Offline
 msgid "printer-state-reasons.inserter-offline"
-msgstr ""
+msgstr "Dispozitivul de inserare este deconectat"
 
 #. TRANSLATORS: Inserter Opened
 msgid "printer-state-reasons.inserter-opened"
-msgstr ""
+msgstr "Dispozitivul de inserare este deschis"
 
 #. TRANSLATORS: Inserter Over Temperature
 msgid "printer-state-reasons.inserter-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de inserare este la o temperatură excesivă"
 
 #. TRANSLATORS: Inserter Power Saver
 msgid "printer-state-reasons.inserter-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul de inserare"
 
 #. TRANSLATORS: Inserter Recoverable Failure
 msgid "printer-state-reasons.inserter-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Recoverable Storage
 msgid "printer-state-reasons.inserter-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Removed
 msgid "printer-state-reasons.inserter-removed"
-msgstr ""
+msgstr "Dispozitiv de inserare eliminat"
 
 #. TRANSLATORS: Inserter Resource Added
 msgid "printer-state-reasons.inserter-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitiv de inserare adăugată"
 
 #. TRANSLATORS: Inserter Resource Removed
 msgid "printer-state-reasons.inserter-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitiv de inserare eliminată"
 
 #. TRANSLATORS: Inserter Thermistor Failure
 msgid "printer-state-reasons.inserter-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Timing Failure
 msgid "printer-state-reasons.inserter-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Turned Off
 msgid "printer-state-reasons.inserter-turned-off"
-msgstr ""
+msgstr "Dispozitivul de inserare este dezactivat"
 
 #. TRANSLATORS: Inserter Turned On
 msgid "printer-state-reasons.inserter-turned-on"
-msgstr ""
+msgstr "Dispozitivul de inserare este activat"
 
 #. TRANSLATORS: Inserter Under Temperature
 msgid "printer-state-reasons.inserter-under-temperature"
-msgstr ""
+msgstr "Dispozitiv de inserare aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Inserter Unrecoverable Failure
 msgid "printer-state-reasons.inserter-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Unrecoverable Storage Error
 msgid "printer-state-reasons.inserter-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului de inserare"
 
 #. TRANSLATORS: Inserter Warming Up
 msgid "printer-state-reasons.inserter-warming-up"
-msgstr ""
+msgstr "Dispozitivul de inserare se supraîncălzește"
 
 #. TRANSLATORS: Interlock Closed
 msgid "printer-state-reasons.interlock-closed"
-msgstr ""
+msgstr "Închizătoarea este închisă"
 
 #. TRANSLATORS: Interlock Open
 msgid "printer-state-reasons.interlock-open"
-msgstr ""
+msgstr "Închizătoarea este deschisă"
 
 #. TRANSLATORS: Interpreter Cartridge Added
 msgid "printer-state-reasons.interpreter-cartridge-added"
-msgstr ""
+msgstr "Cartuș de interpret adăugat"
 
 #. TRANSLATORS: Interpreter Cartridge Removed
 msgid "printer-state-reasons.interpreter-cartridge-deleted"
-msgstr ""
+msgstr "Cartușul de interpret a fost eliminat"
 
 #. TRANSLATORS: Interpreter Complex Page Encountered
 msgid "printer-state-reasons.interpreter-complex-page-encountered"
-msgstr ""
+msgstr "Pagină complexă de interpret întâlnită"
 
 #. TRANSLATORS: Interpreter Memory Decrease
 msgid "printer-state-reasons.interpreter-memory-decrease"
-msgstr ""
+msgstr "Diminuare a memoriei interpretului"
 
 #. TRANSLATORS: Interpreter Memory Increase
 msgid "printer-state-reasons.interpreter-memory-increase"
-msgstr ""
+msgstr "Incrementare a memoriei interpretului"
 
 #. TRANSLATORS: Interpreter Resource Added
 msgid "printer-state-reasons.interpreter-resource-added"
-msgstr ""
+msgstr "Resursă pentru interpret adăugată"
 
 #. TRANSLATORS: Interpreter Resource Deleted
 msgid "printer-state-reasons.interpreter-resource-deleted"
-msgstr ""
+msgstr "Resursă pentru interpret eliminată"
 
 #. TRANSLATORS: Printer resource unavailable
 msgid "printer-state-reasons.interpreter-resource-unavailable"
-msgstr ""
+msgstr "Resursa imprimantei nu este disponibilă"
 
 #. TRANSLATORS: Lamp At End of Life
 msgid "printer-state-reasons.lamp-at-eol"
-msgstr ""
+msgstr "Lampă la sfârșitul duratei de viață utile"
 
 #. TRANSLATORS: Lamp Failure
 msgid "printer-state-reasons.lamp-failure"
-msgstr ""
+msgstr "Defecțiune lampă"
 
 #. TRANSLATORS: Lamp Near End of Life
 msgid "printer-state-reasons.lamp-near-eol"
-msgstr ""
+msgstr "Lampă aproape de sfârșitul duratei de viață utile"
 
 #. TRANSLATORS: Laser At End of Life
 msgid "printer-state-reasons.laser-at-eol"
-msgstr ""
+msgstr "Laser la sfârșitul duratei de viață utile"
 
 #. TRANSLATORS: Laser Failure
 msgid "printer-state-reasons.laser-failure"
-msgstr ""
+msgstr "Defecțiune laser"
 
 #. TRANSLATORS: Laser Near End of Life
 msgid "printer-state-reasons.laser-near-eol"
-msgstr ""
+msgstr "Laser aproape de sfârșitul duratei de viață utile"
 
 #. TRANSLATORS: Envelope Maker Added
 msgid "printer-state-reasons.make-envelope-added"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri adăugat"
 
 #. TRANSLATORS: Envelope Maker Almost Empty
 msgid "printer-state-reasons.make-envelope-almost-empty"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri aproape gol"
 
 #. TRANSLATORS: Envelope Maker Almost Full
 msgid "printer-state-reasons.make-envelope-almost-full"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri aproape plin"
 
 #. TRANSLATORS: Envelope Maker At Limit
 msgid "printer-state-reasons.make-envelope-at-limit"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri aflat la limită"
 
 #. TRANSLATORS: Envelope Maker Closed
 msgid "printer-state-reasons.make-envelope-closed"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri închis"
 
 #. TRANSLATORS: Envelope Maker Configuration Change
 msgid "printer-state-reasons.make-envelope-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Cover Closed
 msgid "printer-state-reasons.make-envelope-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului creator de plicuri este închis"
 
 #. TRANSLATORS: Envelope Maker Cover Open
 msgid "printer-state-reasons.make-envelope-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului creator de plicuri este deschis"
 
 #. TRANSLATORS: Envelope Maker Empty
 msgid "printer-state-reasons.make-envelope-empty"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri gol"
 
 #. TRANSLATORS: Envelope Maker Full
 msgid "printer-state-reasons.make-envelope-full"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri plin"
 
 #. TRANSLATORS: Envelope Maker Interlock Closed
 msgid "printer-state-reasons.make-envelope-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului creator de plicuri este închisă"
 
 #. TRANSLATORS: Envelope Maker Interlock Open
 msgid "printer-state-reasons.make-envelope-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului creator de plicuri este deschisă"
 
 #. TRANSLATORS: Envelope Maker Jam
 msgid "printer-state-reasons.make-envelope-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Life Almost Over
 msgid "printer-state-reasons.make-envelope-life-almost-over"
 msgstr ""
+"Dispozitivul creator de plicuri este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Envelope Maker Life Over
 msgid "printer-state-reasons.make-envelope-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului creator de plicuri s-a sfârșit"
 
 #. TRANSLATORS: Envelope Maker Memory Exhausted
 msgid "printer-state-reasons.make-envelope-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Missing
 msgid "printer-state-reasons.make-envelope-missing"
-msgstr ""
+msgstr "Dispozitivul creator de plicuri lipsește"
 
 #. TRANSLATORS: Envelope Maker Motor Failure
 msgid "printer-state-reasons.make-envelope-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Near Limit
 msgid "printer-state-reasons.make-envelope-near-limit"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri aproape de limită"
 
 #. TRANSLATORS: Envelope Maker Offline
 msgid "printer-state-reasons.make-envelope-offline"
-msgstr ""
+msgstr "Dispozitivul creator de plicuri este deconectat"
 
 #. TRANSLATORS: Envelope Maker Opened
 msgid "printer-state-reasons.make-envelope-opened"
-msgstr ""
+msgstr "Dispozitivul creator de plicuri este deschis"
 
 #. TRANSLATORS: Envelope Maker Over Temperature
 msgid "printer-state-reasons.make-envelope-over-temperature"
-msgstr ""
+msgstr "Dispozitivul creator de plicuri este la o temperatură excesivă"
 
 #. TRANSLATORS: Envelope Maker Power Saver
 msgid "printer-state-reasons.make-envelope-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Recoverable Failure
 msgid "printer-state-reasons.make-envelope-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Recoverable Storage
 msgid "printer-state-reasons.make-envelope-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Removed
 msgid "printer-state-reasons.make-envelope-removed"
-msgstr ""
+msgstr "Dispozitiv creator de plicuri eliminat"
 
 #. TRANSLATORS: Envelope Maker Resource Added
 msgid "printer-state-reasons.make-envelope-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitivul creator de plicuri adăugată"
 
 #. TRANSLATORS: Envelope Maker Resource Removed
 msgid "printer-state-reasons.make-envelope-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitivul creator de plicuri eliminată"
 
 #. TRANSLATORS: Envelope Maker Thermistor Failure
 msgid "printer-state-reasons.make-envelope-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Timing Failure
 msgid "printer-state-reasons.make-envelope-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Turned Off
 msgid "printer-state-reasons.make-envelope-turned-off"
-msgstr ""
+msgstr "Dispozitivul creator de plicuri este dezactivat"
 
 #. TRANSLATORS: Envelope Maker Turned On
 msgid "printer-state-reasons.make-envelope-turned-on"
-msgstr ""
+msgstr "Dispozitivul creator de plicuri este activat"
 
 #. TRANSLATORS: Envelope Maker Under Temperature
 msgid "printer-state-reasons.make-envelope-under-temperature"
 msgstr ""
+"Dispozitiv creator de plicuri aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Envelope Maker Unrecoverable Failure
 msgid "printer-state-reasons.make-envelope-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Unrecoverable Storage Error
 msgid "printer-state-reasons.make-envelope-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului creator de plicuri"
 
 #. TRANSLATORS: Envelope Maker Warming Up
 msgid "printer-state-reasons.make-envelope-warming-up"
-msgstr ""
+msgstr "Dispozitivul creator de plicuri se supraîncălzește"
 
 #. TRANSLATORS: Marker Adjusting Print Quality
 msgid "printer-state-reasons.marker-adjusting-print-quality"
-msgstr ""
+msgstr "Marcator pentru ajustarea calității imprimării"
 
 #. TRANSLATORS: Marker Cleaner Missing
 msgid "printer-state-reasons.marker-cleaner-missing"
-msgstr ""
+msgstr "Lipsește marcajul pentru dispozitivul de curățare"
 
 #. TRANSLATORS: Marker Developer Almost Empty
 msgid "printer-state-reasons.marker-developer-almost-empty"
-msgstr ""
+msgstr "Dezvoltator de marcatori aproape gol"
 
 #. TRANSLATORS: Marker Developer Empty
 msgid "printer-state-reasons.marker-developer-empty"
-msgstr ""
+msgstr "Dezvoltator de marcatori gol"
 
 #. TRANSLATORS: Marker Developer Missing
 msgid "printer-state-reasons.marker-developer-missing"
-msgstr ""
+msgstr "Dezvoltatorul de marcatori aproape lipsește"
 
 #. TRANSLATORS: Marker Fuser Missing
 msgid "printer-state-reasons.marker-fuser-missing"
-msgstr ""
+msgstr "Marcatorul rolei de încălzire (cuptorul de fixare) lipsește"
 
 #. TRANSLATORS: Marker Fuser Thermistor Failure
 msgid "printer-state-reasons.marker-fuser-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului rolei de încălzire (cuptorul de fixare)"
 
 #. TRANSLATORS: Marker Fuser Timing Failure
 msgid "printer-state-reasons.marker-fuser-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al rolei de încălzire (cuptorul de fixare)"
 
 #. TRANSLATORS: Marker Ink Almost Empty
 msgid "printer-state-reasons.marker-ink-almost-empty"
-msgstr ""
+msgstr "Cerneala marcatorului este aproape goală"
 
 #. TRANSLATORS: Marker Ink Empty
 msgid "printer-state-reasons.marker-ink-empty"
-msgstr ""
+msgstr "Cerneala marcatorului este goală"
 
 #. TRANSLATORS: Marker Ink Missing
 msgid "printer-state-reasons.marker-ink-missing"
-msgstr ""
+msgstr "Cerneala marcatorului lipsește"
 
 #. TRANSLATORS: Marker Opc Missing
 msgid "printer-state-reasons.marker-opc-missing"
-msgstr ""
+msgstr "Marcatorul fotoconductorului organic (Opc) lipsește"
 
 #. TRANSLATORS: Marker Print Ribbon Almost Empty
 msgid "printer-state-reasons.marker-print-ribbon-almost-empty"
-msgstr ""
+msgstr "Marcatorul panglicii de imprimare este aproape gol"
 
 #. TRANSLATORS: Marker Print Ribbon Empty
 msgid "printer-state-reasons.marker-print-ribbon-empty"
-msgstr ""
+msgstr "Marcatorul panglicii de imprimare este gol"
 
 #. TRANSLATORS: Marker Print Ribbon Missing
 msgid "printer-state-reasons.marker-print-ribbon-missing"
-msgstr ""
+msgstr "Marcatorul panglicii de imprimare lipsețte"
 
 #. TRANSLATORS: Marker Supply Almost Empty
 msgid "printer-state-reasons.marker-supply-almost-empty"
-msgstr ""
+msgstr "Stocul de marcatori este aproape epuizat"
 
 #. TRANSLATORS: Ink/toner empty
 msgid "printer-state-reasons.marker-supply-empty"
-msgstr ""
+msgstr "Nivelul de cerneală/toner este zero"
 
 #. TRANSLATORS: Ink/toner low
 msgid "printer-state-reasons.marker-supply-low"
-msgstr ""
+msgstr "Nivelul de cerneală/toner este scăzut"
 
 #. TRANSLATORS: Marker Supply Missing
 msgid "printer-state-reasons.marker-supply-missing"
-msgstr ""
+msgstr "Stocul de marcatori lipsește"
 
 #. TRANSLATORS: Marker Toner Cartridge Missing
 msgid "printer-state-reasons.marker-toner-cartridge-missing"
-msgstr ""
+msgstr "Cartușul cu toner al marcatorului lipsește"
 
 #. TRANSLATORS: Marker Toner Missing
 msgid "printer-state-reasons.marker-toner-missing"
-msgstr ""
+msgstr "Lipsește tonerul marcatorului"
 
 #. TRANSLATORS: Ink/toner waste bin almost full
 msgid "printer-state-reasons.marker-waste-almost-full"
-msgstr ""
+msgstr "Recipientul de cerneală/toner rezidual este aproape plin"
 
 #. TRANSLATORS: Ink/toner waste bin full
 msgid "printer-state-reasons.marker-waste-full"
-msgstr ""
+msgstr "Recipientul de cerneală/toner rezidual este plin"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Almost Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-almost-full"
-msgstr ""
+msgstr "Recipientul de cerneală reziduală al marcatorului este aproape plin"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-full"
-msgstr ""
+msgstr "Recipientul de cerneală reziduală al marcatorului este plin"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Missing
 msgid "printer-state-reasons.marker-waste-ink-receptacle-missing"
-msgstr ""
+msgstr "Recipientul de cerneală reziduală al marcatorului lipsește"
 
 #. TRANSLATORS: Marker Waste Missing
 msgid "printer-state-reasons.marker-waste-missing"
-msgstr ""
+msgstr "Marcatorul recipientului de reziduri lipsește"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Almost Full
 msgid "printer-state-reasons.marker-waste-toner-receptacle-almost-full"
-msgstr ""
+msgstr "Recipientul de toner rezidual al marcatorului este aproape plin"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Full
 msgid "printer-state-reasons.marker-waste-toner-receptacle-full"
-msgstr ""
+msgstr "Recipientul de toner rezidual al marcatorului este plin"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Missing
 msgid "printer-state-reasons.marker-waste-toner-receptacle-missing"
-msgstr ""
+msgstr "Recipientul de toner rezidual al marcatorului lipsește"
 
 #. TRANSLATORS: Material Empty
 msgid "printer-state-reasons.material-empty"
-msgstr ""
+msgstr "Cantitate de material epuizată"
 
 #. TRANSLATORS: Material Low
 msgid "printer-state-reasons.material-low"
-msgstr ""
+msgstr "Cantitate de material redusă"
 
 #. TRANSLATORS: Material Needed
 msgid "printer-state-reasons.material-needed"
-msgstr ""
+msgstr "Se necesită material"
 
 #. TRANSLATORS: Media Drying
 msgid "printer-state-reasons.media-drying"
-msgstr ""
+msgstr "Se usucă suportul de imprimaat"
 
 #. TRANSLATORS: Paper tray is empty
 msgid "printer-state-reasons.media-empty"
-msgstr ""
+msgstr "Tava pentru hârtie este goală"
 
 #. TRANSLATORS: Paper jam
 msgid "printer-state-reasons.media-jam"
-msgstr ""
+msgstr "Blocaj de hârtie"
 
 #. TRANSLATORS: Paper tray is almost empty
 msgid "printer-state-reasons.media-low"
-msgstr ""
+msgstr "Tava pentru hârtie este aproape goală"
 
 #. TRANSLATORS: Load paper
 msgid "printer-state-reasons.media-needed"
-msgstr ""
+msgstr "Încărcați tava cu hârtie"
 
 #. TRANSLATORS: Media Path Cannot Do 2-Sided Printing
 msgid "printer-state-reasons.media-path-cannot-duplex-media-selected"
-msgstr ""
+msgstr "Traseul suportului nu permite imprimarea față-verso"
 
 #. TRANSLATORS: Media Path Failure
 msgid "printer-state-reasons.media-path-failure"
-msgstr ""
+msgstr "Eroare pe traseul suportului"
 
 #. TRANSLATORS: Media Path Input Empty
 msgid "printer-state-reasons.media-path-input-empty"
-msgstr ""
+msgstr "Intrarea traseului suportului este goală"
 
 #. TRANSLATORS: Media Path Input Feed Error
 msgid "printer-state-reasons.media-path-input-feed-error"
-msgstr ""
+msgstr "Eroare de alimentare a intrării traseului suportului"
 
 #. TRANSLATORS: Media Path Input Jam
 msgid "printer-state-reasons.media-path-input-jam"
-msgstr ""
+msgstr "Blocaj al intrării traseului suportului"
 
 #. TRANSLATORS: Media Path Input Request
 msgid "printer-state-reasons.media-path-input-request"
-msgstr ""
+msgstr "Solicitare de introducere în traseul suportului"
 
 #. TRANSLATORS: Media Path Jam
 msgid "printer-state-reasons.media-path-jam"
-msgstr ""
+msgstr "Blocaj al traseului suportului"
 
 #. TRANSLATORS: Media Path Media Tray Almost Full
 msgid "printer-state-reasons.media-path-media-tray-almost-full"
-msgstr ""
+msgstr "Tava suportului pentru traseul suportului este aproape plină"
 
 #. TRANSLATORS: Media Path Media Tray Full
 msgid "printer-state-reasons.media-path-media-tray-full"
-msgstr ""
+msgstr "Tava suportului pentru traseul suportului este plină"
 
 #. TRANSLATORS: Media Path Media Tray Missing
 msgid "printer-state-reasons.media-path-media-tray-missing"
-msgstr ""
+msgstr "Tava suportului pentru traseul suportului lipsește"
 
 #. TRANSLATORS: Media Path Output Feed Error
 msgid "printer-state-reasons.media-path-output-feed-error"
-msgstr ""
+msgstr "Eroare de alimentare a ieșirii traseului suportului"
 
 #. TRANSLATORS: Media Path Output Full
 msgid "printer-state-reasons.media-path-output-full"
-msgstr ""
+msgstr "Ieșirea traseului suportului este plină"
 
 #. TRANSLATORS: Media Path Output Jam
 msgid "printer-state-reasons.media-path-output-jam"
-msgstr ""
+msgstr "Blocaj al ieșirii traseului suportului"
 
 #. TRANSLATORS: Media Path Pick Roller Failure
 msgid "printer-state-reasons.media-path-pick-roller-failure"
-msgstr ""
+msgstr "Defecțiune la rola de selectare a traseului suportului media"
 
 #. TRANSLATORS: Media Path Pick Roller Life Over
 msgid "printer-state-reasons.media-path-pick-roller-life-over"
 msgstr ""
+"Durata vieții utile a rolei de selectare a traseului suportului s-a sfârșit"
 
 #. TRANSLATORS: Media Path Pick Roller Life Warn
 msgid "printer-state-reasons.media-path-pick-roller-life-warn"
 msgstr ""
+"Avertisment privind durata de viață utilă a rolei de selectare a traseului "
+"suportului"
 
 #. TRANSLATORS: Media Path Pick Roller Missing
 msgid "printer-state-reasons.media-path-pick-roller-missing"
-msgstr ""
+msgstr "Rola de selectare a traseului suportului media lipsește"
 
 #. TRANSLATORS: Motor Failure
 msgid "printer-state-reasons.motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului"
 
 #. TRANSLATORS: Printer going offline
 msgid "printer-state-reasons.moving-to-paused"
-msgstr ""
+msgstr "Imprimanta se deconectează"
 
 #. TRANSLATORS: None
 msgid "printer-state-reasons.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Optical Photoconductor Life Over
 msgid "printer-state-reasons.opc-life-over"
-msgstr ""
+msgstr "Durata vieții utile a fotoconductorului organic (Opc) s-a sfârșit"
 
 #. TRANSLATORS: OPC almost at end-of-life
 msgid "printer-state-reasons.opc-near-eol"
-msgstr ""
+msgstr "Fotoconductor organic (Opc) aproape de sfârșitul duratei de viață utile"
 
 #. TRANSLATORS: Check the printer for errors
 msgid "printer-state-reasons.other"
-msgstr ""
+msgstr "Verificați imprimanta pentru erori"
 
 #. TRANSLATORS: Output bin is almost full
 msgid "printer-state-reasons.output-area-almost-full"
-msgstr ""
+msgstr "Recipientul de ieșire este aproape plin"
 
 #. TRANSLATORS: Output bin is full
 msgid "printer-state-reasons.output-area-full"
-msgstr ""
+msgstr "Recipientul de ieșire este plin"
 
 #. TRANSLATORS: Output Mailbox Select Failure
 msgid "printer-state-reasons.output-mailbox-select-failure"
-msgstr ""
+msgstr "Eșec la selectarea căsuței poștale de ieșire"
 
 #. TRANSLATORS: Output Media Tray Failure
 msgid "printer-state-reasons.output-media-tray-failure"
-msgstr ""
+msgstr "Eroare la tava de ieșire a suportului"
 
 #. TRANSLATORS: Output Media Tray Feed Error
 msgid "printer-state-reasons.output-media-tray-feed-error"
-msgstr ""
+msgstr "Eroare de alimentare a tăvii de ieșire"
 
 #. TRANSLATORS: Output Media Tray Jam
 msgid "printer-state-reasons.output-media-tray-jam"
-msgstr ""
+msgstr "Blocaj în tava de ieșire a suportului"
 
 #. TRANSLATORS: Output tray is missing
 msgid "printer-state-reasons.output-tray-missing"
-msgstr ""
+msgstr "Tava de ieșire lipsește"
 
 #. TRANSLATORS: Paused
 msgid "printer-state-reasons.paused"
-msgstr ""
+msgstr "Pusă în pauză"
 
 #. TRANSLATORS: Perforater Added
 msgid "printer-state-reasons.perforater-added"
-msgstr ""
+msgstr "Perforator adăugat"
 
 #. TRANSLATORS: Perforater Almost Empty
 msgid "printer-state-reasons.perforater-almost-empty"
-msgstr ""
+msgstr "Perforatorul este aproape gol"
 
 #. TRANSLATORS: Perforater Almost Full
 msgid "printer-state-reasons.perforater-almost-full"
-msgstr ""
+msgstr "Perforatorul este aproape plin"
 
 #. TRANSLATORS: Perforater At Limit
 msgid "printer-state-reasons.perforater-at-limit"
-msgstr ""
+msgstr "Perforatorul este la limită"
 
 #. TRANSLATORS: Perforater Closed
 msgid "printer-state-reasons.perforater-closed"
-msgstr ""
+msgstr "Perforator închis"
 
 #. TRANSLATORS: Perforater Configuration Change
 msgid "printer-state-reasons.perforater-configuration-change"
-msgstr ""
+msgstr "Modificare configurație perforator"
 
 #. TRANSLATORS: Perforater Cover Closed
 msgid "printer-state-reasons.perforater-cover-closed"
-msgstr ""
+msgstr "Capacul perforatorului este închis"
 
 #. TRANSLATORS: Perforater Cover Open
 msgid "printer-state-reasons.perforater-cover-open"
-msgstr ""
+msgstr "Capacul perforatorului este deschis"
 
 #. TRANSLATORS: Perforater Empty
 msgid "printer-state-reasons.perforater-empty"
-msgstr ""
+msgstr "Perforatorul este gol"
 
 #. TRANSLATORS: Perforater Full
 msgid "printer-state-reasons.perforater-full"
-msgstr ""
+msgstr "Perforatorul este plin"
 
 #. TRANSLATORS: Perforater Interlock Closed
 msgid "printer-state-reasons.perforater-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea perforatorului este închisă"
 
 #. TRANSLATORS: Perforater Interlock Open
 msgid "printer-state-reasons.perforater-interlock-open"
-msgstr ""
+msgstr "Închizătoarea perforatorului este deschisă"
 
 #. TRANSLATORS: Perforater Jam
 msgid "printer-state-reasons.perforater-jam"
-msgstr ""
+msgstr "Blocaj al perforatorului"
 
 #. TRANSLATORS: Perforater Life Almost Over
 msgid "printer-state-reasons.perforater-life-almost-over"
-msgstr ""
+msgstr "Perforatorul este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Perforater Life Over
 msgid "printer-state-reasons.perforater-life-over"
-msgstr ""
+msgstr "Durata vieții utile a perforatorului s-a sfârșit"
 
 #. TRANSLATORS: Perforater Memory Exhausted
 msgid "printer-state-reasons.perforater-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a perforatorului"
 
 #. TRANSLATORS: Perforater Missing
 msgid "printer-state-reasons.perforater-missing"
-msgstr ""
+msgstr "Perforatorul lipsește"
 
 #. TRANSLATORS: Perforater Motor Failure
 msgid "printer-state-reasons.perforater-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului perforatorului"
 
 #. TRANSLATORS: Perforater Near Limit
 msgid "printer-state-reasons.perforater-near-limit"
-msgstr ""
+msgstr "Perforatorul este aproape de limită"
 
 #. TRANSLATORS: Perforater Offline
 msgid "printer-state-reasons.perforater-offline"
-msgstr ""
+msgstr "Perforatorul este deconectat"
 
 #. TRANSLATORS: Perforater Opened
 msgid "printer-state-reasons.perforater-opened"
-msgstr ""
+msgstr "Perforator deschis"
 
 #. TRANSLATORS: Perforater Over Temperature
 msgid "printer-state-reasons.perforater-over-temperature"
-msgstr ""
+msgstr "Perforatorul este la o temperatură excesivă"
 
 #. TRANSLATORS: Perforater Power Saver
 msgid "printer-state-reasons.perforater-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru perforator"
 
 #. TRANSLATORS: Perforater Recoverable Failure
 msgid "printer-state-reasons.perforater-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al perforatorului"
 
 #. TRANSLATORS: Perforater Recoverable Storage
 msgid "printer-state-reasons.perforater-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a perforatorului"
 
 #. TRANSLATORS: Perforater Removed
 msgid "printer-state-reasons.perforater-removed"
-msgstr ""
+msgstr "Perforator eliminat"
 
 #. TRANSLATORS: Perforater Resource Added
 msgid "printer-state-reasons.perforater-resource-added"
-msgstr ""
+msgstr "Resursă pentru perforator adăugată"
 
 #. TRANSLATORS: Perforater Resource Removed
 msgid "printer-state-reasons.perforater-resource-removed"
-msgstr ""
+msgstr "Resursă pentru perforator eliminată"
 
 #. TRANSLATORS: Perforater Thermistor Failure
 msgid "printer-state-reasons.perforater-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului perforatorului"
 
 #. TRANSLATORS: Perforater Timing Failure
 msgid "printer-state-reasons.perforater-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al perforatorului"
 
 #. TRANSLATORS: Perforater Turned Off
 msgid "printer-state-reasons.perforater-turned-off"
-msgstr ""
+msgstr "Perforator dezactivat"
 
 #. TRANSLATORS: Perforater Turned On
 msgid "printer-state-reasons.perforater-turned-on"
-msgstr ""
+msgstr "Perforator activat"
 
 #. TRANSLATORS: Perforater Under Temperature
 msgid "printer-state-reasons.perforater-under-temperature"
-msgstr ""
+msgstr "Perforator aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Perforater Unrecoverable Failure
 msgid "printer-state-reasons.perforater-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al perforatorului"
 
 #. TRANSLATORS: Perforater Unrecoverable Storage Error
 msgid "printer-state-reasons.perforater-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a perforatorului"
 
 #. TRANSLATORS: Perforater Warming Up
 msgid "printer-state-reasons.perforater-warming-up"
-msgstr ""
+msgstr "Perforatorul se supraîncălzește"
 
 #. TRANSLATORS: Platform Cooling
 msgid "printer-state-reasons.platform-cooling"
-msgstr ""
+msgstr "Răcirea platformei"
 
 #. TRANSLATORS: Platform Failure
 msgid "printer-state-reasons.platform-failure"
-msgstr ""
+msgstr "Eroare platformă"
 
 #. TRANSLATORS: Platform Heating
 msgid "printer-state-reasons.platform-heating"
-msgstr ""
+msgstr "Încălzirea platformei"
 
 #. TRANSLATORS: Platform Temperature High
 msgid "printer-state-reasons.platform-temperature-high"
-msgstr ""
+msgstr "Temperatura ridicată a platformei"
 
 #. TRANSLATORS: Platform Temperature Low
 msgid "printer-state-reasons.platform-temperature-low"
-msgstr ""
+msgstr "Temperatura scăzută a platformei"
 
 #. TRANSLATORS: Power Down
 msgid "printer-state-reasons.power-down"
-msgstr ""
+msgstr "Oprire imprimantă"
 
 #. TRANSLATORS: Power Up
 msgid "printer-state-reasons.power-up"
-msgstr ""
+msgstr "Pornire imprimantă"
 
 #. TRANSLATORS: Printer Reset Manually
 msgid "printer-state-reasons.printer-manual-reset"
-msgstr ""
+msgstr "Repornire manuală a imprimantei"
 
 #. TRANSLATORS: Printer Reset Remotely
 msgid "printer-state-reasons.printer-nms-reset"
-msgstr ""
+msgstr "Repornire de la distanță a imprimantei"
 
 #. TRANSLATORS: Printer Ready To Print
 msgid "printer-state-reasons.printer-ready-to-print"
-msgstr ""
+msgstr "Imprimanta este gata pentru imprimare"
 
 #. TRANSLATORS: Puncher Added
 msgid "printer-state-reasons.puncher-added"
-msgstr ""
+msgstr "Dispozitiv de perforare adăugat"
 
 #. TRANSLATORS: Puncher Almost Empty
 msgid "printer-state-reasons.puncher-almost-empty"
-msgstr ""
+msgstr "Dispozitivul de perforare este aproape gol"
 
 #. TRANSLATORS: Puncher Almost Full
 msgid "printer-state-reasons.puncher-almost-full"
-msgstr ""
+msgstr "Dispozitivul de perforare este aproape plin"
 
 #. TRANSLATORS: Puncher At Limit
 msgid "printer-state-reasons.puncher-at-limit"
-msgstr ""
+msgstr "Dispozitivul de perforare este la limită"
 
 #. TRANSLATORS: Puncher Closed
 msgid "printer-state-reasons.puncher-closed"
-msgstr ""
+msgstr "Dispozitiv de perforare închis"
 
 #. TRANSLATORS: Puncher Configuration Change
 msgid "printer-state-reasons.puncher-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv de perforare"
 
 #. TRANSLATORS: Puncher Cover Closed
 msgid "printer-state-reasons.puncher-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului de perforare este închis"
 
 #. TRANSLATORS: Puncher Cover Open
 msgid "printer-state-reasons.puncher-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului de perforare este deschis"
 
 #. TRANSLATORS: Puncher Empty
 msgid "printer-state-reasons.puncher-empty"
-msgstr ""
+msgstr "Dispozitivul de perforare este gol"
 
 #. TRANSLATORS: Puncher Full
 msgid "printer-state-reasons.puncher-full"
-msgstr ""
+msgstr "Dispozitivul de perforare este plin"
 
 #. TRANSLATORS: Puncher Interlock Closed
 msgid "printer-state-reasons.puncher-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de perforare este închisă"
 
 #. TRANSLATORS: Puncher Interlock Open
 msgid "printer-state-reasons.puncher-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de perforare este deschisă"
 
 #. TRANSLATORS: Puncher Jam
 msgid "printer-state-reasons.puncher-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Life Almost Over
 msgid "printer-state-reasons.puncher-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul de perforare este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Puncher Life Over
 msgid "printer-state-reasons.puncher-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului de perforare s-a sfârșit"
 
 #. TRANSLATORS: Puncher Memory Exhausted
 msgid "printer-state-reasons.puncher-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Missing
 msgid "printer-state-reasons.puncher-missing"
-msgstr ""
+msgstr "Dispozitivul de perforare lipsește"
 
 #. TRANSLATORS: Puncher Motor Failure
 msgid "printer-state-reasons.puncher-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Near Limit
 msgid "printer-state-reasons.puncher-near-limit"
-msgstr ""
+msgstr "Dispozitivul de perforare este aproape de limită"
 
 #. TRANSLATORS: Puncher Offline
 msgid "printer-state-reasons.puncher-offline"
-msgstr ""
+msgstr "Dispozitivul de perforare este deconectat"
 
 #. TRANSLATORS: Puncher Opened
 msgid "printer-state-reasons.puncher-opened"
-msgstr ""
+msgstr "Dispozitiv de perforare deschis"
 
 #. TRANSLATORS: Puncher Over Temperature
 msgid "printer-state-reasons.puncher-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de inserare este la o temperatură excesivă"
 
 #. TRANSLATORS: Puncher Power Saver
 msgid "printer-state-reasons.puncher-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul de perforare"
 
 #. TRANSLATORS: Puncher Recoverable Failure
 msgid "printer-state-reasons.puncher-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Recoverable Storage
 msgid "printer-state-reasons.puncher-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Removed
 msgid "printer-state-reasons.puncher-removed"
-msgstr ""
+msgstr "Dispozitiv de perforare eliminat"
 
 #. TRANSLATORS: Puncher Resource Added
 msgid "printer-state-reasons.puncher-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitiv de perforare adăugată"
 
 #. TRANSLATORS: Puncher Resource Removed
 msgid "printer-state-reasons.puncher-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitiv de perforare eliminată"
 
 #. TRANSLATORS: Puncher Thermistor Failure
 msgid "printer-state-reasons.puncher-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Timing Failure
 msgid "printer-state-reasons.puncher-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Turned Off
 msgid "printer-state-reasons.puncher-turned-off"
-msgstr ""
+msgstr "Dispozitivul de perforare este dezactivat"
 
 #. TRANSLATORS: Puncher Turned On
 msgid "printer-state-reasons.puncher-turned-on"
-msgstr ""
+msgstr "Dispozitivul de perforare este activat"
 
 #. TRANSLATORS: Puncher Under Temperature
 msgid "printer-state-reasons.puncher-under-temperature"
-msgstr ""
+msgstr "Dispozitiv de perforare aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Puncher Unrecoverable Failure
 msgid "printer-state-reasons.puncher-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Unrecoverable Storage Error
 msgid "printer-state-reasons.puncher-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului de perforare"
 
 #. TRANSLATORS: Puncher Warming Up
 msgid "printer-state-reasons.puncher-warming-up"
-msgstr ""
+msgstr "Dispozitivul de perforare se supraîncălzește"
 
 #. TRANSLATORS: Separation Cutter Added
 msgid "printer-state-reasons.separation-cutter-added"
-msgstr ""
+msgstr "Cuțit de separare adăugat"
 
 #. TRANSLATORS: Separation Cutter Almost Empty
 msgid "printer-state-reasons.separation-cutter-almost-empty"
-msgstr ""
+msgstr "Cuțit de separare aproape gol"
 
 #. TRANSLATORS: Separation Cutter Almost Full
 msgid "printer-state-reasons.separation-cutter-almost-full"
-msgstr ""
+msgstr "Cuțit de separare aproape plin"
 
 #. TRANSLATORS: Separation Cutter At Limit
 msgid "printer-state-reasons.separation-cutter-at-limit"
-msgstr ""
+msgstr "Cuțit de separare aflat la limită"
 
 #. TRANSLATORS: Separation Cutter Closed
 msgid "printer-state-reasons.separation-cutter-closed"
-msgstr ""
+msgstr "Cuțit de separare închis"
 
 #. TRANSLATORS: Separation Cutter Configuration Change
 msgid "printer-state-reasons.separation-cutter-configuration-change"
-msgstr ""
+msgstr "Modificare configurație cuțit de separare"
 
 #. TRANSLATORS: Separation Cutter Cover Closed
 msgid "printer-state-reasons.separation-cutter-cover-closed"
-msgstr ""
+msgstr "Capacul cuțitului de separare este închis"
 
 #. TRANSLATORS: Separation Cutter Cover Open
 msgid "printer-state-reasons.separation-cutter-cover-open"
-msgstr ""
+msgstr "Capacul cuțitului de separare este deschis"
 
 #. TRANSLATORS: Separation Cutter Empty
 msgid "printer-state-reasons.separation-cutter-empty"
-msgstr ""
+msgstr "Cuțit de separare gol"
 
 #. TRANSLATORS: Separation Cutter Full
 msgid "printer-state-reasons.separation-cutter-full"
-msgstr ""
+msgstr "Cuțit de separare plin"
 
 #. TRANSLATORS: Separation Cutter Interlock Closed
 msgid "printer-state-reasons.separation-cutter-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea cuțitului de separare este închisă"
 
 #. TRANSLATORS: Separation Cutter Interlock Open
 msgid "printer-state-reasons.separation-cutter-interlock-open"
-msgstr ""
+msgstr "Închizătoarea cuțitului de separare este deschisă"
 
 #. TRANSLATORS: Separation Cutter Jam
 msgid "printer-state-reasons.separation-cutter-jam"
-msgstr ""
+msgstr "Blocaj al cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Life Almost Over
 msgid "printer-state-reasons.separation-cutter-life-almost-over"
-msgstr ""
+msgstr "Cuțitul de separare este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Separation Cutter Life Over
 msgid "printer-state-reasons.separation-cutter-life-over"
-msgstr ""
+msgstr "Durata vieții utile a cuțitului de separare s-a sfârșit"
 
 #. TRANSLATORS: Separation Cutter Memory Exhausted
 msgid "printer-state-reasons.separation-cutter-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Missing
 msgid "printer-state-reasons.separation-cutter-missing"
-msgstr ""
+msgstr "Cuțitul de separare lipsește"
 
 #. TRANSLATORS: Separation Cutter Motor Failure
 msgid "printer-state-reasons.separation-cutter-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Near Limit
 msgid "printer-state-reasons.separation-cutter-near-limit"
-msgstr ""
+msgstr "Cuțit de separare aproape de limită"
 
 #. TRANSLATORS: Separation Cutter Offline
 msgid "printer-state-reasons.separation-cutter-offline"
-msgstr ""
+msgstr "Cuțitul de separare este deconectat"
 
 #. TRANSLATORS: Separation Cutter Opened
 msgid "printer-state-reasons.separation-cutter-opened"
-msgstr ""
+msgstr "Cuțit de separare deschis"
 
 #. TRANSLATORS: Separation Cutter Over Temperature
 msgid "printer-state-reasons.separation-cutter-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de inserare este la o temperatură excesivă"
 
 #. TRANSLATORS: Separation Cutter Power Saver
 msgid "printer-state-reasons.separation-cutter-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru cuțitul de separare"
 
 #. TRANSLATORS: Separation Cutter Recoverable Failure
 msgid "printer-state-reasons.separation-cutter-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Recoverable Storage
 msgid "printer-state-reasons.separation-cutter-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Removed
 msgid "printer-state-reasons.separation-cutter-removed"
-msgstr ""
+msgstr "Cuțit de separare eliminat"
 
 #. TRANSLATORS: Separation Cutter Resource Added
 msgid "printer-state-reasons.separation-cutter-resource-added"
-msgstr ""
+msgstr "Resursă pentru cuțitul de separare adăugată"
 
 #. TRANSLATORS: Separation Cutter Resource Removed
 msgid "printer-state-reasons.separation-cutter-resource-removed"
-msgstr ""
+msgstr "Resursă pentru cuțitul de separare eliminată"
 
 #. TRANSLATORS: Separation Cutter Thermistor Failure
 msgid "printer-state-reasons.separation-cutter-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Timing Failure
 msgid "printer-state-reasons.separation-cutter-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Turned Off
 msgid "printer-state-reasons.separation-cutter-turned-off"
-msgstr ""
+msgstr "Cuțitul de separare este dezactivat"
 
 #. TRANSLATORS: Separation Cutter Turned On
 msgid "printer-state-reasons.separation-cutter-turned-on"
-msgstr ""
+msgstr "Cuțitul de separare este activat"
 
 #. TRANSLATORS: Separation Cutter Under Temperature
 msgid "printer-state-reasons.separation-cutter-under-temperature"
-msgstr ""
+msgstr "Cuțit de separare aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Failure
 msgid "printer-state-reasons.separation-cutter-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.separation-cutter-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a cuțitului de separare"
 
 #. TRANSLATORS: Separation Cutter Warming Up
 msgid "printer-state-reasons.separation-cutter-warming-up"
-msgstr ""
+msgstr "Cuțitul de separare se supraîncălzește"
 
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
-msgstr ""
+msgstr "Rotator de foi adăugat"
 
 #. TRANSLATORS: Sheet Rotator Almost Empty
 msgid "printer-state-reasons.sheet-rotator-almost-empty"
-msgstr ""
+msgstr "Rotatorul de foi este aproape gol"
 
 #. TRANSLATORS: Sheet Rotator Almost Full
 msgid "printer-state-reasons.sheet-rotator-almost-full"
-msgstr ""
+msgstr "Rotatorul de foi este aproape plin"
 
 #. TRANSLATORS: Sheet Rotator At Limit
 msgid "printer-state-reasons.sheet-rotator-at-limit"
-msgstr ""
+msgstr "Rotatorul de foi se află la limită"
 
 #. TRANSLATORS: Sheet Rotator Closed
 msgid "printer-state-reasons.sheet-rotator-closed"
-msgstr ""
+msgstr "Rotator de foi închis"
 
 #. TRANSLATORS: Sheet Rotator Configuration Change
 msgid "printer-state-reasons.sheet-rotator-configuration-change"
-msgstr ""
+msgstr "Modificare configurație rotator de foi"
 
 #. TRANSLATORS: Sheet Rotator Cover Closed
 msgid "printer-state-reasons.sheet-rotator-cover-closed"
-msgstr ""
+msgstr "Capacul rotatorului de foi este închis"
 
 #. TRANSLATORS: Sheet Rotator Cover Open
 msgid "printer-state-reasons.sheet-rotator-cover-open"
-msgstr ""
+msgstr "Capacul rotatorului de foi este deschis"
 
 #. TRANSLATORS: Sheet Rotator Empty
 msgid "printer-state-reasons.sheet-rotator-empty"
-msgstr ""
+msgstr "Rotatorul de foi este gol"
 
 #. TRANSLATORS: Sheet Rotator Full
 msgid "printer-state-reasons.sheet-rotator-full"
-msgstr ""
+msgstr "Rotatorul de foi este plin"
 
 #. TRANSLATORS: Sheet Rotator Interlock Closed
 msgid "printer-state-reasons.sheet-rotator-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea rotatorului de foi este închisă"
 
 #. TRANSLATORS: Sheet Rotator Interlock Open
 msgid "printer-state-reasons.sheet-rotator-interlock-open"
-msgstr ""
+msgstr "Închizătoarea rotatorului de foi este deschisă"
 
 #. TRANSLATORS: Sheet Rotator Jam
 msgid "printer-state-reasons.sheet-rotator-jam"
-msgstr ""
+msgstr "Blocaj al rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Life Almost Over
 msgid "printer-state-reasons.sheet-rotator-life-almost-over"
-msgstr ""
+msgstr "Rotatorul de foi este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Sheet Rotator Life Over
 msgid "printer-state-reasons.sheet-rotator-life-over"
-msgstr ""
+msgstr "Durata vieții utile a rotatorului de foi s-a sfârșit"
 
 #. TRANSLATORS: Sheet Rotator Memory Exhausted
 msgid "printer-state-reasons.sheet-rotator-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Missing
 msgid "printer-state-reasons.sheet-rotator-missing"
-msgstr ""
+msgstr "Rotatorul de foi lipsește"
 
 #. TRANSLATORS: Sheet Rotator Motor Failure
 msgid "printer-state-reasons.sheet-rotator-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Near Limit
 msgid "printer-state-reasons.sheet-rotator-near-limit"
-msgstr ""
+msgstr "Rotatorul de foi se află aproape de limită"
 
 #. TRANSLATORS: Sheet Rotator Offline
 msgid "printer-state-reasons.sheet-rotator-offline"
-msgstr ""
+msgstr "Rotatorul de foi este deconectat"
 
 #. TRANSLATORS: Sheet Rotator Opened
 msgid "printer-state-reasons.sheet-rotator-opened"
-msgstr ""
+msgstr "Rotator de foi deschis"
 
 #. TRANSLATORS: Sheet Rotator Over Temperature
 msgid "printer-state-reasons.sheet-rotator-over-temperature"
-msgstr ""
+msgstr "Rotatorul de foi este la o temperatură excesivă"
 
 #. TRANSLATORS: Sheet Rotator Power Saver
 msgid "printer-state-reasons.sheet-rotator-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru rotatorul de foi"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Failure
 msgid "printer-state-reasons.sheet-rotator-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Storage
 msgid "printer-state-reasons.sheet-rotator-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Removed
 msgid "printer-state-reasons.sheet-rotator-removed"
-msgstr ""
+msgstr "Rotator de foi eliminat"
 
 #. TRANSLATORS: Sheet Rotator Resource Added
 msgid "printer-state-reasons.sheet-rotator-resource-added"
-msgstr ""
+msgstr "Resursă pentru rotatorul de foi adăugată"
 
 #. TRANSLATORS: Sheet Rotator Resource Removed
 msgid "printer-state-reasons.sheet-rotator-resource-removed"
-msgstr ""
+msgstr "Resursă pentru rotatorul de foi eliminată"
 
 #. TRANSLATORS: Sheet Rotator Thermistor Failure
 msgid "printer-state-reasons.sheet-rotator-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Timing Failure
 msgid "printer-state-reasons.sheet-rotator-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Turned Off
 msgid "printer-state-reasons.sheet-rotator-turned-off"
-msgstr ""
+msgstr "Rotatorul de foi este dezactivat"
 
 #. TRANSLATORS: Sheet Rotator Turned On
 msgid "printer-state-reasons.sheet-rotator-turned-on"
-msgstr ""
+msgstr "Rotatorul de foi este activat"
 
 #. TRANSLATORS: Sheet Rotator Under Temperature
 msgid "printer-state-reasons.sheet-rotator-under-temperature"
-msgstr ""
+msgstr "Rotator de foi aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Failure
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Storage Error
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a rotatorului de foi"
 
 #. TRANSLATORS: Sheet Rotator Warming Up
 msgid "printer-state-reasons.sheet-rotator-warming-up"
-msgstr ""
+msgstr "Rotatorul de foi se supraîncălzește"
 
 #. TRANSLATORS: Printer offline
 msgid "printer-state-reasons.shutdown"
-msgstr ""
+msgstr "Imprimanta este deconectată"
 
 #. TRANSLATORS: Slitter Added
 msgid "printer-state-reasons.slitter-added"
-msgstr ""
+msgstr "Tăietor de role/bobine adăugat"
 
 #. TRANSLATORS: Slitter Almost Empty
 msgid "printer-state-reasons.slitter-almost-empty"
-msgstr ""
+msgstr "Tăietorul de role/bobine este aproape gol"
 
 #. TRANSLATORS: Slitter Almost Full
 msgid "printer-state-reasons.slitter-almost-full"
-msgstr ""
+msgstr "Tăietorul de role/bobine este aproape plin"
 
 #. TRANSLATORS: Slitter At Limit
 msgid "printer-state-reasons.slitter-at-limit"
-msgstr ""
+msgstr "Tăietorul de role/bobine se află la limită"
 
 #. TRANSLATORS: Slitter Closed
 msgid "printer-state-reasons.slitter-closed"
-msgstr ""
+msgstr "Tăietor de role/bobine închis"
 
 #. TRANSLATORS: Slitter Configuration Change
 msgid "printer-state-reasons.slitter-configuration-change"
-msgstr ""
+msgstr "Modificare configurație tăietor de role/bobine"
 
 #. TRANSLATORS: Slitter Cover Closed
 msgid "printer-state-reasons.slitter-cover-closed"
-msgstr ""
+msgstr "Capacul tăietorului de role/bobine este închis"
 
 #. TRANSLATORS: Slitter Cover Open
 msgid "printer-state-reasons.slitter-cover-open"
-msgstr ""
+msgstr "Capacul tăietorului de role/bobine este deschis"
 
 #. TRANSLATORS: Slitter Empty
 msgid "printer-state-reasons.slitter-empty"
-msgstr ""
+msgstr "Tăietorul de role/bobine este gol"
 
 #. TRANSLATORS: Slitter Full
 msgid "printer-state-reasons.slitter-full"
-msgstr ""
+msgstr "Tăietorul de role/bobine este plin"
 
 #. TRANSLATORS: Slitter Interlock Closed
 msgid "printer-state-reasons.slitter-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea tăietorului de role/bobine este închisă"
 
 #. TRANSLATORS: Slitter Interlock Open
 msgid "printer-state-reasons.slitter-interlock-open"
-msgstr ""
+msgstr "Închizătoarea tăietorului de role/bobine este deschisă"
 
 #. TRANSLATORS: Slitter Jam
 msgid "printer-state-reasons.slitter-jam"
-msgstr ""
+msgstr "Blocaj al tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Life Almost Over
 msgid "printer-state-reasons.slitter-life-almost-over"
-msgstr ""
+msgstr "Tăietorul de role/bobine este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Slitter Life Over
 msgid "printer-state-reasons.slitter-life-over"
-msgstr ""
+msgstr "Durata vieții utile a tăietorului de role/bobine s-a sfârșit"
 
 #. TRANSLATORS: Slitter Memory Exhausted
 msgid "printer-state-reasons.slitter-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Missing
 msgid "printer-state-reasons.slitter-missing"
-msgstr ""
+msgstr "Tăietorul de role/bobine lipsește"
 
 #. TRANSLATORS: Slitter Motor Failure
 msgid "printer-state-reasons.slitter-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Near Limit
 msgid "printer-state-reasons.slitter-near-limit"
-msgstr ""
+msgstr "Tăietorul de role/bobine este aproape de limită"
 
 #. TRANSLATORS: Slitter Offline
 msgid "printer-state-reasons.slitter-offline"
-msgstr ""
+msgstr "Tăietorul de role/bobine este deconectat"
 
 #. TRANSLATORS: Slitter Opened
 msgid "printer-state-reasons.slitter-opened"
-msgstr ""
+msgstr "Tăietor de role/bobine deschis"
 
 #. TRANSLATORS: Slitter Over Temperature
 msgid "printer-state-reasons.slitter-over-temperature"
-msgstr ""
+msgstr "Tăietorul de role/bobine este la o temperatură excesivă"
 
 #. TRANSLATORS: Slitter Power Saver
 msgid "printer-state-reasons.slitter-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru tăietorul de role/bobine"
 
 #. TRANSLATORS: Slitter Recoverable Failure
 msgid "printer-state-reasons.slitter-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Recoverable Storage
 msgid "printer-state-reasons.slitter-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Removed
 msgid "printer-state-reasons.slitter-removed"
-msgstr ""
+msgstr "Tăietor de role/bobine eliminat"
 
 #. TRANSLATORS: Slitter Resource Added
 msgid "printer-state-reasons.slitter-resource-added"
-msgstr ""
+msgstr "Resursă pentru tăietorul de role/bobine adăugată"
 
 #. TRANSLATORS: Slitter Resource Removed
 msgid "printer-state-reasons.slitter-resource-removed"
-msgstr ""
+msgstr "Resursă pentru tăietorul de role/bobine eliminată"
 
 #. TRANSLATORS: Slitter Thermistor Failure
 msgid "printer-state-reasons.slitter-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Timing Failure
 msgid "printer-state-reasons.slitter-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Turned Off
 msgid "printer-state-reasons.slitter-turned-off"
-msgstr ""
+msgstr "Tăietorul de role/bobine este dezactivat"
 
 #. TRANSLATORS: Slitter Turned On
 msgid "printer-state-reasons.slitter-turned-on"
-msgstr ""
+msgstr "Tăietorul de role/bobine este activat"
 
 #. TRANSLATORS: Slitter Under Temperature
 msgid "printer-state-reasons.slitter-under-temperature"
-msgstr ""
+msgstr "Tăietor de role/bobine aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Slitter Unrecoverable Failure
 msgid "printer-state-reasons.slitter-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Unrecoverable Storage Error
 msgid "printer-state-reasons.slitter-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a tăietorului de role/bobine"
 
 #. TRANSLATORS: Slitter Warming Up
 msgid "printer-state-reasons.slitter-warming-up"
-msgstr ""
+msgstr "Tăietorul de role/bobine se supraîncălzește"
 
 #. TRANSLATORS: Spool Area Full
 msgid "printer-state-reasons.spool-area-full"
-msgstr ""
+msgstr "Zona de stocare a datelor este plină"
 
 #. TRANSLATORS: Stacker Added
 msgid "printer-state-reasons.stacker-added"
-msgstr ""
+msgstr "Stivuitor adăugat"
 
 #. TRANSLATORS: Stacker Almost Empty
 msgid "printer-state-reasons.stacker-almost-empty"
-msgstr ""
+msgstr "Stivuitorul este aproape gol"
 
 #. TRANSLATORS: Stacker Almost Full
 msgid "printer-state-reasons.stacker-almost-full"
-msgstr ""
+msgstr "Stivuitorul este aproape plin"
 
 #. TRANSLATORS: Stacker At Limit
 msgid "printer-state-reasons.stacker-at-limit"
-msgstr ""
+msgstr "Stivuitorul se află la limită"
 
 #. TRANSLATORS: Stacker Closed
 msgid "printer-state-reasons.stacker-closed"
-msgstr ""
+msgstr "Stivuitor închis"
 
 #. TRANSLATORS: Stacker Configuration Change
 msgid "printer-state-reasons.stacker-configuration-change"
-msgstr ""
+msgstr "Modificare configurație stivuitor"
 
 #. TRANSLATORS: Stacker Cover Closed
 msgid "printer-state-reasons.stacker-cover-closed"
-msgstr ""
+msgstr "Capacul stivuitorului este închis"
 
 #. TRANSLATORS: Stacker Cover Open
 msgid "printer-state-reasons.stacker-cover-open"
-msgstr ""
+msgstr "Capacul stivuitorului este deschis"
 
 #. TRANSLATORS: Stacker Empty
 msgid "printer-state-reasons.stacker-empty"
-msgstr ""
+msgstr "Stivuitorul este gol"
 
 #. TRANSLATORS: Stacker Full
 msgid "printer-state-reasons.stacker-full"
-msgstr ""
+msgstr "Stivuitorul este plin"
 
 #. TRANSLATORS: Stacker Interlock Closed
 msgid "printer-state-reasons.stacker-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea stivuitorului este închisă"
 
 #. TRANSLATORS: Stacker Interlock Open
 msgid "printer-state-reasons.stacker-interlock-open"
-msgstr ""
+msgstr "Închizătoarea stivuitorului este deschisă"
 
 #. TRANSLATORS: Stacker Jam
 msgid "printer-state-reasons.stacker-jam"
-msgstr ""
+msgstr "Blocaj al stivuitorului"
 
 #. TRANSLATORS: Stacker Life Almost Over
 msgid "printer-state-reasons.stacker-life-almost-over"
-msgstr ""
+msgstr "Stivuitorul este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Stacker Life Over
 msgid "printer-state-reasons.stacker-life-over"
-msgstr ""
+msgstr "Durata vieții utile a stivuitorului s-a sfârșit"
 
 #. TRANSLATORS: Stacker Memory Exhausted
 msgid "printer-state-reasons.stacker-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a stivuitorului"
 
 #. TRANSLATORS: Stacker Missing
 msgid "printer-state-reasons.stacker-missing"
-msgstr ""
+msgstr "Stivuitorul lipsește"
 
 #. TRANSLATORS: Stacker Motor Failure
 msgid "printer-state-reasons.stacker-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului stivuitorului"
 
 #. TRANSLATORS: Stacker Near Limit
 msgid "printer-state-reasons.stacker-near-limit"
-msgstr ""
+msgstr "Stivuitorul este aproape de limită"
 
 #. TRANSLATORS: Stacker Offline
 msgid "printer-state-reasons.stacker-offline"
-msgstr ""
+msgstr "Stivuitorul este deconectat"
 
 #. TRANSLATORS: Stacker Opened
 msgid "printer-state-reasons.stacker-opened"
-msgstr ""
+msgstr "Stivuitor deschis"
 
 #. TRANSLATORS: Stacker Over Temperature
 msgid "printer-state-reasons.stacker-over-temperature"
-msgstr ""
+msgstr "Stivuitorul este la o temperatură excesivă"
 
 #. TRANSLATORS: Stacker Power Saver
 msgid "printer-state-reasons.stacker-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru stivuitor"
 
 #. TRANSLATORS: Stacker Recoverable Failure
 msgid "printer-state-reasons.stacker-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al stivuitorului"
 
 #. TRANSLATORS: Stacker Recoverable Storage
 msgid "printer-state-reasons.stacker-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a stivuitorului"
 
 #. TRANSLATORS: Stacker Removed
 msgid "printer-state-reasons.stacker-removed"
-msgstr ""
+msgstr "Stivuitor eliminat"
 
 #. TRANSLATORS: Stacker Resource Added
 msgid "printer-state-reasons.stacker-resource-added"
-msgstr ""
+msgstr "Resursă pentru stivuitor adăugată"
 
 #. TRANSLATORS: Stacker Resource Removed
 msgid "printer-state-reasons.stacker-resource-removed"
-msgstr ""
+msgstr "Resursă pentru stivuitor eliminată"
 
 #. TRANSLATORS: Stacker Thermistor Failure
 msgid "printer-state-reasons.stacker-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului stivuitorului"
 
 #. TRANSLATORS: Stacker Timing Failure
 msgid "printer-state-reasons.stacker-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al stivuitorului"
 
 #. TRANSLATORS: Stacker Turned Off
 msgid "printer-state-reasons.stacker-turned-off"
-msgstr ""
+msgstr "Stivuitor dezactivat"
 
 #. TRANSLATORS: Stacker Turned On
 msgid "printer-state-reasons.stacker-turned-on"
-msgstr ""
+msgstr "Stivuitor ctivat"
 
 #. TRANSLATORS: Stacker Under Temperature
 msgid "printer-state-reasons.stacker-under-temperature"
-msgstr ""
+msgstr "Stivuitor aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Stacker Unrecoverable Failure
 msgid "printer-state-reasons.stacker-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al stivuitorului"
 
 #. TRANSLATORS: Stacker Unrecoverable Storage Error
 msgid "printer-state-reasons.stacker-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a stivuitorului"
 
 #. TRANSLATORS: Stacker Warming Up
 msgid "printer-state-reasons.stacker-warming-up"
-msgstr ""
+msgstr "Stivuitorul se supraîncălzește"
 
 #. TRANSLATORS: Stapler Added
 msgid "printer-state-reasons.stapler-added"
-msgstr ""
+msgstr "Capsator adăugat"
 
 #. TRANSLATORS: Stapler Almost Empty
 msgid "printer-state-reasons.stapler-almost-empty"
-msgstr ""
+msgstr "Capsatorul este aproape gol"
 
 #. TRANSLATORS: Stapler Almost Full
 msgid "printer-state-reasons.stapler-almost-full"
-msgstr ""
+msgstr "Capsatorul este aproape plin"
 
 #. TRANSLATORS: Stapler At Limit
 msgid "printer-state-reasons.stapler-at-limit"
-msgstr ""
+msgstr "Capsator aflat la limită"
 
 #. TRANSLATORS: Stapler Closed
 msgid "printer-state-reasons.stapler-closed"
-msgstr ""
+msgstr "Capsator închis"
 
 #. TRANSLATORS: Stapler Configuration Change
 msgid "printer-state-reasons.stapler-configuration-change"
-msgstr ""
+msgstr "Modificare configurație capsator"
 
 #. TRANSLATORS: Stapler Cover Closed
 msgid "printer-state-reasons.stapler-cover-closed"
-msgstr ""
+msgstr "Capacul capsatorului este închis"
 
 #. TRANSLATORS: Stapler Cover Open
 msgid "printer-state-reasons.stapler-cover-open"
-msgstr ""
+msgstr "Capacul capsatorului este deschis"
 
 #. TRANSLATORS: Stapler Empty
 msgid "printer-state-reasons.stapler-empty"
-msgstr ""
+msgstr "Capsatorul este gol"
 
 #. TRANSLATORS: Stapler Full
 msgid "printer-state-reasons.stapler-full"
-msgstr ""
+msgstr "Capsatorul este plin"
 
 #. TRANSLATORS: Stapler Interlock Closed
 msgid "printer-state-reasons.stapler-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea capsatorului este închisă"
 
 #. TRANSLATORS: Stapler Interlock Open
 msgid "printer-state-reasons.stapler-interlock-open"
-msgstr ""
+msgstr "Închizătoarea capsatorului este deschisă"
 
 #. TRANSLATORS: Stapler Jam
 msgid "printer-state-reasons.stapler-jam"
-msgstr ""
+msgstr "Blocaj al capsatorului"
 
 #. TRANSLATORS: Stapler Life Almost Over
 msgid "printer-state-reasons.stapler-life-almost-over"
-msgstr ""
+msgstr "Capsatorul este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Stapler Life Over
 msgid "printer-state-reasons.stapler-life-over"
-msgstr ""
+msgstr "Durata vieții utile a capsatorului s-a sfârșit"
 
 #. TRANSLATORS: Stapler Memory Exhausted
 msgid "printer-state-reasons.stapler-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a capsatorului"
 
 #. TRANSLATORS: Stapler Missing
 msgid "printer-state-reasons.stapler-missing"
-msgstr ""
+msgstr "Capsatorul lipsește"
 
 #. TRANSLATORS: Stapler Motor Failure
 msgid "printer-state-reasons.stapler-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului capsatorului"
 
 #. TRANSLATORS: Stapler Near Limit
 msgid "printer-state-reasons.stapler-near-limit"
-msgstr ""
+msgstr "Capsatorul este aproape de limită"
 
 #. TRANSLATORS: Stapler Offline
 msgid "printer-state-reasons.stapler-offline"
-msgstr ""
+msgstr "Capsatorul este deconectat"
 
 #. TRANSLATORS: Stapler Opened
 msgid "printer-state-reasons.stapler-opened"
-msgstr ""
+msgstr "Capsator deschis"
 
 #. TRANSLATORS: Stapler Over Temperature
 msgid "printer-state-reasons.stapler-over-temperature"
-msgstr ""
+msgstr "Capsatorul este la o temperatură excesivă"
 
 #. TRANSLATORS: Stapler Power Saver
 msgid "printer-state-reasons.stapler-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru capsator"
 
 #. TRANSLATORS: Stapler Recoverable Failure
 msgid "printer-state-reasons.stapler-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al capsatorului"
 
 #. TRANSLATORS: Stapler Recoverable Storage
 msgid "printer-state-reasons.stapler-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a capsatorului"
 
 #. TRANSLATORS: Stapler Removed
 msgid "printer-state-reasons.stapler-removed"
-msgstr ""
+msgstr "Capsator eliminat"
 
 #. TRANSLATORS: Stapler Resource Added
 msgid "printer-state-reasons.stapler-resource-added"
-msgstr ""
+msgstr "Resursă pentru capsator adăugată"
 
 #. TRANSLATORS: Stapler Resource Removed
 msgid "printer-state-reasons.stapler-resource-removed"
-msgstr ""
+msgstr "Resursă pentru capsator eliminată"
 
 #. TRANSLATORS: Stapler Thermistor Failure
 msgid "printer-state-reasons.stapler-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului capsatorului"
 
 #. TRANSLATORS: Stapler Timing Failure
 msgid "printer-state-reasons.stapler-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al capsatorului"
 
 #. TRANSLATORS: Stapler Turned Off
 msgid "printer-state-reasons.stapler-turned-off"
-msgstr ""
+msgstr "Capsator dezactivat"
 
 #. TRANSLATORS: Stapler Turned On
 msgid "printer-state-reasons.stapler-turned-on"
-msgstr ""
+msgstr "Capsator activat"
 
 #. TRANSLATORS: Stapler Under Temperature
 msgid "printer-state-reasons.stapler-under-temperature"
-msgstr ""
+msgstr "Capsator aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Stapler Unrecoverable Failure
 msgid "printer-state-reasons.stapler-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al capsatorului"
 
 #. TRANSLATORS: Stapler Unrecoverable Storage Error
 msgid "printer-state-reasons.stapler-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a capsatorului"
 
 #. TRANSLATORS: Stapler Warming Up
 msgid "printer-state-reasons.stapler-warming-up"
-msgstr ""
+msgstr "Capsatorul se supraîncălzește"
 
 #. TRANSLATORS: Stitcher Added
 msgid "printer-state-reasons.stitcher-added"
-msgstr ""
+msgstr "Dispozitiv de coasere adăugat"
 
 #. TRANSLATORS: Stitcher Almost Empty
 msgid "printer-state-reasons.stitcher-almost-empty"
-msgstr ""
+msgstr "Dispozitivul de coasere este aproape gol"
 
 #. TRANSLATORS: Stitcher Almost Full
 msgid "printer-state-reasons.stitcher-almost-full"
-msgstr ""
+msgstr "Dispozitivul de coasere este aproape plin"
 
 #. TRANSLATORS: Stitcher At Limit
 msgid "printer-state-reasons.stitcher-at-limit"
-msgstr ""
+msgstr "Dispozitivul de coasere se află la limită"
 
 #. TRANSLATORS: Stitcher Closed
 msgid "printer-state-reasons.stitcher-closed"
-msgstr ""
+msgstr "Dispozitiv de coasere închis"
 
 #. TRANSLATORS: Stitcher Configuration Change
 msgid "printer-state-reasons.stitcher-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv de coasere"
 
 #. TRANSLATORS: Stitcher Cover Closed
 msgid "printer-state-reasons.stitcher-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului de coasere este închis"
 
 #. TRANSLATORS: Stitcher Cover Open
 msgid "printer-state-reasons.stitcher-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului de coasere este deschis"
 
 #. TRANSLATORS: Stitcher Empty
 msgid "printer-state-reasons.stitcher-empty"
-msgstr ""
+msgstr "Dispozitivul de coasere este gol"
 
 #. TRANSLATORS: Stitcher Full
 msgid "printer-state-reasons.stitcher-full"
-msgstr ""
+msgstr "Dispozitivul de coasere este plin"
 
 #. TRANSLATORS: Stitcher Interlock Closed
 msgid "printer-state-reasons.stitcher-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de coasere este închisă"
 
 #. TRANSLATORS: Stitcher Interlock Open
 msgid "printer-state-reasons.stitcher-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de coasere este deschisă"
 
 #. TRANSLATORS: Stitcher Jam
 msgid "printer-state-reasons.stitcher-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Life Almost Over
 msgid "printer-state-reasons.stitcher-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul de coasere este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Stitcher Life Over
 msgid "printer-state-reasons.stitcher-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului de coasere s-a sfârșit"
 
 #. TRANSLATORS: Stitcher Memory Exhausted
 msgid "printer-state-reasons.stitcher-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Missing
 msgid "printer-state-reasons.stitcher-missing"
-msgstr ""
+msgstr "Dispozitivul de coasere lipsește"
 
 #. TRANSLATORS: Stitcher Motor Failure
 msgid "printer-state-reasons.stitcher-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Near Limit
 msgid "printer-state-reasons.stitcher-near-limit"
-msgstr ""
+msgstr "Dispozitivul de coasere este aproape de limită"
 
 #. TRANSLATORS: Stitcher Offline
 msgid "printer-state-reasons.stitcher-offline"
-msgstr ""
+msgstr "Dispozitivul de coasere este deconectat"
 
 #. TRANSLATORS: Stitcher Opened
 msgid "printer-state-reasons.stitcher-opened"
-msgstr ""
+msgstr "Dispozitiv de coasere deschis"
 
 #. TRANSLATORS: Stitcher Over Temperature
 msgid "printer-state-reasons.stitcher-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de coasere este la o temperatură excesivă"
 
 #. TRANSLATORS: Stitcher Power Saver
 msgid "printer-state-reasons.stitcher-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul de coasere"
 
 #. TRANSLATORS: Stitcher Recoverable Failure
 msgid "printer-state-reasons.stitcher-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Recoverable Storage
 msgid "printer-state-reasons.stitcher-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Removed
 msgid "printer-state-reasons.stitcher-removed"
-msgstr ""
+msgstr "Dispozitiv de coasere eliminat"
 
 #. TRANSLATORS: Stitcher Resource Added
 msgid "printer-state-reasons.stitcher-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de coasere adăugată"
 
 #. TRANSLATORS: Stitcher Resource Removed
 msgid "printer-state-reasons.stitcher-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de coasere eliminată"
 
 #. TRANSLATORS: Stitcher Thermistor Failure
 msgid "printer-state-reasons.stitcher-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Timing Failure
 msgid "printer-state-reasons.stitcher-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Turned Off
 msgid "printer-state-reasons.stitcher-turned-off"
-msgstr ""
+msgstr "Dispozitivul de coasere este dezactivat"
 
 #. TRANSLATORS: Stitcher Turned On
 msgid "printer-state-reasons.stitcher-turned-on"
-msgstr ""
+msgstr "Dispozitivul de coasere este activat"
 
 #. TRANSLATORS: Stitcher Under Temperature
 msgid "printer-state-reasons.stitcher-under-temperature"
-msgstr ""
+msgstr "Dispozitiv de coasere aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Stitcher Unrecoverable Failure
 msgid "printer-state-reasons.stitcher-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Unrecoverable Storage Error
 msgid "printer-state-reasons.stitcher-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului de coasere"
 
 #. TRANSLATORS: Stitcher Warming Up
 msgid "printer-state-reasons.stitcher-warming-up"
-msgstr ""
+msgstr "Dispozitivul de coasere se supraîncălzește"
 
 #. TRANSLATORS: Partially stopped
 msgid "printer-state-reasons.stopped-partly"
-msgstr ""
+msgstr "Parțial oprit"
 
 #. TRANSLATORS: Stopping
 msgid "printer-state-reasons.stopping"
-msgstr ""
+msgstr "Se oprește"
 
 #. TRANSLATORS: Subunit Added
 msgid "printer-state-reasons.subunit-added"
-msgstr ""
+msgstr "Subunitate adăugată"
 
 #. TRANSLATORS: Subunit Almost Empty
 msgid "printer-state-reasons.subunit-almost-empty"
-msgstr ""
+msgstr "Subunitatea este aproape goală"
 
 #. TRANSLATORS: Subunit Almost Full
 msgid "printer-state-reasons.subunit-almost-full"
-msgstr ""
+msgstr "Subunitatea este aproape plină"
 
 #. TRANSLATORS: Subunit At Limit
 msgid "printer-state-reasons.subunit-at-limit"
-msgstr ""
+msgstr "Subunitatea se află la limită"
 
 #. TRANSLATORS: Subunit Closed
 msgid "printer-state-reasons.subunit-closed"
-msgstr ""
+msgstr "Subunitate închisă"
 
 #. TRANSLATORS: Subunit Cooling Down
 msgid "printer-state-reasons.subunit-cooling-down"
-msgstr ""
+msgstr "Se răcește subunitatea"
 
 #. TRANSLATORS: Subunit Empty
 msgid "printer-state-reasons.subunit-empty"
-msgstr ""
+msgstr "Subunitatea este goală"
 
 #. TRANSLATORS: Subunit Full
 msgid "printer-state-reasons.subunit-full"
-msgstr ""
+msgstr "Subunitatea este plină"
 
 #. TRANSLATORS: Subunit Life Almost Over
 msgid "printer-state-reasons.subunit-life-almost-over"
-msgstr ""
+msgstr "Subunitatea este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Subunit Life Over
 msgid "printer-state-reasons.subunit-life-over"
-msgstr ""
+msgstr "Durata vieții utile a subunității s-a sfârșit"
 
 #. TRANSLATORS: Subunit Memory Exhausted
 msgid "printer-state-reasons.subunit-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a subunității"
 
 #. TRANSLATORS: Subunit Missing
 msgid "printer-state-reasons.subunit-missing"
-msgstr ""
+msgstr "Subunitatea lipsește"
 
 #. TRANSLATORS: Subunit Motor Failure
 msgid "printer-state-reasons.subunit-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului subunității"
 
 #. TRANSLATORS: Subunit Near Limit
 msgid "printer-state-reasons.subunit-near-limit"
-msgstr ""
+msgstr "Subunitatea este aproape de limită"
 
 #. TRANSLATORS: Subunit Offline
 msgid "printer-state-reasons.subunit-offline"
-msgstr ""
+msgstr "Subunitatea este deconectată"
 
 #. TRANSLATORS: Subunit Opened
 msgid "printer-state-reasons.subunit-opened"
-msgstr ""
+msgstr "Subunitate deschisă"
 
 #. TRANSLATORS: Subunit Over Temperature
 msgid "printer-state-reasons.subunit-over-temperature"
-msgstr ""
+msgstr "Subunitatea este la o temperatură excesivă"
 
 #. TRANSLATORS: Subunit Power Saver
 msgid "printer-state-reasons.subunit-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru subunitate"
 
 #. TRANSLATORS: Subunit Recoverable Failure
 msgid "printer-state-reasons.subunit-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al subunității"
 
 #. TRANSLATORS: Subunit Recoverable Storage
 msgid "printer-state-reasons.subunit-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a subunității"
 
 #. TRANSLATORS: Subunit Removed
 msgid "printer-state-reasons.subunit-removed"
-msgstr ""
+msgstr "Subunitate eliminată"
 
 #. TRANSLATORS: Subunit Resource Added
 msgid "printer-state-reasons.subunit-resource-added"
-msgstr ""
+msgstr "Resursă pentru subunitate adăugată"
 
 #. TRANSLATORS: Subunit Resource Removed
 msgid "printer-state-reasons.subunit-resource-removed"
-msgstr ""
+msgstr "Resursă pentru subunitate eliminată"
 
 #. TRANSLATORS: Subunit Thermistor Failure
 msgid "printer-state-reasons.subunit-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului subunității"
 
 #. TRANSLATORS: Subunit Timing Failure
 msgid "printer-state-reasons.subunit-timing-Failure"
-msgstr ""
+msgstr "Eșec de sincronizare al subunității"
 
 #. TRANSLATORS: Subunit Turned Off
 msgid "printer-state-reasons.subunit-turned-off"
-msgstr ""
+msgstr "Subunitatea este dezactivată"
 
 #. TRANSLATORS: Subunit Turned On
 msgid "printer-state-reasons.subunit-turned-on"
-msgstr ""
+msgstr "Subunitatea este ctivată"
 
 #. TRANSLATORS: Subunit Under Temperature
 msgid "printer-state-reasons.subunit-under-temperature"
-msgstr ""
+msgstr "Subunitate aflată sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Subunit Unrecoverable Failure
 msgid "printer-state-reasons.subunit-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al subunității"
 
 #. TRANSLATORS: Subunit Unrecoverable Storage
 msgid "printer-state-reasons.subunit-unrecoverable-storage"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a subunității"
 
 #. TRANSLATORS: Subunit Warming Up
 msgid "printer-state-reasons.subunit-warming-up"
-msgstr ""
+msgstr "Subunitatea se supraîncălzește"
 
 #. TRANSLATORS: Printer stopped responding
 msgid "printer-state-reasons.timed-out"
-msgstr ""
+msgstr "Imprimanta nu mai răspunde"
 
 #. TRANSLATORS: Out of toner
 msgid "printer-state-reasons.toner-empty"
-msgstr ""
+msgstr "Toner epuizat"
 
 #. TRANSLATORS: Toner low
 msgid "printer-state-reasons.toner-low"
-msgstr ""
+msgstr "Toner la nivel scăzut"
 
 #. TRANSLATORS: Trimmer Added
 msgid "printer-state-reasons.trimmer-added"
-msgstr ""
+msgstr "Dispozitiv de decupare adăugat"
 
 #. TRANSLATORS: Trimmer Almost Empty
 msgid "printer-state-reasons.trimmer-almost-empty"
-msgstr ""
+msgstr "Dispozitivul de decupare este aproape gol"
 
 #. TRANSLATORS: Trimmer Almost Full
 msgid "printer-state-reasons.trimmer-almost-full"
-msgstr ""
+msgstr "Dispozitivul de decupare este aproape plin"
 
 #. TRANSLATORS: Trimmer At Limit
 msgid "printer-state-reasons.trimmer-at-limit"
-msgstr ""
+msgstr "Dispozitivul de decupare se află la limită"
 
 #. TRANSLATORS: Trimmer Closed
 msgid "printer-state-reasons.trimmer-closed"
-msgstr ""
+msgstr "Dispozitiv de decupare închis"
 
 #. TRANSLATORS: Trimmer Configuration Change
 msgid "printer-state-reasons.trimmer-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv de decupare"
 
 #. TRANSLATORS: Trimmer Cover Closed
 msgid "printer-state-reasons.trimmer-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului de decupare este închis"
 
 #. TRANSLATORS: Trimmer Cover Open
 msgid "printer-state-reasons.trimmer-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului de decupare este deschis"
 
 #. TRANSLATORS: Trimmer Empty
 msgid "printer-state-reasons.trimmer-empty"
-msgstr ""
+msgstr "Dispozitivul de decupare este gol"
 
 #. TRANSLATORS: Trimmer Full
 msgid "printer-state-reasons.trimmer-full"
-msgstr ""
+msgstr "Dispozitivul de decupare este plin"
 
 #. TRANSLATORS: Trimmer Interlock Closed
 msgid "printer-state-reasons.trimmer-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de decupare este închisă"
 
 #. TRANSLATORS: Trimmer Interlock Open
 msgid "printer-state-reasons.trimmer-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de decupare este deschisă"
 
 #. TRANSLATORS: Trimmer Jam
 msgid "printer-state-reasons.trimmer-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Life Almost Over
 msgid "printer-state-reasons.trimmer-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul de decupare este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Trimmer Life Over
 msgid "printer-state-reasons.trimmer-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului de decupare s-a sfârșit"
 
 #. TRANSLATORS: Trimmer Memory Exhausted
 msgid "printer-state-reasons.trimmer-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Missing
 msgid "printer-state-reasons.trimmer-missing"
-msgstr ""
+msgstr "Dispozitivul de decupare lipsește"
 
 #. TRANSLATORS: Trimmer Motor Failure
 msgid "printer-state-reasons.trimmer-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Near Limit
 msgid "printer-state-reasons.trimmer-near-limit"
-msgstr ""
+msgstr "Dispozitivul de decupare este aproape de limită"
 
 #. TRANSLATORS: Trimmer Offline
 msgid "printer-state-reasons.trimmer-offline"
-msgstr ""
+msgstr "Dispozitivul de decupare este deconectat"
 
 #. TRANSLATORS: Trimmer Opened
 msgid "printer-state-reasons.trimmer-opened"
-msgstr ""
+msgstr "Dispozitiv de decupare deschis"
 
 #. TRANSLATORS: Trimmer Over Temperature
 msgid "printer-state-reasons.trimmer-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de decupare este la o temperatură excesivă"
 
 #. TRANSLATORS: Trimmer Power Saver
 msgid "printer-state-reasons.trimmer-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul de decupare"
 
 #. TRANSLATORS: Trimmer Recoverable Failure
 msgid "printer-state-reasons.trimmer-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Recoverable Storage
 msgid "printer-state-reasons.trimmer-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Removed
 msgid "printer-state-reasons.trimmer-removed"
-msgstr ""
+msgstr "Dispozitiv de decupare eliminat"
 
 #. TRANSLATORS: Trimmer Resource Added
 msgid "printer-state-reasons.trimmer-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de decupare adăugată"
 
 #. TRANSLATORS: Trimmer Resource Removed
 msgid "printer-state-reasons.trimmer-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de decupare eliminată"
 
 #. TRANSLATORS: Trimmer Thermistor Failure
 msgid "printer-state-reasons.trimmer-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului de decuprare"
 
 #. TRANSLATORS: Trimmer Timing Failure
 msgid "printer-state-reasons.trimmer-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Turned Off
 msgid "printer-state-reasons.trimmer-turned-off"
-msgstr ""
+msgstr "Dispozitivul de decupare este dezactivat"
 
 #. TRANSLATORS: Trimmer Turned On
 msgid "printer-state-reasons.trimmer-turned-on"
-msgstr ""
+msgstr "Dispozitivul de decupare este activat"
 
 #. TRANSLATORS: Trimmer Under Temperature
 msgid "printer-state-reasons.trimmer-under-temperature"
-msgstr ""
+msgstr "Dispozitiv de decupare aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Trimmer Unrecoverable Failure
 msgid "printer-state-reasons.trimmer-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Unrecoverable Storage Error
 msgid "printer-state-reasons.trimmer-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului de decupare"
 
 #. TRANSLATORS: Trimmer Warming Up
 msgid "printer-state-reasons.trimmer-warming-up"
-msgstr ""
+msgstr "Dispozitivul de decupare se supraîncălzește"
 
 #. TRANSLATORS: Unknown
 msgid "printer-state-reasons.unknown"
-msgstr ""
+msgstr "Necunoscut(ă)"
 
 #. TRANSLATORS: Wrapper Added
 msgid "printer-state-reasons.wrapper-added"
-msgstr ""
+msgstr "Dispozitiv de învelire adăugat"
 
 #. TRANSLATORS: Wrapper Almost Empty
 msgid "printer-state-reasons.wrapper-almost-empty"
-msgstr ""
+msgstr "Dispozitivul de învelire este aproape gol"
 
 #. TRANSLATORS: Wrapper Almost Full
 msgid "printer-state-reasons.wrapper-almost-full"
-msgstr ""
+msgstr "Dispozitivul de învelire este aproape plin"
 
 #. TRANSLATORS: Wrapper At Limit
 msgid "printer-state-reasons.wrapper-at-limit"
-msgstr ""
+msgstr "Dispozitiv de învelire aflat la limită"
 
 #. TRANSLATORS: Wrapper Closed
 msgid "printer-state-reasons.wrapper-closed"
-msgstr ""
+msgstr "Dispozitiv de învelire închis"
 
 #. TRANSLATORS: Wrapper Configuration Change
 msgid "printer-state-reasons.wrapper-configuration-change"
-msgstr ""
+msgstr "Modificare configurație dispozitiv de învelire"
 
 #. TRANSLATORS: Wrapper Cover Closed
 msgid "printer-state-reasons.wrapper-cover-closed"
-msgstr ""
+msgstr "Capacul dispozitivului de învelire este închis"
 
 #. TRANSLATORS: Wrapper Cover Open
 msgid "printer-state-reasons.wrapper-cover-open"
-msgstr ""
+msgstr "Capacul dispozitivului de învelire este deschis"
 
 #. TRANSLATORS: Wrapper Empty
 msgid "printer-state-reasons.wrapper-empty"
-msgstr ""
+msgstr "Dispozitivul de învelire este gol"
 
 #. TRANSLATORS: Wrapper Full
 msgid "printer-state-reasons.wrapper-full"
-msgstr ""
+msgstr "Dispozitivul de învelire este plin"
 
 #. TRANSLATORS: Wrapper Interlock Closed
 msgid "printer-state-reasons.wrapper-interlock-closed"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de învelire este închisă"
 
 #. TRANSLATORS: Wrapper Interlock Open
 msgid "printer-state-reasons.wrapper-interlock-open"
-msgstr ""
+msgstr "Închizătoarea dispozitivului de învelire este deschisă"
 
 #. TRANSLATORS: Wrapper Jam
 msgid "printer-state-reasons.wrapper-jam"
-msgstr ""
+msgstr "Blocaj al dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Life Almost Over
 msgid "printer-state-reasons.wrapper-life-almost-over"
-msgstr ""
+msgstr "Dispozitivul de învelire este aproape de sfârșitul vieții sale utile"
 
 #. TRANSLATORS: Wrapper Life Over
 msgid "printer-state-reasons.wrapper-life-over"
-msgstr ""
+msgstr "Durata vieții utile a dispozitivului de învelire s-a sfârșit"
 
 #. TRANSLATORS: Wrapper Memory Exhausted
 msgid "printer-state-reasons.wrapper-memory-exhausted"
-msgstr ""
+msgstr "Memorie epuizată a dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Missing
 msgid "printer-state-reasons.wrapper-missing"
-msgstr ""
+msgstr "Dispozitivul de învelire lipsește"
 
 #. TRANSLATORS: Wrapper Motor Failure
 msgid "printer-state-reasons.wrapper-motor-failure"
-msgstr ""
+msgstr "Defecțiune a motorului dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Near Limit
 msgid "printer-state-reasons.wrapper-near-limit"
-msgstr ""
+msgstr "Dispozitivul deînvelire este aproape de limită"
 
 #. TRANSLATORS: Wrapper Offline
 msgid "printer-state-reasons.wrapper-offline"
-msgstr ""
+msgstr "Dispozitivul de învelire este deconectat"
 
 #. TRANSLATORS: Wrapper Opened
 msgid "printer-state-reasons.wrapper-opened"
-msgstr ""
+msgstr "Dispozitiv de învelire deschis"
 
 #. TRANSLATORS: Wrapper Over Temperature
 msgid "printer-state-reasons.wrapper-over-temperature"
-msgstr ""
+msgstr "Dispozitivul de învelire este la o temperatură excesivă"
 
 #. TRANSLATORS: Wrapper Power Saver
 msgid "printer-state-reasons.wrapper-power-saver"
-msgstr ""
+msgstr "Modul de economisire a energiei pentru dispozitivul de învelire"
 
 #. TRANSLATORS: Wrapper Recoverable Failure
 msgid "printer-state-reasons.wrapper-recoverable-failure"
-msgstr ""
+msgstr "Eșec recuperabil al dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Recoverable Storage
 msgid "printer-state-reasons.wrapper-recoverable-storage"
-msgstr ""
+msgstr "Stocare recuperabilă a dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Removed
 msgid "printer-state-reasons.wrapper-removed"
-msgstr ""
+msgstr "Dispozitiv de învelire eliminat"
 
 #. TRANSLATORS: Wrapper Resource Added
 msgid "printer-state-reasons.wrapper-resource-added"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de învelire adăugată"
 
 #. TRANSLATORS: Wrapper Resource Removed
 msgid "printer-state-reasons.wrapper-resource-removed"
-msgstr ""
+msgstr "Resursă pentru dispozitivul de învelire eliminată"
 
 #. TRANSLATORS: Wrapper Thermistor Failure
 msgid "printer-state-reasons.wrapper-thermistor-failure"
-msgstr ""
+msgstr "Eșec al termistorului dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Timing Failure
 msgid "printer-state-reasons.wrapper-timing-failure"
-msgstr ""
+msgstr "Eșec de sincronizare al dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Turned Off
 msgid "printer-state-reasons.wrapper-turned-off"
-msgstr ""
+msgstr "Dispozitivul de învelire este dezactivat"
 
 #. TRANSLATORS: Wrapper Turned On
 msgid "printer-state-reasons.wrapper-turned-on"
-msgstr ""
+msgstr "Dispozitivul de învelire este activat"
 
 #. TRANSLATORS: Wrapper Under Temperature
 msgid "printer-state-reasons.wrapper-under-temperature"
-msgstr ""
+msgstr "Dispozitiv de învelire aflat sub temperatura normală de funcționare"
 
 #. TRANSLATORS: Wrapper Unrecoverable Failure
 msgid "printer-state-reasons.wrapper-unrecoverable-failure"
-msgstr ""
+msgstr "Eșec irecuperabil al dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Unrecoverable Storage Error
 msgid "printer-state-reasons.wrapper-unrecoverable-storage-error"
-msgstr ""
+msgstr "Eroare de stocare irecuperabilă a dispozitivului de învelire"
 
 #. TRANSLATORS: Wrapper Warming Up
 msgid "printer-state-reasons.wrapper-warming-up"
-msgstr ""
+msgstr "Dispozitivul de învelire se supraîncălzește"
 
 #. TRANSLATORS: Idle
 msgid "printer-state.3"
-msgstr ""
+msgstr "În așteptare"
 
 #. TRANSLATORS: Processing
 msgid "printer-state.4"
-msgstr ""
+msgstr "Procesând"
 
 #. TRANSLATORS: Stopped
 msgid "printer-state.5"
-msgstr ""
+msgstr "Oprită"
 
 #. TRANSLATORS: Printer Uptime
 msgid "printer-up-time"
-msgstr ""
+msgstr "Timpul de funcționare al imprimantei"
 
 msgid "processing"
-msgstr ""
+msgstr "se procesează"
 
 #. TRANSLATORS: Proof Print
 msgid "proof-print"
-msgstr ""
+msgstr "Probă de imprimare"
 
 #. TRANSLATORS: Proof Print Copies
 msgid "proof-print-copies"
-msgstr ""
+msgstr "Copii imprimate de probă"
 
 #. TRANSLATORS: Punching
 msgid "punching"
-msgstr ""
+msgstr "Perforare"
 
 #. TRANSLATORS: Punching Locations
 msgid "punching-locations"
-msgstr ""
+msgstr "Locații de perforare"
 
 #. TRANSLATORS: Punching Offset
 msgid "punching-offset"
-msgstr ""
+msgstr "Decalaj perforare"
 
 #. TRANSLATORS: Punch Edge
 msgid "punching-reference-edge"
-msgstr ""
+msgstr "Marginea perforată"
 
 #. TRANSLATORS: Bottom
 msgid "punching-reference-edge.bottom"
-msgstr ""
+msgstr "Marginea inferioară"
 
 #. TRANSLATORS: Left
 msgid "punching-reference-edge.left"
-msgstr ""
+msgstr "Marginea din stânga"
 
 #. TRANSLATORS: Right
 msgid "punching-reference-edge.right"
-msgstr ""
+msgstr "Marginea din dreapta"
 
 #. TRANSLATORS: Top
 msgid "punching-reference-edge.top"
-msgstr ""
+msgstr "Marginea superioară"
 
 #, c-format
 msgid "request id is %s-%d (%d file(s))"
-msgstr ""
+msgstr "id-ul cererii este %s-%d (%d fișiere)"
 
 msgid "request-id uses indefinite length"
-msgstr ""
+msgstr "request-id utilizează o lungime nedeterminată"
 
 #. TRANSLATORS: Requested Attributes
 msgid "requested-attributes"
-msgstr ""
+msgstr "Atribute solicitate"
 
 #. TRANSLATORS: Retry Interval
 msgid "retry-interval"
-msgstr ""
+msgstr "Intervalul de reîncercare"
 
 #. TRANSLATORS: Retry Timeout
 msgid "retry-time-out"
-msgstr ""
+msgstr "Intervalul de reîncercare"
 
 #. TRANSLATORS: Save Disposition
 msgid "save-disposition"
-msgstr ""
+msgstr "Salvare dispoziție"
 
 #. TRANSLATORS: None
 msgid "save-disposition.none"
-msgstr ""
+msgstr "Niciuna"
 
 #. TRANSLATORS: Print and Save
 msgid "save-disposition.print-save"
-msgstr ""
+msgstr "Imprimă și salvează"
 
 #. TRANSLATORS: Save Only
 msgid "save-disposition.save-only"
-msgstr ""
+msgstr "Doar salvează"
 
 #. TRANSLATORS: Save Document Format
 msgid "save-document-format"
-msgstr ""
+msgstr "Salvează formatul documentului"
 
 #. TRANSLATORS: Save Info
 msgid "save-info"
-msgstr ""
+msgstr "Salvează informațiile"
 
 #. TRANSLATORS: Save Location
 msgid "save-location"
-msgstr ""
+msgstr "Salvează locația"
 
 #. TRANSLATORS: Save Name
 msgid "save-name"
-msgstr ""
+msgstr "Salvează numele"
 
 msgid "scheduler is not running"
-msgstr ""
+msgstr "planificatorul nu rulează"
 
 msgid "scheduler is running"
-msgstr ""
+msgstr "planificatorul rulează"
 
 #. TRANSLATORS: Separator Sheets
 msgid "separator-sheets"
-msgstr ""
+msgstr "Foi separatoare"
 
 #. TRANSLATORS: Type of Separator Sheets
 msgid "separator-sheets-type"
-msgstr ""
+msgstr "Tipul de foi separatoare"
 
 #. TRANSLATORS: Start and End Sheets
 msgid "separator-sheets-type.both-sheets"
-msgstr ""
+msgstr "Foi de început și de sfârșit"
 
 #. TRANSLATORS: End Sheet
 msgid "separator-sheets-type.end-sheet"
-msgstr ""
+msgstr "Foaie de sfârșit"
 
 #. TRANSLATORS: None
 msgid "separator-sheets-type.none"
@@ -15817,358 +15823,367 @@ msgstr "Niciunul"
 
 #. TRANSLATORS: Slip Sheets
 msgid "separator-sheets-type.slip-sheets"
-msgstr ""
+msgstr "Foi alunecoase"
 
 #. TRANSLATORS: Start Sheet
 msgid "separator-sheets-type.start-sheet"
-msgstr ""
+msgstr "Foaie de început"
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
 msgstr ""
+"server NUME_COMUN[:PORT]       rulează un server HTTPS (port implicit 8NNN)"
 
 msgid ""
 "set-access-token [RESOURCE] TOKEN\n"
 "                               Set the current access token"
 msgstr ""
+"set-access-token [RESURSĂ] JETON\n"
+"                               definește jetonul de acces curent"
 
 msgid ""
 "set-client-data CLIENT-ID CLIENT-SECRET\n"
 "                               Set the client ID and secret for the "
 "authorization server."
 msgstr ""
+"set-client-data ID_CLIENT SECRET_CLIENT\n"
+"                               stabilește ID-ul clientului și secretul "
+"pentru serverul de autorizare"
 
 msgid "show COMMON-NAME           Show stored credentials for COMMON-NAME."
 msgstr ""
+"show NUME_COMUN                afișează datele de autentificare stocate "
+"pentru NUME_COMUN"
 
 #. TRANSLATORS: 2-Sided Printing
 msgid "sides"
-msgstr ""
+msgstr "Imprimare față-verso"
 
 #. TRANSLATORS: Off
 msgid "sides.one-sided"
-msgstr ""
+msgstr "Inactivă"
 
 #. TRANSLATORS: On (Portrait)
 msgid "sides.two-sided-long-edge"
-msgstr ""
+msgstr "Activă (Portret)"
 
 #. TRANSLATORS: On (Landscape)
 msgid "sides.two-sided-short-edge"
-msgstr ""
+msgstr "Activă (Peisaj)"
 
 #, c-format
 msgid "stat of %s failed: %s"
-msgstr ""
+msgstr "obținerea stării lui „%s” a eșuat: %s"
 
 msgid "status\t\tShow status of daemon and queue."
-msgstr ""
+msgstr "status\t\tafișează starea demonului și a cozii"
 
 #. TRANSLATORS: Status Message
 msgid "status-message"
-msgstr ""
+msgstr "Mesaj de stare"
 
 #. TRANSLATORS: Staple
 msgid "stitching"
-msgstr ""
+msgstr "Capsă"
 
 #. TRANSLATORS: Stitching Angle
 msgid "stitching-angle"
-msgstr ""
+msgstr "Unghiul de coasere"
 
 #. TRANSLATORS: Stitching Locations
 msgid "stitching-locations"
-msgstr ""
+msgstr "Locații de coasere"
 
 #. TRANSLATORS: Staple Method
 msgid "stitching-method"
-msgstr ""
+msgstr "Metoda de capsare"
 
 #. TRANSLATORS: Automatic
 msgid "stitching-method.auto"
-msgstr ""
+msgstr "Automat"
 
 #. TRANSLATORS: Crimp
 msgid "stitching-method.crimp"
-msgstr ""
+msgstr "Sertizare"
 
 #. TRANSLATORS: Wire
 msgid "stitching-method.wire"
-msgstr ""
+msgstr "Sârmă"
 
 #. TRANSLATORS: Stitching Offset
 msgid "stitching-offset"
-msgstr ""
+msgstr "Decalaj cusătură"
 
 #. TRANSLATORS: Staple Edge
 msgid "stitching-reference-edge"
-msgstr ""
+msgstr "Marginea capsată"
 
 #. TRANSLATORS: Bottom
 msgid "stitching-reference-edge.bottom"
-msgstr ""
+msgstr "Marginea inferioară"
 
 #. TRANSLATORS: Left
 msgid "stitching-reference-edge.left"
-msgstr ""
+msgstr "Marginea din stânga"
 
 #. TRANSLATORS: Right
 msgid "stitching-reference-edge.right"
-msgstr ""
+msgstr "Marginea din dreapta"
 
 #. TRANSLATORS: Top
 msgid "stitching-reference-edge.top"
-msgstr ""
+msgstr "Marginea superioară"
 
 msgid "stopped"
-msgstr ""
+msgstr "oprit"
 
 #. TRANSLATORS: Subject
 msgid "subject"
-msgstr "subiect"
+msgstr "Subiect"
 
 #. TRANSLATORS: Subscription Privacy Attributes
 msgid "subscription-privacy-attributes"
-msgstr ""
+msgstr "Atribute de confidențialitate ale abonamentului"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-attributes.all"
-msgstr ""
+msgstr "Toate"
 
 #. TRANSLATORS: Default
 msgid "subscription-privacy-attributes.default"
-msgstr ""
+msgstr "Implicite"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-attributes.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Subscription Description
 msgid "subscription-privacy-attributes.subscription-description"
-msgstr ""
+msgstr "Descrierea abonamentului"
 
 #. TRANSLATORS: Subscription Template
 msgid "subscription-privacy-attributes.subscription-template"
-msgstr ""
+msgstr "Șablon abonament"
 
 #. TRANSLATORS: Subscription Privacy Scope
 msgid "subscription-privacy-scope"
-msgstr ""
+msgstr "Domeniul de aplicare al confidențialității abonamentului"
 
 #. TRANSLATORS: All
 msgid "subscription-privacy-scope.all"
-msgstr ""
+msgstr "Toate"
 
 #. TRANSLATORS: Default
 msgid "subscription-privacy-scope.default"
-msgstr ""
+msgstr "Implicit"
 
 #. TRANSLATORS: None
 msgid "subscription-privacy-scope.none"
-msgstr ""
+msgstr "Niciunul"
 
 #. TRANSLATORS: Owner
 msgid "subscription-privacy-scope.owner"
-msgstr ""
+msgstr "Proprietar"
 
 #, c-format
 msgid "system default destination: %s"
-msgstr ""
+msgstr "destinația implicită a sistemului: %s"
 
 #, c-format
 msgid "system default destination: %s/%s"
-msgstr ""
+msgstr "destinația implicită a sistemului: %s/%s"
 
 #. TRANSLATORS: T33 Subaddress
 msgid "t33-subaddress"
-msgstr ""
+msgstr "Subadresă T33"
 
 #. TRANSLATORS: To Name
 msgid "to-name"
-msgstr ""
+msgstr "A numi"
 
 #. TRANSLATORS: Transmission Status
 msgid "transmission-status"
-msgstr ""
+msgstr "Starea transmisiei"
 
 #. TRANSLATORS: Pending
 msgid "transmission-status.3"
-msgstr ""
+msgstr "În așteptare"
 
 #. TRANSLATORS: Pending Retry
 msgid "transmission-status.4"
-msgstr ""
+msgstr "Repetare în așteptare"
 
 #. TRANSLATORS: Processing
 msgid "transmission-status.5"
-msgstr ""
+msgstr "Procesând"
 
 #. TRANSLATORS: Canceled
 msgid "transmission-status.7"
-msgstr ""
+msgstr "Anulată"
 
 #. TRANSLATORS: Aborted
 msgid "transmission-status.8"
-msgstr ""
+msgstr "Întreruptă"
 
 #. TRANSLATORS: Completed
 msgid "transmission-status.9"
-msgstr ""
+msgstr "Finalizată(completată)"
 
 #. TRANSLATORS: Cut
 msgid "trimming"
-msgstr ""
+msgstr "Tăiere"
 
 #. TRANSLATORS: Cut Position
 msgid "trimming-offset"
-msgstr ""
+msgstr "Poziția de tăiere"
 
 #. TRANSLATORS: Cut Edge
 msgid "trimming-reference-edge"
-msgstr ""
+msgstr "Marginea tăiată"
 
 #. TRANSLATORS: Bottom
 msgid "trimming-reference-edge.bottom"
-msgstr ""
+msgstr "Marginea inferioară"
 
 #. TRANSLATORS: Left
 msgid "trimming-reference-edge.left"
-msgstr ""
+msgstr "Marginea din stânga"
 
 #. TRANSLATORS: Right
 msgid "trimming-reference-edge.right"
-msgstr ""
+msgstr "Marginea din dreapta"
 
 #. TRANSLATORS: Top
 msgid "trimming-reference-edge.top"
-msgstr ""
+msgstr "Marginea superioară"
 
 #. TRANSLATORS: Type of Cut
 msgid "trimming-type"
-msgstr ""
+msgstr "Tipul de tăiere"
 
 #. TRANSLATORS: Draw Line
 msgid "trimming-type.draw-line"
-msgstr ""
+msgstr "Linie trasată"
 
 #. TRANSLATORS: Full
 msgid "trimming-type.full"
-msgstr ""
+msgstr "Completă"
 
 #. TRANSLATORS: Partial
 msgid "trimming-type.partial"
-msgstr ""
+msgstr "Parțială"
 
 #. TRANSLATORS: Perforate
 msgid "trimming-type.perforate"
-msgstr ""
+msgstr "Perfora"
 
 #. TRANSLATORS: Score
 msgid "trimming-type.score"
-msgstr ""
+msgstr "Crestare"
 
 #. TRANSLATORS: Tab
 msgid "trimming-type.tab"
-msgstr ""
+msgstr "Bandă"
 
 #. TRANSLATORS: Cut After
 msgid "trimming-when"
-msgstr ""
+msgstr "Tăiere după"
 
 #. TRANSLATORS: Every Document
 msgid "trimming-when.after-documents"
-msgstr ""
+msgstr "Fiecare document"
 
 #. TRANSLATORS: Job
 msgid "trimming-when.after-job"
-msgstr ""
+msgstr "Lucrare"
 
 #. TRANSLATORS: Every Set
 msgid "trimming-when.after-sets"
-msgstr ""
+msgstr "Fiecare set"
 
 #. TRANSLATORS: Every Page
 msgid "trimming-when.after-sheets"
-msgstr ""
+msgstr "Fiecare pagină"
 
 msgid "unknown"
-msgstr ""
+msgstr "necunoscut"
 
 msgid "untitled"
 msgstr "fără titlu"
 
 msgid "variable-bindings uses indefinite length"
-msgstr ""
+msgstr "variable-bindings utilizează o lungime nedeterminată"
 
 #. TRANSLATORS: X Accuracy
 msgid "x-accuracy"
-msgstr ""
+msgstr "Precizia X"
 
 #. TRANSLATORS: X Dimension
 msgid "x-dimension"
-msgstr ""
+msgstr "Dimensiunea X"
 
 #. TRANSLATORS: X Offset
 msgid "x-offset"
-msgstr ""
+msgstr "Poziția X"
 
 #. TRANSLATORS: X Origin
 msgid "x-origin"
-msgstr ""
+msgstr "Originea X"
 
 #. TRANSLATORS: Y Accuracy
 msgid "y-accuracy"
-msgstr ""
+msgstr "Precizia Y"
 
 #. TRANSLATORS: Y Dimension
 msgid "y-dimension"
-msgstr ""
+msgstr "Dimensiunea Y"
 
 #. TRANSLATORS: Y Offset
 msgid "y-offset"
-msgstr ""
+msgstr "Poziția Y"
 
 #. TRANSLATORS: Y Origin
 msgid "y-origin"
-msgstr ""
+msgstr "Originea Y"
 
 #. TRANSLATORS: Z Accuracy
 msgid "z-accuracy"
-msgstr ""
+msgstr "Precizia Z"
 
 #. TRANSLATORS: Z Dimension
 msgid "z-dimension"
-msgstr ""
+msgstr "Dimensiunea Z"
 
 #. TRANSLATORS: Z Offset
 msgid "z-offset"
-msgstr ""
+msgstr "Poziția Z"
 
 msgid "{service_domain}        Domain name"
-msgstr ""
+msgstr "{service_domain}        Numele domeniului"
 
 msgid "{service_hostname}      Fully-qualified domain name"
-msgstr ""
+msgstr "{service_hostname}      Numele de domeniu complet calificat"
 
 msgid "{service_name}          Service instance name"
-msgstr ""
+msgstr "{service_name}          Numele instanței serviciului"
 
 msgid "{service_port}          Port number"
-msgstr ""
+msgstr "{service_port}          Numărul portului"
 
 msgid "{service_regtype}       DNS-SD registration type"
-msgstr ""
+msgstr "{service_regtype}       Tipul de înregistrare DNS-SD"
 
 msgid "{service_scheme}        URI scheme"
-msgstr ""
+msgstr "{service_scheme}        Schema URI"
 
 msgid "{service_uri}           URI"
-msgstr ""
+msgstr "{service_uri}           URI"
 
 msgid "{txt_*}                 Value of TXT record key"
-msgstr ""
+msgstr "{txt_*}                 Valoarea cheii înregistrării TXT"
 
 msgid "{}                      URI"
-msgstr ""
+msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
+"Fișierul ~/cups/lpoptions specifică o destinație implicită care nu există."
