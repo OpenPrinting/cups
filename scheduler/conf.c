@@ -3483,6 +3483,7 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
     }
 
 	cupsdAddAlias(ServerAlias, value);
+  cupsdLogMessage(CUPSD_LOG_DEBUG, "Added ServerAlias %s", value);
 
         for (value += valuelen; *value; value ++)
 	  if (!_cups_isspace(*value) || *value != ',')
