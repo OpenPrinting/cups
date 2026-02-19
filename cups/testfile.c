@@ -1,7 +1,7 @@
 //
 // File/directory test program for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -491,6 +491,17 @@ read_write_tests(bool compression)	// I - Use compression?
   off_t		length;			// Length of file
   static const char *partial_line = "partial line";
 					// Partial line
+  static const char * const values[] =	// cupsFileGet/PutConf values
+  {
+    "simple",
+    "'single-quoted value'",
+    "\"double-quoted value\"",
+    "value with # comment",
+    "value with \n newline",
+    "value with \r carriage return",
+    "value with \\ backslash",
+    "pathological\r\nvalue\\#with comment"
+  };
 
 
   // No errors so far...
@@ -544,6 +555,24 @@ read_write_tests(bool compression)	// I - Use compression?
     }
 
     if (i >= 1000)
+    {
+      testEnd(true);
+    }
+    else
+    {
+      testEndMessage(false, "%s", strerror(errno));
+      status ++;
+    }
+
+    // cupsFilePutConf()
+    testBegin("cupsFilePutConf()");
+    for (i = 0; i < (int)(sizeof(values) / sizeof(values[0])); i ++)
+    {
+      if (cupsFilePutConf(fp, "TestConf", values[i]) < 0)
+        break;
+    }
+
+    if (i >= (int)(sizeof(values) / sizeof(values[0])))
     {
       testEnd(true);
     }
@@ -607,13 +636,13 @@ read_write_tests(bool compression)	// I - Use compression?
     // cupsFileTell()
     testBegin("cupsFileTell()");
 
-    if ((length = cupsFileTell(fp)) == 81933283)
+    if ((length = cupsFileTell(fp)) == 81933542)
     {
       testEnd(true);
     }
     else
     {
-      testEndMessage(false, "" CUPS_LLFMT " instead of 81933283", CUPS_LLCAST length);
+      testEndMessage(false, "" CUPS_LLFMT " instead of 81933542", CUPS_LLCAST length);
       status ++;
     }
 
@@ -682,7 +711,7 @@ read_write_tests(bool compression)	// I - Use compression?
     // cupsFileGetConf()
     linenum = 1;
 
-    testBegin("cupsFileGetConf()");
+    testBegin("cupsFileGetConf(TestLine)");
 
     for (i = 0, value = NULL; i < 1000; i ++)
     {
@@ -708,6 +737,27 @@ read_write_tests(bool compression)	// I - Use compression?
       testEndMessage(false, "%s", strerror(errno));
       status ++;
     }
+
+    testBegin("cupsFileGetConf(TestConf)");
+
+    for (i = 0; i < (int)(sizeof(values) / sizeof(values[0])); i ++)
+    {
+      if (!cupsFileGetConf(fp, line, sizeof(line), &value, &linenum))
+      {
+        testEndMessage(false, "%s", strerror(errno));
+        status ++;
+        break;
+      }
+      else if (_cups_strcasecmp(line, "TestConf") || !value || strcmp(value, values[i]))
+      {
+        testEndMessage(false, "Expected 'TestConf %s', got '%s %s'", values[i], line, value);
+        status ++;
+        break;
+      }
+    }
+
+    if (i >= (int)(sizeof(values) / sizeof(values[0])))
+      testEnd(true);
 
     // cupsFileGetChar()
     testBegin("cupsFileGetChar()");
@@ -788,13 +838,13 @@ read_write_tests(bool compression)	// I - Use compression?
     // cupsFileTell()
     testBegin("cupsFileTell()");
 
-    if ((length = cupsFileTell(fp)) == 81933283)
+    if ((length = cupsFileTell(fp)) == 81933542)
     {
       testEnd(true);
     }
     else
     {
-      testEndMessage(false, "" CUPS_LLFMT " instead of 81933283", CUPS_LLCAST length);
+      testEndMessage(false, "" CUPS_LLFMT " instead of 81933542", CUPS_LLCAST length);
       status ++;
     }
 
