@@ -552,6 +552,17 @@ read_write_tests(int compression)	/* I - Use compression? */
   off_t		length;			/* Length of file */
   static const char *partial_line = "partial line";
 					/* Partial line */
+  static const char * const values[] =	/* cupsFileGet/PutConf values */
+  {
+    "simple",
+    "'single-quoted value'",
+    "\"double-quoted value\"",
+    "value with # comment",
+    "value with \n newline",
+    "value with \r carriage return",
+    "value with \\ backslash",
+    "pathological\r\nvalue\\#with comment"
+  };
 
 
  /*
@@ -629,6 +640,27 @@ read_write_tests(int compression)	/* I - Use compression? */
     }
 
    /*
+    * cupsFilePutConf()
+    */
+
+    fputs("cupsFilePutConf(): ", stdout);
+    for (i = 0; i < (int)(sizeof(values) / sizeof(values[0])); i ++)
+    {
+      if (cupsFilePutConf(fp, "TestConf", values[i]) < 0)
+        break;
+    }
+
+    if (i >= (int)(sizeof(values) / sizeof(values[0])))
+    {
+      puts("PASS");
+    }
+    else
+    {
+      printf("FAIL (%s)\n", strerror(errno));
+      status ++;
+    }
+
+   /*
     * cupsFilePutChar()
     */
 
@@ -684,11 +716,11 @@ read_write_tests(int compression)	/* I - Use compression? */
 
     fputs("cupsFileTell(): ", stdout);
 
-    if ((length = cupsFileTell(fp)) == 81933283)
+    if ((length = cupsFileTell(fp)) == 81933542)
       puts("PASS");
     else
     {
-      printf("FAIL (" CUPS_LLFMT " instead of 81933283)\n", CUPS_LLCAST length);
+      printf("FAIL (" CUPS_LLFMT " instead of 81933542)\n", CUPS_LLCAST length);
       status ++;
     }
 
@@ -766,7 +798,7 @@ read_write_tests(int compression)	/* I - Use compression? */
 
     linenum = 1;
 
-    fputs("cupsFileGetConf(): ", stdout);
+    fputs("cupsFileGetConf(TestLine): ", stdout);
 
     for (i = 0, value = NULL; i < 1000; i ++)
       if (!cupsFileGetConf(fp, line, sizeof(line), &value, &linenum))
@@ -788,6 +820,27 @@ read_write_tests(int compression)	/* I - Use compression? */
       printf("FAIL (%s)\n", strerror(errno));
       status ++;
     }
+
+    fputs("cupsFileGetConf(TestConf): ", stdout);
+
+    for (i = 0; i < (int)(sizeof(values) / sizeof(values[0])); i ++)
+    {
+      if (!cupsFileGetConf(fp, line, sizeof(line), &value, &linenum))
+      {
+        printf("FAIL (%s)\n", strerror(errno));
+        status ++;
+        break;
+      }
+      else if (_cups_strcasecmp(line, "TestConf") || !value || strcmp(value, values[i]))
+      {
+        printf("FAIL (Expected 'TestConf %s', got '%s %s')\n", values[i], line, value);
+        status ++;
+        break;
+      }
+    }
+
+    if (i >= (int)(sizeof(values) / sizeof(values[0])))
+      puts("PASS");
 
    /*
     * cupsFileGetChar()
@@ -869,11 +922,11 @@ read_write_tests(int compression)	/* I - Use compression? */
 
     fputs("cupsFileTell(): ", stdout);
 
-    if ((length = cupsFileTell(fp)) == 81933283)
+    if ((length = cupsFileTell(fp)) == 81933542)
       puts("PASS");
     else
     {
-      printf("FAIL (" CUPS_LLFMT " instead of 81933283)\n", CUPS_LLCAST length);
+      printf("FAIL (" CUPS_LLFMT " instead of 81933542)\n", CUPS_LLCAST length);
       status ++;
     }
 
