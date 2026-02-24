@@ -88,6 +88,7 @@ static char		device_username[256] = "",
 					/* Password for device URI */
 static const char * const pattrs[] =	/* Printer attributes we want */
 {
+  "auth-info-required",
   "compression-supported",
   "copies-supported",
   "cups-version",
@@ -102,6 +103,8 @@ static const char * const pattrs[] =	/* Printer attributes we want */
   "marker-types",
   "media-col-supported",
   "multiple-document-handling-supported",
+  "oauth-authorization-scopes",
+  "oauth-authorization-server-uri",
   "operations-supported",
   "print-color-mode-supported",
   "print-scaling-supported",
@@ -254,7 +257,8 @@ main(int  argc,				/* I - Number of command-line args */
 		copies,			/* Number of copies for job */
 		copies_remaining;	/* Number of copies remaining */
   const char	*auth_info_required,		/* New auth-info-required value */
-    *content_type,		/* CONTENT_TYPE environment variable */
+		*auth_bearer,		/* AUTH_BEARER env variable */
+		*content_type,		/* CONTENT_TYPE environment variable */
 		*final_content_type,	/* FINAL_CONTENT_TYPE environment var */
 		*document_format;	/* document-format value */
   int		fd;			/* File descriptor */
@@ -391,6 +395,8 @@ main(int  argc,				/* I - Number of command-line args */
     if (!strncmp(final_content_type, "printer/", 8))
       final_content_type = "application/vnd.cups-raw";
   }
+
+  auth_bearer = getenv("AUTH_BEARER");
 
  /*
   * Extract the hostname and printer name from the URI...
@@ -660,6 +666,9 @@ main(int  argc,				/* I - Number of command-line args */
   http = httpConnect2(hostname, port, addrlist, AF_UNSPEC, cupsEncryption(), 1,
                       0, NULL);
   httpSetTimeout(http, 30.0, timeout_cb, NULL);
+
+  if (auth_bearer)
+    httpSetAuthString(http, "Bearer", auth_bearer);
 
  /*
   * See if the printer supports SNMP...
@@ -1000,6 +1009,8 @@ main(int  argc,				/* I - Number of command-line args */
 
 	if (!strncmp(www_auth, "Negotiate", 9))
 	  auth_info_required = "negotiate";
+        else if (!strncmp(www_auth, "Bearer", 6))
+          auth_info_required = "bearer";
         else if (www_auth[0])
           auth_info_required = "username,password";
 
@@ -1567,6 +1578,8 @@ main(int  argc,				/* I - Number of command-line args */
 
       if (!strncmp(www_auth, "Negotiate", 9))
 	auth_info_required = "negotiate";
+      else if (!strncmp(www_auth, "Bearer", 6))
+	auth_info_required = "bearer";
       else if (www_auth[0])
 	auth_info_required = "username,password";
 
@@ -1766,6 +1779,8 @@ main(int  argc,				/* I - Number of command-line args */
 
 	  if (!strncmp(www_auth, "Negotiate", 9))
 	    auth_info_required = "negotiate";
+	  else if (!strncmp(www_auth, "Bearer", 6))
+	    auth_info_required = "bearer";
 	  else if (www_auth[0])
 	    auth_info_required = "username,password";
 	}

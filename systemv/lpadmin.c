@@ -611,7 +611,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 #ifdef __APPLE__
     _cupsLangPuts(stderr, _("lpadmin: Raw queues are no longer supported on macOS."));
 #else
-    _cupsLangPuts(stderr, _("lpadmin: Raw queues are deprecated and will stop working in a future version of CUPS."));
+    _cupsLangPuts(stderr, _("lpadmin: Raw queues are deprecated and will stop working in a future version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer Applications instead."));
 #endif /* __APPLE__ */
 
     if (device_uri && (!strncmp(device_uri, "ipp://", 6) || !strncmp(device_uri, "ipps://", 7)) && strstr(device_uri, "/printers/"))
@@ -623,7 +623,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   }
   else if ((ppd_name && strcmp(ppd_name, "everywhere") && strncmp(ppd_name, "driverless:", 11)) || file)
   {
-    _cupsLangPuts(stderr, _("lpadmin: Printer drivers are deprecated and will stop working in a future version of CUPS."));
+    _cupsLangPuts(stderr, _("lpadmin: Printer drivers are deprecated and will stop working in a future version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer Applications instead."));
   }
 
   if (num_options || file)

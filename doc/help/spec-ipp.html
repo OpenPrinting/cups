@@ -1022,10 +1022,16 @@
       <li>'domain': A domain name is required.</li>
       <li>'negotiate': Kerberos is required - this keyword can only appear by itself and causes cupsd to collect the UID of the printing user.</li>
       <li>'none': No authentication is required - this keyword can only appear by itself.</li>
-      <li>'oauth': An OAuth/OpenID access token is required - this keyword can only appear by itself.</li>
+      <li>'bearer': An OAuth/OpenID access token (HTTP "Bearer" token from RFC 6750) is required - this keyword can only appear by itself.</li>
       <li>'password': A password is required.</li>
       <li>'username': A username is required. Some protocols (like SMB) prefix the username with the domain, for example "DOMAIN\user".</li>
     </ul>
+
+    <h4 id='oauth-authorization-server-uri'><span class="info">Extension</span>oauth-authorization-server-uri (uri)</h4>
+    <p>The "oauth-authorization-server-uri" attribute specifies the OAuth 2.0/OpenID Connect authorization server URI that clients SHOULD use when retrieving Bearer tokens for this destination.</p>
+
+    <h4 id='oauth-authorization-scopes'><span class="info">Extension</span>oauth-authorization-scopes (1setOf name(MAX))</h4>
+    <p>The "oauth-authorization-scopes" attribute specifies the OAuth/OpenID scopes that MUST be requested when obtaining Bearer tokens for this destination.</p>
 
     <h4 id='job-k-limit'><span class="info">Deprecated</span>job-k-limit (integer)</h4>
     <p>The "job-k-limit" attribute specifies the maximum number of kilobytes that may be printed by a user, including banner files. The default value of 0 specifies that there is no limit.
