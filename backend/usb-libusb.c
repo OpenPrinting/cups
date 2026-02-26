@@ -447,8 +447,8 @@ print_device(const char *uri,		/* I - Device URI */
       if (g.drain_output && !nfds && !g.print_bytes)
       {
 	/* Send a response... */
-	cupsSideChannelWrite(CUPS_SC_CMD_DRAIN_OUTPUT, CUPS_SC_STATUS_OK, NULL, 0, 1.0);
 	g.drain_output = 0;
+	cupsSideChannelWrite(CUPS_SC_CMD_DRAIN_OUTPUT, CUPS_SC_STATUS_OK, NULL, 0, 1.0);
       }
 
      /*
