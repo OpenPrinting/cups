@@ -1884,7 +1884,17 @@ sidechannel_thread(void *reference)
 	  fputs("DEBUG: CUPS_SC_CMD_DRAIN_OUTPUT received from driver...\n",
 		stderr);
 
-	  g.drain_output = 1;
+	  pthread_mutex_lock(&g.readwrite_lock_mutex);
+	  if (!g.readwrite_lock && !g.print_bytes)
+	  {
+	  /* If main thread is inside select() and there's no data to send, assume
+	   * select() has no timeout and send a response... */
+	    cupsSideChannelWrite(CUPS_SC_CMD_DRAIN_OUTPUT, CUPS_SC_STATUS_OK, NULL, 0, 1.0);
+	    g.drain_output = 0;
+	  }
+	  else
+	    g.drain_output = 1;
+	  pthread_mutex_unlock(&g.readwrite_lock_mutex);
 	  break;
 
       case CUPS_SC_CMD_GET_BIDI:	/* Is the connection bidirectional? */
