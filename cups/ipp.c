@@ -3643,6 +3643,38 @@ ippTimeToDate(time_t t)			// I - Time in seconds
 
 
 //
+// '_cups_sanitize_natural_language()' - Sanitize a naturalLanguage string in-place.
+//
+// Trims leading/trailing whitespace and drops a trailing '-'.  Intended to
+// repair the common broken pattern produced by some Canon firmware ("en- ").
+//
+
+void
+_cups_sanitize_natural_language(char *s)
+{
+  char	*p, *end;
+
+
+  // Trim trailing whitespace
+  end = s + strlen(s);
+  while (end > s && (end[-1] == ' ' || end[-1] == '\t' || end[-1] == '\r' || end[-1] == '\n'))
+    *--end = '\0';
+
+  // Trim leading whitespace
+  p = s;
+  while (*p == ' ' || *p == '\t' || *p == '\r' || *p == '\n')
+    p++;
+  if (p != s)
+    memmove(s, p, strlen(p) + 1);
+
+  // Drop trailing '-' (common broken pattern like "en-")
+  end = s + strlen(s);
+  if (end > s && end[-1] == '-')
+    end[-1] = '\0';
+}
+
+
+//
 // 'ippValidateAttribute()' - Validate the contents of an attribute.
 //
 // This function validates the contents of an attribute based on the name and
@@ -4080,9 +4112,23 @@ ippValidateAttribute(
 	{
 	  if (regexec(&re, attr->values[i].string.text, 0, NULL, 0))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.text);
-	    regfree(&re);
-	    return (0);
+	    // Workaround for non-compliant devices that return values like "en- ".
+	    // Sanitize and re-validate once before failing.
+	    char	sanitized[IPP_MAX_LANGUAGE];
+
+	    cupsCopyString(sanitized, attr->values[i].string.text, sizeof(sanitized));
+	    _cups_sanitize_natural_language(sanitized);
+	    if (!sanitized[0])
+	      cupsCopyString(sanitized, "en", sizeof(sanitized));
+
+	    if (regexec(&re, sanitized, 0, NULL, 0))
+	    {
+	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.text);
+	      regfree(&re);
+	      return (0);
+	    }
+	    _cupsStrFree(attr->values[i].string.text);
+	    attr->values[i].string.text = _cupsStrAlloc(sanitized);
 	  }
 
 	  if (strlen(attr->values[i].string.text) > (IPP_MAX_LANGUAGE - 1))
