@@ -125,6 +125,7 @@ typedef struct _ipp_option_s		// Attribute mapping data
 extern const char	*_ippCheckOptions(void) _CUPS_PRIVATE;
 #endif // DEBUG
 extern _ipp_option_t	*_ippFindOption(const char *name) _CUPS_PRIVATE;
+extern void		_cups_sanitize_natural_language(char *s) _CUPS_PRIVATE;
 
 
 #  ifdef __cplusplus

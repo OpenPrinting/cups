@@ -796,6 +796,43 @@ main(int  argc,				// I - Number of command-line arguments
       testEndMessage(false, "got %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X, expected %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", dv[0], dv[1], dv[2], dv[3], dv[4], dv[5], dv[6], dv[7], dv[8], dv[9], dv[10], buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6], buffer[7], buffer[8], buffer[9], buffer[10]);
       status = 1;
     }
+
+    // Test _cups_sanitize_natural_language() unit cases...
+    static const struct { const char *input; const char *expected; } sanitize_tests[] =
+    {
+      { "en- ",    "en"      },	// Canon bug: trailing space after dash
+      { "en-  ",   "en"      },	// Canon bug: multiple trailing spaces
+      { "en-\t",   "en"      },	// Trailing tab after dash
+      { "en-\r\n", "en"      },	// Trailing CR+LF after dash
+      { "en-",     "en"      },	// Trailing dash only
+      { " en",     "en"      },	// Leading space
+      { "\ten",    "en"      },	// Leading tab
+      { " en- ",   "en"      },	// Leading space + trailing space+dash
+      { "",        ""        },	// Empty string stays empty
+      { " ",       ""        },	// Whitespace-only becomes empty
+      { "en",      "en"      },	// Already valid, unchanged
+      { "en-us",   "en-us"   },	// Valid subtag, unchanged
+      { "zh-hans", "zh-hans" },	// Valid script subtag, unchanged
+      { "-",       ""        },	// Lone dash becomes empty
+      { " - ",     ""        },	// Space-dash-space becomes empty
+    };
+
+    for (i = 0; i < (sizeof(sanitize_tests) / sizeof(sanitize_tests[0])); i ++)
+    {
+      char	sanitized[IPP_MAX_LANGUAGE];	// Sanitized value
+
+      cupsCopyString(sanitized, sanitize_tests[i].input, sizeof(sanitized));
+      testBegin("_cups_sanitize_natural_language(\"%s\")", sanitize_tests[i].input);
+      _cups_sanitize_natural_language(sanitized);
+
+      if (!strcmp(sanitized, sanitize_tests[i].expected))
+        testEnd(true);
+      else
+      {
+        testEndMessage(false, "got \"%s\", expected \"%s\"", sanitized, sanitize_tests[i].expected);
+        status = 1;
+      }
+    }
   }
   else
   {
