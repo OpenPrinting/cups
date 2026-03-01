@@ -833,6 +833,82 @@ main(int  argc,				// I - Number of command-line arguments
         status = 1;
       }
     }
+
+    // Test ippValidateAttribute() naturalLanguage workaround for non-compliant devices...
+    {
+      static const struct { const char *input; const char *expected; } lang_valid_tests[] =
+      {
+        { "en- ",    "en"      },	// Canon bug: space after dash → fixed
+        { "en-  ",   "en"      },	// Canon bug: multiple spaces → fixed
+        { "en-",     "en"      },	// Trailing dash only → fixed
+        { " en",     "en"      },	// Leading space → fixed
+        { " en- ",   "en"      },	// Leading + trailing → fixed
+        { "",        "en"      },	// Empty → fallback to "en"
+        { " ",       "en"      },	// Whitespace-only → fallback to "en"
+        { "en",      "en"      },	// Already valid, value unchanged
+        { "en-us",   "en-us"   },	// Already valid with region subtag
+        { "zh-hans", "zh-hans" },	// Already valid with script subtag
+      };
+      static const char * const lang_invalid_tests[] =
+      {
+        "en-12",	// 2-digit subtag is invalid in all positions
+        "!!",		// Non-letter characters
+        "en us",	// Interior space makes it irrecoverably invalid
+      };
+      size_t j;
+
+      for (j = 0; j < (sizeof(lang_valid_tests) / sizeof(lang_valid_tests[0])); j ++)
+      {
+        ipp_t           *val_ipp  = ippNew();
+        ipp_attribute_t *lang_attr;
+        const char      *actual;
+
+        lang_attr = ippAddString(val_ipp, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE,
+                                 "attributes-natural-language", NULL,
+                                 lang_valid_tests[j].input);
+        testBegin("ippValidateAttribute(naturalLanguage \"%s\") passes", lang_valid_tests[j].input);
+
+        if (!ippValidateAttribute(lang_attr))
+        {
+          testEndMessage(false, "should pass but got: %s", cupsGetErrorString());
+          status = 1;
+        }
+        else
+        {
+          actual = ippGetString(lang_attr, 0, NULL);
+          if (!strcmp(actual, lang_valid_tests[j].expected))
+            testEnd(true);
+          else
+          {
+            testEndMessage(false, "passed but value is \"%s\", expected \"%s\"", actual, lang_valid_tests[j].expected);
+            status = 1;
+          }
+        }
+
+        ippDelete(val_ipp);
+      }
+
+      for (j = 0; j < (sizeof(lang_invalid_tests) / sizeof(lang_invalid_tests[0])); j ++)
+      {
+        ipp_t           *val_ipp  = ippNew();
+        ipp_attribute_t *lang_attr;
+
+        lang_attr = ippAddString(val_ipp, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE,
+                                 "attributes-natural-language", NULL,
+                                 lang_invalid_tests[j]);
+        testBegin("ippValidateAttribute(naturalLanguage \"%s\") rejects", lang_invalid_tests[j]);
+
+        if (ippValidateAttribute(lang_attr))
+        {
+          testEndMessage(false, "should fail but passed");
+          status = 1;
+        }
+        else
+          testEnd(true);
+
+        ippDelete(val_ipp);
+      }
+    }
   }
   else
   {
