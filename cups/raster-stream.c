@@ -1,7 +1,7 @@
 //
 // Raster file routines for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -23,6 +23,8 @@
 #define _CUPS_MAX_BYTES_PER_LINE	(16 * 1024 * 1024)
 #define _CUPS_MAX_BITS_PER_COLOR	16
 #define _CUPS_MAX_BITS_PER_PIXEL	240
+#define _CUPS_MAX_HEIGHT		0x00ffffff
+#define _CUPS_MAX_WIDTH			0x00ffffff
 
 
 //
@@ -357,7 +359,7 @@ cupsRasterInitHeader(
   h->cupsWidth  = (unsigned)(media->width * xdpi / 2540);
   h->cupsHeight = (unsigned)(media->length * ydpi / 2540);
 
-  if (h->cupsWidth > 0x00ffffff || h->cupsHeight > 0x00ffffff)
+  if (h->cupsWidth > _CUPS_MAX_WIDTH || h->cupsHeight > _CUPS_MAX_HEIGHT)
   {
     _cupsRasterAddError("Raster dimensions too large.");
     return (false);
@@ -1825,6 +1827,18 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
     r->remaining = r->header.cupsHeight;
 
   // Validate the page header...
+  if (r->header.cupsBitsPerColor != 1 &&  r->header.cupsBitsPerColor != 2 &&  r->header.cupsBitsPerColor != 4 &&  r->header.cupsBitsPerColor != 8 &&  r->header.cupsBitsPerColor != 16)
+  {
+    _cupsRasterAddError("Invalid bits per color %u.", r->header.cupsBitsPerColor);
+    ret = 0;
+  }
+
+  if ((r->header.cupsColorOrder != CUPS_ORDER_CHUNKED && r->header.cupsBitsPerPixel != r->header.cupsBitsPerColor) || (r->header.cupsColorOrder == CUPS_ORDER_CHUNKED && r->header.cupsBitsPerPixel != (r->header.cupsBitsPerColor * r->header.cupsNumColors)))
+  {
+    _cupsRasterAddError("Invalid bits per pixel %u.", r->header.cupsBitsPerPixel);
+    ret = 0;
+  }
+
   if (r->header.cupsBytesPerLine == 0)
   {
     _cupsRasterAddError("Invalid raster line length 0.");
@@ -1840,28 +1854,21 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
     _cupsRasterAddError("Raster line length %u is not a multiple of the pixel size (%d).", r->header.cupsBytesPerLine, r->bpp);
     ret = 0;
   }
-
-  if (r->header.cupsBitsPerColor == 0 || r->header.cupsBitsPerColor > _CUPS_MAX_BITS_PER_COLOR)
+  else if (r->header.cupsBytesPerLine != ((r->header.cupsWidth * r->header.cupsBitsPerPixel + 7) / 8))
   {
-    _cupsRasterAddError("Invalid bits per color %u.", r->header.cupsBitsPerColor);
+    _cupsRasterAddError("Raster line length %u does not match width (%u) and bits per pixel (%u).", r->header.cupsBytesPerLine, r->header.cupsWidth, r->header.cupsBitsPerPixel);
     ret = 0;
   }
 
-  if (r->header.cupsBitsPerPixel == 0 || r->header.cupsBitsPerPixel > _CUPS_MAX_BITS_PER_PIXEL)
+  if (r->header.cupsWidth == 0 || r->header.cupsWidth > _CUPS_MAX_WIDTH)
   {
-    _cupsRasterAddError("Invalid bits per pixel %u.", r->header.cupsBitsPerPixel);
+    _cupsRasterAddError("Invalid raster width %u.", r->header.cupsWidth);
     ret = 0;
   }
 
-  if (r->header.cupsWidth == 0)
+  if (r->header.cupsHeight == 0 || r->header.cupsHeight > _CUPS_MAX_HEIGHT)
   {
-    _cupsRasterAddError("Invalid raster width 0.");
-    ret = 0;
-  }
-
-  if (r->header.cupsHeight == 0)
-  {
-    _cupsRasterAddError("Invalid raster height 0.");
+    _cupsRasterAddError("Invalid raster height %u.", r->header.cupsHeight);
     ret = 0;
   }
 

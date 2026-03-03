@@ -1,16 +1,12 @@
 /*
  * Raster error handling for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cups-private.h"
@@ -60,7 +56,6 @@ _cupsRasterAddError(const char *f,	/* I - Printf-style error message */
     char	*temp;			/* New buffer */
     size_t	size;			/* Size of buffer */
 
-
     size = (size_t)(buf->end - buf->start + 2 * bytes + 1024);
 
     if (buf->start)
@@ -83,6 +78,9 @@ _cupsRasterAddError(const char *f,	/* I - Printf-style error message */
  /*
   * Append the message to the end of the current string...
   */
+
+  if (buf->current > buf->start)
+    *(buf->current ++) = ' ';
 
   memcpy(buf->current, s, (size_t)bytes);
   buf->current += bytes - 1;
