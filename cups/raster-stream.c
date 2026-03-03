@@ -1,9 +1,9 @@
 /*
  * Raster file routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2019 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2019 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
  * This file is part of the CUPS Imaging library.
  *
@@ -20,6 +20,17 @@
 #ifdef HAVE_STDINT_H
 #  include <stdint.h>
 #endif /* HAVE_STDINT_H */
+
+
+/*
+ * Limits...
+ */
+
+#define _CUPS_MAX_BYTES_PER_LINE	(16 * 1024 * 1024)
+#define _CUPS_MAX_BITS_PER_COLOR	16
+#define _CUPS_MAX_BITS_PER_PIXEL	240
+#define _CUPS_MAX_HEIGHT		0x00ffffff
+#define _CUPS_MAX_WIDTH			0x00ffffff
 
 
 /*
@@ -1558,6 +1569,9 @@ cups_raster_read(cups_raster_t *r,	/* I - Raster stream */
 static int				/* O - 1 on success, 0 on failure */
 cups_raster_update(cups_raster_t *r)	/* I - Raster stream */
 {
+  int	ret = 1;			/* Return value */
+
+
   if (r->sync == CUPS_RASTER_SYNCv1 || r->sync == CUPS_RASTER_REVSYNCv1 ||
       r->header.cupsNumColors == 0)
   {
@@ -1665,10 +1679,59 @@ cups_raster_update(cups_raster_t *r)	/* I - Raster stream */
     r->remaining = r->header.cupsHeight;
 
  /*
+  * Validate the page header...
+  */
+
+  if (r->header.cupsBitsPerColor != 1 &&  r->header.cupsBitsPerColor != 2 &&  r->header.cupsBitsPerColor != 4 &&  r->header.cupsBitsPerColor != 8 &&  r->header.cupsBitsPerColor != 16)
+  {
+    _cupsRasterAddError("Invalid bits per color %u.", r->header.cupsBitsPerColor);
+    ret = 0;
+  }
+
+  if ((r->header.cupsColorOrder != CUPS_ORDER_CHUNKED && r->header.cupsBitsPerPixel != r->header.cupsBitsPerColor) || (r->header.cupsColorOrder == CUPS_ORDER_CHUNKED && r->header.cupsBitsPerPixel != (r->header.cupsBitsPerColor * r->header.cupsNumColors)))
+  {
+    _cupsRasterAddError("Invalid bits per pixel %u.", r->header.cupsBitsPerPixel);
+    ret = 0;
+  }
+
+  if (r->header.cupsBytesPerLine == 0)
+  {
+    _cupsRasterAddError("Invalid raster line length 0.");
+    ret = 0;
+  }
+  else if (r->header.cupsBytesPerLine > _CUPS_MAX_BYTES_PER_LINE)
+  {
+    _cupsRasterAddError("Raster line length %u is greater than %d bytes.", r->header.cupsBytesPerLine, _CUPS_MAX_BYTES_PER_LINE);
+    ret = 0;
+  }
+  else if ((r->header.cupsBytesPerLine % r->bpp) != 0)
+  {
+    _cupsRasterAddError("Raster line length %u is not a multiple of the pixel size (%d).", r->header.cupsBytesPerLine, r->bpp);
+    ret = 0;
+  }
+  else if (r->header.cupsBytesPerLine != ((r->header.cupsWidth * r->header.cupsBitsPerPixel + 7) / 8))
+  {
+    _cupsRasterAddError("Raster line length %u does not match width (%u) and bits per pixel (%u).", r->header.cupsBytesPerLine, r->header.cupsWidth, r->header.cupsBitsPerPixel);
+    ret = 0;
+  }
+
+  if (r->header.cupsWidth == 0 || r->header.cupsWidth > _CUPS_MAX_WIDTH)
+  {
+    _cupsRasterAddError("Invalid raster width %u.", r->header.cupsWidth);
+    ret = 0;
+  }
+
+  if (r->header.cupsHeight == 0 || r->header.cupsHeight > _CUPS_MAX_HEIGHT)
+  {
+    _cupsRasterAddError("Invalid raster height %u.", r->header.cupsHeight);
+    ret = 0;
+  }
+
+ /*
   * Allocate the compression buffer...
   */
 
-  if (r->compressed)
+  if (ret && r->compressed)
   {
     if (r->pixels != NULL)
       free(r->pixels);
@@ -1687,7 +1750,7 @@ cups_raster_update(cups_raster_t *r)	/* I - Raster stream */
     r->count    = 0;
   }
 
-  return (1);
+  return (ret);
 }
 
 

@@ -8,6 +8,8 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - The scheduler followed symbolic links when cleaning out its temporary
   directory (Issue #1448)
 - Updated `cupsFileGetConf` and `cupsFilePutConf` to escape more characters.
+- Updated `cupsRasterReadHeader` to validate more of the page header values
+  (Issue #1501)
 - Fixed an issue with the class/printer CGI name checking.
 - Fixed notifier logging bug that would result in nul bytes getting into the
   log (Issue #1450)
