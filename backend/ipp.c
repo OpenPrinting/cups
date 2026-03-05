@@ -1,7 +1,7 @@
 /*
  * IPP backend for CUPS.
  *
- * Copyright © 2021-2025 by OpenPrinting
+ * Copyright © 2021-2026 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -701,7 +701,7 @@ main(int  argc,				/* I - Number of command-line args */
 
     if (httpReconnect2(http, 30000, NULL))
     {
-      int error = errno;		/* Connection error */
+      int error = errno;		/* Save connection error */
 
       if (http->status == HTTP_STATUS_CUPS_PKI_ERROR)
 	update_reasons(NULL, "+cups-certificate-error");
@@ -735,7 +735,7 @@ main(int  argc,				/* I - Number of command-line args */
 
       fprintf(stderr, "DEBUG: Connection error: %s\n", strerror(errno));
 
-      if (errno == ECONNREFUSED || errno == EHOSTDOWN || errno == EHOSTUNREACH || errno == ETIMEDOUT || errno == ENOTCONN)
+      if (error == ECONNREFUSED || error == EHOSTDOWN || error == EHOSTUNREACH || error == ETIMEDOUT || error == ENOTCONN)
       {
         if (contimeout && (time(NULL) - start_time) > contimeout)
 	{

@@ -1,7 +1,7 @@
 /*
  * Line Printer Daemon backend for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -853,7 +853,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
 
       fprintf(stderr, "DEBUG: Connection error: %s\n", strerror(error));
 
-      if (errno == ECONNREFUSED || errno == EHOSTDOWN || errno == EHOSTUNREACH || errno == ETIMEDOUT || errno == ENOTCONN)
+      if (error == ECONNREFUSED || error == EHOSTDOWN || error == EHOSTUNREACH || error == ETIMEDOUT || error == ENOTCONN)
       {
         if (contimeout && (time(NULL) - start_time) > contimeout)
 	{

@@ -1,7 +1,7 @@
 //
 // Debugging functions for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2008-2018 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -84,6 +84,7 @@ _cups_debug_printf(const char *format,	// I - Printf-style format string
   char			buffer[2048];	// Output buffer
   ssize_t		bytes;		// Number of bytes in buffer
   int			level;		// Log level in message
+  int			myerrno = errno;// Copy of errno value
 
 
   // See if we need to do any logging...
@@ -91,7 +92,7 @@ _cups_debug_printf(const char *format,	// I - Printf-style format string
     _cups_debug_set(getenv("CUPS_DEBUG_LOG"), getenv("CUPS_DEBUG_LEVEL"), getenv("CUPS_DEBUG_FILTER"), 0);
 
   if (_cups_debug_fd < 0)
-    return;
+    goto done;
 
   // Filter as needed...
   if (isdigit(format[0]))
@@ -100,7 +101,7 @@ _cups_debug_printf(const char *format,	// I - Printf-style format string
     level = 0;
 
   if (level > _cups_debug_level)
-    return;
+    goto done;
 
   cupsMutexLock(&debug_init_mutex);
   if (debug_filter)
@@ -108,7 +109,7 @@ _cups_debug_printf(const char *format,	// I - Printf-style format string
   cupsMutexUnlock(&debug_init_mutex);
 
   if (result)
-    return;
+    goto done;
 
   // Format the message...
   gettimeofday(&curtime, NULL);
@@ -133,6 +134,10 @@ _cups_debug_printf(const char *format,	// I - Printf-style format string
   cupsMutexLock(&debug_log_mutex);
   write(_cups_debug_fd, buffer, (size_t)bytes);
   cupsMutexUnlock(&debug_log_mutex);
+
+  done:
+
+  errno = myerrno;
 }
 
 
@@ -148,6 +153,7 @@ _cups_debug_puts(const char *s)		// I - String to output
   char			buffer[2048];	// Output buffer
   ssize_t		bytes;		// Number of bytes in buffer
   int			level;		// Log level in message
+  int			myerrno = errno;// Copy of errno value
 
 
   // See if we need to do any logging...
@@ -155,7 +161,7 @@ _cups_debug_puts(const char *s)		// I - String to output
     _cups_debug_set(getenv("CUPS_DEBUG_LOG"), getenv("CUPS_DEBUG_LEVEL"), getenv("CUPS_DEBUG_FILTER"), 0);
 
   if (_cups_debug_fd < 0)
-    return;
+    goto done;
 
   // Filter as needed...
   if (isdigit(s[0]))
@@ -164,7 +170,7 @@ _cups_debug_puts(const char *s)		// I - String to output
     level = 0;
 
   if (level > _cups_debug_level)
-    return;
+    goto done;
 
   cupsMutexLock(&debug_init_mutex);
   if (debug_filter)
@@ -172,7 +178,7 @@ _cups_debug_puts(const char *s)		// I - String to output
   cupsMutexUnlock(&debug_init_mutex);
 
   if (result)
-    return;
+    goto done;
 
   // Format the message...
   gettimeofday(&curtime, NULL);
@@ -193,6 +199,10 @@ _cups_debug_puts(const char *s)		// I - String to output
   cupsMutexLock(&debug_log_mutex);
   write(_cups_debug_fd, buffer, (size_t)bytes);
   cupsMutexUnlock(&debug_log_mutex);
+
+  done:
+
+  errno = myerrno;
 }
 
 
