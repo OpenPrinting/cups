@@ -1723,6 +1723,7 @@ _httpTLSRead(http_t *http,		// I - Connection to server
   if (bytes > 0)
     return (bytes);
 
+  // For now, make difference only for error after which we can retry, EPIPE otherwise...
   if (SSL_get_error(http->tls, bytes) == SSL_ERROR_WANT_READ)
     errno = EAGAIN;
   else
@@ -2068,6 +2069,7 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
   if (bytes > 0)
     return (bytes);
 
+  // For now, make difference only for error after which we can retry, EPIPE otherwise...
   if (SSL_get_error(http->tls, bytes) == SSL_ERROR_WANT_WRITE)
     errno = EAGAIN;
   else
