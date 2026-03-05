@@ -1613,7 +1613,7 @@ _httpTLSRead(http_t *http,		// I - Connection to server
 
   result = gnutls_record_recv(http->tls, buf, (size_t)len);
 
-  if (result < 0 && !errno)
+  if (result < 0)
   {
     // Convert GNU TLS error to errno value...
     switch (result)
@@ -2022,7 +2022,7 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
 
   result = gnutls_record_send(http->tls, buf, (size_t)len);
 
-  if (result < 0 && !errno)
+  if (result < 0)
   {
     // Convert GNU TLS error to errno value...
     switch (result)
