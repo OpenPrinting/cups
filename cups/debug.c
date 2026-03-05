@@ -1,7 +1,7 @@
 /*
  * Debugging functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2008-2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -89,6 +89,7 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
   char			buffer[2048];	/* Output buffer */
   ssize_t		bytes;		/* Number of bytes in buffer */
   int			level;		/* Log level in message */
+  int			myerrno = errno;/* Copy of errno value */
 
 
  /*
@@ -100,7 +101,7 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
                     getenv("CUPS_DEBUG_FILTER"), 0);
 
   if (_cups_debug_fd < 0)
-    return;
+    goto done;
 
  /*
   * Filter as needed...
@@ -112,7 +113,7 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
     level = 0;
 
   if (level > _cups_debug_level)
-    return;
+    goto done;
 
   if (debug_filter)
   {
@@ -123,7 +124,7 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
     _cupsMutexUnlock(&debug_init_mutex);
 
     if (result)
-      return;
+      goto done;
   }
 
  /*
@@ -158,6 +159,10 @@ _cups_debug_printf(const char *format,	/* I - Printf-style format string */
   _cupsMutexLock(&debug_log_mutex);
   write(_cups_debug_fd, buffer, (size_t)bytes);
   _cupsMutexUnlock(&debug_log_mutex);
+
+  done:
+
+  errno = myerrno;
 }
 
 
@@ -172,6 +177,7 @@ _cups_debug_puts(const char *s)		/* I - String to output */
   char			buffer[2048];	/* Output buffer */
   ssize_t		bytes;		/* Number of bytes in buffer */
   int			level;		/* Log level in message */
+  int			myerrno = errno;/* Copy of errno value */
 
 
  /*
@@ -183,7 +189,7 @@ _cups_debug_puts(const char *s)		/* I - String to output */
                     getenv("CUPS_DEBUG_FILTER"), 0);
 
   if (_cups_debug_fd < 0)
-    return;
+    goto done;
 
  /*
   * Filter as needed...
@@ -195,7 +201,7 @@ _cups_debug_puts(const char *s)		/* I - String to output */
     level = 0;
 
   if (level > _cups_debug_level)
-    return;
+    goto done;
 
   if (debug_filter)
   {
@@ -206,7 +212,7 @@ _cups_debug_puts(const char *s)		/* I - String to output */
     _cupsMutexUnlock(&debug_init_mutex);
 
     if (result)
-      return;
+      goto done;
   }
 
  /*
@@ -238,6 +244,10 @@ _cups_debug_puts(const char *s)		/* I - String to output */
   _cupsMutexLock(&debug_log_mutex);
   write(_cups_debug_fd, buffer, (size_t)bytes);
   _cupsMutexUnlock(&debug_log_mutex);
+
+  done:
+
+  errno = myerrno;
 }
 
 
