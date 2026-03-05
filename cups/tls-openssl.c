@@ -916,7 +916,23 @@ _httpTLSRead(http_t *http,		// I - Connection to server
 	     char   *buf,		// I - Buffer to store data
 	     int    len)		// I - Length of buffer
 {
-  return (SSL_read((SSL *)(http->tls), buf, len));
+  int bytes;
+
+  bytes = SSL_read((SSL *)(http->tls), buf, len);
+
+  if (bytes > 0)
+    return (bytes);
+
+ /*
+  * For now, make difference only for error after which we can retry, EPIPE otherwise...
+  */
+
+  if (SSL_get_error(http->tls, bytes) == SSL_ERROR_WANT_READ)
+    errno = EAGAIN;
+  else
+    errno = EPIPE;
+
+  return (-1);
 }
 
 
@@ -1242,7 +1258,23 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
 	      const char *buf,		// I - Buffer holding data
 	      int        len)		// I - Length of buffer
 {
-  return (SSL_write(http->tls, buf, len));
+  int bytes;
+
+  bytes = SSL_write(http->tls, buf, len);
+
+  if (bytes > 0)
+    return (bytes);
+
+ /*
+  * For now, make difference only for error after which we can retry, EPIPE otherwise...
+  */
+
+  if (SSL_get_error(http->tls, bytes) == SSL_ERROR_WANT_WRITE)
+    errno = EAGAIN;
+  else
+    errno = EPIPE;
+
+  return (-1);
 }
 
 
