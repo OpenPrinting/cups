@@ -1613,25 +1613,37 @@ _httpTLSRead(http_t *http,		// I - Connection to server
 
   result = gnutls_record_recv(http->tls, buf, (size_t)len);
 
-  if (result < 0)
+  if (result >= 0)
+    return (result);
+
+  // Convert GNU TLS error to errno value...
+  switch (result)
   {
-    // Convert GNU TLS error to errno value...
-    switch (result)
-    {
-      case GNUTLS_E_INTERRUPTED :
-	  errno = EINTR;
-	  break;
+    case GNUTLS_E_INTERRUPTED :
+	errno = EINTR;
+	break;
 
-      case GNUTLS_E_AGAIN :
-          errno = EAGAIN;
-          break;
+    case GNUTLS_E_AGAIN :
+	errno = EAGAIN;
+	break;
 
-      default :
-          errno = EPIPE;
-          break;
-    }
+    case GNUTLS_E_REHANDSHAKE :
+	// if used in client, ignore the error
+	if (http->mode == _HTTP_MODE_CLIENT)
+	{
+	  errno = 0;
+	  result = 0;
+	}
+	else
+	{
+	  // terminate the session as server
+	  errno = EPIPE;
+	}
+	break;
 
-    result = -1;
+    default :
+	errno = EPIPE;
+	break;
   }
 
   return ((int)result);
@@ -2022,30 +2034,28 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
 
   result = gnutls_record_send(http->tls, buf, (size_t)len);
 
-  if (result < 0)
+  DEBUG_printf("5_httpTLSWrite: gnutls_record_send returns %d.", (int)result);
+
+  if (result >= 0)
+    return (result);
+
+  // Convert GNU TLS error to errno value...
+  switch (result)
   {
-    // Convert GNU TLS error to errno value...
-    switch (result)
-    {
-      case GNUTLS_E_INTERRUPTED :
-	  errno = EINTR;
-	  break;
+    case GNUTLS_E_INTERRUPTED :
+	errno = EINTR;
+	break;
 
-      case GNUTLS_E_AGAIN :
-          errno = EAGAIN;
-          break;
+    case GNUTLS_E_AGAIN :
+	errno = EAGAIN;
+	break;
 
-      default :
-          errno = EPIPE;
-          break;
-    }
-
-    result = -1;
+    default :
+	errno = EPIPE;
+	break;
   }
 
-  DEBUG_printf("5_httpTLSWrite: Returning %d.", (int)result);
-
-  return ((int)result);
+  return (-1);
 }
 
 
