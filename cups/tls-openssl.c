@@ -1720,7 +1720,15 @@ _httpTLSRead(http_t *http,		// I - Connection to server
 
   DEBUG_printf("7_httpTLSRead(http=%p, buf=%p, len=%d) returning %d", (void *)http, (void *)buf, len, bytes);
 
-  return (bytes);
+  if (bytes > 0)
+    return (bytes);
+
+  if (SSL_get_error(http->tls, bytes) == SSL_ERROR_WANT_READ)
+    errno = EAGAIN;
+  else
+    errno = EPIPE;
+
+  return (-1);
 }
 
 
@@ -2053,7 +2061,19 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
 	      const char *buf,		// I - Buffer holding data
 	      int        len)		// I - Length of buffer
 {
-  return (SSL_write(http->tls, buf, len));
+  int bytes;
+
+  bytes = SSL_write(http->tls, buf, len);
+
+  if (bytes > 0)
+    return (bytes);
+
+  if (SSL_get_error(http->tls, bytes) == SSL_ERROR_WANT_WRITE)
+    errno = EAGAIN;
+  else
+    errno = EPIPE;
+
+  return (-1);
 }
 
 
