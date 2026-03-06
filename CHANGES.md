@@ -118,6 +118,7 @@ v2.5b1 - YYYY-MM-DD
 - Fixed memory leak when unloading a job (Issue #813)
 - Fixed memory leak when creating color profiles (Issue #814)
 - Fixed punch finisher support for IPP Everywhere printers (Issue #821)
+- Fixed endless loop in `http_write` on busy print servers (Issue #827)
 - Fixed staple and bind finisher support for IPP Everywhere printers
   (Issue #1073)
 - Fixed crash in `scan_ps()` if incoming argument is NULL (Issue #831)
