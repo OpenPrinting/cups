@@ -1221,12 +1221,12 @@ _httpTLSRead(http_t *http,		/* I - Connection to server */
 	  break;
 
       case GNUTLS_E_AGAIN :
-          errno = EAGAIN;
-          break;
+	  errno = EAGAIN;
+	  break;
 
       default :
-          errno = EPIPE;
-          break;
+	  errno = EPIPE;
+	  break;
     }
 
     result = -1;
@@ -1682,12 +1682,25 @@ _httpTLSWrite(http_t     *http,		/* I - Connection to server */
 	  break;
 
       case GNUTLS_E_AGAIN :
-          errno = EAGAIN;
-          break;
+	  errno = EAGAIN;
+	  break;
+
+      case GNUTLS_E_REHANDSHAKE :
+	  // If used in client, ignore the error and try to read again...
+	  if (http->mode == _HTTP_MODE_CLIENT)
+	  {
+	    errno = EAGAIN;
+	  }
+	  else
+	  {
+	    // Terminate the session as server...
+	    errno = EPIPE;
+	  }
+	  break;
 
       default :
-          errno = EPIPE;
-          break;
+	  errno = EPIPE;
+	  break;
     }
 
     result = -1;
