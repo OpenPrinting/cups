@@ -1180,7 +1180,9 @@ my_get_dests(cups_ptype_t type, cups_ptype_t mask,
 <h3 class="title" id="basic-destination-information">Basic Destination Information</h3>
 <p>The <code>num_options</code> and <code>options</code> members of the <code>cups_dest_t</code> structure provide basic attributes about the destination in addition to the user default options and values for that destination. The following names are predefined for various destination attributes:</p>
 <ul>
-<li><p>&quot;auth-info-required&quot;: The type of authentication required for printing to this destination: &quot;none&quot;, &quot;username,password&quot;, &quot;domain,username,password&quot;, or &quot;negotiate&quot; (Kerberos).</p>
+<li><p>&quot;auth-info-required&quot;: The type of authentication required for printing to this destination: &quot;none&quot;, &quot;username,password&quot;, &quot;domain,username,password&quot;, &quot;bearer&quot; (OAuth/OpenID HTTP Bearer token), or &quot;negotiate&quot; (Kerberos).</p>
+<li><p>&quot;oauth-authorization-server-uri&quot;: The OAuth/OpenID authorization server URI to use when obtaining Bearer tokens for this destination.</p>
+<li><p>&quot;oauth-authorization-scopes&quot;: The OAuth/OpenID scope or scopes to request when obtaining Bearer tokens for this destination.</p>
 </li>
 <li><p>&quot;printer-info&quot;: The human-readable description of the destination such as &quot;My Laser Printer&quot;.</p>
 </li>

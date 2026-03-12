@@ -9528,6 +9528,9 @@ save_auth_info(
       else if (!strcmp(dest->auth_info_required[i], "negotiate"))
         cupsdSetStringf(job->auth_env + i, "AUTH_NEGOTIATE=%s",
 	                auth_info->values[i].string.text);
+      else if (!strcmp(dest->auth_info_required[i], "bearer"))
+        cupsdSetStringf(job->auth_env + i, "AUTH_BEARER=%s",
+	                auth_info->values[i].string.text);
       else
         i --;
     }
