@@ -2080,6 +2080,10 @@ do_list_printers(http_t *http)		/* I - HTTP connection */
 	      else if (*ptr == '?' || *ptr == '(')
 	        break;
 
+            // Remove the underscore if it is the last and not the only character
+            if (option_ptr > (option + 1) && option_ptr[-1] == '_')
+              option_ptr--;
+
             *option_ptr = '\0';
 
             cgiSetArray("TEMPLATE_NAME", i, option);
