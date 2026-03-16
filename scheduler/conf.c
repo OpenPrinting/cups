@@ -48,7 +48,8 @@ typedef enum
   CUPSD_VARTYPE_STRING,			/* String option */
   CUPSD_VARTYPE_BOOLEAN,		/* Boolean option */
   CUPSD_VARTYPE_PATHNAME,		/* File/directory name option */
-  CUPSD_VARTYPE_PERM			/* File/directory permissions */
+  CUPSD_VARTYPE_PERM,			/* File/directory permissions */
+  CUPSD_VARTYPE_NICE			/* Values for nice() - 0 to 19 */
 } cupsd_vartype_t;
 
 typedef struct
@@ -81,7 +82,7 @@ static const cupsd_var_t	cupsd_vars[] =
   { "DNSSDHostName",		&DNSSDHostName,		CUPSD_VARTYPE_STRING },
   { "ErrorPolicy",		&ErrorPolicy,		CUPSD_VARTYPE_STRING },
   { "FilterLimit",		&FilterLimit,		CUPSD_VARTYPE_INTEGER },
-  { "FilterNice",		&FilterNice,		CUPSD_VARTYPE_INTEGER },
+  { "FilterNice",		&FilterNice,		CUPSD_VARTYPE_NICE},
 #ifdef HAVE_GSSAPI
   { "GSSServiceName",		&GSSServiceName,	CUPSD_VARTYPE_STRING },
 #endif /* HAVE_GSSAPI */
@@ -3016,6 +3017,37 @@ parse_variable(
         }
 
 	cupsdSetString((char **)var->ptr, value);
+	break;
+
+    case CUPSD_VARTYPE_NICE :
+	if (!value)
+	{
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Missing value for %s on line %d of %s.", line, linenum, filename);
+	  return (0);
+	}
+
+	while (*value)
+	{
+	  if (!isdigit(*value++))
+	  {
+	    cupsdLogMessage(CUPSD_LOG_ERROR,
+			    "Bad integer value for %s on line %d of %s.",
+			    line, linenum, filename);
+	    return (0);
+	  }
+	}
+
+	int n = (int)strtol(value, NULL, 10);
+
+	if (n < 0 || n > 19)
+	{
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Bad integer value for %s on line %d of %s. Supported values are 0-19.",
+			  line, linenum, filename);
+	  return (0);
+	}
+
+	*((int *)var->ptr) = n;
+
 	break;
   }
 
