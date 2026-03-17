@@ -1,0 +1,4 @@
+# sysusers.d(5) config file for the CUPS user and group.
+
+@CUPS_SYSUSERS_GROUP@
+@CUPS_SYSUSERS_USER@

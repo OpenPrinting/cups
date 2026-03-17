@@ -1,0 +1,3 @@
+# sysusers.d(5) config file for the CUPS administrative group(s).
+
+@CUPS_SYSUSERS_SYSTEM_GROUPS@
