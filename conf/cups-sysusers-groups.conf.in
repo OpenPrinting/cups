@@ -1,0 +1,10 @@
+#
+# sysusers.d(5) config file for the CUPS administrative group(s).
+#
+# Copyright © 2025 by OpenPrinting.
+#
+# Licensed under Apache License v2.0.  See the file "LICENSE" for more
+# information.
+#
+
+@CUPS_SYSUSERS_SYSTEM_GROUPS@

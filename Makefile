@@ -100,7 +100,7 @@ clean:
 
 distclean:	clean
 	$(RM) Makedefs config.h config.log config.status
-	$(RM) conf/cups-files.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf
+	$(RM) conf/cups-files.conf conf/cups-sysusers.conf conf/cupsd.conf conf/mime.convs conf/pam.std conf/snmp.conf
 	$(RM) cups.pc
 	$(RM) desktop/cups.desktop
 	$(RM) doc/index.html

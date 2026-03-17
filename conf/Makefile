@@ -91,6 +91,14 @@ install-data:
 			$(INSTALL_DATA) $(PAMFILE) $(BUILDROOT)$(PAMDIR)/cups ; \
 		fi ; \
 	fi
+	-if test x$(SYSUSERS_DIR) != x -a x$(INSTALL_SYSUSERS) != x; then \
+		$(INSTALL_DIR) -m 755 $(BUILDROOT)$(SYSUSERS_DIR); \
+		$(INSTALL_DATA) cups-sysusers.conf $(BUILDROOT)$(SYSUSERS_DIR)/cups.conf; \
+	fi
+	-if test x$(SYSUSERS_DIR) != x -a x$(INSTALL_SYSUSERS_GROUPS) != x; then \
+		$(INSTALL_DIR) -m 755 $(BUILDROOT)$(SYSUSERS_DIR); \
+		$(INSTALL_DATA) cups-sysusers-groups.conf $(BUILDROOT)$(SYSUSERS_DIR)/cups-groups.conf; \
+	fi
 
 
 #
@@ -130,4 +138,9 @@ uninstall:
 	-if test x$(PAMDIR) != x; then \
 		$(RM) $(BUILDROOT)$(PAMDIR)/cups; \
 		$(RMDIR) $(BUILDROOT)$(PAMDIR); \
+	fi
+	-if test x$(SYSUSERS_DIR) != x; then \
+		$(RM) $(BUILDROOT)$(SYSUSERS_DIR)/cups.conf; \
+		$(RM) $(BUILDROOT)$(SYSUSERS_DIR)/cups-groups.conf; \
+		$(RMDIR) $(BUILDROOT)$(SYSUSERS_DIR); \
 	fi

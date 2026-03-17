@@ -284,3 +284,20 @@ AC_ARG_WITH([rundir], AS_HELP_STRING([--with-rundir], [set transient run-time st
 ])
 AC_DEFINE_UNQUOTED([CUPS_STATEDIR], ["$CUPS_STATEDIR"], [Location of transient state files.])
 AC_SUBST([CUPS_STATEDIR])
+
+dnl sysusers.d directory...
+AC_ARG_WITH([sysusersdir], AS_HELP_STRING([--with-sysusersdir], [set directory for sysusers.d config file]), [
+    SYSUSERS_DIR="$withval"
+], [
+    SYSUSERS_DIR=""
+    AS_IF([test "x$PKGCONFIG" != x], [
+	AS_IF([$PKGCONFIG --exists systemd], [
+	    SYSUSERS_DIR="$($PKGCONFIG --variable=sysusersdir systemd)"
+	])
+    ])
+])
+
+AS_IF([test "x$SYSUSERS_DIR" = xno], [
+    SYSUSERS_DIR=""
+])
+AC_SUBST([SYSUSERS_DIR])
