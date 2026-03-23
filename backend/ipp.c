@@ -3145,7 +3145,9 @@ report_attr(ipp_attribute_t *attr)	/* I - Attribute */
 	  break;
 
       case IPP_TAG_TEXT :
+      case IPP_TAG_TEXTLANG :
       case IPP_TAG_NAME :
+      case IPP_TAG_NAMELANG :
       case IPP_TAG_KEYWORD :
           quote_string(attr->values[i].string.text, valptr, (size_t)(value + sizeof(value) - valptr));
           valptr += strlen(valptr);
