@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2025-09-19 16:02+0000\n"
+"PO-Revision-Date: 2026-03-23 21:34+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
 "Language: pl\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(wszystkie)"
@@ -1269,7 +1269,7 @@ msgstr "%s: %s nieudany: %s"
 
 #, c-format
 msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
-msgstr ""
+msgstr "%s: '-i' i '-n' są niezgodne z '--ippfile', '-P' i '-X'."
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
@@ -1502,7 +1502,7 @@ msgstr "%s: Wymagany identyfikator zadania po opcji \"-i\"."
 
 #, c-format
 msgid "%s: File '%s' is too large to load in memory."
-msgstr ""
+msgstr "%s: Plik '%s' jest za duży, aby załadować go do pamięci."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
@@ -1555,11 +1555,11 @@ msgstr "%s: Planista wydruku jest wyłączony."
 
 #, c-format
 msgid "%s: Unable to access '%s': %s"
-msgstr ""
+msgstr "%s: Nie można uzyskać dostępu do '%s': %s"
 
 #, c-format
 msgid "%s: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "%s: Nie można przydzielić pamięci dla '%s': %s"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1583,7 +1583,7 @@ msgstr "%s: Nie można otworzyć %s: %s"
 
 #, c-format
 msgid "%s: Unable to open '%s': %s"
-msgstr ""
+msgstr "%s: Nie można otworzyć '%s': %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
@@ -1591,11 +1591,11 @@ msgstr "%s: Nie można otworzyć pliku PPD: %s w linii %d."
 
 #, c-format
 msgid "%s: Unable to read '%s': %s"
-msgstr ""
+msgstr "%s: Nie można odczytać '%s': %s"
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
-msgstr "%s: Nie można czytać bazy MIME z \"%s\" i \"%s\"."
+msgstr "%s: Nie można odczytać bazy MIME z \"%s\" i \"%s\"."
 
 #, c-format
 msgid "%s: Unknown argument \"%s\"."
@@ -2091,7 +2091,7 @@ msgstr ""
 "wyjściu standardowym"
 
 msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
+msgstr "-P nazwa_pliku.ppd         Załaduj atrybuty drukarki z pliku PPD"
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr "-P numer[-numer]      Dopasuj port do numeru lub zakresu"
@@ -6326,7 +6326,7 @@ msgid "cups-x509: Missing state/province after '-S'."
 msgstr "cups-x509: Brak województwa/prowincji po '-S'."
 
 msgid "cups-x509: Missing sub-command argument."
-msgstr ""
+msgstr "cups-x509: Brak argumentu podpolecenia."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr "cups-x509: Brak parametru subjectAltName po '-a'."
@@ -7781,13 +7781,16 @@ msgid ""
 "install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
 "                           Install a certificate and (optional) private key."
 msgstr ""
+"install NAZWA-POSPOLITA NAZWA_PLIKU.crt [NAZWA_PLIKU.key]\n"
+"                           Zainstaluj certyfikat i (opcjonalnie) klucz "
+"prywatny."
 
 msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
-msgstr ""
+msgstr "ippeveprinter: Nie można utworzyć mapowania IPP pliku PPD."
 
 #, c-format
 msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
+msgstr "ippeveprinter: Nie można otworzyć \"%s\": %s w wierszu %d."
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
@@ -7886,7 +7889,7 @@ msgstr "ipptool: Brak liczby powtórzeń dla \"-n\"."
 
 #, c-format
 msgid "ipptool: Missing filename for \"%s\"."
-msgstr ""
+msgstr "ipptool: Brak nazwy pliku dla \"%s\"."
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: Brak nazwy pliku dla \"-f\"."
