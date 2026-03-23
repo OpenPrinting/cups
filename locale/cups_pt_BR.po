@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-09-18 11:14-0400\n"
+"POT-Creation-Date: 2026-03-23 17:17-0400\n"
 "PO-Revision-Date: 2025-09-09 14:16+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
@@ -1326,6 +1326,10 @@ msgid "%s: %s failed: %s"
 msgstr "%s: %s falhou: %s"
 
 #, c-format
+msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
+msgstr ""
+
+#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s: A versão %s não é válida para o parâmetro \"-V\"."
 
@@ -1588,6 +1592,10 @@ msgid "%s: Expected job ID after \"-i\" option."
 msgstr "%s: Era esperado o ID (identificador) de trabalho após a opção \"-i\"."
 
 #, c-format
+msgid "%s: File '%s' is too large to load in memory."
+msgstr ""
+
+#, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
 msgstr "%s: O nome do destino não é válido na lista \"%s\"."
 
@@ -1640,6 +1648,14 @@ msgid "%s: Scheduler is not running."
 msgstr "%s: O agendador não está em execução."
 
 #, c-format
+msgid "%s: Unable to access '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "%s: Unable to allocate memory for '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to connect to server."
 msgstr "%s: Não foi possível conectar ao servidor."
 
@@ -1660,8 +1676,16 @@ msgid "%s: Unable to open %s: %s"
 msgstr "%s: Não foi possível abrir %s: %s"
 
 #, c-format
+msgid "%s: Unable to open '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: Não foi possível abrir o arquivo no formato PPD: %s na linha %d."
+
+#, c-format
+msgid "%s: Unable to read '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -2210,6 +2234,9 @@ msgid ""
 msgstr ""
 "-P filename.plist       Permite produzir um arquivo XML no formato plist e o "
 "relatório de teste na saída padrão"
+
+msgid "-P filename.ppd         Load printer attributes from PPD file"
+msgstr ""
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
@@ -5783,9 +5810,6 @@ msgstr "Não foi possível ler os dados da impressão."
 msgid "Unable to read response."
 msgstr "Não foi possível ler a resposta."
 
-msgid "Unable to reallocate IPP attribute value."
-msgstr "Não foi possível realocar o valor do atributo do IPP."
-
 msgid "Unable to rename job document file."
 msgstr "Não foi possível renomear o arquivo do documento do trabalho."
 
@@ -6612,9 +6636,6 @@ msgid "cups-x509: Missing certificate type after '-t'."
 msgstr ""
 "Está faltando o tipo do certificado após a opção '-t' para o cups-x509."
 
-msgid "cups-x509: Missing command argument."
-msgstr "Está faltando o argumento do comando para o cups-x509."
-
 msgid "cups-x509: Missing country after '-C'."
 msgstr "Está faltando o nome do país após a opção '-C' para o cups-x509."
 
@@ -6647,6 +6668,9 @@ msgstr ""
 msgid "cups-x509: Missing state/province after '-S'."
 msgstr ""
 "Está faltando o nome do estado/cidade após a opção '-S' para o cups-x509."
+
+msgid "cups-x509: Missing sub-command argument."
+msgstr ""
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr "Está faltando o subjectAltName após a opção '-a' para o cups-x509."
@@ -8115,6 +8139,18 @@ msgstr "Inserir o Contador"
 msgid "insert-sheet"
 msgstr "Inserir a Folha"
 
+msgid ""
+"install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
+"                           Install a certificate and (optional) private key."
+msgstr ""
+
+msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
+msgstr ""
+
+#, c-format
+msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
+msgstr ""
+
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "A expressão regular %s não é válida para o ippfind"
@@ -8213,8 +8249,9 @@ msgstr "Você pode especificar somente um URI para o ipptool."
 msgid "ipptool: Missing count for \"-n\"."
 msgstr "A contagem \"-n\" está faltando para o ipptool."
 
-msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr "Está faltando o nome do arquivo do \"--ippserver\" para o ipptool."
+#, c-format
+msgid "ipptool: Missing filename for \"%s\"."
+msgstr ""
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "Está faltando o nome do arquivo do \"-f\" para o ipptool."
@@ -16591,6 +16628,9 @@ msgstr ""
 #~ msgid "Commands:"
 #~ msgstr "Comandos:"
 
+#~ msgid "Unable to reallocate IPP attribute value."
+#~ msgstr "Não foi possível realocar o valor do atributo do IPP."
+
 #~ msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
 #~ msgstr "Utilização: cups-oauth [OPÇÕES] [COMANDO [ARGUMENTO(S)]]"
 
@@ -16601,6 +16641,12 @@ msgstr ""
 #~ msgid "cups-x509: Bad URI '%s'."
 #~ msgstr "O URI '%s' não é válido para o cups-x509."
 
+#~ msgid "cups-x509: Missing command argument."
+#~ msgstr "Está faltando o argumento do comando para o cups-x509."
+
 #, c-format
 #~ msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
 #~ msgstr "Não foi possível conectar '%s' na porta %d de %s para o cups-x509"
+
+#~ msgid "ipptool: Missing filename for \"--ippserver\"."
+#~ msgstr "Está faltando o nome do arquivo do \"--ippserver\" para o ipptool."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-09-18 11:14-0400\n"
+"POT-Creation-Date: 2026-03-23 17:17-0400\n"
 "PO-Revision-Date: 2025-06-07 18:04+0000\n"
 "Last-Translator: Daniel Nylander <daniel@danielnylander.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/cups/cups/sv/>\n"
@@ -1217,6 +1217,10 @@ msgid "%s: %s failed: %s"
 msgstr "%s: %s misslyckades: %s"
 
 #, c-format
+msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
+msgstr ""
+
+#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s: Dålig version %s för \"-V\"."
 
@@ -1444,6 +1448,10 @@ msgid "%s: Expected job ID after \"-i\" option."
 msgstr "%s: Jobb-ID förväntades efter alternativet \"-i\"."
 
 #, c-format
+msgid "%s: File '%s' is too large to load in memory."
+msgstr ""
+
+#, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
 msgstr "%s: Ogiltig destinationsnamn i listan \"%s\"."
 
@@ -1492,6 +1500,14 @@ msgid "%s: Scheduler is not running."
 msgstr "%s: schemaläggare körs inte"
 
 #, c-format
+msgid "%s: Unable to access '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "%s: Unable to allocate memory for '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to connect to server."
 msgstr "%s: Kan inte ansluta till server."
 
@@ -1512,8 +1528,16 @@ msgid "%s: Unable to open %s: %s"
 msgstr "%s: Kan inte öppna %s: %s"
 
 #, c-format
+msgid "%s: Unable to open '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: Kan inte öppna PPD-fil: %s på rad %d."
+
+#, c-format
+msgid "%s: Unable to read '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -1996,6 +2020,9 @@ msgid ""
 msgstr ""
 "-P filnamn.plist        Skriv en plist i XML-format till en fil och en "
 "testrapport till standardutmatningen"
+
+msgid "-P filename.ppd         Load printer attributes from PPD file"
+msgstr ""
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr "-P number[-number]      Matcha port mot nummer eller intervall"
@@ -5397,10 +5424,6 @@ msgstr "Kan inte läsa utskriftsdata."
 msgid "Unable to read response."
 msgstr "Kan inte läsa svaret."
 
-#, fuzzy
-msgid "Unable to reallocate IPP attribute value."
-msgstr "Kan inte hitta skrivare."
-
 msgid "Unable to rename job document file."
 msgstr "Kan inte döpa om jobbets dokumentfil."
 
@@ -6197,9 +6220,6 @@ msgstr ""
 msgid "cups-x509: Missing certificate type after '-t'."
 msgstr ""
 
-msgid "cups-x509: Missing command argument."
-msgstr ""
-
 msgid "cups-x509: Missing country after '-C'."
 msgstr ""
 
@@ -6225,6 +6245,9 @@ msgid "cups-x509: Missing root name after '-r'."
 msgstr ""
 
 msgid "cups-x509: Missing state/province after '-S'."
+msgstr ""
+
+msgid "cups-x509: Missing sub-command argument."
 msgstr ""
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
@@ -7679,6 +7702,18 @@ msgstr "Infoga antal"
 msgid "insert-sheet"
 msgstr "Infoga ark"
 
+msgid ""
+"install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
+"                           Install a certificate and (optional) private key."
+msgstr ""
+
+msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
+msgstr ""
+
+#, c-format
+msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
+msgstr ""
+
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind: Dåligt regeluttryck: %s"
@@ -7774,8 +7809,9 @@ msgstr "ipptool: Får endast ange en enstaka URI."
 msgid "ipptool: Missing count for \"-n\"."
 msgstr "ipptool: Saknar antal för \"-n\"."
 
-msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr "ipptool: Saknar filnamn för \"--ipserver\"."
+#, c-format
+msgid "ipptool: Missing filename for \"%s\"."
+msgstr ""
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: Saknar filnamn för \"-f\"."
@@ -16171,3 +16207,10 @@ msgstr "{}                      URI"
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "~/.cups/lpoptions-fil anger förvald destination som inte finns."
+
+#, fuzzy
+#~ msgid "Unable to reallocate IPP attribute value."
+#~ msgstr "Kan inte hitta skrivare."
+
+#~ msgid "ipptool: Missing filename for \"--ippserver\"."
+#~ msgstr "ipptool: Saknar filnamn för \"--ipserver\"."

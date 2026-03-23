@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-09-18 11:14-0400\n"
+"POT-Creation-Date: 2026-03-23 17:17-0400\n"
 "PO-Revision-Date: 2026-02-14 08:09+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
@@ -864,8 +864,8 @@ msgstr "  -e                      utilizează fiecare filtru din fișierul PPD"
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
-"  -i MIME/TIP             stabilește tipul MIME de intrare "
-"(altfel se introduce automat)"
+"  -i MIME/TIP             stabilește tipul MIME de intrare (altfel se "
+"introduce automat)"
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
@@ -876,8 +876,8 @@ msgstr ""
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
-"  -l limba[,limba,...]    specifică limba (limbile) de ieșire "
-"(prin codul de limbă)"
+"  -l limba[,limba,...]    specifică limba (limbile) de ieșire (prin codul de "
+"limbă)"
 
 msgid "  -m                      Use the ModelName value as the filename."
 msgstr ""
@@ -886,8 +886,8 @@ msgstr ""
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m MIME/TIP             stabilește tipul MIME de ieșire "
-"(altfel aplicație/pdf)"
+"  -m MIME/TIP             stabilește tipul MIME de ieșire (altfel aplicație/"
+"pdf)"
 
 msgid "  -n COPIES               Set number of copies."
 msgstr "  -n COPII                stabilește numărul de copii"
@@ -903,8 +903,8 @@ msgstr ""
 
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
 msgstr ""
-"  -o nume-fișier.ppd[.gz] stabilește fișierul de ieșire "
-"(altfel se utilizează ieșirea standard)"
+"  -o nume-fișier.ppd[.gz] stabilește fișierul de ieșire (altfel se "
+"utilizează ieșirea standard)"
 
 msgid "  -p FILENAME.ppd         Set PPD file."
 msgstr "  -p nume-fișier.ppd      stabilește fișierul PPD"
@@ -942,14 +942,14 @@ msgstr "„%s”: Valoare URI incorectă „%s” - %s (RFC 8011 secțiunea 5.1.
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."
 msgstr ""
-"„%s”: Valoare URI incorectă „%s” – lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.6)."
+"„%s”: Valoare URI incorectă „%s” – lungime incorectă %d (RFC 8011 secțiunea "
+"5.1.6)."
 
 #, c-format
 msgid "\"%s\": Bad attribute name - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
-"„%s”: Nume de atribut incorect – lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.4)."
+"„%s”: Nume de atribut incorect – lungime incorectă %d (RFC 8011 secțiunea "
+"5.1.4)."
 
 #, c-format
 msgid ""
@@ -981,7 +981,8 @@ msgstr "„%s”: Ore ale DateTime UTC incorecte %u (RFC 8011 secțiunea 5.1.15)
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC minutes %u (RFC 8011 section 5.1.15)."
-msgstr "„%s”: Minute ale DateTime UTC incorecte %u (RFC 8011 secțiunea 5.1.15)."
+msgstr ""
+"„%s”: Minute ale DateTime UTC incorecte %u (RFC 8011 secțiunea 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC sign '%c' (RFC 8011 section 5.1.15)."
@@ -994,8 +995,8 @@ msgstr "„%s”: Ziua DateTime UTC este incorectă %u (RFC 8011 secțiunea 5.1.
 #, c-format
 msgid "\"%s\": Bad dateTime deciseconds %u (RFC 8011 section 5.1.15)."
 msgstr ""
-"„%s”: Zecimi de secundă ale DateTime incorecte %u (RFC 8011 secțiunea 5.1.15)"
-"."
+"„%s”: Zecimi de secundă ale DateTime incorecte %u (RFC 8011 secțiunea "
+"5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime hours %u (RFC 8011 section 5.1.15)."
@@ -1016,83 +1017,83 @@ msgstr "„%s”: Secunde ale DateTime incorecte %u (RFC 8011 secțiunea 5.1.15)
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
 msgstr ""
-"„%s”: Valoare de enumerare incorectă %d – în afara intervalului "
-"(RFC 8011 secțiunea 5.1.5)."
+"„%s”: Valoare de enumerare incorectă %d – în afara intervalului (RFC 8011 "
+"secțiunea 5.1.5)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
-"„%s”: Valoare incorectă a cuvântului cheie „%s” – lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.4)."
+"„%s”: Valoare incorectă a cuvântului cheie „%s” – lungime incorectă %d (RFC "
+"8011 secțiunea 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section "
 "5.1.4)."
 msgstr ""
-"„%s”: Valoare incorectă a cuvântului cheie „%s” – caracter nevalid "
-"(RFC 8011 secțiunea 5.1.4)."
+"„%s”: Valoare incorectă a cuvântului cheie „%s” – caracter nevalid (RFC 8011 "
+"secțiunea 5.1.4)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"„%s”: Valoare incorectă mimeMediaType „%s” – caractere incorecte "
-"(RFC 8011 secțiunea 5.1.10)."
+"„%s”: Valoare incorectă mimeMediaType „%s” – caractere incorecte (RFC 8011 "
+"secțiunea 5.1.10)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"„%s”: Valoare incorectă mimeMediaType „%s” - lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.10)."
+"„%s”: Valoare incorectă mimeMediaType „%s” - lungime incorectă %d (RFC 8011 "
+"secțiunea 5.1.10)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
 msgstr ""
-"„%s”: Valoare incorectă a numelui „%s” – secvență UTF-8 incorectă "
-"(RFC 8011 secțiunea 5.1.3)."
+"„%s”: Valoare incorectă a numelui „%s” – secvență UTF-8 incorectă (RFC 8011 "
+"secțiunea 5.1.3)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section "
 "8.1)."
 msgstr ""
-"„%s”: Valoare incorectă a numelui „%s” – caracter de control incorect "
-"(PWG 5100.14 secțiunea 8.1)."
+"„%s”: Valoare incorectă a numelui „%s” – caracter de control incorect (PWG "
+"5100.14 secțiunea 8.1)."
 
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."
 msgstr ""
-"„%s”: Valoare incorectă a numelui „%s” - lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.3)."
+"„%s”: Valoare incorectă a numelui „%s” - lungime incorectă %d (RFC 8011 "
+"secțiunea 5.1.3)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section "
 "5.1.9)."
 msgstr ""
-"„%s”: Valoare naturalLanguage incorectă „%s” – caractere incorecte "
-"(RFC 8011 secțiunea 5.1.9)."
+"„%s”: Valoare naturalLanguage incorectă „%s” – caractere incorecte (RFC 8011 "
+"secțiunea 5.1.9)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.9)."
 msgstr ""
-"„%s”: Valoare naturalLanguage incorectă „%s” – lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.9)."
+"„%s”: Valoare naturalLanguage incorectă „%s” – lungime incorectă %d (RFC "
+"8011 secțiunea 5.1.9)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
 msgstr ""
-"„%s”: Valoare octetString incorectă - lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.20)."
+"„%s”: Valoare octetString incorectă - lungime incorectă %d (RFC 8011 "
+"secțiunea 5.1.20)."
 
 #, c-format
 msgid ""
@@ -1100,8 +1101,8 @@ msgid ""
 "section 5.1.14)."
 msgstr ""
 "„%s”: Valoare incorectă pentru rangeOfInteger (intervalul de numere întregi) "
-"%d-%d – limita inferioară este mai mare decât limita superioară "
-"(RFC 8011 secțiunea 5.1.14)."
+"%d-%d – limita inferioară este mai mare decât limita superioară (RFC 8011 "
+"secțiunea 5.1.14)."
 
 #, c-format
 msgid ""
@@ -1131,36 +1132,36 @@ msgstr ""
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
 msgstr ""
-"„%s”: Valoare text incorectă „%s” – secvență UTF-8 incorectă "
-"(RFC 8011 secțiunea 5.1.2)."
+"„%s”: Valoare text incorectă „%s” – secvență UTF-8 incorectă (RFC 8011 "
+"secțiunea 5.1.2)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section "
 "8.3)."
 msgstr ""
-"„%s”: Valoare text incorectă „%s” – caracter de control incorect "
-"(PWG 5100.14 secțiunea 8.3)."
+"„%s”: Valoare text incorectă „%s” – caracter de control incorect (PWG "
+"5100.14 secțiunea 8.3)."
 
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."
 msgstr ""
-"„%s”: Valoare text incorectă „%s” – lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.2)."
+"„%s”: Valoare text incorectă „%s” – lungime incorectă %d (RFC 8011 secțiunea "
+"5.1.2)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
 msgstr ""
-"„%s”: Valoare uriScheme incorectă „%s” – caractere incorecte "
-"(RFC 8011 secțiunea 5.1.7)."
+"„%s”: Valoare uriScheme incorectă „%s” – caractere incorecte (RFC 8011 "
+"secțiunea 5.1.7)."
 
 #, c-format
 msgid ""
 "\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
 msgstr ""
-"„%s”: Valoare uriScheme incorectă „%s” - lungime incorectă %d "
-"(RFC 8011 secțiunea 5.1.7)."
+"„%s”: Valoare uriScheme incorectă „%s” - lungime incorectă %d (RFC 8011 "
+"secțiunea 5.1.7)."
 
 msgid "\"requesting-user-name\" attribute in wrong group."
 msgstr "Atributul „requesting-user-name” se află într-un grup greșit."
@@ -1256,6 +1257,10 @@ msgstr "%s: %s"
 #, c-format
 msgid "%s: %s failed: %s"
 msgstr "%s: %s a eșuat: %s"
+
+#, c-format
+msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
+msgstr ""
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
@@ -1387,7 +1392,8 @@ msgstr "%s: Eroare - se aștepta numărul de copii după opțiunea „-n”."
 
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
-msgstr "%s: Eroare - se aștepta o pereche „opțiune=valoare” după opțiunea „-o”."
+msgstr ""
+"%s: Eroare - se aștepta o pereche „opțiune=valoare” după opțiunea „-o”."
 
 #, c-format
 msgid "%s: Error - expected page list after \"-P\" option."
@@ -1488,6 +1494,10 @@ msgid "%s: Expected job ID after \"-i\" option."
 msgstr "%s: Se aștepta ID-ul lucrării după opțiunea „-i”."
 
 #, c-format
+msgid "%s: File '%s' is too large to load in memory."
+msgstr ""
+
+#, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
 msgstr "%s: Nume de destinație nevalid în lista „%s”."
 
@@ -1537,6 +1547,14 @@ msgid "%s: Scheduler is not running."
 msgstr "%s: Planificatorul nu rulează."
 
 #, c-format
+msgid "%s: Unable to access '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "%s: Unable to allocate memory for '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to connect to server."
 msgstr "%s: Nu se poate conecta la server."
 
@@ -1557,8 +1575,16 @@ msgid "%s: Unable to open %s: %s"
 msgstr "%s: Nu s-a putut deschide %s: %s"
 
 #, c-format
+msgid "%s: Unable to open '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: Nu s-a putut deschide fișierul PPD: %s pe linia %d."
+
+#, c-format
+msgid "%s: Unable to read '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -1989,7 +2015,8 @@ msgstr ""
 "-F                      rulează în prim-plan, dar se detașează de consolă"
 
 msgid "-F output-type/subtype  Set the output format for the printer"
-msgstr "-F tip-ieșire/subtip    stabilește formatul de ieșire pentru imprimantă"
+msgstr ""
+"-F tip-ieșire/subtip    stabilește formatul de ieșire pentru imprimantă"
 
 msgid "-H                      Show the default server and port"
 msgstr "-H                      afișează serverul și portul implicit"
@@ -2061,6 +2088,9 @@ msgid ""
 msgstr ""
 "-P nume-fișier.plist    generează un fișier XML plist și un raport de "
 "testare la ieșirea standard"
+
+msgid "-P filename.ppd         Load printer attributes from PPD file"
+msgstr ""
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr "-P număr[-număr]        potrivește portul cu numărul sau intervalul"
@@ -2138,8 +2168,8 @@ msgid ""
 "translations}\n"
 "                          Issue warnings instead of errors"
 msgstr ""
-"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,translations}"
-"\n"
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
+"translations}\n"
 "                          emite avertismente în loc de erori"
 
 msgid "-X                      Produce XML plist instead of plain text"
@@ -2258,7 +2288,8 @@ msgstr "-i fișier-ppd           specifică un fișier PPD pentru imprimantă"
 
 msgid ""
 "-i seconds              Repeat the last file with the given time interval"
-msgstr "-i secunde              repetă ultimul fișier cu intervalul de timp dat"
+msgstr ""
+"-i secunde              repetă ultimul fișier cu intervalul de timp dat"
 
 msgid "-k                      Keep job spool files"
 msgstr ""
@@ -2520,7 +2551,8 @@ msgstr ""
 "-s domeniu(i)                  specifică domeniul (domeniile) de autorizare"
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
-msgstr "-s cups-files.conf      stabilește fișierul cups-files.conf de utilizat"
+msgstr ""
+"-s cups-files.conf      stabilește fișierul cups-files.conf de utilizat"
 
 msgid "-s speed[,color-speed]  Set speed in pages per minute"
 msgstr ""
@@ -2542,8 +2574,8 @@ msgid ""
 "ecdsa-p384, ecdsa-p521)"
 msgstr ""
 "-t TIP                         tipul certificatului\n"
-"                               "
-"(rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, ecdsa-p384, ecdsa-p521)"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
+"ecdsa-p384, ecdsa-p521)"
 
 msgid "-t key                  True if the TXT record contains the key"
 msgstr "-t cheie                adevărat dacă înregistrarea TXT conține cheia"
@@ -4903,7 +4935,8 @@ msgid "Printer cannot print with supplied options."
 msgstr "Imprimanta nu poate imprima cu opțiunile furnizate."
 
 msgid "Printer does not support required IPP attributes or document formats."
-msgstr "Imprimanta nu acceptă atributele IPP sau formatele de documente cerute."
+msgstr ""
+"Imprimanta nu acceptă atributele IPP sau formatele de documente cerute."
 
 #, c-format
 msgid "Printer returned invalid data: %s"
@@ -5527,9 +5560,6 @@ msgstr "Nu s-au putut citi datele de imprimare."
 msgid "Unable to read response."
 msgstr "Nu s-a putut citi răspunsul."
 
-msgid "Unable to reallocate IPP attribute value."
-msgstr "Nu s-a putut realoca valoarea atributului IPP."
-
 msgid "Unable to rename job document file."
 msgstr "Nu s-a putut redenumi fișierul documentului de lucrări."
 
@@ -5760,8 +5790,8 @@ msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
 "       program | cupstestppd [options] -"
 msgstr ""
-"Utilizare: cupstestppd [opțiuni] nume-fișier1.ppd[.gz] [... nume-"
-"fișierN.ppd[.gz]]\n"
+"Utilizare: cupstestppd [opțiuni] nume-fișier1.ppd[.gz] [... nume-fișierN."
+"ppd[.gz]]\n"
 "           program | cupstestppd [opțiuni] -"
 
 msgid "Usage: ippeveprinter [options] \"name\""
@@ -5911,7 +5941,8 @@ msgstr "Nu puteți accesa această pagină."
 
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
-msgstr "Trebuie să accesați această pagină folosind adresa URL https://%s:%d%s."
+msgstr ""
+"Trebuie să accesați această pagină folosind adresa URL https://%s:%d%s."
 
 msgid "Your account does not have the necessary privileges."
 msgstr "Contul dvs. nu are privilegiile necesare."
@@ -6227,7 +6258,8 @@ msgid "covering-name.pre-printed"
 msgstr "Pre-imprimată"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr "csr NUME-COMUN            Creează o cerere de semnare a certificatului."
+msgstr ""
+"csr NUME-COMUN            Creează o cerere de semnare a certificatului."
 
 msgid "cups-deviced failed to execute."
 msgstr "Execuția comenzii cups-deviced a eșuat."
@@ -6322,9 +6354,6 @@ msgstr "cups-x509: Lipsește numele fișierului CSR după „-R”."
 msgid "cups-x509: Missing certificate type after '-t'."
 msgstr "cups-x509: Lipsește tipul certificatului după „-t”."
 
-msgid "cups-x509: Missing command argument."
-msgstr "cups-x509: Lipsește argumentul comenzii."
-
 msgid "cups-x509: Missing country after '-C'."
 msgstr "cups-x509: Lipsește țara după „-C”."
 
@@ -6351,6 +6380,9 @@ msgstr "cups-x509: Lipsește numele rădăcină după „-r”."
 
 msgid "cups-x509: Missing state/province after '-S'."
 msgstr "cups-x509: Lipsește statul/provincia după „-S”."
+
+msgid "cups-x509: Missing sub-command argument."
+msgstr ""
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr "cups-x509: Lipsește subjectAltName după „-a”."
@@ -6439,7 +6471,8 @@ msgid "cupsd: Expected config filename after \"-c\" option."
 msgstr "cupsd: Se aștepta numele fișierului de configurare după opțiunea „-c”."
 
 msgid "cupsd: Expected cups-files.conf filename after \"-s\" option."
-msgstr "cupsd: Se aștepta numele fișierului cups-files.conf după opțiunea „-s”."
+msgstr ""
+"cupsd: Se aștepta numele fișierului cups-files.conf după opțiunea „-s”."
 
 msgid "cupsd: On-demand support not compiled in, running in normal mode."
 msgstr ""
@@ -7809,6 +7842,18 @@ msgstr "Inserează bunărul"
 msgid "insert-sheet"
 msgstr "Inserează foaie"
 
+msgid ""
+"install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
+"                           Install a certificate and (optional) private key."
+msgstr ""
+
+msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
+msgstr ""
+
+#, c-format
+msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
+msgstr ""
+
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr "ippfind: Expresie regulată greșită: %s"
@@ -7903,8 +7948,9 @@ msgstr "ipptool: Se poate specifica doar o singură adresă URI."
 msgid "ipptool: Missing count for \"-n\"."
 msgstr "ipptool: Lipsește numărul pentru „-n”."
 
-msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr "ipptool: Lipsește numele fișierului pentru „--ippserver”."
+#, c-format
+msgid "ipptool: Missing filename for \"%s\"."
+msgstr ""
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: Lipsește numele fișierului pentru „-f”."
@@ -14011,7 +14057,8 @@ msgstr "Durata vieții utile a fotoconductorului organic (Opc) s-a sfârșit"
 
 #. TRANSLATORS: OPC almost at end-of-life
 msgid "printer-state-reasons.opc-near-eol"
-msgstr "Fotoconductor organic (Opc) aproape de sfârșitul duratei de viață utile"
+msgstr ""
+"Fotoconductor organic (Opc) aproape de sfârșitul duratei de viață utile"
 
 #. TRANSLATORS: Check the printer for errors
 msgid "printer-state-reasons.other"
@@ -16187,3 +16234,12 @@ msgstr "{}                      URI"
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 "Fișierul ~/cups/lpoptions specifică o destinație implicită care nu există."
+
+#~ msgid "Unable to reallocate IPP attribute value."
+#~ msgstr "Nu s-a putut realoca valoarea atributului IPP."
+
+#~ msgid "cups-x509: Missing command argument."
+#~ msgstr "cups-x509: Lipsește argumentul comenzii."
+
+#~ msgid "ipptool: Missing filename for \"--ippserver\"."
+#~ msgstr "ipptool: Lipsește numele fișierului pentru „--ippserver”."

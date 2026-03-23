@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-09-18 11:14-0400\n"
+"POT-Creation-Date: 2026-03-23 17:17-0400\n"
 "PO-Revision-Date: 2025-11-15 22:51+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
@@ -1246,6 +1246,10 @@ msgid "%s: %s failed: %s"
 msgstr "%s: %s ha fallado: %s"
 
 #, c-format
+msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
+msgstr ""
+
+#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr "%s: Versión %s incorrecta para \"-V\"."
 
@@ -1475,6 +1479,10 @@ msgid "%s: Expected job ID after \"-i\" option."
 msgstr "%s: Se esperaba un ID de trabajo tras la opción “-i”."
 
 #, c-format
+msgid "%s: File '%s' is too large to load in memory."
+msgstr ""
+
+#, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
 msgstr "%s: Nombre de destino no válido en la lista “%s”."
 
@@ -1523,6 +1531,14 @@ msgid "%s: Scheduler is not running."
 msgstr "%s: El planificador no se está ejecutando."
 
 #, c-format
+msgid "%s: Unable to access '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "%s: Unable to allocate memory for '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to connect to server."
 msgstr "%s: No se ha podido conectar al servidor."
 
@@ -1543,8 +1559,16 @@ msgid "%s: Unable to open %s: %s"
 msgstr "%s: No es capaz de abrir %s: %s"
 
 #, c-format
+msgid "%s: Unable to open '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
 msgstr "%s: No es capaz de abrir el archivo PPD: %s en la línea %d."
+
+#, c-format
+msgid "%s: Unable to read '%s': %s"
+msgstr ""
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -2052,6 +2076,9 @@ msgid ""
 msgstr ""
 "-P nombre-archivo.plist       Produce p-listado de XML para un informe de "
 "archivo y test para salida estándar"
+
+msgid "-P filename.ppd         Load printer attributes from PPD file"
+msgstr ""
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr "-P número[-número]      Coincide puerto al número o intervalo"
@@ -5505,9 +5532,6 @@ msgstr "No se han podido leer los datos de impresión."
 msgid "Unable to read response."
 msgstr "No es capaz de leer respuesta."
 
-msgid "Unable to reallocate IPP attribute value."
-msgstr "No es capaz de reasignar valor del atributo IPP."
-
 msgid "Unable to rename job document file."
 msgstr "No se ha podido renombrar el archivo del documento de trabajo."
 
@@ -6312,9 +6336,6 @@ msgstr "cups-x509: nombre de archivo CSR ausente tras '-R'."
 msgid "cups-x509: Missing certificate type after '-t'."
 msgstr "cups-x509: tipo de certificado ausente tras '-t'."
 
-msgid "cups-x509: Missing command argument."
-msgstr "cups-x509: argumento de instrucción ausente."
-
 msgid "cups-x509: Missing country after '-C'."
 msgstr "cups-x509: falta país tras '-C'."
 
@@ -6341,6 +6362,9 @@ msgstr "cups-x509: Falta el nombre raíz después de '-r'."
 
 msgid "cups-x509: Missing state/province after '-S'."
 msgstr "cups-x509: Estado/provincia que falta después de '-S'."
+
+msgid "cups-x509: Missing sub-command argument."
+msgstr ""
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr "cups-x509: Falta subjectAltName tras '-a'."
@@ -7750,7 +7774,8 @@ msgstr ""
 "authorización"
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
-msgstr "get-device-grant [RECURSO]   autoriza acceso a través de un dispositivo"
+msgstr ""
+"get-device-grant [RECURSO]   autoriza acceso a través de un dispositivo"
 
 msgid ""
 "get-device-token [RESOURCE] DEVICE-CODE\n"
@@ -7801,6 +7826,18 @@ msgstr "Insertar recuento"
 #. TRANSLATORS: Insert Sheet
 msgid "insert-sheet"
 msgstr "Insertar hoja"
+
+msgid ""
+"install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
+"                           Install a certificate and (optional) private key."
+msgstr ""
+
+msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
+msgstr ""
+
+#, c-format
+msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
+msgstr ""
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
@@ -7897,8 +7934,9 @@ msgstr "ipptool: Sólo se puede especificar un URI."
 msgid "ipptool: Missing count for \"-n\"."
 msgstr "ipptool: Falta el contador para \"-n\"."
 
-msgid "ipptool: Missing filename for \"--ippserver\"."
-msgstr "ipptool: Falta el nombre de archivo para \"--ippserver\"."
+#, c-format
+msgid "ipptool: Missing filename for \"%s\"."
+msgstr ""
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: Falta el nombre del archivo para \"-f\"."
@@ -15830,8 +15868,8 @@ msgstr "Inicio de hoja"
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
 msgstr ""
-"server NOMBRE-COMÚN[:PUERTO]  Ejecute un servidor HTTPS "
-"(puerto predet. 8NNN.)"
+"server NOMBRE-COMÚN[:PUERTO]  Ejecute un servidor HTTPS (puerto predet. "
+"8NNN.)"
 
 msgid ""
 "set-access-token [RESOURCE] TOKEN\n"
@@ -16190,6 +16228,9 @@ msgstr "Archivo ~/.cups/lpoptions nombra destino predet. que no existe."
 #~ msgid "Commands:"
 #~ msgstr "Comandos:"
 
+#~ msgid "Unable to reallocate IPP attribute value."
+#~ msgstr "No es capaz de reasignar valor del atributo IPP."
+
 #~ msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
 #~ msgstr "Modo de empleo: cups-oauth [OPCIONES] [COMANDO [ARGUMENTO(S)]]"
 
@@ -16200,6 +16241,12 @@ msgstr "Archivo ~/.cups/lpoptions nombra destino predet. que no existe."
 #~ msgid "cups-x509: Bad URI '%s'."
 #~ msgstr "cups-x509: URI '%s' incorrecta."
 
+#~ msgid "cups-x509: Missing command argument."
+#~ msgstr "cups-x509: argumento de instrucción ausente."
+
 #, c-format
 #~ msgid "cups-x509: Unable to connect to '%s' on port %d: %s"
 #~ msgstr "cups-x509: No es capaz de conectar a '%s' en el puerto %d: %s"
+
+#~ msgid "ipptool: Missing filename for \"--ippserver\"."
+#~ msgstr "ipptool: Falta el nombre de archivo para \"--ippserver\"."

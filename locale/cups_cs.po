@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2025-09-18 11:14-0400\n"
+"POT-Creation-Date: 2026-03-23 17:17-0400\n"
 "PO-Revision-Date: 2026-01-18 11:01+0000\n"
 "Last-Translator: Zdenek Crhonek <zcrhonek@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/cups/cups/cs/>\n"
@@ -1049,6 +1049,10 @@ msgid "%s: %s failed: %s"
 msgstr ""
 
 #, c-format
+msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
+msgstr ""
+
+#, c-format
 msgid "%s: Bad version %s for \"-V\"."
 msgstr ""
 
@@ -1272,6 +1276,10 @@ msgid "%s: Expected job ID after \"-i\" option."
 msgstr ""
 
 #, c-format
+msgid "%s: File '%s' is too large to load in memory."
+msgstr ""
+
+#, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
 msgstr ""
 
@@ -1320,6 +1328,14 @@ msgid "%s: Scheduler is not running."
 msgstr ""
 
 #, c-format
+msgid "%s: Unable to access '%s': %s"
+msgstr ""
+
+#, c-format
+msgid "%s: Unable to allocate memory for '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to connect to server."
 msgstr ""
 
@@ -1340,7 +1356,15 @@ msgid "%s: Unable to open %s: %s"
 msgstr ""
 
 #, c-format
+msgid "%s: Unable to open '%s': %s"
+msgstr ""
+
+#, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
+msgstr ""
+
+#, c-format
+msgid "%s: Unable to read '%s': %s"
 msgstr ""
 
 #, c-format
@@ -1785,6 +1809,9 @@ msgstr ""
 msgid ""
 "-P filename.plist       Produce XML plist to a file and test report to "
 "standard output"
+msgstr ""
+
+msgid "-P filename.ppd         Load printer attributes from PPD file"
 msgstr ""
 
 msgid "-P number[-number]      Match port to number or range"
@@ -5091,9 +5118,6 @@ msgstr ""
 msgid "Unable to read response."
 msgstr ""
 
-msgid "Unable to reallocate IPP attribute value."
-msgstr ""
-
 msgid "Unable to rename job document file."
 msgstr ""
 
@@ -5850,9 +5874,6 @@ msgstr ""
 msgid "cups-x509: Missing certificate type after '-t'."
 msgstr ""
 
-msgid "cups-x509: Missing command argument."
-msgstr ""
-
 msgid "cups-x509: Missing country after '-C'."
 msgstr ""
 
@@ -5878,6 +5899,9 @@ msgid "cups-x509: Missing root name after '-r'."
 msgstr ""
 
 msgid "cups-x509: Missing state/province after '-S'."
+msgstr ""
+
+msgid "cups-x509: Missing sub-command argument."
 msgstr ""
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
@@ -7323,6 +7347,18 @@ msgstr ""
 msgid "insert-sheet"
 msgstr ""
 
+msgid ""
+"install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
+"                           Install a certificate and (optional) private key."
+msgstr ""
+
+msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
+msgstr ""
+
+#, c-format
+msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
+msgstr ""
+
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
 msgstr ""
@@ -7416,7 +7452,8 @@ msgstr ""
 msgid "ipptool: Missing count for \"-n\"."
 msgstr ""
 
-msgid "ipptool: Missing filename for \"--ippserver\"."
+#, c-format
+msgid "ipptool: Missing filename for \"%s\"."
 msgstr ""
 
 msgid "ipptool: Missing filename for \"-f\"."

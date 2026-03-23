@@ -1,7 +1,7 @@
 //
 // IPP Everywhere printer application for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2020 by the IEEE-ISTO Printer Working Group.
 // Copyright © 2010-2021 by Apple Inc.
 //
@@ -4850,7 +4850,12 @@ load_ppd_attributes(
 
   ppdMarkDefaults(ppd);
 
-  pc = _ppdCacheCreateWithPPD(cupsLangDefault(), ppd);
+  if ((pc = _ppdCacheCreateWithPPD(cupsLangDefault(), ppd)) == NULL)
+  {
+    _cupsLangPuts(stderr, _("ippeveprinter: Unable to create IPP mapping of PPD file."));
+    ppdClose(ppd);
+    return (NULL);
+  }
 
   if ((ppd_size = ppdPageSize(ppd, NULL)) != NULL)
   {
