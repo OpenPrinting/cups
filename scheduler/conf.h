@@ -65,6 +65,7 @@ typedef enum
 #define CUPSD_FATAL_LISTEN	4	/* Listen/Port bind errors are fatal */
 #define CUPSD_FATAL_LOG		8	/* Log file errors are fatal */
 #define CUPSD_FATAL_PERMISSIONS	16	/* File permission errors are fatal */
+#define CUPSD_FATAL_UNKNOWN 32  /* Unknown directive errors are fatal */
 #define CUPSD_FATAL_ALL		~0	/* All errors are fatal */
 
 
