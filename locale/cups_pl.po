@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2026-03-23 21:44+0000\n"
+"PO-Revision-Date: 2026-03-23 21:52+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
 "Language: pl\n"
@@ -1744,7 +1744,7 @@ msgid ""
 "--include-schemes scheme-list\n"
 "                        Include only the specified URI schemes"
 msgstr ""
-"--include-schemes scheme-list\n"
+"--include-schemes lista-schematów\n"
 "                        Uwzględnij jedynie podane schematy URI"
 
 msgid "--ippserver filename    Produce ippserver attribute file"
@@ -6118,7 +6118,7 @@ msgstr ""
 
 #. TRANSLATORS: Copies
 msgid "copies"
-msgstr ""
+msgstr "kopie"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
@@ -7722,11 +7722,13 @@ msgid "from-name"
 msgstr ""
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
-msgstr ""
+msgstr "get-access-token [ZASÓB]    Uzyskaj aktualny token dostępu"
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
 msgstr ""
+"get-client-id                  Uzyskaj identyfikator klienta dla serwera "
+"autoryzacji"
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
 msgstr "get-device-grant [ZASÓB]    Autoryzuj dostęp za pomocą urządzenia"
@@ -7740,10 +7742,11 @@ msgstr ""
 
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
-msgstr ""
+msgstr "get-metadata [NAZWA]            Uzyskaj metadane z serwera autoryzacji"
 
 msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
 msgstr ""
+"get-user-id [ZASÓB] [NAZWA]  Uzyskaj autoryzowany identyfikator użytkownika"
 
 msgid "held"
 msgstr "wstrzymano"
