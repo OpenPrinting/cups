@@ -81,7 +81,6 @@ static const cupsd_var_t	cupsd_vars[] =
   { "DNSSDHostName",		&DNSSDHostName,		CUPSD_VARTYPE_STRING },
   { "ErrorPolicy",		&ErrorPolicy,		CUPSD_VARTYPE_STRING },
   { "FilterLimit",		&FilterLimit,		CUPSD_VARTYPE_INTEGER },
-  { "FilterNice",		&FilterNice,		CUPSD_VARTYPE_INTEGER },
 #ifdef HAVE_GSSAPI
   { "GSSServiceName",		&GSSServiceName,	CUPSD_VARTYPE_STRING },
 #endif /* HAVE_GSSAPI */
@@ -3493,6 +3492,28 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 	  if (!_cups_isspace(*value) || *value != ',')
 	    break;
       }
+    }
+    else if (!_cups_strcasecmp(line, "FilterNice") && value)
+    {
+      /*
+       * FilterNice [0-19]
+       */
+
+      char *end; /* Remaining string if any*/
+
+      long n = strtol(value, &end, 10);
+
+      if ((end && *end) || n < 0 || n > 19)
+      {
+        cupsdLogMessage(CUPSD_LOG_WARN, "The directive FilterNice accepts values 0 to 19.");
+
+	if (FatalErrors & CUPSD_FATAL_CONFIG)
+	  return (0);
+        else
+          continue;
+      }
+
+      FilterNice = n;
     }
     else if (!_cups_strcasecmp(line, "AccessLog") ||
              !_cups_strcasecmp(line, "CacheDir") ||
