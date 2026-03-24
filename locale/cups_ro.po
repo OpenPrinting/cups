@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2026-02-14 08:09+0000\n"
+"PO-Revision-Date: 2026-03-25 09:09+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
 "Language: ro\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(toate)"
@@ -1261,6 +1261,8 @@ msgstr "%s: %s a eșuat: %s"
 #, c-format
 msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
 msgstr ""
+"%s: Opțiunile „-i” și „-n” sunt incompatibile cu opțiunile „--ippfile”, „-P” "
+"și „-X”."
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
@@ -1495,7 +1497,7 @@ msgstr "%s: Se aștepta ID-ul lucrării după opțiunea „-i”."
 
 #, c-format
 msgid "%s: File '%s' is too large to load in memory."
-msgstr ""
+msgstr "%s: Fișierul „%s” este prea mare pentru a fi încărcat în memorie."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
@@ -1548,11 +1550,11 @@ msgstr "%s: Planificatorul nu rulează."
 
 #, c-format
 msgid "%s: Unable to access '%s': %s"
-msgstr ""
+msgstr "%s: Nu se poate accesa „%s”: %s"
 
 #, c-format
 msgid "%s: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "%s: Nu se poate aloca memorie pentru „%s”: %s"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1576,7 +1578,7 @@ msgstr "%s: Nu s-a putut deschide %s: %s"
 
 #, c-format
 msgid "%s: Unable to open '%s': %s"
-msgstr ""
+msgstr "%s: Nu s-a putut deschide „%s”: %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
@@ -1584,7 +1586,7 @@ msgstr "%s: Nu s-a putut deschide fișierul PPD: %s pe linia %d."
 
 #, c-format
 msgid "%s: Unable to read '%s': %s"
-msgstr ""
+msgstr "%s: Nu se poate citi „%s”: %s"
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -2090,7 +2092,7 @@ msgstr ""
 "testare la ieșirea standard"
 
 msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
+msgstr "-P nume-fișier.ppd      încarcă atributele imprimantei din fișierul PPD"
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr "-P număr[-număr]        potrivește portul cu numărul sau intervalul"
@@ -6382,7 +6384,7 @@ msgid "cups-x509: Missing state/province after '-S'."
 msgstr "cups-x509: Lipsește statul/provincia după „-S”."
 
 msgid "cups-x509: Missing sub-command argument."
-msgstr ""
+msgstr "cups-x509: Lipsește argumentul sub-comenzii."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr "cups-x509: Lipsește subjectAltName după „-a”."
@@ -7846,13 +7848,17 @@ msgid ""
 "install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
 "                           Install a certificate and (optional) private key."
 msgstr ""
+"install NUME_COMUN NUME_FIȘIER.crt [NUME_FIȘIER.key]\n"
+"                        instalează un certificat și (opțional) o cheie "
+"privată"
 
 msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
 msgstr ""
+"ippeveprinter: Nu se poate crea o cartografiere IPP pentru fișierul PPD."
 
 #, c-format
 msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
+msgstr "ippeveprinter: Nu s-a putut deschide „%s”: %s la linia %d."
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
@@ -7950,7 +7956,7 @@ msgstr "ipptool: Lipsește numărul pentru „-n”."
 
 #, c-format
 msgid "ipptool: Missing filename for \"%s\"."
-msgstr ""
+msgstr "ipptool: Lipsește numele fișierului pentru „%s”."
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: Lipsește numele fișierului pentru „-f”."
