@@ -1,9 +1,9 @@
 /*
  * EPSON ESC/P and ESC/P2 filter for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2018 by Apple Inc.
- * Copyright 1993-2007 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2018 by Apple Inc.
+ * Copyright © 1993-2007 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -238,7 +238,7 @@ StartPage(
 	putchar(n >> 8);
 
         if (ppd)
-	  t = (int)((ppd->sizes[1].length - ppd->sizes[1].top) * header->HWResolution[1] / 72.0);
+	  t = (int)((ppd->sizes[1].length - ppd->sizes[1].top) * (double)header->HWResolution[1] / 72.0);
         else
 	  t = 0;
 

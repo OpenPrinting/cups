@@ -1,7 +1,7 @@
 /*
  * PPD test program for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -1204,7 +1204,6 @@ main(int  argc,				/* I - Number of command-line arguments */
       ppd_option_t	*option;	/* Option */
       ppd_coption_t	*coption;	/* Custom option */
       ppd_cparam_t	*cparam;	/* Custom parameter */
-      ppd_size_t	*size;		/* Default paper size */
       ppd_const_t	*c;		/* UIConstraints */
       char		lang[255],	/* LANG environment variable */
 			lc_all[255],	/* LC_ALL environment variable */

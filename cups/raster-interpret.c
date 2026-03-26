@@ -1,7 +1,7 @@
 /*
  * PPD command interpreter for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1993-2007 by Easy Software Products.
  *
@@ -386,9 +386,9 @@ _cupsRasterInterpretPPD(
   */
 
   h->cupsWidth  = (unsigned)((right - left) * h->cupsBorderlessScalingFactor *
-                        h->HWResolution[0] / 72.0f + 0.5f);
+                        (double)h->HWResolution[0] / 72.0f + 0.5f);
   h->cupsHeight = (unsigned)((top - bottom) * h->cupsBorderlessScalingFactor *
-                        h->HWResolution[1] / 72.0f + 0.5f);
+                        (double)h->HWResolution[1] / 72.0f + 0.5f);
 
   switch (h->cupsColorSpace)
   {
@@ -1312,7 +1312,7 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 	  if (base < 2 || base > 36)
 	    return (NULL);
 
-	  obj.value.number = strtol(cur + 1, &cur, base);
+	  obj.value.number = (double)strtol(cur + 1, &cur, base);
 	  break;
 	}
 	else if (strchr(".Ee()<>[]{}/%", *cur) || isspace(*cur & 255))

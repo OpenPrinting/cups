@@ -1,7 +1,7 @@
 /*
  * SNMP discovery backend for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2014 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
@@ -1142,8 +1142,8 @@ run_time(void)
 
   gettimeofday(&curtime, NULL);
 
-  return (curtime.tv_sec - StartTime.tv_sec +
-          0.000001 * (curtime.tv_usec - StartTime.tv_usec));
+  return ((double)(curtime.tv_sec - StartTime.tv_sec) +
+          0.000001 * (double)(curtime.tv_usec - StartTime.tv_usec));
 }
 
 

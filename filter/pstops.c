@@ -1,7 +1,7 @@
 /*
  * PostScript filter for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1993-2007 by Easy Software Products.
  *
@@ -1359,24 +1359,24 @@ copy_page(cups_file_t  *fp,		/* I - File to read from */
         switch (Orientation)
 	{
 	  case 1 : /* Landscape */
-	      bounding_box[0] = (int)(PageLength - temp_bbox[3]);
+	      bounding_box[0] = (int)PageLength - temp_bbox[3];
 	      bounding_box[1] = temp_bbox[0];
-	      bounding_box[2] = (int)(PageLength - temp_bbox[1]);
+	      bounding_box[2] = (int)PageLength - temp_bbox[1];
 	      bounding_box[3] = temp_bbox[2];
               break;
 
 	  case 2 : /* Reverse Portrait */
-	      bounding_box[0] = (int)(PageWidth - temp_bbox[2]);
-	      bounding_box[1] = (int)(PageLength - temp_bbox[3]);
-	      bounding_box[2] = (int)(PageWidth - temp_bbox[0]);
-	      bounding_box[3] = (int)(PageLength - temp_bbox[1]);
+	      bounding_box[0] = (int)PageWidth - temp_bbox[2];
+	      bounding_box[1] = (int)PageLength - temp_bbox[3];
+	      bounding_box[2] = (int)PageWidth - temp_bbox[0];
+	      bounding_box[3] = (int)PageLength - temp_bbox[1];
               break;
 
 	  case 3 : /* Reverse Landscape */
 	      bounding_box[0] = temp_bbox[1];
-	      bounding_box[1] = (int)(PageWidth - temp_bbox[2]);
+	      bounding_box[1] = (int)PageWidth - temp_bbox[2];
 	      bounding_box[2] = temp_bbox[3];
-	      bounding_box[3] = (int)(PageWidth - temp_bbox[0]);
+	      bounding_box[3] = (int)PageWidth - temp_bbox[0];
               break;
 	}
 

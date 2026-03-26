@@ -1109,7 +1109,7 @@ lpd_queue(const char      *hostname,	/* I - Host to connect to */
 	{
 	  _cupsLangPrintFilter(stderr, "INFO",
 			       _("Spooling job, %.0f%% complete."),
-			       100.0 * tbytes / filestats.st_size);
+			       100.0 * (double)tbytes / (double)filestats.st_size);
 
 	  if (lpd_write(fd, buffer, (size_t)nbytes) < nbytes)
 	  {

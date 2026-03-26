@@ -3,7 +3,7 @@
  *
  * THIS PROGRAM IS DEPRECATED AND WILL BE REMOVED IN A FUTURE VERSION OF CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1358,7 +1358,7 @@ main(int  argc,				/* I - Number of command-line args */
           _cupsLangPrintf(stdout,
 	                  _("        WARN    Obsolete PPD version %.1f.\n"
 			    "                REF: Page 42, section 5.2."),
-	        	  0.1f * ppdversion);
+	        	  0.1 * (double)ppdversion);
 	}
 
         if (!ppd->lang_encoding && ppdversion < 41)
@@ -3190,8 +3190,8 @@ check_sizes(ppd_file_t *ppd,		/* I - PPD file */
       * length...
       */
 
-      if (fabs(width - size->width) >= 1.0 ||
-          fabs(length - size->length) >= 1.0)
+      if (fabs((double)width - size->width) >= 1.0 ||
+          fabs((double)length - size->length) >= 1.0)
       {
 	if (!warn && !errors && !verbose)
 	  _cupsLangPuts(stdout, _(" FAIL"));

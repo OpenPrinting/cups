@@ -1,11 +1,12 @@
 /*
  * Scheduler speed test for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 1997-2005 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2014 by Apple Inc.
+ * Copyright © 1997-2005 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -217,7 +218,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   if (good_children > 0)
   {
     end     = time(NULL);
-    elapsed = end - start;
+    elapsed = (double)(end - start);
     i       = good_children * requests;
 
     printf("testspeed: %dx%d=%d requests in %.1fs (%.3fs/r, %.1fr/s)\n",
@@ -321,8 +322,8 @@ do_test(const char        *server,	/* I - Server to use */
 
     gettimeofday(&end, NULL);
 
-    reqtime = (end.tv_sec - start.tv_sec) +
-              0.000001 * (end.tv_usec - start.tv_usec);
+    reqtime = (double)(end.tv_sec - start.tv_sec) +
+              0.000001 * (double)(end.tv_usec - start.tv_usec);
     elapsed += reqtime;
 
     switch (cupsGetError())

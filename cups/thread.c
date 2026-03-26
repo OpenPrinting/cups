@@ -1,7 +1,7 @@
 //
 // Threading primitives for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2009-2018 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -459,7 +459,7 @@ cupsCondWait(cups_cond_t  *cond,	// I - Condition
     clock_gettime(CLOCK_REALTIME, &abstime);
 
     abstime.tv_sec  += (long)timeout;
-    abstime.tv_nsec += (long)(1000000000 * (timeout - (long)timeout));
+    abstime.tv_nsec += (long)(1000000000.0 * (timeout - (double)abstime.tv_sec));
 
     while (abstime.tv_nsec >= 1000000000)
     {

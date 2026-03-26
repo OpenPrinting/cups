@@ -1,7 +1,7 @@
 /*
  * Backchannel functions for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2014 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -170,8 +170,8 @@ cups_setup(fd_set         *set,		/* I - Set for select() */
            struct timeval *tval,	/* I - Timer value */
 	   double         timeout)	/* I - Timeout in seconds */
 {
-  tval->tv_sec = (time_t)timeout;
-  tval->tv_usec = (suseconds_t)(1000000.0 * (timeout - tval->tv_sec));
+  tval->tv_sec  = (time_t)timeout;
+  tval->tv_usec = (suseconds_t)(1000000.0 * (timeout - (double)tval->tv_sec));
 
   FD_ZERO(set);
   FD_SET(3, set);

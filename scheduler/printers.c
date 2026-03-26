@@ -3507,7 +3507,7 @@ add_ppd_defaults_to_ipp(
       for (ipp_ptr = ipp_name; *ipp_ptr; ipp_ptr ++)
       {
         if (isupper(*ipp_ptr & 255))
-          *ipp_ptr = tolower(*ipp_ptr & 255);
+          *ipp_ptr = (char)tolower(*ipp_ptr & 255);
         else if (*ipp_ptr == '_')
           *ipp_ptr = '-';
       }

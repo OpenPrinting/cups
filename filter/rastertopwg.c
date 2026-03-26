@@ -1,7 +1,7 @@
 /*
  * CUPS raster to PWG raster format filter for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2011, 2014-2017 Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -118,16 +118,16 @@ main(int  argc,				/* I - Number of command-line args */
 
     fprintf(stderr, "PAGE: %d %d\n", page, inheader.NumCopies);
 
-    page_width  = (unsigned)(inheader.cupsPageSize[0] * inheader.HWResolution[0] / 72.0);
+    page_width  = (unsigned)(inheader.cupsPageSize[0] * (double)inheader.HWResolution[0] / 72.0);
     if (page_width < inheader.cupsWidth &&
 	page_width >= inheader.cupsWidth - 1)
       page_width = (unsigned)inheader.cupsWidth;
-    page_height = (unsigned)(inheader.cupsPageSize[1] * inheader.HWResolution[1] / 72.0);
+    page_height = (unsigned)(inheader.cupsPageSize[1] * (double)inheader.HWResolution[1] / 72.0);
     if (page_height < inheader.cupsHeight &&
 	page_height >= inheader.cupsHeight - 1)
       page_height = (unsigned)inheader.cupsHeight;
-    page_left   = (unsigned)(inheader.cupsImagingBBox[0] * inheader.HWResolution[0] / 72.0);
-    page_bottom = (unsigned)(inheader.cupsImagingBBox[1] * inheader.HWResolution[1] / 72.0);
+    page_left   = (unsigned)(inheader.cupsImagingBBox[0] * (double)inheader.HWResolution[0] / 72.0);
+    page_bottom = (unsigned)(inheader.cupsImagingBBox[1] * (double)inheader.HWResolution[1] / 72.0);
     tmp        = (int)(page_height - page_bottom - inheader.cupsHeight);
     if (tmp < 0 && tmp >= -1) /* Rounding error */
       page_top = 0;

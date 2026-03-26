@@ -780,7 +780,7 @@ cupsJWTLoadCredentials(
 		qi[1024],		// First CRT coefficient
 		x[1024],		// X coordinate
 		y[1024];		// Y coordinate
-  const char	*crv;			// Curve value
+  const char	*crv = NULL;		// Curve value
 
 
 

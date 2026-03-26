@@ -1,11 +1,12 @@
 /*
  * Raster benchmark program for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2016 by Apple Inc.
- * Copyright 1997-2006 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2016 by Apple Inc.
+ * Copyright © 1997-2006 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -157,7 +158,7 @@ get_time(void)
 
 
   gettimeofday(&curtime, NULL);
-  return (curtime.tv_sec + 0.000001 * curtime.tv_usec);
+  return ((double)curtime.tv_sec + 0.000001 * (double)curtime.tv_usec);
 }
 
 

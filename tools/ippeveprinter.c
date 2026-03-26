@@ -6557,7 +6557,7 @@ process_job(ippeve_job_t *job)		// I - Job
     // Report the total processing time...
     gettimeofday(&end, NULL);
 
-    fprintf(stderr, "[Job %d] Processing time was %.3f seconds.\n", job->id, end.tv_sec - start.tv_sec + 0.000001 * (end.tv_usec - start.tv_usec));
+    fprintf(stderr, "[Job %d] Processing time was %.3f seconds.\n", job->id, (double)(end.tv_sec - start.tv_sec) + 0.000001 * (double)(end.tv_usec - start.tv_usec));
   }
   else
   {

@@ -1,7 +1,7 @@
 /*
  * Generic Adobe PostScript printer command for ippeveprinter/CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -539,7 +539,7 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
   int		width = 0,		/* Width */
 		height = 0,		/* Height */
 		depth = 0;		/* Number of colors */
-	ssize_t		length;			/* Length of marker */
+  ssize_t	length;			/* Length of marker */
   unsigned char	buffer[65536],		/* Copy buffer */
 		*bufptr,		/* Pointer info buffer */
 		*bufend;		/* End of buffer */
@@ -718,15 +718,15 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
   fprintf(stderr, "DEBUG: page_left=%.2f, page_top=%.2f, page_width=%.2f, page_height=%.2f\n", page_left, page_top, page_width, page_height);
 
   /* TODO: Support orientation/rotation, different print-scaling modes */
-  x_factor = page_width / width;
-  y_factor = page_height / height;
+  x_factor = page_width / (float)width;
+  y_factor = page_height / (float)height;
 
-  if (x_factor > y_factor && (height * x_factor) <= page_height)
+  if (x_factor > y_factor && ((float)height * x_factor) <= page_height)
     page_scaling = x_factor;
   else
     page_scaling = y_factor;
 
-  fprintf(stderr, "DEBUG: Scaled dimensions are %.2fx%.2f\n", width * page_scaling, height * page_scaling);
+  fprintf(stderr, "DEBUG: Scaled dimensions are %.2fx%.2f\n", (float)width * page_scaling, (float)height * page_scaling);
 
  /*
   * Write pages...
@@ -754,7 +754,7 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
       decode = "0 1 0 1 0 1 0 1";
     }
 
-    printf("gsave %.3f %.3f translate %.3f %.3f scale\n", page_left + 0.5f * (page_width - width * page_scaling), page_top - 0.5f * (page_height - height * page_scaling), page_scaling, page_scaling);
+    printf("gsave %.3f %.3f translate %.3f %.3f scale\n", page_left + 0.5f * (page_width - (float)width * page_scaling), page_top - 0.5f * (page_height - (float)height * page_scaling), page_scaling, page_scaling);
     printf("<</ImageType 1/Width %d/Height %d/BitsPerComponent 8/ImageMatrix[1 0 0 -1 0 1]/Decode[%s]/DataSource currentfile/ASCII85Decode filter/DCTDecode filter/Interpolate true>>image\n", width, height, decode);
 
     if (fd > 0)
@@ -1100,7 +1100,7 @@ raster_to_ps(const char *filename)	/* I - Filename */
     dsc_page(page);
 
     puts("gsave");
-    printf("%.6f %.6f scale\n", 72.0f / header.HWResolution[0], 72.0f / header.HWResolution[1]);
+    printf("%.6f %.6f scale\n", 72.0 / (double)header.HWResolution[0], 72.0 / (double)header.HWResolution[1]);
 
     switch (header.cupsColorSpace)
     {

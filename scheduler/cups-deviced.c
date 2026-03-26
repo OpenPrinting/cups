@@ -1,7 +1,7 @@
 /*
  * Device scanning mini-daemon for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -451,7 +451,7 @@ get_current_time(void)
 
   gettimeofday(&curtime, NULL);
 
-  return (curtime.tv_sec + 0.000001 * curtime.tv_usec);
+  return ((double)curtime.tv_sec + 0.000001 * (double)curtime.tv_usec);
 }
 
 
