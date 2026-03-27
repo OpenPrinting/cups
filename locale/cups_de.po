@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2025-10-02 22:02+0000\n"
+"PO-Revision-Date: 2026-03-28 22:09+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
 "Language: de\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(alle)"
@@ -1416,7 +1416,7 @@ msgstr "%s: Fehler - unbekannte Option \"%s\"."
 
 #, c-format
 msgid "%s: Error - unknown option \"-%c\"."
-msgstr "%s: Fehler - unbekannte Option \"%c\"."
+msgstr "%s: Fehler - unbekannte Option „%c“."
 
 #, c-format
 msgid "%s: Expected job ID after \"-i\" option."
@@ -1425,14 +1425,15 @@ msgstr "%s: Auftrags-ID nach der Option \"-i\" erwartet."
 #, c-format
 msgid "%s: File '%s' is too large to load in memory."
 msgstr ""
+"%s: Die Datei ‚%s‘ ist zu groß, um in den Arbeitsspeicher geladen zu werden."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
-msgstr "%s: Ungültiger Zielname in Liste \"%s\"."
+msgstr "%s: Ungültiger Zielname in Liste „%s“."
 
 #, c-format
 msgid "%s: Invalid filter string \"%s\"."
-msgstr "%s: Ungültige Filterzeichenkette \"%s\"."
+msgstr "%s: Ungültige Filterzeichenkette „%s“."
 
 #, c-format
 msgid "%s: Missing client name after '--client-name'."
@@ -7767,26 +7768,26 @@ msgid "ipptool: Bad URI \"%s\"."
 msgstr "ipptool: Falsche URI \"%s\"."
 
 msgid "ipptool: Invalid seconds for \"-i\"."
-msgstr "ipptool: Ungültige Sekundenzahl für \"-i\"."
+msgstr "ipptool: Ungültige Sekundenzahl für „-i“."
 
 msgid "ipptool: May only specify a single URI."
 msgstr "ipptool: Darf nur einen einzigen URI angeben."
 
 msgid "ipptool: Missing count for \"-n\"."
-msgstr "ipptool: Fehlende Anzahl für \"-n\"."
+msgstr "ipptool: Fehlende Anzahl für „-n“."
 
 #, c-format
 msgid "ipptool: Missing filename for \"%s\"."
-msgstr ""
+msgstr "ipptool: Fehlender Dateiname für „%s“."
 
 msgid "ipptool: Missing filename for \"-f\"."
-msgstr "ipptool: Fehlender Dateiname für \"-f\"."
+msgstr "ipptool: Fehlender Dateiname für „-f“."
 
 msgid "ipptool: Missing name=value for \"-d\"."
-msgstr "ipptool: Fehlender name=Wert für \"-d\"."
+msgstr "ipptool: Fehlender name=Wert für „-d“."
 
 msgid "ipptool: Missing seconds for \"-i\"."
-msgstr "ipptool: Fehlende Sekundenzahl für \"-i\"."
+msgstr "ipptool: Fehlende Sekundenzahl für „-i“."
 
 msgid "ipptool: URI required before test file."
 msgstr "ipptool: URI muss vor der Testdatei angegeben werden."
