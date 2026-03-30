@@ -2000,7 +2000,14 @@ add_job_subscriptions(
     }
 
     if (!recipient && !pullmethod)
+    {
       break;
+    }
+    else if (recipient && pullmethod)
+    {
+      send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Cannot specify both notify-pull-method and notify-recipient-uri in the same request."));
+      return;
+    }
 
     if (mask == CUPSD_EVENT_NONE)
       mask = CUPSD_EVENT_JOB_COMPLETED;
@@ -5988,7 +5995,14 @@ create_subscriptions(
     }
 
     if (!recipient && !pullmethod)
+    {
       break;
+    }
+    else if (recipient && pullmethod)
+    {
+      send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Cannot specify both notify-pull-method and notify-recipient-uri in the same request."));
+      return;
+    }
 
     if (mask == CUPSD_EVENT_NONE)
     {
