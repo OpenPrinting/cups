@@ -1,7 +1,7 @@
 /*
  * Job management routines for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -4847,6 +4847,9 @@ set_time(cupsd_job_t *job,		/* I - Job to update */
     cupsdLogMessage(CUPSD_LOG_DEBUG2, "set_time: JobHistoryUpdate=%ld",
 		    (long)JobHistoryUpdate);
   }
+
+  job->dirty = 1;
+  cupsdMarkDirty(CUPSD_DIRTY_JOBS);
 }
 
 
