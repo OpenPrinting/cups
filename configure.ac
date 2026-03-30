@@ -49,6 +49,8 @@ dnl Provide autoconf with a list of files to generate and output them...
 AC_CONFIG_FILES([
     Makedefs
     conf/cups-files.conf
+    conf/cups-sysusers.conf
+    conf/cups-sysusers-groups.conf
     conf/cupsd.conf
     conf/mime.convs
     conf/pam.std

@@ -31,6 +31,8 @@
 /cgi-bin/testhi.index
 /cgi-bin/testtemplate
 /conf/cups-files.conf
+/conf/cups-sysusers.conf
+/conf/cups-sysusers-groups.conf
 /conf/cupsd.conf
 /conf/mime.convs
 /conf/pam.std

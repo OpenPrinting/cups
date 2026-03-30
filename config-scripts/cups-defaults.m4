@@ -298,6 +298,49 @@ AC_DEFINE_UNQUOTED([CUPS_DEFAULT_USER], ["$CUPS_USER"], [Default User value.])
 AC_DEFINE_UNQUOTED([CUPS_DEFAULT_GROUP], ["$CUPS_GROUP"], [Default Group value.])
 AC_DEFINE_UNQUOTED([CUPS_DEFAULT_SYSTEM_GROUPS], ["$CUPS_SYSTEM_GROUPS"], [Default SystemGroup value(s).])
 
+dnl sysusers.d entries for CUPS user and group...
+CUPS_SYSUSERS_GROUP=""
+CUPS_SYSUSERS_USER=""
+AS_IF([test "x$CUPS_USER" != "xroot" -a "x$CUPS_USER" != "xnobody"], [
+    AS_IF([test "x$CUPS_GROUP" != "xroot" -a "x$CUPS_GROUP" != "xnobody" -a "x$CUPS_GROUP" != "xnogroup"], [
+	CUPS_SYSUSERS_USER="u $CUPS_USER -:$CUPS_GROUP \"CUPS printing service\""
+    ], [
+	CUPS_SYSUSERS_USER="u $CUPS_USER - \"CUPS printing service\""
+    ])
+], [
+    AS_IF([test "x$CUPS_GROUP" != "xroot" -a "x$CUPS_GROUP" != "xnobody" -a "x$CUPS_GROUP" != "xnogroup"], [
+	CUPS_SYSUSERS_GROUP="g $CUPS_GROUP"
+    ])
+])
+AC_SUBST([CUPS_SYSUSERS_GROUP])
+AC_SUBST([CUPS_SYSUSERS_USER])
+
+AS_IF([test "x$CUPS_SYSUSERS_USER" != x -o "x$CUPS_SYSUSERS_GROUP" != x], [
+    INSTALL_SYSUSERS="install-sysusers"
+], [
+    INSTALL_SYSUSERS=""
+])
+AC_SUBST([INSTALL_SYSUSERS])
+
+CUPS_SYSUSERS_SYSTEM_GROUPS=""
+for group in $CUPS_SYSTEM_GROUPS; do
+    AS_IF([test "x$group" != "xroot" -a "x$group" != "xnobody" -a "x$group" != "xnogroup"], [
+	AS_IF([test "x$CUPS_SYSUSERS_SYSTEM_GROUPS" = x], [
+	    CUPS_SYSUSERS_SYSTEM_GROUPS="g $group"
+	], [
+	    CUPS_SYSUSERS_SYSTEM_GROUPS="$CUPS_SYSUSERS_SYSTEM_GROUPS
+g $group"
+	])
+    ])
+done
+AC_SUBST([CUPS_SYSUSERS_SYSTEM_GROUPS])
+
+AS_IF([test "x$CUPS_SYSUSERS_SYSTEM_GROUPS" != x], [
+    INSTALL_SYSUSERS_GROUPS="install-sysusers-groups"
+], [
+    INSTALL_SYSUSERS_GROUPS=""
+])
+AC_SUBST([INSTALL_SYSUSERS_GROUPS])
 
 dnl Default printcap file...
 AC_ARG_WITH([printcap], AS_HELP_STRING([--with-printcap], [set default printcap file]), [
