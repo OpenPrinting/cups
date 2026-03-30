@@ -1,7 +1,7 @@
 /*
  * Configuration routines for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -3477,20 +3477,26 @@ read_cupsd_conf(cups_file_t *fp)	/* I - File to read from */
 
       while (*value)
       {
-        size_t valuelen; /* Length of value */
+        // Extract a single alias name...
+        char	*start;			// Start of alias name
 
-        for (valuelen = 0; value[valuelen]; valuelen ++)
-	  if (_cups_isspace(value[valuelen]) || value[valuelen] == ',')
-    {
-      value[valuelen ++] = '\0';
-      break;
-    }
+        while (*value && (isspace(*value & 255) || *value == ','))
+          value ++;
 
-	cupsdAddAlias(ServerAlias, value);
+        start = value;
 
-        for (value += valuelen; *value; value ++)
-	  if (!_cups_isspace(*value) || *value != ',')
-	    break;
+        while (*value && !isspace(*value & 255) && *value != ',')
+          value ++;
+
+        if (*value)
+          *value++ = '\0';
+
+        if (*start)
+        {
+	  // Add this one...
+	  cupsdAddAlias(ServerAlias, start);
+	  cupsdLogMessage(CUPSD_LOG_DEBUG, "Added ServerAlias '%s'.", start);
+	}
       }
     }
     else if (!_cups_strcasecmp(line, "FilterNice") && value)
