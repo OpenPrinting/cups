@@ -1,7 +1,7 @@
 /*
  * Option encoding routines for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -769,7 +769,7 @@ cupsEncodeOptions2(
 
   op = ippGetOperation(ipp);
 
-  if (group_tag == IPP_TAG_OPERATION && (op == IPP_OP_PRINT_JOB || op == IPP_OP_PRINT_URI || op == IPP_OP_SEND_DOCUMENT || op == IPP_OP_SEND_URI))
+  if (group_tag == IPP_TAG_OPERATION && (op == IPP_OP_PRINT_JOB || op == IPP_OP_PRINT_URI || op == IPP_OP_SEND_DOCUMENT || op == IPP_OP_SEND_URI) && !ippFindAttribute(ipp, "document-format", IPP_TAG_ZERO))
   {
    /*
     * Handle the document format stuff first...
