@@ -18,6 +18,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed notifier logging bug that would result in nul bytes getting into the
   log (Issue #1450)
 - Fixed possible use-after-free in `cupsdReadClient()` (Issue #1454)
+- Fixed a document format bug in the IPP backend (Issue #1457)
 - Fixed a bug when then `ippFindXxx` and `ippSetXxx` functions were mixed.
 
 
