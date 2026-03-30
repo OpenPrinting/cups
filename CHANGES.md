@@ -14,6 +14,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed an issue with the class/printer CGI name checking.
 - Fixed infinite loop in `http_write()` on busy print servers (Issue #827)
 - Fixed potential TLS blocking issues (Issue #1128)
+- Fixed a job history bug in the scheduler (Issue #1440)
 - Fixed notifier logging bug that would result in nul bytes getting into the
   log (Issue #1450)
 - Fixed possible use-after-free in `cupsdReadClient()` (Issue #1454)
