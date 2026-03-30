@@ -6803,7 +6803,9 @@ get_jobs(cupsd_client_t  *con,		/* I - Client connection */
 
   ra = create_requested_array(con->request);
   for (job_attr = (char *)cupsArrayFirst(ra); job_attr; job_attr = (char *)cupsArrayNext(ra))
-    if (strcmp(job_attr, "job-id") &&
+    if (strcmp(job_attr, "date-time-at-completed") &&
+	strcmp(job_attr, "date-time-at-creation") &&
+	strcmp(job_attr, "job-id") &&
 	strcmp(job_attr, "job-k-octets") &&
 	strcmp(job_attr, "job-media-progress") &&
 	strcmp(job_attr, "job-more-info") &&
