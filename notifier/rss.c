@@ -1,11 +1,12 @@
 /*
  * RSS notifier for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 2007 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -80,6 +81,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   http_status_t	status;			/* HTTP GET/PUT status code */
   char		filename[1024],		/* Local filename */
 		newname[1024];		/* filename.N */
+  struct stat	fileinfo;		/* Local file information */
   cups_lang_t	*language;		/* Language information */
   ipp_attribute_t *printer_up_time,	/* Timestamp on event */
 		*notify_sequence_number,/* Sequence number */
@@ -111,9 +113,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   if (httpSeparateURI(HTTP_URI_CODING_ALL, argv[1], scheme, sizeof(scheme),
                       username, sizeof(username), host, sizeof(host), &port,
-		      resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+		      resource, sizeof(resource)) < HTTP_URI_STATUS_OK || strstr(resource, "../") != NULL)
   {
-    fprintf(stderr, "ERROR: Bad RSS URI \"%s\"!\n", argv[1]);
+    fprintf(stderr, "ERROR: Bad RSS URI \"%s\".\n", argv[1]);
     return (1);
   }
 
@@ -208,6 +210,12 @@ main(int  argc,				/* I - Number of command-line arguments */
 
     snprintf(filename, sizeof(filename), "%s/rss%s", cachedir, resource);
     snprintf(newname, sizeof(newname), "%s.N", filename);
+
+    if (!lstat(filename, &fileinfo) && !S_ISREG(fileinfo.st_mode))
+    {
+      fprintf(stderr, "ERROR: Local RSS path \"%s\" is not a file.\n", filename);
+      return (1);
+    }
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, baseurl, sizeof(baseurl), "http",
                      NULL, server_name, atoi(server_port), "/rss%s", resource);
