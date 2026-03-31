@@ -4118,9 +4118,21 @@ get_options(cupsd_job_t *job,		/* I - Job */
 	  case IPP_TAG_URI :
 	      for (valptr = attr->values[i].string.text; *valptr;)
 	      {
-	        if (strchr(" \t\n\\\'\"", *valptr))
-		  *optptr++ = '\\';
-		*optptr++ = *valptr++;
+	       /*
+	        * Convert tabs and newlines to spaces, filter out control chars,
+	        * and escape \, ', and ".
+	        */
+
+	        if (isspace(*valptr & 255))
+	        {
+	          *optptr++ = ' ';
+	        }
+	        else if ((*valptr & 255) >= ' ' && *valptr != 0x7f)
+	        {
+	          if (strchr("\\\'\"", *valptr))
+		    *optptr++ = '\\';
+		  *optptr++ = *valptr++;
+		}
 	      }
 
 	      *optptr = '\0';
@@ -5395,13 +5407,30 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
     else if (loglevel == CUPSD_LOG_PPD)
     {
      /*
-      * Set attribute(s)...
+      * Set PPD keyword(s)/value(s)...
       */
+
+      int		i,		/* Looping var */
+			num_keywords;	/* Number of keywords */
+      cups_option_t	*keywords,	/* Keywords */
+			*keyword;	/* Current keyword */
 
       cupsdLogJob(job, CUPSD_LOG_DEBUG, "PPD: %s", message);
 
-      job->num_keywords = cupsParseOptions(message, job->num_keywords,
-                                           &job->keywords);
+      keywords     = NULL;
+      num_keywords = cupsParseOptions(message, 0, &keywords);
+
+      for (i = 0, keyword = keywords; i < num_keywords; i ++)
+      {
+       /*
+        * Filter out "special" PPD keywords...
+        */
+
+        if (strcmp(keyword->name, "cupsFilter") && strcmp(keyword->name, "cupsFilter2") && strcmp(keyword->name, "cupsFinishingTemplate") && strcmp(keyword->name, "cupsIPPFinishings") && strcmp(keyword->name, "cupsIPPReason") && strcmp(keyword->name, "cupsMarkerName") && strcmp(keyword->name, "cupsMaxSize") && strncmp(keyword->name, "cupsMediaQualifier", 18) && strcmp(keyword->name, "cupsMinSize") && strcmp(keyword->name, "cupsPageSizeCategory") && strcmp(keyword->name, "cupsPortMonitor") && strcmp(keyword->name, "cupsPreFilter") && strcmp(keyword->name, "cupsPrintQuality") && strcmp(keyword->name, "APPrinterPreset"))
+          job->num_keywords = cupsAddOption(keyword->name, keyword->value, job->num_keywords, &job->keywords);
+      }
+
+      cupsFreeOptions(num_keywords, keywords);
     }
     else
     {

@@ -9,6 +9,8 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
   insensitive.
 - CVE-2026-NNNNN: The RSS notifier could write outside the scheduler's RSS
   directory.
+- CVE-2026-NNNNN: The scheduler did not filter control characters from option
+  values.
 - The scheduler followed symbolic links when cleaning out its temporary
   directory (Issue #1448)
 - Updated `cupsFileGetConf` and `cupsFilePutConf` to escape more characters.
