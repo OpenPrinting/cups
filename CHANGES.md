@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.17 (YYYY-MM-DD)
 ------------------------------------
 
+- CVE-2026-27447: The scheduler treated local user and group names as case-
+  insensitive.
 - The scheduler followed symbolic links when cleaning out its temporary
   directory (Issue #1448)
 - Updated `cupsFileGetConf` and `cupsFilePutConf` to escape more characters.
