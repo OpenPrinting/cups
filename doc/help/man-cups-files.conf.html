@@ -240,11 +240,15 @@ The default is &quot;lp&quot;.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FileDevice Yes</strong><br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FileDevice No</strong><br>
+</p>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>FileDevice ^</strong><em>PATH-REGEX</em><br>
 Specifies whether the file pseudo-device can be used for new printer queues.
 The URI &quot;file:///dev/null&quot; is always allowed.
 File devices cannot be used with &quot;raw&quot; print queues - a PPD file is required.
-The specified file is overwritten for every print job.
-Writing to directories is not supported.
+The specified file must already exist and is opened for writing in exclusive mode.
+Creating new files or writing to directories is not supported.
+Specifying a value of &quot;Yes&quot; allows access to TTY devices of the form &quot;/dev/ttySOMETHING&quot;.
+Specifying a regular expression allows access to TTY devices whose paths match the specified regular expression.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>Printcap </strong><em>filename</em><br>
 Specifies a file that is filled with a list of local print queues.

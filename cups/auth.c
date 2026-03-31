@@ -1,7 +1,7 @@
 //
 // Authentication functions for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -707,7 +707,7 @@ cups_auth_scheme(const char *www_authenticate,	// I - Pointer into WWW-Authentic
 static bool				// O - `true` if authorized, `false` otherwise
 cups_do_local_auth(http_t *http)	// I - HTTP connection to server
 {
-#if !_WIN32 && !__EMX__
+#if !_WIN32 && !__EMX__ && defined(AF_LOCAL)
   int			pid;		// Current process ID
   FILE			*fp;		// Certificate file
   char			trc[16],	// Try Root Certificate parameter
@@ -729,7 +729,7 @@ cups_do_local_auth(http_t *http)	// I - HTTP connection to server
   DEBUG_printf("7cups_local_auth(http=%p) hostaddr=%s, hostname=\"%s\"", (void *)http, httpAddrString(http->hostaddr, filename, sizeof(filename)), http->hostname);
 
   // See if we are accessing localhost...
-  if (!httpAddrIsLocalhost(httpGetAddress(http)))
+  if (httpAddrGetFamily(httpGetAddress(http)) != AF_LOCAL)
   {
     DEBUG_puts("8cups_local_auth: Not a local connection, returning false.");
     return (false);
@@ -794,12 +794,11 @@ cups_do_local_auth(http_t *http)	// I - HTTP connection to server
   }
 #  endif // HAVE_AUTHORIZATION_H
 
-#  if defined(SO_PEERCRED) && defined(AF_LOCAL)
+#  if defined(SO_PEERCRED)
   // See if we can authenticate using the peer credentials provided over a
   // domain socket; if so, specify "PeerCred username" as the authentication
   // information...
-  if (http->hostaddr->addr.sa_family == AF_LOCAL &&
-      !getenv("GATEWAY_INTERFACE") &&	// Not via CGI programs...
+  if (!getenv("GATEWAY_INTERFACE") &&	// Not via CGI programs...
       cups_auth_find(www_auth, "PeerCred"))
   {
     // Verify that the current cupsGetUser() matches the current UID...
@@ -863,7 +862,7 @@ cups_do_local_auth(http_t *http)	// I - HTTP connection to server
       return (true);
     }
   }
-#endif // !_WIN32 && !__EMX__
+#endif // !_WIN32 && !__EMX__ && defined(AF_LOCAL)
 
   DEBUG_puts("8cups_do_local_auth: Returning false.");
 

@@ -382,7 +382,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   }
 #ifdef HAVE_AUTHORIZATION_H
   else if (!strncmp(authorization, "AuthRef ", 8) &&
-           httpAddrLocalhost(httpGetAddress(con->http)))
+           httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
   {
     OSStatus		status;		/* Status */
     char		authdata[HTTP_MAX_VALUE];
@@ -463,7 +463,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 #endif /* HAVE_AUTHORIZATION_H */
 #if defined(SO_PEERCRED) && defined(AF_LOCAL)
   else if (PeerCred != CUPSD_PEERCRED_OFF && !strncmp(authorization, "PeerCred ", 9) &&
-           con->http->hostaddr->addr.sa_family == AF_LOCAL && con->best)
+           httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL && con->best)
   {
    /*
     * Use peer credentials from domain socket connection...
@@ -553,7 +553,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   }
 #endif /* SO_PEERCRED && AF_LOCAL */
   else if (!strncmp(authorization, "Local", 5) &&
-	   httpAddrLocalhost(httpGetAddress(con->http)))
+	   httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
   {
    /*
     * Get Local certificate authentication data...

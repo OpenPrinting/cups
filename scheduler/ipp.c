@@ -2291,21 +2291,32 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
       * See if the administrator has enabled file devices...
       */
 
-      if (!FileDevice && strcmp(resource, "/dev/null"))
+      if (strcmp(resource, "/dev/null"))
       {
-       /*
-        * File devices are disabled and the URL is not file:/dev/null...
-	*/
+        if (FileDevice && regexec(FileDevice, resource, /*nmatch*/0, /*pmatch*/NULL, /*eflags*/0))
+        {
+	 /*
+	  * File devices are enabled but the path is not allowed...
+	  */
 
-	send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE,
-	                _("File device URIs have been disabled. "
-	                  "To enable, see the FileDevice directive in "
-			  "\"%s/cups-files.conf\"."),
-			ServerRoot);
-	if (!modify)
-	  cupsdDeletePrinter(printer, 0);
+	  send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("File device URI \"%s\" is not allowed."), ippGetString(attr, 0, NULL));
+	  if (!modify)
+	    cupsdDeletePrinter(printer, 0);
 
-	return;
+	  return;
+        }
+        else if (!FileDevice)
+	{
+	 /*
+	  * File devices are disabled and the URL is not file:///dev/null...
+	  */
+
+	  send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("File device URIs have been disabled. To enable, see the FileDevice directive in \"%s/cups-files.conf\"."), ServerRoot);
+	  if (!modify)
+	    cupsdDeletePrinter(printer, 0);
+
+	  return;
+	}
       }
     }
     else
@@ -5483,7 +5494,7 @@ create_local_printer(
   * Require local access to create a local printer...
   */
 
-  if (!httpAddrLocalhost(httpGetAddress(con->http)))
+  if (httpAddrGetFamily(httpGetAddress(con->http)) != AF_LOCAL)
   {
     send_ipp_status(con, IPP_STATUS_ERROR_FORBIDDEN, _("Only local users can create a local printer."));
     return;
@@ -5543,9 +5554,9 @@ create_local_printer(
 
   ptr = ippGetString(device_uri, 0, NULL);
 
-  if (!ptr || !ptr[0])
+  if (!ptr || !ptr[0] || (strncmp(ptr, "ipp://", 6) && strncmp(ptr, "ipps://", 7)))
   {
-    send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Attribute \"%s\" has empty value."), "device-uri");
+    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), ptr);
 
     return;
   }

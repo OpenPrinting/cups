@@ -1152,35 +1152,45 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 	}
 	else
 	{
-	  job->print_pipes[0] = -1;
-	  if (!strcmp(job->printer->device_uri, "file:/dev/null") ||
-	      !strcmp(job->printer->device_uri, "file:///dev/null"))
-	    job->print_pipes[1] = -1;
-	  else
-	  {
-	    if (!strncmp(job->printer->device_uri, "file:/dev/", 10))
-	      job->print_pipes[1] = open(job->printer->device_uri + 5,
-	                        	 O_WRONLY | O_EXCL);
-	    else if (!strncmp(job->printer->device_uri, "file:///dev/", 12))
-	      job->print_pipes[1] = open(job->printer->device_uri + 7,
-	                        	 O_WRONLY | O_EXCL);
-	    else if (!strncmp(job->printer->device_uri, "file:///", 8))
-	      job->print_pipes[1] = open(job->printer->device_uri + 7,
-	                        	 O_WRONLY | O_CREAT | O_TRUNC, 0600);
-	    else
-	      job->print_pipes[1] = open(job->printer->device_uri + 5,
-	                        	 O_WRONLY | O_CREAT | O_TRUNC, 0600);
+	  char	scheme[32],		/* URI scheme */
+		userpass[32],		/* URI username:password */
+		host[256],		/* URI hostname */
+		resource[1024];		/* URI resource path (filename) */
+	  int	port;			/* URI port number */
 
-	    if (job->print_pipes[1] < 0)
+          httpSeparateURI(HTTP_URI_CODING_ALL, job->printer->device_uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource));
+
+	  job->print_pipes[0] = -1;
+	  job->print_pipes[1] = -1;
+
+	  if (strcmp(resource, "/dev/null"))
+	  {
+	    if (!FileDevice)
 	    {
-	      abort_message = "Stopping job because the scheduler could not "
-	                      "open the output file.";
+	      abort_message = "Stopping job because file: output is disabled.";
 
               goto abort_job;
 	    }
+	    else if (regexec(FileDevice, resource, /*nmatch*/0, /*pmatch*/NULL, /*eflags*/0))
+	    {
+	      abort_message = "Stopping job because file: output is not allowed to the specified path.";
 
-	    fcntl(job->print_pipes[1], F_SETFD,
-        	  fcntl(job->print_pipes[1], F_GETFD) | FD_CLOEXEC);
+              goto abort_job;
+	    }
+	    else if ((job->print_pipes[1] = open(resource, O_WRONLY | O_EXCL)) < 0)
+	    {
+	      abort_message = "Stopping job because the scheduler could not open the output file.";
+
+              goto abort_job;
+	    }
+	    else
+	    {
+	     /*
+	      * Close this file on execute...
+	      */
+
+	      fcntl(job->print_pipes[1], F_SETFD, fcntl(job->print_pipes[1], F_GETFD) | FD_CLOEXEC);
+	    }
           }
 	}
       }

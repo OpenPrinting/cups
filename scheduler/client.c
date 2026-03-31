@@ -2194,7 +2194,7 @@ cupsdSendHeader(
       cupsCopyString(auth_str, "Negotiate", sizeof(auth_str));
     }
 
-    if (con->best && !con->is_browser && !_cups_strcasecmp(httpGetHostname(con->http, NULL, 0), "localhost"))
+    if (con->best && !con->is_browser && httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
     {
      /*
       * Add a "trc" (try root certification) parameter for local
@@ -2214,7 +2214,7 @@ cupsdSendHeader(
       auth_size = sizeof(auth_str) - (size_t)(auth_key - auth_str);
 
 #if defined(SO_PEERCRED) && defined(AF_LOCAL)
-      if (PeerCred != CUPSD_PEERCRED_OFF && httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
+      if (PeerCred != CUPSD_PEERCRED_OFF)
       {
         cupsCopyString(auth_key, ", PeerCred", auth_size);
         auth_key += 10;

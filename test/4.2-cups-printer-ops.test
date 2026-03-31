@@ -1,7 +1,7 @@
 #
 # Verify that the CUPS printer operations work.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2026 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 2001-2006 by Easy Software Products. All rights reserved.
 #
@@ -180,7 +180,7 @@
 	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test2
 
 	GROUP printer
-	ATTR uri device-uri file:/tmp/Test2
+	ATTR uri device-uri file:///dev/null
 	ATTR enum printer-state 3
 	ATTR boolean printer-is-accepting-jobs true
 
@@ -206,7 +206,7 @@
 	ATTR uri printer-uri $scheme://$hostname:$port/printers/Test1
 
 	GROUP printer
-	ATTR uri device-uri file:/tmp/Test1
+	ATTR uri device-uri file:///dev/null
 	ATTR enum printer-state 3
 	ATTR boolean printer-is-accepting-jobs true
 	ATTR text printer-info "Test Printer 1"

@@ -1,7 +1,7 @@
 /*
  * Configuration file definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -203,11 +203,11 @@ VAR int			MaxClients		VALUE(100),
 					/* Do we do reverse lookups? */
 			Timeout			VALUE(DEFAULT_TIMEOUT),
 					/* Timeout during requests */
-			KeepAlive		VALUE(TRUE),
+			KeepAlive		VALUE(TRUE);
 					/* Support the Keep-Alive option? */
-			FileDevice		VALUE(FALSE),
+VAR regex_t		*FileDevice		VALUE(NULL);
 					/* Allow file: devices? */
-			FilterLimit		VALUE(0),
+VAR int			FilterLimit		VALUE(0),
 					/* Max filter cost at any time */
 			FilterLevel		VALUE(0),
 					/* Current filter level */

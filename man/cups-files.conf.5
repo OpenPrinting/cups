@@ -1,14 +1,14 @@
 .\"
 .\" cups-files.conf man page for CUPS.
 .\"
-.\" Copyright © 2020-2025 by OpenPrinting.
+.\" Copyright © 2020-2026 by OpenPrinting.
 .\" Copyright © 2007-2019 by Apple Inc.
 .\" Copyright © 1997-2006 by Easy Software Products.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-files.conf 5 "CUPS" "2025-10-08" "OpenPrinting"
+.TH cups-files.conf 5 "CUPS" "2026-03-19" "OpenPrinting"
 .SH NAME
 cups\-files.conf \- file and directory configuration file for cups
 .SH DESCRIPTION
@@ -266,11 +266,15 @@ The following directives are deprecated and will be removed from a future versio
 \fBFileDevice Yes\fR
 .TP 5
 \fBFileDevice No\fR
+.TP 5
+\fBFileDevice ^\fIPATH-REGEX\fR
 Specifies whether the file pseudo-device can be used for new printer queues.
 The URI "file:///dev/null" is always allowed.
 File devices cannot be used with "raw" print queues - a PPD file is required.
-The specified file is overwritten for every print job.
-Writing to directories is not supported.
+The specified file must already exist and is opened for writing in exclusive mode.
+Creating new files or writing to directories is not supported.
+Specifying a value of "Yes" allows access to TTY devices of the form "/dev/ttySOMETHING".
+Specifying a regular expression allows access to TTY devices whose paths match the specified regular expression.
 .\"#Printcap
 .TP 5
 \fBPrintcap \fIfilename\fR

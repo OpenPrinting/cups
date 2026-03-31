@@ -134,7 +134,6 @@ static const cupsd_var_t	cupsfiles_vars[] =
   { "DataDir",			&DataDir,		CUPSD_VARTYPE_STRING },
   { "DocumentRoot",		&DocumentRoot,		CUPSD_VARTYPE_STRING },
   { "ErrorLog",			&ErrorLog,		CUPSD_VARTYPE_STRING },
-  { "FileDevice",		&FileDevice,		CUPSD_VARTYPE_BOOLEAN },
   { "LogFilePerm",		&LogFilePerm,		CUPSD_VARTYPE_PERM },
   { "OAuthScopes",		&OAuthScopes,		CUPSD_VARTYPE_STRING },
   { "OAuthServer",		&OAuthServer,		CUPSD_VARTYPE_STRING },
@@ -575,6 +574,21 @@ cupsdReadConfiguration(void)
   RemotePort      = 0;
 
  /*
+  * FileDevice...
+  */
+
+  if (FileDevice)
+  {
+   /*
+    * Free file: device path matching regular expression...
+    */
+
+    regfree(FileDevice);
+    free(FileDevice);
+    FileDevice = NULL;
+  }
+
+ /*
   * String options...
   */
 
@@ -741,7 +755,6 @@ cupsdReadConfiguration(void)
   JobKillDelay             = DEFAULT_TIMEOUT;
   JobRetryLimit            = 5;
   JobRetryInterval         = 300;
-  FileDevice               = FALSE;
   FilterLevel              = 0;
   FilterLimit              = 0;
   FilterNice               = 0;
@@ -3628,6 +3641,73 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
     if (!_cups_strcasecmp(line, "FatalErrors"))
     {
       FatalErrors = parse_fatal_errors(value);
+    }
+    else if (!_cups_strcasecmp(line, "FileDevice") && value)
+    {
+     /*
+      * FileDevice BOOLEAN
+      * FileDevice ^PATH-REGEX
+      */
+
+      int	r;			/* Regular expression status */
+      char	rerror[1024];		/* Regular expression error */
+
+      if (FileDevice)
+      {
+       /*
+        * Free existing regular expression...
+        */
+
+	regfree(FileDevice);
+	free(FileDevice);
+	FileDevice = NULL;
+      }
+
+      if (!_cups_strcasecmp(value, "false") || !_cups_strcasecmp(value, "no") || !_cups_strcasecmp(value, "off"))
+      {
+       /*
+        * Do nothing more, no file: device support beyond /dev/null...
+        */
+
+        continue;
+      }
+      else if (!_cups_strcasecmp(value, "on") || !_cups_strcasecmp(value, "true") || !_cups_strcasecmp(value, "yes"))
+      {
+       /*
+        * Enable file: device support for /dev/ttySOMETHING...
+        */
+
+        value = "^/dev/tty[A-Za-z0-9._]+$";
+      }
+      else if (*value != '^')
+      {
+	cupsdLogMessage(CUPSD_LOG_ERROR, "Unsupported FileDevice \"%s\" on line %d of %s.", value, linenum, CupsFilesFile);
+	if (FatalErrors & CUPSD_FATAL_CONFIG)
+	  return (0);
+      }
+
+     /*
+      * Try compiling the regular expression in "value"...
+      */
+
+      if ((FileDevice = calloc(1, sizeof(regex_t))) == NULL)
+      {
+	cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to create FileDevice regular expression \"%s\" on line %d of %s.", value, linenum, CupsFilesFile);
+	if (FatalErrors & CUPSD_FATAL_CONFIG)
+	  return (0);
+      }
+
+      if ((r = regcomp(FileDevice, value, REG_EXTENDED | REG_NOSUB)) != 0)
+      {
+	regerror(r, FileDevice, rerror, sizeof(rerror));
+	free(FileDevice);
+	FileDevice = NULL;
+
+	cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to compile FileDevice regular expression \"%s\" on line %d of %s: %s", value, linenum, CupsFilesFile, rerror);
+
+	if (FatalErrors & CUPSD_FATAL_CONFIG)
+	  return (0);
+      }
     }
     else if (!_cups_strcasecmp(line, "Group") && value)
     {
