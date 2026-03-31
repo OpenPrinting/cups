@@ -7,11 +7,11 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 
 - CVE-2026-27447: The scheduler treated local user and group names as case-
   insensitive.
-- CVE-2026-NNNNN: The RSS notifier could write outside the scheduler's RSS
+- CVE-2026-34978: The RSS notifier could write outside the scheduler's RSS
   directory.
-- CVE-2026-NNNNN: The scheduler did not filter control characters from option
+- CVE-2026-34980: The scheduler did not filter control characters from option
   values.
-- CVE-2026-NNNNN: The scheduler did not always allocate enough memory for a
+- CVE-2026-34979: The scheduler did not always allocate enough memory for a
   job's options string.
 - CVE-2026-NNNNN: The scheduler incorrectly allowed local certificates over the
   loopback interface.
