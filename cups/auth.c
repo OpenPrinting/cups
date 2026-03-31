@@ -1,7 +1,7 @@
 /*
  * Authentication functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -92,7 +92,6 @@ static void	cups_gss_printf(OM_uint32 major_status, OM_uint32 minor_status,
 #    define	cups_gss_printf(major, minor, message)
 #  endif /* DEBUG */
 #endif /* HAVE_GSSAPI */
-static int	cups_is_local_connection(http_t *http);
 static int	cups_local_auth(http_t *http);
 
 
@@ -948,14 +947,6 @@ cups_gss_printf(OM_uint32  major_status,/* I - Major status code */
 #  endif /* DEBUG */
 #endif /* HAVE_GSSAPI */
 
-static int				/* O - 0 if not a local connection */
-					/*     1  if local connection */
-cups_is_local_connection(http_t *http)	/* I - HTTP connection to server */
-{
-  if (!httpAddrLocalhost(http->hostaddr) && _cups_strcasecmp(http->hostname, "localhost") != 0)
-    return 0;
-  return 1;
-}
 
 /*
  * 'cups_local_auth()' - Get the local authorization certificate if
@@ -967,13 +958,7 @@ static int				/* O - 0 if available */
 					/*    -1 error */
 cups_local_auth(http_t *http)		/* I - HTTP connection to server */
 {
-#if defined(_WIN32) || defined(__EMX__)
- /*
-  * Currently _WIN32 and OS-2 do not support the CUPS server...
-  */
-
-  return (1);
-#else
+#if !_WIN32 && !__EMX__ && defined(AF_LOCAL)
   int			pid;		/* Current process ID */
   FILE			*fp;		/* Certificate file */
   char			trc[16],	/* Try Root Certificate parameter */
@@ -998,7 +983,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
   * See if we are accessing localhost...
   */
 
-  if (!cups_is_local_connection(http))
+  if (httpAddrFamily(httpGetAddress(http)) != AF_LOCAL)
   {
     DEBUG_puts("8cups_local_auth: Not a local connection!");
     return (1);
@@ -1072,15 +1057,14 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
   }
 #  endif /* HAVE_AUTHORIZATION_H */
 
-#  if defined(SO_PEERCRED) && defined(AF_LOCAL)
+#  ifdef SO_PEERCRED
  /*
   * See if we can authenticate using the peer credentials provided over a
   * domain socket; if so, specify "PeerCred username" as the authentication
   * information...
   */
 
-  if (http->hostaddr->addr.sa_family == AF_LOCAL &&
-      !getenv("GATEWAY_INTERFACE") &&	/* Not via CGI programs... */
+  if (!getenv("GATEWAY_INTERFACE") &&	/* Not via CGI programs... */
       cups_auth_find(www_auth, "PeerCred"))
   {
    /*
@@ -1104,7 +1088,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
       return (0);
     }
   }
-#  endif /* SO_PEERCRED && AF_LOCAL */
+#  endif /* SO_PEERCRED */
 
   if ((schemedata = cups_auth_find(www_auth, "Local")) == NULL)
     return (1);
@@ -1164,7 +1148,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
       return (0);
     }
   }
+#endif /* !_WIN32 && !__EMX__ && AF_LOCAL */
 
   return (1);
-#endif /* _WIN32 || __EMX__ */
 }

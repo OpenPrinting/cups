@@ -2,7 +2,7 @@
 #
 # Test the lpadmin command.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2026 by OpenPrinting.
 # Copyright © 2007-2018 by Apple Inc.
 # Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 #
@@ -12,8 +12,8 @@
 
 echo "Add Printer Test"
 echo ""
-echo "    lpadmin -p Test3 -v file:/dev/null -E -m drv:///sample.drv/deskjet.ppd"
-$runcups $VALGRIND ../systemv/lpadmin -p Test3 -v file:/dev/null -E -m drv:///sample.drv/deskjet.ppd 2>&1
+echo "    lpadmin -p Test3 -v file:///dev/null -E -m drv:///sample.drv/deskjet.ppd"
+$runcups $VALGRIND ../systemv/lpadmin -p Test3 -v file:///dev/null -E -m drv:///sample.drv/deskjet.ppd 2>&1
 if test $? != 0; then
 	echo "    FAILED"
 	exit 1
@@ -29,8 +29,8 @@ echo ""
 
 echo "Modify Printer Test"
 echo ""
-echo "    lpadmin -p Test3 -v file:/tmp/Test3 -o PageSize=A4"
-$runcups $VALGRIND ../systemv/lpadmin -p Test3 -v file:/tmp/Test3 -o PageSize=A4 2>&1
+echo "    lpadmin -p Test3 -v file:///dev/null -o PageSize=A4"
+$runcups $VALGRIND ../systemv/lpadmin -p Test3 -v file:///dev/null -o PageSize=A4 2>&1
 if test $? != 0; then
 	echo "    FAILED"
 	exit 1
@@ -65,8 +65,8 @@ echo ""
 
 echo "Add a printer for cupSNMP/IPPSupplies test"
 echo ""
-echo "    lpadmin -p Test4 -E -v file:/dev/null -m drv:///sample.drv/zebra.ppd"
-$runcups $VALGRIND ../systemv/lpadmin -p Test4 -E -v file:/dev/null -m drv:///sample.drv/zebra.ppd 2>&1
+echo "    lpadmin -p Test4 -E -v file:///dev/null -m drv:///sample.drv/zebra.ppd"
+$runcups $VALGRIND ../systemv/lpadmin -p Test4 -E -v file:///dev/null -m drv:///sample.drv/zebra.ppd 2>&1
 if test $? != 0; then
 	echo "    FAILED"
 	exit 1

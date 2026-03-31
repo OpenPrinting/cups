@@ -13,6 +13,8 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
   values.
 - CVE-2026-NNNNN: The scheduler did not always allocate enough memory for a
   job's options string.
+- CVE-2026-NNNNN: The scheduler incorrectly allowed local certificates over the
+  loopback interface.
 - The scheduler followed symbolic links when cleaning out its temporary
   directory (Issue #1448)
 - Updated `cupsFileGetConf` and `cupsFilePutConf` to escape more characters.

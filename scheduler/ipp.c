@@ -5625,7 +5625,7 @@ create_local_printer(
   * Require local access to create a local printer...
   */
 
-  if (!httpAddrLocalhost(httpGetAddress(con->http)))
+  if (httpAddrFamily(httpGetAddress(con->http)) != AF_LOCAL)
   {
     send_ipp_status(con, IPP_STATUS_ERROR_FORBIDDEN, _("Only local users can create a local printer."));
     return;
@@ -5685,9 +5685,9 @@ create_local_printer(
 
   ptr = ippGetString(device_uri, 0, NULL);
 
-  if (!ptr || !ptr[0])
+  if (!ptr || !ptr[0] || (strncmp(ptr, "ipp://", 6) && strncmp(ptr, "ipps://", 7)))
   {
-    send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Attribute \"%s\" has empty value."), "device-uri");
+    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), ptr);
 
     return;
   }
