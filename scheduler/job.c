@@ -5439,8 +5439,7 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
       * Set PPD keyword(s)/value(s)...
       */
 
-      int		i,		/* Looping var */
-			num_keywords;	/* Number of keywords */
+      int		num_keywords;	/* Number of keywords */
       cups_option_t	*keywords,	/* Keywords */
 			*keyword;	/* Current keyword */
 
