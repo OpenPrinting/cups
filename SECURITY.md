@@ -9,36 +9,13 @@ this project.
 Supported Versions
 ------------------
 
-All production releases of this software are subject to this security policy.  A
-production release is tagged and given a semantic version number of the form:
+This security policy only applies to production releases of this software.  A
+production release is tagged and given a semantic version number of the form
+"MAJOR.MINOR.PATCH" where "MAJOR" is an integer starting at 1 and "MINOR" and
+"PATCH" are integers starting at 0.
 
-    MAJOR.MINOR.PATCH
-
-where "MAJOR" is an integer starting at 1 and "MINOR" and "PATCH" are integers
-starting at 0.  A feature release has a "PATCH" value of 0, for example:
-
-    1.0.0
-    1.1.0
-    2.0.0
-
-Beta releases and release candidates are *not* prodution releases and use
-semantic version numbers of the form:
-
-    MAJOR.MINORbNUMBER
-    MAJOR.MINORrcNUMBER
-
-where "MAJOR" and "MINOR" identify the new feature release version number and
-"NUMBER" identifies a beta or release candidate number starting at 1, for
-example:
-
-    1.0b1
-    1.0b2
-    1.0rc1
-
-> *Note:* This security policy only applies to production releases.  A security
-> vulnerability that only affects unreleased code will be fixed immediately
-> without coordination.  Vendors *should not* package and release unstable
-> snapshots, beta releases, or release candidates of this software.
+> *Note:* Please report security vulnerabilities that only affect unreleased
+> code as regular bugs.
 
 
 Is the Issue a Bug or a Security Vulnerability?
@@ -82,20 +59,20 @@ for the vulnerability, if applicable.
 You can expect a response within 5 business days.
 
 
-How We Respond to Vulnerability Reports
----------------------------------------
+How OpenPrinting Responds to Vulnerability Reports
+--------------------------------------------------
 
-First, we take every report seriously.  There are (conservatively) several
-billion devices/systems using CUPS, so any security issue can affect a lot of
-people.
+First, OpenPrinting takes every report seriously.  There are (conservatively)
+several billion devices/systems using CUPS, so any security issue can affect a
+lot of people!
 
 Members of the OpenPrinting security team will try to verify/reproduce the
 reported issues in a timely fashion.  Please keep in mind that many members of
 the security team are volunteers or are only employed part-time to maintain
-CUPS, so your patience is appreciated!
+CUPS, so your patience is appreciated.
 
 Sometimes a reported issue is actually in another project's code.  For these
-issues we may ask you to re-submit your report to the correct project - an
+issues, we may ask you to re-submit your report to the correct project - an
 enhancement request has been submitted to GitHub to correct this limitation for
 projects hosted on GitHub.
 
@@ -109,7 +86,8 @@ and fixes on those supported platforms.
 > in CVSS because the default cupsd configuration only listens on the loopback
 > and domain socket addresses.
 
-The final CVSS score determines how the vulnerability is disclosed.
+The final CVSS score determines how the vulnerability is disclosed - see below
+for details.
 
 Similar issues (if multiple vulnerabilities are reported) will be combined if
 they share a common root cause.  We don't mean any disrespect by doing this, we
