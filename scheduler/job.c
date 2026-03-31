@@ -4193,18 +4193,6 @@ ipp_length(ipp_t *ipp)			/* I - IPP request */
   for (attr = ipp->attrs; attr != NULL; attr = attr->next)
   {
    /*
-    * Skip attributes that won't be sent to filters...
-    */
-
-    if (attr->value_tag == IPP_TAG_NOVALUE ||
-	attr->value_tag == IPP_TAG_MIMETYPE ||
-	attr->value_tag == IPP_TAG_NAMELANG ||
-	attr->value_tag == IPP_TAG_TEXTLANG ||
-	attr->value_tag == IPP_TAG_URI ||
-	attr->value_tag == IPP_TAG_URISCHEME)
-      continue;
-
-   /*
     * Add space for a leading space and commas between each value.
     * For the first attribute, the leading space isn't used, so the
     * extra byte can be used as the nul terminator...
@@ -4279,10 +4267,14 @@ ipp_length(ipp_t *ipp)			/* I - IPP request */
 
       case IPP_TAG_TEXT :
       case IPP_TAG_NAME :
+      case IPP_TAG_TEXTLANG :
+      case IPP_TAG_NAMELANG :
+      case IPP_TAG_MIMETYPE :
       case IPP_TAG_KEYWORD :
       case IPP_TAG_CHARSET :
       case IPP_TAG_LANGUAGE :
       case IPP_TAG_URI :
+      case IPP_TAG_URISCHEME :
          /*
 	  * Strings can contain characters that need quoting.  We need
 	  * at least 2 * len + 2 characters to cover the quotes and
