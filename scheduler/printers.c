@@ -1,7 +1,7 @@
 /*
  * Printer routines for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting
+ * Copyright © 2020-2026 by OpenPrinting
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1382,10 +1382,10 @@ cupsdLoadAllPrinters(void)
   }
 
   if (found_raw)
-    cupsdLogMessage(CUPSD_LOG_WARN, "Raw queues are deprecated and will stop working in a future version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer Applications instead. See https://github.com/OpenPrinting/cups/issues/103");
+    cupsdLogMessage(CUPSD_LOG_WARN, "Raw queues are deprecated and will stop working in a future version of CUPS - see \"https://openprinting.github.io/cups/drivers.html\".");
 
   if (found_driver)
-    cupsdLogMessage(CUPSD_LOG_WARN, "Printer drivers are deprecated and will stop working in a future version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer Applications instead. See https://github.com/OpenPrinting/cups/issues/103");
+    cupsdLogMessage(CUPSD_LOG_WARN, "Printer drivers are deprecated and will stop working in a future version of CUPS - see \"https://openprinting.github.io/cups/drivers.html\".");
 
   cupsFileClose(fp);
 }
