@@ -110,7 +110,7 @@ jobs:
     - name: Checkout CUPS sources
       uses: actions/checkout@v6
     - name: Configure CUPS
-      uses: microsoft/setup-msbuild@v2.0.0
+      uses: microsoft/setup-msbuild@v3.0.0
     - name: Install prerequisites
       run: cd vcnet; nuget restore cups.sln
     - name: Build CUPS
