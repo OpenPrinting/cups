@@ -71,6 +71,34 @@ body > .container-fluid:first-of-type .col {
   padding: 30px 50px;
 }
 
+
+table {
+  margin-bottom: 1em;
+}
+
+table td, table th {
+  padding: 2px 10px;
+}
+
+table th {
+  border-bottom: solid 1px black;
+}
+
+table td {
+  border-bottom: solid 1px gray;
+}
+
+table tr:nth-child(even) {
+  background: rgba(127,127,127,0.25);
+}
+
+table.plain tr:nth-child(even) {
+  background: inherit;
+}
+table.plain td, table.plain th {
+  border-bottom: none;
+}
+
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
   body {

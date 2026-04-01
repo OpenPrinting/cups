@@ -16,7 +16,7 @@ manufactured since 2010 supports IPP/2.0 with standard file formats - the
 primary holdouts are industrial label printers and certain "vertical market"
 printers.  Look for the following logos on your printer or the box it came in:
 
-<table align="center" cellpadding="20">
+<table align="center" cellpadding="20" class="plain">
 <tr>
   <td><img src="https://developer.apple.com/assets/elements/icons/airprint/airprint-96x96_2x.png" height="192" alt="AirPrint"></td>
   <td><img src="https://www.pwg.org/ipp/ipp-everywhere-color.svg" height="192" alt="IPP Everywhere"></td>
