@@ -4,9 +4,10 @@ layout: doc
 ---
 
 After much discussion within Apple and OpenPrinting, we decided to deprecate
-support for raw queues and printer drivers starting with CUPS 2.3 in 2019, and
-to work to develop and maintain a collection of *Printer Applications* that
-support the printers still requiring those printer drivers.
+support for raw queues with CUPS 2.2 in 2018 and printer drivers starting with
+CUPS 2.3 in 2019.  We also decided to develop and maintain a collection of
+*Printer Applications* that support the printers still requiring printer driver
+software.
 
 Printers supporting the various Internet Printing Protocol (IPP) "driverless"
 printing standards will continue to function without change, with Printer
@@ -27,6 +28,33 @@ printers.  Look for the following logos on your printer or the box it came in:
   <td align="center">Mopria®</td>
 </tr>
 </table>
+
+Printers that do not support one of these standards need to use a printer
+application.  The following table lists commonly used drivers and their
+corresponding printer applications:
+
+| Driver Name                                         | Supported | Printer Application              |
+| --------------------------------------------------- | --------- | -------------------------------- |
+| braille                                             | ✔️        | [brf-printer-app]                |
+| brlaser (Brother laser printers)                    | ✔️        | [ghostscript-printer-app]        |
+| c2esp: (Kodak EasyShare)                            | ✔️        | [ghostscript-printer-app]        |
+| Canon CAPT                                          | ❌        | *Ask printer manufacturer*       |
+| Canon UFRII / UFRII-LT                              | ❌        | *Ask printer manufacturer*       |
+| dymo / DYMO Label Printer                           | ✔️        | [LPrint]                         |
+| Generic PCL Laser / PostScript Printer              | ✔️        | [hp-printer-app]                 |
+| Ghostscript (jlet\*, pcl\*, pxl\* [and others][gs]) | ✔️        | [ghostscript-printer-app]        |
+| Gutenprint                                          | ✔️        | [gutenprint-printer-app]         |
+| hpcups                                              | ✔️        | [hplip-printer-app]              |
+| HP DeskJet / LaserJet Series                        | ✔️        | [hp-printer-app]                 |
+| foo2zjs (foo2xqx, foo2hbpl, foo2qpdl)               | ✔️        | [ghostscript-printer-app]        |
+| fxlinuxprint (Fuji Xerox)                           | ✔️        | [ghostscript-printer-app]        |
+| Pantum GDI (BM18\*, BM22\*, M65\*, P2\*)            | ❌        | *Ask printer manufacturer*       |
+| Postscript (PS)                                     | ✔️        | [ps-printer-app]                 |
+| ptouch (Brother P-Touch label printers)             | ✔️        | [LPrint]                         |
+| pxljr                                               | ✔️        | [ghostscript-printer-app]        |
+| rastertosag-gdi (Ricoh Aficio SP 1000S/1100S)       | ✔️        | [ghostscript-printer-app]        |
+| SpliX (Samsung, HP Laser)                           | ✔️        | [ghostscript-printer-app]        |
+| Zebra (EPL2/ZPL) Label Printer                      | ✔️        | [LPrint]                         |
 
 
 Why Have We Done This?
@@ -80,24 +108,31 @@ convenient framework for easily creating these applications and porting existing
 CUPS raster drivers.  The following printer applications are already available
 or (in the case of Gutenprint) under development:
 
-- [Ghostscript Printer Application][Ghostscript]: PAPPL-based printer
-  application for Ghostscript-based printer drivers.
-- [Gutenprint][Gutenprint]: A PAPPL-based printer application for all Gutenprint
-  printer drivers.
-- [hp-printer-app][hp-printer-app]: PAPPL-based PCL printer application based on
+- [Braille Printer Application][brf-printer-app]: PAPPL-based printer
+  application for Braille printers.
+- [Ghostscript Printer Application][ghostscript-printer-app]: PAPPL-based
+  printer application for Ghostscript-based printer drivers.
+- [Gutenprint][gutenprint-printer-app]: A PAPPL-based printer application for
+  all Gutenprint printer drivers.
+- [hp-printer-app]: PAPPL-based PCL printer application based on
   the CUPS rastertohp driver.
-- [LPrint][LPrint]: PAPPL-based label printer application, currently supporting
+- [hplip-printer-app]: PAPPL-based printer application for HPLIP-based printer
+  drivers.
+- [LPrint]: PAPPL-based label printer application, currently supporting
   Zebra and Dymo label printers with plans to support more, based on the CUPS
   rastertolabel driver.  "Raw" printing is supported as well if you have an
   application that produces the native print data format.
-- [ps-printer-app][ps-printer-app]: PAPPL-based PostScript printer application
-  that supports all CUPS/PostScript printers via PPDs and includes all of the
-  Foomatic and HPLIP drivers.
+- [ps-printer-app]: PAPPL-based PostScript printer application that supports all
+  CUPS/PostScript printers via PPDs and includes all of the Foomatic and HPLIP
+  drivers.
 
 
-[Ghostscript]: https://github.com/OpenPrinting/ghostscript-printer-app
-[Gutenprint]: http://gutenprint.sf.net
+[brf-printer-app]: https://github.com/OpenPrinting/braille-printer-app
+[ghostscript-printer-app]: https://github.com/OpenPrinting/ghostscript-printer-app
+[gs]: https://github.com/OpenPrinting/ghostscript-printer-app?tab=readme-ov-file#contained-printer-drivers-in-the-snap
+[gutenprint-printer-app]: https://github.com/OpenPrinting/gutenprint-printer-app
 [hp-printer-app]: https://github.com/michaelrsweet/hp-printer-app
+[hplip-printer-app]: https://github.com/OpenPrinting/hplip-printer-app
 [LPrint]: https://github.com/michaelrsweet/lprint
 [PAPPL]: https://www.msweet.org/pappl/
 [ps-printer-app]: https://github.com/openprinting/ps-printer-ps
