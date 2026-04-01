@@ -29,32 +29,32 @@ printers.  Look for the following logos on your printer or the box it came in:
 </tr>
 </table>
 
-Printers that do not support one of these standards need to use a printer
-application.  The following table lists commonly used drivers and their
-corresponding printer applications:
+If you current printer driver is listed as "AirPrint", "Driverless", or "IPP
+Everywhere", you don't need to do anything.  For any other driver, look at the
+following table to find the replacement printer application:
 
-| Driver Name                                         | Supported | Printer Application              |
-| --------------------------------------------------- | --------- | -------------------------------- |
-| braille                                             | ✔️        | [brf-printer-app]                |
-| brlaser (Brother laser printers)                    | ✔️        | [ghostscript-printer-app]        |
-| c2esp: (Kodak EasyShare)                            | ✔️        | [ghostscript-printer-app]        |
-| Canon CAPT                                          | ❌        | *Ask printer manufacturer*       |
-| Canon UFRII / UFRII-LT                              | ❌        | *Ask printer manufacturer*       |
-| dymo / DYMO Label Printer                           | ✔️        | [LPrint]                         |
-| Generic PCL Laser / PostScript Printer              | ✔️        | [hp-printer-app]                 |
-| Ghostscript (jlet\*, pcl\*, pxl\* [and others][gs]) | ✔️        | [ghostscript-printer-app]        |
-| Gutenprint                                          | ✔️        | [gutenprint-printer-app]         |
-| hpcups                                              | ✔️        | [hplip-printer-app]              |
-| HP DeskJet / LaserJet Series                        | ✔️        | [hp-printer-app]                 |
-| foo2zjs (foo2xqx, foo2hbpl, foo2qpdl)               | ✔️        | [ghostscript-printer-app]        |
-| fxlinuxprint (Fuji Xerox)                           | ✔️        | [ghostscript-printer-app]        |
-| Pantum GDI (BM18\*, BM22\*, M65\*, P2\*)            | ❌        | *Ask printer manufacturer*       |
-| Postscript (PS)                                     | ✔️        | [ps-printer-app]                 |
-| ptouch (Brother P-Touch label printers)             | ✔️        | [LPrint]                         |
-| pxljr                                               | ✔️        | [ghostscript-printer-app]        |
-| rastertosag-gdi (Ricoh Aficio SP 1000S/1100S)       | ✔️        | [ghostscript-printer-app]        |
-| SpliX (Samsung, HP Laser)                           | ✔️        | [ghostscript-printer-app]        |
-| Zebra (EPL2/ZPL) Label Printer                      | ✔️        | [LPrint]                         |
+| Driver Name                                         | Supported? | Printer Application              |
+| --------------------------------------------------- | ---------- | -------------------------------- |
+| braille                                             | ✔️         | [brf-printer-app]                |
+| brlaser (Brother laser printers)                    | ✔️         | [ghostscript-printer-app]        |
+| c2esp: (Kodak EasyShare)                            | ✔️         | [ghostscript-printer-app]        |
+| Canon CAPT                                          | ❌         | *Ask printer manufacturer*       |
+| Canon UFRII / UFRII-LT                              | ❌         | *Ask printer manufacturer*       |
+| dymo / DYMO Label Printer                           | ✔️         | [LPrint]                         |
+| Generic PCL Laser / PostScript Printer              | ✔️         | [hp-printer-app]                 |
+| Ghostscript (jlet\*, pcl\*, pxl\* [and others][gs]) | ✔️         | [ghostscript-printer-app]        |
+| Gutenprint                                          | ✔️         | [gutenprint-printer-app]         |
+| hpcups                                              | ✔️         | [hplip-printer-app]              |
+| HP DeskJet / LaserJet Series                        | ✔️         | [hp-printer-app]                 |
+| foo2zjs (foo2xqx, foo2hbpl, foo2qpdl)               | ✔️         | [ghostscript-printer-app]        |
+| fxlinuxprint (Fuji Xerox)                           | ✔️         | [ghostscript-printer-app]        |
+| Pantum GDI (BM18\*, BM22\*, M65\*, P2\*)            | ❌         | *Ask printer manufacturer*       |
+| Postscript (PS)                                     | ✔️         | [ps-printer-app]                 |
+| ptouch (Brother P-Touch label printers)             | ✔️         | [LPrint]                         |
+| pxljr                                               | ✔️         | [ghostscript-printer-app]        |
+| rastertosag-gdi (Ricoh Aficio SP 1000S/1100S)       | ✔️         | [ghostscript-printer-app]        |
+| SpliX (Samsung, HP Laser)                           | ✔️         | [ghostscript-printer-app]        |
+| Zebra (EPL2/ZPL) Label Printer                      | ✔️         | [LPrint]                         |
 
 
 Why Have We Done This?
@@ -114,17 +114,17 @@ or (in the case of Gutenprint) under development:
   printer application for Ghostscript-based printer drivers.
 - [Gutenprint][gutenprint-printer-app]: A PAPPL-based printer application for
   all Gutenprint printer drivers.
-- [hp-printer-app]: PAPPL-based PCL printer application based on
+- [hp-printer-app][hp-printer-app]: PAPPL-based PCL printer application based on
   the CUPS rastertohp driver.
-- [hplip-printer-app]: PAPPL-based printer application for HPLIP-based printer
-  drivers.
-- [LPrint]: PAPPL-based label printer application, currently supporting
+- [hplip-printer-app][hplip-printer-app]: PAPPL-based printer application for
+  HPLIP-based printer drivers.
+- [LPrint][LPrint]: PAPPL-based label printer application, currently supporting
   Zebra and Dymo label printers with plans to support more, based on the CUPS
   rastertolabel driver.  "Raw" printing is supported as well if you have an
   application that produces the native print data format.
-- [ps-printer-app]: PAPPL-based PostScript printer application that supports all
-  CUPS/PostScript printers via PPDs and includes all of the Foomatic and HPLIP
-  drivers.
+- [ps-printer-app][ps-printer-app]: PAPPL-based PostScript printer application
+  that supports all CUPS/PostScript printers via PPDs and includes all of the
+  Foomatic and HPLIP drivers.
 
 
 [brf-printer-app]: https://github.com/OpenPrinting/braille-printer-app
