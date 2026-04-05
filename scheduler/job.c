@@ -1152,8 +1152,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 	}
 	else
 	{
-	  char	scheme[32],		/* URI scheme */
-		userpass[32],		/* URI username:password */
+	  char	userpass[32],		/* URI username:password */
 		host[256],		/* URI hostname */
 		resource[1024];		/* URI resource path (filename) */
 	  int	port;			/* URI port number */
