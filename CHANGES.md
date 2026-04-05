@@ -35,6 +35,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed a crash bug in the rastertoepson filter.
 - Fixed the range check for job password strings.
 - Fixed a bug in cgiCheckVariables.
+- Fixed a printer subscription bug in the scheduler.
 
 
 Changes in CUPS v2.4.16 (2025-12-04)
