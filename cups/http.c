@@ -1,7 +1,7 @@
 //
 // HTTP routines for CUPS.
 //
-// Copyright © 2022-2025 by OpenPrinting.
+// Copyright © 2022-2026 by OpenPrinting.
 // Copyright © 2007-2021 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -1976,7 +1976,6 @@ httpPeek(http_t *http,			// I - HTTP connection
     {
       DEBUG_puts("2httpPeek: Unable to copy decompressor stream.");
       http->error = ENOMEM;
-      inflateEnd(&stream);
       return (-1);
     }
 
