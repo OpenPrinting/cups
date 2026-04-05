@@ -32,6 +32,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed a bug when then `ippFindXxx` and `ippSetXxx` functions were mixed.
 - Fixed the mapping of supply type keywords to SNMP names.
 - Fixed a bug in the IPP backend when SNMP was disabled.
+- Fixed a crash bug in the rastertoepson filter.
 
 
 Changes in CUPS v2.4.16 (2025-12-04)
