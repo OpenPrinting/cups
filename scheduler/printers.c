@@ -2198,13 +2198,15 @@ cupsdSetPrinterAttr(
       type  = ippGetString(types, i, NULL);
 
       for (psptr = pstype; *type && psptr < (pstype + sizeof(pstype) - 1); type ++)
-        if (*type == '-')
+      {
+        if (*type == '-' && type[1])
 	{
 	  type ++;
 	  *psptr++ = (char)toupper(*type & 255);
 	}
 	else
 	  *psptr++ = *type;
+      }
       *psptr = '\0';
 
       snprintf(buffer, sizeof(buffer), "index=%d;class=%s;type=%s;unit=percent;maxcapacity=100;level=%d;colorantname=%s;", i + 1, strncmp(pstype, "waste", 5) ? "supplyThatIsConsumed" : "receptacleThatIsFilled", pstype, level, color);
