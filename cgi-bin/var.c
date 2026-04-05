@@ -1,7 +1,7 @@
 /*
  * CGI form variable and array functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products.
  *
@@ -95,8 +95,11 @@ cgiCheckVariables(const char *names)	/* I - Variables to look for */
     while (*names == ' ' || *names == ',')
       names ++;
 
-    for (s = name; *names != '\0' && *names != ' ' && *names != ','; s ++, names ++)
-      *s = *names;
+    for (s = name; *names != '\0' && *names != ' ' && *names != ','; names ++)
+    {
+      if (s < (name + sizeof(name) - 1))
+        *s++ = *names;
+    }
 
     *s = 0;
     if (name[0] == '\0')
@@ -633,7 +636,7 @@ cgi_add_variable(const char *name,	/* I - Variable name */
 
     if ((var->values = calloc((size_t)element + 1, sizeof(char *))) == NULL)
     {
-      /* 
+      /*
        * Rollback changes
        */
 

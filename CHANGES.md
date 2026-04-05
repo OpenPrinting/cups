@@ -34,6 +34,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed a bug in the IPP backend when SNMP was disabled.
 - Fixed a crash bug in the rastertoepson filter.
 - Fixed the range check for job password strings.
+- Fixed a bug in cgiCheckVariables.
 
 
 Changes in CUPS v2.4.16 (2025-12-04)
