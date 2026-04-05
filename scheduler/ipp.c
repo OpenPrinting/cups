@@ -3537,14 +3537,15 @@ static int				/* O - 1 if OK, 0 if not */
 check_rss_recipient(
     const char *recipient)		/* I - Recipient URI */
 {
-  int			i,		/* Looping var */
+  int			ret = 1,	/* Return value */
+			i,		/* Looping var */
 			scount;		/* Number of subscriptions */
   cupsd_subscription_t	*sub;		/* Current subscription */
 
 
   cupsRWLockRead(&SubscriptionsLock);
 
-  for (i = 0, scount = cupsArrayGetCount(Subscriptions); i < scount; i ++)
+  for (i = 0, scount = cupsArrayGetCount(Subscriptions); ret && i < scount; i ++)
   {
     sub = (cupsd_subscription_t *)cupsArrayGetElement(Subscriptions, i);
 
@@ -3561,13 +3562,13 @@ check_rss_recipient(
 	   r1 ++, r2 ++);
 
       if (*r1 == *r2)
-        return (0);
+        ret = 0;
     }
   }
 
   cupsRWUnlock(&SubscriptionsLock);
 
-  return (1);
+  return (ret);
 }
 
 
