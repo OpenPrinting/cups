@@ -1,7 +1,7 @@
 /*
  * PPD cache implementation for CUPS.
  *
- * Copyright © 2022-2025 by OpenPrinting.
+ * Copyright © 2022-2026 by OpenPrinting.
  * Copyright © 2010-2021 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -3501,7 +3501,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   * Password/PIN printing...
   */
 
-  if ((attr = ippFindAttribute(supported, "job-password-supported", IPP_TAG_INTEGER)) != NULL)
+  if ((attr = ippFindAttribute(supported, "job-password-supported", IPP_TAG_INTEGER)) != NULL && ippGetInteger(attr, 0) > 0)
   {
     char	pattern[33];		/* Password pattern */
     int		maxlen = ippGetInteger(attr, 0);
