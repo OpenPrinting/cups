@@ -1674,13 +1674,14 @@ main(int  argc,				/* I - Number of command-line args */
 
           FD_ZERO(&input);
 	  FD_SET(fd, &input);
-	  FD_SET(snmp_fd, &input);
+	  if (snmp_fd >= 0)
+	    FD_SET(snmp_fd, &input);
 	  FD_SET(CUPS_SC_FD, &input);
 
           while (select(fd > snmp_fd ? fd + 1 : snmp_fd + 1, &input, NULL, NULL,
 	                NULL) <= 0 && !job_canceled);
 
-	  if (FD_ISSET(snmp_fd, &input))
+	  if (snmp_fd >= 0 && FD_ISSET(snmp_fd, &input))
 	    backendCheckSideChannel(snmp_fd, http->hostaddr);
 
           if (FD_ISSET(fd, &input))
