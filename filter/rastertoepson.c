@@ -275,6 +275,12 @@ StartPage(
   else
     NumPlanes = 1;
 
+  if (header->cupsBytesPerLine < NumPlanes)
+  {
+    fputs("ERROR: Bad raster data.\n", stderr);
+    exit(1);
+  }
+
   Feed = 0;				/* No blank lines yet */
 
  /*
