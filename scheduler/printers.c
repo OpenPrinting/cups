@@ -684,6 +684,12 @@ cupsdDeletePrinter(
 		              "Job stopped.");
 
  /*
+  * Expire subscriptions on the printer...
+  */
+
+  cupsdExpireSubscriptions(p, /*job*/NULL);
+
+ /*
   * Remove the printer from the list...
   */
 
