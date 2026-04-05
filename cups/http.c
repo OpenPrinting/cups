@@ -1795,7 +1795,9 @@ httpPeek(http_t *http,			/* I - HTTP connection */
     stream.next_out  = (Bytef *)buffer;
     stream.avail_out = (uInt)length;
 
-    zerr = inflate(&stream, Z_SYNC_FLUSH);
+    zerr  = inflate(&stream, Z_SYNC_FLUSH);
+    bytes = (ssize_t)(length - stream.avail_out);
+
     inflateEnd(&stream);
 
     if (zerr < Z_OK)
@@ -1808,8 +1810,6 @@ httpPeek(http_t *http,			/* I - HTTP connection */
       http->error = EIO;
       return (-1);
     }
-
-    bytes = (ssize_t)(length - ((z_stream *)http->stream)->avail_out);
 
 #  else
     DEBUG_puts("2httpPeek: No inflateCopy on this platform, httpPeek does not "
