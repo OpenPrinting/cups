@@ -1268,6 +1268,9 @@ _cupsRasterWriteHeader(
 
   if (r->mode == CUPS_RASTER_WRITE_APPLE)
   {
+    if (r->header.HWResolution[0] == 0 || r->header.HWResolution[1] == 0)
+      return (0);
+
     r->rowheight = r->header.HWResolution[0] / r->header.HWResolution[1];
 
     if (r->header.HWResolution[0] != (r->rowheight * r->header.HWResolution[1]))
