@@ -15,6 +15,8 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
   job's options string.
 - CVE-2026-34990: The scheduler incorrectly allowed local certificates over the
   loopback interface.
+- CVE-2026-39314: Fixed the range check for job password strings.
+- CVE-2026-39316: Fixed a printer subscription bug in the scheduler.
 - The scheduler followed symbolic links when cleaning out its temporary
   directory (Issue #1448)
 - Updated `cupsFileGetConf` and `cupsFilePutConf` to escape more characters.
@@ -33,9 +35,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed the mapping of supply type keywords to SNMP names.
 - Fixed a bug in the IPP backend when SNMP was disabled.
 - Fixed a crash bug in the rastertoepson filter.
-- Fixed the range check for job password strings.
 - Fixed a bug in cgiCheckVariables.
-- Fixed a printer subscription bug in the scheduler.
 
 
 Changes in CUPS v2.4.16 (2025-12-04)
