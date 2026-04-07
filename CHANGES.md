@@ -36,6 +36,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed a bug in the IPP backend when SNMP was disabled.
 - Fixed a crash bug in the rastertoepson filter.
 - Fixed a bug in cgiCheckVariables.
+- Fixed a debug printf bug on Windows (Issue #1529)
 
 
 Changes in CUPS v2.4.16 (2025-12-04)

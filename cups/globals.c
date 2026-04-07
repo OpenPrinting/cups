@@ -1,7 +1,7 @@
 /*
  * Global variable access routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -281,8 +281,6 @@ cups_globals_alloc(void)
 				// User profile (home) directory
     char	*homeptr;	// Pointer into homedir
 
-    DEBUG_printf(("cups_globals_alloc: USERPROFILE=\"%s\"", userprofile));
-
     if (!strncmp(userprofile, "C:\\", 3))
       userprofile += 2;
 
@@ -293,8 +291,6 @@ cups_globals_alloc(void)
       if (*homeptr == '\\')
         *homeptr = '/';
     }
-
-    DEBUG_printf(("cups_globals_alloc: homedir=\"%s\"", homedir));
   }
 
   cg->home = homedir;
