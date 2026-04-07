@@ -548,9 +548,9 @@ cupsDNSSDBrowseNew(
 // 'cupsDNSSDCopyComputerName()' - Copy the current human-readable name for the system.
 //
 // This function copies the current human-readable name ("My Computer") to the
-// provided buffer.  The "dnssd" parameter is a DNS-SD context created with
-// @link cupsDNSSDNew@.  The "buffer" parameter points to a character array of
-// at least 128 bytes and the "bufsize" parameter specifies the actual size of
+// provided buffer.  The "dnssd" argument is a DNS-SD context created with
+// @link cupsDNSSDNew@.  The "buffer" argument points to a character array of
+// at least 128 bytes and the "bufsize" argument specifies the actual size of
 // the array.
 //
 
@@ -618,9 +618,9 @@ cupsDNSSDCopyComputerName(
 // 'cupsDNSSDCopyHostName()' - Copy the current mDNS hostname for the system.
 //
 // This function copies the current mDNS hostname ("hostname.local") to the
-// provided buffer.  The "dnssd" parameter is a DNS-SD context created with
-// @link cupsDNSSDNew@.  The "buffer" parameter points to a character array of
-// at least 70 bytes and the "bufsize" parameter specifies the actual size of
+// provided buffer.  The "dnssd" argument is a DNS-SD context created with
+// @link cupsDNSSDNew@.  The "buffer" argument points to a character array of
+// at least 70 bytes and the "bufsize" argument specifies the actual size of
 // the array.
 //
 
@@ -960,7 +960,7 @@ cupsDNSSDQueryGetContext(
 // 'cupsDNSSDQueryNew()' - Create a new query request.
 //
 // This function creates a new DNS-SD query request for the specified full
-// service name and DNS record type.  The "fullname" parameter specifies the
+// service name and DNS record type.  The "fullname" argument specifies the
 // full DNS name of the service (instance name, type, and domain) being queried.
 // Responses to the query are reported using the required query callback
 // function with the "flags" argument set to `CUPS_DNSSD_FLAGS_NONE` on success
@@ -1472,6 +1472,14 @@ cupsDNSSDServiceAdd(
   char		fullname[256];		// Full service instance name
   cups_array_t	*tarray;		// Types array
 
+  if (port == 0)
+  {
+    // Windows DNS-SD support doesn't allow for so-called "flagship naming",
+    // just ignore services on port 0 for now...
+    // TODO: Report bug to Microsoft about lack of support for services on port 0.
+    return (true);
+  }
+
   if ((tarray = cupsArrayNewStrings(types, ',')) == NULL)
   {
     report_error(service->dnssd, "Unable to create types array: %s", strerror(errno));
@@ -1537,7 +1545,7 @@ cupsDNSSDServiceAdd(
 
     if ((srv->req.pServiceInstance = DnsServiceConstructInstance(srv->fullname, srv->hostname, /*pIp4*/NULL, /*pIp6*/NULL, port, 0, 0, (DWORD)num_txt, keys, values)) == NULL)
     {
-      report_error(service->dnssd, "Unable to allocate memory for '%s'.", fullname);
+      report_error(service->dnssd, "Unable to allocate memory for '%s' for host '%s', port %d.", fullname, host ? host : service->dnssd->hostname, port);
       ret = false;
       cupsArrayDelete(tarray);
       goto done;
@@ -2466,8 +2474,8 @@ mdns_to_cups(
 static void
 win32_browse_cb(
     DWORD       status,			// I - Status
-    PVOID       context,			// I - Browser
-    PDNS_RECORD records)			// I - Record list
+    PVOID       context,		// I - Browser
+    PDNS_RECORD records)		// I - Record list
 {
   cups_dnssd_browse_t *browse = (cups_dnssd_browse_t *)context;
   PDNS_RECORD record;			// Current DNS record
@@ -2487,7 +2495,7 @@ win32_browse_cb(
     }
   }
 
-  (browse->cb)(browse, browse->cb_data, status == ERROR_SUCCESS ? CUPS_DNSSD_FLAGS_NONE : CUPS_DNSSD_FLAGS_ERROR, /*if_index*/0, name, type, domain);
+  (browse->cb)(browse, browse->cb_data, status == ERROR_SUCCESS ? CUPS_DNSSD_FLAGS_ADD : CUPS_DNSSD_FLAGS_ERROR, /*if_index*/0, name, type, domain);
 
   DnsRecordListFree(records, DnsFreeRecordList);
 }
@@ -2515,7 +2523,7 @@ win32_query_cb(
     PDNS_RECORD record;			// Current DNS record
 
     for (record = result->pQueryRecords; record; record = record->pNext)
-      (query->cb)(query, query->cb_data, CUPS_DNSSD_FLAGS_NONE, /*if_index*/0, fullname, record->wType, &record->Data, record->wDataLength);
+      (query->cb)(query, query->cb_data, CUPS_DNSSD_FLAGS_ADD, /*if_index*/0, fullname, record->wType, &record->Data, record->wDataLength);
 
     DnsRecordListFree(result->pQueryRecords, DnsFreeRecordList);
   }
@@ -2557,7 +2565,7 @@ win32_resolve_cb(
       num_txt = cupsAddOption(txtname, txtvalue, num_txt, &txt);
     }
 
-    (resolve->cb)(resolve, resolve->cb_data, CUPS_DNSSD_FLAGS_NONE, instance->dwInterfaceIndex, fullname, hostname, instance->wPort, num_txt, txt);
+    (resolve->cb)(resolve, resolve->cb_data, CUPS_DNSSD_FLAGS_ADD, instance->dwInterfaceIndex, fullname, hostname, instance->wPort, num_txt, txt);
 
     cupsFreeOptions(num_txt, txt);
   }
@@ -2581,7 +2589,7 @@ win32_service_cb(
   cups_dnssd_service_t *service = (cups_dnssd_service_t *)context;
 					// Service
 
-  (service->cb)(service, service->cb_data, status == ERROR_SUCCESS ? CUPS_DNSSD_FLAGS_NONE : CUPS_DNSSD_FLAGS_ERROR);
+  (service->cb)(service, service->cb_data, status == ERROR_SUCCESS ? CUPS_DNSSD_FLAGS_ADD : CUPS_DNSSD_FLAGS_ERROR);
 
   if (instance)
     DnsServiceFreeInstance(instance);
