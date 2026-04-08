@@ -2,7 +2,7 @@
 #
 # Test the lp command.
 #
-# Copyright © 2020-2024 by OpenPrinting.
+# Copyright © 2020-2026 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2005 by Easy Software Products, all rights reserved.
 #
@@ -72,8 +72,8 @@ echo ""
 
 echo "LP Flood Test ($1 times in parallel)"
 echo ""
-echo "    lp -d Test1 testfile.jpg"
-echo "    lp -d Test2 testfile.jpg"
+echo "    lp -d Test1 -t 'Flood Test N' testfile.jpg"
+echo "    lp -d Test2 -t 'Flood Test N' testfile.jpg"
 i=0
 pids=""
 while test $i -lt $1; do
@@ -83,9 +83,9 @@ while test $i -lt $1; do
 		j=`expr $j + 1`
 	done
 
-	$runcups $VALGRIND ../systemv/lp -d Test1 ../examples/testfile.jpg 2>&1 &
+	$runcups $VALGRIND ../systemv/lp -d Test1 -t "Flood Test $j" ../examples/testfile.jpg 2>&1 &
 	pids="$pids $!"
-	$runcups $VALGRIND ../systemv/lp -d Test2 ../examples/testfile.jpg 2>&1 &
+	$runcups $VALGRIND ../systemv/lp -d Test2 -t "Flood Test $j" ../examples/testfile.jpg 2>&1 &
 	pids="$pids $!"
 
 	i=`expr $i + 1`

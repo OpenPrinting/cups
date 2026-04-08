@@ -4144,7 +4144,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
 	  case IPP_TAG_CHARSET :
 	  case IPP_TAG_LANGUAGE :
 	  case IPP_TAG_URI :
-	      for (valptr = attr->values[i].string.text; *valptr;)
+	      for (valptr = attr->values[i].string.text; *valptr; valptr ++)
 	      {
 	       /*
 	        * Convert tabs and newlines to spaces, filter out control chars,
@@ -4159,7 +4159,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
 	        {
 	          if (strchr("\\\'\"", *valptr))
 		    *optptr++ = '\\';
-		  *optptr++ = *valptr++;
+		  *optptr++ = *valptr;
 		}
 	      }
 
