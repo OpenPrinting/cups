@@ -115,5 +115,5 @@ when convenient.
 > *Note:* An embargo starts a flurry of activity.  Hundreds of developers
 > supporting every Linux distribution, the various BSD flavors, macOS, and
 > ChromeOS queue up security updates for their respective OS releases on the
-> embargo date.  OpenPrinting wants to limit the embargo process to high
-> severity issues to better manage limited developer resources.
+> embargo date.  OpenPrinting limits the embargo process to high severity
+> issues to better manage limited developer resources.
