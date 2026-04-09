@@ -176,7 +176,7 @@ cupsDoAuthentication(
     DEBUG_printf(("2cupsDoAuthentication: Trying scheme \"%s\"...", scheme));
 
 #ifdef HAVE_GSSAPI
-    if (!_cups_strcasecmp(scheme, "Negotiate") && !cups_is_local_connection(http))
+    if (!_cups_strcasecmp(scheme, "Negotiate") && httpAddrFamily(httpGetAddress(http)) != AF_LOCAL)
     {
      /*
       * Kerberos authentication to remote server...
