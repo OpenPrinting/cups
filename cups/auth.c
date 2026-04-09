@@ -153,7 +153,7 @@ cupsDoAuthentication(
     DEBUG_printf("2cupsDoAuthentication: Trying scheme \"%s\"...", scheme);
 
 #ifdef HAVE_GSSAPI
-    if (!_cups_strcasecmp(scheme, "Negotiate") && !httpAddrIsLocalhost(httpGetAddress(http)))
+    if (!_cups_strcasecmp(scheme, "Negotiate") && httpAddrGetFamily(httpGetAddress(http)) != AF_LOCAL)
     {
       // Kerberos authentication to remote server...
       int gss_status;			// Auth status
