@@ -3811,7 +3811,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
       }
     }
   }
-  else if ((attr = ippFindAttribute(supported, "media-supported", IPP_TAG_ZERO)) != NULL)
+  else if ((attr = ippFindAttribute(supported, "media-supported", IPP_TAG_ZERO)) != NULL && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG))
   {
     for (i = 0, count = ippGetCount(attr); i < count; i ++)
     {
@@ -3950,12 +3950,12 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   * InputSlot...
   */
 
-  if ((attr = ippFindAttribute(ippGetCollection(defattr, 0), "media-source", IPP_TAG_ZERO)) != NULL)
+  if ((attr = ippFindAttribute(ippGetCollection(defattr, 0), "media-source", IPP_TAG_ZERO)) != NULL && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG))
     pwg_ppdize_name(ippGetString(attr, 0, NULL), ppdname, sizeof(ppdname));
   else
     ppdname[0] = '\0';
 
-  if ((attr = ippFindAttribute(supported, "media-source-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 1)
+  if ((attr = ippFindAttribute(supported, "media-source-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 1 && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG))
   {
     int have_default = ppdname[0] != '\0';
 					/* Do we have a default InputSlot? */
@@ -4046,12 +4046,12 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   * MediaType...
   */
 
-  if ((attr = ippFindAttribute(ippGetCollection(defattr, 0), "media-type", IPP_TAG_ZERO)) != NULL)
+  if ((attr = ippFindAttribute(ippGetCollection(defattr, 0), "media-type", IPP_TAG_ZERO)) != NULL && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG))
     pwg_ppdize_name(ippGetString(attr, 0, NULL), ppdname, sizeof(ppdname));
   else
     cupsCopyString(ppdname, "Unknown", sizeof(ppdname));
 
-  if ((attr = ippFindAttribute(supported, "media-type-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 1)
+  if ((attr = ippFindAttribute(supported, "media-type-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 1 && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG))
   {
     cupsFilePrintf(fp, "*OpenUI *MediaType: PickOne\n"
                        "*OrderDependency: 10 AnySetup *MediaType\n"
@@ -4489,12 +4489,12 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
   * Output bin...
   */
 
-  if ((attr = ippFindAttribute(supported, "output-bin-default", IPP_TAG_ZERO)) != NULL)
+  if ((attr = ippFindAttribute(supported, "output-bin-default", IPP_TAG_ZERO)) != NULL && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG))
     pwg_ppdize_name(ippGetString(attr, 0, NULL), ppdname, sizeof(ppdname));
   else
     cupsCopyString(ppdname, "Unknown", sizeof(ppdname));
 
-  if ((attr = ippFindAttribute(supported, "output-bin-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 0)
+  if ((attr = ippFindAttribute(supported, "output-bin-supported", IPP_TAG_ZERO)) != NULL && (count = ippGetCount(attr)) > 0 && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG))
   {
     ipp_attribute_t	*trays = ippFindAttribute(supported, "printer-output-tray", IPP_TAG_STRING);
 					/* printer-output-tray attribute, if any */
