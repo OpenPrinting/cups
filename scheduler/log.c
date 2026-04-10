@@ -1,7 +1,7 @@
 /*
  * Log file routines for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -505,9 +505,10 @@ cupsdLogClient(cupsd_client_t *con,	/* I - Client connection */
                const char     *message,	/* I - Printf-style message string */
                ...)			/* I - Additional arguments as needed */
 {
-  va_list		ap, ap2;	/* Argument pointers */
-  char			clientmsg[1024];/* Format string for client message */
-  int			status;		/* Formatting status */
+  int		ret;			/* Return value */
+  va_list	ap, ap2;		/* Argument pointers */
+  char		clientmsg[1024];	/* Format string for client message */
+  int		status;			/* Formatting status */
 
 
  /*
@@ -523,6 +524,8 @@ cupsdLogClient(cupsd_client_t *con,	/* I - Client connection */
  /*
   * Format and write the log message...
   */
+
+  cupsMutexLock(&log_mutex);
 
   if (con)
     snprintf(clientmsg, sizeof(clientmsg), "[Client %d] %s", con->number,
@@ -543,10 +546,13 @@ cupsdLogClient(cupsd_client_t *con,	/* I - Client connection */
   va_end(ap);
 
   if (status > 0)
-    return (cupsdWriteErrorLog(level, log_line));
+    ret = cupsdWriteErrorLog(level, log_line);
   else
-    return (cupsdWriteErrorLog(CUPSD_LOG_ERROR,
-                               "Unable to allocate memory for log line."));
+    ret = cupsdWriteErrorLog(CUPSD_LOG_ERROR, "Unable to allocate memory for log line.");
+
+  cupsMutexUnlock(&log_mutex);
+
+  return (ret);
 }
 
 
@@ -560,9 +566,10 @@ cupsdLogJob(cupsd_job_t *job,		/* I - Job */
 	    const char  *message,	/* I - Printf-style message string */
 	    ...)			/* I - Additional arguments as needed */
 {
-  va_list		ap, ap2;	/* Argument pointers */
-  char			jobmsg[1024];	/* Format string for job message */
-  int			status;		/* Formatting status */
+  int		ret;			/* Return value */
+  va_list	ap, ap2;		/* Argument pointers */
+  char		jobmsg[1024];		/* Format string for job message */
+  int		status;			/* Formatting status */
 
 
  /*
@@ -578,6 +585,8 @@ cupsdLogJob(cupsd_job_t *job,		/* I - Job */
  /*
   * Format and write the log message...
   */
+
+  cupsMutexLock(&log_mutex);
 
   if (job)
     snprintf(jobmsg, sizeof(jobmsg), "[Job %d] %s", job->id, message);
@@ -635,7 +644,7 @@ cupsdLogJob(cupsd_job_t *job,		/* I - Job */
       else if (temp)
 	free(temp);
 
-      return (1);
+      ret = 1;
     }
     else if (level <= LogLevel)
     {
@@ -668,19 +677,26 @@ cupsdLogJob(cupsd_job_t *job,		/* I - Job */
 			  "PRIORITY=%i", log_levels[level],
 			  NULL);
 
-	return (1);
+	ret = 1;
       }
       else
 #endif /* HAVE_SYSTEMD_SD_JOURNAL_H */
 
-      return (cupsdWriteErrorLog(level, log_line));
+      ret = cupsdWriteErrorLog(level, log_line);
     }
     else
-      return (1);
+    {
+      ret = 1;
+    }
   }
   else
-    return (cupsdWriteErrorLog(CUPSD_LOG_ERROR,
-                               "Unable to allocate memory for log line."));
+  {
+    ret = cupsdWriteErrorLog(CUPSD_LOG_ERROR, "Unable to allocate memory for log line.");
+  }
+
+  cupsMutexUnlock(&log_mutex);
+
+  return (ret);
 }
 
 
@@ -693,8 +709,9 @@ cupsdLogMessage(int        level,	/* I - Log level */
                 const char *message,	/* I - printf-style message string */
 	        ...)			/* I - Additional args as needed */
 {
-  va_list		ap, ap2;	/* Argument pointers */
-  int			status;		/* Formatting status */
+  int		ret;			/* Return value */
+  va_list	ap, ap2;		/* Argument pointers */
+  int		status;			/* Formatting status */
 
 
  /*
@@ -748,6 +765,8 @@ cupsdLogMessage(int        level,	/* I - Log level */
   * Format and write the log message...
   */
 
+  cupsMutexLock(&log_mutex);
+
   va_start(ap, message);
 
   do
@@ -761,10 +780,13 @@ cupsdLogMessage(int        level,	/* I - Log level */
   va_end(ap);
 
   if (status > 0)
-    return (cupsdWriteErrorLog(level, log_line));
+    ret = cupsdWriteErrorLog(level, log_line);
   else
-    return (cupsdWriteErrorLog(CUPSD_LOG_ERROR,
-                               "Unable to allocate memory for log line!"));
+    ret = cupsdWriteErrorLog(CUPSD_LOG_ERROR, "Unable to allocate memory for log line.");
+
+  cupsMutexUnlock(&log_mutex);
+
+  return (ret);
 }
 
 
@@ -1030,6 +1052,7 @@ cupsdLogPrinter(
     const char      *message,		/* I - Printf-style message string */
     ...)				/* I - Additional arguments as needed */
 {
+  int		ret;			/* Return value */
   va_list	ap, ap2;		/* Argument pointers */
   char		pmsg[1024];		/* Format string for printer message */
   int		status;			/* Formatting status */
@@ -1048,6 +1071,8 @@ cupsdLogPrinter(
  /*
   * Format and write the log message...
   */
+
+  cupsMutexLock(&log_mutex);
 
   if (p)
     snprintf(pmsg, sizeof(pmsg), "[Printer %s] %s", p->name, message);
@@ -1090,15 +1115,21 @@ cupsdLogPrinter(
 			"PRIORITY=%i", log_levels[level],
 			NULL);
 
-      return (1);
+      ret = 1;
     }
     else
 #endif /* HAVE_SYSTEMD_SD_JOURNAL_H */
 
-    return (cupsdWriteErrorLog(level, log_line));
+    ret = cupsdWriteErrorLog(level, log_line);
   }
   else
-    return (cupsdWriteErrorLog(CUPSD_LOG_ERROR, "Unable to allocate memory for log line."));
+  {
+    ret = cupsdWriteErrorLog(CUPSD_LOG_ERROR, "Unable to allocate memory for log line.");
+  }
+
+  cupsMutexUnlock(&log_mutex);
+
+  return (ret);
 }
 
 
@@ -1348,8 +1379,6 @@ cupsdWriteErrorLog(int        level,	/* I - Log level */
   * Not using syslog; check the log file...
   */
 
-  cupsMutexLock(&log_mutex);
-
   if (!cupsdCheckLogFile(&ErrorFile, ErrorLog))
   {
     ret = 0;
@@ -1364,8 +1393,6 @@ cupsdWriteErrorLog(int        level,	/* I - Log level */
                    cupsdGetDateTime(NULL, LogTimeFormat), message);
     cupsFileFlush(ErrorFile);
   }
-
-  cupsMutexUnlock(&log_mutex);
 
   return (ret);
 }
