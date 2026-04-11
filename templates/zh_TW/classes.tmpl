@@ -1,0 +1,11 @@
+{#printer_name=0?:
+<TABLE CLASS="list" SUMMARY="列印機組列表">
+<THEAD>
+<TR><TH>佇列名</TH><TH>說明</TH><TH>位置</TH><TH>成員</TH><TH>狀態</TH></TR>
+</THEAD>
+<TBODY>
+{[printer_name]
+<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{?member_uris=?無:{member_uris}}</TD><TD>{printer_state=3?空閒:{printer_state=4?列印中:已暫停}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+}
+</TBODY>
+</TABLE></DIV>}

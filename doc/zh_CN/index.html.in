@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="/cups.css" type="text/css">
+    <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta name="viewport" content="width=device-width">
+    <title>首页 - CUPS @CUPS_VERSION@</title>
+  </head>
+  <body>
+    <div class="cups-header">
+      <ul>
+	<li><a href="https://openprinting.github.io/cups/" target="_blank">OpenPrinting CUPS</a></li>
+	<li><a class="active" href="/">首页</a></li>
+	<li><a href="/admin">管理</a></li>
+	<li><a href="/classes/">打印机组</a></li>
+	<li><a href="/help/">帮助</a></li>
+	<li><a href="/jobs/">作业</a></li>
+	<li><a href="/printers/">打印机</a></li>
+      </ul>
+    </div>
+    <div class="cups-body">
+      <div class="row">
+	<h1>CUPS @CUPS_VERSION@</h1>
+	<p>CUPS 是由 <a href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> 开发的标准开源打印系统，运行于 Linux® 及各类 Unix® 环境。CUPS 借助 <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> 驱动本地与网络打印机。</p>
+      </div>
+      <div class="row">
+	<div class="thirds">
+	  <h2>用户</h2>
+	  <p><a href="help/overview.html">CUPS 概述</a></p>
+	  <p><a href="help/options.html">命令行打印与选项</a></p>
+	</div>
+	<div class="thirds">
+	  <h2>管理员</h2>
+	  <p><a href="help/admin.html">添加打印机与打印机组</a></p>
+	  <p><a href="help/policies.html">访问与操作策略</a></p>
+	  <p><a href="help/network.html">使用网络打印机</a></p>
+	  <p><a href="help/firewalls.html">防火墙</a></p>
+	  <p><a href="help/man-cupsd.conf.html">cupsd.conf 参考</a></p>
+	</div>
+	<div class="thirds">
+	  <h2>开发者</h2>
+	  <p><a href="help/cupspm.html">CUPS 编程手册</a></p>
+	  <p><a href="help/api-filter.html">过滤器与后端开发</a></p>
+	</div>
+      </div>
+    </div>
+    <div class="cups-footer">Copyright &copy; 2021-2025 OpenPrinting. 保留所有权利。</div>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<SCRIPT TYPE="text/javascript">
+function reset_config()
+{
+  document.cups.CUPSDCONF.value = "{?cupsdconf_default}";
+}
+</SCRIPT>
+
+<H2 CLASS="title">編輯配置檔案</H2>
+
+<FORM NAME="cups" METHOD="POST" ACTION="/admin/">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server">
+
+<TEXTAREA NAME="CUPSDCONF" COLS="80" ROWS="25">{CUPSDCONF}</TEXTAREA>
+
+<P><INPUT TYPE="SUBMIT" NAME="SAVECHANGES" VALUE="儲存更改">
+<INPUT TYPE="BUTTON" VALUE="使用預設配置"
+onClick="reset_config();"></P>
+
+</FORM>

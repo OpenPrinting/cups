@@ -310,6 +310,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/doc/cups/pt_BR/*
 %dir /usr/share/doc/cups/ru
 /usr/share/doc/cups/ru/*
+%dir /usr/share/doc/cups/zh_CN
+/usr/share/doc/cups/zh_CN/*
+%dir /usr/share/doc/cups/zh_TW
+/usr/share/doc/cups/zh_TW/*
 
 %dir /usr/share/locale/ca
 /usr/share/locale/ca/cups_ca.po
@@ -333,6 +337,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/ru/cups_ru.po
 %dir /usr/share/locale/zh_CN
 /usr/share/locale/zh_CN/cups_zh_CN.po
+%dir /usr/share/locale/zh_TW
+/usr/share/locale/zh_TW/cups_zh_TW.po
 
 %dir /usr/share/man/man1
 /usr/share/man/man1/cancel.1.gz

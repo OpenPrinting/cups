@@ -1,0 +1,8 @@
+<H2 CLASS="title">{printer_name} 的 {title}</H2>
+
+<P>{job_state>5?:<IMG SRC="/images/wait.gif" WIDTH="16" HEIGHT="16"
+ALIGN="ABSMIDDLE" ALT="加载中"> }打印机命令作业
+{job_state=3?等待中:{job_state=4?已暂停:
+{job_state=5?打印中:{job_state=6?已暂停:
+{job_state=7?已取消:{job_state=8?已中止:已完成}}}}}}{job_state=9?:{job_printer_state_message?,
+<EM>"{job_printer_state_message}"</EM>:}}</P>
