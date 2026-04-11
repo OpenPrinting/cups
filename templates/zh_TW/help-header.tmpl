@@ -1,0 +1,42 @@
+<FORM ACTION="/help/{?HELPFILE}" METHOD="GET">
+{TOPIC?<INPUT TYPE="HIDDEN" NAME="TOPIC" VALUE="{TOPIC}">:}
+
+<P ALIGN="CENTER"><B>
+{HELPTITLE?{HELPTITLE}:{TOPIC?{TOPIC}:所有文件}}內搜尋：</B> <INPUT
+TYPE="SEARCH" NAME="QUERY" VALUE="{?QUERY}" SIZE="40" PLACEHOLDER=""
+AUTOSAVE="org.cups.help" RESULTS="20">
+<INPUT TYPE="SUBMIT" NAME="SEARCH" VALUE="搜尋">
+<INPUT TYPE="SUBMIT" NAME="CLEAR" VALUE="清除"></P>
+
+</FORM>
+
+<!-- Bookmarks -->
+<DIV CLASS="sidebar"><TABLE CLASS="inset" SUMMARY="目錄">
+<TR><TD>
+
+<H1>線上說明文件</H1>
+
+<P CLASS="l0"><A HREF="/help/{QUERY??QUERY={QUERY}:}">所有文件</A></P>
+<HR>
+
+{[BMTEXT]<P CLASS="l{BMINDENT}"><A HREF="{BMLINK}">{BMTEXT}</A></P>
+}
+</TD></TR>
+</TABLE></DIV>
+
+{QUERY?<P>{HELPFILE?{HELPTITLE}:{TOPIC?{TOPIC}:所有文件}}的搜尋結果\:</P>
+{QTEXT?<UL>
+{[QTEXT]<LI><A HREF="{QLINK}">{QTEXT}</A>{QPTEXT? (位於 <I><A HREF="{QPLINK}">{QPTEXT}</A></I>):}</LI>}
+{QTEXT?</UL>:}
+:<P>未找到匹配項。</P>}
+<HR NOSHADE>:}
+{HELPTITLE?<FORM ACTION="/help/{?HELPFILE}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="PRINTABLE" VALUE="YES"><INPUT TYPE="SUBMIT" VALUE="列印版本"></FORM>:
+
+<H1>線上說明</H1>
+
+<P>本頁為 CUPS 線上說明。可在上方搜尋關鍵字，或從側欄選擇文件主題。</P>
+
+<P>初次使用建議先閱讀 <a
+href="/help/overview.html">《CUPS 概述》</a>。</P>
+
+<P><A HREF="https://openprinting.github.io/cups/">CUPS 專案主頁</A> 還提供論壇、常見問題，以及提交缺陷與功能請求的入口。</P>}

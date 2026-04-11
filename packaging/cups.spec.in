@@ -310,6 +310,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/doc/cups/pt_BR/*
 %dir /usr/share/doc/cups/ru
 /usr/share/doc/cups/ru/*
+# zh_CN/zh_TW: localized static doc index.
+%dir /usr/share/doc/cups/zh_CN
+/usr/share/doc/cups/zh_CN/*
+%dir /usr/share/doc/cups/zh_TW
+/usr/share/doc/cups/zh_TW/*
 
 %dir /usr/share/locale/ca
 /usr/share/locale/ca/cups_ca.po

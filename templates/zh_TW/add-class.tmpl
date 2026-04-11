@@ -1,0 +1,37 @@
+<H1 CLASS="title">新增列印機組</H1>
+
+<FORM METHOD="POST" ACTION="/admin">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
+
+<TABLE>
+<TR>
+<TH CLASS="label">名稱:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_NAME" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>(可包含除 "/"、"#"、空格外的可列印字元)</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">說明:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_INFO" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>（便於識別的描述，例如「帶雙面器的 HP LaserJet」）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">位置:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_LOCATION" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>（便於識別的位置，例如「實驗室 1」）</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">成員:</TH>
+<TD>
+<SELECT NAME="MEMBER_URIS" SIZE="10" MULTIPLE>
+{[member_uris]<OPTION VALUE="{member_uris}" {?member_selected}>{member_names}}
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="新增列印機組"></TD>
+</TR>
+</TABLE>
+
+</FORM>
