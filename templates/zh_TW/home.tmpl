@@ -1,0 +1,34 @@
+	<h1>{ENV:CUPS_VERSION}</h1>
+	<p>CUPS 是由 <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> 開發的標準開源列印系統，執行於 Linux&reg; 及其他 Unix&reg; 類作業系統。CUPS 使用 <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere&trade;</a> 支援本地與網路列印機。</p>
+      </div>
+      <div class="row">
+        <h2 class="title">此系統</h2>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="新增列印機"></form>
+	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="尋找新列印機"></form>
+	<form action="/jobs/" method="GET"><input type="submit" value="管理作業"></form>
+	<form action="/printers/" method="GET"><input type="submit" value="管理列印機"></form>
+	<form action="/admin/" method="GET"><input type="submit" value="管理系統設定"></form>
+        {#alert_title=0?:<p>警示：</p>
+        <ul>{[alert_title]
+          <li><a href="{alert_href}">{alert_title}</a></li>}
+        </ul>}
+      </div>
+      <div class="row">
+	<div class="thirds">
+	  <h2 class="title">使用者說明</h2>
+	  <p><a href="help/overview.html">CUPS 概述</a></p>
+	  <p><a href="help/options.html">命令列列印與選項</a></p>
+	</div>
+	<div class="thirds">
+	  <h2 class="title">管理員說明</h2>
+	  <p><a href="help/admin.html">新增列印機與列印機組</a></p>
+	  <p><a href="help/policies.html">管理操作策略</a></p>
+	  <p><a href="help/network.html">使用網路列印機</a></p>
+	  <p><a href="help/firewalls.html">防火牆</a></p>
+	  <p><a href="help/man-cupsd.conf.html">cupsd.conf 參考</a></p>
+	</div>
+	<div class="thirds">
+	  <h2 class="title">開發者說明</h2>
+	  <p><a href="help/cupspm.html">CUPS 程式設計手冊</a></p>
+	  <p><a href="help/api-filter.html">過濾器與後端開發</a></p>
+	</div>

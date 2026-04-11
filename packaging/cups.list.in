@@ -468,8 +468,11 @@ f 0444 root sys $DATADIR/templates/ru templates/ru/*.tmpl
 #d 0755 root sys $DATADIR/templates/sv
 #f 0444 root sys $DATADIR/templates/sv templates/sv/*.tmpl
 
-#d 0755 root sys $DATADIR/templates/zh_TW
-#f 0444 root sys $DATADIR/templates/zh_TW templates/zh_TW/*.tmpl
+d 0755 root sys $DATADIR/templates/zh_CN
+f 0444 root sys $DATADIR/templates/zh_CN templates/zh_CN/*.tmpl
+
+d 0755 root sys $DATADIR/templates/zh_TW
+f 0444 root sys $DATADIR/templates/zh_TW templates/zh_TW/*.tmpl
 
 # Config files
 d 0755 root $CUPS_GROUP $SERVERROOT -
@@ -589,9 +592,6 @@ f 0444 root sys $DOCDIR/ru doc/ru/*.html
 
 #d 0755 root sys $DOCDIR/sv
 #f 0444 root sys $DOCDIR/sv doc/sv/*.html
-
-#d 0755 root sys $DOCDIR/zh_TW
-#f 0444 root sys $DOCDIR/zh_TW doc/zh_TW/*.html
 
 # Man pages
 d 0755 root sys $AMANDIR -
