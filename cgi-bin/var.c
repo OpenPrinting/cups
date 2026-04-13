@@ -162,7 +162,11 @@ cgiGetArray(const char *name,		/* I - Name of array variable */
 
 
   if (!_cups_strncasecmp(name, "ENV:", 4))
-    return (getenv(name + 4));
+  {
+    const char *val = getenv(name + 4);
+
+    return (val ? strdup(val) : NULL);
+  }
 
   if ((var = cgi_find_variable(name)) == NULL)
     return (NULL);
@@ -1170,10 +1174,12 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     */
 
     for (s = name; *data != '\0'; data ++)
+    {
       if (*data == '=')
         break;
       else if (*data >= ' ' && s < (name + sizeof(name) - 1))
         *s++ = *data;
+    }
 
     *s = '\0';
     if (*data == '=')
@@ -1186,6 +1192,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     */
 
     for (s = value, done = 0; !done && *data != '\0'; data ++)
+    {
       switch (*data)
       {
 	case '&' :	/* End of data... */
@@ -1228,6 +1235,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
               *s++ = *data;
             break;
       }
+    }
 
     *s = '\0';		/* nul terminate the string */
 
@@ -1246,6 +1254,9 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     */
 
     fprintf(stderr, "DEBUG2: cgi_initialize_string: name=\"%s\", value=\"%s\"\n", name, value);
+
+    if (!_cups_strncasecmp(name, "ENV:", 4))
+      continue;				// Don't allow environment vars to be set
 
     if ((s = strrchr(name, '-')) != NULL && isdigit(s[1] & 255))
     {

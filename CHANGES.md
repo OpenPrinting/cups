@@ -168,6 +168,8 @@ v2.5b1 - YYYY-MM-DD
 - Fixed an allocation bug in the `rastertoepson` filter (Issue #1537)
 - Fixed a range check when loading cached SNMP supply information (Issue #1538)
 - Fixed A4 support in the `ippevepcl` program (Issue #1544)
+- Fixed issues with the environment variable support of CGI programs
+  (Issue #1547)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
