@@ -1,7 +1,7 @@
 /*
  * Destination option/media support for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2012-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -3202,7 +3202,7 @@ cups_test_constraints(
 
         case IPP_TAG_BEGIN_COLLECTION :
             col = ippNew();
-            _cupsEncodeOption(col, IPP_TAG_ZERO, NULL, ippGetName(attr), value);
+            _cupsEncodeOption(col, IPP_TAG_ZERO, NULL, ippGetName(attr), value, /*depth*/0);
 
             for (i = 0, count = ippGetCount(attr); i < count; i ++)
             {
