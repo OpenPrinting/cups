@@ -1180,16 +1180,16 @@ static void device_added(void *userdata, io_iterator_t iterator)
       (*printerIntf)->GetInterfaceSubClass(printerIntf, &intfSubClass);
       if (intfClass == kUSBPrintingInterfaceClass && intfSubClass == kUSBPrintingSubclass)
         reference->keepRunning = reference->callback(intf, printerIntf, userdata);
-        (*printerIntf)->Release(printerIntf);
-      }
-      IOObjectRelease(intf);
+      (*printerIntf)->Release(printerIntf);
     }
+    IOObjectRelease(intf);
+  }
 
-    if (reference->keepRunning && reference->callback)
-      reference->keepRunning = reference->callback(IO_OBJECT_NULL, NULL, reference->userdata);
+  if (reference->keepRunning && reference->callback)
+    reference->keepRunning = reference->callback(IO_OBJECT_NULL, NULL, reference->userdata);
 
-    if (!reference->keepRunning)
-      CFRunLoopStop(CFRunLoopGetCurrent());
+  if (!reference->keepRunning)
+    CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 /*
@@ -1305,14 +1305,14 @@ static Boolean find_device_cb(io_service_t obj, printer_interface_t printerIntf,
           if (g.printer_obj != 0)
             IOObjectRelease(g.printer_obj);
 
-            if (g.location == 0 || g.location == intfLocation)
-                keepLooking = false;
+	  if (g.location == 0 || g.location == intfLocation)
+	      keepLooking = false;
 
-            g.location = intfLocation;
-            g.alternateSetting = intfAltSetting;
-            g.interfaceProtocol = intfProtocol;
-            g.printer_obj = obj;
-            IOObjectRetain(obj);
+	  g.location = intfLocation;
+	  g.alternateSetting = intfAltSetting;
+	  g.interfaceProtocol = intfProtocol;
+	  g.printer_obj = obj;
+	  IOObjectRetain(obj);
         }
 
         if (!keepLooking)
