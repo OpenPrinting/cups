@@ -1,7 +1,7 @@
 /*
  * SNMP supplies functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2008-2015 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -575,7 +575,7 @@ backend_init_supplies(
     if (cupsFileGets(cachefile, value, sizeof(value)))
     {
       if (sscanf(value, "3 %d%d", &num_supplies, &charset) == 2 &&
-          num_supplies <= CUPS_MAX_SUPPLIES &&
+          num_supplies > 0 && num_supplies <= CUPS_MAX_SUPPLIES &&
           cupsFileGets(cachefile, value, sizeof(value)))
       {
         if (!strcmp(description, value))

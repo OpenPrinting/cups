@@ -166,6 +166,7 @@ v2.5b1 - YYYY-MM-DD
 - Fixed error recovery when scanning for PPDs in `cups-driverd` (Issue #1416)
 - Fixed allowed values for directive `FilterNice`
 - Fixed an allocation bug in the `rastertoepson` filter (Issue #1537)
+- Fixed a range check when loading cached SNMP supply information (Issue #1538)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)
