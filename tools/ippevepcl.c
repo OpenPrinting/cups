@@ -129,7 +129,7 @@ pcl_start_page(
   pcl_top    = header->HWResolution[1] / 6;
   pcl_bottom = header->cupsHeight - header->HWResolution[1] / 6 - 1;
 
-  if (header->PageSize[1] == 842 && header->cupsWidth >= (8 * header->HWResolution[0]))
+  if ((header->PageSize[1] == 841 || header->PageSize[1] == 842) && header->cupsWidth >= (8 * header->HWResolution[0]))
   {
    /* A4 gets special side margins to expose an 8" print area */
     pcl_left  = (header->cupsWidth - 8 * header->HWResolution[0]) / 2;
