@@ -2873,7 +2873,13 @@ parse_variable(
 	    }
 	  }
 
+#ifdef OFF_MAX
 	  if (n < 0 || n > (double)OFF_MAX)
+#elif defined(LLONG_MAX)
+	  if (n < 0 || n > (double)LLONG_MAX)
+#else
+	  if (n < 0 || n > (double)LONG_MAX)
+#endif // OFF_MAX
 	  {
 	    cupsdLogMessage(CUPSD_LOG_ERROR, "Bad size value for %s on line %d of %s.", line, linenum, filename);
 	    return (0);
