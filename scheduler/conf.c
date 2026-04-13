@@ -43,6 +43,7 @@
 typedef enum
 {
   CUPSD_VARTYPE_INTEGER,		/* Integer option */
+  CUPSD_VARTYPE_SIZE,			/* Size option */
   CUPSD_VARTYPE_TIME,			/* Time interval option */
   CUPSD_VARTYPE_NULLSTRING,		/* String option or NULL/empty string */
   CUPSD_VARTYPE_STRING,			/* String option */
@@ -94,7 +95,7 @@ static const cupsd_var_t	cupsd_vars[] =
 #ifdef HAVE_LAUNCHD
   { "LaunchdTimeout",		&IdleExitTimeout,	CUPSD_VARTYPE_TIME },
 #endif /* HAVE_LAUNCHD */
-  { "LimitRequestBody",		&MaxRequestSize,	CUPSD_VARTYPE_INTEGER },
+  { "LimitRequestBody",		&MaxRequestSize,	CUPSD_VARTYPE_SIZE },
   { "LogDebugHistory",		&LogDebugHistory,	CUPSD_VARTYPE_INTEGER },
   { "MaxActiveJobs",		&MaxActiveJobs,		CUPSD_VARTYPE_INTEGER },
   { "MaxClients",		&MaxClients,		CUPSD_VARTYPE_INTEGER },
@@ -107,8 +108,8 @@ static const cupsd_var_t	cupsd_vars[] =
   { "MaxJobsPerUser",		&MaxJobsPerUser,	CUPSD_VARTYPE_INTEGER },
   { "MaxJobTime",		&MaxJobTime,		CUPSD_VARTYPE_TIME },
   { "MaxLeaseDuration",		&MaxLeaseDuration,	CUPSD_VARTYPE_TIME },
-  { "MaxLogSize",		&MaxLogSize,		CUPSD_VARTYPE_INTEGER },
-  { "MaxRequestSize",		&MaxRequestSize,	CUPSD_VARTYPE_INTEGER },
+  { "MaxLogSize",		&MaxLogSize,		CUPSD_VARTYPE_SIZE },
+  { "MaxRequestSize",		&MaxRequestSize,	CUPSD_VARTYPE_SIZE },
   { "MaxSubscriptions",		&MaxSubscriptions,	CUPSD_VARTYPE_INTEGER },
   { "MaxSubscriptionsPerJob",	&MaxSubscriptionsPerJob,	CUPSD_VARTYPE_INTEGER },
   { "MaxSubscriptionsPerPrinter",&MaxSubscriptionsPerPrinter,	CUPSD_VARTYPE_INTEGER },
@@ -2806,54 +2807,80 @@ parse_variable(
     case CUPSD_VARTYPE_INTEGER :
 	if (!value)
 	{
-	  cupsdLogMessage(CUPSD_LOG_ERROR,
-			  "Missing integer value for %s on line %d of %s.",
-			  line, linenum, filename);
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Missing integer value for %s on line %d of %s.", line, linenum, filename);
           return (0);
 	}
 	else if (!isdigit(*value & 255))
 	{
-	  cupsdLogMessage(CUPSD_LOG_ERROR,
-			  "Bad integer value for %s on line %d of %s.",
-			  line, linenum, filename);
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Bad integer value for %s on line %d of %s.", line, linenum, filename);
           return (0);
 	}
 	else
 	{
-	  int	n;		/* Number */
-	  char	*units;		/* Units */
+	  long	n;		/* Number */
+	  char	*ptr;		/* Remaining text */
 
-	  n = (int)strtol(value, &units, 0);
+	  n = strtol(value, &ptr, 0);
 
-	  if (units && *units)
+	  if (n < 0 || n > INT_MAX || (ptr && *ptr))
 	  {
-	    if (tolower(units[0] & 255) == 'g')
-	      n *= 1024 * 1024 * 1024;
-	    else if (tolower(units[0] & 255) == 'm')
-	      n *= 1024 * 1024;
-	    else if (tolower(units[0] & 255) == 'k')
-	      n *= 1024;
-	    else if (tolower(units[0] & 255) == 't')
-	      n *= 262144;
-	    else
-	    {
-	      cupsdLogMessage(CUPSD_LOG_ERROR,
-			      "Unknown integer value for %s on line %d of %s.",
-			      line, linenum, filename);
-	      return (0);
-	    }
-	  }
-
-	  if (n < 0)
-	  {
-	    cupsdLogMessage(CUPSD_LOG_ERROR,
-			    "Bad negative integer value for %s on line %d of "
-			    "%s.", line, linenum, filename);
+	    cupsdLogMessage(CUPSD_LOG_ERROR, "Bad integer value for %s on line %d of %s.", line, linenum, filename);
 	    return (0);
 	  }
 	  else
 	  {
-	    *((int *)var->ptr) = n;
+	    *((int *)var->ptr) = (int)n;
+	  }
+	}
+	break;
+
+    case CUPSD_VARTYPE_SIZE :
+	if (!value)
+	{
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Missing size value for %s on line %d of %s.", line, linenum, filename);
+          return (0);
+	}
+	else if (!isdigit(*value & 255))
+	{
+	  cupsdLogMessage(CUPSD_LOG_ERROR, "Bad size value for %s on line %d of %s.", line, linenum, filename);
+          return (0);
+	}
+	else
+	{
+	  double	n;		/* Number */
+	  char		*units;		/* Units */
+
+	  n = _cupsStrScand(value, &units, localeconv());
+
+	  if (units && *units)
+	  {
+	    if (tolower(units[0] & 255) == 'g')
+	    {
+	      n *= 1024.0 * 1024.0 * 1024.0;
+	    }
+	    else if (tolower(units[0] & 255) == 'm')
+	    {
+	      n *= 1024.0 * 1024.0;
+	    }
+	    else if (tolower(units[0] & 255) == 'k')
+	    {
+	      n *= 1024.0;
+	    }
+	    else
+	    {
+	      cupsdLogMessage(CUPSD_LOG_ERROR, "Unknown size units for %s on line %d of %s.", line, linenum, filename);
+	      return (0);
+	    }
+	  }
+
+	  if (n < 0 || n > (double)OFF_MAX)
+	  {
+	    cupsdLogMessage(CUPSD_LOG_ERROR, "Bad size value for %s on line %d of %s.", line, linenum, filename);
+	    return (0);
+	  }
+	  else
+	  {
+	    *((off_t *)var->ptr) = (off_t)n;
 	  }
 	}
 	break;

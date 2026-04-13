@@ -193,13 +193,13 @@ VAR int			MaxClients		VALUE(100),
 					/* Maximum number of clients */
 			MaxClientsPerHost	VALUE(0),
 					/* Maximum number of clients per host */
-			MaxCopies		VALUE(CUPS_DEFAULT_MAX_COPIES),
+			MaxCopies		VALUE(CUPS_DEFAULT_MAX_COPIES);
 					/* Maximum number of copies per job */
-			MaxLogSize		VALUE(1024 * 1024),
+VAR off_t		MaxLogSize		VALUE(1024 * 1024),
 					/* Maximum size of log files */
-			MaxRequestSize		VALUE(0),
+			MaxRequestSize		VALUE(0);
 					/* Maximum size of IPP requests */
-			HostNameLookups		VALUE(FALSE),
+VAR int			HostNameLookups		VALUE(FALSE),
 					/* Do we do reverse lookups? */
 			Timeout			VALUE(DEFAULT_TIMEOUT),
 					/* Timeout during requests */
