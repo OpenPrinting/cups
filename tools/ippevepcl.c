@@ -1,7 +1,7 @@
 /*
  * Generic HP PCL printer command for ippeveprinter/CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -129,7 +129,7 @@ pcl_start_page(
   pcl_top    = header->HWResolution[1] / 6;
   pcl_bottom = header->cupsHeight - header->HWResolution[1] / 6 - 1;
 
-  if (header->PageSize[1] == 842)
+  if (header->PageSize[1] == 842 && header->cupsWidth >= (8 * header->HWResolution[0]))
   {
    /* A4 gets special side margins to expose an 8" print area */
     pcl_left  = (header->cupsWidth - 8 * header->HWResolution[0]) / 2;
