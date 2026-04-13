@@ -38,6 +38,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed a crash bug in the rastertoepson filter.
 - Fixed a bug in cgiCheckVariables.
 - Fixed a debug printf bug on Windows (Issue #1529)
+- Fixed a recursion issue with encoding of nested collections (Issue #1539)
 
 
 Changes in CUPS v2.4.16 (2025-12-04)

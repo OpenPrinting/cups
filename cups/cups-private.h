@@ -1,7 +1,7 @@
 /*
  * Private definitions for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -37,6 +37,13 @@
 #  ifdef __cplusplus
 extern "C" {
 #  endif /* __cplusplus */
+
+
+/*
+ * Constants...
+ */
+
+#  define _CUPS_MAX_OPTION_DEPTH 4	/* Maximum depth of nested options/collections */
 
 
 /*
@@ -270,7 +277,7 @@ extern void		_cupsBufferRelease(char *b) _CUPS_PRIVATE;
 
 extern http_t		*_cupsConnect(void) _CUPS_PRIVATE;
 extern char		*_cupsCreateDest(const char *name, const char *info, const char *device_id, const char *device_uri, char *uri, size_t urisize) _CUPS_PRIVATE;
-extern ipp_attribute_t	*_cupsEncodeOption(ipp_t *ipp, ipp_tag_t group_tag, _ipp_option_t *map, const char *name, const char *value) _CUPS_PRIVATE;
+extern ipp_attribute_t	*_cupsEncodeOption(ipp_t *ipp, ipp_tag_t group_tag, _ipp_option_t *map, const char *name, const char *value, int depth) _CUPS_PRIVATE;
 extern int		_cupsGet1284Values(const char *device_id, cups_option_t **values) _CUPS_PRIVATE;
 extern double		_cupsGetClock(void) _CUPS_PRIVATE;
 extern const char	*_cupsGetDestResource(cups_dest_t *dest, unsigned flags, char *resource, size_t resourcesize) _CUPS_PRIVATE;
