@@ -1,7 +1,7 @@
 /*
  * Label printer filter for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2001-2007 by Easy Software Products.
  *
@@ -758,8 +758,7 @@ OutputLine(ppd_file_t         *ppd,	/* I - PPD file */
 	* See if the line is blank; if not, write it to the printer...
 	*/
 
-	if (Buffer[0] ||
-            memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine - 1))
+	if (Buffer[0] || memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine - 1))
 	{
           if (Feed)
 	  {
@@ -788,7 +787,7 @@ OutputLine(ppd_file_t         *ppd,	/* I - PPD file */
         break;
 
     case ZEBRA_EPL_PAGE :
-        if (Buffer[0] || memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine))
+        if (Buffer[0] || memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine - 1))
 	{
           printf("GW0,%d,%d,1\n", y, header->cupsBytesPerLine);
 	  for (i = header->cupsBytesPerLine, ptr = Buffer; i > 0; i --, ptr ++)
@@ -872,7 +871,7 @@ OutputLine(ppd_file_t         *ppd,	/* I - PPD file */
         break;
 
     case ZEBRA_CPCL :
-        if (Buffer[0] || memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine))
+        if (Buffer[0] || memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine - 1))
 	{
 	  printf("CG %u 1 0 %d ", header->cupsBytesPerLine, y);
           fwrite(Buffer, 1, header->cupsBytesPerLine, stdout);
@@ -882,8 +881,7 @@ OutputLine(ppd_file_t         *ppd,	/* I - PPD file */
 	break;
 
     case INTELLITECH_PCL :
-	if (Buffer[0] ||
-            memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine - 1))
+	if (Buffer[0] || memcmp(Buffer, Buffer + 1, header->cupsBytesPerLine - 1))
         {
 	  if (Feed)
 	  {
