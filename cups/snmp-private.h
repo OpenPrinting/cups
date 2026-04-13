@@ -1,7 +1,7 @@
 //
 // Private SNMP definitions for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2014 by Apple Inc.
 // Copyright © 2006-2007 by Easy Software Products, all rights reserved.
 //
@@ -55,9 +55,9 @@ typedef enum cups_asn1_e cups_asn1_t;	// ASN1 request/object types
 
 typedef struct cups_snmp_string_s	// String value
 {
-  unsigned char	bytes[CUPS_SNMP_MAX_STRING];
-					// Bytes in string
   unsigned	num_bytes;		// Number of bytes
+  unsigned char	bytes[CUPS_SNMP_MAX_STRING + 1];
+					// Bytes in string
 } cups_snmp_string_t;
 
 union cups_snmp_value_u			// Object value

@@ -1,7 +1,7 @@
 /*
  * SNMP functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
@@ -1014,10 +1014,14 @@ asn1_decode_snmp(unsigned char *buffer,	/* I - Buffer */
 	        case CUPS_ASN1_OCTET_STRING :
 	        case CUPS_ASN1_BIT_STRING :
 	        case CUPS_ASN1_HEX_STRING :
-		    packet->object_value.string.num_bytes = length;
 		    asn1_get_string(&bufptr, bufend, length,
 		                    (char *)packet->object_value.string.bytes,
 				    sizeof(packet->object_value.string.bytes));
+
+                    if (length >= sizeof(packet->object_value.string.bytes))
+		      packet->object_value.string.num_bytes = sizeof(packet->object_value.string.bytes) - 1;
+                    else
+		      packet->object_value.string.num_bytes = length;
 	            break;
 
 	        case CUPS_ASN1_OID :
