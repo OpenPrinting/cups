@@ -1,7 +1,7 @@
 //
 // JSON API implementation for CUPS.
 //
-// Copyright © 2022-2025 by OpenPrinting.
+// Copyright © 2022-2026 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -232,7 +232,9 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
   cups_json_t	*current;		// Current node
   size_t	length;			// Length of JSON data as a string
   char		*s,			// JSON string
-		*ptr;			// Pointer into string
+		*ptr,			// Pointer into string
+		*end,			// End of string
+		temp[1024];		// Temporary string
   const char	*value;			// Pointer into string value
   struct lconv	*loc;			// Locale data
 
@@ -250,6 +252,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
   // Figure out the necessary space needed in the string
   current = json;
   length  = 1;				// nul
+  loc     = localeconv();
 
   while (current)
   {
@@ -273,7 +276,8 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
           break;
 
       case CUPS_JTYPE_NUMBER :
-          length += 32;
+	  _cupsStrFormatd(temp, temp + sizeof(temp) - 1, current->value.number, loc);
+	  length += strlen(temp);
           break;
 
       case CUPS_JTYPE_KEY :
@@ -333,7 +337,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 
   current = json;
   ptr     = s;
-  loc     = localeconv();
+  end     = s + length - 1;
 
   while (current)
   {
@@ -368,11 +372,14 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
           break;
 
       case CUPS_JTYPE_OBJECT :
+          if (ptr >= end)
+            goto overflow;
+
           *ptr++ = '{';
           break;
 
       case CUPS_JTYPE_NUMBER :
-          _cupsStrFormatd(ptr, s + length, current->value.number, loc);
+          _cupsStrFormatd(ptr, end, current->value.number, loc);
           ptr += strlen(ptr);
           break;
 
@@ -477,6 +484,13 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
   DEBUG_printf("3cupsJSONExportString: Returning \"%s\".", s);
 
   return (s);
+
+  // If we get here we overflowed our string buffer for some reason...
+  overflow:
+
+  free(s);
+
+  return (NULL);
 }
 
 
