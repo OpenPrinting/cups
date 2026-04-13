@@ -1,7 +1,7 @@
 //
 // ipptool command for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2020 by The Printer Working Group.
 // Copyright © 2007-2021 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
@@ -3293,7 +3293,7 @@ parse_generate_file(
           }
 	}
 
-	if (!params->xdpi || !params->ydpi)
+	if (params->xdpi <= 0 || params->xdpi > 9600 || params->ydpi <= 0 || params->ydpi > 9600)
 	{
 	  print_fatal_error(data, "Printer does not report a supported RESOLUTION on line %d of '%s'.", ippFileGetLineNumber(f), ippFileGetFilename(f));
 	  goto fail;
@@ -3607,7 +3607,7 @@ parse_generate_file(
 	  params->xdpi = params->ydpi = 0;
       }
 
-      if (strcmp(value, "default") && (params->xdpi <= 0 || params->ydpi <= 0))
+      if (strcmp(value, "default") && (params->xdpi <= 0 || params->xdpi > 9600 || params->ydpi <= 0 || params->ydpi > 9600))
       {
 	print_fatal_error(data, "Bad RESOLUTION \"%s\" on line %d of '%s'.", value, ippFileGetLineNumber(f), ippFileGetFilename(f));
 	goto fail;
