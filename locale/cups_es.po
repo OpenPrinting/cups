@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2026-04-11 18:09+0000\n"
-"Last-Translator: Yago Raña Gayoso <yago.rana.gayoso@gmail.com>\n"
+"PO-Revision-Date: 2026-04-15 15:11+0000\n"
+"Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -391,11 +391,11 @@ msgstr "      %s  Permisos incorrectos en el archivo %s \"%s\"."
 
 #, c-format
 msgid "      %s  Bad spelling of %s - should be %s."
-msgstr "      %s  %s mal escrito - debería ser %s."
+msgstr "      %s  %s mal escrito - sería %s."
 
 #, c-format
 msgid "      %s  Cannot provide both APScanAppPath and APScanAppBundleID."
-msgstr "      %s  No puede proporcionar APScanAppPath y APScanAppBundleID."
+msgstr "      %s  No se puede proporcionar APScanAppPath y APScanAppBundleID."
 
 #, c-format
 msgid "      %s  Default choices conflicting."
@@ -575,28 +575,28 @@ msgid ""
 "      **FAIL**  Bad ModelName - \"%c\" not allowed in string.\n"
 "                REF: Pages 59-60, section 5.3."
 msgstr ""
-"      **FALLO**  ModelName incorrecto - \"%c\" no permitido en la cadena.\n"
+"      **FALLO**  ModelName incorrecto – \"%c\" no permitido en la cadena.\n"
 "                REF: Páginas 59-60, sección 5.3."
 
 msgid ""
 "      **FAIL**  Bad PSVersion - not \"(string) int\".\n"
 "                REF: Pages 62-64, section 5.3."
 msgstr ""
-"      **FALLO**  PSVersion incorrecto - no es \"(string) int\".\n"
+"      **FALLO**  PSVersion incorrecto – no es \"(string) int\".\n"
 "                REF: Páginas 62-64, sección 5.3."
 
 msgid ""
 "      **FAIL**  Bad Product - not \"(string)\".\n"
 "                REF: Page 62, section 5.3."
 msgstr ""
-"      **FALLO**  Product incorrecto - no es \"(string)\".\n"
+"      **FALLO**  Product incorrecto – no es \"(string)\".\n"
 "                REF: Página 62, sección 5.3."
 
 msgid ""
 "      **FAIL**  Bad ShortNickName - longer than 31 chars.\n"
 "                REF: Pages 64-65, section 5.3."
 msgstr ""
-"      **FALLO**  ShortNickName incorrecto - mayor de 31 caracteres.\n"
+"      **FALLO**  ShortNickName incorrecto – mayor de 31 caracteres.\n"
 "                REF: Páginas 64-65, sección 5.3."
 
 #, c-format
@@ -863,8 +863,8 @@ msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j TRABAJO-ID[,N]           Filtrar archivo N desde el trabajo "
-"especificado (por defecto es archivo 1)."
+"  -j TAREA-ID[,N]         Filtrar archivo N desde la tarea especificada (por "
+"defecto es archivo 1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
@@ -903,7 +903,7 @@ msgid "  -t                      Test PPDs instead of generating them."
 msgstr "  -t                      Prueba los PPD en vez de generarlos."
 
 msgid "  -t TITLE                Set title."
-msgstr "  -t TÍTULO                Establece el título."
+msgstr "  -t TÍTULO               Establece el título."
 
 msgid "  -u                      Remove the PPD file when finished."
 msgstr "  -u                      Elimina el archivo PPD tras finalizarlo."
@@ -996,7 +996,7 @@ msgstr "«%s»: %u minutos de dateTime inconclusos (RFC 8011 sección 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime month %u (RFC 8011 section 5.1.15)."
-msgstr "\"%s\": mes %u de dateTime inconcluso (RFC 8011 sección 5.1.15)."
+msgstr "«%s»: mes %u de dateTime inconcluso (RFC 8011 sección 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime seconds %u (RFC 8011 section 5.1.15)."
@@ -1043,7 +1043,7 @@ msgstr ""
 msgid ""
 "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
 msgstr ""
-"«%s»: valor de nombre «%s» inconcluso – secuencia UTF-8 incorrecta (RFC 8011 "
+"«%s»: valor «%s» de nombre inconcluso – secuencia UTF-8 incorrecta (RFC 8011 "
 "sección 5.1.3)."
 
 #, c-format
@@ -1051,7 +1051,7 @@ msgid ""
 "\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section "
 "8.1)."
 msgstr ""
-"«%s»: valor de nombre «%s» inconcluso – carácter de control incorrecto (PWG "
+"«%s»: valor «%s» de nombre inconcluso – carácter de control incorrecto (PWG "
 "5100.14 sección 8.1)."
 
 #, c-format
@@ -1080,7 +1080,7 @@ msgstr ""
 msgid ""
 "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
 msgstr ""
-"\"%s\": valor octetString inconclusa – longitud %d inconclusa (RFC 8011 "
+"«%s»: valor octetString inconclusa – longitud %d inconclusa (RFC 8011 "
 "sección 5.1.20)."
 
 #, c-format
@@ -1151,10 +1151,10 @@ msgstr ""
 "sección 5.1.7)."
 
 msgid "\"requesting-user-name\" attribute in wrong group."
-msgstr "\"requesting-user-name\" es atributo dentro de grupo incorrecto."
+msgstr "«requesting-user-name» es atributo dentro de grupo incorrecto."
 
 msgid "\"requesting-user-name\" attribute with wrong syntax."
-msgstr "\"requesting-user-name\" de atributo con sintaxis incorrecta."
+msgstr "«requesting-user-name» de atributo con sintaxis incorrecta."
 
 #, c-format
 msgid "%-7s %-7.7s %-7d %-31.31s %.0f bytes"
@@ -1214,7 +1214,7 @@ msgstr "%s está preparada e imprimiendo"
 
 #, c-format
 msgid "%s job-id user title copies options [file]"
-msgstr "%s job-id usuario título copias opciones [archivo]"
+msgstr "%s id-tarea usuario título copias opciones [archivo]"
 
 #, c-format
 msgid "%s not accepting requests since %s -"
@@ -1234,7 +1234,7 @@ msgstr "%s/%s no acepta peticiones desde %s -"
 
 #, c-format
 msgid "%s: %-33.33s [job %d localhost]"
-msgstr "%s: %-33.33s [trabajo %d localhost]"
+msgstr "%s: %-33.33s [tarea %d localhost]"
 
 #. TRANSLATORS: Message is "subject: error"
 #, c-format
@@ -1277,18 +1277,18 @@ msgstr "%s: Error – añada '/version=1.1' al nombre del servidor."
 
 #, c-format
 msgid "%s: Error - bad job ID."
-msgstr "%s: Error – ID de trabajo incorrecto."
+msgstr "%s: Error – ID de tarea incorrecta."
 
 #, c-format
 msgid "%s: Error - cannot print files and alter jobs simultaneously."
 msgstr ""
-"%s: Error; no se pueden imprimir archivos y alterar trabajo al mismo tiempo."
+"%s: Error – no se pueden imprimir archivos y alterar tarea al mismo tiempo."
 
 #, c-format
 msgid "%s: Error - cannot print from stdin if files or a job ID are provided."
 msgstr ""
-"%s: Error; no se puede imprimir desde stdin si se proporcionan archivos o un "
-"ID de trabajo."
+"%s: Error – no se puede imprimir desde stdin si se proporcionan archivos o "
+"un ID de tarea."
 
 #, c-format
 msgid "%s: Error - copies must be 1 or more."
@@ -1300,7 +1300,7 @@ msgstr "%s: Error – \"usuario\" esperado tras opción \"-U\"."
 
 #, c-format
 msgid "%s: Error - expected PPD file after \"-%c\" option."
-msgstr "%s: Error – esperaba archivo PPD tras la opción «-%c»."
+msgstr "%s: Error – se esperaba archivo PPD tras la opción «-%c»."
 
 #, c-format
 msgid "%s: Error - expected character set after \"-S\" option."
@@ -1336,7 +1336,7 @@ msgstr "%s: Error – se esperaba nombre de archivo tras la opción «-c»."
 
 #, c-format
 msgid "%s: Error - expected form after \"-f\" option."
-msgstr "%s: Error - se esperaba un formulario tras la opción \"-f\"."
+msgstr "%s: Error – se esperaba un formulario tras la opción \"-f\"."
 
 #, c-format
 msgid "%s: Error - expected hold name after \"-H\" option."
@@ -1356,7 +1356,7 @@ msgstr "%s: Error – se esperaba archivo de entrada tras la opción «-f»."
 
 #, c-format
 msgid "%s: Error - expected job-id after \"-j\" option."
-msgstr "%s: Error; se esperaba trabajo-id tras la opción «-j»."
+msgstr "%s: Error – se esperaba tarea-id tras la opción “-j”."
 
 #, c-format
 msgid "%s: Error - expected mode list after \"-y\" option."
@@ -1380,7 +1380,7 @@ msgstr "%s: Error – se esperaba un número de copias tras la opción «-n»."
 
 #, c-format
 msgid "%s: Error - expected option=value after \"-o\" option."
-msgstr "%s: Error - se esperaba opción=valor tras la opción \"-o\"."
+msgstr "%s: Error – se esperaba opción=valor tras la opción \"-o\"."
 
 #, c-format
 msgid "%s: Error - expected page list after \"-P\" option."
@@ -1427,7 +1427,7 @@ msgid ""
 "%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
 "\" after \"-W\" option."
 msgstr ""
-"%s: Error - necesita \"completed\", \"not-completed\", \"successful\", o "
+"%s: Error – necesita \"completed\", \"not-completed\", \"successful\", o "
 "\"all\" tras la opción \"-W\"."
 
 #, c-format
@@ -1440,7 +1440,7 @@ msgstr "%s: Error – la prioridad debe estar entre 1 y 100."
 
 #, c-format
 msgid "%s: Error - scheduler not responding."
-msgstr "%s: Error; la planificación no responde."
+msgstr "%s: Error – la planificación no responde."
 
 #, c-format
 msgid "%s: Error - too many files - \"%s\"."
@@ -1472,11 +1472,11 @@ msgstr "%s: Error – opción “%s” desconocida."
 
 #, c-format
 msgid "%s: Error - unknown option \"-%c\"."
-msgstr "%s: error: opción “-%c” desconocida."
+msgstr "%s: Error – opción “-%c” desconocida."
 
 #, c-format
 msgid "%s: Expected job ID after \"-i\" option."
-msgstr "%s: Se esperaba un ID de trabajo tras la opción “-i”."
+msgstr "%s: Se esperaba un ID de tarea tras la opción “-i”."
 
 #, c-format
 msgid "%s: File '%s' is too large to load in memory."
@@ -1516,7 +1516,7 @@ msgstr "%s: Falta la versión para \"-V\"."
 
 #, c-format
 msgid "%s: Need job ID (\"-i jobid\") before \"-H restart\"."
-msgstr "%s: Se necesita un ID de trabajo (“-i jobid”) antes de “-H restart”."
+msgstr "%s: Se necesita un ID de tarea (“-i jobid”) antes de “-H restart”."
 
 #, c-format
 msgid "%s: No filter to convert from %s/%s to %s/%s."
@@ -1532,27 +1532,27 @@ msgstr "%s: El planificador no se está ejecutando."
 
 #, c-format
 msgid "%s: Unable to access '%s': %s"
-msgstr "%s: No se puede acceder a '%s': %s"
+msgstr "%s: No es capaz de acceder a '%s': %s"
 
 #, c-format
 msgid "%s: Unable to allocate memory for '%s': %s"
-msgstr "%s: No se a podido reservar memoria para '%s': %s"
+msgstr "%s: No es capaz de asignar memoria para '%s': %s"
 
 #, c-format
 msgid "%s: Unable to connect to server."
-msgstr "%s: No se ha podido conectar al servidor."
+msgstr "%s: No es capaz de conectar al servidor."
 
 #, c-format
 msgid "%s: Unable to contact server."
-msgstr "%s: No se ha podido contactar con el servidor."
+msgstr "%s: No es capaz de contactar con el servidor."
 
 #, c-format
 msgid "%s: Unable to determine MIME type of \"%s\"."
-msgstr "%s: No se ha podido determinar el tipo MIME de \"%s\"."
+msgstr "%s: No es capaz de determinar el tipo MIME de \"%s\"."
 
 #, c-format
 msgid "%s: Unable to open \"%s\": %s"
-msgstr "%s: No se pudo abrir \"%s\": %s"
+msgstr "%s: No es capaz de abrir \"%s\": %s"
 
 #, c-format
 msgid "%s: Unable to open %s: %s"
@@ -1560,7 +1560,7 @@ msgstr "%s: No es capaz de abrir %s: %s"
 
 #, c-format
 msgid "%s: Unable to open '%s': %s"
-msgstr "%s: No se puede abrir '%s': %s"
+msgstr "%s: No es capaz de abrir '%s': %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
@@ -1568,7 +1568,7 @@ msgstr "%s: No es capaz de abrir el archivo PPD: %s en la línea %d."
 
 #, c-format
 msgid "%s: Unable to read '%s': %s"
-msgstr "%s: No se puede leer '%s': %s"
+msgstr "%s: No es capaz de leer '%s': %s"
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -1638,7 +1638,7 @@ msgid "( expressions )         Group expressions"
 msgstr "( expresiones )         Grupo de expresiones"
 
 msgid "-                       Cancel all jobs"
-msgstr "–                       Cancelar todos los trabajos"
+msgstr "–                       Cancelar todas las tareas"
 
 msgid "-# num-copies           Specify the number of copies to print"
 msgstr "-# núm–copias           Especifica el número de copias para imprimir"
@@ -1657,8 +1657,8 @@ msgstr "--[no-]share-printers   Encender/apagar impresora compartida"
 
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
-"--[no-]user-cancel-any  Permitir/prevenir que los usuarios cancelen "
-"cualquier trabajo"
+"--[no-]user-cancel-any  Concede/prevenir que los usuarios cancelen cualquier "
+"tarea"
 
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
@@ -1710,7 +1710,7 @@ msgid "--help                  Show this help"
 msgstr "--help                  Nuestra esta ayuda"
 
 msgid "--hold                  Hold new jobs"
-msgstr "--hold                  Mantener nuevos trabajos"
+msgstr "--hold                  Mantener nuevas tareas"
 
 msgid "--host regex            Match hostname to regular expression"
 msgstr ""
@@ -1757,7 +1757,7 @@ msgstr ""
 "--no-web-forms          Deshabilita formularios web para media y suministros"
 
 msgid "--not expression        Unary NOT of expression"
-msgstr "--not expresión        unario NO de expresión"
+msgstr "--not expresión        Unario NO de expresión"
 
 msgid "--pam-service service   Use the named PAM service"
 msgstr "--pam-service servicio   Utiliza el servicio PAM nombrado"
@@ -1768,7 +1768,7 @@ msgstr ""
 
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
-"--pin                          Certificado pin encontrado por comando cliente"
+"--pin                     Certificado pin encontrado por comando cliente"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr "--port número[-número]  Coincide puerto a número o intervalo"
@@ -1791,7 +1791,7 @@ msgstr ""
 "salida de código"
 
 msgid "--release               Release previously held jobs"
-msgstr "--release               Libera trabajos mantenidos previamente"
+msgstr "--release               Libera tareas mantenidas previamente"
 
 msgid "--remote                True if service is remote"
 msgstr "--remote                Verdadero si el servicio es remoto"
@@ -1818,10 +1818,10 @@ msgstr ""
 "descubrir dispositivos"
 
 msgid "--true                  Always true"
-msgstr "--true                  Siempre verdadero"
+msgstr "--true                Siempre verdadero"
 
 msgid "--txt key               True if the TXT record contains the key"
-msgstr "--txt key               Verdadero si el registro TXT contiene la llave"
+msgstr "--txt key              Verdadero si el registro TXT contiene la llave"
 
 msgid "--txt-* regex           Match TXT record key to regular expression"
 msgstr ""
@@ -1834,7 +1834,7 @@ msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
 msgstr "--user-agent AGENTE-USUARIO Establece la cadena HTTP de Agente-Usuario"
 
 msgid "--version                      Show the program version"
-msgstr "--version                      Muestra la versión del programa"
+msgstr "--version               Muestra la versión del programa"
 
 msgid "--version               Show program version"
 msgstr "--version               Muestra la versión del programa"
@@ -1983,7 +1983,7 @@ msgstr ""
 msgid ""
 "-E                      Enable and accept jobs on the printer (after -p)"
 msgstr ""
-"-E                      Activa y acepta trabajos en la impresora (tras -p)"
+"-E                      Activa y acepta tareas en la impresora (tras -p)"
 
 msgid "-E                      Encrypt the connection to the server"
 msgstr "-E                      Cifra la conexión al servidor"
@@ -2005,22 +2005,22 @@ msgstr "-H                      Muestra el servidor y puerto predeterminado"
 
 msgid "-H HH:MM                Hold the job until the specified UTC time"
 msgstr ""
-"-H HH:MM                Mantiene el trabajo hasta que llegue la hora UTC "
+"-H HH:MM                Mantiene la tarea hasta que llegue la hora UTC "
 "especificada"
 
 msgid "-H hold                 Hold the job until released/resumed"
 msgstr ""
-"-H mantener                 Mantiene el trabajo hasta que sea liberado/"
+"-H mantener                 Mantiene la tarea hasta que sea liberado/"
 "continuado"
 
 msgid "-H immediate            Print the job as soon as possible"
-msgstr "-H inmediate            Imprime el trabajo tan pronto como sea posible"
+msgstr "-H inmediate            Imprime la tarea tan pronto como sea posible"
 
 msgid "-H restart              Reprint the job"
-msgstr "-H restart              Re-imprime el trabajo"
+msgstr "-H restart              Re-imprime la tarea"
 
 msgid "-H resume               Resume a held job"
-msgstr "-H resume               Continúa un trabajo en espera"
+msgstr "-H resume               Continúa una tarea en espera"
 
 msgid "-H server[:port]        Connect to the named server and port"
 msgstr "-H servidor[:puerto]        Conecta al servidor y el puerto nombrados"
@@ -2093,7 +2093,7 @@ msgid "-R                      Repeat tests on server-error-busy"
 msgstr "-R                      Repite pruebas sobre server-error-busy"
 
 msgid "-R                      Show the ranking of jobs"
-msgstr "-R                      Muestra la puntuación de trabajos"
+msgstr "-R                      Muestra la puntuación de tareas"
 
 msgid ""
 "-R CSR-FILENAME                Specify certificate signing request file."
@@ -2128,7 +2128,7 @@ msgstr ""
 "en segundos"
 
 msgid "-T title                Specify the job title"
-msgstr "-T título               Especifica el título del trabajo"
+msgstr "-T título               Especifica el título de la tarea"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
 msgstr "-U UNIDAD-ORGANIZACIONAL         Fija nombre de unidad organizacional."
@@ -2147,10 +2147,10 @@ msgid "-V version              Set default IPP version"
 msgstr "-V versión              Establece la versión IPP por defecto"
 
 msgid "-W completed            Show completed jobs"
-msgstr "-W completado            Muestra trabajos completados"
+msgstr "-W completado            Muestra tareas completadas"
 
 msgid "-W not-completed        Show pending jobs"
-msgstr "-W no-completado        Muestra trabajos pendientes"
+msgstr "-W no-completado        Muestra tareas pendientes"
 
 msgid ""
 "-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
@@ -2165,10 +2165,10 @@ msgid "-X                      Produce XML plist instead of plain text"
 msgstr "-X                      Produce plist XML en vez de texto simple"
 
 msgid "-a                      Cancel all jobs"
-msgstr "-a                      Cancelar todos los trabajos"
+msgstr "-a                      Cancela todas las tareas"
 
 msgid "-a                      Show jobs on all destinations"
-msgstr "-a                      Muestra trabajos en todos los destinos"
+msgstr "-a                      Muestra tareas en todos los destinos"
 
 msgid ""
 "-a OAUTH-URI                   Specify the OAuth authorization server URL"
@@ -2263,7 +2263,7 @@ msgstr "-i iconfile.png[,...]   Establece el/los fichero(s) del icono"
 
 msgid "-i id                   Specify an existing job ID to modify"
 msgstr ""
-"-i id                   Especifica un ID de trabajo existente para modificar"
+"-i id                   Especifica un ID de tarea existente para modificar"
 
 msgid "-i ppd-file             Specify a PPD file for the printer"
 msgstr "-i ppd-file             Especifica un archivo PPD para la impresora"
@@ -2275,7 +2275,7 @@ msgstr ""
 "proporcionado"
 
 msgid "-k                      Keep job spool files"
-msgstr "-k                      Mantiene archivos de carrete de trabajo"
+msgstr "-k                      Mantiene archivos de carrete de tarea"
 
 msgid "-l                      List attributes"
 msgstr "-l                      Últimos atributos"
@@ -2298,7 +2298,7 @@ msgstr "-l lugar             Establece lugar de impresora"
 msgid ""
 "-m                      Send an email notification when the job completes"
 msgstr ""
-"-m                      Envía una notificación de correo-e cuando el trabajo "
+"-m                      Envía una notificación de correo-e cuando la tarea "
 "se completa"
 
 msgid "-m                      Show models"
@@ -2340,7 +2340,7 @@ msgstr ""
 "nombrada "
 
 msgid "-o [destination(s)]     Show jobs"
-msgstr "-o [destino(s)]                   Muestra trabajos"
+msgstr "-o [destino(s)]                   Muestra tareas"
 
 msgid ""
 "-o cupsIPPSupplies=false\n"
@@ -2374,7 +2374,7 @@ msgstr ""
 "segundos"
 
 msgid "-o job-sheets=standard  Print a banner page with the job"
-msgstr "-o job-sheets=standard  Imprime una página de pancarta con el trabajo"
+msgstr "-o job-sheets=standard  Imprime una página de pancarta con la tarea"
 
 msgid "-o media=size           Specify the media size to use"
 msgstr "-o media=tam           Especifica el (tam)año del medio a utilizar"
@@ -2485,7 +2485,7 @@ msgstr "-q                      Ejecutar silenciosamente"
 
 msgid "-q                      Specify the job should be held for printing"
 msgstr ""
-"-q                      Especifica el trabajo sería mantenido para imprimir"
+"-q                      Especifica la tarea sería mantenida para imprimir"
 
 msgid "-q priority             Specify the priority from low (1) to high (100)"
 msgstr ""
@@ -2561,7 +2561,7 @@ msgstr ""
 "-t clave                  Cierto si el registro de TXT contiene la clave"
 
 msgid "-t title                Specify the job title"
-msgstr "-t título              Especifica el título del trabajo"
+msgstr "-t título              Especifica el título de la tarea"
 
 msgid ""
 "-u USAGE                       Comma-delimited key usage\n"
@@ -2577,7 +2577,7 @@ msgstr ""
 msgid ""
 "-u [user(s)]            Show jobs queued by the current or specified users"
 msgstr ""
-"-u [usuario(s)]         Muestra trabajos encolados por el usuario actual o "
+"-u [usuario(s)]         Muestra tareas encoladas por el usuario actual o "
 "usuarios especificados"
 
 msgid "-u allow:all            Allow all users to print"
@@ -2599,7 +2599,7 @@ msgstr ""
 msgid "-u owner                Specify the owner to use for jobs"
 msgstr ""
 "-u propietario                Especifica el propietario para utilizar en "
-"trabajos"
+"tareas"
 
 msgid "-u regex                Match URI to regular expression"
 msgstr "-u exreg                Coincide URI a expresión usual"
@@ -2622,7 +2622,7 @@ msgid "-vv                     Be very verbose"
 msgstr "-vv                     Ser muy verborreo"
 
 msgid "-x                      Purge jobs rather than just canceling"
-msgstr "-x                      Purga trabajos en vez que tan solo cancelarlas"
+msgstr "-x                      Purga tareas en vez que tan solo cancelarlas"
 
 msgid "-x destination          Remove default options for destination"
 msgstr "-x destino          Retira opciones predet. para destino"
@@ -3261,7 +3261,7 @@ msgid "ARCH E Long Edge"
 msgstr "ARCH E lado largo"
 
 msgid "Accept Jobs"
-msgstr "Aceptar trabajos"
+msgstr "Aceptar tareas"
 
 msgid "Accepted"
 msgstr "Aceptado"
@@ -3539,10 +3539,10 @@ msgid "CPCL Label Printer"
 msgstr "Impresora de etiquetas CPCL"
 
 msgid "Cancel Jobs"
-msgstr "Cancelar trabajos"
+msgstr "Cancelar tareas"
 
 msgid "Canceling print job."
-msgstr "Cancelando trabajo de impresión."
+msgstr "Cancelando tarea de impresión."
 
 msgid "Cannot change printer-is-shared for remote queues."
 msgstr "No se ha podido cambiar printer-is-shared para colas remotas."
@@ -3683,7 +3683,7 @@ msgstr "Series DeskJet"
 
 #, c-format
 msgid "Destination \"%s\" is not accepting jobs."
-msgstr "El destino «%s» no acepta trabajos."
+msgstr "El destino «%s» no acepta tareas."
 
 msgid "Device CMYK"
 msgstr "Dispositivo CMYK"
@@ -3747,7 +3747,7 @@ msgstr "Deshabilitado"
 
 #, c-format
 msgid "Document #%d does not exist in job #%d."
-msgstr "El documento #%d no existe en el trabajo #%d."
+msgstr "El documento #%d no existe en la tarea nº %d."
 
 msgid "Duplexer"
 msgstr "Unidad de impresión dúplex"
@@ -4316,66 +4316,66 @@ msgstr "Archivo JSON muy grande."
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
-msgstr "El trabajo nº %d no puede ser reiniciado; no hay archivos."
+msgstr "La tarea nº %d no puede ser reiniciado – no hay archivos."
 
 #, c-format
 msgid "Job #%d does not exist."
-msgstr "El trabajo nº %d no existe."
+msgstr "La tarea nº %d no existe."
 
 #, c-format
 msgid "Job #%d is already aborted - can't cancel."
-msgstr "El trabajo nº %d ya está anulado; no se puede cancelar."
+msgstr "La tarea nº %d ya está anulada; no se puede cancelar."
 
 #, c-format
 msgid "Job #%d is already canceled - can't cancel."
-msgstr "El trabajo nº %d ya está cancelado; no se puede cancelar."
+msgstr "La tarea nº %d ya está cancelado; no se puede cancelar."
 
 #, c-format
 msgid "Job #%d is already completed - can't cancel."
-msgstr "El trabajo nº %d ya ha sido completada; no se puede cancelar."
+msgstr "La tarea nº %d ya está completada – no se puede cancelar."
 
 #, c-format
 msgid "Job #%d is finished and cannot be altered."
-msgstr "El trabajo nº %d ha finalizado y no puede ser alterada."
+msgstr "La tarea nº %d está finalizada y no puede ser alterada."
 
 #, c-format
 msgid "Job #%d is not complete."
-msgstr "El trabajo nº %d no está completado."
+msgstr "La tarea nº %d no está completada."
 
 #, c-format
 msgid "Job #%d is not held for authentication."
-msgstr "El trabajo nº %d no está retenido para autenticación."
+msgstr "La tarea nº %d no está retenida para autenticación."
 
 #, c-format
 msgid "Job #%d is not held."
-msgstr "El trabajo nº %d no está retenido."
+msgstr "La tarea nº %d no está retenida."
 
 msgid "Job Completed"
-msgstr "Trabajo Completado"
+msgstr "Tarea Completada"
 
 msgid "Job Created"
-msgstr "Trabajo Creado"
+msgstr "Tarea Creada"
 
 msgid "Job Options Changed"
-msgstr "Opciones de trabajo cambiados"
+msgstr "Opciones de tarea cambiadas"
 
 msgid "Job Stopped"
-msgstr "Trabajo detenido"
+msgstr "Tarea detenida"
 
 msgid "Job is completed and cannot be changed."
-msgstr "El trabajo está terminado y no puede ser cambiado."
+msgstr "La tarea está terminada y no puede ser cambiada."
 
 msgid "Job operation failed"
-msgstr "La operación del trabajo ha fallado"
+msgstr "La operación de la tarea ha fallado"
 
 msgid "Job state cannot be changed."
-msgstr "No se puede cambiar el estado del trabajo."
+msgstr "No se puede cambiar el estado de la tarea."
 
 msgid "Job subscriptions cannot be renewed."
-msgstr "Las suscripciones de trabajo no han podido ser renovadas."
+msgstr "Las suscripciones de tarea no han podido ser renovadas."
 
 msgid "Jobs"
-msgstr "Trabajos"
+msgstr "Tareas"
 
 msgid "LPD/LPR Host or Printer"
 msgstr "Equipo o impresora LPD/LPR"
@@ -4530,10 +4530,10 @@ msgid "Modify Printer"
 msgstr "Modificar impresora"
 
 msgid "Move All Jobs"
-msgstr "Mover todos los trabajos"
+msgstr "Mover todas las tareas"
 
 msgid "Move Job"
-msgstr "Mover trabajo"
+msgstr "Mover tarea"
 
 msgid "Moved Permanently"
 msgstr "Movido permanentemente"
@@ -4583,7 +4583,7 @@ msgstr "No hay conexión activa."
 
 #, c-format
 msgid "No active jobs on %s."
-msgstr "No hay trabajos activos en %s."
+msgstr "No hay tareas activas en %s."
 
 msgid "No attributes in request."
 msgstr "No hay atributos en la solicitud."
@@ -4847,7 +4847,7 @@ msgid "Print Density"
 msgstr "Densidad de impresión"
 
 msgid "Print Job:"
-msgstr "Imprimir trabajo:"
+msgstr "Imprimir tarea:"
 
 msgid "Print Mode"
 msgstr "Modo de impresión"
@@ -4874,13 +4874,13 @@ msgid "Print file sent."
 msgstr "Archivo de impresión enviado."
 
 msgid "Print job canceled at printer."
-msgstr "Trabajo de impresión cancelado en la impresora."
+msgstr "Tarea de impresión cancelada en la impresora."
 
 msgid "Print job too large."
-msgstr "Trabajo de impresión demasiado grande."
+msgstr "Tarea de impresión demasiado grande."
 
 msgid "Print job was not accepted."
-msgstr "No se acepta el trabajo de impresión."
+msgstr "No se acepta la tarea de impresión."
 
 #, c-format
 msgid "Printer \"%s\" already exists."
@@ -4935,10 +4935,11 @@ msgid "Quota limit reached."
 msgstr "Se ha alcanzado el límite de cuota."
 
 msgid "Rank    Owner   Job     File(s)                         Total Size"
-msgstr "Rango  Propiet. Trabajo Archivo(s)                      Tamaño total"
+msgstr ""
+"Intervalo  Propiet. Tarea      Archivo(s)                      Tamaño total"
 
 msgid "Reject Jobs"
-msgstr "Rechazar trabajos"
+msgstr "Rechazar tareas"
 
 #, c-format
 msgid "Remote host did not accept control file (%d)."
@@ -5031,7 +5032,7 @@ msgstr "Papel especial"
 
 #, c-format
 msgid "Spooling job, %.0f%% complete."
-msgstr "Guardando trabajo en cola, %.0f%% completado."
+msgstr "Guardando tarea en cola, %.0f%% completada."
 
 msgid "Standard"
 msgstr "Estándar"
@@ -5089,7 +5090,7 @@ msgstr "Ajuste de posición de la pestaña desprendible"
 
 #, c-format
 msgid "The \"%s\" attribute is required for print jobs."
-msgstr "Se necesita el atributo \"%s\" para los trabajos de impresión."
+msgstr "Se necesita el atributo \"%s\" para las taras de impresión."
 
 #, c-format
 msgid "The %s attribute cannot be provided with job-ids."
@@ -5099,8 +5100,8 @@ msgstr "El atributo %s no puede ser usado con jobs-ids."
 msgid ""
 "The '%s' Job Status attribute cannot be supplied in a job creation request."
 msgstr ""
-"El atributo de estado de trabajo '%s' no puede ser suministrado en una "
-"solicitud de creación de trabajo."
+"El atributo de estado de tarea '%s' no puede ser suministrado en una "
+"solicitud de creación de tarea."
 
 #, c-format
 msgid ""
@@ -5134,7 +5135,7 @@ msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
 msgstr ""
 "El atributo notify-lease-duration no puede ser usado con subscripciones de "
-"trabajos."
+"tarea."
 
 #, c-format
 msgid "The notify-user-data value is too large (%d > 63 octets)."
@@ -5229,7 +5230,7 @@ msgid "Thermal Transfer Media"
 msgstr "Soporte de transferencia térmica"
 
 msgid "Too many active jobs."
-msgstr "Demasiados trabajos activos."
+msgstr "Demasiadas tareas activas."
 
 #, c-format
 msgid "Too many job-sheets values (%d > 2)."
@@ -5303,14 +5304,14 @@ msgid "Unable to add class"
 msgstr "No se ha podido añadir la clase"
 
 msgid "Unable to add document to print job."
-msgstr "No se ha podido añadir el documento al trabajo de impresión."
+msgstr "No se ha podido añadir el documento a la tarea de impresión."
 
 msgid "Unable to add extension to X.509 certificate."
 msgstr "No es capaz de añadir extensión a certificado X.509."
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
-msgstr "No se ha podido añadir el trabajo para el destino \"%s\"."
+msgstr "No se ha podido añadir la tarea para el destino \"%s\"."
 
 msgid "Unable to add printer"
 msgstr "No se ha podido añadir la impresora"
@@ -5332,7 +5333,7 @@ msgid "Unable to authorize access"
 msgstr "No es capaz de autorizar acceso"
 
 msgid "Unable to cancel print job."
-msgstr "No se ha podido cancelar el trabajo de impresión."
+msgstr "No se ha podido cancelar la tarea de impresión."
 
 msgid "Unable to change printer"
 msgstr "No se ha podido cambiar la impresora"
@@ -5427,7 +5428,7 @@ msgid "Unable to execute command \"%s\": %s"
 msgstr "No es capaz de ejecutar comando «%s»: %s"
 
 msgid "Unable to find destination for job"
-msgstr "No se ha podido encontrar destino para el trabajo"
+msgstr "No se ha podido encontrar destino para la tarea"
 
 msgid "Unable to finish request."
 msgstr "No es capaz de finalizar solicitud."
@@ -5491,10 +5492,10 @@ msgid "Unable to modify printer"
 msgstr "No se ha podido modificar la impresora"
 
 msgid "Unable to move job"
-msgstr "No se ha podido mover el trabajo"
+msgstr "No se ha podido mover la tarea"
 
 msgid "Unable to move jobs"
-msgstr "No se han podido mover los trabajos"
+msgstr "No se han podido mover las tareas"
 
 msgid "Unable to open PPD file"
 msgstr "No se ha podido abrir el archivo PPD"
@@ -5507,7 +5508,7 @@ msgstr "No se ha podido abrir el archivo de dispositivo"
 
 #, c-format
 msgid "Unable to open document #%d in job #%d."
-msgstr "No se ha podido abrir el documento #%d del trabajo #%d."
+msgstr "No se ha podido abrir el documento #%d de la tarea #%d."
 
 msgid "Unable to open help file."
 msgstr "No se ha podido abrir el archivo de ayuda."
@@ -5535,7 +5536,7 @@ msgid "Unable to read response."
 msgstr "No es capaz de leer respuesta."
 
 msgid "Unable to rename job document file."
-msgstr "No se ha podido renombrar el archivo del documento de trabajo."
+msgstr "No se ha podido renombrar el archivo del documento de tarea."
 
 msgid "Unable to resolve printer-uri."
 msgstr "No se ha podido resolver printer-uri."
@@ -5900,7 +5901,7 @@ msgid "Version uses indefinite length"
 msgstr "Versión utiliza una longitud indefinida"
 
 msgid "Waiting for job to complete."
-msgstr "Esperando a que finalice el trabajo."
+msgstr "Esperando a que finalice la tarea."
 
 msgid "Waiting for printer to become available."
 msgstr "Esperando a que la impresora esté disponible."
@@ -6075,7 +6076,7 @@ msgstr "Temperatura de la cámara"
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
-msgstr "Coste del trabajo de impresión"
+msgstr "Coste de la tarea de impresión"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
 msgstr "clear [RESOURCE]               Purga la automatización para un recurso"
@@ -6365,7 +6366,6 @@ msgstr "cups-x509: Falta el nombre raíz después de '-r'."
 msgid "cups-x509: Missing state/province after '-S'."
 msgstr "cups-x509: Estado/provincia que falta después de '-S'."
 
-#, fuzzy
 msgid "cups-x509: Missing sub-command argument."
 msgstr "cups-x509: Falta argumento de la sub-orden."
 
@@ -6489,14 +6489,14 @@ msgstr "cupsfilter: Número de documento %d no válido."
 
 #, c-format
 msgid "cupsfilter: Invalid job ID %d."
-msgstr "cupsfilter: ID de trabajo %d no válida."
+msgstr "cupsfilter: ID de tarea %d no válida."
 
 msgid "cupsfilter: Only one filename can be specified."
 msgstr "cupsfilter: Solo se puede especificar un nombre de archivo."
 
 #, c-format
 msgid "cupsfilter: Unable to get job file - %s"
-msgstr "cupsfilter: No se ha podido obtener el archivo del trabajo - %s"
+msgstr "cupsfilter: No se ha podido obtener el archivo de la tarea – %s"
 
 msgid "cupstestppd: The -q option is incompatible with the -v option."
 msgstr "cupstestppd: La opción -q no es compatible con la opción -v."
@@ -7409,7 +7409,7 @@ msgstr "Recortar tras cada documento"
 
 #. TRANSLATORS: Trim After Job
 msgid "finishing-template.trim-after-job"
-msgstr "Recorte tras trabajo"
+msgstr "Recorte tras tarea"
 
 #. TRANSLATORS: Trim After Every Page
 msgid "finishing-template.trim-after-pages"
@@ -7839,7 +7839,7 @@ msgstr ""
 "privada."
 
 msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
-msgstr ""
+msgstr "ippeveprinter: No es capaz de crear IPP relacionada con el archivo PPD."
 
 #, c-format
 msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
@@ -7962,11 +7962,11 @@ msgstr "ipptool: No es capaz de asignar memoria: %s"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
-msgstr "ID de cuenta de trabajo"
+msgstr "Id de cuenta de tarea"
 
 #. TRANSLATORS: Job Account Type
 msgid "job-account-type"
-msgstr "Tipo de cuenta de trabajo"
+msgstr "Tipo de cuenta de tarea"
 
 #. TRANSLATORS: General
 msgid "job-account-type.general"
@@ -7982,7 +7982,7 @@ msgstr "Ninguno"
 
 #. TRANSLATORS: Job Accounting Output Bin
 msgid "job-accounting-output-bin"
-msgstr "Lugar de salida de la contabilidad de trabajos"
+msgstr "Lugar de salida de la contabilidad de tareas"
 
 #. TRANSLATORS: Job Accounting Sheets
 msgid "job-accounting-sheets"
@@ -7990,7 +7990,7 @@ msgstr "Hojas de contabilidad laboral"
 
 #. TRANSLATORS: Type of Job Accounting Sheets
 msgid "job-accounting-sheets-type"
-msgstr "Tipo de trabajo Hojas contables"
+msgstr "Tipo de tarea Hojas contables"
 
 #. TRANSLATORS: None
 msgid "job-accounting-sheets-type.none"
@@ -8002,7 +8002,7 @@ msgstr "Estándar"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
-msgstr "ID de usuario de contabilidad de tareas"
+msgstr "Id de usuario de contabilidad de tareas"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
@@ -8229,11 +8229,11 @@ msgstr "Nombre del destinatario del trabajo"
 
 #. TRANSLATORS: Job Retain Until
 msgid "job-retain-until"
-msgstr "Trabajo Retener hasta"
+msgstr "Retener tarea hasta"
 
 #. TRANSLATORS: Job Retain Until Interval
 msgid "job-retain-until-interval"
-msgstr "Retener Trabajo hasta intervalo"
+msgstr "Retener tarea hasta intervalo"
 
 #. TRANSLATORS: Job Retain Until Time
 msgid "job-retain-until-time"
@@ -8261,11 +8261,11 @@ msgstr "Ninguno"
 
 #. TRANSLATORS: Job Save Disposition
 msgid "job-save-disposition"
-msgstr "Trabajo Guardar Disposición"
+msgstr "Guardar disposición de tarea"
 
 #. TRANSLATORS: Job Sheet Message
 msgid "job-sheet-message"
-msgstr "Mensaje de la hoja de trabajo"
+msgstr "Mensaje de la hoja de tarea"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets"
@@ -8417,11 +8417,11 @@ msgstr "Datos insuficientes"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
-msgstr "Retraso en la salida de trabajos hasta que se especifique"
+msgstr "Retraso en la salida de tarea hasta que se especifique"
 
 #. TRANSLATORS: Job Digital Signature Wait
 msgid "job-state-reasons.job-digital-signature-wait"
-msgstr "Firma digital del trabajo Espere"
+msgstr "Firma digital de la tarea. Espere"
 
 #. TRANSLATORS: Job Fetchable
 msgid "job-state-reasons.job-fetchable"
@@ -8449,19 +8449,19 @@ msgstr "Saliente"
 
 #. TRANSLATORS: Job Password Wait
 msgid "job-state-reasons.job-password-wait"
-msgstr "Contraseña de trabajo Espere"
+msgstr "Contraseña de tarea. Espere"
 
 #. TRANSLATORS: Job Printed Successfully
 msgid "job-state-reasons.job-printed-successfully"
-msgstr "Trabajo impreso correctamente"
+msgstr "Tarea impresa correctamente"
 
 #. TRANSLATORS: Job Printed With Errors
 msgid "job-state-reasons.job-printed-with-errors"
-msgstr "Trabajo impreso con errores"
+msgstr "Tarea impresa con errores"
 
 #. TRANSLATORS: Job Printed With Warnings
 msgid "job-state-reasons.job-printed-with-warnings"
-msgstr "Trabajo impreso con advertencias"
+msgstr "Tarea impresa con advertencias"
 
 #. TRANSLATORS: Printing
 msgid "job-state-reasons.job-printing"
@@ -9058,15 +9058,15 @@ msgstr "PLA magnético"
 
 #. TRANSLATORS: Steel PLA
 msgid "material-type.pla-steel"
-msgstr "PLA Acero"
+msgstr "PLA acero"
 
 #. TRANSLATORS: Stone PLA
 msgid "material-type.pla-stone"
-msgstr "PLA Piedra"
+msgstr "PLA piedra"
 
 #. TRANSLATORS: Wood PLA
 msgid "material-type.pla-wood"
-msgstr "PLA Madera"
+msgstr "PLA madera"
 
 #. TRANSLATORS: Polycarbonate
 msgid "material-type.polycarbonate"
@@ -10358,7 +10358,7 @@ msgstr "28 × 40″"
 
 #. TRANSLATORS: A4 or US Letter
 msgid "media.choice_iso_a4_210x297mm_na_letter_8.5x11in"
-msgstr "A4 o Carta US"
+msgstr "A4 o Carta EUA"
 
 #. TRANSLATORS: 2a0
 msgid "media.iso_2a0_1189x1682mm"
