@@ -214,6 +214,9 @@ _ippFileReadToken(_ipp_file_t *f,	/* I - File to read from */
 	*tokend = token + tokensize - 1;/* End of token buffer */
 
 
+  if (tokensize < 32)
+    return (0);
+
  /*
   * Skip whitespace and comments...
   */

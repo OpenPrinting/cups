@@ -41,6 +41,7 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
 - Fixed a recursion issue with encoding of nested collections (Issue #1539)
 - Fixed parsing of the `LimitRequestBody`, `MaxLogSize`, and `MaxRequestSize`
   directives in "cupsd.conf" (Issue #1540)
+- Fixed a parsing bug in `ipptool` (Issue #1542)
 - Fixed blank line detection in the `rastertolabel` filter (Issue #1545)
 
 
