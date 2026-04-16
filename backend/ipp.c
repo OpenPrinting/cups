@@ -595,7 +595,8 @@ main(int  argc,				/* I - Number of command-line args */
   {
     num_files    = 0;
     files        = NULL;
-    send_options = !_cups_strcasecmp(final_content_type, "application/pdf") ||
+    send_options = !_cups_strcasecmp(final_content_type, "application/pclm") ||
+                   !_cups_strcasecmp(final_content_type, "application/pdf") ||
                    !_cups_strcasecmp(final_content_type, "application/vnd.cups-pdf") ||
                    !_cups_strncasecmp(final_content_type, "image/", 6);
 
