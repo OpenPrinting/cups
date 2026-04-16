@@ -32,17 +32,21 @@ Changes in CUPS v2.4.17 (YYYY-MM-DD)
   log (Issue #1450)
 - Fixed possible use-after-free in `cupsdReadClient()` (Issue #1454)
 - Fixed a document format bug in the IPP backend (Issue #1457)
+- Fixed DRAIN_OUTPUT race condition (Issue #1461)
 - Fixed a bug when then `ippFindXxx` and `ippSetXxx` functions were mixed.
 - Fixed the mapping of supply type keywords to SNMP names.
 - Fixed a bug in the IPP backend when SNMP was disabled.
 - Fixed a crash bug in the rastertoepson filter.
 - Fixed a bug in cgiCheckVariables.
+- Fixed handling read/write errors with OpenSSL (Issue #1506)
+- Fixed handling rehandshake error in `_httpTLSRead` (Issue #1508)
 - Fixed a debug printf bug on Windows (Issue #1529)
 - Fixed a recursion issue with encoding of nested collections (Issue #1539)
 - Fixed parsing of the `LimitRequestBody`, `MaxLogSize`, and `MaxRequestSize`
   directives in "cupsd.conf" (Issue #1540)
 - Fixed a parsing bug in `ipptool` (Issue #1542)
 - Fixed blank line detection in the `rastertolabel` filter (Issue #1545)
+- Fixed `httpPeek` edge case on compressed streams
 
 
 Changes in CUPS v2.4.16 (2025-12-04)

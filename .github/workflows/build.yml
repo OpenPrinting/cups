@@ -30,7 +30,7 @@ jobs:
     - name: make
       run: make
     - name: test
-      run: make test || cat test/error_log*
+      run: make test
 
   build-linux-i386:
 
@@ -54,7 +54,7 @@ jobs:
     - name: make
       run: make
     - name: test
-      run: make test || cat test/error_log*
+      run: make test
 
   build-macos:
 
@@ -67,7 +67,7 @@ jobs:
     - name: make
       run: make
     - name: test
-      run: make test || cat test/error_log*
+      run: make test
 
   build-windows:
 
