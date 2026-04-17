@@ -17,7 +17,7 @@ Changes in CUPS v2.4.17 (2026-04-17)
   loopback interface.
 - CVE-2026-39314: Fixed the range check for job password strings.
 - CVE-2026-39316: Fixed a printer subscription bug in the scheduler.
-- CVE-2026-NNNNN: Fixed a SNMP string conversion bug in the backends.
+- CVE-2026-41079: Fixed a SNMP string conversion bug in the backends.
 - The scheduler followed symbolic links when cleaning out its temporary
   directory (Issue #1448)
 - Updated `cupsFileGetConf` and `cupsFilePutConf` to escape more characters.
