@@ -2,7 +2,7 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
-Changes in CUPS v2.4.17 (YYYY-MM-DD)
+Changes in CUPS v2.4.17 (2026-04-17)
 ------------------------------------
 
 - CVE-2026-27447: The scheduler treated local user and group names as case-
