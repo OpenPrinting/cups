@@ -2,6 +2,12 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
+Changes in CUPS v2.4.18 (2026-04-22)
+------------------------------------
+
+- Fixed cupsd crash if user does not exist (Issue #1555)
+
+
 Changes in CUPS v2.4.17 (2026-04-17)
 ------------------------------------
 

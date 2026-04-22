@@ -1835,7 +1835,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 	 name;
 	 name = (char *)cupsArrayNext(best->names))
     {
-      if (!_cups_strcasecmp(name, "@OWNER") && owner &&
+      if (!_cups_strcasecmp(name, "@OWNER") && owner && pw &&
           !strcmp(pw->pw_name, ownername))
 	return (HTTP_OK);
       else if (!_cups_strcasecmp(name, "@SYSTEM"))
