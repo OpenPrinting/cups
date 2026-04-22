@@ -5105,7 +5105,7 @@ _ppdCreateFromIPP(char   *buffer,	/* I - Filename buffer */
 	  else if (keyword && !strcmp(keyword, "two-sided-short-edge"))
 	    cupsFilePuts(fp, "*Duplex DuplexTumble\n");
         }
-        else
+        else if (ippValidateAttribute(attr) && (ippGetValueTag(attr) == IPP_TAG_BOOLEAN || ippGetValueTag(attr) != IPP_TAG_INTEGER || ippGetValueTag(attr) != IPP_TAG_KEYWORD))
         {
          /*
           * Add attribute name and value as-is...

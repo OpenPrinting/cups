@@ -92,6 +92,8 @@ v2.5b1 - YYYY-MM-DD
   releasing to the printer (Issue #1456)
 - Updated `httpAddrLookup` to return a numeric address when the resolver
   returns "localhost" for a non-loopback address.
+- Updated the IPP Everywhere PPD generator to support "job-presets-supported"
+  pairs for custom boolean, integer, and keyword attributes.
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error

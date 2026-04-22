@@ -507,7 +507,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
     if ((PeerCred == CUPSD_PEERCRED_ROOTONLY || httpGetState(con->http) == HTTP_STATE_PUT_RECV) && strcmp(authorization + 9, "root"))
     {
-      cupsdLogClient(con, CUPSD_LOG_INFO, "User \"%s\" is not allowed to use peer credentials.", authorization + 9);
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "User \"%s\" is not allowed to use peer credentials.", authorization + 9);
       return;
     }
 
@@ -826,7 +826,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
     if (!*authorization)
     {
-      cupsdLogClient(con, CUPSD_LOG_DEBUG2, "No authentication data specified.");
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "No authentication data specified.");
       return;
     }
 
@@ -863,7 +863,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
     if (GSS_ERROR(major_status))
     {
-      cupsdLogGSSMessage(CUPSD_LOG_DEBUG, major_status, minor_status, "[Client %d] Error accepting GSSAPI security context.", con->number);
+      cupsdLogGSSMessage(CUPSD_LOG_ERROR, major_status, minor_status, "[Client %d] Error accepting GSSAPI security context.", con->number);
 
       if (context != GSS_C_NO_CONTEXT)
 	gss_delete_sec_context(&minor_status, &context, GSS_C_NO_BUFFER);
@@ -877,7 +877,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     */
 
     if (major_status == GSS_S_CONTINUE_NEEDED)
-      cupsdLogGSSMessage(CUPSD_LOG_DEBUG, major_status, minor_status, "[Client %d] Credentials not complete.", con->number);
+      cupsdLogGSSMessage(CUPSD_LOG_ERROR, major_status, minor_status, "[Client %d] Credentials not complete.", con->number);
     else if (major_status == GSS_S_COMPLETE)
     {
       major_status = gss_display_name(&minor_status, client_name,
@@ -885,7 +885,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
       if (GSS_ERROR(major_status))
       {
-	cupsdLogGSSMessage(CUPSD_LOG_DEBUG, major_status, minor_status, "[Client %d] Error getting username.", con->number);
+	cupsdLogGSSMessage(CUPSD_LOG_ERROR, major_status, minor_status, "[Client %d] Error getting username.", con->number);
 	gss_release_name(&minor_status, &client_name);
 	gss_delete_sec_context(&minor_status, &context, GSS_C_NO_BUFFER);
 	return;
