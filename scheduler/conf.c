@@ -4472,9 +4472,9 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
 
 
  /*
-  * Verify that we have an explicit policy for Validate-Job, Cancel-Jobs,
-  * Cancel-My-Jobs, Close-Job, and CUPS-Get-Document, which ensures that
-  * upgrades do not introduce new security issues...
+  * Verify that we have an explicit policy for Cancel-Jobs, Cancel-My-Jobs,
+  * Close-Job, CUPS-Get-Document, Set-Printer-Attributes, and Validate-Job,
+  * which ensures that upgrades do not introduce new security issues...
   *
   * CUPS STR #4659: Allow a lone <Limit All> policy.
   */
@@ -4574,6 +4574,25 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
       }
       else
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for CUPS-Get-Document defined in policy %s and no suitable template found.", pol->name);
+    }
+
+    if ((op = cupsdFindPolicyOp(pol, IPP_OP_SET_PRINTER_ATTRIBUTES)) == NULL ||
+	op->op == IPP_ANY_OPERATION)
+    {
+      if ((op = cupsdFindPolicyOp(pol, IPP_OP_CUPS_ADD_MODIFY_PRINTER)) != NULL &&
+	  op->op != IPP_ANY_OPERATION)
+      {
+       /*
+	* Add a new limit for Set-Printer-Attributes using the
+	* CUPS-Add-Modify-Printer limit as a template...
+	*/
+
+	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Set-Printer-Attributes defined in policy %s - using CUPS-Add-Modify-Printer's policy.", pol->name);
+
+	cupsdAddPolicyOp(pol, op, IPP_OP_SET_PRINTER_ATTRIBUTES);
+      }
+      else
+	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Set-Printer-Attributes defined in policy %s and no suitable template found.", pol->name);
     }
   }
 
