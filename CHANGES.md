@@ -172,6 +172,7 @@ v2.5b1 - YYYY-MM-DD
 - Fixed A4 support in the `ippevepcl` program (Issue #1544)
 - Fixed issues with the environment variable support of CGI programs
   (Issue #1547)
+- Fixed potential crash bug in `cupsCheckDestSupported` function.
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)

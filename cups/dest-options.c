@@ -304,7 +304,7 @@ cupsCheckDestSupported(
   * Compare values...
   */
 
-  if (!strcmp(option, "media") && !strncmp(value, "custom_", 7))
+  if (!strcmp(option, "media") && (ippGetValueTag(attr) == IPP_TAG_KEYWORD || ippGetValueTag(attr) == IPP_TAG_NAME || ippGetValueTag(attr) == IPP_TAG_NAMELANG) && !strncmp(value, "custom_", 7))
   {
    /*
     * Check range of custom media sizes...
