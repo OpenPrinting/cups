@@ -2004,8 +2004,8 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 	   name;
 	   name = (char *)cupsArrayNext(best->names))
       {
-	if (!_cups_strcasecmp(name, "@OWNER") && owner && pw &&
-	    !strcmp(pw->pw_name, ownername))
+	if (!_cups_strcasecmp(name, "@OWNER") && owner && ((pw &&
+	    !strcmp(pw->pw_name, ownername)) || (!pw && type == CUPSD_AUTH_NONE && !_cups_strcasecmp(username, ownername))))
 	  return (HTTP_STATUS_OK);
 	else if (!_cups_strcasecmp(name, "@SYSTEM"))
 	{
@@ -2018,6 +2018,8 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 	    return (HTTP_STATUS_OK);
 	}
 	else if (pw && !strcmp(pw->pw_name, name))
+	  return (HTTP_STATUS_OK);
+	else if (!pw && type == CUPSD_AUTH_NONE && !_cups_strcasecmp(username, name))
 	  return (HTTP_STATUS_OK);
       }
 
