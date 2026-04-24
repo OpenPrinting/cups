@@ -5413,7 +5413,7 @@ msgstr ""
 
 #: cups/ppd.c:2017
 msgid "No"
-msgstr ""
+msgstr "Жоқ"
 
 #: cups/http-support.c:1349
 msgid "No Content"
@@ -7127,7 +7127,7 @@ msgstr ""
 
 #: cups/ppd.c:2015
 msgid "Yes"
-msgstr ""
+msgstr "Иә"
 
 #: scheduler/client.c:2056
 msgid "You cannot access this page."
