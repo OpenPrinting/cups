@@ -1,4 +1,4 @@
-OpenPrinting CUPS v2.4.18
+OpenPrinting CUPS v2.4.19
 =========================
 
 ![Version](https://img.shields.io/github/v/release/openprinting/cups?include_prereleases)
