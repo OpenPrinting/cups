@@ -2081,7 +2081,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   * The user isn't part of the specified users or groups, so deny access...
   */
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "cupsdIsAuthorized: User not in group(s).");
+  cupsdLogMessage(CUPSD_LOG_WARN, "cupsdIsAuthorized: User not in group(s).");
 
   return (con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED);
 }
