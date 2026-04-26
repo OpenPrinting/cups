@@ -1,0 +1,14 @@
+<H2 CLASS="title">新增列印機 {printer_name}</H2>
+
+<P>列印機 <A HREF="/printers/{printer_name}">{printer_name}</A> 已成功新增。
+
+<blockquote>
+<b>注意：</b>列印機驅動程式與原始佇列已棄用，將於未來版本的 CUPS 中停止運作。
+</blockquote>
+
+<FORM ACTION="admin/" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="set-printer-options">
+<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">
+<INPUT TYPE="SUBMIT" VALUE="設定列印機選項">
+</FORM>

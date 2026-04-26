@@ -1,0 +1,49 @@
+<H1 CLASS="title">{op=modify-printer?修改 {printer_name}:新增列印機}</H1>
+
+<FORM METHOD="POST" ACTION="/admin">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
+{printer_name?<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">:}
+
+<TABLE>
+<TR>
+<TH CLASS="label">連線:</TH>
+<TD><INPUT TYPE="HIDDEN" NAME="DEVICE_URI" VALUE="{device_uri}">{device_uri}</TD>
+</TR>
+<TR>
+<TH CLASS="label">波特率:</TH>
+<TD><SELECT NAME="BAUDRATE">
+{[baudrates]<OPTION {?baudrate={baudrates}?SELECTED:}>{baudrates}}
+</SELECT></TD>
+</TR>
+<TR>
+<TH CLASS="label">奇偶校驗:</TH>
+<TD><SELECT NAME="PARITY">
+<OPTION VALUE="none" {?parity=none?SELECTED:}>無
+<OPTION VALUE="even" {?parity=even?SELECTED:}>偶
+<OPTION VALUE="odd" {?parity=odd?SELECTED:}>奇
+</SELECT></TD>
+</TR>
+<TR>
+<TH CLASS="label">資料位:</TH>
+<TD><SELECT NAME="BITS">
+<OPTION {?bits=8?SELECTED:}>8
+<OPTION {?bits=7?SELECTED:}>7
+</SELECT></TD>
+</TR>
+<TR>
+<TH CLASS="label">流控制:</TH>
+<TD><SELECT NAME="FLOW">
+<OPTION VALUE="none" {?flow=none?SELECTED:}>無
+<OPTION VALUE="soft" {?flow=soft?SELECTED:}>XON/XOFF (軟體)
+<OPTION VALUE="hard" {?flow=hard?SELECTED:}>RTS/CTS (硬體)
+<OPTION VALUE="dtrdsr" {?flow=dtrdsr?SELECTED:}>DTR/DSR (硬體)
+</SELECT></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="繼續"></TD>
+</TR>
+</TABLE>
+
+</FORM>
