@@ -687,6 +687,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       if (pamerr != PAM_SUCCESS)
       {
 	cupsdLogClient(con, CUPSD_LOG_ERROR, "pam_authenticate() returned %d (%s)", pamerr, pam_strerror(pamh, pamerr));
+  cupsdLogClient(con, CUPSD_LOG_WARN, "Authentication failed for user \"%s\" from %s", username, con->http->hostname);
 	pam_end(pamh, 0);
 	return;
       }
