@@ -686,9 +686,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       pamerr = pam_authenticate(pamh, PAM_SILENT);
       if (pamerr != PAM_SUCCESS)
       {
-	cupsdLogClient(con, CUPSD_LOG_ERROR, "pam_authenticate() returned %d (%s)", pamerr, pam_strerror(pamh, pamerr));
-  cupsdLogClient(con, CUPSD_LOG_WARN, "Authentication failed for user \"%s\" from %s", username, con->http->hostname);
-	pam_end(pamh, 0);
+  cupsdLogClient(con, CUPSD_LOG_ERROR, "Authentication failed for user \"%s\" from %s (%s)", username, con->http->hostname, pam_strerror(pamh, pamerr));	
 	return;
       }
 
@@ -2082,7 +2080,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
   * The user isn't part of the specified users or groups, so deny access...
   */
 
-  cupsdLogMessage(CUPSD_LOG_WARN, "cupsdIsAuthorized: User not in group(s).");
+  cupsdLogMessage(CUPSD_LOG_ERROR, "Authentication failed for user \"%s\" from %s (User not in group(s)).", con->username, con->http->hostname);
 
   return (con->username[0] ? HTTP_STATUS_FORBIDDEN : HTTP_STATUS_UNAUTHORIZED);
 }
