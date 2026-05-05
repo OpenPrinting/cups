@@ -1,0 +1,147 @@
+<node>
+
+    <interface name="org.cups.cupsd.Notifier">
+
+        <signal name="ServerStarted">
+            <arg type="s" name="text" />
+        </signal>
+
+        <signal name="ServerRestarted">
+            <arg type="s" name="text" />
+        </signal>
+
+        <signal name="ServerStopped">
+            <arg type="s" name="text" />
+        </signal>
+
+        <signal name="ServerAudit">
+            <arg type="s" name="text" />
+        </signal>
+
+        <signal name="PrinterAdded">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterDeleted">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterModified">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterRestarted">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterStopped">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterShutdown">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterStateChanged">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterFinishingsChanged">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="PrinterMediaChanged">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+        </signal>
+
+        <signal name="JobCreated">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+            <arg type="u" name="job_id" />
+            <arg type="u" name="job_state" />
+            <arg type="s" name="job_state_reasons" />
+            <arg type="s" name="job_name" />
+            <arg type="u" name="job_impressions_completed" />
+        </signal>
+
+        <signal name="JobCompleted">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+            <arg type="u" name="job_id" />
+            <arg type="u" name="job_state" />
+            <arg type="s" name="job_state_reasons" />
+            <arg type="s" name="job_name" />
+            <arg type="u" name="job_impressions_completed" />
+        </signal>
+
+        <signal name="JobState">
+            <arg type="s" name="text" />
+            <arg type="s" name="printer_uri" />
+            <arg type="s" name="printer_name" />
+            <arg type="u" name="printer_state" />
+            <arg type="s" name="printer_state_reasons" />
+            <arg type="b" name="printer_is_accepting_jobs" />
+            <arg type="u" name="job_id" />
+            <arg type="u" name="job_state" />
+            <arg type="s" name="job_state_reasons" />
+            <arg type="s" name="job_name" />
+            <arg type="u" name="job_impressions_completed" />
+        </signal>
+
+    </interface>
+
+</node>
+
