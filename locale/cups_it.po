@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2026-01-23 13:24+0000\n"
+"PO-Revision-Date: 2026-05-06 13:21+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(tutti)"
@@ -1240,7 +1240,7 @@ msgstr "%s: %s non riuscito correttamente: %s"
 
 #, c-format
 msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
-msgstr ""
+msgstr "%s: '-i' e '-n' non sono compatibili con '--ippfile', '-P', and '-X'."
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
@@ -1477,7 +1477,7 @@ msgstr "%s: è previsto un ID del processo dopo l'opzione \"-i\"."
 
 #, c-format
 msgid "%s: File '%s' is too large to load in memory."
-msgstr ""
+msgstr "%s: File '%s' è troppo grande per essere caricare in memoria."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
@@ -1530,11 +1530,11 @@ msgstr "%s: lo scheduler non è attivo."
 
 #, c-format
 msgid "%s: Unable to access '%s': %s"
-msgstr ""
+msgstr "%s: Inpossibile accedere a '%s': %s"
 
 #, c-format
 msgid "%s: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "%s: non è possibile allocare la memoria per '%s': %s"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1558,7 +1558,7 @@ msgstr "%s: non è possibile aprire %s: %s"
 
 #, c-format
 msgid "%s: Unable to open '%s': %s"
-msgstr ""
+msgstr "%s: non è possibile aprire '%s': %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
@@ -1566,7 +1566,7 @@ msgstr "%s: non è possibile aprire il file PPD: %s alla riga %d."
 
 #, c-format
 msgid "%s: Unable to read '%s': %s"
-msgstr ""
+msgstr "%s: non è possibile leggere '%s': %s"
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -1767,10 +1767,9 @@ msgstr ""
 "--path regex            Confronta il percorso della risorsa con una "
 "espressione regolare"
 
-#, fuzzy
 msgid "--pin                          Pin certificate found by client command"
 msgstr ""
-"--pin                          Certificato PIN rilevato dal comando client"
+"--pin                          Pin del certificato trovato dal comando client"
 
 msgid "--port number[-number]  Match port to number or range"
 msgstr ""
@@ -2080,7 +2079,7 @@ msgstr ""
 "sullo standard output"
 
 msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
+msgstr "-P filename.ppd         Carica gli attributi da file PPD"
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
@@ -2776,7 +2775,7 @@ msgid "2 inches/sec."
 msgstr "2 inches/sec."
 
 msgid "2-Sided Printing"
-msgstr "2-Sided Printing"
+msgstr "Stampa fronte-retro"
 
 msgid "2.00x0.37\""
 msgstr "2.00x0.37\""
@@ -4045,9 +4044,8 @@ msgstr ""
 msgid "Finished page %d."
 msgstr "Finito pagina %d."
 
-#, fuzzy
 msgid "Folio"
-msgstr "Foglio"
+msgstr ""
 
 msgid "Forbidden"
 msgstr "Vietato"
@@ -4193,9 +4191,8 @@ msgstr "IPPFIND_SERVICE_REGTYPE tipo registrazione DNS-SD"
 msgid "IPPFIND_SERVICE_SCHEME  URI scheme"
 msgstr "IPPFIND_SERVICE_SCHEME  Schema URI"
 
-#, fuzzy
 msgid "IPPFIND_SERVICE_URI     URI"
-msgstr "IPPFIND_SERVICE_URI     URI"
+msgstr ""
 
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr "IPPFIND_TXT_*           Valore della chiave del record TXT"
@@ -5956,8 +5953,9 @@ msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr "authorize [RISORSA]            Autorizza l'accesso a una risorsa"
 
 #. TRANSLATORS: Bale Output
+#, fuzzy
 msgid "baling"
-msgstr "rilegatura"
+msgstr "uscita raggruppata"
 
 #. TRANSLATORS: Bale Using
 msgid "baling-type"
@@ -5989,9 +5987,8 @@ msgid "baling-when.after-sets"
 msgstr "Insiemi"
 
 #. TRANSLATORS: Bind Output
-#, fuzzy
 msgid "binding"
-msgstr "Rilegatura"
+msgstr "rilegatura"
 
 #. TRANSLATORS: Bind Edge
 msgid "binding-reference-edge"
@@ -6014,17 +6011,14 @@ msgid "binding-reference-edge.top"
 msgstr "Alto"
 
 #. TRANSLATORS: Binder Type
-#, fuzzy
 msgid "binding-type"
 msgstr "tipo di rilegatura"
 
 #. TRANSLATORS: Adhesive
-#, fuzzy
 msgid "binding-type.adhesive"
-msgstr "adesivo"
+msgstr "rilegature con adesivo"
 
 #. TRANSLATORS: Comb
-#, fuzzy
 msgid "binding-type.comb"
 msgstr "rilegatura a pettine"
 
@@ -6033,27 +6027,22 @@ msgid "binding-type.flat"
 msgstr "rilegatura piatta"
 
 #. TRANSLATORS: Padding
-#, fuzzy
 msgid "binding-type.padding"
 msgstr "rilegatura a blocco"
 
 #. TRANSLATORS: Perfect
-#, fuzzy
 msgid "binding-type.perfect"
-msgstr "rilegatura perfetta"
+msgstr "rilegatura a colla"
 
 #. TRANSLATORS: Spiral
-#, fuzzy
 msgid "binding-type.spiral"
 msgstr "rilegatura a spirale"
 
 #. TRANSLATORS: Tape
-#, fuzzy
 msgid "binding-type.tape"
 msgstr "rilegatura a nastro"
 
 #. TRANSLATORS: Velo
-#, fuzzy
 msgid "binding-type.velo"
 msgstr "rilegatura a velo"
 
@@ -6070,18 +6059,16 @@ msgid "cert COMMON-NAME           Create a certificate."
 msgstr "cert NOME-COMUNE           Crea un certificato."
 
 #. TRANSLATORS: Chamber Humidity
-#, fuzzy
 msgid "chamber-humidity"
-msgstr "umidità camera"
+msgstr "umidità della camera"
 
 #. TRANSLATORS: Chamber Temperature
-#, fuzzy
 msgid "chamber-temperature"
-msgstr "temperatura camera"
+msgstr "temperatura della camera"
 
 #. TRANSLATORS: Print Job Cost
 msgid "charge-info-message"
-msgstr ""
+msgstr "messaggio informativo sui costi"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
 msgstr ""
@@ -6378,7 +6365,7 @@ msgid "cups-x509: Missing state/province after '-S'."
 msgstr "cups-x509: Stato/provincia mancante dopo '-S'."
 
 msgid "cups-x509: Missing sub-command argument."
-msgstr ""
+msgstr "cups-x509: Argomento del comando mancante."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr "cups-x509: subjectAltName mancante dopo '-a'."
@@ -6408,7 +6395,7 @@ msgstr "cups-x509: Impossibile connettersi a '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr "cups-x509: Impossibile cercare il certificato (%s)"
+msgstr "cups-x509: Impossibile creare il certificato (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
@@ -6433,7 +6420,7 @@ msgstr "cups-x509: Impossibile ottenere la chiave privata generata per '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
-msgstr "cups-x509: Impossibile ascoltare sulla porta %d: %s"
+msgstr "cups-x509: Impossibile utilizzare la porta %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
@@ -7367,13 +7354,13 @@ msgid "finishing-template.punch-triple-top"
 msgstr "Foratura in alto tripla"
 
 #. TRANSLATORS: Saddle Stitch
+#, fuzzy
 msgid "finishing-template.saddle-stitch"
-msgstr ""
+msgstr "rilegatura a sella"
 
 #. TRANSLATORS: Staple
-#, fuzzy
 msgid "finishing-template.staple"
-msgstr "graffatura"
+msgstr "Graffatura"
 
 #. TRANSLATORS: Staple Bottom Left
 msgid "finishing-template.staple-bottom-left"
@@ -7594,23 +7581,23 @@ msgstr "Rilegatura in basso"
 
 #. TRANSLATORS: Cover
 msgid "finishings.6"
-msgstr ""
+msgstr "Copertina"
 
 #. TRANSLATORS: Trim Pages
 msgid "finishings.60"
-msgstr ""
+msgstr "Rifilatura pagine"
 
 #. TRANSLATORS: Trim Documents
 msgid "finishings.61"
-msgstr ""
+msgstr "Rifilatura documenti"
 
 #. TRANSLATORS: Trim Copies
 msgid "finishings.62"
-msgstr ""
+msgstr "Rifilatura copie"
 
 #. TRANSLATORS: Trim Job
 msgid "finishings.63"
-msgstr ""
+msgstr "Rifila lavoro"
 
 #. TRANSLATORS: Bind
 msgid "finishings.7"
@@ -7618,43 +7605,43 @@ msgstr "Rilegatura"
 
 #. TRANSLATORS: Punch Top Left
 msgid "finishings.70"
-msgstr ""
+msgstr "Foratura in alto a sinistra"
 
 #. TRANSLATORS: Punch Bottom Left
 msgid "finishings.71"
-msgstr ""
+msgstr "Foratura in basso a sinistra"
 
 #. TRANSLATORS: Punch Top Right
 msgid "finishings.72"
-msgstr ""
+msgstr "Foratura in alto a destra"
 
 #. TRANSLATORS: Punch Bottom Right
 msgid "finishings.73"
-msgstr ""
+msgstr "Foratura in basso a destra"
 
 #. TRANSLATORS: 2-hole Punch Left
 msgid "finishings.74"
-msgstr ""
+msgstr "2 fori a sinistra"
 
 #. TRANSLATORS: 2-hole Punch Top
 msgid "finishings.75"
-msgstr ""
+msgstr "2 fori in alto"
 
 #. TRANSLATORS: 2-hole Punch Right
 msgid "finishings.76"
-msgstr ""
+msgstr "2 fori a destra"
 
 #. TRANSLATORS: 2-hole Punch Bottom
 msgid "finishings.77"
-msgstr ""
+msgstr "2 fori in basso"
 
 #. TRANSLATORS: 3-hole Punch Left
 msgid "finishings.78"
-msgstr ""
+msgstr "3 fori a sinistra"
 
 #. TRANSLATORS: 3-hole Punch Top
 msgid "finishings.79"
-msgstr ""
+msgstr "3 fori in alto"
 
 #. TRANSLATORS: Saddle Stitch
 msgid "finishings.8"
@@ -7662,43 +7649,43 @@ msgstr "Rilegatura a sella"
 
 #. TRANSLATORS: 3-hole Punch Right
 msgid "finishings.80"
-msgstr ""
+msgstr "3 fori a destra"
 
 #. TRANSLATORS: 3-hole Punch Bottom
 msgid "finishings.81"
-msgstr ""
+msgstr "3 fori in basso"
 
 #. TRANSLATORS: 4-hole Punch Left
 msgid "finishings.82"
-msgstr ""
+msgstr "4 fori a sinistra"
 
 #. TRANSLATORS: 4-hole Punch Top
 msgid "finishings.83"
-msgstr ""
+msgstr "4 fori in alto"
 
 #. TRANSLATORS: 4-hole Punch Right
 msgid "finishings.84"
-msgstr ""
+msgstr "4 fori a destra"
 
 #. TRANSLATORS: 4-hole Punch Bottom
 msgid "finishings.85"
-msgstr ""
+msgstr "4 fori in basso"
 
 #. TRANSLATORS: Multi-hole Punch Left
 msgid "finishings.86"
-msgstr ""
+msgstr "Foratura multiforo a sinistra"
 
 #. TRANSLATORS: Multi-hole Punch Top
 msgid "finishings.87"
-msgstr ""
+msgstr "Foratura multiforo in alto"
 
 #. TRANSLATORS: Multi-hole Punch Right
 msgid "finishings.88"
-msgstr ""
+msgstr "Foratura multiforo a destra"
 
 #. TRANSLATORS: Multi-hole Punch Bottom
 msgid "finishings.89"
-msgstr ""
+msgstr "Foratura multiforo in basso"
 
 #. TRANSLATORS: Edge Stitch
 msgid "finishings.9"
@@ -7706,39 +7693,39 @@ msgstr "Cucitura a bordo"
 
 #. TRANSLATORS: Accordion Fold
 msgid "finishings.90"
-msgstr ""
+msgstr "Piega a fisarmonica"
 
 #. TRANSLATORS: Double Gate Fold
 msgid "finishings.91"
-msgstr ""
+msgstr "Piega a doppia anta"
 
 #. TRANSLATORS: Gate Fold
 msgid "finishings.92"
-msgstr ""
+msgstr "Piega a due ante"
 
 #. TRANSLATORS: Half Fold
 msgid "finishings.93"
-msgstr ""
+msgstr "Piega centrale"
 
 #. TRANSLATORS: Half Z Fold
 msgid "finishings.94"
-msgstr ""
+msgstr "Mezza piega a fisarmonica"
 
 #. TRANSLATORS: Left Gate Fold
 msgid "finishings.95"
-msgstr ""
+msgstr "Piega a finestra sinistra"
 
 #. TRANSLATORS: Letter Fold
 msgid "finishings.96"
-msgstr ""
+msgstr "Piega a portafoglio"
 
 #. TRANSLATORS: Parallel Fold
 msgid "finishings.97"
-msgstr ""
+msgstr "Piega parallela"
 
 #. TRANSLATORS: Poster Fold
 msgid "finishings.98"
-msgstr ""
+msgstr "Piega a poster"
 
 #. TRANSLATORS: Right Gate Fold
 #, fuzzy
@@ -7802,19 +7789,24 @@ msgid "from-name"
 msgstr "Da nome"
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
-msgstr ""
+msgstr "get-access-token [RESOURCE]    Ottieni il token corrente di accesso"
 
 msgid ""
 "get-client-id                  Get the client ID for the authorization server"
 msgstr ""
+"get-client-id                  Ottieni l'ID del client per il server di "
+"autorizzazione"
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
 msgstr ""
+"get-device-grant [RESOURCE]    Autorizzare l'accesso tramite un dispositivo"
 
 msgid ""
 "get-device-token [RESOURCE] DEVICE-CODE\n"
 "                               Wait for the device access token"
 msgstr ""
+"get-device-token [RESOURCE] DEVICE-CODE\n"
+"                               In attesa del token di accesso del dispositivo"
 
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
@@ -7826,13 +7818,13 @@ msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
 msgstr "get-user-id [RISORSA] [NOME]  Ottiene l'ID utente autorizzato"
 
 msgid "held"
-msgstr "svolto"
+msgstr "trattenuto"
 
 msgid "help\t\tGet help on commands."
 msgstr "help\t\tFornisce aiuto sui comandi."
 
 msgid "idle"
-msgstr "inattiva"
+msgstr "pronta"
 
 #. TRANSLATORS: Imposition Template
 msgid "imposition-template"
@@ -7862,20 +7854,23 @@ msgid ""
 "install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
 "                           Install a certificate and (optional) private key."
 msgstr ""
+"install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
+"                           Installa un certificato e (opzionale) una chiave "
+"privata."
 
 msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
-msgstr ""
+msgstr "ippeveprinter: Impossibile creare la mappatura IPP del file PPD."
 
 #, c-format
 msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
+msgstr "ippeveprinter: Impossibile aprire \"%s\": %s alla riga %d."
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
-msgstr "ippfind: l'espressione regolare non è valida: %s"
+msgstr "ippfind: Espressione regolare non valida: %s"
 
 msgid "ippfind: Cannot use --and after --or."
-msgstr "ippfind: non è possibile usare --and dopo --or."
+msgstr "ippfind: Impossibile usare --and dopo --or."
 
 #, c-format
 msgid "ippfind: Expected key name after %s."
@@ -7894,13 +7889,13 @@ msgid "ippfind: Expected semi-colon after %s."
 msgstr "ippfind: è previsto un punto e virgola dopo %s."
 
 msgid "ippfind: Missing close brace in substitution."
-msgstr "ippfind: manca parentesi graffa di chiusura in sostituzione."
+msgstr "ippfind: Parentesi graffa di chiusura mancante nella sostituzione."
 
 msgid "ippfind: Missing close parenthesis."
-msgstr "ippfind: manca la chiusa della parentesi."
+msgstr "ippfind: Manca la chiusa della parentesi."
 
 msgid "ippfind: Missing expression before \"--and\"."
-msgstr "ippfind: manca l'espressione prima di \"--and\"."
+msgstr "ippfind: Manca l'espressione prima di \"--and\"."
 
 msgid "ippfind: Missing expression before \"--or\"."
 msgstr "ippfind: manca l'espressione prima di \"--or\"."
@@ -7967,7 +7962,7 @@ msgstr "ipptool: conteggio mancante per \"-n\"."
 
 #, c-format
 msgid "ipptool: Missing filename for \"%s\"."
-msgstr ""
+msgstr "ipptool: Nome file mancante per \"%s\"."
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: manca il file per \"-f\"."
@@ -7986,12 +7981,14 @@ msgid "ipptool: Unable to allocate memory: %s"
 msgstr "ipptool: Impossibile allocare memoria: %s"
 
 #. TRANSLATORS: Job Account ID
+#, fuzzy
 msgid "job-account-id"
-msgstr ""
+msgstr "Codice del lavoro"
 
 #. TRANSLATORS: Job Account Type
+#, fuzzy
 msgid "job-account-type"
-msgstr ""
+msgstr "Categoria del lavoro"
 
 #. TRANSLATORS: General
 msgid "job-account-type.general"
@@ -8006,32 +8003,34 @@ msgid "job-account-type.none"
 msgstr "Nessuno"
 
 #. TRANSLATORS: Job Accounting Output Bin
+#, fuzzy
 msgid "job-accounting-output-bin"
-msgstr ""
+msgstr "Vassoio di uscita rapporti di stampa"
 
 #. TRANSLATORS: Job Accounting Sheets
+#, fuzzy
 msgid "job-accounting-sheets"
-msgstr ""
+msgstr "Fogli di riepilogo costi di stampa"
 
 #. TRANSLATORS: Type of Job Accounting Sheets
 msgid "job-accounting-sheets-type"
-msgstr ""
+msgstr "Tipo di fogli di contabilità del lavoro"
 
 #. TRANSLATORS: None
 msgid "job-accounting-sheets-type.none"
-msgstr ""
+msgstr "Nessuno"
 
 #. TRANSLATORS: Standard
 msgid "job-accounting-sheets-type.standard"
-msgstr ""
+msgstr "Standard"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
-msgstr ""
+msgstr "ID utente per addebito lavoro"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
-msgstr ""
+msgstr "Annulla lavoro dopo"
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
@@ -10723,63 +10722,63 @@ msgstr "JIS esecutiva"
 
 #. TRANSLATORS: Envelope Chou 2
 msgid "media.jpn_chou2_111.1x146mm"
-msgstr "Chou 2 busta"
+msgstr "Busta giapponese Chou 2 (111.1x146 mm)"
 
 #. TRANSLATORS: Envelope Chou 3
 msgid "media.jpn_chou3_120x235mm"
-msgstr "Chou 3 busta"
+msgstr "Busta giapponese Chou 3 (120x235 mm)"
 
 #. TRANSLATORS: Envelope Chou 40
 msgid "media.jpn_chou40_90x225mm"
-msgstr "Chou 40 busta"
+msgstr "Busta giapponese Chou 40 (90x225 mm)"
 
 #. TRANSLATORS: Envelope Chou 4
 msgid "media.jpn_chou4_90x205mm"
-msgstr "Chou 4 busta"
+msgstr "Busta giapponese Chou 4 (90x205 mm)"
 
 #. TRANSLATORS: Hagaki
 msgid "media.jpn_hagaki_100x148mm"
-msgstr "Hagaki"
+msgstr "Cartolina giapponese Hagaki (100x148 mm)"
 
 #. TRANSLATORS: Envelope Kahu
 msgid "media.jpn_kahu_240x322.1mm"
-msgstr "Kahu busta"
+msgstr "Busta giapponese Kahu (240x322.1 mm)"
 
 #. TRANSLATORS: 270 x 382mm
 msgid "media.jpn_kaku1_270x382mm"
-msgstr "Kahu 1 busta"
+msgstr "Busta giapponese Kaku 1 (270x382 mm)"
 
 #. TRANSLATORS: Envelope Kahu 2
 msgid "media.jpn_kaku2_240x332mm"
-msgstr "Kahu 2 busta"
+msgstr "Busta giapponese Kaku 2 (240x332 mm)"
 
 #. TRANSLATORS: 216 x 277mm
 msgid "media.jpn_kaku3_216x277mm"
-msgstr "Kahu 3 busta"
+msgstr "Busta giapponese Kaku 3 (216x277 mm)"
 
 #. TRANSLATORS: 197 x 267mm
 msgid "media.jpn_kaku4_197x267mm"
-msgstr "Kahu 4 busta"
+msgstr "Busta giapponese Kaku 4 (197x267 mm)"
 
 #. TRANSLATORS: 190 x 240mm
 msgid "media.jpn_kaku5_190x240mm"
-msgstr "Kahu 5 busta"
+msgstr "Busta giapponese Kaku 5 (190x240 mm)"
 
 #. TRANSLATORS: 142 x 205mm
 msgid "media.jpn_kaku7_142x205mm"
-msgstr "Kahu 7 busta"
+msgstr "Busta giapponese Kaku 7 (142x205 mm)"
 
 #. TRANSLATORS: 119 x 197mm
 msgid "media.jpn_kaku8_119x197mm"
-msgstr "Kahu 8 busta"
+msgstr "Busta giapponese Kaku 8 (119x197 mm)"
 
 #. TRANSLATORS: Oufuku Reply Postcard
 msgid "media.jpn_oufuku_148x200mm"
-msgstr "Oufuku cartolina risposta"
+msgstr "Cartolina giapponese Oufuku (148x200 mm)"
 
 #. TRANSLATORS: Envelope You 4
 msgid "media.jpn_you4_105x235mm"
-msgstr "You 4 busta"
+msgstr "Busta giapponese You4 (105x235 mm)"
 
 #. TRANSLATORS: 10 x 11″
 msgid "media.na_10x11_10x11in"
@@ -10827,7 +10826,7 @@ msgstr "9x11''"
 
 #. TRANSLATORS: Envelope A2
 msgid "media.na_a2_4.375x5.75in"
-msgstr "A2 busta"
+msgstr "Busta A2 (4.375x5.75 pollici)\""
 
 #. TRANSLATORS: 9 x 12″
 msgid "media.na_arch-a_9x12in"
@@ -10863,7 +10862,7 @@ msgstr "12x19,17''"
 
 #. TRANSLATORS: Envelope C5
 msgid "media.na_c5_6.5x9.5in"
-msgstr "C5 busta"
+msgstr "Busta C5 (6.5x9.5 pollici)"
 
 #. TRANSLATORS: 17 x 22″
 msgid "media.na_c_17x22in"
@@ -10887,24 +10886,23 @@ msgstr "12x14''"
 
 #. TRANSLATORS: Executive
 msgid "media.na_executive_7.25x10.5in"
-msgstr "Esecutiva"
+msgstr "Executive (7.25x10.5 pollici)"
 
 #. TRANSLATORS: 44 x 68″
 msgid "media.na_f_44x68in"
 msgstr "44x68''"
 
 #. TRANSLATORS: European Fanfold
-#, fuzzy
 msgid "media.na_fanfold-eur_8.5x12in"
-msgstr "Modulo continuo europeo"
+msgstr "Modulo continuo EU (8.5x12 pollici)"
 
 #. TRANSLATORS: US Fanfold
 msgid "media.na_fanfold-us_11x14.875in"
-msgstr ""
+msgstr "Modulo continuo USA (11x14.875 pollici)"
 
 #. TRANSLATORS: Foolscap
 msgid "media.na_foolscap_8.5x13in"
-msgstr ""
+msgstr "Foglio protocollo (8.5x13 pollici)"
 
 #. TRANSLATORS: 8 x 13″
 msgid "media.na_govt-legal_8x13in"
@@ -10928,7 +10926,7 @@ msgstr ""
 
 #. TRANSLATORS: 5 x 8″
 msgid "media.na_index-5x8_5x8in"
-msgstr "5 x 8″"
+msgstr "Cartoncino (5x8 pollici)"
 
 #. TRANSLATORS: Statement
 msgid "media.na_invoice_5.5x8.5in"
@@ -10936,27 +10934,27 @@ msgstr ""
 
 #. TRANSLATORS: 11 x 17″
 msgid "media.na_ledger_11x17in"
-msgstr ""
+msgstr "Ledger (11x17 pollici)"
 
 #. TRANSLATORS: US Legal (Extra)
 msgid "media.na_legal-extra_9.5x15in"
-msgstr "Legale US Extra"
+msgstr "Legale US Extra (9.5x15 pollici)"
 
 #. TRANSLATORS: US Legal
 msgid "media.na_legal_8.5x14in"
-msgstr "Legale US"
+msgstr "Legale US (8.5x14 pollici)"
 
 #. TRANSLATORS: US Letter (Extra)
 msgid "media.na_letter-extra_9.5x12in"
-msgstr "Lettera US Extra"
+msgstr "Lettera US Extra (9.5x12 pollici)"
 
 #. TRANSLATORS: US Letter (Plus)
 msgid "media.na_letter-plus_8.5x12.69in"
-msgstr "Lettera US Plus"
+msgstr "Lettera US Plus (8.5x12.69 pollici)"
 
 #. TRANSLATORS: US Letter
 msgid "media.na_letter_8.5x11in"
-msgstr "Lettera US"
+msgstr "Lettera US (8.5x11 pollici)"
 
 #. TRANSLATORS: Envelope Monarch
 msgid "media.na_monarch_3.875x7.5in"
@@ -16181,7 +16179,7 @@ msgid "untitled"
 msgstr "senza titolo"
 
 msgid "variable-bindings uses indefinite length"
-msgstr "variable-bindings utilizza una lunghezza indefinita"
+msgstr "variable-binding utilizzano una lunghezza indefinita"
 
 #. TRANSLATORS: X Accuracy
 msgid "x-accuracy"
