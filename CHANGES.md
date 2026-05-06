@@ -5,19 +5,21 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.20 (YYYY-MM-DD)
 ------------------------------------
 
-- Fixed handling of multiple PPD: keywords from filters (Issue #1562)
+- Fixed handling of multiple PPD: keywords from filters (Issue #1562,
+  related to CVE-2026-34980)
 
 
 Changes in CUPS v2.4.19 (2026-04-27)
 ------------------------------------
 
-- Fixed a regression in shared printing from non-local accounts (Issue #1557)
+- Fixed a regression in shared printing from non-local accounts (Issue #1557,
+  related to CVE-2026-27447)
 
 
 Changes in CUPS v2.4.18 (2026-04-22)
 ------------------------------------
 
-- Fixed cupsd crash if user does not exist (Issue #1555)
+- Fixed cupsd crash if user does not exist (Issue #1555, related to CVE-2026-27447)
 
 
 Changes in CUPS v2.4.17 (2026-04-17)
