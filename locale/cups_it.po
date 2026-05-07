@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2026-05-06 13:21+0000\n"
+"PO-Revision-Date: 2026-05-07 14:11+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
@@ -1793,7 +1793,7 @@ msgstr ""
 "nel codice di uscita"
 
 msgid "--release               Release previously held jobs"
-msgstr "--release               Rilascia i job trattenuti"
+msgstr "--release               Rilascia le stampe trattenute"
 
 msgid "--remote                True if service is remote"
 msgstr "--remote                True se il servizio è remoto"
@@ -2018,7 +2018,7 @@ msgid "-H restart              Reprint the job"
 msgstr "-H restart              Ristampa il job"
 
 msgid "-H resume               Resume a held job"
-msgstr "-H resume               Riavvia un job bloccato"
+msgstr "-H resume               Riavvia una stampa bloccata"
 
 msgid "-H server[:port]        Connect to the named server and port"
 msgstr "-H server[:port]        Connette al server/porta specificati"
@@ -2488,7 +2488,7 @@ msgstr "-q                      Modalità silenziosa"
 
 msgid "-q                      Specify the job should be held for printing"
 msgstr ""
-"-q                      Specifica che il job dovrebbe essere trattenuto"
+"-q                      Specifica che la stampa dovrebbe essere trattenuta"
 
 msgid "-q priority             Specify the priority from low (1) to high (100)"
 msgstr ""
@@ -3770,7 +3770,7 @@ msgstr "Crittografia non supportata."
 
 #. TRANSLATORS: Banner/cover sheet after the print job.
 msgid "Ending Banner"
-msgstr "Termine del banner"
+msgstr "Copertina del lavoro al termine della stampa"
 
 msgid "English"
 msgstr "Inglese"
@@ -3785,7 +3785,7 @@ msgstr ""
 "di disporre di un ticket valido."
 
 msgid "Envelope #10"
-msgstr ""
+msgstr "Envelope #10"
 
 msgid "Envelope #11"
 msgstr "Envelope #11"
@@ -3875,7 +3875,7 @@ msgid "Envelope Monarch"
 msgstr "Envelope Monarch"
 
 msgid "Envelope PRC1"
-msgstr ""
+msgstr "Envelope PRC1"
 
 msgid "Envelope PRC1 Long Edge"
 msgstr "Envelope PRC1 Long Edge"
@@ -4045,7 +4045,7 @@ msgid "Finished page %d."
 msgstr "Finito pagina %d."
 
 msgid "Folio"
-msgstr ""
+msgstr "Folio"
 
 msgid "Forbidden"
 msgstr "Vietato"
@@ -4201,19 +4201,19 @@ msgid "ISOLatin1"
 msgstr "ISOLatin1"
 
 msgid "Illegal control character"
-msgstr "Il carattere di controllo è illegale"
+msgstr "Carattere di controllo non valido"
 
 msgid "Illegal main keyword string"
-msgstr "La stringa della parola chiave principale è illegale"
+msgstr "Stringa principale non consentita"
 
 msgid "Illegal option keyword string"
-msgstr "La stringa della parola chiave dell'opzione è illegale"
+msgstr "Stringa opzionale non consentita"
 
 msgid "Illegal translation string"
-msgstr "La stringa della traduzione è illegale"
+msgstr "Stringa della traduzione non consentita"
 
 msgid "Illegal whitespace character"
-msgstr "Il carattere spazio è illegale"
+msgstr "Carattere spazio non consentito"
 
 msgid "Installable Options"
 msgstr "Opzioni installabili"
@@ -4258,7 +4258,7 @@ msgid "Invalid media name arguments."
 msgstr "Gli argomenti del nome del supporto non sono validi."
 
 msgid "Invalid media size."
-msgstr "La dimensione del supporto non è valida."
+msgstr "Dimensione del supporto non valida."
 
 msgid "Invalid named IPP attribute in collection."
 msgstr "Attributo IPP con nome non valido all'interno del gruppo."
@@ -4292,19 +4292,19 @@ msgid "JIS B4"
 msgstr "JIS B4"
 
 msgid "JIS B4 Long Edge"
-msgstr "JIS B4 Long Edge"
+msgstr "JIS B4 lato lungo"
 
 msgid "JIS B5"
 msgstr "JIS B5"
 
 msgid "JIS B5 Long Edge"
-msgstr "JIS B5 Long Edge"
+msgstr "JIS B5 lato lungo"
 
 msgid "JIS B6"
 msgstr "JIS B6"
 
 msgid "JIS B6 Long Edge"
-msgstr "JIS B6 Long Edge"
+msgstr "JIS B6 lato lungo"
 
 msgid "JIS B7"
 msgstr "JIS B7"
@@ -4316,7 +4316,7 @@ msgid "JIS B9"
 msgstr "JIS B9"
 
 msgid "JSON file too large."
-msgstr "File JSON troppo grosso."
+msgstr "File JSON troppo grande."
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4332,7 +4332,7 @@ msgstr "Il processo #%d è già stato interrotto - non è possibile eliminarlo."
 
 #, c-format
 msgid "Job #%d is already canceled - can't cancel."
-msgstr "Il processo #%d è già stato eliminato, impossibile eliminarlo."
+msgstr "Il processo #%d è già stato eliminato, non è possibile eliminarlo."
 
 #, c-format
 msgid "Job #%d is already completed - can't cancel."
@@ -4340,7 +4340,7 @@ msgstr "Il processo #%d è già completato, non è possibile eliminarlo."
 
 #, c-format
 msgid "Job #%d is finished and cannot be altered."
-msgstr "Il processo #%d è terminato e non può essere alterato."
+msgstr "Il processo #%d è terminato e non può essere modificato."
 
 #, c-format
 msgid "Job #%d is not complete."
@@ -4348,11 +4348,11 @@ msgstr "Il processo #%d non è stato completato."
 
 #, c-format
 msgid "Job #%d is not held for authentication."
-msgstr "Il processo #%d non è stato eseguito per l'autenticazione."
+msgstr "Il processo #%d non richiede autenticazione."
 
 #, c-format
 msgid "Job #%d is not held."
-msgstr "Il processo #%d non è stato eseguito."
+msgstr "La stampa #%d non è trattenuta."
 
 msgid "Job Completed"
 msgstr "Il processo è stato completato"
@@ -6047,16 +6047,16 @@ msgid "binding-type.velo"
 msgstr "rilegatura a velo"
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
-msgstr "ca NOME-COMUNE             Firma un CSR per produrre un certificato."
+msgstr "ca COMMON-NAME             Firma un CSR per produrre un certificato."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
-msgstr "cacert NOME-COMUNE         Crea un certificato CA."
+msgstr "cacert COMMON-NAME         Crea un certificato CA."
 
 msgid "canceled"
 msgstr "eliminato"
 
 msgid "cert COMMON-NAME           Create a certificate."
-msgstr "cert NOME-COMUNE           Crea un certificato."
+msgstr "cert COMMON-NAME           Crea un certificato."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
@@ -6241,8 +6241,7 @@ msgid "covering-name.pre-printed"
 msgstr "Prima della stampa"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr ""
-"csr NOME-COMUNE            Crea una richiesta di firma del certificato."
+msgstr "csr COMMON-NAME            Crea una richiesta di firma del certificato."
 
 msgid "cups-deviced failed to execute."
 msgstr "cups-deviced ha smesso di funzionare."
@@ -6804,7 +6803,7 @@ msgstr "Allinea in alto"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishing-template.booklet-maker"
-msgstr ""
+msgstr "Crea opuscolo"
 
 #. TRANSLATORS: Coat
 msgid "finishing-template.coat"
@@ -7818,7 +7817,7 @@ msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
 msgstr "get-user-id [RISORSA] [NOME]  Ottiene l'ID utente autorizzato"
 
 msgid "held"
-msgstr "trattenuto"
+msgstr "trattenuta"
 
 msgid "help\t\tGet help on commands."
 msgstr "help\t\tFornisce aiuto sui comandi."
@@ -8453,7 +8452,7 @@ msgstr "Job disponibile"
 
 #. TRANSLATORS: Job Held For Review
 msgid "job-state-reasons.job-held-for-review"
-msgstr "Job trattenuto per verifica"
+msgstr "Stampa trattenuta per verifica"
 
 #. TRANSLATORS: Job held
 msgid "job-state-reasons.job-hold-until-specified"
@@ -9118,7 +9117,7 @@ msgstr "Media"
 
 #. TRANSLATORS: Back Coating of Media
 msgid "media-back-coating"
-msgstr ""
+msgstr "Rivestimento posteriore del supporto"
 
 #. TRANSLATORS: Glossy
 msgid "media-back-coating.glossy"
@@ -9478,11 +9477,11 @@ msgstr "Giallo"
 
 #. TRANSLATORS: Front Coating of Media
 msgid "media-front-coating"
-msgstr ""
+msgstr "Rivestimento anteriore del supporto"
 
 #. TRANSLATORS: Media Grain
 msgid "media-grain"
-msgstr ""
+msgstr "Grana del supporto"
 
 #. TRANSLATORS: Cross-Feed Direction
 msgid "media-grain.x-direction"
@@ -9493,8 +9492,9 @@ msgid "media-grain.y-direction"
 msgstr "Direzione alimentazione"
 
 #. TRANSLATORS: Media Hole Count
+#, fuzzy
 msgid "media-hole-count"
-msgstr ""
+msgstr "Numero di fori sul supporto"
 
 #. TRANSLATORS: Media Info
 msgid "media-info"
@@ -9874,7 +9874,7 @@ msgstr "Carta con peso medio"
 
 #. TRANSLATORS: Inkjet Premium Paper
 msgid "media-type.com.hp.premium-inkjet"
-msgstr "Carta Inkjet Premium"
+msgstr "Carta inkjet Premium"
 
 #. TRANSLATORS: Photo Premium Paper
 msgid "media-type.com.hp.premium-photo"
@@ -9942,7 +9942,7 @@ msgstr "Lamina per goffratura"
 
 #. TRANSLATORS: End Board
 msgid "media-type.end-board"
-msgstr ""
+msgstr "Cartoncino di chiusura"
 
 #. TRANSLATORS: Envelope
 msgid "media-type.envelope"
@@ -9954,143 +9954,150 @@ msgstr "Busta archivistica"
 
 #. TRANSLATORS: Bond Envelope
 msgid "media-type.envelope-bond"
-msgstr ""
+msgstr "Busta in carta bond"
 
 #. TRANSLATORS: Coated Envelope
 msgid "media-type.envelope-coated"
-msgstr ""
+msgstr "Busta patinata"
 
 #. TRANSLATORS: Cotton Envelope
 msgid "media-type.envelope-cotton"
-msgstr ""
+msgstr "Busta in cotone"
 
 #. TRANSLATORS: Fine Envelope
 msgid "media-type.envelope-fine"
-msgstr ""
+msgstr "Busta (carta pregiata)"
 
 #. TRANSLATORS: Heavyweight Envelope
 msgid "media-type.envelope-heavyweight"
-msgstr ""
+msgstr "Busta ad alta grammatura"
 
 #. TRANSLATORS: Inkjet Envelope
 msgid "media-type.envelope-inkjet"
-msgstr ""
+msgstr "Busta per inkjet"
 
 #. TRANSLATORS: Lightweight Envelope
 msgid "media-type.envelope-lightweight"
-msgstr ""
+msgstr "Busta a bassa grammatura"
 
 #. TRANSLATORS: Plain Envelope
 msgid "media-type.envelope-plain"
-msgstr ""
+msgstr "Busta ordinaria"
 
 #. TRANSLATORS: Preprinted Envelope
 msgid "media-type.envelope-preprinted"
-msgstr ""
+msgstr "Busta prestampata"
 
 #. TRANSLATORS: Windowed Envelope
 msgid "media-type.envelope-window"
-msgstr ""
+msgstr "Busta con finestra"
 
 #. TRANSLATORS: Fabric
 msgid "media-type.fabric"
-msgstr ""
+msgstr "Supporto in tessuto"
 
 #. TRANSLATORS: Archival Fabric
+#, fuzzy
 msgid "media-type.fabric-archival"
-msgstr ""
+msgstr "Tessuto per archiviazione"
 
 #. TRANSLATORS: Glossy Fabric
 msgid "media-type.fabric-glossy"
-msgstr ""
+msgstr "Tessuto lucido"
 
 #. TRANSLATORS: High Gloss Fabric
 msgid "media-type.fabric-high-gloss"
-msgstr ""
+msgstr "Tessuto ultralucido"
 
 #. TRANSLATORS: Matte Fabric
 msgid "media-type.fabric-matte"
-msgstr ""
+msgstr "Tessuto opaco"
 
 #. TRANSLATORS: Semi-Gloss Fabric
 msgid "media-type.fabric-semi-gloss"
-msgstr ""
+msgstr "Tessuto semilucido"
 
 #. TRANSLATORS: Waterproof Fabric
 msgid "media-type.fabric-waterproof"
-msgstr ""
+msgstr "Tessuto impermeabile"
 
 #. TRANSLATORS: Film
 msgid "media-type.film"
-msgstr ""
+msgstr "Pellicola"
 
 #. TRANSLATORS: Flexo Base
+#, fuzzy
 msgid "media-type.flexo-base"
-msgstr ""
+msgstr "Base per flessografia"
 
 #. TRANSLATORS: Flexo Photo Polymer
+#, fuzzy
 msgid "media-type.flexo-photo-polymer"
-msgstr ""
+msgstr "Fotopolimero per flessografia"
 
 #. TRANSLATORS: Flute
+#, fuzzy
 msgid "media-type.flute"
-msgstr ""
+msgstr "Ondulato"
 
 #. TRANSLATORS: Foil
+#, fuzzy
 msgid "media-type.foil"
-msgstr ""
+msgstr "Lamina"
 
 #. TRANSLATORS: Full Cut Tabs
+#, fuzzy
 msgid "media-type.full-cut-tabs"
-msgstr ""
+msgstr "Separatori a taglio intero"
 
 #. TRANSLATORS: Glass
 msgid "media-type.glass"
-msgstr ""
+msgstr "Vetro"
 
 #. TRANSLATORS: Glass Colored
 msgid "media-type.glass-colored"
-msgstr ""
+msgstr "Vetro colorato"
 
 #. TRANSLATORS: Glass Opaque
 msgid "media-type.glass-opaque"
-msgstr ""
+msgstr "Vetro opaco"
 
 #. TRANSLATORS: Glass Surfaced
 msgid "media-type.glass-surfaced"
-msgstr ""
+msgstr "Superficie vetrata"
 
 #. TRANSLATORS: Glass Textured
 msgid "media-type.glass-textured"
-msgstr ""
+msgstr "Vetro strutturato"
 
 #. TRANSLATORS: Gravure Cylinder
 msgid "media-type.gravure-cylinder"
-msgstr ""
+msgstr "Cilindro per rotocalco"
 
 #. TRANSLATORS: Image Setter Paper
 msgid "media-type.image-setter-paper"
-msgstr ""
+msgstr "Carta per fotocomposizione"
 
 #. TRANSLATORS: Imaging Cylinder
+#, fuzzy
 msgid "media-type.imaging-cylinder"
-msgstr ""
+msgstr "Cilindro di imaging"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon-photo-paper-plus-glossy-ii"
-msgstr ""
+msgstr "Carta fotografica lucida II (Canon)"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon-photo-paper-pro-platinum"
-msgstr ""
+msgstr "Carta fotografica Pro Platinum (Canon)"
 
 #. TRANSLATORS: Photo Paper Plus Glossy II
 msgid "media-type.jp.co.canon_photo-paper-plus-glossy-ii"
-msgstr ""
+msgstr "Carta fotografica lucida II (Canon)"
 
 #. TRANSLATORS: Photo Paper Pro Platinum
 msgid "media-type.jp.co.canon_photo-paper-pro-platinum"
-msgstr ""
+msgstr "Carta fotografica Pro Platinum (Canon)"
 
 #. TRANSLATORS: Labels
 msgid "media-type.labels"
@@ -10110,7 +10117,7 @@ msgstr "Etichette molto lucide"
 
 #. TRANSLATORS: Inkjet Labels
 msgid "media-type.labels-inkjet"
-msgstr "Etichette inkjet"
+msgstr "Etichette per inkjet"
 
 #. TRANSLATORS: Matte Labels
 msgid "media-type.labels-matte"
@@ -10133,12 +10140,13 @@ msgid "media-type.labels-semi-gloss"
 msgstr "Etichette semilucide"
 
 #. TRANSLATORS: Laminating Foil
+#, fuzzy
 msgid "media-type.laminating-foil"
-msgstr ""
+msgstr "Pellicola per plastificazione"
 
 #. TRANSLATORS: Letterhead
 msgid "media-type.letterhead"
-msgstr ""
+msgstr "Carta intestata"
 
 #. TRANSLATORS: Metal
 msgid "media-type.metal"
@@ -10166,15 +10174,16 @@ msgstr "Metallo semilucido"
 
 #. TRANSLATORS: Mounting Tape
 msgid "media-type.mounting-tape"
-msgstr ""
+msgstr "Nastro di montaggio"
 
 #. TRANSLATORS: Multi Layer
 msgid "media-type.multi-layer"
-msgstr ""
+msgstr "Multistrato"
 
 #. TRANSLATORS: Multi Part Form
+#, fuzzy
 msgid "media-type.multi-part-form"
-msgstr ""
+msgstr "Modulo autoricalcante"
 
 #. TRANSLATORS: Other
 msgid "media-type.other"
@@ -10194,27 +10203,27 @@ msgstr "Carta fotografica archivistica"
 
 #. TRANSLATORS: Photo Film
 msgid "media-type.photographic-film"
-msgstr ""
+msgstr "Pellicola fotografica"
 
 #. TRANSLATORS: Glossy Photo Paper
 msgid "media-type.photographic-glossy"
-msgstr ""
+msgstr "Carta fotografica lucida"
 
 #. TRANSLATORS: High Gloss Photo Paper
 msgid "media-type.photographic-high-gloss"
-msgstr ""
+msgstr "Carta fotografica ultra lucida"
 
 #. TRANSLATORS: Matte Photo Paper
 msgid "media-type.photographic-matte"
-msgstr ""
+msgstr "Carta fotografica opaca"
 
 #. TRANSLATORS: Satin Photo Paper
 msgid "media-type.photographic-satin"
-msgstr ""
+msgstr "Carta fotografica satinata"
 
 #. TRANSLATORS: Semi-Gloss Photo Paper
 msgid "media-type.photographic-semi-gloss"
-msgstr ""
+msgstr "Carta fotografica semilucida"
 
 #. TRANSLATORS: Plastic
 msgid "media-type.plastic"
@@ -10257,8 +10266,9 @@ msgid "media-type.polyester"
 msgstr "Polistere"
 
 #. TRANSLATORS: Pre Cut Tabs
+#, fuzzy
 msgid "media-type.pre-cut-tabs"
-msgstr ""
+msgstr "Divisori con linguette"
 
 #. TRANSLATORS: Roll
 msgid "media-type.roll"
@@ -10282,43 +10292,48 @@ msgstr "Pellicola autoadesiva"
 
 #. TRANSLATORS: Shrink Foil
 msgid "media-type.shrink-foil"
-msgstr ""
+msgstr "Pellicola termoretraibile"
 
 #. TRANSLATORS: Single Face
 msgid "media-type.single-face"
 msgstr "Faccia singola"
 
 #. TRANSLATORS: Single Wall
+#, fuzzy
 msgid "media-type.single-wall"
-msgstr ""
+msgstr "Ondulato semplice"
 
 #. TRANSLATORS: Sleeve
 msgid "media-type.sleeve"
-msgstr ""
+msgstr "Guaina"
 
 #. TRANSLATORS: Stationery
+#, fuzzy
 msgid "media-type.stationery"
-msgstr ""
+msgstr "Carta comune"
 
 #. TRANSLATORS: Stationery Archival
+#, fuzzy
 msgid "media-type.stationery-archival"
-msgstr ""
+msgstr "Carta per archiviazione"
 
 #. TRANSLATORS: Coated Paper
 msgid "media-type.stationery-coated"
-msgstr ""
+msgstr "Carta patinata"
 
 #. TRANSLATORS: Stationery Cotton
+#, fuzzy
 msgid "media-type.stationery-cotton"
-msgstr ""
+msgstr "Carta cotone"
 
 #. TRANSLATORS: Vellum Paper
+#, fuzzy
 msgid "media-type.stationery-fine"
-msgstr ""
+msgstr "Carta pregiata"
 
 #. TRANSLATORS: Heavyweight Paper
 msgid "media-type.stationery-heavyweight"
-msgstr ""
+msgstr "Carta ad alta grammatura"
 
 #. TRANSLATORS: Stationery Heavyweight Coated
 msgid "media-type.stationery-heavyweight-coated"
@@ -10326,7 +10341,7 @@ msgstr ""
 
 #. TRANSLATORS: Stationery Inkjet Paper
 msgid "media-type.stationery-inkjet"
-msgstr ""
+msgstr "Carta per inkjet"
 
 #. TRANSLATORS: Letterhead
 msgid "media-type.stationery-letterhead"
@@ -15900,7 +15915,8 @@ msgid "separator-sheets-type.start-sheet"
 msgstr "Foglio iniziale"
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
-msgstr "server NOME-COMUNE[:PORTA] Avvia un server HTTPS (porta default 8NNN.)"
+msgstr ""
+"server COMMON-NAME[:PORTA] Avvia un server HTTPS (porta di default 8NNN.)"
 
 msgid ""
 "set-access-token [RESOURCE] TOKEN\n"
@@ -15920,7 +15936,7 @@ msgstr ""
 
 msgid "show COMMON-NAME           Show stored credentials for COMMON-NAME."
 msgstr ""
-"show NOME-COMUNE           Mostra le credenziali salvate per NOME-COMUNE."
+"show COMMON-NAME           Mostra le credenziali salvate per COMMON-NAME."
 
 #. TRANSLATORS: 2-Sided Printing
 msgid "sides"
