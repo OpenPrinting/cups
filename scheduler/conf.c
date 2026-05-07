@@ -81,6 +81,7 @@ static const cupsd_var_t	cupsd_vars[] =
   { "DirtyCleanInterval",	&DirtyCleanInterval,	CUPSD_VARTYPE_TIME },
   { "DNSSDComputerName",	&DNSSDComputerName,	CUPSD_VARTYPE_STRING },
   { "DNSSDHostName",		&DNSSDHostName,		CUPSD_VARTYPE_STRING },
+  { "DNSSDServiceName",		&DNSSDServiceName,	CUPSD_VARTYPE_STRING },
   { "ErrorPolicy",		&ErrorPolicy,		CUPSD_VARTYPE_STRING },
   { "FilterLimit",		&FilterLimit,		CUPSD_VARTYPE_INTEGER },
 #ifdef HAVE_GSSAPI
