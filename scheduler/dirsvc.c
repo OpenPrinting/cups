@@ -485,7 +485,45 @@ dnssdRegisterPrinter(
 
   if (!p->reg_name)
   {
-    if (p->info && strlen(p->info) > 0)
+    if (DNSSDServiceName && DNSSDServiceName[0] != '\0') {
+        char *s = DNSSDServiceName, *e = name + sizeof(name), *q = name, c;
+
+        while (1) {
+            c = *s++;
+            /* assert(q < e); */
+            if (c == '\0' || q == e - 1) {
+                *q = '\0';
+                break;
+            } else if (c == '%') {
+                c = *s++;
+                if (c == '\0') { /* putting this into the case would need a break 2 */
+                    *q = '\0';
+                    break;
+                } else if (c == '%') { /* could be put into case */
+                    *q++ = '%';
+                } else {
+                    char *r;
+                    switch (c) {
+                        case 'n': r = p->name; break;
+                        case 'l': r = p->location; break;
+                        case 'i': r = p->info; break;
+                        case 'm': r = p->make_model; break;
+                        case 'c': r = DNSSDComputerName; break;
+                        default: continue;
+                    }
+                    if (r == NULL) continue;
+                    q += strlcpy(q, r, e - q);
+                    if (q >= e) {
+                        *(e - 1) = '\0';
+                        break;
+                    }
+                }
+            } else {
+                *q++ = c;
+            }
+        }
+    }
+    else if (p->info && strlen(p->info) > 0)
     {
       if (DNSSDComputerName)
 	snprintf(name, sizeof(name), "%s @ %s", p->info, DNSSDComputerName);
