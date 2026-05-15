@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2026-05-07 14:11+0000\n"
+"PO-Revision-Date: 2026-05-15 18:11+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(tutti)"
@@ -4192,7 +4192,7 @@ msgid "IPPFIND_SERVICE_SCHEME  URI scheme"
 msgstr "IPPFIND_SERVICE_SCHEME  Schema URI"
 
 msgid "IPPFIND_SERVICE_URI     URI"
-msgstr ""
+msgstr "IPPFIND_SERVICE_URI     URI"
 
 msgid "IPPFIND_TXT_*           Value of TXT record key"
 msgstr "IPPFIND_TXT_*           Valore della chiave del record TXT"
@@ -6082,22 +6082,18 @@ msgid "coating"
 msgstr "rivestimento"
 
 #. TRANSLATORS: Add Coating To
-#, fuzzy
 msgid "coating-sides"
 msgstr "lati del rivestimento"
 
 #. TRANSLATORS: Back
-#, fuzzy
 msgid "coating-sides.back"
 msgstr "rivestimento piatto posteriore"
 
 #. TRANSLATORS: Front and Back
-#, fuzzy
 msgid "coating-sides.both"
 msgstr "rivestimento su entrambi i piatti"
 
 #. TRANSLATORS: Front
-#, fuzzy
 msgid "coating-sides.front"
 msgstr "rivestimento piatto anteriore"
 
@@ -8133,7 +8129,7 @@ msgstr "Se ci sono errori"
 
 #. TRANSLATORS: Job Finishings
 msgid "job-finishings"
-msgstr ""
+msgstr "Finiture del lavoro"
 
 #. TRANSLATORS: Hold Until
 msgid "job-hold-until"
@@ -8440,7 +8436,7 @@ msgstr "Dati insufficienti"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
-msgstr ""
+msgstr "Ritarda uscita lavoro fino al momento specificato"
 
 #. TRANSLATORS: Job Digital Signature Wait
 msgid "job-state-reasons.job-digital-signature-wait"
@@ -8527,12 +8523,14 @@ msgid "job-state-reasons.job-saving"
 msgstr "Salvataggio job"
 
 #. TRANSLATORS: Job Spooling
+#, fuzzy
 msgid "job-state-reasons.job-spooling"
-msgstr ""
+msgstr "Preparazione job in corso"
 
 #. TRANSLATORS: Job Streaming
+#, fuzzy
 msgid "job-state-reasons.job-streaming"
-msgstr ""
+msgstr "Ricezione del job"
 
 #. TRANSLATORS: Suspended
 msgid "job-state-reasons.job-suspended"
@@ -10337,7 +10335,7 @@ msgstr "Carta ad alta grammatura"
 
 #. TRANSLATORS: Stationery Heavyweight Coated
 msgid "media-type.stationery-heavyweight-coated"
-msgstr ""
+msgstr "Carta patinata ad alta grammatura"
 
 #. TRANSLATORS: Stationery Inkjet Paper
 msgid "media-type.stationery-inkjet"
@@ -10345,95 +10343,100 @@ msgstr "Carta per inkjet"
 
 #. TRANSLATORS: Letterhead
 msgid "media-type.stationery-letterhead"
-msgstr ""
+msgstr "Carta intestata"
 
 #. TRANSLATORS: Lightweight Paper
 msgid "media-type.stationery-lightweight"
-msgstr ""
+msgstr "Carta leggera"
 
 #. TRANSLATORS: Preprinted Paper
 msgid "media-type.stationery-preprinted"
-msgstr ""
+msgstr "Carta prestampata"
 
 #. TRANSLATORS: Punched Paper
 msgid "media-type.stationery-prepunched"
-msgstr ""
+msgstr "Carta forata"
 
 #. TRANSLATORS: Tab Stock
+#, fuzzy
 msgid "media-type.tab-stock"
-msgstr ""
+msgstr "Cartoncino per divisori"
 
 #. TRANSLATORS: Tractor
 msgid "media-type.tractor"
-msgstr ""
+msgstr "Modulo continuo"
 
 #. TRANSLATORS: Transfer
+#, fuzzy
 msgid "media-type.transfer"
-msgstr ""
+msgstr "Carta trasferibile"
 
 #. TRANSLATORS: Transparency
+#, fuzzy
 msgid "media-type.transparency"
-msgstr "Trasparenza"
+msgstr "Carta trasparente"
 
 #. TRANSLATORS: Triple Wall
+#, fuzzy
 msgid "media-type.triple-wall"
-msgstr ""
+msgstr "Cartone tripla onda"
 
 #. TRANSLATORS: Wet Film
 msgid "media-type.wet-film"
-msgstr ""
+msgstr "Pellicola umida"
 
 #. TRANSLATORS: Media Weight (grams per m²)
 msgid "media-weight-metric"
-msgstr "Peso (g/mq)"
+msgstr "Grammatura (g/mq)"
 
 #. TRANSLATORS: 28 x 40″
+#, fuzzy
 msgid "media.asme_f_28x40in"
-msgstr ""
+msgstr "ASME F (28x40 pollici)"
 
 #. TRANSLATORS: A4 or US Letter
 msgid "media.choice_iso_a4_210x297mm_na_letter_8.5x11in"
-msgstr ""
+msgstr "A4 o US Letter"
 
 #. TRANSLATORS: 2a0
 msgid "media.iso_2a0_1189x1682mm"
-msgstr "A0 x2"
+msgstr "ISO 2A0 (1189x1682 mm)"
 
 #. TRANSLATORS: A0
 msgid "media.iso_a0_841x1189mm"
-msgstr "A0"
+msgstr "ISO A0 (841x1189 mm)"
 
 #. TRANSLATORS: A0x3
 msgid "media.iso_a0x3_1189x2523mm"
-msgstr "A0 x3"
+msgstr "ISO A0x3 (1189x2523 mm)"
 
 #. TRANSLATORS: A10
 msgid "media.iso_a10_26x37mm"
-msgstr "A10"
+msgstr "ISO A10 (26x37 mm)"
 
 #. TRANSLATORS: A1
 msgid "media.iso_a1_594x841mm"
-msgstr "A1"
+msgstr "ISO A1 (594x841 mm)"
 
 #. TRANSLATORS: A1x3
 msgid "media.iso_a1x3_841x1783mm"
-msgstr "A1 x3"
+msgstr "ISO A1x3 (841x1783 mm)"
 
 #. TRANSLATORS: A1x4
 msgid "media.iso_a1x4_841x2378mm"
-msgstr "A1 x4"
+msgstr "ISO A1x4 (841x2378 mm)"
 
 #. TRANSLATORS: A2
 msgid "media.iso_a2_420x594mm"
-msgstr "A2"
+msgstr "ISO A2 (420x594 mm)"
 
 #. TRANSLATORS: A2x3
 msgid "media.iso_a2x3_594x1261mm"
-msgstr "A2 x3"
+msgstr "ISO A2x3 (594x1261 mm)"
 
 #. TRANSLATORS: A2x4
 msgid "media.iso_a2x4_594x1682mm"
-msgstr "A2 x4"
+msgstr "ISO A2x4 (594x1682 mm)"
 
 #. TRANSLATORS: A2x5
 msgid "media.iso_a2x5_594x2102mm"
