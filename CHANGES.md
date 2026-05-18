@@ -7,6 +7,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 
 - Fixed handling of multiple PPD: keywords from filters (Issue #1562,
   related to CVE-2026-34980)
+- Fixed several issues reported by Coverity
 
 
 Changes in CUPS v2.4.19 (2026-04-27)
