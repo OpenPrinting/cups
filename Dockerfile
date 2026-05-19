@@ -1,8 +1,5 @@
 # syntax=docker/dockerfile:1
 
-# ─────────────────────────────
-# Stage 1 – builder
-# ─────────────────────────────
 FROM ubuntu:latest AS builder
 
 WORKDIR /root/cups
@@ -24,22 +21,18 @@ RUN apt-get update -y && apt-get upgrade --fix-missing -y \
 
 COPY . /root/cups
 
-# Sweet's suggestion #1: No RPATH needed
-# Sweet's suggestion #2: Use DESTDIR so all files go to /buildroot
+# DESTDIR=/buildroot — sab kuch /buildroot mein install hoga
 RUN ./configure \
         --prefix=/usr \
+	--libdir=/usr/lib \
         --sysconfdir=/etc \
         --localstatedir=/var \
     && make clean \
     && make \
     && make install DESTDIR=/buildroot
 
-# ─────────────────────────────
-# Stage 2 – runtime
-# ─────────────────────────────
 FROM ubuntu:latest AS runtime
 
-# Runtime packages
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
         avahi-daemon \
@@ -56,16 +49,14 @@ RUN apt-get update -y \
         zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
-# Sweet's suggestion #2: Copy build root subdirectories
+# Poora buildroot copy — ubuntu files overwrite se bachne ke liye
+# sirf CUPS ki apni files copy ho rahi hain /buildroot se
 COPY --from=builder /buildroot/usr /usr
-COPY --from=builder /buildroot/etc /etc
+COPY --from=builder /buildroot/etc/cups /etc/cups
 
-# lib64 -> lib symlink banao taake ldconfig library dhund sake
-RUN ln -sf /usr/lib64/libcups.so.2 /usr/lib/libcups.so.2 \
-    && ln -sf /usr/lib64/libcupsimage.so.2 /usr/lib/libcupsimage.so.2 \
-    && ldconfig
+# ldconfig — koi hardcoded path nahi, system khud library dhundega
+RUN ldconfig
 
-# Admin user setup
 RUN useradd -m --create-home \
         --password "$(echo 'admin' | openssl passwd -1 -stdin)" \
         -f 0 admin \
@@ -73,7 +64,6 @@ RUN useradd -m --create-home \
     && usermod -aG lpadmin admin \
     && echo 'admin ALL=(ALL:ALL) ALL' >> /etc/sudoers
 
-# CUPS config
 RUN /usr/sbin/cupsd \
     && sleep 3 \
     && cupsctl --remote-admin --remote-any --share-printers \
