@@ -3714,7 +3714,7 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
 
   strlcpy(username, get_username(con), sizeof(username));
 
-  if ((name = strchr(username, '@')) != NULL)
+  if (StripUserDomain && (name = strchr(username, '@')) != NULL)
     *name = '\0';			/* Strip @REALM */
 
  /*
@@ -11616,7 +11616,7 @@ user_allowed(cupsd_printer_t *p,	/* I - Printer or class */
   if (!strcmp(username, "root"))
     return (1);
 
-  if (strchr(username, '@'))
+  if (StripUserDomain && strchr(username, '@'))
   {
    /*
     * Strip @REALM for username check...
