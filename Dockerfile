@@ -9,7 +9,6 @@ RUN apt-get update -y && apt-get upgrade --fix-missing -y \
         autoconf \
         build-essential \
         libavahi-client-dev \
-        libgnutls28-dev \
         libkrb5-dev \
         libnss-mdns \
         libpam-dev \
@@ -21,7 +20,7 @@ RUN apt-get update -y && apt-get upgrade --fix-missing -y \
 
 COPY . /root/cups
 
-# DESTDIR=/buildroot — sab kuch /buildroot mein install hoga
+# Install into a build root directory for clean stage separation
 RUN ./configure \
         --prefix=/usr \
 	--libdir=/usr/lib \
@@ -37,7 +36,6 @@ RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
         avahi-daemon \
         libavahi-client3 \
-        libgnutls30t64 \
         libkrb5-3 \
         libnss-mdns \
         libpam0g \
@@ -49,12 +47,11 @@ RUN apt-get update -y \
         zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
-# Poora buildroot copy — ubuntu files overwrite se bachne ke liye
-# sirf CUPS ki apni files copy ho rahi hain /buildroot se
+# copy the build root into the runtime image
 COPY --from=builder /buildroot/usr /usr
 COPY --from=builder /buildroot/etc/cups /etc/cups
 
-# ldconfig — koi hardcoded path nahi, system khud library dhundega
+# Update the dynamic linker cache so libcups.so.2 is discoverable
 RUN ldconfig
 
 RUN useradd -m --create-home \
