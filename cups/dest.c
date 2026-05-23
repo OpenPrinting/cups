@@ -1309,7 +1309,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		  "printer-state-change-time",
 		  "printer-state-reasons",
 		  "printer-type",
-		  "printer-uri-supported"
+		  "printer-uri-supported",
+                  "printer-uuid"
 		};
 
 
@@ -2847,22 +2848,23 @@ cups_dest_query_cb(
         if (!have_pdf && !have_raster)
           device->state = _CUPS_DNSSD_INCOMPATIBLE;
       }
-      else if (!_cups_strcasecmp(key, "rp"))
+      else if (!_cups_strcasecmp(key, "UUID"))
       {
         // Suppress local printer being re-discovered via DNS-SD
-        const char *rp_name = value;
-        int        i;
-
-        if (!_cups_strncasecmp(rp_name, "printers/", 9))
-          rp_name += 9;
+        int i;
 
         for (i = 0; i < data->num_local; i++)
         {
-          if (!_cups_strcasecmp(rp_name, data->local_dests[i].name))
+          const char *local_uuid = cupsGetOption("printer-uuid",
+                                      data->local_dests[i].num_options,
+                                      data->local_dests[i].options);
+
+          if (local_uuid && !_cups_strcasecmp(value, local_uuid))
           {
             device->state = _CUPS_DNSSD_INCOMPATIBLE;
             DEBUG_printf("6cups_dest_query_cb: "
-                "Suppressing local printer '%s'.", rp_name);
+                "Suppressing local printer '%s' (UUID match).",
+                device->dest.name);
             break;
           }
         }
