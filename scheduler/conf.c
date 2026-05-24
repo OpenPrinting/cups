@@ -2453,9 +2453,17 @@ parse_aaa(cupsd_location_t *loc,	/* I - Location */
 
     if (!_cups_strcasecmp(value, "valid-user") ||
         !_cups_strcasecmp(value, "user"))
-      loc->level = CUPSD_AUTH_USER;
+    {
+      // Only set level if not already set to USER
+      if (loc->level == CUPSD_AUTH_ANON)
+        loc->level = CUPSD_AUTH_USER;
+    }
     else if (!_cups_strcasecmp(value, "group"))
-      loc->level = CUPSD_AUTH_GROUP;
+    {
+      // Only upgrade to GROUP if no USER level set yet
+      if (loc->level == CUPSD_AUTH_ANON)
+        loc->level = CUPSD_AUTH_GROUP;
+    }
     else
     {
       cupsdLogMessage(CUPSD_LOG_WARN, "Unknown Require type %s on line %d of %s.",
