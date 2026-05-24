@@ -1,7 +1,7 @@
 //
 // User-defined destination (and option) support for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -1310,7 +1310,7 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		  "printer-state-reasons",
 		  "printer-type",
 		  "printer-uri-supported",
-                  "printer-uuid"
+		  "printer-uuid"
 		};
 
 
@@ -1419,7 +1419,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
             !strcmp(attr->name, "printer-state-reasons") ||
 	    !strcmp(attr->name, "printer-type") ||
             !strcmp(attr->name, "printer-is-accepting-jobs") ||
-	    !strcmp(attr->name, "printer-uri-supported"))
+	    !strcmp(attr->name, "printer-uri-supported") ||
+	    !strcmp(attr->name, "printer-uuid"))
         {
 	  // Add a printer description attribute...
           num_options = cupsAddOption(attr->name, cups_make_string(attr, value, sizeof(value)), num_options, &options);
@@ -2851,20 +2852,18 @@ cups_dest_query_cb(
       else if (!_cups_strcasecmp(key, "UUID"))
       {
         // Suppress local printer being re-discovered via DNS-SD
-        int i;
+        int		i;		// Looping var
+        cups_dest_t	*local;		// Local printer
 
-        for (i = 0; i < data->num_local; i++)
+        for (i = data->num_local, local = data->local_dests; i > 0; i --, local ++)
         {
-          const char *local_uuid = cupsGetOption("printer-uuid",
-                                      data->local_dests[i].num_options,
-                                      data->local_dests[i].options);
+          const char *local_uuid = cupsGetOption("printer-uuid", local->num_options, local->options);
+					// Local printer-uuid
 
-          if (local_uuid && !_cups_strcasecmp(value, local_uuid))
+          if (local_uuid && strlen(local_uuid) > 9 && !_cups_strcasecmp(value, local_uuid + 9/*urn:uuid:*/))
           {
             device->state = _CUPS_DNSSD_INCOMPATIBLE;
-            DEBUG_printf("6cups_dest_query_cb: "
-                "Suppressing local printer '%s' (UUID match).",
-                device->dest.name);
+            DEBUG_printf("6cups_dest_query_cb: Suppressing local printer '%s' (UUID match).", device->dest.name);
             break;
           }
         }
@@ -3278,8 +3277,6 @@ cups_enum_dests(
       }
     }
 
-    cupsFreeDests(num_dests, dests);
-
     if (i > 0 || msec == 0)
       goto enum_finished;
   }
@@ -3499,6 +3496,7 @@ cups_enum_dests(
   cupsDNSSDDelete(dnssd);
 
   cupsFreeDests(data.num_dests, data.dests);
+  cupsFreeDests(data.num_local, data.local_dests);
   cupsArrayDelete(data.devices);
 
   DEBUG_puts("1cups_enum_dests: Returning 1.");
