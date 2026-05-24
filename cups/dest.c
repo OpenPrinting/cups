@@ -69,8 +69,8 @@ typedef struct _cups_dnssd_data_s	// Enumeration data
   cups_array_t		*devices;	// Devices found so far
   int			num_dests;	// Number of lpoptions destinations
   cups_dest_t		*dests;		// lpoptions destinations
-  int                   num_local;      // Number of local cupsd queues
-  cups_dest_t           *local_dests;   // Local cupsd queues
+  int			num_local;	// Number of local cupsd queues
+  cups_dest_t		*local_dests;	// Local cupsd queues
   char			def_name[1024],	// Default printer name, if any
 			*def_instance;	// Default printer instance, if any
 } _cups_dnssd_data_t;
@@ -3200,6 +3200,7 @@ cups_enum_dests(
   {
     // Get the list of local printers and pass them to the callback function...
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, data.type, data.mask);
+
     data.num_local   = num_dests;
     data.local_dests = dests;
 
