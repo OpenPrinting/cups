@@ -69,6 +69,8 @@ typedef struct _cups_dnssd_data_s	// Enumeration data
   cups_array_t		*devices;	// Devices found so far
   int			num_dests;	// Number of lpoptions destinations
   cups_dest_t		*dests;		// lpoptions destinations
+  int                   num_local;      // Number of local cupsd queues
+  cups_dest_t           *local_dests;   // Local cupsd queues
   char			def_name[1024],	// Default printer name, if any
 			*def_instance;	// Default printer instance, if any
 } _cups_dnssd_data_t;
@@ -1307,7 +1309,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		  "printer-state-change-time",
 		  "printer-state-reasons",
 		  "printer-type",
-		  "printer-uri-supported"
+		  "printer-uri-supported",
+                  "printer-uuid"
 		};
 
 
@@ -2845,6 +2848,27 @@ cups_dest_query_cb(
         if (!have_pdf && !have_raster)
           device->state = _CUPS_DNSSD_INCOMPATIBLE;
       }
+      else if (!_cups_strcasecmp(key, "UUID"))
+      {
+        // Suppress local printer being re-discovered via DNS-SD
+        int i;
+
+        for (i = 0; i < data->num_local; i++)
+        {
+          const char *local_uuid = cupsGetOption("printer-uuid",
+                                      data->local_dests[i].num_options,
+                                      data->local_dests[i].options);
+
+          if (local_uuid && !_cups_strcasecmp(value, local_uuid))
+          {
+            device->state = _CUPS_DNSSD_INCOMPATIBLE;
+            DEBUG_printf("6cups_dest_query_cb: "
+                "Suppressing local printer '%s' (UUID match).",
+                device->dest.name);
+            break;
+          }
+        }
+      }
       else if (!_cups_strcasecmp(key, "printer-type"))
       {
         // Value is either NNNN or 0xXXXX
@@ -3177,6 +3201,8 @@ cups_enum_dests(
   {
     // Get the list of local printers and pass them to the callback function...
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, data.type, data.mask);
+    data.num_local   = num_dests;
+    data.local_dests = dests;
 
     if (data.def_name[0])
     {
