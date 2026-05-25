@@ -3419,6 +3419,13 @@ cups_enum_dests(
 
         if ((device->type & mask) != type)
           device->state = _CUPS_DNSSD_INCOMPATIBLE;
+          
+        if (device->state == _CUPS_DNSSD_INCOMPATIBLE)
+        {
+          DEBUG_printf("2cups_enum_dests: Skipping incompatible '%s'.",
+                       device->fullname);
+          continue;
+        }  
 
         if (device->state == _CUPS_DNSSD_PENDING)
         {
