@@ -3202,14 +3202,7 @@ cups_enum_dests(
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, data.type, data.mask);
 
     data.num_local   = num_dests;
-    if (num_dests > 0)
-    {
-      data.local_dests = calloc((size_t)num_dests,
-                                sizeof(cups_dest_t));
-      if (data.local_dests)
-        memcpy(data.local_dests, dests,
-               (size_t)num_dests * sizeof(cups_dest_t));
-    }
+    data.local_dests = dests;
 
     if (data.def_name[0])
     {
@@ -3511,7 +3504,6 @@ cups_enum_dests(
   cupsDNSSDDelete(dnssd);
 
   cupsFreeDests(data.num_dests, data.dests);
-  cupsFreeDests(data.num_local, data.local_dests);
   cupsArrayDelete(data.devices);
 
   DEBUG_puts("1cups_enum_dests: Returning 1.");
