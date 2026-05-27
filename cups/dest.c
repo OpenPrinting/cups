@@ -3202,7 +3202,14 @@ cups_enum_dests(
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, data.type, data.mask);
 
     data.num_local   = num_dests;
-    data.local_dests = dests;
+    if (num_dests > 0)
+    {
+      data.local_dests = calloc((size_t)num_dests,
+                                sizeof(cups_dest_t));
+      if (data.local_dests)
+        memcpy(data.local_dests, dests,
+               (size_t)num_dests * sizeof(cups_dest_t));
+    }
 
     if (data.def_name[0])
     {
