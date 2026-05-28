@@ -51,6 +51,7 @@ cupsMarkOptions(
 		s[255];			/* Temporary string */
   const char	*val,			/* Pointer into value */
 		*media,			/* media option */
+		*page_size,		/* PageSize option */
 		*output_bin,		/* output-bin option */
 		*ppd_keyword,		/* PPD keyword */
 		*print_color_mode,	/* print-color-mode option */
@@ -76,6 +77,7 @@ cupsMarkOptions(
   */
 
   media         = cupsGetOption("media", num_options, options);
+  page_size     = cupsGetOption("PageSize", num_options, options);
   output_bin    = cupsGetOption("output-bin", num_options, options);
   print_quality = cupsGetOption("print-quality", num_options, options);
   sides         = cupsGetOption("sides", num_options, options);
@@ -84,7 +86,7 @@ cupsMarkOptions(
                                         options)) == NULL)
     print_color_mode = cupsGetOption("output-mode", num_options, options);
 
-  if ((media || output_bin || print_color_mode || print_quality || sides) &&
+  if ((media || page_size || output_bin || print_color_mode || print_quality || sides) &&
       !ppd->cache)
   {
    /*
