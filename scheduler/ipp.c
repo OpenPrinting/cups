@@ -5615,6 +5615,7 @@ create_local_printer(
           cupsdLogMessage(CUPSD_LOG_DEBUG, "create_local_printer: FOUND MATCHING PERMANENT QUEUE: %s", perm->name);
           printer = perm;
                     printer->state_time = time(NULL);
+                    send_ipp_status(con, IPP_STATUS_OK, _("Printer \"%s\" already exists."), printer->name);
                     goto add_printer_attributes;
         }
       }
