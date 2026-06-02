@@ -1900,7 +1900,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
         }
       }
 
-      have_creds = !access(crtfile, R_OK) && !access(keyfile, R_OK);
+      have_creds = !access(crtfile, R_OK) && !access(keyfile, R_OK) && cupsGetCredentialsExpiration(crtfile) > time(NULL);
     }
 
     if (!have_creds && tls_auto_create && cn)
