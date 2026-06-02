@@ -5630,7 +5630,6 @@ create_local_printer(
     send_ipp_status(con, IPP_STATUS_ERROR_FORBIDDEN, _("Only local users can create a local printer."));
     return;
   }
-
  /*
   * Check any other policy limits...
   */
@@ -5715,7 +5714,44 @@ create_local_printer(
       send_ipp_status(con, IPP_STATUS_OK, _("Printer \"%s\" already exists."), printer->name);
       goto add_printer_attributes;
     }
+  /* Check for existing permanent queue with same UUID */
+  {
+    cupsd_printer_t *perm;
+    char req_uuid[64] = "";
+
+    /* Extract UUID from hostname like: UUID.local */
+    const char *host_start = strstr(ptr, "://");
+    if (host_start)
+    {
+      host_start += 3;
+      const char *dot_local = strstr(host_start, ".local");
+      if (dot_local)
+      {
+        size_t ulen = (size_t)(dot_local - host_start);
+        if (ulen < sizeof(req_uuid))
+        {
+          memcpy(req_uuid, host_start, ulen);
+          req_uuid[ulen] = '\0';
+        }
+      }
+    }
+
+    if (req_uuid[0])
+    {
+      for (perm = (cupsd_printer_t *)cupsArrayGetFirst(Printers); perm; perm = (cupsd_printer_t *)cupsArrayGetNext(Printers))
+      {
+        if (!perm->temporary && perm->uuid && !strcasecmp(req_uuid, perm->uuid + 9))
+        {
+          cupsdLogMessage(CUPSD_LOG_DEBUG, "create_local_printer: FOUND MATCHING PERMANENT QUEUE: %s", perm->name);
+          printer = perm;
+                    printer->state_time = time(NULL);
+                    goto add_printer_attributes;
+        }
+      }
+    }
   }
+}
+  
 
  /*
   * Create the printer...
