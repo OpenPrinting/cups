@@ -302,7 +302,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
       }
       else
       {
-        DEBUG_printf("2cupsGetPPD3: Returning ok, filename=\"%s\", modtime=%ld.", buffer, (long)ppdinfo.st_mtime);
+        DEBUG_printf("2cupsGetPPD3: Returning ok, filename=\"%s\", modtime=%lld.", buffer, (long long)ppdinfo.st_mtime);
         *modtime = ppdinfo.st_mtime;
 	return (HTTP_STATUS_OK);
       }

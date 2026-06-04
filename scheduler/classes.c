@@ -475,7 +475,7 @@ cupsdLoadAllClasses(void)
       */
 
       if (value)
-        p->state_time = atoi(value);
+        p->state_time = atoll(value);
     }
     else if (!_cups_strcasecmp(line, "Accepting"))
     {
@@ -756,7 +756,7 @@ cupsdSaveAllClasses(void)
     else
       cupsFilePuts(fp, "State Idle\n");
 
-    cupsFilePrintf(fp, "StateTime %d\n", (int)pclass->state_time);
+    cupsFilePrintf(fp, "StateTime %lld\n", (long long)pclass->state_time);
 
     if (pclass->accepting)
       cupsFilePuts(fp, "Accepting Yes\n");

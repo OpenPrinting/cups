@@ -226,7 +226,7 @@ cupsdCheckJobs(void)
 
   curtime = time(NULL);
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCheckJobs: %d active jobs, sleeping=%d, ac-power=%d, reload=%d, curtime=%ld", cupsArrayCount(ActiveJobs), Sleeping, ACPower, NeedReload, (long)curtime);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCheckJobs: %d active jobs, sleeping=%d, ac-power=%d, reload=%d, curtime=%lld", cupsArrayCount(ActiveJobs), Sleeping, ACPower, NeedReload, (long long)curtime);
 
   for (job = (cupsd_job_t *)cupsArrayFirst(ActiveJobs);
        job;
@@ -234,10 +234,10 @@ cupsdCheckJobs(void)
   {
     cupsdLogMessage(CUPSD_LOG_DEBUG2,
                     "cupsdCheckJobs: Job %d - dest=\"%s\", printer=%p, "
-                    "state=%d, cancel_time=%ld, hold_until=%ld, kill_time=%ld, "
+                    "state=%d, cancel_time=%lld, hold_until=%lld, kill_time=%lld, "
                     "pending_cost=%d, pending_timeout=%ld", job->id, job->dest,
-                    (void *)job->printer, job->state_value, (long)job->cancel_time,
-                    (long)job->hold_until, (long)job->kill_time,
+                    (void *)job->printer, job->state_value, (long long)job->cancel_time,
+                    (long long)job->hold_until, (long long)job->kill_time,
                     job->pending_cost, (long)job->pending_timeout);
 
    /*
@@ -433,13 +433,13 @@ cupsdCleanJobs(void)
   curtime          = time(NULL);
   JobHistoryUpdate = 0;
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCleanJobs: curtime=%d", (int)curtime);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCleanJobs: curtime=%lld", (long long)curtime);
 
   for (job = (cupsd_job_t *)cupsArrayFirst(Jobs);
        job;
        job = (cupsd_job_t *)cupsArrayNext(Jobs))
   {
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCleanJobs: Job %d, state=%d, printer=%p, history_time=%d, file_time=%d, num_files=%d", job->id, (int)job->state_value, (void *)job->printer, (int)job->history_time, (int)job->file_time, (int)job->num_files);
+    cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdCleanJobs: Job %d, state=%d, printer=%p, history_time=%lld, file_time=%lld, num_files=%d", job->id, (int)job->state_value, (void *)job->printer, (long long)job->history_time, (long long)job->file_time, (int)job->num_files);
 
     if ((job->history_time && job->history_time < JobHistoryUpdate) || !JobHistoryUpdate)
       JobHistoryUpdate = job->history_time;
@@ -1718,14 +1718,14 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     goto error;
   }
 
-  job->creation_time = attr->values[0].integer;
+  job->creation_time = (unsigned)attr->values[0].integer;
   job->state_value  = (ipp_jstate_t)job->state->values[0].integer;
   job->file_time    = 0;
   job->history_time = 0;
 
   if (job->state_value >= IPP_JSTATE_CANCELED && (attr = ippFindAttribute(job->attrs, "time-at-completed", IPP_TAG_INTEGER)) != NULL)
   {
-    job->completed_time = attr->values[0].integer;
+    job->completed_time = (unsigned)attr->values[0].integer;
 
     if (JobHistory < INT_MAX)
       job->history_time = job->completed_time + JobHistory;
@@ -1743,7 +1743,7 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     else
       job->file_time = INT_MAX;
 
-    cupsdLogJob(job, CUPSD_LOG_DEBUG2, "cupsdLoadJob: job->file_time=%ld, time-at-completed=%ld, JobFiles=%d", (long)job->file_time, (long)attr->values[0].integer, JobFiles);
+    cupsdLogJob(job, CUPSD_LOG_DEBUG2, "cupsdLoadJob: job->file_time=%lld, time-at-completed=%lld, JobFiles=%d", (long long)job->file_time, (long long)(unsigned)attr->values[0].integer, JobFiles);
 
     if (job->file_time < JobHistoryUpdate || !JobHistoryUpdate)
       JobHistoryUpdate = job->file_time;
@@ -2236,12 +2236,12 @@ cupsdSaveAllJobs(void)
 
     cupsFilePrintf(fp, "<Job %d>\n", job->id);
     cupsFilePrintf(fp, "State %d\n", job->state_value);
-    cupsFilePrintf(fp, "Created %ld\n", (long)job->creation_time);
+    cupsFilePrintf(fp, "Created %lld\n", (long long)job->creation_time);
     if (job->completed_time)
-      cupsFilePrintf(fp, "Completed %ld\n", (long)job->completed_time);
+      cupsFilePrintf(fp, "Completed %lld\n", (long long)job->completed_time);
     cupsFilePrintf(fp, "Priority %d\n", job->priority);
     if (job->hold_until)
-      cupsFilePrintf(fp, "HoldUntil %ld\n", (long)job->hold_until);
+      cupsFilePrintf(fp, "HoldUntil %lld\n", (long long)job->hold_until);
     cupsFilePrintf(fp, "Username %s\n", job->username);
     if (job->name)
       cupsFilePutConf(fp, "Name", job->name);
@@ -2489,8 +2489,8 @@ cupsdSetJobHoldUntil(cupsd_job_t *job,	/* I - Job */
       job->hold_until += 24 * 60 * 60;
   }
 
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdSetJobHoldUntil: hold_until=%d",
-                  (int)job->hold_until);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdSetJobHoldUntil: hold_until=%lld",
+                  (long long)job->hold_until);
 }
 
 
@@ -2877,7 +2877,7 @@ cupsdUpdateJobs(void)
       * Update history/file expiration times...
       */
 
-      job->completed_time = attr->values[0].integer;
+      job->completed_time = (unsigned)attr->values[0].integer;
 
       if (JobHistory < INT_MAX)
 	job->history_time = job->completed_time + JobHistory;
@@ -2898,7 +2898,7 @@ cupsdUpdateJobs(void)
       else
 	job->file_time = INT_MAX;
 
-      cupsdLogJob(job, CUPSD_LOG_DEBUG2, "cupsdUpdateJobs: job->file_time=%ld, time-at-completed=%ld, JobFiles=%d", (long)job->file_time, (long)attr->values[0].integer, JobFiles);
+      cupsdLogJob(job, CUPSD_LOG_DEBUG2, "cupsdUpdateJobs: job->file_time=%lld, time-at-completed=%ld, JobFiles=%d", (long long)job->file_time, (long)attr->values[0].integer, JobFiles);
 
       if (job->file_time < JobHistoryUpdate || !JobHistoryUpdate)
 	JobHistoryUpdate = job->file_time;
@@ -4471,15 +4471,15 @@ load_job_cache(const char *filename)	/* I - job.cache filename */
     }
     else if (!_cups_strcasecmp(line, "Created"))
     {
-      job->creation_time = strtol(value, NULL, 10);
+      job->creation_time = strtoll(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "Completed"))
     {
-      job->completed_time = strtol(value, NULL, 10);
+      job->completed_time = strtoll(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "HoldUntil"))
     {
-      job->hold_until = strtol(value, NULL, 10);
+      job->hold_until = strtoll(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "Priority"))
     {

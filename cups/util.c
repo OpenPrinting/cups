@@ -576,13 +576,13 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
 	  size = attr->values[0].integer;
         else if (!strcmp(attr->name, "time-at-completed") &&
 	         attr->value_tag == IPP_TAG_INTEGER)
-	  completed_time = attr->values[0].integer;
+	  completed_time = (unsigned)attr->values[0].integer;
         else if (!strcmp(attr->name, "time-at-creation") &&
 	         attr->value_tag == IPP_TAG_INTEGER)
-	  creation_time = attr->values[0].integer;
+	  creation_time = (unsigned)attr->values[0].integer;
         else if (!strcmp(attr->name, "time-at-processing") &&
 	         attr->value_tag == IPP_TAG_INTEGER)
-	  processing_time = attr->values[0].integer;
+	  processing_time = (unsigned)attr->values[0].integer;
         else if (!strcmp(attr->name, "job-printer-uri") &&
 	         attr->value_tag == IPP_TAG_URI)
 	{

@@ -1437,7 +1437,7 @@ show_jobs(const char *dests,		/* I - Destinations */
 		 attr->value_tag == IPP_TAG_INTEGER)
 	  size = attr->values[0].integer;
         else if (!strcmp(attr->name, time_at) && attr->value_tag == IPP_TAG_INTEGER)
-	  jobtime = attr->values[0].integer;
+	  jobtime = (unsigned)attr->values[0].integer;
         else if (!strcmp(attr->name, "job-printer-state-message") &&
 	         attr->value_tag == IPP_TAG_TEXT)
 	  message = attr->values[0].string.text;
