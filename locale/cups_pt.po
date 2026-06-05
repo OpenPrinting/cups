@@ -23,16 +23,16 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2025-08-05 13:08+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/"
-">\n"
+"PO-Revision-Date: 2026-06-06 07:01+0000\n"
+"Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 2026.6\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -56,7 +56,7 @@ msgid "\tAlerts: %s"
 msgstr "\tAlertas: %s"
 
 msgid "\tBanner required"
-msgstr ""
+msgstr "\tImagem Banner requerida"
 
 msgid "\tCharset sets:"
 msgstr "\tConjuntos de caracteres:"
@@ -74,17 +74,17 @@ msgid "\tDefault page size:"
 msgstr "\tTamanho da página predefinido:"
 
 msgid "\tDefault pitch:"
-msgstr ""
+msgstr "\tNível predefinido:"
 
 msgid "\tDefault port settings:"
-msgstr ""
+msgstr "\tDefinições de porto predefinido:"
 
 #, c-format
 msgid "\tDescription: %s"
-msgstr ""
+msgstr "\tDescrição: %s"
 
 msgid "\tForm mounted:"
-msgstr ""
+msgstr "\tFormulário montado:"
 
 msgid "\tForms allowed:"
 msgstr "\tFormulários permitidos:"
@@ -102,7 +102,7 @@ msgid "\tLocation: %s"
 msgstr "\tLocalização: %s"
 
 msgid "\tOn fault: no alert"
-msgstr ""
+msgstr "\tEm caso de falha: nenhum alerta"
 
 msgid "\tPrinter types: unknown"
 msgstr "\tTipos de impressoras: desconhecido"
@@ -118,14 +118,14 @@ msgid "\tUsers denied:"
 msgstr "\tUtilizadores proibidos:"
 
 msgid "\tdaemon present"
-msgstr ""
+msgstr "\tdaemon presente"
 
 msgid "\tno entries"
 msgstr "\tnenhumas entradas"
 
 #, c-format
 msgid "\tprinter is on device '%s' speed -1"
-msgstr ""
+msgstr "\timpressora está no dispositivo '%s' velocidade -1"
 
 msgid "\tprinting is disabled"
 msgstr "\ta impressão está desativada"
@@ -192,7 +192,7 @@ msgstr "        %-39.39s %.0f bytes"
 
 #, c-format
 msgid "        PASS    Default%s"
-msgstr "        PASSOU  Default %s"
+msgstr "        PASSOU  Predefinição %s"
 
 msgid "        PASS    DefaultImageableArea"
 msgstr "        PASSOU  DefaultImageableArea"
@@ -1325,7 +1325,7 @@ msgstr "%s: %s falhou: %s"
 
 #, c-format
 msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
-msgstr ""
+msgstr "%s: '-i' e '-n' são incompatíveis com '--ippfile', '-P', e '-X'."
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
@@ -1592,7 +1592,7 @@ msgstr "%s: Era esperado o ID (identificador) de trabalho após a opção \"-i\"
 
 #, c-format
 msgid "%s: File '%s' is too large to load in memory."
-msgstr ""
+msgstr "%s: Ficheiro '%s' é demasiado grande para carregar em memória."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
@@ -1622,7 +1622,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Missing user agent after '--user-agent'."
-msgstr ""
+msgstr "%s: Agente de utilizador em falta após '--user-agent'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1648,11 +1648,11 @@ msgstr "%s: O agendador não está em execução."
 
 #, c-format
 msgid "%s: Unable to access '%s': %s"
-msgstr ""
+msgstr "%s: Incapaz de aceder '%s': %s"
 
 #, c-format
 msgid "%s: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "%s: Incapaz de alocar memória para '%s': %s"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1676,7 +1676,7 @@ msgstr "%s: Não foi possível abrir %s: %s"
 
 #, c-format
 msgid "%s: Unable to open '%s': %s"
-msgstr ""
+msgstr "%s: Incapaz de abrir '%s': %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
@@ -1684,7 +1684,7 @@ msgstr "%s: Não foi possível abrir o ficheiro no formato PPD: %s na linha %d."
 
 #, c-format
 msgid "%s: Unable to read '%s': %s"
-msgstr ""
+msgstr "%s: Incapaz de ler '%s': %s"
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -1980,6 +1980,8 @@ msgstr "--uri regex             Permite corresponder o URI à expressão regular
 
 msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
 msgstr ""
+"--user-agent AGENTE-UTILIZADOR Define a string de Agente Utilizador de Set "
+"HTTP"
 
 msgid "--version                      Show the program version"
 msgstr "--version                      Permite exibir a versão do programa"
@@ -2235,6 +2237,8 @@ msgstr ""
 
 msgid "-P filename.ppd         Load printer attributes from PPD file"
 msgstr ""
+"-P nome-ficheiro.ppd         Carregar atributos de impressora a partir de "
+"ficheiro PPD"
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr ""
@@ -2670,6 +2674,10 @@ msgid ""
 "                               (serverAuth, clientAuth, codeSigning, "
 "emailProtection, timeStamping, OCSPSigning)"
 msgstr ""
+"-p PURPOSE                     Objetivo de certificado delimitado por "
+"vírgula\n"
+"                               (serverAuth, clientAuth, codeSigning, "
+"emailProtection, timeStamping, OCSPSigning)"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
 msgstr ""
@@ -2913,7 +2921,7 @@ msgid "10"
 msgstr "10"
 
 msgid "10 inches/sec."
-msgstr ""
+msgstr "10 polegadas/segundo."
 
 msgid "10 x 11"
 msgstr "10 x 11"
@@ -3943,7 +3951,7 @@ msgstr "Dispositivo CMYK"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "Código de Dispositivo: %s"
 
 msgid "Device Gray"
 msgstr "Dispositivo de escala de cinzento"
@@ -3953,6 +3961,7 @@ msgstr "Dispositivo RGB"
 
 msgid "Device authorization grant is not supported by this server."
 msgstr ""
+"Concedimento de autorização de dispositivo não é suportado por este servidor."
 
 #, c-format
 msgid ""
@@ -4100,7 +4109,7 @@ msgid "Envelope DL"
 msgstr "Envelope DL"
 
 msgid "Envelope Feed"
-msgstr ""
+msgstr "Alimentação de Envelope"
 
 msgid "Envelope Invite"
 msgstr "Envelope de Convite"
@@ -4831,7 +4840,7 @@ msgid "No IPP attributes."
 msgstr "O IPP não tem atributos."
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "Nenhum URI JWKS nos metadados do servidor de autorização."
 
 msgid "No PPD name"
 msgstr "O PPD não tem um nome"
@@ -4856,7 +4865,7 @@ msgid "No authentication information provided."
 msgstr "As informações de autenticação não foram fornecidas."
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "Nenhum ID de cliente configurado para este servidor."
 
 msgid "No community name"
 msgstr "Não tem o nome da comunidade"
@@ -5326,13 +5335,13 @@ msgid "Substitutions:"
 msgstr "Substituições:"
 
 msgid "Super A"
-msgstr ""
+msgstr "Super A"
 
 msgid "Super B"
-msgstr ""
+msgstr "Super B"
 
 msgid "Super B/A3"
-msgstr ""
+msgstr "Super B/A3"
 
 msgid "Switching Protocols"
 msgstr "A alternar os protocolos"
@@ -5709,7 +5718,7 @@ msgid "Unable to get authorization URL"
 msgstr ""
 
 msgid "Unable to get authorization server information"
-msgstr ""
+msgstr "Incapaz de obter informação do servidor de autorização"
 
 msgid "Unable to get backend exit status."
 msgstr "Não foi possível obter o estado de saída."
@@ -5795,7 +5804,7 @@ msgid "Unable to print test page"
 msgstr "Não foi possível imprimir a página de teste"
 
 msgid "Unable to read IPP attribute name."
-msgstr ""
+msgstr "Incapaz de ler nome de atributo IPP."
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
@@ -5973,36 +5982,35 @@ msgstr "O \"%s/%s\" do document-format não é compatível."
 
 #, c-format
 msgid "Unsupported format \"%s\"."
-msgstr "O formato \"%s\" não é compatível."
+msgstr "O formato \"%s\" não é suportado."
 
 msgid "Unsupported margins."
-msgstr "As margens não são compatíveis."
+msgstr "As margens não são suportadas."
 
 msgid "Unsupported media value."
-msgstr "O valor da média não é compatível."
+msgstr "O valor da média não é suportado."
 
 #, c-format
 msgid "Unsupported number-up value %d, using number-up=1."
-msgstr ""
-"O valor %d do number-up não é compatível. Será utilizado o number-up=1."
+msgstr "O valor %d do number-up não é suportado. Será utilizado o number-up=1."
 
 #, c-format
 msgid "Unsupported number-up-layout value %s, using number-up-layout=lrtb."
 msgstr ""
-"O valor %s do number-up-layout não é compatível. Será utilizado o number-up-"
-"ayout=lrtb."
+"O valor %s do number-up-layout não é suportado. Será utilizado o number-up-"
+"layout=lrtb."
 
 #, c-format
 msgid "Unsupported page-border value %s, using page-border=none."
 msgstr ""
-"O valor %s do page-border não é compatível. Será utilizado o page-"
+"O valor %s da borda de página não é suportado. Será utilizado o page-"
 "border=none."
 
 msgid "Unsupported raster data."
-msgstr "Os dados de rasterização não são compatíveis."
+msgstr "Os dados de rasterização não são suportados."
 
 msgid "Unsupported value type"
-msgstr "O tipo do valor não é compatível"
+msgstr "O tipo do valor não é suportado"
 
 msgid "Upgrade Required"
 msgstr "A atualização é necessária"
@@ -6025,10 +6033,10 @@ msgstr ""
 "     cancel [opções] [destino-id]"
 
 msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Utilização: cups-oauth [OPÇÕES] [SUB-COMANDO [ARGUMENTO(S)]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Utilização: cups-x509 [OPÇÕES] [SUB-COMANDO] [ARGUMENTO]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Utilização: cupsctl [opções] [parâmetro=valor ... parâmetroN=valorN]"
@@ -6057,8 +6065,8 @@ msgid ""
 "       ippfind --version"
 msgstr ""
 "Utilização: ippfind [opções] tipo-do-registo[,subtipo][.domínio.] ... "
-"[expressões]\n"
-"     ippfind [opções] nome[.tipo-do-registo[.domínio.]] ... [expressões]\n"
+"[expressão]\n"
+"     ippfind [opções] nome[.tipo-do-registo[.domínio.]] ... [expressão]\n"
 "     ippfind --help\n"
 "     ippfind --version"
 
