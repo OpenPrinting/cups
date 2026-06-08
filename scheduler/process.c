@@ -17,8 +17,12 @@
 #include <grp.h>
 #ifdef __APPLE__
 #  include <libgen.h>
-#endif /* __APPLE__ */
+#  include <crt_externs.h>
+#  define environ (*_NSGetEnviron())
+#else
 extern char **environ;
+#endif /* __APPLE__ */
+
 /* Don't use posix_spawn on systems with bugs in their implementations... */
 #if defined(OpenBSD) && OpenBSD < 201505
 #  define USE_POSIX_SPAWN 0

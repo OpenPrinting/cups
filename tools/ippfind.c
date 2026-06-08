@@ -22,7 +22,10 @@
 #include <regex.h>
 #include <cups/dnssd.h>
 
-#ifndef _WIN32
+#ifdef __APPLE__
+#  include <crt_externs.h>
+#  define environ (*_NSGetEnviron())
+#elif !defined(_WIN32)
 extern char **environ;			// Process environment variables
 #endif // !_WIN32
 

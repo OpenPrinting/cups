@@ -73,12 +73,9 @@
 #include <asl.h>
 #include <spawn.h>
 #include <pthread.h>
+#include <crt_externs.h>
 
-/*
- * Include necessary headers.
- */
-
-extern char **environ;
+#define environ (*_NSGetEnviron())
 
 
 /*

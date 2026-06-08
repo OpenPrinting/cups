@@ -34,7 +34,12 @@
 typedef ULONG nfds_t;
 #  define poll WSAPoll
 #else
+#  ifdef __APPLE__
+#    include <crt_externs.h>
+#    define environ (*_NSGetEnviron())
+#  else
 extern char **environ;
+#  endif
 
 #  include <spawn.h>
 #  include <sys/fcntl.h>

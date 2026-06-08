@@ -18,7 +18,8 @@
 #include <fcntl.h>
 #ifdef __APPLE__
 #  include <libgen.h>
-extern char **environ;
+#  include <crt_externs.h>
+#  define environ (*_NSGetEnviron())
 #endif /* __APPLE__ */
 
 
