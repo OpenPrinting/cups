@@ -112,6 +112,10 @@ extern char **environ;
 #define kUSBGenericTOPrinterClassDriver	CFSTR("/System/Library/Printers/Libraries/USBGenericPrintingClass.plugin")
 #define kUSBPrinterClassDeviceNotOpen	-9664	/*kPMInvalidIOMContext*/
 
+#ifndef kIOMainPortDefault
+#define kIOMainPortDefault kIOMasterPortDefault
+#endif
+
 #define CRSetCrashLogMessage(m) _crc_make_setter(message, m)
 #define _crc_make_setter(attr, arg) (gCRAnnotations.attr = (uint64_t)(unsigned long)(arg))
 #define CRASH_REPORTER_CLIENT_HIDDEN __attribute__((visibility("hidden")))
