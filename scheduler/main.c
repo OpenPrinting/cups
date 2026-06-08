@@ -17,8 +17,14 @@
 #include "cupsd.h"
 #include <sys/resource.h>
 #ifdef __APPLE__
+#  include <AvailabilityMacros.h>
+#  if MAC_OS_X_VERSION_MIN_REQUIRED >= 101000
+#    define APPLE_HAVE_QOS
+#  endif
 #  include <xpc/xpc.h>
-#  include <pthread/qos.h>
+#  ifdef APPLE_HAVE_QOS
+#    include <pthread/qos.h>
+#  endif
 #endif /* __APPLE__ */
 #ifdef HAVE_ASL_H
 #  include <asl.h>
@@ -1872,7 +1878,7 @@ service_checkin(void)
               count;                        /* Number of listeners */
     int       *ld_sockets;                  /* Listener sockets */
 
-#  ifdef __APPLE__
+#  ifdef APPLE_HAVE_QOS
    /*
     * Force "user initiated" priority for the main thread...
     */
