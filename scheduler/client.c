@@ -256,6 +256,13 @@ cupsdAcceptClient(cupsd_listener_t *lis)/* I - Listener socket */
   if (httpAddrGetFamily(httpGetAddress(con->http)) == AF_LOCAL)
   {
 #  ifdef __APPLE__
+#    ifndef SOL_LOCAL
+#      define SOL_LOCAL 0
+#    endif
+#    ifndef LOCAL_PEERPID
+#      define LOCAL_PEERPID 0x002
+#    endif
+
     socklen_t	peersize;		/* Size of peer credentials */
     pid_t	peerpid;		/* Peer process ID */
     char	peername[256];		/* Name of process */
