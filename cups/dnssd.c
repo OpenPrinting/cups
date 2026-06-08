@@ -14,6 +14,7 @@
 #  include <nameser.h>
 #  include <CoreFoundation/CoreFoundation.h>
 #  include <SystemConfiguration/SystemConfiguration.h>
+#  include <AvailabilityMacros.h>
 #endif // __APPLE__
 #ifdef HAVE_MDNSRESPONDER
 #  include <dns_sd.h>
@@ -2431,8 +2432,10 @@ mdns_strerror(
     case kDNSServiceErr_PollingMode :
         return ("Polling error");
 
+#if defined(__APPLE__) && MAC_OS_X_VERSION_MIN_REQUIRED >= 101200
     case kDNSServiceErr_Timeout :
         return ("Timeout");
+#endif
 
 #if !_WIN32 // Bonjour SDK for Windows doesn't define this...
     case kDNSServiceErr_DefunctConnection :
