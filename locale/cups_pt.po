@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-03-23 17:17-0400\n"
-"PO-Revision-Date: 2026-06-06 07:01+0000\n"
+"PO-Revision-Date: 2026-06-08 11:02+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
 "\n"
@@ -42,7 +42,7 @@ msgstr "\t\t(nenhum)"
 
 #, c-format
 msgid "\t%d entries"
-msgstr "\t%d registos"
+msgstr "\t%d entradas"
 
 #, c-format
 msgid "\t%s"
@@ -62,10 +62,10 @@ msgid "\tCharset sets:"
 msgstr "\tConjuntos de caracteres:"
 
 msgid "\tConnection: direct"
-msgstr "\tConexão: direta"
+msgstr "\tLigação: direta"
 
 msgid "\tConnection: remote"
-msgstr "\tConexão: remota"
+msgstr "\tLigação: remota"
 
 msgid "\tContent types: any"
 msgstr "\tTipos do conteúdo: qualquer um"
@@ -77,7 +77,7 @@ msgid "\tDefault pitch:"
 msgstr "\tNível predefinido:"
 
 msgid "\tDefault port settings:"
-msgstr "\tDefinições de porto predefinido:"
+msgstr "\tDefinições de porto predefinidas:"
 
 #, c-format
 msgid "\tDescription: %s"
@@ -138,10 +138,10 @@ msgid "\tqueued for %s"
 msgstr "\tna fila de %s"
 
 msgid "\tqueuing is disabled"
-msgstr "\to enfileiramento está desativado"
+msgstr "\tcolocação em fila de espera desativada"
 
 msgid "\tqueuing is enabled"
-msgstr "\to enfileiramento está ativado"
+msgstr "\tcolocação em fila de espera ativada"
 
 msgid "\treason unknown"
 msgstr "\tmotivo desconhecido"
@@ -172,19 +172,19 @@ msgid "                REF: Page 42, section 5.2."
 msgstr "                REF: Página 42, secção 5.2."
 
 msgid "                REF: Pages 16-17, section 3.2."
-msgstr "                REF: Página 16-17, secção 3.2."
+msgstr "                REF: Páginas 16-17, secção 3.2."
 
 msgid "                REF: Pages 42-45, section 5.2."
-msgstr "                REF: Página 42-45, secção 5.2."
+msgstr "                REF: Páginas 42-45, secção 5.2."
 
 msgid "                REF: Pages 45-46, section 5.2."
-msgstr "                REF: Página 45-46, secção 5.2."
+msgstr "                REF: Páginas 45-46, secção 5.2."
 
 msgid "                REF: Pages 48-49, section 5.2."
-msgstr "                REF: Página 48-49, secção 5.2."
+msgstr "                REF: Páginas 48-49, secção 5.2."
 
 msgid "                REF: Pages 52-54, section 5.2."
-msgstr "                REF: Página 52-54, secção 5.2."
+msgstr "                REF: Páginas 52-54, secção 5.2."
 
 #, c-format
 msgid "        %-39.39s %.0f bytes"
@@ -6163,7 +6163,7 @@ msgstr "Utilização: snmp [máquina-ou-endereço-do-ip]"
 
 #, c-format
 msgid "User Code: %s"
-msgstr ""
+msgstr "Código de Utilizador: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
@@ -6200,7 +6200,7 @@ msgstr "A interface da internet está desativada"
 
 #, c-format
 msgid "Web Page: %s"
-msgstr ""
+msgstr "Página Web: %s"
 
 msgid "Yes"
 msgstr "Sim"
@@ -6220,7 +6220,7 @@ msgid "ZPL Label Printer"
 msgstr "Impressora de etiquetas ZPL"
 
 msgid "Zebra"
-msgstr ""
+msgstr "Zebra"
 
 msgid "aborted"
 msgstr "abortado"
@@ -6451,7 +6451,7 @@ msgstr "Cópias"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
-msgstr ""
+msgstr "capa-traseira"
 
 #. TRANSLATORS: Front Cover
 msgid "cover-front"
@@ -6560,7 +6560,7 @@ msgid "cups-oauth: Missing resource URI and/or access token."
 msgstr "O recurso do URI e/ou a chave do portador falta para o cups-oauth."
 
 msgid "cups-oauth: Missing resource URI and/or device token."
-msgstr ""
+msgstr "cups-oauth: URI de recurso e/ou testemunho de dispositivo em falta."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
 msgstr "Falta a opção '-s' para o cups-oauth."
@@ -6570,7 +6570,7 @@ msgstr "Nenhum servidor de autorização especificado para o cups-oauth."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: Incapaz de obter testemunho de acesso a partir de '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
@@ -6579,10 +6579,12 @@ msgstr "Não foi possível obter a autorização '%s' de %s do cups-oauth"
 #, c-format
 msgid "cups-oauth: Unable to get device authorization from '%s': %s"
 msgstr ""
+"cups-oauth: Incapaz de obter autorização de dispositivo a partir de '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device token from '%s': %s"
 msgstr ""
+"cups-oauth: Incapaz de obter testemunho de dispositivo a partir de '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
@@ -6663,7 +6665,7 @@ msgid "cups-x509: Missing state/province after '-S'."
 msgstr "Falta o nome do estado/cidade após a opção '-S' para o cups-x509."
 
 msgid "cups-x509: Missing sub-command argument."
-msgstr ""
+msgstr "cups-x509: Argumento de sub-comando em falta."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
 msgstr "Falta o subjectAltName após a opção '-a' para o cups-x509."
@@ -6677,7 +6679,7 @@ msgstr "Existem muitos valores para o subjectAltName do cups-x509."
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr "Não foi possível aceitar a conexão %s para o cups-x509"
+msgstr "cups-x509: Incapaz de aceitar ligação: %s"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
