@@ -26,7 +26,7 @@
 #ifdef HAVE_INTTYPES_H
 #  include <inttypes.h>
 #endif /* HAVE_INTTYPES_H */
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(HAVE_XPC)
 #  include <xpc/xpc.h>
 #endif /* __APPLE__ */
 
@@ -97,7 +97,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   int		hostlookups;		/* Do hostname lookups? */
 
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(HAVE_XPC)
   xpc_transaction_begin();
 #endif /* __APPLE__ */
 
@@ -215,7 +215,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     syslog(LOG_ERR, "Unable to get command line from client!");
     putchar(1);
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(HAVE_XPC)
     xpc_transaction_end();
 #endif /* __APPLE__ */
 
@@ -306,7 +306,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   syslog(LOG_INFO, "Closing connection");
   closelog();
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(HAVE_XPC)
   xpc_transaction_end();
 #endif /* __APPLE__ */
 

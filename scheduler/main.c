@@ -21,7 +21,9 @@
 #  if MAC_OS_X_VERSION_MIN_REQUIRED >= 101000
 #    define APPLE_HAVE_QOS
 #  endif
-#  include <xpc/xpc.h>
+#  ifdef HAVE_XPC
+#    include <xpc/xpc.h>
+#  endif
 #  ifdef APPLE_HAVE_QOS
 #    include <pthread/qos.h>
 #  endif
@@ -1907,7 +1909,7 @@ service_checkin(void)
 
     free(ld_sockets);
 
-#  ifdef __APPLE__
+#  if defined(__APPLE__) && defined(HAVE_XPC)
     xpc_transaction_begin();
 #  endif /* __APPLE__ */
   }
@@ -2077,7 +2079,7 @@ service_checkout(int shutdown)          /* I - Shutting down? */
       cupsdLogMessage(CUPSD_LOG_ERROR, "Unable to create KeepAlive/PID file \"%s\": %s", pidfile, strerror(errno));
   }
 
-#  ifdef __APPLE__
+#  if defined(__APPLE__) && defined(HAVE_XPC)
   if (OnDemand && shutdown)
     xpc_transaction_end();
 #  endif /* __APPLE__ */
