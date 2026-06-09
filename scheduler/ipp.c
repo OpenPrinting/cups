@@ -5630,6 +5630,7 @@ create_local_printer(
     send_ipp_status(con, IPP_STATUS_ERROR_FORBIDDEN, _("Only local users can create a local printer."));
     return;
   }
+  
  /*
   * Check any other policy limits...
   */
@@ -5738,7 +5739,7 @@ create_local_printer(
 
     if (req_uuid[0])
     {
-      for (perm = (cupsd_printer_t *)cupsArrayGetFirst(Printers); perm; perm = (cupsd_printer_t *)cupsArrayGetNext(Printers))
+      for (perm = (cupsd_printer_t *)cupsArrayFirst(Printers); perm; perm = (cupsd_printer_t *)cupsArrayNext(Printers))
       {
         if (!perm->temporary && perm->uuid && !strcasecmp(req_uuid, perm->uuid + 9))
         {
