@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.20 (YYYY-MM-DD)
 ------------------------------------
 
+- Increased the size of the SNMP supply name buffer used by the network backends
+  (Issue #1604)
 - Fixed mapping of standard PPD/PWG/legacy media size names to the local PPD
   size name (Issue #1375)
 - Fixed handling of multiple PPD: keywords from filters (Issue #1562,
