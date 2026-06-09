@@ -1,7 +1,7 @@
 /*
  * SNMP supplies functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2008-2015 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -47,7 +47,7 @@
 
 typedef struct				/**** Printer supply data ****/
 {
-  char	name[CUPS_SNMP_MAX_STRING],	/* Name of supply */
+  char	name[CUPS_SNMP_MAX_STRING + 1],	/* Name of supply */
 	color[8];			/* Color: "#RRGGBB" or "none" */
   int	colorant,			/* Colorant index */
 	sclass,				/* Supply class */
