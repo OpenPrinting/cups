@@ -47,7 +47,7 @@
 
 typedef struct				/**** Printer supply data ****/
 {
-  char	name[CUPS_SNMP_MAX_STRING],	/* Name of supply */
+  char	name[CUPS_SNMP_MAX_STRING + 1],	/* Name of supply */
 	color[8];			/* Color: "#RRGGBB" or "none" */
   int	colorant,			/* Colorant index */
 	sclass,				/* Supply class */
