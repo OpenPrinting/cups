@@ -907,16 +907,19 @@ backend_walk_cb(cups_snmp_t *packet,	/* I - SNMP packet */
 	  */
 
           {
-	    char	*src, *dst;	/* Pointers into strings */
+	    char	*src, *dst,	/* Pointers into strings */
+			*dstend;	/* End of name buffer */
 
            /*
-	    * Loop safe because both the object_value and supplies char arrays
-	    * are CUPS_SNMP_MAX_STRING elements long.
+	    * object_value.string.bytes is one element larger than the supplies
+	    * name buffer, so stop at the end of the destination to keep the
+	    * terminating nul in bounds.
 	    */
 
             for (src = (char *)packet->object_value.string.bytes,
-	             dst = supplies[i - 1].name;
-		 *src;
+	             dst = supplies[i - 1].name,
+	             dstend = dst + sizeof(supplies[0].name) - 1;
+		 *src && dst < dstend;
 		 src ++)
 	    {
 	      if ((*src & 0x80) || *src < ' ' || *src == 0x7f)
