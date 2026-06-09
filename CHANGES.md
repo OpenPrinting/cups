@@ -168,8 +168,6 @@ v2.5b1 - YYYY-MM-DD
 - Fixed unreachable block in IPP backend (Issue #1351)
 - Fixed memory leak in `_cupsConvertOptions()` (Issue #1354)
 - Fixed missing write check in `cupsFileOpen/Fd` (Issue #1360)
-- Fixed mapping of standard PPD/PWG/legacy media size names to the local PPD
-  size name (Issue #1375)
 - Fixed error recovery when scanning for PPDs in `cups-driverd` (Issue #1416)
 - Fixed allowed values for directive `FilterNice`
 - Fixed duplicate local printers (Issue #1531)
