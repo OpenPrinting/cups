@@ -25,9 +25,9 @@
 
 </UL>
 
-<P>With the exception of the message catalogs and desktop file, localization files are placed in subdirectories under the <VAR>doc</VAR> and <VAR>templates</VAR> using the locale name. Locale names are either <VAR>ll</VAR> or <VAR>ll_CC</VAR>, where "ll" is the 2-letter ISO language code and "CC" is the 2-letter ISO country code. <strong>Note:</strong> CUPS does not currently use or support the newer <VAR>ll-region</VAR> syntax for locale names.</P>
+<P>With the exception of the message catalogs and desktop file, localization files are placed in subdirectories under the <VAR>doc</VAR> and <VAR>templates</VAR> using the locale name. Locale names are either <VAR>ll</VAR> or <VAR>ll_CC</VAR>, where "ll" is the 2-letter ISO 639 language code and "CC" is the 2-letter ISO 3166 country code. All non-image files must be encoded using the UTF-8 character set.</P>
 
-<P>All non-image files must be encoded using the UTF-8 character set.</P>
+<blockquote><strong>Note:</strong> CUPS does not currently use or support the newer <VAR>ll-region</VAR> syntax for locale names, nor does it use or support languages identified by 3-letter ISO 639-3 language codes.</blockquote>
 
 
 <H2 CLASS="title" ID="SUBMIT">Submitting a Translation for CUPS</H2>
