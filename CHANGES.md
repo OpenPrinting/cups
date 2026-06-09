@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.20 (YYYY-MM-DD)
 ------------------------------------
 
+- Fixed mapping of standard PPD/PWG/legacy media size names to the local PPD
+  size name (Issue #1375)
 - Fixed handling of multiple PPD: keywords from filters (Issue #1562,
   related to CVE-2026-34980)
 - Fixed handling of Kerberos user@REALM identities for user validation and
