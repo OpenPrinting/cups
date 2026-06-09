@@ -1,7 +1,7 @@
 //
 // Form API functions for CUPS.
 //
-// Copyright © 2023-2024 by OpenPrinting.
+// Copyright © 2023-2026 by OpenPrinting.
 // Copyright © 2017-2022 by Michael R Sweet
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -302,17 +302,17 @@ encode_string(const char *s,            // I - String to encode
     {
       // Space is encoded as '+'
       if (bufptr < bufend)
-        *bufptr++ = '+';
+	*bufptr++ = '+';
       else
-        bufptr ++;
+	bufptr ++;
     }
     else if (*s == '\n')
     {
       // Newline is encoded as percent-encoded CR & LF
       if (bufptr < bufend)
-        *bufptr++ = '%';
+	*bufptr++ = '%';
       else
-        bufptr ++;
+	bufptr ++;
       if (bufptr < bufend)
         *bufptr++ = '0';
       else
@@ -338,9 +338,9 @@ encode_string(const char *s,            // I - String to encode
     {
       // Characters other than letters and numbers get percent-encoded
       if (bufptr < bufend)
-        *bufptr++ = '%';
+	*bufptr++ = '%';
       else
-        bufptr ++;
+	bufptr ++;
       if (bufptr < bufend)
         *bufptr++ = hex[(*s >> 4) & 15];
       else
