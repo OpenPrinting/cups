@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "No"
-msgstr "否"
+msgstr "No"
 
 msgid "Yes"
-msgstr "是"
+msgstr "Yes"
