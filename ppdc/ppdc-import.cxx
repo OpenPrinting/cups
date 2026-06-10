@@ -252,7 +252,7 @@ ppdcSource::import_ppd(const char *f)	// I - Filename
       ppdcFontStatus	fstatus;	// Status enumeration
 
 
-      if (sscanf(attr->value, "%s%*[^\"]\"%[^\"]\"%s%s", encoding, version,
+      if (sscanf(attr->value, "%255s%*[^\"]\"%255[^\"]\"%255s%255s", encoding, version,
 		 charset, status) != 4)
       {
 	_cupsLangPrintf(stderr, _("ppdc: Bad font attribute: %s"),
