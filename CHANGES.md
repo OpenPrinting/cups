@@ -13,6 +13,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
   related to CVE-2026-34980)
 - Fixed handling of Kerberos user@REALM identities for user validation and
   quotas when StripUserDomain is not enabled (Issue #1584)
+- Fixed raster error reporting overflow (Issue #1607)
 - Fixed several issues reported by Coverity
 
 

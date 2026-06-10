@@ -47,7 +47,7 @@ _cupsRasterAddError(const char *f,	/* I - Printf-style error message */
   if ((size_t)bytes >= sizeof(s))
     return;
 
-  if (bytes > (ssize_t)(buf->end - buf->current))
+  if ((bytes + 1) > (ssize_t)(buf->end - buf->current))
   {
    /*
     * Allocate more memory...
