@@ -65,6 +65,7 @@ typedef struct _cups_monitor_s		/**** Monitoring data ****/
 /*
  * Globals...
  */
+
 #if defined(HAVE_GSSAPI) && defined(HAVE_XPC)
 static pid_t		child_pid = 0;	/* Child process ID */
 #endif /* HAVE_GSSAPI && HAVE_XPC */
@@ -3103,7 +3104,12 @@ quote_string(const char *s,		/* I - String */
         break;
     }
 
-    *qptr++ = *s++;
+    if ((*s & 255) < ' ' || *s == 127)
+      *qptr++ = ' ';
+    else
+      *qptr++ = *s;
+
+    s ++;
   }
 
   *qptr++ = '\"';
