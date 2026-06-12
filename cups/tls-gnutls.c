@@ -1966,7 +1966,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   // Do the TLS handshake...
   while ((status = gnutls_handshake(http->tls)) != GNUTLS_E_SUCCESS)
   {
-    DEBUG_printf("5_httpStartTLS: gnutls_handshake returned %d (%s)", status, gnutls_strerror(status));
+    DEBUG_printf("5_httpTLSStart: gnutls_handshake returned %d (%s)", status, gnutls_strerror(status));
 
     if (gnutls_error_is_fatal(status))
     {
