@@ -5,6 +5,7 @@ CHANGES - OpenPrinting CUPS
 Changes in CUPS v2.4.20 (YYYY-MM-DD)
 ------------------------------------
 
+- CVE-2026-NNNNN: The backend did not sanitize IPP attribute strings.
 - Increased the size of the SNMP supply name buffer used by the network backends
   (Issue #1604)
 - Fixed mapping of standard PPD/PWG/legacy media size names to the local PPD
