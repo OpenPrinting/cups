@@ -1,7 +1,7 @@
 /*
  * CGI <-> IPP variable routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2016 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -429,6 +429,16 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
 		refresh[1024];		/* Refresh URL */
     const char	*job_printer_name;	/* New printer name */
 
+    if ((job_printer_name = strrchr(job_printer_uri, '/')) == NULL)
+    {
+      cgiStartHTML(cgiText(_("Move Job")));
+      cgiSetVariable("MESSAGE", _("Bad JOB_PRINTER_URI variable."));
+      cgiCopyTemplateLang("error.tmpl");
+      cgiEndHTML();
+      return;
+    }
+
+    job_printer_name ++;
 
     request = ippNewRequest(CUPS_MOVE_JOB);
 
@@ -471,8 +481,6 @@ cgiMoveJobs(http_t     *http,		/* I - Connection to server */
    /*
     * Show the results...
     */
-
-    job_printer_name = strrchr(job_printer_uri, '/') + 1;
 
     if (cupsLastError() <= IPP_OK_CONFLICT)
     {

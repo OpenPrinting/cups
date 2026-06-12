@@ -1,7 +1,7 @@
 /*
  * HTML support functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2011 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -86,7 +86,7 @@ cgiFormEncode(char       *dst,		/* I - Destination string */
   * Loop through the source string and copy...
   */
 
-  for (dstptr = dst; *src && dstptr < dstend;)
+  for (dstptr = dst; *src && dstptr < dstend; src ++)
   {
     switch (*src)
     {
@@ -96,7 +96,6 @@ cgiFormEncode(char       *dst,		/* I - Destination string */
 	  */
 
           *dstptr++ = '+';
-	  src ++;
 	  break;
 
       case '&' :
@@ -111,7 +110,6 @@ cgiFormEncode(char       *dst,		/* I - Destination string */
 	    *dstptr++ = '%';
 	    *dstptr++ = hex[(*src & 255) >> 4];
 	    *dstptr++ = hex[*src & 15];
-	    src ++;
 	  }
           break;
 
@@ -120,7 +118,7 @@ cgiFormEncode(char       *dst,		/* I - Destination string */
 	  * Copy other characters literally...
 	  */
 
-          *dstptr++ = *src++;
+          *dstptr++ = *src;
 	  break;
     }
   }

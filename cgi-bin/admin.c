@@ -1,7 +1,7 @@
 /*
  * Administration CGI for CUPS.
  *
- * Copyright © 2021-2024 by OpenPrinting
+ * Copyright © 2021-2026 by OpenPrinting
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -612,7 +612,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 		*oldinfo;		/* Old printer information */
   const cgi_file_t *file;		/* Uploaded file, if any */
   const char	*var;			/* CGI variable */
-  char	*ppd_name = NULL;	/* Pointer to PPD name */
+  char		*ppd_name = NULL;	/* Pointer to PPD name */
   char		uri[HTTP_MAX_URI],	/* Device or printer URI */
 		*uriptr,		/* Pointer into URI */
 		evefile[1024] = "";	/* IPP Everywhere PPD file */
@@ -1116,13 +1116,8 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
                  NULL, uri);
 
-    if (!file)
-    {
-      ppd_name = cgiGetVariable("PPD_NAME");
-      if (strcmp(ppd_name, "__no_change__"))
-	ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "ppd-name",
-		     NULL, ppd_name);
-    }
+    if (!file && (ppd_name = cgiGetVariable("PPD_NAME")) != NULL && strcmp(ppd_name, "__no_change__"))
+      ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "ppd-name", NULL, ppd_name);
 
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-location",
                  NULL, cgiGetTextfield("PRINTER_LOCATION"));
@@ -1130,7 +1125,16 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT, "printer-info",
                  NULL, cgiGetTextfield("PRINTER_INFO"));
 
-    strlcpy(uri, cgiGetVariable("DEVICE_URI"), sizeof(uri));
+    if ((var = cgiGetVariable("DEVICE_URI")) == NULL)
+    {
+      cgiStartHTML(title);
+      cgiSetVariable("MESSAGE", _("Missing DEVICE_URI variable."));
+      cgiCopyTemplateLang("error.tmpl");
+      cgiEndHTML();
+      return;
+    }
+
+    strlcpy(uri, var, sizeof(uri));
 
    /*
     * Strip make and model from URI...
