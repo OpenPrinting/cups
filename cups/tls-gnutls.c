@@ -1308,7 +1308,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
                     malloc(sizeof(gnutls_certificate_credentials_t));
   if (credentials == NULL)
   {
-    DEBUG_printf(("8_httpStartTLS: Unable to allocate credentials: %s",
+    DEBUG_printf(("8_httpTLSStart: Unable to allocate credentials: %s",
                   strerror(errno)));
     http->error  = errno;
     http->status = HTTP_STATUS_ERROR;
@@ -1602,7 +1602,7 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
 
   while ((status = gnutls_handshake(http->tls)) != GNUTLS_E_SUCCESS)
   {
-    DEBUG_printf(("5_httpStartTLS: gnutls_handshake returned %d (%s)",
+    DEBUG_printf(("5_httpTLSStart: gnutls_handshake returned %d (%s)",
                   status, gnutls_strerror(status)));
 
     if (gnutls_error_is_fatal(status))
