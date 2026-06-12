@@ -5419,7 +5419,7 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
         * Filter out "special" PPD keywords...
         */
 
-        if (strcmp(keyword->name, "cupsFilter") && strcmp(keyword->name, "cupsFilter2") && strcmp(keyword->name, "cupsFinishingTemplate") && strcmp(keyword->name, "cupsIPPFinishings") && strcmp(keyword->name, "cupsIPPReason") && strcmp(keyword->name, "cupsMarkerName") && strcmp(keyword->name, "cupsMaxSize") && strncmp(keyword->name, "cupsMediaQualifier", 18) && strcmp(keyword->name, "cupsMinSize") && strcmp(keyword->name, "cupsPageSizeCategory") && strcmp(keyword->name, "cupsPortMonitor") && strcmp(keyword->name, "cupsPreFilter") && strcmp(keyword->name, "cupsPrintQuality") && strcmp(keyword->name, "APPrinterPreset"))
+        if (_cups_strcasecmp(keyword->name, "cupsFilter") && _cups_strcasecmp(keyword->name, "cupsFilter2") && _cups_strcasecmp(keyword->name, "cupsFinishingTemplate") && _cups_strcasecmp(keyword->name, "cupsIPPFinishings") && _cups_strcasecmp(keyword->name, "cupsIPPReason") && _cups_strcasecmp(keyword->name, "cupsMarkerName") && _cups_strcasecmp(keyword->name, "cupsMaxSize") && strncmp(keyword->name, "cupsMediaQualifier", 18) && _cups_strcasecmp(keyword->name, "cupsMinSize") && _cups_strcasecmp(keyword->name, "cupsPageSizeCategory") && _cups_strcasecmp(keyword->name, "cupsPortMonitor") && _cups_strcasecmp(keyword->name, "cupsPreFilter") && _cups_strcasecmp(keyword->name, "cupsPrintQuality") && _cups_strcasecmp(keyword->name, "APPrinterPreset"))
           job->num_keywords = cupsAddOption(keyword->name, keyword->value, job->num_keywords, &job->keywords);
       }
 

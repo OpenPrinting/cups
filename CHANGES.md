@@ -15,6 +15,8 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
   quotas when StripUserDomain is not enabled (Issue #1584)
 - Fixed raster error reporting overflow (Issue #1607)
 - Fixed several issues reported by Coverity
+- Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
+  from filters.
 
 
 Changes in CUPS v2.4.19 (2026-04-27)
