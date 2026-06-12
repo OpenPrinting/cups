@@ -4354,7 +4354,7 @@ copy_model(cupsd_client_t *con,		/* I - Client connection */
 
   snprintf(buffer, sizeof(buffer), "%s/daemon/cups-driverd", ServerBin);
   snprintf(tempfile, sizeof(tempfile), "%s/%d.ppd", TempDir, con->number);
-  if ((tempfd = open(tempfile, O_WRONLY | O_CREAT | O_TRUNC, 0600)) < 0)
+  if ((tempfd = open(tempfile, O_WRONLY | O_CREAT | O_TRUNC | O_EXCL | O_NOFOLLOW, 0600)) < 0)
     return (-1);
   if (cupsdOpenPipe(temppipe))
   {
