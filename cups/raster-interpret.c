@@ -1327,6 +1327,8 @@ scan_ps(_cups_ps_stack_t *st,		/* I  - Stack */
 	  */
 
 	  obj.value.number = _cupsStrScand(start, &cur, localeconv());
+	  if (!cur)
+	    return (NULL);
           break;
 	}
 	else

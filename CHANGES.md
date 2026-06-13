@@ -18,6 +18,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed handling of Kerberos user@REALM identities for user validation and
   quotas when StripUserDomain is not enabled (Issue #1584)
 - Fixed raster error reporting overflow (Issue #1607)
+- Fixed `cupsRasterInterpretPPD` handling of bad numbers (Issue #1608)
 - Fixed SNMP hex string debug output (Issue #1610)
 - Fixed some web interface bugs (Issue #1611)
 - Fixed several issues reported by Coverity
