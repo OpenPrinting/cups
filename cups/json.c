@@ -1005,6 +1005,9 @@ cupsJSONImportString(const char *s)	// I - JSON string
         goto error;
 
       current->value.number = _cupsStrScand(s, (char **)&s, loc);
+      if (!s)
+        goto error;
+
       count ++;
       prev = current;
 
