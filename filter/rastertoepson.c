@@ -298,7 +298,19 @@ StartPage(
 
   if (header->cupsCompression || DotBytes)
   {
-    if ((CompBuffer = calloc(2, header->cupsBytesPerLine + 1)) == NULL)
+    size_t	comp_size;		/* Size of compression buffer */
+
+   /*
+    * CompBuffer holds the PackBits-compressed line (up to two bytes per
+    * cupsBytesPerLine byte), or one byte per pixel column (cupsWidth) when
+    * OutputLine expands a dot-matrix row, so size it for the larger of the two.
+    */
+
+    comp_size = 2 * ((size_t)header->cupsBytesPerLine + 1);
+    if ((size_t)header->cupsWidth >= comp_size)
+      comp_size = (size_t)header->cupsWidth + 1;
+
+    if ((CompBuffer = calloc(1, comp_size)) == NULL)
     {
       fputs("ERROR: Unable to allocate memory\n", stderr);
       exit(1);
