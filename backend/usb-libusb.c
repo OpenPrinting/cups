@@ -1082,16 +1082,22 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
               char          *buffer,	/* I - String buffer */
               size_t        bufsize)	/* I - Number of bytes in buffer */
 {
-  size_t	length;				/* Length of device ID */
+  size_t length; /* Length of device ID */
+  int err;
 
-
-  if (libusb_control_transfer(printer->handle,
-			      LIBUSB_REQUEST_TYPE_CLASS | LIBUSB_ENDPOINT_IN |
-			      LIBUSB_RECIPIENT_INTERFACE,
-			      0, printer->conf,
-			      (printer->iface << 8) | printer->altset,
-			      (unsigned char *)buffer, bufsize, 5000) < 0)
+  err = libusb_control_transfer(printer->handle,
+                              LIBUSB_REQUEST_TYPE_CLASS | LIBUSB_ENDPOINT_IN |
+                                  LIBUSB_RECIPIENT_INTERFACE,
+                              0, printer->conf,
+                              (printer->iface << 8) | printer->altset,
+                              (unsigned char *)buffer, bufsize, 5000);
+  if (0 > err)
   {
+    if (LIBUSB_ERROR_PIPE == err)
+    {
+      libusb_clear_halt(printer->handle, printer->read_endp);
+    }
+
     *buffer = '\0';
     return (-1);
   }
