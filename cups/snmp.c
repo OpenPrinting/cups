@@ -827,13 +827,21 @@ asn1_debug(const char    *prefix,	/* I - Prefix string */
           break;
 
       case CUPS_ASN1_HEX_STRING :
-	  asn1_get_string(&buffer, bufend, value_length, string,
-			  sizeof(string));
-          fprintf(stderr, "%s%*sHex-STRING %d bytes", prefix,
-	          indent, "", value_length);
-          for (i = 0; i < value_length; i ++)
-	    fprintf(stderr, " %02X", string[i] & 255);
-	  putc('\n', stderr);
+          {
+	    unsigned hex_length = value_length;
+					// Length of HEX string to display
+
+	    if (hex_length > (unsigned)(bufend - buffer))
+	      hex_length = (unsigned)(bufend - buffer);
+	    if (hex_length > (sizeof(string) - 1))
+	      hex_length = sizeof(string) - 1;
+
+	    asn1_get_string(&buffer, bufend, value_length, string, sizeof(string));
+	    fprintf(stderr, "%s%*sHex-STRING %d bytes", prefix, indent, "", value_length);
+	    for (i = 0; i < hex_length; i ++)
+	      fprintf(stderr, " %02X", string[i] & 255);
+	    putc('\n', stderr);
+	  }
           break;
 
       case CUPS_ASN1_NULL_VALUE :
