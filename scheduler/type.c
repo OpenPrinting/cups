@@ -888,7 +888,7 @@ mime_check_rules(
 
       case MIME_MAGIC_CHAR :
           // Load the buffer if necessary...
-          if (fb->offset < 0 || rules->offset < fb->offset)
+          if (fb->offset < 0 || rules->offset < fb->offset || (rules->offset + 1) > (fb->offset + fb->length))
 	  {
 	    // Reload file buffer...
             if (cupsFileSeek(fb->fp, rules->offset) < 0)
