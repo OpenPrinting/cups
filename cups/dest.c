@@ -1,7 +1,7 @@
 //
 // User-defined destination (and option) support for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -69,6 +69,8 @@ typedef struct _cups_dnssd_data_s	// Enumeration data
   cups_array_t		*devices;	// Devices found so far
   int			num_dests;	// Number of lpoptions destinations
   cups_dest_t		*dests;		// lpoptions destinations
+  int			num_local;	// Number of local cupsd queues
+  cups_dest_t		*local_dests;	// Local cupsd queues
   char			def_name[1024],	// Default printer name, if any
 			*def_instance;	// Default printer instance, if any
 } _cups_dnssd_data_t;
@@ -1307,7 +1309,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		  "printer-state-change-time",
 		  "printer-state-reasons",
 		  "printer-type",
-		  "printer-uri-supported"
+		  "printer-uri-supported",
+		  "printer-uuid"
 		};
 
 
@@ -1416,7 +1419,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
             !strcmp(attr->name, "printer-state-reasons") ||
 	    !strcmp(attr->name, "printer-type") ||
             !strcmp(attr->name, "printer-is-accepting-jobs") ||
-	    !strcmp(attr->name, "printer-uri-supported"))
+	    !strcmp(attr->name, "printer-uri-supported") ||
+	    !strcmp(attr->name, "printer-uuid"))
         {
 	  // Add a printer description attribute...
           num_options = cupsAddOption(attr->name, cups_make_string(attr, value, sizeof(value)), num_options, &options);
@@ -2845,6 +2849,25 @@ cups_dest_query_cb(
         if (!have_pdf && !have_raster)
           device->state = _CUPS_DNSSD_INCOMPATIBLE;
       }
+      else if (!_cups_strcasecmp(key, "UUID"))
+      {
+        // Suppress local printer being re-discovered via DNS-SD
+        int		i;		// Looping var
+        cups_dest_t	*local;		// Local printer
+
+        for (i = data->num_local, local = data->local_dests; i > 0; i --, local ++)
+        {
+          const char *local_uuid = cupsGetOption("printer-uuid", local->num_options, local->options);
+					// Local printer-uuid
+
+          if (local_uuid && strlen(local_uuid) > 9 && !_cups_strcasecmp(value, local_uuid + 9/*urn:uuid:*/))
+          {
+            device->state = _CUPS_DNSSD_INCOMPATIBLE;
+            DEBUG_printf("6cups_dest_query_cb: Suppressing local printer '%s' (UUID match).", device->dest.name);
+            break;
+          }
+        }
+      }
       else if (!_cups_strcasecmp(key, "printer-type"))
       {
         // Value is either NNNN or 0xXXXX
@@ -3178,6 +3201,9 @@ cups_enum_dests(
     // Get the list of local printers and pass them to the callback function...
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, data.type, data.mask);
 
+    data.num_local   = 0;
+    data.local_dests = NULL;
+
     if (data.def_name[0])
     {
       // Lookup the named default printer and instance and make it the default...
@@ -3190,6 +3216,8 @@ cups_enum_dests(
 
     for (i = num_dests, dest = dests; i > 0 && (!cancel || !*cancel); i --, dest ++)
     {
+      data.num_local = cupsCopyDest(dest, data.num_local, &data.local_dests);
+
       cups_dest_t	*user_dest;	// Destination from lpoptions
       const char	*device_uri;	// Device URI
 
@@ -3252,8 +3280,6 @@ cups_enum_dests(
       }
     }
 
-    cupsFreeDests(num_dests, dests);
-
     if (i > 0 || msec == 0)
       goto enum_finished;
   }
@@ -3271,6 +3297,7 @@ cups_enum_dests(
     DEBUG_puts("1cups_enum_dests: Unable to create service browser, returning 0.");
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (false);
@@ -3291,6 +3318,7 @@ cups_enum_dests(
 	cupsDNSSDDelete(dnssd);
 
 	cupsFreeDests(data.num_dests, data.dests);
+        cupsFreeDests(data.num_local, data.local_dests);
 	cupsArrayDelete(data.devices);
 
 	return (false);
@@ -3302,6 +3330,7 @@ cups_enum_dests(
 	cupsDNSSDDelete(dnssd);
 
 	cupsFreeDests(data.num_dests, data.dests);
+        cupsFreeDests(data.num_local, data.local_dests);
 	cupsArrayDelete(data.devices);
 
 	return (false);
@@ -3317,6 +3346,7 @@ cups_enum_dests(
       cupsDNSSDDelete(dnssd);
 
       cupsFreeDests(data.num_dests, data.dests);
+      cupsFreeDests(data.num_local, data.local_dests);
       cupsArrayDelete(data.devices);
 
       return (false);
@@ -3328,6 +3358,7 @@ cups_enum_dests(
       cupsDNSSDDelete(dnssd);
 
       cupsFreeDests(data.num_dests, data.dests);
+      cupsFreeDests(data.num_local, data.local_dests);
       cupsArrayDelete(data.devices);
 
       return (false);
@@ -3395,6 +3426,13 @@ cups_enum_dests(
 
         if ((device->type & mask) != type)
           device->state = _CUPS_DNSSD_INCOMPATIBLE;
+          
+        if (device->state == _CUPS_DNSSD_INCOMPATIBLE)
+        {
+          DEBUG_printf("2cups_enum_dests: Skipping incompatible '%s'.",
+                       device->fullname);
+          continue;
+        }  
 
         if (device->state == _CUPS_DNSSD_PENDING)
         {
@@ -3473,6 +3511,7 @@ cups_enum_dests(
   cupsDNSSDDelete(dnssd);
 
   cupsFreeDests(data.num_dests, data.dests);
+  cupsFreeDests(data.num_local, data.local_dests);
   cupsArrayDelete(data.devices);
 
   DEBUG_puts("1cups_enum_dests: Returning 1.");

@@ -1957,6 +1957,8 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
     if (best->level == CUPSD_AUTH_USER)
     {
+      bool name_result = false;		// Result of name checks
+
      /*
       * If there are no names associated with this location, then
       * any valid user is OK...
@@ -1979,20 +1981,15 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 
       if (con->authref)
       {
-	for (name = (char *)cupsArrayFirst(best->names);
-	     name;
-	     name = (char *)cupsArrayNext(best->names))
+	for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
 	{
 	  if (!_cups_strncasecmp(name, "@AUTHKEY(", 9) && check_authref(con, name + 9))
 	    return (HTTP_STATUS_OK);
 	}
 
-	for (name = (char *)cupsArrayFirst(best->names);
-	     name;
-	     name = (char *)cupsArrayNext(best->names))
+	for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
 	{
-	  if (!_cups_strcasecmp(name, "@SYSTEM") && SystemGroupAuthKey &&
-	      check_authref(con, SystemGroupAuthKey))
+	  if (!_cups_strcasecmp(name, "@SYSTEM") && SystemGroupAuthKey && check_authref(con, SystemGroupAuthKey))
 	    return (HTTP_STATUS_OK);
 	}
 
@@ -2000,41 +1997,50 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       }
 #endif /* HAVE_AUTHORIZATION_H */
 
-      for (name = (char *)cupsArrayFirst(best->names);
-	   name;
-	   name = (char *)cupsArrayNext(best->names))
+      for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
       {
-	if (!_cups_strcasecmp(name, "@OWNER") && owner &&
-	    ((pw && !strcmp(pw->pw_name, ownername)) ||
-	     (!pw && type == CUPSD_AUTH_NONE && !_cups_strcasecmp(username, ownername))))
-	  return (HTTP_STATUS_OK);
-	else if (!_cups_strcasecmp(name, "@SYSTEM"))
-	{
-	  /* Do @SYSTEM later, when every other entry fails */
-	  continue;
-	}
-	else if (name[0] == '@')
-	{
-	  if (cupsdCheckGroup(username, pw, name + 1))
-	    return (HTTP_STATUS_OK);
-	}
-	else if (pw && !strcmp(pw->pw_name, name))
-	  return (HTTP_STATUS_OK);
-	else if (!pw && type == CUPSD_AUTH_NONE && !_cups_strcasecmp(username, name))
-	  return (HTTP_STATUS_OK);
+        if (!_cups_strcasecmp(name, "@SYSTEM"))
+          continue; // check @SYSTEM later
+
+        if (!_cups_strcasecmp(name, "@OWNER") && owner && ((pw && !strcmp(pw->pw_name, ownername)) || (!pw && type == CUPSD_AUTH_NONE && !_cups_strcasecmp(username, ownername))))
+        {
+          name_result = true;
+        }
+        else if (name[0] == '@')
+        {
+          if (cupsdCheckGroup(username, pw, name + 1))
+            name_result = true;
+        }
+        else if (pw && !strcmp(pw->pw_name, name))
+        {
+          name_result = true;
+        }
+        else if (!pw && type == CUPSD_AUTH_NONE && !_cups_strcasecmp(username, name))
+        {
+          name_result = true;
+        }
       }
 
-      for (name = (char *)cupsArrayFirst(best->names);
-	   name;
-	   name = (char *)cupsArrayNext(best->names))
+      // @SYSTEM check
+      for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
       {
-	if (!_cups_strcasecmp(name, "@SYSTEM"))
-	{
-	  for (i = 0; i < NumSystemGroups; i ++)
-	    if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
-	      return (HTTP_STATUS_OK);
-	}
+        if (!_cups_strcasecmp(name, "@SYSTEM"))
+        {
+          for (i = 0; i < NumSystemGroups; i ++)
+          {
+            if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
+            {
+              name_result = true;
+              break;
+            }
+          }
+        }
       }
+
+      if (name_result)
+        return (HTTP_STATUS_OK);
+      else if (best->satisfy == CUPSD_AUTH_SATISFY_ALL)
+	return (HTTP_STATUS_FORBIDDEN);
     }
     else
     {
@@ -2048,9 +2054,7 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
       * Check to see if this user is in any of the named groups...
       */
 
-      for (name = (char *)cupsArrayFirst(best->names);
-	   name;
-	   name = (char *)cupsArrayNext(best->names))
+      for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
       {
 	if (!_cups_strcasecmp(name, "@SYSTEM"))
 	{
@@ -2064,17 +2068,17 @@ cupsdIsAuthorized(cupsd_client_t *con,	/* I - Connection */
 	  return (HTTP_STATUS_OK);
       }
 
-      for (name = (char *)cupsArrayFirst(best->names);
-	   name;
-	   name = (char *)cupsArrayNext(best->names))
+      for (name = (char *)cupsArrayFirst(best->names); name; name = (char *)cupsArrayNext(best->names))
       {
 	if (!_cups_strcasecmp(name, "@SYSTEM"))
 	{
 	  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdIsAuthorized: Checking group \"%s\" membership...", name);
 
 	  for (i = 0; i < NumSystemGroups; i ++)
+	  {
 	    if (cupsdCheckGroup(username, pw, SystemGroups[i]) && check_admin_access(con))
 	      return (HTTP_STATUS_OK);
+	  }
 	}
       }
     }
