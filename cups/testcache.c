@@ -1,14 +1,11 @@
 /*
  * PPD cache testing program for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2009-2018 by Apple Inc.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2009-2018 by Apple Inc.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include "ppd-private.h"
@@ -58,6 +55,8 @@ main(int  argc,				/* I - Number of command-line args */
     fprintf(stderr, "Unable to create PPD cache from \"%s\".\n", ppdfile);
     return (1);
   }
+
+  _ppdCacheWriteFile(pc, "t.cache", /*attrs*/NULL);
 
   for (i = 2; i < argc; i ++)
     num_options = cupsParseOptions(argv[i], num_options, &options);
