@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
+#include "packbits.h"
 
 
 /*
@@ -298,7 +299,7 @@ StartPage(
 
   if (header->cupsCompression || DotBytes)
   {
-    if ((CompBuffer = calloc(2, header->cupsBytesPerLine + 1)) == NULL)
+    if ((CompBuffer = packbits_alloc(header->cupsBytesPerLine)) == NULL)
     {
       fputs("ERROR: Unable to allocate memory\n", stderr);
       exit(1);
@@ -417,11 +418,9 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
 	     unsigned            ystep)	/* I - Y resolution */
 {
   const unsigned char	*line_ptr,	/* Current byte pointer */
-        		*line_end,	/* End-of-line byte pointer */
-        		*start;		/* Start of compression sequence */
+        		*line_end;	/* End-of-line byte pointer */
   unsigned char      	*comp_ptr,	/* Pointer into compression buffer */
 			temp;		/* Current byte */
-  int   	        count;		/* Count of bytes for output */
   static int		ctable[6] = { 0, 2, 1, 4, 18, 17 };
 					/* KCMYcm color values */
 
@@ -490,66 +489,8 @@ CompressData(const unsigned char *line,	/* I - Data to compress */
         * Do TIFF pack-bits encoding...
         */
 
-	comp_ptr = CompBuffer;
-
-	while (line_ptr < line_end)
-	{
-	  if ((line_ptr + 1) >= line_end)
-	  {
-	   /*
-	    * Single byte on the end...
-	    */
-
-	    *comp_ptr++ = 0x00;
-	    *comp_ptr++ = *line_ptr++;
-	  }
-	  else if (line_ptr[0] == line_ptr[1])
-	  {
-	   /*
-	    * Repeated sequence...
-	    */
-
-	    line_ptr ++;
-	    count = 2;
-
-	    while (line_ptr < (line_end - 1) &&
-        	   line_ptr[0] == line_ptr[1] &&
-        	   count < 127)
-	    {
-              line_ptr ++;
-              count ++;
-	    }
-
-	    *comp_ptr++ = (unsigned char)(257 - count);
-	    *comp_ptr++ = *line_ptr++;
-	  }
-	  else
-	  {
-	   /*
-	    * Non-repeated sequence...
-	    */
-
-	    start    = line_ptr;
-	    line_ptr ++;
-	    count    = 1;
-
-	    while (line_ptr < (line_end - 1) &&
-        	   line_ptr[0] != line_ptr[1] &&
-        	   count < 127)
-	    {
-              line_ptr ++;
-              count ++;
-	    }
-
-	    *comp_ptr++ = (unsigned char)(count - 1);
-
-	    memcpy(comp_ptr, start, (size_t)count);
-	    comp_ptr += count;
-	  }
-	}
-
         line_ptr = CompBuffer;
-        line_end = comp_ptr;
+        line_end = line_ptr + packbits_compress(CompBuffer, line, length);
 	break;
   }
 
