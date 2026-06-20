@@ -1,11 +1,12 @@
 /*
  * Hewlett-Packard Page Control Language filter for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2015 by Apple Inc.
- * Copyright 1993-2007 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2015 by Apple Inc.
+ * Copyright © 1993-2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -20,6 +21,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
+#include "packbits.h"
 
 
 /*
@@ -338,7 +340,7 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
     BitBuffer = NULL;
 
   if (header->cupsCompression)
-    CompBuffer = malloc(header->cupsBytesPerLine * 2 + 2);
+    CompBuffer = packbits_alloc(header->cupsBytesPerLine);
   else
     CompBuffer = NULL;
 }
@@ -427,8 +429,7 @@ CompressData(unsigned char *line,	/* I - Data to compress */
 {
   unsigned char	*line_ptr,		/* Current byte pointer */
         	*line_end,		/* End-of-line byte pointer */
-        	*comp_ptr,		/* Pointer into compression buffer */
-        	*start;			/* Start of compression sequence */
+        	*comp_ptr;		/* Pointer into compression buffer */
   unsigned	count;			/* Count of bytes for output */
 
 
@@ -472,68 +473,8 @@ CompressData(unsigned char *line,	/* I - Data to compress */
         * Do TIFF pack-bits encoding...
         */
 
-	line_ptr = line;
-	line_end = line + length;
-	comp_ptr = CompBuffer;
-
-	while (line_ptr < line_end)
-	{
-	  if ((line_ptr + 1) >= line_end)
-	  {
-	   /*
-	    * Single byte on the end...
-	    */
-
-	    *comp_ptr++ = 0x00;
-	    *comp_ptr++ = *line_ptr++;
-	  }
-	  else if (line_ptr[0] == line_ptr[1])
-	  {
-	   /*
-	    * Repeated sequence...
-	    */
-
-	    line_ptr ++;
-	    count = 2;
-
-	    while (line_ptr < (line_end - 1) &&
-        	   line_ptr[0] == line_ptr[1] &&
-        	   count < 127)
-	    {
-              line_ptr ++;
-              count ++;
-	    }
-
-	    *comp_ptr++ = (unsigned char)(257 - count);
-	    *comp_ptr++ = *line_ptr++;
-	  }
-	  else
-	  {
-	   /*
-	    * Non-repeated sequence...
-	    */
-
-	    start    = line_ptr;
-	    line_ptr ++;
-	    count    = 1;
-
-	    while (line_ptr < (line_end - 1) &&
-        	   line_ptr[0] != line_ptr[1] &&
-        	   count < 127)
-	    {
-              line_ptr ++;
-              count ++;
-	    }
-
-	    *comp_ptr++ = (unsigned char)(count - 1);
-
-	    memcpy(comp_ptr, start, count);
-	    comp_ptr += count;
-	  }
-	}
-
-        line_ptr = CompBuffer;
-        line_end = comp_ptr;
+	line_ptr = CompBuffer;
+	line_end = line_ptr + packbits_compress(line_ptr, line, length);
 	break;
   }
 
@@ -821,7 +762,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   */
 
   cupsRasterClose(ras);
-  if (fd != 0)
+  if (fd > 0)
     close(fd);
 
  /*
