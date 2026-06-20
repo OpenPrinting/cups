@@ -21,6 +21,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed `cupsRasterInterpretPPD` handling of bad numbers (Issue #1608)
 - Fixed SNMP hex string debug output (Issue #1610)
 - Fixed some web interface bugs (Issue #1611)
+- Fixed MIME `char` rule handling (Issue #1614)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
