@@ -761,7 +761,7 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	      _cups_strcasecmp(hostname, ServerName) &&
 	      _cups_strcasecmp(hostname, "localhost") &&
 	      !cupsArrayFind(ServerAlias, hostname) &&
-	      !isdigit(hostname[0]) && hostname[0] != '[')
+	      !isdigit(hostname[0] & 255) && hostname[0] != '[')
 	  {
 	   /*
 	    * Nope, we don't do proxies...
@@ -2683,7 +2683,7 @@ check_if_modified(
 
   while (*ptr != '\0')
   {
-    while (isspace(*ptr) || *ptr == ';')
+    while (isspace(*ptr & 255) || *ptr == ';')
       ptr ++;
 
     if (_cups_strncasecmp(ptr, "length=", 7) == 0)
@@ -2691,10 +2691,10 @@ check_if_modified(
       ptr += 7;
       size = strtoll(ptr, NULL, 10);
 
-      while (isdigit(*ptr))
+      while (isdigit(*ptr & 255))
         ptr ++;
     }
-    else if (isalpha(*ptr))
+    else if (isalpha(*ptr & 255))
     {
       date = httpGetDateTime(ptr);
       while (*ptr != '\0' && *ptr != ';')
