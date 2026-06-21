@@ -4,23 +4,6 @@ commandtops.o: commandtops.c ../cups/cups-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/array.h ../cups/language.h ../cups/pwg.h \
   ../cups/http-private.h \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
   ../cups/language-private.h \
   ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h \
   ../cups/ppd.h ../cups/raster.h ../cups/sidechannel.h
@@ -29,24 +12,6 @@ gziptoany.o: gziptoany.c ../cups/cups-private.h ../cups/string-private.h \
   ../cups/debug-private.h ../cups/ipp-private.h ../cups/cups.h \
   ../cups/file.h ../cups/ipp.h ../cups/http.h ../cups/array.h \
   ../cups/language.h ../cups/pwg.h ../cups/http-private.h \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
   ../cups/language-private.h \
   ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h
 common.o: common.c common.h ../cups/string-private.h ../config.h \
@@ -78,23 +43,6 @@ rastertopwg.o: rastertopwg.c ../cups/cups-private.h \
   ../cups/cups.h ../cups/file.h ../cups/ipp.h ../cups/http.h \
   ../cups/array.h ../cups/language.h ../cups/pwg.h \
   ../cups/http-private.h \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
-  \
   ../cups/language-private.h \
   ../cups/transcode.h ../cups/pwg-private.h ../cups/thread.h \
   ../cups/ppd-private.h ../cups/ppd.h ../cups/raster.h
