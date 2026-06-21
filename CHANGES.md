@@ -11,6 +11,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
   mode.
 - Increased the size of the SNMP supply name buffer used by the network backends
   (Issue #1604)
+- The USB backend now clears a halt on USB errors (Issue #1606)
 - Fixed mapping of standard PPD/PWG/legacy media size names to the local PPD
   size name (Issue #1375)
 - Fixed handling of multiple PPD: keywords from filters (Issue #1562,
