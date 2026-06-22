@@ -93,6 +93,8 @@ typedef struct _cups_dnssd_data_s	/* Enumeration data */
   cups_array_t		*devices;	/* Devices found so far */
   int			num_dests;	/* Number of lpoptions destinations */
   cups_dest_t		*dests;		/* lpoptions destinations */
+  int			num_local;	/* Number of local cupsd queues */
+  cups_dest_t		*local_dests;	/* Local cupsd queues */
   char			def_name[1024],	/* Default printer name, if any */
 			*def_instance;	/* Default printer instance, if any */
 } _cups_dnssd_data_t;
@@ -1391,7 +1393,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		  "printer-state-change-time",
 		  "printer-state-reasons",
 		  "printer-type",
-		  "printer-uri-supported"
+		  "printer-uri-supported",
+		  "printer-uuid"
 		};
 
 
@@ -1500,7 +1503,8 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
             !strcmp(attr->name, "printer-is-accepting-jobs") ||
             !strcmp(attr->name, "printer-location") ||
             !strcmp(attr->name, "printer-state-reasons") ||
-	    !strcmp(attr->name, "printer-uri-supported"))
+	    !strcmp(attr->name, "printer-uri-supported") ||
+	    !strcmp(attr->name, "printer-uuid"))
         {
 	 /*
 	  * Add a printer description attribute...
@@ -3170,6 +3174,26 @@ cups_dnssd_query_cb(
         if (!have_pdf && !have_raster)
           device->state = _CUPS_DNSSD_INCOMPATIBLE;
       }
+      else if (!_cups_strcasecmp(key, "UUID"))
+      {
+        // Suppress local printer being re-discovered via DNS-SD
+        int i;
+        device->dest.num_options = cupsAddOption("UUID", value,
+                                      device->dest.num_options,
+                                      &device->dest.options);
+
+        for (i = 0; i < data->num_local; i++)
+        {
+          const char *local_uuid = cupsGetOption("printer-uuid",
+                                      data->local_dests[i].num_options,
+                                      data->local_dests[i].options);
+          if (local_uuid && !_cups_strcasecmp(value, local_uuid + 9))
+          {
+            device->state = _CUPS_DNSSD_INCOMPATIBLE;
+            break;
+          }
+        }
+      }
       else if (!_cups_strcasecmp(key, "printer-type"))
       {
        /*
@@ -3547,10 +3571,12 @@ cups_enum_dests(
   if (!(mask & CUPS_PRINTER_DISCOVERED) || !(type & CUPS_PRINTER_DISCOVERED))
   {
    /*
-    * Get the list of local printers and pass them to the callback function...
+    * Get the list of local printers...
     */
 
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, type, mask);
+    data.num_local   = 0;
+    data.local_dests = NULL;
 
     if (data.def_name[0])
     {
@@ -3573,6 +3599,12 @@ cups_enum_dests(
 #ifdef HAVE_DNSSD
       const char	*device_uri;	/* Device URI */
 #endif /* HAVE_DNSSD */
+
+     /*
+      * Pass the list of local printers to the callback function...
+      */
+
+      data.num_local = cupsCopyDest(dest, data.num_local, &data.local_dests);
 
       if ((user_dest = cupsGetDest(dest->name, NULL, data.num_dests, data.dests)) != NULL)
       {
@@ -3665,6 +3697,7 @@ cups_enum_dests(
     DEBUG_puts("1cups_enum_dests: Unable to create service browser, returning 0.");
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (0);
@@ -3679,6 +3712,7 @@ cups_enum_dests(
     DNSServiceRefDeallocate(data.main_ref);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (0);
@@ -3692,6 +3726,7 @@ cups_enum_dests(
     DNSServiceRefDeallocate(data.main_ref);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (0);
@@ -3704,6 +3739,7 @@ cups_enum_dests(
     DEBUG_puts("1cups_enum_dests: Unable to create Avahi poll, returning 0.");
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (0);
@@ -3720,6 +3756,7 @@ cups_enum_dests(
     avahi_simple_poll_free(data.simple_poll);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (0);
@@ -3734,6 +3771,7 @@ cups_enum_dests(
     avahi_simple_poll_free(data.simple_poll);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (0);
@@ -3750,6 +3788,7 @@ cups_enum_dests(
     avahi_simple_poll_free(data.simple_poll);
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (0);
@@ -3862,7 +3901,7 @@ cups_enum_dests(
 
         DEBUG_printf(("1cups_enum_dests: Query for \"%s\" is complete.", device->fullName));
 
-        if ((device->type & mask) == type)
+        if (((device->type & mask) == type) && (device->state != _CUPS_DNSSD_INCOMPATIBLE))
         {
           cups_dest_t	*user_dest;	/* Destination from lpoptions */
 
@@ -3940,6 +3979,7 @@ cups_enum_dests(
   enum_finished:
 
   cupsFreeDests(data.num_dests, data.dests);
+  cupsFreeDests(data.num_local, data.local_dests);
 
 #ifdef HAVE_DNSSD
   cupsArrayDelete(data.devices);
