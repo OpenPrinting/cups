@@ -38,6 +38,7 @@ void		email_message(const char *to, const char *subject, const char *text);
 int		load_configuration(void);
 cups_file_t	*pipe_sendmail(const char *to);
 void		print_attributes(ipp_t *ipp, int indent);
+char		*remove_newlines(char *s);
 
 
 /*
@@ -111,7 +112,10 @@ main(int  argc,				/* I - Number of command-line arguments */
   httpDecode64_2(temp, &templen, argv[2]);
 
   if (!strncmp(temp, "mailto:", 7))
+  {
     cupsCopyString(mailtoReplyTo, temp + 7, sizeof(mailtoReplyTo));
+    remove_newlines(mailtoReplyTo);
+  }
   else if (temp[0])
     fprintf(stderr, "WARNING: Bad notify-user-data value (%d bytes) ignored!\n",
             templen);
@@ -159,7 +163,7 @@ main(int  argc,				/* I - Number of command-line arguments */
     fprintf(stderr, "DEBUG: text=\"%s\"\n", text);
 
     if (subject && text)
-      email_message(argv[1] + 7, subject, text);
+      email_message(remove_newlines(argv[1] + 7), remove_newlines(subject), text);
     else
     {
       fputs("ERROR: Missing attributes in event notification!\n", stderr);
@@ -623,4 +627,31 @@ print_attributes(ipp_t *ipp,		/* I - IPP request */
             attr->num_values > 1 ? "1setOf " : "",
 	    ippTagString(attr->value_tag), buffer);
   }
+}
+
+
+/*
+ * 'remove_newlines()' - Replace carriage returns and line feeds with spaces.
+ *
+ * The recipient, reply-to, and subject strings come from the notify-recipient
+ * data and the event attributes (job-name, printer-name), so they can carry
+ * embedded CR/LF.  Those values are written into RFC 5322 header fields, where
+ * a bare CR or LF would start a new header and let an extra recipient or
+ * message body be injected.
+ */
+
+char *					/* O - Sanitized string */
+remove_newlines(char *s)		/* I - String to sanitize */
+{
+  char	*ptr;				/* Pointer into string */
+
+
+  if (s)
+  {
+    for (ptr = s; *ptr; ptr ++)
+      if (*ptr == '\r' || *ptr == '\n')
+        *ptr = ' ';
+  }
+
+  return (s);
 }
