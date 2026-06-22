@@ -5483,7 +5483,8 @@ create_local_printer(
   char		name[128],		/* Sanitized printer name */
 		*nameptr,		/* Pointer into name */
 		uri[1024];		/* printer-uri-supported value */
-  const char	*ptr;			/* Pointer into attribute value */
+  const char	*ptr,			/* Pointer into attribute value */
+		*device_uri_ptr;	/* Pointer into device URI */
   char		scheme[HTTP_MAX_URI],	/* Scheme portion of URI */
 		userpass[HTTP_MAX_URI],	/* Username portion of URI */
 		host[HTTP_MAX_URI],	/* Host portion of URI */
@@ -5553,9 +5554,9 @@ create_local_printer(
     return;
   }
 
-  ptr = ippGetString(device_uri, 0, NULL);
+  device_uri_ptr = ippGetString(device_uri, 0, NULL);
 
-  if (!ptr || !ptr[0] || (strncmp(ptr, "ipp://", 6) && strncmp(ptr, "ipps://", 7)))
+  if (!device_uri_ptr || !device_uri_ptr[0] || (strncmp(device_uri_ptr, "dnssd://", 8) && strncmp(device_uri_ptr, "ipp://", 6) && strncmp(device_uri_ptr, "ipps://", 7)))
   {
     send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), ptr);
 
@@ -5579,7 +5580,7 @@ create_local_printer(
 
   for (printer = (cupsd_printer_t *)cupsArrayGetFirst(Printers); printer; printer = (cupsd_printer_t *)cupsArrayGetNext(Printers))
   {
-    if (printer->device_uri && !strcmp(ptr, printer->device_uri))
+    if (printer->device_uri && !strcmp(device_uri_ptr, printer->device_uri))
     {
       printer->state_time = time(NULL);
       send_ipp_status(con, IPP_STATUS_OK, _("Printer \"%s\" already exists."), printer->name);

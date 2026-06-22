@@ -2748,6 +2748,7 @@ cups_dest_query_cb(
 			uri[1024];	// Printer URI
     cups_ptype_t	type = CUPS_PTYPE_DISCOVERED | CUPS_PTYPE_BW;
 					// Printer type
+    const char		*uuid;		// Printer UUID
     bool		saw_printer_type = false;
 					// Did we see a printer-type key?
 
@@ -2855,6 +2856,8 @@ cups_dest_query_cb(
         int		i;		// Looping var
         cups_dest_t	*local;		// Local printer
 
+        device->dest.num_options = cupsAddOption("UUID", value, device->dest.num_options,&device->dest.options);
+
         for (i = data->num_local, local = data->local_dests; i > 0; i --, local ++)
         {
           const char *local_uuid = cupsGetOption("printer-uuid", local->num_options, local->options);
@@ -2955,7 +2958,10 @@ cups_dest_query_cb(
 
     // Save the URI...
     cups_dnssd_unquote(uriname, device->fullname, sizeof(uriname));
-    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), !strcmp(device->regtype, "_ipps._tcp") ? "ipps" : "ipp", NULL, uriname, 0, saw_printer_type ? "/cups" : "/");
+    if ((uuid = cupsGetOption("UUID", device->dest.num_options, device->dest.options)) != NULL)
+      httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "dnssd", NULL, uriname, 0, saw_printer_type ? "/cups?uuid=%s" : "/?uuid=%s", uuid);
+    else
+      httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "dnssd", NULL, uriname, 0, saw_printer_type ? "/cups" : "/");
 
     DEBUG_printf("6cups_dnssd_query: device-uri=\"%s\"", uri);
 
