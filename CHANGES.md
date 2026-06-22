@@ -26,6 +26,8 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed some compression issues in the rastertoepson and rastertohp drivers
   (Issue #1613)
 - Fixed MIME `char` rule handling (Issue #1614)
+- Fixed duplicate local printers (Issue #1531, Issue #1586, Issue #1593,
+  Issue #1620)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.

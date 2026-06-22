@@ -1,7 +1,7 @@
 /*
  * User-defined destination (and option) support for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -3064,6 +3064,7 @@ cups_dnssd_query_cb(
 			uri[1024];	/* Printer URI */
     cups_ptype_t	type = CUPS_PRINTER_DISCOVERED | CUPS_PRINTER_BW;
 					/* Printer type */
+    const char		*uuid;		/* Printer UUID */
     int			saw_printer_type = 0;
 					/* Did we see a printer-type key? */
 
@@ -3177,16 +3178,13 @@ cups_dnssd_query_cb(
       else if (!_cups_strcasecmp(key, "UUID"))
       {
         // Suppress local printer being re-discovered via DNS-SD
-        int i;
-        device->dest.num_options = cupsAddOption("UUID", value,
-                                      device->dest.num_options,
-                                      &device->dest.options);
+        int	i;			/* Looping var */
 
-        for (i = 0; i < data->num_local; i++)
+        device->dest.num_options = cupsAddOption("UUID", value, device->dest.num_options,&device->dest.options);
+
+        for (i = 0; i < data->num_local; i ++)
         {
-          const char *local_uuid = cupsGetOption("printer-uuid",
-                                      data->local_dests[i].num_options,
-                                      data->local_dests[i].options);
+          const char *local_uuid = cupsGetOption("printer-uuid", data->local_dests[i].num_options, data->local_dests[i].options);
           if (local_uuid && !_cups_strcasecmp(value, local_uuid + 9))
           {
             device->state = _CUPS_DNSSD_INCOMPATIBLE;
@@ -3275,9 +3273,10 @@ cups_dnssd_query_cb(
     */
 
     cups_dnssd_unquote(uriname, device->fullName, sizeof(uriname));
-    httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri),
-                    !strcmp(device->regtype, "_ipps._tcp") ? "ipps" : "ipp",
-                    NULL, uriname, 0, saw_printer_type ? "/cups" : "/");
+    if ((uuid = cupsGetOption("UUID", device->dest.num_options, device->dest.options)) != NULL)
+      httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "dnssd", NULL, uriname, 0, saw_printer_type ? "/cups?uuid=%s" : "/?uuid=%s", uuid);
+    else
+      httpAssembleURI(HTTP_URI_CODING_ALL, uri, sizeof(uri), "dnssd", NULL, uriname, 0, saw_printer_type ? "/cups" : "/");
 
     DEBUG_printf(("6cups_dnssd_query: device-uri=\"%s\"", uri));
 

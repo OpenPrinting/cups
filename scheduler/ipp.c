@@ -5449,7 +5449,10 @@ create_local_bg_thread(
     }
   }
 
-  // Validate response from printer...
+ /*
+  * Validate response from printer...
+  */
+
   if (!ippValidateAttributes(response))
   {
     /* Force printer to timeout and be deleted */
@@ -5613,7 +5616,8 @@ create_local_printer(
   char		name[128],		/* Sanitized printer name */
 		*nameptr,		/* Pointer into name */
 		uri[1024];		/* printer-uri-supported value */
-  const char	*ptr;			/* Pointer into attribute value */
+  const char	*ptr,			/* Pointer into attribute value */
+		*device_uri_ptr;	/* Pointer into device URI value */
   char		scheme[HTTP_MAX_URI],	/* Scheme portion of URI */
 		userpass[HTTP_MAX_URI],	/* Username portion of URI */
 		host[HTTP_MAX_URI],	/* Host portion of URI */
@@ -5683,11 +5687,11 @@ create_local_printer(
     return;
   }
 
-  ptr = ippGetString(device_uri, 0, NULL);
+  device_uri_ptr = ippGetString(device_uri, 0, NULL);
 
-  if (!ptr || !ptr[0] || (strncmp(ptr, "ipp://", 6) && strncmp(ptr, "ipps://", 7)))
+  if (!device_uri_ptr || !device_uri_ptr[0] || (strncmp(device_uri_ptr, "dnssd://", 8) && strncmp(device_uri_ptr, "ipp://", 6) &&  strncmp(device_uri_ptr, "ipps://", 7)))
   {
-    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), ptr);
+    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), device_uri_ptr);
 
     return;
   }
@@ -5709,51 +5713,17 @@ create_local_printer(
 
   for (printer = (cupsd_printer_t *)cupsArrayFirst(Printers); printer; printer = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
-    if (printer->device_uri && !strcmp(ptr, printer->device_uri))
+   /*
+    * Check for a matching device URI...
+    */
+
+    if (printer->device_uri && !strcmp(device_uri_ptr, printer->device_uri))
     {
       printer->state_time = time(NULL);
       send_ipp_status(con, IPP_STATUS_OK, _("Printer \"%s\" already exists."), printer->name);
       goto add_printer_attributes;
     }
-  /* Check for existing permanent queue with same UUID */
-  {
-    cupsd_printer_t *perm;
-    char req_uuid[64] = "";
-
-    /* Extract UUID from hostname like: UUID.local */
-    const char *host_start = strstr(ptr, "://");
-    if (host_start)
-    {
-      host_start += 3;
-      const char *dot_local = strstr(host_start, ".local");
-      if (dot_local)
-      {
-        size_t ulen = (size_t)(dot_local - host_start);
-        if (ulen < sizeof(req_uuid))
-        {
-          memcpy(req_uuid, host_start, ulen);
-          req_uuid[ulen] = '\0';
-        }
-      }
-    }
-
-    if (req_uuid[0])
-    {
-      for (perm = (cupsd_printer_t *)cupsArrayFirst(Printers); perm; perm = (cupsd_printer_t *)cupsArrayNext(Printers))
-      {
-        if (!perm->temporary && perm->uuid && !strcasecmp(req_uuid, perm->uuid + 9))
-        {
-          cupsdLogMessage(CUPSD_LOG_DEBUG, "create_local_printer: FOUND MATCHING PERMANENT QUEUE: %s", perm->name);
-          printer = perm;
-                    printer->state_time = time(NULL);
-                    send_ipp_status(con, IPP_STATUS_OK, _("Printer \"%s\" already exists."), printer->name);
-                    goto add_printer_attributes;
-        }
-      }
-    }
   }
-}
-  
 
  /*
   * Create the printer...
