@@ -3207,8 +3207,8 @@ cups_enum_dests(
     // Get the list of local printers and pass them to the callback function...
     num_dests = _cupsGetDests(http, IPP_OP_CUPS_GET_PRINTERS, NULL, &dests, data.type, data.mask);
 
-    data.num_local   = num_dests;
-    data.local_dests = dests;
+    data.num_local   = 0;
+    data.local_dests = NULL;
 
     if (data.def_name[0])
     {
@@ -3222,6 +3222,8 @@ cups_enum_dests(
 
     for (i = num_dests, dest = dests; i > 0 && (!cancel || !*cancel); i --, dest ++)
     {
+      data.num_local = cupsCopyDest(dest, data.num_local, &data.local_dests);
+
       cups_dest_t	*user_dest;	// Destination from lpoptions
       const char	*device_uri;	// Device URI
 
@@ -3301,6 +3303,7 @@ cups_enum_dests(
     DEBUG_puts("1cups_enum_dests: Unable to create service browser, returning 0.");
 
     cupsFreeDests(data.num_dests, data.dests);
+    cupsFreeDests(data.num_local, data.local_dests);
     cupsArrayDelete(data.devices);
 
     return (false);
@@ -3321,6 +3324,7 @@ cups_enum_dests(
 	cupsDNSSDDelete(dnssd);
 
 	cupsFreeDests(data.num_dests, data.dests);
+        cupsFreeDests(data.num_local, data.local_dests);
 	cupsArrayDelete(data.devices);
 
 	return (false);
@@ -3332,6 +3336,7 @@ cups_enum_dests(
 	cupsDNSSDDelete(dnssd);
 
 	cupsFreeDests(data.num_dests, data.dests);
+        cupsFreeDests(data.num_local, data.local_dests);
 	cupsArrayDelete(data.devices);
 
 	return (false);
@@ -3347,6 +3352,7 @@ cups_enum_dests(
       cupsDNSSDDelete(dnssd);
 
       cupsFreeDests(data.num_dests, data.dests);
+      cupsFreeDests(data.num_local, data.local_dests);
       cupsArrayDelete(data.devices);
 
       return (false);
@@ -3358,6 +3364,7 @@ cups_enum_dests(
       cupsDNSSDDelete(dnssd);
 
       cupsFreeDests(data.num_dests, data.dests);
+      cupsFreeDests(data.num_local, data.local_dests);
       cupsArrayDelete(data.devices);
 
       return (false);
@@ -3425,6 +3432,13 @@ cups_enum_dests(
 
         if ((device->type & mask) != type)
           device->state = _CUPS_DNSSD_INCOMPATIBLE;
+          
+        if (device->state == _CUPS_DNSSD_INCOMPATIBLE)
+        {
+          DEBUG_printf("2cups_enum_dests: Skipping incompatible '%s'.",
+                       device->fullname);
+          continue;
+        }  
 
         if (device->state == _CUPS_DNSSD_PENDING)
         {
