@@ -1,7 +1,7 @@
 /*
  * "lpstat" command for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -685,7 +685,7 @@ show_accepting(const char  *printers,	/* I - Destinations */
   static const char *pattrs[] =		/* Attributes we need for printers... */
 		{
 		  "printer-name",
-		  "printer-state-change-time",
+		  "printer-state-change-date-time",
 		  "printer-state-message",
 		  "printer-is-accepting-jobs"
 		};
@@ -773,9 +773,9 @@ show_accepting(const char  *printers,	/* I - Destinations */
         if (!strcmp(attr->name, "printer-name") &&
 	    attr->value_tag == IPP_TAG_NAME)
 	  printer = attr->values[0].string.text;
-        else if (!strcmp(attr->name, "printer-state-change-time") &&
-	         attr->value_tag == IPP_TAG_INTEGER)
-	  ptime = (time_t)attr->values[0].integer;
+        else if (!strcmp(attr->name, "printer-state-change-date-time") &&
+	         attr->value_tag == IPP_TAG_DATE)
+	  ptime = ippDateToTime(ippGetDate(attr, 0));
         else if (!strcmp(attr->name, "printer-state-message") &&
 	         attr->value_tag == IPP_TAG_TEXT)
 	  message = attr->values[0].string.text;
@@ -1318,15 +1318,15 @@ show_jobs(const char *dests,		/* I - Destinations */
 		date[255];		/* Date buffer */
   static const char *jattrs[] =		/* Attributes we need for jobs... */
 		{
+		  "date-time-at-creation",
+		  "date-time-at-completed",
 		  "job-id",
 		  "job-k-octets",
 		  "job-name",
 		  "job-originating-user-name",
 		  "job-printer-state-message",
 		  "job-printer-uri",
-		  "job-state-reasons",
-		  "time-at-creation",
-		  "time-at-completed"
+		  "job-state-reasons"
 		};
 
 
@@ -1398,9 +1398,9 @@ show_jobs(const char *dests,		/* I - Destinations */
         !strcmp(which, "canceled") ||
         !strcmp(which, "successful") ||
         !strcmp(which, "completed"))
-      time_at = "time-at-completed";
+      time_at = "date-time-at-completed";
     else
-      time_at = "time-at-creation";
+      time_at = "date-time-at-creation";
 
     rank = -1;
 
@@ -1436,8 +1436,8 @@ show_jobs(const char *dests,		/* I - Destinations */
         else if (!strcmp(attr->name, "job-k-octets") &&
 		 attr->value_tag == IPP_TAG_INTEGER)
 	  size = attr->values[0].integer;
-        else if (!strcmp(attr->name, time_at) && attr->value_tag == IPP_TAG_INTEGER)
-	  jobtime = attr->values[0].integer;
+        else if (!strcmp(attr->name, time_at) && attr->value_tag == IPP_TAG_DATE)
+	  jobtime = ippDateToTime(ippGetDate(attr, 0));
         else if (!strcmp(attr->name, "job-printer-state-message") &&
 	         attr->value_tag == IPP_TAG_TEXT)
 	  message = attr->values[0].string.text;
@@ -1501,7 +1501,7 @@ show_jobs(const char *dests,		/* I - Destinations */
 	  if (reasons)
 	  {
 	    char	alerts[1024],	/* Alerts string */
-		      *aptr;		/* Pointer into alerts string */
+			*aptr;		/* Pointer into alerts string */
 
 	    for (i = 0, aptr = alerts; i < reasons->num_values; i ++)
 	    {
@@ -1570,7 +1570,7 @@ show_printers(const char  *printers,	/* I - Destinations */
 		  "printer-state",
 		  "printer-state-message",
 		  "printer-state-reasons",
-		  "printer-state-change-time",
+		  "printer-state-change-date-time",
 		  "printer-type",
 		  "printer-info",
                   "printer-location",
@@ -1687,9 +1687,9 @@ show_printers(const char  *printers,	/* I - Destinations */
         else if (!strcmp(attr->name, "printer-state-message") &&
 	         attr->value_tag == IPP_TAG_TEXT)
 	  message = attr->values[0].string.text;
-        else if (!strcmp(attr->name, "printer-state-change-time") &&
-	         attr->value_tag == IPP_TAG_INTEGER)
-	  ptime = (time_t)attr->values[0].integer;
+        else if (!strcmp(attr->name, "printer-state-change-date-time") &&
+	         attr->value_tag == IPP_TAG_DATE)
+	  ptime = ippDateToTime(ippGetDate(attr, 0));
 	else if (!strcmp(attr->name, "printer-info") &&
 	         attr->value_tag == IPP_TAG_TEXT)
 	  description = attr->values[0].string.text;

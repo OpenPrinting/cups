@@ -11,9 +11,9 @@
 <TD>{?job_originating_user_name=?Nie podano:{job_originating_user_name}}&nbsp;</TD>
 <TD>{job_k_octets}k&nbsp;</TD>
 <TD>{job_impressions_completed=0?Niewiadoma:{?job_impressions_completed}}&nbsp;</TD>
-<TD>{job_state=3?czeka od<BR>{?time_at_creation=?Nieznany:{time_at_creation}}:{job_state=4?wstrzymany od<BR>{?time_at_creation=?Nieznany:{time_at_creation}}:
-{job_state=5?przetwarzany od<BR>{?time_at_processing=?Nieznany:{time_at_processing}}:{job_state=6?zatrzymany:
-{job_state=7?anulowany o<BR>{?time_at_completed=?Nieznany:{time_at_completed}}:{job_state=8?przerwany:zakończony o<BR>{?time_at_completed=?Nieznany:{time_at_completed}}}}}}}}&nbsp;{job_printer_state_message?<BR>
+<TD>{job_state=3?czeka od<BR>{?date_time_at_creation=?Nieznany:{date_time_at_creation}}:{job_state=4?wstrzymany od<BR>{?date_time_at_creation=?Nieznany:{date_time_at_creation}}:
+{job_state=5?przetwarzany od<BR>{?date_time_at_processing=?Nieznany:{date_time_at_processing}}:{job_state=6?zatrzymany:
+{job_state=7?anulowany o<BR>{?date_time_at_completed=?Nieznany:{date_time_at_completed}}:{job_state=8?przerwany:zakończony o<BR>{?date_time_at_completed=?Nieznany:{date_time_at_completed}}}}}}}}&nbsp;{job_printer_state_message?<BR>
 <EM>"{job_printer_state_message}"</EM>:}</TD>
 <TD>
 {job_preserved>0?{job_state>5?

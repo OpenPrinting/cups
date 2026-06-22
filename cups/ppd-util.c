@@ -1,7 +1,7 @@
 /*
  * PPD utilities for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -302,7 +302,7 @@ cupsGetPPD3(http_t     *http,		/* I  - HTTP connection or @code CUPS_HTTP_DEFAUL
       }
       else
       {
-        DEBUG_printf("2cupsGetPPD3: Returning ok, filename=\"%s\", modtime=%ld.", buffer, (long)ppdinfo.st_mtime);
+        DEBUG_printf("2cupsGetPPD3: Returning ok, filename=\"%s\", modtime=" CUPS_LLFMT ".", buffer, CUPS_LLCAST ppdinfo.st_mtime);
         *modtime = ppdinfo.st_mtime;
 	return (HTTP_STATUS_OK);
       }

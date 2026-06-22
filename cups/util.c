@@ -1,7 +1,7 @@
 /*
  * Printing utilities for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -440,6 +440,9 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
   _cups_globals_t *cg = _cupsGlobals();	/* Pointer to library globals */
   static const char * const attrs[] =	/* Requested attributes */
 		{
+		  "date-time-at-completed",
+		  "date-time-at-creation",
+		  "date-time-at-processing",
 		  "document-format",
 		  "job-id",
 		  "job-k-octets",
@@ -447,10 +450,7 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
 		  "job-originating-user-name",
 		  "job-printer-uri",
 		  "job-priority",
-		  "job-state",
-		  "time-at-completed",
-		  "time-at-creation",
-		  "time-at-processing"
+		  "job-state"
 		};
 
 
@@ -574,15 +574,12 @@ cupsGetJobs2(http_t     *http,		/* I - Connection to server or @code CUPS_HTTP_D
         else if (!strcmp(attr->name, "job-k-octets") &&
 	         attr->value_tag == IPP_TAG_INTEGER)
 	  size = attr->values[0].integer;
-        else if (!strcmp(attr->name, "time-at-completed") &&
-	         attr->value_tag == IPP_TAG_INTEGER)
-	  completed_time = attr->values[0].integer;
-        else if (!strcmp(attr->name, "time-at-creation") &&
-	         attr->value_tag == IPP_TAG_INTEGER)
-	  creation_time = attr->values[0].integer;
-        else if (!strcmp(attr->name, "time-at-processing") &&
-	         attr->value_tag == IPP_TAG_INTEGER)
-	  processing_time = attr->values[0].integer;
+        else if (!strcmp(attr->name, "date-time-at-completed") && attr->value_tag == IPP_TAG_DATE)
+	  completed_time = ippDateToTime(ippGetDate(attr, 0));
+        else if (!strcmp(attr->name, "date-time-at-creation") && attr->value_tag == IPP_TAG_DATE)
+	  creation_time = ippDateToTime(ippGetDate(attr, 0));
+        else if (!strcmp(attr->name, "date-time-at-processing") && attr->value_tag == IPP_TAG_DATE)
+	  processing_time = ippDateToTime(ippGetDate(attr, 0));
         else if (!strcmp(attr->name, "job-printer-uri") &&
 	         attr->value_tag == IPP_TAG_URI)
 	{

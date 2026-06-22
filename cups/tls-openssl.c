@@ -1024,7 +1024,7 @@ cupsGetCredentialsTrust(
 
     time(&curtime);
 
-    DEBUG_printf("1cupsGetCredentialsTrust: curtime=%ld, notBefore=%ld, notAfter=%ld", (long)curtime, (long)openssl_get_date(cert, 0), (long)openssl_get_date(cert, 1));
+    DEBUG_printf("1cupsGetCredentialsTrust: curtime=" CUPS_LLFMT ", notBefore=" CUPS_LLFMT ", notAfter=" CUPS_LLFMT, CUPS_LLCAST curtime, CUPS_LLCAST openssl_get_date(cert, 0), CUPS_LLCAST openssl_get_date(cert, 1));
 
     if ((curtime + 86400) < openssl_get_date(cert, 0) || curtime > openssl_get_date(cert, 1))
     {

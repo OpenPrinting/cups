@@ -1183,6 +1183,10 @@ cgiSetIPPObjectVars(
 
       switch (attr->value_tag)
       {
+        case IPP_TAG_DATE :
+            _cupsStrDate(valptr, sizeof(value) - (size_t)(valptr - value), ippDateToTime(ippGetDate(attr, i)));
+            break;
+
 	case IPP_TAG_INTEGER :
 	case IPP_TAG_ENUM :
 	    if (strncmp(name, "time_at_", 8) == 0)

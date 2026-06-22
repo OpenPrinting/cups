@@ -1179,7 +1179,7 @@ cupsdLoadAllPrinters(void)
       */
 
       if (value)
-        p->state_time = (time_t)strtol(value, NULL, 10);
+        p->state_time = (time_t)strtoll(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "ConfigTime"))
     {
@@ -1188,7 +1188,7 @@ cupsdLoadAllPrinters(void)
       */
 
       if (value)
-        p->config_time = (time_t)strtol(value, NULL, 10);
+        p->config_time = (time_t)strtoll(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "Accepting"))
     {
@@ -1367,7 +1367,7 @@ cupsdLoadAllPrinters(void)
 	  cupsdSetPrinterAttrs(p);
 
         if (!strcmp(value, "marker-change-time"))
-	  p->marker_time = (time_t)strtol(valueptr, NULL, 10);
+	  p->marker_time = (time_t)strtoll(valueptr, NULL, 10);
 	else
           cupsdSetPrinterAttr(p, value, valueptr);
       }
@@ -1586,8 +1586,8 @@ cupsdSaveAllPrinters(void)
     else
       cupsFilePuts(fp, "State Idle\n");
 
-    cupsFilePrintf(fp, "StateTime %d\n", (int)printer->state_time);
-    cupsFilePrintf(fp, "ConfigTime %d\n", (int)printer->config_time);
+    cupsFilePrintf(fp, "StateTime " CUPS_LLFMT "\n", CUPS_LLCAST printer->state_time);
+    cupsFilePrintf(fp, "ConfigTime " CUPS_LLFMT "\n", CUPS_LLCAST printer->config_time);
 
     for (j = 0; j < printer->num_reasons; j ++)
       if (strcmp(printer->reasons[j], "connecting-to-device") &&
@@ -1733,8 +1733,7 @@ cupsdSaveAllPrinters(void)
     }
 
     if (printer->marker_time)
-      cupsFilePrintf(fp, "Attribute marker-change-time %ld\n",
-                     (long)printer->marker_time);
+      cupsFilePrintf(fp, "Attribute marker-change-time " CUPS_LLFMT "\n", CUPS_LLCAST printer->marker_time);
 
     if (printer == DefaultPrinter)
       cupsFilePuts(fp, "</DefaultPrinter>\n");

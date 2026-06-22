@@ -96,6 +96,8 @@ v2.5b1 - YYYY-MM-DD
   pairs for custom boolean, integer, and keyword attributes.
 - Updated the default "cups.conf" policies to specify the Set-Printer-Attributes
   operation as an administrative operation.
+- Updated CUPS to rely on the dateTime variants of various IPP attributes to
+  avoid Y2038 issues (Issue #1592)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error

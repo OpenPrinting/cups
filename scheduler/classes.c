@@ -1,7 +1,7 @@
 /*
  * Printer class routines for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2017 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -475,7 +475,7 @@ cupsdLoadAllClasses(void)
       */
 
       if (value)
-        p->state_time = atoi(value);
+        p->state_time = strtoll(value, NULL, 10);
     }
     else if (!_cups_strcasecmp(line, "Accepting"))
     {
@@ -756,7 +756,7 @@ cupsdSaveAllClasses(void)
     else
       cupsFilePuts(fp, "State Idle\n");
 
-    cupsFilePrintf(fp, "StateTime %d\n", (int)pclass->state_time);
+    cupsFilePrintf(fp, "StateTime " CUPS_LLFMT "\n", CUPS_LLCAST pclass->state_time);
 
     if (pclass->accepting)
       cupsFilePuts(fp, "Accepting Yes\n");
