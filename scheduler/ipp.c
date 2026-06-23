@@ -285,9 +285,19 @@ cupsdProcessIPPRequest(
         * Bad character set...
 	*/
 
-        cupsdLogClient(con, CUPSD_LOG_ERROR, "Unsupported character set \"%s\"", charset->values[0].string.text);
-	cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Unsupported attributes-charset value \"%s\".", IPP_STATUS_ERROR_CHARSET, con->http->hostname, charset->values[0].string.text);
-	send_ipp_status(con, IPP_STATUS_ERROR_CHARSET, _("Unsupported character set \"%s\"."), charset->values[0].string.text);
+        cupsdLogClient(con, CUPSD_LOG_ERROR, "Unsupported \"attributes-charset\" value '%s'.", charset->values[0].string.text);
+	cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Unsupported \"attributes-charset\" value '%s'.", IPP_STATUS_ERROR_CHARSET, con->http->hostname, charset->values[0].string.text);
+	send_ipp_status(con, IPP_STATUS_ERROR_CHARSET, _("Unsupported \"attributes-charset\" value '%s'."), charset->values[0].string.text);
+      }
+      else if (language && !ippValidateAttribute(language))
+      {
+       /*
+        * Bad natural language...
+        */
+
+        cupsdLogClient(con, CUPSD_LOG_ERROR, "Bad \"attributes-natural-language\" value '%s'.", language->values[0].string.text);
+	cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Bad \"attributes-natural-language\" value '%s'.", IPP_STATUS_ERROR_BAD_REQUEST, con->http->hostname, language->values[0].string.text);
+	send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"attributes-natural-language\" value '%s'."), language->values[0].string.text);
       }
       else if (!charset || !language ||
 	       (!uri &&
@@ -305,23 +315,23 @@ cupsdProcessIPPRequest(
 
         if (!charset)
 	{
-	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing attributes-charset attribute.");
+	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing \"attributes-charset\" attribute.");
 
-	  cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Missing attributes-charset attribute.", IPP_STATUS_ERROR_BAD_REQUEST, con->http->hostname);
+	  cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Missing \"attributes-charset\" attribute.", IPP_STATUS_ERROR_BAD_REQUEST, con->http->hostname);
         }
 
         if (!language)
 	{
-	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing attributes-natural-language attribute.");
+	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing \"attributes-natural-language\" attribute.");
 
-	  cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Missing attributes-natural-language attribute.", IPP_STATUS_ERROR_BAD_REQUEST, con->http->hostname);
+	  cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Missing \"attributes-natural-language\" attribute.", IPP_STATUS_ERROR_BAD_REQUEST, con->http->hostname);
         }
 
         if (!uri)
 	{
-	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing printer-uri, job-uri, or ppd-name attribute.");
+	  cupsdLogClient(con, CUPSD_LOG_ERROR, "Missing \"printer-uri\", \"job-uri\", or \"ppd-name\" attribute.");
 
-	  cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Missing printer-uri, job-uri, or ppd-name attribute.", IPP_STATUS_ERROR_BAD_REQUEST, con->http->hostname);
+	  cupsdAddEvent(CUPSD_EVENT_SERVER_AUDIT, NULL, NULL, "%04X %s Missing \"printer-uri\", \"job-uri\", or \"ppd-name\" attribute.", IPP_STATUS_ERROR_BAD_REQUEST, con->http->hostname);
         }
 
         if (LogLevel < CUPSD_LOG_DEBUG2)
