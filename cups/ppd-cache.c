@@ -2163,6 +2163,14 @@ _ppdCacheDestroy(_ppd_cache_t *pc)	/* I - PPD cache and mapping data */
 
   cupsArrayDelete(pc->support_files);
 
+  cupsArrayDelete(pc->templates);
+
+  for (i = _PWG_PRINT_COLOR_MODE_MONOCHROME;
+       i < _PWG_PRINT_COLOR_MODE_MAX; i ++)
+    for (int j = _PWG_PRINT_QUALITY_DRAFT; j < _PWG_PRINT_QUALITY_MAX; j ++)
+      if (pc->num_presets[i][j])
+	cupsFreeOptions(pc->num_presets[i][j], pc->presets[i][j]);
+
   free(pc);
 }
 
