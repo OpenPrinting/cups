@@ -333,6 +333,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/ru/cups_ru.po
 %dir /usr/share/locale/zh_CN
 /usr/share/locale/zh_CN/cups_zh_CN.po
+%dir /usr/share/locale/zh_TW
+/usr/share/locale/zh_TW/cups_zh_TW.po
 
 %dir /usr/share/man/man1
 /usr/share/man/man1/cancel.1.gz
