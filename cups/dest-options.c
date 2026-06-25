@@ -1739,7 +1739,11 @@ cups_collection_string(
       bufptr ++;
   }
 
-  *bufptr = '\0';
+  if (bufptr < bufend)
+    *bufptr = '\0';
+  else if (bufsize > 0)
+    *bufend = '\0';
+
   return ((size_t)(bufptr - buffer + 1));
 }
 

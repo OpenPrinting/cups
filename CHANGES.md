@@ -30,6 +30,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed duplicate local printers (Issue #1531, Issue #1586, Issue #1593,
   Issue #1620)
 - Fixed PPD cache memory leak (Issue #1629, Issue #1344)
+- Fixed potential buffer overflow in `cupsCopyDestConflicts` (Issue #1631)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
