@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2025-06-07 18:04+0000\n"
 "Last-Translator: Daniel Nylander <daniel@danielnylander.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/cups/cups/sv/>\n"
@@ -3183,10 +3183,6 @@ msgstr "Applikator"
 msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "Försök att sätta %s skrivartillstånd till dåligt värde %d."
 
-#, fuzzy, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr "Attribut \"%s\" är fel typ av värde."
-
 #, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "Attribut \"%s\" är i fel grupp."
@@ -3236,6 +3232,10 @@ msgid "B9"
 msgstr "B9"
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr "Dåligt värde för \"printer-id\" %d."
 
@@ -3249,6 +3249,9 @@ msgstr "Dåligt värde \"%s\" för 'document-format'."
 
 msgid "Bad CloseUI/JCLCloseUI"
 msgstr "Dålig CloseUI/JCLCloseUI"
+
+msgid "Bad JOB_PRINTER_URI variable."
+msgstr ""
 
 msgid "Bad NULL dests pointer"
 msgstr "Dålig NULL dests-pekare"
@@ -3354,6 +3357,10 @@ msgid "Bad notify-recipient-uri \"%s\"."
 msgstr "Dålig \"notify-recipient\"-uri \"%s\"."
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "Dålig notify-användardata \"%s\"."
 
@@ -3438,6 +3445,11 @@ msgstr "Kan inte ändra printer-is-shared för fjärrköer."
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "Kan inte dela en Kerberus-skyddad fjärrskrivare."
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
+msgstr ""
 
 msgid "Cassette"
 msgstr "Kassett"
@@ -3917,6 +3929,10 @@ msgid "File Folder"
 msgstr "Filmapp"
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4346,6 +4362,9 @@ msgstr "Saknar CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
 msgstr "Saknar CloseUI/JCLCloseUI"
+
+msgid "Missing DEVICE_URI variable."
+msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "Saknar PPD-Adobe-4.x-huvud"
@@ -5559,6 +5578,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr "Okänt värde för versionsalternativ: \"%s\"."
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr "Värde \"%s\" för 'compression' stöds inte."
 
@@ -5571,10 +5594,6 @@ msgstr "Värde för 'job-hold-until' stöds inte."
 
 msgid "Unsupported 'job-name' value."
 msgstr "Värde för 'job-name' stöds inte."
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
-msgstr "Teckenuppsättningen \"%s\" stöds inte."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
@@ -8609,20 +8628,18 @@ msgstr "lpadmin: Skrivaren %s är inte medlem i klassen %s."
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: Skrivardrivrutinerna är föråldrade och kommer att sluta fungera i "
-"en framtida version av CUPS."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: Skrivarnamn får bara innehålla utskrivbara tecken."
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: Råa köer har övergivits och kommer att sluta fungera i en framtida "
-"version av CUPS."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: Råa köer stöds inte längre på macOS."
@@ -16208,9 +16225,31 @@ msgstr "{}                      URI"
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "~/.cups/lpoptions-fil anger förvald destination som inte finns."
 
+#, fuzzy, c-format
+#~ msgid "Attribute \"%s\" has empty value."
+#~ msgstr "Attribut \"%s\" är fel typ av värde."
+
 #, fuzzy
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "Kan inte hitta skrivare."
 
+#, c-format
+#~ msgid "Unsupported character set \"%s\"."
+#~ msgstr "Teckenuppsättningen \"%s\" stöds inte."
+
 #~ msgid "ipptool: Missing filename for \"--ippserver\"."
 #~ msgstr "ipptool: Saknar filnamn för \"--ipserver\"."
+
+#~ msgid ""
+#~ "lpadmin: Printer drivers are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: Skrivardrivrutinerna är föråldrade och kommer att sluta fungera "
+#~ "i en framtida version av CUPS."
+
+#~ msgid ""
+#~ "lpadmin: Raw queues are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: Råa köer har övergivits och kommer att sluta fungera i en "
+#~ "framtida version av CUPS."

@@ -22,17 +22,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5b1\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2026-04-03 11:09+0000\n"
 "Last-Translator: Gordon Freeman <gbv1004@gmail.com>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/cups/cups/uk/>"
-"\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/cups/cups/uk/"
+">\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.17-dev\n"
 
 msgid "\t\t(all)"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "\t%d entries"
 msgstr ""
 
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "\t%s"
 msgstr "\t%s"
 
@@ -2936,10 +2936,6 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr ""
 
 #, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr ""
-
-#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr ""
 
@@ -2988,6 +2984,10 @@ msgid "B9"
 msgstr ""
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr ""
 
@@ -3000,6 +3000,9 @@ msgid "Bad 'document-format' value \"%s\"."
 msgstr ""
 
 msgid "Bad CloseUI/JCLCloseUI"
+msgstr ""
+
+msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
 msgid "Bad NULL dests pointer"
@@ -3106,6 +3109,10 @@ msgid "Bad notify-recipient-uri \"%s\"."
 msgstr ""
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr ""
 
@@ -3189,6 +3196,11 @@ msgid "Cannot change printer-is-shared for remote queues."
 msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
+msgstr ""
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
 msgstr ""
 
 msgid "Cassette"
@@ -3656,6 +3668,10 @@ msgid "File Folder"
 msgstr ""
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4074,6 +4090,9 @@ msgid "Missing CloseGroup"
 msgstr ""
 
 msgid "Missing CloseUI/JCLCloseUI"
+msgstr ""
+
+msgid "Missing DEVICE_URI variable."
 msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
@@ -5258,6 +5277,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr ""
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr ""
 
@@ -5269,10 +5292,6 @@ msgid "Unsupported 'job-hold-until' value."
 msgstr ""
 
 msgid "Unsupported 'job-name' value."
-msgstr ""
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
 msgstr ""
 
 #, c-format
@@ -8257,7 +8276,8 @@ msgstr ""
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
 
 msgid "lpadmin: Printer name can only contain printable characters."
@@ -8265,7 +8285,8 @@ msgstr ""
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."

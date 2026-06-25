@@ -3,7 +3,7 @@
 #
 # Original version by Jason McMullan <jmcc@ontv.com>.
 #
-# Copyright © 2020-2023 by OpenPrinting
+# Copyright © 2020-2026 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1999-2007 by Easy Software Products, all rights reserved.
 #
@@ -44,7 +44,7 @@ Name: cups
 Version: @CUPS_VERSION@
 Release: 0
 Epoch: 1
-License: GPL
+License: Apache
 Group: System Environment/Daemons
 Source: https://github.com/OpenPrinting/cups/releases/download/v%{version}/cups-%{version}-source.tar.gz
 Url: https://openprinting.github.io/cups
@@ -217,6 +217,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 /usr/bin/cancel
+/usr/bin/cups-oauth
+/usr/bin/cups-x509
 /usr/bin/cupstestppd
 /usr/bin/ippeveprinter
 /usr/bin/ipptool
@@ -294,23 +296,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir /usr/share/doc/cups/images
 /usr/share/doc/cups/images/*
 
-#%dir /usr/share/doc/cups/ca
-#/usr/share/doc/cups/ca/*
-#%dir /usr/share/doc/cups/cs
-#/usr/share/doc/cups/cs/*
-%dir /usr/share/doc/cups/de
-/usr/share/doc/cups/de/*
-%dir /usr/share/doc/cups/es
-/usr/share/doc/cups/es/*
-#%dir /usr/share/doc/cups/fr
-#/usr/share/doc/cups/fr/*
-%dir /usr/share/doc/cups/ja
-/usr/share/doc/cups/ja/*
-%dir /usr/share/doc/cups/pt_BR
-/usr/share/doc/cups/pt_BR/*
-%dir /usr/share/doc/cups/ru
-/usr/share/doc/cups/ru/*
-
 %dir /usr/share/locale/ca
 /usr/share/locale/ca/cups_ca.po
 %dir /usr/share/locale/cs
@@ -339,6 +324,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir /usr/share/man/man1
 /usr/share/man/man1/cancel.1.gz
 /usr/share/man/man1/cups.1.gz
+/usr/share/man/man1/cups-oauth.1.gz
+/usr/share/man/man1/cups-x509.1.gz
 /usr/share/man/man1/cupstestppd.1.gz
 /usr/share/man/man1/ippeveprinter.1.gz
 %if %{?_with_dnssd:1}%{!?_with_dnssd:0}
@@ -403,11 +390,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/man/man7/filter.7.gz
 /usr/share/man/man7/notifier.7.gz
 
-/usr/bin/cups-config
 /usr/bin/ppd*
 %dir /usr/include/cups
 /usr/include/cups/*
 /usr/lib*/*.so
+/usr/lib*/pkgconfig/cups.pc
 
 %if %{?_with_static:1}%{!?_with_static:0}
 /usr/lib*/*.a

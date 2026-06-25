@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2025-06-25 16:06+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/cups/cups/ka/>\n"
@@ -3201,10 +3201,6 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr ""
 
 #, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr ""
-
-#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "ატრბუტი \"%s\" არასწორ ჯგუფშია."
 
@@ -3253,6 +3249,10 @@ msgid "B9"
 msgstr "B9"
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr "არასწორი \"printer-id\"-ის მნიშვნელობა %d."
 
@@ -3266,6 +3266,9 @@ msgstr "არასწორი 'document-format'-ის მნიშვნე�
 
 msgid "Bad CloseUI/JCLCloseUI"
 msgstr "არასწორი CloseUI/JCLCloseUI"
+
+msgid "Bad JOB_PRINTER_URI variable."
+msgstr ""
 
 msgid "Bad NULL dests pointer"
 msgstr "არასწორი ნულოვანი დანიშნულების მაჩვენებელი"
@@ -3371,6 +3374,10 @@ msgid "Bad notify-recipient-uri \"%s\"."
 msgstr "არასწორი notify-recipient-uri \"%s\"."
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "არასწორი notify-user-data \"%s\"."
 
@@ -3454,6 +3461,11 @@ msgid "Cannot change printer-is-shared for remote queues."
 msgstr "დაშორებული რიგებისთვის printer-is-shared ატრიბუტის შეცვლა შეუძლებელია."
 
 msgid "Cannot share a remote Kerberized printer."
+msgstr ""
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
 msgstr ""
 
 msgid "Cassette"
@@ -3930,6 +3942,10 @@ msgid "File Folder"
 msgstr "ფაილის საქაღალდე"
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4352,6 +4368,9 @@ msgstr "აკლია CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
 msgstr "აკლია CloseUI/JCLCloseUI"
+
+msgid "Missing DEVICE_URI variable."
+msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "აკლია თავსართი PPD-Adobe-4.x"
@@ -5548,6 +5567,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr "უცნობი ვერსიის პარამეტრის მნიშვნელობა: \"%s\"."
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr "მხარდაუჭერელი 'compression'-ის მნიშვნელობა \"%s\"."
 
@@ -5560,10 +5583,6 @@ msgstr "მხარდაუჭერელი 'job-hold-until'-ის მნ�
 
 msgid "Unsupported 'job-name' value."
 msgstr "მხარდაუჭერელი 'job-name'-ის მნიშვნელობა."
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
-msgstr "მხარდაუჭერელი სიმბოლოების კოდირება \"%s\"."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
@@ -8594,20 +8613,18 @@ msgstr "lpadmin: პრინტერი %s კლასის %s წევრ�
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: პრინტერის დრაივერები მოძველებულია და შეწყვეტს მუშაობას CUPS-ის "
-"მომავალ ვერსიაში."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: პრინტერის სახელი, მხოლოდ, ბეჭდვად სიმბოლოებს უნდა შეიცავდეს."
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: დაუმუშავებელი რიგები მოძველებულია და შეწყვეტს მუშაობას CUPS-ის "
-"მომავალ ვერსიაში."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: დაუმუშავებელი რიგები macOS-ზე მხარდაჭერილი აღარაა."
@@ -16056,6 +16073,10 @@ msgstr ""
 #~ msgstr "ბრძანებები:"
 
 #, c-format
+#~ msgid "Unsupported character set \"%s\"."
+#~ msgstr "მხარდაუჭერელი სიმბოლოების კოდირება \"%s\"."
+
+#, c-format
 #~ msgid "cups-x509: Bad URI '%s'."
 #~ msgstr "cups-x509: არასწორი URI '%s'."
 
@@ -16064,3 +16085,17 @@ msgstr ""
 
 #~ msgid "ipptool: Missing filename for \"--ippserver\"."
 #~ msgstr "ipptool: აკლია ფაილის სახელი პარამეტრისთვის \"--ippserver\"."
+
+#~ msgid ""
+#~ "lpadmin: Printer drivers are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: პრინტერის დრაივერები მოძველებულია და შეწყვეტს მუშაობას CUPS-ის "
+#~ "მომავალ ვერსიაში."
+
+#~ msgid ""
+#~ "lpadmin: Raw queues are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: დაუმუშავებელი რიგები მოძველებულია და შეწყვეტს მუშაობას CUPS-ის "
+#~ "მომავალ ვერსიაში."

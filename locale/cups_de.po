@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2026-05-02 04:09+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
@@ -3148,10 +3148,6 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "Versuch den %s Druckerstatus auf einen ungültigen Wert %d zu setzen."
 
 #, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr "Attribut „%s“ hat leeren Wert."
-
-#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "Attribut \"%s\" ist in der falschen Gruppe."
 
@@ -3200,6 +3196,10 @@ msgid "B9"
 msgstr "DIN B9"
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr "Falscher \"printer-id\"-Wert %d."
 
@@ -3213,6 +3213,9 @@ msgstr "Fehlerhafter 'document-format'-Wert \"%s\"."
 
 msgid "Bad CloseUI/JCLCloseUI"
 msgstr "Ungültiger Wert CloseUI/JCLCloseUI"
+
+msgid "Bad JOB_PRINTER_URI variable."
+msgstr ""
 
 msgid "Bad NULL dests pointer"
 msgstr "Ungültiger NULL-Dests-Zeiger"
@@ -3318,6 +3321,10 @@ msgid "Bad notify-recipient-uri \"%s\"."
 msgstr "Ungültige notify-recipient-uri \"%s\"."
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "Ungültige notify-user-data \"%s\"."
 
@@ -3403,6 +3410,11 @@ msgstr "Kann für entfernte Warteschlangen die Mitbenutzung nicht ändern."
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "Freigabe eines entfernten kerberisierten Druckers nicht möglich"
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
+msgstr ""
 
 msgid "Cassette"
 msgstr "Kassette"
@@ -3882,6 +3894,10 @@ msgid "File Folder"
 msgstr "Dateiverzeichnis"
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4308,6 +4324,9 @@ msgstr "Fehlendes CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
 msgstr "Fehlendes CloseUI/JCLCloseUI"
+
+msgid "Missing DEVICE_URI variable."
+msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "PPD-Adobe-4.x Header fehlt"
@@ -5526,6 +5545,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr "Unbekannter Versionsoption: \"%s\"."
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr "Nicht unterstützter Kompressionswert \"%s\"."
 
@@ -5538,10 +5561,6 @@ msgstr "Nicht unterstützter Wert für 'job-hold-until'"
 
 msgid "Unsupported 'job-name' value."
 msgstr "Nicht unterstützter 'job-name' Wert."
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
-msgstr "Nicht unterstützter Zeichensatz \"%s\"."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
@@ -8574,20 +8593,18 @@ msgstr "lpadmin: Drucker %s ist kein Mitglied der Klasse %s."
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: Druckertreiber sind veraltet und werden in einer zukünftigen "
-"Version von CUPS nicht mehr funktionieren."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: Druckername darf nur druckbare Zeichen enthalten."
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: Roh-Warteschlangen sind veraltet und werden in einer zukünftigen "
-"Version von CUPS nicht mehr funktionieren."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: Roh-Warteschlangen sind unter macOS nicht mehr unterstützt."
@@ -16043,11 +16060,19 @@ msgstr ""
 "~/.cups/lpoptions Die Datei nennt ein voreingestelltes Ziel das nicht "
 "existiert."
 
+#, c-format
+#~ msgid "Attribute \"%s\" has empty value."
+#~ msgstr "Attribut „%s“ hat leeren Wert."
+
 #~ msgid "Commands:"
 #~ msgstr "Befehle:"
 
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "IPP-Attributwert kann nicht neu zugewiesen werden."
+
+#, c-format
+#~ msgid "Unsupported character set \"%s\"."
+#~ msgstr "Nicht unterstützter Zeichensatz \"%s\"."
 
 #~ msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
 #~ msgstr "Aufruf: cups-oauth [OPTIONEN] [BEFEHL [ARGUMENT(E)]]"
@@ -16068,3 +16093,17 @@ msgstr ""
 
 #~ msgid "ipptool: Missing filename for \"--ippserver\"."
 #~ msgstr "ipptool: Fehlender Dateiname für \"--ippserver\"."
+
+#~ msgid ""
+#~ "lpadmin: Printer drivers are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: Druckertreiber sind veraltet und werden in einer zukünftigen "
+#~ "Version von CUPS nicht mehr funktionieren."
+
+#~ msgid ""
+#~ "lpadmin: Raw queues are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: Roh-Warteschlangen sind veraltet und werden in einer zukünftigen "
+#~ "Version von CUPS nicht mehr funktionieren."

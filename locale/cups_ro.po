@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2026-04-18 18:22+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
@@ -2092,7 +2092,8 @@ msgstr ""
 "testare la ieșirea standard"
 
 msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr "-P nume-fișier.ppd      încarcă atributele imprimantei din fișierul PPD"
+msgstr ""
+"-P nume-fișier.ppd      încarcă atributele imprimantei din fișierul PPD"
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr "-P număr[-număr]        potrivește portul cu numărul sau intervalul"
@@ -3316,10 +3317,6 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "Încercare de a stabili starea imprimantei %s la valoarea eronată %d."
 
 #, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr "Atributul „%s” are o valoare goală."
-
-#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "Atributul „%s” este în grupul greșit."
 
@@ -3368,6 +3365,10 @@ msgid "B9"
 msgstr "B9"
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr "Valoare „printer-id” greșită %d."
 
@@ -3381,6 +3382,9 @@ msgstr "Valoare „document-format” greșită „%s”."
 
 msgid "Bad CloseUI/JCLCloseUI"
 msgstr "CloseUI/JCLCloseUI incorect"
+
+msgid "Bad JOB_PRINTER_URI variable."
+msgstr ""
 
 msgid "Bad NULL dests pointer"
 msgstr "Indicator de destinație NULL incorect"
@@ -3486,6 +3490,10 @@ msgid "Bad notify-recipient-uri \"%s\"."
 msgstr "notify-recipient-uri incorectă „%s”."
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "notify-user-data incorectă „%s”."
 
@@ -3574,6 +3582,11 @@ msgid "Cannot share a remote Kerberized printer."
 msgstr ""
 "Nu se poate partaja o imprimantă la distanță la distanță ce utilizează "
 "protocolul Kerberos."
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
+msgstr ""
 
 msgid "Cassette"
 msgstr "Casetă"
@@ -4053,6 +4066,10 @@ msgid "File Folder"
 msgstr "Director de fișiere"
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4480,6 +4497,9 @@ msgstr "Lipsește CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
 msgstr "Lipsește CloseUI/JCLCloseUI"
+
+msgid "Missing DEVICE_URI variable."
+msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "Lipsește antetul PPD-Adobe-4.x"
@@ -5694,6 +5714,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr "Valoare necunoscută pentru opțiunea versiune: „%s”."
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr "Valoare „compression” neacceptată „%s”."
 
@@ -5706,10 +5730,6 @@ msgstr "Valoare „job-hold-until” neacceptată „%s”."
 
 msgid "Unsupported 'job-name' value."
 msgstr "Valoare „job-name” neacceptată „%s”."
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
-msgstr "Set de caractere neacceptat „%s”."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
@@ -8751,20 +8771,18 @@ msgstr "lpadmin: Imprimanta %s nu este membră a clasei %s."
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: Controlorii de imprimantă sunt învechiți și nu vor mai funcționa "
-"într-o versiune viitoare a CUPS."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: Numele imprimantei poate conține numai caractere imprimabile."
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"lpadmin: Cozile brute sunt învechite și nu vor mai funcționa într-o versiune "
-"viitoare a CUPS."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: Cozile brute nu mai sunt acceptate pe macOS."
@@ -16241,11 +16259,33 @@ msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 "Fișierul ~/cups/lpoptions specifică o destinație implicită care nu există."
 
+#, c-format
+#~ msgid "Attribute \"%s\" has empty value."
+#~ msgstr "Atributul „%s” are o valoare goală."
+
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "Nu s-a putut realoca valoarea atributului IPP."
+
+#, c-format
+#~ msgid "Unsupported character set \"%s\"."
+#~ msgstr "Set de caractere neacceptat „%s”."
 
 #~ msgid "cups-x509: Missing command argument."
 #~ msgstr "cups-x509: Lipsește argumentul comenzii."
 
 #~ msgid "ipptool: Missing filename for \"--ippserver\"."
 #~ msgstr "ipptool: Lipsește numele fișierului pentru „--ippserver”."
+
+#~ msgid ""
+#~ "lpadmin: Printer drivers are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: Controlorii de imprimantă sunt învechiți și nu vor mai funcționa "
+#~ "într-o versiune viitoare a CUPS."
+
+#~ msgid ""
+#~ "lpadmin: Raw queues are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "lpadmin: Cozile brute sunt învechite și nu vor mai funcționa într-o "
+#~ "versiune viitoare a CUPS."

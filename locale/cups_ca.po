@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2012-09-29 11:21+0200\n"
 "Last-Translator: Àngel Mompó <mecatxis@gmail.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -3064,10 +3064,6 @@ msgstr ""
 "S'ha intentat posar l'estat de la impressora %s a un valor incorrecte %d."
 
 #, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr ""
-
-#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr ""
 
@@ -3116,6 +3112,10 @@ msgid "B9"
 msgstr "B9"
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr ""
 
@@ -3128,6 +3128,9 @@ msgid "Bad 'document-format' value \"%s\"."
 msgstr ""
 
 msgid "Bad CloseUI/JCLCloseUI"
+msgstr ""
+
+msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
 msgid "Bad NULL dests pointer"
@@ -3234,6 +3237,10 @@ msgid "Bad notify-recipient-uri \"%s\"."
 msgstr "La notify-recipient-uri «%s» és incorrecta."
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr ""
 
@@ -3318,6 +3325,11 @@ msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "No es pot compartir una impressora remota sobre Kerberos."
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
+msgstr ""
 
 msgid "Cassette"
 msgstr "Classet"
@@ -3797,6 +3809,10 @@ msgid "File Folder"
 msgstr ""
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4218,6 +4234,9 @@ msgid "Missing CloseGroup"
 msgstr "Falta el CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
+msgstr ""
+
+msgid "Missing DEVICE_URI variable."
 msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
@@ -5424,6 +5443,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr "El valor de l'opció de la versió és desconegut: «%s»."
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr ""
 
@@ -5436,10 +5459,6 @@ msgstr ""
 
 msgid "Unsupported 'job-name' value."
 msgstr ""
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
-msgstr "No s'admet el grup de caràcters «%s»."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
@@ -8427,7 +8446,8 @@ msgstr "lpadmin: la impressora %s no és membre de la classe %s."
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
 
 msgid "lpadmin: Printer name can only contain printable characters."
@@ -8436,7 +8456,8 @@ msgstr ""
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
@@ -15908,3 +15929,7 @@ msgstr ""
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
+
+#, c-format
+#~ msgid "Unsupported character set \"%s\"."
+#~ msgstr "No s'admet el grup de caràcters «%s»."

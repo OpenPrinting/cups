@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2022-07-14 12:43+0800\n"
 "Last-Translator: Tyson Tan <tysontan@tysontan.com>\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -3029,10 +3029,6 @@ msgid "Attempt to set %s printer-state to bad value %d."
 msgstr "尝试设置 %s 打印机状态为无效值 %d。"
 
 #, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr ""
-
-#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "属性“%s”位于错误的组。"
 
@@ -3081,6 +3077,10 @@ msgid "B9"
 msgstr "B9"
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr "无效的“printer-id”值 %d。"
 
@@ -3094,6 +3094,9 @@ msgstr "无效的“document-format”值“%s”。"
 
 msgid "Bad CloseUI/JCLCloseUI"
 msgstr "无效的 CloseUI/JCLCloseUI"
+
+msgid "Bad JOB_PRINTER_URI variable."
+msgstr ""
 
 msgid "Bad NULL dests pointer"
 msgstr "无效的 NULL 目标指针"
@@ -3199,6 +3202,10 @@ msgid "Bad notify-recipient-uri \"%s\"."
 msgstr "无效的 notify-recipient-uri 值“%s”。"
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "无效的 notify-user-data “%s”。"
 
@@ -3283,6 +3290,11 @@ msgstr "无法为远程队列更改 printer-is-shared 值。"
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "无法共享远程的通过 Kerberos 授权的打印机。"
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
+msgstr ""
 
 msgid "Cassette"
 msgstr "纸盒"
@@ -3760,6 +3772,10 @@ msgid "File Folder"
 msgstr "文件夹"
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4181,6 +4197,9 @@ msgstr "缺少 CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
 msgstr "缺少 CloseUI/JCLCloseUI"
+
+msgid "Missing DEVICE_URI variable."
+msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "缺少 PPD-Adobe-4.x 文件头"
@@ -5374,6 +5393,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr "未知版本选项值：“%s”。"
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr "不支持的“compression”值“%s”。"
 
@@ -5386,10 +5409,6 @@ msgstr "不支持的“job-hold-until”值。"
 
 msgid "Unsupported 'job-name' value."
 msgstr "不支持的“job-name”值。"
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
-msgstr "不支持的字符集“%s”。"
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
@@ -8378,16 +8397,18 @@ msgstr "lpadmin：打印机 %s 不是类 %s 中的成员。"
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
-msgstr "lpadmin：打印机驱动已被弃用，未来的 CUPS 版本可能破坏其功能性。"
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
+msgstr ""
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin：打印机名称中只能包含可打印字符。"
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
-msgstr "lpadmin：原始序列已被弃用，未来的 CUPS 版本可能破坏其功能性。"
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
+msgstr ""
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin：macOS 已不再支持原始序列。"
@@ -15827,5 +15848,19 @@ msgstr ""
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "~/.cups/lpoptions 文件所指定的默认目标不存在。"
 
+#, c-format
+#~ msgid "Unsupported character set \"%s\"."
+#~ msgstr "不支持的字符集“%s”。"
+
 #~ msgid "ipptool: Missing filename for \"--ippserver\"."
 #~ msgstr "ipptool：“--ippserver”选项后缺少文件名。"
+
+#~ msgid ""
+#~ "lpadmin: Printer drivers are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr "lpadmin：打印机驱动已被弃用，未来的 CUPS 版本可能破坏其功能性。"
+
+#~ msgid ""
+#~ "lpadmin: Raw queues are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr "lpadmin：原始序列已被弃用，未来的 CUPS 版本可能破坏其功能性。"

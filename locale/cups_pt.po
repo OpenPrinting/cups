@@ -22,11 +22,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-03-23 17:17-0400\n"
+"POT-Creation-Date: 2026-06-25 14:51-0400\n"
 "PO-Revision-Date: 2026-06-08 11:02+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
-"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/"
+">\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3541,10 +3541,6 @@ msgstr ""
 "que não é válido."
 
 #, c-format
-msgid "Attribute \"%s\" has empty value."
-msgstr "O atributo \"%s\" tem uma valor vazio."
-
-#, c-format
 msgid "Attribute \"%s\" is in the wrong group."
 msgstr "O atributo \"%s\" está no grupo errado."
 
@@ -3593,6 +3589,10 @@ msgid "B9"
 msgstr "B9"
 
 #, c-format
+msgid "Bad \"attributes-natural-language\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Bad \"printer-id\" value %d."
 msgstr ""
 "O valor do \"printer-id\" (identificação da impressora) %d não é válido."
@@ -3608,6 +3608,9 @@ msgstr ""
 
 msgid "Bad CloseUI/JCLCloseUI"
 msgstr "O CloseUI/JCLCloseUI não é válido"
+
+msgid "Bad JOB_PRINTER_URI variable."
+msgstr ""
 
 msgid "Bad NULL dests pointer"
 msgstr "O ponteiro do destino NULO não é válido"
@@ -3720,6 +3723,10 @@ msgstr ""
 "válido."
 
 #, c-format
+msgid "Bad notify-recipient-uri URI \"%s\"."
+msgstr ""
+
+#, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr ""
 "O notify-user-data (notificador de dados do utilizador) \"%s\" não é válido."
@@ -3809,6 +3816,11 @@ msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "Não foi possível partilhar uma impressora remota por meio do Kerberos."
+
+msgid ""
+"Cannot specify both notify-pull-method and notify-recipient-uri in the same "
+"request."
+msgstr ""
 
 msgid "Cassette"
 msgstr "Cassete"
@@ -4292,6 +4304,10 @@ msgid "File Folder"
 msgstr "Ficheiro da Dobradeira de Papel"
 
 #, c-format
+msgid "File device URI \"%s\" is not allowed."
+msgstr ""
+
+#, c-format
 msgid ""
 "File device URIs have been disabled. To enable, see the FileDevice directive "
 "in \"%s/cups-files.conf\"."
@@ -4727,6 +4743,9 @@ msgstr "Falta o CloseGroup"
 
 msgid "Missing CloseUI/JCLCloseUI"
 msgstr "Falta o CloseUI/JCLCloseUI"
+
+msgid "Missing DEVICE_URI variable."
+msgstr ""
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "Falta o cabeçalho do PPD-Adobe-4.x"
@@ -5951,6 +5970,10 @@ msgid "Unknown version option value: \"%s\"."
 msgstr "O valor da opção \"%s\" da versão não é conhecido."
 
 #, c-format
+msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr "O valor \"%s\" do 'compression' não é compatível."
 
@@ -5963,10 +5986,6 @@ msgstr "O valor do 'job-hold-until' não é compatível."
 
 msgid "Unsupported 'job-name' value."
 msgstr "O valor do 'job-name' não é compatível."
-
-#, c-format
-msgid "Unsupported character set \"%s\"."
-msgstr "O conjunto de caracteres \"%s\" não é compatível."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
@@ -9048,10 +9067,9 @@ msgstr "A impressora %s não é um membro da classe %s para o lpadmin."
 
 msgid ""
 "lpadmin: Printer drivers are deprecated and will stop working in a future "
-"version of CUPS."
+"version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"Os controladores da impressora estão obsoletos e deixarão de funcionar numa "
-"versão futura do CUPS para o lpadmin."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr ""
@@ -9060,10 +9078,9 @@ msgstr ""
 
 msgid ""
 "lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS."
+"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"Applications instead."
 msgstr ""
-"As filas de espera não processadas estão obsoletas e deixarão de funcionar "
-"numa versão futura do CUPS para o lpadmin."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr ""
@@ -16691,11 +16708,19 @@ msgstr "{}                      URI"
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr "Ficheiro ~/.cups/lpoptions declara destino padrão que não existe."
 
+#, c-format
+#~ msgid "Attribute \"%s\" has empty value."
+#~ msgstr "O atributo \"%s\" tem uma valor vazio."
+
 #~ msgid "Commands:"
 #~ msgstr "Comandos:"
 
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "Não foi possível realocar o valor do atributo do IPP."
+
+#, c-format
+#~ msgid "Unsupported character set \"%s\"."
+#~ msgstr "O conjunto de caracteres \"%s\" não é compatível."
 
 #~ msgid "Usage: cups-oauth [OPTIONS] [COMMAND [ARGUMENT(S)]]"
 #~ msgstr "Utilização: cups-oauth [OPÇÕES] [COMANDO [ARGUMENTO(S)]]"
@@ -16716,3 +16741,17 @@ msgstr "Ficheiro ~/.cups/lpoptions declara destino padrão que não existe."
 
 #~ msgid "ipptool: Missing filename for \"--ippserver\"."
 #~ msgstr "Falta o nome do ficheiro do \"--ippserver\" para o ipptool."
+
+#~ msgid ""
+#~ "lpadmin: Printer drivers are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "Os controladores da impressora estão obsoletos e deixarão de funcionar "
+#~ "numa versão futura do CUPS para o lpadmin."
+
+#~ msgid ""
+#~ "lpadmin: Raw queues are deprecated and will stop working in a future "
+#~ "version of CUPS."
+#~ msgstr ""
+#~ "As filas de espera não processadas estão obsoletas e deixarão de "
+#~ "funcionar numa versão futura do CUPS para o lpadmin."

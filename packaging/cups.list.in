@@ -11,7 +11,7 @@
 
 # Product information
 %product CUPS
-%copyright 2020 by Michael R Sweet, 2007-2019 by Apple Inc.
+%copyright 2020-2026 by OpenPrinting, 2007-2019 by Apple Inc.
 %vendor OpenPrinting
 #%license LICENSE
 %readme LICENSE
@@ -323,6 +323,8 @@ l 0755 root sys /usr/etc/lpc $SBINDIR/lpc
 # User commands
 d 0755 root sys $BINDIR -
 f 0555 root sys $BINDIR/cancel systemv/cancel
+f 0555 root sys $BINDIR/cups-oauth tools/cups-oauth
+f 0555 root sys $BINDIR/cups-x509 tools/cups-x509
 f 0555 root sys $BINDIR/cupstestppd systemv/cupstestppd
 f 0555 root sys $BINDIR/ippeveprinter tools/ippeveprinter
 %if DNSSD_BACKEND
@@ -394,6 +396,7 @@ f 0444 root sys $LOCALEDIR/pt_BR/cups_pt_BR.po locale/cups_pt_BR.po
 f 0444 root sys $LOCALEDIR/ru/cups_ru.po locale/cups_ru.po
 #f 0444 root sys $LOCALEDIR/sv/cups_sv.po locale/cups_sv.po
 #f 0444 root sys $LOCALEDIR/zh/cups_zh.po locale/cups_zh.po
+f 0444 root sys $LOCALEDIR/zh_CN/cups_zh_CN.po locale/cups_zh_CN.po
 f 0444 root sys $LOCALEDIR/zh_TW/cups_zh_TW.po locale/cups_zh_TW.po
 
 d 0755 root sys $DATADIR -
@@ -491,23 +494,29 @@ c 0644 root sys $PAMDIR/cups conf/@PAMFILE@
 
 %subpackage devel
 # Developer files
-f 0555 root sys $BINDIR/cups-config cups-config
 d 0755 root sys $INCLUDEDIR/cups -
 f 0444 root sys $INCLUDEDIR/cups/adminutil.h cups/adminutil.h
 f 0444 root sys $INCLUDEDIR/cups/array.h cups/array.h
 f 0444 root sys $INCLUDEDIR/cups/backend.h cups/backend.h
+f 0444 root sys $INCLUDEDIR/cups/base.h cups/base.h
 f 0444 root sys $INCLUDEDIR/cups/cups.h cups/cups.h
 f 0444 root sys $INCLUDEDIR/cups/dir.h cups/dir.h
 f 0444 root sys $INCLUDEDIR/cups/file.h cups/file.h
+f 0444 root sys $INCLUDEDIR/cups/form.h cups/form.h
 f 0444 root sys $INCLUDEDIR/cups/http.h cups/http.h
 f 0444 root sys $INCLUDEDIR/cups/ipp.h cups/ipp.h
+f 0444 root sys $INCLUDEDIR/cups/json.h cups/json.h
+f 0444 root sys $INCLUDEDIR/cups/jwt.h cups/jwt.h
 f 0444 root sys $INCLUDEDIR/cups/language.h cups/language.h
+f 0444 root sys $INCLUDEDIR/cups/oauth.h cups/oauth.h
 f 0444 root sys $INCLUDEDIR/cups/ppd.h cups/ppd.h
 f 0444 root sys $INCLUDEDIR/cups/pwg.h cups/pwg.h
 f 0444 root sys $INCLUDEDIR/cups/raster.h cups/raster.h
 f 0444 root sys $INCLUDEDIR/cups/sidechannel.h cups/sidechannel.h
+f 0444 root sys $INCLUDEDIR/cups/thread.h cups/thread.h
 f 0444 root sys $INCLUDEDIR/cups/transcode.h cups/transcode.h
-f 0444 root sys $INCLUDEDIR/cups/versioning.h cups/versioning.h
+
+f 0444 root sys $LIBDIR/pkgconfig/cups.pc cups.pc
 
 %if INSTALLSTATIC
 f 0444 root sys $LIBDIR/libcups.a cups/libcups.a
@@ -552,47 +561,6 @@ f 0444 root sys $DOCDIR/images doc/images/*.jpg
 f 0444 root sys $DOCDIR/images doc/images/*.png
 f 0444 root sys $DOCDIR/robots.txt doc/robots.txt
 
-# Localized documentation files
-d 0755 root sys $DOCDIR/de
-f 0444 root sys $DOCDIR/de doc/de/*.html
-
-d 0755 root sys $DOCDIR/es
-f 0444 root sys $DOCDIR/es doc/es/*.html
-
-#d 0755 root sys $DOCDIR/et
-#f 0444 root sys $DOCDIR/et doc/et/*.html
-
-#d 0755 root sys $DOCDIR/eu
-#f 0444 root sys $DOCDIR/eu doc/eu/*.html
-
-#d 0755 root sys $DOCDIR/fr
-#f 0444 root sys $DOCDIR/fr doc/fr/*.html
-
-#d 0755 root sys $DOCDIR/he
-#f 0444 root sys $DOCDIR/he doc/he/*.html
-#f 0444 root sys $DOCDIR/he/cups.css doc/he/cups.css
-
-#d 0755 root sys $DOCDIR/id
-#f 0444 root sys $DOCDIR/id doc/id/*.html
-
-#d 0755 root sys $DOCDIR/it
-#f 0444 root sys $DOCDIR/it doc/it/*.html
-
-d 0755 root sys $DOCDIR/ja
-f 0444 root sys $DOCDIR/ja doc/ja/*.html
-
-#d 0755 root sys $DOCDIR/pl
-#f 0444 root sys $DOCDIR/pl doc/pl/*.html
-
-d 0755 root sys $DOCDIR/pt_BR
-f 0444 root sys $DOCDIR/pt_BR doc/pt_BR/*.html
-
-d 0755 root sys $DOCDIR/ru
-f 0444 root sys $DOCDIR/ru doc/ru/*.html
-
-#d 0755 root sys $DOCDIR/sv
-#f 0444 root sys $DOCDIR/sv doc/sv/*.html
-
 # Man pages
 d 0755 root sys $AMANDIR -
 d 0755 root sys $AMANDIR/man8 -
@@ -603,6 +571,8 @@ d 0755 root sys $MANDIR/man7 -
 
 f 0444 root sys $MANDIR/man1/cancel.1 man/cancel.1
 f 0444 root sys $MANDIR/man1/cups.1 man/cups.1
+f 0444 root sys $MANDIR/man1/cups-oauth.1 man/cups-oauth.1
+f 0444 root sys $MANDIR/man1/cups-x509.1 man/cups-x509.1
 f 0444 root sys $MANDIR/man1/cupstestppd.1 man/cupstestppd.1
 f 0444 root sys $MANDIR/man1/ippeveprinter.1 man/ippeveprinter.1
 f 0444 root sys $MANDIR/man1/ippfind.1 man/ippfind.1

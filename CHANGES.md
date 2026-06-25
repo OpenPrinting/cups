@@ -43,7 +43,7 @@ v2.5b1 - YYYY-MM-DD
 - Added an "install" sub-command to the `cups-x509` command (Issue #1227)
 - Added a "--user-agent" option to the `ipptool` command.
 - Updated documentation (Issue #984, Issue #1086, Issue #1182)
-- Updated translations (Issue #1146, Issue #1161, Issue #1164)
+- Updated translations (Issue #1146, Issue #1161, Issue #1164, Issue #1535)
 - Updated the configure script to default to installing to /usr/local.
 - Updated CUPS to use the Windows mDNS APIs.
 - Updated CUPS to require TLS support - OpenSSL, GNUTLS and LibreSSL are
